@@ -1,0 +1,35 @@
+<div id="main_aside" class="aside">
+	<form id="add_rss" method="post" action="<?php echo Url::display (array ('c' => 'feed', 'a' => 'add')); ?>">
+		<input type="url" name="url_rss" placeholder="Ajouter un flux RSS" />
+		<input type="submit" value="+" />
+	</form>
+	
+	<ul id="menu">
+		<li <?php echo Request::controllerName () == 'index' ? 'class="active"' : ''; ?>>
+			<a href="<?php echo Url::display (array ()); ?>">Flux RSS</a>
+		</li>
+		<li <?php echo Request::controllerName () == 'configure' ? 'class="active"' : ''; ?>>
+			<a href="<?php echo Url::display (array ('c' => 'configure', 'a' => 'categorize')); ?>">Configurer</a>
+		</li>
+		<li>
+			<a href="<?php echo Url::display (array ('c' => 'feed', 'a' => 'actualize')); ?>">Mettre les flux à jour</a>
+		</li>
+	</ul>
+</div>
+
+<?php if (Request::controllerName () == 'configure') { ?>
+<div class="aside">
+	<ul id="menu">
+		<li><h2>Configuration</h2></li>
+		<li <?php echo Request::actionName () == 'categorize' ? 'class="active"' : ''; ?>>
+			<a href="<?php echo Url::display (array ('c' => 'configure', 'a' => 'categorize')); ?>">Catégories</a>
+		</li>
+		<li <?php echo Request::actionName () == 'flux' ? 'class="active"' : ''; ?>>
+			<a href="<?php echo Url::display (array ('c' => 'configure', 'a' => 'flux')); ?>">Flux RSS</a>
+		</li>
+		<li <?php echo Request::actionName () == 'display' ? 'class="active"' : ''; ?>>
+			<a href="<?php echo Url::display (array ('c' => 'configure', 'a' => 'display')); ?>">Affichage</a>
+		</li>
+	</ul>
+</div>
+<?php } ?>

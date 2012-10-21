@@ -1,0 +1,13 @@
+<h1><?php echo Translate::t ('an error occured'); ?></h1>
+
+<h2><?php echo $this->code; ?></h2>
+
+<?php if (!empty ($this->logs)) { ?>
+<ul>
+	<?php foreach ($this->logs as $log) { ?>
+	<li><?php echo $log; ?></li>
+	<?php } ?>
+</ul>
+<?php } ?>
+
+<p><a href="<?php echo Url::display (); ?>"><?php echo Translate::t ('go back home'); ?></a></p>

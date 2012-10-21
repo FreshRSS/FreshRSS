@@ -1,0 +1,49 @@
+<div id="top">
+	<a class="read_all" href="<?php echo Url::display (array ('c' => 'entry', 'a' => 'read', 'params' => array ('is_read' => 1))); ?>">Tout marquer comme lu</a><!--
+	<?php if (Session::param ('mode', 'all') == 'not_read') { ?>
+	--><a class="print_all" href="<?php echo Url::display (array ('a' => 'changeMode', 'params' => array ('mode' => 'all'))); ?>">Tout afficher</a>
+	<?php } else { ?>
+	--><a class="print_non_read" href="<?php echo Url::display (array ('a' => 'changeMode', 'params' => array ('mode' => 'not_read'))); ?>">Afficher les non lus</a>
+	<?php } ?>
+</div>
+
+<div id="stream">
+<?php $items = $this->entryPaginator->items (); ?>
+<?php if (!empty ($items)) { ?>
+	<?php $this->entryPaginator->render ('pagination.phtml', 'page'); ?>
+	
+	<?php foreach ($items as $item) { ?>
+	<div class="post flux<?php echo !$item->isRead () ? ' not_read' : ''; ?><?php echo $item->isFavorite () ? ' favorite' : ''; ?>">
+		<div class="before"><?php echo $item->author (); ?> a écrit le <?php echo $item->date (); ?>,</div>
+		
+		<h1><a target="_blank" href="<?php echo $item->link (); ?>"> <?php echo $item->title (); ?></a></h1>
+		<div class="content"><?php echo $item->content (); ?></div>
+		
+		<div class="after">
+			<?php if (!$item->isRead ()) { ?>
+			<a href="<?php echo Url::display (array ('c' => 'entry', 'a' => 'read', 'params' => array ('id' => $item->id (), 'is_read' => 1))); ?>">J'ai fini de lire l'article</a><!--
+			<?php } else { ?>
+			<a href="<?php echo Url::display (array ('c' => 'entry', 'a' => 'read', 'params' => array ('id' => $item->id (), 'is_read' => 0))); ?>">Marquer comme non lu</a><!--
+			<?php } ?>
+			
+			<?php if (!$item->isFavorite ()) { ?>
+			--><a href="<?php echo Url::display (array ('c' => 'entry', 'a' => 'bookmark', 'params' => array ('id' => $item->id (), 'is_favorite' => 1))); ?>">Ajouter l'article à mes favoris</a>
+			<?php } else { ?>
+			--><a href="<?php echo Url::display (array ('c' => 'entry', 'a' => 'bookmark', 'params' => array ('id' => $item->id (), 'is_favorite' => 0))); ?>">Retirer l'article de mes favoris</a>
+			<?php } ?>
+		</div>
+	</div>
+	<?php } ?>
+	
+	<?php $this->entryPaginator->render ('pagination.phtml', 'page'); ?>
+<?php } else { ?>
+	<div class="post flux">
+		<p>
+			Il n'y a aucun flux à afficher.
+		<?php if (Session::param ('mode', 'all') == 'not_read') { ?>
+		<a class="print_all" href="<?php echo Url::display (array ('a' => 'changeMode', 'params' => array ('mode' => 'all'))); ?>">Afficher tous les articles ?</a>
+		<?php }	?>
+		</p>
+	</div>
+<?php } ?>
+</div>

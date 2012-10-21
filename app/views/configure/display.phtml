@@ -1,0 +1,28 @@
+<div class="post">
+	<form method="post" action="">
+		<h1>Configuration de l'affichage</h1>
+		
+		<label for="posts_per_page">Nombre d'articles par page</label>
+		<input type="number" id="posts_per_page" name="posts_per_page" value="<?php echo $this->conf->postsPerPage (); ?>" />
+		
+		<label>Vue par défaut</label>
+		<div class="radio_group">
+			<input type="radio" name="default_view" id="radio_all" value="all"<?php echo $this->conf->defaultView () == 'all' ? ' checked="checked"' : ''; ?> />
+			<label for="radio_all">Tout afficher</label>
+			<br />
+			<input type="radio" name="default_view" id="radio_not_read" value="not_read"<?php echo $this->conf->defaultView () == 'not_read' ? ' checked="checked"' : ''; ?> />
+			<label for="radio_not_read">Afficher les non lus</label>
+		</div>
+		
+		<label>Afficher les articles dépliés par défaut</label>
+		<div class="radio_group">
+			<input type="radio" name="display_posts" id="radio_yes" value="yes"<?php echo $this->conf->displayPosts () ? ' checked="checked"' : ''; ?> />
+			<label for="radio_yes">Oui</label>
+			<br />
+			<input type="radio" name="display_posts" id="radio_no" value="no"<?php echo !$this->conf->displayPosts () ? ' checked="checked"' : ''; ?> />
+			<label for="radio_no">Non</label>
+		</div>
+		
+		<input type="submit" value="Valider" />
+	</form>
+</div>

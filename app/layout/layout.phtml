@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="fr">
+	<head>
+		<meta charset="utf-8">
+		<?php echo self::headTitle(); ?>
+		<?php echo self::headStyle(); ?>
+	</head>
+	<body>
+<div id="global">
+	<?php $this->partial ('aside'); ?>
+	
+	<div id="main">
+		<?php $this->render (); ?>
+	</div>
+</div>
+	</body>
+</html>
