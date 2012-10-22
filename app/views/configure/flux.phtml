@@ -1,3 +1,44 @@
-<div class="post">
-	Fonctionnalité non implémentée (pour le moment)
+<div class="table">
+	<div class="aside">
+		<ul>
+			<li><h2>Vox flux RSS</h2></li>
+			<?php if (!empty ($this->feeds)) { ?>
+			<?php foreach ($this->feeds as $feed) { ?>
+			<li <?php echo ($this->flux && $this->flux->id () == $feed->id ()) ? 'class="active"' : ''; ?>>
+				<a href="<?php echo Url::display (array ('c' => 'configure', 'a' => 'flux', 'params' => array ('id' => $feed->id ()))); ?>"><?php echo $feed->name (); ?></a>
+			</li>
+			<?php } ?>
+			<?php } else { ?>
+			<li class="disable"><span>Aucun flux</span></li>
+			<?php } ?>
+		</ul>
+	</div>
+	
+	<?php if ($this->flux) { ?>
+	<form method="post" action="">
+		<h1><?php echo $this->flux->name (); ?></h1>
+		<?php echo $this->flux->description (); ?>
+		
+		<label>URL du site</label>
+		<span><a target="_blank" href="<?php echo $this->flux->website (); ?>"><?php echo $this->flux->website (); ?></a></span>
+		
+		<label>Nombre d'articles</label>
+		<span><?php echo count ($this->flux->entries ()); ?></span>
+		
+		<?php if (!empty ($this->categories)) { ?>
+		<label>Ranger dans une catégorie</label>
+		<div class="radio_group">
+			<?php foreach ($this->categories as $cat) { ?>
+			<input type="radio" name="category" id="cat_<?php echo $cat->id (); ?>" value="<?php echo $cat->id (); ?>"<?php echo $cat->id () == $this->flux->category () ? ' checked="checked"' : ''; ?> />
+			<label for="cat_<?php echo $cat->id (); ?>"><?php echo $cat->name (); ?></label>
+			<br />
+			<?php } ?>
+		</div>
+		
+		<input type="submit" value="Valider" />
+		<?php } ?>
+	</form>
+	<?php } else { ?>
+	<div class="nothing">Aucun flux sélectionné</div>
+	<?php } ?>
 </div>

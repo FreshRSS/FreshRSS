@@ -23,6 +23,7 @@ class App_FrontController extends FrontController {
 	
 	private function loadModels () {
 		include (APP_PATH . '/models/RSSConfiguration.php');
+		include (APP_PATH . '/models/Category.php');
 		include (APP_PATH . '/models/Feed.php');
 		include (APP_PATH . '/models/Entry.php');
 	}

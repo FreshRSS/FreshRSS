@@ -14,7 +14,13 @@
 	
 	<?php foreach ($items as $item) { ?>
 	<div class="post flux<?php echo !$item->isRead () ? ' not_read' : ''; ?><?php echo $item->isFavorite () ? ' favorite' : ''; ?>">
-		<div class="before"><?php echo $item->author (); ?> a écrit le <?php echo $item->date (); ?>,</div>
+		<?php $author = $item->author (); ?>
+		<div class="before">
+			<?php echo $author != '' ? $author . ' a écrit' : ''; ?>
+			le <?php echo $item->date (); ?>
+			<?php $feed = $item->feed (true); ?>
+			sur <a target="_blank" href="<?php echo $feed->website (); ?>"><?php echo $feed->name (); ?></a>,
+		</div>
 		
 		<h1><a target="_blank" href="<?php echo $item->link (); ?>"> <?php echo $item->title (); ?></a></h1>
 		<div class="content"><?php echo $item->content (); ?></div>

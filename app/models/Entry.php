@@ -9,8 +9,9 @@ class Entry extends Model {
 	private $date;
 	private $is_read;
 	private $is_favorite;
+	private $feed;
 	
-	public function __construct ($guid = '', $title = '', $author = '', $content = '',
+	public function __construct ($feed = '', $guid = '', $title = '', $author = '', $content = '',
 	                             $link = '', $pubdate = 0, $is_read = false, $is_favorite = false) {
 		$this->_guid ($guid);
 		$this->_title ($title);
@@ -20,6 +21,7 @@ class Entry extends Model {
 		$this->_date ($pubdate);
 		$this->_isRead ($is_read);
 		$this->_isFavorite ($is_favorite);
+		$this->_feed ($feed);
 	}
 	
 	public function id () {
@@ -53,6 +55,14 @@ class Entry extends Model {
 	public function isFavorite () {
 		return $this->is_favorite;
 	}
+	public function feed ($object = false) {
+		if ($object) {
+			$feedDAO = new FeedDAO ();
+			return $feedDAO->searchById ($this->feed);
+		} else {
+			return $this->feed;
+		}
+	}
 	
 	public function _guid ($value) {
 		$this->guid = $value;
@@ -77,6 +87,9 @@ class Entry extends Model {
 	}
 	public function _isFavorite ($value) {
 		$this->is_favorite = $value;
+	}
+	public function _feed ($value) {
+		$this->feed = $value;
 	}
 }
 
@@ -162,6 +175,7 @@ class HelperEntry {
 
 		foreach ($listDAO as $key => $dao) {
 			$list[$key] = new Entry (
+				$dao['feed'],
 				$dao['guid'],
 				$dao['title'],
 				$dao['author'],

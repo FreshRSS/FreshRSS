@@ -64,6 +64,7 @@ form {
 }
 	label {
 		display: block;
+		margin: 20px 0 0;
 		padding: 0 20px 0 0;
 		font-weight: bold;
 	}
@@ -93,11 +94,19 @@ form {
 		margin: 5px 0 5px;
 		padding: 5px 0;
 	}
-	.radio_group label {
-		display: inline-block;
-		padding: 0 0 0 5px;
-		font-weight: normal;
+	select {
+		width: 100%;
+		padding: 5px;
 	}
+	.radio_group {
+		line-height: 35px;
+	}
+		.radio_group label {
+			display: inline-block;
+			margin: 0;
+			padding: 0 0 0 5px;
+			font-weight: normal;
+		}
 
 /* STRUCTURE */
 #global {
@@ -111,26 +120,33 @@ form {
 		width: 250px;
 		vertical-align: top;
 		border-right: 1px solid #aaa;
+		background: #fff;
 	}
 		.aside ul {
 			margin: 0;
 			list-style: none;
 		}
 			.aside li {
+				width: 100%;
 				height: 50px;
+				overflow: hidden;
 				line-height: 50px;
 			}
 				.aside li.active a {
 					background: #0062BE !important;
 					color: #fff;
 				}
-				.aside li a {
+				.aside li a, .aside li span {
 					display: block;
+					width: 230px;
 					padding: 0 10px;
 				}
-					.aside li a:hover {
+					.aside li a:hover, .aside li span:hover {
 						text-decoration: none;
 						background: #fafafa;
+					}
+					.aside li.disable span {
+						background: #fff;
 					}
 				.aside li h2 {
 					height: 50px;
@@ -139,6 +155,7 @@ form {
 					background: #eee;
 					line-height: 50px;
 				}
+				
 		.aside form {
 			display: table;
 			width: 250px;
@@ -196,6 +213,18 @@ form {
 				}
 		#stream {
 			padding: 20px 0;
+		}
+		#main .table {
+			display: table;
+			width: 100%;
+			height: 100%;
+		}
+		#main .nothing {
+			display: table-cell;
+			width: 100%;
+			height: 100%;
+			vertical-align: middle;
+			text-align: center;
 		}
 
 .post {

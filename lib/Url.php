@@ -58,19 +58,19 @@ class Url {
 		if (isset ($url['c'])
 		 && $url['c'] != Request::defaultControllerName ()) {
 			$uri .= $separator . 'c=' . $url['c'];
-			$separator = '&';
+			$separator = '&amp;';
 		}
 		
 		if (isset ($url['a'])
 		 && $url['a'] != Request::defaultActionName ()) {
 			$uri .= $separator . 'a=' . $url['a'];
-			$separator = '&';
+			$separator = '&amp;';
 		}
 		
 		if (isset ($url['params'])) {
 			foreach ($url['params'] as $key => $param) {
 				$uri .= $separator . $key . '=' . $param;
-				$separator = '&';
+				$separator = '&amp;';
 			}
 		}
 		

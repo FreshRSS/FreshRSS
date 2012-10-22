@@ -11,7 +11,11 @@ class indexController extends ActionController {
 			$entries = $entryDAO->listEntries ();
 		}
 		
-		usort ($entries, 'sortEntriesByDate');
+		if ($this->view->conf->sortOrder () == 'high_to_low') {
+			usort ($entries, 'sortReverseEntriesByDate');
+		} else {
+			usort ($entries, 'sortEntriesByDate');
+		}
 		
 		//gestion pagination
 		$page = Request::param ('page', 1);

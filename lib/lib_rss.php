@@ -16,31 +16,31 @@ function timestamptodate ($t, $hour = true) {
 	$annee = date ('Y', $t);
 	
 	switch ($mois) {
-	case 01:
+	case 1:
 		$mois = 'janvier';
 		break;
-	case 02:
+	case 2:
 		$mois = 'février';
 		break;
-	case 03:
+	case 3:
 		$mois = 'mars';
 		break;
-	case 04:
+	case 4:
 		$mois = 'avril';
 		break;
-	case 05:
+	case 5:
 		$mois = 'mai';
 		break;
-	case 06:
+	case 6:
 		$mois = 'juin';
 		break;
-	case 07:
+	case 7:
 		$mois = 'juillet';
 		break;
-	case 08:
+	case 8:
 		$mois = 'août';
 		break;
-	case 09:
+	case 9:
 		$mois = 'septembre';
 		break;
 	case 10:
@@ -64,4 +64,7 @@ function timestamptodate ($t, $hour = true) {
 
 function sortEntriesByDate ($entry1, $entry2) {
 	return $entry2->date (true) - $entry1->date (true);
+}
+function sortReverseEntriesByDate ($entry1, $entry2) {
+	return $entry1->date (true) - $entry2->date (true);
 }

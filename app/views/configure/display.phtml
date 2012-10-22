@@ -14,6 +14,12 @@
 			<label for="radio_not_read">Afficher les non lus</label>
 		</div>
 		
+		<label for="sort_order">Ordre de tri</label>
+		<select name="sort_order" id="sort_order">
+			<option value="low_to_high"<?php echo $this->conf->sortOrder () == 'low_to_high' ? ' selected="selected"' : ''; ?>>Du plus récent au plus ancien</option>
+			<option value="high_to_low"<?php echo $this->conf->sortOrder () == 'high_to_low' ? ' selected="selected"' : ''; ?>>Du plus ancien au plus récent</option>
+		</select>
+		
 		<label>Afficher les articles dépliés par défaut</label>
 		<div class="radio_group">
 			<input type="radio" name="display_posts" id="radio_yes" value="yes"<?php echo $this->conf->displayPosts () ? ' checked="checked"' : ''; ?> />

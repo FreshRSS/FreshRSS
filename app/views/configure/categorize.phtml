@@ -1,3 +1,14 @@
-<div class="post">
-	Fonctionnalité non implémentée (pour le moment)
-</div>
+<form method="post" action="">
+	<h1>Gérer les catégories</h1>
+	
+	<?php $i = 0; foreach ($this->categories as $cat) { $i++; ?>
+	<label for="cat_<?php echo $cat->id (); ?>">Catégorie n°<?php echo $i; ?></label>
+	<input type="text" id="cat_<?php echo $cat->id (); ?>" name="categories[]" value="<?php echo $cat->name (); ?>" />
+	<input type="hidden" name="ids[]" value="<?php echo $cat->id (); ?>" />
+	<?php } ?>
+	
+	<label for="new_category">Ajouter une catégorie</label>
+	<input type="text" id="new_category" name="new_category" placeholder="Nouvelle catégorie" />
+	
+	<input type="submit" value="Valider" />
+</form>

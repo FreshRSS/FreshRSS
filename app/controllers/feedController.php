@@ -7,7 +7,8 @@ class feedController extends ActionController {
 			
 			try {
 				$feed = new Feed ($url);
-				$entries = $feed->loadEntries ();
+				$feed->load ();
+				$entries = $feed->entries (false);
 				$feed_entries = array ();
 				
 				if ($entries !== false) {
@@ -24,6 +25,7 @@ class feedController extends ActionController {
 							'date' => $entry->date (true),
 							'is_read' => $entry->isRead (),
 							'is_favorite' => $entry->isFavorite (),
+							'feed' => $feed->id ()
 						);
 						$entryDAO->addEntry ($values);
 						
@@ -35,8 +37,11 @@ class feedController extends ActionController {
 				$values = array (
 					'id' => $feed->id (),
 					'url' => $feed->url (),
-					'categories' => $feed->categories (),
-					'entries' => $feed_entries
+					'category' => $feed->category (),
+					'entries' => $feed_entries,
+					'name' => $feed->name (),
+					'website' => $feed->website (),
+					'description' => $feed->description (),
 				);
 				$feedDAO->addFeed ($values);
 			} catch (Exception $e) {
@@ -54,27 +59,31 @@ class feedController extends ActionController {
 		$feeds = $feedDAO->listFeeds ();
 		
 		foreach ($feeds as $feed) {
-			$entries = $feed->loadEntries ();
+			$feed->load ();
+			$entries = $feed->entries (false);
 			$feed_entries = $feed->entries ();
 				
 			if ($entries !== false) {
 				foreach ($entries as $entry) {
-					$values = array (
-						'id' => $entry->id (),
-						'guid' => $entry->guid (),
-						'title' => $entry->title (),
-						'author' => $entry->author (),
-						'content' => $entry->content (),
-						'link' => $entry->link (),
-						'date' => $entry->date (true),
-						'is_read' => $entry->isRead (),
-						'is_favorite' => $entry->isFavorite (),
-					);
-					$entryDAO->addEntry ($values);
-					
 					if (!in_array ($entry->id (), $feed_entries)) {
+						$values = array (
+							'id' => $entry->id (),
+							'guid' => $entry->guid (),
+							'title' => $entry->title (),
+							'author' => $entry->author (),
+							'content' => $entry->content (),
+							'link' => $entry->link (),
+							'date' => $entry->date (true),
+							'is_read' => $entry->isRead (),
+							'is_favorite' => $entry->isFavorite (),
+							'feed' => $feed->id ()
+						);
+						$entryDAO->addEntry ($values);
+					
 						$feed_entries[] = $entry->id ();
 					}
+					
+					// TODO gérer suppression des articles trop vieux (à paramétrer)
 				}
 			}
 			
