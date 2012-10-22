@@ -30,6 +30,9 @@
 		<li <?php echo Request::actionName () == 'display' ? 'class="active"' : ''; ?>>
 			<a href="<?php echo Url::display (array ('c' => 'configure', 'a' => 'display')); ?>">Affichage</a>
 		</li>
+		<li <?php echo Request::actionName () == 'importExport' ? 'class="active"' : ''; ?>>
+			<a href="<?php echo Url::display (array ('c' => 'configure', 'a' => 'importExport')); ?>">Import / Export OPML</a>
+		</li>
 	</ul>
 </div>
 <?php } ?>

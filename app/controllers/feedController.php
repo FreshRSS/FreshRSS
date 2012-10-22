@@ -95,4 +95,24 @@ class feedController extends ActionController {
 		
 		Request::forward (array (), true);
 	}
+	
+	public function massiveImport () {
+		$feedDAO = new FeedDAO ();
+		$feeds = Request::param ('feeds', array ());
+		
+		foreach ($feeds as $feed) {
+			$values = array (
+				'id' => $feed->id (),
+				'url' => $feed->url (),
+				'category' => $feed->category (),
+				'entries' => array (),
+				'name' => $feed->name (),
+				'website' => $feed->website (),
+				'description' => $feed->description (),
+			);
+			$feedDAO->addFeed ($values);
+		}
+	
+		Request::forward (array ('c' => 'configure', 'a' => 'importExport'));
+	}
 }

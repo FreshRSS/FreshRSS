@@ -88,4 +88,26 @@ class configureController extends ActionController {
 			Session::_param ('conf', $this->view->conf);
 		}
 	}
+	
+	public function importExportAction () {
+		$this->view->req = Request::param ('q');
+		
+		if ($this->view->req == 'export') {
+			View::_title ('feeds_opml.xml');
+			
+			$this->view->_useLayout (false);
+			header('Content-type: text/xml');
+			
+			$feedDAO = new FeedDAO ();
+			$this->view->feeds = $feedDAO->listFeeds ();
+		} elseif (Request::isPost ()) {
+			if ($_FILES['file']['error'] == 0) {
+				$content = file_get_contents ($_FILES['file']['tmp_name']);
+				$feeds = opml_import ($content);
+				
+				Request::_param ('feeds', $feeds);
+				Request::forward (array ('c' => 'feed', 'a' => 'massiveInsert'));
+			}
+		}
+	}
 }

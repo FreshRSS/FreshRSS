@@ -68,3 +68,20 @@ function sortEntriesByDate ($entry1, $entry2) {
 function sortReverseEntriesByDate ($entry1, $entry2) {
 	return $entry1->date (true) - $entry2->date (true);
 }
+
+function opml_export ($feeds) {
+	// TODO gérer les catégories
+	$txt = '<outline text="default">' . "\n";
+	
+	foreach ($feeds as $feed) {
+		$txt .= "\t" . '<outline text="' . $feed->name () . '" type="rss" xmlUrl="' . $feed->url () . '" htmlUrl="' . $feed->website () . '" />' . "\n";
+	}
+	
+	$txt .= '</outline>' . "\n";
+	
+	return $txt;
+}
+
+function opml_import ($xml) {
+	// TODO
+}
