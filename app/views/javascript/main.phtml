@@ -1,0 +1,130 @@
+<?php if ($this->conf->displayPosts () == 'no') { ?>
+var hide_posts = true;
+<?php } else { ?>
+var hide_posts = false;
+<?php } ?>
+
+function redirect (url) {
+	if (url) {
+		location.href = url;
+	}
+}
+
+function slide (new_active, old_active) {
+	old_active.removeClass ("active");
+	new_active.addClass ("active");
+	
+	if (hide_posts) {
+		old_active.children (".content").slideUp (200);
+		new_active.children (".content").slideDown (200, function () {
+			$.smoothScroll({
+				offset: new_active.position ().top + 25
+			});
+		});
+	} else {
+		$.smoothScroll({
+			offset: new_active.position ().top + 25
+		});
+	}
+}
+
+$(document).ready (function () {
+	if (hide_posts) {
+		$(".post.flux .content").slideToggle ();
+	}
+
+	// Touches de manipulation
+	shortcut.add("m", function () {
+		// on marque comme lu ou non lu
+		active = $(".post.flux.active");
+		url =  active.find ("a.read").attr ("href");
+		
+		$.ajax ({
+			type: 'POST',
+			url: url,
+			data : { ajax: true }
+		}).done (function () {
+			if (active.hasClass ("not_read")) {
+				active.removeClass ("not_read");
+			} else {
+				active.addClass ("not_read");
+			}
+		});
+	});
+	shortcut.add("f", function () {
+		// on marque comme favori ou non favori
+		active = $(".post.flux.active");
+		url =  active.find ("a.bookmark").attr ("href");
+		
+		$.ajax ({
+			type: 'POST',
+			url: url,
+			data : { ajax: true }
+		}).done (function () {
+			if (active.hasClass ("favorite")) {
+				active.removeClass ("favorite");
+			} else {
+				active.addClass ("favorite");
+			}
+		});
+	});
+	shortcut.add("space", function () {
+		// On plie / déplie l'article
+		active = $(".post.flux.active");
+		active.children (".content").slideToggle (200, function () {
+			$.smoothScroll({
+				offset: active.position ().top + 25
+			});
+		});
+	});
+	
+	// Touches de navigation
+	shortcut.add("up", function () {
+		old_active = $(".post.flux.active");
+		last_active = $(".post.flux:last");
+		new_active = old_active.prev ();
+		
+		if (new_active[0] instanceof HTMLDivElement) {
+			slide (new_active, old_active);
+		} else {
+			slide (last_active, old_active);
+		}
+	});
+	shortcut.add("down", function () {
+		old_active = $(".post.flux.active");
+		first_active = $(".post.flux:first");
+		new_active = old_active.next ();
+		
+		if (new_active[0] instanceof HTMLDivElement) {
+			slide (new_active, old_active);
+		} else {
+			slide (first_active, old_active);
+		}
+	});
+	shortcut.add("right", function () {
+		url = $(".pager-next a").attr ("href");
+		if (url === undefined) {
+			url = $(".pager-first a").attr ("href");
+		}
+		
+		redirect (url);
+	});
+	shortcut.add("left", function () {
+		url = $(".pager-previous a").attr ("href");
+		if (url === undefined) {
+			url = $(".pager-last a").attr ("href");
+		}
+		
+		redirect (url);
+	});
+	
+	
+	$(".post.flux").click (function () {
+		old_active = $(".post.flux.active");
+		new_active = $(this);
+		
+		if (old_active[0] != new_active[0]) {
+			slide (new_active, old_active);
+		}
+	});
+});

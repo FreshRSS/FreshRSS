@@ -13,6 +13,10 @@ class App_FrontController extends FrontController {
 		Session::init ();
 		
 		View::prependStyle (Url::display ('/theme/base.css'));
+		View::appendScript (Url::display ('/scripts/jquery.js'));
+		View::appendScript (Url::display ('/scripts/smoothscroll.js'));
+		View::appendScript (Url::display ('/scripts/shortcut.js'));
+		View::appendScript (Url::display (array ('c' => 'javascript', 'a' => 'main')));
 		View::_param ('conf', Session::param ('conf', new RSSConfiguration ()));
 	}
 	

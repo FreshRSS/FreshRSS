@@ -1,6 +1,19 @@
 <?php
 
 class entryController extends ActionController {
+	public function firstAction () {
+		$ajax = Request::param ('ajax');
+		if ($ajax) {
+			$this->view->_useLayout (false);
+		}
+	}
+	public function lastAction () {
+		$ajax = Request::param ('ajax');
+		if (!$ajax) {
+			Request::forward (array (), true);
+		}
+	}
+
 	public function readAction () {
 		$id = Request::param ('id');
 		$is_read = Request::param ('is_read');
@@ -26,8 +39,6 @@ class entryController extends ActionController {
 			
 			$entryDAO->updateEntry ($entry->id (), $values);
 		}
-		
-		Request::forward (array (), true);
 	}
 	
 	public function bookmarkAction () {
@@ -52,7 +63,5 @@ class entryController extends ActionController {
 				$entryDAO->updateEntry ($entry->id (), $values);
 			}
 		}
-		
-		Request::forward (array (), true);
 	}
 }

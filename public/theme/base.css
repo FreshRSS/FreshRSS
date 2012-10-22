@@ -33,7 +33,7 @@ a {
 		}
 
 /* LISTES */
-ul {
+ul, ol {
 	margin: 10px 0 10px 30px;
 	line-height: 190%;
 }
@@ -240,6 +240,10 @@ form {
 		background: #eee;
 		border-radius: 5px;
 		box-shadow: 0 1px 3px #aaa;
+		
+		-moz-transition: border-color .10s ease-out;
+		-webkit-transition: border-color .10s ease-out;
+		transition: border-color .10s ease-out;
 	}
 		.post.flux .before {
 			color: #666;
@@ -264,7 +268,6 @@ form {
 					border-radius: 0 0 5px 5px;
 					box-shadow: 0 1px 3px #aaa;
 				}
-		/* temporaire !!! */
 		.post.flux .content {
 			/*display: none;*/
 		}
@@ -298,6 +301,9 @@ form {
 		.post.flux.favorite {
 			border-left: 5px solid #FFC300;
 			background: #FFF6DA;
+		}
+		.post.flux.active {
+			border-left: 5px solid #0062BE;
 		}
 
 /*** PAGINATION ***/

@@ -1,3 +1,5 @@
+<?php $items = $this->entryPaginator->items (); ?>
+<?php if (!empty ($items)) { ?>
 <div id="top">
 	<a class="read_all" href="<?php echo Url::display (array ('c' => 'entry', 'a' => 'read', 'params' => array ('is_read' => 1))); ?>">Tout marquer comme lu</a><!--
 	<?php if (Session::param ('mode', 'all') == 'not_read') { ?>
@@ -8,8 +10,6 @@
 </div>
 
 <div id="stream">
-<?php $items = $this->entryPaginator->items (); ?>
-<?php if (!empty ($items)) { ?>
 	<?php $this->entryPaginator->render ('pagination.phtml', 'page'); ?>
 	
 	<?php foreach ($items as $item) { ?>
@@ -27,23 +27,25 @@
 		
 		<div class="after">
 			<?php if (!$item->isRead ()) { ?>
-			<a href="<?php echo Url::display (array ('c' => 'entry', 'a' => 'read', 'params' => array ('id' => $item->id (), 'is_read' => 1))); ?>">J'ai fini de lire l'article</a><!--
+			<a class="read" href="<?php echo Url::display (array ('c' => 'entry', 'a' => 'read', 'params' => array ('id' => $item->id (), 'is_read' => 1))); ?>">J'ai fini de lire l'article</a><!--
 			<?php } else { ?>
-			<a href="<?php echo Url::display (array ('c' => 'entry', 'a' => 'read', 'params' => array ('id' => $item->id (), 'is_read' => 0))); ?>">Marquer comme non lu</a><!--
+			<a class="read" href="<?php echo Url::display (array ('c' => 'entry', 'a' => 'read', 'params' => array ('id' => $item->id (), 'is_read' => 0))); ?>">Marquer comme non lu</a><!--
 			<?php } ?>
 			
 			<?php if (!$item->isFavorite ()) { ?>
-			--><a href="<?php echo Url::display (array ('c' => 'entry', 'a' => 'bookmark', 'params' => array ('id' => $item->id (), 'is_favorite' => 1))); ?>">Ajouter l'article à mes favoris</a>
+			--><a class="bookmark" href="<?php echo Url::display (array ('c' => 'entry', 'a' => 'bookmark', 'params' => array ('id' => $item->id (), 'is_favorite' => 1))); ?>">Ajouter l'article à mes favoris</a>
 			<?php } else { ?>
-			--><a href="<?php echo Url::display (array ('c' => 'entry', 'a' => 'bookmark', 'params' => array ('id' => $item->id (), 'is_favorite' => 0))); ?>">Retirer l'article de mes favoris</a>
+			--><a class="bookmark" href="<?php echo Url::display (array ('c' => 'entry', 'a' => 'bookmark', 'params' => array ('id' => $item->id (), 'is_favorite' => 0))); ?>">Retirer l'article de mes favoris</a>
 			<?php } ?>
 		</div>
 	</div>
 	<?php } ?>
 	
 	<?php $this->entryPaginator->render ('pagination.phtml', 'page'); ?>
+</div>
 <?php } else { ?>
-	<div class="post flux">
+<div class="table">
+	<div class="nothing">
 		<p>
 			Il n'y a aucun flux à afficher.
 		<?php if (Session::param ('mode', 'all') == 'not_read') { ?>
@@ -51,5 +53,5 @@
 		<?php }	?>
 		</p>
 	</div>
-<?php } ?>
 </div>
+<?php } ?>

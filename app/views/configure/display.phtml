@@ -22,11 +22,11 @@
 		
 		<label>Afficher les articles dépliés par défaut</label>
 		<div class="radio_group">
-			<input type="radio" name="display_posts" id="radio_yes" value="yes"<?php echo $this->conf->displayPosts () ? ' checked="checked"' : ''; ?> />
+			<input type="radio" name="display_posts" id="radio_yes" value="yes"<?php echo $this->conf->displayPosts () == 'yes' ? ' checked="checked"' : ''; ?> />
 			<label for="radio_yes">Oui</label>
 			<br />
-			<input type="radio" name="display_posts" id="radio_no" value="no"<?php echo !$this->conf->displayPosts () ? ' checked="checked"' : ''; ?> />
-			<label for="radio_no">Non</label>
+			<input type="radio" name="display_posts" id="radio_no" value="no"<?php echo $this->conf->displayPosts () == 'no' ? ' checked="checked"' : ''; ?> />
+			<label for="radio_no">Non<noscript> - <strong>nécessite que javascript soit activé</strong></noscript></label>
 		</div>
 		
 		<input type="submit" value="Valider" />
