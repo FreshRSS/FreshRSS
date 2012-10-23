@@ -32,8 +32,6 @@ class configureController extends ActionController {
 				$catDAO->addCategory ($values);
 			}
 			
-			$catDAO->save ();
-			
 		}
 		
 		$this->view->categories = $catDAO->listCategories ();

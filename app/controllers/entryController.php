@@ -24,19 +24,14 @@ class entryController extends ActionController {
 			$is_read = false;
 		}
 		
+		$values = array (
+			'is_read' => $is_read,
+		);
+		
 		$entryDAO = new EntryDAO ();
 		if ($id == false) {
-			$entries = $entryDAO->listEntries ('not_read');
+			$entryDAO->updateEntries ($values);
 		} else {
-			$entry = $entryDAO->searchById ($id);
-			$entries = $entry !== false ? array ($entry) : array ();
-		}
-		
-		foreach ($entries as $entry) {
-			$values = array (
-				'is_read' => $is_read,
-			);
-			
 			$entryDAO->updateEntry ($entry->id (), $values);
 		}
 	}

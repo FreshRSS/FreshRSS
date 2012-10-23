@@ -8,29 +8,24 @@ class feedController extends ActionController {
 			try {
 				$feed = new Feed ($url);
 				$feed->load ();
-				$entries = $feed->entries (false);
-				$feed_entries = array ();
+				$entries = $feed->entries ();
 				
-				if ($entries !== false) {
-					$entryDAO = new EntryDAO ();
-					
-					foreach ($entries as $entry) {
-						$values = array (
-							'id' => $entry->id (),
-							'guid' => $entry->guid (),
-							'title' => $entry->title (),
-							'author' => $entry->author (),
-							'content' => $entry->content (),
-							'link' => $entry->link (),
-							'date' => $entry->date (true),
-							'is_read' => $entry->isRead (),
-							'is_favorite' => $entry->isFavorite (),
-							'feed' => $feed->id ()
-						);
-						$entryDAO->addEntry ($values);
-						
-						$feed_entries[] = $entry->id ();
-					}
+				$entryDAO = new EntryDAO ();
+				
+				foreach ($entries as $entry) {
+					$values = array (
+						'id' => $entry->id (),
+						'guid' => $entry->guid (),
+						'title' => $entry->title (),
+						'author' => $entry->author (),
+						'content' => $entry->content (),
+						'link' => $entry->link (),
+						'date' => $entry->date (true),
+						'is_read' => $entry->isRead (),
+						'is_favorite' => $entry->isFavorite (),
+						'id_feed' => $feed->id ()
+					);
+					$entryDAO->addEntry ($values);
 				}
 				
 				$feedDAO = new FeedDAO ();
@@ -38,7 +33,6 @@ class feedController extends ActionController {
 					'id' => $feed->id (),
 					'url' => $feed->url (),
 					'category' => $feed->category (),
-					'entries' => $feed_entries,
 					'name' => $feed->name (),
 					'website' => $feed->website (),
 					'description' => $feed->description (),
@@ -60,37 +54,25 @@ class feedController extends ActionController {
 		
 		foreach ($feeds as $feed) {
 			$feed->load ();
-			$entries = $feed->entries (false);
-			$feed_entries = $feed->entries ();
-				
-			if ($entries !== false) {
-				foreach ($entries as $entry) {
-					if (!in_array ($entry->id (), $feed_entries)) {
-						$values = array (
-							'id' => $entry->id (),
-							'guid' => $entry->guid (),
-							'title' => $entry->title (),
-							'author' => $entry->author (),
-							'content' => $entry->content (),
-							'link' => $entry->link (),
-							'date' => $entry->date (true),
-							'is_read' => $entry->isRead (),
-							'is_favorite' => $entry->isFavorite (),
-							'feed' => $feed->id ()
-						);
-						$entryDAO->addEntry ($values);
-					
-						$feed_entries[] = $entry->id ();
-					}
-					
-					// TODO gérer suppression des articles trop vieux (à paramétrer)
-				}
-			}
+			$entries = $feed->entries ();
 			
-			$values = array (
-				'entries' => $feed_entries
-			);
-			$feedDAO->updateFeed ($values);
+			foreach ($entries as $entry) {
+				$values = array (
+					'id' => $entry->id (),
+					'guid' => $entry->guid (),
+					'title' => $entry->title (),
+					'author' => $entry->author (),
+					'content' => $entry->content (),
+					'link' => $entry->link (),
+					'date' => $entry->date (true),
+					'is_read' => $entry->isRead (),
+					'is_favorite' => $entry->isFavorite (),
+					'id_feed' => $feed->id ()
+				);
+				$entryDAO->addEntry ($values);
+				
+				// TODO gérer suppression des articles trop vieux (à paramétrer)
+			}
 		}
 		
 		Request::forward (array (), true);
@@ -111,33 +93,27 @@ class feedController extends ActionController {
 				'color' => $cat->color ()
 			);
 			$catDAO->addCategory ($values);
-			$catDAO->save ();
 		}
 		
 		foreach ($feeds as $feed) {
 			$feed->load ();
-			$entries = $feed->entries (false);
-			$feed_entries = array ();
+			$entries = $feed->entries ();
 			
 			// Chargement du flux
-			if ($entries !== false) {
-				foreach ($entries as $entry) {
-					$values = array (
-						'id' => $entry->id (),
-						'guid' => $entry->guid (),
-						'title' => $entry->title (),
-						'author' => $entry->author (),
-						'content' => $entry->content (),
-						'link' => $entry->link (),
-						'date' => $entry->date (true),
-						'is_read' => $entry->isRead (),
-						'is_favorite' => $entry->isFavorite (),
-						'feed' => $feed->id ()
-					);
-					$entryDAO->addEntry ($values);
-					
-					$feed_entries[] = $entry->id ();
-				}
+			foreach ($entries as $entry) {
+				$values = array (
+					'id' => $entry->id (),
+					'guid' => $entry->guid (),
+					'title' => $entry->title (),
+					'author' => $entry->author (),
+					'content' => $entry->content (),
+					'link' => $entry->link (),
+					'date' => $entry->date (true),
+					'is_read' => $entry->isRead (),
+					'is_favorite' => $entry->isFavorite (),
+					'id_feed' => $feed->id ()
+				);
+				$entryDAO->addEntry ($values);
 			}
 			
 			// Enregistrement du flux
@@ -145,7 +121,6 @@ class feedController extends ActionController {
 				'id' => $feed->id (),
 				'url' => $feed->url (),
 				'category' => $feed->category (),
-				'entries' => $feed_entries,
 				'name' => $feed->name (),
 				'website' => $feed->website (),
 				'description' => $feed->description (),

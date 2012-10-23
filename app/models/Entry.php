@@ -93,88 +93,160 @@ class Entry extends Model {
 	}
 }
 
-class EntryDAO extends Model_array {
-	public function __construct () {
-		parent::__construct (PUBLIC_PATH . '/data/db/Entries.array.php');
-	}
-	
-	public function addEntry ($values) {
-		$id = $values['id'];
-		unset ($values['id']);
-	
-		if (!isset ($this->array[$id])) {
-			$this->array[$id] = array ();
-		
-			foreach ($values as $key => $value) {
-				$this->array[$id][$key] = $value;
-			}
-		
-			$this->writeFile ($this->array);
+class EntryDAO extends Model_pdo {
+	public function addEntry ($valuesTmp) {
+		$sql = 'INSERT INTO entry (id, guid, title, author, content, link, date, is_read, is_favorite, id_feed) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
+		$stm = $this->bd->prepare ($sql);
+
+		$values = array (
+			$valuesTmp['id'],
+			$valuesTmp['guid'],
+			$valuesTmp['title'],
+			$valuesTmp['author'],
+			$valuesTmp['content'],
+			$valuesTmp['link'],
+			$valuesTmp['date'],
+			$valuesTmp['is_read'],
+			$valuesTmp['is_favorite'],
+			$valuesTmp['id_feed'],
+		);
+
+		if ($stm && $stm->execute ($values)) {
+			return true;
 		} else {
 			return false;
 		}
 	}
 	
-	public function updateEntry ($id, $values) {
-		foreach ($values as $key => $value) {
-			$this->array[$id][$key] = $value;
+	public function updateEntry ($id, $valuesTmp) {
+		$set = '';
+		foreach ($valuesTmp as $key => $v) {
+			$set .= $key . '=?, ';
 		}
+		$set = substr ($set, 0, -2);
 		
-		$this->writeFile($this->array);
+		$sql = 'UPDATE entry SET ' . $set . ' WHERE id=?';
+		$stm = $this->bd->prepare ($sql);
+		
+		foreach ($valuesTmp as $v) {
+			$values[] = $v;
+		}
+		$values[] = $id;
+
+		if ($stm && $stm->execute ($values)) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	public function updateEntries ($valuesTmp) {
+		$set = '';
+		foreach ($valuesTmp as $key => $v) {
+			$set .= $key . '=?, ';
+		}
+		$set = substr ($set, 0, -2);
+		
+		$sql = 'UPDATE entry SET ' . $set;
+		$stm = $this->bd->prepare ($sql);
+		
+		foreach ($valuesTmp as $v) {
+			$values[] = $v;
+		}
+
+		if ($stm && $stm->execute ($values)) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 	
 	public function searchById ($id) {
-		$list = HelperEntry::daoToEntry ($this->array);
+		$sql = 'SELECT * FROM entry WHERE id=?';
+		$stm = $this->bd->prepare ($sql);
 		
-		if (isset ($list[$id])) {
-			return $list[$id];
+		$values = array ($id);
+		
+		$stm->execute ($values);
+		$res = $stm->fetchAll (PDO::FETCH_ASSOC);
+		$entry = HelperEntry::daoToEntry ($res);
+		
+		if (isset ($entry[0])) {
+			return $entry[0];
 		} else {
 			return false;
 		}
 	}
 	
-	public function listEntries ($mode) {
-		$list = $this->array;
-		
-		if (!is_array ($list)) {
-			$list = array ();
+	public function listEntries ($mode, $order = 'high_to_low') {
+		$where = '';
+		if ($mode == 'not_read') {
+			$where = ' WHERE is_read=0';
 		}
 		
-		return HelperEntry::daoToEntry ($list, $mode);
-	}
-	
-	public function listFavorites ($mode) {
-		$list = $this->array;
-		
-		if (!is_array ($list)) {
-			$list = array ();
+		if ($order == 'low_to_high') {
+			$order = ' DESC';
+		} else {
+			$order = '';
 		}
 		
-		return HelperEntry::daoToEntry ($list, $mode, true);
-	}
-	
-	public function listByCategory ($cat, $mode) {
-		$feedDAO = new FeedDAO ();
-		$feeds = $feedDAO->listByCategory ($cat);
-		
-		$list = array ();
-		foreach ($feeds as $feed) {
-			foreach ($feed->entries () as $id) {
-				if (isset ($this->array[$id])) {
-					$list[$id] = $this->array[$id];
-				}
-			}
-		}
-		
-		return HelperEntry::daoToEntry ($list, $mode);
-	}
-	
-	public function listNotReadEntries () {
+		$sql = 'SELECT * FROM entry' . $where . ' ORDER BY date' . $order;
+		$stm = $this->bd->prepare ($sql); 
+		$stm->execute ();
 
+		return HelperEntry::daoToEntry ($stm->fetchAll (PDO::FETCH_ASSOC));
+	}
+	
+	public function listFavorites ($mode, $order = 'high_to_low') {
+		$where = ' WHERE is_favorite=1';
+		if ($mode == 'not_read') {
+			$where .= ' AND is_read=0';
+		}
+		
+		if ($order == 'low_to_high') {
+			$order = ' DESC';
+		} else {
+			$order = '';
+		}
+		
+		$sql = 'SELECT * FROM entry' . $where . ' ORDER BY date' . $order;
+		$stm = $this->bd->prepare ($sql);
+		
+		$stm->execute ();
+
+		return HelperEntry::daoToEntry ($stm->fetchAll (PDO::FETCH_ASSOC));
+	}
+	
+	public function listByCategory ($cat, $mode, $order = 'high_to_low') {
+		$where = ' WHERE category=?';
+		if ($mode == 'not_read') {
+			$where .= ' AND is_read=0';
+		}
+		
+		if ($order == 'low_to_high') {
+			$order = ' DESC';
+		} else {
+			$order = '';
+		}
+		
+		$sql = 'SELECT * FROM entry e INNER JOIN feed f ON e.id_feed = f.id' . $where . ' ORDER BY date' . $order;
+		
+		$stm = $this->bd->prepare ($sql);
+		
+		$values = array ($cat);
+		
+		$stm->execute ($values);
+
+		return HelperEntry::daoToEntry ($stm->fetchAll (PDO::FETCH_ASSOC));
 	}
 	
 	public function count () {
-		return count ($this->array);
+		$sql = 'SELECT COUNT (*) AS count FROM entry';
+		$stm = $this->bd->prepare ($sql); 
+		$stm->execute ();
+		$res = $stm->fetchAll (PDO::FETCH_ASSOC);
+
+		return $res[0]['count'];
 	}
 }
 
@@ -190,7 +262,7 @@ class HelperEntry {
 			if (($mode != 'not_read' || !$dao['is_read'])
 			 && ($favorite == false || $dao['is_favorite'])) {
 				$list[$key] = new Entry (
-					$dao['feed'],
+					$dao['id_feed'],
 					$dao['guid'],
 					$dao['title'],
 					$dao['author'],

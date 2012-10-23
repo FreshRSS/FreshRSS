@@ -3,7 +3,6 @@
 class Feed extends Model {
 	private $url;
 	private $category = '';
-	private $entries_list = array ();
 	private $entries = null;
 	private $name = '';
 	private $website = '';
@@ -22,13 +21,11 @@ class Feed extends Model {
 	public function category () {
 		return $this->category;
 	}
-	public function entries ($list = true) {
-		if ($list) {
-			return $this->entries_list;
-		} elseif (!is_null ($this->entries)) {
+	public function entries () {
+		if (!is_null ($this->entries)) {
 			return $this->entries;
 		} else {
-			return false;
+			return array ();
 		}
 	}
 	public function name () {
@@ -50,13 +47,6 @@ class Feed extends Model {
 	}
 	public function _category ($value) {
 		$this->category = $value;
-	}
-	public function _entries ($value) {
-		if (!is_array ($value)) {
-			$value = array ($value);
-		}
-		
-		$this->entries_list = $value;
 	}
 	public function _name ($value) {
 		$this->name = $value;
@@ -109,70 +99,92 @@ class Feed extends Model {
 	}
 }
 
-class FeedDAO extends Model_array {
-	public function __construct () {
-		parent::__construct (PUBLIC_PATH . '/data/db/Feeds.array.php');
-	}
-	
-	public function addFeed ($values) {
-		$id = $values['id'];
-		unset ($values['id']);
-	
-		if (!isset ($this->array[$id])) {
-			$this->array[$id] = array ();
-		
-			foreach ($values as $key => $value) {
-				$this->array[$id][$key] = $value;
-			}
-		
-			$this->writeFile ($this->array);
+class FeedDAO extends Model_pdo {
+	public function addFeed ($valuesTmp) {
+		$sql = 'INSERT INTO feed (id, url, category, name, website, description) VALUES(?, ?, ?, ?, ?, ?)';
+		$stm = $this->bd->prepare ($sql);
+
+		$values = array (
+			$valuesTmp['id'],
+			$valuesTmp['url'],
+			$valuesTmp['category'],
+			$valuesTmp['name'],
+			$valuesTmp['website'],
+			$valuesTmp['description'],
+		);
+
+		if ($stm && $stm->execute ($values)) {
+			return true;
 		} else {
 			return false;
 		}
 	}
 	
-	public function updateFeed ($id, $values) {
-		foreach ($values as $key => $value) {
-			$this->array[$id][$key] = $value;
+	public function updateFeed ($id, $valuesTmp) {
+		$set = '';
+		foreach ($valuesTmp as $key => $v) {
+			$set .= $key . '=?, ';
 		}
+		$set = substr ($set, 0, -2);
 		
-		$this->writeFile($this->array);
+		$sql = 'UPDATE feed SET ' . $set . ' WHERE id=?';
+		$stm = $this->bd->prepare ($sql);
+
+		$values = array_merge (
+			$valuesTmp,
+			array ($id)
+		);
+
+		if ($stm && $stm->execute ($values)) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 	
 	public function searchById ($id) {
-		$list = HelperFeed::daoToFeed ($this->array);
+		$sql = 'SELECT * FROM feed WHERE id=?';
+		$stm = $this->bd->prepare ($sql);
 		
-		if (isset ($list[$id])) {
-			return $list[$id];
+		$values = array ($id);
+		
+		$stm->execute ($values);
+		$res = $stm->fetchAll (PDO::FETCH_ASSOC);
+		$feed = HelperFeed::daoToFeed ($res);
+		
+		if (isset ($feed[0])) {
+			return $feed[0];
 		} else {
 			return false;
 		}
 	}
 	
 	public function listFeeds () {
-		$list = $this->array;
-		
-		if (!is_array ($list)) {
-			$list = array ();
-		}
-		
-		return HelperFeed::daoToFeed ($list);
+		$sql = 'SELECT * FROM feed';
+		$stm = $this->bd->prepare ($sql); 
+		$stm->execute ();
+
+		return HelperFeed::daoToFeed ($stm->fetchAll (PDO::FETCH_ASSOC));
 	}
 	
 	public function listByCategory ($cat) {
-		$list = array ();
+		$sql = 'SELECT * FROM feed WHERE category=?';
+		$stm = $this->bd->prepare ($sql);
 		
-		foreach ($this->array as $key => $feed) {
-			if ($feed['category'] == $cat) {
-				$list[$key] = $feed;
-			}
-		}
+		$values = array ($cat);
 		
-		return HelperFeed::daoToFeed ($list);
+		$stm->execute ($values);
+
+		return HelperFeed::daoToFeed ($stm->fetchAll (PDO::FETCH_ASSOC));
 	}
 	
 	public function count () {
-		return count ($this->array);
+		$sql = 'SELECT COUNT (*) AS count FROM feed';
+		$stm = $this->bd->prepare ($sql); 
+		$stm->execute ();
+		$res = $stm->fetchAll (PDO::FETCH_ASSOC);
+
+		return $res[0]['count'];
 	}
 }
 
@@ -187,7 +199,6 @@ class HelperFeed {
 		foreach ($listDAO as $key => $dao) {
 			$list[$key] = new Feed ($dao['url']);
 			$list[$key]->_category ($dao['category']);
-			$list[$key]->_entries ($dao['entries']);
 			$list[$key]->_name ($dao['name']);
 			$list[$key]->_website ($dao['website']);
 			$list[$key]->_description ($dao['description']);

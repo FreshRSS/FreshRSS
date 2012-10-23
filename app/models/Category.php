@@ -1,7 +1,7 @@
 <?php
 
 class Category extends Model {
-	private $id;
+	private $id = false;
 	private $name;
 	private $color;
 	
@@ -11,7 +11,11 @@ class Category extends Model {
 	}
 	
 	public function id () {
-		return small_hash ($this->name . Configuration::selApplication ());
+		if (!$this->id) {
+			return small_hash ($this->name . Configuration::selApplication ());
+		} else {
+			return $this->id;
+		}
 	}
 	public function name () {
 		return $this->name;
@@ -20,6 +24,9 @@ class Category extends Model {
 		return $this->color;
 	}
 	
+	public function _id ($value) {
+		$this->id = $value;
+	}
 	public function _name ($value) {
 		$this->name = $value;
 	}
@@ -32,64 +39,86 @@ class Category extends Model {
 	}
 }
 
-class CategoryDAO extends Model_array {
-	public function __construct () {
-		parent::__construct (PUBLIC_PATH . '/data/db/Categories.array.php');
-	}
-	
-	public function addCategory ($values) {
-		$id = $values['id'];
-		unset ($values['id']);
-	
-		if (!isset ($this->array[$id])) {
-			$this->array[$id] = array ();
-		
-			foreach ($values as $key => $value) {
-				$this->array[$id][$key] = $value;
-			}
+class CategoryDAO extends Model_pdo {
+	public function addCategory ($valuesTmp) {
+		$sql = 'INSERT INTO category (id, name, color) VALUES(?, ?, ?)';
+		$stm = $this->bd->prepare ($sql);
+
+		$values = array (
+			$valuesTmp['id'],
+			$valuesTmp['name'],
+			$valuesTmp['color'],
+		);
+
+		if ($stm && $stm->execute ($values)) {
+			return true;
 		} else {
 			return false;
 		}
 	}
 	
-	public function updateCategory ($id, $values) {
-		foreach ($values as $key => $value) {
-			$this->array[$id][$key] = $value;
+	public function updateCategory ($id, $valuesTmp) {
+		$sql = 'UPDATE category SET name=?, color=? WHERE id=?';
+		$stm = $this->bd->prepare ($sql);
+
+		$values = array (
+			$valuesTmp['name'],
+			$valuesTmp['color'],
+			$id
+		);
+
+		if ($stm && $stm->execute ($values)) {
+			return true;
+		} else {
+			return false;
 		}
 	}
 	
 	public function deleteCategory ($id) {
-		if (isset ($this->array[$id])) {
-			unset ($this->array[$id]);
+		$sql = 'DELETE FROM category WHERE id=?';
+		$stm = $this->bd->prepare ($sql); 
+
+		$values = array ($id);
+
+		if ($stm && $stm->execute ($values)) {
+			return true;
+		} else {
+			return false;
 		}
 	}
 	
 	public function searchById ($id) {
-		$list = HelperCategory::daoToCategory ($this->array);
+		$sql = 'SELECT * FROM category WHERE id=?';
+		$stm = $this->bd->prepare ($sql);
 		
-		if (isset ($list[$id])) {
-			return $list[$id];
+		$values = array ($id);
+		
+		$stm->execute ($values);
+		$res = $stm->fetchAll (PDO::FETCH_ASSOC);
+		$cat = HelperCategory::daoToCategory ($res);
+		
+		if (isset ($cat[0])) {
+			return $cat[0];
 		} else {
 			return false;
 		}
 	}
 	
 	public function listCategories () {
-		$list = $this->array;
-		
-		if (!is_array ($list)) {
-			$list = array ();
-		}
-		
-		return HelperCategory::daoToCategory ($list);
+		$sql = 'SELECT * FROM category';
+		$stm = $this->bd->prepare ($sql); 
+		$stm->execute ();
+
+		return HelperCategory::daoToCategory ($stm->fetchAll (PDO::FETCH_ASSOC));
 	}
 	
 	public function count () {
-		return count ($this->array);
-	}
-	
-	public function save () {
-		$this->writeFile ($this->array);
+		$sql = 'SELECT COUNT (*) AS count FROM category';
+		$stm = $this->bd->prepare ($sql); 
+		$stm->execute ();
+		$res = $stm->fetchAll (PDO::FETCH_ASSOC);
+
+		return $res[0]['count'];
 	}
 }
 
@@ -102,10 +131,12 @@ class HelperCategory {
 		}
 
 		foreach ($listDAO as $key => $dao) {
-			$list[$key] = new Category (
+			$cat = new Category (
 				$dao['name'],
 				$dao['color']
 			);
+			$cat->_id ($dao['id']);
+			$list[$key] = $cat;
 		}
 
 		return $list;

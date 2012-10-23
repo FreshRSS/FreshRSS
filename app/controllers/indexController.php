@@ -7,25 +7,19 @@ class indexController extends ActionController {
 		
 		$mode = Session::param ('mode', $this->view->conf->defaultView ());
 		$get = Request::param ('get');
+		$order = $this->view->conf->sortOrder ();
 		
 		// Récupère les flux par catégorie, favoris ou tous
 		if ($get == 'favoris') {
-			$entries = $entryDAO->listFavorites ($mode);
+			$entries = $entryDAO->listFavorites ($mode, $order);
 		} elseif ($get != false) {
-			$entries = $entryDAO->listByCategory ($get, $mode);
+			$entries = $entryDAO->listByCategory ($get, $mode, $order);
 		}
 		
 		// Cas où on ne choisie ni catégorie ni les favoris
 		// ou si la catégorie ne correspond à aucune
 		if (!isset ($entries)) {
-			$entries = $entryDAO->listEntries ($mode);
-		}
-		
-		// Tri par date
-		if ($this->view->conf->sortOrder () == 'high_to_low') {
-			usort ($entries, 'sortReverseEntriesByDate');
-		} else {
-			usort ($entries, 'sortEntriesByDate');
+			$entries = $entryDAO->listEntries ($mode, $order);
 		}
 		
 		// Gestion pagination
