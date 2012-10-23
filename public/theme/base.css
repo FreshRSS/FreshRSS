@@ -40,9 +40,9 @@ ul, ol {
 
 /* TITRES */
 h1, h2, h3 {
-	min-height: 50px;
-	padding: 10px 0 20px;
-	line-height: 50px;
+	min-height: 40px;
+	padding: 10px 0 0;
+	line-height: 40px;
 }
 
 /* IMG */
@@ -132,10 +132,6 @@ form {
 				overflow: hidden;
 				line-height: 50px;
 			}
-				.aside li.active a {
-					background: #0062BE !important;
-					color: #fff;
-				}
 				.aside li a, .aside li span {
 					display: block;
 					width: 230px;
@@ -148,6 +144,10 @@ form {
 					.aside li.disable span {
 						background: #fff;
 					}
+				.aside li.active a {
+					background: #0062BE;
+					color: #fff;
+				}
 				.aside li h2 {
 					height: 50px;
 					padding: 0;
@@ -185,6 +185,23 @@ form {
 					padding: 0;
 					border: none;
 					border-radius: 0;
+				}
+		.aside #flux_menu {
+			display: none;
+			position: absolute;
+			top: 48px; left: 250px;
+			border-top: 2px solid #0062BE;
+			border-bottom: 2px solid #0062BE;
+		}
+			.aside li:hover #flux_menu {
+				display: block;
+			}
+			.aside #flux_menu a {
+				background: #fff;
+				color: #0062BE;
+			}
+				.aside #flux_menu a:hover {
+					background: #fafafa;
 				}
 	#main {
 		display: table-cell;
@@ -233,7 +250,6 @@ form {
 }
 	.post.flux {
 		margin: 40px auto;
-		padding: 25px 20px;
 		font-family: Palatino, "Times New Roman", serif;
 		line-height: 170%;
 		border-left: 5px solid #aaa;
@@ -246,6 +262,7 @@ form {
 		transition: border-color .10s ease-out;
 	}
 		.post.flux .before {
+			padding: 20px;
 			color: #666;
 			font-size: 80%;
 			text-align: center;
@@ -268,8 +285,11 @@ form {
 					border-radius: 0 0 5px 5px;
 					box-shadow: 0 1px 3px #aaa;
 				}
+		.post.flux > h1 {
+			padding: 10px 20px;
+		}
 		.post.flux .content {
-			/*display: none;*/
+			padding: 10px 20px;
 		}
 			.post.flux .content img {
 				border-radius: 5px;

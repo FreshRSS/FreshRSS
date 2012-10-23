@@ -69,15 +69,22 @@ function sortReverseEntriesByDate ($entry1, $entry2) {
 	return $entry1->date (true) - $entry2->date (true);
 }
 
-function opml_export ($feeds) {
-	// TODO gérer les catégories
-	$txt = '<outline text="default">' . "\n";
+function get_domain ($url) {
+	return parse_url($url, PHP_URL_HOST);
+}
+
+function opml_export ($cats) {
+	$txt = '';
 	
-	foreach ($feeds as $feed) {
-		$txt .= "\t" . '<outline text="' . $feed->name () . '" type="rss" xmlUrl="' . $feed->url () . '" htmlUrl="' . $feed->website () . '" />' . "\n";
+	foreach ($cats as $cat) {
+		$txt .= '<outline text="' . $cat['name'] . '">' . "\n";
+		
+		foreach ($cat['feeds'] as $feed) {
+			$txt .= "\t" . '<outline text="' . $feed->name () . '" type="rss" xmlUrl="' . $feed->url () . '" htmlUrl="' . $feed->website () . '" />' . "\n";
+		}
+		
+		$txt .= '</outline>' . "\n";
 	}
-	
-	$txt .= '</outline>' . "\n";
 	
 	return $txt;
 }

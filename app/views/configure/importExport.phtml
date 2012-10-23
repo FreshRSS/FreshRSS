@@ -7,12 +7,12 @@
 		<dateCreated><?php echo date('D, d M Y H:i:s'); ?></dateCreated>
 	</head>
 	<body>
-<?php echo opml_export ($this->feeds); ?>
+<?php echo opml_export ($this->categories); ?>
 	</body>
 </opml>
 <?php } else { ?>
 
-<form method="post" action="" enctype="multipart/form-data">
+<form method="post" action="<?php echo Url::display (array ('c' => 'configure', 'a' => 'importExport', 'params' => array ('q' => 'import'))); ?>" enctype="multipart/form-data">
 	<h1>Exporter au format OPML</h1>
 	<a class="button" href="<?php echo Url::display (array ('c' => 'configure', 'a' => 'importExport', 'params' => array ('q' => 'export'))); ?>">Exporter</a>
 	

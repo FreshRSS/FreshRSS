@@ -159,6 +159,18 @@ class FeedDAO extends Model_array {
 		return HelperFeed::daoToFeed ($list);
 	}
 	
+	public function listByCategory ($cat) {
+		$list = array ();
+		
+		foreach ($this->array as $key => $feed) {
+			if ($feed['category'] == $cat) {
+				$list[$key] = $feed;
+			}
+		}
+		
+		return HelperFeed::daoToFeed ($list);
+	}
+	
 	public function count () {
 		return count ($this->array);
 	}

@@ -16,10 +16,10 @@
 	<div class="post flux<?php echo !$item->isRead () ? ' not_read' : ''; ?><?php echo $item->isFavorite () ? ' favorite' : ''; ?>">
 		<?php $author = $item->author (); ?>
 		<div class="before">
+			<?php $feed = $item->feed (true); ?>
 			<?php echo $author != '' ? $author . ' a écrit' : ''; ?>
 			le <?php echo $item->date (); ?>
-			<?php $feed = $item->feed (true); ?>
-			sur <a target="_blank" href="<?php echo $feed->website (); ?>"><?php echo $feed->name (); ?></a>,
+			sur <a target="_blank" href="<?php echo $feed->website (); ?>"><?php echo $feed->name (); ?> <img src="http://www.google.com/s2/favicons?domain=<?php echo get_domain ($feed->website ()); ?>" alt="" /></a>,
 		</div>
 		
 		<h1><a target="_blank" href="<?php echo $item->link (); ?>"> <?php echo $item->title (); ?></a></h1>

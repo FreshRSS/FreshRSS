@@ -133,31 +133,44 @@ class EntryDAO extends Model_array {
 		}
 	}
 	
-	public function listEntries () {
+	public function listEntries ($mode) {
 		$list = $this->array;
 		
 		if (!is_array ($list)) {
 			$list = array ();
 		}
 		
-		return HelperEntry::daoToEntry ($list);
+		return HelperEntry::daoToEntry ($list, $mode);
 	}
 	
-	public function listNotReadEntries () {
+	public function listFavorites ($mode) {
 		$list = $this->array;
-		$list_not_read = array ();
 		
 		if (!is_array ($list)) {
 			$list = array ();
 		}
 		
-		foreach ($list as $key => $entry) {
-			if (!$entry['is_read']) {
-				$list_not_read[$key] = $entry;
+		return HelperEntry::daoToEntry ($list, $mode, true);
+	}
+	
+	public function listByCategory ($cat, $mode) {
+		$feedDAO = new FeedDAO ();
+		$feeds = $feedDAO->listByCategory ($cat);
+		
+		$list = array ();
+		foreach ($feeds as $feed) {
+			foreach ($feed->entries () as $id) {
+				if (isset ($this->array[$id])) {
+					$list[$id] = $this->array[$id];
+				}
 			}
 		}
 		
-		return HelperEntry::daoToEntry ($list_not_read);
+		return HelperEntry::daoToEntry ($list, $mode);
+	}
+	
+	public function listNotReadEntries () {
+
 	}
 	
 	public function count () {
@@ -166,7 +179,7 @@ class EntryDAO extends Model_array {
 }
 
 class HelperEntry {
-	public static function daoToEntry ($listDAO) {
+	public static function daoToEntry ($listDAO, $mode = 'all', $favorite = false) {
 		$list = array ();
 
 		if (!is_array ($listDAO)) {
@@ -174,17 +187,20 @@ class HelperEntry {
 		}
 
 		foreach ($listDAO as $key => $dao) {
-			$list[$key] = new Entry (
-				$dao['feed'],
-				$dao['guid'],
-				$dao['title'],
-				$dao['author'],
-				$dao['content'],
-				$dao['link'],
-				$dao['date'],
-				$dao['is_read'],
-				$dao['is_favorite']
-			);
+			if (($mode != 'not_read' || !$dao['is_read'])
+			 && ($favorite == false || $dao['is_favorite'])) {
+				$list[$key] = new Entry (
+					$dao['feed'],
+					$dao['guid'],
+					$dao['title'],
+					$dao['author'],
+					$dao['content'],
+					$dao['link'],
+					$dao['date'],
+					$dao['is_read'],
+					$dao['is_favorite']
+				);
+			}
 		}
 
 		return $list;

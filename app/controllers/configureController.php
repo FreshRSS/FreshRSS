@@ -99,12 +99,21 @@ class configureController extends ActionController {
 			header('Content-type: text/xml');
 			
 			$feedDAO = new FeedDAO ();
-			$this->view->feeds = $feedDAO->listFeeds ();
-		} elseif (Request::isPost ()) {
+			$catDAO = new CategoryDAO ();
+			
+			$list = array ();
+			foreach ($catDAO->listCategories () as $key => $cat) {
+				$list[$key]['name'] = $cat->name ();
+				$list[$key]['feeds'] = $feedDAO->listByCategory ($cat->id ());
+			}
+			
+			$this->view->categories = $list;
+		} elseif ($this->view->req == 'import' && Request::isPost ()) {
 			if ($_FILES['file']['error'] == 0) {
 				$content = file_get_contents ($_FILES['file']['tmp_name']);
 				$feeds = opml_import ($content);
 				
+				Request::_param ('q');
 				Request::_param ('feeds', $feeds);
 				Request::forward (array ('c' => 'feed', 'a' => 'massiveInsert'));
 			}

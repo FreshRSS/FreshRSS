@@ -7,6 +7,14 @@
 	<ul id="menu">
 		<li <?php echo Request::controllerName () == 'index' ? 'class="active"' : ''; ?>>
 			<a href="<?php echo Url::display (array ()); ?>">Flux RSS</a>
+			<?php if (isset ($this->cat_aside)) { ?>
+			<ul id="flux_menu">
+				<li><a href="<?php echo Url::display (array ('params' => array ('get' => 'favoris'))); ?>">Favoris</a></li>
+				<?php foreach ($this->cat_aside as $cat) { ?>
+				<li><a href="<?php echo Url::display (array ('params' => array ('get' => $cat->id ()))); ?>"><?php echo $cat->name (); ?></a></li>
+				<?php } ?>
+			</ul>
+			<?php } ?>
 		</li>
 		<li <?php echo Request::controllerName () == 'configure' ? 'class="active"' : ''; ?>>
 			<a href="<?php echo Url::display (array ('c' => 'configure', 'a' => 'flux')); ?>">Configurer</a>
