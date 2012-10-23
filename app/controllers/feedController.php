@@ -96,16 +96,56 @@ class feedController extends ActionController {
 		Request::forward (array (), true);
 	}
 	
-	public function massiveImport () {
+	public function massiveImportAction () {
+		$entryDAO = new EntryDAO ();
 		$feedDAO = new FeedDAO ();
+		$catDAO = new CategoryDAO ();
+		
+		$categories = Request::param ('categories', array ());
 		$feeds = Request::param ('feeds', array ());
 		
+		foreach ($categories as $cat) {
+			$values = array (
+				'id' => $cat->id (),
+				'name' => $cat->name (),
+				'color' => $cat->color ()
+			);
+			$catDAO->addCategory ($values);
+			$catDAO->save ();
+		}
+		
 		foreach ($feeds as $feed) {
+			$feed->load ();
+			$entries = $feed->entries (false);
+			$feed_entries = array ();
+			
+			// Chargement du flux
+			if ($entries !== false) {
+				foreach ($entries as $entry) {
+					$values = array (
+						'id' => $entry->id (),
+						'guid' => $entry->guid (),
+						'title' => $entry->title (),
+						'author' => $entry->author (),
+						'content' => $entry->content (),
+						'link' => $entry->link (),
+						'date' => $entry->date (true),
+						'is_read' => $entry->isRead (),
+						'is_favorite' => $entry->isFavorite (),
+						'feed' => $feed->id ()
+					);
+					$entryDAO->addEntry ($values);
+					
+					$feed_entries[] = $entry->id ();
+				}
+			}
+			
+			// Enregistrement du flux
 			$values = array (
 				'id' => $feed->id (),
 				'url' => $feed->url (),
 				'category' => $feed->category (),
-				'entries' => array (),
+				'entries' => $feed_entries,
 				'name' => $feed->name (),
 				'website' => $feed->website (),
 				'description' => $feed->description (),

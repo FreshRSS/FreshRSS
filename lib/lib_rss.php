@@ -1,13 +1,12 @@
 <?php
 // tiré de Shaarli de Seb Sauvage
 function small_hash ($txt) {
+	$t = rtrim (base64_encode (hash ('crc32', $txt, true)), '=');
+	$t = str_replace ('+', '-', $t); // Get rid of characters which need encoding in URLs.
+	$t = str_replace ('/', '_', $t);
+	$t = str_replace ('=', '@', $t);
 
-    $t = rtrim (base64_encode (hash ('crc32', $txt, true)), '=');
-    $t = str_replace ('+', '-', $t); // Get rid of characters which need encoding in URLs.
-    $t = str_replace ('/', '_', $t);
-    $t = str_replace ('=', '@', $t);
-    
-    return $t;
+	return $t;
 }
 
 function timestamptodate ($t, $hour = true) {
@@ -90,5 +89,65 @@ function opml_export ($cats) {
 }
 
 function opml_import ($xml) {
-	// TODO
+	$opml = @simplexml_load_string ($xml);
+
+	if (!$opml) {
+		return array (array (), array ());
+	}
+
+	$categories = array ();
+	$feeds = array ();
+
+	foreach ($opml->body->outline as $outline) {
+		if (!isset ($outline['xmlUrl'])) {
+			// Catégorie
+			$title = '';
+			
+			if (isset ($outline['text'])) {
+				$title = (string) $outline['text'];
+			} elseif (isset ($outline['title'])) {
+				$title = (string) $outline['title'];
+			}
+			
+			if ($title) {
+				$cat = new Category ($title);
+				$categories[] = $cat;
+				
+				$feeds = array_merge ($feeds, getFeedsOutline ($outline, $cat->id ()));
+			}
+		} else {
+			// Flux rss
+			$feeds[] = getFeed ($outline, '');
+		}
+	}
+
+	return array ($categories, $feeds);
+}
+
+/**
+ * import all feeds of a given outline tag
+ */
+function getFeedsOutline ($outline, $cat_id) {
+	$feeds = array ();
+	
+	foreach ($outline->children () as $child) {
+		if (isset ($child['xmlUrl'])) {
+			$feeds[] = getFeed ($child, $cat_id);
+		} else {
+			$feeds = array_merge(
+				$feeds,
+				getFeedsOutline ($child, $cat_id)
+			);
+		}
+	}
+	
+	return $feeds;
+}
+
+function getFeed ($outline, $cat_id) {
+	$url = (string) $outline['xmlUrl'];
+	$feed = new Feed ($url);
+	$feed->_category ($cat_id);
+
+	return $feed;
 }

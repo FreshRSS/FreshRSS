@@ -26,7 +26,7 @@ class entryController extends ActionController {
 		
 		$entryDAO = new EntryDAO ();
 		if ($id == false) {
-			$entries = $entryDAO->listNotReadEntries ();
+			$entries = $entryDAO->listEntries ('not_read');
 		} else {
 			$entry = $entryDAO->searchById ($id);
 			$entries = $entry !== false ? array ($entry) : array ();

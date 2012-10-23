@@ -5184,6 +5184,9 @@ class SimplePie_IRI
 			{
 				$match['fragment'] = null;
 			}
+
+			$match['path'] = preg_replace ('#//#', '/', $match['path']); // fix un bug lorsque 2 slashs se suivent
+
 			return $match;
 		}
 		else

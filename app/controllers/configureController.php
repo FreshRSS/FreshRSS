@@ -110,12 +110,12 @@ class configureController extends ActionController {
 			$this->view->categories = $list;
 		} elseif ($this->view->req == 'import' && Request::isPost ()) {
 			if ($_FILES['file']['error'] == 0) {
-				$content = file_get_contents ($_FILES['file']['tmp_name']);
-				$feeds = opml_import ($content);
+				list ($categories, $feeds) = opml_import (file_get_contents ($_FILES['file']['tmp_name']));
 				
-				Request::_param ('q');
+				Request::_param ('q', 'null');
+				Request::_param ('categories', $categories);
 				Request::_param ('feeds', $feeds);
-				Request::forward (array ('c' => 'feed', 'a' => 'massiveInsert'));
+				Request::forward (array ('c' => 'feed', 'a' => 'massiveImport'));
 			}
 		}
 	}

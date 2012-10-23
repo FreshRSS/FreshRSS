@@ -14,7 +14,7 @@
 
 <form method="post" action="<?php echo Url::display (array ('c' => 'configure', 'a' => 'importExport', 'params' => array ('q' => 'import'))); ?>" enctype="multipart/form-data">
 	<h1>Exporter au format OPML</h1>
-	<a class="button" href="<?php echo Url::display (array ('c' => 'configure', 'a' => 'importExport', 'params' => array ('q' => 'export'))); ?>">Exporter</a>
+	<button formaction="<?php echo Url::display (array ('c' => 'configure', 'a' => 'importExport', 'params' => array ('q' => 'export'))); ?>">Exporter</button>
 	
 	<h1>Importer au format OPML</h1>
 	<label for="file">Fichier</label>

@@ -14,23 +14,6 @@ a {
 	a:hover {
 		text-decoration: underline;
 	}
-	a.add, a.update, a.delete, a.back {
-		height: 30px;
-		padding: 0 20px;
-		line-height: 30px;
-	}
-		a.add {
-			background: url("img/add.png") no-repeat left 3px;
-		}
-		a.update {
-			background: url("img/update.png") no-repeat left 3px;
-		}
-		a.delete {
-			background: url("img/delete.png") no-repeat left 3px;
-		}
-		a.back {
-			background: url("img/back.png") no-repeat left 5px;
-		}
 
 /* LISTES */
 ul, ol {
@@ -89,7 +72,7 @@ form {
 			line-height: 150%;
 			font-family: Monospace;
 		}
-	input[type="submit"] {
+	input[type="submit"], button {
 		width: 100%;
 		margin: 5px 0 5px;
 		padding: 5px 0;
