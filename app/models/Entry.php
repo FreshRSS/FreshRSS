@@ -161,6 +161,22 @@ class EntryDAO extends Model_pdo {
 		}
 	}
 	
+	public function cleanOldEntries ($nb_month) {
+		$date = 60 * 60 * 24 * 30 * $nb_month;
+		$sql = 'DELETE FROM entry WHERE date <= ? AND is_favorite = 0';
+		$stm = $this->bd->prepare ($sql);
+
+		$values = array (
+			time () - $date
+		);
+		
+		if ($stm && $stm->execute ($values)) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
 	public function searchById ($id) {
 		$sql = 'SELECT * FROM entry WHERE id=?';
 		$stm = $this->bd->prepare ($sql);
@@ -191,7 +207,7 @@ class EntryDAO extends Model_pdo {
 		}
 		
 		$sql = 'SELECT * FROM entry' . $where . ' ORDER BY date' . $order;
-		$stm = $this->bd->prepare ($sql); 
+		$stm = $this->bd->prepare ($sql);
 		$stm->execute ();
 
 		return HelperEntry::daoToEntry ($stm->fetchAll (PDO::FETCH_ASSOC));
@@ -241,11 +257,20 @@ class EntryDAO extends Model_pdo {
 	}
 	
 	public function count () {
-		$sql = 'SELECT COUNT (*) AS count FROM entry';
-		$stm = $this->bd->prepare ($sql); 
+		$sql = 'SELECT COUNT(*) AS count FROM entry';
+		$stm = $this->bd->prepare ($sql);
 		$stm->execute ();
 		$res = $stm->fetchAll (PDO::FETCH_ASSOC);
 
+		return $res[0]['count'];
+	}
+	
+	public function countNotRead () {
+		$sql = 'SELECT COUNT(*) AS count FROM entry WHERE is_read=0';
+		$stm = $this->bd->prepare ($sql);
+		$stm->execute ();
+		$res = $stm->fetchAll (PDO::FETCH_ASSOC);
+		
 		return $res[0]['count'];
 	}
 }

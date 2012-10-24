@@ -161,7 +161,7 @@ class FeedDAO extends Model_pdo {
 	
 	public function listFeeds () {
 		$sql = 'SELECT * FROM feed';
-		$stm = $this->bd->prepare ($sql); 
+		$stm = $this->bd->prepare ($sql);
 		$stm->execute ();
 
 		return HelperFeed::daoToFeed ($stm->fetchAll (PDO::FETCH_ASSOC));
@@ -179,8 +179,8 @@ class FeedDAO extends Model_pdo {
 	}
 	
 	public function count () {
-		$sql = 'SELECT COUNT (*) AS count FROM feed';
-		$stm = $this->bd->prepare ($sql); 
+		$sql = 'SELECT COUNT(*) AS count FROM feed';
+		$stm = $this->bd->prepare ($sql);
 		$stm->execute ();
 		$res = $stm->fetchAll (PDO::FETCH_ASSOC);
 

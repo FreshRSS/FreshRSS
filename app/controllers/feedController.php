@@ -70,10 +70,10 @@ class feedController extends ActionController {
 					'id_feed' => $feed->id ()
 				);
 				$entryDAO->addEntry ($values);
-				
-				// TODO gérer suppression des articles trop vieux (à paramétrer)
 			}
 		}
+		
+		$entryDAO->cleanOldEntries ($this->view->conf->oldEntries ());
 		
 		Request::forward (array (), true);
 	}

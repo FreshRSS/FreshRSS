@@ -68,17 +68,20 @@ class configureController extends ActionController {
 			$view = Request::param ('default_view', 'all');
 			$display = Request::param ('display_posts', 'no');
 			$sort = Request::param ('sort_order', 'low_to_high');
+			$old = Request::param ('old_entries', 3);
 		
 			$this->view->conf->_postsPerPage (intval ($nb));
 			$this->view->conf->_defaultView ($view);
 			$this->view->conf->_displayPosts ($display);
 			$this->view->conf->_sortOrder ($sort);
+			$this->view->conf->_oldEntries ($old);
 		
 			$values = array (
 				'posts_per_page' => $this->view->conf->postsPerPage (),
 				'default_view' => $this->view->conf->defaultView (),
 				'display_posts' => $this->view->conf->displayPosts (),
-				'sort_order' => $this->view->conf->sortOrder ()
+				'sort_order' => $this->view->conf->sortOrder (),
+				'old_entries' => $this->view->conf->oldEntries (),
 			);
 		
 			$confDAO = new RSSConfigurationDAO ();

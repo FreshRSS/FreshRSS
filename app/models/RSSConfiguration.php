@@ -5,6 +5,7 @@ class RSSConfiguration extends Model {
 	private $default_view;
 	private $display_posts;
 	private $sort_order;
+	private $old_entries;
 	
 	public function __construct () {
 		$confDAO = new RSSConfigurationDAO ();
@@ -12,6 +13,7 @@ class RSSConfiguration extends Model {
 		$this->_defaultView ($confDAO->default_view);
 		$this->_displayPosts ($confDAO->display_posts);
 		$this->_sortOrder ($confDAO->sort_order);
+		$this->_oldEntries ($confDAO->old_entries);
 	}
 	
 	public function postsPerPage () {
@@ -25,6 +27,9 @@ class RSSConfiguration extends Model {
 	}
 	public function sortOrder () {
 		return $this->sort_order;
+	}
+	public function oldEntries () {
+		return $this->old_entries;
 	}
 	
 	public function _postsPerPage ($value) {
@@ -55,6 +60,13 @@ class RSSConfiguration extends Model {
 			$this->sort_order = 'low_to_high';
 		}
 	}
+	public function _oldEntries ($value) {
+		if (is_int (intval ($value))) {
+			$this->old_entries = $value;
+		} else {
+			$this->old_entries = 3;
+		}
+	}
 }
 
 class RSSConfigurationDAO extends Model_array {
@@ -62,6 +74,7 @@ class RSSConfigurationDAO extends Model_array {
 	public $default_view = 'all';
 	public $display_posts = 'no';
 	public $sort_order = 'low_to_high';
+	public $old_entries = 3;
 
 	public function __construct () {
 		parent::__construct (PUBLIC_PATH . '/data/db/Configuration.array.php');
@@ -77,6 +90,9 @@ class RSSConfigurationDAO extends Model_array {
 		}
 		if (isset ($this->array['sort_order'])) {
 			$this->sort_order = $this->array['sort_order'];
+		}
+		if (isset ($this->array['old_entries'])) {
+			$this->old_entries = $this->array['old_entries'];
 		}
 	}
 	

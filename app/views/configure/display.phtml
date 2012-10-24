@@ -4,6 +4,9 @@
 	<label for="posts_per_page">Nombre d'articles par page</label>
 	<input type="number" id="posts_per_page" name="posts_per_page" value="<?php echo $this->conf->postsPerPage (); ?>" />
 	
+	<label for="old_entries">Supprimer les articles au bout de (mois)</label>
+	<input type="number" id="old_entries" name="old_entries" value="<?php echo $this->conf->oldEntries (); ?>" />
+	
 	<label>Vue par défaut</label>
 	<div class="radio_group">
 		<input type="radio" name="default_view" id="radio_all" value="all"<?php echo $this->conf->defaultView () == 'all' ? ' checked="checked"' : ''; ?> />

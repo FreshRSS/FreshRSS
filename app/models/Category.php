@@ -23,6 +23,10 @@ class Category extends Model {
 	public function color () {
 		return $this->color;
 	}
+	public function nbFlux () {
+		$catDAO = new CategoryDAO ();
+		return $catDAO->countFlux ($this->id ());
+	}
 	
 	public function _id ($value) {
 		$this->id = $value;
@@ -76,7 +80,7 @@ class CategoryDAO extends Model_pdo {
 	
 	public function deleteCategory ($id) {
 		$sql = 'DELETE FROM category WHERE id=?';
-		$stm = $this->bd->prepare ($sql); 
+		$stm = $this->bd->prepare ($sql);
 
 		$values = array ($id);
 
@@ -106,16 +110,26 @@ class CategoryDAO extends Model_pdo {
 	
 	public function listCategories () {
 		$sql = 'SELECT * FROM category';
-		$stm = $this->bd->prepare ($sql); 
+		$stm = $this->bd->prepare ($sql);
 		$stm->execute ();
 
 		return HelperCategory::daoToCategory ($stm->fetchAll (PDO::FETCH_ASSOC));
 	}
 	
 	public function count () {
-		$sql = 'SELECT COUNT (*) AS count FROM category';
-		$stm = $this->bd->prepare ($sql); 
+		$sql = 'SELECT COUNT(*) AS count FROM category';
+		$stm = $this->bd->prepare ($sql);
 		$stm->execute ();
+		$res = $stm->fetchAll (PDO::FETCH_ASSOC);
+
+		return $res[0]['count'];
+	}
+	
+	public function countFlux ($id) {
+		$sql = 'SELECT COUNT(*) AS count FROM feed WHERE category=?';
+		$stm = $this->bd->prepare ($sql);
+		$values = array ($id);
+		$stm->execute ($values);
 		$res = $stm->fetchAll (PDO::FETCH_ASSOC);
 
 		return $res[0]['count'];

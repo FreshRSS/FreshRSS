@@ -37,5 +37,8 @@ class App_FrontController extends FrontController {
 	
 	private function loadParamsView () {
 		View::_param ('conf', Session::param ('conf', new RSSConfiguration ()));
+		
+		$entryDAO = new EntryDAO ();
+		View::_param ('nb_not_read', $entryDAO->countNotRead ());
 	}
 }

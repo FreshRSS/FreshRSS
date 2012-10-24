@@ -115,23 +115,27 @@ form {
 				overflow: hidden;
 				line-height: 50px;
 			}
-				.aside li a, .aside li span {
+				.aside li > a, .aside li > span {
 					display: block;
 					width: 230px;
 					padding: 0 10px;
 				}
-					.aside li a:hover, .aside li span:hover {
+					.aside li > a:hover, .aside li > span:hover {
 						text-decoration: none;
 						background: #f0f0f0;
 					}
-					.aside li.disable span {
+					.aside li.disable > span {
 						background: #fff;
 					}
-				.aside li.active a {
+					.aside li > a span {
+						font-size: 90%;
+						float: right;
+					}
+				.aside li.active > a {
 					background: #0062BE;
 					color: #fff;
 				}
-				.aside li h2 {
+				.aside li > h2 {
 					height: 50px;
 					padding: 0;
 					text-align: center;
