@@ -8,10 +8,20 @@ class feedController extends ActionController {
 			try {
 				$feed = new Feed ($url);
 				$feed->load ();
-				$entries = $feed->entries ();
+				
+				$feedDAO = new FeedDAO ();
+				$values = array (
+					'id' => $feed->id (),
+					'url' => $feed->url (),
+					'category' => null,
+					'name' => $feed->name (),
+					'website' => $feed->website (),
+					'description' => $feed->description (),
+				);
+				$feedDAO->addFeed ($values);
 				
 				$entryDAO = new EntryDAO ();
-				
+				$entries = $feed->entries ();
 				foreach ($entries as $entry) {
 					$values = array (
 						'id' => $entry->id (),
@@ -27,17 +37,6 @@ class feedController extends ActionController {
 					);
 					$entryDAO->addEntry ($values);
 				}
-				
-				$feedDAO = new FeedDAO ();
-				$values = array (
-					'id' => $feed->id (),
-					'url' => $feed->url (),
-					'category' => $feed->category (),
-					'name' => $feed->name (),
-					'website' => $feed->website (),
-					'description' => $feed->description (),
-				);
-				$feedDAO->addFeed ($values);
 			} catch (Exception $e) {
 				// TODO ajouter une erreur : url non valide
 			}

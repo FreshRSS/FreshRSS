@@ -130,10 +130,10 @@ class FeedDAO extends Model_pdo {
 		$sql = 'UPDATE feed SET ' . $set . ' WHERE id=?';
 		$stm = $this->bd->prepare ($sql);
 
-		$values = array_merge (
-			$valuesTmp,
-			array ($id)
-		);
+		foreach ($valuesTmp as $v) {
+			$values[] = $v;
+		}
+		$values[] = $id;
 
 		if ($stm && $stm->execute ($values)) {
 			return true;
