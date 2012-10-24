@@ -70,18 +70,18 @@ $(document).ready (function () {
 	});
 	
 	// Touches de navigation
-	/*shortcut.add("up", function () {
+	shortcut.add("page_up", function () {
 		old_active = $(".post.flux.active");
 		last_active = $(".post.flux:last");
 		new_active = old_active.prev ();
 		
 		if (new_active[0] instanceof HTMLDivElement) {
 			slide (new_active, old_active);
-		} else {
+		} else if (new_active[0] === undefined) {
 			slide (last_active, old_active);
 		}
-	});*/
-	shortcut.add("space", function () {
+	});
+	shortcut.add("page_down", function () {
 		old_active = $(".post.flux.active");
 		first_active = $(".post.flux:first");
 		new_active = old_active.next ();
