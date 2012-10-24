@@ -79,13 +79,17 @@ function opml_export ($cats) {
 		$txt .= '<outline text="' . $cat['name'] . '">' . "\n";
 		
 		foreach ($cat['feeds'] as $feed) {
-			$txt .= "\t" . '<outline text="' . $feed->name () . '" type="rss" xmlUrl="' . $feed->url () . '" htmlUrl="' . $feed->website () . '" />' . "\n";
+			$txt .= "\t" . '<outline text="' . cleanText ($feed->name ()) . '" type="rss" xmlUrl="' . $feed->url () . '" htmlUrl="' . $feed->website () . '" />' . "\n";
 		}
 		
 		$txt .= '</outline>' . "\n";
 	}
 	
 	return $txt;
+}
+
+function cleanText ($text) {
+	return preg_replace ('/&[\w]+;/', '', $text);
 }
 
 function opml_import ($xml) {

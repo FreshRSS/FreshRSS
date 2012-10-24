@@ -122,7 +122,7 @@ form {
 				}
 					.aside li a:hover, .aside li span:hover {
 						text-decoration: none;
-						background: #fafafa;
+						background: #f0f0f0;
 					}
 					.aside li.disable span {
 						background: #fff;
@@ -184,7 +184,7 @@ form {
 				color: #0062BE;
 			}
 				.aside #flux_menu a:hover {
-					background: #fafafa;
+					background: #f0f0f0;
 				}
 	#main {
 		display: table-cell;
@@ -274,6 +274,12 @@ form {
 		.post.flux .content {
 			padding: 10px 20px;
 		}
+			.post.flux .content h1, .post.flux .content h2, .post.flux .content h3 {
+				margin: 20px 0;
+			}
+			.post.flux .content p {
+				margin: 20px 0;
+			}
 			.post.flux .content img {
 				border-radius: 5px;
 			}
@@ -287,15 +293,13 @@ form {
 				color: #fafafa;
 				border-radius: 5px;
 			}
-			.post.flux .content q {
+			.post.flux .content q, .post.flux .content blockquote {
 				display: block;
-				width: 90%;
-				margin: 10px auto;
-				padding: 10px;
+				margin: 10px 0;
+				padding: 0 20px;
 				font-style: italic;
-				border-left: 15px solid #ccc;
-				color: #669;
-				border-radius: 5px 0 0 5px;
+				border-left: 2px solid #ccc;
+				color: #666;
 			}
 		.post.flux.not_read {
 			border-left: 5px solid #FF5300;

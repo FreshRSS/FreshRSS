@@ -32,7 +32,7 @@ class entryController extends ActionController {
 		if ($id == false) {
 			$entryDAO->updateEntries ($values);
 		} else {
-			$entryDAO->updateEntry ($entry->id (), $values);
+			$entryDAO->updateEntry ($id, $values);
 		}
 	}
 	
