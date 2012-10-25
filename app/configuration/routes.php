@@ -46,6 +46,12 @@ return array (
 	
 	// Entry
 	array (
+		'route'      => '/articles/marquer.php\?id=([\w\d\-_]{6})&lu=([\d]{1})',
+		'controller' => 'entry',
+		'action'     => 'read',
+		'params'     => array ('id', 'is_read')
+	),
+	array (
 		'route'      => '/articles/marquer.php\?lu=([\d]{1})',
 		'controller' => 'entry',
 		'action'     => 'read',
@@ -56,12 +62,6 @@ return array (
 		'controller' => 'entry',
 		'action'     => 'bookmark',
 		'params'     => array ('id', 'is_favorite')
-	),
-	array (
-		'route'      => '/articles/marquer.php\?id=([\w\d\-_]{6})&lu=([\d]{1})',
-		'controller' => 'entry',
-		'action'     => 'read',
-		'params'     => array ('id', 'is_read')
 	),
 	
 	
