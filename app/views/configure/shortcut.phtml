@@ -9,6 +9,8 @@
 <form method="post" action="">
 	<h1>Gérer les raccourcis</h1>
 	
+	<noscript>Le javascript doit être activé pour pouvoir utiliser les raccourcis</noscript>
+	
 	<label for="mark_read">Marquer l'article comme lu / non lu</label>
 	<input type="text" id="mark_read" name="shortcuts[mark_read]" list="keys" value="<?php echo $s['mark_read']; ?>" />
 	<p>+ <code>shift</code> pour marquer tous les articles</p>
