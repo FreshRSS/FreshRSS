@@ -28,45 +28,85 @@ function slide (new_active, old_active) {
 	}
 }
 
+function mark_read (active) {
+	url =  active.find ("a.read").attr ("href");
+	
+	$.ajax ({
+		type: 'POST',
+		url: url,
+		data : { ajax: true }
+	}).done (function (data) {
+		res = jQuery.parseJSON(data);
+		
+		active.find ("a.read").attr ("href", res.url);
+		if (active.hasClass ("not_read")) {
+			active.removeClass ("not_read");
+			active.find ("a.read").html ("Marquer comme non lu");
+		} else {
+			active.addClass ("not_read");
+			active.find ("a.read").html ("J'ai fini de lire l'article");
+		}
+	});
+}
+
+function mark_favorite (active) {
+	url =  active.find ("a.bookmark").attr ("href");
+	
+	$.ajax ({
+		type: 'POST',
+		url: url,
+		data : { ajax: true }
+	}).done (function (data) {
+		res = jQuery.parseJSON(data);
+		
+		active.find ("a.bookmark").attr ("href", res.url);
+		if (active.hasClass ("favorite")) {
+			active.removeClass ("favorite");
+			active.find ("a.bookmark").html ("Ajouter l'article à mes favoris");
+		} else {
+			active.addClass ("favorite");
+			active.find ("a.bookmark").html ("Retirer l'article de mes favoris");
+		}
+	});
+}
+
 $(document).ready (function () {
 	if (hide_posts) {
 		$(".post.flux .content").slideToggle ();
 	}
+	
+	$(".post.flux").click (function () {
+		old_active = $(".post.flux.active");
+		new_active = $(this);
+		
+		if (old_active[0] != new_active[0]) {
+			slide (new_active, old_active);
+		}
+	});
+	
+	$(".post.flux a.read").click (function () {
+		active = $(this).parents (".post.flux");
+		mark_read (active);
+	
+		return false;
+	});
+	$(".post.flux a.bookmark").click (function () {
+		active = $(this).parents (".post.flux");
+		mark_favorite (active);
+	
+		return false;
+	});
 
 	// Touches de manipulation
 	shortcut.add("m", function () {
 		// on marque comme lu ou non lu
 		active = $(".post.flux.active");
-		url =  active.find ("a.read").attr ("href");
-		
-		$.ajax ({
-			type: 'POST',
-			url: url,
-			data : { ajax: true }
-		}).done (function () {
-			if (active.hasClass ("not_read")) {
-				active.removeClass ("not_read");
-			} else {
-				active.addClass ("not_read");
-			}
-		});
+		mark_read (active);
 	});
 	shortcut.add("f", function () {
 		// on marque comme favori ou non favori
 		active = $(".post.flux.active");
-		url =  active.find ("a.bookmark").attr ("href");
-		
-		$.ajax ({
-			type: 'POST',
-			url: url,
-			data : { ajax: true }
-		}).done (function () {
-			if (active.hasClass ("favorite")) {
-				active.removeClass ("favorite");
-			} else {
-				active.addClass ("favorite");
-			}
-		});
+		mark_favorite (active);
 	});
 	
 	// Touches de navigation
@@ -107,15 +147,5 @@ $(document).ready (function () {
 		}
 		
 		redirect (url);
-	});
-	
-	
-	$(".post.flux").click (function () {
-		old_active = $(".post.flux.active");
-		new_active = $(this);
-		
-		if (old_active[0] != new_active[0]) {
-			slide (new_active, old_active);
-		}
 	});
 });

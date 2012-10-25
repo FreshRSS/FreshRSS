@@ -109,7 +109,7 @@ class CategoryDAO extends Model_pdo {
 	}
 	
 	public function listCategories () {
-		$sql = 'SELECT * FROM category';
+		$sql = 'SELECT * FROM category ORDER BY name';
 		$stm = $this->bd->prepare ($sql);
 		$stm->execute ();
 

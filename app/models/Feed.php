@@ -160,7 +160,7 @@ class FeedDAO extends Model_pdo {
 	}
 	
 	public function listFeeds () {
-		$sql = 'SELECT * FROM feed';
+		$sql = 'SELECT * FROM feed ORDER BY name';
 		$stm = $this->bd->prepare ($sql);
 		$stm->execute ();
 
@@ -168,7 +168,7 @@ class FeedDAO extends Model_pdo {
 	}
 	
 	public function listByCategory ($cat) {
-		$sql = 'SELECT * FROM feed WHERE category=?';
+		$sql = 'SELECT * FROM feed WHERE category=? ORDER BY name';
 		$stm = $this->bd->prepare ($sql);
 		
 		$values = array ($cat);

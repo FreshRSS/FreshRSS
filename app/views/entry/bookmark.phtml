@@ -1,0 +1,15 @@
+<?php
+
+if (Request::param ('is_favorite')) {
+	Request::_param ('is_favorite', 0);
+} else {
+	Request::_param ('is_favorite', 1);
+}
+
+$url = Url::display (array (
+	'c' => Request::controllerName (),
+	'a' => Request::actionName (),
+	'params' => Request::params (),
+));
+
+echo json_encode (array ('url' => preg_replace ('#&amp;#i', '&', $url)));

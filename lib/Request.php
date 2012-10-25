@@ -59,8 +59,12 @@ class Request {
 		
 		self::$params = $params;
 	}
-	public static function _param ($key, $value) {
-		self::$params[$key] = $value;
+	public static function _param ($key, $value = null) {
+		if (is_null ($value)) {
+			unset (self::$params[$key]);
+		} else {
+			self::$params[$key] = $value;
+		}
 	}
 	
 	/**

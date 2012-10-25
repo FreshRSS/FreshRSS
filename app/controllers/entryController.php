@@ -11,6 +11,8 @@ class entryController extends ActionController {
 		$ajax = Request::param ('ajax');
 		if (!$ajax) {
 			Request::forward (array (), true);
+		} else {
+			Request::_param ('ajax');
 		}
 	}
 
