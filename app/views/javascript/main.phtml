@@ -146,6 +146,14 @@ $(document).ready (function () {
 			slide (last_active, old_active);
 		}
 	});
+	shortcut.add("shift+<?php echo $s['prev_entry']; ?>", function () {
+		old_active = $(".post.flux.active");
+		first = $(".post.flux:first");
+		
+		if (first[0] instanceof HTMLDivElement) {
+			slide (first, old_active);
+		}
+	});
 	shortcut.add("<?php echo $s['next_entry']; ?>", function () {
 		old_active = $(".post.flux.active");
 		first_active = $(".post.flux:first");
@@ -157,20 +165,28 @@ $(document).ready (function () {
 			slide (first_active, old_active);
 		}
 	});
+	shortcut.add("shift+<?php echo $s['next_entry']; ?>", function () {
+		old_active = $(".post.flux.active");
+		last = $(".post.flux:last");
+		
+		if (last[0] instanceof HTMLDivElement) {
+			slide (last, old_active);
+		}
+	});
 	shortcut.add("<?php echo $s['next_page']; ?>", function () {
 		url = $(".pager-next a").attr ("href");
-		if (url === undefined) {
-			url = $(".pager-first a").attr ("href");
-		}
-		
+		redirect (url);
+	});
+	shortcut.add("shift+<?php echo $s['next_page']; ?>", function () {
+		url = $(".pager-last a").attr ("href");
 		redirect (url);
 	});
 	shortcut.add("<?php echo $s['prev_page']; ?>", function () {
 		url = $(".pager-previous a").attr ("href");
-		if (url === undefined) {
-			url = $(".pager-last a").attr ("href");
-		}
-		
+		redirect (url);
+	});
+	shortcut.add("shift+<?php echo $s['prev_page']; ?>", function () {
+		url = $(".pager-first a").attr ("href");
 		redirect (url);
 	});
 	shortcut.add("<?php echo $s['go_website']; ?>", function () {

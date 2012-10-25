@@ -239,6 +239,6 @@ class Router {
 	 		}
 	 	}
 	 	
-	 	return $uri;
+	 	return str_replace ('&', '&amp;', $uri);
 	 }
 }

@@ -5,7 +5,7 @@
 			<?php if (!empty ($this->feeds)) { ?>
 			<?php foreach ($this->feeds as $feed) { ?>
 			<li <?php echo ($this->flux && $this->flux->id () == $feed->id ()) ? 'class="active"' : ''; ?>>
-				<a href="<?php echo Url::display (array ('c' => 'configure', 'a' => 'flux', 'params' => array ('id' => $feed->id ()))); ?>"><?php echo $feed->name (); ?></a>
+				<a href="<?php echo Url::display (array ('c' => 'configure', 'a' => 'feed', 'params' => array ('id' => $feed->id ()))); ?>"><?php echo $feed->name (); ?></a>
 			</li>
 			<?php } ?>
 			<?php } else { ?>

@@ -21,7 +21,7 @@
 		</li>
 		<?php if (!login_is_conf ($this->conf) || is_logged ()) { ?>
 		<li <?php echo Request::controllerName () == 'configure' ? 'class="active"' : ''; ?>>
-			<a href="<?php echo Url::display (array ('c' => 'configure', 'a' => 'flux')); ?>">Configurer</a>
+			<a href="<?php echo Url::display (array ('c' => 'configure', 'a' => 'feed')); ?>">Configurer</a>
 		</li>
 		<?php } ?>
 		<li>
@@ -44,8 +44,8 @@
 <div class="aside">
 	<ul id="menu">
 		<li><h2>Configuration</h2></li>
-		<li <?php echo Request::actionName () == 'flux' ? 'class="active"' : ''; ?>>
-			<a href="<?php echo Url::display (array ('c' => 'configure', 'a' => 'flux')); ?>">Flux RSS</a>
+		<li <?php echo Request::actionName () == 'feed' ? 'class="active"' : ''; ?>>
+			<a href="<?php echo Url::display (array ('c' => 'configure', 'a' => 'feed')); ?>">Flux RSS</a>
 		</li>
 		<li <?php echo Request::actionName () == 'categorize' ? 'class="active"' : ''; ?>>
 			<a href="<?php echo Url::display (array ('c' => 'configure', 'a' => 'categorize')); ?>">Catégories</a>

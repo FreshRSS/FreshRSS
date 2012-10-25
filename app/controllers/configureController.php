@@ -46,7 +46,7 @@ class configureController extends ActionController {
 		$this->view->categories = $catDAO->listCategories ();
 	}
 	
-	public function fluxAction () {
+	public function feedAction () {
 		$feedDAO = new FeedDAO ();
 		$this->view->feeds = $feedDAO->listFeeds ();
 		
