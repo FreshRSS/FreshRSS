@@ -1,6 +1,15 @@
 <?php
 
 class configureController extends ActionController {
+	public function firstAction () {
+		if (login_is_conf ($this->view->conf) && !is_logged ()) {
+			Error::error (
+				403,
+				array ('error' => array ('Vous n\'avez pas le droit d\'accéder à cette page'))
+			);
+		}
+	}
+
 	public function categorizeAction () {
 		$catDAO = new CategoryDAO ();
 		
@@ -69,12 +78,14 @@ class configureController extends ActionController {
 			$display = Request::param ('display_posts', 'no');
 			$sort = Request::param ('sort_order', 'low_to_high');
 			$old = Request::param ('old_entries', 3);
+			$mail = Request::param ('mail_login', false);
 		
 			$this->view->conf->_postsPerPage (intval ($nb));
 			$this->view->conf->_defaultView ($view);
 			$this->view->conf->_displayPosts ($display);
 			$this->view->conf->_sortOrder ($sort);
 			$this->view->conf->_oldEntries ($old);
+			$this->view->conf->_mailLogin ($mail);
 		
 			$values = array (
 				'posts_per_page' => $this->view->conf->postsPerPage (),
@@ -82,11 +93,13 @@ class configureController extends ActionController {
 				'display_posts' => $this->view->conf->displayPosts (),
 				'sort_order' => $this->view->conf->sortOrder (),
 				'old_entries' => $this->view->conf->oldEntries (),
+				'mail_login' => $this->view->conf->mailLogin (),
 			);
 		
 			$confDAO = new RSSConfigurationDAO ();
 			$confDAO->update ($values);
 			Session::_param ('conf', $this->view->conf);
+			Session::_param ('mail', $this->view->conf->mailLogin ());
 		}
 	}
 	

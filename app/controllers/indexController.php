@@ -2,6 +2,10 @@
 
 class indexController extends ActionController {
 	public function indexAction () {
+		View::appendScript (Url::display ('/scripts/smoothscroll.js'));
+		View::appendScript (Url::display ('/scripts/shortcut.js'));
+		View::appendScript (Url::display (array ('c' => 'javascript', 'a' => 'main')));
+		
 		$entryDAO = new EntryDAO ();
 		$catDAO = new CategoryDAO ();
 		
@@ -41,5 +45,40 @@ class indexController extends ActionController {
 		}
 		
 		Request::forward (array (), true);
+	}
+	
+	public function loginAction () {
+			$this->view->_useLayout (false);
+		
+			$url = 'https://verifier.login.persona.org/verify';
+			$assert = Request::param ('assertion');
+			$params = 'assertion=' . $assert . '&audience=' .
+				  urlencode (Url::display () . ':80');
+			$ch = curl_init ();
+			$options = array (
+				CURLOPT_URL => $url,
+				CURLOPT_RETURNTRANSFER => TRUE,
+				CURLOPT_POST => 2,
+				CURLOPT_POSTFIELDS => $params
+			);
+			curl_setopt_array ($ch, $options);
+			$result = curl_exec ($ch);
+			curl_close ($ch);
+		
+			$res = json_decode ($result, true);
+			if ($res['status'] == 'okay' && $res['email'] == $this->view->conf->mailLogin ()) {
+				Session::_param ('mail', $res['email']);
+			} else {
+				$res = array ();
+				$res['status'] = 'failure';
+				$res['reason'] = 'L\'identifiant est invalide';
+			}
+		
+			$this->view->res = json_encode ($res);
+	}
+	
+	public function logoutAction () {
+		$this->view->_useLayout (false);
+		Session::_param ('mail');
 	}
 }

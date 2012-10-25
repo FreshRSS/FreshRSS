@@ -55,7 +55,7 @@ form {
 		color: #3366cc !important;
 		border: 1px solid #3366cc !important;
 	}
-	input[type="text"], input[type="url"], input[type="number"], textarea {
+	input[type="text"], input[type="url"], input[type="email"], input[type="number"], textarea {
 		display: block;
 		width: 430px;
 		max-width: 95%;
@@ -196,6 +196,7 @@ form {
 		max-width: 800px;
 		line-height: 180%;
 		background: #fafafa;
+		vertical-align: top;
 	}
 		#top {
 			width: 100%;

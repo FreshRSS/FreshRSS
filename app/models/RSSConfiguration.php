@@ -7,6 +7,7 @@ class RSSConfiguration extends Model {
 	private $sort_order;
 	private $old_entries;
 	private $shortcuts = array ();
+	private $mail_login = '';
 	
 	public function __construct () {
 		$confDAO = new RSSConfigurationDAO ();
@@ -16,6 +17,7 @@ class RSSConfiguration extends Model {
 		$this->_sortOrder ($confDAO->sort_order);
 		$this->_oldEntries ($confDAO->old_entries);
 		$this->_shortcuts ($confDAO->shortcuts);
+		$this->_mailLogin ($confDAO->mail_login);
 	}
 	
 	public function postsPerPage () {
@@ -35,6 +37,9 @@ class RSSConfiguration extends Model {
 	}
 	public function shortcuts () {
 		return $this->shortcuts;
+	}
+	public function mailLogin () {
+		return $this->mail_login;
 	}
 	
 	public function _postsPerPage ($value) {
@@ -77,6 +82,13 @@ class RSSConfiguration extends Model {
 			$this->shortcuts[$key] = $value;
 		}
 	}
+	public function _mailLogin ($value) {
+		if (filter_var ($value, FILTER_VALIDATE_EMAIL)) {
+			$this->mail_login = $value;
+		} elseif ($value == false) {
+			$this->mail_login = false;
+		}
+	}
 }
 
 class RSSConfigurationDAO extends Model_array {
@@ -94,6 +106,7 @@ class RSSConfigurationDAO extends Model_array {
 		'next_page' => 'right',
 		'prev_page' => 'left',
 	);
+	public $mail_login = '';
 
 	public function __construct () {
 		parent::__construct (PUBLIC_PATH . '/data/db/Configuration.array.php');
@@ -115,6 +128,9 @@ class RSSConfigurationDAO extends Model_array {
 		}
 		if (isset ($this->array['shortcuts'])) {
 			$this->shortcuts = $this->array['shortcuts'];
+		}
+		if (isset ($this->array['mail_login'])) {
+			$this->mail_login = $this->array['mail_login'];
 		}
 	}
 	

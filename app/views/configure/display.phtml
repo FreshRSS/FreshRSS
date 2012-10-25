@@ -1,11 +1,19 @@
 <form method="post" action="">
+	<h1>Configuration générale</h1>
+	
+	<label for="old_entries">Supprimer les articles au bout de (mois)</label>
+	<input type="number" id="old_entries" name="old_entries" value="<?php echo $this->conf->oldEntries (); ?>" />
+	
+	<label for="mail_login">Adresse mail de connexion (utilise <a href="https://persona.org/">Persona</a>)</label>
+	<p><noscript>nécessite que javascript soit activé</noscript></p>
+	<?php $mail = $this->conf->mailLogin (); ?>
+	<input type="email" id="mail_login" name="mail_login" value="<?php echo $mail ? $mail : ''; ?>" placeholder="Laissez vide pour désactiver" />
+	<br />
+	
 	<h1>Configuration de l'affichage</h1>
 	
 	<label for="posts_per_page">Nombre d'articles par page</label>
 	<input type="number" id="posts_per_page" name="posts_per_page" value="<?php echo $this->conf->postsPerPage (); ?>" />
-	
-	<label for="old_entries">Supprimer les articles au bout de (mois)</label>
-	<input type="number" id="old_entries" name="old_entries" value="<?php echo $this->conf->oldEntries (); ?>" />
 	
 	<label>Vue par défaut</label>
 	<div class="radio_group">

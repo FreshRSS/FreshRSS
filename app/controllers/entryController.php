@@ -2,6 +2,13 @@
 
 class entryController extends ActionController {
 	public function firstAction () {
+		if (login_is_conf ($this->view->conf) && !is_logged ()) {
+			Error::error (
+				403,
+				array ('error' => array ('Vous n\'avez pas le droit d\'accéder à cette page'))
+			);
+		}
+		
 		$ajax = Request::param ('ajax');
 		if ($ajax) {
 			$this->view->_useLayout (false);

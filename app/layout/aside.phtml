@@ -19,16 +19,28 @@
 			</ul>
 			<?php } ?>
 		</li>
+		<?php if (!login_is_conf ($this->conf) || is_logged ()) { ?>
 		<li <?php echo Request::controllerName () == 'configure' ? 'class="active"' : ''; ?>>
 			<a href="<?php echo Url::display (array ('c' => 'configure', 'a' => 'flux')); ?>">Configurer</a>
 		</li>
+		<?php } ?>
 		<li>
 			<a href="<?php echo Url::display (array ('c' => 'feed', 'a' => 'actualize')); ?>">Mettre les flux à jour</a>
 		</li>
+		<?php if (login_is_conf ($this->conf)) { ?>
+		<li>
+			<?php if (!is_logged ()) { ?>
+			<a id="signin" href="#">Connexion</a>
+			<?php } else { ?>
+			<a id="signout" href="#">Déconnexion</a>
+			<?php } ?>
+		</li>
+		<?php } ?>
 	</ul>
 </div>
 
-<?php if (Request::controllerName () == 'configure') { ?>
+<?php if (Request::controllerName () == 'configure' &&
+         (!login_is_conf ($this->conf) || is_logged ())) { ?>
 <div class="aside">
 	<ul id="menu">
 		<li><h2>Configuration</h2></li>
@@ -39,7 +51,7 @@
 			<a href="<?php echo Url::display (array ('c' => 'configure', 'a' => 'categorize')); ?>">Catégories</a>
 		</li>
 		<li <?php echo Request::actionName () == 'display' ? 'class="active"' : ''; ?>>
-			<a href="<?php echo Url::display (array ('c' => 'configure', 'a' => 'display')); ?>">Affichage</a>
+			<a href="<?php echo Url::display (array ('c' => 'configure', 'a' => 'display')); ?>">Général et affichage</a>
 		</li>
 		<li <?php echo Request::actionName () == 'importExport' ? 'class="active"' : ''; ?>>
 			<a href="<?php echo Url::display (array ('c' => 'configure', 'a' => 'importExport')); ?>">Import / Export OPML</a>

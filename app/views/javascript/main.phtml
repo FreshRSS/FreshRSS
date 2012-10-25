@@ -35,6 +35,10 @@ function slide (new_active, old_active) {
 }
 
 function mark_read (active) {
+	if (active[0] === undefined) {
+		return false;
+	}
+
 	url =  active.find ("a.read").attr ("href");
 	
 	$.ajax ({
@@ -56,6 +60,10 @@ function mark_read (active) {
 }
 
 function mark_favorite (active) {
+	if (active[0] === undefined) {
+		return false;
+	}
+
 	url =  active.find ("a.bookmark").attr ("href");
 	
 	$.ajax ({
@@ -87,6 +95,12 @@ $(document).ready (function () {
 		
 		if (old_active[0] != new_active[0]) {
 			slide (new_active, old_active);
+		} else {
+			old_active.removeClass ("active");
+	
+			if (hide_posts) {
+				old_active.children (".content").slideUp (200);
+			}
 		}
 	});
 	
@@ -108,6 +122,11 @@ $(document).ready (function () {
 		// on marque comme lu ou non lu
 		active = $(".post.flux.active");
 		mark_read (active);
+	});
+	shortcut.add("shift+<?php echo $s['mark_read']; ?>", function () {
+		// on marque tout comme lu
+		url = $("#top a.read_all").attr ("href");
+		redirect (url);
 	});
 	shortcut.add("<?php echo $s['mark_favorite']; ?>", function () {
 		// on marque comme favori ou non favori

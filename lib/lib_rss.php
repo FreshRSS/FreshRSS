@@ -1,4 +1,14 @@
 <?php
+// vérifie qu'on est connecté
+function is_logged () {
+	return Session::param ('mail') != false;
+}
+
+// vérifie que le système d'authentification est configuré
+function login_is_conf ($conf) {
+	return $conf->mailLogin () != false;
+}
+
 // tiré de Shaarli de Seb Sauvage
 function small_hash ($txt) {
 	$t = rtrim (base64_encode (hash ('crc32', $txt, true)), '=');
