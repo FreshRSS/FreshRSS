@@ -16,8 +16,13 @@ class indexController extends ActionController {
 		// Récupère les flux par catégorie, favoris ou tous
 		if ($get == 'favoris') {
 			$entries = $entryDAO->listFavorites ($mode, $order);
+			View::prependTitle ('Vos favoris - ');
 		} elseif ($get != false) {
 			$entries = $entryDAO->listByCategory ($get, $mode, $order);
+			$cat = $catDAO->searchById ($get);
+			View::prependTitle ($cat->name () . ' - ');
+		} else {
+			View::prependTitle ('Vos flux RSS - ');
 		}
 		
 		// Cas où on ne choisie ni catégorie ni les favoris

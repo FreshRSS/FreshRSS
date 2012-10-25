@@ -2,8 +2,6 @@
 
 class ErrorController extends ActionController {
 	public function indexAction () {
-		View::prependTitle (Translate::t ('error') . ' - ');
-		
 		switch (Request::param ('code')) {
 		case 403:
 			$this->view->code = 'Error 403 - Forbidden';
@@ -22,5 +20,7 @@ class ErrorController extends ActionController {
 		}
 		
 		$this->view->logs = Request::param ('logs');
+		
+		View::prependTitle ($this->view->code . ' - ');
 	}
 }

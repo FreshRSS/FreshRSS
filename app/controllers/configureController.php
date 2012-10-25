@@ -44,6 +44,8 @@ class configureController extends ActionController {
 		}
 		
 		$this->view->categories = $catDAO->listCategories ();
+		
+		View::prependTitle ('Gestion des catégories - ');
 	}
 	
 	public function feedAction () {
@@ -56,18 +58,29 @@ class configureController extends ActionController {
 		if ($id != false) {
 			$this->view->flux = $feedDAO->searchById ($id);
 			
-			$catDAO = new CategoryDAO ();
-			$this->view->categories = $catDAO->listCategories ();
-			
-			if (Request::isPost () && $this->view->flux) {
-				$cat = Request::param ('category');
-				$values = array (
-					'category' => $cat
+			if (!$this->view->flux) {
+				Error::error (
+					404,
+					array ('error' => array ('La page que vous cherchez n\'existe pas'))
 				);
-				$feedDAO->updateFeed ($id, $values);
+			} else {
+				$catDAO = new CategoryDAO ();
+				$this->view->categories = $catDAO->listCategories ();
+			
+				if (Request::isPost () && $this->view->flux) {
+					$cat = Request::param ('category');
+					$values = array (
+						'category' => $cat
+					);
+					$feedDAO->updateFeed ($id, $values);
 				
-				$this->view->flux->_category ($cat);
+					$this->view->flux->_category ($cat);
+				}
+			
+				View::prependTitle ('Gestion des flux RSS - ' . $this->view->flux->name () . ' - ');
 			}
+		} else {
+			View::prependTitle ('Gestion des flux RSS - ');
 		}
 	}
 	
@@ -101,6 +114,8 @@ class configureController extends ActionController {
 			Session::_param ('conf', $this->view->conf);
 			Session::_param ('mail', $this->view->conf->mailLogin ());
 		}
+		
+		View::prependTitle ('Gestion générale et affichage - ');
 	}
 	
 	public function importExportAction () {
@@ -132,6 +147,8 @@ class configureController extends ActionController {
 				Request::forward (array ('c' => 'feed', 'a' => 'massiveImport'));
 			}
 		}
+		
+		View::prependTitle ('Importation et exportation OPML - ');
 	}
 	
 	public function shortcutAction () {
@@ -167,5 +184,7 @@ class configureController extends ActionController {
 			$confDAO->update ($values);
 			Session::_param ('conf', $this->view->conf);
 		}
+		
+		View::prependTitle ('Gestion des raccourcis - ');
 	}
 }
