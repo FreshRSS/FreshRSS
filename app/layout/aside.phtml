@@ -44,6 +44,9 @@
 		<li <?php echo Request::actionName () == 'importExport' ? 'class="active"' : ''; ?>>
 			<a href="<?php echo Url::display (array ('c' => 'configure', 'a' => 'importExport')); ?>">Import / Export OPML</a>
 		</li>
+		<li <?php echo Request::actionName () == 'shortcut' ? 'class="active"' : ''; ?>>
+			<a href="<?php echo Url::display (array ('c' => 'configure', 'a' => 'shortcut')); ?>">Raccourcis</a>
+		</li>
 	</ul>
 </div>
 <?php } ?>

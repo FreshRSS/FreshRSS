@@ -146,6 +146,19 @@ class FeedDAO extends Model_pdo {
 		}
 	}
 	
+	public function deleteFeed ($id) {
+		$sql = 'DELETE FROM feed WHERE id=?';
+		$stm = $this->bd->prepare ($sql);
+
+		$values = array ($id);
+
+		if ($stm && $stm->execute ($values)) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
 	public function searchById ($id) {
 		$sql = 'SELECT * FROM feed WHERE id=?';
 		$stm = $this->bd->prepare ($sql);

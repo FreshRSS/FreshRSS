@@ -85,7 +85,7 @@ class configureController extends ActionController {
 			);
 		
 			$confDAO = new RSSConfigurationDAO ();
-			$confDAO->save ($values);
+			$confDAO->update ($values);
 			Session::_param ('conf', $this->view->conf);
 		}
 	}
@@ -118,6 +118,41 @@ class configureController extends ActionController {
 				Request::_param ('feeds', $feeds);
 				Request::forward (array ('c' => 'feed', 'a' => 'massiveImport'));
 			}
+		}
+	}
+	
+	public function shortcutAction () {
+		$list_keys = array ('a', 'b', 'backspace', 'c', 'd', 'delete', 'down', 'e', 'end', 'enter',
+		                    'escape', 'f', 'g', 'h', 'i', 'insert', 'j', 'k', 'l', 'left',
+		                    'm', 'n', 'o', 'p', 'page_down', 'page_up', 'q', 'r', 'return', 'right',
+		                    's', 'space', 't', 'tab', 'u', 'up', 'v', 'w', 'x', 'y',
+		                    'z', '0', '1', '2', '3', '4', '5', '6', '7', '8',
+		                    '9', 'f1', 'f2', 'f3', 'f4', 'f5', 'f6', 'f7', 'f8', 'f9',
+		                    'f10', 'f11', 'f12');
+		$this->view->list_keys = $list_keys;
+		$list_names = array ('mark_read', 'mark_favorite', 'go_website', 'next_entry',
+		                     'prev_entry', 'next_page', 'prev_page');
+		
+		if (Request::isPost ()) {
+			$shortcuts = Request::param ('shortcuts');
+			$shortcuts_ok = array ();
+			
+			foreach ($shortcuts as $key => $value) {
+				if (in_array ($key, $list_names)
+				 && in_array ($value, $list_keys)) {
+					$shortcuts_ok[$key] = $value;
+				}
+			}
+			
+			$this->view->conf->_shortcuts ($shortcuts_ok);
+			
+			$values = array (
+				'shortcuts' => $this->view->conf->shortcuts ()
+			);
+			
+			$confDAO = new RSSConfigurationDAO ();
+			$confDAO->update ($values);
+			Session::_param ('conf', $this->view->conf);
 		}
 	}
 }

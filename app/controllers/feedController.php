@@ -129,4 +129,13 @@ class feedController extends ActionController {
 	
 		Request::forward (array ('c' => 'configure', 'a' => 'importExport'));
 	}
+	
+	public function deleteAction () {
+		$id = Request::param ('id');
+		
+		$feedDAO = new FeedDAO ();
+		$feedDAO->deleteFeed ($id);
+		
+		Request::forward (array ('c' => 'configure', 'a' => 'flux'));
+	}
 }

@@ -4,9 +4,15 @@ var hide_posts = true;
 var hide_posts = false;
 <?php } ?>
 
-function redirect (url) {
+<?php $s = $this->conf->shortcuts (); ?>
+
+function redirect (url, new_tab = false) {
 	if (url) {
-		location.href = url;
+		if (new_tab) {
+			window.open (url);
+		} else {
+			location.href = url;
+		}
 	}
 }
 
@@ -98,19 +104,19 @@ $(document).ready (function () {
 	});
 
 	// Touches de manipulation
-	shortcut.add("m", function () {
+	shortcut.add("<?php echo $s['mark_read']; ?>", function () {
 		// on marque comme lu ou non lu
 		active = $(".post.flux.active");
 		mark_read (active);
 	});
-	shortcut.add("f", function () {
+	shortcut.add("<?php echo $s['mark_favorite']; ?>", function () {
 		// on marque comme favori ou non favori
 		active = $(".post.flux.active");
 		mark_favorite (active);
 	});
 	
 	// Touches de navigation
-	shortcut.add("page_up", function () {
+	shortcut.add("<?php echo $s['prev_entry']; ?>", function () {
 		old_active = $(".post.flux.active");
 		last_active = $(".post.flux:last");
 		new_active = old_active.prev ();
@@ -121,7 +127,7 @@ $(document).ready (function () {
 			slide (last_active, old_active);
 		}
 	});
-	shortcut.add("page_down", function () {
+	shortcut.add("<?php echo $s['next_entry']; ?>", function () {
 		old_active = $(".post.flux.active");
 		first_active = $(".post.flux:first");
 		new_active = old_active.next ();
@@ -132,7 +138,7 @@ $(document).ready (function () {
 			slide (first_active, old_active);
 		}
 	});
-	shortcut.add("right", function () {
+	shortcut.add("<?php echo $s['next_page']; ?>", function () {
 		url = $(".pager-next a").attr ("href");
 		if (url === undefined) {
 			url = $(".pager-first a").attr ("href");
@@ -140,12 +146,17 @@ $(document).ready (function () {
 		
 		redirect (url);
 	});
-	shortcut.add("left", function () {
+	shortcut.add("<?php echo $s['prev_page']; ?>", function () {
 		url = $(".pager-previous a").attr ("href");
 		if (url === undefined) {
 			url = $(".pager-last a").attr ("href");
 		}
 		
 		redirect (url);
+	});
+	shortcut.add("<?php echo $s['go_website']; ?>", function () {
+		url = $(".post.flux.active h1.title a").attr ("href");
+		
+		redirect (url, true);
 	});
 });

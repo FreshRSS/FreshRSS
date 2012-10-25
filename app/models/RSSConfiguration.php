@@ -6,6 +6,7 @@ class RSSConfiguration extends Model {
 	private $display_posts;
 	private $sort_order;
 	private $old_entries;
+	private $shortcuts = array ();
 	
 	public function __construct () {
 		$confDAO = new RSSConfigurationDAO ();
@@ -14,6 +15,7 @@ class RSSConfiguration extends Model {
 		$this->_displayPosts ($confDAO->display_posts);
 		$this->_sortOrder ($confDAO->sort_order);
 		$this->_oldEntries ($confDAO->old_entries);
+		$this->_shortcuts ($confDAO->shortcuts);
 	}
 	
 	public function postsPerPage () {
@@ -30,6 +32,9 @@ class RSSConfiguration extends Model {
 	}
 	public function oldEntries () {
 		return $this->old_entries;
+	}
+	public function shortcuts () {
+		return $this->shortcuts;
 	}
 	
 	public function _postsPerPage ($value) {
@@ -67,6 +72,11 @@ class RSSConfiguration extends Model {
 			$this->old_entries = 3;
 		}
 	}
+	public function _shortcuts ($values) {
+		foreach ($values as $key => $value) {
+			$this->shortcuts[$key] = $value;
+		}
+	}
 }
 
 class RSSConfigurationDAO extends Model_array {
@@ -75,6 +85,15 @@ class RSSConfigurationDAO extends Model_array {
 	public $display_posts = 'no';
 	public $sort_order = 'low_to_high';
 	public $old_entries = 3;
+	public $shortcuts = array (
+		'mark_read' => 'r',
+		'mark_favorite' => 'f',
+		'go_website' => 'enter',
+		'next_entry' => 'page_down',
+		'prev_entry' => 'page_up',
+		'next_page' => 'right',
+		'prev_page' => 'left',
+	);
 
 	public function __construct () {
 		parent::__construct (PUBLIC_PATH . '/data/db/Configuration.array.php');
@@ -94,11 +113,12 @@ class RSSConfigurationDAO extends Model_array {
 		if (isset ($this->array['old_entries'])) {
 			$this->old_entries = $this->array['old_entries'];
 		}
+		if (isset ($this->array['shortcuts'])) {
+			$this->shortcuts = $this->array['shortcuts'];
+		}
 	}
 	
-	public function save ($values) {
-		$this->array[0] = array ();
-	
+	public function update ($values) {
 		foreach ($values as $key => $value) {
 			$this->array[0][$key] = $value;
 		}

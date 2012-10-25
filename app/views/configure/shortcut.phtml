@@ -1,0 +1,34 @@
+<datalist id="keys">
+	<?php foreach ($this->list_keys as $key) { ?>
+	<option value="<?php echo $key; ?>">
+	<?php } ?>
+</datalist> 
+
+<?php $s = $this->conf->shortcuts (); ?>
+
+<form method="post" action="">
+	<h1>Gérer les raccourcis</h1>
+	
+	<label for="mark_read">Marquer l'article comme lu</label>
+	<input type="text" id="mark_read" name="shortcuts[mark_read]" list="keys" value="<?php echo $s['mark_read']; ?>" />
+	
+	<label for="mark_favorite">Mettre l'article  en favori</label>
+	<input type="text" id="mark_favorite" name="shortcuts[mark_favorite]" list="keys" value="<?php echo $s['mark_favorite']; ?>" />
+	
+	<label for="go_website">Afficher l'article sur le site d'origine</label>
+	<input type="text" id="go_website" name="shortcuts[go_website]" list="keys" value="<?php echo $s['go_website']; ?>" />
+	
+	<label for="next_entry">Passer à l'article suivant</label>
+	<input type="text" id="next_entry" name="shortcuts[next_entry]" list="keys" value="<?php echo $s['next_entry']; ?>" />
+	
+	<label for="prev_entry">Passer à l'article précédent</label>
+	<input type="text" id="prev_entry" name="shortcuts[prev_entry]" list="keys" value="<?php echo $s['prev_entry']; ?>" />
+	
+	<label for="next_page">Passer à la page suivant</label>
+	<input type="text" id="next_page" name="shortcuts[next_page]" list="keys" value="<?php echo $s['next_page']; ?>" />
+	
+	<label for="prev_page">Passer à la page précédente</label>
+	<input type="text" id="prev_page" name="shortcuts[prev_page]" list="keys" value="<?php echo $s['prev_page']; ?>" />
+	
+	<input type="submit" value="Valider" />
+</form>
