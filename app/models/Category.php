@@ -23,9 +23,9 @@ class Category extends Model {
 	public function color () {
 		return $this->color;
 	}
-	public function nbFlux () {
+	public function nbFeed () {
 		$catDAO = new CategoryDAO ();
-		return $catDAO->countFlux ($this->id ());
+		return $catDAO->countFeed ($this->id ());
 	}
 	
 	public function _id ($value) {
@@ -125,7 +125,7 @@ class CategoryDAO extends Model_pdo {
 		return $res[0]['count'];
 	}
 	
-	public function countFlux ($id) {
+	public function countFeed ($id) {
 		$sql = 'SELECT COUNT(*) AS count FROM feed WHERE category=?';
 		$stm = $this->bd->prepare ($sql);
 		$values = array ($id);

@@ -37,6 +37,10 @@ class Feed extends Model {
 	public function description () {
 		return $this->description;
 	}
+	public function nbEntries () {
+		$feedDAO = new FeedDAO ();
+		return $feedDAO->countEntries ($this->id ());
+	}
 	
 	public function _url ($value) {
 		if (!is_null ($value) && filter_var ($value, FILTER_VALIDATE_URL)) {
@@ -182,6 +186,16 @@ class FeedDAO extends Model_pdo {
 		$sql = 'SELECT COUNT(*) AS count FROM feed';
 		$stm = $this->bd->prepare ($sql);
 		$stm->execute ();
+		$res = $stm->fetchAll (PDO::FETCH_ASSOC);
+
+		return $res[0]['count'];
+	}
+	
+	public function countEntries ($id) {
+		$sql = 'SELECT COUNT(*) AS count FROM entry WHERE id_feed=?';
+		$stm = $this->bd->prepare ($sql);
+		$values = array ($id);
+		$stm->execute ($values);
 		$res = $stm->fetchAll (PDO::FETCH_ASSOC);
 
 		return $res[0]['count'];

@@ -14,7 +14,7 @@
 			<ul id="flux_menu">
 				<li><a href="<?php echo Url::display (array ('params' => array ('get' => 'favoris'))); ?>">Favoris</a></li>
 				<?php foreach ($this->cat_aside as $cat) { ?>
-				<li><a href="<?php echo Url::display (array ('params' => array ('get' => $cat->id ()))); ?>"><?php echo $cat->name (); ?> <span><?php echo $cat->nbFlux (); ?> flux</span></a></li>
+				<li><a href="<?php echo Url::display (array ('params' => array ('get' => $cat->id ()))); ?>"><?php echo $cat->name (); ?> <span><?php echo $cat->nbFeed (); ?> flux</span></a></li>
 				<?php } ?>
 			</ul>
 			<?php } ?>
