@@ -38,6 +38,8 @@ class indexController extends ActionController {
 		$this->view->entryPaginator->_currentPage ($page);
 		
 		$this->view->cat_aside = $catDAO->listCategories ();
+		$this->view->nb_favorites = $entryDAO->countFavorites ();
+		$this->view->nb_total = $entryDAO->count ();
 	}
 	
 	public function changeModeAction () {

@@ -273,6 +273,15 @@ class EntryDAO extends Model_pdo {
 		
 		return $res[0]['count'];
 	}
+	
+	public function countFavorites () {
+		$sql = 'SELECT COUNT(*) AS count FROM entry WHERE is_favorite=1';
+		$stm = $this->bd->prepare ($sql);
+		$stm->execute ();
+		$res = $stm->fetchAll (PDO::FETCH_ASSOC);
+		
+		return $res[0]['count'];
+	}
 }
 
 class HelperEntry {
