@@ -34,6 +34,31 @@ function slide (new_active, old_active) {
 	}
 }
 
+function add_not_read (nb) {
+	span_not_read = $("#main_aside #menu a span.nb_not_read");
+	
+	html = span_not_read.html ();
+	if (html == "" && nb > 0) {
+		nb_not_read = nb;
+	} else if (html != "") {
+		regex = /\((\d+) non lus?\)/;
+		nb_not_read = parseInt (regex.exec (html)[1]) + nb;
+	} else {
+		nb_not_read = 0;
+	}
+	
+	pluriel = "";
+	if (nb_not_read > 1) {
+		pluriel = "s";
+	}
+	
+	if (nb_not_read > 0) {
+		span_not_read.html ("(" + nb_not_read + " non lu" + pluriel + ")");
+	} else {
+		span_not_read.html ("");
+	}
+}
+
 function mark_read (active) {
 	if (active[0] === undefined) {
 		return false;
@@ -52,9 +77,11 @@ function mark_read (active) {
 		if (active.hasClass ("not_read")) {
 			active.removeClass ("not_read");
 			active.find ("a.read").html ("Marquer comme non lu");
+			add_not_read (-1);
 		} else {
 			active.addClass ("not_read");
 			active.find ("a.read").html ("J'ai fini de lire l'article");
+			add_not_read (1);
 		}
 	});
 }
@@ -104,6 +131,7 @@ $(document).ready (function () {
 		}
 	});
 	
+	
 	$(".post.flux a.read").click (function () {
 		active = $(this).parents (".post.flux");
 		mark_read (active);
@@ -114,6 +142,12 @@ $(document).ready (function () {
 		active = $(this).parents (".post.flux");
 		mark_favorite (active);
 	
+		return false;
+	});
+	
+	$(".post.flux .content a").click (function () {
+		url = $(this).attr ("href");
+		redirect (url, true);
 		return false;
 	});
 

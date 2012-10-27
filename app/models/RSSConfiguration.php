@@ -100,7 +100,7 @@ class RSSConfigurationDAO extends Model_array {
 	public $shortcuts = array (
 		'mark_read' => 'r',
 		'mark_favorite' => 'f',
-		'go_website' => 'enter',
+		'go_website' => 'space',
 		'next_entry' => 'page_down',
 		'prev_entry' => 'page_up',
 		'next_page' => 'right',
