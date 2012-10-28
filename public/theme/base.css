@@ -155,7 +155,7 @@ form {
 			box-shadow: none;
 		}
 			.aside form input {
-				display: table-cell;
+				display: inline-block;
 				height: 48px;
 				line-height: 48px;
 			}
