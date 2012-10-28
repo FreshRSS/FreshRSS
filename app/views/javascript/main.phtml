@@ -63,8 +63,11 @@ function mark_read (active) {
 	if (active[0] === undefined) {
 		return false;
 	}
-
+	
 	url =  active.find ("a.read").attr ("href");
+	if (url === undefined) {
+		return false;
+	}
 	
 	$.ajax ({
 		type: 'POST',
@@ -92,6 +95,9 @@ function mark_favorite (active) {
 	}
 
 	url =  active.find ("a.bookmark").attr ("href");
+	if (url === undefined) {
+		return false;
+	}
 	
 	$.ajax ({
 		type: 'POST',
