@@ -179,8 +179,7 @@ form {
 		.aside #flux_menu {
 			display: none;
 			position: absolute;
-			top: 48px; left: 250px;
-			border-top: 2px solid #0062BE;
+			top: 0; left: 250px;
 			border-bottom: 2px solid #0062BE;
 		}
 			.aside li:hover #flux_menu {
