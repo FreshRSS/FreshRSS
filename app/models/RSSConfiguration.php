@@ -109,7 +109,7 @@ class RSSConfigurationDAO extends Model_array {
 	public $mail_login = '';
 
 	public function __construct () {
-		parent::__construct (PUBLIC_PATH . '/data/db/Configuration.array.php');
+		parent::__construct (PUBLIC_PATH . '/data/Configuration.array.php');
 		
 		if (isset ($this->array['posts_per_page'])) {
 			$this->posts_per_page = $this->array['posts_per_page'];
