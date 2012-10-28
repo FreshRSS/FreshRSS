@@ -43,7 +43,7 @@ class RSSConfiguration extends Model {
 	}
 	
 	public function _postsPerPage ($value) {
-		if (is_int ($value)) {
+		if (is_int (intval ($value))) {
 			$this->posts_per_page = $value;
 		} else {
 			$this->posts_per_page = 10;
@@ -136,7 +136,7 @@ class RSSConfigurationDAO extends Model_array {
 	
 	public function update ($values) {
 		foreach ($values as $key => $value) {
-			$this->array[0][$key] = $value;
+			$this->array[$key] = $value;
 		}
 	
 		$this->writeFile($this->array);
