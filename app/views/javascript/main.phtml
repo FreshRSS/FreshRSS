@@ -6,7 +6,7 @@ var hide_posts = false;
 
 <?php $s = $this->conf->shortcuts (); ?>
 
-function redirect (url, new_tab = false) {
+function redirect (url, new_tab) {
 	if (url) {
 		if (new_tab) {
 			window.open (url);
@@ -160,7 +160,7 @@ $(document).ready (function () {
 	shortcut.add("shift+<?php echo $s['mark_read']; ?>", function () {
 		// on marque tout comme lu
 		url = $("#top a.read_all").attr ("href");
-		redirect (url);
+		redirect (url, false);
 	});
 	shortcut.add("<?php echo $s['mark_favorite']; ?>", function () {
 		// on marque comme favori ou non favori
@@ -209,19 +209,19 @@ $(document).ready (function () {
 	});
 	shortcut.add("<?php echo $s['next_page']; ?>", function () {
 		url = $(".pager-next a").attr ("href");
-		redirect (url);
+		redirect (url, false);
 	});
 	shortcut.add("shift+<?php echo $s['next_page']; ?>", function () {
 		url = $(".pager-last a").attr ("href");
-		redirect (url);
+		redirect (url, false);
 	});
 	shortcut.add("<?php echo $s['prev_page']; ?>", function () {
 		url = $(".pager-previous a").attr ("href");
-		redirect (url);
+		redirect (url, false);
 	});
 	shortcut.add("shift+<?php echo $s['prev_page']; ?>", function () {
 		url = $(".pager-first a").attr ("href");
-		redirect (url);
+		redirect (url, false);
 	});
 	shortcut.add("<?php echo $s['go_website']; ?>", function () {
 		url = $(".post.flux.active h1.title a").attr ("href");
