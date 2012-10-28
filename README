@@ -16,6 +16,15 @@ mesure du possible aux demandes d'évolution si celles-ci me semblent justifiée
 Privilégiez pour cela des demandes sur GitHub
 (https://github.com/marienfressinaud/FreshRSS/issues)
 
+De plus, je n'ai réellement testé FreshRSS que sous Firefox 16, il pourrait y
+avoir des soucis sur d'autres navigateurs.
+
+PRE-REQUIS
+==========
+- Serveur Apache (pas testé sur aucun autre)
+- PHP 5.3 (il me faudrait des retours sur d'autres versions)
+- MySQL
+
 INSTALLATION
 ============
 	1. Récupérez l'application FreshRSS via la commande git ou en
@@ -54,3 +63,6 @@ SÉCURITÉ ET CONSEILS
 	4. Le fichier `/public/index.php` définie les chemins d'accès aux
 	   répertoires clés de l'application. Si vous les bougez, tout se passe
 	   ici.
+	5. Vous pouvez ajouter une tâche CRON sur l'url de mise à jour des flux
+	   (clic droit sur "Mettre les flux à jour" puis "Copier l'adresse du
+	   lien") pour que celle-ci se fasse de manière transparente
