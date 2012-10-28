@@ -57,6 +57,7 @@ form {
 	}
 	input[type="text"], input[type="url"], input[type="email"], input[type="number"], textarea {
 		display: block;
+		height: 30px;
 		width: 430px;
 		max-width: 95%;
 		margin: 5px 0 5px;
@@ -73,6 +74,8 @@ form {
 			font-family: Monospace;
 		}
 	input[type="submit"], button {
+		display: block;
+		height: 40px;
 		width: 100%;
 		margin: 5px 0 5px;
 		padding: 5px 0;

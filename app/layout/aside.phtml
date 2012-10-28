@@ -1,8 +1,10 @@
 <div id="main_aside" class="aside">
+	<?php if (!login_is_conf ($this->conf) || is_logged ()) { ?>
 	<form id="add_rss" method="post" action="<?php echo Url::display (array ('c' => 'feed', 'a' => 'add')); ?>">
 		<input type="url" name="url_rss" placeholder="Ajouter un flux RSS" /><!--
 		--><input type="submit" value="+" />
 	</form>
+	<?php } ?>
 	
 	<ul id="menu">
 		<li <?php echo Request::controllerName () == 'index' ? 'class="active"' : ''; ?>>
