@@ -247,10 +247,6 @@ form {
 		background: #eee;
 		border-radius: 5px;
 		box-shadow: 0 1px 3px #aaa;
-		
-		-moz-transition: border-color .10s ease-out;
-		-webkit-transition: border-color .10s ease-out;
-		transition: border-color .10s ease-out;
 	}
 		.post.flux .before {
 			padding: 20px;
