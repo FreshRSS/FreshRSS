@@ -20,7 +20,15 @@ class indexController extends ActionController {
 		} elseif ($get != false) {
 			$entries = $entryDAO->listByCategory ($get, $mode, $order);
 			$cat = $catDAO->searchById ($get);
-			View::prependTitle ($cat->name () . ' - ');
+			
+			if ($cat) {
+				View::prependTitle ($cat->name () . ' - ');
+			} else {
+				Error::error (
+					404,
+					array ('error' => array ('La page que vous cherchez n\'existe pas'))
+				);
+			}
 		} else {
 			View::prependTitle ('Vos flux RSS - ');
 		}
@@ -55,33 +63,33 @@ class indexController extends ActionController {
 	}
 	
 	public function loginAction () {
-			$this->view->_useLayout (false);
-		
-			$url = 'https://verifier.login.persona.org/verify';
-			$assert = Request::param ('assertion');
-			$params = 'assertion=' . $assert . '&audience=' .
-				  urlencode (Url::display () . ':80');
-			$ch = curl_init ();
-			$options = array (
-				CURLOPT_URL => $url,
-				CURLOPT_RETURNTRANSFER => TRUE,
-				CURLOPT_POST => 2,
-				CURLOPT_POSTFIELDS => $params
-			);
-			curl_setopt_array ($ch, $options);
-			$result = curl_exec ($ch);
-			curl_close ($ch);
-		
-			$res = json_decode ($result, true);
-			if ($res['status'] == 'okay' && $res['email'] == $this->view->conf->mailLogin ()) {
-				Session::_param ('mail', $res['email']);
-			} else {
-				$res = array ();
-				$res['status'] = 'failure';
-				$res['reason'] = 'L\'identifiant est invalide';
-			}
-		
-			$this->view->res = json_encode ($res);
+		$this->view->_useLayout (false);
+	
+		$url = 'https://verifier.login.persona.org/verify';
+		$assert = Request::param ('assertion');
+		$params = 'assertion=' . $assert . '&audience=' .
+			  urlencode (Url::display () . ':80');
+		$ch = curl_init ();
+		$options = array (
+			CURLOPT_URL => $url,
+			CURLOPT_RETURNTRANSFER => TRUE,
+			CURLOPT_POST => 2,
+			CURLOPT_POSTFIELDS => $params
+		);
+		curl_setopt_array ($ch, $options);
+		$result = curl_exec ($ch);
+		curl_close ($ch);
+	
+		$res = json_decode ($result, true);
+		if ($res['status'] == 'okay' && $res['email'] == $this->view->conf->mailLogin ()) {
+			Session::_param ('mail', $res['email']);
+		} else {
+			$res = array ();
+			$res['status'] = 'failure';
+			$res['reason'] = 'L\'identifiant est invalide';
+		}
+	
+		$this->view->res = json_encode ($res);
 	}
 	
 	public function logoutAction () {
