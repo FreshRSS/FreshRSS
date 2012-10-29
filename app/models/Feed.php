@@ -53,12 +53,21 @@ class Feed extends Model {
 		$this->category = $value;
 	}
 	public function _name ($value) {
+		if (is_null ($value)) {
+			$value = '';
+		}
 		$this->name = $value;
 	}
 	public function _website ($value) {
+		if (is_null ($value)) {
+			$value = '';
+		}
 		$this->website = $value;
 	}
 	public function _description ($value) {
+		if (is_null ($value)) {
+			$value = '';
+		}
 		$this->description = $value;
 	}
 	

@@ -14,7 +14,7 @@ class feedController extends ActionController {
 				try {
 					$feed = new Feed ($url);
 					$feed->load ();
-				
+					
 					$feedDAO = new FeedDAO ();
 					$values = array (
 						'id' => $feed->id (),
