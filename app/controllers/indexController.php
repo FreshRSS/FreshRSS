@@ -40,10 +40,17 @@ class indexController extends ActionController {
 		}
 		
 		// Gestion pagination
-		$page = Request::param ('page', 1);
-		$this->view->entryPaginator = new Paginator ($entries);
-		$this->view->entryPaginator->_nbItemsPerPage ($this->view->conf->postsPerPage ());
-		$this->view->entryPaginator->_currentPage ($page);
+		try {
+			$page = Request::param ('page', 1);
+			$this->view->entryPaginator = new Paginator ($entries);
+			$this->view->entryPaginator->_nbItemsPerPage ($this->view->conf->postsPerPage ());
+			$this->view->entryPaginator->_currentPage ($page);
+		} catch (CurrentPagePaginationException $e) {
+			Error::error (
+				404,
+				array ('error' => array ('La page que vous cherchez n\'existe pas'))
+			);
+		}
 		
 		$this->view->cat_aside = $catDAO->listCategories ();
 		$this->view->nb_favorites = $entryDAO->countFavorites ();
