@@ -180,13 +180,11 @@ form {
 		#main_aside {
 			position: fixed;
 		}
-		#menu {
-			height: 92%;
+		#categories {
+			height: 69%;
 			overflow: auto;
+			border-top: 1px solid #aaa;
 		}
-			#menu li.all {
-				border-top: 1px solid #aaa;
-			}
 	#main {
 		display: table-cell;
 		height: 100%;
