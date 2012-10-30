@@ -1,0 +1,20 @@
+<div class="aside">
+	<ul id="menu">
+		<li><h2>Configuration</h2></li>
+		<li <?php echo Request::actionName () == 'feed' ? 'class="active"' : ''; ?>>
+			<a href="<?php echo Url::display (array ('c' => 'configure', 'a' => 'feed')); ?>">Flux RSS</a>
+		</li>
+		<li <?php echo Request::actionName () == 'categorize' ? 'class="active"' : ''; ?>>
+			<a href="<?php echo Url::display (array ('c' => 'configure', 'a' => 'categorize')); ?>">Catégories</a>
+		</li>
+		<li <?php echo Request::actionName () == 'display' ? 'class="active"' : ''; ?>>
+			<a href="<?php echo Url::display (array ('c' => 'configure', 'a' => 'display')); ?>">Général et affichage</a>
+		</li>
+		<li <?php echo Request::actionName () == 'importExport' ? 'class="active"' : ''; ?>>
+			<a href="<?php echo Url::display (array ('c' => 'configure', 'a' => 'importExport')); ?>">Import / Export OPML</a>
+		</li>
+		<li <?php echo Request::actionName () == 'shortcut' ? 'class="active"' : ''; ?>>
+			<a href="<?php echo Url::display (array ('c' => 'configure', 'a' => 'shortcut')); ?>">Raccourcis</a>
+		</li>
+	</ul>
+</div>

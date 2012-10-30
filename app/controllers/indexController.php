@@ -32,6 +32,7 @@ class indexController extends ActionController {
 		} else {
 			View::prependTitle ('Vos flux RSS - ');
 		}
+		$this->view->get = $get;
 		
 		// Cas où on ne choisie ni catégorie ni les favoris
 		// ou si la catégorie ne correspond à aucune

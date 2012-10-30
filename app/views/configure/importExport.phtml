@@ -11,14 +11,17 @@
 	</body>
 </opml>
 <?php } else { ?>
+<div class="table">
+	<?php $this->partial ('configure_aside'); ?>
 
-<form method="post" action="<?php echo Url::display (array ('c' => 'configure', 'a' => 'importExport', 'params' => array ('q' => 'import'))); ?>" enctype="multipart/form-data">
-	<h1>Exporter au format OPML</h1>
-	<button formaction="<?php echo Url::display (array ('c' => 'configure', 'a' => 'importExport', 'params' => array ('q' => 'export'))); ?>">Exporter</button>
+	<form method="post" action="<?php echo Url::display (array ('c' => 'configure', 'a' => 'importExport', 'params' => array ('q' => 'import'))); ?>" enctype="multipart/form-data">
+		<h1>Exporter au format OPML</h1>
+		<button formaction="<?php echo Url::display (array ('c' => 'configure', 'a' => 'importExport', 'params' => array ('q' => 'export'))); ?>">Exporter</button>
 	
-	<h1>Importer au format OPML</h1>
-	<label for="file">Fichier</label>
-	<input type="file" name="file" id="file" />
-	<input type="submit" value="Charger" />
-</form>
+		<h1>Importer au format OPML</h1>
+		<label for="file">Fichier</label>
+		<input type="file" name="file" id="file" />
+		<input type="submit" value="Charger" />
+	</form>
+</div>
 <?php } ?>

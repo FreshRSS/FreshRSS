@@ -131,8 +131,9 @@ form {
 						background: #fff;
 					}
 					.aside li > a span {
-						font-size: 90%;
 						float: right;
+						padding: 0 5px;
+						font-size: 80%;
 					}
 				.aside li.active > a {
 					background: #0062BE;
@@ -176,26 +177,21 @@ form {
 					border: none;
 					border-radius: 0;
 				}
-		.aside #flux_menu {
-			display: none;
-			position: absolute;
-			top: 0; left: 250px;
-			border-bottom: 2px solid #0062BE;
+		#main_aside {
+			position: fixed;
 		}
-			.aside li:hover #flux_menu {
-				display: block;
+		#menu {
+			height: 92%;
+			overflow: auto;
+		}
+			#menu li.all {
+				border-top: 1px solid #aaa;
 			}
-			.aside #flux_menu a {
-				background: #fff;
-				color: #0062BE;
-			}
-				.aside #flux_menu a:hover {
-					background: #f0f0f0;
-				}
 	#main {
 		display: table-cell;
 		height: 100%;
 		max-width: 800px;
+		padding: 0 0 0 250px;
 		line-height: 180%;
 		background: #fafafa;
 		vertical-align: top;

@@ -1,43 +1,47 @@
-<form method="post" action="">
-	<h1>Configuration générale</h1>
+<div class="table">
+	<?php $this->partial ('configure_aside'); ?>
+
+	<form method="post" action="">
+		<h1>Configuration générale</h1>
 	
-	<label for="old_entries">Supprimer les articles au bout de (mois)</label>
-	<input type="number" id="old_entries" name="old_entries" value="<?php echo $this->conf->oldEntries (); ?>" />
+		<label for="old_entries">Supprimer les articles au bout de (mois)</label>
+		<input type="number" id="old_entries" name="old_entries" value="<?php echo $this->conf->oldEntries (); ?>" />
 	
-	<label for="mail_login">Adresse mail de connexion (utilise <a href="https://persona.org/">Persona</a>)</label>
-	<p><noscript>nécessite que javascript soit activé</noscript></p>
-	<?php $mail = $this->conf->mailLogin (); ?>
-	<input type="email" id="mail_login" name="mail_login" value="<?php echo $mail ? $mail : ''; ?>" placeholder="Laissez vide pour désactiver" />
-	<br />
-	
-	<h1>Configuration de l'affichage</h1>
-	
-	<label for="posts_per_page">Nombre d'articles par page</label>
-	<input type="number" id="posts_per_page" name="posts_per_page" value="<?php echo $this->conf->postsPerPage (); ?>" />
-	
-	<label>Vue par défaut</label>
-	<div class="radio_group">
-		<input type="radio" name="default_view" id="radio_all" value="all"<?php echo $this->conf->defaultView () == 'all' ? ' checked="checked"' : ''; ?> />
-		<label for="radio_all">Tout afficher</label>
+		<label for="mail_login">Adresse mail de connexion (utilise <a href="https://persona.org/">Persona</a>)</label>
+		<p><noscript>nécessite que javascript soit activé</noscript></p>
+		<?php $mail = $this->conf->mailLogin (); ?>
+		<input type="email" id="mail_login" name="mail_login" value="<?php echo $mail ? $mail : ''; ?>" placeholder="Laissez vide pour désactiver" />
 		<br />
-		<input type="radio" name="default_view" id="radio_not_read" value="not_read"<?php echo $this->conf->defaultView () == 'not_read' ? ' checked="checked"' : ''; ?> />
-		<label for="radio_not_read">Afficher les non lus</label>
-	</div>
 	
-	<label for="sort_order">Ordre de tri</label>
-	<select name="sort_order" id="sort_order">
-		<option value="low_to_high"<?php echo $this->conf->sortOrder () == 'low_to_high' ? ' selected="selected"' : ''; ?>>Du plus récent au plus ancien</option>
-		<option value="high_to_low"<?php echo $this->conf->sortOrder () == 'high_to_low' ? ' selected="selected"' : ''; ?>>Du plus ancien au plus récent</option>
-	</select>
+		<h1>Configuration de l'affichage</h1>
 	
-	<label>Afficher les articles dépliés par défaut</label>
-	<div class="radio_group">
-		<input type="radio" name="display_posts" id="radio_yes" value="yes"<?php echo $this->conf->displayPosts () == 'yes' ? ' checked="checked"' : ''; ?> />
-		<label for="radio_yes">Oui</label>
-		<br />
-		<input type="radio" name="display_posts" id="radio_no" value="no"<?php echo $this->conf->displayPosts () == 'no' ? ' checked="checked"' : ''; ?> />
-		<label for="radio_no">Non<noscript> - <strong>nécessite que javascript soit activé</strong></noscript></label>
-	</div>
+		<label for="posts_per_page">Nombre d'articles par page</label>
+		<input type="number" id="posts_per_page" name="posts_per_page" value="<?php echo $this->conf->postsPerPage (); ?>" />
 	
-	<input type="submit" value="Valider" />
-</form>
+		<label>Vue par défaut</label>
+		<div class="radio_group">
+			<input type="radio" name="default_view" id="radio_all" value="all"<?php echo $this->conf->defaultView () == 'all' ? ' checked="checked"' : ''; ?> />
+			<label for="radio_all">Tout afficher</label>
+			<br />
+			<input type="radio" name="default_view" id="radio_not_read" value="not_read"<?php echo $this->conf->defaultView () == 'not_read' ? ' checked="checked"' : ''; ?> />
+			<label for="radio_not_read">Afficher les non lus</label>
+		</div>
+	
+		<label for="sort_order">Ordre de tri</label>
+		<select name="sort_order" id="sort_order">
+			<option value="low_to_high"<?php echo $this->conf->sortOrder () == 'low_to_high' ? ' selected="selected"' : ''; ?>>Du plus récent au plus ancien</option>
+			<option value="high_to_low"<?php echo $this->conf->sortOrder () == 'high_to_low' ? ' selected="selected"' : ''; ?>>Du plus ancien au plus récent</option>
+		</select>
+	
+		<label>Afficher les articles dépliés par défaut</label>
+		<div class="radio_group">
+			<input type="radio" name="display_posts" id="radio_yes" value="yes"<?php echo $this->conf->displayPosts () == 'yes' ? ' checked="checked"' : ''; ?> />
+			<label for="radio_yes">Oui</label>
+			<br />
+			<input type="radio" name="display_posts" id="radio_no" value="no"<?php echo $this->conf->displayPosts () == 'no' ? ' checked="checked"' : ''; ?> />
+			<label for="radio_no">Non<noscript> - <strong>nécessite que javascript soit activé</strong></noscript></label>
+		</div>
+	
+		<input type="submit" value="Valider" />
+	</form>
+</div>

@@ -11,25 +11,18 @@
 			<a href="<?php echo Url::display (array ()); ?>">
 				Flux RSS <span class="nb_not_read"><?php if ($this->nb_not_read > 0) { ?>(<?php echo $this->nb_not_read; ?> non lu<?php echo $this->nb_not_read > 1 ? 's' : ''; ?>)<?php } ?></span>
 			</a>
-			
-			<?php if (isset ($this->cat_aside)) { ?>
-			<ul id="flux_menu">
-				<li><a href="<?php echo Url::display (array ()); ?>">Tous <span><?php echo $this->nb_total; ?> article<?php echo $this->nb_total > 1 ? 's' : ''; ?></span></a></li>
-				<li><a href="<?php echo Url::display (array ('params' => array ('get' => 'favoris'))); ?>">Favoris <span><?php echo $this->nb_favorites; ?> article<?php echo $this->nb_favorites > 1 ? 's' : ''; ?></span></a></li>
-				<?php foreach ($this->cat_aside as $cat) { ?>
-				<li><a href="<?php echo Url::display (array ('params' => array ('get' => $cat->id ()))); ?>"><?php echo $cat->name (); ?> <span><?php echo $cat->nbFeed (); ?> flux</span></a></li>
-				<?php } ?>
-			</ul>
-			<?php } ?>
 		</li>
+		
 		<?php if (!login_is_conf ($this->conf) || is_logged ()) { ?>
 		<li <?php echo Request::controllerName () == 'configure' ? 'class="active"' : ''; ?>>
 			<a href="<?php echo Url::display (array ('c' => 'configure', 'a' => 'feed')); ?>">Configurer</a>
 		</li>
 		<?php } ?>
+		
 		<li>
 			<a href="<?php echo Url::display (array ('c' => 'feed', 'a' => 'actualize')); ?>">Mettre les flux à jour</a>
 		</li>
+		
 		<?php if (login_is_conf ($this->conf)) { ?>
 		<li>
 			<?php if (!is_logged ()) { ?>
@@ -39,29 +32,15 @@
 			<?php } ?>
 		</li>
 		<?php } ?>
+		
+		<?php if (isset ($this->cat_aside)) { ?>
+		<li class="all<?php echo !$this->get ? ' active' : ''; ?>"><a href="<?php echo Url::display (array ()); ?>">Tous <span><?php echo $this->nb_total; ?> article<?php echo $this->nb_total > 1 ? 's' : ''; ?></span></a></li>
+		
+		<li class="favorites<?php echo $this->get == 'favoris' ? ' active' : ''; ?>"><a href="<?php echo Url::display (array ('params' => array ('get' => 'favoris'))); ?>">Favoris <span><?php echo $this->nb_favorites; ?> article<?php echo $this->nb_favorites > 1 ? 's' : ''; ?></span></a></li>
+		
+		<?php foreach ($this->cat_aside as $cat) { ?>
+		<li class="category<?php echo $this->get == $cat->id () ? ' active' : ''; ?>"><a href="<?php echo Url::display (array ('params' => array ('get' => $cat->id ()))); ?>"><?php echo $cat->name (); ?> <span><?php echo $cat->nbFeed (); ?> flux</span></a></li>
+		<?php } ?>
+		<?php } ?>
 	</ul>
 </div>
-
-<?php if (Request::controllerName () == 'configure' &&
-         (!login_is_conf ($this->conf) || is_logged ())) { ?>
-<div class="aside">
-	<ul id="menu">
-		<li><h2>Configuration</h2></li>
-		<li <?php echo Request::actionName () == 'feed' ? 'class="active"' : ''; ?>>
-			<a href="<?php echo Url::display (array ('c' => 'configure', 'a' => 'feed')); ?>">Flux RSS</a>
-		</li>
-		<li <?php echo Request::actionName () == 'categorize' ? 'class="active"' : ''; ?>>
-			<a href="<?php echo Url::display (array ('c' => 'configure', 'a' => 'categorize')); ?>">Catégories</a>
-		</li>
-		<li <?php echo Request::actionName () == 'display' ? 'class="active"' : ''; ?>>
-			<a href="<?php echo Url::display (array ('c' => 'configure', 'a' => 'display')); ?>">Général et affichage</a>
-		</li>
-		<li <?php echo Request::actionName () == 'importExport' ? 'class="active"' : ''; ?>>
-			<a href="<?php echo Url::display (array ('c' => 'configure', 'a' => 'importExport')); ?>">Import / Export OPML</a>
-		</li>
-		<li <?php echo Request::actionName () == 'shortcut' ? 'class="active"' : ''; ?>>
-			<a href="<?php echo Url::display (array ('c' => 'configure', 'a' => 'shortcut')); ?>">Raccourcis</a>
-		</li>
-	</ul>
-</div>
-<?php } ?>
