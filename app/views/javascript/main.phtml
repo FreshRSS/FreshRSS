@@ -128,12 +128,6 @@ $(document).ready (function () {
 		
 		if (old_active[0] != new_active[0]) {
 			slide (new_active, old_active);
-		} else {
-			old_active.removeClass ("active");
-	
-			if (hide_posts) {
-				old_active.children (".content").slideUp (200);
-			}
 		}
 	});
 	
