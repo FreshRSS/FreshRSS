@@ -130,7 +130,7 @@ form {
 					.aside li.disable > span {
 						background: #fff;
 					}
-					.aside li > a span {
+					.aside li > a > span {
 						float: right;
 						padding: 0 5px;
 						font-size: 80%;

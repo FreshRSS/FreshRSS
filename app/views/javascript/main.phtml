@@ -35,28 +35,14 @@ function slide (new_active, old_active) {
 }
 
 function add_not_read (nb) {
-	span_not_read = $("#main_aside #menu a span.nb_not_read");
+	span_not_read = $("#categories li.all span.nb_not_read");
 	
 	html = span_not_read.html ();
-	if (html == "" && nb > 0) {
-		nb_not_read = nb;
-	} else if (html != "") {
-		regex = /\((\d+) non lus?\)/;
-		nb_not_read = parseInt (regex.exec (html)[1]) + nb;
-	} else {
-		nb_not_read = 0;
-	}
 	
-	pluriel = "";
-	if (nb_not_read > 1) {
-		pluriel = "s";
-	}
+	regex = /(\d+)/;
+	nb_not_read = parseInt (regex.exec (html)[1]) + nb;
 	
-	if (nb_not_read > 0) {
-		span_not_read.html ("(" + nb_not_read + " non lu" + pluriel + ")");
-	} else {
-		span_not_read.html ("");
-	}
+	span_not_read.html (nb_not_read);
 }
 
 function mark_read (active) {

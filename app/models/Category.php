@@ -27,6 +27,10 @@ class Category extends Model {
 		$catDAO = new CategoryDAO ();
 		return $catDAO->countFeed ($this->id ());
 	}
+	public function nbNotRead () {
+		$catDAO = new CategoryDAO ();
+		return $catDAO->countNotRead ($this->id ());
+	}
 	
 	public function _id ($value) {
 		$this->id = $value;
@@ -127,6 +131,16 @@ class CategoryDAO extends Model_pdo {
 	
 	public function countFeed ($id) {
 		$sql = 'SELECT COUNT(*) AS count FROM feed WHERE category=?';
+		$stm = $this->bd->prepare ($sql);
+		$values = array ($id);
+		$stm->execute ($values);
+		$res = $stm->fetchAll (PDO::FETCH_ASSOC);
+
+		return $res[0]['count'];
+	}
+	
+	public function countNotRead ($id) {
+		$sql = 'SELECT COUNT(*) AS count FROM entry e INNER JOIN feed f ON e.id_feed = f.id WHERE category=? AND e.is_read=0';
 		$stm = $this->bd->prepare ($sql);
 		$values = array ($id);
 		$stm->execute ($values);
