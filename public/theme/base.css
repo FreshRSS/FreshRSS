@@ -348,16 +348,16 @@ form {
 	line-height: 50px;
 	text-align: center;
 	border-radius: 5px 5px 0 0;
-	box-shadow: 0 0 3px #666;
+	box-shadow: 0 0 5px #666;
 	background: #ddd;
-	color: #fff;
+	color: #666;
 	font-weight: bold;
 }
 	#notification.good {
-		background: #8FD900;
+		background: #f4f899;
 	}
 	#notification.bad {
-		background: #FF3300;
+		background: #f4a899;
 	}
 	#notification a.close {
 		display: inline-block;
