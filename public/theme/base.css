@@ -33,6 +33,9 @@ img {
 	max-width: 100%;
 	vertical-align: middle;
 }
+	a img {
+		border: none;
+	}
 
 /* FORMULAIRES */
 form {
