@@ -132,9 +132,7 @@ $(document).ready (function () {
 	});
 	
 	$(".post.flux .content a").click (function () {
-		url = $(this).attr ("href");
-		redirect (url, true);
-		return false;
+		$(this).attr ('target', '_blank');
 	});
 
 	// Touches de manipulation
