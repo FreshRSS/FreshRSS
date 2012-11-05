@@ -13,6 +13,7 @@ class App_FrontController extends FrontController {
 		Session::init (); // lancement de la session doit se faire après chargement des modèles sinon bug (pourquoi ?)
 		$this->loadParamsView ();
 		$this->loadStylesAndScripts ();
+		$this->loadNotifications ();
 	}
 	
 	private function loadLibs () {
@@ -31,6 +32,7 @@ class App_FrontController extends FrontController {
 		View::prependStyle (Url::display ('/theme/base.css'));
 		View::appendScript ('https://login.persona.org/include.js');
 		View::appendScript (Url::display ('/scripts/jquery.js'));
+		View::appendScript (Url::display ('/scripts/notification.js'));
 	}
 	
 	private function loadParamsView () {
@@ -38,5 +40,13 @@ class App_FrontController extends FrontController {
 		
 		$entryDAO = new EntryDAO ();
 		View::_param ('nb_not_read', $entryDAO->countNotRead ());
+	}
+	
+	private function loadNotifications () {
+		$notif = Session::param ('notification');
+		if ($notif) {
+			View::_param ('notification', $notif);
+			Session::_param ('notification');
+		}
 	}
 }

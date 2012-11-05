@@ -43,8 +43,20 @@ class feedController extends ActionController {
 						);
 						$entryDAO->addEntry ($values);
 					}
+					
+					// notif
+					$notif = array (
+						'type' => 'good',
+						'content' => 'Le flux <em>' . $feed->url () . '</em> a bien été ajouté'
+					);
+					Session::_param ('notification', $notif);
 				} catch (Exception $e) {
-					// TODO ajouter une erreur : url non valide
+					// notif
+					$notif = array (
+						'type' => 'bad',
+						'content' => 'L\'url <em>' . $url . '</em> est invalide'
+					);
+					Session::_param ('notification', $notif);
 				}
 			
 				Request::forward (array (), true);
@@ -80,6 +92,13 @@ class feedController extends ActionController {
 		}
 		
 		$entryDAO->cleanOldEntries ($this->view->conf->oldEntries ());
+		
+		// notif
+		$notif = array (
+			'type' => 'good',
+			'content' => 'Les flux ont été mis à jour'
+		);
+		Session::_param ('notification', $notif);
 		
 		Request::forward (array (), true);
 	}
@@ -139,6 +158,13 @@ class feedController extends ActionController {
 				);
 				$feedDAO->addFeed ($values);
 			}
+			
+			// notif
+			$notif = array (
+				'type' => 'good',
+				'content' => 'Les flux ont été importés'
+			);
+			Session::_param ('notification', $notif);
 	
 			Request::forward (array ('c' => 'configure', 'a' => 'importExport'));
 		}
@@ -155,6 +181,13 @@ class feedController extends ActionController {
 		
 			$feedDAO = new FeedDAO ();
 			$feedDAO->deleteFeed ($id);
+			
+			// notif
+			$notif = array (
+				'type' => 'good',
+				'content' => 'Le flux a été supprimé'
+			);
+			Session::_param ('notification', $notif);
 		
 			Request::forward (array ('c' => 'configure', 'a' => 'feed'), true);
 		}

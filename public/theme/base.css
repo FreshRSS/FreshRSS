@@ -336,3 +336,41 @@ form {
 			display: block;
 			color: #F09600;
 			}
+
+/*** NOTIFICATION ***/
+#notification {
+	position: fixed;
+	bottom: 0;
+	left: 25%;
+	width: 50%;
+	height: 50px;
+	padding: 0 50px;
+	line-height: 50px;
+	text-align: center;
+	border-radius: 5px 5px 0 0;
+	box-shadow: 0 0 3px #666;
+	background: #ddd;
+	color: #fff;
+	font-weight: bold;
+}
+	#notification.good {
+		background: #8FD900;
+	}
+	#notification.bad {
+		background: #FF3300;
+	}
+	#notification a.close {
+		display: inline-block;
+		width: 25px;
+		height: 25px;
+		float: right;
+		margin: -10px -60px 0 0;
+		background: #fff;
+		border-radius: 50px;
+		border: 1px solid #aaa;
+		line-height: 25px;
+		color: #666;
+	}
+		#notification a.close:hover {
+			text-decoration: none;
+		}

@@ -40,6 +40,13 @@ class entryController extends ActionController {
 		$entryDAO = new EntryDAO ();
 		if ($id == false) {
 			$entryDAO->updateEntries ($values);
+			
+			// notif
+			$notif = array (
+				'type' => 'good',
+				'content' => 'Tous les flux ont été marqués comme lu'
+			);
+			Session::_param ('notification', $notif);
 		} else {
 			$entryDAO->updateEntry ($id, $values);
 		}

@@ -41,6 +41,14 @@ class configureController extends ActionController {
 				$catDAO->addCategory ($values);
 			}
 			
+			// notif
+			$notif = array (
+				'type' => 'good',
+				'content' => 'Les catégories ont été mises à jour'
+			);
+			Session::_param ('notification', $notif);
+			
+			Request::forward (array ('c' => 'configure', 'a' => 'categorize'), true);
 		}
 		
 		$this->view->categories = $catDAO->listCategories ();
@@ -75,6 +83,15 @@ class configureController extends ActionController {
 					$feedDAO->updateFeed ($id, $values);
 				
 					$this->view->flux->_category ($cat);
+					
+					// notif
+					$notif = array (
+						'type' => 'good',
+						'content' => 'Le flux a été mis à jour'
+					);
+					Session::_param ('notification', $notif);
+					
+					Request::forward (array ('c' => 'configure', 'a' => 'feed', 'params' => array ('id' => $id)), true);
 				}
 			
 				View::prependTitle ('Gestion des flux RSS - ' . $this->view->flux->name () . ' - ');
@@ -113,6 +130,15 @@ class configureController extends ActionController {
 			$confDAO->update ($values);
 			Session::_param ('conf', $this->view->conf);
 			Session::_param ('mail', $this->view->conf->mailLogin ());
+			
+			// notif
+			$notif = array (
+				'type' => 'good',
+				'content' => 'La configuration a été mise à jour'
+			);
+			Session::_param ('notification', $notif);
+			
+			Request::forward (array ('c' => 'configure', 'a' => 'display'), true);
 		}
 		
 		View::prependTitle ('Gestion générale et affichage - ');
@@ -183,6 +209,15 @@ class configureController extends ActionController {
 			$confDAO = new RSSConfigurationDAO ();
 			$confDAO->update ($values);
 			Session::_param ('conf', $this->view->conf);
+			
+			// notif
+			$notif = array (
+				'type' => 'good',
+				'content' => 'Les raccourcis ont été mis à jour'
+			);
+			Session::_param ('notification', $notif);
+			
+			Request::forward (array ('c' => 'configure', 'a' => 'shortcut'), true);
 		}
 		
 		View::prependTitle ('Gestion des raccourcis - ');
