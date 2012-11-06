@@ -32,6 +32,11 @@ function slide (new_active, old_active) {
 			offset: new_active.position ().top + 25
 		});
 	}
+	
+	// si le dernier post est actif, on charge les suivants
+	if (new_active.attr ("id") == $(".post.flux:last").attr ("id")) {
+		load_more_posts ();
+	}
 }
 
 function add_not_read (nb) {
@@ -103,9 +108,9 @@ function mark_favorite (active) {
 	});
 }
 
-$(document).ready (function () {
+function init_posts () {
 	if (hide_posts) {
-		$(".post.flux .content").slideToggle ();
+		$(".post.flux:not(.active) .content").slideUp ();
 	}
 	
 	$(".post.flux").click (function () {
@@ -134,6 +139,10 @@ $(document).ready (function () {
 	$(".post.flux .content a").click (function () {
 		$(this).attr ('target', '_blank');
 	});
+}
+
+$(document).ready (function () {
+	init_posts ();
 
 	// Touches de manipulation
 	shortcut.add("<?php echo $s['mark_read']; ?>", function () {

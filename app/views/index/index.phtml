@@ -14,7 +14,7 @@
 	<?php $this->entryPaginator->render ('pagination.phtml', 'page'); ?>
 	
 	<?php foreach ($items as $item) { ?>
-	<div class="post flux<?php echo !$item->isRead () ? ' not_read' : ''; ?><?php echo $item->isFavorite () ? ' favorite' : ''; ?>">
+	<div class="post flux<?php echo !$item->isRead () ? ' not_read' : ''; ?><?php echo $item->isFavorite () ? ' favorite' : ''; ?>" id="flux_<?php echo $item->id (); ?>">
 		<?php $author = $item->author (); ?>
 		<div class="before">
 			<?php $feed = $item->feed (true); ?>

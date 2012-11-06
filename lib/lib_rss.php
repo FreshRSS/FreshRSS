@@ -186,6 +186,7 @@ function good_bye_extra ($element) {
 	$element->style = null;
 	$element->class = null;
 	$element->id = null;
+	$element->onload = null;
 }
 /* permet de récupérer le contenu d'un article pour un flux qui n'est pas complet */
 function get_content_by_parsing ($url, $path) {

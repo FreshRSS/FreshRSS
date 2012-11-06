@@ -336,6 +336,22 @@ form {
 			display: block;
 			color: #F09600;
 			}
+a#load_more {
+	display: block;
+	width: 90%;
+	height: 50px;
+	margin: 0 auto;
+	background: #eee;
+	border-radius: 5px;
+	box-shadow: 0 0 3px #aaa;
+	line-height: 50px;
+	text-align: center;
+	font-weight: bold;
+}
+	a#load_more.disable {
+		text-decoration: none !important;
+		color: #666;
+	}
 
 /*** NOTIFICATION ***/
 #notification {
