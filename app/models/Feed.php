@@ -88,6 +88,7 @@ class Feed extends Model {
 	private function loadEntries ($feed) {
 		$entries = array ();
 		
+		$i = 0;
 		foreach ($feed->get_items () as $item) {
 			$title = $item->get_title ();
 			$author = $item->get_author ();
@@ -100,6 +101,7 @@ class Feed extends Model {
 			if ($path) {
 				try {
 					$content = get_content_by_parsing ($item->get_permalink (), $path);
+					$i++;
 				} catch (Exception $e) {
 					$content = $item->get_content ();
 				}
@@ -118,6 +120,10 @@ class Feed extends Model {
 			);
 		
 			$entries[$entry->id ()] = $entry;
+			
+			if ($i > 10) {
+				break;
+			}
 		}
 	
 		$this->entries = $entries;
