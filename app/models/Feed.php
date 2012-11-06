@@ -79,21 +79,33 @@ class Feed extends Model {
 			$feed->init ();
 			
 			$title = $feed->get_title ();
-			$this->loadEntries ($feed);
 			$this->_name (!is_null ($title) ? $title : $this->url);
 			$this->_website ($feed->get_link ());
 			$this->_description ($feed->get_description ());
+			$this->loadEntries ($feed);
 		}
 	}
 	private function loadEntries ($feed) {
 		$entries = array ();
-			
+		
 		foreach ($feed->get_items () as $item) {
 			$title = $item->get_title ();
 			$author = $item->get_author ();
-			$content = $item->get_content ();
 			$link = $item->get_permalink ();
 			$date = strtotime ($item->get_date ());
+			
+			// Gestion du contenu
+			// On cherche à récupérer les articles en entier... même si le flux ne le propose pas
+			$path = get_path ($this->website ());
+			if ($path) {
+				try {
+					$content = get_content_by_parsing ($item->get_permalink (), $path);
+				} catch (Exception $e) {
+					$content = $item->get_content ();
+				}
+			} else {
+				$content = $item->get_content ();
+			}
 	
 			$entry = new Entry (
 				$this->id (),

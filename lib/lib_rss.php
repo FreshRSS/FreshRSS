@@ -165,3 +165,45 @@ function getFeed ($outline, $cat_id) {
 
 	return $feed;
 }
+
+/*
+ * Vérifie pour un site donné s'il faut aller parser directement sur le site
+ * Renvoie le path (id et class html) pour récupérer le contenu, false si pas besoin
+ * On se base sur une base connue de sites
+ */
+function get_path ($url) {
+	$list_sites_parse = include (PUBLIC_PATH . '/data/Sites.array.php');
+	if (isset ($list_sites_parse[$url])) {
+		return $list_sites_parse[$url];
+	} else {
+		return false;
+	}
+}
+
+
+/* supprime les trucs inutiles des balises html */
+function good_bye_extra ($element) {
+	$element->style = null;
+	$element->class = null;
+	$element->id = null;
+}
+/* permet de récupérer le contenu d'un article pour un flux qui n'est pas complet */
+function get_content_by_parsing ($url, $path) {
+	$content = new simple_html_dom ();
+	$content->set_callback ('good_bye_extra');
+	$ok = $content->load_file ($url);
+	
+	if ($ok !== false) {
+		// Le __toString () permet d'écraser le DOM (on n'en a plus besoin)
+		// une autre solution serait $content->clear () qui vide le dom
+		$content = $content->find ($path, 0)->__toString ();
+		
+		if ($content) {
+			return $content;
+		} else {
+			throw new Exception ();
+		}
+	} else {
+		throw new Exception ();
+	}
+}

@@ -128,7 +128,7 @@ form {
 				}
 					.aside li > a:hover, .aside li > span:hover {
 						text-decoration: none;
-						background: #f0f0f0;
+						background: #fafafa;
 					}
 					.aside li.disable > span {
 						background: #fff;
