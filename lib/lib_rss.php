@@ -181,28 +181,24 @@ function get_path ($url) {
 }
 
 
-/* supprime les trucs inutiles des balises html */
-function good_bye_extra ($element) {
-	$element->style = null;
-	$element->class = null;
-	$element->id = null;
-	$element->onload = null;
-}
 /* permet de récupérer le contenu d'un article pour un flux qui n'est pas complet */
 function get_content_by_parsing ($url, $path) {
-	$html = new simple_html_dom ();
-	$html->set_callback ('good_bye_extra');
-	$ok = $html->load_file ($url);
+	$html = file_get_contents ($url);
 	
-	if ($ok !== false) {
-		$content = $html->find ($path, 0);
-		$html->clear ();
-		
-		if ($content) {
-			return $content->__toString ();
-		} else {
-			throw new Exception ();
-		}
+	if ($html) {
+		$doc = phpQuery::newDocument ($html);
+		$content = $doc->find ($path);
+		$content->find ('*')->removeAttr ('style')
+		                    ->removeAttr ('id')
+		                    ->removeAttr ('class')
+		                    ->removeAttr ('onload')
+		                    ->removeAttr ('target');
+		$content->removeAttr ('style')
+		        ->removeAttr ('id')
+		        ->removeAttr ('class')
+		        ->removeAttr ('onload')
+		        ->removeAttr ('target');
+		return $content->__toString ();
 	} else {
 		throw new Exception ();
 	}

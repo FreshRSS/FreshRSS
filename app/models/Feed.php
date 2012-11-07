@@ -88,7 +88,7 @@ class Feed extends Model {
 	private function loadEntries ($feed) {
 		$entries = array ();
 		
-		$i = 0;
+		$i = 1;
 		foreach ($feed->get_items () as $item) {
 			$title = $item->get_title ();
 			$author = $item->get_author ();
