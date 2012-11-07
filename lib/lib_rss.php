@@ -190,17 +190,16 @@ function good_bye_extra ($element) {
 }
 /* permet de récupérer le contenu d'un article pour un flux qui n'est pas complet */
 function get_content_by_parsing ($url, $path) {
-	$content = new simple_html_dom ();
-	$content->set_callback ('good_bye_extra');
-	$ok = $content->load_file ($url);
+	$html = new simple_html_dom ();
+	$html->set_callback ('good_bye_extra');
+	$ok = $html->load_file ($url);
 	
 	if ($ok !== false) {
-		// Le __toString () permet d'écraser le DOM (on n'en a plus besoin)
-		// une autre solution serait $content->clear () qui vide le dom
-		$content = $content->find ($path, 0)->__toString ();
+		$content = $html->find ($path, 0);
+		$html->clear ();
 		
 		if ($content) {
-			return $content;
+			return $content->__toString ();
 		} else {
 			throw new Exception ();
 		}

@@ -16,7 +16,7 @@ function load_more_posts () {
 
 $(document).ready (function () {
 	url = $(".pagination:last li.pager-next a").attr ("href");
-	$(".pagination").remove ();
+	$(".pagination:last").remove ();
 	
 	$("#stream").append ("<a id=\"load_more\" href=\"#\">Charger plus d'articles</a>");
 	
