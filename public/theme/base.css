@@ -87,10 +87,10 @@ form {
 		width: 100%;
 		padding: 5px;
 	}
-	.radio_group {
+	.radio_group, .checkbox_group {
 		line-height: 35px;
 	}
-		.radio_group label {
+		.radio_group label, .checkbox_group label {
 			display: inline-block;
 			margin: 0;
 			padding: 0 0 0 5px;
