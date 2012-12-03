@@ -216,7 +216,7 @@ form {
 					text-decoration: none;
 				}
 		#stream {
-			padding: 20px 0;
+			padding: 0;
 		}
 		#main .table {
 			display: table;
@@ -232,29 +232,38 @@ form {
 		}
 
 .post {
-	width: 90%;
-	margin: 0 auto;
 }
 	.post.flux {
-		margin: 40px auto;
 		font-family: Palatino, "Times New Roman", serif;
 		line-height: 170%;
-		border-left: 5px solid #aaa;
-		background: #eee;
-		border-radius: 5px;
-		box-shadow: 0 1px 3px #aaa;
+		border-left: 10px solid #aaa;
+		background: #fafafa;
 	}
-		.post.flux .before {
-			padding: 20px;
-			color: #666;
-			font-size: 80%;
-			text-align: center;
+		.post.flux:hover {
+			background: #fff;
 		}
 		.post.flux .after {
-			margin: 50px 0 0;
+			padding: 10px 20px;
+			color: #aaa;
+			font-size: 80%;
+			font-style: italic;
+		}
+			.post.flux .after a {
+				color: #96BDE2;
+			}
+			.post.flux .after .options {
+				float: right;
+			}
+				.post.flux .after .options a {
+					padding: 0 20px;
+				}
+		/*.post.flux .after {
+			margin: 20px 0 0;
+			background: #fff;
 			font-size: 80%;
 			text-align: center;
 			border-top: 1px solid #aaa;
+			border-bottom: 1px solid #aaa;
 		}
 			.post.flux .after a {
 				display: inline-block;
@@ -262,17 +271,18 @@ form {
 				line-height: 50px;
 				width: 50%;
 			}
-				.post.flux .after  a:hover {
-					background: #fff;
+				.post.flux .after a:hover {
+					background: #f6f6f6;
 					text-decoration: none;
-					border-radius: 0 0 5px 5px;
-					box-shadow: 0 1px 3px #aaa;
-				}
+				}*/
 		.post.flux > h1 {
+			min-height: 0;
 			padding: 10px 20px;
+			font-size: 130%;
+			line-height: 150%;
 		}
 		.post.flux .content {
-			padding: 10px 20px;
+			padding: 10px 100px;
 		}
 			.post.flux .content h1, .post.flux .content h2, .post.flux .content h3 {
 				margin: 20px 0;
@@ -303,15 +313,16 @@ form {
 				color: #666;
 			}
 		.post.flux.not_read {
-			border-left: 5px solid #FF5300;
+			border-left: 10px solid #FF5300;
 			background: #FFF3ED;
 		}
 		.post.flux.favorite {
-			border-left: 5px solid #FFC300;
+			border-left: 10px solid #FFC300;
 			background: #FFF6DA;
 		}
 		.post.flux.active {
-			border-left: 5px solid #0062BE;
+			border-left: 10px solid #0062BE;
+			background: #fff;
 		}
 
 /*** PAGINATION ***/
@@ -338,18 +349,20 @@ form {
 			}
 a#load_more {
 	display: block;
-	width: 90%;
 	height: 50px;
-	margin: 0 auto;
 	background: #eee;
-	border-radius: 5px;
-	box-shadow: 0 0 3px #aaa;
 	line-height: 50px;
 	text-align: center;
 	font-weight: bold;
+	border-top: 1px solid #aaa;
 }
+	a#load_more:hover {
+		background: #fff;
+		text-decoration: none;
+	}
 	a#load_more.disable {
-		text-decoration: none !important;
+		cursor: default;
+		background: #eee;
 		color: #666;
 	}
 

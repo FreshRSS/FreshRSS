@@ -9,6 +9,8 @@ class configureController extends ActionController {
 			);
 		}
 	}
+	
+	public function indexAction () { }
 
 	public function categorizeAction () {
 		$catDAO = new CategoryDAO ();

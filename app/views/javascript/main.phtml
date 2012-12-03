@@ -24,18 +24,13 @@ function slide (new_active, old_active) {
 		old_active.children (".content").slideUp (200);
 		new_active.children (".content").slideDown (200, function () {
 			$.smoothScroll({
-				offset: new_active.position ().top + 25
+				offset: new_active.position ().top
 			});
 		});
 	} else {
 		$.smoothScroll({
 			offset: new_active.position ().top + 25
 		});
-	}
-	
-	// si le dernier post est actif, on charge les suivants
-	if (new_active.attr ("id") == $(".post.flux:last").attr ("id")) {
-		load_more_posts ();
 	}
 }
 

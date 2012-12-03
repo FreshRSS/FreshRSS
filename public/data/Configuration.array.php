@@ -1,6 +1,6 @@
 <?php
 return array (
-	'posts_per_page' => 10,
+	'posts_per_page' => 50,
 	'default_view' => 'all',
 	'display_posts' => 'no',
 	'sort_order' => 'low_to_high',
