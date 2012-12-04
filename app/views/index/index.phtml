@@ -3,7 +3,7 @@
 <div id="top">
 	<?php if (!login_is_conf ($this->conf) || is_logged ()) { ?>
 	<a class="read_all" href="<?php echo Url::display (array ('c' => 'entry', 'a' => 'read', 'params' => array ('is_read' => 1))); ?>">Tout marquer comme lu</a><?php } ?><!--
-	<?php if (Session::param ('mode', 'all') == 'not_read') { ?>
+	<?php if ($this->mode == 'not_read') { ?>
 	--><a class="print_all" href="<?php echo Url::display (array ('a' => 'changeMode', 'params' => array ('mode' => 'all'))); ?>">Tout afficher</a>
 	<?php } else { ?>
 	--><a class="print_non_read" href="<?php echo Url::display (array ('a' => 'changeMode', 'params' => array ('mode' => 'not_read'))); ?>">Afficher les non lus</a>

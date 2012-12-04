@@ -10,7 +10,16 @@ class indexController extends ActionController {
 		$entryDAO = new EntryDAO ();
 		$catDAO = new CategoryDAO ();
 		
-		$mode = Session::param ('mode', $this->view->conf->defaultView ());
+		$default_view = $this->view->conf->defaultView ();
+		$mode = Session::param ('mode');
+		if ($mode == false) {
+			if ($default_view == 'not_read' && $this->view->nb_not_read < 1) {
+				$mode = 'all';
+			} else {
+				$mode = $default_view;
+			}
+		}
+		
 		$get = Request::param ('get');
 		$order = $this->view->conf->sortOrder ();
 		
@@ -34,6 +43,7 @@ class indexController extends ActionController {
 			View::prependTitle ('Vos flux RSS - ');
 		}
 		$this->view->get = $get;
+		$this->view->mode = $mode;
 		
 		// Cas où on ne choisie ni catégorie ni les favoris
 		// ou si la catégorie ne correspond à aucune
