@@ -43,6 +43,10 @@ class Feed extends Model {
 	}
 	
 	public function _url ($value) {
+		if (!is_null ($value) && !preg_match ('#^https?://#', $value)) {
+			$value = 'http://' . $value;
+		}
+		
 		if (!is_null ($value) && filter_var ($value, FILTER_VALIDATE_URL)) {
 			$this->url = $value;
 		} else {
