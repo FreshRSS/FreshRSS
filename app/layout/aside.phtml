@@ -13,7 +13,7 @@
 		
 		<?php if (!login_is_conf ($this->conf) || is_logged ()) { ?>
 		<li <?php echo Request::controllerName () == 'configure' ? 'class="active"' : ''; ?>>
-			<a href="<?php echo Url::display (array ('c' => 'configure', 'a' => 'feed')); ?>">Configurer</a>
+			<a href="<?php echo Url::display (array ('c' => 'configure', 'a' => 'display')); ?>">Configurer</a>
 		</li>
 		<?php } ?>
 		

@@ -4,6 +4,8 @@
 }
 html, body {
 	height: 100%;
+	font-size: 95%;
+	font-family: "Cantarell", "sans-serif";
 }
 
 /* LIENS */
