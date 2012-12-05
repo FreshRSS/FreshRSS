@@ -329,10 +329,12 @@ form {
 
 /*** PAGINATION ***/
 .pagination {
-	margin: 20px 0;
+	height: 50px;
+	margin: 0;
 	list-style: none;
 	text-align: center;
 	font-size: 100%;
+	line-height: 50px;
 	}
 	.pagination li {
 		display: inline-block;
