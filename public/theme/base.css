@@ -244,39 +244,20 @@ form {
 		.post.flux:hover {
 			background: #fff;
 		}
-		.post.flux .after {
-			padding: 10px 20px;
+		.post.flux .after, .post.flux .before {
+			padding: 0 20px;
 			color: #aaa;
 			font-size: 80%;
 			font-style: italic;
 		}
-			.post.flux .after a {
+			.post.flux .before a {
 				color: #96BDE2;
 			}
-			.post.flux .after .options {
-				float: right;
-			}
-				.post.flux .after .options a {
-					padding: 0 20px;
-				}
-		/*.post.flux .after {
-			margin: 20px 0 0;
-			background: #fff;
-			font-size: 80%;
-			text-align: center;
-			border-top: 1px solid #aaa;
-			border-bottom: 1px solid #aaa;
-		}
 			.post.flux .after a {
 				display: inline-block;
-				height: 50px;
-				line-height: 50px;
-				width: 50%;
+				height: 40px;
+				line-height: 40px;
 			}
-				.post.flux .after a:hover {
-					background: #f6f6f6;
-					text-decoration: none;
-				}*/
 		.post.flux > h1 {
 			min-height: 0;
 			padding: 10px 20px;
@@ -284,7 +265,7 @@ form {
 			line-height: 150%;
 		}
 		.post.flux .content {
-			padding: 10px 100px;
+			padding: 5px 100px;
 		}
 			.post.flux .content h1, .post.flux .content h2, .post.flux .content h3 {
 				margin: 20px 0;
@@ -314,6 +295,10 @@ form {
 				border-left: 4px solid #ccc;
 				color: #666;
 			}
+		.post.flux.active {
+			border-left: 10px solid #0062BE;
+			background: #fff;
+		}
 		.post.flux.not_read {
 			border-left: 10px solid #FF5300;
 			background: #FFF3ED;
@@ -321,10 +306,6 @@ form {
 		.post.flux.favorite {
 			border-left: 10px solid #FFC300;
 			background: #FFF6DA;
-		}
-		.post.flux.active {
-			border-left: 10px solid #0062BE;
-			background: #fff;
 		}
 
 /*** PAGINATION ***/

@@ -103,7 +103,7 @@ class EntryDAO extends Model_pdo {
 			$valuesTmp['guid'],
 			$valuesTmp['title'],
 			$valuesTmp['author'],
-			$valuesTmp['content'],
+			base64_encode (gzdeflate (serialize ($valuesTmp['content']))),
 			$valuesTmp['link'],
 			$valuesTmp['date'],
 			$valuesTmp['is_read'],
@@ -119,6 +119,10 @@ class EntryDAO extends Model_pdo {
 	}
 	
 	public function updateEntry ($id, $valuesTmp) {
+		if (isset ($valuesTmp['content'])) {
+			$valuesTmp['content'] = base64_encode (gzdeflate (serialize ($valuesTmp['content'])));
+		}
+	
 		$set = '';
 		foreach ($valuesTmp as $key => $v) {
 			$set .= $key . '=?, ';
@@ -141,6 +145,10 @@ class EntryDAO extends Model_pdo {
 	}
 	
 	public function updateEntries ($valuesTmp) {
+		if (isset ($valuesTmp['content'])) {
+			$valuesTmp['content'] = base64_encode (gzdeflate (serialize ($valuesTmp['content'])));
+		}
+		
 		$set = '';
 		foreach ($valuesTmp as $key => $v) {
 			$set .= $key . '=?, ';
@@ -300,7 +308,7 @@ class HelperEntry {
 					$dao['guid'],
 					$dao['title'],
 					$dao['author'],
-					$dao['content'],
+					unserialize (gzinflate (base64_decode ($dao['content']))),
 					$dao['link'],
 					$dao['date'],
 					$dao['is_read'],

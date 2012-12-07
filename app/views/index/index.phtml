@@ -18,32 +18,29 @@
 		<h1 class="title"><a target="_blank" href="<?php echo $item->link (); ?>"> <?php echo $item->title (); ?></a></h1>
 		
 		<div class="before">
-		</div>
-		
-		<div class="content"><?php echo $item->content (); ?></div>
-		
-		<div class="after">
 			<?php $author = $item->author (); ?>
 			<?php $feed = $item->feed (true); ?>
 			Le <?php echo $item->date (); ?>
 			<?php echo $author != '' ? ' par ' . $author : ''; ?>
 			sur <a target="_blank" href="<?php echo $feed->website (); ?>"><?php echo $feed->name (); ?> <img src="http://www.google.com/s2/favicons?domain=<?php echo get_domain ($feed->website ()); ?>" alt="" /></a>,
-			
-			<div class="options">
+		</div>
+		
+		<div class="content"><?php echo $item->content (); ?></div>
+		
+		<div class="after">
 			<?php if (!login_is_conf ($this->conf) || is_logged ()) { ?>
 			<?php if (!$item->isRead ()) { ?>
-			<a class="read" href="<?php echo Url::display (array ('c' => 'entry', 'a' => 'read', 'params' => array ('id' => $item->id (), 'is_read' => 1))); ?>">J'ai fini de lire l'article</a><!--
+			<a class="read" href="<?php echo Url::display (array ('c' => 'entry', 'a' => 'read', 'params' => array ('id' => $item->id (), 'is_read' => 1))); ?>">J'ai fini de lire l'article</a>
 			<?php } else { ?>
-			<a class="read" href="<?php echo Url::display (array ('c' => 'entry', 'a' => 'read', 'params' => array ('id' => $item->id (), 'is_read' => 0))); ?>">Marquer comme non lu</a><!--
+			<a class="read" href="<?php echo Url::display (array ('c' => 'entry', 'a' => 'read', 'params' => array ('id' => $item->id (), 'is_read' => 0))); ?>">Marquer comme non lu</a>
 			<?php } ?>
-			
+			-
 			<?php if (!$item->isFavorite ()) { ?>
-			--><a class="bookmark" href="<?php echo Url::display (array ('c' => 'entry', 'a' => 'bookmark', 'params' => array ('id' => $item->id (), 'is_favorite' => 1))); ?>">Ajouter l'article à mes favoris</a>
+			<a class="bookmark" href="<?php echo Url::display (array ('c' => 'entry', 'a' => 'bookmark', 'params' => array ('id' => $item->id (), 'is_favorite' => 1))); ?>">Ajouter l'article à mes favoris</a>
 			<?php } else { ?>
-			--><a class="bookmark" href="<?php echo Url::display (array ('c' => 'entry', 'a' => 'bookmark', 'params' => array ('id' => $item->id (), 'is_favorite' => 0))); ?>">Retirer l'article de mes favoris</a>
+			<a class="bookmark" href="<?php echo Url::display (array ('c' => 'entry', 'a' => 'bookmark', 'params' => array ('id' => $item->id (), 'is_favorite' => 0))); ?>">Retirer l'article de mes favoris</a>
 			<?php } ?>
 			<?php } ?>
-			</div>
 		</div>
 	</div>
 	<?php } ?>
