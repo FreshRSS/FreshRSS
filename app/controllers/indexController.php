@@ -56,7 +56,14 @@ class indexController extends ActionController {
 			$entries = $entryDAO->listEntries ($mode, $order);
 		}
 		
-		$this->view->entryPaginator = $entryDAO->getPaginator ($entries);
+		try {
+			$this->view->entryPaginator = $entryDAO->getPaginator ($entries);
+		} catch (CurrentPagePaginationException $e) {
+			Error::error (
+				404,
+				array ('error' => array ('La page que vous cherchez n\'existe pas'))
+			);
+		}
 		
 		$this->view->cat_aside = $catDAO->listCategories ();
 		$this->view->nb_favorites = $entryDAO->countFavorites ();
