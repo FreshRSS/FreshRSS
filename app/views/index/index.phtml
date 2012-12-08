@@ -1,4 +1,5 @@
-<?php $items = $this->entryPaginator->items (); ?>
+<?php $items = $this->entryPaginator->items (true); ?>
+
 <?php if (!empty ($items)) { ?>
 <div id="top">
 	<?php if (!login_is_conf ($this->conf) || is_logged ()) { ?>

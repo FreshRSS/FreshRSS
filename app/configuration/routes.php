@@ -3,7 +3,7 @@
 return array (
 	// Index
 	array (
-		'route'      => '/\?q=([\w\d\-_]+)&p=([\d+])',
+		'route'      => '/\?q=([\w\d\-_]+)&p=([\d]+)',
 		'controller' => 'index',
 		'action'     => 'index',
 		'params'     => array ('get', 'page')

@@ -29,11 +29,17 @@ class Paginator {
 	private $nbPage = 1;
 
 	/**
+	 * $nbItems le nombre d'éléments
+	 */
+	private $nbItems = 0;
+
+	/**
 	 * Constructeur
 	 * @param $items les éléments à gérer
 	 */
 	public function __construct ($items) {
 		$this->_items ($items);
+		$this->_nbItems (count ($this->items (true)));
 		$this->_nbItemsPerPage ($this->nbItemsPerPage);
 		$this->_currentPage ($this->currentPage);
 	}
@@ -66,7 +72,7 @@ class Paginator {
 			}
 
 			$i++;
-		} while (!$page && $i < count ($this->items));
+		} while (!$page && $i < $this->nbItems ());
 
 		return $page;
 	}
@@ -86,7 +92,7 @@ class Paginator {
 			} else {
 				$i++;
 			}
-		} while (!$find && $i < count ($this->items));
+		} while (!$find && $i < $this->nbItems ());
 
 		return $i;
 	}
@@ -98,7 +104,7 @@ class Paginator {
 	 */
 	public function itemByPosition ($pos) {
 		if ($pos < 0) {
-			$pos = count ($this->items) - 1;
+			$pos = $this->nbItems () - 1;
 		}
 		if ($pos >= count($this->items)) {
 			$pos = 0;
@@ -115,7 +121,7 @@ class Paginator {
 	 */
 	public function items ($all = false) {
 		$array = array ();
-		$nbItems = count ($this->items);
+		$nbItems = $this->nbItems ();
 
 		if ($nbItems <= $this->nbItemsPerPage || $all) {
 			$array = $this->items;
@@ -147,6 +153,9 @@ class Paginator {
 	public function nbPage () {
 		return $this->nbPage;
 	}
+	public function nbItems () {
+		return $this->nbItems;
+	}
 
 	/**
 	 * SETTEURS
@@ -159,8 +168,8 @@ class Paginator {
 		$this->_nbPage ();
 	}
 	public function _nbItemsPerPage ($nbItemsPerPage) {
-		if ($nbItemsPerPage > count ($this->items)) {
-			$nbItemsPerPage = count ($this->items);
+		if ($nbItemsPerPage > $this->nbItems ()) {
+			$nbItemsPerPage = $this->nbItems ();
 		}
 		if ($nbItemsPerPage < 0) {
 			$nbItemsPerPage = 0;
@@ -178,7 +187,10 @@ class Paginator {
 	}
 	private function _nbPage () {
 		if ($this->nbItemsPerPage > 0) {
-			$this->nbPage = ceil (count ($this->items) / $this->nbItemsPerPage);
+			$this->nbPage = ceil ($this->nbItems () / $this->nbItemsPerPage);
 		}
+	}
+	public function _nbItems ($value) {
+		$this->nbItems = $value;
 	}
 }

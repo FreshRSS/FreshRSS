@@ -10,6 +10,11 @@ class indexController extends ActionController {
 		$entryDAO = new EntryDAO ();
 		$catDAO = new CategoryDAO ();
 		
+		// pour optimiser
+		$page = Request::param ('page', 1);
+		$entryDAO->_nbItemsPerPage ($this->view->conf->postsPerPage ());
+		$entryDAO->_currentPage ($page);
+		
 		$default_view = $this->view->conf->defaultView ();
 		$mode = Session::param ('mode');
 		if ($mode == false) {
@@ -51,18 +56,7 @@ class indexController extends ActionController {
 			$entries = $entryDAO->listEntries ($mode, $order);
 		}
 		
-		// Gestion pagination
-		try {
-			$page = Request::param ('page', 1);
-			$this->view->entryPaginator = new Paginator ($entries);
-			$this->view->entryPaginator->_nbItemsPerPage ($this->view->conf->postsPerPage ());
-			$this->view->entryPaginator->_currentPage ($page);
-		} catch (CurrentPagePaginationException $e) {
-			Error::error (
-				404,
-				array ('error' => array ('La page que vous cherchez n\'existe pas'))
-			);
-		}
+		$this->view->entryPaginator = $entryDAO->getPaginator ($entries);
 		
 		$this->view->cat_aside = $catDAO->listCategories ();
 		$this->view->nb_favorites = $entryDAO->countFavorites ();

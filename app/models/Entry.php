@@ -214,7 +214,18 @@ class EntryDAO extends Model_pdo {
 			$order = '';
 		}
 		
-		$sql = 'SELECT * FROM entry' . $where . ' ORDER BY date' . $order;
+		$sql = 'SELECT COUNT(*) AS count FROM entry' . $where;
+		$stm = $this->bd->prepare ($sql);
+		$stm->execute ();
+		$res = $stm->fetchAll (PDO::FETCH_ASSOC);
+		$this->nbItems = $res[0]['count'];
+		
+		$deb = ($this->currentPage - 1) * $this->nbItemsPerPage;
+		$fin = $this->nbItemsPerPage;
+		
+		$sql = 'SELECT * FROM entry' . $where
+		     . ' ORDER BY date' . $order
+		     . ' LIMIT ' . $deb . ', ' . $fin;
 		$stm = $this->bd->prepare ($sql);
 		$stm->execute ();
 
@@ -233,7 +244,18 @@ class EntryDAO extends Model_pdo {
 			$order = '';
 		}
 		
-		$sql = 'SELECT * FROM entry' . $where . ' ORDER BY date' . $order;
+		$sql = 'SELECT COUNT(*) AS count FROM entry' . $where;
+		$stm = $this->bd->prepare ($sql);
+		$stm->execute ();
+		$res = $stm->fetchAll (PDO::FETCH_ASSOC);
+		$this->nbItems = $res[0]['count'];
+		
+		$deb = ($this->currentPage - 1) * $this->nbItemsPerPage;
+		$fin = $this->nbItemsPerPage;
+		
+		$sql = 'SELECT * FROM entry' . $where
+		     . ' ORDER BY date' . $order
+		     . ' LIMIT ' . $deb . ', ' . $fin;
 		$stm = $this->bd->prepare ($sql);
 		
 		$stm->execute ();
@@ -253,7 +275,18 @@ class EntryDAO extends Model_pdo {
 			$order = '';
 		}
 		
-		$sql = 'SELECT * FROM entry e INNER JOIN feed f ON e.id_feed = f.id' . $where . ' ORDER BY date' . $order;
+		$sql = 'SELECT COUNT(*) AS count FROM entry e INNER JOIN feed f ON e.id_feed = f.id' . $where;
+		$stm = $this->bd->prepare ($sql);
+		$values = array ($cat);
+		$stm->execute ($values);
+		$res = $stm->fetchAll (PDO::FETCH_ASSOC);
+		$this->nbItems = $res[0]['count'];
+		
+		$deb = ($this->currentPage - 1) * $this->nbItemsPerPage;
+		$fin = $this->nbItemsPerPage;
+		$sql = 'SELECT * FROM entry e INNER JOIN feed f ON e.id_feed = f.id' . $where
+		     . ' ORDER BY date' . $order
+		     . ' LIMIT ' . $deb . ', ' . $fin;
 		
 		$stm = $this->bd->prepare ($sql);
 		
@@ -290,31 +323,48 @@ class EntryDAO extends Model_pdo {
 		
 		return $res[0]['count'];
 	}
+	
+	// gestion de la pagination directement via le DAO
+	private $nbItemsPerPage = 1;
+	private $currentPage = 1;
+	private $nbItems = 0;
+	public function _nbItemsPerPage ($value) {
+		$this->nbItemsPerPage = $value;
+	}
+	public function _currentPage ($value) {
+		$this->currentPage = $value;
+	}
+	
+	public function getPaginator ($entries) {
+		$paginator = new Paginator ($entries);
+		$paginator->_nbItems ($this->nbItems);
+		$paginator->_nbItemsPerPage ($this->nbItemsPerPage);
+		$paginator->_currentPage ($this->currentPage);
+		
+		return $paginator;
+	}
 }
 
 class HelperEntry {
 	public static function daoToEntry ($listDAO, $mode = 'all', $favorite = false) {
 		$list = array ();
-
+		
 		if (!is_array ($listDAO)) {
 			$listDAO = array ($listDAO);
 		}
 
 		foreach ($listDAO as $key => $dao) {
-			if (($mode != 'not_read' || !$dao['is_read'])
-			 && ($favorite == false || $dao['is_favorite'])) {
-				$list[$key] = new Entry (
-					$dao['id_feed'],
-					$dao['guid'],
-					$dao['title'],
-					$dao['author'],
-					unserialize (gzinflate (base64_decode ($dao['content']))),
-					$dao['link'],
-					$dao['date'],
-					$dao['is_read'],
-					$dao['is_favorite']
-				);
-			}
+			$list[$key] = new Entry (
+				$dao['id_feed'],
+				$dao['guid'],
+				$dao['title'],
+				$dao['author'],
+				unserialize (gzinflate (base64_decode ($dao['content']))),
+				$dao['link'],
+				$dao['date'],
+				$dao['is_read'],
+				$dao['is_favorite']
+			);
 		}
 
 		return $list;
