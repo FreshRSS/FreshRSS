@@ -7,6 +7,7 @@ class Feed extends Model {
 	private $name = '';
 	private $website = '';
 	private $description = '';
+	private $lastUpdate = 0;
 	
 	public function __construct ($url) {
 		$this->_url ($url);
@@ -36,6 +37,9 @@ class Feed extends Model {
 	}
 	public function description () {
 		return $this->description;
+	}
+	public function lastUpdate () {
+		return $this->lastUpdate;
 	}
 	public function nbEntries () {
 		$feedDAO = new FeedDAO ();
@@ -73,6 +77,9 @@ class Feed extends Model {
 			$value = '';
 		}
 		$this->description = $value;
+	}
+	public function _lastUpdate ($value) {
+		$this->lastUpdate = $value;
 	}
 	
 	public function load () {
@@ -130,7 +137,7 @@ class Feed extends Model {
 
 class FeedDAO extends Model_pdo {
 	public function addFeed ($valuesTmp) {
-		$sql = 'INSERT INTO feed (id, url, category, name, website, description) VALUES(?, ?, ?, ?, ?, ?)';
+		$sql = 'INSERT INTO feed (id, url, category, name, website, description, lastUpdate) VALUES(?, ?, ?, ?, ?, ?, ?)';
 		$stm = $this->bd->prepare ($sql);
 
 		$values = array (
@@ -140,6 +147,7 @@ class FeedDAO extends Model_pdo {
 			$valuesTmp['name'],
 			$valuesTmp['website'],
 			$valuesTmp['description'],
+			$valuesTmp['lastUpdate'],
 		);
 
 		if ($stm && $stm->execute ($values)) {
@@ -163,6 +171,22 @@ class FeedDAO extends Model_pdo {
 			$values[] = $v;
 		}
 		$values[] = $id;
+
+		if ($stm && $stm->execute ($values)) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	public function updateLastUpdate ($id) {
+		$sql = 'UPDATE feed SET lastUpdate=? WHERE id=?';
+		$stm = $this->bd->prepare ($sql);
+
+		$values = array (
+			time (),
+			$id
+		);
 
 		if ($stm && $stm->execute ($values)) {
 			return true;
@@ -203,6 +227,14 @@ class FeedDAO extends Model_pdo {
 	
 	public function listFeeds () {
 		$sql = 'SELECT * FROM feed ORDER BY name';
+		$stm = $this->bd->prepare ($sql);
+		$stm->execute ();
+
+		return HelperFeed::daoToFeed ($stm->fetchAll (PDO::FETCH_ASSOC));
+	}
+	
+	public function listFeedsOrderUpdate () {
+		$sql = 'SELECT * FROM feed ORDER BY lastUpdate';
 		$stm = $this->bd->prepare ($sql);
 		$stm->execute ();
 
@@ -254,6 +286,7 @@ class HelperFeed {
 			$list[$key]->_name ($dao['name']);
 			$list[$key]->_website ($dao['website']);
 			$list[$key]->_description ($dao['description']);
+			$list[$key]->_lastUpdate ($dao['lastUpdate']);
 		}
 
 		return $list;

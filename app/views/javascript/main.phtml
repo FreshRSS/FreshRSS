@@ -21,15 +21,15 @@ function slide (new_active, old_active) {
 	new_active.addClass ("active");
 	
 	if (hide_posts) {
-		old_active.children (".content").slideUp (200);
-		new_active.children (".content").slideDown (200, function () {
+		old_active.children (".content").slideUp (500);
+		new_active.children (".content").slideDown (500, function () {
 			$.smoothScroll({
-				offset: new_active.position ().top
+				offset: new_active.position ().top - 50
 			});
 		});
 	} else {
 		$.smoothScroll({
-			offset: new_active.position ().top + 25
+			offset: new_active.position ().top - 50
 		});
 	}
 }

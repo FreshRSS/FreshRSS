@@ -184,6 +184,7 @@ form {
 				}
 		#main_aside {
 			position: fixed;
+			z-index: 10;
 		}
 		#categories {
 			height: 69%;
@@ -200,11 +201,14 @@ form {
 		vertical-align: top;
 	}
 		#top {
-			width: 100%;
+			position: fixed;
+			top: 0;
+			width: 85%;
 			background: #eee;
 			border-bottom: 1px solid #aaa;
 			box-shadow: 0 1px 3px #aaa;
 			text-align: center;
+			z-index: 0;
 		}
 			#top a {
 				display: inline-block;
@@ -218,7 +222,7 @@ form {
 					text-decoration: none;
 				}
 		#stream {
-			padding: 0;
+			padding: 50px 0 0;
 		}
 		#main .table {
 			display: table;

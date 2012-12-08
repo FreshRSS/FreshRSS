@@ -23,6 +23,7 @@ class feedController extends ActionController {
 						'name' => $feed->name (),
 						'website' => $feed->website (),
 						'description' => $feed->description (),
+						'lastUpdate' => time ()
 					);
 					$feedDAO->addFeed ($values);
 				
@@ -68,30 +69,44 @@ class feedController extends ActionController {
 		$feedDAO = new FeedDAO ();
 		$entryDAO = new EntryDAO ();
 		
-		$feeds = $feedDAO->listFeeds ();
+		$feeds = $feedDAO->listFeedsOrderUpdate ();
 		
+		// pour ne pas ajouter des entrées trop anciennes
+		$nb_month_old = $this->view->conf->oldEntries ();
+		$date_min = time () - (60 * 60 * 24 * 30 * $nb_month_old);
+		
+		$i = 0;
 		foreach ($feeds as $feed) {
 			$feed->load ();
 			$entries = $feed->entries ();
 			
 			foreach ($entries as $entry) {
-				$values = array (
-					'id' => $entry->id (),
-					'guid' => $entry->guid (),
-					'title' => $entry->title (),
-					'author' => $entry->author (),
-					'content' => $entry->content (),
-					'link' => $entry->link (),
-					'date' => $entry->date (true),
-					'is_read' => $entry->isRead (),
-					'is_favorite' => $entry->isFavorite (),
-					'id_feed' => $feed->id ()
-				);
-				$entryDAO->addEntry ($values);
+				if ($entry->date (true) >= $date_min) {
+					$values = array (
+						'id' => $entry->id (),
+						'guid' => $entry->guid (),
+						'title' => $entry->title (),
+						'author' => $entry->author (),
+						'content' => $entry->content (),
+						'link' => $entry->link (),
+						'date' => $entry->date (true),
+						'is_read' => $entry->isRead (),
+						'is_favorite' => $entry->isFavorite (),
+						'id_feed' => $feed->id ()
+					);
+					$entryDAO->addEntry ($values);
+				}
+			}
+			
+			$feedDAO->updateLastUpdate ($feed->id ());
+			
+			$i++;
+			if ($i >= 10) {
+				break;
 			}
 		}
 		
-		$entryDAO->cleanOldEntries ($this->view->conf->oldEntries ());
+		$entryDAO->cleanOldEntries ($nb_month_old);
 		
 		// notif
 		$notif = array (
@@ -125,26 +140,38 @@ class feedController extends ActionController {
 				);
 				$catDAO->addCategory ($values);
 			}
+			
+			$nb_month_old = $this->view->conf->oldEntries ();
+			$date_min = time () - (60 * 60 * 24 * 30 * $nb_month_old);
 		
+			$i = 0;
 			foreach ($feeds as $feed) {
 				$feed->load ();
-				$entries = $feed->entries ();
-			
-				// Chargement du flux
-				foreach ($entries as $entry) {
-					$values = array (
-						'id' => $entry->id (),
-						'guid' => $entry->guid (),
-						'title' => $entry->title (),
-						'author' => $entry->author (),
-						'content' => $entry->content (),
-						'link' => $entry->link (),
-						'date' => $entry->date (true),
-						'is_read' => $entry->isRead (),
-						'is_favorite' => $entry->isFavorite (),
-						'id_feed' => $feed->id ()
-					);
-					$entryDAO->addEntry ($values);
+				
+				// on ajoute les entrées que de 10 flux pour limiter un peu la charge
+				// si on ajoute pas les entrées du flux, alors on met la date du dernier update à 0
+				$update = 0;
+				$i++;
+				if ($i < 10) {
+					$update = time ();
+					$entries = $feed->entries ();
+					foreach ($entries as $entry) {
+						if ($entry->date (true) >= $date_min) {
+							$values = array (
+								'id' => $entry->id (),
+								'guid' => $entry->guid (),
+								'title' => $entry->title (),
+								'author' => $entry->author (),
+								'content' => $entry->content (),
+								'link' => $entry->link (),
+								'date' => $entry->date (true),
+								'is_read' => $entry->isRead (),
+								'is_favorite' => $entry->isFavorite (),
+								'id_feed' => $feed->id ()
+							);
+							$entryDAO->addEntry ($values);
+						}
+					}
 				}
 			
 				// Enregistrement du flux
@@ -155,6 +182,7 @@ class feedController extends ActionController {
 					'name' => $feed->name (),
 					'website' => $feed->website (),
 					'description' => $feed->description (),
+					'lastUpdate' => $update
 				);
 				$feedDAO->addFeed ($values);
 			}
