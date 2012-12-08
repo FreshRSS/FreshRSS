@@ -20,7 +20,7 @@ function slide (new_active, old_active) {
 	old_active.removeClass ("active");
 	new_active.addClass ("active");
 	
-	if (hide_posts) {
+	if (hide_posts && !read_mode_on ) {
 		old_active.children (".content").slideUp (500);
 		new_active.children (".content").slideDown (500, function () {
 			$.smoothScroll({
@@ -29,7 +29,7 @@ function slide (new_active, old_active) {
 		});
 	} else {
 		$.smoothScroll({
-			offset: new_active.position ().top - 50
+			offset: new_active.position ().top
 		});
 	}
 }
@@ -104,7 +104,7 @@ function mark_favorite (active) {
 }
 
 function init_posts () {
-	if (hide_posts) {
+	if (hide_posts && !read_mode_on) {
 		$(".post.flux:not(.active) .content").slideUp ();
 	}
 	

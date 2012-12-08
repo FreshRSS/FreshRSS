@@ -10,7 +10,7 @@ function load_more_refresh () {
 	}
 }
 
-function load_more_posts () {
+function load_more_posts (f_callback) {
 	load = true;
 	$.get (url_next_page, function (data) {
 		$("#load_more").before ($("#stream .post", data));
@@ -19,6 +19,9 @@ function load_more_posts () {
 		
 		init_posts ();
 		load_more_refresh ();
+		if (typeof f_callback == 'function') {
+			f_callback.call (this);
+		}
 		load = false;
 	});
 }
