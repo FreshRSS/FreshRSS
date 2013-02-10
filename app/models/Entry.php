@@ -250,12 +250,17 @@ class EntryDAO extends Model_pdo {
 		$res = $stm->fetchAll (PDO::FETCH_ASSOC);
 		$this->nbItems = $res[0]['count'];
 		
-		$deb = ($this->currentPage - 1) * $this->nbItemsPerPage;
-		$fin = $this->nbItemsPerPage;
+		if($this->nbItemsPerPage < 0) {
+			$sql = 'SELECT * FROM entry' . $where
+			     . ' ORDER BY date' . $order;
+		} else {
+			$deb = ($this->currentPage - 1) * $this->nbItemsPerPage;
+			$fin = $this->nbItemsPerPage;
 		
-		$sql = 'SELECT * FROM entry' . $where
-		     . ' ORDER BY date' . $order
-		     . ' LIMIT ' . $deb . ', ' . $fin;
+			$sql = 'SELECT * FROM entry' . $where
+			     . ' ORDER BY date' . $order
+			     . ' LIMIT ' . $deb . ', ' . $fin;
+		}
 		$stm = $this->bd->prepare ($sql);
 		
 		$stm->execute ();

@@ -44,6 +44,13 @@ return array (
 		'action'     => 'main'
 	),
 	
+	// API
+	array (
+		'route'      => '/api/get_favorites',
+		'controller' => 'api',
+		'action'     => 'getFavorites'
+	),
+	
 	// Entry
 	array (
 		'route'      => '/articles/marquer.php\?id=([\w\d\-_]{6})&lu=([\d]{1})',
