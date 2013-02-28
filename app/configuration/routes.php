@@ -50,6 +50,11 @@ return array (
 		'controller' => 'api',
 		'action'     => 'getFavorites'
 	),
+	array (
+		'route'      => '/api/get_nb_not_read',
+		'controller' => 'api',
+		'action'     => 'getNbNotRead'
+	),
 	
 	// Entry
 	array (
