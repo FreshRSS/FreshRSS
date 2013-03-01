@@ -30,9 +30,10 @@ INSTALLATION
 ============
 	1. Récupérez l'application FreshRSS via la commande git ou en
 	   téléchargeant l'archive
-	2. Déplacez la où vous voulez sur votre serveur (attention, la partie
+	2. Exécutez le script ./build.sh
+	3. Déplacez la où vous voulez sur votre serveur (attention, la partie
 	   accessible de l'application se trouve dans le répertoire `/public`)
-	3. Modifiez le fichier `/app/configuration/application.ini`
+	4. Modifiez le fichier `/app/configuration/application.ini`
 	   	a/ environment = "production" de préférence
 	   	b/ use_url_rewriting = true si vous pouvez utiliser
 	   	                       l'url_rewriting, false sinon
@@ -44,13 +45,13 @@ INSTALLATION
 	   	e/ title = "FreshRSS" le nom de l'application
 	   	f/ [db] (host, user, password, base) les paramètres pour accéder
 	   	   à votre base de données mysql
-	4. Éxécutez le script MySQL `freshrss.sql` sur la table définie par le
+	5. Éxécutez le script MySQL `freshrss.sql` sur la table définie par le
 	   paramètre `base` dans votre base de données (à travers PhpMyAdmin
 	   par exemple)
-	5. Vérifiez les droits en lecture / écriture sur le répertoire de log
+	6. Vérifiez les droits en lecture / écriture sur le répertoire de log
 	   (`/log`) et celui de cache (`/cache`) qui doivent pouvoir étre lu et
 	   écrit par le serveur, mais pas les autres
-	6. Tout devrait fonctionner :) En cas de problème, n'hésitez pas à me
+	7. Tout devrait fonctionner :) En cas de problème, n'hésitez pas à me
 	   contacter !
 
 SÉCURITÉ ET CONSEILS
