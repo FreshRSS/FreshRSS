@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 3.5.3
+-- version 3.5.5
 -- http://www.phpmyadmin.net
 --
 -- Client: localhost
--- Généré le: Dim 28 Octobre 2012 à 10:58
--- Version du serveur: 5.5.28-log
--- Version de PHP: 5.4.8
+-- Généré le: Sam 02 Mars 2013 à 00:09
+-- Version du serveur: 5.1.68-cll
+-- Version de PHP: 5.3.17
 
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -67,6 +67,7 @@ CREATE TABLE IF NOT EXISTS `feed` (
   `name` varchar(255) NOT NULL,
   `website` text NOT NULL,
   `description` text NOT NULL,
+  `lastUpdate` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `category` (`category`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -86,3 +87,7 @@ ALTER TABLE `entry`
 --
 ALTER TABLE `feed`
   ADD CONSTRAINT `feed_ibfk_4` FOREIGN KEY (`category`) REFERENCES `category` (`id`) ON DELETE SET NULL ON UPDATE CASCADE;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

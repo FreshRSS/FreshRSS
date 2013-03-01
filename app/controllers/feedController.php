@@ -10,11 +10,11 @@ class feedController extends ActionController {
 		} else {
 			if (Request::isPost ()) {
 				$url = Request::param ('url_rss');
-			
+
 				try {
 					$feed = new Feed ($url);
 					$feed->load ();
-					
+
 					$feedDAO = new FeedDAO ();
 					$values = array (
 						'id' => $feed->id (),
@@ -26,7 +26,7 @@ class feedController extends ActionController {
 						'lastUpdate' => time ()
 					);
 					$feedDAO->addFeed ($values);
-				
+
 					$entryDAO = new EntryDAO ();
 					$entries = $feed->entries ();
 					foreach ($entries as $entry) {
@@ -44,11 +44,19 @@ class feedController extends ActionController {
 						);
 						$entryDAO->addEntry ($values);
 					}
-					
+
 					// notif
 					$notif = array (
 						'type' => 'good',
 						'content' => 'Le flux <em>' . $feed->url () . '</em> a bien été ajouté'
+					);
+					Session::_param ('notification', $notif);
+				} catch (FileNotExistException $e) {
+					Log::record ($e->getMessage (), Log::ERROR);
+					// notif
+					$notif = array (
+						'type' => 'bad',
+						'content' => 'Un problème de configuration a empêché l\'ajout du flux. Voir les logs pour plus d\'informations'
 					);
 					Session::_param ('notification', $notif);
 				} catch (Exception $e) {
@@ -59,7 +67,7 @@ class feedController extends ActionController {
 					);
 					Session::_param ('notification', $notif);
 				}
-			
+
 				Request::forward (array (), true);
 			}
 		}

@@ -84,16 +84,23 @@ class Feed extends Model {
 	
 	public function load () {
 		if (!is_null ($this->url)) {
-			$feed = new SimplePie ();
-			$feed->set_feed_url ($this->url);
-			$feed->set_cache_location (CACHE_PATH);
-			$feed->init ();
-			
-			$title = $feed->get_title ();
-			$this->_name (!is_null ($title) ? $title : $this->url);
-			$this->_website ($feed->get_link ());
-			$this->_description ($feed->get_description ());
-			$this->loadEntries ($feed);
+			if (CACHE_PATH === false) {
+				throw new FileNotExistException (
+					'CACHE_PATH',
+					MinzException::ERROR
+				);
+			} else {
+				$feed = new SimplePie ();
+				$feed->set_feed_url ($this->url);
+				$feed->set_cache_location (CACHE_PATH);
+				$feed->init ();
+
+				$title = $feed->get_title ();
+				$this->_name (!is_null ($title) ? $title : $this->url);
+				$this->_website ($feed->get_link ());
+				$this->_description ($feed->get_description ());
+				$this->loadEntries ($feed);
+			}
 		}
 	}
 	private function loadEntries ($feed) {

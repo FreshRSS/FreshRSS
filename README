@@ -23,6 +23,7 @@ PRE-REQUIS
 ==========
 - Serveur Apache (pas testé sur aucun autre)
 - PHP 5.3 (il me faudrait des retours sur d'autres versions)
+- libxml pour PHP
 - MySQL
 
 INSTALLATION

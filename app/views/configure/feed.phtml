@@ -38,9 +38,9 @@
 		</div>
 		
 		<input type="submit" value="Valider" />
+		<?php } ?>
 		
 		<button formaction="<?php echo Url::display (array ('c' => 'feed', 'a' => 'delete', 'params' => array ('id' => $this->flux->id ()))); ?>">Supprimer</button>
-		<?php } ?>
 	</form>
 	<?php } else { ?>
 	<div class="nothing">Aucun flux sélectionné</div>
