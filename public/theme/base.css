@@ -105,7 +105,6 @@ form {
 	width: 100%;
 	height: 100%;
 	background: #fafafa;
-	table-layout: fixed;
 }
 	.aside {
 		display: table-cell;
@@ -439,6 +438,9 @@ a#read_mode {
 		}
 
 @media(max-width: 840px) {
+	#global {
+		table-layout: fixed;
+	}
 	#main_aside {
 		display: none;
 	}
