@@ -242,35 +242,15 @@ form {
 }
 	.post.flux {
 		font-family: Palatino, "Times New Roman", serif;
-		line-height: 170%;
 		border-left: 10px solid #aaa;
 		background: #fafafa;
 	}
 		.post.flux:hover {
 			background: #fff;
 		}
-		.post.flux .after, .post.flux .before {
-			padding: 0 20px;
-			color: #aaa;
-			font-size: 80%;
-			font-style: italic;
-		}
-			.post.flux .before a {
-				color: #96BDE2;
-			}
-			.post.flux .after a {
-				display: inline-block;
-				height: 40px;
-				line-height: 40px;
-			}
-		.post.flux > h1 {
-			min-height: 0;
-			padding: 10px 20px;
-			font-size: 130%;
-			line-height: 150%;
-		}
 		.post.flux .content {
-			padding: 5px 100px;
+			padding: 20px 100px;
+			line-height: 170%;
 		}
 			.post.flux .content h1, .post.flux .content h2, .post.flux .content h3 {
 				margin: 20px 0;
@@ -294,8 +274,8 @@ form {
 			}
 			.post.flux .content q, .post.flux .content blockquote {
 				display: block;
-				margin: 10px 0;
-				padding: 0 20px;
+				margin: 0;
+				padding: 10px 20px;
 				font-style: italic;
 				border-left: 4px solid #ccc;
 				color: #666;
@@ -312,6 +292,90 @@ form {
 			border-left: 10px solid #FFC300;
 			background: #FFF6DA;
 		}
+.flux_header {
+	display: table;
+	table-layout: fixed;
+	margin: 0;
+	padding: 0;
+	width: 100%;
+	height: 25px;
+	font-size: 12px;
+	line-height: 25px;
+	border-top: 1px solid #ddd;
+}
+	.flux_header .item {
+		display: table-cell;
+		vertical-align: middle;
+	}
+		.flux_header .item.manage {
+			width: 40px;
+		}
+			.flux_header .item.manage .read {
+				display: inline-block;
+				width: 16px;
+				height: 16px;
+				background: url("read.svg") center center no-repeat;
+				vertical-align: middle;
+			}
+				.flux_header .item.manage .read:hover {
+					text-decoration: none;
+				}
+				.post.flux.not_read .flux_header .item.manage .read {
+					background: url("unread.svg") center center no-repeat;
+				}
+			.flux_header .item.manage .bookmark {
+				display: inline-block;
+				width: 16px;
+				height: 16px;
+				background: url("non-starred.svg") center center no-repeat;
+				vertical-align: middle;
+			}
+				.flux_header .item.manage .bookmark:hover {
+					text-decoration: none;
+				}
+				.post.flux.favorite .flux_header .item.manage .bookmark {
+					background: url("starred.svg") center center no-repeat;
+				}
+		.flux_header .item.website {
+			width: 200px;
+			overflow: hidden;
+			white-space: nowrap;
+			text-overflow: ellipsis;
+		}
+		.flux_header .item.title {
+			overflow: hidden;
+			white-space: nowrap;
+			text-overflow: ellipsis;
+		}
+			.flux_header .item.title h1 {
+				font-size: 12px;
+				padding: 0;
+				font-weight: normal;
+			}
+				.post.flux.not_read .flux_header .item.title h1 {
+					font-weight: bold;
+				}
+		.flux_header .item.date {
+			width: 200px;
+			overflow: hidden;
+			white-space: nowrap;
+			text-overflow: ellipsis;
+			text-align: right;
+		}
+		.flux_header .item.link {
+			width: 25px;
+			text-align: center;
+		}
+			.flux_header .item.link a {
+				display: inline-block;
+				width: 16px;
+				height: 16px;
+				background: url("website.svg") center center no-repeat;
+				vertical-align: middle;
+			}
+				.flux_header .item.link a:hover {
+					text-decoration: none;
+				}
 		
 #stream.read_mode {
 	background: #fff;
@@ -455,18 +519,12 @@ a#read_mode {
 	#stream {
 		padding: 0;
 	}
-	.post.flux .after {
-		display: none;
+	.flux_header .item.website,
+	.flux_header .item.date {
+		width: 100px;
 	}
-	.post.flux > h1 {
-		display: inline-block;
-		min-height: 35px;
-		font-size: 80%;
-		line-height: 35px;
-	}
-	.post.flux .before {
-		display: inline;
-		font-size: 80%;
+	.post.flux .content {
+		padding: 10px;
 	}
 	a#read_mode {
 		display: none;

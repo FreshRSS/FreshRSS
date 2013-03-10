@@ -65,11 +65,11 @@ function mark_read (active) {
 		active.find ("a.read").attr ("href", res.url);
 		if (active.hasClass ("not_read")) {
 			active.removeClass ("not_read");
-			active.find ("a.read").html ("Marquer comme non lu");
+			//active.find ("a.read").html ("Marquer comme non lu");
 			add_not_read (-1);
 		} else {
 			active.addClass ("not_read");
-			active.find ("a.read").html ("J'ai fini de lire l'article");
+			//active.find ("a.read").html ("J'ai fini de lire l'article");
 			add_not_read (1);
 		}
 	});
@@ -95,10 +95,10 @@ function mark_favorite (active) {
 		active.find ("a.bookmark").attr ("href", res.url);
 		if (active.hasClass ("favorite")) {
 			active.removeClass ("favorite");
-			active.find ("a.bookmark").html ("Ajouter l'article à mes favoris");
+			//active.find ("a.bookmark").html ("Ajouter l'article à mes favoris");
 		} else {
 			active.addClass ("favorite");
-			active.find ("a.bookmark").html ("Retirer l'article de mes favoris");
+			//active.find ("a.bookmark").html ("Retirer l'article de mes favoris");
 		}
 	});
 }
