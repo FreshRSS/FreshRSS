@@ -2,38 +2,38 @@
 
 <?php if (!empty ($items)) { ?>
 <div id="top">
+	<a class="btn" href="<?php echo Url::display (array ('c' => 'feed', 'a' => 'actualize')); ?>"><i class="refresh"></i></a>
+
 	<?php if (!login_is_conf ($this->conf) || is_logged ()) { ?>
-	<a class="read_all" href="<?php echo Url::display (array ('c' => 'entry', 'a' => 'read', 'params' => array ('is_read' => 1))); ?>">Tout marquer comme lu</a><?php } ?><!--
+	<a class="read_all btn" href="<?php echo Url::display (array ('c' => 'entry', 'a' => 'read', 'params' => array ('is_read' => 1))); ?>">Tout marquer comme lu</a><?php } ?><!--
 	<?php if ($this->mode == 'not_read') { ?>
-	--><a class="print_all" href="<?php echo Url::display (array ('a' => 'changeMode', 'params' => array ('mode' => 'all'))); ?>">Tout afficher</a>
+	--><a class="print_all btn" href="<?php echo Url::display (array ('a' => 'changeMode', 'params' => array ('mode' => 'all'))); ?>">Tout afficher</a>
 	<?php } else { ?>
-	--><a class="print_non_read" href="<?php echo Url::display (array ('a' => 'changeMode', 'params' => array ('mode' => 'not_read'))); ?>">Afficher les non lus</a>
+	--><a class="print_non_read btn" href="<?php echo Url::display (array ('a' => 'changeMode', 'params' => array ('mode' => 'not_read'))); ?>">Afficher les non lus</a>
 	<?php } ?>
 </div>
 
 <div id="stream">
-	<?php $this->entryPaginator->render ('pagination.phtml', 'page'); ?>
-	
 	<?php foreach ($items as $item) { ?>
 	<div class="post flux<?php echo !$item->isRead () ? ' not_read' : ''; ?><?php echo $item->isFavorite () ? ' favorite' : ''; ?>" id="flux_<?php echo $item->id (); ?>">
 		<ul class="flux_header">
 			<li class="item manage">
 				<?php if (!login_is_conf ($this->conf) || is_logged ()) { ?>
 				<?php if (!$item->isRead ()) { ?>
-				<a class="read" href="<?php echo Url::display (array ('c' => 'entry', 'a' => 'read', 'params' => array ('id' => $item->id (), 'is_read' => 1))); ?>">&nbsp;</a>
+				<a class="read" href="<?php echo Url::display (array ('c' => 'entry', 'a' => 'read', 'params' => array ('id' => $item->id (), 'is_read' => 1))); ?>">&nbsp;</a><!--
 				<?php } else { ?>
-				<a class="read" href="<?php echo Url::display (array ('c' => 'entry', 'a' => 'read', 'params' => array ('id' => $item->id (), 'is_read' => 0))); ?>">&nbsp;</a>
+				<a class="read" href="<?php echo Url::display (array ('c' => 'entry', 'a' => 'read', 'params' => array ('id' => $item->id (), 'is_read' => 0))); ?>">&nbsp;</a><!--
 				<?php } ?>
 
 				<?php if (!$item->isFavorite ()) { ?>
-				<a class="bookmark" href="<?php echo Url::display (array ('c' => 'entry', 'a' => 'bookmark', 'params' => array ('id' => $item->id (), 'is_favorite' => 1))); ?>">&nbsp;</a>
+				--><a class="bookmark" href="<?php echo Url::display (array ('c' => 'entry', 'a' => 'bookmark', 'params' => array ('id' => $item->id (), 'is_favorite' => 1))); ?>">&nbsp;</a>
 				<?php } else { ?>
-				<a class="bookmark" href="<?php echo Url::display (array ('c' => 'entry', 'a' => 'bookmark', 'params' => array ('id' => $item->id (), 'is_favorite' => 0))); ?>">&nbsp;</a>
+				--><a class="bookmark" href="<?php echo Url::display (array ('c' => 'entry', 'a' => 'bookmark', 'params' => array ('id' => $item->id (), 'is_favorite' => 0))); ?>">&nbsp;</a>
 				<?php } ?>
 				<?php } ?>
 			</li>
 			<?php $feed = $item->feed (true); ?>
-			<li class="item website"><a target="_blank" href="<?php echo $feed->website (); ?>"><img src="http://www.google.com/s2/favicons?domain=<?php echo get_domain ($feed->website ()); ?>" alt="" /> <?php echo $feed->name (); ?></a></li>
+			<li class="item website"><a target="_blank" href="<?php echo $feed->website (); ?>"><img src="http://www.google.com/s2/favicons?domain=<?php echo get_domain ($feed->website ()); ?>" alt="" /><span> <?php echo $feed->name (); ?></span></a></li>
 			<li class="item title"><h1><?php echo $item->title (); ?></h1></li>
 			<li class="item date">le <?php echo $item->date (); ?></li>
 			<li class="item link"><a target="_blank" href="<?php echo $item->link (); ?>">&nbsp;</a></li>

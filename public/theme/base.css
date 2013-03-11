@@ -5,7 +5,7 @@
 html, body {
 	height: 100%;
 	font-size: 95%;
-	font-family: "Cantarell", "sans-serif";
+	font-family: "Cantarell", "Helvetica", "Arial", "sans-serif";
 }
 
 /* LIENS */
@@ -98,6 +98,35 @@ form {
 			padding: 0 0 0 5px;
 			font-weight: normal;
 		}
+.btn {
+	display: inline-block;
+	height: 30px;
+	padding: 5px 10px;
+	background: linear-gradient(#fff, #eee);
+	border-radius: 3px;
+	border: 1px solid #ddd;
+	border-bottom: 1px solid #aaa;
+	border-right: 1px solid #aaa;
+	color: #666;
+	text-shadow: 0px 1px 1px #ddd;
+	line-height: 30px;
+	vertical-align: middle;
+}
+	.btn:hover {
+		background: linear-gradient(#fafafa, #f0f0f0);
+		text-decoration: none;
+	}
+	.btn:active {
+		box-shadow: 0px 2px 4px #e0e0e0 inset, 0px 1px 2px #fafafa;
+	}
+
+/* *** */
+.refresh {
+	display: inline-block;
+	width: 30px;
+	height: 30px;
+	background: url("refresh.svg") center center no-repeat;
+}
 
 /* STRUCTURE */
 #global {
@@ -183,10 +212,6 @@ form {
 					border: none;
 					border-radius: 0;
 				}
-		#main_aside {
-			position: fixed;
-			z-index: 10;
-		}
 		#categories {
 			height: 69%;
 			overflow: auto;
@@ -195,40 +220,25 @@ form {
 	#main {
 		display: table-cell;
 		height: 100%;
-		max-width: 800px;
-		padding: 0 0 0 250px;
 		line-height: 180%;
 		background: #fafafa;
 		vertical-align: top;
 	}
 		#top {
-			position: fixed;
-			top: 0;
-			width: 85%;
-			background: #eee;
+			width: 100%;
+			background: #fafafa;
 			border-bottom: 1px solid #aaa;
-			box-shadow: 0 1px 3px #aaa;
 			text-align: center;
-			z-index: 0;
+			padding: 5px 0;
 		}
-			#top a {
-				display: inline-block;
-				height: 50px;
-				width: 50%;
-				line-height: 50px;
-				font-weight: bold;
+			#top .btn {
+				margin: 0 10px;
 			}
-				#top a:hover {
-					background: #fafafa;
-					text-decoration: none;
-				}
-		#stream {
-			padding: 50px 0 0;
-		}
 		#main .table {
 			display: table;
 			width: 100%;
 			height: 100%;
+			table-layout: fixed;
 		}
 		#main .nothing {
 			display: table-cell;
@@ -253,13 +263,13 @@ form {
 			line-height: 170%;
 		}
 			.post.flux .content h1, .post.flux .content h2, .post.flux .content h3 {
-				margin: 20px 0;
+				margin: 20px 0 5px;
 			}
 			.post.flux .content p {
-				margin: 20px 0;
+				margin: 10px 0;
 			}
 			.post.flux .content img {
-				margin: 10px;
+				margin: 0;
 				border-radius: 5px;
 			}
 			.post.flux .content pre {
@@ -308,12 +318,12 @@ form {
 		vertical-align: middle;
 	}
 		.flux_header .item.manage {
-			width: 40px;
+			width: 50px;
 		}
 			.flux_header .item.manage .read {
 				display: inline-block;
-				width: 16px;
-				height: 16px;
+				width: 25px;
+				height: 25px;
 				background: url("read.svg") center center no-repeat;
 				vertical-align: middle;
 			}
@@ -325,8 +335,8 @@ form {
 				}
 			.flux_header .item.manage .bookmark {
 				display: inline-block;
-				width: 16px;
-				height: 16px;
+				width: 25px;
+				height: 25px;
 				background: url("non-starred.svg") center center no-repeat;
 				vertical-align: middle;
 			}
@@ -361,110 +371,49 @@ form {
 			white-space: nowrap;
 			text-overflow: ellipsis;
 			text-align: right;
+			font-size: 10px;
+			color: #666;
 		}
 		.flux_header .item.link {
-			width: 25px;
+			width: 35px;
 			text-align: center;
 		}
 			.flux_header .item.link a {
 				display: inline-block;
-				width: 16px;
-				height: 16px;
+				width: 25px;
+				height: 25px;
 				background: url("website.svg") center center no-repeat;
 				vertical-align: middle;
 			}
 				.flux_header .item.link a:hover {
 					text-decoration: none;
 				}
-		
-#stream.read_mode {
-	background: #fff;
-	box-shadow: 0 0 5px #000;
-}
-	#stream.read_mode .post.flux {
-		border-left: 0;
-		padding: 50px 20px;
-		background: #fff;
-	}
-	#stream.read_mode .post.flux a {
-		color: #363;
-	}
-	#stream.read_mode .post.flux .content a {
-		text-decoration: underline;
-	}
-		#stream.read_mode .post.flux .content a:hover {
-			text-decoration: none;
-		}
-	#stream.read_mode .post.flux .after {
-		display: none;
-	}
 
 /*** PAGINATION ***/
 .pagination {
-	height: 50px;
+	display: block;
 	margin: 0;
-	list-style: none;
+	background: #fafafa;
 	text-align: center;
-	font-size: 100%;
-	line-height: 50px;
-	}
-	.pagination li {
+	color: #333;
+	font-size: 80%;
+	line-height: 200%;
+	border-top: 1px solid #aaa;
+}
+	.pagination .item {
 		display: inline-block;
-		width: 30px;
-		height: 30px;
-		}
-		.pagination li.pager-next, .pagination li.pager-previous, .pagination li.pager-first, .pagination li.pager-last {
-			width: 100px;
-		}
-		.pagination li.pager-current {
-			font-weight: bold;
-			}
-		.pagination li a {
-			display: block;
-			color: #F09600;
-			}
-a#load_more {
-	display: block;
-	height: 50px;
-	background: #eee;
-	line-height: 50px;
-	text-align: center;
-	font-weight: bold;
-	border-top: 1px solid #aaa;
-}
-	a#load_more:hover {
-		background: #fff;
-		text-decoration: none;
+		padding: 5px 10px;
 	}
-	a#load_more.disable {
-		cursor: default;
-		background: #eee;
-		color: #666;
-	}
-
-a#read_mode {
-	display: block;
-	position: fixed;
-	bottom: 0;
-	right: 0;
-	width: 50px;
-	height: 50px;
-	background: url("read_mode.png") 9px 9px no-repeat #ddd;
-	border-top: 1px solid #aaa;
-	border-left: 1px solid #aaa;
-	border-radius: 20px 0 0 0;
-	box-shadow: -2px -2px 5px #aaa;
-	transition: all 100ms linear 0s;
-}
-	a#read_mode:hover {
-		width: 60px;
-		height: 60px;
-		background-color: #eee;
-		text-decoration: none;
+		.pagination .item a {
+			color: #333;
+			font-style: italic;
+		}
+	.pagination .item.pager-current {
+		font-weight: bold;
 	}
 
 /*** NOTIFICATION ***/
-#notification {
+.notification {
 	position: fixed;
 	bottom: 0;
 	left: 25%;
@@ -479,13 +428,13 @@ a#read_mode {
 	color: #666;
 	font-weight: bold;
 }
-	#notification.good {
+	.notification.good {
 		background: #f4f899;
 	}
-	#notification.bad {
+	.notification.bad {
 		background: #f4a899;
 	}
-	#notification a.close {
+	.notification a.close {
 		display: inline-block;
 		width: 25px;
 		height: 25px;
@@ -497,7 +446,7 @@ a#read_mode {
 		line-height: 25px;
 		color: #666;
 	}
-		#notification a.close:hover {
+		.notification a.close:hover {
 			text-decoration: none;
 		}
 
@@ -519,9 +468,12 @@ a#read_mode {
 	#stream {
 		padding: 0;
 	}
-	.flux_header .item.website,
+	.flux_header .item.website span,
 	.flux_header .item.date {
-		width: 100px;
+		display: none;
+	}
+	.flux_header .item.website {
+		width: 20px;
 	}
 	.post.flux .content {
 		padding: 10px;

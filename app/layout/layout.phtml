@@ -19,9 +19,9 @@
 <?php $this->partial ('persona'); ?>
 
 <?php if (isset ($this->notification)) { ?>
-<div id="notification" class="<?php echo $this->notification['type']; ?>">
-<?php echo $this->notification['content']; ?>
-<a class="close" href="">X</a>
+<div class="notification <?php echo $this->notification['type']; ?>">
+	<?php echo $this->notification['content']; ?>
+	<a class="close" href="">X</a>
 </div>
 <?php } ?>
 	</body>

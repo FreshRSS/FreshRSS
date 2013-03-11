@@ -17,10 +17,6 @@
 		</li>
 		<?php } ?>
 		
-		<li>
-			<a href="<?php echo Url::display (array ('c' => 'feed', 'a' => 'actualize')); ?>">Mettre les flux à jour</a>
-		</li>
-		
 		<?php if (login_is_conf ($this->conf)) { ?>
 		<li>
 			<?php if (!is_logged ()) { ?>
@@ -47,7 +43,7 @@
 		<li class="category<?php echo $this->get == $cat->id () ? ' active' : ''; ?>">
 			<a href="<?php echo Url::display (array ('params' => array ('get' => $cat->id ()))); ?>">
 				<?php echo $cat->name (); ?>
-				<span><?php echo $cat->nbFeed (); ?> flux (<?php echo $cat->nbNotRead (); ?>)</span>
+				<span><?php echo $cat->nbNotRead (); ?> non lu</span>
 			</a>
 		</li>
 		<?php } ?>

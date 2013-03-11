@@ -20,11 +20,11 @@ function slide (new_active, old_active) {
 	old_active.removeClass ("active");
 	new_active.addClass ("active");
 	
-	if (hide_posts && !read_mode_on ) {
+	if (hide_posts) {
 		old_active.children (".content").slideUp (500);
 		new_active.children (".content").slideDown (500, function () {
 			$.smoothScroll({
-				offset: new_active.position ().top - 50
+				offset: new_active.position ().top
 			});
 		});
 	} else {
@@ -104,7 +104,7 @@ function mark_favorite (active) {
 }
 
 function init_posts () {
-	if (hide_posts && !read_mode_on) {
+	if (hide_posts) {
 		$(".post.flux:not(.active) .content").slideUp ();
 	}
 	
@@ -212,10 +212,8 @@ $(document).ready (function () {
 		redirect (url, false);
 	});
 	shortcut.add("<?php echo $s['go_website']; ?>", function () {
-		url = $(".post.flux.active h1.title a").attr ("href");
+		url = $(".post.flux.active .link a").attr ("href");
 		
 		redirect (url, true);
 	});
-	
-	$("#categories").height ($('body').height () - $("#categories").position ().top);
 });

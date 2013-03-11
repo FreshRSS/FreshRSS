@@ -4,31 +4,24 @@
 	$params = Request::params ();
 ?>
 
-<?php if ($this->nbPage > 1) { ?>
 <ul class="pagination">
-	<?php if ($this->currentPage > 1) { ?>
-	<?php $params[$getteur] = 1; ?>
-	<li class="pager-first"><a href="<?php echo Url::display (array ('c' => $c, 'a' => $a, 'params' => $params)); ?>">« Début</a></li>
-	<?php $params[$getteur] = $this->currentPage - 1; ?>
-	<li class="pager-previous"><a href="<?php echo Url::display (array ('c' => $c, 'a' => $a, 'params' => $params)); ?>">‹ Précédent</a></li>
-	<?php } ?>
-	
-	<?php for ($i = $this->currentPage - 2; $i <= $this->currentPage + 2; $i++) { ?>
-		<?php if($i > 0 && $i <= $this->nbPage) { ?>
-			<?php if ($i != $this->currentPage) { ?>
-			<?php $params[$getteur] = $i; ?>
-			<li class="pager-item"><a href="<?php echo Url::display (array ('c' => $c, 'a' => $a, 'params' => $params)); ?>"><?php echo $i; ?></a></li>
-			<?php } else { ?>
-			<li class="pager-current"><?php echo $i; ?></li>
-			<?php } ?>
-		<?php } ?>
-	<?php } ?>
-	
+	<li class="item pager-next">
 	<?php if ($this->currentPage < $this->nbPage) { ?>
 	<?php $params[$getteur] = $this->currentPage + 1; ?>
-	<li class="pager-next"><a href="<?php echo Url::display (array ('c' => $c, 'a' => $a, 'params' => $params)); ?>">Suivant ›</a></li>
-	<?php $params[$getteur] = $this->nbPage; ?>
-	<li class="pager-last"><a href="<?php echo Url::display (array ('c' => $c, 'a' => $a, 'params' => $params)); ?>">Fin »</a></li>
+	<a href="<?php echo Url::display (array ('c' => $c, 'a' => $a, 'params' => $params)); ?>">‹ Anciens</a>
+	<?php } else { ?>
+	&nbsp;
 	<?php } ?>
+	</li>
+
+	<li class="item pager-current">page <?php echo $this->currentPage; ?> / <?php echo $this->nbPage; ?></li>
+
+	<li class="item pager-previous">
+	<?php if ($this->currentPage > 1) { ?>
+	<?php $params[$getteur] = $this->currentPage - 1; ?>
+	<a href="<?php echo Url::display (array ('c' => $c, 'a' => $a, 'params' => $params)); ?>">Récents ›</a>
+	<?php } else { ?>
+	&nbsp;
+	<?php } ?>
+	</li>
 </ul>
-<?php } ?>
