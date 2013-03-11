@@ -1,11 +1,11 @@
 function closeNotification () {
-	$("#notification").slideUp (200, function () {
-		$("#notification").remove ();
+	$(".notification").slideUp (200, function () {
+		$(".notification").remove ();
 	});
 }
 
 $(document).ready (function () {
-	notif = $("#notification");
+	notif = $(".notification");
 	if (notif[0] !== undefined) {
 		timer = setInterval('closeNotification()', 5000);
 		
