@@ -268,8 +268,11 @@ form {
 			.post.flux .content p {
 				margin: 10px 0;
 			}
-			.post.flux .content img {
-				margin: 0;
+			.post.flux .content img.big {
+				display: block;
+				margin: 10px 0;
+				width: 100%;
+				box-shadow: 0 0 5px #000;
 				border-radius: 5px;
 			}
 			.post.flux .content pre {
