@@ -1,6 +1,7 @@
 <?php
 
 class Feed extends Model {
+	private $id = null;
 	private $url;
 	private $category = '';
 	private $entries = null;
@@ -14,7 +15,11 @@ class Feed extends Model {
 	}
 	
 	public function id () {
-		return small_hash ($this->url . Configuration::selApplication ());
+		if(is_null($this->id)) {
+			return small_hash ($this->url . Configuration::selApplication ());
+		} else {
+			return $this->id;
+		}
 	}
 	public function url () {
 		return $this->url;
@@ -45,7 +50,10 @@ class Feed extends Model {
 		$feedDAO = new FeedDAO ();
 		return $feedDAO->countEntries ($this->id ());
 	}
-	
+
+	public function _id ($value) {
+		$this->id = $value;
+	}
 	public function _url ($value) {
 		if (!is_null ($value) && !preg_match ('#^https?://#', $value)) {
 			$value = 'http://' . $value;
@@ -294,6 +302,10 @@ class HelperFeed {
 			$list[$key]->_website ($dao['website']);
 			$list[$key]->_description ($dao['description']);
 			$list[$key]->_lastUpdate ($dao['lastUpdate']);
+
+			if (isset ($dao['id'])) {
+				$list[$key]->_id ($dao['id']);
+			}
 		}
 
 		return $list;

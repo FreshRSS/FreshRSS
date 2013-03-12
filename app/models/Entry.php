@@ -1,6 +1,7 @@
 <?php
 
 class Entry extends Model {
+	private $id = null;
 	private $guid;
 	private $title;
 	private $author;
@@ -25,7 +26,11 @@ class Entry extends Model {
 	}
 	
 	public function id () {
-		return small_hash ($this->guid . Configuration::selApplication ());
+		if(is_null($this->id)) {
+			return small_hash ($this->guid . Configuration::selApplication ());
+		} else {
+			return $this->id;
+		}
 	}
 	public function guid () {
 		return $this->guid;
@@ -63,7 +68,10 @@ class Entry extends Model {
 			return $this->feed;
 		}
 	}
-	
+
+	public function _id ($value) {
+		$this->id = $value;
+	}
 	public function _guid ($value) {
 		$this->guid = $value;
 	}
@@ -370,6 +378,10 @@ class HelperEntry {
 				$dao['is_read'],
 				$dao['is_favorite']
 			);
+
+			if (isset ($dao['id'])) {
+				$list[$key]->_id ($dao['id']);
+			}
 		}
 
 		return $list;
