@@ -4,9 +4,6 @@
 		<li <?php echo Request::actionName () == 'display' ? 'class="active"' : ''; ?>>
 			<a href="<?php echo Url::display (array ('c' => 'configure', 'a' => 'display')); ?>">Général et affichage</a>
 		</li>
-		<li <?php echo Request::actionName () == 'feed' ? 'class="active"' : ''; ?>>
-			<a href="<?php echo Url::display (array ('c' => 'configure', 'a' => 'feed')); ?>">Flux RSS</a>
-		</li>
 		<li <?php echo Request::actionName () == 'categorize' ? 'class="active"' : ''; ?>>
 			<a href="<?php echo Url::display (array ('c' => 'configure', 'a' => 'categorize')); ?>">Catégories</a>
 		</li>

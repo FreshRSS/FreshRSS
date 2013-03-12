@@ -9,11 +9,11 @@ class Feed extends Model {
 	private $website = '';
 	private $description = '';
 	private $lastUpdate = 0;
-	
+
 	public function __construct ($url) {
 		$this->_url ($url);
 	}
-	
+
 	public function id () {
 		if(is_null($this->id)) {
 			return small_hash ($this->url . Configuration::selApplication ());
@@ -58,7 +58,7 @@ class Feed extends Model {
 		if (!is_null ($value) && !preg_match ('#^https?://#', $value)) {
 			$value = 'http://' . $value;
 		}
-		
+
 		if (!is_null ($value) && filter_var ($value, FILTER_VALIDATE_URL)) {
 			$this->url = $value;
 		} else {
@@ -89,7 +89,7 @@ class Feed extends Model {
 	public function _lastUpdate ($value) {
 		$this->lastUpdate = $value;
 	}
-	
+
 	public function load () {
 		if (!is_null ($this->url)) {
 			if (CACHE_PATH === false) {
@@ -113,13 +113,13 @@ class Feed extends Model {
 	}
 	private function loadEntries ($feed) {
 		$entries = array ();
-		
+
 		foreach ($feed->get_items () as $item) {
 			$title = $item->get_title ();
 			$author = $item->get_author ();
 			$link = $item->get_permalink ();
 			$date = strtotime ($item->get_date ());
-			
+
 			// Gestion du contenu
 			// On cherche à récupérer les articles en entier... même si le flux ne le propose pas
 			$path = get_path ($this->website ());
@@ -132,7 +132,7 @@ class Feed extends Model {
 			} else {
 				$content = $item->get_content ();
 			}
-	
+
 			$entry = new Entry (
 				$this->id (),
 				$item->get_id (),
@@ -142,10 +142,10 @@ class Feed extends Model {
 				!is_null ($link) ? $link : '',
 				$date ? $date : time ()
 			);
-		
+
 			$entries[$entry->id ()] = $entry;
 		}
-	
+
 		$this->entries = $entries;
 	}
 }
@@ -171,14 +171,14 @@ class FeedDAO extends Model_pdo {
 			return false;
 		}
 	}
-	
+
 	public function updateFeed ($id, $valuesTmp) {
 		$set = '';
 		foreach ($valuesTmp as $key => $v) {
 			$set .= $key . '=?, ';
 		}
 		$set = substr ($set, 0, -2);
-		
+
 		$sql = 'UPDATE feed SET ' . $set . ' WHERE id=?';
 		$stm = $this->bd->prepare ($sql);
 
@@ -193,7 +193,7 @@ class FeedDAO extends Model_pdo {
 			return false;
 		}
 	}
-	
+
 	public function updateLastUpdate ($id) {
 		$sql = 'UPDATE feed SET lastUpdate=? WHERE id=?';
 		$stm = $this->bd->prepare ($sql);
@@ -209,7 +209,7 @@ class FeedDAO extends Model_pdo {
 			return false;
 		}
 	}
-	
+
 	public function deleteFeed ($id) {
 		$sql = 'DELETE FROM feed WHERE id=?';
 		$stm = $this->bd->prepare ($sql);
@@ -222,24 +222,24 @@ class FeedDAO extends Model_pdo {
 			return false;
 		}
 	}
-	
+
 	public function searchById ($id) {
 		$sql = 'SELECT * FROM feed WHERE id=?';
 		$stm = $this->bd->prepare ($sql);
-		
+
 		$values = array ($id);
-		
+
 		$stm->execute ($values);
 		$res = $stm->fetchAll (PDO::FETCH_ASSOC);
 		$feed = HelperFeed::daoToFeed ($res);
-		
-		if (isset ($feed[0])) {
-			return $feed[0];
+
+		if (isset ($feed[$id])) {
+			return $feed[$id];
 		} else {
 			return false;
 		}
 	}
-	
+
 	public function listFeeds () {
 		$sql = 'SELECT * FROM feed ORDER BY name';
 		$stm = $this->bd->prepare ($sql);
@@ -247,7 +247,7 @@ class FeedDAO extends Model_pdo {
 
 		return HelperFeed::daoToFeed ($stm->fetchAll (PDO::FETCH_ASSOC));
 	}
-	
+
 	public function listFeedsOrderUpdate () {
 		$sql = 'SELECT * FROM feed ORDER BY lastUpdate';
 		$stm = $this->bd->prepare ($sql);
@@ -255,18 +255,18 @@ class FeedDAO extends Model_pdo {
 
 		return HelperFeed::daoToFeed ($stm->fetchAll (PDO::FETCH_ASSOC));
 	}
-	
+
 	public function listByCategory ($cat) {
 		$sql = 'SELECT * FROM feed WHERE category=? ORDER BY name';
 		$stm = $this->bd->prepare ($sql);
-		
+
 		$values = array ($cat);
-		
+
 		$stm->execute ($values);
 
 		return HelperFeed::daoToFeed ($stm->fetchAll (PDO::FETCH_ASSOC));
 	}
-	
+
 	public function count () {
 		$sql = 'SELECT COUNT(*) AS count FROM feed';
 		$stm = $this->bd->prepare ($sql);
@@ -275,7 +275,7 @@ class FeedDAO extends Model_pdo {
 
 		return $res[0]['count'];
 	}
-	
+
 	public function countEntries ($id) {
 		$sql = 'SELECT COUNT(*) AS count FROM entry WHERE id_feed=?';
 		$stm = $this->bd->prepare ($sql);
@@ -296,6 +296,10 @@ class HelperFeed {
 		}
 
 		foreach ($listDAO as $key => $dao) {
+			if (isset ($dao['id'])) {
+				$key = $dao['id'];
+			}
+
 			$list[$key] = new Feed ($dao['url']);
 			$list[$key]->_category ($dao['category']);
 			$list[$key]->_name ($dao['name']);

@@ -8,8 +8,12 @@
 		<?php echo self::headScript (); ?>
 	</head>
 	<body>
+<?php $this->partial ('header'); ?>
+
 <div id="global">
+	<?php if (Request::controllerName () != 'configure') { ?>
 	<?php $this->partial ('aside'); ?>
+	<?php } ?>
 	
 	<div id="main">
 		<?php $this->render (); ?>
@@ -21,7 +25,7 @@
 <?php if (isset ($this->notification)) { ?>
 <div class="notification <?php echo $this->notification['type']; ?>">
 	<?php echo $this->notification['content']; ?>
-	<a class="close" href="">X</a>
+	<a class="close" href=""><i class="icon close"></i></a>
 </div>
 <?php } ?>
 	</body>

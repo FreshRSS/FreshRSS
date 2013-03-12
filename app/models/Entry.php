@@ -11,7 +11,7 @@ class Entry extends Model {
 	private $is_read;
 	private $is_favorite;
 	private $feed;
-	
+
 	public function __construct ($feed = '', $guid = '', $title = '', $author = '', $content = '',
 	                             $link = '', $pubdate = 0, $is_read = false, $is_favorite = false) {
 		$this->_guid ($guid);
@@ -24,7 +24,7 @@ class Entry extends Model {
 		$this->_isFavorite ($is_favorite);
 		$this->_feed ($feed);
 	}
-	
+
 	public function id () {
 		if(is_null($this->id)) {
 			return small_hash ($this->guid . Configuration::selApplication ());
@@ -125,21 +125,21 @@ class EntryDAO extends Model_pdo {
 			return false;
 		}
 	}
-	
+
 	public function updateEntry ($id, $valuesTmp) {
 		if (isset ($valuesTmp['content'])) {
 			$valuesTmp['content'] = base64_encode (gzdeflate (serialize ($valuesTmp['content'])));
 		}
-	
+
 		$set = '';
 		foreach ($valuesTmp as $key => $v) {
 			$set .= $key . '=?, ';
 		}
 		$set = substr ($set, 0, -2);
-		
+
 		$sql = 'UPDATE entry SET ' . $set . ' WHERE id=?';
 		$stm = $this->bd->prepare ($sql);
-		
+
 		foreach ($valuesTmp as $v) {
 			$values[] = $v;
 		}
@@ -151,21 +151,21 @@ class EntryDAO extends Model_pdo {
 			return false;
 		}
 	}
-	
+
 	public function updateEntries ($valuesTmp) {
 		if (isset ($valuesTmp['content'])) {
 			$valuesTmp['content'] = base64_encode (gzdeflate (serialize ($valuesTmp['content'])));
 		}
-		
+
 		$set = '';
 		foreach ($valuesTmp as $key => $v) {
 			$set .= $key . '=?, ';
 		}
 		$set = substr ($set, 0, -2);
-		
+
 		$sql = 'UPDATE entry SET ' . $set;
 		$stm = $this->bd->prepare ($sql);
-		
+
 		foreach ($valuesTmp as $v) {
 			$values[] = $v;
 		}
@@ -176,7 +176,7 @@ class EntryDAO extends Model_pdo {
 			return false;
 		}
 	}
-	
+
 	public function cleanOldEntries ($nb_month) {
 		$date = 60 * 60 * 24 * 30 * $nb_month;
 		$sql = 'DELETE FROM entry WHERE date <= ? AND is_favorite = 0';
@@ -185,52 +185,52 @@ class EntryDAO extends Model_pdo {
 		$values = array (
 			time () - $date
 		);
-		
+
 		if ($stm && $stm->execute ($values)) {
 			return true;
 		} else {
 			return false;
 		}
 	}
-	
+
 	public function searchById ($id) {
 		$sql = 'SELECT * FROM entry WHERE id=?';
 		$stm = $this->bd->prepare ($sql);
-		
+
 		$values = array ($id);
-		
+
 		$stm->execute ($values);
 		$res = $stm->fetchAll (PDO::FETCH_ASSOC);
 		$entry = HelperEntry::daoToEntry ($res);
-		
+
 		if (isset ($entry[0])) {
 			return $entry[0];
 		} else {
 			return false;
 		}
 	}
-	
+
 	public function listEntries ($mode, $order = 'high_to_low') {
 		$where = '';
 		if ($mode == 'not_read') {
 			$where = ' WHERE is_read=0';
 		}
-		
+
 		if ($order == 'low_to_high') {
 			$order = ' DESC';
 		} else {
 			$order = '';
 		}
-		
+
 		$sql = 'SELECT COUNT(*) AS count FROM entry' . $where;
 		$stm = $this->bd->prepare ($sql);
 		$stm->execute ();
 		$res = $stm->fetchAll (PDO::FETCH_ASSOC);
 		$this->nbItems = $res[0]['count'];
-		
+
 		$deb = ($this->currentPage - 1) * $this->nbItemsPerPage;
 		$fin = $this->nbItemsPerPage;
-		
+
 		$sql = 'SELECT * FROM entry' . $where
 		     . ' ORDER BY date' . $order
 		     . ' LIMIT ' . $deb . ', ' . $fin;
@@ -239,77 +239,111 @@ class EntryDAO extends Model_pdo {
 
 		return HelperEntry::daoToEntry ($stm->fetchAll (PDO::FETCH_ASSOC));
 	}
-	
+
 	public function listFavorites ($mode, $order = 'high_to_low') {
 		$where = ' WHERE is_favorite=1';
 		if ($mode == 'not_read') {
 			$where .= ' AND is_read=0';
 		}
-		
+
 		if ($order == 'low_to_high') {
 			$order = ' DESC';
 		} else {
 			$order = '';
 		}
-		
+
 		$sql = 'SELECT COUNT(*) AS count FROM entry' . $where;
 		$stm = $this->bd->prepare ($sql);
 		$stm->execute ();
 		$res = $stm->fetchAll (PDO::FETCH_ASSOC);
 		$this->nbItems = $res[0]['count'];
-		
+
 		if($this->nbItemsPerPage < 0) {
 			$sql = 'SELECT * FROM entry' . $where
 			     . ' ORDER BY date' . $order;
 		} else {
 			$deb = ($this->currentPage - 1) * $this->nbItemsPerPage;
 			$fin = $this->nbItemsPerPage;
-		
+
 			$sql = 'SELECT * FROM entry' . $where
 			     . ' ORDER BY date' . $order
 			     . ' LIMIT ' . $deb . ', ' . $fin;
 		}
 		$stm = $this->bd->prepare ($sql);
-		
+
 		$stm->execute ();
 
 		return HelperEntry::daoToEntry ($stm->fetchAll (PDO::FETCH_ASSOC));
 	}
-	
+
 	public function listByCategory ($cat, $mode, $order = 'high_to_low') {
 		$where = ' WHERE category=?';
 		if ($mode == 'not_read') {
 			$where .= ' AND is_read=0';
 		}
-		
+
 		if ($order == 'low_to_high') {
 			$order = ' DESC';
 		} else {
 			$order = '';
 		}
-		
+
 		$sql = 'SELECT COUNT(*) AS count FROM entry e INNER JOIN feed f ON e.id_feed = f.id' . $where;
 		$stm = $this->bd->prepare ($sql);
 		$values = array ($cat);
 		$stm->execute ($values);
 		$res = $stm->fetchAll (PDO::FETCH_ASSOC);
 		$this->nbItems = $res[0]['count'];
-		
+
 		$deb = ($this->currentPage - 1) * $this->nbItemsPerPage;
 		$fin = $this->nbItemsPerPage;
 		$sql = 'SELECT * FROM entry e INNER JOIN feed f ON e.id_feed = f.id' . $where
 		     . ' ORDER BY date' . $order
 		     . ' LIMIT ' . $deb . ', ' . $fin;
-		
+
 		$stm = $this->bd->prepare ($sql);
-		
+
 		$values = array ($cat);
-		
+
 		$stm->execute ($values);
 
 		return HelperEntry::daoToEntry ($stm->fetchAll (PDO::FETCH_ASSOC));
 	}
-	
+
+	public function listByFeed ($feed, $mode, $order = 'high_to_low') {
+		$where = ' WHERE id_feed=?';
+		if ($mode == 'not_read') {
+			$where .= ' AND is_read=0';
+		}
+
+		if ($order == 'low_to_high') {
+			$order = ' DESC';
+		} else {
+			$order = '';
+		}
+
+		$sql = 'SELECT COUNT(*) AS count FROM entry' . $where;
+		$stm = $this->bd->prepare ($sql);
+		$values = array ($feed);
+		$stm->execute ($values);
+		$res = $stm->fetchAll (PDO::FETCH_ASSOC);
+		$this->nbItems = $res[0]['count'];
+
+		$deb = ($this->currentPage - 1) * $this->nbItemsPerPage;
+		$fin = $this->nbItemsPerPage;
+		$sql = 'SELECT * FROM entry e' . $where
+		     . ' ORDER BY date' . $order
+		     . ' LIMIT ' . $deb . ', ' . $fin;
+
+		$stm = $this->bd->prepare ($sql);
+
+		$values = array ($feed);
+
+		$stm->execute ($values);
+
+		return HelperEntry::daoToEntry ($stm->fetchAll (PDO::FETCH_ASSOC));
+	}
+
 	public function count () {
 		$sql = 'SELECT COUNT(*) AS count FROM entry';
 		$stm = $this->bd->prepare ($sql);
@@ -318,25 +352,25 @@ class EntryDAO extends Model_pdo {
 
 		return $res[0]['count'];
 	}
-	
+
 	public function countNotRead () {
 		$sql = 'SELECT COUNT(*) AS count FROM entry WHERE is_read=0';
 		$stm = $this->bd->prepare ($sql);
 		$stm->execute ();
 		$res = $stm->fetchAll (PDO::FETCH_ASSOC);
-		
+
 		return $res[0]['count'];
 	}
-	
+
 	public function countFavorites () {
 		$sql = 'SELECT COUNT(*) AS count FROM entry WHERE is_favorite=1';
 		$stm = $this->bd->prepare ($sql);
 		$stm->execute ();
 		$res = $stm->fetchAll (PDO::FETCH_ASSOC);
-		
+
 		return $res[0]['count'];
 	}
-	
+
 	// gestion de la pagination directement via le DAO
 	private $nbItemsPerPage = 1;
 	private $currentPage = 1;
@@ -347,13 +381,13 @@ class EntryDAO extends Model_pdo {
 	public function _currentPage ($value) {
 		$this->currentPage = $value;
 	}
-	
+
 	public function getPaginator ($entries) {
 		$paginator = new Paginator ($entries);
 		$paginator->_nbItems ($this->nbItems);
 		$paginator->_nbItemsPerPage ($this->nbItemsPerPage);
 		$paginator->_currentPage ($this->currentPage);
-		
+
 		return $paginator;
 	}
 }
@@ -361,7 +395,7 @@ class EntryDAO extends Model_pdo {
 class HelperEntry {
 	public static function daoToEntry ($listDAO, $mode = 'all', $favorite = false) {
 		$list = array ();
-		
+
 		if (!is_array ($listDAO)) {
 			$listDAO = array ($listDAO);
 		}

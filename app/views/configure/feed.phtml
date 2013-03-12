@@ -1,9 +1,15 @@
 <div class="table">
-	<?php $this->partial ('configure_aside'); ?>
+	<?php /* $this->partial ('configure_aside'); */ ?>
 
 	<div class="aside">
 		<ul>
 			<li><h2>Vox flux RSS</h2></li>
+			<?php if (!login_is_conf ($this->conf) || is_logged ()) { ?>
+			<li><form id="add_rss" method="post" action="<?php echo Url::display (array ('c' => 'feed', 'a' => 'add')); ?>">
+				<input type="url" name="url_rss" placeholder="Ajouter un flux RSS" />
+				<input type="submit" value="+" />
+			</form></li>
+			<?php } ?>
 			<?php if (!empty ($this->feeds)) { ?>
 			<?php foreach ($this->feeds as $feed) { ?>
 			<li <?php echo ($this->flux && $this->flux->id () == $feed->id ()) ? 'class="active"' : ''; ?>>

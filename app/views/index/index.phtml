@@ -1,8 +1,6 @@
 <?php $items = $this->entryPaginator->items (true); ?>
-
-<?php if (!empty ($items)) { ?>
 <div id="top">
-	<a class="btn" href="<?php echo Url::display (array ('c' => 'feed', 'a' => 'actualize')); ?>"><i class="refresh"></i></a>
+	<a class="btn" href="<?php echo Url::display (array ('c' => 'feed', 'a' => 'actualize')); ?>"><i class="icon refresh"></i></a>
 
 	<?php if (!login_is_conf ($this->conf) || is_logged ()) { ?>
 	<a class="read_all btn" href="<?php echo Url::display (array ('c' => 'entry', 'a' => 'read', 'params' => array ('is_read' => 1))); ?>">Tout marquer comme lu</a><?php } ?><!--
@@ -12,6 +10,8 @@
 	--><a class="print_non_read btn" href="<?php echo Url::display (array ('a' => 'changeMode', 'params' => array ('mode' => 'not_read'))); ?>">Afficher les non lus</a>
 	<?php } ?>
 </div>
+
+<?php if (!empty ($items)) { ?>
 
 <div id="stream">
 	<?php foreach ($items as $item) { ?>

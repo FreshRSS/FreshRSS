@@ -4,12 +4,13 @@ class Category extends Model {
 	private $id = false;
 	private $name;
 	private $color;
-	
+	private $feeds = null;
+
 	public function __construct ($name = '', $color = '#0062BE') {
 		$this->_name ($name);
 		$this->_color ($color);
 	}
-	
+
 	public function id () {
 		if (!$this->id) {
 			return small_hash ($this->name . Configuration::selApplication ());
@@ -31,7 +32,15 @@ class Category extends Model {
 		$catDAO = new CategoryDAO ();
 		return $catDAO->countNotRead ($this->id ());
 	}
-	
+	public function feeds () {
+		if (is_null ($this->feeds)) {
+			$feedDAO = new FeedDAO ();
+			return $feedDAO->listByCategory ($this->id ());
+		} else {
+			return $this->feeds;
+		}
+	}
+
 	public function _id ($value) {
 		$this->id = $value;
 	}
@@ -44,6 +53,13 @@ class Category extends Model {
 		} else {
 			$this->color = '#0062BE';
 		}
+	}
+	public function _feeds ($values) {
+		if (!is_array ($values)) {
+			$values = array ($values);
+		}
+
+		$this->feeds = $values;
 	}
 }
 
@@ -64,7 +80,7 @@ class CategoryDAO extends Model_pdo {
 			return false;
 		}
 	}
-	
+
 	public function updateCategory ($id, $valuesTmp) {
 		$sql = 'UPDATE category SET name=?, color=? WHERE id=?';
 		$stm = $this->bd->prepare ($sql);
@@ -81,7 +97,7 @@ class CategoryDAO extends Model_pdo {
 			return false;
 		}
 	}
-	
+
 	public function deleteCategory ($id) {
 		$sql = 'DELETE FROM category WHERE id=?';
 		$stm = $this->bd->prepare ($sql);
@@ -94,24 +110,24 @@ class CategoryDAO extends Model_pdo {
 			return false;
 		}
 	}
-	
+
 	public function searchById ($id) {
 		$sql = 'SELECT * FROM category WHERE id=?';
 		$stm = $this->bd->prepare ($sql);
-		
+
 		$values = array ($id);
-		
+
 		$stm->execute ($values);
 		$res = $stm->fetchAll (PDO::FETCH_ASSOC);
 		$cat = HelperCategory::daoToCategory ($res);
-		
+
 		if (isset ($cat[0])) {
 			return $cat[0];
 		} else {
 			return false;
 		}
 	}
-	
+
 	public function listCategories () {
 		$sql = 'SELECT * FROM category ORDER BY name';
 		$stm = $this->bd->prepare ($sql);
@@ -119,7 +135,7 @@ class CategoryDAO extends Model_pdo {
 
 		return HelperCategory::daoToCategory ($stm->fetchAll (PDO::FETCH_ASSOC));
 	}
-	
+
 	public function count () {
 		$sql = 'SELECT COUNT(*) AS count FROM category';
 		$stm = $this->bd->prepare ($sql);
@@ -128,7 +144,7 @@ class CategoryDAO extends Model_pdo {
 
 		return $res[0]['count'];
 	}
-	
+
 	public function countFeed ($id) {
 		$sql = 'SELECT COUNT(*) AS count FROM feed WHERE category=?';
 		$stm = $this->bd->prepare ($sql);
@@ -138,7 +154,7 @@ class CategoryDAO extends Model_pdo {
 
 		return $res[0]['count'];
 	}
-	
+
 	public function countNotRead ($id) {
 		$sql = 'SELECT COUNT(*) AS count FROM entry e INNER JOIN feed f ON e.id_feed = f.id WHERE category=? AND e.is_read=0';
 		$stm = $this->bd->prepare ($sql);
