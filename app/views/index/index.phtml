@@ -52,14 +52,10 @@
 	<?php $this->entryPaginator->render ('pagination.phtml', 'page'); ?>
 </div>
 <?php } else { ?>
-<div class="table">
-	<div class="nothing">
-		<p>
-			Il n'y a aucun flux à afficher.
-		<?php if (Session::param ('mode', 'all') == 'not_read') { ?>
-		<a class="print_all" href="<?php echo Url::display (array ('a' => 'changeMode', 'params' => array ('mode' => 'all'))); ?>">Afficher tous les articles ?</a>
-		<?php }	?>
-		</p>
-	</div>
+<div class="alert">
+	<span class="alert-head">Il n'y a aucun flux à afficher.</span>
+	<?php if (Session::param ('mode', 'all') == 'not_read') { ?>
+	<a class="print_all" href="<?php echo Url::display (array ('a' => 'changeMode', 'params' => array ('mode' => 'all'))); ?>">Afficher tous les articles ?</a>
+	<?php }	?>
 </div>
 <?php } ?>

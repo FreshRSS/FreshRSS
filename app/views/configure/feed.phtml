@@ -21,11 +21,11 @@
 		<?php } ?>
 	</div>
 	
-	<input type="submit" value="Valider" />
+	<button class="btn btn-important">Valider</button>
 	<?php } ?>
 	
-	<button formaction="<?php echo Url::display (array ('c' => 'feed', 'a' => 'delete', 'params' => array ('id' => $this->flux->id ()))); ?>">Supprimer</button>
+	<button class="btn" formaction="<?php echo Url::display (array ('c' => 'feed', 'a' => 'delete', 'params' => array ('id' => $this->flux->id ()))); ?>">Supprimer</button>
 </form>
 <?php } else { ?>
-<div class="nothing">Aucun flux sélectionné</div>
+<div class="alert"><span class="alert-head">Aucun flux sélectionné.</span> Pensez à en ajouter !</div>
 <?php } ?>
