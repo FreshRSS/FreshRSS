@@ -104,7 +104,7 @@ function mark_favorite (active) {
 }
 
 function init_img () {
-	var imgs = $(".post.flux .content img").each (function () {
+	$(".post.flux .content img").each (function () {
 		if ($(this).width () > ($("#stream").width()) / 2) {
 			$(this).addClass("big");
 		}

@@ -11,13 +11,7 @@
 <?php $this->partial ('header'); ?>
 
 <div id="global">
-	<?php if (Request::controllerName () != 'configure') { ?>
-	<?php $this->partial ('aside'); ?>
-	<?php } ?>
-	
-	<div id="main">
-		<?php $this->render (); ?>
-	</div>
+	<?php $this->render (); ?>
 </div>
 
 <?php $this->partial ('persona'); ?>

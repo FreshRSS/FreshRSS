@@ -5,10 +5,10 @@
 ?>
 
 <ul class="pagination">
-	<li class="item pager-next">
-	<?php if ($this->currentPage < $this->nbPage) { ?>
-	<?php $params[$getteur] = $this->currentPage + 1; ?>
-	<a href="<?php echo Url::display (array ('c' => $c, 'a' => $a, 'params' => $params)); ?>">‹ Anciens</a>
+	<li class="item pager-previous">
+	<?php if ($this->currentPage > 1) { ?>
+	<?php $params[$getteur] = $this->currentPage - 1; ?>
+	<a href="<?php echo Url::display (array ('c' => $c, 'a' => $a, 'params' => $params)); ?>">‹ plus récents</a>
 	<?php } else { ?>
 	&nbsp;
 	<?php } ?>
@@ -16,10 +16,10 @@
 
 	<li class="item pager-current">page <?php echo $this->currentPage; ?> / <?php echo $this->nbPage; ?></li>
 
-	<li class="item pager-previous">
-	<?php if ($this->currentPage > 1) { ?>
-	<?php $params[$getteur] = $this->currentPage - 1; ?>
-	<a href="<?php echo Url::display (array ('c' => $c, 'a' => $a, 'params' => $params)); ?>">Récents ›</a>
+	<li class="item pager-next">
+	<?php if ($this->currentPage < $this->nbPage) { ?>
+	<?php $params[$getteur] = $this->currentPage + 1; ?>
+	<a href="<?php echo Url::display (array ('c' => $c, 'a' => $a, 'params' => $params)); ?>">plus anciens ›</a>
 	<?php } else { ?>
 	&nbsp;
 	<?php } ?>

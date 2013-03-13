@@ -297,7 +297,7 @@ class EntryDAO extends Model_pdo {
 
 		$deb = ($this->currentPage - 1) * $this->nbItemsPerPage;
 		$fin = $this->nbItemsPerPage;
-		$sql = 'SELECT * FROM entry e INNER JOIN feed f ON e.id_feed = f.id' . $where
+		$sql = 'SELECT e.* FROM entry e INNER JOIN feed f ON e.id_feed = f.id' . $where
 		     . ' ORDER BY date' . $order
 		     . ' LIMIT ' . $deb . ', ' . $fin;
 

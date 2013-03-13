@@ -1,5 +1,7 @@
+<?php $this->partial ('aside_flux'); ?>
+
 <?php $items = $this->entryPaginator->items (true); ?>
-<div id="top">
+<div class="nav_menu">
 	<a class="btn" href="<?php echo Url::display (array ('c' => 'feed', 'a' => 'actualize')); ?>"><i class="icon refresh"></i></a>
 
 	<?php if (!login_is_conf ($this->conf) || is_logged ()) { ?>
