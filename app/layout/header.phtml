@@ -1,3 +1,13 @@
+<?php if (login_is_conf ($this->conf)) { ?>
+<ul class="nav nav-head">
+	<?php if (!is_logged ()) { ?>
+	<li class="item"><i class="icon login"></i> <a id="signin" href="#">Connexion</a></li>
+	<?php } else { ?>
+	<li class="item"><i class="icon logout"></i> <a id="signout" href="#">Déconnexion</a></li>
+	<?php } ?>
+</ul>
+<?php } ?>
+
 <div class="header">
 	<div class="item title">
 		<h1><a href="<?php echo _url ('index', 'index'); ?>">FreshRSS</a></h1>
@@ -15,14 +25,4 @@
 		<a class="btn" href="<?php echo _url ('configure', 'display'); ?>"><i class="icon configure"></i></a>
 	</div>
 	<?php } ?>
-		
-	<!--<?php if (login_is_conf ($this->conf)) { ?>
-	<li>
-		<?php if (!is_logged ()) { ?>
-		<a id="signin" href="#">Connexion</a>
-		<?php } else { ?>
-		<a id="signout" href="#">Déconnexion</a>
-		<?php } ?>
-	</li>
-	<?php } ?>-->
 </div>

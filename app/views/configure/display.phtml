@@ -20,11 +20,14 @@
 	
 		<label>Vue par défaut</label>
 		<div class="radio_group">
-			<input type="radio" name="default_view" id="radio_all" value="all"<?php echo $this->conf->defaultView () == 'all' ? ' checked="checked"' : ''; ?> />
-			<label for="radio_all">Tout afficher</label>
-			<br />
-			<input type="radio" name="default_view" id="radio_not_read" value="not_read"<?php echo $this->conf->defaultView () == 'not_read' ? ' checked="checked"' : ''; ?> />
-			<label for="radio_not_read">Afficher les non lus</label>
+			<label for="radio_all">
+				<input type="radio" name="default_view" id="radio_all" value="all"<?php echo $this->conf->defaultView () == 'all' ? ' checked="checked"' : ''; ?> />
+				Tout afficher
+			</label>
+			<label for="radio_not_read">
+				<input type="radio" name="default_view" id="radio_not_read" value="not_read"<?php echo $this->conf->defaultView () == 'not_read' ? ' checked="checked"' : ''; ?> />
+				Afficher les non lus
+			</label>
 		</div>
 	
 		<label for="sort_order">Ordre de tri</label>
@@ -35,11 +38,14 @@
 	
 		<label>Afficher les articles dépliés par défaut</label>
 		<div class="radio_group">
-			<input type="radio" name="display_posts" id="radio_yes" value="yes"<?php echo $this->conf->displayPosts () == 'yes' ? ' checked="checked"' : ''; ?> />
-			<label for="radio_yes">Oui</label>
-			<br />
-			<input type="radio" name="display_posts" id="radio_no" value="no"<?php echo $this->conf->displayPosts () == 'no' ? ' checked="checked"' : ''; ?> />
-			<label for="radio_no">Non<noscript> - <strong>nécessite que javascript soit activé</strong></noscript></label>
+			<label for="radio_yes">
+				<input type="radio" name="display_posts" id="radio_yes" value="yes"<?php echo $this->conf->displayPosts () == 'yes' ? ' checked="checked"' : ''; ?> />
+				Oui
+			</label>
+			<label for="radio_no">
+				<input type="radio" name="display_posts" id="radio_no" value="no"<?php echo $this->conf->displayPosts () == 'no' ? ' checked="checked"' : ''; ?> />
+				Non<noscript> - <strong>nécessite que javascript soit activé</strong></noscript>
+			</label>
 		</div>
 	
 		<button class="btn btn-important">Valider</button>

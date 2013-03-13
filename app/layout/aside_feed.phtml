@@ -3,7 +3,7 @@
 
 	<?php if (!empty ($this->feeds)) { ?>
 	<?php foreach ($this->feeds as $feed) { ?>
-	<li <?php echo ($this->flux && $this->flux->id () == $feed->id ()) ? 'class="active"' : ''; ?>>
+	<li class="item<?php echo ($this->flux && $this->flux->id () == $feed->id ()) ? ' active' : ''; ?>">
 		<a href="<?php echo Url::display (array ('c' => 'configure', 'a' => 'feed', 'params' => array ('id' => $feed->id ()))); ?>"><?php echo $feed->name (); ?></a>
 	</li>
 	<?php } ?>
@@ -13,6 +13,6 @@
 
 	<li><form id="add_rss" method="post" action="<?php echo Url::display (array ('c' => 'feed', 'a' => 'add')); ?>">
 		<input type="url" name="url_rss" placeholder="Ajouter un flux RSS" />
-		<input type="submit" value="+" />
+		<button class="btn"><i class="icon add"></i></button>
 	</form></li>
 </ul>

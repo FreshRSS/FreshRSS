@@ -1,0 +1,33 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg xmlns:cc='http://creativecommons.org/ns#' xmlns:inkscape='http://www.inkscape.org/namespaces/inkscape' xmlns:svg='http://www.w3.org/2000/svg' id='svg7384' xmlns:sodipodi='http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd' sodipodi:docname='changes-prevent-symbolic.svg' version='1.1' inkscape:version='0.48.1 r9760' height='16' xmlns:dc='http://purl.org/dc/elements/1.1/' xmlns:rdf='http://www.w3.org/1999/02/22-rdf-syntax-ns#' xmlns='http://www.w3.org/2000/svg' width='16'>
+  <metadata id='metadata90'>
+    <rdf:RDF>
+      <cc:Work rdf:about=''>
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type rdf:resource='http://purl.org/dc/dcmitype/StillImage'/>
+        <dc:title>Gnome Symbolic Icon Theme</dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <sodipodi:namedview inkscape:cy='9.416826' pagecolor='#555753' borderopacity='1' showborder='false' inkscape:bbox-paths='false' guidetolerance='10' inkscape:object-paths='true' inkscape:window-width='1296' showguides='true' inkscape:object-nodes='true' inkscape:snap-bbox='true' inkscape:pageshadow='2' inkscape:guide-bbox='true' inkscape:snap-nodes='false' bordercolor='#666666' objecttolerance='10' id='namedview88' showgrid='false' inkscape:window-maximized='0' inkscape:window-x='1941' inkscape:snap-global='true' inkscape:window-y='81' gridtolerance='10' inkscape:window-height='1013' inkscape:snap-to-guides='true' inkscape:current-layer='layer9' inkscape:snap-bbox-midpoints='false' inkscape:zoom='1' inkscape:cx='52.563336' inkscape:snap-grids='true' inkscape:pageopacity='1'>
+    <inkscape:grid spacingx='1px' spacingy='1px' id='grid4866' empspacing='2' enabled='true' type='xygrid' snapvisiblegridlinesonly='true' visible='true'/>
+  </sodipodi:namedview>
+  <title id='title9167'>Gnome Symbolic Icon Theme</title>
+  <defs id='defs7386'/>
+  <g inkscape:label='status' transform='translate(-181.0002,-237)' inkscape:groupmode='layer' id='layer9' style='display:inline'>
+    <g inkscape:label='lock' transform='translate(161.0002,-39)' id='g4053' style='fill:#bebebe;fill-opacity:1'>
+      
+    </g>
+    <path inkscape:connector-curvature='0' d='m 184,244 c -0.554,0 -1,0.446 -1,1 l 0,0.53125 0,5.46875 12,0 0,-5.46875 L 195,245 c 0,-0.554 -0.446,-1 -1,-1 l -10,0 z' id='rect4063' sodipodi:nodetypes='csccccscc' style='color:#bebebe;fill:#bebebe;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:2;marker:none;visibility:visible;display:inline;overflow:visible'/>
+    <path inkscape:connector-curvature='0' d='m 188,238 c -1.6447,0 -3,1.3553 -3,3 l 0,7 c 0,1.6447 1.3553,3 3,3 l 2,0 c 1.6447,0 3,-1.3553 3,-3 l 0,-7 c 0,-1.6447 -1.3553,-3 -3,-3 l -2,0 z m 0,2 2,0 c 0.5713,0 1,0.4287 1,1 l 0,7 c 0,0.5713 -0.4287,1 -1,1 l -2,0 c -0.5713,0 -1,-0.4287 -1,-1 l 0,-7 c 0,-0.5713 0.4287,-1 1,-1 z' id='rect4291' style='font-size:medium;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-indent:0;text-align:start;text-decoration:none;line-height:normal;letter-spacing:normal;word-spacing:normal;text-transform:none;direction:ltr;block-progression:tb;writing-mode:lr-tb;text-anchor:start;baseline-shift:baseline;color:#bebebe;fill:#bebebe;fill-opacity:1;stroke:none;stroke-width:2;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate;font-family:Sans;-inkscape-font-specification:Sans'/>
+  </g>
+  <g inkscape:label='devices' transform='translate(-181.0002,-237)' inkscape:groupmode='layer' id='layer10'/>
+  <g inkscape:label='apps' transform='translate(-181.0002,-237)' inkscape:groupmode='layer' id='layer11'/>
+  <g inkscape:label='actions' transform='translate(-181.0002,-237)' inkscape:groupmode='layer' id='layer12'/>
+  <g inkscape:label='places' transform='translate(-181.0002,-237)' inkscape:groupmode='layer' id='layer13'/>
+  <g inkscape:label='mimetypes' transform='translate(-181.0002,-237)' inkscape:groupmode='layer' id='layer14'/>
+  <g inkscape:label='emblems' transform='translate(-181.0002,-237)' inkscape:groupmode='layer' id='layer15' style='display:inline'/>
+  <g inkscape:label='categories' transform='translate(-181.0002,-237)' inkscape:groupmode='layer' id='g4953' style='display:inline'/>
+</svg>

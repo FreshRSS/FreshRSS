@@ -1,7 +1,7 @@
 <?php $this->partial ('aside_feed'); ?>
 
 <?php if ($this->flux) { ?>
-<form method="post" action="">
+<form method="post" action="<?php echo _url ('configure', 'feed', 'id', $this->flux->id ()); ?>">
 	<h1><?php echo $this->flux->name (); ?></h1>
 	<?php echo $this->flux->description (); ?>
 	
@@ -15,9 +15,10 @@
 	<label>Ranger dans une catégorie</label>
 	<div class="radio_group">
 		<?php foreach ($this->categories as $cat) { ?>
-		<input type="radio" name="category" id="cat_<?php echo $cat->id (); ?>" value="<?php echo $cat->id (); ?>"<?php echo $cat->id () == $this->flux->category () ? ' checked="checked"' : ''; ?> />
-		<label for="cat_<?php echo $cat->id (); ?>"><?php echo $cat->name (); ?></label>
-		<br />
+		<label for="cat_<?php echo $cat->id (); ?>">
+			<input type="radio" name="category" id="cat_<?php echo $cat->id (); ?>" value="<?php echo $cat->id (); ?>"<?php echo $cat->id () == $this->flux->category () ? ' checked="checked"' : ''; ?> />
+			<?php echo $cat->name (); ?>
+		</label>
 		<?php } ?>
 	</div>
 	

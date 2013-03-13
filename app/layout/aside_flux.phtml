@@ -1,7 +1,8 @@
 <div class="aside aside_flux">
-	<?php if (isset ($this->cat_aside)) { ?>
 	<ul class="categories">
+		<?php if (!login_is_conf ($this->conf) || is_logged ()) { ?>
 		<li><a class="btn btn-important" href="<?php echo _url ('configure', 'feed'); ?>">Gestion des abonnements</a></li>
+		<?php } ?>
 
 		<li class="all">
 			<a class="btn category<?php echo !$this->get ? ' active' : ''; ?>" href="<?php echo _url ('index', 'index'); ?>">
@@ -30,10 +31,10 @@
 			<ul class="feeds">
 				<?php foreach ($feeds as $feed) { ?>
 				<li>
+					<a class="website" href="<?php echo $feed->website(); ?>"><i class="icon link"></i></a>
 					<img src="http://www.google.com/s2/favicons?domain=<?php echo get_domain ($feed->website ()); ?>" alt="" />
 					<a class="feed" href="<?php echo _url ('index', 'index', 'get', 'f_' . $feed->id ()); ?>">
 						<?php echo $feed->name(); ?>
-						<!--<span>X non lu</span>-->
 					</a>
 				</li>
 				<?php } ?>
@@ -42,5 +43,4 @@
 		</li>
 		<?php } ?>
 	</ul>
-	<?php } ?>
 </div>

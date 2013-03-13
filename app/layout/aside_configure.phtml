@@ -1,16 +1,16 @@
 <div class="nav nav-list aside">
 	<li class="nav-header">Configuration</li>
 
-	<li <?php echo Request::actionName () == 'display' ? 'class="active"' : ''; ?>>
+	<li class="item<?php echo Request::actionName () == 'display' ? ' active' : ''; ?>">
 		<a href="<?php echo Url::display (array ('c' => 'configure', 'a' => 'display')); ?>">Général et affichage</a>
 	</li>
-	<li <?php echo Request::actionName () == 'categorize' ? 'class="active"' : ''; ?>>
+	<li class="item<?php echo Request::actionName () == 'categorize' ? ' active' : ''; ?>">
 		<a href="<?php echo Url::display (array ('c' => 'configure', 'a' => 'categorize')); ?>">Catégories</a>
 	</li>
-	<li <?php echo Request::actionName () == 'shortcut' ? 'class="active"' : ''; ?>>
+	<li class="item<?php echo Request::actionName () == 'shortcut' ? ' active' : ''; ?>">
 		<a href="<?php echo Url::display (array ('c' => 'configure', 'a' => 'shortcut')); ?>">Raccourcis</a>
 	</li>
-	<li <?php echo Request::actionName () == 'importExport' ? 'class="active"' : ''; ?>>
+	<li class="item<?php echo Request::actionName () == 'importExport' ? ' active' : ''; ?>">
 		<a href="<?php echo Url::display (array ('c' => 'configure', 'a' => 'importExport')); ?>">Import / Export OPML</a>
 	</li>
 </div>
