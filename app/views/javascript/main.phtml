@@ -19,7 +19,7 @@ function redirect (url, new_tab) {
 function slide (new_active, old_active) {
 	old_active.removeClass ("active");
 	new_active.addClass ("active");
-	
+
 	if (hide_posts) {
 		old_active.children (".content").slideUp (500);
 		new_active.children (".content").slideDown (500, function () {
@@ -34,43 +34,28 @@ function slide (new_active, old_active) {
 	}
 }
 
-function add_not_read (nb) {
-	span_not_read = $("#categories li.all span.nb_not_read");
-	
-	html = span_not_read.html ();
-	
-	regex = /(\d+)/;
-	nb_not_read = parseInt (regex.exec (html)[1]) + nb;
-	
-	span_not_read.html (nb_not_read);
-}
-
 function mark_read (active) {
 	if (active[0] === undefined) {
 		return false;
 	}
-	
+
 	url =  active.find ("a.read").attr ("href");
 	if (url === undefined) {
 		return false;
 	}
-	
+
 	$.ajax ({
 		type: 'POST',
 		url: url,
 		data : { ajax: true }
 	}).done (function (data) {
 		res = jQuery.parseJSON(data);
-		
+
 		active.find ("a.read").attr ("href", res.url);
 		if (active.hasClass ("not_read")) {
 			active.removeClass ("not_read");
-			//active.find ("a.read").html ("Marquer comme non lu");
-			add_not_read (-1);
 		} else {
 			active.addClass ("not_read");
-			//active.find ("a.read").html ("J'ai fini de lire l'article");
-			add_not_read (1);
 		}
 	});
 }
@@ -84,21 +69,19 @@ function mark_favorite (active) {
 	if (url === undefined) {
 		return false;
 	}
-	
+
 	$.ajax ({
 		type: 'POST',
 		url: url,
 		data : { ajax: true }
 	}).done (function (data) {
 		res = jQuery.parseJSON(data);
-		
+
 		active.find ("a.bookmark").attr ("href", res.url);
 		if (active.hasClass ("favorite")) {
 			active.removeClass ("favorite");
-			//active.find ("a.bookmark").html ("Ajouter l'article à mes favoris");
 		} else {
 			active.addClass ("favorite");
-			//active.find ("a.bookmark").html ("Retirer l'article de mes favoris");
 		}
 	});
 }
@@ -121,7 +104,7 @@ function init_posts () {
 	$(".flux").click (function () {
 		old_active = $(".flux.active");
 		new_active = $(this);
-		
+
 		if (old_active[0] != new_active[0]) {
 			slide (new_active, old_active);
 		}
@@ -130,14 +113,14 @@ function init_posts () {
 	$(".flux a.read").click (function () {
 		active = $(this).parents (".flux");
 		mark_read (active);
-	
+
 		return false;
 	});
 
 	$(".flux a.bookmark").click (function () {
 		active = $(this).parents (".flux");
 		mark_favorite (active);
-	
+
 		return false;
 	});
 
@@ -165,14 +148,14 @@ $(document).ready (function () {
 		active = $(".flux.active");
 		mark_favorite (active);
 	});
-	
+
 	// Touches de navigation
 	shortcut.add("<?php echo $s['prev_entry']; ?>", function () {
 		old_active = $(".flux.active");
 		last_active = $(".flux:last");
-		new_active = old_active.prev ();
-		
-		if (new_active[0] instanceof HTMLDivElement) {
+		new_active = old_active.prevAll (".flux:first");
+
+		if (new_active.hasClass("flux")) {
 			slide (new_active, old_active);
 		} else if (new_active[0] === undefined) {
 			slide (last_active, old_active);
@@ -181,17 +164,17 @@ $(document).ready (function () {
 	shortcut.add("shift+<?php echo $s['prev_entry']; ?>", function () {
 		old_active = $(".flux.active");
 		first = $(".flux:first");
-		
-		if (first[0] instanceof HTMLDivElement) {
+
+		if (first.hasClass("flux")) {
 			slide (first, old_active);
 		}
 	});
 	shortcut.add("<?php echo $s['next_entry']; ?>", function () {
 		old_active = $(".flux.active");
 		first_active = $(".flux:first");
-		new_active = old_active.next ();
-		
-		if (new_active[0] instanceof HTMLDivElement) {
+		new_active = old_active.nextAll (".flux:first");
+
+		if (new_active.hasClass("flux")) {
 			slide (new_active, old_active);
 		} else if (new_active[0] === undefined) {
 			slide (first_active, old_active);
@@ -200,8 +183,8 @@ $(document).ready (function () {
 	shortcut.add("shift+<?php echo $s['next_entry']; ?>", function () {
 		old_active = $(".flux.active");
 		last = $(".flux:last");
-		
-		if (last[0] instanceof HTMLDivElement) {
+
+		if (last.hasClass("flux")) {
 			slide (last, old_active);
 		}
 	});
@@ -209,21 +192,13 @@ $(document).ready (function () {
 		url = $(".pager-next a").attr ("href");
 		redirect (url, false);
 	});
-	shortcut.add("shift+<?php echo $s['next_page']; ?>", function () {
-		url = $(".pager-last a").attr ("href");
-		redirect (url, false);
-	});
 	shortcut.add("<?php echo $s['prev_page']; ?>", function () {
 		url = $(".pager-previous a").attr ("href");
 		redirect (url, false);
 	});
-	shortcut.add("shift+<?php echo $s['prev_page']; ?>", function () {
-		url = $(".pager-first a").attr ("href");
-		redirect (url, false);
-	});
 	shortcut.add("<?php echo $s['go_website']; ?>", function () {
 		url = $(".flux.active .link a").attr ("href");
-		
+
 		redirect (url, true);
 	});
 });

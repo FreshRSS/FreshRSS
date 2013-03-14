@@ -16,7 +16,23 @@
 <?php if (!empty ($items)) { ?>
 
 <div id="stream">
+	<?php
+		$display_today = true;
+		$display_yesterday = true;
+		$display_others = true;
+	?>
 	<?php foreach ($items as $item) { ?>
+
+	<?php if ($display_today && $item->isDay (Days::TODAY)) { ?>
+	<div class="day">Aujourd'hui</div>
+	<?php $display_today = false; } ?>
+	<?php if ($display_yesterday && $item->isDay (Days::YESTERDAY)) { ?>
+	<div class="day">Hier</div>
+	<?php $display_yesterday = false; } ?>
+	<?php if ($display_others && $item->isDay (Days::BEFORE_YESTERDAY)) { ?>
+	<div class="day">À partir d'avant-hier</div>
+	<?php $display_others = false; } ?>
+
 	<div class="flux<?php echo !$item->isRead () ? ' not_read' : ''; ?><?php echo $item->isFavorite () ? ' favorite' : ''; ?>" id="flux_<?php echo $item->id (); ?>">
 		<ul class="flux_header">
 			<li class="item manage">

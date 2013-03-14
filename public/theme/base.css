@@ -393,6 +393,16 @@ input {
 		margin: 10px 0;
 	}
 
+.day {
+	height: 50px;
+	padding: 0 10px;
+	font-size: 130%;
+	font-weight: bold;
+	line-height: 50px;
+	border-top: 1px solid #aaa;
+	border-bottom: 1px solid #aaa;
+}
+
 .flux {
 	border-left: 10px solid #aaa;
 	background: #fafafa;

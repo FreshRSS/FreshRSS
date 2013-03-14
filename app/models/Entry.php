@@ -1,6 +1,7 @@
 <?php
 
 class Entry extends Model {
+
 	private $id = null;
 	private $guid;
 	private $title;
@@ -98,6 +99,24 @@ class Entry extends Model {
 	}
 	public function _feed ($value) {
 		$this->feed = $value;
+	}
+
+	public function isDay ($day) {
+		$date = getdate ();
+		$today = mktime (0, 0, 0, $date['mon'], $date['mday'], $date['year']);
+		$yesterday = $today - 86400;
+
+		if ($day == Days::TODAY &&
+		    $this->date >= $today && $this->date < $today + 86400) {
+			return true;
+		} elseif ($day == Days::YESTERDAY &&
+		    $this->date >= $yesterday && $this->date < $yesterday + 86400) {
+			return true;
+		} elseif ($day == Days::BEFORE_YESTERDAY && $this->date < $yesterday) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 }
 
