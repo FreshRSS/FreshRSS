@@ -21,6 +21,7 @@
 
 		<?php foreach ($this->cat_aside as $cat) { ?>
 		<?php $feeds = $cat->feeds (); $catNotRead = $cat->nbNotRead (); ?>
+		<?php if (!empty ($feeds)) { ?>
 		<li>
 			<a class="btn category<?php echo $this->get == $cat->id () ? ' active' : ''; ?>" href="<?php echo _url ('index', 'index', 'get', 'c_' . $cat->id ()); ?>">
 				<?php echo $cat->name (); ?>
@@ -31,7 +32,7 @@
 			<ul class="feeds">
 				<?php foreach ($feeds as $feed) { ?>
 				<li>
-					<a class="website" href="<?php echo $feed->website(); ?>"><i class="icon link"></i></a>
+					<a class="website" href="<?php echo _url ('configure', 'feed', 'id', $feed->id ()); ?>"><i class="icon configure"></i></a>
 					<img src="http://www.google.com/s2/favicons?domain=<?php echo get_domain ($feed->website ()); ?>" alt="" />
 					<a class="feed" href="<?php echo _url ('index', 'index', 'get', 'f_' . $feed->id ()); ?>">
 						<?php echo $feed->name(); ?>
@@ -41,6 +42,6 @@
 			</ul>
 			<?php } ?>
 		</li>
-		<?php } ?>
+		<?php } } ?>
 	</ul>
 </div>

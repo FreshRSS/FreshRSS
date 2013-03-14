@@ -240,8 +240,9 @@ input {
 	box-shadow: 1px 1px 3px #aaa inset;
 }
 	.alert .alert-head {
+		margin: 0;
 		font-weight: bold;
-		font-size: 105%;
+		font-size: 110%;
 	}
 
 /* ICONES */
@@ -301,6 +302,7 @@ input {
 		}
 			.header .item.title h1 {
 				margin: 0;
+				text-shadow: 1px -1px 0 #ccc;
 			}
 			.header .item.title a:hover {
 				text-decoration: none;
