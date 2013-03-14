@@ -13,15 +13,23 @@
 <?php } else { ?>
 <?php $this->partial ('aside_configure'); ?>
 
-<div>
+<div class="post">
 	<form method="post" action="<?php echo Url::display (array ('c' => 'configure', 'a' => 'importExport', 'params' => array ('q' => 'import'))); ?>" enctype="multipart/form-data">
-		<h1>Exporter au format OPML</h1>
-		<button class="btn btn-important" formaction="<?php echo Url::display (array ('c' => 'configure', 'a' => 'importExport', 'params' => array ('q' => 'export'))); ?>">Exporter</button>
-	
-		<h1>Importer au format OPML</h1>
-		<label for="file">Fichier</label>
-		<input type="file" name="file" id="file" />
-		<button class="btn btn-important">Importer</button>
+		<legend>Import / export au format OPML</legend>
+		<div class="form-group">
+			<label class="group-name" for="file">Fichier à importer</label>
+			<div class="group-controls">
+				<input type="file" name="file" id="file" />
+			</div>
+		</div>
+
+		<div class="form-group form-actions">
+			<div class="group-controls">
+				<button type="submit" class="btn btn-important">Importer</button>
+				ou
+				<button type="submit" class="btn btn-important" formaction="<?php echo Url::display (array ('c' => 'configure', 'a' => 'importExport', 'params' => array ('q' => 'export'))); ?>">Exporter</button>
+			</div>
+		</div>
 	</form>
 </div>
 <?php } ?>

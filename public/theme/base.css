@@ -26,7 +26,7 @@ ul, ol {
 /* TITRES */
 h1, h2, h3 {
 	min-height: 40px;
-	padding: 10px 0 0;
+	margin: 15px 0 5px;
 	line-height: 40px;
 }
 
@@ -40,19 +40,30 @@ img {
 	}
 
 /* FORMULAIRES */
+legend {
+	display: block;
+	margin: 20px 0 5px;
+	padding: 5px 0;
+	border-bottom: 1px solid #ddd;
+	font-size: 150%;
+	clear: both;
+}
 label {
 	display: block;
-	margin: 5px 0;
+	min-height: 25px;
+	padding: 5px 0;
+	font-size: 14px;
+	line-height: 25px;
 }
 input {
 	display: inline-block;
 	min-height: 25px;
 	padding: 5px 5px;
-	background: #fff;
+	background: #fdfdfd;
 	border: 1px solid #bbb;
 	border-radius: 3px;
-	color: #aaa;
-	line-height: 25px;
+	color: #666;
+	line-height: 30px;
 	vertical-align: middle;
 	box-shadow: 0 2px 2px #eee inset;
 }
@@ -61,6 +72,41 @@ input {
 		border-color: #33BBFF;
 		box-shadow: 0 2px 2px #DDDDFF inset;
 	}
+
+.form-group {
+	margin: 0;
+	clear: both;
+}
+	.form-group.form-actions {
+		min-width: 250px;
+		padding: 5px 0;
+		background: #f4f4f4;
+		border-top: 1px solid #ddd;
+	}
+		.form-group.form-actions .btn {
+			margin: 0 10px;
+		}
+	.form-group .group-name {
+		display: block;
+		float: left;
+		width: 200px;
+		padding: 10px 0;
+		text-align: right;
+	}
+	.form-group .group-controls {
+		min-width: 250px;
+		min-height: 25px;
+		margin: 0 0 0 220px;
+		padding: 5px 0;
+		line-heigt: 25px;
+	}
+		.form-group .group-controls .control {
+			display: block;
+			min-height: 30px;
+			padding: 5px 0;
+			line-height: 25px;
+			font-size: 14px;
+		}
 
 .btn {
 	display: inline-block;
@@ -74,14 +120,14 @@ input {
 	border-bottom: 1px solid #aaa;
 	border-right: 1px solid #aaa;
 	color: #666;
-	text-shadow: 0px 1px 1px #ddd;
+	text-shadow: 0px -1px 0 #ddd;
 	line-height: 25px;
 	vertical-align: middle;
 	cursor: pointer;
 }
 	.btn:hover {
-		background: #f4f4f4;
-		background: linear-gradient(#fafafa, #f0f0f0);
+		background: #f0f0f0;
+		background: linear-gradient(#f8f8f8, #f0f0f0);
 		text-decoration: none;
 	}
 	.btn.active,
@@ -95,13 +141,28 @@ input {
 		background: linear-gradient(#0084CC, #0045CC);
 		color: #fff;
 		border: 1px solid #0062B7;
-		text-shadow: 0px 1px 1px #aaa;
+		text-shadow: 0px -1px 0 #aaa;
 	}
 		.btn.btn-important:hover {
 			background: linear-gradient(#0066CC, #0045CC);
 		}
 		.btn.btn-important:active {
 			background: #0044CB;
+			box-shadow: none;
+		}
+
+	.btn.btn-attention {
+		background: #E95B57;
+		background: linear-gradient(#E95B57, #BD362F);
+		color: #fff;
+		border: 1px solid #C44742;
+		text-shadow: 0px -1px 0px #666;
+	}
+		.btn.btn-attention:hover {
+			background: linear-gradient(#D14641, #BD362F);
+		}
+		.btn.btn-attention:active {
+			background: #BD362F;
 			box-shadow: none;
 		}
 
@@ -239,7 +300,7 @@ input {
 			width: 250px;
 		}
 			.header .item.title h1 {
-				padding: 0;
+				margin: 0;
 			}
 			.header .item.title a:hover {
 				text-decoration: none;
@@ -319,8 +380,15 @@ input {
 		border-right: 1px solid #999;
 		border-bottom: 1px solid #999;
 		border-radius: 5px;
-		box-shadow: 0 3px 3px #999 inset;
+		box-shadow: 1px 3px 3px #999 inset;
 		text-shadow: 0 0 1px #aaa;
+	}
+
+.post {
+	padding: 10px 50px;
+}
+	.post form {
+		margin: 10px 0;
 	}
 
 .flux {
@@ -436,7 +504,7 @@ input {
 			}
 				.flux_header .item.title h1 {
 					font-size: 12px;
-					padding: 0;
+					margin: 0;
 					font-weight: normal;
 				}
 					.flux.not_read .flux_header .item.title h1 {
@@ -547,7 +615,8 @@ input {
 	}
 }
 @media(max-width: 450px) {
-	.nav_menu {
-		display: none;
+	.nav_menu .btn {
+		display: block;
+		margin: 5px 0;
 	}
 }

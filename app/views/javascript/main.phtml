@@ -104,7 +104,7 @@ function mark_favorite (active) {
 }
 
 function init_img () {
-	$(".post.flux .content img").each (function () {
+	$(".flux .content img").each (function () {
 		if ($(this).width () > ($("#stream").width()) / 2) {
 			$(this).addClass("big");
 		}
@@ -115,11 +115,11 @@ function init_posts () {
 	init_img ();
 
 	if (hide_posts) {
-		$(".post.flux:not(.active) .content").slideUp ();
+		$(".flux:not(.active) .content").slideUp ();
 	}
 
-	$(".post.flux").click (function () {
-		old_active = $(".post.flux.active");
+	$(".flux").click (function () {
+		old_active = $(".flux.active");
 		new_active = $(this);
 		
 		if (old_active[0] != new_active[0]) {
@@ -127,21 +127,21 @@ function init_posts () {
 		}
 	});
 
-	$(".post.flux a.read").click (function () {
-		active = $(this).parents (".post.flux");
+	$(".flux a.read").click (function () {
+		active = $(this).parents (".flux");
 		mark_read (active);
 	
 		return false;
 	});
 
-	$(".post.flux a.bookmark").click (function () {
-		active = $(this).parents (".post.flux");
+	$(".flux a.bookmark").click (function () {
+		active = $(this).parents (".flux");
 		mark_favorite (active);
 	
 		return false;
 	});
 
-	$(".post.flux .content a").click (function () {
+	$(".flux .content a").click (function () {
 		$(this).attr ('target', '_blank');
 	});
 }
@@ -152,7 +152,7 @@ $(document).ready (function () {
 	// Touches de manipulation
 	shortcut.add("<?php echo $s['mark_read']; ?>", function () {
 		// on marque comme lu ou non lu
-		active = $(".post.flux.active");
+		active = $(".flux.active");
 		mark_read (active);
 	});
 	shortcut.add("shift+<?php echo $s['mark_read']; ?>", function () {
@@ -162,14 +162,14 @@ $(document).ready (function () {
 	});
 	shortcut.add("<?php echo $s['mark_favorite']; ?>", function () {
 		// on marque comme favori ou non favori
-		active = $(".post.flux.active");
+		active = $(".flux.active");
 		mark_favorite (active);
 	});
 	
 	// Touches de navigation
 	shortcut.add("<?php echo $s['prev_entry']; ?>", function () {
-		old_active = $(".post.flux.active");
-		last_active = $(".post.flux:last");
+		old_active = $(".flux.active");
+		last_active = $(".flux:last");
 		new_active = old_active.prev ();
 		
 		if (new_active[0] instanceof HTMLDivElement) {
@@ -179,16 +179,16 @@ $(document).ready (function () {
 		}
 	});
 	shortcut.add("shift+<?php echo $s['prev_entry']; ?>", function () {
-		old_active = $(".post.flux.active");
-		first = $(".post.flux:first");
+		old_active = $(".flux.active");
+		first = $(".flux:first");
 		
 		if (first[0] instanceof HTMLDivElement) {
 			slide (first, old_active);
 		}
 	});
 	shortcut.add("<?php echo $s['next_entry']; ?>", function () {
-		old_active = $(".post.flux.active");
-		first_active = $(".post.flux:first");
+		old_active = $(".flux.active");
+		first_active = $(".flux:first");
 		new_active = old_active.next ();
 		
 		if (new_active[0] instanceof HTMLDivElement) {
@@ -198,8 +198,8 @@ $(document).ready (function () {
 		}
 	});
 	shortcut.add("shift+<?php echo $s['next_entry']; ?>", function () {
-		old_active = $(".post.flux.active");
-		last = $(".post.flux:last");
+		old_active = $(".flux.active");
+		last = $(".flux:last");
 		
 		if (last[0] instanceof HTMLDivElement) {
 			slide (last, old_active);
@@ -222,7 +222,7 @@ $(document).ready (function () {
 		redirect (url, false);
 	});
 	shortcut.add("<?php echo $s['go_website']; ?>", function () {
-		url = $(".post.flux.active .link a").attr ("href");
+		url = $(".flux.active .link a").attr ("href");
 		
 		redirect (url, true);
 	});

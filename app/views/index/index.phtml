@@ -17,7 +17,7 @@
 
 <div id="stream">
 	<?php foreach ($items as $item) { ?>
-	<div class="post flux<?php echo !$item->isRead () ? ' not_read' : ''; ?><?php echo $item->isFavorite () ? ' favorite' : ''; ?>" id="flux_<?php echo $item->id (); ?>">
+	<div class="flux<?php echo !$item->isRead () ? ' not_read' : ''; ?><?php echo $item->isFavorite () ? ' favorite' : ''; ?>" id="flux_<?php echo $item->id (); ?>">
 		<ul class="flux_header">
 			<li class="item manage">
 				<?php if (!login_is_conf ($this->conf) || is_logged ()) { ?>
