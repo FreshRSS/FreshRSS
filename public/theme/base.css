@@ -394,7 +394,6 @@ input {
 	}
 
 .flux {
-	font-family: Palatino, "Times New Roman", serif;
 	border-left: 10px solid #aaa;
 	background: #fafafa;
 }
@@ -402,7 +401,9 @@ input {
 		background: #fff;
 	}
 	.flux .content {
-		padding: 20px 100px;
+		max-width: 550px;
+		margin: 0 auto;
+		padding: 10px;
 		line-height: 170%;
 	}
 		.flux .content h1, .flux .content h2, .flux .content h3 {
@@ -608,9 +609,6 @@ input {
 	}
 	.flux_header .item.website {
 		width: 20px;
-	}
-	.flux .content {
-		padding: 10px;
 	}
 	.pagination .pager-previous, .pagination .pager-next {
 		width: 100px;
