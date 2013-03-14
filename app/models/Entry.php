@@ -247,7 +247,7 @@ class EntryDAO extends Model_pdo {
 		$res = $stm->fetchAll (PDO::FETCH_ASSOC);
 		$this->nbItems = $res[0]['count'];
 
-		$deb = ($this->currentPage - 1) * $this->nbItemsPerPage;
+		$deb = ($this->currentPage () - 1) * $this->nbItemsPerPage;
 		$fin = $this->nbItemsPerPage;
 
 		$sql = 'SELECT * FROM entry' . $where
@@ -281,7 +281,7 @@ class EntryDAO extends Model_pdo {
 			$sql = 'SELECT * FROM entry' . $where
 			     . ' ORDER BY date' . $order;
 		} else {
-			$deb = ($this->currentPage - 1) * $this->nbItemsPerPage;
+			$deb = ($this->currentPage () - 1) * $this->nbItemsPerPage;
 			$fin = $this->nbItemsPerPage;
 
 			$sql = 'SELECT * FROM entry' . $where
@@ -314,7 +314,7 @@ class EntryDAO extends Model_pdo {
 		$res = $stm->fetchAll (PDO::FETCH_ASSOC);
 		$this->nbItems = $res[0]['count'];
 
-		$deb = ($this->currentPage - 1) * $this->nbItemsPerPage;
+		$deb = ($this->currentPage () - 1) * $this->nbItemsPerPage;
 		$fin = $this->nbItemsPerPage;
 		$sql = 'SELECT e.* FROM entry e INNER JOIN feed f ON e.id_feed = f.id' . $where
 		     . ' ORDER BY date' . $order
@@ -348,7 +348,7 @@ class EntryDAO extends Model_pdo {
 		$res = $stm->fetchAll (PDO::FETCH_ASSOC);
 		$this->nbItems = $res[0]['count'];
 
-		$deb = ($this->currentPage - 1) * $this->nbItemsPerPage;
+		$deb = ($this->currentPage () - 1) * $this->nbItemsPerPage;
 		$fin = $this->nbItemsPerPage;
 		$sql = 'SELECT * FROM entry e' . $where
 		     . ' ORDER BY date' . $order
@@ -400,12 +400,25 @@ class EntryDAO extends Model_pdo {
 	public function _currentPage ($value) {
 		$this->currentPage = $value;
 	}
+	public function currentPage () {
+		if ($this->currentPage < 1) {
+			return 1;
+		}
+
+		$maxPage = ceil ($this->nbItems / $this->nbItemsPerPage);
+		if ($this->currentPage > $maxPage) {
+			return $maxPage;
+		}
+
+		return $this->currentPage;
+
+	}
 
 	public function getPaginator ($entries) {
 		$paginator = new Paginator ($entries);
 		$paginator->_nbItems ($this->nbItems);
 		$paginator->_nbItemsPerPage ($this->nbItemsPerPage);
-		$paginator->_currentPage ($this->currentPage);
+		$paginator->_currentPage ($this->currentPage ());
 
 		return $paginator;
 	}
