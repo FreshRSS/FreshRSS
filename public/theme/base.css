@@ -42,6 +42,7 @@ img {
 /* FORMULAIRES */
 legend {
 	display: block;
+	width: 100%;
 	margin: 20px 0 5px;
 	padding: 5px 0;
 	border-bottom: 1px solid #ddd;
@@ -98,7 +99,6 @@ input {
 		min-height: 25px;
 		margin: 0 0 0 220px;
 		padding: 5px 0;
-		line-heigt: 25px;
 	}
 		.form-group .group-controls .control {
 			display: block;
