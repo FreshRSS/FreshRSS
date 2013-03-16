@@ -153,16 +153,22 @@ $(document).ready (function () {
 		// on marque comme lu ou non lu
 		active = $(".flux.active");
 		mark_read (active);
+	}, {
+		'disable_in_input':true
 	});
 	shortcut.add("shift+<?php echo $s['mark_read']; ?>", function () {
 		// on marque tout comme lu
 		url = $("#top a.read_all").attr ("href");
 		redirect (url, false);
+	}, {
+		'disable_in_input':true
 	});
 	shortcut.add("<?php echo $s['mark_favorite']; ?>", function () {
 		// on marque comme favori ou non favori
 		active = $(".flux.active");
 		mark_favorite (active);
+	}, {
+		'disable_in_input':true
 	});
 
 	// Touches de navigation
@@ -176,6 +182,8 @@ $(document).ready (function () {
 		} else if (new_active[0] === undefined) {
 			slide (last_active, old_active);
 		}
+	}, {
+		'disable_in_input':true
 	});
 	shortcut.add("shift+<?php echo $s['prev_entry']; ?>", function () {
 		old_active = $(".flux.active");
@@ -184,6 +192,8 @@ $(document).ready (function () {
 		if (first.hasClass("flux")) {
 			slide (first, old_active);
 		}
+	}, {
+		'disable_in_input':true
 	});
 	shortcut.add("<?php echo $s['next_entry']; ?>", function () {
 		old_active = $(".flux.active");
@@ -195,6 +205,8 @@ $(document).ready (function () {
 		} else if (new_active[0] === undefined) {
 			slide (first_active, old_active);
 		}
+	}, {
+		'disable_in_input':true
 	});
 	shortcut.add("shift+<?php echo $s['next_entry']; ?>", function () {
 		old_active = $(".flux.active");
@@ -203,18 +215,26 @@ $(document).ready (function () {
 		if (last.hasClass("flux")) {
 			slide (last, old_active);
 		}
+	}, {
+		'disable_in_input':true
 	});
 	shortcut.add("<?php echo $s['next_page']; ?>", function () {
 		url = $(".pager-next a").attr ("href");
 		redirect (url, false);
+	}, {
+		'disable_in_input':true
 	});
 	shortcut.add("<?php echo $s['prev_page']; ?>", function () {
 		url = $(".pager-previous a").attr ("href");
 		redirect (url, false);
+	}, {
+		'disable_in_input':true
 	});
 	shortcut.add("<?php echo $s['go_website']; ?>", function () {
 		url = $(".flux.active .link a").attr ("href");
 
 		redirect (url, true);
+	}, {
+		'disable_in_input':true
 	});
 });

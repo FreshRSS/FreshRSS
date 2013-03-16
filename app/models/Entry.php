@@ -229,10 +229,20 @@ class EntryDAO extends Model_pdo {
 		}
 	}
 
-	public function listEntries ($mode, $order = 'high_to_low') {
+	public function listEntries ($mode, $search = false, $order = 'high_to_low') {
 		$where = '';
 		if ($mode == 'not_read') {
 			$where = ' WHERE is_read=0';
+		}
+
+		$values = array();
+		if ($search) {
+			$values[] = '%'.$search.'%';
+			if ($mode == 'not_read') {
+				$where = ' AND title LIKE ?';
+			} else {
+				$where = ' WHERE title LIKE ?';
+			}
 		}
 
 		if ($order == 'low_to_high') {
@@ -243,7 +253,7 @@ class EntryDAO extends Model_pdo {
 
 		$sql = 'SELECT COUNT(*) AS count FROM entry' . $where;
 		$stm = $this->bd->prepare ($sql);
-		$stm->execute ();
+		$stm->execute ($values);
 		$res = $stm->fetchAll (PDO::FETCH_ASSOC);
 		$this->nbItems = $res[0]['count'];
 
@@ -254,15 +264,21 @@ class EntryDAO extends Model_pdo {
 		     . ' ORDER BY date' . $order
 		     . ' LIMIT ' . $deb . ', ' . $fin;
 		$stm = $this->bd->prepare ($sql);
-		$stm->execute ();
+		$stm->execute ($values);
 
 		return HelperEntry::daoToEntry ($stm->fetchAll (PDO::FETCH_ASSOC));
 	}
 
-	public function listFavorites ($mode, $order = 'high_to_low') {
+	public function listFavorites ($mode, $search = false, $order = 'high_to_low') {
 		$where = ' WHERE is_favorite=1';
 		if ($mode == 'not_read') {
 			$where .= ' AND is_read=0';
+		}
+
+		$values = array();
+		if ($search) {
+			$values[] = '%'.$search.'%';
+			$where = ' AND title LIKE ?';
 		}
 
 		if ($order == 'low_to_high') {
@@ -273,7 +289,7 @@ class EntryDAO extends Model_pdo {
 
 		$sql = 'SELECT COUNT(*) AS count FROM entry' . $where;
 		$stm = $this->bd->prepare ($sql);
-		$stm->execute ();
+		$stm->execute ($values);
 		$res = $stm->fetchAll (PDO::FETCH_ASSOC);
 		$this->nbItems = $res[0]['count'];
 
@@ -290,15 +306,21 @@ class EntryDAO extends Model_pdo {
 		}
 		$stm = $this->bd->prepare ($sql);
 
-		$stm->execute ();
+		$stm->execute ($values);
 
 		return HelperEntry::daoToEntry ($stm->fetchAll (PDO::FETCH_ASSOC));
 	}
 
-	public function listByCategory ($cat, $mode, $order = 'high_to_low') {
+	public function listByCategory ($cat, $mode, $search = false, $order = 'high_to_low') {
 		$where = ' WHERE category=?';
 		if ($mode == 'not_read') {
 			$where .= ' AND is_read=0';
+		}
+
+		$values = array ($cat);
+		if ($search) {
+			$values[] = '%'.$search.'%';
+			$where = ' AND title LIKE ?';
 		}
 
 		if ($order == 'low_to_high') {
@@ -309,7 +331,6 @@ class EntryDAO extends Model_pdo {
 
 		$sql = 'SELECT COUNT(*) AS count FROM entry e INNER JOIN feed f ON e.id_feed = f.id' . $where;
 		$stm = $this->bd->prepare ($sql);
-		$values = array ($cat);
 		$stm->execute ($values);
 		$res = $stm->fetchAll (PDO::FETCH_ASSOC);
 		$this->nbItems = $res[0]['count'];
@@ -322,17 +343,21 @@ class EntryDAO extends Model_pdo {
 
 		$stm = $this->bd->prepare ($sql);
 
-		$values = array ($cat);
-
 		$stm->execute ($values);
 
 		return HelperEntry::daoToEntry ($stm->fetchAll (PDO::FETCH_ASSOC));
 	}
 
-	public function listByFeed ($feed, $mode, $order = 'high_to_low') {
+	public function listByFeed ($feed, $mode, $search = false, $order = 'high_to_low') {
 		$where = ' WHERE id_feed=?';
 		if ($mode == 'not_read') {
 			$where .= ' AND is_read=0';
+		}
+
+		$values = array();
+		if ($search) {
+			$values[] = '%'.$search.'%';
+			$where = ' AND title LIKE ?';
 		}
 
 		if ($order == 'low_to_high') {

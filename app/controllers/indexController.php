@@ -30,11 +30,13 @@ class indexController extends ActionController {
 		$this->view->get_f = false;
 		$order = $this->view->conf->sortOrder ();
 
+		$search = Request::param ('search');
+
 		$error = false;
 
 		// Récupère les flux par catégorie, favoris ou tous
 		if ($get == 'favoris') {
-			$entries = $entryDAO->listFavorites ($mode, $order);
+			$entries = $entryDAO->listFavorites ($mode, $search, $order);
 			$this->view->get_c = $get;
 			View::prependTitle ('Vos favoris - ');
 		} elseif ($get != false) {
@@ -42,7 +44,7 @@ class indexController extends ActionController {
 			$get = substr ($get, 2);
 
 			if ($typeGet == 'c') {
-				$entries = $entryDAO->listByCategory ($get, $mode, $order);
+				$entries = $entryDAO->listByCategory ($get, $mode, $search, $order);
 				$cat = $catDAO->searchById ($get);
 
 				if ($cat) {
@@ -52,7 +54,7 @@ class indexController extends ActionController {
 					$error = true;
 				}
 			} elseif ($typeGet == 'f') {
-				$entries = $entryDAO->listByFeed ($get, $mode, $order);
+				$entries = $entryDAO->listByFeed ($get, $mode, $search, $order);
 				$feed = $feedDAO->searchById ($get);
 
 				if ($feed) {
@@ -74,7 +76,7 @@ class indexController extends ActionController {
 		// Cas où on ne choisie ni catégorie ni les favoris
 		// ou si la catégorie ne correspond à aucune
 		if (!isset ($entries)) {
-			$entries = $entryDAO->listEntries ($mode, $order);
+			$entries = $entryDAO->listEntries ($mode, $search, $order);
 		}
 
 		try {
