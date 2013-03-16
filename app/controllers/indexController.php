@@ -88,6 +88,10 @@ class indexController extends ActionController {
 		}
 	}
 
+	public function aboutAction () {
+		View::prependTitle ('À propos - ');
+	}
+
 	public function changeModeAction () {
 		$mode = Request::param ('mode');
 

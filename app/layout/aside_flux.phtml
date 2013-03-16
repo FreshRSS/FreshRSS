@@ -8,7 +8,9 @@
 			<a class="btn category<?php echo !$this->get ? ' active' : ''; ?>" href="<?php echo _url ('index', 'index'); ?>">
 				<i class="icon all"></i>
 				Tous (<?php echo $this->nb_total; ?>)
+				<?php if ($this->nb_not_read > 0) { ?>
 				<span class="notRead"><?php echo $this->nb_not_read; ?> non lu<?php echo $this->nb_not_read > 1 ? 's' : ''; ?></span>
+				<?php } ?>
 			</a>
 		</li>
 
@@ -25,7 +27,9 @@
 		<li>
 			<a class="btn category<?php echo $this->get == $cat->id () ? ' active' : ''; ?>" href="<?php echo _url ('index', 'index', 'get', 'c_' . $cat->id ()); ?>">
 				<?php echo $cat->name (); ?>
+				<?php if ($catNotRead > 0) { ?>
 				<span class="notRead"><?php echo $catNotRead ?> non lu<?php echo $catNotRead > 1 ? 's' : ''; ?></span>
+				<?php } ?>
 			</a>
 
 			<?php if (!empty ($feeds)) { ?>

@@ -18,10 +18,13 @@ a {
 	}
 
 /* LISTES */
-ul, ol {
+ul, ol, dl {
 	margin: 10px 0 10px 30px;
 	line-height: 190%;
 }
+	dd {
+		margin: 0 0 10px 30px;
+	}
 
 /* TITRES */
 h1, h2, h3 {
@@ -275,12 +278,18 @@ input {
 		text-align: left;
 		box-shadow: 3px 3px 3px #ddd;
 	}
+		.dropdown .dropdown-menu .dropdown-header {
+			display: block;
+			padding: 0 5px;
+			color: #888;
+			font-weight: bold;
+		}
 		.dropdown .dropdown-menu .item {
 			display: block;
 			height: 30px;
-			font-size: 14px;
+			padding: 0 25px;
+			font-size: 90%;
 			line-height: 30px;
-			padding: 0 10px;
 		}
 			.dropdown .dropdown-menu .item a {
 				display: block;
@@ -521,43 +530,6 @@ input {
 	.flux:hover {
 		background: #fff;
 	}
-	.flux .content {
-		max-width: 550px;
-		margin: 0 auto;
-		padding: 10px;
-		line-height: 170%;
-	}
-		.flux .content h1, .flux .content h2, .flux .content h3 {
-			margin: 20px 0 5px;
-		}
-		.flux .content p {
-			margin: 10px 0;
-		}
-		.flux .content img.big {
-			display: block;
-			margin: 10px 0;
-			width: 100%;
-			box-shadow: 0 0 5px #000;
-			border-radius: 5px;
-		}
-		.flux .content pre {
-			width: 90%;
-			margin: 10px auto;
-			padding: 10px;
-			overflow: auto;
-			background: #666;
-			border: 1px solid #000;
-			color: #fafafa;
-			border-radius: 5px;
-		}
-		.flux .content q, .flux .content blockquote {
-			display: block;
-			margin: 0;
-			padding: 10px 20px;
-			font-style: italic;
-			border-left: 4px solid #ccc;
-			color: #666;
-		}
 	.flux.active {
 		border-left: 10px solid #0062BE;
 		background: #fff;
@@ -657,6 +629,44 @@ input {
 					.flux_header .item.link a:hover {
 						text-decoration: none;
 					}
+
+.content {
+	max-width: 550px;
+	margin: 0 auto;
+	padding: 10px;
+	line-height: 170%;
+}
+	.content h1, .content h2, .content h3 {
+		margin: 20px 0 5px;
+	}
+	.content p {
+		margin: 0 0 20px;
+	}
+	.content img.big {
+		display: block;
+		margin: 10px 0;
+		width: 100%;
+		box-shadow: 0 0 5px #000;
+		border-radius: 5px;
+	}
+	.content pre {
+		width: 90%;
+		margin: 10px auto;
+		padding: 10px;
+		overflow: auto;
+		background: #666;
+		border: 1px solid #000;
+		color: #fafafa;
+		border-radius: 5px;
+	}
+	.content q, .content blockquote {
+		display: block;
+		margin: 0;
+		padding: 10px 20px;
+		font-style: italic;
+		border-left: 4px solid #ccc;
+		color: #666;
+	}
 
 /*** PAGINATION ***/
 .pagination {
