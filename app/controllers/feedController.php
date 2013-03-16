@@ -16,43 +16,56 @@ class feedController extends ActionController {
 					$feed = new Feed ($url);
 					$feed->load ();
 
+					$catDAO = new CategoryDAO ();
+					$cat = $feed->category ();
+					if ($cat == '') {
+						$cat = $catDAO->getDefault ()->id ();
+					}
+
 					$feedDAO = new FeedDAO ();
 					$values = array (
 						'id' => $feed->id (),
 						'url' => $feed->url (),
-						'category' => null,
+						'category' => $cat,
 						'name' => $feed->name (),
 						'website' => $feed->website (),
 						'description' => $feed->description (),
 						'lastUpdate' => time ()
 					);
-					$feedDAO->addFeed ($values);
+					if ($feedDAO->addFeed ($values)) {
+						$entryDAO = new EntryDAO ();
+						$entries = $feed->entries ();
+						foreach ($entries as $entry) {
+							$values = array (
+								'id' => $entry->id (),
+								'guid' => $entry->guid (),
+								'title' => $entry->title (),
+								'author' => $entry->author (),
+								'content' => $entry->content (),
+								'link' => $entry->link (),
+								'date' => $entry->date (true),
+								'is_read' => $entry->isRead (),
+								'is_favorite' => $entry->isFavorite (),
+								'id_feed' => $feed->id ()
+							);
+							$entryDAO->addEntry ($values);
+						}
 
-					$entryDAO = new EntryDAO ();
-					$entries = $feed->entries ();
-					foreach ($entries as $entry) {
-						$values = array (
-							'id' => $entry->id (),
-							'guid' => $entry->guid (),
-							'title' => $entry->title (),
-							'author' => $entry->author (),
-							'content' => $entry->content (),
-							'link' => $entry->link (),
-							'date' => $entry->date (true),
-							'is_read' => $entry->isRead (),
-							'is_favorite' => $entry->isFavorite (),
-							'id_feed' => $feed->id ()
+						// notif
+						$notif = array (
+							'type' => 'good',
+							'content' => 'Le flux <em>' . $feed->name () . '</em> a bien été ajouté'
 						);
-						$entryDAO->addEntry ($values);
+						Session::_param ('notification', $notif);
+						$params['id'] = $feed->id ();
+					} else {
+						// notif
+						$notif = array (
+							'type' => 'bad',
+							'content' => '<em>' . $feed->name () . '</em> n\' a pas pu être ajouté'
+						);
+						Session::_param ('notification', $notif);
 					}
-
-					// notif
-					$notif = array (
-						'type' => 'good',
-						'content' => 'Le flux <em>' . $feed->url () . '</em> a bien été ajouté'
-					);
-					Session::_param ('notification', $notif);
-					$params['id'] = $feed->id ();
 				} catch (FileNotExistException $e) {
 					Log::record ($e->getMessage (), Log::ERROR);
 					// notif
@@ -137,19 +150,11 @@ class feedController extends ActionController {
 		} else {
 			$entryDAO = new EntryDAO ();
 			$feedDAO = new FeedDAO ();
-			$catDAO = new CategoryDAO ();
 		
 			$categories = Request::param ('categories', array ());
 			$feeds = Request::param ('feeds', array ());
-		
-			foreach ($categories as $cat) {
-				$values = array (
-					'id' => $cat->id (),
-					'name' => $cat->name (),
-					'color' => $cat->color ()
-				);
-				$catDAO->addCategory ($values);
-			}
+
+			$this->addCategories ($categories);
 			
 			$nb_month_old = $this->view->conf->oldEntries ();
 			$date_min = time () - (60 * 60 * 24 * 30 * $nb_month_old);
@@ -228,6 +233,19 @@ class feedController extends ActionController {
 			Session::_param ('notification', $notif);
 		
 			Request::forward (array ('c' => 'configure', 'a' => 'feed'), true);
+		}
+	}
+
+	private function addCategories ($categories) {
+		$catDAO = new CategoryDAO ();
+
+		foreach ($categories as $cat) {
+			$values = array (
+				'id' => $cat->id (),
+				'name' => $cat->name (),
+				'color' => $cat->color ()
+			);
+			$catDAO->addCategory ($values);
 		}
 	}
 }

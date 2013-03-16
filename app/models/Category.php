@@ -127,6 +127,22 @@ class CategoryDAO extends Model_pdo {
 			return false;
 		}
 	}
+	public function searchByName ($name) {
+		$sql = 'SELECT * FROM category WHERE name=?';
+		$stm = $this->bd->prepare ($sql);
+
+		$values = array ($name);
+
+		$stm->execute ($values);
+		$res = $stm->fetchAll (PDO::FETCH_ASSOC);
+		$cat = HelperCategory::daoToCategory ($res);
+
+		if (isset ($cat[0])) {
+			return $cat[0];
+		} else {
+			return false;
+		}
+	}
 
 	public function listCategories () {
 		$sql = 'SELECT * FROM category ORDER BY name';
@@ -134,6 +150,26 @@ class CategoryDAO extends Model_pdo {
 		$stm->execute ();
 
 		return HelperCategory::daoToCategory ($stm->fetchAll (PDO::FETCH_ASSOC));
+	}
+
+	public function getDefault () {
+		$def_cat = $this->searchByName ('Sans catégorie');
+
+		if (!$def_cat) {
+			$cat = new Category ('Sans catégorie');
+
+			$values = array (
+				'id' => $cat->id (),
+				'name' => $cat->name (),
+				'color' => $cat->color ()
+			);
+
+			$this->addCategory ($values);
+
+			$def_cat = $cat;
+		}
+
+		return $def_cat;
 	}
 
 	public function count () {
