@@ -171,11 +171,11 @@ class EntryDAO extends Model_pdo {
 		}
 	}
 
-	public function markReadEntries ($read) {
-		$sql = 'UPDATE entry SET is_read = ?';
+	public function markReadEntries ($read, $dateMax) {
+		$sql = 'UPDATE entry SET is_read = ? WHERE date < ?';
 		$stm = $this->bd->prepare ($sql);
 
-		$values = array ($read);
+		$values = array ($read, $dateMax);
 
 		if ($stm && $stm->execute ($values)) {
 			return true;
@@ -183,11 +183,11 @@ class EntryDAO extends Model_pdo {
 			return false;
 		}
 	}
-	public function markReadCat ($id, $read) {
-		$sql = 'UPDATE entry e INNER JOIN feed f ON e.id_feed = f.id SET is_read = ? WHERE category = ?';
+	public function markReadCat ($id, $read, $dateMax) {
+		$sql = 'UPDATE entry e INNER JOIN feed f ON e.id_feed = f.id SET is_read = ? WHERE category = ? AND date < ?';
 		$stm = $this->bd->prepare ($sql);
 
-		$values = array ($read, $id);
+		$values = array ($read, $id, $dateMax);
 
 		if ($stm && $stm->execute ($values)) {
 			return true;
@@ -195,11 +195,11 @@ class EntryDAO extends Model_pdo {
 			return false;
 		}
 	}
-	public function markReadFeed ($id, $read) {
-		$sql = 'UPDATE entry SET is_read = ? WHERE id_feed = ?';
+	public function markReadFeed ($id, $read, $dateMax) {
+		$sql = 'UPDATE entry SET is_read = ? WHERE id_feed = ? AND date < ?';
 		$stm = $this->bd->prepare ($sql);
 
-		$values = array ($read, $id);
+		$values = array ($read, $id, $dateMax);
 
 		if ($stm && $stm->execute ($values)) {
 			return true;

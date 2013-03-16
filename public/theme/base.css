@@ -117,6 +117,7 @@ input {
 		}
 
 .stick {
+	display: inline-block;
 	white-space: nowrap;
 	font-size: 0px;
 	vertical-align: middle;
@@ -137,14 +138,22 @@ input {
 	.stick input:last-child {
 		border-radius: 0 3px 3px 0;
 	}
-	.stick .btn+.btn,
-	.stick .btn+input,
-	.stick input+.btn,
-	.stick input+input {
+	.stick .btn + .btn,
+	.stick .btn + input,
+	.stick input + .btn,
+	.stick input + input {
 		border-left: none;
 	}
-	.stick input+.btn {
+	.stick input + .btn {
 		border-top: 1px solid #bbb;
+	}
+	.stick .btn + .dropdown > .btn {
+		border-left: none;
+		border-radius: 0 3px 3px 0;
+		font-size: 0px;
+	}
+	.stick .btn + .dropdown a {
+		font-size: 12px;
 	}
 
 .btn {
@@ -284,7 +293,7 @@ input {
 	.dropdown .dropdown-menu {
 		display: none;
 		min-width: 200px;
-		margin: -1px 0 0;
+		margin: 5px 0 0;
 		padding: 5px 0;
 		position: absolute;
 		right: 0px;

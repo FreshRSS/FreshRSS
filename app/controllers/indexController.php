@@ -10,11 +10,14 @@ class indexController extends ActionController {
 		$feedDAO = new FeedDAO ();
 		$catDAO = new CategoryDAO ();
 
+		$error = false;
+
 		// pour optimiser
 		$page = Request::param ('page', 1);
 		$entryDAO->_nbItemsPerPage ($this->view->conf->postsPerPage ());
 		$entryDAO->_currentPage ($page);
 
+		// mode de vue (tout ou seulement non lus)
 		$default_view = $this->view->conf->defaultView ();
 		$mode = Session::param ('mode');
 		if ($mode == false) {
@@ -25,14 +28,16 @@ class indexController extends ActionController {
 			}
 		}
 
+		// ordre de listage des flux
+		$order = Session::param ('order', $this->view->conf->sortOrder ());
+
+		// recherche sur les titres (pour le moment)
+		$search = Request::param ('search');
+
+		// récupération de la catégorie/flux à filtrer
 		$get = Request::param ('get');
 		$this->view->get_c = false;
 		$this->view->get_f = false;
-		$order = $this->view->conf->sortOrder ();
-
-		$search = Request::param ('search');
-
-		$error = false;
 
 		// Récupère les flux par catégorie, favoris ou tous
 		if ($get == 'favoris') {
@@ -72,6 +77,7 @@ class indexController extends ActionController {
 		}
 
 		$this->view->mode = $mode;
+		$this->view->order = $order;
 
 		// Cas où on ne choisie ni catégorie ni les favoris
 		// ou si la catégorie ne correspond à aucune
@@ -106,6 +112,17 @@ class indexController extends ActionController {
 			Session::_param ('mode', 'not_read');
 		} else {
 			Session::_param ('mode', 'all');
+		}
+
+		Request::forward (array (), true);
+	}
+	public function changeOrderAction () {
+		$order = Request::param ('order');
+
+		if ($order == 'low_to_high') {
+			Session::_param ('order', 'low_to_high');
+		} else {
+			Session::_param ('order', 'high_to_low');
 		}
 
 		Request::forward (array (), true);

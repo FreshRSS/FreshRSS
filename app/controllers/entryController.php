@@ -31,6 +31,7 @@ class entryController extends ActionController {
 		$id = Request::param ('id');
 		$is_read = Request::param ('is_read');
 		$get = Request::param ('get');
+		$dateMax = Request::param ('dateMax', time ());
 		
 		if ($is_read) {
 			$is_read = true;
@@ -41,16 +42,16 @@ class entryController extends ActionController {
 		$entryDAO = new EntryDAO ();
 		if ($id == false) {
 			if (!$get) {
-				$entryDAO->markReadEntries ($is_read);
+				$entryDAO->markReadEntries ($is_read, $dateMax);
 			} else {
 				$typeGet = $get[0];
 				$get = substr ($get, 2);
 
 				if ($typeGet == 'c') {
-					$entryDAO->markReadCat ($get, $is_read);
+					$entryDAO->markReadCat ($get, $is_read, $dateMax);
 					$this->params = array ('get' => 'c_' . $get);
 				} elseif ($typeGet == 'f') {
-					$entryDAO->markReadFeed ($get, $is_read);
+					$entryDAO->markReadFeed ($get, $is_read, $dateMax);
 					$this->params = array ('get' => 'f_' . $get);
 				}
 			}
@@ -62,7 +63,7 @@ class entryController extends ActionController {
 			);
 			Session::_param ('notification', $notif);
 		} else {
-			$entryDAO->updateEntry ($id, $values);
+			$entryDAO->updateEntry ($id, array ('is_read' => $is_read));
 		}
 	}
 	

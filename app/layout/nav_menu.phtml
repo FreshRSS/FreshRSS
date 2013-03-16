@@ -1,0 +1,63 @@
+<div class="nav_menu">
+	<a class="btn" href="<?php echo _url ('feed', 'actualize'); ?>"><i class="icon i_refresh"></i></a>
+
+	<?php
+		$get = false;
+		$string_mark = 'Tout marquer comme lu';
+		if ($this->get_f) {
+			$get = 'f_' . $this->get_f;
+			$string_mark = 'Marquer le flux comme lu';
+		} elseif ($this->get_c) {
+			$get = 'c_' . $this->get_c;
+			$string_mark = 'Marquer la catégorie comme lue';
+		}
+	?>
+
+	<?php if (!login_is_conf ($this->conf) || is_logged ()) { ?>
+	<div class="stick">
+		<a class="read_all btn" href="<?php echo _url ('entry', 'read', 'is_read', 1, 'get', $get); ?>">Marquer comme lu</a>
+		<div class="dropdown">
+			<div id="dropdown-read" class="dropdown-target"></div>
+
+			<a class="dropdown-toggle btn" href="#dropdown-read"><i class="icon i_down"></i></a>
+			<ul class="dropdown-menu">
+				<li class="dropdown-close"><a href="#close"><i class="icon i_close"></i></a></li>
+
+				<li class="item"><a href="<?php echo _url ('entry', 'read', 'is_read', 1, 'get', $get); ?>"><?php echo $string_mark; ?></a></li>
+				<li class="separator"></li>
+<?php
+	$date = getdate ();
+	$today = mktime (0, 0, 0, $date['mon'], $date['mday'], $date['year']);
+	$one_week = $today - 604800;
+?>
+				<li class="item"><a href="<?php echo _url ('entry', 'read', 'is_read', 1, 'get', $get, 'dateMax', $today); ?>">Antérieurs à 1 jour</a></li>
+				<li class="item"><a href="<?php echo _url ('entry', 'read', 'is_read', 1, 'get', $get, 'dateMax', $one_week); ?>">Antérieurs à 1 semaine</a></li>
+			</ul>
+		</div>
+	</div>
+	<?php } ?>
+
+	<div class="dropdown">
+		<div id="dropdown-views" class="dropdown-target"></div>
+		<a class="dropdown-toggle btn" href="#dropdown-views">Affichage <i class="icon i_down"></i></a>
+		<ul class="dropdown-menu">
+			<li class="dropdown-close"><a href="#close"><i class="icon i_close"></i></a></li>
+
+			<li class="item">
+				<?php if ($this->mode == 'not_read') { ?>
+				<a class="print_all" href="<?php echo _url ('index', 'changeMode', 'mode', 'all'); ?>">Tout afficher</a>
+				<?php } else { ?>
+				<a class="print_non_read" href="<?php echo _url ('index', 'changeMode', 'mode', 'not_read'); ?>">Afficher les non lus</a>
+				<?php } ?>
+			</li>
+			<li class="separator"></li>
+			<li class="item">
+				<?php if ($this->order == 'low_to_high') { ?>
+				<a href="<?php echo _url ('index', 'changeOrder', 'order', 'high_to_low'); ?>">Plus anciens en premier</a>
+				<?php } else { ?>
+				<a href="<?php echo _url ('index', 'changeOrder', 'order', 'low_to_high'); ?>">Plus récents en premier</a>
+				<?php } ?>
+			</li>
+		</ul>
+	</div>
+</div>
