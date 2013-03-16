@@ -1,6 +1,13 @@
 <ul class="nav nav-list aside">
 	<li class="nav-header">Vos flux RSS</li>
 
+	<li class="nav-form"><form id="add_rss" method="post" action="<?php echo Url::display (array ('c' => 'feed', 'a' => 'add')); ?>">
+		<div class="stick">
+			<input type="url" name="url_rss" placeholder="Ajouter un flux RSS" />
+			<button class="btn" type="submit"><i class="icon add"></i></button>
+		</div>
+	</form></li>
+
 	<?php if (!empty ($this->feeds)) { ?>
 	<?php foreach ($this->feeds as $feed) { ?>
 	<li class="item<?php echo ($this->flux && $this->flux->id () == $feed->id ()) ? ' active' : ''; ?>">
@@ -8,11 +15,6 @@
 	</li>
 	<?php } ?>
 	<?php } else { ?>
-	<li class="disable">Aucun flux</li>
+	<li class="item disable">Aucun flux</li>
 	<?php } ?>
-
-	<li><form id="add_rss" method="post" action="<?php echo Url::display (array ('c' => 'feed', 'a' => 'add')); ?>">
-		<input type="url" name="url_rss" placeholder="Ajouter un flux RSS" />
-		<button class="btn"><i class="icon add"></i></button>
-	</form></li>
 </ul>

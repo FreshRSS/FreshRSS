@@ -59,15 +59,21 @@ label {
 input {
 	display: inline-block;
 	min-height: 25px;
-	padding: 5px 5px;
+	width: 200px;
+	padding: 5px;
 	background: #fdfdfd;
 	border: 1px solid #bbb;
 	border-radius: 3px;
 	color: #666;
-	line-height: 30px;
+	line-height: 25px;
 	vertical-align: middle;
 	box-shadow: 0 2px 2px #eee inset;
 }
+	input[type="radio"],
+	input[type="checkbox"] {
+		width: 15px;
+		min-height: 15px;
+	}
 	input:focus {
 		color: #0062BE;
 		border-color: #33BBFF;
@@ -108,23 +114,41 @@ input {
 			font-size: 14px;
 		}
 
+.stick {
+	white-space: nowrap;
+	font-size: 0px;
+	vertical-align: middle;
+}
+	.stick input {
+		border-radius: 3px 0 0 3px;
+		border-right: none;
+	}
+	.stick .btn {
+		border-top: 1px solid #bbb;
+		border-radius: 0 3px 3px 0;
+	}
+
 .btn {
 	display: inline-block;
-	min-height: 25px;
+	min-height: 37px;
 	min-width: 15px;
 	padding: 5px 10px;
 	background: #fff;
 	background: linear-gradient(#fff, #eee);
-	border-radius: 5px;
+	border-radius: 3px;
 	border: 1px solid #ddd;
 	border-bottom: 1px solid #aaa;
 	border-right: 1px solid #aaa;
 	color: #666;
 	text-shadow: 0px -1px 0 #ddd;
-	line-height: 25px;
+	line-height: 20px;
 	vertical-align: middle;
 	cursor: pointer;
 }
+	a.btn {
+		min-height: 25px;
+		line-height: 25px;
+	}
 	.btn:hover {
 		background: #f0f0f0;
 		background: linear-gradient(#f8f8f8, #f0f0f0);
@@ -211,6 +235,11 @@ input {
 		text-shadow: 0 0 1px #ddd;
 	}
 
+	.nav.nav-list .nav-form {
+		padding: 3px;
+		text-align: center;
+	}
+
 .nav-head {
 	display: block;
 	margin: 0;
@@ -248,9 +277,10 @@ input {
 /* ICONES */
 .icon {
 	display: inline-block;
-	width: 16px;
-	height: 16px;
+	width: 14px;
+	height: 14px;
 	vertical-align: middle;
+	line-height: 14px;
 }
 	.icon.refresh {
 		background: url("icons/refresh.svg") center center no-repeat;
@@ -307,6 +337,13 @@ input {
 			.header .item.title a:hover {
 				text-decoration: none;
 			}
+		.header .item.search input {
+			width: 200px;
+			transition: all 200ms linear;
+		}
+			.header .item.search input:focus {
+				width: 300px;
+			}
 		.header .item.configure {
 			width: 100px;
 		}
@@ -326,6 +363,9 @@ input {
 		border-right: 1px solid #aaa;
 		background: #fff;
 	}
+		.aside .nav-form input {
+			width: 180px;
+		}
 		.aside.aside_flux {
 			padding: 10px 0;
 		}

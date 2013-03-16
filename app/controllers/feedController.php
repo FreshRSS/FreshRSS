@@ -10,6 +10,7 @@ class feedController extends ActionController {
 		} else {
 			if (Request::isPost ()) {
 				$url = Request::param ('url_rss');
+				$params = array ();
 
 				try {
 					$feed = new Feed ($url);
@@ -51,6 +52,7 @@ class feedController extends ActionController {
 						'content' => 'Le flux <em>' . $feed->url () . '</em> a bien été ajouté'
 					);
 					Session::_param ('notification', $notif);
+					$params['id'] = $feed->id ();
 				} catch (FileNotExistException $e) {
 					Log::record ($e->getMessage (), Log::ERROR);
 					// notif
@@ -68,7 +70,7 @@ class feedController extends ActionController {
 					Session::_param ('notification', $notif);
 				}
 
-				Request::forward (array (), true);
+				Request::forward (array ('c' => 'configure', 'a' => 'feed', 'params' => $params), true);
 			}
 		}
 	}
