@@ -171,6 +171,43 @@ class EntryDAO extends Model_pdo {
 		}
 	}
 
+	public function markReadEntries ($read) {
+		$sql = 'UPDATE entry SET is_read = ?';
+		$stm = $this->bd->prepare ($sql);
+
+		$values = array ($read);
+
+		if ($stm && $stm->execute ($values)) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	public function markReadCat ($id, $read) {
+		$sql = 'UPDATE entry e INNER JOIN feed f ON e.id_feed = f.id SET is_read = ? WHERE category = ?';
+		$stm = $this->bd->prepare ($sql);
+
+		$values = array ($read, $id);
+
+		if ($stm && $stm->execute ($values)) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	public function markReadFeed ($id, $read) {
+		$sql = 'UPDATE entry SET is_read = ? WHERE id_feed = ?';
+		$stm = $this->bd->prepare ($sql);
+
+		$values = array ($read, $id);
+
+		if ($stm && $stm->execute ($values)) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
 	public function updateEntries ($valuesTmp) {
 		if (isset ($valuesTmp['content'])) {
 			$valuesTmp['content'] = base64_encode (gzdeflate (serialize ($valuesTmp['content'])));

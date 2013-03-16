@@ -1,16 +1,28 @@
 <?php $this->partial ('aside_flux'); ?>
 
 <div class="nav_menu stick">
-	<a class="btn" href="<?php echo Url::display (array ('c' => 'feed', 'a' => 'actualize')); ?>"><i class="icon i_refresh"></i></a>
+	<a class="btn" href="<?php echo _url ('feed', 'actualize'); ?>"><i class="icon i_refresh"></i></a>
+
+	<?php
+		$get = false;
+		$string_mark = 'Tout marquer comme lu';
+		if ($this->get_f) {
+			$get = 'f_' . $this->get_f;
+			$string_mark = 'Marquer le flux comme lu';
+		} elseif ($this->get_c) {
+			$get = 'c_' . $this->get_c;
+			$string_mark = 'Marquer la catégorie comme lue';
+		}
+	?>
 
 	<?php if (!login_is_conf ($this->conf) || is_logged ()) { ?>
-	<a class="read_all btn" href="<?php echo Url::display (array ('c' => 'entry', 'a' => 'read', 'params' => array ('is_read' => 1))); ?>">Tout marquer comme lu</a>
+	<a class="read_all btn" href="<?php echo _url ('entry', 'read', 'is_read', 1, 'get', $get); ?>"><?php echo $string_mark; ?></a>
 	<?php } ?>
 
 	<?php if ($this->mode == 'not_read') { ?>
-	<a class="print_all btn" href="<?php echo Url::display (array ('a' => 'changeMode', 'params' => array ('mode' => 'all'))); ?>">Tout afficher</a>
+	<a class="print_all btn" href="<?php echo _url ('index', 'changeMode', 'mode', 'all'); ?>">Tout afficher</a>
 	<?php } else { ?>
-	<a class="print_non_read btn" href="<?php echo Url::display (array ('a' => 'changeMode', 'params' => array ('mode' => 'not_read'))); ?>">Afficher les non lus</a>
+	<a class="print_non_read btn" href="<?php echo _url ('index', 'changeMode', 'mode', 'not_read'); ?>">Afficher les non lus</a>
 	<?php } ?>
 </div>
 
