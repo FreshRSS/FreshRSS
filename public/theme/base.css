@@ -520,6 +520,9 @@ input {
 				font-size: 90%;
 				vertical-align: middle;
 				text-align: left;
+				overflow: hidden;
+				white-space: nowrap;
+				text-overflow: ellipsis;
 			}
 		.categories .feeds .dropdown .dropdown-menu {
 			left: 0;
