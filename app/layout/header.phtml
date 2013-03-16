@@ -25,7 +25,20 @@
 
 	<?php if (!login_is_conf ($this->conf) || is_logged ()) { ?>
 	<div class="item configure">
-		<a class="btn" href="<?php echo _url ('configure', 'display'); ?>"><i class="icon configure"></i></a>
+		<div class="dropdown">
+			<div id="dropdown-configure" class="dropdown-target"></div>
+
+			<a class="btn dropdown-toggle" href="#dropdown-configure"><i class="icon configure"></i></a>
+			<ul class="dropdown-menu">
+				<li class="dropdown-close"><a href="#close"><i class="icon close"></i></a></li>
+				<li class="item"><a href="<?php echo _url ('configure', 'display'); ?>">Général et affichage</a></li>
+				<li class="item"><a href="<?php echo _url ('configure', 'categorize'); ?>">Catégories</a></li>
+				<li class="item"><a href="<?php echo _url ('configure', 'shortcut'); ?>">Raccourcis</a></li>
+				<li class="item"><a href="<?php echo _url ('configure', 'importExport'); ?>">Import / Export OPML</a></li>
+				<li class="separator"></li>
+				<li class="item"><a href="<?php echo _url ('index', 'about'); ?>">À propos</a></li>
+			</ul>
+		</div>
 	</div>
 	<?php } ?>
 </div>

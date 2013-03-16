@@ -31,8 +31,17 @@
 			<?php if (!empty ($feeds)) { ?>
 			<ul class="feeds">
 				<?php foreach ($feeds as $feed) { ?>
-				<li>
-					<a class="website" href="<?php echo _url ('configure', 'feed', 'id', $feed->id ()); ?>"><i class="icon configure"></i></a>
+				<li class="item">
+					<div class="dropdown">
+						<div id="dropdown-<?php echo $feed->id(); ?>" class="dropdown-target"></div>
+						<a class="dropdown-toggle" href="#dropdown-<?php echo $feed->id(); ?>"><i class="icon configure"></i></a>
+						<ul class="dropdown-menu">
+							<li class="dropdown-close"><a href="#close"><i class="icon close"></i></a></li>
+							<li class="item"><a href="<?php echo _url ('configure', 'feed', 'id', $feed->id ()); ?>">Gestion</a></li>
+							<li class="item"><a href="<?php echo $feed->website (); ?>">Voir le site</a></li>
+						</ul>
+					</div>
+
 					<img src="http://www.google.com/s2/favicons?domain=<?php echo get_domain ($feed->website ()); ?>" alt="" />
 					<a class="feed" href="<?php echo _url ('index', 'index', 'get', 'f_' . $feed->id ()); ?>">
 						<?php echo $feed->name(); ?>

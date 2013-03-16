@@ -253,6 +253,73 @@ input {
 		padding: 5px 10px;
 	}
 
+/* DROPDOWN */
+.dropdown {
+	position: relative;
+	display: inline-block;
+}
+	.dropdown .dropdown-target {
+		display: none;
+	}
+
+	.dropdown .dropdown-menu {
+		display: none;
+		min-width: 200px;
+		margin: -1px 0 0;
+		padding: 5px 0;
+		position: absolute;
+		right: 0px;
+		background: #fff;
+		border: 1px solid #ddd;
+		border-radius: 5px;
+		text-align: left;
+		box-shadow: 3px 3px 3px #ddd;
+	}
+		.dropdown .dropdown-menu .item {
+			display: block;
+			height: 30px;
+			font-size: 14px;
+			line-height: 30px;
+			padding: 0 10px;
+		}
+			.dropdown .dropdown-menu .item a {
+				display: block;
+			}
+			.dropdown .dropdown-menu .item:hover {
+				background: #0062BE;
+				color: #fff;
+			}
+				.dropdown .dropdown-menu .item:hover a {
+					color: #fff;
+					text-decoration: none;
+				}
+		.dropdown .dropdown-menu .separator {
+			display: block;
+			height: 0;
+			margin: 5px 0;
+			border-bottom: 1px solid #ddd;
+		}
+		.dropdown .dropdown-target:target ~ .dropdown-menu {
+			display: block;
+			z-index: 10;
+		}
+	.dropdown .dropdown-close {
+		display: inline-block;
+		position: absolute;
+		top: -16px; right: -16px;
+		width: 16px;
+		height: 16px;
+		padding: 5px;
+		background: #fff;
+		border-radius: 50px;
+		border: 1px solid #ddd;
+		line-height: 16px;
+		text-align: center;
+	}
+		.dropdown .dropdown-close:hover {
+			background: #f4f4f4;
+		}
+
 /* ALERTS */
 .alert {
 	display: block;
@@ -320,31 +387,31 @@ input {
 	background: #f4f4f4;
 	table-layout: fixed;
 }
-	.header .item {
+	.header > .item {
 		display: table-cell;
 		padding: 10px 0;
 		border-bottom: 1px solid #aaa;
 		vertical-align: middle;
 		text-align: center;
 	}
-		.header .item.title {
+		.header > .item.title {
 			width: 250px;
 		}
-			.header .item.title h1 {
+			.header > .item.title h1 {
 				margin: 0;
 				text-shadow: 1px -1px 0 #ccc;
 			}
-			.header .item.title a:hover {
+			.header > .item.title a:hover {
 				text-decoration: none;
 			}
-		.header .item.search input {
+		.header > .item.search input {
 			width: 200px;
 			transition: all 200ms linear;
 		}
 			.header .item.search input:focus {
 				width: 300px;
 			}
-		.header .item.configure {
+		.header > .item.configure {
 			width: 100px;
 		}
 
@@ -411,18 +478,22 @@ input {
 			font-size: 90%;
 			vertical-align: middle;
 		}
+		.categories .feeds .dropdown .dropdown-menu {
+			left: 0;
+		}
+		.categories .feeds .dropdown .dropdown-close {
+			left: -16px;
+		}
 	.categories .notRead {
 		position: absolute;
 		top: 3px; right: 3px;
 		padding: 1px 5px;
-		background: #bbb;
+		background: #ccc;
 		color: #fff;
 		font-size: 90%;
 		border: 1px solid #bbb;
-		border-right: 1px solid #999;
-		border-bottom: 1px solid #999;
 		border-radius: 5px;
-		box-shadow: 1px 3px 3px #999 inset;
+		box-shadow: 1px 3px 3px #aaa inset;
 		text-shadow: 0 0 1px #aaa;
 	}
 
