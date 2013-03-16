@@ -129,8 +129,24 @@ function init_posts () {
 	});
 }
 
+function init_column_categories () {
+	$(".category").addClass ("stick");
+	$(".categories .category .btn:first-child").width ("160px");
+	$(".category").append ("<a class=\"btn dropdown-toggle\" href=\"#\"><i class=\"icon i_down\"></i></a>");
+
+	$(".category + .feeds").not(".active").hide();
+	$(".category.active a.dropdown-toggle i").toggleClass ("i_up");
+
+	$(".category a.dropdown-toggle").click (function () {
+		$(this).children ().toggleClass ("i_up");
+		$(this).parent ().next (".feeds").slideToggle();
+		return false;
+	});
+}
+
 $(document).ready (function () {
 	init_posts ();
+	init_column_categories ();
 
 	// Touches de manipulation
 	shortcut.add("<?php echo $s['mark_read']; ?>", function () {

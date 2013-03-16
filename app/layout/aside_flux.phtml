@@ -4,43 +4,53 @@
 		<li><a class="btn btn-important" href="<?php echo _url ('configure', 'feed'); ?>">Gestion des abonnements</a></li>
 		<?php } ?>
 
-		<li class="all">
-			<a class="btn category<?php echo !$this->get ? ' active' : ''; ?>" href="<?php echo _url ('index', 'index'); ?>">
-				<i class="icon all"></i>
-				Tous (<?php echo $this->nb_total; ?>)
-				<?php if ($this->nb_not_read > 0) { ?>
-				<span class="notRead"><?php echo $this->nb_not_read; ?> non lu<?php echo $this->nb_not_read > 1 ? 's' : ''; ?></span>
-				<?php } ?>
-			</a>
+		<li>
+			<div class="all">
+				<a class="btn<?php echo !$this->get_c ? ' active' : ''; ?>" href="<?php echo _url ('index', 'index'); ?>">
+					<i class="icon i_all"></i>
+					Tous (<?php echo $this->nb_total; ?>)
+					<?php if ($this->nb_not_read > 0) { ?>
+					<span class="notRead"><?php echo $this->nb_not_read; ?> non lu<?php echo $this->nb_not_read > 1 ? 's' : ''; ?></span>
+					<?php } ?>
+				</a>
+			</div>
 		</li>
 
-		<li class="favorites">
-			<a class="btn category<?php echo $this->get == 'favoris' ? ' active' : ''; ?>" href="<?php echo _url ('index', 'index', 'get', 'favoris'); ?>">
-				<i class="icon bookmark"></i>
-				Favoris (<?php echo $this->nb_favorites; ?>)
-			</a>
+		<li>
+			<div class="favorites">
+				<a class="btn<?php echo $this->get_c == 'favoris' ? ' active' : ''; ?>" href="<?php echo _url ('index', 'index', 'get', 'favoris'); ?>">
+					<i class="icon i_bookmark"></i>
+					Favoris (<?php echo $this->nb_favorites; ?>)
+				</a>
+			</div>
 		</li>
 
 		<?php foreach ($this->cat_aside as $cat) { ?>
 		<?php $feeds = $cat->feeds (); $catNotRead = $cat->nbNotRead (); ?>
 		<?php if (!empty ($feeds)) { ?>
 		<li>
-			<a class="btn category<?php echo $this->get == $cat->id () ? ' active' : ''; ?>" href="<?php echo _url ('index', 'index', 'get', 'c_' . $cat->id ()); ?>">
-				<?php echo $cat->name (); ?>
-				<?php if ($catNotRead > 0) { ?>
-				<span class="notRead"><?php echo $catNotRead ?> non lu<?php echo $catNotRead > 1 ? 's' : ''; ?></span>
-				<?php } ?>
-			</a>
+			<?php $c_active = false; if ($this->get_c == $cat->id ()) { $c_active = true; } ?>
+			<div class="category<?php echo $c_active ? ' active' : ''; ?>">
+				<a class="btn<?php echo $c_active ? ' active' : ''; ?>" href="<?php echo _url ('index', 'index', 'get', 'c_' . $cat->id ()); ?>">
+					<?php echo $cat->name (); ?>
+					<?php if ($catNotRead > 0) { ?>
+					<span class="notRead"><?php echo $catNotRead ?> non lu<?php echo $catNotRead > 1 ? 's' : ''; ?></span>
+					<?php } ?>
+				</a>
+			</div>
 
 			<?php if (!empty ($feeds)) { ?>
-			<ul class="feeds">
+			<ul class="feeds<?php echo $c_active ? ' active' : ''; ?>">
 				<?php foreach ($feeds as $feed) { ?>
-				<li class="item">
+				<?php $f_active = false; if ($this->get_f == $feed->id ()) { $f_active = true; } ?>
+				<li class="item<?php echo $f_active ? ' active' : ''; ?>">
 					<div class="dropdown">
 						<div id="dropdown-<?php echo $feed->id(); ?>" class="dropdown-target"></div>
-						<a class="dropdown-toggle" href="#dropdown-<?php echo $feed->id(); ?>"><i class="icon configure"></i></a>
+						<a class="dropdown-toggle" href="#dropdown-<?php echo $feed->id(); ?>"><i class="icon i_configure"></i></a>
 						<ul class="dropdown-menu">
-							<li class="dropdown-close"><a href="#close"><i class="icon close"></i></a></li>
+							<li class="dropdown-close"><a href="#close"><i class="icon i_close"></i></a></li>
+							<li class="item"><a href="<?php echo _url ('index', 'index', 'get', 'f_' . $feed->id ()); ?>">Filtrer</a></li>
+							<li class="separator"></li>
 							<li class="item"><a href="<?php echo _url ('configure', 'feed', 'id', $feed->id ()); ?>">Gestion</a></li>
 							<li class="item"><a href="<?php echo $feed->website (); ?>">Voir le site</a></li>
 						</ul>

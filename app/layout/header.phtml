@@ -1,9 +1,9 @@
 <?php if (login_is_conf ($this->conf)) { ?>
 <ul class="nav nav-head">
 	<?php if (!is_logged ()) { ?>
-	<li class="item"><i class="icon login"></i> <a id="signin" href="#">Connexion</a></li>
+	<li class="item"><i class="icon i_login"></i> <a id="signin" href="#">Connexion</a></li>
 	<?php } else { ?>
-	<li class="item"><i class="icon logout"></i> <a id="signout" href="#">Déconnexion</a></li>
+	<li class="item"><i class="icon i_logout"></i> <a id="signout" href="#">Déconnexion</a></li>
 	<?php } ?>
 </ul>
 <?php } ?>
@@ -18,7 +18,7 @@
 			<div class="stick">
 				<?php $s = Request::param ('search', ''); ?>
 				<input type="text" name="search" id="search" value="<?php echo $s; ?>" placeholder="Rechercher (non fonctionnel)" />
-				<button class="btn" type="submit"><i class="icon search"></i></button>
+				<button class="btn" type="submit"><i class="icon i_search"></i></button>
 			</div>
 		</form>
 	</div>
@@ -28,9 +28,9 @@
 		<div class="dropdown">
 			<div id="dropdown-configure" class="dropdown-target"></div>
 
-			<a class="btn dropdown-toggle" href="#dropdown-configure"><i class="icon configure"></i></a>
+			<a class="btn dropdown-toggle" href="#dropdown-configure"><i class="icon i_configure"></i></a>
 			<ul class="dropdown-menu">
-				<li class="dropdown-close"><a href="#close"><i class="icon close"></i></a></li>
+				<li class="dropdown-close"><a href="#close"><i class="icon i_close"></i></a></li>
 				<li class="dropdown-header">Configuration</li>
 				<li class="item"><a href="<?php echo _url ('configure', 'display'); ?>">Général et affichage</a></li>
 				<li class="item"><a href="<?php echo _url ('configure', 'categorize'); ?>">Catégories</a></li>
