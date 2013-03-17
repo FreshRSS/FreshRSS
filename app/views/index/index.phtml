@@ -26,21 +26,29 @@ if (isset ($this->entryPaginator)) {
 
 	<div class="flux<?php echo !$item->isRead () ? ' not_read' : ''; ?><?php echo $item->isFavorite () ? ' favorite' : ''; ?>" id="flux_<?php echo $item->id (); ?>">
 		<ul class="flux_header">
+			<?php if (!login_is_conf ($this->conf) || is_logged ()) { ?>
 			<li class="item manage">
-				<?php if (!login_is_conf ($this->conf) || is_logged ()) { ?>
 				<?php if (!$item->isRead ()) { ?>
-				<a class="read" href="<?php echo Url::display (array ('c' => 'entry', 'a' => 'read', 'params' => array ('id' => $item->id (), 'is_read' => 1))); ?>">&nbsp;</a><!--
+				<a class="read" href="<?php echo _url ('entry', 'read', 'id', $item->id (), 'is_read', 1); ?>">&nbsp;</a>
 				<?php } else { ?>
-				<a class="read" href="<?php echo Url::display (array ('c' => 'entry', 'a' => 'read', 'params' => array ('id' => $item->id (), 'is_read' => 0))); ?>">&nbsp;</a><!--
+				<a class="read" href="<?php echo _url ('entry', 'read', 'id', $item->id (), 'is_read', 0); ?>">&nbsp;</a>
 				<?php } ?>
 
 				<?php if (!$item->isFavorite ()) { ?>
-				--><a class="bookmark" href="<?php echo Url::display (array ('c' => 'entry', 'a' => 'bookmark', 'params' => array ('id' => $item->id (), 'is_favorite' => 1))); ?>">&nbsp;</a>
+				<a class="bookmark" href="<?php echo _url ('entry', 'bookmark', 'id', $item->id (), 'is_favorite', 1); ?>">&nbsp;</a>
 				<?php } else { ?>
-				--><a class="bookmark" href="<?php echo Url::display (array ('c' => 'entry', 'a' => 'bookmark', 'params' => array ('id' => $item->id (), 'is_favorite' => 0))); ?>">&nbsp;</a>
+				<a class="bookmark" href="<?php echo _url ('entry', 'bookmark', 'id', $item->id (), 'is_favorite', 0); ?>">&nbsp;</a>
 				<?php } ?>
-				<?php } ?>
+
+				<a class="note" href="<?php echo _url ('entry', 'note', 'id', $item->id ()); ?>">
+					<?php if ($item->notes () != '') { ?>
+					<i class="icon i_note"></i>
+					<?php } else { ?>
+					<i class="icon i_note_empty"></i>
+					<?php } ?>
+				</a>
 			</li>
+			<?php } ?>
 			<?php $feed = $item->feed (true); ?>
 			<li class="item website"><a target="_blank" href="<?php echo $feed->website (); ?>"><img src="http://www.google.com/s2/favicons?domain=<?php echo get_domain ($feed->website ()); ?>" alt="" /><span> <?php echo $feed->name (); ?></span></a></li>
 			<li class="item title"><h1><?php echo $item->title (); ?></h1></li>
@@ -62,7 +70,7 @@ if (isset ($this->entryPaginator)) {
 <div class="alert">
 	<span class="alert-head">Il n'y a aucun flux à afficher.</span>
 	<?php if (Session::param ('mode', 'all') == 'not_read') { ?>
-	<a class="print_all" href="<?php echo Url::display (array ('a' => 'changeMode', 'params' => array ('mode' => 'all'))); ?>">Afficher tous les articles ?</a>
+	<a class="print_all" href="<?php echo _url ('index', 'changeMode', 'mode', 'all'); ?>">Afficher tous les articles ?</a>
 	<?php }	?>
 </div>
 <?php } ?>

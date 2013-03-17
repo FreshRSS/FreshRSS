@@ -66,7 +66,7 @@ label {
 	font-size: 14px;
 	line-height: 25px;
 }
-input, select {
+input, select, textarea {
 	display: inline-block;
 	min-height: 25px;
 	padding: 5px;
@@ -83,7 +83,7 @@ input, select {
 		width: 15px;
 		min-height: 15px;
 	}
-	input:focus {
+	input:focus, select:focus, textarea:focus {
 		color: #0062BE;
 		border-color: #33BBFF;
 		box-shadow: 0 2px 2px #DDDDFF inset;
@@ -391,10 +391,10 @@ input, select {
 /* ICONES */
 .icon {
 	display: inline-block;
-	width: 14px;
-	height: 14px;
+	width: 16px;
+	height: 16px;
 	vertical-align: middle;
-	line-height: 14px;
+	line-height: 16px;
 	background: center center no-repeat;
 }
 	.icon.i_refresh {
@@ -402,6 +402,15 @@ input, select {
 	}
 	.icon.i_bookmark {
 		background-image: url("icons/starred.svg");
+	}
+	.icon.i_not_bookmark {
+		background-image: url("icons/unstarred.svg");
+	}
+	.icon.i_read {
+		background-image: url("icons/read.svg");
+	}
+	.icon.i_unread {
+		background-image: url("icons/unread.svg");
 	}
 	.icon.i_all {
 		background-image: url("icons/all.svg");
@@ -435,6 +444,12 @@ input, select {
 	}
 	.icon.i_help {
 		background-image: url("icons/help.svg");
+	}
+	.icon.i_note {
+		background-image: url("icons/note.svg");
+	}
+	.icon.i_note_empty {
+		background-image: url("icons/note_empty.svg");
 	}
 
 /* STRUCTURE */
@@ -541,7 +556,7 @@ input, select {
 			.categories .feeds .item .feed {
 				display: inline-block;
 				margin: 0;
-				width: 170px;
+				width: 165px;
 				line-height: 35px;
 				font-size: 90%;
 				vertical-align: middle;
@@ -630,7 +645,11 @@ input, select {
 			vertical-align: middle;
 		}
 			.flux_header .item.manage {
-				width: 50px;
+				width: 75px;
+				white-space: nowrap;
+				font-size: 0px;
+				vertical-align: middle;
+				text-align: center;
 			}
 				.flux_header .item.manage .read {
 					display: inline-block;
@@ -658,6 +677,12 @@ input, select {
 					.flux.favorite .flux_header .item.manage .bookmark {
 						background: url("icons/starred.svg") center center no-repeat;
 					}
+				.flux_header .item.manage .note {
+					display: inline-block;
+					width: 25px;
+					height: 25px;
+					vertical-align: middle;
+				}
 			.flux_header .item.website {
 				width: 200px;
 				overflow: hidden;
