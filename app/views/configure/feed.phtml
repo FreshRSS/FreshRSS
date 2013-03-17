@@ -14,6 +14,13 @@
 				<span class="control"><a target="_blank" href="<?php echo $this->flux->website (); ?>"><?php echo $this->flux->website (); ?></a></span>
 			</div>
 		</div>
+
+		<div class="form-group">
+			<label class="group-name">URL du flux</label>
+			<div class="group-controls">
+				<span class="control"><a target="_blank" href="<?php echo $this->flux->url (); ?>"><?php echo $this->flux->url (); ?></a></span>
+			</div>
+		</div>
 	
 		<div class="form-group">
 			<label class="group-name">Nombre d'articles</label>
@@ -22,8 +29,7 @@
 			</div>
 		</div>
 	
-		<?php if (!empty ($this->categories)) { ?>
-		<legend>Catégorie</legend>
+		<legend>Catégorie - <a href="<?php echo _url ('configure', 'categorize'); ?>">gestion</a></legend>
 		<div class="form-group">
 			<label class="group-name">Ranger dans une catégorie</label>
 			<div class="group-controls">
@@ -35,8 +41,6 @@
 				<?php } ?>
 			</div>
 		</div>
-	
-		<?php } ?>
 
 		<legend>Avancé</legend>
 		<div class="form-group">

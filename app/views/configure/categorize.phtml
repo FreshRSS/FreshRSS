@@ -2,7 +2,7 @@
 
 <div class="post">
 	<form method="post" action="<?php echo _url ('configure', 'categorize'); ?>">
-		<legend>Gestion des catégories</legend>
+		<legend>Gestion des catégories - <a href="<?php echo _url ('configure', 'feed'); ?>">gestion des flux</a></legend>
 
 		<?php $i = 0; foreach ($this->categories as $cat) { $i++; ?>
 		<div class="form-group">
