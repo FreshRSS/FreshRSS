@@ -443,6 +443,33 @@ class EntryDAO extends Model_pdo {
 		return $res[0]['count'];
 	}
 
+	public function countNotReadByFeed ($id) {
+		$sql = 'SELECT COUNT(*) AS count FROM entry WHERE is_read = 0 AND id_feed = ?';
+		$stm = $this->bd->prepare ($sql);
+		$stm->execute (array ($id));
+		$res = $stm->fetchAll (PDO::FETCH_ASSOC);
+
+		return $res[0]['count'];
+	}
+
+	public function countNotReadByCat ($id) {
+		$sql = 'SELECT COUNT(*) AS count FROM entry e INNER JOIN feed f ON e.id_feed = f.id WHERE is_read=0 AND category = ?';
+		$stm = $this->bd->prepare ($sql);
+		$stm->execute (array ($id));
+		$res = $stm->fetchAll (PDO::FETCH_ASSOC);
+
+		return $res[0]['count'];
+	}
+
+	public function countNotReadFavorites () {
+		$sql = 'SELECT COUNT(*) AS count FROM entry WHERE is_read=0 AND is_favorite=1';
+		$stm = $this->bd->prepare ($sql);
+		$stm->execute ();
+		$res = $stm->fetchAll (PDO::FETCH_ASSOC);
+
+		return $res[0]['count'];
+	}
+
 	public function countFavorites () {
 		$sql = 'SELECT COUNT(*) AS count FROM entry WHERE is_favorite=1';
 		$stm = $this->bd->prepare ($sql);
