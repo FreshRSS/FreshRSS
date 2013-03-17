@@ -3,12 +3,14 @@
 class Feed extends Model {
 	private $id = null;
 	private $url;
-	private $category = '';
+	private $category = '000000';
 	private $entries = null;
 	private $name = '';
 	private $website = '';
 	private $description = '';
 	private $lastUpdate = 0;
+	private $pathEntries = '';
+	private $httpAuth = '';
 
 	public function __construct ($url) {
 		$this->_url ($url);
@@ -45,6 +47,12 @@ class Feed extends Model {
 	}
 	public function lastUpdate () {
 		return $this->lastUpdate;
+	}
+	public function pathEntries () {
+		return $this->pathEntries;
+	}
+	public function httpAuth () {
+		return $this->httpAuth;
 	}
 	public function nbEntries () {
 		$feedDAO = new FeedDAO ();
@@ -89,6 +97,12 @@ class Feed extends Model {
 	public function _lastUpdate ($value) {
 		$this->lastUpdate = $value;
 	}
+	public function _pathEntries ($value) {
+		$this->pathEntries = $value;
+	}
+	public function _httpAuth ($value) {
+		$this->httpAuth = $value;
+	}
 
 	public function load () {
 		if (!is_null ($this->url)) {
@@ -122,7 +136,7 @@ class Feed extends Model {
 
 			// Gestion du contenu
 			// On cherche à récupérer les articles en entier... même si le flux ne le propose pas
-			$path = get_path ($this->website ());
+			$path = $this->pathEntries ();
 			if ($path) {
 				try {
 					$content = get_content_by_parsing ($item->get_permalink (), $path);
@@ -306,6 +320,8 @@ class HelperFeed {
 			$list[$key]->_website ($dao['website']);
 			$list[$key]->_description ($dao['description']);
 			$list[$key]->_lastUpdate ($dao['lastUpdate']);
+			$list[$key]->_pathEntries ($dao['pathEntries']);
+			$list[$key]->_httpAuth ($dao['httpAuth']);
 
 			if (isset ($dao['id'])) {
 				$list[$key]->_id ($dao['id']);

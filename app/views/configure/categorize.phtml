@@ -9,6 +9,9 @@
 			<label class="group-name" for="cat_<?php echo $cat->id (); ?>">Catégorie n°<?php echo $i; ?></label>
 			<div class="group-controls">
 				<input type="text" id="cat_<?php echo $cat->id (); ?>" name="categories[]" value="<?php echo $cat->name (); ?>" />
+				<?php if ($cat->id () == '000000') { ?>
+				<i class="icon i_help"></i> ne peut pas être supprimé
+				<?php } ?>
 				<input type="hidden" name="ids[]" value="<?php echo $cat->id (); ?>" />
 			</div>
 		</div>

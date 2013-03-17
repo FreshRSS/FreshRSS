@@ -166,20 +166,6 @@ function getFeed ($outline, $cat_id) {
 	return $feed;
 }
 
-/*
- * Vérifie pour un site donné s'il faut aller parser directement sur le site
- * Renvoie le path (id et class html) pour récupérer le contenu, false si pas besoin
- * On se base sur une base connue de sites
- */
-function get_path ($url) {
-	$list_sites_parse = include (PUBLIC_PATH . '/data/Sites.array.php');
-	if (isset ($list_sites_parse[$url])) {
-		return $list_sites_parse[$url];
-	} else {
-		return false;
-	}
-}
-
 
 /* permet de récupérer le contenu d'un article pour un flux qui n'est pas complet */
 function get_content_by_parsing ($url, $path) {

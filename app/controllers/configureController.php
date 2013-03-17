@@ -12,6 +12,7 @@ class configureController extends ActionController {
 
 	public function categorizeAction () {
 		$catDAO = new CategoryDAO ();
+		$catDAO->checkDefault ();
 
 		if (Request::isPost ()) {
 			$cats = Request::param ('categories', array ());
@@ -26,7 +27,7 @@ class configureController extends ActionController {
 						'color' => $cat->color ()
 					);
 					$catDAO->updateCategory ($ids[$key], $values);
-				} else {
+				} elseif ($ids[$key] != '000000') {
 					$catDAO->deleteCategory ($ids[$key]);
 				}
 			}
@@ -79,21 +80,29 @@ class configureController extends ActionController {
 				$this->view->categories = $catDAO->listCategories ();
 
 				if (Request::isPost () && $this->view->flux) {
-					$cat = Request::param ('category');
+					$cat = Request::param ('category', 0);
+					$path = Request::param ('path_entries', '');
+
 					$values = array (
-						'category' => $cat
+						'category' => $cat,
+						'pathEntries' => $path
 					);
-					$feedDAO->updateFeed ($id, $values);
 
-					$this->view->flux->_category ($cat);
+					if ($feedDAO->updateFeed ($id, $values)) {
+						$this->view->flux->_category ($cat);
 
-					// notif
-					$notif = array (
-						'type' => 'good',
-						'content' => 'Le flux a été mis à jour'
-					);
+						$notif = array (
+							'type' => 'good',
+							'content' => 'Le flux a été mis à jour'
+						);
+					} else {
+						$notif = array (
+							'type' => 'bad',
+							'content' => 'Une erreur est survenue lors de la mise à jour'
+						);
+					}
+
 					Session::_param ('notification', $notif);
-
 					Request::forward (array ('c' => 'configure', 'a' => 'feed', 'params' => array ('id' => $id)), true);
 				}
 

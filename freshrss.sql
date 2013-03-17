@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 3.5.5
+-- version 3.5.7
 -- http://www.phpmyadmin.net
 --
 -- Client: localhost
--- Généré le: Sam 02 Mars 2013 à 00:09
--- Version du serveur: 5.1.68-cll
--- Version de PHP: 5.3.17
+-- Généré le: Dim 17 Mars 2013 à 14:08
+-- Version du serveur: 5.5.30
+-- Version de PHP: 5.4.12
 
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -17,7 +17,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8 */;
 
 --
--- Base de données: `flux_rss`
+-- Base de données: `freshrss`
 --
 
 -- --------------------------------------------------------
@@ -50,6 +50,8 @@ CREATE TABLE IF NOT EXISTS `entry` (
   `is_read` int(11) NOT NULL,
   `is_favorite` int(11) NOT NULL,
   `id_feed` varchar(6) NOT NULL,
+  `annotation` text NOT NULL,
+  `tags` text NOT NULL,
   PRIMARY KEY (`id`),
   KEY `id_feed` (`id_feed`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -63,11 +65,13 @@ CREATE TABLE IF NOT EXISTS `entry` (
 CREATE TABLE IF NOT EXISTS `feed` (
   `id` varchar(6) NOT NULL,
   `url` text NOT NULL,
-  `category` varchar(6) DEFAULT NULL,
+  `category` varchar(6) DEFAULT '000000',
   `name` varchar(255) NOT NULL,
   `website` text NOT NULL,
   `description` text NOT NULL,
   `lastUpdate` int(11) NOT NULL,
+  `pathEntries` varchar(500) DEFAULT NULL,
+  `httpAuth` varchar(500) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `category` (`category`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

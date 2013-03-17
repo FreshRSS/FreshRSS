@@ -1,6 +1,11 @@
 <?php
 
 class feedController extends ActionController {
+	public function firstAction () {
+		$catDAO = new CategoryDAO ();
+		$catDAO->checkDefault ();
+	}
+
 	public function addAction () {
 		if (login_is_conf ($this->view->conf) && !is_logged ()) {
 			Error::error (
@@ -16,17 +21,11 @@ class feedController extends ActionController {
 					$feed = new Feed ($url);
 					$feed->load ();
 
-					$catDAO = new CategoryDAO ();
-					$cat = $feed->category ();
-					if ($cat == '') {
-						$cat = $catDAO->getDefault ()->id ();
-					}
-
 					$feedDAO = new FeedDAO ();
 					$values = array (
 						'id' => $feed->id (),
 						'url' => $feed->url (),
-						'category' => $cat,
+						'category' => $feed->category (),
 						'name' => $feed->name (),
 						'website' => $feed->website (),
 						'description' => $feed->description (),

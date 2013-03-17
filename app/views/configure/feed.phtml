@@ -23,6 +23,7 @@
 		</div>
 	
 		<?php if (!empty ($this->categories)) { ?>
+		<legend>Catégorie</legend>
 		<div class="form-group">
 			<label class="group-name">Ranger dans une catégorie</label>
 			<div class="group-controls">
@@ -35,13 +36,20 @@
 			</div>
 		</div>
 	
+		<?php } ?>
+
+		<legend>Avancé</legend>
+		<div class="form-group">
+			<label class="group-name" for="path_entries">Chemin CSS des articles sur le site d'origine</label>
+			<div class="group-controls">
+				<input type="text" name="path_entries" id="path_entries" value="<?php echo $this->flux->pathEntries (); ?>" placeholder="Laissez vide pour désactiver" />
+				<i class="icon i_help"></i> Permet de récupérer les flux tronqués (attention, demande plus de temps !)
+			</div>
+		</div>
+
 		<div class="form-group form-actions">
 			<div class="group-controls">
 				<button class="btn btn-important">Valider</button>
-		<?php } else { ?>
-		<div class="form-group">
-			<div class="group-controls">
-		<?php } ?>
 				<button class="btn btn-attention" formaction="<?php echo Url::display (array ('c' => 'feed', 'a' => 'delete', 'params' => array ('id' => $this->flux->id ()))); ?>">Supprimer</button>
 			</div>
 		</div>

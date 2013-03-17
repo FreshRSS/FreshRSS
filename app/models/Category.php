@@ -13,7 +13,7 @@ class Category extends Model {
 
 	public function id () {
 		if (!$this->id) {
-			return small_hash ($this->name . Configuration::selApplication ());
+			return small_hash ($this->name . time () . Configuration::selApplication ());
 		} else {
 			return $this->id;
 		}
@@ -152,11 +152,12 @@ class CategoryDAO extends Model_pdo {
 		return HelperCategory::daoToCategory ($stm->fetchAll (PDO::FETCH_ASSOC));
 	}
 
-	public function getDefault () {
-		$def_cat = $this->searchByName ('Sans catégorie');
+	public function checkDefault () {
+		$def_cat = $this->searchById ('000000');
 
 		if (!$def_cat) {
 			$cat = new Category ('Sans catégorie');
+			$cat->_id ('000000');
 
 			$values = array (
 				'id' => $cat->id (),
@@ -165,11 +166,7 @@ class CategoryDAO extends Model_pdo {
 			);
 
 			$this->addCategory ($values);
-
-			$def_cat = $cat;
 		}
-
-		return $def_cat;
 	}
 
 	public function count () {
