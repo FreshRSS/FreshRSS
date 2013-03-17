@@ -11,10 +11,15 @@ class Entry extends Model {
 	private $date;
 	private $is_read;
 	private $is_favorite;
+	private $is_public;
 	private $feed;
+	private $tags;
+	private $notes;
+	private $lastUpdate;
 
 	public function __construct ($feed = '', $guid = '', $title = '', $author = '', $content = '',
-	                             $link = '', $pubdate = 0, $is_read = false, $is_favorite = false) {
+	                             $link = '', $pubdate = 0, $is_read = false, $is_favorite = false,
+	                             $is_public = false) {
 		$this->_guid ($guid);
 		$this->_title ($title);
 		$this->_author ($author);
@@ -23,7 +28,11 @@ class Entry extends Model {
 		$this->_date ($pubdate);
 		$this->_isRead ($is_read);
 		$this->_isFavorite ($is_favorite);
+		$this->_isPublic ($is_public);
 		$this->_feed ($feed);
+		$this->_lastUpdate ($pubdate);
+		$this->_notes ('');
+		$this->_tags (array ());
 	}
 
 	public function id () {
@@ -61,12 +70,44 @@ class Entry extends Model {
 	public function isFavorite () {
 		return $this->is_favorite;
 	}
+	public function isPublic () {
+		return $this->is_public;
+	}
 	public function feed ($object = false) {
 		if ($object) {
 			$feedDAO = new FeedDAO ();
 			return $feedDAO->searchById ($this->feed);
 		} else {
 			return $this->feed;
+		}
+	}
+	public function tags ($inString = false) {
+		if ($inString) {
+			if (!empty ($this->tags)) {
+				return '#' . implode(' #', $this->tags);
+			} else {
+				return '';
+			}
+		} else {
+			return $this->tags;
+		}
+	}
+	public function notes ($raw = true, $parse_tags = true) {
+		if ($raw) {
+			return $this->notes;
+		} else {
+			if($parse_tags) {
+				return parse_tags (bbdecode ($this->notes));
+			} else {
+				return bbdecode ($this->notes);
+			}
+		}
+	}
+	public function lastUpdate ($raw = false) {
+		if ($raw) {
+			return $this->lastUpdate;
+		} else {
+			return timestamptodate ($this->lastUpdate);
 		}
 	}
 
@@ -89,7 +130,11 @@ class Entry extends Model {
 		$this->link = $value;
 	}
 	public function _date ($value) {
-		$this->date = $value;
+		if (is_int (intval ($value))) {
+			$this->date = $value;
+		} else {
+			$this->date = time ();
+		}
 	}
 	public function _isRead ($value) {
 		$this->is_read = $value;
@@ -97,8 +142,34 @@ class Entry extends Model {
 	public function _isFavorite ($value) {
 		$this->is_favorite = $value;
 	}
+	public function _isPublic ($value) {
+		$this->is_public = $value;
+	}
 	public function _feed ($value) {
 		$this->feed = $value;
+	}
+	public function _tags ($value) {
+		if (!is_array ($value)) {
+			$value = array ($value);
+		}
+
+		foreach ($value as $key => $t) {
+			if (!$t) {
+				unset ($value[$key]);
+			}
+		}
+
+		$this->tags = $value;
+	}
+	public function _notes ($value) {
+		$this->notes = $value;
+	}
+	public function _lastUpdate ($value) {
+		if (is_int (intval ($value))) {
+			$this->lastUpdate = $value;
+		} else {
+			$this->lastUpdate = $this->date (true);
+		}
 	}
 
 	public function isDay ($day) {
@@ -118,11 +189,30 @@ class Entry extends Model {
 			return false;
 		}
 	}
+
+	public function toArray () {
+		return array (
+			'id' => $this->id (),
+			'guid' => $this->guid (),
+			'title' => $this->title (),
+			'author' => $this->author (),
+			'content' => $this->content (),
+			'link' => $this->link (),
+			'date' => $this->date (true),
+			'is_read' => $this->isRead (),
+			'is_favorite' => $this->isFavorite (),
+			'is_public' => $this->isPublic (),
+			'id_feed' => $this->feed (),
+			'lastUpdate' => $this->lastUpdate (true),
+			'tags' => $this->tags (true),
+			'annotation' => $this->notes ()
+		);
+	}
 }
 
 class EntryDAO extends Model_pdo {
 	public function addEntry ($valuesTmp) {
-		$sql = 'INSERT INTO entry (id, guid, title, author, content, link, date, is_read, is_favorite, id_feed) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
+		$sql = 'INSERT INTO entry(id, guid, title, author, content, link, date, is_read, is_favorite, is_public, id_feed, lastUpdate) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
 		$stm = $this->bd->prepare ($sql);
 
 		$values = array (
@@ -135,7 +225,9 @@ class EntryDAO extends Model_pdo {
 			$valuesTmp['date'],
 			$valuesTmp['is_read'],
 			$valuesTmp['is_favorite'],
+			$valuesTmp['is_public'],
 			$valuesTmp['id_feed'],
+			$valuesTmp['lastUpdate'],
 		);
 
 		if ($stm && $stm->execute ($values)) {
@@ -235,7 +327,7 @@ class EntryDAO extends Model_pdo {
 
 	public function cleanOldEntries ($nb_month) {
 		$date = 60 * 60 * 24 * 30 * $nb_month;
-		$sql = 'DELETE FROM entry WHERE date <= ? AND is_favorite = 0';
+		$sql = 'DELETE FROM entry WHERE date <= ? AND is_favorite = 0 AND notes != ""';
 		$stm = $this->bd->prepare ($sql);
 
 		$values = array (
@@ -531,8 +623,14 @@ class HelperEntry {
 				$dao['link'],
 				$dao['date'],
 				$dao['is_read'],
-				$dao['is_favorite']
+				$dao['is_favorite'],
+				$dao['is_public']
 			);
+
+			$tags = preg_split('/[\s#]/', $dao['tags']);
+			$list[$key]->_notes ($dao['annotation']);
+			$list[$key]->_lastUpdate ($dao['lastUpdate']);
+			$list[$key]->_tags ($tags);
 
 			if (isset ($dao['id'])) {
 				$list[$key]->_id ($dao['id']);

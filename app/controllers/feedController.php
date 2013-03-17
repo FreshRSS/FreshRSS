@@ -35,18 +35,7 @@ class feedController extends ActionController {
 						$entryDAO = new EntryDAO ();
 						$entries = $feed->entries ();
 						foreach ($entries as $entry) {
-							$values = array (
-								'id' => $entry->id (),
-								'guid' => $entry->guid (),
-								'title' => $entry->title (),
-								'author' => $entry->author (),
-								'content' => $entry->content (),
-								'link' => $entry->link (),
-								'date' => $entry->date (true),
-								'is_read' => $entry->isRead (),
-								'is_favorite' => $entry->isFavorite (),
-								'id_feed' => $feed->id ()
-							);
+							$values = $entry->toArray ();
 							$entryDAO->addEntry ($values);
 						}
 
@@ -104,18 +93,7 @@ class feedController extends ActionController {
 
 			foreach ($entries as $entry) {
 				if ($entry->date (true) >= $date_min) {
-					$values = array (
-						'id' => $entry->id (),
-						'guid' => $entry->guid (),
-						'title' => $entry->title (),
-						'author' => $entry->author (),
-						'content' => $entry->content (),
-						'link' => $entry->link (),
-						'date' => $entry->date (true),
-						'is_read' => $entry->isRead (),
-						'is_favorite' => $entry->isFavorite (),
-						'id_feed' => $feed->id ()
-					);
+					$values = $entry->toArray ();
 					$entryDAO->addEntry ($values);
 				}
 			}

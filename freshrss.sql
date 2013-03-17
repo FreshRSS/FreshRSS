@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client: localhost
--- Généré le: Dim 17 Mars 2013 à 14:08
+-- Généré le: Dim 17 Mars 2013 à 15:21
 -- Version du serveur: 5.5.30
 -- Version de PHP: 5.4.12
 
@@ -49,9 +49,11 @@ CREATE TABLE IF NOT EXISTS `entry` (
   `date` int(11) NOT NULL,
   `is_read` int(11) NOT NULL,
   `is_favorite` int(11) NOT NULL,
+  `is_public` int(1) NOT NULL,
   `id_feed` varchar(6) NOT NULL,
   `annotation` text NOT NULL,
   `tags` text NOT NULL,
+  `lastUpdate` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `id_feed` (`id_feed`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
