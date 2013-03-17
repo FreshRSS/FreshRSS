@@ -89,6 +89,7 @@ class entryController extends ActionController {
 			if ($entry != false) {
 				$values = array (
 					'is_favorite' => $is_fav,
+					'lastUpdate' => time ()
 				);
 
 				$entryDAO->updateEntry ($entry->id (), $values);
@@ -119,7 +120,8 @@ class entryController extends ActionController {
 
 					$values = array (
 						'annotation' => $note,
-						'is_public' => $public
+						'is_public' => $public,
+						'lastUpdate' => time ()
 					);
 
 					if ($entryDAO->updateEntry ($id, $values)) {

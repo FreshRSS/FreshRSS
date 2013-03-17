@@ -7,29 +7,33 @@ class apiController extends ActionController {
 		$this->view->_useLayout (false);
 	}
 
-	public function getFavoritesAction () {
+	public function getPublicFeedAction () {
 		$entryDAO = new EntryDAO ();
 		$entryDAO->_nbItemsPerPage (-1);
 
-		$entries_tmp = $entryDAO->listFavorites ('all', 'low_to_high');
+		$entries_tmp = $entryDAO->listPublic ('low_to_high');
 
 		$entries = array ();
 		foreach ($entries_tmp as $e) {
 			$author = $e->author ();
-			$feed = $e->feed (true);
-			$content = 'Article publié initialement sur <a href="' . $feed->website () . '">' . $feed->name () . '</a>';
-			if($author != '') {
-				$content .= ' par ' . $author;
+
+			$notes = $e->notes ();
+			if ($notes == '') {
+				$feed = $e->feed (true);
+				$notes = 'Article publié initialement sur <a href="' . $feed->website () . '">' . $feed->name () . '</a>';
+				if($author != '') {
+					$notes .= ' par ' . $author;
+				}
+				$notes .= ', mis en favoris dans <a href="https://github.com/marienfressinaud/FreshRSS">FreshRSS</a>';
 			}
-			$content .= ', mis en favoris dans <a href="https://github.com/marienfressinaud/FreshRSS">FreshRSS</a>';
 
 			$id = $e->id ();
 			$entries[$id] = array ();
 			$entries[$id]['title'] = $e->title ();
-			$entries[$id]['content'] = $content;
+			$entries[$id]['content'] = $notes;
 			$entries[$id]['date'] = $e->date (true);
-			$entries[$id]['lastUpdate'] = $e->date (true);
-			$entries[$id]['tags'] = array ();
+			$entries[$id]['lastUpdate'] = $e->lastUpdate (true);
+			$entries[$id]['tags'] = $e->tags ();
 			$entries[$id]['url'] = $e->link ();
 			$entries[$id]['type'] = 'url';
 		}

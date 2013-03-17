@@ -442,6 +442,23 @@ class EntryDAO extends Model_pdo {
 		return HelperEntry::daoToEntry ($stm->fetchAll (PDO::FETCH_ASSOC));
 	}
 
+	public function listPublic ($order = 'high_to_low') {
+		$where = ' WHERE is_public=1';
+
+		if ($order == 'low_to_high') {
+			$order = ' DESC';
+		} else {
+			$order = '';
+		}
+
+		$sql = 'SELECT * FROM entry' . $where . ' ORDER BY date' . $order;
+
+		$stm = $this->bd->prepare ($sql);
+		$stm->execute ();
+
+		return HelperEntry::daoToEntry ($stm->fetchAll (PDO::FETCH_ASSOC));
+	}
+
 	public function listByCategory ($cat, $mode, $search = false, $order = 'high_to_low') {
 		$where = ' WHERE category=?';
 		if ($mode == 'not_read') {
