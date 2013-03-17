@@ -103,8 +103,7 @@ define('SIMPLEPIE_FILE_SOURCE_LOCAL', 2);
 define('SIMPLEPIE_FILE_SOURCE_FSOCKOPEN', 4);
 define('SIMPLEPIE_FILE_SOURCE_CURL', 8);
 define('SIMPLEPIE_FILE_SOURCE_FILE_GET_CONTENTS', 16);
-class SimplePie
-{
+class SimplePie {
 	public $data = array();
 	public $error;
 	public $sanitize;
@@ -133,10 +132,8 @@ class SimplePie
 	public $item_limit = 0;
 	public $strip_attributes = array('bgsound', 'class', 'expr', 'id', 'style', 'onclick', 'onerror', 'onfinish', 'onmouseover', 'onmouseout', 'onfocus', 'onblur', 'lowsrc', 'dynsrc');
 	public $strip_htmltags = array('base', 'blink', 'body', 'doctype', 'embed', 'font', 'form', 'frame', 'frameset', 'html', 'iframe', 'input', 'marquee', 'meta', 'noscript', 'object', 'param', 'script', 'style');
-	public function __construct()
-	{
-		if (version_compare(PHP_VERSION, '5.2', '<'))
-		{
+	public function __construct() {
+		if (version_compare(PHP_VERSION, '5.2', '<')) {
 			trigger_error('PHP 4.x, 5.0 and 5.1 are no longer supported. Please upgrade to PHP 5.2 or newer.');
 			die();
 		}
@@ -145,200 +142,151 @@ class SimplePie
 		$this->sanitize = new SimplePie_Sanitize();
 		$this->registry = new SimplePie_Registry();
 
-		if (func_num_args() > 0)
-		{
+		if (func_num_args() > 0) {
 			trigger_error('Passing parameters to the constructor is no longer supported. Please use set_feed_url(), set_cache_location(), and set_cache_location() directly.');
 		}
 	}
-	public function __toString()
-	{
+	public function __toString() {
 		return md5(serialize($this->data));
 	}
-	public function __destruct()
-	{
-		if ((version_compare(PHP_VERSION, '5.3', '<') || !gc_enabled()) && !ini_get('zend.ze1_compatibility_mode'))
-		{
-			if (!empty($this->data['items']))
-			{
-				foreach ($this->data['items'] as $item)
-				{
+	public function __destruct() {
+		if ((version_compare(PHP_VERSION, '5.3', '<') || !gc_enabled()) && !ini_get('zend.ze1_compatibility_mode')) {
+			if (!empty($this->data['items'])) {
+				foreach ($this->data['items'] as $item) {
 					$item->__destruct();
 				}
 				unset($item, $this->data['items']);
 			}
-			if (!empty($this->data['ordered_items']))
-			{
-				foreach ($this->data['ordered_items'] as $item)
-				{
+			if (!empty($this->data['ordered_items'])) {
+				foreach ($this->data['ordered_items'] as $item) {
 					$item->__destruct();
 				}
 				unset($item, $this->data['ordered_items']);
 			}
 		}
 	}
-	public function force_feed($enable = false)
-	{
+	public function force_feed($enable = false) {
 		$this->force_feed = (bool) $enable;
 	}
-	public function set_feed_url($url)
-	{
+	public function set_feed_url($url) {
 		$this->multifeed_url = array();
-		if (is_array($url))
-		{
-			foreach ($url as $value)
-			{
+		if (is_array($url)) {
+			foreach ($url as $value) {
 				$this->multifeed_url[] = $this->registry->call('Misc', 'fix_protocol', array($value, 1));
 			}
 		}
-		else
-		{
+		else {
 			$this->feed_url = $this->registry->call('Misc', 'fix_protocol', array($url, 1));
 		}
 	}
-	public function set_file(&$file)
-	{
-		if ($file instanceof SimplePie_File)
-		{
+	public function set_file(&$file) {
+		if ($file instanceof SimplePie_File) {
 			$this->feed_url = $file->url;
 			$this->file =& $file;
 			return true;
 		}
 		return false;
 	}
-	public function set_raw_data($data)
-	{
+	public function set_raw_data($data) {
 		$this->raw_data = $data;
 	}
-	public function set_timeout($timeout = 10)
-	{
+	public function set_timeout($timeout = 10) {
 		$this->timeout = (int) $timeout;
 	}
-	public function force_fsockopen($enable = false)
-	{
+	public function force_fsockopen($enable = false) {
 		$this->force_fsockopen = (bool) $enable;
 	}
-	public function enable_cache($enable = true)
-	{
+	public function enable_cache($enable = true) {
 		$this->cache = (bool) $enable;
 	}
-	public function set_cache_duration($seconds = 3600)
-	{
+	public function set_cache_duration($seconds = 3600) {
 		$this->cache_duration = (int) $seconds;
 	}
-	public function set_autodiscovery_cache_duration($seconds = 604800)
-	{
+	public function set_autodiscovery_cache_duration($seconds = 604800) {
 		$this->autodiscovery_cache_duration = (int) $seconds;
 	}
-	public function set_cache_location($location = './cache')
-	{
+	public function set_cache_location($location = './cache') {
 		$this->cache_location = (string) $location;
 	}
-	public function enable_order_by_date($enable = true)
-	{
+	public function enable_order_by_date($enable = true) {
 		$this->order_by_date = (bool) $enable;
 	}
-	public function set_input_encoding($encoding = false)
-	{
-		if ($encoding)
-		{
+	public function set_input_encoding($encoding = false) {
+		if ($encoding) {
 			$this->input_encoding = (string) $encoding;
 		}
-		else
-		{
+		else {
 			$this->input_encoding = false;
 		}
 	}
-	public function set_autodiscovery_level($level = SIMPLEPIE_LOCATOR_ALL)
-	{
+	public function set_autodiscovery_level($level = SIMPLEPIE_LOCATOR_ALL) {
 		$this->autodiscovery = (int) $level;
 	}
-	public function &get_registry()
-	{
+	public function &get_registry() {
 		return $this->registry;
 	}
 	/**
 	 * Set which class SimplePie uses for caching
 	 */
-	public function set_cache_class($class = 'SimplePie_Cache')
-	{
+	public function set_cache_class($class = 'SimplePie_Cache') {
 		return $this->registry->register('Cache', $class, true);
 	}
-	public function set_locator_class($class = 'SimplePie_Locator')
-	{
+	public function set_locator_class($class = 'SimplePie_Locator') {
 		return $this->registry->register('Locator', $class, true);
 	}
-	public function set_parser_class($class = 'SimplePie_Parser')
-	{
+	public function set_parser_class($class = 'SimplePie_Parser') {
 		return $this->registry->register('Parser', $class, true);
 	}
-	public function set_file_class($class = 'SimplePie_File')
-	{
+	public function set_file_class($class = 'SimplePie_File') {
 		return $this->registry->register('File', $class, true);
 	}
-	public function set_sanitize_class($class = 'SimplePie_Sanitize')
-	{
+	public function set_sanitize_class($class = 'SimplePie_Sanitize') {
 		return $this->registry->register('Sanitize', $class, true);
 	}
-	public function set_item_class($class = 'SimplePie_Item')
-	{
+	public function set_item_class($class = 'SimplePie_Item') {
 		return $this->registry->register('Item', $class, true);
 	}
-	public function set_author_class($class = 'SimplePie_Author')
-	{
+	public function set_author_class($class = 'SimplePie_Author') {
 		return $this->registry->register('Author', $class, true);
 	}
-	public function set_category_class($class = 'SimplePie_Category')
-	{
+	public function set_category_class($class = 'SimplePie_Category') {
 		return $this->registry->register('Category', $class, true);
 	}
-	public function set_enclosure_class($class = 'SimplePie_Enclosure')
-	{
+	public function set_enclosure_class($class = 'SimplePie_Enclosure') {
 		return $this->registry->register('Enclosure', $class, true);
 	}
-	public function set_caption_class($class = 'SimplePie_Caption')
-	{
+	public function set_caption_class($class = 'SimplePie_Caption') {
 		return $this->registry->register('Caption', $class, true);
 	}
-	public function set_copyright_class($class = 'SimplePie_Copyright')
-	{
+	public function set_copyright_class($class = 'SimplePie_Copyright') {
 		return $this->registry->register('Copyright', $class, true);
 	}
-	public function set_credit_class($class = 'SimplePie_Credit')
-	{
+	public function set_credit_class($class = 'SimplePie_Credit') {
 		return $this->registry->register('Credit', $class, true);
 	}
-	public function set_rating_class($class = 'SimplePie_Rating')
-	{
+	public function set_rating_class($class = 'SimplePie_Rating') {
 		return $this->registry->register('Rating', $class, true);
 	}
-	public function set_restriction_class($class = 'SimplePie_Restriction')
-	{
+	public function set_restriction_class($class = 'SimplePie_Restriction') {
 		return $this->registry->register('Restriction', $class, true);
 	}
-	public function set_content_type_sniffer_class($class = 'SimplePie_Content_Type_Sniffer')
-	{
+	public function set_content_type_sniffer_class($class = 'SimplePie_Content_Type_Sniffer') {
 		return $this->registry->register('Content_Type_Sniffer', $class, true);
 	}
-	public function set_source_class($class = 'SimplePie_Source')
-	{
+	public function set_source_class($class = 'SimplePie_Source') {
 		return $this->registry->register('Source', $class, true);
 	}
 
-	public function set_useragent($ua = SIMPLEPIE_USERAGENT)
-	{
+	public function set_useragent($ua = SIMPLEPIE_USERAGENT) {
 		$this->useragent = (string) $ua;
 	}
-	public function set_cache_name_function($function = 'md5')
-	{
-		if (is_callable($function))
-		{
+	public function set_cache_name_function($function = 'md5') {
+		if (is_callable($function)) {
 			$this->cache_name_function = $function;
 		}
 	}
-	public function set_stupidly_fast($set = false)
-	{
-		if ($set)
-		{
+	public function set_stupidly_fast($set = false) {
+		if ($set) {
 			$this->enable_order_by_date(false);
 			$this->remove_div(false);
 			$this->strip_comments(false);
@@ -347,96 +295,75 @@ class SimplePie
 			$this->set_image_handler(false);
 		}
 	}
-	public function set_max_checked_feeds($max = 10)
-	{
+	public function set_max_checked_feeds($max = 10) {
 		$this->max_checked_feeds = (int) $max;
 	}
 
-	public function remove_div($enable = true)
-	{
+	public function remove_div($enable = true) {
 		$this->sanitize->remove_div($enable);
 	}
 
-	public function strip_htmltags($tags = '', $encode = null)
-	{
-		if ($tags === '')
-		{
+	public function strip_htmltags($tags = '', $encode = null) {
+		if ($tags === '') {
 			$tags = $this->strip_htmltags;
 		}
 		$this->sanitize->strip_htmltags($tags);
-		if ($encode !== null)
-		{
+		if ($encode !== null) {
 			$this->sanitize->encode_instead_of_strip($tags);
 		}
 	}
 
-	public function encode_instead_of_strip($enable = true)
-	{
+	public function encode_instead_of_strip($enable = true) {
 		$this->sanitize->encode_instead_of_strip($enable);
 	}
 
-	public function strip_attributes($attribs = '')
-	{
-		if ($attribs === '')
-		{
+	public function strip_attributes($attribs = '') {
+		if ($attribs === '') {
 			$attribs = $this->strip_attributes;
 		}
 		$this->sanitize->strip_attributes($attribs);
 	}
-	public function set_output_encoding($encoding = 'UTF-8')
-	{
+	public function set_output_encoding($encoding = 'UTF-8') {
 		$this->sanitize->set_output_encoding($encoding);
 	}
 
-	public function strip_comments($strip = false)
-	{
+	public function strip_comments($strip = false) {
 		$this->sanitize->strip_comments($strip);
 	}
-	public function set_url_replacements($element_attribute = null)
-	{
+	public function set_url_replacements($element_attribute = null) {
 		$this->sanitize->set_url_replacements($element_attribute);
 	}
-	public function set_image_handler($page = false, $qs = 'i')
-	{
-		if ($page !== false)
-		{
+	public function set_image_handler($page = false, $qs = 'i') {
+		if ($page !== false) {
 			$this->sanitize->set_image_handler($page . '?' . $qs . '=');
 		}
-		else
-		{
+		else {
 			$this->image_handler = '';
 		}
 	}
-	public function set_item_limit($limit = 0)
-	{
+	public function set_item_limit($limit = 0) {
 		$this->item_limit = (int) $limit;
 	}
-	public function init()
-	{
+	public function init() {
 		// Check absolute bare minimum requirements.
-		if (!extension_loaded('xml') || !extension_loaded('pcre'))
-		{
+		if (!extension_loaded('xml') || !extension_loaded('pcre')) {
 			return false;
 		}
 		// Then check the xml extension is sane (i.e., libxml 2.7.x issue on PHP < 5.2.9 and libxml 2.7.0 to 2.7.2 on any version) if we don't have xmlreader.
-		elseif (!extension_loaded('xmlreader'))
-		{
+		elseif (!extension_loaded('xmlreader')) {
 			static $xml_is_sane = null;
-			if ($xml_is_sane === null)
-			{
+			if ($xml_is_sane === null) {
 				$parser_check = xml_parser_create();
 				xml_parse_into_struct($parser_check, '<foo>&amp;</foo>', $values);
 				xml_parser_free($parser_check);
 				$xml_is_sane = isset($values[0]['value']);
 			}
-			if (!$xml_is_sane)
-			{
+			if (!$xml_is_sane) {
 				return false;
 			}
 		}
 
-		if (method_exists($this->sanitize, 'set_registry'))
-		{
+		if (method_exists($this->sanitize, 'set_registry')) {
 			$this->sanitize->set_registry($this->registry);
 		}
 
@@ -445,28 +372,24 @@ class SimplePie
 		$this->sanitize->pass_cache_data($this->cache, $this->cache_location, $this->cache_name_function, $this->registry->get_class('Cache'));
 		$this->sanitize->pass_file_data($this->registry->get_class('File'), $this->timeout, $this->useragent, $this->force_fsockopen);
 
-		if (!empty($this->multifeed_url))
-		{
+		if (!empty($this->multifeed_url)) {
 			$i = 0;
 			$success = 0;
 			$this->multifeed_objects = array();
 			$this->error = array();
-			foreach ($this->multifeed_url as $url)
-			{
+			foreach ($this->multifeed_url as $url) {
 				$this->multifeed_objects[$i] = clone $this;
 				$this->multifeed_objects[$i]->set_feed_url($url);
 				$single_success = $this->multifeed_objects[$i]->init();
 				$success |= $single_success;
-				if (!$single_success)
-				{
+				if (!$single_success) {
 					$this->error[$i] = $this->multifeed_objects[$i]->error();
 				}
 				$i++;
 			}
 			return (bool) $success;
 		}
-		elseif ($this->feed_url === null && $this->raw_data === null)
-		{
+		elseif ($this->feed_url === null && $this->raw_data === null) {
 			return false;
 		}
 
@@ -475,19 +398,16 @@ class SimplePie
 		$this->multifeed_objects = array();
 		$cache = false;
 
-		if ($this->feed_url !== null)
-		{
+		if ($this->feed_url !== null) {
 			$parsed_feed_url = $this->registry->call('Misc', 'parse_url', array($this->feed_url));
 
 			// Decide whether to enable caching
-			if ($this->cache && $parsed_feed_url['scheme'] !== '')
-			{
+			if ($this->cache && $parsed_feed_url['scheme'] !== '') {
 				$cache = $this->registry->call('Cache', 'create', array($this->cache_location, call_user_func($this->cache_name_function, $this->feed_url), 'spc'));
 			}
 
 			// Fetch the data via SimplePie_File into $this->raw_data
-			if (($fetched = $this->fetch_data($cache)) === true)
-			{
+			if (($fetched = $this->fetch_data($cache)) === true) {
 				return true;
 			}
 			elseif ($fetched === false) {
@@ -501,8 +421,7 @@ class SimplePie
 		$encodings = array();
 
 		// First check to see if input has been overridden.
-		if ($this->input_encoding !== false)
-		{
+		if ($this->input_encoding !== false) {
 			$encodings[] = $this->input_encoding;
 		}
 
@@ -510,28 +429,22 @@ class SimplePie
 		$text_types = array('text/xml', 'text/xml-external-parsed-entity');
 
 		// RFC 3023 (only applies to sniffed content)
-		if (isset($sniffed))
-		{
-			if (in_array($sniffed, $application_types) || substr($sniffed, 0, 12) === 'application/' && substr($sniffed, -4) === '+xml')
-			{
-				if (isset($headers['content-type']) && preg_match('/;\x20?charset=([^;]*)/i', $headers['content-type'], $charset))
-				{
+		if (isset($sniffed)) {
+			if (in_array($sniffed, $application_types) || substr($sniffed, 0, 12) === 'application/' && substr($sniffed, -4) === '+xml') {
+				if (isset($headers['content-type']) && preg_match('/;\x20?charset=([^;]*)/i', $headers['content-type'], $charset)) {
 					$encodings[] = strtoupper($charset[1]);
 				}
 				$encodings = array_merge($encodings, $this->registry->call('Misc', 'xml_encoding', array($this->raw_data, &$this->registry)));
 				$encodings[] = 'UTF-8';
 			}
-			elseif (in_array($sniffed, $text_types) || substr($sniffed, 0, 5) === 'text/' && substr($sniffed, -4) === '+xml')
-			{
-				if (isset($headers['content-type']) && preg_match('/;\x20?charset=([^;]*)/i', $headers['content-type'], $charset))
-				{
+			elseif (in_array($sniffed, $text_types) || substr($sniffed, 0, 5) === 'text/' && substr($sniffed, -4) === '+xml') {
+				if (isset($headers['content-type']) && preg_match('/;\x20?charset=([^;]*)/i', $headers['content-type'], $charset)) {
 					$encodings[] = $charset[1];
 				}
 				$encodings[] = 'US-ASCII';
 			}
 			// Text MIME-type default
-			elseif (substr($sniffed, 0, 5) === 'text/')
-			{
+			elseif (substr($sniffed, 0, 5) === 'text/') {
 				$encodings[] = 'US-ASCII';
 			}
 		}
@@ -545,34 +458,28 @@ class SimplePie
 		$encodings = array_unique($encodings);
 
 		// Loop through each possible encoding, till we return something, or run out of possibilities
-		foreach ($encodings as $encoding)
-		{
+		foreach ($encodings as $encoding) {
 			// Change the encoding to UTF-8 (as we always use UTF-8 internally)
-			if ($utf8_data = $this->registry->call('Misc', 'change_encoding', array($this->raw_data, $encoding, 'UTF-8')))
-			{
+			if ($utf8_data = $this->registry->call('Misc', 'change_encoding', array($this->raw_data, $encoding, 'UTF-8'))) {
 				// Create new parser
 				$parser = $this->registry->create('Parser');
 
 				// If it's parsed fine
-				if ($parser->parse($utf8_data, 'UTF-8'))
-				{
+				if ($parser->parse($utf8_data, 'UTF-8')) {
 					$this->data = $parser->get_data();
-					if (!($this->get_type() & ~SIMPLEPIE_TYPE_NONE))
-					{
+					if (!($this->get_type() & ~SIMPLEPIE_TYPE_NONE)) {
 						$this->error = "A feed could not be found at $this->feed_url. This does not appear to be a valid RSS or Atom feed.";
 						$this->registry->call('Misc', 'error', array($this->error, E_USER_NOTICE, __FILE__, __LINE__));
 						return false;
 					}
 
-					if (isset($headers))
-					{
+					if (isset($headers)) {
 						$this->data['headers'] = $headers;
 					}
 					$this->data['build'] = SIMPLEPIE_BUILD;
 
 					// Cache the file if caching is enabled
-					if ($cache && !$cache->save($this))
-					{
+					if ($cache && !$cache->save($this)) {
 						trigger_error("$this->cache_location is not writeable. Make sure you've set the correct relative or absolute path, and that the location is server-writable.", E_USER_WARNING);
 					}
 					return true;
@@ -580,13 +487,11 @@ class SimplePie
 			}
 		}
 
-		if (isset($parser))
-		{
+		if (isset($parser)) {
 			// We have an error, just set SimplePie_Misc::error to it and quit
 			$this->error = sprintf('This XML document is invalid, likely due to invalid characters. XML error: %s at line %d, column %d', $parser->get_error_string(), $parser->get_current_line(), $parser->get_current_column());
 		}
-		else
-		{
+		else {
 			$this->error = 'The data could not be converted to UTF-8. You MUST have either the iconv or mbstring extension installed. Upgrading to PHP 5.x (which includes iconv) is highly recommended.';
 		}
 
@@ -594,36 +499,28 @@ class SimplePie
 
 		return false;
 	}
-	protected function fetch_data(&$cache)
-	{
+	protected function fetch_data(&$cache) {
 		// If it's enabled, use the cache
-		if ($cache)
-		{
+		if ($cache) {
 			// Load the Cache
 			$this->data = $cache->load();
-			if (!empty($this->data))
-			{
+			if (!empty($this->data)) {
 				// If the cache is for an outdated build of SimplePie
-				if (!isset($this->data['build']) || $this->data['build'] !== SIMPLEPIE_BUILD)
-				{
+				if (!isset($this->data['build']) || $this->data['build'] !== SIMPLEPIE_BUILD) {
 					$cache->unlink();
 					$this->data = array();
 				}
 				// If we've hit a collision just rerun it with caching disabled
-				elseif (isset($this->data['url']) && $this->data['url'] !== $this->feed_url)
-				{
+				elseif (isset($this->data['url']) && $this->data['url'] !== $this->feed_url) {
 					$cache = false;
 					$this->data = array();
 				}
 				// If we've got a non feed_url stored (if the page isn't actually a feed, or is a redirect) use that URL.
-				elseif (isset($this->data['feed_url']))
-				{
+				elseif (isset($this->data['feed_url'])) {
 					// If the autodiscovery cache is still valid use it.
-					if ($cache->mtime() + $this->autodiscovery_cache_duration > time())
-					{
+					if ($cache->mtime() + $this->autodiscovery_cache_duration > time()) {
 						// Do not need to do feed autodiscovery yet.
-						if ($this->data['feed_url'] !== $this->data['url'])
-						{
+						if ($this->data['feed_url'] !== $this->data['url']) {
 							$this->set_feed_url($this->data['feed_url']);
 							return $this->init();
 						}
@@ -633,62 +530,50 @@ class SimplePie
 					}
 				}
 				// Check if the cache has been updated
-				elseif ($cache->mtime() + $this->cache_duration < time())
-				{
+				elseif ($cache->mtime() + $this->cache_duration < time()) {
 					// If we have last-modified and/or etag set
-					if (isset($this->data['headers']['last-modified']) || isset($this->data['headers']['etag']))
-					{
+					if (isset($this->data['headers']['last-modified']) || isset($this->data['headers']['etag'])) {
 						$headers = array(
 							'Accept' => 'application/atom+xml, application/rss+xml, application/rdf+xml;q=0.9, application/xml;q=0.8, text/xml;q=0.8, text/html;q=0.7, unknown/unknown;q=0.1, application/unknown;q=0.1, */*;q=0.1',
 						);
-						if (isset($this->data['headers']['last-modified']))
-						{
+						if (isset($this->data['headers']['last-modified'])) {
 							$headers['if-modified-since'] = $this->data['headers']['last-modified'];
 						}
-						if (isset($this->data['headers']['etag']))
-						{
+						if (isset($this->data['headers']['etag'])) {
 							$headers['if-none-match'] = $this->data['headers']['etag'];
 						}
 
 						$file = $this->registry->create('File', array($this->feed_url, $this->timeout/10, 5, $headers, $this->useragent, $this->force_fsockopen));
 
-						if ($file->success)
-						{
-							if ($file->status_code === 304)
-							{
+						if ($file->success) {
+							if ($file->status_code === 304) {
 								$cache->touch();
 								return true;
 							}
 						}
-						else
-						{
+						else {
 							unset($file);
 						}
 					}
 				}
 				// If the cache is still valid, just return true
-				else
-				{
+				else {
 					$this->raw_data = false;
 					return true;
 				}
 			}
 			// If the cache is empty, delete it
-			else
-			{
+			else {
 				$cache->unlink();
 				$this->data = array();
 			}
 		}
 		// If we don't already have the file (it'll only exist if we've opened it to check if the cache has been modified), open it.
-		if (!isset($file))
-		{
-			if ($this->file instanceof SimplePie_File && $this->file->url === $this->feed_url)
-			{
+		if (!isset($file)) {
+			if ($this->file instanceof SimplePie_File && $this->file->url === $this->feed_url) {
 				$file =& $this->file;
 			}
-			else
-			{
+			else {
 				$headers = array(
 					'Accept' => 'application/atom+xml, application/rss+xml, application/rdf+xml;q=0.9, application/xml;q=0.8, text/xml;q=0.8, text/html;q=0.7, unknown/unknown;q=0.1, application/unknown;q=0.1, */*;q=0.1',
 				);
@@ -696,32 +581,26 @@ class SimplePie
 			}
 		}
 		// If the file connection has an error, set SimplePie::error to that and quit
-		if (!$file->success && !($file->method & SIMPLEPIE_FILE_SOURCE_REMOTE === 0 || ($file->status_code === 200 || $file->status_code > 206 && $file->status_code < 300)))
-		{
+		if (!$file->success && !($file->method & SIMPLEPIE_FILE_SOURCE_REMOTE === 0 || ($file->status_code === 200 || $file->status_code > 206 && $file->status_code < 300))) {
 			$this->error = $file->error;
 			return !empty($this->data);
 		}
 
-		if (!$this->force_feed)
-		{
+		if (!$this->force_feed) {
 			// Check if the supplied URL is a feed, if it isn't, look for it.
 			$locate = $this->registry->create('Locator', array(&$file, $this->timeout, $this->useragent, $this->max_checked_feeds));
 
-			if (!$locate->is_feed($file))
-			{
+			if (!$locate->is_feed($file)) {
 				// We need to unset this so that if SimplePie::set_file() has been called that object is untouched
 				unset($file);
-				if (!($file = $locate->find($this->autodiscovery, $this->all_discovered_feeds)))
-				{
+				if (!($file = $locate->find($this->autodiscovery, $this->all_discovered_feeds))) {
 					$this->error = "A feed could not be found at $this->feed_url. A feed with an invalid mime type may fall victim to this error, or " . SIMPLEPIE_NAME . " was unable to auto-discover it.. Use force_feed() if you are certain this URL is a real feed.";
 					$this->registry->call('Misc', 'error', array($this->error, E_USER_NOTICE, __FILE__, __LINE__));
 					return false;
 				}
-				if ($cache)
-				{
+				if ($cache) {
 					$this->data = array('url' => $this->feed_url, 'feed_url' => $file->url, 'build' => SIMPLEPIE_BUILD);
-					if (!$cache->save($this))
-					{
+					if (!$cache->save($this)) {
 						trigger_error("$this->cache_location is not writeable. Make sure you've set the correct relative or absolute path, and that the location is server-writable.", E_USER_WARNING);
 					}
 					$cache = $this->registry->call('Cache', 'create', array($this->cache_location, call_user_func($this->cache_name_function, $file->url), 'spc'));
@@ -739,77 +618,58 @@ class SimplePie
 
 		return array($headers, $sniffed);
 	}
-	public function error()
-	{
+	public function error() {
 		return $this->error;
 	}
-	public function get_raw_data()
-	{
+	public function get_raw_data() {
 		return $this->raw_data;
 	}
-	public function get_encoding()
-	{
+	public function get_encoding() {
 		return $this->sanitize->output_encoding;
 	}
-	public function handle_content_type($mime = 'text/html')
-	{
-		if (!headers_sent())
-		{
+	public function handle_content_type($mime = 'text/html') {
+		if (!headers_sent()) {
 			$header = "Content-type: $mime;";
-			if ($this->get_encoding())
-			{
+			if ($this->get_encoding()) {
 				$header .= ' charset=' . $this->get_encoding();
 			}
-			else
-			{
+			else {
 				$header .= ' charset=UTF-8';
 			}
 			header($header);
 		}
 	}
-	public function get_type()
-	{
-		if (!isset($this->data['type']))
-		{
+	public function get_type() {
+		if (!isset($this->data['type'])) {
 			$this->data['type'] = SIMPLEPIE_TYPE_ALL;
-			if (isset($this->data['child'][SIMPLEPIE_NAMESPACE_ATOM_10]['feed']))
-			{
+			if (isset($this->data['child'][SIMPLEPIE_NAMESPACE_ATOM_10]['feed'])) {
 				$this->data['type'] &= SIMPLEPIE_TYPE_ATOM_10;
 			}
-			elseif (isset($this->data['child'][SIMPLEPIE_NAMESPACE_ATOM_03]['feed']))
-			{
+			elseif (isset($this->data['child'][SIMPLEPIE_NAMESPACE_ATOM_03]['feed'])) {
 				$this->data['type'] &= SIMPLEPIE_TYPE_ATOM_03;
 			}
-			elseif (isset($this->data['child'][SIMPLEPIE_NAMESPACE_RDF]['RDF']))
-			{
+			elseif (isset($this->data['child'][SIMPLEPIE_NAMESPACE_RDF]['RDF'])) {
 				if (isset($this->data['child'][SIMPLEPIE_NAMESPACE_RDF]['RDF'][0]['child'][SIMPLEPIE_NAMESPACE_RSS_10]['channel'])
 				|| isset($this->data['child'][SIMPLEPIE_NAMESPACE_RDF]['RDF'][0]['child'][SIMPLEPIE_NAMESPACE_RSS_10]['image'])
 				|| isset($this->data['child'][SIMPLEPIE_NAMESPACE_RDF]['RDF'][0]['child'][SIMPLEPIE_NAMESPACE_RSS_10]['item'])
-				|| isset($this->data['child'][SIMPLEPIE_NAMESPACE_RDF]['RDF'][0]['child'][SIMPLEPIE_NAMESPACE_RSS_10]['textinput']))
-				{
+				|| isset($this->data['child'][SIMPLEPIE_NAMESPACE_RDF]['RDF'][0]['child'][SIMPLEPIE_NAMESPACE_RSS_10]['textinput'])) {
 					$this->data['type'] &= SIMPLEPIE_TYPE_RSS_10;
 				}
 				if (isset($this->data['child'][SIMPLEPIE_NAMESPACE_RDF]['RDF'][0]['child'][SIMPLEPIE_NAMESPACE_RSS_090]['channel'])
 				|| isset($this->data['child'][SIMPLEPIE_NAMESPACE_RDF]['RDF'][0]['child'][SIMPLEPIE_NAMESPACE_RSS_090]['image'])
 				|| isset($this->data['child'][SIMPLEPIE_NAMESPACE_RDF]['RDF'][0]['child'][SIMPLEPIE_NAMESPACE_RSS_090]['item'])
-				|| isset($this->data['child'][SIMPLEPIE_NAMESPACE_RDF]['RDF'][0]['child'][SIMPLEPIE_NAMESPACE_RSS_090]['textinput']))
-				{
+				|| isset($this->data['child'][SIMPLEPIE_NAMESPACE_RDF]['RDF'][0]['child'][SIMPLEPIE_NAMESPACE_RSS_090]['textinput'])) {
 					$this->data['type'] &= SIMPLEPIE_TYPE_RSS_090;
 				}
 			}
-			elseif (isset($this->data['child'][SIMPLEPIE_NAMESPACE_RSS_20]['rss']))
-			{
+			elseif (isset($this->data['child'][SIMPLEPIE_NAMESPACE_RSS_20]['rss'])) {
 				$this->data['type'] &= SIMPLEPIE_TYPE_RSS_ALL;
-				if (isset($this->data['child'][SIMPLEPIE_NAMESPACE_RSS_20]['rss'][0]['attribs']['']['version']))
-				{
-					switch (trim($this->data['child'][SIMPLEPIE_NAMESPACE_RSS_20]['rss'][0]['attribs']['']['version']))
-					{
+				if (isset($this->data['child'][SIMPLEPIE_NAMESPACE_RSS_20]['rss'][0]['attribs']['']['version'])) {
+					switch (trim($this->data['child'][SIMPLEPIE_NAMESPACE_RSS_20]['rss'][0]['attribs']['']['version'])) {
 						case '0.91':
 							$this->data['type'] &= SIMPLEPIE_TYPE_RSS_091;
-							if (isset($this->data['child'][SIMPLEPIE_NAMESPACE_RSS_20]['rss'][0]['child'][SIMPLEPIE_NAMESPACE_RSS_20]['skiphours']['hour'][0]['data']))
-							{
-								switch (trim($this->data['child'][SIMPLEPIE_NAMESPACE_RSS_20]['rss'][0]['child'][SIMPLEPIE_NAMESPACE_RSS_20]['skiphours']['hour'][0]['data']))
-								{
+							if (isset($this->data['child'][SIMPLEPIE_NAMESPACE_RSS_20]['rss'][0]['child'][SIMPLEPIE_NAMESPACE_RSS_20]['skiphours']['hour'][0]['data'])) {
+								switch (trim($this->data['child'][SIMPLEPIE_NAMESPACE_RSS_20]['rss'][0]['child'][SIMPLEPIE_NAMESPACE_RSS_20]['skiphours']['hour'][0]['data'])) {
 									case '0':
 										$this->data['type'] &= SIMPLEPIE_TYPE_RSS_091_NETSCAPE;
 										break;
@@ -839,975 +699,734 @@ class SimplePie
 					}
 				}
 			}
-			else
-			{
+			else {
 				$this->data['type'] = SIMPLEPIE_TYPE_NONE;
 			}
 		}
 		return $this->data['type'];
 	}
-	public function subscribe_url()
-	{
-		if ($this->feed_url !== null)
-		{
+	public function subscribe_url() {
+		if ($this->feed_url !== null) {
 			return $this->sanitize($this->feed_url, SIMPLEPIE_CONSTRUCT_IRI);
 		}
-		else
-		{
+		else {
 			return null;
 		}
 	}
-	public function get_feed_tags($namespace, $tag)
-	{
+	public function get_feed_tags($namespace, $tag) {
 		$type = $this->get_type();
-		if ($type & SIMPLEPIE_TYPE_ATOM_10)
-		{
-			if (isset($this->data['child'][SIMPLEPIE_NAMESPACE_ATOM_10]['feed'][0]['child'][$namespace][$tag]))
-			{
+		if ($type & SIMPLEPIE_TYPE_ATOM_10) {
+			if (isset($this->data['child'][SIMPLEPIE_NAMESPACE_ATOM_10]['feed'][0]['child'][$namespace][$tag])) {
 				return $this->data['child'][SIMPLEPIE_NAMESPACE_ATOM_10]['feed'][0]['child'][$namespace][$tag];
 			}
 		}
-		if ($type & SIMPLEPIE_TYPE_ATOM_03)
-		{
-			if (isset($this->data['child'][SIMPLEPIE_NAMESPACE_ATOM_03]['feed'][0]['child'][$namespace][$tag]))
-			{
+		if ($type & SIMPLEPIE_TYPE_ATOM_03) {
+			if (isset($this->data['child'][SIMPLEPIE_NAMESPACE_ATOM_03]['feed'][0]['child'][$namespace][$tag])) {
 				return $this->data['child'][SIMPLEPIE_NAMESPACE_ATOM_03]['feed'][0]['child'][$namespace][$tag];
 			}
 		}
-		if ($type & SIMPLEPIE_TYPE_RSS_RDF)
-		{
-			if (isset($this->data['child'][SIMPLEPIE_NAMESPACE_RDF]['RDF'][0]['child'][$namespace][$tag]))
-			{
+		if ($type & SIMPLEPIE_TYPE_RSS_RDF) {
+			if (isset($this->data['child'][SIMPLEPIE_NAMESPACE_RDF]['RDF'][0]['child'][$namespace][$tag])) {
 				return $this->data['child'][SIMPLEPIE_NAMESPACE_RDF]['RDF'][0]['child'][$namespace][$tag];
 			}
 		}
-		if ($type & SIMPLEPIE_TYPE_RSS_SYNDICATION)
-		{
-			if (isset($this->data['child'][SIMPLEPIE_NAMESPACE_RSS_20]['rss'][0]['child'][$namespace][$tag]))
-			{
+		if ($type & SIMPLEPIE_TYPE_RSS_SYNDICATION) {
+			if (isset($this->data['child'][SIMPLEPIE_NAMESPACE_RSS_20]['rss'][0]['child'][$namespace][$tag])) {
 				return $this->data['child'][SIMPLEPIE_NAMESPACE_RSS_20]['rss'][0]['child'][$namespace][$tag];
 			}
 		}
 		return null;
 	}
-	public function get_channel_tags($namespace, $tag)
-	{
+	public function get_channel_tags($namespace, $tag) {
 		$type = $this->get_type();
-		if ($type & SIMPLEPIE_TYPE_ATOM_ALL)
-		{
-			if ($return = $this->get_feed_tags($namespace, $tag))
-			{
+		if ($type & SIMPLEPIE_TYPE_ATOM_ALL) {
+			if ($return = $this->get_feed_tags($namespace, $tag)) {
 				return $return;
 			}
 		}
-		if ($type & SIMPLEPIE_TYPE_RSS_10)
-		{
-			if ($channel = $this->get_feed_tags(SIMPLEPIE_NAMESPACE_RSS_10, 'channel'))
-			{
-				if (isset($channel[0]['child'][$namespace][$tag]))
-				{
+		if ($type & SIMPLEPIE_TYPE_RSS_10) {
+			if ($channel = $this->get_feed_tags(SIMPLEPIE_NAMESPACE_RSS_10, 'channel')) {
+				if (isset($channel[0]['child'][$namespace][$tag])) {
 					return $channel[0]['child'][$namespace][$tag];
 				}
 			}
 		}
-		if ($type & SIMPLEPIE_TYPE_RSS_090)
-		{
-			if ($channel = $this->get_feed_tags(SIMPLEPIE_NAMESPACE_RSS_090, 'channel'))
-			{
-				if (isset($channel[0]['child'][$namespace][$tag]))
-				{
+		if ($type & SIMPLEPIE_TYPE_RSS_090) {
+			if ($channel = $this->get_feed_tags(SIMPLEPIE_NAMESPACE_RSS_090, 'channel')) {
+				if (isset($channel[0]['child'][$namespace][$tag])) {
 					return $channel[0]['child'][$namespace][$tag];
 				}
 			}
 		}
-		if ($type & SIMPLEPIE_TYPE_RSS_SYNDICATION)
-		{
-			if ($channel = $this->get_feed_tags(SIMPLEPIE_NAMESPACE_RSS_20, 'channel'))
-			{
-				if (isset($channel[0]['child'][$namespace][$tag]))
-				{
+		if ($type & SIMPLEPIE_TYPE_RSS_SYNDICATION) {
+			if ($channel = $this->get_feed_tags(SIMPLEPIE_NAMESPACE_RSS_20, 'channel')) {
+				if (isset($channel[0]['child'][$namespace][$tag])) {
 					return $channel[0]['child'][$namespace][$tag];
 				}
 			}
 		}
 		return null;
 	}
-	public function get_image_tags($namespace, $tag)
-	{
+	public function get_image_tags($namespace, $tag) {
 		$type = $this->get_type();
-		if ($type & SIMPLEPIE_TYPE_RSS_10)
-		{
-			if ($image = $this->get_feed_tags(SIMPLEPIE_NAMESPACE_RSS_10, 'image'))
-			{
-				if (isset($image[0]['child'][$namespace][$tag]))
-				{
+		if ($type & SIMPLEPIE_TYPE_RSS_10) {
+			if ($image = $this->get_feed_tags(SIMPLEPIE_NAMESPACE_RSS_10, 'image')) {
+				if (isset($image[0]['child'][$namespace][$tag])) {
 					return $image[0]['child'][$namespace][$tag];
 				}
 			}
 		}
-		if ($type & SIMPLEPIE_TYPE_RSS_090)
-		{
-			if ($image = $this->get_feed_tags(SIMPLEPIE_NAMESPACE_RSS_090, 'image'))
-			{
-				if (isset($image[0]['child'][$namespace][$tag]))
-				{
+		if ($type & SIMPLEPIE_TYPE_RSS_090) {
+			if ($image = $this->get_feed_tags(SIMPLEPIE_NAMESPACE_RSS_090, 'image')) {
+				if (isset($image[0]['child'][$namespace][$tag])) {
 					return $image[0]['child'][$namespace][$tag];
 				}
 			}
 		}
-		if ($type & SIMPLEPIE_TYPE_RSS_SYNDICATION)
-		{
-			if ($image = $this->get_channel_tags(SIMPLEPIE_NAMESPACE_RSS_20, 'image'))
-			{
-				if (isset($image[0]['child'][$namespace][$tag]))
-				{
+		if ($type & SIMPLEPIE_TYPE_RSS_SYNDICATION) {
+			if ($image = $this->get_channel_tags(SIMPLEPIE_NAMESPACE_RSS_20, 'image')) {
+				if (isset($image[0]['child'][$namespace][$tag])) {
 					return $image[0]['child'][$namespace][$tag];
 				}
 			}
 		}
 		return null;
 	}
-	public function get_base($element = array())
-	{
-		if (!($this->get_type() & SIMPLEPIE_TYPE_RSS_SYNDICATION) && !empty($element['xml_base_explicit']) && isset($element['xml_base']))
-		{
+	public function get_base($element = array()) {
+		if (!($this->get_type() & SIMPLEPIE_TYPE_RSS_SYNDICATION) && !empty($element['xml_base_explicit']) && isset($element['xml_base'])) {
 			return $element['xml_base'];
 		}
-		elseif ($this->get_link() !== null)
-		{
+		elseif ($this->get_link() !== null) {
 			return $this->get_link();
 		}
-		else
-		{
+		else {
 			return $this->subscribe_url();
 		}
 	}
-	public function sanitize($data, $type, $base = '')
-	{
+	public function sanitize($data, $type, $base = '') {
 		return $this->sanitize->sanitize($data, $type, $base);
 	}
-	public function get_title()
-	{
-		if ($return = $this->get_channel_tags(SIMPLEPIE_NAMESPACE_ATOM_10, 'title'))
-		{
+	public function get_title() {
+		if ($return = $this->get_channel_tags(SIMPLEPIE_NAMESPACE_ATOM_10, 'title')) {
 			return $this->sanitize($return[0]['data'], $this->registry->call('Misc', 'atom_10_construct_type', array($return[0]['attribs'])), $this->get_base($return[0]));
 		}
-		elseif ($return = $this->get_channel_tags(SIMPLEPIE_NAMESPACE_ATOM_03, 'title'))
-		{
+		elseif ($return = $this->get_channel_tags(SIMPLEPIE_NAMESPACE_ATOM_03, 'title')) {
 			return $this->sanitize($return[0]['data'], $this->registry->call('Misc', 'atom_03_construct_type', array($return[0]['attribs'])), $this->get_base($return[0]));
 		}
-		elseif ($return = $this->get_channel_tags(SIMPLEPIE_NAMESPACE_RSS_10, 'title'))
-		{
+		elseif ($return = $this->get_channel_tags(SIMPLEPIE_NAMESPACE_RSS_10, 'title')) {
 			return $this->sanitize($return[0]['data'], SIMPLEPIE_CONSTRUCT_MAYBE_HTML, $this->get_base($return[0]));
 		}
-		elseif ($return = $this->get_channel_tags(SIMPLEPIE_NAMESPACE_RSS_090, 'title'))
-		{
+		elseif ($return = $this->get_channel_tags(SIMPLEPIE_NAMESPACE_RSS_090, 'title')) {
 			return $this->sanitize($return[0]['data'], SIMPLEPIE_CONSTRUCT_MAYBE_HTML, $this->get_base($return[0]));
 		}
-		elseif ($return = $this->get_channel_tags(SIMPLEPIE_NAMESPACE_RSS_20, 'title'))
-		{
+		elseif ($return = $this->get_channel_tags(SIMPLEPIE_NAMESPACE_RSS_20, 'title')) {
 			return $this->sanitize($return[0]['data'], SIMPLEPIE_CONSTRUCT_MAYBE_HTML, $this->get_base($return[0]));
 		}
-		elseif ($return = $this->get_channel_tags(SIMPLEPIE_NAMESPACE_DC_11, 'title'))
-		{
+		elseif ($return = $this->get_channel_tags(SIMPLEPIE_NAMESPACE_DC_11, 'title')) {
 			return $this->sanitize($return[0]['data'], SIMPLEPIE_CONSTRUCT_TEXT);
 		}
-		elseif ($return = $this->get_channel_tags(SIMPLEPIE_NAMESPACE_DC_10, 'title'))
-		{
+		elseif ($return = $this->get_channel_tags(SIMPLEPIE_NAMESPACE_DC_10, 'title')) {
 			return $this->sanitize($return[0]['data'], SIMPLEPIE_CONSTRUCT_TEXT);
 		}
-		else
-		{
+		else {
 			return null;
 		}
 	}
-	public function get_category($key = 0)
-	{
+	public function get_category($key = 0) {
 		$categories = $this->get_categories();
-		if (isset($categories[$key]))
-		{
+		if (isset($categories[$key])) {
 			return $categories[$key];
 		}
-		else
-		{
+		else {
 			return null;
 		}
 	}
-	public function get_categories()
-	{
+	public function get_categories() {
 		$categories = array();
 
-		foreach ((array) $this->get_channel_tags(SIMPLEPIE_NAMESPACE_ATOM_10, 'category') as $category)
-		{
+		foreach ((array) $this->get_channel_tags(SIMPLEPIE_NAMESPACE_ATOM_10, 'category') as $category) {
 			$term = null;
 			$scheme = null;
 			$label = null;
-			if (isset($category['attribs']['']['term']))
-			{
+			if (isset($category['attribs']['']['term'])) {
 				$term = $this->sanitize($category['attribs']['']['term'], SIMPLEPIE_CONSTRUCT_TEXT);
 			}
-			if (isset($category['attribs']['']['scheme']))
-			{
+			if (isset($category['attribs']['']['scheme'])) {
 				$scheme = $this->sanitize($category['attribs']['']['scheme'], SIMPLEPIE_CONSTRUCT_TEXT);
 			}
-			if (isset($category['attribs']['']['label']))
-			{
+			if (isset($category['attribs']['']['label'])) {
 				$label = $this->sanitize($category['attribs']['']['label'], SIMPLEPIE_CONSTRUCT_TEXT);
 			}
 			$categories[] = $this->registry->create('Category', array($term, $scheme, $label));
 		}
-		foreach ((array) $this->get_channel_tags(SIMPLEPIE_NAMESPACE_RSS_20, 'category') as $category)
-		{
+		foreach ((array) $this->get_channel_tags(SIMPLEPIE_NAMESPACE_RSS_20, 'category') as $category) {
 			// This is really the label, but keep this as the term also for BC.
 			// Label will also work on retrieving because that falls back to term.
 			$term = $this->sanitize($category['data'], SIMPLEPIE_CONSTRUCT_TEXT);
-			if (isset($category['attribs']['']['domain']))
-			{
+			if (isset($category['attribs']['']['domain'])) {
 				$scheme = $this->sanitize($category['attribs']['']['domain'], SIMPLEPIE_CONSTRUCT_TEXT);
 			}
-			else
-			{
+			else {
 				$scheme = null;
 			}
 			$categories[] = $this->registry->create('Category', array($term, $scheme, null));
 		}
-		foreach ((array) $this->get_channel_tags(SIMPLEPIE_NAMESPACE_DC_11, 'subject') as $category)
-		{
+		foreach ((array) $this->get_channel_tags(SIMPLEPIE_NAMESPACE_DC_11, 'subject') as $category) {
 			$categories[] = $this->registry->create('Category', array($this->sanitize($category['data'], SIMPLEPIE_CONSTRUCT_TEXT), null, null));
 		}
-		foreach ((array) $this->get_channel_tags(SIMPLEPIE_NAMESPACE_DC_10, 'subject') as $category)
-		{
+		foreach ((array) $this->get_channel_tags(SIMPLEPIE_NAMESPACE_DC_10, 'subject') as $category) {
 			$categories[] = $this->registry->create('Category', array($this->sanitize($category['data'], SIMPLEPIE_CONSTRUCT_TEXT), null, null));
 		}
 
-		if (!empty($categories))
-		{
+		if (!empty($categories)) {
 			return array_unique($categories);
 		}
-		else
-		{
+		else {
 			return null;
 		}
 	}
-	public function get_author($key = 0)
-	{
+	public function get_author($key = 0) {
 		$authors = $this->get_authors();
-		if (isset($authors[$key]))
-		{
+		if (isset($authors[$key])) {
 			return $authors[$key];
 		}
-		else
-		{
+		else {
 			return null;
 		}
 	}
-	public function get_authors()
-	{
+	public function get_authors() {
 		$authors = array();
-		foreach ((array) $this->get_channel_tags(SIMPLEPIE_NAMESPACE_ATOM_10, 'author') as $author)
-		{
+		foreach ((array) $this->get_channel_tags(SIMPLEPIE_NAMESPACE_ATOM_10, 'author') as $author) {
 			$name = null;
 			$uri = null;
 			$email = null;
-			if (isset($author['child'][SIMPLEPIE_NAMESPACE_ATOM_10]['name'][0]['data']))
-			{
+			if (isset($author['child'][SIMPLEPIE_NAMESPACE_ATOM_10]['name'][0]['data'])) {
 				$name = $this->sanitize($author['child'][SIMPLEPIE_NAMESPACE_ATOM_10]['name'][0]['data'], SIMPLEPIE_CONSTRUCT_TEXT);
 			}
-			if (isset($author['child'][SIMPLEPIE_NAMESPACE_ATOM_10]['uri'][0]['data']))
-			{
+			if (isset($author['child'][SIMPLEPIE_NAMESPACE_ATOM_10]['uri'][0]['data'])) {
 				$uri = $this->sanitize($author['child'][SIMPLEPIE_NAMESPACE_ATOM_10]['uri'][0]['data'], SIMPLEPIE_CONSTRUCT_IRI, $this->get_base($author['child'][SIMPLEPIE_NAMESPACE_ATOM_10]['uri'][0]));
 			}
-			if (isset($author['child'][SIMPLEPIE_NAMESPACE_ATOM_10]['email'][0]['data']))
-			{
+			if (isset($author['child'][SIMPLEPIE_NAMESPACE_ATOM_10]['email'][0]['data'])) {
 				$email = $this->sanitize($author['child'][SIMPLEPIE_NAMESPACE_ATOM_10]['email'][0]['data'], SIMPLEPIE_CONSTRUCT_TEXT);
 			}
-			if ($name !== null || $email !== null || $uri !== null)
-			{
+			if ($name !== null || $email !== null || $uri !== null) {
 				$authors[] = $this->registry->create('Author', array($name, $uri, $email));
 			}
 		}
-		if ($author = $this->get_channel_tags(SIMPLEPIE_NAMESPACE_ATOM_03, 'author'))
-		{
+		if ($author = $this->get_channel_tags(SIMPLEPIE_NAMESPACE_ATOM_03, 'author')) {
 			$name = null;
 			$url = null;
 			$email = null;
-			if (isset($author[0]['child'][SIMPLEPIE_NAMESPACE_ATOM_03]['name'][0]['data']))
-			{
+			if (isset($author[0]['child'][SIMPLEPIE_NAMESPACE_ATOM_03]['name'][0]['data'])) {
 				$name = $this->sanitize($author[0]['child'][SIMPLEPIE_NAMESPACE_ATOM_03]['name'][0]['data'], SIMPLEPIE_CONSTRUCT_TEXT);
 			}
-			if (isset($author[0]['child'][SIMPLEPIE_NAMESPACE_ATOM_03]['url'][0]['data']))
-			{
+			if (isset($author[0]['child'][SIMPLEPIE_NAMESPACE_ATOM_03]['url'][0]['data'])) {
 				$url = $this->sanitize($author[0]['child'][SIMPLEPIE_NAMESPACE_ATOM_03]['url'][0]['data'], SIMPLEPIE_CONSTRUCT_IRI, $this->get_base($author[0]['child'][SIMPLEPIE_NAMESPACE_ATOM_03]['url'][0]));
 			}
-			if (isset($author[0]['child'][SIMPLEPIE_NAMESPACE_ATOM_03]['email'][0]['data']))
-			{
+			if (isset($author[0]['child'][SIMPLEPIE_NAMESPACE_ATOM_03]['email'][0]['data'])) {
 				$email = $this->sanitize($author[0]['child'][SIMPLEPIE_NAMESPACE_ATOM_03]['email'][0]['data'], SIMPLEPIE_CONSTRUCT_TEXT);
 			}
-			if ($name !== null || $email !== null || $url !== null)
-			{
+			if ($name !== null || $email !== null || $url !== null) {
 				$authors[] = $this->registry->create('Author', array($name, $url, $email));
 			}
 		}
-		foreach ((array) $this->get_channel_tags(SIMPLEPIE_NAMESPACE_DC_11, 'creator') as $author)
-		{
+		foreach ((array) $this->get_channel_tags(SIMPLEPIE_NAMESPACE_DC_11, 'creator') as $author) {
 			$authors[] = $this->registry->create('Author', array($this->sanitize($author['data'], SIMPLEPIE_CONSTRUCT_TEXT), null, null));
 		}
-		foreach ((array) $this->get_channel_tags(SIMPLEPIE_NAMESPACE_DC_10, 'creator') as $author)
-		{
+		foreach ((array) $this->get_channel_tags(SIMPLEPIE_NAMESPACE_DC_10, 'creator') as $author) {
 			$authors[] = $this->registry->create('Author', array($this->sanitize($author['data'], SIMPLEPIE_CONSTRUCT_TEXT), null, null));
 		}
-		foreach ((array) $this->get_channel_tags(SIMPLEPIE_NAMESPACE_ITUNES, 'author') as $author)
-		{
+		foreach ((array) $this->get_channel_tags(SIMPLEPIE_NAMESPACE_ITUNES, 'author') as $author) {
 			$authors[] = $this->registry->create('Author', array($this->sanitize($author['data'], SIMPLEPIE_CONSTRUCT_TEXT), null, null));
 		}
 
-		if (!empty($authors))
-		{
+		if (!empty($authors)) {
 			return array_unique($authors);
 		}
-		else
-		{
+		else {
 			return null;
 		}
 	}
-	public function get_contributor($key = 0)
-	{
+	public function get_contributor($key = 0) {
 		$contributors = $this->get_contributors();
-		if (isset($contributors[$key]))
-		{
+		if (isset($contributors[$key])) {
 			return $contributors[$key];
 		}
-		else
-		{
+		else {
 			return null;
 		}
 	}
-	public function get_contributors()
-	{
+	public function get_contributors() {
 		$contributors = array();
-		foreach ((array) $this->get_channel_tags(SIMPLEPIE_NAMESPACE_ATOM_10, 'contributor') as $contributor)
-		{
+		foreach ((array) $this->get_channel_tags(SIMPLEPIE_NAMESPACE_ATOM_10, 'contributor') as $contributor) {
 			$name = null;
 			$uri = null;
 			$email = null;
-			if (isset($contributor['child'][SIMPLEPIE_NAMESPACE_ATOM_10]['name'][0]['data']))
-			{
+			if (isset($contributor['child'][SIMPLEPIE_NAMESPACE_ATOM_10]['name'][0]['data'])) {
 				$name = $this->sanitize($contributor['child'][SIMPLEPIE_NAMESPACE_ATOM_10]['name'][0]['data'], SIMPLEPIE_CONSTRUCT_TEXT);
 			}
-			if (isset($contributor['child'][SIMPLEPIE_NAMESPACE_ATOM_10]['uri'][0]['data']))
-			{
+			if (isset($contributor['child'][SIMPLEPIE_NAMESPACE_ATOM_10]['uri'][0]['data'])) {
 				$uri = $this->sanitize($contributor['child'][SIMPLEPIE_NAMESPACE_ATOM_10]['uri'][0]['data'], SIMPLEPIE_CONSTRUCT_IRI, $this->get_base($contributor['child'][SIMPLEPIE_NAMESPACE_ATOM_10]['uri'][0]));
 			}
-			if (isset($contributor['child'][SIMPLEPIE_NAMESPACE_ATOM_10]['email'][0]['data']))
-			{
+			if (isset($contributor['child'][SIMPLEPIE_NAMESPACE_ATOM_10]['email'][0]['data'])) {
 				$email = $this->sanitize($contributor['child'][SIMPLEPIE_NAMESPACE_ATOM_10]['email'][0]['data'], SIMPLEPIE_CONSTRUCT_TEXT);
 			}
-			if ($name !== null || $email !== null || $uri !== null)
-			{
+			if ($name !== null || $email !== null || $uri !== null) {
 				$contributors[] = $this->registry->create('Author', array($name, $uri, $email));
 			}
 		}
-		foreach ((array) $this->get_channel_tags(SIMPLEPIE_NAMESPACE_ATOM_03, 'contributor') as $contributor)
-		{
+		foreach ((array) $this->get_channel_tags(SIMPLEPIE_NAMESPACE_ATOM_03, 'contributor') as $contributor) {
 			$name = null;
 			$url = null;
 			$email = null;
-			if (isset($contributor['child'][SIMPLEPIE_NAMESPACE_ATOM_03]['name'][0]['data']))
-			{
+			if (isset($contributor['child'][SIMPLEPIE_NAMESPACE_ATOM_03]['name'][0]['data'])) {
 				$name = $this->sanitize($contributor['child'][SIMPLEPIE_NAMESPACE_ATOM_03]['name'][0]['data'], SIMPLEPIE_CONSTRUCT_TEXT);
 			}
-			if (isset($contributor['child'][SIMPLEPIE_NAMESPACE_ATOM_03]['url'][0]['data']))
-			{
+			if (isset($contributor['child'][SIMPLEPIE_NAMESPACE_ATOM_03]['url'][0]['data'])) {
 				$url = $this->sanitize($contributor['child'][SIMPLEPIE_NAMESPACE_ATOM_03]['url'][0]['data'], SIMPLEPIE_CONSTRUCT_IRI, $this->get_base($contributor['child'][SIMPLEPIE_NAMESPACE_ATOM_03]['url'][0]));
 			}
-			if (isset($contributor['child'][SIMPLEPIE_NAMESPACE_ATOM_03]['email'][0]['data']))
-			{
+			if (isset($contributor['child'][SIMPLEPIE_NAMESPACE_ATOM_03]['email'][0]['data'])) {
 				$email = $this->sanitize($contributor['child'][SIMPLEPIE_NAMESPACE_ATOM_03]['email'][0]['data'], SIMPLEPIE_CONSTRUCT_TEXT);
 			}
-			if ($name !== null || $email !== null || $url !== null)
-			{
+			if ($name !== null || $email !== null || $url !== null) {
 				$contributors[] = $this->registry->create('Author', array($name, $url, $email));
 			}
 		}
 
-		if (!empty($contributors))
-		{
+		if (!empty($contributors)) {
 			return array_unique($contributors);
 		}
-		else
-		{
+		else {
 			return null;
 		}
 	}
-	public function get_link($key = 0, $rel = 'alternate')
-	{
+	public function get_link($key = 0, $rel = 'alternate') {
 		$links = $this->get_links($rel);
-		if (isset($links[$key]))
-		{
+		if (isset($links[$key])) {
 			return $links[$key];
 		}
-		else
-		{
+		else {
 			return null;
 		}
 	}
-	public function get_permalink()
-	{
+	public function get_permalink() {
 		return $this->get_link(0);
 	}
-	public function get_links($rel = 'alternate')
-	{
-		if (!isset($this->data['links']))
-		{
+	public function get_links($rel = 'alternate') {
+		if (!isset($this->data['links'])) {
 			$this->data['links'] = array();
-			if ($links = $this->get_channel_tags(SIMPLEPIE_NAMESPACE_ATOM_10, 'link'))
-			{
-				foreach ($links as $link)
-				{
-					if (isset($link['attribs']['']['href']))
-					{
+			if ($links = $this->get_channel_tags(SIMPLEPIE_NAMESPACE_ATOM_10, 'link')) {
+				foreach ($links as $link) {
+					if (isset($link['attribs']['']['href'])) {
 						$link_rel = (isset($link['attribs']['']['rel'])) ? $link['attribs']['']['rel'] : 'alternate';
 						$this->data['links'][$link_rel][] = $this->sanitize($link['attribs']['']['href'], SIMPLEPIE_CONSTRUCT_IRI, $this->get_base($link));
 					}
 				}
 			}
-			if ($links = $this->get_channel_tags(SIMPLEPIE_NAMESPACE_ATOM_03, 'link'))
-			{
-				foreach ($links as $link)
-				{
-					if (isset($link['attribs']['']['href']))
-					{
+			if ($links = $this->get_channel_tags(SIMPLEPIE_NAMESPACE_ATOM_03, 'link')) {
+				foreach ($links as $link) {
+					if (isset($link['attribs']['']['href'])) {
 						$link_rel = (isset($link['attribs']['']['rel'])) ? $link['attribs']['']['rel'] : 'alternate';
 						$this->data['links'][$link_rel][] = $this->sanitize($link['attribs']['']['href'], SIMPLEPIE_CONSTRUCT_IRI, $this->get_base($link));
 
 					}
 				}
 			}
-			if ($links = $this->get_channel_tags(SIMPLEPIE_NAMESPACE_RSS_10, 'link'))
-			{
+			if ($links = $this->get_channel_tags(SIMPLEPIE_NAMESPACE_RSS_10, 'link')) {
 				$this->data['links']['alternate'][] = $this->sanitize($links[0]['data'], SIMPLEPIE_CONSTRUCT_IRI, $this->get_base($links[0]));
 			}
-			if ($links = $this->get_channel_tags(SIMPLEPIE_NAMESPACE_RSS_090, 'link'))
-			{
+			if ($links = $this->get_channel_tags(SIMPLEPIE_NAMESPACE_RSS_090, 'link')) {
 				$this->data['links']['alternate'][] = $this->sanitize($links[0]['data'], SIMPLEPIE_CONSTRUCT_IRI, $this->get_base($links[0]));
 			}
-			if ($links = $this->get_channel_tags(SIMPLEPIE_NAMESPACE_RSS_20, 'link'))
-			{
+			if ($links = $this->get_channel_tags(SIMPLEPIE_NAMESPACE_RSS_20, 'link')) {
 				$this->data['links']['alternate'][] = $this->sanitize($links[0]['data'], SIMPLEPIE_CONSTRUCT_IRI, $this->get_base($links[0]));
 			}
 
 			$keys = array_keys($this->data['links']);
-			foreach ($keys as $key)
-			{
-				if ($this->registry->call('Misc', 'is_isegment_nz_nc', array($key)))
-				{
-					if (isset($this->data['links'][SIMPLEPIE_IANA_LINK_RELATIONS_REGISTRY . $key]))
-					{
+			foreach ($keys as $key) {
+				if ($this->registry->call('Misc', 'is_isegment_nz_nc', array($key))) {
+					if (isset($this->data['links'][SIMPLEPIE_IANA_LINK_RELATIONS_REGISTRY . $key])) {
 						$this->data['links'][SIMPLEPIE_IANA_LINK_RELATIONS_REGISTRY . $key] = array_merge($this->data['links'][$key], $this->data['links'][SIMPLEPIE_IANA_LINK_RELATIONS_REGISTRY . $key]);
 						$this->data['links'][$key] =& $this->data['links'][SIMPLEPIE_IANA_LINK_RELATIONS_REGISTRY . $key];
 					}
-					else
-					{
+					else {
 						$this->data['links'][SIMPLEPIE_IANA_LINK_RELATIONS_REGISTRY . $key] =& $this->data['links'][$key];
 					}
 				}
-				elseif (substr($key, 0, 41) === SIMPLEPIE_IANA_LINK_RELATIONS_REGISTRY)
-				{
+				elseif (substr($key, 0, 41) === SIMPLEPIE_IANA_LINK_RELATIONS_REGISTRY) {
 					$this->data['links'][substr($key, 41)] =& $this->data['links'][$key];
 				}
 				$this->data['links'][$key] = array_unique($this->data['links'][$key]);
 			}
 		}
 
-		if (isset($this->data['links'][$rel]))
-		{
+		if (isset($this->data['links'][$rel])) {
 			return $this->data['links'][$rel];
 		}
-		else
-		{
+		else {
 			return null;
 		}
 	}
 
-	public function get_all_discovered_feeds()
-	{
+	public function get_all_discovered_feeds() {
 		return $this->all_discovered_feeds;
 	}
-	public function get_description()
-	{
-		if ($return = $this->get_channel_tags(SIMPLEPIE_NAMESPACE_ATOM_10, 'subtitle'))
-		{
+	public function get_description() {
+		if ($return = $this->get_channel_tags(SIMPLEPIE_NAMESPACE_ATOM_10, 'subtitle')) {
 			return $this->sanitize($return[0]['data'], $this->registry->call('Misc', 'atom_10_construct_type', array($return[0]['attribs'])), $this->get_base($return[0]));
 		}
-		elseif ($return = $this->get_channel_tags(SIMPLEPIE_NAMESPACE_ATOM_03, 'tagline'))
-		{
+		elseif ($return = $this->get_channel_tags(SIMPLEPIE_NAMESPACE_ATOM_03, 'tagline')) {
 			return $this->sanitize($return[0]['data'], $this->registry->call('Misc', 'atom_03_construct_type', array($return[0]['attribs'])), $this->get_base($return[0]));
 		}
-		elseif ($return = $this->get_channel_tags(SIMPLEPIE_NAMESPACE_RSS_10, 'description'))
-		{
+		elseif ($return = $this->get_channel_tags(SIMPLEPIE_NAMESPACE_RSS_10, 'description')) {
 			return $this->sanitize($return[0]['data'], SIMPLEPIE_CONSTRUCT_MAYBE_HTML, $this->get_base($return[0]));
 		}
-		elseif ($return = $this->get_channel_tags(SIMPLEPIE_NAMESPACE_RSS_090, 'description'))
-		{
+		elseif ($return = $this->get_channel_tags(SIMPLEPIE_NAMESPACE_RSS_090, 'description')) {
 			return $this->sanitize($return[0]['data'], SIMPLEPIE_CONSTRUCT_MAYBE_HTML, $this->get_base($return[0]));
 		}
-		elseif ($return = $this->get_channel_tags(SIMPLEPIE_NAMESPACE_RSS_20, 'description'))
-		{
+		elseif ($return = $this->get_channel_tags(SIMPLEPIE_NAMESPACE_RSS_20, 'description')) {
 			return $this->sanitize($return[0]['data'], SIMPLEPIE_CONSTRUCT_HTML, $this->get_base($return[0]));
 		}
-		elseif ($return = $this->get_channel_tags(SIMPLEPIE_NAMESPACE_DC_11, 'description'))
-		{
+		elseif ($return = $this->get_channel_tags(SIMPLEPIE_NAMESPACE_DC_11, 'description')) {
 			return $this->sanitize($return[0]['data'], SIMPLEPIE_CONSTRUCT_TEXT);
 		}
-		elseif ($return = $this->get_channel_tags(SIMPLEPIE_NAMESPACE_DC_10, 'description'))
-		{
+		elseif ($return = $this->get_channel_tags(SIMPLEPIE_NAMESPACE_DC_10, 'description')) {
 			return $this->sanitize($return[0]['data'], SIMPLEPIE_CONSTRUCT_TEXT);
 		}
-		elseif ($return = $this->get_channel_tags(SIMPLEPIE_NAMESPACE_ITUNES, 'summary'))
-		{
+		elseif ($return = $this->get_channel_tags(SIMPLEPIE_NAMESPACE_ITUNES, 'summary')) {
 			return $this->sanitize($return[0]['data'], SIMPLEPIE_CONSTRUCT_HTML, $this->get_base($return[0]));
 		}
-		elseif ($return = $this->get_channel_tags(SIMPLEPIE_NAMESPACE_ITUNES, 'subtitle'))
-		{
+		elseif ($return = $this->get_channel_tags(SIMPLEPIE_NAMESPACE_ITUNES, 'subtitle')) {
 			return $this->sanitize($return[0]['data'], SIMPLEPIE_CONSTRUCT_HTML, $this->get_base($return[0]));
 		}
-		else
-		{
+		else {
 			return null;
 		}
 	}
-	public function get_copyright()
-	{
-		if ($return = $this->get_channel_tags(SIMPLEPIE_NAMESPACE_ATOM_10, 'rights'))
-		{
+	public function get_copyright() {
+		if ($return = $this->get_channel_tags(SIMPLEPIE_NAMESPACE_ATOM_10, 'rights')) {
 			return $this->sanitize($return[0]['data'], $this->registry->call('Misc', 'atom_10_construct_type', array($return[0]['attribs'])), $this->get_base($return[0]));
 		}
-		elseif ($return = $this->get_channel_tags(SIMPLEPIE_NAMESPACE_ATOM_03, 'copyright'))
-		{
+		elseif ($return = $this->get_channel_tags(SIMPLEPIE_NAMESPACE_ATOM_03, 'copyright')) {
 			return $this->sanitize($return[0]['data'], $this->registry->call('Misc', 'atom_03_construct_type', array($return[0]['attribs'])), $this->get_base($return[0]));
 		}
-		elseif ($return = $this->get_channel_tags(SIMPLEPIE_NAMESPACE_RSS_20, 'copyright'))
-		{
+		elseif ($return = $this->get_channel_tags(SIMPLEPIE_NAMESPACE_RSS_20, 'copyright')) {
 			return $this->sanitize($return[0]['data'], SIMPLEPIE_CONSTRUCT_TEXT);
 		}
-		elseif ($return = $this->get_channel_tags(SIMPLEPIE_NAMESPACE_DC_11, 'rights'))
-		{
+		elseif ($return = $this->get_channel_tags(SIMPLEPIE_NAMESPACE_DC_11, 'rights')) {
 			return $this->sanitize($return[0]['data'], SIMPLEPIE_CONSTRUCT_TEXT);
 		}
-		elseif ($return = $this->get_channel_tags(SIMPLEPIE_NAMESPACE_DC_10, 'rights'))
-		{
+		elseif ($return = $this->get_channel_tags(SIMPLEPIE_NAMESPACE_DC_10, 'rights')) {
 			return $this->sanitize($return[0]['data'], SIMPLEPIE_CONSTRUCT_TEXT);
 		}
-		else
-		{
+		else {
 			return null;
 		}
 	}
-	public function get_language()
-	{
-		if ($return = $this->get_channel_tags(SIMPLEPIE_NAMESPACE_RSS_20, 'language'))
-		{
+	public function get_language() {
+		if ($return = $this->get_channel_tags(SIMPLEPIE_NAMESPACE_RSS_20, 'language')) {
 			return $this->sanitize($return[0]['data'], SIMPLEPIE_CONSTRUCT_TEXT);
 		}
-		elseif ($return = $this->get_channel_tags(SIMPLEPIE_NAMESPACE_DC_11, 'language'))
-		{
+		elseif ($return = $this->get_channel_tags(SIMPLEPIE_NAMESPACE_DC_11, 'language')) {
 			return $this->sanitize($return[0]['data'], SIMPLEPIE_CONSTRUCT_TEXT);
 		}
-		elseif ($return = $this->get_channel_tags(SIMPLEPIE_NAMESPACE_DC_10, 'language'))
-		{
+		elseif ($return = $this->get_channel_tags(SIMPLEPIE_NAMESPACE_DC_10, 'language')) {
 			return $this->sanitize($return[0]['data'], SIMPLEPIE_CONSTRUCT_TEXT);
 		}
-		elseif (isset($this->data['child'][SIMPLEPIE_NAMESPACE_ATOM_10]['feed'][0]['xml_lang']))
-		{
+		elseif (isset($this->data['child'][SIMPLEPIE_NAMESPACE_ATOM_10]['feed'][0]['xml_lang'])) {
 			return $this->sanitize($this->data['child'][SIMPLEPIE_NAMESPACE_ATOM_10]['feed'][0]['xml_lang'], SIMPLEPIE_CONSTRUCT_TEXT);
 		}
-		elseif (isset($this->data['child'][SIMPLEPIE_NAMESPACE_ATOM_03]['feed'][0]['xml_lang']))
-		{
+		elseif (isset($this->data['child'][SIMPLEPIE_NAMESPACE_ATOM_03]['feed'][0]['xml_lang'])) {
 			return $this->sanitize($this->data['child'][SIMPLEPIE_NAMESPACE_ATOM_03]['feed'][0]['xml_lang'], SIMPLEPIE_CONSTRUCT_TEXT);
 		}
-		elseif (isset($this->data['child'][SIMPLEPIE_NAMESPACE_RDF]['RDF'][0]['xml_lang']))
-		{
+		elseif (isset($this->data['child'][SIMPLEPIE_NAMESPACE_RDF]['RDF'][0]['xml_lang'])) {
 			return $this->sanitize($this->data['child'][SIMPLEPIE_NAMESPACE_RDF]['RDF'][0]['xml_lang'], SIMPLEPIE_CONSTRUCT_TEXT);
 		}
-		elseif (isset($this->data['headers']['content-language']))
-		{
+		elseif (isset($this->data['headers']['content-language'])) {
 			return $this->sanitize($this->data['headers']['content-language'], SIMPLEPIE_CONSTRUCT_TEXT);
 		}
-		else
-		{
+		else {
 			return null;
 		}
 	}
-	public function get_latitude()
-	{
+	public function get_latitude() {
 
-		if ($return = $this->get_channel_tags(SIMPLEPIE_NAMESPACE_W3C_BASIC_GEO, 'lat'))
-		{
+		if ($return = $this->get_channel_tags(SIMPLEPIE_NAMESPACE_W3C_BASIC_GEO, 'lat')) {
 			return (float) $return[0]['data'];
 		}
-		elseif (($return = $this->get_channel_tags(SIMPLEPIE_NAMESPACE_GEORSS, 'point')) && preg_match('/^((?:-)?[0-9]+(?:\.[0-9]+)) ((?:-)?[0-9]+(?:\.[0-9]+))$/', trim($return[0]['data']), $match))
-		{
+		elseif (($return = $this->get_channel_tags(SIMPLEPIE_NAMESPACE_GEORSS, 'point')) && preg_match('/^((?:-)?[0-9]+(?:\.[0-9]+)) ((?:-)?[0-9]+(?:\.[0-9]+))$/', trim($return[0]['data']), $match)) {
 			return (float) $match[1];
 		}
-		else
-		{
+		else {
 			return null;
 		}
 	}
-	public function get_longitude()
-	{
-		if ($return = $this->get_channel_tags(SIMPLEPIE_NAMESPACE_W3C_BASIC_GEO, 'long'))
-		{
+	public function get_longitude() {
+		if ($return = $this->get_channel_tags(SIMPLEPIE_NAMESPACE_W3C_BASIC_GEO, 'long')) {
 			return (float) $return[0]['data'];
 		}
-		elseif ($return = $this->get_channel_tags(SIMPLEPIE_NAMESPACE_W3C_BASIC_GEO, 'lon'))
-		{
+		elseif ($return = $this->get_channel_tags(SIMPLEPIE_NAMESPACE_W3C_BASIC_GEO, 'lon')) {
 			return (float) $return[0]['data'];
 		}
-		elseif (($return = $this->get_channel_tags(SIMPLEPIE_NAMESPACE_GEORSS, 'point')) && preg_match('/^((?:-)?[0-9]+(?:\.[0-9]+)) ((?:-)?[0-9]+(?:\.[0-9]+))$/', trim($return[0]['data']), $match))
-		{
+		elseif (($return = $this->get_channel_tags(SIMPLEPIE_NAMESPACE_GEORSS, 'point')) && preg_match('/^((?:-)?[0-9]+(?:\.[0-9]+)) ((?:-)?[0-9]+(?:\.[0-9]+))$/', trim($return[0]['data']), $match)) {
 			return (float) $match[2];
 		}
-		else
-		{
+		else {
 			return null;
 		}
 	}
-	public function get_image_title()
-	{
-		if ($return = $this->get_image_tags(SIMPLEPIE_NAMESPACE_RSS_10, 'title'))
-		{
+	public function get_image_title() {
+		if ($return = $this->get_image_tags(SIMPLEPIE_NAMESPACE_RSS_10, 'title')) {
 			return $this->sanitize($return[0]['data'], SIMPLEPIE_CONSTRUCT_TEXT);
 		}
-		elseif ($return = $this->get_image_tags(SIMPLEPIE_NAMESPACE_RSS_090, 'title'))
-		{
+		elseif ($return = $this->get_image_tags(SIMPLEPIE_NAMESPACE_RSS_090, 'title')) {
 			return $this->sanitize($return[0]['data'], SIMPLEPIE_CONSTRUCT_TEXT);
 		}
-		elseif ($return = $this->get_image_tags(SIMPLEPIE_NAMESPACE_RSS_20, 'title'))
-		{
+		elseif ($return = $this->get_image_tags(SIMPLEPIE_NAMESPACE_RSS_20, 'title')) {
 			return $this->sanitize($return[0]['data'], SIMPLEPIE_CONSTRUCT_TEXT);
 		}
-		elseif ($return = $this->get_image_tags(SIMPLEPIE_NAMESPACE_DC_11, 'title'))
-		{
+		elseif ($return = $this->get_image_tags(SIMPLEPIE_NAMESPACE_DC_11, 'title')) {
 			return $this->sanitize($return[0]['data'], SIMPLEPIE_CONSTRUCT_TEXT);
 		}
-		elseif ($return = $this->get_image_tags(SIMPLEPIE_NAMESPACE_DC_10, 'title'))
-		{
+		elseif ($return = $this->get_image_tags(SIMPLEPIE_NAMESPACE_DC_10, 'title')) {
 			return $this->sanitize($return[0]['data'], SIMPLEPIE_CONSTRUCT_TEXT);
 		}
-		else
-		{
+		else {
 			return null;
 		}
 	}
-	public function get_image_url()
-	{
-		if ($return = $this->get_channel_tags(SIMPLEPIE_NAMESPACE_ITUNES, 'image'))
-		{
+	public function get_image_url() {
+		if ($return = $this->get_channel_tags(SIMPLEPIE_NAMESPACE_ITUNES, 'image')) {
 			return $this->sanitize($return[0]['attribs']['']['href'], SIMPLEPIE_CONSTRUCT_IRI);
 		}
-		elseif ($return = $this->get_channel_tags(SIMPLEPIE_NAMESPACE_ATOM_10, 'logo'))
-		{
+		elseif ($return = $this->get_channel_tags(SIMPLEPIE_NAMESPACE_ATOM_10, 'logo')) {
 			return $this->sanitize($return[0]['data'], SIMPLEPIE_CONSTRUCT_IRI, $this->get_base($return[0]));
 		}
-		elseif ($return = $this->get_channel_tags(SIMPLEPIE_NAMESPACE_ATOM_10, 'icon'))
-		{
+		elseif ($return = $this->get_channel_tags(SIMPLEPIE_NAMESPACE_ATOM_10, 'icon')) {
 			return $this->sanitize($return[0]['data'], SIMPLEPIE_CONSTRUCT_IRI, $this->get_base($return[0]));
 		}
-		elseif ($return = $this->get_image_tags(SIMPLEPIE_NAMESPACE_RSS_10, 'url'))
-		{
+		elseif ($return = $this->get_image_tags(SIMPLEPIE_NAMESPACE_RSS_10, 'url')) {
 			return $this->sanitize($return[0]['data'], SIMPLEPIE_CONSTRUCT_IRI, $this->get_base($return[0]));
 		}
-		elseif ($return = $this->get_image_tags(SIMPLEPIE_NAMESPACE_RSS_090, 'url'))
-		{
+		elseif ($return = $this->get_image_tags(SIMPLEPIE_NAMESPACE_RSS_090, 'url')) {
 			return $this->sanitize($return[0]['data'], SIMPLEPIE_CONSTRUCT_IRI, $this->get_base($return[0]));
 		}
-		elseif ($return = $this->get_image_tags(SIMPLEPIE_NAMESPACE_RSS_20, 'url'))
-		{
+		elseif ($return = $this->get_image_tags(SIMPLEPIE_NAMESPACE_RSS_20, 'url')) {
 			return $this->sanitize($return[0]['data'], SIMPLEPIE_CONSTRUCT_IRI, $this->get_base($return[0]));
 		}
-		else
-		{
+		else {
 			return null;
 		}
 	}
-	public function get_image_link()
-	{
-		if ($return = $this->get_image_tags(SIMPLEPIE_NAMESPACE_RSS_10, 'link'))
-		{
+	public function get_image_link() {
+		if ($return = $this->get_image_tags(SIMPLEPIE_NAMESPACE_RSS_10, 'link')) {
 			return $this->sanitize($return[0]['data'], SIMPLEPIE_CONSTRUCT_IRI, $this->get_base($return[0]));
 		}
-		elseif ($return = $this->get_image_tags(SIMPLEPIE_NAMESPACE_RSS_090, 'link'))
-		{
+		elseif ($return = $this->get_image_tags(SIMPLEPIE_NAMESPACE_RSS_090, 'link')) {
 			return $this->sanitize($return[0]['data'], SIMPLEPIE_CONSTRUCT_IRI, $this->get_base($return[0]));
 		}
-		elseif ($return = $this->get_image_tags(SIMPLEPIE_NAMESPACE_RSS_20, 'link'))
-		{
+		elseif ($return = $this->get_image_tags(SIMPLEPIE_NAMESPACE_RSS_20, 'link')) {
 			return $this->sanitize($return[0]['data'], SIMPLEPIE_CONSTRUCT_IRI, $this->get_base($return[0]));
 		}
-		else
-		{
+		else {
 			return null;
 		}
 	}
-	public function get_image_width()
-	{
-		if ($return = $this->get_image_tags(SIMPLEPIE_NAMESPACE_RSS_20, 'width'))
-		{
+	public function get_image_width() {
+		if ($return = $this->get_image_tags(SIMPLEPIE_NAMESPACE_RSS_20, 'width')) {
 			return round($return[0]['data']);
 		}
-		elseif ($this->get_type() & SIMPLEPIE_TYPE_RSS_SYNDICATION && $this->get_image_tags(SIMPLEPIE_NAMESPACE_RSS_20, 'url'))
-		{
+		elseif ($this->get_type() & SIMPLEPIE_TYPE_RSS_SYNDICATION && $this->get_image_tags(SIMPLEPIE_NAMESPACE_RSS_20, 'url')) {
 			return 88.0;
 		}
-		else
-		{
+		else {
 			return null;
 		}
 	}
-	public function get_image_height()
-	{
-		if ($return = $this->get_image_tags(SIMPLEPIE_NAMESPACE_RSS_20, 'height'))
-		{
+	public function get_image_height() {
+		if ($return = $this->get_image_tags(SIMPLEPIE_NAMESPACE_RSS_20, 'height')) {
 			return round($return[0]['data']);
 		}
-		elseif ($this->get_type() & SIMPLEPIE_TYPE_RSS_SYNDICATION && $this->get_image_tags(SIMPLEPIE_NAMESPACE_RSS_20, 'url'))
-		{
+		elseif ($this->get_type() & SIMPLEPIE_TYPE_RSS_SYNDICATION && $this->get_image_tags(SIMPLEPIE_NAMESPACE_RSS_20, 'url')) {
 			return 31.0;
 		}
-		else
-		{
+		else {
 			return null;
 		}
 	}
-	public function get_item_quantity($max = 0)
-	{
+	public function get_item_quantity($max = 0) {
 		$max = (int) $max;
 		$qty = count($this->get_items());
-		if ($max === 0)
-		{
+		if ($max === 0) {
 			return $qty;
 		}
-		else
-		{
+		else {
 			return ($qty > $max) ? $max : $qty;
 		}
 	}
-	public function get_item($key = 0)
-	{
+	public function get_item($key = 0) {
 		$items = $this->get_items();
-		if (isset($items[$key]))
-		{
+		if (isset($items[$key])) {
 			return $items[$key];
 		}
-		else
-		{
+		else {
 			return null;
 		}
 	}
-	public function get_items($start = 0, $end = 0)
-	{
-		if (!isset($this->data['items']))
-		{
-			if (!empty($this->multifeed_objects))
-			{
+	public function get_items($start = 0, $end = 0) {
+		if (!isset($this->data['items'])) {
+			if (!empty($this->multifeed_objects)) {
 				$this->data['items'] = SimplePie::merge_items($this->multifeed_objects, $start, $end, $this->item_limit);
 			}
-			else
-			{
+			else {
 				$this->data['items'] = array();
-				if ($items = $this->get_feed_tags(SIMPLEPIE_NAMESPACE_ATOM_10, 'entry'))
-				{
+				if ($items = $this->get_feed_tags(SIMPLEPIE_NAMESPACE_ATOM_10, 'entry')) {
 					$keys = array_keys($items);
-					foreach ($keys as $key)
-					{
+					foreach ($keys as $key) {
 						$this->data['items'][] = $this->registry->create('Item', array($this, $items[$key]));
 					}
 				}
-				if ($items = $this->get_feed_tags(SIMPLEPIE_NAMESPACE_ATOM_03, 'entry'))
-				{
+				if ($items = $this->get_feed_tags(SIMPLEPIE_NAMESPACE_ATOM_03, 'entry')) {
 					$keys = array_keys($items);
-					foreach ($keys as $key)
-					{
+					foreach ($keys as $key) {
 						$this->data['items'][] = $this->registry->create('Item', array($this, $items[$key]));
 					}
 				}
-				if ($items = $this->get_feed_tags(SIMPLEPIE_NAMESPACE_RSS_10, 'item'))
-				{
+				if ($items = $this->get_feed_tags(SIMPLEPIE_NAMESPACE_RSS_10, 'item')) {
 					$keys = array_keys($items);
-					foreach ($keys as $key)
-					{
+					foreach ($keys as $key) {
 						$this->data['items'][] = $this->registry->create('Item', array($this, $items[$key]));
 					}
 				}
-				if ($items = $this->get_feed_tags(SIMPLEPIE_NAMESPACE_RSS_090, 'item'))
-				{
+				if ($items = $this->get_feed_tags(SIMPLEPIE_NAMESPACE_RSS_090, 'item')) {
 					$keys = array_keys($items);
-					foreach ($keys as $key)
-					{
+					foreach ($keys as $key) {
 						$this->data['items'][] = $this->registry->create('Item', array($this, $items[$key]));
 					}
 				}
-				if ($items = $this->get_channel_tags(SIMPLEPIE_NAMESPACE_RSS_20, 'item'))
-				{
+				if ($items = $this->get_channel_tags(SIMPLEPIE_NAMESPACE_RSS_20, 'item')) {
 					$keys = array_keys($items);
-					foreach ($keys as $key)
-					{
+					foreach ($keys as $key) {
 						$this->data['items'][] = $this->registry->create('Item', array($this, $items[$key]));
 					}
 				}
 			}
 		}
 
-		if (!empty($this->data['items']))
-		{
+		if (!empty($this->data['items'])) {
 			// If we want to order it by date, check if all items have a date, and then sort it
-			if ($this->order_by_date && empty($this->multifeed_objects))
-			{
-				if (!isset($this->data['ordered_items']))
-				{
+			if ($this->order_by_date && empty($this->multifeed_objects)) {
+				if (!isset($this->data['ordered_items'])) {
 					$do_sort = true;
-					foreach ($this->data['items'] as $item)
-					{
-						if (!$item->get_date('U'))
-						{
+					foreach ($this->data['items'] as $item) {
+						if (!$item->get_date('U')) {
 							$do_sort = false;
 							break;
 						}
 					}
 					$item = null;
 					$this->data['ordered_items'] = $this->data['items'];
-					if ($do_sort)
-					{
+					if ($do_sort) {
 						usort($this->data['ordered_items'], array(get_class($this), 'sort_items'));
 					}
 				}
 				$items = $this->data['ordered_items'];
 			}
-			else
-			{
+			else {
 				$items = $this->data['items'];
 			}
 
 			// Slice the data as desired
-			if ($end === 0)
-			{
+			if ($end === 0) {
 				return array_slice($items, $start);
 			}
-			else
-			{
+			else {
 				return array_slice($items, $start, $end);
 			}
 		}
-		else
-		{
+		else {
 			return array();
 		}
 	}
-	public static function sort_items($a, $b)
-	{
+	public static function sort_items($a, $b) {
 		return $a->get_date('U') <= $b->get_date('U');
 	}
-	public static function merge_items($urls, $start = 0, $end = 0, $limit = 0)
-	{
-		if (is_array($urls) && sizeof($urls) > 0)
-		{
+	public static function merge_items($urls, $start = 0, $end = 0, $limit = 0) {
+		if (is_array($urls) && sizeof($urls) > 0) {
 			$items = array();
-			foreach ($urls as $arg)
-			{
-				if ($arg instanceof SimplePie)
-				{
+			foreach ($urls as $arg) {
+				if ($arg instanceof SimplePie) {
 					$items = array_merge($items, $arg->get_items(0, $limit));
 				}
-				else
-				{
+				else {
 					trigger_error('Arguments must be SimplePie objects', E_USER_WARNING);
 				}
 			}
 
 			$do_sort = true;
-			foreach ($items as $item)
-			{
-				if (!$item->get_date('U'))
-				{
+			foreach ($items as $item) {
+				if (!$item->get_date('U')) {
 					$do_sort = false;
 					break;
 				}
 			}
 			$item = null;
-			if ($do_sort)
-			{
+			if ($do_sort) {
 				usort($items, array(get_class($urls[0]), 'sort_items'));
 			}
 
-			if ($end === 0)
-			{
+			if ($end === 0) {
 				return array_slice($items, $start);
 			}
-			else
-			{
+			else {
 				return array_slice($items, $start, $end);
 			}
 		}
-		else
-		{
+		else {
 			trigger_error('Cannot merge zero SimplePie objects', E_USER_WARNING);
 			return array();
 		}
 	}
 }
-class SimplePie_Author
-{
+class SimplePie_Author {
 	var $name;
 	var $link;
 	var $email;
-	public function __construct($name = null, $link = null, $email = null)
-	{
+	public function __construct($name = null, $link = null, $email = null) {
 		$this->name = $name;
 		$this->link = $link;
 		$this->email = $email;
 	}
-	public function __toString()
-	{
+	public function __toString() {
 		// There is no $this->data here
 		return md5(serialize($this));
 	}
-	public function get_name()
-	{
-		if ($this->name !== null)
-		{
+	public function get_name() {
+		if ($this->name !== null) {
 			return $this->name;
 		}
-		else
-		{
+		else {
 			return null;
 		}
 	}
-	public function get_link()
-	{
-		if ($this->link !== null)
-		{
+	public function get_link() {
+		if ($this->link !== null) {
 			return $this->link;
 		}
-		else
-		{
+		else {
 			return null;
 		}
 	}
-	public function get_email()
-	{
-		if ($this->email !== null)
-		{
+	public function get_email() {
+		if ($this->email !== null) {
 			return $this->email;
 		}
-		else
-		{
+		else {
 			return null;
 		}
 	}
 }
-interface SimplePie_Cache_Base
-{
+interface SimplePie_Cache_Base {
 	const TYPE_FEED = 'spc';
 	const TYPE_IMAGE = 'spi';
 	public function __construct($location, $name, $type);
@@ -1817,104 +1436,80 @@ interface SimplePie_Cache_Base
 	public function touch();
 	public function unlink();
 }
-abstract class SimplePie_Cache_DB implements SimplePie_Cache_Base
-{
-	protected static function prepare_simplepie_object_for_cache($data)
-	{
+abstract class SimplePie_Cache_DB implements SimplePie_Cache_Base {
+	protected static function prepare_simplepie_object_for_cache($data) {
 		$items = $data->get_items();
 		$items_by_id = array();
 
-		if (!empty($items))
-		{
-			foreach ($items as $item)
-			{
+		if (!empty($items)) {
+			foreach ($items as $item) {
 				$items_by_id[$item->get_id()] = $item;
 			}
 
-			if (count($items_by_id) !== count($items))
-			{
+			if (count($items_by_id) !== count($items)) {
 				$items_by_id = array();
-				foreach ($items as $item)
-				{
+				foreach ($items as $item) {
 					$items_by_id[$item->get_id(true)] = $item;
 				}
 			}
 
-			if (isset($data->data['child'][SIMPLEPIE_NAMESPACE_ATOM_10]['feed'][0]))
-			{
+			if (isset($data->data['child'][SIMPLEPIE_NAMESPACE_ATOM_10]['feed'][0])) {
 				$channel =& $data->data['child'][SIMPLEPIE_NAMESPACE_ATOM_10]['feed'][0];
 			}
-			elseif (isset($data->data['child'][SIMPLEPIE_NAMESPACE_ATOM_03]['feed'][0]))
-			{
+			elseif (isset($data->data['child'][SIMPLEPIE_NAMESPACE_ATOM_03]['feed'][0])) {
 				$channel =& $data->data['child'][SIMPLEPIE_NAMESPACE_ATOM_03]['feed'][0];
 			}
-			elseif (isset($data->data['child'][SIMPLEPIE_NAMESPACE_RDF]['RDF'][0]))
-			{
+			elseif (isset($data->data['child'][SIMPLEPIE_NAMESPACE_RDF]['RDF'][0])) {
 				$channel =& $data->data['child'][SIMPLEPIE_NAMESPACE_RDF]['RDF'][0];
 			}
-			elseif (isset($data->data['child'][SIMPLEPIE_NAMESPACE_RSS_20]['rss'][0]['child'][SIMPLEPIE_NAMESPACE_RSS_20]['channel'][0]))
-			{
+			elseif (isset($data->data['child'][SIMPLEPIE_NAMESPACE_RSS_20]['rss'][0]['child'][SIMPLEPIE_NAMESPACE_RSS_20]['channel'][0])) {
 				$channel =& $data->data['child'][SIMPLEPIE_NAMESPACE_RSS_20]['rss'][0]['child'][SIMPLEPIE_NAMESPACE_RSS_20]['channel'][0];
 			}
-			else
-			{
+			else {
 				$channel = null;
 			}
 
-			if ($channel !== null)
-			{
-				if (isset($channel['child'][SIMPLEPIE_NAMESPACE_ATOM_10]['entry']))
-				{
+			if ($channel !== null) {
+				if (isset($channel['child'][SIMPLEPIE_NAMESPACE_ATOM_10]['entry'])) {
 					unset($channel['child'][SIMPLEPIE_NAMESPACE_ATOM_10]['entry']);
 				}
-				if (isset($channel['child'][SIMPLEPIE_NAMESPACE_ATOM_03]['entry']))
-				{
+				if (isset($channel['child'][SIMPLEPIE_NAMESPACE_ATOM_03]['entry'])) {
 					unset($channel['child'][SIMPLEPIE_NAMESPACE_ATOM_03]['entry']);
 				}
-				if (isset($channel['child'][SIMPLEPIE_NAMESPACE_RSS_10]['item']))
-				{
+				if (isset($channel['child'][SIMPLEPIE_NAMESPACE_RSS_10]['item'])) {
 					unset($channel['child'][SIMPLEPIE_NAMESPACE_RSS_10]['item']);
 				}
-				if (isset($channel['child'][SIMPLEPIE_NAMESPACE_RSS_090]['item']))
-				{
+				if (isset($channel['child'][SIMPLEPIE_NAMESPACE_RSS_090]['item'])) {
 					unset($channel['child'][SIMPLEPIE_NAMESPACE_RSS_090]['item']);
 				}
-				if (isset($channel['child'][SIMPLEPIE_NAMESPACE_RSS_20]['item']))
-				{
+				if (isset($channel['child'][SIMPLEPIE_NAMESPACE_RSS_20]['item'])) {
 					unset($channel['child'][SIMPLEPIE_NAMESPACE_RSS_20]['item']);
 				}
 			}
-			if (isset($data->data['items']))
-			{
+			if (isset($data->data['items'])) {
 				unset($data->data['items']);
 			}
-			if (isset($data->data['ordered_items']))
-			{
+			if (isset($data->data['ordered_items'])) {
 				unset($data->data['ordered_items']);
 			}
 		}
 		return array(serialize($data->data), $items_by_id);
 	}
 }
-class SimplePie_Cache_File implements SimplePie_Cache_Base
-{
+class SimplePie_Cache_File implements SimplePie_Cache_Base {
 	protected $location;
 	protected $filename;
 	protected $extension;
 	protected $name;
-	public function __construct($location, $name, $type)
-	{
+	public function __construct($location, $name, $type) {
 		$this->location = $location;
 		$this->filename = $name;
 		$this->extension = $type;
 		$this->name = "$this->location/$this->filename.$this->extension";
 	}
-	public function save($data)
-	{
-		if (file_exists($this->name) && is_writeable($this->name) || file_exists($this->location) && is_writeable($this->location))
-		{
-			if ($data instanceof SimplePie)
-			{
+	public function save($data) {
+		if (file_exists($this->name) && is_writeable($this->name) || file_exists($this->location) && is_writeable($this->location)) {
+			if ($data instanceof SimplePie) {
 				$data = $data->data;
 			}
 
@@ -1923,46 +1518,36 @@ class SimplePie_Cache_File implements SimplePie_Cache_Base
 		}
 		return false;
 	}
-	public function load()
-	{
-		if (file_exists($this->name) && is_readable($this->name))
-		{
+	public function load() {
+		if (file_exists($this->name) && is_readable($this->name)) {
 			return unserialize(file_get_contents($this->name));
 		}
 		return false;
 	}
-	public function mtime()
-	{
-		if (file_exists($this->name))
-		{
+	public function mtime() {
+		if (file_exists($this->name)) {
 			return filemtime($this->name);
 		}
 		return false;
 	}
-	public function touch()
-	{
-		if (file_exists($this->name))
-		{
+	public function touch() {
+		if (file_exists($this->name)) {
 			return touch($this->name);
 		}
 		return false;
 	}
-	public function unlink()
-	{
-		if (file_exists($this->name))
-		{
+	public function unlink() {
+		if (file_exists($this->name)) {
 			return unlink($this->name);
 		}
 		return false;
 	}
 }
-class SimplePie_Cache_Memcache implements SimplePie_Cache_Base
-{
+class SimplePie_Cache_Memcache implements SimplePie_Cache_Base {
 	protected $cache;
 	protected $options;
 	protected $name;
-	public function __construct($location, $name, $type)
-	{
+	public function __construct($location, $name, $type) {
 		$this->options = array(
 			'host' => '127.0.0.1',
 			'port' => 11211,
@@ -1980,59 +1565,48 @@ class SimplePie_Cache_Memcache implements SimplePie_Cache_Base
 		$this->cache = new Memcache();
 		$this->cache->addServer($this->options['host'], (int) $this->options['port']);
 	}
-	public function save($data)
-	{
-		if ($data instanceof SimplePie)
-		{
+	public function save($data) {
+		if ($data instanceof SimplePie) {
 			$data = $data->data;
 		}
 		return $this->cache->set($this->name, serialize($data), MEMCACHE_COMPRESSED, (int) $this->options['extras']['timeout']);
 	}
-	public function load()
-	{
+	public function load() {
 		$data = $this->cache->get($this->name);
 
-		if ($data !== false)
-		{
+		if ($data !== false) {
 			return unserialize($data);
 		}
 		return false;
 	}
-	public function mtime()
-	{
+	public function mtime() {
 		$data = $this->cache->get($this->name);
 
-		if ($data !== false)
-		{
+		if ($data !== false) {
 			// essentially ignore the mtime because Memcache expires on it's own
 			return time();
 		}
 
 		return false;
 	}
-	public function touch()
-	{
+	public function touch() {
 		$data = $this->cache->get($this->name);
 
-		if ($data !== false)
-		{
+		if ($data !== false) {
 			return $this->cache->set($this->name, $data, MEMCACHE_COMPRESSED, (int) $this->duration);
 		}
 
 		return false;
 	}
-	public function unlink()
-	{
+	public function unlink() {
 		return $this->cache->delete($this->name, 0);
 	}
 }
-class SimplePie_Cache_MySQL extends SimplePie_Cache_DB
-{
+class SimplePie_Cache_MySQL extends SimplePie_Cache_DB {
 	protected $mysql;
 	protected $options;
 	protected $id;
-	public function __construct($location, $name, $type)
-	{
+	public function __construct($location, $name, $type) {
 		$this->options = array(
 			'user' => null,
 			'pass' => null,
@@ -2048,76 +1622,61 @@ class SimplePie_Cache_MySQL extends SimplePie_Cache_DB
 		// Path is prefixed with a "/"
 		$this->options['dbname'] = substr($this->options['path'], 1);
 
-		try
-		{
+		try {
 			$this->mysql = new PDO("mysql:dbname={$this->options['dbname']};host={$this->options['host']};port={$this->options['port']}", $this->options['user'], $this->options['pass'], array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8'));
 		}
-		catch (PDOException $e)
-		{
+		catch (PDOException $e) {
 			$this->mysql = null;
 			return;
 		}
 
 		$this->id = $name . $type;
 
-		if (!$query = $this->mysql->query('SHOW TABLES'))
-		{
+		if (!$query = $this->mysql->query('SHOW TABLES')) {
 			$this->mysql = null;
 			return;
 		}
 
 		$db = array();
-		while ($row = $query->fetchColumn())
-		{
+		while ($row = $query->fetchColumn()) {
 			$db[] = $row;
 		}
 
-		if (!in_array($this->options['extras']['prefix'] . 'cache_data', $db))
-		{
+		if (!in_array($this->options['extras']['prefix'] . 'cache_data', $db)) {
 			$query = $this->mysql->exec('CREATE TABLE `' . $this->options['extras']['prefix'] . 'cache_data` (`id` TEXT CHARACTER SET utf8 NOT NULL, `items` SMALLINT NOT NULL DEFAULT 0, `data` BLOB NOT NULL, `mtime` INT UNSIGNED NOT NULL, UNIQUE (`id`(125)))');
-			if ($query === false)
-			{
+			if ($query === false) {
 				$this->mysql = null;
 			}
 		}
 
-		if (!in_array($this->options['extras']['prefix'] . 'items', $db))
-		{
+		if (!in_array($this->options['extras']['prefix'] . 'items', $db)) {
 			$query = $this->mysql->exec('CREATE TABLE `' . $this->options['extras']['prefix'] . 'items` (`feed_id` TEXT CHARACTER SET utf8 NOT NULL, `id` TEXT CHARACTER SET utf8 NOT NULL, `data` TEXT CHARACTER SET utf8 NOT NULL, `posted` INT UNSIGNED NOT NULL, INDEX `feed_id` (`feed_id`(125)))');
-			if ($query === false)
-			{
+			if ($query === false) {
 				$this->mysql = null;
 			}
 		}
 	}
-	public function save($data)
-	{
-		if ($this->mysql === null)
-		{
+	public function save($data) {
+		if ($this->mysql === null) {
 			return false;
 		}
 
-		if ($data instanceof SimplePie)
-		{
+		if ($data instanceof SimplePie) {
 			$data = clone $data;
 
 			$prepared = self::prepare_simplepie_object_for_cache($data);
 
 			$query = $this->mysql->prepare('SELECT COUNT(*) FROM `' . $this->options['extras']['prefix'] . 'cache_data` WHERE `id` = :feed');
 			$query->bindValue(':feed', $this->id);
-			if ($query->execute())
-			{
-				if ($query->fetchColumn() > 0)
-				{
+			if ($query->execute()) {
+				if ($query->fetchColumn() > 0) {
 					$items = count($prepared[1]);
-					if ($items)
-					{
+					if ($items) {
 						$sql = 'UPDATE `' . $this->options['extras']['prefix'] . 'cache_data` SET `items` = :items, `data` = :data, `mtime` = :time WHERE `id` = :feed';
 						$query = $this->mysql->prepare($sql);
 						$query->bindValue(':items', $items);
 					}
-					else
-					{
+					else {
 						$sql = 'UPDATE `' . $this->options['extras']['prefix'] . 'cache_data` SET `data` = :data, `mtime` = :time WHERE `id` = :feed';
 						$query = $this->mysql->prepare($sql);
 					}
@@ -2125,49 +1684,40 @@ class SimplePie_Cache_MySQL extends SimplePie_Cache_DB
 					$query->bindValue(':data', $prepared[0]);
 					$query->bindValue(':time', time());
 					$query->bindValue(':feed', $this->id);
-					if (!$query->execute())
-					{
+					if (!$query->execute()) {
 						return false;
 					}
 				}
-				else
-				{
+				else {
 					$query = $this->mysql->prepare('INSERT INTO `' . $this->options['extras']['prefix'] . 'cache_data` (`id`, `items`, `data`, `mtime`) VALUES(:feed, :count, :data, :time)');
 					$query->bindValue(':feed', $this->id);
 					$query->bindValue(':count', count($prepared[1]));
 					$query->bindValue(':data', $prepared[0]);
 					$query->bindValue(':time', time());
-					if (!$query->execute())
-					{
+					if (!$query->execute()) {
 						return false;
 					}
 				}
 
 				$ids = array_keys($prepared[1]);
-				if (!empty($ids))
-				{
-					foreach ($ids as $id)
-					{
+				if (!empty($ids)) {
+					foreach ($ids as $id) {
 						$database_ids[] = $this->mysql->quote($id);
 					}
 
 					$query = $this->mysql->prepare('SELECT `id` FROM `' . $this->options['extras']['prefix'] . 'items` WHERE `id` = ' . implode(' OR `id` = ', $database_ids) . ' AND `feed_id` = :feed');
 					$query->bindValue(':feed', $this->id);
 
-					if ($query->execute())
-					{
+					if ($query->execute()) {
 						$existing_ids = array();
-						while ($row = $query->fetchColumn())
-						{
+						while ($row = $query->fetchColumn()) {
 							$existing_ids[] = $row;
 						}
 
 						$new_ids = array_diff($ids, $existing_ids);
 
-						foreach ($new_ids as $new_id)
-						{
-							if (!($date = $prepared[1][$new_id]->get_date('U')))
-							{
+						foreach ($new_ids as $new_id) {
+							if (!($date = $prepared[1][$new_id]->get_date('U'))) {
 								$date = time();
 							}
 
@@ -2176,45 +1726,37 @@ class SimplePie_Cache_MySQL extends SimplePie_Cache_DB
 							$query->bindValue(':id', $new_id);
 							$query->bindValue(':data', serialize($prepared[1][$new_id]->data));
 							$query->bindValue(':date', $date);
-							if (!$query->execute())
-							{
+							if (!$query->execute()) {
 								return false;
 							}
 						}
 						return true;
 					}
 				}
-				else
-				{
+				else {
 					return true;
 				}
 			}
 		}
-		else
-		{
+		else {
 			$query = $this->mysql->prepare('SELECT `id` FROM `' . $this->options['extras']['prefix'] . 'cache_data` WHERE `id` = :feed');
 			$query->bindValue(':feed', $this->id);
-			if ($query->execute())
-			{
-				if ($query->rowCount() > 0)
-				{
+			if ($query->execute()) {
+				if ($query->rowCount() > 0) {
 					$query = $this->mysql->prepare('UPDATE `' . $this->options['extras']['prefix'] . 'cache_data` SET `items` = 0, `data` = :data, `mtime` = :time WHERE `id` = :feed');
 					$query->bindValue(':data', serialize($data));
 					$query->bindValue(':time', time());
 					$query->bindValue(':feed', $this->id);
-					if ($this->execute())
-					{
+					if ($this->execute()) {
 						return true;
 					}
 				}
-				else
-				{
+				else {
 					$query = $this->mysql->prepare('INSERT INTO `' . $this->options['extras']['prefix'] . 'cache_data` (`id`, `items`, `data`, `mtime`) VALUES(:id, 0, :data, :time)');
 					$query->bindValue(':id', $this->id);
 					$query->bindValue(':data', serialize($data));
 					$query->bindValue(':time', time());
-					if ($query->execute())
-					{
+					if ($query->execute()) {
 						return true;
 					}
 				}
@@ -2222,70 +1764,54 @@ class SimplePie_Cache_MySQL extends SimplePie_Cache_DB
 		}
 		return false;
 	}
-	public function load()
-	{
-		if ($this->mysql === null)
-		{
+	public function load() {
+		if ($this->mysql === null) {
 			return false;
 		}
 
 		$query = $this->mysql->prepare('SELECT `items`, `data` FROM `' . $this->options['extras']['prefix'] . 'cache_data` WHERE `id` = :id');
 		$query->bindValue(':id', $this->id);
-		if ($query->execute() && ($row = $query->fetch()))
-		{
+		if ($query->execute() && ($row = $query->fetch())) {
 			$data = unserialize($row[1]);
 
-			if (isset($this->options['items'][0]))
-			{
+			if (isset($this->options['items'][0])) {
 				$items = (int) $this->options['items'][0];
 			}
-			else
-			{
+			else {
 				$items = (int) $row[0];
 			}
 
-			if ($items !== 0)
-			{
-				if (isset($data['child'][SIMPLEPIE_NAMESPACE_ATOM_10]['feed'][0]))
-				{
+			if ($items !== 0) {
+				if (isset($data['child'][SIMPLEPIE_NAMESPACE_ATOM_10]['feed'][0])) {
 					$feed =& $data['child'][SIMPLEPIE_NAMESPACE_ATOM_10]['feed'][0];
 				}
-				elseif (isset($data['child'][SIMPLEPIE_NAMESPACE_ATOM_03]['feed'][0]))
-				{
+				elseif (isset($data['child'][SIMPLEPIE_NAMESPACE_ATOM_03]['feed'][0])) {
 					$feed =& $data['child'][SIMPLEPIE_NAMESPACE_ATOM_03]['feed'][0];
 				}
-				elseif (isset($data['child'][SIMPLEPIE_NAMESPACE_RDF]['RDF'][0]))
-				{
+				elseif (isset($data['child'][SIMPLEPIE_NAMESPACE_RDF]['RDF'][0])) {
 					$feed =& $data['child'][SIMPLEPIE_NAMESPACE_RDF]['RDF'][0];
 				}
-				elseif (isset($data['child'][SIMPLEPIE_NAMESPACE_RSS_20]['rss'][0]))
-				{
+				elseif (isset($data['child'][SIMPLEPIE_NAMESPACE_RSS_20]['rss'][0])) {
 					$feed =& $data['child'][SIMPLEPIE_NAMESPACE_RSS_20]['rss'][0];
 				}
-				else
-				{
+				else {
 					$feed = null;
 				}
 
-				if ($feed !== null)
-				{
+				if ($feed !== null) {
 					$sql = 'SELECT `data` FROM `' . $this->options['extras']['prefix'] . 'items` WHERE `feed_id` = :feed ORDER BY `posted` DESC';
-					if ($items > 0)
-					{
+					if ($items > 0) {
 						$sql .= ' LIMIT ' . $items;
 					}
 
 					$query = $this->mysql->prepare($sql);
 					$query->bindValue(':feed', $this->id);
-					if ($query->execute())
-					{
-						while ($row = $query->fetchColumn())
-						{
+					if ($query->execute()) {
+						while ($row = $query->fetchColumn()) {
 							$feed['child'][SIMPLEPIE_NAMESPACE_ATOM_10]['entry'][] = unserialize($row);
 						}
 					}
-					else
-					{
+					else {
 						return false;
 					}
 				}
@@ -2294,47 +1820,37 @@ class SimplePie_Cache_MySQL extends SimplePie_Cache_DB
 		}
 		return false;
 	}
-	public function mtime()
-	{
-		if ($this->mysql === null)
-		{
+	public function mtime() {
+		if ($this->mysql === null) {
 			return false;
 		}
 
 		$query = $this->mysql->prepare('SELECT `mtime` FROM `' . $this->options['extras']['prefix'] . 'cache_data` WHERE `id` = :id');
 		$query->bindValue(':id', $this->id);
-		if ($query->execute() && ($time = $query->fetchColumn()))
-		{
+		if ($query->execute() && ($time = $query->fetchColumn())) {
 			return $time;
 		}
-		else
-		{
+		else {
 			return false;
 		}
 	}
-	public function touch()
-	{
-		if ($this->mysql === null)
-		{
+	public function touch() {
+		if ($this->mysql === null) {
 			return false;
 		}
 
 		$query = $this->mysql->prepare('UPDATE `' . $this->options['extras']['prefix'] . 'cache_data` SET `mtime` = :time WHERE `id` = :id');
 		$query->bindValue(':time', time());
 		$query->bindValue(':id', $this->id);
-		if ($query->execute() && $query->rowCount() > 0)
-		{
+		if ($query->execute() && $query->rowCount() > 0) {
 			return true;
 		}
-		else
-		{
+		else {
 			return false;
 		}
 	}
-	public function unlink()
-	{
-		if ($this->mysql === null)
-		{
+	public function unlink() {
+		if ($this->mysql === null) {
 			return false;
 		}
 
@@ -2342,340 +1858,263 @@ class SimplePie_Cache_MySQL extends SimplePie_Cache_DB
 		$query->bindValue(':id', $this->id);
 		$query2 = $this->mysql->prepare('DELETE FROM `' . $this->options['extras']['prefix'] . 'items` WHERE `feed_id` = :id');
 		$query2->bindValue(':id', $this->id);
-		if ($query->execute() && $query2->execute())
-		{
+		if ($query->execute() && $query2->execute()) {
 			return true;
 		}
-		else
-		{
+		else {
 			return false;
 		}
 	}
 }
-class SimplePie_Cache
-{
+class SimplePie_Cache {
 	protected static $handlers = array(
 		'mysql' => 'SimplePie_Cache_MySQL',
 		'memcache' => 'SimplePie_Cache_Memcache',
 	);
 	private function __construct() { }
-	public static function create($location, $filename, $extension)
-	{
+	public static function create($location, $filename, $extension) {
 		$type = explode(':', $location, 2);
 		$type = $type[0];
-		if (!empty(self::$handlers[$type]))
-		{
+		if (!empty(self::$handlers[$type])) {
 			$class = self::$handlers[$type];
 			return new $class($location, $filename, $extension);
 		}
 
 		return new SimplePie_Cache_File($location, $filename, $extension);
 	}
-	public static function register($type, $class)
-	{
+	public static function register($type, $class) {
 		self::$handlers[$type] = $class;
 	}
-	public static function parse_URL($url)
-	{
+	public static function parse_URL($url) {
 		$params = parse_url($url);
 		$params['extras'] = array();
-		if (isset($params['query']))
-		{
+		if (isset($params['query'])) {
 			parse_str($params['query'], $params['extras']);
 		}
 		return $params;
 	}
 }
-class SimplePie_Caption
-{
+class SimplePie_Caption {
 	var $type;
 	var $lang;
 	var $startTime;
 	var $endTime;
 	var $text;
-	public function __construct($type = null, $lang = null, $startTime = null, $endTime = null, $text = null)
-	{
+	public function __construct($type = null, $lang = null, $startTime = null, $endTime = null, $text = null) {
 		$this->type = $type;
 		$this->lang = $lang;
 		$this->startTime = $startTime;
 		$this->endTime = $endTime;
 		$this->text = $text;
 	}
-	public function __toString()
-	{
+	public function __toString() {
 		// There is no $this->data here
 		return md5(serialize($this));
 	}
-	public function get_endtime()
-	{
-		if ($this->endTime !== null)
-		{
+	public function get_endtime() {
+		if ($this->endTime !== null) {
 			return $this->endTime;
 		}
-		else
-		{
+		else {
 			return null;
 		}
 	}
-	public function get_language()
-	{
-		if ($this->lang !== null)
-		{
+	public function get_language() {
+		if ($this->lang !== null) {
 			return $this->lang;
 		}
-		else
-		{
+		else {
 			return null;
 		}
 	}
-	public function get_starttime()
-	{
-		if ($this->startTime !== null)
-		{
+	public function get_starttime() {
+		if ($this->startTime !== null) {
 			return $this->startTime;
 		}
-		else
-		{
+		else {
 			return null;
 		}
 	}
-	public function get_text()
-	{
-		if ($this->text !== null)
-		{
+	public function get_text() {
+		if ($this->text !== null) {
 			return $this->text;
 		}
-		else
-		{
+		else {
 			return null;
 		}
 	}
-	public function get_type()
-	{
-		if ($this->type !== null)
-		{
+	public function get_type() {
+		if ($this->type !== null) {
 			return $this->type;
 		}
-		else
-		{
+		else {
 			return null;
 		}
 	}
 }
-class SimplePie_Category
-{
+class SimplePie_Category {
 	var $term;
 	var $scheme;
 	var $label;
-	public function __construct($term = null, $scheme = null, $label = null)
-	{
+	public function __construct($term = null, $scheme = null, $label = null) {
 		$this->term = $term;
 		$this->scheme = $scheme;
 		$this->label = $label;
 	}
-	public function __toString()
-	{
+	public function __toString() {
 		// There is no $this->data here
 		return md5(serialize($this));
 	}
-	public function get_term()
-	{
-		if ($this->term !== null)
-		{
+	public function get_term() {
+		if ($this->term !== null) {
 			return $this->term;
 		}
-		else
-		{
+		else {
 			return null;
 		}
 	}
-	public function get_scheme()
-	{
-		if ($this->scheme !== null)
-		{
+	public function get_scheme() {
+		if ($this->scheme !== null) {
 			return $this->scheme;
 		}
-		else
-		{
+		else {
 			return null;
 		}
 	}
-	public function get_label()
-	{
-		if ($this->label !== null)
-		{
+	public function get_label() {
+		if ($this->label !== null) {
 			return $this->label;
 		}
-		else
-		{
+		else {
 			return $this->get_term();
 		}
 	}
 }
-class SimplePie_Content_Type_Sniffer
-{
+class SimplePie_Content_Type_Sniffer {
 	var $file;
-	public function __construct($file)
-	{
+	public function __construct($file) {
 		$this->file = $file;
 	}
-	public function get_type()
-	{
-		if (isset($this->file->headers['content-type']))
-		{
+	public function get_type() {
+		if (isset($this->file->headers['content-type'])) {
 			if (!isset($this->file->headers['content-encoding'])
 				&& ($this->file->headers['content-type'] === 'text/plain'
 					|| $this->file->headers['content-type'] === 'text/plain; charset=ISO-8859-1'
 					|| $this->file->headers['content-type'] === 'text/plain; charset=iso-8859-1'
-					|| $this->file->headers['content-type'] === 'text/plain; charset=UTF-8'))
-			{
+					|| $this->file->headers['content-type'] === 'text/plain; charset=UTF-8')) {
 				return $this->text_or_binary();
 			}
 
-			if (($pos = strpos($this->file->headers['content-type'], ';')) !== false)
-			{
+			if (($pos = strpos($this->file->headers['content-type'], ';')) !== false) {
 				$official = substr($this->file->headers['content-type'], 0, $pos);
 			}
-			else
-			{
+			else {
 				$official = $this->file->headers['content-type'];
 			}
 			$official = trim(strtolower($official));
 
 			if ($official === 'unknown/unknown'
-				|| $official === 'application/unknown')
-			{
+				|| $official === 'application/unknown') {
 				return $this->unknown();
 			}
 			elseif (substr($official, -4) === '+xml'
 				|| $official === 'text/xml'
-				|| $official === 'application/xml')
-			{
+				|| $official === 'application/xml') {
 				return $official;
 			}
-			elseif (substr($official, 0, 6) === 'image/')
-			{
-				if ($return = $this->image())
-				{
+			elseif (substr($official, 0, 6) === 'image/') {
+				if ($return = $this->image()) {
 					return $return;
 				}
-				else
-				{
+				else {
 					return $official;
 				}
 			}
-			elseif ($official === 'text/html')
-			{
+			elseif ($official === 'text/html') {
 				return $this->feed_or_html();
 			}
-			else
-			{
+			else {
 				return $official;
 			}
 		}
-		else
-		{
+		else {
 			return $this->unknown();
 		}
 	}
-	public function text_or_binary()
-	{
+	public function text_or_binary() {
 		if (substr($this->file->body, 0, 2) === "\xFE\xFF"
 			|| substr($this->file->body, 0, 2) === "\xFF\xFE"
 			|| substr($this->file->body, 0, 4) === "\x00\x00\xFE\xFF"
-			|| substr($this->file->body, 0, 3) === "\xEF\xBB\xBF")
-		{
+			|| substr($this->file->body, 0, 3) === "\xEF\xBB\xBF") {
 			return 'text/plain';
 		}
-		elseif (preg_match('/[\x00-\x08\x0E-\x1A\x1C-\x1F]/', $this->file->body))
-		{
+		elseif (preg_match('/[\x00-\x08\x0E-\x1A\x1C-\x1F]/', $this->file->body)) {
 			return 'application/octect-stream';
 		}
-		else
-		{
+		else {
 			return 'text/plain';
 		}
 	}
-	public function unknown()
-	{
+	public function unknown() {
 		$ws = strspn($this->file->body, "\x09\x0A\x0B\x0C\x0D\x20");
 		if (strtolower(substr($this->file->body, $ws, 14)) === '<!doctype html'
 			|| strtolower(substr($this->file->body, $ws, 5)) === '<html'
-			|| strtolower(substr($this->file->body, $ws, 7)) === '<script')
-		{
+			|| strtolower(substr($this->file->body, $ws, 7)) === '<script') {
 			return 'text/html';
 		}
-		elseif (substr($this->file->body, 0, 5) === '%PDF-')
-		{
+		elseif (substr($this->file->body, 0, 5) === '%PDF-') {
 			return 'application/pdf';
 		}
-		elseif (substr($this->file->body, 0, 11) === '%!PS-Adobe-')
-		{
+		elseif (substr($this->file->body, 0, 11) === '%!PS-Adobe-') {
 			return 'application/postscript';
 		}
 		elseif (substr($this->file->body, 0, 6) === 'GIF87a'
-			|| substr($this->file->body, 0, 6) === 'GIF89a')
-		{
+			|| substr($this->file->body, 0, 6) === 'GIF89a') {
 			return 'image/gif';
 		}
-		elseif (substr($this->file->body, 0, 8) === "\x89\x50\x4E\x47\x0D\x0A\x1A\x0A")
-		{
+		elseif (substr($this->file->body, 0, 8) === "\x89\x50\x4E\x47\x0D\x0A\x1A\x0A") {
 			return 'image/png';
 		}
-		elseif (substr($this->file->body, 0, 3) === "\xFF\xD8\xFF")
-		{
+		elseif (substr($this->file->body, 0, 3) === "\xFF\xD8\xFF") {
 			return 'image/jpeg';
 		}
-		elseif (substr($this->file->body, 0, 2) === "\x42\x4D")
-		{
+		elseif (substr($this->file->body, 0, 2) === "\x42\x4D") {
 			return 'image/bmp';
 		}
-		elseif (substr($this->file->body, 0, 4) === "\x00\x00\x01\x00")
-		{
+		elseif (substr($this->file->body, 0, 4) === "\x00\x00\x01\x00") {
 			return 'image/vnd.microsoft.icon';
 		}
-		else
-		{
+		else {
 			return $this->text_or_binary();
 		}
 	}
-	public function image()
-	{
+	public function image() {
 		if (substr($this->file->body, 0, 6) === 'GIF87a'
-			|| substr($this->file->body, 0, 6) === 'GIF89a')
-		{
+			|| substr($this->file->body, 0, 6) === 'GIF89a') {
 			return 'image/gif';
 		}
-		elseif (substr($this->file->body, 0, 8) === "\x89\x50\x4E\x47\x0D\x0A\x1A\x0A")
-		{
+		elseif (substr($this->file->body, 0, 8) === "\x89\x50\x4E\x47\x0D\x0A\x1A\x0A") {
 			return 'image/png';
 		}
-		elseif (substr($this->file->body, 0, 3) === "\xFF\xD8\xFF")
-		{
+		elseif (substr($this->file->body, 0, 3) === "\xFF\xD8\xFF") {
 			return 'image/jpeg';
 		}
-		elseif (substr($this->file->body, 0, 2) === "\x42\x4D")
-		{
+		elseif (substr($this->file->body, 0, 2) === "\x42\x4D") {
 			return 'image/bmp';
 		}
-		elseif (substr($this->file->body, 0, 4) === "\x00\x00\x01\x00")
-		{
+		elseif (substr($this->file->body, 0, 4) === "\x00\x00\x01\x00") {
 			return 'image/vnd.microsoft.icon';
 		}
-		else
-		{
+		else {
 			return false;
 		}
 	}
-	public function feed_or_html()
-	{
+	public function feed_or_html() {
 		$len = strlen($this->file->body);
 		$pos = strspn($this->file->body, "\x09\x0A\x0D\x20");
 
-		while ($pos < $len)
-		{
-			switch ($this->file->body[$pos])
-			{
+		while ($pos < $len) {
+			switch ($this->file->body[$pos]) {
 				case "\x09":
 				case "\x0A":
 				case "\x0D":
@@ -2691,51 +2130,39 @@ class SimplePie_Content_Type_Sniffer
 					return 'text/html';
 			}
 
-			if (substr($this->file->body, $pos, 3) === '!--')
-			{
+			if (substr($this->file->body, $pos, 3) === '!--') {
 				$pos += 3;
-				if ($pos < $len && ($pos = strpos($this->file->body, '-->', $pos)) !== false)
-				{
+				if ($pos < $len && ($pos = strpos($this->file->body, '-->', $pos)) !== false) {
 					$pos += 3;
 				}
-				else
-				{
+				else {
 					return 'text/html';
 				}
 			}
-			elseif (substr($this->file->body, $pos, 1) === '!')
-			{
-				if ($pos < $len && ($pos = strpos($this->file->body, '>', $pos)) !== false)
-				{
+			elseif (substr($this->file->body, $pos, 1) === '!') {
+				if ($pos < $len && ($pos = strpos($this->file->body, '>', $pos)) !== false) {
 					$pos++;
 				}
-				else
-				{
+				else {
 					return 'text/html';
 				}
 			}
-			elseif (substr($this->file->body, $pos, 1) === '?')
-			{
-				if ($pos < $len && ($pos = strpos($this->file->body, '?>', $pos)) !== false)
-				{
+			elseif (substr($this->file->body, $pos, 1) === '?') {
+				if ($pos < $len && ($pos = strpos($this->file->body, '?>', $pos)) !== false) {
 					$pos += 2;
 				}
-				else
-				{
+				else {
 					return 'text/html';
 				}
 			}
 			elseif (substr($this->file->body, $pos, 3) === 'rss'
-				|| substr($this->file->body, $pos, 7) === 'rdf:RDF')
-			{
+				|| substr($this->file->body, $pos, 7) === 'rdf:RDF') {
 				return 'application/rss+xml';
 			}
-			elseif (substr($this->file->body, $pos, 4) === 'feed')
-			{
+			elseif (substr($this->file->body, $pos, 4) === 'feed') {
 				return 'application/atom+xml';
 			}
-			else
-			{
+			else {
 				return 'text/html';
 			}
 		}
@@ -2743,151 +2170,116 @@ class SimplePie_Content_Type_Sniffer
 		return 'text/html';
 	}
 }
-class SimplePie_Copyright
-{
+class SimplePie_Copyright {
 	var $url;
 	var $label;
-	public function __construct($url = null, $label = null)
-	{
+	public function __construct($url = null, $label = null) {
 		$this->url = $url;
 		$this->label = $label;
 	}
-	public function __toString()
-	{
+	public function __toString() {
 		// There is no $this->data here
 		return md5(serialize($this));
 	}
-	public function get_url()
-	{
-		if ($this->url !== null)
-		{
+	public function get_url() {
+		if ($this->url !== null) {
 			return $this->url;
 		}
-		else
-		{
+		else {
 			return null;
 		}
 	}
-	public function get_attribution()
-	{
-		if ($this->label !== null)
-		{
+	public function get_attribution() {
+		if ($this->label !== null) {
 			return $this->label;
 		}
-		else
-		{
+		else {
 			return null;
 		}
 	}
 }
-class SimplePie_Core extends SimplePie
-{
+class SimplePie_Core extends SimplePie {
 
 }
-class SimplePie_Credit
-{
+class SimplePie_Credit {
 	var $role;
 	var $scheme;
 	var $name;
-	public function __construct($role = null, $scheme = null, $name = null)
-	{
+	public function __construct($role = null, $scheme = null, $name = null) {
 		$this->role = $role;
 		$this->scheme = $scheme;
 		$this->name = $name;
 	}
-	public function __toString()
-	{
+	public function __toString() {
 		// There is no $this->data here
 		return md5(serialize($this));
 	}
-	public function get_role()
-	{
-		if ($this->role !== null)
-		{
+	public function get_role() {
+		if ($this->role !== null) {
 			return $this->role;
 		}
-		else
-		{
+		else {
 			return null;
 		}
 	}
-	public function get_scheme()
-	{
-		if ($this->scheme !== null)
-		{
+	public function get_scheme() {
+		if ($this->scheme !== null) {
 			return $this->scheme;
 		}
-		else
-		{
+		else {
 			return null;
 		}
 	}
-	public function get_name()
-	{
-		if ($this->name !== null)
-		{
+	public function get_name() {
+		if ($this->name !== null) {
 			return $this->name;
 		}
-		else
-		{
+		else {
 			return null;
 		}
 	}
 }
-class SimplePie_Decode_HTML_Entities
-{
+class SimplePie_Decode_HTML_Entities {
 	var $data = '';
 	var $consumed = '';
 	var $position = 0;
-	public function __construct($data)
-	{
+	public function __construct($data) {
 		$this->data = $data;
 	}
-	public function parse()
-	{
-		while (($this->position = strpos($this->data, '&', $this->position)) !== false)
-		{
+	public function parse() {
+		while (($this->position = strpos($this->data, '&', $this->position)) !== false) {
 			$this->consume();
 			$this->entity();
 			$this->consumed = '';
 		}
 		return $this->data;
 	}
-	public function consume()
-	{
-		if (isset($this->data[$this->position]))
-		{
+	public function consume() {
+		if (isset($this->data[$this->position])) {
 			$this->consumed .= $this->data[$this->position];
 			return $this->data[$this->position++];
 		}
-		else
-		{
+		else {
 			return false;
 		}
 	}
-	public function consume_range($chars)
-	{
-		if ($len = strspn($this->data, $chars, $this->position))
-		{
+	public function consume_range($chars) {
+		if ($len = strspn($this->data, $chars, $this->position)) {
 			$data = substr($this->data, $this->position, $len);
 			$this->consumed .= $data;
 			$this->position += $len;
 			return $data;
 		}
-		else
-		{
+		else {
 			return false;
 		}
 	}
-	public function unconsume()
-	{
+	public function unconsume() {
 		$this->consumed = substr($this->consumed, 0, -1);
 		$this->position--;
 	}
-	public function entity()
-	{
-		switch ($this->consume())
-		{
+	public function entity() {
+		switch ($this->consume()) {
 			case "\x09":
 			case "\x0A":
 			case "\x0B":
@@ -2900,8 +2292,7 @@ class SimplePie_Decode_HTML_Entities
 				break;
 
 			case "\x23":
-				switch ($this->consume())
-				{
+				switch ($this->consume()) {
 					case "\x78":
 					case "\x58":
 						$range = '0123456789ABCDEFabcdef';
@@ -2915,30 +2306,24 @@ class SimplePie_Decode_HTML_Entities
 						break;
 				}
 
-				if ($codepoint = $this->consume_range($range))
-				{
+				if ($codepoint = $this->consume_range($range)) {
 					static $windows_1252_specials = array(0x0D => "\x0A", 0x80 => "\xE2\x82\xAC", 0x81 => "\xEF\xBF\xBD", 0x82 => "\xE2\x80\x9A", 0x83 => "\xC6\x92", 0x84 => "\xE2\x80\x9E", 0x85 => "\xE2\x80\xA6", 0x86 => "\xE2\x80\xA0", 0x87 => "\xE2\x80\xA1", 0x88 => "\xCB\x86", 0x89 => "\xE2\x80\xB0", 0x8A => "\xC5\xA0", 0x8B => "\xE2\x80\xB9", 0x8C => "\xC5\x92", 0x8D => "\xEF\xBF\xBD", 0x8E => "\xC5\xBD", 0x8F => "\xEF\xBF\xBD", 0x90 => "\xEF\xBF\xBD", 0x91 => "\xE2\x80\x98", 0x92 => "\xE2\x80\x99", 0x93 => "\xE2\x80\x9C", 0x94 => "\xE2\x80\x9D", 0x95 => "\xE2\x80\xA2", 0x96 => "\xE2\x80\x93", 0x97 => "\xE2\x80\x94", 0x98 => "\xCB\x9C", 0x99 => "\xE2\x84\xA2", 0x9A => "\xC5\xA1", 0x9B => "\xE2\x80\xBA", 0x9C => "\xC5\x93", 0x9D => "\xEF\xBF\xBD", 0x9E => "\xC5\xBE", 0x9F => "\xC5\xB8");
 
-					if ($hex)
-					{
+					if ($hex) {
 						$codepoint = hexdec($codepoint);
 					}
-					else
-					{
+					else {
 						$codepoint = intval($codepoint);
 					}
 
-					if (isset($windows_1252_specials[$codepoint]))
-					{
+					if (isset($windows_1252_specials[$codepoint])) {
 						$replacement = $windows_1252_specials[$codepoint];
 					}
-					else
-					{
+					else {
 						$replacement = SimplePie_Misc::codepoint_to_utf8($codepoint);
 					}
 
-					if (!in_array($this->consume(), array(';', false), true))
-					{
+					if (!in_array($this->consume(), array(';', false), true)) {
 						$this->unconsume();
 					}
 
@@ -3318,17 +2703,14 @@ class SimplePie_Decode_HTML_Entities
 					'zwnj;' => "\xE2\x80\x8C"
 				);
 
-				for ($i = 0, $match = null; $i < 9 && $this->consume() !== false; $i++)
-				{
+				for ($i = 0, $match = null; $i < 9 && $this->consume() !== false; $i++) {
 					$consumed = substr($this->consumed, 1);
-					if (isset($entities[$consumed]))
-					{
+					if (isset($entities[$consumed])) {
 						$match = $consumed;
 					}
 				}
 
-				if ($match !== null)
-				{
+				if ($match !== null) {
  					$this->data = substr_replace($this->data, $entities[$match], $this->position - strlen($consumed) - 1, strlen($match) + 1);
 					$this->position += strlen($entities[$match]) - strlen($consumed) - 1;
 				}
@@ -3336,8 +2718,7 @@ class SimplePie_Decode_HTML_Entities
 		}
 	}
 }
-class SimplePie_Enclosure
-{
+class SimplePie_Enclosure {
 	var $bitrate;
 	var $captions;
 	var $categories;
@@ -3365,8 +2746,7 @@ class SimplePie_Enclosure
 	var $title;
 	var $type;
 	var $width;
-	public function __construct($link = null, $type = null, $length = null, $javascript = null, $bitrate = null, $captions = null, $categories = null, $channels = null, $copyright = null, $credits = null, $description = null, $duration = null, $expression = null, $framerate = null, $hashes = null, $height = null, $keywords = null, $lang = null, $medium = null, $player = null, $ratings = null, $restrictions = null, $samplingrate = null, $thumbnails = null, $title = null, $width = null)
-	{
+	public function __construct($link = null, $type = null, $length = null, $javascript = null, $bitrate = null, $captions = null, $categories = null, $channels = null, $copyright = null, $credits = null, $description = null, $duration = null, $expression = null, $framerate = null, $hashes = null, $height = null, $keywords = null, $lang = null, $medium = null, $player = null, $ratings = null, $restrictions = null, $samplingrate = null, $thumbnails = null, $title = null, $width = null) {
 		$this->bitrate = $bitrate;
 		$this->captions = $captions;
 		$this->categories = $categories;
@@ -3393,432 +2773,320 @@ class SimplePie_Enclosure
 		$this->type = $type;
 		$this->width = $width;
 
-		if (class_exists('idna_convert'))
-		{
+		if (class_exists('idna_convert')) {
 			$idn = new idna_convert();
 			$parsed = SimplePie_Misc::parse_url($link);
 			$this->link = SimplePie_Misc::compress_parse_url($parsed['scheme'], $idn->encode($parsed['authority']), $parsed['path'], $parsed['query'], $parsed['fragment']);
 		}
 		$this->handler = $this->get_handler(); // Needs to load last
 	}
-	public function __toString()
-	{
+	public function __toString() {
 		// There is no $this->data here
 		return md5(serialize($this));
 	}
-	public function get_bitrate()
-	{
-		if ($this->bitrate !== null)
-		{
+	public function get_bitrate() {
+		if ($this->bitrate !== null) {
 			return $this->bitrate;
 		}
-		else
-		{
+		else {
 			return null;
 		}
 	}
-	public function get_caption($key = 0)
-	{
+	public function get_caption($key = 0) {
 		$captions = $this->get_captions();
-		if (isset($captions[$key]))
-		{
+		if (isset($captions[$key])) {
 			return $captions[$key];
 		}
-		else
-		{
+		else {
 			return null;
 		}
 	}
-	public function get_captions()
-	{
-		if ($this->captions !== null)
-		{
+	public function get_captions() {
+		if ($this->captions !== null) {
 			return $this->captions;
 		}
-		else
-		{
+		else {
 			return null;
 		}
 	}
-	public function get_category($key = 0)
-	{
+	public function get_category($key = 0) {
 		$categories = $this->get_categories();
-		if (isset($categories[$key]))
-		{
+		if (isset($categories[$key])) {
 			return $categories[$key];
 		}
-		else
-		{
+		else {
 			return null;
 		}
 	}
-	public function get_categories()
-	{
-		if ($this->categories !== null)
-		{
+	public function get_categories() {
+		if ($this->categories !== null) {
 			return $this->categories;
 		}
-		else
-		{
+		else {
 			return null;
 		}
 	}
-	public function get_channels()
-	{
-		if ($this->channels !== null)
-		{
+	public function get_channels() {
+		if ($this->channels !== null) {
 			return $this->channels;
 		}
-		else
-		{
+		else {
 			return null;
 		}
 	}
-	public function get_copyright()
-	{
-		if ($this->copyright !== null)
-		{
+	public function get_copyright() {
+		if ($this->copyright !== null) {
 			return $this->copyright;
 		}
-		else
-		{
+		else {
 			return null;
 		}
 	}
-	public function get_credit($key = 0)
-	{
+	public function get_credit($key = 0) {
 		$credits = $this->get_credits();
-		if (isset($credits[$key]))
-		{
+		if (isset($credits[$key])) {
 			return $credits[$key];
 		}
-		else
-		{
+		else {
 			return null;
 		}
 	}
-	public function get_credits()
-	{
-		if ($this->credits !== null)
-		{
+	public function get_credits() {
+		if ($this->credits !== null) {
 			return $this->credits;
 		}
-		else
-		{
+		else {
 			return null;
 		}
 	}
-	public function get_description()
-	{
-		if ($this->description !== null)
-		{
+	public function get_description() {
+		if ($this->description !== null) {
 			return $this->description;
 		}
-		else
-		{
+		else {
 			return null;
 		}
 	}
-	public function get_duration($convert = false)
-	{
-		if ($this->duration !== null)
-		{
-			if ($convert)
-			{
+	public function get_duration($convert = false) {
+		if ($this->duration !== null) {
+			if ($convert) {
 				$time = SimplePie_Misc::time_hms($this->duration);
 				return $time;
 			}
-			else
-			{
+			else {
 				return $this->duration;
 			}
 		}
-		else
-		{
+		else {
 			return null;
 		}
 	}
-	public function get_expression()
-	{
-		if ($this->expression !== null)
-		{
+	public function get_expression() {
+		if ($this->expression !== null) {
 			return $this->expression;
 		}
-		else
-		{
+		else {
 			return 'full';
 		}
 	}
-	public function get_extension()
-	{
-		if ($this->link !== null)
-		{
+	public function get_extension() {
+		if ($this->link !== null) {
 			$url = SimplePie_Misc::parse_url($this->link);
-			if ($url['path'] !== '')
-			{
+			if ($url['path'] !== '') {
 				return pathinfo($url['path'], PATHINFO_EXTENSION);
 			}
 		}
 		return null;
 	}
-	public function get_framerate()
-	{
-		if ($this->framerate !== null)
-		{
+	public function get_framerate() {
+		if ($this->framerate !== null) {
 			return $this->framerate;
 		}
-		else
-		{
+		else {
 			return null;
 		}
 	}
-	public function get_handler()
-	{
+	public function get_handler() {
 		return $this->get_real_type(true);
 	}
-	public function get_hash($key = 0)
-	{
+	public function get_hash($key = 0) {
 		$hashes = $this->get_hashes();
-		if (isset($hashes[$key]))
-		{
+		if (isset($hashes[$key])) {
 			return $hashes[$key];
 		}
-		else
-		{
+		else {
 			return null;
 		}
 	}
-	public function get_hashes()
-	{
-		if ($this->hashes !== null)
-		{
+	public function get_hashes() {
+		if ($this->hashes !== null) {
 			return $this->hashes;
 		}
-		else
-		{
+		else {
 			return null;
 		}
 	}
-	public function get_height()
-	{
-		if ($this->height !== null)
-		{
+	public function get_height() {
+		if ($this->height !== null) {
 			return $this->height;
 		}
-		else
-		{
+		else {
 			return null;
 		}
 	}
-	public function get_language()
-	{
-		if ($this->lang !== null)
-		{
+	public function get_language() {
+		if ($this->lang !== null) {
 			return $this->lang;
 		}
-		else
-		{
+		else {
 			return null;
 		}
 	}
-	public function get_keyword($key = 0)
-	{
+	public function get_keyword($key = 0) {
 		$keywords = $this->get_keywords();
-		if (isset($keywords[$key]))
-		{
+		if (isset($keywords[$key])) {
 			return $keywords[$key];
 		}
-		else
-		{
+		else {
 			return null;
 		}
 	}
-	public function get_keywords()
-	{
-		if ($this->keywords !== null)
-		{
+	public function get_keywords() {
+		if ($this->keywords !== null) {
 			return $this->keywords;
 		}
-		else
-		{
+		else {
 			return null;
 		}
 	}
-	public function get_length()
-	{
-		if ($this->length !== null)
-		{
+	public function get_length() {
+		if ($this->length !== null) {
 			return $this->length;
 		}
-		else
-		{
+		else {
 			return null;
 		}
 	}
-	public function get_link()
-	{
-		if ($this->link !== null)
-		{
+	public function get_link() {
+		if ($this->link !== null) {
 			return urldecode($this->link);
 		}
-		else
-		{
+		else {
 			return null;
 		}
 	}
-	public function get_medium()
-	{
-		if ($this->medium !== null)
-		{
+	public function get_medium() {
+		if ($this->medium !== null) {
 			return $this->medium;
 		}
-		else
-		{
+		else {
 			return null;
 		}
 	}
-	public function get_player()
-	{
-		if ($this->player !== null)
-		{
+	public function get_player() {
+		if ($this->player !== null) {
 			return $this->player;
 		}
-		else
-		{
+		else {
 			return null;
 		}
 	}
-	public function get_rating($key = 0)
-	{
+	public function get_rating($key = 0) {
 		$ratings = $this->get_ratings();
-		if (isset($ratings[$key]))
-		{
+		if (isset($ratings[$key])) {
 			return $ratings[$key];
 		}
-		else
-		{
+		else {
 			return null;
 		}
 	}
-	public function get_ratings()
-	{
-		if ($this->ratings !== null)
-		{
+	public function get_ratings() {
+		if ($this->ratings !== null) {
 			return $this->ratings;
 		}
-		else
-		{
+		else {
 			return null;
 		}
 	}
-	public function get_restriction($key = 0)
-	{
+	public function get_restriction($key = 0) {
 		$restrictions = $this->get_restrictions();
-		if (isset($restrictions[$key]))
-		{
+		if (isset($restrictions[$key])) {
 			return $restrictions[$key];
 		}
-		else
-		{
+		else {
 			return null;
 		}
 	}
-	public function get_restrictions()
-	{
-		if ($this->restrictions !== null)
-		{
+	public function get_restrictions() {
+		if ($this->restrictions !== null) {
 			return $this->restrictions;
 		}
-		else
-		{
+		else {
 			return null;
 		}
 	}
-	public function get_sampling_rate()
-	{
-		if ($this->samplingrate !== null)
-		{
+	public function get_sampling_rate() {
+		if ($this->samplingrate !== null) {
 			return $this->samplingrate;
 		}
-		else
-		{
+		else {
 			return null;
 		}
 	}
-	public function get_size()
-	{
+	public function get_size() {
 		$length = $this->get_length();
-		if ($length !== null)
-		{
+		if ($length !== null) {
 			return round($length/1048576, 2);
 		}
-		else
-		{
+		else {
 			return null;
 		}
 	}
-	public function get_thumbnail($key = 0)
-	{
+	public function get_thumbnail($key = 0) {
 		$thumbnails = $this->get_thumbnails();
-		if (isset($thumbnails[$key]))
-		{
+		if (isset($thumbnails[$key])) {
 			return $thumbnails[$key];
 		}
-		else
-		{
+		else {
 			return null;
 		}
 	}
-	public function get_thumbnails()
-	{
-		if ($this->thumbnails !== null)
-		{
+	public function get_thumbnails() {
+		if ($this->thumbnails !== null) {
 			return $this->thumbnails;
 		}
-		else
-		{
+		else {
 			return null;
 		}
 	}
-	public function get_title()
-	{
-		if ($this->title !== null)
-		{
+	public function get_title() {
+		if ($this->title !== null) {
 			return $this->title;
 		}
-		else
-		{
+		else {
 			return null;
 		}
 	}
-	public function get_type()
-	{
-		if ($this->type !== null)
-		{
+	public function get_type() {
+		if ($this->type !== null) {
 			return $this->type;
 		}
-		else
-		{
+		else {
 			return null;
 		}
 	}
-	public function get_width()
-	{
-		if ($this->width !== null)
-		{
+	public function get_width() {
+		if ($this->width !== null) {
 			return $this->width;
 		}
-		else
-		{
+		else {
 			return null;
 		}
 	}
-	public function native_embed($options='')
-	{
+	public function native_embed($options='') {
 		return $this->embed($options, true);
 	}
-	public function embed($options = '', $native = false)
-	{
+	public function embed($options = '', $native = false) {
 		// Set up defaults
 		$audio = '';
 		$video = '';
@@ -3834,22 +3102,17 @@ class SimplePie_Enclosure
 		$type = $this->get_real_type();
 
 		// Process options and reassign values as necessary
-		if (is_array($options))
-		{
+		if (is_array($options)) {
 			extract($options);
 		}
-		else
-		{
+		else {
 			$options = explode(',', $options);
-			foreach($options as $option)
-			{
+			foreach($options as $option) {
 				$opt = explode(':', $option, 2);
-				if (isset($opt[0], $opt[1]))
-				{
+				if (isset($opt[0], $opt[1])) {
 					$opt[0] = trim($opt[0]);
 					$opt[1] = trim($opt[1]);
-					switch ($opt[0])
-					{
+					switch ($opt[0]) {
 						case 'audio':
 							$audio = $opt[1];
 							break;
@@ -3898,139 +3161,107 @@ class SimplePie_Enclosure
 		$mime = $mime[0];
 
 		// Process values for 'auto'
-		if ($width === 'auto')
-		{
-			if ($mime === 'video')
-			{
-				if ($height === 'auto')
-				{
+		if ($width === 'auto') {
+			if ($mime === 'video') {
+				if ($height === 'auto') {
 					$width = 480;
 				}
-				elseif ($widescreen)
-				{
+				elseif ($widescreen) {
 					$width = round((intval($height)/9)*16);
 				}
-				else
-				{
+				else {
 					$width = round((intval($height)/3)*4);
 				}
 			}
-			else
-			{
+			else {
 				$width = '100%';
 			}
 		}
 
-		if ($height === 'auto')
-		{
-			if ($mime === 'audio')
-			{
+		if ($height === 'auto') {
+			if ($mime === 'audio') {
 				$height = 0;
 			}
-			elseif ($mime === 'video')
-			{
-				if ($width === 'auto')
-				{
-					if ($widescreen)
-					{
+			elseif ($mime === 'video') {
+				if ($width === 'auto') {
+					if ($widescreen) {
 						$height = 270;
 					}
-					else
-					{
+					else {
 						$height = 360;
 					}
 				}
-				elseif ($widescreen)
-				{
+				elseif ($widescreen) {
 					$height = round((intval($width)/16)*9);
 				}
-				else
-				{
+				else {
 					$height = round((intval($width)/4)*3);
 				}
 			}
-			else
-			{
+			else {
 				$height = 376;
 			}
 		}
-		elseif ($mime === 'audio')
-		{
+		elseif ($mime === 'audio') {
 			$height = 0;
 		}
 
 		// Set proper placeholder value
-		if ($mime === 'audio')
-		{
+		if ($mime === 'audio') {
 			$placeholder = $audio;
 		}
-		elseif ($mime === 'video')
-		{
+		elseif ($mime === 'video') {
 			$placeholder = $video;
 		}
 
 		$embed = '';
 
 		// Flash
-		if ($handler === 'flash')
-		{
-			if ($native)
-			{
+		if ($handler === 'flash') {
+			if ($native) {
 				$embed .= "<embed src=\"" . $this->get_link() . "\" pluginspage=\"http://adobe.com/go/getflashplayer\" type=\"$type\" quality=\"high\" width=\"$width\" height=\"$height\" bgcolor=\"$bgcolor\" loop=\"$loop\"></embed>";
 			}
-			else
-			{
+			else {
 				$embed .= "<script type='text/javascript'>embed_flash('$bgcolor', '$width', '$height', '" . $this->get_link() . "', '$loop', '$type');</script>";
 			}
 		}
 
 		// Flash Media Player file types.
 		// Preferred handler for MP3 file types.
-		elseif ($handler === 'fmedia' || ($handler === 'mp3' && $mediaplayer !== ''))
-		{
+		elseif ($handler === 'fmedia' || ($handler === 'mp3' && $mediaplayer !== '')) {
 			$height += 20;
-			if ($native)
-			{
+			if ($native) {
 				$embed .= "<embed src=\"$mediaplayer\" pluginspage=\"http://adobe.com/go/getflashplayer\" type=\"application/x-shockwave-flash\" quality=\"high\" width=\"$width\" height=\"$height\" wmode=\"transparent\" flashvars=\"file=" . rawurlencode($this->get_link().'?file_extension=.'.$this->get_extension()) . "&autostart=false&repeat=$loop&showdigits=true&showfsbutton=false\"></embed>";
 			}
-			else
-			{
+			else {
 				$embed .= "<script type='text/javascript'>embed_flv('$width', '$height', '" . rawurlencode($this->get_link().'?file_extension=.'.$this->get_extension()) . "', '$placeholder', '$loop', '$mediaplayer');</script>";
 			}
 		}
 
 		// QuickTime 7 file types.  Need to test with QuickTime 6.
 		// Only handle MP3's if the Flash Media Player is not present.
-		elseif ($handler === 'quicktime' || ($handler === 'mp3' && $mediaplayer === ''))
-		{
+		elseif ($handler === 'quicktime' || ($handler === 'mp3' && $mediaplayer === '')) {
 			$height += 16;
-			if ($native)
-			{
-				if ($placeholder !== '')
-				{
+			if ($native) {
+				if ($placeholder !== '') {
 					$embed .= "<embed type=\"$type\" style=\"cursor:hand; cursor:pointer;\" href=\"" . $this->get_link() . "\" src=\"$placeholder\" width=\"$width\" height=\"$height\" autoplay=\"false\" target=\"myself\" controller=\"false\" loop=\"$loop\" scale=\"aspect\" bgcolor=\"$bgcolor\" pluginspage=\"http://apple.com/quicktime/download/\"></embed>";
 				}
-				else
-				{
+				else {
 					$embed .= "<embed type=\"$type\" style=\"cursor:hand; cursor:pointer;\" src=\"" . $this->get_link() . "\" width=\"$width\" height=\"$height\" autoplay=\"false\" target=\"myself\" controller=\"true\" loop=\"$loop\" scale=\"aspect\" bgcolor=\"$bgcolor\" pluginspage=\"http://apple.com/quicktime/download/\"></embed>";
 				}
 			}
-			else
-			{
+			else {
 				$embed .= "<script type='text/javascript'>embed_quicktime('$type', '$bgcolor', '$width', '$height', '" . $this->get_link() . "', '$placeholder', '$loop');</script>";
 			}
 		}
 
 		// Windows Media
-		elseif ($handler === 'wmedia')
-		{
+		elseif ($handler === 'wmedia') {
 			$height += 45;
-			if ($native)
-			{
+			if ($native) {
 				$embed .= "<embed type=\"application/x-mplayer2\" src=\"" . $this->get_link() . "\" autosize=\"1\" width=\"$width\" height=\"$height\" showcontrols=\"1\" showstatusbar=\"0\" showdisplay=\"0\" autostart=\"0\"></embed>";
 			}
-			else
-			{
+			else {
 				$embed .= "<script type='text/javascript'>embed_wmedia('$width', '$height', '" . $this->get_link() . "');</script>";
 			}
 		}
@@ -4040,8 +3271,7 @@ class SimplePie_Enclosure
 
 		return $embed;
 	}
-	public function get_real_type($find_handler = false)
-	{
+	public function get_real_type($find_handler = false) {
 		// Mime-types by handler.
 		$types_flash = array('application/x-shockwave-flash', 'application/futuresplash'); // Flash
 		$types_fmedia = array('video/flv', 'video/x-flv','flv-application/octet-stream'); // Flash Media Player
@@ -4049,20 +3279,16 @@ class SimplePie_Enclosure
 		$types_wmedia = array('application/asx', 'application/x-mplayer2', 'audio/x-ms-wma', 'audio/x-ms-wax', 'video/x-ms-asf-plugin', 'video/x-ms-asf', 'video/x-ms-wm', 'video/x-ms-wmv', 'video/x-ms-wvx'); // Windows Media
 		$types_mp3 = array('audio/mp3', 'audio/x-mp3', 'audio/mpeg', 'audio/x-mpeg'); // MP3
 
-		if ($this->get_type() !== null)
-		{
+		if ($this->get_type() !== null) {
 			$type = strtolower($this->type);
 		}
-		else
-		{
+		else {
 			$type = null;
 		}
 
 		// If we encounter an unsupported mime-type, check the file extension and guess intelligently.
-		if (!in_array($type, array_merge($types_flash, $types_fmedia, $types_quicktime, $types_wmedia, $types_mp3)))
-		{
-			switch (strtolower($this->get_extension()))
-			{
+		if (!in_array($type, array_merge($types_flash, $types_fmedia, $types_quicktime, $types_wmedia, $types_mp3))) {
+			switch (strtolower($this->get_extension())) {
 				// Audio mime-types
 				case 'aac':
 				case 'adts':
@@ -4182,41 +3408,32 @@ class SimplePie_Enclosure
 			}
 		}
 
-		if ($find_handler)
-		{
-			if (in_array($type, $types_flash))
-			{
+		if ($find_handler) {
+			if (in_array($type, $types_flash)) {
 				return 'flash';
 			}
-			elseif (in_array($type, $types_fmedia))
-			{
+			elseif (in_array($type, $types_fmedia)) {
 				return 'fmedia';
 			}
-			elseif (in_array($type, $types_quicktime))
-			{
+			elseif (in_array($type, $types_quicktime)) {
 				return 'quicktime';
 			}
-			elseif (in_array($type, $types_wmedia))
-			{
+			elseif (in_array($type, $types_wmedia)) {
 				return 'wmedia';
 			}
-			elseif (in_array($type, $types_mp3))
-			{
+			elseif (in_array($type, $types_mp3)) {
 				return 'mp3';
 			}
-			else
-			{
+			else {
 				return null;
 			}
 		}
-		else
-		{
+		else {
 			return $type;
 		}
 	}
 }
-class SimplePie_File
-{
+class SimplePie_File {
 	var $url;
 	var $useragent;
 	var $success = true;
@@ -4227,38 +3444,30 @@ class SimplePie_File
 	var $error;
 	var $method = SIMPLEPIE_FILE_SOURCE_NONE;
 
-	public function __construct($url, $timeout = 10, $redirects = 5, $headers = null, $useragent = null, $force_fsockopen = false)
-	{
-		if (class_exists('idna_convert'))
-		{
+	public function __construct($url, $timeout = 10, $redirects = 5, $headers = null, $useragent = null, $force_fsockopen = false) {
+		if (class_exists('idna_convert')) {
 			$idn = new idna_convert();
 			$parsed = SimplePie_Misc::parse_url($url);
 			$url = SimplePie_Misc::compress_parse_url($parsed['scheme'], $idn->encode($parsed['authority']), $parsed['path'], $parsed['query'], $parsed['fragment']);
 		}
 		$this->url = $url;
 		$this->useragent = $useragent;
-		if (preg_match('/^http(s)?:\/\//i', $url))
-		{
-			if ($useragent === null)
-			{
+		if (preg_match('/^http(s)?:\/\//i', $url)) {
+			if ($useragent === null) {
 				$useragent = ini_get('user_agent');
 				$this->useragent = $useragent;
 			}
-			if (!is_array($headers))
-			{
+			if (!is_array($headers)) {
 				$headers = array();
 			}
-			if (!$force_fsockopen && function_exists('curl_exec'))
-			{
+			if (!$force_fsockopen && function_exists('curl_exec')) {
 				$this->method = SIMPLEPIE_FILE_SOURCE_REMOTE | SIMPLEPIE_FILE_SOURCE_CURL;
 				$fp = curl_init();
 				$headers2 = array();
-				foreach ($headers as $key => $value)
-				{
+				foreach ($headers as $key => $value) {
 					$headers2[] = "$key: $value";
 				}
-				if (version_compare(SimplePie_Misc::get_curl_version(), '7.10.5', '>='))
-				{
+				if (version_compare(SimplePie_Misc::get_curl_version(), '7.10.5', '>=')) {
 					curl_setopt($fp, CURLOPT_ENCODING, '');
 				}
 				curl_setopt($fp, CURLOPT_URL, $url);
@@ -4270,37 +3479,31 @@ class SimplePie_File
 				curl_setopt($fp, CURLOPT_USERAGENT, $useragent);
 				curl_setopt($fp, CURLOPT_HTTPHEADER, $headers2);
 				curl_setopt($fp, CURLOPT_SSL_VERIFYPEER, 0);
-				if (!ini_get('open_basedir') && !ini_get('safe_mode') && version_compare(SimplePie_Misc::get_curl_version(), '7.15.2', '>='))
-				{
+				if (!ini_get('open_basedir') && !ini_get('safe_mode') && version_compare(SimplePie_Misc::get_curl_version(), '7.15.2', '>=')) {
 					curl_setopt($fp, CURLOPT_FOLLOWLOCATION, 1);
 					curl_setopt($fp, CURLOPT_MAXREDIRS, $redirects);
 				}
 
 				$this->headers = curl_exec($fp);
-				if (curl_errno($fp) === 23 || curl_errno($fp) === 61)
-				{
+				if (curl_errno($fp) === 23 || curl_errno($fp) === 61) {
 					curl_setopt($fp, CURLOPT_ENCODING, 'none');
 					$this->headers = curl_exec($fp);
 				}
-				if (curl_errno($fp))
-				{
+				if (curl_errno($fp)) {
 					$this->error = 'cURL error ' . curl_errno($fp) . ': ' . curl_error($fp);
 					$this->success = false;
 				}
-				else
-				{
+				else {
 					$info = curl_getinfo($fp);
 					curl_close($fp);
 					$this->headers = explode("\r\n\r\n", $this->headers, $info['redirect_count'] + 1);
 					$this->headers = array_pop($this->headers);
 					$parser = new SimplePie_HTTP_Parser($this->headers);
-					if ($parser->parse())
-					{
+					if ($parser->parse()) {
 						$this->headers = $parser->headers;
 						$this->body = $parser->body;
 						$this->status_code = $parser->status_code;
-						if ((in_array($this->status_code, array(300, 301, 302, 303, 307)) || $this->status_code > 307 && $this->status_code < 400) && isset($this->headers['location']) && $this->redirects < $redirects)
-						{
+						if ((in_array($this->status_code, array(300, 301, 302, 303, 307)) || $this->status_code > 307 && $this->status_code < 400) && isset($this->headers['location']) && $this->redirects < $redirects) {
 							$this->redirects++;
 							$location = SimplePie_Misc::absolutize_url($this->headers['location'], $url);
 							return $this->__construct($location, $timeout, $redirects, $headers, $useragent, $force_fsockopen);
@@ -4308,58 +3511,46 @@ class SimplePie_File
 					}
 				}
 			}
-			else
-			{
+			else {
 				$this->method = SIMPLEPIE_FILE_SOURCE_REMOTE | SIMPLEPIE_FILE_SOURCE_FSOCKOPEN;
 				$url_parts = parse_url($url);
 				$socket_host = $url_parts['host'];
-				if (isset($url_parts['scheme']) && strtolower($url_parts['scheme']) === 'https')
-				{
+				if (isset($url_parts['scheme']) && strtolower($url_parts['scheme']) === 'https') {
 					$socket_host = "ssl://$url_parts[host]";
 					$url_parts['port'] = 443;
 				}
-				if (!isset($url_parts['port']))
-				{
+				if (!isset($url_parts['port'])) {
 					$url_parts['port'] = 80;
 				}
 				$fp = @fsockopen($socket_host, $url_parts['port'], $errno, $errstr, $timeout);
-				if (!$fp)
-				{
+				if (!$fp) {
 					$this->error = 'fsockopen error: ' . $errstr;
 					$this->success = false;
 				}
-				else
-				{
+				else {
 					stream_set_timeout($fp, $timeout);
-					if (isset($url_parts['path']))
-					{
-						if (isset($url_parts['query']))
-						{
+					if (isset($url_parts['path'])) {
+						if (isset($url_parts['query'])) {
 							$get = "$url_parts[path]?$url_parts[query]";
 						}
-						else
-						{
+						else {
 							$get = $url_parts['path'];
 						}
 					}
-					else
-					{
+					else {
 						$get = '/';
 					}
 					$out = "GET $get HTTP/1.1\r\n";
 					$out .= "Host: $url_parts[host]\r\n";
 					$out .= "User-Agent: $useragent\r\n";
-					if (extension_loaded('zlib'))
-					{
+					if (extension_loaded('zlib')) {
 						$out .= "Accept-Encoding: x-gzip,gzip,deflate\r\n";
 					}
 
-					if (isset($url_parts['user']) && isset($url_parts['pass']))
-					{
+					if (isset($url_parts['user']) && isset($url_parts['pass'])) {
 						$out .= "Authorization: Basic " . base64_encode("$url_parts[user]:$url_parts[pass]") . "\r\n";
 					}
-					foreach ($headers as $key => $value)
-					{
+					foreach ($headers as $key => $value) {
 						$out .= "$key: $value\r\n";
 					}
 					$out .= "Connection: Close\r\n\r\n";
@@ -4368,59 +3559,47 @@ class SimplePie_File
 					$info = stream_get_meta_data($fp);
 
 					$this->headers = '';
-					while (!$info['eof'] && !$info['timed_out'])
-					{
+					while (!$info['eof'] && !$info['timed_out']) {
 						$this->headers .= fread($fp, 1160);
 						$info = stream_get_meta_data($fp);
 					}
-					if (!$info['timed_out'])
-					{
+					if (!$info['timed_out']) {
 						$parser = new SimplePie_HTTP_Parser($this->headers);
-						if ($parser->parse())
-						{
+						if ($parser->parse()) {
 							$this->headers = $parser->headers;
 							$this->body = $parser->body;
 							$this->status_code = $parser->status_code;
-							if ((in_array($this->status_code, array(300, 301, 302, 303, 307)) || $this->status_code > 307 && $this->status_code < 400) && isset($this->headers['location']) && $this->redirects < $redirects)
-							{
+							if ((in_array($this->status_code, array(300, 301, 302, 303, 307)) || $this->status_code > 307 && $this->status_code < 400) && isset($this->headers['location']) && $this->redirects < $redirects) {
 								$this->redirects++;
 								$location = SimplePie_Misc::absolutize_url($this->headers['location'], $url);
 								return $this->__construct($location, $timeout, $redirects, $headers, $useragent, $force_fsockopen);
 							}
-							if (isset($this->headers['content-encoding']))
-							{
+							if (isset($this->headers['content-encoding'])) {
 								// Hey, we act dumb elsewhere, so let's do that here too
-								switch (strtolower(trim($this->headers['content-encoding'], "\x09\x0A\x0D\x20")))
-								{
+								switch (strtolower(trim($this->headers['content-encoding'], "\x09\x0A\x0D\x20"))) {
 									case 'gzip':
 									case 'x-gzip':
 										$decoder = new SimplePie_gzdecode($this->body);
-										if (!$decoder->parse())
-										{
+										if (!$decoder->parse()) {
 											$this->error = 'Unable to decode HTTP "gzip" stream';
 											$this->success = false;
 										}
-										else
-										{
+										else {
 											$this->body = $decoder->data;
 										}
 										break;
 
 									case 'deflate':
-										if (($decompressed = gzinflate($this->body)) !== false)
-										{
+										if (($decompressed = gzinflate($this->body)) !== false) {
 											$this->body = $decompressed;
 										}
-										else if (($decompressed = gzuncompress($this->body)) !== false)
-										{
+										else if (($decompressed = gzuncompress($this->body)) !== false) {
 											$this->body = $decompressed;
 										}
-										else if (function_exists('gzdecode') && ($decompressed = gzdecode($this->body)) !== false)
-										{
+										else if (function_exists('gzdecode') && ($decompressed = gzdecode($this->body)) !== false) {
 											$this->body = $decompressed;
 										}
-										else
-										{
+										else {
 											$this->error = 'Unable to decode HTTP "deflate" stream';
 											$this->success = false;
 										}
@@ -4433,8 +3612,7 @@ class SimplePie_File
 							}
 						}
 					}
-					else
-					{
+					else {
 						$this->error = 'fsocket timed out';
 						$this->success = false;
 					}
@@ -4442,19 +3620,16 @@ class SimplePie_File
 				}
 			}
 		}
-		else
-		{
+		else {
 			$this->method = SIMPLEPIE_FILE_SOURCE_LOCAL | SIMPLEPIE_FILE_SOURCE_FILE_GET_CONTENTS;
-			if (!$this->body = file_get_contents($url))
-			{
+			if (!$this->body = file_get_contents($url)) {
 				$this->error = 'file_get_contents could not read the file';
 				$this->success = false;
 			}
 		}
 	}
 }
-class SimplePie_gzdecode
-{
+class SimplePie_gzdecode {
 	var $compressed_data;
 	var $compressed_size;
 	var $min_compressed_size = 18;
@@ -4469,22 +3644,17 @@ class SimplePie_gzdecode
 	var $extra_field;
 	var $filename;
 	var $comment;
-	public function __set($name, $value)
-	{
+	public function __set($name, $value) {
 		trigger_error("Cannot write property $name", E_USER_ERROR);
 	}
-	public function __construct($data)
-	{
+	public function __construct($data) {
 		$this->compressed_data = $data;
 		$this->compressed_size = strlen($data);
 	}
-	public function parse()
-	{
-		if ($this->compressed_size >= $this->min_compressed_size)
-		{
+	public function parse() {
+		if ($this->compressed_size >= $this->min_compressed_size) {
 			// Check ID1, ID2, and CM
-			if (substr($this->compressed_data, 0, 3) !== "\x1F\x8B\x08")
-			{
+			if (substr($this->compressed_data, 0, 3) !== "\x1F\x8B\x08") {
 				return false;
 			}
 
@@ -4492,8 +3662,7 @@ class SimplePie_gzdecode
 			$this->flags = ord($this->compressed_data[3]);
 
 			// FLG bits above (1 << 4) are reserved
-			if ($this->flags > 0x1F)
-			{
+			if ($this->flags > 0x1F) {
 				return false;
 			}
 
@@ -4503,8 +3672,7 @@ class SimplePie_gzdecode
 			// MTIME
 			$mtime = substr($this->compressed_data, $this->position, 4);
 			// Reverse the string if we're on a big-endian arch because l is the only signed long and is machine endianness
-			if (current(unpack('S', "\x00\x01")) === 1)
-			{
+			if (current(unpack('S', "\x00\x01")) === 1) {
 				$mtime = strrev($mtime);
 			}
 			$this->MTIME = current(unpack('l', $mtime));
@@ -4517,15 +3685,13 @@ class SimplePie_gzdecode
 			$this->OS = ord($this->compressed_data[$this->position++]);
 
 			// Parse the FEXTRA
-			if ($this->flags & 4)
-			{
+			if ($this->flags & 4) {
 				// Read subfield IDs
 				$this->SI1 = $this->compressed_data[$this->position++];
 				$this->SI2 = $this->compressed_data[$this->position++];
 
 				// SI2 set to zero is reserved for future use
-				if ($this->SI2 === "\x00")
-				{
+				if ($this->SI2 === "\x00") {
 					return false;
 				}
 
@@ -4535,121 +3701,102 @@ class SimplePie_gzdecode
 
 				// Check the length of the string is still valid
 				$this->min_compressed_size += $len + 4;
-				if ($this->compressed_size >= $this->min_compressed_size)
-				{
+				if ($this->compressed_size >= $this->min_compressed_size) {
 					// Set the extra field to the given data
 					$this->extra_field = substr($this->compressed_data, $this->position, $len);
 					$this->position += $len;
 				}
-				else
-				{
+				else {
 					return false;
 				}
 			}
 
 			// Parse the FNAME
-			if ($this->flags & 8)
-			{
+			if ($this->flags & 8) {
 				// Get the length of the filename
 				$len = strcspn($this->compressed_data, "\x00", $this->position);
 
 				// Check the length of the string is still valid
 				$this->min_compressed_size += $len + 1;
-				if ($this->compressed_size >= $this->min_compressed_size)
-				{
+				if ($this->compressed_size >= $this->min_compressed_size) {
 					// Set the original filename to the given string
 					$this->filename = substr($this->compressed_data, $this->position, $len);
 					$this->position += $len + 1;
 				}
-				else
-				{
+				else {
 					return false;
 				}
 			}
 
 			// Parse the FCOMMENT
-			if ($this->flags & 16)
-			{
+			if ($this->flags & 16) {
 				// Get the length of the comment
 				$len = strcspn($this->compressed_data, "\x00", $this->position);
 
 				// Check the length of the string is still valid
 				$this->min_compressed_size += $len + 1;
-				if ($this->compressed_size >= $this->min_compressed_size)
-				{
+				if ($this->compressed_size >= $this->min_compressed_size) {
 					// Set the original comment to the given string
 					$this->comment = substr($this->compressed_data, $this->position, $len);
 					$this->position += $len + 1;
 				}
-				else
-				{
+				else {
 					return false;
 				}
 			}
 
 			// Parse the FHCRC
-			if ($this->flags & 2)
-			{
+			if ($this->flags & 2) {
 				// Check the length of the string is still valid
 				$this->min_compressed_size += $len + 2;
-				if ($this->compressed_size >= $this->min_compressed_size)
-				{
+				if ($this->compressed_size >= $this->min_compressed_size) {
 					// Read the CRC
 					$crc = current(unpack('v', substr($this->compressed_data, $this->position, 2)));
 
 					// Check the CRC matches
-					if ((crc32(substr($this->compressed_data, 0, $this->position)) & 0xFFFF) === $crc)
-					{
+					if ((crc32(substr($this->compressed_data, 0, $this->position)) & 0xFFFF) === $crc) {
 						$this->position += 2;
 					}
-					else
-					{
+					else {
 						return false;
 					}
 				}
-				else
-				{
+				else {
 					return false;
 				}
 			}
 
 			// Decompress the actual data
-			if (($this->data = gzinflate(substr($this->compressed_data, $this->position, -8))) === false)
-			{
+			if (($this->data = gzinflate(substr($this->compressed_data, $this->position, -8))) === false) {
 				return false;
 			}
-			else
-			{
+			else {
 				$this->position = $this->compressed_size - 8;
 			}
 
 			// Check CRC of data
 			$crc = current(unpack('V', substr($this->compressed_data, $this->position, 4)));
 			$this->position += 4;
-			/*if (extension_loaded('hash') && sprintf('%u', current(unpack('V', hash('crc32b', $this->data)))) !== sprintf('%u', $crc))
-			{
+			/*if (extension_loaded('hash') && sprintf('%u', current(unpack('V', hash('crc32b', $this->data)))) !== sprintf('%u', $crc)) {
 				return false;
 			}*/
 
 			// Check ISIZE of data
 			$isize = current(unpack('V', substr($this->compressed_data, $this->position, 4)));
 			$this->position += 4;
-			if (sprintf('%u', strlen($this->data) & 0xFFFFFFFF) !== sprintf('%u', $isize))
-			{
+			if (sprintf('%u', strlen($this->data) & 0xFFFFFFFF) !== sprintf('%u', $isize)) {
 				return false;
 			}
 
 			// Wow, against all odds, we've actually got a valid gzip string
 			return true;
 		}
-		else
-		{
+		else {
 			return false;
 		}
 	}
 }
-class SimplePie_HTTP_Parser
-{
+class SimplePie_HTTP_Parser {
 	public $http_version = 0.0;
 	public $status_code = 0;
 	public $reason = '';
@@ -4661,25 +3808,20 @@ class SimplePie_HTTP_Parser
 	protected $position = 0;
 	protected $name = '';
 	protected $value = '';
-	public function __construct($data)
-	{
+	public function __construct($data) {
 		$this->data = $data;
 		$this->data_length = strlen($this->data);
 	}
-	public function parse()
-	{
-		while ($this->state && $this->state !== 'emit' && $this->has_data())
-		{
+	public function parse() {
+		while ($this->state && $this->state !== 'emit' && $this->has_data()) {
 			$state = $this->state;
 			$this->$state();
 		}
 		$this->data = '';
-		if ($this->state === 'emit' || $this->state === 'body')
-		{
+		if ($this->state === 'emit' || $this->state === 'body') {
 			return true;
 		}
-		else
-		{
+		else {
 			$this->http_version = '';
 			$this->status_code = '';
 			$this->reason = '';
@@ -4688,147 +3830,115 @@ class SimplePie_HTTP_Parser
 			return false;
 		}
 	}
-	protected function has_data()
-	{
+	protected function has_data() {
 		return (bool) ($this->position < $this->data_length);
 	}
-	protected function is_linear_whitespace()
-	{
+	protected function is_linear_whitespace() {
 		return (bool) ($this->data[$this->position] === "\x09"
 			|| $this->data[$this->position] === "\x20"
 			|| ($this->data[$this->position] === "\x0A"
 				&& isset($this->data[$this->position + 1])
 				&& ($this->data[$this->position + 1] === "\x09" || $this->data[$this->position + 1] === "\x20")));
 	}
-	protected function http_version()
-	{
-		if (strpos($this->data, "\x0A") !== false && strtoupper(substr($this->data, 0, 5)) === 'HTTP/')
-		{
+	protected function http_version() {
+		if (strpos($this->data, "\x0A") !== false && strtoupper(substr($this->data, 0, 5)) === 'HTTP/') {
 			$len = strspn($this->data, '0123456789.', 5);
 			$this->http_version = substr($this->data, 5, $len);
 			$this->position += 5 + $len;
-			if (substr_count($this->http_version, '.') <= 1)
-			{
+			if (substr_count($this->http_version, '.') <= 1) {
 				$this->http_version = (float) $this->http_version;
 				$this->position += strspn($this->data, "\x09\x20", $this->position);
 				$this->state = 'status';
 			}
-			else
-			{
+			else {
 				$this->state = false;
 			}
 		}
-		else
-		{
+		else {
 			$this->state = false;
 		}
 	}
-	protected function status()
-	{
-		if ($len = strspn($this->data, '0123456789', $this->position))
-		{
+	protected function status() {
+		if ($len = strspn($this->data, '0123456789', $this->position)) {
 			$this->status_code = (int) substr($this->data, $this->position, $len);
 			$this->position += $len;
 			$this->state = 'reason';
 		}
-		else
-		{
+		else {
 			$this->state = false;
 		}
 	}
-	protected function reason()
-	{
+	protected function reason() {
 		$len = strcspn($this->data, "\x0A", $this->position);
 		$this->reason = trim(substr($this->data, $this->position, $len), "\x09\x0D\x20");
 		$this->position += $len + 1;
 		$this->state = 'new_line';
 	}
-	protected function new_line()
-	{
+	protected function new_line() {
 		$this->value = trim($this->value, "\x0D\x20");
-		if ($this->name !== '' && $this->value !== '')
-		{
+		if ($this->name !== '' && $this->value !== '') {
 			$this->name = strtolower($this->name);
 			// We should only use the last Content-Type header. c.f. issue #1
-			if (isset($this->headers[$this->name]) && $this->name !== 'content-type')
-			{
+			if (isset($this->headers[$this->name]) && $this->name !== 'content-type') {
 				$this->headers[$this->name] .= ', ' . $this->value;
 			}
-			else
-			{
+			else {
 				$this->headers[$this->name] = $this->value;
 			}
 		}
 		$this->name = '';
 		$this->value = '';
-		if (substr($this->data[$this->position], 0, 2) === "\x0D\x0A")
-		{
+		if (substr($this->data[$this->position], 0, 2) === "\x0D\x0A") {
 			$this->position += 2;
 			$this->state = 'body';
 		}
-		elseif ($this->data[$this->position] === "\x0A")
-		{
+		elseif ($this->data[$this->position] === "\x0A") {
 			$this->position++;
 			$this->state = 'body';
 		}
-		else
-		{
+		else {
 			$this->state = 'name';
 		}
 	}
-	protected function name()
-	{
+	protected function name() {
 		$len = strcspn($this->data, "\x0A:", $this->position);
-		if (isset($this->data[$this->position + $len]))
-		{
-			if ($this->data[$this->position + $len] === "\x0A")
-			{
+		if (isset($this->data[$this->position + $len])) {
+			if ($this->data[$this->position + $len] === "\x0A") {
 				$this->position += $len;
 				$this->state = 'new_line';
 			}
-			else
-			{
+			else {
 				$this->name = substr($this->data, $this->position, $len);
 				$this->position += $len + 1;
 				$this->state = 'value';
 			}
 		}
-		else
-		{
+		else {
 			$this->state = false;
 		}
 	}
-	protected function linear_whitespace()
-	{
-		do
-		{
-			if (substr($this->data, $this->position, 2) === "\x0D\x0A")
-			{
+	protected function linear_whitespace() {
+		do {
+			if (substr($this->data, $this->position, 2) === "\x0D\x0A") {
 				$this->position += 2;
 			}
-			elseif ($this->data[$this->position] === "\x0A")
-			{
+			elseif ($this->data[$this->position] === "\x0A") {
 				$this->position++;
 			}
 			$this->position += strspn($this->data, "\x09\x20", $this->position);
 		} while ($this->has_data() && $this->is_linear_whitespace());
 		$this->value .= "\x20";
 	}
-	protected function value()
-	{
-		if ($this->is_linear_whitespace())
-		{
+	protected function value() {
+		if ($this->is_linear_whitespace()) {
 			$this->linear_whitespace();
 		}
-		else
-		{
-			switch ($this->data[$this->position])
-			{
+		else {
+			switch ($this->data[$this->position]) {
 				case '"':
 					// Workaround for ETags: we have to include the quotes as
 					// part of the tag.
-					if (strtolower($this->name) === 'etag')
-					{
+					if (strtolower($this->name) === 'etag') {
 						$this->value .= '"';
 						$this->position++;
 						$this->state = 'value_char';
@@ -4849,23 +3959,18 @@ class SimplePie_HTTP_Parser
 			}
 		}
 	}
-	protected function value_char()
-	{
+	protected function value_char() {
 		$len = strcspn($this->data, "\x09\x20\x0A\"", $this->position);
 		$this->value .= substr($this->data, $this->position, $len);
 		$this->position += $len;
 		$this->state = 'value';
 	}
-	protected function quote()
-	{
-		if ($this->is_linear_whitespace())
-		{
+	protected function quote() {
+		if ($this->is_linear_whitespace()) {
 			$this->linear_whitespace();
 		}
-		else
-		{
-			switch ($this->data[$this->position])
-			{
+		else {
+			switch ($this->data[$this->position]) {
 				case '"':
 					$this->position++;
 					$this->state = 'value';
@@ -4887,36 +3992,29 @@ class SimplePie_HTTP_Parser
 			}
 		}
 	}
-	protected function quote_char()
-	{
+	protected function quote_char() {
 		$len = strcspn($this->data, "\x09\x20\x0A\"\\", $this->position);
 		$this->value .= substr($this->data, $this->position, $len);
 		$this->position += $len;
 		$this->state = 'value';
 	}
-	protected function quote_escaped()
-	{
+	protected function quote_escaped() {
 		$this->value .= $this->data[$this->position];
 		$this->position++;
 		$this->state = 'quote';
 	}
-	protected function body()
-	{
+	protected function body() {
 		$this->body = substr($this->data, $this->position);
-		if (!empty($this->headers['transfer-encoding']))
-		{
+		if (!empty($this->headers['transfer-encoding'])) {
 			unset($this->headers['transfer-encoding']);
 			$this->state = 'chunked';
 		}
-		else
-		{
+		else {
 			$this->state = 'emit';
 		}
 	}
-	protected function chunked()
-	{
-		if (!preg_match('/^([0-9a-f]+)[^\r\n]*\r\n/i', trim($this->body)))
-		{
+	protected function chunked() {
+		if (!preg_match('/^([0-9a-f]+)[^\r\n]*\r\n/i', trim($this->body))) {
 			$this->state = 'emit';
 			return;
 		}
@@ -4924,19 +4022,16 @@ class SimplePie_HTTP_Parser
 		$decoded = '';
 		$encoded = $this->body;
 
-		while (true)
-		{
+		while (true) {
 			$is_chunked = (bool) preg_match( '/^([0-9a-f]+)[^\r\n]*\r\n/i', $encoded, $matches );
-			if (!$is_chunked)
-			{
+			if (!$is_chunked) {
 				// Looks like it's not chunked after all
 				$this->state = 'emit';
 				return;
 			}
 
 			$length = hexdec(trim($matches[1]));
-			if ($length === 0)
-			{
+			if ($length === 0) {
 				// Ignore trailer headers
 				$this->state = 'emit';
 				$this->body = $decoded;
@@ -4947,8 +4042,7 @@ class SimplePie_HTTP_Parser
 			$decoded .= $part = substr($encoded, $chunk_length, $length);
 			$encoded = substr($encoded, $chunk_length + $length + 2);
 
-			if (trim($encoded) === '0' || empty($encoded))
-			{
+			if (trim($encoded) === '0' || empty($encoded)) {
 				$this->state = 'emit';
 				$this->body = $decoded;
 				return;
@@ -4956,8 +4050,7 @@ class SimplePie_HTTP_Parser
 		}
 	}
 }
-class SimplePie_IRI
-{
+class SimplePie_IRI {
 	protected $scheme = null;
 	protected $iuserinfo = null;
 	protected $ihost = null;
@@ -4984,14 +4077,11 @@ class SimplePie_IRI
 			'ipath' => '/'
 		),
 	);
-	public function __toString()
-	{
+	public function __toString() {
 		return $this->get_iri();
 	}
-	public function __set($name, $value)
-	{
-		if (method_exists($this, 'set_' . $name))
-		{
+	public function __set($name, $value) {
+		if (method_exists($this, 'set_' . $name)) {
 			call_user_func(array($this, 'set_' . $name), $value);
 		}
 		elseif (
@@ -5001,13 +4091,11 @@ class SimplePie_IRI
 			|| $name === 'ipath'
 			|| $name === 'iquery'
 			|| $name === 'ifragment'
-		)
-		{
+		) {
 			call_user_func(array($this, 'set_' . substr($name, 1)), $value);
 		}
 	}
-	public function __get($name)
-	{
+	public function __get($name) {
 		// isset() returns false for null, we don't want to do that
 		// Also why we use array_key_exists below instead of isset()
 		$props = get_object_vars($this);
@@ -5017,172 +4105,132 @@ class SimplePie_IRI
 			$name === 'uri' ||
 			$name === 'iauthority' ||
 			$name === 'authority'
-		)
-		{
+		) {
 			$return = $this->{"get_$name"}();
 		}
-		elseif (array_key_exists($name, $props))
-		{
+		elseif (array_key_exists($name, $props)) {
 			$return = $this->$name;
 		}
 		// host -> ihost
-		elseif (($prop = 'i' . $name) && array_key_exists($prop, $props))
-		{
+		elseif (($prop = 'i' . $name) && array_key_exists($prop, $props)) {
 			$name = $prop;
 			$return = $this->$prop;
 		}
 		// ischeme -> scheme
-		elseif (($prop = substr($name, 1)) && array_key_exists($prop, $props))
-		{
+		elseif (($prop = substr($name, 1)) && array_key_exists($prop, $props)) {
 			$name = $prop;
 			$return = $this->$prop;
 		}
-		else
-		{
+		else {
 			trigger_error('Undefined property: ' . get_class($this) . '::' . $name, E_USER_NOTICE);
 			$return = null;
 		}
 
-		if ($return === null && isset($this->normalization[$this->scheme][$name]))
-		{
+		if ($return === null && isset($this->normalization[$this->scheme][$name])) {
 			return $this->normalization[$this->scheme][$name];
 		}
-		else
-		{
+		else {
 			return $return;
 		}
 	}
-	public function __isset($name)
-	{
-		if (method_exists($this, 'get_' . $name) || isset($this->$name))
-		{
+	public function __isset($name) {
+		if (method_exists($this, 'get_' . $name) || isset($this->$name)) {
 			return true;
 		}
-		else
-		{
+		else {
 			return false;
 		}
 	}
-	public function __unset($name)
-	{
-		if (method_exists($this, 'set_' . $name))
-		{
+	public function __unset($name) {
+		if (method_exists($this, 'set_' . $name)) {
 			call_user_func(array($this, 'set_' . $name), '');
 		}
 	}
-	public function __construct($iri = null)
-	{
+	public function __construct($iri = null) {
 		$this->set_iri($iri);
 	}
-	public static function absolutize($base, $relative)
-	{
-		if (!($relative instanceof SimplePie_IRI))
-		{
+	public static function absolutize($base, $relative) {
+		if (!($relative instanceof SimplePie_IRI)) {
 			$relative = new SimplePie_IRI($relative);
 		}
-		if (!$relative->is_valid())
-		{
+		if (!$relative->is_valid()) {
 			return false;
 		}
-		elseif ($relative->scheme !== null)
-		{
+		elseif ($relative->scheme !== null) {
 			return clone $relative;
 		}
-		else
-		{
-			if (!($base instanceof SimplePie_IRI))
-			{
+		else {
+			if (!($base instanceof SimplePie_IRI)) {
 				$base = new SimplePie_IRI($base);
 			}
-			if ($base->scheme !== null && $base->is_valid())
-			{
-				if ($relative->get_iri() !== '')
-				{
-					if ($relative->iuserinfo !== null || $relative->ihost !== null || $relative->port !== null)
-					{
+			if ($base->scheme !== null && $base->is_valid()) {
+				if ($relative->get_iri() !== '') {
+					if ($relative->iuserinfo !== null || $relative->ihost !== null || $relative->port !== null) {
 						$target = clone $relative;
 						$target->scheme = $base->scheme;
 					}
-					else
-					{
+					else {
 						$target = new SimplePie_IRI;
 						$target->scheme = $base->scheme;
 						$target->iuserinfo = $base->iuserinfo;
 						$target->ihost = $base->ihost;
 						$target->port = $base->port;
-						if ($relative->ipath !== '')
-						{
-							if ($relative->ipath[0] === '/')
-							{
+						if ($relative->ipath !== '') {
+							if ($relative->ipath[0] === '/') {
 								$target->ipath = $relative->ipath;
 							}
-							elseif (($base->iuserinfo !== null || $base->ihost !== null || $base->port !== null) && $base->ipath === '')
-							{
+							elseif (($base->iuserinfo !== null || $base->ihost !== null || $base->port !== null) && $base->ipath === '') {
 								$target->ipath = '/' . $relative->ipath;
 							}
-							elseif (($last_segment = strrpos($base->ipath, '/')) !== false)
-							{
+							elseif (($last_segment = strrpos($base->ipath, '/')) !== false) {
 								$target->ipath = substr($base->ipath, 0, $last_segment + 1) . $relative->ipath;
 							}
-							else
-							{
+							else {
 								$target->ipath = $relative->ipath;
 							}
 							$target->ipath = $target->remove_dot_segments($target->ipath);
 							$target->iquery = $relative->iquery;
 						}
-						else
-						{
+						else {
 							$target->ipath = $base->ipath;
-							if ($relative->iquery !== null)
-							{
+							if ($relative->iquery !== null) {
 								$target->iquery = $relative->iquery;
 							}
-							elseif ($base->iquery !== null)
-							{
+							elseif ($base->iquery !== null) {
 								$target->iquery = $base->iquery;
 							}
 						}
 						$target->ifragment = $relative->ifragment;
 					}
 				}
-				else
-				{
+				else {
 					$target = clone $base;
 					$target->ifragment = null;
 				}
 				$target->scheme_normalization();
 				return $target;
 			}
-			else
-			{
+			else {
 				return false;
 			}
 		}
 	}
-	protected function parse_iri($iri)
-	{
+	protected function parse_iri($iri) {
 		$iri = trim($iri, "\x20\x09\x0A\x0C\x0D");
-		if (preg_match('/^((?P<scheme>[^:\/?#]+):)?(\/\/(?P<authority>[^\/?#]*))?(?P<path>[^?#]*)(\?(?P<query>[^#]*))?(#(?P<fragment>.*))?$/', $iri, $match))
-		{
-			if ($match[1] === '')
-			{
+		if (preg_match('/^((?P<scheme>[^:\/?#]+):)?(\/\/(?P<authority>[^\/?#]*))?(?P<path>[^?#]*)(\?(?P<query>[^#]*))?(#(?P<fragment>.*))?$/', $iri, $match)) {
+			if ($match[1] === '') {
 				$match['scheme'] = null;
 			}
-			if (!isset($match[3]) || $match[3] === '')
-			{
+			if (!isset($match[3]) || $match[3] === '') {
 				$match['authority'] = null;
 			}
-			if (!isset($match[5]))
-			{
+			if (!isset($match[5])) {
 				$match['path'] = '';
 			}
-			if (!isset($match[6]) || $match[6] === '')
-			{
+			if (!isset($match[6]) || $match[6] === '') {
 				$match['query'] = null;
 			}
-			if (!isset($match[8]) || $match[8] === '')
-			{
+			if (!isset($match[8]) || $match[8] === '') {
 				$match['fragment'] = null;
 			}
 
@@ -5190,67 +4238,54 @@ class SimplePie_IRI
 
 			return $match;
 		}
-		else
-		{
+		else {
 			trigger_error('This should never happen', E_USER_ERROR);
 			die;
 		}
 	}
-	protected function remove_dot_segments($input)
-	{
+	protected function remove_dot_segments($input) {
 		$output = '';
-		while (strpos($input, './') !== false || strpos($input, '/.') !== false || $input === '.' || $input === '..')
-		{
+		while (strpos($input, './') !== false || strpos($input, '/.') !== false || $input === '.' || $input === '..') {
 			// A: If the input buffer begins with a prefix of "../" or "./", then remove that prefix from the input buffer; otherwise,
-			if (strpos($input, '../') === 0)
-			{
+			if (strpos($input, '../') === 0) {
 				$input = substr($input, 3);
 			}
-			elseif (strpos($input, './') === 0)
-			{
+			elseif (strpos($input, './') === 0) {
 				$input = substr($input, 2);
 			}
 			// B: if the input buffer begins with a prefix of "/./" or "/.", where "." is a complete path segment, then replace that prefix with "/" in the input buffer; otherwise,
-			elseif (strpos($input, '/./') === 0)
-			{
+			elseif (strpos($input, '/./') === 0) {
 				$input = substr($input, 2);
 			}
-			elseif ($input === '/.')
-			{
+			elseif ($input === '/.') {
 				$input = '/';
 			}
 			// C: if the input buffer begins with a prefix of "/../" or "/..", where ".." is a complete path segment, then replace that prefix with "/" in the input buffer and remove the last segment and its preceding "/" (if any) from the output buffer; otherwise,
-			elseif (strpos($input, '/../') === 0)
-			{
+			elseif (strpos($input, '/../') === 0) {
 				$input = substr($input, 3);
 				$output = substr_replace($output, '', strrpos($output, '/'));
 			}
-			elseif ($input === '/..')
-			{
+			elseif ($input === '/..') {
 				$input = '/';
 				$output = substr_replace($output, '', strrpos($output, '/'));
 			}
 			// D: if the input buffer consists only of "." or "..", then remove that from the input buffer; otherwise,
-			elseif ($input === '.' || $input === '..')
-			{
+			elseif ($input === '.' || $input === '..') {
 				$input = '';
 			}
 			// E: move the first path segment in the input buffer to the end of the output buffer, including the initial "/" character (if any) and any subsequent characters up to, but not including, the next "/" character or the end of the input buffer
-			elseif (($pos = strpos($input, '/', 1)) !== false)
-			{
+			elseif (($pos = strpos($input, '/', 1)) !== false) {
 				$output .= substr($input, 0, $pos);
 				$input = substr_replace($input, '', 0, $pos);
 			}
-			else
-			{
+			else {
 				$output .= $input;
 				$input = '';
 			}
 		}
 		return $output . $input;
 	}
-	protected function replace_invalid_with_pct_encoding($string, $extra_chars, $iprivate = false)
-	{
+	protected function replace_invalid_with_pct_encoding($string, $extra_chars, $iprivate = false) {
 		// Normalize as many pct-encoded sections as possible
 		$string = preg_replace_callback('/(?:%[A-Fa-f0-9]{2})+/', array($this, 'remove_iunreserved_percent_encoded'), $string);
 
@@ -5264,8 +4299,7 @@ class SimplePie_IRI
 		// Now replace any bytes that aren't allowed with their pct-encoded versions
 		$position = 0;
 		$strlen = strlen($string);
-		while (($position += strspn($string, $extra_chars, $position)) < $strlen)
-		{
+		while (($position += strspn($string, $extra_chars, $position)) < $strlen) {
 			$value = ord($string[$position]);
 
 			// Start position
@@ -5276,58 +4310,48 @@ class SimplePie_IRI
 
 			// No one byte sequences are valid due to the while.
 			// Two byte sequence:
-			if (($value & 0xE0) === 0xC0)
-			{
+			if (($value & 0xE0) === 0xC0) {
 				$character = ($value & 0x1F) << 6;
 				$length = 2;
 				$remaining = 1;
 			}
 			// Three byte sequence:
-			elseif (($value & 0xF0) === 0xE0)
-			{
+			elseif (($value & 0xF0) === 0xE0) {
 				$character = ($value & 0x0F) << 12;
 				$length = 3;
 				$remaining = 2;
 			}
 			// Four byte sequence:
-			elseif (($value & 0xF8) === 0xF0)
-			{
+			elseif (($value & 0xF8) === 0xF0) {
 				$character = ($value & 0x07) << 18;
 				$length = 4;
 				$remaining = 3;
 			}
 			// Invalid byte:
-			else
-			{
+			else {
 				$valid = false;
 				$length = 1;
 				$remaining = 0;
 			}
 
-			if ($remaining)
-			{
-				if ($position + $length <= $strlen)
-				{
-					for ($position++; $remaining; $position++)
-					{
+			if ($remaining) {
+				if ($position + $length <= $strlen) {
+					for ($position++; $remaining; $position++) {
 						$value = ord($string[$position]);
 
 						// Check that the byte is valid, then add it to the character:
-						if (($value & 0xC0) === 0x80)
-						{
+						if (($value & 0xC0) === 0x80) {
 							$character |= ($value & 0x3F) << (--$remaining * 6);
 						}
 						// If it is invalid, count the sequence as invalid and reprocess the current byte:
-						else
-						{
+						else {
 							$valid = false;
 							$position--;
 							break;
 						}
 					}
 				}
-				else
-				{
+				else {
 					$position = $strlen - 1;
 					$valid = false;
 				}
@@ -5357,14 +4381,12 @@ class SimplePie_IRI
 					|| $character < 0xE000
 					|| $character > 0x10FFFD
 				)
-			)
-			{
+			) {
 				// If we were a character, pretend we weren't, but rather an error.
 				if ($valid)
 					$position--;
 
-				for ($j = $start; $j <= $position; $j++)
-				{
+				for ($j = $start; $j <= $position; $j++) {
 					$string = substr_replace($string, sprintf('%%%02X', ord($string[$j])), $j, 1);
 					$j += 2;
 					$position += 2;
@@ -5375,8 +4397,7 @@ class SimplePie_IRI
 
 		return $string;
 	}
-	protected function remove_iunreserved_percent_encoded($match)
-	{
+	protected function remove_iunreserved_percent_encoded($match) {
 		// As we just have valid percent encoded sequences we can just explode
 		// and ignore the first member of the returned array (an empty string).
 		$bytes = explode('%', $match[0]);
@@ -5388,13 +4409,11 @@ class SimplePie_IRI
 		$remaining = 0;
 
 		// Loop over each and every byte, and set $value to its value
-		for ($i = 1, $len = count($bytes); $i < $len; $i++)
-		{
+		for ($i = 1, $len = count($bytes); $i < $len; $i++) {
 			$value = hexdec($bytes[$i]);
 
 			// If we're the first byte of sequence:
-			if (!$remaining)
-			{
+			if (!$remaining) {
 				// Start position
 				$start = $i;
 
@@ -5402,51 +4421,43 @@ class SimplePie_IRI
 				$valid = true;
 
 				// One byte sequence:
-				if ($value <= 0x7F)
-				{
+				if ($value <= 0x7F) {
 					$character = $value;
 					$length = 1;
 				}
 				// Two byte sequence:
-				elseif (($value & 0xE0) === 0xC0)
-				{
+				elseif (($value & 0xE0) === 0xC0) {
 					$character = ($value & 0x1F) << 6;
 					$length = 2;
 					$remaining = 1;
 				}
 				// Three byte sequence:
-				elseif (($value & 0xF0) === 0xE0)
-				{
+				elseif (($value & 0xF0) === 0xE0) {
 					$character = ($value & 0x0F) << 12;
 					$length = 3;
 					$remaining = 2;
 				}
 				// Four byte sequence:
-				elseif (($value & 0xF8) === 0xF0)
-				{
+				elseif (($value & 0xF8) === 0xF0) {
 					$character = ($value & 0x07) << 18;
 					$length = 4;
 					$remaining = 3;
 				}
 				// Invalid byte:
-				else
-				{
+				else {
 					$valid = false;
 					$remaining = 0;
 				}
 			}
 			// Continuation byte:
-			else
-			{
+			else {
 				// Check that the byte is valid, then add it to the character:
-				if (($value & 0xC0) === 0x80)
-				{
+				if (($value & 0xC0) === 0x80) {
 					$remaining--;
 					$character |= ($value & 0x3F) << ($remaining * 6);
 				}
 				// If it is invalid, count the sequence as invalid and reprocess the current byte as the start of a sequence:
-				else
-				{
+				else {
 					$valid = false;
 					$remaining = 0;
 					$i--;
@@ -5454,8 +4465,7 @@ class SimplePie_IRI
 			}
 
 			// If we've reached the end of the current byte sequence, append it to Unicode::$data
-			if (!$remaining)
-			{
+			if (!$remaining) {
 				// Percent encode anything invalid or not in iunreserved
 				if (
 					// Invalid sequences
@@ -5477,17 +4487,13 @@ class SimplePie_IRI
 					|| $character > 0x7A && $character < 0x7E
 					|| $character > 0x7E && $character < 0xA0
 					|| $character > 0xD7FF && $character < 0xF900
-				)
-				{
-					for ($j = $start; $j <= $i; $j++)
-					{
+				) {
+					for ($j = $start; $j <= $i; $j++) {
 						$string .= '%' . strtoupper($bytes[$j]);
 					}
 				}
-				else
-				{
-					for ($j = $start; $j <= $i; $j++)
-					{
+				else {
+					for ($j = $start; $j <= $i; $j++) {
 						$string .= chr(hexdec($bytes[$j]));
 					}
 				}
@@ -5496,10 +4502,8 @@ class SimplePie_IRI
 
 		// If we have any bytes left over they are invalid (i.e., we are
 		// mid-way through a multi-byte sequence)
-		if ($remaining)
-		{
-			for ($j = $start; $j < $len; $j++)
-			{
+		if ($remaining) {
+			for ($j = $start; $j < $len; $j++) {
 				$string .= '%' . strtoupper($bytes[$j]);
 			}
 		}
@@ -5507,35 +4511,27 @@ class SimplePie_IRI
 		return $string;
 	}
 
-	protected function scheme_normalization()
-	{
-		if (isset($this->normalization[$this->scheme]['iuserinfo']) && $this->iuserinfo === $this->normalization[$this->scheme]['iuserinfo'])
-		{
+	protected function scheme_normalization() {
+		if (isset($this->normalization[$this->scheme]['iuserinfo']) && $this->iuserinfo === $this->normalization[$this->scheme]['iuserinfo']) {
 			$this->iuserinfo = null;
 		}
-		if (isset($this->normalization[$this->scheme]['ihost']) && $this->ihost === $this->normalization[$this->scheme]['ihost'])
-		{
+		if (isset($this->normalization[$this->scheme]['ihost']) && $this->ihost === $this->normalization[$this->scheme]['ihost']) {
 			$this->ihost = null;
 		}
-		if (isset($this->normalization[$this->scheme]['port']) && $this->port === $this->normalization[$this->scheme]['port'])
-		{
+		if (isset($this->normalization[$this->scheme]['port']) && $this->port === $this->normalization[$this->scheme]['port']) {
 			$this->port = null;
 		}
-		if (isset($this->normalization[$this->scheme]['ipath']) && $this->ipath === $this->normalization[$this->scheme]['ipath'])
-		{
+		if (isset($this->normalization[$this->scheme]['ipath']) && $this->ipath === $this->normalization[$this->scheme]['ipath']) {
 			$this->ipath = '';
 		}
-		if (isset($this->normalization[$this->scheme]['iquery']) && $this->iquery === $this->normalization[$this->scheme]['iquery'])
-		{
+		if (isset($this->normalization[$this->scheme]['iquery']) && $this->iquery === $this->normalization[$this->scheme]['iquery']) {
 			$this->iquery = null;
 		}
-		if (isset($this->normalization[$this->scheme]['ifragment']) && $this->ifragment === $this->normalization[$this->scheme]['ifragment'])
-		{
+		if (isset($this->normalization[$this->scheme]['ifragment']) && $this->ifragment === $this->normalization[$this->scheme]['ifragment']) {
 			$this->ifragment = null;
 		}
 	}
-	public function is_valid()
-	{
+	public function is_valid() {
 		$isauthority = $this->iuserinfo !== null || $this->ihost !== null || $this->port !== null;
 		if ($this->ipath !== '' &&
 			(
@@ -5550,27 +4546,22 @@ class SimplePie_IRI
 					(strpos($this->ipath, '/') === false ? true : strpos($this->ipath, ':') < strpos($this->ipath, '/'))
 				)
 			)
-		)
-		{
+		) {
 			return false;
 		}
 
 		return true;
 	}
-	public function set_iri($iri)
-	{
+	public function set_iri($iri) {
 		static $cache;
-		if (!$cache)
-		{
+		if (!$cache) {
 			$cache = array();
 		}
 
-		if ($iri === null)
-		{
+		if ($iri === null) {
 			return true;
 		}
-		elseif (isset($cache[$iri]))
-		{
+		elseif (isset($cache[$iri])) {
 			list($this->scheme,
 				 $this->iuserinfo,
 				 $this->ihost,
@@ -5581,8 +4572,7 @@ class SimplePie_IRI
 				 $return) = $cache[$iri];
 			return $return;
 		}
-		else
-		{
+		else {
 			$parsed = $this->parse_iri((string) $iri);
 
 			$return = $this->set_scheme($parsed['scheme'])
@@ -5602,38 +4592,31 @@ class SimplePie_IRI
 			return $return;
 		}
 	}
-	public function set_scheme($scheme)
-	{
-		if ($scheme === null)
-		{
+	public function set_scheme($scheme) {
+		if ($scheme === null) {
 			$this->scheme = null;
 		}
-		elseif (!preg_match('/^[A-Za-z][0-9A-Za-z+\-.]*$/', $scheme))
-		{
+		elseif (!preg_match('/^[A-Za-z][0-9A-Za-z+\-.]*$/', $scheme)) {
 			$this->scheme = null;
 			return false;
 		}
-		else
-		{
+		else {
 			$this->scheme = strtolower($scheme);
 		}
 		return true;
 	}
-	public function set_authority($authority)
-	{
+	public function set_authority($authority) {
 		static $cache;
 		if (!$cache)
 			$cache = array();
 
-		if ($authority === null)
-		{
+		if ($authority === null) {
 			$this->iuserinfo = null;
 			$this->ihost = null;
 			$this->port = null;
 			return true;
 		}
-		elseif (isset($cache[$authority]))
-		{
+		elseif (isset($cache[$authority])) {
 			list($this->iuserinfo,
 				 $this->ihost,
 				 $this->port,
@@ -5641,28 +4624,22 @@ class SimplePie_IRI
 
 			return $return;
 		}
-		else
-		{
+		else {
 			$remaining = $authority;
-			if (($iuserinfo_end = strrpos($remaining, '@')) !== false)
-			{
+			if (($iuserinfo_end = strrpos($remaining, '@')) !== false) {
 				$iuserinfo = substr($remaining, 0, $iuserinfo_end);
 				$remaining = substr($remaining, $iuserinfo_end + 1);
 			}
-			else
-			{
+			else {
 				$iuserinfo = null;
 			}
-			if (($port_start = strpos($remaining, ':', strpos($remaining, ']'))) !== false)
-			{
-				if (($port = substr($remaining, $port_start + 1)) === false)
-				{
+			if (($port_start = strpos($remaining, ':', strpos($remaining, ']'))) !== false) {
+				if (($port = substr($remaining, $port_start + 1)) === false) {
 					$port = null;
 				}
 				$remaining = substr($remaining, 0, $port_start);
 			}
-			else
-			{
+			else {
 				$port = null;
 			}
 
@@ -5678,41 +4655,32 @@ class SimplePie_IRI
 			return $return;
 		}
 	}
-	public function set_userinfo($iuserinfo)
-	{
-		if ($iuserinfo === null)
-		{
+	public function set_userinfo($iuserinfo) {
+		if ($iuserinfo === null) {
 			$this->iuserinfo = null;
 		}
-		else
-		{
+		else {
 			$this->iuserinfo = $this->replace_invalid_with_pct_encoding($iuserinfo, '!$&\'()*+,;=:');
 			$this->scheme_normalization();
 		}
 
 		return true;
 	}
-	public function set_host($ihost)
-	{
-		if ($ihost === null)
-		{
+	public function set_host($ihost) {
+		if ($ihost === null) {
 			$this->ihost = null;
 			return true;
 		}
-		elseif (substr($ihost, 0, 1) === '[' && substr($ihost, -1) === ']')
-		{
-			if (SimplePie_Net_IPv6::check_ipv6(substr($ihost, 1, -1)))
-			{
+		elseif (substr($ihost, 0, 1) === '[' && substr($ihost, -1) === ']') {
+			if (SimplePie_Net_IPv6::check_ipv6(substr($ihost, 1, -1))) {
 				$this->ihost = '[' . SimplePie_Net_IPv6::compress(substr($ihost, 1, -1)) . ']';
 			}
-			else
-			{
+			else {
 				$this->ihost = null;
 				return false;
 			}
 		}
-		else
-		{
+		else {
 			$ihost = $this->replace_invalid_with_pct_encoding($ihost, '!$&\'()*+,;=');
 
 			// Lowercase, but ignore pct-encoded sections (as they should
@@ -5720,14 +4688,11 @@ class SimplePie_IRI
 			// as that can add unescaped characters.
 			$position = 0;
 			$strlen = strlen($ihost);
-			while (($position += strcspn($ihost, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ%', $position)) < $strlen)
-			{
-				if ($ihost[$position] === '%')
-				{
+			while (($position += strcspn($ihost, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ%', $position)) < $strlen) {
+				if ($ihost[$position] === '%') {
 					$position += 3;
 				}
-				else
-				{
+				else {
 					$ihost[$position] = strtolower($ihost[$position]);
 					$position++;
 				}
@@ -5740,41 +4705,33 @@ class SimplePie_IRI
 
 		return true;
 	}
-	public function set_port($port)
-	{
-		if ($port === null)
-		{
+	public function set_port($port) {
+		if ($port === null) {
 			$this->port = null;
 			return true;
 		}
-		elseif (strspn($port, '0123456789') === strlen($port))
-		{
+		elseif (strspn($port, '0123456789') === strlen($port)) {
 			$this->port = (int) $port;
 			$this->scheme_normalization();
 			return true;
 		}
-		else
-		{
+		else {
 			$this->port = null;
 			return false;
 		}
 	}
-	public function set_path($ipath)
-	{
+	public function set_path($ipath) {
 		static $cache;
-		if (!$cache)
-		{
+		if (!$cache) {
 			$cache = array();
 		}
 
 		$ipath = (string) $ipath;
 
-		if (isset($cache[$ipath]))
-		{
+		if (isset($cache[$ipath])) {
 			$this->ipath = $cache[$ipath][(int) ($this->scheme !== null)];
 		}
-		else
-		{
+		else {
 			$valid = $this->replace_invalid_with_pct_encoding($ipath, '!$&\'()*+,;=@:/');
 			$removed = $this->remove_dot_segments($valid);
 
@@ -5785,44 +4742,35 @@ class SimplePie_IRI
 		$this->scheme_normalization();
 		return true;
 	}
-	public function set_query($iquery)
-	{
-		if ($iquery === null)
-		{
+	public function set_query($iquery) {
+		if ($iquery === null) {
 			$this->iquery = null;
 		}
-		else
-		{
+		else {
 			$this->iquery = $this->replace_invalid_with_pct_encoding($iquery, '!$&\'()*+,;=:@/?', true);
 			$this->scheme_normalization();
 		}
 		return true;
 	}
-	public function set_fragment($ifragment)
-	{
-		if ($ifragment === null)
-		{
+	public function set_fragment($ifragment) {
+		if ($ifragment === null) {
 			$this->ifragment = null;
 		}
-		else
-		{
+		else {
 			$this->ifragment = $this->replace_invalid_with_pct_encoding($ifragment, '!$&\'()*+,;=:@/?');
 			$this->scheme_normalization();
 		}
 		return true;
 	}
-	public function to_uri($string)
-	{
+	public function to_uri($string) {
 		static $non_ascii;
-		if (!$non_ascii)
-		{
+		if (!$non_ascii) {
 			$non_ascii = implode('', range("\x80", "\xFF"));
 		}
 
 		$position = 0;
 		$strlen = strlen($string);
-		while (($position += strcspn($string, $non_ascii, $position)) < $strlen)
-		{
+		while (($position += strcspn($string, $non_ascii, $position)) < $strlen) {
 			$string = substr_replace($string, sprintf('%%%02X', ord($string[$position])), $position, 1);
 			$position += 3;
 			$strlen += 2;
@@ -5830,71 +4778,55 @@ class SimplePie_IRI
 
 		return $string;
 	}
-	public function get_iri()
-	{
-		if (!$this->is_valid())
-		{
+	public function get_iri() {
+		if (!$this->is_valid()) {
 			return false;
 		}
 
 		$iri = '';
-		if ($this->scheme !== null)
-		{
+		if ($this->scheme !== null) {
 			$iri .= $this->scheme . ':';
 		}
-		if (($iauthority = $this->get_iauthority()) !== null)
-		{
+		if (($iauthority = $this->get_iauthority()) !== null) {
 			$iri .= '//' . $iauthority;
 		}
-		if ($this->ipath !== '')
-		{
+		if ($this->ipath !== '') {
 			$iri .= $this->ipath;
 		}
-		elseif (!empty($this->normalization[$this->scheme]['ipath']) && $iauthority !== null && $iauthority !== '')
-		{
+		elseif (!empty($this->normalization[$this->scheme]['ipath']) && $iauthority !== null && $iauthority !== '') {
 			$iri .= $this->normalization[$this->scheme]['ipath'];
 		}
-		if ($this->iquery !== null)
-		{
+		if ($this->iquery !== null) {
 			$iri .= '?' . $this->iquery;
 		}
-		if ($this->ifragment !== null)
-		{
+		if ($this->ifragment !== null) {
 			$iri .= '#' . $this->ifragment;
 		}
 
 		return $iri;
 	}
-	public function get_uri()
-	{
+	public function get_uri() {
 		return $this->to_uri($this->get_iri());
 	}
-	protected function get_iauthority()
-	{
-		if ($this->iuserinfo !== null || $this->ihost !== null || $this->port !== null)
-		{
+	protected function get_iauthority() {
+		if ($this->iuserinfo !== null || $this->ihost !== null || $this->port !== null) {
 			$iauthority = '';
-			if ($this->iuserinfo !== null)
-			{
+			if ($this->iuserinfo !== null) {
 				$iauthority .= $this->iuserinfo . '@';
 			}
-			if ($this->ihost !== null)
-			{
+			if ($this->ihost !== null) {
 				$iauthority .= $this->ihost;
 			}
-			if ($this->port !== null)
-			{
+			if ($this->port !== null) {
 				$iauthority .= ':' . $this->port;
 			}
 			return $iauthority;
 		}
-		else
-		{
+		else {
 			return null;
 		}
 	}
-	protected function get_authority()
-	{
+	protected function get_authority() {
 		$iauthority = $this->get_iauthority();
 		if (is_string($iauthority))
 			return $this->to_uri($iauthority);
@@ -5902,511 +4834,387 @@ class SimplePie_IRI
 			return $iauthority;
 	}
 }
-class SimplePie_Item
-{
+class SimplePie_Item {
 	var $feed;
 	var $data = array();
 	protected $registry;
-	public function __construct($feed, $data)
-	{
+	public function __construct($feed, $data) {
 		$this->feed = $feed;
 		$this->data = $data;
 	}
-	public function set_registry(SimplePie_Registry $registry)
-	{
+	public function set_registry(SimplePie_Registry $registry) {
 		$this->registry = $registry;
 	}
-	public function __toString()
-	{
+	public function __toString() {
 		return md5(serialize($this->data));
 	}
-	public function __destruct()
-	{
-		if ((version_compare(PHP_VERSION, '5.3', '<') || !gc_enabled()) && !ini_get('zend.ze1_compatibility_mode'))
-		{
+	public function __destruct() {
+		if ((version_compare(PHP_VERSION, '5.3', '<') || !gc_enabled()) && !ini_get('zend.ze1_compatibility_mode')) {
 			unset($this->feed);
 		}
 	}
-	public function get_item_tags($namespace, $tag)
-	{
-		if (isset($this->data['child'][$namespace][$tag]))
-		{
+	public function get_item_tags($namespace, $tag) {
+		if (isset($this->data['child'][$namespace][$tag])) {
 			return $this->data['child'][$namespace][$tag];
 		}
-		else
-		{
+		else {
 			return null;
 		}
 	}
-	public function get_base($element = array())
-	{
+	public function get_base($element = array()) {
 		return $this->feed->get_base($element);
 	}
-	public function sanitize($data, $type, $base = '')
-	{
+	public function sanitize($data, $type, $base = '') {
 		return $this->feed->sanitize($data, $type, $base);
 	}
-	public function get_feed()
-	{
+	public function get_feed() {
 		return $this->feed;
 	}
-	public function get_id($hash = false)
-	{
-		if (!$hash)
-		{
-			if ($return = $this->get_item_tags(SIMPLEPIE_NAMESPACE_ATOM_10, 'id'))
-			{
+	public function get_id($hash = false) {
+		if (!$hash) {
+			if ($return = $this->get_item_tags(SIMPLEPIE_NAMESPACE_ATOM_10, 'id')) {
 				return $this->sanitize($return[0]['data'], SIMPLEPIE_CONSTRUCT_TEXT);
 			}
-			elseif ($return = $this->get_item_tags(SIMPLEPIE_NAMESPACE_ATOM_03, 'id'))
-			{
+			elseif ($return = $this->get_item_tags(SIMPLEPIE_NAMESPACE_ATOM_03, 'id')) {
 				return $this->sanitize($return[0]['data'], SIMPLEPIE_CONSTRUCT_TEXT);
 			}
-			elseif ($return = $this->get_item_tags(SIMPLEPIE_NAMESPACE_RSS_20, 'guid'))
-			{
+			elseif ($return = $this->get_item_tags(SIMPLEPIE_NAMESPACE_RSS_20, 'guid')) {
 				return $this->sanitize($return[0]['data'], SIMPLEPIE_CONSTRUCT_TEXT);
 			}
-			elseif ($return = $this->get_item_tags(SIMPLEPIE_NAMESPACE_DC_11, 'identifier'))
-			{
+			elseif ($return = $this->get_item_tags(SIMPLEPIE_NAMESPACE_DC_11, 'identifier')) {
 				return $this->sanitize($return[0]['data'], SIMPLEPIE_CONSTRUCT_TEXT);
 			}
-			elseif ($return = $this->get_item_tags(SIMPLEPIE_NAMESPACE_DC_10, 'identifier'))
-			{
+			elseif ($return = $this->get_item_tags(SIMPLEPIE_NAMESPACE_DC_10, 'identifier')) {
 				return $this->sanitize($return[0]['data'], SIMPLEPIE_CONSTRUCT_TEXT);
 			}
-			elseif (isset($this->data['attribs'][SIMPLEPIE_NAMESPACE_RDF]['about']))
-			{
+			elseif (isset($this->data['attribs'][SIMPLEPIE_NAMESPACE_RDF]['about'])) {
 				return $this->sanitize($this->data['attribs'][SIMPLEPIE_NAMESPACE_RDF]['about'], SIMPLEPIE_CONSTRUCT_TEXT);
 			}
-			elseif (($return = $this->get_permalink()) !== null)
-			{
+			elseif (($return = $this->get_permalink()) !== null) {
 				return $return;
 			}
-			elseif (($return = $this->get_title()) !== null)
-			{
+			elseif (($return = $this->get_title()) !== null) {
 				return $return;
 			}
 		}
-		if ($this->get_permalink() !== null || $this->get_title() !== null)
-		{
+		if ($this->get_permalink() !== null || $this->get_title() !== null) {
 			return md5($this->get_permalink() . $this->get_title());
 		}
-		else
-		{
+		else {
 			return md5(serialize($this->data));
 		}
 	}
-	public function get_title()
-	{
-		if (!isset($this->data['title']))
-		{
-			if ($return = $this->get_item_tags(SIMPLEPIE_NAMESPACE_ATOM_10, 'title'))
-			{
+	public function get_title() {
+		if (!isset($this->data['title'])) {
+			if ($return = $this->get_item_tags(SIMPLEPIE_NAMESPACE_ATOM_10, 'title')) {
 				$this->data['title'] = $this->sanitize($return[0]['data'], $this->registry->call('Misc', 'atom_10_construct_type', array($return[0]['attribs'])), $this->get_base($return[0]));
 			}
-			elseif ($return = $this->get_item_tags(SIMPLEPIE_NAMESPACE_ATOM_03, 'title'))
-			{
+			elseif ($return = $this->get_item_tags(SIMPLEPIE_NAMESPACE_ATOM_03, 'title')) {
 				$this->data['title'] = $this->sanitize($return[0]['data'], $this->registry->call('Misc', 'atom_03_construct_type', array($return[0]['attribs'])), $this->get_base($return[0]));
 			}
-			elseif ($return = $this->get_item_tags(SIMPLEPIE_NAMESPACE_RSS_10, 'title'))
-			{
+			elseif ($return = $this->get_item_tags(SIMPLEPIE_NAMESPACE_RSS_10, 'title')) {
 				$this->data['title'] = $this->sanitize($return[0]['data'], SIMPLEPIE_CONSTRUCT_MAYBE_HTML, $this->get_base($return[0]));
 			}
-			elseif ($return = $this->get_item_tags(SIMPLEPIE_NAMESPACE_RSS_090, 'title'))
-			{
+			elseif ($return = $this->get_item_tags(SIMPLEPIE_NAMESPACE_RSS_090, 'title')) {
 				$this->data['title'] = $this->sanitize($return[0]['data'], SIMPLEPIE_CONSTRUCT_MAYBE_HTML, $this->get_base($return[0]));
 			}
-			elseif ($return = $this->get_item_tags(SIMPLEPIE_NAMESPACE_RSS_20, 'title'))
-			{
+			elseif ($return = $this->get_item_tags(SIMPLEPIE_NAMESPACE_RSS_20, 'title')) {
 				$this->data['title'] = $this->sanitize($return[0]['data'], SIMPLEPIE_CONSTRUCT_MAYBE_HTML, $this->get_base($return[0]));
 			}
-			elseif ($return = $this->get_item_tags(SIMPLEPIE_NAMESPACE_DC_11, 'title'))
-			{
+			elseif ($return = $this->get_item_tags(SIMPLEPIE_NAMESPACE_DC_11, 'title')) {
 				$this->data['title'] = $this->sanitize($return[0]['data'], SIMPLEPIE_CONSTRUCT_TEXT);
 			}
-			elseif ($return = $this->get_item_tags(SIMPLEPIE_NAMESPACE_DC_10, 'title'))
-			{
+			elseif ($return = $this->get_item_tags(SIMPLEPIE_NAMESPACE_DC_10, 'title')) {
 				$this->data['title'] = $this->sanitize($return[0]['data'], SIMPLEPIE_CONSTRUCT_TEXT);
 			}
-			else
-			{
+			else {
 				$this->data['title'] = null;
 			}
 		}
 		return $this->data['title'];
 	}
-	public function get_description($description_only = false)
-	{
-		if ($return = $this->get_item_tags(SIMPLEPIE_NAMESPACE_ATOM_10, 'summary'))
-		{
+	public function get_description($description_only = false) {
+		if ($return = $this->get_item_tags(SIMPLEPIE_NAMESPACE_ATOM_10, 'summary')) {
 			return $this->sanitize($return[0]['data'], $this->registry->call('Misc', 'atom_10_construct_type', array($return[0]['attribs'])), $this->get_base($return[0]));
 		}
-		elseif ($return = $this->get_item_tags(SIMPLEPIE_NAMESPACE_ATOM_03, 'summary'))
-		{
+		elseif ($return = $this->get_item_tags(SIMPLEPIE_NAMESPACE_ATOM_03, 'summary')) {
 			return $this->sanitize($return[0]['data'], $this->registry->call('Misc', 'atom_03_construct_type', array($return[0]['attribs'])), $this->get_base($return[0]));
 		}
-		elseif ($return = $this->get_item_tags(SIMPLEPIE_NAMESPACE_RSS_10, 'description'))
-		{
+		elseif ($return = $this->get_item_tags(SIMPLEPIE_NAMESPACE_RSS_10, 'description')) {
 			return $this->sanitize($return[0]['data'], SIMPLEPIE_CONSTRUCT_MAYBE_HTML, $this->get_base($return[0]));
 		}
-		elseif ($return = $this->get_item_tags(SIMPLEPIE_NAMESPACE_RSS_20, 'description'))
-		{
+		elseif ($return = $this->get_item_tags(SIMPLEPIE_NAMESPACE_RSS_20, 'description')) {
 			return $this->sanitize($return[0]['data'], SIMPLEPIE_CONSTRUCT_HTML, $this->get_base($return[0]));
 		}
-		elseif ($return = $this->get_item_tags(SIMPLEPIE_NAMESPACE_DC_11, 'description'))
-		{
+		elseif ($return = $this->get_item_tags(SIMPLEPIE_NAMESPACE_DC_11, 'description')) {
 			return $this->sanitize($return[0]['data'], SIMPLEPIE_CONSTRUCT_TEXT);
 		}
-		elseif ($return = $this->get_item_tags(SIMPLEPIE_NAMESPACE_DC_10, 'description'))
-		{
+		elseif ($return = $this->get_item_tags(SIMPLEPIE_NAMESPACE_DC_10, 'description')) {
 			return $this->sanitize($return[0]['data'], SIMPLEPIE_CONSTRUCT_TEXT);
 		}
-		elseif ($return = $this->get_item_tags(SIMPLEPIE_NAMESPACE_ITUNES, 'summary'))
-		{
+		elseif ($return = $this->get_item_tags(SIMPLEPIE_NAMESPACE_ITUNES, 'summary')) {
 			return $this->sanitize($return[0]['data'], SIMPLEPIE_CONSTRUCT_HTML, $this->get_base($return[0]));
 		}
-		elseif ($return = $this->get_item_tags(SIMPLEPIE_NAMESPACE_ITUNES, 'subtitle'))
-		{
+		elseif ($return = $this->get_item_tags(SIMPLEPIE_NAMESPACE_ITUNES, 'subtitle')) {
 			return $this->sanitize($return[0]['data'], SIMPLEPIE_CONSTRUCT_TEXT);
 		}
-		elseif ($return = $this->get_item_tags(SIMPLEPIE_NAMESPACE_RSS_090, 'description'))
-		{
+		elseif ($return = $this->get_item_tags(SIMPLEPIE_NAMESPACE_RSS_090, 'description')) {
 			return $this->sanitize($return[0]['data'], SIMPLEPIE_CONSTRUCT_HTML);
 		}
 
-		elseif (!$description_only)
-		{
+		elseif (!$description_only) {
 			return $this->get_content(true);
 		}
-		else
-		{
+		else {
 			return null;
 		}
 	}
-	public function get_content($content_only = false)
-	{
-		if ($return = $this->get_item_tags(SIMPLEPIE_NAMESPACE_ATOM_10, 'content'))
-		{
+	public function get_content($content_only = false) {
+		if ($return = $this->get_item_tags(SIMPLEPIE_NAMESPACE_ATOM_10, 'content')) {
 			return $this->sanitize($return[0]['data'], $this->registry->call('Misc', 'atom_10_content_construct_type', array($return[0]['attribs'])), $this->get_base($return[0]));
 		}
-		elseif ($return = $this->get_item_tags(SIMPLEPIE_NAMESPACE_ATOM_03, 'content'))
-		{
+		elseif ($return = $this->get_item_tags(SIMPLEPIE_NAMESPACE_ATOM_03, 'content')) {
 			return $this->sanitize($return[0]['data'], $this->registry->call('Misc', 'atom_03_construct_type', array($return[0]['attribs'])), $this->get_base($return[0]));
 		}
-		elseif ($return = $this->get_item_tags(SIMPLEPIE_NAMESPACE_RSS_10_MODULES_CONTENT, 'encoded'))
-		{
+		elseif ($return = $this->get_item_tags(SIMPLEPIE_NAMESPACE_RSS_10_MODULES_CONTENT, 'encoded')) {
 			return $this->sanitize($return[0]['data'], SIMPLEPIE_CONSTRUCT_HTML, $this->get_base($return[0]));
 		}
-		elseif (!$content_only)
-		{
+		elseif (!$content_only) {
 			return $this->get_description(true);
 		}
-		else
-		{
+		else {
 			return null;
 		}
 	}
-	public function get_category($key = 0)
-	{
+	public function get_category($key = 0) {
 		$categories = $this->get_categories();
-		if (isset($categories[$key]))
-		{
+		if (isset($categories[$key])) {
 			return $categories[$key];
 		}
-		else
-		{
+		else {
 			return null;
 		}
 	}
-	public function get_categories()
-	{
+	public function get_categories() {
 		$categories = array();
 
-		foreach ((array) $this->get_item_tags(SIMPLEPIE_NAMESPACE_ATOM_10, 'category') as $category)
-		{
+		foreach ((array) $this->get_item_tags(SIMPLEPIE_NAMESPACE_ATOM_10, 'category') as $category) {
 			$term = null;
 			$scheme = null;
 			$label = null;
-			if (isset($category['attribs']['']['term']))
-			{
+			if (isset($category['attribs']['']['term'])) {
 				$term = $this->sanitize($category['attribs']['']['term'], SIMPLEPIE_CONSTRUCT_TEXT);
 			}
-			if (isset($category['attribs']['']['scheme']))
-			{
+			if (isset($category['attribs']['']['scheme'])) {
 				$scheme = $this->sanitize($category['attribs']['']['scheme'], SIMPLEPIE_CONSTRUCT_TEXT);
 			}
-			if (isset($category['attribs']['']['label']))
-			{
+			if (isset($category['attribs']['']['label'])) {
 				$label = $this->sanitize($category['attribs']['']['label'], SIMPLEPIE_CONSTRUCT_TEXT);
 			}
 			$categories[] = $this->registry->create('Category', array($term, $scheme, $label));
 		}
-		foreach ((array) $this->get_item_tags(SIMPLEPIE_NAMESPACE_RSS_20, 'category') as $category)
-		{
+		foreach ((array) $this->get_item_tags(SIMPLEPIE_NAMESPACE_RSS_20, 'category') as $category) {
 			// This is really the label, but keep this as the term also for BC.
 			// Label will also work on retrieving because that falls back to term.
 			$term = $this->sanitize($category['data'], SIMPLEPIE_CONSTRUCT_TEXT);
-			if (isset($category['attribs']['']['domain']))
-			{
+			if (isset($category['attribs']['']['domain'])) {
 				$scheme = $this->sanitize($category['attribs']['']['domain'], SIMPLEPIE_CONSTRUCT_TEXT);
 			}
-			else
-			{
+			else {
 				$scheme = null;
 			}
 			$categories[] = $this->registry->create('Category', array($term, $scheme, null));
 		}
-		foreach ((array) $this->get_item_tags(SIMPLEPIE_NAMESPACE_DC_11, 'subject') as $category)
-		{
+		foreach ((array) $this->get_item_tags(SIMPLEPIE_NAMESPACE_DC_11, 'subject') as $category) {
 			$categories[] = $this->registry->create('Category', array($this->sanitize($category['data'], SIMPLEPIE_CONSTRUCT_TEXT), null, null));
 		}
-		foreach ((array) $this->get_item_tags(SIMPLEPIE_NAMESPACE_DC_10, 'subject') as $category)
-		{
+		foreach ((array) $this->get_item_tags(SIMPLEPIE_NAMESPACE_DC_10, 'subject') as $category) {
 			$categories[] = $this->registry->create('Category', array($this->sanitize($category['data'], SIMPLEPIE_CONSTRUCT_TEXT), null, null));
 		}
 
-		if (!empty($categories))
-		{
+		if (!empty($categories)) {
 			return array_unique($categories);
 		}
-		else
-		{
+		else {
 			return null;
 		}
 	}
-	public function get_author($key = 0)
-	{
+	public function get_author($key = 0) {
 		$authors = $this->get_authors();
-		if (isset($authors[$key]))
-		{
+		if (isset($authors[$key])) {
 			return $authors[$key];
 		}
-		else
-		{
+		else {
 			return null;
 		}
 	}
-	public function get_contributor($key = 0)
-	{
+	public function get_contributor($key = 0) {
 		$contributors = $this->get_contributors();
-		if (isset($contributors[$key]))
-		{
+		if (isset($contributors[$key])) {
 			return $contributors[$key];
 		}
-		else
-		{
+		else {
 			return null;
 		}
 	}
-	public function get_contributors()
-	{
+	public function get_contributors() {
 		$contributors = array();
-		foreach ((array) $this->get_item_tags(SIMPLEPIE_NAMESPACE_ATOM_10, 'contributor') as $contributor)
-		{
+		foreach ((array) $this->get_item_tags(SIMPLEPIE_NAMESPACE_ATOM_10, 'contributor') as $contributor) {
 			$name = null;
 			$uri = null;
 			$email = null;
-			if (isset($contributor['child'][SIMPLEPIE_NAMESPACE_ATOM_10]['name'][0]['data']))
-			{
+			if (isset($contributor['child'][SIMPLEPIE_NAMESPACE_ATOM_10]['name'][0]['data'])) {
 				$name = $this->sanitize($contributor['child'][SIMPLEPIE_NAMESPACE_ATOM_10]['name'][0]['data'], SIMPLEPIE_CONSTRUCT_TEXT);
 			}
-			if (isset($contributor['child'][SIMPLEPIE_NAMESPACE_ATOM_10]['uri'][0]['data']))
-			{
+			if (isset($contributor['child'][SIMPLEPIE_NAMESPACE_ATOM_10]['uri'][0]['data'])) {
 				$uri = $this->sanitize($contributor['child'][SIMPLEPIE_NAMESPACE_ATOM_10]['uri'][0]['data'], SIMPLEPIE_CONSTRUCT_IRI, $this->get_base($contributor['child'][SIMPLEPIE_NAMESPACE_ATOM_10]['uri'][0]));
 			}
-			if (isset($contributor['child'][SIMPLEPIE_NAMESPACE_ATOM_10]['email'][0]['data']))
-			{
+			if (isset($contributor['child'][SIMPLEPIE_NAMESPACE_ATOM_10]['email'][0]['data'])) {
 				$email = $this->sanitize($contributor['child'][SIMPLEPIE_NAMESPACE_ATOM_10]['email'][0]['data'], SIMPLEPIE_CONSTRUCT_TEXT);
 			}
-			if ($name !== null || $email !== null || $uri !== null)
-			{
+			if ($name !== null || $email !== null || $uri !== null) {
 				$contributors[] = $this->registry->create('Author', array($name, $uri, $email));
 			}
 		}
-		foreach ((array) $this->get_item_tags(SIMPLEPIE_NAMESPACE_ATOM_03, 'contributor') as $contributor)
-		{
+		foreach ((array) $this->get_item_tags(SIMPLEPIE_NAMESPACE_ATOM_03, 'contributor') as $contributor) {
 			$name = null;
 			$url = null;
 			$email = null;
-			if (isset($contributor['child'][SIMPLEPIE_NAMESPACE_ATOM_03]['name'][0]['data']))
-			{
+			if (isset($contributor['child'][SIMPLEPIE_NAMESPACE_ATOM_03]['name'][0]['data'])) {
 				$name = $this->sanitize($contributor['child'][SIMPLEPIE_NAMESPACE_ATOM_03]['name'][0]['data'], SIMPLEPIE_CONSTRUCT_TEXT);
 			}
-			if (isset($contributor['child'][SIMPLEPIE_NAMESPACE_ATOM_03]['url'][0]['data']))
-			{
+			if (isset($contributor['child'][SIMPLEPIE_NAMESPACE_ATOM_03]['url'][0]['data'])) {
 				$url = $this->sanitize($contributor['child'][SIMPLEPIE_NAMESPACE_ATOM_03]['url'][0]['data'], SIMPLEPIE_CONSTRUCT_IRI, $this->get_base($contributor['child'][SIMPLEPIE_NAMESPACE_ATOM_03]['url'][0]));
 			}
-			if (isset($contributor['child'][SIMPLEPIE_NAMESPACE_ATOM_03]['email'][0]['data']))
-			{
+			if (isset($contributor['child'][SIMPLEPIE_NAMESPACE_ATOM_03]['email'][0]['data'])) {
 				$email = $this->sanitize($contributor['child'][SIMPLEPIE_NAMESPACE_ATOM_03]['email'][0]['data'], SIMPLEPIE_CONSTRUCT_TEXT);
 			}
-			if ($name !== null || $email !== null || $url !== null)
-			{
+			if ($name !== null || $email !== null || $url !== null) {
 				$contributors[] = $this->registry->create('Author', array($name, $url, $email));
 			}
 		}
 
-		if (!empty($contributors))
-		{
+		if (!empty($contributors)) {
 			return array_unique($contributors);
 		}
-		else
-		{
+		else {
 			return null;
 		}
 	}
-	public function get_authors()
-	{
+	public function get_authors() {
 		$authors = array();
-		foreach ((array) $this->get_item_tags(SIMPLEPIE_NAMESPACE_ATOM_10, 'author') as $author)
-		{
+		foreach ((array) $this->get_item_tags(SIMPLEPIE_NAMESPACE_ATOM_10, 'author') as $author) {
 			$name = null;
 			$uri = null;
 			$email = null;
-			if (isset($author['child'][SIMPLEPIE_NAMESPACE_ATOM_10]['name'][0]['data']))
-			{
+			if (isset($author['child'][SIMPLEPIE_NAMESPACE_ATOM_10]['name'][0]['data'])) {
 				$name = $this->sanitize($author['child'][SIMPLEPIE_NAMESPACE_ATOM_10]['name'][0]['data'], SIMPLEPIE_CONSTRUCT_TEXT);
 			}
-			if (isset($author['child'][SIMPLEPIE_NAMESPACE_ATOM_10]['uri'][0]['data']))
-			{
+			if (isset($author['child'][SIMPLEPIE_NAMESPACE_ATOM_10]['uri'][0]['data'])) {
 				$uri = $this->sanitize($author['child'][SIMPLEPIE_NAMESPACE_ATOM_10]['uri'][0]['data'], SIMPLEPIE_CONSTRUCT_IRI, $this->get_base($author['child'][SIMPLEPIE_NAMESPACE_ATOM_10]['uri'][0]));
 			}
-			if (isset($author['child'][SIMPLEPIE_NAMESPACE_ATOM_10]['email'][0]['data']))
-			{
+			if (isset($author['child'][SIMPLEPIE_NAMESPACE_ATOM_10]['email'][0]['data'])) {
 				$email = $this->sanitize($author['child'][SIMPLEPIE_NAMESPACE_ATOM_10]['email'][0]['data'], SIMPLEPIE_CONSTRUCT_TEXT);
 			}
-			if ($name !== null || $email !== null || $uri !== null)
-			{
+			if ($name !== null || $email !== null || $uri !== null) {
 				$authors[] = $this->registry->create('Author', array($name, $uri, $email));
 			}
 		}
-		if ($author = $this->get_item_tags(SIMPLEPIE_NAMESPACE_ATOM_03, 'author'))
-		{
+		if ($author = $this->get_item_tags(SIMPLEPIE_NAMESPACE_ATOM_03, 'author')) {
 			$name = null;
 			$url = null;
 			$email = null;
-			if (isset($author[0]['child'][SIMPLEPIE_NAMESPACE_ATOM_03]['name'][0]['data']))
-			{
+			if (isset($author[0]['child'][SIMPLEPIE_NAMESPACE_ATOM_03]['name'][0]['data'])) {
 				$name = $this->sanitize($author[0]['child'][SIMPLEPIE_NAMESPACE_ATOM_03]['name'][0]['data'], SIMPLEPIE_CONSTRUCT_TEXT);
 			}
-			if (isset($author[0]['child'][SIMPLEPIE_NAMESPACE_ATOM_03]['url'][0]['data']))
-			{
+			if (isset($author[0]['child'][SIMPLEPIE_NAMESPACE_ATOM_03]['url'][0]['data'])) {
 				$url = $this->sanitize($author[0]['child'][SIMPLEPIE_NAMESPACE_ATOM_03]['url'][0]['data'], SIMPLEPIE_CONSTRUCT_IRI, $this->get_base($author[0]['child'][SIMPLEPIE_NAMESPACE_ATOM_03]['url'][0]));
 			}
-			if (isset($author[0]['child'][SIMPLEPIE_NAMESPACE_ATOM_03]['email'][0]['data']))
-			{
+			if (isset($author[0]['child'][SIMPLEPIE_NAMESPACE_ATOM_03]['email'][0]['data'])) {
 				$email = $this->sanitize($author[0]['child'][SIMPLEPIE_NAMESPACE_ATOM_03]['email'][0]['data'], SIMPLEPIE_CONSTRUCT_TEXT);
 			}
-			if ($name !== null || $email !== null || $url !== null)
-			{
+			if ($name !== null || $email !== null || $url !== null) {
 				$authors[] = $this->registry->create('Author', array($name, $url, $email));
 			}
 		}
-		if ($author = $this->get_item_tags(SIMPLEPIE_NAMESPACE_RSS_20, 'author'))
-		{
+		if ($author = $this->get_item_tags(SIMPLEPIE_NAMESPACE_RSS_20, 'author')) {
 			$authors[] = $this->registry->create('Author', array(null, null, $this->sanitize($author[0]['data'], SIMPLEPIE_CONSTRUCT_TEXT)));
 		}
-		foreach ((array) $this->get_item_tags(SIMPLEPIE_NAMESPACE_DC_11, 'creator') as $author)
-		{
+		foreach ((array) $this->get_item_tags(SIMPLEPIE_NAMESPACE_DC_11, 'creator') as $author) {
 			$authors[] = $this->registry->create('Author', array($this->sanitize($author['data'], SIMPLEPIE_CONSTRUCT_TEXT), null, null));
 		}
-		foreach ((array) $this->get_item_tags(SIMPLEPIE_NAMESPACE_DC_10, 'creator') as $author)
-		{
+		foreach ((array) $this->get_item_tags(SIMPLEPIE_NAMESPACE_DC_10, 'creator') as $author) {
 			$authors[] = $this->registry->create('Author', array($this->sanitize($author['data'], SIMPLEPIE_CONSTRUCT_TEXT), null, null));
 		}
-		foreach ((array) $this->get_item_tags(SIMPLEPIE_NAMESPACE_ITUNES, 'author') as $author)
-		{
+		foreach ((array) $this->get_item_tags(SIMPLEPIE_NAMESPACE_ITUNES, 'author') as $author) {
 			$authors[] = $this->registry->create('Author', array($this->sanitize($author['data'], SIMPLEPIE_CONSTRUCT_TEXT), null, null));
 		}
 
-		if (!empty($authors))
-		{
+		if (!empty($authors)) {
 			return array_unique($authors);
 		}
-		elseif (($source = $this->get_source()) && ($authors = $source->get_authors()))
-		{
+		elseif (($source = $this->get_source()) && ($authors = $source->get_authors())) {
 			return $authors;
 		}
-		elseif ($authors = $this->feed->get_authors())
-		{
+		elseif ($authors = $this->feed->get_authors()) {
 			return $authors;
 		}
-		else
-		{
+		else {
 			return null;
 		}
 	}
-	public function get_copyright()
-	{
-		if ($return = $this->get_item_tags(SIMPLEPIE_NAMESPACE_ATOM_10, 'rights'))
-		{
+	public function get_copyright() {
+		if ($return = $this->get_item_tags(SIMPLEPIE_NAMESPACE_ATOM_10, 'rights')) {
 			return $this->sanitize($return[0]['data'], $this->registry->call('Misc', 'atom_10_construct_type', array($return[0]['attribs'])), $this->get_base($return[0]));
 		}
-		elseif ($return = $this->get_item_tags(SIMPLEPIE_NAMESPACE_DC_11, 'rights'))
-		{
+		elseif ($return = $this->get_item_tags(SIMPLEPIE_NAMESPACE_DC_11, 'rights')) {
 			return $this->sanitize($return[0]['data'], SIMPLEPIE_CONSTRUCT_TEXT);
 		}
-		elseif ($return = $this->get_item_tags(SIMPLEPIE_NAMESPACE_DC_10, 'rights'))
-		{
+		elseif ($return = $this->get_item_tags(SIMPLEPIE_NAMESPACE_DC_10, 'rights')) {
 			return $this->sanitize($return[0]['data'], SIMPLEPIE_CONSTRUCT_TEXT);
 		}
-		else
-		{
+		else {
 			return null;
 		}
 	}
-	public function get_date($date_format = 'j F Y, g:i a')
-	{
-		if (!isset($this->data['date']))
-		{
-			if ($return = $this->get_item_tags(SIMPLEPIE_NAMESPACE_ATOM_10, 'published'))
-			{
+	public function get_date($date_format = 'j F Y, g:i a') {
+		if (!isset($this->data['date'])) {
+			if ($return = $this->get_item_tags(SIMPLEPIE_NAMESPACE_ATOM_10, 'published')) {
 				$this->data['date']['raw'] = $return[0]['data'];
 			}
-			elseif ($return = $this->get_item_tags(SIMPLEPIE_NAMESPACE_ATOM_10, 'updated'))
-			{
+			elseif ($return = $this->get_item_tags(SIMPLEPIE_NAMESPACE_ATOM_10, 'updated')) {
 				$this->data['date']['raw'] = $return[0]['data'];
 			}
-			elseif ($return = $this->get_item_tags(SIMPLEPIE_NAMESPACE_ATOM_03, 'issued'))
-			{
+			elseif ($return = $this->get_item_tags(SIMPLEPIE_NAMESPACE_ATOM_03, 'issued')) {
 				$this->data['date']['raw'] = $return[0]['data'];
 			}
-			elseif ($return = $this->get_item_tags(SIMPLEPIE_NAMESPACE_ATOM_03, 'created'))
-			{
+			elseif ($return = $this->get_item_tags(SIMPLEPIE_NAMESPACE_ATOM_03, 'created')) {
 				$this->data['date']['raw'] = $return[0]['data'];
 			}
-			elseif ($return = $this->get_item_tags(SIMPLEPIE_NAMESPACE_ATOM_03, 'modified'))
-			{
+			elseif ($return = $this->get_item_tags(SIMPLEPIE_NAMESPACE_ATOM_03, 'modified')) {
 				$this->data['date']['raw'] = $return[0]['data'];
 			}
-			elseif ($return = $this->get_item_tags(SIMPLEPIE_NAMESPACE_RSS_20, 'pubDate'))
-			{
+			elseif ($return = $this->get_item_tags(SIMPLEPIE_NAMESPACE_RSS_20, 'pubDate')) {
 				$this->data['date']['raw'] = $return[0]['data'];
 			}
-			elseif ($return = $this->get_item_tags(SIMPLEPIE_NAMESPACE_DC_11, 'date'))
-			{
+			elseif ($return = $this->get_item_tags(SIMPLEPIE_NAMESPACE_DC_11, 'date')) {
 				$this->data['date']['raw'] = $return[0]['data'];
 			}
-			elseif ($return = $this->get_item_tags(SIMPLEPIE_NAMESPACE_DC_10, 'date'))
-			{
+			elseif ($return = $this->get_item_tags(SIMPLEPIE_NAMESPACE_DC_10, 'date')) {
 				$this->data['date']['raw'] = $return[0]['data'];
 			}
 
-			if (!empty($this->data['date']['raw']))
-			{
+			if (!empty($this->data['date']['raw'])) {
 				$parser = $this->registry->call('Parse_Date', 'get');
 				$this->data['date']['parsed'] = $parser->parse($this->data['date']['raw']);
 			}
-			else
-			{
+			else {
 				$this->data['date'] = null;
 			}
 		}
-		if ($this->data['date'])
-		{
+		if ($this->data['date']) {
 			$date_format = (string) $date_format;
-			switch ($date_format)
-			{
+			switch ($date_format) {
 				case '':
 					return $this->sanitize($this->data['date']['raw'], SIMPLEPIE_CONSTRUCT_TEXT);
 
@@ -6417,35 +5225,27 @@ class SimplePie_Item
 					return date($date_format, $this->data['date']['parsed']);
 			}
 		}
-		else
-		{
+		else {
 			return null;
 		}
 	}
-	public function get_updated_date($date_format = 'j F Y, g:i a')
-	{
-		if (!isset($this->data['updated']))
-		{
-			if ($return = $this->get_item_tags(SIMPLEPIE_NAMESPACE_ATOM_10, 'updated'))
-			{
+	public function get_updated_date($date_format = 'j F Y, g:i a') {
+		if (!isset($this->data['updated'])) {
+			if ($return = $this->get_item_tags(SIMPLEPIE_NAMESPACE_ATOM_10, 'updated')) {
 				$this->data['updated']['raw'] = $return[0]['data'];
 			}
 
-			if (!empty($this->data['updated']['raw']))
-			{
+			if (!empty($this->data['updated']['raw'])) {
 				$parser = $this->registry->call('Parse_Date', 'get');
 				$this->data['updated']['parsed'] = $parser->parse($this->data['date']['raw']);
 			}
-			else
-			{
+			else {
 				$this->data['updated'] = null;
 			}
 		}
-		if ($this->data['updated'])
-		{
+		if ($this->data['updated']) {
 			$date_format = (string) $date_format;
-			switch ($date_format)
-			{
+			switch ($date_format) {
 				case '':
 					return $this->sanitize($this->data['updated']['raw'], SIMPLEPIE_CONSTRUCT_TEXT);
 
@@ -6456,164 +5256,125 @@ class SimplePie_Item
 					return date($date_format, $this->data['updated']['parsed']);
 			}
 		}
-		else
-		{
+		else {
 			return null;
 		}
 	}
-	public function get_local_date($date_format = '%c')
-	{
-		if (!$date_format)
-		{
+	public function get_local_date($date_format = '%c') {
+		if (!$date_format) {
 			return $this->sanitize($this->get_date(''), SIMPLEPIE_CONSTRUCT_TEXT);
 		}
-		elseif (($date = $this->get_date('U')) !== null && $date !== false)
-		{
+		elseif (($date = $this->get_date('U')) !== null && $date !== false) {
 			return strftime($date_format, $date);
 		}
-		else
-		{
+		else {
 			return null;
 		}
 	}
-	public function get_gmdate($date_format = 'j F Y, g:i a')
-	{
+	public function get_gmdate($date_format = 'j F Y, g:i a') {
 		$date = $this->get_date('U');
-		if ($date === null)
-		{
+		if ($date === null) {
 			return null;
 		}
 
 		return gmdate($date_format, $date);
 	}
-	public function get_updated_gmdate($date_format = 'j F Y, g:i a')
-	{
+	public function get_updated_gmdate($date_format = 'j F Y, g:i a') {
 		$date = $this->get_updated_date('U');
-		if ($date === null)
-		{
+		if ($date === null) {
 			return null;
 		}
 
 		return gmdate($date_format, $date);
 	}
-	public function get_permalink()
-	{
+	public function get_permalink() {
 		$link = $this->get_link();
 		$enclosure = $this->get_enclosure(0);
-		if ($link !== null)
-		{
+		if ($link !== null) {
 			return $link;
 		}
-		elseif ($enclosure !== null)
-		{
+		elseif ($enclosure !== null) {
 			return $enclosure->get_link();
 		}
-		else
-		{
+		else {
 			return null;
 		}
 	}
-	public function get_link($key = 0, $rel = 'alternate')
-	{
+	public function get_link($key = 0, $rel = 'alternate') {
 		$links = $this->get_links($rel);
-		if ($links[$key] !== null)
-		{
+		if ($links[$key] !== null) {
 			return $links[$key];
 		}
-		else
-		{
+		else {
 			return null;
 		}
 	}
-	public function get_links($rel = 'alternate')
-	{
-		if (!isset($this->data['links']))
-		{
+	public function get_links($rel = 'alternate') {
+		if (!isset($this->data['links'])) {
 			$this->data['links'] = array();
-			foreach ((array) $this->get_item_tags(SIMPLEPIE_NAMESPACE_ATOM_10, 'link') as $link)
-			{
-				if (isset($link['attribs']['']['href']))
-				{
+			foreach ((array) $this->get_item_tags(SIMPLEPIE_NAMESPACE_ATOM_10, 'link') as $link) {
+				if (isset($link['attribs']['']['href'])) {
 					$link_rel = (isset($link['attribs']['']['rel'])) ? $link['attribs']['']['rel'] : 'alternate';
 					$this->data['links'][$link_rel][] = $this->sanitize($link['attribs']['']['href'], SIMPLEPIE_CONSTRUCT_IRI, $this->get_base($link));
 
 				}
 			}
-			foreach ((array) $this->get_item_tags(SIMPLEPIE_NAMESPACE_ATOM_03, 'link') as $link)
-			{
-				if (isset($link['attribs']['']['href']))
-				{
+			foreach ((array) $this->get_item_tags(SIMPLEPIE_NAMESPACE_ATOM_03, 'link') as $link) {
+				if (isset($link['attribs']['']['href'])) {
 					$link_rel = (isset($link['attribs']['']['rel'])) ? $link['attribs']['']['rel'] : 'alternate';
 					$this->data['links'][$link_rel][] = $this->sanitize($link['attribs']['']['href'], SIMPLEPIE_CONSTRUCT_IRI, $this->get_base($link));
 				}
 			}
-			if ($links = $this->get_item_tags(SIMPLEPIE_NAMESPACE_RSS_10, 'link'))
-			{
+			if ($links = $this->get_item_tags(SIMPLEPIE_NAMESPACE_RSS_10, 'link')) {
 				$this->data['links']['alternate'][] = $this->sanitize($links[0]['data'], SIMPLEPIE_CONSTRUCT_IRI, $this->get_base($links[0]));
 			}
-			if ($links = $this->get_item_tags(SIMPLEPIE_NAMESPACE_RSS_090, 'link'))
-			{
+			if ($links = $this->get_item_tags(SIMPLEPIE_NAMESPACE_RSS_090, 'link')) {
 				$this->data['links']['alternate'][] = $this->sanitize($links[0]['data'], SIMPLEPIE_CONSTRUCT_IRI, $this->get_base($links[0]));
 			}
-			if ($links = $this->get_item_tags(SIMPLEPIE_NAMESPACE_RSS_20, 'link'))
-			{
+			if ($links = $this->get_item_tags(SIMPLEPIE_NAMESPACE_RSS_20, 'link')) {
 				$this->data['links']['alternate'][] = $this->sanitize($links[0]['data'], SIMPLEPIE_CONSTRUCT_IRI, $this->get_base($links[0]));
 			}
-			if ($links = $this->get_item_tags(SIMPLEPIE_NAMESPACE_RSS_20, 'guid'))
-			{
-				if (!isset($links[0]['attribs']['']['isPermaLink']) || strtolower(trim($links[0]['attribs']['']['isPermaLink'])) === 'true')
-				{
+			if ($links = $this->get_item_tags(SIMPLEPIE_NAMESPACE_RSS_20, 'guid')) {
+				if (!isset($links[0]['attribs']['']['isPermaLink']) || strtolower(trim($links[0]['attribs']['']['isPermaLink'])) === 'true') {
 					$this->data['links']['alternate'][] = $this->sanitize($links[0]['data'], SIMPLEPIE_CONSTRUCT_IRI, $this->get_base($links[0]));
 				}
 			}
 
 			$keys = array_keys($this->data['links']);
-			foreach ($keys as $key)
-			{
-				if ($this->registry->call('Misc', 'is_isegment_nz_nc', array($key)))
-				{
-					if (isset($this->data['links'][SIMPLEPIE_IANA_LINK_RELATIONS_REGISTRY . $key]))
-					{
+			foreach ($keys as $key) {
+				if ($this->registry->call('Misc', 'is_isegment_nz_nc', array($key))) {
+					if (isset($this->data['links'][SIMPLEPIE_IANA_LINK_RELATIONS_REGISTRY . $key])) {
 						$this->data['links'][SIMPLEPIE_IANA_LINK_RELATIONS_REGISTRY . $key] = array_merge($this->data['links'][$key], $this->data['links'][SIMPLEPIE_IANA_LINK_RELATIONS_REGISTRY . $key]);
 						$this->data['links'][$key] =& $this->data['links'][SIMPLEPIE_IANA_LINK_RELATIONS_REGISTRY . $key];
 					}
-					else
-					{
+					else {
 						$this->data['links'][SIMPLEPIE_IANA_LINK_RELATIONS_REGISTRY . $key] =& $this->data['links'][$key];
 					}
 				}
-				elseif (substr($key, 0, 41) === SIMPLEPIE_IANA_LINK_RELATIONS_REGISTRY)
-				{
+				elseif (substr($key, 0, 41) === SIMPLEPIE_IANA_LINK_RELATIONS_REGISTRY) {
 					$this->data['links'][substr($key, 41)] =& $this->data['links'][$key];
 				}
 				$this->data['links'][$key] = array_unique($this->data['links'][$key]);
 			}
 		}
-		if (isset($this->data['links'][$rel]))
-		{
+		if (isset($this->data['links'][$rel])) {
 			return $this->data['links'][$rel];
 		}
-		else
-		{
+		else {
 			return null;
 		}
 	}
-	public function get_enclosure($key = 0, $prefer = null)
-	{
+	public function get_enclosure($key = 0, $prefer = null) {
 		$enclosures = $this->get_enclosures();
-		if (isset($enclosures[$key]))
-		{
+		if (isset($enclosures[$key])) {
 			return $enclosures[$key];
 		}
-		else
-		{
+		else {
 			return null;
 		}
 	}
-	public function get_enclosures()
-	{
-		if (!isset($this->data['enclosures']))
-		{
+	public function get_enclosures() {
+		if (!isset($this->data['enclosures'])) {
 			$this->data['enclosures'] = array();
 
 			// Elements
@@ -6635,274 +5396,215 @@ class SimplePie_Item
 			$parent = $this->get_feed();
 
 			// CAPTIONS
-			if ($captions = $this->get_item_tags(SIMPLEPIE_NAMESPACE_MEDIARSS, 'text'))
-			{
-				foreach ($captions as $caption)
-				{
+			if ($captions = $this->get_item_tags(SIMPLEPIE_NAMESPACE_MEDIARSS, 'text')) {
+				foreach ($captions as $caption) {
 					$caption_type = null;
 					$caption_lang = null;
 					$caption_startTime = null;
 					$caption_endTime = null;
 					$caption_text = null;
-					if (isset($caption['attribs']['']['type']))
-					{
+					if (isset($caption['attribs']['']['type'])) {
 						$caption_type = $this->sanitize($caption['attribs']['']['type'], SIMPLEPIE_CONSTRUCT_TEXT);
 					}
-					if (isset($caption['attribs']['']['lang']))
-					{
+					if (isset($caption['attribs']['']['lang'])) {
 						$caption_lang = $this->sanitize($caption['attribs']['']['lang'], SIMPLEPIE_CONSTRUCT_TEXT);
 					}
-					if (isset($caption['attribs']['']['start']))
-					{
+					if (isset($caption['attribs']['']['start'])) {
 						$caption_startTime = $this->sanitize($caption['attribs']['']['start'], SIMPLEPIE_CONSTRUCT_TEXT);
 					}
-					if (isset($caption['attribs']['']['end']))
-					{
+					if (isset($caption['attribs']['']['end'])) {
 						$caption_endTime = $this->sanitize($caption['attribs']['']['end'], SIMPLEPIE_CONSTRUCT_TEXT);
 					}
-					if (isset($caption['data']))
-					{
+					if (isset($caption['data'])) {
 						$caption_text = $this->sanitize($caption['data'], SIMPLEPIE_CONSTRUCT_TEXT);
 					}
 					$captions_parent[] = $this->registry->create('Caption', array($caption_type, $caption_lang, $caption_startTime, $caption_endTime, $caption_text));
 				}
 			}
-			elseif ($captions = $parent->get_channel_tags(SIMPLEPIE_NAMESPACE_MEDIARSS, 'text'))
-			{
-				foreach ($captions as $caption)
-				{
+			elseif ($captions = $parent->get_channel_tags(SIMPLEPIE_NAMESPACE_MEDIARSS, 'text')) {
+				foreach ($captions as $caption) {
 					$caption_type = null;
 					$caption_lang = null;
 					$caption_startTime = null;
 					$caption_endTime = null;
 					$caption_text = null;
-					if (isset($caption['attribs']['']['type']))
-					{
+					if (isset($caption['attribs']['']['type'])) {
 						$caption_type = $this->sanitize($caption['attribs']['']['type'], SIMPLEPIE_CONSTRUCT_TEXT);
 					}
-					if (isset($caption['attribs']['']['lang']))
-					{
+					if (isset($caption['attribs']['']['lang'])) {
 						$caption_lang = $this->sanitize($caption['attribs']['']['lang'], SIMPLEPIE_CONSTRUCT_TEXT);
 					}
-					if (isset($caption['attribs']['']['start']))
-					{
+					if (isset($caption['attribs']['']['start'])) {
 						$caption_startTime = $this->sanitize($caption['attribs']['']['start'], SIMPLEPIE_CONSTRUCT_TEXT);
 					}
-					if (isset($caption['attribs']['']['end']))
-					{
+					if (isset($caption['attribs']['']['end'])) {
 						$caption_endTime = $this->sanitize($caption['attribs']['']['end'], SIMPLEPIE_CONSTRUCT_TEXT);
 					}
-					if (isset($caption['data']))
-					{
+					if (isset($caption['data'])) {
 						$caption_text = $this->sanitize($caption['data'], SIMPLEPIE_CONSTRUCT_TEXT);
 					}
 					$captions_parent[] = $this->registry->create('Caption', array($caption_type, $caption_lang, $caption_startTime, $caption_endTime, $caption_text));
 				}
 			}
-			if (is_array($captions_parent))
-			{
+			if (is_array($captions_parent)) {
 				$captions_parent = array_values(array_unique($captions_parent));
 			}
 
 			// CATEGORIES
-			foreach ((array) $this->get_item_tags(SIMPLEPIE_NAMESPACE_MEDIARSS, 'category') as $category)
-			{
+			foreach ((array) $this->get_item_tags(SIMPLEPIE_NAMESPACE_MEDIARSS, 'category') as $category) {
 				$term = null;
 				$scheme = null;
 				$label = null;
-				if (isset($category['data']))
-				{
+				if (isset($category['data'])) {
 					$term = $this->sanitize($category['data'], SIMPLEPIE_CONSTRUCT_TEXT);
 				}
-				if (isset($category['attribs']['']['scheme']))
-				{
+				if (isset($category['attribs']['']['scheme'])) {
 					$scheme = $this->sanitize($category['attribs']['']['scheme'], SIMPLEPIE_CONSTRUCT_TEXT);
 				}
-				else
-				{
+				else {
 					$scheme = 'http://search.yahoo.com/mrss/category_schema';
 				}
-				if (isset($category['attribs']['']['label']))
-				{
+				if (isset($category['attribs']['']['label'])) {
 					$label = $this->sanitize($category['attribs']['']['label'], SIMPLEPIE_CONSTRUCT_TEXT);
 				}
 				$categories_parent[] = $this->registry->create('Category', array($term, $scheme, $label));
 			}
-			foreach ((array) $parent->get_channel_tags(SIMPLEPIE_NAMESPACE_MEDIARSS, 'category') as $category)
-			{
+			foreach ((array) $parent->get_channel_tags(SIMPLEPIE_NAMESPACE_MEDIARSS, 'category') as $category) {
 				$term = null;
 				$scheme = null;
 				$label = null;
-				if (isset($category['data']))
-				{
+				if (isset($category['data'])) {
 					$term = $this->sanitize($category['data'], SIMPLEPIE_CONSTRUCT_TEXT);
 				}
-				if (isset($category['attribs']['']['scheme']))
-				{
+				if (isset($category['attribs']['']['scheme'])) {
 					$scheme = $this->sanitize($category['attribs']['']['scheme'], SIMPLEPIE_CONSTRUCT_TEXT);
 				}
-				else
-				{
+				else {
 					$scheme = 'http://search.yahoo.com/mrss/category_schema';
 				}
-				if (isset($category['attribs']['']['label']))
-				{
+				if (isset($category['attribs']['']['label'])) {
 					$label = $this->sanitize($category['attribs']['']['label'], SIMPLEPIE_CONSTRUCT_TEXT);
 				}
 				$categories_parent[] = $this->registry->create('Category', array($term, $scheme, $label));
 			}
-			foreach ((array) $parent->get_channel_tags(SIMPLEPIE_NAMESPACE_ITUNES, 'category') as $category)
-			{
+			foreach ((array) $parent->get_channel_tags(SIMPLEPIE_NAMESPACE_ITUNES, 'category') as $category) {
 				$term = null;
 				$scheme = 'http://www.itunes.com/dtds/podcast-1.0.dtd';
 				$label = null;
-				if (isset($category['attribs']['']['text']))
-				{
+				if (isset($category['attribs']['']['text'])) {
 					$label = $this->sanitize($category['attribs']['']['text'], SIMPLEPIE_CONSTRUCT_TEXT);
 				}
 				$categories_parent[] = $this->registry->create('Category', array($term, $scheme, $label));
 
-				if (isset($category['child'][SIMPLEPIE_NAMESPACE_ITUNES]['category']))
-				{
-					foreach ((array) $category['child'][SIMPLEPIE_NAMESPACE_ITUNES]['category'] as $subcategory)
-					{
-						if (isset($subcategory['attribs']['']['text']))
-						{
+				if (isset($category['child'][SIMPLEPIE_NAMESPACE_ITUNES]['category'])) {
+					foreach ((array) $category['child'][SIMPLEPIE_NAMESPACE_ITUNES]['category'] as $subcategory) {
+						if (isset($subcategory['attribs']['']['text'])) {
 							$label = $this->sanitize($subcategory['attribs']['']['text'], SIMPLEPIE_CONSTRUCT_TEXT);
 						}
 						$categories_parent[] = $this->registry->create('Category', array($term, $scheme, $label));
 					}
 				}
 			}
-			if (is_array($categories_parent))
-			{
+			if (is_array($categories_parent)) {
 				$categories_parent = array_values(array_unique($categories_parent));
 			}
 
 			// COPYRIGHT
-			if ($copyright = $this->get_item_tags(SIMPLEPIE_NAMESPACE_MEDIARSS, 'copyright'))
-			{
+			if ($copyright = $this->get_item_tags(SIMPLEPIE_NAMESPACE_MEDIARSS, 'copyright')) {
 				$copyright_url = null;
 				$copyright_label = null;
-				if (isset($copyright[0]['attribs']['']['url']))
-				{
+				if (isset($copyright[0]['attribs']['']['url'])) {
 					$copyright_url = $this->sanitize($copyright[0]['attribs']['']['url'], SIMPLEPIE_CONSTRUCT_TEXT);
 				}
-				if (isset($copyright[0]['data']))
-				{
+				if (isset($copyright[0]['data'])) {
 					$copyright_label = $this->sanitize($copyright[0]['data'], SIMPLEPIE_CONSTRUCT_TEXT);
 				}
 				$copyrights_parent = $this->registry->create('Copyright', array($copyright_url, $copyright_label));
 			}
-			elseif ($copyright = $parent->get_channel_tags(SIMPLEPIE_NAMESPACE_MEDIARSS, 'copyright'))
-			{
+			elseif ($copyright = $parent->get_channel_tags(SIMPLEPIE_NAMESPACE_MEDIARSS, 'copyright')) {
 				$copyright_url = null;
 				$copyright_label = null;
-				if (isset($copyright[0]['attribs']['']['url']))
-				{
+				if (isset($copyright[0]['attribs']['']['url'])) {
 					$copyright_url = $this->sanitize($copyright[0]['attribs']['']['url'], SIMPLEPIE_CONSTRUCT_TEXT);
 				}
-				if (isset($copyright[0]['data']))
-				{
+				if (isset($copyright[0]['data'])) {
 					$copyright_label = $this->sanitize($copyright[0]['data'], SIMPLEPIE_CONSTRUCT_TEXT);
 				}
 				$copyrights_parent = $this->registry->create('Copyright', array($copyright_url, $copyright_label));
 			}
 
 			// CREDITS
-			if ($credits = $this->get_item_tags(SIMPLEPIE_NAMESPACE_MEDIARSS, 'credit'))
-			{
-				foreach ($credits as $credit)
-				{
+			if ($credits = $this->get_item_tags(SIMPLEPIE_NAMESPACE_MEDIARSS, 'credit')) {
+				foreach ($credits as $credit) {
 					$credit_role = null;
 					$credit_scheme = null;
 					$credit_name = null;
-					if (isset($credit['attribs']['']['role']))
-					{
+					if (isset($credit['attribs']['']['role'])) {
 						$credit_role = $this->sanitize($credit['attribs']['']['role'], SIMPLEPIE_CONSTRUCT_TEXT);
 					}
-					if (isset($credit['attribs']['']['scheme']))
-					{
+					if (isset($credit['attribs']['']['scheme'])) {
 						$credit_scheme = $this->sanitize($credit['attribs']['']['scheme'], SIMPLEPIE_CONSTRUCT_TEXT);
 					}
-					else
-					{
+					else {
 						$credit_scheme = 'urn:ebu';
 					}
-					if (isset($credit['data']))
-					{
+					if (isset($credit['data'])) {
 						$credit_name = $this->sanitize($credit['data'], SIMPLEPIE_CONSTRUCT_TEXT);
 					}
 					$credits_parent[] = $this->registry->create('Credit', array($credit_role, $credit_scheme, $credit_name));
 				}
 			}
-			elseif ($credits = $parent->get_channel_tags(SIMPLEPIE_NAMESPACE_MEDIARSS, 'credit'))
-			{
-				foreach ($credits as $credit)
-				{
+			elseif ($credits = $parent->get_channel_tags(SIMPLEPIE_NAMESPACE_MEDIARSS, 'credit')) {
+				foreach ($credits as $credit) {
 					$credit_role = null;
 					$credit_scheme = null;
 					$credit_name = null;
-					if (isset($credit['attribs']['']['role']))
-					{
+					if (isset($credit['attribs']['']['role'])) {
 						$credit_role = $this->sanitize($credit['attribs']['']['role'], SIMPLEPIE_CONSTRUCT_TEXT);
 					}
-					if (isset($credit['attribs']['']['scheme']))
-					{
+					if (isset($credit['attribs']['']['scheme'])) {
 						$credit_scheme = $this->sanitize($credit['attribs']['']['scheme'], SIMPLEPIE_CONSTRUCT_TEXT);
 					}
-					else
-					{
+					else {
 						$credit_scheme = 'urn:ebu';
 					}
-					if (isset($credit['data']))
-					{
+					if (isset($credit['data'])) {
 						$credit_name = $this->sanitize($credit['data'], SIMPLEPIE_CONSTRUCT_TEXT);
 					}
 					$credits_parent[] = $this->registry->create('Credit', array($credit_role, $credit_scheme, $credit_name));
 				}
 			}
-			if (is_array($credits_parent))
-			{
+			if (is_array($credits_parent)) {
 				$credits_parent = array_values(array_unique($credits_parent));
 			}
 
 			// DESCRIPTION
-			if ($description_parent = $this->get_item_tags(SIMPLEPIE_NAMESPACE_MEDIARSS, 'description'))
-			{
-				if (isset($description_parent[0]['data']))
-				{
+			if ($description_parent = $this->get_item_tags(SIMPLEPIE_NAMESPACE_MEDIARSS, 'description')) {
+				if (isset($description_parent[0]['data'])) {
 					$description_parent = $this->sanitize($description_parent[0]['data'], SIMPLEPIE_CONSTRUCT_TEXT);
 				}
 			}
-			elseif ($description_parent = $parent->get_channel_tags(SIMPLEPIE_NAMESPACE_MEDIARSS, 'description'))
-			{
-				if (isset($description_parent[0]['data']))
-				{
+			elseif ($description_parent = $parent->get_channel_tags(SIMPLEPIE_NAMESPACE_MEDIARSS, 'description')) {
+				if (isset($description_parent[0]['data'])) {
 					$description_parent = $this->sanitize($description_parent[0]['data'], SIMPLEPIE_CONSTRUCT_TEXT);
 				}
 			}
 
 			// DURATION
-			if ($duration_parent = $this->get_item_tags(SIMPLEPIE_NAMESPACE_ITUNES, 'duration'))
-			{
+			if ($duration_parent = $this->get_item_tags(SIMPLEPIE_NAMESPACE_ITUNES, 'duration')) {
 				$seconds = null;
 				$minutes = null;
 				$hours = null;
-				if (isset($duration_parent[0]['data']))
-				{
+				if (isset($duration_parent[0]['data'])) {
 					$temp = explode(':', $this->sanitize($duration_parent[0]['data'], SIMPLEPIE_CONSTRUCT_TEXT));
-					if (sizeof($temp) > 0)
-					{
+					if (sizeof($temp) > 0) {
 						$seconds = (int) array_pop($temp);
 					}
-					if (sizeof($temp) > 0)
-					{
+					if (sizeof($temp) > 0) {
 						$minutes = (int) array_pop($temp);
 						$seconds += $minutes * 60;
 					}
-					if (sizeof($temp) > 0)
-					{
+					if (sizeof($temp) > 0) {
 						$hours = (int) array_pop($temp);
 						$seconds += $hours * 3600;
 					}
@@ -6912,313 +5614,240 @@ class SimplePie_Item
 			}
 
 			// HASHES
-			if ($hashes_iterator = $this->get_item_tags(SIMPLEPIE_NAMESPACE_MEDIARSS, 'hash'))
-			{
-				foreach ($hashes_iterator as $hash)
-				{
+			if ($hashes_iterator = $this->get_item_tags(SIMPLEPIE_NAMESPACE_MEDIARSS, 'hash')) {
+				foreach ($hashes_iterator as $hash) {
 					$value = null;
 					$algo = null;
-					if (isset($hash['data']))
-					{
+					if (isset($hash['data'])) {
 						$value = $this->sanitize($hash['data'], SIMPLEPIE_CONSTRUCT_TEXT);
 					}
-					if (isset($hash['attribs']['']['algo']))
-					{
+					if (isset($hash['attribs']['']['algo'])) {
 						$algo = $this->sanitize($hash['attribs']['']['algo'], SIMPLEPIE_CONSTRUCT_TEXT);
 					}
-					else
-					{
+					else {
 						$algo = 'md5';
 					}
 					$hashes_parent[] = $algo.':'.$value;
 				}
 			}
-			elseif ($hashes_iterator = $parent->get_channel_tags(SIMPLEPIE_NAMESPACE_MEDIARSS, 'hash'))
-			{
-				foreach ($hashes_iterator as $hash)
-				{
+			elseif ($hashes_iterator = $parent->get_channel_tags(SIMPLEPIE_NAMESPACE_MEDIARSS, 'hash')) {
+				foreach ($hashes_iterator as $hash) {
 					$value = null;
 					$algo = null;
-					if (isset($hash['data']))
-					{
+					if (isset($hash['data'])) {
 						$value = $this->sanitize($hash['data'], SIMPLEPIE_CONSTRUCT_TEXT);
 					}
-					if (isset($hash['attribs']['']['algo']))
-					{
+					if (isset($hash['attribs']['']['algo'])) {
 						$algo = $this->sanitize($hash['attribs']['']['algo'], SIMPLEPIE_CONSTRUCT_TEXT);
 					}
-					else
-					{
+					else {
 						$algo = 'md5';
 					}
 					$hashes_parent[] = $algo.':'.$value;
 				}
 			}
-			if (is_array($hashes_parent))
-			{
+			if (is_array($hashes_parent)) {
 				$hashes_parent = array_values(array_unique($hashes_parent));
 			}
 
 			// KEYWORDS
-			if ($keywords = $this->get_item_tags(SIMPLEPIE_NAMESPACE_MEDIARSS, 'keywords'))
-			{
-				if (isset($keywords[0]['data']))
-				{
+			if ($keywords = $this->get_item_tags(SIMPLEPIE_NAMESPACE_MEDIARSS, 'keywords')) {
+				if (isset($keywords[0]['data'])) {
 					$temp = explode(',', $this->sanitize($keywords[0]['data'], SIMPLEPIE_CONSTRUCT_TEXT));
-					foreach ($temp as $word)
-					{
+					foreach ($temp as $word) {
 						$keywords_parent[] = trim($word);
 					}
 				}
 				unset($temp);
 			}
-			elseif ($keywords = $this->get_item_tags(SIMPLEPIE_NAMESPACE_ITUNES, 'keywords'))
-			{
-				if (isset($keywords[0]['data']))
-				{
+			elseif ($keywords = $this->get_item_tags(SIMPLEPIE_NAMESPACE_ITUNES, 'keywords')) {
+				if (isset($keywords[0]['data'])) {
 					$temp = explode(',', $this->sanitize($keywords[0]['data'], SIMPLEPIE_CONSTRUCT_TEXT));
-					foreach ($temp as $word)
-					{
+					foreach ($temp as $word) {
 						$keywords_parent[] = trim($word);
 					}
 				}
 				unset($temp);
 			}
-			elseif ($keywords = $parent->get_channel_tags(SIMPLEPIE_NAMESPACE_MEDIARSS, 'keywords'))
-			{
-				if (isset($keywords[0]['data']))
-				{
+			elseif ($keywords = $parent->get_channel_tags(SIMPLEPIE_NAMESPACE_MEDIARSS, 'keywords')) {
+				if (isset($keywords[0]['data'])) {
 					$temp = explode(',', $this->sanitize($keywords[0]['data'], SIMPLEPIE_CONSTRUCT_TEXT));
-					foreach ($temp as $word)
-					{
+					foreach ($temp as $word) {
 						$keywords_parent[] = trim($word);
 					}
 				}
 				unset($temp);
 			}
-			elseif ($keywords = $parent->get_channel_tags(SIMPLEPIE_NAMESPACE_ITUNES, 'keywords'))
-			{
-				if (isset($keywords[0]['data']))
-				{
+			elseif ($keywords = $parent->get_channel_tags(SIMPLEPIE_NAMESPACE_ITUNES, 'keywords')) {
+				if (isset($keywords[0]['data'])) {
 					$temp = explode(',', $this->sanitize($keywords[0]['data'], SIMPLEPIE_CONSTRUCT_TEXT));
-					foreach ($temp as $word)
-					{
+					foreach ($temp as $word) {
 						$keywords_parent[] = trim($word);
 					}
 				}
 				unset($temp);
 			}
-			if (is_array($keywords_parent))
-			{
+			if (is_array($keywords_parent)) {
 				$keywords_parent = array_values(array_unique($keywords_parent));
 			}
 
 			// PLAYER
-			if ($player_parent = $this->get_item_tags(SIMPLEPIE_NAMESPACE_MEDIARSS, 'player'))
-			{
-				if (isset($player_parent[0]['attribs']['']['url']))
-				{
+			if ($player_parent = $this->get_item_tags(SIMPLEPIE_NAMESPACE_MEDIARSS, 'player')) {
+				if (isset($player_parent[0]['attribs']['']['url'])) {
 					$player_parent = $this->sanitize($player_parent[0]['attribs']['']['url'], SIMPLEPIE_CONSTRUCT_IRI);
 				}
 			}
-			elseif ($player_parent = $parent->get_channel_tags(SIMPLEPIE_NAMESPACE_MEDIARSS, 'player'))
-			{
-				if (isset($player_parent[0]['attribs']['']['url']))
-				{
+			elseif ($player_parent = $parent->get_channel_tags(SIMPLEPIE_NAMESPACE_MEDIARSS, 'player')) {
+				if (isset($player_parent[0]['attribs']['']['url'])) {
 					$player_parent = $this->sanitize($player_parent[0]['attribs']['']['url'], SIMPLEPIE_CONSTRUCT_IRI);
 				}
 			}
 
 			// RATINGS
-			if ($ratings = $this->get_item_tags(SIMPLEPIE_NAMESPACE_MEDIARSS, 'rating'))
-			{
-				foreach ($ratings as $rating)
-				{
+			if ($ratings = $this->get_item_tags(SIMPLEPIE_NAMESPACE_MEDIARSS, 'rating')) {
+				foreach ($ratings as $rating) {
 					$rating_scheme = null;
 					$rating_value = null;
-					if (isset($rating['attribs']['']['scheme']))
-					{
+					if (isset($rating['attribs']['']['scheme'])) {
 						$rating_scheme = $this->sanitize($rating['attribs']['']['scheme'], SIMPLEPIE_CONSTRUCT_TEXT);
 					}
-					else
-					{
+					else {
 						$rating_scheme = 'urn:simple';
 					}
-					if (isset($rating['data']))
-					{
+					if (isset($rating['data'])) {
 						$rating_value = $this->sanitize($rating['data'], SIMPLEPIE_CONSTRUCT_TEXT);
 					}
 					$ratings_parent[] = $this->registry->create('Rating', array($rating_scheme, $rating_value));
 				}
 			}
-			elseif ($ratings = $this->get_item_tags(SIMPLEPIE_NAMESPACE_ITUNES, 'explicit'))
-			{
-				foreach ($ratings as $rating)
-				{
+			elseif ($ratings = $this->get_item_tags(SIMPLEPIE_NAMESPACE_ITUNES, 'explicit')) {
+				foreach ($ratings as $rating) {
 					$rating_scheme = 'urn:itunes';
 					$rating_value = null;
-					if (isset($rating['data']))
-					{
+					if (isset($rating['data'])) {
 						$rating_value = $this->sanitize($rating['data'], SIMPLEPIE_CONSTRUCT_TEXT);
 					}
 					$ratings_parent[] = $this->registry->create('Rating', array($rating_scheme, $rating_value));
 				}
 			}
-			elseif ($ratings = $parent->get_channel_tags(SIMPLEPIE_NAMESPACE_MEDIARSS, 'rating'))
-			{
-				foreach ($ratings as $rating)
-				{
+			elseif ($ratings = $parent->get_channel_tags(SIMPLEPIE_NAMESPACE_MEDIARSS, 'rating')) {
+				foreach ($ratings as $rating) {
 					$rating_scheme = null;
 					$rating_value = null;
-					if (isset($rating['attribs']['']['scheme']))
-					{
+					if (isset($rating['attribs']['']['scheme'])) {
 						$rating_scheme = $this->sanitize($rating['attribs']['']['scheme'], SIMPLEPIE_CONSTRUCT_TEXT);
 					}
-					else
-					{
+					else {
 						$rating_scheme = 'urn:simple';
 					}
-					if (isset($rating['data']))
-					{
+					if (isset($rating['data'])) {
 						$rating_value = $this->sanitize($rating['data'], SIMPLEPIE_CONSTRUCT_TEXT);
 					}
 					$ratings_parent[] = $this->registry->create('Rating', array($rating_scheme, $rating_value));
 				}
 			}
-			elseif ($ratings = $parent->get_channel_tags(SIMPLEPIE_NAMESPACE_ITUNES, 'explicit'))
-			{
-				foreach ($ratings as $rating)
-				{
+			elseif ($ratings = $parent->get_channel_tags(SIMPLEPIE_NAMESPACE_ITUNES, 'explicit')) {
+				foreach ($ratings as $rating) {
 					$rating_scheme = 'urn:itunes';
 					$rating_value = null;
-					if (isset($rating['data']))
-					{
+					if (isset($rating['data'])) {
 						$rating_value = $this->sanitize($rating['data'], SIMPLEPIE_CONSTRUCT_TEXT);
 					}
 					$ratings_parent[] = $this->registry->create('Rating', array($rating_scheme, $rating_value));
 				}
 			}
-			if (is_array($ratings_parent))
-			{
+			if (is_array($ratings_parent)) {
 				$ratings_parent = array_values(array_unique($ratings_parent));
 			}
 
 			// RESTRICTIONS
-			if ($restrictions = $this->get_item_tags(SIMPLEPIE_NAMESPACE_MEDIARSS, 'restriction'))
-			{
-				foreach ($restrictions as $restriction)
-				{
+			if ($restrictions = $this->get_item_tags(SIMPLEPIE_NAMESPACE_MEDIARSS, 'restriction')) {
+				foreach ($restrictions as $restriction) {
 					$restriction_relationship = null;
 					$restriction_type = null;
 					$restriction_value = null;
-					if (isset($restriction['attribs']['']['relationship']))
-					{
+					if (isset($restriction['attribs']['']['relationship'])) {
 						$restriction_relationship = $this->sanitize($restriction['attribs']['']['relationship'], SIMPLEPIE_CONSTRUCT_TEXT);
 					}
-					if (isset($restriction['attribs']['']['type']))
-					{
+					if (isset($restriction['attribs']['']['type'])) {
 						$restriction_type = $this->sanitize($restriction['attribs']['']['type'], SIMPLEPIE_CONSTRUCT_TEXT);
 					}
-					if (isset($restriction['data']))
-					{
+					if (isset($restriction['data'])) {
 						$restriction_value = $this->sanitize($restriction['data'], SIMPLEPIE_CONSTRUCT_TEXT);
 					}
 					$restrictions_parent[] = $this->registry->create('Restriction', array($restriction_relationship, $restriction_type, $restriction_value));
 				}
 			}
-			elseif ($restrictions = $this->get_item_tags(SIMPLEPIE_NAMESPACE_ITUNES, 'block'))
-			{
-				foreach ($restrictions as $restriction)
-				{
+			elseif ($restrictions = $this->get_item_tags(SIMPLEPIE_NAMESPACE_ITUNES, 'block')) {
+				foreach ($restrictions as $restriction) {
 					$restriction_relationship = 'allow';
 					$restriction_type = null;
 					$restriction_value = 'itunes';
-					if (isset($restriction['data']) && strtolower($restriction['data']) === 'yes')
-					{
+					if (isset($restriction['data']) && strtolower($restriction['data']) === 'yes') {
 						$restriction_relationship = 'deny';
 					}
 					$restrictions_parent[] = $this->registry->create('Restriction', array($restriction_relationship, $restriction_type, $restriction_value));
 				}
 			}
-			elseif ($restrictions = $parent->get_channel_tags(SIMPLEPIE_NAMESPACE_MEDIARSS, 'restriction'))
-			{
-				foreach ($restrictions as $restriction)
-				{
+			elseif ($restrictions = $parent->get_channel_tags(SIMPLEPIE_NAMESPACE_MEDIARSS, 'restriction')) {
+				foreach ($restrictions as $restriction) {
 					$restriction_relationship = null;
 					$restriction_type = null;
 					$restriction_value = null;
-					if (isset($restriction['attribs']['']['relationship']))
-					{
+					if (isset($restriction['attribs']['']['relationship'])) {
 						$restriction_relationship = $this->sanitize($restriction['attribs']['']['relationship'], SIMPLEPIE_CONSTRUCT_TEXT);
 					}
-					if (isset($restriction['attribs']['']['type']))
-					{
+					if (isset($restriction['attribs']['']['type'])) {
 						$restriction_type = $this->sanitize($restriction['attribs']['']['type'], SIMPLEPIE_CONSTRUCT_TEXT);
 					}
-					if (isset($restriction['data']))
-					{
+					if (isset($restriction['data'])) {
 						$restriction_value = $this->sanitize($restriction['data'], SIMPLEPIE_CONSTRUCT_TEXT);
 					}
 					$restrictions_parent[] = $this->registry->create('Restriction', array($restriction_relationship, $restriction_type, $restriction_value));
 				}
 			}
-			elseif ($restrictions = $parent->get_channel_tags(SIMPLEPIE_NAMESPACE_ITUNES, 'block'))
-			{
-				foreach ($restrictions as $restriction)
-				{
+			elseif ($restrictions = $parent->get_channel_tags(SIMPLEPIE_NAMESPACE_ITUNES, 'block')) {
+				foreach ($restrictions as $restriction) {
 					$restriction_relationship = 'allow';
 					$restriction_type = null;
 					$restriction_value = 'itunes';
-					if (isset($restriction['data']) && strtolower($restriction['data']) === 'yes')
-					{
+					if (isset($restriction['data']) && strtolower($restriction['data']) === 'yes') {
 						$restriction_relationship = 'deny';
 					}
 					$restrictions_parent[] = $this->registry->create('Restriction', array($restriction_relationship, $restriction_type, $restriction_value));
 				}
 			}
-			if (is_array($restrictions_parent))
-			{
+			if (is_array($restrictions_parent)) {
 				$restrictions_parent = array_values(array_unique($restrictions_parent));
 			}
-			else
-			{
+			else {
 				$restrictions_parent = array(new SimplePie_Restriction('allow', null, 'default'));
 			}
 
 			// THUMBNAILS
-			if ($thumbnails = $this->get_item_tags(SIMPLEPIE_NAMESPACE_MEDIARSS, 'thumbnail'))
-			{
-				foreach ($thumbnails as $thumbnail)
-				{
-					if (isset($thumbnail['attribs']['']['url']))
-					{
+			if ($thumbnails = $this->get_item_tags(SIMPLEPIE_NAMESPACE_MEDIARSS, 'thumbnail')) {
+				foreach ($thumbnails as $thumbnail) {
+					if (isset($thumbnail['attribs']['']['url'])) {
 						$thumbnails_parent[] = $this->sanitize($thumbnail['attribs']['']['url'], SIMPLEPIE_CONSTRUCT_IRI);
 					}
 				}
 			}
-			elseif ($thumbnails = $parent->get_channel_tags(SIMPLEPIE_NAMESPACE_MEDIARSS, 'thumbnail'))
-			{
-				foreach ($thumbnails as $thumbnail)
-				{
-					if (isset($thumbnail['attribs']['']['url']))
-					{
+			elseif ($thumbnails = $parent->get_channel_tags(SIMPLEPIE_NAMESPACE_MEDIARSS, 'thumbnail')) {
+				foreach ($thumbnails as $thumbnail) {
+					if (isset($thumbnail['attribs']['']['url'])) {
 						$thumbnails_parent[] = $this->sanitize($thumbnail['attribs']['']['url'], SIMPLEPIE_CONSTRUCT_IRI);
 					}
 				}
 			}
 
 			// TITLES
-			if ($title_parent = $this->get_item_tags(SIMPLEPIE_NAMESPACE_MEDIARSS, 'title'))
-			{
-				if (isset($title_parent[0]['data']))
-				{
+			if ($title_parent = $this->get_item_tags(SIMPLEPIE_NAMESPACE_MEDIARSS, 'title')) {
+				if (isset($title_parent[0]['data'])) {
 					$title_parent = $this->sanitize($title_parent[0]['data'], SIMPLEPIE_CONSTRUCT_TEXT);
 				}
 			}
-			elseif ($title_parent = $parent->get_channel_tags(SIMPLEPIE_NAMESPACE_MEDIARSS, 'title'))
-			{
-				if (isset($title_parent[0]['data']))
-				{
+			elseif ($title_parent = $parent->get_channel_tags(SIMPLEPIE_NAMESPACE_MEDIARSS, 'title')) {
+				if (isset($title_parent[0]['data'])) {
 					$title_parent = $this->sanitize($title_parent[0]['data'], SIMPLEPIE_CONSTRUCT_TEXT);
 				}
 			}
@@ -7257,15 +5886,11 @@ class SimplePie_Item
 			$title = null;
 
 			// If we have media:group tags, loop through them.
-			foreach ((array) $this->get_item_tags(SIMPLEPIE_NAMESPACE_MEDIARSS, 'group') as $group)
-			{
-				if(isset($group['child']) && isset($group['child'][SIMPLEPIE_NAMESPACE_MEDIARSS]['content']))
-				{
+			foreach ((array) $this->get_item_tags(SIMPLEPIE_NAMESPACE_MEDIARSS, 'group') as $group) {
+				if(isset($group['child']) && isset($group['child'][SIMPLEPIE_NAMESPACE_MEDIARSS]['content'])) {
 					// If we have media:content tags, loop through them.
-					foreach ((array) $group['child'][SIMPLEPIE_NAMESPACE_MEDIARSS]['content'] as $content)
-					{
-						if (isset($content['attribs']['']['url']))
-						{
+					foreach ((array) $group['child'][SIMPLEPIE_NAMESPACE_MEDIARSS]['content'] as $content) {
+						if (isset($content['attribs']['']['url'])) {
 							// Attributes
 							$bitrate = null;
 							$channels = null;
@@ -7297,56 +5922,43 @@ class SimplePie_Item
 							$title = null;
 
 							// Start checking the attributes of media:content
-							if (isset($content['attribs']['']['bitrate']))
-							{
+							if (isset($content['attribs']['']['bitrate'])) {
 								$bitrate = $this->sanitize($content['attribs']['']['bitrate'], SIMPLEPIE_CONSTRUCT_TEXT);
 							}
-							if (isset($content['attribs']['']['channels']))
-							{
+							if (isset($content['attribs']['']['channels'])) {
 								$channels = $this->sanitize($content['attribs']['']['channels'], SIMPLEPIE_CONSTRUCT_TEXT);
 							}
-							if (isset($content['attribs']['']['duration']))
-							{
+							if (isset($content['attribs']['']['duration'])) {
 								$duration = $this->sanitize($content['attribs']['']['duration'], SIMPLEPIE_CONSTRUCT_TEXT);
 							}
-							else
-							{
+							else {
 								$duration = $duration_parent;
 							}
-							if (isset($content['attribs']['']['expression']))
-							{
+							if (isset($content['attribs']['']['expression'])) {
 								$expression = $this->sanitize($content['attribs']['']['expression'], SIMPLEPIE_CONSTRUCT_TEXT);
 							}
-							if (isset($content['attribs']['']['framerate']))
-							{
+							if (isset($content['attribs']['']['framerate'])) {
 								$framerate = $this->sanitize($content['attribs']['']['framerate'], SIMPLEPIE_CONSTRUCT_TEXT);
 							}
-							if (isset($content['attribs']['']['height']))
-							{
+							if (isset($content['attribs']['']['height'])) {
 								$height = $this->sanitize($content['attribs']['']['height'], SIMPLEPIE_CONSTRUCT_TEXT);
 							}
-							if (isset($content['attribs']['']['lang']))
-							{
+							if (isset($content['attribs']['']['lang'])) {
 								$lang = $this->sanitize($content['attribs']['']['lang'], SIMPLEPIE_CONSTRUCT_TEXT);
 							}
-							if (isset($content['attribs']['']['fileSize']))
-							{
+							if (isset($content['attribs']['']['fileSize'])) {
 								$length = ceil($content['attribs']['']['fileSize']);
 							}
-							if (isset($content['attribs']['']['medium']))
-							{
+							if (isset($content['attribs']['']['medium'])) {
 								$medium = $this->sanitize($content['attribs']['']['medium'], SIMPLEPIE_CONSTRUCT_TEXT);
 							}
-							if (isset($content['attribs']['']['samplingrate']))
-							{
+							if (isset($content['attribs']['']['samplingrate'])) {
 								$samplingrate = $this->sanitize($content['attribs']['']['samplingrate'], SIMPLEPIE_CONSTRUCT_TEXT);
 							}
-							if (isset($content['attribs']['']['type']))
-							{
+							if (isset($content['attribs']['']['type'])) {
 								$type = $this->sanitize($content['attribs']['']['type'], SIMPLEPIE_CONSTRUCT_TEXT);
 							}
-							if (isset($content['attribs']['']['width']))
-							{
+							if (isset($content['attribs']['']['width'])) {
 								$width = $this->sanitize($content['attribs']['']['width'], SIMPLEPIE_CONSTRUCT_TEXT);
 							}
 							$url = $this->sanitize($content['attribs']['']['url'], SIMPLEPIE_CONSTRUCT_IRI);
@@ -7354,524 +5966,406 @@ class SimplePie_Item
 							// Checking the other optional media: elements. Priority: media:content, media:group, item, channel
 
 							// CAPTIONS
-							if (isset($content['child'][SIMPLEPIE_NAMESPACE_MEDIARSS]['text']))
-							{
-								foreach ($content['child'][SIMPLEPIE_NAMESPACE_MEDIARSS]['text'] as $caption)
-								{
+							if (isset($content['child'][SIMPLEPIE_NAMESPACE_MEDIARSS]['text'])) {
+								foreach ($content['child'][SIMPLEPIE_NAMESPACE_MEDIARSS]['text'] as $caption) {
 									$caption_type = null;
 									$caption_lang = null;
 									$caption_startTime = null;
 									$caption_endTime = null;
 									$caption_text = null;
-									if (isset($caption['attribs']['']['type']))
-									{
+									if (isset($caption['attribs']['']['type'])) {
 										$caption_type = $this->sanitize($caption['attribs']['']['type'], SIMPLEPIE_CONSTRUCT_TEXT);
 									}
-									if (isset($caption['attribs']['']['lang']))
-									{
+									if (isset($caption['attribs']['']['lang'])) {
 										$caption_lang = $this->sanitize($caption['attribs']['']['lang'], SIMPLEPIE_CONSTRUCT_TEXT);
 									}
-									if (isset($caption['attribs']['']['start']))
-									{
+									if (isset($caption['attribs']['']['start'])) {
 										$caption_startTime = $this->sanitize($caption['attribs']['']['start'], SIMPLEPIE_CONSTRUCT_TEXT);
 									}
-									if (isset($caption['attribs']['']['end']))
-									{
+									if (isset($caption['attribs']['']['end'])) {
 										$caption_endTime = $this->sanitize($caption['attribs']['']['end'], SIMPLEPIE_CONSTRUCT_TEXT);
 									}
-									if (isset($caption['data']))
-									{
+									if (isset($caption['data'])) {
 										$caption_text = $this->sanitize($caption['data'], SIMPLEPIE_CONSTRUCT_TEXT);
 									}
 									$captions[] = $this->registry->create('Caption', array($caption_type, $caption_lang, $caption_startTime, $caption_endTime, $caption_text));
 								}
-								if (is_array($captions))
-								{
+								if (is_array($captions)) {
 									$captions = array_values(array_unique($captions));
 								}
 							}
-							elseif (isset($group['child'][SIMPLEPIE_NAMESPACE_MEDIARSS]['text']))
-							{
-								foreach ($group['child'][SIMPLEPIE_NAMESPACE_MEDIARSS]['text'] as $caption)
-								{
+							elseif (isset($group['child'][SIMPLEPIE_NAMESPACE_MEDIARSS]['text'])) {
+								foreach ($group['child'][SIMPLEPIE_NAMESPACE_MEDIARSS]['text'] as $caption) {
 									$caption_type = null;
 									$caption_lang = null;
 									$caption_startTime = null;
 									$caption_endTime = null;
 									$caption_text = null;
-									if (isset($caption['attribs']['']['type']))
-									{
+									if (isset($caption['attribs']['']['type'])) {
 										$caption_type = $this->sanitize($caption['attribs']['']['type'], SIMPLEPIE_CONSTRUCT_TEXT);
 									}
-									if (isset($caption['attribs']['']['lang']))
-									{
+									if (isset($caption['attribs']['']['lang'])) {
 										$caption_lang = $this->sanitize($caption['attribs']['']['lang'], SIMPLEPIE_CONSTRUCT_TEXT);
 									}
-									if (isset($caption['attribs']['']['start']))
-									{
+									if (isset($caption['attribs']['']['start'])) {
 										$caption_startTime = $this->sanitize($caption['attribs']['']['start'], SIMPLEPIE_CONSTRUCT_TEXT);
 									}
-									if (isset($caption['attribs']['']['end']))
-									{
+									if (isset($caption['attribs']['']['end'])) {
 										$caption_endTime = $this->sanitize($caption['attribs']['']['end'], SIMPLEPIE_CONSTRUCT_TEXT);
 									}
-									if (isset($caption['data']))
-									{
+									if (isset($caption['data'])) {
 										$caption_text = $this->sanitize($caption['data'], SIMPLEPIE_CONSTRUCT_TEXT);
 									}
 									$captions[] = $this->registry->create('Caption', array($caption_type, $caption_lang, $caption_startTime, $caption_endTime, $caption_text));
 								}
-								if (is_array($captions))
-								{
+								if (is_array($captions)) {
 									$captions = array_values(array_unique($captions));
 								}
 							}
-							else
-							{
+							else {
 								$captions = $captions_parent;
 							}
 
 							// CATEGORIES
-							if (isset($content['child'][SIMPLEPIE_NAMESPACE_MEDIARSS]['category']))
-							{
-								foreach ((array) $content['child'][SIMPLEPIE_NAMESPACE_MEDIARSS]['category'] as $category)
-								{
+							if (isset($content['child'][SIMPLEPIE_NAMESPACE_MEDIARSS]['category'])) {
+								foreach ((array) $content['child'][SIMPLEPIE_NAMESPACE_MEDIARSS]['category'] as $category) {
 									$term = null;
 									$scheme = null;
 									$label = null;
-									if (isset($category['data']))
-									{
+									if (isset($category['data'])) {
 										$term = $this->sanitize($category['data'], SIMPLEPIE_CONSTRUCT_TEXT);
 									}
-									if (isset($category['attribs']['']['scheme']))
-									{
+									if (isset($category['attribs']['']['scheme'])) {
 										$scheme = $this->sanitize($category['attribs']['']['scheme'], SIMPLEPIE_CONSTRUCT_TEXT);
 									}
-									else
-									{
+									else {
 										$scheme = 'http://search.yahoo.com/mrss/category_schema';
 									}
-									if (isset($category['attribs']['']['label']))
-									{
+									if (isset($category['attribs']['']['label'])) {
 										$label = $this->sanitize($category['attribs']['']['label'], SIMPLEPIE_CONSTRUCT_TEXT);
 									}
 									$categories[] = $this->registry->create('Category', array($term, $scheme, $label));
 								}
 							}
-							if (isset($group['child'][SIMPLEPIE_NAMESPACE_MEDIARSS]['category']))
-							{
-								foreach ((array) $group['child'][SIMPLEPIE_NAMESPACE_MEDIARSS]['category'] as $category)
-								{
+							if (isset($group['child'][SIMPLEPIE_NAMESPACE_MEDIARSS]['category'])) {
+								foreach ((array) $group['child'][SIMPLEPIE_NAMESPACE_MEDIARSS]['category'] as $category) {
 									$term = null;
 									$scheme = null;
 									$label = null;
-									if (isset($category['data']))
-									{
+									if (isset($category['data'])) {
 										$term = $this->sanitize($category['data'], SIMPLEPIE_CONSTRUCT_TEXT);
 									}
-									if (isset($category['attribs']['']['scheme']))
-									{
+									if (isset($category['attribs']['']['scheme'])) {
 										$scheme = $this->sanitize($category['attribs']['']['scheme'], SIMPLEPIE_CONSTRUCT_TEXT);
 									}
-									else
-									{
+									else {
 										$scheme = 'http://search.yahoo.com/mrss/category_schema';
 									}
-									if (isset($category['attribs']['']['label']))
-									{
+									if (isset($category['attribs']['']['label'])) {
 										$label = $this->sanitize($category['attribs']['']['label'], SIMPLEPIE_CONSTRUCT_TEXT);
 									}
 									$categories[] = $this->registry->create('Category', array($term, $scheme, $label));
 								}
 							}
-							if (is_array($categories) && is_array($categories_parent))
-							{
+							if (is_array($categories) && is_array($categories_parent)) {
 								$categories = array_values(array_unique(array_merge($categories, $categories_parent)));
 							}
-							elseif (is_array($categories))
-							{
+							elseif (is_array($categories)) {
 								$categories = array_values(array_unique($categories));
 							}
-							elseif (is_array($categories_parent))
-							{
+							elseif (is_array($categories_parent)) {
 								$categories = array_values(array_unique($categories_parent));
 							}
 
 							// COPYRIGHTS
-							if (isset($content['child'][SIMPLEPIE_NAMESPACE_MEDIARSS]['copyright']))
-							{
+							if (isset($content['child'][SIMPLEPIE_NAMESPACE_MEDIARSS]['copyright'])) {
 								$copyright_url = null;
 								$copyright_label = null;
-								if (isset($content['child'][SIMPLEPIE_NAMESPACE_MEDIARSS]['copyright'][0]['attribs']['']['url']))
-								{
+								if (isset($content['child'][SIMPLEPIE_NAMESPACE_MEDIARSS]['copyright'][0]['attribs']['']['url'])) {
 									$copyright_url = $this->sanitize($content['child'][SIMPLEPIE_NAMESPACE_MEDIARSS]['copyright'][0]['attribs']['']['url'], SIMPLEPIE_CONSTRUCT_TEXT);
 								}
-								if (isset($content['child'][SIMPLEPIE_NAMESPACE_MEDIARSS]['copyright'][0]['data']))
-								{
+								if (isset($content['child'][SIMPLEPIE_NAMESPACE_MEDIARSS]['copyright'][0]['data'])) {
 									$copyright_label = $this->sanitize($content['child'][SIMPLEPIE_NAMESPACE_MEDIARSS]['copyright'][0]['data'], SIMPLEPIE_CONSTRUCT_TEXT);
 								}
 								$copyrights = $this->registry->create('Copyright', array($copyright_url, $copyright_label));
 							}
-							elseif (isset($group['child'][SIMPLEPIE_NAMESPACE_MEDIARSS]['copyright']))
-							{
+							elseif (isset($group['child'][SIMPLEPIE_NAMESPACE_MEDIARSS]['copyright'])) {
 								$copyright_url = null;
 								$copyright_label = null;
-								if (isset($group['child'][SIMPLEPIE_NAMESPACE_MEDIARSS]['copyright'][0]['attribs']['']['url']))
-								{
+								if (isset($group['child'][SIMPLEPIE_NAMESPACE_MEDIARSS]['copyright'][0]['attribs']['']['url'])) {
 									$copyright_url = $this->sanitize($group['child'][SIMPLEPIE_NAMESPACE_MEDIARSS]['copyright'][0]['attribs']['']['url'], SIMPLEPIE_CONSTRUCT_TEXT);
 								}
-								if (isset($group['child'][SIMPLEPIE_NAMESPACE_MEDIARSS]['copyright'][0]['data']))
-								{
+								if (isset($group['child'][SIMPLEPIE_NAMESPACE_MEDIARSS]['copyright'][0]['data'])) {
 									$copyright_label = $this->sanitize($group['child'][SIMPLEPIE_NAMESPACE_MEDIARSS]['copyright'][0]['data'], SIMPLEPIE_CONSTRUCT_TEXT);
 								}
 								$copyrights = $this->registry->create('Copyright', array($copyright_url, $copyright_label));
 							}
-							else
-							{
+							else {
 								$copyrights = $copyrights_parent;
 							}
 
 							// CREDITS
-							if (isset($content['child'][SIMPLEPIE_NAMESPACE_MEDIARSS]['credit']))
-							{
-								foreach ($content['child'][SIMPLEPIE_NAMESPACE_MEDIARSS]['credit'] as $credit)
-								{
+							if (isset($content['child'][SIMPLEPIE_NAMESPACE_MEDIARSS]['credit'])) {
+								foreach ($content['child'][SIMPLEPIE_NAMESPACE_MEDIARSS]['credit'] as $credit) {
 									$credit_role = null;
 									$credit_scheme = null;
 									$credit_name = null;
-									if (isset($credit['attribs']['']['role']))
-									{
+									if (isset($credit['attribs']['']['role'])) {
 										$credit_role = $this->sanitize($credit['attribs']['']['role'], SIMPLEPIE_CONSTRUCT_TEXT);
 									}
-									if (isset($credit['attribs']['']['scheme']))
-									{
+									if (isset($credit['attribs']['']['scheme'])) {
 										$credit_scheme = $this->sanitize($credit['attribs']['']['scheme'], SIMPLEPIE_CONSTRUCT_TEXT);
 									}
-									else
-									{
+									else {
 										$credit_scheme = 'urn:ebu';
 									}
-									if (isset($credit['data']))
-									{
+									if (isset($credit['data'])) {
 										$credit_name = $this->sanitize($credit['data'], SIMPLEPIE_CONSTRUCT_TEXT);
 									}
 									$credits[] = $this->registry->create('Credit', array($credit_role, $credit_scheme, $credit_name));
 								}
-								if (is_array($credits))
-								{
+								if (is_array($credits)) {
 									$credits = array_values(array_unique($credits));
 								}
 							}
-							elseif (isset($group['child'][SIMPLEPIE_NAMESPACE_MEDIARSS]['credit']))
-							{
-								foreach ($group['child'][SIMPLEPIE_NAMESPACE_MEDIARSS]['credit'] as $credit)
-								{
+							elseif (isset($group['child'][SIMPLEPIE_NAMESPACE_MEDIARSS]['credit'])) {
+								foreach ($group['child'][SIMPLEPIE_NAMESPACE_MEDIARSS]['credit'] as $credit) {
 									$credit_role = null;
 									$credit_scheme = null;
 									$credit_name = null;
-									if (isset($credit['attribs']['']['role']))
-									{
+									if (isset($credit['attribs']['']['role'])) {
 										$credit_role = $this->sanitize($credit['attribs']['']['role'], SIMPLEPIE_CONSTRUCT_TEXT);
 									}
-									if (isset($credit['attribs']['']['scheme']))
-									{
+									if (isset($credit['attribs']['']['scheme'])) {
 										$credit_scheme = $this->sanitize($credit['attribs']['']['scheme'], SIMPLEPIE_CONSTRUCT_TEXT);
 									}
-									else
-									{
+									else {
 										$credit_scheme = 'urn:ebu';
 									}
-									if (isset($credit['data']))
-									{
+									if (isset($credit['data'])) {
 										$credit_name = $this->sanitize($credit['data'], SIMPLEPIE_CONSTRUCT_TEXT);
 									}
 									$credits[] = $this->registry->create('Credit', array($credit_role, $credit_scheme, $credit_name));
 								}
-								if (is_array($credits))
-								{
+								if (is_array($credits)) {
 									$credits = array_values(array_unique($credits));
 								}
 							}
-							else
-							{
+							else {
 								$credits = $credits_parent;
 							}
 
 							// DESCRIPTION
-							if (isset($content['child'][SIMPLEPIE_NAMESPACE_MEDIARSS]['description']))
-							{
+							if (isset($content['child'][SIMPLEPIE_NAMESPACE_MEDIARSS]['description'])) {
 								$description = $this->sanitize($content['child'][SIMPLEPIE_NAMESPACE_MEDIARSS]['description'][0]['data'], SIMPLEPIE_CONSTRUCT_TEXT);
 							}
-							elseif (isset($group['child'][SIMPLEPIE_NAMESPACE_MEDIARSS]['description']))
-							{
+							elseif (isset($group['child'][SIMPLEPIE_NAMESPACE_MEDIARSS]['description'])) {
 								$description = $this->sanitize($group['child'][SIMPLEPIE_NAMESPACE_MEDIARSS]['description'][0]['data'], SIMPLEPIE_CONSTRUCT_TEXT);
 							}
-							else
-							{
+							else {
 								$description = $description_parent;
 							}
 
 							// HASHES
-							if (isset($content['child'][SIMPLEPIE_NAMESPACE_MEDIARSS]['hash']))
-							{
-								foreach ($content['child'][SIMPLEPIE_NAMESPACE_MEDIARSS]['hash'] as $hash)
-								{
+							if (isset($content['child'][SIMPLEPIE_NAMESPACE_MEDIARSS]['hash'])) {
+								foreach ($content['child'][SIMPLEPIE_NAMESPACE_MEDIARSS]['hash'] as $hash) {
 									$value = null;
 									$algo = null;
-									if (isset($hash['data']))
-									{
+									if (isset($hash['data'])) {
 										$value = $this->sanitize($hash['data'], SIMPLEPIE_CONSTRUCT_TEXT);
 									}
-									if (isset($hash['attribs']['']['algo']))
-									{
+									if (isset($hash['attribs']['']['algo'])) {
 										$algo = $this->sanitize($hash['attribs']['']['algo'], SIMPLEPIE_CONSTRUCT_TEXT);
 									}
-									else
-									{
+									else {
 										$algo = 'md5';
 									}
 									$hashes[] = $algo.':'.$value;
 								}
-								if (is_array($hashes))
-								{
+								if (is_array($hashes)) {
 									$hashes = array_values(array_unique($hashes));
 								}
 							}
-							elseif (isset($group['child'][SIMPLEPIE_NAMESPACE_MEDIARSS]['hash']))
-							{
-								foreach ($group['child'][SIMPLEPIE_NAMESPACE_MEDIARSS]['hash'] as $hash)
-								{
+							elseif (isset($group['child'][SIMPLEPIE_NAMESPACE_MEDIARSS]['hash'])) {
+								foreach ($group['child'][SIMPLEPIE_NAMESPACE_MEDIARSS]['hash'] as $hash) {
 									$value = null;
 									$algo = null;
-									if (isset($hash['data']))
-									{
+									if (isset($hash['data'])) {
 										$value = $this->sanitize($hash['data'], SIMPLEPIE_CONSTRUCT_TEXT);
 									}
-									if (isset($hash['attribs']['']['algo']))
-									{
+									if (isset($hash['attribs']['']['algo'])) {
 										$algo = $this->sanitize($hash['attribs']['']['algo'], SIMPLEPIE_CONSTRUCT_TEXT);
 									}
-									else
-									{
+									else {
 										$algo = 'md5';
 									}
 									$hashes[] = $algo.':'.$value;
 								}
-								if (is_array($hashes))
-								{
+								if (is_array($hashes)) {
 									$hashes = array_values(array_unique($hashes));
 								}
 							}
-							else
-							{
+							else {
 								$hashes = $hashes_parent;
 							}
 
 							// KEYWORDS
-							if (isset($content['child'][SIMPLEPIE_NAMESPACE_MEDIARSS]['keywords']))
-							{
-								if (isset($content['child'][SIMPLEPIE_NAMESPACE_MEDIARSS]['keywords'][0]['data']))
-								{
+							if (isset($content['child'][SIMPLEPIE_NAMESPACE_MEDIARSS]['keywords'])) {
+								if (isset($content['child'][SIMPLEPIE_NAMESPACE_MEDIARSS]['keywords'][0]['data'])) {
 									$temp = explode(',', $this->sanitize($content['child'][SIMPLEPIE_NAMESPACE_MEDIARSS]['keywords'][0]['data'], SIMPLEPIE_CONSTRUCT_TEXT));
-									foreach ($temp as $word)
-									{
+									foreach ($temp as $word) {
 										$keywords[] = trim($word);
 									}
 									unset($temp);
 								}
-								if (is_array($keywords))
-								{
+								if (is_array($keywords)) {
 									$keywords = array_values(array_unique($keywords));
 								}
 							}
-							elseif (isset($group['child'][SIMPLEPIE_NAMESPACE_MEDIARSS]['keywords']))
-							{
-								if (isset($group['child'][SIMPLEPIE_NAMESPACE_MEDIARSS]['keywords'][0]['data']))
-								{
+							elseif (isset($group['child'][SIMPLEPIE_NAMESPACE_MEDIARSS]['keywords'])) {
+								if (isset($group['child'][SIMPLEPIE_NAMESPACE_MEDIARSS]['keywords'][0]['data'])) {
 									$temp = explode(',', $this->sanitize($group['child'][SIMPLEPIE_NAMESPACE_MEDIARSS]['keywords'][0]['data'], SIMPLEPIE_CONSTRUCT_TEXT));
-									foreach ($temp as $word)
-									{
+									foreach ($temp as $word) {
 										$keywords[] = trim($word);
 									}
 									unset($temp);
 								}
-								if (is_array($keywords))
-								{
+								if (is_array($keywords)) {
 									$keywords = array_values(array_unique($keywords));
 								}
 							}
-							else
-							{
+							else {
 								$keywords = $keywords_parent;
 							}
 
 							// PLAYER
-							if (isset($content['child'][SIMPLEPIE_NAMESPACE_MEDIARSS]['player']))
-							{
+							if (isset($content['child'][SIMPLEPIE_NAMESPACE_MEDIARSS]['player'])) {
 								$player = $this->sanitize($content['child'][SIMPLEPIE_NAMESPACE_MEDIARSS]['player'][0]['attribs']['']['url'], SIMPLEPIE_CONSTRUCT_IRI);
 							}
-							elseif (isset($group['child'][SIMPLEPIE_NAMESPACE_MEDIARSS]['player']))
-							{
+							elseif (isset($group['child'][SIMPLEPIE_NAMESPACE_MEDIARSS]['player'])) {
 								$player = $this->sanitize($group['child'][SIMPLEPIE_NAMESPACE_MEDIARSS]['player'][0]['attribs']['']['url'], SIMPLEPIE_CONSTRUCT_IRI);
 							}
-							else
-							{
+							else {
 								$player = $player_parent;
 							}
 
 							// RATINGS
-							if (isset($content['child'][SIMPLEPIE_NAMESPACE_MEDIARSS]['rating']))
-							{
-								foreach ($content['child'][SIMPLEPIE_NAMESPACE_MEDIARSS]['rating'] as $rating)
-								{
+							if (isset($content['child'][SIMPLEPIE_NAMESPACE_MEDIARSS]['rating'])) {
+								foreach ($content['child'][SIMPLEPIE_NAMESPACE_MEDIARSS]['rating'] as $rating) {
 									$rating_scheme = null;
 									$rating_value = null;
-									if (isset($rating['attribs']['']['scheme']))
-									{
+									if (isset($rating['attribs']['']['scheme'])) {
 										$rating_scheme = $this->sanitize($rating['attribs']['']['scheme'], SIMPLEPIE_CONSTRUCT_TEXT);
 									}
-									else
-									{
+									else {
 										$rating_scheme = 'urn:simple';
 									}
-									if (isset($rating['data']))
-									{
+									if (isset($rating['data'])) {
 										$rating_value = $this->sanitize($rating['data'], SIMPLEPIE_CONSTRUCT_TEXT);
 									}
 									$ratings[] = $this->registry->create('Rating', array($rating_scheme, $rating_value));
 								}
-								if (is_array($ratings))
-								{
+								if (is_array($ratings)) {
 									$ratings = array_values(array_unique($ratings));
 								}
 							}
-							elseif (isset($group['child'][SIMPLEPIE_NAMESPACE_MEDIARSS]['rating']))
-							{
-								foreach ($group['child'][SIMPLEPIE_NAMESPACE_MEDIARSS]['rating'] as $rating)
-								{
+							elseif (isset($group['child'][SIMPLEPIE_NAMESPACE_MEDIARSS]['rating'])) {
+								foreach ($group['child'][SIMPLEPIE_NAMESPACE_MEDIARSS]['rating'] as $rating) {
 									$rating_scheme = null;
 									$rating_value = null;
-									if (isset($rating['attribs']['']['scheme']))
-									{
+									if (isset($rating['attribs']['']['scheme'])) {
 										$rating_scheme = $this->sanitize($rating['attribs']['']['scheme'], SIMPLEPIE_CONSTRUCT_TEXT);
 									}
-									else
-									{
+									else {
 										$rating_scheme = 'urn:simple';
 									}
-									if (isset($rating['data']))
-									{
+									if (isset($rating['data'])) {
 										$rating_value = $this->sanitize($rating['data'], SIMPLEPIE_CONSTRUCT_TEXT);
 									}
 									$ratings[] = $this->registry->create('Rating', array($rating_scheme, $rating_value));
 								}
-								if (is_array($ratings))
-								{
+								if (is_array($ratings)) {
 									$ratings = array_values(array_unique($ratings));
 								}
 							}
-							else
-							{
+							else {
 								$ratings = $ratings_parent;
 							}
 
 							// RESTRICTIONS
-							if (isset($content['child'][SIMPLEPIE_NAMESPACE_MEDIARSS]['restriction']))
-							{
-								foreach ($content['child'][SIMPLEPIE_NAMESPACE_MEDIARSS]['restriction'] as $restriction)
-								{
+							if (isset($content['child'][SIMPLEPIE_NAMESPACE_MEDIARSS]['restriction'])) {
+								foreach ($content['child'][SIMPLEPIE_NAMESPACE_MEDIARSS]['restriction'] as $restriction) {
 									$restriction_relationship = null;
 									$restriction_type = null;
 									$restriction_value = null;
-									if (isset($restriction['attribs']['']['relationship']))
-									{
+									if (isset($restriction['attribs']['']['relationship'])) {
 										$restriction_relationship = $this->sanitize($restriction['attribs']['']['relationship'], SIMPLEPIE_CONSTRUCT_TEXT);
 									}
-									if (isset($restriction['attribs']['']['type']))
-									{
+									if (isset($restriction['attribs']['']['type'])) {
 										$restriction_type = $this->sanitize($restriction['attribs']['']['type'], SIMPLEPIE_CONSTRUCT_TEXT);
 									}
-									if (isset($restriction['data']))
-									{
+									if (isset($restriction['data'])) {
 										$restriction_value = $this->sanitize($restriction['data'], SIMPLEPIE_CONSTRUCT_TEXT);
 									}
 									$restrictions[] = $this->registry->create('Restriction', array($restriction_relationship, $restriction_type, $restriction_value));
 								}
-								if (is_array($restrictions))
-								{
+								if (is_array($restrictions)) {
 									$restrictions = array_values(array_unique($restrictions));
 								}
 							}
-							elseif (isset($group['child'][SIMPLEPIE_NAMESPACE_MEDIARSS]['restriction']))
-							{
-								foreach ($group['child'][SIMPLEPIE_NAMESPACE_MEDIARSS]['restriction'] as $restriction)
-								{
+							elseif (isset($group['child'][SIMPLEPIE_NAMESPACE_MEDIARSS]['restriction'])) {
+								foreach ($group['child'][SIMPLEPIE_NAMESPACE_MEDIARSS]['restriction'] as $restriction) {
 									$restriction_relationship = null;
 									$restriction_type = null;
 									$restriction_value = null;
-									if (isset($restriction['attribs']['']['relationship']))
-									{
+									if (isset($restriction['attribs']['']['relationship'])) {
 										$restriction_relationship = $this->sanitize($restriction['attribs']['']['relationship'], SIMPLEPIE_CONSTRUCT_TEXT);
 									}
-									if (isset($restriction['attribs']['']['type']))
-									{
+									if (isset($restriction['attribs']['']['type'])) {
 										$restriction_type = $this->sanitize($restriction['attribs']['']['type'], SIMPLEPIE_CONSTRUCT_TEXT);
 									}
-									if (isset($restriction['data']))
-									{
+									if (isset($restriction['data'])) {
 										$restriction_value = $this->sanitize($restriction['data'], SIMPLEPIE_CONSTRUCT_TEXT);
 									}
 									$restrictions[] = $this->registry->create('Restriction', array($restriction_relationship, $restriction_type, $restriction_value));
 								}
-								if (is_array($restrictions))
-								{
+								if (is_array($restrictions)) {
 									$restrictions = array_values(array_unique($restrictions));
 								}
 							}
-							else
-							{
+							else {
 								$restrictions = $restrictions_parent;
 							}
 
 							// THUMBNAILS
-							if (isset($content['child'][SIMPLEPIE_NAMESPACE_MEDIARSS]['thumbnail']))
-							{
-								foreach ($content['child'][SIMPLEPIE_NAMESPACE_MEDIARSS]['thumbnail'] as $thumbnail)
-								{
+							if (isset($content['child'][SIMPLEPIE_NAMESPACE_MEDIARSS]['thumbnail'])) {
+								foreach ($content['child'][SIMPLEPIE_NAMESPACE_MEDIARSS]['thumbnail'] as $thumbnail) {
 									$thumbnails[] = $this->sanitize($thumbnail['attribs']['']['url'], SIMPLEPIE_CONSTRUCT_IRI);
 								}
-								if (is_array($thumbnails))
-								{
+								if (is_array($thumbnails)) {
 									$thumbnails = array_values(array_unique($thumbnails));
 								}
 							}
-							elseif (isset($group['child'][SIMPLEPIE_NAMESPACE_MEDIARSS]['thumbnail']))
-							{
-								foreach ($group['child'][SIMPLEPIE_NAMESPACE_MEDIARSS]['thumbnail'] as $thumbnail)
-								{
+							elseif (isset($group['child'][SIMPLEPIE_NAMESPACE_MEDIARSS]['thumbnail'])) {
+								foreach ($group['child'][SIMPLEPIE_NAMESPACE_MEDIARSS]['thumbnail'] as $thumbnail) {
 									$thumbnails[] = $this->sanitize($thumbnail['attribs']['']['url'], SIMPLEPIE_CONSTRUCT_IRI);
 								}
-								if (is_array($thumbnails))
-								{
+								if (is_array($thumbnails)) {
 									$thumbnails = array_values(array_unique($thumbnails));
 								}
 							}
-							else
-							{
+							else {
 								$thumbnails = $thumbnails_parent;
 							}
 
 							// TITLES
-							if (isset($content['child'][SIMPLEPIE_NAMESPACE_MEDIARSS]['title']))
-							{
+							if (isset($content['child'][SIMPLEPIE_NAMESPACE_MEDIARSS]['title'])) {
 								$title = $this->sanitize($content['child'][SIMPLEPIE_NAMESPACE_MEDIARSS]['title'][0]['data'], SIMPLEPIE_CONSTRUCT_TEXT);
 							}
-							elseif (isset($group['child'][SIMPLEPIE_NAMESPACE_MEDIARSS]['title']))
-							{
+							elseif (isset($group['child'][SIMPLEPIE_NAMESPACE_MEDIARSS]['title'])) {
 								$title = $this->sanitize($group['child'][SIMPLEPIE_NAMESPACE_MEDIARSS]['title'][0]['data'], SIMPLEPIE_CONSTRUCT_TEXT);
 							}
-							else
-							{
+							else {
 								$title = $title_parent;
 							}
 
@@ -7882,12 +6376,9 @@ class SimplePie_Item
 			}
 
 			// If we have standalone media:content tags, loop through them.
-			if (isset($this->data['child'][SIMPLEPIE_NAMESPACE_MEDIARSS]['content']))
-			{
-				foreach ((array) $this->data['child'][SIMPLEPIE_NAMESPACE_MEDIARSS]['content'] as $content)
-				{
-					if (isset($content['attribs']['']['url']) || isset($content['child'][SIMPLEPIE_NAMESPACE_MEDIARSS]['player']))
-					{
+			if (isset($this->data['child'][SIMPLEPIE_NAMESPACE_MEDIARSS]['content'])) {
+				foreach ((array) $this->data['child'][SIMPLEPIE_NAMESPACE_MEDIARSS]['content'] as $content) {
+					if (isset($content['attribs']['']['url']) || isset($content['child'][SIMPLEPIE_NAMESPACE_MEDIARSS]['player'])) {
 						// Attributes
 						$bitrate = null;
 						$channels = null;
@@ -7919,366 +6410,285 @@ class SimplePie_Item
 						$title = null;
 
 						// Start checking the attributes of media:content
-						if (isset($content['attribs']['']['bitrate']))
-						{
+						if (isset($content['attribs']['']['bitrate'])) {
 							$bitrate = $this->sanitize($content['attribs']['']['bitrate'], SIMPLEPIE_CONSTRUCT_TEXT);
 						}
-						if (isset($content['attribs']['']['channels']))
-						{
+						if (isset($content['attribs']['']['channels'])) {
 							$channels = $this->sanitize($content['attribs']['']['channels'], SIMPLEPIE_CONSTRUCT_TEXT);
 						}
-						if (isset($content['attribs']['']['duration']))
-						{
+						if (isset($content['attribs']['']['duration'])) {
 							$duration = $this->sanitize($content['attribs']['']['duration'], SIMPLEPIE_CONSTRUCT_TEXT);
 						}
-						else
-						{
+						else {
 							$duration = $duration_parent;
 						}
-						if (isset($content['attribs']['']['expression']))
-						{
+						if (isset($content['attribs']['']['expression'])) {
 							$expression = $this->sanitize($content['attribs']['']['expression'], SIMPLEPIE_CONSTRUCT_TEXT);
 						}
-						if (isset($content['attribs']['']['framerate']))
-						{
+						if (isset($content['attribs']['']['framerate'])) {
 							$framerate = $this->sanitize($content['attribs']['']['framerate'], SIMPLEPIE_CONSTRUCT_TEXT);
 						}
-						if (isset($content['attribs']['']['height']))
-						{
+						if (isset($content['attribs']['']['height'])) {
 							$height = $this->sanitize($content['attribs']['']['height'], SIMPLEPIE_CONSTRUCT_TEXT);
 						}
-						if (isset($content['attribs']['']['lang']))
-						{
+						if (isset($content['attribs']['']['lang'])) {
 							$lang = $this->sanitize($content['attribs']['']['lang'], SIMPLEPIE_CONSTRUCT_TEXT);
 						}
-						if (isset($content['attribs']['']['fileSize']))
-						{
+						if (isset($content['attribs']['']['fileSize'])) {
 							$length = ceil($content['attribs']['']['fileSize']);
 						}
-						if (isset($content['attribs']['']['medium']))
-						{
+						if (isset($content['attribs']['']['medium'])) {
 							$medium = $this->sanitize($content['attribs']['']['medium'], SIMPLEPIE_CONSTRUCT_TEXT);
 						}
-						if (isset($content['attribs']['']['samplingrate']))
-						{
+						if (isset($content['attribs']['']['samplingrate'])) {
 							$samplingrate = $this->sanitize($content['attribs']['']['samplingrate'], SIMPLEPIE_CONSTRUCT_TEXT);
 						}
-						if (isset($content['attribs']['']['type']))
-						{
+						if (isset($content['attribs']['']['type'])) {
 							$type = $this->sanitize($content['attribs']['']['type'], SIMPLEPIE_CONSTRUCT_TEXT);
 						}
-						if (isset($content['attribs']['']['width']))
-						{
+						if (isset($content['attribs']['']['width'])) {
 							$width = $this->sanitize($content['attribs']['']['width'], SIMPLEPIE_CONSTRUCT_TEXT);
 						}
-						if (isset($content['attribs']['']['url']))
-						{
+						if (isset($content['attribs']['']['url'])) {
 							$url = $this->sanitize($content['attribs']['']['url'], SIMPLEPIE_CONSTRUCT_IRI);
 						}
 						// Checking the other optional media: elements. Priority: media:content, media:group, item, channel
 
 						// CAPTIONS
-						if (isset($content['child'][SIMPLEPIE_NAMESPACE_MEDIARSS]['text']))
-						{
-							foreach ($content['child'][SIMPLEPIE_NAMESPACE_MEDIARSS]['text'] as $caption)
-							{
+						if (isset($content['child'][SIMPLEPIE_NAMESPACE_MEDIARSS]['text'])) {
+							foreach ($content['child'][SIMPLEPIE_NAMESPACE_MEDIARSS]['text'] as $caption) {
 								$caption_type = null;
 								$caption_lang = null;
 								$caption_startTime = null;
 								$caption_endTime = null;
 								$caption_text = null;
-								if (isset($caption['attribs']['']['type']))
-								{
+								if (isset($caption['attribs']['']['type'])) {
 									$caption_type = $this->sanitize($caption['attribs']['']['type'], SIMPLEPIE_CONSTRUCT_TEXT);
 								}
-								if (isset($caption['attribs']['']['lang']))
-								{
+								if (isset($caption['attribs']['']['lang'])) {
 									$caption_lang = $this->sanitize($caption['attribs']['']['lang'], SIMPLEPIE_CONSTRUCT_TEXT);
 								}
-								if (isset($caption['attribs']['']['start']))
-								{
+								if (isset($caption['attribs']['']['start'])) {
 									$caption_startTime = $this->sanitize($caption['attribs']['']['start'], SIMPLEPIE_CONSTRUCT_TEXT);
 								}
-								if (isset($caption['attribs']['']['end']))
-								{
+								if (isset($caption['attribs']['']['end'])) {
 									$caption_endTime = $this->sanitize($caption['attribs']['']['end'], SIMPLEPIE_CONSTRUCT_TEXT);
 								}
-								if (isset($caption['data']))
-								{
+								if (isset($caption['data'])) {
 									$caption_text = $this->sanitize($caption['data'], SIMPLEPIE_CONSTRUCT_TEXT);
 								}
 								$captions[] = $this->registry->create('Caption', array($caption_type, $caption_lang, $caption_startTime, $caption_endTime, $caption_text));
 							}
-							if (is_array($captions))
-							{
+							if (is_array($captions)) {
 								$captions = array_values(array_unique($captions));
 							}
 						}
-						else
-						{
+						else {
 							$captions = $captions_parent;
 						}
 
 						// CATEGORIES
-						if (isset($content['child'][SIMPLEPIE_NAMESPACE_MEDIARSS]['category']))
-						{
-							foreach ((array) $content['child'][SIMPLEPIE_NAMESPACE_MEDIARSS]['category'] as $category)
-							{
+						if (isset($content['child'][SIMPLEPIE_NAMESPACE_MEDIARSS]['category'])) {
+							foreach ((array) $content['child'][SIMPLEPIE_NAMESPACE_MEDIARSS]['category'] as $category) {
 								$term = null;
 								$scheme = null;
 								$label = null;
-								if (isset($category['data']))
-								{
+								if (isset($category['data'])) {
 									$term = $this->sanitize($category['data'], SIMPLEPIE_CONSTRUCT_TEXT);
 								}
-								if (isset($category['attribs']['']['scheme']))
-								{
+								if (isset($category['attribs']['']['scheme'])) {
 									$scheme = $this->sanitize($category['attribs']['']['scheme'], SIMPLEPIE_CONSTRUCT_TEXT);
 								}
-								else
-								{
+								else {
 									$scheme = 'http://search.yahoo.com/mrss/category_schema';
 								}
-								if (isset($category['attribs']['']['label']))
-								{
+								if (isset($category['attribs']['']['label'])) {
 									$label = $this->sanitize($category['attribs']['']['label'], SIMPLEPIE_CONSTRUCT_TEXT);
 								}
 								$categories[] = $this->registry->create('Category', array($term, $scheme, $label));
 							}
 						}
-						if (is_array($categories) && is_array($categories_parent))
-						{
+						if (is_array($categories) && is_array($categories_parent)) {
 							$categories = array_values(array_unique(array_merge($categories, $categories_parent)));
 						}
-						elseif (is_array($categories))
-						{
+						elseif (is_array($categories)) {
 							$categories = array_values(array_unique($categories));
 						}
-						elseif (is_array($categories_parent))
-						{
+						elseif (is_array($categories_parent)) {
 							$categories = array_values(array_unique($categories_parent));
 						}
-						else
-						{
+						else {
 							$categories = null;
 						}
 
 						// COPYRIGHTS
-						if (isset($content['child'][SIMPLEPIE_NAMESPACE_MEDIARSS]['copyright']))
-						{
+						if (isset($content['child'][SIMPLEPIE_NAMESPACE_MEDIARSS]['copyright'])) {
 							$copyright_url = null;
 							$copyright_label = null;
-							if (isset($content['child'][SIMPLEPIE_NAMESPACE_MEDIARSS]['copyright'][0]['attribs']['']['url']))
-							{
+							if (isset($content['child'][SIMPLEPIE_NAMESPACE_MEDIARSS]['copyright'][0]['attribs']['']['url'])) {
 								$copyright_url = $this->sanitize($content['child'][SIMPLEPIE_NAMESPACE_MEDIARSS]['copyright'][0]['attribs']['']['url'], SIMPLEPIE_CONSTRUCT_TEXT);
 							}
-							if (isset($content['child'][SIMPLEPIE_NAMESPACE_MEDIARSS]['copyright'][0]['data']))
-							{
+							if (isset($content['child'][SIMPLEPIE_NAMESPACE_MEDIARSS]['copyright'][0]['data'])) {
 								$copyright_label = $this->sanitize($content['child'][SIMPLEPIE_NAMESPACE_MEDIARSS]['copyright'][0]['data'], SIMPLEPIE_CONSTRUCT_TEXT);
 							}
 							$copyrights = $this->registry->create('Copyright', array($copyright_url, $copyright_label));
 						}
-						else
-						{
+						else {
 							$copyrights = $copyrights_parent;
 						}
 
 						// CREDITS
-						if (isset($content['child'][SIMPLEPIE_NAMESPACE_MEDIARSS]['credit']))
-						{
-							foreach ($content['child'][SIMPLEPIE_NAMESPACE_MEDIARSS]['credit'] as $credit)
-							{
+						if (isset($content['child'][SIMPLEPIE_NAMESPACE_MEDIARSS]['credit'])) {
+							foreach ($content['child'][SIMPLEPIE_NAMESPACE_MEDIARSS]['credit'] as $credit) {
 								$credit_role = null;
 								$credit_scheme = null;
 								$credit_name = null;
-								if (isset($credit['attribs']['']['role']))
-								{
+								if (isset($credit['attribs']['']['role'])) {
 									$credit_role = $this->sanitize($credit['attribs']['']['role'], SIMPLEPIE_CONSTRUCT_TEXT);
 								}
-								if (isset($credit['attribs']['']['scheme']))
-								{
+								if (isset($credit['attribs']['']['scheme'])) {
 									$credit_scheme = $this->sanitize($credit['attribs']['']['scheme'], SIMPLEPIE_CONSTRUCT_TEXT);
 								}
-								else
-								{
+								else {
 									$credit_scheme = 'urn:ebu';
 								}
-								if (isset($credit['data']))
-								{
+								if (isset($credit['data'])) {
 									$credit_name = $this->sanitize($credit['data'], SIMPLEPIE_CONSTRUCT_TEXT);
 								}
 								$credits[] = $this->registry->create('Credit', array($credit_role, $credit_scheme, $credit_name));
 							}
-							if (is_array($credits))
-							{
+							if (is_array($credits)) {
 								$credits = array_values(array_unique($credits));
 							}
 						}
-						else
-						{
+						else {
 							$credits = $credits_parent;
 						}
 
 						// DESCRIPTION
-						if (isset($content['child'][SIMPLEPIE_NAMESPACE_MEDIARSS]['description']))
-						{
+						if (isset($content['child'][SIMPLEPIE_NAMESPACE_MEDIARSS]['description'])) {
 							$description = $this->sanitize($content['child'][SIMPLEPIE_NAMESPACE_MEDIARSS]['description'][0]['data'], SIMPLEPIE_CONSTRUCT_TEXT);
 						}
-						else
-						{
+						else {
 							$description = $description_parent;
 						}
 
 						// HASHES
-						if (isset($content['child'][SIMPLEPIE_NAMESPACE_MEDIARSS]['hash']))
-						{
-							foreach ($content['child'][SIMPLEPIE_NAMESPACE_MEDIARSS]['hash'] as $hash)
-							{
+						if (isset($content['child'][SIMPLEPIE_NAMESPACE_MEDIARSS]['hash'])) {
+							foreach ($content['child'][SIMPLEPIE_NAMESPACE_MEDIARSS]['hash'] as $hash) {
 								$value = null;
 								$algo = null;
-								if (isset($hash['data']))
-								{
+								if (isset($hash['data'])) {
 									$value = $this->sanitize($hash['data'], SIMPLEPIE_CONSTRUCT_TEXT);
 								}
-								if (isset($hash['attribs']['']['algo']))
-								{
+								if (isset($hash['attribs']['']['algo'])) {
 									$algo = $this->sanitize($hash['attribs']['']['algo'], SIMPLEPIE_CONSTRUCT_TEXT);
 								}
-								else
-								{
+								else {
 									$algo = 'md5';
 								}
 								$hashes[] = $algo.':'.$value;
 							}
-							if (is_array($hashes))
-							{
+							if (is_array($hashes)) {
 								$hashes = array_values(array_unique($hashes));
 							}
 						}
-						else
-						{
+						else {
 							$hashes = $hashes_parent;
 						}
 
 						// KEYWORDS
-						if (isset($content['child'][SIMPLEPIE_NAMESPACE_MEDIARSS]['keywords']))
-						{
-							if (isset($content['child'][SIMPLEPIE_NAMESPACE_MEDIARSS]['keywords'][0]['data']))
-							{
+						if (isset($content['child'][SIMPLEPIE_NAMESPACE_MEDIARSS]['keywords'])) {
+							if (isset($content['child'][SIMPLEPIE_NAMESPACE_MEDIARSS]['keywords'][0]['data'])) {
 								$temp = explode(',', $this->sanitize($content['child'][SIMPLEPIE_NAMESPACE_MEDIARSS]['keywords'][0]['data'], SIMPLEPIE_CONSTRUCT_TEXT));
-								foreach ($temp as $word)
-								{
+								foreach ($temp as $word) {
 									$keywords[] = trim($word);
 								}
 								unset($temp);
 							}
-							if (is_array($keywords))
-							{
+							if (is_array($keywords)) {
 								$keywords = array_values(array_unique($keywords));
 							}
 						}
-						else
-						{
+						else {
 							$keywords = $keywords_parent;
 						}
 
 						// PLAYER
-						if (isset($content['child'][SIMPLEPIE_NAMESPACE_MEDIARSS]['player']))
-						{
+						if (isset($content['child'][SIMPLEPIE_NAMESPACE_MEDIARSS]['player'])) {
 							$player = $this->sanitize($content['child'][SIMPLEPIE_NAMESPACE_MEDIARSS]['player'][0]['attribs']['']['url'], SIMPLEPIE_CONSTRUCT_IRI);
 						}
-						else
-						{
+						else {
 							$player = $player_parent;
 						}
 
 						// RATINGS
-						if (isset($content['child'][SIMPLEPIE_NAMESPACE_MEDIARSS]['rating']))
-						{
-							foreach ($content['child'][SIMPLEPIE_NAMESPACE_MEDIARSS]['rating'] as $rating)
-							{
+						if (isset($content['child'][SIMPLEPIE_NAMESPACE_MEDIARSS]['rating'])) {
+							foreach ($content['child'][SIMPLEPIE_NAMESPACE_MEDIARSS]['rating'] as $rating) {
 								$rating_scheme = null;
 								$rating_value = null;
-								if (isset($rating['attribs']['']['scheme']))
-								{
+								if (isset($rating['attribs']['']['scheme'])) {
 									$rating_scheme = $this->sanitize($rating['attribs']['']['scheme'], SIMPLEPIE_CONSTRUCT_TEXT);
 								}
-								else
-								{
+								else {
 									$rating_scheme = 'urn:simple';
 								}
-								if (isset($rating['data']))
-								{
+								if (isset($rating['data'])) {
 									$rating_value = $this->sanitize($rating['data'], SIMPLEPIE_CONSTRUCT_TEXT);
 								}
 								$ratings[] = $this->registry->create('Rating', array($rating_scheme, $rating_value));
 							}
-							if (is_array($ratings))
-							{
+							if (is_array($ratings)) {
 								$ratings = array_values(array_unique($ratings));
 							}
 						}
-						else
-						{
+						else {
 							$ratings = $ratings_parent;
 						}
 
 						// RESTRICTIONS
-						if (isset($content['child'][SIMPLEPIE_NAMESPACE_MEDIARSS]['restriction']))
-						{
-							foreach ($content['child'][SIMPLEPIE_NAMESPACE_MEDIARSS]['restriction'] as $restriction)
-							{
+						if (isset($content['child'][SIMPLEPIE_NAMESPACE_MEDIARSS]['restriction'])) {
+							foreach ($content['child'][SIMPLEPIE_NAMESPACE_MEDIARSS]['restriction'] as $restriction) {
 								$restriction_relationship = null;
 								$restriction_type = null;
 								$restriction_value = null;
-								if (isset($restriction['attribs']['']['relationship']))
-								{
+								if (isset($restriction['attribs']['']['relationship'])) {
 									$restriction_relationship = $this->sanitize($restriction['attribs']['']['relationship'], SIMPLEPIE_CONSTRUCT_TEXT);
 								}
-								if (isset($restriction['attribs']['']['type']))
-								{
+								if (isset($restriction['attribs']['']['type'])) {
 									$restriction_type = $this->sanitize($restriction['attribs']['']['type'], SIMPLEPIE_CONSTRUCT_TEXT);
 								}
-								if (isset($restriction['data']))
-								{
+								if (isset($restriction['data'])) {
 									$restriction_value = $this->sanitize($restriction['data'], SIMPLEPIE_CONSTRUCT_TEXT);
 								}
 								$restrictions[] = $this->registry->create('Restriction', array($restriction_relationship, $restriction_type, $restriction_value));
 							}
-							if (is_array($restrictions))
-							{
+							if (is_array($restrictions)) {
 								$restrictions = array_values(array_unique($restrictions));
 							}
 						}
-						else
-						{
+						else {
 							$restrictions = $restrictions_parent;
 						}
 
 						// THUMBNAILS
-						if (isset($content['child'][SIMPLEPIE_NAMESPACE_MEDIARSS]['thumbnail']))
-						{
-							foreach ($content['child'][SIMPLEPIE_NAMESPACE_MEDIARSS]['thumbnail'] as $thumbnail)
-							{
+						if (isset($content['child'][SIMPLEPIE_NAMESPACE_MEDIARSS]['thumbnail'])) {
+							foreach ($content['child'][SIMPLEPIE_NAMESPACE_MEDIARSS]['thumbnail'] as $thumbnail) {
 								$thumbnails[] = $this->sanitize($thumbnail['attribs']['']['url'], SIMPLEPIE_CONSTRUCT_IRI);
 							}
-							if (is_array($thumbnails))
-							{
+							if (is_array($thumbnails)) {
 								$thumbnails = array_values(array_unique($thumbnails));
 							}
 						}
-						else
-						{
+						else {
 							$thumbnails = $thumbnails_parent;
 						}
 
 						// TITLES
-						if (isset($content['child'][SIMPLEPIE_NAMESPACE_MEDIARSS]['title']))
-						{
+						if (isset($content['child'][SIMPLEPIE_NAMESPACE_MEDIARSS]['title'])) {
 							$title = $this->sanitize($content['child'][SIMPLEPIE_NAMESPACE_MEDIARSS]['title'][0]['data'], SIMPLEPIE_CONSTRUCT_TEXT);
 						}
-						else
-						{
+						else {
 							$title = $title_parent;
 						}
 
@@ -8287,10 +6697,8 @@ class SimplePie_Item
 				}
 			}
 
-			foreach ((array) $this->get_item_tags(SIMPLEPIE_NAMESPACE_ATOM_10, 'link') as $link)
-			{
-				if (isset($link['attribs']['']['href']) && !empty($link['attribs']['']['rel']) && $link['attribs']['']['rel'] === 'enclosure')
-				{
+			foreach ((array) $this->get_item_tags(SIMPLEPIE_NAMESPACE_ATOM_10, 'link') as $link) {
+				if (isset($link['attribs']['']['href']) && !empty($link['attribs']['']['rel']) && $link['attribs']['']['rel'] === 'enclosure') {
 					// Attributes
 					$bitrate = null;
 					$channels = null;
@@ -8308,12 +6716,10 @@ class SimplePie_Item
 					$width = null;
 
 					$url = $this->sanitize($link['attribs']['']['href'], SIMPLEPIE_CONSTRUCT_IRI, $this->get_base($link));
-					if (isset($link['attribs']['']['type']))
-					{
+					if (isset($link['attribs']['']['type'])) {
 						$type = $this->sanitize($link['attribs']['']['type'], SIMPLEPIE_CONSTRUCT_TEXT);
 					}
-					if (isset($link['attribs']['']['length']))
-					{
+					if (isset($link['attribs']['']['length'])) {
 						$length = ceil($link['attribs']['']['length']);
 					}
 
@@ -8322,10 +6728,8 @@ class SimplePie_Item
 				}
 			}
 
-			foreach ((array) $this->get_item_tags(SIMPLEPIE_NAMESPACE_ATOM_03, 'link') as $link)
-			{
-				if (isset($link['attribs']['']['href']) && !empty($link['attribs']['']['rel']) && $link['attribs']['']['rel'] === 'enclosure')
-				{
+			foreach ((array) $this->get_item_tags(SIMPLEPIE_NAMESPACE_ATOM_03, 'link') as $link) {
+				if (isset($link['attribs']['']['href']) && !empty($link['attribs']['']['rel']) && $link['attribs']['']['rel'] === 'enclosure') {
 					// Attributes
 					$bitrate = null;
 					$channels = null;
@@ -8343,12 +6747,10 @@ class SimplePie_Item
 					$width = null;
 
 					$url = $this->sanitize($link['attribs']['']['href'], SIMPLEPIE_CONSTRUCT_IRI, $this->get_base($link));
-					if (isset($link['attribs']['']['type']))
-					{
+					if (isset($link['attribs']['']['type'])) {
 						$type = $this->sanitize($link['attribs']['']['type'], SIMPLEPIE_CONSTRUCT_TEXT);
 					}
-					if (isset($link['attribs']['']['length']))
-					{
+					if (isset($link['attribs']['']['length'])) {
 						$length = ceil($link['attribs']['']['length']);
 					}
 
@@ -8357,10 +6759,8 @@ class SimplePie_Item
 				}
 			}
 
-			if ($enclosure = $this->get_item_tags(SIMPLEPIE_NAMESPACE_RSS_20, 'enclosure'))
-			{
-				if (isset($enclosure[0]['attribs']['']['url']))
-				{
+			if ($enclosure = $this->get_item_tags(SIMPLEPIE_NAMESPACE_RSS_20, 'enclosure')) {
+				if (isset($enclosure[0]['attribs']['']['url'])) {
 					// Attributes
 					$bitrate = null;
 					$channels = null;
@@ -8378,12 +6778,10 @@ class SimplePie_Item
 					$width = null;
 
 					$url = $this->sanitize($enclosure[0]['attribs']['']['url'], SIMPLEPIE_CONSTRUCT_IRI, $this->get_base($enclosure[0]));
-					if (isset($enclosure[0]['attribs']['']['type']))
-					{
+					if (isset($enclosure[0]['attribs']['']['type'])) {
 						$type = $this->sanitize($enclosure[0]['attribs']['']['type'], SIMPLEPIE_CONSTRUCT_TEXT);
 					}
-					if (isset($enclosure[0]['attribs']['']['length']))
-					{
+					if (isset($enclosure[0]['attribs']['']['length'])) {
 						$length = ceil($enclosure[0]['attribs']['']['length']);
 					}
 
@@ -8392,71 +6790,55 @@ class SimplePie_Item
 				}
 			}
 
-			if (sizeof($this->data['enclosures']) === 0 && ($url || $type || $length || $bitrate || $captions_parent || $categories_parent || $channels || $copyrights_parent || $credits_parent || $description_parent || $duration_parent || $expression || $framerate || $hashes_parent || $height || $keywords_parent || $lang || $medium || $player_parent || $ratings_parent || $restrictions_parent || $samplingrate || $thumbnails_parent || $title_parent || $width))
-			{
+			if (sizeof($this->data['enclosures']) === 0 && ($url || $type || $length || $bitrate || $captions_parent || $categories_parent || $channels || $copyrights_parent || $credits_parent || $description_parent || $duration_parent || $expression || $framerate || $hashes_parent || $height || $keywords_parent || $lang || $medium || $player_parent || $ratings_parent || $restrictions_parent || $samplingrate || $thumbnails_parent || $title_parent || $width)) {
 				// Since we don't have group or content for these, we'll just pass the '*_parent' variables directly to the constructor
 				$this->data['enclosures'][] = $this->registry->create('Enclosure', array($url, $type, $length, null, $bitrate, $captions_parent, $categories_parent, $channels, $copyrights_parent, $credits_parent, $description_parent, $duration_parent, $expression, $framerate, $hashes_parent, $height, $keywords_parent, $lang, $medium, $player_parent, $ratings_parent, $restrictions_parent, $samplingrate, $thumbnails_parent, $title_parent, $width));
 			}
 
 			$this->data['enclosures'] = array_values(array_unique($this->data['enclosures']));
 		}
-		if (!empty($this->data['enclosures']))
-		{
+		if (!empty($this->data['enclosures'])) {
 			return $this->data['enclosures'];
 		}
-		else
-		{
+		else {
 			return null;
 		}
 	}
-	public function get_latitude()
-	{
-		if ($return = $this->get_item_tags(SIMPLEPIE_NAMESPACE_W3C_BASIC_GEO, 'lat'))
-		{
+	public function get_latitude() {
+		if ($return = $this->get_item_tags(SIMPLEPIE_NAMESPACE_W3C_BASIC_GEO, 'lat')) {
 			return (float) $return[0]['data'];
 		}
-		elseif (($return = $this->get_item_tags(SIMPLEPIE_NAMESPACE_GEORSS, 'point')) && preg_match('/^((?:-)?[0-9]+(?:\.[0-9]+)) ((?:-)?[0-9]+(?:\.[0-9]+))$/', trim($return[0]['data']), $match))
-		{
+		elseif (($return = $this->get_item_tags(SIMPLEPIE_NAMESPACE_GEORSS, 'point')) && preg_match('/^((?:-)?[0-9]+(?:\.[0-9]+)) ((?:-)?[0-9]+(?:\.[0-9]+))$/', trim($return[0]['data']), $match)) {
 			return (float) $match[1];
 		}
-		else
-		{
+		else {
 			return null;
 		}
 	}
-	public function get_longitude()
-	{
-		if ($return = $this->get_item_tags(SIMPLEPIE_NAMESPACE_W3C_BASIC_GEO, 'long'))
-		{
+	public function get_longitude() {
+		if ($return = $this->get_item_tags(SIMPLEPIE_NAMESPACE_W3C_BASIC_GEO, 'long')) {
 			return (float) $return[0]['data'];
 		}
-		elseif ($return = $this->get_item_tags(SIMPLEPIE_NAMESPACE_W3C_BASIC_GEO, 'lon'))
-		{
+		elseif ($return = $this->get_item_tags(SIMPLEPIE_NAMESPACE_W3C_BASIC_GEO, 'lon')) {
 			return (float) $return[0]['data'];
 		}
-		elseif (($return = $this->get_item_tags(SIMPLEPIE_NAMESPACE_GEORSS, 'point')) && preg_match('/^((?:-)?[0-9]+(?:\.[0-9]+)) ((?:-)?[0-9]+(?:\.[0-9]+))$/', trim($return[0]['data']), $match))
-		{
+		elseif (($return = $this->get_item_tags(SIMPLEPIE_NAMESPACE_GEORSS, 'point')) && preg_match('/^((?:-)?[0-9]+(?:\.[0-9]+)) ((?:-)?[0-9]+(?:\.[0-9]+))$/', trim($return[0]['data']), $match)) {
 			return (float) $match[2];
 		}
-		else
-		{
+		else {
 			return null;
 		}
 	}
-	public function get_source()
-	{
-		if ($return = $this->get_item_tags(SIMPLEPIE_NAMESPACE_ATOM_10, 'source'))
-		{
+	public function get_source() {
+		if ($return = $this->get_item_tags(SIMPLEPIE_NAMESPACE_ATOM_10, 'source')) {
 			return $this->registry->create('Source', array($this, $return[0]));
 		}
-		else
-		{
+		else {
 			return null;
 		}
 	}
 }
-class SimplePie_Locator
-{
+class SimplePie_Locator {
 	var $useragent;
 	var $timeout;
 	var $file;
@@ -8470,8 +6852,7 @@ class SimplePie_Locator
 	var $max_checked_feeds = 10;
 	protected $registry;
 
-	public function __construct(SimplePie_File $file, $timeout = 10, $useragent = null, $max_checked_feeds = 10)
-	{
+	public function __construct(SimplePie_File $file, $timeout = 10, $useragent = null, $max_checked_feeds = 10) {
 		$this->file = $file;
 		$this->useragent = $useragent;
 		$this->timeout = $timeout;
@@ -8484,96 +6865,75 @@ class SimplePie_Locator
 		restore_error_handler();
 	}
 
-	public function set_registry(SimplePie_Registry $registry)
-	{
+	public function set_registry(SimplePie_Registry $registry) {
 		$this->registry = $registry;
 	}
 
-	public function find($type = SIMPLEPIE_LOCATOR_ALL, &$working)
-	{
-		if ($this->is_feed($this->file))
-		{
+	public function find($type = SIMPLEPIE_LOCATOR_ALL, &$working) {
+		if ($this->is_feed($this->file)) {
 			return $this->file;
 		}
 
-		if ($this->file->method & SIMPLEPIE_FILE_SOURCE_REMOTE)
-		{
+		if ($this->file->method & SIMPLEPIE_FILE_SOURCE_REMOTE) {
 			$sniffer = $this->registry->create('Content_Type_Sniffer', array($this->file));
-			if ($sniffer->get_type() !== 'text/html')
-			{
+			if ($sniffer->get_type() !== 'text/html') {
 				return null;
 			}
 		}
 
-		if ($type & ~SIMPLEPIE_LOCATOR_NONE)
-		{
+		if ($type & ~SIMPLEPIE_LOCATOR_NONE) {
 			$this->get_base();
 		}
 
-		if ($type & SIMPLEPIE_LOCATOR_AUTODISCOVERY && $working = $this->autodiscovery())
-		{
+		if ($type & SIMPLEPIE_LOCATOR_AUTODISCOVERY && $working = $this->autodiscovery()) {
 			return $working[0];
 		}
 
-		if ($type & (SIMPLEPIE_LOCATOR_LOCAL_EXTENSION | SIMPLEPIE_LOCATOR_LOCAL_BODY | SIMPLEPIE_LOCATOR_REMOTE_EXTENSION | SIMPLEPIE_LOCATOR_REMOTE_BODY) && $this->get_links())
-		{
-			if ($type & SIMPLEPIE_LOCATOR_LOCAL_EXTENSION && $working = $this->extension($this->local))
-			{
+		if ($type & (SIMPLEPIE_LOCATOR_LOCAL_EXTENSION | SIMPLEPIE_LOCATOR_LOCAL_BODY | SIMPLEPIE_LOCATOR_REMOTE_EXTENSION | SIMPLEPIE_LOCATOR_REMOTE_BODY) && $this->get_links()) {
+			if ($type & SIMPLEPIE_LOCATOR_LOCAL_EXTENSION && $working = $this->extension($this->local)) {
 				return $working;
 			}
 
-			if ($type & SIMPLEPIE_LOCATOR_LOCAL_BODY && $working = $this->body($this->local))
-			{
+			if ($type & SIMPLEPIE_LOCATOR_LOCAL_BODY && $working = $this->body($this->local)) {
 				return $working;
 			}
 
-			if ($type & SIMPLEPIE_LOCATOR_REMOTE_EXTENSION && $working = $this->extension($this->elsewhere))
-			{
+			if ($type & SIMPLEPIE_LOCATOR_REMOTE_EXTENSION && $working = $this->extension($this->elsewhere)) {
 				return $working;
 			}
 
-			if ($type & SIMPLEPIE_LOCATOR_REMOTE_BODY && $working = $this->body($this->elsewhere))
-			{
+			if ($type & SIMPLEPIE_LOCATOR_REMOTE_BODY && $working = $this->body($this->elsewhere)) {
 				return $working;
 			}
 		}
 		return null;
 	}
 
-	public function is_feed($file)
-	{
-		if ($file->method & SIMPLEPIE_FILE_SOURCE_REMOTE)
-		{
+	public function is_feed($file) {
+		if ($file->method & SIMPLEPIE_FILE_SOURCE_REMOTE) {
 			$sniffer = $this->registry->create('Content_Type_Sniffer', array($file));
 			$sniffed = $sniffer->get_type();
-			if (in_array($sniffed, array('application/rss+xml', 'application/rdf+xml', 'text/rdf', 'application/atom+xml', 'text/xml', 'application/xml')))
-			{
+			if (in_array($sniffed, array('application/rss+xml', 'application/rdf+xml', 'text/rdf', 'application/atom+xml', 'text/xml', 'application/xml'))) {
 				return true;
 			}
-			else
-			{
+			else {
 				return false;
 			}
 		}
-		elseif ($file->method & SIMPLEPIE_FILE_SOURCE_LOCAL)
-		{
+		elseif ($file->method & SIMPLEPIE_FILE_SOURCE_LOCAL) {
 			return true;
 		}
-		else
-		{
+		else {
 			return false;
 		}
 	}
 
-	public function get_base()
-	{
+	public function get_base() {
 		$this->http_base = $this->file->url;
 		$this->base = $this->http_base;
 		$elements = $this->dom->getElementsByTagName('base');
-		foreach ($elements as $element)
-		{
-			if ($element->hasAttribute('href'))
-			{
+		foreach ($elements as $element) {
+			if ($element->hasAttribute('href')) {
 				$this->base = $this->registry->call('Misc', 'absolutize_url', array(trim($element->getAttribute('href')), $this->http_base));
 				$this->base_location = method_exists($element, 'getLineNo') ? $element->getLineNo() : 0;
 				break;
@@ -8581,56 +6941,45 @@ class SimplePie_Locator
 		}
 	}
 
-	public function autodiscovery()
-	{
+	public function autodiscovery() {
 		$done = array();
 		$feeds = array();
 		$feeds = array_merge($feeds, $this->search_elements_by_tag('link', $done, $feeds));
 		$feeds = array_merge($feeds, $this->search_elements_by_tag('a', $done, $feeds));
 		$feeds = array_merge($feeds, $this->search_elements_by_tag('area', $done, $feeds));
 
-		if (!empty($feeds))
-		{
+		if (!empty($feeds)) {
 			return array_values($feeds);
 		}
-		else
-		{
+		else {
 			return null;
 		}
 	}
 
-	protected function search_elements_by_tag($name, &$done, $feeds)
-	{
+	protected function search_elements_by_tag($name, &$done, $feeds) {
 		$links = $this->dom->getElementsByTagName($name);
-		foreach ($links as $link)
-		{
-			if ($this->checked_feeds === $this->max_checked_feeds)
-			{
+		foreach ($links as $link) {
+			if ($this->checked_feeds === $this->max_checked_feeds) {
 				break;
 			}
-			if ($link->hasAttribute('href') && $link->hasAttribute('rel'))
-			{
+			if ($link->hasAttribute('href') && $link->hasAttribute('rel')) {
 				$rel = array_unique($this->registry->call('Misc', 'space_seperated_tokens', array(strtolower($link->getAttribute('rel')))));
 				$line = method_exists($link, 'getLineNo') ? $link->getLineNo() : 1;
 
-				if ($this->base_location < $line)
-				{
+				if ($this->base_location < $line) {
 					$href = $this->registry->call('Misc', 'absolutize_url', array(trim($link->getAttribute('href')), $this->base));
 				}
-				else
-				{
+				else {
 					$href = $this->registry->call('Misc', 'absolutize_url', array(trim($link->getAttribute('href')), $this->http_base));
 				}
 
-				if (!in_array($href, $done) && in_array('feed', $rel) || (in_array('alternate', $rel) && !in_array('stylesheet', $rel) && $link->hasAttribute('type') && in_array(strtolower($this->registry->call('Misc', 'parse_mime', array($link->getAttribute('type')))), array('application/rss+xml', 'application/atom+xml'))) && !isset($feeds[$href]))
-				{
+				if (!in_array($href, $done) && in_array('feed', $rel) || (in_array('alternate', $rel) && !in_array('stylesheet', $rel) && $link->hasAttribute('type') && in_array(strtolower($this->registry->call('Misc', 'parse_mime', array($link->getAttribute('type')))), array('application/rss+xml', 'application/atom+xml'))) && !isset($feeds[$href])) {
 					$this->checked_feeds++;
 					$headers = array(
 						'Accept' => 'application/atom+xml, application/rss+xml, application/rdf+xml;q=0.9, application/xml;q=0.8, text/xml;q=0.8, text/html;q=0.7, unknown/unknown;q=0.1, application/unknown;q=0.1, */*;q=0.1',
 					);
 					$feed = $this->registry->create('File', array($href, $this->timeout, 5, $headers, $this->useragent));
-					if ($feed->success && ($feed->method & SIMPLEPIE_FILE_SOURCE_REMOTE === 0 || ($feed->status_code === 200 || $feed->status_code > 206 && $feed->status_code < 300)) && $this->is_feed($feed))
-					{
+					if ($feed->success && ($feed->method & SIMPLEPIE_FILE_SOURCE_REMOTE === 0 || ($feed->status_code === 200 || $feed->status_code > 206 && $feed->status_code < 300)) && $this->is_feed($feed)) {
 						$feeds[$href] = $feed;
 					}
 				}
@@ -8641,34 +6990,26 @@ class SimplePie_Locator
 		return $feeds;
 	}
 
-	public function get_links()
-	{
+	public function get_links() {
 		$links = $this->dom->getElementsByTagName('a');
-		foreach ($links as $link)
-		{
-			if ($link->hasAttribute('href'))
-			{
+		foreach ($links as $link) {
+			if ($link->hasAttribute('href')) {
 				$href = trim($link->getAttribute('href'));
 				$parsed = $this->registry->call('Misc', 'parse_url', array($href));
-				if ($parsed['scheme'] === '' || preg_match('/^(http(s)|feed)?$/i', $parsed['scheme']))
-				{
-					if ($this->base_location < $link->getLineNo())
-					{
+				if ($parsed['scheme'] === '' || preg_match('/^(http(s)|feed)?$/i', $parsed['scheme'])) {
+					if ($this->base_location < $link->getLineNo()) {
 						$href = $this->registry->call('Misc', 'absolutize_url', array(trim($link->getAttribute('href')), $this->base));
 					}
-					else
-					{
+					else {
 						$href = $this->registry->call('Misc', 'absolutize_url', array(trim($link->getAttribute('href')), $this->http_base));
 					}
 
 					$current = $this->registry->call('Misc', 'parse_url', array($this->file->url));
 
-					if ($parsed['authority'] === '' || $parsed['authority'] === $current['authority'])
-					{
+					if ($parsed['authority'] === '' || $parsed['authority'] === $current['authority']) {
 						$this->local[] = $href;
 					}
-					else
-					{
+					else {
 						$this->elsewhere[] = $href;
 					}
 				}
@@ -8676,35 +7017,28 @@ class SimplePie_Locator
 		}
 		$this->local = array_unique($this->local);
 		$this->elsewhere = array_unique($this->elsewhere);
-		if (!empty($this->local) || !empty($this->elsewhere))
-		{
+		if (!empty($this->local) || !empty($this->elsewhere)) {
 			return true;
 		}
 		return null;
 	}
 
-	public function extension(&$array)
-	{
-		foreach ($array as $key => $value)
-		{
-			if ($this->checked_feeds === $this->max_checked_feeds)
-			{
+	public function extension(&$array) {
+		foreach ($array as $key => $value) {
+			if ($this->checked_feeds === $this->max_checked_feeds) {
 				break;
 			}
-			if (in_array(strtolower(strrchr($value, '.')), array('.rss', '.rdf', '.atom', '.xml')))
-			{
+			if (in_array(strtolower(strrchr($value, '.')), array('.rss', '.rdf', '.atom', '.xml'))) {
 				$this->checked_feeds++;
 
 				$headers = array(
 					'Accept' => 'application/atom+xml, application/rss+xml, application/rdf+xml;q=0.9, application/xml;q=0.8, text/xml;q=0.8, text/html;q=0.7, unknown/unknown;q=0.1, application/unknown;q=0.1, */*;q=0.1',
 				);
 				$feed = $this->registry->create('File', array($value, $this->timeout, 5, $headers, $this->useragent));
-				if ($feed->success && ($feed->method & SIMPLEPIE_FILE_SOURCE_REMOTE === 0 || ($feed->status_code === 200 || $feed->status_code > 206 && $feed->status_code < 300)) && $this->is_feed($feed))
-				{
+				if ($feed->success && ($feed->method & SIMPLEPIE_FILE_SOURCE_REMOTE === 0 || ($feed->status_code === 200 || $feed->status_code > 206 && $feed->status_code < 300)) && $this->is_feed($feed)) {
 					return $feed;
 				}
-				else
-				{
+				else {
 					unset($array[$key]);
 				}
 			}
@@ -8712,27 +7046,21 @@ class SimplePie_Locator
 		return null;
 	}
 
-	public function body(&$array)
-	{
-		foreach ($array as $key => $value)
-		{
-			if ($this->checked_feeds === $this->max_checked_feeds)
-			{
+	public function body(&$array) {
+		foreach ($array as $key => $value) {
+			if ($this->checked_feeds === $this->max_checked_feeds) {
 				break;
 			}
-			if (preg_match('/(rss|rdf|atom|xml)/i', $value))
-			{
+			if (preg_match('/(rss|rdf|atom|xml)/i', $value)) {
 				$this->checked_feeds++;
 				$headers = array(
 					'Accept' => 'application/atom+xml, application/rss+xml, application/rdf+xml;q=0.9, application/xml;q=0.8, text/xml;q=0.8, text/html;q=0.7, unknown/unknown;q=0.1, application/unknown;q=0.1, */*;q=0.1',
 				);
 				$feed = $this->registry->create('File', array($value, $this->timeout, 5, null, $this->useragent));
-				if ($feed->success && ($feed->method & SIMPLEPIE_FILE_SOURCE_REMOTE === 0 || ($feed->status_code === 200 || $feed->status_code > 206 && $feed->status_code < 300)) && $this->is_feed($feed))
-				{
+				if ($feed->success && ($feed->method & SIMPLEPIE_FILE_SOURCE_REMOTE === 0 || ($feed->status_code === 200 || $feed->status_code > 206 && $feed->status_code < 300)) && $this->is_feed($feed)) {
 					return $feed;
 				}
-				else
-				{
+				else {
 					unset($array[$key]);
 				}
 			}
@@ -8740,27 +7068,22 @@ class SimplePie_Locator
 		return null;
 	}
 }
-class SimplePie_Misc
-{
-	public static function time_hms($seconds)
-	{
+class SimplePie_Misc {
+	public static function time_hms($seconds) {
 		$time = '';
 
 		$hours = floor($seconds / 3600);
 		$remainder = $seconds % 3600;
-		if ($hours > 0)
-		{
+		if ($hours > 0) {
 			$time .= $hours.':';
 		}
 
 		$minutes = floor($remainder / 60);
 		$seconds = $remainder % 60;
-		if ($minutes < 10 && $hours > 0)
-		{
+		if ($minutes < 10 && $hours > 0) {
 			$minutes = '0' . $minutes;
 		}
-		if ($seconds < 10)
-		{
+		if ($seconds < 10) {
 			$seconds = '0' . $seconds;
 		}
 
@@ -8770,38 +7093,29 @@ class SimplePie_Misc
 		return $time;
 	}
 
-	public static function absolutize_url($relative, $base)
-	{
+	public static function absolutize_url($relative, $base) {
 		$iri = SimplePie_IRI::absolutize(new SimplePie_IRI($base), $relative);
 		return $iri->get_uri();
 	}
-	public static function get_element($realname, $string)
-	{
+	public static function get_element($realname, $string) {
 		$return = array();
 		$name = preg_quote($realname, '/');
-		if (preg_match_all("/<($name)" . SIMPLEPIE_PCRE_HTML_ATTRIBUTE . "(>(.*)<\/$name>|(\/)?>)/siU", $string, $matches, PREG_SET_ORDER | PREG_OFFSET_CAPTURE))
-		{
-			for ($i = 0, $total_matches = count($matches); $i < $total_matches; $i++)
-			{
+		if (preg_match_all("/<($name)" . SIMPLEPIE_PCRE_HTML_ATTRIBUTE . "(>(.*)<\/$name>|(\/)?>)/siU", $string, $matches, PREG_SET_ORDER | PREG_OFFSET_CAPTURE)) {
+			for ($i = 0, $total_matches = count($matches); $i < $total_matches; $i++) {
 				$return[$i]['tag'] = $realname;
 				$return[$i]['full'] = $matches[$i][0][0];
 				$return[$i]['offset'] = $matches[$i][0][1];
-				if (strlen($matches[$i][3][0]) <= 2)
-				{
+				if (strlen($matches[$i][3][0]) <= 2) {
 					$return[$i]['self_closing'] = true;
 				}
-				else
-				{
+				else {
 					$return[$i]['self_closing'] = false;
 					$return[$i]['content'] = $matches[$i][4][0];
 				}
 				$return[$i]['attribs'] = array();
-				if (isset($matches[$i][2][0]) && preg_match_all('/[\x09\x0A\x0B\x0C\x0D\x20]+([^\x09\x0A\x0B\x0C\x0D\x20\x2F\x3E][^\x09\x0A\x0B\x0C\x0D\x20\x2F\x3D\x3E]*)(?:[\x09\x0A\x0B\x0C\x0D\x20]*=[\x09\x0A\x0B\x0C\x0D\x20]*(?:"([^"]*)"|\'([^\']*)\'|([^\x09\x0A\x0B\x0C\x0D\x20\x22\x27\x3E][^\x09\x0A\x0B\x0C\x0D\x20\x3E]*)?))?/', ' ' . $matches[$i][2][0] . ' ', $attribs, PREG_SET_ORDER))
-				{
-					for ($j = 0, $total_attribs = count($attribs); $j < $total_attribs; $j++)
-					{
-						if (count($attribs[$j]) === 2)
-						{
+				if (isset($matches[$i][2][0]) && preg_match_all('/[\x09\x0A\x0B\x0C\x0D\x20]+([^\x09\x0A\x0B\x0C\x0D\x20\x2F\x3E][^\x09\x0A\x0B\x0C\x0D\x20\x2F\x3D\x3E]*)(?:[\x09\x0A\x0B\x0C\x0D\x20]*=[\x09\x0A\x0B\x0C\x0D\x20]*(?:"([^"]*)"|\'([^\']*)\'|([^\x09\x0A\x0B\x0C\x0D\x20\x22\x27\x3E][^\x09\x0A\x0B\x0C\x0D\x20\x3E]*)?))?/', ' ' . $matches[$i][2][0] . ' ', $attribs, PREG_SET_ORDER)) {
+					for ($j = 0, $total_attribs = count($attribs); $j < $total_attribs; $j++) {
+						if (count($attribs[$j]) === 2) {
 							$attribs[$j][2] = $attribs[$j][1];
 						}
 						$return[$i]['attribs'][strtolower($attribs[$j][1])]['data'] = SimplePie_Misc::entities_decode(end($attribs[$j]), 'UTF-8');
@@ -8812,31 +7126,24 @@ class SimplePie_Misc
 		return $return;
 	}
 
-	public static function element_implode($element)
-	{
+	public static function element_implode($element) {
 		$full = "<$element[tag]";
-		foreach ($element['attribs'] as $key => $value)
-		{
+		foreach ($element['attribs'] as $key => $value) {
 			$key = strtolower($key);
 			$full .= " $key=\"" . htmlspecialchars($value['data']) . '"';
 		}
-		if ($element['self_closing'])
-		{
+		if ($element['self_closing']) {
 			$full .= ' />';
 		}
-		else
-		{
+		else {
 			$full .= ">$element[content]</$element[tag]>";
 		}
 		return $full;
 	}
 
-	public static function error($message, $level, $file, $line)
-	{
-		if ((ini_get('error_reporting') & $level) > 0)
-		{
-			switch ($level)
-			{
+	public static function error($message, $level, $file, $line) {
+		if ((ini_get('error_reporting') & $level) > 0) {
+			switch ($level) {
 				case E_USER_ERROR:
 					$note = 'PHP Error';
 					break;
@@ -8852,19 +7159,16 @@ class SimplePie_Misc
 			}
 
 			$log_error = true;
-			if (!function_exists('error_log'))
-			{
+			if (!function_exists('error_log')) {
 				$log_error = false;
 			}
 
 			$log_file = @ini_get('error_log');
-			if (!empty($log_file) && ('syslog' !== $log_file) && !@is_writable($log_file))
-			{
+			if (!empty($log_file) && ('syslog' !== $log_file) && !@is_writable($log_file)) {
 				$log_error = false;
 			}
 
-			if ($log_error)
-			{
+			if ($log_error) {
 				@error_log("$note: $message in $file on line $line", 0);
 			}
 		}
@@ -8872,40 +7176,32 @@ class SimplePie_Misc
 		return $message;
 	}
 
-	public static function fix_protocol($url, $http = 1)
-	{
+	public static function fix_protocol($url, $http = 1) {
 		$url = SimplePie_Misc::normalize_url($url);
 		$parsed = SimplePie_Misc::parse_url($url);
-		if ($parsed['scheme'] !== '' && $parsed['scheme'] !== 'http' && $parsed['scheme'] !== 'https')
-		{
+		if ($parsed['scheme'] !== '' && $parsed['scheme'] !== 'http' && $parsed['scheme'] !== 'https') {
 			return SimplePie_Misc::fix_protocol(SimplePie_Misc::compress_parse_url('http', $parsed['authority'], $parsed['path'], $parsed['query'], $parsed['fragment']), $http);
 		}
 
-		if ($parsed['scheme'] === '' && $parsed['authority'] === '' && !file_exists($url))
-		{
+		if ($parsed['scheme'] === '' && $parsed['authority'] === '' && !file_exists($url)) {
 			return SimplePie_Misc::fix_protocol(SimplePie_Misc::compress_parse_url('http', $parsed['path'], '', $parsed['query'], $parsed['fragment']), $http);
 		}
 
-		if ($http === 2 && $parsed['scheme'] !== '')
-		{
+		if ($http === 2 && $parsed['scheme'] !== '') {
 			return "feed:$url";
 		}
-		elseif ($http === 3 && strtolower($parsed['scheme']) === 'http')
-		{
+		elseif ($http === 3 && strtolower($parsed['scheme']) === 'http') {
 			return substr_replace($url, 'podcast', 0, 4);
 		}
-		elseif ($http === 4 && strtolower($parsed['scheme']) === 'http')
-		{
+		elseif ($http === 4 && strtolower($parsed['scheme']) === 'http') {
 			return substr_replace($url, 'itpc', 0, 4);
 		}
-		else
-		{
+		else {
 			return $url;
 		}
 	}
 
-	public static function parse_url($url)
-	{
+	public static function parse_url($url) {
 		$iri = new SimplePie_IRI($url);
 		return array(
 			'scheme' => (string) $iri->scheme,
@@ -8916,8 +7212,7 @@ class SimplePie_Misc
 		);
 	}
 
-	public static function compress_parse_url($scheme = '', $authority = '', $path = '', $query = '', $fragment = '')
-	{
+	public static function compress_parse_url($scheme = '', $authority = '', $path = '', $query = '', $fragment = '') {
 		$iri = new SimplePie_IRI('');
 		$iri->scheme = $scheme;
 		$iri->authority = $authority;
@@ -8927,43 +7222,34 @@ class SimplePie_Misc
 		return $iri->get_uri();
 	}
 
-	public static function normalize_url($url)
-	{
+	public static function normalize_url($url) {
 		$iri = new SimplePie_IRI($url);
 		return $iri->get_uri();
 	}
 
-	public static function percent_encoding_normalization($match)
-	{
+	public static function percent_encoding_normalization($match) {
 		$integer = hexdec($match[1]);
-		if ($integer >= 0x41 && $integer <= 0x5A || $integer >= 0x61 && $integer <= 0x7A || $integer >= 0x30 && $integer <= 0x39 || $integer === 0x2D || $integer === 0x2E || $integer === 0x5F || $integer === 0x7E)
-		{
+		if ($integer >= 0x41 && $integer <= 0x5A || $integer >= 0x61 && $integer <= 0x7A || $integer >= 0x30 && $integer <= 0x39 || $integer === 0x2D || $integer === 0x2E || $integer === 0x5F || $integer === 0x7E) {
 			return chr($integer);
 		}
-		else
-		{
+		else {
 			return strtoupper($match[0]);
 		}
 	}
-	public static function windows_1252_to_utf8($string)
-	{
+	public static function windows_1252_to_utf8($string) {
 		static $convert_table = array("\x80" => "\xE2\x82\xAC", "\x81" => "\xEF\xBF\xBD", "\x82" => "\xE2\x80\x9A", "\x83" => "\xC6\x92", "\x84" => "\xE2\x80\x9E", "\x85" => "\xE2\x80\xA6", "\x86" => "\xE2\x80\xA0", "\x87" => "\xE2\x80\xA1", "\x88" => "\xCB\x86", "\x89" => "\xE2\x80\xB0", "\x8A" => "\xC5\xA0", "\x8B" => "\xE2\x80\xB9", "\x8C" => "\xC5\x92", "\x8D" => "\xEF\xBF\xBD", "\x8E" => "\xC5\xBD", "\x8F" => "\xEF\xBF\xBD", "\x90" => "\xEF\xBF\xBD", "\x91" => "\xE2\x80\x98", "\x92" => "\xE2\x80\x99", "\x93" => "\xE2\x80\x9C", "\x94" => "\xE2\x80\x9D", "\x95" => "\xE2\x80\xA2", "\x96" => "\xE2\x80\x93", "\x97" => "\xE2\x80\x94", "\x98" => "\xCB\x9C", "\x99" => "\xE2\x84\xA2", "\x9A" => "\xC5\xA1", "\x9B" => "\xE2\x80\xBA", "\x9C" => "\xC5\x93", "\x9D" => "\xEF\xBF\xBD", "\x9E" => "\xC5\xBE", "\x9F" => "\xC5\xB8", "\xA0" => "\xC2\xA0", "\xA1" => "\xC2\xA1", "\xA2" => "\xC2\xA2", "\xA3" => "\xC2\xA3", "\xA4" => "\xC2\xA4", "\xA5" => "\xC2\xA5", "\xA6" => "\xC2\xA6", "\xA7" => "\xC2\xA7", "\xA8" => "\xC2\xA8", "\xA9" => "\xC2\xA9", "\xAA" => "\xC2\xAA", "\xAB" => "\xC2\xAB", "\xAC" => "\xC2\xAC", "\xAD" => "\xC2\xAD", "\xAE" => "\xC2\xAE", "\xAF" => "\xC2\xAF", "\xB0" => "\xC2\xB0", "\xB1" => "\xC2\xB1", "\xB2" => "\xC2\xB2", "\xB3" => "\xC2\xB3", "\xB4" => "\xC2\xB4", "\xB5" => "\xC2\xB5", "\xB6" => "\xC2\xB6", "\xB7" => "\xC2\xB7", "\xB8" => "\xC2\xB8", "\xB9" => "\xC2\xB9", "\xBA" => "\xC2\xBA", "\xBB" => "\xC2\xBB", "\xBC" => "\xC2\xBC", "\xBD" => "\xC2\xBD", "\xBE" => "\xC2\xBE", "\xBF" => "\xC2\xBF", "\xC0" => "\xC3\x80", "\xC1" => "\xC3\x81", "\xC2" => "\xC3\x82", "\xC3" => "\xC3\x83", "\xC4" => "\xC3\x84", "\xC5" => "\xC3\x85", "\xC6" => "\xC3\x86", "\xC7" => "\xC3\x87", "\xC8" => "\xC3\x88", "\xC9" => "\xC3\x89", "\xCA" => "\xC3\x8A", "\xCB" => "\xC3\x8B", "\xCC" => "\xC3\x8C", "\xCD" => "\xC3\x8D", "\xCE" => "\xC3\x8E", "\xCF" => "\xC3\x8F", "\xD0" => "\xC3\x90", "\xD1" => "\xC3\x91", "\xD2" => "\xC3\x92", "\xD3" => "\xC3\x93", "\xD4" => "\xC3\x94", "\xD5" => "\xC3\x95", "\xD6" => "\xC3\x96", "\xD7" => "\xC3\x97", "\xD8" => "\xC3\x98", "\xD9" => "\xC3\x99", "\xDA" => "\xC3\x9A", "\xDB" => "\xC3\x9B", "\xDC" => "\xC3\x9C", "\xDD" => "\xC3\x9D", "\xDE" => "\xC3\x9E", "\xDF" => "\xC3\x9F", "\xE0" => "\xC3\xA0", "\xE1" => "\xC3\xA1", "\xE2" => "\xC3\xA2", "\xE3" => "\xC3\xA3", "\xE4" => "\xC3\xA4", "\xE5" => "\xC3\xA5", "\xE6" => "\xC3\xA6", "\xE7" => "\xC3\xA7", "\xE8" => "\xC3\xA8", "\xE9" => "\xC3\xA9", "\xEA" => "\xC3\xAA", "\xEB" => "\xC3\xAB", "\xEC" => "\xC3\xAC", "\xED" => "\xC3\xAD", "\xEE" => "\xC3\xAE", "\xEF" => "\xC3\xAF", "\xF0" => "\xC3\xB0", "\xF1" => "\xC3\xB1", "\xF2" => "\xC3\xB2", "\xF3" => "\xC3\xB3", "\xF4" => "\xC3\xB4", "\xF5" => "\xC3\xB5", "\xF6" => "\xC3\xB6", "\xF7" => "\xC3\xB7", "\xF8" => "\xC3\xB8", "\xF9" => "\xC3\xB9", "\xFA" => "\xC3\xBA", "\xFB" => "\xC3\xBB", "\xFC" => "\xC3\xBC", "\xFD" => "\xC3\xBD", "\xFE" => "\xC3\xBE", "\xFF" => "\xC3\xBF");
 
 		return strtr($string, $convert_table);
 	}
-	public static function change_encoding($data, $input, $output)
-	{
+	public static function change_encoding($data, $input, $output) {
 		$input = SimplePie_Misc::encoding($input);
 		$output = SimplePie_Misc::encoding($output);
 
 		// We fail to fail on non US-ASCII bytes
-		if ($input === 'US-ASCII')
-		{
+		if ($input === 'US-ASCII') {
 			static $non_ascii_octects = '';
-			if (!$non_ascii_octects)
-			{
-				for ($i = 0x80; $i <= 0xFF; $i++)
-				{
+			if (!$non_ascii_octects) {
+				for ($i = 0x80; $i <= 0xFF; $i++) {
 					$non_ascii_octects .= chr($i);
 				}
 			}
@@ -8971,74 +7257,59 @@ class SimplePie_Misc
 		}
 
 		// This is first, as behaviour of this is completely predictable
-		if ($input === 'windows-1252' && $output === 'UTF-8')
-		{
+		if ($input === 'windows-1252' && $output === 'UTF-8') {
 			return SimplePie_Misc::windows_1252_to_utf8($data);
 		}
 		// This is second, as behaviour of this varies only with PHP version (the middle part of this expression checks the encoding is supported).
-		elseif (function_exists('mb_convert_encoding') && ($return = SimplePie_Misc::change_encoding_mbstring($data, $input, $output)))
-		{
+		elseif (function_exists('mb_convert_encoding') && ($return = SimplePie_Misc::change_encoding_mbstring($data, $input, $output))) {
 			return $return;
  		}
 		// This is last, as behaviour of this varies with OS userland and PHP version
-		elseif (function_exists('iconv') && ($return = SimplePie_Misc::change_encoding_iconv($data, $input, $output)))
-		{
+		elseif (function_exists('iconv') && ($return = SimplePie_Misc::change_encoding_iconv($data, $input, $output))) {
 			return $return;
 		}
 		// If we can't do anything, just fail
-		else
-		{
+		else {
 			return false;
 		}
 	}
 
-	protected static function change_encoding_mbstring($data, $input, $output)
-	{
-		if ($input === 'windows-949')
-		{
+	protected static function change_encoding_mbstring($data, $input, $output) {
+		if ($input === 'windows-949') {
 			$input = 'EUC-KR';
 		}
-		if ($output === 'windows-949')
-		{
+		if ($output === 'windows-949') {
 			$output = 'EUC-KR';
 		}
-		if ($input === 'Windows-31J')
-		{
+		if ($input === 'Windows-31J') {
 			$input = 'SJIS';
 		}
-		if ($output === 'Windows-31J')
-		{
+		if ($output === 'Windows-31J') {
 			$output = 'SJIS';
 		}
 
 		// Check that the encoding is supported
-		if (@mb_convert_encoding("\x80", 'UTF-16BE', $input) === "\x00\x80")
-		{
+		if (@mb_convert_encoding("\x80", 'UTF-16BE', $input) === "\x00\x80") {
 			return false;
 		}
-		if (!in_array($input, mb_list_encodings()))
-		{
+		if (!in_array($input, mb_list_encodings())) {
 			return false;
 		}
 
 		// Let's do some conversion
-		if ($return = @mb_convert_encoding($data, $output, $input))
-		{
+		if ($return = @mb_convert_encoding($data, $output, $input)) {
 			return $return;
 		}
 
 		return false;
 	}
 
-	protected static function change_encoding_iconv($data, $input, $output)
-	{
+	protected static function change_encoding_iconv($data, $input, $output) {
 		return @iconv($input, $output, $data);
 	}
-	public static function encoding($charset)
-	{
+	public static function encoding($charset) {
 		// Normalization from UTS #22
-		switch (strtolower(preg_replace('/(?:[^a-zA-Z0-9]+|([^0-9])0+)/', '\1', $charset)))
-		{
+		switch (strtolower(preg_replace('/(?:[^a-zA-Z0-9]+|([^0-9])0+)/', '\1', $charset))) {
 			case 'adobestandardencoding':
 			case 'csadobestandardencoding':
 				return 'Adobe-Standard-Encoding';
@@ -10347,56 +8618,44 @@ class SimplePie_Misc
 		}
 	}
 
-	public static function get_curl_version()
-	{
-		if (is_array($curl = curl_version()))
-		{
+	public static function get_curl_version() {
+		if (is_array($curl = curl_version())) {
 			$curl = $curl['version'];
 		}
-		elseif (substr($curl, 0, 5) === 'curl/')
-		{
+		elseif (substr($curl, 0, 5) === 'curl/') {
 			$curl = substr($curl, 5, strcspn($curl, "\x09\x0A\x0B\x0C\x0D", 5));
 		}
-		elseif (substr($curl, 0, 8) === 'libcurl/')
-		{
+		elseif (substr($curl, 0, 8) === 'libcurl/') {
 			$curl = substr($curl, 8, strcspn($curl, "\x09\x0A\x0B\x0C\x0D", 8));
 		}
-		else
-		{
+		else {
 			$curl = 0;
 		}
 		return $curl;
 	}
-	public static function strip_comments($data)
-	{
+	public static function strip_comments($data) {
 		$output = '';
-		while (($start = strpos($data, '<!--')) !== false)
-		{
+		while (($start = strpos($data, '<!--')) !== false) {
 			$output .= substr($data, 0, $start);
-			if (($end = strpos($data, '-->', $start)) !== false)
-			{
+			if (($end = strpos($data, '-->', $start)) !== false) {
 				$data = substr_replace($data, '', 0, $end + 3);
 			}
-			else
-			{
+			else {
 				$data = '';
 			}
 		}
 		return $output . $data;
 	}
 
-	public static function parse_date($dt)
-	{
+	public static function parse_date($dt) {
 		$parser = SimplePie_Parse_Date::get();
 		return $parser->parse($dt);
 	}
-	public static function entities_decode($data)
-	{
+	public static function entities_decode($data) {
 		$decoder = new SimplePie_Decode_HTML_Entities($data);
 		return $decoder->parse();
 	}
-	public static function uncomment_rfc822($string)
-	{
+	public static function uncomment_rfc822($string) {
 		$string = (string) $string;
 		$position = 0;
 		$length = strlen($string);
@@ -10404,25 +8663,19 @@ class SimplePie_Misc
 
 		$output = '';
 
-		while ($position < $length && ($pos = strpos($string, '(', $position)) !== false)
-		{
+		while ($position < $length && ($pos = strpos($string, '(', $position)) !== false) {
 			$output .= substr($string, $position, $pos - $position);
 			$position = $pos + 1;
-			if ($string[$pos - 1] !== '\\')
-			{
+			if ($string[$pos - 1] !== '\\') {
 				$depth++;
-				while ($depth && $position < $length)
-				{
+				while ($depth && $position < $length) {
 					$position += strcspn($string, '()', $position);
-					if ($string[$position - 1] === '\\')
-					{
+					if ($string[$position - 1] === '\\') {
 						$position++;
 						continue;
 					}
-					elseif (isset($string[$position]))
-					{
-						switch ($string[$position])
-						{
+					elseif (isset($string[$position])) {
+						switch ($string[$position]) {
 							case '(':
 								$depth++;
 								break;
@@ -10433,14 +8686,12 @@ class SimplePie_Misc
 						}
 						$position++;
 					}
-					else
-					{
+					else {
 						break;
 					}
 				}
 			}
-			else
-			{
+			else {
 				$output .= '(';
 			}
 		}
@@ -10449,32 +8700,24 @@ class SimplePie_Misc
 		return $output;
 	}
 
-	public static function parse_mime($mime)
-	{
-		if (($pos = strpos($mime, ';')) === false)
-		{
+	public static function parse_mime($mime) {
+		if (($pos = strpos($mime, ';')) === false) {
 			return trim($mime);
 		}
-		else
-		{
+		else {
 			return trim(substr($mime, 0, $pos));
 		}
 	}
 
-	public static function atom_03_construct_type($attribs)
-	{
-		if (isset($attribs['']['mode']) && strtolower(trim($attribs['']['mode']) === 'base64'))
-		{
+	public static function atom_03_construct_type($attribs) {
+		if (isset($attribs['']['mode']) && strtolower(trim($attribs['']['mode']) === 'base64')) {
 			$mode = SIMPLEPIE_CONSTRUCT_BASE64;
 		}
-		else
-		{
+		else {
 			$mode = SIMPLEPIE_CONSTRUCT_NONE;
 		}
-		if (isset($attribs['']['type']))
-		{
-			switch (strtolower(trim($attribs['']['type'])))
-			{
+		if (isset($attribs['']['type'])) {
+			switch (strtolower(trim($attribs['']['type']))) {
 				case 'text':
 				case 'text/plain':
 					return SIMPLEPIE_CONSTRUCT_TEXT | $mode;
@@ -10491,18 +8734,14 @@ class SimplePie_Misc
 					return SIMPLEPIE_CONSTRUCT_NONE | $mode;
 			}
 		}
-		else
-		{
+		else {
 			return SIMPLEPIE_CONSTRUCT_TEXT | $mode;
 		}
 	}
 
-	public static function atom_10_construct_type($attribs)
-	{
-		if (isset($attribs['']['type']))
-		{
-			switch (strtolower(trim($attribs['']['type'])))
-			{
+	public static function atom_10_construct_type($attribs) {
+		if (isset($attribs['']['type'])) {
+			switch (strtolower(trim($attribs['']['type']))) {
 				case 'text':
 					return SIMPLEPIE_CONSTRUCT_TEXT;
 
@@ -10519,13 +8758,10 @@ class SimplePie_Misc
 		return SIMPLEPIE_CONSTRUCT_TEXT;
 	}
 
-	public static function atom_10_content_construct_type($attribs)
-	{
-		if (isset($attribs['']['type']))
-		{
+	public static function atom_10_content_construct_type($attribs) {
+		if (isset($attribs['']['type'])) {
 			$type = strtolower(trim($attribs['']['type']));
-			switch ($type)
-			{
+			switch ($type) {
 				case 'text':
 					return SIMPLEPIE_CONSTRUCT_TEXT;
 
@@ -10535,36 +8771,30 @@ class SimplePie_Misc
 				case 'xhtml':
 					return SIMPLEPIE_CONSTRUCT_XHTML;
 			}
-			if (in_array(substr($type, -4), array('+xml', '/xml')) || substr($type, 0, 5) === 'text/')
-			{
+			if (in_array(substr($type, -4), array('+xml', '/xml')) || substr($type, 0, 5) === 'text/') {
 				return SIMPLEPIE_CONSTRUCT_NONE;
 			}
-			else
-			{
+			else {
 				return SIMPLEPIE_CONSTRUCT_BASE64;
 			}
 		}
-		else
-		{
+		else {
 			return SIMPLEPIE_CONSTRUCT_TEXT;
 		}
 	}
 
-	public static function is_isegment_nz_nc($string)
-	{
+	public static function is_isegment_nz_nc($string) {
 		return (bool) preg_match('/^([A-Za-z0-9\-._~\x{A0}-\x{D7FF}\x{F900}-\x{FDCF}\x{FDF0}-\x{FFEF}\x{10000}-\x{1FFFD}\x{20000}-\x{2FFFD}\x{30000}-\x{3FFFD}\x{40000}-\x{4FFFD}\x{50000}-\x{5FFFD}\x{60000}-\x{6FFFD}\x{70000}-\x{7FFFD}\x{80000}-\x{8FFFD}\x{90000}-\x{9FFFD}\x{A0000}-\x{AFFFD}\x{B0000}-\x{BFFFD}\x{C0000}-\x{CFFFD}\x{D0000}-\x{DFFFD}\x{E1000}-\x{EFFFD}!$&\'()*+,;=@]|(%[0-9ABCDEF]{2}))+$/u', $string);
 	}
 
-	public static function space_seperated_tokens($string)
-	{
+	public static function space_seperated_tokens($string) {
 		$space_characters = "\x20\x09\x0A\x0B\x0C\x0D";
 		$string_length = strlen($string);
 
 		$position = strspn($string, $space_characters);
 		$tokens = array();
 
-		while ($position < $string_length)
-		{
+		while ($position < $string_length) {
 			$len = strcspn($string, $space_characters, $position);
 			$tokens[] = substr($string, $position, $len);
 			$position += $len;
@@ -10573,159 +8803,124 @@ class SimplePie_Misc
 
 		return $tokens;
 	}
-	public static function codepoint_to_utf8($codepoint)
-	{
+	public static function codepoint_to_utf8($codepoint) {
 		$codepoint = (int) $codepoint;
-		if ($codepoint < 0)
-		{
+		if ($codepoint < 0) {
 			return false;
 		}
-		else if ($codepoint <= 0x7f)
-		{
+		else if ($codepoint <= 0x7f) {
 			return chr($codepoint);
 		}
-		else if ($codepoint <= 0x7ff)
-		{
+		else if ($codepoint <= 0x7ff) {
 			return chr(0xc0 | ($codepoint >> 6)) . chr(0x80 | ($codepoint & 0x3f));
 		}
-		else if ($codepoint <= 0xffff)
-		{
+		else if ($codepoint <= 0xffff) {
 			return chr(0xe0 | ($codepoint >> 12)) . chr(0x80 | (($codepoint >> 6) & 0x3f)) . chr(0x80 | ($codepoint & 0x3f));
 		}
-		else if ($codepoint <= 0x10ffff)
-		{
+		else if ($codepoint <= 0x10ffff) {
 			return chr(0xf0 | ($codepoint >> 18)) . chr(0x80 | (($codepoint >> 12) & 0x3f)) . chr(0x80 | (($codepoint >> 6) & 0x3f)) . chr(0x80 | ($codepoint & 0x3f));
 		}
-		else
-		{
+		else {
 			// U+FFFD REPLACEMENT CHARACTER
 			return "\xEF\xBF\xBD";
 		}
 	}
-	public static function parse_str($str)
-	{
+	public static function parse_str($str) {
 		$return = array();
 		$str = explode('&', $str);
 
-		foreach ($str as $section)
-		{
-			if (strpos($section, '=') !== false)
-			{
+		foreach ($str as $section) {
+			if (strpos($section, '=') !== false) {
 				list($name, $value) = explode('=', $section, 2);
 				$return[urldecode($name)][] = urldecode($value);
 			}
-			else
-			{
+			else {
 				$return[urldecode($section)][] = null;
 			}
 		}
 
 		return $return;
 	}
-	public static function xml_encoding($data, $registry)
-	{
+	public static function xml_encoding($data, $registry) {
 		// UTF-32 Big Endian BOM
-		if (substr($data, 0, 4) === "\x00\x00\xFE\xFF")
-		{
+		if (substr($data, 0, 4) === "\x00\x00\xFE\xFF") {
 			$encoding[] = 'UTF-32BE';
 		}
 		// UTF-32 Little Endian BOM
-		elseif (substr($data, 0, 4) === "\xFF\xFE\x00\x00")
-		{
+		elseif (substr($data, 0, 4) === "\xFF\xFE\x00\x00") {
 			$encoding[] = 'UTF-32LE';
 		}
 		// UTF-16 Big Endian BOM
-		elseif (substr($data, 0, 2) === "\xFE\xFF")
-		{
+		elseif (substr($data, 0, 2) === "\xFE\xFF") {
 			$encoding[] = 'UTF-16BE';
 		}
 		// UTF-16 Little Endian BOM
-		elseif (substr($data, 0, 2) === "\xFF\xFE")
-		{
+		elseif (substr($data, 0, 2) === "\xFF\xFE") {
 			$encoding[] = 'UTF-16LE';
 		}
 		// UTF-8 BOM
-		elseif (substr($data, 0, 3) === "\xEF\xBB\xBF")
-		{
+		elseif (substr($data, 0, 3) === "\xEF\xBB\xBF") {
 			$encoding[] = 'UTF-8';
 		}
 		// UTF-32 Big Endian Without BOM
-		elseif (substr($data, 0, 20) === "\x00\x00\x00\x3C\x00\x00\x00\x3F\x00\x00\x00\x78\x00\x00\x00\x6D\x00\x00\x00\x6C")
-		{
-			if ($pos = strpos($data, "\x00\x00\x00\x3F\x00\x00\x00\x3E"))
-			{
+		elseif (substr($data, 0, 20) === "\x00\x00\x00\x3C\x00\x00\x00\x3F\x00\x00\x00\x78\x00\x00\x00\x6D\x00\x00\x00\x6C") {
+			if ($pos = strpos($data, "\x00\x00\x00\x3F\x00\x00\x00\x3E")) {
 				$parser = $registry->create('XML_Declaration_Parser', array(SimplePie_Misc::change_encoding(substr($data, 20, $pos - 20), 'UTF-32BE', 'UTF-8')));
-				if ($parser->parse())
-				{
+				if ($parser->parse()) {
 					$encoding[] = $parser->encoding;
 				}
 			}
 			$encoding[] = 'UTF-32BE';
 		}
 		// UTF-32 Little Endian Without BOM
-		elseif (substr($data, 0, 20) === "\x3C\x00\x00\x00\x3F\x00\x00\x00\x78\x00\x00\x00\x6D\x00\x00\x00\x6C\x00\x00\x00")
-		{
-			if ($pos = strpos($data, "\x3F\x00\x00\x00\x3E\x00\x00\x00"))
-			{
+		elseif (substr($data, 0, 20) === "\x3C\x00\x00\x00\x3F\x00\x00\x00\x78\x00\x00\x00\x6D\x00\x00\x00\x6C\x00\x00\x00") {
+			if ($pos = strpos($data, "\x3F\x00\x00\x00\x3E\x00\x00\x00")) {
 				$parser = $registry->create('XML_Declaration_Parser', array(SimplePie_Misc::change_encoding(substr($data, 20, $pos - 20), 'UTF-32LE', 'UTF-8')));
-				if ($parser->parse())
-				{
+				if ($parser->parse()) {
 					$encoding[] = $parser->encoding;
 				}
 			}
 			$encoding[] = 'UTF-32LE';
 		}
 		// UTF-16 Big Endian Without BOM
-		elseif (substr($data, 0, 10) === "\x00\x3C\x00\x3F\x00\x78\x00\x6D\x00\x6C")
-		{
-			if ($pos = strpos($data, "\x00\x3F\x00\x3E"))
-			{
+		elseif (substr($data, 0, 10) === "\x00\x3C\x00\x3F\x00\x78\x00\x6D\x00\x6C") {
+			if ($pos = strpos($data, "\x00\x3F\x00\x3E")) {
 				$parser = $registry->create('XML_Declaration_Parser', array(SimplePie_Misc::change_encoding(substr($data, 20, $pos - 10), 'UTF-16BE', 'UTF-8')));
-				if ($parser->parse())
-				{
+				if ($parser->parse()) {
 					$encoding[] = $parser->encoding;
 				}
 			}
 			$encoding[] = 'UTF-16BE';
 		}
 		// UTF-16 Little Endian Without BOM
-		elseif (substr($data, 0, 10) === "\x3C\x00\x3F\x00\x78\x00\x6D\x00\x6C\x00")
-		{
-			if ($pos = strpos($data, "\x3F\x00\x3E\x00"))
-			{
+		elseif (substr($data, 0, 10) === "\x3C\x00\x3F\x00\x78\x00\x6D\x00\x6C\x00") {
+			if ($pos = strpos($data, "\x3F\x00\x3E\x00")) {
 				$parser = $registry->create('XML_Declaration_Parser', array(SimplePie_Misc::change_encoding(substr($data, 20, $pos - 10), 'UTF-16LE', 'UTF-8')));
-				if ($parser->parse())
-				{
+				if ($parser->parse()) {
 					$encoding[] = $parser->encoding;
 				}
 			}
 			$encoding[] = 'UTF-16LE';
 		}
 		// US-ASCII (or superset)
-		elseif (substr($data, 0, 5) === "\x3C\x3F\x78\x6D\x6C")
-		{
-			if ($pos = strpos($data, "\x3F\x3E"))
-			{
+		elseif (substr($data, 0, 5) === "\x3C\x3F\x78\x6D\x6C") {
+			if ($pos = strpos($data, "\x3F\x3E")) {
 				$parser = $registry->create('XML_Declaration_Parser', array(substr($data, 5, $pos - 5)));
-				if ($parser->parse())
-				{
+				if ($parser->parse()) {
 					$encoding[] = $parser->encoding;
 				}
 			}
 			$encoding[] = 'UTF-8';
 		}
 		// Fallback to UTF-8
-		else
-		{
+		else {
 			$encoding[] = 'UTF-8';
 		}
 		return $encoding;
 	}
 
-	public static function output_javascript()
-	{
-		if (function_exists('ob_gzhandler'))
-		{
+	public static function output_javascript() {
+		if (function_exists('ob_gzhandler')) {
 			ob_start('ob_gzhandler');
 		}
 		header('Content-type: text/javascript; charset: UTF-8');
@@ -10754,55 +8949,42 @@ function embed_wmedia(width, height, link) {
 }
 		<?php
 	}
-	public static function get_build()
-	{
+	public static function get_build() {
 		$root = dirname(dirname(__FILE__));
-		if (file_exists($root . '/.git/index'))
-		{
+		if (file_exists($root . '/.git/index')) {
 			return filemtime($root . '/.git/index');
 		}
-		elseif (file_exists($root . '/SimplePie'))
-		{
+		elseif (file_exists($root . '/SimplePie')) {
 			$time = 0;
-			foreach (glob($root . '/SimplePie/*.php') as $file)
-			{
-				if (($mtime = filemtime($file)) > $time)
-				{
+			foreach (glob($root . '/SimplePie/*.php') as $file) {
+				if (($mtime = filemtime($file)) > $time) {
 					$time = $mtime;
 				}
 			}
 			return $time;
 		}
-		elseif (file_exists(dirname(__FILE__) . '/Core.php'))
-		{
+		elseif (file_exists(dirname(__FILE__) . '/Core.php')) {
 			return filemtime(dirname(__FILE__) . '/Core.php');
 		}
-		else
-		{
+		else {
 			return filemtime(__FILE__);
 		}
 	}
-	public static function debug(&$sp)
-	{
+	public static function debug(&$sp) {
 		$info = 'SimplePie ' . SIMPLEPIE_VERSION . ' Build ' . SIMPLEPIE_BUILD . "\n";
 		$info .= 'PHP ' . PHP_VERSION . "\n";
-		if ($sp->error() !== null)
-		{
+		if ($sp->error() !== null) {
 			$info .= 'Error occurred: ' . $sp->error() . "\n";
 		}
-		else
-		{
+		else {
 			$info .= "No error found.\n";
 		}
 		$info .= "Extensions:\n";
 		$extensions = array('pcre', 'curl', 'zlib', 'mbstring', 'iconv', 'xmlreader', 'xml');
-		foreach ($extensions as $ext)
-		{
-			if (extension_loaded($ext))
-			{
+		foreach ($extensions as $ext) {
+			if (extension_loaded($ext)) {
 				$info .= "    $ext loaded\n";
-				switch ($ext)
-				{
+				switch ($ext) {
 					case 'pcre':
 						$info .= '      Version ' . PCRE_VERSION . "\n";
 						break;
@@ -10821,76 +9003,61 @@ function embed_wmedia(width, height, link) {
 						break;
 				}
 			}
-			else
-			{
+			else {
 				$info .= "    $ext not loaded\n";
 			}
 		}
 		return $info;
 	}
 
-	public static function silence_errors($num, $str)
-	{
+	public static function silence_errors($num, $str) {
 		// No-op
 	}
 }
-class SimplePie_Net_IPv6
-{
-	public static function uncompress($ip)
-	{
+class SimplePie_Net_IPv6 {
+	public static function uncompress($ip) {
 		$c1 = -1;
 		$c2 = -1;
-		if (substr_count($ip, '::') === 1)
-		{
+		if (substr_count($ip, '::') === 1) {
 			list($ip1, $ip2) = explode('::', $ip);
-			if ($ip1 === '')
-			{
+			if ($ip1 === '') {
 				$c1 = -1;
 			}
-			else
-			{
+			else {
 				$c1 = substr_count($ip1, ':');
 			}
-			if ($ip2 === '')
-			{
+			if ($ip2 === '') {
 				$c2 = -1;
 			}
-			else
-			{
+			else {
 				$c2 = substr_count($ip2, ':');
 			}
-			if (strpos($ip2, '.') !== false)
-			{
+			if (strpos($ip2, '.') !== false) {
 				$c2++;
 			}
 			// ::
-			if ($c1 === -1 && $c2 === -1)
-			{
+			if ($c1 === -1 && $c2 === -1) {
 				$ip = '0:0:0:0:0:0:0:0';
 			}
 			// ::xxx
-			else if ($c1 === -1)
-			{
+			else if ($c1 === -1) {
 				$fill = str_repeat('0:', 7 - $c2);
 				$ip = str_replace('::', $fill, $ip);
 			}
 			// xxx::
-			else if ($c2 === -1)
-			{
+			else if ($c2 === -1) {
 				$fill = str_repeat(':0', 7 - $c1);
 				$ip = str_replace('::', $fill, $ip);
 			}
 			// xxx::xxx
-			else
-			{
+			else {
 				$fill = ':' . str_repeat('0:', 6 - $c2 - $c1);
 				$ip = str_replace('::', $fill, $ip);
 			}
 		}
 		return $ip;
 	}
-	public static function compress($ip)
-	{
+	public static function compress($ip) {
 		// Prepare the IP to be compressed
 		$ip = self::uncompress($ip);
 		$ip_parts = self::split_v6_v4($ip);
@@ -10899,14 +9066,11 @@ class SimplePie_Net_IPv6
 		$ip_parts[0] = preg_replace('/(^|:)0+([0-9])/', '\1\2', $ip_parts[0]);
 
 		// Find bunches of zeros
-		if (preg_match_all('/(?:^|:)(?:0(?::|$))+/', $ip_parts[0], $matches, PREG_OFFSET_CAPTURE))
-		{
+		if (preg_match_all('/(?:^|:)(?:0(?::|$))+/', $ip_parts[0], $matches, PREG_OFFSET_CAPTURE)) {
 			$max = 0;
 			$pos = null;
-			foreach ($matches[0] as $match)
-			{
-				if (strlen($match[0]) > $max)
-				{
+			foreach ($matches[0] as $match) {
+				if (strlen($match[0]) > $max) {
 					$max = strlen($match[0]);
 					$pos = $match[1];
 				}
@@ -10915,39 +9079,31 @@ class SimplePie_Net_IPv6
 			$ip_parts[0] = substr_replace($ip_parts[0], '::', $pos, $max);
 		}
 
-		if ($ip_parts[1] !== '')
-		{
+		if ($ip_parts[1] !== '') {
 			return implode(':', $ip_parts);
 		}
-		else
-		{
+		else {
 			return $ip_parts[0];
 		}
 	}
-	private static function split_v6_v4($ip)
-	{
-		if (strpos($ip, '.') !== false)
-		{
+	private static function split_v6_v4($ip) {
+		if (strpos($ip, '.') !== false) {
 			$pos = strrpos($ip, ':');
 			$ipv6_part = substr($ip, 0, $pos);
 			$ipv4_part = substr($ip, $pos + 1);
 			return array($ipv6_part, $ipv4_part);
 		}
-		else
-		{
+		else {
 			return array($ip, '');
 		}
 	}
-	public static function check_ipv6($ip)
-	{
+	public static function check_ipv6($ip) {
 		$ip = self::uncompress($ip);
 		list($ipv6, $ipv4) = self::split_v6_v4($ip);
 		$ipv6 = explode(':', $ipv6);
 		$ipv4 = explode('.', $ipv4);
-		if (count($ipv6) === 8 && count($ipv4) === 1 || count($ipv6) === 6 && count($ipv4) === 4)
-		{
-			foreach ($ipv6 as $ipv6_part)
-			{
+		if (count($ipv6) === 8 && count($ipv4) === 1 || count($ipv6) === 6 && count($ipv4) === 4) {
+			foreach ($ipv6 as $ipv6_part) {
 				// The section can't be empty
 				if ($ipv6_part === '')
 					return false;
@@ -10966,10 +9122,8 @@ class SimplePie_Net_IPv6
 				if (dechex($value) !== strtolower($ipv6_part) || $value < 0 || $value > 0xFFFF)
 					return false;
 			}
-			if (count($ipv4) === 4)
-			{
-				foreach ($ipv4 as $ipv4_part)
-				{
+			if (count($ipv4) === 4) {
+				foreach ($ipv4 as $ipv4_part) {
 					$value = (int) $ipv4_part;
 					if ((string) $value !== $ipv4_part || $value < 0 || $value > 0xFF)
 						return false;
@@ -10977,18 +9131,15 @@ class SimplePie_Net_IPv6
 			}
 			return true;
 		}
-		else
-		{
+		else {
 			return false;
 		}
 	}
-	public static function checkIPv6($ip)
-	{
+	public static function checkIPv6($ip) {
 		return self::check_ipv6($ip);
 	}
 }
-class SimplePie_Parse_Date
-{
+class SimplePie_Parse_Date {
 	var $date;
 	var $day = array(
 		// English
@@ -11415,83 +9566,65 @@ class SimplePie_Parse_Date
 	var $month_pcre;
 	var $built_in = array();
 	var $user = array();
-	public function __construct()
-	{
+	public function __construct() {
 		$this->day_pcre = '(' . implode(array_keys($this->day), '|') . ')';
 		$this->month_pcre = '(' . implode(array_keys($this->month), '|') . ')';
 
 		static $cache;
-		if (!isset($cache[get_class($this)]))
-		{
+		if (!isset($cache[get_class($this)])) {
 			$all_methods = get_class_methods($this);
 
-			foreach ($all_methods as $method)
-			{
-				if (strtolower(substr($method, 0, 5)) === 'date_')
-				{
+			foreach ($all_methods as $method) {
+				if (strtolower(substr($method, 0, 5)) === 'date_') {
 					$cache[get_class($this)][] = $method;
 				}
 			}
 		}
 
-		foreach ($cache[get_class($this)] as $method)
-		{
+		foreach ($cache[get_class($this)] as $method) {
 			$this->built_in[] = $method;
 		}
 	}
-	public static function get()
-	{
+	public static function get() {
 		static $object;
-		if (!$object)
-		{
+		if (!$object) {
 			$object = new SimplePie_Parse_Date;
 		}
 		return $object;
 	}
-	public function parse($date)
-	{
-		foreach ($this->user as $method)
-		{
-			if (($returned = call_user_func($method, $date)) !== false)
-			{
+	public function parse($date) {
+		foreach ($this->user as $method) {
+			if (($returned = call_user_func($method, $date)) !== false) {
 				return $returned;
 			}
 		}
 
-		foreach ($this->built_in as $method)
-		{
-			if (($returned = call_user_func(array($this, $method), $date)) !== false)
-			{
+		foreach ($this->built_in as $method) {
+			if (($returned = call_user_func(array($this, $method), $date)) !== false) {
 				return $returned;
 			}
 		}
 
 		return false;
 	}
-	public function add_callback($callback)
-	{
-		if (is_callable($callback))
-		{
+	public function add_callback($callback) {
+		if (is_callable($callback)) {
 			$this->user[] = $callback;
 		}
-		else
-		{
+		else {
 			trigger_error('User-supplied function must be a valid callback', E_USER_WARNING);
 		}
 	}
-	public function date_w3cdtf($date)
-	{
+	public function date_w3cdtf($date) {
 		static $pcre;
-		if (!$pcre)
-		{
+		if (!$pcre) {
 			$year = '([0-9]{4})';
 			$month = $day = $hour = $minute = $second = '([0-9]{2})';
 			$decimal = '([0-9]*)';
 			$zone = '(?:(Z)|([+\-])([0-9]{1,2}):?([0-9]{1,2}))';
 			$pcre = '/^' . $year . '(?:-?' . $month . '(?:-?' . $day . '(?:[Tt\x09\x20]+' . $hour . '(?::?' . $minute . '(?::?' . $second . '(?:.' . $decimal . ')?)?)?' . $zone . ')?)?)?$/';
 		}
-		if (preg_match($pcre, $date, $match))
-		{
+		if (preg_match($pcre, $date, $match)) {
 			/*
 			Capturing subpatterns:
 			1: Year
@@ -11508,28 +9641,23 @@ class SimplePie_Parse_Date
 			*/
 
 			// Fill in empty matches
-			for ($i = count($match); $i <= 3; $i++)
-			{
+			for ($i = count($match); $i <= 3; $i++) {
 				$match[$i] = '1';
 			}
 
-			for ($i = count($match); $i <= 7; $i++)
-			{
+			for ($i = count($match); $i <= 7; $i++) {
 				$match[$i] = '0';
 			}
 
 			// Numeric timezone
-			if (isset($match[9]) && $match[9] !== '')
-			{
+			if (isset($match[9]) && $match[9] !== '') {
 				$timezone = $match[10] * 3600;
 				$timezone += $match[11] * 60;
-				if ($match[9] === '-')
-				{
+				if ($match[9] === '-') {
 					$timezone = 0 - $timezone;
 				}
 			}
-			else
-			{
+			else {
 				$timezone = 0;
 			}
 
@@ -11538,13 +9666,11 @@ class SimplePie_Parse_Date
 
 			return gmmktime($match[4], $match[5], $second, $match[2], $match[3], $match[1]) - $timezone;
 		}
-		else
-		{
+		else {
 			return false;
 		}
 	}
-	public function remove_rfc2822_comments($string)
-	{
+	public function remove_rfc2822_comments($string) {
 		$string = (string) $string;
 		$position = 0;
 		$length = strlen($string);
@@ -11552,25 +9678,19 @@ class SimplePie_Parse_Date
 
 		$output = '';
 
-		while ($position < $length && ($pos = strpos($string, '(', $position)) !== false)
-		{
+		while ($position < $length && ($pos = strpos($string, '(', $position)) !== false) {
 			$output .= substr($string, $position, $pos - $position);
 			$position = $pos + 1;
-			if ($string[$pos - 1] !== '\\')
-			{
+			if ($string[$pos - 1] !== '\\') {
 				$depth++;
-				while ($depth && $position < $length)
-				{
+				while ($depth && $position < $length) {
 					$position += strcspn($string, '()', $position);
-					if ($string[$position - 1] === '\\')
-					{
+					if ($string[$position - 1] === '\\') {
 						$position++;
 						continue;
 					}
-					elseif (isset($string[$position]))
-					{
-						switch ($string[$position])
-						{
+					elseif (isset($string[$position])) {
+						switch ($string[$position]) {
 							case '(':
 								$depth++;
 								break;
@@ -11581,14 +9701,12 @@ class SimplePie_Parse_Date
 						}
 						$position++;
 					}
-					else
-					{
+					else {
 						break;
 					}
 				}
 			}
-			else
-			{
+			else {
 				$output .= '(';
 			}
 		}
@@ -11596,11 +9714,9 @@ class SimplePie_Parse_Date
 
 		return $output;
 	}
-	public function date_rfc2822($date)
-	{
+	public function date_rfc2822($date) {
 		static $pcre;
-		if (!$pcre)
-		{
+		if (!$pcre) {
 			$wsp = '[\x09\x20]';
 			$fws = '(?:' . $wsp . '+|' . $wsp . '*(?:\x0D\x0A' . $wsp . '+)+)';
 			$optional_fws = $fws . '?';
@@ -11614,8 +9730,7 @@ class SimplePie_Parse_Date
 			$zone = '(?:' . $num_zone . '|' . $character_zone . ')';
 			$pcre = '/(?:' . $optional_fws . $day_name . $optional_fws . ',)?' . $optional_fws . $day . $fws . $month . $fws . $year . $fws . $hour . $optional_fws . ':' . $optional_fws . $minute . '(?:' . $optional_fws . ':' . $optional_fws . $second . ')?' . $fws . $zone . '/i';
 		}
-		if (preg_match($pcre, $this->remove_rfc2822_comments($date), $match))
-		{
+		if (preg_match($pcre, $this->remove_rfc2822_comments($date), $match)) {
 			/*
 			Capturing subpatterns:
 			1: Day name
@@ -11635,58 +9750,47 @@ class SimplePie_Parse_Date
 			$month = $this->month[strtolower($match[3])];
 
 			// Numeric timezone
-			if ($match[8] !== '')
-			{
+			if ($match[8] !== '') {
 				$timezone = $match[9] * 3600;
 				$timezone += $match[10] * 60;
-				if ($match[8] === '-')
-				{
+				if ($match[8] === '-') {
 					$timezone = 0 - $timezone;
 				}
 			}
 			// Character timezone
-			elseif (isset($this->timezone[strtoupper($match[11])]))
-			{
+			elseif (isset($this->timezone[strtoupper($match[11])])) {
 				$timezone = $this->timezone[strtoupper($match[11])];
 			}
 			// Assume everything else to be -0000
-			else
-			{
+			else {
 				$timezone = 0;
 			}
 
 			// Deal with 2/3 digit years
-			if ($match[4] < 50)
-			{
+			if ($match[4] < 50) {
 				$match[4] += 2000;
 			}
-			elseif ($match[4] < 1000)
-			{
+			elseif ($match[4] < 1000) {
 				$match[4] += 1900;
 			}
 
 			// Second is optional, if it is empty set it to zero
-			if ($match[7] !== '')
-			{
+			if ($match[7] !== '') {
 				$second = $match[7];
 			}
-			else
-			{
+			else {
 				$second = 0;
 			}
 
 			return gmmktime($match[5], $match[6], $second, $month, $match[2], $match[4]) - $timezone;
 		}
-		else
-		{
+		else {
 			return false;
 		}
 	}
-	public function date_rfc850($date)
-	{
+	public function date_rfc850($date) {
 		static $pcre;
-		if (!$pcre)
-		{
+		if (!$pcre) {
 			$space = '[\x09\x20]+';
 			$day_name = $this->day_pcre;
 			$month = $this->month_pcre;
@@ -11695,8 +9799,7 @@ class SimplePie_Parse_Date
 			$zone = '([A-Z]{1,5})';
 			$pcre = '/^' . $day_name . ',' . $space . $day . '-' . $month . '-' . $year . $space . $hour . ':' . $minute . ':' . $second . $space . $zone . '$/i';
 		}
-		if (preg_match($pcre, $date, $match))
-		{
+		if (preg_match($pcre, $date, $match)) {
 			/*
 			Capturing subpatterns:
 			1: Day name
@@ -11713,38 +9816,31 @@ class SimplePie_Parse_Date
 			$month = $this->month[strtolower($match[3])];
 
 			// Character timezone
-			if (isset($this->timezone[strtoupper($match[8])]))
-			{
+			if (isset($this->timezone[strtoupper($match[8])])) {
 				$timezone = $this->timezone[strtoupper($match[8])];
 			}
 			// Assume everything else to be -0000
-			else
-			{
+			else {
 				$timezone = 0;
 			}
 
 			// Deal with 2 digit year
-			if ($match[4] < 50)
-			{
+			if ($match[4] < 50) {
 				$match[4] += 2000;
 			}
-			else
-			{
+			else {
 				$match[4] += 1900;
 			}
 
 			return gmmktime($match[5], $match[6], $match[7], $month, $match[2], $match[4]) - $timezone;
 		}
-		else
-		{
+		else {
 			return false;
 		}
 	}
-	public function date_asctime($date)
-	{
+	public function date_asctime($date) {
 		static $pcre;
-		if (!$pcre)
-		{
+		if (!$pcre) {
 			$space = '[\x09\x20]+';
 			$wday_name = $this->day_pcre;
 			$mon_name = $this->month_pcre;
@@ -11754,8 +9850,7 @@ class SimplePie_Parse_Date
 			$terminator = '\x0A?\x00?';
 			$pcre = '/^' . $wday_name . $space . $mon_name . $space . $day . $space . $hour . ':' . $min . ':' . $sec . $space . $year . $terminator . '$/i';
 		}
-		if (preg_match($pcre, $date, $match))
-		{
+		if (preg_match($pcre, $date, $match)) {
 			/*
 			Capturing subpatterns:
 			1: Day name
@@ -11770,26 +9865,21 @@ class SimplePie_Parse_Date
 			$month = $this->month[strtolower($match[2])];
 			return gmmktime($match[4], $match[5], $match[6], $month, $match[3], $match[7]);
 		}
-		else
-		{
+		else {
 			return false;
 		}
 	}
-	public function date_strtotime($date)
-	{
+	public function date_strtotime($date) {
 		$strtotime = strtotime($date);
-		if ($strtotime === -1 || $strtotime === false)
-		{
+		if ($strtotime === -1 || $strtotime === false) {
 			return false;
 		}
-		else
-		{
+		else {
 			return $strtotime;
 		}
 	}
 }
-class SimplePie_Parser
-{
+class SimplePie_Parser {
 	var $error_code;
 	var $error_string;
 	var $current_line;
@@ -11807,60 +9897,48 @@ class SimplePie_Parser
 	var $encoding;
 	protected $registry;
 
-	public function set_registry(SimplePie_Registry $registry)
-	{
+	public function set_registry(SimplePie_Registry $registry) {
 		$this->registry = $registry;
 	}
 
-	public function parse(&$data, $encoding)
-	{
+	public function parse(&$data, $encoding) {
 		// Use UTF-8 if we get passed US-ASCII, as every US-ASCII character is a UTF-8 character
-		if (strtoupper($encoding) === 'US-ASCII')
-		{
+		if (strtoupper($encoding) === 'US-ASCII') {
 			$this->encoding = 'UTF-8';
 		}
-		else
-		{
+		else {
 			$this->encoding = $encoding;
 		}
 
 		// Strip BOM:
 		// UTF-32 Big Endian BOM
-		if (substr($data, 0, 4) === "\x00\x00\xFE\xFF")
-		{
+		if (substr($data, 0, 4) === "\x00\x00\xFE\xFF") {
 			$data = substr($data, 4);
 		}
 		// UTF-32 Little Endian BOM
-		elseif (substr($data, 0, 4) === "\xFF\xFE\x00\x00")
-		{
+		elseif (substr($data, 0, 4) === "\xFF\xFE\x00\x00") {
 			$data = substr($data, 4);
 		}
 		// UTF-16 Big Endian BOM
-		elseif (substr($data, 0, 2) === "\xFE\xFF")
-		{
+		elseif (substr($data, 0, 2) === "\xFE\xFF") {
 			$data = substr($data, 2);
 		}
 		// UTF-16 Little Endian BOM
-		elseif (substr($data, 0, 2) === "\xFF\xFE")
-		{
+		elseif (substr($data, 0, 2) === "\xFF\xFE") {
 			$data = substr($data, 2);
 		}
 		// UTF-8 BOM
-		elseif (substr($data, 0, 3) === "\xEF\xBB\xBF")
-		{
+		elseif (substr($data, 0, 3) === "\xEF\xBB\xBF") {
 			$data = substr($data, 3);
 		}
 
-		if (substr($data, 0, 5) === '<?xml' && strspn(substr($data, 5, 1), "\x09\x0A\x0D\x20") && ($pos = strpos($data, '?>')) !== false)
-		{
+		if (substr($data, 0, 5) === '<?xml' && strspn(substr($data, 5, 1), "\x09\x0A\x0D\x20") && ($pos = strpos($data, '?>')) !== false) {
 			$declaration = $this->registry->create('XML_Declaration_Parser', array(substr($data, 5, $pos - 5)));
-			if ($declaration->parse())
-			{
+			if ($declaration->parse()) {
 				$data = substr($data, $pos + 2);
 				$data = '<?xml version="' . $declaration->version . '" encoding="' . $encoding . '" standalone="' . (($declaration->standalone) ? 'yes' : 'no') . '"?>' . $data;
 			}
-			else
-			{
+			else {
 				$this->error_string = 'SimplePie bug! Please report this!';
 				return false;
 			}
@@ -11869,8 +9947,7 @@ class SimplePie_Parser
 		$return = true;
 
 		static $xml_is_sane = null;
-		if ($xml_is_sane === null)
-		{
+		if ($xml_is_sane === null) {
 			$parser_check = xml_parser_create();
 			xml_parse_into_struct($parser_check, '<foo>&amp;</foo>', $values);
 			xml_parser_free($parser_check);
@@ -11878,8 +9955,7 @@ class SimplePie_Parser
 		}
 
 		// Create the parser
-		if ($xml_is_sane)
-		{
+		if ($xml_is_sane) {
 			$xml = xml_parser_create_ns($this->encoding, $this->separator);
 			xml_parser_set_option($xml, XML_OPTION_SKIP_WHITE, 1);
 			xml_parser_set_option($xml, XML_OPTION_CASE_FOLDING, 0);
@@ -11888,8 +9964,7 @@ class SimplePie_Parser
 			xml_set_element_handler($xml, 'tag_open', 'tag_close');
 
 			// Parse!
-			if (!xml_parse($xml, $data, true))
-			{
+			if (!xml_parse($xml, $data, true)) {
 				$this->error_code = xml_get_error_code($xml);
 				$this->error_string = xml_error_string($this->error_code);
 				$return = false;
@@ -11900,53 +9975,42 @@ class SimplePie_Parser
 			xml_parser_free($xml);
 			return $return;
 		}
-		else
-		{
+		else {
 			libxml_clear_errors();
 			$xml = new XMLReader();
 			$xml->xml($data);
-			while (@$xml->read())
-			{
-				switch ($xml->nodeType)
-				{
+			while (@$xml->read()) {
+				switch ($xml->nodeType) {
 
 					case constant('XMLReader::END_ELEMENT'):
-						if ($xml->namespaceURI !== '')
-						{
+						if ($xml->namespaceURI !== '') {
 							$tagName = $xml->namespaceURI . $this->separator . $xml->localName;
 						}
-						else
-						{
+						else {
 							$tagName = $xml->localName;
 						}
 						$this->tag_close(null, $tagName);
 						break;
 					case constant('XMLReader::ELEMENT'):
 						$empty = $xml->isEmptyElement;
-						if ($xml->namespaceURI !== '')
-						{
+						if ($xml->namespaceURI !== '') {
 							$tagName = $xml->namespaceURI . $this->separator . $xml->localName;
 						}
-						else
-						{
+						else {
 							$tagName = $xml->localName;
 						}
 						$attributes = array();
-						while ($xml->moveToNextAttribute())
-						{
-							if ($xml->namespaceURI !== '')
-							{
+						while ($xml->moveToNextAttribute()) {
+							if ($xml->namespaceURI !== '') {
 								$attrName = $xml->namespaceURI . $this->separator . $xml->localName;
 							}
-							else
-							{
+							else {
 								$attrName = $xml->localName;
 							}
 							$attributes[$attrName] = $xml->value;
 						}
 						$this->tag_open(null, $tagName, $attributes);
-						if ($empty)
-						{
+						if ($empty) {
 							$this->tag_close(null, $tagName);
 						}
 						break;
@@ -11957,100 +10021,81 @@ class SimplePie_Parser
 						break;
 				}
 			}
-			if ($error = libxml_get_last_error())
-			{
+			if ($error = libxml_get_last_error()) {
 				$this->error_code = $error->code;
 				$this->error_string = $error->message;
 				$this->current_line = $error->line;
 				$this->current_column = $error->column;
 				return false;
 			}
-			else
-			{
+			else {
 				return true;
 			}
 		}
 	}
 
-	public function get_error_code()
-	{
+	public function get_error_code() {
 		return $this->error_code;
 	}
 
-	public function get_error_string()
-	{
+	public function get_error_string() {
 		return $this->error_string;
 	}
 
-	public function get_current_line()
-	{
+	public function get_current_line() {
 		return $this->current_line;
 	}
 
-	public function get_current_column()
-	{
+	public function get_current_column() {
 		return $this->current_column;
 	}
 
-	public function get_current_byte()
-	{
+	public function get_current_byte() {
 		return $this->current_byte;
 	}
 
-	public function get_data()
-	{
+	public function get_data() {
 		return $this->data;
 	}
 
-	public function tag_open($parser, $tag, $attributes)
-	{
+	public function tag_open($parser, $tag, $attributes) {
 		list($this->namespace[], $this->element[]) = $this->split_ns($tag);
 
 		$attribs = array();
-		foreach ($attributes as $name => $value)
-		{
+		foreach ($attributes as $name => $value) {
 			list($attrib_namespace, $attribute) = $this->split_ns($name);
 			$attribs[$attrib_namespace][$attribute] = $value;
 		}
 
-		if (isset($attribs[SIMPLEPIE_NAMESPACE_XML]['base']))
-		{
+		if (isset($attribs[SIMPLEPIE_NAMESPACE_XML]['base'])) {
 			$this->xml_base[] = $this->registry->call('Misc', 'absolutize_url', array($attribs[SIMPLEPIE_NAMESPACE_XML]['base'], end($this->xml_base)));
 			$this->xml_base_explicit[] = true;
 		}
-		else
-		{
+		else {
 			$this->xml_base[] = end($this->xml_base);
 			$this->xml_base_explicit[] = end($this->xml_base_explicit);
 		}
 
-		if (isset($attribs[SIMPLEPIE_NAMESPACE_XML]['lang']))
-		{
+		if (isset($attribs[SIMPLEPIE_NAMESPACE_XML]['lang'])) {
 			$this->xml_lang[] = $attribs[SIMPLEPIE_NAMESPACE_XML]['lang'];
 		}
-		else
-		{
+		else {
 			$this->xml_lang[] = end($this->xml_lang);
 		}
 
-		if ($this->current_xhtml_construct >= 0)
-		{
+		if ($this->current_xhtml_construct >= 0) {
 			$this->current_xhtml_construct++;
-			if (end($this->namespace) === SIMPLEPIE_NAMESPACE_XHTML)
-			{
+			if (end($this->namespace) === SIMPLEPIE_NAMESPACE_XHTML) {
 				$this->data['data'] .= '<' . end($this->element);
-				if (isset($attribs['']))
-				{
-					foreach ($attribs[''] as $name => $value)
-					{
+				if (isset($attribs[''])) {
+					foreach ($attribs[''] as $name => $value) {
 						$this->data['data'] .= ' ' . $name . '="' . htmlspecialchars($value, ENT_COMPAT, $this->encoding) . '"';
 					}
 				}
 				$this->data['data'] .= '>';
 			}
 		}
-		else
-		{
+		else {
 			$this->datas[] =& $this->data;
 			$this->data =& $this->data['child'][end($this->namespace)][end($this->element)][];
 			$this->data = array('data' => '', 'attribs' => $attribs, 'xml_base' => end($this->xml_base), 'xml_base_explicit' => end($this->xml_base_explicit), 'xml_lang' => end($this->xml_lang));
@@ -12058,37 +10103,29 @@ class SimplePie_Parser
 			|| (end($this->namespace) === SIMPLEPIE_NAMESPACE_ATOM_10 && in_array(end($this->element), array('rights', 'subtitle', 'summary', 'info', 'title', 'content')) && isset($attribs['']['type']) && $attribs['']['type'] === 'xhtml')
 			|| (end($this->namespace) === SIMPLEPIE_NAMESPACE_RSS_20 && in_array(end($this->element), array('title')))
 			|| (end($this->namespace) === SIMPLEPIE_NAMESPACE_RSS_090 && in_array(end($this->element), array('title')))
-			|| (end($this->namespace) === SIMPLEPIE_NAMESPACE_RSS_10 && in_array(end($this->element), array('title'))))
-			{
+			|| (end($this->namespace) === SIMPLEPIE_NAMESPACE_RSS_10 && in_array(end($this->element), array('title')))) {
 				$this->current_xhtml_construct = 0;
 			}
 		}
 	}
 
-	public function cdata($parser, $cdata)
-	{
-		if ($this->current_xhtml_construct >= 0)
-		{
+	public function cdata($parser, $cdata) {
+		if ($this->current_xhtml_construct >= 0) {
 			$this->data['data'] .= htmlspecialchars($cdata, ENT_QUOTES, $this->encoding);
 		}
-		else
-		{
+		else {
 			$this->data['data'] .= $cdata;
 		}
 	}
 
-	public function tag_close($parser, $tag)
-	{
-		if ($this->current_xhtml_construct >= 0)
-		{
+	public function tag_close($parser, $tag) {
+		if ($this->current_xhtml_construct >= 0) {
 			$this->current_xhtml_construct--;
-			if (end($this->namespace) === SIMPLEPIE_NAMESPACE_XHTML && !in_array(end($this->element), array('area', 'base', 'basefont', 'br', 'col', 'frame', 'hr', 'img', 'input', 'isindex', 'link', 'meta', 'param')))
-			{
+			if (end($this->namespace) === SIMPLEPIE_NAMESPACE_XHTML && !in_array(end($this->element), array('area', 'base', 'basefont', 'br', 'col', 'frame', 'hr', 'img', 'input', 'isindex', 'link', 'meta', 'param'))) {
 				$this->data['data'] .= '</' . end($this->element) . '>';
 			}
 		}
-		if ($this->current_xhtml_construct === -1)
-		{
+		if ($this->current_xhtml_construct === -1) {
 			$this->data =& $this->datas[count($this->datas) - 1];
 			array_pop($this->datas);
 		}
@@ -12100,22 +10137,17 @@ class SimplePie_Parser
 		array_pop($this->xml_lang);
 	}
 
-	public function split_ns($string)
-	{
+	public function split_ns($string) {
 		static $cache = array();
-		if (!isset($cache[$string]))
-		{
-			if ($pos = strpos($string, $this->separator))
-			{
+		if (!isset($cache[$string])) {
+			if ($pos = strpos($string, $this->separator)) {
 				static $separator_length;
-				if (!$separator_length)
-				{
+				if (!$separator_length) {
 					$separator_length = strlen($this->separator);
 				}
 				$namespace = substr($string, 0, $pos);
 				$local_name = substr($string, $pos + $separator_length);
-				if (strtolower($namespace) === SIMPLEPIE_NAMESPACE_ITUNES)
-				{
+				if (strtolower($namespace) === SIMPLEPIE_NAMESPACE_ITUNES) {
 					$namespace = SIMPLEPIE_NAMESPACE_ITUNES;
 				}
 
@@ -12124,59 +10156,47 @@ class SimplePie_Parser
 					$namespace === SIMPLEPIE_NAMESPACE_MEDIARSS_WRONG2 ||
 					$namespace === SIMPLEPIE_NAMESPACE_MEDIARSS_WRONG3 ||
 					$namespace === SIMPLEPIE_NAMESPACE_MEDIARSS_WRONG4 ||
-					$namespace === SIMPLEPIE_NAMESPACE_MEDIARSS_WRONG5 )
-				{
+					$namespace === SIMPLEPIE_NAMESPACE_MEDIARSS_WRONG5 ) {
 					$namespace = SIMPLEPIE_NAMESPACE_MEDIARSS;
 				}
 				$cache[$string] = array($namespace, $local_name);
 			}
-			else
-			{
+			else {
 				$cache[$string] = array('', $string);
 			}
 		}
 		return $cache[$string];
 	}
 }
-class SimplePie_Rating
-{
+class SimplePie_Rating {
 	var $scheme;
 	var $value;
-	public function __construct($scheme = null, $value = null)
-	{
+	public function __construct($scheme = null, $value = null) {
 		$this->scheme = $scheme;
 		$this->value = $value;
 	}
-	public function __toString()
-	{
+	public function __toString() {
 		// There is no $this->data here
 		return md5(serialize($this));
 	}
-	public function get_scheme()
-	{
-		if ($this->scheme !== null)
-		{
+	public function get_scheme() {
+		if ($this->scheme !== null) {
 			return $this->scheme;
 		}
-		else
-		{
+		else {
 			return null;
 		}
 	}
-	public function get_value()
-	{
-		if ($this->value !== null)
-		{
+	public function get_value() {
+		if ($this->value !== null) {
 			return $this->value;
 		}
-		else
-		{
+		else {
 			return null;
 		}
 	}
 }
-class SimplePie_Registry
-{
+class SimplePie_Registry {
 	protected $default = array(
 		'Cache' => 'SimplePie_Cache',
 		'Locator' => 'SimplePie_Locator',
@@ -12201,43 +10221,34 @@ class SimplePie_Registry
 	protected $classes = array();
 	protected $legacy = array();
 	public function __construct() { }
-	public function register($type, $class, $legacy = false)
-	{
-		if (!is_subclass_of($class, $this->default[$type]))
-		{
+	public function register($type, $class, $legacy = false) {
+		if (!is_subclass_of($class, $this->default[$type])) {
 			return false;
 		}
 
 		$this->classes[$type] = $class;
 
-		if ($legacy)
-		{
+		if ($legacy) {
 			$this->legacy[] = $class;
 		}
 
 		return true;
 	}
-	public function get_class($type)
-	{
-		if (!empty($this->classes[$type]))
-		{
+	public function get_class($type) {
+		if (!empty($this->classes[$type])) {
 			return $this->classes[$type];
 		}
-		if (!empty($this->default[$type]))
-		{
+		if (!empty($this->default[$type])) {
 			return $this->default[$type];
 		}
 
 		return null;
 	}
-	public function &create($type, $parameters = array())
-	{
+	public function &create($type, $parameters = array()) {
 		$class = $this->get_class($type);
 
-		if (in_array($class, $this->legacy))
-		{
-			switch ($type)
-			{
+		if (in_array($class, $this->legacy)) {
+			switch ($type) {
 				case 'locator':
 					// Legacy: file, timeout, useragent, file_class, max_checked_feeds, content_type_sniffer_class
 					// Specified: file, timeout, useragent, max_checked_feeds
@@ -12247,82 +10258,65 @@ class SimplePie_Registry
 			}
 		}
 
-		if (!method_exists($class, '__construct'))
-		{
+		if (!method_exists($class, '__construct')) {
 			$instance = new $class;
 		}
-		else
-		{
+		else {
 			$reflector = new ReflectionClass($class);
 			$instance = $reflector->newInstanceArgs($parameters);
 		}
 
-		if (method_exists($instance, 'set_registry'))
-		{
+		if (method_exists($instance, 'set_registry')) {
 			$instance->set_registry($this);
 		}
 		return $instance;
 	}
-	public function &call($type, $method, $parameters = array())
-	{
+	public function &call($type, $method, $parameters = array()) {
 		$class = $this->get_class($type);
 
 		$result = call_user_func_array(array($class, $method), $parameters);
 		return $result;
 	}
 }
-class SimplePie_Restriction
-{
+class SimplePie_Restriction {
 	var $relationship;
 	var $type;
 	var $value;
-	public function __construct($relationship = null, $type = null, $value = null)
-	{
+	public function __construct($relationship = null, $type = null, $value = null) {
 		$this->relationship = $relationship;
 		$this->type = $type;
 		$this->value = $value;
 	}
-	public function __toString()
-	{
+	public function __toString() {
 		// There is no $this->data here
 		return md5(serialize($this));
 	}
-	public function get_relationship()
-	{
-		if ($this->relationship !== null)
-		{
+	public function get_relationship() {
+		if ($this->relationship !== null) {
 			return $this->relationship;
 		}
-		else
-		{
+		else {
 			return null;
 		}
 	}
-	public function get_type()
-	{
-		if ($this->type !== null)
-		{
+	public function get_type() {
+		if ($this->type !== null) {
 			return $this->type;
 		}
-		else
-		{
+		else {
 			return null;
 		}
 	}
-	public function get_value()
-	{
-		if ($this->value !== null)
-		{
+	public function get_value() {
+		if ($this->value !== null) {
 			return $this->value;
 		}
-		else
-		{
+		else {
 			return null;
 		}
 	}
 }
-class SimplePie_Sanitize
-{
+class SimplePie_Sanitize {
 	// Private vars
 	var $base;
 
@@ -12342,126 +10336,97 @@ class SimplePie_Sanitize
 	var $force_fsockopen = false;
 	var $replace_url_attributes = null;
 
-	public function __construct()
-	{
+	public function __construct() {
 		// Set defaults
 		$this->set_url_replacements(null);
 	}
 
-	public function remove_div($enable = true)
-	{
+	public function remove_div($enable = true) {
 		$this->remove_div = (bool) $enable;
 	}
 
-	public function set_image_handler($page = false)
-	{
-		if ($page)
-		{
+	public function set_image_handler($page = false) {
+		if ($page) {
 			$this->image_handler = (string) $page;
 		}
-		else
-		{
+		else {
 			$this->image_handler = false;
 		}
 	}
 
-	public function set_registry(SimplePie_Registry $registry)
-	{
+	public function set_registry(SimplePie_Registry $registry) {
 		$this->registry = $registry;
 	}
 
-	public function pass_cache_data($enable_cache = true, $cache_location = './cache', $cache_name_function = 'md5', $cache_class = 'SimplePie_Cache')
-	{
-		if (isset($enable_cache))
-		{
+	public function pass_cache_data($enable_cache = true, $cache_location = './cache', $cache_name_function = 'md5', $cache_class = 'SimplePie_Cache') {
+		if (isset($enable_cache)) {
 			$this->enable_cache = (bool) $enable_cache;
 		}
 
-		if ($cache_location)
-		{
+		if ($cache_location) {
 			$this->cache_location = (string) $cache_location;
 		}
 
-		if ($cache_name_function)
-		{
+		if ($cache_name_function) {
 			$this->cache_name_function = (string) $cache_name_function;
 		}
 	}
 
-	public function pass_file_data($file_class = 'SimplePie_File', $timeout = 10, $useragent = '', $force_fsockopen = false)
-	{
-		if ($timeout)
-		{
+	public function pass_file_data($file_class = 'SimplePie_File', $timeout = 10, $useragent = '', $force_fsockopen = false) {
+		if ($timeout) {
 			$this->timeout = (string) $timeout;
 		}
 
-		if ($useragent)
-		{
+		if ($useragent) {
 			$this->useragent = (string) $useragent;
 		}
 
-		if ($force_fsockopen)
-		{
+		if ($force_fsockopen) {
 			$this->force_fsockopen = (string) $force_fsockopen;
 		}
 	}
 
-	public function strip_htmltags($tags = array('base', 'blink', 'body', 'doctype', 'embed', 'font', 'form', 'frame', 'frameset', 'html', 'iframe', 'input', 'marquee', 'meta', 'noscript', 'object', 'param', 'script', 'style'))
-	{
-		if ($tags)
-		{
-			if (is_array($tags))
-			{
+	public function strip_htmltags($tags = array('base', 'blink', 'body', 'doctype', 'embed', 'font', 'form', 'frame', 'frameset', 'html', 'iframe', 'input', 'marquee', 'meta', 'noscript', 'object', 'param', 'script', 'style')) {
+		if ($tags) {
+			if (is_array($tags)) {
 				$this->strip_htmltags = $tags;
 			}
-			else
-			{
+			else {
 				$this->strip_htmltags = explode(',', $tags);
 			}
 		}
-		else
-		{
+		else {
 			$this->strip_htmltags = false;
 		}
 	}
 
-	public function encode_instead_of_strip($encode = false)
-	{
+	public function encode_instead_of_strip($encode = false) {
 		$this->encode_instead_of_strip = (bool) $encode;
 	}
 
-	public function strip_attributes($attribs = array('bgsound', 'class', 'expr', 'id', 'style', 'onclick', 'onerror', 'onfinish', 'onmouseover', 'onmouseout', 'onfocus', 'onblur', 'lowsrc', 'dynsrc'))
-	{
-		if ($attribs)
-		{
-			if (is_array($attribs))
-			{
+	public function strip_attributes($attribs = array('bgsound', 'class', 'expr', 'id', 'style', 'onclick', 'onerror', 'onfinish', 'onmouseover', 'onmouseout', 'onfocus', 'onblur', 'lowsrc', 'dynsrc')) {
+		if ($attribs) {
+			if (is_array($attribs)) {
 				$this->strip_attributes = $attribs;
 			}
-			else
-			{
+			else {
 				$this->strip_attributes = explode(',', $attribs);
 			}
 		}
-		else
-		{
+		else {
 			$this->strip_attributes = false;
 		}
 	}
 
-	public function strip_comments($strip = false)
-	{
+	public function strip_comments($strip = false) {
 		$this->strip_comments = (bool) $strip;
 	}
 
-	public function set_output_encoding($encoding = 'UTF-8')
-	{
+	public function set_output_encoding($encoding = 'UTF-8') {
 		$this->output_encoding = (string) $encoding;
 	}
-	public function set_url_replacements($element_attribute = null)
-	{
-		if ($element_attribute === null)
-		{
+	public function set_url_replacements($element_attribute = null) {
+		if ($element_attribute === null) {
 			$element_attribute = array(
 				'a' => 'href',
 				'area' => 'href',
@@ -12480,30 +10445,23 @@ class SimplePie_Sanitize
 		$this->replace_url_attributes = (array) $element_attribute;
 	}
 
-	public function sanitize($data, $type, $base = '')
-	{
+	public function sanitize($data, $type, $base = '') {
 		$data = trim($data);
-		if ($data !== '' || $type & SIMPLEPIE_CONSTRUCT_IRI)
-		{
-			if ($type & SIMPLEPIE_CONSTRUCT_MAYBE_HTML)
-			{
-				if (preg_match('/(&(#(x[0-9a-fA-F]+|[0-9]+)|[a-zA-Z0-9]+)|<\/[A-Za-z][^\x09\x0A\x0B\x0C\x0D\x20\x2F\x3E]*' . SIMPLEPIE_PCRE_HTML_ATTRIBUTE . '>)/', $data))
-				{
+		if ($data !== '' || $type & SIMPLEPIE_CONSTRUCT_IRI) {
+			if ($type & SIMPLEPIE_CONSTRUCT_MAYBE_HTML) {
+				if (preg_match('/(&(#(x[0-9a-fA-F]+|[0-9]+)|[a-zA-Z0-9]+)|<\/[A-Za-z][^\x09\x0A\x0B\x0C\x0D\x20\x2F\x3E]*' . SIMPLEPIE_PCRE_HTML_ATTRIBUTE . '>)/', $data)) {
 					$type |= SIMPLEPIE_CONSTRUCT_HTML;
 				}
-				else
-				{
+				else {
 					$type |= SIMPLEPIE_CONSTRUCT_TEXT;
 				}
 			}
 
-			if ($type & SIMPLEPIE_CONSTRUCT_BASE64)
-			{
+			if ($type & SIMPLEPIE_CONSTRUCT_BASE64) {
 				$data = base64_decode($data);
 			}
 
-			if ($type & (SIMPLEPIE_CONSTRUCT_HTML | SIMPLEPIE_CONSTRUCT_XHTML))
-			{
+			if ($type & (SIMPLEPIE_CONSTRUCT_HTML | SIMPLEPIE_CONSTRUCT_XHTML)) {
 
 				$document = new DOMDocument();
 				$document->encoding = 'UTF-8';
@@ -12514,13 +10472,11 @@ class SimplePie_Sanitize
 				restore_error_handler();
 
 				// Strip comments
-				if ($this->strip_comments)
-				{
+				if ($this->strip_comments) {
 					$xpath = new DOMXPath($document);
 					$comments = $xpath->query('//comment()');
 
-					foreach ($comments as $comment)
-					{
+					foreach ($comments as $comment) {
 						$comment->parentNode->removeChild($comment);
 					}
 				}
@@ -12528,57 +10484,44 @@ class SimplePie_Sanitize
 				// Strip out HTML tags and attributes that might cause various security problems.
 				// Based on recommendations by Mark Pilgrim at:
 				// http://diveintomark.org/archives/2003/06/12/how_to_consume_rss_safely
-				if ($this->strip_htmltags)
-				{
-					foreach ($this->strip_htmltags as $tag)
-					{
+				if ($this->strip_htmltags) {
+					foreach ($this->strip_htmltags as $tag) {
 						$this->strip_tag($tag, $document, $type);
 					}
 				}
 
-				if ($this->strip_attributes)
-				{
-					foreach ($this->strip_attributes as $attrib)
-					{
+				if ($this->strip_attributes) {
+					foreach ($this->strip_attributes as $attrib) {
 						$this->strip_attr($attrib, $document);
 					}
 				}
 
 				// Replace relative URLs
 				$this->base = $base;
-				foreach ($this->replace_url_attributes as $element => $attributes)
-				{
+				foreach ($this->replace_url_attributes as $element => $attributes) {
 					$this->replace_urls($document, $element, $attributes);
 				}
 
 				// If image handling (caching, etc.) is enabled, cache and rewrite all the image tags.
-				if (isset($this->image_handler) && ((string) $this->image_handler) !== '' && $this->enable_cache)
-				{
+				if (isset($this->image_handler) && ((string) $this->image_handler) !== '' && $this->enable_cache) {
 					$images = $document->getElementsByTagName('img');
-					foreach ($images as $img)
-					{
-						if ($img->hasAttribute('src'))
-						{
+					foreach ($images as $img) {
+						if ($img->hasAttribute('src')) {
 							$image_url = call_user_func($this->cache_name_function, $img->getAttribute('src'));
 							$cache = $this->registry->call('Cache', 'create', array($this->cache_location, $image_url, 'spi'));
 
-							if ($cache->load())
-							{
+							if ($cache->load()) {
 								$img->setAttribute('src', $this->image_handler . $image_url);
 							}
-							else
-							{
+							else {
 								$file = $this->registry->create('File', array($img['attribs']['src']['data'], $this->timeout, 5, array('X-FORWARDED-FOR' => $_SERVER['REMOTE_ADDR']), $this->useragent, $this->force_fsockopen));
 								$headers = $file->headers;
 
-								if ($file->success && ($file->method & SIMPLEPIE_FILE_SOURCE_REMOTE === 0 || ($file->status_code === 200 || $file->status_code > 206 && $file->status_code < 300)))
-								{
-									if ($cache->save(array('headers' => $file->headers, 'body' => $file->body)))
-									{
+								if ($file->success && ($file->method & SIMPLEPIE_FILE_SOURCE_REMOTE === 0 || ($file->status_code === 200 || $file->status_code > 206 && $file->status_code < 300))) {
+									if ($cache->save(array('headers' => $file->headers, 'body' => $file->body))) {
 										$img->setAttribute('src', $this->image_handler . $image_url);
 									}
-									else
-									{
+									else {
 										trigger_error("$this->cache_location is not writeable. Make sure you've set the correct relative or absolute path, and that the location is server-writable.", E_USER_WARNING);
 									}
 								}
@@ -12589,8 +10532,7 @@ class SimplePie_Sanitize
 
 				// Remove the DOCTYPE
 				// Seems to cause segfaulting if we don't do this
-				if ($document->firstChild instanceof DOMDocumentType)
-				{
+				if ($document->firstChild instanceof DOMDocumentType) {
 					$document->removeChild($document->firstChild);
 				}
 
@@ -12601,48 +10543,40 @@ class SimplePie_Sanitize
 				// Finally, convert to a HTML string
 				$data = trim($document->saveHTML());
 
-				if ($this->remove_div)
-				{
+				if ($this->remove_div) {
 					$data = preg_replace('/^<div' . SIMPLEPIE_PCRE_XML_ATTRIBUTE . '>/', '', $data);
 					$data = preg_replace('/<\/div>$/', '', $data);
 				}
-				else
-				{
+				else {
 					$data = preg_replace('/^<div' . SIMPLEPIE_PCRE_XML_ATTRIBUTE . '>/', '<div>', $data);
 				}
 			}
 
-			if ($type & SIMPLEPIE_CONSTRUCT_IRI)
-			{
+			if ($type & SIMPLEPIE_CONSTRUCT_IRI) {
 				$data = $this->registry->call('Misc', 'absolutize_url', array($data, $base));
 			}
 
-			if ($type & (SIMPLEPIE_CONSTRUCT_TEXT | SIMPLEPIE_CONSTRUCT_IRI))
-			{
+			if ($type & (SIMPLEPIE_CONSTRUCT_TEXT | SIMPLEPIE_CONSTRUCT_IRI)) {
 				$data = htmlspecialchars($data, ENT_COMPAT, 'UTF-8');
 			}
 
-			if ($this->output_encoding !== 'UTF-8')
-			{
+			if ($this->output_encoding !== 'UTF-8') {
 				$data = $this->registry->call('Misc', 'change_encoding', array($data, 'UTF-8', $this->output_encoding));
 			}
 		}
 		return $data;
 	}
 
-	protected function preprocess($html, $type)
-	{
+	protected function preprocess($html, $type) {
 		$ret = '';
-		if ($type & ~SIMPLEPIE_CONSTRUCT_XHTML)
-		{
+		if ($type & ~SIMPLEPIE_CONSTRUCT_XHTML) {
 			// Atom XHTML constructs are wrapped with a div by default
 			// Note: No protection if $html contains a stray </div>!
 			$html = '<div>' . $html . '</div>';
 			$ret .= '<!DOCTYPE html>';
 			$content_type = 'text/html';
 		}
-		else
-		{
+		else {
 			$ret .= '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">';
 			$content_type = 'application/xhtml+xml';
 		}
@@ -12653,22 +10587,16 @@ class SimplePie_Sanitize
 		return $ret;
 	}
 
-	public function replace_urls($document, $tag, $attributes)
-	{
-		if (!is_array($attributes))
-		{
+	public function replace_urls($document, $tag, $attributes) {
+		if (!is_array($attributes)) {
 			$attributes = array($attributes);
 		}
 
-		if (!is_array($this->strip_htmltags) || !in_array($tag, $this->strip_htmltags))
-		{
+		if (!is_array($this->strip_htmltags) || !in_array($tag, $this->strip_htmltags)) {
 			$elements = $document->getElementsByTagName($tag);
-			foreach ($elements as $element)
-			{
-				foreach ($attributes as $attribute)
-				{
-					if ($element->hasAttribute($attribute))
-					{
+			foreach ($elements as $element) {
+				foreach ($attributes as $attribute) {
+					if ($element->hasAttribute($attribute)) {
 						$value = $this->registry->call('Misc', 'absolutize_url', array($element->getAttribute($attribute), $this->base));
 						$element->setAttribute($attribute, $value);
 					}
@@ -12677,60 +10605,46 @@ class SimplePie_Sanitize
 		}
 	}
 
-	public function do_strip_htmltags($match)
-	{
-		if ($this->encode_instead_of_strip)
-		{
-			if (isset($match[4]) && !in_array(strtolower($match[1]), array('script', 'style')))
-			{
+	public function do_strip_htmltags($match) {
+		if ($this->encode_instead_of_strip) {
+			if (isset($match[4]) && !in_array(strtolower($match[1]), array('script', 'style'))) {
 				$match[1] = htmlspecialchars($match[1], ENT_COMPAT, 'UTF-8');
 				$match[2] = htmlspecialchars($match[2], ENT_COMPAT, 'UTF-8');
 				return "&lt;$match[1]$match[2]&gt;$match[3]&lt;/$match[1]&gt;";
 			}
-			else
-			{
+			else {
 				return htmlspecialchars($match[0], ENT_COMPAT, 'UTF-8');
 			}
 		}
-		elseif (isset($match[4]) && !in_array(strtolower($match[1]), array('script', 'style')))
-		{
+		elseif (isset($match[4]) && !in_array(strtolower($match[1]), array('script', 'style'))) {
 			return $match[4];
 		}
-		else
-		{
+		else {
 			return '';
 		}
 	}
 
-	protected function strip_tag($tag, $document, $type)
-	{
+	protected function strip_tag($tag, $document, $type) {
 		$xpath = new DOMXPath($document);
 		$elements = $xpath->query('body//' . $tag);
-		if ($this->encode_instead_of_strip)
-		{
-			foreach ($elements as $element)
-			{
+		if ($this->encode_instead_of_strip) {
+			foreach ($elements as $element) {
 				$fragment = $document->createDocumentFragment();
 
 				// For elements which aren't script or style, include the tag itself
-				if (!in_array($tag, array('script', 'style')))
-				{
+				if (!in_array($tag, array('script', 'style'))) {
 					$text = '<' . $tag;
-					if ($element->hasAttributes())
-					{
+					if ($element->hasAttributes()) {
 						$attrs = array();
-						foreach ($element->attributes as $name => $attr)
-						{
+						foreach ($element->attributes as $name => $attr) {
 							$value = $attr->value;
 
 							// In XHTML, empty values should never exist, so we repeat the value
-							if (empty($value) && ($type & SIMPLEPIE_CONSTRUCT_XHTML))
-							{
+							if (empty($value) && ($type & SIMPLEPIE_CONSTRUCT_XHTML)) {
 								$value = $name;
 							}
 							// For HTML, empty is fine
-							elseif (empty($value) && ($type & SIMPLEPIE_CONSTRUCT_HTML))
-							{
+							elseif (empty($value) && ($type & SIMPLEPIE_CONSTRUCT_HTML)) {
 								$attrs[] = $name;
 								continue;
 							}
@@ -12745,14 +10659,12 @@ class SimplePie_Sanitize
 				}
 
 				$number = $element->childNodes->length;
-				for ($i = $number; $i > 0; $i--)
-				{
+				for ($i = $number; $i > 0; $i--) {
 					$child = $element->childNodes->item(0);
 					$fragment->appendChild($child);
 				}
 
-				if (!in_array($tag, array('script', 'style')))
-				{
+				if (!in_array($tag, array('script', 'style'))) {
 					$fragment->appendChild(new DOMText('</' . $tag . '>'));
 				}
 
@@ -12761,23 +10673,18 @@ class SimplePie_Sanitize
 
 			return;
 		}
-		elseif (in_array($tag, array('script', 'style')))
-		{
-			foreach ($elements as $element)
-			{
+		elseif (in_array($tag, array('script', 'style'))) {
+			foreach ($elements as $element) {
 				$element->parentNode->removeChild($element);
 			}
 
 			return;
 		}
-		else
-		{
-			foreach ($elements as $element)
-			{
+		else {
+			foreach ($elements as $element) {
 				$fragment = $document->createDocumentFragment();
 				$number = $element->childNodes->length;
-				for ($i = $number; $i > 0; $i--)
-				{
+				for ($i = $number; $i > 0; $i--) {
 					$child = $element->childNodes->item(0);
 					$fragment->appendChild($child);
 				}
@@ -12787,571 +10694,439 @@ class SimplePie_Sanitize
 		}
 	}
 
-	protected function strip_attr($attrib, $document)
-	{
+	protected function strip_attr($attrib, $document) {
 		$xpath = new DOMXPath($document);
 		$elements = $xpath->query('//*[@' . $attrib . ']');
 
-		foreach ($elements as $element)
-		{
+		foreach ($elements as $element) {
 			$element->removeAttribute($attrib);
 		}
 	}
 }
-class SimplePie_Source
-{
+class SimplePie_Source {
 	var $item;
 	var $data = array();
 	protected $registry;
 
-	public function __construct($item, $data)
-	{
+	public function __construct($item, $data) {
 		$this->item = $item;
 		$this->data = $data;
 	}
 
-	public function set_registry(SimplePie_Registry $registry)
-	{
+	public function set_registry(SimplePie_Registry $registry) {
 		$this->registry = $registry;
 	}
 
-	public function __toString()
-	{
+	public function __toString() {
 		return md5(serialize($this->data));
 	}
 
-	public function get_source_tags($namespace, $tag)
-	{
-		if (isset($this->data['child'][$namespace][$tag]))
-		{
+	public function get_source_tags($namespace, $tag) {
+		if (isset($this->data['child'][$namespace][$tag])) {
 			return $this->data['child'][$namespace][$tag];
 		}
-		else
-		{
+		else {
 			return null;
 		}
 	}
 
-	public function get_base($element = array())
-	{
+	public function get_base($element = array()) {
 		return $this->item->get_base($element);
 	}
 
-	public function sanitize($data, $type, $base = '')
-	{
+	public function sanitize($data, $type, $base = '') {
 		return $this->item->sanitize($data, $type, $base);
 	}
 
-	public function get_item()
-	{
+	public function get_item() {
 		return $this->item;
 	}
 
-	public function get_title()
-	{
-		if ($return = $this->get_source_tags(SIMPLEPIE_NAMESPACE_ATOM_10, 'title'))
-		{
+	public function get_title() {
+		if ($return = $this->get_source_tags(SIMPLEPIE_NAMESPACE_ATOM_10, 'title')) {
 			return $this->sanitize($return[0]['data'], $this->registry->call('Misc', 'atom_10_construct_type', array($return[0]['attribs'])), $this->get_base($return[0]));
 		}
-		elseif ($return = $this->get_source_tags(SIMPLEPIE_NAMESPACE_ATOM_03, 'title'))
-		{
+		elseif ($return = $this->get_source_tags(SIMPLEPIE_NAMESPACE_ATOM_03, 'title')) {
 			return $this->sanitize($return[0]['data'], $this->registry->call('Misc', 'atom_03_construct_type', array($return[0]['attribs'])), $this->get_base($return[0]));
 		}
-		elseif ($return = $this->get_source_tags(SIMPLEPIE_NAMESPACE_RSS_10, 'title'))
-		{
+		elseif ($return = $this->get_source_tags(SIMPLEPIE_NAMESPACE_RSS_10, 'title')) {
 			return $this->sanitize($return[0]['data'], SIMPLEPIE_CONSTRUCT_MAYBE_HTML, $this->get_base($return[0]));
 		}
-		elseif ($return = $this->get_source_tags(SIMPLEPIE_NAMESPACE_RSS_090, 'title'))
-		{
+		elseif ($return = $this->get_source_tags(SIMPLEPIE_NAMESPACE_RSS_090, 'title')) {
 			return $this->sanitize($return[0]['data'], SIMPLEPIE_CONSTRUCT_MAYBE_HTML, $this->get_base($return[0]));
 		}
-		elseif ($return = $this->get_source_tags(SIMPLEPIE_NAMESPACE_RSS_20, 'title'))
-		{
+		elseif ($return = $this->get_source_tags(SIMPLEPIE_NAMESPACE_RSS_20, 'title')) {
 			return $this->sanitize($return[0]['data'], SIMPLEPIE_CONSTRUCT_MAYBE_HTML, $this->get_base($return[0]));
 		}
-		elseif ($return = $this->get_source_tags(SIMPLEPIE_NAMESPACE_DC_11, 'title'))
-		{
+		elseif ($return = $this->get_source_tags(SIMPLEPIE_NAMESPACE_DC_11, 'title')) {
 			return $this->sanitize($return[0]['data'], SIMPLEPIE_CONSTRUCT_TEXT);
 		}
-		elseif ($return = $this->get_source_tags(SIMPLEPIE_NAMESPACE_DC_10, 'title'))
-		{
+		elseif ($return = $this->get_source_tags(SIMPLEPIE_NAMESPACE_DC_10, 'title')) {
 			return $this->sanitize($return[0]['data'], SIMPLEPIE_CONSTRUCT_TEXT);
 		}
-		else
-		{
+		else {
 			return null;
 		}
 	}
 
-	public function get_category($key = 0)
-	{
+	public function get_category($key = 0) {
 		$categories = $this->get_categories();
-		if (isset($categories[$key]))
-		{
+		if (isset($categories[$key])) {
 			return $categories[$key];
 		}
-		else
-		{
+		else {
 			return null;
 		}
 	}
 
-	public function get_categories()
-	{
+	public function get_categories() {
 		$categories = array();
 
-		foreach ((array) $this->get_source_tags(SIMPLEPIE_NAMESPACE_ATOM_10, 'category') as $category)
-		{
+		foreach ((array) $this->get_source_tags(SIMPLEPIE_NAMESPACE_ATOM_10, 'category') as $category) {
 			$term = null;
 			$scheme = null;
 			$label = null;
-			if (isset($category['attribs']['']['term']))
-			{
+			if (isset($category['attribs']['']['term'])) {
 				$term = $this->sanitize($category['attribs']['']['term'], SIMPLEPIE_CONSTRUCT_TEXT);
 			}
-			if (isset($category['attribs']['']['scheme']))
-			{
+			if (isset($category['attribs']['']['scheme'])) {
 				$scheme = $this->sanitize($category['attribs']['']['scheme'], SIMPLEPIE_CONSTRUCT_TEXT);
 			}
-			if (isset($category['attribs']['']['label']))
-			{
+			if (isset($category['attribs']['']['label'])) {
 				$label = $this->sanitize($category['attribs']['']['label'], SIMPLEPIE_CONSTRUCT_TEXT);
 			}
 			$categories[] = $this->registry->create('Category', array($term, $scheme, $label));
 		}
-		foreach ((array) $this->get_source_tags(SIMPLEPIE_NAMESPACE_RSS_20, 'category') as $category)
-		{
+		foreach ((array) $this->get_source_tags(SIMPLEPIE_NAMESPACE_RSS_20, 'category') as $category) {
 			// This is really the label, but keep this as the term also for BC.
 			// Label will also work on retrieving because that falls back to term.
 			$term = $this->sanitize($category['data'], SIMPLEPIE_CONSTRUCT_TEXT);
-			if (isset($category['attribs']['']['domain']))
-			{
+			if (isset($category['attribs']['']['domain'])) {
 				$scheme = $this->sanitize($category['attribs']['']['domain'], SIMPLEPIE_CONSTRUCT_TEXT);
 			}
-			else
-			{
+			else {
 				$scheme = null;
 			}
 			$categories[] = $this->registry->create('Category', array($term, $scheme, null));
 		}
-		foreach ((array) $this->get_source_tags(SIMPLEPIE_NAMESPACE_DC_11, 'subject') as $category)
-		{
+		foreach ((array) $this->get_source_tags(SIMPLEPIE_NAMESPACE_DC_11, 'subject') as $category) {
 			$categories[] = $this->registry->create('Category', array($this->sanitize($category['data'], SIMPLEPIE_CONSTRUCT_TEXT), null, null));
 		}
-		foreach ((array) $this->get_source_tags(SIMPLEPIE_NAMESPACE_DC_10, 'subject') as $category)
-		{
+		foreach ((array) $this->get_source_tags(SIMPLEPIE_NAMESPACE_DC_10, 'subject') as $category) {
 			$categories[] = $this->registry->create('Category', array($this->sanitize($category['data'], SIMPLEPIE_CONSTRUCT_TEXT), null, null));
 		}
 
-		if (!empty($categories))
-		{
+		if (!empty($categories)) {
 			return array_unique($categories);
 		}
-		else
-		{
+		else {
 			return null;
 		}
 	}
 
-	public function get_author($key = 0)
-	{
+	public function get_author($key = 0) {
 		$authors = $this->get_authors();
-		if (isset($authors[$key]))
-		{
+		if (isset($authors[$key])) {
 			return $authors[$key];
 		}
-		else
-		{
+		else {
 			return null;
 		}
 	}
 
-	public function get_authors()
-	{
+	public function get_authors() {
 		$authors = array();
-		foreach ((array) $this->get_source_tags(SIMPLEPIE_NAMESPACE_ATOM_10, 'author') as $author)
-		{
+		foreach ((array) $this->get_source_tags(SIMPLEPIE_NAMESPACE_ATOM_10, 'author') as $author) {
 			$name = null;
 			$uri = null;
 			$email = null;
-			if (isset($author['child'][SIMPLEPIE_NAMESPACE_ATOM_10]['name'][0]['data']))
-			{
+			if (isset($author['child'][SIMPLEPIE_NAMESPACE_ATOM_10]['name'][0]['data'])) {
 				$name = $this->sanitize($author['child'][SIMPLEPIE_NAMESPACE_ATOM_10]['name'][0]['data'], SIMPLEPIE_CONSTRUCT_TEXT);
 			}
-			if (isset($author['child'][SIMPLEPIE_NAMESPACE_ATOM_10]['uri'][0]['data']))
-			{
+			if (isset($author['child'][SIMPLEPIE_NAMESPACE_ATOM_10]['uri'][0]['data'])) {
 				$uri = $this->sanitize($author['child'][SIMPLEPIE_NAMESPACE_ATOM_10]['uri'][0]['data'], SIMPLEPIE_CONSTRUCT_IRI, $this->get_base($author['child'][SIMPLEPIE_NAMESPACE_ATOM_10]['uri'][0]));
 			}
-			if (isset($author['child'][SIMPLEPIE_NAMESPACE_ATOM_10]['email'][0]['data']))
-			{
+			if (isset($author['child'][SIMPLEPIE_NAMESPACE_ATOM_10]['email'][0]['data'])) {
 				$email = $this->sanitize($author['child'][SIMPLEPIE_NAMESPACE_ATOM_10]['email'][0]['data'], SIMPLEPIE_CONSTRUCT_TEXT);
 			}
-			if ($name !== null || $email !== null || $uri !== null)
-			{
+			if ($name !== null || $email !== null || $uri !== null) {
 				$authors[] = $this->registry->create('Author', array($name, $uri, $email));
 			}
 		}
-		if ($author = $this->get_source_tags(SIMPLEPIE_NAMESPACE_ATOM_03, 'author'))
-		{
+		if ($author = $this->get_source_tags(SIMPLEPIE_NAMESPACE_ATOM_03, 'author')) {
 			$name = null;
 			$url = null;
 			$email = null;
-			if (isset($author[0]['child'][SIMPLEPIE_NAMESPACE_ATOM_03]['name'][0]['data']))
-			{
+			if (isset($author[0]['child'][SIMPLEPIE_NAMESPACE_ATOM_03]['name'][0]['data'])) {
 				$name = $this->sanitize($author[0]['child'][SIMPLEPIE_NAMESPACE_ATOM_03]['name'][0]['data'], SIMPLEPIE_CONSTRUCT_TEXT);
 			}
-			if (isset($author[0]['child'][SIMPLEPIE_NAMESPACE_ATOM_03]['url'][0]['data']))
-			{
+			if (isset($author[0]['child'][SIMPLEPIE_NAMESPACE_ATOM_03]['url'][0]['data'])) {
 				$url = $this->sanitize($author[0]['child'][SIMPLEPIE_NAMESPACE_ATOM_03]['url'][0]['data'], SIMPLEPIE_CONSTRUCT_IRI, $this->get_base($author[0]['child'][SIMPLEPIE_NAMESPACE_ATOM_03]['url'][0]));
 			}
-			if (isset($author[0]['child'][SIMPLEPIE_NAMESPACE_ATOM_03]['email'][0]['data']))
-			{
+			if (isset($author[0]['child'][SIMPLEPIE_NAMESPACE_ATOM_03]['email'][0]['data'])) {
 				$email = $this->sanitize($author[0]['child'][SIMPLEPIE_NAMESPACE_ATOM_03]['email'][0]['data'], SIMPLEPIE_CONSTRUCT_TEXT);
 			}
-			if ($name !== null || $email !== null || $url !== null)
-			{
+			if ($name !== null || $email !== null || $url !== null) {
 				$authors[] = $this->registry->create('Author', array($name, $url, $email));
 			}
 		}
-		foreach ((array) $this->get_source_tags(SIMPLEPIE_NAMESPACE_DC_11, 'creator') as $author)
-		{
+		foreach ((array) $this->get_source_tags(SIMPLEPIE_NAMESPACE_DC_11, 'creator') as $author) {
 			$authors[] = $this->registry->create('Author', array($this->sanitize($author['data'], SIMPLEPIE_CONSTRUCT_TEXT), null, null));
 		}
-		foreach ((array) $this->get_source_tags(SIMPLEPIE_NAMESPACE_DC_10, 'creator') as $author)
-		{
+		foreach ((array) $this->get_source_tags(SIMPLEPIE_NAMESPACE_DC_10, 'creator') as $author) {
 			$authors[] = $this->registry->create('Author', array($this->sanitize($author['data'], SIMPLEPIE_CONSTRUCT_TEXT), null, null));
 		}
-		foreach ((array) $this->get_source_tags(SIMPLEPIE_NAMESPACE_ITUNES, 'author') as $author)
-		{
+		foreach ((array) $this->get_source_tags(SIMPLEPIE_NAMESPACE_ITUNES, 'author') as $author) {
 			$authors[] = $this->registry->create('Author', array($this->sanitize($author['data'], SIMPLEPIE_CONSTRUCT_TEXT), null, null));
 		}
 
-		if (!empty($authors))
-		{
+		if (!empty($authors)) {
 			return array_unique($authors);
 		}
-		else
-		{
+		else {
 			return null;
 		}
 	}
 
-	public function get_contributor($key = 0)
-	{
+	public function get_contributor($key = 0) {
 		$contributors = $this->get_contributors();
-		if (isset($contributors[$key]))
-		{
+		if (isset($contributors[$key])) {
 			return $contributors[$key];
 		}
-		else
-		{
+		else {
 			return null;
 		}
 	}
 
-	public function get_contributors()
-	{
+	public function get_contributors() {
 		$contributors = array();
-		foreach ((array) $this->get_source_tags(SIMPLEPIE_NAMESPACE_ATOM_10, 'contributor') as $contributor)
-		{
+		foreach ((array) $this->get_source_tags(SIMPLEPIE_NAMESPACE_ATOM_10, 'contributor') as $contributor) {
 			$name = null;
 			$uri = null;
 			$email = null;
-			if (isset($contributor['child'][SIMPLEPIE_NAMESPACE_ATOM_10]['name'][0]['data']))
-			{
+			if (isset($contributor['child'][SIMPLEPIE_NAMESPACE_ATOM_10]['name'][0]['data'])) {
 				$name = $this->sanitize($contributor['child'][SIMPLEPIE_NAMESPACE_ATOM_10]['name'][0]['data'], SIMPLEPIE_CONSTRUCT_TEXT);
 			}
-			if (isset($contributor['child'][SIMPLEPIE_NAMESPACE_ATOM_10]['uri'][0]['data']))
-			{
+			if (isset($contributor['child'][SIMPLEPIE_NAMESPACE_ATOM_10]['uri'][0]['data'])) {
 				$uri = $this->sanitize($contributor['child'][SIMPLEPIE_NAMESPACE_ATOM_10]['uri'][0]['data'], SIMPLEPIE_CONSTRUCT_IRI, $this->get_base($contributor['child'][SIMPLEPIE_NAMESPACE_ATOM_10]['uri'][0]));
 			}
-			if (isset($contributor['child'][SIMPLEPIE_NAMESPACE_ATOM_10]['email'][0]['data']))
-			{
+			if (isset($contributor['child'][SIMPLEPIE_NAMESPACE_ATOM_10]['email'][0]['data'])) {
 				$email = $this->sanitize($contributor['child'][SIMPLEPIE_NAMESPACE_ATOM_10]['email'][0]['data'], SIMPLEPIE_CONSTRUCT_TEXT);
 			}
-			if ($name !== null || $email !== null || $uri !== null)
-			{
+			if ($name !== null || $email !== null || $uri !== null) {
 				$contributors[] = $this->registry->create('Author', array($name, $uri, $email));
 			}
 		}
-		foreach ((array) $this->get_source_tags(SIMPLEPIE_NAMESPACE_ATOM_03, 'contributor') as $contributor)
-		{
+		foreach ((array) $this->get_source_tags(SIMPLEPIE_NAMESPACE_ATOM_03, 'contributor') as $contributor) {
 			$name = null;
 			$url = null;
 			$email = null;
-			if (isset($contributor['child'][SIMPLEPIE_NAMESPACE_ATOM_03]['name'][0]['data']))
-			{
+			if (isset($contributor['child'][SIMPLEPIE_NAMESPACE_ATOM_03]['name'][0]['data'])) {
 				$name = $this->sanitize($contributor['child'][SIMPLEPIE_NAMESPACE_ATOM_03]['name'][0]['data'], SIMPLEPIE_CONSTRUCT_TEXT);
 			}
-			if (isset($contributor['child'][SIMPLEPIE_NAMESPACE_ATOM_03]['url'][0]['data']))
-			{
+			if (isset($contributor['child'][SIMPLEPIE_NAMESPACE_ATOM_03]['url'][0]['data'])) {
 				$url = $this->sanitize($contributor['child'][SIMPLEPIE_NAMESPACE_ATOM_03]['url'][0]['data'], SIMPLEPIE_CONSTRUCT_IRI, $this->get_base($contributor['child'][SIMPLEPIE_NAMESPACE_ATOM_03]['url'][0]));
 			}
-			if (isset($contributor['child'][SIMPLEPIE_NAMESPACE_ATOM_03]['email'][0]['data']))
-			{
+			if (isset($contributor['child'][SIMPLEPIE_NAMESPACE_ATOM_03]['email'][0]['data'])) {
 				$email = $this->sanitize($contributor['child'][SIMPLEPIE_NAMESPACE_ATOM_03]['email'][0]['data'], SIMPLEPIE_CONSTRUCT_TEXT);
 			}
-			if ($name !== null || $email !== null || $url !== null)
-			{
+			if ($name !== null || $email !== null || $url !== null) {
 				$contributors[] = $this->registry->create('Author', array($name, $url, $email));
 			}
 		}
 
-		if (!empty($contributors))
-		{
+		if (!empty($contributors)) {
 			return array_unique($contributors);
 		}
-		else
-		{
+		else {
 			return null;
 		}
 	}
 
-	public function get_link($key = 0, $rel = 'alternate')
-	{
+	public function get_link($key = 0, $rel = 'alternate') {
 		$links = $this->get_links($rel);
-		if (isset($links[$key]))
-		{
+		if (isset($links[$key])) {
 			return $links[$key];
 		}
-		else
-		{
+		else {
 			return null;
 		}
 	}
-	public function get_permalink()
-	{
+	public function get_permalink() {
 		return $this->get_link(0);
 	}
 
-	public function get_links($rel = 'alternate')
-	{
-		if (!isset($this->data['links']))
-		{
+	public function get_links($rel = 'alternate') {
+		if (!isset($this->data['links'])) {
 			$this->data['links'] = array();
-			if ($links = $this->get_source_tags(SIMPLEPIE_NAMESPACE_ATOM_10, 'link'))
-			{
-				foreach ($links as $link)
-				{
-					if (isset($link['attribs']['']['href']))
-					{
+			if ($links = $this->get_source_tags(SIMPLEPIE_NAMESPACE_ATOM_10, 'link')) {
+				foreach ($links as $link) {
+					if (isset($link['attribs']['']['href'])) {
 						$link_rel = (isset($link['attribs']['']['rel'])) ? $link['attribs']['']['rel'] : 'alternate';
 						$this->data['links'][$link_rel][] = $this->sanitize($link['attribs']['']['href'], SIMPLEPIE_CONSTRUCT_IRI, $this->get_base($link));
 					}
 				}
 			}
-			if ($links = $this->get_source_tags(SIMPLEPIE_NAMESPACE_ATOM_03, 'link'))
-			{
-				foreach ($links as $link)
-				{
-					if (isset($link['attribs']['']['href']))
-					{
+			if ($links = $this->get_source_tags(SIMPLEPIE_NAMESPACE_ATOM_03, 'link')) {
+				foreach ($links as $link) {
+					if (isset($link['attribs']['']['href'])) {
 						$link_rel = (isset($link['attribs']['']['rel'])) ? $link['attribs']['']['rel'] : 'alternate';
 						$this->data['links'][$link_rel][] = $this->sanitize($link['attribs']['']['href'], SIMPLEPIE_CONSTRUCT_IRI, $this->get_base($link));
 
 					}
 				}
 			}
-			if ($links = $this->get_source_tags(SIMPLEPIE_NAMESPACE_RSS_10, 'link'))
-			{
+			if ($links = $this->get_source_tags(SIMPLEPIE_NAMESPACE_RSS_10, 'link')) {
 				$this->data['links']['alternate'][] = $this->sanitize($links[0]['data'], SIMPLEPIE_CONSTRUCT_IRI, $this->get_base($links[0]));
 			}
-			if ($links = $this->get_source_tags(SIMPLEPIE_NAMESPACE_RSS_090, 'link'))
-			{
+			if ($links = $this->get_source_tags(SIMPLEPIE_NAMESPACE_RSS_090, 'link')) {
 				$this->data['links']['alternate'][] = $this->sanitize($links[0]['data'], SIMPLEPIE_CONSTRUCT_IRI, $this->get_base($links[0]));
 			}
-			if ($links = $this->get_source_tags(SIMPLEPIE_NAMESPACE_RSS_20, 'link'))
-			{
+			if ($links = $this->get_source_tags(SIMPLEPIE_NAMESPACE_RSS_20, 'link')) {
 				$this->data['links']['alternate'][] = $this->sanitize($links[0]['data'], SIMPLEPIE_CONSTRUCT_IRI, $this->get_base($links[0]));
 			}
 
 			$keys = array_keys($this->data['links']);
-			foreach ($keys as $key)
-			{
-				if ($this->registry->call('Misc', 'is_isegment_nz_nc', array($key)))
-				{
-					if (isset($this->data['links'][SIMPLEPIE_IANA_LINK_RELATIONS_REGISTRY . $key]))
-					{
+			foreach ($keys as $key) {
+				if ($this->registry->call('Misc', 'is_isegment_nz_nc', array($key))) {
+					if (isset($this->data['links'][SIMPLEPIE_IANA_LINK_RELATIONS_REGISTRY . $key])) {
 						$this->data['links'][SIMPLEPIE_IANA_LINK_RELATIONS_REGISTRY . $key] = array_merge($this->data['links'][$key], $this->data['links'][SIMPLEPIE_IANA_LINK_RELATIONS_REGISTRY . $key]);
 						$this->data['links'][$key] =& $this->data['links'][SIMPLEPIE_IANA_LINK_RELATIONS_REGISTRY . $key];
 					}
-					else
-					{
+					else {
 						$this->data['links'][SIMPLEPIE_IANA_LINK_RELATIONS_REGISTRY . $key] =& $this->data['links'][$key];
 					}
 				}
-				elseif (substr($key, 0, 41) === SIMPLEPIE_IANA_LINK_RELATIONS_REGISTRY)
-				{
+				elseif (substr($key, 0, 41) === SIMPLEPIE_IANA_LINK_RELATIONS_REGISTRY) {
 					$this->data['links'][substr($key, 41)] =& $this->data['links'][$key];
 				}
 				$this->data['links'][$key] = array_unique($this->data['links'][$key]);
 			}
 		}
 
-		if (isset($this->data['links'][$rel]))
-		{
+		if (isset($this->data['links'][$rel])) {
 			return $this->data['links'][$rel];
 		}
-		else
-		{
+		else {
 			return null;
 		}
 	}
 
-	public function get_description()
-	{
-		if ($return = $this->get_source_tags(SIMPLEPIE_NAMESPACE_ATOM_10, 'subtitle'))
-		{
+	public function get_description() {
+		if ($return = $this->get_source_tags(SIMPLEPIE_NAMESPACE_ATOM_10, 'subtitle')) {
 			return $this->sanitize($return[0]['data'], $this->registry->call('Misc', 'atom_10_construct_type', array($return[0]['attribs'])), $this->get_base($return[0]));
 		}
-		elseif ($return = $this->get_source_tags(SIMPLEPIE_NAMESPACE_ATOM_03, 'tagline'))
-		{
+		elseif ($return = $this->get_source_tags(SIMPLEPIE_NAMESPACE_ATOM_03, 'tagline')) {
 			return $this->sanitize($return[0]['data'], $this->registry->call('Misc', 'atom_03_construct_type', array($return[0]['attribs'])), $this->get_base($return[0]));
 		}
-		elseif ($return = $this->get_source_tags(SIMPLEPIE_NAMESPACE_RSS_10, 'description'))
-		{
+		elseif ($return = $this->get_source_tags(SIMPLEPIE_NAMESPACE_RSS_10, 'description')) {
 			return $this->sanitize($return[0]['data'], SIMPLEPIE_CONSTRUCT_MAYBE_HTML, $this->get_base($return[0]));
 		}
-		elseif ($return = $this->get_source_tags(SIMPLEPIE_NAMESPACE_RSS_090, 'description'))
-		{
+		elseif ($return = $this->get_source_tags(SIMPLEPIE_NAMESPACE_RSS_090, 'description')) {
 			return $this->sanitize($return[0]['data'], SIMPLEPIE_CONSTRUCT_MAYBE_HTML, $this->get_base($return[0]));
 		}
-		elseif ($return = $this->get_source_tags(SIMPLEPIE_NAMESPACE_RSS_20, 'description'))
-		{
+		elseif ($return = $this->get_source_tags(SIMPLEPIE_NAMESPACE_RSS_20, 'description')) {
 			return $this->sanitize($return[0]['data'], SIMPLEPIE_CONSTRUCT_MAYBE_HTML, $this->get_base($return[0]));
 		}
-		elseif ($return = $this->get_source_tags(SIMPLEPIE_NAMESPACE_DC_11, 'description'))
-		{
+		elseif ($return = $this->get_source_tags(SIMPLEPIE_NAMESPACE_DC_11, 'description')) {
 			return $this->sanitize($return[0]['data'], SIMPLEPIE_CONSTRUCT_TEXT);
 		}
-		elseif ($return = $this->get_source_tags(SIMPLEPIE_NAMESPACE_DC_10, 'description'))
-		{
+		elseif ($return = $this->get_source_tags(SIMPLEPIE_NAMESPACE_DC_10, 'description')) {
 			return $this->sanitize($return[0]['data'], SIMPLEPIE_CONSTRUCT_TEXT);
 		}
-		elseif ($return = $this->get_source_tags(SIMPLEPIE_NAMESPACE_ITUNES, 'summary'))
-		{
+		elseif ($return = $this->get_source_tags(SIMPLEPIE_NAMESPACE_ITUNES, 'summary')) {
 			return $this->sanitize($return[0]['data'], SIMPLEPIE_CONSTRUCT_HTML, $this->get_base($return[0]));
 		}
-		elseif ($return = $this->get_source_tags(SIMPLEPIE_NAMESPACE_ITUNES, 'subtitle'))
-		{
+		elseif ($return = $this->get_source_tags(SIMPLEPIE_NAMESPACE_ITUNES, 'subtitle')) {
 			return $this->sanitize($return[0]['data'], SIMPLEPIE_CONSTRUCT_HTML, $this->get_base($return[0]));
 		}
-		else
-		{
+		else {
 			return null;
 		}
 	}
 
-	public function get_copyright()
-	{
-		if ($return = $this->get_source_tags(SIMPLEPIE_NAMESPACE_ATOM_10, 'rights'))
-		{
+	public function get_copyright() {
+		if ($return = $this->get_source_tags(SIMPLEPIE_NAMESPACE_ATOM_10, 'rights')) {
 			return $this->sanitize($return[0]['data'], $this->registry->call('Misc', 'atom_10_construct_type', array($return[0]['attribs'])), $this->get_base($return[0]));
 		}
-		elseif ($return = $this->get_source_tags(SIMPLEPIE_NAMESPACE_ATOM_03, 'copyright'))
-		{
+		elseif ($return = $this->get_source_tags(SIMPLEPIE_NAMESPACE_ATOM_03, 'copyright')) {
 			return $this->sanitize($return[0]['data'], $this->registry->call('Misc', 'atom_03_construct_type', array($return[0]['attribs'])), $this->get_base($return[0]));
 		}
-		elseif ($return = $this->get_source_tags(SIMPLEPIE_NAMESPACE_RSS_20, 'copyright'))
-		{
+		elseif ($return = $this->get_source_tags(SIMPLEPIE_NAMESPACE_RSS_20, 'copyright')) {
 			return $this->sanitize($return[0]['data'], SIMPLEPIE_CONSTRUCT_TEXT);
 		}
-		elseif ($return = $this->get_source_tags(SIMPLEPIE_NAMESPACE_DC_11, 'rights'))
-		{
+		elseif ($return = $this->get_source_tags(SIMPLEPIE_NAMESPACE_DC_11, 'rights')) {
 			return $this->sanitize($return[0]['data'], SIMPLEPIE_CONSTRUCT_TEXT);
 		}
-		elseif ($return = $this->get_source_tags(SIMPLEPIE_NAMESPACE_DC_10, 'rights'))
-		{
+		elseif ($return = $this->get_source_tags(SIMPLEPIE_NAMESPACE_DC_10, 'rights')) {
 			return $this->sanitize($return[0]['data'], SIMPLEPIE_CONSTRUCT_TEXT);
 		}
-		else
-		{
+		else {
 			return null;
 		}
 	}
 
-	public function get_language()
-	{
-		if ($return = $this->get_source_tags(SIMPLEPIE_NAMESPACE_RSS_20, 'language'))
-		{
+	public function get_language() {
+		if ($return = $this->get_source_tags(SIMPLEPIE_NAMESPACE_RSS_20, 'language')) {
 			return $this->sanitize($return[0]['data'], SIMPLEPIE_CONSTRUCT_TEXT);
 		}
-		elseif ($return = $this->get_source_tags(SIMPLEPIE_NAMESPACE_DC_11, 'language'))
-		{
+		elseif ($return = $this->get_source_tags(SIMPLEPIE_NAMESPACE_DC_11, 'language')) {
 			return $this->sanitize($return[0]['data'], SIMPLEPIE_CONSTRUCT_TEXT);
 		}
-		elseif ($return = $this->get_source_tags(SIMPLEPIE_NAMESPACE_DC_10, 'language'))
-		{
+		elseif ($return = $this->get_source_tags(SIMPLEPIE_NAMESPACE_DC_10, 'language')) {
 			return $this->sanitize($return[0]['data'], SIMPLEPIE_CONSTRUCT_TEXT);
 		}
-		elseif (isset($this->data['xml_lang']))
-		{
+		elseif (isset($this->data['xml_lang'])) {
 			return $this->sanitize($this->data['xml_lang'], SIMPLEPIE_CONSTRUCT_TEXT);
 		}
-		else
-		{
+		else {
 			return null;
 		}
 	}
 
-	public function get_latitude()
-	{
-		if ($return = $this->get_source_tags(SIMPLEPIE_NAMESPACE_W3C_BASIC_GEO, 'lat'))
-		{
+	public function get_latitude() {
+		if ($return = $this->get_source_tags(SIMPLEPIE_NAMESPACE_W3C_BASIC_GEO, 'lat')) {
 			return (float) $return[0]['data'];
 		}
-		elseif (($return = $this->get_source_tags(SIMPLEPIE_NAMESPACE_GEORSS, 'point')) && preg_match('/^((?:-)?[0-9]+(?:\.[0-9]+)) ((?:-)?[0-9]+(?:\.[0-9]+))$/', trim($return[0]['data']), $match))
-		{
+		elseif (($return = $this->get_source_tags(SIMPLEPIE_NAMESPACE_GEORSS, 'point')) && preg_match('/^((?:-)?[0-9]+(?:\.[0-9]+)) ((?:-)?[0-9]+(?:\.[0-9]+))$/', trim($return[0]['data']), $match)) {
 			return (float) $match[1];
 		}
-		else
-		{
+		else {
 			return null;
 		}
 	}
 
-	public function get_longitude()
-	{
-		if ($return = $this->get_source_tags(SIMPLEPIE_NAMESPACE_W3C_BASIC_GEO, 'long'))
-		{
+	public function get_longitude() {
+		if ($return = $this->get_source_tags(SIMPLEPIE_NAMESPACE_W3C_BASIC_GEO, 'long')) {
 			return (float) $return[0]['data'];
 		}
-		elseif ($return = $this->get_source_tags(SIMPLEPIE_NAMESPACE_W3C_BASIC_GEO, 'lon'))
-		{
+		elseif ($return = $this->get_source_tags(SIMPLEPIE_NAMESPACE_W3C_BASIC_GEO, 'lon')) {
 			return (float) $return[0]['data'];
 		}
-		elseif (($return = $this->get_source_tags(SIMPLEPIE_NAMESPACE_GEORSS, 'point')) && preg_match('/^((?:-)?[0-9]+(?:\.[0-9]+)) ((?:-)?[0-9]+(?:\.[0-9]+))$/', trim($return[0]['data']), $match))
-		{
+		elseif (($return = $this->get_source_tags(SIMPLEPIE_NAMESPACE_GEORSS, 'point')) && preg_match('/^((?:-)?[0-9]+(?:\.[0-9]+)) ((?:-)?[0-9]+(?:\.[0-9]+))$/', trim($return[0]['data']), $match)) {
 			return (float) $match[2];
 		}
-		else
-		{
+		else {
 			return null;
 		}
 	}
 
-	public function get_image_url()
-	{
-		if ($return = $this->get_source_tags(SIMPLEPIE_NAMESPACE_ITUNES, 'image'))
-		{
+	public function get_image_url() {
+		if ($return = $this->get_source_tags(SIMPLEPIE_NAMESPACE_ITUNES, 'image')) {
 			return $this->sanitize($return[0]['attribs']['']['href'], SIMPLEPIE_CONSTRUCT_IRI);
 		}
-		elseif ($return = $this->get_source_tags(SIMPLEPIE_NAMESPACE_ATOM_10, 'logo'))
-		{
+		elseif ($return = $this->get_source_tags(SIMPLEPIE_NAMESPACE_ATOM_10, 'logo')) {
 			return $this->sanitize($return[0]['data'], SIMPLEPIE_CONSTRUCT_IRI, $this->get_base($return[0]));
 		}
-		elseif ($return = $this->get_source_tags(SIMPLEPIE_NAMESPACE_ATOM_10, 'icon'))
-		{
+		elseif ($return = $this->get_source_tags(SIMPLEPIE_NAMESPACE_ATOM_10, 'icon')) {
 			return $this->sanitize($return[0]['data'], SIMPLEPIE_CONSTRUCT_IRI, $this->get_base($return[0]));
 		}
-		else
-		{
+		else {
 			return null;
 		}
 	}
 }
-class SimplePie_XML_Declaration_Parser
-{
+class SimplePie_XML_Declaration_Parser {
 	var $version = '1.0';
 	var $encoding = 'UTF-8';
 	var $standalone = false;
@@ -13359,50 +11134,40 @@ class SimplePie_XML_Declaration_Parser
 	var $data = '';
 	var $data_length = 0;
 	var $position = 0;
-	public function __construct($data)
-	{
+	public function __construct($data) {
 		$this->data = $data;
 		$this->data_length = strlen($this->data);
 	}
-	public function parse()
-	{
-		while ($this->state && $this->state !== 'emit' && $this->has_data())
-		{
+	public function parse() {
+		while ($this->state && $this->state !== 'emit' && $this->has_data()) {
 			$state = $this->state;
 			$this->$state();
 		}
 		$this->data = '';
-		if ($this->state === 'emit')
-		{
+		if ($this->state === 'emit') {
 			return true;
 		}
-		else
-		{
+		else {
 			$this->version = '';
 			$this->encoding = '';
 			$this->standalone = '';
 			return false;
 		}
 	}
-	public function has_data()
-	{
+	public function has_data() {
 		return (bool) ($this->position < $this->data_length);
 	}
-	public function skip_whitespace()
-	{
+	public function skip_whitespace() {
 		$whitespace = strspn($this->data, "\x09\x0A\x0D\x20", $this->position);
 		$this->position += $whitespace;
 		return $whitespace;
 	}
-	public function get_value()
-	{
+	public function get_value() {
 		$quote = substr($this->data, $this->position, 1);
-		if ($quote === '"' || $quote === "'")
-		{
+		if ($quote === '"' || $quote === "'") {
 			$this->position++;
 			$len = strcspn($this->data, $quote, $this->position);
-			if ($this->has_data())
-			{
+			if ($this->has_data()) {
 				$value = substr($this->data, $this->position, $len);
 				$this->position += $len + 1;
 				return $value;
@@ -13411,148 +11176,114 @@ class SimplePie_XML_Declaration_Parser
 		return false;
 	}
 
-	public function before_version_name()
-	{
-		if ($this->skip_whitespace())
-		{
+	public function before_version_name() {
+		if ($this->skip_whitespace()) {
 			$this->state = 'version_name';
 		}
-		else
-		{
+		else {
 			$this->state = false;
 		}
 	}
 
-	public function version_name()
-	{
-		if (substr($this->data, $this->position, 7) === 'version')
-		{
+	public function version_name() {
+		if (substr($this->data, $this->position, 7) === 'version') {
 			$this->position += 7;
 			$this->skip_whitespace();
 			$this->state = 'version_equals';
 		}
-		else
-		{
+		else {
 			$this->state = false;
 		}
 	}
 
-	public function version_equals()
-	{
-		if (substr($this->data, $this->position, 1) === '=')
-		{
+	public function version_equals() {
+		if (substr($this->data, $this->position, 1) === '=') {
 			$this->position++;
 			$this->skip_whitespace();
 			$this->state = 'version_value';
 		}
-		else
-		{
+		else {
 			$this->state = false;
 		}
 	}
 
-	public function version_value()
-	{
-		if ($this->version = $this->get_value())
-		{
+	public function version_value() {
+		if ($this->version = $this->get_value()) {
 			$this->skip_whitespace();
-			if ($this->has_data())
-			{
+			if ($this->has_data()) {
 				$this->state = 'encoding_name';
 			}
-			else
-			{
+			else {
 				$this->state = 'emit';
 			}
 		}
-		else
-		{
+		else {
 			$this->state = false;
 		}
 	}
 
-	public function encoding_name()
-	{
-		if (substr($this->data, $this->position, 8) === 'encoding')
-		{
+	public function encoding_name() {
+		if (substr($this->data, $this->position, 8) === 'encoding') {
 			$this->position += 8;
 			$this->skip_whitespace();
 			$this->state = 'encoding_equals';
 		}
-		else
-		{
+		else {
 			$this->state = 'standalone_name';
 		}
 	}
 
-	public function encoding_equals()
-	{
-		if (substr($this->data, $this->position, 1) === '=')
-		{
+	public function encoding_equals() {
+		if (substr($this->data, $this->position, 1) === '=') {
 			$this->position++;
 			$this->skip_whitespace();
 			$this->state = 'encoding_value';
 		}
-		else
-		{
+		else {
 			$this->state = false;
 		}
 	}
 
-	public function encoding_value()
-	{
-		if ($this->encoding = $this->get_value())
-		{
+	public function encoding_value() {
+		if ($this->encoding = $this->get_value()) {
 			$this->skip_whitespace();
-			if ($this->has_data())
-			{
+			if ($this->has_data()) {
 				$this->state = 'standalone_name';
 			}
-			else
-			{
+			else {
 				$this->state = 'emit';
 			}
 		}
-		else
-		{
+		else {
 			$this->state = false;
 		}
 	}
 
-	public function standalone_name()
-	{
-		if (substr($this->data, $this->position, 10) === 'standalone')
-		{
+	public function standalone_name() {
+		if (substr($this->data, $this->position, 10) === 'standalone') {
 			$this->position += 10;
 			$this->skip_whitespace();
 			$this->state = 'standalone_equals';
 		}
-		else
-		{
+		else {
 			$this->state = false;
 		}
 	}
 
-	public function standalone_equals()
-	{
-		if (substr($this->data, $this->position, 1) === '=')
-		{
+	public function standalone_equals() {
+		if (substr($this->data, $this->position, 1) === '=') {
 			$this->position++;
 			$this->skip_whitespace();
 			$this->state = 'standalone_value';
 		}
-		else
-		{
+		else {
 			$this->state = false;
 		}
 	}
 
-	public function standalone_value()
-	{
-		if ($standalone = $this->get_value())
-		{
-			switch ($standalone)
-			{
+	public function standalone_value() {
+		if ($standalone = $this->get_value()) {
+			switch ($standalone) {
 				case 'yes':
 					$this->standalone = true;
 					break;
@@ -13567,19 +11298,15 @@ class SimplePie_XML_Declaration_Parser
 			}
 
 			$this->skip_whitespace();
-			if ($this->has_data())
-			{
+			if ($this->has_data()) {
 				$this->state = false;
 			}
-			else
-			{
+			else {
 				$this->state = 'emit';
 			}
 		}
-		else
-		{
+		else {
 			$this->state = false;
 		}
 	}
 }
-
