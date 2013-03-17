@@ -269,6 +269,12 @@ input, select {
 		font-weight: bold;
 		text-shadow: 0 0 1px #ddd;
 	}
+	.nav.nav-list .separator {
+		display: block;
+		height: 0;
+		margin: 5px 0;
+		border-bottom: 1px solid #ddd;
+	}
 
 	.nav.nav-list .nav-form {
 		padding: 3px;

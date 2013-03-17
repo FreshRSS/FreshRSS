@@ -8,6 +8,10 @@
 		</div>
 	</form></li>
 
+	<li class="item<?php echo Request::actionName () == 'importExport' ? ' active' : ''; ?>"><a href="<?php echo _url ('configure', 'importExport'); ?>">Import / Export OPML</a></li>
+
+	<li class="separator"></li>
+
 	<?php if (!empty ($this->feeds)) { ?>
 	<?php foreach ($this->feeds as $feed) { ?>
 	<li class="item<?php echo ($this->flux && $this->flux->id () == $feed->id ()) ? ' active' : ''; ?>">

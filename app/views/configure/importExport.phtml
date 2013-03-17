@@ -11,6 +11,8 @@
 	</body>
 </opml>
 <?php } else { ?>
+<?php $this->partial ('aside_feed'); ?>
+
 <div class="post ">
 	<form method="post" action="<?php echo Url::display (array ('c' => 'configure', 'a' => 'importExport', 'params' => array ('q' => 'import'))); ?>" enctype="multipart/form-data">
 		<legend>Import / export au format OPML</legend>

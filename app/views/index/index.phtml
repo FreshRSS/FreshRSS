@@ -15,10 +15,10 @@ if (isset ($this->entryPaginator)) {
 	<?php foreach ($items as $item) { ?>
 
 	<?php if ($display_today && $item->isDay (Days::TODAY)) { ?>
-	<div class="day">Aujourd'hui</div>
+	<div class="day">Aujourd'hui - <?php echo timestamptodate (time (), false); ?></div>
 	<?php $display_today = false; } ?>
 	<?php if ($display_yesterday && $item->isDay (Days::YESTERDAY)) { ?>
-	<div class="day">Hier</div>
+	<div class="day">Hier - <?php echo timestamptodate (time () - 86400, false); ?></div>
 	<?php $display_yesterday = false; } ?>
 	<?php if ($display_others && $item->isDay (Days::BEFORE_YESTERDAY)) { ?>
 	<div class="day">À partir d'avant-hier</div>

@@ -186,6 +186,10 @@ class configureController extends ActionController {
 			}
 		}
 
+		$feedDAO = new FeedDAO ();
+		$this->view->feeds = $feedDAO->listFeeds ();
+		$this->view->flux = false;
+
 		View::prependTitle ('Importation et exportation OPML - ');
 	}
 
