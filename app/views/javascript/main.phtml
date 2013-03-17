@@ -19,15 +19,20 @@ function redirect (url, new_tab) {
 	}
 }
 
-function slide (new_active, old_active) {
+function toggleContent (new_active, old_active) {
 	old_active.removeClass ("active");
-	new_active.addClass ("active");
+	if (old_active[0] != new_active[0]) {
+		new_active.addClass ("active");
+	}
 
 	if (hide_posts) {
 		old_active.children (".content").toggle (0);
-		new_active.children (".content").toggle (0, function () {
-			$("html,body").scrollTop (new_active.position ().top);
-		});
+
+		if (old_active[0] != new_active[0]) {
+			new_active.children (".content").toggle (0, function () {
+				$("html,body").scrollTop (new_active.position ().top);
+			});
+		}
 	} else {
 		$("html,body").scrollTop (new_active.position ().top);
 	}
@@ -125,13 +130,11 @@ function init_posts () {
 		$(".flux:not(.active) .content").hide ();
 	}
 
-	$(".flux").click (function () {
+	$(".flux .flux_header").click (function () {
 		old_active = $(".flux.active");
-		new_active = $(this);
+		new_active = $(this).parent ();
 
-		if (old_active[0] != new_active[0]) {
-			slide (new_active, old_active);
-		}
+		toggleContent (new_active, old_active);
 	});
 
 	$(".flux a.read").click (function () {
@@ -174,10 +177,7 @@ function init_column_categories () {
 	});
 }
 
-$(document).ready (function () {
-	init_posts ();
-	init_column_categories ();
-
+function init_shortcuts () {
 	// Touches de manipulation
 	shortcut.add("<?php echo $s['mark_read']; ?>", function () {
 		// on marque comme lu ou non lu
@@ -208,10 +208,10 @@ $(document).ready (function () {
 		new_active = old_active.prevAll (".flux:first");
 
 		if (new_active.hasClass("flux")) {
-			slide (new_active, old_active);
+			toggleContent (new_active, old_active);
 		} else if (old_active[0] === undefined &&
 		           new_active[0] === undefined) {
-			slide (last_active, old_active);
+			toggleContent (last_active, old_active);
 		}
 	}, {
 		'disable_in_input':true
@@ -221,7 +221,7 @@ $(document).ready (function () {
 		first = $(".flux:first");
 
 		if (first.hasClass("flux")) {
-			slide (first, old_active);
+			toggleContent (first, old_active);
 		}
 	}, {
 		'disable_in_input':true
@@ -232,10 +232,10 @@ $(document).ready (function () {
 		new_active = old_active.nextAll (".flux:first");
 
 		if (new_active.hasClass("flux")) {
-			slide (new_active, old_active);
+			toggleContent (new_active, old_active);
 		} else if (old_active[0] === undefined &&
 		           new_active[0] === undefined) {
-			slide (first_active, old_active);
+			toggleContent (first_active, old_active);
 		}
 	}, {
 		'disable_in_input':true
@@ -245,7 +245,7 @@ $(document).ready (function () {
 		last = $(".flux:last");
 
 		if (last.hasClass("flux")) {
-			slide (last, old_active);
+			toggleContent (last, old_active);
 		}
 	}, {
 		'disable_in_input':true
@@ -275,4 +275,10 @@ $(document).ready (function () {
 	}, {
 		'disable_in_input':true
 	});
+}
+
+$(document).ready (function () {
+	init_posts ();
+	init_column_categories ();
+	init_shortcuts ();
 });
