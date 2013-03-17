@@ -117,6 +117,10 @@ class Feed extends Model {
 				$feed->set_cache_location (CACHE_PATH);
 				$feed->init ();
 
+				$subscribe_url = $feed->subscribe_url ();
+				if (!is_null ($subscribe_url) && $subscribe_url != $this->url) {
+					$this->_url ($subscribe_url);
+				}
 				$title = $feed->get_title ();
 				$this->_name (!is_null ($title) ? $title : $this->url);
 				$this->_website ($feed->get_link ());
@@ -133,6 +137,15 @@ class Feed extends Model {
 			$author = $item->get_author ();
 			$link = $item->get_permalink ();
 			$date = strtotime ($item->get_date ());
+
+			// gestion des tags (catégorie == tag)
+			$tags_tmp = $item->get_categories ();
+			$tags = array ();
+			if (!is_null ($tags_tmp)) {
+				foreach ($tags_tmp as $tag) {
+					$tags[] = $tag->get_label ();
+				}
+			}
 
 			// Gestion du contenu
 			// On cherche à récupérer les articles en entier... même si le flux ne le propose pas
@@ -156,6 +169,7 @@ class Feed extends Model {
 				!is_null ($link) ? $link : '',
 				$date ? $date : time ()
 			);
+			$entry->_tags ($tags);
 
 			$entries[$entry->id ()] = $entry;
 		}

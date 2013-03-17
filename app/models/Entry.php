@@ -212,7 +212,7 @@ class Entry extends Model {
 
 class EntryDAO extends Model_pdo {
 	public function addEntry ($valuesTmp) {
-		$sql = 'INSERT INTO entry(id, guid, title, author, content, link, date, is_read, is_favorite, is_public, id_feed, lastUpdate) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
+		$sql = 'INSERT INTO entry(id, guid, title, author, content, link, date, is_read, is_favorite, is_public, id_feed, annotation, tags, lastUpdate) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
 		$stm = $this->bd->prepare ($sql);
 
 		$values = array (
@@ -227,6 +227,8 @@ class EntryDAO extends Model_pdo {
 			$valuesTmp['is_favorite'],
 			$valuesTmp['is_public'],
 			$valuesTmp['id_feed'],
+			$valuesTmp['annotation'],
+			$valuesTmp['tags'],
 			$valuesTmp['lastUpdate'],
 		);
 
