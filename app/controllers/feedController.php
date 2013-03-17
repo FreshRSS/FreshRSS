@@ -86,22 +86,22 @@ class feedController extends ActionController {
 			}
 		}
 	}
-	
+
 	public function actualizeAction () {
 		$feedDAO = new FeedDAO ();
 		$entryDAO = new EntryDAO ();
-		
+
 		$feeds = $feedDAO->listFeedsOrderUpdate ();
-		
+
 		// pour ne pas ajouter des entrées trop anciennes
 		$nb_month_old = $this->view->conf->oldEntries ();
 		$date_min = time () - (60 * 60 * 24 * 30 * $nb_month_old);
-		
+
 		$i = 0;
 		foreach ($feeds as $feed) {
 			$feed->load ();
 			$entries = $feed->entries ();
-			
+
 			foreach ($entries as $entry) {
 				if ($entry->date (true) >= $date_min) {
 					$values = array (
@@ -119,27 +119,27 @@ class feedController extends ActionController {
 					$entryDAO->addEntry ($values);
 				}
 			}
-			
+
 			$feedDAO->updateLastUpdate ($feed->id ());
-			
+
 			$i++;
 			if ($i >= 10) {
 				break;
 			}
 		}
-		
+
 		$entryDAO->cleanOldEntries ($nb_month_old);
-		
+
 		// notif
 		$notif = array (
 			'type' => 'good',
-			'content' => 'Les flux ont été mis à jour'
+			'content' => '10 flux ont été mis à jour'
 		);
 		Session::_param ('notification', $notif);
-		
+
 		Request::forward (array (), true);
 	}
-	
+
 	public function massiveImportAction () {
 		if (login_is_conf ($this->view->conf) && !is_logged ()) {
 			Error::error (
@@ -149,45 +149,19 @@ class feedController extends ActionController {
 		} else {
 			$entryDAO = new EntryDAO ();
 			$feedDAO = new FeedDAO ();
-		
+
 			$categories = Request::param ('categories', array ());
 			$feeds = Request::param ('feeds', array ());
 
 			$this->addCategories ($categories);
-			
+
 			$nb_month_old = $this->view->conf->oldEntries ();
 			$date_min = time () - (60 * 60 * 24 * 30 * $nb_month_old);
-		
+
 			$i = 0;
 			foreach ($feeds as $feed) {
 				$feed->load ();
-				
-				// on ajoute les entrées que de 10 flux pour limiter un peu la charge
-				// si on ajoute pas les entrées du flux, alors on met la date du dernier update à 0
-				$update = 0;
-				$i++;
-				if ($i < 10) {
-					$update = time ();
-					$entries = $feed->entries ();
-					foreach ($entries as $entry) {
-						if ($entry->date (true) >= $date_min) {
-							$values = array (
-								'id' => $entry->id (),
-								'guid' => $entry->guid (),
-								'title' => $entry->title (),
-								'author' => $entry->author (),
-								'content' => $entry->content (),
-								'link' => $entry->link (),
-								'date' => $entry->date (true),
-								'is_read' => $entry->isRead (),
-								'is_favorite' => $entry->isFavorite (),
-								'id_feed' => $feed->id ()
-							);
-							$entryDAO->addEntry ($values);
-						}
-					}
-				}
-			
+
 				// Enregistrement du flux
 				$values = array (
 					'id' => $feed->id (),
@@ -196,22 +170,19 @@ class feedController extends ActionController {
 					'name' => $feed->name (),
 					'website' => $feed->website (),
 					'description' => $feed->description (),
-					'lastUpdate' => $update
+					'lastUpdate' => 0
 				);
+
 				$feedDAO->addFeed ($values);
 			}
-			
-			// notif
-			$notif = array (
-				'type' => 'good',
-				'content' => 'Les flux ont été importés'
-			);
-			Session::_param ('notification', $notif);
-	
-			Request::forward (array ('c' => 'configure', 'a' => 'importExport'));
+
+			Request::forward (array (
+				'c' => 'feed',
+				'a' => 'actualize'
+			));
 		}
 	}
-	
+
 	public function deleteAction () {
 		if (login_is_conf ($this->view->conf) && !is_logged ()) {
 			Error::error (
@@ -220,17 +191,17 @@ class feedController extends ActionController {
 			);
 		} else {
 			$id = Request::param ('id');
-		
+
 			$feedDAO = new FeedDAO ();
 			$feedDAO->deleteFeed ($id);
-			
+
 			// notif
 			$notif = array (
 				'type' => 'good',
 				'content' => 'Le flux a été supprimé'
 			);
 			Session::_param ('notification', $notif);
-		
+
 			Request::forward (array ('c' => 'configure', 'a' => 'feed'), true);
 		}
 	}
@@ -239,12 +210,14 @@ class feedController extends ActionController {
 		$catDAO = new CategoryDAO ();
 
 		foreach ($categories as $cat) {
-			$values = array (
-				'id' => $cat->id (),
-				'name' => $cat->name (),
-				'color' => $cat->color ()
-			);
-			$catDAO->addCategory ($values);
+			if (!$catDAO->searchByName ()) {
+				$values = array (
+					'id' => $cat->id (),
+					'name' => $cat->name (),
+					'color' => $cat->color ()
+				);
+				$catDAO->addCategory ($values);
+			}
 		}
 	}
 }
