@@ -543,6 +543,13 @@ input, select {
 		.categories .feeds .dropdown .dropdown-menu {
 			left: 0;
 		}
+		.categories .feeds .item .dropdown-toggle i {
+			background-image: none;
+		}
+			.categories .feeds .item .dropdown-target:target ~ .dropdown-toggle i,
+			.categories .feeds .item:hover .dropdown-toggle i {
+				background-image: url("icons/configure.svg");
+			}
 	.categories .notRead {
 		position: absolute;
 		top: 3px; right: 3px;
