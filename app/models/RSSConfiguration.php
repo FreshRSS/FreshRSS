@@ -8,6 +8,7 @@ class RSSConfiguration extends Model {
 	private $old_entries;
 	private $shortcuts = array ();
 	private $mail_login = '';
+	private $mark_when = array ();
 	
 	public function __construct () {
 		$confDAO = new RSSConfigurationDAO ();
@@ -18,6 +19,7 @@ class RSSConfiguration extends Model {
 		$this->_oldEntries ($confDAO->old_entries);
 		$this->_shortcuts ($confDAO->shortcuts);
 		$this->_mailLogin ($confDAO->mail_login);
+		$this->_markWhen ($confDAO->mark_when);
 	}
 	
 	public function postsPerPage () {
@@ -40,6 +42,18 @@ class RSSConfiguration extends Model {
 	}
 	public function mailLogin () {
 		return $this->mail_login;
+	}
+	public function markWhen () {
+		return $this->mark_when;
+	}
+	public function markWhenArticle () {
+		return $this->mark_when['article'];
+	}
+	public function markWhenSite () {
+		return $this->mark_when['site'];
+	}
+	public function markWhenPage () {
+		return $this->mark_when['page'];
 	}
 	
 	public function _postsPerPage ($value) {
@@ -89,6 +103,11 @@ class RSSConfiguration extends Model {
 			$this->mail_login = false;
 		}
 	}
+	public function _markWhen ($values) {
+		$this->mark_when['article'] = $values['article'];
+		$this->mark_when['site'] = $values['site'];
+		$this->mark_when['page'] = $values['page'];
+	}
 }
 
 class RSSConfigurationDAO extends Model_array {
@@ -107,6 +126,11 @@ class RSSConfigurationDAO extends Model_array {
 		'prev_page' => 'left',
 	);
 	public $mail_login = '';
+	public $mark_when = array (
+		'article' => 'yes',
+		'site' => 'yes',
+		'page' => 'no'
+	);
 
 	public function __construct () {
 		parent::__construct (PUBLIC_PATH . '/data/Configuration.array.php');
@@ -131,6 +155,9 @@ class RSSConfigurationDAO extends Model_array {
 		}
 		if (isset ($this->array['mail_login'])) {
 			$this->mail_login = $this->array['mail_login'];
+		}
+		if (isset ($this->array['mark_when'])) {
+			$this->mark_when = $this->array['mark_when'];
 		}
 	}
 	

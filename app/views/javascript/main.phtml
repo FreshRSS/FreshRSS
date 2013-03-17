@@ -4,7 +4,10 @@ var hide_posts = true;
 var hide_posts = false;
 <?php } ?>
 
-<?php $s = $this->conf->shortcuts (); ?>
+<?php
+	$s = $this->conf->shortcuts ();
+	$mark = $this->conf->markWhen ();
+?>
 
 function redirect (url, new_tab) {
 	if (url) {
@@ -32,12 +35,21 @@ function slide (new_active, old_active) {
 			offset: new_active.position ().top
 		});
 	}
+
+	<?php if ($mark['article'] == 'yes') { ?>
+	mark_read(new_active, true);
+	<?php } ?>
 }
 
-function mark_read (active) {
-	if (active[0] === undefined) {
+var load = false;
+function mark_read (active, only_not_read) {
+	if (active[0] === undefined || (
+	    only_not_read === true && !active.hasClass("not_read")) ||
+	    load === true) {
 		return false;
 	}
+
+	load = true;
 
 	url =  active.find ("a.read").attr ("href");
 	if (url === undefined) {
@@ -57,6 +69,8 @@ function mark_read (active) {
 		} else {
 			active.addClass ("not_read");
 		}
+
+		load = false;
 	});
 }
 
@@ -95,6 +109,13 @@ function init_img () {
 }
 
 function init_posts () {
+	<?php if ($mark['page'] == 'yes') { ?>
+	if ($(".flux.not_read")[0] != undefined) {
+		url = $(".nav_menu a.read_all").attr ("href");
+		redirect (url, false);
+	}
+	<?php } ?>
+
 	init_img ();
 
 	if (hide_posts) {
@@ -112,7 +133,7 @@ function init_posts () {
 
 	$(".flux a.read").click (function () {
 		active = $(this).parents (".flux");
-		mark_read (active);
+		mark_read (active, false);
 
 		return false;
 	});
@@ -127,6 +148,12 @@ function init_posts () {
 	$(".flux .content a").click (function () {
 		$(this).attr ('target', '_blank');
 	});
+
+	<?php if ($mark['site'] == 'yes') { ?>
+	$(".flux .link a").click (function () {
+		mark_read($(this).parent().parent().parent(), true);
+	});
+	<?php } ?>
 }
 
 function init_column_categories () {
@@ -152,13 +179,13 @@ $(document).ready (function () {
 	shortcut.add("<?php echo $s['mark_read']; ?>", function () {
 		// on marque comme lu ou non lu
 		active = $(".flux.active");
-		mark_read (active);
+		mark_read (active, false);
 	}, {
 		'disable_in_input':true
 	});
 	shortcut.add("shift+<?php echo $s['mark_read']; ?>", function () {
 		// on marque tout comme lu
-		url = $("#top a.read_all").attr ("href");
+		url = $(".nav_menu a.read_all").attr ("href");
 		redirect (url, false);
 	}, {
 		'disable_in_input':true
@@ -232,6 +259,12 @@ $(document).ready (function () {
 	});
 	shortcut.add("<?php echo $s['go_website']; ?>", function () {
 		url = $(".flux.active .link a").attr ("href");
+
+		<?php if ($mark['site'] == 'yes') { ?>
+		$(".flux.active").each (function () {
+			mark_read($(this), true);
+		});
+		<?php } ?>
 
 		redirect (url, true);
 	}, {

@@ -112,6 +112,9 @@ class configureController extends ActionController {
 			$sort = Request::param ('sort_order', 'low_to_high');
 			$old = Request::param ('old_entries', 3);
 			$mail = Request::param ('mail_login', false);
+			$openArticle = Request::param ('mark_open_article', 'no');
+			$openSite = Request::param ('mark_open_site', 'no');
+			$openPage = Request::param ('mark_open_page', 'no');
 
 			$this->view->conf->_postsPerPage (intval ($nb));
 			$this->view->conf->_defaultView ($view);
@@ -119,6 +122,11 @@ class configureController extends ActionController {
 			$this->view->conf->_sortOrder ($sort);
 			$this->view->conf->_oldEntries ($old);
 			$this->view->conf->_mailLogin ($mail);
+			$this->view->conf->_markWhen (array (
+				'article' => $openArticle,
+				'site' => $openSite,
+				'page' => $openPage,
+			));
 
 			$values = array (
 				'posts_per_page' => $this->view->conf->postsPerPage (),
@@ -127,6 +135,7 @@ class configureController extends ActionController {
 				'sort_order' => $this->view->conf->sortOrder (),
 				'old_entries' => $this->view->conf->oldEntries (),
 				'mail_login' => $this->view->conf->mailLogin (),
+				'mark_when' => $this->view->conf->markWhen (),
 			);
 
 			$confDAO = new RSSConfigurationDAO ();

@@ -51,7 +51,9 @@
 							<li class="dropdown-close"><a href="#close"><i class="icon i_close"></i></a></li>
 							<li class="item"><a href="<?php echo _url ('index', 'index', 'get', 'f_' . $feed->id ()); ?>">Filtrer</a></li>
 							<li class="separator"></li>
+							<?php if (!login_is_conf ($this->conf) || is_logged ()) { ?>
 							<li class="item"><a href="<?php echo _url ('configure', 'feed', 'id', $feed->id ()); ?>">Gestion</a></li>
+							<?php } ?>
 							<li class="item"><a href="<?php echo $feed->website (); ?>">Voir le site</a></li>
 						</ul>
 					</div>

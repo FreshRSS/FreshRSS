@@ -15,4 +15,9 @@ return array (
 		'next_page' => 'right',
 		'prev_page' => 'left',
 	),
+	'mark_when' => array (
+		'article' => 'yes',
+		'site' => 'yes',
+		'page' => 'no',
+	),
 );

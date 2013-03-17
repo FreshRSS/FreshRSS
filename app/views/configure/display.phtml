@@ -20,7 +20,7 @@
 			</div>
 		</div>
 	
-		<legend>Configuration de l'affichage</legend>
+		<legend>Configuration de lecture</legend>
 
 		<div class="form-group">
 			<label class="group-name" for="posts_per_page">Nombre d'articles par page</label>
@@ -63,6 +63,24 @@
 				<label class="radio" for="radio_no">
 					<input type="radio" name="display_posts" id="radio_no" value="no"<?php echo $this->conf->displayPosts () == 'no' ? ' checked="checked"' : ''; ?> />
 					Non<noscript> - <b>nécessite que javascript soit activé</b></noscript>
+				</label>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="group-name">Article automatiquement marqué comme lu lorsque</label>
+			<div class="group-controls">
+				<label class="checkbox" for="check_open_article">
+					<input type="checkbox" name="mark_open_article" id="check_open_article" value="yes"<?php echo $this->conf->markWhenArticle () == 'yes' ? ' checked="checked"' : ''; ?> />
+					l'article est sélectionné
+				</label>
+				<label class="checkbox" for="check_open_site">
+					<input type="checkbox" name="mark_open_site" id="check_open_site" value="yes"<?php echo $this->conf->markWhenSite () == 'yes' ? ' checked="checked"' : ''; ?> />
+					l'article est ouvert sur le site d'origine
+				</label>
+				<label class="checkbox" for="check_open_page">
+					<input type="checkbox" name="mark_open_page" id="check_open_page" value="yes"<?php echo $this->conf->markWhenPage () == 'yes' ? ' checked="checked"' : ''; ?> />
+					la page est chargée
 				</label>
 			</div>
 		</div>

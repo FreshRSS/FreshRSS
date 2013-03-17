@@ -1,3 +1,10 @@
+/* FONTS */
+@font-face {
+	font-family: 'OpenSans';
+	src: local('fonts/openSans.woff') format('woff');
+}
+
+
 * {
 	margin: 0;
 	padding: 0;
@@ -682,6 +689,7 @@ input {
 	margin: 0 auto;
 	padding: 10px;
 	line-height: 170%;
+	font-family: 'OpenSans';
 }
 	.content h1, .content h2, .content h3 {
 		margin: 20px 0 5px;
@@ -708,12 +716,15 @@ input {
 	}
 	.content q, .content blockquote {
 		display: block;
-		margin: 0;
-		padding: 10px 20px;
+		margin: 5px 0;
+		padding: 5px 20px;
 		font-style: italic;
 		border-left: 4px solid #ccc;
 		color: #666;
 	}
+		.content blockquote p {
+			margin: 0;
+		}
 
 /*** PAGINATION ***/
 .pagination {
@@ -747,11 +758,10 @@ input {
 .notification {
 	position: fixed;
 	bottom: 0;
-	left: 25%;
-	width: 50%;
-	height: 50px;
-	padding: 0 50px;
-	line-height: 50px;
+	left: 5%; right: 5%;
+	min-height: 30px;
+	padding: 10px;
+	line-height: 30px;
 	text-align: center;
 	border-radius: 5px 5px 0 0;
 	box-shadow: 0 0 5px #666;
@@ -770,7 +780,7 @@ input {
 		width: 16px;
 		height: 16px;
 		float: right;
-		margin: -10px -60px 0 0;
+		margin: -20px -20px 0 0;
 		padding: 5px;
 		background: #fff;
 		border-radius: 50px;

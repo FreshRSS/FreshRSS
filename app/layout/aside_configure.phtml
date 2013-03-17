@@ -2,15 +2,12 @@
 	<li class="nav-header">Configuration</li>
 
 	<li class="item<?php echo Request::actionName () == 'display' ? ' active' : ''; ?>">
-		<a href="<?php echo Url::display (array ('c' => 'configure', 'a' => 'display')); ?>">Général et affichage</a>
+		<a href="<?php echo Url::display (array ('c' => 'configure', 'a' => 'display')); ?>">Général et lecture</a>
 	</li>
 	<li class="item<?php echo Request::actionName () == 'categorize' ? ' active' : ''; ?>">
 		<a href="<?php echo Url::display (array ('c' => 'configure', 'a' => 'categorize')); ?>">Catégories</a>
 	</li>
 	<li class="item<?php echo Request::actionName () == 'shortcut' ? ' active' : ''; ?>">
 		<a href="<?php echo Url::display (array ('c' => 'configure', 'a' => 'shortcut')); ?>">Raccourcis</a>
-	</li>
-	<li class="item<?php echo Request::actionName () == 'importExport' ? ' active' : ''; ?>">
-		<a href="<?php echo Url::display (array ('c' => 'configure', 'a' => 'importExport')); ?>">Import / Export OPML</a>
 	</li>
 </div>
