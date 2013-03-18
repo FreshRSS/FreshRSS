@@ -645,7 +645,7 @@ input, select, textarea {
 			vertical-align: middle;
 		}
 			.flux_header .item.manage {
-				width: 75px;
+				width: 90px;
 				white-space: nowrap;
 				font-size: 0px;
 				vertical-align: middle;
@@ -653,8 +653,8 @@ input, select, textarea {
 			}
 				.flux_header .item.manage .read {
 					display: inline-block;
-					width: 25px;
-					height: 25px;
+					width: 30px;
+					height: 35px;
 					background: url("icons/read.svg") center center no-repeat;
 					vertical-align: middle;
 				}
@@ -666,8 +666,8 @@ input, select, textarea {
 					}
 				.flux_header .item.manage .bookmark {
 					display: inline-block;
-					width: 25px;
-					height: 25px;
+					width: 30px;
+					height: 35px;
 					background: url("icons/non-starred.svg") center center no-repeat;
 					vertical-align: middle;
 				}
@@ -679,12 +679,14 @@ input, select, textarea {
 					}
 				.flux_header .item.manage .note {
 					display: inline-block;
-					width: 25px;
-					height: 25px;
+					width: 30px;
+					height: 35px;
 					vertical-align: middle;
+					line-height: 35px;
 				}
 			.flux_header .item.website {
 				width: 200px;
+				padding: 0 5px;
 				overflow: hidden;
 				white-space: nowrap;
 				text-overflow: ellipsis;
@@ -717,8 +719,8 @@ input, select, textarea {
 			}
 				.flux_header .item.link a {
 					display: inline-block;
-					width: 25px;
-					height: 25px;
+					width: 35px;
+					height: 35px;
 					background: url("icons/link.svg") center center no-repeat;
 					vertical-align: middle;
 				}
@@ -843,6 +845,4 @@ input, select, textarea {
 	.pagination .pager-previous, .pagination .pager-next {
 		width: 100px;
 	}
-}
-@media(max-width: 450px) {
 }

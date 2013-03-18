@@ -130,9 +130,9 @@ function init_posts () {
 		$(".flux:not(.active) .content").hide ();
 	}
 
-	$(".flux .flux_header").click (function () {
+	$(".flux_header .item.title, .flux_header .item.date").click (function () {
 		old_active = $(".flux.active");
-		new_active = $(this).parent ();
+		new_active = $(this).parent ().parent ();
 
 		toggleContent (new_active, old_active);
 	});
