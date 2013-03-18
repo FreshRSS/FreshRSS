@@ -546,25 +546,23 @@ input, select, textarea {
 		margin: 0 auto;
 		list-style: none;
 	}
-		.catefories .feeds .item {
+		.categories .feeds .item.active:after {
+			content: "⇢";
+			line-height: 35px;
+			float: right;
 		}
-			.categories .feeds .item.active:after {
-				content: "⇢";
-				line-height: 35px;
-				float: right;
-			}
-			.categories .feeds .item .feed {
-				display: inline-block;
-				margin: 0;
-				width: 165px;
-				line-height: 35px;
-				font-size: 90%;
-				vertical-align: middle;
-				text-align: left;
-				overflow: hidden;
-				white-space: nowrap;
-				text-overflow: ellipsis;
-			}
+		.categories .feeds .item .feed {
+			display: inline-block;
+			margin: 0;
+			width: 165px;
+			line-height: 35px;
+			font-size: 90%;
+			vertical-align: middle;
+			text-align: left;
+			overflow: hidden;
+			white-space: nowrap;
+			text-overflow: ellipsis;
+		}
 		.categories .feeds .dropdown .dropdown-menu {
 			left: 0;
 		}
@@ -695,6 +693,7 @@ input, select, textarea {
 				overflow: hidden;
 				white-space: nowrap;
 				text-overflow: ellipsis;
+				cursor: pointer;
 			}
 				.flux_header .item.title h1 {
 					font-size: 12px;
@@ -712,6 +711,7 @@ input, select, textarea {
 				text-align: right;
 				font-size: 10px;
 				color: #666;
+				cursor: pointer;
 			}
 			.flux_header .item.link {
 				width: 35px;

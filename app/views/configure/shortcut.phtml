@@ -1,6 +1,8 @@
 <?php $this->partial ('aside_configure'); ?>
 
 <div class="post">
+	<a href="<?php echo _url ('index', 'index'); ?>">← Retour à vos flux RSS</a>
+
 	<datalist id="keys">
 		<?php foreach ($this->list_keys as $key) { ?>
 		<option value="<?php echo $key; ?>">

@@ -2,6 +2,8 @@
 
 <?php if ($this->flux) { ?>
 <div class="post">
+	<a href="<?php echo _url ('index', 'index'); ?>">← Retour à vos flux RSS</a>
+
 	<h1><?php echo $this->flux->name (); ?></h1>
 	<?php echo $this->flux->description (); ?>
 

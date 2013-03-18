@@ -1,6 +1,8 @@
 <?php $this->partial ('aside_flux'); ?>
 
 <div class="post">
+	<a href="<?php echo _url ('index', 'index'); ?>">← Retour à vos flux RSS</a>
+
 	<form method="post" action="<?php echo _url ('entry', 'note', 'id', $this->entry->id ()); ?>">
 		<legend>Note</legend>
 

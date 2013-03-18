@@ -98,6 +98,8 @@ class entryController extends ActionController {
 	}
 
 	public function noteAction () {
+		View::appendScript (Url::display (array ('c' => 'javascript', 'a' => 'main')));
+
 		$not_found = false;
 		$entryDAO = new EntryDAO ();
 		$catDAO = new CategoryDAO ();
