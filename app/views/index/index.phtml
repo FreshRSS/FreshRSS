@@ -50,7 +50,7 @@ if (isset ($this->entryPaginator)) {
 			</li>
 			<?php } ?>
 			<?php $feed = $item->feed (true); ?>
-			<li class="item website"><a target="_blank" href="<?php echo $feed->website (); ?>"><img src="http://www.google.com/s2/favicons?domain=<?php echo get_domain ($feed->website ()); ?>" alt="" /><span> <?php echo $feed->name (); ?></span></a></li>
+			<li class="item website"><a target="_blank" href="<?php echo $feed->website (); ?>"><img src="http://www.google.com/s2/favicons?domain=<?php echo get_domain ($feed->website ()); ?>" alt="favicon <?php echo $feed->name (); ?>" /><span> <?php echo $feed->name (); ?></span></a></li>
 			<li class="item title"><h1><?php echo $item->title (); ?></h1></li>
 			<li class="item date">le <?php echo $item->date (); ?></li>
 			<li class="item link"><a target="_blank" href="<?php echo $item->link (); ?>">&nbsp;</a></li>

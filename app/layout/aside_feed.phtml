@@ -15,7 +15,10 @@
 	<?php if (!empty ($this->feeds)) { ?>
 	<?php foreach ($this->feeds as $feed) { ?>
 	<li class="item<?php echo ($this->flux && $this->flux->id () == $feed->id ()) ? ' active' : ''; ?>">
-		<a href="<?php echo _url ('configure', 'feed', 'id', $feed->id ()); ?>"><?php echo $feed->name (); ?></a>
+		<a href="<?php echo _url ('configure', 'feed', 'id', $feed->id ()); ?>">
+			<img src="http://www.google.com/s2/favicons?domain=<?php echo get_domain ($feed->website ()); ?>" alt="favicon <?php echo $feed->name (); ?>" />
+			<?php echo $feed->name (); ?>
+		</a>
 	</li>
 	<?php } ?>
 	<?php } else { ?>
