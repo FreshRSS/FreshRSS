@@ -17,7 +17,7 @@ class configureController extends ActionController {
 		if (Request::isPost ()) {
 			$cats = Request::param ('categories', array ());
 			$ids = Request::param ('ids', array ());
-			$newCat = Request::param ('new_category');
+			$newCat = trim (Request::param ('new_category', ''));
 
 			foreach ($cats as $key => $name) {
 				if (strlen ($name) > 0) {
@@ -32,14 +32,17 @@ class configureController extends ActionController {
 				}
 			}
 
-			if ($newCat != false) {
+			if ($newCat != '') {
 				$cat = new Category ($newCat);
 				$values = array (
 					'id' => $cat->id (),
 					'name' => $cat->name (),
 					'color' => $cat->color ()
 				);
-				$catDAO->addCategory ($values);
+
+				if ($catDAO->searchByName ($newCat) == false) {
+					$catDAO->addCategory ($values);
+				}
 			}
 
 			// notif
