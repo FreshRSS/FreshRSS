@@ -65,6 +65,7 @@ label {
 	padding: 5px 0;
 	font-size: 14px;
 	line-height: 25px;
+	cursor: pointer;
 }
 input, select, textarea {
 	display: inline-block;
@@ -321,22 +322,25 @@ input, select, textarea {
 			padding: 0 5px;
 			color: #888;
 			font-weight: bold;
+			font-size: 14px;
+			line-height: 30px;
 		}
 		.dropdown .dropdown-menu .item {
 			display: block;
 			height: 30px;
-			padding: 0 25px;
 			font-size: 90%;
 			line-height: 30px;
 		}
-			.dropdown .dropdown-menu .item a {
+			.dropdown .dropdown-menu .item > * {
 				display: block;
+				padding: 0 25px;
+				line-height: 30px;
 			}
 			.dropdown .dropdown-menu .item:hover {
 				background: #0062BE;
 				color: #fff;
 			}
-				.dropdown .dropdown-menu .item:hover a {
+				.dropdown .dropdown-menu .item:hover > * {
 					color: #fff;
 					text-decoration: none;
 				}
@@ -507,6 +511,12 @@ input, select, textarea {
 		}
 		.aside.aside_flux {
 			padding: 10px 0;
+		}
+		.aside.aside_feed .nav-form input {
+			width: 140px;
+		}
+		.aside.aside_feed .nav-form .dropdown .dropdown-menu {
+			right: -20px;
 		}
 
 	.nav_menu {

@@ -61,6 +61,9 @@ class configureController extends ActionController {
 	}
 
 	public function feedAction () {
+		$catDAO = new CategoryDAO ();
+		$this->view->categories = $catDAO->listCategories ();
+
 		$feedDAO = new FeedDAO ();
 		$this->view->feeds = $feedDAO->listFeeds ();
 

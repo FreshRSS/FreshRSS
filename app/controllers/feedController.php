@@ -15,10 +15,12 @@ class feedController extends ActionController {
 		} else {
 			if (Request::isPost ()) {
 				$url = Request::param ('url_rss');
+				$cat = Request::param ('category');
 				$params = array ();
 
 				try {
 					$feed = new Feed ($url);
+					$feed->_category ($cat);
 					$feed->load ();
 
 					$feedDAO = new FeedDAO ();

@@ -1,9 +1,28 @@
-<ul class="nav nav-list aside">
+<ul class="nav nav-list aside aside_feed">
 	<li class="nav-header">Vos flux RSS</li>
 
 	<li class="nav-form"><form id="add_rss" method="post" action="<?php echo Url::display (array ('c' => 'feed', 'a' => 'add')); ?>">
 		<div class="stick">
 			<input type="url" name="url_rss" placeholder="Ajouter un flux RSS" />
+			<div class="dropdown">
+				<div id="dropdown-cat" class="dropdown-target"></div>
+
+				<a class="dropdown-toggle btn" href="#dropdown-cat"><i class="icon i_down"></i></a>
+				<ul class="dropdown-menu">
+					<li class="dropdown-close"><a href="#close"><i class="icon i_close"></i></a></li>
+
+					<li class="dropdown-header">Catégorie</li>
+
+					<?php foreach ($this->categories as $cat) { ?>
+					<li class="item">
+					<label class="radio" for="radio_<?php echo $cat->id (); ?>">
+						<input type="radio" name="category" id="radio_<?php echo $cat->id (); ?>" value="<?php echo $cat->id (); ?>"<?php echo $cat->id ()=='000000' ? ' checked="checked"' : ''; ?>/>
+						<?php echo $cat->name (); ?>
+					</label>
+					</li>
+					<?php } ?>
+				</ul>
+			</div>
 			<button class="btn" type="submit"><i class="icon i_add"></i></button>
 		</div>
 	</form></li>
