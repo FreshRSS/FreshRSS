@@ -9,6 +9,7 @@ class entryController extends ActionController {
 			);
 		}
 
+		$this->params = array ();
 		$this->redirect = false;
 		$ajax = Request::param ('ajax');
 		if ($ajax) {

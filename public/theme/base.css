@@ -698,11 +698,16 @@ input, select, textarea {
 				}
 			.flux_header .item.website {
 				width: 200px;
-				padding: 0 5px;
 				overflow: hidden;
 				white-space: nowrap;
 				text-overflow: ellipsis;
+				line-height: 35px;
 			}
+				.flux_header .item.website a {
+					display: block;
+					padding: 0 5px;
+					height: 35px;
+				}
 			.flux_header .item.title {
 				overflow: hidden;
 				white-space: nowrap;
@@ -854,7 +859,8 @@ input, select, textarea {
 		display: none;
 	}
 	.flux_header .item.website {
-		width: 20px;
+		width: 30px;
+		text-align: center;
 	}
 	.pagination .pager-previous, .pagination .pager-next {
 		width: 100px;
