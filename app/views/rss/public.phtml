@@ -1,0 +1,31 @@
+<?php echo '<?xml version="1.0" encoding="UTF-8" ?>'; ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/">
+	<channel>
+		<title><?php echo View::title(); ?></title>
+		<link><?php echo Url::display(); ?></link>
+		<description>Flux public de <?php echo View::title(); ?></description>
+		<language>fr</language>
+		<pubDate><?php echo date('D, d M Y H:i:s O'); ?></pubDate>
+		<lastBuildDate><?php echo gmdate('D, d M Y H:i:s'); ?> GMT</lastBuildDate>
+		<atom:link href="<?php echo Url::display(array('a' => 'rss')); ?>" rel="self" type="application/rss+xml" />
+<?php
+$items = $this->itemPaginator->items ();
+foreach ($items as $item) {
+?>
+		<item>
+			<title><?php echo htmlspecialchars(html_entity_decode($item->title ())); ?></title>
+			<link><?php echo $item->link (); ?></link>
+			<?php $author = $item->author (); ?>
+			<?php if ($author != '') { ?>
+			<dc:creator><?php echo $author; ?></dc:creator>
+			<?php } ?>
+			<description><![CDATA[<?php
+	echo html_entity_decode($item->notes (false, false));
+?>]]></description>
+			<pubDate><?php echo date('D, d M Y H:i:s O', $item->date (true)); ?></pubDate>
+			<guid><?php echo $item->guid (); ?></guid>
+		</item>
+<?php } ?>		
+
+	</channel>
+</rss>
