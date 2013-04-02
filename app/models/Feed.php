@@ -58,6 +58,10 @@ class Feed extends Model {
 		$feedDAO = new FeedDAO ();
 		return $feedDAO->countEntries ($this->id ());
 	}
+	public function nbNotRead () {
+		$feedDAO = new FeedDAO ();
+		return $feedDAO->countNotRead ($this->id ());
+	}
 
 	public function _id ($value) {
 		$this->id = $value;
@@ -306,6 +310,15 @@ class FeedDAO extends Model_pdo {
 
 	public function countEntries ($id) {
 		$sql = 'SELECT COUNT(*) AS count FROM entry WHERE id_feed=?';
+		$stm = $this->bd->prepare ($sql);
+		$values = array ($id);
+		$stm->execute ($values);
+		$res = $stm->fetchAll (PDO::FETCH_ASSOC);
+
+		return $res[0]['count'];
+	}
+	public function countNotRead ($id) {
+		$sql = 'SELECT COUNT(*) AS count FROM entry WHERE is_read=0 AND id_feed=?';
 		$stm = $this->bd->prepare ($sql);
 		$values = array ($id);
 		$stm->execute ($values);

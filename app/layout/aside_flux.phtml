@@ -58,10 +58,15 @@
 						</ul>
 					</div>
 
+					<?php $not_read = $feed->nbNotRead (); ?>
+
 					<img class="favicon" src="http://g.etfv.co/<?php echo $feed->website (); ?>" alt="favicon <?php echo $feed->name (); ?>" />
+					<?php echo $not_read > 0 ? '<b>' : ''; ?>
 					<a class="feed" href="<?php echo _url ('index', 'index', 'get', 'f_' . $feed->id ()); ?>">
+						<?php echo $not_read > 0 ? '(' . $not_read . ') ' : ''; ?>
 						<?php echo $feed->name(); ?>
 					</a>
+					<?php echo $not_read > 0 ? '</b>' : ''; ?>
 				</li>
 				<?php } ?>
 			</ul>
