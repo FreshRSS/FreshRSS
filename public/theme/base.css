@@ -695,6 +695,7 @@ input, select, textarea {
 					height: 35px;
 					vertical-align: middle;
 					line-height: 35px;
+					font-size: 12px;
 				}
 			.flux_header .item.website {
 				width: 200px;

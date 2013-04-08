@@ -51,8 +51,15 @@ class Feed extends Model {
 	public function pathEntries () {
 		return $this->pathEntries;
 	}
-	public function httpAuth () {
-		return $this->httpAuth;
+	public function httpAuth ($raw = true) {
+		if ($raw) {
+			return $this->httpAuth;
+		} else {
+			return array (
+				'username' => '',
+				'password' => ''
+			);
+		}
 	}
 	public function nbEntries () {
 		$feedDAO = new FeedDAO ();
