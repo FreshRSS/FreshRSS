@@ -33,9 +33,11 @@ class feedController extends ActionController {
 						'description' => $feed->description (),
 						'lastUpdate' => time ()
 					);
+
 					if ($feedDAO->addFeed ($values)) {
 						$entryDAO = new EntryDAO ();
 						$entries = $feed->entries ();
+
 						foreach ($entries as $entry) {
 							$values = $entry->toArray ();
 							$entryDAO->addEntry ($values);

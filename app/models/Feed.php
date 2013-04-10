@@ -207,6 +207,8 @@ class FeedDAO extends Model_pdo {
 		if ($stm && $stm->execute ($values)) {
 			return true;
 		} else {
+			$info = $stm->errorInfo();
+			Log::record ('SQL error : ' . $info[2], Log::ERROR);
 			return false;
 		}
 	}
@@ -229,6 +231,8 @@ class FeedDAO extends Model_pdo {
 		if ($stm && $stm->execute ($values)) {
 			return true;
 		} else {
+			$info = $stm->errorInfo();
+			Log::record ('SQL error : ' . $info[2], Log::ERROR);
 			return false;
 		}
 	}
@@ -245,6 +249,8 @@ class FeedDAO extends Model_pdo {
 		if ($stm && $stm->execute ($values)) {
 			return true;
 		} else {
+			$info = $stm->errorInfo();
+			Log::record ('SQL error : ' . $info[2], Log::ERROR);
 			return false;
 		}
 	}
@@ -258,6 +264,8 @@ class FeedDAO extends Model_pdo {
 		if ($stm && $stm->execute ($values)) {
 			return true;
 		} else {
+			$info = $stm->errorInfo();
+			Log::record ('SQL error : ' . $info[2], Log::ERROR);
 			return false;
 		}
 	}
@@ -275,6 +283,8 @@ class FeedDAO extends Model_pdo {
 		if (isset ($feed[$id])) {
 			return $feed[$id];
 		} else {
+			$info = $stm->errorInfo();
+			Log::record ('SQL error : ' . $info[2], Log::ERROR);
 			return false;
 		}
 	}

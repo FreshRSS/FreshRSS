@@ -49,7 +49,11 @@ class Entry extends Model {
 		return $this->title;
 	}
 	public function author () {
-		return $this->author;
+		if (is_null ($this->author)) {
+			return '';
+		} else {
+			return $this->author;
+		}
 	}
 	public function content () {
 		return $this->content;
@@ -212,7 +216,7 @@ class Entry extends Model {
 
 class EntryDAO extends Model_pdo {
 	public function addEntry ($valuesTmp) {
-		$sql = 'INSERT INTO entry(id, guid, title, author, content, link, date, is_read, is_favorite, is_public, id_feed, annotation, tags, lastUpdate) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
+		$sql = 'INSERT INTO entry(id, guid, title, author, content, link, date, is_read, is_favorite, is_public, id_feed, lastUpdate) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
 		$stm = $this->bd->prepare ($sql);
 
 		$values = array (
@@ -227,14 +231,14 @@ class EntryDAO extends Model_pdo {
 			$valuesTmp['is_favorite'],
 			$valuesTmp['is_public'],
 			$valuesTmp['id_feed'],
-			$valuesTmp['annotation'],
-			$valuesTmp['tags'],
 			$valuesTmp['lastUpdate'],
 		);
 
 		if ($stm && $stm->execute ($values)) {
 			return true;
 		} else {
+			$info = $stm->errorInfo();
+			Log::record ('SQL error : ' . $info[2], Log::ERROR);
 			return false;
 		}
 	}
@@ -261,6 +265,8 @@ class EntryDAO extends Model_pdo {
 		if ($stm && $stm->execute ($values)) {
 			return true;
 		} else {
+			$info = $stm->errorInfo();
+			Log::record ('SQL error : ' . $info[2], Log::ERROR);
 			return false;
 		}
 	}
@@ -274,6 +280,8 @@ class EntryDAO extends Model_pdo {
 		if ($stm && $stm->execute ($values)) {
 			return true;
 		} else {
+			$info = $stm->errorInfo();
+			Log::record ('SQL error : ' . $info[2], Log::ERROR);
 			return false;
 		}
 	}
@@ -286,6 +294,8 @@ class EntryDAO extends Model_pdo {
 		if ($stm && $stm->execute ($values)) {
 			return true;
 		} else {
+			$info = $stm->errorInfo();
+			Log::record ('SQL error : ' . $info[2], Log::ERROR);
 			return false;
 		}
 	}
@@ -298,6 +308,8 @@ class EntryDAO extends Model_pdo {
 		if ($stm && $stm->execute ($values)) {
 			return true;
 		} else {
+			$info = $stm->errorInfo();
+			Log::record ('SQL error : ' . $info[2], Log::ERROR);
 			return false;
 		}
 	}
@@ -323,6 +335,8 @@ class EntryDAO extends Model_pdo {
 		if ($stm && $stm->execute ($values)) {
 			return true;
 		} else {
+			$info = $stm->errorInfo();
+			Log::record ('SQL error : ' . $info[2], Log::ERROR);
 			return false;
 		}
 	}
@@ -339,6 +353,8 @@ class EntryDAO extends Model_pdo {
 		if ($stm && $stm->execute ($values)) {
 			return true;
 		} else {
+			$info = $stm->errorInfo();
+			Log::record ('SQL error : ' . $info[2], Log::ERROR);
 			return false;
 		}
 	}
@@ -356,6 +372,8 @@ class EntryDAO extends Model_pdo {
 		if (isset ($entry[0])) {
 			return $entry[0];
 		} else {
+			$info = $stm->errorInfo();
+			Log::record ('SQL error : ' . $info[2], Log::ERROR);
 			return false;
 		}
 	}
