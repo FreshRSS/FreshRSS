@@ -98,23 +98,27 @@ class feedController extends ActionController {
 		$date_min = time () - (60 * 60 * 24 * 30 * $nb_month_old);
 
 		$i = 0;
-		foreach ($feeds as $feed) {
-			$feed->load ();
-			$entries = $feed->entries ();
+		try {
+			foreach ($feeds as $feed) {
+				$feed->load ();
+				$entries = $feed->entries ();
 
-			foreach ($entries as $entry) {
-				if ($entry->date (true) >= $date_min) {
-					$values = $entry->toArray ();
-					$entryDAO->addEntry ($values);
+				foreach ($entries as $entry) {
+					if ($entry->date (true) >= $date_min) {
+						$values = $entry->toArray ();
+						$entryDAO->addEntry ($values);
+					}
+				}
+
+				$feedDAO->updateLastUpdate ($feed->id ());
+
+				$i++;
+				if ($i >= 10) {
+					break;
 				}
 			}
-
-			$feedDAO->updateLastUpdate ($feed->id ());
-
-			$i++;
-			if ($i >= 10) {
-				break;
-			}
+		} catch (FeedException $e) {
+			Log::record ($e->getMessage (), Log::ERROR);
 		}
 
 		$entryDAO->cleanOldEntries ($nb_month_old);
