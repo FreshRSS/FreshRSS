@@ -19,7 +19,7 @@ class App_FrontController extends FrontController {
 	private function loadLibs () {
 		require (LIB_PATH . '/lib_phpQuery.php');
 		require (LIB_PATH . '/lib_rss.php');
-		require (LIB_PATH . '/lib_simplepie.php');
+		require (LIB_PATH . '/SimplePie_autoloader.php');
 		require (LIB_PATH . '/lib_text.php');
 	}
 	
