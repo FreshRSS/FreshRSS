@@ -158,7 +158,6 @@ input, select, textarea {
 	.stick .btn + .dropdown > .btn {
 		border-left: none;
 		border-radius: 0 3px 3px 0;
-		font-size: 0px;
 	}
 	.stick .btn + .dropdown a {
 		font-size: 12px;
@@ -666,7 +665,7 @@ input, select, textarea {
 				.flux_header .item.manage .read {
 					display: inline-block;
 					width: 30px;
-					height: 35px;
+					height: 40px;
 					background: url("icons/read.svg") center center no-repeat;
 					vertical-align: middle;
 				}
@@ -679,7 +678,7 @@ input, select, textarea {
 				.flux_header .item.manage .bookmark {
 					display: inline-block;
 					width: 30px;
-					height: 35px;
+					height: 40px;
 					background: url("icons/non-starred.svg") center center no-repeat;
 					vertical-align: middle;
 				}
@@ -692,7 +691,7 @@ input, select, textarea {
 				.flux_header .item.manage .note {
 					display: inline-block;
 					width: 30px;
-					height: 35px;
+					height: 40px;
 					vertical-align: middle;
 					line-height: 35px;
 					font-size: 12px;
@@ -707,7 +706,7 @@ input, select, textarea {
 				.flux_header .item.website a {
 					display: block;
 					padding: 0 5px;
-					height: 35px;
+					height: 40px;
 				}
 			.flux_header .item.title {
 				overflow: hidden;
@@ -740,7 +739,7 @@ input, select, textarea {
 				.flux_header .item.link a {
 					display: inline-block;
 					width: 35px;
-					height: 35px;
+					height: 40px;
 					background: url("icons/link.svg") center center no-repeat;
 					vertical-align: middle;
 				}
