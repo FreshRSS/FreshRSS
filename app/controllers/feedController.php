@@ -58,6 +58,13 @@ class feedController extends ActionController {
 						);
 						Session::_param ('notification', $notif);
 					}
+				} catch (FeedException $e) {
+					Log::record ($e->getMessage (), Log::ERROR);
+					$notif = array (
+						'type' => 'bad',
+						'content' => 'Un problème interne a été rencontré, le flux n\'a pas pu être ajouté'
+					);
+					Session::_param ('notification', $notif);
 				} catch (FileNotExistException $e) {
 					Log::record ($e->getMessage (), Log::ERROR);
 					// notif

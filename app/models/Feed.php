@@ -128,6 +128,10 @@ class Feed extends Model {
 				$feed->set_cache_location (CACHE_PATH);
 				$feed->init ();
 
+				if ($feed->error()) {
+					throw new FeedException ($feed->error);
+				}
+
 				$subscribe_url = $feed->subscribe_url ();
 				if (!is_null ($subscribe_url) && $subscribe_url != $this->url) {
 					$this->_url ($subscribe_url);
