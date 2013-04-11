@@ -72,8 +72,10 @@ CREATE TABLE IF NOT EXISTS `feed` (
   `website` text NOT NULL,
   `description` text NOT NULL,
   `lastUpdate` int(11) NOT NULL,
+  `priority` int(2) NOT NULL DEFAULT '10',
   `pathEntries` varchar(500) DEFAULT NULL,
   `httpAuth` varchar(500) DEFAULT NULL,
+  `error` int(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `category` (`category`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
