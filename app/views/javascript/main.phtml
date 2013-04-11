@@ -110,7 +110,7 @@ function mark_favorite (active) {
 
 function init_img () {
 	$(".flux .content img").each (function () {
-		if ($(this).width () > ($("#stream").width()) / 2) {
+		if ($(this).width () > ($("#stream .content").width()) / 2) {
 			$(this).addClass("big");
 		}
 	});
