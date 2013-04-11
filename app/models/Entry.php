@@ -403,7 +403,7 @@ class EntryDAO extends Model_pdo {
 		$deb = ($this->currentPage () - 1) * $this->nbItemsPerPage;
 		$fin = $this->nbItemsPerPage;
 
-		$sql = 'SELECT * FROM entry e'
+		$sql = 'SELECT e.* FROM entry e'
 		     . ' INNER JOIN feed f ON e.id_feed = f.id' . $where
 		     . ' ORDER BY date' . $order
 		     . ' LIMIT ' . $deb . ', ' . $fin;
@@ -563,7 +563,7 @@ class EntryDAO extends Model_pdo {
 		$stm = $this->bd->prepare ($sql);
 		$stm->execute ();
 		$res = $stm->fetchAll (PDO::FETCH_ASSOC);
-		Log::record ('not read : ' . $res[0]['count'], Log::NOTICE);
+
 		return $res[0]['count'];
 	}
 
