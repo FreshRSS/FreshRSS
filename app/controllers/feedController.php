@@ -132,7 +132,7 @@ class feedController extends ActionController {
 		// notif
 		$notif = array (
 			'type' => 'good',
-			'content' => '10 flux ont été mis à jour'
+			'content' => $i . ' flux ont été mis à jour'
 		);
 		Session::_param ('notification', $notif);
 
