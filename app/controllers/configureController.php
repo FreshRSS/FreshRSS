@@ -88,10 +88,12 @@ class configureController extends ActionController {
 				if (Request::isPost () && $this->view->flux) {
 					$cat = Request::param ('category', 0);
 					$path = Request::param ('path_entries', '');
+					$priority = Request::param ('priority', 0);
 
 					$values = array (
 						'category' => $cat,
-						'pathEntries' => $path
+						'pathEntries' => $path,
+						'priority' => $priority
 					);
 
 					if ($feedDAO->updateFeed ($id, $values)) {

@@ -76,9 +76,7 @@ class indexController extends ActionController {
 
 			try {
 				$this->view->entryPaginator = $entryDAO->getPaginator ($entries);
-			} catch (CurrentPagePaginationException $e) {
-
-			}
+			} catch (CurrentPagePaginationException $e) { }
 
 			$this->view->cat_aside = $catDAO->listCategories ();
 			$this->view->nb_favorites = $entryDAO->countFavorites ();

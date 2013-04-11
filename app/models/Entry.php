@@ -272,7 +272,7 @@ class EntryDAO extends Model_pdo {
 	}
 
 	public function markReadEntries ($read, $dateMax) {
-		$sql = 'UPDATE entry SET is_read = ? WHERE date < ?';
+		$sql = 'UPDATE entry e INNER JOIN feed f ON e.id_feed = f.id SET is_read = ? WHERE date < ? AND priority > 0';
 		$stm = $this->bd->prepare ($sql);
 
 		$values = array ($read, $dateMax);
@@ -377,19 +377,15 @@ class EntryDAO extends Model_pdo {
 	}
 
 	public function listEntries ($mode, $search = false, $order = 'high_to_low') {
-		$where = '';
+		$where = ' WHERE priority > 0';
 		if ($mode == 'not_read') {
-			$where = ' WHERE is_read=0';
+			$where .= ' AND is_read=0';
 		}
 
 		$values = array();
 		if ($search) {
 			$values[] = '%'.$search.'%';
-			if ($mode == 'not_read') {
-				$where = ' AND title LIKE ?';
-			} else {
-				$where = ' WHERE title LIKE ?';
-			}
+			$where .= ' AND title LIKE ?';
 		}
 
 		if ($order == 'low_to_high') {
@@ -398,7 +394,7 @@ class EntryDAO extends Model_pdo {
 			$order = '';
 		}
 
-		$sql = 'SELECT COUNT(*) AS count FROM entry' . $where;
+		$sql = 'SELECT COUNT(*) AS count FROM entry e INNER JOIN feed f ON e.id_feed = f.id' . $where;
 		$stm = $this->bd->prepare ($sql);
 		$stm->execute ($values);
 		$res = $stm->fetchAll (PDO::FETCH_ASSOC);
@@ -407,7 +403,8 @@ class EntryDAO extends Model_pdo {
 		$deb = ($this->currentPage () - 1) * $this->nbItemsPerPage;
 		$fin = $this->nbItemsPerPage;
 
-		$sql = 'SELECT * FROM entry' . $where
+		$sql = 'SELECT * FROM entry e'
+		     . ' INNER JOIN feed f ON e.id_feed = f.id' . $where
 		     . ' ORDER BY date' . $order
 		     . ' LIMIT ' . $deb . ', ' . $fin;
 		$stm = $this->bd->prepare ($sql);
@@ -553,7 +550,7 @@ class EntryDAO extends Model_pdo {
 	}
 
 	public function count () {
-		$sql = 'SELECT COUNT(*) AS count FROM entry';
+		$sql = 'SELECT COUNT(*) AS count FROM entry e INNER JOIN feed f ON e.id_feed = f.id WHERE priority > 0';
 		$stm = $this->bd->prepare ($sql);
 		$stm->execute ();
 		$res = $stm->fetchAll (PDO::FETCH_ASSOC);
@@ -562,11 +559,11 @@ class EntryDAO extends Model_pdo {
 	}
 
 	public function countNotRead () {
-		$sql = 'SELECT COUNT(*) AS count FROM entry WHERE is_read=0';
+		$sql = 'SELECT COUNT(*) AS count FROM entry e INNER JOIN feed f ON e.id_feed = f.id WHERE is_read=0 AND priority > 0';
 		$stm = $this->bd->prepare ($sql);
 		$stm->execute ();
 		$res = $stm->fetchAll (PDO::FETCH_ASSOC);
-
+		Log::record ('not read : ' . $res[0]['count'], Log::NOTICE);
 		return $res[0]['count'];
 	}
 

@@ -9,6 +9,7 @@ class Feed extends Model {
 	private $website = '';
 	private $description = '';
 	private $lastUpdate = 0;
+	private $priority = 10;
 	private $pathEntries = '';
 	private $httpAuth = '';
 
@@ -47,6 +48,9 @@ class Feed extends Model {
 	}
 	public function lastUpdate () {
 		return $this->lastUpdate;
+	}
+	public function priority () {
+		return $this->priority;
 	}
 	public function pathEntries () {
 		return $this->pathEntries;
@@ -107,6 +111,12 @@ class Feed extends Model {
 	}
 	public function _lastUpdate ($value) {
 		$this->lastUpdate = $value;
+	}
+	public function _priority ($value) {
+		if (!is_int (intval ($value))) {
+			$value = 10;
+		}
+		$this->priority = $value;
 	}
 	public function _pathEntries ($value) {
 		$this->pathEntries = $value;
@@ -382,6 +392,7 @@ class HelperFeed {
 			$list[$key]->_website ($dao['website']);
 			$list[$key]->_description ($dao['description']);
 			$list[$key]->_lastUpdate ($dao['lastUpdate']);
+			$list[$key]->_priority ($dao['priority']);
 			$list[$key]->_pathEntries ($dao['pathEntries']);
 			$list[$key]->_httpAuth ($dao['httpAuth']);
 
