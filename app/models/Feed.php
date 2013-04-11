@@ -124,7 +124,7 @@ class Feed extends Model {
 				);
 			} else {
 				$feed = new SimplePie ();
-				$feed->set_feed_url ($this->url);
+				$feed->set_feed_url (preg_replace ('/&amp;/', '&', $this->url));
 				$feed->set_cache_location (CACHE_PATH);
 				$feed->init ();
 
