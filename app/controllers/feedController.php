@@ -34,7 +34,13 @@ class feedController extends ActionController {
 						'lastUpdate' => time ()
 					);
 
-					if ($feedDAO->addFeed ($values)) {
+					if ($feedDAO->searchByUrl ($values['url'])) {
+						$notif = array (
+							'type' => 'bad',
+							'content' => 'Vous êtes déjà abonné à <em>' . $feed->name () . '</em>'
+						);
+						Session::_param ('notification', $notif);
+					} elseif ($feedDAO->addFeed ($values)) {
 						$entryDAO = new EntryDAO ();
 						$entries = $feed->entries ();
 
@@ -101,19 +107,19 @@ class feedController extends ActionController {
 		foreach ($feeds as $feed) {
 			try {
 				$feed->load ();
+				$entries = $feed->entries ();
+
+				foreach ($entries as $entry) {
+					if ($entry->date (true) >= $date_min) {
+						$values = $entry->toArray ();
+						$entryDAO->addEntry ($values);
+					}
+				}
+
+				$feedDAO->updateLastUpdate ($feed->id ());
 			} catch (FeedException $e) {
 				Log::record ($e->getMessage (), Log::ERROR);
 			}
-			$entries = $feed->entries ();
-
-			foreach ($entries as $entry) {
-				if ($entry->date (true) >= $date_min) {
-					$values = $entry->toArray ();
-					$entryDAO->addEntry ($values);
-				}
-			}
-
-			$feedDAO->updateLastUpdate ($feed->id ());
 
 			$i++;
 			if ($i >= 10) {
@@ -153,20 +159,26 @@ class feedController extends ActionController {
 
 			$i = 0;
 			foreach ($feeds as $feed) {
-				$feed->load ();
+				try {
+					$feed->load ();
 
-				// Enregistrement du flux
-				$values = array (
-					'id' => $feed->id (),
-					'url' => $feed->url (),
-					'category' => $feed->category (),
-					'name' => $feed->name (),
-					'website' => $feed->website (),
-					'description' => $feed->description (),
-					'lastUpdate' => 0
-				);
+					// Enregistrement du flux
+					$values = array (
+						'id' => $feed->id (),
+						'url' => $feed->url (),
+						'category' => $feed->category (),
+						'name' => $feed->name (),
+						'website' => $feed->website (),
+						'description' => $feed->description (),
+						'lastUpdate' => 0
+					);
 
-				$feedDAO->addFeed ($values);
+					if (!$feedDAO->searchByUrl ($values['url'])) {
+						$feedDAO->addFeed ($values);
+					}
+				} catch (FeedException $e) {
+					Log::record ($e->getMessage (), Log::ERROR);
+				}
 			}
 
 			Request::forward (array (
@@ -203,7 +215,7 @@ class feedController extends ActionController {
 		$catDAO = new CategoryDAO ();
 
 		foreach ($categories as $cat) {
-			if (!$catDAO->searchByName ()) {
+			if (!$catDAO->searchByName ($cat->name ())) {
 				$values = array (
 					'id' => $cat->id (),
 					'name' => $cat->name (),

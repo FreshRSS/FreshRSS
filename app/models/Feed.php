@@ -287,8 +287,22 @@ class FeedDAO extends Model_pdo {
 		if (isset ($feed[$id])) {
 			return $feed[$id];
 		} else {
-			$info = $stm->errorInfo();
-			Log::record ('SQL error : ' . $info[2], Log::ERROR);
+			return false;
+		}
+	}
+	public function searchByUrl ($url) {
+		$sql = 'SELECT * FROM feed WHERE url=?';
+		$stm = $this->bd->prepare ($sql);
+
+		$values = array ($url);
+
+		$stm->execute ($values);
+		$res = $stm->fetchAll (PDO::FETCH_ASSOC);
+		$feed = current (HelperFeed::daoToFeed ($res));
+
+		if (isset ($feed)) {
+			return $feed;
+		} else {
 			return false;
 		}
 	}

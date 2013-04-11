@@ -372,8 +372,6 @@ class EntryDAO extends Model_pdo {
 		if (isset ($entry[0])) {
 			return $entry[0];
 		} else {
-			$info = $stm->errorInfo();
-			Log::record ('SQL error : ' . $info[2], Log::ERROR);
 			return false;
 		}
 	}
