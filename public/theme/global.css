@@ -454,3 +454,6 @@ input, select, textarea {
 	.icon.i_note_empty {
 		background-image: url("icons/note_empty.svg");
 	}
+	.icon.i_category {
+		background-image: url("icons/category.svg");
+	}

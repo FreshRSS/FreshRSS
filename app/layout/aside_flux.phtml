@@ -1,4 +1,6 @@
 <div class="aside aside_flux" id="aside_flux">
+	<a class="toggle_aside" href="#close"><i class="icon i_close"></i></a>
+
 	<ul class="categories">
 		<?php if (!login_is_conf ($this->conf) || is_logged ()) { ?>
 		<li><a class="btn btn-important" href="<?php echo _url ('configure', 'feed'); ?>">Gestion des abonnements</a></li>
