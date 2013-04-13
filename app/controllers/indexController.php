@@ -8,6 +8,7 @@ class indexController extends ActionController {
 	public function indexAction () {
 		View::appendScript (Url::display ('/scripts/shortcut.js'));
 		View::appendScript (Url::display (array ('c' => 'javascript', 'a' => 'main')));
+		View::appendScript (Url::display (array ('c' => 'javascript', 'a' => 'actualize')));
 
 		$entryDAO = new EntryDAO ();
 		$feedDAO = new FeedDAO ();

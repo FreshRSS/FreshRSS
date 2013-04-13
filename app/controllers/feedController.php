@@ -156,9 +156,13 @@ class feedController extends ActionController {
 				'content' => 'Aucun flux n\'a pu être mis à jour'
 			);
 		}
-		Session::_param ('notification', $notif);
 
-		Request::forward (array (), true);
+		if (Request::param ('ajax', 0) == 0) {
+			Session::_param ('notification', $notif);
+			Request::forward (array (), true);
+		} else {
+			$this->view->_useLayout (false);
+		}
 	}
 
 	public function massiveImportAction () {

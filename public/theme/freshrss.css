@@ -381,6 +381,26 @@
 	display: none;
 }
 
+.actualizeProgress {
+	position: fixed;
+	top: 0; left: 33%; right: 33%;
+	width: 33%;
+	padding: 5px;
+	background: #fff;
+	text-align: center;
+	border: 1px solid #ddd;
+	border-top: none;
+	border-radius: 0 0 5px 5px;
+}
+	.actualizeProgress progress {
+		vertical-align: middle;
+	}
+	.actualizeProgress .progress {
+		color: #999;
+		font-size: 90%;
+		vertical-align: middle;
+	}
+
 @media(max-width: 840px) {
 	.header,
 	.aside .btn-important,
