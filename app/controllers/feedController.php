@@ -97,7 +97,16 @@ class feedController extends ActionController {
 		$feedDAO = new FeedDAO ();
 		$entryDAO = new EntryDAO ();
 
-		$feeds = $feedDAO->listFeedsOrderUpdate ();
+		$id = Request::param ('id');
+		$feeds = array ();
+		if ($id) {
+			$feed = $feedDAO->searchById ($id);
+			if ($feed) {
+				$feeds = array ($feed);
+			}
+		} else {
+			$feeds = $feedDAO->listFeedsOrderUpdate ();
+		}
 
 		// pour ne pas ajouter des entrées trop anciennes
 		$nb_month_old = $this->view->conf->oldEntries ();
@@ -130,10 +139,23 @@ class feedController extends ActionController {
 		$entryDAO->cleanOldEntries ($nb_month_old);
 
 		// notif
-		$notif = array (
-			'type' => 'good',
-			'content' => $i . ' flux ont été mis à jour'
-		);
+		if ($i == 1) {
+			$feed = reset ($feeds);
+			$notif = array (
+				'type' => 'good',
+				'content' => '<em>' . $feed->name () . '</em> a été mis à jour'
+			);
+		} elseif ($i > 0) {
+			$notif = array (
+				'type' => 'good',
+				'content' => $i . ' flux ont été mis à jour'
+			);
+		} else {
+			$notif = array (
+				'type' => 'bad',
+				'content' => 'Aucun flux n\'a pu être mis à jour'
+			);
+		}
 		Session::_param ('notification', $notif);
 
 		Request::forward (array (), true);
