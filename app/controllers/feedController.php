@@ -139,12 +139,14 @@ class feedController extends ActionController {
 		$entryDAO->cleanOldEntries ($nb_month_old);
 
 		// notif
+		$url = array ();
 		if ($i == 1) {
 			$feed = reset ($feeds);
 			$notif = array (
 				'type' => 'good',
 				'content' => '<em>' . $feed->name () . '</em> a été mis à jour'
 			);
+			$url['params'] = array ('get' => 'f_' . $feed->id ());
 		} elseif ($i > 0) {
 			$notif = array (
 				'type' => 'good',
@@ -159,7 +161,7 @@ class feedController extends ActionController {
 
 		if (Request::param ('ajax', 0) == 0) {
 			Session::_param ('notification', $notif);
-			Request::forward (array (), true);
+			Request::forward ($url, true);
 		} else {
 			$notif = array (
 				'type' => 'good',
