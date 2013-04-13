@@ -1,4 +1,4 @@
-<div class="aside aside_flux">
+<div class="aside aside_flux" id="aside_flux">
 	<ul class="categories">
 		<?php if (!login_is_conf ($this->conf) || is_logged ()) { ?>
 		<li><a class="btn btn-important" href="<?php echo _url ('configure', 'feed'); ?>">Gestion des abonnements</a></li>
@@ -60,7 +60,7 @@
 
 					<?php $not_read = $feed->nbNotRead (); ?>
 
-					<img class="favicon" src="http://g.etfv.co/<?php echo $feed->website (); ?>" alt="favicon <?php echo $feed->name (); ?>" />
+					<img class="favicon" src="http://g.etfv.co/<?php echo $feed->website (); ?>" alt="" />
 					<?php echo $not_read > 0 ? '<b>' : ''; ?>
 					<a class="feed" href="<?php echo _url ('index', 'index', 'get', 'f_' . $feed->id ()); ?>">
 						<?php echo $not_read > 0 ? '(' . $not_read . ') ' : ''; ?>
