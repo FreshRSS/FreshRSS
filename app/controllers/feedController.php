@@ -161,6 +161,11 @@ class feedController extends ActionController {
 			Session::_param ('notification', $notif);
 			Request::forward (array (), true);
 		} else {
+			$notif = array (
+				'type' => 'good',
+				'content' => 'Les flux ont été mis à jour'
+			);
+			Session::_param ('notification', $notif);
 			$this->view->_useLayout (false);
 		}
 	}
