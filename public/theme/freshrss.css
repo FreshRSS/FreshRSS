@@ -184,122 +184,103 @@
 	}
 
 	.flux_header {
-		display: table;
-		table-layout: fixed;
-		margin: 0;
-		padding: 0;
-		width: 100%;
 		height: 25px;
 		font-size: 12px;
 		line-height: 25px;
 		border-top: 1px solid #ddd;
 	}
-		.flux_header .item {
-			display: table-cell;
-			vertical-align: middle;
+		.flux_header .item.manage {
+			width: 60px;
+			white-space: nowrap;
+			font-size: 0px;
+			text-align: center;
 		}
-			.flux_header .item.manage {
-				width: 90px;
-				white-space: nowrap;
-				font-size: 0px;
+			.flux_header .item.manage .read {
+				display: inline-block;
+				width: 30px;
+				height: 40px;
+				background: url("icons/read.svg") center center no-repeat;
 				vertical-align: middle;
-				text-align: center;
 			}
-				.flux_header .item.manage .read {
-					display: inline-block;
-					width: 30px;
-					height: 40px;
-					background: url("icons/read.svg") center center no-repeat;
-					vertical-align: middle;
+				.flux_header .item.manage .read:hover {
+					text-decoration: none;
 				}
-					.flux_header .item.manage .read:hover {
-						text-decoration: none;
-					}
-					.flux.not_read .flux_header .item.manage .read {
-						background: url("icons/unread.svg") center center no-repeat;
-					}
-				.flux_header .item.manage .bookmark {
-					display: inline-block;
-					width: 30px;
-					height: 40px;
-					background: url("icons/non-starred.svg") center center no-repeat;
-					vertical-align: middle;
+				.flux.not_read .flux_header .item.manage .read {
+					background: url("icons/unread.svg") center center no-repeat;
 				}
-					.flux_header .item.manage .bookmark:hover {
-						text-decoration: none;
-					}
-					.flux.favorite .flux_header .item.manage .bookmark {
-						background: url("icons/starred.svg") center center no-repeat;
-					}
-				.flux_header .item.manage .note {
-					display: inline-block;
-					width: 30px;
-					height: 40px;
-					vertical-align: middle;
-					line-height: 40px;
-					font-size: 12px;
-				}
-			.flux_header .item.website {
-				width: 200px;
-				overflow: hidden;
-				white-space: nowrap;
-				text-overflow: ellipsis;
-				line-height: 40px;
+			.flux_header .item.manage .bookmark {
+				display: inline-block;
+				width: 30px;
+				height: 40px;
+				background: url("icons/non-starred.svg") center center no-repeat;
+				vertical-align: middle;
 			}
-				.flux_header .item.website a {
-					display: block;
-					padding: 0 5px;
-					height: 40px;
+				.flux_header .item.manage .bookmark:hover {
+					text-decoration: none;
 				}
-			.flux_header .item.title {
-				overflow: hidden;
-				white-space: nowrap;
-				text-overflow: ellipsis;
-				cursor: pointer;
-			}
-				.flux_header .item.title h1 {
-					font-size: 12px;
-					margin: 0;
-					font-weight: normal;
+				.flux.favorite .flux_header .item.manage .bookmark {
+					background: url("icons/starred.svg") center center no-repeat;
 				}
-					.flux.not_read .flux_header .item.title h1 {
-						font-weight: bold;
-					}
-			.flux_header .item.date {
-				width: 200px;
-				overflow: hidden;
-				white-space: nowrap;
-				text-overflow: ellipsis;
-				text-align: right;
-				font-size: 10px;
-				color: #666;
-				cursor: pointer;
+		.flux_header .item.website {
+			width: 200px;
+			overflow: hidden;
+			white-space: nowrap;
+			text-overflow: ellipsis;
+			line-height: 40px;
+		}
+			.flux_header .item.website a {
+				display: block;
+				padding: 0 5px;
+				height: 40px;
 			}
-			.flux_header .item.link {
+		.flux_header .item.title {
+			overflow: hidden;
+			white-space: nowrap;
+			text-overflow: ellipsis;
+			cursor: pointer;
+		}
+			.flux.not_read .flux_header .item.title {
+				font-weight: bold;
+			}
+		.flux_header .item.date {
+			width: 200px;
+			overflow: hidden;
+			white-space: nowrap;
+			text-overflow: ellipsis;
+			text-align: right;
+			font-size: 10px;
+			color: #666;
+			cursor: pointer;
+		}
+		.flux_header .item.link {
+			width: 35px;
+			text-align: center;
+		}
+			.flux_header .item.link a {
+				display: inline-block;
 				width: 35px;
-				text-align: center;
+				height: 40px;
+				background: url("icons/link.svg") center center no-repeat;
+				vertical-align: middle;
 			}
-				.flux_header .item.link a {
-					display: inline-block;
-					width: 35px;
-					height: 40px;
-					background: url("icons/link.svg") center center no-repeat;
-					vertical-align: middle;
+				.flux_header .item.link a:hover {
+					text-decoration: none;
 				}
-					.flux_header .item.link a:hover {
-						text-decoration: none;
-					}
 
 .content {
 	max-width: 550px;
 	margin: 0 auto;
-	padding: 10px;
+	padding: 20px 10px;
 	line-height: 170%;
 	font-family: 'OpenSans';
 }
+	.content .title {
+		margin: 0 0 5px;
+	}
 	.content h1, .content h2, .content h3 {
 		margin: 20px 0 5px;
 	}
+
 	.content p {
 		margin: 0 0 20px;
 	}
@@ -328,6 +309,11 @@
 		.content blockquote p {
 			margin: 0;
 		}
+
+.flux_content .bottom {
+	font-size: 90%;
+	text-align: center;
+}
 
 /*** PAGINATION ***/
 .pagination {
@@ -400,7 +386,8 @@
 	.aside .btn-important,
 	.aside .feeds .dropdown,
 	.flux_header .item.website span,
-	.flux_header .item.date {
+	.flux_header .item.date,
+	.flux_content .bottom {
 		display: none;
 	}
 	.flux_header .item.website {

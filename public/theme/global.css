@@ -69,6 +69,7 @@ label {
 }
 input, select, textarea {
 	display: inline-block;
+	max-width: 100%;
 	min-height: 25px;
 	padding: 5px;
 	background: #fdfdfd;
@@ -292,6 +293,19 @@ input, select, textarea {
 	.nav-head .item {
 		display: inline-block;
 		padding: 5px 10px;
+	}
+
+/* HORIZONTAL-LIST */
+.horizontal-list {
+	display: table;
+	table-layout: fixed;
+	margin: 0;
+	padding: 0;
+	width: 100%;
+}
+	.horizontal-list .item {
+		display: table-cell;
+		vertical-align: middle;
 	}
 
 /* DROPDOWN */
