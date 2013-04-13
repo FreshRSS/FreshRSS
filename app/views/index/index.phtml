@@ -1,3 +1,10 @@
+<?php
+if (Request::param ('output', '') == 'rss') {
+	$this->renderHelper ('rss');
+	return;
+}
+?>
+
 <?php $this->partial ('aside_flux'); ?>
 
 <?php $this->partial ('nav_menu'); ?>
@@ -67,7 +74,7 @@ if (isset ($this->entryPaginator)) {
 				<li class="item">
 					<div class="dropdown">
 						<div id="dropdown-share-<?php echo $item->id ();?>" class="dropdown-target"></div>
-						<a class="dropdown-toggle" href="#dropdown-share-<?php echo $item->id ();?>">Partager</a>
+						<i class="icon i_share"></i> <a class="dropdown-toggle" href="#dropdown-share-<?php echo $item->id ();?>">Partager</a>
 
 						<ul class="dropdown-menu">
 							<li class="dropdown-close"><a href="#close"><i class="icon i_close"></i></a></li>

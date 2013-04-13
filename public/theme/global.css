@@ -471,3 +471,9 @@ input, select, textarea {
 	.icon.i_category {
 		background-image: url("icons/category.svg");
 	}
+	.icon.i_rss {
+		background-image: url("icons/rss.svg");
+	}
+	.icon.i_share {
+		background-image: url("icons/share.svg");
+	}

@@ -3,13 +3,12 @@
 	<channel>
 		<title><?php echo View::title(); ?></title>
 		<link><?php echo Url::display(); ?></link>
-		<description>Flux public de <?php echo View::title(); ?></description>
-		<language>fr</language>
+		<description>Flux RSS de <?php echo View::title(); ?></description>
 		<pubDate><?php echo date('D, d M Y H:i:s O'); ?></pubDate>
 		<lastBuildDate><?php echo gmdate('D, d M Y H:i:s'); ?> GMT</lastBuildDate>
-		<atom:link href="<?php echo Url::display(array('a' => 'rss')); ?>" rel="self" type="application/rss+xml" />
+		<atom:link href="<?php echo _url ('index', 'index', 'output', 'rss'); ?>" rel="self" type="application/rss+xml" />
 <?php
-$items = $this->itemPaginator->items ();
+$items = $this->entryPaginator->items ();
 foreach ($items as $item) {
 ?>
 		<item>
@@ -20,7 +19,7 @@ foreach ($items as $item) {
 			<dc:creator><?php echo $author; ?></dc:creator>
 			<?php } ?>
 			<description><![CDATA[<?php
-	echo html_entity_decode($item->notes (false, false));
+	echo $item->content ();
 ?>]]></description>
 			<pubDate><?php echo date('D, d M Y H:i:s O', $item->date (true)); ?></pubDate>
 			<guid><?php echo $item->guid (); ?></guid>

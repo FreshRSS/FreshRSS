@@ -422,7 +422,7 @@ class EntryDAO extends Model_pdo {
 		$values = array();
 		if ($search) {
 			$values[] = '%'.$search.'%';
-			$where = ' AND title LIKE ?';
+			$where .= ' AND title LIKE ?';
 		}
 
 		if ($order == 'low_to_high') {
@@ -455,8 +455,17 @@ class EntryDAO extends Model_pdo {
 		return HelperEntry::daoToEntry ($stm->fetchAll (PDO::FETCH_ASSOC));
 	}
 
-	public function listPublic ($order = 'high_to_low') {
+	public function listPublic ($mode, $search = false, $order = 'high_to_low') {
 		$where = ' WHERE is_public=1';
+		if ($mode == 'not_read') {
+			$where .= ' AND is_read=0';
+		}
+
+		$values = array();
+		if ($search) {
+			$values[] = '%'.$search.'%';
+			$where .= ' AND title LIKE ?';
+		}
 
 		if ($order == 'low_to_high') {
 			$order = ' DESC';
@@ -464,10 +473,26 @@ class EntryDAO extends Model_pdo {
 			$order = '';
 		}
 
-		$sql = 'SELECT * FROM entry' . $where . ' ORDER BY date' . $order;
-
+		$sql = 'SELECT COUNT(*) AS count FROM entry' . $where;
 		$stm = $this->bd->prepare ($sql);
-		$stm->execute ();
+		$stm->execute ($values);
+		$res = $stm->fetchAll (PDO::FETCH_ASSOC);
+		$this->nbItems = $res[0]['count'];
+
+		if($this->nbItemsPerPage < 0) {
+			$sql = 'SELECT * FROM entry' . $where
+			     . ' ORDER BY date' . $order;
+		} else {
+			$deb = ($this->currentPage () - 1) * $this->nbItemsPerPage;
+			$fin = $this->nbItemsPerPage;
+
+			$sql = 'SELECT * FROM entry' . $where
+			     . ' ORDER BY date' . $order
+			     . ' LIMIT ' . $deb . ', ' . $fin;
+		}
+		$stm = $this->bd->prepare ($sql);
+
+		$stm->execute ($values);
 
 		return HelperEntry::daoToEntry ($stm->fetchAll (PDO::FETCH_ASSOC));
 	}
@@ -481,7 +506,7 @@ class EntryDAO extends Model_pdo {
 		$values = array ($cat);
 		if ($search) {
 			$values[] = '%'.$search.'%';
-			$where = ' AND title LIKE ?';
+			$where .= ' AND title LIKE ?';
 		}
 
 		if ($order == 'low_to_high') {
@@ -515,10 +540,10 @@ class EntryDAO extends Model_pdo {
 			$where .= ' AND is_read=0';
 		}
 
-		$values = array();
+		$values = array($feed);
 		if ($search) {
 			$values[] = '%'.$search.'%';
-			$where = ' AND title LIKE ?';
+			$where .= ' AND title LIKE ?';
 		}
 
 		if ($order == 'low_to_high') {
@@ -529,7 +554,6 @@ class EntryDAO extends Model_pdo {
 
 		$sql = 'SELECT COUNT(*) AS count FROM entry' . $where;
 		$stm = $this->bd->prepare ($sql);
-		$values = array ($feed);
 		$stm->execute ($values);
 		$res = $stm->fetchAll (PDO::FETCH_ASSOC);
 		$this->nbItems = $res[0]['count'];
@@ -541,8 +565,6 @@ class EntryDAO extends Model_pdo {
 		     . ' LIMIT ' . $deb . ', ' . $fin;
 
 		$stm = $this->bd->prepare ($sql);
-
-		$values = array ($feed);
 
 		$stm->execute ($values);
 

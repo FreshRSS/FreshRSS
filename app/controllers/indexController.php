@@ -38,6 +38,9 @@ class indexController extends ActionController {
 		} elseif ($this->get['type'] == 'favoris') {
 			$entries = $entryDAO->listFavorites ($this->mode, $search, $order);
 			View::prependTitle ('Vos favoris - ');
+		} elseif ($this->get['type'] == 'public') {
+			$entries = $entryDAO->listPublic ($this->mode, $search, $order);
+			View::prependTitle ('Public - ');
 		} elseif ($this->get != false) {
 			if ($this->get['type'] == 'c') {
 				$cat = $catDAO->searchById ($this->get['filter']);
@@ -81,6 +84,10 @@ class indexController extends ActionController {
 			$this->view->cat_aside = $catDAO->listCategories ();
 			$this->view->nb_favorites = $entryDAO->countFavorites ();
 			$this->view->nb_total = $entryDAO->count ();
+
+			if (Request::param ('output', '') == 'rss') {
+				$this->view->_useLayout (false);
+			}
 		}
 	}
 
@@ -155,6 +162,13 @@ class indexController extends ActionController {
 		$filter = substr ($get, 2);
 
 		if ($get == 'favoris') {
+			$this->view->get_c = $get;
+
+			$this->get = array (
+				'type' => $get,
+				'filter' => $get
+			);
+		} elseif ($get == 'public') {
 			$this->view->get_c = $get;
 
 			$this->get = array (
