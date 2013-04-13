@@ -143,6 +143,9 @@ input, select, textarea {
 	.stick input:first-child {
 		border-radius: 3px 0 0 3px;
 	}
+		.stick .btn.btn-important:first-child {
+			border-right: 1px solid #06f;
+		}
 	.stick .btn:last-child,
 	.stick input:last-child {
 		border-radius: 0 3px 3px 0;

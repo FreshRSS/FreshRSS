@@ -62,23 +62,4 @@
 			</li>
 		</ul>
 	</div>
-
-	<?php
-		$get = Request::param ('get', '');
-		$search = Request::param ('search', '');
-		$url = array (
-			'c' => 'index',
-			'a' => 'index',
-			'params' => array (
-				'output' => 'rss'
-			)
-		);
-		if ($get != '') {
-			$url['params']['get'] = $get;
-		}
-		if ($search != '') {
-			$url['params']['search'] = $search;
-		}
-	?>
-	<a class="btn" href="<?php echo Url::display ($url); ?>"><i class="icon i_rss"></i></a>
 </div>

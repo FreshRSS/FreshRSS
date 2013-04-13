@@ -150,7 +150,7 @@
 	}
 
 .day {
-	height: 50px;
+	min-height: 50px;
 	padding: 0 10px;
 	font-size: 130%;
 	font-weight: bold;

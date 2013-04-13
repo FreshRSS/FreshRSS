@@ -2,8 +2,30 @@
 	<a class="toggle_aside" href="#close"><i class="icon i_close"></i></a>
 
 	<ul class="categories">
+		<?php
+			$get = Request::param ('get', '');
+			$search = Request::param ('search', '');
+			$url = array (
+				'c' => 'index',
+				'a' => 'index',
+				'params' => array (
+					'output' => 'rss'
+				)
+			);
+			if ($get != '') {
+				$url['params']['get'] = $get;
+			}
+			if ($search != '') {
+				$url['params']['search'] = $search;
+			}
+		?>
 		<?php if (!login_is_conf ($this->conf) || is_logged ()) { ?>
-		<li><a class="btn btn-important" href="<?php echo _url ('configure', 'feed'); ?>">Gestion des abonnements</a></li>
+		<li>
+			<div class="stick">
+				<a class="btn btn-important" href="<?php echo _url ('configure', 'feed'); ?>">Gestion des abonnements</a>
+				<a class="btn btn-important" href="<?php echo Url::display ($url); ?>"><i class="icon i_rss"></i></a>
+			</div>
+		</li>
 		<?php } ?>
 
 		<li>
