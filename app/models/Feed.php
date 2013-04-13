@@ -205,7 +205,7 @@ class Feed extends Model {
 
 class FeedDAO extends Model_pdo {
 	public function addFeed ($valuesTmp) {
-		$sql = 'INSERT INTO feed (id, url, category, name, website, description, lastUpdate) VALUES(?, ?, ?, ?, ?, ?, ?)';
+		$sql = 'INSERT INTO feed (id, url, category, name, website, description, lastUpdate, priority, error) VALUES(?, ?, ?, ?, ?, ?, ?, 10, 0)';
 		$stm = $this->bd->prepare ($sql);
 
 		$values = array (
