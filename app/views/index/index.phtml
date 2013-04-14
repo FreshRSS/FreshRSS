@@ -80,6 +80,12 @@ if (isset ($this->entryPaginator)) {
 							<li class="dropdown-close"><a href="#close"><i class="icon i_close"></i></a></li>
 
 							<li class="item"><a href="mailto:?subject=<?php echo $item->title (); ?>&amp;body=J'ai trouvé cet article intéressant, tu peux le lire à cette adresse : <?php echo urlencode($item->link ()); ?>">Par mail</a></li>
+							<?php
+							$shaarli = $this->conf->urlShaarli ();
+							if ($shaarli) {
+							?>
+							<li class="item"><a target="_blank" href="<?php echo $shaarli . '?post=' . urlencode($item->link ()) . '&amp;title=' . urlencode ($item->title ()) . '&amp;source=bookmarklet'; ?>">Shaarli</a></li>
+							<?php } ?>
 						</ul>
 					</div>
 				</li>

@@ -9,6 +9,7 @@ class RSSConfiguration extends Model {
 	private $shortcuts = array ();
 	private $mail_login = '';
 	private $mark_when = array ();
+	private $url_shaarli = '';
 	
 	public function __construct () {
 		$confDAO = new RSSConfigurationDAO ();
@@ -20,6 +21,7 @@ class RSSConfiguration extends Model {
 		$this->_shortcuts ($confDAO->shortcuts);
 		$this->_mailLogin ($confDAO->mail_login);
 		$this->_markWhen ($confDAO->mark_when);
+		$this->_urlShaarli ($confDAO->url_shaarli);
 	}
 	
 	public function postsPerPage () {
@@ -54,6 +56,9 @@ class RSSConfiguration extends Model {
 	}
 	public function markWhenPage () {
 		return $this->mark_when['page'];
+	}
+	public function urlShaarli () {
+		return $this->url_shaarli;
 	}
 	
 	public function _postsPerPage ($value) {
@@ -108,11 +113,17 @@ class RSSConfiguration extends Model {
 		$this->mark_when['site'] = $values['site'];
 		$this->mark_when['page'] = $values['page'];
 	}
+	public function _urlShaarli ($value) {
+		$this->url_shaarli = '';
+		if (filter_var ($value, FILTER_VALIDATE_URL)) {
+			$this->url_shaarli = $value;
+		}
+	}
 }
 
 class RSSConfigurationDAO extends Model_array {
-	public $posts_per_page = 10;
-	public $default_view = 'all';
+	public $posts_per_page = 20;
+	public $default_view = 'not_read';
 	public $display_posts = 'no';
 	public $sort_order = 'low_to_high';
 	public $old_entries = 3;
@@ -131,6 +142,7 @@ class RSSConfigurationDAO extends Model_array {
 		'site' => 'yes',
 		'page' => 'no'
 	);
+	public $url_shaarli = '';
 
 	public function __construct () {
 		parent::__construct (PUBLIC_PATH . '/data/Configuration.array.php');
@@ -158,6 +170,9 @@ class RSSConfigurationDAO extends Model_array {
 		}
 		if (isset ($this->array['mark_when'])) {
 			$this->mark_when = $this->array['mark_when'];
+		}
+		if (isset ($this->array['url_shaarli'])) {
+			$this->url_shaarli = $this->array['url_shaarli'];
 		}
 	}
 	

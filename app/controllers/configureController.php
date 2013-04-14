@@ -132,6 +132,7 @@ class configureController extends ActionController {
 			$openArticle = Request::param ('mark_open_article', 'no');
 			$openSite = Request::param ('mark_open_site', 'no');
 			$openPage = Request::param ('mark_open_page', 'no');
+			$urlShaarli = Request::param ('shaarli', '');
 
 			$this->view->conf->_postsPerPage (intval ($nb));
 			$this->view->conf->_defaultView ($view);
@@ -144,6 +145,7 @@ class configureController extends ActionController {
 				'site' => $openSite,
 				'page' => $openPage,
 			));
+			$this->view->conf->_urlShaarli ($urlShaarli);
 
 			$values = array (
 				'posts_per_page' => $this->view->conf->postsPerPage (),
@@ -153,6 +155,7 @@ class configureController extends ActionController {
 				'old_entries' => $this->view->conf->oldEntries (),
 				'mail_login' => $this->view->conf->mailLogin (),
 				'mark_when' => $this->view->conf->markWhen (),
+				'url_shaarli' => $this->view->conf->urlShaarli (),
 			);
 
 			$confDAO = new RSSConfigurationDAO ();

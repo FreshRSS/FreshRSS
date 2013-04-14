@@ -91,32 +91,13 @@ function saveStep2 () {
 
 		$file_data = PUBLIC_PATH . '/data/Configuration.array.php';
 
-		$conf = array (
-			'posts_per_page' => 20,
-			'default_view' => 'not_read',
-			'display_posts' => 'no',
-			'sort_order' => 'low_to_high',
-			'old_entries' => $_SESSION['old_entries'],
-			'mail_login' => $_SESSION['mail_login'],
-			'shortcuts' => array (
-				'mark_read' => 'r',
-				'mark_favorite' => 'f',
-				'go_website' => 'space',
-				'next_entry' => 'j',
-				'prev_entry' => 'k',
-				'next_page' => 'right',
-				'prev_page' => 'left',
-			),
-			'mark_when' => array (
-				'article' => 'yes',
-				'site' => 'yes',
-				'page' => 'no',
-			),
-		);
 		$f = fopen ($file_data, 'w');
 		writeLine ($f, '<?php');
 		writeLine ($f, 'return array (');
-		writeArray ($f, $conf);
+		writeArray ($f, array (
+			'old_entries' => $_SESSION['old_entries'],
+			'mail_login' => $_SESSION['mail_login']
+		));
 		writeLine ($f, ');');
 		fclose ($f);
 
