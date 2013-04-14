@@ -2,10 +2,10 @@ Un simple agrégateur de flux rss relativement léger et rapide par rapport aux
 mastodontes que sont RSSLounge et TinyTinyRSS
 
 @name FreshRSS
-@author Marien Fressinaud <contact@marienfressinaud.fr>
-@version 1.0 alpha
-@date 2012-10-28
-@license agpl3
+@author Marien Fressinaud <dev@marienfressinaud.fr>
+@version 0.1.0
+@date 2013-04-08
+@license AGPL3
 
 DISCLAIMER
 ==========
@@ -14,57 +14,41 @@ Je ne garantis en aucun cas la sécurité de celle-ci, ni son bon fonctionnement
 sur un autre serveur que le mien. Je m'engage néanmoins à répondre dans la
 mesure du possible aux demandes d'évolution si celles-ci me semblent justifiées.
 Privilégiez pour cela des demandes sur GitHub
-(https://github.com/marienfressinaud/FreshRSS/issues)
+(https://github.com/marienfressinaud/FreshRSS/issues) ou par mail
 
-De plus, je n'ai réellement testé FreshRSS que sous Firefox 16, il pourrait y
+De plus, je n'ai réellement testé FreshRSS que sous Firefox, il pourrait y
 avoir des soucis sur d'autres navigateurs.
 
 PRE-REQUIS
 ==========
-- Serveur Apache (pas testé sur aucun autre)
-- PHP 5.3 (il me faudrait des retours sur d'autres versions)
+- Serveur Apache (non testé sur aucun autre)
+- PHP 5.3 (il me faudrait des retours sur d'autres versions antérieures)
 - libxml pour PHP
-- MySQL
+- cURL
+- PDO et MySQL
 
 INSTALLATION
 ============
 	1. Récupérez l'application FreshRSS via la commande git ou en
 	   téléchargeant l'archive
-	2. Exécutez le script ./build.sh
-	3. Déplacez la où vous voulez sur votre serveur (attention, la partie
-	   accessible de l'application se trouve dans le répertoire `/public`)
-	4. Modifiez le fichier `/app/configuration/application.ini`
-	   	a/ environment = "production" de préférence
-	   	b/ use_url_rewriting = true si vous pouvez utiliser
-	   	                       l'url_rewriting, false sinon
-	   	c/ sel_application = "un_truc_aléatoire" à vous de mettre ce que
-	   	                     vous voulez, mais ne le changez pas après
-	   	d/ base_url = "" le chemin qui mène au répertoire `public` à
-	   	                 partir du répertoire pointé par le nom de
-	   	                 domaine (pas de slash à la fin /!\)
-	   	e/ title = "FreshRSS" le nom de l'application
-	   	f/ [db] (host, user, password, base) les paramètres pour accéder
-	   	   à votre base de données mysql
-	5. Éxécutez le script MySQL `freshrss.sql` sur la table définie par le
-	   paramètre `base` dans votre base de données (à travers PhpMyAdmin
-	   par exemple)
-	6. Vérifiez les droits en lecture / écriture sur le répertoire de log
-	   (`/log`) et celui de cache (`/cache`) qui doivent pouvoir étre lu et
-	   écrit par le serveur, mais pas les autres
-	7. Tout devrait fonctionner :) En cas de problème, n'hésitez pas à me
+	2. Exécutez le script ./build.sh ou en récupérant à la main la librairie
+	   Minz (https://github.com/marienfressinaud/MINZ) et en copian la lib
+	   dans /lib/minz
+	3. Déplacez l'application où vous voulez sur votre serveur (attention,
+	   la partie accessible se trouve dans le répertoire `/public`)
+	4. Accéder à FreshRSS à travers votre navigateur web et suivez les
+	   instructions !
+	5. Tout devrait fonctionner :) En cas de problème, n'hésitez pas à me
 	   contacter !
 
 SÉCURITÉ ET CONSEILS
 ====================
 	1. Si possible, faites pointer un sous-domaine sur le répertoire
 	   `/public`
-	2. Assurez-vous de ne laisser qu'un droit de lecture par le serveur sur
-	   le fichier `/app/configuration/application.ini` (personne d'autre ne
-	   doit avoir le droit d'y accéder !)
-	3. Le fichier de log peut être utile à lire si vous avez des soucis
-	4. Le fichier `/public/index.php` définie les chemins d'accès aux
+	2. Le fichier de log peut être utile à lire si vous avez des soucis
+	3. Le fichier `/public/index.php` défini les chemins d'accès aux
 	   répertoires clés de l'application. Si vous les bougez, tout se passe
 	   ici.
-	5. Vous pouvez ajouter une tâche CRON sur l'url de mise à jour des flux
-	   (clic droit sur "Mettre les flux à jour" puis "Copier l'adresse du
+	4. Vous pouvez ajouter une tâche CRON sur l'url de mise à jour des flux
+	   (clic droit sur le bouton d'actualisation puis "Copier l'adresse du
 	   lien") pour que celle-ci se fasse de manière transparente
