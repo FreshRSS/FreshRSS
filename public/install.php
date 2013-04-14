@@ -168,11 +168,14 @@ function deleteInstall () {
 
 /*** VÉRIFICATIONS ***/
 function checkStep () {
-	if (STEP > 1 && checkStep1 ()['all'] != 'ok') {
+	$s1 = checkStep1 ();
+	$s2 = checkStep2 ();
+	$s3 = checkStep3 ();
+	if (STEP > 1 && $s1['all'] != 'ok') {
 		header ('Location: index.php?step=1');
-	} elseif (STEP > 2 && checkStep2 ()['all'] != 'ok') {
+	} elseif (STEP > 2 && $s2['all'] != 'ok') {
 		header ('Location: index.php?step=2');
-	} elseif (STEP > 3 && checkStep3 ()['all'] != 'ok') {
+	} elseif (STEP > 3 && $s3['all'] != 'ok') {
 		header ('Location: index.php?step=3');
 	}
 }
@@ -182,6 +185,7 @@ function checkStep1 () {
 	$curl = extension_loaded ('curl');
 	$pdo = extension_loaded ('pdo_mysql');
 	$cache = CACHE_PATH && is_writable (CACHE_PATH);
+	$log = LOG_PATH && is_writable (LOG_PATH);
 	$conf = APP_PATH && is_writable (APP_PATH . '/configuration');
 	$data = is_writable (PUBLIC_PATH . '/data');
 
@@ -191,9 +195,10 @@ function checkStep1 () {
 		'curl' => $curl ? 'ok' : 'ko',
 		'pdo-mysql' => $pdo ? 'ok' : 'ko',
 		'cache' => $cache ? 'ok' : 'ko',
+		'log' => $log ? 'ok' : 'ko',
 		'configuration' => $conf ? 'ok' : 'ko',
 		'data' => $data ? 'ok' : 'ko',
-		'all' => $php && $minz && $curl && $pdo && $cache && $conf && $data ? 'ok' : 'ko'
+		'all' => $php && $minz && $curl && $pdo && $cache && $log && $conf && $data ? 'ok' : 'ko'
 	);
 }
 function checkStep2 () {
@@ -284,6 +289,12 @@ function printStep1 () {
 	<p class="alert alert-error"><span class="alert-head">Arf !</span> Veuillez vérifier les droits sur le répertoire <em><?php echo PUBLIC_PATH . '/../cache'; ?></em>. Le serveur HTTP doit être capable d'écrire dedans</p>
 	<?php } ?>
 
+	<?php if ($res['log'] == 'ok') { ?>
+	<p class="alert alert-success"><span class="alert-head">Ok !</span> Les droits sur le répertoire des logs sont bons</p>
+	<?php } else { ?>
+	<p class="alert alert-error"><span class="alert-head">Arf !</span> Veuillez vérifier les droits sur le répertoire <em><?php echo PUBLIC_PATH . '/../log'; ?></em>. Le serveur HTTP doit être capable d'écrire dedans</p>
+	<?php } ?>
+
 	<?php if ($res['configuration'] == 'ok') { ?>
 	<p class="alert alert-success"><span class="alert-head">Ok !</span> Les droits sur le répertoire de configuration sont bons</p>
 	<?php } else { ?>
@@ -306,7 +317,7 @@ function printStep1 () {
 
 function printStep2 () {
 ?>
-	<?php if (checkStep2 ()['all'] == 'ok') { ?>
+	<?php $s2 = checkStep2 (); if ($s2['all'] == 'ok') { ?>
 	<p class="alert alert-success"><span class="alert-head">Ok !</span> La configuration générale a été enregistrée.</p>
 	<?php } ?>
 
@@ -355,7 +366,7 @@ function printStep2 () {
 			<div class="group-controls">
 				<button type="submit" class="btn btn-important">Valider</button>
 				<button type="reset" class="btn">Annuler</button>
-				<?php if (checkStep2 ()['all'] == 'ok') { ?>
+				<?php if ($s2['all'] == 'ok') { ?>
 				<a class="btn btn-important next-step" href="?step=3">Passer à l'étape suivante</a>
 				<?php } ?>
 			</div>
@@ -366,7 +377,7 @@ function printStep2 () {
 
 function printStep3 () {
 ?>
-	<?php if (checkStep3 ()['all'] == 'ok') { ?>
+	<?php $s3 = checkStep3 (); if ($s3['all'] == 'ok') { ?>
 	<p class="alert alert-success"><span class="alert-head">Ok !</span> La configuration de la base de données a été enregistrée.</p>
 	<?php } ?>
 
@@ -404,7 +415,7 @@ function printStep3 () {
 			<div class="group-controls">
 				<button type="submit" class="btn btn-important">Valider</button>
 				<button type="reset" class="btn">Annuler</button>
-				<?php if (checkStep3 ()['all'] == 'ok') { ?>
+				<?php if ($s3['all'] == 'ok') { ?>
 				<a class="btn btn-important next-step" href="?step=4">Passer à l'étape suivante</a>
 				<?php } ?>
 			</div>
@@ -424,6 +435,26 @@ function printStep5 () {
 ?>
 	<p class="alert alert-error"><span class="alert-head">Oups !</span> Quelque chose s'est mal passé, vous devriez supprimer le fichier <?php echo PUBLIC_PATH . '/install.php' ?> à la main.</p>
 <?php
+}
+
+
+checkStep ();
+
+switch (STEP) {
+case 1:
+default:
+	break;
+case 2:
+	saveStep2 ();
+	break;
+case 3:
+	saveStep3 ();
+	break;
+case 4:
+	break;
+case 5:
+	deleteInstall ();
+	break;
 }
 ?>
 <!DOCTYPE html>
@@ -455,26 +486,21 @@ function printStep5 () {
 
 	<div class="post">
 		<?php
-		checkStep ();
-
 		switch (STEP) {
 		case 1:
 		default:
 			printStep1 ();
 			break;
 		case 2:
-			saveStep2 ();
 			printStep2 ();
 			break;
 		case 3:
-			saveStep3 ();
 			printStep3 ();
 			break;
 		case 4:
 			printStep4 ();
 			break;
 		case 5:
-			deleteInstall ();
 			printStep5 ();
 			break;
 		}

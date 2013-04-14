@@ -1,3 +1,5 @@
+app/configuration/application.ini
 lib/minz
 log/application.log
 cache
+public/data
