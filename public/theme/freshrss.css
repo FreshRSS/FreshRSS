@@ -383,8 +383,8 @@
 
 .actualizeProgress {
 	position: fixed;
-	top: 0; left: 33%; right: 33%;
-	width: 33%;
+	top: 0; left: 25%; right: 25%;
+	width: 50%;
 	padding: 5px;
 	background: #fff;
 	text-align: center;
@@ -393,6 +393,7 @@
 	border-radius: 0 0 5px 5px;
 }
 	.actualizeProgress progress {
+		max-width: 100%;
 		vertical-align: middle;
 	}
 	.actualizeProgress .progress {
