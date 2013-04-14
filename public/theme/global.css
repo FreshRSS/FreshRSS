@@ -400,12 +400,26 @@ input, select, textarea {
 	border-radius: 5px;
 	color: #aaa;
 	text-shadow: 0 0 1px #eee;
-	box-shadow: 1px 1px 3px #aaa inset;
 }
 	.alert .alert-head {
 		margin: 0;
 		font-weight: bold;
 		font-size: 110%;
+	}
+	.alert.alert-warn {
+		background: #ffe;
+		border: 1px solid #eeb;
+		color: #c95;
+	}
+	.alert.alert-success {
+		background: #dfd;
+		border: 1px solid #cec;
+		color: #484;
+	}
+	.alert.alert-error {
+		background: #fdd;
+		border: 1px solid #ecc;
+		color: #844;
 	}
 
 /* ICONES */
