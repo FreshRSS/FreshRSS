@@ -77,6 +77,8 @@ class CategoryDAO extends Model_pdo {
 		if ($stm && $stm->execute ($values)) {
 			return true;
 		} else {
+			$info = $stm->errorInfo();
+			Log::record ('SQL error : ' . $info[2], Log::ERROR);
 			return false;
 		}
 	}
@@ -94,6 +96,8 @@ class CategoryDAO extends Model_pdo {
 		if ($stm && $stm->execute ($values)) {
 			return true;
 		} else {
+			$info = $stm->errorInfo();
+			Log::record ('SQL error : ' . $info[2], Log::ERROR);
 			return false;
 		}
 	}
@@ -107,6 +111,8 @@ class CategoryDAO extends Model_pdo {
 		if ($stm && $stm->execute ($values)) {
 			return true;
 		} else {
+			$info = $stm->errorInfo();
+			Log::record ('SQL error : ' . $info[2], Log::ERROR);
 			return false;
 		}
 	}
@@ -152,6 +158,20 @@ class CategoryDAO extends Model_pdo {
 		return HelperCategory::daoToCategory ($stm->fetchAll (PDO::FETCH_ASSOC));
 	}
 
+	public function getDefault () {
+		$sql = 'SELECT * FROM category WHERE id="000000"';
+		$stm = $this->bd->prepare ($sql);
+
+		$stm->execute ();
+		$res = $stm->fetchAll (PDO::FETCH_ASSOC);
+		$cat = HelperCategory::daoToCategory ($res);
+
+		if (isset ($cat[0])) {
+			return $cat[0];
+		} else {
+			return false;
+		}
+	}
 	public function checkDefault () {
 		$def_cat = $this->searchById ('000000');
 

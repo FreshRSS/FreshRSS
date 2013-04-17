@@ -9,42 +9,47 @@ class App_FrontController extends FrontController {
 	public function init () {
 		$this->loadLibs ();
 		$this->loadModels ();
-		
+
 		Session::init (); // lancement de la session doit se faire après chargement des modèles sinon bug (pourquoi ?)
 		$this->loadParamsView ();
 		$this->loadStylesAndScripts ();
 		$this->loadNotifications ();
 	}
-	
+
 	private function loadLibs () {
 		require (LIB_PATH . '/lib_phpQuery.php');
 		require (LIB_PATH . '/lib_rss.php');
-		require (LIB_PATH . '/lib_simplepie.php');
+		require (LIB_PATH . '/SimplePie_autoloader.php');
 		require (LIB_PATH . '/lib_text.php');
 	}
-	
+
 	private function loadModels () {
+		include (APP_PATH . '/models/Exception/FeedException.php');
 		include (APP_PATH . '/models/RSSConfiguration.php');
 		include (APP_PATH . '/models/Days.php');
 		include (APP_PATH . '/models/Category.php');
 		include (APP_PATH . '/models/Feed.php');
 		include (APP_PATH . '/models/Entry.php');
 	}
-	
-	private function loadStylesAndScripts () {
-		View::prependStyle (Url::display ('/theme/base.css'));
-		View::appendScript ('https://login.persona.org/include.js');
-		View::appendScript (Url::display ('/scripts/jquery.js'));
-		View::appendScript (Url::display ('/scripts/notification.js'));
-	}
-	
+
 	private function loadParamsView () {
-		View::_param ('conf', Session::param ('conf', new RSSConfiguration ()));
-		
+		$this->conf = Session::param ('conf', new RSSConfiguration ());
+		View::_param ('conf', $this->conf);
+
 		$entryDAO = new EntryDAO ();
 		View::_param ('nb_not_read', $entryDAO->countNotRead ());
 	}
-	
+
+	private function loadStylesAndScripts () {
+		View::appendStyle (Url::display ('/theme/global.css'));
+		View::appendStyle (Url::display ('/theme/freshrss.css'));
+		if (login_is_conf ($this->conf)) {
+			View::appendScript ('https://login.persona.org/include.js');
+		}
+		View::appendScript (Url::display ('/scripts/jquery.js'));
+		View::appendScript (Url::display ('/scripts/notification.js'));
+	}
+
 	private function loadNotifications () {
 		$notif = Session::param ('notification');
 		if ($notif) {

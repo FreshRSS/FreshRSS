@@ -1,7 +1,31 @@
-<div class="aside aside_flux">
+<div class="aside aside_flux" id="aside_flux">
+	<a class="toggle_aside" href="#close"><i class="icon i_close"></i></a>
+
 	<ul class="categories">
+		<?php
+			$get = Request::param ('get', '');
+			$search = Request::param ('search', '');
+			$url = array (
+				'c' => 'index',
+				'a' => 'index',
+				'params' => array (
+					'output' => 'rss'
+				)
+			);
+			if ($get != '') {
+				$url['params']['get'] = $get;
+			}
+			if ($search != '') {
+				$url['params']['search'] = $search;
+			}
+		?>
 		<?php if (!login_is_conf ($this->conf) || is_logged ()) { ?>
-		<li><a class="btn btn-important" href="<?php echo _url ('configure', 'feed'); ?>">Gestion des abonnements</a></li>
+		<li>
+			<div class="stick">
+				<a class="btn btn-important" href="<?php echo _url ('configure', 'feed'); ?>">Gestion des abonnements</a>
+				<a class="btn btn-important" href="<?php echo Url::display ($url); ?>"><i class="icon i_rss"></i></a>
+			</div>
+		</li>
 		<?php } ?>
 
 		<li>
@@ -50,17 +74,20 @@
 						<ul class="dropdown-menu">
 							<li class="dropdown-close"><a href="#close"><i class="icon i_close"></i></a></li>
 							<li class="item"><a href="<?php echo _url ('index', 'index', 'get', 'f_' . $feed->id ()); ?>">Filtrer</a></li>
-							<li class="separator"></li>
+							<li class="item"><a target="_blank" href="<?php echo $feed->website (); ?>">Voir le site</a></li>
 							<?php if (!login_is_conf ($this->conf) || is_logged ()) { ?>
+							<li class="separator"></li>
+
 							<li class="item"><a href="<?php echo _url ('configure', 'feed', 'id', $feed->id ()); ?>">Gestion</a></li>
+							<li class="item"><a href="<?php echo _url ('feed', 'actualize', 'id', $feed->id ()); ?>">Actualiser</a></li>
+							<li class="item"><a href="<?php echo _url ('entry', 'read', 'is_read', 1, 'get', 'f_' . $feed->id ()); ?>">Marquer comme lu</a></li>
 							<?php } ?>
-							<li class="item"><a href="<?php echo $feed->website (); ?>">Voir le site</a></li>
 						</ul>
 					</div>
 
 					<?php $not_read = $feed->nbNotRead (); ?>
 
-					<img class="favicon" src="http://g.etfv.co/<?php echo $feed->website (); ?>" alt="favicon <?php echo $feed->name (); ?>" />
+					<img class="favicon" src="http://g.etfv.co/<?php echo $feed->website (); ?>" alt="" />
 					<?php echo $not_read > 0 ? '<b>' : ''; ?>
 					<a class="feed" href="<?php echo _url ('index', 'index', 'get', 'f_' . $feed->id ()); ?>">
 						<?php echo $not_read > 0 ? '(' . $not_read . ') ' : ''; ?>

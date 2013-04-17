@@ -33,9 +33,17 @@ class feedController extends ActionController {
 						'description' => $feed->description (),
 						'lastUpdate' => time ()
 					);
-					if ($feedDAO->addFeed ($values)) {
+
+					if ($feedDAO->searchByUrl ($values['url'])) {
+						$notif = array (
+							'type' => 'bad',
+							'content' => 'Vous êtes déjà abonné à <em>' . $feed->name () . '</em>'
+						);
+						Session::_param ('notification', $notif);
+					} elseif ($feedDAO->addFeed ($values)) {
 						$entryDAO = new EntryDAO ();
 						$entries = $feed->entries ();
+
 						foreach ($entries as $entry) {
 							$values = $entry->toArray ();
 							$entryDAO->addEntry ($values);
@@ -56,6 +64,13 @@ class feedController extends ActionController {
 						);
 						Session::_param ('notification', $notif);
 					}
+				} catch (FeedException $e) {
+					Log::record ($e->getMessage (), Log::ERROR);
+					$notif = array (
+						'type' => 'bad',
+						'content' => 'Un problème interne a été rencontré, le flux n\'a pas pu être ajouté'
+					);
+					Session::_param ('notification', $notif);
 				} catch (FileNotExistException $e) {
 					Log::record ($e->getMessage (), Log::ERROR);
 					// notif
@@ -82,7 +97,16 @@ class feedController extends ActionController {
 		$feedDAO = new FeedDAO ();
 		$entryDAO = new EntryDAO ();
 
-		$feeds = $feedDAO->listFeedsOrderUpdate ();
+		$id = Request::param ('id');
+		$feeds = array ();
+		if ($id) {
+			$feed = $feedDAO->searchById ($id);
+			if ($feed) {
+				$feeds = array ($feed);
+			}
+		} else {
+			$feeds = $feedDAO->listFeedsOrderUpdate ();
+		}
 
 		// pour ne pas ajouter des entrées trop anciennes
 		$nb_month_old = $this->view->conf->oldEntries ();
@@ -90,17 +114,21 @@ class feedController extends ActionController {
 
 		$i = 0;
 		foreach ($feeds as $feed) {
-			$feed->load ();
-			$entries = $feed->entries ();
+			try {
+				$feed->load ();
+				$entries = $feed->entries ();
 
-			foreach ($entries as $entry) {
-				if ($entry->date (true) >= $date_min) {
-					$values = $entry->toArray ();
-					$entryDAO->addEntry ($values);
+				foreach ($entries as $entry) {
+					if ($entry->date (true) >= $date_min) {
+						$values = $entry->toArray ();
+						$entryDAO->addEntry ($values);
+					}
 				}
-			}
 
-			$feedDAO->updateLastUpdate ($feed->id ());
+				$feedDAO->updateLastUpdate ($feed->id ());
+			} catch (FeedException $e) {
+				Log::record ($e->getMessage (), Log::ERROR);
+			}
 
 			$i++;
 			if ($i >= 10) {
@@ -111,13 +139,37 @@ class feedController extends ActionController {
 		$entryDAO->cleanOldEntries ($nb_month_old);
 
 		// notif
-		$notif = array (
-			'type' => 'good',
-			'content' => '10 flux ont été mis à jour'
-		);
-		Session::_param ('notification', $notif);
+		$url = array ();
+		if ($i == 1) {
+			$feed = reset ($feeds);
+			$notif = array (
+				'type' => 'good',
+				'content' => '<em>' . $feed->name () . '</em> a été mis à jour'
+			);
+			$url['params'] = array ('get' => 'f_' . $feed->id ());
+		} elseif ($i > 0) {
+			$notif = array (
+				'type' => 'good',
+				'content' => $i . ' flux ont été mis à jour'
+			);
+		} else {
+			$notif = array (
+				'type' => 'bad',
+				'content' => 'Aucun flux n\'a pu être mis à jour'
+			);
+		}
 
-		Request::forward (array (), true);
+		if (Request::param ('ajax', 0) == 0) {
+			Session::_param ('notification', $notif);
+			Request::forward ($url, true);
+		} else {
+			$notif = array (
+				'type' => 'good',
+				'content' => 'Les flux ont été mis à jour'
+			);
+			Session::_param ('notification', $notif);
+			$this->view->_useLayout (false);
+		}
 	}
 
 	public function massiveImportAction () {
@@ -138,28 +190,49 @@ class feedController extends ActionController {
 			$nb_month_old = $this->view->conf->oldEntries ();
 			$date_min = time () - (60 * 60 * 24 * 30 * $nb_month_old);
 
+			$error = false;
 			$i = 0;
 			foreach ($feeds as $feed) {
-				$feed->load ();
+				try {
+					$feed->load ();
 
-				// Enregistrement du flux
-				$values = array (
-					'id' => $feed->id (),
-					'url' => $feed->url (),
-					'category' => $feed->category (),
-					'name' => $feed->name (),
-					'website' => $feed->website (),
-					'description' => $feed->description (),
-					'lastUpdate' => 0
-				);
+					// Enregistrement du flux
+					$values = array (
+						'id' => $feed->id (),
+						'url' => $feed->url (),
+						'category' => $feed->category (),
+						'name' => $feed->name (),
+						'website' => $feed->website (),
+						'description' => $feed->description (),
+						'lastUpdate' => 0
+					);
 
-				$feedDAO->addFeed ($values);
+					if (!$feedDAO->searchByUrl ($values['url'])) {
+						if (!$feedDAO->addFeed ($values)) {
+							$error = true;
+						}
+					}
+				} catch (FeedException $e) {
+					$error = true;
+					Log::record ($e->getMessage (), Log::ERROR);
+				}
 			}
 
+			if ($error) {
+				$res = 'Les flux ont été importés mais des erreurs sont survenus';
+			} else {
+				$res = 'Les flux ont été importés';
+			}
+			$notif = array (
+				'type' => 'good',
+				'content' => $res
+			);
+			Session::_param ('notification', $notif);
+
 			Request::forward (array (
-				'c' => 'feed',
-				'a' => 'actualize'
-			));
+				'c' => 'configure',
+				'a' => 'importExport'
+			), true);
 		}
 	}
 
@@ -170,19 +243,43 @@ class feedController extends ActionController {
 				array ('error' => array ('Vous n\'avez pas le droit d\'accéder à cette page'))
 			);
 		} else {
+			$type = Request::param ('type', 'feed');
 			$id = Request::param ('id');
 
 			$feedDAO = new FeedDAO ();
-			$feedDAO->deleteFeed ($id);
+			if ($type == 'category') {
+				if ($feedDAO->deleteFeedByCategory ($id)) {
+					$notif = array (
+						'type' => 'good',
+						'content' => 'La catégorie a été vidée'
+					);
+				} else {
+					$notif = array (
+						'type' => 'bad',
+						'content' => 'Un problème est survenu'
+					);
+				}
+			} else {
+				if ($feedDAO->deleteFeed ($id)) {
+					$notif = array (
+						'type' => 'good',
+						'content' => 'Le flux a été supprimé'
+					);
+				} else {
+					$notif = array (
+						'type' => 'bad',
+						'content' => 'Un problème est survenu'
+					);
+				}
+			}
 
-			// notif
-			$notif = array (
-				'type' => 'good',
-				'content' => 'Le flux a été supprimé'
-			);
 			Session::_param ('notification', $notif);
 
-			Request::forward (array ('c' => 'configure', 'a' => 'feed'), true);
+			if ($type == 'category') {
+				Request::forward (array ('c' => 'configure', 'a' => 'categorize'), true);
+			} else {
+				Request::forward (array ('c' => 'configure', 'a' => 'feed'), true);
+			}
 		}
 	}
 
@@ -190,7 +287,7 @@ class feedController extends ActionController {
 		$catDAO = new CategoryDAO ();
 
 		foreach ($categories as $cat) {
-			if (!$catDAO->searchByName ()) {
+			if (!$catDAO->searchByName ($cat->name ())) {
 				$values = array (
 					'id' => $cat->id (),
 					'name' => $cat->name (),

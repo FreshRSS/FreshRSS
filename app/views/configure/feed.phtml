@@ -9,28 +9,25 @@
 
 	<form method="post" action="<?php echo _url ('configure', 'feed', 'id', $this->flux->id ()); ?>">
 		<legend>Informations</legend>
-
 		<div class="form-group">
 			<label class="group-name">URL du site</label>
 			<div class="group-controls">
 				<span class="control"><a target="_blank" href="<?php echo $this->flux->website (); ?>"><?php echo $this->flux->website (); ?></a></span>
 			</div>
 		</div>
-
 		<div class="form-group">
 			<label class="group-name">URL du flux</label>
 			<div class="group-controls">
 				<span class="control"><a target="_blank" href="<?php echo $this->flux->url (); ?>"><?php echo $this->flux->url (); ?></a></span>
 			</div>
 		</div>
-	
 		<div class="form-group">
 			<label class="group-name">Nombre d'articles</label>
 			<div class="group-controls">
 				<span class="control"><?php echo $this->flux->nbEntries (); ?></span>
 			</div>
 		</div>
-	
+
 		<legend>Catégorie - <a href="<?php echo _url ('configure', 'categorize'); ?>">gestion</a></legend>
 		<div class="form-group">
 			<label class="group-name">Ranger dans une catégorie</label>
@@ -46,13 +43,22 @@
 
 		<legend>Avancé</legend>
 		<div class="form-group">
+			<label class="group-name" for="priority">Afficher dans le flux principal</label>
+			<div class="group-controls">
+				<label class="checkbox" for="priority">
+					<input type="checkbox" name="priority" id="priority" value="10"<?php echo $this->flux->priority () > 0 ? ' checked="checked"' : ''; ?> />
+					Oui
+				</label>
+			</div>
+		</div>
+		<div class="form-group">
 			<label class="group-name" for="path_entries">Chemin CSS des articles sur le site d'origine</label>
 			<div class="group-controls">
 				<input type="text" name="path_entries" id="path_entries" value="<?php echo $this->flux->pathEntries (); ?>" placeholder="Laissez vide pour désactiver" />
 				<i class="icon i_help"></i> Permet de récupérer les flux tronqués (attention, demande plus de temps !)
 			</div>
 		</div>
-
+<!--
 		<div class="form-group">
 			<label class="group-name" for="http_user">Username HTTP</label>
 			<div class="group-controls">
@@ -65,6 +71,7 @@
 				<input type="text" name="http_pass" id="http_pass" value="Pas encore implémenté" />
 			</div>
 		</div>
+-->
 
 		<div class="form-group form-actions">
 			<div class="group-controls">
