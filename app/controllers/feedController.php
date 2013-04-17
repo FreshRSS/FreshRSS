@@ -190,6 +190,7 @@ class feedController extends ActionController {
 			$nb_month_old = $this->view->conf->oldEntries ();
 			$date_min = time () - (60 * 60 * 24 * 30 * $nb_month_old);
 
+			$error = false;
 			$i = 0;
 			foreach ($feeds as $feed) {
 				try {
@@ -207,17 +208,31 @@ class feedController extends ActionController {
 					);
 
 					if (!$feedDAO->searchByUrl ($values['url'])) {
-						$feedDAO->addFeed ($values);
+						if (!$feedDAO->addFeed ($values)) {
+							$error = true;
+						}
 					}
 				} catch (FeedException $e) {
+					$error = true;
 					Log::record ($e->getMessage (), Log::ERROR);
 				}
 			}
 
+			if ($error) {
+				$res = 'Les flux ont été importés mais des erreurs sont survenus';
+			} else {
+				$res = 'Les flux ont été importés';
+			}
+			$notif = array (
+				'type' => 'good',
+				'content' => $res
+			);
+			Session::_param ('notification', $notif);
+
 			Request::forward (array (
-				'c' => 'feed',
-				'a' => 'actualize'
-			));
+				'c' => 'configure',
+				'a' => 'importExport'
+			), true);
 		}
 	}
 
