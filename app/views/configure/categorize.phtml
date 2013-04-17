@@ -6,13 +6,18 @@
 	<form method="post" action="<?php echo _url ('configure', 'categorize'); ?>">
 		<legend>Gestion des catégories - <a href="<?php echo _url ('configure', 'feed'); ?>">gestion des flux</a></legend>
 
+		<p class="alert alert-warn">Lors de la suppression d'une catégorie, ses flux seront automatiquement classés dans <em><?php echo $this->defaultCategory->name (); ?></em>.</p>
+
 		<?php $i = 0; foreach ($this->categories as $cat) { $i++; ?>
 		<div class="form-group">
-			<label class="group-name" for="cat_<?php echo $cat->id (); ?>">Catégorie n°<?php echo $i; ?></label>
+			<label class="group-name" for="cat_<?php echo $cat->id (); ?>">
+				Catégorie n°<?php echo $i; ?>
+			</label>
 			<div class="group-controls">
 				<input type="text" id="cat_<?php echo $cat->id (); ?>" name="categories[]" value="<?php echo $cat->name (); ?>" />
-				<?php if ($cat->id () == '000000') { ?>
-				<i class="icon i_help"></i> ne peut pas être supprimé
+				<a href="<?php echo _url ('feed', 'delete', 'id', $cat->id (), 'type', 'category'); ?>">Vider ?</a> (<?php echo $cat->nbFeed (); ?> flux)
+				<?php if ($cat->id () == $this->defaultCategory->id ()) { ?>
+				<i class="icon i_help"></i> ne peut pas être supprimée
 				<?php } ?>
 				<input type="hidden" name="ids[]" value="<?php echo $cat->id (); ?>" />
 			</div>

@@ -228,19 +228,43 @@ class feedController extends ActionController {
 				array ('error' => array ('Vous n\'avez pas le droit d\'accéder à cette page'))
 			);
 		} else {
+			$type = Request::param ('type', 'feed');
 			$id = Request::param ('id');
 
 			$feedDAO = new FeedDAO ();
-			$feedDAO->deleteFeed ($id);
+			if ($type == 'category') {
+				if ($feedDAO->deleteFeedByCategory ($id)) {
+					$notif = array (
+						'type' => 'good',
+						'content' => 'La catégorie a été vidée'
+					);
+				} else {
+					$notif = array (
+						'type' => 'bad',
+						'content' => 'Un problème est survenu'
+					);
+				}
+			} else {
+				if ($feedDAO->deleteFeed ($id)) {
+					$notif = array (
+						'type' => 'good',
+						'content' => 'Le flux a été supprimé'
+					);
+				} else {
+					$notif = array (
+						'type' => 'bad',
+						'content' => 'Un problème est survenu'
+					);
+				}
+			}
 
-			// notif
-			$notif = array (
-				'type' => 'good',
-				'content' => 'Le flux a été supprimé'
-			);
 			Session::_param ('notification', $notif);
 
-			Request::forward (array ('c' => 'configure', 'a' => 'feed'), true);
+			if ($type == 'category') {
+				Request::forward (array ('c' => 'configure', 'a' => 'categorize'), true);
+			} else {
+				Request::forward (array ('c' => 'configure', 'a' => 'feed'), true);
+			}
 		}
 	}
 

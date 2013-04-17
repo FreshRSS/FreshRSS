@@ -56,6 +56,7 @@ class configureController extends ActionController {
 		}
 
 		$this->view->categories = $catDAO->listCategories ();
+		$this->view->defaultCategory = $catDAO->getDefault ();
 
 		View::prependTitle ('Gestion des catégories - ');
 	}

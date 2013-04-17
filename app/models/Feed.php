@@ -283,6 +283,20 @@ class FeedDAO extends Model_pdo {
 			return false;
 		}
 	}
+	public function deleteFeedByCategory ($id) {
+		$sql = 'DELETE FROM feed WHERE category=?';
+		$stm = $this->bd->prepare ($sql);
+
+		$values = array ($id);
+
+		if ($stm && $stm->execute ($values)) {
+			return true;
+		} else {
+			$info = $stm->errorInfo();
+			Log::record ('SQL error : ' . $info[2], Log::ERROR);
+			return false;
+		}
+	}
 
 	public function searchById ($id) {
 		$sql = 'SELECT * FROM feed WHERE id=?';
