@@ -184,7 +184,8 @@ class configureController extends ActionController {
 			View::_title ('feeds_opml.xml');
 
 			$this->view->_useLayout (false);
-			header('Content-type: text/xml');
+			header('Content-Type: text/xml; charset=utf-8');
+			header('Content-disposition: attachment; filename=feeds_opml.xml');
 
 			$feedDAO = new FeedDAO ();
 			$catDAO = new CategoryDAO ();
