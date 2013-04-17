@@ -29,7 +29,7 @@
 			<div class="group-controls">
 				<button type="submit" class="btn btn-important">Importer</button>
 				ou
-				<button type="submit" class="btn btn-important" formaction="<?php echo Url::display (array ('c' => 'configure', 'a' => 'importExport', 'params' => array ('q' => 'export'))); ?>">Exporter</button>
+				<a target="_blank" class="btn btn-important" href="<?php echo _url ('configure', 'importExport', 'q', 'export'); ?>">Exporter</a>
 			</div>
 		</div>
 	</form>

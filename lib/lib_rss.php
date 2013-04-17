@@ -124,7 +124,11 @@ function opml_import ($xml) {
 			}
 			
 			if ($title) {
-				$cat = new Category ($title);
+				$catDAO = new CategoryDAO ();
+				$cat = $catDAO->searchByName ($title);
+				if ($cat === false) {
+					$cat = new Category ($title);
+				}
 				$categories[] = $cat;
 				
 				$feeds = array_merge ($feeds, getFeedsOutline ($outline, $cat->id ()));

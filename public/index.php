@@ -25,16 +25,20 @@ define ('APP_PATH', realpath (PUBLIC_PATH . '/../app'));
 define ('LOG_PATH', realpath (PUBLIC_PATH . '/../log'));
 define ('CACHE_PATH', realpath (PUBLIC_PATH . '/../cache'));
 
-set_include_path (get_include_path ()
-                 . PATH_SEPARATOR
-                 . LIB_PATH
-                 . PATH_SEPARATOR
-                 . LIB_PATH . '/minz'
-                 . PATH_SEPARATOR
-                 . APP_PATH);
+if (file_exists (PUBLIC_PATH . '/install.php')) {
+	include ('install.php');
+} else {
+	set_include_path (get_include_path ()
+		         . PATH_SEPARATOR
+		         . LIB_PATH
+		         . PATH_SEPARATOR
+		         . LIB_PATH . '/minz'
+		         . PATH_SEPARATOR
+		         . APP_PATH);
 
-require (APP_PATH . '/App_FrontController.php');
+	require (APP_PATH . '/App_FrontController.php');
 
-$front_controller = new App_FrontController ();
-$front_controller->init ();
-$front_controller->run ();
+	$front_controller = new App_FrontController ();
+	$front_controller->init ();
+	$front_controller->run ();
+}

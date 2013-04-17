@@ -9,6 +9,7 @@ class Feed extends Model {
 	private $website = '';
 	private $description = '';
 	private $lastUpdate = 0;
+	private $priority = 10;
 	private $pathEntries = '';
 	private $httpAuth = '';
 
@@ -47,6 +48,9 @@ class Feed extends Model {
 	}
 	public function lastUpdate () {
 		return $this->lastUpdate;
+	}
+	public function priority () {
+		return $this->priority;
 	}
 	public function pathEntries () {
 		return $this->pathEntries;
@@ -108,6 +112,12 @@ class Feed extends Model {
 	public function _lastUpdate ($value) {
 		$this->lastUpdate = $value;
 	}
+	public function _priority ($value) {
+		if (!is_int (intval ($value))) {
+			$value = 10;
+		}
+		$this->priority = $value;
+	}
 	public function _pathEntries ($value) {
 		$this->pathEntries = $value;
 	}
@@ -124,9 +134,13 @@ class Feed extends Model {
 				);
 			} else {
 				$feed = new SimplePie ();
-				$feed->set_feed_url ($this->url);
+				$feed->set_feed_url (preg_replace ('/&amp;/', '&', $this->url));
 				$feed->set_cache_location (CACHE_PATH);
 				$feed->init ();
+
+				if ($feed->error()) {
+					throw new FeedException ($feed->error);
+				}
 
 				$subscribe_url = $feed->subscribe_url ();
 				if (!is_null ($subscribe_url) && $subscribe_url != $this->url) {
@@ -191,7 +205,7 @@ class Feed extends Model {
 
 class FeedDAO extends Model_pdo {
 	public function addFeed ($valuesTmp) {
-		$sql = 'INSERT INTO feed (id, url, category, name, website, description, lastUpdate) VALUES(?, ?, ?, ?, ?, ?, ?)';
+		$sql = 'INSERT INTO feed (id, url, category, name, website, description, lastUpdate, priority, error) VALUES(?, ?, ?, ?, ?, ?, ?, 10, 0)';
 		$stm = $this->bd->prepare ($sql);
 
 		$values = array (
@@ -207,6 +221,8 @@ class FeedDAO extends Model_pdo {
 		if ($stm && $stm->execute ($values)) {
 			return true;
 		} else {
+			$info = $stm->errorInfo();
+			Log::record ('SQL error : ' . $info[2], Log::ERROR);
 			return false;
 		}
 	}
@@ -229,6 +245,8 @@ class FeedDAO extends Model_pdo {
 		if ($stm && $stm->execute ($values)) {
 			return true;
 		} else {
+			$info = $stm->errorInfo();
+			Log::record ('SQL error : ' . $info[2], Log::ERROR);
 			return false;
 		}
 	}
@@ -245,6 +263,8 @@ class FeedDAO extends Model_pdo {
 		if ($stm && $stm->execute ($values)) {
 			return true;
 		} else {
+			$info = $stm->errorInfo();
+			Log::record ('SQL error : ' . $info[2], Log::ERROR);
 			return false;
 		}
 	}
@@ -258,6 +278,22 @@ class FeedDAO extends Model_pdo {
 		if ($stm && $stm->execute ($values)) {
 			return true;
 		} else {
+			$info = $stm->errorInfo();
+			Log::record ('SQL error : ' . $info[2], Log::ERROR);
+			return false;
+		}
+	}
+	public function deleteFeedByCategory ($id) {
+		$sql = 'DELETE FROM feed WHERE category=?';
+		$stm = $this->bd->prepare ($sql);
+
+		$values = array ($id);
+
+		if ($stm && $stm->execute ($values)) {
+			return true;
+		} else {
+			$info = $stm->errorInfo();
+			Log::record ('SQL error : ' . $info[2], Log::ERROR);
 			return false;
 		}
 	}
@@ -274,6 +310,22 @@ class FeedDAO extends Model_pdo {
 
 		if (isset ($feed[$id])) {
 			return $feed[$id];
+		} else {
+			return false;
+		}
+	}
+	public function searchByUrl ($url) {
+		$sql = 'SELECT * FROM feed WHERE url=?';
+		$stm = $this->bd->prepare ($sql);
+
+		$values = array ($url);
+
+		$stm->execute ($values);
+		$res = $stm->fetchAll (PDO::FETCH_ASSOC);
+		$feed = current (HelperFeed::daoToFeed ($res));
+
+		if (isset ($feed)) {
+			return $feed;
 		} else {
 			return false;
 		}
@@ -354,6 +406,7 @@ class HelperFeed {
 			$list[$key]->_website ($dao['website']);
 			$list[$key]->_description ($dao['description']);
 			$list[$key]->_lastUpdate ($dao['lastUpdate']);
+			$list[$key]->_priority ($dao['priority']);
 			$list[$key]->_pathEntries ($dao['pathEntries']);
 			$list[$key]->_httpAuth ($dao['httpAuth']);
 

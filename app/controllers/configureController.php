@@ -56,6 +56,7 @@ class configureController extends ActionController {
 		}
 
 		$this->view->categories = $catDAO->listCategories ();
+		$this->view->defaultCategory = $catDAO->getDefault ();
 
 		View::prependTitle ('Gestion des catégories - ');
 	}
@@ -88,10 +89,12 @@ class configureController extends ActionController {
 				if (Request::isPost () && $this->view->flux) {
 					$cat = Request::param ('category', 0);
 					$path = Request::param ('path_entries', '');
+					$priority = Request::param ('priority', 0);
 
 					$values = array (
 						'category' => $cat,
-						'pathEntries' => $path
+						'pathEntries' => $path,
+						'priority' => $priority
 					);
 
 					if ($feedDAO->updateFeed ($id, $values)) {
@@ -130,6 +133,7 @@ class configureController extends ActionController {
 			$openArticle = Request::param ('mark_open_article', 'no');
 			$openSite = Request::param ('mark_open_site', 'no');
 			$openPage = Request::param ('mark_open_page', 'no');
+			$urlShaarli = Request::param ('shaarli', '');
 
 			$this->view->conf->_postsPerPage (intval ($nb));
 			$this->view->conf->_defaultView ($view);
@@ -142,6 +146,7 @@ class configureController extends ActionController {
 				'site' => $openSite,
 				'page' => $openPage,
 			));
+			$this->view->conf->_urlShaarli ($urlShaarli);
 
 			$values = array (
 				'posts_per_page' => $this->view->conf->postsPerPage (),
@@ -151,6 +156,7 @@ class configureController extends ActionController {
 				'old_entries' => $this->view->conf->oldEntries (),
 				'mail_login' => $this->view->conf->mailLogin (),
 				'mark_when' => $this->view->conf->markWhen (),
+				'url_shaarli' => $this->view->conf->urlShaarli (),
 			);
 
 			$confDAO = new RSSConfigurationDAO ();
@@ -178,7 +184,8 @@ class configureController extends ActionController {
 			View::_title ('feeds_opml.xml');
 
 			$this->view->_useLayout (false);
-			header('Content-type: text/xml');
+			header('Content-Type: text/xml; charset=utf-8');
+			header('Content-disposition: attachment; filename=feeds_opml.xml');
 
 			$feedDAO = new FeedDAO ();
 			$catDAO = new CategoryDAO ();
