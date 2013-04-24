@@ -24,7 +24,7 @@
 			}
 		.header > .item.search input {
 			width: 200px;
-			transition: all 200ms linear;
+			transition: width 200ms linear;
 		}
 			.header .item.search input:focus {
 				width: 300px;

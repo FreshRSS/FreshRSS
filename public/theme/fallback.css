@@ -1,0 +1,65 @@
+.btn {
+	background: #fff;
+	background: -moz-linear-gradient(top, #fff 0%, #eee 100%);
+	background: -webkit-linear-gradient(top, #fff 0%, #eee 100%);
+	background: -o-linear-gradient(top, #fff 0%, #eee 100%);
+	background: -ms-linear-gradient(top, #fff 0%, #eee 100%);
+}
+	.btn:hover {
+		background: #f0f0f0;
+		background: -moz-linear-gradient(top, #f8f8f8 0%, #f0f0f0 100%);
+		background: -webkit-linear-gradient(top, #f8f8f8 0%, #f0f0f0 100%);
+		background: -o-linear-gradient(top, #f8f8f8 0%, #f0f0f0 100%);
+		background: -ms-linear-gradient(top, #f8f8f8 0%, #f0f0f0 100%);
+	}
+	.btn.btn-important {
+		background: #0084CC;
+		background: -moz-linear-gradient(top, #0084CC 0%, #0045CC 100%);
+		background: -webkit-linear-gradient(top, #0084CC 0%, #0045CC 100%);
+		background: -o-linear-gradient(top, #0084CC 0%, #0045CC 100%);
+		background: -ms-linear-gradient(top, #0084CC 0%, #0045CC 100%);
+	}
+		.btn.btn-important:hover {
+			background: -moz-linear-gradient(top, #0066CC 0%, #0045CC 100%);
+			background: -webkit-linear-gradient(top, #0066CC 0%, #0045CC 100%);
+			background: -o-linear-gradient(top, #0066CC 0%, #0045CC 100%);
+			background: -ms-linear-gradient(top, #0066CC 0%, #0045CC 100%);
+		}
+	.btn.btn-attention {
+		background: #E95B57;
+		background: -moz-linear-gradient(top, #E95B57 0%, #BD362F 100%);
+		background: -webkit-linear-gradient(top, #E95B57 0%, #BD362F 100%);
+		background: -o-linear-gradient(top, #E95B57 0%, #BD362F 100%);
+		background: -ms-linear-gradient(top, #E95B57 0%, #BD362F 100%);
+	}
+		.btn.btn-attention:hover {
+			background: -moz-linear-gradient(top, #D14641 0%, #BD362F 100%);
+			background: -webkit-linear-gradient(top, #D14641 0%, #BD362F 100%);
+			background: -o-linear-gradient(top, #D14641 0%, #BD362F 100%);
+			background: -ms-linear-gradient(top, #D14641 0%, #BD362F 100%);
+		}
+
+
+.nav-head {
+	background: #fff;
+	background: -moz-linear-gradient(top, #fff 0%, #f0f0f0 100%);
+	background: -webkit-linear-gradient(top, #fff 0%, #f0f0f0 100%);
+	background: -o-linear-gradient(top, #fff 0%, #f0f0f0 100%);
+	background: -ms-linear-gradient(top, #fff 0%, #f0f0f0 100%);
+}
+
+.header > .item.search input {
+	-moz-transition: width 200ms linear;
+	 -webkit-transition: width 200ms linear;
+	-o-transition: width 200ms linear;
+	-ms-transition: width 200ms linear;
+}
+
+@media(max-width: 840px) {
+	.aside {
+		-moz-transition: width 200ms linear;
+		 -webkit-transition: width 200ms linear;
+		-o-transition: width 200ms linear;
+		-ms-transition: width 200ms linear;
+	}
+}

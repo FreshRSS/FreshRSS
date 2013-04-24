@@ -173,8 +173,7 @@ input, select, textarea {
 	min-height: 37px;
 	min-width: 15px;
 	padding: 5px 10px;
-	background: #fff;
-	background: linear-gradient(#fff, #eee);
+	background: linear-gradient(to bottom, #fff 0%, #eee 100%);
 	border-radius: 3px;
 	border: 1px solid #ddd;
 	border-bottom: 1px solid #aaa;
@@ -190,8 +189,7 @@ input, select, textarea {
 		line-height: 25px;
 	}
 	.btn:hover {
-		background: #f0f0f0;
-		background: linear-gradient(#f8f8f8, #f0f0f0);
+		background: linear-gradient(to bottom, #f8f8f8, #f0f0f0);
 		text-decoration: none;
 	}
 	.btn.active,
@@ -201,14 +199,13 @@ input, select, textarea {
 	}
 
 	.btn.btn-important {
-		background: #0084CC;
-		background: linear-gradient(#0084CC, #0045CC);
+		background: linear-gradient(to bottom, #0084CC, #0045CC);
 		color: #fff;
 		border: 1px solid #0062B7;
 		text-shadow: 0px -1px 0 #aaa;
 	}
 		.btn.btn-important:hover {
-			background: linear-gradient(#0066CC, #0045CC);
+			background: linear-gradient(to bottom, #0066CC, #0045CC);
 		}
 		.btn.btn-important:active {
 			background: #0044CB;
@@ -216,14 +213,13 @@ input, select, textarea {
 		}
 
 	.btn.btn-attention {
-		background: #E95B57;
-		background: linear-gradient(#E95B57, #BD362F);
+		background: linear-gradient(to bottom, #E95B57, #BD362F);
 		color: #fff;
 		border: 1px solid #C44742;
 		text-shadow: 0px -1px 0px #666;
 	}
 		.btn.btn-attention:hover {
-			background: linear-gradient(#D14641, #BD362F);
+			background: linear-gradient(to bottom, #D14641, #BD362F);
 		}
 		.btn.btn-attention:active {
 			background: #BD362F;
@@ -289,8 +285,7 @@ input, select, textarea {
 .nav-head {
 	display: block;
 	margin: 0;
-	background: #fff;
-	background: linear-gradient(#fff, #f0f0f0);
+	background: linear-gradient(to bottom, #fff, #f0f0f0);
 	border-bottom: 1px solid #ddd;
 	text-align: right;
 }

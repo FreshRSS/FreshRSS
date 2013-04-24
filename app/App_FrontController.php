@@ -41,6 +41,7 @@ class App_FrontController extends FrontController {
 	}
 
 	private function loadStylesAndScripts () {
+		View::appendStyle (Url::display ('/theme/fallback.css'));
 		View::appendStyle (Url::display ('/theme/global.css'));
 		View::appendStyle (Url::display ('/theme/freshrss.css'));
 		if (login_is_conf ($this->conf)) {
