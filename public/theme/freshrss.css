@@ -127,6 +127,7 @@
 		}
 			.categories .feeds .item .dropdown-target:target ~ .dropdown-toggle i,
 			.categories .feeds .item:hover .dropdown-toggle i {
+				background-image: url("icons/configure.png");
 				background-image: url("icons/configure.svg");
 			}
 	.categories .notRead {
@@ -199,6 +200,7 @@
 				display: inline-block;
 				width: 30px;
 				height: 40px;
+				background: url("icons/read.png") center center no-repeat;
 				background: url("icons/read.svg") center center no-repeat;
 				vertical-align: middle;
 			}
@@ -206,12 +208,14 @@
 					text-decoration: none;
 				}
 				.flux.not_read .flux_header .item.manage .read {
+					background: url("icons/unread.png") center center no-repeat;
 					background: url("icons/unread.svg") center center no-repeat;
 				}
 			.flux_header .item.manage .bookmark {
 				display: inline-block;
 				width: 30px;
 				height: 40px;
+				background: url("icons/non-starred.png") center center no-repeat;
 				background: url("icons/non-starred.svg") center center no-repeat;
 				vertical-align: middle;
 			}
@@ -219,6 +223,7 @@
 					text-decoration: none;
 				}
 				.flux.favorite .flux_header .item.manage .bookmark {
+					background: url("icons/starred.png") center center no-repeat;
 					background: url("icons/starred.svg") center center no-repeat;
 				}
 		.flux_header .item.website {
@@ -260,6 +265,7 @@
 				display: inline-block;
 				width: 35px;
 				height: 40px;
+				background: url("icons/link.png") center center no-repeat;
 				background: url("icons/link.svg") center center no-repeat;
 				vertical-align: middle;
 			}
