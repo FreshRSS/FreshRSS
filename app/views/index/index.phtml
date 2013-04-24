@@ -89,6 +89,24 @@ if (isset ($this->entryPaginator)) {
 						</ul>
 					</div>
 				</li>
+				<?php $tags = $item->tags(); ?>
+				<?php if(!empty($tags)) { ?>
+				<li class="item">
+					<div class="dropdown">
+						<div id="dropdown-tags-<?php echo $item->id ();?>" class="dropdown-target"></div>
+						<i class="icon i_tag"></i> <a class="dropdown-toggle" href="#dropdown-tags-<?php echo $item->id ();?>">Tags</a>
+
+						<ul class="dropdown-menu">
+							<li class="dropdown-close"><a href="#close"><i class="icon i_close"></i></a></li>
+
+							<li class="dropdown-header">Tags associés</li>
+							<?php foreach($tags as $tag) { ?>
+							<li class="item"><span><?php echo $tag; ?></span></li>
+							<?php } ?>
+						</ul>
+					</div>
+				</li>
+				<?php } ?>
 			</ul>
 		</div>
 	</div>

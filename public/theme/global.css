@@ -511,3 +511,7 @@ input, select, textarea {
 		background-image: url("icons/share.png");
 		background-image: url("icons/share.svg");
 	}
+	.icon.i_tag {
+		background-image: url("icons/tag.png");
+		background-image: url("icons/tag.svg");
+	}
