@@ -1,9 +1,9 @@
 <ul class="nav nav-list aside aside_feed">
-	<li class="nav-header">Vos flux RSS</li>
+	<li class="nav-header"><?php echo Translate::t ('your_rss_feeds'); ?></li>
 
 	<li class="nav-form"><form id="add_rss" method="post" action="<?php echo Url::display (array ('c' => 'feed', 'a' => 'add')); ?>">
 		<div class="stick">
-			<input type="url" name="url_rss" placeholder="Ajouter un flux RSS" />
+			<input type="url" name="url_rss" placeholder="<?php echo Translate::t ('add_rss_feed'); ?>" />
 			<div class="dropdown">
 				<div id="dropdown-cat" class="dropdown-target"></div>
 
@@ -11,7 +11,7 @@
 				<ul class="dropdown-menu">
 					<li class="dropdown-close"><a href="#close"><i class="icon i_close"></i></a></li>
 
-					<li class="dropdown-header">Catégorie</li>
+					<li class="dropdown-header"><?php echo Translate::t ('category'); ?></li>
 
 					<?php foreach ($this->categories as $cat) { ?>
 					<li class="item">
@@ -27,7 +27,7 @@
 		</div>
 	</form></li>
 
-	<li class="item<?php echo Request::actionName () == 'importExport' ? ' active' : ''; ?>"><a href="<?php echo _url ('configure', 'importExport'); ?>">Import / Export OPML</a></li>
+	<li class="item<?php echo Request::actionName () == 'importExport' ? ' active' : ''; ?>"><a href="<?php echo _url ('configure', 'importExport'); ?>"><?php echo Translate::t ('import_export_opml'); ?></a></li>
 
 	<li class="separator"></li>
 
@@ -41,6 +41,6 @@
 	</li>
 	<?php } ?>
 	<?php } else { ?>
-	<li class="item disable">Aucun flux</li>
+	<li class="item disable"><?php echo Translate::t ('no_rss_feed'); ?></li>
 	<?php } ?>
 </ul>

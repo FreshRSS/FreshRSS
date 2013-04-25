@@ -1,23 +1,23 @@
 <?php if (login_is_conf ($this->conf)) { ?>
 <ul class="nav nav-head">
 	<?php if (!is_logged ()) { ?>
-	<li class="item"><i class="icon i_login"></i> <a id="signin" href="#">Connexion</a></li>
+	<li class="item"><i class="icon i_login"></i> <a id="signin" href="#"><?php echo Translate::t ('login'); ?></a></li>
 	<?php } else { ?>
-	<li class="item"><i class="icon i_logout"></i> <a id="signout" href="#">Déconnexion</a></li>
+	<li class="item"><i class="icon i_logout"></i> <a id="signout" href="#"><?php echo Translate::t ('logout'); ?></a></li>
 	<?php } ?>
 </ul>
 <?php } ?>
 
 <div class="header">
 	<div class="item title">
-		<h1><a href="<?php echo _url ('index', 'index'); ?>">FreshRSS</a></h1>
+		<h1><a href="<?php echo _url ('index', 'index'); ?>"><?php echo Configuration::title (); ?></a></h1>
 	</div>
 
 	<div class="item search">
 		<form action="<?php echo _url ('index', 'index'); ?>" method="get">
 			<div class="stick">
 				<?php $s = Request::param ('search', ''); ?>
-				<input type="text" name="search" id="search" value="<?php echo $s; ?>" placeholder="Rechercher sur les titres" />
+				<input type="text" name="search" id="search" value="<?php echo $s; ?>" placeholder="<?php echo Translate::t ('search_on_title'); ?>" />
 				<button class="btn" type="submit"><i class="icon i_search"></i></button>
 			</div>
 		</form>
@@ -31,12 +31,12 @@
 			<a class="btn dropdown-toggle" href="#dropdown-configure"><i class="icon i_configure"></i></a>
 			<ul class="dropdown-menu">
 				<li class="dropdown-close"><a href="#close"><i class="icon i_close"></i></a></li>
-				<li class="dropdown-header">Configuration</li>
-				<li class="item"><a href="<?php echo _url ('configure', 'display'); ?>">Général et lecture</a></li>
-				<li class="item"><a href="<?php echo _url ('configure', 'categorize'); ?>">Catégories</a></li>
-				<li class="item"><a href="<?php echo _url ('configure', 'shortcut'); ?>">Raccourcis</a></li>
+				<li class="dropdown-header"><?php echo Translate::t ('configuration'); ?></li>
+				<li class="item"><a href="<?php echo _url ('configure', 'display'); ?>"><?php echo Translate::t ('general_and_reading'); ?></a></li>
+				<li class="item"><a href="<?php echo _url ('configure', 'categorize'); ?>"><?php echo Translate::t ('categories'); ?></a></li>
+				<li class="item"><a href="<?php echo _url ('configure', 'shortcut'); ?>"><?php echo Translate::t ('shortcuts'); ?></a></li>
 				<li class="separator"></li>
-				<li class="item"><a href="<?php echo _url ('index', 'about'); ?>">À propos</a></li>
+				<li class="item"><a href="<?php echo _url ('index', 'about'); ?>"><?php echo Translate::t ('about'); ?></a></li>
 			</ul>
 		</div>
 	</div>

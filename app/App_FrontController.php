@@ -11,6 +11,9 @@ class App_FrontController extends FrontController {
 		$this->loadModels ();
 
 		Session::init (); // lancement de la session doit se faire après chargement des modèles sinon bug (pourquoi ?)
+		Session::_param ('language', 'fr');
+		Translate::init ();
+
 		$this->loadParamsView ();
 		$this->loadStylesAndScripts ();
 		$this->loadNotifications ();
