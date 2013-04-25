@@ -3,8 +3,8 @@ mastodontes que sont RSSLounge et TinyTinyRSS
 
 @name FreshRSS
 @author Marien Fressinaud <dev@marienfressinaud.fr>
-@version 0.1.0
-@date 2013-04-08
+@version 0.2.0
+@date 2013-04-17
 @license AGPL3
 
 DISCLAIMER
@@ -52,3 +52,24 @@ SÉCURITÉ ET CONSEILS
 	4. Vous pouvez ajouter une tâche CRON sur l'url de mise à jour des flux
 	   (clic droit sur le bouton d'actualisation puis "Copier l'adresse du
 	   lien") pour que celle-ci se fasse de manière transparente
+
+CHANGELOG
+=========
+2013-04-17 changes with FreshRSS 0.2.0
+	*) Création d'un installateur
+	*) Actualisation des flux en Ajax
+	*) Partage par mail et Shaarli ajouté
+	*) Export par flux RSS
+	*) Possibilité de vider une catégorie
+	*) Possibilité de sélectionner les catégories en vue mobile
+	*) Les flux peuvent être sortis du flux principal (système de priorité)
+	*) Amélioration ajout / import / export des flux
+	*) Amélioration actualisation (meilleure gestion des erreurs)
+	*) Améliorations CSS
+	*) Changements dans la base de données
+	*) Màj de la librairie SimplePie
+	*) Flux sans auteurs gérés normalement
+	*) Correction bugs divers
+
+2013-04-08 changes with FreshRSS 0.1.0
+	*) "Première" version
