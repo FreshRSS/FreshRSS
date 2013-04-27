@@ -555,6 +555,7 @@ case 5:
 		<meta charset="utf-8">
 		<meta name="viewport" content="initial-scale=1.0">
 		<title><?php echo _t ('freshrss_installation'); ?></title>
+		<link rel="stylesheet" type="text/css" media="all" href="theme/fallback.css" />
 		<link rel="stylesheet" type="text/css" media="all" href="theme/global.css" />
 		<link rel="stylesheet" type="text/css" media="all" href="theme/freshrss.css" />
 	</head>
