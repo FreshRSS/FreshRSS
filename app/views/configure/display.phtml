@@ -7,6 +7,18 @@
 		<legend><?php echo Translate::t ('general_configuration'); ?></legend>
 
 		<div class="form-group">
+			<label class="group-name" for="language"><?php echo Translate::t ('language'); ?></label>
+			<div class="group-controls">
+				<select name="language" id="language">
+				<?php $languages = $this->conf->availableLanguages (); ?>
+				<?php foreach ($languages as $short => $lib) { ?>
+				<option value="<?php echo $short; ?>"<?php echo $this->conf->language () == $short ? ' selected="selected"' : ''; ?>><?php echo $lib; ?></option>
+				<?php } ?>
+				</select>
+			</div>
+		</div>
+
+		<div class="form-group">
 			<label class="group-name" for="old_entries"><?php echo Translate::t ('delete_articles_every'); ?></label>
 			<div class="group-controls">
 				<input type="number" id="old_entries" name="old_entries" value="<?php echo $this->conf->oldEntries (); ?>" /> <?php echo Translate::t ('month'); ?>

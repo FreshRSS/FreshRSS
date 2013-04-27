@@ -124,6 +124,7 @@ class configureController extends ActionController {
 
 	public function displayAction () {
 		if (Request::isPost ()) {
+			$language = Request::param ('language', 'en');
 			$nb = Request::param ('posts_per_page', 10);
 			$view = Request::param ('default_view', 'all');
 			$display = Request::param ('display_posts', 'no');
@@ -135,6 +136,7 @@ class configureController extends ActionController {
 			$openPage = Request::param ('mark_open_page', 'no');
 			$urlShaarli = Request::param ('shaarli', '');
 
+			$this->view->conf->_language ($language);
 			$this->view->conf->_postsPerPage (intval ($nb));
 			$this->view->conf->_defaultView ($view);
 			$this->view->conf->_displayPosts ($display);
@@ -149,6 +151,7 @@ class configureController extends ActionController {
 			$this->view->conf->_urlShaarli ($urlShaarli);
 
 			$values = array (
+				'language' => $this->view->conf->language (),
 				'posts_per_page' => $this->view->conf->postsPerPage (),
 				'default_view' => $this->view->conf->defaultView (),
 				'display_posts' => $this->view->conf->displayPosts (),
@@ -163,6 +166,9 @@ class configureController extends ActionController {
 			$confDAO->update ($values);
 			Session::_param ('conf', $this->view->conf);
 			Session::_param ('mail', $this->view->conf->mailLogin ());
+
+			Session::_param ('language', $this->view->conf->language ());
+			Translate::reset ();
 
 			// notif
 			$notif = array (

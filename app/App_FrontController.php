@@ -11,12 +11,12 @@ class App_FrontController extends FrontController {
 		$this->loadModels ();
 
 		Session::init (); // lancement de la session doit se faire après chargement des modèles sinon bug (pourquoi ?)
-		Session::_param ('language', 'fr');
-		Translate::init ();
 
 		$this->loadParamsView ();
 		$this->loadStylesAndScripts ();
 		$this->loadNotifications ();
+
+		Translate::init ();
 	}
 
 	private function loadLibs () {
@@ -41,6 +41,8 @@ class App_FrontController extends FrontController {
 
 		$entryDAO = new EntryDAO ();
 		View::_param ('nb_not_read', $entryDAO->countNotRead ());
+
+		Session::_param ('language', $this->conf->language ());
 	}
 
 	private function loadStylesAndScripts () {

@@ -131,6 +131,7 @@ return array (
 	'think_to_add'			=> 'Pensez à en ajouter !',
 
 	'general_configuration'		=> 'Configuration générale',
+	'language'			=> 'Langue',
 	'delete_articles_every'		=> 'Supprimer les articles tous les',
 	'month'				=> 'mois',
 	'persona_connection_email'	=> 'Adresse mail de connexion (utilise <a href="https://persona.org/">Persona</a>)',
