@@ -51,6 +51,7 @@ return array (
 	'error_occurred'		=> 'Une erreur est survenue',
 	'error_occurred_update'		=> 'Une erreur est survenue lors de la mise à jour',
 
+	'default_category'		=> 'Sans catégorie',
 	'categories_updated'		=> 'Les catégories ont été mises à jour',
 	'categories_management'		=> 'Gestion des catégories',
 	'feed_updated'			=> 'Le flux a été mis à jour',
@@ -214,4 +215,55 @@ return array (
 	// format pour la fonction date(), %s permet d'indiquer le mois en toutes lettres
 	'format_date'			=> 'd %s Y',
 	'format_date_hour'		=> '\l\e d %s Y \à H\:i',
+
+	// INSTALLATION
+	'freshrss_installation'		=> 'Installation - FreshRSS',
+	'freshrss'			=> 'FreshRSS',
+	'installation_step'		=> 'Installation - étape %d',
+	'steps'				=> 'Étapes',
+	'checks'			=> 'Vérifications',
+	'bdd_configuration'		=> 'Configuration de la base de données',
+	'this_is_the_end'		=> 'This is the end',
+
+	'ok'				=> 'Ok !',
+	'congratulations'		=> 'Félicitations !',
+	'attention'			=> 'Attention !',
+	'damn'				=> 'Arf !',
+	'oops'				=> 'Oups !',
+	'next_step'			=> 'Passer à l\'étape suivante',
+
+	'language_defined'		=> 'La langue a bien été définie.',
+	'choose_language'		=> 'Choisissez la langue pour FreshRSS',
+
+	'javascript_is_better'		=> 'FreshRSS est plus agréable à utiliser avec le Javascript d\'activé',
+	'php_is_ok'			=> 'Votre version de PHP est la %s et est compatible avec FreshRSS',
+	'php_is_nok'			=> 'Votre version de PHP est la %s. Vous devriez avoir au moins la version %s',
+	'minz_is_ok'			=> 'Vous disposez du framework Minz',
+	'minz_is_nok'			=> 'Vous ne disposez pas de la librairie Minz. Vous devriez exécuter le script <em>build.sh</em> ou bien <a href="https://github.com/marienfressinaud/MINZ">la télécharger sur Github</a> et installer dans le répertoire <em>%s</em> le contenu de son répertoire <em>/lib</em>.',
+	'curl_is_ok'			=> 'Vous disposez de cURL dans sa version %s',
+	'curl_is_nok'			=> 'Vous ne disposez pas de cURL',
+	'pdomysql_is_ok'		=> 'Vous disposez de PDO et de son driver pour MySQL',
+	'pdomysql_is_nok'		=> 'Vous ne disposez pas de PDO ou de son driver pour MySQL',
+	'cache_is_ok'			=> 'Les droits sur le répertoire de cache sont bons',
+	'log_is_ok'			=> 'Les droits sur le répertoire des logs sont bons',
+	'conf_is_ok'			=> 'Les droits sur le répertoire de configuration sont bons',
+	'data_is_ok'			=> 'Les droits sur le répertoire de data sont bons',
+	'file_is_nok'			=> 'Veuillez vérifier les droits sur le répertoire <em>%s</em>. Le serveur HTTP doit être capable d\'écrire dedans',
+	'fix_errors_before'		=> 'Veuillez corriger les erreurs avant de passer à l\'étape suivante.',
+
+	'general_conf_is_ok'		=> 'La configuration générale a été enregistrée.',
+	'random_string'			=> 'Chaîne aléatoire',
+	'change_value'			=> 'Vous devriez changer cette valeur par n\'importe quelle autre',
+	'base_url'			=> 'Base de l\'url',
+	'do_not_change_if_doubt'	=> 'Laissez tel quel dans le doute',
+
+	'bdd_conf_is_ok'		=> 'La configuration de la base de données a été enregistrée.',
+	'host'				=> 'Hôte',
+	'username'			=> 'Nom utilisateur',
+	'password'			=> 'Mot de passe',
+	'bdd'				=> 'Base de données',
+
+	'installation_is_ok'		=> 'L\'installation s\'est bien passée. Il faut maintenant supprimer le fichier <em>install.php</em> pour pouvoir accéder à FreshRSS... ou simplement cliquer sur le bouton ci-dessous :)',
+	'finish_installation'		=> 'Terminer l\'installation',
+	'install_not_deleted'		=> 'Quelque chose s\'est mal passé, vous devez supprimer le fichier <em>%s</em> à la main.',
 );

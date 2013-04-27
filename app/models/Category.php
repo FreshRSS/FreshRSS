@@ -176,7 +176,7 @@ class CategoryDAO extends Model_pdo {
 		$def_cat = $this->searchById ('000000');
 
 		if (!$def_cat) {
-			$cat = new Category ('Sans catégorie');
+			$cat = new Category (Translate::t ('default_category'));
 			$cat->_id ('000000');
 
 			$values = array (

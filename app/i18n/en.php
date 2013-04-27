@@ -51,6 +51,7 @@ return array (
 	'error_occurred'		=> 'An error occured',
 	'error_occurred_update'		=> 'An error occured during update',
 
+	'default_category'		=> 'Uncategorized',
 	'categories_updated'		=> 'Categories have been updated',
 	'categories_management'		=> 'Categories management',
 	'feed_updated'			=> 'Feed has been updated',
@@ -214,4 +215,55 @@ return array (
 	// format for date() function, %s allows to indicate month in letter
 	'format_date'			=> '%s dS Y',
 	'format_date_hour'		=> '%s dS Y \a\t H\.i',
+
+	// INSTALLATION
+	'freshrss_installation'		=> 'Installation - FreshRSS',
+	'freshrss'			=> 'FreshRSS',
+	'installation_step'		=> 'Installation - step %d',
+	'steps'				=> 'Steps',
+	'checks'			=> 'Checks',
+	'bdd_configuration'		=> 'Database configuration',
+	'this_is_the_end'		=> 'This is the end',
+
+	'ok'				=> 'Ok!',
+	'congratulations'		=> 'Congratulations!',
+	'attention'			=> 'Attention!',
+	'damn'				=> 'Damn!',
+	'oops'				=> 'Oops!',
+	'next_step'			=> 'Go to the next step',
+
+	'language_defined'		=> 'Language has been defined.',
+	'choose_language'		=> 'Choose a language for FreshRSS',
+
+	'javascript_is_better'		=> 'FreshRSS is more pleasant with Javascript enabled',
+	'php_is_ok'			=> 'Your PHP version is %s and it\'s compatible with FreshRSS',
+	'php_is_nok'			=> 'Your PHP version is %s. You must have at least version %s',
+	'minz_is_ok'			=> 'You have Minz framework',
+	'minz_is_nok'			=> 'You haven\'t Minz framework. You should execute <em>build.sh</em> script or <a href="https://github.com/marienfressinaud/MINZ">download it on Github</a> and install in <em>%s</em> directory the content of its <em>/lib</em> directory.',
+	'curl_is_ok'			=> 'You have version %s of cURL',
+	'curl_is_nok'			=> 'You haven\'t cURL',
+	'pdomysql_is_ok'		=> 'You have PDO and its driver for MySQL',
+	'pdomysql_is_nok'		=> 'You haven\'t PDO or its driver for MySQL',
+	'cache_is_ok'			=> 'Permissions on cache directory are good',
+	'log_is_ok'			=> 'Permissions on logs directory are good',
+	'conf_is_ok'			=> 'Permissions on configuration directory are good',
+	'data_is_ok'			=> 'Permissions on data directory are good',
+	'file_is_nok'			=> 'Check permissions on <em>%s</em> directory. HTTP server must have rights to write into',
+	'fix_errors_before'		=> 'Fix errors before skip to the next step.',
+
+	'general_conf_is_ok'		=> 'General configuration has been saved.',
+	'random_string'			=> 'Random string',
+	'change_value'			=> 'You should change this value by any other',
+	'base_url'			=> 'Base URL',
+	'do_not_change_if_doubt'	=> 'Don\'t change if you doubt about it',
+
+	'bdd_conf_is_ok'		=> 'Database configuration has been saved.',
+	'host'				=> 'Host',
+	'username'			=> 'Username',
+	'password'			=> 'Password',
+	'bdd'				=> 'Database',
+
+	'installation_is_ok'		=> 'Installation process is finished. You must delete <em>install.php</em> file to access FreshRSS... or simply click on following button :)',
+	'finish_installation'		=> 'Finish installation',
+	'install_not_deleted'		=> 'Something was going wrong, you muste delete <em>%s</em> file manually.',
 );
