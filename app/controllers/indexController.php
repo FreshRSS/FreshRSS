@@ -35,13 +35,13 @@ class indexController extends ActionController {
 		// Récupère les flux par catégorie, favoris ou tous
 		if ($this->get['type'] == 'all') {
 			$entries = $entryDAO->listEntries ($this->mode, $search, $order);
-			View::prependTitle ('Vos flux RSS - ');
+			View::prependTitle (Translate::t ('your_rss_feeds') . ' - ');
 		} elseif ($this->get['type'] == 'favoris') {
 			$entries = $entryDAO->listFavorites ($this->mode, $search, $order);
-			View::prependTitle ('Vos favoris - ');
+			View::prependTitle (Translate::t ('your_favorites') . ' - ');
 		} elseif ($this->get['type'] == 'public') {
 			$entries = $entryDAO->listPublic ($this->mode, $search, $order);
-			View::prependTitle ('Public - ');
+			View::prependTitle (Translate::t ('public') . ' - ');
 		} elseif ($this->get != false) {
 			if ($this->get['type'] == 'c') {
 				$cat = $catDAO->searchById ($this->get['filter']);
@@ -72,7 +72,7 @@ class indexController extends ActionController {
 		if ($error) {
 			Error::error (
 				404,
-				array ('error' => array ('La page que vous cherchez n\'existe pas'))
+				array ('error' => array (Translate::t ('page_not_found')))
 			);
 		} else {
 			$this->view->mode = $this->mode;
@@ -93,7 +93,7 @@ class indexController extends ActionController {
 	}
 
 	public function aboutAction () {
-		View::prependTitle ('À propos - ');
+		View::prependTitle (Translate::t ('about') . ' - ');
 	}
 
 	public function changeModeAction () {
@@ -143,7 +143,7 @@ class indexController extends ActionController {
 		} else {
 			$res = array ();
 			$res['status'] = 'failure';
-			$res['reason'] = 'L\'identifiant est invalide';
+			$res['reason'] = Translate::t ('invalid_login');
 		}
 
 		$this->view->res = json_encode ($res);

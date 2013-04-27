@@ -1,24 +1,24 @@
 <div class="post content">
-	<a href="<?php echo _url ('index', 'index'); ?>">← Retour à vos flux RSS</a>
+	<a href="<?php echo _url ('index', 'index'); ?>"><?php echo Translate::t ('back_to_rss_feeds'); ?></a>
 
-	<h1>À propos de FreshRSS</h1>
+	<h1><?php echo Translate::t ('about_freshrss'); ?></h1>
 
 	<dl class="infos">
-		<dt>Url du projet</dt>
+		<dt><?php echo Translate::t ('project_website'); ?></dt>
 		<dd><a href="https://github.com/marienfressinaud/FreshRSS">https://github.com/marienfressinaud/FreshRSS</a></dd>
 
-		<dt>Développeur principal</dt>
-		<dd><a href="mailto:contact@marienfressinaud.fr">Marien Fressinaud</a> - <a href="http://marienfressinaud.fr">site Internet</a></dd>
+		<dt><?php echo Translate::t ('lead_developer'); ?></dt>
+		<dd><a href="mailto:contact@marienfressinaud.fr">Marien Fressinaud</a> - <a href="http://marienfressinaud.fr"><?php echo Translate::t ('website'); ?></a></dd>
 
-		<dt>Pour les rapports de bugs</dt>
-		<dd><a href="https://github.com/marienfressinaud/FreshRSS/issues">sur Github</a> ou <a href="mailto:dev@marienfressinaud.fr">par mail</a></dd>
+		<dt><?php echo Translate::t ('bugs_reports'); ?></dt>
+		<dd><?php echo Translate::t ('github_or_email'); ?></dd>
 
-		<dt>Licence</dt>
-		<dd><a href="https://www.gnu.org/licenses/agpl-3.0.html">AGPL 3</a></dd>
+		<dt><?php echo Translate::t ('license'); ?></dt>
+		<dd><?php echo Translate::t ('agpl3'); ?></dd>
 	</dl>
 
-	<p>FreshRSS est un agrégateur de flux RSS à auto-héberger à l'image de <a href="http://rsslounge.aditu.de/">RSSLounge</a>, <a href="http://tt-rss.org/redmine/projects/tt-rss/wiki">TinyTinyRSS</a> ou <a href="http://projet.idleman.fr/leed/">Leed</a>. Il se veut léger et facile à prendre en main tout en étant un outil puissant et paramétrable. L'objectif étant d'offrir une alternative sérieuse au futur feu-Google Reader.</p>
+	<p><?php echo Translate::t ('freshrss_description'); ?></p>
 
-	<h1>Crédits</h1>
-	Des éléments de design sont issus du <a href="http://twitter.github.io/bootstrap/">projet Bootstrap</a> bien que FreshRSS n'utilise pas ce framework. Les <a href="https://git.gnome.org/browse/gnome-icon-theme-symbolic">icônes</a> sont issues du <a href="https://www.gnome.org/">projet GNOME</a>. La police <em>Open Sans</em> utilisée a été créée par <a href="https://www.google.com/webfonts/specimen/Open+Sans">Steve Matteson</a>. Les favicons sont récupérés grâce au site <a href="https://getfavicon.appspot.com/">getFavicon</a>. FreshRSS repose sur <a href="https://github.com/marienfressinaud/MINZ">Minz</a>, un framework PHP.
+	<h1><?php echo Translate::t ('credits'); ?></h1>
+	<p><?php echo Translate::t ('credits_content'); ?></p>
 </div>

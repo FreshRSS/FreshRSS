@@ -6,7 +6,7 @@ feeds.push ("<?php echo Url::display (array ('c' => 'feed', 'a' => 'actualize', 
 function initProgressBar (init) {
 	if (init) {
 		$("body").after ("\<div id=\"actualizeProgress\" class=\"actualizeProgress\">\
-			Actualisation <span class=\"progress\">0 / " + feeds.length + "</span><br />\
+			<?php echo Translate::t ('refresh'); ?> <span class=\"progress\">0 / " + feeds.length + "</span><br />\
 			<progress id=\"actualizeProgressBar\" value=\"0\" max=\"" + feeds.length + "\"></progress>\
 		</div>");
 	} else {

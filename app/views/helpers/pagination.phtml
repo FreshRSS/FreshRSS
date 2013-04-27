@@ -2,13 +2,23 @@
 	$c = Request::controllerName ();
 	$a = Request::actionName ();
 	$params = Request::params ();
+
+	$conf = new RSSConfiguration ();
+	$order = Session::param ('order', $conf->sortOrder ());
+	if ($order == 'low_to_high') {
+		$first_link = Translate::t ('newer');
+		$second_link = Translate::t ('older');
+	} else {
+		$first_link = Translate::t ('older');
+		$second_link = Translate::t ('newer');
+	}
 ?>
 
 <ul class="pagination">
 	<li class="item pager-previous">
 	<?php if ($this->currentPage > 1) { ?>
 	<?php $params[$getteur] = $this->currentPage - 1; ?>
-	<a href="<?php echo Url::display (array ('c' => $c, 'a' => $a, 'params' => $params)); ?>">‹ plus récents</a>
+	<a href="<?php echo Url::display (array ('c' => $c, 'a' => $a, 'params' => $params)); ?>">‹ <?php echo $first_link ?></a>
 	<?php } else { ?>
 	&nbsp;
 	<?php } ?>
@@ -19,7 +29,7 @@
 	<li class="item pager-next">
 	<?php if ($this->currentPage < $this->nbPage) { ?>
 	<?php $params[$getteur] = $this->currentPage + 1; ?>
-	<a href="<?php echo Url::display (array ('c' => $c, 'a' => $a, 'params' => $params)); ?>">plus anciens ›</a>
+	<a href="<?php echo Url::display (array ('c' => $c, 'a' => $a, 'params' => $params)); ?>"><?php echo $second_link; ?> ›</a>
 	<?php } else { ?>
 	&nbsp;
 	<?php } ?>

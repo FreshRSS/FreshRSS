@@ -1,104 +1,104 @@
 <?php $this->partial ('aside_configure'); ?>
 
 <div class="post">
-	<a href="<?php echo _url ('index', 'index'); ?>">← Retour à vos flux RSS</a>
+	<a href="<?php echo _url ('index', 'index'); ?>"><?php echo Translate::t ('back_to_rss_feeds'); ?></a>
 
 	<form method="post" action="<?php echo _url ('configure', 'display'); ?>">
-		<legend>Configuration générale</legend>
+		<legend><?php echo Translate::t ('general_configuration'); ?></legend>
 
 		<div class="form-group">
-			<label class="group-name" for="old_entries">Supprimer les articles tous les</label>
+			<label class="group-name" for="old_entries"><?php echo Translate::t ('delete_articles_every'); ?></label>
 			<div class="group-controls">
-				<input type="number" id="old_entries" name="old_entries" value="<?php echo $this->conf->oldEntries (); ?>" /> mois
+				<input type="number" id="old_entries" name="old_entries" value="<?php echo $this->conf->oldEntries (); ?>" /> <?php echo Translate::t ('month'); ?>
 			</div>
 		</div>
 
 		<div class="form-group">
-			<label class="group-name" for="mail_login">Adresse mail de connexion (utilise <a href="https://persona.org/">Persona</a>)</label>
+			<label class="group-name" for="mail_login"><?php echo Translate::t ('persona_connection_email'); ?></label>
 		<?php $mail = $this->conf->mailLogin (); ?>
 			<div class="group-controls">
-				<input type="email" id="mail_login" name="mail_login" value="<?php echo $mail ? $mail : ''; ?>" placeholder="Laissez vide pour désactiver" />
-				<noscript><b>nécessite que javascript soit activé</b></noscript>
+				<input type="email" id="mail_login" name="mail_login" value="<?php echo $mail ? $mail : ''; ?>" placeholder="<?php echo Translate::t ('blank_to_disable'); ?>" />
+				<noscript><b><?php echo Translate::t ('javascript_should_be_activated'); ?></b></noscript>
 			</div>
 		</div>
 	
-		<legend>Configuration de lecture</legend>
+		<legend><?php echo Translate::t ('reading_configuration'); ?></legend>
 
 		<div class="form-group">
-			<label class="group-name" for="posts_per_page">Nombre d'articles par page</label>
+			<label class="group-name" for="posts_per_page"><?php echo Translate::t ('articles_per_page'); ?></label>
 			<div class="group-controls">
 				<input type="number" id="posts_per_page" name="posts_per_page" value="<?php echo $this->conf->postsPerPage (); ?>" />
 			</div>
 		</div>
 
 		<div class="form-group">
-			<label class="group-name">Vue par défaut</label>
+			<label class="group-name"><?php echo Translate::t ('default_view'); ?></label>
 			<div class="group-controls">
 				<label class="radio" for="radio_all">
 					<input type="radio" name="default_view" id="radio_all" value="all"<?php echo $this->conf->defaultView () == 'all' ? ' checked="checked"' : ''; ?> />
-					Tout afficher
+					<?php echo Translate::t ('show_all_articles'); ?>
 				</label>
 				<label class="radio" for="radio_not_read">
 					<input type="radio" name="default_view" id="radio_not_read" value="not_read"<?php echo $this->conf->defaultView () == 'not_read' ? ' checked="checked"' : ''; ?> />
-					Afficher les non lus
+					<?php echo Translate::t ('show_not_reads'); ?>
 				</label>
 			</div>
 		</div>
 
 		<div class="form-group">
-			<label class="group-name" for="sort_order">Ordre de tri</label>
+			<label class="group-name" for="sort_order"><?php echo Translate::t ('sort_order'); ?></label>
 			<div class="group-controls">
 				<select name="sort_order" id="sort_order">
-					<option value="low_to_high"<?php echo $this->conf->sortOrder () == 'low_to_high' ? ' selected="selected"' : ''; ?>>Du plus récent au plus ancien</option>
-					<option value="high_to_low"<?php echo $this->conf->sortOrder () == 'high_to_low' ? ' selected="selected"' : ''; ?>>Du plus ancien au plus récent</option>
+					<option value="low_to_high"<?php echo $this->conf->sortOrder () == 'low_to_high' ? ' selected="selected"' : ''; ?>><?php echo Translate::t ('newer_first'); ?></option>
+					<option value="high_to_low"<?php echo $this->conf->sortOrder () == 'high_to_low' ? ' selected="selected"' : ''; ?>><?php echo Translate::t ('older_first'); ?></option>
 				</select>
 			</div>
 		</div>
 
 		<div class="form-group">
-			<label class="group-name">Afficher les articles dépliés par défaut</label>
+			<label class="group-name"><?php echo Translate::t ('display_articles_unfolded'); ?></label>
 			<div class="group-controls">
 				<label class="radio" for="radio_yes">
 					<input type="radio" name="display_posts" id="radio_yes" value="yes"<?php echo $this->conf->displayPosts () == 'yes' ? ' checked="checked"' : ''; ?> />
-					Oui
+					<?php echo Translate::t ('yes'); ?>
 				</label>
 				<label class="radio" for="radio_no">
 					<input type="radio" name="display_posts" id="radio_no" value="no"<?php echo $this->conf->displayPosts () == 'no' ? ' checked="checked"' : ''; ?> />
-					Non<noscript> - <b>nécessite que javascript soit activé</b></noscript>
+					<?php echo Translate::t ('no'); ?><noscript> - <b><?php echo Translate::t ('javascript_should_be_activated'); ?></b></noscript>
 				</label>
 			</div>
 		</div>
 
 		<div class="form-group">
-			<label class="group-name">Article automatiquement marqué comme lu lorsque</label>
+			<label class="group-name"><?php echo Translate::t ('auto_read_when'); ?></label>
 			<div class="group-controls">
 				<label class="checkbox" for="check_open_article">
 					<input type="checkbox" name="mark_open_article" id="check_open_article" value="yes"<?php echo $this->conf->markWhenArticle () == 'yes' ? ' checked="checked"' : ''; ?> />
-					l'article est sélectionné
+					<?php echo Translate::t ('article_selected'); ?>
 				</label>
 				<label class="checkbox" for="check_open_site">
 					<input type="checkbox" name="mark_open_site" id="check_open_site" value="yes"<?php echo $this->conf->markWhenSite () == 'yes' ? ' checked="checked"' : ''; ?> />
-					l'article est ouvert sur le site d'origine
+					<?php echo Translate::t ('article_open_on_website'); ?>
 				</label>
 				<label class="checkbox" for="check_open_page">
 					<input type="checkbox" name="mark_open_page" id="check_open_page" value="yes"<?php echo $this->conf->markWhenPage () == 'yes' ? ' checked="checked"' : ''; ?> />
-					la page est chargée
+					<?php echo Translate::t ('page_loaded'); ?>
 				</label>
 			</div>
 		</div>
 
-		<legend>Partage</legend>
+		<legend><?php echo Translate::t ('sharing'); ?></legend>
 		<div class="form-group">
-			<label class="group-name" for="shaarli">Votre Shaarli</label>
+			<label class="group-name" for="shaarli"><?php echo Translate::t ('your_shaarli'); ?></label>
 			<div class="group-controls">
-				<input type="text" id="shaarli" name="shaarli" value="<?php echo $this->conf->urlShaarli (); ?>" placeholder="Laissez vide pour désactiver"/>
+				<input type="text" id="shaarli" name="shaarli" value="<?php echo $this->conf->urlShaarli (); ?>" placeholder="<?php echo Translate::t ('blank_to_disable'); ?>"/>
 			</div>
 		</div>
 
 		<div class="form-group form-actions">
 			<div class="group-controls">
-				<button type="submit" class="btn btn-important">Valider</button>
-				<button type="reset" class="btn">Annuler</button>
+				<button type="submit" class="btn btn-important"><?php echo Translate::t ('save'); ?></button>
+				<button type="reset" class="btn"><?php echo Translate::t ('cancel'); ?></button>
 			</div>
 		</div>
 	</form>

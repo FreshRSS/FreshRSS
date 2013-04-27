@@ -5,7 +5,7 @@ class configureController extends ActionController {
 		if (login_is_conf ($this->view->conf) && !is_logged ()) {
 			Error::error (
 				403,
-				array ('error' => array ('Vous n\'avez pas le droit d\'accéder à cette page'))
+				array ('error' => array (Translate::t ('access denied')))
 			);
 		}
 	}
@@ -48,7 +48,7 @@ class configureController extends ActionController {
 			// notif
 			$notif = array (
 				'type' => 'good',
-				'content' => 'Les catégories ont été mises à jour'
+				'content' => Translate::t ('categories_updated')
 			);
 			Session::_param ('notification', $notif);
 
@@ -58,7 +58,7 @@ class configureController extends ActionController {
 		$this->view->categories = $catDAO->listCategories ();
 		$this->view->defaultCategory = $catDAO->getDefault ();
 
-		View::prependTitle ('Gestion des catégories - ');
+		View::prependTitle (Translate::t ('categories_management') . ' - ');
 	}
 
 	public function feedAction () {
@@ -80,7 +80,7 @@ class configureController extends ActionController {
 			if (!$this->view->flux) {
 				Error::error (
 					404,
-					array ('error' => array ('La page que vous cherchez n\'existe pas'))
+					array ('error' => array (Translate::t ('page_not_found')))
 				);
 			} else {
 				$catDAO = new CategoryDAO ();
@@ -102,12 +102,12 @@ class configureController extends ActionController {
 
 						$notif = array (
 							'type' => 'good',
-							'content' => 'Le flux a été mis à jour'
+							'content' => Translate::t ('feed_updated')
 						);
 					} else {
 						$notif = array (
 							'type' => 'bad',
-							'content' => 'Une erreur est survenue lors de la mise à jour'
+							'content' => Translate::t ('error_occurred_update')
 						);
 					}
 
@@ -115,10 +115,10 @@ class configureController extends ActionController {
 					Request::forward (array ('c' => 'configure', 'a' => 'feed', 'params' => array ('id' => $id)), true);
 				}
 
-				View::prependTitle ('Gestion des flux RSS - ' . $this->view->flux->name () . ' - ');
+				View::prependTitle (Translate::t ('rss_feed_management') . ' - ' . $this->view->flux->name () . ' - ');
 			}
 		} else {
-			View::prependTitle ('Gestion des flux RSS - ');
+			View::prependTitle (Translate::t ('rss_feed_management') . ' - ');
 		}
 	}
 
@@ -167,21 +167,21 @@ class configureController extends ActionController {
 			// notif
 			$notif = array (
 				'type' => 'good',
-				'content' => 'La configuration a été mise à jour'
+				'content' => Translate::t ('configuration_updated')
 			);
 			Session::_param ('notification', $notif);
 
 			Request::forward (array ('c' => 'configure', 'a' => 'display'), true);
 		}
 
-		View::prependTitle ('Gestion générale et affichage - ');
+		View::prependTitle (Translate::t ('general_and_reading_management') . ' - ');
 	}
 
 	public function importExportAction () {
 		$this->view->req = Request::param ('q');
 
 		if ($this->view->req == 'export') {
-			View::_title ('feeds_opml.xml');
+			View::_title ('feeds.opml');
 
 			$this->view->_useLayout (false);
 			header('Content-Type: text/xml; charset=utf-8');
@@ -212,7 +212,7 @@ class configureController extends ActionController {
 		$this->view->feeds = $feedDAO->listFeeds ();
 		$this->view->flux = false;
 
-		View::prependTitle ('Importation et exportation OPML - ');
+		View::prependTitle (Translate::t ('import_export_opml') . ' - ');
 	}
 
 	public function shortcutAction () {
@@ -251,13 +251,13 @@ class configureController extends ActionController {
 			// notif
 			$notif = array (
 				'type' => 'good',
-				'content' => 'Les raccourcis ont été mis à jour'
+				'content' => Translate::t ('shortcuts_updated')
 			);
 			Session::_param ('notification', $notif);
 
 			Request::forward (array ('c' => 'configure', 'a' => 'shortcut'), true);
 		}
 
-		View::prependTitle ('Gestion des raccourcis - ');
+		View::prependTitle (Translate::t ('shortcuts_management') . ' - ');
 	}
 }

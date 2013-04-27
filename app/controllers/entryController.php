@@ -5,7 +5,7 @@ class entryController extends ActionController {
 		if (login_is_conf ($this->view->conf) && !is_logged ()) {
 			Error::error (
 				403,
-				array ('error' => array ('Vous n\'avez pas le droit d\'accéder à cette page'))
+				array ('error' => array (Translate::t ('access denied')))
 			);
 		}
 
@@ -63,7 +63,7 @@ class entryController extends ActionController {
 			// notif
 			$notif = array (
 				'type' => 'good',
-				'content' => 'Les flux ont été marqués comme lu'
+				'content' => Translate::t ('feeds_marked_read')
 			);
 			Session::_param ('notification', $notif);
 		} else {
@@ -130,12 +130,12 @@ class entryController extends ActionController {
 					if ($entryDAO->updateEntry ($id, $values)) {
 						$notif = array (
 							'type' => 'good',
-							'content' => 'Modifications enregistrées'
+							'content' => Translate::t ('updated')
 						);
 					} else {
 						$notif = array (
 							'type' => 'bad',
-							'content' => 'Une erreur est survenue'
+							'content' => Translate::t ('error_occured')
 						);
 					}
 					Session::_param ('notification', $notif);
@@ -157,7 +157,7 @@ class entryController extends ActionController {
 		if ($not_found) {
 			Error::error (
 				404,
-				array ('error' => array ('La page que vous cherchez n\'existe pas'))
+				array ('error' => array (Translate::t ('page_not_found')))
 			);
 		} else {
 			$this->view->entry = $entry;

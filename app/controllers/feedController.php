@@ -10,7 +10,7 @@ class feedController extends ActionController {
 		if (login_is_conf ($this->view->conf) && !is_logged ()) {
 			Error::error (
 				403,
-				array ('error' => array ('Vous n\'avez pas le droit d\'accéder à cette page'))
+				array ('error' => array (Translate::t ('access_denied')))
 			);
 		} else {
 			if (Request::isPost ()) {
@@ -37,7 +37,7 @@ class feedController extends ActionController {
 					if ($feedDAO->searchByUrl ($values['url'])) {
 						$notif = array (
 							'type' => 'bad',
-							'content' => 'Vous êtes déjà abonné à <em>' . $feed->name () . '</em>'
+							'content' => Translate::t ('already_subscribed', $feed->name ())
 						);
 						Session::_param ('notification', $notif);
 					} elseif ($feedDAO->addFeed ($values)) {
@@ -52,7 +52,7 @@ class feedController extends ActionController {
 						// notif
 						$notif = array (
 							'type' => 'good',
-							'content' => 'Le flux <em>' . $feed->name () . '</em> a bien été ajouté'
+							'content' => Translate::t ('feed_added', $feed->name ())
 						);
 						Session::_param ('notification', $notif);
 						$params['id'] = $feed->id ();
@@ -60,7 +60,7 @@ class feedController extends ActionController {
 						// notif
 						$notif = array (
 							'type' => 'bad',
-							'content' => '<em>' . $feed->name () . '</em> n\' a pas pu être ajouté'
+							'content' => Translate::t ('feed_not_added', $feed->name ())
 						);
 						Session::_param ('notification', $notif);
 					}
@@ -68,22 +68,14 @@ class feedController extends ActionController {
 					Log::record ($e->getMessage (), Log::ERROR);
 					$notif = array (
 						'type' => 'bad',
-						'content' => 'Un problème interne a été rencontré, le flux n\'a pas pu être ajouté'
-					);
-					Session::_param ('notification', $notif);
-				} catch (FileNotExistException $e) {
-					Log::record ($e->getMessage (), Log::ERROR);
-					// notif
-					$notif = array (
-						'type' => 'bad',
-						'content' => 'Un problème de configuration a empêché l\'ajout du flux. Voir les logs pour plus d\'informations'
+						'content' => Translate::t ('internal_problem_feed')
 					);
 					Session::_param ('notification', $notif);
 				} catch (Exception $e) {
 					// notif
 					$notif = array (
 						'type' => 'bad',
-						'content' => 'L\'url <em>' . $url . '</em> est invalide'
+						'content' => Translate::t ('invalid_url', $url)
 					);
 					Session::_param ('notification', $notif);
 				}
@@ -144,18 +136,18 @@ class feedController extends ActionController {
 			$feed = reset ($feeds);
 			$notif = array (
 				'type' => 'good',
-				'content' => '<em>' . $feed->name () . '</em> a été mis à jour'
+				'content' => Translate::t ('feed_actualized', $feed->name ())
 			);
 			$url['params'] = array ('get' => 'f_' . $feed->id ());
 		} elseif ($i > 0) {
 			$notif = array (
 				'type' => 'good',
-				'content' => $i . ' flux ont été mis à jour'
+				'content' => Translate::t ('n_feeds_actualized', $i)
 			);
 		} else {
 			$notif = array (
 				'type' => 'bad',
-				'content' => 'Aucun flux n\'a pu être mis à jour'
+				'content' => Translate::t ('no_feed_actualized')
 			);
 		}
 
@@ -165,7 +157,7 @@ class feedController extends ActionController {
 		} else {
 			$notif = array (
 				'type' => 'good',
-				'content' => 'Les flux ont été mis à jour'
+				'content' => Translate::t ('feeds_actualized')
 			);
 			Session::_param ('notification', $notif);
 			$this->view->_useLayout (false);
@@ -176,7 +168,7 @@ class feedController extends ActionController {
 		if (login_is_conf ($this->view->conf) && !is_logged ()) {
 			Error::error (
 				403,
-				array ('error' => array ('Vous n\'avez pas le droit d\'accéder à cette page'))
+				array ('error' => array (Translate::t ('access_denied')))
 			);
 		} else {
 			$entryDAO = new EntryDAO ();
@@ -219,9 +211,9 @@ class feedController extends ActionController {
 			}
 
 			if ($error) {
-				$res = 'Les flux ont été importés mais des erreurs sont survenus';
+				$res = Translate::t ('feeds_imported_with_errors');
 			} else {
-				$res = 'Les flux ont été importés';
+				$res = Translate::t ('feeds_imported');
 			}
 			$notif = array (
 				'type' => 'good',
@@ -240,7 +232,7 @@ class feedController extends ActionController {
 		if (login_is_conf ($this->view->conf) && !is_logged ()) {
 			Error::error (
 				403,
-				array ('error' => array ('Vous n\'avez pas le droit d\'accéder à cette page'))
+				array ('error' => array (Translate::t ('access_denied')))
 			);
 		} else {
 			$type = Request::param ('type', 'feed');
@@ -251,24 +243,24 @@ class feedController extends ActionController {
 				if ($feedDAO->deleteFeedByCategory ($id)) {
 					$notif = array (
 						'type' => 'good',
-						'content' => 'La catégorie a été vidée'
+						'content' => Translate::t ('category_emptied')
 					);
 				} else {
 					$notif = array (
 						'type' => 'bad',
-						'content' => 'Un problème est survenu'
+						'content' => Translate::t ('error_occured')
 					);
 				}
 			} else {
 				if ($feedDAO->deleteFeed ($id)) {
 					$notif = array (
 						'type' => 'good',
-						'content' => 'Le flux a été supprimé'
+						'content' => Translate::t ('feed_deleted')
 					);
 				} else {
 					$notif = array (
 						'type' => 'bad',
-						'content' => 'Un problème est survenu'
+						'content' => Translate::t ('error_occured')
 					);
 				}
 			}
