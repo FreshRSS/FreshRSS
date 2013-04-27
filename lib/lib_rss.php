@@ -152,3 +152,41 @@ function get_content_by_parsing ($url, $path) {
 		throw new Exception ();
 	}
 }
+
+/* Télécharge le favicon d'un site, le place sur le serveur et retourne l'URL */
+function dowload_favicon ($website, $id) {
+	$url = 'http://g.etfv.co/' . $website;
+	$favicons_dir = PUBLIC_PATH . '/data/favicons';
+	$dest = $favicons_dir . '/' . $id . '.ico';
+	$favicon_url = '/data/favicons/' . $id . '.ico';
+
+	if (!is_dir ($favicons_dir)) {
+		if (!mkdir ($favicons_dir, 0755, true)) {
+			return $url;
+		}
+	}
+
+	if (!file_exists ($dest)) {
+		$c = curl_init ($url);
+		curl_setopt ($c, CURLOPT_HEADER, false);
+		curl_setopt ($c, CURLOPT_RETURNTRANSFER, true);
+		curl_setopt ($c, CURLOPT_BINARYTRANSFER, true);
+		$imgRaw = curl_exec ($c);
+
+		if (curl_getinfo ($c, CURLINFO_HTTP_CODE) == 200) {
+			$file = fopen ($dest, 'w');
+			if ($file === false) {
+				return $url;
+			}
+
+			fwrite ($file, $imgRaw);
+			fclose ($file);
+		} else {
+			return $url;
+		}
+
+		curl_close ($c);
+	}
+
+	return $favicon_url;
+}

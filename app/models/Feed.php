@@ -77,6 +77,16 @@ class Feed extends Model {
 		$feedDAO = new FeedDAO ();
 		return $feedDAO->countNotRead ($this->id ());
 	}
+	public function favicon () {
+		$file = '/data/favicons/' . $this->id () . '.ico';
+
+		$favicon_url = Url::display ($file);
+		if (!file_exists (PUBLIC_PATH . $file)) {
+			$favicon_url = dowload_favicon ($this->website (), $this->id ());
+		}
+
+		return $favicon_url;
+	}
 
 	public function _id ($value) {
 		$this->id = $value;
