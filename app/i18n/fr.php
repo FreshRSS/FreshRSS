@@ -43,10 +43,10 @@ return array (
 	'newer_first'			=> 'Plus récents en premier',
 
 	// CONTROLLERS
-	'article_published_on'		=> 'Article publié initialement sur <a href="%s">%s</a>, mis en favoris dans <a href="https://github.com/marienfressinaud/FreshRSS">FreshRSS</a>',
-	'article_published_on_author'	=> 'Article publié initialement sur <a href="%s">%s</a> par %s, mis en favoris dans <a href="https://github.com/marienfressinaud/FreshRSS">FreshRSS</a>',
+	'article_published_on'		=> 'Article publié initialement sur <a href="%s">%s</a>',
+	'article_published_on_author'	=> 'Article publié initialement sur <a href="%s">%s</a> par %s',
 
-	'access denied'			=> 'Vous n\'avez pas le droit d\'accéder à cette page',
+	'access_denied'			=> 'Vous n\'avez pas le droit d\'accéder à cette page',
 	'page_not_found'		=> 'La page que vous cherchez n\'existe pas',
 	'error_occurred'		=> 'Une erreur est survenue',
 	'error_occurred_update'		=> 'Une erreur est survenue lors de la mise à jour',
@@ -97,7 +97,7 @@ return array (
 
 	'javascript_for_shortcuts'	=> 'Le javascript doit être activé pour pouvoir profiter des raccourcis',
 	'javascript_should_be_activated'=> 'Le javascript doit être activé',
-	'shift_for_all_read'		=> '+ <code>shift</code> pour marquer tous les articles comme non lus',
+	'shift_for_all_read'		=> '+ <code>shift</code> pour marquer tous les articles comme lus',
 	'see_on_website'		=> 'Voir l\'article sur le site d\'origine',
 	'next_article'			=> 'Passer à l\'article suivant',
 	'shift_for_last'		=> '+ <code>shift</code> pour passer au dernier article de la page',

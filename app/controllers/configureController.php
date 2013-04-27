@@ -5,7 +5,7 @@ class configureController extends ActionController {
 		if (login_is_conf ($this->view->conf) && !is_logged ()) {
 			Error::error (
 				403,
-				array ('error' => array (Translate::t ('access denied')))
+				array ('error' => array (Translate::t ('access_denied')))
 			);
 		}
 	}
