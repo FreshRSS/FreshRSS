@@ -16,11 +16,20 @@ class feedController extends ActionController {
 			if (Request::isPost ()) {
 				$url = Request::param ('url_rss');
 				$cat = Request::param ('category');
+				$user = Request::param ('username');
+				$pass = Request::param ('password');
 				$params = array ();
 
 				try {
 					$feed = new Feed ($url);
 					$feed->_category ($cat);
+
+					$httpAuth = '';
+					if ($user != '' || $pass != '') {
+						$httpAuth = $user . ':' . $pass;
+					}
+					$feed->_httpAuth ($httpAuth);
+
 					$feed->load ();
 
 					$feedDAO = new FeedDAO ();
@@ -31,7 +40,8 @@ class feedController extends ActionController {
 						'name' => $feed->name (),
 						'website' => $feed->website (),
 						'description' => $feed->description (),
-						'lastUpdate' => time ()
+						'lastUpdate' => time (),
+						'httpAuth' => $feed->httpAuth (),
 					);
 
 					if ($feedDAO->searchByUrl ($values['url'])) {

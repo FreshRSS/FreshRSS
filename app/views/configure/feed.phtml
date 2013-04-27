@@ -58,20 +58,21 @@
 				<i class="icon i_help"></i> <?php echo Translate::t ('retrieve_truncated_feeds'); ?>
 			</div>
 		</div>
-<!--
+
+		<?php $auth = $this->flux->httpAuth (false); ?>
 		<div class="form-group">
 			<label class="group-name" for="http_user"><?php echo Translate::t ('http_username'); ?></label>
 			<div class="group-controls">
-				<input type="text" name="http_user" id="http_user" value="<?php echo Translate::t ('not_yet_implemented'); ?>" />
+				<input type="text" name="http_user" id="http_user" value="<?php echo $auth['username']; ?>" />
 				<i class="icon i_help"></i> <?php echo Translate::t ('access_protected_feeds'); ?>
 			</div>
 
 			<label class="group-name" for="http_pass"><?php echo Translate::t ('http_password'); ?></label>
 			<div class="group-controls">
-				<input type="text" name="http_pass" id="http_pass" value="<?php echo Translate::t ('not_yet_implemented'); ?>" />
+				<input type="password" name="http_pass" id="http_pass" value="<?php echo $auth['password']; ?>" />
 			</div>
 		</div>
--->
+
 
 		<div class="form-group form-actions">
 			<div class="group-controls">
@@ -82,5 +83,5 @@
 	</form>
 </div>
 <?php } else { ?>
-<div class="alert"><span class="alert-head"><?php echo Translate::t ('no_selected_feed'); ?></span> <?php echo Translate::t ('think_to_add'); ?></div>
+<div class="alert alert-warn"><span class="alert-head"><?php echo Translate::t ('no_selected_feed'); ?></span> <?php echo Translate::t ('think_to_add'); ?></div>
 <?php } ?>

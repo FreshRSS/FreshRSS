@@ -9,7 +9,7 @@ return array (
 	'configuration'			=> 'Configuration',
 	'general_and_reading'		=> 'General and reading',
 	'categories'			=> 'Categories',
-	'category'			=> 'Catégory',
+	'category'			=> 'Category',
 	'shortcuts'			=> 'Shortcuts',
 	'about'				=> 'About',
 
@@ -88,7 +88,7 @@ return array (
 	'cancel'			=> 'Cancel',
 
 	'back_to_rss_feeds'		=> '← Go back to your RSS feeds',
-	'feeds_moved_category_deleted'	=> 'When you delete a category, their feeds are automatically classified under <em>%s</ em>.',
+	'feeds_moved_category_deleted'	=> 'When you delete a category, their feeds are automatically classified under <em>%s</em>.',
 	'category_number'		=> 'Category n°%d',
 	'ask_empty'			=> 'Clear ?',
 	'number_feeds'			=> '%d feeds',
@@ -123,6 +123,7 @@ return array (
 	'no'				=> 'No',
 	'css_path_on_website'		=> 'Articles CSS path on original website',
 	'retrieve_truncated_feeds'	=> 'Retrieves truncated RSS feeds (attention, requires more time!)',
+	'http_authentication'		=> 'HTTP Authentication',
 	'http_username'			=> 'HTTP username',
 	'http_password'			=> 'HTTP password',
 	'blank_to_disable'		=> 'Leave blank to disable',
@@ -198,7 +199,7 @@ return array (
 	'september'			=> 'september',
 	'october'			=> 'october',
 	'november'			=> 'november',
-	'december'			=> 'décember',
+	'december'			=> 'december',
 	// special format for date() function
 	'Jan'				=> '\J\a\n\u\a\r\y',
 	'Feb'				=> '\F\e\b\r\u\a\r\y',

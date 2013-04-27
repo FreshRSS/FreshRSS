@@ -59,9 +59,13 @@ class Feed extends Model {
 		if ($raw) {
 			return $this->httpAuth;
 		} else {
+			$pos_colon = strpos ($this->httpAuth, ':');
+			$user = substr ($this->httpAuth, 0, $pos_colon);
+			$pass = substr ($this->httpAuth, $pos_colon + 1);
+
 			return array (
-				'username' => '',
-				'password' => ''
+				'username' => $user,
+				'password' => $pass
 			);
 		}
 	}
@@ -134,7 +138,12 @@ class Feed extends Model {
 				);
 			} else {
 				$feed = new SimplePie ();
-				$feed->set_feed_url (preg_replace ('/&amp;/', '&', $this->url));
+				$url = preg_replace ('/&amp;/', '&', $this->url);
+				if ($this->httpAuth != '') {
+					$url = preg_replace ('#((.+)://)(.+)#', '${1}' . $this->httpAuth . '@${3}', $url);
+				}
+
+				$feed->set_feed_url ($url);
 				$feed->set_cache_location (CACHE_PATH);
 				$feed->init ();
 
@@ -144,6 +153,9 @@ class Feed extends Model {
 
 				$subscribe_url = $feed->subscribe_url ();
 				if (!is_null ($subscribe_url) && $subscribe_url != $this->url) {
+					if ($this->httpAuth != '') {
+						$subscribe_url = preg_replace ('#((.+)://)((.+)@)(.+)#', '${1}${5}', $subscribe_url);
+					}
 					$this->_url ($subscribe_url);
 				}
 				$title = $feed->get_title ();
@@ -205,7 +217,7 @@ class Feed extends Model {
 
 class FeedDAO extends Model_pdo {
 	public function addFeed ($valuesTmp) {
-		$sql = 'INSERT INTO feed (id, url, category, name, website, description, lastUpdate, priority, error) VALUES(?, ?, ?, ?, ?, ?, ?, 10, 0)';
+		$sql = 'INSERT INTO feed (id, url, category, name, website, description, lastUpdate, priority, httpAuth, error) VALUES(?, ?, ?, ?, ?, ?, ?, 10, ?, 0)';
 		$stm = $this->bd->prepare ($sql);
 
 		$values = array (
@@ -216,6 +228,7 @@ class FeedDAO extends Model_pdo {
 			$valuesTmp['website'],
 			$valuesTmp['description'],
 			$valuesTmp['lastUpdate'],
+			base64_encode ($valuesTmp['httpAuth']),
 		);
 
 		if ($stm && $stm->execute ($values)) {
@@ -231,6 +244,10 @@ class FeedDAO extends Model_pdo {
 		$set = '';
 		foreach ($valuesTmp as $key => $v) {
 			$set .= $key . '=?, ';
+
+			if ($key == 'httpAuth') {
+				$valuesTmp[$key] = base64_encode ($v);
+			}
 		}
 		$set = substr ($set, 0, -2);
 
@@ -408,7 +425,7 @@ class HelperFeed {
 			$list[$key]->_lastUpdate ($dao['lastUpdate']);
 			$list[$key]->_priority ($dao['priority']);
 			$list[$key]->_pathEntries ($dao['pathEntries']);
-			$list[$key]->_httpAuth ($dao['httpAuth']);
+			$list[$key]->_httpAuth (base64_decode ($dao['httpAuth']));
 
 			if (isset ($dao['id'])) {
 				$list[$key]->_id ($dao['id']);

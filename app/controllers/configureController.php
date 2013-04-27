@@ -90,11 +90,19 @@ class configureController extends ActionController {
 					$cat = Request::param ('category', 0);
 					$path = Request::param ('path_entries', '');
 					$priority = Request::param ('priority', 0);
+					$user = Request::param ('http_user', '');
+					$pass = Request::param ('http_pass', '');
+
+					$httpAuth = '';
+					if ($user != '' || $pass != '') {
+						$httpAuth = $user . ':' . $pass;
+					}
 
 					$values = array (
 						'category' => $cat,
 						'pathEntries' => $path,
-						'priority' => $priority
+						'priority' => $priority,
+						'httpAuth' => $httpAuth
 					);
 
 					if ($feedDAO->updateFeed ($id, $values)) {

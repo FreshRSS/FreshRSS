@@ -21,6 +21,14 @@
 					</label>
 					</li>
 					<?php } ?>
+
+					<li class="dropdown-header"><?php echo Translate::t ('http_authentication'); ?></li>
+					<li class="input">
+						<input type="text" name="username" id="username" placeholder="<?php echo Translate::t ('username'); ?>" />
+					</li>
+					<li class="input">
+						<input type="password" name="password" id="password" placeholder="<?php echo Translate::t ('password'); ?>" />
+					</li>
 				</ul>
 			</div>
 			<button class="btn" type="submit"><i class="icon i_add"></i></button>
