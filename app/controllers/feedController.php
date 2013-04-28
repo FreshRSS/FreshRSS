@@ -2,96 +2,108 @@
 
 class feedController extends ActionController {
 	public function firstAction () {
-		$catDAO = new CategoryDAO ();
-		$catDAO->checkDefault ();
-	}
-
-	public function addAction () {
 		if (login_is_conf ($this->view->conf) && !is_logged ()) {
 			Error::error (
 				403,
 				array ('error' => array (Translate::t ('access_denied')))
 			);
-		} else {
-			if (Request::isPost ()) {
-				$url = Request::param ('url_rss');
-				$cat = Request::param ('category');
-				$user = Request::param ('username');
-				$pass = Request::param ('password');
-				$params = array ();
+		}
 
-				try {
-					$feed = new Feed ($url);
-					$feed->_category ($cat);
+		$catDAO = new CategoryDAO ();
+		$catDAO->checkDefault ();
+	}
 
-					$httpAuth = '';
-					if ($user != '' || $pass != '') {
-						$httpAuth = $user . ':' . $pass;
-					}
-					$feed->_httpAuth ($httpAuth);
+	public function addAction () {
+		if (Request::isPost ()) {
+			$url = Request::param ('url_rss');
+			$cat = Request::param ('category');
+			$user = Request::param ('username');
+			$pass = Request::param ('password');
+			$params = array ();
 
-					$feed->load ();
+			try {
+				$feed = new Feed ($url);
+				$feed->_category ($cat);
 
-					$feedDAO = new FeedDAO ();
-					$values = array (
-						'id' => $feed->id (),
-						'url' => $feed->url (),
-						'category' => $feed->category (),
-						'name' => $feed->name (),
-						'website' => $feed->website (),
-						'description' => $feed->description (),
-						'lastUpdate' => time (),
-						'httpAuth' => $feed->httpAuth (),
-					);
-
-					if ($feedDAO->searchByUrl ($values['url'])) {
-						$notif = array (
-							'type' => 'bad',
-							'content' => Translate::t ('already_subscribed', $feed->name ())
-						);
-						Session::_param ('notification', $notif);
-					} elseif ($feedDAO->addFeed ($values)) {
-						$entryDAO = new EntryDAO ();
-						$entries = $feed->entries ();
-
-						foreach ($entries as $entry) {
-							$values = $entry->toArray ();
-							$entryDAO->addEntry ($values);
-						}
-
-						// notif
-						$notif = array (
-							'type' => 'good',
-							'content' => Translate::t ('feed_added', $feed->name ())
-						);
-						Session::_param ('notification', $notif);
-						$params['id'] = $feed->id ();
-					} else {
-						// notif
-						$notif = array (
-							'type' => 'bad',
-							'content' => Translate::t ('feed_not_added', $feed->name ())
-						);
-						Session::_param ('notification', $notif);
-					}
-				} catch (FeedException $e) {
-					Log::record ($e->getMessage (), Log::ERROR);
-					$notif = array (
-						'type' => 'bad',
-						'content' => Translate::t ('internal_problem_feed')
-					);
-					Session::_param ('notification', $notif);
-				} catch (Exception $e) {
-					// notif
-					$notif = array (
-						'type' => 'bad',
-						'content' => Translate::t ('invalid_url', $url)
-					);
-					Session::_param ('notification', $notif);
+				$httpAuth = '';
+				if ($user != '' || $pass != '') {
+					$httpAuth = $user . ':' . $pass;
 				}
+				$feed->_httpAuth ($httpAuth);
 
-				Request::forward (array ('c' => 'configure', 'a' => 'feed', 'params' => $params), true);
+				$feed->load ();
+
+				$feedDAO = new FeedDAO ();
+				$values = array (
+					'id' => $feed->id (),
+					'url' => $feed->url (),
+					'category' => $feed->category (),
+					'name' => $feed->name (),
+					'website' => $feed->website (),
+					'description' => $feed->description (),
+					'lastUpdate' => time (),
+					'httpAuth' => $feed->httpAuth (),
+				);
+
+				if ($feedDAO->searchByUrl ($values['url'])) {
+					// on est déjà abonné à ce flux
+					$notif = array (
+						'type' => 'bad',
+						'content' => Translate::t ('already_subscribed', $feed->name ())
+					);
+					Session::_param ('notification', $notif);
+				} elseif (!$feedDAO->addFeed ($values)) {
+					// problème au niveau de la base de données
+					$notif = array (
+						'type' => 'bad',
+						'content' => Translate::t ('feed_not_added', $feed->name ())
+					);
+					Session::_param ('notification', $notif);
+				} else {
+					$entryDAO = new EntryDAO ();
+					$entries = $feed->entries ();
+
+					// on ajoute les articles en masse sans vérification
+					foreach ($entries as $entry) {
+						$values = $entry->toArray ();
+						$entryDAO->addEntry ($values);
+					}
+
+					// ok, ajout terminé
+					$notif = array (
+						'type' => 'good',
+						'content' => Translate::t ('feed_added', $feed->name ())
+					);
+					Session::_param ('notification', $notif);
+
+					// permet de rediriger vers la page de conf du flux
+					$params['id'] = $feed->id ();
+				}
+			} catch (BadUrlException $e) {
+				Log::record ($e->getMessage (), Log::ERROR);
+				$notif = array (
+					'type' => 'bad',
+					'content' => Translate::t ('invalid_url', $url)
+				);
+				Session::_param ('notification', $notif);
+			} catch (FeedException $e) {
+				Log::record ($e->getMessage (), Log::ERROR);
+				$notif = array (
+					'type' => 'bad',
+					'content' => Translate::t ('internal_problem_feed')
+				);
+				Session::_param ('notification', $notif);
+			} catch (FileNotExistException $e) {
+				// Répertoire de cache n'existe pas
+				Log::record ($e->getMessage (), Log::ERROR);
+				$notif = array (
+					'type' => 'bad',
+					'content' => Translate::t ('internal_problem_feed')
+				);
+				Session::_param ('notification', $notif);
 			}
+
+			Request::forward (array ('c' => 'configure', 'a' => 'feed', 'params' => $params), true);
 		}
 	}
 
@@ -175,113 +187,99 @@ class feedController extends ActionController {
 	}
 
 	public function massiveImportAction () {
-		if (login_is_conf ($this->view->conf) && !is_logged ()) {
-			Error::error (
-				403,
-				array ('error' => array (Translate::t ('access_denied')))
-			);
-		} else {
-			$entryDAO = new EntryDAO ();
-			$feedDAO = new FeedDAO ();
+		$entryDAO = new EntryDAO ();
+		$feedDAO = new FeedDAO ();
 
-			$categories = Request::param ('categories', array ());
-			$feeds = Request::param ('feeds', array ());
+		$categories = Request::param ('categories', array ());
+		$feeds = Request::param ('feeds', array ());
 
-			$this->addCategories ($categories);
+		$this->addCategories ($categories);
 
-			$nb_month_old = $this->view->conf->oldEntries ();
-			$date_min = time () - (60 * 60 * 24 * 30 * $nb_month_old);
+		$nb_month_old = $this->view->conf->oldEntries ();
+		$date_min = time () - (60 * 60 * 24 * 30 * $nb_month_old);
 
-			$error = false;
-			$i = 0;
-			foreach ($feeds as $feed) {
-				try {
-					$feed->load ();
+		$error = false;
+		$i = 0;
+		foreach ($feeds as $feed) {
+			try {
+				$feed->load ();
 
-					// Enregistrement du flux
-					$values = array (
-						'id' => $feed->id (),
-						'url' => $feed->url (),
-						'category' => $feed->category (),
-						'name' => $feed->name (),
-						'website' => $feed->website (),
-						'description' => $feed->description (),
-						'lastUpdate' => 0
-					);
+				// Enregistrement du flux
+				$values = array (
+					'id' => $feed->id (),
+					'url' => $feed->url (),
+					'category' => $feed->category (),
+					'name' => $feed->name (),
+					'website' => $feed->website (),
+					'description' => $feed->description (),
+					'lastUpdate' => 0
+				);
 
-					if (!$feedDAO->searchByUrl ($values['url'])) {
-						if (!$feedDAO->addFeed ($values)) {
-							$error = true;
-						}
+				if (!$feedDAO->searchByUrl ($values['url'])) {
+					if (!$feedDAO->addFeed ($values)) {
+						$error = true;
 					}
-				} catch (FeedException $e) {
-					$error = true;
-					Log::record ($e->getMessage (), Log::ERROR);
 				}
+			} catch (FeedException $e) {
+				$error = true;
+				Log::record ($e->getMessage (), Log::ERROR);
 			}
-
-			if ($error) {
-				$res = Translate::t ('feeds_imported_with_errors');
-			} else {
-				$res = Translate::t ('feeds_imported');
-			}
-			$notif = array (
-				'type' => 'good',
-				'content' => $res
-			);
-			Session::_param ('notification', $notif);
-
-			Request::forward (array (
-				'c' => 'configure',
-				'a' => 'importExport'
-			), true);
 		}
+
+		if ($error) {
+			$res = Translate::t ('feeds_imported_with_errors');
+		} else {
+			$res = Translate::t ('feeds_imported');
+		}
+		$notif = array (
+			'type' => 'good',
+			'content' => $res
+		);
+		Session::_param ('notification', $notif);
+
+		Request::forward (array (
+			'c' => 'configure',
+			'a' => 'importExport'
+		), true);
 	}
 
 	public function deleteAction () {
-		if (login_is_conf ($this->view->conf) && !is_logged ()) {
-			Error::error (
-				403,
-				array ('error' => array (Translate::t ('access_denied')))
-			);
+		$type = Request::param ('type', 'feed');
+		$id = Request::param ('id');
+
+		$feedDAO = new FeedDAO ();
+		if ($type == 'category') {
+			if ($feedDAO->deleteFeedByCategory ($id)) {
+				$notif = array (
+					'type' => 'good',
+					'content' => Translate::t ('category_emptied')
+				);
+			} else {
+				$notif = array (
+					'type' => 'bad',
+					'content' => Translate::t ('error_occured')
+				);
+			}
 		} else {
-			$type = Request::param ('type', 'feed');
-			$id = Request::param ('id');
-
-			$feedDAO = new FeedDAO ();
-			if ($type == 'category') {
-				if ($feedDAO->deleteFeedByCategory ($id)) {
-					$notif = array (
-						'type' => 'good',
-						'content' => Translate::t ('category_emptied')
-					);
-				} else {
-					$notif = array (
-						'type' => 'bad',
-						'content' => Translate::t ('error_occured')
-					);
-				}
+			if ($feedDAO->deleteFeed ($id)) {
+				$notif = array (
+					'type' => 'good',
+					'content' => Translate::t ('feed_deleted')
+				);
 			} else {
-				if ($feedDAO->deleteFeed ($id)) {
-					$notif = array (
-						'type' => 'good',
-						'content' => Translate::t ('feed_deleted')
-					);
-				} else {
-					$notif = array (
-						'type' => 'bad',
-						'content' => Translate::t ('error_occured')
-					);
-				}
+				$notif = array (
+					'type' => 'bad',
+					'content' => Translate::t ('error_occured')
+				);
 			}
+		}
 
-			Session::_param ('notification', $notif);
+		Session::_param ('notification', $notif);
 
-			if ($type == 'category') {
-				Request::forward (array ('c' => 'configure', 'a' => 'categorize'), true);
-			} else {
-				Request::forward (array ('c' => 'configure', 'a' => 'feed'), true);
-			}
+		if ($type == 'category') {
+			Request::forward (array ('c' => 'configure', 'a' => 'categorize'), true);
+		} else {
+			Request::forward (array ('c' => 'configure', 'a' => 'feed'), true);
 		}
 	}
 

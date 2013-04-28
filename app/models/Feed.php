@@ -99,7 +99,7 @@ class Feed extends Model {
 		if (!is_null ($value) && filter_var ($value, FILTER_VALIDATE_URL)) {
 			$this->url = $value;
 		} else {
-			throw new Exception ();
+			throw new BadUrlException ($value);
 		}
 	}
 	public function _category ($value) {
@@ -155,15 +155,23 @@ class Feed extends Model {
 
 				$feed->set_feed_url ($url);
 				$feed->set_cache_location (CACHE_PATH);
+				$feed->strip_htmltags (array (
+					'base', 'blink', 'body', 'doctype',
+					'font', 'form', 'frame', 'frameset', 'html',
+					'input', 'marquee', 'meta', 'noscript',
+					'param', 'script', 'style'
+				));
 				$feed->init ();
 
-				if ($feed->error()) {
+				if ($feed->error ()) {
 					throw new FeedException ($feed->error);
 				}
 
+				// si on a utilisé l'auto-discover, notre url va avoir changé
 				$subscribe_url = $feed->subscribe_url ();
 				if (!is_null ($subscribe_url) && $subscribe_url != $this->url) {
 					if ($this->httpAuth != '') {
+						// on enlève les id si authentification HTTP
 						$subscribe_url = preg_replace ('#((.+)://)((.+)@)(.+)#', '${1}${5}', $subscribe_url);
 					}
 					$this->_url ($subscribe_url);
@@ -172,6 +180,8 @@ class Feed extends Model {
 				$this->_name (!is_null ($title) ? $title : $this->url);
 				$this->_website ($feed->get_link ());
 				$this->_description ($feed->get_description ());
+
+				// et on charge les articles du flux
 				$this->loadEntries ($feed);
 			}
 		}
