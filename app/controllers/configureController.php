@@ -199,7 +199,7 @@ class configureController extends ActionController {
 		$this->view->req = Request::param ('q');
 
 		if ($this->view->req == 'export') {
-			View::_title ('feeds.opml');
+			View::_title ('freshrss_feeds.opml');
 
 			$this->view->_useLayout (false);
 			header('Content-Type: text/xml; charset=utf-8');
@@ -217,8 +217,11 @@ class configureController extends ActionController {
 			$this->view->categories = $list;
 		} elseif ($this->view->req == 'import' && Request::isPost ()) {
 			if ($_FILES['file']['error'] == 0) {
+				// on parse le fichier OPML pour récupérer les catégories et les flux associés
 				list ($categories, $feeds) = opml_import (file_get_contents ($_FILES['file']['tmp_name']));
 
+				// On redirige vers le controller feed qui va se charger d'insérer les flux en BDD
+				// les flux sont mis au préalable dans des variables de Request
 				Request::_param ('q', 'null');
 				Request::_param ('categories', $categories);
 				Request::_param ('feeds', $feeds);
@@ -228,6 +231,8 @@ class configureController extends ActionController {
 
 		$feedDAO = new FeedDAO ();
 		$this->view->feeds = $feedDAO->listFeeds ();
+
+		// au niveau de la vue, permet de ne pas voir un flux sélectionné dans la liste
 		$this->view->flux = false;
 
 		View::prependTitle (Translate::t ('import_export_opml') . ' - ');

@@ -217,18 +217,23 @@ class feedController extends ActionController {
 		$categories = Request::param ('categories', array ());
 		$feeds = Request::param ('feeds', array ());
 
+		// on ajoute les catégories en masse dans une fonction à part
 		$this->addCategories ($categories);
 
+		// on calcule la date des articles les plus anciens qu'on accepte
 		$nb_month_old = $this->view->conf->oldEntries ();
 		$date_min = time () - (60 * 60 * 24 * 30 * $nb_month_old);
 
+		// la variable $error permet de savoir si une erreur est survenue
+		// Le but est de ne pas arrêter l'import même en cas d'erreur
+		// L'utilisateur sera mis au courant s'il y a eu des erreurs, mais
+		// ne connaîtra pas les détails. Ceux-ci seront toutefois logguées
 		$error = false;
 		$i = 0;
 		foreach ($feeds as $feed) {
 			try {
 				$feed->load ();
 
-				// Enregistrement du flux
 				$values = array (
 					'id' => $feed->id (),
 					'url' => $feed->url (),
@@ -239,6 +244,7 @@ class feedController extends ActionController {
 					'lastUpdate' => 0
 				);
 
+				// ajout du flux que s'il n'est pas déjà en BDD
 				if (!$feedDAO->searchByUrl ($values['url'])) {
 					if (!$feedDAO->addFeed ($values)) {
 						$error = true;
@@ -255,12 +261,14 @@ class feedController extends ActionController {
 		} else {
 			$res = Translate::t ('feeds_imported');
 		}
+
 		$notif = array (
 			'type' => 'good',
 			'content' => $res
 		);
 		Session::_param ('notification', $notif);
 
+		// et on redirige vers la page import/export
 		Request::forward (array (
 			'c' => 'configure',
 			'a' => 'importExport'

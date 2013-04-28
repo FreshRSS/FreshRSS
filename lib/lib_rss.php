@@ -83,6 +83,12 @@ function opml_import ($xml) {
 			}
 			
 			if ($title) {
+				// Permet d'éviter les soucis au niveau des id :
+				// ceux-ci sont générés en fonction de la date,
+				// un flux pourrait être dans une catégorie X avec l'id Y
+				// alors qu'il existe déjà la catégorie X mais avec l'id Z
+				// Y ne sera pas ajouté et le flux non plus vu que l'id
+				// de sa catégorie n'exisera pas
 				$catDAO = new CategoryDAO ();
 				$cat = $catDAO->searchByName ($title);
 				if ($cat === false) {
