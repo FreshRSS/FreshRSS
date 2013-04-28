@@ -10,7 +10,10 @@
 		if ($this->get_f) {
 			$get = 'f_' . $this->get_f;
 			$string_mark = Translate::t ('mark_feed_read');
-		} elseif ($this->get_c) {
+		} elseif ($this->get_c &&
+		          $this->get_c != 'all' &&
+		          $this->get_c != 'favoris' &&
+		          $this->get_c != 'public') {
 			$get = 'c_' . $this->get_c;
 			$string_mark = Translate::t ('mark_cat_read');
 		}
@@ -39,6 +42,17 @@
 	</div>
 	<?php } ?>
 
+	<?php
+		$params = Request::params ();
+		if (isset ($params['search'])) {
+			$params['search'] = urlencode ($params['search']);
+		}
+		$url = array (
+			'c' => 'index',
+			'a' => 'index',
+			'params' => $params
+		);
+	?>
 	<div class="dropdown">
 		<div id="dropdown-views" class="dropdown-target"></div>
 		<a class="dropdown-toggle btn" href="#dropdown-views"><?php echo Translate::t ('display'); ?> <i class="icon i_down"></i></a>
@@ -46,18 +60,42 @@
 			<li class="dropdown-close"><a href="#close"><i class="icon i_close"></i></a></li>
 
 			<li class="item">
-				<?php if ($this->mode == 'not_read') { ?>
-				<a class="print_all" href="<?php echo _url ('index', 'changeMode', 'mode', 'all'); ?>"><?php echo Translate::t ('show_all_articles'); ?></a>
-				<?php } else { ?>
-				<a class="print_non_read" href="<?php echo _url ('index', 'changeMode', 'mode', 'not_read'); ?>"><?php echo Translate::t ('show_not_reads'); ?></a>
+				<?php
+					if ($this->state == 'not_read') {
+						$url['params']['state'] = 'all';
+				?>
+				<a class="print_all" href="<?php echo Url::display ($url); ?>"><?php echo Translate::t ('show_all_articles'); ?></a>
+				<?php
+					} else {
+						$url['params']['state'] = 'not_read';
+				?>
+				<a class="print_non_read" href="<?php echo Url::display ($url); ?>"><?php echo Translate::t ('show_not_reads'); ?></a>
 				<?php } ?>
 			</li>
 			<li class="separator"></li>
+
+			<?php
+				$params = Request::params ();
+				if (isset ($params['search'])) {
+					$params['search'] = urlencode ($params['search']);
+				}
+				$url = array (
+					'c' => 'index',
+					'a' => 'index',
+					'params' => $params
+				);
+			?>
 			<li class="item">
-				<?php if ($this->order == 'low_to_high') { ?>
-				<a href="<?php echo _url ('index', 'changeOrder', 'order', 'high_to_low'); ?>"><?php echo Translate::t ('older_first'); ?></a>
-				<?php } else { ?>
-				<a href="<?php echo _url ('index', 'changeOrder', 'order', 'low_to_high'); ?>"><?php echo Translate::t ('newer_first'); ?></a>
+				<?php
+					if ($this->order == 'low_to_high') {
+						$url['params']['order'] = 'high_to_low';
+				?>
+				<a href="<?php echo Url::display ($url); ?>"><?php echo Translate::t ('older_first'); ?></a>
+				<?php
+					} else {
+						$url['params']['order'] = 'low_to_high';
+				?>
+				<a href="<?php echo Url::display ($url); ?>"><?php echo Translate::t ('newer_first'); ?></a>
 				<?php } ?>
 			</li>
 		</ul>

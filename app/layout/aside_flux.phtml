@@ -3,21 +3,16 @@
 
 	<ul class="categories">
 		<?php
-			$get = Request::param ('get', '');
-			$search = Request::param ('search', '');
+			$params = Request::params ();
+			$params['output'] = 'rss';
+			if (isset ($params['search'])) {
+				$params['search'] = urlencode ($params['search']);
+			}
 			$url = array (
 				'c' => 'index',
 				'a' => 'index',
-				'params' => array (
-					'output' => 'rss'
-				)
+				'params' => $params
 			);
-			if ($get != '') {
-				$url['params']['get'] = $get;
-			}
-			if ($search != '') {
-				$url['params']['search'] = $search;
-			}
 		?>
 		<?php if (!login_is_conf ($this->conf) || is_logged ()) { ?>
 		<li>
@@ -30,7 +25,7 @@
 
 		<li>
 			<div class="all">
-				<a class="btn<?php echo !$this->get_c ? ' active' : ''; ?>" href="<?php echo _url ('index', 'index'); ?>">
+				<a class="btn<?php echo $this->get_c == 'all' ? ' active' : ''; ?>" href="<?php echo _url ('index', 'index'); ?>">
 					<i class="icon i_all"></i>
 					<?php echo Translate::t ('all_feeds', $this->nb_total); ?>
 					<?php if ($this->nb_not_read > 0) { ?>

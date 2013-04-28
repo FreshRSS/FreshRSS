@@ -28,11 +28,14 @@ class App_FrontController extends FrontController {
 
 	private function loadModels () {
 		include (APP_PATH . '/models/Exception/FeedException.php');
+		include (APP_PATH . '/models/Exception/EntriesGetterException.php');
 		include (APP_PATH . '/models/RSSConfiguration.php');
 		include (APP_PATH . '/models/Days.php');
 		include (APP_PATH . '/models/Category.php');
 		include (APP_PATH . '/models/Feed.php');
 		include (APP_PATH . '/models/Entry.php');
+		include (APP_PATH . '/models/EntriesGetter.php');
+		include (APP_PATH . '/models/RSSPaginator.php');
 	}
 
 	private function loadParamsView () {

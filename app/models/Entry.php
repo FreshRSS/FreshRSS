@@ -377,16 +377,11 @@ class EntryDAO extends Model_pdo {
 		}
 	}
 
-	public function listEntries ($mode, $search = false, $order = 'high_to_low') {
-		$where = ' WHERE priority > 0';
-		if ($mode == 'not_read') {
-			$where .= ' AND is_read=0';
-		}
-
-		$values = array();
-		if ($search) {
-			$values[] = '%'.$search.'%';
-			$where .= ' AND title LIKE ?';
+	public function listWhere ($where, $state, $order, $values = array ()) {
+		if ($state == 'not_read') {
+			$where .= ' AND is_read = 0';
+		} elseif ($state == 'read') {
+			$where .= ' AND is_read = 1';
 		}
 
 		if ($order == 'low_to_high') {
@@ -394,182 +389,29 @@ class EntryDAO extends Model_pdo {
 		} else {
 			$order = '';
 		}
-
-		$sql = 'SELECT COUNT(*) AS count FROM entry e INNER JOIN feed f ON e.id_feed = f.id' . $where;
-		$stm = $this->bd->prepare ($sql);
-		$stm->execute ($values);
-		$res = $stm->fetchAll (PDO::FETCH_ASSOC);
-		$this->nbItems = $res[0]['count'];
-
-		$deb = ($this->currentPage () - 1) * $this->nbItemsPerPage;
-		$fin = $this->nbItemsPerPage;
 
 		$sql = 'SELECT e.* FROM entry e'
 		     . ' INNER JOIN feed f ON e.id_feed = f.id' . $where
-		     . ' ORDER BY date' . $order
-		     . ' LIMIT ' . $deb . ', ' . $fin;
+		     . ' ORDER BY date' . $order;
 		$stm = $this->bd->prepare ($sql);
 		$stm->execute ($values);
 
 		return HelperEntry::daoToEntry ($stm->fetchAll (PDO::FETCH_ASSOC));
 	}
-
-	public function listFavorites ($mode, $search = false, $order = 'high_to_low') {
-		$where = ' WHERE is_favorite=1';
-		if ($mode == 'not_read') {
-			$where .= ' AND is_read=0';
-		}
-
-		$values = array();
-		if ($search) {
-			$values[] = '%'.$search.'%';
-			$where .= ' AND title LIKE ?';
-		}
-
-		if ($order == 'low_to_high') {
-			$order = ' DESC';
-		} else {
-			$order = '';
-		}
-
-		$sql = 'SELECT COUNT(*) AS count FROM entry' . $where;
-		$stm = $this->bd->prepare ($sql);
-		$stm->execute ($values);
-		$res = $stm->fetchAll (PDO::FETCH_ASSOC);
-		$this->nbItems = $res[0]['count'];
-
-		if($this->nbItemsPerPage < 0) {
-			$sql = 'SELECT * FROM entry' . $where
-			     . ' ORDER BY date' . $order;
-		} else {
-			$deb = ($this->currentPage () - 1) * $this->nbItemsPerPage;
-			$fin = $this->nbItemsPerPage;
-
-			$sql = 'SELECT * FROM entry' . $where
-			     . ' ORDER BY date' . $order
-			     . ' LIMIT ' . $deb . ', ' . $fin;
-		}
-		$stm = $this->bd->prepare ($sql);
-
-		$stm->execute ($values);
-
-		return HelperEntry::daoToEntry ($stm->fetchAll (PDO::FETCH_ASSOC));
+	public function listEntries ($state, $order = 'high_to_low') {
+		return $this->listWhere (' WHERE priority > 0', $state, $order);
 	}
-
-	public function listPublic ($mode, $search = false, $order = 'high_to_low') {
-		$where = ' WHERE is_public=1';
-		if ($mode == 'not_read') {
-			$where .= ' AND is_read=0';
-		}
-
-		$values = array();
-		if ($search) {
-			$values[] = '%'.$search.'%';
-			$where .= ' AND title LIKE ?';
-		}
-
-		if ($order == 'low_to_high') {
-			$order = ' DESC';
-		} else {
-			$order = '';
-		}
-
-		$sql = 'SELECT COUNT(*) AS count FROM entry' . $where;
-		$stm = $this->bd->prepare ($sql);
-		$stm->execute ($values);
-		$res = $stm->fetchAll (PDO::FETCH_ASSOC);
-		$this->nbItems = $res[0]['count'];
-
-		if($this->nbItemsPerPage < 0) {
-			$sql = 'SELECT * FROM entry' . $where
-			     . ' ORDER BY date' . $order;
-		} else {
-			$deb = ($this->currentPage () - 1) * $this->nbItemsPerPage;
-			$fin = $this->nbItemsPerPage;
-
-			$sql = 'SELECT * FROM entry' . $where
-			     . ' ORDER BY date' . $order
-			     . ' LIMIT ' . $deb . ', ' . $fin;
-		}
-		$stm = $this->bd->prepare ($sql);
-
-		$stm->execute ($values);
-
-		return HelperEntry::daoToEntry ($stm->fetchAll (PDO::FETCH_ASSOC));
+	public function listFavorites ($state, $order = 'high_to_low') {
+		return $this->listWhere (' WHERE is_favorite = 1', $state, $order);
 	}
-
-	public function listByCategory ($cat, $mode, $search = false, $order = 'high_to_low') {
-		$where = ' WHERE category=?';
-		if ($mode == 'not_read') {
-			$where .= ' AND is_read=0';
-		}
-
-		$values = array ($cat);
-		if ($search) {
-			$values[] = '%'.$search.'%';
-			$where .= ' AND title LIKE ?';
-		}
-
-		if ($order == 'low_to_high') {
-			$order = ' DESC';
-		} else {
-			$order = '';
-		}
-
-		$sql = 'SELECT COUNT(*) AS count FROM entry e INNER JOIN feed f ON e.id_feed = f.id' . $where;
-		$stm = $this->bd->prepare ($sql);
-		$stm->execute ($values);
-		$res = $stm->fetchAll (PDO::FETCH_ASSOC);
-		$this->nbItems = $res[0]['count'];
-
-		$deb = ($this->currentPage () - 1) * $this->nbItemsPerPage;
-		$fin = $this->nbItemsPerPage;
-		$sql = 'SELECT e.* FROM entry e INNER JOIN feed f ON e.id_feed = f.id' . $where
-		     . ' ORDER BY date' . $order
-		     . ' LIMIT ' . $deb . ', ' . $fin;
-
-		$stm = $this->bd->prepare ($sql);
-
-		$stm->execute ($values);
-
-		return HelperEntry::daoToEntry ($stm->fetchAll (PDO::FETCH_ASSOC));
+	public function listPublic ($state, $order = 'high_to_low') {
+		return $this->listWhere (' WHERE is_public = 1', $state, $order);
 	}
-
-	public function listByFeed ($feed, $mode, $search = false, $order = 'high_to_low') {
-		$where = ' WHERE id_feed=?';
-		if ($mode == 'not_read') {
-			$where .= ' AND is_read=0';
-		}
-
-		$values = array($feed);
-		if ($search) {
-			$values[] = '%'.$search.'%';
-			$where .= ' AND title LIKE ?';
-		}
-
-		if ($order == 'low_to_high') {
-			$order = ' DESC';
-		} else {
-			$order = '';
-		}
-
-		$sql = 'SELECT COUNT(*) AS count FROM entry' . $where;
-		$stm = $this->bd->prepare ($sql);
-		$stm->execute ($values);
-		$res = $stm->fetchAll (PDO::FETCH_ASSOC);
-		$this->nbItems = $res[0]['count'];
-
-		$deb = ($this->currentPage () - 1) * $this->nbItemsPerPage;
-		$fin = $this->nbItemsPerPage;
-		$sql = 'SELECT * FROM entry e' . $where
-		     . ' ORDER BY date' . $order
-		     . ' LIMIT ' . $deb . ', ' . $fin;
-
-		$stm = $this->bd->prepare ($sql);
-
-		$stm->execute ($values);
-
-		return HelperEntry::daoToEntry ($stm->fetchAll (PDO::FETCH_ASSOC));
+	public function listByCategory ($cat, $state, $order = 'high_to_low') {
+		return $this->listWhere (' WHERE category = ?', $state, $order, array ($cat));
+	}
+	public function listByFeed ($feed, $state, $order = 'high_to_low') {
+		return $this->listWhere (' WHERE id_feed = ?', $state, $order, array ($feed));
 	}
 
 	public function count () {
@@ -580,7 +422,6 @@ class EntryDAO extends Model_pdo {
 
 		return $res[0]['count'];
 	}
-
 	public function countNotRead () {
 		$sql = 'SELECT COUNT(*) AS count FROM entry e INNER JOIN feed f ON e.id_feed = f.id WHERE is_read=0 AND priority > 0';
 		$stm = $this->bd->prepare ($sql);
@@ -616,7 +457,6 @@ class EntryDAO extends Model_pdo {
 
 		return $res[0]['count'];
 	}
-
 	public function countFavorites () {
 		$sql = 'SELECT COUNT(*) AS count FROM entry WHERE is_favorite=1';
 		$stm = $this->bd->prepare ($sql);
@@ -625,73 +465,103 @@ class EntryDAO extends Model_pdo {
 
 		return $res[0]['count'];
 	}
-
-	// gestion de la pagination directement via le DAO
-	private $nbItemsPerPage = 1;
-	private $currentPage = 1;
-	private $nbItems = 0;
-	public function _nbItemsPerPage ($value) {
-		$this->nbItemsPerPage = $value;
-	}
-	public function _currentPage ($value) {
-		$this->currentPage = $value;
-	}
-	public function currentPage () {
-		if ($this->currentPage < 1) {
-			return 1;
-		}
-
-		$maxPage = ceil ($this->nbItems / $this->nbItemsPerPage);
-		if ($this->currentPage > $maxPage) {
-			return $maxPage;
-		}
-
-		return $this->currentPage;
-
-	}
-
-	public function getPaginator ($entries) {
-		$paginator = new Paginator ($entries);
-		$paginator->_nbItems ($this->nbItems);
-		$paginator->_nbItemsPerPage ($this->nbItemsPerPage);
-		$paginator->_currentPage ($this->currentPage ());
-
-		return $paginator;
-	}
 }
 
 class HelperEntry {
-	public static function daoToEntry ($listDAO, $mode = 'all', $favorite = false) {
+	public static $nb = 1;
+	public static $first = '';
+
+	public static $filter = array (
+		'words' => array (),
+		'tags' => array (),
+	);
+
+	public static function daoToEntry ($listDAO) {
 		$list = array ();
 
 		if (!is_array ($listDAO)) {
 			$listDAO = array ($listDAO);
 		}
 
+		$count = 0;
+		$first_is_found = false;
+		$break_after = false;
+		$next = '';
 		foreach ($listDAO as $key => $dao) {
-			$list[$key] = new Entry (
-				$dao['id_feed'],
-				$dao['guid'],
-				$dao['title'],
-				$dao['author'],
-				unserialize (gzinflate (base64_decode ($dao['content']))),
-				$dao['link'],
-				$dao['date'],
-				$dao['is_read'],
-				$dao['is_favorite'],
-				$dao['is_public']
-			);
+			$dao['content'] = unserialize (gzinflate (base64_decode ($dao['content'])));
+			$dao['tags'] = preg_split('/[\s#]/', $dao['tags']);
 
-			$tags = preg_split('/[\s#]/', $dao['tags']);
-			$list[$key]->_notes ($dao['annotation']);
-			$list[$key]->_lastUpdate ($dao['lastUpdate']);
-			$list[$key]->_tags ($tags);
+			if (self::tagsMatchEntry ($dao) &&
+			    self::searchMatchEntry ($dao)) {
+				if ($break_after) {
+					$next = $dao['id'];
+					break;
+				}
+				if ($first_is_found || $dao['id'] == self::$first || self::$first == '') {
+					$list[$key] = self::createEntry ($dao);
 
-			if (isset ($dao['id'])) {
-				$list[$key]->_id ($dao['id']);
+					$count++;
+					$first_is_found = true;
+				}
+				if ($count >= self::$nb) {
+					$break_after = true;
+				}
 			}
 		}
 
-		return $list;
+		unset ($listDAO);
+
+		return array ($list, $next);
+	}
+
+	private static function createEntry ($dao) {
+		$entry = new Entry (
+			$dao['id_feed'],
+			$dao['guid'],
+			$dao['title'],
+			$dao['author'],
+			$dao['content'],
+			$dao['link'],
+			$dao['date'],
+			$dao['is_read'],
+			$dao['is_favorite'],
+			$dao['is_public']
+		);
+
+		$entry->_notes ($dao['annotation']);
+		$entry->_lastUpdate ($dao['lastUpdate']);
+		$entry->_tags ($dao['tags']);
+
+		if (isset ($dao['id'])) {
+			$entry->_id ($dao['id']);
+		}
+
+		return $entry;
+	}
+
+	private static function tagsMatchEntry ($dao) {
+		$tags = self::$filter['tags'];
+		foreach ($tags as $tag) {
+			if (!in_array ($tag, $dao['tags'])) {
+				return false;
+			}
+		}
+
+		return true;
+	}
+	private static function searchMatchEntry ($dao) {
+		$words = self::$filter['words'];
+
+		foreach ($words as $word) {
+			$word = strtolower ($word);
+			if (strpos (strtolower ($dao['title']), $word) === false &&
+			    strpos (strtolower ($dao['content']), $word) === false &&
+			    strpos (strtolower ($dao['link']), $word) === false &&
+			    strpos (strtolower ($dao['annotation']), $word) === false) {
+				return false;
+			}
+		}
+
+		return true;
 	}
 }

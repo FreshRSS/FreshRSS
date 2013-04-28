@@ -4,7 +4,7 @@ return array (
 	// LAYOUT
 	'login'				=> 'Connexion',
 	'logout'			=> 'Déconnexion',
-	'search_on_title'		=> 'Rechercher sur les titres',
+	'search'			=> 'Rechercher un terme ou des #tags',
 
 	'configuration'			=> 'Configuration',
 	'general_and_reading'		=> 'Général et lecture',
@@ -161,8 +161,8 @@ return array (
 	'author'			=> 'Auteur',
 	'publication_date'		=> 'Date de publication',
 
-	'newer'				=> 'plus récents',
-	'older'				=> 'plus anciens',
+	'load_more'			=> 'Charger plus d\'articles',
+	'nothing_to_load'		=> 'Il n\'y a pas plus d\'article',
 
 	'rss_feeds_of'			=> 'Flux RSS de %s',
 

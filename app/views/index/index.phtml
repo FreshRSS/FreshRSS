@@ -10,8 +10,8 @@ if (Request::param ('output', '') == 'rss') {
 <?php $this->partial ('nav_menu'); ?>
 
 <?php
-if (isset ($this->entryPaginator)) {
-	$items = $this->entryPaginator->items (true);
+if (isset ($this->entryPaginator) && !$this->entryPaginator->isEmpty ()) {
+	$items = $this->entryPaginator->items ();
 ?>
 <div id="stream">
 	<?php
@@ -111,13 +111,10 @@ if (isset ($this->entryPaginator)) {
 	</div>
 	<?php } ?>
 	
-	<?php $this->entryPaginator->render ('pagination.phtml', 'page'); ?>
+	<?php $this->entryPaginator->render ('pagination.phtml', 'next'); ?>
 </div>
 <?php } else { ?>
 <div class="alert alert-warn">
 	<span class="alert-head"><?php echo Translate::t ('no_feed_to_display'); ?></span>
-	<?php if (Session::param ('mode', 'all') == 'not_read') { ?>
-	<a class="print_all" href="<?php echo _url ('index', 'changeMode', 'mode', 'all'); ?>"><?php echo Translate::t ('show_all_articles'); ?></a>
-	<?php }	?>
 </div>
 <?php } ?>

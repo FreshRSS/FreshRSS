@@ -6,6 +6,10 @@ class indexController extends ActionController {
 	private $mode = 'all';
 
 	public function indexAction () {
+		if (Request::param ('output', '') == 'rss') {
+			$this->view->_useLayout (false);
+		}
+
 		View::appendScript (Url::display ('/scripts/shortcut.js'));
 		View::appendScript (Url::display (array ('c' => 'javascript', 'a' => 'main')));
 		View::appendScript (Url::display (array ('c' => 'javascript', 'a' => 'actualize')));
@@ -14,109 +18,125 @@ class indexController extends ActionController {
 		$feedDAO = new FeedDAO ();
 		$catDAO = new CategoryDAO ();
 
-		$error = false;
+		$this->view->cat_aside = $catDAO->listCategories ();
+		$this->view->nb_favorites = $entryDAO->countFavorites ();
+		$this->view->nb_total = $entryDAO->count ();
 
-		// pour optimiser
-		$page = Request::param ('page', 1);
-		$entryDAO->_nbItemsPerPage ($this->view->conf->postsPerPage ());
-		$entryDAO->_currentPage ($page);
+		$this->view->get_c = '';
+		$this->view->get_f = '';
 
-		// récupération de la catégorie/flux à filtrer
-		$this->initFilter ();
-		// Compte le nombre d'articles non lus en prenant en compte le filtre
-		$this->countNotRead ();
-		// mode de vue (tout ou seulement non lus)
-		$this->initCurrentMode ();
-		// ordre de listage des flux
-		$order = Session::param ('order', $this->view->conf->sortOrder ());
-		// recherche sur les titres (pour le moment)
-		$search = Request::param ('search');
+		$type = $this->getType ();
+		$error = $this->checkAndProcessType ($type);
+		if (!$error) {
+			$this->view->state = $state = Request::param ('state', $this->view->conf->defaultView ());
+			$filter = Request::param ('search', '');
+			$this->view->order = $order = Request::param ('order', $this->view->conf->sortOrder ());
+			$nb = Request::param ('nb', $this->view->conf->postsPerPage ());
+			$first = Request::param ('next', '');
 
-		// Récupère les flux par catégorie, favoris ou tous
-		if ($this->get['type'] == 'all') {
-			$entries = $entryDAO->listEntries ($this->mode, $search, $order);
-			View::prependTitle (Translate::t ('your_rss_feeds') . ' - ');
-		} elseif ($this->get['type'] == 'favoris') {
-			$entries = $entryDAO->listFavorites ($this->mode, $search, $order);
-			View::prependTitle (Translate::t ('your_favorites') . ' - ');
-		} elseif ($this->get['type'] == 'public') {
-			$entries = $entryDAO->listPublic ($this->mode, $search, $order);
-			View::prependTitle (Translate::t ('public') . ' - ');
-		} elseif ($this->get != false) {
-			if ($this->get['type'] == 'c') {
-				$cat = $catDAO->searchById ($this->get['filter']);
+			try {
+				$getter = new EntriesGetter ($type, $state, $filter, $order, $nb, $first);
+				$getter->execute ();
+				$entries = $getter->getPaginator ();
 
-				if ($cat) {
-					$entries = $entryDAO->listByCategory ($this->get['filter'], $this->mode, $search, $order);
-					View::prependTitle ($cat->name () . ' - ');
-				} else {
-					$error = true;
+				if ($state == 'not_read' && $entries->isEmpty ()) {
+					$this->view->state = 'all';
+					$getter->_state ('all');
+					$getter->execute ();
+					$entries = $getter->getPaginator ();
 				}
-			} elseif ($this->get['type'] == 'f') {
-				$feed = $feedDAO->searchById ($this->get['filter']);
 
-				if ($feed) {
-					$entries = $entryDAO->listByFeed ($this->get['filter'], $this->mode, $search, $order);
-					$this->view->get_c = $feed->category ();
-					View::prependTitle ($feed->name () . ' - ');
-				} else {
-					$error = true;
-				}
-			} else {
-				$error = true;
+				$this->view->entryPaginator = $entries;
+			} catch(EntriesGetterException $e) {
+				Log::record ($e->getMessage (), Log::NOTICE);
+				Error::error (
+					404,
+					array ('error' => array (Translate::t ('page_not_found')))
+				);
+			} catch(CurrentPagePaginationException $e) {
+				Error::error (
+					404,
+					array ('error' => array (Translate::t ('page_not_found')))
+				);
 			}
 		} else {
-			$error = true;
-		}
-
-		if ($error) {
 			Error::error (
 				404,
 				array ('error' => array (Translate::t ('page_not_found')))
 			);
-		} else {
-			$this->view->mode = $this->mode;
-			$this->view->order = $order;
+		}
+	}
 
-			try {
-				$this->view->entryPaginator = $entryDAO->getPaginator ($entries);
-			} catch (CurrentPagePaginationException $e) { }
+	/*
+	 * Détermine le type d'article à récupérer :
+	 * "tous", "favoris", "public", "catégorie" ou "flux"
+	 */
+	private function getType () {
+		$get = Request::param ('get', 'all');
+		$typeGet = $get[0];
+		$id = substr ($get, 2);
 
-			$this->view->cat_aside = $catDAO->listCategories ();
-			$this->view->nb_favorites = $entryDAO->countFavorites ();
-			$this->view->nb_total = $entryDAO->count ();
+		$type = null;
+		if ($get == 'all' || $get == 'favoris' || $get == 'public') {
+			$type = array (
+				'type' => $get,
+				'id' => $get
+			);
+		} elseif ($typeGet == 'f' || $typeGet == 'c') {
+			$type = array (
+				'type' => $typeGet,
+				'id' => $id
+			);
+		}
 
-			if (Request::param ('output', '') == 'rss') {
-				$this->view->_useLayout (false);
+		return $type;
+	}
+	/*
+	 * Vérifie que la catégorie / flux sélectionné existe
+	 * + Initialise correctement les variables de vue get_c et get_f
+	 * + Initialise le titre
+	 */
+	private function checkAndProcessType ($type) {
+		if ($type['type'] == 'all') {
+			View::prependTitle (Translate::t ('your_rss_feeds') . ' - ');
+			$this->view->get_c = $type['type'];
+			return false;
+		} elseif ($type['type'] == 'favoris') {
+			View::prependTitle (Translate::t ('your_favorites') . ' - ');
+			$this->view->get_c = $type['type'];
+			return false;
+		} elseif ($type['type'] == 'public') {
+			View::prependTitle (Translate::t ('public') . ' - ');
+			$this->view->get_c = $type['type'];
+			return false;
+		} elseif ($type['type'] == 'c') {
+			$catDAO = new CategoryDAO ();
+			$cat = $catDAO->searchById ($type['id']);
+			if ($cat) {
+				View::prependTitle ($cat->name () . ' - ');
+				$this->view->get_c = $type['id'];
+				return false;
+			} else {
+				return true;
 			}
+		} elseif ($type['type'] == 'f') {
+			$feedDAO = new FeedDAO ();
+			$feed = $feedDAO->searchById ($type['id']);
+			if ($feed) {
+				View::prependTitle ($feed->name () . ' - ');
+				$this->view->get_f = $type['id'];
+				$this->view->get_c = $feed->category ();
+				return false;
+			} else {
+				return true;
+			}
+		} else {
+			return true;
 		}
 	}
 
 	public function aboutAction () {
 		View::prependTitle (Translate::t ('about') . ' - ');
-	}
-
-	public function changeModeAction () {
-		$mode = Request::param ('mode');
-
-		if ($mode == 'not_read') {
-			Session::_param ('mode', 'not_read');
-		} else {
-			Session::_param ('mode', 'all');
-		}
-
-		Request::forward (array (), true);
-	}
-	public function changeOrderAction () {
-		$order = Request::param ('order');
-
-		if ($order == 'low_to_high') {
-			Session::_param ('order', 'low_to_high');
-		} else {
-			Session::_param ('order', 'high_to_low');
-		}
-
-		Request::forward (array (), true);
 	}
 
 	public function loginAction () {
@@ -152,83 +172,5 @@ class indexController extends ActionController {
 	public function logoutAction () {
 		$this->view->_useLayout (false);
 		Session::_param ('mail');
-	}
-
-	private function initFilter () {
-		$get = Request::param ('get');
-		$this->view->get_c = false;
-		$this->view->get_f = false;
-
-		$typeGet = $get[0];
-		$filter = substr ($get, 2);
-
-		if ($get == 'favoris') {
-			$this->view->get_c = $get;
-
-			$this->get = array (
-				'type' => $get,
-				'filter' => $get
-			);
-		} elseif ($get == 'public') {
-			$this->view->get_c = $get;
-
-			$this->get = array (
-				'type' => $get,
-				'filter' => $get
-			);
-		} elseif ($get == false) {
-			$this->get = array (
-				'type' => 'all',
-				'filter' => 'all'
-			);
-		} else {
-			if ($typeGet == 'f') {
-				$this->view->get_f = $filter;
-
-				$this->get = array (
-					'type' => $typeGet,
-					'filter' => $filter
-				);
-			} elseif ($typeGet == 'c') {
-				$this->view->get_c = $filter;
-
-				$this->get = array (
-					'type' => $typeGet,
-					'filter' => $filter
-				);
-			} else {
-				$this->get = false;
-			}
-		}
-	}
-
-	private function countNotRead () {
-		$entryDAO = new EntryDAO ();
-
-		if ($this->get != false) {
-			if ($this->get['type'] == 'all') {
-				$this->nb_not_read = $this->view->nb_not_read;
-			} elseif ($this->get['type'] == 'favoris') {
-				$this->nb_not_read = $entryDAO->countNotReadFavorites ();
-			} elseif ($this->get['type'] == 'c') {
-				$this->nb_not_read = $entryDAO->countNotReadByCat ($this->get['filter']);
-			} elseif ($this->get['type'] == 'f') {
-				$this->nb_not_read = $entryDAO->countNotReadByFeed ($this->get['filter']);
-			}
-		}
-	}
-
-	private function initCurrentMode () {
-		$default_view = $this->view->conf->defaultView ();
-		$mode = Session::param ('mode');
-		if ($mode == false) {
-			if ($default_view == 'not_read' && $this->nb_not_read < 1) {
-				$mode = 'all';
-			} else {
-				$mode = $default_view;
-			}
-		}
-
-		$this->mode = $mode;
 	}
 }
