@@ -2,7 +2,7 @@
 
 <?php if ($this->flux) { ?>
 <div class="post">
-	<a href="<?php echo _url ('index', 'index'); ?>"><?php echo Translate::t ('back_to_rss_feeds'); ?></a>
+	<a href="<?php echo _url ('index', 'index'); ?>"><?php echo Translate::t ('back_to_rss_feeds'); ?></a> <?php echo Translate::t ('or'); ?> <a href="<?php echo _url ('index', 'index', 'get', 'f_' . $this->flux->id ()); ?>"><?php echo Translate::t ('filter'); ?></a>
 
 	<h1><?php echo $this->flux->name (); ?></h1>
 	<?php echo $this->flux->description (); ?>

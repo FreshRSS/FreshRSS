@@ -296,6 +296,30 @@ class FeedDAO extends Model_pdo {
 		}
 	}
 
+	public function changeCategory ($idOldCat, $idNewCat) {
+		$catDAO = new CategoryDAO ();
+		$newCat = $catDAO->searchById ($idNewCat);
+		if (!$newCat) {
+			$newCat = $catDAO->getDefault ();
+		}
+
+		$sql = 'UPDATE feed SET category=? WHERE category=?';
+		$stm = $this->bd->prepare ($sql);
+
+		$values = array (
+			$newCat->id (),
+			$idOldCat
+		);
+
+		if ($stm && $stm->execute ($values)) {
+			return true;
+		} else {
+			$info = $stm->errorInfo();
+			Log::record ('SQL error : ' . $info[2], Log::ERROR);
+			return false;
+		}
+	}
+
 	public function deleteFeed ($id) {
 		$sql = 'DELETE FROM feed WHERE id=?';
 		$stm = $this->bd->prepare ($sql);

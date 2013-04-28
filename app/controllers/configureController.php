@@ -11,8 +11,11 @@ class configureController extends ActionController {
 	}
 
 	public function categorizeAction () {
+		$feedDAO = new FeedDAO ();
 		$catDAO = new CategoryDAO ();
 		$catDAO->checkDefault ();
+		$defaultCategory = $catDAO->getDefault ();
+		$defaultId = $defaultCategory->id ();
 
 		if (Request::isPost ()) {
 			$cats = Request::param ('categories', array ());
@@ -27,7 +30,8 @@ class configureController extends ActionController {
 						'color' => $cat->color ()
 					);
 					$catDAO->updateCategory ($ids[$key], $values);
-				} elseif ($ids[$key] != '000000') {
+				} elseif ($ids[$key] != $defaultId) {
+					$feedDAO->changeCategory ($ids[$key], $defaultId);
 					$catDAO->deleteCategory ($ids[$key]);
 				}
 			}
