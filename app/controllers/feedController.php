@@ -64,6 +64,7 @@ class feedController extends ActionController {
 					$entries = $feed->entries ();
 
 					// on ajoute les articles en masse sans vérification
+					// TODO vérification de la date pour ne pas ajouter de vieux articles
 					foreach ($entries as $entry) {
 						$values = $entry->toArray ();
 						$entryDAO->addEntry ($values);
@@ -112,6 +113,10 @@ class feedController extends ActionController {
 		$entryDAO = new EntryDAO ();
 
 		$id = Request::param ('id');
+
+		// on créé la liste des flux à mettre à actualiser
+		// si on veut mettre un flux à jour spécifiquement, on le met
+		// dans la liste, mais seul (permet d'automatiser le traitement)
 		$feeds = array ();
 		if ($id) {
 			$feed = $feedDAO->searchById ($id);
@@ -122,7 +127,7 @@ class feedController extends ActionController {
 			$feeds = $feedDAO->listFeedsOrderUpdate ();
 		}
 
-		// pour ne pas ajouter des entrées trop anciennes
+		// on calcule la date des articles les plus anciens qu'on accepte
 		$nb_month_old = $this->view->conf->oldEntries ();
 		$date_min = time () - (60 * 60 * 24 * 30 * $nb_month_old);
 
@@ -132,6 +137,11 @@ class feedController extends ActionController {
 				$feed->load ();
 				$entries = $feed->entries ();
 
+				// ajout des articles en masse sans se soucier des erreurs
+				// On ne vérifie pas que l'article n'est pas déjà en BDD
+				// car demanderait plus de ressources
+				// La BDD refusera l'ajout de son côté car l'id doit être
+				// unique
 				foreach ($entries as $entry) {
 					if ($entry->date (true) >= $date_min) {
 						$values = $entry->toArray ();
@@ -139,34 +149,42 @@ class feedController extends ActionController {
 					}
 				}
 
+				// on indique que le flux vient d'être mis à jour en BDD
 				$feedDAO->updateLastUpdate ($feed->id ());
 			} catch (FeedException $e) {
 				Log::record ($e->getMessage (), Log::ERROR);
+				// TODO si on a une erreur ici, il faut mettre
+				// le flux à jour en BDD (error = 1) (issue #70)
 			}
 
+			// On arrête à 10 flux pour ne pas surcharger le serveur
 			$i++;
 			if ($i >= 10) {
 				break;
 			}
 		}
 
+		// TODO on peut peut-être trouver une meilleure place pour cette fonction ?
 		$entryDAO->cleanOldEntries ($nb_month_old);
 
-		// notif
 		$url = array ();
 		if ($i == 1) {
+			// on a mis un seul flux à jour
+			// reset permet de récupérer ce flux
 			$feed = reset ($feeds);
 			$notif = array (
 				'type' => 'good',
 				'content' => Translate::t ('feed_actualized', $feed->name ())
 			);
 			$url['params'] = array ('get' => 'f_' . $feed->id ());
-		} elseif ($i > 0) {
+		} elseif ($i > 1) {
+			// plusieurs flux on été mis à jour
 			$notif = array (
 				'type' => 'good',
 				'content' => Translate::t ('n_feeds_actualized', $i)
 			);
 		} else {
+			// aucun flux n'a été mis à jour, oups
 			$notif = array (
 				'type' => 'bad',
 				'content' => Translate::t ('no_feed_actualized')
@@ -177,11 +195,17 @@ class feedController extends ActionController {
 			Session::_param ('notification', $notif);
 			Request::forward ($url, true);
 		} else {
+			// Une requête Ajax met un seul flux à jour.
+			// Comme en principe plusieurs requêtes ont lieu,
+			// on indique que "plusieurs flux ont été mis à jour".
+			// Cela permet d'avoir une notification plus proche du
+			// ressenti utilisateur
 			$notif = array (
 				'type' => 'good',
 				'content' => Translate::t ('feeds_actualized')
 			);
 			Session::_param ('notification', $notif);
+			// et on désactive le layout car ne sert à rien
 			$this->view->_useLayout (false);
 		}
 	}
