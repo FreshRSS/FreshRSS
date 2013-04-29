@@ -26,7 +26,7 @@
 				'params' => $params
 			);
 		?>
-		<form action="<?php echo Url::display ($url); ?>" method="post">
+		<form action="<?php echo Url::display ($url); ?>" method="get">
 			<div class="stick">
 				<?php $s = Request::param ('search', ''); ?>
 				<input type="text" name="search" id="search" value="<?php echo $s; ?>" placeholder="<?php echo Translate::t ('search'); ?>" />
