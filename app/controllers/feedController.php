@@ -118,6 +118,7 @@ class feedController extends ActionController {
 		$entryDAO = new EntryDAO ();
 
 		$id = Request::param ('id');
+		$force = Request::param ('force', false);
 
 		// on créé la liste des flux à mettre à actualiser
 		// si on veut mettre un flux à jour spécifiquement, on le met
@@ -163,8 +164,9 @@ class feedController extends ActionController {
 			}
 
 			// On arrête à 10 flux pour ne pas surcharger le serveur
+			// sauf si le paramètre $force est à vrai
 			$i++;
-			if ($i >= 10) {
+			if ($i >= 10 && !$force) {
 				break;
 			}
 		}
