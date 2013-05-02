@@ -6,13 +6,13 @@ class indexController extends ActionController {
 	private $mode = 'all';
 
 	public function indexAction () {
-		if (Request::param ('output', '') == 'rss') {
+		if (Request::param ('output') == 'rss') {
 			$this->view->_useLayout (false);
+		} else {
+			View::appendScript (Url::display ('/scripts/shortcut.js'));
+			View::appendScript (Url::display (array ('c' => 'javascript', 'a' => 'main')));
+			View::appendScript (Url::display (array ('c' => 'javascript', 'a' => 'actualize')));
 		}
-
-		View::appendScript (Url::display ('/scripts/shortcut.js'));
-		View::appendScript (Url::display (array ('c' => 'javascript', 'a' => 'main')));
-		View::appendScript (Url::display (array ('c' => 'javascript', 'a' => 'actualize')));
 
 		$entryDAO = new EntryDAO ();
 		$feedDAO = new FeedDAO ();
@@ -28,6 +28,7 @@ class indexController extends ActionController {
 		$type = $this->getType ();
 		$error = $this->checkAndProcessType ($type);
 		if (!$error) {
+			// On récupère les différents éléments de filtrage
 			$this->view->state = $state = Request::param ('state', $this->view->conf->defaultView ());
 			$filter = Request::param ('search', '');
 			$this->view->order = $order = Request::param ('order', $this->view->conf->sortOrder ());
@@ -35,10 +36,13 @@ class indexController extends ActionController {
 			$first = Request::param ('next', '');
 
 			try {
+				// EntriesGetter permet de déporter la complexité du filtrage
 				$getter = new EntriesGetter ($type, $state, $filter, $order, $nb, $first);
 				$getter->execute ();
 				$entries = $getter->getPaginator ();
 
+				// Si on a récupéré aucun article "non lus"
+				// on essaye de récupérer tous les articles
 				if ($state == 'not_read' && $entries->isEmpty ()) {
 					$this->view->state = 'all';
 					$getter->_state ('all');
@@ -49,11 +53,6 @@ class indexController extends ActionController {
 				$this->view->entryPaginator = $entries;
 			} catch(EntriesGetterException $e) {
 				Log::record ($e->getMessage (), Log::NOTICE);
-				Error::error (
-					404,
-					array ('error' => array (Translate::t ('page_not_found')))
-				);
-			} catch(CurrentPagePaginationException $e) {
 				Error::error (
 					404,
 					array ('error' => array (Translate::t ('page_not_found')))

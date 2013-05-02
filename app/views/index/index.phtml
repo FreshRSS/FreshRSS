@@ -1,18 +1,16 @@
 <?php
-if (Request::param ('output', '') == 'rss') {
+$output = Request::param ('output', 'normal');
+
+if ($output == 'rss') {
 	$this->renderHelper ('rss');
-	return;
-}
+} else {
+	$this->partial ('aside_flux');
+	$this->partial ('nav_menu');
+
+	if (isset ($this->entryPaginator) && !$this->entryPaginator->isEmpty ()) {
+		$items = $this->entryPaginator->items ();
 ?>
 
-<?php $this->partial ('aside_flux'); ?>
-
-<?php $this->partial ('nav_menu'); ?>
-
-<?php
-if (isset ($this->entryPaginator) && !$this->entryPaginator->isEmpty ()) {
-	$items = $this->entryPaginator->items ();
-?>
 <div id="stream">
 	<?php
 		$display_today = true;
@@ -113,8 +111,10 @@ if (isset ($this->entryPaginator) && !$this->entryPaginator->isEmpty ()) {
 	
 	<?php $this->entryPaginator->render ('pagination.phtml', 'next'); ?>
 </div>
-<?php } else { ?>
+
+	<?php } else { ?>
 <div class="alert alert-warn">
 	<span class="alert-head"><?php echo Translate::t ('no_feed_to_display'); ?></span>
 </div>
+	<?php } ?>
 <?php } ?>

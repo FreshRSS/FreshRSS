@@ -1,5 +1,7 @@
 <?php
 
+// Un système de pagination beaucoup plus simple que Paginator
+// mais mieux adapté à nos besoins
 class RSSPaginator {
 	private $items = array ();
 	private $next = '';

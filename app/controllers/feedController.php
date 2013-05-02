@@ -63,11 +63,16 @@ class feedController extends ActionController {
 					$entryDAO = new EntryDAO ();
 					$entries = $feed->entries ();
 
+					// on calcule la date des articles les plus anciens qu'on accepte
+					$nb_month_old = $this->view->conf->oldEntries ();
+					$date_min = time () - (60 * 60 * 24 * 30 * $nb_month_old);
+
 					// on ajoute les articles en masse sans vérification
-					// TODO vérification de la date pour ne pas ajouter de vieux articles
 					foreach ($entries as $entry) {
-						$values = $entry->toArray ();
-						$entryDAO->addEntry ($values);
+						if ($entry->date (true) >= $date_min) {
+							$values = $entry->toArray ();
+							$entryDAO->addEntry ($values);
+						}
 					}
 
 					// ok, ajout terminé
@@ -164,7 +169,6 @@ class feedController extends ActionController {
 			}
 		}
 
-		// TODO on peut peut-être trouver une meilleure place pour cette fonction ?
 		$entryDAO->cleanOldEntries ($nb_month_old);
 
 		$url = array ();
