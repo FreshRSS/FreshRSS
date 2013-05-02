@@ -368,7 +368,7 @@ class EntryDAO extends Model_pdo {
 
 		$stm->execute ($values);
 		$res = $stm->fetchAll (PDO::FETCH_ASSOC);
-		$entry = HelperEntry::daoToEntry ($res);
+		list ($entry, $next) = HelperEntry::daoToEntry ($res);
 
 		if (isset ($entry[0])) {
 			return $entry[0];
