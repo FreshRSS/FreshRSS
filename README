@@ -1,9 +1,9 @@
 Un simple agrégateur de flux rss relativement léger et rapide par rapport aux
 mastodontes que sont RSSLounge et TinyTinyRSS.
 
-Une démo est disponible sur http://marienfressinaud.fr/projets/freshrss/
-
 @name FreshRSS
+@url http://marienfressinaud.github.io/FreshRSS/
+@demo http://marienfressinaud.fr/projets/freshrss/
 @author Marien Fressinaud <dev@marienfressinaud.fr>
 @version 0.3.0
 @date 2013-05-05
