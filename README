@@ -1,10 +1,12 @@
 Un simple agrégateur de flux rss relativement léger et rapide par rapport aux
-mastodontes que sont RSSLounge et TinyTinyRSS
+mastodontes que sont RSSLounge et TinyTinyRSS.
+
+Une démo est disponible sur http://marienfressinaud.fr/projets/freshrss/
 
 @name FreshRSS
 @author Marien Fressinaud <dev@marienfressinaud.fr>
-@version 0.2.0
-@date 2013-04-17
+@version 0.3.0
+@date 2013-05-05
 @license AGPL3
 
 DISCLAIMER
@@ -15,9 +17,6 @@ sur un autre serveur que le mien. Je m'engage néanmoins à répondre dans la
 mesure du possible aux demandes d'évolution si celles-ci me semblent justifiées.
 Privilégiez pour cela des demandes sur GitHub
 (https://github.com/marienfressinaud/FreshRSS/issues) ou par mail
-
-De plus, je n'ai réellement testé FreshRSS que sous Firefox, il pourrait y
-avoir des soucis sur d'autres navigateurs.
 
 PRE-REQUIS
 ==========
@@ -32,32 +31,47 @@ INSTALLATION
 	1. Récupérez l'application FreshRSS via la commande git ou en
 	   téléchargeant l'archive
 	2. Exécutez le script ./build.sh ou en récupérant à la main la librairie
-	   Minz (https://github.com/marienfressinaud/MINZ) et en copian la lib
-	   dans /lib/minz
+	   Minz (https://github.com/marienfressinaud/MINZ) et en copiant la lib
+	   dans ./lib/minz
 	3. Déplacez l'application où vous voulez sur votre serveur (attention,
-	   la partie accessible se trouve dans le répertoire `/public`)
-	4. Accéder à FreshRSS à travers votre navigateur web et suivez les
-	   instructions !
+	   la partie accessible se trouve dans le répertoire `./public`)
+	4. Accédez à FreshRSS à travers votre navigateur web et suivez les
+	   instructions
 	5. Tout devrait fonctionner :) En cas de problème, n'hésitez pas à me
-	   contacter !
+	   contacter.
 
 SÉCURITÉ ET CONSEILS
 ====================
 	1. Si possible, faites pointer un sous-domaine sur le répertoire
-	   `/public`
+	   `./public`
 	2. Le fichier de log peut être utile à lire si vous avez des soucis
-	3. Le fichier `/public/index.php` défini les chemins d'accès aux
+	3. Le fichier `./public/index.php` défini les chemins d'accès aux
 	   répertoires clés de l'application. Si vous les bougez, tout se passe
 	   ici.
 	4. Vous pouvez ajouter une tâche CRON sur le script d'actualisation des
 	   flux. Il s'agit d'un script PHP à exécuter avec la commande `php`.
 	   Par exemple, pour exécuter le script toutes les heures :
 	   0 * * * * php /chemin/vers/freshrss/actualize_script.php >/dev/null 2>&1
-	   Veuillez cependant vérifier que le fichier PUBLIC_PATH/data/Configuration.array.php
+	   Veuillez cependant vérifier que le fichier ./public/data/Configuration.array.php
 	   soit accessible en lecture / écriture par l'exécuteur du script
 
 CHANGELOG
 =========
+2013-05-05 changes with FreshRSS 0.3.0
+	*) Fallback pour les icônes SVG (utilisation de PNG à la place)
+	*) Fallback pour les propriétés CSS3 (utilisation de préfixes)
+	*) Affichage des tags associés aux articles
+	*) Internationalisation de l'application (gestion des langues anglaise
+	   et française)
+	*) Gestion des flux protégés par authentification HTTP
+	*) Mise en cache des favicons
+	*) Création d'un logo *temporaire*
+	*) Affichage des vidéos dans les articles
+	*) Gestion de la recherche et filtre par tags pleinement fonctionnels
+	*) Création d'un vrai script CRON permettant de mettre tous les flux à
+	   jour
+	*) Correction bugs divers
+
 2013-04-17 changes with FreshRSS 0.2.0
 	*) Création d'un installateur
 	*) Actualisation des flux en Ajax
