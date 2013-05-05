@@ -11,9 +11,12 @@ class App_FrontController extends FrontController {
 		$this->loadModels ();
 
 		Session::init (); // lancement de la session doit se faire après chargement des modèles sinon bug (pourquoi ?)
+
 		$this->loadParamsView ();
 		$this->loadStylesAndScripts ();
 		$this->loadNotifications ();
+
+		Translate::init ();
 	}
 
 	private function loadLibs () {
@@ -25,11 +28,14 @@ class App_FrontController extends FrontController {
 
 	private function loadModels () {
 		include (APP_PATH . '/models/Exception/FeedException.php');
+		include (APP_PATH . '/models/Exception/EntriesGetterException.php');
 		include (APP_PATH . '/models/RSSConfiguration.php');
 		include (APP_PATH . '/models/Days.php');
 		include (APP_PATH . '/models/Category.php');
 		include (APP_PATH . '/models/Feed.php');
 		include (APP_PATH . '/models/Entry.php');
+		include (APP_PATH . '/models/EntriesGetter.php');
+		include (APP_PATH . '/models/RSSPaginator.php');
 	}
 
 	private function loadParamsView () {
@@ -38,9 +44,12 @@ class App_FrontController extends FrontController {
 
 		$entryDAO = new EntryDAO ();
 		View::_param ('nb_not_read', $entryDAO->countNotRead ());
+
+		Session::_param ('language', $this->conf->language ());
 	}
 
 	private function loadStylesAndScripts () {
+		View::appendStyle (Url::display ('/theme/fallback.css'));
 		View::appendStyle (Url::display ('/theme/global.css'));
 		View::appendStyle (Url::display ('/theme/freshrss.css'));
 		if (login_is_conf ($this->conf)) {

@@ -20,11 +20,11 @@ class apiController extends ActionController {
 			$notes = $e->notes ();
 			if ($notes == '') {
 				$feed = $e->feed (true);
-				$notes = 'Article publié initialement sur <a href="' . $feed->website () . '">' . $feed->name () . '</a>';
 				if($author != '') {
-					$notes .= ' par ' . $author;
+					$notes = Translate::t ('article_published_on_author', $feed->website (), $feed->name (), $author);
+				} else {
+					$notes = Translate::t ('article_published_on', $feed->website (), $feed->name ());
 				}
-				$notes .= ', mis en favoris dans <a href="https://github.com/marienfressinaud/FreshRSS">FreshRSS</a>';
 			}
 
 			$id = $e->id ();

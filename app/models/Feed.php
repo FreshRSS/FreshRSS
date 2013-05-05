@@ -59,9 +59,13 @@ class Feed extends Model {
 		if ($raw) {
 			return $this->httpAuth;
 		} else {
+			$pos_colon = strpos ($this->httpAuth, ':');
+			$user = substr ($this->httpAuth, 0, $pos_colon);
+			$pass = substr ($this->httpAuth, $pos_colon + 1);
+
 			return array (
-				'username' => '',
-				'password' => ''
+				'username' => $user,
+				'password' => $pass
 			);
 		}
 	}
@@ -72,6 +76,16 @@ class Feed extends Model {
 	public function nbNotRead () {
 		$feedDAO = new FeedDAO ();
 		return $feedDAO->countNotRead ($this->id ());
+	}
+	public function favicon () {
+		$file = '/data/favicons/' . $this->id () . '.ico';
+
+		$favicon_url = Url::display ($file);
+		if (!file_exists (PUBLIC_PATH . $file)) {
+			$favicon_url = dowload_favicon ($this->website (), $this->id ());
+		}
+
+		return $favicon_url;
 	}
 
 	public function _id ($value) {
@@ -85,7 +99,7 @@ class Feed extends Model {
 		if (!is_null ($value) && filter_var ($value, FILTER_VALIDATE_URL)) {
 			$this->url = $value;
 		} else {
-			throw new Exception ();
+			throw new BadUrlException ($value);
 		}
 	}
 	public function _category ($value) {
@@ -134,22 +148,40 @@ class Feed extends Model {
 				);
 			} else {
 				$feed = new SimplePie ();
-				$feed->set_feed_url (preg_replace ('/&amp;/', '&', $this->url));
+				$url = preg_replace ('/&amp;/', '&', $this->url);
+				if ($this->httpAuth != '') {
+					$url = preg_replace ('#((.+)://)(.+)#', '${1}' . $this->httpAuth . '@${3}', $url);
+				}
+
+				$feed->set_feed_url ($url);
 				$feed->set_cache_location (CACHE_PATH);
+				$feed->strip_htmltags (array (
+					'base', 'blink', 'body', 'doctype',
+					'font', 'form', 'frame', 'frameset', 'html',
+					'input', 'marquee', 'meta', 'noscript',
+					'param', 'script', 'style'
+				));
 				$feed->init ();
 
-				if ($feed->error()) {
+				if ($feed->error ()) {
 					throw new FeedException ($feed->error);
 				}
 
+				// si on a utilisé l'auto-discover, notre url va avoir changé
 				$subscribe_url = $feed->subscribe_url ();
 				if (!is_null ($subscribe_url) && $subscribe_url != $this->url) {
+					if ($this->httpAuth != '') {
+						// on enlève les id si authentification HTTP
+						$subscribe_url = preg_replace ('#((.+)://)((.+)@)(.+)#', '${1}${5}', $subscribe_url);
+					}
 					$this->_url ($subscribe_url);
 				}
 				$title = $feed->get_title ();
 				$this->_name (!is_null ($title) ? $title : $this->url);
 				$this->_website ($feed->get_link ());
 				$this->_description ($feed->get_description ());
+
+				// et on charge les articles du flux
 				$this->loadEntries ($feed);
 			}
 		}
@@ -205,7 +237,7 @@ class Feed extends Model {
 
 class FeedDAO extends Model_pdo {
 	public function addFeed ($valuesTmp) {
-		$sql = 'INSERT INTO feed (id, url, category, name, website, description, lastUpdate, priority, error) VALUES(?, ?, ?, ?, ?, ?, ?, 10, 0)';
+		$sql = 'INSERT INTO feed (id, url, category, name, website, description, lastUpdate, priority, httpAuth, error) VALUES(?, ?, ?, ?, ?, ?, ?, 10, ?, 0)';
 		$stm = $this->bd->prepare ($sql);
 
 		$values = array (
@@ -216,6 +248,7 @@ class FeedDAO extends Model_pdo {
 			$valuesTmp['website'],
 			$valuesTmp['description'],
 			$valuesTmp['lastUpdate'],
+			base64_encode ($valuesTmp['httpAuth']),
 		);
 
 		if ($stm && $stm->execute ($values)) {
@@ -231,6 +264,10 @@ class FeedDAO extends Model_pdo {
 		$set = '';
 		foreach ($valuesTmp as $key => $v) {
 			$set .= $key . '=?, ';
+
+			if ($key == 'httpAuth') {
+				$valuesTmp[$key] = base64_encode ($v);
+			}
 		}
 		$set = substr ($set, 0, -2);
 
@@ -258,6 +295,30 @@ class FeedDAO extends Model_pdo {
 		$values = array (
 			time (),
 			$id
+		);
+
+		if ($stm && $stm->execute ($values)) {
+			return true;
+		} else {
+			$info = $stm->errorInfo();
+			Log::record ('SQL error : ' . $info[2], Log::ERROR);
+			return false;
+		}
+	}
+
+	public function changeCategory ($idOldCat, $idNewCat) {
+		$catDAO = new CategoryDAO ();
+		$newCat = $catDAO->searchById ($idNewCat);
+		if (!$newCat) {
+			$newCat = $catDAO->getDefault ();
+		}
+
+		$sql = 'UPDATE feed SET category=? WHERE category=?';
+		$stm = $this->bd->prepare ($sql);
+
+		$values = array (
+			$newCat->id (),
+			$idOldCat
 		);
 
 		if ($stm && $stm->execute ($values)) {
@@ -408,7 +469,7 @@ class HelperFeed {
 			$list[$key]->_lastUpdate ($dao['lastUpdate']);
 			$list[$key]->_priority ($dao['priority']);
 			$list[$key]->_pathEntries ($dao['pathEntries']);
-			$list[$key]->_httpAuth ($dao['httpAuth']);
+			$list[$key]->_httpAuth (base64_decode ($dao['httpAuth']));
 
 			if (isset ($dao['id'])) {
 				$list[$key]->_id ($dao['id']);

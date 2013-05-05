@@ -1,7 +1,10 @@
 <div class="post">
-	<div class="alert">
+	<div class="alert alert-error">
 		<h1 class="alert-head"><?php echo $this->code; ?></h1>
 
-		<p><a href="<?php echo Url::display (); ?>">Revenir à l'accueil</a></p>
+		<p>
+			<?php echo Translate::t ('page_not_found'); ?><br />
+			<a href="<?php echo _url ('index', 'index'); ?>"><?php echo Translate::t ('back_to_rss_feeds'); ?></a>
+		</p>
 	</div>
 </div>
