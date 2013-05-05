@@ -1,37 +1,37 @@
 <?php $this->partial ('aside_flux'); ?>
 
 <div class="post">
-	<a href="<?php echo _url ('index', 'index'); ?>">← Retour à vos flux RSS</a>
+	<a href="<?php echo _url ('index', 'index'); ?>"><?php echo Translate::t ('back_to_rss_feeds'); ?></a>
 
 	<form method="post" action="<?php echo _url ('entry', 'note', 'id', $this->entry->id ()); ?>">
-		<legend>Note</legend>
+		<legend><?php echo Translate::t ('note'); ?></legend>
 
 		<div class="form-group">
-			<label class="group-name" for="note">Ajouter une note</label>
+			<label class="group-name" for="note"><?php echo Translate::t ('add_note'); ?></label>
 			<div class="group-controls">
 				<textarea rows="5" cols="80" name="note" id="note"><?php echo $this->entry->notes (); ?></textarea>
 			</div>
 		</div>
 		<div class="form-group">
-			<label class="group-name" for="public_note">Article public ?</label>
+			<label class="group-name" for="public_note"><?php echo Translate::t ('ask_public_article'); ?></label>
 			<div class="group-controls">
 				<label class="checkbox" for="public">
-					<input type="checkbox" name="public" id="public" value="yes"<?php echo $this->entry->isPublic () ? ' checked="checked"' : ''; ?> /> Oui
+					<input type="checkbox" name="public" id="public" value="yes"<?php echo $this->entry->isPublic () ? ' checked="checked"' : ''; ?> /> <?php echo Translate::t ('yes'); ?>
 				</label>
 			</div>
 		</div>
 
 		<div class="form-group form-actions">
 			<div class="group-controls">
-				<button type="submit" class="btn btn-important">Sauvegarder</button>
-				<button type="reset" class="btn">Annuler</button>
+				<button type="submit" class="btn btn-important"><?php echo Translate::t ('save'); ?></button>
+				<button type="reset" class="btn"><?php echo Translate::t ('cancel'); ?></button>
 			</div>
 		</div>
 
-		<legend>Article</legend>
+		<legend><?php echo Translate::t ('article'); ?></legend>
 
 		<div class="form-group">
-			<label class="group-name">Titre</label>
+			<label class="group-name"><?php echo Translate::t ('title'); ?></label>
 			<div class="group-controls">
 				<span class="control"><a href="<?php echo $this->entry->link (); ?>"><?php echo $this->entry->title (); ?></a></span>
 			</div>
@@ -41,7 +41,7 @@
 		$author = $this->entry->author ();
 		if ($author) { ?>
 		<div class="form-group">
-			<label class="group-name">Auteur</label>
+			<label class="group-name"><?php echo Translate::t ('author'); ?></label>
 			<div class="group-controls">
 				<span class="control"><?php echo $author; ?></span>
 			</div>
@@ -49,14 +49,14 @@
 		<?php } ?>
 
 		<div class="form-group">
-			<label class="group-name">Date de publication</label>
+			<label class="group-name"><?php echo Translate::t ('publication_date'); ?></label>
 			<div class="group-controls">
 				<span class="control"><?php echo $this->entry->date (); ?></span>
 			</div>
 		</div>
 
 		<div class="form-group">
-			<label class="group-name">Article</label>
+			<label class="group-name"><?php echo Translate::t ('article'); ?></label>
 			<div class="group-controls">
 				<span class="control"><?php echo $this->entry->content (); ?></span>
 			</div>

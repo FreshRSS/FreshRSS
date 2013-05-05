@@ -1,18 +1,23 @@
 <?php $this->partial ('aside_configure'); ?>
 
 <div class="post">
-	<a href="<?php echo _url ('index', 'index'); ?>">← Retour à vos flux RSS</a>
+	<a href="<?php echo _url ('index', 'index'); ?>"><?php echo Translate::t ('back_to_rss_feeds'); ?></a>
 
 	<form method="post" action="<?php echo _url ('configure', 'categorize'); ?>">
-		<legend>Gestion des catégories - <a href="<?php echo _url ('configure', 'feed'); ?>">gestion des flux</a></legend>
+		<legend><?php echo Translate::t ('categories_management'); ?> - <a href="<?php echo _url ('configure', 'feed'); ?>"><?php echo Translate::t ('rss_feed_management'); ?></a></legend>
+
+		<p class="alert alert-warn"><?php echo Translate::t ('feeds_moved_category_deleted', $this->defaultCategory->name ()); ?></p>
 
 		<?php $i = 0; foreach ($this->categories as $cat) { $i++; ?>
 		<div class="form-group">
-			<label class="group-name" for="cat_<?php echo $cat->id (); ?>">Catégorie n°<?php echo $i; ?></label>
+			<label class="group-name" for="cat_<?php echo $cat->id (); ?>">
+				<?php echo Translate::t ('category_number', $i); ?>
+			</label>
 			<div class="group-controls">
 				<input type="text" id="cat_<?php echo $cat->id (); ?>" name="categories[]" value="<?php echo $cat->name (); ?>" />
-				<?php if ($cat->id () == '000000') { ?>
-				<i class="icon i_help"></i> ne peut pas être supprimé
+				<a href="<?php echo _url ('feed', 'delete', 'id', $cat->id (), 'type', 'category'); ?>"><?php echo Translate::t ('ask_empty'); ?></a> (<?php echo Translate::t ('number_feeds', $cat->nbFeed ()); ?>)
+				<?php if ($cat->id () == $this->defaultCategory->id ()) { ?>
+				<i class="icon i_help"></i> <?php echo Translate::t ('can_not_be_deleted'); ?>
 				<?php } ?>
 				<input type="hidden" name="ids[]" value="<?php echo $cat->id (); ?>" />
 			</div>
@@ -20,16 +25,16 @@
 		<?php } ?>
 
 		<div class="form-group">
-			<label class="group-name" for="new_category">Ajouter une catégorie</label>
+			<label class="group-name" for="new_category"><?php echo Translate::t ('add_category'); ?></label>
 			<div class="group-controls">
-				<input type="text" id="new_category" name="new_category" placeholder="Nouvelle catégorie" />
+				<input type="text" id="new_category" name="new_category" placeholder="<?php echo Translate::t ('new_category'); ?>" />
 			</div>
 		</div>
 
 		<div class="form-group form-actions">
 			<div class="group-controls">
-				<button type="submit" class="btn btn-important">Sauvegarder</button>
-				<button type="reset" class="btn">Annuler</button>
+				<button type="submit" class="btn btn-important"><?php echo Translate::t ('save'); ?></button>
+				<button type="reset" class="btn"><?php echo Translate::t ('cancel'); ?></button>
 			</div>
 		</div>
 	</form>

@@ -2,38 +2,35 @@
 
 <?php if ($this->flux) { ?>
 <div class="post">
-	<a href="<?php echo _url ('index', 'index'); ?>">← Retour à vos flux RSS</a>
+	<a href="<?php echo _url ('index', 'index'); ?>"><?php echo Translate::t ('back_to_rss_feeds'); ?></a> <?php echo Translate::t ('or'); ?> <a href="<?php echo _url ('index', 'index', 'get', 'f_' . $this->flux->id ()); ?>"><?php echo Translate::t ('filter'); ?></a>
 
 	<h1><?php echo $this->flux->name (); ?></h1>
 	<?php echo $this->flux->description (); ?>
 
 	<form method="post" action="<?php echo _url ('configure', 'feed', 'id', $this->flux->id ()); ?>">
-		<legend>Informations</legend>
-
+		<legend><?php echo Translate::t ('informations'); ?></legend>
 		<div class="form-group">
-			<label class="group-name">URL du site</label>
+			<label class="group-name"><?php echo Translate::t ('website_url'); ?></label>
 			<div class="group-controls">
 				<span class="control"><a target="_blank" href="<?php echo $this->flux->website (); ?>"><?php echo $this->flux->website (); ?></a></span>
 			</div>
 		</div>
-
 		<div class="form-group">
-			<label class="group-name">URL du flux</label>
+			<label class="group-name"><?php echo Translate::t ('feed_url'); ?></label>
 			<div class="group-controls">
 				<span class="control"><a target="_blank" href="<?php echo $this->flux->url (); ?>"><?php echo $this->flux->url (); ?></a></span>
 			</div>
 		</div>
-	
 		<div class="form-group">
-			<label class="group-name">Nombre d'articles</label>
+			<label class="group-name"><?php echo Translate::t ('number_articles'); ?></label>
 			<div class="group-controls">
 				<span class="control"><?php echo $this->flux->nbEntries (); ?></span>
 			</div>
 		</div>
-	
-		<legend>Catégorie - <a href="<?php echo _url ('configure', 'categorize'); ?>">gestion</a></legend>
+
+		<legend><?php echo Translate::t ('category'); ?> - <a href="<?php echo _url ('configure', 'categorize'); ?>"><?php echo Translate::t ('categories_management'); ?></a></legend>
 		<div class="form-group">
-			<label class="group-name">Ranger dans une catégorie</label>
+			<label class="group-name"><?php echo Translate::t ('categorize'); ?></label>
 			<div class="group-controls">
 				<?php foreach ($this->categories as $cat) { ?>
 				<label class="radio" for="cat_<?php echo $cat->id (); ?>">
@@ -44,36 +41,47 @@
 			</div>
 		</div>
 
-		<legend>Avancé</legend>
+		<legend><?php echo Translate::t ('advanced'); ?></legend>
 		<div class="form-group">
-			<label class="group-name" for="path_entries">Chemin CSS des articles sur le site d'origine</label>
+			<label class="group-name" for="priority"><?php echo Translate::t ('show_in_all_flux'); ?></label>
 			<div class="group-controls">
-				<input type="text" name="path_entries" id="path_entries" value="<?php echo $this->flux->pathEntries (); ?>" placeholder="Laissez vide pour désactiver" />
-				<i class="icon i_help"></i> Permet de récupérer les flux tronqués (attention, demande plus de temps !)
+				<label class="checkbox" for="priority">
+					<input type="checkbox" name="priority" id="priority" value="10"<?php echo $this->flux->priority () > 0 ? ' checked="checked"' : ''; ?> />
+					<?php echo Translate::t ('yes'); ?>
+				</label>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="group-name" for="path_entries"><?php echo Translate::t ('css_path_on_website'); ?></label>
+			<div class="group-controls">
+				<input type="text" name="path_entries" id="path_entries" value="<?php echo $this->flux->pathEntries (); ?>" placeholder="<?php echo Translate::t ('blank_to_disable'); ?>" />
+				<i class="icon i_help"></i> <?php echo Translate::t ('retrieve_truncated_feeds'); ?>
 			</div>
 		</div>
 
+		<?php $auth = $this->flux->httpAuth (false); ?>
 		<div class="form-group">
-			<label class="group-name" for="http_user">Username HTTP</label>
+			<label class="group-name" for="http_user"><?php echo Translate::t ('http_username'); ?></label>
 			<div class="group-controls">
-				<input type="text" name="http_user" id="http_user" value="Pas encore implémenté" />
-				<i class="icon i_help"></i> La connexion permet d'accéder aux flux protégés par une authentification HTTP
+				<input type="text" name="http_user" id="http_user" value="<?php echo $auth['username']; ?>" />
+				<i class="icon i_help"></i> <?php echo Translate::t ('access_protected_feeds'); ?>
 			</div>
 
-			<label class="group-name" for="http_pass">Password HTTP</label>
+			<label class="group-name" for="http_pass"><?php echo Translate::t ('http_password'); ?></label>
 			<div class="group-controls">
-				<input type="text" name="http_pass" id="http_pass" value="Pas encore implémenté" />
+				<input type="password" name="http_pass" id="http_pass" value="<?php echo $auth['password']; ?>" />
 			</div>
 		</div>
+
 
 		<div class="form-group form-actions">
 			<div class="group-controls">
-				<button class="btn btn-important">Valider</button>
-				<button class="btn btn-attention" formaction="<?php echo Url::display (array ('c' => 'feed', 'a' => 'delete', 'params' => array ('id' => $this->flux->id ()))); ?>">Supprimer</button>
+				<button class="btn btn-important"><?php echo Translate::t ('save'); ?></button>
+				<button class="btn btn-attention" formaction="<?php echo Url::display (array ('c' => 'feed', 'a' => 'delete', 'params' => array ('id' => $this->flux->id ()))); ?>"><?php echo Translate::t ('delete'); ?></button>
 			</div>
 		</div>
 	</form>
 </div>
 <?php } else { ?>
-<div class="alert"><span class="alert-head">Aucun flux sélectionné.</span> Pensez à en ajouter !</div>
+<div class="alert alert-warn"><span class="alert-head"><?php echo Translate::t ('no_selected_feed'); ?></span> <?php echo Translate::t ('think_to_add'); ?></div>
 <?php } ?>

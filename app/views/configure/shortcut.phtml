@@ -1,7 +1,7 @@
 <?php $this->partial ('aside_configure'); ?>
 
 <div class="post">
-	<a href="<?php echo _url ('index', 'index'); ?>">← Retour à vos flux RSS</a>
+	<a href="<?php echo _url ('index', 'index'); ?>"><?php echo Translate::t ('back_to_rss_feeds'); ?></a>
 
 	<datalist id="keys">
 		<?php foreach ($this->list_keys as $key) { ?>
@@ -12,57 +12,57 @@
 	<?php $s = $this->conf->shortcuts (); ?>
 
 	<form method="post" action="<?php echo _url ('configure', 'shortcut'); ?>">
-		<legend>Gestion des raccourcis</legend>
+		<legend><?php echo Translate::t ('shortcuts_management'); ?></legend>
 
-		<noscript><b>Le javascript doit être activé pour pouvoir profiter des raccourcis</b></noscript>
+		<noscript><p class="alert alert-error"><?php echo Translate::t ('javascript_for_shortcuts'); ?></p></noscript>
 
 		<div class="form-group">
-			<label class="group-name" for="mark_read">Marquer l'article comme lu</label>
+			<label class="group-name" for="mark_read"><?php echo Translate::t ('mark_read'); ?></label>
 			<div class="group-controls">
 				<input type="text" id="mark_read" name="shortcuts[mark_read]" list="keys" value="<?php echo $s['mark_read']; ?>" />
-				+ <code>shift</code> pour marquer tous les articles comme non lus
+				<?php echo Translate::t ('shift_for_all_read'); ?>
 			</div>
 		</div>
 
 		<div class="form-group">
-			<label class="group-name" for="mark_favorite">Mettre l'article  en favori</label>
+			<label class="group-name" for="mark_favorite"><?php echo Translate::t ('mark_favorite'); ?></label>
 			<div class="group-controls">
 				<input type="text" id="mark_favorite" name="shortcuts[mark_favorite]" list="keys" value="<?php echo $s['mark_favorite']; ?>" />
 			</div>
 		</div>
 
 		<div class="form-group">
-			<label class="group-name" for="go_website">Voir l'article sur le site d'origine</label>
+			<label class="group-name" for="go_website"><?php echo Translate::t ('see_on_website'); ?></label>
 			<div class="group-controls">
 				<input type="text" id="go_website" name="shortcuts[go_website]" list="keys" value="<?php echo $s['go_website']; ?>" />
 			</div>
 		</div>
 
 		<div class="form-group">
-			<label class="group-name" for="next_entry">Passer à l'article suivant</label>
+			<label class="group-name" for="next_entry"><?php echo Translate::t ('next_article'); ?></label>
 			<div class="group-controls">
 				<input type="text" id="next_entry" name="shortcuts[next_entry]" list="keys" value="<?php echo $s['next_entry']; ?>" />
-				+ <code>shift</code> pour passer au dernier article de la page
+				<?php echo Translate::t ('shift_for_last'); ?>
 			</div>
 		</div>
 
 		<div class="form-group">
-			<label class="group-name" for="prev_entry">Passer à l'article précédent</label>
+			<label class="group-name" for="prev_entry"><?php echo Translate::t ('previous_article'); ?></label>
 			<div class="group-controls">
 				<input type="text" id="prev_entry" name="shortcuts[prev_entry]" list="keys" value="<?php echo $s['prev_entry']; ?>" />
-				+ <code>shift</code> pour passer au premier article de la page
+				<?php echo Translate::t ('shift_for_first'); ?>
 			</div>
 		</div>
 
 		<div class="form-group">
-			<label class="group-name" for="next_page">Passer à la page suivante</label>
+			<label class="group-name" for="next_page"><?php echo Translate::t ('next_page'); ?></label>
 			<div class="group-controls">
 				<input type="text" id="next_page" name="shortcuts[next_page]" list="keys" value="<?php echo $s['next_page']; ?>" />
 			</div>
 		</div>
 
 		<div class="form-group">
-			<label class="group-name" for="prev_page">Passer à la page précédente</label>
+			<label class="group-name" for="prev_page"><?php echo Translate::t ('previous_page'); ?></label>
 			<div class="group-controls">
 				<input type="text" id="prev_page" name="shortcuts[prev_page]" list="keys" value="<?php echo $s['prev_page']; ?>" />
 			</div>
@@ -70,8 +70,8 @@
 
 		<div class="form-group form-actions">
 			<div class="group-controls">
-				<button type="submit" class="btn btn-important">Sauvegarder</button>
-				<button type="reset" class="btn">Annuler</button>
+				<button type="submit" class="btn btn-important"><?php echo Translate::t ('save'); ?></button>
+				<button type="reset" class="btn"><?php echo Translate::t ('cancel'); ?></button>
 			</div>
 		</div>
 	</form>

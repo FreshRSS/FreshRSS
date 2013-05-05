@@ -1,6 +1,11 @@
 <?php
 
 class RSSConfiguration extends Model {
+	private $available_languages = array (
+		'en' => 'English',
+		'fr' => 'Français',
+	);
+	private $language;
 	private $posts_per_page;
 	private $default_view;
 	private $display_posts;
@@ -9,9 +14,11 @@ class RSSConfiguration extends Model {
 	private $shortcuts = array ();
 	private $mail_login = '';
 	private $mark_when = array ();
+	private $url_shaarli = '';
 	
 	public function __construct () {
 		$confDAO = new RSSConfigurationDAO ();
+		$this->_language ($confDAO->language);
 		$this->_postsPerPage ($confDAO->posts_per_page);
 		$this->_defaultView ($confDAO->default_view);
 		$this->_displayPosts ($confDAO->display_posts);
@@ -20,8 +27,15 @@ class RSSConfiguration extends Model {
 		$this->_shortcuts ($confDAO->shortcuts);
 		$this->_mailLogin ($confDAO->mail_login);
 		$this->_markWhen ($confDAO->mark_when);
+		$this->_urlShaarli ($confDAO->url_shaarli);
 	}
 	
+	public function availableLanguages () {
+		return $this->available_languages;
+	}
+	public function language () {
+		return $this->language;
+	}
 	public function postsPerPage () {
 		return $this->posts_per_page;
 	}
@@ -55,7 +69,16 @@ class RSSConfiguration extends Model {
 	public function markWhenPage () {
 		return $this->mark_when['page'];
 	}
-	
+	public function urlShaarli () {
+		return $this->url_shaarli;
+	}
+
+	public function _language ($value) {
+		if (!isset ($this->available_languages[$value])) {
+			$value = 'en';
+		}
+		$this->language = $value;
+	}
 	public function _postsPerPage ($value) {
 		if (is_int (intval ($value))) {
 			$this->posts_per_page = $value;
@@ -108,11 +131,18 @@ class RSSConfiguration extends Model {
 		$this->mark_when['site'] = $values['site'];
 		$this->mark_when['page'] = $values['page'];
 	}
+	public function _urlShaarli ($value) {
+		$this->url_shaarli = '';
+		if (filter_var ($value, FILTER_VALIDATE_URL)) {
+			$this->url_shaarli = $value;
+		}
+	}
 }
 
 class RSSConfigurationDAO extends Model_array {
-	public $posts_per_page = 10;
-	public $default_view = 'all';
+	public $language = 'en';
+	public $posts_per_page = 20;
+	public $default_view = 'not_read';
 	public $display_posts = 'no';
 	public $sort_order = 'low_to_high';
 	public $old_entries = 3;
@@ -131,10 +161,14 @@ class RSSConfigurationDAO extends Model_array {
 		'site' => 'yes',
 		'page' => 'no'
 	);
+	public $url_shaarli = '';
 
 	public function __construct () {
 		parent::__construct (PUBLIC_PATH . '/data/Configuration.array.php');
-		
+
+		if (isset ($this->array['language'])) {
+			$this->language = $this->array['language'];
+		}
 		if (isset ($this->array['posts_per_page'])) {
 			$this->posts_per_page = $this->array['posts_per_page'];
 		}
@@ -158,6 +192,9 @@ class RSSConfigurationDAO extends Model_array {
 		}
 		if (isset ($this->array['mark_when'])) {
 			$this->mark_when = $this->array['mark_when'];
+		}
+		if (isset ($this->array['url_shaarli'])) {
+			$this->url_shaarli = $this->array['url_shaarli'];
 		}
 	}
 	

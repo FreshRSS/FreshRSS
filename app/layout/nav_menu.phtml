@@ -1,21 +1,26 @@
 <div class="nav_menu">
-	<a class="btn" href="<?php echo _url ('feed', 'actualize'); ?>"><i class="icon i_refresh"></i></a>
+	<a class="btn toggle_aside" href="#aside_flux"><i class="icon i_category"></i></a>
+
+	<?php if (!login_is_conf ($this->conf) || is_logged ()) { ?>
+	<a id="actualize" class="btn" href="<?php echo _url ('feed', 'actualize'); ?>"><i class="icon i_refresh"></i></a>
 
 	<?php
 		$get = false;
-		$string_mark = 'Tout marquer comme lu';
+		$string_mark = Translate::t ('mark_all_read');
 		if ($this->get_f) {
 			$get = 'f_' . $this->get_f;
-			$string_mark = 'Marquer le flux comme lu';
-		} elseif ($this->get_c) {
+			$string_mark = Translate::t ('mark_feed_read');
+		} elseif ($this->get_c &&
+		          $this->get_c != 'all' &&
+		          $this->get_c != 'favoris' &&
+		          $this->get_c != 'public') {
 			$get = 'c_' . $this->get_c;
-			$string_mark = 'Marquer la catégorie comme lue';
+			$string_mark = Translate::t ('mark_cat_read');
 		}
 	?>
 
-	<?php if (!login_is_conf ($this->conf) || is_logged ()) { ?>
 	<div class="stick">
-		<a class="read_all btn" href="<?php echo _url ('entry', 'read', 'is_read', 1, 'get', $get); ?>">Marquer comme lu</a>
+		<a class="read_all btn" href="<?php echo _url ('entry', 'read', 'is_read', 1, 'get', $get); ?>"><?php echo Translate::t ('mark_read'); ?></a>
 		<div class="dropdown">
 			<div id="dropdown-read" class="dropdown-target"></div>
 
@@ -30,32 +35,67 @@
 	$today = mktime (0, 0, 0, $date['mon'], $date['mday'], $date['year']);
 	$one_week = $today - 604800;
 ?>
-				<li class="item"><a href="<?php echo _url ('entry', 'read', 'is_read', 1, 'get', $get, 'dateMax', $today); ?>">Antérieurs à 1 jour</a></li>
-				<li class="item"><a href="<?php echo _url ('entry', 'read', 'is_read', 1, 'get', $get, 'dateMax', $one_week); ?>">Antérieurs à 1 semaine</a></li>
+				<li class="item"><a href="<?php echo _url ('entry', 'read', 'is_read', 1, 'get', $get, 'dateMax', $today); ?>"><?php echo Translate::t ('before_one_day'); ?></a></li>
+				<li class="item"><a href="<?php echo _url ('entry', 'read', 'is_read', 1, 'get', $get, 'dateMax', $one_week); ?>"><?php echo Translate::t ('before_one_week'); ?></a></li>
 			</ul>
 		</div>
 	</div>
 	<?php } ?>
 
+	<?php
+		$params = Request::params ();
+		if (isset ($params['search'])) {
+			$params['search'] = urlencode ($params['search']);
+		}
+		$url = array (
+			'c' => 'index',
+			'a' => 'index',
+			'params' => $params
+		);
+	?>
 	<div class="dropdown">
 		<div id="dropdown-views" class="dropdown-target"></div>
-		<a class="dropdown-toggle btn" href="#dropdown-views">Affichage <i class="icon i_down"></i></a>
+		<a class="dropdown-toggle btn" href="#dropdown-views"><?php echo Translate::t ('display'); ?> <i class="icon i_down"></i></a>
 		<ul class="dropdown-menu">
 			<li class="dropdown-close"><a href="#close"><i class="icon i_close"></i></a></li>
 
 			<li class="item">
-				<?php if ($this->mode == 'not_read') { ?>
-				<a class="print_all" href="<?php echo _url ('index', 'changeMode', 'mode', 'all'); ?>">Tout afficher</a>
-				<?php } else { ?>
-				<a class="print_non_read" href="<?php echo _url ('index', 'changeMode', 'mode', 'not_read'); ?>">Afficher les non lus</a>
+				<?php
+					if ($this->state == 'not_read') {
+						$url['params']['state'] = 'all';
+				?>
+				<a class="print_all" href="<?php echo Url::display ($url); ?>"><?php echo Translate::t ('show_all_articles'); ?></a>
+				<?php
+					} else {
+						$url['params']['state'] = 'not_read';
+				?>
+				<a class="print_non_read" href="<?php echo Url::display ($url); ?>"><?php echo Translate::t ('show_not_reads'); ?></a>
 				<?php } ?>
 			</li>
 			<li class="separator"></li>
+
+			<?php
+				$params = Request::params ();
+				if (isset ($params['search'])) {
+					$params['search'] = urlencode ($params['search']);
+				}
+				$url = array (
+					'c' => 'index',
+					'a' => 'index',
+					'params' => $params
+				);
+			?>
 			<li class="item">
-				<?php if ($this->order == 'low_to_high') { ?>
-				<a href="<?php echo _url ('index', 'changeOrder', 'order', 'high_to_low'); ?>">Plus anciens en premier</a>
-				<?php } else { ?>
-				<a href="<?php echo _url ('index', 'changeOrder', 'order', 'low_to_high'); ?>">Plus récents en premier</a>
+				<?php
+					if ($this->order == 'low_to_high') {
+						$url['params']['order'] = 'high_to_low';
+				?>
+				<a href="<?php echo Url::display ($url); ?>"><?php echo Translate::t ('older_first'); ?></a>
+				<?php
+					} else {
+						$url['params']['order'] = 'low_to_high';
+				?>
+				<a href="<?php echo Url::display ($url); ?>"><?php echo Translate::t ('newer_first'); ?></a>
 				<?php } ?>
 			</li>
 		</ul>

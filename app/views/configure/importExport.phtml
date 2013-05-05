@@ -14,12 +14,12 @@
 <?php $this->partial ('aside_feed'); ?>
 
 <div class="post ">
-	<a href="<?php echo _url ('index', 'index'); ?>">← Retour à vos flux RSS</a>
+	<a href="<?php echo _url ('index', 'index'); ?>"><?php echo Translate::t ('back_to_rss_feeds'); ?></a>
 
 	<form method="post" action="<?php echo Url::display (array ('c' => 'configure', 'a' => 'importExport', 'params' => array ('q' => 'import'))); ?>" enctype="multipart/form-data">
-		<legend>Import / export au format OPML</legend>
+		<legend><?php echo Translate::t ('import_export_opml'); ?></legend>
 		<div class="form-group">
-			<label class="group-name" for="file">Fichier à importer</label>
+			<label class="group-name" for="file"><?php echo Translate::t ('file_to_import'); ?></label>
 			<div class="group-controls">
 				<input type="file" name="file" id="file" />
 			</div>
@@ -27,9 +27,9 @@
 
 		<div class="form-group form-actions">
 			<div class="group-controls">
-				<button type="submit" class="btn btn-important">Importer</button>
-				ou
-				<button type="submit" class="btn btn-important" formaction="<?php echo Url::display (array ('c' => 'configure', 'a' => 'importExport', 'params' => array ('q' => 'export'))); ?>">Exporter</button>
+				<button type="submit" class="btn btn-important"><?php echo Translate::t ('import'); ?></button>
+				<?php echo Translate::t ('or'); ?>
+				<a target="_blank" class="btn btn-important" href="<?php echo _url ('configure', 'importExport', 'q', 'export'); ?>"><?php echo Translate::t ('export'); ?></a>
 			</div>
 		</div>
 	</form>
