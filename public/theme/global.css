@@ -42,6 +42,7 @@ h1, h2, h3 {
 
 /* IMG */
 img {
+	height: auto;
 	max-width: 100%;
 	vertical-align: middle;
 }
@@ -172,8 +173,7 @@ input, select, textarea {
 	min-height: 37px;
 	min-width: 15px;
 	padding: 5px 10px;
-	background: #fff;
-	background: linear-gradient(#fff, #eee);
+	background: linear-gradient(to bottom, #fff 0%, #eee 100%);
 	border-radius: 3px;
 	border: 1px solid #ddd;
 	border-bottom: 1px solid #aaa;
@@ -189,8 +189,7 @@ input, select, textarea {
 		line-height: 25px;
 	}
 	.btn:hover {
-		background: #f0f0f0;
-		background: linear-gradient(#f8f8f8, #f0f0f0);
+		background: linear-gradient(to bottom, #f8f8f8, #f0f0f0);
 		text-decoration: none;
 	}
 	.btn.active,
@@ -200,14 +199,13 @@ input, select, textarea {
 	}
 
 	.btn.btn-important {
-		background: #0084CC;
-		background: linear-gradient(#0084CC, #0045CC);
+		background: linear-gradient(to bottom, #0084CC, #0045CC);
 		color: #fff;
 		border: 1px solid #0062B7;
 		text-shadow: 0px -1px 0 #aaa;
 	}
 		.btn.btn-important:hover {
-			background: linear-gradient(#0066CC, #0045CC);
+			background: linear-gradient(to bottom, #0066CC, #0045CC);
 		}
 		.btn.btn-important:active {
 			background: #0044CB;
@@ -215,14 +213,13 @@ input, select, textarea {
 		}
 
 	.btn.btn-attention {
-		background: #E95B57;
-		background: linear-gradient(#E95B57, #BD362F);
+		background: linear-gradient(to bottom, #E95B57, #BD362F);
 		color: #fff;
 		border: 1px solid #C44742;
 		text-shadow: 0px -1px 0px #666;
 	}
 		.btn.btn-attention:hover {
-			background: linear-gradient(#D14641, #BD362F);
+			background: linear-gradient(to bottom, #D14641, #BD362F);
 		}
 		.btn.btn-attention:active {
 			background: #BD362F;
@@ -288,8 +285,7 @@ input, select, textarea {
 .nav-head {
 	display: block;
 	margin: 0;
-	background: #fff;
-	background: linear-gradient(#fff, #f0f0f0);
+	background: linear-gradient(to bottom, #fff, #f0f0f0);
 	border-bottom: 1px solid #ddd;
 	text-align: right;
 }
@@ -360,6 +356,20 @@ input, select, textarea {
 					color: #fff;
 					text-decoration: none;
 				}
+		.dropdown .dropdown-menu .input {
+			display: block;
+			height: 40px;
+			font-size: 90%;
+			line-height: 30px;
+		}
+			.dropdown .dropdown-menu .input input {
+				display: block;
+				height: 20px;
+				width: 95%;
+				margin: auto;
+				padding: 2px 5px;
+				border-radius: 3px;
+			}
 		.dropdown .dropdown-menu .separator {
 			display: block;
 			height: 0;
@@ -432,65 +442,90 @@ input, select, textarea {
 	background: center center no-repeat;
 }
 	.icon.i_refresh {
+		background-image: url("icons/refresh.png");
 		background-image: url("icons/refresh.svg");
 	}
 	.icon.i_bookmark {
+		background-image: url("icons/starred.png");
 		background-image: url("icons/starred.svg");
 	}
 	.icon.i_not_bookmark {
+		background-image: url("icons/unstarred.png");
 		background-image: url("icons/unstarred.svg");
 	}
 	.icon.i_read {
+		background-image: url("icons/read.png");
 		background-image: url("icons/read.svg");
 	}
 	.icon.i_unread {
+		background-image: url("icons/unread.png");
 		background-image: url("icons/unread.svg");
 	}
 	.icon.i_all {
+		background-image: url("icons/all.png");
 		background-image: url("icons/all.svg");
 	}
 	.icon.i_close {
+		background-image: url("icons/close.png");
 		background-image: url("icons/close.svg");
 	}
 	.icon.i_search {
+		background-image: url("icons/search.png");
 		background-image: url("icons/search.svg");
 	}
 	.icon.i_configure {
+		background-image: url("icons/configure.png");
 		background-image: url("icons/configure.svg");
 	}
 	.icon.i_login {
+		background-image: url("icons/login.png");
 		background-image: url("icons/login.svg");
 	}
 	.icon.i_logout {
+		background-image: url("icons/logout.png");
 		background-image: url("icons/logout.svg");
 	}
 	.icon.i_add {
+		background-image: url("icons/add.png");
 		background-image: url("icons/add.svg");
 	}
 	.icon.i_link {
+		background-image: url("icons/link.png");
 		background-image: url("icons/link.svg");
 	}
 	.icon.i_down {
+		background-image: url("icons/down.png");
 		background-image: url("icons/down.svg");
 	}
 	.icon.i_up {
+		background-image: url("icons/up.png");
 		background-image: url("icons/up.svg");
 	}
 	.icon.i_help {
+		background-image: url("icons/help.png");
 		background-image: url("icons/help.svg");
 	}
 	.icon.i_note {
+		background-image: url("icons/note.png");
 		background-image: url("icons/note.svg");
 	}
 	.icon.i_note_empty {
+		background-image: url("icons/note_empty.png");
 		background-image: url("icons/note_empty.svg");
 	}
 	.icon.i_category {
+		background-image: url("icons/category.png");
 		background-image: url("icons/category.svg");
 	}
 	.icon.i_rss {
+		background-image: url("icons/rss.png");
 		background-image: url("icons/rss.svg");
 	}
 	.icon.i_share {
+		background-image: url("icons/share.png");
 		background-image: url("icons/share.svg");
+	}
+	.icon.i_tag {
+		background-image: url("icons/tag.png");
+		background-image: url("icons/tag.svg");
 	}

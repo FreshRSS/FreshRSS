@@ -20,55 +20,14 @@ function small_hash ($txt) {
 }
 
 function timestamptodate ($t, $hour = true) {
-	$jour = date ('d', $t);
-	$mois = date ('m', $t);
-	$annee = date ('Y', $t);
-	
-	switch ($mois) {
-	case 1:
-		$mois = 'janvier';
-		break;
-	case 2:
-		$mois = 'février';
-		break;
-	case 3:
-		$mois = 'mars';
-		break;
-	case 4:
-		$mois = 'avril';
-		break;
-	case 5:
-		$mois = 'mai';
-		break;
-	case 6:
-		$mois = 'juin';
-		break;
-	case 7:
-		$mois = 'juillet';
-		break;
-	case 8:
-		$mois = 'août';
-		break;
-	case 9:
-		$mois = 'septembre';
-		break;
-	case 10:
-		$mois = 'octobre';
-		break;
-	case 11:
-		$mois = 'novembre';
-		break;
-	case 12:
-		$mois = 'décembre';
-		break;
-	}
-	
-	$date = $jour . ' ' . $mois . ' ' . $annee;
+	$month = Translate::t (date('M', $t));
 	if ($hour) {
-		return $date . date (' \à H\:i', $t);
+		$date = Translate::t ('format_date_hour', $month);
 	} else {
-		return $date;
+		$date = Translate::t ('format_date', $month);
 	}
+
+	return date ($date, $t);
 }
 
 function sortEntriesByDate ($entry1, $entry2) {
@@ -124,6 +83,12 @@ function opml_import ($xml) {
 			}
 			
 			if ($title) {
+				// Permet d'éviter les soucis au niveau des id :
+				// ceux-ci sont générés en fonction de la date,
+				// un flux pourrait être dans une catégorie X avec l'id Y
+				// alors qu'il existe déjà la catégorie X mais avec l'id Z
+				// Y ne sera pas ajouté et le flux non plus vu que l'id
+				// de sa catégorie n'exisera pas
 				$catDAO = new CategoryDAO ();
 				$cat = $catDAO->searchByName ($title);
 				if ($cat === false) {
@@ -192,4 +157,42 @@ function get_content_by_parsing ($url, $path) {
 	} else {
 		throw new Exception ();
 	}
+}
+
+/* Télécharge le favicon d'un site, le place sur le serveur et retourne l'URL */
+function dowload_favicon ($website, $id) {
+	$url = 'http://g.etfv.co/' . $website;
+	$favicons_dir = PUBLIC_PATH . '/data/favicons';
+	$dest = $favicons_dir . '/' . $id . '.ico';
+	$favicon_url = '/data/favicons/' . $id . '.ico';
+
+	if (!is_dir ($favicons_dir)) {
+		if (!mkdir ($favicons_dir, 0755, true)) {
+			return $url;
+		}
+	}
+
+	if (!file_exists ($dest)) {
+		$c = curl_init ($url);
+		curl_setopt ($c, CURLOPT_HEADER, false);
+		curl_setopt ($c, CURLOPT_RETURNTRANSFER, true);
+		curl_setopt ($c, CURLOPT_BINARYTRANSFER, true);
+		$imgRaw = curl_exec ($c);
+
+		if (curl_getinfo ($c, CURLINFO_HTTP_CODE) == 200) {
+			$file = fopen ($dest, 'w');
+			if ($file === false) {
+				return $url;
+			}
+
+			fwrite ($file, $imgRaw);
+			fclose ($file);
+		} else {
+			return $url;
+		}
+
+		curl_close ($c);
+	}
+
+	return $favicon_url;
 }

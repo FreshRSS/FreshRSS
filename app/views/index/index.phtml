@@ -1,18 +1,16 @@
 <?php
-if (Request::param ('output', '') == 'rss') {
+$output = Request::param ('output', 'normal');
+
+if ($output == 'rss') {
 	$this->renderHelper ('rss');
-	return;
-}
+} else {
+	$this->partial ('aside_flux');
+	$this->partial ('nav_menu');
+
+	if (isset ($this->entryPaginator) && !$this->entryPaginator->isEmpty ()) {
+		$items = $this->entryPaginator->items ();
 ?>
 
-<?php $this->partial ('aside_flux'); ?>
-
-<?php $this->partial ('nav_menu'); ?>
-
-<?php
-if (isset ($this->entryPaginator)) {
-	$items = $this->entryPaginator->items (true);
-?>
 <div id="stream">
 	<?php
 		$display_today = true;
@@ -22,13 +20,13 @@ if (isset ($this->entryPaginator)) {
 	<?php foreach ($items as $item) { ?>
 
 	<?php if ($display_today && $item->isDay (Days::TODAY)) { ?>
-	<div class="day">Aujourd'hui - <?php echo timestamptodate (time (), false); ?></div>
+	<div class="day"><?php echo Translate::t ('today'); ?> - <?php echo timestamptodate (time (), false); ?></div>
 	<?php $display_today = false; } ?>
 	<?php if ($display_yesterday && $item->isDay (Days::YESTERDAY)) { ?>
-	<div class="day">Hier - <?php echo timestamptodate (time () - 86400, false); ?></div>
+	<div class="day"><?php echo Translate::t ('yesterday'); ?> - <?php echo timestamptodate (time () - 86400, false); ?></div>
 	<?php $display_yesterday = false; } ?>
 	<?php if ($display_others && $item->isDay (Days::BEFORE_YESTERDAY)) { ?>
-	<div class="day">À partir d'avant-hier</div>
+	<div class="day"><?php echo Translate::t ('before_yesterday'); ?></div>
 	<?php $display_others = false; } ?>
 
 	<div class="flux<?php echo !$item->isRead () ? ' not_read' : ''; ?><?php echo $item->isFavorite () ? ' favorite' : ''; ?>" id="flux_<?php echo $item->id (); ?>">
@@ -49,9 +47,9 @@ if (isset ($this->entryPaginator)) {
 			</li>
 			<?php } ?>
 			<?php $feed = $item->feed (true); ?>
-			<li class="item website"><a href="<?php echo _url ('index', 'index', 'get', 'f_' . $feed->id ()); ?>"><img class="favicon" src="http://g.etfv.co/<?php echo $feed->website (); ?>" alt="" /> <span><?php echo $feed->name (); ?></span></a></li>
+			<li class="item website"><a href="<?php echo _url ('index', 'index', 'get', 'f_' . $feed->id ()); ?>"><img class="favicon" src="<?php echo $feed->favicon (); ?>" alt="" /> <span><?php echo $feed->name (); ?></span></a></li>
 			<li class="item title"><?php echo $item->title (); ?></li>
-			<li class="item date">le <?php echo $item->date (); ?></li>
+			<li class="item date"><?php echo $item->date (); ?></li>
 			<li class="item link"><a target="_blank" href="<?php echo $item->link (); ?>">&nbsp;</a></li>
 		</ul>
 
@@ -59,48 +57,64 @@ if (isset ($this->entryPaginator)) {
 			<div class="content">
 				<h1 class="title"><?php echo $item->title (); ?></h1>
 				<?php $author = $item->author (); ?>
-				<?php echo $author != '' ? '<div class="author">Par <em>' . $author . '</em></div>' : ''; ?>
+				<?php echo $author != '' ? '<div class="author">' . Translate::t ('by_author', $author) . '</div>' : ''; ?>
 				<?php echo $item->content (); ?>
 			</div>
 
 			<ul class="horizontal-list bottom">
 				<li class="item">
 					<?php if ($item->notes () != '') { ?>
-					<i class="icon i_note"></i> <a class="note" href="<?php echo _url ('entry', 'note', 'id', $item->id ()); ?>">Modifier votre note</a>
+					<i class="icon i_note"></i> <a class="note" href="<?php echo _url ('entry', 'note', 'id', $item->id ()); ?>"><?php echo Translate::t ('update_note'); ?></a>
 					<?php } else { ?>
-					<i class="icon i_note_empty"></i> <a class="note" href="<?php echo _url ('entry', 'note', 'id', $item->id ()); ?>">Ajouter une note</a>
+					<i class="icon i_note_empty"></i> <a class="note" href="<?php echo _url ('entry', 'note', 'id', $item->id ()); ?>"><?php echo Translate::t ('add_note'); ?></a>
 					<?php } ?>
 				</li>
 				<li class="item">
 					<div class="dropdown">
 						<div id="dropdown-share-<?php echo $item->id ();?>" class="dropdown-target"></div>
-						<i class="icon i_share"></i> <a class="dropdown-toggle" href="#dropdown-share-<?php echo $item->id ();?>">Partager</a>
+						<i class="icon i_share"></i> <a class="dropdown-toggle" href="#dropdown-share-<?php echo $item->id ();?>"><?php echo Translate::t ('share'); ?></a>
 
 						<ul class="dropdown-menu">
 							<li class="dropdown-close"><a href="#close"><i class="icon i_close"></i></a></li>
 
-							<li class="item"><a href="mailto:?subject=<?php echo $item->title (); ?>&amp;body=J'ai trouvé cet article intéressant, tu peux le lire à cette adresse : <?php echo urlencode($item->link ()); ?>">Par mail</a></li>
+							<li class="item"><a href="mailto:?subject=<?php echo $item->title (); ?>&amp;body=J'ai trouvé cet article intéressant, tu peux le lire à cette adresse : <?php echo urlencode($item->link ()); ?>"><?php echo Translate::t ('by_email'); ?></a></li>
 							<?php
 							$shaarli = $this->conf->urlShaarli ();
 							if ($shaarli) {
 							?>
-							<li class="item"><a target="_blank" href="<?php echo $shaarli . '?post=' . urlencode($item->link ()) . '&amp;title=' . urlencode ($item->title ()) . '&amp;source=bookmarklet'; ?>">Shaarli</a></li>
+							<li class="item"><a target="_blank" href="<?php echo $shaarli . '?post=' . urlencode($item->link ()) . '&amp;title=' . urlencode ($item->title ()) . '&amp;source=bookmarklet'; ?>"><?php echo Translate::t ('on_shaarli'); ?></a></li>
 							<?php } ?>
 						</ul>
 					</div>
 				</li>
+				<?php $tags = $item->tags(); ?>
+				<?php if(!empty($tags)) { ?>
+				<li class="item">
+					<div class="dropdown">
+						<div id="dropdown-tags-<?php echo $item->id ();?>" class="dropdown-target"></div>
+						<i class="icon i_tag"></i> <a class="dropdown-toggle" href="#dropdown-tags-<?php echo $item->id ();?>"><?php echo Translate::t ('related_tags'); ?></a>
+
+						<ul class="dropdown-menu">
+							<li class="dropdown-close"><a href="#close"><i class="icon i_close"></i></a></li>
+
+							<?php foreach($tags as $tag) { ?>
+							<li class="item"><span><?php echo $tag; ?></span></li>
+							<?php } ?>
+						</ul>
+					</div>
+				</li>
+				<?php } ?>
 			</ul>
 		</div>
 	</div>
 	<?php } ?>
 	
-	<?php $this->entryPaginator->render ('pagination.phtml', 'page'); ?>
+	<?php $this->entryPaginator->render ('pagination.phtml', 'next'); ?>
 </div>
-<?php } else { ?>
-<div class="alert">
-	<span class="alert-head">Il n'y a aucun flux à afficher.</span>
-	<?php if (Session::param ('mode', 'all') == 'not_read') { ?>
-	<a class="print_all" href="<?php echo _url ('index', 'changeMode', 'mode', 'all'); ?>">Afficher tous les articles ?</a>
-	<?php }	?>
+
+	<?php } else { ?>
+<div class="alert alert-warn">
+	<span class="alert-head"><?php echo Translate::t ('no_feed_to_display'); ?></span>
 </div>
+	<?php } ?>
 <?php } ?>

@@ -3,7 +3,7 @@
 	<channel>
 		<title><?php echo View::title(); ?></title>
 		<link><?php echo Url::display(); ?></link>
-		<description>Flux RSS de <?php echo View::title(); ?></description>
+		<description><?php echo Translate::t ('rss_feeds_of', View::title()); ?></description>
 		<pubDate><?php echo date('D, d M Y H:i:s O'); ?></pubDate>
 		<lastBuildDate><?php echo gmdate('D, d M Y H:i:s'); ?> GMT</lastBuildDate>
 		<atom:link href="<?php echo _url ('index', 'index', 'output', 'rss'); ?>" rel="self" type="application/rss+xml" />

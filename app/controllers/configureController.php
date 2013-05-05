@@ -5,14 +5,17 @@ class configureController extends ActionController {
 		if (login_is_conf ($this->view->conf) && !is_logged ()) {
 			Error::error (
 				403,
-				array ('error' => array ('Vous n\'avez pas le droit d\'accéder à cette page'))
+				array ('error' => array (Translate::t ('access_denied')))
 			);
 		}
 	}
 
 	public function categorizeAction () {
+		$feedDAO = new FeedDAO ();
 		$catDAO = new CategoryDAO ();
 		$catDAO->checkDefault ();
+		$defaultCategory = $catDAO->getDefault ();
+		$defaultId = $defaultCategory->id ();
 
 		if (Request::isPost ()) {
 			$cats = Request::param ('categories', array ());
@@ -27,7 +30,8 @@ class configureController extends ActionController {
 						'color' => $cat->color ()
 					);
 					$catDAO->updateCategory ($ids[$key], $values);
-				} elseif ($ids[$key] != '000000') {
+				} elseif ($ids[$key] != $defaultId) {
+					$feedDAO->changeCategory ($ids[$key], $defaultId);
 					$catDAO->deleteCategory ($ids[$key]);
 				}
 			}
@@ -48,7 +52,7 @@ class configureController extends ActionController {
 			// notif
 			$notif = array (
 				'type' => 'good',
-				'content' => 'Les catégories ont été mises à jour'
+				'content' => Translate::t ('categories_updated')
 			);
 			Session::_param ('notification', $notif);
 
@@ -58,7 +62,7 @@ class configureController extends ActionController {
 		$this->view->categories = $catDAO->listCategories ();
 		$this->view->defaultCategory = $catDAO->getDefault ();
 
-		View::prependTitle ('Gestion des catégories - ');
+		View::prependTitle (Translate::t ('categories_management') . ' - ');
 	}
 
 	public function feedAction () {
@@ -80,7 +84,7 @@ class configureController extends ActionController {
 			if (!$this->view->flux) {
 				Error::error (
 					404,
-					array ('error' => array ('La page que vous cherchez n\'existe pas'))
+					array ('error' => array (Translate::t ('page_not_found')))
 				);
 			} else {
 				$catDAO = new CategoryDAO ();
@@ -90,11 +94,19 @@ class configureController extends ActionController {
 					$cat = Request::param ('category', 0);
 					$path = Request::param ('path_entries', '');
 					$priority = Request::param ('priority', 0);
+					$user = Request::param ('http_user', '');
+					$pass = Request::param ('http_pass', '');
+
+					$httpAuth = '';
+					if ($user != '' || $pass != '') {
+						$httpAuth = $user . ':' . $pass;
+					}
 
 					$values = array (
 						'category' => $cat,
 						'pathEntries' => $path,
-						'priority' => $priority
+						'priority' => $priority,
+						'httpAuth' => $httpAuth
 					);
 
 					if ($feedDAO->updateFeed ($id, $values)) {
@@ -102,12 +114,12 @@ class configureController extends ActionController {
 
 						$notif = array (
 							'type' => 'good',
-							'content' => 'Le flux a été mis à jour'
+							'content' => Translate::t ('feed_updated')
 						);
 					} else {
 						$notif = array (
 							'type' => 'bad',
-							'content' => 'Une erreur est survenue lors de la mise à jour'
+							'content' => Translate::t ('error_occurred_update')
 						);
 					}
 
@@ -115,15 +127,16 @@ class configureController extends ActionController {
 					Request::forward (array ('c' => 'configure', 'a' => 'feed', 'params' => array ('id' => $id)), true);
 				}
 
-				View::prependTitle ('Gestion des flux RSS - ' . $this->view->flux->name () . ' - ');
+				View::prependTitle (Translate::t ('rss_feed_management') . ' - ' . $this->view->flux->name () . ' - ');
 			}
 		} else {
-			View::prependTitle ('Gestion des flux RSS - ');
+			View::prependTitle (Translate::t ('rss_feed_management') . ' - ');
 		}
 	}
 
 	public function displayAction () {
 		if (Request::isPost ()) {
+			$language = Request::param ('language', 'en');
 			$nb = Request::param ('posts_per_page', 10);
 			$view = Request::param ('default_view', 'all');
 			$display = Request::param ('display_posts', 'no');
@@ -135,6 +148,7 @@ class configureController extends ActionController {
 			$openPage = Request::param ('mark_open_page', 'no');
 			$urlShaarli = Request::param ('shaarli', '');
 
+			$this->view->conf->_language ($language);
 			$this->view->conf->_postsPerPage (intval ($nb));
 			$this->view->conf->_defaultView ($view);
 			$this->view->conf->_displayPosts ($display);
@@ -149,6 +163,7 @@ class configureController extends ActionController {
 			$this->view->conf->_urlShaarli ($urlShaarli);
 
 			$values = array (
+				'language' => $this->view->conf->language (),
 				'posts_per_page' => $this->view->conf->postsPerPage (),
 				'default_view' => $this->view->conf->defaultView (),
 				'display_posts' => $this->view->conf->displayPosts (),
@@ -164,28 +179,31 @@ class configureController extends ActionController {
 			Session::_param ('conf', $this->view->conf);
 			Session::_param ('mail', $this->view->conf->mailLogin ());
 
+			Session::_param ('language', $this->view->conf->language ());
+			Translate::reset ();
+
 			// notif
 			$notif = array (
 				'type' => 'good',
-				'content' => 'La configuration a été mise à jour'
+				'content' => Translate::t ('configuration_updated')
 			);
 			Session::_param ('notification', $notif);
 
 			Request::forward (array ('c' => 'configure', 'a' => 'display'), true);
 		}
 
-		View::prependTitle ('Gestion générale et affichage - ');
+		View::prependTitle (Translate::t ('general_and_reading_management') . ' - ');
 	}
 
 	public function importExportAction () {
 		$this->view->req = Request::param ('q');
 
 		if ($this->view->req == 'export') {
-			View::_title ('feeds_opml.xml');
+			View::_title ('freshrss_feeds.opml');
 
 			$this->view->_useLayout (false);
 			header('Content-Type: text/xml; charset=utf-8');
-			header('Content-disposition: attachment; filename=feeds_opml.xml');
+			header('Content-disposition: attachment; filename=freshrss_feeds.opml');
 
 			$feedDAO = new FeedDAO ();
 			$catDAO = new CategoryDAO ();
@@ -199,8 +217,11 @@ class configureController extends ActionController {
 			$this->view->categories = $list;
 		} elseif ($this->view->req == 'import' && Request::isPost ()) {
 			if ($_FILES['file']['error'] == 0) {
+				// on parse le fichier OPML pour récupérer les catégories et les flux associés
 				list ($categories, $feeds) = opml_import (file_get_contents ($_FILES['file']['tmp_name']));
 
+				// On redirige vers le controller feed qui va se charger d'insérer les flux en BDD
+				// les flux sont mis au préalable dans des variables de Request
 				Request::_param ('q', 'null');
 				Request::_param ('categories', $categories);
 				Request::_param ('feeds', $feeds);
@@ -210,9 +231,11 @@ class configureController extends ActionController {
 
 		$feedDAO = new FeedDAO ();
 		$this->view->feeds = $feedDAO->listFeeds ();
+
+		// au niveau de la vue, permet de ne pas voir un flux sélectionné dans la liste
 		$this->view->flux = false;
 
-		View::prependTitle ('Importation et exportation OPML - ');
+		View::prependTitle (Translate::t ('import_export_opml') . ' - ');
 	}
 
 	public function shortcutAction () {
@@ -251,13 +274,13 @@ class configureController extends ActionController {
 			// notif
 			$notif = array (
 				'type' => 'good',
-				'content' => 'Les raccourcis ont été mis à jour'
+				'content' => Translate::t ('shortcuts_updated')
 			);
 			Session::_param ('notification', $notif);
 
 			Request::forward (array ('c' => 'configure', 'a' => 'shortcut'), true);
 		}
 
-		View::prependTitle ('Gestion des raccourcis - ');
+		View::prependTitle (Translate::t ('shortcuts_management') . ' - ');
 	}
 }

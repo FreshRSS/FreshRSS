@@ -49,9 +49,12 @@ SÉCURITÉ ET CONSEILS
 	3. Le fichier `/public/index.php` défini les chemins d'accès aux
 	   répertoires clés de l'application. Si vous les bougez, tout se passe
 	   ici.
-	4. Vous pouvez ajouter une tâche CRON sur l'url de mise à jour des flux
-	   (clic droit sur le bouton d'actualisation puis "Copier l'adresse du
-	   lien") pour que celle-ci se fasse de manière transparente
+	4. Vous pouvez ajouter une tâche CRON sur le script d'actualisation des
+	   flux. Il s'agit d'un script PHP à exécuter avec la commande `php`.
+	   Par exemple, pour exécuter le script toutes les heures :
+	   0 * * * * php /chemin/vers/freshrss/actualize_script.php >/dev/null 2>&1
+	   Veuillez cependant vérifier que le fichier PUBLIC_PATH/data/Configuration.array.php
+	   soit accessible en lecture / écriture par l'exécuteur du script
 
 CHANGELOG
 =========
