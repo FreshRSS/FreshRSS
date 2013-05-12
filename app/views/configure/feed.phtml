@@ -7,6 +7,10 @@
 	<h1><?php echo $this->flux->name (); ?></h1>
 	<?php echo $this->flux->description (); ?>
 
+	<?php if ($this->flux->inError ()) { ?>
+	<p class="alert alert-error"><span class="alert-head"><?php echo Translate::t ('damn'); ?></span> <?php echo Translate::t ('feed_in_error'); ?></p>
+	<?php } ?>
+
 	<form method="post" action="<?php echo _url ('configure', 'feed', 'id', $this->flux->id ()); ?>">
 		<legend><?php echo Translate::t ('informations'); ?></legend>
 		<div class="form-group">

@@ -114,6 +114,9 @@
 			line-height: 35px;
 			float: right;
 		}
+		.categories .feeds .item.error .feed {
+			color: #BD362F;
+		}
 		.categories .feeds .item .feed {
 			display: inline-block;
 			margin: 0;

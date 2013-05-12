@@ -12,6 +12,7 @@ class Feed extends Model {
 	private $priority = 10;
 	private $pathEntries = '';
 	private $httpAuth = '';
+	private $error = false;
 
 	public function __construct ($url) {
 		$this->_url ($url);
@@ -68,6 +69,9 @@ class Feed extends Model {
 				'password' => $pass
 			);
 		}
+	}
+	public function inError () {
+		return $this->error;
 	}
 	public function nbEntries () {
 		$feedDAO = new FeedDAO ();
@@ -137,6 +141,14 @@ class Feed extends Model {
 	}
 	public function _httpAuth ($value) {
 		$this->httpAuth = $value;
+	}
+	public function _error ($value) {
+		if ($value) {
+			$value = true;
+		} else {
+			$value = false;
+		}
+		$this->error = $value;
 	}
 
 	public function load () {
@@ -294,6 +306,23 @@ class FeedDAO extends Model_pdo {
 
 		$values = array (
 			time (),
+			$id
+		);
+
+		if ($stm && $stm->execute ($values)) {
+			return true;
+		} else {
+			$info = $stm->errorInfo();
+			Log::record ('SQL error : ' . $info[2], Log::ERROR);
+			return false;
+		}
+	}
+
+	public function isInError ($id) {
+		$sql = 'UPDATE feed SET error=1 WHERE id=?';
+		$stm = $this->bd->prepare ($sql);
+
+		$values = array (
 			$id
 		);
 
@@ -470,6 +499,7 @@ class HelperFeed {
 			$list[$key]->_priority ($dao['priority']);
 			$list[$key]->_pathEntries ($dao['pathEntries']);
 			$list[$key]->_httpAuth (base64_decode ($dao['httpAuth']));
+			$list[$key]->_error ($dao['error']);
 
 			if (isset ($dao['id'])) {
 				$list[$key]->_id ($dao['id']);

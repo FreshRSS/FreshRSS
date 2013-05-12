@@ -159,8 +159,7 @@ class feedController extends ActionController {
 				$feedDAO->updateLastUpdate ($feed->id ());
 			} catch (FeedException $e) {
 				Log::record ($e->getMessage (), Log::ERROR);
-				// TODO si on a une erreur ici, il faut mettre
-				// le flux à jour en BDD (error = 1) (issue #70)
+				$feedDAO->isInError ($feed->id ());
 			}
 
 			// On arrête à 10 flux pour ne pas surcharger le serveur

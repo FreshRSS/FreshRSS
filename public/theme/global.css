@@ -261,6 +261,13 @@ input, select, textarea {
 		.nav.nav-list a:hover {
 			text-decoration: none;
 		}
+	.nav.nav-list .item.error a {
+		color: #BD362F;
+	}
+		.nav.nav-list .item.active.error a {
+			color: #fff;
+			background: #BD362F;
+		}
 
 	.nav.nav-list .nav-header {
 		padding: 0 10px;
