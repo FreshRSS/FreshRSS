@@ -196,6 +196,9 @@ class configureController extends ActionController {
 	}
 
 	public function importExportAction () {
+		$catDAO = new CategoryDAO ();
+		$this->view->categories = $catDAO->listCategories ();
+
 		$this->view->req = Request::param ('q');
 
 		if ($this->view->req == 'export') {
