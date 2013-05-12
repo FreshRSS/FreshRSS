@@ -435,11 +435,13 @@
 		top: 0; left: 0;
 		width: 0;
 		overflow: hidden;
+		border-right: none;
 		z-index: 10;
 		transition: width 200ms linear;
 	}
 		.aside:target {
 			width: 80%;
+			border-right: 1px solid #aaa;
 			overflow: auto;
 		}
 		.aside .toggle_aside {
