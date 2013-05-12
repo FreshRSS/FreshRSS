@@ -259,6 +259,7 @@ return array (
 	'do_not_change_if_doubt'	=> 'Laissez tel quel dans le doute',
 
 	'bdd_conf_is_ok'		=> 'La configuration de la base de données a été enregistrée.',
+	'bdd_conf_is_ko'		=> 'Vérifiez les informations d\'accès à la base de données.',
 	'host'				=> 'Hôte',
 	'username'			=> 'Nom utilisateur',
 	'password'			=> 'Mot de passe',

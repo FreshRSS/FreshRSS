@@ -259,6 +259,7 @@ return array (
 	'do_not_change_if_doubt'	=> 'Don\'t change if you doubt about it',
 
 	'bdd_conf_is_ok'		=> 'Database configuration has been saved.',
+	'bdd_conf_is_ko'		=> 'Verify your database information.',
 	'host'				=> 'Host',
 	'username'			=> 'Username',
 	'password'			=> 'Password',
