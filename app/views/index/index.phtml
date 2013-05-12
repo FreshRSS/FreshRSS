@@ -98,7 +98,7 @@ if ($output == 'rss') {
 							<li class="dropdown-close"><a href="#close"><i class="icon i_close"></i></a></li>
 
 							<?php foreach($tags as $tag) { ?>
-							<li class="item"><span><?php echo $tag; ?></span></li>
+							<li class="item"><a href="<?php echo _url ('index', 'index', 'search', urlencode ('#' . $tag)); ?>"><?php echo $tag; ?></a></li>
 							<?php } ?>
 						</ul>
 					</div>
