@@ -198,14 +198,14 @@
 		border-top: 1px solid #ddd;
 	}
 		.flux_header .item.manage {
-			width: 60px;
+			width: 80px;
 			white-space: nowrap;
 			font-size: 0px;
 			text-align: center;
 		}
 			.flux_header .item.manage .read {
 				display: inline-block;
-				width: 30px;
+				width: 40px;
 				height: 40px;
 				background: url("icons/read.png") center center no-repeat;
 				background: url("icons/read.svg") center center no-repeat;
@@ -220,7 +220,7 @@
 				}
 			.flux_header .item.manage .bookmark {
 				display: inline-block;
-				width: 30px;
+				width: 40px;
 				height: 40px;
 				background: url("icons/non-starred.png") center center no-repeat;
 				background: url("icons/non-starred.svg") center center no-repeat;
@@ -265,12 +265,12 @@
 			cursor: pointer;
 		}
 		.flux_header .item.link {
-			width: 35px;
+			width: 40px;
 			text-align: center;
 		}
 			.flux_header .item.link a {
 				display: inline-block;
-				width: 35px;
+				width: 40px;
 				height: 40px;
 				background: url("icons/link.png") center center no-repeat;
 				background: url("icons/link.svg") center center no-repeat;
@@ -342,19 +342,14 @@
 }
 	.pagination .item {
 		display: table-cell;
-		padding: 5px 10px;
 		border-top: 1px solid #aaa;
+		line-height: 40px;
 	}
 		.pagination .item a {
+			display: block;
 			color: #333;
 			font-style: italic;
 		}
-	.pagination .pager-previous, .pagination .pager-next {
-		width: 200px;
-	}
-	.pagination .item.pager-current {
-		font-weight: bold;
-	}
 
 /*** NOTIFICATION ***/
 .notification {
