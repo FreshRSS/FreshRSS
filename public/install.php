@@ -358,8 +358,8 @@ function printStep1 () {
 	<p class="alert alert-error"><span class="alert-head"><?php echo _t ('damn'); ?></span> <?php echo _t ('minz_is_nok', LIB_PATH . '/minz'); ?></p>
 	<?php } ?>
 
-	<?php $version = curl_version(); ?>
 	<?php if ($res['curl'] == 'ok') { ?>
+	<?php $version = curl_version(); ?>
 	<p class="alert alert-success"><span class="alert-head"><?php echo _t ('ok'); ?></span> <?php echo _t ('curl_is_ok', $version['version']); ?></p>
 	<?php } else { ?>
 	<p class="alert alert-error"><span class="alert-head"><?php echo _t ('damn'); ?></span> <?php echo _t ('curl_is_nok'); ?></p>
