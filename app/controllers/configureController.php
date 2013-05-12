@@ -218,14 +218,31 @@ class configureController extends ActionController {
 		} elseif ($this->view->req == 'import' && Request::isPost ()) {
 			if ($_FILES['file']['error'] == 0) {
 				// on parse le fichier OPML pour récupérer les catégories et les flux associés
-				list ($categories, $feeds) = opml_import (file_get_contents ($_FILES['file']['tmp_name']));
+				try {
+					list ($categories, $feeds) = opml_import (
+						file_get_contents ($_FILES['file']['tmp_name'])
+					);
 
-				// On redirige vers le controller feed qui va se charger d'insérer les flux en BDD
-				// les flux sont mis au préalable dans des variables de Request
-				Request::_param ('q', 'null');
-				Request::_param ('categories', $categories);
-				Request::_param ('feeds', $feeds);
-				Request::forward (array ('c' => 'feed', 'a' => 'massiveImport'));
+					// On redirige vers le controller feed qui va se charger d'insérer les flux en BDD
+					// les flux sont mis au préalable dans des variables de Request
+					Request::_param ('q', 'null');
+					Request::_param ('categories', $categories);
+					Request::_param ('feeds', $feeds);
+					Request::forward (array ('c' => 'feed', 'a' => 'massiveImport'));
+				} catch (OpmlException $e) {
+					Log::record ($e->getMessage (), Log::ERROR);
+
+					$notif = array (
+						'type' => 'bad',
+						'content' => Translate::t ('bad_opml_file')
+					);
+					Session::_param ('notification', $notif);
+
+					Request::forward (array (
+						'c' => 'configure',
+						'a' => 'importExport'
+					), true);
+				}
 			}
 		}
 

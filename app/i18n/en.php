@@ -58,6 +58,7 @@ return array (
 	'rss_feed_management'		=> 'RSS feeds management',
 	'configuration_updated'		=> 'Configuration has been updated',
 	'general_and_reading_management'=> 'General and reading management',
+	'bad_opml_file'			=> 'Your OPML file is invalid',
 	'shortcuts_updated'		=> 'Shortcuts have been updated',
 	'shortcuts_management'		=> 'Shortcuts management',
 	'feeds_marked_read'		=> 'Feeds have been marked as read',

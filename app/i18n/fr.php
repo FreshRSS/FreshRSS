@@ -58,6 +58,7 @@ return array (
 	'rss_feed_management'		=> 'Gestion des flux RSS',
 	'configuration_updated'		=> 'La configuration a été mise à jour',
 	'general_and_reading_management'=> 'Gestion générale et affichage',
+	'bad_opml_file'			=> 'Votre fichier OPML n\'est pas valide',
 	'shortcuts_updated'		=> 'Les raccourcis ont été mis à jour',
 	'shortcuts_management'		=> 'Gestion des raccourcis',
 	'feeds_marked_read'		=> 'Les flux ont été marqués comme lu',

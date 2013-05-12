@@ -65,7 +65,7 @@ function opml_import ($xml) {
 	$opml = @simplexml_load_string ($xml);
 
 	if (!$opml) {
-		return array (array (), array ());
+		throw new OpmlException ();
 	}
 
 	$categories = array ();
