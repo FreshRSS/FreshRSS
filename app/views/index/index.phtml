@@ -1,4 +1,12 @@
 <?php
+function lazyimg($content) {
+	return preg_replace(
+		'/<img([^<]+)src=([\'"])([^"\']*)([\'"])([^<]*)>/i',
+		'<img$1src="' . Url::display('/data/grey.gif') . '" data-original="$3"$5>',
+		$content
+	);
+}
+
 $output = Request::param ('output', 'normal');
 
 if ($output == 'rss') {
@@ -58,7 +66,7 @@ if ($output == 'rss') {
 				<h1 class="title"><?php echo $item->title (); ?></h1>
 				<?php $author = $item->author (); ?>
 				<?php echo $author != '' ? '<div class="author">' . Translate::t ('by_author', $author) . '</div>' : ''; ?>
-				<?php echo $item->content (); ?>
+				<?php echo lazyimg($item->content ()); ?>
 			</div>
 
 			<ul class="horizontal-list bottom">

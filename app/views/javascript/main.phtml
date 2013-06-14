@@ -109,8 +109,8 @@ function mark_favorite (active) {
 }
 
 function init_img () {
-	$(".flux .content img").each (function () {
-		if ($(this).width () > ($("#stream .content").width()) / 2) {
+	$(".flux_content .content img").each (function () {
+		if ($(this).width () > ($(".flux_content .content").width()) / 2) {
 			$(this).addClass("big");
 		}
 	});
@@ -125,6 +125,8 @@ function init_posts () {
 	<?php } ?>
 
 	init_img ();
+	// TODO rendre optionnel
+	$(".flux .content img").lazyload();
 
 	if (hide_posts) {
 		$(".flux:not(.active) .flux_content").hide ();
