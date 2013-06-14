@@ -239,7 +239,7 @@ class EntryDAO extends Model_pdo {
 			return true;
 		} else {
 			$info = $stm->errorInfo();
-			Log::record ('SQL error : ' . $info[2], Log::ERROR);
+			Log::record ('SQL error : ' . $info[2], Log::NOTICE);
 			return false;
 		}
 	}

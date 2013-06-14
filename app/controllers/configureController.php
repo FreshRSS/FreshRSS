@@ -91,6 +91,7 @@ class configureController extends ActionController {
 				$this->view->categories = $catDAO->listCategories ();
 
 				if (Request::isPost () && $this->view->flux) {
+					$name = Request::param ('name', '');
 					$cat = Request::param ('category', 0);
 					$path = Request::param ('path_entries', '');
 					$priority = Request::param ('priority', 0);
@@ -103,6 +104,7 @@ class configureController extends ActionController {
 					}
 
 					$values = array (
+						'name' => $name,
 						'category' => $cat,
 						'pathEntries' => $path,
 						'priority' => $priority,
