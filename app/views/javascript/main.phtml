@@ -42,19 +42,14 @@ function toggleContent (new_active, old_active) {
 	<?php } ?>
 }
 
-var load = false;
 function mark_read (active, only_not_read) {
 	if (active[0] === undefined || (
-	    only_not_read === true && !active.hasClass("not_read")) ||
-	    load === true) {
+	    only_not_read === true && !active.hasClass("not_read"))) {
 		return false;
 	}
 
-	load = true;
-
 	url =  active.find ("a.read").attr ("href");
 	if (url === undefined) {
-		load = false;
 		return false;
 	}
 
@@ -71,22 +66,16 @@ function mark_read (active, only_not_read) {
 		} else {
 			active.addClass ("not_read");
 		}
-
-		load = false;
 	});
 }
 
 function mark_favorite (active) {
-	if (active[0] === undefined ||
-	    load === true) {
+	if (active[0] === undefined) {
 		return false;
 	}
 
-	load = true;
-
 	url =  active.find ("a.bookmark").attr ("href");
 	if (url === undefined) {
-		load = false;
 		return false;
 	}
 
@@ -103,8 +92,6 @@ function mark_favorite (active) {
 		} else {
 			active.addClass ("favorite");
 		}
-
-		load = false;
 	});
 }
 

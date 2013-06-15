@@ -77,6 +77,7 @@
 	}
 
 .favicon {
+	height: 16px;
 	width: 16px;
 }
 
@@ -243,9 +244,12 @@
 			text-overflow: ellipsis;
 			line-height: 40px;
 		}
+			.flux_header .item.website .favicon {
+				padding: 12px;
+			}
 			.flux_header .item.website a {
 				display: block;
-				padding: 0 5px;
+				padding: 0;
 				height: 40px;
 			}
 		.flux_header .item.title {
@@ -473,9 +477,14 @@
 		display: none;
 	}
 	.flux_header .item.website {
-		width: 30px;
+		width: 40px;
 		text-align: center;
 	}
+
+	.content {
+		font-size: 120%;
+	}
+
 	.pagination .pager-previous, .pagination .pager-next {
 		width: 100px;
 	}
