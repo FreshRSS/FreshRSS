@@ -97,4 +97,23 @@ class entryController extends ActionController {
 			}
 		}
 	}
+
+	public function optimizeAction() {
+		// La table des entrées a tendance à grossir énormément
+		// Cette action permet d'optimiser cette table permettant de grapiller un peu de place
+		// Cette fonctionnalité n'est à appeler qu'occasionnellement
+		$entryDAO = new EntryDAO();
+		$entryDAO->optimizeTable();
+
+		$notif = array (
+			'type' => 'good',
+			'content' => Translate::t ('optimization_complete')
+		);
+		Session::_param ('notification', $notif);
+
+		Request::forward(array(
+			'c' => 'configure',
+			'a' => 'display'
+		), true);
+	}
 }

@@ -78,6 +78,8 @@ return array (
 	'category_emptied'		=> 'Category has been emptied',
 	'feed_deleted'			=> 'Feed has been deleted',
 
+	'optimization_complete'		=> 'Optimization complete',
+
 	'your_rss_feeds'		=> 'Your RSS feeds',
 	'your_favorites'		=> 'Your favorites',
 	'public'			=> 'Public',
@@ -154,6 +156,8 @@ return array (
 	'share'				=> 'Share',
 	'by_email'			=> 'By mail',
 	'on_shaarli'			=> 'On your Shaarli',
+	'optimize_bdd'			=> 'Optimize database',
+	'optimize_todo_sometimes'	=> 'To do occasionally to reduce size of database',
 
 	'article'			=> 'Article',
 	'title'				=> 'Title',

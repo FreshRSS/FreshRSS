@@ -78,6 +78,8 @@ return array (
 	'category_emptied'		=> 'La catégorie a été vidée',
 	'feed_deleted'			=> 'Le flux a été supprimé',
 
+	'optimization_complete'		=> 'Optimisation terminée',
+
 	'your_rss_feeds'		=> 'Vos flux RSS',
 	'your_favorites'		=> 'Vos favoris',
 	'public'			=> 'Public',
@@ -154,6 +156,8 @@ return array (
 	'share'				=> 'Partager',
 	'by_email'			=> 'Par mail',
 	'on_shaarli'			=> 'Sur votre Shaarli',
+	'optimize_bdd'			=> 'Optimiser la base de données',
+	'optimize_todo_sometimes'	=> 'À faire de temps en temps pour réduire la taille de la BDD',
 
 	'article'			=> 'Article',
 	'title'				=> 'Titre',

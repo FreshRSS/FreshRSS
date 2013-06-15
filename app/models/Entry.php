@@ -509,6 +509,12 @@ class EntryDAO extends Model_pdo {
 
 		return $res[0]['count'];
 	}
+
+	public function optimizeTable() {
+		$sql = 'OPTIMIZE TABLE entry';
+		$stm = $this->bd->prepare ($sql);
+		$stm->execute ();
+	}
 }
 
 class HelperEntry {
