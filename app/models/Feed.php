@@ -216,18 +216,7 @@ class Feed extends Model {
 				}
 			}
 
-			// Gestion du contenu
-			// On cherche à récupérer les articles en entier... même si le flux ne le propose pas
-			$path = $this->pathEntries ();
-			if ($path) {
-				try {
-					$content = get_content_by_parsing ($item->get_permalink (), $path);
-				} catch (Exception $e) {
-					$content = $item->get_content ();
-				}
-			} else {
-				$content = $item->get_content ();
-			}
+			$content = $item->get_content ();
 
 			$entry = new Entry (
 				$this->id (),
@@ -239,6 +228,8 @@ class Feed extends Model {
 				$date ? $date : time ()
 			);
 			$entry->_tags ($tags);
+			// permet de récupérer le contenu des flux tronqués
+			$entry->loadCompleteContent($this->pathEntries());
 
 			$entries[$entry->id ()] = $entry;
 		}
