@@ -86,3 +86,11 @@ function parse_tags ($desc) {
 
 	return $desc_parse;
 }
+
+function lazyimg($content) {
+	return preg_replace(
+		'/<img([^<]+)src=([\'"])([^"\']*)([\'"])([^<]*)>/i',
+		'<img$1src="' . Url::display('/data/grey.gif') . '" data-original="$3"$5>',
+		$content
+	);
+}

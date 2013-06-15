@@ -59,43 +59,72 @@
 		<ul class="dropdown-menu">
 			<li class="dropdown-close"><a href="#close"><i class="icon i_close"></i></a></li>
 
+			<?php
+				$url_output = $url;
+				$actual_view = Request::param('output', 'nomal');
+			?>
+			<?php if($actual_view != 'normal') { ?>
 			<li class="item">
-				<?php
-					if ($this->state == 'not_read') {
-						$url['params']['state'] = 'all';
-				?>
-				<a class="print_all" href="<?php echo Url::display ($url); ?>"><?php echo Translate::t ('show_all_articles'); ?></a>
-				<?php
-					} else {
-						$url['params']['state'] = 'not_read';
-				?>
-				<a class="print_non_read" href="<?php echo Url::display ($url); ?>"><?php echo Translate::t ('show_not_reads'); ?></a>
-				<?php } ?>
+				<?php $url_output['params']['output'] = 'normal'; ?>
+				<a class="view_normal" href="<?php echo Url::display ($url_output); ?>">
+					<?php echo Translate::t ('normal_view'); ?>
+				</a>
 			</li>
+			<?php } if($actual_view != 'reader') { ?>
+			<li class="item">
+				<?php $url_output['params']['output'] = 'reader'; ?>
+				<a class="view_normal" href="<?php echo Url::display ($url_output); ?>">
+					<?php echo Translate::t ('reader_view'); ?>
+				</a>
+			</li>
+			<?php } if($actual_view != 'global') { ?>
+			<li class="item">
+				<?php $url_output['params']['output'] = 'global'; ?>
+				<a class="view_normal" href="<?php echo Url::display ($url_output); ?>">
+					<?php echo Translate::t ('global_view'); ?>
+				</a>
+			</li>
+			<?php } ?>
+
 			<li class="separator"></li>
 
-			<?php
-				$params = Request::params ();
-				if (isset ($params['search'])) {
-					$params['search'] = urlencode ($params['search']);
-				}
-				$url = array (
-					'c' => 'index',
-					'a' => 'index',
-					'params' => $params
-				);
-			?>
 			<li class="item">
 				<?php
-					if ($this->order == 'low_to_high') {
-						$url['params']['order'] = 'high_to_low';
+					$url_state = $url;
+					if ($this->state == 'not_read') {
+						$url_state['params']['state'] = 'all';
 				?>
-				<a href="<?php echo Url::display ($url); ?>"><?php echo Translate::t ('older_first'); ?></a>
+				<a class="print_all" href="<?php echo Url::display ($url_state); ?>">
+					<?php echo Translate::t ('show_all_articles'); ?>
+				</a>
 				<?php
 					} else {
-						$url['params']['order'] = 'low_to_high';
+						$url_state['params']['state'] = 'not_read';
 				?>
-				<a href="<?php echo Url::display ($url); ?>"><?php echo Translate::t ('newer_first'); ?></a>
+				<a class="print_non_read" href="<?php echo Url::display ($url_state); ?>">
+					<?php echo Translate::t ('show_not_reads'); ?>
+				</a>
+				<?php } ?>
+			</li>
+
+			<li class="separator"></li>
+
+			<li class="item">
+				<?php
+					$url_order = $url;
+					if ($this->order == 'low_to_high') {
+						$url_order['params']['order'] = 'high_to_low';
+				?>
+				<a href="<?php echo Url::display ($url_order); ?>">
+					<?php echo Translate::t ('older_first'); ?>
+				</a>
+				<?php
+					} else {
+						$url_order['params']['order'] = 'low_to_high';
+				?>
+				<a href="<?php echo Url::display ($url_order); ?>">
+					<?php echo Translate::t ('newer_first'); ?>
+				</a>
 				<?php } ?>
 			</li>
 		</ul>

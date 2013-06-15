@@ -245,11 +245,10 @@
 			line-height: 40px;
 		}
 			.flux_header .item.website .favicon {
-				padding: 12px;
+				padding: 5px;
 			}
 			.flux_header .item.website a {
 				display: block;
-				padding: 0;
 				height: 40px;
 			}
 		.flux_header .item.title {
@@ -293,6 +292,7 @@
 	padding: 20px 10px;
 	line-height: 170%;
 	font-family: 'OpenSans';
+	word-wrap: break-word;
 }
 	.content .title {
 		margin: 0 0 5px;
@@ -480,6 +480,9 @@
 		width: 40px;
 		text-align: center;
 	}
+		.flux_header .item.website .favicon {
+			padding: 12px;
+		}
 
 	.content {
 		font-size: 120%;
