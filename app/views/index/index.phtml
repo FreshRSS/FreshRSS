@@ -77,13 +77,6 @@ if ($output == 'rss') {
 
 			<ul class="horizontal-list bottom">
 				<li class="item">
-					<?php if ($item->notes () != '') { ?>
-					<i class="icon i_note"></i> <a class="note" href="<?php echo _url ('entry', 'note', 'id', $item->id ()); ?>"><?php echo Translate::t ('update_note'); ?></a>
-					<?php } else { ?>
-					<i class="icon i_note_empty"></i> <a class="note" href="<?php echo _url ('entry', 'note', 'id', $item->id ()); ?>"><?php echo Translate::t ('add_note'); ?></a>
-					<?php } ?>
-				</li>
-				<li class="item">
 					<div class="dropdown">
 						<div id="dropdown-share-<?php echo $item->id ();?>" class="dropdown-target"></div>
 						<i class="icon i_share"></i> <a class="dropdown-toggle" href="#dropdown-share-<?php echo $item->id ();?>"><?php echo Translate::t ('share'); ?></a>

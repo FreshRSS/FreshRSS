@@ -155,10 +155,6 @@ return array (
 	'by_email'			=> 'By mail',
 	'on_shaarli'			=> 'On your Shaarli',
 
-	'note'				=> 'Note',
-	'add_note'			=> 'Add a note',
-	'update_note'			=> 'Update your note',
-	'ask_public_article'		=> 'Public article?',
 	'article'			=> 'Article',
 	'title'				=> 'Title',
 	'author'			=> 'Author',
