@@ -219,8 +219,8 @@ class feedController extends ActionController {
 		$entryDAO = new EntryDAO ();
 		$feedDAO = new FeedDAO ();
 
-		$categories = Request::param ('categories', array ());
-		$feeds = Request::param ('feeds', array ());
+		$categories = Request::param ('categories', array (), true);
+		$feeds = Request::param ('feeds', array (), true);
 
 		// on ajoute les catégories en masse dans une fonction à part
 		$this->addCategories ($categories);

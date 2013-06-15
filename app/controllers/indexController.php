@@ -12,6 +12,7 @@ class indexController extends ActionController {
 			View::appendScript (Url::display ('/scripts/shortcut.js'));
 			View::appendScript (Url::display (array ('c' => 'javascript', 'a' => 'main')));
 			View::appendScript (Url::display (array ('c' => 'javascript', 'a' => 'actualize')));
+			View::appendScript (Url::display ('/scripts/endless_mode.js'));
 		}
 
 		$entryDAO = new EntryDAO ();

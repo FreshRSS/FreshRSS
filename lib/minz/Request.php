@@ -29,11 +29,13 @@ class Request {
 	public static function params () {
 		return self::$params;
 	}
-	public static function param ($key, $default = false) {
+	public static function param ($key, $default = false, $specialchars = false) {
 		if (isset (self::$params[$key])) {
 			$p = self::$params[$key];
-			if(is_array($p)) {
-				return array_map(htmlspecialchars, $p);
+			if(is_object($p) || $specialchars) {
+				return $p;
+			} elseif(is_array($p)) {
+				return array_map('htmlspecialchars', $p);
 			} else {
 				return htmlspecialchars($p);
 			}
