@@ -15,21 +15,26 @@
 	</div>
 
 	<div class="item search">
-		<?php
-			$params = Request::params ();
-			if (isset ($params['search'])) {
-				unset ($params['search']);
-			}
-			$url = array (
-				'c' => 'index',
-				'a' => 'index',
-				'params' => $params
-			);
-		?>
-		<form action="<?php echo Url::display ($url); ?>" method="get">
+		<form action="<?php echo _url ('index', 'index'); ?>" method="get">
 			<div class="stick">
-				<?php $s = Request::param ('search', ''); ?>
-				<input type="text" name="search" id="search" value="<?php echo $s; ?>" placeholder="<?php echo Translate::t ('search'); ?>" />
+				<?php $search = Request::param ('search', ''); ?>
+				<input type="text" name="search" id="search" value="<?php echo $search; ?>" placeholder="<?php echo Translate::t ('search'); ?>" />
+
+				<?php $get = Request::param ('get', ''); ?>
+				<?php if($get != '') { ?>
+				<input type="hidden" name="get" value="<?php echo $get; ?>" />
+				<?php } ?>
+
+				<?php $order = Request::param ('order', ''); ?>
+				<?php if($order != '') { ?>
+				<input type="hidden" name="order" value="<?php echo $order; ?>" />
+				<?php } ?>
+
+				<?php $state = Request::param ('state', ''); ?>
+				<?php if($state != '') { ?>
+				<input type="hidden" name="state" value="<?php echo $state; ?>" />
+				<?php } ?>
+
 				<button class="btn" type="submit"><i class="icon i_search"></i></button>
 			</div>
 		</form>
