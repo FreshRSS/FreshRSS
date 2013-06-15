@@ -27,7 +27,7 @@ class Model_txt {
 	 */
 	public function __construct ($nameFile, $mode = 'a+') {
 		$this->filename = $nameFile;
-		$this->file = fopen ($this->filename, $mode);
+		$this->file = @fopen ($this->filename, $mode);
 		
 		if (!$this->file) {
 			throw new FileNotExistException (

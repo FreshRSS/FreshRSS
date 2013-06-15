@@ -139,6 +139,32 @@ class indexController extends ActionController {
 		View::prependTitle (Translate::t ('about') . ' - ');
 	}
 
+	public function logsAction () {
+		if (login_is_conf ($this->view->conf) && !is_logged ()) {
+			Error::error (
+				403,
+				array ('error' => array (Translate::t ('access_denied')))
+			);
+		}
+
+		View::prependTitle (Translate::t ('see_logs') . ' - ');
+
+		$logs = array();
+		try {
+			$logDAO = new LogDAO ();
+			$logs = $logDAO->lister ();
+			$logs = array_reverse ($logs);
+		} catch(FileNotExistException $e) {
+
+		}
+
+		//gestion pagination
+		$page = Request::param ('page', 1);
+		$this->view->logsPaginator = new Paginator ($logs);
+		$this->view->logsPaginator->_nbItemsPerPage (50);
+		$this->view->logsPaginator->_currentPage ($page);
+	}
+
 	public function loginAction () {
 		$this->view->_useLayout (false);
 

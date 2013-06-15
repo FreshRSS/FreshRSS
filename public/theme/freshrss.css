@@ -349,14 +349,29 @@
 }
 	.pagination .item {
 		display: table-cell;
-		border-top: 1px solid #aaa;
 		line-height: 40px;
 	}
+		.pagination .item.pager-current {
+			font-weight: bold;
+			font-size: 140%;
+		}
+		.pagination .item.pager-first,
+		.pagination .item.pager-previous,
+		.pagination .item.pager-next,
+		.pagination .item.pager-last {
+			width: 100px;
+		}
 		.pagination .item a {
 			display: block;
 			color: #333;
 			font-style: italic;
 		}
+	.pagination:first-child .item {
+		border-bottom: 1px solid #aaa;
+	}
+	.pagination:last-child .item {
+		border-top: 1px solid #aaa;
+	}
 .loading {
 	background: url("loader.gif") center center no-repeat;
 	font-size: 0;
@@ -419,6 +434,33 @@
 		color: #999;
 		font-size: 90%;
 		vertical-align: middle;
+	}
+
+.logs {
+	border: 1px solid #aaa;
+}
+	.logs .log {
+		padding: 5px 2%;
+		overflow: auto;
+		background: #fafafa;
+		border-bottom: 1px solid #999;
+		color: #333;
+		font-size: 90%;
+	}
+		.logs .log .date {
+			display: block;
+		}
+	.logs .log.error {
+		background: #fdd;
+		color: #844;
+	}
+	.logs .log.warning {
+		background: #ffe;
+		color: #c95;
+	}
+	.logs .log.notice {
+		background: #f4f4f4;
+		color: #aaa;
 	}
 
 @media(max-width: 840px) {

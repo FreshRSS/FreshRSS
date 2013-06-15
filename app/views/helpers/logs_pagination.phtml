@@ -1,0 +1,47 @@
+<?php
+	$c = Request::controllerName ();
+	$a = Request::actionName ();
+	$params = Request::params ();
+?>
+
+<?php if ($this->nbPage > 1) { ?>
+<ul class="pagination">
+	<?php $params[$getteur] = 1; ?>
+	<li class="item pager-first">
+		<?php if ($this->currentPage > 1) { ?>
+		<a href="<?php echo Url::display (array ('c' => $c, 'a' => $a, 'params' => $params)); ?>">« Début</a>
+		<?php } ?>
+	</li>
+
+	<?php $params[$getteur] = $this->currentPage - 1; ?>
+	<li class="item pager-previous">
+		<?php if ($this->currentPage > 1) { ?>
+		<a href="<?php echo Url::display (array ('c' => $c, 'a' => $a, 'params' => $params)); ?>">‹ Précédent</a>
+		<?php } ?>
+	</li>
+
+	<?php for ($i = $this->currentPage - 2; $i <= $this->currentPage + 2; $i++) { ?>
+		<?php if($i > 0 && $i <= $this->nbPage) { ?>
+			<?php if ($i != $this->currentPage) { ?>
+			<?php $params[$getteur] = $i; ?>
+			<li class="item pager-item"><a href="<?php echo Url::display (array ('c' => $c, 'a' => $a, 'params' => $params)); ?>"><?php echo $i; ?></a></li>
+			<?php } else { ?>
+			<li class="item pager-current"><?php echo $i; ?></li>
+			<?php } ?>
+		<?php } ?>
+	<?php } ?>
+
+	<?php $params[$getteur] = $this->currentPage + 1; ?>
+	<li class="item pager-next">
+		<?php if ($this->currentPage < $this->nbPage) { ?>
+		<a href="<?php echo Url::display (array ('c' => $c, 'a' => $a, 'params' => $params)); ?>">Suivant ›</a>
+		<?php } ?>
+	</li>
+	<?php $params[$getteur] = $this->nbPage; ?>
+	<li class="item pager-last">
+		<?php if ($this->currentPage < $this->nbPage) { ?>
+		<a href="<?php echo Url::display (array ('c' => $c, 'a' => $a, 'params' => $params)); ?>">Fin »</a>
+		<?php } ?>
+	</li>
+</ul>
+<?php } ?>

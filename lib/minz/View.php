@@ -71,7 +71,7 @@ class View {
 		} else {
 			Log::record ('File doesn\'t exist : `'
 			            . $this->view_filename . '`',
-			            Log::WARNING);
+			            Log::NOTICE);
 		}
 	}
 

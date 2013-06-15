@@ -1,0 +1,21 @@
+<div class="post content">
+	<a href="<?php echo _url ('index', 'index'); ?>"><?php echo Translate::t ('back_to_rss_feeds'); ?></a>
+
+	<h1><?php echo Translate::t ('logs'); ?></h1>
+
+	<?php $items = $this->logsPaginator->items (); ?>
+
+	<?php if (!empty ($items)) { ?>
+	<div class="logs">
+		<?php $this->logsPaginator->render ('logs_pagination.phtml', 'page'); ?>
+		
+		<?php foreach ($items as $log) { ?>
+		<div class="log <?php echo $log->level (); ?>"><span class="date"><?php echo date ('d/m/Y - H:i:s', strtotime ($log->date ())); ?></span><?php echo $log->info (); ?></div>
+		<?php } ?>
+		
+		<?php $this->logsPaginator->render ('logs_pagination.phtml','page'); ?>
+	</div>
+	<?php } else { ?>
+	<p class="alert alert-warn"><?php echo Translate::t ('logs_empty'); ?></p>
+	<?php } ?>
+</div>
