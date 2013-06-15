@@ -142,6 +142,7 @@ class configureController extends ActionController {
 			$nb = Request::param ('posts_per_page', 10);
 			$view = Request::param ('default_view', 'all');
 			$display = Request::param ('display_posts', 'no');
+			$lazyload = Request::param ('lazyload', 'yes');
 			$sort = Request::param ('sort_order', 'low_to_high');
 			$old = Request::param ('old_entries', 3);
 			$mail = Request::param ('mail_login', false);
@@ -154,6 +155,7 @@ class configureController extends ActionController {
 			$this->view->conf->_postsPerPage (intval ($nb));
 			$this->view->conf->_defaultView ($view);
 			$this->view->conf->_displayPosts ($display);
+			$this->view->conf->_lazyload ($lazyload);
 			$this->view->conf->_sortOrder ($sort);
 			$this->view->conf->_oldEntries ($old);
 			$this->view->conf->_mailLogin ($mail);
@@ -169,6 +171,7 @@ class configureController extends ActionController {
 				'posts_per_page' => $this->view->conf->postsPerPage (),
 				'default_view' => $this->view->conf->defaultView (),
 				'display_posts' => $this->view->conf->displayPosts (),
+				'lazyload' => $this->view->conf->lazyload (),
 				'sort_order' => $this->view->conf->sortOrder (),
 				'old_entries' => $this->view->conf->oldEntries (),
 				'mail_login' => $this->view->conf->mailLogin (),

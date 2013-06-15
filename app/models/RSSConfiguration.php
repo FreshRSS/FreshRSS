@@ -9,6 +9,7 @@ class RSSConfiguration extends Model {
 	private $posts_per_page;
 	private $default_view;
 	private $display_posts;
+	private $lazyload;
 	private $sort_order;
 	private $old_entries;
 	private $shortcuts = array ();
@@ -22,6 +23,7 @@ class RSSConfiguration extends Model {
 		$this->_postsPerPage ($confDAO->posts_per_page);
 		$this->_defaultView ($confDAO->default_view);
 		$this->_displayPosts ($confDAO->display_posts);
+		$this->_lazyload ($confDAO->lazyload);
 		$this->_sortOrder ($confDAO->sort_order);
 		$this->_oldEntries ($confDAO->old_entries);
 		$this->_shortcuts ($confDAO->shortcuts);
@@ -44,6 +46,9 @@ class RSSConfiguration extends Model {
 	}
 	public function displayPosts () {
 		return $this->display_posts;
+	}
+	public function lazyload () {
+		return $this->lazyload;
 	}
 	public function sortOrder () {
 		return $this->sort_order;
@@ -100,6 +105,13 @@ class RSSConfiguration extends Model {
 			$this->display_posts = 'no';
 		}
 	}
+	public function _lazyload ($value) {
+		if ($value == 'no') {
+			$this->lazyload = 'no';
+		} else {
+			$this->lazyload = 'yes';
+		}
+	}
 	public function _sortOrder ($value) {
 		if ($value == 'high_to_low') {
 			$this->sort_order = 'high_to_low';
@@ -144,6 +156,7 @@ class RSSConfigurationDAO extends Model_array {
 	public $posts_per_page = 20;
 	public $default_view = 'not_read';
 	public $display_posts = 'no';
+	public $lazyload = 'yes';
 	public $sort_order = 'low_to_high';
 	public $old_entries = 3;
 	public $shortcuts = array (
@@ -177,6 +190,9 @@ class RSSConfigurationDAO extends Model_array {
 		}
 		if (isset ($this->array['display_posts'])) {
 			$this->display_posts = $this->array['display_posts'];
+		}
+		if (isset ($this->array['lazyload'])) {
+			$this->lazyload = $this->array['lazyload'];
 		}
 		if (isset ($this->array['sort_order'])) {
 			$this->sort_order = $this->array['sort_order'];

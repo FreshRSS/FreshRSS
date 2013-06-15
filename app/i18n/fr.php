@@ -144,6 +144,7 @@ return array (
 	'default_view'			=> 'Vue par défaut',
 	'sort_order'			=> 'Ordre de tri',
 	'display_articles_unfolded'	=> 'Afficher les articles dépliés par défaut',
+	'img_with_lazyload'		=> 'Utiliser le mode "lazy load" pour charger les images',
 	'auto_read_when'		=> 'Marquer automatiquement comme lu lorsque',
 	'article_selected'		=> 'L\'article est sélectionné',
 	'article_open_on_website'	=> 'L\'article est ouvert sur le site d\'origine',

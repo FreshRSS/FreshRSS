@@ -125,8 +125,9 @@ function init_posts () {
 	<?php } ?>
 
 	init_img ();
-	// TODO rendre optionnel
+	<?php if($this->conf->lazyload() == 'yes') { ?>
 	$(".flux .content img").lazyload();
+	<?php } ?>
 
 	if (hide_posts) {
 		$(".flux:not(.active) .flux_content").hide ();
