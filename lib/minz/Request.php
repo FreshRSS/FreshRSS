@@ -31,7 +31,12 @@ class Request {
 	}
 	public static function param ($key, $default = false) {
 		if (isset (self::$params[$key])) {
-			return self::$params[$key];
+			$p = self::$params[$key];
+			if(is_array($p)) {
+				return array_map(htmlspecialchars, $p);
+			} else {
+				return htmlspecialchars($p);
+			}
 		} else {
 			return $default;
 		}

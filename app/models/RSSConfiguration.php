@@ -85,7 +85,7 @@ class RSSConfiguration extends Model {
 		$this->language = $value;
 	}
 	public function _postsPerPage ($value) {
-		if (is_int (intval ($value))) {
+		if (is_int (intval ($value)) && $value > 0) {
 			$this->posts_per_page = $value;
 		} else {
 			$this->posts_per_page = 10;
@@ -120,7 +120,7 @@ class RSSConfiguration extends Model {
 		}
 	}
 	public function _oldEntries ($value) {
-		if (is_int (intval ($value))) {
+		if (is_int (intval ($value)) && $value > 0) {
 			$this->old_entries = $value;
 		} else {
 			$this->old_entries = 3;
