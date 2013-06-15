@@ -286,6 +286,18 @@
 					text-decoration: none;
 				}
 
+#stream.reader .flux {
+	padding: 0 0 30px;
+	border: none;
+	background: #f0f0f0;
+	color: #333;
+}
+	#stream.reader .flux .author {
+		margin: 0 0 10px;
+		font-size: 90%;
+		color: #666;
+	}
+
 .content {
 	max-width: 550px;
 	margin: 0 auto;

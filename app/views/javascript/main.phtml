@@ -117,7 +117,7 @@ function init_posts () {
 	<?php } ?>
 
 	if (hide_posts) {
-		$(".flux:not(.active) .flux_content").hide ();
+		$("#stream:not(.reader) .flux:not(.active) .flux_content").hide ();
 	}
 
 	$(".flux_header .item.title, .flux_header .item.date").click (function () {

@@ -1,5 +1,44 @@
 <?php
-$this->partial ('nav_menu');
+
+if (isset ($this->entryPaginator) && !$this->entryPaginator->isEmpty ()) {
+	$items = $this->entryPaginator->items ();
 ?>
 
-Non implémenté
+<div id="stream" class="reader">
+	<?php foreach ($items as $item) { ?>
+
+	<div class="flux<?php echo !$item->isRead () ? ' not_read' : ''; ?><?php echo $item->isFavorite () ? ' favorite' : ''; ?>" id="flux_<?php echo $item->id (); ?>">
+		<div class="flux_content">
+			<div class="content">
+				<?php $feed = $item->feed (true); ?>
+				<a href="<?php echo $item->link (); ?>">
+					<img class="favicon" src="<?php echo $feed->favicon (); ?>" alt="" /> <span><?php echo $feed->name (); ?></span>
+				</a>
+				<h1 class="title"><?php echo $item->title (); ?></h1>
+
+				<div class="author">
+					<?php $author = $item->author (); ?>
+					<?php echo $author != '' ? Translate::t ('by_author', $author) . ' - ' : ''; ?>
+					<?php echo $item->date (); ?>
+				</div>
+
+				<?php
+					if($this->conf->lazyload() == 'yes') {
+						echo lazyimg($item->content ());
+					} else {
+						echo $item->content();
+					}
+				?>
+			</div>
+		</div>
+	</div>
+	<?php } ?>
+	
+	<?php $this->entryPaginator->render ('pagination.phtml', 'next'); ?>
+</div>
+
+<?php } else { ?>
+<div class="alert alert-warn">
+	<span class="alert-head"><?php echo Translate::t ('no_feed_to_display'); ?></span>
+</div>
+<?php } ?>
