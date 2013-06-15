@@ -304,15 +304,19 @@
 		display: block;
 		margin: 10px auto;
 	}
+	.content hr {
+		margin: 30px 0;
+		height: 1px;
+		background: #ddd;
+		border: 0;
+	}
 	.content pre {
-		width: 90%;
 		margin: 10px auto;
 		padding: 10px;
 		overflow: auto;
-		background: #666;
-		border: 1px solid #000;
-		color: #fafafa;
-		border-radius: 5px;
+		background: #000;
+		color: #fff;
+		font-size: 110%;
 	}
 	.content q, .content blockquote {
 		display: block;
