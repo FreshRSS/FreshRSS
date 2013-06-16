@@ -35,10 +35,10 @@ class Category extends Model {
 	public function feeds () {
 		if (is_null ($this->feeds)) {
 			$feedDAO = new FeedDAO ();
-			return $feedDAO->listByCategory ($this->id ());
-		} else {
-			return $this->feeds;
+			$this->feeds = $feedDAO->listByCategory ($this->id ());
 		}
+
+		return $this->feeds;
 	}
 
 	public function _id ($value) {

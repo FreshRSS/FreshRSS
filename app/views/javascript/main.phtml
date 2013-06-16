@@ -9,6 +9,16 @@ var hide_posts = false;
 	$mark = $this->conf->markWhen ();
 ?>
 
+function is_reader_mode() {
+	var stream = $("#stream.reader");
+	return stream.html() != null;
+}
+
+function is_normal_mode() {
+	var stream = $("#stream.normal");
+	return stream.html() != null;
+}
+
 function redirect (url, new_tab) {
 	if (url) {
 		if (new_tab) {
@@ -117,7 +127,7 @@ function init_posts () {
 	<?php } ?>
 
 	if (hide_posts) {
-		$("#stream:not(.reader) .flux:not(.active) .flux_content").hide ();
+		$(".flux:not(.active) .flux_content").hide ();
 	}
 
 	$(".flux_header .item.title, .flux_header .item.date").click (function () {
@@ -153,6 +163,10 @@ function init_posts () {
 }
 
 function init_column_categories () {
+	if(!is_normal_mode()) {
+		return;
+	}
+
 	$(".category").addClass ("stick");
 	$(".categories .category .btn:first-child").width ("160px");
 	$(".category").append ("<a class=\"btn dropdown-toggle\" href=\"#\"><i class=\"icon i_down\"></i></a>");
@@ -268,6 +282,9 @@ function init_shortcuts () {
 }
 
 $(document).ready (function () {
+	if(is_reader_mode()) {
+		hide_posts = false;
+	}
 	init_posts ();
 	init_column_categories ();
 	init_shortcuts ();

@@ -298,6 +298,44 @@
 		color: #666;
 	}
 
+#stream.global {
+	text-align: center;
+}
+	#stream.global .category {
+		display: inline-block;
+		width: 280px;
+		margin: 20px 10px;
+		vertical-align: top;
+		background: #fff;
+		border: 1px solid #aaa;
+		border-radius: 5px;
+		text-align: left;
+		box-shadow: 0 0 5px #bbb;
+	}
+		#stream.global .cat_header {
+			height: 35px;
+			padding: 0 10px;
+			background: #eee;
+			border-bottom: 1px solid #aaa;
+			border-radius: 5px 5px 0 0;
+			line-height: 35px;
+			font-size: 120%;
+		}
+			#stream.global .cat_header a {
+				color: #333;
+				text-shadow: 0 -1px 0px #aaa;
+			}
+		#stream.global .category .feeds {
+			max-height: 250px;
+			margin: 0;
+			list-style: none;
+			overflow: auto;
+		}
+			#stream.global .category .feeds .item {
+				padding: 0 10px;
+				font-size: 90%;
+			}
+
 .content {
 	max-width: 550px;
 	margin: 0 auto;
