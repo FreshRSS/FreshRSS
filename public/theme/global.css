@@ -50,6 +50,11 @@ img {
 		border: none;
 	}
 
+/* IFRAME */
+iframe {
+	max-width: 100%;
+}
+
 /* FORMULAIRES */
 legend {
 	display: block;
