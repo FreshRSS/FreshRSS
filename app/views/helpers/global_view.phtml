@@ -8,7 +8,11 @@
 		if (!empty ($feeds)) {
 ?>
 	<div class="category">
-		<div class="cat_header"><a href="<?php echo _url ('index', 'index', 'get', 'c_' . $cat->id ()); ?>"><?php echo $cat->name(); ?><?php echo $catNotRead > 0 ? ' (' . $catNotRead . ')' : ''; ?></a></div>
+		<div class="cat_header">
+			<a href="<?php echo _url ('index', 'index', 'get', 'c_' . $cat->id ()); ?>">
+			<?php echo $cat->name(); ?><?php echo $catNotRead > 0 ? ' (' . $catNotRead . ')' : ''; ?>
+			</a>
+		</div>
 
 		<ul class="feeds">
 			<?php foreach ($feeds as $feed) { ?>

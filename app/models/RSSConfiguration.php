@@ -7,6 +7,7 @@ class RSSConfiguration extends Model {
 	);
 	private $language;
 	private $posts_per_page;
+	private $view_mode;
 	private $default_view;
 	private $display_posts;
 	private $lazyload;
@@ -21,6 +22,7 @@ class RSSConfiguration extends Model {
 		$confDAO = new RSSConfigurationDAO ();
 		$this->_language ($confDAO->language);
 		$this->_postsPerPage ($confDAO->posts_per_page);
+		$this->_viewMode ($confDAO->view_mode);
 		$this->_defaultView ($confDAO->default_view);
 		$this->_displayPosts ($confDAO->display_posts);
 		$this->_lazyload ($confDAO->lazyload);
@@ -40,6 +42,9 @@ class RSSConfiguration extends Model {
 	}
 	public function postsPerPage () {
 		return $this->posts_per_page;
+	}
+	public function viewMode () {
+		return $this->view_mode;
 	}
 	public function defaultView () {
 		return $this->default_view;
@@ -89,6 +94,13 @@ class RSSConfiguration extends Model {
 			$this->posts_per_page = $value;
 		} else {
 			$this->posts_per_page = 10;
+		}
+	}
+	public function _viewMode ($value) {
+		if ($value == 'global' || $value == 'reader') {
+			$this->view_mode = $value;
+		} else {
+			$this->view_mode = 'normal';
 		}
 	}
 	public function _defaultView ($value) {
@@ -154,6 +166,7 @@ class RSSConfiguration extends Model {
 class RSSConfigurationDAO extends Model_array {
 	public $language = 'en';
 	public $posts_per_page = 20;
+	public $view_mode = 'normal';
 	public $default_view = 'not_read';
 	public $display_posts = 'no';
 	public $lazyload = 'yes';
@@ -184,6 +197,9 @@ class RSSConfigurationDAO extends Model_array {
 		}
 		if (isset ($this->array['posts_per_page'])) {
 			$this->posts_per_page = $this->array['posts_per_page'];
+		}
+		if (isset ($this->array['view_mode'])) {
+			$this->view_mode = $this->array['view_mode'];
 		}
 		if (isset ($this->array['default_view'])) {
 			$this->default_view = $this->array['default_view'];

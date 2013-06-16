@@ -140,6 +140,7 @@ class configureController extends ActionController {
 		if (Request::isPost ()) {
 			$language = Request::param ('language', 'en');
 			$nb = Request::param ('posts_per_page', 10);
+			$mode = Request::param ('view_mode', 'normal');
 			$view = Request::param ('default_view', 'all');
 			$display = Request::param ('display_posts', 'no');
 			$lazyload = Request::param ('lazyload', 'yes');
@@ -153,6 +154,7 @@ class configureController extends ActionController {
 
 			$this->view->conf->_language ($language);
 			$this->view->conf->_postsPerPage (intval ($nb));
+			$this->view->conf->_viewMode ($mode);
 			$this->view->conf->_defaultView ($view);
 			$this->view->conf->_displayPosts ($display);
 			$this->view->conf->_lazyload ($lazyload);
@@ -169,6 +171,7 @@ class configureController extends ActionController {
 			$values = array (
 				'language' => $this->view->conf->language (),
 				'posts_per_page' => $this->view->conf->postsPerPage (),
+				'view_mode' => $this->view->conf->viewMode (),
 				'default_view' => $this->view->conf->defaultView (),
 				'display_posts' => $this->view->conf->displayPosts (),
 				'lazyload' => $this->view->conf->lazyload (),

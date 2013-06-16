@@ -6,13 +6,19 @@ class indexController extends ActionController {
 	private $mode = 'all';
 
 	public function indexAction () {
-		if (Request::param ('output') == 'rss') {
+		$output = Request::param ('output');
+
+		if ($output == 'rss') {
 			$this->view->_useLayout (false);
 		} else {
 			View::appendScript (Url::display ('/scripts/shortcut.js'));
 			View::appendScript (Url::display (array ('c' => 'javascript', 'a' => 'main')));
 			View::appendScript (Url::display (array ('c' => 'javascript', 'a' => 'actualize')));
 			View::appendScript (Url::display ('/scripts/endless_mode.js'));
+
+			if(!$output) {
+				Request::_param ('output', $this->view->conf->viewMode());
+			}
 		}
 
 		$entryDAO = new EntryDAO ();

@@ -46,6 +46,11 @@
 		<div class="form-group">
 			<label class="group-name"><?php echo Translate::t ('default_view'); ?></label>
 			<div class="group-controls">
+				<select name="view_mode" id="view_mode">
+					<option value="normal"<?php echo $this->conf->viewMode () == 'normal' ? ' selected="selected"' : ''; ?>><?php echo Translate::t ('normal_view'); ?></option>
+					<option value="reader"<?php echo $this->conf->viewMode () == 'reader' ? ' selected="selected"' : ''; ?>><?php echo Translate::t ('reader_view'); ?></option>
+					<option value="global"<?php echo $this->conf->viewMode () == 'global' ? ' selected="selected"' : ''; ?>><?php echo Translate::t ('global_view'); ?></option>
+				</select>
 				<label class="radio" for="radio_all">
 					<input type="radio" name="default_view" id="radio_all" value="all"<?php echo $this->conf->defaultView () == 'all' ? ' checked="checked"' : ''; ?> />
 					<?php echo Translate::t ('show_all_articles'); ?>
