@@ -105,6 +105,32 @@ function mark_favorite (active) {
 	});
 }
 
+function prev_entry() {
+	old_active = $(".flux.active");
+	last_active = $(".flux:last");
+	new_active = old_active.prevAll (".flux:first");
+
+	if (new_active.hasClass("flux")) {
+		toggleContent (new_active, old_active);
+	} else if (old_active[0] === undefined &&
+	           new_active[0] === undefined) {
+		toggleContent (last_active, old_active);
+	}
+}
+
+function next_entry() {
+	old_active = $(".flux.active");
+	first_active = $(".flux:first");
+	new_active = old_active.nextAll (".flux:first");
+
+	if (new_active.hasClass("flux")) {
+		toggleContent (new_active, old_active);
+	} else if (old_active[0] === undefined &&
+	           new_active[0] === undefined) {
+		toggleContent (first_active, old_active);
+	}
+}
+
 function init_img () {
 	$(".flux_content .content img").each (function () {
 		if ($(this).width () > ($(".flux_content .content").width()) / 2) {
@@ -206,18 +232,7 @@ function init_shortcuts () {
 	});
 
 	// Touches de navigation
-	shortcut.add("<?php echo $s['prev_entry']; ?>", function () {
-		old_active = $(".flux.active");
-		last_active = $(".flux:last");
-		new_active = old_active.prevAll (".flux:first");
-
-		if (new_active.hasClass("flux")) {
-			toggleContent (new_active, old_active);
-		} else if (old_active[0] === undefined &&
-		           new_active[0] === undefined) {
-			toggleContent (last_active, old_active);
-		}
-	}, {
+	shortcut.add("<?php echo $s['prev_entry']; ?>", prev_entry, {
 		'disable_in_input':true
 	});
 	shortcut.add("shift+<?php echo $s['prev_entry']; ?>", function () {
@@ -230,18 +245,7 @@ function init_shortcuts () {
 	}, {
 		'disable_in_input':true
 	});
-	shortcut.add("<?php echo $s['next_entry']; ?>", function () {
-		old_active = $(".flux.active");
-		first_active = $(".flux:first");
-		new_active = old_active.nextAll (".flux:first");
-
-		if (new_active.hasClass("flux")) {
-			toggleContent (new_active, old_active);
-		} else if (old_active[0] === undefined &&
-		           new_active[0] === undefined) {
-			toggleContent (first_active, old_active);
-		}
-	}, {
+	shortcut.add("<?php echo $s['next_entry']; ?>", next_entry, {
 		'disable_in_input':true
 	});
 	shortcut.add("shift+<?php echo $s['next_entry']; ?>", function () {
@@ -281,6 +285,17 @@ function init_shortcuts () {
 	});
 }
 
+function init_nav_entries() {
+	$('.nav_entries a.previous_entry').click(function() {
+		prev_entry();
+		return false;
+	});
+	$('.nav_entries a.next_entry').click(function() {
+		next_entry();
+		return false;
+	});
+}
+
 $(document).ready (function () {
 	if(is_reader_mode()) {
 		hide_posts = false;
@@ -288,4 +303,5 @@ $(document).ready (function () {
 	init_posts ();
 	init_column_categories ();
 	init_shortcuts ();
+	init_nav_entries();
 });

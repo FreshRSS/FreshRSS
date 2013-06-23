@@ -517,6 +517,14 @@ input, select, textarea {
 		background-image: url("icons/up.png");
 		background-image: url("icons/up.svg");
 	}
+	.icon.i_next {
+		background-image: url("icons/next.png");
+		background-image: url("icons/next.svg");
+	}
+	.icon.i_prev {
+		background-image: url("icons/previous.png");
+		background-image: url("icons/previous.svg");
+	}
 	.icon.i_help {
 		background-image: url("icons/help.png");
 		background-image: url("icons/help.svg");
