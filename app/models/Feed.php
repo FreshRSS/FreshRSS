@@ -292,7 +292,7 @@ class FeedDAO extends Model_pdo {
 	}
 
 	public function updateLastUpdate ($id) {
-		$sql = 'UPDATE feed SET lastUpdate=? WHERE id=?';
+		$sql = 'UPDATE feed SET lastUpdate=?, error=0 WHERE id=?';
 		$stm = $this->bd->prepare ($sql);
 
 		$values = array (

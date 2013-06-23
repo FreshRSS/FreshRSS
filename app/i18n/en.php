@@ -119,7 +119,7 @@ return array (
 	'or'				=> 'or',
 
 	'informations'			=> 'Informations',
-	'feed_in_error'			=> 'This feed has encountered a problem. Please verify that it is always reachable.',
+	'feed_in_error'			=> 'This feed has encountered a problem. Please verify that it is always reachable then actualize it.',
 	'website_url'			=> 'Website URL',
 	'feed_url'			=> 'Feed URL',
 	'number_articles'		=> 'Number of articles',
