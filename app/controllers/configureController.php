@@ -149,7 +149,7 @@ class configureController extends ActionController {
 			$mail = Request::param ('mail_login', false);
 			$openArticle = Request::param ('mark_open_article', 'no');
 			$openSite = Request::param ('mark_open_site', 'no');
-			$openPage = Request::param ('mark_open_page', 'no');
+			$scroll = Request::param ('mark_scroll', 'no');
 			$urlShaarli = Request::param ('shaarli', '');
 
 			$this->view->conf->_language ($language);
@@ -164,7 +164,7 @@ class configureController extends ActionController {
 			$this->view->conf->_markWhen (array (
 				'article' => $openArticle,
 				'site' => $openSite,
-				'page' => $openPage,
+				'scroll' => $scroll,
 			));
 			$this->view->conf->_urlShaarli ($urlShaarli);
 

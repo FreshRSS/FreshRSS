@@ -111,9 +111,9 @@
 					<input type="checkbox" name="mark_open_site" id="check_open_site" value="yes"<?php echo $this->conf->markWhenSite () == 'yes' ? ' checked="checked"' : ''; ?> />
 					<?php echo Translate::t ('article_open_on_website'); ?>
 				</label>
-				<label class="checkbox" for="check_open_page">
-					<input type="checkbox" name="mark_open_page" id="check_open_page" value="yes"<?php echo $this->conf->markWhenPage () == 'yes' ? ' checked="checked"' : ''; ?> />
-					<?php echo Translate::t ('page_loaded'); ?>
+				<label class="checkbox" for="check_scroll">
+					<input type="checkbox" name="mark_scroll" id="check_scroll" value="yes"<?php echo $this->conf->markWhenScroll () == 'yes' ? ' checked="checked"' : ''; ?> />
+					<?php echo Translate::t ('scroll'); ?>
 				</label>
 			</div>
 		</div>

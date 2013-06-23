@@ -153,7 +153,7 @@ class indexController extends ActionController {
 			);
 		}
 
-		View::prependTitle (Translate::t ('see_logs') . ' - ');
+		View::prependTitle (Translate::t ('logs') . ' - ');
 
 		$logs = array();
 		try {

@@ -153,7 +153,7 @@ return array (
 	'auto_read_when'		=> 'Mark automatically as read when',
 	'article_selected'		=> 'Article is selected',
 	'article_open_on_website'	=> 'Article is opened on its original website',
-	'page_loaded'			=> 'Page is loaded',
+	'scroll'			=> 'Page scrolls',
 	'your_shaarli'			=> 'Your Shaarli',
 	'sharing'			=> 'Sharing',
 	'share'				=> 'Share',

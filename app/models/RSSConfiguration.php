@@ -76,8 +76,8 @@ class RSSConfiguration extends Model {
 	public function markWhenSite () {
 		return $this->mark_when['site'];
 	}
-	public function markWhenPage () {
-		return $this->mark_when['page'];
+	public function markWhenScroll () {
+		return $this->mark_when['scroll'];
 	}
 	public function urlShaarli () {
 		return $this->url_shaarli;
@@ -151,9 +151,19 @@ class RSSConfiguration extends Model {
 		}
 	}
 	public function _markWhen ($values) {
+		if(!isset($values['article'])) {
+			$values['article'] = 'yes';
+		}
+		if(!isset($values['site'])) {
+			$values['site'] = 'yes';
+		}
+		if(!isset($values['scroll'])) {
+			$values['scroll'] = 'yes';
+		}
+
 		$this->mark_when['article'] = $values['article'];
 		$this->mark_when['site'] = $values['site'];
-		$this->mark_when['page'] = $values['page'];
+		$this->mark_when['scroll'] = $values['scroll'];
 	}
 	public function _urlShaarli ($value) {
 		$this->url_shaarli = '';
@@ -185,7 +195,7 @@ class RSSConfigurationDAO extends Model_array {
 	public $mark_when = array (
 		'article' => 'yes',
 		'site' => 'yes',
-		'page' => 'no'
+		'scroll' => 'no'
 	);
 	public $url_shaarli = '';
 

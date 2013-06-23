@@ -58,6 +58,12 @@ function mark_read (active, only_not_read) {
 		return false;
 	}
 
+	if (active.hasClass ("not_read")) {
+		active.removeClass ("not_read");
+	} else {
+		active.addClass ("not_read");
+	}
+
 	url =  active.find ("a.read").attr ("href");
 	if (url === undefined) {
 		return false;
@@ -71,11 +77,6 @@ function mark_read (active, only_not_read) {
 		res = jQuery.parseJSON(data);
 
 		active.find ("a.read").attr ("href", res.url);
-		if (active.hasClass ("not_read")) {
-			active.removeClass ("not_read");
-		} else {
-			active.addClass ("not_read");
-		}
 	});
 }
 
@@ -139,14 +140,19 @@ function init_img () {
 	});
 }
 
-function init_posts () {
-	<?php if ($mark['page'] == 'yes') { ?>
-	if ($(".flux.not_read")[0] != undefined) {
-		url = $(".nav_menu a.read_all").attr ("href");
-		redirect (url, false);
-	}
-	<?php } ?>
+function inMarkViewport(flux) {
+	var top = flux.position().top;
+	var height = flux.height();
+	var begin = top + 3 * height / 4;
+	var bot = top + height;
 
+	var windowTop = $(window).scrollTop();
+	var windowBot = windowTop + $(window).height();
+
+	return (windowBot >= begin && windowBot <= bot);
+}
+
+function init_posts () {
 	init_img ();
 	<?php if($this->conf->lazyload() == 'yes') { ?>
 	$(".flux .content img").lazyload();
@@ -184,6 +190,17 @@ function init_posts () {
 	<?php if ($mark['site'] == 'yes') { ?>
 	$(".flux .link a").click (function () {
 		mark_read($(this).parent().parent().parent(), true);
+	});
+	<?php } ?>
+
+	<?php if ($mark['scroll'] == 'yes') { ?>
+	var flux = $('.flux');
+	$(window).scroll(function() {
+		flux.each(function() {
+			if($(this).hasClass('not_read') && inMarkViewport($(this))) {
+				mark_read($(this), true);
+			}
+		});
 	});
 	<?php } ?>
 }

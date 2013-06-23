@@ -153,7 +153,7 @@ return array (
 	'auto_read_when'		=> 'Marquer automatiquement comme lu lorsque',
 	'article_selected'		=> 'L\'article est sélectionné',
 	'article_open_on_website'	=> 'L\'article est ouvert sur le site d\'origine',
-	'page_loaded'			=> 'La page est chargée',
+	'scroll'			=> 'Au défilement de la page',
 	'your_shaarli'			=> 'Votre Shaarli',
 	'sharing'			=> 'Partage',
 	'share'				=> 'Partager',

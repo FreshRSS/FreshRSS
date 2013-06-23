@@ -64,6 +64,21 @@ if (isset ($this->entryPaginator) && !$this->entryPaginator->isEmpty ()) {
 			</div>
 
 			<ul class="horizontal-list bottom">
+				<?php if (!login_is_conf ($this->conf) || is_logged ()) { ?>
+				<li class="item manage">
+					<?php if (!$item->isRead ()) { ?>
+					<a class="read" href="<?php echo _url ('entry', 'read', 'id', $item->id (), 'is_read', 1); ?>">&nbsp;</a>
+					<?php } else { ?>
+					<a class="read" href="<?php echo _url ('entry', 'read', 'id', $item->id (), 'is_read', 0); ?>">&nbsp;</a>
+					<?php } ?>
+
+					<?php if (!$item->isFavorite ()) { ?>
+					<a class="bookmark" href="<?php echo _url ('entry', 'bookmark', 'id', $item->id (), 'is_favorite', 1); ?>">&nbsp;</a>
+					<?php } else { ?>
+					<a class="bookmark" href="<?php echo _url ('entry', 'bookmark', 'id', $item->id (), 'is_favorite', 0); ?>">&nbsp;</a>
+					<?php } ?>
+				</li>
+				<?php } ?>
 				<li class="item">
 					<div class="dropdown">
 						<div id="dropdown-share-<?php echo $item->id ();?>" class="dropdown-target"></div>
