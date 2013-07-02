@@ -1,5 +1,5 @@
 # FreshRSS
-FreshRSS est un simple agrégateur de flux RSS.
+FreshRSS est un agrégateur de flux RSS à auto-héberger à l'image de [RSSLounge](http://rsslounge.aditu.de/), [TinyTinyRSS](http://tt-rss.org/redmine/projects/tt-rss/wiki) ou [Leed](http://projet.idleman.fr/leed/). Il se veut léger et facile à prendre en main tout en étant un outil puissant et paramétrable. L'objectif étant d'offrir une alternative sérieuse à Google Reader.
 
 * Site officiel : http://marienfressinaud.github.io/FreshRSS/
 * Démo : http://marienfressinaud.fr/projets/freshrss/
@@ -7,6 +7,8 @@ FreshRSS est un simple agrégateur de flux RSS.
 * Version actuelle : 0.4.0
 * Date de publication 2013-07-02
 * License AGPL3
+
+![Capture d'écran de FreshRSS](http://marienfressinaud.fr/data/files/wiki_freshrss/freshrss_normal_view.png)
 
 # Disclaimer
 Cette application a été développée pour s'adapter à mes besoins personnels.
@@ -24,7 +26,7 @@ Privilégiez pour cela des demandes sur GitHub
 * PDO et MySQL
 
 # Installation
-1. Récupérez l'application FreshRSS via la commande git ou en téléchargeant l'archive
+1. Récupérez l'application FreshRSS via la commande git ou [en téléchargeant l'archive](https://github.com/marienfressinaud/FreshRSS/archive/master.zip)
 2. Déplacez l'application où vous voulez sur votre serveur (attention, la partie accessible se trouve dans le répertoire `./public`)
 3. Accédez à FreshRSS à travers votre navigateur web et suivez les instructions d'installation
 4. Tout devrait fonctionner :) En cas de problème, n'hésitez pas à me contacter.
@@ -54,7 +56,7 @@ Privilégiez pour cela des demandes sur GitHub
 * Possibilité d'importer des flux sans catégorie lors de l'import OPML
 * Suppression de "l'API" (qui était de toutes façons très basique) et de la fonctionnalité de "notes"
 * Amélioration de la recherche (garde en mémoire si l'on a sélectionné une catégorie) par exemple
-* Modification apparence des balises <hr> et <pre>
+* Modification apparence des balises hr et pre
 * Meilleure vérification des champs de formulaire
 * Remise en place du mode "endless" (permettant de simplement charger les articles qui suivent plutôt que de charger une nouvelle page)
 * Ajout d'une page de visualisation des logs
