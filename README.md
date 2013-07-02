@@ -4,8 +4,8 @@ FreshRSS est un simple agrégateur de flux RSS.
 * Site officiel : http://marienfressinaud.github.io/FreshRSS/
 * Démo : http://marienfressinaud.fr/projets/freshrss/
 * Développeur : Marien Fressinaud <dev@marienfressinaud.fr>
-* Version actuelle : 0.3.0
-* Date de publication 2013-05-05
+* Version actuelle : 0.4.0
+* Date de publication 2013-07-02
 * License AGPL3
 
 # Disclaimer
@@ -39,7 +39,31 @@ Privilégiez pour cela des demandes sur GitHub
 ```
 
 # Changelog
-2013-05-05 changes with FreshRSS 0.3.0
+## 2013-07-02 changes with FreshRSS 0.4.0
+
+* Correction bug et ajout notification lors de la phase d'installation
+* Affichage d'erreur si fichier OPML invalide
+* Les tags sont maintenant cliquables pour filtrer dessus
+* Amélioration vue mobile (boutons plus gros et ajout d'une barre de navigation)
+* Possibilité d'ajouter directement un flux dans une catégorie dès son ajout
+* Affichage des flux en erreur (injoignable par exemple) en rouge pour les différencier
+* Possiblité de changer les noms des flux
+* Ajout d'une option (désactivable donc) pour charger les images en lazyload permettant de ne pas charger toutes les images d'un coup
+* Le framework Minz est maintenant directement inclus dans l'archive (plus besoin de passer par ./build.sh)
+* Amélioration des performances pour la récupération des flux tronqués
+* Possibilité d'importer des flux sans catégorie lors de l'import OPML
+* Suppression de "l'API" (qui était de toutes façons très basique) et de la fonctionnalité de "notes"
+* Amélioration de la recherche (garde en mémoire si l'on a sélectionné une catégorie) par exemple
+* Modification apparence des balises <hr> et <pre>
+* Meilleure vérification des champs de formulaire
+* Remise en place du mode "endless" (permettant de simplement charger les articles qui suivent plutôt que de charger une nouvelle page)
+* Ajout d'une page de visualisation des logs
+* Ajout d'une option pour optimiser la BDD (diminue sa taille)
+* Ajout des vues lecture et globale (assez basique)
+* Les vidéos Youtube ne débordent plus du cadre sur les petits écrans
+* Ajout d'une option pour marquer les articles comme lus lors du défilement (et suppression de celle au chargement de la page)
+
+## 2013-05-05 changes with FreshRSS 0.3.0
 
 * Fallback pour les icônes SVG (utilisation de PNG à la place)
 * Fallback pour les propriétés CSS3 (utilisation de préfixes)
@@ -53,7 +77,7 @@ Privilégiez pour cela des demandes sur GitHub
 * Création d'un vrai script CRON permettant de mettre tous les flux à jour
 * Correction bugs divers
 
-2013-04-17 changes with FreshRSS 0.2.0
+## 2013-04-17 changes with FreshRSS 0.2.0
 
 * Création d'un installateur
 * Actualisation des flux en Ajax
@@ -70,6 +94,6 @@ Privilégiez pour cela des demandes sur GitHub
 * Flux sans auteurs gérés normalement
 * Correction bugs divers
 
-2013-04-08 changes with FreshRSS 0.1.0
+## 2013-04-08 changes with FreshRSS 0.1.0
 
 * "Première" version
