@@ -188,6 +188,7 @@ input, select, textarea {
 	line-height: 20px;
 	vertical-align: middle;
 	cursor: pointer;
+	overflow: hidden;
 }
 	a.btn {
 		min-height: 25px;

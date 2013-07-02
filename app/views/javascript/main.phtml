@@ -163,7 +163,9 @@ function init_posts () {
 		$(".flux:not(.active) .flux_content").hide ();
 	}
 
-	$(".flux_header .item.title, .flux_header .item.date").click (function () {
+	var flux_header_toggle = $(".flux_header .item.title, .flux_header .item.date");
+	flux_header_toggle.unbind('click'); // évite d'associer 2 fois le toggle
+	flux_header_toggle.click (function () {
 		old_active = $(".flux.active");
 		new_active = $(this).parent ().parent ();
 
