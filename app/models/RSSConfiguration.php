@@ -7,8 +7,10 @@ class RSSConfiguration extends Model {
 	);
 	private $language;
 	private $posts_per_page;
+	private $view_mode;
 	private $default_view;
 	private $display_posts;
+	private $lazyload;
 	private $sort_order;
 	private $old_entries;
 	private $shortcuts = array ();
@@ -20,8 +22,10 @@ class RSSConfiguration extends Model {
 		$confDAO = new RSSConfigurationDAO ();
 		$this->_language ($confDAO->language);
 		$this->_postsPerPage ($confDAO->posts_per_page);
+		$this->_viewMode ($confDAO->view_mode);
 		$this->_defaultView ($confDAO->default_view);
 		$this->_displayPosts ($confDAO->display_posts);
+		$this->_lazyload ($confDAO->lazyload);
 		$this->_sortOrder ($confDAO->sort_order);
 		$this->_oldEntries ($confDAO->old_entries);
 		$this->_shortcuts ($confDAO->shortcuts);
@@ -39,11 +43,17 @@ class RSSConfiguration extends Model {
 	public function postsPerPage () {
 		return $this->posts_per_page;
 	}
+	public function viewMode () {
+		return $this->view_mode;
+	}
 	public function defaultView () {
 		return $this->default_view;
 	}
 	public function displayPosts () {
 		return $this->display_posts;
+	}
+	public function lazyload () {
+		return $this->lazyload;
 	}
 	public function sortOrder () {
 		return $this->sort_order;
@@ -66,8 +76,8 @@ class RSSConfiguration extends Model {
 	public function markWhenSite () {
 		return $this->mark_when['site'];
 	}
-	public function markWhenPage () {
-		return $this->mark_when['page'];
+	public function markWhenScroll () {
+		return $this->mark_when['scroll'];
 	}
 	public function urlShaarli () {
 		return $this->url_shaarli;
@@ -80,10 +90,17 @@ class RSSConfiguration extends Model {
 		$this->language = $value;
 	}
 	public function _postsPerPage ($value) {
-		if (is_int (intval ($value))) {
+		if (is_int (intval ($value)) && $value > 0) {
 			$this->posts_per_page = $value;
 		} else {
 			$this->posts_per_page = 10;
+		}
+	}
+	public function _viewMode ($value) {
+		if ($value == 'global' || $value == 'reader') {
+			$this->view_mode = $value;
+		} else {
+			$this->view_mode = 'normal';
 		}
 	}
 	public function _defaultView ($value) {
@@ -100,6 +117,13 @@ class RSSConfiguration extends Model {
 			$this->display_posts = 'no';
 		}
 	}
+	public function _lazyload ($value) {
+		if ($value == 'no') {
+			$this->lazyload = 'no';
+		} else {
+			$this->lazyload = 'yes';
+		}
+	}
 	public function _sortOrder ($value) {
 		if ($value == 'high_to_low') {
 			$this->sort_order = 'high_to_low';
@@ -108,7 +132,7 @@ class RSSConfiguration extends Model {
 		}
 	}
 	public function _oldEntries ($value) {
-		if (is_int (intval ($value))) {
+		if (is_int (intval ($value)) && $value > 0) {
 			$this->old_entries = $value;
 		} else {
 			$this->old_entries = 3;
@@ -127,9 +151,19 @@ class RSSConfiguration extends Model {
 		}
 	}
 	public function _markWhen ($values) {
+		if(!isset($values['article'])) {
+			$values['article'] = 'yes';
+		}
+		if(!isset($values['site'])) {
+			$values['site'] = 'yes';
+		}
+		if(!isset($values['scroll'])) {
+			$values['scroll'] = 'yes';
+		}
+
 		$this->mark_when['article'] = $values['article'];
 		$this->mark_when['site'] = $values['site'];
-		$this->mark_when['page'] = $values['page'];
+		$this->mark_when['scroll'] = $values['scroll'];
 	}
 	public function _urlShaarli ($value) {
 		$this->url_shaarli = '';
@@ -142,8 +176,10 @@ class RSSConfiguration extends Model {
 class RSSConfigurationDAO extends Model_array {
 	public $language = 'en';
 	public $posts_per_page = 20;
+	public $view_mode = 'normal';
 	public $default_view = 'not_read';
 	public $display_posts = 'no';
+	public $lazyload = 'yes';
 	public $sort_order = 'low_to_high';
 	public $old_entries = 3;
 	public $shortcuts = array (
@@ -159,7 +195,7 @@ class RSSConfigurationDAO extends Model_array {
 	public $mark_when = array (
 		'article' => 'yes',
 		'site' => 'yes',
-		'page' => 'no'
+		'scroll' => 'no'
 	);
 	public $url_shaarli = '';
 
@@ -172,11 +208,17 @@ class RSSConfigurationDAO extends Model_array {
 		if (isset ($this->array['posts_per_page'])) {
 			$this->posts_per_page = $this->array['posts_per_page'];
 		}
+		if (isset ($this->array['view_mode'])) {
+			$this->view_mode = $this->array['view_mode'];
+		}
 		if (isset ($this->array['default_view'])) {
 			$this->default_view = $this->array['default_view'];
 		}
 		if (isset ($this->array['display_posts'])) {
 			$this->display_posts = $this->array['display_posts'];
+		}
+		if (isset ($this->array['lazyload'])) {
+			$this->lazyload = $this->array['lazyload'];
 		}
 		if (isset ($this->array['sort_order'])) {
 			$this->sort_order = $this->array['sort_order'];

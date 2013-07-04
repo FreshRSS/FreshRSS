@@ -77,6 +77,7 @@
 	}
 
 .favicon {
+	height: 16px;
 	width: 16px;
 }
 
@@ -113,6 +114,9 @@
 			content: "⇢";
 			line-height: 35px;
 			float: right;
+		}
+		.categories .feeds .item.error .feed {
+			color: #BD362F;
 		}
 		.categories .feeds .item .feed {
 			display: inline-block;
@@ -197,39 +201,39 @@
 		line-height: 25px;
 		border-top: 1px solid #ddd;
 	}
-		.flux_header .item.manage {
-			width: 60px;
+		.item.manage {
+			width: 80px;
 			white-space: nowrap;
 			font-size: 0px;
 			text-align: center;
 		}
-			.flux_header .item.manage .read {
+			.item.manage .read {
 				display: inline-block;
-				width: 30px;
+				width: 40px;
 				height: 40px;
 				background: url("icons/read.png") center center no-repeat;
 				background: url("icons/read.svg") center center no-repeat;
 				vertical-align: middle;
 			}
-				.flux_header .item.manage .read:hover {
+				.item.manage .read:hover {
 					text-decoration: none;
 				}
-				.flux.not_read .flux_header .item.manage .read {
+				.flux.not_read .item.manage .read {
 					background: url("icons/unread.png") center center no-repeat;
 					background: url("icons/unread.svg") center center no-repeat;
 				}
-			.flux_header .item.manage .bookmark {
+			.item.manage .bookmark {
 				display: inline-block;
-				width: 30px;
+				width: 40px;
 				height: 40px;
 				background: url("icons/non-starred.png") center center no-repeat;
 				background: url("icons/non-starred.svg") center center no-repeat;
 				vertical-align: middle;
 			}
-				.flux_header .item.manage .bookmark:hover {
+				.item.manage .bookmark:hover {
 					text-decoration: none;
 				}
-				.flux.favorite .flux_header .item.manage .bookmark {
+				.flux.favorite .item.manage .bookmark {
 					background: url("icons/starred.png") center center no-repeat;
 					background: url("icons/starred.svg") center center no-repeat;
 				}
@@ -240,9 +244,11 @@
 			text-overflow: ellipsis;
 			line-height: 40px;
 		}
+			.flux_header .item.website .favicon {
+				padding: 5px;
+			}
 			.flux_header .item.website a {
 				display: block;
-				padding: 0 5px;
 				height: 40px;
 			}
 		.flux_header .item.title {
@@ -265,12 +271,12 @@
 			cursor: pointer;
 		}
 		.flux_header .item.link {
-			width: 35px;
+			width: 40px;
 			text-align: center;
 		}
 			.flux_header .item.link a {
 				display: inline-block;
-				width: 35px;
+				width: 40px;
 				height: 40px;
 				background: url("icons/link.png") center center no-repeat;
 				background: url("icons/link.svg") center center no-repeat;
@@ -280,12 +286,64 @@
 					text-decoration: none;
 				}
 
+#stream.reader .flux {
+	padding: 0 0 30px;
+	border: none;
+	background: #f0f0f0;
+	color: #333;
+}
+	#stream.reader .flux .author {
+		margin: 0 0 10px;
+		font-size: 90%;
+		color: #666;
+	}
+
+#stream.global {
+	text-align: center;
+}
+	#stream.global .category {
+		display: inline-block;
+		width: 280px;
+		margin: 20px 10px;
+		vertical-align: top;
+		background: #fff;
+		border: 1px solid #aaa;
+		border-radius: 5px;
+		text-align: left;
+		box-shadow: 0 0 5px #bbb;
+	}
+		#stream.global .cat_header {
+			height: 35px;
+			padding: 0 10px;
+			background: #eee;
+			border-bottom: 1px solid #aaa;
+			border-radius: 5px 5px 0 0;
+			line-height: 35px;
+			font-size: 120%;
+		}
+			#stream.global .cat_header a {
+				color: #333;
+				text-shadow: 0 -1px 0px #aaa;
+			}
+		#stream.global .category .feeds {
+			max-height: 250px;
+			margin: 0;
+			list-style: none;
+			overflow: auto;
+		}
+			#stream.global .category .feeds .item {
+				padding: 2px 10px;
+				font-size: 90%;
+			}
+
 .content {
+	min-height: 300px;
 	max-width: 550px;
 	margin: 0 auto;
 	padding: 20px 10px;
 	line-height: 170%;
 	font-family: 'OpenSans';
+	word-wrap: break-word;
 }
 	.content .title {
 		margin: 0 0 5px;
@@ -301,15 +359,19 @@
 		display: block;
 		margin: 10px auto;
 	}
+	.content hr {
+		margin: 30px 0;
+		height: 1px;
+		background: #ddd;
+		border: 0;
+	}
 	.content pre {
-		width: 90%;
 		margin: 10px auto;
 		padding: 10px;
 		overflow: auto;
-		background: #666;
-		border: 1px solid #000;
-		color: #fafafa;
-		border-radius: 5px;
+		background: #000;
+		color: #fff;
+		font-size: 110%;
 	}
 	.content q, .content blockquote {
 		display: block;
@@ -342,19 +404,38 @@
 }
 	.pagination .item {
 		display: table-cell;
-		padding: 5px 10px;
-		border-top: 1px solid #aaa;
+		line-height: 40px;
 	}
+		.pagination .item.pager-current {
+			font-weight: bold;
+			font-size: 140%;
+		}
+		.pagination .item.pager-first,
+		.pagination .item.pager-previous,
+		.pagination .item.pager-next,
+		.pagination .item.pager-last {
+			width: 100px;
+		}
 		.pagination .item a {
+			display: block;
 			color: #333;
 			font-style: italic;
 		}
-	.pagination .pager-previous, .pagination .pager-next {
-		width: 200px;
+	.pagination:first-child .item {
+		border-bottom: 1px solid #aaa;
 	}
-	.pagination .item.pager-current {
-		font-weight: bold;
+	.pagination:last-child .item {
+		border-top: 1px solid #aaa;
 	}
+
+.nav_entries {
+	display: none;
+}
+
+.loading {
+	background: url("loader.gif") center center no-repeat;
+	font-size: 0;
+}
 
 /*** NOTIFICATION ***/
 .notification {
@@ -415,6 +496,33 @@
 		vertical-align: middle;
 	}
 
+.logs {
+	border: 1px solid #aaa;
+}
+	.logs .log {
+		padding: 5px 2%;
+		overflow: auto;
+		background: #fafafa;
+		border-bottom: 1px solid #999;
+		color: #333;
+		font-size: 90%;
+	}
+		.logs .log .date {
+			display: block;
+		}
+	.logs .log.error {
+		background: #fdd;
+		color: #844;
+	}
+	.logs .log.warning {
+		background: #ffe;
+		color: #c95;
+	}
+	.logs .log.notice {
+		background: #f4f4f4;
+		color: #aaa;
+	}
+
 @media(max-width: 840px) {
 	.header,
 	.aside .btn-important,
@@ -425,8 +533,19 @@
 		display: none;
 	}
 	.flux_header .item.website {
-		width: 30px;
+		width: 40px;
 		text-align: center;
+	}
+		.flux_header .item.website .favicon {
+			padding: 12px;
+		}
+
+	.content {
+		font-size: 120%;
+	}
+
+	.pagination {
+		margin: 0 0 40px;
 	}
 	.pagination .pager-previous, .pagination .pager-next {
 		width: 100px;
@@ -440,26 +559,53 @@
 		top: 0; left: 0;
 		width: 0;
 		overflow: hidden;
+		border-right: none;
 		z-index: 10;
 		transition: width 200ms linear;
 	}
 		.aside:target {
 			width: 80%;
+			border-right: 1px solid #aaa;
 			overflow: auto;
 		}
 		.aside .toggle_aside {
 			position: absolute;
 			right: 0;
 			display: inline-block;
-			width: 20px;
-			height: 20px;
+			width: 26px;
+			height: 26px;
 			margin: 0 10px 0 0;
 			border: 1px solid #ccc;
-			border-radius: 10px;
+			border-radius: 20px;
 			text-align: center;
-			line-height: 20px;
+			line-height: 26px;
 		}
 		.aside .categories {
 			margin: 30px 0;
 		}
+
+	.nav_entries {
+		display: table;
+		width: 100%;
+		height: 40px;
+		position: fixed;
+		bottom: 0;
+		margin: 0;
+		background: #fff;
+		border-top: 1px solid #ddd;
+		text-align: center;
+		line-height: 40px;
+		table-layout: fixed;
+	}
+		.nav_entries .item {
+			display: table-cell;
+			width: 30%;
+		}
+			.nav_entries .item a {
+				display: block;
+			}
+			.nav_entries .item .icon.i_up {
+				margin: 5px 0 0;
+				vertical-align: top;
+			}
 }

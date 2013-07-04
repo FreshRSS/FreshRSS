@@ -36,6 +36,7 @@ class App_FrontController extends FrontController {
 		include (APP_PATH . '/models/Entry.php');
 		include (APP_PATH . '/models/EntriesGetter.php');
 		include (APP_PATH . '/models/RSSPaginator.php');
+		include (APP_PATH . '/models/Log.php');
 	}
 
 	private function loadParamsView () {
@@ -56,6 +57,7 @@ class App_FrontController extends FrontController {
 			View::appendScript ('https://login.persona.org/include.js');
 		}
 		View::appendScript (Url::display ('/scripts/jquery.js'));
+		View::appendScript (Url::display ('/scripts/jquery.lazyload.min.js'));
 		View::appendScript (Url::display ('/scripts/notification.js'));
 	}
 

@@ -43,7 +43,7 @@
 
 	<?php if (!empty ($this->feeds)) { ?>
 	<?php foreach ($this->feeds as $feed) { ?>
-	<li class="item<?php echo ($this->flux && $this->flux->id () == $feed->id ()) ? ' active' : ''; ?>">
+	<li class="item<?php echo ($this->flux && $this->flux->id () == $feed->id ()) ? ' active' : ''; ?><?php echo $feed->inError () ? ' error' : ''; ?>">
 		<a href="<?php echo _url ('configure', 'feed', 'id', $feed->id ()); ?>">
 			<img class="favicon" src="<?php echo $feed->favicon (); ?>" alt="" />
 			<?php echo $feed->name (); ?>

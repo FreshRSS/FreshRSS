@@ -46,6 +46,11 @@
 		<div class="form-group">
 			<label class="group-name"><?php echo Translate::t ('default_view'); ?></label>
 			<div class="group-controls">
+				<select name="view_mode" id="view_mode">
+					<option value="normal"<?php echo $this->conf->viewMode () == 'normal' ? ' selected="selected"' : ''; ?>><?php echo Translate::t ('normal_view'); ?></option>
+					<option value="reader"<?php echo $this->conf->viewMode () == 'reader' ? ' selected="selected"' : ''; ?>><?php echo Translate::t ('reader_view'); ?></option>
+					<option value="global"<?php echo $this->conf->viewMode () == 'global' ? ' selected="selected"' : ''; ?>><?php echo Translate::t ('global_view'); ?></option>
+				</select>
 				<label class="radio" for="radio_all">
 					<input type="radio" name="default_view" id="radio_all" value="all"<?php echo $this->conf->defaultView () == 'all' ? ' checked="checked"' : ''; ?> />
 					<?php echo Translate::t ('show_all_articles'); ?>
@@ -64,6 +69,20 @@
 					<option value="low_to_high"<?php echo $this->conf->sortOrder () == 'low_to_high' ? ' selected="selected"' : ''; ?>><?php echo Translate::t ('newer_first'); ?></option>
 					<option value="high_to_low"<?php echo $this->conf->sortOrder () == 'high_to_low' ? ' selected="selected"' : ''; ?>><?php echo Translate::t ('older_first'); ?></option>
 				</select>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="group-name"><?php echo Translate::t ('img_with_lazyload'); ?></label>
+			<div class="group-controls">
+				<label class="radio" for="lazyload_yes">
+					<input type="radio" name="lazyload" id="lazyload_yes" value="yes"<?php echo $this->conf->lazyload () == 'yes' ? ' checked="checked"' : ''; ?> />
+					<?php echo Translate::t ('yes'); ?><noscript> - <b><?php echo Translate::t ('javascript_should_be_activated'); ?></b></noscript>
+				</label>
+				<label class="radio" for="lazyload_no">
+					<input type="radio" name="lazyload" id="lazyload_no" value="no"<?php echo $this->conf->lazyload () == 'no' ? ' checked="checked"' : ''; ?> />
+					<?php echo Translate::t ('no'); ?>
+				</label>
 			</div>
 		</div>
 
@@ -92,9 +111,9 @@
 					<input type="checkbox" name="mark_open_site" id="check_open_site" value="yes"<?php echo $this->conf->markWhenSite () == 'yes' ? ' checked="checked"' : ''; ?> />
 					<?php echo Translate::t ('article_open_on_website'); ?>
 				</label>
-				<label class="checkbox" for="check_open_page">
-					<input type="checkbox" name="mark_open_page" id="check_open_page" value="yes"<?php echo $this->conf->markWhenPage () == 'yes' ? ' checked="checked"' : ''; ?> />
-					<?php echo Translate::t ('page_loaded'); ?>
+				<label class="checkbox" for="check_scroll">
+					<input type="checkbox" name="mark_scroll" id="check_scroll" value="yes"<?php echo $this->conf->markWhenScroll () == 'yes' ? ' checked="checked"' : ''; ?> />
+					<?php echo Translate::t ('scroll'); ?>
 				</label>
 			</div>
 		</div>
@@ -104,6 +123,17 @@
 			<label class="group-name" for="shaarli"><?php echo Translate::t ('your_shaarli'); ?></label>
 			<div class="group-controls">
 				<input type="text" id="shaarli" name="shaarli" value="<?php echo $this->conf->urlShaarli (); ?>" placeholder="<?php echo Translate::t ('blank_to_disable'); ?>"/>
+			</div>
+		</div>
+
+		<legend><?php echo Translate::t ('advanced'); ?></legend>
+		<div class="form-group">
+			<label class="group-name"></label>
+			<div class="group-controls">
+				<a class="btn" href="<?php echo _url('entry', 'optimize'); ?>">
+					<?php echo Translate::t('optimize_bdd'); ?>
+				</a>
+				<i class="icon i_help"></i> <?php echo Translate::t('optimize_todo_sometimes'); ?>
 			</div>
 		</div>
 

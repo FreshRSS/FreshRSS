@@ -168,9 +168,8 @@ function saveStep3 () {
 	if (!empty ($_POST)) {
 		if (empty ($_POST['host']) ||
 		    empty ($_POST['user']) ||
-		    empty ($_POST['pass']) ||
 		    empty ($_POST['base'])) {
-			return false;
+			$_SESSION['bd_error'] = true;
 		}
 
 		$_SESSION['bd_host'] = $_POST['host'];
@@ -196,7 +195,10 @@ function saveStep3 () {
 		$res = checkBD ();
 
 		if ($res) {
+			$_SESSION['bd_error'] = false;
 			header ('Location: index.php?step=4');
+		} else {
+			$_SESSION['bd_error'] = true;
 		}
 	}
 }
@@ -275,11 +277,13 @@ function checkStep3 () {
 	      isset ($_SESSION['bd_user']) &&
 	      isset ($_SESSION['bd_pass']) &&
 	      isset ($_SESSION['bd_name']);
+	$conn = !isset ($_SESSION['bd_error']) || !$_SESSION['bd_error'];
 
 	return array (
 		'bd' => $bd ? 'ok' : 'ko',
+		'conn' => $conn ? 'ok' : 'ko',
 		'conf' => $conf ? 'ok' : 'ko',
-		'all' => $bd && $conf ? 'ok' : 'ko'
+		'all' => $bd && $conn && $conf ? 'ok' : 'ko'
 	);
 }
 function checkBD () {
@@ -358,8 +362,8 @@ function printStep1 () {
 	<p class="alert alert-error"><span class="alert-head"><?php echo _t ('damn'); ?></span> <?php echo _t ('minz_is_nok', LIB_PATH . '/minz'); ?></p>
 	<?php } ?>
 
-	<?php $version = curl_version(); ?>
 	<?php if ($res['curl'] == 'ok') { ?>
+	<?php $version = curl_version(); ?>
 	<p class="alert alert-success"><span class="alert-head"><?php echo _t ('ok'); ?></span> <?php echo _t ('curl_is_ok', $version['version']); ?></p>
 	<?php } else { ?>
 	<p class="alert alert-error"><span class="alert-head"><?php echo _t ('damn'); ?></span> <?php echo _t ('curl_is_nok'); ?></p>
@@ -467,6 +471,8 @@ function printStep3 () {
 ?>
 	<?php $s3 = checkStep3 (); if ($s3['all'] == 'ok') { ?>
 	<p class="alert alert-success"><span class="alert-head"><?php echo _t ('ok'); ?></span> <?php echo _t ('bdd_conf_is_ok'); ?></p>
+	<?php } elseif ($s3['conn'] == 'ko') { ?>
+	<p class="alert alert-error"><span class="alert-head"><?php echo _t ('damn'); ?></span> <?php echo _t ('bdd_conf_is_ko'); ?></p>
 	<?php } ?>
 
 	<form action="index.php?step=3" method="post">

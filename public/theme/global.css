@@ -50,6 +50,11 @@ img {
 		border: none;
 	}
 
+/* VIDEOS */
+iframe, embed, object {
+	max-width: 100%;
+}
+
 /* FORMULAIRES */
 legend {
 	display: block;
@@ -83,8 +88,8 @@ input, select, textarea {
 }
 	input[type="radio"],
 	input[type="checkbox"] {
-		width: 15px;
-		min-height: 15px;
+		width: 15px !important;
+		min-height: 15px !important;
 	}
 	input:focus, select:focus, textarea:focus {
 		color: #0062BE;
@@ -183,6 +188,7 @@ input, select, textarea {
 	line-height: 20px;
 	vertical-align: middle;
 	cursor: pointer;
+	overflow: hidden;
 }
 	a.btn {
 		min-height: 25px;
@@ -260,6 +266,13 @@ input, select, textarea {
 	}
 		.nav.nav-list a:hover {
 			text-decoration: none;
+		}
+	.nav.nav-list .item.error a {
+		color: #BD362F;
+	}
+		.nav.nav-list .item.active.error a {
+			color: #fff;
+			background: #BD362F;
 		}
 
 	.nav.nav-list .nav-header {
@@ -384,15 +397,19 @@ input, select, textarea {
 		display: inline-block;
 		position: absolute;
 		top: -16px; right: -16px;
-		width: 16px;
-		height: 16px;
-		padding: 5px;
+		width: 26px;
+		height: 26px;
 		background: #fff;
 		border-radius: 50px;
 		border: 1px solid #ddd;
-		line-height: 16px;
+		line-height: 26px;
 		text-align: center;
 	}
+		.dropdown .dropdown-close a {
+			display: block;
+			width: 100%;
+			height: 100%;
+		}
 		.dropdown .dropdown-close:hover {
 			background: #f4f4f4;
 		}
@@ -500,6 +517,14 @@ input, select, textarea {
 	.icon.i_up {
 		background-image: url("icons/up.png");
 		background-image: url("icons/up.svg");
+	}
+	.icon.i_next {
+		background-image: url("icons/next.png");
+		background-image: url("icons/next.svg");
+	}
+	.icon.i_prev {
+		background-image: url("icons/previous.png");
+		background-image: url("icons/previous.svg");
 	}
 	.icon.i_help {
 		background-image: url("icons/help.png");

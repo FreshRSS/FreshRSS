@@ -12,6 +12,7 @@ class Feed extends Model {
 	private $priority = 10;
 	private $pathEntries = '';
 	private $httpAuth = '';
+	private $error = false;
 
 	public function __construct ($url) {
 		$this->_url ($url);
@@ -68,6 +69,9 @@ class Feed extends Model {
 				'password' => $pass
 			);
 		}
+	}
+	public function inError () {
+		return $this->error;
 	}
 	public function nbEntries () {
 		$feedDAO = new FeedDAO ();
@@ -138,6 +142,14 @@ class Feed extends Model {
 	public function _httpAuth ($value) {
 		$this->httpAuth = $value;
 	}
+	public function _error ($value) {
+		if ($value) {
+			$value = true;
+		} else {
+			$value = false;
+		}
+		$this->error = $value;
+	}
 
 	public function load () {
 		if (!is_null ($this->url)) {
@@ -204,18 +216,7 @@ class Feed extends Model {
 				}
 			}
 
-			// Gestion du contenu
-			// On cherche à récupérer les articles en entier... même si le flux ne le propose pas
-			$path = $this->pathEntries ();
-			if ($path) {
-				try {
-					$content = get_content_by_parsing ($item->get_permalink (), $path);
-				} catch (Exception $e) {
-					$content = $item->get_content ();
-				}
-			} else {
-				$content = $item->get_content ();
-			}
+			$content = $item->get_content ();
 
 			$entry = new Entry (
 				$this->id (),
@@ -227,6 +228,8 @@ class Feed extends Model {
 				$date ? $date : time ()
 			);
 			$entry->_tags ($tags);
+			// permet de récupérer le contenu des flux tronqués
+			$entry->loadCompleteContent($this->pathEntries());
 
 			$entries[$entry->id ()] = $entry;
 		}
@@ -289,11 +292,28 @@ class FeedDAO extends Model_pdo {
 	}
 
 	public function updateLastUpdate ($id) {
-		$sql = 'UPDATE feed SET lastUpdate=? WHERE id=?';
+		$sql = 'UPDATE feed SET lastUpdate=?, error=0 WHERE id=?';
 		$stm = $this->bd->prepare ($sql);
 
 		$values = array (
 			time (),
+			$id
+		);
+
+		if ($stm && $stm->execute ($values)) {
+			return true;
+		} else {
+			$info = $stm->errorInfo();
+			Log::record ('SQL error : ' . $info[2], Log::ERROR);
+			return false;
+		}
+	}
+
+	public function isInError ($id) {
+		$sql = 'UPDATE feed SET error=1 WHERE id=?';
+		$stm = $this->bd->prepare ($sql);
+
+		$values = array (
 			$id
 		);
 
@@ -470,6 +490,7 @@ class HelperFeed {
 			$list[$key]->_priority ($dao['priority']);
 			$list[$key]->_pathEntries ($dao['pathEntries']);
 			$list[$key]->_httpAuth (base64_decode ($dao['httpAuth']));
+			$list[$key]->_error ($dao['error']);
 
 			if (isset ($dao['id'])) {
 				$list[$key]->_id ($dao['id']);

@@ -24,4 +24,5 @@ require (APP_PATH . '/App_FrontController.php');
 
 $front_controller = new App_FrontController ();
 $front_controller->init ();
+Session::_param('mail', true); // permet de se passer de la phase de connexion
 $front_controller->run ();

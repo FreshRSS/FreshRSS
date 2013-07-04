@@ -194,6 +194,29 @@ class Entry extends Model {
 		}
 	}
 
+	public function loadCompleteContent($pathEntries) {
+		// Gestion du contenu
+		// On cherche à récupérer les articles en entier... même si le flux ne le propose pas
+		if ($pathEntries) {
+			$entryDAO = new EntryDAO();
+			$entry = $entryDAO->searchByGuid($this->feed, $this->guid);
+
+			if($entry) {
+				// l'article existe déjà en BDD, en se contente de recharger ce contenu
+				$this->content = $entry->content();
+			} else {
+				try {
+					// l'article n'est pas en BDD, on va le chercher sur le site
+					$this->content = get_content_by_parsing(
+						$this->link(), $pathEntries
+					);
+				} catch (Exception $e) {
+					// rien à faire, on garde l'ancien contenu (requête a échoué)
+				}
+			}
+		}
+	}
+
 	public function toArray () {
 		return array (
 			'id' => $this->id (),
@@ -239,7 +262,7 @@ class EntryDAO extends Model_pdo {
 			return true;
 		} else {
 			$info = $stm->errorInfo();
-			Log::record ('SQL error : ' . $info[2], Log::ERROR);
+			Log::record ('SQL error : ' . $info[2], Log::NOTICE);
 			return false;
 		}
 	}
@@ -360,6 +383,27 @@ class EntryDAO extends Model_pdo {
 		}
 	}
 
+	public function searchByGuid ($feed_id, $id) {
+		// un guid est unique pour un flux donné
+		$sql = 'SELECT * FROM entry WHERE id_feed=? AND guid=?';
+		$stm = $this->bd->prepare ($sql);
+
+		$values = array (
+			$feed_id,
+			$id
+		);
+
+		$stm->execute ($values);
+		$res = $stm->fetchAll (PDO::FETCH_ASSOC);
+		list ($entry, $next) = HelperEntry::daoToEntry ($res);
+
+		if (isset ($entry[0])) {
+			return $entry[0];
+		} else {
+			return false;
+		}
+	}
+
 	public function searchById ($id) {
 		$sql = 'SELECT * FROM entry WHERE id=?';
 		$stm = $this->bd->prepare ($sql);
@@ -464,6 +508,12 @@ class EntryDAO extends Model_pdo {
 		$res = $stm->fetchAll (PDO::FETCH_ASSOC);
 
 		return $res[0]['count'];
+	}
+
+	public function optimizeTable() {
+		$sql = 'OPTIMIZE TABLE entry';
+		$stm = $this->bd->prepare ($sql);
+		$stm->execute ();
 	}
 }
 

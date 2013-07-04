@@ -1,0 +1,37 @@
+<?php $this->partial ('nav_menu'); ?>
+
+<div id="stream" class="global">
+<?php
+	foreach ($this->cat_aside as $cat) {
+		$feeds = $cat->feeds ();
+		$catNotRead = $cat->nbNotRead ();
+		if (!empty ($feeds)) {
+?>
+	<div class="category">
+		<div class="cat_header">
+			<a href="<?php echo _url ('index', 'index', 'get', 'c_' . $cat->id ()); ?>">
+			<?php echo $cat->name(); ?><?php echo $catNotRead > 0 ? ' (' . $catNotRead . ')' : ''; ?>
+			</a>
+		</div>
+
+		<ul class="feeds">
+			<?php foreach ($feeds as $feed) { ?>
+			<?php $not_read = $feed->nbNotRead (); ?>
+			<li class="item">
+				<img class="favicon" src="<?php echo $feed->favicon (); ?>" alt="" />
+
+				<a href="<?php echo _url ('index', 'index', 'get', 'f_' . $feed->id ()); ?>">
+				<?php echo $not_read > 0 ? '<b>' : ''; ?>
+				<?php echo $feed->name(); ?>
+				<?php echo $not_read > 0 ? ' (' . $not_read . ')' : ''; ?>
+				<?php echo $not_read > 0 ? '</b>' : ''; ?>
+				</a>
+			</li>
+			<?php } ?>
+		</ul>
+	</div>
+<?php
+		}
+	}
+?>
+</div>

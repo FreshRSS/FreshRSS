@@ -6,12 +6,19 @@ class indexController extends ActionController {
 	private $mode = 'all';
 
 	public function indexAction () {
-		if (Request::param ('output') == 'rss') {
+		$output = Request::param ('output');
+
+		if ($output == 'rss') {
 			$this->view->_useLayout (false);
 		} else {
 			View::appendScript (Url::display ('/scripts/shortcut.js'));
 			View::appendScript (Url::display (array ('c' => 'javascript', 'a' => 'main')));
 			View::appendScript (Url::display (array ('c' => 'javascript', 'a' => 'actualize')));
+			View::appendScript (Url::display ('/scripts/endless_mode.js'));
+
+			if(!$output) {
+				Request::_param ('output', $this->view->conf->viewMode());
+			}
 		}
 
 		$entryDAO = new EntryDAO ();
@@ -136,6 +143,32 @@ class indexController extends ActionController {
 
 	public function aboutAction () {
 		View::prependTitle (Translate::t ('about') . ' - ');
+	}
+
+	public function logsAction () {
+		if (login_is_conf ($this->view->conf) && !is_logged ()) {
+			Error::error (
+				403,
+				array ('error' => array (Translate::t ('access_denied')))
+			);
+		}
+
+		View::prependTitle (Translate::t ('logs') . ' - ');
+
+		$logs = array();
+		try {
+			$logDAO = new LogDAO ();
+			$logs = $logDAO->lister ();
+			$logs = array_reverse ($logs);
+		} catch(FileNotExistException $e) {
+
+		}
+
+		//gestion pagination
+		$page = Request::param ('page', 1);
+		$this->view->logsPaginator = new Paginator ($logs);
+		$this->view->logsPaginator->_nbItemsPerPage (50);
+		$this->view->logsPaginator->_currentPage ($page);
 	}
 
 	public function loginAction () {

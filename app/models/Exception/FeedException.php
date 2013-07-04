@@ -11,3 +11,9 @@ class BadUrlException extends FeedException {
 		parent::__construct ('`' . $url . '` is not a valid URL');
 	}
 }
+
+class OpmlException extends FeedException {
+	public function __construct ($name_file) {
+		parent::__construct ('OPML file is invalid');
+	}
+}

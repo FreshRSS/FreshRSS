@@ -65,8 +65,11 @@ function opml_import ($xml) {
 	$opml = @simplexml_load_string ($xml);
 
 	if (!$opml) {
-		return array (array (), array ());
+		throw new OpmlException ();
 	}
+
+	$catDAO = new CategoryDAO();
+	$defCat = $catDAO->getDefault();
 
 	$categories = array ();
 	$feeds = array ();
@@ -99,8 +102,8 @@ function opml_import ($xml) {
 				$feeds = array_merge ($feeds, getFeedsOutline ($outline, $cat->id ()));
 			}
 		} else {
-			// Flux rss
-			$feeds[] = getFeed ($outline, '');
+			// Flux rss sans catégorie, on récupère l'ajoute dans la catégorie par défaut
+			$feeds[] = getFeed ($outline, $defCat->id());
 		}
 	}
 

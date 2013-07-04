@@ -37,6 +37,9 @@ return array (
 	'before_one_day'		=> 'Before one day',
 	'before_one_week'		=> 'Before one week',
 	'display'			=> 'Display',
+	'normal_view'			=> 'Normal view',
+	'reader_view'			=> 'Reading view',
+	'global_view'			=> 'Global view',
 	'show_all_articles'		=> 'Show all articles',
 	'show_not_reads'		=> 'Show only unread',
 	'older_first'			=> 'Oldest first',
@@ -58,6 +61,7 @@ return array (
 	'rss_feed_management'		=> 'RSS feeds management',
 	'configuration_updated'		=> 'Configuration has been updated',
 	'general_and_reading_management'=> 'General and reading management',
+	'bad_opml_file'			=> 'Your OPML file is invalid',
 	'shortcuts_updated'		=> 'Shortcuts have been updated',
 	'shortcuts_management'		=> 'Shortcuts management',
 	'feeds_marked_read'		=> 'Feeds have been marked as read',
@@ -76,6 +80,8 @@ return array (
 	'feeds_imported'		=> 'Feeds have been imported',
 	'category_emptied'		=> 'Category has been emptied',
 	'feed_deleted'			=> 'Feed has been deleted',
+
+	'optimization_complete'		=> 'Optimization complete',
 
 	'your_rss_feeds'		=> 'Your RSS feeds',
 	'your_favorites'		=> 'Your favorites',
@@ -113,6 +119,7 @@ return array (
 	'or'				=> 'or',
 
 	'informations'			=> 'Informations',
+	'feed_in_error'			=> 'This feed has encountered a problem. Please verify that it is always reachable then actualize it.',
 	'website_url'			=> 'Website URL',
 	'feed_url'			=> 'Feed URL',
 	'number_articles'		=> 'Number of articles',
@@ -142,20 +149,19 @@ return array (
 	'default_view'			=> 'Default view',
 	'sort_order'			=> 'Sort order',
 	'display_articles_unfolded'	=> 'Show articles unfolded by default',
+	'img_with_lazyload'		=> 'Use "lazy load" mode to load pictures',
 	'auto_read_when'		=> 'Mark automatically as read when',
 	'article_selected'		=> 'Article is selected',
 	'article_open_on_website'	=> 'Article is opened on its original website',
-	'page_loaded'			=> 'Page is loaded',
+	'scroll'			=> 'Page scrolls',
 	'your_shaarli'			=> 'Your Shaarli',
 	'sharing'			=> 'Sharing',
 	'share'				=> 'Share',
 	'by_email'			=> 'By mail',
 	'on_shaarli'			=> 'On your Shaarli',
+	'optimize_bdd'			=> 'Optimize database',
+	'optimize_todo_sometimes'	=> 'To do occasionally to reduce size of database',
 
-	'note'				=> 'Note',
-	'add_note'			=> 'Add a note',
-	'update_note'			=> 'Update your note',
-	'ask_public_article'		=> 'Public article?',
 	'article'			=> 'Article',
 	'title'				=> 'Title',
 	'author'			=> 'Author',
@@ -186,6 +192,9 @@ return array (
 	'freshrss_description'		=> 'FreshRSS is a RSS feeds aggregator to self-host like <a href="http://rsslounge.aditu.de/">RSSLounge</a>, <a href="http://tt-rss.org/redmine/projects/tt-rss/wiki">TinyTinyRSS</a> or <a href="http://projet.idleman.fr/leed/">Leed</a>. It is light and easy to take in hand while being powerful and configurable tool. Objective is to provide a serious alternative to Google Reader.',
 	'credits'			=> 'Credits',
 	'credits_content'		=> 'Some design elements come from <a href="http://twitter.github.io/bootstrap/">Bootstrap</a> although FreshRSS doesn\'t use this framework. <a href="https://git.gnome.org/browse/gnome-icon-theme-symbolic">Icons</a> come from <a href="https://www.gnome.org/">GNOME project</a>. <em>Open Sans</em> font police used has been created by <a href="https://www.google.com/webfonts/specimen/Open+Sans">Steve Matteson</a>. Favicons are collected with <a href="https://getfavicon.appspot.com/">getFavicon API</a>. FreshRSS is based on <a href="https://github.com/marienfressinaud/MINZ">Minz</a>, a PHP framework.',
+
+	'logs'				=> 'Logs',
+	'logs_empty'			=> 'Log file is empty',
 
 	// DATE
 	'january'			=> 'january',
@@ -259,6 +268,7 @@ return array (
 	'do_not_change_if_doubt'	=> 'Don\'t change if you doubt about it',
 
 	'bdd_conf_is_ok'		=> 'Database configuration has been saved.',
+	'bdd_conf_is_ko'		=> 'Verify your database information.',
 	'host'				=> 'Host',
 	'username'			=> 'Username',
 	'password'			=> 'Password',

@@ -37,6 +37,9 @@ return array (
 	'before_one_day'		=> 'Antérieurs à 1 jour',
 	'before_one_week'		=> 'Antérieurs à 1 semaine',
 	'display'			=> 'Affichage',
+	'normal_view'			=> 'Vue normale',
+	'reader_view'			=> 'Vue lecture',
+	'global_view'			=> 'Vue globale',
 	'show_all_articles'		=> 'Afficher tous les articles',
 	'show_not_reads'		=> 'Afficher les non lus',
 	'older_first'			=> 'Plus anciens en premier',
@@ -58,6 +61,7 @@ return array (
 	'rss_feed_management'		=> 'Gestion des flux RSS',
 	'configuration_updated'		=> 'La configuration a été mise à jour',
 	'general_and_reading_management'=> 'Gestion générale et affichage',
+	'bad_opml_file'			=> 'Votre fichier OPML n\'est pas valide',
 	'shortcuts_updated'		=> 'Les raccourcis ont été mis à jour',
 	'shortcuts_management'		=> 'Gestion des raccourcis',
 	'feeds_marked_read'		=> 'Les flux ont été marqués comme lu',
@@ -76,6 +80,8 @@ return array (
 	'feeds_imported'		=> 'Les flux ont été importés',
 	'category_emptied'		=> 'La catégorie a été vidée',
 	'feed_deleted'			=> 'Le flux a été supprimé',
+
+	'optimization_complete'		=> 'Optimisation terminée',
 
 	'your_rss_feeds'		=> 'Vos flux RSS',
 	'your_favorites'		=> 'Vos favoris',
@@ -113,6 +119,7 @@ return array (
 	'or'				=> 'ou',
 
 	'informations'			=> 'Informations',
+	'feed_in_error'			=> 'Ce flux a rencontré un problème. Veuillez vérifier qu\'il est toujours accessible puis actualisez-le.',
 	'website_url'			=> 'URL du site',
 	'feed_url'			=> 'URL du flux',
 	'number_articles'		=> 'Nombre d\'articles',
@@ -142,20 +149,19 @@ return array (
 	'default_view'			=> 'Vue par défaut',
 	'sort_order'			=> 'Ordre de tri',
 	'display_articles_unfolded'	=> 'Afficher les articles dépliés par défaut',
+	'img_with_lazyload'		=> 'Utiliser le mode "lazy load" pour charger les images',
 	'auto_read_when'		=> 'Marquer automatiquement comme lu lorsque',
 	'article_selected'		=> 'L\'article est sélectionné',
 	'article_open_on_website'	=> 'L\'article est ouvert sur le site d\'origine',
-	'page_loaded'			=> 'La page est chargée',
+	'scroll'			=> 'Au défilement de la page',
 	'your_shaarli'			=> 'Votre Shaarli',
 	'sharing'			=> 'Partage',
 	'share'				=> 'Partager',
 	'by_email'			=> 'Par mail',
 	'on_shaarli'			=> 'Sur votre Shaarli',
+	'optimize_bdd'			=> 'Optimiser la base de données',
+	'optimize_todo_sometimes'	=> 'À faire de temps en temps pour réduire la taille de la BDD',
 
-	'note'				=> 'Note',
-	'add_note'			=> 'Ajouter une note',
-	'update_note'			=> 'Modifier votre note',
-	'ask_public_article'		=> 'Article public ?',
 	'article'			=> 'Article',
 	'title'				=> 'Titre',
 	'author'			=> 'Auteur',
@@ -186,6 +192,9 @@ return array (
 	'freshrss_description'		=> 'FreshRSS est un agrégateur de flux RSS à auto-héberger à l\'image de <a href="http://rsslounge.aditu.de/">RSSLounge</a>, <a href="http://tt-rss.org/redmine/projects/tt-rss/wiki">TinyTinyRSS</a> ou <a href="http://projet.idleman.fr/leed/">Leed</a>. Il se veut léger et facile à prendre en main tout en étant un outil puissant et paramétrable. L\'objectif étant d\'offrir une alternative sérieuse au futur feu-Google Reader.',
 	'credits'			=> 'Crédits',
 	'credits_content'		=> 'Des éléments de design sont issus du <a href="http://twitter.github.io/bootstrap/">projet Bootstrap</a> bien que FreshRSS n\'utilise pas ce framework. Les <a href="https://git.gnome.org/browse/gnome-icon-theme-symbolic">icônes</a> sont issues du <a href="https://www.gnome.org/">projet GNOME</a>. La police <em>Open Sans</em> utilisée a été créée par <a href="https://www.google.com/webfonts/specimen/Open+Sans">Steve Matteson</a>. Les favicons sont récupérés grâce au site <a href="https://getfavicon.appspot.com/">getFavicon</a>. FreshRSS repose sur <a href="https://github.com/marienfressinaud/MINZ">Minz</a>, un framework PHP.',
+
+	'logs'				=> 'Logs',
+	'logs_empty'			=> 'Les logs sont vides',
 
 	// DATE
 	'january'			=> 'janvier',
@@ -259,6 +268,7 @@ return array (
 	'do_not_change_if_doubt'	=> 'Laissez tel quel dans le doute',
 
 	'bdd_conf_is_ok'		=> 'La configuration de la base de données a été enregistrée.',
+	'bdd_conf_is_ko'		=> 'Vérifiez les informations d\'accès à la base de données.',
 	'host'				=> 'Hôte',
 	'username'			=> 'Nom utilisateur',
 	'password'			=> 'Mot de passe',

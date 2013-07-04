@@ -9,6 +9,16 @@ var hide_posts = false;
 	$mark = $this->conf->markWhen ();
 ?>
 
+function is_reader_mode() {
+	var stream = $("#stream.reader");
+	return stream.html() != null;
+}
+
+function is_normal_mode() {
+	var stream = $("#stream.normal");
+	return stream.html() != null;
+}
+
 function redirect (url, new_tab) {
 	if (url) {
 		if (new_tab) {
@@ -42,19 +52,20 @@ function toggleContent (new_active, old_active) {
 	<?php } ?>
 }
 
-var load = false;
 function mark_read (active, only_not_read) {
 	if (active[0] === undefined || (
-	    only_not_read === true && !active.hasClass("not_read")) ||
-	    load === true) {
+	    only_not_read === true && !active.hasClass("not_read"))) {
 		return false;
 	}
 
-	load = true;
+	if (active.hasClass ("not_read")) {
+		active.removeClass ("not_read");
+	} else {
+		active.addClass ("not_read");
+	}
 
 	url =  active.find ("a.read").attr ("href");
 	if (url === undefined) {
-		load = false;
 		return false;
 	}
 
@@ -66,27 +77,16 @@ function mark_read (active, only_not_read) {
 		res = jQuery.parseJSON(data);
 
 		active.find ("a.read").attr ("href", res.url);
-		if (active.hasClass ("not_read")) {
-			active.removeClass ("not_read");
-		} else {
-			active.addClass ("not_read");
-		}
-
-		load = false;
 	});
 }
 
 function mark_favorite (active) {
-	if (active[0] === undefined ||
-	    load === true) {
+	if (active[0] === undefined) {
 		return false;
 	}
 
-	load = true;
-
 	url =  active.find ("a.bookmark").attr ("href");
 	if (url === undefined) {
-		load = false;
 		return false;
 	}
 
@@ -103,34 +103,69 @@ function mark_favorite (active) {
 		} else {
 			active.addClass ("favorite");
 		}
-
-		load = false;
 	});
 }
 
+function prev_entry() {
+	old_active = $(".flux.active");
+	last_active = $(".flux:last");
+	new_active = old_active.prevAll (".flux:first");
+
+	if (new_active.hasClass("flux")) {
+		toggleContent (new_active, old_active);
+	} else if (old_active[0] === undefined &&
+	           new_active[0] === undefined) {
+		toggleContent (last_active, old_active);
+	}
+}
+
+function next_entry() {
+	old_active = $(".flux.active");
+	first_active = $(".flux:first");
+	new_active = old_active.nextAll (".flux:first");
+
+	if (new_active.hasClass("flux")) {
+		toggleContent (new_active, old_active);
+	} else if (old_active[0] === undefined &&
+	           new_active[0] === undefined) {
+		toggleContent (first_active, old_active);
+	}
+}
+
 function init_img () {
-	$(".flux .content img").each (function () {
-		if ($(this).width () > ($("#stream .content").width()) / 2) {
+	$(".flux_content .content img").each (function () {
+		if ($(this).width () > ($(".flux_content .content").width()) / 2) {
 			$(this).addClass("big");
 		}
 	});
 }
 
-function init_posts () {
-	<?php if ($mark['page'] == 'yes') { ?>
-	if ($(".flux.not_read")[0] != undefined) {
-		url = $(".nav_menu a.read_all").attr ("href");
-		redirect (url, false);
-	}
-	<?php } ?>
+function inMarkViewport(flux) {
+	var top = flux.position().top;
+	var height = flux.height();
+	var begin = top + 3 * height / 4;
+	var bot = top + height;
 
+	var windowTop = $(window).scrollTop();
+	var windowBot = windowTop + $(window).height();
+
+	return (windowBot >= begin && windowBot <= bot);
+}
+
+var lastScroll = 0;
+function init_posts () {
 	init_img ();
+	<?php if($this->conf->lazyload() == 'yes') { ?>
+	$(".flux .content img").lazyload();
+	<?php } ?>
 
 	if (hide_posts) {
 		$(".flux:not(.active) .flux_content").hide ();
 	}
 
-	$(".flux_header .item.title, .flux_header .item.date").click (function () {
+	var flux_header_toggle = $(".flux_header .item.title, .flux_header .item.date");
+	flux_header_toggle.unbind('click'); // évite d'associer 2 fois le toggle
+	flux_header_toggle.click (function () {
 		old_active = $(".flux.active");
 		new_active = $(this).parent ().parent ();
 
@@ -160,9 +195,32 @@ function init_posts () {
 		mark_read($(this).parent().parent().parent(), true);
 	});
 	<?php } ?>
+
+	<?php if ($mark['scroll'] == 'yes') { ?>
+	var flux = $('.flux');
+	$(window).scroll(function() {
+		var windowTop = $(this).scrollTop();
+		if(Math.abs(windowTop - lastScroll) <= 50) {
+			return;
+		}
+		lastScroll = windowTop;
+
+		flux.each(function() {
+			if($(this).hasClass('not_read') &&
+			   $(this).children(".flux_content").is(':visible') &&
+			   inMarkViewport($(this))) {
+				mark_read($(this), true);
+			}
+		});
+	});
+	<?php } ?>
 }
 
 function init_column_categories () {
+	if(!is_normal_mode()) {
+		return;
+	}
+
 	$(".category").addClass ("stick");
 	$(".categories .category .btn:first-child").width ("160px");
 	$(".category").append ("<a class=\"btn dropdown-toggle\" href=\"#\"><i class=\"icon i_down\"></i></a>");
@@ -202,18 +260,7 @@ function init_shortcuts () {
 	});
 
 	// Touches de navigation
-	shortcut.add("<?php echo $s['prev_entry']; ?>", function () {
-		old_active = $(".flux.active");
-		last_active = $(".flux:last");
-		new_active = old_active.prevAll (".flux:first");
-
-		if (new_active.hasClass("flux")) {
-			toggleContent (new_active, old_active);
-		} else if (old_active[0] === undefined &&
-		           new_active[0] === undefined) {
-			toggleContent (last_active, old_active);
-		}
-	}, {
+	shortcut.add("<?php echo $s['prev_entry']; ?>", prev_entry, {
 		'disable_in_input':true
 	});
 	shortcut.add("shift+<?php echo $s['prev_entry']; ?>", function () {
@@ -226,18 +273,7 @@ function init_shortcuts () {
 	}, {
 		'disable_in_input':true
 	});
-	shortcut.add("<?php echo $s['next_entry']; ?>", function () {
-		old_active = $(".flux.active");
-		first_active = $(".flux:first");
-		new_active = old_active.nextAll (".flux:first");
-
-		if (new_active.hasClass("flux")) {
-			toggleContent (new_active, old_active);
-		} else if (old_active[0] === undefined &&
-		           new_active[0] === undefined) {
-			toggleContent (first_active, old_active);
-		}
-	}, {
+	shortcut.add("<?php echo $s['next_entry']; ?>", next_entry, {
 		'disable_in_input':true
 	});
 	shortcut.add("shift+<?php echo $s['next_entry']; ?>", function () {
@@ -277,8 +313,23 @@ function init_shortcuts () {
 	});
 }
 
+function init_nav_entries() {
+	$('.nav_entries a.previous_entry').click(function() {
+		prev_entry();
+		return false;
+	});
+	$('.nav_entries a.next_entry').click(function() {
+		next_entry();
+		return false;
+	});
+}
+
 $(document).ready (function () {
+	if(is_reader_mode()) {
+		hide_posts = false;
+	}
 	init_posts ();
 	init_column_categories ();
 	init_shortcuts ();
+	init_nav_entries();
 });

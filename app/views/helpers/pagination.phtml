@@ -8,7 +8,7 @@
 	<li class="item pager-next">
 	<?php if ($this->next != '') { ?>
 	<?php $params[$getteur] = $this->next; ?>
-	<a href="<?php echo Url::display (array ('c' => $c, 'a' => $a, 'params' => $params)); ?>"><?php echo Translate::t ('load_more'); ?></a>
+	<a id="load_more" href="<?php echo Url::display (array ('c' => $c, 'a' => $a, 'params' => $params)); ?>"><?php echo Translate::t ('load_more'); ?></a>
 	<?php } else { ?>
 	<?php echo Translate::t ('nothing_to_load'); ?>
 	<?php } ?>

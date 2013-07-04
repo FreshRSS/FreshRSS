@@ -7,8 +7,18 @@
 	<h1><?php echo $this->flux->name (); ?></h1>
 	<?php echo $this->flux->description (); ?>
 
+	<?php if ($this->flux->inError ()) { ?>
+	<p class="alert alert-error"><span class="alert-head"><?php echo Translate::t ('damn'); ?></span> <?php echo Translate::t ('feed_in_error'); ?></p>
+	<?php } ?>
+
 	<form method="post" action="<?php echo _url ('configure', 'feed', 'id', $this->flux->id ()); ?>">
 		<legend><?php echo Translate::t ('informations'); ?></legend>
+		<div class="form-group">
+			<label class="group-name" for="name"><?php echo Translate::t ('title'); ?></label>
+			<div class="group-controls">
+				<input type="text" name="name" id="name" value="<?php echo $this->flux->name () ; ?>" />
+			</div>
+		</div>
 		<div class="form-group">
 			<label class="group-name"><?php echo Translate::t ('website_url'); ?></label>
 			<div class="group-controls">
@@ -19,6 +29,14 @@
 			<label class="group-name"><?php echo Translate::t ('feed_url'); ?></label>
 			<div class="group-controls">
 				<span class="control"><a target="_blank" href="<?php echo $this->flux->url (); ?>"><?php echo $this->flux->url (); ?></a></span>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="group-name"></label>
+			<div class="group-controls">
+				<a class="btn" href="<?php echo _url ('feed', 'actualize', 'id', $this->flux->id ()); ?>">
+					<i class="icon i_refresh"></i> <?php echo Translate::t('actualize'); ?>
+				</a>
 			</div>
 		</div>
 		<div class="form-group">
