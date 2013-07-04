@@ -88,8 +88,8 @@ input, select, textarea {
 }
 	input[type="radio"],
 	input[type="checkbox"] {
-		width: 15px;
-		min-height: 15px;
+		width: 15px !important;
+		min-height: 15px !important;
 	}
 	input:focus, select:focus, textarea:focus {
 		color: #0062BE;
