@@ -125,7 +125,7 @@ if (isset ($this->entryPaginator) && !$this->entryPaginator->isEmpty ()) {
 <?php $this->partial ('nav_entries'); ?>
 
 <?php } else { ?>
-<div class="alert alert-warn">
+<div id="stream" class="alert alert-warn normal">
 	<span class="alert-head"><?php echo Translate::t ('no_feed_to_display'); ?></span>
 </div>
 <?php } ?>
