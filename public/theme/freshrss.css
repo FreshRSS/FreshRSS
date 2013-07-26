@@ -59,7 +59,7 @@
 			width: 180px;
 		}
 		.aside.aside_flux {
-			padding: 10px 0;
+			padding: 10px 0 40px;
 		}
 		.aside.aside_feed .nav-form input {
 			width: 140px;
@@ -428,8 +428,30 @@
 	}
 
 .nav_entries {
-	display: none;
+	display: table;
+	width: 250px;
+	height: 40px;
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	margin: 0;
+	background: #fff;
+	border-top: 1px solid #ddd;
+	text-align: center;
+	line-height: 40px;
+	table-layout: fixed;
 }
+	.nav_entries .item {
+		display: table-cell;
+		width: 30%;
+	}
+		.nav_entries .item a {
+			display: block;
+		}
+		.nav_entries .item .icon.i_up {
+			margin: 5px 0 0;
+			vertical-align: top;
+		}
 
 .loading {
 	background: url("loader.gif") center center no-repeat;
@@ -561,6 +583,9 @@
 		z-index: 10;
 		transition: width 200ms linear;
 	}
+		.aside.aside_flux {
+			padding: 10px 0 0;
+		}
 		.aside:target {
 			width: 80%;
 			border-right: 1px solid #aaa;
@@ -583,27 +608,6 @@
 		}
 
 	.nav_entries {
-		display: table;
 		width: 100%;
-		height: 40px;
-		position: fixed;
-		bottom: 0;
-		margin: 0;
-		background: #fff;
-		border-top: 1px solid #ddd;
-		text-align: center;
-		line-height: 40px;
-		table-layout: fixed;
 	}
-		.nav_entries .item {
-			display: table-cell;
-			width: 30%;
-		}
-			.nav_entries .item a {
-				display: block;
-			}
-			.nav_entries .item .icon.i_up {
-				margin: 5px 0 0;
-				vertical-align: top;
-			}
 }
