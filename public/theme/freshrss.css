@@ -528,8 +528,7 @@
 	.aside .btn-important,
 	.aside .feeds .dropdown,
 	.flux_header .item.website span,
-	.flux_header .item.date,
-	.flux_content .bottom {
+	.flux_header .item.date {
 		display: none;
 	}
 	.flux_header .item.website {
