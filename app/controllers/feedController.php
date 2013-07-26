@@ -246,7 +246,8 @@ class feedController extends ActionController {
 					'name' => $feed->name (),
 					'website' => $feed->website (),
 					'description' => $feed->description (),
-					'lastUpdate' => 0
+					'lastUpdate' => 0,
+					'httpAuth' => $feed->httpAuth ()
 				);
 
 				// ajout du flux que s'il n'est pas déjà en BDD

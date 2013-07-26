@@ -14,7 +14,6 @@ class Entry extends Model {
 	private $is_public;
 	private $feed;
 	private $tags;
-	private $notes;
 	private $lastUpdate;
 
 	public function __construct ($feed = '', $guid = '', $title = '', $author = '', $content = '',
@@ -31,7 +30,6 @@ class Entry extends Model {
 		$this->_isPublic ($is_public);
 		$this->_feed ($feed);
 		$this->_lastUpdate ($pubdate);
-		$this->_notes ('');
 		$this->_tags (array ());
 	}
 
@@ -96,17 +94,6 @@ class Entry extends Model {
 			return $this->tags;
 		}
 	}
-	public function notes ($raw = true, $parse_tags = true) {
-		if ($raw) {
-			return $this->notes;
-		} else {
-			if($parse_tags) {
-				return parse_tags (bbdecode ($this->notes));
-			} else {
-				return bbdecode ($this->notes);
-			}
-		}
-	}
 	public function lastUpdate ($raw = false) {
 		if ($raw) {
 			return $this->lastUpdate;
@@ -164,9 +151,6 @@ class Entry extends Model {
 		}
 
 		$this->tags = $value;
-	}
-	public function _notes ($value) {
-		$this->notes = $value;
 	}
 	public function _lastUpdate ($value) {
 		if (is_int (intval ($value))) {
@@ -231,8 +215,7 @@ class Entry extends Model {
 			'is_public' => $this->isPublic (),
 			'id_feed' => $this->feed (),
 			'lastUpdate' => $this->lastUpdate (true),
-			'tags' => $this->tags (true),
-			'annotation' => $this->notes ()
+			'tags' => $this->tags (true)
 		);
 	}
 }
@@ -578,7 +561,6 @@ class HelperEntry {
 			$dao['is_public']
 		);
 
-		$entry->_notes ($dao['annotation']);
 		$entry->_lastUpdate ($dao['lastUpdate']);
 		$entry->_tags ($dao['tags']);
 
@@ -606,8 +588,7 @@ class HelperEntry {
 			$word = strtolower ($word);
 			if (strpos (strtolower ($dao['title']), $word) === false &&
 			    strpos (strtolower ($dao['content']), $word) === false &&
-			    strpos (strtolower ($dao['link']), $word) === false &&
-			    strpos (strtolower ($dao['annotation']), $word) === false) {
+			    strpos (strtolower ($dao['link']), $word) === false) {
 				return false;
 			}
 		}
