@@ -144,15 +144,14 @@ function inMarkViewport(flux) {
 	var top = flux.position().top;
 	var height = flux.height();
 	var begin = top + 3 * height / 4;
-	var bot = top + height;
+	var bot = Math.min(begin + 75, top + height);
 
 	var windowTop = $(window).scrollTop();
-	var windowBot = windowTop + $(window).height();
+	var windowBot = windowTop + $(window).height() / 2;
 
 	return (windowBot >= begin && windowBot <= bot);
 }
 
-var lastScroll = 0;
 function init_posts () {
 	init_img ();
 	<?php if($this->conf->lazyload() == 'yes') { ?>
@@ -197,17 +196,9 @@ function init_posts () {
 	<?php } ?>
 
 	<?php if ($mark['scroll'] == 'yes') { ?>
-	var flux = $('.flux');
 	$(window).scroll(function() {
-		var windowTop = $(this).scrollTop();
-		if(Math.abs(windowTop - lastScroll) <= 50) {
-			return;
-		}
-		lastScroll = windowTop;
-
-		flux.each(function() {
-			if($(this).hasClass('not_read') &&
-			   $(this).children(".flux_content").is(':visible') &&
+		$('.flux.not_read:visible').each(function() {
+			if($(this).children(".flux_content").is(':visible') &&
 			   inMarkViewport($(this))) {
 				mark_read($(this), true);
 			}
