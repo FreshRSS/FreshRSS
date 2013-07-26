@@ -1,7 +1,7 @@
 /* FONTS */
 @font-face {
-	font-family: 'OpenSans';
-	src: local('fonts/openSans.woff') format('woff');
+	font-family: "OpenSans";
+	src: url("fonts/openSans.woff") format("woff");
 }
 
 
@@ -12,7 +12,7 @@
 html, body {
 	height: 100%;
 	font-size: 95%;
-	font-family: "Cantarell", "Helvetica", "Arial", "sans-serif";
+	font-family: "OpenSans", "Cantarell", "Helvetica", "Arial", "sans-serif";
 }
 
 /* LIENS */
