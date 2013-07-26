@@ -51,7 +51,7 @@ img {
 	}
 
 /* VIDEOS */
-iframe, embed, object {
+iframe, embed, object, video {
 	max-width: 100%;
 }
 
