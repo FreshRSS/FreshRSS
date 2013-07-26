@@ -69,6 +69,7 @@ function opml_import ($xml) {
 	}
 
 	$catDAO = new CategoryDAO();
+	$catDAO->checkDefault();
 	$defCat = $catDAO->getDefault();
 
 	$categories = array ();
