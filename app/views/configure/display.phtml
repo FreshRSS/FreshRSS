@@ -27,7 +27,7 @@
 
 		<div class="form-group">
 			<label class="group-name" for="mail_login"><?php echo Translate::t ('persona_connection_email'); ?></label>
-		<?php $mail = $this->conf->mailLogin (); ?>
+			<?php $mail = $this->conf->mailLogin (); ?>
 			<div class="group-controls">
 				<input type="email" id="mail_login" name="mail_login" value="<?php echo $mail ? $mail : ''; ?>" placeholder="<?php echo Translate::t ('blank_to_disable'); ?>" />
 				<noscript><b><?php echo Translate::t ('javascript_should_be_activated'); ?></b></noscript>
@@ -40,6 +40,16 @@
 			<label class="group-name" for="posts_per_page"><?php echo Translate::t ('articles_per_page'); ?></label>
 			<div class="group-controls">
 				<input type="number" id="posts_per_page" name="posts_per_page" value="<?php echo $this->conf->postsPerPage (); ?>" />
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="group-name" for="sort_order"><?php echo Translate::t ('sort_order'); ?></label>
+			<div class="group-controls">
+				<select name="sort_order" id="sort_order">
+					<option value="low_to_high"<?php echo $this->conf->sortOrder () == 'low_to_high' ? ' selected="selected"' : ''; ?>><?php echo Translate::t ('newer_first'); ?></option>
+					<option value="high_to_low"<?php echo $this->conf->sortOrder () == 'high_to_low' ? ' selected="selected"' : ''; ?>><?php echo Translate::t ('older_first'); ?></option>
+				</select>
 			</div>
 		</div>
 
@@ -63,39 +73,21 @@
 		</div>
 
 		<div class="form-group">
-			<label class="group-name" for="sort_order"><?php echo Translate::t ('sort_order'); ?></label>
 			<div class="group-controls">
-				<select name="sort_order" id="sort_order">
-					<option value="low_to_high"<?php echo $this->conf->sortOrder () == 'low_to_high' ? ' selected="selected"' : ''; ?>><?php echo Translate::t ('newer_first'); ?></option>
-					<option value="high_to_low"<?php echo $this->conf->sortOrder () == 'high_to_low' ? ' selected="selected"' : ''; ?>><?php echo Translate::t ('older_first'); ?></option>
-				</select>
-			</div>
-		</div>
-
-		<div class="form-group">
-			<label class="group-name"><?php echo Translate::t ('img_with_lazyload'); ?></label>
-			<div class="group-controls">
-				<label class="radio" for="lazyload_yes">
-					<input type="radio" name="lazyload" id="lazyload_yes" value="yes"<?php echo $this->conf->lazyload () == 'yes' ? ' checked="checked"' : ''; ?> />
-					<?php echo Translate::t ('yes'); ?><noscript> - <b><?php echo Translate::t ('javascript_should_be_activated'); ?></b></noscript>
-				</label>
-				<label class="radio" for="lazyload_no">
-					<input type="radio" name="lazyload" id="lazyload_no" value="no"<?php echo $this->conf->lazyload () == 'no' ? ' checked="checked"' : ''; ?> />
-					<?php echo Translate::t ('no'); ?>
+				<label class="checkbox" for="display_posts">
+					<input type="checkbox" name="display_posts" id="display_posts" value="yes"<?php echo $this->conf->displayPosts () == 'yes' ? ' checked="checked"' : ''; ?> />
+					<?php echo Translate::t ('display_articles_unfolded'); ?>
+					<?php echo $this->conf->displayPosts () == 'no' ? '<noscript> - <b>' . Translate::t ('javascript_should_be_activated') . '</b></noscript>' : ''; ?>
 				</label>
 			</div>
 		</div>
 
 		<div class="form-group">
-			<label class="group-name"><?php echo Translate::t ('display_articles_unfolded'); ?></label>
 			<div class="group-controls">
-				<label class="radio" for="radio_yes">
-					<input type="radio" name="display_posts" id="radio_yes" value="yes"<?php echo $this->conf->displayPosts () == 'yes' ? ' checked="checked"' : ''; ?> />
-					<?php echo Translate::t ('yes'); ?>
-				</label>
-				<label class="radio" for="radio_no">
-					<input type="radio" name="display_posts" id="radio_no" value="no"<?php echo $this->conf->displayPosts () == 'no' ? ' checked="checked"' : ''; ?> />
-					<?php echo Translate::t ('no'); ?><noscript> - <b><?php echo Translate::t ('javascript_should_be_activated'); ?></b></noscript>
+				<label class="checkbox" for="lazyload">
+					<input type="checkbox" name="lazyload" id="lazyload" value="yes"<?php echo $this->conf->lazyload () == 'yes' ? ' checked="checked"' : ''; ?> />
+					<?php echo Translate::t ('img_with_lazyload'); ?>
+					<?php echo $this->conf->lazyload () == 'yes' ? '<noscript> - <b>' . Translate::t ('javascript_should_be_activated') . '</b></noscript>' : ''; ?>
 				</label>
 			</div>
 		</div>

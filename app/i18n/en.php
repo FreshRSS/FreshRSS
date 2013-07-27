@@ -150,7 +150,7 @@ return array (
 	'sort_order'			=> 'Sort order',
 	'display_articles_unfolded'	=> 'Show articles unfolded by default',
 	'img_with_lazyload'		=> 'Use "lazy load" mode to load pictures',
-	'auto_read_when'		=> 'Mark automatically as read when',
+	'auto_read_when'		=> 'Mark as read when',
 	'article_selected'		=> 'Article is selected',
 	'article_open_on_website'	=> 'Article is opened on its original website',
 	'scroll'			=> 'Page scrolls',
