@@ -7,7 +7,7 @@
 /**
  * La classe Cache permet de gérer facilement les pages en cache
  */
-class Cache {
+class Minz_Cache {
 	/**
 	 * $expire timestamp auquel expire le cache de $url
 	 */

@@ -69,9 +69,9 @@ class View {
 		if (file_exists ($this->view_filename)) {
 			include ($this->view_filename);
 		} else {
-			Log::record ('File doesn\'t exist : `'
+			Minz_Log::record ('File doesn\'t exist : `'
 			            . $this->view_filename . '`',
-			            Log::NOTICE);
+			            Minz_Log::NOTICE);
 		}
 	}
 
@@ -87,9 +87,9 @@ class View {
 		if (file_exists ($fic_partial)) {
 			include ($fic_partial);
 		} else {
-			Log::record ('File doesn\'t exist : `'
+			Minz_Log::record ('File doesn\'t exist : `'
 			            . $fic_partial . '`',
-			            Log::WARNING);
+			            Minz_Log::WARNING);
 		}
 	}
 
@@ -105,9 +105,9 @@ class View {
 		if (file_exists ($fic_helper)) {
 			include ($fic_helper);
 		} else {
-			Log::record ('File doesn\'t exist : `'
+			Minz_Log::record ('File doesn\'t exist : `'
 			            . $fic_helper . '`',
-			            Log::WARNING);
+			            Minz_Log::WARNING);
 		}
 	}
 

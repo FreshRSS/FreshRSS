@@ -41,14 +41,14 @@ class Dispatcher {
 	 * @exception MinzException
 	 */
 	public function run () {
-		$cache = new Cache();
+		$cache = new Minz_Cache();
 		// Le ob_start est dupliqué : sans ça il y a un bug sous Firefox
 		// ici on l'appelle avec 'ob_gzhandler', après sans.
 		// Vraisemblablement la compression fonctionne mais c'est sale
 		// J'ignore les effets de bord :(
 		ob_start ('ob_gzhandler');
 
-		if (Cache::isEnabled () && !$cache->expired ()) {
+		if (Minz_Cache::isEnabled () && !$cache->expired ()) {
 			ob_start ();
 			$cache->render ();
 			$text = ob_get_clean();
@@ -80,7 +80,7 @@ class Dispatcher {
 				}
 			}
 
-			if (Cache::isEnabled ()) {
+			if (Minz_Cache::isEnabled ()) {
 				$cache->cache ($text);
 			}
 		}

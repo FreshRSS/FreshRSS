@@ -86,14 +86,14 @@ class feedController extends ActionController {
 					$params['id'] = $feed->id ();
 				}
 			} catch (BadUrlException $e) {
-				Log::record ($e->getMessage (), Log::ERROR);
+				Minz_Log::record ($e->getMessage (), Minz_Log::ERROR);
 				$notif = array (
 					'type' => 'bad',
 					'content' => Translate::t ('invalid_url', $url)
 				);
 				Session::_param ('notification', $notif);
 			} catch (FeedException $e) {
-				Log::record ($e->getMessage (), Log::ERROR);
+				Minz_Log::record ($e->getMessage (), Minz_Log::ERROR);
 				$notif = array (
 					'type' => 'bad',
 					'content' => Translate::t ('internal_problem_feed')
@@ -101,7 +101,7 @@ class feedController extends ActionController {
 				Session::_param ('notification', $notif);
 			} catch (FileNotExistException $e) {
 				// Répertoire de cache n'existe pas
-				Log::record ($e->getMessage (), Log::ERROR);
+				Minz_Log::record ($e->getMessage (), Minz_Log::ERROR);
 				$notif = array (
 					'type' => 'bad',
 					'content' => Translate::t ('internal_problem_feed')
@@ -160,7 +160,7 @@ class feedController extends ActionController {
 				$feedDAO->updateLastUpdate ($feed->id ());
 				$flux_update++;
 			} catch (FeedException $e) {
-				Log::record ($e->getMessage (), Log::ERROR);
+				Minz_Log::record ($e->getMessage (), Minz_Log::ERROR);
 				$feedDAO->isInError ($feed->id ());
 			}
 
@@ -264,7 +264,7 @@ class feedController extends ActionController {
 				}
 			} catch (FeedException $e) {
 				$error = true;
-				Log::record ($e->getMessage (), Log::ERROR);
+				Minz_Log::record ($e->getMessage (), Minz_Log::ERROR);
 			}
 		}
 

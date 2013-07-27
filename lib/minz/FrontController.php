@@ -45,13 +45,13 @@ class FrontController {
 			$this->router = new Router ();
 			$this->router->init ();
 		} catch (RouteNotFoundException $e) {
-			Log::record ($e->getMessage (), Log::ERROR);
+			Minz_Log::record ($e->getMessage (), Minz_Log::ERROR);
 			Error::error (
 				404,
 				array ('error' => array ($e->getMessage ()))
 			);
 		} catch (MinzException $e) {
-			Log::record ($e->getMessage (), Log::ERROR);
+			Minz_Log::record ($e->getMessage (), Minz_Log::ERROR);
 			$this->killApp ();
 		}
 		
@@ -94,7 +94,7 @@ class FrontController {
 			$this->dispatcher->run ();
 			Response::send ();
 		} catch (MinzException $e) {
-			Log::record ($e->getMessage (), Log::ERROR);
+			Minz_Log::record ($e->getMessage (), Minz_Log::ERROR);
 
 			if ($e instanceof FileNotExistException ||
 			    $e instanceof ControllerNotExistException ||

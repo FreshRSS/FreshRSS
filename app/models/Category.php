@@ -78,7 +78,7 @@ class CategoryDAO extends Model_pdo {
 			return true;
 		} else {
 			$info = $stm->errorInfo();
-			Log::record ('SQL error : ' . $info[2], Log::ERROR);
+			Minz_Log::record ('SQL error : ' . $info[2], Minz_Log::ERROR);
 			return false;
 		}
 	}
@@ -97,7 +97,7 @@ class CategoryDAO extends Model_pdo {
 			return true;
 		} else {
 			$info = $stm->errorInfo();
-			Log::record ('SQL error : ' . $info[2], Log::ERROR);
+			Minz_Log::record ('SQL error : ' . $info[2], Minz_Log::ERROR);
 			return false;
 		}
 	}
@@ -112,7 +112,7 @@ class CategoryDAO extends Model_pdo {
 			return true;
 		} else {
 			$info = $stm->errorInfo();
-			Log::record ('SQL error : ' . $info[2], Log::ERROR);
+			Minz_Log::record ('SQL error : ' . $info[2], Minz_Log::ERROR);
 			return false;
 		}
 	}

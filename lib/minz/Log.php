@@ -7,7 +7,7 @@
 /**
  * La classe Log permet de logger des erreurs
  */
-class Log {
+class Minz_Log {
 	/**
 	 * Les différents niveau de log
 	 * ERROR erreurs bloquantes de l'application
@@ -33,19 +33,19 @@ class Log {
 		
 		if (! ($env == Configuration::SILENT
 		       || ($env == Configuration::PRODUCTION
-		       && ($level == Log::WARNING || $level == Log::NOTICE)))) {
+		       && ($level == Minz_Log::WARNING || $level == Minz_Log::NOTICE)))) {
 			if (is_null ($file_name)) {
 				$file_name = LOG_PATH . '/application.log';
 			}
 			
 			switch ($level) {
-			case Log::ERROR :
+			case Minz_Log::ERROR :
 				$level_label = 'error';
 				break;
-			case Log::WARNING :
+			case Minz_Log::WARNING :
 				$level_label = 'warning';
 				break;
-			case Log::NOTICE :
+			case Minz_Log::NOTICE :
 				$level_label = 'notice';
 				break;
 			default :
@@ -86,7 +86,7 @@ class Log {
 		$msg_get = str_replace("\n", '', '$_GET content : ' . print_r($_GET, true));
 		$msg_post = str_replace("\n", '', '$_POST content : ' . print_r($_POST, true));
 
-		self::record($msg_get, Log::NOTICE, $file_name);
-		self::record($msg_post, Log::NOTICE, $file_name);
+		self::record($msg_get, Minz_Log::NOTICE, $file_name);
+		self::record($msg_post, Minz_Log::NOTICE, $file_name);
 	}
 }

@@ -59,7 +59,7 @@ class indexController extends ActionController {
 
 				$this->view->entryPaginator = $entries;
 			} catch(EntriesGetterException $e) {
-				Log::record ($e->getMessage (), Log::NOTICE);
+				Minz_Log::record ($e->getMessage (), Minz_Log::NOTICE);
 				Error::error (
 					404,
 					array ('error' => array (Translate::t ('page_not_found')))

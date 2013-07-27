@@ -244,7 +244,7 @@ class configureController extends ActionController {
 					Request::_param ('feeds', $feeds);
 					Request::forward (array ('c' => 'feed', 'a' => 'massiveImport'));
 				} catch (OpmlException $e) {
-					Log::record ($e->getMessage (), Log::ERROR);
+					Minz_Log::record ($e->getMessage (), Minz_Log::ERROR);
 
 					$notif = array (
 						'type' => 'bad',
