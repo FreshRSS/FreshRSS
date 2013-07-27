@@ -138,6 +138,7 @@ class feedController extends ActionController {
 		$date_min = time () - (60 * 60 * 24 * 30 * $nb_month_old);
 
 		$i = 0;
+		$flux_update = 0;
 		foreach ($feeds as $feed) {
 			try {
 				$feed->load ();
@@ -157,6 +158,7 @@ class feedController extends ActionController {
 
 				// on indique que le flux vient d'être mis à jour en BDD
 				$feedDAO->updateLastUpdate ($feed->id ());
+				$flux_update++;
 			} catch (FeedException $e) {
 				Log::record ($e->getMessage (), Log::ERROR);
 				$feedDAO->isInError ($feed->id ());
@@ -173,20 +175,17 @@ class feedController extends ActionController {
 		$entryDAO->cleanOldEntries ($nb_month_old);
 
 		$url = array ();
-		if ($i == 1) {
+		if ($flux_update == 1) {
 			// on a mis un seul flux à jour
-			// reset permet de récupérer ce flux
-			$feed = reset ($feeds);
 			$notif = array (
 				'type' => 'good',
 				'content' => Translate::t ('feed_actualized', $feed->name ())
 			);
-			$url['params'] = array ('get' => 'f_' . $feed->id ());
-		} elseif ($i > 1) {
+		} elseif ($flux_update > 1) {
 			// plusieurs flux on été mis à jour
 			$notif = array (
 				'type' => 'good',
-				'content' => Translate::t ('n_feeds_actualized', $i)
+				'content' => Translate::t ('n_feeds_actualized', $flux_update)
 			);
 		} else {
 			// aucun flux n'a été mis à jour, oups
@@ -194,6 +193,13 @@ class feedController extends ActionController {
 				'type' => 'bad',
 				'content' => Translate::t ('no_feed_actualized')
 			);
+		}
+
+		if($i == 1) {
+			// Si on a voulu mettre à jour qu'un flux
+			// on filtre l'affichage par ce flux
+			$feed = reset ($feeds);
+			$url['params'] = array ('get' => 'f_' . $feed->id ());
 		}
 
 		if (Request::param ('ajax', 0) == 0) {
