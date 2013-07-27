@@ -1,4 +1,5 @@
 <?php if (login_is_conf ($this->conf)) { ?>
+
 <?php
 	$mail = Session::param ('mail', 'null');
 	if ($mail != 'null') {
@@ -12,21 +13,15 @@ login_url = "<?php echo Url::display (array ('a' => 'login')); ?>";
 logout_url = "<?php echo Url::display (array ('a' => 'logout')); ?>";
 currentUser = <?php echo $mail; ?>;
 
-var signinLink = $('a#signin');
-if (signinLink) {
-	signinLink.click(function() {
-		navigator.id.request();
-		return false;
-	});
-};
- 
-var signoutLink = $('a#signout');
-if (signoutLink) {
-	signoutLink.click(function() {
-		navigator.id.logout();
-		return false;
-	});
-};
+$('a.signin').click(function() {
+	navigator.id.request();
+	return false;
+});
+
+$('a.signout').click(function() {
+	navigator.id.logout();
+	return false;
+});
 
 navigator.id.watch({
 	loggedInUser: currentUser,

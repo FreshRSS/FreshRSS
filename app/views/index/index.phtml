@@ -2,12 +2,23 @@
 
 $output = Request::param ('output', 'normal');
 
-if ($output == 'rss') {
-	$this->renderHelper ('rss_view');
-} elseif($output == 'reader') {
-	$this->renderHelper ('reader_view');
-} elseif($output == 'global') {
-	$this->renderHelper ('global_view');
+if(!login_is_conf ($this->conf) ||
+   is_logged() ||
+   $this->conf->anonAccess() == 'yes') {
+	if($output == 'rss') {
+		$this->renderHelper ('view/rss_view');
+	} elseif($output == 'reader') {
+		$this->renderHelper ('view/reader_view');
+	} elseif($output == 'global') {
+		$this->renderHelper ('view/global_view');
+	} else {
+		$this->renderHelper ('view/normal_view');
+	}
 } else {
-	$this->renderHelper ('normal_view');
+?>
+<div class="post content">
+	<h1><?php echo Translate::t ('forbidden_access'); ?></h1>
+	<p><?php echo Translate::t ('forbidden_access_description'); ?></p>
+</div>
+<?php
 }

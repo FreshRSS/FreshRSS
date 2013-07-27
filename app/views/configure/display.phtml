@@ -31,6 +31,10 @@
 			<div class="group-controls">
 				<input type="email" id="mail_login" name="mail_login" value="<?php echo $mail ? $mail : ''; ?>" placeholder="<?php echo Translate::t ('blank_to_disable'); ?>" />
 				<noscript><b><?php echo Translate::t ('javascript_should_be_activated'); ?></b></noscript>
+				<label class="checkbox" for="anon_access">
+					<input type="checkbox" name="anon_access" id="anon_access" value="yes"<?php echo $this->conf->anonAccess () == 'yes' ? ' checked="checked"' : ''; ?> />
+					<?php echo Translate::t ('allow_anonymous'); ?>
+				</label>
 			</div>
 		</div>
 	

@@ -45,6 +45,12 @@ return array (
 	'older_first'			=> 'Plus anciens en premier',
 	'newer_first'			=> 'Plus récents en premier',
 
+	// Pagination
+	'first'				=> 'Début',
+	'previous'			=> 'Précédent',
+	'next'				=> 'Suivant',
+	'last'				=> 'Fin',
+
 	// CONTROLLERS
 	'article_published_on'		=> 'Article publié initialement sur <a href="%s">%s</a>',
 	'article_published_on_author'	=> 'Article publié initialement sur <a href="%s">%s</a> par %s',
@@ -144,6 +150,7 @@ return array (
 	'delete_articles_every'		=> 'Supprimer les articles tous les',
 	'month'				=> 'mois',
 	'persona_connection_email'	=> 'Adresse mail de connexion (utilise <a href="https://persona.org/">Persona</a>)',
+	'allow_anonymous'		=> 'Autoriser la lecture anonyme',
 	'reading_configuration'		=> 'Configuration de lecture',
 	'articles_per_page'		=> 'Nombre d\'articles par page',
 	'default_view'			=> 'Vue par défaut',
@@ -195,6 +202,9 @@ return array (
 
 	'logs'				=> 'Logs',
 	'logs_empty'			=> 'Les logs sont vides',
+
+	'forbidden_access'		=> 'Accès interdit',
+	'forbidden_access_description'	=> 'L\'accès est protégé par un mot de passe, veuillez <a class="signin" href="#">vous connecter</a> pour accéder aux flux.',
 
 	// DATE
 	'january'			=> 'janvier',

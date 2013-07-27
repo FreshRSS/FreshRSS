@@ -17,6 +17,8 @@ class RSSConfiguration extends Model {
 	private $mail_login = '';
 	private $mark_when = array ();
 	private $url_shaarli = '';
+	private $theme;
+	private $anon_access;
 	
 	public function __construct () {
 		$confDAO = new RSSConfigurationDAO ();
@@ -32,6 +34,8 @@ class RSSConfiguration extends Model {
 		$this->_mailLogin ($confDAO->mail_login);
 		$this->_markWhen ($confDAO->mark_when);
 		$this->_urlShaarli ($confDAO->url_shaarli);
+		$this->_theme ($confDAO->theme);
+		$this->_anonAccess ($confDAO->anon_access);
 	}
 	
 	public function availableLanguages () {
@@ -81,6 +85,12 @@ class RSSConfiguration extends Model {
 	}
 	public function urlShaarli () {
 		return $this->url_shaarli;
+	}
+	public function theme () {
+		return $this->theme;
+	}
+	public function anonAccess () {
+		return $this->anon_access;
 	}
 
 	public function _language ($value) {
@@ -171,6 +181,16 @@ class RSSConfiguration extends Model {
 			$this->url_shaarli = $value;
 		}
 	}
+	public function _theme ($value) {
+		$this->theme = $value;
+	}
+	public function _anonAccess ($value) {
+		if ($value == 'yes') {
+			$this->anon_access = 'yes';
+		} else {
+			$this->anon_access = 'no';
+		}
+	}
 }
 
 class RSSConfigurationDAO extends Model_array {
@@ -198,6 +218,8 @@ class RSSConfigurationDAO extends Model_array {
 		'scroll' => 'no'
 	);
 	public $url_shaarli = '';
+	public $theme = 'default';
+	public $anon_access = 'no';
 
 	public function __construct () {
 		parent::__construct (PUBLIC_PATH . '/data/Configuration.array.php');
@@ -237,6 +259,12 @@ class RSSConfigurationDAO extends Model_array {
 		}
 		if (isset ($this->array['url_shaarli'])) {
 			$this->url_shaarli = $this->array['url_shaarli'];
+		}
+		if (isset ($this->array['theme'])) {
+			$this->theme = $this->array['theme'];
+		}
+		if (isset ($this->array['anon_access'])) {
+			$this->anon_access = $this->array['anon_access'];
 		}
 	}
 	

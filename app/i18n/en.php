@@ -45,6 +45,12 @@ return array (
 	'older_first'			=> 'Oldest first',
 	'newer_first'			=> 'Newer first',
 
+	// Pagination
+	'first'				=> 'First',
+	'previous'			=> 'Previous',
+	'next'				=> 'Next',
+	'last'				=> 'Last',
+
 	// CONTROLLERS
 	'article_published_on'		=> 'This article originally appeared on <a href="%s">%s</a>',
 	'article_published_on_author'	=> 'This article originally appeared on <a href="%s">%s</a> by %s',
@@ -144,6 +150,7 @@ return array (
 	'delete_articles_every'		=> 'Remove articles every',
 	'month'				=> 'months',
 	'persona_connection_email'	=> 'Login mail address (use <a href="https://persona.org/">Persona</a>)',
+	'allow_anonymous'		=> 'Allow anonymous reading',
 	'reading_configuration'		=> 'Reading configuration',
 	'articles_per_page'		=> 'Number of articles per page',
 	'default_view'			=> 'Default view',
@@ -195,6 +202,9 @@ return array (
 
 	'logs'				=> 'Logs',
 	'logs_empty'			=> 'Log file is empty',
+
+	'forbidden_access'		=> 'Forbidden access',
+	'forbidden_access_description'	=> 'Access is password protected, please <a class="signin" href="#">sign in</a> to read your feeds.',
 
 	// DATE
 	'january'			=> 'january',

@@ -147,6 +147,7 @@ class configureController extends ActionController {
 			$sort = Request::param ('sort_order', 'low_to_high');
 			$old = Request::param ('old_entries', 3);
 			$mail = Request::param ('mail_login', false);
+			$anon = Request::param ('anon_access', 'no');
 			$openArticle = Request::param ('mark_open_article', 'no');
 			$openSite = Request::param ('mark_open_site', 'no');
 			$scroll = Request::param ('mark_scroll', 'no');
@@ -161,6 +162,7 @@ class configureController extends ActionController {
 			$this->view->conf->_sortOrder ($sort);
 			$this->view->conf->_oldEntries ($old);
 			$this->view->conf->_mailLogin ($mail);
+			$this->view->conf->_anonAccess ($anon);
 			$this->view->conf->_markWhen (array (
 				'article' => $openArticle,
 				'site' => $openSite,
@@ -178,6 +180,7 @@ class configureController extends ActionController {
 				'sort_order' => $this->view->conf->sortOrder (),
 				'old_entries' => $this->view->conf->oldEntries (),
 				'mail_login' => $this->view->conf->mailLogin (),
+				'anon_access' => $this->view->conf->anonAccess (),
 				'mark_when' => $this->view->conf->markWhen (),
 				'url_shaarli' => $this->view->conf->urlShaarli (),
 			);

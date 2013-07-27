@@ -1,9 +1,9 @@
 <?php if (login_is_conf ($this->conf)) { ?>
 <ul class="nav nav-head">
 	<?php if (!is_logged ()) { ?>
-	<li class="item"><i class="icon i_login"></i> <a id="signin" href="#"><?php echo Translate::t ('login'); ?></a></li>
+	<li class="item"><i class="icon i_login"></i> <a class="signin" href="#"><?php echo Translate::t ('login'); ?></a></li>
 	<?php } else { ?>
-	<li class="item"><i class="icon i_logout"></i> <a id="signout" href="#"><?php echo Translate::t ('logout'); ?></a></li>
+	<li class="item"><i class="icon i_logout"></i> <a class="signout" href="#"><?php echo Translate::t ('logout'); ?></a></li>
 	<?php } ?>
 </ul>
 <?php } ?>
@@ -15,6 +15,9 @@
 	</div>
 
 	<div class="item search">
+		<?php if(!login_is_conf ($this->conf) ||
+		         is_logged() ||
+		         $this->conf->anonAccess() == 'yes') { ?>
 		<form action="<?php echo _url ('index', 'index'); ?>" method="get">
 			<div class="stick">
 				<?php $search = Request::param ('search', ''); ?>
@@ -38,6 +41,7 @@
 				<button class="btn" type="submit"><i class="icon i_search"></i></button>
 			</div>
 		</form>
+		<?php } ?>
 	</div>
 
 	<?php if (!login_is_conf ($this->conf) || is_logged ()) { ?>
