@@ -30,6 +30,7 @@ class App_FrontController extends FrontController {
 		include (APP_PATH . '/models/Exception/FeedException.php');
 		include (APP_PATH . '/models/Exception/EntriesGetterException.php');
 		include (APP_PATH . '/models/RSSConfiguration.php');
+		include (APP_PATH . '/models/RSSThemes.php');
 		include (APP_PATH . '/models/Days.php');
 		include (APP_PATH . '/models/Category.php');
 		include (APP_PATH . '/models/Feed.php');
@@ -50,9 +51,8 @@ class App_FrontController extends FrontController {
 	}
 
 	private function loadStylesAndScripts () {
-		View::appendStyle (Url::display ('/theme/fallback.css'));
-		View::appendStyle (Url::display ('/theme/global.css'));
-		View::appendStyle (Url::display ('/theme/freshrss.css'));
+		$theme = $this->conf->theme();
+		View::appendStyle (Url::display ('/themes/' . $theme . '/style.css'));
 		if (login_is_conf ($this->conf)) {
 			View::appendScript ('https://login.persona.org/include.js');
 		}

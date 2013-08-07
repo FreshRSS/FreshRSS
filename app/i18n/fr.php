@@ -168,11 +168,13 @@ return array (
 	'on_shaarli'			=> 'Sur votre Shaarli',
 	'optimize_bdd'			=> 'Optimiser la base de données',
 	'optimize_todo_sometimes'	=> 'À faire de temps en temps pour réduire la taille de la BDD',
+	'themes'			=> 'Thèmes',
 
 	'article'			=> 'Article',
 	'title'				=> 'Titre',
 	'author'			=> 'Auteur',
 	'publication_date'		=> 'Date de publication',
+	'by'				=> 'par',
 
 	'load_more'			=> 'Charger plus d\'articles',
 	'nothing_to_load'		=> 'Il n\'y a pas plus d\'article',

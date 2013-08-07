@@ -137,6 +137,8 @@ class configureController extends ActionController {
 	}
 
 	public function displayAction () {
+		RSSThemes::init();
+
 		if (Request::isPost ()) {
 			$language = Request::param ('language', 'en');
 			$nb = Request::param ('posts_per_page', 10);
@@ -152,6 +154,7 @@ class configureController extends ActionController {
 			$openSite = Request::param ('mark_open_site', 'no');
 			$scroll = Request::param ('mark_scroll', 'no');
 			$urlShaarli = Request::param ('shaarli', '');
+			$theme = Request::param ('theme', 'default');
 
 			$this->view->conf->_language ($language);
 			$this->view->conf->_postsPerPage (intval ($nb));
@@ -169,6 +172,7 @@ class configureController extends ActionController {
 				'scroll' => $scroll,
 			));
 			$this->view->conf->_urlShaarli ($urlShaarli);
+			$this->view->conf->_theme ($theme);
 
 			$values = array (
 				'language' => $this->view->conf->language (),
@@ -183,6 +187,7 @@ class configureController extends ActionController {
 				'anon_access' => $this->view->conf->anonAccess (),
 				'mark_when' => $this->view->conf->markWhen (),
 				'url_shaarli' => $this->view->conf->urlShaarli (),
+				'theme' => $this->view->conf->theme ()
 			);
 
 			$confDAO = new RSSConfigurationDAO ();
@@ -202,6 +207,8 @@ class configureController extends ActionController {
 
 			Request::forward (array ('c' => 'configure', 'a' => 'display'), true);
 		}
+
+		$this->view->themes = RSSThemes::get();
 
 		View::prependTitle (Translate::t ('general_and_reading_management') . ' - ');
 	}

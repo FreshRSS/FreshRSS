@@ -1,14 +1,17 @@
 /* STRUCTURE */
+body {
+	background: #fafafa;
+}
+
 .header {
 	display: table;
 	width: 100%;
-	background: #f4f4f4;
 	table-layout: fixed;
+	background: #ecf0f1;
 }
 	.header > .item {
 		display: table-cell;
 		padding: 10px 0;
-		border-bottom: 1px solid #aaa;
 		vertical-align: middle;
 		text-align: center;
 	}
@@ -23,15 +26,15 @@
 			.header > .item.title h1 {
 				display: inline-block;
 				margin: 0;
-				text-shadow: 1px -1px 0 #ccc;
 				vertical-align: bottom;
 			}
 			.header > .item.title a:hover {
 				text-decoration: none;
 			}
 		.header > .item.search input {
-			width: 200px;
+			width: 250px;
 			transition: width 200ms linear;
+			border-radius: 5px 0 0 5px;
 		}
 			.header .item.search input:focus {
 				width: 300px;
@@ -44,7 +47,6 @@
 	display: table;
 	width: 100%;
 	height: 100%;
-	background: #fafafa;
 	table-layout: fixed;
 }
 	.aside {
@@ -52,8 +54,7 @@
 		height: 100%;
 		width: 250px;
 		vertical-align: top;
-		border-right: 1px solid #aaa;
-		background: #fff;
+		background: #ecf0f1;
 	}
 		.aside .nav-form input {
 			width: 180px;
@@ -70,8 +71,6 @@
 
 	.nav_menu {
 		width: 100%;
-		background: #fafafa;
-		border-bottom: 1px solid #aaa;
 		text-align: center;
 		padding: 5px 0;
 	}
@@ -137,21 +136,17 @@
 			background-image: none;
 		}
 			.categories .feeds .item .dropdown-target:target ~ .dropdown-toggle i,
-			.categories .feeds .item:hover .dropdown-toggle i {
+			.categories .feeds .item:hover .dropdown-toggle i,
+			.categories .feeds .item.active .dropdown-toggle i {
 				background-image: url("icons/configure.png");
 				background-image: url("icons/configure.svg");
+				background-color: #95a5a6;
 			}
 	.categories .notRead {
 		position: absolute;
-		top: 3px; right: 3px;
-		padding: 1px 5px;
-		background: #ccc;
+		top: 5px; right: 3px;
 		color: #fff;
 		font-size: 90%;
-		border: 1px solid #bbb;
-		border-radius: 5px;
-		box-shadow: 1px 3px 3px #aaa inset;
-		text-shadow: 0 0 1px #aaa;
 	}
 
 .post {
@@ -162,36 +157,28 @@
 	}
 
 .day {
+	display: inline;
 	min-height: 50px;
-	padding: 0 10px;
+	padding: 5px 15px;
 	font-size: 130%;
 	font-weight: bold;
 	line-height: 50px;
-	background: #fff;
-	border-top: 1px solid #aaa;
-	border-bottom: 1px solid #aaa;
+	background: #ecf0f1;
+	border-radius: 0 20px 20px 0;
 }
-	.day:first-child {
-		border-top: none;
-	}
 
 .flux {
-	border-left: 10px solid #aaa;
-	background: #fafafa;
 }
-	.flux:hover {
-		background: #fff;
-	}
 	.flux.active {
-		border-left: 10px solid #0062BE;
+		border-left: 3px solid #3498db;
 		background: #fff;
 	}
 	.flux.not_read {
-		border-left: 10px solid #FF5300;
+		border-left: 3px solid #FF5300;
 		background: #FFF3ED;
 	}
 	.flux.favorite {
-		border-left: 10px solid #FFC300;
+		border-left: 3px solid #FFC300;
 		background: #FFF6DA;
 	}
 
@@ -199,7 +186,7 @@
 		height: 25px;
 		font-size: 12px;
 		line-height: 25px;
-		border-top: 1px solid #ddd;
+		border-top: 1px solid #ecf0f1;
 	}
 		.item.manage {
 			width: 80px;
@@ -289,13 +276,16 @@
 #stream.reader .flux {
 	padding: 0 0 30px;
 	border: none;
-	background: #f0f0f0;
-	color: #333;
+	background: #ecf0f1;
+	color: #34495e;
+	font-size: 120%;
 }
+	#stream.reader .flux a {
+	}
 	#stream.reader .flux .author {
 		margin: 0 0 10px;
 		font-size: 90%;
-		color: #666;
+		color: #aaa;
 	}
 
 #stream.global {
@@ -306,7 +296,6 @@
 		width: 280px;
 		margin: 20px 10px;
 		vertical-align: top;
-		background: #fff;
 		border: 1px solid #aaa;
 		border-radius: 5px;
 		text-align: left;
@@ -394,20 +383,24 @@
 	display: table;
 	width: 100%;
 	margin: 0;
-	background: #fafafa;
+	background: #ecf0f1;
 	text-align: center;
-	color: #333;
+	color: #000;
 	font-size: 80%;
 	line-height: 200%;
 	table-layout: fixed;
+	font-weight: bold;
 }
 	.pagination .item {
 		display: table-cell;
 		line-height: 40px;
+		vertical-align: top;
 	}
 		.pagination .item.pager-current {
 			font-weight: bold;
 			font-size: 140%;
+			color: #ecf0f1;
+			background: #34495e;
 		}
 		.pagination .item.pager-first,
 		.pagination .item.pager-previous,
@@ -417,15 +410,15 @@
 		}
 		.pagination .item a {
 			display: block;
-			color: #333;
-			font-style: italic;
+			color: #000;
+			font-weight: bold;
+			line-height: 40px;
 		}
-	.pagination:first-child .item {
-		border-bottom: 1px solid #aaa;
-	}
-	.pagination:last-child .item {
-		border-top: 1px solid #aaa;
-	}
+			.pagination .item a:hover {
+				color: #ecf0f1;
+				background: #34495e;
+				text-decoration: none;
+			}
 
 .nav_entries {
 	display: table;
@@ -435,8 +428,7 @@
 	bottom: 0;
 	left: 0;
 	margin: 0;
-	background: #fff;
-	border-top: 1px solid #ddd;
+	background: #34495e;
 	text-align: center;
 	line-height: 40px;
 	table-layout: fixed;
@@ -453,44 +445,50 @@
 			vertical-align: top;
 		}
 
-.loading {
-	background: url("loader.gif") center center no-repeat;
+.pagination .loading,
+.pagination a:hover.loading {
+	background: url("loader.gif") center center no-repeat #34495e;
 	font-size: 0;
 }
 
 /*** NOTIFICATION ***/
 .notification {
 	position: fixed;
-	bottom: 0;
-	left: 5%; right: 5%;
+	top: 10px;
+	left: 10%; right: 10%;
 	min-height: 30px;
 	padding: 10px;
 	line-height: 30px;
 	text-align: center;
-	border-radius: 5px 5px 0 0;
-	box-shadow: 0 0 5px #666;
+	border-radius: 3px;
 	background: #ddd;
 	color: #666;
 	font-weight: bold;
 }
 	.notification.good {
-		background: #f4f899;
+		background: #1abc9c;
+		color: #fff;
 	}
 	.notification.bad {
-		background: #f4a899;
+		background: #e74c3c;
+		color: #fff;
 	}
 	.notification a.close {
 		display: inline-block;
 		width: 16px;
 		height: 16px;
 		float: right;
-		margin: -20px -20px 0 0;
+		margin: -16px -16px 0 0;
 		padding: 5px;
-		background: #fff;
-		border-radius: 50px;
-		border: 1px solid #aaa;
+		border-radius: 3px;
 		line-height: 16px;
 	}
+		.notification.good a.close {
+			background: #1abc9c;
+		}
+		.notification.bad a.close {
+			background: #e74c3c;
+		}
 
 .toggle_aside, .btn.toggle_aside {
 	display: none;
@@ -498,51 +496,52 @@
 
 .actualizeProgress {
 	position: fixed;
-	top: 0; left: 25%; right: 25%;
-	width: 50%;
+	top: 10px; left: 25%; right: 25%;
 	padding: 5px;
-	background: #fff;
+	background: #3498db;
+	color: #fff;
 	text-align: center;
-	border: 1px solid #ddd;
-	border-top: none;
-	border-radius: 0 0 5px 5px;
+	border-radius: 3px;
+	font-weight: bold;
 }
 	.actualizeProgress progress {
 		max-width: 100%;
+		width: 250px;
+		height: 15px;
 		vertical-align: middle;
+		background: #fff;
+		border: none;
 	}
 	.actualizeProgress .progress {
-		color: #999;
-		font-size: 90%;
-		vertical-align: middle;
+		color: #ecf0f1;
 	}
 
 .logs {
-	border: 1px solid #aaa;
+	border: 1px solid #34495e;
 }
 	.logs .log {
+		margin: 10px 0;
 		padding: 5px 2%;
 		overflow: auto;
 		background: #fafafa;
-		border-bottom: 1px solid #999;
-		color: #333;
+		color: #666;
 		font-size: 90%;
 	}
 		.logs .log .date {
-			display: block;
+			margin: 0 10px 0 0;
+			padding: 5px 10px;
+			border-radius: 20px;
 		}
-	.logs .log.error {
-		background: #fdd;
-		color: #844;
-	}
-	.logs .log.warning {
-		background: #ffe;
-		color: #c95;
-	}
-	.logs .log.notice {
-		background: #f4f4f4;
-		color: #aaa;
-	}
+			.logs .log.error .date {
+				background: #e74c3c;
+				color: #fff;
+			}
+			.logs .log.warning .date {
+				background: #f39c12;
+			}
+			.logs .log.notice .date {
+				background: #ecf0f1;
+			}
 
 @media(max-width: 840px) {
 	.header,
@@ -579,9 +578,9 @@
 		top: 0; left: 0;
 		width: 0;
 		overflow: hidden;
-		border-right: none;
 		z-index: 10;
 		transition: width 200ms linear;
+		background: #ecf0f1;
 	}
 		.aside.aside_flux {
 			padding: 10px 0 0;
@@ -593,21 +592,34 @@
 		}
 		.aside .toggle_aside {
 			position: absolute;
-			right: 0;
+			right: 10px;
 			display: inline-block;
 			width: 26px;
 			height: 26px;
 			margin: 0 10px 0 0;
-			border: 1px solid #ccc;
-			border-radius: 20px;
+			border-radius: 3px;
 			text-align: center;
-			line-height: 26px;
+			line-height: 24px;
+			background: #95a5a6;
 		}
+			.aside .toggle_aside:hover {
+				background: #7f8c8d;
+			}
 		.aside .categories {
 			margin: 30px 0;
 		}
 
 	.nav_entries {
 		width: 100%;
+	}
+
+	.nav_menu .btn {
+		margin: 10px;
+	}
+	.nav_menu .stick {
+		margin: 0 10px;
+	}
+	.nav_menu .stick .btn {
+		margin: 10px 0;
 	}
 }

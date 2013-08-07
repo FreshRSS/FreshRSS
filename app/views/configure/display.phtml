@@ -41,6 +41,19 @@
 		<legend><?php echo Translate::t ('reading_configuration'); ?></legend>
 
 		<div class="form-group">
+			<label class="group-name" for="theme"><?php echo Translate::t ('themes'); ?></label>
+			<div class="group-controls">
+				<select name="theme" id="theme">
+				<?php foreach ($this->themes as $theme) { ?>
+				<option value="<?php echo $theme['path']; ?>"<?php echo $this->conf->theme () == $theme['path'] ? ' selected="selected"' : ''; ?>>
+					<?php echo $theme['name'] . ' ' . Translate::t ('by') . ' ' . $theme['author']; ?> 
+				</option>
+				<?php } ?>
+				</select>
+			</div>
+		</div>
+
+		<div class="form-group">
 			<label class="group-name" for="posts_per_page"><?php echo Translate::t ('articles_per_page'); ?></label>
 			<div class="group-controls">
 				<input type="number" id="posts_per_page" name="posts_per_page" value="<?php echo $this->conf->postsPerPage (); ?>" />
