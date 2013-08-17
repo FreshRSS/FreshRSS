@@ -221,6 +221,7 @@ class Configuration {
 			self::$db['user'] = $db['user'];
 			self::$db['password'] = $db['password'];
 			self::$db['base'] = $db['base'];
+			self::$db['prefix'] = isset ($db['prefix']) ? $db['prefix'] : '';
 		}
 	}
 

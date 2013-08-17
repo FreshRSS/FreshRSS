@@ -8,14 +8,14 @@ if (isset ($_GET['step'])) {
 	define ('STEP', 1);
 }
 
-define ('SQL_REQ', 'CREATE TABLE IF NOT EXISTS `category` (
+define ('SQL_REQ', 'CREATE TABLE IF NOT EXISTS `%scategory` (
   `id` varchar(6) NOT NULL,
   `name` varchar(255) NOT NULL,
   `color` varchar(7) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-CREATE TABLE IF NOT EXISTS `entry` (
+CREATE TABLE IF NOT EXISTS `%sentry` (
   `id` varchar(6) NOT NULL,
   `guid` text NOT NULL,
   `title` varchar(255) NOT NULL,
@@ -34,7 +34,7 @@ CREATE TABLE IF NOT EXISTS `entry` (
   KEY `id_feed` (`id_feed`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-CREATE TABLE IF NOT EXISTS `feed` (
+CREATE TABLE IF NOT EXISTS `%sfeed` (
   `id` varchar(6) NOT NULL,
   `url` text NOT NULL,
   `category` varchar(6) DEFAULT \'000000\',
@@ -50,10 +50,10 @@ CREATE TABLE IF NOT EXISTS `feed` (
   KEY `category` (`category`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-ALTER TABLE `entry`
-  ADD CONSTRAINT `entry_ibfk_1` FOREIGN KEY (`id_feed`) REFERENCES `feed` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
-ALTER TABLE `feed`
-  ADD CONSTRAINT `feed_ibfk_4` FOREIGN KEY (`category`) REFERENCES `category` (`id`) ON DELETE SET NULL ON UPDATE CASCADE;');
+ALTER TABLE `%sentry`
+  ADD CONSTRAINT `entry_ibfk_1` FOREIGN KEY (`id_feed`) REFERENCES `%sfeed` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `%sfeed`
+  ADD CONSTRAINT `feed_ibfk_4` FOREIGN KEY (`category`) REFERENCES `%scategory` (`id`) ON DELETE SET NULL ON UPDATE CASCADE;');
 
 function writeLine ($f, $line) {
 	fwrite ($f, $line . "\n");
@@ -138,15 +138,15 @@ function saveStep2 () {
 			return false;
 		}
 
-		$_SESSION['sel'] = $_POST['sel'];
-		$_SESSION['base_url'] = $_POST['base_url'];
-		$_SESSION['title'] = $_POST['title'];
+		$_SESSION['sel'] = addslashes ($_POST['sel']);
+		$_SESSION['base_url'] = addslashes ($_POST['base_url']);
+		$_SESSION['title'] = addslashes ($_POST['title']);
 		$_SESSION['old_entries'] = $_POST['old_entries'];
 		if (!is_int (intval ($_SESSION['old_entries'])) ||
 		    $_SESSION['old_entries'] < 1) {
 			$_SESSION['old_entries'] = 3;
 		}
-		$_SESSION['mail_login'] = $_POST['mail_login'];
+		$_SESSION['mail_login'] = addslashes ($_POST['mail_login']);
 
 		$file_data = PUBLIC_PATH . '/data/Configuration.array.php';
 
@@ -172,10 +172,11 @@ function saveStep3 () {
 			$_SESSION['bd_error'] = true;
 		}
 
-		$_SESSION['bd_host'] = $_POST['host'];
-		$_SESSION['bd_user'] = $_POST['user'];
-		$_SESSION['bd_pass'] = $_POST['pass'];
-		$_SESSION['bd_name'] = $_POST['base'];
+		$_SESSION['bd_host'] = addslashes ($_POST['host']);
+		$_SESSION['bd_user'] = addslashes ($_POST['user']);
+		$_SESSION['bd_pass'] = addslashes ($_POST['pass']);
+		$_SESSION['bd_name'] = addslashes ($_POST['base']);
+		$_SESSION['bd_prefix'] = addslashes ($_POST['prefix']);
 
 		$file_conf = APP_PATH . '/configuration/application.ini';
 		$f = fopen ($file_conf, 'w');
@@ -190,6 +191,7 @@ function saveStep3 () {
 		writeLine ($f, 'user = "' . $_SESSION['bd_user'] . '"');
 		writeLine ($f, 'password = "' . $_SESSION['bd_pass'] . '"');
 		writeLine ($f, 'base = "' . $_SESSION['bd_name'] . '"');
+		writeLine ($f, 'prefix = "' . $_SESSION['bd_prefix'] . '"');
 		fclose ($f);
 
 		$res = checkBD ();
@@ -240,6 +242,7 @@ function checkStep1 () {
 	$minz = file_exists (LIB_PATH . '/minz');
 	$curl = extension_loaded ('curl');
 	$pdo = extension_loaded ('pdo_mysql');
+	$dom = class_exists('DOMDocument');
 	$cache = CACHE_PATH && is_writable (CACHE_PATH);
 	$log = LOG_PATH && is_writable (LOG_PATH);
 	$conf = APP_PATH && is_writable (APP_PATH . '/configuration');
@@ -250,11 +253,12 @@ function checkStep1 () {
 		'minz' => $minz ? 'ok' : 'ko',
 		'curl' => $curl ? 'ok' : 'ko',
 		'pdo-mysql' => $pdo ? 'ok' : 'ko',
+		'dom' => $dom ? 'ok' : 'ko',
 		'cache' => $cache ? 'ok' : 'ko',
 		'log' => $log ? 'ok' : 'ko',
 		'configuration' => $conf ? 'ok' : 'ko',
 		'data' => $data ? 'ok' : 'ko',
-		'all' => $php && $minz && $curl && $pdo && $cache && $log && $conf && $data ? 'ok' : 'ko'
+		'all' => $php && $minz && $curl && $pdo && $dom && $cache && $log && $conf && $data ? 'ok' : 'ko'
 	);
 }
 function checkStep2 () {
@@ -293,8 +297,17 @@ function checkBD () {
 		$c = new PDO ('mysql:host=' . $_SESSION['bd_host'] . ';dbname=' . $_SESSION['bd_name'],
 			      $_SESSION['bd_user'],
 			      $_SESSION['bd_pass']);
-
-		$res = $c->query (SQL_REQ);
+		$sql = sprintf (
+			SQL_REQ,
+			$_SESSION['bd_prefix'],
+                        $_SESSION['bd_prefix'],
+                        $_SESSION['bd_prefix'],
+                        $_SESSION['bd_prefix'],
+                        $_SESSION['bd_prefix'],
+                        $_SESSION['bd_prefix'],
+                        $_SESSION['bd_prefix']
+		);
+		$res = $c->query ($sql);
 
 		if (!$res) {
 			$error = true;
@@ -373,6 +386,12 @@ function printStep1 () {
 	<p class="alert alert-success"><span class="alert-head"><?php echo _t ('ok'); ?></span> <?php echo _t ('pdomysql_is_ok'); ?></p>
 	<?php } else { ?>
 	<p class="alert alert-error"><span class="alert-head"><?php echo _t ('damn'); ?></span> <?php echo _t ('pdomysql_is_nok'); ?></p>
+	<?php } ?>
+
+	<?php if ($res['dom'] == 'ok') { ?>
+	<p class="alert alert-success"><span class="alert-head"><?php echo _t ('ok'); ?></span> <?php echo _t ('dom_is_ok'); ?></p>
+	<?php } else { ?>
+	<p class="alert alert-error"><span class="alert-head"><?php echo _t ('damn'); ?></span> <?php echo _t ('dom_is_nok'); ?></p>
 	<?php } ?>
 
 	<?php if ($res['cache'] == 'ok') { ?>
@@ -505,6 +524,13 @@ function printStep3 () {
 			</div>
 		</div>
 
+		<div class="form-group">
+			<label class="group-name" for="prefix"><?php echo _t ('prefix'); ?></label>
+			<div class="group-controls">
+				<input type="text" id="prefix" name="prefix" value="<?php echo isset ($_SESSION['bd_prefix']) ? $_SESSION['bd_prefix'] : 'freshrss_'; ?>" />
+			</div>
+		</div>
+
 		<div class="form-group form-actions">
 			<div class="group-controls">
 				<button type="submit" class="btn btn-important"><?php echo _t ('save'); ?></button>
@@ -561,9 +587,7 @@ case 5:
 		<meta charset="utf-8">
 		<meta name="viewport" content="initial-scale=1.0">
 		<title><?php echo _t ('freshrss_installation'); ?></title>
-		<link rel="stylesheet" type="text/css" media="all" href="theme/fallback.css" />
-		<link rel="stylesheet" type="text/css" media="all" href="theme/global.css" />
-		<link rel="stylesheet" type="text/css" media="all" href="theme/freshrss.css" />
+		<link rel="stylesheet" type="text/css" media="all" href="themes/default/style.css" />
 	</head>
 	<body>
 

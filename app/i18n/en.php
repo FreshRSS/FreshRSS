@@ -266,6 +266,8 @@ return array (
 	'curl_is_nok'			=> 'You haven\'t cURL',
 	'pdomysql_is_ok'		=> 'You have PDO and its driver for MySQL',
 	'pdomysql_is_nok'		=> 'You haven\'t PDO or its driver for MySQL',
+	'dom_is_ok'			=> 'You have the necessary to browse the DOM',
+	'dom_is_nok'			=> 'You haven\'t the necessary to browse the DOM (php-xml package can be useful)',
 	'cache_is_ok'			=> 'Permissions on cache directory are good',
 	'log_is_ok'			=> 'Permissions on logs directory are good',
 	'conf_is_ok'			=> 'Permissions on configuration directory are good',
@@ -285,6 +287,7 @@ return array (
 	'username'			=> 'Username',
 	'password'			=> 'Password',
 	'bdd'				=> 'Database',
+	'prefix'			=> 'Table prefix',
 
 	'installation_is_ok'		=> 'Installation process is finished. You must delete <em>install.php</em> file to access FreshRSS... or simply click on following button :)',
 	'finish_installation'		=> 'Finish installation',

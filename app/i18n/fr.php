@@ -266,6 +266,8 @@ return array (
 	'curl_is_nok'			=> 'Vous ne disposez pas de cURL',
 	'pdomysql_is_ok'		=> 'Vous disposez de PDO et de son driver pour MySQL',
 	'pdomysql_is_nok'		=> 'Vous ne disposez pas de PDO ou de son driver pour MySQL',
+	'dom_is_ok'			=> 'Vous disposez du nécessaire pour parcourir le DOM',
+	'dom_is_nok'			=> 'Vous ne disposez pas du nécessaire pour parcourir le DOM (voir du côté du paquet php-xml ?)',
 	'cache_is_ok'			=> 'Les droits sur le répertoire de cache sont bons',
 	'log_is_ok'			=> 'Les droits sur le répertoire des logs sont bons',
 	'conf_is_ok'			=> 'Les droits sur le répertoire de configuration sont bons',
@@ -285,6 +287,7 @@ return array (
 	'username'			=> 'Nom utilisateur',
 	'password'			=> 'Mot de passe',
 	'bdd'				=> 'Base de données',
+	'prefix'			=> 'Préfixe des tables',
 
 	'installation_is_ok'		=> 'L\'installation s\'est bien passée. Il faut maintenant supprimer le fichier <em>install.php</em> pour pouvoir accéder à FreshRSS... ou simplement cliquer sur le bouton ci-dessous :)',
 	'finish_installation'		=> 'Terminer l\'installation',

@@ -65,7 +65,7 @@ class Category extends Model {
 
 class CategoryDAO extends Model_pdo {
 	public function addCategory ($valuesTmp) {
-		$sql = 'INSERT INTO category (id, name, color) VALUES(?, ?, ?)';
+		$sql = 'INSERT INTO ' . $this->prefix . 'category (id, name, color) VALUES(?, ?, ?)';
 		$stm = $this->bd->prepare ($sql);
 
 		$values = array (
@@ -84,7 +84,7 @@ class CategoryDAO extends Model_pdo {
 	}
 
 	public function updateCategory ($id, $valuesTmp) {
-		$sql = 'UPDATE category SET name=?, color=? WHERE id=?';
+		$sql = 'UPDATE ' . $this->prefix . 'category SET name=?, color=? WHERE id=?';
 		$stm = $this->bd->prepare ($sql);
 
 		$values = array (
@@ -103,7 +103,7 @@ class CategoryDAO extends Model_pdo {
 	}
 
 	public function deleteCategory ($id) {
-		$sql = 'DELETE FROM category WHERE id=?';
+		$sql = 'DELETE FROM ' . $this->prefix . 'category WHERE id=?';
 		$stm = $this->bd->prepare ($sql);
 
 		$values = array ($id);
@@ -118,7 +118,7 @@ class CategoryDAO extends Model_pdo {
 	}
 
 	public function searchById ($id) {
-		$sql = 'SELECT * FROM category WHERE id=?';
+		$sql = 'SELECT * FROM ' . $this->prefix . 'category WHERE id=?';
 		$stm = $this->bd->prepare ($sql);
 
 		$values = array ($id);
@@ -134,7 +134,7 @@ class CategoryDAO extends Model_pdo {
 		}
 	}
 	public function searchByName ($name) {
-		$sql = 'SELECT * FROM category WHERE name=?';
+		$sql = 'SELECT * FROM ' . $this->prefix . 'category WHERE name=?';
 		$stm = $this->bd->prepare ($sql);
 
 		$values = array ($name);
@@ -151,7 +151,7 @@ class CategoryDAO extends Model_pdo {
 	}
 
 	public function listCategories () {
-		$sql = 'SELECT * FROM category ORDER BY name';
+		$sql = 'SELECT * FROM ' . $this->prefix . 'category ORDER BY name';
 		$stm = $this->bd->prepare ($sql);
 		$stm->execute ();
 
@@ -159,7 +159,7 @@ class CategoryDAO extends Model_pdo {
 	}
 
 	public function getDefault () {
-		$sql = 'SELECT * FROM category WHERE id="000000"';
+		$sql = 'SELECT * FROM ' . $this->prefix . 'category WHERE id="000000"';
 		$stm = $this->bd->prepare ($sql);
 
 		$stm->execute ();
@@ -190,7 +190,7 @@ class CategoryDAO extends Model_pdo {
 	}
 
 	public function count () {
-		$sql = 'SELECT COUNT(*) AS count FROM category';
+		$sql = 'SELECT COUNT(*) AS count FROM ' . $this->prefix . 'category';
 		$stm = $this->bd->prepare ($sql);
 		$stm->execute ();
 		$res = $stm->fetchAll (PDO::FETCH_ASSOC);
@@ -199,7 +199,7 @@ class CategoryDAO extends Model_pdo {
 	}
 
 	public function countFeed ($id) {
-		$sql = 'SELECT COUNT(*) AS count FROM feed WHERE category=?';
+		$sql = 'SELECT COUNT(*) AS count FROM ' . $this->prefix . 'feed WHERE category=?';
 		$stm = $this->bd->prepare ($sql);
 		$values = array ($id);
 		$stm->execute ($values);
@@ -209,7 +209,7 @@ class CategoryDAO extends Model_pdo {
 	}
 
 	public function countNotRead ($id) {
-		$sql = 'SELECT COUNT(*) AS count FROM entry e INNER JOIN feed f ON e.id_feed = f.id WHERE category=? AND e.is_read=0';
+		$sql = 'SELECT COUNT(*) AS count FROM ' . $this->prefix . 'entry e INNER JOIN ' . $this->prefix . 'feed f ON e.id_feed = f.id WHERE category=? AND e.is_read=0';
 		$stm = $this->bd->prepare ($sql);
 		$values = array ($id);
 		$stm->execute ($values);

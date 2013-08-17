@@ -13,6 +13,8 @@ class Model_pdo {
 	 * $bd variable représentant la base de données
 	 */
 	protected $bd;
+
+	protected $prefix;
 	
 	/**
 	 * Créé la connexion à la base de données à l'aide des variables
@@ -29,6 +31,8 @@ class Model_pdo {
 				$db['user'],
 				$db['password']
 			);
+
+			$this->prefix = $db['prefix'];
 		} catch (Exception $e) {
 			throw new PDOConnectionException (
 				$string,

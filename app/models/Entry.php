@@ -222,7 +222,7 @@ class Entry extends Model {
 
 class EntryDAO extends Model_pdo {
 	public function addEntry ($valuesTmp) {
-		$sql = 'INSERT INTO entry(id, guid, title, author, content, link, date, is_read, is_favorite, is_public, id_feed, lastUpdate, tags) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
+		$sql = 'INSERT INTO ' . $this->prefix . 'entry(id, guid, title, author, content, link, date, is_read, is_favorite, is_public, id_feed, lastUpdate, tags) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
 		$stm = $this->bd->prepare ($sql);
 
 		$values = array (
@@ -261,7 +261,7 @@ class EntryDAO extends Model_pdo {
 		}
 		$set = substr ($set, 0, -2);
 
-		$sql = 'UPDATE entry SET ' . $set . ' WHERE id=?';
+		$sql = 'UPDATE ' . $this->prefix . 'entry SET ' . $set . ' WHERE id=?';
 		$stm = $this->bd->prepare ($sql);
 
 		foreach ($valuesTmp as $v) {
@@ -279,7 +279,7 @@ class EntryDAO extends Model_pdo {
 	}
 
 	public function markReadEntries ($read, $dateMax) {
-		$sql = 'UPDATE entry e INNER JOIN feed f ON e.id_feed = f.id SET is_read = ? WHERE date < ? AND priority > 0';
+		$sql = 'UPDATE ' . $this->prefix . 'entry e INNER JOIN ' . $this->prefix . 'feed f ON e.id_feed = f.id SET is_read = ? WHERE date < ? AND priority > 0';
 		$stm = $this->bd->prepare ($sql);
 
 		$values = array ($read, $dateMax);
@@ -293,7 +293,7 @@ class EntryDAO extends Model_pdo {
 		}
 	}
 	public function markReadCat ($id, $read, $dateMax) {
-		$sql = 'UPDATE entry e INNER JOIN feed f ON e.id_feed = f.id SET is_read = ? WHERE category = ? AND date < ?';
+		$sql = 'UPDATE ' . $this->prefix . 'entry e INNER JOIN ' . $this->prefix . 'feed f ON e.id_feed = f.id SET is_read = ? WHERE category = ? AND date < ?';
 		$stm = $this->bd->prepare ($sql);
 
 		$values = array ($read, $id, $dateMax);
@@ -307,7 +307,7 @@ class EntryDAO extends Model_pdo {
 		}
 	}
 	public function markReadFeed ($id, $read, $dateMax) {
-		$sql = 'UPDATE entry SET is_read = ? WHERE id_feed = ? AND date < ?';
+		$sql = 'UPDATE ' . $this->prefix . 'entry SET is_read = ? WHERE id_feed = ? AND date < ?';
 		$stm = $this->bd->prepare ($sql);
 
 		$values = array ($read, $id, $dateMax);
@@ -332,7 +332,7 @@ class EntryDAO extends Model_pdo {
 		}
 		$set = substr ($set, 0, -2);
 
-		$sql = 'UPDATE entry SET ' . $set;
+		$sql = 'UPDATE ' . $this->prefix . 'entry SET ' . $set;
 		$stm = $this->bd->prepare ($sql);
 
 		foreach ($valuesTmp as $v) {
@@ -350,7 +350,7 @@ class EntryDAO extends Model_pdo {
 
 	public function cleanOldEntries ($nb_month) {
 		$date = 60 * 60 * 24 * 30 * $nb_month;
-		$sql = 'DELETE FROM entry WHERE date <= ? AND is_favorite = 0 AND annotation = ""';
+		$sql = 'DELETE FROM ' . $this->prefix . 'entry WHERE date <= ? AND is_favorite = 0 AND annotation = ""';
 		$stm = $this->bd->prepare ($sql);
 
 		$values = array (
@@ -368,7 +368,7 @@ class EntryDAO extends Model_pdo {
 
 	public function searchByGuid ($feed_id, $id) {
 		// un guid est unique pour un flux donné
-		$sql = 'SELECT * FROM entry WHERE id_feed=? AND guid=?';
+		$sql = 'SELECT * FROM ' . $this->prefix . 'entry WHERE id_feed=? AND guid=?';
 		$stm = $this->bd->prepare ($sql);
 
 		$values = array (
@@ -388,7 +388,7 @@ class EntryDAO extends Model_pdo {
 	}
 
 	public function searchById ($id) {
-		$sql = 'SELECT * FROM entry WHERE id=?';
+		$sql = 'SELECT * FROM ' . $this->prefix . 'entry WHERE id=?';
 		$stm = $this->bd->prepare ($sql);
 
 		$values = array ($id);
@@ -417,8 +417,8 @@ class EntryDAO extends Model_pdo {
 			$order = '';
 		}
 
-		$sql = 'SELECT e.* FROM entry e'
-		     . ' INNER JOIN feed f ON e.id_feed = f.id' . $where
+		$sql = 'SELECT e.* FROM ' . $this->prefix . 'entry e'
+		     . ' INNER JOIN  ' . $this->prefix . 'feed f ON e.id_feed = f.id' . $where
 		     . ' ORDER BY date' . $order;
 		$stm = $this->bd->prepare ($sql);
 		$stm->execute ($values);
@@ -442,7 +442,7 @@ class EntryDAO extends Model_pdo {
 	}
 
 	public function count () {
-		$sql = 'SELECT COUNT(*) AS count FROM entry e INNER JOIN feed f ON e.id_feed = f.id WHERE priority > 0';
+		$sql = 'SELECT COUNT(*) AS count FROM ' . $this->prefix . 'entry e INNER JOIN  ' . $this->prefix . 'feed f ON e.id_feed = f.id WHERE priority > 0';
 		$stm = $this->bd->prepare ($sql);
 		$stm->execute ();
 		$res = $stm->fetchAll (PDO::FETCH_ASSOC);
@@ -450,7 +450,7 @@ class EntryDAO extends Model_pdo {
 		return $res[0]['count'];
 	}
 	public function countNotRead () {
-		$sql = 'SELECT COUNT(*) AS count FROM entry e INNER JOIN feed f ON e.id_feed = f.id WHERE is_read=0 AND priority > 0';
+		$sql = 'SELECT COUNT(*) AS count FROM ' . $this->prefix . 'entry e INNER JOIN  ' . $this->prefix . 'feed f ON e.id_feed = f.id WHERE is_read=0 AND priority > 0';
 		$stm = $this->bd->prepare ($sql);
 		$stm->execute ();
 		$res = $stm->fetchAll (PDO::FETCH_ASSOC);
@@ -459,7 +459,7 @@ class EntryDAO extends Model_pdo {
 	}
 
 	public function countNotReadByFeed ($id) {
-		$sql = 'SELECT COUNT(*) AS count FROM entry WHERE is_read = 0 AND id_feed = ?';
+		$sql = 'SELECT COUNT(*) AS count FROM ' . $this->prefix . 'entry WHERE is_read = 0 AND id_feed = ?';
 		$stm = $this->bd->prepare ($sql);
 		$stm->execute (array ($id));
 		$res = $stm->fetchAll (PDO::FETCH_ASSOC);
@@ -468,7 +468,7 @@ class EntryDAO extends Model_pdo {
 	}
 
 	public function countNotReadByCat ($id) {
-		$sql = 'SELECT COUNT(*) AS count FROM entry e INNER JOIN feed f ON e.id_feed = f.id WHERE is_read=0 AND category = ?';
+		$sql = 'SELECT COUNT(*) AS count FROM ' . $this->prefix . 'entry e INNER JOIN  ' . $this->prefix . 'feed f ON e.id_feed = f.id WHERE is_read=0 AND category = ?';
 		$stm = $this->bd->prepare ($sql);
 		$stm->execute (array ($id));
 		$res = $stm->fetchAll (PDO::FETCH_ASSOC);
@@ -477,7 +477,7 @@ class EntryDAO extends Model_pdo {
 	}
 
 	public function countNotReadFavorites () {
-		$sql = 'SELECT COUNT(*) AS count FROM entry WHERE is_read=0 AND is_favorite=1';
+		$sql = 'SELECT COUNT(*) AS count FROM ' . $this->prefix . 'entry WHERE is_read=0 AND is_favorite=1';
 		$stm = $this->bd->prepare ($sql);
 		$stm->execute ();
 		$res = $stm->fetchAll (PDO::FETCH_ASSOC);
@@ -485,7 +485,7 @@ class EntryDAO extends Model_pdo {
 		return $res[0]['count'];
 	}
 	public function countFavorites () {
-		$sql = 'SELECT COUNT(*) AS count FROM entry WHERE is_favorite=1';
+		$sql = 'SELECT COUNT(*) AS count FROM ' . $this->prefix . 'entry WHERE is_favorite=1';
 		$stm = $this->bd->prepare ($sql);
 		$stm->execute ();
 		$res = $stm->fetchAll (PDO::FETCH_ASSOC);
@@ -494,7 +494,7 @@ class EntryDAO extends Model_pdo {
 	}
 
 	public function optimizeTable() {
-		$sql = 'OPTIMIZE TABLE entry';
+		$sql = 'OPTIMIZE TABLE ' . $this->prefix . 'entry';
 		$stm = $this->bd->prepare ($sql);
 		$stm->execute ();
 	}
