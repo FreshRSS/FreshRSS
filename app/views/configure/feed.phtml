@@ -46,16 +46,17 @@
 			</div>
 		</div>
 
-		<legend><?php echo Translate::t ('category'); ?> - <a href="<?php echo _url ('configure', 'categorize'); ?>"><?php echo Translate::t ('categories_management'); ?></a></legend>
 		<div class="form-group">
-			<label class="group-name"><?php echo Translate::t ('categorize'); ?></label>
+			<label class="group-name" for="category"><?php echo Translate::t ('category'); ?></label>
 			<div class="group-controls">
+				<select name="category" id="category">
 				<?php foreach ($this->categories as $cat) { ?>
-				<label class="radio" for="cat_<?php echo $cat->id (); ?>">
-					<input type="radio" name="category" id="cat_<?php echo $cat->id (); ?>" value="<?php echo $cat->id (); ?>"<?php echo $cat->id () == $this->flux->category () ? ' checked="checked"' : ''; ?> />
+				<option value="<?php echo $cat->id (); ?>"<?php echo $cat->id ()== $this->flux->category () ? ' selected="selected"' : ''; ?>>
 					<?php echo $cat->name (); ?>
-				</label>
+				</option>
 				<?php } ?>
+				</select>
+				<a href="<?php echo _url ('configure', 'categorize'); ?>"><?php echo Translate::t ('categories_management'); ?></a>
 			</div>
 		</div>
 

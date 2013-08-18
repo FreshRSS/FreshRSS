@@ -98,9 +98,15 @@ input, select, textarea {
 	}
 
 .form-group {
-	margin: 0;
+	margin: 5px 0;
 	clear: both;
+	border: 1px solid transparent;
 }
+	.form-group:hover {
+		background: #fff;
+		border: 1px solid #eee;
+		border-radius: 3px;
+	}
 	.form-group.form-actions {
 		min-width: 250px;
 		margin: 20px 0;
