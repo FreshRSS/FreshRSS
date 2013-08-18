@@ -41,6 +41,17 @@ h1, h2, h3 {
 }
 
 /* IMG */
+figure {
+	margin: 5px 0 10px;
+	text-align: center;
+}
+	figcaption {
+		display: inline-block;
+		padding: 3px 20px;
+		color: #999;
+		font-style: italic;
+		border-bottom: 1px solid #ccc;
+	}
 img {
 	height: auto;
 	max-width: 100%;
