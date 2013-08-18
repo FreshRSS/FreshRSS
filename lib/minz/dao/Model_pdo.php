@@ -20,12 +20,21 @@ class Model_pdo {
 	 * Créé la connexion à la base de données à l'aide des variables
 	 * HOST, BASE, USER et PASS définies dans le fichier de configuration
 	 */
-	public function __construct ($type = 'mysql') {
+	public function __construct () {
 		$db = Configuration::dataBase ();
+
 		try {
-			$string = $type
-			        . ':host=' . $db['host']
-			        . ';dbname=' . $db['base'];
+			$type = $db['type'];
+			if($type == 'mysql') {
+				$string = $type
+				        . ':host=' . $db['host']
+				        . ';dbname=' . $db['base'];
+			} elseif($type == 'sqlite') {
+				$string = $type
+				        . ':/' . PUBLIC_PATH
+				        . '/data/' . $db['base'] . '.sqlite';
+			}
+
 			$this->bd = new PDO (
 				$string,
 				$db['user'],

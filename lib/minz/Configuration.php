@@ -217,6 +217,7 @@ class Configuration {
 				);
 			}
 
+			self::$db['type'] = isset ($db['type']) ? $db['type'] : 'mysql';
 			self::$db['host'] = $db['host'];
 			self::$db['user'] = $db['user'];
 			self::$db['password'] = $db['password'];

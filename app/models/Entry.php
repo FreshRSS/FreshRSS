@@ -350,7 +350,7 @@ class EntryDAO extends Model_pdo {
 
 	public function cleanOldEntries ($nb_month) {
 		$date = 60 * 60 * 24 * 30 * $nb_month;
-		$sql = 'DELETE FROM ' . $this->prefix . 'entry WHERE date <= ? AND is_favorite = 0 AND annotation = ""';
+		$sql = 'DELETE FROM ' . $this->prefix . 'entry WHERE date <= ? AND is_favorite = 0';
 		$stm = $this->bd->prepare ($sql);
 
 		$values = array (

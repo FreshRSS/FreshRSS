@@ -8,33 +8,14 @@ if (isset ($_GET['step'])) {
 	define ('STEP', 1);
 }
 
-define ('SQL_REQ', 'CREATE TABLE IF NOT EXISTS `%scategory` (
+define ('SQL_REQ_CAT', 'CREATE TABLE IF NOT EXISTS `%scategory` (
   `id` varchar(6) NOT NULL,
   `name` varchar(255) NOT NULL,
   `color` varchar(7) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+);');
 
-CREATE TABLE IF NOT EXISTS `%sentry` (
-  `id` varchar(6) NOT NULL,
-  `guid` text NOT NULL,
-  `title` varchar(255) NOT NULL,
-  `author` varchar(255) NOT NULL,
-  `content` text NOT NULL,
-  `link` text NOT NULL,
-  `date` int(11) NOT NULL,
-  `is_read` int(11) NOT NULL,
-  `is_favorite` int(11) NOT NULL,
-  `is_public` int(1) NOT NULL,
-  `id_feed` varchar(6) NOT NULL,
-  `annotation` text NOT NULL,
-  `tags` text NOT NULL,
-  `lastUpdate` int(11) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `id_feed` (`id_feed`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-CREATE TABLE IF NOT EXISTS `%sfeed` (
+define ('SQL_REQ_FEED', 'CREATE TABLE IF NOT EXISTS `%sfeed` (
   `id` varchar(6) NOT NULL,
   `url` text NOT NULL,
   `category` varchar(6) DEFAULT \'000000\',
@@ -47,13 +28,27 @@ CREATE TABLE IF NOT EXISTS `%sfeed` (
   `httpAuth` varchar(500) DEFAULT NULL,
   `error` int(1) NOT NULL DEFAULT \'0\',
   PRIMARY KEY (`id`),
-  KEY `category` (`category`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  FOREIGN KEY (`category`) REFERENCES %scategory(id) ON DELETE SET NULL ON UPDATE CASCADE
+);');
 
-ALTER TABLE `%sentry`
-  ADD CONSTRAINT `entry_ibfk_1` FOREIGN KEY (`id_feed`) REFERENCES `%sfeed` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
-ALTER TABLE `%sfeed`
-  ADD CONSTRAINT `feed_ibfk_4` FOREIGN KEY (`category`) REFERENCES `%scategory` (`id`) ON DELETE SET NULL ON UPDATE CASCADE;');
+define ('SQL_REQ_ENTRY', 'CREATE TABLE IF NOT EXISTS `%sentry` (
+  `id` varchar(6) NOT NULL,
+  `guid` text NOT NULL,
+  `title` varchar(255) NOT NULL,
+  `author` varchar(255) NOT NULL,
+  `content` text NOT NULL,
+  `link` text NOT NULL,
+  `date` int(11) NOT NULL,
+  `is_read` int(11) NOT NULL,
+  `is_favorite` int(11) NOT NULL,
+  `is_public` int(1) NOT NULL,
+  `id_feed` varchar(6) NOT NULL,
+  `tags` text NOT NULL,
+  `lastUpdate` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  FOREIGN KEY (`id_feed`) REFERENCES %sfeed(id) ON DELETE CASCADE ON UPDATE CASCADE
+);');
+
 
 function writeLine ($f, $line) {
 	fwrite ($f, $line . "\n");
@@ -166,12 +161,14 @@ function saveStep2 () {
 }
 function saveStep3 () {
 	if (!empty ($_POST)) {
-		if (empty ($_POST['host']) ||
+		if (empty ($_POST['type']) ||
+		    empty ($_POST['host']) ||
 		    empty ($_POST['user']) ||
 		    empty ($_POST['base'])) {
 			$_SESSION['bd_error'] = true;
 		}
 
+		$_SESSION['bd_type'] = isset ($_POST['type']) ? $_POST['type'] : 'mysql';
 		$_SESSION['bd_host'] = addslashes ($_POST['host']);
 		$_SESSION['bd_user'] = addslashes ($_POST['user']);
 		$_SESSION['bd_pass'] = addslashes ($_POST['pass']);
@@ -187,6 +184,7 @@ function saveStep3 () {
 		writeLine ($f, 'base_url = "' . $_SESSION['base_url'] . '"');
 		writeLine ($f, 'title = "' . $_SESSION['title'] . '"');
 		writeLine ($f, '[db]');
+		writeLine ($f, 'type = "' . $_SESSION['bd_type'] . '"');
 		writeLine ($f, 'host = "' . $_SESSION['bd_host'] . '"');
 		writeLine ($f, 'user = "' . $_SESSION['bd_user'] . '"');
 		writeLine ($f, 'password = "' . $_SESSION['bd_pass'] . '"');
@@ -277,7 +275,8 @@ function checkStep2 () {
 }
 function checkStep3 () {
 	$conf = file_exists (APP_PATH . '/configuration/application.ini');
-	$bd = isset ($_SESSION['bd_host']) &&
+	$bd = isset ($_SESSION['bd_type']) &&
+	      isset ($_SESSION['bd_host']) &&
 	      isset ($_SESSION['bd_user']) &&
 	      isset ($_SESSION['bd_pass']) &&
 	      isset ($_SESSION['bd_name']);
@@ -294,19 +293,33 @@ function checkBD () {
 	$error = false;
 
 	try {
-		$c = new PDO ('mysql:host=' . $_SESSION['bd_host'] . ';dbname=' . $_SESSION['bd_name'],
+		$str = '';
+		if($_SESSION['bd_type'] == 'mysql') {
+			$str = 'mysql:host=' . $_SESSION['bd_host'] . ';dbname=' . $_SESSION['bd_name'];
+		} elseif($_SESSION['bd_type'] == 'sqlite') {
+			$str = 'sqlite:' . PUBLIC_PATH
+			     . '/data/' . $_SESSION['bd_name'] . '.sqlite';
+		}
+
+		$c = new PDO ($str,
 			      $_SESSION['bd_user'],
 			      $_SESSION['bd_pass']);
-		$sql = sprintf (
-			SQL_REQ,
-			$_SESSION['bd_prefix'],
-                        $_SESSION['bd_prefix'],
-                        $_SESSION['bd_prefix'],
-                        $_SESSION['bd_prefix'],
-                        $_SESSION['bd_prefix'],
-                        $_SESSION['bd_prefix'],
-                        $_SESSION['bd_prefix']
-		);
+
+		$sql = sprintf (SQL_REQ_CAT, $_SESSION['bd_prefix']);
+		$res = $c->query ($sql);
+
+		if (!$res) {
+			$error = true;
+		}
+
+		$sql = sprintf (SQL_REQ_FEED, $_SESSION['bd_prefix'], $_SESSION['bd_prefix']);
+		$res = $c->query ($sql);
+
+		if (!$res) {
+			$error = true;
+		}
+
+		$sql = sprintf (SQL_REQ_ENTRY, $_SESSION['bd_prefix'], $_SESSION['bd_prefix']);
 		$res = $c->query ($sql);
 
 		if (!$res) {
@@ -496,6 +509,25 @@ function printStep3 () {
 
 	<form action="index.php?step=3" method="post">
 		<legend><?php echo _t ('bdd_configuration'); ?></legend>
+		<!--
+		TODO : l'utilisation de SQLite n'est pas encore possible. Pour tester tout de même, décommentez ce bloc
+		<div class="form-group">
+			<label class="group-name" for="type"><?php echo _t ('bdd_type'); ?></label>
+			<div class="group-controls">
+				<select name="type" id="type">
+				<option value="mysql"
+					<?php echo $_SESSION['bd_type'] && $_SESSION['bd_type'] == 'mysql' ? 'selected="selected"' : ''; ?>>
+					MySQL
+				</option>
+				<option value="sqlite"
+					<?php echo $_SESSION['bd_type'] && $_SESSION['bd_type'] == 'sqlite' ? 'selected="selected"' : ''; ?>>
+					SQLite
+				</option>
+				</select>
+			</div>
+		</div>
+		-->
+
 		<div class="form-group">
 			<label class="group-name" for="host"><?php echo _t ('host'); ?></label>
 			<div class="group-controls">
