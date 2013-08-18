@@ -145,7 +145,7 @@ class configureController extends ActionController {
 			$mode = Request::param ('view_mode', 'normal');
 			$view = Request::param ('default_view', 'all');
 			$display = Request::param ('display_posts', 'no');
-			$lazyload = Request::param ('lazyload', 'yes');
+			$lazyload = Request::param ('lazyload', 'no');
 			$sort = Request::param ('sort_order', 'low_to_high');
 			$old = Request::param ('old_entries', 3);
 			$mail = Request::param ('mail_login', false);
