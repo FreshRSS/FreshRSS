@@ -58,12 +58,6 @@ function mark_read (active, only_not_read) {
 		return false;
 	}
 
-	if (active.hasClass ("not_read")) {
-		active.removeClass ("not_read");
-	} else {
-		active.addClass ("not_read");
-	}
-
 	url =  active.find ("a.read").attr ("href");
 	if (url === undefined) {
 		return false;
@@ -77,6 +71,12 @@ function mark_read (active, only_not_read) {
 		res = jQuery.parseJSON(data);
 
 		active.find ("a.read").attr ("href", res.url);
+
+		if (active.hasClass ("not_read")) {
+			active.removeClass ("not_read");
+		} else {
+			active.addClass ("not_read");
+		}
 	});
 }
 
@@ -85,7 +85,7 @@ function mark_favorite (active) {
 		return false;
 	}
 
-	url =  active.find ("a.bookmark").attr ("href");
+	url = active.find ("a.bookmark").attr ("href");
 	if (url === undefined) {
 		return false;
 	}
@@ -290,7 +290,7 @@ function init_shortcuts () {
 		'disable_in_input':true
 	});
 	shortcut.add("<?php echo $s['go_website']; ?>", function () {
-		url = $(".flux.active .link a").attr ("href");
+		url_website = $(".flux.active .link a").attr ("href");
 
 		<?php if ($mark['site'] == 'yes') { ?>
 		$(".flux.active").each (function () {
@@ -298,7 +298,7 @@ function init_shortcuts () {
 		});
 		<?php } ?>
 
-		redirect (url, true);
+		redirect (url_website, true);
 	}, {
 		'disable_in_input':true
 	});
