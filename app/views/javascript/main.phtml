@@ -74,7 +74,7 @@ function mark_read (active, only_not_read) {
 
 		if (active.hasClass ("not_read")) {
 			active.removeClass ("not_read");
-		} else {
+		} else if(only_not_read !== true || active.hasClass("not_read")) {
 			active.addClass ("not_read");
 		}
 	});
