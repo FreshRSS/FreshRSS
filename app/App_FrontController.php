@@ -53,6 +53,7 @@ class App_FrontController extends FrontController {
 	private function loadStylesAndScripts () {
 		$theme = $this->conf->theme();
 		View::appendStyle (Url::display ('/themes/' . $theme . '/style.css'));
+		View::appendStyle (Url::display ('/themes/printer/style.css'), 'print');
 		if (login_is_conf ($this->conf)) {
 			View::appendScript ('https://login.persona.org/include.js');
 		}
