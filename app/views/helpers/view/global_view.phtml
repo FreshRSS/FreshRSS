@@ -9,7 +9,7 @@
 ?>
 	<div class="category">
 		<div class="cat_header">
-			<a href="<?php echo _url ('index', 'index', 'get', 'c_' . $cat->id ()); ?>">
+			<a href="<?php echo _url ('index', 'index', 'get', 'c_' . $cat->id (), 'output', 'normal'); ?>">
 			<?php echo $cat->name(); ?><?php echo $catNotRead > 0 ? ' (' . $catNotRead . ')' : ''; ?>
 			</a>
 		</div>
@@ -20,7 +20,7 @@
 			<li class="item">
 				<img class="favicon" src="<?php echo $feed->favicon (); ?>" alt="" />
 
-				<a href="<?php echo _url ('index', 'index', 'get', 'f_' . $feed->id ()); ?>">
+				<a href="<?php echo _url ('index', 'index', 'get', 'f_' . $feed->id (), 'output', 'normal'); ?>">
 				<?php echo $not_read > 0 ? '<b>' : ''; ?>
 				<?php echo $feed->name(); ?>
 				<?php echo $not_read > 0 ? ' (' . $not_read . ')' : ''; ?>

@@ -21,6 +21,13 @@ class indexController extends ActionController {
 			}
 		}
 
+		$nb_not_read = $this->view->nb_not_read;
+		if($nb_not_read > 0) {
+			View::prependTitle (' (' . $nb_not_read . ') - ');
+		} else {
+			View::prependTitle (' - ');
+		}
+
 		$entryDAO = new EntryDAO ();
 		$feedDAO = new FeedDAO ();
 		$catDAO = new CategoryDAO ();
@@ -104,22 +111,22 @@ class indexController extends ActionController {
 	 */
 	private function checkAndProcessType ($type) {
 		if ($type['type'] == 'all') {
-			View::prependTitle (Translate::t ('your_rss_feeds') . ' - ');
+			View::prependTitle (Translate::t ('your_rss_feeds'));
 			$this->view->get_c = $type['type'];
 			return false;
 		} elseif ($type['type'] == 'favoris') {
-			View::prependTitle (Translate::t ('your_favorites') . ' - ');
+			View::prependTitle (Translate::t ('your_favorites'));
 			$this->view->get_c = $type['type'];
 			return false;
 		} elseif ($type['type'] == 'public') {
-			View::prependTitle (Translate::t ('public') . ' - ');
+			View::prependTitle (Translate::t ('public'));
 			$this->view->get_c = $type['type'];
 			return false;
 		} elseif ($type['type'] == 'c') {
 			$catDAO = new CategoryDAO ();
 			$cat = $catDAO->searchById ($type['id']);
 			if ($cat) {
-				View::prependTitle ($cat->name () . ' - ');
+				View::prependTitle ($cat->name ());
 				$this->view->get_c = $type['id'];
 				return false;
 			} else {
@@ -129,7 +136,7 @@ class indexController extends ActionController {
 			$feedDAO = new FeedDAO ();
 			$feed = $feedDAO->searchById ($type['id']);
 			if ($feed) {
-				View::prependTitle ($feed->name () . ' - ');
+				View::prependTitle ($feed->name ());
 				$this->view->get_f = $type['id'];
 				$this->view->get_c = $feed->category ();
 				return false;
