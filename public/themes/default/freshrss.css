@@ -262,7 +262,7 @@
 			.flux.not_read .flux_header .item.title {
 				font-weight: bold;
 			}
-		.flux_header .item.date {
+		.item.date {
 			width: 200px;
 			overflow: hidden;
 			white-space: nowrap;
@@ -272,11 +272,11 @@
 			color: #666;
 			cursor: pointer;
 		}
-		.flux_header .item.link {
+		.item.link {
 			width: 40px;
 			text-align: center;
 		}
-			.flux_header .item.link a {
+			.item.link a {
 				display: inline-block;
 				width: 40px;
 				height: 40px;
@@ -284,7 +284,7 @@
 				background: url("icons/link.svg") center center no-repeat;
 				vertical-align: middle;
 			}
-				.flux_header .item.link a:hover {
+				.item.link a:hover {
 					text-decoration: none;
 				}
 
@@ -553,7 +553,7 @@
 	.aside .btn-important,
 	.aside .feeds .dropdown,
 	.flux_header .item.website span,
-	.flux_header .item.date {
+	.item.date {
 		display: none;
 	}
 	.flux_header .item.website {

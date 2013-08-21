@@ -313,6 +313,18 @@ function init_nav_entries() {
 		next_entry();
 		return false;
 	});
+	$('.nav_entries a.up').click(function() {
+		var active_item = $(".flux.active");
+		var windowTop = $(window).scrollTop();
+		var item_top = active_item.position ().top;
+
+		if(windowTop > item_top) {
+			$("html,body").scrollTop (item_top);
+		} else {
+			$("html,body").scrollTop (0);
+		}
+		return false;
+	});
 }
 
 $(document).ready (function () {

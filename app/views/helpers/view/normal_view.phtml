@@ -114,6 +114,8 @@ if (isset ($this->entryPaginator) && !$this->entryPaginator->isEmpty ()) {
 					</div>
 				</li>
 				<?php } ?>
+				<li class="item date"><?php echo $item->date (); ?></li>
+				<li class="item link"><a target="_blank" href="<?php echo $item->link (); ?>">&nbsp;</a></li>
 			</ul>
 		</div>
 	</div>
