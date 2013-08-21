@@ -20,14 +20,13 @@
 		}
 			.header > .item.title .logo {
 				display: inline-block;
-				width: 32px;
 				padding: 10px;
 			}
 			.header > .item.title h1 {
 				display: inline-block;
 				margin: 0;
 				text-shadow: 1px -1px 0 #ccc;
-				vertical-align: bottom;
+				vertical-align: middle;
 			}
 			.header > .item.title a:hover {
 				text-decoration: none;
@@ -179,22 +178,22 @@
 	}
 
 .flux {
-	border-left: 10px solid #aaa;
+	border-left: 3px solid #aaa;
 	background: #fafafa;
 }
 	.flux:hover {
 		background: #fff;
 	}
 	.flux.active {
-		border-left: 10px solid #0062BE;
+		border-left: 3px solid #0062BE;
 		background: #fff;
 	}
 	.flux.not_read {
-		border-left: 10px solid #FF5300;
+		border-left: 3px solid #FF5300;
 		background: #FFF3ED;
 	}
 	.flux.favorite {
-		border-left: 10px solid #FFC300;
+		border-left: 3px solid #FFC300;
 		background: #FFF6DA;
 	}
 
@@ -467,13 +466,13 @@
 /*** NOTIFICATION ***/
 .notification {
 	position: fixed;
-	bottom: 0;
-	left: 5%; right: 5%;
+	top: 10px;
+	left: 25%; right: 25%;
 	min-height: 30px;
 	padding: 10px;
 	line-height: 30px;
 	text-align: center;
-	border-radius: 5px 5px 0 0;
+	border-radius: 5px;
 	box-shadow: 0 0 5px #666;
 	background: #ddd;
 	color: #666;
@@ -504,14 +503,13 @@
 
 .actualizeProgress {
 	position: fixed;
-	top: 0; left: 25%; right: 25%;
+	top: 5px; left: 25%; right: 25%;
 	width: 50%;
 	padding: 5px;
 	background: #fff;
 	text-align: center;
 	border: 1px solid #ddd;
-	border-top: none;
-	border-radius: 0 0 5px 5px;
+	border-radius: 5px;
 }
 	.actualizeProgress progress {
 		max-width: 100%;

@@ -26,7 +26,7 @@ body {
 			.header > .item.title h1 {
 				display: inline-block;
 				margin: 0;
-				vertical-align: bottom;
+				vertical-align: middle;
 			}
 			.header > .item.title a:hover {
 				text-decoration: none;
@@ -144,9 +144,18 @@ body {
 			}
 	.categories .notRead {
 		position: absolute;
-		top: 5px; right: 3px;
+		top: 5px; right: 0px;
+		padding: 0 3px;
 		color: #fff;
 		font-size: 90%;
+		background: #3498DB;
+		border-left: 3px solid #2980B9;
+		border-radius: 5px 0 0 5px;
+	}
+	.categories .btn:hover .notRead,
+	.categories .btn.active .notRead {
+		background: #2980B9;
+		border-left: 3px solid #3498DB;
 	}
 
 .post {
@@ -457,8 +466,7 @@ body {
 /*** NOTIFICATION ***/
 .notification {
 	position: fixed;
-	top: 10px;
-	left: 10%; right: 10%;
+	top: 10px; left: 10%; right: 10%;
 	min-height: 30px;
 	padding: 10px;
 	line-height: 30px;

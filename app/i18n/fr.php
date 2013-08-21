@@ -4,7 +4,7 @@ return array (
 	// LAYOUT
 	'login'				=> 'Connexion',
 	'logout'			=> 'Déconnexion',
-	'search'			=> 'Rechercher un terme ou des #tags',
+	'search'			=> 'Rechercher des mots ou des #tags',
 
 	'configuration'			=> 'Configuration',
 	'general_and_reading'		=> 'Général et lecture',
