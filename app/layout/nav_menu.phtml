@@ -19,7 +19,7 @@
 		}
 	?>
 
-	<div class="stick">
+	<div class="stick" id="nav_menu_read_all">
 		<a class="read_all btn" href="<?php echo _url ('entry', 'read', 'is_read', 1, 'get', $get); ?>"><?php echo Translate::t ('mark_read'); ?></a>
 		<div class="dropdown">
 			<div id="dropdown-read" class="dropdown-target"></div>
@@ -53,7 +53,7 @@
 			'params' => $params
 		);
 	?>
-	<div class="dropdown">
+	<div class="dropdown" id="nav_menu_views">
 		<div id="dropdown-views" class="dropdown-target"></div>
 		<a class="dropdown-toggle btn" href="#dropdown-views"><?php echo Translate::t ('display'); ?> <i class="icon i_down"></i></a>
 		<ul class="dropdown-menu">

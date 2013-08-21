@@ -20,6 +20,11 @@ function is_normal_mode() {
 	return stream.html() != null;
 }
 
+function is_global_mode() {
+	var stream = $("#stream.global");
+	return stream.html() != null;
+}
+
 function redirect (url, new_tab) {
 	if (url) {
 		if (new_tab) {
@@ -36,16 +41,28 @@ function toggleContent (new_active, old_active) {
 		new_active.addClass ("active");
 	}
 
+	var box_to_move = "html,body";
+	var relative_move = false;
+	if(is_global_mode()) {
+		box_to_move = "#panel";
+		relative_move = true;
+	}
+
 	if (hide_posts) {
 		old_active.children (".flux_content").toggle (0);
 
+		var new_pos = new_active.position ().top;
+		if(relative_move) {
+			new_pos += $(box_to_move).scrollTop();
+		}
+
 		if (old_active[0] != new_active[0]) {
 			new_active.children (".flux_content").toggle (0, function () {
-				$("html,body").scrollTop (new_active.position ().top);
+				$(box_to_move).scrollTop (new_pos);
 			});
 		}
 	} else {
-		$("html,body").scrollTop (new_active.position ().top);
+		$(box_to_move).scrollTop (new_active.position ().top);
 	}
 
 	<?php if ($mark['article'] == 'yes') { ?>
@@ -146,14 +163,17 @@ function init_img () {
 	});
 }
 
-function inMarkViewport(flux) {
+function inMarkViewport(flux, box_to_follow, relative_follow) {
 	var top = flux.position().top;
+	if(relative_follow) {
+		top += box_to_follow.scrollTop();
+	}
 	var height = flux.height();
 	var begin = top + 3 * height / 4;
 	var bot = Math.min(begin + 75, top + height);
 
-	var windowTop = $(window).scrollTop();
-	var windowBot = windowTop + $(window).height() / 2;
+	var windowTop = box_to_follow.scrollTop();
+	var windowBot = windowTop + box_to_follow.height() / 2;
 
 	return (windowBot >= begin && windowBot <= bot);
 }
@@ -161,7 +181,13 @@ function inMarkViewport(flux) {
 function init_posts () {
 	init_img ();
 	<?php if($this->conf->lazyload() == 'yes') { ?>
-	$(".flux .content img").lazyload();
+	if(is_global_mode()) {
+		$(".flux .content img").lazyload({
+			container: $("#panel")
+		});
+	} else {
+		$(".flux .content img").lazyload();
+	}
 	<?php } ?>
 
 	if (hide_posts) {
@@ -201,11 +227,18 @@ function init_posts () {
 	});
 	<?php } ?>
 
+	var box_to_follow = $(window);
+	var relative_follow = false;
+	if(is_global_mode()) {
+		box_to_follow = $("#panel");
+		relative_follow = true;
+	}
+
 	<?php if ($mark['scroll'] == 'yes') { ?>
-	$(window).scroll(function() {
+	box_to_follow.scroll(function() {
 		$('.flux.not_read:visible').each(function() {
 			if($(this).children(".flux_content").is(':visible') &&
-			   inMarkViewport($(this))) {
+			   inMarkViewport($(this), box_to_follow, relative_follow)) {
 				mark_read($(this), true);
 			}
 		});
@@ -213,10 +246,14 @@ function init_posts () {
 	<?php } ?>
 
 	<?php if ($auto_load_more == 'yes') { ?>
-	$(window).scroll(function() {
-		var windowBot = $(window).scrollTop() + $(window).height();
+	box_to_follow.scroll(function() {
+		var boxBot = box_to_follow.scrollTop() + box_to_follow.height();
 		var load_more_top = $("#load_more").position().top;
-		if(windowBot >= load_more_top) {
+		if(relative_follow) {
+			load_more_top += box_to_follow.scrollTop();
+		}
+
+		if(boxBot >= load_more_top) {
 			load_more_posts ();
 		}
 	});

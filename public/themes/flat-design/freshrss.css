@@ -283,6 +283,7 @@ body {
 				}
 
 #stream.reader .flux {
+	position: relative;
 	padding: 0 0 30px;
 	border: none;
 	background: #ecf0f1;
@@ -383,6 +384,32 @@ body {
 	}
 		.content blockquote p {
 			margin: 0;
+		}
+
+#panel {
+	display: none;
+	position: fixed;
+	top: 10px; bottom: 10px;
+	left: 100px; right: 100px;
+	overflow: auto;
+	background: #fff;
+	border: 1px solid #95a5a6;
+	border-radius: 5px;
+}
+	#panel .close {
+		position: absolute;
+		top: 10px; right: 0px;
+		display: inline-block;
+		width: 26px;
+		height: 26px;
+		margin: 0 10px 0 0;
+		border-radius: 3px;
+		text-align: center;
+		line-height: 24px;
+		background: #95a5a6;
+	}
+		#panel .close:hover {
+			background: #7f8c8d;
 		}
 
 .flux_content .bottom {
@@ -632,5 +659,9 @@ body {
 	}
 	.nav_menu .stick .btn {
 		margin: 10px 0;
+	}
+
+	#panel {
+		left: 5px; right: 5px;
 	}
 }
