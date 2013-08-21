@@ -65,6 +65,15 @@ function writeArray ($f, $array) {
 	}
 }
 
+function small_hash ($txt) {
+	$t = rtrim (base64_encode (hash ('crc32', $txt, true)), '=');
+	$t = str_replace ('+', '-', $t); // Get rid of characters which need encoding in URLs.
+	$t = str_replace ('/', '_', $t);
+	$t = str_replace ('=', '@', $t);
+
+	return $t;
+}
+
 // gestion internationalisation
 $translates = array ();
 $actual = 'en';
@@ -143,6 +152,12 @@ function saveStep2 () {
 		}
 		$_SESSION['mail_login'] = addslashes ($_POST['mail_login']);
 
+		$token = '';
+		if ($_SESSION['mail_login']) {
+			$token = small_hash (time () . $_SESSION['sel'])
+			       . small_hash ($_SESSION['base_url'] . $_SESSION['sel']);
+		}
+
 		$file_data = PUBLIC_PATH . '/data/Configuration.array.php';
 
 		$f = fopen ($file_data, 'w');
@@ -151,7 +166,8 @@ function saveStep2 () {
 		writeArray ($f, array (
 			'language' => $_SESSION['language'],
 			'old_entries' => $_SESSION['old_entries'],
-			'mail_login' => $_SESSION['mail_login']
+			'mail_login' => $_SESSION['mail_login'],
+			'token' => $token
 		));
 		writeLine ($f, ');');
 		fclose ($f);
