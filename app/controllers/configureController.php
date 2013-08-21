@@ -144,6 +144,7 @@ class configureController extends ActionController {
 			$nb = Request::param ('posts_per_page', 10);
 			$mode = Request::param ('view_mode', 'normal');
 			$view = Request::param ('default_view', 'all');
+			$auto_load_more = Request::param ('auto_load_more', 'no');
 			$display = Request::param ('display_posts', 'no');
 			$lazyload = Request::param ('lazyload', 'no');
 			$sort = Request::param ('sort_order', 'low_to_high');
@@ -160,6 +161,7 @@ class configureController extends ActionController {
 			$this->view->conf->_postsPerPage (intval ($nb));
 			$this->view->conf->_viewMode ($mode);
 			$this->view->conf->_defaultView ($view);
+			$this->view->conf->_autoLoadMore ($auto_load_more);
 			$this->view->conf->_displayPosts ($display);
 			$this->view->conf->_lazyload ($lazyload);
 			$this->view->conf->_sortOrder ($sort);
@@ -179,6 +181,7 @@ class configureController extends ActionController {
 				'posts_per_page' => $this->view->conf->postsPerPage (),
 				'view_mode' => $this->view->conf->viewMode (),
 				'default_view' => $this->view->conf->defaultView (),
+				'auto_load_more' => $this->view->conf->autoLoadMore (),
 				'display_posts' => $this->view->conf->displayPosts (),
 				'lazyload' => $this->view->conf->lazyload (),
 				'sort_order' => $this->view->conf->sortOrder (),

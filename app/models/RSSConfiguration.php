@@ -100,7 +100,7 @@ class RSSConfiguration extends Model {
 		return $this->token;
 	}
 	public function autoLoadMore () {
-		return $this->autoLoadMore;
+		return $this->auto_load_more;
 	}
 
 	public function _language ($value) {

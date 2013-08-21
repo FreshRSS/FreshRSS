@@ -155,6 +155,7 @@ return array (
 	'articles_per_page'		=> 'Nombre d\'articles par page',
 	'default_view'			=> 'Vue par défaut',
 	'sort_order'			=> 'Ordre de tri',
+	'auto_load_more'		=> 'Charger les articles suivants en bas de page',
 	'display_articles_unfolded'	=> 'Afficher les articles dépliés par défaut',
 	'img_with_lazyload'		=> 'Utiliser le mode "lazy load" pour charger les images',
 	'auto_read_when'		=> 'Marquer comme lu lorsque',

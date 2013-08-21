@@ -7,6 +7,7 @@ var hide_posts = false;
 <?php
 	$s = $this->conf->shortcuts ();
 	$mark = $this->conf->markWhen ();
+	$auto_load_more = $this->conf->autoLoadMore ()
 ?>
 
 function is_reader_mode() {
@@ -208,6 +209,16 @@ function init_posts () {
 				mark_read($(this), true);
 			}
 		});
+	});
+	<?php } ?>
+
+	<?php if ($auto_load_more == 'yes') { ?>
+	$(window).scroll(function() {
+		var windowBot = $(window).scrollTop() + $(window).height();
+		var load_more_top = $("#load_more").position().top;
+		if(windowBot >= load_more_top) {
+			load_more_posts ();
+		}
 	});
 	<?php } ?>
 }

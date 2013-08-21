@@ -91,6 +91,16 @@
 
 		<div class="form-group">
 			<div class="group-controls">
+				<label class="checkbox" for="auto_load_more">
+					<input type="checkbox" name="auto_load_more" id="auto_load_more" value="yes"<?php echo $this->conf->autoLoadMore () == 'yes' ? ' checked="checked"' : ''; ?> />
+					<?php echo Translate::t ('auto_load_more'); ?>
+					<?php echo $this->conf->displayPosts () == 'no' ? '<noscript> - <b>' . Translate::t ('javascript_should_be_activated') . '</b></noscript>' : ''; ?>
+				</label>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<div class="group-controls">
 				<label class="checkbox" for="display_posts">
 					<input type="checkbox" name="display_posts" id="display_posts" value="yes"<?php echo $this->conf->displayPosts () == 'yes' ? ' checked="checked"' : ''; ?> />
 					<?php echo Translate::t ('display_articles_unfolded'); ?>

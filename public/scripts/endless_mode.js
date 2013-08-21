@@ -1,5 +1,5 @@
 var url_load_more = "";
-var load = false;
+var load_more = false;
 
 function init_load_more() {
 	url_load_more = $("a#load_more").attr("href");
@@ -12,7 +12,11 @@ function init_load_more() {
 }
 
 function load_more_posts () {
-	load = true;
+	if(load_more == true) {
+		return;
+	}
+
+	load_more = true;
 	$("#load_more").addClass("loading");
 	$.get (url_load_more, function (data) {
 		$("#stream .flux:last").after($("#stream .flux", data));
@@ -22,7 +26,7 @@ function load_more_posts () {
 		init_posts();
 		
 		$("#load_more").removeClass("loading");
-		load = false;
+		load_more = false;
 	});
 }
 
