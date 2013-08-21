@@ -19,6 +19,8 @@ class RSSConfiguration extends Model {
 	private $url_shaarli = '';
 	private $theme;
 	private $anon_access;
+	private $token;
+	private $auto_load_more;
 	
 	public function __construct () {
 		$confDAO = new RSSConfigurationDAO ();
@@ -36,6 +38,8 @@ class RSSConfiguration extends Model {
 		$this->_urlShaarli ($confDAO->url_shaarli);
 		$this->_theme ($confDAO->theme);
 		$this->_anonAccess ($confDAO->anon_access);
+		$this->_token ($confDAO->token);
+		$this->_autoLoadMore ($confDAO->auto_load_more);
 	}
 	
 	public function availableLanguages () {
@@ -91,6 +95,12 @@ class RSSConfiguration extends Model {
 	}
 	public function anonAccess () {
 		return $this->anon_access;
+	}
+	public function token () {
+		return $this->token;
+	}
+	public function autoLoadMore () {
+		return $this->autoLoadMore;
 	}
 
 	public function _language ($value) {
@@ -191,6 +201,16 @@ class RSSConfiguration extends Model {
 			$this->anon_access = 'no';
 		}
 	}
+	public function _token ($value) {
+		$this->token = $value;
+	}
+	public function _autoLoadMore ($value) {
+		if ($value == 'yes') {
+			$this->auto_load_more = 'yes';
+		} else {
+			$this->auto_load_more = 'no';
+		}
+	}
 }
 
 class RSSConfigurationDAO extends Model_array {
@@ -220,10 +240,13 @@ class RSSConfigurationDAO extends Model_array {
 	public $url_shaarli = '';
 	public $theme = 'default';
 	public $anon_access = 'no';
+	public $token = '';
+	public $auto_load_more = 'no';
 
 	public function __construct () {
 		parent::__construct (PUBLIC_PATH . '/data/Configuration.array.php');
 
+		// TODO : simplifier ce code, une boucle for() devrait suffir !
 		if (isset ($this->array['language'])) {
 			$this->language = $this->array['language'];
 		}
@@ -265,6 +288,12 @@ class RSSConfigurationDAO extends Model_array {
 		}
 		if (isset ($this->array['anon_access'])) {
 			$this->anon_access = $this->array['anon_access'];
+		}
+		if (isset ($this->array['token'])) {
+			$this->token = $this->array['token'];
+		}
+		if (isset ($this->array['auto_load_more'])) {
+			$this->auto_load_more = $this->array['auto_load_more'];
 		}
 	}
 	
