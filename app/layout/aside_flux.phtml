@@ -8,6 +8,12 @@
 			if (isset ($params['search'])) {
 				$params['search'] = urlencode ($params['search']);
 			}
+
+			$token = $this->conf->token ();
+			if (login_is_conf($this->conf) && $token != '') {
+				$params['token'] = $token;
+			}
+
 			$url = array (
 				'c' => 'index',
 				'a' => 'index',

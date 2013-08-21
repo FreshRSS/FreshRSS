@@ -151,6 +151,8 @@ return array (
 	'month'				=> 'mois',
 	'persona_connection_email'	=> 'Adresse mail de connexion (utilise <a href="https://persona.org/">Persona</a>)',
 	'allow_anonymous'		=> 'Autoriser la lecture anonyme',
+	'auth_token'			=> 'Jeton d\'identification',
+	'explain_token'			=> 'Ce jeton permet de s\'affranchir d\'authentification en l\'ajoutant à l\'URL (ex. %s?token=&lt;votre_token&gt;). Seul la sortie RSS est concernée.',
 	'reading_configuration'		=> 'Configuration de lecture',
 	'articles_per_page'		=> 'Nombre d\'articles par page',
 	'default_view'			=> 'Vue par défaut',

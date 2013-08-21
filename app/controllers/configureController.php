@@ -140,6 +140,8 @@ class configureController extends ActionController {
 		RSSThemes::init();
 
 		if (Request::isPost ()) {
+			$current_token = $this->view->conf->token ();
+
 			$language = Request::param ('language', 'en');
 			$nb = Request::param ('posts_per_page', 10);
 			$mode = Request::param ('view_mode', 'normal');
@@ -151,6 +153,7 @@ class configureController extends ActionController {
 			$old = Request::param ('old_entries', 3);
 			$mail = Request::param ('mail_login', false);
 			$anon = Request::param ('anon_access', 'no');
+			$token = Request::param ('token', $current_token);
 			$openArticle = Request::param ('mark_open_article', 'no');
 			$openSite = Request::param ('mark_open_site', 'no');
 			$scroll = Request::param ('mark_scroll', 'no');
@@ -168,6 +171,7 @@ class configureController extends ActionController {
 			$this->view->conf->_oldEntries ($old);
 			$this->view->conf->_mailLogin ($mail);
 			$this->view->conf->_anonAccess ($anon);
+			$this->view->conf->_token ($token);
 			$this->view->conf->_markWhen (array (
 				'article' => $openArticle,
 				'site' => $openSite,
@@ -188,6 +192,7 @@ class configureController extends ActionController {
 				'old_entries' => $this->view->conf->oldEntries (),
 				'mail_login' => $this->view->conf->mailLogin (),
 				'anon_access' => $this->view->conf->anonAccess (),
+				'token' => $this->view->conf->token (),
 				'mark_when' => $this->view->conf->markWhen (),
 				'url_shaarli' => $this->view->conf->urlShaarli (),
 				'theme' => $this->view->conf->theme ()

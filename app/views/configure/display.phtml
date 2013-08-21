@@ -50,6 +50,15 @@
 				</label>
 			</div>
 		</div>
+
+		<div class="form-group">
+			<label class="group-name" for="token"><?php echo Translate::t ('auth_token'); ?></label>
+			<?php $token = $this->conf->token (); ?>
+			<div class="group-controls">
+				<input type="text" id="token" name="token" value="<?php echo $token; ?>"  placeholder="<?php echo Translate::t ('blank_to_disable'); ?>"/>
+				<i class="icon i_help"></i> <?php echo Translate::t('explain_token', Url::display()); ?>
+			</div>
+		</div>
 	
 		<legend><?php echo Translate::t ('reading_configuration'); ?></legend>
 
