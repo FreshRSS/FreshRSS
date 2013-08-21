@@ -122,7 +122,12 @@ function prev_entry() {
 function next_entry() {
 	old_active = $(".flux.active");
 	first_active = $(".flux:first");
+	last_active = $(".flux:last");
 	new_active = old_active.nextAll (".flux:first");
+
+	if(last_active.attr("id") == new_active.attr("id")) {
+		load_more_posts ();
+	}
 
 	if (new_active.hasClass("flux")) {
 		toggleContent (new_active, old_active);
