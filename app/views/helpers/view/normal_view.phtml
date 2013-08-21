@@ -90,7 +90,7 @@ if (isset ($this->entryPaginator) && !$this->entryPaginator->isEmpty ()) {
 							<li class="item"><a href="mailto:?subject=<?php echo $item->title (); ?>&amp;body=J'ai trouvé cet article intéressant, tu peux le lire à cette adresse : <?php echo urlencode($item->link ()); ?>"><?php echo Translate::t ('by_email'); ?></a></li>
 							<?php
 							$shaarli = $this->conf->urlShaarli ();
-							if ($shaarli) {
+							if ((!login_is_conf ($this->conf) || is_logged ()) && $shaarli) {
 							?>
 							<li class="item"><a target="_blank" href="<?php echo $shaarli . '?post=' . urlencode($item->link ()) . '&amp;title=' . urlencode ($item->title ()) . '&amp;source=bookmarklet'; ?>"><?php echo Translate::t ('on_shaarli'); ?></a></li>
 							<?php } ?>
