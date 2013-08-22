@@ -1,5 +1,5 @@
 <?php if (login_is_conf ($this->conf)) { ?>
-<ul class="nav nav-head">
+<ul class="nav nav-head nav-login">
 	<?php if (!is_logged ()) { ?>
 	<li class="item"><i class="icon i_login"></i> <a class="signin" href="#"><?php echo Translate::t ('login'); ?></a></li>
 	<?php } else { ?>
@@ -59,8 +59,18 @@
 				<li class="separator"></li>
 				<li class="item"><a href="<?php echo _url ('index', 'about'); ?>"><?php echo Translate::t ('about'); ?></a></li>
 				<li class="item"><a href="<?php echo _url ('index', 'logs'); ?>"><?php echo Translate::t ('logs'); ?></a></li>
+				<?php if (login_is_conf ($this->conf) && is_logged ()) { ?>
+				<li class="separator"></li>
+				<li class="item"><a class="signout" href="#"><i class="icon i_logout"></i> <?php echo Translate::t ('logout'); ?></a></li>
+				<?php } ?>
 			</ul>
 		</div>
+	</div>
+	<?php }
+
+	if (login_is_conf ($this->conf) && !is_logged ()) { ?>
+	<div class="item configure">
+		<i class="icon i_login"></i> <a class="signin" href="#"><?php echo Translate::t ('login'); ?></a>
 	</div>
 	<?php } ?>
 </div>

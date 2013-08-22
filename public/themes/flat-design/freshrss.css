@@ -69,6 +69,10 @@ body {
 			right: -20px;
 		}
 
+	.nav-login {
+		display: none;
+	}
+
 	.nav_menu {
 		width: 100%;
 		text-align: center;
@@ -596,6 +600,10 @@ body {
 		.flux_header .item.website .favicon {
 			padding: 12px;
 		}
+
+	.nav-login {
+		display: block;
+	}
 
 	.content {
 		font-size: 120%;

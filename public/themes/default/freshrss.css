@@ -70,6 +70,10 @@
 			right: -20px;
 		}
 
+	.nav-login {
+		display: none;
+	}
+
 	.nav_menu {
 		width: 100%;
 		background: #fafafa;
@@ -587,6 +591,10 @@
 		.flux_header .item.website .favicon {
 			padding: 12px;
 		}
+
+	.nav-login {
+		display: block;
+	}
 
 	.content {
 		font-size: 120%;
