@@ -13,6 +13,7 @@ class Feed extends Model {
 	private $pathEntries = '';
 	private $httpAuth = '';
 	private $error = false;
+	private $keep_history = false;
 
 	public function __construct ($url) {
 		$this->_url ($url);
@@ -72,6 +73,9 @@ class Feed extends Model {
 	}
 	public function inError () {
 		return $this->error;
+	}
+	public function keepHistory () {
+		return $this->keep_history;
 	}
 	public function nbEntries () {
 		$feedDAO = new FeedDAO ();
@@ -149,6 +153,14 @@ class Feed extends Model {
 			$value = false;
 		}
 		$this->error = $value;
+	}
+	public function _keepHistory ($value) {
+		if ($value) {
+			$value = true;
+		} else {
+			$value = false;
+		}
+		$this->keep_history = $value;
 	}
 
 	public function load () {
@@ -242,7 +254,7 @@ class Feed extends Model {
 
 class FeedDAO extends Model_pdo {
 	public function addFeed ($valuesTmp) {
-		$sql = 'INSERT INTO ' . $this->prefix . 'feed (id, url, category, name, website, description, lastUpdate, priority, httpAuth, error) VALUES(?, ?, ?, ?, ?, ?, ?, 10, ?, 0)';
+		$sql = 'INSERT INTO ' . $this->prefix . 'feed (id, url, category, name, website, description, lastUpdate, priority, httpAuth, error, keep_history) VALUES(?, ?, ?, ?, ?, ?, ?, 10, ?, 0, 0)';
 		$stm = $this->bd->prepare ($sql);
 
 		$values = array (
@@ -493,6 +505,7 @@ class HelperFeed {
 			$list[$key]->_pathEntries ($dao['pathEntries']);
 			$list[$key]->_httpAuth (base64_decode ($dao['httpAuth']));
 			$list[$key]->_error ($dao['error']);
+			$list[$key]->_keepHistory ($dao['keep_history']);
 
 			if (isset ($dao['id'])) {
 				$list[$key]->_id ($dao['id']);

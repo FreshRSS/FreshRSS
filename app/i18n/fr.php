@@ -129,6 +129,7 @@ return array (
 	'website_url'			=> 'URL du site',
 	'feed_url'			=> 'URL du flux',
 	'number_articles'		=> 'Nombre d\'articles',
+	'keep_history'			=> 'Garder l\'historique ?',
 	'categorize'			=> 'Ranger dans une catégorie',
 	'advanced'			=> 'Avancé',
 	'show_in_all_flux'		=> 'Afficher dans le flux principal',

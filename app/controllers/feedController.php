@@ -69,7 +69,8 @@ class feedController extends ActionController {
 
 					// on ajoute les articles en masse sans vérification
 					foreach ($entries as $entry) {
-						if ($entry->date (true) >= $date_min) {
+						if ($entry->date (true) >= $date_min ||
+						    $feed->keepHistory ()) {
 							$values = $entry->toArray ();
 							$entryDAO->addEntry ($values);
 						}
@@ -150,7 +151,8 @@ class feedController extends ActionController {
 				// La BDD refusera l'ajout de son côté car l'id doit être
 				// unique
 				foreach ($entries as $entry) {
-					if ($entry->date (true) >= $date_min) {
+					if ($entry->date (true) >= $date_min ||
+					    $feed->keepHistory ()) {
 						$values = $entry->toArray ();
 						$entryDAO->addEntry ($values);
 					}

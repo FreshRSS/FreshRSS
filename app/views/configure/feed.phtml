@@ -43,6 +43,10 @@
 			<label class="group-name"><?php echo Translate::t ('number_articles'); ?></label>
 			<div class="group-controls">
 				<span class="control"><?php echo $this->flux->nbEntries (); ?></span>
+				<label class="checkbox" for="keep_history">
+					<input type="checkbox" name="keep_history" id="keep_history" value="yes"<?php echo $this->flux->keepHistory () == 'yes' ? ' checked="checked"' : ''; ?> />
+					<?php echo Translate::t ('keep_history'); ?>
+				</label>
 			</div>
 		</div>
 

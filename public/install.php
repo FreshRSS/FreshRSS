@@ -27,6 +27,7 @@ define ('SQL_REQ_FEED', 'CREATE TABLE IF NOT EXISTS `%sfeed` (
   `pathEntries` varchar(500) DEFAULT NULL,
   `httpAuth` varchar(500) DEFAULT NULL,
   `error` int(1) NOT NULL DEFAULT \'0\',
+  `keep_history` int(1) NOT NULL DEFAULT \'0\',
   PRIMARY KEY (`id`),
   FOREIGN KEY (`category`) REFERENCES %scategory(id) ON DELETE SET NULL ON UPDATE CASCADE
 );');
@@ -39,12 +40,10 @@ define ('SQL_REQ_ENTRY', 'CREATE TABLE IF NOT EXISTS `%sentry` (
   `content` text NOT NULL,
   `link` text NOT NULL,
   `date` int(11) NOT NULL,
-  `is_read` int(11) NOT NULL,
-  `is_favorite` int(11) NOT NULL,
-  `is_public` int(1) NOT NULL,
+  `is_read` int(11) NOT NULL DEFAULT \'0\',
+  `is_favorite` int(11) NOT NULL DEFAULT \'0\',
   `id_feed` varchar(6) NOT NULL,
   `tags` text NOT NULL,
-  `lastUpdate` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   FOREIGN KEY (`id_feed`) REFERENCES %sfeed(id) ON DELETE CASCADE ON UPDATE CASCADE
 );');

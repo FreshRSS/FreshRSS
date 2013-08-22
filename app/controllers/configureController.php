@@ -92,11 +92,17 @@ class configureController extends ActionController {
 
 				if (Request::isPost () && $this->view->flux) {
 					$name = Request::param ('name', '');
+					$hist = Request::param ('keep_history', 'no');
 					$cat = Request::param ('category', 0);
 					$path = Request::param ('path_entries', '');
 					$priority = Request::param ('priority', 0);
 					$user = Request::param ('http_user', '');
 					$pass = Request::param ('http_pass', '');
+
+					$keep_history = false;
+					if ($hist == 'yes') {
+						$keep_history = true;
+					}
 
 					$httpAuth = '';
 					if ($user != '' || $pass != '') {
@@ -108,7 +114,8 @@ class configureController extends ActionController {
 						'category' => $cat,
 						'pathEntries' => $path,
 						'priority' => $priority,
-						'httpAuth' => $httpAuth
+						'httpAuth' => $httpAuth,
+						'keep_history' => $keep_history
 					);
 
 					if ($feedDAO->updateFeed ($id, $values)) {
