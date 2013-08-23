@@ -12,7 +12,7 @@ $items = $this->entryPaginator->items ();
 foreach ($items as $item) {
 ?>
 		<item>
-			<title><?php echo htmlspecialchars(html_entity_decode($item->title ())); ?></title>
+			<title><?php echo htmlspecialchars(html_entity_decode($item->title (), ENT_NOQUOTES, 'UTF-8'), ENT_NOQUOTES, 'UTF-8'); ?></title>
 			<link><?php echo $item->link (); ?></link>
 			<?php $author = $item->author (); ?>
 			<?php if ($author != '') { ?>
