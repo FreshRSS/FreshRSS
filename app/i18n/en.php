@@ -149,6 +149,7 @@ return array (
 	'default_view'			=> 'Default view',
 	'sort_order'			=> 'Sort order',
 	'display_articles_unfolded'	=> 'Show articles unfolded by default',
+	'onread_jump_next'		=> 'On marked as read jump to next unread sibling',
 	'img_with_lazyload'		=> 'Use "lazy load" mode to load pictures',
 	'auto_read_when'		=> 'Mark automatically as read when',
 	'article_selected'		=> 'Article is selected',
