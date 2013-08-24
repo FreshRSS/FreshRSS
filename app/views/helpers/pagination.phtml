@@ -10,7 +10,11 @@
 	<?php $params[$getteur] = $this->next; ?>
 	<a id="load_more" href="<?php echo Url::display (array ('c' => $c, 'a' => $a, 'params' => $params)); ?>"><?php echo Translate::t ('load_more'); ?></a>
 	<?php } else { ?>
-	<?php echo Translate::t ('nothing_to_load'); ?>
+	<div class="bigMarkAsRead">
+		<p><?php echo Translate::t ('nothing_to_load'); ?></p>
+		<p class="bigTick">✔</p>
+		<p><?php echo Translate::t ('mark_all_read'); ?></p>
+	</div>
 	<?php } ?>
 	</li>
 </ul>
