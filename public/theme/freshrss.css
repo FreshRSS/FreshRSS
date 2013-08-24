@@ -437,6 +437,21 @@
 	font-size: 0;
 }
 
+.bigMarkAsRead {
+	background:#CCC;
+	color:#FFF;
+	cursor:pointer;
+	height:32em;
+	text-shadow: 0 -1px 0 #AAA;
+}
+.bigMarkAsRead:hover {
+	background:#06C;
+}
+.bigTick {
+	font-size:72pt;
+	margin:32px 0 8px 0;
+}
+
 /*** NOTIFICATION ***/
 .notification {
 	position: fixed;
