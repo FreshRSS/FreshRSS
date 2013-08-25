@@ -22,23 +22,29 @@ class Model_pdo {
 	 */
 	public function __construct () {
 		$db = Configuration::dataBase ();
+		$driver_options = null;
 
 		try {
 			$type = $db['type'];
 			if($type == 'mysql') {
 				$string = $type
 				        . ':host=' . $db['host']
-				        . ';dbname=' . $db['base'];
+				        . ';dbname=' . $db['base']
+				        . ';charset=utf8';
+				$driver_options = array(
+					PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8'
+					);
 			} elseif($type == 'sqlite') {
 				$string = $type
 				        . ':/' . PUBLIC_PATH
-				        . '/data/' . $db['base'] . '.sqlite';
+				        . '/data/' . $db['base'] . '.sqlite';	//TODO: DEBUG UTF-8 http://www.siteduzero.com/forum/sujet/sqlite-connexion-utf-8-18797
 			}
 
 			$this->bd = new PDO (
 				$string,
 				$db['user'],
-				$db['password']
+				$db['password'],
+				$driver_options
 			);
 
 			$this->prefix = $db['prefix'];

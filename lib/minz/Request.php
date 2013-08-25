@@ -35,9 +35,9 @@ class Request {
 			if(is_object($p) || $specialchars) {
 				return $p;
 			} elseif(is_array($p)) {
-				return array_map('htmlspecialchars', $p);
+				return array_map('htmlspecialchars', $p, ENT_NOQUOTES, 'UTF-8');
 			} else {
-				return htmlspecialchars($p);
+				return htmlspecialchars($p, ENT_NOQUOTES, 'UTF-8');
 			}
 		} else {
 			return $default;

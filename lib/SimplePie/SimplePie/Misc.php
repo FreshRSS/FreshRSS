@@ -138,7 +138,7 @@ class SimplePie_Misc
 		foreach ($element['attribs'] as $key => $value)
 		{
 			$key = strtolower($key);
-			$full .= " $key=\"" . htmlspecialchars($value['data']) . '"';
+			$full .= " $key=\"" . htmlspecialchars($value['data'], ENT_COMPAT, 'UTF-8') . '"';
 		}
 		if ($element['self_closing'])
 		{
