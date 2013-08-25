@@ -160,6 +160,7 @@ return array (
 	'sort_order'			=> 'Ordre de tri',
 	'auto_load_more'		=> 'Charger les articles suivants en bas de page',
 	'display_articles_unfolded'	=> 'Afficher les articles dépliés par défaut',
+	'onread_jump_next'    => 'Après marqué comme lu, sauter au voisin non lu',
 	'img_with_lazyload'		=> 'Utiliser le mode "lazy load" pour charger les images',
 	'auto_read_when'		=> 'Marquer comme lu lorsque',
 	'article_selected'		=> 'l\'article est sélectionné',

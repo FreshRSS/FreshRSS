@@ -35,13 +35,10 @@ class entryController extends ActionController {
 		$id = Request::param ('id');
 		$is_read = Request::param ('is_read');
 		$get = Request::param ('get');
+		$nextGet = Request::param ('nextGet', $get); 
 		$dateMax = Request::param ('dateMax', time ());
 
-		if ($is_read) {
-			$is_read = true;
-		} else {
-			$is_read = false;
-		}
+		$is_read = !!$is_read;
 
 		$entryDAO = new EntryDAO ();
 		if ($id == false) {
@@ -53,10 +50,10 @@ class entryController extends ActionController {
 
 				if ($typeGet == 'c') {
 					$entryDAO->markReadCat ($get, $is_read, $dateMax);
-					$this->params = array ('get' => 'c_' . $get);
+					$this->params = array ('get' => $nextGet); 
 				} elseif ($typeGet == 'f') {
 					$entryDAO->markReadFeed ($get, $is_read, $dateMax);
-					$this->params = array ('get' => 'f_' . $get);
+					$this->params = array ('get' => $nextGet);
 				}
 			}
 
