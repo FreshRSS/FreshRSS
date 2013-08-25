@@ -48,7 +48,7 @@ function opml_export ($cats) {
 		$txt .= '<outline text="' . $cat['name'] . '">' . "\n";
 		
 		foreach ($cat['feeds'] as $feed) {
-			$txt .= "\t" . '<outline text="' . cleanText ($feed->name ()) . '" type="rss" xmlUrl="' . htmlentities ($feed->url ()) . '" htmlUrl="' . htmlentities ($feed->website ()) . '" />' . "\n";
+			$txt .= "\t" . '<outline text="' . cleanText ($feed->name ()) . '" type="rss" xmlUrl="' . htmlentities ($feed->url (), ENT_COMPAT, 'UTF-8') . '" htmlUrl="' . htmlentities ($feed->website (), ENT_COMPAT, 'UTF-8') . '" />' . "\n";
 		}
 		
 		$txt .= '</outline>' . "\n";
