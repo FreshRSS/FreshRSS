@@ -276,7 +276,7 @@ class RSSConfigurationDAO extends Model_array {
 			$this->display_posts = $this->array['display_posts'];
 		}
 		if (isset ($this->array['onread_jump_next'])) {
-			this->onread_jump_next = $this->array['onread_jump_next'];
+			$this->onread_jump_next = $this->array['onread_jump_next'];
 		}
 		if (isset ($this->array['lazyload'])) {
 			$this->lazyload = $this->array['lazyload'];
