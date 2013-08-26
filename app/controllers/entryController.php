@@ -90,7 +90,6 @@ class entryController extends ActionController {
 			if ($entry != false) {
 				$values = array (
 					'is_favorite' => $is_fav,
-					'lastUpdate' => time ()
 				);
 
 				$entryDAO->updateEntry ($entry->id (), $values);
