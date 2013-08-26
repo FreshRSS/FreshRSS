@@ -162,8 +162,10 @@ class feedController extends ActionController {
 				$feedDAO->updateLastUpdate ($feed->id ());
 				$flux_update++;
 			} catch (FeedException $e) {
-				Minz_Log::record ($e->getMessage (), Minz_Log::ERROR);
-				$feedDAO->isInError ($feed->id ());
+				if (strpos($e->getMessage (), 'Duplicate entry') === false) {	//Filter out expected duplicate entries	//TODO: Optimize to avoid try/catch exception
+					Minz_Log::record ($e->getMessage (), Minz_Log::ERROR);
+					$feedDAO->isInError ($feed->id ());
+				}
 			}
 
 			// On arrête à 10 flux pour ne pas surcharger le serveur
