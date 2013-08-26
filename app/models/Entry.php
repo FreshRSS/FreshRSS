@@ -216,7 +216,9 @@ class EntryDAO extends Model_pdo {
 			return true;
 		} else {
 			$info = $stm->errorInfo();
-			Minz_Log::record ('SQL error : ' . $info[2], Minz_Log::NOTICE);
+			if ((int)($info[0] / 1000) !== 23) {	//Filter out "SQLSTATE Class code 23: Constraint Violation" because of expected duplicate entries
+				Minz_Log::record ('SQL error ' . $info[0] . ': ' . $info[1] . ' ' . $info[2], Minz_Log::NOTICE);	//TODO: Consider adding a Minz_Log::DEBUG level
+			}
 			return false;
 		}
 	}
