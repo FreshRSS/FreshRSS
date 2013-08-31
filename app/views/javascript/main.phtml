@@ -221,6 +221,12 @@ function init_posts () {
 		$(this).attr ('target', '_blank');
 	});
 
+	$(".bigMarkAsRead").click(function() {
+		url = $(".nav_menu a.read_all").attr ("href");
+		redirect (url, false);
+		return false;
+	});
+
 	<?php if ($mark['site'] == 'yes') { ?>
 	$(".flux .link a").click (function () {
 		mark_read($(this).parent().parent().parent(), true);
@@ -380,14 +386,6 @@ function init_nav_entries() {
 	});
 }
 
-function init_bigMarkAsRead() {
-	$('.bigMarkAsRead').click(function() {
-		url = $(".nav_menu a.read_all").attr ("href");
-		redirect (url, false);
-		return false;
-	});
-}
-
 $(document).ready (function () {
 	if(is_reader_mode()) {
 		hide_posts = false;
@@ -396,5 +394,4 @@ $(document).ready (function () {
 	init_column_categories ();
 	init_shortcuts ();
 	init_nav_entries();
-	init_bigMarkAsRead();
 });
