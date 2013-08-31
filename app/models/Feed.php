@@ -172,7 +172,7 @@ class Feed extends Model {
 				);
 			} else {
 				$feed = new SimplePie ();
-				$url = preg_replace ('/&amp;/', '&', $this->url);
+				$url = str_replace ('&amp;', '&', $this->url);
 				if ($this->httpAuth != '') {
 					$url = preg_replace ('#((.+)://)(.+)#', '${1}' . $this->httpAuth . '@${3}', $url);
 				}

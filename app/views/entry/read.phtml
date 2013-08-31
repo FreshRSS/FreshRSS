@@ -12,4 +12,4 @@ $url = Url::display (array (
 	'params' => Request::params (),
 ));
 
-echo json_encode (array ('url' => preg_replace ('#&amp;#i', '&', $url)));
+echo json_encode (array ('url' => str_ireplace ('&amp;', '&', $url)));
