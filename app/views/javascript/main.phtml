@@ -196,10 +196,15 @@ function init_posts () {
 
 	var flux_header_toggle = $(".flux_header .item.title, .flux_header .item.date");
 	flux_header_toggle.unbind('click'); // évite d'associer 2 fois le toggle
-	flux_header_toggle.click (function () {
+	flux_header_toggle.click (function (e) {
 		old_active = $(".flux.active");
 		new_active = $(this).parent ().parent ();
-
+		if (e.target.tagName.toUpperCase() === 'A') {	//Leave real links alone
+			<?php if ($mark['article'] == 'yes') { ?>
+			mark_read(new_active, true);
+			<?php } ?>
+			return true;
+		}
 		toggleContent (new_active, old_active);
 	});
 
@@ -219,6 +224,12 @@ function init_posts () {
 
 	$(".flux .content a").click (function () {
 		$(this).attr ('target', '_blank');
+	});
+
+	$(".item.title>a").click (function (e) {
+		if (e.ctrlKey) return true;	//Allow default control-click behaviour such as open in backround-tab
+		$(this).parent ().click ();	//Will perform toggle flux_content
+		return false;
 	});
 
 	<?php if ($mark['site'] == 'yes') { ?>
