@@ -4,11 +4,22 @@ class Category extends Model {
 	private $id = false;
 	private $name;
 	private $color;
+	private $nbFeed = -1;
+	private $nbNotRead = -1;
 	private $feeds = null;
 
-	public function __construct ($name = '', $color = '#0062BE') {
+	public function __construct ($name = '', $color = '#0062BE', $feeds = null) {
 		$this->_name ($name);
 		$this->_color ($color);
+		if (!empty($feeds)) {
+			$this->_feeds ($feeds);
+			$this->nbFeed = 0;
+			$this->nbNotRead = 0;
+			foreach ($feeds as $feed) {
+				$this->nbFeed++;
+				$this->nbNotRead += $feed->nbNotRead ();
+			}
+		}
 	}
 
 	public function id () {
@@ -25,17 +36,31 @@ class Category extends Model {
 		return $this->color;
 	}
 	public function nbFeed () {
+		if ($this->nbFeed < 0) {
 		$catDAO = new CategoryDAO ();
-		return $catDAO->countFeed ($this->id ());
+			$this->nbFeed = $catDAO->countFeed ($this->id ());
+		}
+
+		return $this->nbFeed;
 	}
 	public function nbNotRead () {
+		if ($this->nbNotRead < 0) {
 		$catDAO = new CategoryDAO ();
-		return $catDAO->countNotRead ($this->id ());
+			$this->nbNotRead = $catDAO->countNotRead ($this->id ());
+		}
+
+		return $this->nbNotRead;
 	}
 	public function feeds () {
 		if (is_null ($this->feeds)) {
 			$feedDAO = new FeedDAO ();
 			$this->feeds = $feedDAO->listByCategory ($this->id ());
+			$this->nbFeed = 0;
+			$this->nbNotRead = 0;
+			foreach ($this->feeds as $feed) {
+				$this->nbFeed++;
+				$this->nbNotRead += $feed->nbNotRead ();
+			}
 		}
 
 		return $this->feeds;
@@ -150,12 +175,23 @@ class CategoryDAO extends Model_pdo {
 		}
 	}
 
-	public function listCategories () {
-		$sql = 'SELECT * FROM ' . $this->prefix . 'category ORDER BY name';
-		$stm = $this->bd->prepare ($sql);
-		$stm->execute ();
-
-		return HelperCategory::daoToCategory ($stm->fetchAll (PDO::FETCH_ASSOC));
+	public function listCategories ($prePopulateFeeds = true) {	//TODO: Search code-base for places where $prePopulateFeeds should be false
+		if ($prePopulateFeeds) {
+			$sql = 'SELECT c.id as c_id, c.name as c_name, c.color as c_color, count(e.id) as nbNotRead, f.* '
+			     . 'FROM  ' . $this->prefix . 'category c '
+			     . 'INNER JOIN  ' . $this->prefix . 'feed f ON f.category = c.id '
+			     . 'LEFT OUTER JOIN  ' . $this->prefix . 'entry e ON e.id_feed = f.id AND e.is_read = 0 '
+			     . 'GROUP BY f.id '
+			     . 'ORDER BY c.name, f.name';
+			$stm = $this->bd->prepare ($sql);
+			$stm->execute ();
+			return HelperCategory::daoToCategoryPrepopulated ($stm->fetchAll (PDO::FETCH_ASSOC));
+		} else {
+			$sql = 'SELECT * FROM ' . $this->prefix . 'category ORDER BY name';
+			$stm = $this->bd->prepare ($sql);
+			$stm->execute ();
+			return HelperCategory::daoToCategory ($stm->fetchAll (PDO::FETCH_ASSOC));
+		}
 	}
 
 	public function getDefault () {
@@ -220,6 +256,51 @@ class CategoryDAO extends Model_pdo {
 }
 
 class HelperCategory {
+	public static function findFeed($categories, $feed_id) {
+		foreach ($categories as $category) {
+			foreach ($category->feeds () as $feed) {
+				if ($feed->id () === $feed_id) {
+					return $feed;
+				}
+			}
+		}
+		return null;
+	}
+
+	public static function daoToCategoryPrepopulated ($listDAO) {
+		$list = array ();
+
+		if (!is_array ($listDAO)) {
+			$listDAO = array ($listDAO);
+		}
+
+		$previousLine = null;
+		$feedsDao = array();
+		$nbLinesMinus1 = count($listDAO) - 1;
+		for ($i = 0; $i <= $nbLinesMinus1; $i++) {
+			$line = $listDAO[$i];
+			$cat_id = $line['c_id'];
+			if (($i > 0) && (($cat_id !== $previousLine['c_id']) || ($i === $nbLinesMinus1))) {	//End of current category
+				$cat = new Category (
+					$previousLine['c_name'],
+					$previousLine['c_color'],
+					HelperFeed::daoToFeed ($feedsDao)
+				);
+				$cat->_id ($previousLine['c_id']);
+				$list[] = $cat;
+
+				$feedsDao = array();	//Prepare for next category
+				$previousLine = $line;
+				$feedsDao[] = $line;
+			} else {
+				$previousLine = $line;
+				$feedsDao[] = $line;
+			}
+		}
+
+		return $list;
+	}
+
 	public static function daoToCategory ($listDAO) {
 		$list = array ();
 

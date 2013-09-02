@@ -94,41 +94,51 @@ class EntriesGetter {
 	public function execute () {
 		$entryDAO = new EntryDAO ();
 
-		HelperEntry::$nb = $this->nb;
-		HelperEntry::$first = $this->first;
+		HelperEntry::$nb = $this->nb;	//TODO: Update: Now done in SQL
+		HelperEntry::$first = $this->first;	//TODO: Update: Now done in SQL
 		HelperEntry::$filter = $this->filter;
 
 		switch ($this->type['type']) {
 		case 'all':
 			list ($this->entries, $this->next) = $entryDAO->listEntries (
 				$this->state,
-				$this->order
+				$this->order,
+				$this->first,
+				$this->nb
 			);
 			break;
 		case 'favoris':
 			list ($this->entries, $this->next) = $entryDAO->listFavorites (
 				$this->state,
-				$this->order
+				$this->order,
+				$this->first,
+				$this->nb
 			);
 			break;
 		case 'public':
 			list ($this->entries, $this->next) = $entryDAO->listPublic (
 				$this->state,
-				$this->order
+				$this->order,
+				$this->first,
+				$this->nb
 			);
 			break;
 		case 'c':
 			list ($this->entries, $this->next) = $entryDAO->listByCategory (
 				$this->type['id'],
 				$this->state,
-				$this->order
+				$this->order,
+				$this->first,
+				$this->nb
 			);
 			break;
 		case 'f':
 			list ($this->entries, $this->next) = $entryDAO->listByFeed (
 				$this->type['id'],
 				$this->state,
-				$this->order
+				$this->order,
+				$this->first,
+				$this->nb
 			);
 			break;
 		default:

@@ -4,6 +4,7 @@ class Feed extends Model {
 	private $id = null;
 	private $url;
 	private $category = '000000';
+	private $nbNotRead = -1;
 	private $entries = null;
 	private $name = '';
 	private $website = '';
@@ -82,8 +83,12 @@ class Feed extends Model {
 		return $feedDAO->countEntries ($this->id ());
 	}
 	public function nbNotRead () {
+		if ($this->nbNotRead < 0) {
 		$feedDAO = new FeedDAO ();
-		return $feedDAO->countNotRead ($this->id ());
+			$this->nbNotRead = $feedDAO->countNotRead ($this->id ());
+		}
+
+		return $this->nbNotRead;
 	}
 	public function favicon () {
 		$file = '/data/favicons/' . $this->id () . '.ico';
@@ -161,6 +166,12 @@ class Feed extends Model {
 			$value = false;
 		}
 		$this->keep_history = $value;
+	}
+	public function _nbNotRead ($value) {	//Alex
+		if (!is_int (intval ($value))) {
+			$value = -1;
+		}
+		$this->nbNotRead = $value;
 	}
 
 	public function load () {
@@ -506,7 +517,9 @@ class HelperFeed {
 			$list[$key]->_httpAuth (base64_decode ($dao['httpAuth']));
 			$list[$key]->_error ($dao['error']);
 			$list[$key]->_keepHistory ($dao['keep_history']);
-
+			if (isset ($dao['nbNotRead'])) {
+				$list[$key]->_nbNotRead ($dao['nbNotRead']);
+			}
 			if (isset ($dao['id'])) {
 				$list[$key]->_id ($dao['id']);
 			}
