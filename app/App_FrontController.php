@@ -57,8 +57,8 @@ class App_FrontController extends FrontController {
 		if (login_is_conf ($this->conf)) {
 			View::appendScript ('https://login.persona.org/include.js');
 		}
-		View::appendScript (Url::display ('/scripts/jquery.js'));
-		View::appendScript (Url::display ('/scripts/jquery.lazyload.min.js'));
+		View::appendScript (Url::display ('/scripts/jquery.min.js'));
+		View::appendScript (Url::display ('/scripts/jquery.lazyload.min.js'));	//TODO: Load only if used
 		View::appendScript (Url::display ('/scripts/notification.js'));
 	}
 
