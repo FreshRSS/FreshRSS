@@ -98,13 +98,15 @@ class EntriesGetter {
 		HelperEntry::$first = $this->first;	//TODO: Update: Now done in SQL
 		HelperEntry::$filter = $this->filter;
 
+		$sqlLimit = (empty ($this->filter['words']) && empty ($this->filter['tags'])) ? $this->nb : '';	//Disable SQL LIMIT optimisation during search	//TODO: Do better!
+
 		switch ($this->type['type']) {
 		case 'all':
 			list ($this->entries, $this->next) = $entryDAO->listEntries (
 				$this->state,
 				$this->order,
 				$this->first,
-				$this->nb
+				$sqlLimit
 			);
 			break;
 		case 'favoris':
@@ -112,7 +114,7 @@ class EntriesGetter {
 				$this->state,
 				$this->order,
 				$this->first,
-				$this->nb
+				$sqlLimit
 			);
 			break;
 		case 'public':
@@ -120,7 +122,7 @@ class EntriesGetter {
 				$this->state,
 				$this->order,
 				$this->first,
-				$this->nb
+				$sqlLimit
 			);
 			break;
 		case 'c':
@@ -129,7 +131,7 @@ class EntriesGetter {
 				$this->state,
 				$this->order,
 				$this->first,
-				$this->nb
+				$sqlLimit
 			);
 			break;
 		case 'f':
@@ -138,7 +140,7 @@ class EntriesGetter {
 				$this->state,
 				$this->order,
 				$this->first,
-				$this->nb
+				$sqlLimit
 			);
 			break;
 		default:

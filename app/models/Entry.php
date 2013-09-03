@@ -396,7 +396,7 @@ class EntryDAO extends Model_pdo {
 		     . ' ORDER BY date' . $order . ', id' . $order;
 
 		if (!empty($limitCount)) {
-			$sql .= ' LIMIT ' . $limitCount;	//TODO: See http://explainextended.com/2009/10/23/mysql-order-by-limit-performance-late-row-lookups/
+			$sql .= ' LIMIT ' . ($limitCount + 1);	//TODO: See http://explainextended.com/2009/10/23/mysql-order-by-limit-performance-late-row-lookups/
 		}
 
 		$stm = $this->bd->prepare ($sql);
@@ -405,19 +405,19 @@ class EntryDAO extends Model_pdo {
 		return HelperEntry::daoToEntry ($stm->fetchAll (PDO::FETCH_ASSOC));
 	}
 	public function listEntries ($state, $order = 'high_to_low', $limitFromId = '', $limitCount = '') {
-		return $this->listWhere (' WHERE priority > 0', $state, $order, $limitFromId, $limitCount + 1);
+		return $this->listWhere (' WHERE priority > 0', $state, $order, $limitFromId, $limitCount);
 	}
 	public function listFavorites ($state, $order = 'high_to_low', $limitFromId = '', $limitCount = '') {
-		return $this->listWhere (' WHERE is_favorite = 1', $state, $order, $limitFromId, $limitCount + 1);
+		return $this->listWhere (' WHERE is_favorite = 1', $state, $order, $limitFromId, $limitCount);
 	}
 	public function listPublic ($state, $order = 'high_to_low', $limitFromId = '', $limitCount = '') {
-		return $this->listWhere (' WHERE is_public = 1', $state, $order, $limitFromId, $limitCount + 1);
+		return $this->listWhere (' WHERE is_public = 1', $state, $order, $limitFromId, $limitCount);
 	}
 	public function listByCategory ($cat, $state, $order = 'high_to_low', $limitFromId = '', $limitCount = '') {
-		return $this->listWhere (' WHERE category = ?', $state, $order, $limitFromId, $limitCount + 1, array ($cat));
+		return $this->listWhere (' WHERE category = ?', $state, $order, $limitFromId, $limitCount, array ($cat));
 	}
 	public function listByFeed ($feed, $state, $order = 'high_to_low', $limitFromId = '', $limitCount = '') {
-		return $this->listWhere (' WHERE id_feed = ?', $state, $order, $limitFromId, $limitCount + 1, array ($feed));
+		return $this->listWhere (' WHERE id_feed = ?', $state, $order, $limitFromId, $limitCount, array ($feed));
 	}
 
 	public function countUnreadRead () {
