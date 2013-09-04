@@ -396,7 +396,7 @@ class EntryDAO extends Model_pdo {
 		     . ' ORDER BY date' . $order . ', id' . $order;
 
 		if (!empty($limitCount)) {
-			$sql .= ' LIMIT ' . ($limitCount + 1);	//TODO: See http://explainextended.com/2009/10/23/mysql-order-by-limit-performance-late-row-lookups/
+			$sql .= ' LIMIT ' . ($limitCount + 2);	//TODO: See http://explainextended.com/2009/10/23/mysql-order-by-limit-performance-late-row-lookups/
 		}
 
 		$stm = $this->bd->prepare ($sql);
