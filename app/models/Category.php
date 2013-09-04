@@ -281,6 +281,9 @@ class HelperCategory {
 			$line = $listDAO[$i];
 			$cat_id = $line['c_id'];
 			if (($i > 0) && (($cat_id !== $previousLine['c_id']) || ($i === $nbLinesMinus1))) {	//End of current category
+				if ($i === $nbLinesMinus1) {	//End of table
+					$feedsDao[] = $line;
+				}
 				$cat = new Category (
 					$previousLine['c_name'],
 					$previousLine['c_color'],
