@@ -381,8 +381,8 @@ class EntryDAO extends Model_pdo {
 		} elseif ($state == 'read') {
 			$where .= ' AND is_read = 1';
 		}
-		if (!empty($limitFromId)) {
-			$where .= ' AND date ' . ($order === 'low_to_high' ? '<=' : '>=') . ' (SELECT date from freshrss_entry WHERE id = "' . $limitFromId . '")';
+		if (!empty($limitFromId)) {	//TODO: Consider using LPAD(e.date, 11)	//CONCAT is for cases when many entries have the same date
+			$where .= ' AND CONCAT(e.date, e.id) ' . ($order === 'low_to_high' ? '<=' : '>=') . ' (SELECT CONCAT(s.date, s.id) from freshrss_entry s WHERE s.id = "' . $limitFromId . '")';
 		}
 
 		if ($order == 'low_to_high') {
@@ -393,7 +393,7 @@ class EntryDAO extends Model_pdo {
 
 		$sql = 'SELECT e.* FROM ' . $this->prefix . 'entry e'
 		     . ' INNER JOIN  ' . $this->prefix . 'feed f ON e.id_feed = f.id' . $where
-		     . ' ORDER BY date' . $order . ', id' . $order;
+		     . ' ORDER BY e.date' . $order . ', e.id' . $order;
 
 		if (!empty($limitCount)) {
 			$sql .= ' LIMIT ' . ($limitCount + 2);	//TODO: See http://explainextended.com/2009/10/23/mysql-order-by-limit-performance-late-row-lookups/
