@@ -179,7 +179,7 @@ class CategoryDAO extends Model_pdo {
 		if ($prePopulateFeeds) {
 			$sql = 'SELECT c.id as c_id, c.name as c_name, c.color as c_color, count(e.id) as nbNotRead, f.* '
 			     . 'FROM  ' . $this->prefix . 'category c '
-			     . 'INNER JOIN  ' . $this->prefix . 'feed f ON f.category = c.id '
+			     . 'LEFT OUTER JOIN ' . $this->prefix . 'feed f ON f.category = c.id '
 			     . 'LEFT OUTER JOIN  ' . $this->prefix . 'entry e ON e.id_feed = f.id AND e.is_read = 0 '
 			     . 'GROUP BY f.id '
 			     . 'ORDER BY c.name, f.name';

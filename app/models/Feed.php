@@ -502,6 +502,9 @@ class HelperFeed {
 		}
 
 		foreach ($listDAO as $key => $dao) {
+			if (empty ($dao['url'])) {
+				continue;
+			}
 			if (isset ($dao['id'])) {
 				$key = $dao['id'];
 			}

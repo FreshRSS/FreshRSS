@@ -17,6 +17,7 @@ class feedController extends ActionController {
 		if (Request::isPost ()) {
 			$url = Request::param ('url_rss');
 			$cat = Request::param ('category');
+			if (empty($cat)) $cat = '000000';
 			$user = Request::param ('username');
 			$pass = Request::param ('password');
 			$params = array ();
