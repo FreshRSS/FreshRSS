@@ -29,10 +29,9 @@ class indexController extends ActionController {
 
 		$nb_not_read = $this->view->nb_not_read;
 		if($nb_not_read > 0) {
-			View::prependTitle (' (' . $nb_not_read . ') - ');
-		} else {
-			View::prependTitle (' - ');
+			View::appendTitle (' (' . $nb_not_read . ')');
 		}
+		View::prependTitle (' - ');
 
 		$entryDAO = new EntryDAO ();
 		$feedDAO = new FeedDAO ();
@@ -132,7 +131,8 @@ class indexController extends ActionController {
 			$catDAO = new CategoryDAO ();
 			$cat = $catDAO->searchById ($type['id']);
 			if ($cat) {
-				View::prependTitle ($cat->name ());
+				$nbnr = $cat->nbNotRead ();
+				View::prependTitle ($cat->name () . ($nbnr > 0 ? ' (' . $nbnr . ')' : ''));
 				$this->view->get_c = $type['id'];
 				return false;
 			} else {
@@ -142,7 +142,8 @@ class indexController extends ActionController {
 			$feedDAO = new FeedDAO ();
 			$feed = $feedDAO->searchById ($type['id']);
 			if ($feed) {
-				View::prependTitle ($feed->name ());
+				$nbnr = $feed->nbNotRead ();
+				View::prependTitle ($feed->name () . ($nbnr > 0 ? ' (' . $nbnr . ')' : ''));
 				$this->view->get_f = $type['id'];
 				$this->view->get_c = $feed->category ();
 				return false;
