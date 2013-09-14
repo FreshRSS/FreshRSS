@@ -3365,7 +3365,7 @@ class phpQueryObject
 	 */
 	public function text($text = null, $callback1 = null, $callback2 = null, $callback3 = null) {
 		if (isset($text))
-			return $this->html(htmlspecialchars($text));
+			return $this->html(htmlspecialchars($text), ENT_NOQUOTES, 'UTF-8');
 		$args = func_get_args();
 		$args = array_slice($args, 1);
 		$return = '';
