@@ -53,7 +53,10 @@ if (isset ($this->entryPaginator) && !$this->entryPaginator->isEmpty ()) {
 				<?php } ?>
 			</li>
 			<?php } ?>
-			<?php $feed = $item->feed (true); ?>
+			<?php
+				$feed = HelperCategory::findFeed($this->cat_aside, $item->feed ());	//We most likely already have the feed object in cache
+				if (empty($feed)) $feed = $item->feed (true);
+			?>
 			<li class="item website"><a href="<?php echo _url ('index', 'index', 'get', 'f_' . $feed->id ()); ?>"><img class="favicon" src="<?php echo $feed->favicon (); ?>" alt="" /> <span><?php echo $feed->name (); ?></span></a></li>
 			<li class="item title"><a target="_blank" href="<?php echo $item->link (); ?>"><?php echo $item->title (); ?></a></li>
 			<li class="item date"><?php echo $item->date (); ?></li>
