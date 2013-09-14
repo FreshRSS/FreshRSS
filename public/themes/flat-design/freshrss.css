@@ -269,6 +269,12 @@ body {
 			text-overflow: ellipsis;
 			cursor: pointer;
 		}
+			.flux_header .item.title a {
+				color: #333;
+			}
+				.flux_header .item.title a:hover {
+					text-decoration: none
+				}
 			.flux.not_read .flux_header .item.title {
 				font-weight: bold;
 			}
@@ -507,18 +513,18 @@ body {
 }
 
 .bigMarkAsRead {
-	background:#34495E;
-	color:#FFF;
-	cursor:pointer;
-	height:32em;
-	text-shadow: 0 -1px 0 #AAA;
+	background: #ecf0f1;
+	cursor: pointer;
+	height: 300px;
+	text-shadow: 0 -1px 0 #aaa;
 }
 .bigMarkAsRead:hover {
-	background:#3498db;
+	background: #34495e;
+	color: #fff;
 }
 .bigTick {
-	font-size:72pt;
-	margin:32px 0 8px 0;
+	font-size: 72pt;
+	margin: 75px 0 10px 0;
 }
 
 /*** NOTIFICATION ***/
