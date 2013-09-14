@@ -119,20 +119,6 @@
 		</div>
 
 		<div class="form-group">
-			<label class="group-name"><?php echo Translate::t ('onread_jump_next'); ?></label>
-			<div class="group-controls">
-				<label class="radio" for="onread_jump_next_yes">
-					<input type="radio" name="onread_jump_next" id="onread_jump_next_yes" value="yes"<?php echo $this->conf->onread_jump_next () == 'yes' ? ' checked="checked"' : ''; ?> />
-					<?php echo Translate::t ('yes'); ?><noscript> - <b><?php echo Translate::t ('javascript_should_be_activated'); ?></b></noscript>
-				</label>
-				<label class="radio" for="onread_jump_next_no">
-					<input type="radio" name="onread_jump_next" id="onread_jump_next_no" value="no"<?php echo $this->conf->onread_jump_next () == 'no' ? ' checked="checked"' : ''; ?> />
-					<?php echo Translate::t ('no'); ?>
-				</label>
-			</div>
-		</div>
-
-		<div class="form-group">
 			<div class="group-controls">
 				<label class="checkbox" for="lazyload">
 					<input type="checkbox" name="lazyload" id="lazyload" value="yes"<?php echo $this->conf->lazyload () == 'yes' ? ' checked="checked"' : ''; ?> />
@@ -156,6 +142,16 @@
 				<label class="checkbox" for="check_scroll">
 					<input type="checkbox" name="mark_scroll" id="check_scroll" value="yes"<?php echo $this->conf->markWhenScroll () == 'yes' ? ' checked="checked"' : ''; ?> />
 					<?php echo Translate::t ('scroll'); ?>
+				</label>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="group-name"><?php echo Translate::t ('after_onread'); ?></label>
+			<div class="group-controls">
+				<label class="checkbox" for="onread_jump_next">
+					<input type="checkbox" name="onread_jump_next" id="onread_jump_next" value="yes"<?php echo $this->conf->onread_jump_next () == 'yes' ? ' checked="checked"' : ''; ?> />
+					<?php echo Translate::t ('jump_next'); ?>
 				</label>
 			</div>
 		</div>
