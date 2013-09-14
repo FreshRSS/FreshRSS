@@ -216,7 +216,7 @@ class Feed extends Model {
 		foreach ($feed->get_items () as $item) {
 			$title = $item->get_title ();
 			$title = preg_replace('#<a(.+)>(.+)</a>#', '\\2', $title);
-			$title = htmlentities($title);
+			$title = htmlentities($title, ENT_NOQUOTES, 'UTF-8');
 			$author = $item->get_author ();
 			$link = $item->get_permalink ();
 			$date = strtotime ($item->get_date ());

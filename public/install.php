@@ -309,8 +309,12 @@ function checkBD () {
 
 	try {
 		$str = '';
+		$driver_options = null;
 		if($_SESSION['bd_type'] == 'mysql') {
 			$str = 'mysql:host=' . $_SESSION['bd_host'] . ';dbname=' . $_SESSION['bd_name'];
+			$driver_options = array(
+				PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8'
+				);
 		} elseif($_SESSION['bd_type'] == 'sqlite') {
 			$str = 'sqlite:' . PUBLIC_PATH
 			     . '/data/' . $_SESSION['bd_name'] . '.sqlite';
@@ -318,7 +322,8 @@ function checkBD () {
 
 		$c = new PDO ($str,
 			      $_SESSION['bd_user'],
-			      $_SESSION['bd_pass']);
+			      $_SESSION['bd_pass'],
+			      $driver_options);
 
 		$sql = sprintf (SQL_REQ_CAT, $_SESSION['bd_prefix']);
 		$res = $c->query ($sql);
