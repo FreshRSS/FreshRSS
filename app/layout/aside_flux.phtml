@@ -59,7 +59,7 @@
 				<a class="btn<?php echo $c_active ? ' active' : ''; ?>" href="<?php echo _url ('index', 'index', 'get', 'c_' . $cat->id ()); ?>">
 					<?php echo $cat->name (); ?>
 					<?php if ($catNotRead > 0) { ?>
-					<span class="notRead"><?php echo $catNotRead > 1 ? Translate::t ('not_reads', $catNotRead) : Translate::t ('not_read', $catNotRead); ?></span>
+					<span class="notRead" title="<?php echo $catNotRead > 1 ? Translate::t ('not_reads', $catNotRead) : Translate::t ('not_read', $catNotRead); ?>"><?php echo $catNotRead ; ?></span>
 					<?php } ?>
 				</a>
 			</div>
