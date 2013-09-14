@@ -156,8 +156,9 @@ function next_entry() {
 }
 
 function init_img () {
+	var maxWidth = $(".flux_content .content").width() / 2;
 	$(".flux_content .content img").each (function () {
-		if ($(this).width () > ($(".flux_content .content").width()) / 2) {
+		if ($(this).width () > maxWidth) {
 			$(this).addClass("big");
 		}
 	});
@@ -194,45 +195,6 @@ function init_posts () {
 		$(".flux:not(.active) .flux_content").hide ();
 	}
 
-	var flux_header_toggle = $(".flux_header .item.title, .flux_header .item.date");
-	flux_header_toggle.unbind('click'); // évite d'associer 2 fois le toggle
-	flux_header_toggle.click (function () {
-		old_active = $(".flux.active");
-		new_active = $(this).parent ().parent ();
-
-		toggleContent (new_active, old_active);
-	});
-
-	$(".flux a.read").click (function () {
-		active = $(this).parents (".flux");
-		mark_read (active, false);
-
-		return false;
-	});
-
-	$(".flux a.bookmark").click (function () {
-		active = $(this).parents (".flux");
-		mark_favorite (active);
-
-		return false;
-	});
-
-	$(".flux .content a").click (function () {
-		$(this).attr ('target', '_blank');
-	});
-
-	$(".bigMarkAsRead").click(function() {
-		url = $(".nav_menu a.read_all").attr ("href");
-		redirect (url, false);
-		return false;
-	});
-
-	<?php if ($mark['site'] == 'yes') { ?>
-	$(".flux .link a").click (function () {
-		mark_read($(this).parent().parent().parent(), true);
-	});
-	<?php } ?>
-
 	var box_to_follow = $(window);
 	var relative_follow = false;
 	if(is_global_mode()) {
@@ -253,8 +215,10 @@ function init_posts () {
 
 	<?php if ($auto_load_more == 'yes') { ?>
 	box_to_follow.scroll(function() {
+		var load_more = $("#load_more");
+		if (!load_more.is(':visible')) return;
 		var boxBot = box_to_follow.scrollTop() + box_to_follow.height();
-		var load_more_top = $("#load_more").position().top;
+		var load_more_top = load_more.position().top;
 		if(relative_follow) {
 			load_more_top += box_to_follow.scrollTop();
 		}
@@ -363,6 +327,58 @@ function init_shortcuts () {
 	});
 }
 
+function init_stream_delegates() {
+	var divStream = $('#stream');
+
+	divStream.on('click', '.flux_header .item.title, .flux_header .item.date', function (e) {	//flux_header_toggle
+		old_active = $(".flux.active");
+		new_active = $(this).parent ().parent ();
+		if (e.target.tagName.toUpperCase() === 'A') {	//Leave real links alone
+			<?php if ($mark['article'] == 'yes') { ?>
+			mark_read(new_active, true);
+			<?php } ?>
+			return true;
+		}
+		toggleContent (new_active, old_active);
+	});
+
+	divStream.on('click', '.flux a.read', function () {
+		active = $(this).parents (".flux");
+		mark_read (active, false);
+
+		return false;
+	});
+
+	divStream.on('click', '.flux a.bookmark', function () {
+		active = $(this).parents (".flux");
+		mark_favorite (active);
+
+		return false;
+	});
+
+	divStream.on('click', '.flux .content a', function () {
+		$(this).attr ('target', '_blank');
+	});
+
+	divStream.on('click', '.item.title>a',function (e) {
+		if (e.ctrlKey) return true;	//Allow default control-click behaviour such as open in backround-tab
+		$(this).parent ().click ();	//Will perform toggle flux_content
+		return false;
+	});
+
+	divStream.on('click', '.bigMarkAsRead', function() {
+		url = $(".nav_menu a.read_all").attr ("href");
+		redirect (url, false);
+		return false;
+	});
+
+	<?php if ($mark['site'] == 'yes') { ?>
+	divStream.on('click', '.flux .link a', function () {
+		mark_read($(this).parent().parent().parent(), true);
+	});
+	<?php } ?>
+}
+
 function init_nav_entries() {
 	$('.nav_entries a.previous_entry').click(function() {
 		prev_entry();
@@ -393,5 +409,6 @@ $(document).ready (function () {
 	init_posts ();
 	init_column_categories ();
 	init_shortcuts ();
+	init_stream_delegates();
 	init_nav_entries();
 });
