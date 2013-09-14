@@ -179,6 +179,18 @@ body {
 	background: #ecf0f1;
 	border-radius: 0 20px 20px 0;
 }
+	.day em {
+		color:#AAB;
+		font-size:2em;
+		height:1.5em;
+		opacity:.4;
+		overflow:hidden;
+		padding:0 .2em 0 0;
+		position:absolute;
+		right:0;
+		text-align:right;
+		width:75%;
+	}
 
 .flux {
 }

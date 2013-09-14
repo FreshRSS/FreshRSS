@@ -3,7 +3,7 @@
 class indexController extends ActionController {
 	private $get = false;
 	private $nb_not_read = 0;
-	private $mode = 'all';
+	private $mode = 'all';	//TODO: Is this used?
 
 	public function indexAction () {
 		$output = Request::param ('output');
@@ -29,10 +29,9 @@ class indexController extends ActionController {
 
 		$nb_not_read = $this->view->nb_not_read;
 		if($nb_not_read > 0) {
-			View::prependTitle (' (' . $nb_not_read . ') - ');
-		} else {
-			View::prependTitle (' - ');
+			View::appendTitle (' (' . $nb_not_read . ')');
 		}
+		View::prependTitle (' - ');
 
 		$entryDAO = new EntryDAO ();
 		$feedDAO = new FeedDAO ();
@@ -41,6 +40,7 @@ class indexController extends ActionController {
 		$this->view->cat_aside = $catDAO->listCategories ();
 		$this->view->nb_favorites = $entryDAO->countFavorites ();
 		$this->view->nb_total = $entryDAO->count ();
+		$this->view->currentName = '';
 
 		$this->view->get_c = '';
 		$this->view->get_f = '';
@@ -117,22 +117,27 @@ class indexController extends ActionController {
 	 */
 	private function checkAndProcessType ($type) {
 		if ($type['type'] == 'all') {
-			View::prependTitle (Translate::t ('your_rss_feeds'));
+			$this->view->currentName = Translate::t ('your_rss_feeds');
+			View::prependTitle ($this->view->currentName);
 			$this->view->get_c = $type['type'];
 			return false;
 		} elseif ($type['type'] == 'favoris') {
-			View::prependTitle (Translate::t ('your_favorites'));
+			$this->view->currentName = Translate::t ('your_favorites');
+			View::prependTitle ($this->view->currentName);
 			$this->view->get_c = $type['type'];
 			return false;
 		} elseif ($type['type'] == 'public') {
-			View::prependTitle (Translate::t ('public'));
+			$this->view->currentName = Translate::t ('public');
+			View::prependTitle ($this->view->currentName);
 			$this->view->get_c = $type['type'];
 			return false;
 		} elseif ($type['type'] == 'c') {
 			$catDAO = new CategoryDAO ();
 			$cat = $catDAO->searchById ($type['id']);
 			if ($cat) {
-				View::prependTitle ($cat->name ());
+				$this->view->currentName = $cat->name ();
+				$nbnr = $cat->nbNotRead ();
+				View::prependTitle ($this->view->currentName . ($nbnr > 0 ? ' (' . $nbnr . ')' : ''));
 				$this->view->get_c = $type['id'];
 				return false;
 			} else {
@@ -142,7 +147,9 @@ class indexController extends ActionController {
 			$feedDAO = new FeedDAO ();
 			$feed = $feedDAO->searchById ($type['id']);
 			if ($feed) {
-				View::prependTitle ($feed->name ());
+				$this->view->currentName = $feed->name ();
+				$nbnr = $feed->nbNotRead ();
+				View::prependTitle ($this->view->currentName . ($nbnr > 0 ? ' (' . $nbnr . ')' : ''));
 				$this->view->get_f = $type['id'];
 				$this->view->get_c = $feed->category ();
 				return false;
