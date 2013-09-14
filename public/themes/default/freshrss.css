@@ -263,6 +263,12 @@
 			text-overflow: ellipsis;
 			cursor: pointer;
 		}
+			.flux_header .item.title a {
+				color: #000;
+			}
+				.flux_header .item.title a:hover {
+					text-decoration: none
+				}
 			.flux.not_read .flux_header .item.title {
 				font-weight: bold;
 			}
