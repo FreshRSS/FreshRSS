@@ -149,7 +149,7 @@ body {
 	.categories .notRead {
 		position: absolute;
 		top: 5px; right: 0px;
-		padding: 0 3px;
+		padding: 0 5px;
 		color: #fff;
 		font-size: 90%;
 		background: #3498DB;
