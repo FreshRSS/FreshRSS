@@ -379,6 +379,7 @@ class SimplePie_Sanitize
 	protected function preprocess($html, $type)
 	{
 		$ret = '';
+		$html = preg_replace('%</?(?:html|body)[^>]*?'.'>%is', '', $html);
 		if ($type & ~SIMPLEPIE_CONSTRUCT_XHTML)
 		{
 			// Atom XHTML constructs are wrapped with a div by default
