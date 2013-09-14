@@ -10,6 +10,7 @@ class RSSConfiguration extends Model {
 	private $view_mode;
 	private $default_view;
 	private $display_posts;
+	private $onread_jump_next; 
 	private $lazyload;
 	private $sort_order;
 	private $old_entries;
@@ -29,6 +30,7 @@ class RSSConfiguration extends Model {
 		$this->_viewMode ($confDAO->view_mode);
 		$this->_defaultView ($confDAO->default_view);
 		$this->_displayPosts ($confDAO->display_posts);
+		$this->_onread_jump_next ($confDAO->onread_jump_next); 
 		$this->_lazyload ($confDAO->lazyload);
 		$this->_sortOrder ($confDAO->sort_order);
 		$this->_oldEntries ($confDAO->old_entries);
@@ -59,6 +61,9 @@ class RSSConfiguration extends Model {
 	}
 	public function displayPosts () {
 		return $this->display_posts;
+	}
+	public function onread_jump_next () {
+		return $this->onread_jump_next;
 	}
 	public function lazyload () {
 		return $this->lazyload;
@@ -135,6 +140,13 @@ class RSSConfiguration extends Model {
 			$this->display_posts = 'yes';
 		} else {
 			$this->display_posts = 'no';
+		}
+	}
+	public function _onread_jump_next ($value) {
+		if ($value == 'no') {
+			$this->onread_jump_next = 'no';
+		} else {
+			$this->onread_jump_next = 'yes';
 		}
 	}
 	public function _lazyload ($value) {
@@ -219,6 +231,7 @@ class RSSConfigurationDAO extends Model_array {
 	public $view_mode = 'normal';
 	public $default_view = 'not_read';
 	public $display_posts = 'no';
+	public $onread_jump_next = 'yes';
 	public $lazyload = 'yes';
 	public $sort_order = 'low_to_high';
 	public $old_entries = 3;
@@ -261,6 +274,9 @@ class RSSConfigurationDAO extends Model_array {
 		}
 		if (isset ($this->array['display_posts'])) {
 			$this->display_posts = $this->array['display_posts'];
+		}
+		if (isset ($this->array['onread_jump_next'])) {
+			$this->onread_jump_next = $this->array['onread_jump_next'];
 		}
 		if (isset ($this->array['lazyload'])) {
 			$this->lazyload = $this->array['lazyload'];
