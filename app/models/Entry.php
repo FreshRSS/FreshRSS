@@ -251,11 +251,16 @@ class EntryDAO extends Model_pdo {
 		}
 	}
 
-	public function markReadEntries ($read, $dateMax) {
-		$sql = 'UPDATE ' . $this->prefix . 'entry e INNER JOIN ' . $this->prefix . 'feed f ON e.id_feed = f.id SET is_read = ? WHERE date < ? AND priority > 0';
-		$stm = $this->bd->prepare ($sql);
+	public function markReadEntries ($read, $dateMax = 0) {
+		$sql = 'UPDATE ' . $this->prefix . 'entry e INNER JOIN ' . $this->prefix . 'feed f ON e.id_feed = f.id SET is_read = ? WHERE priority > 0';
 
-		$values = array ($read, $dateMax);
+		$values = array ($read);
+		if ($dateMax > 0) {
+			$sql .= ' AND date < ?';
+			$values[] = $dateMax;
+		}
+
+		$stm = $this->bd->prepare ($sql);
 
 		if ($stm && $stm->execute ($values)) {
 			return true;
@@ -265,11 +270,16 @@ class EntryDAO extends Model_pdo {
 			return false;
 		}
 	}
-	public function markReadCat ($id, $read, $dateMax) {
-		$sql = 'UPDATE ' . $this->prefix . 'entry e INNER JOIN ' . $this->prefix . 'feed f ON e.id_feed = f.id SET is_read = ? WHERE category = ? AND date < ?';
-		$stm = $this->bd->prepare ($sql);
+	public function markReadCat ($id, $read, $dateMax = 0) {
+		$sql = 'UPDATE ' . $this->prefix . 'entry e INNER JOIN ' . $this->prefix . 'feed f ON e.id_feed = f.id SET is_read = ? WHERE category = ?';
 
-		$values = array ($read, $id, $dateMax);
+		$values = array ($read, $id);
+		if ($dateMax > 0) {
+			$sql .= ' AND date < ?';
+			$values[] = $dateMax;
+		}
+
+		$stm = $this->bd->prepare ($sql);
 
 		if ($stm && $stm->execute ($values)) {
 			return true;
@@ -279,11 +289,16 @@ class EntryDAO extends Model_pdo {
 			return false;
 		}
 	}
-	public function markReadFeed ($id, $read, $dateMax) {
-		$sql = 'UPDATE ' . $this->prefix . 'entry SET is_read = ? WHERE id_feed = ? AND date < ?';
-		$stm = $this->bd->prepare ($sql);
+	public function markReadFeed ($id, $read, $dateMax = 0) {
+		$sql = 'UPDATE ' . $this->prefix . 'entry SET is_read = ? WHERE id_feed = ?';
 
-		$values = array ($read, $id, $dateMax);
+		$values = array ($read, $id);
+		if ($dateMax > 0) {
+			$sql .= ' AND date < ?';
+			$values[] = $dateMax;
+		}
+
+		$stm = $this->bd->prepare ($sql);
 
 		if ($stm && $stm->execute ($values)) {
 			return true;

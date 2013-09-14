@@ -36,7 +36,7 @@ class entryController extends ActionController {
 		$is_read = Request::param ('is_read');
 		$get = Request::param ('get');
 		$nextGet = Request::param ('nextGet', $get); 
-		$dateMax = Request::param ('dateMax', time ());
+		$dateMax = Request::param ('dateMax', 0);
 
 		$is_read = !!$is_read;
 
