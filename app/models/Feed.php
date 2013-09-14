@@ -214,6 +214,16 @@ class Feed extends Model {
 			}
 		}
 	}
+	private function sanitizeTime($date) {	//Ensure date is always in the past
+		$now = time();
+		if (empty($date)) return $now;
+		if ($date <= $now) return $date;
+		$nowDetails = getdate ($now);
+		$dateDetails = getdate ($date);	//To keep minutes and seconds intact
+		$date = mktime ($nowDetails['hours'], $dateDetails['minutes'], $dateDetails['seconds'], $nowDetails['mon'], $nowDetails['mday'], $nowDetails['year']);
+		if ($date <= $now) return $date;
+		return $date - 3600;	//-1 hour
+	}
 	private function loadEntries ($feed) {
 		$entries = array ();
 
@@ -241,7 +251,7 @@ class Feed extends Model {
 				!is_null ($author) ? $author->name : '',
 				!is_null ($content) ? $content : '',
 				!is_null ($link) ? $link : '',
-				$date ? $date : time ()
+				$this->sanitizeTime($date)
 			);
 			$entry->_tags ($tags);
 			// permet de récupérer le contenu des flux tronqués
