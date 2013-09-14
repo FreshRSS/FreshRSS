@@ -9,14 +9,18 @@ class feedController extends ActionController {
 			);
 		}
 
-		$catDAO = new CategoryDAO ();
-		$catDAO->checkDefault ();
+		$this->catDAO = new CategoryDAO ();
+		$this->catDAO->checkDefault ();
 	}
 
 	public function addAction () {
 		if (Request::isPost ()) {
 			$url = Request::param ('url_rss');
-			$cat = Request::param ('category');
+			$cat = Request::param ('category', false);
+			if ($cat === false) {
+				$def_cat = $this->catDAO->getDefault ();
+				$cat = $def_cat->id ();
+			}
 			$user = Request::param ('username');
 			$pass = Request::param ('password');
 			$params = array ();

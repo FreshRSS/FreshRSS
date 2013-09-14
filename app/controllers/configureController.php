@@ -8,6 +8,9 @@ class configureController extends ActionController {
 				array ('error' => array (Translate::t ('access_denied')))
 			);
 		}
+
+		$catDAO = new CategoryDAO ();
+		$catDAO->checkDefault ();
 	}
 
 	public function categorizeAction () {

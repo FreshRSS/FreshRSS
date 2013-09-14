@@ -175,7 +175,7 @@ class CategoryDAO extends Model_pdo {
 	public function checkDefault () {
 		$def_cat = $this->searchById ('000000');
 
-		if (!$def_cat) {
+		if ($def_cat === false) {
 			$cat = new Category (Translate::t ('default_category'));
 			$cat->_id ('000000');
 
