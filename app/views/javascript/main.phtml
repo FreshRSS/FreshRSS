@@ -221,6 +221,12 @@ function init_posts () {
 		$(this).attr ('target', '_blank');
 	});
 
+	$(".bigMarkAsRead").click(function() {
+		url = $(".nav_menu a.read_all").attr ("href");
+		redirect (url, false);
+		return false;
+	});
+
 	<?php if ($mark['site'] == 'yes') { ?>
 	$(".flux .link a").click (function () {
 		mark_read($(this).parent().parent().parent(), true);
