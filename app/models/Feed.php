@@ -200,10 +200,12 @@ class Feed extends Model {
 					}
 					$this->_url ($subscribe_url);
 				}
+
 				if (empty($this->name)) {	// May come from OPML
-				$title = $feed->get_title ();
-				$this->_name (!is_null ($title) ? $title : $this->url);
+					$title = $feed->get_title ();
+					$this->_name (!is_null ($title) ? $title : $this->url);
 				}
+
 				$this->_website ($feed->get_link ());
 				$this->_description ($feed->get_description ());
 
