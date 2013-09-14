@@ -133,9 +133,15 @@ function getFeedsOutline ($outline, $cat_id) {
 
 function getFeed ($outline, $cat_id) {
 	$url = (string) $outline['xmlUrl'];
+	$title = '';
+	if (isset ($outline['text'])) {
+		$title = (string) $outline['text'];
+	} elseif (isset ($outline['title'])) {
+		$title = (string) $outline['title'];
+	}
 	$feed = new Feed ($url);
 	$feed->_category ($cat_id);
-
+	$feed->_name ($title);
 	return $feed;
 }
 
