@@ -167,11 +167,12 @@ class Feed extends Model {
 		}
 		$this->keep_history = $value;
 	}
-	public function _nbNotRead ($value) {	//Alex
-		if (!is_int (intval ($value))) {
+	public function _nbNotRead ($value) {
+		if (!is_int ($value)) {
 			$value = -1;
 		}
-		$this->nbNotRead = $value;
+
+		$this->nbNotRead = intval ($value);
 	}
 
 	public function load () {
