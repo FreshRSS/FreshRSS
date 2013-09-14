@@ -55,8 +55,8 @@ return array (
 	'article_published_on'		=> 'This article originally appeared on <a href="%s">%s</a>',
 	'article_published_on_author'	=> 'This article originally appeared on <a href="%s">%s</a> by %s',
 
-	'access_denied'			=> 'You don\'t have permission to access this page',
-	'page_not_found'		=> 'You are looking for a page which doesn\'t exist',
+	'access_denied'			=> 'You don’t have permission to access this page',
+	'page_not_found'		=> 'You are looking for a page which doesn’t exist',
 	'error_occurred'		=> 'An error occured',
 	'error_occurred_update'		=> 'An error occured during update',
 
@@ -160,6 +160,7 @@ return array (
 	'sort_order'			=> 'Sort order',
 	'auto_load_more'		=> 'Load next articles at the page bottom',
 	'display_articles_unfolded'	=> 'Show articles unfolded by default',
+	'onread_jump_next'    => 'On marked as read jump to next unread sibling',
 	'img_with_lazyload'		=> 'Use "lazy load" mode to load pictures',
 	'auto_read_when'		=> 'Mark as read when',
 	'article_selected'		=> 'article is selected',
@@ -204,7 +205,7 @@ return array (
 	'agpl3'				=> '<a href="https://www.gnu.org/licenses/agpl-3.0.html">AGPL 3</a>',
 	'freshrss_description'		=> 'FreshRSS is a RSS feeds aggregator to self-host like <a href="http://rsslounge.aditu.de/">RSSLounge</a>, <a href="http://tt-rss.org/redmine/projects/tt-rss/wiki">TinyTinyRSS</a> or <a href="http://projet.idleman.fr/leed/">Leed</a>. It is light and easy to take in hand while being powerful and configurable tool. Objective is to provide a serious alternative to Google Reader.',
 	'credits'			=> 'Credits',
-	'credits_content'		=> 'Some design elements come from <a href="http://twitter.github.io/bootstrap/">Bootstrap</a> although FreshRSS doesn\'t use this framework. <a href="https://git.gnome.org/browse/gnome-icon-theme-symbolic">Icons</a> come from <a href="https://www.gnome.org/">GNOME project</a>. <em>Open Sans</em> font police used has been created by <a href="https://www.google.com/webfonts/specimen/Open+Sans">Steve Matteson</a>. Favicons are collected with <a href="https://getfavicon.appspot.com/">getFavicon API</a>. FreshRSS is based on <a href="https://github.com/marienfressinaud/MINZ">Minz</a>, a PHP framework.',
+	'credits_content'		=> 'Some design elements come from <a href="http://twitter.github.io/bootstrap/">Bootstrap</a> although FreshRSS doesn’t use this framework. <a href="https://git.gnome.org/browse/gnome-icon-theme-symbolic">Icons</a> come from <a href="https://www.gnome.org/">GNOME project</a>. <em>Open Sans</em> font police used has been created by <a href="https://www.google.com/webfonts/specimen/Open+Sans">Steve Matteson</a>. Favicons are collected with <a href="https://getfavicon.appspot.com/">getFavicon API</a>. FreshRSS is based on <a href="https://github.com/marienfressinaud/MINZ">Minz</a>, a PHP framework.',
 
 	'logs'				=> 'Logs',
 	'logs_empty'			=> 'Log file is empty',
@@ -262,16 +263,16 @@ return array (
 	'choose_language'		=> 'Choose a language for FreshRSS',
 
 	'javascript_is_better'		=> 'FreshRSS is more pleasant with Javascript enabled',
-	'php_is_ok'			=> 'Your PHP version is %s and it\'s compatible with FreshRSS',
+	'php_is_ok'			=> 'Your PHP version is %s and it’s compatible with FreshRSS',
 	'php_is_nok'			=> 'Your PHP version is %s. You must have at least version %s',
 	'minz_is_ok'			=> 'You have Minz framework',
-	'minz_is_nok'			=> 'You haven\'t Minz framework. You should execute <em>build.sh</em> script or <a href="https://github.com/marienfressinaud/MINZ">download it on Github</a> and install in <em>%s</em> directory the content of its <em>/lib</em> directory.',
+	'minz_is_nok'			=> 'You haven’t Minz framework. You should execute <em>build.sh</em> script or <a href="https://github.com/marienfressinaud/MINZ">download it on Github</a> and install in <em>%s</em> directory the content of its <em>/lib</em> directory.',
 	'curl_is_ok'			=> 'You have version %s of cURL',
-	'curl_is_nok'			=> 'You haven\'t cURL',
+	'curl_is_nok'			=> 'You haven’t cURL',
 	'pdomysql_is_ok'		=> 'You have PDO and its driver for MySQL',
-	'pdomysql_is_nok'		=> 'You haven\'t PDO or its driver for MySQL',
+	'pdomysql_is_nok'		=> 'You haven’t PDO or its driver for MySQL',
 	'dom_is_ok'			=> 'You have the necessary to browse the DOM',
-	'dom_is_nok'			=> 'You haven\'t the necessary to browse the DOM (php-xml package can be useful)',
+	'dom_is_nok'			=> 'You haven’t the necessary to browse the DOM (php-xml package can be useful)',
 	'cache_is_ok'			=> 'Permissions on cache directory are good',
 	'log_is_ok'			=> 'Permissions on logs directory are good',
 	'conf_is_ok'			=> 'Permissions on configuration directory are good',
@@ -283,7 +284,7 @@ return array (
 	'random_string'			=> 'Random string',
 	'change_value'			=> 'You should change this value by any other',
 	'base_url'			=> 'Base URL',
-	'do_not_change_if_doubt'	=> 'Don\'t change if you doubt about it',
+	'do_not_change_if_doubt'	=> 'Don’t change if you doubt about it',
 
 	'bdd_conf_is_ok'		=> 'Database configuration has been saved.',
 	'bdd_conf_is_ko'		=> 'Verify your database information.',
@@ -293,7 +294,7 @@ return array (
 	'bdd'				=> 'Database',
 	'prefix'			=> 'Table prefix',
 
-	'installation_is_ok'		=> 'Installation process is finished. You must delete <em>install.php</em> file to access FreshRSS... or simply click on following button :)',
+	'installation_is_ok'		=> 'Installation process is finished. You must delete <em>install.php</em> file to access FreshRSS… or simply click on following button :)',
 	'finish_installation'		=> 'Finish installation',
 	'install_not_deleted'		=> 'Something was going wrong, you muste delete <em>%s</em> file manually.',
 );
