@@ -16,13 +16,24 @@ if (isset ($this->entryPaginator) && !$this->entryPaginator->isEmpty ()) {
 	<?php foreach ($items as $item) { ?>
 
 	<?php if ($display_today && $item->isDay (Days::TODAY)) { ?>
-	<div class="day"><?php echo Translate::t ('today'); ?> - <?php echo timestamptodate (time (), false); ?> : <em><?php echo $this->currentName; ?></em></div>
+	<div class="day">
+		<?php echo Translate::t ('today'); ?>
+		<span class="date"> - <?php echo timestamptodate (time (), false); ?></span>
+		<span class="name"><?php echo $this->currentName; ?></span>
+	</div>
 	<?php $display_today = false; } ?>
 	<?php if ($display_yesterday && $item->isDay (Days::YESTERDAY)) { ?>
-	<div class="day"><?php echo Translate::t ('yesterday'); ?> - <?php echo timestamptodate (time () - 86400, false); ?> : <em><?php echo $this->currentName; ?></em></div>
+	<div class="day">
+		<?php echo Translate::t ('yesterday'); ?>
+		<span class="date"> - <?php echo timestamptodate (time () - 86400, false); ?></span>
+		<span class="name"><?php echo $this->currentName; ?></span>
+	</div>
 	<?php $display_yesterday = false; } ?>
 	<?php if ($display_others && $item->isDay (Days::BEFORE_YESTERDAY)) { ?>
-	<div class="day"><?php echo Translate::t ('before_yesterday'); ?> : <em><?php echo $this->currentName; ?></em></div>
+	<div class="day">
+		<?php echo Translate::t ('before_yesterday'); ?>
+		<span class="name"><?php echo $this->currentName; ?></span>
+	</div>
 	<?php $display_others = false; } ?>
 
 	<div class="flux<?php echo !$item->isRead () ? ' not_read' : ''; ?><?php echo $item->isFavorite () ? ' favorite' : ''; ?>" id="flux_<?php echo $item->id (); ?>">

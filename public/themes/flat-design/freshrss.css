@@ -179,17 +179,16 @@ body {
 	background: #ecf0f1;
 	border-radius: 0 20px 20px 0;
 }
-	.day em {
-		color:#AAB;
-		font-size:2em;
-		height:1.5em;
-		opacity:.4;
-		overflow:hidden;
-		padding:0 .2em 0 0;
-		position:absolute;
-		right:0;
-		text-align:right;
-		width:75%;
+	.day .name {
+		position: absolute;
+		right: 0;
+		padding: 0 10px 0 0;
+		overflow: hidden;
+		color: #aab;
+		font-size: 1.8em;
+		opacity: .3;
+		text-shadow: 0px -1px 0px #333;
+		font-style: italic;
 	}
 
 .flux {
@@ -693,16 +692,24 @@ body {
 	}
 
 	.nav_menu .btn {
-		margin: 10px;
+		margin: 5px 10px;
 	}
 	.nav_menu .stick {
 		margin: 0 10px;
 	}
 	.nav_menu .stick .btn {
-		margin: 10px 0;
+		margin: 5px 0;
 	}
 
 	#panel {
 		left: 5px; right: 5px;
+	}
+
+	.day .date {
+		display: none;
+	}
+	.day .name {
+		font-size: 1em;
+		text-shadow: none;
 	}
 }
