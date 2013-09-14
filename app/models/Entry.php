@@ -461,24 +461,6 @@ class EntryDAO extends Model_pdo {
 		return $unreadRead['unread'];
 	}
 
-	/*public function countNotReadByFeed ($id) {	//Is this used?
-		$sql = 'SELECT COUNT(*) AS count FROM ' . $this->prefix . 'entry WHERE is_read = 0 AND id_feed = ?';
-		$stm = $this->bd->prepare ($sql);
-		$stm->execute (array ($id));
-		$res = $stm->fetchAll (PDO::FETCH_ASSOC);
-
-		return $res[0]['count'];
-	}*/
-
-	/*public function countNotReadByCat ($id) {	//Is this used?
-		$sql = 'SELECT COUNT(*) AS count FROM ' . $this->prefix . 'entry e INNER JOIN  ' . $this->prefix . 'feed f ON e.id_feed = f.id WHERE is_read=0 AND category = ?';
-		$stm = $this->bd->prepare ($sql);
-		$stm->execute (array ($id));
-		$res = $stm->fetchAll (PDO::FETCH_ASSOC);
-
-		return $res[0]['count'];
-	}*/
-
 	public function countUnreadReadFavorites () {
 		$sql = 'SELECT is_read, COUNT(*) AS count FROM ' . $this->prefix . 'entry WHERE is_favorite=1 GROUP BY is_read';
 		$stm = $this->bd->prepare ($sql);
@@ -493,10 +475,7 @@ class EntryDAO extends Model_pdo {
 		}
 		return $readUnread;
 	}
-	/*public function countNotReadFavorites () {	//Is this used?	//Deprecated: use countUnreadReadFavorites() instead
-		$unreadRead = $this->countUnreadReadFavorites ();	//This makes better use of caching
-		return $unreadRead['unread'];
-	}*/
+
 	public function countFavorites () {	//Deprecated: use countUnreadReadFavorites() instead
 		$unreadRead = $this->countUnreadReadFavorites ();	//This makes better use of caching
 		return $unreadRead['unread'] + $unreadRead['read'];
