@@ -21,6 +21,7 @@ class feedController extends ActionController {
 				$def_cat = $this->catDAO->getDefault ();
 				$cat = $def_cat->id ();
 			}
+
 			$user = Request::param ('username');
 			$pass = Request::param ('password');
 			$params = array ();

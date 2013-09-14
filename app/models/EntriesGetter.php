@@ -94,41 +94,53 @@ class EntriesGetter {
 	public function execute () {
 		$entryDAO = new EntryDAO ();
 
-		HelperEntry::$nb = $this->nb;
-		HelperEntry::$first = $this->first;
+		HelperEntry::$nb = $this->nb;	//TODO: Update: Now done in SQL
+		HelperEntry::$first = $this->first;	//TODO: Update: Now done in SQL
 		HelperEntry::$filter = $this->filter;
+
+		$sqlLimit = (empty ($this->filter['words']) && empty ($this->filter['tags'])) ? $this->nb : '';	//Disable SQL LIMIT optimisation during search	//TODO: Do better!
 
 		switch ($this->type['type']) {
 		case 'all':
 			list ($this->entries, $this->next) = $entryDAO->listEntries (
 				$this->state,
-				$this->order
+				$this->order,
+				$this->first,
+				$sqlLimit
 			);
 			break;
 		case 'favoris':
 			list ($this->entries, $this->next) = $entryDAO->listFavorites (
 				$this->state,
-				$this->order
+				$this->order,
+				$this->first,
+				$sqlLimit
 			);
 			break;
 		case 'public':
 			list ($this->entries, $this->next) = $entryDAO->listPublic (
 				$this->state,
-				$this->order
+				$this->order,
+				$this->first,
+				$sqlLimit
 			);
 			break;
 		case 'c':
 			list ($this->entries, $this->next) = $entryDAO->listByCategory (
 				$this->type['id'],
 				$this->state,
-				$this->order
+				$this->order,
+				$this->first,
+				$sqlLimit
 			);
 			break;
 		case 'f':
 			list ($this->entries, $this->next) = $entryDAO->listByFeed (
 				$this->type['id'],
 				$this->state,
-				$this->order
+				$this->order,
+				$this->first,
+				$sqlLimit
 			);
 			break;
 		default:

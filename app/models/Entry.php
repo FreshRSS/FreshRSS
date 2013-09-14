@@ -392,11 +392,14 @@ class EntryDAO extends Model_pdo {
 		}
 	}
 
-	public function listWhere ($where, $state, $order, $values = array ()) {
+	private function listWhere ($where, $state, $order, $limitFromId = '', $limitCount = '', $values = array ()) {
 		if ($state == 'not_read') {
 			$where .= ' AND is_read = 0';
 		} elseif ($state == 'read') {
 			$where .= ' AND is_read = 1';
+		}
+		if (!empty($limitFromId)) {	//TODO: Consider using LPAD(e.date, 11)	//CONCAT is for cases when many entries have the same date
+			$where .= ' AND CONCAT(e.date, e.id) ' . ($order === 'low_to_high' ? '<=' : '>=') . ' (SELECT CONCAT(s.date, s.id) from freshrss_entry s WHERE s.id = "' . $limitFromId . '")';
 		}
 
 		if ($order == 'low_to_high') {
@@ -407,78 +410,96 @@ class EntryDAO extends Model_pdo {
 
 		$sql = 'SELECT e.* FROM ' . $this->prefix . 'entry e'
 		     . ' INNER JOIN  ' . $this->prefix . 'feed f ON e.id_feed = f.id' . $where
-		     . ' ORDER BY date' . $order;
+		     . ' ORDER BY e.date' . $order . ', e.id' . $order;
+
+		if (!empty($limitCount)) {
+			$sql .= ' LIMIT ' . ($limitCount + 2);	//TODO: See http://explainextended.com/2009/10/23/mysql-order-by-limit-performance-late-row-lookups/
+		}
+
 		$stm = $this->bd->prepare ($sql);
 		$stm->execute ($values);
 
 		return HelperEntry::daoToEntry ($stm->fetchAll (PDO::FETCH_ASSOC));
 	}
-	public function listEntries ($state, $order = 'high_to_low') {
-		return $this->listWhere (' WHERE priority > 0', $state, $order);
+	public function listEntries ($state, $order = 'high_to_low', $limitFromId = '', $limitCount = '') {
+		return $this->listWhere (' WHERE priority > 0', $state, $order, $limitFromId, $limitCount);
 	}
-	public function listFavorites ($state, $order = 'high_to_low') {
-		return $this->listWhere (' WHERE is_favorite = 1', $state, $order);
+	public function listFavorites ($state, $order = 'high_to_low', $limitFromId = '', $limitCount = '') {
+		return $this->listWhere (' WHERE is_favorite = 1', $state, $order, $limitFromId, $limitCount);
 	}
-	public function listPublic ($state, $order = 'high_to_low') {
-		return $this->listWhere (' WHERE is_public = 1', $state, $order);
+	public function listPublic ($state, $order = 'high_to_low', $limitFromId = '', $limitCount = '') {
+		return $this->listWhere (' WHERE is_public = 1', $state, $order, $limitFromId, $limitCount);
 	}
-	public function listByCategory ($cat, $state, $order = 'high_to_low') {
-		return $this->listWhere (' WHERE category = ?', $state, $order, array ($cat));
+	public function listByCategory ($cat, $state, $order = 'high_to_low', $limitFromId = '', $limitCount = '') {
+		return $this->listWhere (' WHERE category = ?', $state, $order, $limitFromId, $limitCount, array ($cat));
 	}
-	public function listByFeed ($feed, $state, $order = 'high_to_low') {
-		return $this->listWhere (' WHERE id_feed = ?', $state, $order, array ($feed));
+	public function listByFeed ($feed, $state, $order = 'high_to_low', $limitFromId = '', $limitCount = '') {
+		return $this->listWhere (' WHERE id_feed = ?', $state, $order, $limitFromId, $limitCount, array ($feed));
 	}
 
-	public function count () {
-		$sql = 'SELECT COUNT(*) AS count FROM ' . $this->prefix . 'entry e INNER JOIN  ' . $this->prefix . 'feed f ON e.id_feed = f.id WHERE priority > 0';
+	public function countUnreadRead () {
+		$sql = 'SELECT is_read, COUNT(*) AS count FROM ' . $this->prefix . 'entry e INNER JOIN ' . $this->prefix . 'feed f ON e.id_feed = f.id WHERE priority > 0 GROUP BY is_read';
 		$stm = $this->bd->prepare ($sql);
 		$stm->execute ();
 		$res = $stm->fetchAll (PDO::FETCH_ASSOC);
 
-		return $res[0]['count'];
+		$readUnread = array('unread' => 0, 'read' => 0);
+		foreach ($res as $line) {
+			switch (intval($line['is_read'])) {
+				case 0: $readUnread['unread'] = intval($line['count']); break;
+				case 1: $readUnread['read'] = intval($line['count']); break;
+			}
+		}
+		return $readUnread;
 	}
-	public function countNotRead () {
-		$sql = 'SELECT COUNT(*) AS count FROM ' . $this->prefix . 'entry e INNER JOIN  ' . $this->prefix . 'feed f ON e.id_feed = f.id WHERE is_read=0 AND priority > 0';
-		$stm = $this->bd->prepare ($sql);
-		$stm->execute ();
-		$res = $stm->fetchAll (PDO::FETCH_ASSOC);
-
-		return $res[0]['count'];
+	public function count () {	//Deprecated: use countUnreadRead() instead
+		$unreadRead = $this->countUnreadRead ();	//This makes better use of caching
+		return $unreadRead['unread'] + $unreadRead['read'];
+	}
+	public function countNotRead () {	//Deprecated: use countUnreadRead() instead
+		$unreadRead = $this->countUnreadRead ();	//This makes better use of caching
+		return $unreadRead['unread'];
 	}
 
-	public function countNotReadByFeed ($id) {
+	/*public function countNotReadByFeed ($id) {	//Is this used?
 		$sql = 'SELECT COUNT(*) AS count FROM ' . $this->prefix . 'entry WHERE is_read = 0 AND id_feed = ?';
 		$stm = $this->bd->prepare ($sql);
 		$stm->execute (array ($id));
 		$res = $stm->fetchAll (PDO::FETCH_ASSOC);
 
 		return $res[0]['count'];
-	}
+	}*/
 
-	public function countNotReadByCat ($id) {
+	/*public function countNotReadByCat ($id) {	//Is this used?
 		$sql = 'SELECT COUNT(*) AS count FROM ' . $this->prefix . 'entry e INNER JOIN  ' . $this->prefix . 'feed f ON e.id_feed = f.id WHERE is_read=0 AND category = ?';
 		$stm = $this->bd->prepare ($sql);
 		$stm->execute (array ($id));
 		$res = $stm->fetchAll (PDO::FETCH_ASSOC);
 
 		return $res[0]['count'];
-	}
+	}*/
 
-	public function countNotReadFavorites () {
-		$sql = 'SELECT COUNT(*) AS count FROM ' . $this->prefix . 'entry WHERE is_read=0 AND is_favorite=1';
+	public function countUnreadReadFavorites () {
+		$sql = 'SELECT is_read, COUNT(*) AS count FROM ' . $this->prefix . 'entry WHERE is_favorite=1 GROUP BY is_read';
 		$stm = $this->bd->prepare ($sql);
 		$stm->execute ();
 		$res = $stm->fetchAll (PDO::FETCH_ASSOC);
-
-		return $res[0]['count'];
+		$readUnread = array('unread' => 0, 'read' => 0);
+		foreach ($res as $line) {
+			switch (intval($line['is_read'])) {
+				case 0: $readUnread['unread'] = intval($line['count']); break;
+				case 1: $readUnread['read'] = intval($line['count']); break;
+			}
+		}
+		return $readUnread;
 	}
-	public function countFavorites () {
-		$sql = 'SELECT COUNT(*) AS count FROM ' . $this->prefix . 'entry WHERE is_favorite=1';
-		$stm = $this->bd->prepare ($sql);
-		$stm->execute ();
-		$res = $stm->fetchAll (PDO::FETCH_ASSOC);
-
-		return $res[0]['count'];
+	/*public function countNotReadFavorites () {	//Is this used?	//Deprecated: use countUnreadReadFavorites() instead
+		$unreadRead = $this->countUnreadReadFavorites ();	//This makes better use of caching
+		return $unreadRead['unread'];
+	}*/
+	public function countFavorites () {	//Deprecated: use countUnreadReadFavorites() instead
+		$unreadRead = $this->countUnreadReadFavorites ();	//This makes better use of caching
+		return $unreadRead['unread'] + $unreadRead['read'];
 	}
 
 	public function optimizeTable() {
@@ -522,7 +543,7 @@ class HelperEntry {
 					$list[$key] = self::createEntry ($dao);
 
 					$count++;
-					$first_is_found = true;
+					$first_is_found = true;	//TODO: Update: Now done in SQL
 				}
 				if ($count >= self::$nb) {
 					$break_after = true;
