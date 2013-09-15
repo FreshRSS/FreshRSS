@@ -279,6 +279,7 @@
 		}
 			.flux_header .item.title a {
 				color: #000;
+				outline: none;
 			}
 				.flux_header .item.title a:hover {
 					text-decoration: none
