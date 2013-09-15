@@ -182,13 +182,16 @@ body {
 	.day .name {
 		position: absolute;
 		right: 0;
+		width: 50%;
+		height: 1.5em;
 		padding: 0 10px 0 0;
 		overflow: hidden;
 		color: #aab;
 		font-size: 1.8em;
 		opacity: .3;
-		text-shadow: 0px -1px 0px #333;
 		font-style: italic;
+		text-align: right;
+		z-index: -10;
 	}
 
 .flux {
@@ -709,6 +712,7 @@ body {
 		display: none;
 	}
 	.day .name {
+		height: 2.6em;
 		font-size: 1em;
 		text-shadow: none;
 	}
