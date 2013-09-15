@@ -399,7 +399,7 @@ class EntryDAO extends Model_pdo {
 			$where .= ' AND is_read = 1';
 		}
 		if (!empty($limitFromId)) {	//TODO: Consider using LPAD(e.date, 11)	//CONCAT is for cases when many entries have the same date
-			$where .= ' AND CONCAT(e.date, e.id) ' . ($order === 'low_to_high' ? '<=' : '>=') . ' (SELECT CONCAT(s.date, s.id) from freshrss_entry s WHERE s.id = "' . $limitFromId . '")';
+			$where .= ' AND CONCAT(e.date, e.id) ' . ($order === 'low_to_high' ? '<=' : '>=') . ' (SELECT CONCAT(s.date, s.id) FROM ' . $this->prefix . 'entry s WHERE s.id = "' . $limitFromId . '")';
 		}
 
 		if ($order == 'low_to_high') {
