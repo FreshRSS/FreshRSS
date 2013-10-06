@@ -3,18 +3,25 @@ var load_more = false;
 var container = null;
 
 function init_load_more(block) {
-	url_load_more = $("a#load_more").attr("href");
+	var next_link = $("a#load_more")
+	if (!next_link.length) {
+		// no more article to load
+		url_load_more = "";
+		return;
+	}
+
+	url_load_more = next_link.attr("href");
 	container = block;
 
 	$("#load_more").click (function () {
 		load_more_posts ();
-		
+
 		return false;
 	});
 }
 
 function load_more_posts () {
-	if(load_more == true) {
+	if(load_more == true || url_load_more == "") {
 		return;
 	}
 
