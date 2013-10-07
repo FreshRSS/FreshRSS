@@ -48,12 +48,12 @@ function toggleContent (new_active, old_active) {
 		relative_move = true;
 	}
 
-	var new_pos = new_active.position ().top,
-		old_scroll = $(box_to_move).scrollTop (),
+	var old_scroll = $(box_to_move).scrollTop (),
 		new_scroll = old_scroll;
 	if (hide_posts) {
 		old_active.children (".flux_content").toggle (0);
 
+		var new_pos = new_active.position ().top;
 		if(relative_move) {
 			new_pos += old_scroll;
 		}
@@ -64,7 +64,7 @@ function toggleContent (new_active, old_active) {
 			});
 		}
 	} else {
-		new_scroll = $(box_to_move).scrollTop (new_pos).scrollTop ();
+		new_scroll = $(box_to_move).scrollTop (new_active.position ().top).scrollTop ();
 	}
 
 	if ((new_scroll === old_scroll) && $.fn.lazyload) {
