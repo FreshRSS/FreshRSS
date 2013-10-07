@@ -110,9 +110,13 @@ input, select, textarea {
 
 .form-group {
 	margin: 5px 0;
-	clear: both;
 	border: 1px solid transparent;
 }
+	.form-group:after {
+		content: "";
+		display: block;
+		clear: both;
+	}
 	.form-group:hover {
 		background: #fff;
 		border: 1px solid #eee;

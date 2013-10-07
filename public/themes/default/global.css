@@ -110,8 +110,12 @@ input, select, textarea {
 
 .form-group {
 	margin: 0;
-	clear: both;
 }
+	.form-group:after {
+		content: "";
+		display: block;
+		clear: both;
+	}
 	.form-group.form-actions {
 		min-width: 250px;
 		padding: 5px 0;

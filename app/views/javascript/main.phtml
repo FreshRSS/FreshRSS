@@ -302,18 +302,6 @@ function init_shortcuts () {
 	}, {
 		'disable_in_input':true
 	});
-	shortcut.add("<?php echo $s['next_page']; ?>", function () {
-		url = $(".pager-next a").attr ("href");
-		redirect (url, false);
-	}, {
-		'disable_in_input':true
-	});
-	shortcut.add("<?php echo $s['prev_page']; ?>", function () {
-		url = $(".pager-previous a").attr ("href");
-		redirect (url, false);
-	}, {
-		'disable_in_input':true
-	});
 	shortcut.add("<?php echo $s['go_website']; ?>", function () {
 		url_website = $(".flux.active .link a").attr ("href");
 
