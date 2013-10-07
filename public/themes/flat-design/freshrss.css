@@ -148,6 +148,7 @@ body {
 				background-image: url("icons/configure.png");
 				background-image: url("icons/configure.svg");
 				background-color: #95a5a6;
+				border-radius: 3px;
 			}
 	.categories .notRead {
 		position: absolute;

@@ -112,14 +112,15 @@
 			position: relative;
 		}
 	.categories .feeds {
-		width: 220px;
-		margin: 0 auto;
+		width: 100%;
+		margin: 0;
 		list-style: none;
 	}
-		.categories .feeds .item.active:after {
-			content: "⇢";
-			line-height: 35px;
-			float: right;
+		.categories .feeds .item.active {
+			background: #0062BE;
+		}
+		.categories .feeds .item.active .feed {
+			color: #fff;
 		}
 		.categories .feeds .item.empty .feed {
 			color: #e67e22;
@@ -146,9 +147,12 @@
 			background-image: none;
 		}
 			.categories .feeds .item .dropdown-target:target ~ .dropdown-toggle i,
-			.categories .feeds .item:hover .dropdown-toggle i {
+			.categories .feeds .item:hover .dropdown-toggle i,
+			.categories .feeds .item.active .dropdown-toggle i {
 				background-image: url("icons/configure.png");
 				background-image: url("icons/configure.svg");
+				background-color: #fff;
+				border-radius: 3px;
 			}
 	.categories .notRead {
 		position: absolute;
