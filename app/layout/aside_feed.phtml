@@ -13,14 +13,15 @@
 
 					<li class="dropdown-header"><?php echo Translate::t ('category'); ?></li>
 
-					<?php foreach ($this->categories as $cat) { ?>
-					<li class="item">
-					<label class="radio" for="radio_<?php echo $cat->id (); ?>">
-						<input type="radio" name="category" id="radio_<?php echo $cat->id (); ?>" value="<?php echo $cat->id (); ?>"<?php echo $cat->id ()=='000000' ? ' checked="checked"' : ''; ?>/>
-						<?php echo $cat->name (); ?>
-					</label>
+					<li class="input">
+						<select name="category" id="category">
+						<?php foreach ($this->categories as $cat) { ?>
+						<option value="<?php echo $cat->id (); ?>"<?php echo $cat->id () == '000000' ? ' selected="selected"' : ''; ?>>
+							<?php echo $cat->name (); ?>
+						</option>
+						<?php } ?>
+						</select>
 					</li>
-					<?php } ?>
 
 					<li class="separator"></li>
 

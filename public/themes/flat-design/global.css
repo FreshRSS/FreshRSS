@@ -380,6 +380,7 @@ input, select, textarea {
 			.dropdown .dropdown-menu label {
 				font-weight: normal;
 			}
+			.dropdown .dropdown-menu .input select,
 			.dropdown .dropdown-menu .input input {
 				display: block;
 				height: 20px;
@@ -387,6 +388,10 @@ input, select, textarea {
 				margin: auto;
 				padding: 2px 5px;
 				border-radius: 3px;
+			}
+			.dropdown .dropdown-menu .input select {
+				width: 70%;
+				height: auto;
 			}
 		.dropdown .dropdown-menu .separator {
 			display: block;
