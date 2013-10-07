@@ -67,6 +67,10 @@ function toggleContent (new_active, old_active) {
 			});
 		}
 	} else {
+		if(relative_move) {
+			new_pos += old_scroll;
+		}
+
 		new_scroll = $(box_to_move).scrollTop (new_pos).scrollTop ();
 	}
 
