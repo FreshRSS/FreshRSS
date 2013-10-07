@@ -94,6 +94,8 @@ if (isset ($this->entryPaginator) && !$this->entryPaginator->isEmpty ()) {
 				</li>
 				<?php } ?>
 				<li class="item">
+					<?php $link = urlencode ($item->link ()); ?>
+					<?php $title = urlencode ($item->title () . ' - ' . $feed->name ()); ?>
 					<div class="dropdown">
 						<div id="dropdown-share-<?php echo $item->id ();?>" class="dropdown-target"></div>
 						<i class="icon i_share"></i> <a class="dropdown-toggle" href="#dropdown-share-<?php echo $item->id ();?>"><?php echo Translate::t ('share'); ?></a>
@@ -101,13 +103,36 @@ if (isset ($this->entryPaginator) && !$this->entryPaginator->isEmpty ()) {
 						<ul class="dropdown-menu">
 							<li class="dropdown-close"><a href="#close"><i class="icon i_close"></i></a></li>
 
-							<li class="item"><a href="mailto:?subject=<?php echo $item->title (); ?>&amp;body=J'ai trouvé cet article intéressant, tu peux le lire à cette adresse : <?php echo urlencode($item->link ()); ?>"><?php echo Translate::t ('by_email'); ?></a></li>
 							<?php
 							$shaarli = $this->conf->urlShaarli ();
 							if ((!login_is_conf ($this->conf) || is_logged ()) && $shaarli) {
 							?>
-							<li class="item"><a target="_blank" href="<?php echo $shaarli . '?post=' . urlencode($item->link ()) . '&amp;title=' . urlencode ($item->title ()) . '&amp;source=bookmarklet'; ?>"><?php echo Translate::t ('on_shaarli'); ?></a></li>
+							<li class="item">
+								<a target="_blank" href="<?php echo $shaarli . '?post=' . $link . '&amp;title=' . $title . '&amp;source=bookmarklet'; ?>">
+									Shaarli
+								</a>
+							</li>
 							<?php } ?>
+							<li class="item">
+								<a href="mailto:?subject=<?php echo urldecode($title); ?>&amp;body=<?php echo $link; ?>">
+									<?php echo Translate::t ('by_email'); ?>
+								</a>
+							</li>
+							<li class="item">
+								<a target="_blank" href="https://twitter.com/share?url=<?php echo $link; ?>&amp;text=<?php echo $title; ?>">
+									Twitter
+								</a>
+							</li>
+							<li class="item">
+								<a target="_blank" href="https://www.facebook.com/sharer.php?u=<?php echo $link; ?>&amp;t=<?php echo $title; ?>">
+									Facebook
+								</a>
+							</li>
+							<li class="item">
+								<a target="_blank" href="https://plus.google.com/share?url=<?php echo $link; ?>">
+									Google+
+								</a>
+							</li>
 						</ul>
 					</div>
 				</li>
