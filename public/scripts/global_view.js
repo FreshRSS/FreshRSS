@@ -18,6 +18,11 @@ function load_panel(link) {
 		$("#overlay").fadeIn();
 		$("#panel").slideToggle();
 
+		// force le démarrage du scroll en haut.
+		// Sans ça, si l'on scroll en lisant une catégorie par exemple,
+		// en en ouvrant une autre ensuite, on se retrouve au même point de scroll
+		$("#panel").scrollTop (0);
+
 		panel_loading = false;
 	});
 }
