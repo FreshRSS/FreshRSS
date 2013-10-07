@@ -22,13 +22,19 @@
 		<div class="form-group">
 			<label class="group-name"><?php echo Translate::t ('website_url'); ?></label>
 			<div class="group-controls">
-				<span class="control"><a target="_blank" href="<?php echo $this->flux->website (); ?>"><?php echo $this->flux->website (); ?></a></span>
+				<span class="control">
+					<?php echo $this->flux->website (); ?>
+					<a target="_blank" href="<?php echo $this->flux->website (); ?>"><i class="icon i_link"></i></a>
+				</span>
 			</div>
 		</div>
 		<div class="form-group">
 			<label class="group-name"><?php echo Translate::t ('feed_url'); ?></label>
 			<div class="group-controls">
-				<span class="control"><a target="_blank" href="<?php echo $this->flux->url (); ?>"><?php echo $this->flux->url (); ?></a></span>
+				<span class="control">
+					<?php echo $this->flux->url (); ?>
+					<a target="_blank" href="<?php echo $this->flux->url (); ?>"><i class="icon i_link"></i></a>
+				</span>
 			</div>
 		</div>
 		<div class="form-group">
