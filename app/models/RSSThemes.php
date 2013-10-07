@@ -23,10 +23,11 @@ class RSSThemes extends Model {
 					isset($res['name']) &&
 					isset($res['author']) &&
 					isset($res['description']) &&
-					isset($res['version'])) {
+					isset($res['version']) &&
+					isset($res['files']) && is_array($res['files'])) {
 					$theme = $res;
 					$theme['path'] = $theme_dir;
-					self::$list[] = $theme;
+					self::$list[$theme_dir] = $theme;
 				}
 			}
 		}
@@ -34,5 +35,13 @@ class RSSThemes extends Model {
 
 	public static function get() {
 		return self::$list;
+	}
+
+	public static function get_infos($theme_id) {
+		if (isset(self::$list[$theme_id])) {
+			return self::$list[$theme_id];
+		}
+
+		return false;
 	}
 }

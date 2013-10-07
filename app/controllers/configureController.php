@@ -147,8 +147,6 @@ class configureController extends ActionController {
 	}
 
 	public function displayAction () {
-		RSSThemes::init();
-
 		if (Request::isPost ()) {
 			$current_token = $this->view->conf->token ();
 

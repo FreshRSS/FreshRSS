@@ -10,13 +10,13 @@ class App_FrontController extends FrontController {
 		$this->loadLibs ();
 		$this->loadModels ();
 
-		Session::init (); // lancement de la session doit se faire après chargement des modèles sinon bug (pourquoi ?)
+		Session::init ();
+		RSSThemes::init ();
+		Translate::init ();
 
 		$this->loadParamsView ();
 		$this->loadStylesAndScripts ();
 		$this->loadNotifications ();
-
-		Translate::init ();
 	}
 
 	private function loadLibs () {
@@ -51,8 +51,12 @@ class App_FrontController extends FrontController {
 	}
 
 	private function loadStylesAndScripts () {
-		$theme = $this->conf->theme();
-		View::appendStyle (Url::display ('/themes/' . $theme . '/style.css'));
+		$theme = RSSThemes::get_infos($this->conf->theme());
+		if ($theme) {
+			foreach($theme["files"] as $file) {
+				View::appendStyle (Url::display ('/themes/' . $theme['path'] . '/' . $file));
+			}
+		}
 		View::appendStyle (Url::display ('/themes/printer/style.css'), 'print');
 		if (login_is_conf ($this->conf)) {
 			View::appendScript ('https://login.persona.org/include.js');
