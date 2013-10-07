@@ -118,6 +118,6 @@ class FrontController {
 		if ($txt == '') {
 			$txt = 'See logs files';
 		}
-		exit ('### Application problem ###'."\n".$txt);
+		exit ('### Application problem ###'."\n".$txt);
 	}
 }

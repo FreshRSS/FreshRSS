@@ -33,7 +33,7 @@ class Model_pdo {
 				        . ';charset=utf8';
 				$driver_options = array(
 					PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8'
-					);
+				);
 			} elseif($type == 'sqlite') {
 				$string = $type
 				        . ':/' . PUBLIC_PATH

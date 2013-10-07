@@ -38,7 +38,12 @@ if (file_exists (PUBLIC_PATH . '/install.php')) {
 
 	require (APP_PATH . '/App_FrontController.php');
 
-	$front_controller = new App_FrontController ();
-	$front_controller->init ();
-	$front_controller->run ();
+	try {
+		$front_controller = new App_FrontController ();
+		$front_controller->init ();
+		$front_controller->run ();
+	} catch (PDOConnectionException $e) {
+		Minz_Log::record ($e->getMessage (), Minz_Log::ERROR);
+		print '### Application problem ###'."\n".'See logs files';
+	}
 }
