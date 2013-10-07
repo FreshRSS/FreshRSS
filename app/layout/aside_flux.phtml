@@ -64,11 +64,11 @@
 				</a>
 			</div>
 
-			<?php if (!empty ($feeds)) { ?>
 			<ul class="feeds<?php echo $c_active ? ' active' : ''; ?>">
 				<?php foreach ($feeds as $feed) { ?>
+				<?php $nbEntries = $feed->nbEntries (); ?>
 				<?php $f_active = false; if ($this->get_f == $feed->id ()) { $f_active = true; } ?>
-				<li class="item<?php echo $f_active ? ' active' : ''; ?><?php echo $feed->inError () ? ' error' : ''; ?>">
+				<li class="item<?php echo $f_active ? ' active' : ''; ?><?php echo $feed->inError () ? ' error' : ''; ?><?php echo $nbEntries == 0 ? ' empty' : ''; ?>">
 					<div class="dropdown">
 						<div id="dropdown-<?php echo $feed->id(); ?>" class="dropdown-target"></div>
 						<a class="dropdown-toggle" href="#dropdown-<?php echo $feed->id(); ?>"><i class="icon i_configure"></i></a>
@@ -98,7 +98,6 @@
 				</li>
 				<?php } ?>
 			</ul>
-			<?php } ?>
 		</li>
 		<?php } } ?>
 	</ul>

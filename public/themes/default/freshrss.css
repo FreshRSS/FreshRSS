@@ -121,6 +121,9 @@
 			line-height: 35px;
 			float: right;
 		}
+		.categories .feeds .item.empty .feed {
+			color: #e67e22;
+		}
 		.categories .feeds .item.error .feed {
 			color: #BD362F;
 		}

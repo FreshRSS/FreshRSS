@@ -4,6 +4,7 @@ class Feed extends Model {
 	private $id = null;
 	private $url;
 	private $category = '000000';
+	private $nbEntries = -1;
 	private $nbNotRead = -1;
 	private $entries = null;
 	private $name = '';
@@ -79,12 +80,16 @@ class Feed extends Model {
 		return $this->keep_history;
 	}
 	public function nbEntries () {
-		$feedDAO = new FeedDAO ();
-		return $feedDAO->countEntries ($this->id ());
+		if ($this->nbEntries < 0) {
+			$feedDAO = new FeedDAO ();
+			$this->nbEntries = $feedDAO->countEntries ($this->id ());
+		}
+
+		return $this->nbEntries;
 	}
 	public function nbNotRead () {
 		if ($this->nbNotRead < 0) {
-		$feedDAO = new FeedDAO ();
+			$feedDAO = new FeedDAO ();
 			$this->nbNotRead = $feedDAO->countNotRead ($this->id ());
 		}
 
