@@ -153,7 +153,7 @@ return array (
 	'persona_connection_email'	=> 'Login mail address (use <a href="https://persona.org/">Persona</a>)',
 	'allow_anonymous'		=> 'Allow anonymous reading',
 	'auth_token'			=> 'Authentication token',
-	'explain_token'			=> 'This token allows to avoid authentication by adding it to URL (eg. %s?token=&lt;your_token&gt;). RSS output only.',
+	'explain_token'			=> 'Allows to access RSS output without authentication.<br />%s?token=%s',
 	'reading_configuration'		=> 'Reading configuration',
 	'articles_per_page'		=> 'Number of articles per page',
 	'default_view'			=> 'Default view',
