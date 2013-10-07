@@ -14,7 +14,6 @@ function load_panel(link) {
 
 		init_load_more($("#panel"));
 		init_posts();
-		init_stream_delegates($("#panel"));
 
 		$("#overlay").fadeIn();
 		$("#panel").slideToggle();
@@ -43,6 +42,8 @@ function init_global_view() {
 	});
 
 	$(".nav_menu #nav_menu_read_all, .nav_menu .toggle_aside").remove();
+
+	init_stream_delegates($("#panel"));
 }
 
 
