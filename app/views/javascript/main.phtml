@@ -54,6 +54,9 @@ function toggleContent (new_active, old_active) {
 	if (hide_posts) {
 		old_active.children (".flux_content").toggle (0);
 
+		new_pos = new_active.position ().top;
+		old_scroll = $(box_to_move).scrollTop ();
+
 		if(relative_move) {
 			new_pos += old_scroll;
 		}
