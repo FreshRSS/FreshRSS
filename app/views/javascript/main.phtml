@@ -48,21 +48,27 @@ function toggleContent (new_active, old_active) {
 		relative_move = true;
 	}
 
+	var old_scroll = $(box_to_move).scrollTop (),
+		new_scroll = old_scroll;
 	if (hide_posts) {
 		old_active.children (".flux_content").toggle (0);
 
 		var new_pos = new_active.position ().top;
 		if(relative_move) {
-			new_pos += $(box_to_move).scrollTop();
+			new_pos += old_scroll;
 		}
 
 		if (old_active[0] != new_active[0]) {
 			new_active.children (".flux_content").toggle (0, function () {
-				$(box_to_move).scrollTop (new_pos);
+				new_scroll = $(box_to_move).scrollTop (new_pos).scrollTop ();
 			});
 		}
 	} else {
-		$(box_to_move).scrollTop (new_active.position ().top);
+		new_scroll = $(box_to_move).scrollTop (new_active.position ().top).scrollTop ();
+	}
+
+	if ((new_scroll === old_scroll) && $.fn.lazyload) {
+		$(window).trigger ("scroll");	//When no scroll was done, generate fake scroll event for LazyLoad to load images
 	}
 
 	<?php if ($mark['article'] == 'yes') { ?>
