@@ -14,6 +14,7 @@ function load_panel(link) {
 
 		init_load_more($("#panel"));
 		init_posts();
+		init_stream_delegates($("#panel"));
 
 		$("#panel").slideToggle();
 

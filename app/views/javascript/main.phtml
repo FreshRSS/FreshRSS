@@ -317,9 +317,7 @@ function init_shortcuts () {
 	});
 }
 
-function init_stream_delegates() {
-	var divStream = $('#stream');
-
+function init_stream_delegates(divStream) {
 	divStream.on('click', '.flux_header .item.title, .flux_header .item.date', function (e) {	//flux_header_toggle
 		old_active = $(".flux.active");
 		new_active = $(this).parent ().parent ();
@@ -399,6 +397,6 @@ $(document).ready (function () {
 	init_posts ();
 	init_column_categories ();
 	init_shortcuts ();
-	init_stream_delegates();
+	init_stream_delegates($('#stream'));
 	init_nav_entries();
 });
