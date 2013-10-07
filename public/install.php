@@ -327,10 +327,6 @@ function checkBD () {
 			$sql = sprintf (SQL_REQ_CREATE_DB, $_SESSION['bd_name']);
 			$res = $c->query ($sql);
 
-			if (!$res) {
-				throw new PDOException();
-			}
-
 			// on écrase la précédente connexion en sélectionnant la nouvelle BDD
 			$str = 'mysql:host=' . $_SESSION['bd_host'] . ';dbname=' . $_SESSION['bd_name'];
 		} elseif($_SESSION['bd_type'] == 'sqlite') {
