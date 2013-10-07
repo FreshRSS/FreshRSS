@@ -8,6 +8,8 @@ if (isset ($_GET['step'])) {
 	define ('STEP', 1);
 }
 
+define ('SQL_REQ_CREATE_DB', 'CREATE DATABASE %s DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;');
+
 define ('SQL_REQ_CAT', 'CREATE TABLE IF NOT EXISTS `%scategory` (
   `id` varchar(6) NOT NULL,
   `name` varchar(255) NOT NULL,
@@ -311,10 +313,26 @@ function checkBD () {
 		$str = '';
 		$driver_options = null;
 		if($_SESSION['bd_type'] == 'mysql') {
-			$str = 'mysql:host=' . $_SESSION['bd_host'] . ';dbname=' . $_SESSION['bd_name'];
 			$driver_options = array(
 				PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8'
-				);
+			);
+
+			// on ouvre une connexion juste pour créer la base si elle n'existe pas
+			$str = 'mysql:host=' . $_SESSION['bd_host'] . ';';
+			$c = new PDO ($str,
+				      $_SESSION['bd_user'],
+				      $_SESSION['bd_pass'],
+				      $driver_options);
+
+			$sql = sprintf (SQL_REQ_CREATE_DB, $_SESSION['bd_name']);
+			$res = $c->query ($sql);
+
+			if (!$res) {
+				throw new PDOException();
+			}
+
+			// on écrase la précédente connexion en sélectionnant la nouvelle BDD
+			$str = 'mysql:host=' . $_SESSION['bd_host'] . ';dbname=' . $_SESSION['bd_name'];
 		} elseif($_SESSION['bd_type'] == 'sqlite') {
 			$str = 'sqlite:' . PUBLIC_PATH
 			     . '/data/' . $_SESSION['bd_name'] . '.sqlite';
@@ -639,7 +657,9 @@ case 5:
 		<meta charset="utf-8">
 		<meta name="viewport" content="initial-scale=1.0">
 		<title><?php echo _t ('freshrss_installation'); ?></title>
-		<link rel="stylesheet" type="text/css" media="all" href="themes/default/style.css" />
+		<link rel="stylesheet" type="text/css" media="all" href="themes/default/global.css" />
+		<link rel="stylesheet" type="text/css" media="all" href="themes/default/freshrss.css" />
+		<link rel="stylesheet" type="text/css" media="all" href="themes/default/fallback.css" />
 	</head>
 	<body>
 
