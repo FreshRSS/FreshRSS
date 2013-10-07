@@ -16,6 +16,7 @@ function load_panel(link) {
 		init_posts();
 		init_stream_delegates($("#panel"));
 
+		$("#overlay").fadeIn();
 		$("#panel").slideToggle();
 
 		panel_loading = false;
@@ -25,8 +26,10 @@ function load_panel(link) {
 function init_close_panel() {
 	$("#panel .close").click(function() {
 		$("#panel").html('<a class="close" href="#"><i class="icon i_close"></i></a>');
+
 		init_close_panel();
 		$("#panel").slideToggle();
+		$("#overlay").fadeOut();
 	});
 }
 

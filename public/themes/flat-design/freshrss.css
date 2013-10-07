@@ -426,7 +426,7 @@ body {
 	border-radius: 5px;
 }
 	#panel .close {
-		position: absolute;
+		position: fixed;
 		top: 10px; right: 0px;
 		display: inline-block;
 		width: 26px;
@@ -440,6 +440,14 @@ body {
 		#panel .close:hover {
 			background: #7f8c8d;
 		}
+
+#overlay {
+	display: none;
+	position: fixed;
+	top: 0; bottom: 0;
+	left: 0; right: 0;
+	background: rgba(0, 0, 0, 0.9);
+}
 
 .flux_content .bottom {
 	font-size: 90%;
