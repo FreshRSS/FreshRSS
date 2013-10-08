@@ -289,6 +289,13 @@ input, select, textarea {
 			color: #fff;
 			background: #BD362F;
 		}
+	.nav.nav-list .item.empty a {
+		color: #f39c12;
+	}
+		.nav.nav-list .item.active.empty a {
+			color: #fff;
+			background: #f39c12;
+		}
 
 	.nav.nav-list .nav-header {
 		padding: 0 10px;

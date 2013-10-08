@@ -125,6 +125,12 @@
 		.categories .feeds .item.empty .feed {
 			color: #e67e22;
 		}
+		.categories .feeds .item.empty.active {
+			background: #e67e22;
+		}
+		.categories .feeds .item.empty.active .feed {
+			color: #fff;
+		}
 		.categories .feeds .item.error .feed {
 			color: #BD362F;
 		}
