@@ -106,11 +106,14 @@
 		<div class="form-group form-actions">
 			<div class="group-controls">
 				<button class="btn btn-important"><?php echo Translate::t ('save'); ?></button>
-				<button class="btn btn-attention" formaction="<?php echo Url::display (array ('c' => 'feed', 'a' => 'delete', 'params' => array ('id' => $this->flux->id ()))); ?>"><?php echo Translate::t ('delete'); ?></button>
+				<button class="btn btn-attention confirm" formaction="<?php echo Url::display (array ('c' => 'feed', 'a' => 'delete', 'params' => array ('id' => $this->flux->id ()))); ?>"><?php echo Translate::t ('delete'); ?></button>
 			</div>
 		</div>
 	</form>
 </div>
+
+<?php $this->renderHelper ('confirm_action_script'); ?>
+
 <?php } else { ?>
 <div class="alert alert-warn"><span class="alert-head"><?php echo Translate::t ('no_selected_feed'); ?></span> <?php echo Translate::t ('think_to_add'); ?></div>
 <?php } ?>

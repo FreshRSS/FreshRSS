@@ -15,7 +15,7 @@
 			</label>
 			<div class="group-controls">
 				<input type="text" id="cat_<?php echo $cat->id (); ?>" name="categories[]" value="<?php echo $cat->name (); ?>" />
-				<a href="<?php echo _url ('feed', 'delete', 'id', $cat->id (), 'type', 'category'); ?>"><?php echo Translate::t ('ask_empty'); ?></a> (<?php echo Translate::t ('number_feeds', $cat->nbFeed ()); ?>)
+				<a class="confirm" href="<?php echo _url ('feed', 'delete', 'id', $cat->id (), 'type', 'category'); ?>"><?php echo Translate::t ('ask_empty'); ?></a> (<?php echo Translate::t ('number_feeds', $cat->nbFeed ()); ?>)
 				<?php if ($cat->id () == $this->defaultCategory->id ()) { ?>
 				<i class="icon i_help"></i> <?php echo Translate::t ('can_not_be_deleted'); ?>
 				<?php } ?>
@@ -39,3 +39,5 @@
 		</div>
 	</form>
 </div>
+
+<?php $this->renderHelper ('confirm_action_script'); ?>

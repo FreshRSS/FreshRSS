@@ -214,6 +214,8 @@ return array (
 	'forbidden_access'		=> 'Accès interdit',
 	'forbidden_access_description'	=> 'L’accès est protégé par un mot de passe, veuillez <a class="signin" href="#">vous connecter</a> pour accéder aux flux.',
 
+	'confirm_action'		=> 'Êtes-vous sûr de vouloir continuer ? Cette action ne peut être annulée !',
+
 	// DATE
 	'january'			=> 'janvier',
 	'february'			=> 'février',
