@@ -32,9 +32,8 @@ body {
 				text-decoration: none;
 			}
 		.header > .item.search input {
-			width: 250px;
+			width: 200px;
 			transition: width 200ms linear;
-			border-radius: 5px 0 0 5px;
 		}
 			.header .item.search input:focus {
 				width: 300px;

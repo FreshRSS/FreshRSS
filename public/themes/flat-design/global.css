@@ -97,6 +97,7 @@ input, select, textarea {
 	color: #666;
 	line-height: 25px;
 	vertical-align: middle;
+	border-radius: 5px;
 }
 	input[type="radio"],
 	input[type="checkbox"] {
@@ -167,15 +168,18 @@ input, select, textarea {
 }
 	.stick input {
 		font-size: 14px;
+		border-radius: 0;
 	}
 	.stick .btn {
 		border-radius: 0;
 		font-size: 14px;
 	}
-	.stick .btn:first-child {
+	.stick .btn:first-child,
+	.stick input:first-child {
 		border-radius: 5px 0 0 5px;
 	}
-	.stick .btn:last-child {
+	.stick .btn:last-child,
+	.stick input:last-child {
 		border-radius: 0 5px 5px 0;
 	}
 	.stick .btn + .dropdown > .btn {
