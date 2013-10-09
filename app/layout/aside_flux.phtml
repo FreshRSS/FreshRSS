@@ -73,7 +73,7 @@
 						<div id="dropdown-<?php echo $feed->id(); ?>" class="dropdown-target"></div>
 						<a class="dropdown-toggle" href="#dropdown-<?php echo $feed->id(); ?>"><i class="icon i_configure"></i></a>
 						<ul class="dropdown-menu">
-							<li class="dropdown-close"><a href="#close"><i class="icon i_close"></i></a></li>
+							<li class="dropdown-close"><a href="#close">&nbsp;</a></li>
 							<li class="item"><a href="<?php echo _url ('index', 'index', 'get', 'f_' . $feed->id ()); ?>"><?php echo Translate::t ('filter'); ?></a></li>
 							<li class="item"><a target="_blank" href="<?php echo $feed->website (); ?>"><?php echo Translate::t ('see_website'); ?></a></li>
 							<?php if (!login_is_conf ($this->conf) || is_logged ()) { ?>

@@ -101,7 +101,7 @@ if (isset ($this->entryPaginator) && !$this->entryPaginator->isEmpty ()) {
 						<i class="icon i_share"></i> <a class="dropdown-toggle" href="#dropdown-share-<?php echo $item->id ();?>"><?php echo Translate::t ('share'); ?></a>
 
 						<ul class="dropdown-menu">
-							<li class="dropdown-close"><a href="#close"><i class="icon i_close"></i></a></li>
+							<li class="dropdown-close"><a href="#close">&nbsp;</a></li>
 
 							<?php
 							$shaarli = $this->conf->urlShaarli ();
@@ -144,7 +144,7 @@ if (isset ($this->entryPaginator) && !$this->entryPaginator->isEmpty ()) {
 						<i class="icon i_tag"></i> <a class="dropdown-toggle" href="#dropdown-tags-<?php echo $item->id ();?>"><?php echo Translate::t ('related_tags'); ?></a>
 
 						<ul class="dropdown-menu">
-							<li class="dropdown-close"><a href="#close"><i class="icon i_close"></i></a></li>
+							<li class="dropdown-close"><a href="#close">&nbsp;</a></li>
 
 							<?php foreach($tags as $tag) { ?>
 							<li class="item"><a href="<?php echo _url ('index', 'index', 'search', urlencode ('#' . $tag)); ?>"><?php echo $tag; ?></a></li>

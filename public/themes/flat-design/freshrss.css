@@ -67,6 +67,9 @@ body {
 		.aside.aside_feed .nav-form .dropdown .dropdown-menu {
 			right: -20px;
 		}
+		.aside.aside_feed .nav-form .dropdown .dropdown-menu:after {
+			right: 33px;
+		}
 
 	.nav-login {
 		display: none;
@@ -137,6 +140,9 @@ body {
 		}
 		.categories .feeds .dropdown .dropdown-menu {
 			left: 0;
+		}
+		.categories .feeds .dropdown .dropdown-menu:after {
+			left: 2px;
 		}
 		.categories .feeds .item .dropdown-toggle i {
 			background-image: none;
@@ -738,4 +744,11 @@ body {
 		left: 10px;
 		right: 10px;
 	}
+}
+
+/*** FALLBACK ***/
+.dropdown .dropdown-menu:after {
+	-moz-transform: rotate(45deg);
+	-webkit-transform: rotate(45deg);
+	-ms-transform: rotate(45deg);
 }
