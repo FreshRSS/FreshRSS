@@ -152,10 +152,7 @@ input, select, textarea {
 	font-size: 0px;
 	vertical-align: middle;
 }
-	.stick input {
-		border-radius: 0;
-		font-size: 14px;
-	}
+	.stick input,
 	.stick .btn {
 		border-radius: 0;
 		font-size: 14px;

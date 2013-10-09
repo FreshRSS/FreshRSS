@@ -166,22 +166,17 @@ input, select, textarea {
 	font-size: 0px;
 	vertical-align: middle;
 }
+	.stick .btn,
 	.stick input {
 		font-size: 14px;
 		border-radius: 0;
-	}
-	.stick .btn {
-		border-radius: 0;
-		font-size: 14px;
 	}
 	.stick .btn:first-child,
 	.stick input:first-child {
 		border-radius: 5px 0 0 5px;
 	}
 	.stick .btn:last-child,
-	.stick input:last-child {
-		border-radius: 0 5px 5px 0;
-	}
+	.stick input:last-child,
 	.stick .btn + .dropdown > .btn {
 		border-radius: 0 5px 5px 0;
 	}
@@ -222,10 +217,8 @@ input, select, textarea {
 		color: #fff;
 		border-bottom: 3px solid #d35400;
 	}
+		.btn.btn-important:active,
 		.btn.btn-important:hover {
-			background: #d35400;
-		}
-		.btn.btn-important:active {
 			background: #d35400;
 		}
 
@@ -234,9 +227,7 @@ input, select, textarea {
 		color: #fff;
 		border-bottom: 3px solid #c0392b;
 	}
-		.btn.btn-attention:hover {
-			background: #c0392b;
-		}
+		.btn.btn-attention:hover,
 		.btn.btn-attention:active {
 			background: #c0392b;
 		}

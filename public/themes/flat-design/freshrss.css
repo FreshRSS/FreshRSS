@@ -194,6 +194,8 @@ body {
 		opacity: .3;
 		font-style: italic;
 		text-align: right;
+		white-space: nowrap;
+		text-overflow: ellipsis;
 		z-index: -10;
 	}
 
@@ -544,7 +546,8 @@ body {
 /*** NOTIFICATION ***/
 .notification {
 	position: fixed;
-	top: 10px; left: 10%; right: 10%;
+	top: 10px;
+	left: 25%; right: 25%;
 	min-height: 30px;
 	padding: 10px;
 	line-height: 30px;
@@ -585,7 +588,8 @@ body {
 
 .actualizeProgress {
 	position: fixed;
-	top: 10px; left: 25%; right: 25%;
+	top: 10px;
+	left: 25%; right: 25%;
 	padding: 5px;
 	background: #3498db;
 	color: #fff;
@@ -727,5 +731,11 @@ body {
 		height: 2.6em;
 		font-size: 1em;
 		text-shadow: none;
+	}
+
+	.notification,
+	.actualizeProgress {
+		left: 10px;
+		right: 10px;
 	}
 }
