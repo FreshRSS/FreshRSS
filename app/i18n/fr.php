@@ -153,7 +153,7 @@ return array (
 	'persona_connection_email'	=> 'Adresse mail de connexion (utilise <a href="https://persona.org/">Persona</a>)',
 	'allow_anonymous'		=> 'Autoriser la lecture anonyme',
 	'auth_token'			=> 'Jeton d’identification',
-	'explain_token'			=> 'Permet d\'accéder à la sortie RSS sans besoin de s\'authentifier.<br />%s?output=rss&token=%s',
+	'explain_token'			=> 'Permet d’accéder à la sortie RSS sans besoin de s’authentifier.<br />%s?output=rss&token=%s',
 	'reading_configuration'		=> 'Configuration de lecture',
 	'articles_per_page'		=> 'Nombre d’articles par page',
 	'default_view'			=> 'Vue par défaut',
@@ -253,7 +253,7 @@ return array (
 	'steps'				=> 'Étapes',
 	'checks'			=> 'Vérifications',
 	'bdd_configuration'		=> 'Configuration de la base de données',
-	'this_is_the_end'		=> 'This is the end',
+	'this_is_the_end'		=> 'C’est fini',
 
 	'ok'				=> 'Ok !',
 	'congratulations'		=> 'Félicitations !',
