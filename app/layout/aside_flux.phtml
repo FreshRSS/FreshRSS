@@ -70,29 +70,15 @@
 				<?php $f_active = false; if ($this->get_f == $feed->id ()) { $f_active = true; } ?>
 				<li class="item<?php echo $f_active ? ' active' : ''; ?><?php echo $feed->inError () ? ' error' : ''; ?><?php echo $nbEntries == 0 ? ' empty' : ''; ?>">
 					<div class="dropdown">
-						<div id="dropdown-<?php echo $feed->id(); ?>" class="dropdown-target"></div>
-						<a class="dropdown-toggle" href="#dropdown-<?php echo $feed->id(); ?>"><i class="icon i_configure"></i></a>
-						<ul class="dropdown-menu">
-							<li class="dropdown-close"><a href="#close">&nbsp;</a></li>
-							<li class="item"><a href="<?php echo _url ('index', 'index', 'get', 'f_' . $feed->id ()); ?>"><?php echo Translate::t ('filter'); ?></a></li>
-							<li class="item"><a target="_blank" href="<?php echo $feed->website (); ?>"><?php echo Translate::t ('see_website'); ?></a></li>
-							<?php if (!login_is_conf ($this->conf) || is_logged ()) { ?>
-							<li class="separator"></li>
-
-							<li class="item"><a href="<?php echo _url ('configure', 'feed', 'id', $feed->id ()); ?>"><?php echo Translate::t ('administration'); ?></a></li>
-							<li class="item"><a href="<?php echo _url ('feed', 'actualize', 'id', $feed->id ()); ?>"><?php echo Translate::t ('actualize'); ?></a></li>
-							<li class="item"><a href="<?php echo _url ('entry', 'read', 'is_read', 1, 'get', 'f_' . $feed->id ()); ?>"><?php echo Translate::t ('mark_read'); ?></a></li>
-							<?php } ?>
-						</ul>
+						<div class="dropdown-target"></div>
+						<a class="dropdown-toggle" data-fid="<?php echo $feed->id (); ?>" data-fweb="<?php echo $feed->website (); ?>"><i class="icon i_configure"></i></a>
+<?php /* feed_config_template */ ?>
 					</div>
-
 					<?php $not_read = $feed->nbNotRead (); ?>
-
 					<img class="favicon" src="<?php echo $feed->favicon (); ?>" alt="" />
 					<?php echo $not_read > 0 ? '<b>' : ''; ?>
 					<a class="feed" href="<?php echo _url ('index', 'index', 'get', 'f_' . $feed->id ()); ?>">
-						<?php echo $not_read > 0 ? '(' . $not_read . ') ' : ''; ?>
-						<?php echo $feed->name(); ?>
+						<?php echo ($not_read > 0 ? '(' . $not_read . ') ' : ''), $feed->name(); ?>
 					</a>
 					<?php echo $not_read > 0 ? '</b>' : ''; ?>
 				</li>
@@ -102,5 +88,19 @@
 		<?php } } ?>
 	</ul>
 
-	<span class="aside_flux_ender"><!-- hack for fix menus, if it can be helpful ;) --></span>
+	<span class="aside_flux_ender"><!-- For fixed menu --></span>
 </div>
+
+<script id="feed_config_template" type="text/html">
+	<ul class="dropdown-menu">
+		<li class="dropdown-close"><a href="#close">&nbsp;</a></li>
+		<li class="item"><a href="<?php echo _url ('index', 'index', 'get', 'f_' . '!!!!!!'); ?>"><?php echo Translate::t ('filter'); ?></a></li>
+		<li class="item"><a target="_blank" href="http://example.net/"><?php echo Translate::t ('see_website'); ?></a></li>
+		<?php if (!login_is_conf ($this->conf) || is_logged ()) { ?>
+		<li class="separator"></li>
+		<li class="item"><a href="<?php echo _url ('configure', 'feed', 'id', '!!!!!!'); ?>"><?php echo Translate::t ('administration'); ?></a></li>
+		<li class="item"><a href="<?php echo _url ('feed', 'actualize', 'id', '!!!!!!'); ?>"><?php echo Translate::t ('actualize'); ?></a></li>
+		<li class="item"><a href="<?php echo _url ('entry', 'read', 'is_read', 1, 'get', 'f_' . '!!!!!!'); ?>"><?php echo Translate::t ('mark_read'); ?></a></li>
+		<?php } ?>
+	</ul>
+</script>
