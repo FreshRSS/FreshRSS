@@ -1,4 +1,28 @@
 # Changelog
+## 2013-10-12 changes with FreshRSS 0.5.0
+* Possibilité d'interdire la lecture anonyme
+* Option pour garder l'historique d'un flux
+* Lors d'un clic sur "Marquer tous les articles comme lus", FreshRSS peut désormais sauter à la prochaine catégorie / prochain flux avec des articles non lus.
+* Ajout d'un token pour accéder aux flux RSS générés par FreshRSS sans nécessiter de connexion
+* Possibilité de partager vers Facebook, Twitter et Google+
+* Possibilité de changer de thème
+* Le menu de navigation (article précédent / suivant / haut de page) a été ajouté à la vue non mobile
+* La police OpenSans est désormais appliquée
+* Amélioration de la page de configuration
+* Une meilleure sortie pour l'imprimante
+* Quelques retouches du design par défaut
+* Les vidéos ne dépassent plus du cadre de l'écran
+* Nouveau logo
+* Possibilité d'ajouter un préfixe aux tables lors de l'installation
+* Ajout d'un champ en base de données keep_history à la table feed
+* Si possible, création automatique de la base de données si elle n'existe pas lors de l'installation
+* L'utilisation d'UTF-8 est forcée
+* Le marquage automatique au défilement de la page a été amélioré
+* La vue globale a été énormément améliorée et est beaucoup plus utile
+* Amélioration des requêtes SQL
+* Amélioration du Javascript
+* Correction bugs divers
+
 ## 2013-07-02 changes with FreshRSS 0.4.0
 
 * Correction bug et ajout notification lors de la phase d'installation
