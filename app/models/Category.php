@@ -11,7 +11,7 @@ class Category extends Model {
 	public function __construct ($name = '', $color = '#0062BE', $feeds = null) {
 		$this->_name ($name);
 		$this->_color ($color);
-		if (!empty($feeds)) {
+		if (isset ($feeds)) {
 			$this->_feeds ($feeds);
 			$this->nbFeed = 0;
 			$this->nbNotRead = 0;
@@ -177,10 +177,13 @@ class CategoryDAO extends Model_pdo {
 
 	public function listCategories ($prePopulateFeeds = true) {	//TODO: Search code-base for places where $prePopulateFeeds should be false
 		if ($prePopulateFeeds) {
-			$sql = 'SELECT c.id as c_id, c.name as c_name, c.color as c_color, count(e.id) as nbNotRead, f.* '
+			$sql = 'SELECT c.id AS c_id, c.name AS c_name, c.color AS c_color, '
+			     . 'COUNT(CASE WHEN e.is_read = 0 THEN 1 END) AS nbNotRead, '
+			     . 'COUNT(e.id) AS nbEntries, '
+			     . 'f.* '
 			     . 'FROM  ' . $this->prefix . 'category c '
 			     . 'LEFT OUTER JOIN ' . $this->prefix . 'feed f ON f.category = c.id '
-			     . 'LEFT OUTER JOIN  ' . $this->prefix . 'entry e ON e.id_feed = f.id AND e.is_read = 0 '
+			     . 'LEFT OUTER JOIN ' . $this->prefix . 'entry e ON e.id_feed = f.id '
 			     . 'GROUP BY f.id '
 			     . 'ORDER BY c.name, f.name';
 			$stm = $this->bd->prepare ($sql);
