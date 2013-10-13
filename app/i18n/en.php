@@ -20,7 +20,7 @@ return array (
 
 	'subscription_management'	=> 'Subscriptions management',
 	'all_feeds'			=> 'All (%d)',
-	'favorite_feeds'		=> 'Favorites (%d)',
+	'favorite_feeds'		=> 'Favourites (%d)',
 	'not_read'			=> '%d unread',
 	'not_reads'			=> '%d unread',
 
@@ -30,7 +30,7 @@ return array (
 	'actualize'			=> 'Actualize',
 
 	'mark_read'			=> 'Mark as read',
-	'mark_favorite'			=> 'Mark as favorite',
+	'mark_favorite'			=> 'Mark as favourite',
 	'mark_all_read'			=> 'Mark all as read',
 	'mark_feed_read'		=> 'Mark feed as read',
 	'mark_cat_read'			=> 'Mark category as read',
@@ -57,8 +57,8 @@ return array (
 
 	'access_denied'			=> 'You don’t have permission to access this page',
 	'page_not_found'		=> 'You are looking for a page which doesn’t exist',
-	'error_occurred'		=> 'An error occured',
-	'error_occurred_update'		=> 'An error occured during update',
+	'error_occurred'		=> 'An error occurred',
+	'error_occurred_update'		=> 'An error occurred during update',
 
 	'default_category'		=> 'Uncategorized',
 	'categories_updated'		=> 'Categories have been updated',
@@ -76,13 +76,13 @@ return array (
 	'already_subscribed'		=> 'You have already subscribed to <em>%s</em>',
 	'feed_added'			=> 'RSS feed <em>%s</em> has been added',
 	'feed_not_added'		=> '<em>%s</em> could not be added',
-	'internal_problem_feed'		=> 'An internal problem occured, RSS feed could not be added',
+	'internal_problem_feed'		=> 'An internal problem occurred, RSS feed could not be added',
 	'invalid_url'			=> 'URL <em>%s</em> is invalid',
 	'feed_actualized'		=> '<em>%s</em> has been updated',
 	'n_feeds_actualized'		=> '%d feeds have been updated',
 	'feeds_actualized'		=> 'RSS feeds have been updated',
 	'no_feed_actualized'		=> 'No RSS feed has been updated',
-	'feeds_imported_with_errors'	=> 'Feeds have been imported but errors occured',
+	'feeds_imported_with_errors'	=> 'Feeds have been imported but errors occurred',
 	'feeds_imported'		=> 'Feeds have been imported',
 	'category_emptied'		=> 'Category has been emptied',
 	'feed_deleted'			=> 'Feed has been deleted',
@@ -90,7 +90,7 @@ return array (
 	'optimization_complete'		=> 'Optimization complete',
 
 	'your_rss_feeds'		=> 'Your RSS feeds',
-	'your_favorites'		=> 'Your favorites',
+	'your_favorites'		=> 'Your favourites',
 	'public'			=> 'Public',
 	'invalid_login'			=> 'Login is invalid',
 
@@ -102,14 +102,14 @@ return array (
 	'back_to_rss_feeds'		=> '← Go back to your RSS feeds',
 	'feeds_moved_category_deleted'	=> 'When you delete a category, their feeds are automatically classified under <em>%s</em>.',
 	'category_number'		=> 'Category n°%d',
-	'ask_empty'			=> 'Clear ?',
+	'ask_empty'			=> 'Clear?',
 	'number_feeds'			=> '%d feeds',
-	'can_not_be_deleted'		=> 'Can not be deleted',
+	'can_not_be_deleted'		=> 'Cannot be deleted',
 	'add_category'			=> 'Add a category',
 	'new_category'			=> 'New category',
 
-	'javascript_for_shortcuts'	=> 'Javascript must be enabled in order to use shortcuts',
-	'javascript_should_be_activated'=> 'Javascript must be enabled',
+	'javascript_for_shortcuts'	=> 'JavaScript must be enabled in order to use shortcuts',
+	'javascript_should_be_activated'=> 'JavaScript must be enabled',
 	'shift_for_all_read'		=> '+ <code>shift</code> to mark all articles as read',
 	'see_on_website'		=> 'See article on its original website',
 	'next_article'			=> 'Skip to the next article',
@@ -124,7 +124,7 @@ return array (
 	'export'			=> 'Export',
 	'or'				=> 'or',
 
-	'informations'			=> 'Informations',
+	'informations'			=> 'Information',
 	'feed_in_error'			=> 'This feed has encountered a problem. Please verify that it is always reachable then actualize it.',
 	'website_url'			=> 'Website URL',
 	'feed_url'			=> 'Feed URL',
@@ -214,7 +214,7 @@ return array (
 	'forbidden_access'		=> 'Forbidden access',
 	'forbidden_access_description'	=> 'Access is password protected, please <a class="signin" href="#">sign in</a> to read your feeds.',
 
-	'confirm_action'		=> 'Are you sure you want perform this action? It cannot be canceled!',
+	'confirm_action'		=> 'Are you sure you want perform this action? It cannot be cancelled!',
 
 	// DATE
 	'january'			=> 'january',
@@ -265,7 +265,7 @@ return array (
 	'language_defined'		=> 'Language has been defined.',
 	'choose_language'		=> 'Choose a language for FreshRSS',
 
-	'javascript_is_better'		=> 'FreshRSS is more pleasant with Javascript enabled',
+	'javascript_is_better'		=> 'FreshRSS is more pleasant with JavaScript enabled',
 	'php_is_ok'			=> 'Your PHP version is %s and it’s compatible with FreshRSS',
 	'php_is_nok'			=> 'Your PHP version is %s. You must have at least version %s',
 	'minz_is_ok'			=> 'You have Minz framework',
@@ -299,5 +299,5 @@ return array (
 
 	'installation_is_ok'		=> 'Installation process is finished. You must delete <em>install.php</em> file to access FreshRSS… or simply click on following button :)',
 	'finish_installation'		=> 'Finish installation',
-	'install_not_deleted'		=> 'Something was going wrong, you muste delete <em>%s</em> file manually.',
+	'install_not_deleted'		=> 'Something was going wrong, you must delete the file <em>%s</em> manually.',
 );
