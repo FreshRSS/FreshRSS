@@ -14,14 +14,14 @@ AddDefaultCharset	UTF-8
 
 <IfModule mod_expires.c>
 	ExpiresActive	on
-	ExpiresByType	application/font-woff	access plus 1 year
-	ExpiresByType	application/javascript	access plus 1 week
-	ExpiresByType	image/gif	access plus 1 month
-	ExpiresByType	image/png	access plus 1 month
-	ExpiresByType	image/svg+xml	access plus 1 month
-	ExpiresByType	image/x-icon	access plus 1 year
-	ExpiresByType	text/css	access plus 1 week
-	ExpiresByType	text/javascript	access plus 1 week
+	ExpiresByType	application/font-woff	"access plus 1 year"
+	ExpiresByType	application/javascript	"access plus 1 week"
+	ExpiresByType	image/gif	"access plus 1 month"
+	ExpiresByType	image/png	"access plus 1 month"
+	ExpiresByType	image/svg+xml	"access plus 1 month"
+	ExpiresByType	image/x-icon	"access plus 1 year"
+	ExpiresByType	text/css	"access plus 1 week"
+	ExpiresByType	text/javascript	"access plus 1 week"
 	<FilesMatch "\.php$">
 		ExpiresActive	Off
 	</FilesMatch>
