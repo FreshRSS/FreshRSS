@@ -655,7 +655,6 @@ case 5:
 		<title><?php echo _t ('freshrss_installation'); ?></title>
 		<link rel="stylesheet" type="text/css" media="all" href="themes/default/global.css" />
 		<link rel="stylesheet" type="text/css" media="all" href="themes/default/freshrss.css" />
-		<link rel="stylesheet" type="text/css" media="all" href="themes/default/fallback.css" />
 	</head>
 	<body>
 
