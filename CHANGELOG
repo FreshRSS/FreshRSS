@@ -1,5 +1,12 @@
 # Changelog
+## 2013-10-15 changes with FreshRSS 0.5.1
+
+* Correction bug des catégories disparues
+* Correction traduction i18n/fr et i18n/en
+* Suppression de certains appels à la feuille de style fallback.css
+
 ## 2013-10-12 changes with FreshRSS 0.5.0
+
 * Possibilité d'interdire la lecture anonyme
 * Option pour garder l'historique d'un flux
 * Lors d'un clic sur "Marquer tous les articles comme lus", FreshRSS peut désormais sauter à la prochaine catégorie / prochain flux avec des articles non lus.

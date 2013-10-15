@@ -1,11 +1,11 @@
 # FreshRSS
-FreshRSS est un agrégateur de flux RSS à auto-héberger à l'image de [Selfoss](http://selfoss.aditu.de/), [TinyTinyRSS](http://tt-rss.org/redmine/projects/tt-rss/wiki), [Leed](http://projet.idleman.fr/leed/) our encore [Kriss Feed](http://tontof.net/kriss/feed/). Il se veut léger et facile à prendre en main tout en étant un outil puissant et paramétrable.
+FreshRSS est un agrégateur de flux RSS à auto-héberger à l'image de [Selfoss](http://selfoss.aditu.de/), [TinyTinyRSS](http://tt-rss.org/redmine/projects/tt-rss/wiki), [Leed](http://projet.idleman.fr/leed/) ou encore [Kriss Feed](http://tontof.net/kriss/feed/). Il se veut léger et facile à prendre en main tout en étant un outil puissant et paramétrable.
 
 * Site officiel : http://marienfressinaud.github.io/FreshRSS/
 * Démo : http://marienfressinaud.fr/projets/freshrss/
 * Développeur : Marien Fressinaud <dev@marienfressinaud.fr>
-* Version actuelle : 0.5.0
-* Date de publication 2013-10-12
+* Version actuelle : 0.5.1
+* Date de publication 2013-10-15
 * License AGPL3
 
 ![Logo de FreshRSS](http://marienfressinaud.fr/data/images/freshrss/freshrss_title.png)
