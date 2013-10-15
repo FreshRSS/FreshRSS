@@ -162,7 +162,7 @@ return array (
 	'display_articles_unfolded'	=> 'Afficher les articles dépliés par défaut',
 	'after_onread'			=> 'Après marqué comme lu,',
 	'jump_next'			=> 'sauter au prochain voisin non lu',
-	'img_with_lazyload'		=> 'Utiliser le mode "lazy load" pour charger les images',
+	'img_with_lazyload'		=> 'Utiliser le mode “lazy load” pour charger les images',
 	'auto_read_when'		=> 'Marquer comme lu lorsque',
 	'article_selected'		=> 'l’article est sélectionné',
 	'article_open_on_website'	=> 'l’article est ouvert sur le site d’origine',
@@ -253,7 +253,7 @@ return array (
 	'steps'				=> 'Étapes',
 	'checks'			=> 'Vérifications',
 	'bdd_configuration'		=> 'Configuration de la base de données',
-	'this_is_the_end'		=> 'C’est fini',
+	'this_is_the_end'		=> 'This is the end',
 
 	'ok'				=> 'Ok !',
 	'congratulations'		=> 'Félicitations !',
