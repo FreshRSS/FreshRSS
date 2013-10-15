@@ -3,5 +3,5 @@
   "author": "Marien Fressinaud",
   "description": "Le thème par défaut pour FreshRSS",
   "version": 0.1,
-  "files": ["global.css", "freshrss.css", "fallback.css"]
+  "files": ["global.css", "freshrss.css"]
 }
