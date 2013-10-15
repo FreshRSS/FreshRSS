@@ -62,7 +62,7 @@ class configureController extends ActionController {
 			Request::forward (array ('c' => 'configure', 'a' => 'categorize'), true);
 		}
 
-		$this->view->categories = $catDAO->listCategories ();
+		$this->view->categories = $catDAO->listCategories (false);
 		$this->view->defaultCategory = $catDAO->getDefault ();
 
 		View::prependTitle (Translate::t ('categories_management') . ' - ');
@@ -70,7 +70,7 @@ class configureController extends ActionController {
 
 	public function feedAction () {
 		$catDAO = new CategoryDAO ();
-		$this->view->categories = $catDAO->listCategories ();
+		$this->view->categories = $catDAO->listCategories (false);
 
 		$feedDAO = new FeedDAO ();
 		$this->view->feeds = $feedDAO->listFeeds ();
@@ -91,7 +91,7 @@ class configureController extends ActionController {
 				);
 			} else {
 				$catDAO = new CategoryDAO ();
-				$this->view->categories = $catDAO->listCategories ();
+				$this->view->categories = $catDAO->listCategories (false);
 
 				if (Request::isPost () && $this->view->flux) {
 					$name = Request::param ('name', '');
