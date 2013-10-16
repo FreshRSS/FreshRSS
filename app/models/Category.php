@@ -175,7 +175,7 @@ class CategoryDAO extends Model_pdo {
 		}
 	}
 
-	public function listCategories ($prePopulateFeeds = true) {	//TODO: Search code-base for places where $prePopulateFeeds should be false
+	public function listCategories ($prePopulateFeeds = true) {
 		if ($prePopulateFeeds) {
 			$sql = 'SELECT c.id as c_id, c.name as c_name, c.color as c_color, count(e.id) as nbNotRead, f.* '
 			     . 'FROM  ' . $this->prefix . 'category c '
@@ -276,14 +276,9 @@ class HelperCategory {
 
 		$previousLine = null;
 		$feedsDao = array();
-		$nbLinesMinus1 = count($listDAO) - 1;
-		for ($i = 0; $i <= $nbLinesMinus1; $i++) {
-			$line = $listDAO[$i];
-			$cat_id = $line['c_id'];
-			if (($i > 0) && (($cat_id !== $previousLine['c_id']) || ($i === $nbLinesMinus1))) {	//End of current category
-				if ($i === $nbLinesMinus1) {	//End of table
-					$feedsDao[] = $line;
-				}
+		foreach ($listDAO as $line) {
+			if ($previousLine['c_id'] != null && $line['c_id'] !== $previousLine['c_id']) {
+				// End of the current category, we add it to the $list
 				$cat = new Category (
 					$previousLine['c_name'],
 					$previousLine['c_color'],
@@ -292,13 +287,22 @@ class HelperCategory {
 				$cat->_id ($previousLine['c_id']);
 				$list[] = $cat;
 
-				$feedsDao = array();	//Prepare for next category
-				$previousLine = $line;
-				$feedsDao[] = $line;
-			} else {
-				$previousLine = $line;
-				$feedsDao[] = $line;
+				$feedsDao = array();  //Prepare for next category
 			}
+
+			$previousLine = $line;
+			$feedsDao[] = $line;
+		}
+
+		// add the last category
+		if ($previousLine != null) {
+			$cat = new Category (
+				$previousLine['c_name'],
+				$previousLine['c_color'],
+				HelperFeed::daoToFeed ($feedsDao)
+			);
+			$cat->_id ($previousLine['c_id']);
+			$list[] = $cat;
 		}
 
 		return $list;
