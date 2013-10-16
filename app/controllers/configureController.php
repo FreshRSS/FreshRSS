@@ -156,7 +156,7 @@ class configureController extends ActionController {
 			$view = Request::param ('default_view', 'all');
 			$auto_load_more = Request::param ('auto_load_more', 'no');
 			$display = Request::param ('display_posts', 'no');
-			$onread_jump_next = Request::param ('onread_jump_next', 'yes');
+			$onread_jump_next = Request::param ('onread_jump_next', 'no');
 			$lazyload = Request::param ('lazyload', 'no');
 			$sort = Request::param ('sort_order', 'low_to_high');
 			$old = Request::param ('old_entries', 3);
