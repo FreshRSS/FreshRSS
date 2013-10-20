@@ -250,14 +250,14 @@ class Feed extends Model {
 			}
 
 			$content = $item->get_content ();
-			$links = array();
+			$elinks = array();
 			foreach ($item->get_enclosures() as $enclosure) {
-				$link = $enclosure->get_link();
-				if (array_key_exists($link, $links)) continue;
-				$links[$link] = '1';
+				$elink = $enclosure->get_link();
+				if (array_key_exists($elink, $elinks)) continue;
+				$elinks[$elink] = '1';
 				$mime = strtolower($enclosure->get_type());
 				if (strpos($mime, 'image/') === 0) {
-					$content .= '<br /><img src="' . $link . '" />';
+					$content .= '<br /><img src="' . $elink . '" />';
 				}
 			}
 
