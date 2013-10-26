@@ -403,7 +403,18 @@ function init_nav_entries() {
 	});
 }
 
-$(document).ready (function () {
+function init_templates() {
+	$('#aside_flux').on('click', '.dropdown-toggle', function () {
+		if ($(this).nextAll('.dropdown-menu').length === 0) {
+			var feed_id = $(this).data('fid'),
+				feed_web = $(this).data('fweb'),
+				template = $('#feed_config_template').html().replace(/!!!!!!/g, feed_id).replace('http://example.net/', feed_web);
+			$(this).attr('href', '#dropdown-' + feed_id).prev('.dropdown-target').attr('id', 'dropdown-' + feed_id).parent().append(template);
+		}
+	});
+}
+
+$(function () {
 	if(is_reader_mode()) {
 		hide_posts = false;
 	}
@@ -412,4 +423,5 @@ $(document).ready (function () {
 	init_shortcuts ();
 	init_stream_delegates($('#stream'));
 	init_nav_entries();
+	init_templates();
 });
