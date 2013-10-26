@@ -71,6 +71,11 @@ function toggleContent (new_active, old_active) {
 	}
 }
 
+function _incLabel(p, inc) {
+	var i = (parseInt(p.replace(/\D/g, '')) || 0) + inc;
+	return i > 0 ? ' (' + i + ')' : '';
+}
+
 function mark_read (active, only_not_read) {
 	if (active[0] === undefined || (
 		only_not_read === true && !active.hasClass("not_read"))) {
@@ -91,11 +96,41 @@ function mark_read (active, only_not_read) {
 
 		active.find ("a.read").attr ("href", res.url);
 
+		var inc = 0;
 		if (active.hasClass ("not_read")) {
 			active.removeClass ("not_read");
+			inc--;
 		} else if (only_not_read !== true || active.hasClass("not_read")) {
 			active.addClass ("not_read");
+			inc++;
 		}
+
+		//Update unread: feed	//Alex
+		var feed_url = active.find(".website>a").attr("href"),
+			feed_id = feed_url.substr(feed_url.lastIndexOf('f_')),
+			elem = $('#' + feed_id + ' .feed').get(0),
+			attr_unread = elem ? elem.getAttributeNode('data-unread') : null,
+			feed_priority = elem ? parseInt(elem.getAttribute('data-priority')) : 0;
+		if (attr_unread)
+			attr_unread.value = Math.max(0, parseInt(attr_unread.value) + inc);
+
+		//Update unread: category
+		elem = $('#' + feed_id).parent().prevAll('.category').children(':first').get(0);
+		attr_unread = elem ? elem.getAttributeNode('data-unread') : null;
+		if (attr_unread)
+			attr_unread.value = Math.max(0, parseInt(attr_unread.value) + inc);
+
+		if (feed_priority > 0) {	//Update unread: all
+			elem = $('#aside_flux .all').children(':first').get(0);
+			attr_unread = elem ? elem.getAttributeNode('data-unread') : null;
+			if (attr_unread)
+				attr_unread.value = Math.max(0, parseInt(attr_unread.value) + inc);
+		}
+
+		//Update unread: title
+		document.title = document.title.replace(/((?: \(\d+\))?)( - .*?)((?: \(\d+\))?)$/, function(m, p1, p2, p3) {
+			return _incLabel(p1, inc) + p2 + _incLabel(p3, feed_priority > 0 ? inc : 0);
+		});
 	});
 }
 
@@ -117,11 +152,20 @@ function mark_favorite (active) {
 		res = jQuery.parseJSON(data);
 
 		active.find ("a.bookmark").attr ("href", res.url);
+		var inc = 0;
 		if (active.hasClass ("favorite")) {
 			active.removeClass ("favorite");
+			inc--;
 		} else {
 			active.addClass ("favorite");
+			inc++;
 		}
+
+		var favourites = $('.favorites>a').contents().last().get(0);
+		if (favourites && favourites.textContent)
+			favourites.textContent = favourites.textContent.replace(/((?: \(\d+\))?\s*)$/, function(m, p1) {
+				return _incLabel(p1, inc);
+			});
 	});
 }
 
@@ -235,9 +279,10 @@ function init_column_categories () {
 		return;
 	}
 
-	$(".category").addClass ("stick");
-	$(".categories .category .btn:first-child").width ("160px");
-	$(".category").append ("<a class=\"btn dropdown-toggle\" href=\"#\"><i class=\"icon i_down\"></i></a>");
+	//TODO: toggle class in PHP and remove the CSS changes done in JavaScript
+	$(".category:not(.all):not(.favorites) .btn:first-child").width ("160px");
+	$(".category:not(.all):not(.favorites)").addClass("stick").
+		append ("<a class=\"btn dropdown-toggle\" href=\"#\"><i class=\"icon i_down\"></i></a>");
 
 	$(".category + .feeds").not(".active").hide();
 	$(".category.active a.dropdown-toggle i").toggleClass ("i_up");
@@ -391,7 +436,7 @@ function init_nav_entries() {
 function init_templates() {
 	$('#aside_flux').on('click', '.dropdown-toggle', function () {
 		if ($(this).nextAll('.dropdown-menu').length === 0) {
-			var feed_id = $(this).data('fid'),
+			var feed_id = $(this).closest('li').attr('id').substr(2),
 				feed_web = $(this).data('fweb'),
 				template = $('#feed_config_template').html().replace(/!!!!!!/g, feed_id).replace('http://example.net/', feed_web);
 			$(this).attr('href', '#dropdown-' + feed_id).prev('.dropdown-target').attr('id', 'dropdown-' + feed_id).parent().append(template);

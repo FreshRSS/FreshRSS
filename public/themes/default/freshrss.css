@@ -93,9 +93,7 @@
 	text-align: center;
 	list-style: none;
 }
-	.categories .all,
-	.categories .favorites,
-	.categories .category {
+	.category {
 		display: block;
 		padding: 5px 0;
 		width: 220px;
@@ -105,11 +103,22 @@
 		white-space: nowrap;
 		text-overflow: ellipsis;
 	}
-		.categories .all .btn,
-		.categories .favorites .btn,
-		.categories .category .btn:first-child {
+		.category .btn:first-child {
 			width: 195px;
 			position: relative;
+		}
+		.category .btn:first-child:not([data-unread="0"]):after {
+			content: attr(data-unread);
+			position: absolute;
+			top: 3px; right: 3px;
+			padding: 1px 5px;
+			background: #ccc;
+			color: #fff;
+			font-size: 90%;
+			border: 1px solid #bbb;
+			border-radius: 5px;
+			box-shadow: 1px 3px 3px #aaa inset;
+			text-shadow: 0 0 1px #aaa;
 		}
 	.categories .feeds {
 		width: 100%;
@@ -146,6 +155,12 @@
 			white-space: nowrap;
 			text-overflow: ellipsis;
 		}
+		.feed:not([data-unread="0"]) {
+			font-weight:bold;
+		}
+		.feed:not([data-unread="0"]):before {
+			content: "(" attr(data-unread) ") ";
+		}
 		.categories .feeds .dropdown .dropdown-menu {
 			left: 0;
 		}
@@ -163,18 +178,6 @@
 				background-color: #fff;
 				border-radius: 3px;
 			}
-	.categories .notRead {
-		position: absolute;
-		top: 3px; right: 3px;
-		padding: 1px 5px;
-		background: #ccc;
-		color: #fff;
-		font-size: 90%;
-		border: 1px solid #bbb;
-		border-radius: 5px;
-		box-shadow: 1px 3px 3px #aaa inset;
-		text-shadow: 0 0 1px #aaa;
-	}
 
 .post {
 	padding: 10px 50px;
