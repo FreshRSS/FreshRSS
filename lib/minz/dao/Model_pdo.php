@@ -9,6 +9,14 @@
  * Seul la connexion MySQL est prise en charge pour le moment
  */
 class Model_pdo {
+
+	/**
+	 * Partage la connexion à la base de données entre toutes les instances.
+	 */
+	public static $useSharedBd = true;
+	private static $sharedBd = null;
+	private static $sharedPrefix;
+
 	/**
 	 * $bd variable représentant la base de données
 	 */
@@ -21,6 +29,12 @@ class Model_pdo {
 	 * HOST, BASE, USER et PASS définies dans le fichier de configuration
 	 */
 	public function __construct () {
+		if (self::$useSharedBd && self::$sharedBd != null) {
+			$this->bd = self::$sharedBd;
+			$this->prefix = self::$sharedPrefix;
+			return;
+		}
+
 		$db = Configuration::dataBase ();
 		$driver_options = null;
 
@@ -46,8 +60,10 @@ class Model_pdo {
 				$db['password'],
 				$driver_options
 			);
+			self::$sharedBd = $this->bd;
 
 			$this->prefix = $db['prefix'];
+			self::$sharedPrefix = $this->prefix;
 		} catch (Exception $e) {
 			throw new PDOConnectionException (
 				$string,

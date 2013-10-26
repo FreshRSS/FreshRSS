@@ -145,10 +145,7 @@ class Feed extends Model {
 		$this->lastUpdate = $value;
 	}
 	public function _priority ($value) {
-		if (!is_int (intval ($value))) {
-			$value = 10;
-		}
-		$this->priority = $value;
+		$this->priority = is_numeric ($value) ? intval ($value) : 10;
 	}
 	public function _pathEntries ($value) {
 		$this->pathEntries = $value;
@@ -173,11 +170,10 @@ class Feed extends Model {
 		$this->keep_history = $value;
 	}
 	public function _nbNotRead ($value) {
-		if (!is_int ($value)) {
-			$value = -1;
+		$this->nbNotRead = is_numeric ($value) ? intval ($value) : -1;
 		}
-
-		$this->nbNotRead = intval ($value);
+	public function _nbEntries ($value) {
+		$this->nbEntries = is_numeric ($value) ? intval ($value) : -1;
 	}
 
 	public function load () {
@@ -472,7 +468,7 @@ class FeedDAO extends Model_pdo {
 		return HelperFeed::daoToFeed ($stm->fetchAll (PDO::FETCH_ASSOC));
 	}
 
-	public function count () {
+	public function count () {	//Is this used?
 		$sql = 'SELECT COUNT(*) AS count FROM ' . $this->prefix . 'feed';
 		$stm = $this->bd->prepare ($sql);
 		$stm->execute ();
@@ -490,7 +486,7 @@ class FeedDAO extends Model_pdo {
 
 		return $res[0]['count'];
 	}
-	public function countNotRead ($id) {
+	public function countNotRead ($id) {	//Is this used?
 		$sql = 'SELECT COUNT(*) AS count FROM ' . $this->prefix . 'entry WHERE is_read=0 AND id_feed=?';
 		$stm = $this->bd->prepare ($sql);
 		$values = array ($id);
@@ -530,6 +526,9 @@ class HelperFeed {
 			$list[$key]->_keepHistory ($dao['keep_history']);
 			if (isset ($dao['nbNotRead'])) {
 				$list[$key]->_nbNotRead ($dao['nbNotRead']);
+			}
+			if (isset ($dao['nbEntries'])) {
+				$list[$key]->_nbEntries ($dao['nbEntries']);
 			}
 			if (isset ($dao['id'])) {
 				$list[$key]->_id ($dao['id']);
