@@ -408,6 +408,24 @@ function init_actualize() {
 	});
 }
 
+function closeNotification () {
+	$(".notification").slideUp (200, function () {
+		$(".notification").remove ();
+	});
+}
+
+function init_notifications() {
+	notif = $(".notification");
+	if (notif[0] !== undefined) {
+		timer = setInterval('closeNotification()', 5000);
+
+		notif.find ("a.close").click (function () {
+			closeNotification ();
+			return false;
+		});
+	}
+}
+
 $(function () {
 	if (is_reader_mode()) {
 		hide_posts = false;
@@ -418,5 +436,6 @@ $(function () {
 	init_stream_delegates($('#stream'));
 	init_nav_entries();
 	init_templates();
+	init_notifications();
 	init_actualize();
 });
