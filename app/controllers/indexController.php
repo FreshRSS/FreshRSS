@@ -11,15 +11,13 @@ class indexController extends ActionController {
 		if ($output == 'rss') {
 			$this->view->_useLayout (false);
 		} else {
-			View::appendScript (Url::display (array ('c' => 'javascript', 'a' => 'actualize')));
-
 			if(!$output) {
 				$output = $this->view->conf->viewMode();
 				Request::_param ('output', $output);
 			}
 
 			View::appendScript (Url::display ('/scripts/shortcut.js'));
-			View::appendScript (Url::display (array ('c' => 'javascript', 'a' => 'main')));
+			View::appendScript (Url::display ('/scripts/main.js'));
 			View::appendScript (Url::display ('/scripts/endless_mode.js'));
 
 			if ($output == 'global') {
