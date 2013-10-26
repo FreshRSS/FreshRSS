@@ -22,11 +22,14 @@ class Url {
 		$url_string = '';
 		
 		if ($absolute) {
-			$protocol = (is_array ($url) && isset ($url['protocol'])) ? ($url['protocol'] . ':') : '';	//Empty protocol will use automatic http or https
-			$url_string = $protocol
-			            . '//'
-			            . Request::getDomainName ()
-			            . Request::getBaseUrl ();
+			if (is_array ($url) && isset ($url['protocol'])) {
+				$protocol = $url['protocol'];
+			} elseif (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on') {
+				$protocol = 'https:';
+			} else {
+				$protocol = 'http:';
+			}
+			$url_string = $protocol . '//' . Request::getDomainName () . Request::getBaseUrl ();
 		}
 		else {
 			$url_string = '.';

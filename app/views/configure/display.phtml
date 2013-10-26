@@ -56,7 +56,7 @@
 			<?php $token = $this->conf->token (); ?>
 			<div class="group-controls">
 				<input type="text" id="token" name="token" value="<?php echo $token; ?>"  placeholder="<?php echo Translate::t ('blank_to_disable'); ?>"/>
-				<i class="icon i_help"></i> <?php echo Translate::t('explain_token', Url::display(), $token); ?>
+				<i class="icon i_help"></i> <?php echo Translate::t('explain_token', Url::display(null, 'html', true), $token); ?>
 			</div>
 		</div>
 	
