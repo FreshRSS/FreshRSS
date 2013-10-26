@@ -16,25 +16,21 @@ class Url {
 	 * @param $encodage pour indiquer comment encoder les & (& ou &amp; pour html)
 	 * @return l'url formatée
 	 */
-	public static function display ($url = array (), $encodage = 'html') {
+	public static function display ($url = array (), $encodage = 'html', $absolute = false) {
 		$url = self::checkUrl ($url);
 		
 		$url_string = '';
 		
-		if (is_array ($url) && isset ($url['protocol'])) {
-			$protocol = $url['protocol'];
-		} else {
-			if(isset($_SERVER['HTTPS']) && $_SERVER["HTTPS"] == 'on') {
-				$protocol = 'https';
-			} else {
-				$protocol = 'http';
-			}
+		if ($absolute) {
+			$protocol = (is_array ($url) && isset ($url['protocol'])) ? ($url['protocol'] . ':') : '';	//Empty protocol will use automatic http or https
+			$url_string = $protocol
+			            . '//'
+			            . Request::getDomainName ()
+			            . Request::getBaseUrl ();
 		}
-		$url_string .= $protocol . '://';
-		
-		$url_string .= Request::getDomainName ();
-		
-		$url_string .= Request::getBaseUrl ();
+		else {
+			$url_string = '.';
+		}
 		
 		if (is_array ($url)) {
 			$router = new Router ();
