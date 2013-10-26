@@ -205,7 +205,7 @@ class Feed extends Model {
 				$feed->init ();
 
 				if ($feed->error ()) {
-					throw new FeedException ($feed->error);
+					throw new FeedException ($feed->error . ' [' . $url . ']');
 				}
 
 				// si on a utilisé l'auto-discover, notre url va avoir changé
