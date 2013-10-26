@@ -246,6 +246,16 @@ class Feed extends Model {
 			}
 
 			$content = $item->get_content ();
+			$elinks = array();
+			foreach ($item->get_enclosures() as $enclosure) {
+				$elink = $enclosure->get_link();
+				if (array_key_exists($elink, $elinks)) continue;
+				$elinks[$elink] = '1';
+				$mime = strtolower($enclosure->get_type());
+				if (strpos($mime, 'image/') === 0) {
+					$content .= '<br /><img src="' . $elink . '" />';
+				}
+			}
 
 			$entry = new Entry (
 				$this->id (),
