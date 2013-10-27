@@ -168,6 +168,16 @@ class configureController extends ActionController {
 			$scroll = Request::param ('mark_scroll', 'no');
 			$urlShaarli = Request::param ('shaarli', '');
 			$theme = Request::param ('theme', 'default');
+			$topline_read = Request::param ('topline_read', 'no');
+			$topline_favorite = Request::param ('topline_favorite', 'no');
+			$topline_date = Request::param ('topline_date', 'no');
+			$topline_link = Request::param ('topline_link', 'no');
+			$bottomline_read = Request::param ('bottomline_read', 'no');
+			$bottomline_favorite = Request::param ('bottomline_favorite', 'no');
+			$bottomline_sharing = Request::param ('bottomline_sharing', 'no');
+			$bottomline_tags = Request::param ('bottomline_tags', 'no');
+			$bottomline_date = Request::param ('bottomline_date', 'no');
+			$bottomline_link = Request::param ('bottomline_link', 'no');
 
 			$this->view->conf->_language ($language);
 			$this->view->conf->_postsPerPage (intval ($nb));
@@ -189,6 +199,16 @@ class configureController extends ActionController {
 			));
 			$this->view->conf->_urlShaarli ($urlShaarli);
 			$this->view->conf->_theme ($theme);
+			$this->view->conf->_topline_read ($topline_read);
+			$this->view->conf->_topline_favorite ($topline_favorite);
+			$this->view->conf->_topline_date ($topline_date);
+			$this->view->conf->_topline_link ($topline_link);
+			$this->view->conf->_bottomline_read ($bottomline_read);
+			$this->view->conf->_bottomline_favorite ($bottomline_favorite);
+			$this->view->conf->_bottomline_sharing ($bottomline_sharing);
+			$this->view->conf->_bottomline_tags ($bottomline_tags);
+			$this->view->conf->_bottomline_date ($bottomline_date);
+			$this->view->conf->_bottomline_link ($bottomline_link);
 
 			$values = array (
 				'language' => $this->view->conf->language (),
@@ -206,7 +226,17 @@ class configureController extends ActionController {
 				'token' => $this->view->conf->token (),
 				'mark_when' => $this->view->conf->markWhen (),
 				'url_shaarli' => $this->view->conf->urlShaarli (),
-				'theme' => $this->view->conf->theme ()
+				'theme' => $this->view->conf->theme (),
+				'topline_read' => $this->view->conf->toplineRead () ? 'yes' : 'no',
+				'topline_favorite' => $this->view->conf->toplineFavorite () ? 'yes' : 'no',
+				'topline_date' => $this->view->conf->toplineDate () ? 'yes' : 'no',
+				'topline_link' => $this->view->conf->toplineLink () ? 'yes' : 'no',
+				'bottomline_read' => $this->view->conf->bottomlineRead () ? 'yes' : 'no',
+				'bottomline_favorite' => $this->view->conf->bottomlineFavorite () ? 'yes' : 'no',
+				'bottomline_sharing' => $this->view->conf->bottomlineSharing () ? 'yes' : 'no',
+				'bottomline_tags' => $this->view->conf->bottomlineTags () ? 'yes' : 'no',
+				'bottomline_date' => $this->view->conf->bottomlineDate () ? 'yes' : 'no',
+				'bottomline_link' => $this->view->conf->bottomlineLink () ? 'yes' : 'no',
 			);
 
 			$confDAO = new RSSConfigurationDAO ();

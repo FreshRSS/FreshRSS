@@ -22,6 +22,16 @@ class RSSConfiguration extends Model {
 	private $anon_access;
 	private $token;
 	private $auto_load_more;
+	private $topline_read;
+	private $topline_favorite;
+	private $topline_date;
+	private $topline_link;
+	private $bottomline_read;
+	private $bottomline_favorite;
+	private $bottomline_sharing;
+	private $bottomline_tags;
+	private $bottomline_date;
+	private $bottomline_link;
 	
 	public function __construct () {
 		$confDAO = new RSSConfigurationDAO ();
@@ -42,6 +52,16 @@ class RSSConfiguration extends Model {
 		$this->_anonAccess ($confDAO->anon_access);
 		$this->_token ($confDAO->token);
 		$this->_autoLoadMore ($confDAO->auto_load_more);
+		$this->_topline_read ($confDAO->topline_read);
+		$this->_topline_favorite ($confDAO->topline_favorite);
+		$this->_topline_date ($confDAO->topline_date);
+		$this->_topline_link ($confDAO->topline_link);
+		$this->_bottomline_read ($confDAO->bottomline_read);
+		$this->_bottomline_favorite ($confDAO->bottomline_favorite);
+		$this->_bottomline_sharing ($confDAO->bottomline_sharing);
+		$this->_bottomline_tags ($confDAO->bottomline_tags);
+		$this->_bottomline_date ($confDAO->bottomline_date);
+		$this->_bottomline_link ($confDAO->bottomline_link);
 	}
 	
 	public function availableLanguages () {
@@ -106,6 +126,36 @@ class RSSConfiguration extends Model {
 	}
 	public function autoLoadMore () {
 		return $this->auto_load_more;
+	}
+	public function toplineRead () {
+		return $this->topline_read;
+	}
+	public function toplineFavorite () {
+		return $this->topline_favorite;
+	}
+	public function toplineDate () {
+		return $this->topline_date;
+	}
+	public function toplineLink () {
+		return $this->topline_link;
+	}
+	public function bottomlineRead () {
+		return $this->bottomline_read;
+	}
+	public function bottomlineFavorite () {
+		return $this->bottomline_favorite;
+	}
+	public function bottomlineSharing () {
+		return $this->bottomline_sharing;
+	}
+	public function bottomlineTags () {
+		return $this->bottomline_tags;
+	}
+	public function bottomlineDate () {
+		return $this->bottomline_date;
+	}
+	public function bottomlineLink () {
+		return $this->bottomline_link;
 	}
 
 	public function _language ($value) {
@@ -223,6 +273,36 @@ class RSSConfiguration extends Model {
 			$this->auto_load_more = 'no';
 		}
 	}
+	public function _topline_read ($value) {
+		$this->topline_read = $value === 'yes';
+	}
+	public function _topline_favorite ($value) {
+		$this->topline_favorite = $value === 'yes';
+	}
+	public function _topline_date ($value) {
+		$this->topline_date = $value === 'yes';
+	}
+	public function _topline_link ($value) {
+		$this->topline_link = $value === 'yes';
+	}
+	public function _bottomline_read ($value) {
+		$this->bottomline_read = $value === 'yes';
+	}
+	public function _bottomline_favorite ($value) {
+		$this->bottomline_favorite = $value === 'yes';
+	}
+	public function _bottomline_sharing ($value) {
+		$this->bottomline_sharing = $value === 'yes';
+	}
+	public function _bottomline_tags ($value) {
+		$this->bottomline_tags = $value === 'yes';
+	}
+	public function _bottomline_date ($value) {
+		$this->bottomline_date = $value === 'yes';
+	}
+	public function _bottomline_link ($value) {
+		$this->bottomline_link = $value === 'yes';
+	}
 }
 
 class RSSConfigurationDAO extends Model_array {
@@ -253,6 +333,16 @@ class RSSConfigurationDAO extends Model_array {
 	public $anon_access = 'no';
 	public $token = '';
 	public $auto_load_more = 'no';
+	public $topline_read = 'yes';
+	public $topline_favorite = 'yes';
+	public $topline_date = 'yes';
+	public $topline_link = 'yes';
+	public $bottomline_read = 'yes';
+	public $bottomline_favorite = 'yes';
+	public $bottomline_sharing = 'yes';
+	public $bottomline_tags = 'yes';
+	public $bottomline_date = 'yes';
+	public $bottomline_link = 'yes';
 
 	public function __construct () {
 		parent::__construct (PUBLIC_PATH . '/data/Configuration.array.php');
@@ -308,6 +398,37 @@ class RSSConfigurationDAO extends Model_array {
 		}
 		if (isset ($this->array['auto_load_more'])) {
 			$this->auto_load_more = $this->array['auto_load_more'];
+		}
+
+		if (isset ($this->array['topline_read'])) {
+			$this->topline_read = $this->array['topline_read'];
+		}
+		if (isset ($this->array['topline_favorite'])) {
+			$this->topline_favorite = $this->array['topline_favorite'];
+		}
+		if (isset ($this->array['topline_date'])) {
+			$this->topline_date = $this->array['topline_date'];
+		}
+		if (isset ($this->array['topline_link'])) {
+			$this->topline_link = $this->array['topline_link'];
+		}
+		if (isset ($this->array['bottomline_read'])) {
+			$this->bottomline_read = $this->array['bottomline_read'];
+		}
+		if (isset ($this->array['bottomline_favorite'])) {
+			$this->bottomline_favorite = $this->array['bottomline_favorite'];
+		}
+		if (isset ($this->array['bottomline_sharing'])) {
+			$this->bottomline_sharing = $this->array['bottomline_sharing'];
+		}
+		if (isset ($this->array['bottomline_tags'])) {
+			$this->bottomline_tags = $this->array['bottomline_tags'];
+		}
+		if (isset ($this->array['bottomline_date'])) {
+			$this->bottomline_date = $this->array['bottomline_date'];
+		}
+		if (isset ($this->array['bottomline_link'])) {
+			$this->bottomline_link = $this->array['bottomline_link'];
 		}
 	}
 	
