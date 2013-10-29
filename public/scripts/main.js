@@ -24,6 +24,13 @@ function redirect (url, new_tab) {
 }
 
 function toggleContent (new_active, old_active) {
+	if (does_lazyload) {
+		new_active.find('img[data-original]').each(function() {
+			this.setAttribute('src', this.getAttribute('data-original'));
+			this.removeAttribute('data-original');
+		});
+	}
+
 	old_active.removeClass ("active");
 	if (old_active[0] != new_active[0]) {
 		new_active.addClass ("active");
@@ -60,10 +67,6 @@ function toggleContent (new_active, old_active) {
 		}
 
 		new_scroll = $(box_to_move).scrollTop (new_pos).scrollTop ();
-	}
-
-	if ((new_scroll === old_scroll) && $.fn.lazyload) {
-		$(window).trigger ("scroll");	//When no scroll was done, generate fake scroll event for LazyLoad to load images
 	}
 
 	if (auto_mark_article) {
@@ -182,7 +185,7 @@ function inMarkViewport(flux, box_to_follow, relative_follow) {
 
 function init_posts () {
 	init_img ();
-	if (does_lazyload) {
+	if ($.fn.lazyload) {
 		if (is_global_mode()) {
 			$(".flux .content img").lazyload({
 				container: $("#panel")
