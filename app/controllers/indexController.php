@@ -47,7 +47,7 @@ class indexController extends ActionController {
 		$error = $this->checkAndProcessType ($type);
 		if (!$error) {
 			// On récupère les différents éléments de filtrage
-			$this->view->state = $state = Request::param ('state', $this->view->conf->defaultView ());
+			$this->view->state = $state = ($type['type'] === 'favoris' ? 'all' : Request::param ('state', $this->view->conf->defaultView ()));
 			$filter = Request::param ('search', '');
 			$this->view->order = $order = Request::param ('order', $this->view->conf->sortOrder ());
 			$nb = Request::param ('nb', $this->view->conf->postsPerPage ());
