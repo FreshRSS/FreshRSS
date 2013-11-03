@@ -1,13 +1,14 @@
+"use strict";
 var panel_loading = false;
 
 function load_panel(link) {
-	if(panel_loading) {
+	if (panel_loading) {
 		return;
 	}
 
 	panel_loading = true;
 
-	$.get (link, function (data) {
+	$.get(link, function (data) {
 		$("#panel").append($(".nav_menu, #stream .day, #stream .flux, #stream .pagination", data));
 
 		$("#panel .nav_menu").children().not("#nav_menu_read_all").remove();
@@ -21,14 +22,14 @@ function load_panel(link) {
 		// force le démarrage du scroll en haut.
 		// Sans ça, si l'on scroll en lisant une catégorie par exemple,
 		// en en ouvrant une autre ensuite, on se retrouve au même point de scroll
-		$("#panel").scrollTop (0);
+		$("#panel").scrollTop(0);
 
 		panel_loading = false;
 	});
 }
 
 function init_close_panel() {
-	$("#panel .close").click(function() {
+	$("#panel .close").click(function () {
 		$("#panel").html('<a class="close" href="#"><i class="icon i_close"></i></a>');
 
 		init_close_panel();
@@ -38,7 +39,7 @@ function init_close_panel() {
 }
 
 function init_global_view() {
-	$("#stream .category a").click(function() {
+	$("#stream .category a").click(function () {
 		var link = $(this).attr("href");
 
 		load_panel(link);
@@ -51,8 +52,9 @@ function init_global_view() {
 	init_stream_delegates($("#panel"));
 }
 
-
-$(document).ready (function () {
+if (document.addEventListener) {
+	document.addEventListener('DOMContentLoaded', function () {
 	init_global_view();
 	init_close_panel();
-});
+	}, false);
+}

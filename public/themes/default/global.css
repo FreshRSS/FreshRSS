@@ -161,7 +161,7 @@ input, select, textarea {
 	.stick input:first-child {
 		border-radius: 3px 0 0 3px;
 	}
-		.stick .btn.btn-important:first-child {
+		.stick .btn-important:first-child {
 			border-right: 1px solid #06f;
 		}
 	.stick .btn:last-child,
@@ -217,30 +217,30 @@ input, select, textarea {
 		background: #eee;
 	}
 
-	.btn.btn-important {
+	.btn-important {
 		background: linear-gradient(to bottom, #0084CC, #0045CC);
 		color: #fff;
 		border: 1px solid #0062B7;
 		text-shadow: 0px -1px 0 #aaa;
 	}
-		.btn.btn-important:hover {
+		.btn-important:hover {
 			background: linear-gradient(to bottom, #0066CC, #0045CC);
 		}
-		.btn.btn-important:active {
+		.btn-important:active {
 			background: #0044CB;
 			box-shadow: none;
 		}
 
-	.btn.btn-attention {
+	.btn-attention {
 		background: linear-gradient(to bottom, #E95B57, #BD362F);
 		color: #fff;
 		border: 1px solid #C44742;
 		text-shadow: 0px -1px 0px #666;
 	}
-		.btn.btn-attention:hover {
+		.btn-attention:hover {
 			background: linear-gradient(to bottom, #D14641, #BD362F);
 		}
-		.btn.btn-attention:active {
+		.btn-attention:active {
 			background: #BD362F;
 			box-shadow: none;
 		}
@@ -486,99 +486,99 @@ input, select, textarea {
 	line-height: 16px;
 	background: center center no-repeat;
 }
-	.icon.i_refresh {
+	.i_refresh {
 		background-image: url("icons/refresh.png");
 		background-image: url("icons/refresh.svg");
 	}
-	.icon.i_bookmark {
+	.i_bookmark {
 		background-image: url("icons/starred.png");
 		background-image: url("icons/starred.svg");
 	}
-	.icon.i_not_bookmark {
+	.i_not_bookmark {
 		background-image: url("icons/unstarred.png");
 		background-image: url("icons/unstarred.svg");
 	}
-	.icon.i_read {
+	.i_read {
 		background-image: url("icons/read.png");
 		background-image: url("icons/read.svg");
 	}
-	.icon.i_unread {
+	.i_unread {
 		background-image: url("icons/unread.png");
 		background-image: url("icons/unread.svg");
 	}
-	.icon.i_all {
+	.i_all {
 		background-image: url("icons/all.png");
 		background-image: url("icons/all.svg");
 	}
-	.icon.i_close {
+	.i_close {
 		background-image: url("icons/close.png");
 		background-image: url("icons/close.svg");
 	}
-	.icon.i_search {
+	.i_search {
 		background-image: url("icons/search.png");
 		background-image: url("icons/search.svg");
 	}
-	.icon.i_configure {
+	.i_configure {
 		background-image: url("icons/configure.png");
 		background-image: url("icons/configure.svg");
 	}
-	.icon.i_login {
+	.i_login {
 		background-image: url("icons/login.png");
 		background-image: url("icons/login.svg");
 	}
-	.icon.i_logout {
+	.i_logout {
 		background-image: url("icons/logout.png");
 		background-image: url("icons/logout.svg");
 	}
-	.icon.i_add {
+	.i_add {
 		background-image: url("icons/add.png");
 		background-image: url("icons/add.svg");
 	}
-	.icon.i_link {
+	.i_link {
 		background-image: url("icons/link.png");
 		background-image: url("icons/link.svg");
 	}
-	.icon.i_down {
+	.i_down {
 		background-image: url("icons/down.png");
 		background-image: url("icons/down.svg");
 	}
-	.icon.i_up {
+	.i_up {
 		background-image: url("icons/up.png");
 		background-image: url("icons/up.svg");
 	}
-	.icon.i_next {
+	.i_next {
 		background-image: url("icons/next.png");
 		background-image: url("icons/next.svg");
 	}
-	.icon.i_prev {
+	.i_prev {
 		background-image: url("icons/previous.png");
 		background-image: url("icons/previous.svg");
 	}
-	.icon.i_help {
+	.i_help {
 		background-image: url("icons/help.png");
 		background-image: url("icons/help.svg");
 	}
-	.icon.i_note {
+	.i_note {
 		background-image: url("icons/note.png");
 		background-image: url("icons/note.svg");
 	}
-	.icon.i_note_empty {
+	.i_note_empty {
 		background-image: url("icons/note_empty.png");
 		background-image: url("icons/note_empty.svg");
 	}
-	.icon.i_category {
+	.i_category {
 		background-image: url("icons/category.png");
 		background-image: url("icons/category.svg");
 	}
-	.icon.i_rss {
+	.i_rss {
 		background-image: url("icons/rss.png");
 		background-image: url("icons/rss.svg");
 	}
-	.icon.i_share {
+	.i_share {
 		background-image: url("icons/share.png");
 		background-image: url("icons/share.svg");
 	}
-	.icon.i_tag {
+	.i_tag {
 		background-image: url("icons/tag.png");
 		background-image: url("icons/tag.svg");
 	}

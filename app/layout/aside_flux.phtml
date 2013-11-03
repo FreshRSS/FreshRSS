@@ -51,8 +51,9 @@
 		<?php if (!empty ($feeds)) { ?>
 		<li>
 			<?php $c_active = false; if ($this->get_c == $cat->id ()) { $c_active = true; } ?>
-			<div class="category<?php echo $c_active ? ' active' : ''; ?>">
+			<div class="category stick<?php echo $c_active ? ' active' : ''; ?>">
 				<a data-unread="<?php echo $cat->nbNotRead (); ?>" class="btn<?php echo $c_active ? ' active' : ''; ?>" href="<?php echo _url ('index', 'index', 'get', 'c_' . $cat->id ()); ?>"><?php echo $cat->name (); ?></a>
+				<a class="btn dropdown-toggle" href="#"><i class="icon <?php echo $c_active ? 'i_up' : 'i_down'; ?>"></i></a>
 			</div>
 
 			<ul class="feeds<?php echo $c_active ? ' active' : ''; ?>">

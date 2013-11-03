@@ -171,7 +171,7 @@ class Feed extends Model {
 	}
 	public function _nbNotRead ($value) {
 		$this->nbNotRead = is_numeric ($value) ? intval ($value) : -1;
-		}
+	}
 	public function _nbEntries ($value) {
 		$this->nbEntries = is_numeric ($value) ? intval ($value) : -1;
 	}

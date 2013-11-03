@@ -18,7 +18,6 @@ class indexController extends ActionController {
 
 			View::appendScript (Url::display ('/scripts/shortcut.js'));
 			View::appendScript (Url::display ('/scripts/main.js'));
-			View::appendScript (Url::display ('/scripts/endless_mode.js'));
 
 			if ($output == 'global') {
 				View::appendScript (Url::display ('/scripts/global_view.js'));

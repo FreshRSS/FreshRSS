@@ -150,9 +150,8 @@ class View {
 				$styles .= '<!--[if ' . $cond . ']>';
 			}
 
-			$styles .= '<link rel="stylesheet" type="text/css"';
-			$styles .= ' media="' . $style['media'] . '"';
-			$styles .= ' href="' . $style['url'] . '" />';
+			$styles .= '<link rel="stylesheet" media="' . $style['media']
+				. '" href="' . $style['url'] . '" />';
 
 			if ($cond) {
 				$styles .= '<![endif]-->';
@@ -190,9 +189,14 @@ class View {
 				$scripts .= '<!--[if ' . $cond . ']>';
 			}
 
-			$scripts .= '<script type="text/javascript"';
-			$scripts .= ' src="' . $script['url'] . '">';
-			$scripts .= '</script>';
+			$scripts .= '<script src="' . $script['url'] . '"';
+			if ($script['defer']) {
+				$scripts .= ' defer="defer"';
+			}
+			if ($script['async']) {
+				$scripts .= ' async="async"';
+			}
+			$scripts .= '></script>';
 
 			if ($cond) {
 				$scripts .= '<![endif]-->';
@@ -203,16 +207,20 @@ class View {
 
 		return $scripts;
 	}
-	public static function prependScript ($url, $cond = false) {
+	public static function prependScript ($url, $cond = false, $defer = true, $async = true) {
 		array_unshift(self::$scripts, array (
 			'url' => $url,
-			'cond' => $cond
+			'cond' => $cond,
+			'defer' => $defer,
+			'async' => $async,
 		));
 	}
-	public static function appendScript ($url, $cond = false) {
+	public static function appendScript ($url, $cond = false, $defer = true, $async = true) {
 		self::$scripts[] = array (
 			'url' => $url,
-			'cond' => $cond
+			'cond' => $cond,
+			'defer' => $defer,
+			'async' => $async,
 		);
 	}
 

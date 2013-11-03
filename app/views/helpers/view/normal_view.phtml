@@ -7,7 +7,7 @@ if (isset ($this->entryPaginator) && !$this->entryPaginator->isEmpty ()) {
 	$items = $this->entryPaginator->items ();
 ?>
 
-<div id="stream" class="normal">
+<div id="stream" class="normal<?php echo $this->conf->displayPosts () === 'no' ? ' hide_posts' : ''; ?>">
 	<?php
 		$display_today = true;
 		$display_yesterday = true;
@@ -77,7 +77,7 @@ if (isset ($this->entryPaginator) && !$this->entryPaginator->isEmpty ()) {
 							$link = urlencode ($item->link ());
 							$title = urlencode ($item->title () . ' - ' . $feed->name ());
 					?>
-					<div class="dropdown">
+						<div class="dropdown">
 						<div id="dropdown-share-<?php echo $item->id ();?>" class="dropdown-target"></div>
 						<i class="icon i_share"></i> <a class="dropdown-toggle" href="#dropdown-share-<?php echo $item->id ();?>"><?php echo Translate::t ('share'); ?></a>
 
@@ -85,8 +85,8 @@ if (isset ($this->entryPaginator) && !$this->entryPaginator->isEmpty ()) {
 							<li class="dropdown-close"><a href="#close">&nbsp;</a></li>
 
 							<?php
-							$shaarli = $this->conf->urlShaarli ();
-							if ((!login_is_conf ($this->conf) || is_logged ()) && $shaarli) {
+								$shaarli = $this->conf->urlShaarli ();
+								if ((!login_is_conf ($this->conf) || is_logged ()) && $shaarli) {
 							?>
 							<li class="item">
 								<a target="_blank" href="<?php echo $shaarli . '?post=' . $link . '&amp;title=' . $title . '&amp;source=bookmarklet'; ?>">
@@ -128,7 +128,6 @@ if (isset ($this->entryPaginator) && !$this->entryPaginator->isEmpty ()) {
 
 						<ul class="dropdown-menu">
 							<li class="dropdown-close"><a href="#close">&nbsp;</a></li>
-
 							<?php foreach($tags as $tag) { ?>
 							<li class="item"><a href="<?php echo _url ('index', 'index', 'search', urlencode ('#' . $tag)); ?>"><?php echo $tag; ?></a></li>
 							<?php } ?>

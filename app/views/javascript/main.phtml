@@ -1,13 +1,13 @@
 <?php
+	echo '"use strict";', "\n";
 	$mark = $this->conf->markWhen ();
 	echo 'var ',
-		'hide_posts=', $this->conf->displayPosts () === 'no' ? 'true,' : 'false,',
-		'hide_posts=', $this->conf->displayPosts () === 'no' ? 'true,' : 'false,',
-		'auto_mark_article=', $mark['article'] === 'yes' ? 'true,' : 'false,',
-		'auto_mark_site=', $mark['site'] === 'yes' ? 'true,' : 'false,',
-		'auto_mark_scroll=', $mark['scroll'] === 'yes' ? 'true,' : 'false,',
-		'auto_load_more=', $this->conf->autoLoadMore () === 'yes' ? 'true,' : 'false,',
-		'does_lazyload=', $this->conf->lazyload() === 'yes' ? 'true' : 'false', ";\n";
+		'hide_posts=', ($this->conf->displayPosts () === 'yes' || Request::param ('output') === 'reader') ? 'false' : 'true',
+		',auto_mark_article=', $mark['article'] === 'yes' ? 'true' : 'false',
+		',auto_mark_site=', $mark['site'] === 'yes' ? 'true' : 'false',
+		',auto_mark_scroll=', $mark['scroll'] === 'yes' ? 'true' : 'false',
+		',auto_load_more=', $this->conf->autoLoadMore () === 'yes' ? 'true' : 'false',
+		',does_lazyload=', $this->conf->lazyload() === 'yes' ? 'true' : 'false', ";\n";
 
 	$s = $this->conf->shortcuts ();
 	echo 'var shortcuts={',
