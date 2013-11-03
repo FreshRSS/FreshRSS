@@ -167,10 +167,10 @@
 		.feed:not([data-unread="0"]):before {
 			content: "(" attr(data-unread) ") ";
 		}
-		.categories .feeds .dropdown .dropdown-menu {
+		.categories .feeds .dropdown-menu {
 			left: 0;
 		}
-		.categories .feeds .dropdown .dropdown-menu:after {
+		.categories .feeds .dropdown-menu:after {
 			left: 2px;
 		}
 		.categories .feeds .item .dropdown-toggle i {
@@ -627,7 +627,7 @@
 .logs {
 	border: 1px solid #aaa;
 }
-	.logs .log {
+	.log {
 		padding: 5px 2%;
 		overflow: auto;
 		background: #fafafa;
@@ -635,18 +635,18 @@
 		color: #333;
 		font-size: 90%;
 	}
-		.logs .log .date {
+		.log .date {
 			display: block;
 		}
-	.logs .log.error {
+	.log.error {
 		background: #fdd;
 		color: #844;
 	}
-	.logs .log.warning {
+	.log.warning {
 		background: #ffe;
 		color: #c95;
 	}
-	.logs .log.notice {
+	.log.notice {
 		background: #f4f4f4;
 		color: #aaa;
 	}
@@ -806,7 +806,7 @@
 			background: -ms-linear-gradient(top, #D14641 0%, #BD362F 100%);
 		}
 
-.dropdown .dropdown-menu:after {
+.dropdown-menu:after {
 	-moz-transform: rotate(45deg);
 	-webkit-transform: rotate(45deg);
 	-ms-transform: rotate(45deg);

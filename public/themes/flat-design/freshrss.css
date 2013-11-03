@@ -64,10 +64,10 @@ body {
 		.aside.aside_feed .nav-form input {
 			width: 140px;
 		}
-		.aside.aside_feed .nav-form .dropdown .dropdown-menu {
+		.aside.aside_feed .nav-form .dropdown-menu {
 			right: -20px;
 		}
-		.aside.aside_feed .nav-form .dropdown .dropdown-menu:after {
+		.aside.aside_feed .nav-form .dropdown-menu:after {
 			right: 33px;
 		}
 
@@ -157,10 +157,10 @@ body {
 		.feed:not([data-unread="0"]):before {
 			content: "(" attr(data-unread) ") ";
 		}
-		.categories .feeds .dropdown .dropdown-menu {
+		.categories .feeds .dropdown-menu {
 			left: 0;
 		}
-		.categories .feeds .dropdown .dropdown-menu:after {
+		.categories .feeds .dropdown-menu:after {
 			left: 2px;
 		}
 		.categories .feeds .item .dropdown-toggle i {
@@ -632,7 +632,7 @@ body {
 .logs {
 	border: 1px solid #34495e;
 }
-	.logs .log {
+	.log {
 		margin: 10px 0;
 		padding: 5px 2%;
 		overflow: auto;
@@ -640,19 +640,19 @@ body {
 		color: #666;
 		font-size: 90%;
 	}
-		.logs .log .date {
+		.log .date {
 			margin: 0 10px 0 0;
 			padding: 5px 10px;
 			border-radius: 20px;
 		}
-			.logs .log.error .date {
+			.log.error .date {
 				background: #e74c3c;
 				color: #fff;
 			}
-			.logs .log.warning .date {
+			.log.warning .date {
 				background: #f39c12;
 			}
-			.logs .log.notice .date {
+			.log.notice .date {
 				background: #ecf0f1;
 			}
 
@@ -772,7 +772,7 @@ body {
 }
 
 /*** FALLBACK ***/
-.dropdown .dropdown-menu:after {
+.dropdown-menu:after {
 	-moz-transform: rotate(45deg);
 	-webkit-transform: rotate(45deg);
 	-ms-transform: rotate(45deg);
