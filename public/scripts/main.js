@@ -503,17 +503,39 @@ function init_load_more() {
 }
 //</endless_mode>
 
-if (document.addEventListener) {	//jQuery not ready yet
+function init_all() {
+	if (!(window.$ && window.shortcut && ((!full_lazyload) || $.fn.lazyload))) {
+		if (window.console) {
+			console.log('Waiting for JS…');
+		}
+		window.setTimeout(init_all, 50);	//Wait for all js to be loaded
+		return;
+	}
+	$stream = $('#stream');
+	init_posts();
+	init_column_categories();
+	init_shortcuts();
+	init_stream_delegates($stream);
+	init_nav_entries();
+	init_templates();
+	init_notifications();
+	init_actualize();
+	init_load_more();
+	if (window.console) {
+		console.log('Init done.');
+	}
+}
+
+if (document.readyState && document.readyState !== 'loading') {
+	if (window.console) {
+		console.log('Immediate init…');
+	}
+	init_all();
+} else if (document.addEventListener) {
 	document.addEventListener('DOMContentLoaded', function () {
-		$stream = $('#stream');
-		init_posts();
-		init_column_categories();
-		init_shortcuts();
-		init_stream_delegates($stream);
-		init_nav_entries();
-		init_templates();
-		init_notifications();
-		init_actualize();
-		init_load_more();
+		if (window.console) {
+			console.log('Waiting for DOMContentLoaded…');
+		}
+		init_all();
 	}, false);
 }

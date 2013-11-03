@@ -52,9 +52,12 @@ function init_global_view() {
 	init_stream_delegates($("#panel"));
 }
 
-if (document.addEventListener) {
-	document.addEventListener('DOMContentLoaded', function () {
+if (document.readyState && document.readyState !== 'loading') {
 	init_global_view();
 	init_close_panel();
+} else if (document.addEventListener) {
+	document.addEventListener('DOMContentLoaded', function () {
+		init_global_view();
+		init_close_panel();
 	}, false);
 }
