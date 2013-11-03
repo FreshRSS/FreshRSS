@@ -28,6 +28,16 @@ define ('CACHE_PATH', realpath (PUBLIC_PATH . '/../cache'));
 if (file_exists (PUBLIC_PATH . '/install.php')) {
 	include ('install.php');
 } else {
+	session_cache_limiter('');
+	require (LIB_PATH . '/http-conditional.php');
+	$dateLastModification = max(filemtime(filemtime(PUBLIC_PATH . '/data/touch.txt'),
+		PUBLIC_PATH . '/data/Configuration.array.php'),
+		filemtime(LOG_PATH . '/application.log'),
+		time() - 3600);
+	if (httpConditional($dateLastModification, 0, 0, false, false, true)) {
+		exit();	//No need to send anything
+	}
+
 	set_include_path (get_include_path ()
 		         . PATH_SEPARATOR
 		         . LIB_PATH

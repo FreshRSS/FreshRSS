@@ -490,6 +490,11 @@ function init_load_more() {
 	}
 
 	url_load_more = $next_link.attr("href");
+	var $prefetch = $('#prefetch');
+	if ($prefetch.attr('href') !== url_load_more) {
+		$.ajax({url: url_load_more, ifModified: true });	//TODO: Try to find a less agressive solution
+		$prefetch.attr('href', url_load_more);
+	}
 
 	$next_link.click(function () {
 		load_more_posts();

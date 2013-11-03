@@ -19,6 +19,10 @@ class RSSPaginator {
 		return $this->items;
 	}
 
+	public function next () {
+		return $this->next;
+	}
+
 	public function render ($view, $getteur) {
 		$view = APP_PATH . '/views/helpers/'.$view;
 

@@ -12,7 +12,14 @@
 		<script>//<![CDATA[
 <?php $this->renderHelper ('../javascript/main'); ?>
 		//]]></script>
-		<?php echo self::headScript (); ?>
+<?php
+	$next = isset($this->entryPaginator) ? $this->entryPaginator->next() : '';
+	if (!empty($next)) {
+		$params = Request::params ();
+		$params['next'] = $next;
+?>
+		<link id="prefetch" rel="next prefetch" href="<?php echo Url::display (array ('c' => Request::controllerName (), 'a' => Request::actionName (), 'params' => $params)); ?>" />
+<?php } ?>
 	</head>
 	<body>
 <?php $this->partial ('header'); ?>

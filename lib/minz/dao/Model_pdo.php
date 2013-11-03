@@ -54,7 +54,7 @@ class Model_pdo {
 				        . '/data/' . $db['base'] . '.sqlite';	//TODO: DEBUG UTF-8 http://www.siteduzero.com/forum/sujet/sqlite-connexion-utf-8-18797
 			}
 
-			$this->bd = new PDO (
+			$this->bd = new FreshPDO (
 				$string,
 				$db['user'],
 				$db['password'],
@@ -70,5 +70,23 @@ class Model_pdo {
 				$db['user'], MinzException::WARNING
 			);
 		}
+	}
+}
+
+class FreshPDO extends PDO {
+	private static function check($statement) {
+		if (preg_match('/^(?:UPDATE|INSERT|DELETE)/i', $statement)) {
+			touch(PUBLIC_PATH . '/data/touch.txt');
+		}
+	}
+
+	public function prepare ($statement, $driver_options = array()) {
+		FreshPDO::check($statement);
+		return parent::prepare($statement, $driver_options);
+	}
+
+	public function exec ($statement) {
+		FreshPDO::check($statement);
+		return parent::exec($statement);
 	}
 }
