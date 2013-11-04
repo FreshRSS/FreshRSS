@@ -198,6 +198,10 @@ class Feed extends Model {
 					'input', 'marquee', 'meta', 'noscript',
 					'param', 'script', 'style'
 				));
+				$feed->strip_attributes(array_merge($feed->strip_attributes, array(
+					'onload', 'onunload', 'onclick', 'ondblclick', 'onmousedown', 'onmouseup',
+					'onmouseover', 'onmousemove', 'onmouseout', 'onfocus', 'onblur',
+					'onkeypress', 'onkeydown', 'onkeyup', 'onselect', 'onchange')));
 				$feed->init ();
 
 				if ($feed->error ()) {
