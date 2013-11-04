@@ -227,12 +227,12 @@ body {
 		border-top: 1px solid #ecf0f1;
 	}
 		.item.manage {
-			width: 80px;
+			width: 40px;
 			white-space: nowrap;
 			font-size: 0px;
 			text-align: center;
 		}
-			.item.manage .read {
+			.read {
 				display: inline-block;
 				width: 40px;
 				height: 40px;
@@ -240,14 +240,14 @@ body {
 				background: url("icons/read.svg") center center no-repeat;
 				vertical-align: middle;
 			}
-				.item.manage .read:hover {
+				.read:hover {
 					text-decoration: none;
 				}
-				.flux.not_read .item.manage .read {
+				.flux.not_read .read {
 					background: url("icons/unread.png") center center no-repeat;
 					background: url("icons/unread.svg") center center no-repeat;
 				}
-			.item.manage .bookmark {
+			.bookmark {
 				display: inline-block;
 				width: 40px;
 				height: 40px;
@@ -255,10 +255,10 @@ body {
 				background: url("icons/non-starred.svg") center center no-repeat;
 				vertical-align: middle;
 			}
-				.item.manage .bookmark:hover {
+				.bookmark:hover {
 					text-decoration: none;
 				}
-				.flux.favorite .item.manage .bookmark {
+				.flux.favorite .bookmark {
 					background: url("icons/starred.png") center center no-repeat;
 					background: url("icons/starred.svg") center center no-repeat;
 				}
@@ -295,6 +295,7 @@ body {
 		.item.date {
 			width: 200px;
 			overflow: hidden;
+			padding:0 5px 0 0;
 			white-space: nowrap;
 			text-overflow: ellipsis;
 			text-align: right;
@@ -641,6 +642,17 @@ body {
 			.logs .log.notice .date {
 				background: #ecf0f1;
 			}
+
+.form-group table {
+	border-collapse:collapse;
+	margin:10px 0 0 220px;
+	text-align:center;
+}
+
+.form-group tr, .form-group th, .form-group td {
+	font-weight:normal;
+	padding:.5em;
+}
 
 @media(max-width: 840px) {
 	.header,

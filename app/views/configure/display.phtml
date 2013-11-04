@@ -156,6 +156,42 @@
 			</div>
 		</div>
 
+		<legend><?php echo Translate::t ('reading_icons'); ?></legend>
+		<div class="form-group">
+			<table>
+				<thead>
+					<tr>
+						<th>&nbsp;</th>
+						<th><a class="read" title="<?php echo Translate::t ('mark_read'); ?>">&nbsp;</span></th>
+						<th><a class="bookmark" title="<?php echo Translate::t ('mark_favorite'); ?>">&nbsp;</span></th>
+						<th><?php echo Translate::t ('sharing'); ?></th>
+						<th><?php echo Translate::t ('related_tags'); ?></th>
+						<th><?php echo Translate::t ('publication_date'); ?></th>
+						<th class="item link"><a>&nbsp;</a></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<th><?php echo Translate::t ('top_line'); ?></th>
+						<td><input type="checkbox" name="topline_read" value="yes"<?php echo $this->conf->toplineRead () ? ' checked="checked"' : ''; ?> /></td>
+						<td><input type="checkbox" name="topline_favorite" value="yes"<?php echo $this->conf->toplineFavorite () ? ' checked="checked"' : ''; ?> /></td>
+						<td><input type="checkbox" disabled="disabled" /></td>
+						<td><input type="checkbox" disabled="disabled" /></td>
+						<td><input type="checkbox" name="topline_date" value="yes"<?php echo $this->conf->toplineDate () ? ' checked="checked"' : ''; ?> /></td>
+						<td><input type="checkbox" name="topline_link" value="yes"<?php echo $this->conf->toplineLink () ? ' checked="checked"' : ''; ?> /></td>
+					</tr><tr>
+						<th><?php echo Translate::t ('bottom_line'); ?></th>
+						<td><input type="checkbox" name="bottomline_read" value="yes"<?php echo $this->conf->bottomlineRead () ? ' checked="checked"' : ''; ?> /></td>
+						<td><input type="checkbox" name="bottomline_favorite" value="yes"<?php echo $this->conf->bottomlineFavorite () ? ' checked="checked"' : ''; ?> /></td>
+						<td><input type="checkbox" name="bottomline_sharing" value="yes"<?php echo $this->conf->bottomlineSharing () ? ' checked="checked"' : ''; ?> /></td>
+						<td><input type="checkbox" name="bottomline_tags" value="yes"<?php echo $this->conf->bottomlineTags () ? ' checked="checked"' : ''; ?> /></td>
+						<td><input type="checkbox" name="bottomline_date" value="yes"<?php echo $this->conf->bottomlineDate () ? ' checked="checked"' : ''; ?> /></td>
+						<td><input type="checkbox" name="bottomline_link" value="yes"<?php echo $this->conf->bottomlineLink () ? ' checked="checked"' : ''; ?> /></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+
 		<legend><?php echo Translate::t ('sharing'); ?></legend>
 		<div class="form-group">
 			<label class="group-name" for="shaarli"><?php echo Translate::t ('your_shaarli'); ?></label>
