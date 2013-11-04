@@ -412,9 +412,12 @@ class EntryDAO extends Model_pdo {
 		     . ' INNER JOIN  ' . $this->prefix . 'feed f ON e.id_feed = f.id' . $where
 		     . ' ORDER BY e.date' . $order . ', e.id' . $order;
 
-		if (!empty($limitCount)) {
-			$sql .= ' LIMIT ' . ($limitCount + 2);	//TODO: See http://explainextended.com/2009/10/23/mysql-order-by-limit-performance-late-row-lookups/
+		if (empty($limitCount)) {
+			$limitCount = 20000;	//TODO: FIXME: Hack temporaire en attendant la recherche côté base-de-données
 		}
+		//if (!empty($limitCount)) {
+			$sql .= ' LIMIT ' . ($limitCount + 2);	//TODO: See http://explainextended.com/2009/10/23/mysql-order-by-limit-performance-late-row-lookups/
+		//}
 
 		$stm = $this->bd->prepare ($sql);
 		$stm->execute ($values);
