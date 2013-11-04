@@ -10,7 +10,7 @@ class RSSConfiguration extends Model {
 	private $view_mode;
 	private $default_view;
 	private $display_posts;
-	private $onread_jump_next; 
+	private $onread_jump_next;
 	private $lazyload;
 	private $sort_order;
 	private $old_entries;
@@ -32,7 +32,7 @@ class RSSConfiguration extends Model {
 	private $bottomline_tags;
 	private $bottomline_date;
 	private $bottomline_link;
-	
+
 	public function __construct () {
 		$confDAO = new RSSConfigurationDAO ();
 		$this->_language ($confDAO->language);
@@ -40,7 +40,7 @@ class RSSConfiguration extends Model {
 		$this->_viewMode ($confDAO->view_mode);
 		$this->_defaultView ($confDAO->default_view);
 		$this->_displayPosts ($confDAO->display_posts);
-		$this->_onread_jump_next ($confDAO->onread_jump_next); 
+		$this->_onread_jump_next ($confDAO->onread_jump_next);
 		$this->_lazyload ($confDAO->lazyload);
 		$this->_sortOrder ($confDAO->sort_order);
 		$this->_oldEntries ($confDAO->old_entries);
@@ -63,7 +63,7 @@ class RSSConfiguration extends Model {
 		$this->_bottomline_date ($confDAO->bottomline_date);
 		$this->_bottomline_link ($confDAO->bottomline_link);
 	}
-	
+
 	public function availableLanguages () {
 		return $this->available_languages;
 	}
@@ -431,12 +431,12 @@ class RSSConfigurationDAO extends Model_array {
 			$this->bottomline_link = $this->array['bottomline_link'];
 		}
 	}
-	
+
 	public function update ($values) {
 		foreach ($values as $key => $value) {
 			$this->array[$key] = $value;
 		}
-	
+
 		$this->writeFile($this->array);
 	}
 }

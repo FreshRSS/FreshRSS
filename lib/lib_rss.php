@@ -43,17 +43,17 @@ function get_domain ($url) {
 
 function opml_export ($cats) {
 	$txt = '';
-	
+
 	foreach ($cats as $cat) {
 		$txt .= '<outline text="' . $cat['name'] . '">' . "\n";
-		
+
 		foreach ($cat['feeds'] as $feed) {
 			$txt .= "\t" . '<outline text="' . cleanText ($feed->name ()) . '" type="rss" xmlUrl="' . htmlentities ($feed->url (), ENT_COMPAT, 'UTF-8') . '" htmlUrl="' . htmlentities ($feed->website (), ENT_COMPAT, 'UTF-8') . '" />' . "\n";
 		}
-		
+
 		$txt .= '</outline>' . "\n";
 	}
-	
+
 	return $txt;
 }
 
@@ -79,13 +79,13 @@ function opml_import ($xml) {
 		if (!isset ($outline['xmlUrl'])) {
 			// Catégorie
 			$title = '';
-			
+
 			if (isset ($outline['text'])) {
 				$title = (string) $outline['text'];
 			} elseif (isset ($outline['title'])) {
 				$title = (string) $outline['title'];
 			}
-			
+
 			if ($title) {
 				// Permet d'éviter les soucis au niveau des id :
 				// ceux-ci sont générés en fonction de la date,
@@ -99,7 +99,7 @@ function opml_import ($xml) {
 					$cat = new Category ($title);
 				}
 				$categories[] = $cat;
-				
+
 				$feeds = array_merge ($feeds, getFeedsOutline ($outline, $cat->id ()));
 			}
 		} else {
@@ -116,7 +116,7 @@ function opml_import ($xml) {
  */
 function getFeedsOutline ($outline, $cat_id) {
 	$feeds = array ();
-	
+
 	foreach ($outline->children () as $child) {
 		if (isset ($child['xmlUrl'])) {
 			$feeds[] = getFeed ($child, $cat_id);
@@ -127,7 +127,7 @@ function getFeedsOutline ($outline, $cat_id) {
 			);
 		}
 	}
-	
+
 	return $feeds;
 }
 
@@ -149,7 +149,7 @@ function getFeed ($outline, $cat_id) {
 /* permet de récupérer le contenu d'un article pour un flux qui n'est pas complet */
 function get_content_by_parsing ($url, $path) {
 	$html = file_get_contents ($url);
-	
+
 	if ($html) {
 		$doc = phpQuery::newDocument ($html);
 		$content = $doc->find ($path);

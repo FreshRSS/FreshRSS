@@ -280,7 +280,7 @@ class DOMDocumentWrapper {
 		// @see http://www.w3.org/International/O-HTTP-charset
 		if (! $documentCharset) {
 			$documentCharset = 'ISO-8859-1';
-			$addDocumentCharset = true;	
+			$addDocumentCharset = true;
 		}
 		// Should be careful here, still need 'magic encoding detection' since lots of pages have other 'default encoding'
 		// Worse, some pages can have mixed encodings... we'll try not to worry about that
@@ -567,7 +567,7 @@ class DOMDocumentWrapper {
 //					if ($fake === false)
 //						throw new Exception("Error loading documentFragment markup");
 //					else
-//						$return = array_merge($return, 
+//						$return = array_merge($return,
 //							$this->import($fake->root->childNodes)
 //						);
 //				} else {
@@ -969,24 +969,24 @@ interface ICallbackNamed {
 }
 /**
  * Callback class introduces currying-like pattern.
- * 
+ *
  * Example:
  * function foo($param1, $param2, $param3) {
  *   var_dump($param1, $param2, $param3);
  * }
- * $fooCurried = new Callback('foo', 
- *   'param1 is now statically set', 
+ * $fooCurried = new Callback('foo',
+ *   'param1 is now statically set',
  *   new CallbackParam, new CallbackParam
  * );
  * phpQuery::callbackRun($fooCurried,
  * 	array('param2 value', 'param3 value'
  * );
- * 
- * Callback class is supported in all phpQuery methods which accepts callbacks. 
+ *
+ * Callback class is supported in all phpQuery methods which accepts callbacks.
  *
  * @link http://code.google.com/p/phpquery/wiki/Callbacks#Param_Structures
  * @author Tobiasz Cudnik <tobiasz.cudnik/gmail.com>
- * 
+ *
  * @TODO??? return fake forwarding function created via create_function
  * @TODO honor paramStructure
  */
@@ -995,7 +995,7 @@ class Callback
 	public $callback = null;
 	public $params = null;
 	protected $name;
-	public function __construct($callback, $param1 = null, $param2 = null, 
+	public function __construct($callback, $param1 = null, $param2 = null,
 			$param3 = null) {
 		$params = func_get_args();
 		$params = array_slice($params, 1);
@@ -1024,11 +1024,11 @@ class Callback
 }
 /**
  * Shorthand for new Callback(create_function(...), ...);
- * 
+ *
  * @author Tobiasz Cudnik <tobiasz.cudnik/gmail.com>
  */
 class CallbackBody extends Callback {
-	public function __construct($paramList, $code, $param1 = null, $param2 = null, 
+	public function __construct($paramList, $code, $param1 = null, $param2 = null,
 			$param3 = null) {
 		$params = func_get_args();
 		$params = array_slice($params, 2);
@@ -1038,7 +1038,7 @@ class CallbackBody extends Callback {
 }
 /**
  * Callback type which on execution returns reference passed during creation.
- * 
+ *
  * @author Tobiasz Cudnik <tobiasz.cudnik/gmail.com>
  */
 class CallbackReturnReference extends Callback
@@ -1060,7 +1060,7 @@ class CallbackReturnReference extends Callback
 }
 /**
  * Callback type which on execution returns value passed during creation.
- * 
+ *
  * @author Tobiasz Cudnik <tobiasz.cudnik/gmail.com>
  */
 class CallbackReturnValue extends Callback
@@ -1087,7 +1087,7 @@ class CallbackReturnValue extends Callback
 }
 /**
  * CallbackParameterToReference can be used when we don't really want a callback,
- * only parameter passed to it. CallbackParameterToReference takes first 
+ * only parameter passed to it. CallbackParameterToReference takes first
  * parameter's value and passes it to reference.
  *
  * @author Tobiasz Cudnik <tobiasz.cudnik/gmail.com>
@@ -1095,7 +1095,7 @@ class CallbackReturnValue extends Callback
 class CallbackParameterToReference extends Callback {
 	/**
 	 * @param $reference
-	 * @TODO implement $paramIndex; 
+	 * @TODO implement $paramIndex;
 	 * param index choose which callback param will be passed to reference
 	 */
 	public function __construct(&$reference){
@@ -2994,7 +2994,7 @@ class phpQueryObject
 	}
 	/**
 	 * Enter description here...
-	 * 
+	 *
 	 * @param $code
 	 * @return unknown_type
 	 */
@@ -3005,7 +3005,7 @@ class phpQueryObject
 	}
 	/**
 	 * Enter description here...
-	 * 
+	 *
 	 * @param $code
 	 * @return unknown_type
 	 */
@@ -4034,7 +4034,7 @@ class phpQueryObject
 	}
 	/**
 	 * Enter description here...
-	 * 
+	 *
 	 * @param <type> $key
 	 * @param <type> $value
 	 */
@@ -4051,7 +4051,7 @@ class phpQueryObject
 	}
 	/**
 	 * Enter description here...
-	 * 
+	 *
 	 * @param <type> $key
 	 */
 	public function removeData($key) {
@@ -4392,8 +4392,8 @@ if (!function_exists('mb_substr_count'))
  */
 abstract class phpQuery {
 	/**
-	 * XXX: Workaround for mbstring problems 
-	 * 
+	 * XXX: Workaround for mbstring problems
+	 *
 	 * @var bool
 	 */
 	public static $mbstringSupport = true;

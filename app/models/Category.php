@@ -37,7 +37,7 @@ class Category extends Model {
 	}
 	public function nbFeed () {
 		if ($this->nbFeed < 0) {
-		$catDAO = new CategoryDAO ();
+			$catDAO = new CategoryDAO ();
 			$this->nbFeed = $catDAO->countFeed ($this->id ());
 		}
 
@@ -45,7 +45,7 @@ class Category extends Model {
 	}
 	public function nbNotRead () {
 		if ($this->nbNotRead < 0) {
-		$catDAO = new CategoryDAO ();
+			$catDAO = new CategoryDAO ();
 			$this->nbNotRead = $catDAO->countNotRead ($this->id ());
 		}
 
@@ -181,7 +181,7 @@ class CategoryDAO extends Model_pdo {
 			     . 'COUNT(CASE WHEN e.is_read = 0 THEN 1 END) AS nbNotRead, '
 			     . 'COUNT(e.id) AS nbEntries, '
 			     . 'f.* '
-			     . 'FROM  ' . $this->prefix . 'category c '
+			     . 'FROM ' . $this->prefix . 'category c '
 			     . 'LEFT OUTER JOIN ' . $this->prefix . 'feed f ON f.category = c.id '
 			     . 'LEFT OUTER JOIN ' . $this->prefix . 'entry e ON e.id_feed = f.id '
 			     . 'GROUP BY f.id '
@@ -290,7 +290,7 @@ class HelperCategory {
 				$cat->_id ($previousLine['c_id']);
 				$list[] = $cat;
 
-				$feedsDao = array();  //Prepare for next category
+				$feedsDao = array();	//Prepare for next category
 			}
 
 			$previousLine = $line;

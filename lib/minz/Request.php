@@ -1,5 +1,5 @@
 <?php
-/** 
+/**
  * MINZ - Copyright 2011 Marien Fressinaud
  * Sous licence AGPL3 <http://www.gnu.org/licenses/>
 */
@@ -11,12 +11,12 @@ class Request {
 	private static $controller_name = '';
 	private static $action_name = '';
 	private static $params = array ();
-	
+
 	private static $default_controller_name = 'index';
 	private static $default_action_name = 'index';
-	
+
 	public static $reseted = true;
-	
+
 	/**
 	 * Getteurs
 	 */
@@ -49,7 +49,7 @@ class Request {
 	public static function defaultActionName () {
 		return self::$default_action_name;
 	}
-	
+
 	/**
 	 * Setteurs
 	 */
@@ -63,7 +63,7 @@ class Request {
 		if (!is_array($params)) {
 			$params = array ($params);
 		}
-		
+
 		self::$params = $params;
 	}
 	public static function _param ($key, $value = false) {
@@ -73,21 +73,21 @@ class Request {
 			self::$params[$key] = $value;
 		}
 	}
-	
+
 	/**
 	 * Initialise la Request
 	 */
 	public static function init () {
 		self::magicQuotesOff ();
 	}
-	
+
 	/**
 	 * Retourn le nom de domaine du site
 	 */
 	public static function getDomainName () {
 		return $_SERVER['HTTP_HOST'];
 	}
-	
+
 	/**
 	 * Détermine la base de l'url
 	 * @return la base de l'url
@@ -95,7 +95,7 @@ class Request {
 	public static function getBaseUrl () {
 		return Configuration::baseUrl ();
 	}
-	
+
 	/**
 	 * Récupère l'URI de la requête
 	 * @return l'URI
@@ -104,16 +104,16 @@ class Request {
 		if (isset ($_SERVER['REQUEST_URI'])) {
 			$base_url = self::getBaseUrl ();
 			$uri = $_SERVER['REQUEST_URI'];
-			
+
 			$len_base_url = strlen ($base_url);
-			$real_uri = substr ($uri, $len_base_url); 
+			$real_uri = substr ($uri, $len_base_url);
 		} else {
 			$real_uri = '';
 		}
-		
+
 		return $real_uri;
 	}
-	
+
 	/**
 	 * Relance une requête
 	 * @param $url l'url vers laquelle est relancée la requête
@@ -122,13 +122,13 @@ class Request {
 	 */
 	public static function forward ($url = array (), $redirect = false) {
 		$url = Url::checkUrl ($url);
-		
+
 		if ($redirect) {
 			header ('Location: ' . Url::display ($url, 'php'));
 			exit ();
 		} else {
 			self::$reseted = true;
-		
+
 			self::_controllerName ($url['c']);
 			self::_actionName ($url['a']);
 			self::_params (array_merge (
@@ -137,7 +137,7 @@ class Request {
 			));
 		}
 	}
-	
+
 	/**
 	 * Permet de récupérer une variable de type $_GET
 	 * @param $param nom de la variable
@@ -155,7 +155,7 @@ class Request {
 			return $default;
 		}
 	}
-	
+
 	/**
 	 * Permet de récupérer une variable de type $_POST
 	 * @param $param nom de la variable
@@ -173,7 +173,7 @@ class Request {
 			return $default;
 		}
 	}
-	
+
 	/**
 	 * Méthode désactivant les magic_quotes pour les variables
 	 *   $_GET
@@ -187,7 +187,7 @@ class Request {
 			$_COOKIE = Helper::stripslashes_r ($_COOKIE);
 		}
 	}
-	
+
 	public static function isPost () {
 		return !empty ($_POST) || !empty ($_FILES);
 	}

@@ -18,9 +18,9 @@ class Url {
 	 */
 	public static function display ($url = array (), $encodage = 'html', $absolute = false) {
 		$url = self::checkUrl ($url);
-		
+
 		$url_string = '';
-		
+
 		if ($absolute) {
 			if (is_array ($url) && isset ($url['protocol'])) {
 				$protocol = $url['protocol'];
@@ -34,10 +34,10 @@ class Url {
 		else {
 			$url_string = '.';
 		}
-		
+
 		if (is_array ($url)) {
 			$router = new Router ();
-			
+
 			if (Configuration::useUrlRewriting ()) {
 				$url_string .= $router->printUriRewrited ($url);
 			} else {
@@ -46,7 +46,7 @@ class Url {
 		} else {
 			$url_string .= $url;
 		}
-		
+
 		return $url_string;
 	}
 	

@@ -72,7 +72,7 @@ function splitUri($matches) {
 	$uri = $matches[1].':'.$matches[2].$matches[3];
 	$t = parse_url($uri);
 	$link = $matches[3];
-				
+
 	if (!empty($t['scheme'])) {
 		return ' <a href="'.$uri.'">'.$link.'</a>';
 	} else {
