@@ -492,6 +492,7 @@ function init_load_more() {
 	url_load_more = $next_link.attr("href");
 	var $prefetch = $('#prefetch');
 	if ($prefetch.attr('href') !== url_load_more) {
+		$prefetch.attr('rel', 'next');	//Remove prefetch
 		$.ajax({url: url_load_more, ifModified: true });	//TODO: Try to find a less agressive solution
 		$prefetch.attr('href', url_load_more);
 	}
@@ -504,7 +505,7 @@ function init_load_more() {
 //</endless_mode>
 
 function init_all() {
-	if (!(window.$ && window.shortcut && ((!full_lazyload) || $.fn.lazyload))) {
+	if (!(window.$ && window.shortcut && window.shortcuts && ((!full_lazyload) || $.fn.lazyload))) {
 		if (window.console) {
 			console.log('Waiting for JS…');
 		}

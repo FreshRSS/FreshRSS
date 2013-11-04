@@ -151,7 +151,7 @@ function httpConditional($UnixTimeStamp,$cacheSeconds=0,$cachePrivacy=0,$feedMod
 		if ($cacheSeconds<0)
 		{
 			$cache='private, no-cache, no-store, must-revalidate';
-			header('Expires: 0');
+			//header('Expires: 0');
 			header('Pragma: no-cache');
 		}
 		else
@@ -159,7 +159,7 @@ function httpConditional($UnixTimeStamp,$cacheSeconds=0,$cachePrivacy=0,$feedMod
 			if ($cacheSeconds===0)
 			{
 				$cache='private, must-revalidate, ';
-				header('Expires: 0');
+				//header('Expires: 0');
 			}
 			elseif ($cachePrivacy===0) $cache='private, ';
 			elseif ($cachePrivacy===2) $cache='public, ';

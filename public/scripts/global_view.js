@@ -52,12 +52,19 @@ function init_global_view() {
 	init_stream_delegates($("#panel"));
 }
 
-if (document.readyState && document.readyState !== 'loading') {
+function init_all_global_view() {
+	if (!(window.$ && window.init_stream_delegates)) {
+		window.setTimeout(init_all_global_view, 50);	//Wait for all js to be loaded
+		return;
+	}
 	init_global_view();
 	init_close_panel();
+}
+
+if (document.readyState && document.readyState !== 'loading') {
+	init_all_global_view();
 } else if (document.addEventListener) {
 	document.addEventListener('DOMContentLoaded', function () {
-		init_global_view();
-		init_close_panel();
+		init_all_global_view();
 	}, false);
 }
