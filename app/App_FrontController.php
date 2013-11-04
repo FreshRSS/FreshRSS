@@ -62,7 +62,7 @@ class App_FrontController extends FrontController {
 			View::appendScript ('https://login.persona.org/include.js');
 		}
 		View::appendScript (Url::display ('/scripts/jquery.min.js'));
-		if ($this->conf->lazyload () === 'yes') {
+		if ($this->conf->lazyload () === 'yes' && ($this->conf->displayPosts () === 'yes' || Request::param ('output') === 'reader')) {
 			View::appendScript (Url::display ('/scripts/jquery.lazyload.min.js'));
 		}
 	}
