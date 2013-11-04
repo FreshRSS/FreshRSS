@@ -21,9 +21,12 @@ Privilégiez pour cela des demandes sur GitHub
 # Pré-requis
 * Serveur Apache ou Nginx (non testé sur les autres)
 * PHP 5.3 (il me faudrait des retours sur d'autres versions antérieures)
-* libxml pour PHP
-* cURL
-* PDO et MySQL
+ * libxml pour PHP
+ * cURL
+ * PDO et MySQL
+* MySQL (SQLite à venir)
+* Un navigateur Web récent tel Firefox, Chrome, Opera, Safari, Internet Explorer 9+
+ * Fonctionne aussi sur mobile
 
 ![Capture d'écran de FreshRSS](http://marienfressinaud.fr/data/images/freshrss/freshrss_default-design.png)
 
@@ -40,5 +43,5 @@ Privilégiez pour cela des demandes sur GitHub
 4. Le fichier `./public/index.php` défini les chemins d'accès aux répertoires clés de l'application. Si vous les bougez, tout se passe ici.
 5. Vous pouvez ajouter une tâche CRON sur le script d'actualisation des flux. Il s'agit d'un script PHP à exécuter avec la commande `php`. Par exemple, pour exécuter le script toutes les heures :
 ```
-0 * * * * php /chemin/vers/freshrss/actualize_script.php >/dev/null 2>&1
+7 * * * * php /chemin/vers/freshrss/actualize_script.php >/dev/null 2>&1
 ```
