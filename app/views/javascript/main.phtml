@@ -7,10 +7,11 @@
 		',auto_mark_site=', $mark['site'] === 'yes' ? 'true' : 'false',
 		',auto_mark_scroll=', $mark['scroll'] === 'yes' ? 'true' : 'false',
 		',auto_load_more=', $this->conf->autoLoadMore () === 'yes' ? 'true' : 'false',
-		',does_lazyload=', $this->conf->lazyload() === 'yes' ? 'true' : 'false', ";\n";
+		',full_lazyload=', $this->conf->lazyload () === 'yes' && ($this->conf->displayPosts () === 'yes' || Request::param ('output') === 'reader') ? 'true' : 'false',
+		',does_lazyload=', $this->conf->lazyload() === 'yes' ? 'true' : 'false';
 
 	$s = $this->conf->shortcuts ();
-	echo 'var shortcuts={',
+	echo ',shortcuts={',
 			'mark_read:"', $s['mark_read'], '",',
 			'mark_favorite:"', $s['mark_favorite'], '",',
 			'go_website:"', $s['go_website'], '",',
