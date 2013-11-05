@@ -18,7 +18,7 @@
 			<?php foreach ($feeds as $feed) { ?>
 			<?php $not_read = $feed->nbNotRead (); ?>
 			<li class="item">
-				<img class="favicon" src="<?php echo $feed->favicon (); ?>" alt="" />
+				<img class="favicon" src="<?php echo $feed->favicon (); ?>" alt="✇" />
 
 				<a href="<?php echo _url ('index', 'index', 'get', 'f_' . $feed->id (), 'output', 'normal'); ?>">
 				<?php echo $not_read > 0 ? '<b>' : ''; ?>

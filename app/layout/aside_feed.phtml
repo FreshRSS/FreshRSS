@@ -47,7 +47,7 @@
 	<?php $nbEntries = $feed->nbEntries (); ?>
 	<li class="item<?php echo ($this->flux && $this->flux->id () == $feed->id ()) ? ' active' : ''; ?><?php echo $feed->inError () ? ' error' : ''; ?><?php echo $nbEntries == 0 ? ' empty' : ''; ?>">
 		<a href="<?php echo _url ('configure', 'feed', 'id', $feed->id ()); ?>">
-			<img class="favicon" src="<?php echo $feed->favicon (); ?>" alt="" />
+			<img class="favicon" src="<?php echo $feed->favicon (); ?>" alt="✇" />
 			<?php echo $feed->name (); ?>
 		</a>
 	</li>

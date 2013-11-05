@@ -257,7 +257,7 @@ class Feed extends Model {
 				$elinks[$elink] = '1';
 				$mime = strtolower($enclosure->get_type());
 				if (strpos($mime, 'image/') === 0) {
-					$content .= '<br /><img src="' . $elink . '" />';
+					$content .= '<br /><img src="' . $elink . '" alt="" />';
 				}
 			}
 

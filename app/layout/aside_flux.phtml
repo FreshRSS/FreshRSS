@@ -67,7 +67,7 @@
 						<a class="dropdown-toggle" data-fweb="<?php echo $feed->website (); ?>"><i class="icon i_configure"></i></a>
 <?php /* feed_config_template */ ?>
 					</div>
-					<img class="favicon" src="<?php echo $feed->favicon (); ?>" />
+					<img class="favicon" src="<?php echo $feed->favicon (); ?>" alt="✇" />
 					<a class="feed" data-unread="<?php echo $feed->nbNotRead (); ?>" data-priority="<?php echo $feed->priority (); ?>" href="<?php echo _url ('index', 'index', 'get', 'f_' . $feed_id); ?>"><?php echo $feed->name(); ?></a>
 				</li>
 				<?php } ?>

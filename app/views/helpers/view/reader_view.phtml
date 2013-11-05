@@ -16,7 +16,7 @@ if (isset ($this->entryPaginator) && !$this->entryPaginator->isEmpty ()) {
 					if (empty($feed)) $feed = $item->feed (true);
 				?>
 				<a href="<?php echo $item->link (); ?>">
-					<img class="favicon" src="<?php echo $feed->favicon (); ?>" alt="" /> <span><?php echo $feed->name (); ?></span>
+					<img class="favicon" src="<?php echo $feed->favicon (); ?>" alt="✇" /> <span><?php echo $feed->name (); ?></span>
 				</a>
 				<h1 class="title"><?php echo $item->title (); ?></h1>
 
