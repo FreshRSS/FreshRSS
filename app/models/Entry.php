@@ -439,6 +439,14 @@ class EntryDAO extends Model_pdo {
 	public function listByFeed ($feed, $state, $order = 'high_to_low', $limitFromId = '', $limitCount = '') {
 		return $this->listWhere (' WHERE id_feed = ?', $state, $order, $limitFromId, $limitCount, array ($feed));
 	}
+	
+	public function listLastIdsByFeed($id, $n) {
+		$sql = 'SELECT id FROM ' . $this->prefix . 'entry WHERE id_feed=? ORDER BY date DESC LIMIT ' . intval($n);
+		$stm = $this->bd->prepare ($sql);
+		$values = array ($id);
+		$stm->execute ($values);
+		return $stm->fetchAll (PDO::FETCH_COLUMN, 0);
+	}
 
 	public function countUnreadRead () {
 		$sql = 'SELECT is_read, COUNT(*) AS count FROM ' . $this->prefix . 'entry e INNER JOIN ' . $this->prefix . 'feed f ON e.id_feed = f.id WHERE priority > 0 GROUP BY is_read';
