@@ -17,8 +17,12 @@ class Feed extends Model {
 	private $error = false;
 	private $keep_history = false;
 
-	public function __construct ($url) {
-		$this->_url ($url);
+	public function __construct ($url, $validate=true) {
+		if ($validate) {
+			$this->_url ($url);
+		} else {
+			$this->url = $url;
+		}
 	}
 
 	public function id () {
@@ -110,11 +114,16 @@ class Feed extends Model {
 		$this->id = $value;
 	}
 	public function _url ($value) {
-		if (!is_null ($value) && !preg_match ('#^https?://#', $value)) {
+		if (empty ($value)) {
+			throw new BadUrlException ($value);
+		}
+		if (!preg_match ('#^https?://#', $value)) {
 			$value = 'http://' . $value;
 		}
 
-		if (!is_null ($value) && filter_var ($value, FILTER_VALIDATE_URL)) {
+		if (filter_var ($value, FILTER_VALIDATE_URL)) {
+			$this->url = $value;
+		} elseif (version_compare(PHP_VERSION, '5.3.3', '<') && (strpos($value, '-') > 0) && ($value === filter_var($value, FILTER_SANITIZE_URL))) {	//PHP bug #51192
 			$this->url = $value;
 		} else {
 			throw new BadUrlException ($value);
@@ -527,7 +536,7 @@ class HelperFeed {
 				$key = $dao['id'];
 			}
 
-			$list[$key] = new Feed ($dao['url']);
+			$list[$key] = new Feed ($dao['url'], false);
 			$list[$key]->_category ($dao['category']);
 			$list[$key]->_name ($dao['name']);
 			$list[$key]->_website ($dao['website']);

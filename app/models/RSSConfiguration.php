@@ -248,9 +248,12 @@ class RSSConfiguration extends Model {
 		$this->mark_when['scroll'] = $values['scroll'];
 	}
 	public function _urlShaarli ($value) {
-		$this->url_shaarli = '';
 		if (filter_var ($value, FILTER_VALIDATE_URL)) {
 			$this->url_shaarli = $value;
+		} elseif (version_compare(PHP_VERSION, '5.3.3', '<') && (strpos($value, '-') > 0) && ($value === filter_var($value, FILTER_SANITIZE_URL))) {	//PHP bug #51192
+			$this->url_shaarli = $value;
+		} else {
+			$this->url_shaarli = '';
 		}
 	}
 	public function _theme ($value) {
