@@ -63,12 +63,12 @@ class FrontController {
 	 */
 	private function loadLib () {
 		require ('ActionController.php');
-		require ('Cache.php');
+		require ('Minz_Cache.php');
 		require ('Configuration.php');
 		require ('Dispatcher.php');
 		require ('Error.php');
 		require ('Helper.php');
-		require ('Log.php');
+		require ('Minz_Log.php');
 		require ('Model.php');
 		require ('Paginator.php');
 		require ('Request.php');
