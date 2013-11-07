@@ -17,4 +17,13 @@
 			'go_website:"', $s['go_website'], '",',
 			'prev_entry:"', $s['prev_entry'], '",',
 			'next_entry:"', $s['next_entry'], '"',
-		"};\n";
+		"}";
+
+	$mail = Session::param ('mail', 'null');
+	if ($mail != 'null') {
+		$mail = '"' . $mail . '"';
+	}
+	echo ',url_freshrss="', _url ('index', 'index'), '",',
+		'url_login="', _url ('index', 'login'), '",',
+		'url_logout="', _url ('index', 'logout'), '",',
+		'current_user_mail=', $mail, ';';

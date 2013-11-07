@@ -504,6 +504,63 @@ function init_load_more() {
 }
 //</endless_mode>
 
+//<persona>
+function init_persona() {
+	$('a.signin').click(function() {
+		navigator.id.request();
+		return false;
+	});
+
+	$('a.signout').click(function() {
+		navigator.id.logout();
+		return false;
+	});
+
+	navigator.id.watch({
+		loggedInUser: current_user_mail,
+
+		onlogin: function(assertion) {
+			// A user has logged in! Here you need to:
+			// 1. Send the assertion to your backend for verification and to create a session.
+			// 2. Update your UI.
+			$.ajax ({
+				type: 'POST',
+				url: url_login,
+				data: {assertion: assertion},
+				success: function(res, status, xhr) {
+					var res_obj = jQuery.parseJSON(res);
+
+					if (res_obj.status == 'failure') {
+						//alert (res_obj.reason);
+					} else if (res_obj.status == 'okay') {
+						location.href = url_freshrss;
+					}
+				},
+				error: function(res, status, xhr) {
+					alert("login failure : " + res);
+				}
+			});
+		},
+		onlogout: function() {
+			// A user has logged out! Here you need to:
+			// Tear down the user's session by redirecting the user or making a call to your backend.
+			// Also, make sure loggedInUser will get set to null on the next page load.
+			// (That's a literal JavaScript null. Not false, 0, or undefined. null.)
+			$.ajax ({
+				type: 'POST',
+				url: url_logout,
+				success: function(res, status, xhr) {
+					location.href = url_freshrss;
+				},
+				error: function(res, status, xhr) {
+					//alert("logout failure" + res);
+				}
+			});
+		}
+	});
+}
+//</persona>
+
 function init_all() {
 	if (!(window.$ && window.shortcut && window.shortcuts && ((!full_lazyload) || $.fn.lazyload))) {
 		if (window.console) {
@@ -522,6 +579,7 @@ function init_all() {
 	init_notifications();
 	init_actualize();
 	init_load_more();
+	init_persona();
 	if (window.console) {
 		console.log('Init done.');
 	}

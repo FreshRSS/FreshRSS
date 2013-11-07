@@ -27,8 +27,6 @@
 	<?php $this->render (); ?>
 </div>
 
-<?php $this->partial ('persona'); ?>
-
 <?php if (isset ($this->notification)) { ?>
 <div class="notification <?php echo $this->notification['type']; ?>">
 	<?php echo $this->notification['content']; ?>

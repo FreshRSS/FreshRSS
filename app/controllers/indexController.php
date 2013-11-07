@@ -194,7 +194,7 @@ class indexController extends ActionController {
 		$url = 'https://verifier.login.persona.org/verify';
 		$assert = Request::param ('assertion');
 		$params = 'assertion=' . $assert . '&audience=' .
-			  urlencode (Url::display () . ':80');
+			  urlencode (Url::display (null, 'php', true));
 		$ch = curl_init ();
 		$options = array (
 			CURLOPT_URL => $url,
