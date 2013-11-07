@@ -17,7 +17,7 @@
 						<select name="category" id="category">
 						<?php foreach ($this->categories as $cat) { ?>
 						<option value="<?php echo $cat->id (); ?>"<?php echo $cat->id () == '000000' ? ' selected="selected"' : ''; ?>>
-							<?php echo $cat->name (); ?>
+							<?php echo htmlspecialchars($cat->name (), ENT_NOQUOTES, 'UTF-8'); ?>
 						</option>
 						<?php } ?>
 						</select>
@@ -48,7 +48,7 @@
 	<li class="item<?php echo ($this->flux && $this->flux->id () == $feed->id ()) ? ' active' : ''; ?><?php echo $feed->inError () ? ' error' : ''; ?><?php echo $nbEntries == 0 ? ' empty' : ''; ?>">
 		<a href="<?php echo _url ('configure', 'feed', 'id', $feed->id ()); ?>">
 			<img class="favicon" src="<?php echo $feed->favicon (); ?>" alt="✇" />
-			<?php echo $feed->name (); ?>
+			<?php echo htmlspecialchars($feed->name (), ENT_NOQUOTES, 'UTF-8'); ?>
 		</a>
 	</li>
 	<?php } ?>

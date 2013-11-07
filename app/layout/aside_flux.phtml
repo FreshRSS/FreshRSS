@@ -52,7 +52,7 @@
 		<li>
 			<?php $c_active = false; if ($this->get_c == $cat->id ()) { $c_active = true; } ?>
 			<div class="category stick<?php echo $c_active ? ' active' : ''; ?>">
-				<a data-unread="<?php echo $cat->nbNotRead (); ?>" class="btn<?php echo $c_active ? ' active' : ''; ?>" href="<?php echo _url ('index', 'index', 'get', 'c_' . $cat->id ()); ?>"><?php echo $cat->name (); ?></a>
+				<a data-unread="<?php echo $cat->nbNotRead (); ?>" class="btn<?php echo $c_active ? ' active' : ''; ?>" href="<?php echo _url ('index', 'index', 'get', 'c_' . $cat->id ()); ?>"><?php echo htmlspecialchars($cat->name (), ENT_NOQUOTES, 'UTF-8'); ?></a>
 				<a class="btn dropdown-toggle" href="#"><i class="icon <?php echo $c_active ? 'i_up' : 'i_down'; ?>"></i></a>
 			</div>
 
@@ -68,7 +68,7 @@
 <?php /* feed_config_template */ ?>
 					</div>
 					<img class="favicon" src="<?php echo $feed->favicon (); ?>" alt="✇" />
-					<a class="feed" data-unread="<?php echo $feed->nbNotRead (); ?>" data-priority="<?php echo $feed->priority (); ?>" href="<?php echo _url ('index', 'index', 'get', 'f_' . $feed_id); ?>"><?php echo $feed->name(); ?></a>
+					<a class="feed" data-unread="<?php echo $feed->nbNotRead (); ?>" data-priority="<?php echo $feed->priority (); ?>" href="<?php echo _url ('index', 'index', 'get', 'f_' . $feed_id); ?>"><?php echo htmlspecialchars($feed->name(), ENT_NOQUOTES, 'UTF-8'); ?></a>
 				</li>
 				<?php } ?>
 			</ul>
