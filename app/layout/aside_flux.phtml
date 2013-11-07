@@ -24,7 +24,7 @@
 		<li>
 			<div class="stick">
 				<a class="btn btn-important" href="<?php echo _url ('configure', 'feed'); ?>"><?php echo Translate::t ('subscription_management'); ?></a>
-				<a class="btn btn-important" href="<?php echo Url::display ($url); ?>"><i class="icon i_rss"></i></a>
+				<a class="btn btn-important" rel="alternate" type="application/rss+xml" href="<?php echo Url::display ($url); ?>"><i class="icon i_rss"></i></a>
 			</div>
 		</li>
 		<?php } ?>
