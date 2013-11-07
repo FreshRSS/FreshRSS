@@ -217,7 +217,7 @@ return array (
 	'forbidden_access'		=> 'Forbidden access',
 	'forbidden_access_description'	=> 'Access is password protected, please <a class="signin" href="#">sign in</a> to read your feeds.',
 
-	'confirm_action'		=> 'Are you sure you want perform this action? It cannot be cancelled!',
+	'confirm_action'		=> 'Are you sure you want to perform this action? It cannot be cancelled!',
 
 	// DATE
 	'january'			=> 'january',
