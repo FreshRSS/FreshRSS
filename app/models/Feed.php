@@ -117,7 +117,7 @@ class Feed extends Model {
 		if (empty ($value)) {
 			throw new BadUrlException ($value);
 		}
-		if (!preg_match ('#^https?://#', $value)) {
+		if (!preg_match ('#^https?://#i', $value)) {
 			$value = 'http://' . $value;
 		}
 

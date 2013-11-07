@@ -76,7 +76,7 @@ return array (
 	'already_subscribed'		=> 'You have already subscribed to <em>%s</em>',
 	'feed_added'			=> 'RSS feed <em>%s</em> has been added',
 	'feed_not_added'		=> '<em>%s</em> could not be added',
-	'internal_problem_feed'		=> 'An internal problem occurred, RSS feed could not be added',
+	'internal_problem_feed'		=> 'The RSS feed could not be added. Check FressRSS logs for details.',
 	'invalid_url'			=> 'URL <em>%s</em> is invalid',
 	'feed_actualized'		=> '<em>%s</em> has been updated',
 	'n_feeds_actualized'		=> '%d feeds have been updated',
