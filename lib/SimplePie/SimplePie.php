@@ -1311,14 +1311,20 @@ class SimplePie
 				{
 					$encodings[] = strtoupper($charset[1]);
 				}
-				$encodings = array_merge($encodings, $this->registry->call('Misc', 'xml_encoding', array($this->raw_data, &$this->registry)));
-				$encodings[] = 'UTF-8';
+				else
+				{
+					$encodings[] = '';	//Let the DOM parser decide first
+				}
 			}
 			elseif (in_array($sniffed, $text_types) || substr($sniffed, 0, 5) === 'text/' && substr($sniffed, -4) === '+xml')
 			{
 				if (isset($headers['content-type']) && preg_match('/;\x20?charset=([^;]*)/i', $headers['content-type'], $charset))
 				{
 					$encodings[] = $charset[1];
+				}
+				else
+				{
+					$encodings[] = '';
 				}
 				$encodings[] = 'US-ASCII';
 			}
@@ -1341,7 +1347,7 @@ class SimplePie
 		foreach ($encodings as $encoding)
 		{
 			// Change the encoding to UTF-8 (as we always use UTF-8 internally)
-			if ($utf8_data = $this->registry->call('Misc', 'change_encoding', array($this->raw_data, $encoding, 'UTF-8')))
+			if ($utf8_data = (empty($encoding) || $encoding === 'UTF-8') ? $this->raw_data : $this->registry->call('Misc', 'change_encoding', array($this->raw_data, $encoding, 'UTF-8')))
 			{
 				// Create new parser
 				$parser = $this->registry->create('Parser');
