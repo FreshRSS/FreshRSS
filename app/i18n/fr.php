@@ -186,7 +186,7 @@ return array (
 	'by'				=> 'par',
 
 	'load_more'			=> 'Charger plus d’articles',
-	'nothing_to_load'		=> 'Il n’y a pas plus d’articles',
+	'nothing_to_load'		=> 'Fin des articles',
 
 	'rss_feeds_of'			=> 'Flux RSS de %s',
 
