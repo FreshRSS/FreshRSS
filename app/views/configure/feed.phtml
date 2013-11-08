@@ -4,8 +4,8 @@
 <div class="post">
 	<a href="<?php echo _url ('index', 'index'); ?>"><?php echo Translate::t ('back_to_rss_feeds'); ?></a> <?php echo Translate::t ('or'); ?> <a href="<?php echo _url ('index', 'index', 'get', 'f_' . $this->flux->id ()); ?>"><?php echo Translate::t ('filter'); ?></a>
 
-	<h1><?php echo $this->flux->name (); ?></h1>
-	<?php echo $this->flux->description (); ?>
+	<h1><?php echo htmlspecialchars($this->flux->name (), ENT_COMPAT, 'UTF-8'); ?></h1>
+	<?php echo htmlspecialchars($this->flux->description (), ENT_COMPAT, 'UTF-8'); ?>
 
 	<?php if ($this->flux->inError ()) { ?>
 	<p class="alert alert-error"><span class="alert-head"><?php echo Translate::t ('damn'); ?></span> <?php echo Translate::t ('feed_in_error'); ?></p>
@@ -23,7 +23,7 @@
 			<label class="group-name"><?php echo Translate::t ('website_url'); ?></label>
 			<div class="group-controls">
 				<span class="control">
-					<?php echo $this->flux->website (); ?>
+					<?php echo htmlspecialchars($this->flux->website (), ENT_COMPAT, 'UTF-8'); ?>
 					<a target="_blank" href="<?php echo $this->flux->website (); ?>"><i class="icon i_link"></i></a>
 				</span>
 			</div>
@@ -32,7 +32,7 @@
 			<label class="group-name"><?php echo Translate::t ('feed_url'); ?></label>
 			<div class="group-controls">
 				<span class="control">
-					<?php echo $this->flux->url (); ?>
+					<?php echo htmlspecialchars($this->flux->url (), ENT_COMPAT, 'UTF-8'); ?>
 					<a target="_blank" href="<?php echo $this->flux->url (); ?>"><i class="icon i_link"></i></a>
 				</span>
 			</div>
@@ -91,13 +91,13 @@
 		<div class="form-group">
 			<label class="group-name" for="http_user"><?php echo Translate::t ('http_username'); ?></label>
 			<div class="group-controls">
-				<input type="text" name="http_user" id="http_user" value="<?php echo $auth['username']; ?>" />
+				<input type="text" name="http_user" id="http_user" value="<?php echo $auth['username']; ?>" autocomplete="off" />
 				<i class="icon i_help"></i> <?php echo Translate::t ('access_protected_feeds'); ?>
 			</div>
 
 			<label class="group-name" for="http_pass"><?php echo Translate::t ('http_password'); ?></label>
 			<div class="group-controls">
-				<input type="password" name="http_pass" id="http_pass" value="<?php echo $auth['password']; ?>" />
+				<input type="password" name="http_pass" id="http_pass" value="<?php echo $auth['password']; ?>" autocomplete="off" />
 			</div>
 		</div>
 
