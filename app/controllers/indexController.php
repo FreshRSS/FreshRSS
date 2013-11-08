@@ -12,6 +12,7 @@ class indexController extends ActionController {
 		$token_param = Request::param ('token', '');
 		$token_is_ok = ($token != '' && $token == $token_param);
 
+		// check if user is log in
 		if(login_is_conf ($this->view->conf) &&
 				!is_logged() &&
 				$this->view->conf->anonAccess() == 'no' &&
@@ -19,7 +20,25 @@ class indexController extends ActionController {
 			return;
 		}
 
+		// construction of RSS url of this feed
+		$params = Request::params ();
+		$params['output'] = 'rss';
+		if (isset ($params['search'])) {
+			$params['search'] = urlencode ($params['search']);
+		}
+		if (login_is_conf($this->view->conf) &&
+				$this->view->conf->anonAccess() == 'no' &&
+				$token != '') {
+			$params['token'] = $token;
+		}
+		$this->view->rss_url = array (
+			'c' => 'index',
+			'a' => 'index',
+			'params' => $params
+		);
+
 		if ($output == 'rss') {
+			// no layout for RSS output
 			$this->view->_useLayout (false);
 		} else {
 			if(!$output) {

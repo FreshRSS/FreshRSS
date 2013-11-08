@@ -122,27 +122,7 @@
 			</li>
 			<?php } ?>
 			<li class="item">
-				<?php
-					$params = Request::params ();
-					$params['output'] = 'rss';
-					if (isset ($params['search'])) {
-						$params['search'] = urlencode ($params['search']);
-					}
-
-					$token = $this->conf->token ();
-					if (login_is_conf($this->conf) &&
-							$this->conf->anonAccess() == 'no' &&
-							$token != '') {
-						$params['token'] = $token;
-					}
-
-					$url = array (
-						'c' => 'index',
-						'a' => 'index',
-						'params' => $params
-					);
-				?>
-				<a class="view_rss" target="_blank" rel="alternate" type="application/rss+xml" href="<?php echo Url::display ($url); ?>">
+				<a class="view_rss" target="_blank" href="<?php echo Url::display ($this->rss_url); ?>">
 					<?php echo Translate::t ('rss_view'); ?>
 				</a>
 			</li>
