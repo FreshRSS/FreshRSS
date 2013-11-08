@@ -591,7 +591,9 @@ function init_all() {
 	$stream = $('#stream');
 	init_posts();
 	init_column_categories();
-	init_shortcuts();
+	if (load_shortcuts) {
+		init_shortcuts();
+	}
 	init_stream_delegates($stream);
 	init_nav_entries();
 	init_templates();

@@ -17,14 +17,16 @@
 			'go_website:"', $s['go_website'], '",',
 			'prev_entry:"', $s['prev_entry'], '",',
 			'next_entry:"', $s['next_entry'], '"',
-		"}";
+		"},";
 
 	$mail = Session::param ('mail', 'null');
 	if ($mail != 'null') {
 		$mail = '"' . $mail . '"';
 	}
-	echo ',use_persona=', login_is_conf ($this->conf) ? 'true' : 'false',
+	echo 'use_persona=', login_is_conf ($this->conf) ? 'true' : 'false',
 		',url_freshrss="', _url ('index', 'index'), '",',
 		'url_login="', _url ('index', 'login'), '",',
 		'url_logout="', _url ('index', 'logout'), '",',
-		'current_user_mail=', $mail, ";\n";
+		'current_user_mail=', $mail, ",\n";
+
+	echo 'load_shortcuts=', Request::controllerName () === 'index' && Request::actionName () === 'index' ? 'true' : 'false', ";\n";
