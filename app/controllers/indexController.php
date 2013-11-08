@@ -209,6 +209,7 @@ class indexController extends ActionController {
 		$res = json_decode ($result, true);
 		if ($res['status'] == 'okay' && $res['email'] == $this->view->conf->mailLogin ()) {
 			Session::_param ('mail', $res['email']);
+			touch(PUBLIC_PATH . '/data/touch.txt');
 		} else {
 			$res = array ();
 			$res['status'] = 'failure';

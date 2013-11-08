@@ -593,9 +593,7 @@ function init_all() {
 	init_notifications();
 	init_actualize();
 	init_load_more();
-	if (window.current_user_mail) {
-		init_persona();
-	}
+	init_persona();
 	if (window.console) {
 		console.log('FreshRSS init done.');
 	}
