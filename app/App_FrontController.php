@@ -65,6 +65,7 @@ class App_FrontController extends FrontController {
 		if ($this->conf->lazyload () === 'yes' && ($this->conf->displayPosts () === 'yes' || Request::param ('output') === 'reader')) {
 			View::appendScript (Url::display ('/scripts/jquery.lazyload.min.js'));
 		}
+		View::appendScript (Url::display ('/scripts/main.js'));
 	}
 
 	private function loadNotifications () {
