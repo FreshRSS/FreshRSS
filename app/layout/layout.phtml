@@ -12,7 +12,7 @@
 		<?php echo self::headStyle (); ?>
 		<?php echo self::headScript (); ?>
 		<script>//<![CDATA[
-<?php $this->renderHelper ('../javascript/main'); ?>
+<?php $this->renderHelper ('javascript_vars'); ?>
 		//]]></script>
 <?php
 	$next = isset($this->entryPaginator) ? $this->entryPaginator->next() : '';

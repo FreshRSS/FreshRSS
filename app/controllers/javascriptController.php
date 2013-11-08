@@ -6,8 +6,6 @@ class javascriptController extends ActionController {
 		header('Content-type: text/javascript');
 	}
 
-	public function mainAction () {}
-
 	public function actualizeAction () {
 		$feedDAO = new FeedDAO ();
 		$this->view->feeds = $feedDAO->listFeeds ();
