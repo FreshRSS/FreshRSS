@@ -221,5 +221,6 @@ class indexController extends ActionController {
 	public function logoutAction () {
 		$this->view->_useLayout (false);
 		Session::_param ('mail');
+		touch(PUBLIC_PATH . '/data/touch.txt');
 	}
 }
