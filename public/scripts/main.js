@@ -593,7 +593,9 @@ function init_all() {
 	init_notifications();
 	init_actualize();
 	init_load_more();
-	init_persona();
+	if (use_persona) {
+		init_persona();
+	}
 	if (window.console) {
 		console.log('FreshRSS init done.');
 	}
