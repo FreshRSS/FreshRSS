@@ -130,7 +130,9 @@
 					}
 
 					$token = $this->conf->token ();
-					if (login_is_conf($this->conf) && $token != '') {
+					if (login_is_conf($this->conf) &&
+							$this->conf->anonAccess() == 'no' &&
+							$token != '') {
 						$params['token'] = $token;
 					}
 
