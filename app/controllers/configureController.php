@@ -64,6 +64,8 @@ class configureController extends ActionController {
 
 		$this->view->categories = $catDAO->listCategories (false);
 		$this->view->defaultCategory = $catDAO->getDefault ();
+		$this->view->feeds = $feedDAO->listFeeds ();
+		$this->view->flux = false;
 
 		View::prependTitle (Translate::t ('categories_management') . ' - ');
 	}

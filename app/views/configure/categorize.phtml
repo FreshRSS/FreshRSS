@@ -1,10 +1,10 @@
-<?php $this->partial ('aside_configure'); ?>
+<?php $this->partial ('aside_feed'); ?>
 
 <div class="post">
 	<a href="<?php echo _url ('index', 'index'); ?>"><?php echo Translate::t ('back_to_rss_feeds'); ?></a>
 
 	<form method="post" action="<?php echo _url ('configure', 'categorize'); ?>">
-		<legend><?php echo Translate::t ('categories_management'); ?> - <a href="<?php echo _url ('configure', 'feed'); ?>"><?php echo Translate::t ('rss_feed_management'); ?></a></legend>
+		<legend><?php echo Translate::t ('categories_management'); ?></legend>
 
 		<p class="alert alert-warn"><?php echo Translate::t ('feeds_moved_category_deleted', $this->defaultCategory->name ()); ?></p>
 

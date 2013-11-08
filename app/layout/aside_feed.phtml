@@ -38,7 +38,13 @@
 		</div>
 	</form></li>
 
-	<li class="item<?php echo Request::actionName () == 'importExport' ? ' active' : ''; ?>"><a href="<?php echo _url ('configure', 'importExport'); ?>"><?php echo Translate::t ('import_export_opml'); ?></a></li>
+	<li class="item<?php echo Request::actionName () == 'importExport' ? ' active' : ''; ?>">
+		<a href="<?php echo _url ('configure', 'importExport'); ?>"><?php echo Translate::t ('import_export_opml'); ?></a>
+	</li>
+
+	<li class="item<?php echo Request::actionName () == 'categorize' ? ' active' : ''; ?>">
+		<a href="<?php echo _url ('configure', 'categorize'); ?>"><?php echo Translate::t ('categories_management'); ?></a>
+	</li>
 
 	<li class="separator"></li>
 

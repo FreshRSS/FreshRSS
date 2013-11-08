@@ -4,12 +4,6 @@
 	<li class="item<?php echo Request::actionName () == 'display' ? ' active' : ''; ?>">
 		<a href="<?php echo Url::display (array ('c' => 'configure', 'a' => 'display')); ?>"><?php echo Translate::t ('general_and_reading'); ?></a>
 	</li>
-	<li class="item<?php echo Request::actionName () == 'categorize' ? ' active' : ''; ?>">
-		<a href="<?php echo Url::display (array ('c' => 'configure', 'a' => 'categorize')); ?>"><?php echo Translate::t ('categories'); ?></a>
-	</li>
-	<li class="item<?php echo Request::actionName () === 'feed' ? ' active' : ''; ?>">
-		<a href="<?php echo Url::display (array ('c' => 'configure', 'a' => 'feed')); ?>"><?php echo Translate::t ('rss_feed_management'); ?></a>
-	</li>
 	<li class="item<?php echo Request::actionName () == 'shortcut' ? ' active' : ''; ?>">
 		<a href="<?php echo Url::display (array ('c' => 'configure', 'a' => 'shortcut')); ?>"><?php echo Translate::t ('shortcuts'); ?></a>
 	</li>

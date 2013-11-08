@@ -40,6 +40,7 @@ return array (
 	'normal_view'			=> 'Normal view',
 	'reader_view'			=> 'Reading view',
 	'global_view'			=> 'Global view',
+	'rss_view'			=> 'RSS feed',
 	'show_all_articles'		=> 'Show all articles',
 	'show_not_reads'		=> 'Show only unread',
 	'older_first'			=> 'Oldest first',
