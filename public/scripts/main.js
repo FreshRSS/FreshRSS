@@ -283,7 +283,7 @@ function init_shortcuts() {
 		if (window.console) {
 			console.log('FreshRSS waiting for sortcut.js…');
 		}
-		window.setTimeout(init_persona, 50);
+		window.setTimeout(init_shortcuts, 50);
 		return;
 	}
 	// Touches de manipulation
