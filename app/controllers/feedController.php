@@ -186,7 +186,7 @@ class feedController extends ActionController {
 		$entryDAO->cleanOldEntries ($nb_month_old);
 
 		$url = array ();
-		if ($flux_update == 1) {
+		if ($flux_update === 1) {
 			// on a mis un seul flux à jour
 			$notif = array (
 				'type' => 'good',
@@ -206,14 +206,14 @@ class feedController extends ActionController {
 			);
 		}
 
-		if($i == 1) {
+		if ($i === 1) {
 			// Si on a voulu mettre à jour qu'un flux
 			// on filtre l'affichage par ce flux
 			$feed = reset ($feeds);
 			$url['params'] = array ('get' => 'f_' . $feed->id ());
 		}
 
-		if (Request::param ('ajax', 0) == 0) {
+		if (Request::param ('ajax', 0) === 0) {
 			Session::_param ('notification', $notif);
 			Request::forward ($url, true);
 		} else {
