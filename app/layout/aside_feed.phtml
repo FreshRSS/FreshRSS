@@ -17,7 +17,7 @@
 						<select name="category" id="category">
 						<?php foreach ($this->categories as $cat) { ?>
 						<option value="<?php echo $cat->id (); ?>"<?php echo $cat->id () == '000000' ? ' selected="selected"' : ''; ?>>
-							<?php echo htmlspecialchars($cat->name (), ENT_NOQUOTES, 'UTF-8'); ?>
+							<?php echo $cat->name (); ?>
 						</option>
 						<?php } ?>
 						</select>

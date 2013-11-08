@@ -4,8 +4,8 @@
 <div class="post">
 	<a href="<?php echo _url ('index', 'index'); ?>"><?php echo Translate::t ('back_to_rss_feeds'); ?></a> <?php echo Translate::t ('or'); ?> <a href="<?php echo _url ('index', 'index', 'get', 'f_' . $this->flux->id ()); ?>"><?php echo Translate::t ('filter'); ?></a>
 
-	<h1><?php echo htmlspecialchars($this->flux->name (), ENT_COMPAT, 'UTF-8'); ?></h1>
-	<?php echo htmlspecialchars($this->flux->description (), ENT_COMPAT, 'UTF-8'); ?>
+	<h1><?php echo $this->flux->name (); ?></h1>
+	<?php echo $this->flux->description (); ?>
 
 	<?php if ($this->flux->inError ()) { ?>
 	<p class="alert alert-error"><span class="alert-head"><?php echo Translate::t ('damn'); ?></span> <?php echo Translate::t ('feed_in_error'); ?></p>
@@ -23,7 +23,7 @@
 			<label class="group-name"><?php echo Translate::t ('website_url'); ?></label>
 			<div class="group-controls">
 				<span class="control">
-					<?php echo htmlspecialchars($this->flux->website (), ENT_COMPAT, 'UTF-8'); ?>
+					<?php echo $this->flux->website (); ?>
 					<a target="_blank" href="<?php echo $this->flux->website (); ?>"><i class="icon i_link"></i></a>
 				</span>
 			</div>
@@ -32,7 +32,7 @@
 			<label class="group-name"><?php echo Translate::t ('feed_url'); ?></label>
 			<div class="group-controls">
 				<span class="control">
-					<?php echo htmlspecialchars($this->flux->url (), ENT_COMPAT, 'UTF-8'); ?>
+					<?php echo $this->flux->url (); ?>
 					<a target="_blank" href="<?php echo $this->flux->url (); ?>"><i class="icon i_link"></i></a>
 				</span>
 			</div>
