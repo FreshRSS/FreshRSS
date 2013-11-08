@@ -22,9 +22,9 @@
 
 		<li>
 			<div class="category favorites">
-				<a data-unread="0" class="btn<?php echo $this->get_c == 'favoris' ? ' active' : ''; ?>" href="<?php echo _url ('index', 'index', 'get', 'favoris'); ?>">
+				<a data-unread="<?php echo $this->nb_favorites['unread']; ?>" class="btn<?php echo $this->get_c == 'favoris' ? ' active' : ''; ?>" href="<?php echo _url ('index', 'index', 'get', 'favoris'); ?>">
 					<i class="icon i_bookmark"></i>
-					<?php echo Translate::t ('favorite_feeds', $this->nb_favorites); ?>
+					<?php echo Translate::t ('favorite_feeds', $this->nb_favorites['read'] + $this->nb_favorites['unread']); ?>
 				</a>
 			</div>
 		</li>

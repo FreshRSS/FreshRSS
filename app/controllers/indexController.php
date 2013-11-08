@@ -64,7 +64,7 @@ class indexController extends ActionController {
 		$catDAO = new CategoryDAO ();
 
 		$this->view->cat_aside = $catDAO->listCategories ();
-		$this->view->nb_favorites = $entryDAO->countFavorites ();
+		$this->view->nb_favorites = $entryDAO->countUnreadReadFavorites ();
 		$this->view->nb_total = $entryDAO->count ();
 		$this->view->currentName = '';
 
