@@ -279,6 +279,13 @@ function init_column_categories() {
 }
 
 function init_shortcuts() {
+	if (!(window.shortcut && window.shortcuts)) {
+		if (window.console) {
+			console.log('FreshRSS waiting for sortcut.js…');
+		}
+		window.setTimeout(init_persona, 50);
+		return;
+	}
 	// Touches de manipulation
 	shortcut.add(shortcuts.mark_read, function () {
 		// on marque comme lu ou non lu
@@ -506,6 +513,13 @@ function init_load_more() {
 
 //<persona>
 function init_persona() {
+	if (!(navigator.id)) {
+		if (window.console) {
+			console.log('FreshRSS waiting for Persona…');
+		}
+		window.setTimeout(init_persona, 100);
+		return;
+	}
 	$('a.signin').click(function() {
 		navigator.id.request();
 		return false;
@@ -562,12 +576,11 @@ function init_persona() {
 //</persona>
 
 function init_all() {
-	if (!(window.$ && window.shortcut && window.shortcuts &&
-			((!full_lazyload) || $.fn.lazyload) && navigator.id)) {
+	if (!(window.$ && window.url_freshrss && ((!full_lazyload) || $.fn.lazyload))) {
 		if (window.console) {
-			console.log('Waiting for JS…');
+			console.log('FreshRSS waiting for JS…');
 		}
-		window.setTimeout(init_all, 50);	//Wait for all js to be loaded
+		window.setTimeout(init_all, 50);
 		return;
 	}
 	$stream = $('#stream');
@@ -580,21 +593,23 @@ function init_all() {
 	init_notifications();
 	init_actualize();
 	init_load_more();
-	init_persona();
+	if (window.current_user_mail) {
+		init_persona();
+	}
 	if (window.console) {
-		console.log('Init done.');
+		console.log('FreshRSS init done.');
 	}
 }
 
 if (document.readyState && document.readyState !== 'loading') {
 	if (window.console) {
-		console.log('Immediate init…');
+		console.log('FreshRSS immediate init…');
 	}
 	init_all();
 } else if (document.addEventListener) {
 	document.addEventListener('DOMContentLoaded', function () {
 		if (window.console) {
-			console.log('Waiting for DOMContentLoaded…');
+			console.log('FreshRSS waiting for DOMContentLoaded…');
 		}
 		init_all();
 	}, false);
