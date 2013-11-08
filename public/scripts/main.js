@@ -562,7 +562,8 @@ function init_persona() {
 //</persona>
 
 function init_all() {
-	if (!(window.$ && window.shortcut && window.shortcuts && ((!full_lazyload) || $.fn.lazyload))) {
+	if (!(window.$ && window.shortcut && window.shortcuts &&
+			((!full_lazyload) || $.fn.lazyload) && navigator.id)) {
 		if (window.console) {
 			console.log('Waiting for JS…');
 		}
