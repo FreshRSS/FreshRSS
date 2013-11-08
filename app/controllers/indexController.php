@@ -8,6 +8,17 @@ class indexController extends ActionController {
 	public function indexAction () {
 		$output = Request::param ('output');
 
+		$token = $this->view->conf->token();
+		$token_param = Request::param ('token', '');
+		$token_is_ok = ($token != '' && $token == $token_param);
+
+		if(login_is_conf ($this->view->conf) &&
+				!is_logged() &&
+				$this->view->conf->anonAccess() == 'no' &&
+				!($output == 'rss' && $token_is_ok)) {
+			return;
+		}
+
 		if ($output == 'rss') {
 			$this->view->_useLayout (false);
 		} else {
