@@ -477,8 +477,13 @@ function load_more_posts() {
 	load_more = true;
 	$('#load_more').addClass('loading');
 	$.get(url_load_more, function (data) {
-		$stream.children('.flux:last').after($('#stream', data).children('.flux'));
+		$stream.children('.flux:last').after($('#stream', data).children('.flux, .day'));
 		$('.pagination').replaceWith($('.pagination', data));
+
+		$('[id^=day_]').each(function (i) {
+			var ids = $('[id="' + this.id + '"]');
+			if (ids.length > 1) $('[id="' + this.id + '"]:gt(0)').remove();
+		});
 
 		init_load_more();
 		init_lazyload();
