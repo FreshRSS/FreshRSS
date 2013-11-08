@@ -14,7 +14,8 @@
 		<li>
 			<div class="category all">
 				<a data-unread="<?php echo $this->nb_not_read; ?>" class="btn<?php echo $this->get_c == 'all' ? ' active' : ''; ?>" href="<?php echo _url ('index', 'index'); ?>">
-					<i class="icon i_all"></i><?php echo Translate::t ('all_feeds', $this->nb_total); ?>
+					<i class="icon i_all"></i>
+					<?php echo Translate::t ('all_feeds', $this->nb_total); ?>
 				</a>
 			</div>
 		</li>

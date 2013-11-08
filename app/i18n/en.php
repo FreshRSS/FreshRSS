@@ -19,7 +19,7 @@ return array (
 	'import_export_opml'		=> 'Import / export (OPML)',
 
 	'subscription_management'	=> 'Subscriptions management',
-	'all_feeds'			=> 'All (%d)',
+	'all_feeds'			=> 'Main stream (%d)',
 	'favorite_feeds'		=> 'Favourites (%d)',
 	'not_read'			=> '%d unread',
 	'not_reads'			=> '%d unread',
@@ -133,7 +133,7 @@ return array (
 	'keep_history'			=> 'Keep history?',
 	'categorize'			=> 'Store in a category',
 	'advanced'			=> 'Advanced',
-	'show_in_all_flux'		=> 'Show in principal stream',
+	'show_in_all_flux'		=> 'Show in main stream',
 	'yes'				=> 'Yes',
 	'no'				=> 'No',
 	'css_path_on_website'		=> 'Articles CSS path on original website',
