@@ -2,7 +2,14 @@
 
 class feedController extends ActionController {
 	public function firstAction () {
-		if (login_is_conf ($this->view->conf) && !is_logged ()) {
+		$token = $this->view->conf->token();
+		$token_param = Request::param ('token', '');
+		$token_is_ok = ($token != '' && $token == $token_param);
+		$action = Request::actionName ();
+
+		if (login_is_conf ($this->view->conf) &&
+				!is_logged () &&
+				!($token_is_ok && $action == 'actualize')) {
 			Error::error (
 				403,
 				array ('error' => array (Translate::t ('access_denied')))
