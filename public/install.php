@@ -491,7 +491,7 @@ function printStep2 () {
 		<?php
 			$url = substr ($_SERVER['PHP_SELF'], 0, -10);
 		?>
-		<div class="form-group">
+		<div class="form-group" style="display:none">
 			<label class="group-name" for="base_url"><?php echo _t ('base_url'); ?></label>
 			<div class="group-controls">
 				<input type="text" id="base_url" name="base_url" value="<?php echo isset ($_SESSION['base_url']) ? $_SESSION['base_url'] : $url; ?>" /> <i class="icon i_help"></i> <?php echo _t ('do_not_change_if_doubt'); ?>
