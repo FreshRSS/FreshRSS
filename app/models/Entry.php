@@ -487,11 +487,6 @@ class EntryDAO extends Model_pdo {
 		return $readUnread;
 	}
 
-	public function countFavorites () {	//Deprecated: use countUnreadReadFavorites() instead
-		$unreadRead = $this->countUnreadReadFavorites ();	//This makes better use of caching
-		return $unreadRead['unread'] + $unreadRead['read'];
-	}
-
 	public function optimizeTable() {
 		$sql = 'OPTIMIZE TABLE ' . $this->prefix . 'entry';
 		$stm = $this->bd->prepare ($sql);
