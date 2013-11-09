@@ -42,7 +42,7 @@ class indexController extends ActionController {
 		if ($output == 'rss') {
 			// no layout for RSS output
 			$this->view->_useLayout (false);
-			header("Content-type: application/xml");
+			header('Content-Type: text/xml; charset=utf-8');
 		} else {
 			if(!$output) {
 				$output = $this->view->conf->viewMode();
