@@ -297,6 +297,7 @@ class feedController extends ActionController {
 			'content' => $res
 		);
 		Session::_param ('notification', $notif);
+		Session::_param ('actualize_feeds', true);
 
 		// et on redirige vers la page import/export
 		Request::forward (array (

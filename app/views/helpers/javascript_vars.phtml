@@ -31,4 +31,9 @@
 
 	echo 'load_shortcuts=', Request::controllerName () === 'index' && Request::actionName () === 'index' ? 'true' : 'false', ",\n";
 
-	echo 'str_confirmation="', Translate::t('confirm_action'), '"', ";\n";
+	echo 'str_confirmation="', Translate::t('confirm_action'), '"', ",\n";
+
+	echo 'auto_actualize_feeds=', Session::param('actualize_feeds', false) ? 'true' : 'false', ";\n";
+	if (Session::param('actualize_feeds', false)) {
+		Session::_param('actualize_feeds');
+	}

@@ -448,6 +448,12 @@ function init_actualize() {
 		});
 		return false;
 	});
+
+	if(auto_actualize_feeds) {
+		$.getScript('./?c=javascript&a=actualize').done(function () {
+			updateFeeds();
+		});
+	}
 }
 
 function closeNotification() {
