@@ -54,18 +54,18 @@ class App_FrontController extends FrontController {
 		$theme = RSSThemes::get_infos($this->conf->theme());
 		if ($theme) {
 			foreach($theme["files"] as $file) {
-				View::appendStyle (Url::display ('/themes/' . $theme['path'] . '/' . $file));
+				View::appendStyle (Url::display ('/themes/' . $theme['path'] . '/' . $file . '?' . filemtime(PUBLIC_PATH . '/themes/' . $theme['path'] . '/' . $file)));
 			}
 		}
-		View::appendStyle (Url::display ('/themes/printer/style.css'), 'print');
+		View::appendStyle (Url::display ('/themes/printer/style.css?' . filemtime(PUBLIC_PATH . '/themes/printer/style.css')), 'print');
 		if (login_is_conf ($this->conf)) {
 			View::appendScript ('https://login.persona.org/include.js');
 		}
-		View::appendScript (Url::display ('/scripts/jquery.min.js'));
+		View::appendScript (Url::display ('/scripts/jquery.min.js?' . filemtime(PUBLIC_PATH . '/scripts/jquery.min.js')));
 		if ($this->conf->lazyload () === 'yes' && ($this->conf->displayPosts () === 'yes' || Request::param ('output') === 'reader')) {
-			View::appendScript (Url::display ('/scripts/jquery.lazyload.min.js'));
+			View::appendScript (Url::display ('/scripts/jquery.lazyload.min.js?' . filemtime(PUBLIC_PATH . '/scripts/jquery.lazyload.min.js')));
 		}
-		View::appendScript (Url::display ('/scripts/main.js'));
+		View::appendScript (Url::display ('/scripts/main.js?' . filemtime(PUBLIC_PATH . '/scripts/main.js')));
 	}
 
 	private function loadNotifications () {

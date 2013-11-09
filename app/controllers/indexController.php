@@ -46,10 +46,10 @@ class indexController extends ActionController {
 				Request::_param ('output', $output);
 			}
 
-			View::appendScript (Url::display ('/scripts/shortcut.js'));
+			View::appendScript (Url::display ('/scripts/shortcut.js?' . filemtime(PUBLIC_PATH . '/scripts/shortcut.js')));
 
 			if ($output == 'global') {
-				View::appendScript (Url::display ('/scripts/global_view.js'));
+				View::appendScript (Url::display ('/scripts/global_view.js?' . filemtime(PUBLIC_PATH . '/scripts/global_view.js')));
 			}
 		}
 
