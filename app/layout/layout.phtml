@@ -30,7 +30,10 @@
 	<?php $this->render (); ?>
 </div>
 
-<?php if (isset ($this->notification)) { ?>
+<?php
+	if (isset ($this->notification)) {
+		touch(PUBLIC_PATH . '/data/touch.txt');
+?>
 <div class="notification <?php echo $this->notification['type']; ?>">
 	<?php echo $this->notification['content']; ?>
 	<a class="close" href=""><i class="icon i_close"></i></a>
