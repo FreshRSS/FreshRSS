@@ -201,6 +201,7 @@ class Feed extends Model {
 
 				$feed->set_feed_url ($url);
 				$feed->set_cache_location (CACHE_PATH);
+				$feed->set_cache_duration(1500);
 				$feed->strip_htmltags (array (
 					'base', 'blink', 'body', 'doctype',
 					'font', 'form', 'frame', 'frameset', 'html',
