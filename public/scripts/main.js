@@ -583,6 +583,12 @@ function init_persona() {
 }
 //</persona>
 
+function init_confirm_action() {
+	$('.confirm').click(function () {
+        return confirm(str_confirmation);
+    });
+}
+
 function init_all() {
 	if (!(window.$ && window.url_freshrss && ((!full_lazyload) || $.fn.lazyload))) {
 		if (window.console) {
@@ -606,6 +612,7 @@ function init_all() {
 	if (use_persona) {
 		init_persona();
 	}
+	init_confirm_action();
 	if (window.console) {
 		console.log('FreshRSS init done.');
 	}
