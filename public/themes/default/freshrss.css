@@ -70,6 +70,11 @@
 			right: 33px;
 		}
 
+		.aside.aside_flux .i_category {
+			background-image: url("../icons/category-white.png");
+			background-image: url("../icons/category-white.svg");
+		}
+
 	.nav-login {
 		display: none;
 	}
@@ -179,8 +184,8 @@
 			.categories .feeds .item .dropdown-target:target ~ .dropdown-toggle i,
 			.categories .feeds .item:hover .dropdown-toggle i,
 			.categories .feeds .item.active .dropdown-toggle i {
-				background-image: url("icons/configure.png");
-				background-image: url("icons/configure.svg");
+				background-image: url("../icons/configure.png");
+				background-image: url("../icons/configure.svg");
 				background-color: #fff;
 				border-radius: 3px;
 			}
@@ -258,31 +263,31 @@
 				display: inline-block;
 				width: 40px;
 				height: 40px;
-				background: url("icons/read.png") center center no-repeat;
-				background: url("icons/read.svg") center center no-repeat;
+				background: url("../icons/read.png") center center no-repeat;
+				background: url("../icons/read.svg") center center no-repeat;
 				vertical-align: middle;
 			}
 				.read:hover {
 					text-decoration: none;
 				}
 				.flux.not_read .read {
-					background: url("icons/unread.png") center center no-repeat;
-					background: url("icons/unread.svg") center center no-repeat;
+					background: url("../icons/unread.png") center center no-repeat;
+					background: url("../icons/unread.svg") center center no-repeat;
 				}
 			.bookmark {
 				display: inline-block;
 				width: 40px;
 				height: 40px;
-				background: url("icons/non-starred.png") center center no-repeat;
-				background: url("icons/non-starred.svg") center center no-repeat;
+				background: url("../icons/non-starred.png") center center no-repeat;
+				background: url("../icons/non-starred.svg") center center no-repeat;
 				vertical-align: middle;
 			}
 				.bookmark:hover {
 					text-decoration: none;
 				}
 				.flux.favorite .bookmark {
-					background: url("icons/starred.png") center center no-repeat;
-					background: url("icons/starred.svg") center center no-repeat;
+					background: url("../icons/starred.png") center center no-repeat;
+					background: url("../icons/starred.svg") center center no-repeat;
 				}
 		.flux_header .item.website {
 			width: 200px;
@@ -333,8 +338,8 @@
 				display: inline-block;
 				width: 40px;
 				height: 40px;
-				background: url("icons/link.png") center center no-repeat;
-				background: url("icons/link.svg") center center no-repeat;
+				background: url("../icons/link.png") center center no-repeat;
+				background: url("../icons/link.svg") center center no-repeat;
 				vertical-align: middle;
 			}
 				.item.link a:hover {

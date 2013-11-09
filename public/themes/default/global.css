@@ -1,7 +1,7 @@
 /* FONTS */
 @font-face {
 	font-family: "OpenSans";
-	src: url("fonts/openSans.woff") format("woff");
+	src: url("../fonts/openSans.woff") format("woff");
 }
 
 
@@ -487,98 +487,98 @@ input, select, textarea {
 	background: center center no-repeat;
 }
 	.i_refresh {
-		background-image: url("icons/refresh.png");
-		background-image: url("icons/refresh.svg");
+		background-image: url("../icons/refresh.png");
+		background-image: url("../icons/refresh.svg");
 	}
 	.i_bookmark {
-		background-image: url("icons/starred.png");
-		background-image: url("icons/starred.svg");
+		background-image: url("../icons/starred.png");
+		background-image: url("../icons/starred.svg");
 	}
 	.i_not_bookmark {
-		background-image: url("icons/unstarred.png");
-		background-image: url("icons/unstarred.svg");
+		background-image: url("../icons/unstarred.png");
+		background-image: url("../icons/unstarred.svg");
 	}
 	.i_read {
-		background-image: url("icons/read.png");
-		background-image: url("icons/read.svg");
+		background-image: url("../icons/read.png");
+		background-image: url("../icons/read.svg");
 	}
 	.i_unread {
-		background-image: url("icons/unread.png");
-		background-image: url("icons/unread.svg");
+		background-image: url("../icons/unread.png");
+		background-image: url("../icons/unread.svg");
 	}
 	.i_all {
-		background-image: url("icons/all.png");
-		background-image: url("icons/all.svg");
+		background-image: url("../icons/all.png");
+		background-image: url("../icons/all.svg");
 	}
 	.i_close {
-		background-image: url("icons/close.png");
-		background-image: url("icons/close.svg");
+		background-image: url("../icons/close.png");
+		background-image: url("../icons/close.svg");
 	}
 	.i_search {
-		background-image: url("icons/search.png");
-		background-image: url("icons/search.svg");
+		background-image: url("../icons/search.png");
+		background-image: url("../icons/search.svg");
 	}
 	.i_configure {
-		background-image: url("icons/configure.png");
-		background-image: url("icons/configure.svg");
+		background-image: url("../icons/configure.png");
+		background-image: url("../icons/configure.svg");
 	}
 	.i_login {
-		background-image: url("icons/login.png");
-		background-image: url("icons/login.svg");
+		background-image: url("../icons/login.png");
+		background-image: url("../icons/login.svg");
 	}
 	.i_logout {
-		background-image: url("icons/logout.png");
-		background-image: url("icons/logout.svg");
+		background-image: url("../icons/logout.png");
+		background-image: url("../icons/logout.svg");
 	}
 	.i_add {
-		background-image: url("icons/add.png");
-		background-image: url("icons/add.svg");
+		background-image: url("../icons/add.png");
+		background-image: url("../icons/add.svg");
 	}
 	.i_link {
-		background-image: url("icons/link.png");
-		background-image: url("icons/link.svg");
+		background-image: url("../icons/link.png");
+		background-image: url("../icons/link.svg");
 	}
 	.i_down {
-		background-image: url("icons/down.png");
-		background-image: url("icons/down.svg");
+		background-image: url("../icons/down.png");
+		background-image: url("../icons/down.svg");
 	}
 	.i_up {
-		background-image: url("icons/up.png");
-		background-image: url("icons/up.svg");
+		background-image: url("../icons/up.png");
+		background-image: url("../icons/up.svg");
 	}
 	.i_next {
-		background-image: url("icons/next.png");
-		background-image: url("icons/next.svg");
+		background-image: url("../icons/next.png");
+		background-image: url("../icons/next.svg");
 	}
 	.i_prev {
-		background-image: url("icons/previous.png");
-		background-image: url("icons/previous.svg");
+		background-image: url("../icons/previous.png");
+		background-image: url("../icons/previous.svg");
 	}
 	.i_help {
-		background-image: url("icons/help.png");
-		background-image: url("icons/help.svg");
+		background-image: url("../icons/help.png");
+		background-image: url("../icons/help.svg");
 	}
 	.i_note {
-		background-image: url("icons/note.png");
-		background-image: url("icons/note.svg");
+		background-image: url("../icons/note.png");
+		background-image: url("../icons/note.svg");
 	}
 	.i_note_empty {
-		background-image: url("icons/note_empty.png");
-		background-image: url("icons/note_empty.svg");
+		background-image: url("../icons/note_empty.png");
+		background-image: url("../icons/note_empty.svg");
 	}
 	.i_category {
-		background-image: url("icons/category.png");
-		background-image: url("icons/category.svg");
+		background-image: url("../icons/category.png");
+		background-image: url("../icons/category.svg");
 	}
 	.i_rss {
-		background-image: url("icons/rss.png");
-		background-image: url("icons/rss.svg");
+		background-image: url("../icons/rss.png");
+		background-image: url("../icons/rss.svg");
 	}
 	.i_share {
-		background-image: url("icons/share.png");
-		background-image: url("icons/share.svg");
+		background-image: url("../icons/share.png");
+		background-image: url("../icons/share.svg");
 	}
 	.i_tag {
-		background-image: url("icons/tag.png");
-		background-image: url("icons/tag.svg");
+		background-image: url("../icons/tag.png");
+		background-image: url("../icons/tag.svg");
 	}
