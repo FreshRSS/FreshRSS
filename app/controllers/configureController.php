@@ -274,7 +274,7 @@ class configureController extends ActionController {
 			View::_title ('freshrss_feeds.opml');
 
 			$this->view->_useLayout (false);
-			header('Content-Type: text/xml; charset=utf-8');
+			header('Content-Type: application/xml; charset=utf-8');
 			header('Content-disposition: attachment; filename=freshrss_feeds.opml');
 
 			$feedDAO = new FeedDAO ();
