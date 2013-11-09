@@ -6,7 +6,7 @@
 		<link rel="icon" type="image/x-icon" href="<?php echo Url::display ('/favicon.ico'); ?>" />
 		<link rel="icon" type="image/png" href="<?php echo Url::display ('/favicon.ico'); ?>" />
 		<?php if (isset ($this->rss_url)) { ?>
-		<link rel="alternate" type="application/rss+xml" title="<?php echo htmlspecialchars(View::title(), ENT_COMPAT, 'UTF-8'); ?>" href="<?php echo Url::display ($this->rss_url); ?>" />
+		<link rel="alternate" type="application/rss+xml" title="<?php echo htmlspecialchars($this->rss_title, ENT_COMPAT, 'UTF-8'); ?>" href="<?php echo Url::display ($this->rss_url); ?>" />
 		<?php } ?>
 		<?php echo self::headTitle (); ?>
 		<?php echo self::headStyle (); ?>

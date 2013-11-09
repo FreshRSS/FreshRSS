@@ -3,7 +3,7 @@
 class indexController extends ActionController {
 	private $get = false;
 	private $nb_not_read = 0;
-	private $mode = 'all';	//TODO: Is this used?
+	private $nb_not_read_cat = 0;
 
 	public function indexAction () {
 		$output = Request::param ('output');
@@ -36,6 +36,8 @@ class indexController extends ActionController {
 			'a' => 'index',
 			'params' => $params
 		);
+
+		$this->view->rss_title = View::title();
 
 		if ($output == 'rss') {
 			// no layout for RSS output
@@ -73,6 +75,14 @@ class indexController extends ActionController {
 
 		$type = $this->getType ();
 		$error = $this->checkAndProcessType ($type);
+
+		// mise à jour des titres
+		$this->view->rss_title = $this->view->currentName . ' - ' . $this->view->rss_title;
+		View::prependTitle (
+			$this->view->currentName .
+			($this->nb_not_read_cat > 0 ? ' (' . $this->nb_not_read_cat . ')' : '')
+		);
+
 		if (!$error) {
 			// On récupère les différents éléments de filtrage
 			$this->view->state = $state = Request::param ('state', $this->view->conf->defaultView ());
@@ -139,22 +149,19 @@ class indexController extends ActionController {
 	/*
 	 * Vérifie que la catégorie / flux sélectionné existe
 	 * + Initialise correctement les variables de vue get_c et get_f
-	 * + Initialise le titre
+	 * + Met à jour la variable $this->nb_not_read_cat
 	 */
 	private function checkAndProcessType ($type) {
 		if ($type['type'] == 'all') {
 			$this->view->currentName = Translate::t ('your_rss_feeds');
-			View::prependTitle ($this->view->currentName);
 			$this->view->get_c = $type['type'];
 			return false;
 		} elseif ($type['type'] == 'favoris') {
 			$this->view->currentName = Translate::t ('your_favorites');
-			View::prependTitle ($this->view->currentName);
 			$this->view->get_c = $type['type'];
 			return false;
 		} elseif ($type['type'] == 'public') {
 			$this->view->currentName = Translate::t ('public');
-			View::prependTitle ($this->view->currentName);
 			$this->view->get_c = $type['type'];
 			return false;
 		} elseif ($type['type'] == 'c') {
@@ -162,8 +169,7 @@ class indexController extends ActionController {
 			$cat = $catDAO->searchById ($type['id']);
 			if ($cat) {
 				$this->view->currentName = $cat->name ();
-				$nbnr = $cat->nbNotRead ();
-				View::prependTitle ($this->view->currentName . ($nbnr > 0 ? ' (' . $nbnr . ')' : ''));
+				$this->nb_not_read_cat = $cat->nbNotRead ();
 				$this->view->get_c = $type['id'];
 				return false;
 			} else {
@@ -174,8 +180,7 @@ class indexController extends ActionController {
 			$feed = $feedDAO->searchById ($type['id']);
 			if ($feed) {
 				$this->view->currentName = $feed->name ();
-				$nbnr = $feed->nbNotRead ();
-				View::prependTitle ($this->view->currentName . ($nbnr > 0 ? ' (' . $nbnr . ')' : ''));
+				$this->nb_not_read_cat = $feed->nbNotRead ();
 				$this->view->get_f = $type['id'];
 				$this->view->get_c = $feed->category ();
 				return false;
