@@ -6,7 +6,7 @@
 		<description><?php echo Translate::t ('rss_feeds_of', $this->rss_title); ?></description>
 		<pubDate><?php echo date('D, d M Y H:i:s O'); ?></pubDate>
 		<lastBuildDate><?php echo gmdate('D, d M Y H:i:s'); ?> GMT</lastBuildDate>
-		<atom:link href="<?php echo Url::display (array('params' => array('output' => 'rss')), 'html', true); ?>" rel="self" type="application/rss+xml" />
+		<atom:link href="<?php echo Url::display ($this->rss_url, 'html', true); ?>" rel="self" type="application/rss+xml" />
 <?php
 $items = $this->entryPaginator->items ();
 foreach ($items as $item) {
