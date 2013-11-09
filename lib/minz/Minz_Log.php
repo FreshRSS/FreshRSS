@@ -65,12 +65,9 @@ class Minz_Log {
 				fwrite ($file, $log); 
 				fclose ($file);
 			} else {
-				Error::error (
-					500,
-					array ('error' => array (
-						'Permission is denied for `'
-						. $file_name . '`')
-					)
+				throw new PermissionDeniedException (
+					$file_name,
+					MinzException::ERROR
 				);
 			}
 		}

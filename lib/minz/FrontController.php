@@ -41,7 +41,7 @@ class FrontController {
 			Configuration::init ();
 
 			Request::init ();
-			
+
 			$this->router = new Router ();
 			$this->router->init ();
 		} catch (RouteNotFoundException $e) {
@@ -52,7 +52,7 @@ class FrontController {
 			);
 		} catch (MinzException $e) {
 			Minz_Log::record ($e->getMessage (), Minz_Log::ERROR);
-			$this->killApp ();
+			$this->killApp ($e->getMessage ());
 		}
 		
 		$this->dispatcher = Dispatcher::getInstance ($this->router);
@@ -94,12 +94,16 @@ class FrontController {
 			$this->dispatcher->run ();
 			Response::send ();
 		} catch (MinzException $e) {
-			Minz_Log::record ($e->getMessage (), Minz_Log::ERROR);
+			try {
+				Minz_Log::record ($e->getMessage (), Minz_Log::ERROR);
+			} catch (PermissionDeniedException $e) {
+				$this->killApp ($e->getMessage ());
+			}
 
 			if ($e instanceof FileNotExistException ||
-			    $e instanceof ControllerNotExistException ||
-			    $e instanceof ControllerNotActionControllerException ||
-			    $e instanceof ActionException) {
+					$e instanceof ControllerNotExistException ||
+					$e instanceof ControllerNotActionControllerException ||
+					$e instanceof ActionException) {
 				Error::error (
 					404,
 					array ('error' => array ($e->getMessage ())),
@@ -118,6 +122,6 @@ class FrontController {
 		if ($txt == '') {
 			$txt = 'See logs files';
 		}
-		exit ('### Application problem ###'."\n".$txt);
+		exit ('### Application problem ###<br />'."\n".$txt);
 	}
 }

@@ -19,7 +19,7 @@ class MinzException extends Exception {
 class PermissionDeniedException extends MinzException {
 	public function __construct ($file_name, $code = self::ERROR) {
 		$message = 'Permission is denied for `' . $file_name.'`';
-		
+
 		parent::__construct ($message, $code);
 	}
 }
@@ -33,7 +33,7 @@ class FileNotExistException extends MinzException {
 class BadConfigurationException extends MinzException {
 	public function __construct ($part_missing, $code = self::ERROR) {
 		$message = '`' . $part_missing
-		         . '` in the configuration file is missing';
+		         . '` in the configuration file is missing or is misconfigured';
 		
 		parent::__construct ($message, $code);
 	}

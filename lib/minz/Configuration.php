@@ -13,7 +13,7 @@ class Configuration {
 	/**
 	 * VERSION est la version actuelle de MINZ
 	 */
-	const VERSION = '1.3.1';
+	const VERSION = '1.3.1.freshrss';  // version spéciale FreshRSS
 
 	/**
 	 * valeurs possibles pour l'"environment"
@@ -98,9 +98,9 @@ class Configuration {
 		try {
 			self::parseFile ();
 			self::setReporting ();
-		} catch (BadConfigurationException $e) {
-			throw $e;
 		} catch (FileNotExistException $e) {
+			throw $e;
+		} catch (BadConfigurationException $e) {
 			throw $e;
 		}
 	}
@@ -117,10 +117,18 @@ class Configuration {
 				MinzException::ERROR
 			);
 		}
+
 		$ini_array = parse_ini_file (
 			APP_PATH . self::CONF_PATH_NAME,
 			true
 		);
+
+		if (!$ini_array) {
+			throw new PermissionDeniedException (
+				APP_PATH . self::CONF_PATH_NAME,
+				MinzException::ERROR
+			);
+		}
 
 		// [general] est obligatoire
 		if (!isset ($ini_array['general'])) {
