@@ -1,30 +1,26 @@
 <?php $this->partial ('nav_menu'); ?>
 
-<div id="stream" class="global">
+<div id="stream" class="global categories">
 <?php
 	foreach ($this->cat_aside as $cat) {
 		$feeds = $cat->feeds ();
-		$catNotRead = $cat->nbNotRead ();
 		if (!empty ($feeds)) {
 ?>
-	<div class="category">
-		<div class="cat_header">
-			<a href="<?php echo _url ('index', 'index', 'get', 'c_' . $cat->id (), 'output', 'normal'); ?>">
-			<?php echo htmlspecialchars($cat->name(), ENT_NOQUOTES, 'UTF-8'); ?><?php echo $catNotRead > 0 ? ' (' . $catNotRead . ')' : ''; ?>
+	<div class="box-category">
+		<div class="category">
+			<a data-unread="<?php echo $cat->nbNotRead (); ?>" class="btn" href="<?php echo _url ('index', 'index', 'get', 'c_' . $cat->id (), 'output', 'normal'); ?>">
+			<?php echo htmlspecialchars($cat->name(), ENT_NOQUOTES, 'UTF-8'); ?>
 			</a>
 		</div>
 
 		<ul class="feeds">
 			<?php foreach ($feeds as $feed) { ?>
 			<?php $not_read = $feed->nbNotRead (); ?>
-			<li class="item">
+			<li id="f_<?php echo $feed->id (); ?>" class="item<?php echo $feed->inError () ? ' error' : ''; ?><?php echo $feed->nbEntries () == 0 ? ' empty' : ''; ?>">
 				<img class="favicon" src="<?php echo $feed->favicon (); ?>" alt="✇" />
 
-				<a href="<?php echo _url ('index', 'index', 'get', 'f_' . $feed->id (), 'output', 'normal'); ?>">
-				<?php echo $not_read > 0 ? '<b>' : ''; ?>
+				<a class="feed" data-unread="<?php echo $feed->nbNotRead (); ?>" data-priority="<?php echo $feed->priority (); ?>" href="<?php echo _url ('index', 'index', 'get', 'f_' . $feed->id (), 'output', 'normal'); ?>">
 				<?php echo htmlspecialchars($feed->name(), ENT_NOQUOTES, 'UTF-8'); ?>
-				<?php echo $not_read > 0 ? ' (' . $not_read . ')' : ''; ?>
-				<?php echo $not_read > 0 ? '</b>' : ''; ?>
 				</a>
 			</li>
 			<?php } ?>
