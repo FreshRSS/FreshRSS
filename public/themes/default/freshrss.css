@@ -586,6 +586,7 @@
 	background: #ddd;
 	color: #666;
 	font-weight: bold;
+	z-index: 10;
 }
 	.notification.good {
 		background: #f4f899;
