@@ -88,6 +88,8 @@ class entryController extends ActionController {
 		$entryDAO = new EntryDAO();
 		$entryDAO->optimizeTable();
 
+		touch(PUBLIC_PATH . '/data/touch.txt');
+
 		$notif = array (
 			'type' => 'good',
 			'content' => Translate::t ('optimization_complete')
