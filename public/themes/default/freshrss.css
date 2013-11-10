@@ -29,11 +29,11 @@
 				text-decoration: none;
 			}
 		.header > .item.search input {
-			width: 200px;
+			width: 230px;
 			transition: width 200ms linear;
 		}
 			.header .item.search input:focus {
-				width: 300px;
+				width: 330px;
 			}
 		.header > .item.configure {
 			width: 100px;
