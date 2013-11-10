@@ -180,6 +180,7 @@
 		}
 		.categories .feeds .item .dropdown-toggle i {
 			background-image: none;
+			cursor: pointer;
 		}
 			.categories .feeds .item .dropdown-target:target ~ .dropdown-toggle i,
 			.categories .feeds .item:hover .dropdown-toggle i,
