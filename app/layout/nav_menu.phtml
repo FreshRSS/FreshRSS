@@ -121,11 +121,6 @@
 				</a>
 			</li>
 			<?php } ?>
-			<li class="item">
-				<a class="view_rss" target="_blank" href="<?php echo Url::display ($this->rss_url); ?>">
-					<?php echo Translate::t ('rss_view'); ?>
-				</a>
-			</li>
 
 			<li class="separator"></li>
 
@@ -148,8 +143,6 @@
 				<?php } ?>
 			</li>
 
-			<li class="separator"></li>
-
 			<li class="item">
 				<?php
 					$url_order = $url;
@@ -167,6 +160,14 @@
 					<?php echo Translate::t ('newer_first'); ?>
 				</a>
 				<?php } ?>
+			</li>
+
+			<li class="separator"></li>
+
+			<li class="item">
+				<a class="view_rss" target="_blank" href="<?php echo Url::display ($this->rss_url); ?>">
+					<?php echo Translate::t ('rss_view'); ?>
+				</a>
 			</li>
 		</ul>
 	</div>
