@@ -9,14 +9,10 @@ function login_is_conf ($conf) {
 	return $conf->mailLogin () != false;
 }
 
-// tiré de Shaarli de Seb Sauvage
+// tiré de Shaarli de Seb Sauvage	//Format RFC 4648 base64url
 function small_hash ($txt) {
 	$t = rtrim (base64_encode (hash ('crc32', $txt, true)), '=');
-	$t = str_replace ('+', '-', $t); // Get rid of characters which need encoding in URLs.
-	$t = str_replace ('/', '_', $t);
-	$t = str_replace ('=', '@', $t);
-
-	return $t;
+	return strtr ($t, '+/', '-_');
 }
 
 function timestamptodate ($t, $hour = true) {
