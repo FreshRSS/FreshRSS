@@ -39,8 +39,8 @@ if (isset ($this->entryPaginator) && !$this->entryPaginator->isEmpty ()) {
 	<div class="flux<?php echo !$item->isRead () ? ' not_read' : ''; ?><?php echo $item->isFavorite () ? ' favorite' : ''; ?>" id="flux_<?php echo $item->id (); ?>">
 		<ul class="horizontal-list flux_header">
 			<?php if (!login_is_conf ($this->conf) || is_logged ()) { ?>
-				<?php if ($this->conf->toplineRead ()) { ?><li class="item manage"><a class="read" href="<?php echo _url ('entry', 'read', 'id', $item->id (), 'is_read', $item->isRead () ? 0 : 1); ?>">&nbsp;</a></li><?php } ?>
-				<?php if ($this->conf->toplineFavorite ()) { ?><li class="item manage"><a class="bookmark" href="<?php echo _url ('entry', 'bookmark', 'id', $item->id (), 'is_favorite', $item->isFavorite () ? 0 : 1); ?>">&nbsp;</a></li><?php } ?>
+				<?php if ($this->conf->toplineRead ()) { ?><li class="item manage"><a class="read" href="<?php echo _url ('entry', 'read', 'id', $item->id (), 'is_read', $item->isRead () ? 0 : 1); ?>"> </a></li><?php } ?>
+				<?php if ($this->conf->toplineFavorite ()) { ?><li class="item manage"><a class="bookmark" href="<?php echo _url ('entry', 'bookmark', 'id', $item->id (), 'is_favorite', $item->isFavorite () ? 0 : 1); ?>"> </a></li><?php } ?>
 			<?php
 				}
 				$feed = HelperCategory::findFeed($this->cat_aside, $item->feed ());	//We most likely already have the feed object in cache
@@ -48,8 +48,8 @@ if (isset ($this->entryPaginator) && !$this->entryPaginator->isEmpty ()) {
 			?>
 			<li class="item website"><a href="<?php echo _url ('index', 'index', 'get', 'f_' . $feed->id ()); ?>"><img class="favicon" src="<?php echo $feed->favicon (); ?>" alt="✇" /> <span><?php echo htmlspecialchars($feed->name(), ENT_NOQUOTES, 'UTF-8'); ?></span></a></li>
 			<li class="item title"><a target="_blank" href="<?php echo $item->link (); ?>"><?php echo $item->title (); ?></a></li>
-			<?php if ($this->conf->toplineDate ()) { ?><li class="item date"><?php echo $item->date (); ?>&nbsp;</li><?php } ?>
-			<?php if ($this->conf->toplineLink ()) { ?><li class="item link"><a target="_blank" href="<?php echo $item->link (); ?>">&nbsp;</a></li><?php } ?>
+			<?php if ($this->conf->toplineDate ()) { ?><li class="item date"><?php echo $item->date (); ?> </li><?php } ?>
+			<?php if ($this->conf->toplineLink ()) { ?><li class="item link"><a target="_blank" href="<?php echo $item->link (); ?>"> </a></li><?php } ?>
 		</ul>
 
 		<div class="flux_content">
@@ -68,8 +68,8 @@ if (isset ($this->entryPaginator) && !$this->entryPaginator->isEmpty ()) {
 
 			<ul class="horizontal-list bottom">
 				<?php if (!login_is_conf ($this->conf) || is_logged ()) { ?>
-					<?php if ($this->conf->bottomlineRead ()) { ?><li class="item manage"><a class="read" href="<?php echo _url ('entry', 'read', 'id', $item->id (), 'is_read', $item->isRead () ? 0 : 1); ?>">&nbsp;</a></li><?php } ?>
-					<?php if ($this->conf->bottomlineFavorite ()) { ?><li class="item manage"><a class="bookmark" href="<?php echo _url ('entry', 'bookmark', 'id', $item->id (), 'is_favorite', $item->isFavorite () ? 0 : 1); ?>">&nbsp;</a></li><?php } ?>
+					<?php if ($this->conf->bottomlineRead ()) { ?><li class="item manage"><a class="read" href="<?php echo _url ('entry', 'read', 'id', $item->id (), 'is_read', $item->isRead () ? 0 : 1); ?>"> </a></li><?php } ?>
+					<?php if ($this->conf->bottomlineFavorite ()) { ?><li class="item manage"><a class="bookmark" href="<?php echo _url ('entry', 'bookmark', 'id', $item->id (), 'is_favorite', $item->isFavorite () ? 0 : 1); ?>"> </a></li><?php } ?>
 				<?php } ?>
 				<li class="item">
 					<?php
@@ -82,7 +82,7 @@ if (isset ($this->entryPaginator) && !$this->entryPaginator->isEmpty ()) {
 						<i class="icon i_share"></i> <a class="dropdown-toggle" href="#dropdown-share-<?php echo $item->id ();?>"><?php echo Translate::t ('share'); ?></a>
 
 						<ul class="dropdown-menu">
-							<li class="dropdown-close"><a href="#close">&nbsp;</a></li>
+							<li class="dropdown-close"><a href="#close"> </a></li>
 							<?php
 								$shaarli = $this->conf->urlShaarli ();
 								if ((!login_is_conf ($this->conf) || is_logged ()) && $shaarli) {
@@ -125,7 +125,7 @@ if (isset ($this->entryPaginator) && !$this->entryPaginator->isEmpty ()) {
 						<div id="dropdown-tags-<?php echo $item->id ();?>" class="dropdown-target"></div>
 						<i class="icon i_tag"></i> <a class="dropdown-toggle" href="#dropdown-tags-<?php echo $item->id ();?>"><?php echo Translate::t ('related_tags'); ?></a>
 						<ul class="dropdown-menu">
-							<li class="dropdown-close"><a href="#close">&nbsp;</a></li>
+							<li class="dropdown-close"><a href="#close"> </a></li>
 							<?php foreach($tags as $tag) { ?>
 							<li class="item"><a href="<?php echo _url ('index', 'index', 'search', urlencode ('#' . $tag)); ?>"><?php echo $tag; ?></a></li>
 							<?php } ?>
@@ -133,8 +133,8 @@ if (isset ($this->entryPaginator) && !$this->entryPaginator->isEmpty ()) {
 					</div>
 				</li>
 				<?php } ?>
-				<?php if ($this->conf->bottomlineDate ()) { ?><li class="item date"><?php echo $item->date (); ?>&nbsp;</li><?php } ?>
-				<?php if ($this->conf->bottomlineLink ()) { ?><li class="item link"><a target="_blank" href="<?php echo $item->link (); ?>">&nbsp;</a></li><?php } ?>
+				<?php if ($this->conf->bottomlineDate ()) { ?><li class="item date"><?php echo $item->date (); ?> </li><?php } ?>
+				<?php if ($this->conf->bottomlineLink ()) { ?><li class="item link"><a target="_blank" href="<?php echo $item->link (); ?>"> </a></li><?php } ?>
 			</ul>
 		</div>
 	</div>
