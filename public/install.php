@@ -14,7 +14,8 @@ define ('SQL_REQ_CAT', 'CREATE TABLE IF NOT EXISTS `%scategory` (
   `id` varchar(6) NOT NULL,
   `name` varchar(255) NOT NULL,
   `color` varchar(7) NOT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  INDEX (`name`)
 );');
 
 define ('SQL_REQ_FEED', 'CREATE TABLE IF NOT EXISTS `%sfeed` (
@@ -25,13 +26,16 @@ define ('SQL_REQ_FEED', 'CREATE TABLE IF NOT EXISTS `%sfeed` (
   `website` text NOT NULL,
   `description` text NOT NULL,
   `lastUpdate` int(11) NOT NULL,
-  `priority` int(2) NOT NULL DEFAULT \'10\',
+  `priority` tinyint NOT NULL DEFAULT \'10\',
   `pathEntries` varchar(500) DEFAULT NULL,
   `httpAuth` varchar(500) DEFAULT NULL,
-  `error` int(1) NOT NULL DEFAULT \'0\',
-  `keep_history` int(1) NOT NULL DEFAULT \'0\',
+  `error` boolean NOT NULL DEFAULT \'0\',
+  `keep_history` boolean NOT NULL DEFAULT \'0\',
   PRIMARY KEY (`id`),
-  FOREIGN KEY (`category`) REFERENCES %scategory(id) ON DELETE SET NULL ON UPDATE CASCADE
+  FOREIGN KEY (`category`) REFERENCES %scategory(id) ON DELETE SET NULL ON UPDATE CASCADE,
+  INDEX (`name`),
+  INDEX (`priority`),
+  INDEX (`keep_history`)
 );');
 
 define ('SQL_REQ_ENTRY', 'CREATE TABLE IF NOT EXISTS `%sentry` (
@@ -42,12 +46,14 @@ define ('SQL_REQ_ENTRY', 'CREATE TABLE IF NOT EXISTS `%sentry` (
   `content` text NOT NULL,
   `link` text NOT NULL,
   `date` int(11) NOT NULL,
-  `is_read` int(11) NOT NULL DEFAULT \'0\',
-  `is_favorite` int(11) NOT NULL DEFAULT \'0\',
+  `is_read` boolean NOT NULL DEFAULT \'0\',
+  `is_favorite` boolean NOT NULL DEFAULT \'0\',
   `id_feed` varchar(6) NOT NULL,
   `tags` text NOT NULL,
   PRIMARY KEY (`id`),
-  FOREIGN KEY (`id_feed`) REFERENCES %sfeed(id) ON DELETE CASCADE ON UPDATE CASCADE
+  FOREIGN KEY (`id_feed`) REFERENCES %sfeed(id) ON DELETE CASCADE ON UPDATE CASCADE,
+  INDEX (`is_favorite`),
+  INDEX (`is_read`)
 );');
 
 
