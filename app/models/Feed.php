@@ -241,12 +241,22 @@ class Feed extends Model {
 			}
 		}
 	}
+	static function html_only_entity_decode($text) {
+		static $htmlEntitiesOnly = null;
+		if ($htmlEntitiesOnly === null) {
+			$htmlEntitiesOnly = array_flip(array_diff(
+				get_html_translation_table(HTML_ENTITIES, ENT_NOQUOTES, 'UTF-8'),	//Decode HTML entities
+				get_html_translation_table(HTML_SPECIALCHARS, ENT_NOQUOTES, 'UTF-8')	//Preserve XML entities
+			));
+		}
+		return strtr($text, $htmlEntitiesOnly);
+	}
 	private function loadEntries ($feed) {
 		$entries = array ();
 
 		foreach ($feed->get_items () as $item) {
-			$title = strip_tags($item->get_title ());
-			$author = $item->get_author ();
+			$title = self::html_only_entity_decode (strip_tags ($item->get_title ()));
+			$author = self::html_only_entity_decode ($item->get_author ());
 			$link = $item->get_permalink ();
 			$date = strtotime ($item->get_date ());
 
@@ -255,11 +265,12 @@ class Feed extends Model {
 			$tags = array ();
 			if (!is_null ($tags_tmp)) {
 				foreach ($tags_tmp as $tag) {
-					$tags[] = $tag->get_label ();
+					$tags[] = self::html_only_entity_decode ($tag->get_label ());
 				}
 			}
 
-			$content = $item->get_content ();
+			$content = self::html_only_entity_decode ($item->get_content ());
+
 			$elinks = array();
 			foreach ($item->get_enclosures() as $enclosure) {
 				$elink = $enclosure->get_link();
