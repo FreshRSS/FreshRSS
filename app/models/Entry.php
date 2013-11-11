@@ -179,16 +179,16 @@ class Entry extends Model {
 	public function toArray () {
 		return array (
 			'id' => $this->id (),
-			'guid' => substr($this->guid (), 0, 65535),
-			'title' => substr($this->title (), 0, 255),
-			'author' => substr($this->author (), 0, 255),
-			'content' => substr($this->content (), 0, 65535),
-			'link' => substr($this->link (), 0, 65535),
+			'guid' => $this->guid (),
+			'title' => $this->title (),
+			'author' => $this->author (),
+			'content' => $this->content (),
+			'link' => $this->link (),
 			'date' => $this->date (true),
 			'is_read' => $this->isRead (),
 			'is_favorite' => $this->isFavorite (),
 			'id_feed' => $this->feed (),
-			'tags' => substr($this->tags (true), 0, 65535),
+			'tags' => $this->tags (true),
 		);
 	}
 }
@@ -200,16 +200,16 @@ class EntryDAO extends Model_pdo {
 
 		$values = array (
 			$valuesTmp['id'],
-			$valuesTmp['guid'],
-			$valuesTmp['title'],
-			$valuesTmp['author'],
+			substr($valuesTmp['guid'], 0, 511),
+			substr($valuesTmp['title'], 0, 255),
+			substr($valuesTmp['author'], 0, 255),
 			base64_encode (gzdeflate (serialize ($valuesTmp['content']))),
-			$valuesTmp['link'],
+			substr($valuesTmp['link'], 0, 1023),
 			$valuesTmp['date'],
 			$valuesTmp['is_read'],
 			$valuesTmp['is_favorite'],
 			$valuesTmp['id_feed'],
-			$valuesTmp['tags'],
+			substr($valuesTmp['tags'], 0, 1023),
 		);
 
 		if ($stm && $stm->execute ($values)) {

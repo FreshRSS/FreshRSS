@@ -11,7 +11,7 @@ if (isset ($_GET['step'])) {
 define ('SQL_REQ_CREATE_DB', 'CREATE DATABASE %s DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;');
 
 define ('SQL_REQ_CAT', 'CREATE TABLE IF NOT EXISTS `%scategory` (
-  `id` varchar(6) NOT NULL,
+  `id` char(6) NOT NULL,
   `name` varchar(255) NOT NULL,
   `color` varchar(7) NOT NULL,
   PRIMARY KEY (`id`),
@@ -19,16 +19,16 @@ define ('SQL_REQ_CAT', 'CREATE TABLE IF NOT EXISTS `%scategory` (
 );');
 
 define ('SQL_REQ_FEED', 'CREATE TABLE IF NOT EXISTS `%sfeed` (
-  `id` varchar(6) NOT NULL,
-  `url` text NOT NULL,
-  `category` varchar(6) DEFAULT \'000000\',
+  `id` char(6) NOT NULL,
+  `url` varchar(511) NOT NULL,
+  `category` char(6) DEFAULT \'000000\',
   `name` varchar(255) NOT NULL,
-  `website` text NOT NULL,
-  `description` text NOT NULL,
+  `website` varchar(255) NOT NULL,
+  `description` varchar(1023) NOT NULL,
   `lastUpdate` int(11) NOT NULL,
   `priority` tinyint NOT NULL DEFAULT \'10\',
-  `pathEntries` varchar(500) DEFAULT NULL,
-  `httpAuth` varchar(500) DEFAULT NULL,
+  `pathEntries` varchar(511) DEFAULT NULL,
+  `httpAuth` varchar(511) DEFAULT NULL,
   `error` boolean NOT NULL DEFAULT \'0\',
   `keep_history` boolean NOT NULL DEFAULT \'0\',
   PRIMARY KEY (`id`),
@@ -39,17 +39,17 @@ define ('SQL_REQ_FEED', 'CREATE TABLE IF NOT EXISTS `%sfeed` (
 );');
 
 define ('SQL_REQ_ENTRY', 'CREATE TABLE IF NOT EXISTS `%sentry` (
-  `id` varchar(6) NOT NULL,
-  `guid` text NOT NULL,
+  `id` char(6) NOT NULL,
+  `guid` varchar(511) NOT NULL,
   `title` varchar(255) NOT NULL,
   `author` varchar(255) NOT NULL,
   `content` text NOT NULL,
-  `link` text NOT NULL,
+  `link` varchar(1023) NOT NULL,
   `date` int(11) NOT NULL,
   `is_read` boolean NOT NULL DEFAULT \'0\',
   `is_favorite` boolean NOT NULL DEFAULT \'0\',
-  `id_feed` varchar(6) NOT NULL,
-  `tags` text NOT NULL,
+  `id_feed` char(6) NOT NULL,
+  `tags` varchar(1023) NOT NULL,
   PRIMARY KEY (`id`),
   FOREIGN KEY (`id_feed`) REFERENCES %sfeed(id) ON DELETE CASCADE ON UPDATE CASCADE,
   INDEX (`is_favorite`),

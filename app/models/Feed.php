@@ -309,11 +309,11 @@ class FeedDAO extends Model_pdo {
 
 		$values = array (
 			$valuesTmp['id'],
-			$valuesTmp['url'],
+			substr($valuesTmp['url'], 0, 511),
 			$valuesTmp['category'],
-			$valuesTmp['name'],
-			$valuesTmp['website'],
-			$valuesTmp['description'],
+			substr($valuesTmp['name'], 0, 255),
+			substr($valuesTmp['website'], 0, 255),
+			substr($valuesTmp['description'], 0, 1023),
 			$valuesTmp['lastUpdate'],
 			base64_encode ($valuesTmp['httpAuth']),
 		);
