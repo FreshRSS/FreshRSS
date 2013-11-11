@@ -179,16 +179,16 @@ class Entry extends Model {
 	public function toArray () {
 		return array (
 			'id' => $this->id (),
-			'guid' => $this->guid (),
-			'title' => $this->title (),
-			'author' => $this->author (),
-			'content' => $this->content (),
-			'link' => $this->link (),
+			'guid' => substr($this->guid (), 0, 65535),
+			'title' => substr($this->title (), 0, 255),
+			'author' => substr($this->author (), 0, 255),
+			'content' => substr($this->content (), 0, 65535),
+			'link' => substr($this->link (), 0, 65535),
 			'date' => $this->date (true),
 			'is_read' => $this->isRead (),
 			'is_favorite' => $this->isFavorite (),
 			'id_feed' => $this->feed (),
-			'tags' => $this->tags (true)
+			'tags' => substr($this->tags (true), 0, 65535),
 		);
 	}
 }
