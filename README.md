@@ -4,27 +4,25 @@ FreshRSS est un agrégateur de flux RSS à auto-héberger à l'image de [Selfoss
 * Site officiel : http://marienfressinaud.github.io/FreshRSS/
 * Démo : http://marienfressinaud.fr/projets/freshrss/
 * Développeur : Marien Fressinaud <dev@marienfressinaud.fr>
-* Version actuelle : 0.5.1
-* Date de publication 2013-10-15
+* Version actuelle : 0.7
+* Date de publication 2013-xx-xx
 * License AGPL3
 
 ![Logo de FreshRSS](http://marienfressinaud.fr/data/images/freshrss/freshrss_title.png)
 
 # Disclaimer
-Cette application a été développée pour s'adapter à mes besoins personnels.
-Je ne garantis en aucun cas la sécurité de celle-ci, ni son bon fonctionnement
-sur un autre serveur que le mien. Je m'engage néanmoins à répondre dans la
-mesure du possible aux demandes d'évolution si celles-ci me semblent justifiées.
+Cette application a été développée pour s'adapter à des besoins personnels et non professionels.
+Je ne garantis en aucun cas la sécurité de celle-ci, ni son bon fonctionnement.
+Je m'engage néanmoins à répondre dans la mesure du possible aux demandes d'évolution si celles-ci me semblent justifiées.
 Privilégiez pour cela des demandes sur GitHub
 (https://github.com/marienfressinaud/FreshRSS/issues) ou par mail (dev@marienfressinaud.fr)
 
 # Pré-requis
-* Serveur Apache ou Nginx (non testé sur les autres)
-* PHP 5.3 (il me faudrait des retours sur d'autres versions antérieures)
- * libxml pour PHP
- * cURL
- * PDO et MySQL
-* MySQL (SQLite à venir)
+* Serveur Apache2 ou Nginx (non testé sur les autres)
+* PHP 5.2+ (PHP 5.3.3+ recommandé)
+ * Requis : [libxml](http://php.net/xml), [cURL](http://php.net/curl), [PDO_MySQL](http://php.net/pdo-mysql)
+ * Recommandés : [mbstring](http://php.net/mbstring), [Zlib](http://php.net/zlib)
+* MySQL 5.0.3+ (SQLite à venir)
 * Un navigateur Web récent tel Firefox, Chrome, Opera, Safari, Internet Explorer 9+
  * Fonctionne aussi sur mobile
 
