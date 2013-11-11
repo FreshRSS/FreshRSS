@@ -13,7 +13,7 @@ define ('SQL_REQ_CREATE_DB', 'CREATE DATABASE %s DEFAULT CHARACTER SET utf8 COLL
 define ('SQL_REQ_CAT', 'CREATE TABLE IF NOT EXISTS `%scategory` (
   `id` char(6) NOT NULL,
   `name` varchar(255) NOT NULL,
-  `color` varchar(7) NOT NULL,
+  `color` char(7) NOT NULL,
   PRIMARY KEY (`id`),
   INDEX (`name`)
 );');
@@ -26,7 +26,7 @@ define ('SQL_REQ_FEED', 'CREATE TABLE IF NOT EXISTS `%sfeed` (
   `website` varchar(255) NOT NULL,
   `description` varchar(1023) NOT NULL,
   `lastUpdate` int(11) NOT NULL,
-  `priority` tinyint NOT NULL DEFAULT \'10\',
+  `priority` tinyint(2) NOT NULL DEFAULT \'10\',
   `pathEntries` varchar(511) DEFAULT NULL,
   `httpAuth` varchar(511) DEFAULT NULL,
   `error` boolean NOT NULL DEFAULT \'0\',

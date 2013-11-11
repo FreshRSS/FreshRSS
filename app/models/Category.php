@@ -95,8 +95,8 @@ class CategoryDAO extends Model_pdo {
 
 		$values = array (
 			$valuesTmp['id'],
-			$valuesTmp['name'],
-			$valuesTmp['color'],
+			substr($valuesTmp['name'], 0, 255),
+			substr($valuesTmp['color'], 0, 7),
 		);
 
 		if ($stm && $stm->execute ($values)) {
