@@ -19,7 +19,7 @@ return array (
 	'import_export_opml'		=> 'Import / export (OPML)',
 
 	'subscription_management'	=> 'Subscriptions management',
-	'all_feeds'			=> 'Main stream (%d)',
+	'all_feeds'			=> 'Main stream',
 	'favorite_feeds'		=> 'Favourites (%d)',
 	'not_read'			=> '%d unread',
 	'not_reads'			=> '%d unread',

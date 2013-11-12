@@ -43,10 +43,6 @@ class App_FrontController extends FrontController {
 	private function loadParamsView () {
 		$this->conf = Session::param ('conf', new RSSConfiguration ());
 		View::_param ('conf', $this->conf);
-
-		$entryDAO = new EntryDAO ();
-		View::_param ('nb_not_read', $entryDAO->countNotRead ());
-
 		Session::_param ('language', $this->conf->language ());
 	}
 

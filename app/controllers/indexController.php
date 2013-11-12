@@ -2,7 +2,6 @@
 
 class indexController extends ActionController {
 	private $get = false;
-	private $nb_not_read = 0;
 	private $nb_not_read_cat = 0;
 
 	public function indexAction () {
@@ -56,19 +55,12 @@ class indexController extends ActionController {
 			}
 		}
 
-		$nb_not_read = $this->view->nb_not_read;
-		if($nb_not_read > 0) {
-			View::appendTitle (' (' . $nb_not_read . ')');
-		}
-		View::prependTitle (' - ');
-
 		$entryDAO = new EntryDAO ();
 		$feedDAO = new FeedDAO ();
 		$catDAO = new CategoryDAO ();
 
 		$this->view->cat_aside = $catDAO->listCategories ();
 		$this->view->nb_favorites = $entryDAO->countUnreadReadFavorites ();
-		$this->view->nb_total = $entryDAO->count ();
 		$this->view->currentName = '';
 
 		$this->view->get_c = '';
@@ -78,6 +70,12 @@ class indexController extends ActionController {
 		$error = $this->checkAndProcessType ($type);
 
 		// mise à jour des titres
+		$this->view->nb_not_read = HelperCategory::CountUnreads($this->view->cat_aside, 1);
+		if ($this->view->nb_not_read > 0) {
+			View::appendTitle (' (' . $this->view->nb_not_read . ')');
+		}
+		View::prependTitle (' - ');
+
 		$this->view->rss_title = $this->view->currentName . ' - ' . $this->view->rss_title;
 		View::prependTitle (
 			$this->view->currentName .
@@ -166,8 +164,11 @@ class indexController extends ActionController {
 			$this->view->get_c = $type['type'];
 			return false;
 		} elseif ($type['type'] == 'c') {
-			$catDAO = new CategoryDAO ();
-			$cat = $catDAO->searchById ($type['id']);
+			$cat = isset($this->view->cat_aside[$type['id']]) ? $this->view->cat_aside[$type['id']] : null;
+			if ($cat === null) {
+				$catDAO = new CategoryDAO ();
+				$cat = $catDAO->searchById ($type['id']);
+			}
 			if ($cat) {
 				$this->view->currentName = $cat->name ();
 				$this->nb_not_read_cat = $cat->nbNotRead ();
@@ -177,8 +178,11 @@ class indexController extends ActionController {
 				return true;
 			}
 		} elseif ($type['type'] == 'f') {
-			$feedDAO = new FeedDAO ();
-			$feed = $feedDAO->searchById ($type['id']);
+			$feed = HelperCategory::findFeed($this->view->cat_aside, $type['id']);
+			if (empty($feed)) {
+				$feedDAO = new FeedDAO ();
+				$feed = $feedDAO->searchById ($type['id']);
+			}
 			if ($feed) {
 				$this->view->currentName = $feed->name ();
 				$this->nb_not_read_cat = $feed->nbNotRead ();
