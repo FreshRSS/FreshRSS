@@ -457,7 +457,7 @@ function init_actualize() {
 }
 
 function closeNotification() {
-	$(".notification").slideUp(200, function () {
+	$(".notification").fadeOut(600, function () {
 		$(".notification").remove();
 	});
 }
