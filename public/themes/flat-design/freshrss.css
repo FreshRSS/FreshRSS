@@ -112,13 +112,12 @@ body {
 		.category .btn:first-child:not([data-unread="0"]):after {
 			content: attr(data-unread);
 			position: absolute;
-			top: 5px; right: 0px;
+			top: 5px; right: 5px;
 			padding: 0 5px;
 			color: #fff;
 			font-size: 90%;
 			background: #3498DB;
-			border-left: 3px solid #2980B9;
-			border-radius: 5px 0 0 5px;
+			border-radius: 5px;
 		}
 		.category + .feeds:not(.active) {
 			display:none;
