@@ -94,9 +94,8 @@ body {
 }
 	.category {
 		display: block;
-		padding: 5px 0;
 		width: 220px;
-		margin: 5px auto;
+		margin: 10px auto;
 		text-align: left;
 		overflow: hidden;
 		white-space: nowrap;
@@ -123,7 +122,7 @@ body {
 			display:none;
 		}
 	.categories .feeds {
-		width: 220px;
+		width: 100%;
 		margin: 0 auto;
 		list-style: none;
 	}
@@ -347,39 +346,57 @@ body {
 #stream.global {
 	text-align: center;
 }
-	#stream.global .category {
+	#stream.global .box-category {
 		display: inline-block;
 		width: 280px;
 		margin: 20px 10px;
 		vertical-align: top;
-		border: 1px solid #aaa;
+		border: 1px solid #ddd;
 		border-radius: 5px;
 		text-align: left;
-		box-shadow: 0 0 5px #bbb;
 	}
-		#stream.global .cat_header {
+		#stream.global .category {
+			width: 100%;
+			margin: 0;
+		}
+		#stream.global .btn {
+			display: block;
+			width: auto;
 			height: 35px;
+			margin: 0;
 			padding: 0 10px;
-			background: #eee;
-			border-bottom: 1px solid #aaa;
+			background: #ecf0f1;
+			color: #333;
+			border-bottom: 1px solid #ddd;
 			border-radius: 5px 5px 0 0;
 			line-height: 35px;
 			font-size: 120%;
 		}
-			#stream.global .cat_header a {
-				color: #333;
-				text-shadow: 0 -1px 0px #aaa;
+			#stream.global .btn:not([data-unread="0"]) {
+				font-weight:bold;
 			}
-		#stream.global .category .feeds {
+			#stream.global .btn:first-child:not([data-unread="0"]):after {
+				top: 0; right: 5px;
+				border: 0;
+				background: none;
+				color: #333;
+				font-weight: bold;
+				box-shadow: none;
+			}
+		#stream.global .box-category .feeds {
+			display: block;
 			max-height: 250px;
 			margin: 0;
 			list-style: none;
 			overflow: auto;
 		}
-			#stream.global .category .feeds .item {
+			#stream.global .box-category .feeds .item {
 				padding: 2px 10px;
 				font-size: 90%;
 			}
+		#stream.global .box-category .feed {
+			width: 220px;
+		}
 
 .content {
 	min-height: 300px;

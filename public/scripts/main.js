@@ -68,15 +68,19 @@ function mark_read(active, only_not_read) {
 		//Update unread: all
 		if (feed_priority > 0) {
 			elem = $('#aside_flux .all').children(':first').get(0);
-			feed_unread = elem ? (parseInt(elem.getAttribute('data-unread'), 10) || 0) : 0;
-			elem.setAttribute('data-unread', Math.max(0, feed_unread + inc));
+			if (elem) {
+				feed_unread = elem ? (parseInt(elem.getAttribute('data-unread'), 10) || 0) : 0;
+				elem.setAttribute('data-unread', Math.max(0, feed_unread + inc));
+			}
 		}
 
 		//Update unread: favourites
 		if (active.closest('div').hasClass('favorite')) {
 			elem = $('#aside_flux .favorites').children(':first').get(0);
-			feed_unread = elem ? (parseInt(elem.getAttribute('data-unread'), 10) || 0) : 0;
-			elem.setAttribute('data-unread', Math.max(0, feed_unread + inc));
+			if (elem) {
+				feed_unread = elem ? (parseInt(elem.getAttribute('data-unread'), 10) || 0) : 0;
+				elem.setAttribute('data-unread', Math.max(0, feed_unread + inc));
+			}
 		}
 
 		//Update unread: title

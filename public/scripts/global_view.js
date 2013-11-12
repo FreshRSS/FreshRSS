@@ -35,11 +35,13 @@ function init_close_panel() {
 		init_close_panel();
 		$("#panel").slideToggle();
 		$("#overlay").fadeOut();
+
+		return false;
 	});
 }
 
 function init_global_view() {
-	$("#stream .category a").click(function () {
+	$("#stream .box-category a").click(function () {
 		var link = $(this).attr("href");
 
 		load_panel(link);
