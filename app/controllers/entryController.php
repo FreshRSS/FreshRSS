@@ -75,7 +75,7 @@ class entryController extends ActionController {
 		if ($id) {
 			$entryDAO = new EntryDAO ();
 			$values = array (
-				'is_favorite' => (bool)($is_fav = Request::param ('is_favorite')),
+				'is_favorite' => (bool)(Request::param ('is_favorite')),
 			);
 			$entryDAO->updateEntry ($id, $values);
 		}
