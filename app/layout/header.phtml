@@ -10,8 +10,12 @@
 
 <div class="header">
 	<div class="item title">
-		<img class="logo" width="32" height="32" src="<?php echo Url::display ('/themes/icons/icon-32.png'); ?>" alt="[logo]" />
-		<h1><a href="<?php echo _url ('index', 'index'); ?>"><?php echo Configuration::title (); ?></a></h1>
+		<h1>
+			<a href="<?php echo _url ('index', 'index'); ?>">
+				<img class="logo" width="32" height="32" src="<?php echo Url::display ('/themes/icons/icon-32.png'); ?>" alt="[logo]" />
+				<?php echo Configuration::title (); ?>
+			</a>
+		</h1>
 	</div>
 
 	<div class="item search">
