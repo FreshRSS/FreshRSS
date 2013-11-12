@@ -24,7 +24,7 @@
 			<div class="category favorites">
 				<a data-unread="<?php echo $this->nb_favorites['unread']; ?>" class="btn<?php echo $this->get_c == 'favoris' ? ' active' : ''; ?>" href="<?php echo _url ('index', 'index', 'get', 'favoris'); ?>">
 					<i class="icon i_bookmark"></i>
-					<?php echo Translate::t ('favorite_feeds', $this->nb_favorites['read'] + $this->nb_favorites['unread']); ?>
+					<?php echo Translate::t ('favorite_feeds', $this->nb_favorites['all']); ?>
 				</a>
 			</div>
 		</li>

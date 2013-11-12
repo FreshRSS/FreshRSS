@@ -449,42 +449,35 @@ class EntryDAO extends Model_pdo {
 	}
 
 	public function countUnreadRead () {
-		$sql = 'SELECT is_read, COUNT(*) AS count FROM ' . $this->prefix . 'entry e INNER JOIN ' . $this->prefix . 'feed f ON e.id_feed = f.id WHERE priority > 0 GROUP BY is_read';
+		$sql = 'SELECT COUNT(e.id) AS count FROM ' . $this->prefix . 'entry e INNER JOIN ' . $this->prefix . 'feed f ON e.id_feed = f.id WHERE priority > 0'
+		     . ' UNION SELECT COUNT(e.id) AS count FROM ' . $this->prefix . 'entry e INNER JOIN ' . $this->prefix . 'feed f ON e.id_feed = f.id WHERE priority > 0 AND is_read = 0';
 		$stm = $this->bd->prepare ($sql);
 		$stm->execute ();
-		$res = $stm->fetchAll (PDO::FETCH_ASSOC);
-
-		$readUnread = array('unread' => 0, 'read' => 0);
-		foreach ($res as $line) {
-			switch (intval($line['is_read'])) {
-				case 0: $readUnread['unread'] = intval($line['count']); break;
-				case 1: $readUnread['read'] = intval($line['count']); break;
-			}
-		}
-		return $readUnread;
+		$res = $stm->fetchAll (PDO::FETCH_COLUMN, 0);
+		return array('total' => $res[0], 'unread' => $res[1], 'read' => $res[0] - $res[1]);
 	}
-	public function count () {	//Deprecated: use countUnreadRead() instead
-		$unreadRead = $this->countUnreadRead ();	//This makes better use of caching
-		return $unreadRead['unread'] + $unreadRead['read'];
+	public function count () {
+		$sql = 'SELECT COUNT(e.id) AS count FROM ' . $this->prefix . 'entry e INNER JOIN ' . $this->prefix . 'feed f ON e.id_feed = f.id WHERE priority > 0';
+		$stm = $this->bd->prepare ($sql);
+		$stm->execute ();
+		$res = $stm->fetchAll (PDO::FETCH_COLUMN, 0);
+		return $res[0];
 	}
-	public function countNotRead () {	//Deprecated: use countUnreadRead() instead
-		$unreadRead = $this->countUnreadRead ();	//This makes better use of caching
-		return $unreadRead['unread'];
+	public function countNotRead () {
+		$sql = 'SELECT COUNT(e.id) AS count FROM ' . $this->prefix . 'entry e INNER JOIN ' . $this->prefix . 'feed f ON e.id_feed = f.id WHERE priority > 0 AND is_read = 0';
+		$stm = $this->bd->prepare ($sql);
+		$stm->execute ();
+		$res = $stm->fetchAll (PDO::FETCH_COLUMN, 0);
+		return $res[0];
 	}
 
 	public function countUnreadReadFavorites () {
-		$sql = 'SELECT is_read, COUNT(*) AS count FROM ' . $this->prefix . 'entry WHERE is_favorite=1 GROUP BY is_read';
+		$sql = 'SELECT COUNT(id) FROM ' . $this->prefix . 'entry WHERE is_favorite=1'
+		     . ' UNION SELECT COUNT(id) FROM ' . $this->prefix . 'entry WHERE is_favorite=1 AND is_read = 0';
 		$stm = $this->bd->prepare ($sql);
 		$stm->execute ();
-		$res = $stm->fetchAll (PDO::FETCH_ASSOC);
-		$readUnread = array('unread' => 0, 'read' => 0);
-		foreach ($res as $line) {
-			switch (intval($line['is_read'])) {
-				case 0: $readUnread['unread'] = intval($line['count']); break;
-				case 1: $readUnread['read'] = intval($line['count']); break;
-			}
-		}
-		return $readUnread;
+		$res = $stm->fetchAll (PDO::FETCH_COLUMN, 0);
+		return array('all' => $res[0], 'unread' => $res[1], 'read' => $res[0] - $res[1]);
 	}
 
 	public function optimizeTable() {

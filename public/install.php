@@ -24,7 +24,7 @@ define ('SQL_REQ_FEED', 'CREATE TABLE IF NOT EXISTS `%sfeed` (
   `category` char(6) DEFAULT \'000000\',
   `name` varchar(255) NOT NULL,
   `website` varchar(255) NOT NULL,
-  `description` varchar(1023) NOT NULL,
+  `description` text NOT NULL,
   `lastUpdate` int(11) NOT NULL,
   `priority` tinyint(2) NOT NULL DEFAULT \'10\',
   `pathEntries` varchar(511) DEFAULT NULL,
