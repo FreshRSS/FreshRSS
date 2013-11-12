@@ -84,7 +84,7 @@ class configureController extends ActionController {
 
 		$this->view->flux = false;
 		if ($id != false) {
-			$this->view->flux = $feedDAO->searchById ($id);
+			$this->view->flux = $this->view->feeds[$id];
 
 			if (!$this->view->flux) {
 				Error::error (
@@ -92,9 +92,6 @@ class configureController extends ActionController {
 					array ('error' => array (Translate::t ('page_not_found')))
 				);
 			} else {
-				$catDAO = new CategoryDAO ();
-				$this->view->categories = $catDAO->listCategories (false);
-
 				if (Request::isPost () && $this->view->flux) {
 					$name = Request::param ('name', '');
 					$hist = Request::param ('keep_history', 'no');

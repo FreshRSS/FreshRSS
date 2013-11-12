@@ -533,7 +533,7 @@ class FeedDAO extends Model_pdo {
 }
 
 class HelperFeed {
-	public static function daoToFeed ($listDAO) {
+	public static function daoToFeed ($listDAO, $catID = null) {
 		$list = array ();
 
 		if (!is_array ($listDAO)) {
@@ -541,33 +541,34 @@ class HelperFeed {
 		}
 
 		foreach ($listDAO as $key => $dao) {
-			if (empty ($dao['url'])) {
+			if (!isset ($dao['name'])) {
 				continue;
 			}
 			if (isset ($dao['id'])) {
 				$key = $dao['id'];
 			}
 
-			$list[$key] = new Feed ($dao['url'], false);
-			$list[$key]->_category ($dao['category']);
-			$list[$key]->_name ($dao['name']);
-			$list[$key]->_website ($dao['website']);
-			$list[$key]->_description ($dao['description']);
-			$list[$key]->_lastUpdate ($dao['lastUpdate']);
-			$list[$key]->_priority ($dao['priority']);
-			$list[$key]->_pathEntries ($dao['pathEntries']);
-			$list[$key]->_httpAuth (base64_decode ($dao['httpAuth']));
-			$list[$key]->_error ($dao['error']);
-			$list[$key]->_keepHistory ($dao['keep_history']);
+			$myFeed = new Feed (isset($dao['url']) ? $dao['url'] : '', false);
+			$myFeed->_category ($catID === null ? $dao['category'] : $catID);
+			$myFeed->_name ($dao['name']);
+			$myFeed->_website ($dao['website']);
+			$myFeed->_description (isset($dao['description']) ? $dao['description'] : '');
+			$myFeed->_lastUpdate (isset($dao['lastUpdate']) ? $dao['lastUpdate'] : 0);
+			$myFeed->_priority ($dao['priority']);
+			$myFeed->_pathEntries (isset($dao['pathEntries']) ? $dao['pathEntries'] : '');
+			$myFeed->_httpAuth (isset($dao['httpAuth']) ? base64_decode ($dao['httpAuth']) : '');
+			$myFeed->_error ($dao['error']);
+			$myFeed->_keepHistory (isset($dao['keep_history']) ? $dao['keep_history'] : '');
 			if (isset ($dao['nbNotRead'])) {
-				$list[$key]->_nbNotRead ($dao['nbNotRead']);
+				$myFeed->_nbNotRead ($dao['nbNotRead']);
 			}
 			if (isset ($dao['nbEntries'])) {
-				$list[$key]->_nbEntries ($dao['nbEntries']);
+				$myFeed->_nbEntries ($dao['nbEntries']);
 			}
 			if (isset ($dao['id'])) {
-				$list[$key]->_id ($dao['id']);
+				$myFeed->_id ($dao['id']);
 			}
+			$list[$key] = $myFeed;
 		}
 
 		return $list;

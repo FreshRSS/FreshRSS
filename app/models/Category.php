@@ -175,12 +175,13 @@ class CategoryDAO extends Model_pdo {
 		}
 	}
 
-	public function listCategories ($prePopulateFeeds = true) {
+	public function listCategories ($prePopulateFeeds = true, $details = false) {
 		if ($prePopulateFeeds) {
-			$sql = 'SELECT c.id AS c_id, c.name AS c_name, c.color AS c_color, '
+			$sql = 'SELECT c.id AS c_id, c.name AS c_name, '
+			     . ($details ? 'c.color AS c_color, ' : '')
 			     . 'COUNT(CASE WHEN e.is_read = 0 THEN 1 END) AS nbNotRead, '
 			     . 'COUNT(e.id) AS nbEntries, '
-			     . 'f.* '
+			     . ($details ? 'f.* ' : 'f.id, f.name, f.website, f.priority, f.error ')
 			     . 'FROM ' . $this->prefix . 'category c '
 			     . 'LEFT OUTER JOIN ' . $this->prefix . 'feed f ON f.category = c.id '
 			     . 'LEFT OUTER JOIN ' . $this->prefix . 'entry e ON e.id_feed = f.id '
@@ -270,6 +271,18 @@ class HelperCategory {
 		return null;
 	}
 
+	public static function CountUnreads($categories, $minPriority = 0) {
+		$n = 0;
+		foreach ($categories as $category) {
+			foreach ($category->feeds () as $feed) {
+				if ($feed->priority () >= $minPriority) {
+					$n += $feed->nbNotRead();
+				}
+			}
+		}
+		return $n;
+	}
+
 	public static function daoToCategoryPrepopulated ($listDAO) {
 		$list = array ();
 
@@ -284,11 +297,11 @@ class HelperCategory {
 				// End of the current category, we add it to the $list
 				$cat = new Category (
 					$previousLine['c_name'],
-					$previousLine['c_color'],
-					HelperFeed::daoToFeed ($feedsDao)
+					isset($previousLine['c_color']) ? $previousLine['c_color'] : '',
+					HelperFeed::daoToFeed ($feedsDao, $previousLine['c_id'])
 				);
 				$cat->_id ($previousLine['c_id']);
-				$list[] = $cat;
+				$list[$previousLine['c_id']] = $cat;
 
 				$feedsDao = array();	//Prepare for next category
 			}
@@ -301,11 +314,11 @@ class HelperCategory {
 		if ($previousLine != null) {
 			$cat = new Category (
 				$previousLine['c_name'],
-				$previousLine['c_color'],
-				HelperFeed::daoToFeed ($feedsDao)
+				isset($previousLine['c_color']) ? $previousLine['c_color'] : '',
+				HelperFeed::daoToFeed ($feedsDao, $previousLine['c_id'])
 			);
 			$cat->_id ($previousLine['c_id']);
-			$list[] = $cat;
+			$list[$previousLine['c_id']] = $cat;
 		}
 
 		return $list;
