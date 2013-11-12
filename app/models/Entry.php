@@ -409,7 +409,7 @@ class EntryDAO extends Model_pdo {
 		}
 
 		$sql = 'SELECT e.* FROM ' . $this->prefix . 'entry e'
-		     . ' INNER JOIN  ' . $this->prefix . 'feed f ON e.id_feed = f.id' . $where
+		     . ' INNER JOIN ' . $this->prefix . 'feed f ON e.id_feed = f.id' . $where
 		     . ' ORDER BY e.date' . $order . ', e.id' . $order;
 
 		if (empty($limitCount)) {

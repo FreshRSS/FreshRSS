@@ -10,7 +10,7 @@
 	<div class="category">
 		<div class="cat_header">
 			<a href="<?php echo _url ('index', 'index', 'get', 'c_' . $cat->id (), 'output', 'normal'); ?>">
-			<?php echo htmlspecialchars($cat->name(), ENT_NOQUOTES, 'UTF-8'); ?><?php echo $catNotRead > 0 ? ' (' . $catNotRead . ')' : ''; ?>
+			<?php echo $cat->name(); ?><?php echo $catNotRead > 0 ? ' (' . $catNotRead . ')' : ''; ?>
 			</a>
 		</div>
 
@@ -22,7 +22,7 @@
 
 				<a href="<?php echo _url ('index', 'index', 'get', 'f_' . $feed->id (), 'output', 'normal'); ?>">
 				<?php echo $not_read > 0 ? '<b>' : ''; ?>
-				<?php echo htmlspecialchars($feed->name(), ENT_NOQUOTES, 'UTF-8'); ?>
+				<?php echo $feed->name(); ?>
 				<?php echo $not_read > 0 ? ' (' . $not_read . ')' : ''; ?>
 				<?php echo $not_read > 0 ? '</b>' : ''; ?>
 				</a>

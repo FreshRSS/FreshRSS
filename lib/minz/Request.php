@@ -29,15 +29,18 @@ class Request {
 	public static function params () {
 		return self::$params;
 	}
+	static function htmlspecialchars_utf8 ($p) {
+		return htmlspecialchars($p, ENT_QUOTES, 'UTF-8');
+	}
 	public static function param ($key, $default = false, $specialchars = false) {
 		if (isset (self::$params[$key])) {
 			$p = self::$params[$key];
 			if(is_object($p) || $specialchars) {
 				return $p;
 			} elseif(is_array($p)) {
-				return array_map('htmlspecialchars', $p);	//TODO: Should use explicit UTF-8
+				return array_map('self::htmlspecialchars_utf8', $p);
 			} else {
-				return htmlspecialchars($p, ENT_NOQUOTES, 'UTF-8');
+				return self::htmlspecialchars_utf8($p);
 			}
 		} else {
 			return $default;

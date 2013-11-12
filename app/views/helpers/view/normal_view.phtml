@@ -46,7 +46,7 @@ if (isset ($this->entryPaginator) && !$this->entryPaginator->isEmpty ()) {
 				$feed = HelperCategory::findFeed($this->cat_aside, $item->feed ());	//We most likely already have the feed object in cache
 				if (empty($feed)) $feed = $item->feed (true);
 			?>
-			<li class="item website"><a href="<?php echo _url ('index', 'index', 'get', 'f_' . $feed->id ()); ?>"><img class="favicon" src="<?php echo $feed->favicon (); ?>" alt="✇" /> <span><?php echo htmlspecialchars($feed->name(), ENT_NOQUOTES, 'UTF-8'); ?></span></a></li>
+			<li class="item website"><a href="<?php echo _url ('index', 'index', 'get', 'f_' . $feed->id ()); ?>"><img class="favicon" src="<?php echo $feed->favicon (); ?>" alt="✇" /> <span><?php echo $feed->name(); ?></span></a></li>
 			<li class="item title"><a target="_blank" href="<?php echo $item->link (); ?>"><?php echo $item->title (); ?></a></li>
 			<?php if ($this->conf->toplineDate ()) { ?><li class="item date"><?php echo $item->date (); ?> </li><?php } ?>
 			<?php if ($this->conf->toplineLink ()) { ?><li class="item link"><a target="_blank" href="<?php echo $item->link (); ?>"> </a></li><?php } ?>
@@ -65,7 +65,6 @@ if (isset ($this->entryPaginator) && !$this->entryPaginator->isEmpty ()) {
 					}
 				?>
 			</div>
-
 			<ul class="horizontal-list bottom">
 				<?php if (!login_is_conf ($this->conf) || is_logged ()) { ?>
 					<?php if ($this->conf->bottomlineRead ()) { ?><li class="item manage"><a class="read" href="<?php echo _url ('entry', 'read', 'id', $item->id (), 'is_read', $item->isRead () ? 0 : 1); ?>"> </a></li><?php } ?>
