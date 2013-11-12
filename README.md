@@ -4,7 +4,7 @@ FreshRSS est un agrégateur de flux RSS à auto-héberger à l'image de [Selfoss
 * Site officiel : http://marienfressinaud.github.io/FreshRSS/
 * Démo : http://marienfressinaud.fr/projets/freshrss/
 * Développeur : Marien Fressinaud <dev@marienfressinaud.fr>
-* Version actuelle : 0.7
+* Version actuelle : 0.6.0-beta
 * Date de publication 2013-xx-xx
 * License AGPL3
 
