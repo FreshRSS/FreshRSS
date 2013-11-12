@@ -72,25 +72,12 @@ class entryController extends ActionController {
 		$this->redirect = true;
 
 		$id = Request::param ('id');
-		$is_fav = Request::param ('is_favorite');
-
-		if ($is_fav) {
-			$is_fav = true;
-		} else {
-			$is_fav = false;
-		}
-
-		$entryDAO = new EntryDAO ();
-		if ($id != false) {
-			$entry = $entryDAO->searchById ($id);
-
-			if ($entry != false) {
-				$values = array (
-					'is_favorite' => $is_fav,
-				);
-
-				$entryDAO->updateEntry ($entry->id (), $values);
-			}
+		if ($id) {
+			$entryDAO = new EntryDAO ();
+			$values = array (
+				'is_favorite' => (bool)($is_fav = Request::param ('is_favorite')),
+			);
+			$entryDAO->updateEntry ($id, $values);
 		}
 	}
 
