@@ -25,7 +25,7 @@
 		<form action="<?php echo _url ('index', 'index'); ?>" method="get">
 			<div class="stick">
 				<?php $search = Request::param ('search', ''); ?>
-				<input type="text" name="search" id="search" value="<?php echo $search; ?>" placeholder="<?php echo Translate::t ('search'); ?>" />
+				<input type="search" name="search" id="search" value="<?php echo $search; ?>" placeholder="<?php echo Translate::t ('search'); ?>" />
 
 				<?php $get = Request::param ('get', ''); ?>
 				<?php if($get != '') { ?>

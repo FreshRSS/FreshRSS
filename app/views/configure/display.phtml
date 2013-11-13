@@ -196,7 +196,7 @@
 		<div class="form-group">
 			<label class="group-name" for="shaarli"><?php echo Translate::t ('your_shaarli'); ?></label>
 			<div class="group-controls">
-				<input type="text" id="shaarli" name="shaarli" value="<?php echo $this->conf->urlShaarli (); ?>" placeholder="<?php echo Translate::t ('blank_to_disable'); ?>"/>
+				<input type="url" id="shaarli" name="shaarli" value="<?php echo $this->conf->urlShaarli (); ?>" placeholder="<?php echo Translate::t ('blank_to_disable'); ?>" size="64" />
 			</div>
 		</div>
 
