@@ -259,6 +259,9 @@ class configureController extends ActionController {
 		$this->view->themes = RSSThemes::get();
 
 		View::prependTitle (Translate::t ('general_and_reading_management') . ' - ');
+
+		$entryDAO = new EntryDAO ();
+		$this->view->nb_total = $entryDAO->count ();
 	}
 
 	public function importExportAction () {

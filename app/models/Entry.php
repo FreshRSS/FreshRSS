@@ -456,15 +456,21 @@ class EntryDAO extends Model_pdo {
 		$res = $stm->fetchAll (PDO::FETCH_COLUMN, 0);
 		return array('total' => $res[0], 'unread' => $res[1], 'read' => $res[0] - $res[1]);
 	}
-	public function count () {
-		$sql = 'SELECT COUNT(e.id) AS count FROM ' . $this->prefix . 'entry e INNER JOIN ' . $this->prefix . 'feed f ON e.id_feed = f.id WHERE priority > 0';
+	public function count ($minPriority = null) {
+		$sql = 'SELECT COUNT(e.id) AS count FROM ' . $this->prefix . 'entry e INNER JOIN ' . $this->prefix . 'feed f ON e.id_feed = f.id';
+		if ($minPriority !== null) {
+			$sql = ' WHERE priority > ' . intval($minPriority);
+		}
 		$stm = $this->bd->prepare ($sql);
 		$stm->execute ();
 		$res = $stm->fetchAll (PDO::FETCH_COLUMN, 0);
 		return $res[0];
 	}
-	public function countNotRead () {
-		$sql = 'SELECT COUNT(e.id) AS count FROM ' . $this->prefix . 'entry e INNER JOIN ' . $this->prefix . 'feed f ON e.id_feed = f.id WHERE priority > 0 AND is_read = 0';
+	public function countNotRead ($minPriority = null) {
+		$sql = 'SELECT COUNT(e.id) AS count FROM ' . $this->prefix . 'entry e INNER JOIN ' . $this->prefix . 'feed f ON e.id_feed = f.id WHERE is_read = 0';
+		if ($minPriority !== null) {
+			$sql = ' AND priority > ' . intval($minPriority);
+		}
 		$stm = $this->bd->prepare ($sql);
 		$stm->execute ();
 		$res = $stm->fetchAll (PDO::FETCH_COLUMN, 0);
