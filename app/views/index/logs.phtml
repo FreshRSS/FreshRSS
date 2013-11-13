@@ -2,6 +2,10 @@
 	<a href="<?php echo _url ('index', 'index'); ?>"><?php echo Translate::t ('back_to_rss_feeds'); ?></a>
 
 	<h1><?php echo Translate::t ('logs'); ?></h1>
+	<form method="post" action="<?php echo _url ('index', 'logs'); ?>"><p>
+		<input type="hidden" name="clearLogs" />
+		<button type="submit" class="btn"><?php echo Translate::t ('clear_logs'); ?></button>
+	</p></form>
 
 	<?php $items = $this->logsPaginator->items (); ?>
 

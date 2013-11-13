@@ -214,6 +214,7 @@ return array (
 
 	'logs'				=> 'Logs',
 	'logs_empty'			=> 'Les logs sont vides',
+	'clear_logs'	=> 'Effacer les logs',
 
 	'forbidden_access'		=> 'Accès interdit',
 	'forbidden_access_description'	=> 'L’accès est protégé par un mot de passe, veuillez <a class="signin" href="#">vous connecter</a> pour accéder aux flux.',

@@ -211,6 +211,10 @@ class indexController extends ActionController {
 
 		View::prependTitle (Translate::t ('logs') . ' - ');
 
+		if (Request::isPost ()) {
+			file_put_contents(LOG_PATH . '/application.log', '');
+		}
+
 		$logs = array();
 		try {
 			$logDAO = new LogDAO ();

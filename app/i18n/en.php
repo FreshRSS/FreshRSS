@@ -214,6 +214,7 @@ return array (
 
 	'logs'				=> 'Logs',
 	'logs_empty'			=> 'Log file is empty',
+	'clear_logs'	=> 'Clear the logs',
 
 	'forbidden_access'		=> 'Forbidden access',
 	'forbidden_access_description'	=> 'Access is password protected, please <a class="signin" href="#">sign in</a> to read your feeds.',
