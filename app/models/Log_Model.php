@@ -29,19 +29,18 @@ class LogDAO extends Model_txt {
 	public function __construct () {
 		parent::__construct (LOG_PATH . '/application.log', 'r+');
 	}
-	
+
 	public function lister () {
 		$logs = array ();
-
-		$i = 0;
 		while (($line = $this->readLine ()) !== false) {
-			$logs[$i] = new Log_Model ();
-			$logs[$i]->_date (preg_replace ("'\[(.*?)\] \[(.*?)\] --- (.*?)'U", "\\1", $line));
-			$logs[$i]->_level (preg_replace ("'\[(.*?)\] \[(.*?)\] --- (.*?)'U", "\\2", $line));
-			$logs[$i]->_info (preg_replace ("'\[(.*?)\] \[(.*?)\] --- (.*?)'U", "\\3", $line));
-			$i++;
+			if (preg_match ('/^\[([^\[]+)\] \[([^\[]+)\] --- (.*)$/', $line, $matches)) {
+				$myLog = new Log_Model ();
+				$myLog->_date ($matches[1]);
+				$myLog->_level ($matches[2]);
+				$myLog->_info ($matches[3]);
+				$logs[] = $myLog;
+			}
 		}
-
 		return $logs;
 	}
 }
