@@ -397,12 +397,6 @@ function init_stream_delegates(divStream) {
 		return false;
 	});
 
-	divStream.on('click', '.bigMarkAsRead', function () {
-		var url = $(".nav_menu .read_all").attr("href");
-		redirect(url, false);
-		return false;
-	});
-
 	if (auto_mark_site) {
 		divStream.on('click', '.flux .link a', function () {
 			mark_read($(this).parent().parent().parent(), true);

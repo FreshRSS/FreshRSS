@@ -575,18 +575,21 @@
 	font-size: 0;
 }
 
-.bigMarkAsRead {
-	cursor: pointer;
-	height: 300px;
+a.bigMarkAsRead {
+	display: block;
+	font-style: normal;
+	padding: 32px 0 64px 0;
+	text-align: center;
+	text-decoration: none;
 	text-shadow: 0 -1px 0 #aaa;
 }
-.bigMarkAsRead:hover {
+a.bigMarkAsRead:hover {
 	background: #333;
 	color: #fff;
 }
 .bigTick {
 	font-size: 72pt;
-	margin: 75px 0 10px 0;
+	line-height: 1.6em;
 }
 
 /*** NOTIFICATION ***/

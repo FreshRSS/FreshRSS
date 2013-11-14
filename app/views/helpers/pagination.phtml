@@ -2,6 +2,8 @@
 	$c = Request::controllerName ();
 	$a = Request::actionName ();
 	$params = Request::params ();
+	$markReadUrl = Session::param ('markReadUrl');
+	Session::_param ('markReadUrl', false);
 ?>
 
 <ul class="pagination">
@@ -9,12 +11,16 @@
 	<?php if ($this->next != '') { ?>
 	<?php $params[$getteur] = $this->next; ?>
 	<a id="load_more" href="<?php echo Url::display (array ('c' => $c, 'a' => $a, 'params' => $params)); ?>"><?php echo Translate::t ('load_more'); ?></a>
+	<?php } elseif ($markReadUrl) { ?>
+	<a class="bigMarkAsRead" href="<?php echo $markReadUrl; ?>">
+		<?php echo Translate::t ('nothing_to_load'); ?><br />
+		<span class="bigTick">✔</span><br />
+		<?php echo Translate::t ('mark_all_read'); ?>
+	</a>
 	<?php } else { ?>
-	<div class="bigMarkAsRead">
-		<p><?php echo Translate::t ('nothing_to_load'); ?></p>
-		<p class="bigTick">✔</p>
-		<p><?php echo Translate::t ('mark_all_read'); ?></p>
-	</div>
+	<a class="bigMarkAsRead" href=".">
+		<?php echo Translate::t ('nothing_to_load'); ?><br />
+	</a>
 	<?php } ?>
 	</li>
 </ul>
