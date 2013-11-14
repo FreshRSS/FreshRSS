@@ -186,14 +186,11 @@ body {
 	}
 
 .day {
-	display: inline;
-	min-height: 50px;
 	padding: 5px 15px;
 	font-size: 130%;
 	font-weight: bold;
 	line-height: 50px;
-	background: #ecf0f1;
-	border-radius: 0 20px 20px 0;
+	border-left: 3px solid #ecf0f1;
 }
 	.day .name {
 		position: absolute;
@@ -213,17 +210,18 @@ body {
 	}
 
 .flux {
+	border-left: 3px solid #ecf0f1;
 }
 	.flux.active {
-		border-left: 3px solid #3498db;
+		border-left-color: #3498db;
 		background: #fff;
 	}
 	.flux.not_read {
-		border-left: 3px solid #FF5300;
+		border-left-color: #FF5300;
 		background: #FFF3ED;
 	}
 	.flux.favorite {
-		border-left: 3px solid #FFC300;
+		border-left-color: #FFC300;
 		background: #FFF6DA;
 	}
 
