@@ -26,7 +26,6 @@ body {
 			.header > .item.title h1 {
 				display: inline-block;
 				margin: 0;
-				vertical-align: middle;
 			}
 			.header > .item.title a:hover {
 				text-decoration: none;

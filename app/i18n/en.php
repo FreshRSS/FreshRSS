@@ -12,6 +12,7 @@ return array (
 	'category'			=> 'Category',
 	'shortcuts'			=> 'Shortcuts',
 	'about'				=> 'About',
+	'about_freshrss'		=> 'About FreshRSS',
 
 	'your_rss_feeds'		=> 'Your RSS feeds',
 	'add_rss_feed'			=> 'Add a RSS feed',

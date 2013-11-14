@@ -9,6 +9,8 @@
 				<a class="btn btn-important" href="<?php echo _url ('configure', 'categorize'); ?>"><i class="icon i_category"></i></a>
 			</div>
 		</li>
+		<?php } elseif (login_is_conf ($this->conf)) { ?>
+		<li><a href="<?php echo _url ('index', 'about'); ?>"><?php echo Translate::t ('about_freshrss'); ?></a></li>
 		<?php } ?>
 
 		<li>

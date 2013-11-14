@@ -23,7 +23,6 @@
 				display: inline-block;
 				margin: 0;
 				text-shadow: 1px -1px 0 #ccc;
-				vertical-align: middle;
 			}
 			.header > .item.title a:hover {
 				text-decoration: none;
