@@ -12,6 +12,7 @@ return array (
 	'category'			=> 'Catégorie',
 	'shortcuts'			=> 'Raccourcis',
 	'about'				=> 'À propos',
+	'about_freshrss'		=> 'À propos de FreshRSS',
 
 	'your_rss_feeds'		=> 'Vos flux RSS',
 	'add_rss_feed'			=> 'Ajouter un flux RSS',
