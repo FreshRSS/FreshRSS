@@ -206,3 +206,16 @@ function dowload_favicon ($website, $id) {
 
 	return $favicon_url;
 }
+
+/**
+ * Add support of image lazy loading
+ * Move content from src attribute to data-original
+ * @param content is the text we want to parse
+ */
+function lazyimg($content) {
+	return preg_replace(
+		'/<img([^<]+)src=([\'"])([^"\']*)([\'"])([^<]*)>/i',
+		'<img$1src="' . Url::display('/data/grey.gif') . '" data-original="$3"$5>',
+		$content
+	);
+}
