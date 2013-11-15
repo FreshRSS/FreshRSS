@@ -212,6 +212,24 @@ class Feed extends Model {
 					'onload', 'onunload', 'onclick', 'ondblclick', 'onmousedown', 'onmouseup',
 					'onmouseover', 'onmousemove', 'onmouseout', 'onfocus', 'onblur',
 					'onkeypress', 'onkeydown', 'onkeyup', 'onselect', 'onchange')));
+				$feed->set_url_replacements(array(
+					'a' => 'href',
+					'area' => 'href',
+					'audio' => 'src',
+					'blockquote' => 'cite',
+					'del' => 'cite',
+					'form' => 'action',
+					'img' => array(
+						'longdesc',
+						'src'
+					),
+					'input' => 'src',
+					'ins' => 'cite',
+					'q' => 'cite',
+					'source' => 'src',
+					'track' => 'src',
+					'video' => 'src',
+				));
 				$feed->init ();
 
 				if ($feed->error ()) {
