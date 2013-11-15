@@ -21,7 +21,7 @@
 <?php if (isset ($this->rss_url)) { ?>
 		<link rel="alternate" type="application/rss+xml" title="<?php echo htmlspecialchars($this->rss_title, ENT_COMPAT, 'UTF-8'); ?>" href="<?php echo Url::display ($this->rss_url); ?>" />
 <?php } ?>
-		<meta name="robots" content="noindex" />
+		<meta name="robots" content="noindex,nofollow" />
 	</head>
 	<body>
 <?php $this->partial ('header'); ?>
