@@ -210,8 +210,8 @@ function dowload_favicon ($website, $id) {
  */
 function lazyimg($content) {
 	return preg_replace(
-		'/<img([^<]+)src=([\'"])([^"\']*)([\'"])([^<]*)>/i',
-		'<img$1src="' . Url::display('/data/grey.gif') . '" data-original="$3"$5>',
+		'/<img([^>]+?)src=[\'"]([^"\']+)[\'"]([^>]*)>/i',
+		'<img$1src="' . Url::display('/data/grey.gif') . '" data-original="$2"$3>',
 		$content
 	);
 }
