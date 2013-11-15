@@ -1,4 +1,19 @@
 # Changelog
+## 2013-11-17 changes with FreshRSS 0.6
+
+* Nettoyage du code JavaScript + optimisations
+* Utilisation d'adresses relatives
+* Amélioration des performances coté client
+* Mise à jour automatique du nombre d'articles non lus
+* Corrections traductions
+* Mise en cache de FreshRSS
+* Amélioration des retours utilisateur lorsque la configuration n'est pas bonne
+* Actualisation des flux après une importation OPML
+* Meilleure prise en charge des flux RSS invalides
+* Amélioration de la vue globale
+* Possibilité de personnaliser les icônes de lecture
+* Correction bugs divers
+
 ## 2013-10-15 changes with FreshRSS 0.5.1
 
 * Correction bug des catégories disparues
