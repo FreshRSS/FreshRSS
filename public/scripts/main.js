@@ -58,12 +58,16 @@ function mark_read(active, only_not_read) {
 			elem = $('#' + feed_id + ' .feed').get(0),
 			feed_unread = elem ? (parseInt(elem.getAttribute('data-unread'), 10) || 0) : 0,
 			feed_priority = elem ? (parseInt(elem.getAttribute('data-priority'), 10) || 0) : 0;
-		elem.setAttribute('data-unread', Math.max(0, feed_unread + inc));
+		if (elem) {
+			elem.setAttribute('data-unread', Math.max(0, feed_unread + inc));
+		}
 
 		//Update unread: category
 		elem = $('#' + feed_id).parent().prevAll('.category').children(':first').get(0);
 		feed_unread = elem ? (parseInt(elem.getAttribute('data-unread'), 10) || 0) : 0;
-		elem.setAttribute('data-unread', Math.max(0, feed_unread + inc));
+		if (elem) {
+			elem.setAttribute('data-unread', Math.max(0, feed_unread + inc));
+		}
 
 		//Update unread: all
 		if (feed_priority > 0) {
@@ -589,8 +593,8 @@ function init_persona() {
 
 function init_confirm_action() {
 	$('.confirm').click(function () {
-        return confirm(str_confirmation);
-    });
+		return confirm(str_confirmation);
+	});
 }
 
 function init_all() {

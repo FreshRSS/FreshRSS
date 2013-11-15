@@ -12,13 +12,13 @@
 	<?php $params[$getteur] = $this->next; ?>
 	<a id="load_more" href="<?php echo Url::display (array ('c' => $c, 'a' => $a, 'params' => $params)); ?>"><?php echo Translate::t ('load_more'); ?></a>
 	<?php } elseif ($markReadUrl) { ?>
-	<a class="bigMarkAsRead" href="<?php echo $markReadUrl; ?>">
+	<a id="bigMarkAsRead" href="<?php echo $markReadUrl; ?>">
 		<?php echo Translate::t ('nothing_to_load'); ?><br />
 		<span class="bigTick">✔</span><br />
 		<?php echo Translate::t ('mark_all_read'); ?>
 	</a>
 	<?php } else { ?>
-	<a class="bigMarkAsRead" href=".">
+	<a id="bigMarkAsRead" href=".">
 		<?php echo Translate::t ('nothing_to_load'); ?><br />
 	</a>
 	<?php } ?>

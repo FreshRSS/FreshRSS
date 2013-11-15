@@ -575,7 +575,7 @@
 	font-size: 0;
 }
 
-a.bigMarkAsRead {
+#bigMarkAsRead {
 	display: block;
 	font-style: normal;
 	padding: 32px 0 64px 0;
@@ -583,14 +583,14 @@ a.bigMarkAsRead {
 	text-decoration: none;
 	text-shadow: 0 -1px 0 #aaa;
 }
-a.bigMarkAsRead:hover {
-	background: #333;
-	color: #fff;
-}
-.bigTick {
-	font-size: 72pt;
-	line-height: 1.6em;
-}
+	#bigMarkAsRead:hover {
+		background: #333;
+		color: #fff;
+	}
+	.bigTick {
+		font-size: 72pt;
+		line-height: 1.6em;
+	}
 
 /*** NOTIFICATION ***/
 .notification {
