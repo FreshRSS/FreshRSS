@@ -140,13 +140,13 @@ function saveLanguage () {
 }
 function saveStep2 () {
 	if (!empty ($_POST)) {
-		if (empty ($_POST['sel']) ||
-		    empty ($_POST['title']) ||
+		if (empty ($_POST['title']) ||
 		    empty ($_POST['old_entries'])) {
 			return false;
 		}
 
-		$_SESSION['sel'] = addslashes ($_POST['sel']);
+		$first_sel = small_hash (time ());
+		$_SESSION['sel'] = small_hash (time () . $first_sel) . $first_sel;
 		$_SESSION['base_url'] = addslashes ($_POST['base_url']);
 		$_SESSION['title'] = addslashes ($_POST['title']);
 		$_SESSION['old_entries'] = $_POST['old_entries'];
@@ -484,17 +484,11 @@ function printStep2 () {
 
 	<form action="index.php?step=2" method="post">
 		<legend><?php echo _t ('general_configuration'); ?></legend>
-		<div class="form-group">
-			<label class="group-name" for="sel"><?php echo _t ('random_string'); ?></label>
-			<div class="group-controls">
-				<input type="text" id="sel" name="sel" value="<?php echo isset ($_SESSION['sel']) ? $_SESSION['sel'] : '123~abcdefghijklmnopqrstuvwxyz~321'; ?>" /> <i class="icon i_help"></i> <?php echo _t ('change_value'); ?>
-			</div>
-		</div>
-
 		<?php
 			$url = substr ($_SERVER['PHP_SELF'], 0, -10);
 		?>
 		<div class="form-group" style="display:none">
+			<!-- TODO: if no problem during version 0.6, remove for version 0.7 -->
 			<label class="group-name" for="base_url"><?php echo _t ('base_url'); ?></label>
 			<div class="group-controls">
 				<input type="text" id="base_url" name="base_url" value="<?php echo isset ($_SESSION['base_url']) ? $_SESSION['base_url'] : $url; ?>" /> <i class="icon i_help"></i> <?php echo _t ('do_not_change_if_doubt'); ?>
