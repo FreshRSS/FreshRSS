@@ -12,7 +12,6 @@ return array (
 	'category'			=> 'Catégorie',
 	'shortcuts'			=> 'Raccourcis',
 	'about'				=> 'À propos',
-	'about_freshrss'		=> 'À propos de FreshRSS',
 
 	'your_rss_feeds'		=> 'Vos flux RSS',
 	'add_rss_feed'			=> 'Ajouter un flux RSS',
@@ -209,7 +208,7 @@ return array (
 	'github_or_email'		=> '<a href="https://github.com/marienfressinaud/FreshRSS/issues">sur Github</a> ou <a href="mailto:dev@marienfressinaud.fr">par courriel</a>',
 	'license'			=> 'Licence',
 	'agpl3'				=> '<a href="https://www.gnu.org/licenses/agpl-3.0.html">AGPL 3</a>',
-	'freshrss_description'		=> 'FreshRSS est un agrégateur de flux RSS à auto-héberger à l’image de <a href="http://rsslounge.aditu.de/">RSSLounge</a>, <a href="http://tt-rss.org/redmine/projects/tt-rss/wiki">TinyTinyRSS</a> ou <a href="http://projet.idleman.fr/leed/">Leed</a>. Il se veut léger et facile à prendre en main tout en étant un outil puissant et paramétrable. L’objectif étant d’offrir une alternative sérieuse au futur feu-Google Reader.',
+	'freshrss_description'		=> 'FreshRSS est un agrégateur de flux RSS à auto-héberger à l’image de <a href="http://tontof.net/kriss/feed/">Kriss Feed</a> ou <a href="http://projet.idleman.fr/leed/">Leed</a>. Il se veut léger et facile à prendre en main tout en étant un outil puissant et paramétrable.',
 	'credits'			=> 'Crédits',
 	'credits_content'		=> 'Des éléments de design sont issus du <a href="http://twitter.github.io/bootstrap/">projet Bootstrap</a> bien que FreshRSS n’utilise pas ce framework. Les <a href="https://git.gnome.org/browse/gnome-icon-theme-symbolic">icônes</a> sont issues du <a href="https://www.gnome.org/">projet GNOME</a>. La police <em>Open Sans</em> utilisée a été créée par <a href="https://www.google.com/webfonts/specimen/Open+Sans">Steve Matteson</a>. Les favicons sont récupérés grâce au site <a href="https://getfavicon.appspot.com/">getFavicon</a>. FreshRSS repose sur <a href="https://github.com/marienfressinaud/MINZ">Minz</a>, un framework PHP.',
 
