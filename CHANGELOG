@@ -12,6 +12,7 @@
 * Meilleure prise en charge des flux RSS invalides
 * Amélioration de la vue globale
 * Possibilité de personnaliser les icônes de lecture
+* Suppression de champs lors de l'installation
 * Correction bugs divers
 
 ## 2013-10-15 changes with FreshRSS 0.5.1
