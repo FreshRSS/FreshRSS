@@ -274,7 +274,7 @@ class Feed extends Model {
 
 		foreach ($feed->get_items () as $item) {
 			$title = self::html_only_entity_decode (strip_tags ($item->get_title ()));
-			$author = self::html_only_entity_decode ($item->get_author ());
+			$author = $item->get_author ();
 			$link = $item->get_permalink ();
 			$date = strtotime ($item->get_date ());
 
@@ -304,7 +304,7 @@ class Feed extends Model {
 				$this->id (),
 				$item->get_id (),
 				!is_null ($title) ? $title : '',
-				!is_null ($author) ? $author->name : '',
+				!is_null ($author) ? self::html_only_entity_decode ($author->name) : '',
 				!is_null ($content) ? $content : '',
 				!is_null ($link) ? $link : '',
 				$date ? $date : time ()
