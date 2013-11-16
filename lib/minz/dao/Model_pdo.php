@@ -71,6 +71,16 @@ class Model_pdo {
 			);
 		}
 	}
+
+	public function beginTransaction() {
+		$this->bd->beginTransaction();
+	}
+	public function commit() {
+		$this->bd->commit();
+	}
+	public function rollBack() {
+		$this->bd->rollBack();
+	}
 }
 
 class FreshPDO extends PDO {

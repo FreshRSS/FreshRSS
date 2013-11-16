@@ -213,17 +213,17 @@ class EntryDAO extends Model_pdo {
 		);
 
 		if ($stm && $stm->execute ($values)) {
-			return true;
+			return $stm->rowCount();
 		} else {
 			$info = $stm->errorInfo();
 			if ((int)($info[0] / 1000) !== 23) {	//Filter out "SQLSTATE Class code 23: Constraint Violation" because of expected duplicate entries
-				Minz_Log::record ('SQL error ' . $info[0] . ': ' . $info[1] . ' ' . $info[2], Minz_Log::NOTICE);	//TODO: Consider adding a Minz_Log::DEBUG level
+				Minz_Log::record ('SQL error ' . $info[0] . ': ' . $info[1] . ' ' . $info[2], Minz_Log::ERROR);
 			}
 			return false;
 		}
 	}
 
-	public function updateEntry ($id, $valuesTmp) {
+	/*public function updateEntry ($id, $valuesTmp) {
 		if (isset ($valuesTmp['content'])) {
 			$valuesTmp['content'] = base64_encode (gzdeflate (serialize ($valuesTmp['content'])));
 		}
@@ -243,73 +243,201 @@ class EntryDAO extends Model_pdo {
 		$values[] = $id;
 
 		if ($stm && $stm->execute ($values)) {
-			return true;
+			return $stm->rowCount();
 		} else {
 			$info = $stm->errorInfo();
 			Minz_Log::record ('SQL error : ' . $info[2], Minz_Log::ERROR);
 			return false;
 		}
-	}
-
-	public function markReadEntries ($read, $dateMax = 0) {
-		$sql = 'UPDATE ' . $this->prefix . 'entry e INNER JOIN ' . $this->prefix . 'feed f ON e.id_feed = f.id SET is_read = ? WHERE priority > 0';
-
-		$values = array ($read);
-		if ($dateMax > 0) {
-			$sql .= ' AND date < ?';
-			$values[] = $dateMax;
-		}
-
+	}*/
+	public function markFavorite ($id, $is_favorite = true) {
+		$sql = 'UPDATE ' . $this->prefix . 'entry e '
+		     . 'SET e.is_favorite = ? '
+		     . 'WHERE e.id=?';
+		$values = array ($is_favorite ? 1 : 0, $id);
 		$stm = $this->bd->prepare ($sql);
 
 		if ($stm && $stm->execute ($values)) {
-			return true;
+			return $stm->rowCount();
 		} else {
 			$info = $stm->errorInfo();
 			Minz_Log::record ('SQL error : ' . $info[2], Minz_Log::ERROR);
 			return false;
 		}
 	}
-	public function markReadCat ($id, $read, $dateMax = 0) {
-		$sql = 'UPDATE ' . $this->prefix . 'entry e INNER JOIN ' . $this->prefix . 'feed f ON e.id_feed = f.id SET is_read = ? WHERE category = ?';
-
-		$values = array ($read, $id);
-		if ($dateMax > 0) {
-			$sql .= ' AND date < ?';
-			$values[] = $dateMax;
-		}
-
+	public function markRead ($id, $is_read = true) {
+		$sql = 'UPDATE ' . $this->prefix . 'entry e INNER JOIN ' . $this->prefix . 'feed f ON e.id_feed = f.id '
+		     . 'SET e.is_read = ?,'
+		     . 'f.cache_nbUnreads=f.cache_nbUnreads' . ($is_read ? '-' : '+') . '1 '
+		     . 'WHERE e.id=?';
+		$values = array ($is_read ? 1 : 0, $id);
 		$stm = $this->bd->prepare ($sql);
 
 		if ($stm && $stm->execute ($values)) {
-			return true;
+			return $stm->rowCount();
 		} else {
 			$info = $stm->errorInfo();
 			Minz_Log::record ('SQL error : ' . $info[2], Minz_Log::ERROR);
 			return false;
 		}
 	}
-	public function markReadFeed ($id, $read, $dateMax = 0) {
-		$sql = 'UPDATE ' . $this->prefix . 'entry SET is_read = ? WHERE id_feed = ?';
-
-		$values = array ($read, $id);
-		if ($dateMax > 0) {
-			$sql .= ' AND date < ?';
-			$values[] = $dateMax;
-		}
-
-		$stm = $this->bd->prepare ($sql);
-
-		if ($stm && $stm->execute ($values)) {
-			return true;
+	public function markReadEntries ($dateMax = 0) {
+		if ($dateMax === 0) {
+			$sql = 'UPDATE ' . $this->prefix . 'entry e INNER JOIN ' . $this->prefix . 'feed f ON e.id_feed = f.id '
+			     . 'SET e.is_read = 1, f.cache_nbUnreads=0 '
+			     . 'WHERE e.is_read = 0 AND f.priority > 0';
+			$stm = $this->bd->prepare ($sql);
+			if ($stm && $stm->execute ()) {
+				return $stm->rowCount();
+			} else {
+				$info = $stm->errorInfo();
+				Minz_Log::record ('SQL error : ' . $info[2], Minz_Log::ERROR);
+				return false;
+			}
 		} else {
-			$info = $stm->errorInfo();
-			Minz_Log::record ('SQL error : ' . $info[2], Minz_Log::ERROR);
-			return false;
+			$this->bd->beginTransaction ();
+
+			$sql = 'UPDATE ' . $this->prefix . 'entry e INNER JOIN ' . $this->prefix . 'feed f ON e.id_feed = f.id '
+			     . 'SET e.is_read = 1 '
+			     . 'WHERE e.is_read = 0 AND e.date < ? AND f.priority > 0';
+			$values = array ($dateMax);
+			$stm = $this->bd->prepare ($sql);
+			if (!($stm && $stm->execute ($values))) {
+				$info = $stm->errorInfo();
+				Minz_Log::record ('SQL error : ' . $info[2], Minz_Log::ERROR);
+				$this->bd->rollBack ();
+				return false;
+			}
+			$affected = $stm->rowCount();
+
+			if ($affected > 0) {
+				$sql = 'UPDATE freshrss_feed f '
+			     . 'LEFT OUTER JOIN ('
+			     .	'SELECT e.id_feed, '
+			     .	'COUNT(*) AS nbUnreads '
+			     .	'FROM freshrss_entry e '
+			     .	'WHERE e.is_read = 0 '
+			     .	'GROUP BY e.id_feed'
+			     . ') x ON x.id_feed=f.id '
+			     . 'SET f.cache_nbUnreads=COALESCE(x.nbUnreads, 0)';
+				$stm = $this->bd->prepare ($sql);
+				if (!($stm && $stm->execute ())) {
+					$info = $stm->errorInfo();
+					Minz_Log::record ('SQL error : ' . $info[2], Minz_Log::ERROR);
+					$this->bd->rollBack ();
+					return false;
+				}
+			}
+
+			$this->bd->commit ();
+			return $affected;
+		}
+	}
+	public function markReadCat ($id, $dateMax = 0) {
+		if ($dateMax === 0) {
+			$sql = 'UPDATE ' . $this->prefix . 'entry e INNER JOIN ' . $this->prefix . 'feed f ON e.id_feed = f.id '
+			     . 'SET e.is_read = 1, f.cache_nbUnreads=0 '
+			     . 'WHERE f.category = ? AND e.is_read = 0';
+			$values = array ($id);
+			$stm = $this->bd->prepare ($sql);
+			if ($stm && $stm->execute ($values)) {
+				return $stm->rowCount();
+			} else {
+				$info = $stm->errorInfo();
+				Minz_Log::record ('SQL error : ' . $info[2], Minz_Log::ERROR);
+				return false;
+			}
+		} else {
+			$this->bd->beginTransaction ();
+
+			$sql = 'UPDATE ' . $this->prefix . 'entry e INNER JOIN ' . $this->prefix . 'feed f ON e.id_feed = f.id '
+			     . 'SET e.is_read = 1 '
+			     . 'WHERE f.category = ? AND e.is_read = 0 AND e.date < ?';
+			$values = array ($id, $dateMax);
+			$stm = $this->bd->prepare ($sql);
+			if (!($stm && $stm->execute ($values))) {
+				$info = $stm->errorInfo();
+				Minz_Log::record ('SQL error : ' . $info[2], Minz_Log::ERROR);
+				$this->bd->rollBack ();
+				return false;
+			}
+			$affected = $stm->rowCount();
+
+			if ($affected > 0) {
+				$sql = 'UPDATE freshrss_feed f '
+			     . 'LEFT OUTER JOIN ('
+			     .	'SELECT e.id_feed, '
+			     .	'COUNT(*) AS nbUnreads '
+			     .	'FROM freshrss_entry e '
+			     .	'WHERE e.is_read = 0 '
+			     .	'GROUP BY e.id_feed'
+			     . ') x ON x.id_feed=f.id '
+			     . 'SET f.cache_nbUnreads=COALESCE(x.nbUnreads, 0) '
+			     . 'WHERE f.category = ?';
+				$values = array ($id);
+				$stm = $this->bd->prepare ($sql);
+				if (!($stm && $stm->execute ($values))) {
+					$info = $stm->errorInfo();
+					Minz_Log::record ('SQL error : ' . $info[2], Minz_Log::ERROR);
+					$this->bd->rollBack ();
+					return false;
+				}
+			}
+
+			$this->bd->commit ();
+			return $affected;
+		}
+	}
+	public function markReadFeed ($id, $dateMax = 0) {
+		if ($dateMax === 0) {
+			$sql = 'UPDATE ' . $this->prefix . 'entry e INNER JOIN ' . $this->prefix . 'feed f ON e.id_feed = f.id '
+			     . 'SET e.is_read = 1, f.cache_nbUnreads=0 '
+			     . 'WHERE f.id=? AND e.is_read = 0';
+			$values = array ($id);
+			$stm = $this->bd->prepare ($sql);
+			if ($stm && $stm->execute ($values)) {
+				return $stm->rowCount();
+			} else {
+				$info = $stm->errorInfo();
+				Minz_Log::record ('SQL error : ' . $info[2], Minz_Log::ERROR);
+				return false;
+			}
+		} else {
+			$this->bd->beginTransaction ();
+
+			$sql = 'UPDATE ' . $this->prefix . 'entry e INNER JOIN ' . $this->prefix . 'feed f ON e.id_feed = f.id '
+			     . 'SET e.is_read = 1 '
+			     . 'WHERE f.id=? AND e.is_read = 0 AND e.date < ?';
+			$values = array ($id, $dateMax);
+			$stm = $this->bd->prepare ($sql);
+			if (!($stm && $stm->execute ($values))) {
+				$info = $stm->errorInfo();
+				Minz_Log::record ('SQL error : ' . $info[2], Minz_Log::ERROR);
+				$this->bd->rollBack ();
+				return false;
+			}
+			$affected = $stm->rowCount();
+
+			if ($affected > 0) {
+				$sql = 'UPDATE ' . $this->prefix . 'feed f '
+				     . 'SET f.cache_nbUnreads=f.cache_nbUnreads-' . $affected
+				     . ' WHERE f.id=?';
+				$values = array ($id);
+				$stm = $this->bd->prepare ($sql);
+				if (!($stm && $stm->execute ($values))) {
+					$info = $stm->errorInfo();
+					Minz_Log::record ('SQL error : ' . $info[2], Minz_Log::ERROR);
+					$this->bd->rollBack ();
+					return false;
+				}
+			}
+
+			$this->bd->commit ();
+			return $affected;
 		}
 	}
 
-	public function updateEntries ($valuesTmp) {
+	/*public function updateEntries ($valuesTmp) {
 		if (isset ($valuesTmp['content'])) {
 			$valuesTmp['content'] = base64_encode (gzdeflate (serialize ($valuesTmp['content'])));
 		}
@@ -328,25 +456,24 @@ class EntryDAO extends Model_pdo {
 		}
 
 		if ($stm && $stm->execute ($values)) {
-			return true;
+			return $stm->rowCount();
 		} else {
 			$info = $stm->errorInfo();
 			Minz_Log::record ('SQL error : ' . $info[2], Minz_Log::ERROR);
 			return false;
 		}
-	}
+	}*/
 
-	public function cleanOldEntries ($nb_month) {
-		$date = 60 * 60 * 24 * 30 * $nb_month;
+	public function cleanOldEntries ($date_min) {
 		$sql = 'DELETE e.* FROM ' . $this->prefix . 'entry e INNER JOIN ' . $this->prefix . 'feed f ON e.id_feed = f.id WHERE e.date <= ? AND e.is_favorite = 0 AND f.keep_history = 0';
 		$stm = $this->bd->prepare ($sql);
 
 		$values = array (
-			time () - $date
+			$date_min
 		);
 
 		if ($stm && $stm->execute ($values)) {
-			return true;
+			return $stm->rowCount();
 		} else {
 			$info = $stm->errorInfo();
 			Minz_Log::record ('SQL error : ' . $info[2], Minz_Log::ERROR);
@@ -393,16 +520,16 @@ class EntryDAO extends Model_pdo {
 	}
 
 	private function listWhere ($where, $state, $order, $limitFromId = '', $limitCount = '', $values = array ()) {
-		if ($state == 'not_read') {
+		if ($state === 'not_read') {
 			$where .= ' AND is_read = 0';
-		} elseif ($state == 'read') {
+		} elseif ($state === 'read') {
 			$where .= ' AND is_read = 1';
 		}
 		if (!empty($limitFromId)) {	//TODO: Consider using LPAD(e.date, 11)	//CONCAT is for cases when many entries have the same date
 			$where .= ' AND CONCAT(e.date, e.id) ' . ($order === 'low_to_high' ? '<=' : '>=') . ' (SELECT CONCAT(s.date, s.id) FROM ' . $this->prefix . 'entry s WHERE s.id = "' . $limitFromId . '")';
 		}
 
-		if ($order == 'low_to_high') {
+		if ($order === 'low_to_high') {
 			$order = ' DESC';
 		} else {
 			$order = '';
@@ -429,9 +556,6 @@ class EntryDAO extends Model_pdo {
 	}
 	public function listFavorites ($state, $order = 'high_to_low', $limitFromId = '', $limitCount = '') {
 		return $this->listWhere (' WHERE is_favorite = 1', $state, $order, $limitFromId, $limitCount);
-	}
-	public function listPublic ($state, $order = 'high_to_low', $limitFromId = '', $limitCount = '') {
-		return $this->listWhere (' WHERE is_public = 1', $state, $order, $limitFromId, $limitCount);
 	}
 	public function listByCategory ($cat, $state, $order = 'high_to_low', $limitFromId = '', $limitCount = '') {
 		return $this->listWhere (' WHERE category = ?', $state, $order, $limitFromId, $limitCount, array ($cat));

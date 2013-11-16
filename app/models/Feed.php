@@ -337,7 +337,7 @@ class FeedDAO extends Model_pdo {
 		);
 
 		if ($stm && $stm->execute ($values)) {
-			return true;
+			return $stm->rowCount();
 		} else {
 			$info = $stm->errorInfo();
 			Minz_Log::record ('SQL error : ' . $info[2], Minz_Log::ERROR);
@@ -365,7 +365,7 @@ class FeedDAO extends Model_pdo {
 		$values[] = $id;
 
 		if ($stm && $stm->execute ($values)) {
-			return true;
+			return $stm->rowCount();
 		} else {
 			$info = $stm->errorInfo();
 			Minz_Log::record ('SQL error : ' . $info[2], Minz_Log::ERROR);
@@ -373,34 +373,23 @@ class FeedDAO extends Model_pdo {
 		}
 	}
 
-	public function updateLastUpdate ($id) {
-		$sql = 'UPDATE ' . $this->prefix . 'feed SET lastUpdate=?, error=0 WHERE id=?';
+	public function updateLastUpdate ($id, $inError = 0) {
+		$sql = 'UPDATE ' . $this->prefix . 'feed f '	//2 sub-requests with FOREIGN KEY(e.id_feed), INDEX(e.is_read) faster than 1 request with GROUP BY or CASE
+		     . 'SET f.cache_nbEntries=(SELECT COUNT(e1.id) FROM ' . $this->prefix . 'entry e1 WHERE e1.id_feed=f.id),'
+		     . 'f.cache_nbUnreads=(SELECT COUNT(e2.id) FROM ' . $this->prefix . 'entry e2 WHERE e2.id_feed=f.id AND e2.is_read=0),'
+		     . 'lastUpdate=?, error=? '
+		     . 'WHERE f.id=?';
+
 		$stm = $this->bd->prepare ($sql);
 
 		$values = array (
 			time (),
-			$id
+			$inError,
+			$id,
 		);
 
 		if ($stm && $stm->execute ($values)) {
-			return true;
-		} else {
-			$info = $stm->errorInfo();
-			Minz_Log::record ('SQL error : ' . $info[2], Minz_Log::ERROR);
-			return false;
-		}
-	}
-
-	public function isInError ($id) {
-		$sql = 'UPDATE ' . $this->prefix . 'feed SET error=1 WHERE id=?';
-		$stm = $this->bd->prepare ($sql);
-
-		$values = array (
-			$id
-		);
-
-		if ($stm && $stm->execute ($values)) {
-			return true;
+			return $stm->rowCount();
 		} else {
 			$info = $stm->errorInfo();
 			Minz_Log::record ('SQL error : ' . $info[2], Minz_Log::ERROR);
@@ -424,7 +413,7 @@ class FeedDAO extends Model_pdo {
 		);
 
 		if ($stm && $stm->execute ($values)) {
-			return true;
+			return $stm->rowCount();
 		} else {
 			$info = $stm->errorInfo();
 			Minz_Log::record ('SQL error : ' . $info[2], Minz_Log::ERROR);
@@ -439,7 +428,7 @@ class FeedDAO extends Model_pdo {
 		$values = array ($id);
 
 		if ($stm && $stm->execute ($values)) {
-			return true;
+			return $stm->rowCount();
 		} else {
 			$info = $stm->errorInfo();
 			Minz_Log::record ('SQL error : ' . $info[2], Minz_Log::ERROR);
@@ -453,7 +442,7 @@ class FeedDAO extends Model_pdo {
 		$values = array ($id);
 
 		if ($stm && $stm->execute ($values)) {
-			return true;
+			return $stm->rowCount();
 		} else {
 			$info = $stm->errorInfo();
 			Minz_Log::record ('SQL error : ' . $info[2], Minz_Log::ERROR);
@@ -521,15 +510,6 @@ class FeedDAO extends Model_pdo {
 		return HelperFeed::daoToFeed ($stm->fetchAll (PDO::FETCH_ASSOC));
 	}
 
-	public function count () {	//Is this used?
-		$sql = 'SELECT COUNT(*) AS count FROM ' . $this->prefix . 'feed';
-		$stm = $this->bd->prepare ($sql);
-		$stm->execute ();
-		$res = $stm->fetchAll (PDO::FETCH_ASSOC);
-
-		return $res[0]['count'];
-	}
-
 	public function countEntries ($id) {
 		$sql = 'SELECT COUNT(*) AS count FROM ' . $this->prefix . 'entry WHERE id_feed=?';
 		$stm = $this->bd->prepare ($sql);
@@ -539,14 +519,36 @@ class FeedDAO extends Model_pdo {
 
 		return $res[0]['count'];
 	}
-	public function countNotRead ($id) {	//Is this used?
-		$sql = 'SELECT COUNT(*) AS count FROM ' . $this->prefix . 'entry WHERE is_read=0 AND id_feed=?';
+	public function countNotRead ($id) {
+		$sql = 'SELECT COUNT(*) AS count FROM ' . $this->prefix . 'entry WHERE id_feed=? AND is_read=0';
 		$stm = $this->bd->prepare ($sql);
 		$values = array ($id);
 		$stm->execute ($values);
 		$res = $stm->fetchAll (PDO::FETCH_ASSOC);
 
 		return $res[0]['count'];
+	}
+	public function updateCachedValues () {	//For one single feed, call updateLastUpdate($id)
+		$sql = 'UPDATE freshrss_feed f '
+		     . 'INNER JOIN ('
+		     .	'SELECT e.id_feed, '
+		     .	'COUNT(CASE WHEN e.is_read = 0 THEN 1 END) AS nbUnreads, '
+		     .	'COUNT(e.id) AS nbEntries '
+		     .	'FROM freshrss_entry e '
+		     .	'GROUP BY e.id_feed'
+		     . ') x ON x.id_feed=f.id '
+		     . 'SET f.cache_nbEntries=x.nbEntries, f.cache_nbUnreads=x.nbUnreads';
+		$stm = $this->bd->prepare ($sql);
+
+		$values = array ($feed_id);
+
+		if ($stm && $stm->execute ($values)) {
+			return $stm->rowCount();
+		} else {
+			$info = $stm->errorInfo();
+			Minz_Log::record ('SQL error : ' . $info[2], Minz_Log::ERROR);
+			return false;
+		}
 	}
 }
 
@@ -577,12 +579,8 @@ class HelperFeed {
 			$myFeed->_httpAuth (isset($dao['httpAuth']) ? base64_decode ($dao['httpAuth']) : '');
 			$myFeed->_error ($dao['error']);
 			$myFeed->_keepHistory (isset($dao['keep_history']) ? $dao['keep_history'] : '');
-			if (isset ($dao['nbNotRead'])) {
-				$myFeed->_nbNotRead ($dao['nbNotRead']);
-			}
-			if (isset ($dao['nbEntries'])) {
-				$myFeed->_nbEntries ($dao['nbEntries']);
-			}
+			$myFeed->_nbNotRead ($dao['cache_nbUnreads']);
+			$myFeed->_nbEntries ($dao['cache_nbEntries']);
 			if (isset ($dao['id'])) {
 				$myFeed->_id ($dao['id']);
 			}

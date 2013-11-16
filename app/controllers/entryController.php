@@ -43,28 +43,27 @@ class entryController extends ActionController {
 		$entryDAO = new EntryDAO ();
 		if ($id == false) {
 			if (!$get) {
-				$entryDAO->markReadEntries ($is_read, $dateMax);
+				$entryDAO->markReadEntries ($dateMax);
 			} else {
 				$typeGet = $get[0];
 				$get = substr ($get, 2);
 
 				if ($typeGet == 'c') {
-					$entryDAO->markReadCat ($get, $is_read, $dateMax);
+					$entryDAO->markReadCat ($get, $dateMax);
 					$this->params = array ('get' => $nextGet); 
 				} elseif ($typeGet == 'f') {
-					$entryDAO->markReadFeed ($get, $is_read, $dateMax);
+					$entryDAO->markReadFeed ($get, $dateMax);
 					$this->params = array ('get' => $nextGet);
 				}
 			}
 
-			// notif
 			$notif = array (
 				'type' => 'good',
 				'content' => Translate::t ('feeds_marked_read')
 			);
 			Session::_param ('notification', $notif);
 		} else {
-			$entryDAO->updateEntry ($id, array ('is_read' => $is_read));
+			$entryDAO->markRead ($id, $is_read);
 		}
 	}
 
@@ -74,10 +73,7 @@ class entryController extends ActionController {
 		$id = Request::param ('id');
 		if ($id) {
 			$entryDAO = new EntryDAO ();
-			$values = array (
-				'is_favorite' => (bool)(Request::param ('is_favorite')),
-			);
-			$entryDAO->updateEntry ($id, $values);
+			$entryDAO->markFavorite ($id, Request::param ('is_favorite'));
 		}
 	}
 

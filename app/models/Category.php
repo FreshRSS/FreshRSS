@@ -100,7 +100,7 @@ class CategoryDAO extends Model_pdo {
 		);
 
 		if ($stm && $stm->execute ($values)) {
-			return true;
+			return $stm->rowCount();
 		} else {
 			$info = $stm->errorInfo();
 			Minz_Log::record ('SQL error : ' . $info[2], Minz_Log::ERROR);
@@ -119,7 +119,7 @@ class CategoryDAO extends Model_pdo {
 		);
 
 		if ($stm && $stm->execute ($values)) {
-			return true;
+			return $stm->rowCount();
 		} else {
 			$info = $stm->errorInfo();
 			Minz_Log::record ('SQL error : ' . $info[2], Minz_Log::ERROR);
@@ -134,7 +134,7 @@ class CategoryDAO extends Model_pdo {
 		$values = array ($id);
 
 		if ($stm && $stm->execute ($values)) {
-			return true;
+			return $stm->rowCount();
 		} else {
 			$info = $stm->errorInfo();
 			Minz_Log::record ('SQL error : ' . $info[2], Minz_Log::ERROR);
@@ -179,12 +179,9 @@ class CategoryDAO extends Model_pdo {
 		if ($prePopulateFeeds) {
 			$sql = 'SELECT c.id AS c_id, c.name AS c_name, '
 			     . ($details ? 'c.color AS c_color, ' : '')
-			     . 'COUNT(CASE WHEN e.is_read = 0 THEN 1 END) AS nbNotRead, '
-			     . 'COUNT(e.id) AS nbEntries, '
-			     . ($details ? 'f.* ' : 'f.id, f.name, f.website, f.priority, f.error ')
+			     . ($details ? 'f.* ' : 'f.id, f.name, f.website, f.priority, f.error, f.cache_nbEntries, f.cache_nbUnreads ')
 			     . 'FROM ' . $this->prefix . 'category c '
 			     . 'LEFT OUTER JOIN ' . $this->prefix . 'feed f ON f.category = c.id '
-			     . 'LEFT OUTER JOIN ' . $this->prefix . 'entry e ON e.id_feed = f.id '
 			     . 'GROUP BY f.id '
 			     . 'ORDER BY c.name, f.name';
 			$stm = $this->bd->prepare ($sql);

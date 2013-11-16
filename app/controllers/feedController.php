@@ -33,6 +33,7 @@ class feedController extends ActionController {
 			$pass = Request::param ('password');
 			$params = array ();
 
+			$transactionStarted = false;
 			try {
 				$feed = new Feed ($url);
 				$feed->_category ($cat);
@@ -79,6 +80,8 @@ class feedController extends ActionController {
 					$nb_month_old = $this->view->conf->oldEntries ();
 					$date_min = time () - (60 * 60 * 24 * 30 * $nb_month_old);
 
+					$transactionStarted = true;
+					$feedDAO->beginTransaction ();
 					// on ajoute les articles en masse sans vérification
 					foreach ($entries as $entry) {
 						if ($entry->date (true) >= $date_min ||
@@ -87,6 +90,9 @@ class feedController extends ActionController {
 							$entryDAO->addEntry ($values);
 						}
 					}
+					$feedDAO->updateLastUpdate ($feed->id ());
+					$feedDAO->commit ();
+					$transactionStarted = false;
 
 					// ok, ajout terminé
 					$notif = array (
@@ -121,6 +127,9 @@ class feedController extends ActionController {
 				);
 				Session::_param ('notification', $notif);
 			}
+			if ($transactionStarted) {
+				$feedDAO->rollBack ();
+			}
 
 			Request::forward (array ('c' => 'configure', 'a' => 'feed', 'params' => $params), true);
 		}
@@ -149,6 +158,13 @@ class feedController extends ActionController {
 		// on calcule la date des articles les plus anciens qu'on accepte
 		$nb_month_old = $this->view->conf->oldEntries ();
 		$date_min = time () - (60 * 60 * 24 * 30 * $nb_month_old);
+		if (rand(0, 30) === 1) {
+			Minz_Log::record ('CleanOldEntries', Minz_Log::NOTICE);	//TODO: Remove
+			if ($entryDAO->cleanOldEntries ($date_min) > 0) {
+				Minz_Log::record ('UpdateCachedValues', Minz_Log::NOTICE);	//TODO: Remove
+				$feedDAO->updateCachedValues ();
+			}
+		}
 
 		$i = 0;
 		$flux_update = 0;
@@ -165,6 +181,7 @@ class feedController extends ActionController {
 				// car demanderait plus de ressources
 				// La BDD refusera l'ajout de son côté car l'id doit être
 				// unique
+				$feedDAO->beginTransaction ();
 				foreach ($entries as $entry) {
 					if ((!isset ($existingIds[$entry->id ()])) &&
 						($entry->date (true) >= $date_min ||
@@ -176,10 +193,11 @@ class feedController extends ActionController {
 
 				// on indique que le flux vient d'être mis à jour en BDD
 				$feedDAO->updateLastUpdate ($feed->id ());
+				$feedDAO->commit ();
 				$flux_update++;
 			} catch (FeedException $e) {
 				Minz_Log::record ($e->getMessage (), Minz_Log::ERROR);
-				$feedDAO->isInError ($feed->id ());
+				$feedDAO->updateLastUpdate ($feed->id (), 1);
 			}
 
 			// On arrête à 10 flux pour ne pas surcharger le serveur
@@ -189,8 +207,6 @@ class feedController extends ActionController {
 				break;
 			}
 		}
-
-		$entryDAO->cleanOldEntries ($nb_month_old);
 
 		$url = array ();
 		if ($flux_update === 1) {

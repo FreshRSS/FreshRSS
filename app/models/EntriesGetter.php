@@ -117,14 +117,6 @@ class EntriesGetter {
 				$sqlLimit
 			);
 			break;
-		case 'public':
-			list ($this->entries, $this->next) = $entryDAO->listPublic (
-				$this->state,
-				$this->order,
-				$this->first,
-				$sqlLimit
-			);
-			break;
 		case 'c':
 			list ($this->entries, $this->next) = $entryDAO->listByCategory (
 				$this->type['id'],

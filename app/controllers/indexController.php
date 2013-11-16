@@ -90,6 +90,30 @@ class indexController extends ActionController {
 			$nb = Request::param ('nb', $this->view->conf->postsPerPage ());
 			$first = Request::param ('next', '');
 
+			if ($state === 'not_read') {	//Any unread article in this category at all?
+				switch ($type['type']) {
+					case 'all':
+						$hasUnread = $this->view->nb_not_read > 0;
+						break;
+					case 'favoris':
+						$hasUnread = $this->view->nb_favorites['unread'] > 0;
+						break;
+					case 'c':
+						$hasUnread = (!isset($this->view->cat_aside[$type['id']])) || ($this->view->cat_aside[$type['id']]->nbNotRead() > 0);
+						break;
+					case 'f':
+						$myFeed = HelperCategory::findFeed($this->view->cat_aside, $type['id']);
+						$hasUnread = ($myFeed === null) || ($myFeed->nbNotRead() > 0);
+						break;
+					default:
+						$hasUnread = true;
+						break;
+				}
+				if (!$hasUnread) {
+					$this->view->state = $state = 'all';
+				}
+			}
+
 			try {
 				// EntriesGetter permet de déporter la complexité du filtrage
 				$getter = new EntriesGetter ($type, $state, $filter, $order, $nb, $first);
@@ -98,7 +122,8 @@ class indexController extends ActionController {
 
 				// Si on a récupéré aucun article "non lus"
 				// on essaye de récupérer tous les articles
-				if ($state == 'not_read' && $entries->isEmpty ()) {
+				if ($state === 'not_read' && $entries->isEmpty ()) {	//TODO: Remove in v0.8
+					Minz_Log::record ('Conflicting information about nbNotRead!', Minz_Log::NOTICE);	//TODO: Consider adding a Minz_Log::DEBUG level
 					$this->view->state = 'all';
 					$getter->_state ('all');
 					$getter->execute ();
