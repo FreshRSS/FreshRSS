@@ -677,6 +677,10 @@
 		background: #f4f4f4;
 		color: #aaa;
 	}
+	.log.debug {
+		background: #111;
+		color: #eee;
+	}
 
 .form-group table {
 	border-collapse:collapse;

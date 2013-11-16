@@ -658,20 +658,24 @@ body {
 		color: #666;
 		font-size: 90%;
 	}
-		.log .date {
+		.log>.date {
 			margin: 0 10px 0 0;
 			padding: 5px 10px;
 			border-radius: 20px;
 		}
-			.log.error .date {
+			.log.error>.date {
 				background: #e74c3c;
 				color: #fff;
 			}
-			.log.warning .date {
+			.log.warning>.date {
 				background: #f39c12;
 			}
-			.log.notice .date {
+			.log.notice>.date {
 				background: #ecf0f1;
+			}
+			.log.debug>.date {
+				background: #111;
+				color: #eee;
 			}
 
 .form-group table {

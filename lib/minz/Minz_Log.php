@@ -12,11 +12,13 @@ class Minz_Log {
 	 * Les différents niveau de log
 	 * ERROR erreurs bloquantes de l'application
 	 * WARNING erreurs pouvant géner le bon fonctionnement, mais non bloquantes
-	 * NOTICE messages d'informations, affichés pour le déboggage
+	 * NOTICE erreurs mineures ou messages d'informations
+	 * DEBUG Informations affichées pour le déboggage
 	 */
-	const ERROR = 0;
-	const WARNING = 10;
-	const NOTICE = 20;
+	const ERROR = 2;
+	const WARNING = 4;
+	const NOTICE = 8;
+	const DEBUG = 16;
 	
 	/**
 	 * Enregistre un message dans un fichier de log spécifique
@@ -31,9 +33,9 @@ class Minz_Log {
 	public static function record ($information, $level, $file_name = null) {
 		$env = Configuration::environment ();
 		
-		if (! ($env == Configuration::SILENT
-		       || ($env == Configuration::PRODUCTION
-		       && ($level == Minz_Log::WARNING || $level == Minz_Log::NOTICE)))) {
+		if (! ($env === Configuration::SILENT
+		       || ($env === Configuration::PRODUCTION
+		       && ($level <= Minz_Log::NOTICE)))) {
 			if (is_null ($file_name)) {
 				$file_name = LOG_PATH . '/application.log';
 			}
@@ -47,6 +49,9 @@ class Minz_Log {
 				break;
 			case Minz_Log::NOTICE :
 				$level_label = 'notice';
+				break;
+			case Minz_Log::DEBUG :
+				$level_label = 'debug';
 				break;
 			default :
 				$level_label = 'unknown';
@@ -83,7 +88,7 @@ class Minz_Log {
 		$msg_get = str_replace("\n", '', '$_GET content : ' . print_r($_GET, true));
 		$msg_post = str_replace("\n", '', '$_POST content : ' . print_r($_POST, true));
 
-		self::record($msg_get, Minz_Log::NOTICE, $file_name);
-		self::record($msg_post, Minz_Log::NOTICE, $file_name);
+		self::record($msg_get, Minz_Log::DEBUG, $file_name);
+		self::record($msg_post, Minz_Log::DEBUG, $file_name);
 	}
 }

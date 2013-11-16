@@ -123,7 +123,7 @@ class indexController extends ActionController {
 				// Si on a récupéré aucun article "non lus"
 				// on essaye de récupérer tous les articles
 				if ($state === 'not_read' && $entries->isEmpty ()) {	//TODO: Remove in v0.8
-					Minz_Log::record ('Conflicting information about nbNotRead!', Minz_Log::NOTICE);	//TODO: Consider adding a Minz_Log::DEBUG level
+					Minz_Log::record ('Conflicting information about nbNotRead!', Minz_Log::DEBUG);
 					$this->view->state = 'all';
 					$getter->_state ('all');
 					$getter->execute ();
@@ -131,7 +131,7 @@ class indexController extends ActionController {
 				}
 
 				$this->view->entryPaginator = $entries;
-			} catch(EntriesGetterException $e) {
+			} catch (EntriesGetterException $e) {
 				Minz_Log::record ($e->getMessage (), Minz_Log::NOTICE);
 				Error::error (
 					404,

@@ -54,8 +54,9 @@ if (file_exists (PUBLIC_PATH . '/install.php')) {
 		$front_controller = new App_FrontController ();
 		$front_controller->init ();
 		$front_controller->run ();
-	} catch (PDOConnectionException $e) {
+	} catch (Exception $e) {
+		echo '### Fatal error! ###<br />', "\n";
 		Minz_Log::record ($e->getMessage (), Minz_Log::ERROR);
-		print '### Application problem ###<br />'."\n".'See logs files';
+		echo 'See logs files.';
 	}
 }

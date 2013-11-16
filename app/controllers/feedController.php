@@ -105,14 +105,14 @@ class feedController extends ActionController {
 					$params['id'] = $feed->id ();
 				}
 			} catch (BadUrlException $e) {
-				Minz_Log::record ($e->getMessage (), Minz_Log::ERROR);
+				Minz_Log::record ($e->getMessage (), Minz_Log::WARNING);
 				$notif = array (
 					'type' => 'bad',
 					'content' => Translate::t ('invalid_url', $url)
 				);
 				Session::_param ('notification', $notif);
 			} catch (FeedException $e) {
-				Minz_Log::record ($e->getMessage (), Minz_Log::ERROR);
+				Minz_Log::record ($e->getMessage (), Minz_Log::WARNING);
 				$notif = array (
 					'type' => 'bad',
 					'content' => Translate::t ('internal_problem_feed')
@@ -159,9 +159,9 @@ class feedController extends ActionController {
 		$nb_month_old = $this->view->conf->oldEntries ();
 		$date_min = time () - (60 * 60 * 24 * 30 * $nb_month_old);
 		if (rand(0, 30) === 1) {
-			Minz_Log::record ('CleanOldEntries', Minz_Log::NOTICE);	//TODO: Remove
+			Minz_Log::record ('CleanOldEntries', Minz_Log::DEBUG);
 			if ($entryDAO->cleanOldEntries ($date_min) > 0) {
-				Minz_Log::record ('UpdateCachedValues', Minz_Log::NOTICE);	//TODO: Remove
+				Minz_Log::record ('UpdateCachedValues', Minz_Log::DEBUG);
 				$feedDAO->updateCachedValues ();
 			}
 		}
@@ -196,7 +196,7 @@ class feedController extends ActionController {
 				$feedDAO->commit ();
 				$flux_update++;
 			} catch (FeedException $e) {
-				Minz_Log::record ($e->getMessage (), Minz_Log::ERROR);
+				Minz_Log::record ($e->getMessage (), Minz_Log::NOTICE);
 				$feedDAO->updateLastUpdate ($feed->id (), 1);
 			}
 
@@ -298,7 +298,7 @@ class feedController extends ActionController {
 				}
 			} catch (FeedException $e) {
 				$error = true;
-				Minz_Log::record ($e->getMessage (), Minz_Log::ERROR);
+				Minz_Log::record ($e->getMessage (), Minz_Log::WARNING);
 			}
 		}
 
