@@ -145,8 +145,9 @@ function saveStep2 () {
 			return false;
 		}
 
-		$first_sel = small_hash (time ());
-		$_SESSION['sel'] = small_hash (time () . $first_sel) . $first_sel;
+		$_SESSION['sel'] = md5 (
+			uniqid (mt_rand (), true).implode ('', stat (__FILE__))
+		);
 		$_SESSION['base_url'] = addslashes ($_POST['base_url']);
 		$_SESSION['title'] = addslashes ($_POST['title']);
 		$_SESSION['old_entries'] = $_POST['old_entries'];
