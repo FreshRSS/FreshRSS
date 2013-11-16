@@ -15,7 +15,7 @@ define ('SQL_REQ_CAT', 'CREATE TABLE IF NOT EXISTS `%scategory` (
   `name` varchar(255) NOT NULL,
   `color` char(7) NOT NULL,
   PRIMARY KEY (`id`),
-  INDEX (`name`)	//v0.7
+  INDEX (`name`)	-- v0.7
 );');
 
 define ('SQL_REQ_FEED', 'CREATE TABLE IF NOT EXISTS `%sfeed` (
@@ -35,9 +35,9 @@ define ('SQL_REQ_FEED', 'CREATE TABLE IF NOT EXISTS `%sfeed` (
   `cache_nbUnreads` int NOT NULL DEFAULT 0,	//v0.7
   PRIMARY KEY (`id`),
   FOREIGN KEY (`category`) REFERENCES %scategory(id) ON DELETE SET NULL ON UPDATE CASCADE,
-  INDEX (`name`),	//v0.7
-  INDEX (`priority`),	//v0.7
-  INDEX (`keep_history`)	//v0.7
+  INDEX (`name`),	-- v0.7
+  INDEX (`priority`),	-- v0.7
+  INDEX (`keep_history`)	-- v0.7
 );');
 
 define ('SQL_REQ_ENTRY', 'CREATE TABLE IF NOT EXISTS `%sentry` (
@@ -54,8 +54,9 @@ define ('SQL_REQ_ENTRY', 'CREATE TABLE IF NOT EXISTS `%sentry` (
   `tags` varchar(1023) NOT NULL,
   PRIMARY KEY (`id`),
   FOREIGN KEY (`id_feed`) REFERENCES %sfeed(id) ON DELETE CASCADE ON UPDATE CASCADE,
-  INDEX (`is_favorite`),	//v0.7
-  INDEX (`is_read`)	//v0.7
+  INDEX (`is_favorite`),	-- v0.7
+  INDEX (`is_read`),	-- v0.7
+  INDEX (`date`)	-- v0.7	//TODO: remove after https://github.com/marienfressinaud/FreshRSS/issues/202
 );');
 
 
