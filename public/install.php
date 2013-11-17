@@ -218,6 +218,7 @@ function saveStep3 () {
 		writeLine ($f, 'prefix = "' . $_SESSION['bd_prefix'] . '"');
 		fclose ($f);
 
+		$_SESSION['bd_prefix'] .= (empty($_SESSION['default_user']) ? '' : ($_SESSION['default_user'] . '_'));
 		$res = checkBD ();
 
 		if ($res) {
