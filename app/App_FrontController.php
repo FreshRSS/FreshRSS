@@ -67,9 +67,9 @@ class App_FrontController extends FrontController {
 		if (login_is_conf ($this->conf)) {
 			View::appendScript ('https://login.persona.org/include.js');
 		}
-		View::appendScript (Url::display ('/scripts/jquery.min.js?' . @filemtime(PUBLIC_PATH . '/scripts/jquery.min.js')));
-		if ($this->conf->lazyload () === 'yes' &&
-				($this->conf->displayPosts () === 'yes' || Request::param ('output') === 'reader')) {
+		$includeLazyLoad = $this->conf->lazyload () === 'yes' && ($this->conf->displayPosts () === 'yes' || Request::param ('output') === 'reader');
+		View::appendScript (Url::display ('/scripts/jquery.min.js?' . @filemtime(PUBLIC_PATH . '/scripts/jquery.min.js')), false, !$includeLazyLoad, !$includeLazyLoad);
+		if ($includeLazyLoad) {
 			View::appendScript (Url::display ('/scripts/jquery.lazyload.min.js?' . @filemtime(PUBLIC_PATH . '/scripts/jquery.lazyload.min.js')));
 		}
 		View::appendScript (Url::display ('/scripts/main.js?' . @filemtime(PUBLIC_PATH . '/scripts/main.js')));
