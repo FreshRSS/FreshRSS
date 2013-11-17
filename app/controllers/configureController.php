@@ -337,7 +337,7 @@ class configureController extends ActionController {
 		                    'f10', 'f11', 'f12');
 		$this->view->list_keys = $list_keys;
 		$list_names = array ('mark_read', 'mark_favorite', 'go_website', 'next_entry',
-		                     'prev_entry', 'next_page', 'prev_page');
+		                     'prev_entry', 'next_page', 'prev_page', 'collapse_entry');
 
 		if (Request::isPost ()) {
 			$shortcuts = Request::param ('shortcuts');

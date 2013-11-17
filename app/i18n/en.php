@@ -119,6 +119,7 @@ return array (
 	'shift_for_first'		=> '+ <code>shift</code> to skip to the first article of page',
 	'next_page'			=> 'Skip to the next page',
 	'previous_page'			=> 'Skip to the previous page',
+	'collapse_article'		=> 'Collapse current article',
 
 	'file_to_import'		=> 'File to import',
 	'import'			=> 'Import',
