@@ -44,11 +44,6 @@ class indexController extends ActionController {
 			$this->view->_useLayout (false);
 			header('Content-Type: application/rss+xml; charset=utf-8');
 		} else {
-			if(!$output) {
-				$output = $this->view->conf->viewMode();
-				Request::_param ('output', $output);
-			}
-
 			View::appendScript (Url::display ('/scripts/shortcut.js?' . @filemtime(PUBLIC_PATH . '/scripts/shortcut.js')));
 
 			if ($output == 'global') {
