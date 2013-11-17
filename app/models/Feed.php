@@ -194,6 +194,7 @@ class Feed extends Model {
 				);
 			} else {
 				$feed = new SimplePie ();
+				$feed->set_useragent(Translate::t ('freshrss') . '/' . '0.7' . ' (' . PHP_OS . '; http://marienfressinaud.github.io/FreshRSS/) ' . SIMPLEPIE_NAME . '/' . SIMPLEPIE_VERSION);
 				$url = str_replace ('&amp;', '&', $this->url);
 				if ($this->httpAuth != '') {
 					$url = preg_replace ('#((.+)://)(.+)#', '${1}' . $this->httpAuth . '@${3}', $url);
