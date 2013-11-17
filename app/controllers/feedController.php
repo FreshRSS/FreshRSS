@@ -159,10 +159,11 @@ class feedController extends ActionController {
 		$nb_month_old = $this->view->conf->oldEntries ();
 		$date_min = time () - (60 * 60 * 24 * 30 * $nb_month_old);
 		if (rand(0, 30) === 1) {
-			Minz_Log::record ('CleanOldEntries', Minz_Log::DEBUG);
-			if ($entryDAO->cleanOldEntries ($date_min) > 0) {
-				Minz_Log::record ('UpdateCachedValues', Minz_Log::DEBUG);
-				$feedDAO->updateCachedValues ();
+			$nb= $entryDAO->cleanOldEntries ($date_min);
+			Minz_Log::record ($nb . ' old entries cleaned.', Minz_Log::DEBUG);
+			if ($nbOld > 0) {
+				$nb = $feedDAO->updateCachedValues ();
+				Minz_Log::record ($nb . ' cached values updated.', Minz_Log::DEBUG);
 			}
 		}
 
