@@ -17,6 +17,7 @@ body {
 	}
 		.header > .item.title {
 			width: 250px;
+			white-space: nowrap;
 		}
 			.header > .item.title .logo {
 				display: inline-block;
