@@ -578,7 +578,9 @@ class EntryDAO extends Model_pdo {
 		$stm = $this->bd->prepare ($sql);
 		$stm->execute ();
 		$res = $stm->fetchAll (PDO::FETCH_COLUMN, 0);
-		return array('total' => $res[0], 'unread' => $res[1], 'read' => $res[0] - $res[1]);
+		$all = empty($res[0]) ? 0 : $res[0];
+		$unread = empty($res[1]) ? 0 : $res[1];
+		return array('all' => $all, 'unread' => $unread, 'read' => $all - $unread);
 	}
 	public function count ($minPriority = null) {
 		$sql = 'SELECT COUNT(e.id) AS count FROM ' . $this->prefix . 'entry e INNER JOIN ' . $this->prefix . 'feed f ON e.id_feed = f.id';
@@ -607,7 +609,9 @@ class EntryDAO extends Model_pdo {
 		$stm = $this->bd->prepare ($sql);
 		$stm->execute ();
 		$res = $stm->fetchAll (PDO::FETCH_COLUMN, 0);
-		return array('all' => $res[0], 'unread' => $res[1], 'read' => $res[0] - $res[1]);
+		$all = empty($res[0]) ? 0 : $res[0];
+		$unread = empty($res[1]) ? 0 : $res[1];
+		return array('all' => $all, 'unread' => $unread, 'read' => $all - $unread);
 	}
 
 	public function optimizeTable() {

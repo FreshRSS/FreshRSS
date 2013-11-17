@@ -159,7 +159,7 @@ function saveStep2 () {
 			$_SESSION['old_entries'] = 3;
 		}
 		$_SESSION['mail_login'] = addslashes ($_POST['mail_login']);
-		$_SESSION['default_user'] = substr(0, 16, preg_replace ('/[^a-zA-Z0-9]/', '', $_POST['default_user']));
+		$_SESSION['default_user'] = substr(preg_replace ('/[^a-zA-Z0-9]/', '', $_POST['default_user']), 0, 16);
 
 		$token = '';
 		if ($_SESSION['mail_login']) {
@@ -293,7 +293,8 @@ function checkStep2 () {
 	        isset ($_SESSION['old_entries']) &&
 	        isset ($_SESSION['mail_login']) &&
 	        isset ($_SESSION['default_user']);
-	$data = file_exists (DATA_PATH . '/' . $_SESSION['default_user'] . '_user.php');
+	$defaultUser = empty($_POST['default_user']) ? $_SESSION['default_user'] : $_POST['default_user'];
+	$data = file_exists (DATA_PATH . '/' . $defaultUser . '_user.php');
 
 	return array (
 		'conf' => $conf ? 'ok' : 'ko',
@@ -561,11 +562,11 @@ function printStep3 () {
 			<div class="group-controls">
 				<select name="type" id="type">
 				<option value="mysql"
-					<?php echo $_SESSION['bd_type'] && $_SESSION['bd_type'] == 'mysql' ? 'selected="selected"' : ''; ?>>
+					<?php echo (isset($_SESSION['bd_type']) && $_SESSION['bd_type'] === 'mysql') ? 'selected="selected"' : ''; ?>>
 					MySQL
 				</option>
 				<option value="sqlite"
-					<?php echo $_SESSION['bd_type'] && $_SESSION['bd_type'] == 'sqlite' ? 'selected="selected"' : ''; ?>>
+					<?php echo (isset($_SESSION['bd_type']) && $_SESSION['bd_type'] === 'sqlite') ? 'selected="selected"' : ''; ?>>
 					SQLite
 				</option>
 				</select>
