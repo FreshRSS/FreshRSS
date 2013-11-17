@@ -293,7 +293,10 @@ function checkStep2 () {
 	        isset ($_SESSION['old_entries']) &&
 	        isset ($_SESSION['mail_login']) &&
 	        isset ($_SESSION['default_user']);
-	$defaultUser = empty($_POST['default_user']) ? $_SESSION['default_user'] : $_POST['default_user'];
+	$defaultUser = empty($_POST['default_user']) ? null : $_POST['default_user'];
+	if ($defaultUser === null) {
+		$defaultUser = empty($_SESSION['default_user']) ? '' : $_SESSION['default_user'];
+	}
 	$data = file_exists (DATA_PATH . '/' . $defaultUser . '_user.php');
 
 	return array (
