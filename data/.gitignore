@@ -1,5 +1,3 @@
-cache
-log
 application.ini
 *_user.php
 *.sqlite
