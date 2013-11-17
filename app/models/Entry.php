@@ -311,11 +311,11 @@ class EntryDAO extends Model_pdo {
 			$affected = $stm->rowCount();
 
 			if ($affected > 0) {
-				$sql = 'UPDATE freshrss_feed f '
+				$sql = 'UPDATE ' . $this->prefix . 'feed f '
 			     . 'LEFT OUTER JOIN ('
 			     .	'SELECT e.id_feed, '
 			     .	'COUNT(*) AS nbUnreads '
-			     .	'FROM freshrss_entry e '
+			     .	'FROM ' . $this->prefix . 'entry e '
 			     .	'WHERE e.is_read = 0 '
 			     .	'GROUP BY e.id_feed'
 			     . ') x ON x.id_feed=f.id '
@@ -364,11 +364,11 @@ class EntryDAO extends Model_pdo {
 			$affected = $stm->rowCount();
 
 			if ($affected > 0) {
-				$sql = 'UPDATE freshrss_feed f '
+				$sql = 'UPDATE ' . $this->prefix . 'feed f '
 			     . 'LEFT OUTER JOIN ('
 			     .	'SELECT e.id_feed, '
 			     .	'COUNT(*) AS nbUnreads '
-			     .	'FROM freshrss_entry e '
+			     .	'FROM ' . $this->prefix . 'entry e '
 			     .	'WHERE e.is_read = 0 '
 			     .	'GROUP BY e.id_feed'
 			     . ') x ON x.id_feed=f.id '

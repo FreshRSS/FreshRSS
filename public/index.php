@@ -28,7 +28,6 @@ if (file_exists ('install.php')) {
 	$dateLastModification = max(
 		@filemtime(DATA_PATH . '/touch.txt'),
 		@filemtime(LOG_PATH . '/application.log'),
-		@filemtime(DATA_PATH . '/Configuration.array.php'),
 		@filemtime(DATA_PATH . '/application.ini')
 	);
 	if (httpConditional($dateLastModification, 0, 0, false, false, true)) {

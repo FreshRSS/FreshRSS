@@ -1,6 +1,6 @@
 cache
 log
 application.ini
-Configuration.array.php
+*_user.php
 *.sqlite
 touch.txt

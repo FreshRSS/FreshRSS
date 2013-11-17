@@ -159,6 +159,7 @@ function saveStep2 () {
 			$_SESSION['old_entries'] = 3;
 		}
 		$_SESSION['mail_login'] = addslashes ($_POST['mail_login']);
+		$_SESSION['default_user'] = substr(0, 16, preg_replace ('/[^a-zA-Z0-9]/', '', $_POST['default_user']));
 
 		$token = '';
 		if ($_SESSION['mail_login']) {
@@ -166,7 +167,7 @@ function saveStep2 () {
 			       . small_hash ($_SESSION['base_url'] . $_SESSION['sel']);
 		}
 
-		$file_data = DATA_PATH . '/Configuration.array.php';
+		$file_data = DATA_PATH . '/' . $_SESSION['default_user'] . '_user.php';
 
 		$f = fopen ($file_data, 'w');
 		writeLine ($f, '<?php');
@@ -207,6 +208,7 @@ function saveStep3 () {
 		writeLine ($f, 'sel_application = "' . $_SESSION['sel'] . '"');
 		writeLine ($f, 'base_url = "' . $_SESSION['base_url'] . '"');
 		writeLine ($f, 'title = "' . $_SESSION['title'] . '"');
+		writeLine ($f, 'default_user = "' . $_SESSION['default_user'] . '"');
 		writeLine ($f, '[db]');
 		writeLine ($f, 'type = "' . $_SESSION['bd_type'] . '"');
 		writeLine ($f, 'host = "' . $_SESSION['bd_host'] . '"');
@@ -288,8 +290,9 @@ function checkStep2 () {
 	        isset ($_SESSION['base_url']) &&
 	        isset ($_SESSION['title']) &&
 	        isset ($_SESSION['old_entries']) &&
-	        isset ($_SESSION['mail_login']);
-	$data = file_exists (DATA_PATH . '/Configuration.array.php');
+	        isset ($_SESSION['mail_login']) &&
+	        isset ($_SESSION['default_user']);
+	$data = file_exists (DATA_PATH . '/' . $_SESSION['default_user'] . '_user.php');
 
 	return array (
 		'conf' => $conf ? 'ok' : 'ko',
@@ -513,6 +516,13 @@ function printStep2 () {
 		</div>
 
 		<div class="form-group">
+			<label class="group-name" for="default_user"><?php echo _t ('default_user'); ?></label>
+			<div class="group-controls">
+				<input type="text" id="default_user" name="default_user" maxlength="16" value="<?php echo isset ($_SESSION['default_user']) ? $_SESSION['default_user'] : ''; ?>" placeholder="user1" />
+			</div>
+		</div>
+
+		<div class="form-group">
 			<label class="group-name" for="mail_login"><?php echo _t ('persona_connection_email'); ?></label>
 			<div class="group-controls">
 				<input type="email" id="mail_login" name="mail_login" value="<?php echo isset ($_SESSION['mail_login']) ? $_SESSION['mail_login'] : ''; ?>" placeholder="<?php echo _t ('blank_to_disable'); ?>" />
@@ -586,14 +596,14 @@ function printStep3 () {
 		<div class="form-group">
 			<label class="group-name" for="base"><?php echo _t ('bdd'); ?></label>
 			<div class="group-controls">
-				<input type="text" id="base" name="base" value="<?php echo isset ($_SESSION['bd_name']) ? $_SESSION['bd_name'] : ''; ?>" />
+				<input type="text" id="base" name="base" maxlength="64" value="<?php echo isset ($_SESSION['bd_name']) ? $_SESSION['bd_name'] : ''; ?>" />
 			</div>
 		</div>
 
 		<div class="form-group">
 			<label class="group-name" for="prefix"><?php echo _t ('prefix'); ?></label>
 			<div class="group-controls">
-				<input type="text" id="prefix" name="prefix" value="<?php echo isset ($_SESSION['bd_prefix']) ? $_SESSION['bd_prefix'] : 'freshrss_'; ?>" />
+				<input type="text" id="prefix" name="prefix" maxlength="16" value="<?php echo isset ($_SESSION['bd_prefix']) ? $_SESSION['bd_prefix'] : 'freshrss_'; ?>" />
 			</div>
 		</div>
 

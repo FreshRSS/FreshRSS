@@ -50,6 +50,8 @@ class Configuration {
 	private static $language = 'en';
 	private static $cache_enabled = false;
 	private static $delay_cache = 3600;
+	private static $default_user = '';
+	private static $current_user = '';
 
 	private static $db = array (
 		'host' => false,
@@ -87,6 +89,12 @@ class Configuration {
 	}
 	public static function dataBase () {
 		return self::$db;
+	}
+	public static function defaultUser () {
+		return self::$default_user;
+	}
+	public static function currentUser () {
+		return self::$current_user;
 	}
 
 	/**
@@ -192,6 +200,10 @@ class Configuration {
 		}
 		if (isset ($general['delay_cache'])) {
 			self::$delay_cache = $general['delay_cache'];
+		}
+		if (isset ($general['default_user'])) {
+			self::$default_user = $general['default_user'];
+			self::$current_user = self::$default_user;
 		}
 
 		// Base de données

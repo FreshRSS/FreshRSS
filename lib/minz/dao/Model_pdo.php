@@ -60,7 +60,8 @@ class Model_pdo {
 			);
 			self::$sharedBd = $this->bd;
 
-			$this->prefix = $db['prefix'];
+			$userPrefix = Configuration::currentUser ();
+			$this->prefix = $db['prefix'] . (empty($userPrefix) ? '' : ($userPrefix . '_'));
 			self::$sharedPrefix = $this->prefix;
 		} catch (Exception $e) {
 			throw new PDOConnectionException (

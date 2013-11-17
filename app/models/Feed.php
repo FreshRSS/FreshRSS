@@ -530,12 +530,12 @@ class FeedDAO extends Model_pdo {
 		return $res[0]['count'];
 	}
 	public function updateCachedValues () {	//For one single feed, call updateLastUpdate($id)
-		$sql = 'UPDATE freshrss_feed f '
+		$sql = 'UPDATE ' . $this->prefix . 'feed f '
 		     . 'INNER JOIN ('
 		     .	'SELECT e.id_feed, '
 		     .	'COUNT(CASE WHEN e.is_read = 0 THEN 1 END) AS nbUnreads, '
 		     .	'COUNT(e.id) AS nbEntries '
-		     .	'FROM freshrss_entry e '
+		     .	'FROM ' . $this->prefix . 'entry e '
 		     .	'GROUP BY e.id_feed'
 		     . ') x ON x.id_feed=f.id '
 		     . 'SET f.cache_nbEntries=x.nbEntries, f.cache_nbUnreads=x.nbUnreads';
