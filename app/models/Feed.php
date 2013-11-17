@@ -100,7 +100,7 @@ class Feed extends Model {
 		return $this->nbNotRead;
 	}
 	public function favicon () {
-		$file = '/data/favicons/' . $this->id () . '.ico';
+		$file = '/favicons/' . $this->id () . '.ico';
 
 		$favicon_url = Url::display ($file);
 		if (!file_exists (PUBLIC_PATH . $file)) {

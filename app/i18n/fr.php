@@ -283,7 +283,7 @@ return array (
 	'dom_is_nok'			=> 'Vous ne disposez pas du nécessaire pour parcourir le DOM (voir du côté du paquet php-xml ?)',
 	'cache_is_ok'			=> 'Les droits sur le répertoire de cache sont bons',
 	'log_is_ok'			=> 'Les droits sur le répertoire des logs sont bons',
-	'conf_is_ok'			=> 'Les droits sur le répertoire de configuration sont bons',
+	'favicons_is_ok'			=> 'Les droits sur le répertoire des favicons sont bons',
 	'data_is_ok'			=> 'Les droits sur le répertoire de data sont bons',
 	'file_is_nok'			=> 'Veuillez vérifier les droits sur le répertoire <em>%s</em>. Le serveur HTTP doit être capable d’écrire dedans',
 	'fix_errors_before'		=> 'Veuillez corriger les erreurs avant de passer à l’étape suivante.',

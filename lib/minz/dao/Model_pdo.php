@@ -49,9 +49,7 @@ class Model_pdo {
 					PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8'
 				);
 			} elseif($type == 'sqlite') {
-				$string = $type
-				        . ':/' . PUBLIC_PATH
-				        . '/data/' . $db['base'] . '.sqlite';	//TODO: DEBUG UTF-8 http://www.siteduzero.com/forum/sujet/sqlite-connexion-utf-8-18797
+				$string = $type . ':/' . DATA_PATH . $db['base'] . '.sqlite';	//TODO: DEBUG UTF-8 http://www.siteduzero.com/forum/sujet/sqlite-connexion-utf-8-18797
 			}
 
 			$this->bd = new FreshPDO (
@@ -86,7 +84,7 @@ class Model_pdo {
 class FreshPDO extends PDO {
 	private static function check($statement) {
 		if (preg_match('/^(?:UPDATE|INSERT|DELETE)/i', $statement)) {
-			touch(PUBLIC_PATH . '/data/touch.txt');
+			touch(DATA_PATH . '/touch.txt');
 		}
 	}
 

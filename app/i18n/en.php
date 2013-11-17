@@ -283,7 +283,7 @@ return array (
 	'dom_is_nok'			=> 'You haven’t the necessary to browse the DOM (php-xml package can be useful)',
 	'cache_is_ok'			=> 'Permissions on cache directory are good',
 	'log_is_ok'			=> 'Permissions on logs directory are good',
-	'conf_is_ok'			=> 'Permissions on configuration directory are good',
+	'favicons_is_ok'			=> 'Permissions on favicons directory are good',
 	'data_is_ok'			=> 'Permissions on data directory are good',
 	'file_is_nok'			=> 'Check permissions on <em>%s</em> directory. HTTP server must have rights to write into',
 	'fix_errors_before'		=> 'Fix errors before skip to the next step.',

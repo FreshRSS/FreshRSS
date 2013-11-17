@@ -277,7 +277,7 @@ class indexController extends ActionController {
 		$res = json_decode ($result, true);
 		if ($res['status'] == 'okay' && $res['email'] == $this->view->conf->mailLogin ()) {
 			Session::_param ('mail', $res['email']);
-			touch(PUBLIC_PATH . '/data/touch.txt');
+			touch(DATA_PATH . '/touch.txt');
 		} else {
 			$res = array ();
 			$res['status'] = 'failure';
@@ -290,6 +290,6 @@ class indexController extends ActionController {
 	public function logoutAction () {
 		$this->view->_useLayout (false);
 		Session::_param ('mail');
-		touch(PUBLIC_PATH . '/data/touch.txt');
+		touch(DATA_PATH . '/touch.txt');
 	}
 }

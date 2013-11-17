@@ -20,16 +20,16 @@
 
 require('../constants.php');
 
-if (file_exists (PUBLIC_PATH . '/install.php')) {
+if (file_exists ('install.php')) {
 	include ('install.php');
 } else {
 	session_cache_limiter('');
 	require (LIB_PATH . '/http-conditional.php');
 	$dateLastModification = max(
-		@filemtime(PUBLIC_PATH . '/data/touch.txt'),
+		@filemtime(DATA_PATH . '/touch.txt'),
 		@filemtime(LOG_PATH . '/application.log'),
-		@filemtime(PUBLIC_PATH . '/data/Configuration.array.php'),
-		@filemtime(APP_PATH . '/configuration/application.ini')
+		@filemtime(DATA_PATH . '/Configuration.array.php'),
+		@filemtime(DATA_PATH . '/application.ini')
 	);
 	if (httpConditional($dateLastModification, 0, 0, false, false, true)) {
 		exit();	//No need to send anything

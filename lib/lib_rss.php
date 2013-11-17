@@ -168,9 +168,9 @@ function get_content_by_parsing ($url, $path) {
 /* Télécharge le favicon d'un site, le place sur le serveur et retourne l'URL */
 function dowload_favicon ($website, $id) {
 	$url = 'http://g.etfv.co/' . $website;
-	$favicons_dir = PUBLIC_PATH . '/data/favicons';
+	$favicons_dir = PUBLIC_PATH . '/favicons';
 	$dest = $favicons_dir . '/' . $id . '.ico';
-	$favicon_url = '/data/favicons/' . $id . '.ico';
+	$favicon_url = '/favicons/' . $id . '.ico';
 
 	if (!is_dir ($favicons_dir)) {
 		if (!mkdir ($favicons_dir, 0755, true)) {
@@ -211,7 +211,7 @@ function dowload_favicon ($website, $id) {
 function lazyimg($content) {
 	return preg_replace(
 		'/<img([^>]+?)src=[\'"]([^"\']+)[\'"]([^>]*)>/i',
-		'<img$1src="' . Url::display('/data/grey.gif') . '" data-original="$2"$3>',
+		'<img$1src="' . Url::display('/themes/icons/grey.gif') . '" data-original="$2"$3>',
 		$content
 	);
 }

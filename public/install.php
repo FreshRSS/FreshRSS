@@ -166,7 +166,7 @@ function saveStep2 () {
 			       . small_hash ($_SESSION['base_url'] . $_SESSION['sel']);
 		}
 
-		$file_data = PUBLIC_PATH . '/data/Configuration.array.php';
+		$file_data = DATA_PATH . '/Configuration.array.php';
 
 		$f = fopen ($file_data, 'w');
 		writeLine ($f, '<?php');
@@ -199,7 +199,7 @@ function saveStep3 () {
 		$_SESSION['bd_name'] = addslashes ($_POST['base']);
 		$_SESSION['bd_prefix'] = addslashes ($_POST['prefix']);
 
-		$file_conf = APP_PATH . '/configuration/application.ini';
+		$file_conf = DATA_PATH . '/application.ini';
 		$f = fopen ($file_conf, 'w');
 		writeLine ($f, '[general]');
 		writeLine ($f, 'environment = "production"');
@@ -265,10 +265,10 @@ function checkStep1 () {
 	$curl = extension_loaded ('curl');
 	$pdo = extension_loaded ('pdo_mysql');
 	$dom = class_exists('DOMDocument');
+	$data = DATA_PATH && is_writable (DATA_PATH);
 	$cache = CACHE_PATH && is_writable (CACHE_PATH);
 	$log = LOG_PATH && is_writable (LOG_PATH);
-	$conf = APP_PATH && is_writable (APP_PATH . '/configuration');
-	$data = is_writable (PUBLIC_PATH . '/data');
+	$favicons = is_writable (PUBLIC_PATH . '/favicons');
 
 	return array (
 		'php' => $php ? 'ok' : 'ko',
@@ -276,11 +276,11 @@ function checkStep1 () {
 		'curl' => $curl ? 'ok' : 'ko',
 		'pdo-mysql' => $pdo ? 'ok' : 'ko',
 		'dom' => $dom ? 'ok' : 'ko',
+		'data' => $data ? 'ok' : 'ko',
 		'cache' => $cache ? 'ok' : 'ko',
 		'log' => $log ? 'ok' : 'ko',
-		'configuration' => $conf ? 'ok' : 'ko',
-		'data' => $data ? 'ok' : 'ko',
-		'all' => $php && $minz && $curl && $pdo && $dom && $cache && $log && $conf && $data ? 'ok' : 'ko'
+		'favicons' => $favicons ? 'ok' : 'ko',
+		'all' => $php && $minz && $curl && $pdo && $dom && $data && $cache && $log && $favicons ? 'ok' : 'ko'
 	);
 }
 function checkStep2 () {
@@ -289,7 +289,7 @@ function checkStep2 () {
 	        isset ($_SESSION['title']) &&
 	        isset ($_SESSION['old_entries']) &&
 	        isset ($_SESSION['mail_login']);
-	$data = file_exists (PUBLIC_PATH . '/data/Configuration.array.php');
+	$data = file_exists (DATA_PATH . '/Configuration.array.php');
 
 	return array (
 		'conf' => $conf ? 'ok' : 'ko',
@@ -298,7 +298,7 @@ function checkStep2 () {
 	);
 }
 function checkStep3 () {
-	$conf = file_exists (APP_PATH . '/configuration/application.ini');
+	$conf = file_exists (DATA_PATH . '/application.ini');
 	$bd = isset ($_SESSION['bd_type']) &&
 	      isset ($_SESSION['bd_host']) &&
 	      isset ($_SESSION['bd_user']) &&
@@ -337,8 +337,7 @@ function checkBD () {
 			// on écrase la précédente connexion en sélectionnant la nouvelle BDD
 			$str = 'mysql:host=' . $_SESSION['bd_host'] . ';dbname=' . $_SESSION['bd_name'];
 		} elseif($_SESSION['bd_type'] == 'sqlite') {
-			$str = 'sqlite:' . PUBLIC_PATH
-			     . '/data/' . $_SESSION['bd_name'] . '.sqlite';
+			$str = 'sqlite:' . DATA_PATH . $_SESSION['bd_name'] . '.sqlite';
 		}
 
 		$c = new PDO ($str,
@@ -370,8 +369,8 @@ function checkBD () {
 		$error = true;
 	}
 
-	if ($error && file_exists (APP_PATH . '/configuration/application.ini')) {
-		unlink (APP_PATH . '/configuration/application.ini');
+	if ($error && file_exists (DATA_PATH . '/application.ini')) {
+		unlink (DATA_PATH . '/application.ini');
 	}
 
 	return !$error;
@@ -448,28 +447,28 @@ function printStep1 () {
 	<p class="alert alert-error"><span class="alert-head"><?php echo _t ('damn'); ?></span> <?php echo _t ('dom_is_nok'); ?></p>
 	<?php } ?>
 
+	<?php if ($res['data'] == 'ok') { ?>
+	<p class="alert alert-success"><span class="alert-head"><?php echo _t ('ok'); ?></span> <?php echo _t ('data_is_ok'); ?></p>
+	<?php } else { ?>
+	<p class="alert alert-error"><span class="alert-head"><?php echo _t ('damn'); ?></span> <?php echo _t ('file_is_nok', DATA_PATH); ?></p>
+	<?php } ?>
+
 	<?php if ($res['cache'] == 'ok') { ?>
 	<p class="alert alert-success"><span class="alert-head"><?php echo _t ('ok'); ?></span> <?php echo _t ('cache_is_ok'); ?></p>
 	<?php } else { ?>
-	<p class="alert alert-error"><span class="alert-head"><?php echo _t ('damn'); ?></span> <?php echo _t ('file_is_nok', PUBLIC_PATH . '/../cache'); ?></p>
+	<p class="alert alert-error"><span class="alert-head"><?php echo _t ('damn'); ?></span> <?php echo _t ('file_is_nok', CACHE_PATH); ?></p>
 	<?php } ?>
 
 	<?php if ($res['log'] == 'ok') { ?>
 	<p class="alert alert-success"><span class="alert-head"><?php echo _t ('ok'); ?></span> <?php echo _t ('log_is_ok'); ?></p>
 	<?php } else { ?>
-	<p class="alert alert-error"><span class="alert-head"><?php echo _t ('damn'); ?></span> <?php echo _t ('file_is_nok', PUBLIC_PATH . '/../log'); ?></p>
+	<p class="alert alert-error"><span class="alert-head"><?php echo _t ('damn'); ?></span> <?php echo _t ('file_is_nok', LOG_PATH); ?></p>
 	<?php } ?>
 
-	<?php if ($res['configuration'] == 'ok') { ?>
-	<p class="alert alert-success"><span class="alert-head"><?php echo _t ('ok'); ?></span> <?php echo _t ('conf_is_ok'); ?></p>
+	<?php if ($res['favicons'] == 'ok') { ?>
+	<p class="alert alert-success"><span class="alert-head"><?php echo _t ('ok'); ?></span> <?php echo _t ('favicons_is_ok'); ?></p>
 	<?php } else { ?>
-	<p class="alert alert-error"><span class="alert-head"><?php echo _t ('damn'); ?></span> <?php echo _t ('file_is_nok', APP_PATH . '/configuration'); ?></p>
-	<?php } ?>
-
-	<?php if ($res['data'] == 'ok') { ?>
-	<p class="alert alert-success"><span class="alert-head"><?php echo _t ('ok'); ?></span> <?php echo _t ('data_is_ok'); ?></p>
-	<?php } else { ?>
-	<p class="alert alert-error"><span class="alert-head"><?php echo _t ('damn'); ?></span> <?php echo _t ('file_is_nok', PUBLIC_PATH . '/data'); ?></p>
+	<p class="alert alert-error"><span class="alert-head"><?php echo _t ('damn'); ?></span> <?php echo _t ('file_is_nok', PUBLIC_PATH . '/favicons'); ?></p>
 	<?php } ?>
 
 	<?php if ($res['all'] == 'ok') { ?>

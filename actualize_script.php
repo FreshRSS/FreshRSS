@@ -20,4 +20,4 @@ $front_controller = new App_FrontController ();
 $front_controller->init ();
 Session::_param('mail', true); // permet de se passer de la phase de connexion
 $front_controller->run ();
-touch(PUBLIC_PATH . '/data/touch.txt');
+touch(DATA_PATH . '/touch.txt');

@@ -36,7 +36,7 @@ Privilégiez pour cela des demandes sur GitHub
 
 # Sécurité et conseils
 1. Pour une meilleure sécurité, faites en sorte que seul le répertoire `./public` soit accessible par le navigateur. Faites pointer un sous-domaine sur le répertoire `./public` par exemple
-2. Dans tous les cas, assurez-vous que `./app/configuration/application.ini` ne puisse pas être téléchargé !
+2. Dans tous les cas, assurez-vous que `./data/application.ini` ne puisse pas être téléchargé !
 3. Le fichier de log peut être utile à lire si vous avez des soucis
 4. Le fichier `./public/index.php` défini les chemins d'accès aux répertoires clés de l'application. Si vous les bougez, tout se passe ici.
 5. Vous pouvez ajouter une tâche CRON sur le script d'actualisation des flux. Il s'agit d'un script PHP à exécuter avec la commande `php`. Par exemple, pour exécuter le script toutes les heures :

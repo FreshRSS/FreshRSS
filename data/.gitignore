@@ -1,4 +1,6 @@
-favicons
+cache
+log
+application.ini
 Configuration.array.php
 *.sqlite
 touch.txt

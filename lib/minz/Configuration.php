@@ -8,7 +8,7 @@
  * La classe Configuration permet de gérer la configuration de l'application
  */
 class Configuration {
-	const CONF_PATH_NAME = '/configuration/application.ini';
+	const CONF_PATH_NAME = '/application.ini';
 
 	/**
 	 * VERSION est la version actuelle de MINZ
@@ -111,21 +111,21 @@ class Configuration {
 	 * @exception BadConfigurationException si CONF_PATH_NAME mal formaté
 	 */
 	private static function parseFile () {
-		if (!file_exists (APP_PATH . self::CONF_PATH_NAME)) {
+		if (!file_exists (DATA_PATH . self::CONF_PATH_NAME)) {
 			throw new FileNotExistException (
-				APP_PATH . self::CONF_PATH_NAME,
+				DATA_PATH . self::CONF_PATH_NAME,
 				MinzException::ERROR
 			);
 		}
 
 		$ini_array = parse_ini_file (
-			APP_PATH . self::CONF_PATH_NAME,
+			DATA_PATH . self::CONF_PATH_NAME,
 			true
 		);
 
 		if (!$ini_array) {
 			throw new PermissionDeniedException (
-				APP_PATH . self::CONF_PATH_NAME,
+				DATA_PATH . self::CONF_PATH_NAME,
 				MinzException::ERROR
 			);
 		}

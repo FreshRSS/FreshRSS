@@ -348,7 +348,7 @@ class RSSConfigurationDAO extends Model_array {
 	public $bottomline_link = 'yes';
 
 	public function __construct () {
-		parent::__construct (PUBLIC_PATH . '/data/Configuration.array.php');
+		parent::__construct (DATA_PATH . '/Configuration.array.php');
 
 		// TODO : simplifier ce code, une boucle for() devrait suffir !
 		if (isset ($this->array['language'])) {
