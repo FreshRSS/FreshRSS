@@ -31,8 +31,8 @@ define ('SQL_REQ_FEED', 'CREATE TABLE IF NOT EXISTS `%sfeed` (
   `httpAuth` varchar(511) DEFAULT NULL,
   `error` boolean NOT NULL DEFAULT 0,
   `keep_history` boolean NOT NULL DEFAULT 0,
-  `cache_nbEntries` int NOT NULL DEFAULT 0,	//v0.7
-  `cache_nbUnreads` int NOT NULL DEFAULT 0,	//v0.7
+  `cache_nbEntries` int NOT NULL DEFAULT 0,	-- v0.7
+  `cache_nbUnreads` int NOT NULL DEFAULT 0,	-- v0.7
   PRIMARY KEY (`id`),
   FOREIGN KEY (`category`) REFERENCES %scategory(id) ON DELETE SET NULL ON UPDATE CASCADE,
   INDEX (`name`),	-- v0.7
