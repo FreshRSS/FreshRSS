@@ -480,17 +480,18 @@ function init_notifications() {
 
 //<endless_mode>
 var url_load_more = "",
-	load_more = false;
+	load_more = false,
+	box_load_more = null;
 
 function load_more_posts() {
-	if (load_more || url_load_more === '') {
+	if (load_more || url_load_more === '' || box_load_more === null) {
 		return;
 	}
 
 	load_more = true;
 	$('#load_more').addClass('loading');
 	$.get(url_load_more, function (data) {
-		$stream.children('.flux:last').after($('#stream', data).children('.flux, .day'));
+		box_load_more.children('.flux:last').after($('#stream', data).children('.flux, .day'));
 		$('.pagination').replaceWith($('.pagination', data));
 
 		$('[id^=day_]').each(function (i) {
@@ -498,7 +499,7 @@ function load_more_posts() {
 			if (ids.length > 1) $('[id="' + this.id + '"]:gt(0)').remove();
 		});
 
-		init_load_more();
+		init_load_more(box_load_more);
 		init_lazyload();
 
 		$('#load_more').removeClass('loading');
@@ -506,13 +507,15 @@ function load_more_posts() {
 	});
 }
 
-function init_load_more() {
+function init_load_more(box) {
 	var $next_link = $("#load_more");
 	if (!$next_link.length) {
 		// no more article to load
 		url_load_more = "";
 		return;
 	}
+
+	box_load_more = box;
 
 	url_load_more = $next_link.attr("href");
 	var $prefetch = $('#prefetch');
@@ -618,7 +621,7 @@ function init_all() {
 	init_templates();
 	init_notifications();
 	init_actualize();
-	init_load_more();
+	init_load_more($stream);
 	if (use_persona) {
 		init_persona();
 	}
