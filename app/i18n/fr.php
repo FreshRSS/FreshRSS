@@ -128,6 +128,7 @@ return array (
 
 	'informations'			=> 'Informations',
 	'feed_in_error'			=> 'Ce flux a rencontré un problème. Veuillez vérifier qu’il est toujours accessible puis actualisez-le.',
+	'feed_description'		=> 'Description',
 	'website_url'			=> 'URL du site',
 	'feed_url'			=> 'URL du flux',
 	'number_articles'		=> 'Nombre d’articles',

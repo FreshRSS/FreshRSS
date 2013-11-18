@@ -94,6 +94,9 @@ class configureController extends ActionController {
 			} else {
 				if (Request::isPost () && $this->view->flux) {
 					$name = Request::param ('name', '');
+					$description = Request::param('description', '');
+					$website = Request::param('website', '');
+					$url = Request::param('url', '');
 					$hist = Request::param ('keep_history', 'no');
 					$cat = Request::param ('category', 0);
 					$path = Request::param ('path_entries', '');
@@ -113,6 +116,9 @@ class configureController extends ActionController {
 
 					$values = array (
 						'name' => $name,
+						'description' => $description,
+						'website' => $website,
+						'url' => $url,
 						'category' => $cat,
 						'pathEntries' => $path,
 						'priority' => $priority,

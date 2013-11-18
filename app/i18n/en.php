@@ -128,6 +128,7 @@ return array (
 
 	'informations'			=> 'Information',
 	'feed_in_error'			=> 'This feed has encountered a problem. Please verify that it is always reachable then actualize it.',
+	'feed_description'		=> 'Description',
 	'website_url'			=> 'Website URL',
 	'feed_url'			=> 'Feed URL',
 	'number_articles'		=> 'Number of articles',
