@@ -380,7 +380,7 @@ class RSSConfigurationDAO extends Model_array {
 			$this->old_entries = $this->array['old_entries'];
 		}
 		if (isset ($this->array['shortcuts'])) {
-			$this->shortcuts = $this->array['shortcuts'];
+			$this->shortcuts = array_merge ($this->shortcuts, $this->array['shortcuts']);
 		}
 		if (isset ($this->array['mail_login'])) {
 			$this->mail_login = $this->array['mail_login'];
