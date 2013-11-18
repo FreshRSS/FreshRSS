@@ -214,6 +214,10 @@ function next_entry() {
 	}
 }
 
+function collapse_entry() {
+	$(".flux.active").removeClass("active");
+}
+
 function inMarkViewport(flux, box_to_follow, relative_follow) {
 	var top = flux.position().top;
 	if (relative_follow) {
@@ -318,6 +322,9 @@ function init_shortcuts() {
 		mark_favorite(active);
 	}, {
 		'disable_in_input': true
+	});
+	shortcut.add(shortcuts.collapse_entry, function () {
+		collapse_entry();
 	});
 
 	// Touches de navigation

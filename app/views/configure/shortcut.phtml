@@ -54,6 +54,13 @@
 			</div>
 		</div>
 
+		<div class="form-group">
+			<label class="group-name" for="collapse_entry"><?php echo Translate::t ('collapse_article'); ?></label>
+			<div class="group-controls">
+				<input type="text" id="collapse_entry" name="shortcuts[collapse_entry]" list="keys" value="<?php echo $s['collapse_entry']; ?>" />
+			</div>
+		</div>
+
 		<div class="form-group form-actions">
 			<div class="group-controls">
 				<button type="submit" class="btn btn-important"><?php echo Translate::t ('save'); ?></button>
