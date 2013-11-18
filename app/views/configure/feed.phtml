@@ -20,21 +20,23 @@
 			</div>
 		</div>
 		<div class="form-group">
+			<label class="group-name"><?php echo Translate::t ('feed_description'); ?></label>
+			<div class="group-controls">
+				<textarea name="description" id="description"><?php echo $this->flux->description (); ?></textarea>
+			</div>
+		</div>
+		<div class="form-group">
 			<label class="group-name"><?php echo Translate::t ('website_url'); ?></label>
 			<div class="group-controls">
-				<span class="control">
-					<?php echo $this->flux->website (); ?>
-					<a target="_blank" href="<?php echo $this->flux->website (); ?>"><i class="icon i_link"></i></a>
-				</span>
+				<input type="text" name="website" id="website" value="<?php echo $this->flux->website (); ?>" />
+				<a target="_blank" href="<?php echo $this->flux->website (); ?>"><i class="icon i_link"></i></a>
 			</div>
 		</div>
 		<div class="form-group">
 			<label class="group-name"><?php echo Translate::t ('feed_url'); ?></label>
 			<div class="group-controls">
-				<span class="control">
-					<?php echo $this->flux->url (); ?>
-					<a target="_blank" href="<?php echo $this->flux->url (); ?>"><i class="icon i_link"></i></a>
-				</span>
+				<input type="text" name="url" id="url" value="<?php echo $this->flux->url (); ?>" />
+				<a target="_blank" href="<?php echo $this->flux->url (); ?>"><i class="icon i_link"></i></a>
 			</div>
 		</div>
 		<div class="form-group">
