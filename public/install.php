@@ -11,7 +11,7 @@ if (isset ($_GET['step'])) {
 define ('SQL_REQ_CREATE_DB', 'CREATE DATABASE %s DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;');
 
 define ('SQL_REQ_CAT', 'CREATE TABLE IF NOT EXISTS `%scategory` (
-  `id` char(6) NOT NULL,
+  `id` SMALLINT NOT NULL AUTO_INCREMENT,	-- v0.7
   `name` varchar(255) NOT NULL,
   `color` char(7) NOT NULL,
   PRIMARY KEY (`id`),
@@ -19,9 +19,9 @@ define ('SQL_REQ_CAT', 'CREATE TABLE IF NOT EXISTS `%scategory` (
 );');
 
 define ('SQL_REQ_FEED', 'CREATE TABLE IF NOT EXISTS `%sfeed` (
-  `id` char(6) NOT NULL,
+  `id` SMALLINT NOT NULL AUTO_INCREMENT,	-- v0.7
   `url` varchar(511) NOT NULL,
-  `category` char(6) DEFAULT \'000000\',
+  `category` SMALLINT DEFAULT 0,	-- v0.7
   `name` varchar(255) NOT NULL,
   `website` varchar(255) NOT NULL,
   `description` text NOT NULL,
@@ -50,7 +50,7 @@ define ('SQL_REQ_ENTRY', 'CREATE TABLE IF NOT EXISTS `%sentry` (
   `date` int(11) NOT NULL,
   `is_read` boolean NOT NULL DEFAULT 0,
   `is_favorite` boolean NOT NULL DEFAULT 0,
-  `id_feed` char(6) NOT NULL,
+  `id_feed` SMALLINT NOT NULL,	-- v0.7
   `tags` varchar(1023) NOT NULL,
   PRIMARY KEY (`id`),
   FOREIGN KEY (`id_feed`) REFERENCES %sfeed(id) ON DELETE CASCADE ON UPDATE CASCADE,

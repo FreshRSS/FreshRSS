@@ -175,7 +175,7 @@ class feedController extends ActionController {
 				$entries = $feed->entries ();
 
 				//For this feed, check last n entry IDs already in database
-				$existingIds = array_fill_keys ($entryDAO->listLastIdsByFeed ($feed->id (), count($entries) + 2), 1);
+				$existingIds = array_fill_keys ($entryDAO->listLastIdsByFeed ($feed->id (), count($entries) + 10), 1);
 
 				// ajout des articles en masse sans se soucier des erreurs
 				// On ne vérifie pas que l'article n'est pas déjà en BDD

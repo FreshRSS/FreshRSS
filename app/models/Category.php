@@ -1,7 +1,7 @@
 <?php
 
 class Category extends Model {
-	private $id = false;
+	private $id = 0;
 	private $name;
 	private $color;
 	private $nbFeed = -1;
@@ -23,11 +23,7 @@ class Category extends Model {
 	}
 
 	public function id () {
-		if (!$this->id) {
-			return small_hash ($this->name . time () . Configuration::selApplication ());
-		} else {
-			return $this->id;
-		}
+		return $this->id;
 	}
 	public function name () {
 		return $this->name;
@@ -90,11 +86,10 @@ class Category extends Model {
 
 class CategoryDAO extends Model_pdo {
 	public function addCategory ($valuesTmp) {
-		$sql = 'INSERT INTO ' . $this->prefix . 'category (id, name, color) VALUES(?, ?, ?)';
+		$sql = 'INSERT INTO ' . $this->prefix . 'category (name, color) VALUES(?, ?)';
 		$stm = $this->bd->prepare ($sql);
 
 		$values = array (
-			$valuesTmp['id'],
 			substr($valuesTmp['name'], 0, 255),
 			substr($valuesTmp['color'], 0, 7),
 		);
@@ -196,7 +191,7 @@ class CategoryDAO extends Model_pdo {
 	}
 
 	public function getDefault () {
-		$sql = 'SELECT * FROM ' . $this->prefix . 'category WHERE id="000000"';
+		$sql = 'SELECT * FROM ' . $this->prefix . 'category WHERE id=1';
 		$stm = $this->bd->prepare ($sql);
 
 		$stm->execute ();
@@ -210,11 +205,11 @@ class CategoryDAO extends Model_pdo {
 		}
 	}
 	public function checkDefault () {
-		$def_cat = $this->searchById ('000000');
+		$def_cat = $this->searchById (1);
 
 		if ($def_cat === false) {
 			$cat = new Category (Translate::t ('default_category'));
-			$cat->_id ('000000');
+			$cat->_id (1);
 
 			$values = array (
 				'id' => $cat->id (),

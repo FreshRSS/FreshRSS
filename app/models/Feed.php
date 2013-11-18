@@ -1,9 +1,9 @@
 <?php
 
 class Feed extends Model {
-	private $id = null;
+	private $id = 0;
 	private $url;
-	private $category = '000000';
+	private $category = 1;
 	private $nbEntries = -1;
 	private $nbNotRead = -1;
 	private $entries = null;
@@ -26,11 +26,7 @@ class Feed extends Model {
 	}
 
 	public function id () {
-		if(is_null($this->id)) {
-			return small_hash ($this->url . Configuration::selApplication ());
-		} else {
-			return $this->id;
-		}
+		return $this->id;
 	}
 	public function url () {
 		return $this->url;
@@ -323,11 +319,10 @@ class Feed extends Model {
 
 class FeedDAO extends Model_pdo {
 	public function addFeed ($valuesTmp) {
-		$sql = 'INSERT INTO ' . $this->prefix . 'feed (id, url, category, name, website, description, lastUpdate, priority, httpAuth, error, keep_history) VALUES(?, ?, ?, ?, ?, ?, ?, 10, ?, 0, 0)';
+		$sql = 'INSERT INTO ' . $this->prefix . 'feed (url, category, name, website, description, lastUpdate, priority, httpAuth, error, keep_history) VALUES(?, ?, ?, ?, ?, ?, 10, ?, 0, 0)';
 		$stm = $this->bd->prepare ($sql);
 
 		$values = array (
-			$valuesTmp['id'],
 			substr($valuesTmp['url'], 0, 511),
 			$valuesTmp['category'],
 			substr($valuesTmp['name'], 0, 255),

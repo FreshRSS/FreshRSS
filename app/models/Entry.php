@@ -217,8 +217,12 @@ class EntryDAO extends Model_pdo {
 		} else {
 			$info = $stm->errorInfo();
 			if ((int)($info[0] / 1000) !== 23) {	//Filter out "SQLSTATE Class code 23: Constraint Violation" because of expected duplicate entries
-				Minz_Log::record ('SQL error ' . $info[0] . ': ' . $info[1] . ' ' . $info[2], Minz_Log::ERROR);
-			}
+				Minz_Log::record ('SQL error ' . $info[0] . ': ' . $info[1] . ' ' . $info[2]
+				. ' while adding entry in feed ' . $valuesTmp['id_feed'] . ' with title: ' . $valuesTmp['title'], Minz_Log::ERROR);
+			} /*else {
+				Minz_Log::record ('SQL error ' . $info[0] . ': ' . $info[1] . ' ' . $info[2]
+				. ' while adding entry in feed ' . $valuesTmp['id_feed'] . ' with title: ' . $valuesTmp['title'], Minz_Log::DEBUG);
+			}*/
 			return false;
 		}
 	}
@@ -272,7 +276,6 @@ class EntryDAO extends Model_pdo {
 		     . 'WHERE e.id=?';
 		$values = array ($is_read ? 1 : 0, $id);
 		$stm = $this->bd->prepare ($sql);
-
 		if ($stm && $stm->execute ($values)) {
 			return $stm->rowCount();
 		} else {
