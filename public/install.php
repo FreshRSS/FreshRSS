@@ -16,7 +16,7 @@ define ('SQL_REQ_CAT', 'CREATE TABLE IF NOT EXISTS `%scategory` (
   `color` char(7) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY (`name`)	-- v0.7
-);');
+) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;');
 
 define ('SQL_REQ_FEED', 'CREATE TABLE IF NOT EXISTS `%sfeed` (
   `id` SMALLINT NOT NULL AUTO_INCREMENT,	-- v0.7
@@ -39,7 +39,7 @@ define ('SQL_REQ_FEED', 'CREATE TABLE IF NOT EXISTS `%sfeed` (
   INDEX (`name`),	-- v0.7
   INDEX (`priority`),	-- v0.7
   INDEX (`keep_history`)	-- v0.7
-);');
+) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;');
 
 define ('SQL_REQ_ENTRY', 'CREATE TABLE IF NOT EXISTS `%sentry` (
   `id` char(6) NOT NULL,
@@ -58,7 +58,7 @@ define ('SQL_REQ_ENTRY', 'CREATE TABLE IF NOT EXISTS `%sentry` (
   INDEX (`is_favorite`),	-- v0.7
   INDEX (`is_read`),	-- v0.7
   INDEX (`date`)	-- v0.7	//TODO: remove after https://github.com/marienfressinaud/FreshRSS/issues/202
-);');
+) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;');
 
 
 function writeLine ($f, $line) {
