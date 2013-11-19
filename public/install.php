@@ -23,7 +23,7 @@ define ('SQL_REQ_FEED', 'CREATE TABLE IF NOT EXISTS `%sfeed` (
   `url` varchar(511) CHARACTER SET latin1 NOT NULL,
   `category` SMALLINT DEFAULT 0,	-- v0.7
   `name` varchar(255) NOT NULL,
-  `website` varchar(255) NOT NULL,
+  `website` varchar(255) CHARACTER SET latin1 NOT NULL,
   `description` text NOT NULL,
   `lastUpdate` int(11) NOT NULL,
   `priority` tinyint(2) NOT NULL DEFAULT 10,
