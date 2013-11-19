@@ -43,7 +43,7 @@ define ('SQL_REQ_FEED', 'CREATE TABLE IF NOT EXISTS `%sfeed` (
 
 define ('SQL_REQ_ENTRY', 'CREATE TABLE IF NOT EXISTS `%sentry` (
   `id` char(6) NOT NULL,
-  `guid` varchar(511) NOT NULL,
+  `guid` varchar(760) CHARACTER SET latin1 NOT NULL,
   `title` varchar(255) NOT NULL,
   `author` varchar(255) NOT NULL,
   `content` text NOT NULL,
@@ -55,6 +55,7 @@ define ('SQL_REQ_ENTRY', 'CREATE TABLE IF NOT EXISTS `%sentry` (
   `tags` varchar(1023) NOT NULL,
   PRIMARY KEY (`id`),
   FOREIGN KEY (`id_feed`) REFERENCES %sfeed(id) ON DELETE CASCADE ON UPDATE CASCADE,
+  UNIQUE KEY (`id_feed`,`guid`),	-- v0.7
   INDEX (`is_favorite`),	-- v0.7
   INDEX (`is_read`),	-- v0.7
   INDEX (`date`)	-- v0.7	//TODO: remove after https://github.com/marienfressinaud/FreshRSS/issues/202

@@ -200,7 +200,7 @@ class EntryDAO extends Model_pdo {
 
 		$values = array (
 			$valuesTmp['id'],
-			substr($valuesTmp['guid'], 0, 511),
+			substr($valuesTmp['guid'], 0, 760),
 			substr($valuesTmp['title'], 0, 255),
 			substr($valuesTmp['author'], 0, 255),
 			base64_encode (gzdeflate (serialize ($valuesTmp['content']))),
@@ -260,7 +260,6 @@ class EntryDAO extends Model_pdo {
 		     . 'WHERE e.id=?';
 		$values = array ($is_favorite ? 1 : 0, $id);
 		$stm = $this->bd->prepare ($sql);
-
 		if ($stm && $stm->execute ($values)) {
 			return $stm->rowCount();
 		} else {
