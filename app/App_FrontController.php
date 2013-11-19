@@ -40,7 +40,15 @@ class App_FrontController extends FrontController {
 	}
 
 	private function loadParamsView () {
-		$this->conf = Session::param ('conf', new RSSConfiguration ());
+		try {
+			$this->conf = Session::param ('conf', new RSSConfiguration ());
+		} catch(MinzException $e) {
+			// Permission denied or conf file does not exist
+			// it's critical!
+			print $e->getMessage();
+			exit();
+		}
+
 		View::_param ('conf', $this->conf);
 		Session::_param ('language', $this->conf->language ());
 
