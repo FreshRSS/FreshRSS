@@ -27,10 +27,17 @@ class Model_txt {
 	 */
 	public function __construct ($nameFile, $mode = 'a+') {
 		$this->filename = $nameFile;
+		if (!file_exists($this->filename)) {
+			throw new FileNotExistException (
+				$this->filename,
+				MinzException::WARNING
+			);
+		}
+
 		$this->file = @fopen ($this->filename, $mode);
 		
 		if (!$this->file) {
-			throw new FileNotExistException (
+			throw new PermissionDeniedException (
 				$this->filename,
 				MinzException::WARNING
 			);
