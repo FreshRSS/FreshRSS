@@ -43,7 +43,7 @@ define ('SQL_REQ_FEED', 'CREATE TABLE IF NOT EXISTS `%sfeed` (
 
 define ('SQL_REQ_ENTRY', 'CREATE TABLE IF NOT EXISTS `%sentry` (
   `id` char(6) NOT NULL,
-  `guid` varchar(760) CHARACTER SET latin1 NOT NULL,
+  `guid` varchar(760) CHARACTER SET latin1 NOT NULL,	-- Maximum for UNIQUE is 767B
   `title` varchar(255) NOT NULL,
   `author` varchar(255) NOT NULL,
   `content` text NOT NULL,
