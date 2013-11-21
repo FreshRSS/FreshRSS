@@ -4,8 +4,8 @@ FreshRSS est un agrégateur de flux RSS à auto-héberger à l'image de [Leed](h
 * Site officiel : http://marienfressinaud.github.io/FreshRSS/
 * Démo : http://marienfressinaud.fr/projets/freshrss/
 * Développeur : Marien Fressinaud <dev@marienfressinaud.fr>
-* Version actuelle : 0.6.0
-* Date de publication 2013-11-17
+* Version actuelle : 0.6.1
+* Date de publication 2013-11-21
 * License AGPL3
 
 ![Logo de FreshRSS](http://marienfressinaud.fr/data/images/freshrss/freshrss_title.png)

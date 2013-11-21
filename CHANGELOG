@@ -1,4 +1,9 @@
 # Changelog
+## 2013-11-21 changes with FreshRSS 0.6.1
+
+* Corrige bug chargement du JavaScript
+* Affiche un message d'erreur plus explicite si fichier de configuration inaccessible
+
 ## 2013-11-17 changes with FreshRSS 0.6
 
 * Nettoyage du code JavaScript + optimisations
