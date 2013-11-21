@@ -18,11 +18,11 @@
 #
 # ***** END LICENSE BLOCK *****
 
-require('../constants.php');
-
 if (file_exists ('install.php')) {
-	include ('install.php');
+	require('install.php');
 } else {
+	require('../constants.php');
+
 	session_cache_limiter('');
 	require (LIB_PATH . '/http-conditional.php');
 	$dateLastModification = max(

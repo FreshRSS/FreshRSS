@@ -1,4 +1,5 @@
 <?php
+require('../constants.php');
 
 session_start ();
 
