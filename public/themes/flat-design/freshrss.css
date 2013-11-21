@@ -309,11 +309,11 @@ body {
 			color: #666;
 			cursor: pointer;
 		}
-		.item.link {
+		.link {
 			width: 40px;
 			text-align: center;
 		}
-			.item.link a {
+			.link a {
 				display: inline-block;
 				width: 40px;
 				height: 40px;
@@ -321,7 +321,7 @@ body {
 				background: url("../icons/link.svg") center center no-repeat;
 				vertical-align: middle;
 			}
-				.item.link a:hover {
+				.link a:hover {
 					text-decoration: none;
 				}
 

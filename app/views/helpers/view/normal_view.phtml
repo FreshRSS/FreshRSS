@@ -58,7 +58,7 @@ if (isset ($this->entryPaginator) && !$this->entryPaginator->isEmpty ()) {
 			<li class="item website"><a href="<?php echo _url ('index', 'index', 'get', 'f_' . $feed->id ()); ?>"><img class="favicon" src="<?php echo $feed->favicon (); ?>" alt="✇" /> <span><?php echo $feed->name(); ?></span></a></li>
 			<li class="item title"><a target="_blank" href="<?php echo $item->link (); ?>"><?php echo $item->title (); ?></a></li>
 			<?php if ($this->conf->toplineDate ()) { ?><li class="item date"><?php echo $item->date (); ?> </li><?php } ?>
-			<?php if ($this->conf->toplineLink ()) { ?><li class="item link"><a target="_blank" href="<?php echo $item->link (); ?>">↗</a></li><?php } ?>
+			<?php if ($this->conf->toplineLink ()) { ?><li class="item link"><a class="icon" target="_blank" href="<?php echo $item->link (); ?>">↗</a></li><?php } ?>
 		</ul>
 
 		<div class="flux_content">
@@ -152,7 +152,7 @@ if (isset ($this->entryPaginator) && !$this->entryPaginator->isEmpty ()) {
 				</li>
 				<?php } ?>
 				<?php if ($this->conf->bottomlineDate ()) { ?><li class="item date"><?php echo $item->date (); ?> </li><?php } ?>
-				<?php if ($this->conf->bottomlineLink ()) { ?><li class="item link"><a target="_blank" href="<?php echo $item->link (); ?>"> </a></li><?php } ?>
+				<?php if ($this->conf->bottomlineLink ()) { ?><li class="item link"><a class="icon" target="_blank" href="<?php echo $item->link (); ?>"> </a></li><?php } ?>
 			</ul>
 		</div>
 	</div>
