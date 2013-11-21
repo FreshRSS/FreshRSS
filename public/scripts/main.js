@@ -39,15 +39,15 @@ function mark_read(active, only_not_read) {
 		url: url,
 		data : { ajax: true }
 	}).done(function (data) {
-		var res = $.parseJSON(data);
-
-		active.find("a.read").attr("href", res.url);
-
-		var inc = 0;
+		var res = $.parseJSON(data),
+			$r = active.find("a.read").attr("href", res.url),
+			inc = 0;
 		if (active.hasClass("not_read")) {
+			$r.text('☑');
 			active.removeClass("not_read");
 			inc--;
 		} else if (only_not_read !== true || active.hasClass("not_read")) {
+			$r.text('☐');
 			active.addClass("not_read");
 			inc++;
 		}
@@ -109,15 +109,16 @@ function mark_favorite(active) {
 		url: url,
 		data : { ajax: true }
 	}).done(function (data) {
-		var res = $.parseJSON(data);
-
-		active.find("a.bookmark").attr("href", res.url);
-		var inc = 0;
+		var res = $.parseJSON(data),
+			$b = active.find("a.bookmark").attr("href", res.url),
+			inc = 0;
 		if (active.hasClass("favorite")) {
+			$b.text('☆');
 			active.removeClass("favorite");
 			inc--;
 		} else {
-			active.addClass("favorite");
+			$b.text('★');
+			active.addClass("favorite").find('.bookmark');
 			inc++;
 		}
 

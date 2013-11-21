@@ -6,7 +6,7 @@
 		<li>
 			<div class="stick">
 				<a class="btn btn-important" href="<?php echo _url ('configure', 'feed'); ?>"><?php echo Translate::t ('subscription_management'); ?></a>
-				<a class="btn btn-important" href="<?php echo _url ('configure', 'categorize'); ?>"><i class="icon i_category"></i></a>
+				<a class="btn btn-important" href="<?php echo _url ('configure', 'categorize'); ?>" title="<?php echo Translate::t ('categories_management'); ?>"><i class="icon i_category">☷</i></a>
 			</div>
 		</li>
 		<?php } elseif (login_is_conf ($this->conf)) { ?>
@@ -16,7 +16,7 @@
 		<li>
 			<div class="category all">
 				<a data-unread="<?php echo $this->nb_not_read; ?>" class="btn<?php echo $this->get_c == 'all' ? ' active' : ''; ?>" href="<?php echo _url ('index', 'index'); ?>">
-					<i class="icon i_all"></i>
+					<i class="icon i_all">☰</i>
 					<?php echo Translate::t ('all_feeds'); ?>
 				</a>
 			</div>
@@ -25,7 +25,7 @@
 		<li>
 			<div class="category favorites">
 				<a data-unread="<?php echo $this->nb_favorites['unread']; ?>" class="btn<?php echo $this->get_c == 'favoris' ? ' active' : ''; ?>" href="<?php echo _url ('index', 'index', 'get', 'favoris'); ?>">
-					<i class="icon i_bookmark"></i>
+					<i class="icon i_bookmark">★</i>
 					<?php echo Translate::t ('favorite_feeds', $this->nb_favorites['all']); ?>
 				</a>
 			</div>

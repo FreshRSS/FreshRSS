@@ -469,8 +469,9 @@ input, select, textarea {
 		color: #844;
 	}
 
-/* ICONES */
+/* ICÔNES */
 .icon {
+	font-size: 0;
 	display: inline-block;
 	width: 16px;
 	height: 16px;
