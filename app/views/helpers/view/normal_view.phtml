@@ -1,5 +1,4 @@
 <?php
-
 $this->partial ('aside_flux');
 $this->partial ('nav_menu');
 
@@ -42,7 +41,7 @@ if (isset ($this->entryPaginator) && !$this->entryPaginator->isEmpty ()) {
 				if ($this->conf->toplineRead ()) {
 					?><li class="item manage"><?php
 						?><a class="read" href="<?php echo _url ('entry', 'read', 'id', $item->id (), 'is_read', $item->isRead () ? 0 : 1); ?>"><?php
-							echo $item->isRead () ? '☑' : '✉'; ?></a><?php
+							echo $item->isRead () ? '☑' : '☐'; ?></a><?php
 					?></li><?php
 				}
 				if ($this->conf->toplineFavorite ()) {
