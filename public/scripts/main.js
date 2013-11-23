@@ -326,6 +326,8 @@ function init_shortcuts() {
 	});
 	shortcut.add(shortcuts.collapse_entry, function () {
 		collapse_entry();
+	}, {
+		'disable_in_input': true
 	});
 
 	// Touches de navigation
