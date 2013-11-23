@@ -288,7 +288,7 @@ function init_column_categories() {
 		return;
 	}
 	$('#aside_flux').on('click', '.category>a.dropdown-toggle', function () {
-		$(this).children().toggleClass("i_down").toggleClass("i_up");
+		$(this).children().toggleClass("i_down").toggleClass("i_up").text($(this).hasClass("i_up") ? "△" : "▽");
 		$(this).parent().next(".feeds").slideToggle();
 		return false;
 	});

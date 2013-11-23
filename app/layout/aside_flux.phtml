@@ -1,5 +1,5 @@
 <div class="aside aside_flux" id="aside_flux">
-	<a class="toggle_aside" href="#close"><i class="icon i_close"></i></a>
+	<a class="toggle_aside" href="#close"><i class="icon i_close">❌</i></a>
 
 	<ul class="categories">
 		<?php if (!login_is_conf ($this->conf) || is_logged ()) { ?>
@@ -38,7 +38,7 @@
 			<?php $c_active = false; if ($this->get_c == $cat->id ()) { $c_active = true; } ?>
 			<div class="category stick<?php echo $c_active ? ' active' : ''; ?>">
 				<a data-unread="<?php echo $cat->nbNotRead (); ?>" class="btn<?php echo $c_active ? ' active' : ''; ?>" href="<?php echo _url ('index', 'index', 'get', 'c_' . $cat->id ()); ?>"><?php echo $cat->name (); ?></a>
-				<a class="btn dropdown-toggle" href="#"><i class="icon <?php echo $c_active ? 'i_up' : 'i_down'; ?>"></i></a>
+				<a class="btn dropdown-toggle" href="#"><i class="icon <?php echo $c_active ? 'i_up' : 'i_down'; ?>"><?php echo $c_active ? '△' : '▽'; ?></i></a>
 			</div>
 
 			<ul class="feeds<?php echo $c_active ? ' active' : ''; ?>">
@@ -49,7 +49,7 @@
 				<li id="f_<?php echo $feed_id; ?>" class="item<?php echo $f_active ? ' active' : ''; ?><?php echo $feed->inError () ? ' error' : ''; ?><?php echo $nbEntries == 0 ? ' empty' : ''; ?>">
 					<div class="dropdown">
 						<div class="dropdown-target"></div>
-						<a class="dropdown-toggle" data-fweb="<?php echo $feed->website (); ?>"><i class="icon i_configure"></i></a>
+						<a class="dropdown-toggle" data-fweb="<?php echo $feed->website (); ?>"><i class="icon i_configure">⚙</i></a>
 <?php /* feed_config_template */ ?>
 					</div>
 					<img class="favicon" src="<?php echo $feed->favicon (); ?>" alt="✇" />
@@ -66,7 +66,7 @@
 
 <script id="feed_config_template" type="text/html">
 	<ul class="dropdown-menu">
-		<li class="dropdown-close"><a href="#close"> </a></li>
+		<li class="dropdown-close"><a href="#close">❌</a></li>
 		<li class="item"><a href="<?php echo _url ('index', 'index', 'get', 'f_!!!!!!'); ?>"><?php echo Translate::t ('filter'); ?></a></li>
 		<li class="item"><a target="_blank" href="http://example.net/"><?php echo Translate::t ('see_website'); ?></a></li>
 		<?php if (!login_is_conf ($this->conf) || is_logged ()) { ?>

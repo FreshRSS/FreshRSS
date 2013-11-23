@@ -56,7 +56,7 @@
 			<?php $token = $this->conf->token (); ?>
 			<div class="group-controls">
 				<input type="text" id="token" name="token" value="<?php echo $token; ?>"  placeholder="<?php echo Translate::t ('blank_to_disable'); ?>"/>
-				<i class="icon i_help"></i> <?php echo Translate::t('explain_token', Url::display(null, 'html', true), $token); ?>
+				<i class="icon i_help">ⓘ</i> <?php echo Translate::t('explain_token', Url::display(null, 'html', true), $token); ?>
 			</div>
 		</div>
 	
@@ -208,7 +208,7 @@
 				<p><a class="btn" href="<?php echo _url('entry', 'optimize'); ?>">
 					<?php echo Translate::t('optimize_bdd'); ?>
 				</a></p>
-				<i class="icon i_help"></i> <?php echo Translate::t('optimize_todo_sometimes'); ?>
+				<i class="icon i_help">ⓘ</i> <?php echo Translate::t('optimize_todo_sometimes'); ?>
 			</div>
 		</div>
 
