@@ -28,9 +28,6 @@ body {
 				display: inline-block;
 				margin: 0;
 			}
-			.header > .item.title a:hover {
-				text-decoration: none;
-			}
 		.header > .item.search input {
 			width: 230px;
 			transition: width 200ms linear;
@@ -41,6 +38,10 @@ body {
 		.header > .item.configure {
 			width: 100px;
 		}
+
+.item a:hover {
+	text-decoration: none;
+}
 
 #global {
 	display: table;
@@ -238,36 +239,6 @@ body {
 			font-size: 0px;
 			text-align: center;
 		}
-			.read {
-				display: inline-block;
-				width: 40px;
-				height: 40px;
-				background: url("../icons/read.png") center center no-repeat;
-				background: url("../icons/read.svg") center center no-repeat;
-				vertical-align: middle;
-			}
-				.read:hover {
-					text-decoration: none;
-				}
-				.flux.not_read .read {
-					background: url("../icons/unread.png") center center no-repeat;
-					background: url("../icons/unread.svg") center center no-repeat;
-				}
-			.bookmark {
-				display: inline-block;
-				width: 40px;
-				height: 40px;
-				background: url("../icons/non-starred.png") center center no-repeat;
-				background: url("../icons/non-starred.svg") center center no-repeat;
-				vertical-align: middle;
-			}
-				.bookmark:hover {
-					text-decoration: none;
-				}
-				.flux.favorite .bookmark {
-					background: url("../icons/starred.png") center center no-repeat;
-					background: url("../icons/starred.svg") center center no-repeat;
-				}
 		.flux_header .item.website {
 			width: 200px;
 			overflow: hidden;
@@ -277,10 +248,6 @@ body {
 		}
 			.flux_header .item.website .favicon {
 				padding: 5px;
-			}
-			.flux_header .item.website a {
-				display: block;
-				height: 40px;
 			}
 		.flux_header .item.title {
 			overflow: hidden;
@@ -292,9 +259,6 @@ body {
 				color: #333;
 				outline: none;
 			}
-				.flux_header .item.title a:hover {
-					text-decoration: none
-				}
 			.flux.not_read .flux_header .item.title {
 				font-weight: bold;
 			}
@@ -313,17 +277,6 @@ body {
 			width: 40px;
 			text-align: center;
 		}
-			.link a {
-				display: inline-block;
-				width: 40px;
-				height: 40px;
-				background: url("../icons/link.png") center center no-repeat;
-				background: url("../icons/link.svg") center center no-repeat;
-				vertical-align: middle;
-			}
-				.link a:hover {
-					text-decoration: none;
-				}
 
 #stream.reader .flux {
 	position: relative;
@@ -529,7 +482,6 @@ body {
 			.pagination .item a:hover {
 				color: #ecf0f1;
 				background: #34495e;
-				text-decoration: none;
 			}
 
 #nav_entries {

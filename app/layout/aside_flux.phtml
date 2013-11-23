@@ -1,12 +1,12 @@
 <div class="aside aside_flux" id="aside_flux">
-	<a class="toggle_aside" href="#close"><i class="icon i_close">❌</i></a>
+	<a class="toggle_aside" href="#close"><?php echo icon('close'); ?></a>
 
 	<ul class="categories">
 		<?php if (!login_is_conf ($this->conf) || is_logged ()) { ?>
 		<li>
 			<div class="stick">
 				<a class="btn btn-important" href="<?php echo _url ('configure', 'feed'); ?>"><?php echo Translate::t ('subscription_management'); ?></a>
-				<a class="btn btn-important" href="<?php echo _url ('configure', 'categorize'); ?>" title="<?php echo Translate::t ('categories_management'); ?>"><i class="icon i_category">☷</i></a>
+				<a class="btn btn-important" href="<?php echo _url ('configure', 'categorize'); ?>" title="<?php echo Translate::t ('categories_management'); ?>"><?php echo icon('category-white'); ?></a>
 			</div>
 		</li>
 		<?php } elseif (login_is_conf ($this->conf)) { ?>
@@ -16,7 +16,7 @@
 		<li>
 			<div class="category all">
 				<a data-unread="<?php echo $this->nb_not_read; ?>" class="btn<?php echo $this->get_c == 'all' ? ' active' : ''; ?>" href="<?php echo _url ('index', 'index'); ?>">
-					<i class="icon i_all">☰</i>
+					<?php echo icon('all'); ?>
 					<?php echo Translate::t ('all_feeds'); ?>
 				</a>
 			</div>
@@ -25,7 +25,7 @@
 		<li>
 			<div class="category favorites">
 				<a data-unread="<?php echo $this->nb_favorites['unread']; ?>" class="btn<?php echo $this->get_c == 'favoris' ? ' active' : ''; ?>" href="<?php echo _url ('index', 'index', 'get', 'favoris'); ?>">
-					<i class="icon i_bookmark">★</i>
+					<?php echo icon('bookmark'); ?>
 					<?php echo Translate::t ('favorite_feeds', $this->nb_favorites['all']); ?>
 				</a>
 			</div>
@@ -38,7 +38,7 @@
 			<?php $c_active = false; if ($this->get_c == $cat->id ()) { $c_active = true; } ?>
 			<div class="category stick<?php echo $c_active ? ' active' : ''; ?>">
 				<a data-unread="<?php echo $cat->nbNotRead (); ?>" class="btn<?php echo $c_active ? ' active' : ''; ?>" href="<?php echo _url ('index', 'index', 'get', 'c_' . $cat->id ()); ?>"><?php echo $cat->name (); ?></a>
-				<a class="btn dropdown-toggle" href="#"><i class="icon <?php echo $c_active ? 'i_up' : 'i_down'; ?>"><?php echo $c_active ? '△' : '▽'; ?></i></a>
+				<a class="btn dropdown-toggle" href="#"><?php echo icon($c_active ? 'up' : 'down'); ?></a>
 			</div>
 
 			<ul class="feeds<?php echo $c_active ? ' active' : ''; ?>">
@@ -49,7 +49,7 @@
 				<li id="f_<?php echo $feed_id; ?>" class="item<?php echo $f_active ? ' active' : ''; ?><?php echo $feed->inError () ? ' error' : ''; ?><?php echo $nbEntries == 0 ? ' empty' : ''; ?>">
 					<div class="dropdown">
 						<div class="dropdown-target"></div>
-						<a class="dropdown-toggle" data-fweb="<?php echo $feed->website (); ?>"><i class="icon i_configure">⚙</i></a>
+						<a class="dropdown-toggle" data-fweb="<?php echo $feed->website (); ?>"><?php echo icon('configure'); ?></a>
 <?php /* feed_config_template */ ?>
 					</div>
 					<img class="favicon" src="<?php echo $feed->favicon (); ?>" alt="✇" />

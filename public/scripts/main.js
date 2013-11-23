@@ -43,11 +43,11 @@ function mark_read(active, only_not_read) {
 			$r = active.find("a.read").attr("href", res.url),
 			inc = 0;
 		if (active.hasClass("not_read")) {
-			$r.text('☑');
+			$r.find('.icon').removeClass('i_unread').addClass('i_read').text('☑');
 			active.removeClass("not_read");
 			inc--;
 		} else if (only_not_read !== true || active.hasClass("not_read")) {
-			$r.text('☐');
+			$r.find('.icon').removeClass('i_read').addClass('i_unread').text('☐');
 			active.addClass("not_read");
 			inc++;
 		}
@@ -113,11 +113,11 @@ function mark_favorite(active) {
 			$b = active.find("a.bookmark").attr("href", res.url),
 			inc = 0;
 		if (active.hasClass("favorite")) {
-			$b.text('☆');
+			$b.find('.icon').removeClass('i_starred').addClass('i_non-starred').text('☆');
 			active.removeClass("favorite");
 			inc--;
 		} else {
-			$b.text('★');
+			$b.find('.icon').removeClass('i_non-starred').addClass('i_starred').text('★');
 			active.addClass("favorite").find('.bookmark');
 			inc++;
 		}

@@ -572,6 +572,10 @@ input, select, textarea {
 		background-image: url("../icons/category.png");
 		background-image: url("../icons/category.svg");
 	}
+	.i_category-white {
+		background-image: url("../icons/category-white.png");
+		background-image: url("../icons/category-white.svg");
+	}
 	.i_rss {
 		background-image: url("../icons/rss.png");
 		background-image: url("../icons/rss.svg");
@@ -579,6 +583,14 @@ input, select, textarea {
 	.i_share {
 		background-image: url("../icons/share.png");
 		background-image: url("../icons/share.svg");
+	}
+	.i_starred {
+		background-image: url("../icons/starred.png");
+		background-image: url("../icons/starred.svg");
+	}
+	.i_non-starred {
+		background-image: url("../icons/non-starred.png");
+		background-image: url("../icons/non-starred.svg");
 	}
 	.i_tag {
 		background-image: url("../icons/tag.png");

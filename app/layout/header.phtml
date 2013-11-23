@@ -1,9 +1,9 @@
 <?php if (login_is_conf ($this->conf)) { ?>
 <ul class="nav nav-head nav-login">
 	<?php if (!is_logged ()) { ?>
-	<li class="item"><i class="icon i_login">🔒</i> <a class="signin" href="#"><?php echo Translate::t ('login'); ?></a></li>
+	<li class="item"><?php echo icon('login'); ?> <a class="signin" href="#"><?php echo Translate::t ('login'); ?></a></li>
 	<?php } else { ?>
-	<li class="item"><i class="icon i_logout">🔓</i> <a class="signout" href="#"><?php echo Translate::t ('logout'); ?></a></li>
+	<li class="item"><?php echo icon('logout'); ?> <a class="signout" href="#"><?php echo Translate::t ('logout'); ?></a></li>
 	<?php } ?>
 </ul>
 <?php } ?>
@@ -42,7 +42,7 @@
 				<input type="hidden" name="state" value="<?php echo $state; ?>" />
 				<?php } ?>
 
-				<button class="btn" type="submit"><i class="icon i_search">🔍</i></button>
+				<button class="btn" type="submit"><?php echo icon('search'); ?></button>
 			</div>
 		</form>
 		<?php } ?>
@@ -53,7 +53,7 @@
 		<div class="dropdown">
 			<div id="dropdown-configure" class="dropdown-target"></div>
 
-			<a class="btn dropdown-toggle" href="#dropdown-configure"><i class="icon i_configure">⚙</i></a>
+			<a class="btn dropdown-toggle" href="#dropdown-configure"><?php echo icon('configure'); ?></a>
 			<ul class="dropdown-menu">
 				<li class="dropdown-close"><a href="#close">❌</a></li>
 				<li class="dropdown-header"><?php echo Translate::t ('configuration'); ?></li>
@@ -64,7 +64,7 @@
 				<li class="item"><a href="<?php echo _url ('index', 'logs'); ?>"><?php echo Translate::t ('logs'); ?></a></li>
 				<?php if (login_is_conf ($this->conf) && is_logged ()) { ?>
 				<li class="separator"></li>
-				<li class="item"><a class="signout" href="#"><i class="icon i_logout">🔓</i> <?php echo Translate::t ('logout'); ?></a></li>
+				<li class="item"><a class="signout" href="#"><?php echo icon('logout'); ?> <?php echo Translate::t ('logout'); ?></a></li>
 				<?php } ?>
 			</ul>
 		</div>
@@ -73,7 +73,7 @@
 
 	if (login_is_conf ($this->conf) && !is_logged ()) { ?>
 	<div class="item configure">
-		<i class="icon i_login">🔒</i> <a class="signin" href="#"><?php echo Translate::t ('login'); ?></a>
+		<?php echo icon('login'); ?> <a class="signin" href="#"><?php echo Translate::t ('login'); ?></a>
 	</div>
 	<?php } ?>
 </div>

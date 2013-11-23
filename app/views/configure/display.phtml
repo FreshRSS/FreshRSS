@@ -56,7 +56,7 @@
 			<?php $token = $this->conf->token (); ?>
 			<div class="group-controls">
 				<input type="text" id="token" name="token" value="<?php echo $token; ?>"  placeholder="<?php echo Translate::t ('blank_to_disable'); ?>"/>
-				<i class="icon i_help">ⓘ</i> <?php echo Translate::t('explain_token', Url::display(null, 'html', true), $token); ?>
+				<?php echo icon('help'); ?> <?php echo Translate::t('explain_token', Url::display(null, 'html', true), $token); ?>
 			</div>
 		</div>
 	
@@ -162,12 +162,12 @@
 				<thead>
 					<tr>
 						<th> </th>
-						<th><a class="icon read" title="<?php echo Translate::t ('mark_read'); ?>">☑</a></th>
-						<th><a class="icon bookmark" title="<?php echo Translate::t ('mark_favorite'); ?>">★</a></th>
+						<th title="<?php echo Translate::t ('mark_read'); ?>"><?php echo icon('read'); ?></th>
+						<th title="<?php echo Translate::t ('mark_favorite'); ?>"><?php echo icon('bookmark'); ?></th>
 						<th><?php echo Translate::t ('sharing'); ?></th>
 						<th><?php echo Translate::t ('related_tags'); ?></th>
 						<th><?php echo Translate::t ('publication_date'); ?></th>
-						<th class="link"><a class="icon">↗</a></th>
+						<th><?php echo icon('link'); ?></th>
 					</tr>
 				</thead>
 				<tbody>
@@ -208,7 +208,7 @@
 				<p><a class="btn" href="<?php echo _url('entry', 'optimize'); ?>">
 					<?php echo Translate::t('optimize_bdd'); ?>
 				</a></p>
-				<i class="icon i_help">ⓘ</i> <?php echo Translate::t('optimize_todo_sometimes'); ?>
+				<?php echo icon('help'); ?> <?php echo Translate::t('optimize_todo_sometimes'); ?>
 			</div>
 		</div>
 

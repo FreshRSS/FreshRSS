@@ -1,8 +1,8 @@
 <div class="nav_menu">
-	<a class="btn toggle_aside" href="#aside_flux"><i class="icon i_category">☷</i></a>
+	<a class="btn toggle_aside" href="#aside_flux"><?php echo icon('category-white'); ?></a>
 
 	<?php if (!login_is_conf ($this->conf) || is_logged ()) { ?>
-	<a id="actualize" class="btn" href="<?php echo _url ('feed', 'actualize'); ?>"><i class="icon i_refresh">↻</i></a>
+	<a id="actualize" class="btn" href="<?php echo _url ('feed', 'actualize'); ?>"><?php echo icon('refresh'); ?></a>
 
 	<?php
 		$get = false;
@@ -62,7 +62,7 @@
 		<div class="dropdown">
 			<div id="dropdown-read" class="dropdown-target"></div>
 
-			<a class="dropdown-toggle btn" href="#dropdown-read"><i class="icon i_down">▽</i></a>
+			<a class="dropdown-toggle btn" href="#dropdown-read"><?php echo icon('down'); ?></a>
 			<ul class="dropdown-menu">
 				<li class="dropdown-close"><a href="#close">❌</a></li>
 
@@ -93,7 +93,7 @@
 	?>
 	<div class="dropdown" id="nav_menu_views">
 		<div id="dropdown-views" class="dropdown-target"></div>
-		<a class="dropdown-toggle btn" href="#dropdown-views"><?php echo Translate::t ('display'); ?> <i class="icon i_down">▽</i></a>
+		<a class="dropdown-toggle btn" href="#dropdown-views"><?php echo Translate::t ('display'); ?> <?php echo icon('down'); ?></a>
 		<ul class="dropdown-menu">
 			<li class="dropdown-close"><a href="#close">❌</a></li>
 
