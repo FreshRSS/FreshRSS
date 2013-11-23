@@ -12,4 +12,4 @@ $url = Url::display (array (
 	'params' => Request::params (),
 ));
 
-echo json_encode (array ('url' => str_ireplace ('&amp;', '&', $url)));
+echo json_encode (array ('url' => str_ireplace ('&amp;', '&', $url), 'icon' => icon(Request::param ('is_favorite') ? 'non-starred' : 'starred')));

@@ -216,7 +216,7 @@ function lazyimg($content) {
 	);
 }
 
-function icon($name) {	//<?php echo icon('share');
+function icon($name) {
 	static $alts = array(
 		'add' => '✚',
 		'all' => '☰',
