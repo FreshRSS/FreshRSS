@@ -19,8 +19,9 @@ body {
 			width: 250px;
 			white-space: nowrap;
 		}
-			.header > .item.title .logo {
+			.logo {
 				display: inline-block;
+				height: 32px;
 				width: 32px;
 				padding: 10px;
 			}
@@ -166,7 +167,7 @@ body {
 			visibility: hidden;
 			cursor: pointer;
 		}
-			.categories .feeds .item .dropdown-target:target ~ .dropdown-toggle  > .icon,
+			.categories .feeds .item .dropdown-target:target ~ .dropdown-toggle > .icon,
 			.categories .feeds .item:hover .dropdown-toggle > .icon,
 			.categories .feeds .item.active .dropdown-toggle > .icon {
 				background-color: #95a5a6;
