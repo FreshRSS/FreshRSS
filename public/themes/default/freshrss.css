@@ -18,6 +18,7 @@
 		}
 			.logo {
 				display: inline-block;
+				font-size: 48px;
 				height: 32px;
 				width: 32px;
 				padding: 10px;
@@ -253,7 +254,6 @@
 		.item.manage {
 			width: 40px;
 			white-space: nowrap;
-			font-size: 0px;
 			text-align: center;
 		}
 		.flux_header .item.website {

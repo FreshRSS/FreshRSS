@@ -286,7 +286,15 @@ function init_column_categories() {
 		return;
 	}
 	$('#aside_flux').on('click', '.category>a.dropdown-toggle', function () {
-		$(this).children().toggleClass("i_down").toggleClass("i_up").text($(this).hasClass("i_up") ? "△" : "▽");
+		$(this).children().each(function() {
+			if (this.alt === '▽') {
+				this.src = this.src.replace('/icons/down.', '/icons/up.');
+				this.alt = '△';
+			} else {
+				this.src = this.src.replace('/icons/up.', '/icons/down.');
+				this.alt = '▽';
+			}
+		});
 		$(this).parent().next(".feeds").slideToggle();
 		return false;
 	});
