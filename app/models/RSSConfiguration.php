@@ -49,6 +49,7 @@ class RSSConfiguration extends Model {
 		$this->_markWhen ($confDAO->mark_when);
 		$this->_urlShaarli ($confDAO->url_shaarli);
 		$this->_theme ($confDAO->theme);
+		RSSThemes::setThemeId ($confDAO->theme);
 		$this->_anonAccess ($confDAO->anon_access);
 		$this->_token ($confDAO->token);
 		$this->_autoLoadMore ($confDAO->auto_load_more);

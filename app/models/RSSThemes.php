@@ -1,48 +1,50 @@
 <?php
 
 class RSSThemes extends Model {
-	private static $themes_dir = '/themes';
+	private static $themesUrl = '/themes/';
+	private static $defaultIconsUrl = '/themes/icons/';
 
-	private static $list = array();
-
-	public static function init() {
-		$basedir = PUBLIC_PATH . self::$themes_dir;
-
+	public static function get() {
 		$themes_list = array_diff(
-			scandir($basedir),
+			scandir(PUBLIC_PATH . self::$themesUrl),
 			array('..', '.')
 		);
 
+		$list = array();
 		foreach ($themes_list as $theme_dir) {
-			$json_filename = $basedir . '/' . $theme_dir . '/metadata.json';
-			if(file_exists($json_filename)) {
-				$content = file_get_contents($json_filename);
-				$res = json_decode($content, true);
-
-				if($res &&
-					isset($res['name']) &&
-					isset($res['author']) &&
-					isset($res['description']) &&
-					isset($res['version']) &&
-					isset($res['files']) && is_array($res['files'])) {
-					$theme = $res;
-					$theme['path'] = $theme_dir;
-					self::$list[$theme_dir] = $theme;
-				}
+			$theme = self::get_infos($theme_dir);
+			if ($theme) {
+				$list[$theme_dir] = $theme;
 			}
 		}
-	}
-
-	public static function get() {
-		return self::$list;
+		return $list;
 	}
 
 	public static function get_infos($theme_id) {
-		if (isset(self::$list[$theme_id])) {
-			return self::$list[$theme_id];
+		$theme_dir = PUBLIC_PATH . self::$themesUrl . $theme_id ;
+		if (is_dir($theme_dir)) {
+			$json_filename = $theme_dir . '/metadata.json';
+			if (file_exists($json_filename)) {
+				$content = file_get_contents($json_filename);
+				$res = json_decode($content, true);
+				if ($res && isset($res['files']) && is_array($res['files'])) {
+					$res['path'] = $theme_id;
+					return $res;
+				}
+			}
 		}
-
 		return false;
+	}
+
+	private static $themeIconsUrl;
+	private static $themeIcons;
+
+	public static function setThemeId($theme_id) {
+		self::$themeIconsUrl = self::$themesUrl . $theme_id . '/icons/';
+		self::$themeIcons = is_dir(PUBLIC_PATH . self::$themeIconsUrl) ? array_fill_keys(array_diff(
+			scandir(PUBLIC_PATH . self::$themeIconsUrl),
+			array('..', '.')
+		), 1) : array();
 	}
 
 	public static function icon($name) {
@@ -72,8 +74,15 @@ class RSSThemes extends Model {
 			'tag' => '⚐',
 			'up' => '△',
 		);
-		$alt = isset($alts[$name]) ? $alts[$name] : '?';
+		if (!isset($alts[$name])) {
+			return '';
+		}
+
+		$url = $name . '.svg';
+		$url = isset(self::$themeIcons[$url]) ? (self::$themeIconsUrl . $url) :
+			(self::$defaultIconsUrl . $url);
+
 		return '<i class="icon i_' . $name . '">' . $alts[$name] . '</i>';
-		//return '<img class="icon" src="' . Url::display('/themes/icons/' . $name . '.svg') . '" alt="' . $alts[$name] . '" />';
+		//return '<img class="icon" src="' . Url::display($url) . '" alt="' . $alts[$name] . '" />';
 	}
 }

@@ -11,7 +11,6 @@ class App_FrontController extends FrontController {
 		$this->loadModels ();
 
 		Session::init ();
-		RSSThemes::init ();
 		Translate::init ();
 
 		$this->loadParamsView ();
