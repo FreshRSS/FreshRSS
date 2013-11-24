@@ -230,33 +230,3 @@ function lazyimg($content) {
 		$content
 	);
 }
-
-function icon($name) {
-	static $alts = array(
-		'add' => '✚',
-		'all' => '☰',
-		'bookmark' => '★',
-		'category' => '☷',
-		'category-white' => '☷',
-		'close' => '❌',
-		'configure' => '⚙',
-		'down' => '▽',
-		'favorite' => '★',
-		'help' => 'ⓘ',
-		'link' => '↗',
-		'login' => '🔒',
-		'logout' => '🔓',
-		'next' => '⏩',
-		'non-starred' => '☆',
-		'prev' => '⏪',
-		'read' => '☑',
-		'unread' => '☐',
-		'refresh' => '🔃',	//↻
-		'search' => '🔍',
-		'share' => '♺',
-		'starred' => '★',
-		'tag' => '⚐',
-		'up' => '△',
-	);
-	return '<i class="icon i_' . $name . '">' . $alts[$name] . '</i>';
-}

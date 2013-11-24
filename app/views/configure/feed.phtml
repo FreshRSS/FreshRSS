@@ -29,21 +29,21 @@
 			<label class="group-name"><?php echo Translate::t ('website_url'); ?></label>
 			<div class="group-controls">
 				<input type="text" name="website" id="website" value="<?php echo $this->flux->website (); ?>" />
-				<a target="_blank" href="<?php echo $this->flux->website (); ?>"><?php echo icon('link'); ?></a>
+				<a target="_blank" href="<?php echo $this->flux->website (); ?>"><?php echo RSSThemes::icon('link'); ?></a>
 			</div>
 		</div>
 		<div class="form-group">
 			<label class="group-name"><?php echo Translate::t ('feed_url'); ?></label>
 			<div class="group-controls">
 				<input type="text" name="url" id="url" value="<?php echo $this->flux->url (); ?>" />
-				<a target="_blank" href="<?php echo $this->flux->url (); ?>"><?php echo icon('link'); ?></a>
+				<a target="_blank" href="<?php echo $this->flux->url (); ?>"><?php echo RSSThemes::icon('link'); ?></a>
 			</div>
 		</div>
 		<div class="form-group">
 			<label class="group-name"></label>
 			<div class="group-controls">
 				<a class="btn" href="<?php echo _url ('feed', 'actualize', 'id', $this->flux->id ()); ?>">
-					<?php echo icon('refresh'); ?> <?php echo Translate::t('actualize'); ?>
+					<?php echo RSSThemes::icon('refresh'); ?> <?php echo Translate::t('actualize'); ?>
 				</a>
 			</div>
 		</div>
@@ -85,7 +85,7 @@
 			<label class="group-name" for="path_entries"><?php echo Translate::t ('css_path_on_website'); ?></label>
 			<div class="group-controls">
 				<input type="text" name="path_entries" id="path_entries" value="<?php echo $this->flux->pathEntries (); ?>" placeholder="<?php echo Translate::t ('blank_to_disable'); ?>" />
-				<?php echo icon('help'); ?> <?php echo Translate::t ('retrieve_truncated_feeds'); ?>
+				<?php echo RSSThemes::icon('help'); ?> <?php echo Translate::t ('retrieve_truncated_feeds'); ?>
 			</div>
 		</div>
 
@@ -94,7 +94,7 @@
 			<label class="group-name" for="http_user"><?php echo Translate::t ('http_username'); ?></label>
 			<div class="group-controls">
 				<input type="text" name="http_user" id="http_user" value="<?php echo $auth['username']; ?>" autocomplete="off" />
-				<?php echo icon('help'); ?> <?php echo Translate::t ('access_protected_feeds'); ?>
+				<?php echo RSSThemes::icon('help'); ?> <?php echo Translate::t ('access_protected_feeds'); ?>
 			</div>
 
 			<label class="group-name" for="http_pass"><?php echo Translate::t ('http_password'); ?></label>

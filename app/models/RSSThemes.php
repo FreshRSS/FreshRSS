@@ -44,4 +44,36 @@ class RSSThemes extends Model {
 
 		return false;
 	}
+
+	public static function icon($name) {
+		static $alts = array(
+			'add' => '✚',
+			'all' => '☰',
+			'bookmark' => '★',
+			'category' => '☷',
+			'category-white' => '☷',
+			'close' => '❌',
+			'configure' => '⚙',
+			'down' => '▽',
+			'favorite' => '★',
+			'help' => 'ⓘ',
+			'link' => '↗',
+			'login' => '🔒',
+			'logout' => '🔓',
+			'next' => '⏩',
+			'non-starred' => '☆',
+			'prev' => '⏪',
+			'read' => '☑',
+			'unread' => '☐',
+			'refresh' => '🔃',	//↻
+			'search' => '🔍',
+			'share' => '♺',
+			'starred' => '★',
+			'tag' => '⚐',
+			'up' => '△',
+		);
+		$alt = isset($alts[$name]) ? $alts[$name] : '?';
+		return '<i class="icon i_' . $name . '">' . $alts[$name] . '</i>';
+		//return '<img class="icon" src="' . Url::display('/themes/icons/' . $name . '.svg') . '" alt="' . $alts[$name] . '" />';
+	}
 }

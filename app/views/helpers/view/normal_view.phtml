@@ -42,13 +42,13 @@ if (isset ($this->entryPaginator) && !$this->entryPaginator->isEmpty ()) {
 				if ($this->conf->toplineRead ()) {
 					?><li class="item manage"><?php
 						?><a class="read" href="<?php echo _url ('entry', 'read', 'id', $item->id (), 'is_read', $item->isRead () ? 0 : 1); ?>"><?php
-							echo icon($item->isRead () ? 'read' : 'unread'); ?></a><?php
+							echo RSSThemes::icon($item->isRead () ? 'read' : 'unread'); ?></a><?php
 					?></li><?php
 				}
 				if ($this->conf->toplineFavorite ()) {
 					 ?><li class="item manage"><?php
 						?><a class="bookmark" href="<?php echo _url ('entry', 'bookmark', 'id', $item->id (), 'is_favorite', $item->isFavorite () ? 0 : 1); ?>"><?php
-							echo icon($item->isFavorite () ? 'starred' : 'non-starred'); ?></a><?php
+							echo RSSThemes::icon($item->isFavorite () ? 'starred' : 'non-starred'); ?></a><?php
 					?></li><?php
 				}
 			}
@@ -58,7 +58,7 @@ if (isset ($this->entryPaginator) && !$this->entryPaginator->isEmpty ()) {
 			<li class="item website"><a href="<?php echo _url ('index', 'index', 'get', 'f_' . $feed->id ()); ?>"><img class="favicon" src="<?php echo $feed->favicon (); ?>" alt="✇" /> <span><?php echo $feed->name(); ?></span></a></li>
 			<li class="item title"><a target="_blank" href="<?php echo $item->link (); ?>"><?php echo $item->title (); ?></a></li>
 			<?php if ($this->conf->toplineDate ()) { ?><li class="item date"><?php echo $item->date (); ?> </li><?php } ?>
-			<?php if ($this->conf->toplineLink ()) { ?><li class="item link"><a target="_blank" href="<?php echo $item->link (); ?>"><?php echo icon('link'); ?></a></li><?php } ?>
+			<?php if ($this->conf->toplineLink ()) { ?><li class="item link"><a target="_blank" href="<?php echo $item->link (); ?>"><?php echo RSSThemes::icon('link'); ?></a></li><?php } ?>
 		</ul>
 
 		<div class="flux_content">
@@ -79,13 +79,13 @@ if (isset ($this->entryPaginator) && !$this->entryPaginator->isEmpty ()) {
 					if ($this->conf->bottomlineRead ()) {
 						?><li class="item manage"><?php
 							?><a class="read" href="<?php echo _url ('entry', 'read', 'id', $item->id (), 'is_read', $item->isRead () ? 0 : 1); ?>"><?php
-								echo icon($item->isRead () ? 'read' : 'unread'); ?></a><?php
+								echo RSSThemes::icon($item->isRead () ? 'read' : 'unread'); ?></a><?php
 						?></li><?php
 					}
 					if ($this->conf->bottomlineFavorite ()) {
 						?><li class="item manage"><?php
 							?><a class="bookmark" href="<?php echo _url ('entry', 'bookmark', 'id', $item->id (), 'is_favorite', $item->isFavorite () ? 0 : 1); ?>"><?php
-								echo icon($item->isFavorite () ? 'starred' : 'non-starred'); ?></a><?php
+								echo RSSThemes::icon($item->isFavorite () ? 'starred' : 'non-starred'); ?></a><?php
 						?></li><?php
 					}
 				} ?>
@@ -97,7 +97,7 @@ if (isset ($this->entryPaginator) && !$this->entryPaginator->isEmpty ()) {
 					?>
 						<div class="dropdown">
 						<div id="dropdown-share-<?php echo $item->id ();?>" class="dropdown-target"></div>
-						<?php echo icon('share'); ?> <a class="dropdown-toggle" href="#dropdown-share-<?php echo $item->id ();?>"><?php echo Translate::t ('share'); ?></a>
+						<?php echo RSSThemes::icon('share'); ?> <a class="dropdown-toggle" href="#dropdown-share-<?php echo $item->id ();?>"><?php echo Translate::t ('share'); ?></a>
 
 						<ul class="dropdown-menu">
 							<li class="dropdown-close"><a href="#close">❌</a></li>
@@ -141,7 +141,7 @@ if (isset ($this->entryPaginator) && !$this->entryPaginator->isEmpty ()) {
 				<li class="item">
 					<div class="dropdown">
 						<div id="dropdown-tags-<?php echo $item->id ();?>" class="dropdown-target"></div>
-						<?php echo icon('tag'); ?> <a class="dropdown-toggle" href="#dropdown-tags-<?php echo $item->id ();?>"><?php echo Translate::t ('related_tags'); ?></a>
+						<?php echo RSSThemes::icon('tag'); ?> <a class="dropdown-toggle" href="#dropdown-tags-<?php echo $item->id ();?>"><?php echo Translate::t ('related_tags'); ?></a>
 						<ul class="dropdown-menu">
 							<li class="dropdown-close"><a href="#close">❌</a></li>
 							<?php foreach($tags as $tag) { ?>
@@ -152,7 +152,7 @@ if (isset ($this->entryPaginator) && !$this->entryPaginator->isEmpty ()) {
 				</li>
 				<?php } ?>
 				<?php if ($this->conf->bottomlineDate ()) { ?><li class="item date"><?php echo $item->date (); ?> </li><?php } ?>
-				<?php if ($this->conf->bottomlineLink ()) { ?><li class="item link"><a target="_blank" href="<?php echo $item->link (); ?>"><?php echo icon('link'); ?></a></li><?php } ?>
+				<?php if ($this->conf->bottomlineLink ()) { ?><li class="item link"><a target="_blank" href="<?php echo $item->link (); ?>"><?php echo RSSThemes::icon('link'); ?></a></li><?php } ?>
 			</ul>
 		</div>
 	</div>
