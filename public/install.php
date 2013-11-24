@@ -267,7 +267,7 @@ function checkStep0 () {
 	);
 }
 function checkStep1 () {
-	$php = version_compare (PHP_VERSION, '5.1.0') >= 0;
+	$php = version_compare (PHP_VERSION, '5.2.0') >= 0;
 	$minz = file_exists (LIB_PATH . '/minz');
 	$curl = extension_loaded ('curl');
 	$pdo = extension_loaded ('pdo_mysql');
