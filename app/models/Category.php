@@ -95,7 +95,7 @@ class CategoryDAO extends Model_pdo {
 		);
 
 		if ($stm && $stm->execute ($values)) {
-			return $stm->rowCount();
+			return $this->bd->lastInsertId();
 		} else {
 			$info = $stm->errorInfo();
 			Minz_Log::record ('SQL error : ' . $info[2], Minz_Log::ERROR);

@@ -213,7 +213,7 @@ class EntryDAO extends Model_pdo {
 		);
 
 		if ($stm && $stm->execute ($values)) {
-			return $stm->rowCount();
+			return $this->bd->lastInsertId();
 		} else {
 			$info = $stm->errorInfo();
 			if ((int)($info[0] / 1000) !== 23) {	//Filter out "SQLSTATE Class code 23: Constraint Violation" because of expected duplicate entries

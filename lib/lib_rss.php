@@ -44,7 +44,7 @@ function opml_export ($cats) {
 		$txt .= '<outline text="' . $cat['name'] . '">' . "\n";
 
 		foreach ($cat['feeds'] as $feed) {
-			$txt .= "\t" . '<outline text="' . cleanText ($feed->name ()) . '" type="rss" xmlUrl="' . htmlentities ($feed->url (), ENT_COMPAT, 'UTF-8') . '" htmlUrl="' . htmlentities ($feed->website (), ENT_COMPAT, 'UTF-8') . '" />' . "\n";
+			$txt .= "\t" . '<outline text="' . $feed->name () . '" type="rss" xmlUrl="' . $feed->url () . '" htmlUrl="' . $feed->website () . '" />' . "\n";
 		}
 
 		$txt .= '</outline>' . "\n";
@@ -53,12 +53,20 @@ function opml_export ($cats) {
 	return $txt;
 }
 
-function cleanText ($text) {
-	return preg_replace ('/&[\w]+;/', '', $text);
+function html_only_entity_decode($text) {
+	static $htmlEntitiesOnly = null;
+	if ($htmlEntitiesOnly === null) {
+		$htmlEntitiesOnly = array_flip(array_diff(
+			get_html_translation_table(HTML_ENTITIES, ENT_NOQUOTES, 'UTF-8'),	//Decode HTML entities
+			get_html_translation_table(HTML_SPECIALCHARS, ENT_NOQUOTES, 'UTF-8')	//Preserve XML entities
+		));
+	}
+	return strtr($text, $htmlEntitiesOnly);
 }
 
 function opml_import ($xml) {
-	$opml = @simplexml_load_string ($xml);
+	$xml = html_only_entity_decode($xml);	//!\ Assume UTF-8
+	$opml = simplexml_load_string ($xml);
 
 	if (!$opml) {
 		throw new OpmlException ();
@@ -89,12 +97,17 @@ function opml_import ($xml) {
 				// alors qu'il existe déjà la catégorie X mais avec l'id Z
 				// Y ne sera pas ajouté et le flux non plus vu que l'id
 				// de sa catégorie n'exisera pas
+				$title = htmlspecialchars($title, ENT_QUOTES, 'UTF-8');
 				$catDAO = new CategoryDAO ();
 				$cat = $catDAO->searchByName ($title);
 				if ($cat === false) {
 					$cat = new Category ($title);
+					$values = array (
+						'name' => $cat->name (),
+						'color' => $cat->color ()
+					);
+					$cat->_id ($catDAO->addCategory ($values));
 				}
-				$categories[] = $cat;
 
 				$feeds = array_merge ($feeds, getFeedsOutline ($outline, $cat->id ()));
 			}
@@ -129,12 +142,14 @@ function getFeedsOutline ($outline, $cat_id) {
 
 function getFeed ($outline, $cat_id) {
 	$url = (string) $outline['xmlUrl'];
+	$url = htmlspecialchars($url, ENT_QUOTES, 'UTF-8');
 	$title = '';
 	if (isset ($outline['text'])) {
 		$title = (string) $outline['text'];
 	} elseif (isset ($outline['title'])) {
 		$title = (string) $outline['title'];
 	}
+	$title = htmlspecialchars($title, ENT_QUOTES, 'UTF-8');
 	$feed = new Feed ($url);
 	$feed->_category ($cat_id);
 	$feed->_name ($title);

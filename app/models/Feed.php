@@ -270,7 +270,7 @@ class Feed extends Model {
 		$entries = array ();
 
 		foreach ($feed->get_items () as $item) {
-			$title = self::html_only_entity_decode (strip_tags ($item->get_title ()));
+			$title = html_only_entity_decode (strip_tags ($item->get_title ()));
 			$author = $item->get_author ();
 			$link = $item->get_permalink ();
 			$date = strtotime ($item->get_date ());
@@ -280,11 +280,11 @@ class Feed extends Model {
 			$tags = array ();
 			if (!is_null ($tags_tmp)) {
 				foreach ($tags_tmp as $tag) {
-					$tags[] = self::html_only_entity_decode ($tag->get_label ());
+					$tags[] = html_only_entity_decode ($tag->get_label ());
 				}
 			}
 
-			$content = self::html_only_entity_decode ($item->get_content ());
+			$content = html_only_entity_decode ($item->get_content ());
 
 			$elinks = array();
 			foreach ($item->get_enclosures() as $enclosure) {
@@ -301,7 +301,7 @@ class Feed extends Model {
 				$this->id (),
 				$item->get_id (),
 				!is_null ($title) ? $title : '',
-				!is_null ($author) ? self::html_only_entity_decode ($author->name) : '',
+				!is_null ($author) ? html_only_entity_decode ($author->name) : '',
 				!is_null ($content) ? $content : '',
 				!is_null ($link) ? $link : '',
 				$date ? $date : time ()
@@ -333,7 +333,7 @@ class FeedDAO extends Model_pdo {
 		);
 
 		if ($stm && $stm->execute ($values)) {
-			return $stm->rowCount();
+			return $this->bd->lastInsertId();
 		} else {
 			$info = $stm->errorInfo();
 			Minz_Log::record ('SQL error : ' . $info[2], Minz_Log::ERROR);
