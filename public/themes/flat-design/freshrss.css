@@ -162,17 +162,16 @@ body {
 		.categories .feeds .dropdown-menu:after {
 			left: 2px;
 		}
-		.categories .feeds .item .dropdown-toggle i {
-			background-image: none;
+		.categories .feeds .item .dropdown-toggle > .icon {
+			visibility: hidden;
 			cursor: pointer;
 		}
-			.categories .feeds .item .dropdown-target:target ~ .dropdown-toggle i,
-			.categories .feeds .item:hover .dropdown-toggle i,
-			.categories .feeds .item.active .dropdown-toggle i {
-				background-image: url("icons/configure.png");
-				background-image: url("icons/configure.svg");
+			.categories .feeds .item .dropdown-target:target ~ .dropdown-toggle  > .icon,
+			.categories .feeds .item:hover .dropdown-toggle > .icon,
+			.categories .feeds .item.active .dropdown-toggle > .icon {
 				background-color: #95a5a6;
 				border-radius: 3px;
+				visibility: visible;
 			}
 	.categories .btn:hover .notRead,
 	.categories .btn.active .notRead {
