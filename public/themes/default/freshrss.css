@@ -1,3 +1,5 @@
+@charset "UTF-8";
+
 /* STRUCTURE */
 .header {
 	display: table;
@@ -818,5 +820,42 @@
 		 -webkit-transition: width 200ms linear;
 		-o-transition: width 200ms linear;
 		-ms-transition: width 200ms linear;
+	}
+}
+
+@media print {
+	.header,
+	.aside,
+	.nav_menu,
+	.day,
+	.flux_header,
+	.flux_content .bottom,
+	.pagination {
+		display: none;
+	}
+
+	html, body {
+		background: #fff;
+		color: #000;
+		font-family: Serif;
+		font-size: 12pt;
+	}
+
+	#global,
+	.flux_content {
+		display: block !important;
+	}
+
+	.flux_content .content {
+		width: 100% !important;
+		text-align: justify;
+	}
+
+	.flux_content .content a {
+		color: #000;
+	}
+	.flux_content .content a:after {
+		content: " (" attr(href) ") ";
+		text-decoration: underline;
 	}
 }

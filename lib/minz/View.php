@@ -150,8 +150,9 @@ class View {
 				$styles .= '<!--[if ' . $cond . ']>';
 			}
 
-			$styles .= '<link rel="stylesheet" media="' . $style['media']
-				. '" href="' . $style['url'] . '" />';
+			$styles .= '<link rel="stylesheet" ' .
+				($style['media'] === 'all' ? '' : 'media="' . $style['media'] . '" ') .
+				'href="' . $style['url'] . '" />';
 
 			if ($cond) {
 				$styles .= '<![endif]-->';
