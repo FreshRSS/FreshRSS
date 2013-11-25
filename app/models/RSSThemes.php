@@ -82,7 +82,7 @@ class RSSThemes extends Model {
 		$url = isset(self::$themeIcons[$url]) ? (self::$themeIconsUrl . $url) :
 			(self::$defaultIconsUrl . $url);
 
-		return '<i class="icon i_' . $name . '">' . $alts[$name] . '</i>';
-		//return '<img class="icon" src="' . Url::display($url) . '" alt="' . $alts[$name] . '" />';
+		//return '<i class="icon i_' . $name . '">' . $alts[$name] . '</i>';
+		return '<img class="icon" src="' . Url::display($url) . '" alt="' . $alts[$name] . '" />';
 	}
 }

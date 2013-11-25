@@ -472,86 +472,9 @@ input, select, textarea {
 
 /* ICÔNES */
 .icon {
-	font-size: 0;
 	display: inline-block;
 	width: 16px;
 	height: 16px;
 	vertical-align: middle;
 	line-height: 16px;
-	background: center center no-repeat;
 }
-	.i_refresh {
-		background-image: url("icons/refresh.svg");
-	}
-	.i_bookmark {
-		background-image: url("../icons/starred.svg");
-	}
-	.i_not_bookmark {
-		background-image: url("../icons/unstarred.svg");
-	}
-	.i_read {
-		background-image: url("../icons/read.svg");
-	}
-	.i_unread {
-		background-image: url("../icons/unread.svg");
-	}
-	.i_all {
-		background-image: url("icons/all.svg");
-	}
-	.i_close {
-		background-image: url("icons/close.svg");
-	}
-	.i_search {
-		background-image: url("icons/search.svg");
-	}
-	.i_configure {
-		background-image: url("icons/configure.svg");
-	}
-	.i_login {
-		background-image: url("../icons/login.svg");
-	}
-	.i_logout {
-		background-image: url("../icons/logout.svg");
-	}
-	.i_add {
-		background-image: url("icons/add.svg");
-	}
-	.i_link {
-		background-image: url("../icons/link.svg");
-	}
-	.i_down {
-		background-image: url("icons/down.svg");
-	}
-	.i_up {
-		background-image: url("icons/up.svg");
-	}
-	.i_next {
-		background-image: url("icons/next.svg");
-	}
-	.i_prev {
-		background-image: url("icons/prev.svg");
-	}
-	.i_help {
-		background-image: url("../icons/help.svg");
-	}
-	.i_category {
-		background-image: url("../icons/category-white.svg");
-	}
-	.i_category-white {
-		background-image: url("../icons/category-white.svg");
-	}
-	.i_rss {
-		background-image: url("../icons/rss.svg");
-	}
-	.i_share {
-		background-image: url("../icons/share.svg");
-	}
-	.i_starred {
-		background-image: url("../icons/starred.svg");
-	}
-	.i_non-starred {
-		background-image: url("../icons/non-starred.svg");
-	}
-	.i_tag {
-		background-image: url("../icons/tag.svg");
-	}
