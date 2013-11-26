@@ -500,7 +500,7 @@ function printStep2 () {
 			<!-- TODO: if no problem during version 0.6, remove for version 0.7 -->
 			<label class="group-name" for="base_url"><?php echo _t ('base_url'); ?></label>
 			<div class="group-controls">
-				<input type="text" id="base_url" name="base_url" value="<?php echo isset ($_SESSION['base_url']) ? $_SESSION['base_url'] : $url; ?>" /> <?php echo @icon('help'); ?> <?php echo _t ('do_not_change_if_doubt'); ?>
+				<input type="text" id="base_url" name="base_url" value="<?php echo isset ($_SESSION['base_url']) ? $_SESSION['base_url'] : $url; ?>" /> <?php echo _t ('do_not_change_if_doubt'); ?>
 			</div>
 		</div>
 
