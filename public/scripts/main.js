@@ -1,6 +1,8 @@
 "use strict";
 var $stream = null;
 
+var isCollapsed = true;
+
 function is_normal_mode() {
 	return $stream.hasClass('normal');
 }
@@ -143,9 +145,12 @@ function toggleContent(new_active, old_active) {
 		});
 	}
 
-	old_active.removeClass("active");
+	old_active.removeClass("active").removeClass("current");
 	if (old_active[0] !== new_active[0]) {
-		new_active.addClass("active");
+		if (isCollapsed) {
+			new_active.addClass("active");
+		};
+		new_active.addClass("current");
 	}
 
 	var box_to_move = "html,body",
@@ -185,7 +190,7 @@ function toggleContent(new_active, old_active) {
 }
 
 function prev_entry() {
-	var old_active = $(".flux.active"),
+	var old_active = $(".flux.current"),
 		last_active = $(".flux:last"),
 		new_active = old_active.prevAll(".flux:first");
 
@@ -197,7 +202,7 @@ function prev_entry() {
 }
 
 function next_entry() {
-	var old_active = $(".flux.active"),
+	var old_active = $(".flux.current"),
 		first_active = $(".flux:first"),
 		last_active = $(".flux:last"),
 		new_active = old_active.nextAll(".flux:first");
@@ -214,8 +219,9 @@ function next_entry() {
 }
 
 function collapse_entry() {
-	$(".flux.active").removeClass("active");
-}
+	isCollapsed = !isCollapsed;
+	$(".flux.current").toggleClass("active");
+};
 
 function inMarkViewport(flux, box_to_follow, relative_follow) {
 	var top = flux.position().top;
@@ -311,7 +317,7 @@ function init_shortcuts() {
 	// Touches de manipulation
 	shortcut.add(shortcuts.mark_read, function () {
 		// on marque comme lu ou non lu
-		var active = $(".flux.active");
+		var active = $(".flux.current");
 		mark_read(active, false);
 	}, {
 		'disable_in_input': true
@@ -325,7 +331,7 @@ function init_shortcuts() {
 	});
 	shortcut.add(shortcuts.mark_favorite, function () {
 		// on marque comme favori ou non favori
-		var active = $(".flux.active");
+		var active = $(".flux.current");
 		mark_favorite(active);
 	}, {
 		'disable_in_input': true
@@ -341,7 +347,7 @@ function init_shortcuts() {
 		'disable_in_input': true
 	});
 	shortcut.add("shift+" + shortcuts.prev_entry, function () {
-		var old_active = $(".flux.active"),
+		var old_active = $(".flux.current"),
 			first = $(".flux:first");
 
 		if (first.hasClass("flux")) {
@@ -354,7 +360,7 @@ function init_shortcuts() {
 		'disable_in_input': true
 	});
 	shortcut.add("shift+" + shortcuts.next_entry, function () {
-		var old_active = $(".flux.active"),
+		var old_active = $(".flux.current"),
 			last = $(".flux:last");
 
 		if (last.hasClass("flux")) {
@@ -367,7 +373,7 @@ function init_shortcuts() {
 		var url_website = $(".flux.active .link a").attr("href");
 
 		if (auto_mark_site) {
-			$(".flux.active").each(function () {
+			$(".flux.current").each(function () {
 				mark_read($(this), true);
 			});
 		}
@@ -380,7 +386,7 @@ function init_shortcuts() {
 
 function init_stream_delegates(divStream) {
 	divStream.on('click', '.flux_header>.item.title, .flux_header>.item.date', function (e) {	//flux_header_toggle
-		var old_active = $(".flux.active"),
+		var old_active = $(".flux.current"),
 			new_active = $(this).parent().parent();
 		if (e.target.tagName.toUpperCase() === 'A') {	//Leave real links alone
 			if (auto_mark_article) {
@@ -435,7 +441,7 @@ function init_nav_entries() {
 		return false;
 	});
 	$nav_entries.find('.up').click(function () {
-		var active_item = $(".flux.active"),
+		var active_item = $(".flux.current"),
 			windowTop = $(window).scrollTop(),
 			item_top = active_item.position().top;
 
