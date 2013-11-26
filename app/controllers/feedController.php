@@ -174,17 +174,14 @@ class feedController extends ActionController {
 				$feed->load ();
 				$entries = $feed->entries ();
 
-				//For this feed, check last n entry IDs already in database
-				$existingIds = array_fill_keys ($entryDAO->listLastIdsByFeed ($feed->id (), count($entries) + 10), 1);
+				//For this feed, check last n entry GUIDs already in database
+				$existingGuids = array_fill_keys ($entryDAO->listLastGuidsByFeed ($feed->id (), count($entries) + 10), 1);
 
-				// ajout des articles en masse sans se soucier des erreurs
-				// On ne vérifie pas que l'article n'est pas déjà en BDD
-				// car demanderait plus de ressources
-				// La BDD refusera l'ajout de son côté car l'id doit être
-				// unique
+				// On ne vérifie strictement que l'article n'est pas déjà en BDD
+				// La BDD refusera l'ajout car (id_feed, guid) doit être unique
 				$feedDAO->beginTransaction ();
 				foreach ($entries as $entry) {
-					if ((!isset ($existingIds[$entry->id ()])) &&
+					if ((!isset ($existingGuids[$entry->guid ()])) &&
 						($entry->date (true) >= $date_min ||
 						$feed->keepHistory ())) {
 						$values = $entry->toArray ();
