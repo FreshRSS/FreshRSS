@@ -30,7 +30,7 @@ function load_panel(link) {
 
 function init_close_panel() {
 	$("#panel .close").click(function () {
-		$("#panel").html('<a class="close" href="#"><i class="icon i_close">❌</i></a>');
+		$("#panel").html('<a class="close" href="#">' + window.iconClose + '</a>');
 		init_close_panel();
 		$("#panel").slideToggle();
 		$("#overlay").fadeOut();

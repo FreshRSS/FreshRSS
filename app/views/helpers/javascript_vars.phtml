@@ -20,6 +20,10 @@
 			'collapse_entry:"', $s['collapse_entry'], '"',
 		"},\n";
 
+	if (Request::param ('output') === 'global') {
+		echo "iconClose='", RSSThemes::icon('close'), "',\n";
+	}
+
 	$mail = Session::param ('mail', 'null');
 	if ($mail != 'null') {
 		$mail = '"' . $mail . '"';
