@@ -1,18 +1,7 @@
 "use strict";
 var $stream = null;
 
-// Create a new object to store FreshRSS methods and variables.
-// It will prevent over-riding other libraries methods and variables.
-var FreshRSS = {};
-FreshRSS.isCollapsed = true;
-
-FreshRSS.Entry = {};
-
-// Toggle the collapse flag
-FreshRSS.Entry.toggleCollapse = function() {
-	FreshRSS.isCollapsed = !FreshRSS.isCollapsed;
-	$(".flux.current").toggleClass("active");
-};
+var isCollapsed = true;
 
 function is_normal_mode() {
 	return $stream.hasClass('normal');
@@ -158,7 +147,7 @@ function toggleContent(new_active, old_active) {
 
 	old_active.removeClass("active").removeClass("current");
 	if (old_active[0] !== new_active[0]) {
-		if (FreshRSS.isCollapsed) {
+		if (isCollapsed) {
 			new_active.addClass("active");
 		};
 		new_active.addClass("current");
@@ -228,6 +217,11 @@ function next_entry() {
 		load_more_posts();
 	}
 }
+
+function collapse_entry() {
+	isCollapsed = !isCollapsed;
+	$(".flux.current").toggleClass("active");
+};
 
 function inMarkViewport(flux, box_to_follow, relative_follow) {
 	var top = flux.position().top;
@@ -343,7 +337,7 @@ function init_shortcuts() {
 		'disable_in_input': true
 	});
 	shortcut.add(shortcuts.collapse_entry, function () {
-		FreshRSS.Entry.toggleCollapse();
+		collapse_entry();
 	}, {
 		'disable_in_input': true
 	});
