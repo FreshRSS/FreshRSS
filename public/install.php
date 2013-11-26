@@ -79,12 +79,6 @@ function writeArray ($f, $array) {
 	}
 }
 
-// tiré de Shaarli de Seb Sauvage	//Format RFC 4648 base64url
-function small_hash ($txt) {
-	$t = rtrim (base64_encode (hash ('crc32', $txt, true)), '=');
-	return strtr ($t, '+/', '-_');
-}
-
 // gestion internationalisation
 $translates = array ();
 $actual = 'en';
