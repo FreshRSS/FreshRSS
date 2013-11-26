@@ -35,7 +35,7 @@ class Minz_Log {
 		
 		if (! ($env === Configuration::SILENT
 		       || ($env === Configuration::PRODUCTION
-		       && ($level <= Minz_Log::NOTICE)))) {
+		       && ($level >= Minz_Log::NOTICE)))) {
 			if (is_null ($file_name)) {
 				$file_name = LOG_PATH . '/application.log';
 			}

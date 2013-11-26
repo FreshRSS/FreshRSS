@@ -66,7 +66,7 @@ class Model_pdo {
 		} catch (Exception $e) {
 			throw new PDOConnectionException (
 				$string,
-				$db['user'], MinzException::WARNING
+				$db['user'], MinzException::ERROR
 			);
 		}
 	}
