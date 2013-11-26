@@ -1,7 +1,6 @@
 "use strict";
-var $stream = null;
-
-var isCollapsed = true;
+var $stream = null,
+	isCollapsed = true;
 
 function is_normal_mode() {
 	return $stream.hasClass('normal');
@@ -149,7 +148,7 @@ function toggleContent(new_active, old_active) {
 	if (old_active[0] !== new_active[0]) {
 		if (isCollapsed) {
 			new_active.addClass("active");
-		};
+		}
 		new_active.addClass("current");
 	}
 
@@ -221,7 +220,7 @@ function next_entry() {
 function collapse_entry() {
 	isCollapsed = !isCollapsed;
 	$(".flux.current").toggleClass("active");
-};
+}
 
 function inMarkViewport(flux, box_to_follow, relative_follow) {
 	var top = flux.position().top;
@@ -516,7 +515,9 @@ function load_more_posts() {
 
 		$('[id^=day_]').each(function (i) {
 			var ids = $('[id="' + this.id + '"]');
-			if (ids.length > 1) $('[id="' + this.id + '"]:gt(0)').remove();
+			if (ids.length > 1) {
+				$('[id="' + this.id + '"]:gt(0)').remove();
+			}
 		});
 
 		init_load_more(box_load_more);
@@ -583,16 +584,16 @@ function init_persona() {
 				url: url_login,
 				data: {assertion: assertion},
 				success: function(res, status, xhr) {
-					var res_obj = jQuery.parseJSON(res);
+					var res_obj = $.parseJSON(res);
 
-					if (res_obj.status == 'failure') {
-						//alert (res_obj.reason);
-					} else if (res_obj.status == 'okay') {
+					/*if (res_obj.status === 'failure') {
+						alert (res_obj.reason);
+					} else*/ if (res_obj.status === 'okay') {
 						location.href = url_freshrss;
 					}
 				},
 				error: function(res, status, xhr) {
-					alert("login failure : " + res);
+					alert("Login failure: " + res);
 				}
 			});
 		},
