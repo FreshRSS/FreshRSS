@@ -44,7 +44,7 @@ define ('SQL_REQ_FEED', 'CREATE TABLE IF NOT EXISTS `%sfeed` (
 ) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;');
 
 define ('SQL_REQ_ENTRY', 'CREATE TABLE IF NOT EXISTS `%sentry` (
-  `id` char(6) NOT NULL,
+  `id` bigint NOT NULL,	-- v0.7
   `guid` varchar(760) CHARACTER SET latin1 NOT NULL,	-- Maximum for UNIQUE is 767B
   `title` varchar(255) NOT NULL,
   `author` varchar(255) NOT NULL,
@@ -60,7 +60,7 @@ define ('SQL_REQ_ENTRY', 'CREATE TABLE IF NOT EXISTS `%sentry` (
   UNIQUE KEY (`id_feed`,`guid`),	-- v0.7
   INDEX (`is_favorite`),	-- v0.7
   INDEX (`is_read`),	-- v0.7
-  INDEX (`date`)	-- v0.7	//TODO: remove after https://github.com/marienfressinaud/FreshRSS/issues/202
+  INDEX (`date`)	-- v0.7	//Consider removing after https://github.com/marienfressinaud/FreshRSS/issues/202
 ) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;');
 
 

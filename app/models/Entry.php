@@ -2,7 +2,7 @@
 
 class Entry extends Model {
 
-	private $id = null;
+	private $id = 0;
 	private $guid;
 	private $title;
 	private $author;
@@ -29,11 +29,7 @@ class Entry extends Model {
 	}
 
 	public function id () {
-		if(is_null($this->id)) {
-			return small_hash ($this->guid . Configuration::selApplication ());
-		} else {
-			return $this->id;
-		}
+		return $this->id;
 	}
 	public function guid () {
 		return $this->guid;
@@ -195,11 +191,11 @@ class Entry extends Model {
 
 class EntryDAO extends Model_pdo {
 	public function addEntry ($valuesTmp) {
-		$sql = 'INSERT INTO ' . $this->prefix . 'entry(id, guid, title, author, content, link, date, is_read, is_favorite, id_feed, tags) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
+		$sql = 'INSERT INTO ' . $this->prefix . 'entry(id, guid, title, author, content, link, date, is_read, is_favorite, id_feed, tags) VALUES(CAST(? * 1000000 AS SIGNED INTEGER), ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
 		$stm = $this->bd->prepare ($sql);
 
 		$values = array (
-			$valuesTmp['id'],
+			microtime(true),
 			substr($valuesTmp['guid'], 0, 760),
 			substr($valuesTmp['title'], 0, 255),
 			substr($valuesTmp['author'], 0, 255),
