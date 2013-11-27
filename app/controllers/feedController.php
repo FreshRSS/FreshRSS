@@ -177,7 +177,7 @@ class feedController extends ActionController {
 				//For this feed, check last n entry GUIDs already in database
 				$existingGuids = array_fill_keys ($entryDAO->listLastGuidsByFeed ($feed->id (), count($entries) + 10), 1);
 
-				// On ne vérifie strictement que l'article n'est pas déjà en BDD
+				// On ne vérifie pas strictement que l'article n'est pas déjà en BDD
 				// La BDD refusera l'ajout car (id_feed, guid) doit être unique
 				$feedDAO->beginTransaction ();
 				foreach ($entries as $entry) {
