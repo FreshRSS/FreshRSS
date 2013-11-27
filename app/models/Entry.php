@@ -57,6 +57,14 @@ class Entry extends Model {
 			return timestamptodate ($this->date);
 		}
 	}
+	public function dateAdded ($raw = false) {
+		$date = intval(substr($this->id, 0, -6));
+		if ($raw) {
+			return $date;
+		} else {
+			return timestamptodate ($date);
+		}
+	}
 	public function isRead () {
 		return $this->is_read;
 	}

@@ -310,7 +310,7 @@ class Feed extends Model {
 			// permet de récupérer le contenu des flux tronqués
 			$entry->loadCompleteContent($this->pathEntries());
 
-			$entries[$entry->id ()] = $entry;
+			$entries[] = $entry;
 		}
 
 		$this->entries = $entries;
