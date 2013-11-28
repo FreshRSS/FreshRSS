@@ -36,7 +36,7 @@ define ('SQL_REQ_FEED', 'CREATE TABLE IF NOT EXISTS `%sfeed` (
   `cache_nbEntries` int NOT NULL DEFAULT 0,	-- v0.7
   `cache_nbUnreads` int NOT NULL DEFAULT 0,	-- v0.7
   PRIMARY KEY (`id`),
-  FOREIGN KEY (`category`) REFERENCES %scategory(id) ON DELETE SET NULL ON UPDATE CASCADE,
+  FOREIGN KEY (`category`) REFERENCES `%scategory`(`id`) ON DELETE SET NULL ON UPDATE CASCADE,
   UNIQUE KEY (`url`),	-- v0.7
   INDEX (`name`),	-- v0.7
   INDEX (`priority`),	-- v0.7
@@ -56,7 +56,7 @@ define ('SQL_REQ_ENTRY', 'CREATE TABLE IF NOT EXISTS `%sentry` (
   `id_feed` SMALLINT NOT NULL,	-- v0.7
   `tags` varchar(1023) NOT NULL,
   PRIMARY KEY (`id`),
-  FOREIGN KEY (`id_feed`) REFERENCES %sfeed(id) ON DELETE CASCADE ON UPDATE CASCADE,
+  FOREIGN KEY (`id_feed`) REFERENCES `%sfeed`(`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   UNIQUE KEY (`id_feed`,`guid`),	-- v0.7
   INDEX (`is_favorite`),	-- v0.7
   INDEX (`is_read`),	-- v0.7
