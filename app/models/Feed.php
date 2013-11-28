@@ -256,16 +256,6 @@ class Feed extends Model {
 			}
 		}
 	}
-	static function html_only_entity_decode($text) {
-		static $htmlEntitiesOnly = null;
-		if ($htmlEntitiesOnly === null) {
-			$htmlEntitiesOnly = array_flip(array_diff(
-				get_html_translation_table(HTML_ENTITIES, ENT_NOQUOTES, 'UTF-8'),	//Decode HTML entities
-				get_html_translation_table(HTML_SPECIALCHARS, ENT_NOQUOTES, 'UTF-8')	//Preserve XML entities
-			));
-		}
-		return strtr($text, $htmlEntitiesOnly);
-	}
 	private function loadEntries ($feed) {
 		$entries = array ();
 

@@ -18,6 +18,8 @@
 			$string_mark = Translate::t ('mark_cat_read');
 		}
 		$nextGet = $get;
+		$p = $this->entryPaginator->peek();
+		$idMax = $p === null ? '0' : $p->id();
 		if (($this->conf->onread_jump_next () === 'yes') && (strlen ($get) > 2)) {
 			$anotherUnreadId = '';
 			$foundCurrent = false;
@@ -53,7 +55,7 @@
 					break;
 			}
 		}
-		$markReadUrl = _url ('entry', 'read', 'is_read', 1, 'get', $get, 'nextGet', $nextGet);
+		$markReadUrl = _url ('entry', 'read', 'is_read', 1, 'get', $get, 'nextGet', $nextGet, 'idMax', $idMax);
 		Session::_param ('markReadUrl', $markReadUrl);
 	?>
 
@@ -69,12 +71,11 @@
 				<li class="item"><a href="<?php echo $markReadUrl; ?>"><?php echo $string_mark; ?></a></li> 
 				<li class="separator"></li>
 <?php
-	$date = getdate ();
-	$today = mktime (0, 0, 0, $date['mon'], $date['mday'], $date['year']);
+	$today = strtotime('today');
 	$one_week = $today - 604800;
 ?>
-				<li class="item"><a href="<?php echo _url ('entry', 'read', 'is_read', 1, 'get', $get, 'dateMax', $today); ?>"><?php echo Translate::t ('before_one_day'); ?></a></li>
-				<li class="item"><a href="<?php echo _url ('entry', 'read', 'is_read', 1, 'get', $get, 'dateMax', $one_week); ?>"><?php echo Translate::t ('before_one_week'); ?></a></li>
+				<li class="item"><a href="<?php echo _url ('entry', 'read', 'is_read', 1, 'get', $get, 'idMax', $today . '000000'); ?>"><?php echo Translate::t ('before_one_day'); ?></a></li>
+				<li class="item"><a href="<?php echo _url ('entry', 'read', 'is_read', 1, 'get', $get, 'idMax', $one_week . '000000'); ?>"><?php echo Translate::t ('before_one_week'); ?></a></li>
 			</ul>
 		</div>
 	</div>

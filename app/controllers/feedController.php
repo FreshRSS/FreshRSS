@@ -20,6 +20,15 @@ class feedController extends ActionController {
 		$this->catDAO->checkDefault ();
 	}
 
+	private static function entryDateComparer($e1, $e2) {
+		$d1 = $e1->date(true);
+		$d2 = $e2->date(true);
+		if ($d1 === $d2) {
+			return 0;
+		}
+		return ($d1 < $d2) ? -1 : 1;
+	}
+
 	public function addAction () {
 		if (Request::isPost ()) {
 			$url = Request::param ('url_rss');
@@ -75,6 +84,7 @@ class feedController extends ActionController {
 				} else {
 					$entryDAO = new EntryDAO ();
 					$entries = $feed->entries ();
+					usort($entries, 'self::entryDateComparer');
 
 					// on calcule la date des articles les plus anciens qu'on accepte
 					$nb_month_old = $this->view->conf->oldEntries ();
@@ -173,6 +183,7 @@ class feedController extends ActionController {
 			try {
 				$feed->load ();
 				$entries = $feed->entries ();
+				usort($entries, 'self::entryDateComparer');
 
 				//For this feed, check last n entry GUIDs already in database
 				$existingGuids = array_fill_keys ($entryDAO->listLastGuidsByFeed ($feed->id (), count($entries) + 10), 1);

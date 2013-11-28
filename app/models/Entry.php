@@ -140,17 +140,17 @@ class Entry extends Model {
 	}
 
 	public function isDay ($day) {
-		$date = getdate ();
-		$today = mktime (0, 0, 0, $date['mon'], $date['mday'], $date['year']);
+		$date = $this->dateAdded(true);
+		$today = strtotime('today');
 		$yesterday = $today - 86400;
 
-		if ($day == Days::TODAY &&
-		    $this->date >= $today && $this->date < $today + 86400) {
+		if ($day === Days::TODAY &&
+		    $date >= $today && $date < $today + 86400) {
 			return true;
-		} elseif ($day == Days::YESTERDAY &&
-		    $this->date >= $yesterday && $this->date < $yesterday + 86400) {
+		} elseif ($day === Days::YESTERDAY &&
+		    $date >= $yesterday && $date < $yesterday + 86400) {
 			return true;
-		} elseif ($day == Days::BEFORE_YESTERDAY && $this->date < $yesterday) {
+		} elseif ($day === Days::BEFORE_YESTERDAY && $date < $yesterday) {
 			return true;
 		} else {
 			return false;
@@ -287,8 +287,8 @@ class EntryDAO extends Model_pdo {
 			return false;
 		}
 	}
-	public function markReadEntries ($dateMax = 0) {
-		if ($dateMax === 0) {
+	public function markReadEntries ($idMax = 0) {
+		if ($idMax === 0) {
 			$sql = 'UPDATE ' . $this->prefix . 'entry e INNER JOIN ' . $this->prefix . 'feed f ON e.id_feed = f.id '
 			     . 'SET e.is_read = 1, f.cache_nbUnreads=0 '
 			     . 'WHERE e.is_read = 0 AND f.priority > 0';
@@ -305,8 +305,8 @@ class EntryDAO extends Model_pdo {
 
 			$sql = 'UPDATE ' . $this->prefix . 'entry e INNER JOIN ' . $this->prefix . 'feed f ON e.id_feed = f.id '
 			     . 'SET e.is_read = 1 '
-			     . 'WHERE e.is_read = 0 AND e.date < ? AND f.priority > 0';
-			$values = array ($dateMax);
+			     . 'WHERE e.is_read = 0 AND e.id <= ? AND f.priority > 0';
+			$values = array ($idMax);
 			$stm = $this->bd->prepare ($sql);
 			if (!($stm && $stm->execute ($values))) {
 				$info = $stm->errorInfo();
@@ -339,8 +339,8 @@ class EntryDAO extends Model_pdo {
 			return $affected;
 		}
 	}
-	public function markReadCat ($id, $dateMax = 0) {
-		if ($dateMax === 0) {
+	public function markReadCat ($id, $idMax = 0) {
+		if ($idMax === 0) {
 			$sql = 'UPDATE ' . $this->prefix . 'entry e INNER JOIN ' . $this->prefix . 'feed f ON e.id_feed = f.id '
 			     . 'SET e.is_read = 1, f.cache_nbUnreads=0 '
 			     . 'WHERE f.category = ? AND e.is_read = 0';
@@ -358,8 +358,8 @@ class EntryDAO extends Model_pdo {
 
 			$sql = 'UPDATE ' . $this->prefix . 'entry e INNER JOIN ' . $this->prefix . 'feed f ON e.id_feed = f.id '
 			     . 'SET e.is_read = 1 '
-			     . 'WHERE f.category = ? AND e.is_read = 0 AND e.date < ?';
-			$values = array ($id, $dateMax);
+			     . 'WHERE f.category = ? AND e.is_read = 0 AND e.id <= ?';
+			$values = array ($id, $idMax);
 			$stm = $this->bd->prepare ($sql);
 			if (!($stm && $stm->execute ($values))) {
 				$info = $stm->errorInfo();
@@ -394,8 +394,8 @@ class EntryDAO extends Model_pdo {
 			return $affected;
 		}
 	}
-	public function markReadFeed ($id, $dateMax = 0) {
-		if ($dateMax === 0) {
+	public function markReadFeed ($id, $idMax = 0) {
+		if ($idMax === 0) {
 			$sql = 'UPDATE ' . $this->prefix . 'entry e INNER JOIN ' . $this->prefix . 'feed f ON e.id_feed = f.id '
 			     . 'SET e.is_read = 1, f.cache_nbUnreads=0 '
 			     . 'WHERE f.id=? AND e.is_read = 0';
@@ -413,8 +413,8 @@ class EntryDAO extends Model_pdo {
 
 			$sql = 'UPDATE ' . $this->prefix . 'entry e INNER JOIN ' . $this->prefix . 'feed f ON e.id_feed = f.id '
 			     . 'SET e.is_read = 1 '
-			     . 'WHERE f.id=? AND e.is_read = 0 AND e.date < ?';
-			$values = array ($id, $dateMax);
+			     . 'WHERE f.id=? AND e.is_read = 0 AND e.id <= ?';
+			$values = array ($id, $idMax);
 			$stm = $this->bd->prepare ($sql);
 			if (!($stm && $stm->execute ($values))) {
 				$info = $stm->errorInfo();
@@ -471,11 +471,11 @@ class EntryDAO extends Model_pdo {
 	}*/
 
 	public function cleanOldEntries ($date_min) {
-		$sql = 'DELETE e.* FROM ' . $this->prefix . 'entry e INNER JOIN ' . $this->prefix . 'feed f ON e.id_feed = f.id WHERE e.date <= ? AND e.is_favorite = 0 AND f.keep_history = 0';
+		$sql = 'DELETE e.* FROM ' . $this->prefix . 'entry e INNER JOIN ' . $this->prefix . 'feed f ON e.id_feed = f.id WHERE e.id <= ? AND e.is_favorite = 0 AND f.keep_history = 0';
 		$stm = $this->bd->prepare ($sql);
 
 		$values = array (
-			$date_min
+			$date_min . '000000'
 		);
 
 		if ($stm && $stm->execute ($values)) {
@@ -531,8 +531,8 @@ class EntryDAO extends Model_pdo {
 		} elseif ($state === 'read') {
 			$where .= ' AND is_read = 1';
 		}
-		if (!empty($limitFromId)) {	//TODO: Consider using LPAD(e.date, 11)	//CONCAT is for cases when many entries have the same date
-			$where .= ' AND CONCAT(e.date, e.id) ' . ($order === 'low_to_high' ? '<=' : '>=') . ' (SELECT CONCAT(s.date, s.id) FROM ' . $this->prefix . 'entry s WHERE s.id = "' . $limitFromId . '")';
+		if (!empty($limitFromId)) {
+			$where .= ' AND e.id ' . ($order === 'low_to_high' ? '<=' : '>=') . $limitFromId;
 		}
 
 		if ($order === 'low_to_high') {
@@ -543,7 +543,7 @@ class EntryDAO extends Model_pdo {
 
 		$sql = 'SELECT e.* FROM ' . $this->prefix . 'entry e'
 		     . ' INNER JOIN ' . $this->prefix . 'feed f ON e.id_feed = f.id' . $where
-		     . ' ORDER BY e.date' . $order . ', e.id' . $order;
+		     . ' ORDER BY e.id' . $order;
 
 		if (empty($limitCount)) {
 			$limitCount = 20000;	//TODO: FIXME: Hack temporaire en attendant la recherche côté base-de-données
@@ -571,7 +571,7 @@ class EntryDAO extends Model_pdo {
 	}
 
 	public function listLastGuidsByFeed($id, $n) {
-		$sql = 'SELECT guid FROM ' . $this->prefix . 'entry WHERE id_feed=? ORDER BY date DESC LIMIT ' . intval($n);
+		$sql = 'SELECT guid FROM ' . $this->prefix . 'entry WHERE id_feed=? ORDER BY id DESC LIMIT ' . intval($n);
 		$stm = $this->bd->prepare ($sql);
 		$values = array ($id);
 		$stm->execute ($values);

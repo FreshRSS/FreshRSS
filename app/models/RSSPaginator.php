@@ -23,6 +23,10 @@ class RSSPaginator {
 		return $this->next;
 	}
 
+	public function peek () {
+		return empty($this->items) ? null : $this->items[0];
+	}
+
 	public function render ($view, $getteur) {
 		$view = APP_PATH . '/views/helpers/'.$view;
 
