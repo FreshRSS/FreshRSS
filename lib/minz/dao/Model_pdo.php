@@ -85,7 +85,7 @@ class Model_pdo {
 class FreshPDO extends PDO {
 	private static function check($statement) {
 		if (preg_match('/^(?:UPDATE|INSERT|DELETE)/i', $statement)) {
-			touch(DATA_PATH . '/touch.txt');
+			invalidateHttpCache();
 		}
 	}
 

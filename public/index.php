@@ -27,10 +27,11 @@ if (file_exists ('install.php')) {
 	if (!file_exists(DATA_PATH . '/no-cache.txt')) {
 		require (LIB_PATH . '/http-conditional.php');
 		$dateLastModification = max(
-			@filemtime(DATA_PATH . '/touch.txt') - 1,
-			@filemtime(LOG_PATH . '/application.log') - 1,
-			@filemtime(DATA_PATH . '/application.ini') - 1
+			@filemtime(DATA_PATH . '/touch.txt'),
+			@filemtime(LOG_PATH . '/application.log'),
+			@filemtime(DATA_PATH . '/application.ini')
 		);
+		$_SERVER['QUERY_STRING'] .= '&utime=' . file_get_contents(DATA_PATH . '/touch.txt');
 		if (httpConditional($dateLastModification, 0, 0, false, false, true)) {
 			exit();	//No need to send anything
 		}

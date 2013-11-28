@@ -473,6 +473,6 @@ class RSSConfigurationDAO extends Model_array {
 		}
 
 		$this->writeFile($this->array);
-		touch(DATA_PATH . '/touch.txt');
+		invalidateHttpCache();
 	}
 }

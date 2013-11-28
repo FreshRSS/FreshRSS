@@ -230,3 +230,7 @@ function lazyimg($content) {
 		$content
 	);
 }
+
+function invalidateHttpCache() {
+	file_put_contents(DATA_PATH . '/touch.txt', microtime(true));
+}

@@ -84,7 +84,7 @@ class entryController extends ActionController {
 		$entryDAO = new EntryDAO();
 		$entryDAO->optimizeTable();
 
-		touch(DATA_PATH . '/touch.txt');
+		invalidateHttpCache();
 
 		$notif = array (
 			'type' => 'good',
