@@ -100,7 +100,8 @@ class Feed extends Model {
 
 		$favicon_url = Url::display ($file);
 		if (!file_exists (PUBLIC_PATH . $file)) {
-			$favicon_url = dowload_favicon ($this->website (), $this->id ());
+			$base_url = dowload_favicon ($this->website (), $this->id ());
+			$favicon_url = Url::display ($base_url);
 		}
 
 		return $favicon_url;
