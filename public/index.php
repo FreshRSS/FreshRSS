@@ -24,14 +24,16 @@ if (file_exists ('install.php')) {
 	require('../constants.php');
 
 	session_cache_limiter('');
-	require (LIB_PATH . '/http-conditional.php');
-	$dateLastModification = max(
-		@filemtime(DATA_PATH . '/touch.txt') - 1,
-		@filemtime(LOG_PATH . '/application.log') - 1,
-		@filemtime(DATA_PATH . '/application.ini') - 1
-	);
-	if (httpConditional($dateLastModification, 0, 0, false, false, true)) {
-		exit();	//No need to send anything
+	if (!file_exists(DATA_PATH . '/no-cache.txt')) {
+		require (LIB_PATH . '/http-conditional.php');
+		$dateLastModification = max(
+			@filemtime(DATA_PATH . '/touch.txt') - 1,
+			@filemtime(LOG_PATH . '/application.log') - 1,
+			@filemtime(DATA_PATH . '/application.ini') - 1
+		);
+		if (httpConditional($dateLastModification, 0, 0, false, false, true)) {
+			exit();	//No need to send anything
+		}
 	}
 
 	set_include_path (get_include_path ()
