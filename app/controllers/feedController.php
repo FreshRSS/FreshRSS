@@ -57,7 +57,6 @@ class feedController extends ActionController {
 
 				$feedDAO = new FeedDAO ();
 				$values = array (
-					'id' => $feed->id (),
 					'url' => $feed->url (),
 					'category' => $feed->category (),
 					'name' => $feed->name (),
@@ -74,46 +73,52 @@ class feedController extends ActionController {
 						'content' => Translate::t ('already_subscribed', $feed->name ())
 					);
 					Session::_param ('notification', $notif);
-				} elseif (!$feedDAO->addFeed ($values)) {
-					// problème au niveau de la base de données
-					$notif = array (
-						'type' => 'bad',
-						'content' => Translate::t ('feed_not_added', $feed->name ())
-					);
-					Session::_param ('notification', $notif);
 				} else {
-					$entryDAO = new EntryDAO ();
-					$entries = $feed->entries ();
-					usort($entries, 'self::entryDateComparer');
+					$id = $feedDAO->addFeed ($values);
+					if (!$id) {
+						// problème au niveau de la base de données
+						$notif = array (
+							'type' => 'bad',
+							'content' => Translate::t ('feed_not_added', $feed->name ())
+						);
+						Session::_param ('notification', $notif);
+					} else {
+						$feed->_id ($id);
 
-					// on calcule la date des articles les plus anciens qu'on accepte
-					$nb_month_old = $this->view->conf->oldEntries ();
-					$date_min = time () - (60 * 60 * 24 * 30 * $nb_month_old);
+						$entryDAO = new EntryDAO ();
+						$entries = $feed->entries ();
+						usort($entries, 'self::entryDateComparer');
 
-					$transactionStarted = true;
-					$feedDAO->beginTransaction ();
-					// on ajoute les articles en masse sans vérification
-					foreach ($entries as $entry) {
-						if ($entry->date (true) >= $date_min ||
-						    $feed->keepHistory ()) {
-							$values = $entry->toArray ();
-							$values['id'] = min(time(), $entry->date (true)) . '.' . rand(0, 999999);
-							$entryDAO->addEntry ($values);
+						// on calcule la date des articles les plus anciens qu'on accepte
+						$nb_month_old = $this->view->conf->oldEntries ();
+						$date_min = time () - (60 * 60 * 24 * 30 * $nb_month_old);
+
+						$transactionStarted = true;
+						$feedDAO->beginTransaction ();
+						// on ajoute les articles en masse sans vérification
+						foreach ($entries as $entry) {
+							if ($entry->date (true) >= $date_min ||
+							    $feed->keepHistory ()) {
+								$values = $entry->toArray ();
+								$values['id_feed'] = $feed->id ();
+								$values['id'] = min(time(), $entry->date (true)) . '.' . rand(0, 999999);
+								$entryDAO->addEntry ($values);
+							}
 						}
+						$feedDAO->updateLastUpdate ($feed->id ());
+						$feedDAO->commit ();
+						$transactionStarted = false;
+
+						// ok, ajout terminé
+						$notif = array (
+							'type' => 'good',
+							'content' => Translate::t ('feed_added', $feed->name ())
+						);
+						Session::_param ('notification', $notif);
+
+						// permet de rediriger vers la page de conf du flux
+						$params['id'] = $feed->id ();
 					}
-					$feedDAO->updateLastUpdate ($feed->id ());
-					$feedDAO->commit ();
-					$transactionStarted = false;
-
-					// ok, ajout terminé
-					$notif = array (
-						'type' => 'good',
-						'content' => Translate::t ('feed_added', $feed->name ())
-					);
-					Session::_param ('notification', $notif);
-
-					// permet de rediriger vers la page de conf du flux
-					$params['id'] = $feed->id ();
 				}
 			} catch (BadUrlException $e) {
 				Minz_Log::record ($e->getMessage (), Minz_Log::WARNING);
