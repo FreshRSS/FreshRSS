@@ -111,6 +111,26 @@ if (isset ($this->entryPaginator) && !$this->entryPaginator->isEmpty ()) {
 								</a>
 							</li>
 							<?php } ?>
+							<?php
+								$poche = $this->conf->urlPoche ();
+								if ((!login_is_conf ($this->conf) || is_logged ()) && $poche) {
+							?>
+							<li class="item">
+								<a target="_blank" href="<?php echo $poche . '?action=add&amp;url=' . base64_encode (urldecode($link)); ?>">
+									Poche
+								</a>
+							</li>
+							<?php } ?>
+							<?php
+								$diaspora = $this->conf->urlDiaspora ();
+								if ((!login_is_conf ($this->conf) || is_logged ()) && $diaspora) {
+							?>
+							<li class="item">
+								<a target="_blank" href="<?php echo $diaspora . '/bookmarklet?url=' . $link . '&amp;title=' . $title; ?>">
+									Diaspora*
+								</a>
+							</li>
+							<?php } ?>
 							<li class="item">
 								<a href="mailto:?subject=<?php echo urldecode($title); ?>&amp;body=<?php echo $link; ?>">
 									<?php echo Translate::t ('by_email'); ?>
