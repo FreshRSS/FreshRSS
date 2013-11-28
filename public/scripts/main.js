@@ -625,10 +625,16 @@ function init_confirm_action() {
 
 function init_print_action() {
 	$('.print-article').click(function () {
+		var content = "<html><head><style>"
+			+ "body { font-family: Serif; text-align: justify; }"
+			+ "a { color: #000; text-decoration: none; }"
+			+ "a:after { content: ' [' attr(href) ']'}"
+			+ "</style></head><body>"
+			+ $(".flux.current .content").html()
+			+ "</body></html>";
 
-		var content = $(".flux.current .content");
 		var tmp_window = window.open();
-		tmp_window.document.writeln(content.html());
+		tmp_window.document.writeln(content);
 		tmp_window.document.close();
 		tmp_window.focus();
 		tmp_window.print();
