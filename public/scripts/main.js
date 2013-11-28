@@ -381,6 +381,12 @@ function init_shortcuts() {
 	}, {
 		'disable_in_input': true
 	});
+
+	shortcut.add(shortcuts.load_more, function () {
+		load_more_posts();
+	}, {
+		'disable_in_input': true
+	});
 }
 
 function init_stream_delegates(divStream) {

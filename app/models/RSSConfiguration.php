@@ -343,6 +343,7 @@ class RSSConfigurationDAO extends Model_array {
 		'next_entry' => 'j',
 		'prev_entry' => 'k',
 		'collapse_entry' => 'c',
+		'load_more' => 'm'
 	);
 	public $mail_login = '';
 	public $mark_when = array (
