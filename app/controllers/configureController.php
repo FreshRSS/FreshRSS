@@ -269,22 +269,18 @@ class configureController extends ActionController {
 
 	public function sharingAction () {
 		if (Request::isPost ()) {
-			$urlShaarli = Request::param ('shaarli', '');
-			$urlPoche = Request::param ('poche', '');
-			$urlDiaspora = Request::param ('diaspora', '');
-
-			$this->view->conf->_urlShaarli ($urlShaarli);
-			$this->view->conf->_urlPoche ($urlPoche);
-			$this->view->conf->_urlDiaspora ($urlDiaspora);
-
-			$values = array (
-				'url_shaarli' => $this->view->conf->urlShaarli (),
-				'url_poche' => $this->view->conf->urlPoche (),
-				'url_diaspora' => $this->view->conf->urlDiaspora ()
-			);
+			$this->view->conf->_sharing (array (
+				'shaarli' => Request::param ('shaarli', ''),
+				'poche' => Request::param ('poche', ''),
+				'diaspora' => Request::param ('diaspora', ''),
+				'twitter' => Request::param ('twitter', 'no') === 'yes',
+				'g+' => Request::param ('g+', 'no') === 'yes',
+				'facebook' => Request::param ('facebook', 'no') === 'yes',
+				'email' => Request::param ('email', 'no') === 'yes',
+			));
 
 			$confDAO = new RSSConfigurationDAO ();
-			$confDAO->update ($values);
+			$confDAO->update ($this->view->conf->sharing ());
 			Session::_param ('conf', $this->view->conf);
 
 			// notif

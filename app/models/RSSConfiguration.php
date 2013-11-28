@@ -17,9 +17,7 @@ class RSSConfiguration extends Model {
 	private $shortcuts = array ();
 	private $mail_login = '';
 	private $mark_when = array ();
-	private $url_shaarli = '';
-	private $url_poche = '';
-	private $url_diaspora = '';
+	private $sharing = array ();
 	private $theme;
 	private $anon_access;
 	private $token;
@@ -49,9 +47,7 @@ class RSSConfiguration extends Model {
 		$this->_shortcuts ($confDAO->shortcuts);
 		$this->_mailLogin ($confDAO->mail_login);
 		$this->_markWhen ($confDAO->mark_when);
-		$this->_urlShaarli ($confDAO->url_shaarli);
-		$this->_urlPoche ($confDAO->url_poche);
-		$this->_urlDiaspora ($confDAO->url_diaspora);
+		$this->_sharing ($confDAO->sharing);
 		$this->_theme ($confDAO->theme);
 		RSSThemes::setThemeId ($confDAO->theme);
 		$this->_anonAccess ($confDAO->anon_access);
@@ -117,14 +113,13 @@ class RSSConfiguration extends Model {
 	public function markWhenScroll () {
 		return $this->mark_when['scroll'];
 	}
-	public function urlShaarli () {
-		return $this->url_shaarli;
-	}
-	public function urlPoche () {
-		return $this->url_poche;
-	}
-	public function urlDiaspora () {
-		return $this->url_diaspora;
+	public function sharing ($key = false) {
+		if ($key === false) {
+			return $this->sharing;
+		} elseif (isset ($this->sharing[$key])) {
+			return $this->sharing[$key];
+		}
+		return false;
 	}
 	public function theme () {
 		return $this->theme;
@@ -258,31 +253,25 @@ class RSSConfiguration extends Model {
 		$this->mark_when['site'] = $values['site'];
 		$this->mark_when['scroll'] = $values['scroll'];
 	}
-	public function _urlShaarli ($value) {
-		if (filter_var ($value, FILTER_VALIDATE_URL)) {
-			$this->url_shaarli = $value;
-		} elseif (version_compare(PHP_VERSION, '5.3.3', '<') && (strpos($value, '-') > 0) && ($value === filter_var($value, FILTER_SANITIZE_URL))) {	//PHP bug #51192
-			$this->url_shaarli = $value;
-		} else {
-			$this->url_shaarli = '';
-		}
-	}
-	public function _urlPoche ($value) {
-		if (filter_var ($value, FILTER_VALIDATE_URL)) {
-			$this->url_poche = $value;
-		} elseif (version_compare(PHP_VERSION, '5.3.3', '<') && (strpos($value, '-') > 0) && ($value === filter_var($value, FILTER_SANITIZE_URL))) {	//PHP bug #51192
-			$this->url_poche = $value;
-		} else {
-			$this->url_poche = '';
-		}
-	}
-	public function _urlDiaspora ($value) {
-		if (filter_var ($value, FILTER_VALIDATE_URL)) {
-			$this->url_diaspora = $value;
-		} elseif (version_compare(PHP_VERSION, '5.3.3', '<') && (strpos($value, '-') > 0) && ($value === filter_var($value, FILTER_SANITIZE_URL))) {	//PHP bug #51192
-			$this->url_diaspora = $value;
-		} else {
-			$this->url_diaspora = '';
+	public function _sharing ($values) {
+		$are_url = array ('shaarli', 'poche', 'diaspora');
+		foreach ($values as $key => $value) {
+			if (in_array($key, $are_url)) {
+				$is_url = (
+					filter_var ($value, FILTER_VALIDATE_URL) ||
+					(version_compare(PHP_VERSION, '5.3.3', '<') &&
+						(strpos($value, '-') > 0) &&
+						($value === filter_var($value, FILTER_SANITIZE_URL)))
+				);  //PHP bug #51192
+
+				if (!$is_url) {
+					$value = '';
+				}
+			} elseif(!is_bool ($value)) {
+				$value = true;
+			}
+
+			$this->sharing[$key] = $value;
 		}
 	}
 	public function _theme ($value) {
@@ -361,9 +350,15 @@ class RSSConfigurationDAO extends Model_array {
 		'site' => 'yes',
 		'scroll' => 'no'
 	);
-	public $url_shaarli = '';
-	public $url_poche = '';
-	public $url_diaspora = '';
+	public $sharing = array (
+		'shaarli' => '',
+		'poche' => '',
+		'diaspora' => '',
+		'twitter' => true,
+		'g+' => true,
+		'facebook' => true,
+		'email' => true
+	);
 	public $theme = 'default';
 	public $anon_access = 'no';
 	public $token = '';
@@ -411,7 +406,9 @@ class RSSConfigurationDAO extends Model_array {
 			$this->old_entries = $this->array['old_entries'];
 		}
 		if (isset ($this->array['shortcuts'])) {
-			$this->shortcuts = array_merge ($this->shortcuts, $this->array['shortcuts']);
+			$this->shortcuts = array_merge (
+				$this->shortcuts, $this->array['shortcuts']
+			);
 		}
 		if (isset ($this->array['mail_login'])) {
 			$this->mail_login = $this->array['mail_login'];
@@ -419,14 +416,10 @@ class RSSConfigurationDAO extends Model_array {
 		if (isset ($this->array['mark_when'])) {
 			$this->mark_when = $this->array['mark_when'];
 		}
-		if (isset ($this->array['url_shaarli'])) {
-			$this->url_shaarli = $this->array['url_shaarli'];
-		}
-		if (isset ($this->array['url_poche'])) {
-			$this->url_poche = $this->array['url_poche'];
-		}
-		if (isset ($this->array['url_diaspora'])) {
-			$this->url_diaspora = $this->array['url_diaspora'];
+		if (isset ($this->array['sharing'])) {
+			$this->sharing = array_merge (
+				$this->sharing, $this->array['sharing']
+			);
 		}
 		if (isset ($this->array['theme'])) {
 			$this->theme = $this->array['theme'];

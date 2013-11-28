@@ -12,7 +12,17 @@ if (isset ($this->entryPaginator) && !$this->entryPaginator->isEmpty ()) {
 		$display_today = true;
 		$display_yesterday = true;
 		$display_others = true;
+
+		$logged = !login_is_conf ($this->conf) || is_logged ();
+		$shaarli = $logged && $this->conf->sharing ('shaarli');
+		$poche = $logged && $this->conf->sharing ('poche');
+		$diaspora = $logged && $this->conf->sharing ('diaspora');
+		$twitter = $this->conf->sharing ('twitter');
+		$google_plus = $this->conf->sharing ('g+');
+		$facebook = $this->conf->sharing ('facebook');
+		$email = $this->conf->sharing ('email');
 	?>
+
 	<?php foreach ($items as $item) { ?>
 
 	<?php if ($display_today && $item->isDay (Days::TODAY)) { ?>
@@ -91,68 +101,65 @@ if (isset ($this->entryPaginator) && !$this->entryPaginator->isEmpty ()) {
 				} ?>
 				<li class="item">
 					<?php
-						if ($this->conf->bottomlineSharing ()) {
+						if ($this->conf->bottomlineSharing () && (
+								$shaarli || $poche || $diaspora || $twitter ||
+								$google_plus || $facebook || $email
+							)) {
 							$link = urlencode ($item->link ());
 							$title = urlencode ($item->title () . ' - ' . $feed->name ());
 					?>
-						<div class="dropdown">
+					<div class="dropdown">
 						<div id="dropdown-share-<?php echo $item->id ();?>" class="dropdown-target"></div>
 						<?php echo RSSThemes::icon('share'); ?> <a class="dropdown-toggle" href="#dropdown-share-<?php echo $item->id ();?>"><?php echo Translate::t ('share'); ?></a>
 
 						<ul class="dropdown-menu">
 							<li class="dropdown-close"><a href="#close">❌</a></li>
-							<?php
-								$shaarli = $this->conf->urlShaarli ();
-								if ((!login_is_conf ($this->conf) || is_logged ()) && $shaarli) {
-							?>
+							<?php if ($shaarli) { ?>
 							<li class="item">
 								<a target="_blank" href="<?php echo $shaarli . '?post=' . $link . '&amp;title=' . $title . '&amp;source=FreshRSS'; ?>">
-									Shaarli
+									<?php echo Translate::t ('shaarli'); ?>
 								</a>
 							</li>
-							<?php } ?>
-							<?php
-								$poche = $this->conf->urlPoche ();
-								if ((!login_is_conf ($this->conf) || is_logged ()) && $poche) {
-							?>
+							<?php } if ($poche) { ?>
 							<li class="item">
 								<a target="_blank" href="<?php echo $poche . '?action=add&amp;url=' . base64_encode (urldecode($link)); ?>">
-									Poche
+									<?php echo Translate::t ('poche'); ?>
 								</a>
 							</li>
-							<?php } ?>
-							<?php
-								$diaspora = $this->conf->urlDiaspora ();
-								if ((!login_is_conf ($this->conf) || is_logged ()) && $diaspora) {
-							?>
+							<?php } if ($diaspora) { ?>
 							<li class="item">
 								<a target="_blank" href="<?php echo $diaspora . '/bookmarklet?url=' . $link . '&amp;title=' . $title; ?>">
-									Diaspora*
+									<?php echo Translate::t ('diaspora'); ?>
 								</a>
 							</li>
-							<?php } ?>
+							<?php } if ($twitter) { ?>
+							<li class="item">
+								<a target="_blank" href="https://twitter.com/share?url=<?php echo $link; ?>&amp;text=<?php echo $title; ?>">
+									<?php echo Translate::t ('twitter'); ?>
+								</a>
+							</li>
+							<?php } if ($google_plus) { ?>
+							<li class="item">
+								<a target="_blank" href="https://plus.google.com/share?url=<?php echo $link; ?>">
+									<?php echo Translate::t ('g+'); ?>
+								</a>
+							</li>
+							<?php } if ($facebook) { ?>
+							<li class="item">
+								<a target="_blank" href="https://www.facebook.com/sharer.php?u=<?php echo $link; ?>&amp;t=<?php echo $title; ?>">
+									<?php echo Translate::t ('facebook'); ?>
+								</a>
+							</li>
+							<?php } if ($email) { ?>
 							<li class="item">
 								<a href="mailto:?subject=<?php echo urldecode($title); ?>&amp;body=<?php echo $link; ?>">
 									<?php echo Translate::t ('by_email'); ?>
 								</a>
 							</li>
-							<li class="item">
-								<a target="_blank" href="https://twitter.com/share?url=<?php echo $link; ?>&amp;text=<?php echo $title; ?>">
-									Twitter
-								</a>
-							</li>
-							<li class="item">
-								<a target="_blank" href="https://www.facebook.com/sharer.php?u=<?php echo $link; ?>&amp;t=<?php echo $title; ?>">
-									Facebook
-								</a>
-							</li>
-							<li class="item">
-								<a target="_blank" href="https://plus.google.com/share?url=<?php echo $link; ?>">
-									Google+
-								</a>
-							</li>
+							<?php } ?>
 						</ul>
-					</div><?php } ?>
+					</div>
+					<?php } ?>
 				</li>
 				<?php
 					$tags = $this->conf->bottomlineTags () ? $item->tags() : null;
