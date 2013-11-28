@@ -310,7 +310,7 @@ class Feed extends Model {
 
 class FeedDAO extends Model_pdo {
 	public function addFeed ($valuesTmp) {
-		$sql = 'INSERT INTO ' . $this->prefix . 'feed (url, category, name, website, description, lastUpdate, priority, httpAuth, error, keep_history) VALUES(?, ?, ?, ?, ?, ?, 10, ?, 0, 0)';
+		$sql = 'INSERT INTO `' . $this->prefix . 'feed` (url, category, name, website, description, lastUpdate, priority, httpAuth, error, keep_history) VALUES(?, ?, ?, ?, ?, ?, 10, ?, 0, 0)';
 		$stm = $this->bd->prepare ($sql);
 
 		$values = array (
@@ -343,7 +343,7 @@ class FeedDAO extends Model_pdo {
 		}
 		$set = substr ($set, 0, -2);
 
-		$sql = 'UPDATE ' . $this->prefix . 'feed SET ' . $set . ' WHERE id=?';
+		$sql = 'UPDATE `' . $this->prefix . 'feed` SET ' . $set . ' WHERE id=?';
 		$stm = $this->bd->prepare ($sql);
 
 		foreach ($valuesTmp as $v) {
@@ -361,9 +361,9 @@ class FeedDAO extends Model_pdo {
 	}
 
 	public function updateLastUpdate ($id, $inError = 0) {
-		$sql = 'UPDATE ' . $this->prefix . 'feed f '	//2 sub-requests with FOREIGN KEY(e.id_feed), INDEX(e.is_read) faster than 1 request with GROUP BY or CASE
-		     . 'SET f.cache_nbEntries=(SELECT COUNT(e1.id) FROM ' . $this->prefix . 'entry e1 WHERE e1.id_feed=f.id),'
-		     . 'f.cache_nbUnreads=(SELECT COUNT(e2.id) FROM ' . $this->prefix . 'entry e2 WHERE e2.id_feed=f.id AND e2.is_read=0),'
+		$sql = 'UPDATE `' . $this->prefix . 'feed` f '	//2 sub-requests with FOREIGN KEY(e.id_feed), INDEX(e.is_read) faster than 1 request with GROUP BY or CASE
+		     . 'SET f.cache_nbEntries=(SELECT COUNT(e1.id) FROM `' . $this->prefix . 'entry` e1 WHERE e1.id_feed=f.id),'
+		     . 'f.cache_nbUnreads=(SELECT COUNT(e2.id) FROM `' . $this->prefix . 'entry` e2 WHERE e2.id_feed=f.id AND e2.is_read=0),'
 		     . 'lastUpdate=?, error=? '
 		     . 'WHERE f.id=?';
 
@@ -391,7 +391,7 @@ class FeedDAO extends Model_pdo {
 			$newCat = $catDAO->getDefault ();
 		}
 
-		$sql = 'UPDATE ' . $this->prefix . 'feed SET category=? WHERE category=?';
+		$sql = 'UPDATE `' . $this->prefix . 'feed` SET category=? WHERE category=?';
 		$stm = $this->bd->prepare ($sql);
 
 		$values = array (
@@ -409,7 +409,7 @@ class FeedDAO extends Model_pdo {
 	}
 
 	public function deleteFeed ($id) {
-		$sql = 'DELETE FROM ' . $this->prefix . 'feed WHERE id=?';
+		$sql = 'DELETE FROM `' . $this->prefix . 'feed` WHERE id=?';
 		$stm = $this->bd->prepare ($sql);
 
 		$values = array ($id);
@@ -423,7 +423,7 @@ class FeedDAO extends Model_pdo {
 		}
 	}
 	public function deleteFeedByCategory ($id) {
-		$sql = 'DELETE FROM ' . $this->prefix . 'feed WHERE category=?';
+		$sql = 'DELETE FROM `' . $this->prefix . 'feed` WHERE category=?';
 		$stm = $this->bd->prepare ($sql);
 
 		$values = array ($id);
@@ -438,7 +438,7 @@ class FeedDAO extends Model_pdo {
 	}
 
 	public function searchById ($id) {
-		$sql = 'SELECT * FROM ' . $this->prefix . 'feed WHERE id=?';
+		$sql = 'SELECT * FROM `' . $this->prefix . 'feed` WHERE id=?';
 		$stm = $this->bd->prepare ($sql);
 
 		$values = array ($id);
@@ -454,7 +454,7 @@ class FeedDAO extends Model_pdo {
 		}
 	}
 	public function searchByUrl ($url) {
-		$sql = 'SELECT * FROM ' . $this->prefix . 'feed WHERE url=?';
+		$sql = 'SELECT * FROM `' . $this->prefix . 'feed` WHERE url=?';
 		$stm = $this->bd->prepare ($sql);
 
 		$values = array ($url);
@@ -471,7 +471,7 @@ class FeedDAO extends Model_pdo {
 	}
 
 	public function listFeeds () {
-		$sql = 'SELECT * FROM ' . $this->prefix . 'feed ORDER BY name';
+		$sql = 'SELECT * FROM `' . $this->prefix . 'feed` ORDER BY name';
 		$stm = $this->bd->prepare ($sql);
 		$stm->execute ();
 
@@ -479,7 +479,7 @@ class FeedDAO extends Model_pdo {
 	}
 
 	public function listFeedsOrderUpdate () {
-		$sql = 'SELECT * FROM ' . $this->prefix . 'feed ORDER BY lastUpdate';
+		$sql = 'SELECT * FROM `' . $this->prefix . 'feed` ORDER BY lastUpdate';
 		$stm = $this->bd->prepare ($sql);
 		$stm->execute ();
 
@@ -487,7 +487,7 @@ class FeedDAO extends Model_pdo {
 	}
 
 	public function listByCategory ($cat) {
-		$sql = 'SELECT * FROM ' . $this->prefix . 'feed WHERE category=? ORDER BY name';
+		$sql = 'SELECT * FROM `' . $this->prefix . 'feed` WHERE category=? ORDER BY name';
 		$stm = $this->bd->prepare ($sql);
 
 		$values = array ($cat);
@@ -498,7 +498,7 @@ class FeedDAO extends Model_pdo {
 	}
 
 	public function countEntries ($id) {
-		$sql = 'SELECT COUNT(*) AS count FROM ' . $this->prefix . 'entry WHERE id_feed=?';
+		$sql = 'SELECT COUNT(*) AS count FROM `' . $this->prefix . 'entry` WHERE id_feed=?';
 		$stm = $this->bd->prepare ($sql);
 		$values = array ($id);
 		$stm->execute ($values);
@@ -507,7 +507,7 @@ class FeedDAO extends Model_pdo {
 		return $res[0]['count'];
 	}
 	public function countNotRead ($id) {
-		$sql = 'SELECT COUNT(*) AS count FROM ' . $this->prefix . 'entry WHERE id_feed=? AND is_read=0';
+		$sql = 'SELECT COUNT(*) AS count FROM `' . $this->prefix . 'entry` WHERE id_feed=? AND is_read=0';
 		$stm = $this->bd->prepare ($sql);
 		$values = array ($id);
 		$stm->execute ($values);
@@ -516,12 +516,12 @@ class FeedDAO extends Model_pdo {
 		return $res[0]['count'];
 	}
 	public function updateCachedValues () {	//For one single feed, call updateLastUpdate($id)
-		$sql = 'UPDATE ' . $this->prefix . 'feed f '
+		$sql = 'UPDATE `' . $this->prefix . 'feed` f '
 		     . 'INNER JOIN ('
 		     .	'SELECT e.id_feed, '
 		     .	'COUNT(CASE WHEN e.is_read = 0 THEN 1 END) AS nbUnreads, '
 		     .	'COUNT(e.id) AS nbEntries '
-		     .	'FROM ' . $this->prefix . 'entry e '
+		     .	'FROM `' . $this->prefix . 'entry` e '
 		     .	'GROUP BY e.id_feed'
 		     . ') x ON x.id_feed=f.id '
 		     . 'SET f.cache_nbEntries=x.nbEntries, f.cache_nbUnreads=x.nbUnreads';
