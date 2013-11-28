@@ -232,7 +232,7 @@
 	.flux:hover {
 		background: #fff;
 	}
-	.flux.active {
+	.flux.current {
 		border-left: 3px solid #0062BE;
 		background: #fff;
 	}
@@ -281,7 +281,7 @@
 				outline: none;
 			}
 			.flux.current .item.title a {
-				text-decoration: underline;
+				font-weight: bold;
 			}
 			.flux.not_read .flux_header .item.title {
 				font-weight: bold;

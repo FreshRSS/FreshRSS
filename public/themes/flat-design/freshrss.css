@@ -215,7 +215,7 @@ body {
 .flux {
 	border-left: 3px solid #ecf0f1;
 }
-	.flux.active {
+	.flux.current {
 		border-left-color: #3498db;
 		background: #fff;
 	}
@@ -260,7 +260,7 @@ body {
 				outline: none;
 			}
 			.flux.current .item.title a {
-				text-decoration: underline;
+				font-weight: bold;
 			}
 			.flux.not_read .flux_header .item.title {
 				font-weight: bold;
