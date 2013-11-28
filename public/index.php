@@ -31,7 +31,7 @@ if (file_exists ('install.php')) {
 			@filemtime(LOG_PATH . '/application.log'),
 			@filemtime(DATA_PATH . '/application.ini')
 		);
-		$_SERVER['QUERY_STRING'] .= '&utime=' . file_get_contents(DATA_PATH . '/touch.txt');
+		$_SERVER['QUERY_STRING'] .= '&utime=' . file_get_contents(DATA_PATH . '/touch.txt');	//For ETag
 		if (httpConditional($dateLastModification, 0, 0, false, false, true)) {
 			exit();	//No need to send anything
 		}
