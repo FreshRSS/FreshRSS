@@ -623,6 +623,21 @@ function init_confirm_action() {
 	});
 }
 
+function init_print_action() {
+	$('.print-article').click(function () {
+
+		var content = $(".flux.current .content");
+		var tmp_window = window.open();
+		tmp_window.document.writeln(content.html());
+		tmp_window.document.close();
+		tmp_window.focus();
+		tmp_window.print();
+		tmp_window.close();
+
+		return false;
+	});
+}
+
 function init_all() {
 	if (!(window.$ && window.url_freshrss && ((!full_lazyload) || $.fn.lazyload))) {
 		if (window.console) {
@@ -647,6 +662,7 @@ function init_all() {
 		init_persona();
 	}
 	init_confirm_action();
+	init_print_action();
 	if (window.console) {
 		console.log('FreshRSS init done.');
 	}

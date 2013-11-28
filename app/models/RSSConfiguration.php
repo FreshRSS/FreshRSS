@@ -357,7 +357,8 @@ class RSSConfigurationDAO extends Model_array {
 		'twitter' => true,
 		'g+' => true,
 		'facebook' => true,
-		'email' => true
+		'email' => true,
+		'print' => true
 	);
 	public $theme = 'default';
 	public $anon_access = 'no';

@@ -277,6 +277,7 @@ class configureController extends ActionController {
 				'g+' => Request::param ('g+', 'no') === 'yes',
 				'facebook' => Request::param ('facebook', 'no') === 'yes',
 				'email' => Request::param ('email', 'no') === 'yes',
+				'print' => Request::param ('print', 'no') === 'yes'
 			));
 
 			$confDAO = new RSSConfigurationDAO ();

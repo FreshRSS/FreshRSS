@@ -193,6 +193,7 @@ return array (
 	'g+'				=> 'Google+',
 	'facebook'			=> 'Facebook',
 	'email'				=> 'Email',
+	'print'				=> 'Print',
 
 	'article'			=> 'Article',
 	'title'				=> 'Title',

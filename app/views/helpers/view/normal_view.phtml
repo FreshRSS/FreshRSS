@@ -21,6 +21,7 @@ if (isset ($this->entryPaginator) && !$this->entryPaginator->isEmpty ()) {
 		$google_plus = $this->conf->sharing ('g+');
 		$facebook = $this->conf->sharing ('facebook');
 		$email = $this->conf->sharing ('email');
+		$print = $this->conf->sharing ('print');
 	?>
 
 	<?php foreach ($items as $item) { ?>
@@ -154,6 +155,12 @@ if (isset ($this->entryPaginator) && !$this->entryPaginator->isEmpty ()) {
 							<li class="item">
 								<a href="mailto:?subject=<?php echo urldecode($title); ?>&amp;body=<?php echo $link; ?>">
 									<?php echo Translate::t ('by_email'); ?>
+								</a>
+							</li>
+							<?php } if ($print) { ?>
+							<li class="item">
+								<a href="#" class="print-article">
+									<?php echo Translate::t ('print'); ?>
 								</a>
 							</li>
 							<?php } ?>
