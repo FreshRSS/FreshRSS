@@ -32,7 +32,7 @@
 
 <?php
 	if (isset ($this->notification)) {
-		touch(DATA_PATH . '/touch.txt', time() + 1);
+		touch(DATA_PATH . '/touch.txt');
 ?>
 <div class="notification <?php echo $this->notification['type']; ?>">
 	<?php echo $this->notification['content']; ?>
