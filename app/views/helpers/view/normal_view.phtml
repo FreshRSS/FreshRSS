@@ -85,6 +85,7 @@ if (isset ($this->entryPaginator) && !$this->entryPaginator->isEmpty ()) {
 					}
 				?>
 			</div>
+
 			<ul class="horizontal-list bottom"><?php
 				if (!login_is_conf ($this->conf) || is_logged ()) {
 					if ($this->conf->bottomlineRead ()) {
@@ -111,7 +112,10 @@ if (isset ($this->entryPaginator) && !$this->entryPaginator->isEmpty ()) {
 					?>
 					<div class="dropdown">
 						<div id="dropdown-share-<?php echo $item->id ();?>" class="dropdown-target"></div>
-						<?php echo RSSThemes::icon('share'); ?> <a class="dropdown-toggle" href="#dropdown-share-<?php echo $item->id ();?>"><?php echo Translate::t ('share'); ?></a>
+						<a class="dropdown-toggle" href="#dropdown-share-<?php echo $item->id ();?>">
+							<?php echo RSSThemes::icon('share'); ?>
+							<?php echo Translate::t ('share'); ?>
+						</a>
 
 						<ul class="dropdown-menu">
 							<li class="dropdown-close"><a href="#close">❌</a></li>
@@ -175,7 +179,10 @@ if (isset ($this->entryPaginator) && !$this->entryPaginator->isEmpty ()) {
 				<li class="item">
 					<div class="dropdown">
 						<div id="dropdown-tags-<?php echo $item->id ();?>" class="dropdown-target"></div>
-						<?php echo RSSThemes::icon('tag'); ?> <a class="dropdown-toggle" href="#dropdown-tags-<?php echo $item->id ();?>"><?php echo Translate::t ('related_tags'); ?></a>
+						<a class="dropdown-toggle" href="#dropdown-tags-<?php echo $item->id ();?>">
+							<?php echo RSSThemes::icon('tag'); ?>
+							<?php echo Translate::t ('related_tags'); ?>
+						</a>
 						<ul class="dropdown-menu">
 							<li class="dropdown-close"><a href="#close">❌</a></li>
 							<?php foreach($tags as $tag) { ?>

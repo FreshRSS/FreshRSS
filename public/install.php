@@ -59,8 +59,7 @@ define ('SQL_REQ_ENTRY', 'CREATE TABLE IF NOT EXISTS `%sentry` (
   FOREIGN KEY (`id_feed`) REFERENCES `%sfeed`(`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   UNIQUE KEY (`id_feed`,`guid`),	-- v0.7
   INDEX (`is_favorite`),	-- v0.7
-  INDEX (`is_read`),	-- v0.7
-  INDEX (`date`)	-- v0.7	//Consider removing after https://github.com/marienfressinaud/FreshRSS/issues/202
+  INDEX (`is_read`)	-- v0.7
 ) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;');
 
 
