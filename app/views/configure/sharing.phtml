@@ -6,9 +6,35 @@
 	<form method="post" action="<?php echo _url ('configure', 'sharing'); ?>">
 		<legend><?php echo Translate::t ('sharing'); ?></legend>
 		<div class="form-group">
-			<label class="group-name" for="shaarli"><?php echo Translate::t ('your_shaarli'); ?></label>
+			<label class="group-name" for="shaarli">
+				<?php echo Translate::t ('your_shaarli'); ?>
+			</label>
 			<div class="group-controls">
 				<input type="url" id="shaarli" name="shaarli" value="<?php echo $this->conf->urlShaarli (); ?>" placeholder="<?php echo Translate::t ('blank_to_disable'); ?>" size="64" />
+
+				<?php echo RSSThemes::icon('help'); ?> <a target="_blank" href="http://sebsauvage.net/wiki/doku.php?id=php:shaarli"><?php echo Translate::t ('more_information'); ?></a>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="group-name" for="poche">
+				<?php echo Translate::t ('your_poche'); ?>
+			</label>
+			<div class="group-controls">
+				<input type="url" id="poche" name="poche" value="<?php echo $this->conf->urlPoche (); ?>" placeholder="<?php echo Translate::t ('blank_to_disable'); ?>" size="64" />
+
+				<?php echo RSSThemes::icon('help'); ?> <a target="_blank" href="http://www.inthepoche.com/"><?php echo Translate::t ('more_information'); ?></a>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="group-name" for="diaspora">
+				<?php echo Translate::t ('your_diaspora_pod'); ?>
+			</label>
+			<div class="group-controls">
+				<input type="url" id="diaspora" name="diaspora" value="<?php echo $this->conf->urlDiaspora (); ?>" placeholder="<?php echo Translate::t ('blank_to_disable'); ?>" size="64" />
+
+				<?php echo RSSThemes::icon('help'); ?> <a target="_blank" href="https://diasporafoundation.org/"><?php echo Translate::t ('more_information'); ?></a>
 			</div>
 		</div>
 

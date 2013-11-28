@@ -18,6 +18,8 @@ class RSSConfiguration extends Model {
 	private $mail_login = '';
 	private $mark_when = array ();
 	private $url_shaarli = '';
+	private $url_poche = '';
+	private $url_diaspora = '';
 	private $theme;
 	private $anon_access;
 	private $token;
@@ -48,6 +50,8 @@ class RSSConfiguration extends Model {
 		$this->_mailLogin ($confDAO->mail_login);
 		$this->_markWhen ($confDAO->mark_when);
 		$this->_urlShaarli ($confDAO->url_shaarli);
+		$this->_urlPoche ($confDAO->url_poche);
+		$this->_urlDiaspora ($confDAO->url_diaspora);
 		$this->_theme ($confDAO->theme);
 		RSSThemes::setThemeId ($confDAO->theme);
 		$this->_anonAccess ($confDAO->anon_access);
@@ -115,6 +119,12 @@ class RSSConfiguration extends Model {
 	}
 	public function urlShaarli () {
 		return $this->url_shaarli;
+	}
+	public function urlPoche () {
+		return $this->url_poche;
+	}
+	public function urlDiaspora () {
+		return $this->url_diaspora;
 	}
 	public function theme () {
 		return $this->theme;
@@ -257,6 +267,24 @@ class RSSConfiguration extends Model {
 			$this->url_shaarli = '';
 		}
 	}
+	public function _urlPoche ($value) {
+		if (filter_var ($value, FILTER_VALIDATE_URL)) {
+			$this->url_poche = $value;
+		} elseif (version_compare(PHP_VERSION, '5.3.3', '<') && (strpos($value, '-') > 0) && ($value === filter_var($value, FILTER_SANITIZE_URL))) {	//PHP bug #51192
+			$this->url_poche = $value;
+		} else {
+			$this->url_poche = '';
+		}
+	}
+	public function _urlDiaspora ($value) {
+		if (filter_var ($value, FILTER_VALIDATE_URL)) {
+			$this->url_diaspora = $value;
+		} elseif (version_compare(PHP_VERSION, '5.3.3', '<') && (strpos($value, '-') > 0) && ($value === filter_var($value, FILTER_SANITIZE_URL))) {	//PHP bug #51192
+			$this->url_diaspora = $value;
+		} else {
+			$this->url_diaspora = '';
+		}
+	}
 	public function _theme ($value) {
 		$this->theme = $value;
 	}
@@ -334,6 +362,8 @@ class RSSConfigurationDAO extends Model_array {
 		'scroll' => 'no'
 	);
 	public $url_shaarli = '';
+	public $url_poche = '';
+	public $url_diaspora = '';
 	public $theme = 'default';
 	public $anon_access = 'no';
 	public $token = '';
@@ -391,6 +421,12 @@ class RSSConfigurationDAO extends Model_array {
 		}
 		if (isset ($this->array['url_shaarli'])) {
 			$this->url_shaarli = $this->array['url_shaarli'];
+		}
+		if (isset ($this->array['url_poche'])) {
+			$this->url_poche = $this->array['url_poche'];
+		}
+		if (isset ($this->array['url_diaspora'])) {
+			$this->url_diaspora = $this->array['url_diaspora'];
 		}
 		if (isset ($this->array['theme'])) {
 			$this->theme = $this->array['theme'];

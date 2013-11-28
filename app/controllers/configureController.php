@@ -270,11 +270,17 @@ class configureController extends ActionController {
 	public function sharingAction () {
 		if (Request::isPost ()) {
 			$urlShaarli = Request::param ('shaarli', '');
+			$urlPoche = Request::param ('poche', '');
+			$urlDiaspora = Request::param ('diaspora', '');
 
 			$this->view->conf->_urlShaarli ($urlShaarli);
+			$this->view->conf->_urlPoche ($urlPoche);
+			$this->view->conf->_urlDiaspora ($urlDiaspora);
 
 			$values = array (
-				'url_shaarli' => $this->view->conf->urlShaarli ()
+				'url_shaarli' => $this->view->conf->urlShaarli (),
+				'url_poche' => $this->view->conf->urlPoche (),
+				'url_diaspora' => $this->view->conf->urlDiaspora ()
 			);
 
 			$confDAO = new RSSConfigurationDAO ();
