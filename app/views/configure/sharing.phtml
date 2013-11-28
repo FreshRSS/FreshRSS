@@ -1,0 +1,22 @@
+<?php $this->partial ('aside_configure'); ?>
+
+<div class="post">
+	<a href="<?php echo _url ('index', 'index'); ?>"><?php echo Translate::t ('back_to_rss_feeds'); ?></a>
+
+	<form method="post" action="<?php echo _url ('configure', 'sharing'); ?>">
+		<legend><?php echo Translate::t ('sharing'); ?></legend>
+		<div class="form-group">
+			<label class="group-name" for="shaarli"><?php echo Translate::t ('your_shaarli'); ?></label>
+			<div class="group-controls">
+				<input type="url" id="shaarli" name="shaarli" value="<?php echo $this->conf->urlShaarli (); ?>" placeholder="<?php echo Translate::t ('blank_to_disable'); ?>" size="64" />
+			</div>
+		</div>
+
+		<div class="form-group form-actions">
+			<div class="group-controls">
+				<button type="submit" class="btn btn-important"><?php echo Translate::t ('save'); ?></button>
+				<button type="reset" class="btn"><?php echo Translate::t ('cancel'); ?></button>
+			</div>
+		</div>
+	</form>
+</div>

@@ -2,9 +2,12 @@
 	<li class="nav-header"><?php echo Translate::t ('configuration'); ?></li>
 
 	<li class="item<?php echo Request::actionName () == 'display' ? ' active' : ''; ?>">
-		<a href="<?php echo Url::display (array ('c' => 'configure', 'a' => 'display')); ?>"><?php echo Translate::t ('general_and_reading'); ?></a>
+		<a href="<?php echo _url ('configure', 'display'); ?>"><?php echo Translate::t ('general_and_reading'); ?></a>
+	</li>
+	<li class="item<?php echo Request::actionName () == 'sharing' ? ' active' : ''; ?>">
+		<a href="<?php echo _url ('configure', 'sharing'); ?>"><?php echo Translate::t ('sharing'); ?></a>
 	</li>
 	<li class="item<?php echo Request::actionName () == 'shortcut' ? ' active' : ''; ?>">
-		<a href="<?php echo Url::display (array ('c' => 'configure', 'a' => 'shortcut')); ?>"><?php echo Translate::t ('shortcuts'); ?></a>
+		<a href="<?php echo _url ('configure', 'shortcut'); ?>"><?php echo Translate::t ('shortcuts'); ?></a>
 	</li>
 </div>

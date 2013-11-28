@@ -171,7 +171,6 @@ class configureController extends ActionController {
 			$openArticle = Request::param ('mark_open_article', 'no');
 			$openSite = Request::param ('mark_open_site', 'no');
 			$scroll = Request::param ('mark_scroll', 'no');
-			$urlShaarli = Request::param ('shaarli', '');
 			$theme = Request::param ('theme', 'default');
 			$topline_read = Request::param ('topline_read', 'no');
 			$topline_favorite = Request::param ('topline_favorite', 'no');
@@ -202,7 +201,6 @@ class configureController extends ActionController {
 				'site' => $openSite,
 				'scroll' => $scroll,
 			));
-			$this->view->conf->_urlShaarli ($urlShaarli);
 			$this->view->conf->_theme ($theme);
 			$this->view->conf->_topline_read ($topline_read);
 			$this->view->conf->_topline_favorite ($topline_favorite);
@@ -230,7 +228,6 @@ class configureController extends ActionController {
 				'anon_access' => $this->view->conf->anonAccess (),
 				'token' => $this->view->conf->token (),
 				'mark_when' => $this->view->conf->markWhen (),
-				'url_shaarli' => $this->view->conf->urlShaarli (),
 				'theme' => $this->view->conf->theme (),
 				'topline_read' => $this->view->conf->toplineRead () ? 'yes' : 'no',
 				'topline_favorite' => $this->view->conf->toplineFavorite () ? 'yes' : 'no',
@@ -265,6 +262,36 @@ class configureController extends ActionController {
 		$this->view->themes = RSSThemes::get();
 
 		View::prependTitle (Translate::t ('general_and_reading_management') . ' - ');
+
+		$entryDAO = new EntryDAO ();
+		$this->view->nb_total = $entryDAO->count ();
+	}
+
+	public function sharingAction () {
+		if (Request::isPost ()) {
+			$urlShaarli = Request::param ('shaarli', '');
+
+			$this->view->conf->_urlShaarli ($urlShaarli);
+
+			$values = array (
+				'url_shaarli' => $this->view->conf->urlShaarli ()
+			);
+
+			$confDAO = new RSSConfigurationDAO ();
+			$confDAO->update ($values);
+			Session::_param ('conf', $this->view->conf);
+
+			// notif
+			$notif = array (
+				'type' => 'good',
+				'content' => Translate::t ('configuration_updated')
+			);
+			Session::_param ('notification', $notif);
+
+			Request::forward (array ('c' => 'configure', 'a' => 'sharing'), true);
+		}
+
+		View::prependTitle (Translate::t ('sharing_management') . ' - ');
 
 		$entryDAO = new EntryDAO ();
 		$this->view->nb_total = $entryDAO->count ();
