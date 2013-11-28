@@ -203,7 +203,7 @@ class EntryDAO extends Model_pdo {
 		$stm = $this->bd->prepare ($sql);
 
 		$values = array (
-			microtime(true),
+			$valuesTmp['id'],
 			substr($valuesTmp['guid'], 0, 760),
 			substr($valuesTmp['title'], 0, 255),
 			substr($valuesTmp['author'], 0, 255),
