@@ -1,3 +1,5 @@
+@charset "UTF-8";
+
 /* STRUCTURE */
 body {
 	background: #fafafa;
@@ -755,4 +757,41 @@ body {
 	-moz-transform: rotate(45deg);
 	-webkit-transform: rotate(45deg);
 	-ms-transform: rotate(45deg);
+}
+
+@media print {
+	.header,
+	.aside,
+	.nav_menu,
+	.day,
+	.flux_header,
+	.flux_content .bottom,
+	.pagination {
+		display: none;
+	}
+
+	html, body {
+		background: #fff;
+		color: #000;
+		font-family: Serif;
+		font-size: 12pt;
+	}
+
+	#global,
+	.flux_content {
+		display: block !important;
+	}
+
+	.flux_content .content {
+		width: 100% !important;
+		text-align: justify;
+	}
+
+	.flux_content .content a {
+		color: #000;
+	}
+	.flux_content .content a:after {
+		content: " (" attr(href) ") ";
+		text-decoration: underline;
+	}
 }

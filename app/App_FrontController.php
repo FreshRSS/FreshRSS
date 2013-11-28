@@ -65,7 +65,6 @@ class App_FrontController extends FrontController {
 				View::appendStyle (Url::display ('/themes/' . $theme['path'] . '/' . $file . '?' . @filemtime(PUBLIC_PATH . '/themes/' . $theme['path'] . '/' . $file)));
 			}
 		}
-		View::appendStyle (Url::display ('/themes/printer/style.css?' . @filemtime(PUBLIC_PATH . '/themes/printer/style.css')), 'print');
 
 		if (login_is_conf ($this->conf)) {
 			View::appendScript ('https://login.persona.org/include.js');
