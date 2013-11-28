@@ -26,9 +26,9 @@ if (file_exists ('install.php')) {
 	session_cache_limiter('');
 	require (LIB_PATH . '/http-conditional.php');
 	$dateLastModification = max(
-		@filemtime(DATA_PATH . '/touch.txt'),
-		@filemtime(LOG_PATH . '/application.log'),
-		@filemtime(DATA_PATH . '/application.ini')
+		@filemtime(DATA_PATH . '/touch.txt') - 1,
+		@filemtime(LOG_PATH . '/application.log') - 1,
+		@filemtime(DATA_PATH . '/application.ini') - 1
 	);
 	if (httpConditional($dateLastModification, 0, 0, false, false, true)) {
 		exit();	//No need to send anything

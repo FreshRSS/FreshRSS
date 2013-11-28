@@ -97,6 +97,7 @@ class feedController extends ActionController {
 						if ($entry->date (true) >= $date_min ||
 						    $feed->keepHistory ()) {
 							$values = $entry->toArray ();
+							$values['id'] = min(time(), $entry->date (true)) . '.' . rand(0, 999999);
 							$entryDAO->addEntry ($values);
 						}
 					}
@@ -196,6 +197,8 @@ class feedController extends ActionController {
 						($entry->date (true) >= $date_min ||
 						$feed->keepHistory ())) {
 						$values = $entry->toArray ();
+						//Use declared date at first import, otherwise use discovery date
+						$values['id'] = empty($existingGuids) ? min(time(), $entry->date (true)) . '.' . rand(0, 999999) : microtime(true);
 						$entryDAO->addEntry ($values);
 					}
 				}
