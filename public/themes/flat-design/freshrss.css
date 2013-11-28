@@ -231,41 +231,45 @@ body {
 	.flux_header {
 		height: 25px;
 		font-size: 12px;
-		line-height: 25px;
 		border-top: 1px solid #ecf0f1;
+		cursor: pointer;
 	}
-		.item.manage {
+		.flux .flux_header > .item > a,
+		.flux .bottom > .item > a {
+			display: inline-block;
+			height: 40px;
+			width: 100%;
+			line-height: 40px;
+		}
+		.flux .item.manage {
 			width: 40px;
 			white-space: nowrap;
 			text-align: center;
 		}
-		.flux_header .item.website {
+		.flux .item.website {
 			width: 200px;
 			overflow: hidden;
 			white-space: nowrap;
 			text-overflow: ellipsis;
 			line-height: 40px;
 		}
-			.flux_header .item.website .favicon {
+			.flux .item.website .favicon {
 				padding: 5px;
 			}
-		.flux_header .item.title {
+		.flux .item.title {
 			overflow: hidden;
 			white-space: nowrap;
 			text-overflow: ellipsis;
-			cursor: pointer;
 		}
-			.flux_header .item.title a {
+			.flux .item.title a {
 				color: #333;
 				outline: none;
 			}
-			.flux.current .item.title a {
+			.flux.current .item.title,
+			.flux.not_read .item.title {
 				font-weight: bold;
 			}
-			.flux.not_read .flux_header .item.title {
-				font-weight: bold;
-			}
-		.item.date {
+		.flux .item.date {
 			width: 200px;
 			overflow: hidden;
 			padding:0 5px 0 0;
@@ -274,7 +278,6 @@ body {
 			text-align: right;
 			font-size: 10px;
 			color: #666;
-			cursor: pointer;
 		}
 		.link {
 			width: 40px;
@@ -289,8 +292,6 @@ body {
 	color: #34495e;
 	font-size: 120%;
 }
-	#stream.reader .flux a {
-	}
 	#stream.reader .flux .author {
 		margin: 0 0 10px;
 		font-size: 90%;
