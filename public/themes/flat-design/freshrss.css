@@ -267,6 +267,9 @@ body {
 				color: #333;
 				outline: none;
 			}
+			.flux.current .item.title a {
+				text-decoration: underline;
+			}
 			.flux.current .item.title,
 			.flux.not_read .item.title {
 				font-weight: bold;
