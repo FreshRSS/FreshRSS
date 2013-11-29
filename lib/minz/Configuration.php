@@ -76,7 +76,7 @@ class Configuration {
 		return self::$use_url_rewriting;
 	}
 	public static function title () {
-		return self::$title;
+		return stripslashes(self::$title);
 	}
 	public static function language () {
 		return self::$language;
