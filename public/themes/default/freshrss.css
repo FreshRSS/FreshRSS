@@ -234,10 +234,6 @@
 	.flux:hover {
 		background: #fff;
 	}
-	.flux.current {
-		border-left: 3px solid #0062BE;
-		background: #fff;
-	}
 	.flux.not_read {
 		border-left: 3px solid #FF5300;
 		background: #FFF3ED;
@@ -245,6 +241,10 @@
 	.flux.favorite {
 		border-left: 3px solid #FFC300;
 		background: #FFF6DA;
+	}
+	.flux.current {
+		border-left: 3px solid #0062BE;
+		background: #fff;
 	}
 
 	.flux_header {
@@ -287,9 +287,6 @@
 			.flux .item.title a {
 				color: #000;
 				outline: none;
-			}
-			.flux.current .item.title a {
-				text-decoration: underline;
 			}
 			.flux.not_read .item.title,
 			.flux.current .item.title {

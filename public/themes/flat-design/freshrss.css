@@ -217,10 +217,6 @@ body {
 .flux {
 	border-left: 3px solid #ecf0f1;
 }
-	.flux.current {
-		border-left-color: #3498db;
-		background: #fff;
-	}
 	.flux.not_read {
 		border-left-color: #FF5300;
 		background: #FFF3ED;
@@ -228,6 +224,10 @@ body {
 	.flux.favorite {
 		border-left-color: #FFC300;
 		background: #FFF6DA;
+	}
+	.flux.current {
+		border-left-color: #3498db;
+		background: #fff;
 	}
 
 	.flux_header {
@@ -266,9 +266,6 @@ body {
 			.flux .item.title a {
 				color: #333;
 				outline: none;
-			}
-			.flux.current .item.title a {
-				text-decoration: underline;
 			}
 			.flux.current .item.title,
 			.flux.not_read .item.title {
