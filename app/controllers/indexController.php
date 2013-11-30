@@ -46,8 +46,6 @@ class indexController extends ActionController {
 			'params' => $params
 		);
 
-		$this->view->rss_title = View::title();
-
 		if ($output === 'rss') {
 			// no layout for RSS output
 			$this->view->_useLayout (false);
@@ -67,19 +65,6 @@ class indexController extends ActionController {
 		$this->view->get_c = '';
 		$this->view->get_f = '';
 
-		// mise à jour des titres
-		$this->view->nb_not_read = HelperCategory::CountUnreads($this->view->cat_aside, 1);
-		if ($this->view->nb_not_read > 0) {
-			View::appendTitle (' (' . $this->view->nb_not_read . ')');
-		}
-		View::prependTitle (' - ');
-
-		$this->view->rss_title = $this->view->currentName . ' - ' . $this->view->rss_title;
-		View::prependTitle (
-			$this->view->currentName .
-			($this->nb_not_read_cat > 0 ? ' (' . $this->nb_not_read_cat . ')' : '')
-		);
-
 		$get = Request::param ('get', 'a');
 		$getType = $get[0];
 		$getId = substr ($get, 2);
@@ -91,6 +76,18 @@ class indexController extends ActionController {
 			);
 			return;
 		}
+
+		$this->view->nb_not_read = HelperCategory::CountUnreads($this->view->cat_aside, 1);
+
+		// mise à jour des titres
+		if ($this->view->nb_not_read > 0) {
+			View::appendTitle (' (' . $this->view->nb_not_read . ')');
+		}
+		View::prependTitle (
+			$this->view->currentName .
+			($this->nb_not_read_cat > 0 ? ' (' . $this->nb_not_read_cat . ')' : '') .
+			' - '
+		);
 
 		// On récupère les différents éléments de filtrage
 		$this->view->state = $state = Request::param ('state', $this->view->conf->defaultView ());
@@ -138,13 +135,13 @@ class indexController extends ActionController {
 			}
 
 			if (count($entries) <= $nb) {
-				$next = '';
+				$this->view->nextId  = '';
 			} else {	//We have more elements for pagination
 				$lastEntry = array_pop($entries);
-				$next = $lastEntry->id();
+				$this->view->nextId  = $lastEntry->id();
 			}
 
-			$this->view->entryPaginator = new RSSPaginator ($entries, $next);
+			$this->view->entries = $entries;
 		} catch (EntriesGetterException $e) {
 			Minz_Log::record ($e->getMessage (), Minz_Log::NOTICE);
 			Error::error (

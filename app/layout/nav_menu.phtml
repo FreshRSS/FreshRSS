@@ -17,8 +17,6 @@
 			$string_mark = Translate::t ('mark_cat_read');
 		}
 		$nextGet = $get;
-		$p = $this->entryPaginator->peek();
-		$idMax = $p === null ? '0' : $p->id();
 		if (($this->conf->onread_jump_next () === 'yes') && (strlen ($get) > 2)) {
 			$anotherUnreadId = '';
 			$foundCurrent = false;
@@ -54,6 +52,8 @@
 					break;
 			}
 		}
+		$p = isset($this->entries[0]) ? $this->entries[0] : null;
+		$idMax = $p === null ? '0' : $p->id();
 		$markReadUrl = _url ('entry', 'read', 'is_read', 1, 'get', $get, 'nextGet', $nextGet, 'idMax', $idMax);
 		Session::_param ('markReadUrl', $markReadUrl);
 	?>

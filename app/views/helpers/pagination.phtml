@@ -8,8 +8,8 @@
 
 <ul class="pagination">
 	<li class="item pager-next">
-	<?php if ($this->next != '') { ?>
-	<?php $params[$getteur] = $this->next; ?>
+	<?php if (!empty($this->nextId)) { ?>
+	<?php $params['next'] = $this->nextId; ?>
 	<a id="load_more" href="<?php echo Url::display (array ('c' => $c, 'a' => $a, 'params' => $params)); ?>"><?php echo Translate::t ('load_more'); ?></a>
 	<?php } elseif ($markReadUrl) { ?>
 	<a id="bigMarkAsRead" href="<?php echo $markReadUrl; ?>">

@@ -504,14 +504,18 @@ class EntryDAO extends Model_pdo {
 		if ($firstId > 0) {
 			$where .= 'AND e.id ' . ($order === 'DESC' ? '<=' : '>=') . $firstId . ' ';
 		}
-		$terms = explode(' ', trim($filter));
+		$terms = array_unique(explode(' ', trim($filter)));
 		sort($terms);	//Put #tags first
+		$having = '';
 		foreach ($terms as $word) {
 			if (!empty($word)) {
 				if ($word[0] === '#' && isset($word[1])) {
-					$where .= 'AND tags LIKE "%' . $word . '%" ';
+					$having .= 'AND tags LIKE ? ';
+					$values[] = '%' . $word .'%';
 				} elseif (!empty($word)) {
-					$where .= 'AND (e.title LIKE "%' . $word . '%" OR UNCOMPRESS(e.content_bin) LIKE "%' . $word . '%") ';
+					$having .= 'AND (e.title LIKE ? OR content LIKE ?) ';
+					$values[] = '%' . $word .'%';
+					$values[] = '%' . $word .'%';
 				}
 			}
 		}
@@ -519,6 +523,7 @@ class EntryDAO extends Model_pdo {
 		$sql = 'SELECT e.id, e.guid, e.title, e.author, UNCOMPRESS(e.content_bin) AS content, e.link, e.date, e.is_read, e.is_favorite, e.id_feed, e.tags '
 		     . 'FROM `' . $this->prefix . 'entry` e '
 		     . 'INNER JOIN `' . $this->prefix . 'feed` f ON e.id_feed = f.id WHERE ' . $where
+		     . (empty($having) ? '' : 'HAVING' . substr($having, 3))
 		     . 'ORDER BY e.id ' . $order;
 
 		if ($limit > 0) {

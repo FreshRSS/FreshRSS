@@ -3,8 +3,7 @@
 $this->partial ('aside_flux');
 $this->partial ('nav_menu');
 
-if (isset ($this->entryPaginator) && !$this->entryPaginator->isEmpty ()) {
-	$items = $this->entryPaginator->items ();
+if (!empty($this->entries)) {
 ?>
 
 <div id="stream" class="normal<?php echo $this->conf->displayPosts () === 'no' ? ' hide_posts' : ''; ?>">
@@ -23,8 +22,7 @@ if (isset ($this->entryPaginator) && !$this->entryPaginator->isEmpty ()) {
 		$email = $this->conf->sharing ('email');
 		$print = $this->conf->sharing ('print');
 	?>
-
-	<?php foreach ($items as $item) { ?>
+	<?php foreach ($this->entries as $item) { ?>
 
 	<?php if ($display_today && $item->isDay (Days::TODAY)) { ?>
 	<div class="day" id="day_today">
@@ -199,7 +197,7 @@ if (isset ($this->entryPaginator) && !$this->entryPaginator->isEmpty ()) {
 	</div>
 	<?php } ?>
 
-	<?php $this->entryPaginator->render ('pagination.phtml', 'next'); ?>
+	<?php $this->renderHelper('pagination'); ?>
 </div>
 
 <?php $this->partial ('nav_entries'); ?>

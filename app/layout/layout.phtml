@@ -10,10 +10,9 @@
 <?php $this->renderHelper ('javascript_vars'); ?>
 		//]]></script>
 <?php
-	$next = isset($this->entryPaginator) ? $this->entryPaginator->next() : '';
-	if (!empty($next)) {
+	if (!empty($this->nextId)) {
 		$params = Request::params ();
-		$params['next'] = $next;
+		$params['next'] = $this->nextId;
 ?>
 		<link id="prefetch" rel="next prefetch" href="<?php echo Url::display (array ('c' => Request::controllerName (), 'a' => Request::actionName (), 'params' => $params)); ?>" />
 <?php } ?>

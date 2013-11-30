@@ -8,8 +8,7 @@
 		<lastBuildDate><?php echo gmdate('D, d M Y H:i:s'); ?> GMT</lastBuildDate>
 		<atom:link href="<?php echo Url::display ($this->rss_url, 'html', true); ?>" rel="self" type="application/rss+xml" />
 <?php
-$items = $this->entryPaginator->items ();
-foreach ($items as $item) {
+foreach ($this->entries as $item) {
 ?>
 		<item>
 			<title><?php echo $item->title (); ?></title>
