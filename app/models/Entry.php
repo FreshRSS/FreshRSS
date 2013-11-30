@@ -15,7 +15,7 @@ class Entry extends Model {
 	private $tags;
 
 	public function __construct ($feed = '', $guid = '', $title = '', $author = '', $content = '',
-	                             $link = '', $pubdate = 0, $is_read = false, $is_favorite = false) {
+	                             $link = '', $pubdate = 0, $is_read = false, $is_favorite = false, $tags = '') {
 		$this->_guid ($guid);
 		$this->_title ($title);
 		$this->_author ($author);
@@ -25,7 +25,7 @@ class Entry extends Model {
 		$this->_isRead ($is_read);
 		$this->_isFavorite ($is_favorite);
 		$this->_feed ($feed);
-		$this->_tags (array ());
+		$this->_tags (preg_split('/[\s#]/', $tags));
 	}
 
 	public function id () {
@@ -81,11 +81,7 @@ class Entry extends Model {
 	}
 	public function tags ($inString = false) {
 		if ($inString) {
-			if (!empty ($this->tags)) {
-				return '#' . implode(' #', $this->tags);
-			} else {
-				return '';
-			}
+			return empty ($this->tags) ? '' : '#' . implode(' #', $this->tags);
 		} else {
 			return $this->tags;
 		}
@@ -110,8 +106,8 @@ class Entry extends Model {
 		$this->link = $value;
 	}
 	public function _date ($value) {
-		if (is_int (intval ($value))) {
-			$this->date = $value;
+		if (is_int ($value)) {
+			$this->date = intval ($value);
 		} else {
 			$this->date = time ();
 		}
@@ -448,13 +444,8 @@ class EntryDAO extends Model_pdo {
 
 		$stm->execute ($values);
 		$res = $stm->fetchAll (PDO::FETCH_ASSOC);
-		list ($entry, $next) = HelperEntry::daoToEntry ($res);
-
-		if (isset ($entry[0])) {
-			return $entry[0];
-		} else {
-			return false;
-		}
+		$entries = HelperEntry::daoToEntry ($res);
+		return isset ($entries[0]) ? $entries[0] : false;
 	}
 
 	public function searchById ($id) {
@@ -466,59 +457,78 @@ class EntryDAO extends Model_pdo {
 
 		$stm->execute ($values);
 		$res = $stm->fetchAll (PDO::FETCH_ASSOC);
-		list ($entry, $next) = HelperEntry::daoToEntry ($res);
-
-		if (isset ($entry[0])) {
-			return $entry[0];
-		} else {
-			return false;
-		}
+		$entries = HelperEntry::daoToEntry ($res);
+		return isset ($entries[0]) ? $entries[0] : false;
 	}
 
-	private function listWhere ($where, $state, $order, $limitFromId = '', $limitCount = '', $values = array ()) {
-		if ($state === 'not_read') {
-			$where .= ' AND is_read = 0';
-		} elseif ($state === 'read') {
-			$where .= ' AND is_read = 1';
+	public function listWhere($type = 'a', $id = '', $state = 'all', $order = 'DESC', $limit = 1, $firstId = -1, $filter = '') {
+		$where = '';
+		$values = array();
+		switch ($type) {
+			case 'a':
+				$where .= 'priority > 0 ';
+				break;
+			case 's':
+				$where .= 'is_favorite = 1 ';
+				break;
+			case 'c':
+				$where .= 'category = ? ';
+				$values[] = intval($id);
+				break;
+			case 'f':
+				$where .= 'id_feed = ? ';
+				$values[] = intval($id);
+				break;
+			default:
+				throw new EntriesGetterException ('Bad type in Entry->listByType: [' . $type . ']!');
 		}
-		if (!empty($limitFromId)) {
-			$where .= ' AND e.id ' . ($order === 'low_to_high' ? '<=' : '>=') . $limitFromId;
+		switch ($state) {
+			case 'all':
+				break;
+			case 'not_read':
+				$where .= 'AND is_read = 0 ';
+				break;
+			case 'read':
+				$where .= 'AND is_read = 1 ';
+				break;
+			default:
+				throw new EntriesGetterException ('Bad state in Entry->listByType: [' . $state . ']!');
 		}
-
-		if ($order === 'low_to_high') {
-			$order = ' DESC';
-		} else {
-			$order = '';
+		switch ($order) {
+			case 'DESC':
+			case 'ASC':
+				break;
+			default:
+				throw new EntriesGetterException ('Bad order in Entry->listByType: [' . $order . ']!');
+		}
+		if ($firstId > 0) {
+			$where .= 'AND e.id ' . ($order === 'DESC' ? '<=' : '>=') . $firstId . ' ';
+		}
+		$terms = explode(' ', trim($filter));
+		sort($terms);	//Put #tags first
+		foreach ($terms as $word) {
+			if (!empty($word)) {
+				if ($word[0] === '#' && isset($word[1])) {
+					$where .= 'AND tags LIKE "%' . $word . '%" ';
+				} elseif (!empty($word)) {
+					$where .= 'AND (e.title LIKE "%' . $word . '%" OR UNCOMPRESS(e.content_bin) LIKE "%' . $word . '%") ';
+				}
+			}
 		}
 
 		$sql = 'SELECT e.id, e.guid, e.title, e.author, UNCOMPRESS(e.content_bin) AS content, e.link, e.date, e.is_read, e.is_favorite, e.id_feed, e.tags '
 		     . 'FROM `' . $this->prefix . 'entry` e '
-		     . 'INNER JOIN `' . $this->prefix . 'feed` f ON e.id_feed = f.id ' . $where
-		     . ' ORDER BY e.id' . $order;
+		     . 'INNER JOIN `' . $this->prefix . 'feed` f ON e.id_feed = f.id WHERE ' . $where
+		     . 'ORDER BY e.id ' . $order;
 
-		if (empty($limitCount)) {
-			$limitCount = 20000;	//TODO: FIXME: Hack temporaire en attendant la recherche côté base-de-données
+		if ($limit > 0) {
+			$sql .= ' LIMIT ' . $limit;	//TODO: See http://explainextended.com/2009/10/23/mysql-order-by-limit-performance-late-row-lookups/
 		}
-		//if (!empty($limitCount)) {
-			$sql .= ' LIMIT ' . ($limitCount + 2);	//TODO: See http://explainextended.com/2009/10/23/mysql-order-by-limit-performance-late-row-lookups/
-		//}
 
 		$stm = $this->bd->prepare ($sql);
 		$stm->execute ($values);
 
 		return HelperEntry::daoToEntry ($stm->fetchAll (PDO::FETCH_ASSOC));
-	}
-	public function listEntries ($state, $order = 'high_to_low', $limitFromId = '', $limitCount = '') {
-		return $this->listWhere ('WHERE priority > 0', $state, $order, $limitFromId, $limitCount);
-	}
-	public function listFavorites ($state, $order = 'high_to_low', $limitFromId = '', $limitCount = '') {
-		return $this->listWhere ('WHERE is_favorite = 1', $state, $order, $limitFromId, $limitCount);
-	}
-	public function listByCategory ($cat, $state, $order = 'high_to_low', $limitFromId = '', $limitCount = '') {
-		return $this->listWhere ('WHERE category = ?', $state, $order, $limitFromId, $limitCount, array ($cat));
-	}
-	public function listByFeed ($feed, $state, $order = 'high_to_low', $limitFromId = '', $limitCount = '') {
-		return $this->listWhere ('WHERE id_feed = ?', $state, $order, $limitFromId, $limitCount, array ($feed));
 	}
 
 	public function listLastGuidsByFeed($id, $n) {
@@ -579,14 +589,6 @@ class EntryDAO extends Model_pdo {
 }
 
 class HelperEntry {
-	public static $nb = 1;
-	public static $first = '';
-
-	public static $filter = array (
-		'words' => array (),
-		'tags' => array (),
-	);
-
 	public static function daoToEntry ($listDAO) {
 		$list = array ();
 
@@ -594,80 +596,27 @@ class HelperEntry {
 			$listDAO = array ($listDAO);
 		}
 
-		$count = 0;
-		$first_is_found = false;
-		$break_after = false;
-		$next = '';
 		foreach ($listDAO as $key => $dao) {
-			$dao['tags'] = preg_split('/[\s#]/', $dao['tags']);
-
-			if (self::tagsMatchEntry ($dao) &&
-			    self::searchMatchEntry ($dao)) {
-				if ($break_after) {
-					$next = $dao['id'];
-					break;
-				}
-				if ($first_is_found || $dao['id'] == self::$first || self::$first == '') {
-					$list[$key] = self::createEntry ($dao);
-
-					$count++;
-					$first_is_found = true;	//TODO: Update: Now done in SQL
-				}
-				if ($count >= self::$nb) {
-					$break_after = true;
-				}
+			$entry = new Entry (
+				$dao['id_feed'],
+				$dao['guid'],
+				$dao['title'],
+				$dao['author'],
+				$dao['content'],
+				$dao['link'],
+				$dao['date'],
+				$dao['is_read'],
+				$dao['is_favorite'],
+				$dao['tags']
+			);
+			if (isset ($dao['id'])) {
+				$entry->_id ($dao['id']);
 			}
+			$list[] = $entry;
 		}
 
 		unset ($listDAO);
 
-		return array ($list, $next);
-	}
-
-	private static function createEntry ($dao) {
-		$entry = new Entry (
-			$dao['id_feed'],
-			$dao['guid'],
-			$dao['title'],
-			$dao['author'],
-			$dao['content'],
-			$dao['link'],
-			$dao['date'],
-			$dao['is_read'],
-			$dao['is_favorite']
-		);
-
-		$entry->_tags ($dao['tags']);
-
-		if (isset ($dao['id'])) {
-			$entry->_id ($dao['id']);
-		}
-
-		return $entry;
-	}
-
-	private static function tagsMatchEntry ($dao) {
-		$tags = self::$filter['tags'];
-		foreach ($tags as $tag) {
-			if (!in_array ($tag, $dao['tags'])) {
-				return false;
-			}
-		}
-
-		return true;
-	}
-	private static function searchMatchEntry ($dao) {
-		$words = self::$filter['words'];
-
-		foreach ($words as $word) {
-			$word = strtolower ($word);
-			if (strpos (strtolower ($dao['title']), $word) === false &&
-			    strpos (strtolower ($dao['content']), $word) === false &&
-			    strpos (strtolower ($dao['link']), $word) === false) {
-				return false;
-			}
-		}
-
-		return true;
+		return $list;
 	}
 }

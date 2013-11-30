@@ -158,12 +158,12 @@ class configureController extends ActionController {
 			$language = Request::param ('language', 'en');
 			$nb = Request::param ('posts_per_page', 10);
 			$mode = Request::param ('view_mode', 'normal');
-			$view = Request::param ('default_view', 'all');
+			$view = Request::param ('default_view', 'a');
 			$auto_load_more = Request::param ('auto_load_more', 'no');
 			$display = Request::param ('display_posts', 'no');
 			$onread_jump_next = Request::param ('onread_jump_next', 'no');
 			$lazyload = Request::param ('lazyload', 'no');
-			$sort = Request::param ('sort_order', 'low_to_high');
+			$sort = Request::param ('sort_order', 'DESC');
 			$old = Request::param ('old_entries', 3);
 			$mail = Request::param ('mail_login', false);
 			$anon = Request::param ('anon_access', 'no');

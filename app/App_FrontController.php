@@ -33,7 +33,6 @@ class App_FrontController extends FrontController {
 		include (APP_PATH . '/models/Category.php');
 		include (APP_PATH . '/models/Feed.php');
 		include (APP_PATH . '/models/Entry.php');
-		include (APP_PATH . '/models/EntriesGetter.php');
 		include (APP_PATH . '/models/RSSPaginator.php');
 		include (APP_PATH . '/models/Log_Model.php');
 	}

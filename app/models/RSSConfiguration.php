@@ -213,11 +213,7 @@ class RSSConfiguration extends Model {
 		}
 	}
 	public function _sortOrder ($value) {
-		if ($value == 'high_to_low') {
-			$this->sort_order = 'high_to_low';
-		} else {
-			$this->sort_order = 'low_to_high';
-		}
+		$this->sort_order = $value === 'ASC' ? 'ASC' : 'DESC';
 	}
 	public function _oldEntries ($value) {
 		if (is_int (intval ($value)) && $value > 0) {
@@ -334,7 +330,7 @@ class RSSConfigurationDAO extends Model_array {
 	public $display_posts = 'no';
 	public $onread_jump_next = 'yes';
 	public $lazyload = 'yes';
-	public $sort_order = 'low_to_high';
+	public $sort_order = 'DESC';
 	public $old_entries = 3;
 	public $shortcuts = array (
 		'mark_read' => 'r',

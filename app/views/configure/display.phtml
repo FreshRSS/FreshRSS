@@ -73,8 +73,8 @@
 			<label class="group-name" for="sort_order"><?php echo Translate::t ('sort_order'); ?></label>
 			<div class="group-controls">
 				<select name="sort_order" id="sort_order">
-					<option value="low_to_high"<?php echo $this->conf->sortOrder () == 'low_to_high' ? ' selected="selected"' : ''; ?>><?php echo Translate::t ('newer_first'); ?></option>
-					<option value="high_to_low"<?php echo $this->conf->sortOrder () == 'high_to_low' ? ' selected="selected"' : ''; ?>><?php echo Translate::t ('older_first'); ?></option>
+					<option value="DESC"<?php echo $this->conf->sortOrder () === 'DESC' ? ' selected="selected"' : ''; ?>><?php echo Translate::t ('newer_first'); ?></option>
+					<option value="ASC"<?php echo $this->conf->sortOrder () === 'ASC' ? ' selected="selected"' : ''; ?>><?php echo Translate::t ('older_first'); ?></option>
 				</select>
 			</div>
 		</div>

@@ -15,7 +15,7 @@
 
 		<li>
 			<div class="category all">
-				<a data-unread="<?php echo $this->nb_not_read; ?>" class="btn<?php echo $this->get_c == 'all' ? ' active' : ''; ?>" href="<?php echo _url ('index', 'index'); ?>">
+				<a data-unread="<?php echo $this->nb_not_read; ?>" class="btn<?php echo $this->get_c == 'a' ? ' active' : ''; ?>" href="<?php echo _url ('index', 'index'); ?>">
 					<?php echo RSSThemes::icon('all'); ?>
 					<?php echo Translate::t ('all_feeds'); ?>
 				</a>
@@ -24,7 +24,7 @@
 
 		<li>
 			<div class="category favorites">
-				<a data-unread="<?php echo $this->nb_favorites['unread']; ?>" class="btn<?php echo $this->get_c == 'favoris' ? ' active' : ''; ?>" href="<?php echo _url ('index', 'index', 'get', 'favoris'); ?>">
+				<a data-unread="<?php echo $this->nb_favorites['unread']; ?>" class="btn<?php echo $this->get_c == 's' ? ' active' : ''; ?>" href="<?php echo _url ('index', 'index', 'get', 's'); ?>">
 					<?php echo RSSThemes::icon('bookmark'); ?>
 					<?php echo Translate::t ('favorite_feeds', $this->nb_favorites['all']); ?>
 				</a>

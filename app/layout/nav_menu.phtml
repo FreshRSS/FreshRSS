@@ -11,9 +11,8 @@
 			$get = 'f_' . $this->get_f;
 			$string_mark = Translate::t ('mark_feed_read');
 		} elseif ($this->get_c &&
-		          $this->get_c != 'all' &&
-		          $this->get_c != 'favoris' &&
-		          $this->get_c != 'public') {
+		          $this->get_c != 'a' &&
+		          $this->get_c != 's') {
 			$get = 'c_' . $this->get_c;
 			$string_mark = Translate::t ('mark_cat_read');
 		}
@@ -34,7 +33,7 @@
 						$anotherUnreadId = $cat->id ();
 						if ($foundCurrent) break;
 					}
-					$nextGet = empty ($anotherUnreadId) ? 'all' : 'c_' . $anotherUnreadId;
+					$nextGet = empty ($anotherUnreadId) ? 'a' : 'c_' . $anotherUnreadId;
 					break;
 				case 'f':
 					foreach ($this->cat_aside as $cat) {
@@ -149,15 +148,15 @@
 			<li class="item">
 				<?php
 					$url_order = $url;
-					if ($this->order == 'low_to_high') {
-						$url_order['params']['order'] = 'high_to_low';
+					if ($this->order === 'DESC') {
+						$url_order['params']['order'] = 'ASC';
 				?>
 				<a href="<?php echo Url::display ($url_order); ?>">
 					<?php echo Translate::t ('older_first'); ?>
 				</a>
 				<?php
 					} else {
-						$url_order['params']['order'] = 'low_to_high';
+						$url_order['params']['order'] = 'DESC';
 				?>
 				<a href="<?php echo Url::display ($url_order); ?>">
 					<?php echo Translate::t ('newer_first'); ?>
