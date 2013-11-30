@@ -199,7 +199,8 @@ class Entry extends Model {
 
 class EntryDAO extends Model_pdo {
 	public function addEntry ($valuesTmp) {
-		$sql = 'INSERT INTO `' . $this->prefix . 'entry`(id, guid, title, author, content, link, date, is_read, is_favorite, id_feed, tags) VALUES(CAST(? * 1000000 AS SIGNED INTEGER), ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
+		$sql = 'INSERT INTO `' . $this->prefix . 'entry`(id, guid, title, author, content_bin, link, date, is_read, is_favorite, id_feed, tags) '
+		     . 'VALUES(CAST(? * 1000000 AS SIGNED INTEGER), ?, ?, ?, COMPRESS(?), ?, ?, ?, ?, ?, ?)';
 		$stm = $this->bd->prepare ($sql);
 
 		$values = array (
@@ -207,7 +208,7 @@ class EntryDAO extends Model_pdo {
 			substr($valuesTmp['guid'], 0, 760),
 			substr($valuesTmp['title'], 0, 255),
 			substr($valuesTmp['author'], 0, 255),
-			base64_encode (gzdeflate (serialize ($valuesTmp['content']))),
+			$valuesTmp['content'],
 			substr($valuesTmp['link'], 0, 1023),
 			$valuesTmp['date'],
 			$valuesTmp['is_read'],
@@ -231,33 +232,6 @@ class EntryDAO extends Model_pdo {
 		}
 	}
 
-	/*public function updateEntry ($id, $valuesTmp) {
-		if (isset ($valuesTmp['content'])) {
-			$valuesTmp['content'] = base64_encode (gzdeflate (serialize ($valuesTmp['content'])));
-		}
-
-		$set = '';
-		foreach ($valuesTmp as $key => $v) {
-			$set .= $key . '=?, ';
-		}
-		$set = substr ($set, 0, -2);
-
-		$sql = 'UPDATE `' . $this->prefix . 'entry` SET ' . $set . ' WHERE id=?';
-		$stm = $this->bd->prepare ($sql);
-
-		foreach ($valuesTmp as $v) {
-			$values[] = $v;
-		}
-		$values[] = $id;
-
-		if ($stm && $stm->execute ($values)) {
-			return $stm->rowCount();
-		} else {
-			$info = $stm->errorInfo();
-			Minz_Log::record ('SQL error : ' . $info[2], Minz_Log::ERROR);
-			return false;
-		}
-	}*/
 	public function markFavorite ($id, $is_favorite = true) {
 		$sql = 'UPDATE `' . $this->prefix . 'entry` e '
 		     . 'SET e.is_favorite = ? '
@@ -443,35 +417,9 @@ class EntryDAO extends Model_pdo {
 		}
 	}
 
-	/*public function updateEntries ($valuesTmp) {
-		if (isset ($valuesTmp['content'])) {
-			$valuesTmp['content'] = base64_encode (gzdeflate (serialize ($valuesTmp['content'])));
-		}
-
-		$set = '';
-		foreach ($valuesTmp as $key => $v) {
-			$set .= $key . '=?, ';
-		}
-		$set = substr ($set, 0, -2);
-
-		$sql = 'UPDATE `' . $this->prefix . 'entry` SET ' . $set;
-		$stm = $this->bd->prepare ($sql);
-
-		foreach ($valuesTmp as $v) {
-			$values[] = $v;
-		}
-
-		if ($stm && $stm->execute ($values)) {
-			return $stm->rowCount();
-		} else {
-			$info = $stm->errorInfo();
-			Minz_Log::record ('SQL error : ' . $info[2], Minz_Log::ERROR);
-			return false;
-		}
-	}*/
-
 	public function cleanOldEntries ($date_min) {
-		$sql = 'DELETE e.* FROM `' . $this->prefix . 'entry` e INNER JOIN `' . $this->prefix . 'feed` f ON e.id_feed = f.id WHERE e.id <= ? AND e.is_favorite = 0 AND f.keep_history = 0';
+		$sql = 'DELETE e.* FROM `' . $this->prefix . 'entry` e INNER JOIN `' . $this->prefix . 'feed` f ON e.id_feed = f.id '
+		     . 'WHERE e.id <= ? AND e.is_favorite = 0 AND f.keep_history = 0';
 		$stm = $this->bd->prepare ($sql);
 
 		$values = array (
@@ -489,7 +437,8 @@ class EntryDAO extends Model_pdo {
 
 	public function searchByGuid ($feed_id, $id) {
 		// un guid est unique pour un flux donné
-		$sql = 'SELECT * FROM `' . $this->prefix . 'entry` WHERE id_feed=? AND guid=?';
+		$sql = 'SELECT id, guid, title, author, UNCOMPRESS(content_bin) AS content, link, date, is_read, is_favorite, id_feed, tags '
+		     . 'FROM `' . $this->prefix . 'entry` WHERE id_feed=? AND guid=?';
 		$stm = $this->bd->prepare ($sql);
 
 		$values = array (
@@ -509,7 +458,8 @@ class EntryDAO extends Model_pdo {
 	}
 
 	public function searchById ($id) {
-		$sql = 'SELECT * FROM `' . $this->prefix . 'entry` WHERE id=?';
+		$sql = 'SELECT id, guid, title, author, UNCOMPRESS(content_bin) AS content, link, date, is_read, is_favorite, id_feed, tags '
+		     . 'FROM `' . $this->prefix . 'entry` WHERE id=?';
 		$stm = $this->bd->prepare ($sql);
 
 		$values = array ($id);
@@ -541,8 +491,9 @@ class EntryDAO extends Model_pdo {
 			$order = '';
 		}
 
-		$sql = 'SELECT e.* FROM `' . $this->prefix . 'entry` e'
-		     . ' INNER JOIN `' . $this->prefix . 'feed` f ON e.id_feed = f.id' . $where
+		$sql = 'SELECT e.id, e.guid, e.title, e.author, UNCOMPRESS(e.content_bin) AS content, e.link, e.date, e.is_read, e.is_favorite, e.id_feed, e.tags '
+		     . 'FROM `' . $this->prefix . 'entry` e '
+		     . 'INNER JOIN `' . $this->prefix . 'feed` f ON e.id_feed = f.id ' . $where
 		     . ' ORDER BY e.id' . $order;
 
 		if (empty($limitCount)) {
@@ -558,16 +509,16 @@ class EntryDAO extends Model_pdo {
 		return HelperEntry::daoToEntry ($stm->fetchAll (PDO::FETCH_ASSOC));
 	}
 	public function listEntries ($state, $order = 'high_to_low', $limitFromId = '', $limitCount = '') {
-		return $this->listWhere (' WHERE priority > 0', $state, $order, $limitFromId, $limitCount);
+		return $this->listWhere ('WHERE priority > 0', $state, $order, $limitFromId, $limitCount);
 	}
 	public function listFavorites ($state, $order = 'high_to_low', $limitFromId = '', $limitCount = '') {
-		return $this->listWhere (' WHERE is_favorite = 1', $state, $order, $limitFromId, $limitCount);
+		return $this->listWhere ('WHERE is_favorite = 1', $state, $order, $limitFromId, $limitCount);
 	}
 	public function listByCategory ($cat, $state, $order = 'high_to_low', $limitFromId = '', $limitCount = '') {
-		return $this->listWhere (' WHERE category = ?', $state, $order, $limitFromId, $limitCount, array ($cat));
+		return $this->listWhere ('WHERE category = ?', $state, $order, $limitFromId, $limitCount, array ($cat));
 	}
 	public function listByFeed ($feed, $state, $order = 'high_to_low', $limitFromId = '', $limitCount = '') {
-		return $this->listWhere (' WHERE id_feed = ?', $state, $order, $limitFromId, $limitCount, array ($feed));
+		return $this->listWhere ('WHERE id_feed = ?', $state, $order, $limitFromId, $limitCount, array ($feed));
 	}
 
 	public function listLastGuidsByFeed($id, $n) {
@@ -648,7 +599,6 @@ class HelperEntry {
 		$break_after = false;
 		$next = '';
 		foreach ($listDAO as $key => $dao) {
-			$dao['content'] = unserialize (gzinflate (base64_decode ($dao['content'])));
 			$dao['tags'] = preg_split('/[\s#]/', $dao['tags']);
 
 			if (self::tagsMatchEntry ($dao) &&

@@ -408,6 +408,16 @@ class FeedDAO extends Model_pdo {
 	}
 
 	public function deleteFeed ($id) {
+		/*//For MYISAM (MySQL 5.5-) without FOREIGN KEY
+		$sql = 'DELETE FROM `' . $this->prefix . 'entry` WHERE id_feed=?';
+		$stm = $this->bd->prepare ($sql);
+		$values = array ($id);
+		if (!($stm && $stm->execute ($values))) {
+			$info = $stm->errorInfo();
+			Minz_Log::record ('SQL error : ' . $info[2], Minz_Log::ERROR);
+			return false;
+		}*/
+
 		$sql = 'DELETE FROM `' . $this->prefix . 'feed` WHERE id=?';
 		$stm = $this->bd->prepare ($sql);
 
@@ -422,6 +432,18 @@ class FeedDAO extends Model_pdo {
 		}
 	}
 	public function deleteFeedByCategory ($id) {
+		/*//For MYISAM (MySQL 5.5-) without FOREIGN KEY
+		$sql = 'DELETE FROM `' . $this->prefix . 'entry` e '
+		     . 'INNER JOIN `' . $this->prefix . 'feed` f ON e.id_feed = f.id '
+		     . 'WHERE f.category=?';
+		$stm = $this->bd->prepare ($sql);
+		$values = array ($id);
+		if (!($stm && $stm->execute ($values))) {
+			$info = $stm->errorInfo();
+			Minz_Log::record ('SQL error : ' . $info[2], Minz_Log::ERROR);
+			return false;
+		}*/
+
 		$sql = 'DELETE FROM `' . $this->prefix . 'feed` WHERE category=?';
 		$stm = $this->bd->prepare ($sql);
 

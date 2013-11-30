@@ -18,7 +18,8 @@ define ('SQL_REQ_CAT', 'CREATE TABLE IF NOT EXISTS `%scategory` (
   `color` char(7) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY (`name`)	-- v0.7
-) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;');
+) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci
+ENGINE = INNODB;');
 
 define ('SQL_REQ_FEED', 'CREATE TABLE IF NOT EXISTS `%sfeed` (
   `id` SMALLINT NOT NULL AUTO_INCREMENT,	-- v0.7
@@ -41,14 +42,15 @@ define ('SQL_REQ_FEED', 'CREATE TABLE IF NOT EXISTS `%sfeed` (
   INDEX (`name`),	-- v0.7
   INDEX (`priority`),	-- v0.7
   INDEX (`keep_history`)	-- v0.7
-) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;');
+) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci
+ENGINE = INNODB;');
 
 define ('SQL_REQ_ENTRY', 'CREATE TABLE IF NOT EXISTS `%sentry` (
   `id` bigint NOT NULL,	-- v0.7
   `guid` varchar(760) CHARACTER SET latin1 NOT NULL,	-- Maximum for UNIQUE is 767B
   `title` varchar(255) NOT NULL,
   `author` varchar(255) NOT NULL,
-  `content` text NOT NULL,
+  `content_bin` blob NOT NULL,	-- v0.7
   `link` varchar(1023) CHARACTER SET latin1 NOT NULL,
   `date` int(11) NOT NULL,
   `is_read` boolean NOT NULL DEFAULT 0,
@@ -59,8 +61,9 @@ define ('SQL_REQ_ENTRY', 'CREATE TABLE IF NOT EXISTS `%sentry` (
   FOREIGN KEY (`id_feed`) REFERENCES `%sfeed`(`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   UNIQUE KEY (`id_feed`,`guid`),	-- v0.7
   INDEX (`is_favorite`),	-- v0.7
-  INDEX (`is_read`)	-- v0.7
-) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;');
+  INDEX (`is_read`),	-- v0.7
+) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci
+ENGINE = INNODB;');
 
 
 function writeLine ($f, $line) {

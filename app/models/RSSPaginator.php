@@ -24,7 +24,7 @@ class RSSPaginator {
 	}
 
 	public function peek () {
-		return empty($this->items) ? null : $this->items[0];
+		return isset($this->items[0]) ? $this->items[0] : null;
 	}
 
 	public function render ($view, $getteur) {
