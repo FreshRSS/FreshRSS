@@ -3,7 +3,7 @@ if (!function_exists('json_decode')) {
 	require_once('JSON.php');
 	function json_decode($var) {
 		$JSON = new Services_JSON;
-		return $JSON->decode($var);
+		return (array)($JSON->decode($var));
 	}
 }
 
@@ -11,7 +11,7 @@ if (!function_exists('json_encode')) {
 	require_once('JSON.php');
 	function json_encode($var) {
 		$JSON = new Services_JSON;
-		return $JSON->encode($var);
+		return $JSON->encodeUnsafe($var);
 	}
 }
 

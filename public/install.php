@@ -599,7 +599,7 @@ function printStep3 () {
 		<div class="form-group">
 			<label class="group-name" for="base"><?php echo _t ('bdd'); ?></label>
 			<div class="group-controls">
-				<input type="text" id="base" name="base" maxlength="64" value="<?php echo isset ($_SESSION['bd_name']) ? $_SESSION['bd_name'] : ''; ?>" placeholder="<?php echo _t ('freshrss'); ?>" />
+				<input type="text" id="base" name="base" maxlength="64" value="<?php echo isset ($_SESSION['bd_name']) ? $_SESSION['bd_name'] : ''; ?>" placeholder="freshrss" />
 			</div>
 		</div>
 
