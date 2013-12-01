@@ -159,6 +159,8 @@ function getFeed ($outline, $cat_id) {
 
 /* permet de récupérer le contenu d'un article pour un flux qui n'est pas complet */
 function get_content_by_parsing ($url, $path) {
+	require_once (LIB_PATH . '/lib_phpQuery.php');
+
 	$html = file_get_contents ($url);
 
 	if ($html) {
