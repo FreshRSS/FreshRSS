@@ -150,7 +150,7 @@ class Feed extends Model {
 		$this->lastUpdate = $value;
 	}
 	public function _priority ($value) {
-		$this->priority = is_numeric ($value) ? intval ($value) : 10;
+		$this->priority = ctype_digit ($value) ? intval ($value) : 10;
 	}
 	public function _pathEntries ($value) {
 		$this->pathEntries = $value;
@@ -175,10 +175,10 @@ class Feed extends Model {
 		$this->keep_history = $value;
 	}
 	public function _nbNotRead ($value) {
-		$this->nbNotRead = is_numeric ($value) ? intval ($value) : -1;
+		$this->nbNotRead = ctype_digit ($value) ? intval ($value) : -1;
 	}
 	public function _nbEntries ($value) {
-		$this->nbEntries = is_numeric ($value) ? intval ($value) : -1;
+		$this->nbEntries = ctype_digit ($value) ? intval ($value) : -1;
 	}
 
 	public function load () {

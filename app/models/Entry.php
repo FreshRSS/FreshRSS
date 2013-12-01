@@ -106,7 +106,7 @@ class Entry extends Model {
 		$this->link = $value;
 	}
 	public function _date ($value) {
-		if (is_int ($value)) {
+		if (ctype_digit ($value)) {
 			$this->date = intval ($value);
 		} else {
 			$this->date = time ();
