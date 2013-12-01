@@ -1,4 +1,20 @@
 <?php
+if (!function_exists('json_decode')) {
+	require_once('JSON.php');
+	function json_decode($var) {
+		$JSON = new Services_JSON;
+		return $JSON->decode($var);
+	}
+}
+
+if (!function_exists('json_encode')) {
+	require_once('JSON.php');
+	function json_encode($var) {
+		$JSON = new Services_JSON;
+		return $JSON->encode($var);
+	}
+}
+
 // vérifie qu'on est connecté
 function is_logged () {
 	return Session::param ('mail') != false;
