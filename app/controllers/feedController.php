@@ -30,6 +30,8 @@ class feedController extends ActionController {
 	}
 
 	public function addAction () {
+		@set_time_limit(300);
+
 		if (Request::isPost ()) {
 			$url = Request::param ('url_rss');
 			$cat = Request::param ('category', false);
@@ -152,6 +154,8 @@ class feedController extends ActionController {
 	}
 
 	public function actualizeAction () {
+		@set_time_limit(300);
+
 		$feedDAO = new FeedDAO ();
 		$entryDAO = new EntryDAO ();
 
@@ -273,6 +277,8 @@ class feedController extends ActionController {
 	}
 
 	public function massiveImportAction () {
+		@set_time_limit(300);
+
 		$entryDAO = new EntryDAO ();
 		$feedDAO = new FeedDAO ();
 
