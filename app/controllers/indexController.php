@@ -80,6 +80,7 @@ class indexController extends ActionController {
 		$this->view->nb_not_read = HelperCategory::CountUnreads($this->view->cat_aside, 1);
 
 		// mise à jour des titres
+		$this->view->rss_title = $this->view->currentName . ' | ' . View::title();
 		if ($this->view->nb_not_read > 0) {
 			View::appendTitle (' (' . $this->view->nb_not_read . ')');
 		}
