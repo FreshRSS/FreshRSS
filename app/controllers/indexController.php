@@ -260,6 +260,7 @@ class indexController extends ActionController {
 			$res['reason'] = Translate::t ('invalid_login');
 		}
 
+		header('Content-Type: application/json; charset=UTF-8');
 		$this->view->res = json_encode ($res);
 	}
 

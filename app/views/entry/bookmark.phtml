@@ -1,4 +1,5 @@
 <?php
+header('Content-Type: application/json; charset=UTF-8');
 
 if (Request::param ('is_favorite')) {
 	Request::_param ('is_favorite', 0);

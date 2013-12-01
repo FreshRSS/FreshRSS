@@ -40,8 +40,7 @@ function mark_read(active, only_not_read) {
 		url: url,
 		data : { ajax: true }
 	}).done(function (data) {
-		var res = $.parseJSON(data),
-			$r = active.find("a.read").attr("href", res.url),
+		var $r = active.find("a.read").attr("href", data.url),
 			inc = 0;
 		if (active.hasClass("not_read")) {
 			active.removeClass("not_read");
@@ -50,7 +49,7 @@ function mark_read(active, only_not_read) {
 			active.addClass("not_read");
 			inc++;
 		}
-		$r.find('.icon').replaceWith(res.icon);
+		$r.find('.icon').replaceWith(data.icon);
 
 		//Update unread: feed
 		var feed_url = active.find(".website>a").attr("href"),
@@ -109,8 +108,7 @@ function mark_favorite(active) {
 		url: url,
 		data : { ajax: true }
 	}).done(function (data) {
-		var res = $.parseJSON(data),
-			$b = active.find("a.bookmark").attr("href", res.url),
+		var $b = active.find("a.bookmark").attr("href", data.url),
 			inc = 0;
 		if (active.hasClass("favorite")) {
 			active.removeClass("favorite");
@@ -119,7 +117,7 @@ function mark_favorite(active) {
 			active.addClass("favorite").find('.bookmark');
 			inc++;
 		}
-		$b.find('.icon').replaceWith(res.icon);
+		$b.find('.icon').replaceWith(data.icon);
 
 		var favourites = $('.favorites>a').contents().last().get(0);
 		if (favourites && favourites.textContent) {
@@ -591,11 +589,9 @@ function init_persona() {
 				url: url_login,
 				data: {assertion: assertion},
 				success: function(res, status, xhr) {
-					var res_obj = $.parseJSON(res);
-
-					/*if (res_obj.status === 'failure') {
+					/*if (res.status === 'failure') {
 						alert (res_obj.reason);
-					} else*/ if (res_obj.status === 'okay') {
+					} else*/ if (res.status === 'okay') {
 						location.href = url_freshrss;
 					}
 				},
