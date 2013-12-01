@@ -169,6 +169,9 @@ function getFeed ($outline, $cat_id) {
 	$feed = new Feed ($url);
 	$feed->_category ($cat_id);
 	$feed->_name ($title);
+	if (isset($outline['htmlUrl'])) {
+		$feed->_website((string)$outline['htmlUrl']);
+	}
 	return $feed;
 }
 

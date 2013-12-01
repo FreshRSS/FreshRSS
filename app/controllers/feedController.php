@@ -300,8 +300,6 @@ class feedController extends ActionController {
 		$i = 0;
 		foreach ($feeds as $feed) {
 			try {
-				$feed->load ();
-
 				$values = array (
 					'id' => $feed->id (),
 					'url' => $feed->url (),
