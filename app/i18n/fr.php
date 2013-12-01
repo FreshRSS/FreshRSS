@@ -273,6 +273,7 @@ return array (
 	'steps'				=> 'Étapes',
 	'checks'			=> 'Vérifications',
 	'bdd_configuration'		=> 'Configuration de la base de données',
+	'bdd_type'		=> 'Type de base de données',
 	'this_is_the_end'		=> 'This is the end',
 
 	'ok'				=> 'Ok !',

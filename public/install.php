@@ -61,7 +61,7 @@ define ('SQL_REQ_ENTRY', 'CREATE TABLE IF NOT EXISTS `%sentry` (
   FOREIGN KEY (`id_feed`) REFERENCES `%sfeed`(`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   UNIQUE KEY (`id_feed`,`guid`),	-- v0.7
   INDEX (`is_favorite`),	-- v0.7
-  INDEX (`is_read`),	-- v0.7
+  INDEX (`is_read`)	-- v0.7
 ) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci
 ENGINE = INNODB;');
 
@@ -558,8 +558,6 @@ function printStep3 () {
 
 	<form action="index.php?step=3" method="post">
 		<legend><?php echo _t ('bdd_configuration'); ?></legend>
-		<!--
-		TODO : l'utilisation de SQLite n'est pas encore possible. Pour tester tout de même, décommentez ce bloc
 		<div class="form-group">
 			<label class="group-name" for="type"><?php echo _t ('bdd_type'); ?></label>
 			<div class="group-controls">
@@ -568,14 +566,14 @@ function printStep3 () {
 					<?php echo (isset($_SESSION['bd_type']) && $_SESSION['bd_type'] === 'mysql') ? 'selected="selected"' : ''; ?>>
 					MySQL
 				</option>
+				<!-- TODO : l'utilisation de SQLite n'est pas encore possible. Pour tester tout de même, décommentez ce bloc
 				<option value="sqlite"
 					<?php echo (isset($_SESSION['bd_type']) && $_SESSION['bd_type'] === 'sqlite') ? 'selected="selected"' : ''; ?>>
 					SQLite
-				</option>
+				</option>-->
 				</select>
 			</div>
 		</div>
-		-->
 
 		<div class="form-group">
 			<label class="group-name" for="host"><?php echo _t ('host'); ?></label>
@@ -601,7 +599,7 @@ function printStep3 () {
 		<div class="form-group">
 			<label class="group-name" for="base"><?php echo _t ('bdd'); ?></label>
 			<div class="group-controls">
-				<input type="text" id="base" name="base" maxlength="64" value="<?php echo isset ($_SESSION['bd_name']) ? $_SESSION['bd_name'] : ''; ?>" />
+				<input type="text" id="base" name="base" maxlength="64" value="<?php echo isset ($_SESSION['bd_name']) ? $_SESSION['bd_name'] : ''; ?>" placeholder="<?php echo _t ('freshrss'); ?>" />
 			</div>
 		</div>
 
