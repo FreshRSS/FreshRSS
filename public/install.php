@@ -271,7 +271,7 @@ function checkStep1 () {
 	$data = DATA_PATH && is_writable (DATA_PATH);
 	$cache = CACHE_PATH && is_writable (CACHE_PATH);
 	$log = LOG_PATH && is_writable (LOG_PATH);
-	$favicons = is_writable (PUBLIC_PATH . '/favicons');
+	$favicons = is_writable (DATA_PATH . '/favicons');
 
 	return array (
 		'php' => $php ? 'ok' : 'ko',
@@ -476,7 +476,7 @@ function printStep1 () {
 	<?php if ($res['favicons'] == 'ok') { ?>
 	<p class="alert alert-success"><span class="alert-head"><?php echo _t ('ok'); ?></span> <?php echo _t ('favicons_is_ok'); ?></p>
 	<?php } else { ?>
-	<p class="alert alert-error"><span class="alert-head"><?php echo _t ('damn'); ?></span> <?php echo _t ('file_is_nok', PUBLIC_PATH . '/favicons'); ?></p>
+	<p class="alert alert-error"><span class="alert-head"><?php echo _t ('damn'); ?></span> <?php echo _t ('file_is_nok', DATA_PATH . '/favicons'); ?></p>
 	<?php } ?>
 
 	<?php if ($res['all'] == 'ok') { ?>
