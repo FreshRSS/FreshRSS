@@ -96,14 +96,11 @@ class Feed extends Model {
 		return $this->nbNotRead;
 	}
 	public function favicon () {
-		$file = '/favicons/' . $this->id () . '.ico';
-
-		$favicon_url = Url::display ($file);
-		if (!file_exists (PUBLIC_PATH . $file)) {
-			download_favicon ($this->website (), $this->id ());
+		$file = DATA_PATH . '/favicons/' . $this->id () . '.txt';
+		if (!file_exists ($file)) {
+			file_put_contents($file, $this->website ());
 		}
-
-		return $favicon_url;
+		return Url::display ('/f.php?' . $this->id ());
 	}
 
 	public function _id ($value) {
