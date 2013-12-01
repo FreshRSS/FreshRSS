@@ -50,6 +50,8 @@ $txtMTime = @filemtime($txt);
 if (($icoMTime == false) || ($txtMTime > $icoMTime)) {
 	if ($txtMTime == false) {
 		header('HTTP/1.1 404 Not Found');
+		header('Content-Type: image/gif');
+		readfile(PUBLIC_PATH . '/themes/icons/grey.gif');	//TODO: Better 404 favicon
 		die();
 	}
 	$url = file_get_contents($txt);
