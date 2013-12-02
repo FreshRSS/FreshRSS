@@ -95,32 +95,36 @@ class Feed extends Model {
 
 		return $this->nbNotRead;
 	}
-	public function favicon () {
+	public function faviconPrepare() {
 		$file = DATA_PATH . '/favicons/' . $this->id () . '.txt';
 		if (!file_exists ($file)) {
-			file_put_contents($file, $this->website ());
+			$t = $this->website;
+			if (empty($t)) {
+				$t = $this->url;
+			}
+			file_put_contents($file, $t);
 		}
+	}
+	public static function faviconDelete($id) {
+		$path = DATA_PATH . '/favicons/' . $id;
+		@unlink($path . '.ico');
+		@unlink($path . '.txt');
+	}
+	public function favicon () {
 		return Url::display ('/f.php?' . $this->id ());
 	}
 
 	public function _id ($value) {
 		$this->id = $value;
 	}
-	public function _url ($value) {
+	public function _url ($value, $validate=true) {
+		if ($validate) {
+			$value = checkUrl($value);
+		}
 		if (empty ($value)) {
 			throw new BadUrlException ($value);
 		}
-		if (!preg_match ('#^https?://#i', $value)) {
-			$value = 'http://' . $value;
-		}
-
-		if (filter_var ($value, FILTER_VALIDATE_URL)) {
-			$this->url = $value;
-		} elseif (version_compare(PHP_VERSION, '5.3.3', '<') && (strpos($value, '-') > 0) && ($value === filter_var($value, FILTER_SANITIZE_URL))) {	//PHP bug #51192
-			$this->url = $value;
-		} else {
-			throw new BadUrlException ($value);
-		}
+		$this->url = $value;
 	}
 	public function _category ($value) {
 		$this->category = $value;
@@ -131,8 +135,11 @@ class Feed extends Model {
 		}
 		$this->name = $value;
 	}
-	public function _website ($value) {
-		if (is_null ($value)) {
+	public function _website ($value, $validate=true) {
+		if ($validate) {
+			$value = checkUrl($value);
+		}
+		if (empty ($value)) {
 			$value = '';
 		}
 		$this->website = $value;

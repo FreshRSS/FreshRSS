@@ -15,6 +15,22 @@ if (!function_exists('json_encode')) {
 	}
 }
 
+function checkUrl($url) {
+	if (empty ($url)) {
+		return '';
+	}
+	if (!preg_match ('#^https?://#i', $value)) {
+		$url = 'http://' . $url;
+	}
+	if (filter_var($url, FILTER_VALIDATE_URL) ||
+		(version_compare(PHP_VERSION, '5.3.3', '<') && (strpos($value, '-') > 0) &&	//PHP bug #51192
+		 ($value === filter_var($value, FILTER_SANITIZE_URL)))) {
+		return url;
+	} else {
+		return false;
+	}
+}
+
 // vérifie qu'on est connecté
 function is_logged () {
 	return Session::param ('mail') != false;

@@ -2,7 +2,7 @@
 require('../constants.php');
 $favicons_dir = DATA_PATH . '/favicons/';
 
-/* Télécharge le favicon d'un site, le place sur le serveur et retourne l'URL */
+/* Télécharge le favicon d'un site et le place sur le serveur */
 function download_favicon ($website, $dest) {
 	$ok = false;
 	$url = 'http://g.etfv.co/' . $website;
@@ -60,10 +60,11 @@ if (($icoMTime == false) || ($txtMTime > $icoMTime)) {
 	}
 }
 
+require(LIB_PATH . '/http-conditional.php');
+
 header('Content-Type: image/x-icon');
 header('Content-Disposition: inline; filename="' . $id . '.ico"');
 
-require(LIB_PATH . '/http-conditional.php');
 if (!httpConditional($icoMTime, 31557600, 2)) {
 	readfile($ico);
 }

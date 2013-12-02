@@ -86,6 +86,7 @@ class feedController extends ActionController {
 						Session::_param ('notification', $notif);
 					} else {
 						$feed->_id ($id);
+						$feed->faviconPrepare();
 
 						$entryDAO = new EntryDAO ();
 						$entries = $feed->entries ();
@@ -192,6 +193,7 @@ class feedController extends ActionController {
 		foreach ($feeds as $feed) {
 			try {
 				$feed->load ();
+				$feed->faviconPrepare();
 				$entries = $feed->entries ();
 				usort($entries, 'self::entryDateComparer');
 
@@ -313,7 +315,9 @@ class feedController extends ActionController {
 
 				// ajout du flux que s'il n'est pas déjà en BDD
 				if (!$feedDAO->searchByUrl ($values['url'])) {
-					if (!$feedDAO->addFeed ($values)) {
+					if ($feedDAO->addFeed ($values)) {
+						$feed->faviconPrepare();
+					} else {
 						$error = true;
 					}
 				}
@@ -354,6 +358,7 @@ class feedController extends ActionController {
 					'type' => 'good',
 					'content' => Translate::t ('category_emptied')
 				);
+				//TODO: Delete old favicons
 			} else {
 				$notif = array (
 					'type' => 'bad',
@@ -366,6 +371,7 @@ class feedController extends ActionController {
 					'type' => 'good',
 					'content' => Translate::t ('feed_deleted')
 				);
+				Feed::faviconDelete($id);
 			} else {
 				$notif = array (
 					'type' => 'bad',
