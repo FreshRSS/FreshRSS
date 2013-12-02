@@ -70,7 +70,7 @@
 				<li class="item"><a href="<?php echo $markReadUrl; ?>"><?php echo $string_mark; ?></a></li> 
 				<li class="separator"></li>
 <?php
-	$today = strtotime('today');
+	$today = @strtotime('today');
 	$one_week = $today - 604800;
 ?>
 				<li class="item"><a href="<?php echo _url ('entry', 'read', 'is_read', 1, 'get', $get, 'idMax', $today . '000000'); ?>"><?php echo Translate::t ('before_one_day'); ?></a></li>

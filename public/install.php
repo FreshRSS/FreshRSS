@@ -228,6 +228,7 @@ function saveStep3 () {
 			$_SESSION['bd_error'] = true;
 		}
 	}
+	invalidateHttpCache();
 }
 function deleteInstall () {
 	$res = unlink (PUBLIC_PATH . '/install.php');

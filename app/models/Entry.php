@@ -137,7 +137,7 @@ class Entry extends Model {
 
 	public function isDay ($day) {
 		$date = $this->dateAdded(true);
-		$today = strtotime('today');
+		$today = @strtotime('today');
 		$yesterday = $today - 86400;
 
 		if ($day === Days::TODAY &&
