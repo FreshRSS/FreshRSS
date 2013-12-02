@@ -19,13 +19,13 @@ function checkUrl($url) {
 	if (empty ($url)) {
 		return '';
 	}
-	if (!preg_match ('#^https?://#i', $value)) {
+	if (!preg_match ('#^https?://#i', $url)) {
 		$url = 'http://' . $url;
 	}
 	if (filter_var($url, FILTER_VALIDATE_URL) ||
-		(version_compare(PHP_VERSION, '5.3.3', '<') && (strpos($value, '-') > 0) &&	//PHP bug #51192
-		 ($value === filter_var($value, FILTER_SANITIZE_URL)))) {
-		return url;
+		(version_compare(PHP_VERSION, '5.3.3', '<') && (strpos($url, '-') > 0) &&	//PHP bug #51192
+		 ($url === filter_var($url, FILTER_SANITIZE_URL)))) {
+		return $url;
 	} else {
 		return false;
 	}
@@ -113,7 +113,14 @@ function html_only_entity_decode($text) {
 
 function opml_import ($xml) {
 	$xml = html_only_entity_decode($xml);	//!\ Assume UTF-8
-	$opml = simplexml_load_string ($xml);
+
+	$dom = new DOMDocument();
+	$dom->recover = true;
+	$dom->strictErrorChecking = false;
+	$dom->loadXML($xml);
+	$this->encoding = 'UTF-8';
+
+	$opml = simplexml_import_dom($dom);
 
 	if (!$opml) {
 		throw new OpmlException ();
