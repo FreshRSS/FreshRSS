@@ -118,7 +118,7 @@ function opml_import ($xml) {
 	$dom->recover = true;
 	$dom->strictErrorChecking = false;
 	$dom->loadXML($xml);
-	$this->encoding = 'UTF-8';
+	$dom->encoding = 'UTF-8';
 
 	$opml = simplexml_import_dom($dom);
 
