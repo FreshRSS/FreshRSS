@@ -315,7 +315,9 @@ class feedController extends ActionController {
 
 				// ajout du flux que s'il n'est pas déjà en BDD
 				if (!$feedDAO->searchByUrl ($values['url'])) {
-					if ($feedDAO->addFeed ($values)) {
+					$id = $feedDAO->addFeed ($values);
+					if ($id) {
+						$feed->_id ($id);
 						$feed->faviconPrepare();
 					} else {
 						$error = true;
