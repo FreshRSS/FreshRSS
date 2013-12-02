@@ -196,7 +196,7 @@
 		<div class="form-group">
 			<label class="group-name"></label>
 			<div class="group-controls">
-				<p><?php echo Translate::t('number_articles') ?> <code><?php echo $this->nb_total; ?></code></p>
+				<p><?php echo $this->nb_total; ?> <?php echo Translate::t('articles') ?>, <?php echo formatBytes($this->size_total); ?>.</p>
 				<p><a class="btn" href="<?php echo _url('entry', 'optimize'); ?>">
 					<?php echo Translate::t('optimize_bdd'); ?>
 				</a></p>

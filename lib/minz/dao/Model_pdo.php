@@ -80,6 +80,16 @@ class Model_pdo {
 	public function rollBack() {
 		$this->bd->rollBack();
 	}
+
+	public function size() {
+		$db = Configuration::dataBase ();
+		$sql = 'SELECT SUM(data_length + index_length) FROM information_schema.TABLES WHERE table_schema = ?';
+		$stm = $this->bd->prepare ($sql);
+		$values = array ($db['base']);
+		$stm->execute ($values);
+		$res = $stm->fetchAll(PDO::FETCH_COLUMN, 0);
+		return $res[0];
+	}
 }
 
 class FreshPDO extends PDO {

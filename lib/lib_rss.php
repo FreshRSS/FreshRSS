@@ -47,6 +47,21 @@ function small_hash ($txt) {
 	return strtr ($t, '+/', '-_');
 }
 
+function formatBytes($bytes, $precision = 2, $system = 'IEC') {
+	if ($system === 'IEC') {
+		$base = 1024;
+		$units = array('B', 'KiB', 'MiB', 'GiB', 'TiB');
+	} elseif ($system === 'SI') {
+		$base = 1000;
+		$units = array('B', 'KB', 'MB', 'GB', 'TB');
+	}
+	$bytes = max(intval($bytes), 0);
+	$pow = $bytes === 0 ? 0 : floor(log($bytes) / log($base));
+	$pow = min($pow, count($units) - 1);
+	$bytes /= pow($base, $pow);
+	return round($bytes, $precision) . ' ' . $units[$pow];
+}
+
 function timestamptodate ($t, $hour = true) {
 	$month = Translate::t (date('M', $t));
 	if ($hour) {

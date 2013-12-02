@@ -265,6 +265,7 @@ class configureController extends ActionController {
 
 		$entryDAO = new EntryDAO ();
 		$this->view->nb_total = $entryDAO->count ();
+		$this->view->size_total = $entryDAO->size ();
 	}
 
 	public function sharingAction () {
