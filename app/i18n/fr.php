@@ -84,8 +84,8 @@ return array (
 	'n_feeds_actualized'		=> '%d flux ont été mis à jour',
 	'feeds_actualized'		=> 'Les flux ont été mis à jour',
 	'no_feed_actualized'		=> 'Aucun flux n’a pu être mis à jour',
-	'feeds_imported_with_errors'	=> 'Les flux ont été importés mais des erreurs sont survenues',
-	'feeds_imported'		=> 'Les flux ont été importés',
+	'feeds_imported_with_errors'	=> 'Vos flux ont été importés mais des erreurs sont survenues',
+	'feeds_imported'		=> 'Vos flux ont été importés et vont maintenant être actualisés',
 	'category_emptied'		=> 'La catégorie a été vidée',
 	'feed_deleted'			=> 'Le flux a été supprimé',
 

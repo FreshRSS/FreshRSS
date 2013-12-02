@@ -84,8 +84,8 @@ return array (
 	'n_feeds_actualized'		=> '%d feeds have been updated',
 	'feeds_actualized'		=> 'RSS feeds have been updated',
 	'no_feed_actualized'		=> 'No RSS feed has been updated',
-	'feeds_imported_with_errors'	=> 'Feeds have been imported but errors occurred',
-	'feeds_imported'		=> 'Feeds have been imported',
+	'feeds_imported_with_errors'	=> 'Your feeds have been imported but some errors occurred',
+	'feeds_imported'		=> 'Your feeds have been imported and will now be updated',
 	'category_emptied'		=> 'Category has been emptied',
 	'feed_deleted'			=> 'Feed has been deleted',
 
