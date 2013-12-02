@@ -340,10 +340,10 @@ class feedController extends ActionController {
 		Session::_param ('notification', $notif);
 		Session::_param ('actualize_feeds', true);
 
-		// et on redirige vers la page import/export
+		// et on redirige vers la page d'accueil
 		Request::forward (array (
-			'c' => 'configure',
-			'a' => 'importExport'
+			'c' => 'index',
+			'a' => 'index'
 		), true);
 	}
 

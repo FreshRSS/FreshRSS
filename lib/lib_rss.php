@@ -91,7 +91,7 @@ function opml_export ($cats) {
 		$txt .= '<outline text="' . $cat['name'] . '">' . "\n";
 
 		foreach ($cat['feeds'] as $feed) {
-			$txt .= "\t" . '<outline text="' . $feed->name () . '" type="rss" xmlUrl="' . $feed->url () . '" htmlUrl="' . $feed->website () . '" />' . "\n";
+			$txt .= "\t" . '<outline text="' . $feed->name () . '" type="rss" xmlUrl="' . $feed->url () . '" htmlUrl="' . $feed->website () . '" description="' . $feed->description () . '" />' . "\n";
 		}
 
 		$txt .= '</outline>' . "\n";
@@ -201,7 +201,10 @@ function getFeed ($outline, $cat_id) {
 	$feed->_category ($cat_id);
 	$feed->_name ($title);
 	if (isset($outline['htmlUrl'])) {
-		$feed->_website((string)$outline['htmlUrl']);
+		$feed->_website(htmlspecialchars((string)$outline['htmlUrl'], ENT_QUOTES, 'UTF-8'));
+	}
+	if (isset($outline['description'])) {
+		$feed->_description(htmlspecialchars((string)$outline['description'], ENT_QUOTES, 'UTF-8'));
 	}
 	return $feed;
 }
