@@ -70,7 +70,7 @@ function timestamptodate ($t, $hour = true) {
 		$date = Translate::t ('format_date', $month);
 	}
 
-	return date ($date, $t);
+	return @date ($date, $t);
 }
 
 function sortEntriesByDate ($entry1, $entry2) {
