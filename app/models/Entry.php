@@ -257,11 +257,14 @@ class EntryDAO extends Model_pdo {
 			return false;
 		}
 	}
-	public function markReadEntries ($idMax = 0) {
+	public function markReadEntries ($idMax = 0, $onlyFavorites = false) {
 		if ($idMax === 0) {
 			$sql = 'UPDATE `' . $this->prefix . 'entry` e INNER JOIN `' . $this->prefix . 'feed` f ON e.id_feed = f.id '
 			     . 'SET e.is_read = 1, f.cache_nbUnreads=0 '
 			     . 'WHERE e.is_read = 0 AND f.priority > 0';
+			if ($onlyFavorites) {
+				$sql .= ' AND e.is_favorite = 1';
+			}
 			$stm = $this->bd->prepare ($sql);
 			if ($stm && $stm->execute ()) {
 				return $stm->rowCount();
@@ -276,6 +279,9 @@ class EntryDAO extends Model_pdo {
 			$sql = 'UPDATE `' . $this->prefix . 'entry` e INNER JOIN `' . $this->prefix . 'feed` f ON e.id_feed = f.id '
 			     . 'SET e.is_read = 1 '
 			     . 'WHERE e.is_read = 0 AND e.id <= ? AND f.priority > 0';
+			if ($onlyFavorites) {
+				$sql .= ' AND e.is_favorite = 1';
+			}
 			$values = array ($idMax);
 			$stm = $this->bd->prepare ($sql);
 			if (!($stm && $stm->execute ($values))) {

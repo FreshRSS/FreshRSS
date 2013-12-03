@@ -47,14 +47,21 @@ class entryController extends ActionController {
 			} else {
 				$typeGet = $get[0];
 				$get = substr ($get, 2);
-
-				if ($typeGet == 'c') {
-					$entryDAO->markReadCat ($get, $idMax);
-					$this->params = array ('get' => $nextGet); 
-				} elseif ($typeGet == 'f') {
-					$entryDAO->markReadFeed ($get, $idMax);
-					$this->params = array ('get' => $nextGet);
+				switch ($typeGet) {
+					case 'c':
+						$entryDAO->markReadCat ($get, $idMax);
+						break;
+					case 'f':
+						$entryDAO->markReadFeed ($get, $idMax);
+						break;
+					case 's':
+						$entryDAO->markReadEntries ($idMax, true);
+						break;
+					case 'a':
+						$entryDAO->markReadEntries ($idMax);
+						break;
 				}
+				$this->params = array ('get' => $nextGet);
 			}
 
 			$notif = array (
