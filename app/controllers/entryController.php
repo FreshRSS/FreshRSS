@@ -87,6 +87,9 @@ class entryController extends ActionController {
 	}
 
 	public function optimizeAction() {
+		@set_time_limit(300);
+		invalidateHttpCache();
+
 		// La table des entrées a tendance à grossir énormément
 		// Cette action permet d'optimiser cette table permettant de grapiller un peu de place
 		// Cette fonctionnalité n'est à appeler qu'occasionnellement
