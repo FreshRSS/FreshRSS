@@ -257,13 +257,15 @@ class EntryDAO extends Model_pdo {
 			return false;
 		}
 	}
-	public function markReadEntries ($idMax = 0, $onlyFavorites = false) {
+	public function markReadEntries ($idMax = 0, $favorites = false) {
 		if ($idMax === 0) {
 			$sql = 'UPDATE `' . $this->prefix . 'entry` e INNER JOIN `' . $this->prefix . 'feed` f ON e.id_feed = f.id '
 			     . 'SET e.is_read = 1, f.cache_nbUnreads=0 '
-			     . 'WHERE e.is_read = 0 AND f.priority > 0';
-			if ($onlyFavorites) {
-				$sql .= ' AND e.is_favorite = 1';
+			     . 'WHERE e.is_read = 0 AND ';
+			if ($favorites) {
+				$sql .= 'e.is_favorite = 1';
+			} else {
+				$sql .= 'f.priority > 0';
 			}
 			$stm = $this->bd->prepare ($sql);
 			if ($stm && $stm->execute ()) {
@@ -278,9 +280,11 @@ class EntryDAO extends Model_pdo {
 
 			$sql = 'UPDATE `' . $this->prefix . 'entry` e INNER JOIN `' . $this->prefix . 'feed` f ON e.id_feed = f.id '
 			     . 'SET e.is_read = 1 '
-			     . 'WHERE e.is_read = 0 AND e.id <= ? AND f.priority > 0';
-			if ($onlyFavorites) {
-				$sql .= ' AND e.is_favorite = 1';
+			     . 'WHERE e.is_read = 0 AND e.id <= ? AND ';
+			if ($favorites) {
+				$sql .= 'e.is_favorite = 1';
+			} else {
+				$sql .= 'f.priority > 0';
 			}
 			$values = array ($idMax);
 			$stm = $this->bd->prepare ($sql);
