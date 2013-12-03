@@ -218,7 +218,7 @@ function saveStep3 () {
 		writeLine ($f, 'prefix = "' . $_SESSION['bd_prefix'] . '"');
 		fclose ($f);
 
-		$_SESSION['bd_prefix'] .= (empty($_SESSION['default_user']) ? '' : ($_SESSION['default_user'] . '_'));
+		$_SESSION['bd_prefix_user'] = $_SESSION['bd_prefix'] . (empty($_SESSION['default_user']) ? '' : ($_SESSION['default_user'] . '_'));
 		$res = checkBD ();
 
 		if ($res) {
@@ -354,21 +354,21 @@ function checkBD () {
 			      $_SESSION['bd_pass'],
 			      $driver_options);
 
-		$sql = sprintf (SQL_REQ_CAT, $_SESSION['bd_prefix']);
+		$sql = sprintf (SQL_REQ_CAT, $_SESSION['bd_prefix_user']);
 		$res = $c->query ($sql);
 
 		if (!$res) {
 			$error = true;
 		}
 
-		$sql = sprintf (SQL_REQ_FEED, $_SESSION['bd_prefix'], $_SESSION['bd_prefix']);
+		$sql = sprintf (SQL_REQ_FEED, $_SESSION['bd_prefix_user'], $_SESSION['bd_prefix_user']);
 		$res = $c->query ($sql);
 
 		if (!$res) {
 			$error = true;
 		}
 
-		$sql = sprintf (SQL_REQ_ENTRY, $_SESSION['bd_prefix'], $_SESSION['bd_prefix']);
+		$sql = sprintf (SQL_REQ_ENTRY, $_SESSION['bd_prefix_user'], $_SESSION['bd_prefix_user']);
 		$res = $c->query ($sql);
 
 		if (!$res) {
