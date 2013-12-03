@@ -183,7 +183,7 @@ return array (
 	'share'				=> 'Partager',
 	'by_email'			=> 'Par courriel',
 	'optimize_bdd'			=> 'Optimiser la base de données',
-	'optimize_todo_sometimes'	=> 'À faire de temps en temps pour améliorer les performances',
+	'optimize_todo_sometimes'	=> 'À faire de temps en temps pour réduire la taille de la BDD',
 	'theme'				=> 'Thème',
 	'more_information'		=> 'Plus d’informations',
 	'activate_sharing'		=> 'Activer le partage',

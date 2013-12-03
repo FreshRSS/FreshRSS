@@ -183,7 +183,7 @@ return array (
 	'share'				=> 'Share',
 	'by_email'			=> 'By email',
 	'optimize_bdd'			=> 'Optimize database',
-	'optimize_todo_sometimes'	=> 'To do occasionally to improve performance',
+	'optimize_todo_sometimes'	=> 'To do occasionally to reduce the size of the database',
 	'theme'				=> 'Theme',
 	'more_information'		=> 'More information',
 	'activate_sharing'		=> 'Activate sharing',
