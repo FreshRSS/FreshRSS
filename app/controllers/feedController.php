@@ -88,6 +88,8 @@ class feedController extends ActionController {
 						$feed->_id ($id);
 						$feed->faviconPrepare();
 
+						$is_read = $this->view->conf->markUponReception() === 'yes' ? 1 : 0;
+
 						$entryDAO = new EntryDAO ();
 						$entries = $feed->entries ();
 						usort($entries, 'self::entryDateComparer');
@@ -105,6 +107,7 @@ class feedController extends ActionController {
 								$values = $entry->toArray ();
 								$values['id_feed'] = $feed->id ();
 								$values['id'] = min(time(), $entry->date (true)) . '.' . rand(0, 999999);
+								$values['is_read'] = $is_read;
 								$entryDAO->addEntry ($values);
 							}
 						}
@@ -197,6 +200,8 @@ class feedController extends ActionController {
 				$entries = $feed->entries ();
 				usort($entries, 'self::entryDateComparer');
 
+				$is_read = $this->view->conf->markUponReception() === 'yes' ? 1 : 0;
+
 				//For this feed, check last n entry GUIDs already in database
 				$existingGuids = array_fill_keys ($entryDAO->listLastGuidsByFeed ($feed->id (), count($entries) + 10), 1);
 
@@ -210,6 +215,7 @@ class feedController extends ActionController {
 						$values = $entry->toArray ();
 						//Use declared date at first import, otherwise use discovery date
 						$values['id'] = empty($existingGuids) ? min(time(), $entry->date (true)) . '.' . rand(0, 999999) : microtime(true);
+						$values['is_read'] = $is_read;
 						$entryDAO->addEntry ($values);
 					}
 				}

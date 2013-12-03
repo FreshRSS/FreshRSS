@@ -171,6 +171,7 @@ class configureController extends ActionController {
 			$openArticle = Request::param ('mark_open_article', 'no');
 			$openSite = Request::param ('mark_open_site', 'no');
 			$scroll = Request::param ('mark_scroll', 'no');
+			$reception = Request::param ('mark_upon_reception', 'no');
 			$theme = Request::param ('theme', 'default');
 			$topline_read = Request::param ('topline_read', 'no');
 			$topline_favorite = Request::param ('topline_favorite', 'no');
@@ -200,6 +201,7 @@ class configureController extends ActionController {
 				'article' => $openArticle,
 				'site' => $openSite,
 				'scroll' => $scroll,
+				'reception' => $reception,
 			));
 			$this->view->conf->_theme ($theme);
 			$this->view->conf->_topline_read ($topline_read);

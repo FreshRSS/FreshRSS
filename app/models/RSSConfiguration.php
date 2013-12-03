@@ -113,6 +113,9 @@ class RSSConfiguration extends Model {
 	public function markWhenScroll () {
 		return $this->mark_when['scroll'];
 	}
+	public function markUponReception () {
+		return $this->mark_when['reception'];
+	}
 	public function sharing ($key = false) {
 		if ($key === false) {
 			return $this->sharing;
@@ -171,11 +174,8 @@ class RSSConfiguration extends Model {
 		$this->language = $value;
 	}
 	public function _postsPerPage ($value) {
-		if (ctype_digit ($value) && $value > 0) {
-			$this->posts_per_page = $value;
-		} else {
-			$this->posts_per_page = 10;
-		}
+		$value = intval($value);
+		$this->posts_per_page = $value > 0 ? $value : 10;
 	}
 	public function _viewMode ($value) {
 		if ($value == 'global' || $value == 'reader') {
@@ -244,10 +244,14 @@ class RSSConfiguration extends Model {
 		if(!isset($values['scroll'])) {
 			$values['scroll'] = 'yes';
 		}
+		if(!isset($values['reception'])) {
+			$values['reception'] = 'no';
+		}
 
 		$this->mark_when['article'] = $values['article'];
 		$this->mark_when['site'] = $values['site'];
 		$this->mark_when['scroll'] = $values['scroll'];
+		$this->mark_when['reception'] = $values['reception'];
 	}
 	public function _sharing ($values) {
 		$are_url = array ('shaarli', 'poche', 'diaspora');
@@ -345,7 +349,8 @@ class RSSConfigurationDAO extends Model_array {
 	public $mark_when = array (
 		'article' => 'yes',
 		'site' => 'yes',
-		'scroll' => 'no'
+		'scroll' => 'no',
+		'reception' => 'no'
 	);
 	public $sharing = array (
 		'shaarli' => '',

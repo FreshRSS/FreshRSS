@@ -143,6 +143,10 @@
 					<input type="checkbox" name="mark_scroll" id="check_scroll" value="yes"<?php echo $this->conf->markWhenScroll () == 'yes' ? ' checked="checked"' : ''; ?> />
 					<?php echo Translate::t ('scroll'); ?>
 				</label>
+				<label class="checkbox" for="check_reception">
+					<input type="checkbox" name="mark_upon_reception" id="check_reception" value="yes"<?php echo $this->conf->markUponReception () == 'yes' ? ' checked="checked"' : ''; ?> />
+					<?php echo Translate::t ('upon_reception'); ?>
+				</label>
 			</div>
 		</div>
 
