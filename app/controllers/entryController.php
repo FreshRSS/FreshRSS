@@ -61,7 +61,9 @@ class entryController extends ActionController {
 						$entryDAO->markReadEntries ($idMax);
 						break;
 				}
-				$this->params = array ('get' => $nextGet);
+				if ($nextGet !== 'a') {
+					$this->params = array ('get' => $nextGet);
+				}
 			}
 
 			$notif = array (
