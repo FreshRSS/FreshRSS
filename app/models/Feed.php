@@ -204,15 +204,15 @@ class Feed extends Model {
 				$feed->set_cache_location (CACHE_PATH);
 				$feed->set_cache_duration(1500);
 				$feed->strip_htmltags (array (
-					'base', 'blink', 'body', 'doctype',
+					'base', 'blink', 'body', 'doctype', 'embed',
 					'font', 'form', 'frame', 'frameset', 'html',
 					'input', 'marquee', 'meta', 'noscript',
-					'param', 'script', 'style'
+					'object', 'param', 'plaintext', 'script', 'style',
 				));
 				$feed->strip_attributes(array_merge($feed->strip_attributes, array(
-					'onload', 'onunload', 'onclick', 'ondblclick', 'onmousedown', 'onmouseup',
+					'autoplay', 'onload', 'onunload', 'onclick', 'ondblclick', 'onmousedown', 'onmouseup',
 					'onmouseover', 'onmousemove', 'onmouseout', 'onfocus', 'onblur',
-					'onkeypress', 'onkeydown', 'onkeyup', 'onselect', 'onchange')));
+					'onkeypress', 'onkeydown', 'onkeyup', 'onselect', 'onchange', 'seamless')));
 				$feed->set_url_replacements(array(
 					'a' => 'href',
 					'area' => 'href',
@@ -220,6 +220,7 @@ class Feed extends Model {
 					'blockquote' => 'cite',
 					'del' => 'cite',
 					'form' => 'action',
+					'iframe' => 'src',
 					'img' => array(
 						'longdesc',
 						'src'
@@ -229,7 +230,10 @@ class Feed extends Model {
 					'q' => 'cite',
 					'source' => 'src',
 					'track' => 'src',
-					'video' => 'src',
+					'video' => array(
+						'poster',
+						'src',
+					),
 				));
 				$feed->init ();
 
@@ -581,7 +585,7 @@ class HelperFeed {
 			$myFeed = new Feed (isset($dao['url']) ? $dao['url'] : '', false);
 			$myFeed->_category ($catID === null ? $dao['category'] : $catID);
 			$myFeed->_name ($dao['name']);
-			$myFeed->_website ($dao['website']);
+			$myFeed->_website ($dao['website'], false);
 			$myFeed->_description (isset($dao['description']) ? $dao['description'] : '');
 			$myFeed->_lastUpdate (isset($dao['lastUpdate']) ? $dao['lastUpdate'] : 0);
 			$myFeed->_priority ($dao['priority']);
