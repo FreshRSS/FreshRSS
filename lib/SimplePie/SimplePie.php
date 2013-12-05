@@ -602,6 +602,13 @@ class SimplePie
 	public $strip_attributes = array('bgsound', 'class', 'expr', 'id', 'style', 'onclick', 'onerror', 'onfinish', 'onmouseover', 'onmouseout', 'onfocus', 'onblur', 'lowsrc', 'dynsrc');
 
 	/**
+	 * @var array Stores the default attributes to add to differet tags by add_attributes().
+	 * @see SimplePie::add_attributes()
+	 * @access private
+	 */
+	public $add_attributes = array('audio' => array('preload' => 'none'), 'iframe' => array('sandbox' => 'allow-scripts allow-same-origin'), 'video' => array('preload' => 'none'));	//FreshRSS
+
+	/**
 	 * @var array Stores the default tags to be stripped by strip_htmltags().
 	 * @see SimplePie::strip_htmltags()
 	 * @access private
@@ -1073,6 +1080,7 @@ class SimplePie
 			$this->strip_comments(false);
 			$this->strip_htmltags(false);
 			$this->strip_attributes(false);
+			$this->add_attributes(false);
 			$this->set_image_handler(false);
 		}
 	}
@@ -1117,6 +1125,15 @@ class SimplePie
 			$attribs = $this->strip_attributes;
 		}
 		$this->sanitize->strip_attributes($attribs);
+	}
+
+	public function add_attributes($attribs = '')
+	{
+		if ($attribs === '')
+		{
+			$attribs = $this->add_attributes;
+		}
+		$this->sanitize->add_attributes($attribs);
 	}
 
 	/**

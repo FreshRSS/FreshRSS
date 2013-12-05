@@ -213,6 +213,12 @@ class Feed extends Model {
 					'autoplay', 'onload', 'onunload', 'onclick', 'ondblclick', 'onmousedown', 'onmouseup',
 					'onmouseover', 'onmousemove', 'onmouseout', 'onfocus', 'onblur',
 					'onkeypress', 'onkeydown', 'onkeyup', 'onselect', 'onchange', 'seamless')));
+				$feed->add_attributes(array(
+					'img' => array('lazyload' => ''),	//http://www.w3.org/TR/resource-priorities/
+					'audio' => array('preload' => 'none'),
+					'iframe' => array('postpone' => '', 'sandbox' => 'allow-scripts allow-same-origin'),
+					'video' => array('postpone' => '', 'preload' => 'none'),
+				));
 				$feed->set_url_replacements(array(
 					'a' => 'href',
 					'area' => 'href',
