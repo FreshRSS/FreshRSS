@@ -570,6 +570,34 @@ class FeedDAO extends Model_pdo {
 			return false;
 		}
 	}
+
+	public function truncate ($id) {
+		$sql = 'DELETE e.* FROM `' . $this->prefix . 'entry` e WHERE e.id_feed=?';
+		$stm = $this->bd->prepare($sql);
+		$values = array($id);
+		$this->bd->beginTransaction ();
+		if (!($stm && $stm->execute ($values))) {
+				$info = $stm->errorInfo();
+				Minz_Log::record ('SQL error : ' . $info[2], Minz_Log::ERROR);
+				$this->bd->rollBack ();
+				return false;
+			}
+		$affected = $stm->rowCount();
+
+		$sql = 'UPDATE `' . $this->prefix . 'feed` f '
+			 . 'SET f.cache_nbEntries=0, f.cache_nbUnreads=0 WHERE f.id=?';
+		$values = array ($id);
+		$stm = $this->bd->prepare ($sql);
+		if (!($stm && $stm->execute ($values))) {
+			$info = $stm->errorInfo();
+			Minz_Log::record ('SQL error : ' . $info[2], Minz_Log::ERROR);
+			$this->bd->rollBack ();
+			return false;
+		}
+
+		$this->bd->commit ();
+		return $affected;
+	}
 }
 
 class HelperFeed {

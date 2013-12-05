@@ -157,6 +157,21 @@ class feedController extends ActionController {
 		}
 	}
 
+	public function truncateAction () {
+		if (Request::isPost ()) {
+			$id = Request::param ('id');
+			$feedDAO = new FeedDAO ();
+			$n = $feedDAO->truncate($id);
+			$notif = array(
+				'type' => $n === false ? 'bad' : 'good',
+				'content' => Translate::t ('n_entries_deleted', $n)
+			);
+			Session::_param ('notification', $notif);
+			invalidateHttpCache();
+			Request::forward (array ('c' => 'configure', 'a' => 'feed', 'params' => array('id' => $id)), true);
+		}
+	}
+
 	public function actualizeAction () {
 		@set_time_limit(300);
 
@@ -356,44 +371,46 @@ class feedController extends ActionController {
 	}
 
 	public function deleteAction () {
-		$type = Request::param ('type', 'feed');
-		$id = Request::param ('id');
+		if (Request::isPost ()) {
+			$type = Request::param ('type', 'feed');
+			$id = Request::param ('id');
 
-		$feedDAO = new FeedDAO ();
-		if ($type == 'category') {
-			if ($feedDAO->deleteFeedByCategory ($id)) {
-				$notif = array (
-					'type' => 'good',
-					'content' => Translate::t ('category_emptied')
-				);
-				//TODO: Delete old favicons
+			$feedDAO = new FeedDAO ();
+			if ($type == 'category') {
+				if ($feedDAO->deleteFeedByCategory ($id)) {
+					$notif = array (
+						'type' => 'good',
+						'content' => Translate::t ('category_emptied')
+					);
+					//TODO: Delete old favicons
+				} else {
+					$notif = array (
+						'type' => 'bad',
+						'content' => Translate::t ('error_occured')
+					);
+				}
 			} else {
-				$notif = array (
-					'type' => 'bad',
-					'content' => Translate::t ('error_occured')
-				);
+				if ($feedDAO->deleteFeed ($id)) {
+					$notif = array (
+						'type' => 'good',
+						'content' => Translate::t ('feed_deleted')
+					);
+					Feed::faviconDelete($id);
+				} else {
+					$notif = array (
+						'type' => 'bad',
+						'content' => Translate::t ('error_occured')
+					);
+				}
 			}
-		} else {
-			if ($feedDAO->deleteFeed ($id)) {
-				$notif = array (
-					'type' => 'good',
-					'content' => Translate::t ('feed_deleted')
-				);
-				Feed::faviconDelete($id);
+
+			Session::_param ('notification', $notif);
+
+			if ($type == 'category') {
+				Request::forward (array ('c' => 'configure', 'a' => 'categorize'), true);
 			} else {
-				$notif = array (
-					'type' => 'bad',
-					'content' => Translate::t ('error_occured')
-				);
+				Request::forward (array ('c' => 'configure', 'a' => 'feed'), true);
 			}
-		}
-
-		Session::_param ('notification', $notif);
-
-		if ($type == 'category') {
-			Request::forward (array ('c' => 'configure', 'a' => 'categorize'), true);
-		} else {
-			Request::forward (array ('c' => 'configure', 'a' => 'feed'), true);
 		}
 	}
 
