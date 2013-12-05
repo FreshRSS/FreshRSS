@@ -5,6 +5,7 @@ return array (
 	'login'				=> 'Connexion',
 	'logout'			=> 'Déconnexion',
 	'search'			=> 'Rechercher des mots ou des #tags',
+	'search_short'			=> 'Rechercher',
 
 	'configuration'			=> 'Configuration',
 	'general_and_reading'		=> 'Général et lecture',

@@ -175,4 +175,26 @@
 			</li>
 		</ul>
 	</div>
+
+	<div class="item search">
+		<form action="<?php echo _url ('index', 'index'); ?>" method="get">
+			<?php $search = Request::param ('search', ''); ?>
+			<input type="search" name="search" value="<?php echo $search; ?>" placeholder="<?php echo Translate::t ('search_short'); ?>" />
+
+			<?php $get = Request::param ('get', ''); ?>
+			<?php if($get != '') { ?>
+			<input type="hidden" name="get" value="<?php echo $get; ?>" />
+			<?php } ?>
+
+			<?php $order = Request::param ('order', ''); ?>
+			<?php if($order != '') { ?>
+			<input type="hidden" name="order" value="<?php echo $order; ?>" />
+			<?php } ?>
+
+			<?php $state = Request::param ('state', ''); ?>
+			<?php if($state != '') { ?>
+			<input type="hidden" name="state" value="<?php echo $state; ?>" />
+			<?php } ?>
+		</form>
+	</div>
 </div>

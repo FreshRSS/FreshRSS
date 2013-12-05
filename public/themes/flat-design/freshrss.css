@@ -85,6 +85,9 @@ body {
 		text-align: center;
 		padding: 5px 0;
 	}
+		.nav_menu .search {
+			display:none;
+		}
 
 .favicon {
 	height: 16px;
@@ -731,6 +734,17 @@ body {
 	.nav_menu .stick .btn {
 		margin: 5px 0;
 	}
+	.nav_menu .search {
+			display: inline-block;
+			max-width: 97%;
+		}
+		.nav_menu .search input {
+			max-width: 97%;
+			width: 90px;
+		}
+		.nav_menu .search input:focus {
+			width: 400px;
+		}
 
 	#panel {
 		left: 5px; right: 5px;

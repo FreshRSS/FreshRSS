@@ -5,6 +5,7 @@ return array (
 	'login'				=> 'Login',
 	'logout'			=> 'Logout',
 	'search'			=> 'Search words or #tags',
+	'search_short'			=> 'Search',
 
 	'configuration'			=> 'Configuration',
 	'general_and_reading'		=> 'General and reading',
