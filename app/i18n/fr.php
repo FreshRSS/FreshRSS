@@ -90,6 +90,7 @@ return array (
 	'feeds_imported'		=> 'Vos flux ont été importés et vont maintenant être actualisés',
 	'category_emptied'		=> 'La catégorie a été vidée',
 	'feed_deleted'			=> 'Le flux a été supprimé',
+	'feed_validator'		=> 'Vérifier la valididé du flux',
 
 	'optimization_complete'		=> 'Optimisation terminée',
 

@@ -90,6 +90,7 @@ return array (
 	'feeds_imported'		=> 'Your feeds have been imported and will now be updated',
 	'category_emptied'		=> 'Category has been emptied',
 	'feed_deleted'			=> 'Feed has been deleted',
+	'feed_validator'		=> 'Check the validity of the feed',
 
 	'optimization_complete'		=> 'Optimization complete',
 

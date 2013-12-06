@@ -37,6 +37,7 @@
 			<div class="group-controls">
 				<input type="text" name="url" id="url" value="<?php echo $this->flux->url (); ?>" />
 				<a target="_blank" href="<?php echo $this->flux->url (); ?>"><?php echo RSSThemes::icon('link'); ?></a>
+				  <a class="btn" target="_blank" href="http://validator.w3.org/feed/check.cgi?url=<?php echo $this->flux->url (); ?>"><?php echo Translate::t ('feed_validator'); ?></a>
 			</div>
 		</div>
 		<div class="form-group">
@@ -69,7 +70,6 @@
 				</label>
 			</div>
 		</div>
-
 		<div class="form-group">
 			<label class="group-name"></label>
 			<div class="group-controls">
