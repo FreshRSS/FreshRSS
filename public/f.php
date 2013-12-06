@@ -65,6 +65,6 @@ require(LIB_PATH . '/http-conditional.php');
 header('Content-Type: image/x-icon');
 header('Content-Disposition: inline; filename="' . $id . '.ico"');
 
-if (!httpConditional($icoMTime, 31557600, 2)) {
+if (!httpConditional($icoMTime, 2592000, 2)) {
 	readfile($ico);
 }
