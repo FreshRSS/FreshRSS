@@ -180,7 +180,7 @@ return array (
 	'article_selected'		=> 'lorsque l’article est sélectionné',
 	'article_open_on_website'	=> 'lorsque l’article est ouvert sur le site d’origine',
 	'scroll'			=> 'au défilement de la page',
-	'upon_reception'		=> 'dès la réception d’un nouvel article',
+	'upon_reception'		=> 'dès la réception du nouvel article',
 	'your_shaarli'			=> 'Votre Shaarli',
 	'your_poche'			=> 'Votre Poche',
 	'your_diaspora_pod'		=> 'Votre pod Diaspora*',
