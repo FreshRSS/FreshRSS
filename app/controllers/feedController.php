@@ -106,7 +106,7 @@ class feedController extends ActionController {
 							    $feed->keepHistory ()) {
 								$values = $entry->toArray ();
 								$values['id_feed'] = $feed->id ();
-								$values['id'] = min(time(), $entry->date (true)) . '.' . rand(0, 999999);
+								$values['id'] = min(time(), $entry->date (true)) . uSecString();
 								$values['is_read'] = $is_read;
 								$entryDAO->addEntry ($values);
 							}
@@ -229,7 +229,7 @@ class feedController extends ActionController {
 						$feed->keepHistory ())) {
 						$values = $entry->toArray ();
 						//Use declared date at first import, otherwise use discovery date
-						$values['id'] = empty($existingGuids) ? min(time(), $entry->date (true)) . '.' . rand(0, 999999) : microtime(true);
+						$values['id'] = empty($existingGuids) ? min(time(), $entry->date (true)) . uSecString() : uTimeString();
 						$values['is_read'] = $is_read;
 						$entryDAO->addEntry ($values);
 					}

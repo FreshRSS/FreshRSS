@@ -196,7 +196,7 @@ class Entry extends Model {
 class EntryDAO extends Model_pdo {
 	public function addEntry ($valuesTmp) {
 		$sql = 'INSERT INTO `' . $this->prefix . 'entry`(id, guid, title, author, content_bin, link, date, is_read, is_favorite, id_feed, tags) '
-		     . 'VALUES(CAST(? * 1000000 AS SIGNED INTEGER), ?, ?, ?, COMPRESS(?), ?, ?, ?, ?, ?, ?)';
+		     . 'VALUES(?, ?, ?, ?, COMPRESS(?), ?, ?, ?, ?, ?, ?)';
 		$stm = $this->bd->prepare ($sql);
 
 		$values = array (

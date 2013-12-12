@@ -255,6 +255,16 @@ function lazyimg($content) {
 	);
 }
 
+function uTimeString() {
+	$t = @gettimeofday();
+	return $t['sec'] . str_pad($t['usec'], 6, '0');
+}
+
+function uSecString() {
+	$t = @gettimeofday();
+	return str_pad($t['usec'], 6, '0');
+}
+
 function invalidateHttpCache() {
-	file_put_contents(DATA_PATH . '/touch.txt', microtime(true));
+	file_put_contents(DATA_PATH . '/touch.txt', uTimeString());
 }
