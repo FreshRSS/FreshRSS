@@ -197,14 +197,6 @@ class feedController extends ActionController {
 		// on calcule la date des articles les plus anciens qu'on accepte
 		$nb_month_old = $this->view->conf->oldEntries ();
 		$date_min = time () - (60 * 60 * 24 * 30 * $nb_month_old);
-		if (rand(0, 30) === 1) {
-			$nb = $entryDAO->cleanOldEntries ($date_min);
-			Minz_Log::record ($nb . ' old entries cleaned.', Minz_Log::DEBUG);
-			if ($nb > 0) {
-				$nb = $feedDAO->updateCachedValues ();
-				Minz_Log::record ($nb . ' cached values updated.', Minz_Log::DEBUG);
-			}
-		}
 
 		$i = 0;
 		$flux_update = 0;
@@ -233,6 +225,11 @@ class feedController extends ActionController {
 						$values['is_read'] = $is_read;
 						$entryDAO->addEntry ($values);
 					}
+				}
+
+				if ((!$feed->keepHistory()) && (rand(0, 30) === 1)) {
+					$nb = $feedDAO->cleanOldEntries ($feed->id (), $date_min, count($entries) + 10);
+					Minz_Log::record ($nb . ' old entries cleaned in feed ' . $feed->id (), Minz_Log::DEBUG);
 				}
 
 				// on indique que le flux vient d'être mis à jour en BDD

@@ -423,24 +423,6 @@ class EntryDAO extends Model_pdo {
 		}
 	}
 
-	public function cleanOldEntries ($date_min) {
-		$sql = 'DELETE e.* FROM `' . $this->prefix . 'entry` e INNER JOIN `' . $this->prefix . 'feed` f ON e.id_feed = f.id '
-		     . 'WHERE e.id <= ? AND e.is_favorite = 0 AND f.keep_history = 0';
-		$stm = $this->bd->prepare ($sql);
-
-		$values = array (
-			$date_min . '000000'
-		);
-
-		if ($stm && $stm->execute ($values)) {
-			return $stm->rowCount();
-		} else {
-			$info = $stm->errorInfo();
-			Minz_Log::record ('SQL error : ' . $info[2], Minz_Log::ERROR);
-			return false;
-		}
-	}
-
 	public function searchByGuid ($feed_id, $id) {
 		// un guid est unique pour un flux donné
 		$sql = 'SELECT id, guid, title, author, UNCOMPRESS(content_bin) AS content, link, date, is_read, is_favorite, id_feed, tags '
