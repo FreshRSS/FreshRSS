@@ -47,7 +47,7 @@ class RSSThemes extends Model {
 		), 1) : array();
 	}
 
-	public static function icon($name) {
+	public static function icon($name, $urlOnly = false) {
 		static $alts = array(
 			'add' => '✚',
 			'all' => '☰',
@@ -82,6 +82,7 @@ class RSSThemes extends Model {
 		$url = isset(self::$themeIcons[$url]) ? (self::$themeIconsUrl . $url) :
 			(self::$defaultIconsUrl . $url);
 
-		return '<img class="icon" src="' . Url::display($url) . '" alt="' . $alts[$name] . '" />';
+		return $urlOnly ? Url::display($url) :
+			'<img class="icon" src="' . Url::display($url) . '" alt="' . $alts[$name] . '" />';
 	}
 }
