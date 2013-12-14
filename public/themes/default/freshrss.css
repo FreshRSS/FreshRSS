@@ -380,18 +380,19 @@
 		}
 
 .content {
-	min-height: 300px;
+	min-height: 150px;
 	max-width: 550px;
 	margin: 0 auto;
 	padding: 20px 10px;
 	line-height: 170%;
 	word-wrap: break-word;
 }
-	.content .title {
-		margin: 0 0 5px;
-	}
 	.content h1, .content h2, .content h3 {
 		margin: 20px 0 5px;
+	}
+	.content > .title {
+		font-size: x-large;
+		margin: 0;
 	}
 
 	.content p {
@@ -681,6 +682,7 @@
 
 	.content {
 		font-size: 120%;
+		padding: 0;
 	}
 
 	.pagination {
