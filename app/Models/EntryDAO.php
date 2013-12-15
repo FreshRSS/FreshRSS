@@ -259,7 +259,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 		return isset ($entries[0]) ? $entries[0] : false;
 	}
 
-	public function listWhere($type = 'a', $id = '', $state = 'all', $order = 'DESC', $limit = 1, $firstId = -1, $filter = '') {
+	public function listWhere($type = 'a', $id = '', $state = 'all', $order = 'DESC', $limit = 1, $firstId = '', $filter = '', $date_min = 0) {
 		$where = '';
 		$values = array();
 		switch ($type) {
@@ -299,8 +299,11 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 			default:
 				throw new FreshRSS_EntriesGetter_Exception ('Bad order in Entry->listByType: [' . $order . ']!');
 		}
-		if ($firstId > 0) {
+		if ($firstId !== '') {
 			$where .= 'AND e.id ' . ($order === 'DESC' ? '<=' : '>=') . $firstId . ' ';
+		}
+		if ($date_min > 0) {
+			$where .= 'AND e.id >= ' . $date_min . '000000 ';
 		}
 		$terms = array_unique(explode(' ', trim($filter)));
 		sort($terms);	//Put #tags first

@@ -96,7 +96,7 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 
 						// on calcule la date des articles les plus anciens qu'on accepte
 						$nb_month_old = $this->view->conf->oldEntries ();
-						$date_min = time () - (60 * 60 * 24 * 30 * $nb_month_old);
+						$date_min = time () - (3600 * 24 * 30 * $nb_month_old);
 
 						$transactionStarted = true;
 						$feedDAO->beginTransaction ();
@@ -196,7 +196,7 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 
 		// on calcule la date des articles les plus anciens qu'on accepte
 		$nb_month_old = $this->view->conf->oldEntries ();
-		$date_min = time () - (60 * 60 * 24 * 30 * $nb_month_old);
+		$date_min = time () - (3600 * 24 * 30 * $nb_month_old);
 
 		$i = 0;
 		$flux_update = 0;
@@ -310,7 +310,7 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 
 		// on calcule la date des articles les plus anciens qu'on accepte
 		$nb_month_old = $this->view->conf->oldEntries ();
-		$date_min = time () - (60 * 60 * 24 * 30 * $nb_month_old);
+		$date_min = time () - (3600 * 24 * 30 * $nb_month_old);
 
 		// la variable $error permet de savoir si une erreur est survenue
 		// Le but est de ne pas arrêter l'import même en cas d'erreur
