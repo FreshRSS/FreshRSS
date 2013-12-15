@@ -269,7 +269,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 				$joinFeed = true;
 				break;
 			case 's':
-				$where .= 'e.is_favorite = 1 ';
+				$where .= 'e1.is_favorite = 1 ';
 				break;
 			case 'c':
 				$where .= 'f.category = ? ';
@@ -277,7 +277,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 				$joinFeed = true;
 				break;
 			case 'f':
-				$where .= 'e.id_feed = ? ';
+				$where .= 'e1.id_feed = ? ';
 				$values[] = intval($id);
 				break;
 			default:
@@ -287,10 +287,10 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 			case 'all':
 				break;
 			case 'not_read':
-				$where .= 'AND e.is_read = 0 ';
+				$where .= 'AND e1.is_read = 0 ';
 				break;
 			case 'read':
-				$where .= 'AND e.is_read = 1 ';
+				$where .= 'AND e1.is_read = 1 ';
 				break;
 			default:
 				throw new FreshRSS_EntriesGetter_Exception ('Bad state in Entry->listByType: [' . $state . ']!');
@@ -303,10 +303,10 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 				throw new FreshRSS_EntriesGetter_Exception ('Bad order in Entry->listByType: [' . $order . ']!');
 		}
 		if ($firstId !== '') {
-			$where .= 'AND e.id ' . ($order === 'DESC' ? '<=' : '>=') . $firstId . ' ';
+			$where .= 'AND e1.id ' . ($order === 'DESC' ? '<=' : '>=') . $firstId . ' ';
 		}
 		if (($date_min > 0) && ($type !== 's')) {
-			$where .= 'AND (e.id >= ' . $date_min . '000000 OR e.is_favorite = 1 OR f.keep_history = 1) ';
+			$where .= 'AND (e1.id >= ' . $date_min . '000000 OR e1.is_favorite = 1 OR f.keep_history = 1) ';
 			$joinFeed = true;
 		}
 		$terms = array_unique(explode(' ', trim($filter)));
@@ -315,10 +315,10 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 		foreach ($terms as $word) {
 			if (!empty($word)) {
 				if ($word[0] === '#' && isset($word[1])) {
-					$having .= 'AND e.tags LIKE ? ';
+					$having .= 'AND e1.tags LIKE ? ';
 					$values[] = '%' . $word .'%';
 				} elseif (!empty($word)) {
-					$having .= 'AND (e.title LIKE ? OR content LIKE ?) ';
+					$having .= 'AND (e1.title LIKE ? OR content LIKE ?) ';
 					$values[] = '%' . $word .'%';
 					$values[] = '%' . $word .'%';
 				}
@@ -327,14 +327,14 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 
 		$sql = 'SELECT e.id, e.guid, e.title, e.author, UNCOMPRESS(e.content_bin) AS content, e.link, e.date, e.is_read, e.is_favorite, e.id_feed, e.tags '
 		     . 'FROM `' . $this->prefix . 'entry` e '
-		     . ($joinFeed ? 'INNER JOIN `' . $this->prefix . 'feed` f ON e.id_feed = f.id ' : '')
-		     . 'WHERE ' . $where
-		     . (empty($having) ? '' : 'HAVING' . substr($having, 3))
+		     . 'INNER JOIN (SELECT e1.id FROM `' . $this->prefix . 'entry` e1 '
+			     . ($joinFeed ? 'INNER JOIN `' . $this->prefix . 'feed` f ON e1.id_feed = f.id ' : '')
+			     . 'WHERE ' . $where
+			     . (empty($having) ? '' : 'HAVING' . substr($having, 3))
+			     . 'ORDER BY e1.id ' . $order
+			     . ($limit > 0 ? ' LIMIT ' . $limit : '')	//TODO: See http://explainextended.com/2009/10/23/mysql-order-by-limit-performance-late-row-lookups/
+		     . ') e2 ON e2.id = e.id '
 		     . 'ORDER BY e.id ' . $order;
-
-		if ($limit > 0) {
-			$sql .= ' LIMIT ' . $limit;	//TODO: See http://explainextended.com/2009/10/23/mysql-order-by-limit-performance-late-row-lookups/
-		}
 
 		$stm = $this->bd->prepare ($sql);
 		$stm->execute ($values);
