@@ -134,21 +134,20 @@ class FreshRSS_Entry extends Minz_Model {
 		$this->tags = $value;
 	}
 
-	public function isDay ($day) {
+	public function isDay ($day, $today) {
 		$date = $this->dateAdded(true);
-		$today = @strtotime('today');
-		$yesterday = $today - 86400;
-
-		if ($day === FreshRSS_Days::TODAY &&
-		    $date >= $today && $date < $today + 86400) {
-			return true;
-		} elseif ($day === FreshRSS_Days::YESTERDAY &&
-		    $date >= $yesterday && $date < $yesterday + 86400) {
-			return true;
-		} elseif ($day === FreshRSS_Days::BEFORE_YESTERDAY && $date < $yesterday) {
-			return true;
-		} else {
-			return false;
+		switch ($day) {
+			case FreshRSS_Days::TODAY:
+				$tomorrow = $today + 86400;
+				return $date >= $today && $date < $tomorrow;
+			case FreshRSS_Days::YESTERDAY:
+				$yesterday = $today - 86400;
+				return $date >= $yesterday && $date < $today;
+			case FreshRSS_Days::BEFORE_YESTERDAY:
+				$yesterday = $today - 86400;
+				return $date < $yesterday;
+			default:
+				return false;
 		}
 	}
 

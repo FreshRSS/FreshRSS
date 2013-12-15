@@ -21,24 +21,25 @@ if (!empty($this->entries)) {
 		$facebook = $this->conf->sharing ('facebook');
 		$email = $this->conf->sharing ('email');
 		$print = $this->conf->sharing ('print');
+		$today = $this->today;
 	?>
 	<?php foreach ($this->entries as $item) { ?>
 
-	<?php if ($display_today && $item->isDay (FreshRSS_Days::TODAY)) { ?>
+	<?php if ($display_today && $item->isDay (FreshRSS_Days::TODAY, $today)) { ?>
 	<div class="day" id="day_today">
 		<?php echo Minz_Translate::t ('today'); ?>
 		<span class="date"> - <?php echo timestamptodate (time (), false); ?></span>
 		<span class="name"><?php echo $this->currentName; ?></span>
 	</div>
 	<?php $display_today = false; } ?>
-	<?php if ($display_yesterday && $item->isDay (FreshRSS_Days::YESTERDAY)) { ?>
+	<?php if ($display_yesterday && $item->isDay (FreshRSS_Days::YESTERDAY, $today)) { ?>
 	<div class="day" id="day_yesterday">
 		<?php echo Minz_Translate::t ('yesterday'); ?>
 		<span class="date"> - <?php echo timestamptodate (time () - 86400, false); ?></span>
 		<span class="name"><?php echo $this->currentName; ?></span>
 	</div>
 	<?php $display_yesterday = false; } ?>
-	<?php if ($display_others && $item->isDay (FreshRSS_Days::BEFORE_YESTERDAY)) { ?>
+	<?php if ($display_others && $item->isDay (FreshRSS_Days::BEFORE_YESTERDAY, $today)) { ?>
 	<div class="day" id="day_before_yesterday">
 		<?php echo Minz_Translate::t ('before_yesterday'); ?>
 		<span class="name"><?php echo $this->currentName; ?></span>

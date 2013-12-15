@@ -125,6 +125,7 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 		}
 
 		$today = @strtotime('today');
+		$this->view->today = $today;
 
 		// on calcule la date des articles les plus anciens qu'on affiche
 		$nb_month_old = $this->view->conf->oldEntries ();
