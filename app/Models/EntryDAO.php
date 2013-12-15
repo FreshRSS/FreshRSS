@@ -303,7 +303,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 			$where .= 'AND e.id ' . ($order === 'DESC' ? '<=' : '>=') . $firstId . ' ';
 		}
 		if ($date_min > 0) {
-			$where .= 'AND e.id >= ' . $date_min . '000000 ';
+			$where .= 'AND (e.id >= ' . $date_min . '000000 OR e.is_favorite = 1 OR f.keep_history = 1) ';
 		}
 		$terms = array_unique(explode(' ', trim($filter)));
 		sort($terms);	//Put #tags first
