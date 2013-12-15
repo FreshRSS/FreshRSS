@@ -229,7 +229,9 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 
 				if ((!$feed->keepHistory()) && (rand(0, 30) === 1)) {
 					$nb = $feedDAO->cleanOldEntries ($feed->id (), $date_min, count($entries) + 10);
-					Minz_Log::record ($nb . ' old entries cleaned in feed ' . $feed->id (), Minz_Log::DEBUG);
+					if ($nb > 0) {
+						Minz_Log::record ($nb . ' old entries cleaned in feed ' . $feed->id (), Minz_Log::DEBUG);
+					}
 				}
 
 				// on indique que le flux vient d'être mis à jour en BDD
