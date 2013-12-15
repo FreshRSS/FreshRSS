@@ -249,7 +249,7 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 			Minz_Session::_param ('mail', $this->view->conf->mailLogin ());
 
 			Minz_Session::_param ('language', $this->view->conf->language ());
-			Translate::reset ();
+			Minz_Translate::reset ();
 
 			// notif
 			$notif = array (
