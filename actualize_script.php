@@ -14,10 +14,10 @@ set_include_path (get_include_path ()
 		 . PATH_SEPARATOR
 		 . APP_PATH);
 
-require (APP_PATH . '/App_FrontController.php');
+require(LIB_PATH . '/lib_rss.php');	//Includes class autoloader
 
-$front_controller = new App_FrontController ();
+$front_controller = new FreshRSS ();
 $front_controller->init ();
-Session::_param('mail', true); // permet de se passer de la phase de connexion
+Minz_Session::_param('mail', true); // permet de se passer de la phase de connexion
 $front_controller->run ();
 invalidateHttpCache();
