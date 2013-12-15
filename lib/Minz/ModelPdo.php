@@ -8,7 +8,7 @@
  * La classe Model_sql représente le modèle interragissant avec les bases de données
  * Seul la connexion MySQL est prise en charge pour le moment
  */
-class Model_pdo {
+class Minz_ModelPdo {
 
 	/**
 	 * Partage la connexion à la base de données entre toutes les instances.
@@ -35,7 +35,7 @@ class Model_pdo {
 			return;
 		}
 
-		$db = Configuration::dataBase ();
+		$db = Minz_Configuration::dataBase ();
 		$driver_options = null;
 
 		try {
@@ -60,13 +60,13 @@ class Model_pdo {
 			);
 			self::$sharedBd = $this->bd;
 
-			$userPrefix = Configuration::currentUser ();
+			$userPrefix = Minz_Configuration::currentUser ();
 			$this->prefix = $db['prefix'] . (empty($userPrefix) ? '' : ($userPrefix . '_'));
 			self::$sharedPrefix = $this->prefix;
 		} catch (Exception $e) {
-			throw new PDOConnectionException (
+			throw new Minz_PDOConnectionException (
 				$string,
-				$db['user'], MinzException::ERROR
+				$db['user'], Minz_Exception::ERROR
 			);
 		}
 	}
@@ -82,7 +82,7 @@ class Model_pdo {
 	}
 
 	public function size() {
-		$db = Configuration::dataBase ();
+		$db = Minz_Configuration::dataBase ();
 		$sql = 'SELECT SUM(data_length + index_length) FROM information_schema.TABLES WHERE table_schema = ?';
 		$stm = $this->bd->prepare ($sql);
 		$values = array ($db['base']);

@@ -2,12 +2,12 @@
 	echo '"use strict";', "\n";
 	$mark = $this->conf->markWhen ();
 	echo 'var ',
-		'hide_posts=', ($this->conf->displayPosts () === 'yes' || Request::param ('output') === 'reader') ? 'false' : 'true',
+		'hide_posts=', ($this->conf->displayPosts () === 'yes' || Minz_Request::param ('output') === 'reader') ? 'false' : 'true',
 		',auto_mark_article=', $mark['article'] === 'yes' ? 'true' : 'false',
 		',auto_mark_site=', $mark['site'] === 'yes' ? 'true' : 'false',
 		',auto_mark_scroll=', $mark['scroll'] === 'yes' ? 'true' : 'false',
 		',auto_load_more=', $this->conf->autoLoadMore () === 'yes' ? 'true' : 'false',
-		',full_lazyload=', $this->conf->lazyload () === 'yes' && ($this->conf->displayPosts () === 'yes' || Request::param ('output') === 'reader') ? 'true' : 'false',
+		',full_lazyload=', $this->conf->lazyload () === 'yes' && ($this->conf->displayPosts () === 'yes' || Minz_Request::param ('output') === 'reader') ? 'true' : 'false',
 		',does_lazyload=', $this->conf->lazyload() === 'yes' ? 'true' : 'false';
 
 	$s = $this->conf->shortcuts ();
@@ -21,11 +21,11 @@
 			'load_more:"', $s['load_more'], '"',
 		"},\n";
 
-	if (Request::param ('output') === 'global') {
-		echo "iconClose='", RSSThemes::icon('close'), "',\n";
+	if (Minz_Request::param ('output') === 'global') {
+		echo "iconClose='", FreshRSS_Themes::icon('close'), "',\n";
 	}
 
-	$mail = Session::param ('mail', 'null');
+	$mail = Minz_Session::param ('mail', 'null');
 	if ($mail != 'null') {
 		$mail = '"' . $mail . '"';
 	}
@@ -35,11 +35,11 @@
 		'url_logout="', _url ('index', 'logout'), '",',
 		'current_user_mail=', $mail, ",\n";
 
-	echo 'load_shortcuts=', Request::controllerName () === 'index' && Request::actionName () === 'index' ? 'true' : 'false', ",\n";
+	echo 'load_shortcuts=', Minz_Request::controllerName () === 'index' && Minz_Request::actionName () === 'index' ? 'true' : 'false', ",\n";
 
-	echo 'str_confirmation="', Translate::t('confirm_action'), '"', ",\n";
+	echo 'str_confirmation="', Minz_Translate::t('confirm_action'), '"', ",\n";
 
-	echo 'auto_actualize_feeds=', Session::param('actualize_feeds', false) ? 'true' : 'false', ";\n";
-	if (Session::param('actualize_feeds', false)) {
-		Session::_param('actualize_feeds');
+	echo 'auto_actualize_feeds=', Minz_Session::param('actualize_feeds', false) ? 'true' : 'false', ";\n";
+	if (Minz_Session::param('actualize_feeds', false)) {
+		Minz_Session::_param('actualize_feeds');
 	}

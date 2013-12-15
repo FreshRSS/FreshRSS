@@ -7,7 +7,7 @@
 /**
  * La classe Helper représente une aide pour des tâches récurrentes
  */
-class Helper {
+class Minz_Helper {
 	/**
 	 * Annule les effets des magic_quotes pour une variable donnée
 	 * @param $var variable à traiter (tableau ou simple variable)

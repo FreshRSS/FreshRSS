@@ -1,13 +1,13 @@
 <?php
 
-class javascriptController extends ActionController {
+class FreshRSS_javascript_Controller extends Minz_ActionController {
 	public function firstAction () {
 		$this->view->_useLayout (false);
 		header('Content-type: text/javascript');
 	}
 
 	public function actualizeAction () {
-		$feedDAO = new FeedDAO ();
+		$feedDAO = new FreshRSS_FeedDAO ();
 		$this->view->feeds = $feedDAO->listFeeds ();
 	}
 }

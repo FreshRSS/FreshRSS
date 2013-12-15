@@ -1,17 +1,17 @@
 <ul class="nav nav-list aside aside_feed">
-	<li class="nav-header"><?php echo Translate::t ('your_rss_feeds'); ?></li>
+	<li class="nav-header"><?php echo Minz_Translate::t ('your_rss_feeds'); ?></li>
 
-	<li class="nav-form"><form id="add_rss" method="post" action="<?php echo Url::display (array ('c' => 'feed', 'a' => 'add')); ?>">
+	<li class="nav-form"><form id="add_rss" method="post" action="<?php echo Minz_Url::display (array ('c' => 'feed', 'a' => 'add')); ?>">
 		<div class="stick">
-			<input type="url" name="url_rss" placeholder="<?php echo Translate::t ('add_rss_feed'); ?>" />
+			<input type="url" name="url_rss" placeholder="<?php echo Minz_Translate::t ('add_rss_feed'); ?>" />
 			<div class="dropdown">
 				<div id="dropdown-cat" class="dropdown-target"></div>
 
-				<a class="dropdown-toggle btn" href="#dropdown-cat"><?php echo RSSThemes::icon('down'); ?></a>
+				<a class="dropdown-toggle btn" href="#dropdown-cat"><?php echo FreshRSS_Themes::icon('down'); ?></a>
 				<ul class="dropdown-menu">
 					<li class="dropdown-close"><a href="#close">❌</a></li>
 
-					<li class="dropdown-header"><?php echo Translate::t ('category'); ?></li>
+					<li class="dropdown-header"><?php echo Minz_Translate::t ('category'); ?></li>
 
 					<li class="input">
 						<select name="category" id="category">
@@ -25,25 +25,25 @@
 
 					<li class="separator"></li>
 
-					<li class="dropdown-header"><?php echo Translate::t ('http_authentication'); ?></li>
+					<li class="dropdown-header"><?php echo Minz_Translate::t ('http_authentication'); ?></li>
 					<li class="input">
-						<input type="text" name="username" id="username" placeholder="<?php echo Translate::t ('username'); ?>" />
+						<input type="text" name="username" id="username" placeholder="<?php echo Minz_Translate::t ('username'); ?>" />
 					</li>
 					<li class="input">
-						<input type="password" name="password" id="password" placeholder="<?php echo Translate::t ('password'); ?>" />
+						<input type="password" name="password" id="password" placeholder="<?php echo Minz_Translate::t ('password'); ?>" />
 					</li>
 				</ul>
 			</div>
-			<button class="btn" type="submit"><?php echo RSSThemes::icon('add'); ?></button>
+			<button class="btn" type="submit"><?php echo FreshRSS_Themes::icon('add'); ?></button>
 		</div>
 	</form></li>
 
-	<li class="item<?php echo Request::actionName () == 'importExport' ? ' active' : ''; ?>">
-		<a href="<?php echo _url ('configure', 'importExport'); ?>"><?php echo Translate::t ('import_export_opml'); ?></a>
+	<li class="item<?php echo Minz_Request::actionName () == 'importExport' ? ' active' : ''; ?>">
+		<a href="<?php echo _url ('configure', 'importExport'); ?>"><?php echo Minz_Translate::t ('import_export_opml'); ?></a>
 	</li>
 
-	<li class="item<?php echo Request::actionName () == 'categorize' ? ' active' : ''; ?>">
-		<a href="<?php echo _url ('configure', 'categorize'); ?>"><?php echo Translate::t ('categories_management'); ?></a>
+	<li class="item<?php echo Minz_Request::actionName () == 'categorize' ? ' active' : ''; ?>">
+		<a href="<?php echo _url ('configure', 'categorize'); ?>"><?php echo Minz_Translate::t ('categories_management'); ?></a>
 	</li>
 
 	<li class="separator"></li>
@@ -59,6 +59,6 @@
 	</li>
 	<?php } ?>
 	<?php } else { ?>
-	<li class="item disable"><?php echo Translate::t ('no_rss_feed'); ?></li>
+	<li class="item disable"><?php echo Minz_Translate::t ('no_rss_feed'); ?></li>
 	<?php } ?>
 </ul>

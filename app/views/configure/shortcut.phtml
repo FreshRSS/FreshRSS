@@ -1,7 +1,7 @@
 <?php $this->partial ('aside_configure'); ?>
 
 <div class="post">
-	<a href="<?php echo _url ('index', 'index'); ?>"><?php echo Translate::t ('back_to_rss_feeds'); ?></a>
+	<a href="<?php echo _url ('index', 'index'); ?>"><?php echo Minz_Translate::t ('back_to_rss_feeds'); ?></a>
 
 	<datalist id="keys">
 		<?php foreach ($this->list_keys as $key) { ?>
@@ -12,57 +12,57 @@
 	<?php $s = $this->conf->shortcuts (); ?>
 
 	<form method="post" action="<?php echo _url ('configure', 'shortcut'); ?>">
-		<legend><?php echo Translate::t ('shortcuts_management'); ?></legend>
+		<legend><?php echo Minz_Translate::t ('shortcuts_management'); ?></legend>
 
-		<noscript><p class="alert alert-error"><?php echo Translate::t ('javascript_for_shortcuts'); ?></p></noscript>
+		<noscript><p class="alert alert-error"><?php echo Minz_Translate::t ('javascript_for_shortcuts'); ?></p></noscript>
 
 		<div class="form-group">
-			<label class="group-name" for="mark_read"><?php echo Translate::t ('mark_read'); ?></label>
+			<label class="group-name" for="mark_read"><?php echo Minz_Translate::t ('mark_read'); ?></label>
 			<div class="group-controls">
 				<input type="text" id="mark_read" name="shortcuts[mark_read]" list="keys" value="<?php echo $s['mark_read']; ?>" />
-				<?php echo Translate::t ('shift_for_all_read'); ?>
+				<?php echo Minz_Translate::t ('shift_for_all_read'); ?>
 			</div>
 		</div>
 
 		<div class="form-group">
-			<label class="group-name" for="mark_favorite"><?php echo Translate::t ('mark_favorite'); ?></label>
+			<label class="group-name" for="mark_favorite"><?php echo Minz_Translate::t ('mark_favorite'); ?></label>
 			<div class="group-controls">
 				<input type="text" id="mark_favorite" name="shortcuts[mark_favorite]" list="keys" value="<?php echo $s['mark_favorite']; ?>" />
 			</div>
 		</div>
 
 		<div class="form-group">
-			<label class="group-name" for="go_website"><?php echo Translate::t ('see_on_website'); ?></label>
+			<label class="group-name" for="go_website"><?php echo Minz_Translate::t ('see_on_website'); ?></label>
 			<div class="group-controls">
 				<input type="text" id="go_website" name="shortcuts[go_website]" list="keys" value="<?php echo $s['go_website']; ?>" />
 			</div>
 		</div>
 
 		<div class="form-group">
-			<label class="group-name" for="next_entry"><?php echo Translate::t ('next_article'); ?></label>
+			<label class="group-name" for="next_entry"><?php echo Minz_Translate::t ('next_article'); ?></label>
 			<div class="group-controls">
 				<input type="text" id="next_entry" name="shortcuts[next_entry]" list="keys" value="<?php echo $s['next_entry']; ?>" />
-				<?php echo Translate::t ('shift_for_last'); ?>
+				<?php echo Minz_Translate::t ('shift_for_last'); ?>
 			</div>
 		</div>
 
 		<div class="form-group">
-			<label class="group-name" for="prev_entry"><?php echo Translate::t ('previous_article'); ?></label>
+			<label class="group-name" for="prev_entry"><?php echo Minz_Translate::t ('previous_article'); ?></label>
 			<div class="group-controls">
 				<input type="text" id="prev_entry" name="shortcuts[prev_entry]" list="keys" value="<?php echo $s['prev_entry']; ?>" />
-				<?php echo Translate::t ('shift_for_first'); ?>
+				<?php echo Minz_Translate::t ('shift_for_first'); ?>
 			</div>
 		</div>
 
 		<div class="form-group">
-			<label class="group-name" for="collapse_entry"><?php echo Translate::t ('collapse_article'); ?></label>
+			<label class="group-name" for="collapse_entry"><?php echo Minz_Translate::t ('collapse_article'); ?></label>
 			<div class="group-controls">
 				<input type="text" id="collapse_entry" name="shortcuts[collapse_entry]" list="keys" value="<?php echo $s['collapse_entry']; ?>" />
 			</div>
 		</div>
 
 		<div class="form-group">
-			<label class="group-name" for="load_more_shortcut"><?php echo Translate::t ('load_more'); ?></label>
+			<label class="group-name" for="load_more_shortcut"><?php echo Minz_Translate::t ('load_more'); ?></label>
 			<div class="group-controls">
 				<input type="text" id="load_more_shortcut" name="shortcuts[load_more]" list="keys" value="<?php echo $s['load_more']; ?>" />
 			</div>
@@ -70,8 +70,8 @@
 
 		<div class="form-group form-actions">
 			<div class="group-controls">
-				<button type="submit" class="btn btn-important"><?php echo Translate::t ('save'); ?></button>
-				<button type="reset" class="btn"><?php echo Translate::t ('cancel'); ?></button>
+				<button type="submit" class="btn btn-important"><?php echo Minz_Translate::t ('save'); ?></button>
+				<button type="reset" class="btn"><?php echo Minz_Translate::t ('cancel'); ?></button>
 			</div>
 		</div>
 	</form>

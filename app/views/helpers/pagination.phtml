@@ -1,25 +1,25 @@
 <?php
-	$c = Request::controllerName ();
-	$a = Request::actionName ();
-	$params = Request::params ();
-	$markReadUrl = Session::param ('markReadUrl');
-	Session::_param ('markReadUrl', false);
+	$c = Minz_Request::controllerName ();
+	$a = Minz_Request::actionName ();
+	$params = Minz_Request::params ();
+	$markReadUrl = Minz_Session::param ('markReadUrl');
+	Minz_Session::_param ('markReadUrl', false);
 ?>
 
 <ul class="pagination">
 	<li class="item pager-next">
 	<?php if (!empty($this->nextId)) { ?>
 	<?php $params['next'] = $this->nextId; ?>
-	<a id="load_more" href="<?php echo Url::display (array ('c' => $c, 'a' => $a, 'params' => $params)); ?>"><?php echo Translate::t ('load_more'); ?></a>
+	<a id="load_more" href="<?php echo Minz_Url::display (array ('c' => $c, 'a' => $a, 'params' => $params)); ?>"><?php echo Minz_Translate::t ('load_more'); ?></a>
 	<?php } elseif ($markReadUrl) { ?>
 	<a id="bigMarkAsRead" href="<?php echo $markReadUrl; ?>">
-		<?php echo Translate::t ('nothing_to_load'); ?><br />
+		<?php echo Minz_Translate::t ('nothing_to_load'); ?><br />
 		<span class="bigTick">✔</span><br />
-		<?php echo Translate::t ('mark_all_read'); ?>
+		<?php echo Minz_Translate::t ('mark_all_read'); ?>
 	</a>
 	<?php } else { ?>
 	<a id="bigMarkAsRead" href=".">
-		<?php echo Translate::t ('nothing_to_load'); ?><br />
+		<?php echo Minz_Translate::t ('nothing_to_load'); ?><br />
 	</a>
 	<?php } ?>
 	</li>

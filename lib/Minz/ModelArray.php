@@ -7,7 +7,7 @@
 /**
  * La classe Model_array représente le modèle interragissant avec les fichiers de type texte gérant des tableaux php
  */
-class Model_array extends Model_txt {
+class Minz_ModelArray extends Minz_ModelTxt {
 	/**
 	 * $array Le tableau php contenu dans le fichier $nameFile
 	 */
@@ -22,7 +22,7 @@ class Model_array extends Model_txt {
 		parent::__construct ($nameFile);
 		
 		if (!$this->getLock ('read')) {
-			throw new PermissionDeniedException ($this->filename);
+			throw new Minz_PermissionDeniedException ($this->filename);
 		} else {
 			$this->array = include ($this->filename);
 			$this->releaseLock ();
@@ -41,7 +41,7 @@ class Model_array extends Model_txt {
 	 **/
 	public function writeFile ($array) {
 		if (!$this->getLock ('write')) {
-			throw new PermissionDeniedException ($this->namefile);
+			throw new Minz_PermissionDeniedException ($this->namefile);
 		} else {
 			$this->erase ();
 		

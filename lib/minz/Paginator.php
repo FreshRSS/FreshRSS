@@ -7,7 +7,7 @@
 /**
  * La classe Paginator permet de gérer la pagination de l'application facilement
  */
-class Paginator {
+class Minz_Paginator {
 	/**
 	 * $items tableau des éléments à afficher/gérer
 	 */

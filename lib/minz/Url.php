@@ -3,7 +3,7 @@
 /**
  * La classe Url permet de gérer les URL à travers MINZ
  */
-class Url {
+class Minz_Url {
 	/**
 	 * Affiche une Url formatée selon que l'on utilise l'url_rewriting ou non
 	 * si oui, on cherche dans la table de routage la correspondance pour formater
@@ -29,16 +29,16 @@ class Url {
 			} else {
 				$protocol = 'http:';
 			}
-			$url_string = $protocol . '//' . Request::getDomainName () . Request::getBaseUrl ();
+			$url_string = $protocol . '//' . Minz_Request::getDomainName () . Minz_Request::getBaseUrl ();
 		}
 		else {
 			$url_string = '.';
 		}
 
 		if (is_array ($url)) {
-			$router = new Router ();
+			$router = new Minz_Router ();
 
-			if (Configuration::useUrlRewriting ()) {
+			if (Minz_Configuration::useUrlRewriting ()) {
 				$url_string .= $router->printUriRewrited ($url);
 			} else {
 				$url_string .= self::printUri ($url, $encodage);
@@ -67,13 +67,13 @@ class Url {
 		}
 		
 		if (isset ($url['c'])
-		 && $url['c'] != Request::defaultControllerName ()) {
+		 && $url['c'] != Minz_Request::defaultControllerName ()) {
 			$uri .= $separator . 'c=' . $url['c'];
 			$separator = $and;
 		}
 		
 		if (isset ($url['a'])
-		 && $url['a'] != Request::defaultActionName ()) {
+		 && $url['a'] != Minz_Request::defaultActionName ()) {
 			$uri .= $separator . 'a=' . $url['a'];
 			$separator = $and;
 		}
@@ -98,10 +98,10 @@ class Url {
 		
 		if (is_array ($url)) {
 			if (!isset ($url['c'])) {
-				$url_checked['c'] = Request::defaultControllerName ();
+				$url_checked['c'] = Minz_Request::defaultControllerName ();
 			}
 			if (!isset ($url['a'])) {
-				$url_checked['a'] = Request::defaultActionName ();
+				$url_checked['a'] = Minz_Request::defaultActionName ();
 			}
 			if (!isset ($url['params'])) {
 				$url_checked['params'] = array ();
@@ -125,5 +125,5 @@ function _url ($controller, $action) {
 		$params[$args[$i]] = $args[$i + 1];
 	}
 
-	return Url::display (array ('c' => $controller, 'a' => $action, 'params' => $params));
+	return Minz_Url::display (array ('c' => $controller, 'a' => $action, 'params' => $params));
 }

@@ -7,7 +7,7 @@
 /**
  * La classe Configuration permet de gérer la configuration de l'application
  */
-class Configuration {
+class Minz_Configuration {
 	const CONF_PATH_NAME = '/application.ini';
 
 	/**
@@ -43,7 +43,7 @@ class Configuration {
 	 *     - base le nom de la base de données
 	 */
 	private static $sel_application = '';
-	private static $environment = Configuration::PRODUCTION;
+	private static $environment = Minz_Configuration::PRODUCTION;
 	private static $base_url = '';
 	private static $use_url_rewriting = false;
 	private static $title = '';
@@ -99,30 +99,30 @@ class Configuration {
 
 	/**
 	 * Initialise les variables de configuration
-	 * @exception FileNotExistException si le CONF_PATH_NAME n'existe pas
-	 * @exception BadConfigurationException si CONF_PATH_NAME mal formaté
+	 * @exception Minz_FileNotExistException si le CONF_PATH_NAME n'existe pas
+	 * @exception Minz_BadConfigurationException si CONF_PATH_NAME mal formaté
 	 */
 	public static function init () {
 		try {
 			self::parseFile ();
 			self::setReporting ();
-		} catch (FileNotExistException $e) {
+		} catch (Minz_FileNotExistException $e) {
 			throw $e;
-		} catch (BadConfigurationException $e) {
+		} catch (Minz_BadConfigurationException $e) {
 			throw $e;
 		}
 	}
 
 	/**
 	 * Parse un fichier de configuration de type ".ini"
-	 * @exception FileNotExistException si le CONF_PATH_NAME n'existe pas
-	 * @exception BadConfigurationException si CONF_PATH_NAME mal formaté
+	 * @exception Minz_FileNotExistException si le CONF_PATH_NAME n'existe pas
+	 * @exception Minz_BadConfigurationException si CONF_PATH_NAME mal formaté
 	 */
 	private static function parseFile () {
 		if (!file_exists (DATA_PATH . self::CONF_PATH_NAME)) {
-			throw new FileNotExistException (
+			throw new Minz_FileNotExistException (
 				DATA_PATH . self::CONF_PATH_NAME,
-				MinzException::ERROR
+				Minz_Exception::ERROR
 			);
 		}
 
@@ -132,17 +132,17 @@ class Configuration {
 		);
 
 		if (!$ini_array) {
-			throw new PermissionDeniedException (
+			throw new Minz_PermissionDeniedException (
 				DATA_PATH . self::CONF_PATH_NAME,
-				MinzException::ERROR
+				Minz_Exception::ERROR
 			);
 		}
 
 		// [general] est obligatoire
 		if (!isset ($ini_array['general'])) {
-			throw new BadConfigurationException (
+			throw new Minz_BadConfigurationException (
 				'[general]',
-				MinzException::ERROR
+				Minz_Exception::ERROR
 			);
 		}
 		$general = $ini_array['general'];
@@ -150,9 +150,9 @@ class Configuration {
 
 		// sel_application est obligatoire
 		if (!isset ($general['sel_application'])) {
-			throw new BadConfigurationException (
+			throw new Minz_BadConfigurationException (
 				'sel_application',
-				MinzException::ERROR
+				Minz_Exception::ERROR
 			);
 		}
 		self::$sel_application = $general['sel_application'];
@@ -160,18 +160,18 @@ class Configuration {
 		if (isset ($general['environment'])) {
 			switch ($general['environment']) {
 			case 'silent':
-				self::$environment = Configuration::SILENT;
+				self::$environment = Minz_Configuration::SILENT;
 				break;
 			case 'development':
-				self::$environment = Configuration::DEVELOPMENT;
+				self::$environment = Minz_Configuration::DEVELOPMENT;
 				break;
 			case 'production':
-				self::$environment = Configuration::PRODUCTION;
+				self::$environment = Minz_Configuration::PRODUCTION;
 				break;
 			default:
-				throw new BadConfigurationException (
+				throw new Minz_BadConfigurationException (
 					'environment',
-					MinzException::ERROR
+					Minz_Exception::ERROR
 				);
 			}
 
@@ -194,7 +194,7 @@ class Configuration {
 			if (CACHE_PATH === false && self::$cache_enabled) {
 				throw new FileNotExistException (
 					'CACHE_PATH',
-					MinzException::ERROR
+					Minz_Exception::ERROR
 				);
 			}
 		}
@@ -213,27 +213,27 @@ class Configuration {
 		}
 		if ($db) {
 			if (!isset ($db['host'])) {
-				throw new BadConfigurationException (
+				throw new Minz_BadConfigurationException (
 					'host',
-					MinzException::ERROR
+					Minz_Exception::ERROR
 				);
 			}
 			if (!isset ($db['user'])) {
-				throw new BadConfigurationException (
+				throw new Minz_BadConfigurationException (
 					'user',
-					MinzException::ERROR
+					Minz_Exception::ERROR
 				);
 			}
 			if (!isset ($db['password'])) {
-				throw new BadConfigurationException (
+				throw new Minz_BadConfigurationException (
 					'password',
-					MinzException::ERROR
+					Minz_Exception::ERROR
 				);
 			}
 			if (!isset ($db['base'])) {
-				throw new BadConfigurationException (
+				throw new Minz_BadConfigurationException (
 					'base',
-					MinzException::ERROR
+					Minz_Exception::ERROR
 				);
 			}
 

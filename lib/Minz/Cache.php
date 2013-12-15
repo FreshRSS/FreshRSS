@@ -35,7 +35,7 @@ class Minz_Cache {
 	 * Setteurs
 	 */
 	public function _fileName () {
-		$file = md5 (Request::getURI ());
+		$file = md5 (Minz_Request::getURI ());
 
 		$this->file = CACHE_PATH . '/'.$file;
 	}
@@ -43,7 +43,7 @@ class Minz_Cache {
 	public function _expire () {
 		if ($this->exist ()) {
 			$this->expire = filemtime ($this->file)
-			              + Configuration::delayCache ();
+			              + Minz_Configuration::delayCache ();
 		}
 	}
 
@@ -52,7 +52,7 @@ class Minz_Cache {
 	 * @return true si activé, false sinon
 	 */
 	public static function isEnabled () {
-		return Configuration::cacheEnabled () && self::$enabled;
+		return Minz_Configuration::cacheEnabled () && self::$enabled;
 	}
 
 	/**

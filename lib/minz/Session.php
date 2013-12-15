@@ -4,7 +4,7 @@
  * La classe Session gère la session utilisateur
  * C'est un singleton
  */
-class Session {
+class Minz_Session {
 	/**
 	 * $session stocke les variables de session
 	 */
@@ -15,7 +15,7 @@ class Session {
 	 */
 	public static function init () {
 		// démarre la session
-		session_name (md5 (Configuration::selApplication ()));
+		session_name (md5 (Minz_Configuration::selApplication ()));
 		session_start ();
 		
 		if (isset ($_SESSION)) {
@@ -55,7 +55,7 @@ class Session {
 
 			if($p == 'language') {
 				// reset pour remettre à jour le fichier de langue à utiliser
-				Translate::reset ();
+				Minz_Translate::reset ();
 			}
 		}
 	}

@@ -7,7 +7,7 @@
 /**
  * Response représente la requête http renvoyée à l'utilisateur
  */
-class Response {
+class Minz_Response {
 	private static $header = 'HTTP/1.0 200 OK';
 	private static $body = '';
 	

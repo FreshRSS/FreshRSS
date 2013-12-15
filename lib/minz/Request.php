@@ -7,7 +7,7 @@
 /**
  * Request représente la requête http
  */
-class Request {
+class Minz_Request {
 	private static $controller_name = '';
 	private static $action_name = '';
 	private static $params = array ();
@@ -96,7 +96,7 @@ class Request {
 	 * @return la base de l'url
 	 */
 	public static function getBaseUrl () {
-		return Configuration::baseUrl ();
+		return Minz_Configuration::baseUrl ();
 	}
 
 	/**
@@ -124,10 +124,10 @@ class Request {
 	 *                > sinon, le dispatcher recharge en interne
 	 */
 	public static function forward ($url = array (), $redirect = false) {
-		$url = Url::checkUrl ($url);
+		$url = Minz_Url::checkUrl ($url);
 
 		if ($redirect) {
-			header ('Location: ' . Url::display ($url, 'php'));
+			header ('Location: ' . Minz_Url::display ($url, 'php'));
 			exit ();
 		} else {
 			self::$reseted = true;
@@ -185,9 +185,9 @@ class Request {
 	 */
 	private static function magicQuotesOff () {
 		if (get_magic_quotes_gpc ()) {
-			$_GET = Helper::stripslashes_r ($_GET);
-			$_POST = Helper::stripslashes_r ($_POST);
-			$_COOKIE = Helper::stripslashes_r ($_COOKIE);
+			$_GET = Minz_Helper::stripslashes_r ($_GET);
+			$_POST = Minz_Helper::stripslashes_r ($_POST);
+			$_COOKIE = Minz_Helper::stripslashes_r ($_COOKIE);
 		}
 	}
 
@@ -195,5 +195,3 @@ class Request {
 		return !empty ($_POST) || !empty ($_FILES);
 	}
 }
-
-

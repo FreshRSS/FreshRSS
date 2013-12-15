@@ -1,45 +1,45 @@
 <?php $this->partial ('aside_configure'); ?>
 
 <div class="post">
-	<a href="<?php echo _url ('index', 'index'); ?>"><?php echo Translate::t ('back_to_rss_feeds'); ?></a>
+	<a href="<?php echo _url ('index', 'index'); ?>"><?php echo Minz_Translate::t ('back_to_rss_feeds'); ?></a>
 
 	<form method="post" action="<?php echo _url ('configure', 'sharing'); ?>">
-		<legend><?php echo Translate::t ('sharing'); ?></legend>
+		<legend><?php echo Minz_Translate::t ('sharing'); ?></legend>
 		<div class="form-group">
 			<label class="group-name" for="shaarli">
-				<?php echo Translate::t ('your_shaarli'); ?>
+				<?php echo Minz_Translate::t ('your_shaarli'); ?>
 			</label>
 			<div class="group-controls">
-				<input type="url" id="shaarli" name="shaarli" value="<?php echo $this->conf->sharing ('shaarli'); ?>" placeholder="<?php echo Translate::t ('blank_to_disable'); ?>" size="64" />
+				<input type="url" id="shaarli" name="shaarli" value="<?php echo $this->conf->sharing ('shaarli'); ?>" placeholder="<?php echo Minz_Translate::t ('blank_to_disable'); ?>" size="64" />
 
-				<?php echo RSSThemes::icon('help'); ?> <a target="_blank" href="http://sebsauvage.net/wiki/doku.php?id=php:shaarli"><?php echo Translate::t ('more_information'); ?></a>
+				<?php echo FreshRSS_Themes::icon('help'); ?> <a target="_blank" href="http://sebsauvage.net/wiki/doku.php?id=php:shaarli"><?php echo Minz_Translate::t ('more_information'); ?></a>
 			</div>
 		</div>
 
 		<div class="form-group">
 			<label class="group-name" for="poche">
-				<?php echo Translate::t ('your_poche'); ?>
+				<?php echo Minz_Translate::t ('your_poche'); ?>
 			</label>
 			<div class="group-controls">
-				<input type="url" id="poche" name="poche" value="<?php echo $this->conf->sharing ('poche'); ?>" placeholder="<?php echo Translate::t ('blank_to_disable'); ?>" size="64" />
+				<input type="url" id="poche" name="poche" value="<?php echo $this->conf->sharing ('poche'); ?>" placeholder="<?php echo Minz_Translate::t ('blank_to_disable'); ?>" size="64" />
 
-				<?php echo RSSThemes::icon('help'); ?> <a target="_blank" href="http://www.inthepoche.com/"><?php echo Translate::t ('more_information'); ?></a>
+				<?php echo FreshRSS_Themes::icon('help'); ?> <a target="_blank" href="http://www.inthepoche.com/"><?php echo Minz_Translate::t ('more_information'); ?></a>
 			</div>
 		</div>
 
 		<div class="form-group">
 			<label class="group-name" for="diaspora">
-				<?php echo Translate::t ('your_diaspora_pod'); ?>
+				<?php echo Minz_Translate::t ('your_diaspora_pod'); ?>
 			</label>
 			<div class="group-controls">
-				<input type="url" id="diaspora" name="diaspora" value="<?php echo $this->conf->sharing ('diaspora'); ?>" placeholder="<?php echo Translate::t ('blank_to_disable'); ?>" size="64" />
+				<input type="url" id="diaspora" name="diaspora" value="<?php echo $this->conf->sharing ('diaspora'); ?>" placeholder="<?php echo Minz_Translate::t ('blank_to_disable'); ?>" size="64" />
 
-				<?php echo RSSThemes::icon('help'); ?> <a target="_blank" href="https://diasporafoundation.org/"><?php echo Translate::t ('more_information'); ?></a>
+				<?php echo FreshRSS_Themes::icon('help'); ?> <a target="_blank" href="https://diasporafoundation.org/"><?php echo Minz_Translate::t ('more_information'); ?></a>
 			</div>
 		</div>
 
 		<div class="form-group">
-			<label class="group-name"><?php echo Translate::t ('activate_sharing'); ?></label>
+			<label class="group-name"><?php echo Minz_Translate::t ('activate_sharing'); ?></label>
 			<div class="group-controls">
 				<?php
 					$services = array ('twitter', 'g+', 'facebook', 'email', 'print');
@@ -48,7 +48,7 @@
 				?>
 				<label class="checkbox" for="<?php echo $service; ?>">
 					<input type="checkbox" name="<?php echo $service; ?>" id="<?php echo $service; ?>" value="yes"<?php echo $this->conf->sharing ($service) ? ' checked="checked"' : ''; ?> />
-					<?php echo Translate::t ($service); ?>
+					<?php echo Minz_Translate::t ($service); ?>
 				</label>
 				<?php } ?>
 			</div>
@@ -56,8 +56,8 @@
 
 		<div class="form-group form-actions">
 			<div class="group-controls">
-				<button type="submit" class="btn btn-important"><?php echo Translate::t ('save'); ?></button>
-				<button type="reset" class="btn"><?php echo Translate::t ('cancel'); ?></button>
+				<button type="submit" class="btn btn-important"><?php echo Minz_Translate::t ('save'); ?></button>
+				<button type="reset" class="btn"><?php echo Minz_Translate::t ('cancel'); ?></button>
 			</div>
 		</div>
 	</form>

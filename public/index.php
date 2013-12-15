@@ -37,18 +37,10 @@ if (file_exists ('install.php')) {
 		}
 	}
 
-	set_include_path (get_include_path ()
-		         . PATH_SEPARATOR
-		         . LIB_PATH
-		         . PATH_SEPARATOR
-		         . LIB_PATH . '/minz'
-		         . PATH_SEPARATOR
-		         . APP_PATH);
-
-	require (APP_PATH . '/App_FrontController.php');
+	require(LIB_PATH . '/lib_rss.php');	//Includes class autoloader
 
 	try {
-		$front_controller = new App_FrontController ();
+		$front_controller = new FreshRSS();
 		$front_controller->init ();
 		$front_controller->run ();
 	} catch (Exception $e) {

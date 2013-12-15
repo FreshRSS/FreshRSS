@@ -7,7 +7,7 @@
 /**
  * La classe Model_txt représente le modèle interragissant avec les fichiers de type texte
  */
-class Model_txt {
+class Minz_ModelTxt {
 	/**
 	 * $file représente le fichier à ouvrir
 	 */
@@ -28,18 +28,18 @@ class Model_txt {
 	public function __construct ($nameFile, $mode = 'a+') {
 		$this->filename = $nameFile;
 		if (!file_exists($this->filename)) {
-			throw new FileNotExistException (
+			throw new Minz_FileNotExistException (
 				$this->filename,
-				MinzException::WARNING
+				Minz_Exception::WARNING
 			);
 		}
 
 		$this->file = @fopen ($this->filename, $mode);
 		
 		if (!$this->file) {
-			throw new PermissionDeniedException (
+			throw new Minz_PermissionDeniedException (
 				$this->filename,
-				MinzException::WARNING
+				Minz_Exception::WARNING
 			);
 		}
 	}

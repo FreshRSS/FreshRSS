@@ -7,7 +7,7 @@
 /**
  * La classe View représente la vue de l'application
  */
-class View {
+class Minz_View {
 	const VIEWS_PATH_NAME = '/views';
 	const LAYOUT_PATH_NAME = '/layout';
 	const LAYOUT_FILENAME = '/layout.phtml';
@@ -28,8 +28,8 @@ class View {
 	public function __construct () {
 		$this->view_filename = APP_PATH
 		                     . self::VIEWS_PATH_NAME . '/'
-		                     . Request::controllerName () . '/'
-		                     . Request::actionName () . '.phtml';
+		                     . Minz_Request::controllerName () . '/'
+		                     . Minz_Request::actionName () . '.phtml';
 
 		if (file_exists (APP_PATH
 		               . self::LAYOUT_PATH_NAME
@@ -37,7 +37,7 @@ class View {
 			$this->use_layout = true;
 		}
 
-		self::$title = Configuration::title ();
+		self::$title = Minz_Configuration::title ();
 	}
 
 	/**
@@ -232,7 +232,7 @@ class View {
 		self::$params[$key] = $value;
 	}
 	public function attributeParams () {
-		foreach (View::$params as $key => $value) {
+		foreach (Minz_View::$params as $key => $value) {
 			$this->$key = $value;
 		}
 	}

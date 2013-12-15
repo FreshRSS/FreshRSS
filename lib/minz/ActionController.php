@@ -7,7 +7,7 @@
 /**
  * La classe ActionController représente le contrôleur de l'application
  */
-class ActionController {
+class Minz_ActionController {
 	protected $router;
 	protected $view;
 
@@ -18,7 +18,7 @@ class ActionController {
 	 */
 	public function __construct ($router) {
 		$this->router = $router;
-		$this->view = new View ();
+		$this->view = new Minz_View ();
 		$this->view->attributeParams ();
 	}
 

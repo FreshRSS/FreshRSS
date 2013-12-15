@@ -1,8 +1,8 @@
 <?php
 
-class ErrorController extends ActionController {
+class FreshRSS_error_Controller extends Minz_ActionController {
 	public function indexAction () {
-		switch (Request::param ('code')) {
+		switch (Minz_Request::param ('code')) {
 		case 403:
 			$this->view->code = 'Error 403 - Forbidden';
 			break;
@@ -19,8 +19,8 @@ class ErrorController extends ActionController {
 			$this->view->code = 'Error 404 - Not found';
 		}
 		
-		$this->view->logs = Request::param ('logs');
+		$this->view->logs = Minz_Request::param ('logs');
 		
-		View::prependTitle ($this->view->code . ' - ');
+		Minz_View::prependTitle ($this->view->code . ' - ');
 	}
 }

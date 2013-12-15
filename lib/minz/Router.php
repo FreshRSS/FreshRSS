@@ -8,7 +8,7 @@
  * La classe Router gère le routage de l'application
  * Les routes sont définies dans APP_PATH.'/configuration/routes.php'
  */
-class Router {
+class Minz_Router {
 	const ROUTES_PATH_NAME = '/configuration/routes.php';
 
 	private $routes = array ();
@@ -19,7 +19,7 @@ class Router {
 	 *            et que l'on utilise l'url rewriting
 	 */
 	public function __construct () {
-		if (Configuration::useUrlRewriting ()) {
+		if (Minz_Configuration::useUrlRewriting ()) {
 			if (file_exists (APP_PATH . self::ROUTES_PATH_NAME)) {
 				$routes = include (
 					APP_PATH . self::ROUTES_PATH_NAME
@@ -34,9 +34,9 @@ class Router {
 					$routes
 				);
 			} else {
-				throw new FileNotExistException (
+				throw new Minz_FileNotExistException (
 					self::ROUTES_PATH_NAME,
-					MinzException::ERROR
+					Minz_Exception::ERROR
 				);
 			}
 		}
@@ -51,10 +51,10 @@ class Router {
 	public function init () {
 		$url = array ();
 		
-		if (Configuration::useUrlRewriting ()) {
+		if (Minz_Configuration::useUrlRewriting ()) {
 			try {
 				$url = $this->buildWithRewriting ();
-			} catch (RouteNotFoundException $e) {
+			} catch (Minz_RouteNotFoundException $e) {
 				throw $e;
 			}
 		} else {
@@ -63,10 +63,10 @@ class Router {
 		
 		$url['params'] = array_merge (
 			$url['params'],
-			Request::fetchPOST ()
+			Minz_Request::fetchPOST ()
 		);
 		
-		Request::forward ($url);
+		Minz_Request::forward ($url);
 	}
 	
 	/**
@@ -77,15 +77,15 @@ class Router {
 	public function buildWithoutRewriting () {
 		$url = array ();
 		
-		$url['c'] = Request::fetchGET (
+		$url['c'] = Minz_Request::fetchGET (
 			'c',
-			Request::defaultControllerName ()
+			Minz_Request::defaultControllerName ()
 		);
-		$url['a'] = Request::fetchGET (
+		$url['a'] = Minz_Request::fetchGET (
 			'a',
-			Request::defaultActionName ()
+			Minz_Request::defaultActionName ()
 		);
-		$url['params'] = Request::fetchGET ();
+		$url['params'] = Minz_Request::fetchGET ();
 		
 		// post-traitement
 		unset ($url['params']['c']);
@@ -103,7 +103,7 @@ class Router {
 	 */
 	public function buildWithRewriting () {
 		$url = array ();
-		$uri = Request::getURI ();
+		$uri = Minz_Request::getURI ();
 		$find = false;
 		
 		foreach ($this->routes as $route) {
@@ -121,14 +121,14 @@ class Router {
 		}
 		
 		if (!$find && $uri != '/') {
-			throw new RouteNotFoundException (
+			throw new Minz_RouteNotFoundException (
 				$uri,
-				MinzException::ERROR
+				Minz_Exception::ERROR
 			);
 		}
 		
 		// post-traitement
-		$url = Url::checkUrl ($url);
+		$url = Minz_Url::checkUrl ($url);
 		
 		return $url;
 	}

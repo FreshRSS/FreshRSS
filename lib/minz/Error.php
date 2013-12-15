@@ -1,5 +1,5 @@
 <?php
-/** 
+/**
  * MINZ - Copyright 2011 Marien Fressinaud
  * Sous licence AGPL3 <http://www.gnu.org/licenses/>
 */
@@ -7,7 +7,7 @@
 /**
  * La classe Error permet de lancer des erreurs HTTP
  */
-class Error {
+class Minz_Error {
 	public function __construct () { }
 
 	/**
@@ -21,28 +21,28 @@ class Error {
 	*/
 	public static function error ($code = 404, $logs = array (), $redirect = false) {
 		$logs = self::processLogs ($logs);
-		$error_filename = APP_PATH . '/controllers/errorController.php';
-		
+		$error_filename = APP_PATH . '/Controllers/ErrorController.php';
+
 		if (file_exists ($error_filename)) {
 			$params = array (
 				'code' => $code,
 				'logs' => $logs
 			);
-			
-			Response::setHeader ($code);
+
+			Minz_Response::setHeader ($code);
 			if ($redirect) {
-				Request::forward (array (
+				Minz_Request::forward (array (
 					'c' => 'error'
 				), true);
 			} else {
-				Request::forward (array (
+				Minz_Request::forward (array (
 					'c' => 'error',
 					'params' => $params
 				), false);
 			}
 		} else {
 			$text = '<h1>An error occured</h1>'."\n";
-			
+
 			if (!empty ($logs)) {
 				$text .= '<ul>'."\n";
 				foreach ($logs as $log) {
@@ -50,14 +50,14 @@ class Error {
 				}
 				$text .= '</ul>'."\n";
 			}
-			
-			Response::setHeader ($code);
-			Response::setBody ($text);
-			Response::send ();
+
+			Minz_Response::setHeader ($code);
+			Minz_Response::setBody ($text);
+			Minz_Response::send ();
 			exit ();
 		}
 	}
-	
+
 	/**
 	 * Permet de retourner les logs de façon à n'avoir que
 	 * ceux que l'on veut réellement
@@ -66,12 +66,12 @@ class Error {
 	 *       > en fonction de l'environment
 	 */
 	private static function processLogs ($logs) {
-		$env = Configuration::environment ();
+		$env = Minz_Configuration::environment ();
 		$logs_ok = array ();
 		$error = array ();
 		$warning = array ();
 		$notice = array ();
-		
+
 		if (isset ($logs['error'])) {
 			$error = $logs['error'];
 		}
@@ -81,14 +81,14 @@ class Error {
 		if (isset ($logs['notice'])) {
 			$notice = $logs['notice'];
 		}
-		
-		if ($env == Configuration::PRODUCTION) {
+
+		if ($env == Minz_Configuration::PRODUCTION) {
 			$logs_ok = $error;
 		}
-		if ($env == Configuration::DEVELOPMENT) {
+		if ($env == Minz_Configuration::DEVELOPMENT) {
 			$logs_ok = array_merge ($error, $warning, $notice);
 		}
-		
+
 		return $logs_ok;
 	}
 }

@@ -31,10 +31,10 @@ class Minz_Log {
 	 * @param $file_name fichier de log, par défaut LOG_PATH/application.log
 	 */
 	public static function record ($information, $level, $file_name = null) {
-		$env = Configuration::environment ();
+		$env = Minz_Configuration::environment ();
 		
-		if (! ($env === Configuration::SILENT
-		       || ($env === Configuration::PRODUCTION
+		if (! ($env === Minz_Configuration::SILENT
+		       || ($env === Minz_Configuration::PRODUCTION
 		       && ($level >= Minz_Log::NOTICE)))) {
 			if (is_null ($file_name)) {
 				$file_name = LOG_PATH . '/application.log';
@@ -57,7 +57,7 @@ class Minz_Log {
 				$level_label = 'unknown';
 			}
 			
-			if ($env == Configuration::PRODUCTION) {
+			if ($env == Minz_Configuration::PRODUCTION) {
 				$file = @fopen ($file_name, 'a');
 			} else {
 				$file = fopen ($file_name, 'a');
@@ -70,9 +70,9 @@ class Minz_Log {
 				fwrite ($file, $log); 
 				fclose ($file);
 			} else {
-				throw new PermissionDeniedException (
+				throw new Minz_PermissionDeniedException (
 					$file_name,
-					MinzException::ERROR
+					Minz_Exception::ERROR
 				);
 			}
 		}

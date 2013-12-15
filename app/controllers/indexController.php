@@ -1,6 +1,6 @@
 <?php
 
-class indexController extends ActionController {
+class FreshRSS_index_Controller extends Minz_ActionController {
 	private $get = false;
 	private $nb_not_read_cat = 0;
 	private $entryDAO;
@@ -9,16 +9,16 @@ class indexController extends ActionController {
 
 	function __construct($router) {
 		parent::__construct($router);
-		$this->entryDAO = new EntryDAO ();
-		$this->feedDAO = new FeedDAO ();
-		$this->catDAO = new CategoryDAO ();
+		$this->entryDAO = new FreshRSS_EntryDAO ();
+		$this->feedDAO = new FreshRSS_FeedDAO ();
+		$this->catDAO = new FreshRSS_CategoryDAO ();
 	}
 
 	public function indexAction () {
-		$output = Request::param ('output');
+		$output = Minz_Request::param ('output');
 
 		$token = $this->view->conf->token();
-		$token_param = Request::param ('token', '');
+		$token_param = Minz_Request::param ('token', '');
 		$token_is_ok = ($token != '' && $token === $token_param);
 
 		// check if user is log in
@@ -30,7 +30,7 @@ class indexController extends ActionController {
 		}
 
 		// construction of RSS url of this feed
-		$params = Request::params ();
+		$params = Minz_Request::params ();
 		$params['output'] = 'rss';
 		if (isset ($params['search'])) {
 			$params['search'] = urlencode ($params['search']);
@@ -51,10 +51,10 @@ class indexController extends ActionController {
 			$this->view->_useLayout (false);
 			header('Content-Type: application/rss+xml; charset=utf-8');
 		} else {
-			View::appendScript (Url::display ('/scripts/shortcut.js?' . @filemtime(PUBLIC_PATH . '/scripts/shortcut.js')));
+			Minz_View::appendScript (Minz_Url::display ('/scripts/shortcut.js?' . @filemtime(PUBLIC_PATH . '/scripts/shortcut.js')));
 
 			if ($output === 'global') {
-				View::appendScript (Url::display ('/scripts/global_view.js?' . @filemtime(PUBLIC_PATH . '/scripts/global_view.js')));
+				Minz_View::appendScript (Minz_Url::display ('/scripts/global_view.js?' . @filemtime(PUBLIC_PATH . '/scripts/global_view.js')));
 			}
 		}
 
@@ -65,14 +65,14 @@ class indexController extends ActionController {
 		$this->view->get_c = '';
 		$this->view->get_f = '';
 
-		$get = Request::param ('get', 'a');
+		$get = Minz_Request::param ('get', 'a');
 		$getType = $get[0];
 		$getId = substr ($get, 2);
 		if (!$this->checkAndProcessType ($getType, $getId)) {
 			Minz_Log::record ('Not found [' . $getType . '][' . $getId . ']', Minz_Log::DEBUG);
-			Error::error (
+			Minz_Error::error (
 				404,
-				array ('error' => array (Translate::t ('page_not_found')))
+				array ('error' => array (Minz_Translate::t ('page_not_found')))
 			);
 			return;
 		}
@@ -80,25 +80,25 @@ class indexController extends ActionController {
 		$this->view->nb_not_read = HelperCategory::CountUnreads($this->view->cat_aside, 1);
 
 		// mise à jour des titres
-		$this->view->rss_title = $this->view->currentName . ' | ' . View::title();
+		$this->view->rss_title = $this->view->currentName . ' | ' . Minz_View::title();
 		if ($this->view->nb_not_read > 0) {
-			View::appendTitle (' (' . $this->view->nb_not_read . ')');
+			Minz_View::appendTitle (' (' . $this->view->nb_not_read . ')');
 		}
-		View::prependTitle (
+		Minz_View::prependTitle (
 			$this->view->currentName .
 			($this->nb_not_read_cat > 0 ? ' (' . $this->nb_not_read_cat . ')' : '') .
 			' - '
 		);
 
 		// On récupère les différents éléments de filtrage
-		$this->view->state = $state = Request::param ('state', $this->view->conf->defaultView ());
-		$filter = Request::param ('search', '');
+		$this->view->state = $state = Minz_Request::param ('state', $this->view->conf->defaultView ());
+		$filter = Minz_Request::param ('search', '');
 		if (!empty($filter)) {
 			$state = 'all';	//Search always in read and unread articles
 		}
-		$this->view->order = $order = Request::param ('order', $this->view->conf->sortOrder ());
-		$nb = Request::param ('nb', $this->view->conf->postsPerPage ());
-		$first = Request::param ('next', '');
+		$this->view->order = $order = Minz_Request::param ('order', $this->view->conf->sortOrder ());
+		$nb = Minz_Request::param ('nb', $this->view->conf->postsPerPage ());
+		$first = Minz_Request::param ('next', '');
 
 		if ($state === 'not_read') {	//Any unread article in this category at all?
 			switch ($getType) {
@@ -143,11 +143,11 @@ class indexController extends ActionController {
 			}
 
 			$this->view->entries = $entries;
-		} catch (EntriesGetterException $e) {
+		} catch (FreshRSS_EntriesGetter_Exception $e) {
 			Minz_Log::record ($e->getMessage (), Minz_Log::NOTICE);
-			Error::error (
+			Minz_Error::error (
 				404,
-				array ('error' => array (Translate::t ('page_not_found')))
+				array ('error' => array (Minz_Translate::t ('page_not_found')))
 			);
 		}
 	}
@@ -160,11 +160,11 @@ class indexController extends ActionController {
 	private function checkAndProcessType ($getType, $getId) {
 		switch ($getType) {
 			case 'a':
-				$this->view->currentName = Translate::t ('your_rss_feeds');
+				$this->view->currentName = Minz_Translate::t ('your_rss_feeds');
 				$this->view->get_c = $getType;
 				return true;
 			case 's':
-				$this->view->currentName = Translate::t ('your_favorites');
+				$this->view->currentName = Minz_Translate::t ('your_favorites');
 				$this->view->get_c = $getType;
 				return true;
 			case 'c':
@@ -200,35 +200,35 @@ class indexController extends ActionController {
 	}
 
 	public function aboutAction () {
-		View::prependTitle (Translate::t ('about') . ' - ');
+		Minz_View::prependTitle (Minz_Translate::t ('about') . ' - ');
 	}
 
 	public function logsAction () {
 		if (login_is_conf ($this->view->conf) && !is_logged ()) {
-			Error::error (
+			Minz_Error::error (
 				403,
-				array ('error' => array (Translate::t ('access_denied')))
+				array ('error' => array (Minz_Translate::t ('access_denied')))
 			);
 		}
 
-		View::prependTitle (Translate::t ('logs') . ' - ');
+		Minz_View::prependTitle (Minz_Translate::t ('logs') . ' - ');
 
-		if (Request::isPost ()) {
+		if (Minz_Request::isPost ()) {
 			file_put_contents(LOG_PATH . '/application.log', '');
 		}
 
 		$logs = array();
 		try {
-			$logDAO = new LogDAO ();
+			$logDAO = new FreshRSS_LogDAO ();
 			$logs = $logDAO->lister ();
 			$logs = array_reverse ($logs);
-		} catch(FileNotExistException $e) {
+		} catch (Minz_FileNotExistException $e) {
 
 		}
 
 		//gestion pagination
-		$page = Request::param ('page', 1);
-		$this->view->logsPaginator = new Paginator ($logs);
+		$page = Minz_Request::param ('page', 1);
+		$this->view->logsPaginator = new Minz_Paginator ($logs);
 		$this->view->logsPaginator->_nbItemsPerPage (50);
 		$this->view->logsPaginator->_currentPage ($page);
 	}
@@ -237,9 +237,9 @@ class indexController extends ActionController {
 		$this->view->_useLayout (false);
 
 		$url = 'https://verifier.login.persona.org/verify';
-		$assert = Request::param ('assertion');
+		$assert = Minz_Request::param ('assertion');
 		$params = 'assertion=' . $assert . '&audience=' .
-			  urlencode (Url::display (null, 'php', true));
+			  urlencode (Minz_Url::display (null, 'php', true));
 		$ch = curl_init ();
 		$options = array (
 			CURLOPT_URL => $url,
@@ -253,12 +253,12 @@ class indexController extends ActionController {
 
 		$res = json_decode ($result, true);
 		if ($res['status'] === 'okay' && $res['email'] === $this->view->conf->mailLogin ()) {
-			Session::_param ('mail', $res['email']);
+			Minz_Session::_param ('mail', $res['email']);
 			invalidateHttpCache();
 		} else {
 			$res = array ();
 			$res['status'] = 'failure';
-			$res['reason'] = Translate::t ('invalid_login');
+			$res['reason'] = Minz_Translate::t ('invalid_login');
 		}
 
 		header('Content-Type: application/json; charset=UTF-8');
@@ -267,7 +267,7 @@ class indexController extends ActionController {
 
 	public function logoutAction () {
 		$this->view->_useLayout (false);
-		Session::_param ('mail');
+		Minz_Session::_param ('mail');
 		invalidateHttpCache();
 	}
 }

@@ -1,6 +1,6 @@
 <?php
 
-class RSSThemes extends Model {
+class FreshRSS_Themes extends Minz_Model {
 	private static $themesUrl = '/themes/';
 	private static $defaultIconsUrl = '/themes/icons/';
 
@@ -82,7 +82,7 @@ class RSSThemes extends Model {
 		$url = isset(self::$themeIcons[$url]) ? (self::$themeIconsUrl . $url) :
 			(self::$defaultIconsUrl . $url);
 
-		return $urlOnly ? Url::display($url) :
-			'<img class="icon" src="' . Url::display($url) . '" alt="' . $alts[$name] . '" />';
+		return $urlOnly ? Minz_Url::display($url) :
+			'<img class="icon" src="' . Minz_Url::display($url) . '" alt="' . $alts[$name] . '" />';
 	}
 }

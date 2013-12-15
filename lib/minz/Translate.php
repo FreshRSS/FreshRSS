@@ -8,7 +8,7 @@
  * La classe Translate se charge de la traduction
  * Utilise les fichiers du répertoire /app/i18n/
  */
-class Translate {
+class Minz_Translate {
 	/**
 	 * $language est la langue à afficher
 	 */
@@ -25,8 +25,8 @@ class Translate {
 	 * l'enregistre dans $translates
 	 */
 	public static function init () {
-		$l = Configuration::language ();
-		self::$language = Session::param ('language', $l);
+		$l = Minz_Configuration::language ();
+		self::$language = Minz_Session::param ('language', $l);
 		
 		$l_path = APP_PATH . '/i18n/' . self::$language . '.php';
 		

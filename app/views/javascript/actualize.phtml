@@ -1,12 +1,12 @@
 var feeds = new Array ();
 <?php foreach ($this->feeds as $feed) { ?>
-feeds.push ("<?php echo Url::display (array ('c' => 'feed', 'a' => 'actualize', 'params' => array ('id' => $feed->id (), 'ajax' => '1')), 'php'); ?>");
+feeds.push ("<?php echo Minz_Url::display (array ('c' => 'feed', 'a' => 'actualize', 'params' => array ('id' => $feed->id (), 'ajax' => '1')), 'php'); ?>");
 <?php } ?>
 
 function initProgressBar (init) {
 	if (init) {
 		$("body").after ("\<div id=\"actualizeProgress\" class=\"actualizeProgress\">\
-			<?php echo Translate::t ('refresh'); ?> <span class=\"progress\">0 / " + feeds.length + "</span><br />\
+			<?php echo Minz_Translate::t ('refresh'); ?> <span class=\"progress\">0 / " + feeds.length + "</span><br />\
 			<progress id=\"actualizeProgressBar\" value=\"0\" max=\"" + feeds.length + "\"></progress>\
 		</div>");
 	} else {

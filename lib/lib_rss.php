@@ -15,6 +15,31 @@ if (!function_exists('json_encode')) {
 	}
 }
 
+//<Auto-loading>
+function classAutoloader($class) {
+	if (strpos($class, 'FreshRSS') === 0) {
+		$components = explode('_', $class);
+		switch (count($components)) {
+			case 1:
+				include(APP_PATH . '/' . $components[0] . '.php');
+				return;
+			case 2:
+				include(APP_PATH . '/Models/' . $components[1] . '.php');
+				return;
+			case 3:	//Controllers, Exceptions
+				include(APP_PATH . '/' . $components[2] . 's/' . $components[1] . $components[2] . '.php');
+				return;
+		}
+	} elseif (strpos($class, 'Minz') === 0) {
+		include(LIB_PATH . '/' . str_replace('_', '/', $class) . '.php');
+	} elseif (strpos($class, 'SimplePie') === 0) {
+		include(LIB_PATH . '/SimplePie/' . str_replace('_', '/', $class) . '.php');
+	}
+}
+
+spl_autoload_register('classAutoloader');
+//</Auto-loading>
+
 function checkUrl($url) {
 	if (empty ($url)) {
 		return '';
@@ -33,7 +58,7 @@ function checkUrl($url) {
 
 // vérifie qu'on est connecté
 function is_logged () {
-	return Session::param ('mail') != false;
+	return Minz_Session::param ('mail') != false;
 }
 
 // vérifie que le système d'authentification est configuré
@@ -63,11 +88,11 @@ function formatBytes($bytes, $precision = 2, $system = 'IEC') {
 }
 
 function timestamptodate ($t, $hour = true) {
-	$month = Translate::t (date('M', $t));
+	$month = Minz_Translate::t (date('M', $t));
 	if ($hour) {
-		$date = Translate::t ('format_date_hour', $month);
+		$date = Minz_Translate::t ('format_date_hour', $month);
 	} else {
-		$date = Translate::t ('format_date', $month);
+		$date = Minz_Translate::t ('format_date', $month);
 	}
 
 	return @date ($date, $t);
@@ -123,10 +148,10 @@ function opml_import ($xml) {
 	$opml = simplexml_import_dom($dom);
 
 	if (!$opml) {
-		throw new OpmlException ();
+		throw new FreshRSS_Opml_Exception ();
 	}
 
-	$catDAO = new CategoryDAO();
+	$catDAO = new FreshRSS_CategoryDAO();
 	$catDAO->checkDefault();
 	$defCat = $catDAO->getDefault();
 
@@ -152,10 +177,10 @@ function opml_import ($xml) {
 				// Y ne sera pas ajouté et le flux non plus vu que l'id
 				// de sa catégorie n'exisera pas
 				$title = htmlspecialchars($title, ENT_QUOTES, 'UTF-8');
-				$catDAO = new CategoryDAO ();
+				$catDAO = new FreshRSS_CategoryDAO ();
 				$cat = $catDAO->searchByName ($title);
 				if ($cat === false) {
-					$cat = new Category ($title);
+					$cat = new FreshRSS_Category ($title);
 					$values = array (
 						'name' => $cat->name (),
 						'color' => $cat->color ()
@@ -204,7 +229,7 @@ function getFeed ($outline, $cat_id) {
 		$title = (string) $outline['title'];
 	}
 	$title = htmlspecialchars($title, ENT_QUOTES, 'UTF-8');
-	$feed = new Feed ($url);
+	$feed = new FreshRSS_Feed ($url);
 	$feed->_category ($cat_id);
 	$feed->_name ($title);
 	if (isset($outline['htmlUrl'])) {
@@ -250,7 +275,7 @@ function get_content_by_parsing ($url, $path) {
 function lazyimg($content) {
 	return preg_replace(
 		'/<img([^>]+?)src=[\'"]([^"\']+)[\'"]([^>]*)>/i',
-		'<img$1src="' . Url::display('/themes/icons/grey.gif') . '" data-original="$2"$3>',
+		'<img$1src="' . Minz_Url::display('/themes/icons/grey.gif') . '" data-original="$2"$3>',
 		$content
 	);
 }

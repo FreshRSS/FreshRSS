@@ -1,33 +1,33 @@
 <?php
 
-class configureController extends ActionController {
+class FreshRSS_configure_Controller extends Minz_ActionController {
 	public function firstAction () {
 		if (login_is_conf ($this->view->conf) && !is_logged ()) {
-			Error::error (
+			Minz_Error::error (
 				403,
-				array ('error' => array (Translate::t ('access_denied')))
+				array ('error' => array (Minz_Translate::t ('access_denied')))
 			);
 		}
 
-		$catDAO = new CategoryDAO ();
+		$catDAO = new FreshRSS_CategoryDAO ();
 		$catDAO->checkDefault ();
 	}
 
 	public function categorizeAction () {
-		$feedDAO = new FeedDAO ();
-		$catDAO = new CategoryDAO ();
+		$feedDAO = new FreshRSS_FeedDAO ();
+		$catDAO = new FreshRSS_CategoryDAO ();
 		$catDAO->checkDefault ();
 		$defaultCategory = $catDAO->getDefault ();
 		$defaultId = $defaultCategory->id ();
 
-		if (Request::isPost ()) {
-			$cats = Request::param ('categories', array ());
-			$ids = Request::param ('ids', array ());
-			$newCat = trim (Request::param ('new_category', ''));
+		if (Minz_Request::isPost ()) {
+			$cats = Minz_Request::param ('categories', array ());
+			$ids = Minz_Request::param ('ids', array ());
+			$newCat = trim (Minz_Request::param ('new_category', ''));
 
 			foreach ($cats as $key => $name) {
 				if (strlen ($name) > 0) {
-					$cat = new Category ($name);
+					$cat = new FreshRSS_Category ($name);
 					$values = array (
 						'name' => $cat->name (),
 						'color' => $cat->color ()
@@ -40,7 +40,7 @@ class configureController extends ActionController {
 			}
 
 			if ($newCat != '') {
-				$cat = new Category ($newCat);
+				$cat = new FreshRSS_Category ($newCat);
 				$values = array (
 					'id' => $cat->id (),
 					'name' => $cat->name (),
@@ -55,11 +55,11 @@ class configureController extends ActionController {
 			// notif
 			$notif = array (
 				'type' => 'good',
-				'content' => Translate::t ('categories_updated')
+				'content' => Minz_Translate::t ('categories_updated')
 			);
-			Session::_param ('notification', $notif);
+			Minz_Session::_param ('notification', $notif);
 
-			Request::forward (array ('c' => 'configure', 'a' => 'categorize'), true);
+			Minz_Request::forward (array ('c' => 'configure', 'a' => 'categorize'), true);
 		}
 
 		$this->view->categories = $catDAO->listCategories (false);
@@ -67,17 +67,17 @@ class configureController extends ActionController {
 		$this->view->feeds = $feedDAO->listFeeds ();
 		$this->view->flux = false;
 
-		View::prependTitle (Translate::t ('categories_management') . ' - ');
+		Minz_View::prependTitle (Minz_Translate::t ('categories_management') . ' - ');
 	}
 
 	public function feedAction () {
-		$catDAO = new CategoryDAO ();
+		$catDAO = new FreshRSS_CategoryDAO ();
 		$this->view->categories = $catDAO->listCategories (false);
 
-		$feedDAO = new FeedDAO ();
+		$feedDAO = new FreshRSS_FeedDAO ();
 		$this->view->feeds = $feedDAO->listFeeds ();
 
-		$id = Request::param ('id');
+		$id = Minz_Request::param ('id');
 		if ($id == false && !empty ($this->view->feeds)) {
 			$id = current ($this->view->feeds)->id ();
 		}
@@ -87,22 +87,22 @@ class configureController extends ActionController {
 			$this->view->flux = $this->view->feeds[$id];
 
 			if (!$this->view->flux) {
-				Error::error (
+				Minz_Error::error (
 					404,
-					array ('error' => array (Translate::t ('page_not_found')))
+					array ('error' => array (Minz_Translate::t ('page_not_found')))
 				);
 			} else {
-				if (Request::isPost () && $this->view->flux) {
-					$name = Request::param ('name', '');
-					$description = Request::param('description', '');
-					$website = Request::param('website', '');
-					$url = Request::param('url', '');
-					$hist = Request::param ('keep_history', 'no');
-					$cat = Request::param ('category', 0);
-					$path = Request::param ('path_entries', '');
-					$priority = Request::param ('priority', 0);
-					$user = Request::param ('http_user', '');
-					$pass = Request::param ('http_pass', '');
+				if (Minz_Request::isPost () && $this->view->flux) {
+					$name = Minz_Request::param ('name', '');
+					$description = Minz_Request::param('description', '');
+					$website = Minz_Request::param('website', '');
+					$url = Minz_Request::param('url', '');
+					$hist = Minz_Request::param ('keep_history', 'no');
+					$cat = Minz_Request::param ('category', 0);
+					$path = Minz_Request::param ('path_entries', '');
+					$priority = Minz_Request::param ('priority', 0);
+					$user = Minz_Request::param ('http_user', '');
+					$pass = Minz_Request::param ('http_pass', '');
 
 					$keep_history = false;
 					if ($hist == 'yes') {
@@ -131,58 +131,58 @@ class configureController extends ActionController {
 
 						$notif = array (
 							'type' => 'good',
-							'content' => Translate::t ('feed_updated')
+							'content' => Minz_Translate::t ('feed_updated')
 						);
 					} else {
 						$notif = array (
 							'type' => 'bad',
-							'content' => Translate::t ('error_occurred_update')
+							'content' => Minz_Translate::t ('error_occurred_update')
 						);
 					}
 
-					Session::_param ('notification', $notif);
-					Request::forward (array ('c' => 'configure', 'a' => 'feed', 'params' => array ('id' => $id)), true);
+					Minz_Session::_param ('notification', $notif);
+					Minz_Request::forward (array ('c' => 'configure', 'a' => 'feed', 'params' => array ('id' => $id)), true);
 				}
 
-				View::prependTitle (Translate::t ('rss_feed_management') . ' - ' . $this->view->flux->name () . ' - ');
+				Minz_View::prependTitle (Minz_Translate::t ('rss_feed_management') . ' - ' . $this->view->flux->name () . ' - ');
 			}
 		} else {
-			View::prependTitle (Translate::t ('rss_feed_management') . ' - ');
+			Minz_View::prependTitle (Minz_Translate::t ('rss_feed_management') . ' - ');
 		}
 	}
 
 	public function displayAction () {
-		if (Request::isPost ()) {
+		if (Minz_Request::isPost ()) {
 			$current_token = $this->view->conf->token ();
 
-			$language = Request::param ('language', 'en');
-			$nb = Request::param ('posts_per_page', 10);
-			$mode = Request::param ('view_mode', 'normal');
-			$view = Request::param ('default_view', 'a');
-			$auto_load_more = Request::param ('auto_load_more', 'no');
-			$display = Request::param ('display_posts', 'no');
-			$onread_jump_next = Request::param ('onread_jump_next', 'no');
-			$lazyload = Request::param ('lazyload', 'no');
-			$sort = Request::param ('sort_order', 'DESC');
-			$old = Request::param ('old_entries', 3);
-			$mail = Request::param ('mail_login', false);
-			$anon = Request::param ('anon_access', 'no');
-			$token = Request::param ('token', $current_token);
-			$openArticle = Request::param ('mark_open_article', 'no');
-			$openSite = Request::param ('mark_open_site', 'no');
-			$scroll = Request::param ('mark_scroll', 'no');
-			$reception = Request::param ('mark_upon_reception', 'no');
-			$theme = Request::param ('theme', 'default');
-			$topline_read = Request::param ('topline_read', 'no');
-			$topline_favorite = Request::param ('topline_favorite', 'no');
-			$topline_date = Request::param ('topline_date', 'no');
-			$topline_link = Request::param ('topline_link', 'no');
-			$bottomline_read = Request::param ('bottomline_read', 'no');
-			$bottomline_favorite = Request::param ('bottomline_favorite', 'no');
-			$bottomline_sharing = Request::param ('bottomline_sharing', 'no');
-			$bottomline_tags = Request::param ('bottomline_tags', 'no');
-			$bottomline_date = Request::param ('bottomline_date', 'no');
-			$bottomline_link = Request::param ('bottomline_link', 'no');
+			$language = Minz_Request::param ('language', 'en');
+			$nb = Minz_Request::param ('posts_per_page', 10);
+			$mode = Minz_Request::param ('view_mode', 'normal');
+			$view = Minz_Request::param ('default_view', 'a');
+			$auto_load_more = Minz_Request::param ('auto_load_more', 'no');
+			$display = Minz_Request::param ('display_posts', 'no');
+			$onread_jump_next = Minz_Request::param ('onread_jump_next', 'no');
+			$lazyload = Minz_Request::param ('lazyload', 'no');
+			$sort = Minz_Request::param ('sort_order', 'DESC');
+			$old = Minz_Request::param ('old_entries', 3);
+			$mail = Minz_Request::param ('mail_login', false);
+			$anon = Minz_Request::param ('anon_access', 'no');
+			$token = Minz_Request::param ('token', $current_token);
+			$openArticle = Minz_Request::param ('mark_open_article', 'no');
+			$openSite = Minz_Request::param ('mark_open_site', 'no');
+			$scroll = Minz_Request::param ('mark_scroll', 'no');
+			$reception = Minz_Request::param ('mark_upon_reception', 'no');
+			$theme = Minz_Request::param ('theme', 'default');
+			$topline_read = Minz_Request::param ('topline_read', 'no');
+			$topline_favorite = Minz_Request::param ('topline_favorite', 'no');
+			$topline_date = Minz_Request::param ('topline_date', 'no');
+			$topline_link = Minz_Request::param ('topline_link', 'no');
+			$bottomline_read = Minz_Request::param ('bottomline_read', 'no');
+			$bottomline_favorite = Minz_Request::param ('bottomline_favorite', 'no');
+			$bottomline_sharing = Minz_Request::param ('bottomline_sharing', 'no');
+			$bottomline_tags = Minz_Request::param ('bottomline_tags', 'no');
+			$bottomline_date = Minz_Request::param ('bottomline_date', 'no');
+			$bottomline_link = Minz_Request::param ('bottomline_link', 'no');
 
 			$this->view->conf->_language ($language);
 			$this->view->conf->_postsPerPage (intval ($nb));
@@ -243,81 +243,81 @@ class configureController extends ActionController {
 				'bottomline_link' => $this->view->conf->bottomlineLink () ? 'yes' : 'no',
 			);
 
-			$confDAO = new RSSConfigurationDAO ();
+			$confDAO = new FreshRSS_ConfigurationDAO ();
 			$confDAO->update ($values);
-			Session::_param ('conf', $this->view->conf);
-			Session::_param ('mail', $this->view->conf->mailLogin ());
+			Minz_Session::_param ('conf', $this->view->conf);
+			Minz_Session::_param ('mail', $this->view->conf->mailLogin ());
 
-			Session::_param ('language', $this->view->conf->language ());
+			Minz_Session::_param ('language', $this->view->conf->language ());
 			Translate::reset ();
 
 			// notif
 			$notif = array (
 				'type' => 'good',
-				'content' => Translate::t ('configuration_updated')
+				'content' => Minz_Translate::t ('configuration_updated')
 			);
-			Session::_param ('notification', $notif);
+			Minz_Session::_param ('notification', $notif);
 
-			Request::forward (array ('c' => 'configure', 'a' => 'display'), true);
+			Minz_Request::forward (array ('c' => 'configure', 'a' => 'display'), true);
 		}
 
-		$this->view->themes = RSSThemes::get();
+		$this->view->themes = FreshRSS_Themes::get();
 
-		View::prependTitle (Translate::t ('general_and_reading_management') . ' - ');
+		Minz_View::prependTitle (Minz_Translate::t ('general_and_reading_management') . ' - ');
 
-		$entryDAO = new EntryDAO ();
+		$entryDAO = new FreshRSS_EntryDAO ();
 		$this->view->nb_total = $entryDAO->count ();
 		$this->view->size_total = $entryDAO->size ();
 	}
 
 	public function sharingAction () {
-		if (Request::isPost ()) {
+		if (Minz_Request::isPost ()) {
 			$this->view->conf->_sharing (array (
-				'shaarli' => Request::param ('shaarli', ''),
-				'poche' => Request::param ('poche', ''),
-				'diaspora' => Request::param ('diaspora', ''),
-				'twitter' => Request::param ('twitter', 'no') === 'yes',
-				'g+' => Request::param ('g+', 'no') === 'yes',
-				'facebook' => Request::param ('facebook', 'no') === 'yes',
-				'email' => Request::param ('email', 'no') === 'yes',
-				'print' => Request::param ('print', 'no') === 'yes'
+				'shaarli' => Minz_Request::param ('shaarli', ''),
+				'poche' => Minz_Request::param ('poche', ''),
+				'diaspora' => Minz_Request::param ('diaspora', ''),
+				'twitter' => Minz_Request::param ('twitter', 'no') === 'yes',
+				'g+' => Minz_Request::param ('g+', 'no') === 'yes',
+				'facebook' => Minz_Request::param ('facebook', 'no') === 'yes',
+				'email' => Minz_Request::param ('email', 'no') === 'yes',
+				'print' => Minz_Request::param ('print', 'no') === 'yes'
 			));
 
-			$confDAO = new RSSConfigurationDAO ();
+			$confDAO = new FreshRSS_ConfigurationDAO ();
 			$confDAO->update ($this->view->conf->sharing ());
-			Session::_param ('conf', $this->view->conf);
+			Minz_Session::_param ('conf', $this->view->conf);
 
 			// notif
 			$notif = array (
 				'type' => 'good',
-				'content' => Translate::t ('configuration_updated')
+				'content' => Minz_Translate::t ('configuration_updated')
 			);
-			Session::_param ('notification', $notif);
+			Minz_Session::_param ('notification', $notif);
 
-			Request::forward (array ('c' => 'configure', 'a' => 'sharing'), true);
+			Minz_Request::forward (array ('c' => 'configure', 'a' => 'sharing'), true);
 		}
 
-		View::prependTitle (Translate::t ('sharing_management') . ' - ');
+		Minz_View::prependTitle (Minz_Translate::t ('sharing_management') . ' - ');
 
-		$entryDAO = new EntryDAO ();
+		$entryDAO = new FreshRSS_EntryDAO ();
 		$this->view->nb_total = $entryDAO->count ();
 	}
 
 	public function importExportAction () {
-		$catDAO = new CategoryDAO ();
+		$catDAO = new FreshRSS_CategoryDAO ();
 		$this->view->categories = $catDAO->listCategories ();
 
-		$this->view->req = Request::param ('q');
+		$this->view->req = Minz_Request::param ('q');
 
 		if ($this->view->req == 'export') {
-			View::_title ('freshrss_feeds.opml');
+			Minz_View::_title ('freshrss_feeds.opml');
 
 			$this->view->_useLayout (false);
 			header('Content-Type: application/xml; charset=utf-8');
 			header('Content-disposition: attachment; filename=freshrss_feeds.opml');
 
-			$feedDAO = new FeedDAO ();
-			$catDAO = new CategoryDAO ();
+			$feedDAO = new FreshRSS_FeedDAO ();
+			$catDAO = new FreshRSS_CategoryDAO ();
 
 			$list = array ();
 			foreach ($catDAO->listCategories () as $key => $cat) {
@@ -326,7 +326,7 @@ class configureController extends ActionController {
 			}
 
 			$this->view->categories = $list;
-		} elseif ($this->view->req == 'import' && Request::isPost ()) {
+		} elseif ($this->view->req == 'import' && Minz_Request::isPost ()) {
 			if ($_FILES['file']['error'] == 0) {
 				// on parse le fichier OPML pour récupérer les catégories et les flux associés
 				try {
@@ -336,20 +336,20 @@ class configureController extends ActionController {
 
 					// On redirige vers le controller feed qui va se charger d'insérer les flux en BDD
 					// les flux sont mis au préalable dans des variables de Request
-					Request::_param ('q', 'null');
-					Request::_param ('categories', $categories);
-					Request::_param ('feeds', $feeds);
-					Request::forward (array ('c' => 'feed', 'a' => 'massiveImport'));
-				} catch (OpmlException $e) {
+					Minz_Request::_param ('q', 'null');
+					Minz_Request::_param ('categories', $categories);
+					Minz_Request::_param ('feeds', $feeds);
+					Minz_Request::forward (array ('c' => 'feed', 'a' => 'massiveImport'));
+				} catch (FreshRSS_Opml_Exception $e) {
 					Minz_Log::record ($e->getMessage (), Minz_Log::WARNING);
 
 					$notif = array (
 						'type' => 'bad',
-						'content' => Translate::t ('bad_opml_file')
+						'content' => Minz_Translate::t ('bad_opml_file')
 					);
-					Session::_param ('notification', $notif);
+					Minz_Session::_param ('notification', $notif);
 
-					Request::forward (array (
+					Minz_Request::forward (array (
 						'c' => 'configure',
 						'a' => 'importExport'
 					), true);
@@ -357,13 +357,13 @@ class configureController extends ActionController {
 			}
 		}
 
-		$feedDAO = new FeedDAO ();
+		$feedDAO = new FreshRSS_FeedDAO ();
 		$this->view->feeds = $feedDAO->listFeeds ();
 
 		// au niveau de la vue, permet de ne pas voir un flux sélectionné dans la liste
 		$this->view->flux = false;
 
-		View::prependTitle (Translate::t ('import_export_opml') . ' - ');
+		Minz_View::prependTitle (Translate::t ('import_export_opml') . ' - ');
 	}
 
 	public function shortcutAction () {
@@ -379,8 +379,8 @@ class configureController extends ActionController {
 		                     'prev_entry', 'next_page', 'prev_page', 'collapse_entry',
 		                     'load_more');
 
-		if (Request::isPost ()) {
-			$shortcuts = Request::param ('shortcuts');
+		if (Minz_Request::isPost ()) {
+			$shortcuts = Minz_Request::param ('shortcuts');
 			$shortcuts_ok = array ();
 
 			foreach ($shortcuts as $key => $value) {
@@ -396,20 +396,20 @@ class configureController extends ActionController {
 				'shortcuts' => $this->view->conf->shortcuts ()
 			);
 
-			$confDAO = new RSSConfigurationDAO ();
+			$confDAO = new FreshRSS_ConfigurationDAO ();
 			$confDAO->update ($values);
-			Session::_param ('conf', $this->view->conf);
+			Minz_Session::_param ('conf', $this->view->conf);
 
 			// notif
 			$notif = array (
 				'type' => 'good',
-				'content' => Translate::t ('shortcuts_updated')
+				'content' => Minz_Translate::t ('shortcuts_updated')
 			);
-			Session::_param ('notification', $notif);
+			Minz_Session::_param ('notification', $notif);
 
-			Request::forward (array ('c' => 'configure', 'a' => 'shortcut'), true);
+			Minz_Request::forward (array ('c' => 'configure', 'a' => 'shortcut'), true);
 		}
 
-		View::prependTitle (Translate::t ('shortcuts_management') . ' - ');
+		Minz_View::prependTitle (Minz_Translate::t ('shortcuts_management') . ' - ');
 	}
 }

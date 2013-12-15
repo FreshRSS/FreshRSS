@@ -7,6 +7,6 @@
 /**
  * La classe Model représente un modèle de l'application (représentation MVC)
  */
-class Model {
+class Minz_Model {
 
 }
