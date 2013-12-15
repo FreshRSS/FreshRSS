@@ -261,20 +261,23 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 
 	public function listWhere($type = 'a', $id = '', $state = 'all', $order = 'DESC', $limit = 1, $firstId = '', $filter = '', $date_min = 0) {
 		$where = '';
+		$joinFeed = false;
 		$values = array();
 		switch ($type) {
 			case 'a':
-				$where .= 'priority > 0 ';
+				$where .= 'f.priority > 0 ';
+				$joinFeed = true;
 				break;
 			case 's':
-				$where .= 'is_favorite = 1 ';
+				$where .= 'e.is_favorite = 1 ';
 				break;
 			case 'c':
-				$where .= 'category = ? ';
+				$where .= 'f.category = ? ';
 				$values[] = intval($id);
+				$joinFeed = true;
 				break;
 			case 'f':
-				$where .= 'id_feed = ? ';
+				$where .= 'e.id_feed = ? ';
 				$values[] = intval($id);
 				break;
 			default:
@@ -284,10 +287,10 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 			case 'all':
 				break;
 			case 'not_read':
-				$where .= 'AND is_read = 0 ';
+				$where .= 'AND e.is_read = 0 ';
 				break;
 			case 'read':
-				$where .= 'AND is_read = 1 ';
+				$where .= 'AND e.is_read = 1 ';
 				break;
 			default:
 				throw new FreshRSS_EntriesGetter_Exception ('Bad state in Entry->listByType: [' . $state . ']!');
@@ -302,8 +305,9 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 		if ($firstId !== '') {
 			$where .= 'AND e.id ' . ($order === 'DESC' ? '<=' : '>=') . $firstId . ' ';
 		}
-		if ($date_min > 0) {
+		if (($date_min > 0) && ($type !== 's')) {
 			$where .= 'AND (e.id >= ' . $date_min . '000000 OR e.is_favorite = 1 OR f.keep_history = 1) ';
+			$joinFeed = true;
 		}
 		$terms = array_unique(explode(' ', trim($filter)));
 		sort($terms);	//Put #tags first
@@ -311,7 +315,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 		foreach ($terms as $word) {
 			if (!empty($word)) {
 				if ($word[0] === '#' && isset($word[1])) {
-					$having .= 'AND tags LIKE ? ';
+					$having .= 'AND e.tags LIKE ? ';
 					$values[] = '%' . $word .'%';
 				} elseif (!empty($word)) {
 					$having .= 'AND (e.title LIKE ? OR content LIKE ?) ';
@@ -323,7 +327,8 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 
 		$sql = 'SELECT e.id, e.guid, e.title, e.author, UNCOMPRESS(e.content_bin) AS content, e.link, e.date, e.is_read, e.is_favorite, e.id_feed, e.tags '
 		     . 'FROM `' . $this->prefix . 'entry` e '
-		     . 'INNER JOIN `' . $this->prefix . 'feed` f ON e.id_feed = f.id WHERE ' . $where
+		     . ($joinFeed ? 'INNER JOIN `' . $this->prefix . 'feed` f ON e.id_feed = f.id ' : '')
+		     . 'WHERE ' . $where
 		     . (empty($having) ? '' : 'HAVING' . substr($having, 3))
 		     . 'ORDER BY e.id ' . $order;
 
