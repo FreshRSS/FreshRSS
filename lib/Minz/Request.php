@@ -30,7 +30,7 @@ class Minz_Request {
 		return self::$params;
 	}
 	static function htmlspecialchars_utf8 ($p) {
-		return htmlspecialchars($p, ENT_QUOTES, 'UTF-8');
+		return htmlspecialchars($p, ENT_COMPAT, 'UTF-8');
 	}
 	public static function param ($key, $default = false, $specialchars = false) {
 		if (isset (self::$params[$key])) {

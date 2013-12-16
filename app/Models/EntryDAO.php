@@ -309,18 +309,24 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 			$where .= 'AND (e1.id >= ' . $date_min . '000000 OR e1.is_favorite = 1 OR f.keep_history = 1) ';
 			$joinFeed = true;
 		}
-		$terms = array_unique(explode(' ', trim($filter)));
-		sort($terms);	//Put #tags first
 		$search = '';
-		foreach ($terms as $word) {
-			if (!empty($word)) {
-				if ($word[0] === '#' && isset($word[1])) {
-					$search .= 'AND e1.tags LIKE ? ';
-					$values[] = '%' . $word .'%';
-				} elseif (!empty($word)) {
-					$search .= 'AND (e1.title LIKE ? OR UNCOMPRESS(e1.content_bin) LIKE ?) ';
-					$values[] = '%' . $word .'%';
-					$values[] = '%' . $word .'%';
+		if ($filter !== '') {
+			$filter = trim($filter);
+			$filter = addcslashes($filter, '\\%_');
+			$terms = array_unique(explode(' ', $filter));
+			sort($terms);	//Put #tags first
+			foreach ($terms as $word) {
+				$word = trim($word);
+				if (strlen($word) > 0) {
+					if ($word[0] === '#') {
+						if (isset($word[1])) {
+							$search .= 'AND e1.tags LIKE ? ';
+							$values[] = '%' . $word .'%';
+						}
+					} else {
+						$search .= 'AND CONCAT(e1.title, UNCOMPRESS(e1.content_bin)) LIKE ? ';
+						$values[] = '%' . $word .'%';
+					}
 				}
 			}
 		}
