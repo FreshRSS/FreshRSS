@@ -311,14 +311,14 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 		}
 		$terms = array_unique(explode(' ', trim($filter)));
 		sort($terms);	//Put #tags first
-		$having = '';
+		$search = '';
 		foreach ($terms as $word) {
 			if (!empty($word)) {
 				if ($word[0] === '#' && isset($word[1])) {
-					$having .= 'AND e1.tags LIKE ? ';
+					$search .= 'AND e1.tags LIKE ? ';
 					$values[] = '%' . $word .'%';
 				} elseif (!empty($word)) {
-					$having .= 'AND (e1.title LIKE ? OR content LIKE ?) ';
+					$search .= 'AND (e1.title LIKE ? OR UNCOMPRESS(e1.content_bin) LIKE ?) ';
 					$values[] = '%' . $word .'%';
 					$values[] = '%' . $word .'%';
 				}
@@ -330,7 +330,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 		     . 'INNER JOIN (SELECT e1.id FROM `' . $this->prefix . 'entry` e1 '
 			     . ($joinFeed ? 'INNER JOIN `' . $this->prefix . 'feed` f ON e1.id_feed = f.id ' : '')
 			     . 'WHERE ' . $where
-			     . (empty($having) ? '' : 'HAVING' . substr($having, 3))
+			     . $search
 			     . 'ORDER BY e1.id ' . $order
 			     . ($limit > 0 ? ' LIMIT ' . $limit : '')	//TODO: See http://explainextended.com/2009/10/23/mysql-order-by-limit-performance-late-row-lookups/
 		     . ') e2 ON e2.id = e.id '
