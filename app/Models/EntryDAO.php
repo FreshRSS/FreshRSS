@@ -318,11 +318,9 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 			foreach ($terms as $word) {
 				$word = trim($word);
 				if (strlen($word) > 0) {
-					if ($word[0] === '#') {
-						if (isset($word[1])) {
-							$search .= 'AND e1.tags LIKE ? ';
-							$values[] = '%' . $word .'%';
-						}
+					if ($word[0] === '#' && isset($word[1])) {
+						$search .= 'AND e1.tags LIKE ? ';
+						$values[] = '%' . $word .'%';
 					} else {
 						$search .= 'AND CONCAT(e1.title, UNCOMPRESS(e1.content_bin)) LIKE ? ';
 						$values[] = '%' . $word .'%';
