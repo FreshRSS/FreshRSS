@@ -313,17 +313,46 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 		if ($filter !== '') {
 			$filter = trim($filter);
 			$filter = addcslashes($filter, '\\%_');
+			if (stripos($filter, 'intitle:') === 0) {
+				$filter = substr($filter, strlen('intitle:'));
+				$intitle = true;
+			} else {
+				$intitle = false;
+			}
+			if (stripos($filter, 'inurl:') === 0) {
+				$filter = substr($filter, strlen('inurl:'));
+				$inurl = true;
+			} else {
+				$inurl = false;
+			}
+			if (stripos($filter, 'author:') === 0) {
+				$filter = substr($filter, strlen('author:'));
+				$author = true;
+			} else {
+				$author = false;
+			}
 			$terms = array_unique(explode(' ', $filter));
 			sort($terms);	//Put #tags first
 			foreach ($terms as $word) {
 				$word = trim($word);
 				if (strlen($word) > 0) {
-					if ($word[0] === '#' && isset($word[1])) {
-						$search .= 'AND e1.tags LIKE ? ';
+					if ($intitle) {
+						$search .= 'AND e1.title LIKE ? ';
+						$values[] = '%' . $word .'%';
+					} elseif ($inurl) {
+						$search .= 'AND CONCAT(e1.link, e1.guid) LIKE ? ';
+						$values[] = '%' . $word .'%';
+					} elseif ($author) {
+						$search .= 'AND e1.author LIKE ? ';
 						$values[] = '%' . $word .'%';
 					} else {
-						$search .= 'AND CONCAT(e1.title, UNCOMPRESS(e1.content_bin)) LIKE ? ';
-						$values[] = '%' . $word .'%';
+						if ($word[0] === '#' && isset($word[1])) {
+							$search .= 'AND e1.tags LIKE ? ';
+							$values[] = '%' . $word .'%';
+						} else {
+							$search .= 'AND CONCAT(e1.title, UNCOMPRESS(e1.content_bin)) LIKE ? ';
+							$values[] = '%' . $word .'%';
+						}
 					}
 				}
 			}
