@@ -388,9 +388,9 @@ function init_shortcuts() {
 }
 
 function init_stream_delegates(divStream) {
-	divStream.on('click', '.flux_header>.item.title, .flux_header>.item.date', function (e) {	//flux_header_toggle
+	divStream.on('click', '.flux_header', function (e) {	//flux_header_toggle
 		var old_active = $(".flux.current"),
-			new_active = $(this).parent().parent();
+			new_active = $(this).parent();
 			isCollapsed = true;
 		if (e.target.tagName.toUpperCase() === 'A') {	//Leave real links alone
 			if (auto_mark_article) {

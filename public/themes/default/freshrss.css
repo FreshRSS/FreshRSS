@@ -289,10 +289,10 @@
 			white-space: nowrap;
 			text-overflow: ellipsis;
 		}
-		.flux .item.title:hover {
+		.flux:hover .item.title {
 			overflow: visible;
-			position: absolute;
 			padding-right: 1.5em;
+			position: absolute;
 		}
 			.flux .item.title a {
 				color: #000;
