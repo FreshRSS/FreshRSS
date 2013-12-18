@@ -237,6 +237,7 @@ body {
 	}
 
 	.flux_header {
+		background: inherit;
 		height: 25px;
 		font-size: 12px;
 		border-top: 1px solid #ecf0f1;
@@ -265,15 +266,15 @@ body {
 				padding: 5px;
 			}
 		.flux .item.title {
+			background: inherit;
 			overflow: hidden;
 			white-space: nowrap;
 			text-overflow: ellipsis;
 		}
 		.flux .item.title:hover {
-			background: #FFF;
 			overflow: visible;
-			padding-right: 1.5em;
 			position: absolute;
+			padding-right: 1.5em;
 		}
 			.flux .item.title a {
 				color: #333;
