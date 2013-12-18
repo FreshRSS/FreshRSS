@@ -220,6 +220,9 @@ body {
 .flux {
 	border-left: 3px solid #ecf0f1;
 }
+	.flux:hover {
+		background: #fff;
+	}
 	.flux.not_read {
 		border-left-color: #FF5300;
 		background: #FFF3ED;
@@ -265,6 +268,12 @@ body {
 			overflow: hidden;
 			white-space: nowrap;
 			text-overflow: ellipsis;
+		}
+		.flux .item.title:hover {
+			background: #FFF;
+			overflow: visible;
+			padding-right: 1.5em;
+			position: absolute;
 		}
 			.flux .item.title a {
 				color: #333;

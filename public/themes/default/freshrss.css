@@ -287,6 +287,12 @@
 			white-space: nowrap;
 			text-overflow: ellipsis;
 		}
+		.flux .item.title:hover {
+			background: #FFF;
+			overflow: visible;
+			padding-right: 1.5em;
+			position: absolute;
+		}
 			.flux .item.title a {
 				color: #000;
 				outline: none;
