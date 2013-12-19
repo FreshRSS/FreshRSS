@@ -94,7 +94,7 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 			} else {
 				if (Minz_Request::isPost () && $this->view->flux) {
 					$name = Minz_Request::param ('name', '');
-					$description = Minz_Request::param('description', '');
+					$description = sanitizeHTML(Minz_Request::param('description', '', true));
 					$website = Minz_Request::param('website', '');
 					$url = Minz_Request::param('url', '');
 					$hist = Minz_Request::param ('keep_history', 'no');

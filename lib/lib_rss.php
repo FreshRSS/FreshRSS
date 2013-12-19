@@ -136,6 +136,14 @@ function html_only_entity_decode($text) {
 	return strtr($text, $htmlEntitiesOnly);
 }
 
+function sanitizeHTML($data) {
+	static $simplePie = null;
+	if ($simplePie == null) {
+		$simplePie = new SimplePie();
+	}
+	return html_only_entity_decode($simplePie->sanitize->sanitize($data, SIMPLEPIE_CONSTRUCT_MAYBE_HTML));
+}
+
 function opml_import ($xml) {
 	$xml = html_only_entity_decode($xml);	//!\ Assume UTF-8
 
@@ -176,7 +184,7 @@ function opml_import ($xml) {
 				// alors qu'il existe déjà la catégorie X mais avec l'id Z
 				// Y ne sera pas ajouté et le flux non plus vu que l'id
 				// de sa catégorie n'exisera pas
-				$title = htmlspecialchars($title, ENT_QUOTES, 'UTF-8');
+				$title = htmlspecialchars($title, ENT_COMPAT, 'UTF-8');
 				$catDAO = new FreshRSS_CategoryDAO ();
 				$cat = $catDAO->searchByName ($title);
 				if ($cat === false) {
@@ -221,22 +229,22 @@ function getFeedsOutline ($outline, $cat_id) {
 
 function getFeed ($outline, $cat_id) {
 	$url = (string) $outline['xmlUrl'];
-	$url = htmlspecialchars($url, ENT_QUOTES, 'UTF-8');
+	$url = htmlspecialchars($url, ENT_COMPAT, 'UTF-8');
 	$title = '';
 	if (isset ($outline['text'])) {
 		$title = (string) $outline['text'];
 	} elseif (isset ($outline['title'])) {
 		$title = (string) $outline['title'];
 	}
-	$title = htmlspecialchars($title, ENT_QUOTES, 'UTF-8');
+	$title = htmlspecialchars($title, ENT_COMPAT, 'UTF-8');
 	$feed = new FreshRSS_Feed ($url);
 	$feed->_category ($cat_id);
 	$feed->_name ($title);
 	if (isset($outline['htmlUrl'])) {
-		$feed->_website(htmlspecialchars((string)$outline['htmlUrl'], ENT_QUOTES, 'UTF-8'));
+		$feed->_website(htmlspecialchars((string)$outline['htmlUrl'], ENT_COMPAT, 'UTF-8'));
 	}
 	if (isset($outline['description'])) {
-		$feed->_description((string)$outline['description']);
+		$feed->_description(sanitizeHTML((string)$outline['description']));
 	}
 	return $feed;
 }
