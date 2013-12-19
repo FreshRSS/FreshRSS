@@ -236,7 +236,7 @@ function getFeed ($outline, $cat_id) {
 		$feed->_website(htmlspecialchars((string)$outline['htmlUrl'], ENT_QUOTES, 'UTF-8'));
 	}
 	if (isset($outline['description'])) {
-		$feed->_description(htmlspecialchars((string)$outline['description'], ENT_QUOTES, 'UTF-8'));
+		$feed->_description((string)$outline['description']);
 	}
 	return $feed;
 }
