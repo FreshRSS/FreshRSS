@@ -265,7 +265,7 @@ function checkStep0 () {
 }
 function checkStep1 () {
 	$php = version_compare (PHP_VERSION, '5.2.0') >= 0;
-	$minz = file_exists (LIB_PATH . '/minz');
+	$minz = file_exists (LIB_PATH . '/Minz');
 	$curl = extension_loaded ('curl');
 	$pdo = extension_loaded ('pdo_mysql');
 	$dom = class_exists('DOMDocument');
@@ -287,7 +287,54 @@ function checkStep1 () {
 		'all' => $php && $minz && $curl && $pdo && $dom && $data && $cache && $log && $favicons ? 'ok' : 'ko'
 	);
 }
+
+function moveOldFiles() {
+	$mvs = array(
+		'/app/configuration/application.ini' => '/data/application.ini',
+		'/public/data/Configuration.array.php' => '/data/Configuration.array.php',
+	);
+	$ok = true;
+	foreach ($mvs as $fFrom => $fTo) {
+		if (file_exists(FRESHRSS_PATH . $fFrom)) {
+			if (copy(FRESHRSS_PATH . $fFrom, FRESHRSS_PATH . $fTo)) {
+				@unlink(FRESHRSS_PATH . $fFrom);
+			} else {
+				$ok = false;
+			}
+		}
+	}
+	return $ok;
+}
+
+function delTree($dir) {	//http://php.net/rmdir#110489
+	if (!is_dir($dir)) {
+		return true;
+	}
+	$files = array_diff(scandir($dir), array('.', '..'));
+	foreach ($files as $file) {
+		$f = $dir . '/' . $file;
+		if (is_dir($f)) {
+			@chmod($f, 0777);
+			delTree($f);
+		}
+		else unlink($f);
+	}
+	return rmdir($dir);
+}
+
+function removeOldFiles() {
+	$oldDirs = array('/app/configuration/', '/cache/', '/log/', '/public/data/', '/public/themes/printer/');
+
+	$ok = true;
+	foreach ($oldDirs as $oldDir) {
+		$ok &= delTree(FRESHRSS_PATH . $oldDir);
+	}
+	return $ok;
+}
+
 function checkStep2 () {
+	moveOldFiles() && removeOldFiles();
+
 	$conf = isset ($_SESSION['sel']) &&
 	        isset ($_SESSION['base_url']) &&
 	        isset ($_SESSION['title']) &&
@@ -299,6 +346,9 @@ function checkStep2 () {
 		$defaultUser = empty($_SESSION['default_user']) ? '' : $_SESSION['default_user'];
 	}
 	$data = file_exists (DATA_PATH . '/' . $defaultUser . '_user.php');
+	if ($data) {
+		@unlink(DATA_PATH . '/Configuration.array.php');	//v0.6
+	}
 
 	return array (
 		'conf' => $conf ? 'ok' : 'ko',
@@ -434,7 +484,7 @@ function printStep1 () {
 	<?php if ($res['minz'] == 'ok') { ?>
 	<p class="alert alert-success"><span class="alert-head"><?php echo _t ('ok'); ?></span> <?php echo _t ('minz_is_ok'); ?></p>
 	<?php } else { ?>
-	<p class="alert alert-error"><span class="alert-head"><?php echo _t ('damn'); ?></span> <?php echo _t ('minz_is_nok', LIB_PATH . '/minz'); ?></p>
+	<p class="alert alert-error"><span class="alert-head"><?php echo _t ('damn'); ?></span> <?php echo _t ('minz_is_nok', LIB_PATH . '/Minz'); ?></p>
 	<?php } ?>
 
 	<?php if ($res['curl'] == 'ok') { ?>
