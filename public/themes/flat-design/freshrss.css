@@ -273,7 +273,7 @@ body {
 		}
 		.flux:hover .item.title {
 			overflow: visible;
-			padding-right: 1.5em;
+			padding-right: 2em;
 			position: absolute;
 		}
 			.flux .item.title a {

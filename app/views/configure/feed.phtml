@@ -22,7 +22,7 @@
 		<div class="form-group">
 			<label class="group-name"><?php echo Minz_Translate::t ('feed_description'); ?></label>
 			<div class="group-controls">
-				<textarea name="description" id="description"><?php echo $this->flux->description (); ?></textarea>
+				<textarea name="description" id="description"><?php echo htmlspecialchars($this->flux->description(), ENT_NOQUOTES, 'UTF-8'); ?></textarea>
 			</div>
 		</div>
 		<div class="form-group">
