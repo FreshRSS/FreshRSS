@@ -242,7 +242,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 
 		$stm->execute ($values);
 		$res = $stm->fetchAll (PDO::FETCH_ASSOC);
-		$entries = HelperEntry::daoToEntry ($res);
+		$entries = self::daoToEntry ($res);
 		return isset ($entries[0]) ? $entries[0] : false;
 	}
 
@@ -255,7 +255,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 
 		$stm->execute ($values);
 		$res = $stm->fetchAll (PDO::FETCH_ASSOC);
-		$entries = HelperEntry::daoToEntry ($res);
+		$entries = self::daoToEntry ($res);
 		return isset ($entries[0]) ? $entries[0] : false;
 	}
 
@@ -372,7 +372,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 		$stm = $this->bd->prepare ($sql);
 		$stm->execute ($values);
 
-		return HelperEntry::daoToEntry ($stm->fetchAll (PDO::FETCH_ASSOC));
+		return self::daoToEntry ($stm->fetchAll (PDO::FETCH_ASSOC));
 	}
 
 	public function listLastGuidsByFeed($id, $n) {
@@ -430,9 +430,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 		$stm = $this->bd->prepare ($sql);
 		$stm->execute ();
 	}
-}
 
-class HelperEntry {
 	public static function daoToEntry ($listDAO) {
 		$list = array ();
 

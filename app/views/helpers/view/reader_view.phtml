@@ -11,7 +11,7 @@ if (!empty($this->entries)) {
 		<div class="flux_content">
 			<div class="content">
 				<?php
-					$feed = HelperCategory::findFeed($this->cat_aside, $item->feed ());	//We most likely already have the feed object in cache
+					$feed = FreshRSS_CategoryDAO::findFeed($this->cat_aside, $item->feed ());	//We most likely already have the feed object in cache
 					if (empty($feed)) $feed = $item->feed (true);
 				?>
 				<a href="<?php echo $item->link (); ?>">

@@ -60,7 +60,7 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo {
 
 		$stm->execute ($values);
 		$res = $stm->fetchAll (PDO::FETCH_ASSOC);
-		$cat = HelperCategory::daoToCategory ($res);
+		$cat = self::daoToCategory ($res);
 
 		if (isset ($cat[0])) {
 			return $cat[0];
@@ -76,7 +76,7 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo {
 
 		$stm->execute ($values);
 		$res = $stm->fetchAll (PDO::FETCH_ASSOC);
-		$cat = HelperCategory::daoToCategory ($res);
+		$cat = self::daoToCategory ($res);
 
 		if (isset ($cat[0])) {
 			return $cat[0];
@@ -96,12 +96,12 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo {
 			     . 'ORDER BY c.name, f.name';
 			$stm = $this->bd->prepare ($sql);
 			$stm->execute ();
-			return HelperCategory::daoToCategoryPrepopulated ($stm->fetchAll (PDO::FETCH_ASSOC));
+			return self::daoToCategoryPrepopulated ($stm->fetchAll (PDO::FETCH_ASSOC));
 		} else {
 			$sql = 'SELECT * FROM `' . $this->prefix . 'category` ORDER BY name';
 			$stm = $this->bd->prepare ($sql);
 			$stm->execute ();
-			return HelperCategory::daoToCategory ($stm->fetchAll (PDO::FETCH_ASSOC));
+			return self::daoToCategory ($stm->fetchAll (PDO::FETCH_ASSOC));
 		}
 	}
 
@@ -111,7 +111,7 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo {
 
 		$stm->execute ();
 		$res = $stm->fetchAll (PDO::FETCH_ASSOC);
-		$cat = HelperCategory::daoToCategory ($res);
+		$cat = self::daoToCategory ($res);
 
 		if (isset ($cat[0])) {
 			return $cat[0];
@@ -164,9 +164,7 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo {
 
 		return $res[0]['count'];
 	}
-}
 
-class HelperCategory {
 	public static function findFeed($categories, $feed_id) {
 		foreach ($categories as $category) {
 			foreach ($category->feeds () as $feed) {
@@ -205,7 +203,7 @@ class HelperCategory {
 				$cat = new FreshRSS_Category (
 					$previousLine['c_name'],
 					isset($previousLine['c_color']) ? $previousLine['c_color'] : '',
-					HelperFeed::daoToFeed ($feedsDao, $previousLine['c_id'])
+					FreshRSS_FeedDAO::daoToFeed ($feedsDao, $previousLine['c_id'])
 				);
 				$cat->_id ($previousLine['c_id']);
 				$list[$previousLine['c_id']] = $cat;
@@ -222,7 +220,7 @@ class HelperCategory {
 			$cat = new FreshRSS_Category (
 				$previousLine['c_name'],
 				isset($previousLine['c_color']) ? $previousLine['c_color'] : '',
-				HelperFeed::daoToFeed ($feedsDao, $previousLine['c_id'])
+				FreshRSS_FeedDAO::daoToFeed ($feedsDao, $previousLine['c_id'])
 			);
 			$cat->_id ($previousLine['c_id']);
 			$list[$previousLine['c_id']] = $cat;

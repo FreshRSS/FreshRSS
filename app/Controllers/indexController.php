@@ -77,7 +77,7 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 			return;
 		}
 
-		$this->view->nb_not_read = HelperCategory::CountUnreads($this->view->cat_aside, 1);
+		$this->view->nb_not_read = FreshRSS_CategoryDAO::CountUnreads($this->view->cat_aside, 1);
 
 		// mise à jour des titres
 		$this->view->rss_title = $this->view->currentName . ' | ' . Minz_View::title();
@@ -112,7 +112,7 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 					$hasUnread = (!isset($this->view->cat_aside[$getId])) || ($this->view->cat_aside[$getId]->nbNotRead() > 0);
 					break;
 				case 'f':
-					$myFeed = HelperCategory::findFeed($this->view->cat_aside, $getId);
+					$myFeed = FreshRSS_CategoryDAO::findFeed($this->view->cat_aside, $getId);
 					$hasUnread = ($myFeed === null) || ($myFeed->nbNotRead() > 0);
 					break;
 				default:
@@ -188,7 +188,7 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 					return false;
 				}
 			case 'f':
-				$feed = HelperCategory::findFeed($this->view->cat_aside, $getId);
+				$feed = FreshRSS_CategoryDAO::findFeed($this->view->cat_aside, $getId);
 				if (empty($feed)) {
 					$feed = $this->feedDAO->searchById ($getId);
 				}

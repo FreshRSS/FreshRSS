@@ -158,7 +158,7 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo {
 
 		$stm->execute ($values);
 		$res = $stm->fetchAll (PDO::FETCH_ASSOC);
-		$feed = HelperFeed::daoToFeed ($res);
+		$feed = self::daoToFeed ($res);
 
 		if (isset ($feed[$id])) {
 			return $feed[$id];
@@ -174,7 +174,7 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo {
 
 		$stm->execute ($values);
 		$res = $stm->fetchAll (PDO::FETCH_ASSOC);
-		$feed = current (HelperFeed::daoToFeed ($res));
+		$feed = current (self::daoToFeed ($res));
 
 		if (isset ($feed)) {
 			return $feed;
@@ -188,7 +188,7 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo {
 		$stm = $this->bd->prepare ($sql);
 		$stm->execute ();
 
-		return HelperFeed::daoToFeed ($stm->fetchAll (PDO::FETCH_ASSOC));
+		return self::daoToFeed ($stm->fetchAll (PDO::FETCH_ASSOC));
 	}
 
 	public function listFeedsOrderUpdate () {
@@ -196,7 +196,7 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo {
 		$stm = $this->bd->prepare ($sql);
 		$stm->execute ();
 
-		return HelperFeed::daoToFeed ($stm->fetchAll (PDO::FETCH_ASSOC));
+		return self::daoToFeed ($stm->fetchAll (PDO::FETCH_ASSOC));
 	}
 
 	public function listByCategory ($cat) {
@@ -207,7 +207,7 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo {
 
 		$stm->execute ($values);
 
-		return HelperFeed::daoToFeed ($stm->fetchAll (PDO::FETCH_ASSOC));
+		return self::daoToFeed ($stm->fetchAll (PDO::FETCH_ASSOC));
 	}
 
 	public function countEntries ($id) {
@@ -299,9 +299,7 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo {
 			return false;
 		}
 	}
-}
 
-class HelperFeed {
 	public static function daoToFeed ($listDAO, $catID = null) {
 		$list = array ();
 
