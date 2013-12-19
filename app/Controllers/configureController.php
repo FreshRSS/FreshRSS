@@ -363,7 +363,7 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 		// au niveau de la vue, permet de ne pas voir un flux sélectionné dans la liste
 		$this->view->flux = false;
 
-		Minz_View::prependTitle (Translate::t ('import_export_opml') . ' - ');
+		Minz_View::prependTitle (Minz_Translate::t ('import_export_opml') . ' - ');
 	}
 
 	public function shortcutAction () {
