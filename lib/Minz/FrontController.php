@@ -32,7 +32,7 @@ class Minz_FrontController {
 	 */
 	public function __construct () {
 		if (LOG_PATH === false) {
-			$this->killApp ('Path doesn\'t exist : LOG_PATH');
+			$this->killApp ('Path doesn’t exist : LOG_PATH');
 		}
 
 		try {

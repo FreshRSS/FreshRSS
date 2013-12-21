@@ -88,11 +88,7 @@ function initTranslate () {
 	global $translates;
 	global $actual;
 
-	$l = getBetterLanguage ('en');
-	if (isset ($_SESSION['language'])) {
-		$l = $_SESSION['language'];
-	}
-	$actual = $l;
+	$actual = isset($_SESSION['language']) ? $_SESSION['language'] : getBetterLanguage('en');
 
 	$file = APP_PATH . '/i18n/' . $actual . '.php';
 	if (file_exists ($file)) {
@@ -148,10 +144,7 @@ function saveStep2 () {
 			return false;
 		}
 
-		$_SESSION['sel'] = md5 (
-			uniqid (mt_rand (), true).implode ('', stat (__FILE__))
-		);
-		$_SESSION['base_url'] = addslashes ($_POST['base_url']);
+		$_SESSION['sel_application'] = sha1(uniqid(mt_rand(), true).implode('', stat(__FILE__)));
 		$_SESSION['title'] = addslashes ($_POST['title']);
 		$_SESSION['old_entries'] = $_POST['old_entries'];
 		if (!is_int (intval ($_SESSION['old_entries'])) ||
@@ -163,8 +156,7 @@ function saveStep2 () {
 
 		$token = '';
 		if ($_SESSION['mail_login']) {
-			$token = small_hash (time () . $_SESSION['sel'])
-			       . small_hash ($_SESSION['base_url'] . $_SESSION['sel']);
+			$token = sha1($_SESSION['sel_application'] . $_SESSION['mail_login']);
 		}
 
 		$file_data = DATA_PATH . '/' . $_SESSION['default_user'] . '_user.php';
@@ -196,25 +188,25 @@ function saveStep3 () {
 		$_SESSION['bd_type'] = isset ($_POST['type']) ? $_POST['type'] : 'mysql';
 		$_SESSION['bd_host'] = addslashes ($_POST['host']);
 		$_SESSION['bd_user'] = addslashes ($_POST['user']);
-		$_SESSION['bd_pass'] = addslashes ($_POST['pass']);
-		$_SESSION['bd_name'] = addslashes ($_POST['base']);
+		$_SESSION['bd_password'] = addslashes ($_POST['pass']);
+		$_SESSION['bd_base'] = addslashes ($_POST['base']);
 		$_SESSION['bd_prefix'] = addslashes ($_POST['prefix']);
 
 		$file_conf = DATA_PATH . '/application.ini';
 		$f = fopen ($file_conf, 'w');
 		writeLine ($f, '[general]');
-		writeLine ($f, 'environment = "production"');
+		writeLine ($f, 'environment = "' . empty($_SESSION['environment']) ? 'production' : $_SESSION['environment'] . '"');
 		writeLine ($f, 'use_url_rewriting = false');
-		writeLine ($f, 'sel_application = "' . $_SESSION['sel'] . '"');
-		writeLine ($f, 'base_url = "' . $_SESSION['base_url'] . '"');
+		writeLine ($f, 'sel_application = "' . $_SESSION['sel_application'] . '"');
+		writeLine ($f, 'base_url = ""');
 		writeLine ($f, 'title = "' . $_SESSION['title'] . '"');
 		writeLine ($f, 'default_user = "' . $_SESSION['default_user'] . '"');
 		writeLine ($f, '[db]');
 		writeLine ($f, 'type = "' . $_SESSION['bd_type'] . '"');
 		writeLine ($f, 'host = "' . $_SESSION['bd_host'] . '"');
 		writeLine ($f, 'user = "' . $_SESSION['bd_user'] . '"');
-		writeLine ($f, 'password = "' . $_SESSION['bd_pass'] . '"');
-		writeLine ($f, 'base = "' . $_SESSION['bd_name'] . '"');
+		writeLine ($f, 'password = "' . $_SESSION['bd_password'] . '"');
+		writeLine ($f, 'base = "' . $_SESSION['bd_base'] . '"');
 		writeLine ($f, 'prefix = "' . $_SESSION['bd_prefix'] . '"');
 		fclose ($f);
 
@@ -237,6 +229,50 @@ function deleteInstall () {
 	}
 }
 
+function moveOldFiles() {
+	$mvs = array(
+		'/app/configuration/application.ini' => '/data/application.ini',	//v0.6
+		'/public/data/Configuration.array.php' => '/data/Configuration.array.php',	//v0.6
+	);
+	$ok = true;
+	foreach ($mvs as $fFrom => $fTo) {
+		if (file_exists(FRESHRSS_PATH . $fFrom)) {
+			if (copy(FRESHRSS_PATH . $fFrom, FRESHRSS_PATH . $fTo)) {
+				@unlink(FRESHRSS_PATH . $fFrom);
+			} else {
+				$ok = false;
+			}
+		}
+	}
+	return $ok;
+}
+
+function delTree($dir) {	//http://php.net/rmdir#110489
+	if (!is_dir($dir)) {
+		return true;
+	}
+	$files = array_diff(scandir($dir), array('.', '..'));
+	foreach ($files as $file) {
+		$f = $dir . '/' . $file;
+		if (is_dir($f)) {
+			@chmod($f, 0777);
+			delTree($f);
+		}
+		else unlink($f);
+	}
+	return rmdir($dir);
+}
+
+function removeOldFiles() {
+	$oldDirs = array('/app/configuration/', '/cache/', '/log/', '/public/data/', '/public/themes/printer/');	//v0.6
+
+	$ok = true;
+	foreach ($oldDirs as $oldDir) {
+		$ok &= delTree(FRESHRSS_PATH . $oldDir);
+	}
+	return $ok;
+}
+
 /*** VÉRIFICATIONS ***/
 function checkStep () {
 	$s0 = checkStep0 ();
@@ -254,6 +290,47 @@ function checkStep () {
 	}
 }
 function checkStep0 () {
+	moveOldFiles() && removeOldFiles();
+
+	if (file_exists(DATA_PATH . '/application.ini')) {
+		$ini_array = parse_ini_file(DATA_PATH . '/application.ini', true);
+		if ($ini_array) {
+			$ini_general = isset($ini_array['general']) ? $ini_array['general'] : null;
+			if ($ini_general) {
+				$keys = array('environment', 'sel_application', 'title', 'default_user');
+				foreach ($keys as $key) {
+					if ((empty($_SESSION[$key])) && isset($ini_general[$key])) {
+						$_SESSION[$key] = $ini_general[$key];
+					}
+				}
+			}
+			$ini_db = isset($ini_array['db']) ? $ini_array['db'] : null;
+			if ($ini_db) {
+				$keys = array('type', 'host', 'user', 'password', 'base', 'prefix');
+				foreach ($keys as $key) {
+					if ((!isset($_SESSION['bd_' . $key])) && isset($ini_db[$key])) {
+						$_SESSION['bd_' . $key] = $ini_db[$key];
+					}
+				}
+			}
+		}
+	}
+
+	if (isset($_SESSION['default_user']) && file_exists(DATA_PATH . '/' . $_SESSION['default_user'] . '_user.php')) {
+		$userConfig = include(DATA_PATH . '/' . $_SESSION['default_user'] . '_user.php');
+	} elseif (file_exists(DATA_PATH . '/Configuration.array.php')) {
+		$userConfig = include(DATA_PATH . '/Configuration.array.php');	//v0.6
+	} else {
+		$userConfig = array();
+	}
+
+	$keys = array('language', 'old_entries', 'mail_login');
+	foreach ($keys as $key) {
+		if ((!isset($_SESSION[$key])) && isset($userConfig[$key])) {
+			$_SESSION[$key] = $userConfig[$key];
+		}
+	}
+
 	$languages = availableLanguages ();
 	$language = isset ($_SESSION['language']) &&
 	            isset ($languages[$_SESSION['language']]);
@@ -288,55 +365,8 @@ function checkStep1 () {
 	);
 }
 
-function moveOldFiles() {
-	$mvs = array(
-		'/app/configuration/application.ini' => '/data/application.ini',
-		'/public/data/Configuration.array.php' => '/data/Configuration.array.php',
-	);
-	$ok = true;
-	foreach ($mvs as $fFrom => $fTo) {
-		if (file_exists(FRESHRSS_PATH . $fFrom)) {
-			if (copy(FRESHRSS_PATH . $fFrom, FRESHRSS_PATH . $fTo)) {
-				@unlink(FRESHRSS_PATH . $fFrom);
-			} else {
-				$ok = false;
-			}
-		}
-	}
-	return $ok;
-}
-
-function delTree($dir) {	//http://php.net/rmdir#110489
-	if (!is_dir($dir)) {
-		return true;
-	}
-	$files = array_diff(scandir($dir), array('.', '..'));
-	foreach ($files as $file) {
-		$f = $dir . '/' . $file;
-		if (is_dir($f)) {
-			@chmod($f, 0777);
-			delTree($f);
-		}
-		else unlink($f);
-	}
-	return rmdir($dir);
-}
-
-function removeOldFiles() {
-	$oldDirs = array('/app/configuration/', '/cache/', '/log/', '/public/data/', '/public/themes/printer/');
-
-	$ok = true;
-	foreach ($oldDirs as $oldDir) {
-		$ok &= delTree(FRESHRSS_PATH . $oldDir);
-	}
-	return $ok;
-}
-
 function checkStep2 () {
-	moveOldFiles() && removeOldFiles();
-
-	$conf = isset ($_SESSION['sel']) &&
-	        isset ($_SESSION['base_url']) &&
+	$conf = isset ($_SESSION['sel_application']) &&
 	        isset ($_SESSION['title']) &&
 	        isset ($_SESSION['old_entries']) &&
 	        isset ($_SESSION['mail_login']) &&
@@ -358,11 +388,13 @@ function checkStep2 () {
 }
 function checkStep3 () {
 	$conf = file_exists (DATA_PATH . '/application.ini');
+
 	$bd = isset ($_SESSION['bd_type']) &&
 	      isset ($_SESSION['bd_host']) &&
 	      isset ($_SESSION['bd_user']) &&
-	      isset ($_SESSION['bd_pass']) &&
-	      isset ($_SESSION['bd_name']);
+	      isset ($_SESSION['bd_password']) &&
+	      isset ($_SESSION['bd_base']) &&
+	      isset ($_SESSION['bd_prefix']);
 	$conn = !isset ($_SESSION['bd_error']) || !$_SESSION['bd_error'];
 
 	return array (
@@ -387,21 +419,21 @@ function checkBD () {
 			$str = 'mysql:host=' . $_SESSION['bd_host'] . ';';
 			$c = new PDO ($str,
 				      $_SESSION['bd_user'],
-				      $_SESSION['bd_pass'],
+				      $_SESSION['bd_password'],
 				      $driver_options);
 
-			$sql = sprintf (SQL_REQ_CREATE_DB, $_SESSION['bd_name']);
+			$sql = sprintf (SQL_REQ_CREATE_DB, $_SESSION['bd_base']);
 			$res = $c->query ($sql);
 
 			// on écrase la précédente connexion en sélectionnant la nouvelle BDD
-			$str = 'mysql:host=' . $_SESSION['bd_host'] . ';dbname=' . $_SESSION['bd_name'];
+			$str = 'mysql:host=' . $_SESSION['bd_host'] . ';dbname=' . $_SESSION['bd_base'];
 		} elseif($_SESSION['bd_type'] == 'sqlite') {
-			$str = 'sqlite:' . DATA_PATH . $_SESSION['bd_name'] . '.sqlite';
+			$str = 'sqlite:' . DATA_PATH . $_SESSION['bd_base'] . '.sqlite';
 		}
 
 		$c = new PDO ($str,
 			      $_SESSION['bd_user'],
-			      $_SESSION['bd_pass'],
+			      $_SESSION['bd_password'],
 			      $driver_options);
 
 		$sql = sprintf (SQL_REQ_CAT, $_SESSION['bd_prefix_user']);
@@ -549,13 +581,6 @@ function printStep2 () {
 		<?php
 			$url = substr ($_SERVER['PHP_SELF'], 0, -10);
 		?>
-		<div class="form-group" style="display:none">
-			<!-- TODO: if no problem during version 0.6, remove for version 0.7 -->
-			<label class="group-name" for="base_url"><?php echo _t ('base_url'); ?></label>
-			<div class="group-controls">
-				<input type="text" id="base_url" name="base_url" value="<?php echo isset ($_SESSION['base_url']) ? $_SESSION['base_url'] : $url; ?>" /> <?php echo _t ('do_not_change_if_doubt'); ?>
-			</div>
-		</div>
 
 		<div class="form-group">
 			<label class="group-name" for="title"><?php echo _t ('title'); ?></label>
@@ -643,14 +668,14 @@ function printStep3 () {
 		<div class="form-group">
 			<label class="group-name" for="pass"><?php echo _t ('password'); ?></label>
 			<div class="group-controls">
-				<input type="password" id="pass" name="pass" value="<?php echo isset ($_SESSION['bd_pass']) ? $_SESSION['bd_pass'] : ''; ?>" />
+				<input type="password" id="pass" name="pass" value="<?php echo isset ($_SESSION['bd_password']) ? $_SESSION['bd_password'] : ''; ?>" />
 			</div>
 		</div>
 
 		<div class="form-group">
 			<label class="group-name" for="base"><?php echo _t ('bdd'); ?></label>
 			<div class="group-controls">
-				<input type="text" id="base" name="base" maxlength="64" value="<?php echo isset ($_SESSION['bd_name']) ? $_SESSION['bd_name'] : ''; ?>" placeholder="freshrss" />
+				<input type="text" id="base" name="base" maxlength="64" value="<?php echo isset ($_SESSION['bd_base']) ? $_SESSION['bd_base'] : ''; ?>" placeholder="freshrss" />
 			</div>
 		</div>
 
@@ -687,9 +712,9 @@ function printStep5 () {
 <?php
 }
 
-initTranslate ();
-
 checkStep ();
+
+initTranslate ();
 
 switch (STEP) {
 case 0:
@@ -767,4 +792,3 @@ case 5:
 </div>
 	</body>
 </html>
-
