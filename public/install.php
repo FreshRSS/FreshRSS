@@ -10,61 +10,125 @@ if (isset ($_GET['step'])) {
 	define ('STEP', 1);
 }
 
-define ('SQL_REQ_CREATE_DB', 'CREATE DATABASE %s DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;');
+define ('SQL_CREATE_DB', 'CREATE DATABASE %1$s DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;');
 
-define ('SQL_REQ_CAT', 'CREATE TABLE IF NOT EXISTS `%scategory` (
-  `id` SMALLINT NOT NULL AUTO_INCREMENT,	-- v0.7
-  `name` varchar(255) NOT NULL,
-  `color` char(7) NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY (`name`)	-- v0.7
+define ('SQL_CAT', 'CREATE TABLE IF NOT EXISTS `%1$scategory` (
+	`id` SMALLINT NOT NULL AUTO_INCREMENT,	-- v0.7
+	`name` varchar(255) NOT NULL,
+	`color` char(7),
+	PRIMARY KEY (`id`),
+	UNIQUE KEY (`name`)	-- v0.7
 ) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci
 ENGINE = INNODB;');
 
-define ('SQL_REQ_FEED', 'CREATE TABLE IF NOT EXISTS `%sfeed` (
-  `id` SMALLINT NOT NULL AUTO_INCREMENT,	-- v0.7
-  `url` varchar(511) CHARACTER SET latin1 NOT NULL,
-  `category` SMALLINT DEFAULT 0,	-- v0.7
-  `name` varchar(255) NOT NULL,
-  `website` varchar(255) CHARACTER SET latin1 NOT NULL,
-  `description` text NOT NULL,
-  `lastUpdate` int(11) NOT NULL,
-  `priority` tinyint(2) NOT NULL DEFAULT 10,
-  `pathEntries` varchar(511) DEFAULT NULL,
-  `httpAuth` varchar(511) DEFAULT NULL,
-  `error` boolean NOT NULL DEFAULT 0,
-  `keep_history` boolean NOT NULL DEFAULT 0,
-  `cache_nbEntries` int NOT NULL DEFAULT 0,	-- v0.7
-  `cache_nbUnreads` int NOT NULL DEFAULT 0,	-- v0.7
-  PRIMARY KEY (`id`),
-  FOREIGN KEY (`category`) REFERENCES `%scategory`(`id`) ON DELETE SET NULL ON UPDATE CASCADE,
-  UNIQUE KEY (`url`),	-- v0.7
-  INDEX (`name`),	-- v0.7
-  INDEX (`priority`),	-- v0.7
-  INDEX (`keep_history`)	-- v0.7
+define ('SQL_FEED', 'CREATE TABLE IF NOT EXISTS `%1$sfeed` (
+	`id` SMALLINT NOT NULL AUTO_INCREMENT,	-- v0.7
+	`url` varchar(511) CHARACTER SET latin1 NOT NULL,
+	`category` SMALLINT DEFAULT 0,	-- v0.7
+	`name` varchar(255) NOT NULL,
+	`website` varchar(255) CHARACTER SET latin1,
+	`description` text,
+	`lastUpdate` int(11) DEFAULT 0,
+	`priority` tinyint(2) NOT NULL DEFAULT 10,
+	`pathEntries` varchar(511) DEFAULT NULL,
+	`httpAuth` varchar(511) DEFAULT NULL,
+	`error` boolean DEFAULT 0,
+	`keep_history` boolean NOT NULL DEFAULT 0,
+	`cache_nbEntries` int DEFAULT 0,	-- v0.7
+	`cache_nbUnreads` int DEFAULT 0,	-- v0.7
+	PRIMARY KEY (`id`),
+	FOREIGN KEY (`category`) REFERENCES `%1$scategory`(`id`) ON DELETE SET NULL ON UPDATE CASCADE,
+	UNIQUE KEY (`url`),	-- v0.7
+	INDEX (`name`),	-- v0.7
+	INDEX (`priority`),	-- v0.7
+	INDEX (`keep_history`)	-- v0.7
 ) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci
 ENGINE = INNODB;');
 
-define ('SQL_REQ_ENTRY', 'CREATE TABLE IF NOT EXISTS `%sentry` (
-  `id` bigint NOT NULL,	-- v0.7
-  `guid` varchar(760) CHARACTER SET latin1 NOT NULL,	-- Maximum for UNIQUE is 767B
-  `title` varchar(255) NOT NULL,
-  `author` varchar(255) NOT NULL,
-  `content_bin` blob NOT NULL,	-- v0.7
-  `link` varchar(1023) CHARACTER SET latin1 NOT NULL,
-  `date` int(11) NOT NULL,
-  `is_read` boolean NOT NULL DEFAULT 0,
-  `is_favorite` boolean NOT NULL DEFAULT 0,
-  `id_feed` SMALLINT NOT NULL,	-- v0.7
-  `tags` varchar(1023) NOT NULL,
-  PRIMARY KEY (`id`),
-  FOREIGN KEY (`id_feed`) REFERENCES `%sfeed`(`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  UNIQUE KEY (`id_feed`,`guid`),	-- v0.7
-  INDEX (`is_favorite`),	-- v0.7
-  INDEX (`is_read`)	-- v0.7
+define ('SQL_ENTRY', 'CREATE TABLE IF NOT EXISTS `%1$sentry` (
+	`id` bigint NOT NULL,	-- v0.7
+	`guid` varchar(760) CHARACTER SET latin1 NOT NULL,	-- Maximum for UNIQUE is 767B
+	`title` varchar(255) NOT NULL,
+	`author` varchar(255),
+	`content_bin` blob,	-- v0.7
+	`link` varchar(1023) CHARACTER SET latin1 NOT NULL,
+	`date` int(11),
+	`is_read` boolean NOT NULL DEFAULT 0,
+	`is_favorite` boolean NOT NULL DEFAULT 0,
+	`id_feed` SMALLINT,	-- v0.7
+	`tags` varchar(1023),
+	PRIMARY KEY (`id`),
+	FOREIGN KEY (`id_feed`) REFERENCES `%1$sfeed`(`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+	UNIQUE KEY (`id_feed`,`guid`),	-- v0.7
+	INDEX (`is_favorite`),	-- v0.7
+	INDEX (`is_read`)	-- v0.7
 ) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci
 ENGINE = INNODB;');
 
+//<updates>
+define('SQL_SHOW_TABLES', 'SHOW tables;');
+
+define('SQL_BACKUP006', 'RENAME TABLE `%1$scategory` TO `%1$scategory006`, `%1$sfeed` TO `%1$sfeed006`, `%1$sentry` TO `%1$sentry006`;');
+
+define('SQL_SHOW_COLUMNS_UPDATEv006', 'SHOW columns FROM `%1$sentry006` LIKE "id2";');
+
+define('SQL_UPDATEv006', '
+ALTER TABLE `%1$scategory006` ADD id2 SMALLINT;
+
+SET @i = 0;
+UPDATE `%1$scategory006` SET id2=(@i:=@i+1) ORDER BY id;
+
+ALTER TABLE `%1$sfeed006` ADD id2 SMALLINT, ADD category2 SMALLINT;
+
+SET @i = 0;
+UPDATE `%1$sfeed006` SET id2=(@i:=@i+1) ORDER BY name;
+
+UPDATE `%1$sfeed006` f
+INNER JOIN `%1$scategory006` c ON f.category = c.id
+SET f.category2 = c.id2;
+
+INSERT IGNORE INTO `%2$scategory` (name, color)
+SELECT name, color
+FROM `%1$scategory006`
+ORDER BY id2;
+
+INSERT IGNORE INTO `%2$sfeed` (url, category, name, website, description, priority, pathEntries, httpAuth, keep_history)
+SELECT url, category2, name, website, description, priority, pathEntries, httpAuth, keep_history
+FROM `%1$sfeed006`
+ORDER BY id2;
+
+ALTER TABLE `%1$sentry006` ADD id2 bigint;
+
+UPDATE `%1$sentry006` SET id2 = ((date * 1000000) + (rand() * 100000000));
+
+INSERT IGNORE INTO `%2$sentry` (id, guid, title, author, link, date, is_read, is_favorite, id_feed, tags)
+SELECT e0.id2, e0.guid, e0.title, e0.author, e0.link, e0.date, e0.is_read, e0.is_favorite, f0.id2, e0.tags
+FROM `%1$sentry006` e0
+INNER JOIN `%1$sfeed006` f0 ON e0.id_feed = f0.id;
+');
+
+define('SQL_CONVERT_SELECTv006', '
+SELECT e0.id2, e0.content
+FROM `%1$sentry006` e0
+INNER JOIN `%2$sentry` e1 ON e0.id2 = e1.id
+WHERE e1.content_bin IS NULL');
+
+define('SQL_CONVERT_UPDATEv006', 'UPDATE `%1$sentry` SET content_bin=COMPRESS(?) WHERE id=?;');
+
+define('SQL_UPDATE_CACHED_VALUESv006', '
+UPDATE `%1$sfeed` f
+INNER JOIN (
+	SELECT e.id_feed,
+	COUNT(CASE WHEN e.is_read = 0 THEN 1 END) AS nbUnreads,
+	COUNT(e.id) AS nbEntries
+	FROM `%1$sentry` e
+	GROUP BY e.id_feed
+) x ON x.id_feed=f.id
+SET f.cache_nbEntries=x.nbEntries, f.cache_nbUnreads=x.nbUnreads
+');
+
+define('SQL_DROP_BACKUPv006', 'DROP TABLE IF EXISTS `%1$sentry006`, `%1$sfeed006`, `%1$scategory006`;');
+//</updates>
 
 function writeLine ($f, $line) {
 	fwrite ($f, $line . "\n");
@@ -191,6 +255,7 @@ function saveStep3 () {
 		$_SESSION['bd_password'] = addslashes ($_POST['pass']);
 		$_SESSION['bd_base'] = addslashes ($_POST['base']);
 		$_SESSION['bd_prefix'] = addslashes ($_POST['prefix']);
+		$_SESSION['bd_prefix_user'] = $_SESSION['bd_prefix'] . (empty($_SESSION['default_user']) ? '' : ($_SESSION['default_user'] . '_'));
 
 		$file_conf = DATA_PATH . '/application.ini';
 		$f = fopen ($file_conf, 'w');
@@ -210,7 +275,6 @@ function saveStep3 () {
 		writeLine ($f, 'prefix = "' . $_SESSION['bd_prefix'] . '"');
 		fclose ($f);
 
-		$_SESSION['bd_prefix_user'] = $_SESSION['bd_prefix'] . (empty($_SESSION['default_user']) ? '' : ($_SESSION['default_user'] . '_'));
 		$res = checkBD ();
 
 		if ($res) {
@@ -222,11 +286,125 @@ function saveStep3 () {
 	}
 	invalidateHttpCache();
 }
+
+function updateDatabase($perform = false) {
+	$needs = array('bd_type', 'bd_host', 'bd_base', 'bd_user', 'bd_password', 'bd_prefix', 'bd_prefix_user');
+	foreach ($needs as $need) {
+		if (!isset($_SESSION[$need])) {
+			return false;
+		}
+	}
+
+	try {
+		$str = '';
+		switch ($_SESSION['bd_type']) {
+			case 'mysql':
+				$str = 'mysql:host=' . $_SESSION['bd_host'] . ';dbname=' . $_SESSION['bd_base'];
+				$driver_options = array(
+					PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8',
+				);
+				break;
+			case 'sqlite':
+				$str = 'sqlite:' . DATA_PATH . $_SESSION['bd_base'] . '.sqlite';
+				$driver_options = null;
+				break;
+			default:
+				return false;
+		}
+
+		$c = new PDO($str, $_SESSION['bd_user'], $_SESSION['bd_password'], $driver_options);
+
+		$stm = $c->prepare(SQL_SHOW_TABLES);
+		$stm->execute();
+		$res = $stm->fetchAll(PDO::FETCH_COLUMN, 0);
+		if (!in_array($_SESSION['bd_prefix'] . 'entry006', $res)) {
+			return false;
+		}
+
+		$sql = sprintf(SQL_SHOW_COLUMNS_UPDATEv006, $_SESSION['bd_prefix']);
+		$stm = $c->prepare($sql);
+		$stm->execute();
+		$res = $stm->fetchAll(PDO::FETCH_COLUMN, 0);
+		if (!in_array('id2', $res)) {
+			if (!$perform) {
+				return true;
+			}
+			$sql = sprintf(SQL_UPDATEv006, $_SESSION['bd_prefix'], $_SESSION['bd_prefix_user']);
+			$stm = $c->prepare($sql, array(PDO::ATTR_EMULATE_PREPARES => true));
+			$stm->execute();
+		}
+
+		$sql = sprintf(SQL_UPDATE_CACHED_VALUESv006, $_SESSION['bd_prefix_user']);
+		$stm = $c->prepare($sql);
+		$stm->execute();
+
+		$sql = sprintf(SQL_CONVERT_SELECTv006, $_SESSION['bd_prefix'], $_SESSION['bd_prefix_user']);
+		if (!$perform) {
+			$sql .= ' LIMIT 1';
+		}
+		$stm = $c->prepare($sql);
+		$stm->execute();
+		if (!$perform) {
+			$res = $stm->fetchAll(PDO::FETCH_COLUMN, 0);
+			return count($res) > 0;
+		} else {
+			@set_time_limit(300);
+		}
+
+		$c2 = new PDO($str, $_SESSION['bd_user'], $_SESSION['bd_password'], $driver_options);
+		$sql = sprintf(SQL_CONVERT_UPDATEv006, $_SESSION['bd_prefix_user']);
+		$stm2 = $c2->prepare($sql);
+		while ($row = $stm->fetch(PDO::FETCH_ASSOC)) {
+			$id = $row['id2'];
+			$content = unserialize(gzinflate(base64_decode($row['content'])));
+			$stm2->execute(array($content, $id));
+		}
+		return true;
+	} catch (PDOException $e) {
+		return false;
+	}
+	return false;
+}
+
 function deleteInstall () {
 	$res = unlink (PUBLIC_PATH . '/install.php');
 	if ($res) {
 		header ('Location: index.php');
 	}
+
+	$needs = array('bd_type', 'bd_host', 'bd_base', 'bd_user', 'bd_password', 'bd_prefix');
+	foreach ($needs as $need) {
+		if (!isset($_SESSION[$need])) {
+			return false;
+		}
+	}
+
+	try {
+		switch ($_SESSION['bd_type']) {
+			case 'mysql':
+				$str = 'mysql:host=' . $_SESSION['bd_host'] . ';dbname=' . $_SESSION['bd_base'];
+				$driver_options = array(
+					PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8',
+				);
+				break;
+			case 'sqlite':
+				$str = 'sqlite:' . DATA_PATH . $_SESSION['bd_base'] . '.sqlite';
+				$driver_options = null;
+				break;
+			default:
+				return false;
+		}
+
+		$c = new PDO($str, $_SESSION['bd_user'], $_SESSION['bd_password'], $driver_options);
+		$sql = sprintf(SQL_DROP_BACKUPv006, $_SESSION['bd_prefix']);
+		$stm = $c->prepare($sql);
+		$stm->execute();
+
+		return true;
+	} catch (PDOException $e) {
+		return false;
+	}
+	return false;
 }
 
 function moveOldFiles() {
@@ -366,11 +544,11 @@ function checkStep1 () {
 }
 
 function checkStep2 () {
-	$conf = isset ($_SESSION['sel_application']) &&
-	        isset ($_SESSION['title']) &&
-	        isset ($_SESSION['old_entries']) &&
-	        isset ($_SESSION['mail_login']) &&
-	        isset ($_SESSION['default_user']);
+	$conf = !empty($_SESSION['sel_application']) &&
+	        !empty($_SESSION['title']) &&
+	        !empty($_SESSION['old_entries']) &&
+	        isset($_SESSION['mail_login']) &&
+	        !empty($_SESSION['default_user']);
 	$defaultUser = empty($_POST['default_user']) ? null : $_POST['default_user'];
 	if ($defaultUser === null) {
 		$defaultUser = empty($_SESSION['default_user']) ? '' : $_SESSION['default_user'];
@@ -394,7 +572,8 @@ function checkStep3 () {
 	      isset ($_SESSION['bd_user']) &&
 	      isset ($_SESSION['bd_password']) &&
 	      isset ($_SESSION['bd_base']) &&
-	      isset ($_SESSION['bd_prefix']);
+	      isset ($_SESSION['bd_prefix']) &&
+	      isset ($_SESSION['bd_error']);
 	$conn = !isset ($_SESSION['bd_error']) || !$_SESSION['bd_error'];
 
 	return array (
@@ -410,47 +589,54 @@ function checkBD () {
 	try {
 		$str = '';
 		$driver_options = null;
-		if($_SESSION['bd_type'] == 'mysql') {
-			$driver_options = array(
-				PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8'
-			);
+		switch ($_SESSION['bd_type']) {
+			case 'mysql':
+				$driver_options = array(
+					PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8'
+				);
 
-			// on ouvre une connexion juste pour créer la base si elle n'existe pas
-			$str = 'mysql:host=' . $_SESSION['bd_host'] . ';';
-			$c = new PDO ($str,
-				      $_SESSION['bd_user'],
-				      $_SESSION['bd_password'],
-				      $driver_options);
+				// on ouvre une connexion juste pour créer la base si elle n'existe pas
+				$str = 'mysql:host=' . $_SESSION['bd_host'] . ';';
+				$c = new PDO ($str, $_SESSION['bd_user'], $_SESSION['bd_password'], $driver_options);
 
-			$sql = sprintf (SQL_REQ_CREATE_DB, $_SESSION['bd_base']);
-			$res = $c->query ($sql);
+				$sql = sprintf (SQL_CREATE_DB, $_SESSION['bd_base']);
+				$res = $c->query ($sql);
 
-			// on écrase la précédente connexion en sélectionnant la nouvelle BDD
-			$str = 'mysql:host=' . $_SESSION['bd_host'] . ';dbname=' . $_SESSION['bd_base'];
-		} elseif($_SESSION['bd_type'] == 'sqlite') {
-			$str = 'sqlite:' . DATA_PATH . $_SESSION['bd_base'] . '.sqlite';
+				// on écrase la précédente connexion en sélectionnant la nouvelle BDD
+				$str = 'mysql:host=' . $_SESSION['bd_host'] . ';dbname=' . $_SESSION['bd_base'];
+				break;
+			case 'sqlite':
+				$str = 'sqlite:' . DATA_PATH . $_SESSION['bd_base'] . '.sqlite';
+				break;
+			default:
+				return false;
 		}
 
-		$c = new PDO ($str,
-			      $_SESSION['bd_user'],
-			      $_SESSION['bd_password'],
-			      $driver_options);
+		$c = new PDO ($str, $_SESSION['bd_user'], $_SESSION['bd_password'], $driver_options);
 
-		$sql = sprintf (SQL_REQ_CAT, $_SESSION['bd_prefix_user']);
+		$stm = $c->prepare(SQL_SHOW_TABLES);
+		$stm->execute();
+		$res = $stm->fetchAll(PDO::FETCH_COLUMN, 0);
+		if (in_array($_SESSION['bd_prefix'] . 'entry', $res) && !in_array($_SESSION['bd_prefix'] . 'entry006', $res)) {
+			$sql = sprintf(SQL_BACKUP006, $_SESSION['bd_prefix']);	//v0.6
+			$res = $c->query($sql);	//Backup tables
+		}
+
+		$sql = sprintf (SQL_CAT, $_SESSION['bd_prefix_user']);
 		$res = $c->query ($sql);
 
 		if (!$res) {
 			$error = true;
 		}
 
-		$sql = sprintf (SQL_REQ_FEED, $_SESSION['bd_prefix_user'], $_SESSION['bd_prefix_user']);
+		$sql = sprintf (SQL_FEED, $_SESSION['bd_prefix_user']);
 		$res = $c->query ($sql);
 
 		if (!$res) {
 			$error = true;
 		}
 
-		$sql = sprintf (SQL_REQ_ENTRY, $_SESSION['bd_prefix_user'], $_SESSION['bd_prefix_user']);
+		$sql = sprintf (SQL_ENTRY, $_SESSION['bd_prefix_user']);
 		$res = $c->query ($sql);
 
 		if (!$res) {
@@ -701,12 +887,30 @@ function printStep3 () {
 
 function printStep4 () {
 ?>
-	<p class="alert alert-success"><span class="alert-head"><?php echo _t ('congratulations'); ?></span> <?php echo _t ('installation_is_ok'); ?></p>
-	<a class="btn btn-important next-step" href="?step=5"><?php echo _t ('finish_installation'); ?></a>
+	<form action="index.php?step=4" method="post">
+		<legend><?php echo _t ('bdd_update'); ?></legend>
+		<div class="form-group form-actions">
+			<div class="group-controls">
+				<?php if (updateDatabase(false)) { ?>
+				<input type="hidden" name="updateDatabase" value="1" />
+				<button type="submit" class="btn btn-important"><?php echo _t ('start'); ?></button> (This can take a long time, depending on the size of your database. You may have to wait for this page to time out (~5 minutes) and then refresh this page.)
+				<?php } else { ?>
+				<a class="btn btn-important next-step" href="?step=5"><?php echo _t ('next_step'); ?></a>
+				<?php } ?>
+			</div>
+		</div>
+	</form>
 <?php
 }
 
 function printStep5 () {
+?>
+	<p class="alert alert-success"><span class="alert-head"><?php echo _t ('congratulations'); ?></span> <?php echo _t ('installation_is_ok'); ?></p>
+	<a class="btn btn-important next-step" href="?step=6"><?php echo _t ('finish_installation'); ?></a>
+<?php
+}
+
+function printStep6 () {
 ?>
 	<p class="alert alert-error"><span class="alert-head"><?php echo _t ('oops'); ?></span> <?php echo _t ('install_not_deleted', PUBLIC_PATH . '/install.php'); ?></p>
 <?php
@@ -730,8 +934,13 @@ case 3:
 	saveStep3 ();
 	break;
 case 4:
+	if (!empty($_POST['updateDatabase'])) {
+		updateDatabase(true);
+	}
 	break;
 case 5:
+	break;
+case 6:
 	deleteInstall ();
 	break;
 }
@@ -761,7 +970,8 @@ case 5:
 		<li class="item<?php echo STEP == 1 ? ' active' : ''; ?>"><a href="?step=1"><?php echo _t ('checks'); ?></a></li>
 		<li class="item<?php echo STEP == 2 ? ' active' : ''; ?>"><a href="?step=2"><?php echo _t ('general_configuration'); ?></a></li>
 		<li class="item<?php echo STEP == 3 ? ' active' : ''; ?>"><a href="?step=3"><?php echo _t ('bdd_configuration'); ?></a></li>
-		<li class="item<?php echo STEP == 4 ? ' active' : ''; ?>"><a href="?step=4"><?php echo _t ('this_is_the_end'); ?></a></li>
+		<li class="item<?php echo STEP == 4 ? ' active' : ''; ?>"><a href="?step=4"><?php echo _t ('bdd_update'); ?></a></li>
+		<li class="item<?php echo STEP == 5 ? ' active' : ''; ?>"><a href="?step=5"><?php echo _t ('this_is_the_end'); ?></a></li>
 	</ul>
 
 	<div class="post">
@@ -785,6 +995,9 @@ case 5:
 			break;
 		case 5:
 			printStep5 ();
+			break;
+		case 6:
+			printStep6 ();
 			break;
 		}
 		?>
