@@ -214,10 +214,9 @@ function saveStep2 () {
 		}
 
 		$_SESSION['sel_application'] = sha1(uniqid(mt_rand(), true).implode('', stat(__FILE__)));
-		$_SESSION['title'] = addslashes ($_POST['title']);
+		$_SESSION['title'] = addslashes(substr(trim($_POST['title']), 0, 25));
 		$_SESSION['old_entries'] = $_POST['old_entries'];
-		if (!is_int (intval ($_SESSION['old_entries'])) ||
-		    $_SESSION['old_entries'] < 1) {
+		if ((!ctype_digit($_SESSION['old_entries'])) || ($_SESSION['old_entries'] < 1)) {
 			$_SESSION['old_entries'] = 3;
 		}
 		$_SESSION['mail_login'] = addslashes ($_POST['mail_login']);
@@ -588,6 +587,7 @@ function checkStep3 () {
 		'all' => $bd && $conn && $conf ? 'ok' : 'ko'
 	);
 }
+
 function checkBD () {
 	$error = false;
 
