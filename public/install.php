@@ -209,7 +209,8 @@ function saveLanguage () {
 function saveStep2 () {
 	if (!empty ($_POST)) {
 		if (empty ($_POST['title']) ||
-		    empty ($_POST['old_entries'])) {
+		    empty ($_POST['old_entries']) ||
+		    empty ($_POST['default_user']) {
 			return false;
 		}
 
@@ -244,6 +245,7 @@ function saveStep2 () {
 		header ('Location: index.php?step=3');
 	}
 }
+
 function saveStep3 () {
 	if (!empty ($_POST)) {
 		if (empty ($_POST['type']) ||
