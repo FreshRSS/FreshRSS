@@ -38,7 +38,7 @@ class FreshRSS_ConfigurationDAO extends Minz_ModelArray {
 	public $theme = 'default';
 	public $anon_access = 'no';
 	public $token = '';
-	public $auto_load_more = 'no';
+	public $auto_load_more = 'yes';
 	public $topline_read = 'yes';
 	public $topline_favorite = 'yes';
 	public $topline_date = 'yes';
