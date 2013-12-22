@@ -261,23 +261,29 @@ function saveStep3 () {
 		$_SESSION['bd_prefix'] = addslashes ($_POST['prefix']);
 		$_SESSION['bd_prefix_user'] = $_SESSION['bd_prefix'] . (empty($_SESSION['default_user']) ? '' : ($_SESSION['default_user'] . '_'));
 
-		$file_conf = DATA_PATH . '/application.ini';
-		$f = fopen ($file_conf, 'w');
-		writeLine ($f, '[general]');
-		writeLine ($f, 'environment = "' . empty($_SESSION['environment']) ? 'production' : $_SESSION['environment'] . '"');
-		writeLine ($f, 'use_url_rewriting = false');
-		writeLine ($f, 'sel_application = "' . $_SESSION['sel_application'] . '"');
-		writeLine ($f, 'base_url = ""');
-		writeLine ($f, 'title = "' . $_SESSION['title'] . '"');
-		writeLine ($f, 'default_user = "' . $_SESSION['default_user'] . '"');
-		writeLine ($f, '[db]');
-		writeLine ($f, 'type = "' . $_SESSION['bd_type'] . '"');
-		writeLine ($f, 'host = "' . $_SESSION['bd_host'] . '"');
-		writeLine ($f, 'user = "' . $_SESSION['bd_user'] . '"');
-		writeLine ($f, 'password = "' . $_SESSION['bd_password'] . '"');
-		writeLine ($f, 'base = "' . $_SESSION['bd_base'] . '"');
-		writeLine ($f, 'prefix = "' . $_SESSION['bd_prefix'] . '"');
-		fclose ($f);
+		$ini_array = array(
+			'general' => array(
+				'environment' => empty($_SESSION['environment']) ? 'production' : $_SESSION['environment'],
+				'use_url_rewriting' => false,
+				'sel_application' => $_SESSION['sel_application'],
+				'base_url' => '',
+				'title' => $_SESSION['title'],
+				'default_user' => $_SESSION['default_user'],
+			),
+			'db' => array(
+				'type' => $_SESSION['bd_type'],
+				'host' => $_SESSION['bd_host'],
+				'user' => $_SESSION['bd_user'],
+				'password' => $_SESSION['bd_password'],
+				'base' => $_SESSION['bd_base'],
+				'prefix' => $_SESSION['bd_prefix'],
+			),
+		);
+		file_put_contents(DATA_PATH . '/config.php', "<?php\n return " . var_export($ini_array, true));
+
+		if (file_exists(DATA_PATH . '/config.php') && file_exists(DATA_PATH . '/application.ini')) {
+			@unlink(DATA_PATH . '/application.ini');	//v0.6
+		}
 
 		$res = checkBD ();
 
@@ -474,25 +480,27 @@ function checkStep () {
 function checkStep0 () {
 	moveOldFiles() && removeOldFiles();
 
-	if (file_exists(DATA_PATH . '/application.ini')) {
+	if (file_exists(DATA_PATH . '/config.php')) {
+		$ini_array = include(DATA_PATH . '/config.php');
+	elseif (file_exists(DATA_PATH . '/application.ini')) {
 		$ini_array = parse_ini_file(DATA_PATH . '/application.ini', true);
-		if ($ini_array) {
-			$ini_general = isset($ini_array['general']) ? $ini_array['general'] : null;
-			if ($ini_general) {
-				$keys = array('environment', 'sel_application', 'title', 'default_user');
-				foreach ($keys as $key) {
-					if ((empty($_SESSION[$key])) && isset($ini_general[$key])) {
-						$_SESSION[$key] = $ini_general[$key];
-					}
+	}
+	if ($ini_array) {
+		$ini_general = isset($ini_array['general']) ? $ini_array['general'] : null;
+		if ($ini_general) {
+			$keys = array('environment', 'sel_application', 'title', 'default_user');
+			foreach ($keys as $key) {
+				if ((empty($_SESSION[$key])) && isset($ini_general[$key])) {
+					$_SESSION[$key] = $ini_general[$key];
 				}
 			}
-			$ini_db = isset($ini_array['db']) ? $ini_array['db'] : null;
-			if ($ini_db) {
-				$keys = array('type', 'host', 'user', 'password', 'base', 'prefix');
-				foreach ($keys as $key) {
-					if ((!isset($_SESSION['bd_' . $key])) && isset($ini_db[$key])) {
-						$_SESSION['bd_' . $key] = $ini_db[$key];
-					}
+		}
+		$ini_db = isset($ini_array['db']) ? $ini_array['db'] : null;
+		if ($ini_db) {
+			$keys = array('type', 'host', 'user', 'password', 'base', 'prefix');
+			foreach ($keys as $key) {
+				if ((!isset($_SESSION['bd_' . $key])) && isset($ini_db[$key])) {
+					$_SESSION['bd_' . $key] = $ini_db[$key];
 				}
 			}
 		}
@@ -569,7 +577,7 @@ function checkStep2 () {
 	);
 }
 function checkStep3 () {
-	$conf = file_exists (DATA_PATH . '/application.ini');
+	$conf = file_exists (DATA_PATH . '/config.php');
 
 	$bd = isset ($_SESSION['bd_type']) &&
 	      isset ($_SESSION['bd_host']) &&
@@ -651,8 +659,8 @@ function checkBD () {
 		$error = true;
 	}
 
-	if ($error && file_exists (DATA_PATH . '/application.ini')) {
-		unlink (DATA_PATH . '/application.ini');
+	if ($error && file_exists (DATA_PATH . '/config.php')) {
+		unlink (DATA_PATH . '/config.php');
 	}
 
 	return !$error;

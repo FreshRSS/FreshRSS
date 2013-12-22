@@ -8,7 +8,7 @@
  * La classe Configuration permet de gérer la configuration de l'application
  */
 class Minz_Configuration {
-	const CONF_PATH_NAME = '/application.ini';
+	const CONF_PATH_NAME = '/config.php';
 
 	/**
 	 * VERSION est la version actuelle de MINZ
@@ -126,10 +126,7 @@ class Minz_Configuration {
 			);
 		}
 
-		$ini_array = parse_ini_file (
-			DATA_PATH . self::CONF_PATH_NAME,
-			true
-		);
+		$ini_array = include(DATA_PATH . self::CONF_PATH_NAME);
 
 		if (!$ini_array) {
 			throw new Minz_PermissionDeniedException (
@@ -146,7 +143,6 @@ class Minz_Configuration {
 			);
 		}
 		$general = $ini_array['general'];
-
 
 		// sel_application est obligatoire
 		if (!isset ($general['sel_application'])) {
