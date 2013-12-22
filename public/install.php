@@ -279,7 +279,7 @@ function saveStep3 () {
 				'prefix' => $_SESSION['bd_prefix'],
 			),
 		);
-		file_put_contents(DATA_PATH . '/config.php', "<?php\n return " . var_export($ini_array, true));
+		file_put_contents(DATA_PATH . '/config.php', "<?php\n return " . var_export($ini_array, true) . ';');
 
 		if (file_exists(DATA_PATH . '/config.php') && file_exists(DATA_PATH . '/application.ini')) {
 			@unlink(DATA_PATH . '/application.ini');	//v0.6
@@ -482,9 +482,12 @@ function checkStep0 () {
 
 	if (file_exists(DATA_PATH . '/config.php')) {
 		$ini_array = include(DATA_PATH . '/config.php');
-	elseif (file_exists(DATA_PATH . '/application.ini')) {
+	} elseif (file_exists(DATA_PATH . '/application.ini')) {
 		$ini_array = parse_ini_file(DATA_PATH . '/application.ini', true);
+	} else {
+		$ini_array = null;
 	}
+
 	if ($ini_array) {
 		$ini_general = isset($ini_array['general']) ? $ini_array['general'] : null;
 		if ($ini_general) {
