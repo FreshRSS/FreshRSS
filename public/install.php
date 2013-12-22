@@ -155,8 +155,13 @@ function initTranslate () {
 	$actual = isset($_SESSION['language']) ? $_SESSION['language'] : getBetterLanguage('en');
 
 	$file = APP_PATH . '/i18n/' . $actual . '.php';
-	if (file_exists ($file)) {
-		$translates = include ($file);
+	if (file_exists($file)) {
+		$translates = array_merge($translates, include($file));
+	}
+
+	$file = APP_PATH . '/i18n/install.' . $actual . '.php';
+	if (file_exists($file)) {
+		$translates = array_merge($translates, include($file));
 	}
 }
 function getBetterLanguage ($fallback) {
@@ -888,12 +893,13 @@ function printStep3 () {
 function printStep4 () {
 ?>
 	<form action="index.php?step=4" method="post">
-		<legend><?php echo _t ('bdd_update'); ?></legend>
+		<legend><?php echo _t ('version_update'); ?></legend>
 		<div class="form-group form-actions">
 			<div class="group-controls">
 				<?php if (updateDatabase(false)) { ?>
 				<input type="hidden" name="updateDatabase" value="1" />
-				<button type="submit" class="btn btn-important"><?php echo _t ('start'); ?></button> (This can take a long time, depending on the size of your database. You may have to wait for this page to time out (~5 minutes) and then refresh this page.)
+				<button type="submit" class="btn btn-important"><?php echo _t ('update_start'); ?></button>
+				<p><?php echo _t ('update_long'); ?></p>
 				<?php } else { ?>
 				<a class="btn btn-important next-step" href="?step=5"><?php echo _t ('next_step'); ?></a>
 				<?php } ?>
@@ -970,7 +976,7 @@ case 6:
 		<li class="item<?php echo STEP == 1 ? ' active' : ''; ?>"><a href="?step=1"><?php echo _t ('checks'); ?></a></li>
 		<li class="item<?php echo STEP == 2 ? ' active' : ''; ?>"><a href="?step=2"><?php echo _t ('general_configuration'); ?></a></li>
 		<li class="item<?php echo STEP == 3 ? ' active' : ''; ?>"><a href="?step=3"><?php echo _t ('bdd_configuration'); ?></a></li>
-		<li class="item<?php echo STEP == 4 ? ' active' : ''; ?>"><a href="?step=4"><?php echo _t ('bdd_update'); ?></a></li>
+		<li class="item<?php echo STEP == 4 ? ' active' : ''; ?>"><a href="?step=4"><?php echo _t ('version_update'); ?></a></li>
 		<li class="item<?php echo STEP == 5 ? ' active' : ''; ?>"><a href="?step=5"><?php echo _t ('this_is_the_end'); ?></a></li>
 	</ul>
 
