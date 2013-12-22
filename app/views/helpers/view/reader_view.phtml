@@ -2,6 +2,7 @@
 $this->partial ('nav_menu');
 
 if (!empty($this->entries)) {
+	$lazyload = $this->conf->lazyload() === 'yes';
 ?>
 
 <div id="stream" class="reader">
@@ -26,7 +27,7 @@ if (!empty($this->entries)) {
 				</div>
 
 				<?php
-					if($this->conf->lazyload() == 'yes') {
+					if ($lazyload) {
 						echo lazyimg($item->content ());
 					} else {
 						echo $item->content();

@@ -4,25 +4,25 @@ $this->partial ('aside_flux');
 $this->partial ('nav_menu');
 
 if (!empty($this->entries)) {
+	$display_today = true;
+	$display_yesterday = true;
+	$display_others = true;
+
+	$logged = !login_is_conf ($this->conf) || is_logged ();
+	$shaarli = $this->conf->sharing ('shaarli');
+	$poche = $this->conf->sharing ('poche');
+	$diaspora = $this->conf->sharing ('diaspora');
+	$twitter = $this->conf->sharing ('twitter');
+	$google_plus = $this->conf->sharing ('g+');
+	$facebook = $this->conf->sharing ('facebook');
+	$email = $this->conf->sharing ('email');
+	$print = $this->conf->sharing ('print');
+	$today = $this->today;
+	$hidePosts = $this->conf->displayPosts() === 'no';
+	$lazyload = $this->conf->lazyload() === 'yes';
 ?>
 
-<div id="stream" class="normal<?php echo $this->conf->displayPosts () === 'no' ? ' hide_posts' : ''; ?>">
-	<?php
-		$display_today = true;
-		$display_yesterday = true;
-		$display_others = true;
-
-		$logged = !login_is_conf ($this->conf) || is_logged ();
-		$shaarli = $this->conf->sharing ('shaarli');
-		$poche = $this->conf->sharing ('poche');
-		$diaspora = $this->conf->sharing ('diaspora');
-		$twitter = $this->conf->sharing ('twitter');
-		$google_plus = $this->conf->sharing ('g+');
-		$facebook = $this->conf->sharing ('facebook');
-		$email = $this->conf->sharing ('email');
-		$print = $this->conf->sharing ('print');
-		$today = $this->today;
-	?>
+<div id="stream" class="normal<?php echo $hidePosts ? ' hide_posts' : ''; ?>">
 	<?php foreach ($this->entries as $item) { ?>
 
 	<?php if ($display_today && $item->isDay (FreshRSS_Days::TODAY, $today)) { ?>
@@ -48,7 +48,7 @@ if (!empty($this->entries)) {
 
 	<div class="flux<?php echo !$item->isRead () ? ' not_read' : ''; ?><?php echo $item->isFavorite () ? ' favorite' : ''; ?>" id="flux_<?php echo $item->id (); ?>">
 		<ul class="horizontal-list flux_header"><?php
-			if (!login_is_conf ($this->conf) || is_logged ()) {
+			if ($logged) {
 				if ($this->conf->toplineRead ()) {
 					?><li class="item manage"><?php
 						?><a class="read" href="<?php echo _url ('entry', 'read', 'id', $item->id (), 'is_read', $item->isRead () ? 0 : 1); ?>"><?php
@@ -77,15 +77,15 @@ if (!empty($this->entries)) {
 				<?php
 					$author = $item->author ();
 					echo $author != '' ? '<div class="author">' . Minz_Translate::t ('by_author', $author) . '</div>' : '';
-					if($this->conf->lazyload() == 'yes') {
-						echo lazyimg($item->content ());
+					if ($lazyload) {
+						echo $hidePosts ? lazyIframe(lazyimg($item->content())) : lazyimg($item->content());
 					} else {
 						echo $item->content();
 					}
 				?>
 			</div>
 			<ul class="horizontal-list bottom"><?php
-				if (!login_is_conf ($this->conf) || is_logged ()) {
+				if ($logged) {
 					if ($this->conf->bottomlineRead ()) {
 						?><li class="item manage"><?php
 							?><a class="read" href="<?php echo _url ('entry', 'read', 'id', $item->id (), 'is_read', $item->isRead () ? 0 : 1); ?>"><?php

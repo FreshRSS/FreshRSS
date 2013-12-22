@@ -288,6 +288,14 @@ function lazyimg($content) {
 	);
 }
 
+function lazyIframe($content) {
+	return preg_replace(
+		'/<iframe([^>]+?)src=[\'"]([^"\']+)[\'"]([^>]*)>/i',
+		'<iframe$1src="about:blank" data-original="$2"$3>',
+		$content
+	);
+}
+
 function uTimeString() {
 	$t = @gettimeofday();
 	return $t['sec'] . str_pad($t['usec'], 6, '0');

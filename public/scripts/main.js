@@ -136,7 +136,7 @@ function mark_favorite(active) {
 
 function toggleContent(new_active, old_active) {
 	if (does_lazyload) {
-		new_active.find('img[data-original]').each(function () {
+		new_active.find('img[data-original], iframe[data-original]').each(function () {
 			this.setAttribute('src', this.getAttribute('data-original'));
 			this.removeAttribute('data-original');
 		});
