@@ -1,7 +1,64 @@
 <?php
+if (!function_exists('json_decode')) {
+	require_once('JSON.php');
+	function json_decode($var) {
+		$JSON = new Services_JSON;
+		return (array)($JSON->decode($var));
+	}
+}
+
+if (!function_exists('json_encode')) {
+	require_once('JSON.php');
+	function json_encode($var) {
+		$JSON = new Services_JSON;
+		return $JSON->encodeUnsafe($var);
+	}
+}
+
+//<Auto-loading>
+function classAutoloader($class) {
+	if (strpos($class, 'FreshRSS') === 0) {
+		$components = explode('_', $class);
+		switch (count($components)) {
+			case 1:
+				include(APP_PATH . '/' . $components[0] . '.php');
+				return;
+			case 2:
+				include(APP_PATH . '/Models/' . $components[1] . '.php');
+				return;
+			case 3:	//Controllers, Exceptions
+				include(APP_PATH . '/' . $components[2] . 's/' . $components[1] . $components[2] . '.php');
+				return;
+		}
+	} elseif (strpos($class, 'Minz') === 0) {
+		include(LIB_PATH . '/' . str_replace('_', '/', $class) . '.php');
+	} elseif (strpos($class, 'SimplePie') === 0) {
+		include(LIB_PATH . '/SimplePie/' . str_replace('_', '/', $class) . '.php');
+	}
+}
+
+spl_autoload_register('classAutoloader');
+//</Auto-loading>
+
+function checkUrl($url) {
+	if (empty ($url)) {
+		return '';
+	}
+	if (!preg_match ('#^https?://#i', $url)) {
+		$url = 'http://' . $url;
+	}
+	if (filter_var($url, FILTER_VALIDATE_URL) ||
+		(version_compare(PHP_VERSION, '5.3.3', '<') && (strpos($url, '-') > 0) &&	//PHP bug #51192
+		 ($url === filter_var($url, FILTER_SANITIZE_URL)))) {
+		return $url;
+	} else {
+		return false;
+	}
+}
+
 // vérifie qu'on est connecté
 function is_logged () {
-	return Session::param ('mail') != false;
+	return Minz_Session::param ('mail') != false;
 }
 
 // vérifie que le système d'authentification est configuré
@@ -9,25 +66,36 @@ function login_is_conf ($conf) {
 	return $conf->mailLogin () != false;
 }
 
-// tiré de Shaarli de Seb Sauvage
+// tiré de Shaarli de Seb Sauvage	//Format RFC 4648 base64url
 function small_hash ($txt) {
 	$t = rtrim (base64_encode (hash ('crc32', $txt, true)), '=');
-	$t = str_replace ('+', '-', $t); // Get rid of characters which need encoding in URLs.
-	$t = str_replace ('/', '_', $t);
-	$t = str_replace ('=', '@', $t);
+	return strtr ($t, '+/', '-_');
+}
 
-	return $t;
+function formatBytes($bytes, $precision = 2, $system = 'IEC') {
+	if ($system === 'IEC') {
+		$base = 1024;
+		$units = array('B', 'KiB', 'MiB', 'GiB', 'TiB');
+	} elseif ($system === 'SI') {
+		$base = 1000;
+		$units = array('B', 'KB', 'MB', 'GB', 'TB');
+	}
+	$bytes = max(intval($bytes), 0);
+	$pow = $bytes === 0 ? 0 : floor(log($bytes) / log($base));
+	$pow = min($pow, count($units) - 1);
+	$bytes /= pow($base, $pow);
+	return round($bytes, $precision) . ' ' . $units[$pow];
 }
 
 function timestamptodate ($t, $hour = true) {
-	$month = Translate::t (date('M', $t));
+	$month = Minz_Translate::t (date('M', $t));
 	if ($hour) {
-		$date = Translate::t ('format_date_hour', $month);
+		$date = Minz_Translate::t ('format_date_hour', $month);
 	} else {
-		$date = Translate::t ('format_date', $month);
+		$date = Minz_Translate::t ('format_date', $month);
 	}
 
-	return date ($date, $t);
+	return @date ($date, $t);
 }
 
 function sortEntriesByDate ($entry1, $entry2) {
@@ -48,7 +116,7 @@ function opml_export ($cats) {
 		$txt .= '<outline text="' . $cat['name'] . '">' . "\n";
 
 		foreach ($cat['feeds'] as $feed) {
-			$txt .= "\t" . '<outline text="' . cleanText ($feed->name ()) . '" type="rss" xmlUrl="' . htmlentities ($feed->url (), ENT_COMPAT, 'UTF-8') . '" htmlUrl="' . htmlentities ($feed->website (), ENT_COMPAT, 'UTF-8') . '" />' . "\n";
+			$txt .= "\t" . '<outline text="' . $feed->name () . '" type="rss" xmlUrl="' . $feed->url () . '" htmlUrl="' . $feed->website () . '" description="' . htmlspecialchars($feed->description(), ENT_COMPAT, 'UTF-8') . '" />' . "\n";
 		}
 
 		$txt .= '</outline>' . "\n";
@@ -57,18 +125,41 @@ function opml_export ($cats) {
 	return $txt;
 }
 
-function cleanText ($text) {
-	return preg_replace ('/&[\w]+;/', '', $text);
+function html_only_entity_decode($text) {
+	static $htmlEntitiesOnly = null;
+	if ($htmlEntitiesOnly === null) {
+		$htmlEntitiesOnly = array_flip(array_diff(
+			get_html_translation_table(HTML_ENTITIES, ENT_NOQUOTES, 'UTF-8'),	//Decode HTML entities
+			get_html_translation_table(HTML_SPECIALCHARS, ENT_NOQUOTES, 'UTF-8')	//Preserve XML entities
+		));
+	}
+	return strtr($text, $htmlEntitiesOnly);
+}
+
+function sanitizeHTML($data) {
+	static $simplePie = null;
+	if ($simplePie == null) {
+		$simplePie = new SimplePie();
+	}
+	return html_only_entity_decode($simplePie->sanitize->sanitize($data, SIMPLEPIE_CONSTRUCT_MAYBE_HTML));
 }
 
 function opml_import ($xml) {
-	$opml = @simplexml_load_string ($xml);
+	$xml = html_only_entity_decode($xml);	//!\ Assume UTF-8
+
+	$dom = new DOMDocument();
+	$dom->recover = true;
+	$dom->strictErrorChecking = false;
+	$dom->loadXML($xml);
+	$dom->encoding = 'UTF-8';
+
+	$opml = simplexml_import_dom($dom);
 
 	if (!$opml) {
-		throw new OpmlException ();
+		throw new FreshRSS_Opml_Exception ();
 	}
 
-	$catDAO = new CategoryDAO();
+	$catDAO = new FreshRSS_CategoryDAO();
 	$catDAO->checkDefault();
 	$defCat = $catDAO->getDefault();
 
@@ -93,12 +184,17 @@ function opml_import ($xml) {
 				// alors qu'il existe déjà la catégorie X mais avec l'id Z
 				// Y ne sera pas ajouté et le flux non plus vu que l'id
 				// de sa catégorie n'exisera pas
-				$catDAO = new CategoryDAO ();
+				$title = htmlspecialchars($title, ENT_COMPAT, 'UTF-8');
+				$catDAO = new FreshRSS_CategoryDAO ();
 				$cat = $catDAO->searchByName ($title);
 				if ($cat === false) {
-					$cat = new Category ($title);
+					$cat = new FreshRSS_Category ($title);
+					$values = array (
+						'name' => $cat->name (),
+						'color' => $cat->color ()
+					);
+					$cat->_id ($catDAO->addCategory ($values));
 				}
-				$categories[] = $cat;
 
 				$feeds = array_merge ($feeds, getFeedsOutline ($outline, $cat->id ()));
 			}
@@ -133,21 +229,31 @@ function getFeedsOutline ($outline, $cat_id) {
 
 function getFeed ($outline, $cat_id) {
 	$url = (string) $outline['xmlUrl'];
+	$url = htmlspecialchars($url, ENT_COMPAT, 'UTF-8');
 	$title = '';
 	if (isset ($outline['text'])) {
 		$title = (string) $outline['text'];
 	} elseif (isset ($outline['title'])) {
 		$title = (string) $outline['title'];
 	}
-	$feed = new Feed ($url);
+	$title = htmlspecialchars($title, ENT_COMPAT, 'UTF-8');
+	$feed = new FreshRSS_Feed ($url);
 	$feed->_category ($cat_id);
 	$feed->_name ($title);
+	if (isset($outline['htmlUrl'])) {
+		$feed->_website(htmlspecialchars((string)$outline['htmlUrl'], ENT_COMPAT, 'UTF-8'));
+	}
+	if (isset($outline['description'])) {
+		$feed->_description(sanitizeHTML((string)$outline['description']));
+	}
 	return $feed;
 }
 
 
 /* permet de récupérer le contenu d'un article pour un flux qui n'est pas complet */
 function get_content_by_parsing ($url, $path) {
+	require_once (LIB_PATH . '/lib_phpQuery.php');
+
 	$html = file_get_contents ($url);
 
 	if ($html) {
@@ -169,42 +275,39 @@ function get_content_by_parsing ($url, $path) {
 	}
 }
 
-/* Télécharge le favicon d'un site, le place sur le serveur et retourne l'URL */
-function dowload_favicon ($website, $id) {
-	$url = 'http://g.etfv.co/' . $website;
-	$favicons_dir = PUBLIC_PATH . '/data/favicons';
-	$dest = $favicons_dir . '/' . $id . '.ico';
-	$favicon_url = '/data/favicons/' . $id . '.ico';
+/**
+ * Add support of image lazy loading
+ * Move content from src attribute to data-original
+ * @param content is the text we want to parse
+ */
+function lazyimg($content) {
+	return preg_replace(
+		'/<img([^>]+?)src=[\'"]([^"\']+)[\'"]([^>]*)>/i',
+		'<img$1src="' . Minz_Url::display('/themes/icons/grey.gif') . '" data-original="$2"$3>',
+		$content
+	);
+}
 
-	if (!is_dir ($favicons_dir)) {
-		if (!mkdir ($favicons_dir, 0755, true)) {
-			return $url;
-		}
-	}
+function lazyIframe($content) {
+	return preg_replace(
+		'/<iframe([^>]+?)src=[\'"]([^"\']+)[\'"]([^>]*)>/i',
+		'<iframe$1src="about:blank" data-original="$2"$3>',
+		$content
+	);
+}
 
-	if (!file_exists ($dest)) {
-		$c = curl_init ($url);
-		curl_setopt ($c, CURLOPT_HEADER, false);
-		curl_setopt ($c, CURLOPT_RETURNTRANSFER, true);
-		curl_setopt ($c, CURLOPT_BINARYTRANSFER, true);
-		$imgRaw = curl_exec ($c);
+function uTimeString() {
+	$t = @gettimeofday();
+	return $t['sec'] . str_pad($t['usec'], 6, '0');
+}
 
-		if (curl_getinfo ($c, CURLINFO_HTTP_CODE) == 200) {
-			$file = fopen ($dest, 'w');
-			if ($file === false) {
-				return $url;
-			}
+function uSecString() {
+	$t = @gettimeofday();
+	return str_pad($t['usec'], 6, '0');
+}
 
-			fwrite ($file, $imgRaw);
-			fclose ($file);
-		} else {
-			return $url;
-		}
-
-		curl_close ($c);
-	}
-
-	return $favicon_url;
+function invalidateHttpCache() {
+	file_put_contents(DATA_PATH . '/touch.txt', uTimeString());
 }
 
 /**

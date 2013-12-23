@@ -18,45 +18,34 @@
 #
 # ***** END LICENSE BLOCK *****
 
-// Constantes de chemins
-define ('PUBLIC_PATH', realpath (dirname (__FILE__)));
-define ('LIB_PATH', realpath (PUBLIC_PATH . '/../lib'));
-define ('APP_PATH', realpath (PUBLIC_PATH . '/../app'));
-define ('LOG_PATH', realpath (PUBLIC_PATH . '/../log'));
-define ('CACHE_PATH', realpath (PUBLIC_PATH . '/../cache'));
-
-if (file_exists (PUBLIC_PATH . '/install.php')) {
-	include ('install.php');
+if (file_exists ('install.php')) {
+	require('install.php');
 } else {
+	require('../constants.php');
+
 	session_cache_limiter('');
-	require (LIB_PATH . '/http-conditional.php');
-	$dateLastModification = max(
-		@filemtime(PUBLIC_PATH . '/data/touch.txt'),
-		@filemtime(LOG_PATH . '/application.log'),
-		@filemtime(PUBLIC_PATH . '/data/Configuration.array.php'),
-		@filemtime(APP_PATH . '/configuration/application.ini'),
-		time() - 14400
-	);
-	if (httpConditional($dateLastModification, 0, 0, false, false, true)) {
-		exit();	//No need to send anything
+	if (!file_exists(DATA_PATH . '/no-cache.txt')) {
+		require (LIB_PATH . '/http-conditional.php');
+		$dateLastModification = max(
+			@filemtime(DATA_PATH . '/touch.txt'),
+			@filemtime(LOG_PATH . '/application.log'),
+			@filemtime(DATA_PATH . '/config.php')
+		);
+		$_SERVER['QUERY_STRING'] .= '&utime=' . file_get_contents(DATA_PATH . '/touch.txt');	//For ETag
+		if (httpConditional($dateLastModification, 0, 0, false, false, true)) {
+			exit();	//No need to send anything
+		}
 	}
 
-	set_include_path (get_include_path ()
-		         . PATH_SEPARATOR
-		         . LIB_PATH
-		         . PATH_SEPARATOR
-		         . LIB_PATH . '/minz'
-		         . PATH_SEPARATOR
-		         . APP_PATH);
-
-	require (APP_PATH . '/App_FrontController.php');
+	require(LIB_PATH . '/lib_rss.php');	//Includes class autoloader
 
 	try {
-		$front_controller = new App_FrontController ();
+		$front_controller = new FreshRSS();
 		$front_controller->init ();
 		$front_controller->run ();
-	} catch (PDOConnectionException $e) {
+	} catch (Exception $e) {
+		echo '### Fatal error! ###<br />', "\n";
 		Minz_Log::record ($e->getMessage (), Minz_Log::ERROR);
-		print '### Application problem ###<br />'."\n".'See logs files';
+		echo 'See logs files.';
 	}
 }

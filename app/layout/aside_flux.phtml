@@ -1,32 +1,32 @@
 <div class="aside aside_flux" id="aside_flux">
-	<a class="toggle_aside" href="#close"><i class="icon i_close"></i></a>
+	<a class="toggle_aside" href="#close"><?php echo FreshRSS_Themes::icon('close'); ?></a>
 
 	<ul class="categories">
 		<?php if (!login_is_conf ($this->conf) || is_logged ()) { ?>
 		<li>
 			<div class="stick">
-				<a class="btn btn-important" href="<?php echo _url ('configure', 'feed'); ?>"><?php echo Translate::t ('subscription_management'); ?></a>
-				<a class="btn btn-important" href="<?php echo _url ('configure', 'categorize'); ?>"><i class="icon i_category"></i></a>
+				<a class="btn btn-important" href="<?php echo _url ('configure', 'feed'); ?>"><?php echo Minz_Translate::t ('subscription_management'); ?></a>
+				<a class="btn btn-important" href="<?php echo _url ('configure', 'categorize'); ?>" title="<?php echo Minz_Translate::t ('categories_management'); ?>"><?php echo FreshRSS_Themes::icon('category-white'); ?></a>
 			</div>
 		</li>
 		<?php } elseif (login_is_conf ($this->conf)) { ?>
-		<li><a href="<?php echo _url ('index', 'about'); ?>"><?php echo Translate::t ('about_freshrss'); ?></a></li>
+		<li><a href="<?php echo _url ('index', 'about'); ?>"><?php echo Minz_Translate::t ('about_freshrss'); ?></a></li>
 		<?php } ?>
 
 		<li>
 			<div class="category all">
-				<a data-unread="<?php echo $this->nb_not_read; ?>" class="btn<?php echo $this->get_c == 'all' ? ' active' : ''; ?>" href="<?php echo _url ('index', 'index'); ?>">
-					<i class="icon i_all"></i>
-					<?php echo Translate::t ('all_feeds', $this->nb_total); ?>
+				<a data-unread="<?php echo $this->nb_not_read; ?>" class="btn<?php echo $this->get_c == 'a' ? ' active' : ''; ?>" href="<?php echo _url ('index', 'index'); ?>">
+					<?php echo FreshRSS_Themes::icon('all'); ?>
+					<?php echo Minz_Translate::t ('all_feeds'); ?>
 				</a>
 			</div>
 		</li>
 
 		<li>
 			<div class="category favorites">
-				<a data-unread="<?php echo $this->nb_favorites['unread']; ?>" class="btn<?php echo $this->get_c == 'favoris' ? ' active' : ''; ?>" href="<?php echo _url ('index', 'index', 'get', 'favoris'); ?>">
-					<i class="icon i_bookmark"></i>
-					<?php echo Translate::t ('favorite_feeds', $this->nb_favorites['read'] + $this->nb_favorites['unread']); ?>
+				<a data-unread="<?php echo $this->nb_favorites['unread']; ?>" class="btn<?php echo $this->get_c == 's' ? ' active' : ''; ?>" href="<?php echo _url ('index', 'index', 'get', 's'); ?>">
+					<?php echo FreshRSS_Themes::icon('bookmark'); ?>
+					<?php echo Minz_Translate::t ('favorite_feeds', $this->nb_favorites['all']); ?>
 				</a>
 			</div>
 		</li>
@@ -37,10 +37,8 @@
 		<li>
 			<?php $c_active = false; if ($this->get_c == $cat->id ()) { $c_active = true; } ?>
 			<div class="category stick<?php echo $c_active ? ' active' : ''; ?>">
-				<a data-unread="<?php echo $cat->nbNotRead (); ?>" class="btn<?php echo $c_active ? ' active' : ''; ?>" href="<?php echo _url ('index', 'index', 'get', 'c_' . $cat->id ()); ?>">
-					<?php echo htmlspecialchars($cat->name (), ENT_NOQUOTES, 'UTF-8'); ?>
-				</a>
-				<a class="btn dropdown-toggle" href="#"><i class="icon <?php echo $c_active ? 'i_up' : 'i_down'; ?>"></i></a>
+				<a data-unread="<?php echo $cat->nbNotRead (); ?>" class="btn<?php echo $c_active ? ' active' : ''; ?>" href="<?php echo _url ('index', 'index', 'get', 'c_' . $cat->id ()); ?>"><?php echo $cat->name (); ?></a>
+				<a class="btn dropdown-toggle" href="#"><?php echo FreshRSS_Themes::icon($c_active ? 'up' : 'down'); ?></a>
 			</div>
 
 			<ul class="feeds<?php echo $c_active ? ' active' : ''; ?>">
@@ -51,11 +49,11 @@
 				<li id="f_<?php echo $feed_id; ?>" class="item<?php echo $f_active ? ' active' : ''; ?><?php echo $feed->inError () ? ' error' : ''; ?><?php echo $nbEntries == 0 ? ' empty' : ''; ?>">
 					<div class="dropdown">
 						<div class="dropdown-target"></div>
-						<a class="dropdown-toggle" data-fweb="<?php echo $feed->website (); ?>"><i class="icon i_configure"></i></a>
+						<a class="dropdown-toggle" data-fweb="<?php echo $feed->website (); ?>"><?php echo FreshRSS_Themes::icon('configure'); ?></a>
 <?php /* feed_config_template */ ?>
 					</div>
 					<img class="favicon" src="<?php echo $feed->favicon (); ?>" alt="✇" />
-					<a class="feed" data-unread="<?php echo $feed->nbNotRead (); ?>" data-priority="<?php echo $feed->priority (); ?>" href="<?php echo _url ('index', 'index', 'get', 'f_' . $feed_id); ?>"><?php echo htmlspecialchars($feed->name(), ENT_NOQUOTES, 'UTF-8'); ?></a>
+					<a class="feed" data-unread="<?php echo $feed->nbNotRead (); ?>" data-priority="<?php echo $feed->priority (); ?>" href="<?php echo _url ('index', 'index', 'get', 'f_' . $feed_id); ?>"><?php echo $feed->name(); ?></a>
 				</li>
 				<?php } ?>
 			</ul>
@@ -68,14 +66,14 @@
 
 <script id="feed_config_template" type="text/html">
 	<ul class="dropdown-menu">
-		<li class="dropdown-close"><a href="#close">&nbsp;</a></li>
-		<li class="item"><a href="<?php echo _url ('index', 'index', 'get', 'f_!!!!!!'); ?>"><?php echo Translate::t ('filter'); ?></a></li>
-		<li class="item"><a target="_blank" href="http://example.net/"><?php echo Translate::t ('see_website'); ?></a></li>
+		<li class="dropdown-close"><a href="#close">❌</a></li>
+		<li class="item"><a href="<?php echo _url ('index', 'index', 'get', 'f_!!!!!!'); ?>"><?php echo Minz_Translate::t ('filter'); ?></a></li>
+		<li class="item"><a target="_blank" href="http://example.net/"><?php echo Minz_Translate::t ('see_website'); ?></a></li>
 		<?php if (!login_is_conf ($this->conf) || is_logged ()) { ?>
 		<li class="separator"></li>
-		<li class="item"><a href="<?php echo _url ('configure', 'feed', 'id', '!!!!!!'); ?>"><?php echo Translate::t ('administration'); ?></a></li>
-		<li class="item"><a href="<?php echo _url ('feed', 'actualize', 'id', '!!!!!!'); ?>"><?php echo Translate::t ('actualize'); ?></a></li>
-		<li class="item"><a href="<?php echo _url ('entry', 'read', 'is_read', 1, 'get', 'f_!!!!!!'); ?>"><?php echo Translate::t ('mark_read'); ?></a></li>
+		<li class="item"><a href="<?php echo _url ('configure', 'feed', 'id', '!!!!!!'); ?>"><?php echo Minz_Translate::t ('administration'); ?></a></li>
+		<li class="item"><a href="<?php echo _url ('feed', 'actualize', 'id', '!!!!!!'); ?>"><?php echo Minz_Translate::t ('actualize'); ?></a></li>
+		<li class="item"><a href="<?php echo _url ('entry', 'read', 'is_read', 1, 'get', 'f_!!!!!!'); ?>"><?php echo Minz_Translate::t ('mark_read'); ?></a></li>
 		<?php } ?>
 	</ul>
 </script>

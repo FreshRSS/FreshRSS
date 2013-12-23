@@ -2,62 +2,46 @@
 
 <?php if ($this->flux) { ?>
 <div class="post">
-	<a href="<?php echo _url ('index', 'index'); ?>"><?php echo Translate::t ('back_to_rss_feeds'); ?></a> <?php echo Translate::t ('or'); ?> <a href="<?php echo _url ('index', 'index', 'get', 'f_' . $this->flux->id ()); ?>"><?php echo Translate::t ('filter'); ?></a>
+	<a href="<?php echo _url ('index', 'index'); ?>"><?php echo Minz_Translate::t ('back_to_rss_feeds'); ?></a> <?php echo Minz_Translate::t ('or'); ?> <a href="<?php echo _url ('index', 'index', 'get', 'f_' . $this->flux->id ()); ?>"><?php echo Minz_Translate::t ('filter'); ?></a>
 
 	<h1><?php echo $this->flux->name (); ?></h1>
 	<?php echo $this->flux->description (); ?>
 
 	<?php if ($this->flux->inError ()) { ?>
-	<p class="alert alert-error"><span class="alert-head"><?php echo Translate::t ('damn'); ?></span> <?php echo Translate::t ('feed_in_error'); ?></p>
+	<p class="alert alert-error"><span class="alert-head"><?php echo Minz_Translate::t ('damn'); ?></span> <?php echo Minz_Translate::t ('feed_in_error'); ?></p>
 	<?php } ?>
 
 	<form method="post" action="<?php echo _url ('configure', 'feed', 'id', $this->flux->id ()); ?>">
-		<legend><?php echo Translate::t ('informations'); ?></legend>
+		<legend><?php echo Minz_Translate::t ('informations'); ?></legend>
 		<div class="form-group">
-			<label class="group-name" for="name"><?php echo Translate::t ('title'); ?></label>
+			<label class="group-name" for="name"><?php echo Minz_Translate::t ('title'); ?></label>
 			<div class="group-controls">
 				<input type="text" name="name" id="name" value="<?php echo $this->flux->name () ; ?>" />
 			</div>
 		</div>
 		<div class="form-group">
-			<label class="group-name"><?php echo Translate::t ('website_url'); ?></label>
+			<label class="group-name"><?php echo Minz_Translate::t ('feed_description'); ?></label>
 			<div class="group-controls">
-				<span class="control">
-					<?php echo $this->flux->website (); ?>
-					<a target="_blank" href="<?php echo $this->flux->website (); ?>"><i class="icon i_link"></i></a>
-				</span>
+				<textarea name="description" id="description"><?php echo htmlspecialchars($this->flux->description(), ENT_NOQUOTES, 'UTF-8'); ?></textarea>
 			</div>
 		</div>
 		<div class="form-group">
-			<label class="group-name"><?php echo Translate::t ('feed_url'); ?></label>
+			<label class="group-name"><?php echo Minz_Translate::t ('website_url'); ?></label>
 			<div class="group-controls">
-				<span class="control">
-					<?php echo $this->flux->url (); ?>
-					<a target="_blank" href="<?php echo $this->flux->url (); ?>"><i class="icon i_link"></i></a>
-				</span>
+				<input type="text" name="website" id="website" value="<?php echo $this->flux->website (); ?>" />
+				<a target="_blank" href="<?php echo $this->flux->website (); ?>"><?php echo FreshRSS_Themes::icon('link'); ?></a>
 			</div>
 		</div>
 		<div class="form-group">
-			<label class="group-name"></label>
+			<label class="group-name"><?php echo Minz_Translate::t ('feed_url'); ?></label>
 			<div class="group-controls">
-				<a class="btn" href="<?php echo _url ('feed', 'actualize', 'id', $this->flux->id ()); ?>">
-					<i class="icon i_refresh"></i> <?php echo Translate::t('actualize'); ?>
-				</a>
+				<input type="text" name="url" id="url" value="<?php echo $this->flux->url (); ?>" />
+				<a target="_blank" href="<?php echo $this->flux->url (); ?>"><?php echo FreshRSS_Themes::icon('link'); ?></a>
+				  <a class="btn" target="_blank" href="http://validator.w3.org/feed/check.cgi?url=<?php echo $this->flux->url (); ?>"><?php echo Minz_Translate::t ('feed_validator'); ?></a>
 			</div>
 		</div>
 		<div class="form-group">
-			<label class="group-name"><?php echo Translate::t ('number_articles'); ?></label>
-			<div class="group-controls">
-				<span class="control"><?php echo $this->flux->nbEntries (); ?></span>
-				<label class="checkbox" for="keep_history">
-					<input type="checkbox" name="keep_history" id="keep_history" value="yes"<?php echo $this->flux->keepHistory () == 'yes' ? ' checked="checked"' : ''; ?> />
-					<?php echo Translate::t ('keep_history'); ?>
-				</label>
-			</div>
-		</div>
-
-		<div class="form-group">
-			<label class="group-name" for="category"><?php echo Translate::t ('category'); ?></label>
+			<label class="group-name" for="category"><?php echo Minz_Translate::t ('category'); ?></label>
 			<div class="group-controls">
 				<select name="category" id="category">
 				<?php foreach ($this->categories as $cat) { ?>
@@ -68,34 +52,58 @@
 				</select>
 			</div>
 		</div>
-
-		<legend><?php echo Translate::t ('advanced'); ?></legend>
 		<div class="form-group">
-			<label class="group-name" for="priority"><?php echo Translate::t ('show_in_all_flux'); ?></label>
+			<label class="group-name"></label>
 			<div class="group-controls">
-				<label class="checkbox" for="priority">
-					<input type="checkbox" name="priority" id="priority" value="10"<?php echo $this->flux->priority () > 0 ? ' checked="checked"' : ''; ?> />
-					<?php echo Translate::t ('yes'); ?>
+				<a class="btn" href="<?php echo _url ('feed', 'actualize', 'id', $this->flux->id ()); ?>">
+					<?php echo FreshRSS_Themes::icon('refresh'); ?> <?php echo Minz_Translate::t('actualize'); ?>
+				</a>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="group-name"><?php echo Minz_Translate::t ('number_articles'); ?></label>
+			<div class="group-controls">
+				<span class="control"><?php echo $this->flux->nbEntries (); ?></span>
+				<label class="checkbox" for="keep_history">
+					<input type="checkbox" name="keep_history" id="keep_history" value="yes"<?php echo $this->flux->keepHistory () == 'yes' ? ' checked="checked"' : ''; ?> />
+					<?php echo Minz_Translate::t ('keep_history'); ?>
 				</label>
 			</div>
 		</div>
 		<div class="form-group">
-			<label class="group-name" for="path_entries"><?php echo Translate::t ('css_path_on_website'); ?></label>
+			<label class="group-name"></label>
 			<div class="group-controls">
-				<input type="text" name="path_entries" id="path_entries" value="<?php echo $this->flux->pathEntries (); ?>" placeholder="<?php echo Translate::t ('blank_to_disable'); ?>" />
-				<i class="icon i_help"></i> <?php echo Translate::t ('retrieve_truncated_feeds'); ?>
+				<button class="btn btn-attention confirm" formmethod="post" formaction="<?php echo Minz_Url::display (array ('c' => 'feed', 'a' => 'truncate', 'params' => array ('id' => $this->flux->id ()))); ?>"><?php echo Minz_Translate::t ('truncate'); ?></button>
+			</div>
+		</div>
+
+		<legend><?php echo Minz_Translate::t ('advanced'); ?></legend>
+		<div class="form-group">
+			<label class="group-name" for="priority"><?php echo Minz_Translate::t ('show_in_all_flux'); ?></label>
+			<div class="group-controls">
+				<label class="checkbox" for="priority">
+					<input type="checkbox" name="priority" id="priority" value="10"<?php echo $this->flux->priority () > 0 ? ' checked="checked"' : ''; ?> />
+					<?php echo Minz_Translate::t ('yes'); ?>
+				</label>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="group-name" for="path_entries"><?php echo Minz_Translate::t ('css_path_on_website'); ?></label>
+			<div class="group-controls">
+				<input type="text" name="path_entries" id="path_entries" value="<?php echo $this->flux->pathEntries (); ?>" placeholder="<?php echo Minz_Translate::t ('blank_to_disable'); ?>" />
+				<?php echo FreshRSS_Themes::icon('help'); ?> <?php echo Minz_Translate::t ('retrieve_truncated_feeds'); ?>
 			</div>
 		</div>
 
 		<?php $auth = $this->flux->httpAuth (false); ?>
 		<div class="form-group">
-			<label class="group-name" for="http_user"><?php echo Translate::t ('http_username'); ?></label>
+			<label class="group-name" for="http_user"><?php echo Minz_Translate::t ('http_username'); ?></label>
 			<div class="group-controls">
 				<input type="text" name="http_user" id="http_user" value="<?php echo $auth['username']; ?>" autocomplete="off" />
-				<i class="icon i_help"></i> <?php echo Translate::t ('access_protected_feeds'); ?>
+				<?php echo FreshRSS_Themes::icon('help'); ?> <?php echo Minz_Translate::t ('access_protected_feeds'); ?>
 			</div>
 
-			<label class="group-name" for="http_pass"><?php echo Translate::t ('http_password'); ?></label>
+			<label class="group-name" for="http_pass"><?php echo Minz_Translate::t ('http_password'); ?></label>
 			<div class="group-controls">
 				<input type="password" name="http_pass" id="http_pass" value="<?php echo $auth['password']; ?>" autocomplete="off" />
 			</div>
@@ -104,13 +112,13 @@
 
 		<div class="form-group form-actions">
 			<div class="group-controls">
-				<button class="btn btn-important"><?php echo Translate::t ('save'); ?></button>
-				<button class="btn btn-attention confirm" formaction="<?php echo Url::display (array ('c' => 'feed', 'a' => 'delete', 'params' => array ('id' => $this->flux->id ()))); ?>"><?php echo Translate::t ('delete'); ?></button>
+				<button class="btn btn-important"><?php echo Minz_Translate::t ('save'); ?></button>
+				<button class="btn btn-attention confirm" formmethod="post" formaction="<?php echo Minz_Url::display (array ('c' => 'feed', 'a' => 'delete', 'params' => array ('id' => $this->flux->id ()))); ?>"><?php echo Minz_Translate::t ('delete'); ?></button>
 			</div>
 		</div>
 	</form>
 </div>
 
 <?php } else { ?>
-<div class="alert alert-warn"><span class="alert-head"><?php echo Translate::t ('no_selected_feed'); ?></span> <?php echo Translate::t ('think_to_add'); ?></div>
+<div class="alert alert-warn"><span class="alert-head"><?php echo Minz_Translate::t ('no_selected_feed'); ?></span> <?php echo Minz_Translate::t ('think_to_add'); ?></div>
 <?php } ?>

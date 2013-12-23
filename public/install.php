@@ -1,4 +1,6 @@
 <?php
+require('../constants.php');
+include(LIB_PATH . '/lib_rss.php');
 
 session_start ();
 
@@ -8,48 +10,125 @@ if (isset ($_GET['step'])) {
 	define ('STEP', 1);
 }
 
-define ('SQL_REQ_CREATE_DB', 'CREATE DATABASE %s DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;');
+define ('SQL_CREATE_DB', 'CREATE DATABASE %1$s DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;');
 
-define ('SQL_REQ_CAT', 'CREATE TABLE IF NOT EXISTS `%scategory` (
-  `id` varchar(6) NOT NULL,
-  `name` varchar(255) NOT NULL,
-  `color` varchar(7) NOT NULL,
-  PRIMARY KEY (`id`)
-);');
+define ('SQL_CAT', 'CREATE TABLE IF NOT EXISTS `%1$scategory` (
+	`id` SMALLINT NOT NULL AUTO_INCREMENT,	-- v0.7
+	`name` varchar(255) NOT NULL,
+	`color` char(7),
+	PRIMARY KEY (`id`),
+	UNIQUE KEY (`name`)	-- v0.7
+) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci
+ENGINE = INNODB;');
 
-define ('SQL_REQ_FEED', 'CREATE TABLE IF NOT EXISTS `%sfeed` (
-  `id` varchar(6) NOT NULL,
-  `url` text NOT NULL,
-  `category` varchar(6) DEFAULT \'000000\',
-  `name` varchar(255) NOT NULL,
-  `website` text NOT NULL,
-  `description` text NOT NULL,
-  `lastUpdate` int(11) NOT NULL,
-  `priority` int(2) NOT NULL DEFAULT \'10\',
-  `pathEntries` varchar(500) DEFAULT NULL,
-  `httpAuth` varchar(500) DEFAULT NULL,
-  `error` int(1) NOT NULL DEFAULT \'0\',
-  `keep_history` int(1) NOT NULL DEFAULT \'0\',
-  PRIMARY KEY (`id`),
-  FOREIGN KEY (`category`) REFERENCES %scategory(id) ON DELETE SET NULL ON UPDATE CASCADE
-);');
+define ('SQL_FEED', 'CREATE TABLE IF NOT EXISTS `%1$sfeed` (
+	`id` SMALLINT NOT NULL AUTO_INCREMENT,	-- v0.7
+	`url` varchar(511) CHARACTER SET latin1 NOT NULL,
+	`category` SMALLINT DEFAULT 0,	-- v0.7
+	`name` varchar(255) NOT NULL,
+	`website` varchar(255) CHARACTER SET latin1,
+	`description` text,
+	`lastUpdate` int(11) DEFAULT 0,
+	`priority` tinyint(2) NOT NULL DEFAULT 10,
+	`pathEntries` varchar(511) DEFAULT NULL,
+	`httpAuth` varchar(511) DEFAULT NULL,
+	`error` boolean DEFAULT 0,
+	`keep_history` boolean NOT NULL DEFAULT 0,
+	`cache_nbEntries` int DEFAULT 0,	-- v0.7
+	`cache_nbUnreads` int DEFAULT 0,	-- v0.7
+	PRIMARY KEY (`id`),
+	FOREIGN KEY (`category`) REFERENCES `%1$scategory`(`id`) ON DELETE SET NULL ON UPDATE CASCADE,
+	UNIQUE KEY (`url`),	-- v0.7
+	INDEX (`name`),	-- v0.7
+	INDEX (`priority`),	-- v0.7
+	INDEX (`keep_history`)	-- v0.7
+) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci
+ENGINE = INNODB;');
 
-define ('SQL_REQ_ENTRY', 'CREATE TABLE IF NOT EXISTS `%sentry` (
-  `id` varchar(6) NOT NULL,
-  `guid` text NOT NULL,
-  `title` varchar(255) NOT NULL,
-  `author` varchar(255) NOT NULL,
-  `content` text NOT NULL,
-  `link` text NOT NULL,
-  `date` int(11) NOT NULL,
-  `is_read` int(11) NOT NULL DEFAULT \'0\',
-  `is_favorite` int(11) NOT NULL DEFAULT \'0\',
-  `id_feed` varchar(6) NOT NULL,
-  `tags` text NOT NULL,
-  PRIMARY KEY (`id`),
-  FOREIGN KEY (`id_feed`) REFERENCES %sfeed(id) ON DELETE CASCADE ON UPDATE CASCADE
-);');
+define ('SQL_ENTRY', 'CREATE TABLE IF NOT EXISTS `%1$sentry` (
+	`id` bigint NOT NULL,	-- v0.7
+	`guid` varchar(760) CHARACTER SET latin1 NOT NULL,	-- Maximum for UNIQUE is 767B
+	`title` varchar(255) NOT NULL,
+	`author` varchar(255),
+	`content_bin` blob,	-- v0.7
+	`link` varchar(1023) CHARACTER SET latin1 NOT NULL,
+	`date` int(11),
+	`is_read` boolean NOT NULL DEFAULT 0,
+	`is_favorite` boolean NOT NULL DEFAULT 0,
+	`id_feed` SMALLINT,	-- v0.7
+	`tags` varchar(1023),
+	PRIMARY KEY (`id`),
+	FOREIGN KEY (`id_feed`) REFERENCES `%1$sfeed`(`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+	UNIQUE KEY (`id_feed`,`guid`),	-- v0.7
+	INDEX (`is_favorite`),	-- v0.7
+	INDEX (`is_read`)	-- v0.7
+) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci
+ENGINE = INNODB;');
 
+//<updates>
+define('SQL_SHOW_TABLES', 'SHOW tables;');
+
+define('SQL_BACKUP006', 'RENAME TABLE `%1$scategory` TO `%1$scategory006`, `%1$sfeed` TO `%1$sfeed006`, `%1$sentry` TO `%1$sentry006`;');
+
+define('SQL_SHOW_COLUMNS_UPDATEv006', 'SHOW columns FROM `%1$sentry006` LIKE "id2";');
+
+define('SQL_UPDATEv006', '
+ALTER TABLE `%1$scategory006` ADD id2 SMALLINT;
+
+SET @i = 0;
+UPDATE `%1$scategory006` SET id2=(@i:=@i+1) ORDER BY id;
+
+ALTER TABLE `%1$sfeed006` ADD id2 SMALLINT, ADD category2 SMALLINT;
+
+SET @i = 0;
+UPDATE `%1$sfeed006` SET id2=(@i:=@i+1) ORDER BY name;
+
+UPDATE `%1$sfeed006` f
+INNER JOIN `%1$scategory006` c ON f.category = c.id
+SET f.category2 = c.id2;
+
+INSERT IGNORE INTO `%2$scategory` (name, color)
+SELECT name, color
+FROM `%1$scategory006`
+ORDER BY id2;
+
+INSERT IGNORE INTO `%2$sfeed` (url, category, name, website, description, priority, pathEntries, httpAuth, keep_history)
+SELECT url, category2, name, website, description, priority, pathEntries, httpAuth, keep_history
+FROM `%1$sfeed006`
+ORDER BY id2;
+
+ALTER TABLE `%1$sentry006` ADD id2 bigint;
+
+UPDATE `%1$sentry006` SET id2 = ((date * 1000000) + (rand() * 100000000));
+
+INSERT IGNORE INTO `%2$sentry` (id, guid, title, author, link, date, is_read, is_favorite, id_feed, tags)
+SELECT e0.id2, e0.guid, e0.title, e0.author, e0.link, e0.date, e0.is_read, e0.is_favorite, f0.id2, e0.tags
+FROM `%1$sentry006` e0
+INNER JOIN `%1$sfeed006` f0 ON e0.id_feed = f0.id;
+');
+
+define('SQL_CONVERT_SELECTv006', '
+SELECT e0.id2, e0.content
+FROM `%1$sentry006` e0
+INNER JOIN `%2$sentry` e1 ON e0.id2 = e1.id
+WHERE e1.content_bin IS NULL');
+
+define('SQL_CONVERT_UPDATEv006', 'UPDATE `%1$sentry` SET content_bin=COMPRESS(?) WHERE id=?;');
+
+define('SQL_UPDATE_CACHED_VALUESv006', '
+UPDATE `%1$sfeed` f
+INNER JOIN (
+	SELECT e.id_feed,
+	COUNT(CASE WHEN e.is_read = 0 THEN 1 END) AS nbUnreads,
+	COUNT(e.id) AS nbEntries
+	FROM `%1$sentry` e
+	GROUP BY e.id_feed
+) x ON x.id_feed=f.id
+SET f.cache_nbEntries=x.nbEntries, f.cache_nbUnreads=x.nbUnreads
+');
+
+define('SQL_DROP_BACKUPv006', 'DROP TABLE IF EXISTS `%1$sentry006`, `%1$sfeed006`, `%1$scategory006`;');
+//</updates>
 
 function writeLine ($f, $line) {
 	fwrite ($f, $line . "\n");
@@ -66,15 +145,6 @@ function writeArray ($f, $array) {
 	}
 }
 
-function small_hash ($txt) {
-	$t = rtrim (base64_encode (hash ('crc32', $txt, true)), '=');
-	$t = str_replace ('+', '-', $t); // Get rid of characters which need encoding in URLs.
-	$t = str_replace ('/', '_', $t);
-	$t = str_replace ('=', '@', $t);
-
-	return $t;
-}
-
 // gestion internationalisation
 $translates = array ();
 $actual = 'en';
@@ -82,15 +152,16 @@ function initTranslate () {
 	global $translates;
 	global $actual;
 
-	$l = getBetterLanguage ('en');
-	if (isset ($_SESSION['language'])) {
-		$l = $_SESSION['language'];
-	}
-	$actual = $l;
+	$actual = isset($_SESSION['language']) ? $_SESSION['language'] : getBetterLanguage('en');
 
 	$file = APP_PATH . '/i18n/' . $actual . '.php';
-	if (file_exists ($file)) {
-		$translates = include ($file);
+	if (file_exists($file)) {
+		$translates = array_merge($translates, include($file));
+	}
+
+	$file = APP_PATH . '/i18n/install.' . $actual . '.php';
+	if (file_exists($file)) {
+		$translates = array_merge($translates, include($file));
 	}
 }
 function getBetterLanguage ($fallback) {
@@ -138,29 +209,26 @@ function saveLanguage () {
 function saveStep2 () {
 	if (!empty ($_POST)) {
 		if (empty ($_POST['title']) ||
-		    empty ($_POST['old_entries'])) {
+		    empty ($_POST['old_entries']) ||
+		    empty ($_POST['default_user']) {
 			return false;
 		}
 
-		$_SESSION['sel'] = md5 (
-			uniqid (mt_rand (), true).implode ('', stat (__FILE__))
-		);
-		$_SESSION['base_url'] = addslashes ($_POST['base_url']);
-		$_SESSION['title'] = addslashes ($_POST['title']);
+		$_SESSION['sel_application'] = sha1(uniqid(mt_rand(), true).implode('', stat(__FILE__)));
+		$_SESSION['title'] = addslashes(substr(trim($_POST['title']), 0, 25));
 		$_SESSION['old_entries'] = $_POST['old_entries'];
-		if (!is_int (intval ($_SESSION['old_entries'])) ||
-		    $_SESSION['old_entries'] < 1) {
+		if ((!ctype_digit($_SESSION['old_entries'])) || ($_SESSION['old_entries'] < 1)) {
 			$_SESSION['old_entries'] = 3;
 		}
 		$_SESSION['mail_login'] = addslashes ($_POST['mail_login']);
+		$_SESSION['default_user'] = substr(preg_replace ('/[^a-zA-Z0-9]/', '', $_POST['default_user']), 0, 16);
 
 		$token = '';
 		if ($_SESSION['mail_login']) {
-			$token = small_hash (time () . $_SESSION['sel'])
-			       . small_hash ($_SESSION['base_url'] . $_SESSION['sel']);
+			$token = sha1($_SESSION['sel_application'] . $_SESSION['mail_login']);
 		}
 
-		$file_data = PUBLIC_PATH . '/data/Configuration.array.php';
+		$file_data = DATA_PATH . '/' . $_SESSION['default_user'] . '_user.php';
 
 		$f = fopen ($file_data, 'w');
 		writeLine ($f, '<?php');
@@ -177,6 +245,7 @@ function saveStep2 () {
 		header ('Location: index.php?step=3');
 	}
 }
+
 function saveStep3 () {
 	if (!empty ($_POST)) {
 		if (empty ($_POST['type']) ||
@@ -189,26 +258,34 @@ function saveStep3 () {
 		$_SESSION['bd_type'] = isset ($_POST['type']) ? $_POST['type'] : 'mysql';
 		$_SESSION['bd_host'] = addslashes ($_POST['host']);
 		$_SESSION['bd_user'] = addslashes ($_POST['user']);
-		$_SESSION['bd_pass'] = addslashes ($_POST['pass']);
-		$_SESSION['bd_name'] = addslashes ($_POST['base']);
+		$_SESSION['bd_password'] = addslashes ($_POST['pass']);
+		$_SESSION['bd_base'] = addslashes ($_POST['base']);
 		$_SESSION['bd_prefix'] = addslashes ($_POST['prefix']);
+		$_SESSION['bd_prefix_user'] = $_SESSION['bd_prefix'] . (empty($_SESSION['default_user']) ? '' : ($_SESSION['default_user'] . '_'));
 
-		$file_conf = APP_PATH . '/configuration/application.ini';
-		$f = fopen ($file_conf, 'w');
-		writeLine ($f, '[general]');
-		writeLine ($f, 'environment = "production"');
-		writeLine ($f, 'use_url_rewriting = false');
-		writeLine ($f, 'sel_application = "' . $_SESSION['sel'] . '"');
-		writeLine ($f, 'base_url = "' . $_SESSION['base_url'] . '"');
-		writeLine ($f, 'title = "' . $_SESSION['title'] . '"');
-		writeLine ($f, '[db]');
-		writeLine ($f, 'type = "' . $_SESSION['bd_type'] . '"');
-		writeLine ($f, 'host = "' . $_SESSION['bd_host'] . '"');
-		writeLine ($f, 'user = "' . $_SESSION['bd_user'] . '"');
-		writeLine ($f, 'password = "' . $_SESSION['bd_pass'] . '"');
-		writeLine ($f, 'base = "' . $_SESSION['bd_name'] . '"');
-		writeLine ($f, 'prefix = "' . $_SESSION['bd_prefix'] . '"');
-		fclose ($f);
+		$ini_array = array(
+			'general' => array(
+				'environment' => empty($_SESSION['environment']) ? 'production' : $_SESSION['environment'],
+				'use_url_rewriting' => false,
+				'sel_application' => $_SESSION['sel_application'],
+				'base_url' => '',
+				'title' => $_SESSION['title'],
+				'default_user' => $_SESSION['default_user'],
+			),
+			'db' => array(
+				'type' => $_SESSION['bd_type'],
+				'host' => $_SESSION['bd_host'],
+				'user' => $_SESSION['bd_user'],
+				'password' => $_SESSION['bd_password'],
+				'base' => $_SESSION['bd_base'],
+				'prefix' => $_SESSION['bd_prefix'],
+			),
+		);
+		file_put_contents(DATA_PATH . '/config.php', "<?php\n return " . var_export($ini_array, true) . ';');
+
+		if (file_exists(DATA_PATH . '/config.php') && file_exists(DATA_PATH . '/application.ini')) {
+			@unlink(DATA_PATH . '/application.ini');	//v0.6
+		}
 
 		$res = checkBD ();
 
@@ -219,12 +296,171 @@ function saveStep3 () {
 			$_SESSION['bd_error'] = true;
 		}
 	}
+	invalidateHttpCache();
 }
+
+function updateDatabase($perform = false) {
+	$needs = array('bd_type', 'bd_host', 'bd_base', 'bd_user', 'bd_password', 'bd_prefix', 'bd_prefix_user');
+	foreach ($needs as $need) {
+		if (!isset($_SESSION[$need])) {
+			return false;
+		}
+	}
+
+	try {
+		$str = '';
+		switch ($_SESSION['bd_type']) {
+			case 'mysql':
+				$str = 'mysql:host=' . $_SESSION['bd_host'] . ';dbname=' . $_SESSION['bd_base'];
+				$driver_options = array(
+					PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8',
+				);
+				break;
+			case 'sqlite':
+				$str = 'sqlite:' . DATA_PATH . $_SESSION['bd_base'] . '.sqlite';
+				$driver_options = null;
+				break;
+			default:
+				return false;
+		}
+
+		$c = new PDO($str, $_SESSION['bd_user'], $_SESSION['bd_password'], $driver_options);
+
+		$stm = $c->prepare(SQL_SHOW_TABLES);
+		$stm->execute();
+		$res = $stm->fetchAll(PDO::FETCH_COLUMN, 0);
+		if (!in_array($_SESSION['bd_prefix'] . 'entry006', $res)) {
+			return false;
+		}
+
+		$sql = sprintf(SQL_SHOW_COLUMNS_UPDATEv006, $_SESSION['bd_prefix']);
+		$stm = $c->prepare($sql);
+		$stm->execute();
+		$res = $stm->fetchAll(PDO::FETCH_COLUMN, 0);
+		if (!in_array('id2', $res)) {
+			if (!$perform) {
+				return true;
+			}
+			$sql = sprintf(SQL_UPDATEv006, $_SESSION['bd_prefix'], $_SESSION['bd_prefix_user']);
+			$stm = $c->prepare($sql, array(PDO::ATTR_EMULATE_PREPARES => true));
+			$stm->execute();
+		}
+
+		$sql = sprintf(SQL_UPDATE_CACHED_VALUESv006, $_SESSION['bd_prefix_user']);
+		$stm = $c->prepare($sql);
+		$stm->execute();
+
+		$sql = sprintf(SQL_CONVERT_SELECTv006, $_SESSION['bd_prefix'], $_SESSION['bd_prefix_user']);
+		if (!$perform) {
+			$sql .= ' LIMIT 1';
+		}
+		$stm = $c->prepare($sql);
+		$stm->execute();
+		if (!$perform) {
+			$res = $stm->fetchAll(PDO::FETCH_COLUMN, 0);
+			return count($res) > 0;
+		} else {
+			@set_time_limit(300);
+		}
+
+		$c2 = new PDO($str, $_SESSION['bd_user'], $_SESSION['bd_password'], $driver_options);
+		$sql = sprintf(SQL_CONVERT_UPDATEv006, $_SESSION['bd_prefix_user']);
+		$stm2 = $c2->prepare($sql);
+		while ($row = $stm->fetch(PDO::FETCH_ASSOC)) {
+			$id = $row['id2'];
+			$content = unserialize(gzinflate(base64_decode($row['content'])));
+			$stm2->execute(array($content, $id));
+		}
+		return true;
+	} catch (PDOException $e) {
+		return false;
+	}
+	return false;
+}
+
 function deleteInstall () {
 	$res = unlink (PUBLIC_PATH . '/install.php');
 	if ($res) {
 		header ('Location: index.php');
 	}
+
+	$needs = array('bd_type', 'bd_host', 'bd_base', 'bd_user', 'bd_password', 'bd_prefix');
+	foreach ($needs as $need) {
+		if (!isset($_SESSION[$need])) {
+			return false;
+		}
+	}
+
+	try {
+		switch ($_SESSION['bd_type']) {
+			case 'mysql':
+				$str = 'mysql:host=' . $_SESSION['bd_host'] . ';dbname=' . $_SESSION['bd_base'];
+				$driver_options = array(
+					PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8',
+				);
+				break;
+			case 'sqlite':
+				$str = 'sqlite:' . DATA_PATH . $_SESSION['bd_base'] . '.sqlite';
+				$driver_options = null;
+				break;
+			default:
+				return false;
+		}
+
+		$c = new PDO($str, $_SESSION['bd_user'], $_SESSION['bd_password'], $driver_options);
+		$sql = sprintf(SQL_DROP_BACKUPv006, $_SESSION['bd_prefix']);
+		$stm = $c->prepare($sql);
+		$stm->execute();
+
+		return true;
+	} catch (PDOException $e) {
+		return false;
+	}
+	return false;
+}
+
+function moveOldFiles() {
+	$mvs = array(
+		'/app/configuration/application.ini' => '/data/application.ini',	//v0.6
+		'/public/data/Configuration.array.php' => '/data/Configuration.array.php',	//v0.6
+	);
+	$ok = true;
+	foreach ($mvs as $fFrom => $fTo) {
+		if (file_exists(FRESHRSS_PATH . $fFrom)) {
+			if (copy(FRESHRSS_PATH . $fFrom, FRESHRSS_PATH . $fTo)) {
+				@unlink(FRESHRSS_PATH . $fFrom);
+			} else {
+				$ok = false;
+			}
+		}
+	}
+	return $ok;
+}
+
+function delTree($dir) {	//http://php.net/rmdir#110489
+	if (!is_dir($dir)) {
+		return true;
+	}
+	$files = array_diff(scandir($dir), array('.', '..'));
+	foreach ($files as $file) {
+		$f = $dir . '/' . $file;
+		if (is_dir($f)) {
+			@chmod($f, 0777);
+			delTree($f);
+		}
+		else unlink($f);
+	}
+	return rmdir($dir);
+}
+
+function removeOldFiles() {
+	$oldDirs = array('/app/configuration/', '/cache/', '/log/', '/public/data/', '/public/themes/printer/');	//v0.6
+
+	$ok = true;
+	foreach ($oldDirs as $oldDir) {
+		$ok &= delTree(FRESHRSS_PATH . $oldDir);
+	}
+	return $ok;
 }
 
 /*** VÉRIFICATIONS ***/
@@ -244,6 +480,52 @@ function checkStep () {
 	}
 }
 function checkStep0 () {
+	moveOldFiles() && removeOldFiles();
+
+	if (file_exists(DATA_PATH . '/config.php')) {
+		$ini_array = include(DATA_PATH . '/config.php');
+	} elseif (file_exists(DATA_PATH . '/application.ini')) {
+		$ini_array = parse_ini_file(DATA_PATH . '/application.ini', true);
+	} else {
+		$ini_array = null;
+	}
+
+	if ($ini_array) {
+		$ini_general = isset($ini_array['general']) ? $ini_array['general'] : null;
+		if ($ini_general) {
+			$keys = array('environment', 'sel_application', 'title', 'default_user');
+			foreach ($keys as $key) {
+				if ((empty($_SESSION[$key])) && isset($ini_general[$key])) {
+					$_SESSION[$key] = $ini_general[$key];
+				}
+			}
+		}
+		$ini_db = isset($ini_array['db']) ? $ini_array['db'] : null;
+		if ($ini_db) {
+			$keys = array('type', 'host', 'user', 'password', 'base', 'prefix');
+			foreach ($keys as $key) {
+				if ((!isset($_SESSION['bd_' . $key])) && isset($ini_db[$key])) {
+					$_SESSION['bd_' . $key] = $ini_db[$key];
+				}
+			}
+		}
+	}
+
+	if (isset($_SESSION['default_user']) && file_exists(DATA_PATH . '/' . $_SESSION['default_user'] . '_user.php')) {
+		$userConfig = include(DATA_PATH . '/' . $_SESSION['default_user'] . '_user.php');
+	} elseif (file_exists(DATA_PATH . '/Configuration.array.php')) {
+		$userConfig = include(DATA_PATH . '/Configuration.array.php');	//v0.6
+	} else {
+		$userConfig = array();
+	}
+
+	$keys = array('language', 'old_entries', 'mail_login');
+	foreach ($keys as $key) {
+		if ((!isset($_SESSION[$key])) && isset($userConfig[$key])) {
+			$_SESSION[$key] = $userConfig[$key];
+		}
+	}
+
 	$languages = availableLanguages ();
 	$language = isset ($_SESSION['language']) &&
 	            isset ($languages[$_SESSION['language']]);
@@ -254,15 +536,15 @@ function checkStep0 () {
 	);
 }
 function checkStep1 () {
-	$php = version_compare (PHP_VERSION, '5.1.0') >= 0;
-	$minz = file_exists (LIB_PATH . '/minz');
+	$php = version_compare (PHP_VERSION, '5.2.0') >= 0;
+	$minz = file_exists (LIB_PATH . '/Minz');
 	$curl = extension_loaded ('curl');
 	$pdo = extension_loaded ('pdo_mysql');
 	$dom = class_exists('DOMDocument');
+	$data = DATA_PATH && is_writable (DATA_PATH);
 	$cache = CACHE_PATH && is_writable (CACHE_PATH);
 	$log = LOG_PATH && is_writable (LOG_PATH);
-	$conf = APP_PATH && is_writable (APP_PATH . '/configuration');
-	$data = is_writable (PUBLIC_PATH . '/data');
+	$favicons = is_writable (DATA_PATH . '/favicons');
 
 	return array (
 		'php' => $php ? 'ok' : 'ko',
@@ -270,20 +552,28 @@ function checkStep1 () {
 		'curl' => $curl ? 'ok' : 'ko',
 		'pdo-mysql' => $pdo ? 'ok' : 'ko',
 		'dom' => $dom ? 'ok' : 'ko',
+		'data' => $data ? 'ok' : 'ko',
 		'cache' => $cache ? 'ok' : 'ko',
 		'log' => $log ? 'ok' : 'ko',
-		'configuration' => $conf ? 'ok' : 'ko',
-		'data' => $data ? 'ok' : 'ko',
-		'all' => $php && $minz && $curl && $pdo && $dom && $cache && $log && $conf && $data ? 'ok' : 'ko'
+		'favicons' => $favicons ? 'ok' : 'ko',
+		'all' => $php && $minz && $curl && $pdo && $dom && $data && $cache && $log && $favicons ? 'ok' : 'ko'
 	);
 }
+
 function checkStep2 () {
-	$conf = isset ($_SESSION['sel']) &&
-	        isset ($_SESSION['base_url']) &&
-	        isset ($_SESSION['title']) &&
-	        isset ($_SESSION['old_entries']) &&
-	        isset ($_SESSION['mail_login']);
-	$data = file_exists (PUBLIC_PATH . '/data/Configuration.array.php');
+	$conf = !empty($_SESSION['sel_application']) &&
+	        !empty($_SESSION['title']) &&
+	        !empty($_SESSION['old_entries']) &&
+	        isset($_SESSION['mail_login']) &&
+	        !empty($_SESSION['default_user']);
+	$defaultUser = empty($_POST['default_user']) ? null : $_POST['default_user'];
+	if ($defaultUser === null) {
+		$defaultUser = empty($_SESSION['default_user']) ? '' : $_SESSION['default_user'];
+	}
+	$data = file_exists (DATA_PATH . '/' . $defaultUser . '_user.php');
+	if ($data) {
+		@unlink(DATA_PATH . '/Configuration.array.php');	//v0.6
+	}
 
 	return array (
 		'conf' => $conf ? 'ok' : 'ko',
@@ -292,12 +582,15 @@ function checkStep2 () {
 	);
 }
 function checkStep3 () {
-	$conf = file_exists (APP_PATH . '/configuration/application.ini');
+	$conf = file_exists (DATA_PATH . '/config.php');
+
 	$bd = isset ($_SESSION['bd_type']) &&
 	      isset ($_SESSION['bd_host']) &&
 	      isset ($_SESSION['bd_user']) &&
-	      isset ($_SESSION['bd_pass']) &&
-	      isset ($_SESSION['bd_name']);
+	      isset ($_SESSION['bd_password']) &&
+	      isset ($_SESSION['bd_base']) &&
+	      isset ($_SESSION['bd_prefix']) &&
+	      isset ($_SESSION['bd_error']);
 	$conn = !isset ($_SESSION['bd_error']) || !$_SESSION['bd_error'];
 
 	return array (
@@ -307,54 +600,61 @@ function checkStep3 () {
 		'all' => $bd && $conn && $conf ? 'ok' : 'ko'
 	);
 }
+
 function checkBD () {
 	$error = false;
 
 	try {
 		$str = '';
 		$driver_options = null;
-		if($_SESSION['bd_type'] == 'mysql') {
-			$driver_options = array(
-				PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8'
-			);
+		switch ($_SESSION['bd_type']) {
+			case 'mysql':
+				$driver_options = array(
+					PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8'
+				);
 
-			// on ouvre une connexion juste pour créer la base si elle n'existe pas
-			$str = 'mysql:host=' . $_SESSION['bd_host'] . ';';
-			$c = new PDO ($str,
-				      $_SESSION['bd_user'],
-				      $_SESSION['bd_pass'],
-				      $driver_options);
+				// on ouvre une connexion juste pour créer la base si elle n'existe pas
+				$str = 'mysql:host=' . $_SESSION['bd_host'] . ';';
+				$c = new PDO ($str, $_SESSION['bd_user'], $_SESSION['bd_password'], $driver_options);
 
-			$sql = sprintf (SQL_REQ_CREATE_DB, $_SESSION['bd_name']);
-			$res = $c->query ($sql);
+				$sql = sprintf (SQL_CREATE_DB, $_SESSION['bd_base']);
+				$res = $c->query ($sql);
 
-			// on écrase la précédente connexion en sélectionnant la nouvelle BDD
-			$str = 'mysql:host=' . $_SESSION['bd_host'] . ';dbname=' . $_SESSION['bd_name'];
-		} elseif($_SESSION['bd_type'] == 'sqlite') {
-			$str = 'sqlite:' . PUBLIC_PATH
-			     . '/data/' . $_SESSION['bd_name'] . '.sqlite';
+				// on écrase la précédente connexion en sélectionnant la nouvelle BDD
+				$str = 'mysql:host=' . $_SESSION['bd_host'] . ';dbname=' . $_SESSION['bd_base'];
+				break;
+			case 'sqlite':
+				$str = 'sqlite:' . DATA_PATH . $_SESSION['bd_base'] . '.sqlite';
+				break;
+			default:
+				return false;
 		}
 
-		$c = new PDO ($str,
-			      $_SESSION['bd_user'],
-			      $_SESSION['bd_pass'],
-			      $driver_options);
+		$c = new PDO ($str, $_SESSION['bd_user'], $_SESSION['bd_password'], $driver_options);
 
-		$sql = sprintf (SQL_REQ_CAT, $_SESSION['bd_prefix']);
+		$stm = $c->prepare(SQL_SHOW_TABLES);
+		$stm->execute();
+		$res = $stm->fetchAll(PDO::FETCH_COLUMN, 0);
+		if (in_array($_SESSION['bd_prefix'] . 'entry', $res) && !in_array($_SESSION['bd_prefix'] . 'entry006', $res)) {
+			$sql = sprintf(SQL_BACKUP006, $_SESSION['bd_prefix']);	//v0.6
+			$res = $c->query($sql);	//Backup tables
+		}
+
+		$sql = sprintf (SQL_CAT, $_SESSION['bd_prefix_user']);
 		$res = $c->query ($sql);
 
 		if (!$res) {
 			$error = true;
 		}
 
-		$sql = sprintf (SQL_REQ_FEED, $_SESSION['bd_prefix'], $_SESSION['bd_prefix']);
+		$sql = sprintf (SQL_FEED, $_SESSION['bd_prefix_user']);
 		$res = $c->query ($sql);
 
 		if (!$res) {
 			$error = true;
 		}
 
-		$sql = sprintf (SQL_REQ_ENTRY, $_SESSION['bd_prefix'], $_SESSION['bd_prefix']);
+		$sql = sprintf (SQL_ENTRY, $_SESSION['bd_prefix_user']);
 		$res = $c->query ($sql);
 
 		if (!$res) {
@@ -364,8 +664,8 @@ function checkBD () {
 		$error = true;
 	}
 
-	if ($error && file_exists (APP_PATH . '/configuration/application.ini')) {
-		unlink (APP_PATH . '/configuration/application.ini');
+	if ($error && file_exists (DATA_PATH . '/config.php')) {
+		unlink (DATA_PATH . '/config.php');
 	}
 
 	return !$error;
@@ -420,7 +720,7 @@ function printStep1 () {
 	<?php if ($res['minz'] == 'ok') { ?>
 	<p class="alert alert-success"><span class="alert-head"><?php echo _t ('ok'); ?></span> <?php echo _t ('minz_is_ok'); ?></p>
 	<?php } else { ?>
-	<p class="alert alert-error"><span class="alert-head"><?php echo _t ('damn'); ?></span> <?php echo _t ('minz_is_nok', LIB_PATH . '/minz'); ?></p>
+	<p class="alert alert-error"><span class="alert-head"><?php echo _t ('damn'); ?></span> <?php echo _t ('minz_is_nok', LIB_PATH . '/Minz'); ?></p>
 	<?php } ?>
 
 	<?php if ($res['curl'] == 'ok') { ?>
@@ -442,28 +742,28 @@ function printStep1 () {
 	<p class="alert alert-error"><span class="alert-head"><?php echo _t ('damn'); ?></span> <?php echo _t ('dom_is_nok'); ?></p>
 	<?php } ?>
 
+	<?php if ($res['data'] == 'ok') { ?>
+	<p class="alert alert-success"><span class="alert-head"><?php echo _t ('ok'); ?></span> <?php echo _t ('data_is_ok'); ?></p>
+	<?php } else { ?>
+	<p class="alert alert-error"><span class="alert-head"><?php echo _t ('damn'); ?></span> <?php echo _t ('file_is_nok', DATA_PATH); ?></p>
+	<?php } ?>
+
 	<?php if ($res['cache'] == 'ok') { ?>
 	<p class="alert alert-success"><span class="alert-head"><?php echo _t ('ok'); ?></span> <?php echo _t ('cache_is_ok'); ?></p>
 	<?php } else { ?>
-	<p class="alert alert-error"><span class="alert-head"><?php echo _t ('damn'); ?></span> <?php echo _t ('file_is_nok', PUBLIC_PATH . '/../cache'); ?></p>
+	<p class="alert alert-error"><span class="alert-head"><?php echo _t ('damn'); ?></span> <?php echo _t ('file_is_nok', CACHE_PATH); ?></p>
 	<?php } ?>
 
 	<?php if ($res['log'] == 'ok') { ?>
 	<p class="alert alert-success"><span class="alert-head"><?php echo _t ('ok'); ?></span> <?php echo _t ('log_is_ok'); ?></p>
 	<?php } else { ?>
-	<p class="alert alert-error"><span class="alert-head"><?php echo _t ('damn'); ?></span> <?php echo _t ('file_is_nok', PUBLIC_PATH . '/../log'); ?></p>
+	<p class="alert alert-error"><span class="alert-head"><?php echo _t ('damn'); ?></span> <?php echo _t ('file_is_nok', LOG_PATH); ?></p>
 	<?php } ?>
 
-	<?php if ($res['configuration'] == 'ok') { ?>
-	<p class="alert alert-success"><span class="alert-head"><?php echo _t ('ok'); ?></span> <?php echo _t ('conf_is_ok'); ?></p>
+	<?php if ($res['favicons'] == 'ok') { ?>
+	<p class="alert alert-success"><span class="alert-head"><?php echo _t ('ok'); ?></span> <?php echo _t ('favicons_is_ok'); ?></p>
 	<?php } else { ?>
-	<p class="alert alert-error"><span class="alert-head"><?php echo _t ('damn'); ?></span> <?php echo _t ('file_is_nok', APP_PATH . '/configuration'); ?></p>
-	<?php } ?>
-
-	<?php if ($res['data'] == 'ok') { ?>
-	<p class="alert alert-success"><span class="alert-head"><?php echo _t ('ok'); ?></span> <?php echo _t ('data_is_ok'); ?></p>
-	<?php } else { ?>
-	<p class="alert alert-error"><span class="alert-head"><?php echo _t ('damn'); ?></span> <?php echo _t ('file_is_nok', PUBLIC_PATH . '/data'); ?></p>
+	<p class="alert alert-error"><span class="alert-head"><?php echo _t ('damn'); ?></span> <?php echo _t ('file_is_nok', DATA_PATH . '/favicons'); ?></p>
 	<?php } ?>
 
 	<?php if ($res['all'] == 'ok') { ?>
@@ -485,13 +785,6 @@ function printStep2 () {
 		<?php
 			$url = substr ($_SERVER['PHP_SELF'], 0, -10);
 		?>
-		<div class="form-group" style="display:none">
-			<!-- TODO: if no problem during version 0.6, remove for version 0.7 -->
-			<label class="group-name" for="base_url"><?php echo _t ('base_url'); ?></label>
-			<div class="group-controls">
-				<input type="text" id="base_url" name="base_url" value="<?php echo isset ($_SESSION['base_url']) ? $_SESSION['base_url'] : $url; ?>" /> <i class="icon i_help"></i> <?php echo _t ('do_not_change_if_doubt'); ?>
-			</div>
-		</div>
 
 		<div class="form-group">
 			<label class="group-name" for="title"><?php echo _t ('title'); ?></label>
@@ -504,6 +797,13 @@ function printStep2 () {
 			<label class="group-name" for="old_entries"><?php echo _t ('delete_articles_every'); ?></label>
 			<div class="group-controls">
 				<input type="number" id="old_entries" name="old_entries" value="<?php echo isset ($_SESSION['old_entries']) ? $_SESSION['old_entries'] : '3'; ?>" /> <?php echo _t ('month'); ?>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="group-name" for="default_user"><?php echo _t ('default_user'); ?></label>
+			<div class="group-controls">
+				<input type="text" id="default_user" name="default_user" maxlength="16" value="<?php echo isset ($_SESSION['default_user']) ? $_SESSION['default_user'] : ''; ?>" placeholder="user1" />
 			</div>
 		</div>
 
@@ -538,24 +838,22 @@ function printStep3 () {
 
 	<form action="index.php?step=3" method="post">
 		<legend><?php echo _t ('bdd_configuration'); ?></legend>
-		<!--
-		TODO : l'utilisation de SQLite n'est pas encore possible. Pour tester tout de même, décommentez ce bloc
 		<div class="form-group">
 			<label class="group-name" for="type"><?php echo _t ('bdd_type'); ?></label>
 			<div class="group-controls">
 				<select name="type" id="type">
 				<option value="mysql"
-					<?php echo $_SESSION['bd_type'] && $_SESSION['bd_type'] == 'mysql' ? 'selected="selected"' : ''; ?>>
+					<?php echo (isset($_SESSION['bd_type']) && $_SESSION['bd_type'] === 'mysql') ? 'selected="selected"' : ''; ?>>
 					MySQL
 				</option>
+				<!-- TODO : l'utilisation de SQLite n'est pas encore possible. Pour tester tout de même, décommentez ce bloc
 				<option value="sqlite"
-					<?php echo $_SESSION['bd_type'] && $_SESSION['bd_type'] == 'sqlite' ? 'selected="selected"' : ''; ?>>
+					<?php echo (isset($_SESSION['bd_type']) && $_SESSION['bd_type'] === 'sqlite') ? 'selected="selected"' : ''; ?>>
 					SQLite
-				</option>
+				</option>-->
 				</select>
 			</div>
 		</div>
-		-->
 
 		<div class="form-group">
 			<label class="group-name" for="host"><?php echo _t ('host'); ?></label>
@@ -574,21 +872,21 @@ function printStep3 () {
 		<div class="form-group">
 			<label class="group-name" for="pass"><?php echo _t ('password'); ?></label>
 			<div class="group-controls">
-				<input type="password" id="pass" name="pass" value="<?php echo isset ($_SESSION['bd_pass']) ? $_SESSION['bd_pass'] : ''; ?>" />
+				<input type="password" id="pass" name="pass" value="<?php echo isset ($_SESSION['bd_password']) ? $_SESSION['bd_password'] : ''; ?>" />
 			</div>
 		</div>
 
 		<div class="form-group">
 			<label class="group-name" for="base"><?php echo _t ('bdd'); ?></label>
 			<div class="group-controls">
-				<input type="text" id="base" name="base" value="<?php echo isset ($_SESSION['bd_name']) ? $_SESSION['bd_name'] : ''; ?>" />
+				<input type="text" id="base" name="base" maxlength="64" value="<?php echo isset ($_SESSION['bd_base']) ? $_SESSION['bd_base'] : ''; ?>" placeholder="freshrss" />
 			</div>
 		</div>
 
 		<div class="form-group">
 			<label class="group-name" for="prefix"><?php echo _t ('prefix'); ?></label>
 			<div class="group-controls">
-				<input type="text" id="prefix" name="prefix" value="<?php echo isset ($_SESSION['bd_prefix']) ? $_SESSION['bd_prefix'] : 'freshrss_'; ?>" />
+				<input type="text" id="prefix" name="prefix" maxlength="16" value="<?php echo isset ($_SESSION['bd_prefix']) ? $_SESSION['bd_prefix'] : 'freshrss_'; ?>" />
 			</div>
 		</div>
 
@@ -607,20 +905,39 @@ function printStep3 () {
 
 function printStep4 () {
 ?>
-	<p class="alert alert-success"><span class="alert-head"><?php echo _t ('congratulations'); ?></span> <?php echo _t ('installation_is_ok'); ?></p>
-	<a class="btn btn-important next-step" href="?step=5"><?php echo _t ('finish_installation'); ?></a>
+	<form action="index.php?step=4" method="post">
+		<legend><?php echo _t ('version_update'); ?></legend>
+		<div class="form-group form-actions">
+			<div class="group-controls">
+				<?php if (updateDatabase(false)) { ?>
+				<input type="hidden" name="updateDatabase" value="1" />
+				<button type="submit" class="btn btn-important"><?php echo _t ('update_start'); ?></button>
+				<p><?php echo _t ('update_long'); ?></p>
+				<?php } else { ?>
+				<a class="btn btn-important next-step" href="?step=5"><?php echo _t ('next_step'); ?></a>
+				<?php } ?>
+			</div>
+		</div>
+	</form>
 <?php
 }
 
 function printStep5 () {
 ?>
+	<p class="alert alert-success"><span class="alert-head"><?php echo _t ('congratulations'); ?></span> <?php echo _t ('installation_is_ok'); ?></p>
+	<a class="btn btn-important next-step" href="?step=6"><?php echo _t ('finish_installation'); ?></a>
+<?php
+}
+
+function printStep6 () {
+?>
 	<p class="alert alert-error"><span class="alert-head"><?php echo _t ('oops'); ?></span> <?php echo _t ('install_not_deleted', PUBLIC_PATH . '/install.php'); ?></p>
 <?php
 }
 
-initTranslate ();
-
 checkStep ();
+
+initTranslate ();
 
 switch (STEP) {
 case 0:
@@ -636,8 +953,13 @@ case 3:
 	saveStep3 ();
 	break;
 case 4:
+	if (!empty($_POST['updateDatabase'])) {
+		updateDatabase(true);
+	}
 	break;
 case 5:
+	break;
+case 6:
 	deleteInstall ();
 	break;
 }
@@ -667,7 +989,8 @@ case 5:
 		<li class="item<?php echo STEP == 1 ? ' active' : ''; ?>"><a href="?step=1"><?php echo _t ('checks'); ?></a></li>
 		<li class="item<?php echo STEP == 2 ? ' active' : ''; ?>"><a href="?step=2"><?php echo _t ('general_configuration'); ?></a></li>
 		<li class="item<?php echo STEP == 3 ? ' active' : ''; ?>"><a href="?step=3"><?php echo _t ('bdd_configuration'); ?></a></li>
-		<li class="item<?php echo STEP == 4 ? ' active' : ''; ?>"><a href="?step=4"><?php echo _t ('this_is_the_end'); ?></a></li>
+		<li class="item<?php echo STEP == 4 ? ' active' : ''; ?>"><a href="?step=4"><?php echo _t ('version_update'); ?></a></li>
+		<li class="item<?php echo STEP == 5 ? ' active' : ''; ?>"><a href="?step=5"><?php echo _t ('this_is_the_end'); ?></a></li>
 	</ul>
 
 	<div class="post">
@@ -692,10 +1015,12 @@ case 5:
 		case 5:
 			printStep5 ();
 			break;
+		case 6:
+			printStep6 ();
+			break;
 		}
 		?>
 	</div>
 </div>
 	</body>
 </html>
-

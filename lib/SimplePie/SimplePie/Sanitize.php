@@ -62,6 +62,7 @@ class SimplePie_Sanitize
 	var $strip_htmltags = array('base', 'blink', 'body', 'doctype', 'embed', 'font', 'form', 'frame', 'frameset', 'html', 'iframe', 'input', 'marquee', 'meta', 'noscript', 'object', 'param', 'script', 'style');
 	var $encode_instead_of_strip = false;
 	var $strip_attributes = array('bgsound', 'class', 'expr', 'id', 'style', 'onclick', 'onerror', 'onfinish', 'onmouseover', 'onmouseout', 'onfocus', 'onblur', 'lowsrc', 'dynsrc');
+	var $add_attributes = array('audio' => array('preload' => 'none'), 'iframe' => array('sandbox' => 'allow-scripts allow-same-origin'), 'video' => array('preload' => 'none'));	//FreshRSS
 	var $strip_comments = false;
 	var $output_encoding = 'UTF-8';
 	var $enable_cache = true;
@@ -179,6 +180,25 @@ class SimplePie_Sanitize
 		}
 	}
 
+	public function add_attributes($attribs = array('audio' => array('preload' => 'none'), 'iframe' => array('sandbox' => 'allow-scripts allow-same-origin'), 'video' => array('preload' => 'none')))
+	{
+		if ($attribs)
+		{
+			if (is_array($attribs))
+			{
+				$this->add_attributes = $attribs;
+			}
+			else
+			{
+				$this->add_attributes = explode(',', $attribs);
+			}
+		}
+		else
+		{
+			$this->add_attributes = false;
+		}
+	}
+
 	public function strip_comments($strip = false)
 	{
 		$this->strip_comments = (bool) $strip;
@@ -255,10 +275,11 @@ class SimplePie_Sanitize
 				$document->loadHTML($data);
 				restore_error_handler();
 
+				$xpath = new DOMXPath($document);	//FreshRSS
+
 				// Strip comments
 				if ($this->strip_comments)
 				{
-					$xpath = new DOMXPath($document);
 					$comments = $xpath->query('//comment()');
 
 					foreach ($comments as $comment)
@@ -274,7 +295,7 @@ class SimplePie_Sanitize
 				{
 					foreach ($this->strip_htmltags as $tag)
 					{
-						$this->strip_tag($tag, $document, $type);
+						$this->strip_tag($tag, $document, $xpath, $type);
 					}
 				}
 
@@ -282,7 +303,15 @@ class SimplePie_Sanitize
 				{
 					foreach ($this->strip_attributes as $attrib)
 					{
-						$this->strip_attr($attrib, $document);
+						$this->strip_attr($attrib, $xpath);
+					}
+				}
+
+				if ($this->add_attributes)
+				{
+					foreach ($this->add_attributes as $tag => $valuePairs)
+					{
+						$this->add_attr($tag, $valuePairs, $document);
 					}
 				}
 
@@ -452,9 +481,8 @@ class SimplePie_Sanitize
 		}
 	}
 
-	protected function strip_tag($tag, $document, $type)
+	protected function strip_tag($tag, $document, $xpath, $type)
 	{
-		$xpath = new DOMXPath($document);
 		$elements = $xpath->query('body//' . $tag);
 		if ($this->encode_instead_of_strip)
 		{
@@ -537,14 +565,25 @@ class SimplePie_Sanitize
 		}
 	}
 
-	protected function strip_attr($attrib, $document)
+	protected function strip_attr($attrib, $xpath)
 	{
-		$xpath = new DOMXPath($document);
 		$elements = $xpath->query('//*[@' . $attrib . ']');
 
 		foreach ($elements as $element)
 		{
 			$element->removeAttribute($attrib);
+		}
+	}
+
+	protected function add_attr($tag, $valuePairs, $document)
+	{
+		$elements = $document->getElementsByTagName($tag);
+		foreach ($elements as $element)
+		{
+			foreach ($valuePairs as $attrib => $value)
+			{
+				$element->setAttribute($attrib, $value);
+			}
 		}
 	}
 }

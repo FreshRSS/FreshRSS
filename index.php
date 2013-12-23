@@ -1,2 +1,0 @@
-<?php
-header('Location: public/');

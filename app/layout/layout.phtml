@@ -10,17 +10,20 @@
 <?php $this->renderHelper ('javascript_vars'); ?>
 		//]]></script>
 <?php
-	$next = isset($this->entryPaginator) ? $this->entryPaginator->next() : '';
-	if (!empty($next)) {
-		$params = Request::params ();
-		$params['next'] = $next;
+	if (!empty($this->nextId)) {
+		$params = Minz_Request::params ();
+		$params['next'] = $this->nextId;
 ?>
-		<link id="prefetch" rel="next prefetch" href="<?php echo Url::display (array ('c' => Request::controllerName (), 'a' => Request::actionName (), 'params' => $params)); ?>" />
+		<link id="prefetch" rel="next prefetch" href="<?php echo Minz_Url::display (array ('c' => Minz_Request::controllerName (), 'a' => Minz_Request::actionName (), 'params' => $params)); ?>" />
 <?php } ?>
-		<link rel="icon" href="<?php echo Url::display ('/favicon.ico'); ?>" />
+		<link rel="icon" href="<?php echo Minz_Url::display ('/favicon.ico'); ?>" />
 <?php if (isset ($this->rss_url)) { ?>
-		<link rel="alternate" type="application/rss+xml" title="<?php echo htmlspecialchars($this->rss_title, ENT_COMPAT, 'UTF-8'); ?>" href="<?php echo Url::display ($this->rss_url); ?>" />
+		<link rel="alternate" type="application/rss+xml" title="<?php echo $this->rss_title; ?>" href="<?php echo Minz_Url::display ($this->rss_url); ?>" />
 <?php } ?>
+		<link rel="prefetch" href="<?php echo FreshRSS_Themes::icon('starred', true); ?>">
+		<link rel="prefetch" href="<?php echo FreshRSS_Themes::icon('non-starred', true); ?>">
+		<link rel="prefetch" href="<?php echo FreshRSS_Themes::icon('read', true); ?>">
+		<link rel="prefetch" href="<?php echo FreshRSS_Themes::icon('unread', true); ?>">
 		<meta name="robots" content="noindex,nofollow" />
 	</head>
 	<body>
@@ -32,11 +35,11 @@
 
 <?php
 	if (isset ($this->notification)) {
-		touch(PUBLIC_PATH . '/data/touch.txt', time() + 1);
+		invalidateHttpCache();
 ?>
 <div class="notification <?php echo $this->notification['type']; ?>">
 	<?php echo $this->notification['content']; ?>
-	<a class="close" href=""><i class="icon i_close"></i></a>
+	<a class="close" href=""><?php echo FreshRSS_Themes::icon('close'); ?></a>
 </div>
 <?php } ?>
 	</body>

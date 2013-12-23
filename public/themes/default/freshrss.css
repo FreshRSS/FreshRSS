@@ -1,3 +1,5 @@
+@charset "UTF-8";
+
 /* STRUCTURE */
 .header {
 	display: table;
@@ -16,17 +18,17 @@
 			width: 250px;
 			white-space: nowrap;
 		}
-			.header > .item.title .logo {
+			.logo {
 				display: inline-block;
+				font-size: 48px;
+				height: 32px;
+				width: 32px;
 				padding: 10px;
 			}
 			.header > .item.title h1 {
 				display: inline-block;
 				margin: 0;
 				text-shadow: 1px -1px 0 #ccc;
-			}
-			.header > .item.title a:hover {
-				text-decoration: none;
 			}
 		.header > .item.search input {
 			width: 230px;
@@ -38,6 +40,10 @@
 		.header > .item.configure {
 			width: 100px;
 		}
+
+.item a:hover {
+	text-decoration: none;
+}
 
 #global {
 	display: table;
@@ -70,11 +76,6 @@
 			right: 33px;
 		}
 
-		.aside.aside_flux .i_category {
-			background-image: url("../icons/category-white.png");
-			background-image: url("../icons/category-white.svg");
-		}
-
 	.nav-login {
 		display: none;
 	}
@@ -86,6 +87,9 @@
 		text-align: center;
 		padding: 5px 0;
 	}
+		.nav_menu .search {
+			display:none;
+		}
 
 .favicon {
 	height: 16px;
@@ -177,17 +181,16 @@
 		.categories .feeds .dropdown-menu:after {
 			left: 2px;
 		}
-		.categories .feeds .item .dropdown-toggle i {
-			background-image: none;
+		.categories .feeds .item .dropdown-toggle > .icon {
+			visibility: hidden;
 			cursor: pointer;
 		}
-			.categories .feeds .item .dropdown-target:target ~ .dropdown-toggle i,
-			.categories .feeds .item:hover .dropdown-toggle i,
-			.categories .feeds .item.active .dropdown-toggle i {
-				background-image: url("../icons/configure.png");
-				background-image: url("../icons/configure.svg");
+			.categories .feeds .item .dropdown-target:target ~ .dropdown-toggle > .icon,
+			.categories .feeds .item:hover .dropdown-toggle > .icon,
+			.categories .feeds .item.active .dropdown-toggle > .icon {
 				background-color: #fff;
 				border-radius: 3px;
+				visibility: visible;
 			}
 
 .post {
@@ -234,10 +237,6 @@
 	.flux:hover {
 		background: #fff;
 	}
-	.flux.active {
-		border-left: 3px solid #0062BE;
-		background: #fff;
-	}
 	.flux.not_read {
 		border-left: 3px solid #FF5300;
 		background: #FFF3ED;
@@ -246,80 +245,64 @@
 		border-left: 3px solid #FFC300;
 		background: #FFF6DA;
 	}
+	.flux.current {
+		border-left: 3px solid #0062BE;
+		background: #fff;
+	}
 
 	.flux_header {
+		background: inherit;
 		height: 25px;
 		font-size: 12px;
-		line-height: 25px;
 		border-top: 1px solid #ddd;
+		cursor: pointer;
 	}
-		.item.manage {
+		.flux .flux_header > .item > a,
+		.flux .bottom > .item > a {
+			display: inline-block;
+			height: 40px;
+			width: 100%;
+			line-height: 40px;
+		}
+		.flux .item.manage {
 			width: 40px;
 			white-space: nowrap;
-			font-size: 0px;
 			text-align: center;
 		}
-			.read {
-				display: inline-block;
-				width: 40px;
-				height: 40px;
-				background: url("../icons/read.png") center center no-repeat;
-				background: url("../icons/read.svg") center center no-repeat;
-				vertical-align: middle;
-			}
-				.read:hover {
-					text-decoration: none;
-				}
-				.flux.not_read .read {
-					background: url("../icons/unread.png") center center no-repeat;
-					background: url("../icons/unread.svg") center center no-repeat;
-				}
-			.bookmark {
-				display: inline-block;
-				width: 40px;
-				height: 40px;
-				background: url("../icons/non-starred.png") center center no-repeat;
-				background: url("../icons/non-starred.svg") center center no-repeat;
-				vertical-align: middle;
-			}
-				.bookmark:hover {
-					text-decoration: none;
-				}
-				.flux.favorite .bookmark {
-					background: url("../icons/starred.png") center center no-repeat;
-					background: url("../icons/starred.svg") center center no-repeat;
-				}
-		.flux_header .item.website {
+		.flux .item.website {
 			width: 200px;
 			overflow: hidden;
 			white-space: nowrap;
 			text-overflow: ellipsis;
 			line-height: 40px;
 		}
-			.flux_header .item.website .favicon {
+			.flux .item.website .favicon {
 				padding: 5px;
 			}
-			.flux_header .item.website a {
+			.flux .item.website a {
 				display: block;
 				height: 40px;
 			}
-		.flux_header .item.title {
+		.flux .item.title {
+			background: inherit;
 			overflow: hidden;
 			white-space: nowrap;
 			text-overflow: ellipsis;
-			cursor: pointer;
 		}
-			.flux_header .item.title a {
+		.flux:hover .item.title {
+			border-right: 2px solid rgba(127, 127, 127, 0.1);
+			padding-right: 1em;
+			position: absolute;
+		}
+			.flux .item.title a {
 				color: #000;
 				outline: none;
 			}
-				.flux_header .item.title a:hover {
-					text-decoration: none
-				}
-			.flux.not_read .flux_header .item.title {
+			.flux.not_read .item.title,
+			.flux.current .item.title {
 				font-weight: bold;
 			}
-		.item.date {
+		.flux .item.date {
 			width: 200px;
 			overflow: hidden;
 			padding:0 5px 0 0;
@@ -328,23 +311,11 @@
 			text-align: right;
 			font-size: 10px;
 			color: #666;
-			cursor: pointer;
 		}
-		.item.link {
+		.link {
 			width: 40px;
 			text-align: center;
 		}
-			.item.link a {
-				display: inline-block;
-				width: 40px;
-				height: 40px;
-				background: url("../icons/link.png") center center no-repeat;
-				background: url("../icons/link.svg") center center no-repeat;
-				vertical-align: middle;
-			}
-				.item.link a:hover {
-					text-decoration: none;
-				}
 
 #stream.reader .flux {
 	padding: 0 0 30px;
@@ -416,18 +387,19 @@
 		}
 
 .content {
-	min-height: 300px;
+	min-height: 150px;
 	max-width: 550px;
 	margin: 0 auto;
 	padding: 20px 10px;
 	line-height: 170%;
 	word-wrap: break-word;
 }
-	.content .title {
-		margin: 0 0 5px;
-	}
 	.content h1, .content h2, .content h3 {
 		margin: 20px 0 5px;
+	}
+	.content > .title {
+		font-size: x-large;
+		margin: 0;
 	}
 
 	.content p {
@@ -576,19 +548,22 @@
 	font-size: 0;
 }
 
-.bigMarkAsRead {
-	cursor: pointer;
-	height: 300px;
+#bigMarkAsRead {
+	display: block;
+	font-style: normal;
+	padding: 32px 0 64px 0;
+	text-align: center;
+	text-decoration: none;
 	text-shadow: 0 -1px 0 #aaa;
 }
-.bigMarkAsRead:hover {
-	background: #333;
-	color: #fff;
-}
-.bigTick {
-	font-size: 72pt;
-	margin: 75px 0 10px 0;
-}
+	#bigMarkAsRead:hover {
+		background: #333;
+		color: #fff;
+	}
+	.bigTick {
+		font-size: 72pt;
+		line-height: 1.6em;
+	}
 
 /*** NOTIFICATION ***/
 .notification {
@@ -675,6 +650,10 @@
 		background: #f4f4f4;
 		color: #aaa;
 	}
+	.log.debug {
+		background: #111;
+		color: #eee;
+	}
 
 .form-group table {
 	border-collapse:collapse;
@@ -710,6 +689,7 @@
 
 	.content {
 		font-size: 120%;
+		padding: 0;
 	}
 
 	.pagination {
@@ -768,6 +748,17 @@
 	.nav_menu .stick .btn {
 		margin: 5px 0;
 	}
+	.nav_menu .search {
+			display: inline-block;
+			max-width: 97%;
+		}
+		.nav_menu .search input {
+			max-width: 97%;
+			width: 90px;
+		}
+		.nav_menu .search input:focus {
+			width: 400px;
+		}
 
 	#panel {
 		left: 5px; right: 5px;
@@ -858,5 +849,42 @@
 		 -webkit-transition: width 200ms linear;
 		-o-transition: width 200ms linear;
 		-ms-transition: width 200ms linear;
+	}
+}
+
+@media print {
+	.header,
+	.aside,
+	.nav_menu,
+	.day,
+	.flux_header,
+	.flux_content .bottom,
+	.pagination {
+		display: none;
+	}
+
+	html, body {
+		background: #fff;
+		color: #000;
+		font-family: Serif;
+		font-size: 12pt;
+	}
+
+	#global,
+	.flux_content {
+		display: block !important;
+	}
+
+	.flux_content .content {
+		width: 100% !important;
+		text-align: justify;
+	}
+
+	.flux_content .content a {
+		color: #000;
+	}
+	.flux_content .content a:after {
+		content: " (" attr(href) ") ";
+		text-decoration: underline;
 	}
 }

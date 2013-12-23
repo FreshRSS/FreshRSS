@@ -132,7 +132,7 @@ class SimplePie_Parser
 			}
 		}
 
-		try
+		try	//FreshRSS
 		{
 			$dom = new DOMDocument();
 			$dom->recover = true;
@@ -140,7 +140,6 @@ class SimplePie_Parser
 			$dom->loadXML($data);
 			$this->encoding = $encoding = $dom->encoding = 'UTF-8';
 			$data = $dom->saveXML();
-			//file_put_contents('/home/alex/public_html/alexandre.alapetite.fr/prive/FreshRSS/log/parser.log', date('c') . ' ' . 'OK' . "\n", FILE_APPEND);
 		}
 		catch (Exception $e)
 		{

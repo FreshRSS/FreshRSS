@@ -1,8 +1,8 @@
 <?php
 
-$output = Request::param ('output', 'normal');
+$output = Minz_Request::param ('output', 'normal');
 $token = $this->conf->token();
-$token_param = Request::param ('token', '');
+$token_param = Minz_Request::param ('token', '');
 $token_is_ok = ($token != '' && $token == $token_param);
 
 if(!login_is_conf ($this->conf) ||
@@ -21,9 +21,9 @@ if(!login_is_conf ($this->conf) ||
 } else {
 ?>
 <div class="post content">
-	<h1><?php echo Translate::t ('forbidden_access'); ?></h1>
-	<p><?php echo Translate::t ('forbidden_access_description'); ?></p>
-	<p><a href="<?php echo _url ('index', 'about'); ?>"><?php echo Translate::t ('about_freshrss'); ?></a></p>
+	<h1><?php echo Minz_Translate::t ('forbidden_access'); ?></h1>
+	<p><?php echo Minz_Translate::t ('forbidden_access_description'); ?></p>
+	<p><a href="<?php echo _url ('index', 'about'); ?>"><?php echo Minz_Translate::t ('about_freshrss'); ?></a></p>
 </div>
 <?php
 }

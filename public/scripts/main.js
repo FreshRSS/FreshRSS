@@ -1,5 +1,6 @@
 "use strict";
-var $stream = null;
+var $stream = null,
+	isCollapsed = true;
 
 function is_normal_mode() {
 	return $stream.hasClass('normal');
@@ -39,11 +40,8 @@ function mark_read(active, only_not_read) {
 		url: url,
 		data : { ajax: true }
 	}).done(function (data) {
-		var res = $.parseJSON(data);
-
-		active.find("a.read").attr("href", res.url);
-
-		var inc = 0;
+		var $r = active.find("a.read").attr("href", data.url),
+			inc = 0;
 		if (active.hasClass("not_read")) {
 			active.removeClass("not_read");
 			inc--;
@@ -51,6 +49,7 @@ function mark_read(active, only_not_read) {
 			active.addClass("not_read");
 			inc++;
 		}
+		$r.find('.icon').replaceWith(data.icon);
 
 		//Update unread: feed
 		var feed_url = active.find(".website>a").attr("href"),
@@ -58,12 +57,16 @@ function mark_read(active, only_not_read) {
 			elem = $('#' + feed_id + ' .feed').get(0),
 			feed_unread = elem ? (parseInt(elem.getAttribute('data-unread'), 10) || 0) : 0,
 			feed_priority = elem ? (parseInt(elem.getAttribute('data-priority'), 10) || 0) : 0;
-		elem.setAttribute('data-unread', Math.max(0, feed_unread + inc));
+		if (elem) {
+			elem.setAttribute('data-unread', Math.max(0, feed_unread + inc));
+		}
 
 		//Update unread: category
 		elem = $('#' + feed_id).parent().prevAll('.category').children(':first').get(0);
 		feed_unread = elem ? (parseInt(elem.getAttribute('data-unread'), 10) || 0) : 0;
-		elem.setAttribute('data-unread', Math.max(0, feed_unread + inc));
+		if (elem) {
+			elem.setAttribute('data-unread', Math.max(0, feed_unread + inc));
+		}
 
 		//Update unread: all
 		if (feed_priority > 0) {
@@ -105,17 +108,16 @@ function mark_favorite(active) {
 		url: url,
 		data : { ajax: true }
 	}).done(function (data) {
-		var res = $.parseJSON(data);
-
-		active.find("a.bookmark").attr("href", res.url);
-		var inc = 0;
+		var $b = active.find("a.bookmark").attr("href", data.url),
+			inc = 0;
 		if (active.hasClass("favorite")) {
 			active.removeClass("favorite");
 			inc--;
 		} else {
-			active.addClass("favorite");
+			active.addClass("favorite").find('.bookmark');
 			inc++;
 		}
+		$b.find('.icon').replaceWith(data.icon);
 
 		var favourites = $('.favorites>a').contents().last().get(0);
 		if (favourites && favourites.textContent) {
@@ -134,15 +136,18 @@ function mark_favorite(active) {
 
 function toggleContent(new_active, old_active) {
 	if (does_lazyload) {
-		new_active.find('img[data-original]').each(function () {
+		new_active.find('img[data-original], iframe[data-original]').each(function () {
 			this.setAttribute('src', this.getAttribute('data-original'));
 			this.removeAttribute('data-original');
 		});
 	}
 
-	old_active.removeClass("active");
+	old_active.removeClass("active").removeClass("current");
 	if (old_active[0] !== new_active[0]) {
-		new_active.addClass("active");
+		if (isCollapsed) {
+			new_active.addClass("active");
+		}
+		new_active.addClass("current");
 	}
 
 	var box_to_move = "html,body",
@@ -182,7 +187,7 @@ function toggleContent(new_active, old_active) {
 }
 
 function prev_entry() {
-	var old_active = $(".flux.active"),
+	var old_active = $(".flux.current"),
 		last_active = $(".flux:last"),
 		new_active = old_active.prevAll(".flux:first");
 
@@ -194,7 +199,7 @@ function prev_entry() {
 }
 
 function next_entry() {
-	var old_active = $(".flux.active"),
+	var old_active = $(".flux.current"),
 		first_active = $(".flux:first"),
 		last_active = $(".flux:last"),
 		new_active = old_active.nextAll(".flux:first");
@@ -208,6 +213,11 @@ function next_entry() {
 	if ((!auto_load_more) && (last_active.attr("id") === new_active.attr("id"))) {
 		load_more_posts();
 	}
+}
+
+function collapse_entry() {
+	isCollapsed = !isCollapsed;
+	$(".flux.current").toggleClass("active");
 }
 
 function inMarkViewport(flux, box_to_follow, relative_follow) {
@@ -279,7 +289,15 @@ function init_column_categories() {
 		return;
 	}
 	$('#aside_flux').on('click', '.category>a.dropdown-toggle', function () {
-		$(this).children().toggleClass("i_down").toggleClass("i_up");
+		$(this).children().each(function() {
+			if (this.alt === '▽') {
+				this.src = this.src.replace('/icons/down.', '/icons/up.');
+				this.alt = '△';
+			} else {
+				this.src = this.src.replace('/icons/up.', '/icons/down.');
+				this.alt = '▽';
+			}
+		});
 		$(this).parent().next(".feeds").slideToggle();
 		return false;
 	});
@@ -296,7 +314,7 @@ function init_shortcuts() {
 	// Touches de manipulation
 	shortcut.add(shortcuts.mark_read, function () {
 		// on marque comme lu ou non lu
-		var active = $(".flux.active");
+		var active = $(".flux.current");
 		mark_read(active, false);
 	}, {
 		'disable_in_input': true
@@ -310,8 +328,13 @@ function init_shortcuts() {
 	});
 	shortcut.add(shortcuts.mark_favorite, function () {
 		// on marque comme favori ou non favori
-		var active = $(".flux.active");
+		var active = $(".flux.current");
 		mark_favorite(active);
+	}, {
+		'disable_in_input': true
+	});
+	shortcut.add(shortcuts.collapse_entry, function () {
+		collapse_entry();
 	}, {
 		'disable_in_input': true
 	});
@@ -321,7 +344,7 @@ function init_shortcuts() {
 		'disable_in_input': true
 	});
 	shortcut.add("shift+" + shortcuts.prev_entry, function () {
-		var old_active = $(".flux.active"),
+		var old_active = $(".flux.current"),
 			first = $(".flux:first");
 
 		if (first.hasClass("flux")) {
@@ -334,7 +357,7 @@ function init_shortcuts() {
 		'disable_in_input': true
 	});
 	shortcut.add("shift+" + shortcuts.next_entry, function () {
-		var old_active = $(".flux.active"),
+		var old_active = $(".flux.current"),
 			last = $(".flux:last");
 
 		if (last.hasClass("flux")) {
@@ -347,7 +370,7 @@ function init_shortcuts() {
 		var url_website = $(".flux.active .link a").attr("href");
 
 		if (auto_mark_site) {
-			$(".flux.active").each(function () {
+			$(".flux.current").each(function () {
 				mark_read($(this), true);
 			});
 		}
@@ -356,12 +379,19 @@ function init_shortcuts() {
 	}, {
 		'disable_in_input': true
 	});
+
+	shortcut.add(shortcuts.load_more, function () {
+		load_more_posts();
+	}, {
+		'disable_in_input': true
+	});
 }
 
 function init_stream_delegates(divStream) {
-	divStream.on('click', '.flux_header>.item.title, .flux_header>.item.date', function (e) {	//flux_header_toggle
-		var old_active = $(".flux.active"),
-			new_active = $(this).parent().parent();
+	divStream.on('click', '.flux_header', function (e) {	//flux_header_toggle
+		var old_active = $(".flux.current"),
+			new_active = $(this).parent();
+			isCollapsed = true;
 		if (e.target.tagName.toUpperCase() === 'A') {	//Leave real links alone
 			if (auto_mark_article) {
 				mark_read(new_active, true);
@@ -397,12 +427,6 @@ function init_stream_delegates(divStream) {
 		return false;
 	});
 
-	divStream.on('click', '.bigMarkAsRead', function () {
-		var url = $(".nav_menu .read_all").attr("href");
-		redirect(url, false);
-		return false;
-	});
-
 	if (auto_mark_site) {
 		divStream.on('click', '.flux .link a', function () {
 			mark_read($(this).parent().parent().parent(), true);
@@ -421,7 +445,7 @@ function init_nav_entries() {
 		return false;
 	});
 	$nav_entries.find('.up').click(function () {
-		var active_item = $(".flux.active"),
+		var active_item = $(".flux.current"),
 			windowTop = $(window).scrollTop(),
 			item_top = active_item.position().top;
 
@@ -493,10 +517,13 @@ function load_more_posts() {
 	$.get(url_load_more, function (data) {
 		box_load_more.children('.flux:last').after($('#stream', data).children('.flux, .day'));
 		$('.pagination').replaceWith($('.pagination', data));
+		$('#bigMarkAsRead').attr('href', $('#nav_menu_read_all>a').attr('href'));
 
 		$('[id^=day_]').each(function (i) {
 			var ids = $('[id="' + this.id + '"]');
-			if (ids.length > 1) $('[id="' + this.id + '"]:gt(0)').remove();
+			if (ids.length > 1) {
+				$('[id="' + this.id + '"]:gt(0)').remove();
+			}
 		});
 
 		init_load_more(box_load_more);
@@ -563,16 +590,14 @@ function init_persona() {
 				url: url_login,
 				data: {assertion: assertion},
 				success: function(res, status, xhr) {
-					var res_obj = jQuery.parseJSON(res);
-
-					if (res_obj.status == 'failure') {
-						//alert (res_obj.reason);
-					} else if (res_obj.status == 'okay') {
+					/*if (res.status === 'failure') {
+						alert (res_obj.reason);
+					} else*/ if (res.status === 'okay') {
 						location.href = url_freshrss;
 					}
 				},
 				error: function(res, status, xhr) {
-					alert("login failure : " + res);
+					alert("Login failure: " + res);
 				}
 			});
 		},
@@ -598,8 +623,29 @@ function init_persona() {
 
 function init_confirm_action() {
 	$('.confirm').click(function () {
-        return confirm(str_confirmation);
-    });
+		return confirm(str_confirmation);
+	});
+}
+
+function init_print_action() {
+	$('.print-article').click(function () {
+		var content = "<html><head><style>"
+			+ "body { font-family: Serif; text-align: justify; }"
+			+ "a { color: #000; text-decoration: none; }"
+			+ "a:after { content: ' [' attr(href) ']'}"
+			+ "</style></head><body>"
+			+ $(".flux.current .content").html()
+			+ "</body></html>";
+
+		var tmp_window = window.open();
+		tmp_window.document.writeln(content);
+		tmp_window.document.close();
+		tmp_window.focus();
+		tmp_window.print();
+		tmp_window.close();
+
+		return false;
+	});
 }
 
 function init_all() {
@@ -626,6 +672,7 @@ function init_all() {
 		init_persona();
 	}
 	init_confirm_action();
+	init_print_action();
 	if (window.console) {
 		console.log('FreshRSS init done.');
 	}
