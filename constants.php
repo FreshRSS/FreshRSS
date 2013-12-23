@@ -1,6 +1,6 @@
 <?php
-define('FRESHRSS_VERSION', '0.7-dev');
-define('FRESHRSS_WEBSITE', 'http://marienfressinaud.github.io/FreshRSS/');
+define('FRESHRSS_VERSION', '0.7-beta');
+define('FRESHRSS_WEBSITE', 'http://freshrss.org');
 
 // Constantes de chemins
 define ('FRESHRSS_PATH', realpath (dirname (__FILE__)));
