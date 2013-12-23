@@ -1,4 +1,5 @@
 <?php
+
 class FreshRSS_CategoryDAO extends Minz_ModelPdo {
 	public function addCategory ($valuesTmp) {
 		$sql = 'INSERT INTO `' . $this->prefix . 'category` (name, color) VALUES(?, ?)';

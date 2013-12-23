@@ -1,4 +1,5 @@
 <?php
+
 class FreshRSS_Feed extends Minz_Model {
 	private $id = 0;
 	private $url;

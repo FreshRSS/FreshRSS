@@ -1,4 +1,5 @@
 <?php
+
 class FreshRSS_Configuration extends Minz_Model {
 	private $available_languages = array (
 		'en' => 'English',

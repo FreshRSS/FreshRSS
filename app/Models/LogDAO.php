@@ -1,4 +1,5 @@
 <?php
+
 class FreshRSS_LogDAO extends Minz_ModelTxt {
 	public function __construct () {
 		parent::__construct (LOG_PATH . '/application.log', 'r+');
