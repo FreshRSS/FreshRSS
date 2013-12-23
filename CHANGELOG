@@ -50,7 +50,7 @@
 	* Déplacement de “./app/configuration/application.ini” vers “./data/config.php”
 	* Déplacement de “./public/data/Configuration.array.php” vers “./data/*_user.php”
 * Divers :
-	* Nouvel “agent utilisateur” utilisé lors du téléchargement des flux, par exemple :
+	* Nouvel “agent utilisateur” exposé lors du téléchargement des flux, par exemple :
 		* “FreshRSS/0.7 (Linux; http://freshrss.org) SimplePie/1.3.1”
 
 
