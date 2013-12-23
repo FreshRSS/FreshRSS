@@ -33,7 +33,7 @@ define ('SQL_FEED', 'CREATE TABLE IF NOT EXISTS `%1$sfeed` (
 	`pathEntries` varchar(511) DEFAULT NULL,
 	`httpAuth` varchar(511) DEFAULT NULL,
 	`error` boolean DEFAULT 0,
-	`keep_history` boolean NOT NULL DEFAULT 0,
+	`keep_history` MEDIUMINT NOT NULL DEFAULT 0,
 	`cache_nbEntries` int DEFAULT 0,	-- v0.7
 	`cache_nbUnreads` int DEFAULT 0,	-- v0.7
 	PRIMARY KEY (`id`),
