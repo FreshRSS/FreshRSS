@@ -211,7 +211,7 @@ function saveStep2 () {
 	if (!empty ($_POST)) {
 		if (empty ($_POST['title']) ||
 		    empty ($_POST['old_entries']) ||
-		    empty ($_POST['default_user']) {
+		    empty ($_POST['default_user'])) {
 			return false;
 		}
 
