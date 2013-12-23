@@ -157,7 +157,7 @@ return array (
 
 	'general_configuration'		=> 'General configuration',
 	'language'			=> 'Language',
-	'delete_articles_every'		=> 'Remove articles every',
+	'delete_articles_every'		=> 'Remove articles after',
 	'month'				=> 'months',
 	'default_user'			=> 'Username of the default user (maximum 16 alphanumeric characters)',
 	'persona_connection_email'	=> 'Login mail address (use <a href="https://persona.org/">Mozilla Persona</a>)',

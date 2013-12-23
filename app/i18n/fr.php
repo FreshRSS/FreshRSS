@@ -157,7 +157,7 @@ return array (
 
 	'general_configuration'		=> 'Configuration générale',
 	'language'			=> 'Langue',
-	'delete_articles_every'		=> 'Supprimer les articles tous les',
+	'delete_articles_every'		=> 'Supprimer les articles après',
 	'month'				=> 'mois',
 	'default_user'			=> 'Nom de l’utilisateur par défaut (16 caractères alphanumériques maximum)',
 	'persona_connection_email'	=> 'Adresse courriel de connexion (utilise <a href="https://persona.org/">Mozilla Persona</a>)',
