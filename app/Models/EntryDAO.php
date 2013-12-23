@@ -1,4 +1,5 @@
 <?php
+
 class FreshRSS_EntryDAO extends Minz_ModelPdo {
 	public function addEntry ($valuesTmp) {
 		$sql = 'INSERT INTO `' . $this->prefix . 'entry`(id, guid, title, author, content_bin, link, date, is_read, is_favorite, id_feed, tags) '

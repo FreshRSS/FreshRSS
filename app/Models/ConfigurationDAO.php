@@ -1,4 +1,5 @@
 <?php
+
 class FreshRSS_ConfigurationDAO extends Minz_ModelArray {
 	public $language = 'en';
 	public $posts_per_page = 20;

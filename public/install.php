@@ -164,6 +164,7 @@ function initTranslate () {
 		$translates = array_merge($translates, include($file));
 	}
 }
+
 function getBetterLanguage ($fallback) {
 	$available = availableLanguages ();
 	$accept = $_SERVER['HTTP_ACCEPT_LANGUAGE'];

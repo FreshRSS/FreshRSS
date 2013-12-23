@@ -1,4 +1,5 @@
 <?php
+
 class FreshRSS_FeedDAO extends Minz_ModelPdo {
 	public function addFeed ($valuesTmp) {
 		$sql = 'INSERT INTO `' . $this->prefix . 'feed` (url, category, name, website, description, lastUpdate, priority, httpAuth, error, keep_history) VALUES(?, ?, ?, ?, ?, ?, 10, ?, 0, 0)';

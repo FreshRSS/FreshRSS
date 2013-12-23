@@ -1,4 +1,5 @@
 <?php
+
 class FreshRSS_Entry extends Minz_Model {
 
 	private $id = 0;
