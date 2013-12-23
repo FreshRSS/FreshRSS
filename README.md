@@ -7,7 +7,7 @@ Il se veut léger et facile à prendre en main tout en étant un outil puissant 
 * Développeur : Marien Fressinaud <dev@marienfressinaud.fr>
 * Version actuelle : 0.7-dev
 * Date de publication 2013-12-xx
-* License [GNU AGPL 3](http://www.gnu.org/licenses/agpl-3.0.html)
+* License [GNU AGPL 3](http://www.gnu.org/licenses/agpl-3.0.html) ![Logo AGPLv3](http://www.gnu.org/graphics/agplv3-155x51.png)
 
 ![Logo de FreshRSS](http://marienfressinaud.fr/data/images/freshrss/freshrss_title.png)
 
