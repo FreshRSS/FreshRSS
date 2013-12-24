@@ -93,7 +93,7 @@ FROM `%1$scategory006`
 ORDER BY id2;
 
 INSERT IGNORE INTO `%2$sfeed` (url, category, name, website, description, priority, pathEntries, httpAuth, keep_history)
-SELECT url, category2, name, website, description, priority, pathEntries, httpAuth, keep_history
+SELECT url, category2, name, website, description, priority, pathEntries, httpAuth, -1 * keep_history
 FROM `%1$sfeed006`
 ORDER BY id2;
 

@@ -193,7 +193,7 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo {
 	}
 
 	public function listFeedsOrderUpdate () {
-		$sql = 'SELECT * FROM `' . $this->prefix . 'feed` ORDER BY lastUpdate';
+		$sql = 'SELECT id, url, pathEntries, httpAuth, keep_history FROM `' . $this->prefix . 'feed` ORDER BY lastUpdate';
 		$stm = $this->bd->prepare ($sql);
 		$stm->execute ();
 
@@ -326,7 +326,7 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo {
 			$myFeed->_pathEntries (isset($dao['pathEntries']) ? $dao['pathEntries'] : '');
 			$myFeed->_httpAuth (isset($dao['httpAuth']) ? base64_decode ($dao['httpAuth']) : '');
 			$myFeed->_error ($dao['error']);
-			$myFeed->_keepHistory (isset($dao['keep_history']) ? $dao['keep_history'] : '');
+			$myFeed->_keepHistory (isset($dao['keep_history']) ? $dao['keep_history'] : 0);
 			$myFeed->_nbNotRead ($dao['cache_nbUnreads']);
 			$myFeed->_nbEntries ($dao['cache_nbEntries']);
 			if (isset ($dao['id'])) {

@@ -15,7 +15,7 @@ class FreshRSS_Feed extends Minz_Model {
 	private $pathEntries = '';
 	private $httpAuth = '';
 	private $error = false;
-	private $keep_history = false;
+	private $keep_history = 0;
 
 	public function __construct ($url, $validate=true) {
 		if ($validate) {
@@ -163,19 +163,12 @@ class FreshRSS_Feed extends Minz_Model {
 		$this->httpAuth = $value;
 	}
 	public function _error ($value) {
-		if ($value) {
-			$value = true;
-		} else {
-			$value = false;
-		}
-		$this->error = $value;
+		$this->error = (bool)$value;
 	}
 	public function _keepHistory ($value) {
-		if ($value) {
-			$value = true;
-		} else {
-			$value = false;
-		}
+		$value = intval($value);
+		$value = min($value, 1000000);
+		$value = max($value, -1);
 		$this->keep_history = $value;
 	}
 	public function _nbNotRead ($value) {

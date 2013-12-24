@@ -12,6 +12,7 @@
 	* Améliorations partage vers Shaarli, Poche, Diaspora*, Facebook, Twitter, Google+, courriel
 	* Permet la suppression de tous les articles d’un flux
 	* Option pour marquer les articles comme lus dès la réception
+	* Permet de configurer plus finement le nombre d’articles minimum à conserver par flux
 	* Permet de modifier la description et l’adresse d’un flux RSS ainsi que le site Web associé
 	* Nouveau raccourci pour ouvrir/fermer un article (‘c’ par défaut)
 	* Bouton pour effacer les logs
