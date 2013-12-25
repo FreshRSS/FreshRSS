@@ -77,6 +77,8 @@ class SimplePie_Parser
 
 	public function parse(&$data, $encoding)
 	{
+		$xmlEncoding = '';
+
 		if (!empty($encoding))
 		{
 			// Use UTF-8 if we get passed US-ASCII, as every US-ASCII character is a UTF-8 character
@@ -121,6 +123,7 @@ class SimplePie_Parser
 				$declaration = $this->registry->create('XML_Declaration_Parser', array(substr($data, 5, $pos - 5)));
 				if ($declaration->parse())
 				{
+					$xmlEncoding = strtoupper($declaration->encoding);	//FreshRSS
 					$data = substr($data, $pos + 2);
 					$data = '<?xml version="' . $declaration->version . '" encoding="' . $encoding . '" standalone="' . (($declaration->standalone) ? 'yes' : 'no') . '"?>' . $data;
 				}
@@ -132,17 +135,24 @@ class SimplePie_Parser
 			}
 		}
 
-		try	//FreshRSS
+		if ($xmlEncoding === '' || $xmlEncoding === 'UTF-8')	//FreshRSS: case of no explicit HTTP encoding, and lax UTF-8
 		{
-			$dom = new DOMDocument();
-			$dom->recover = true;
-			$dom->strictErrorChecking = false;
-			$dom->loadXML($data);
-			$this->encoding = $encoding = $dom->encoding = 'UTF-8';
-			$data = $dom->saveXML();
-		}
-		catch (Exception $e)
-		{
+			try
+			{
+				$dom = new DOMDocument();
+				$dom->recover = true;
+				$dom->strictErrorChecking = false;
+				$dom->loadXML($data);
+				$this->encoding = $encoding = $dom->encoding = 'UTF-8';
+				$data2 = $dom->saveXML();
+				if (strlen($data2) > (strlen($data) / 2.0))
+				{
+					$data = $data2;
+				}
+			}
+			catch (Exception $e)
+			{
+			}
 		}
 
 		$return = true;

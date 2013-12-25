@@ -43,6 +43,7 @@
 * PHP :
 	* Meilleure gestion des caractères spéciaux dans différents cas
 	* Amélioration des performances
+	* Encore plus tolérant pour les flux comportant des erreurs
 	* Chargement automatique des classes
 	* Alternative dans le cas d’absence de librairie JSON
 	* Pour le développement, le cache HTTP peut être désactivé en créant un fichier “./no-cache.txt”
