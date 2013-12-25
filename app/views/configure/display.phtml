@@ -76,6 +76,7 @@
 			<label class="group-name" for="old_entries"><?php echo Minz_Translate::t ('delete_articles_every'); ?></label>
 			<div class="group-controls">
 				<input type="number" id="old_entries" name="old_entries" min="1" max="1200" value="<?php echo $this->conf->oldEntries (); ?>" /> <?php echo Minz_Translate::t ('month'); ?>
+				  <a class="btn confirm" href="<?php echo _url('entry', 'purge'); ?>"><?php echo Minz_Translate::t('purge_now'); ?></a>
 			</div>
 		</div>
 		<div class="form-group">

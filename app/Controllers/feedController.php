@@ -192,7 +192,7 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 		}
 
 		// on calcule la date des articles les plus anciens qu'on accepte
-		$nb_month_old = $this->view->conf->oldEntries ();
+		$nb_month_old = max($this->view->conf->oldEntries(), 1);
 		$date_min = time () - (3600 * 24 * 30 * $nb_month_old);
 
 		$i = 0;

@@ -109,4 +109,45 @@ class FreshRSS_entry_Controller extends Minz_ActionController {
 			'a' => 'display'
 		), true);
 	}
+
+	public function purgeAction() {
+		@set_time_limit(300);
+
+		$nb_month_old = max($this->view->conf->oldEntries(), 1);
+		$date_min = time() - (3600 * 24 * 30 * $nb_month_old);
+
+		$feedDAO = new FreshRSS_FeedDAO();
+		$feeds = $feedDAO->listFeedsOrderUpdate();
+		$nbTotal = 0;
+
+		invalidateHttpCache();
+
+		foreach ($feeds as $feed) {
+			$feedHistory = $feed->keepHistory();
+			if ($feedHistory == -2) {	//default
+				$feedHistory = $this->view->conf->keepHistoryDefault();
+			}
+			if ($feedHistory >= 0) {
+				$nb = $feedDAO->cleanOldEntries($feed->id(), $date_min, $feedHistory);
+				if ($nb > 0) {
+					$nbTotal += $nb;
+					Minz_Log::record($nb . ' old entries cleaned in feed ' . $feed->id(), Minz_Log::DEBUG);
+					$feedDAO->updateLastUpdate($feed->id());
+				}
+			}
+		}
+
+		invalidateHttpCache();
+
+		$notif = array(
+			'type' => 'good',
+			'content' => Minz_Translate::t('purge_completed', $nbTotal)
+		);
+		Minz_Session::_param('notification', $notif);
+
+		Minz_Request::forward(array(
+			'c' => 'configure',
+			'a' => 'display'
+		), true);
+	}
 }

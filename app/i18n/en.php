@@ -168,6 +168,8 @@ return array (
 	'login_configuration'	=> 'Login',
 	'archiving_configuration'	=> 'Archiving',
 	'delete_articles_every'	=> 'Remove articles after',
+	'purge_now'			=> 'Purge now',
+	'purge_completed'		=> 'Purge completed (%d articles deleted)',
 	'archiving_configuration_help'	=> 'More options are available in the individual stream settings',
 	'reading_configuration'		=> 'Reading',
 	'articles_per_page'		=> 'Number of articles per page',

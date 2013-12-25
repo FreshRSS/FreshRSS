@@ -169,6 +169,8 @@ return array (
 	'login_configuration'	=> 'Identification',
 	'archiving_configuration'	=> 'Archivage',
 	'delete_articles_every'	=> 'Supprimer les articles après',
+	'purge_now'			=> 'Purger maintenant',
+	'purge_completed'		=> 'Purge effectuée (%d articles supprimés)',
 	'archiving_configuration_help'	=> 'D’autres options sont disponibles dans la configuration individuelle des flux',
 	'reading_configuration'		=> 'Lecture',
 	'articles_per_page'		=> 'Nombre d’articles par page',
