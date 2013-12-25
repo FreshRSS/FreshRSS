@@ -250,11 +250,11 @@ class FreshRSS_Feed extends Minz_Model {
 					$this->_url ($subscribe_url);
 				}
 
-				$title = $feed->get_title ();
+				$title = htmlspecialchars(html_only_entity_decode($feed->get_title()), ENT_COMPAT, 'UTF-8');
 				$this->_name (!is_null ($title) ? $title : $this->url);
 
-				$this->_website ($feed->get_link ());
-				$this->_description ($feed->get_description ());
+				$this->_website(html_only_entity_decode($feed->get_link()));
+				$this->_description(html_only_entity_decode($feed->get_description()));
 
 				// et on charge les articles du flux
 				$this->loadEntries ($feed);
