@@ -97,17 +97,12 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 					$description = sanitizeHTML(Minz_Request::param('description', '', true));
 					$website = Minz_Request::param('website', '');
 					$url = Minz_Request::param('url', '');
-					$hist = Minz_Request::param ('keep_history', 'no');
+					$keep_history = intval(Minz_Request::param ('keep_history', 0));
 					$cat = Minz_Request::param ('category', 0);
 					$path = Minz_Request::param ('path_entries', '');
 					$priority = Minz_Request::param ('priority', 0);
 					$user = Minz_Request::param ('http_user', '');
 					$pass = Minz_Request::param ('http_pass', '');
-
-					$keep_history = false;
-					if ($hist == 'yes') {
-						$keep_history = true;
-					}
 
 					$httpAuth = '';
 					if ($user != '' || $pass != '') {

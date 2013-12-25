@@ -52,6 +52,12 @@
 				</select>
 			</div>
 		</div>
+		<div class="form-group form-actions">
+			<div class="group-controls">
+				<button class="btn btn-important"><?php echo Minz_Translate::t ('save'); ?></button>
+				<button class="btn btn-attention confirm" formmethod="post" formaction="<?php echo Minz_Url::display (array ('c' => 'feed', 'a' => 'delete', 'params' => array ('id' => $this->flux->id ()))); ?>"><?php echo Minz_Translate::t ('delete'); ?></button>
+			</div>
+		</div>
 
 		<legend><?php echo Minz_Translate::t ('archiving_configuration'); ?></legend>
 
@@ -84,9 +90,9 @@
 				<?php echo FreshRSS_Themes::icon('help'); ?> <?php echo Minz_Translate::t ('keep_history_help'); ?>
 			</div>
 		</div>
-		<div class="form-group">
-			<label class="group-name"></label>
+		<div class="form-group form-actions">
 			<div class="group-controls">
+				<button class="btn btn-important"><?php echo Minz_Translate::t ('save'); ?></button>
 				<button class="btn btn-attention confirm" formmethod="post" formaction="<?php echo Minz_Url::display (array ('c' => 'feed', 'a' => 'truncate', 'params' => array ('id' => $this->flux->id ()))); ?>"><?php echo Minz_Translate::t ('truncate'); ?></button>
 			</div>
 		</div>
@@ -123,11 +129,9 @@
 			</div>
 		</div>
 
-
 		<div class="form-group form-actions">
 			<div class="group-controls">
 				<button class="btn btn-important"><?php echo Minz_Translate::t ('save'); ?></button>
-				<button class="btn btn-attention confirm" formmethod="post" formaction="<?php echo Minz_Url::display (array ('c' => 'feed', 'a' => 'delete', 'params' => array ('id' => $this->flux->id ()))); ?>"><?php echo Minz_Translate::t ('delete'); ?></button>
 			</div>
 		</div>
 	</form>
