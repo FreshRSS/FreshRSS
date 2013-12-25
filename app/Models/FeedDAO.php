@@ -2,7 +2,7 @@
 
 class FreshRSS_FeedDAO extends Minz_ModelPdo {
 	public function addFeed ($valuesTmp) {
-		$sql = 'INSERT INTO `' . $this->prefix . 'feed` (url, category, name, website, description, lastUpdate, priority, httpAuth, error, keep_history) VALUES(?, ?, ?, ?, ?, ?, 10, ?, 0, 0)';
+		$sql = 'INSERT INTO `' . $this->prefix . 'feed` (url, category, name, website, description, lastUpdate, priority, httpAuth, error, keep_history) VALUES(?, ?, ?, ?, ?, ?, 10, ?, 0, -2)';
 		$stm = $this->bd->prepare ($sql);
 
 		$values = array (
@@ -193,7 +193,7 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo {
 	}
 
 	public function listFeedsOrderUpdate () {
-		$sql = 'SELECT * FROM `' . $this->prefix . 'feed` ORDER BY lastUpdate';
+		$sql = 'SELECT id, name, url, pathEntries, httpAuth, keep_history FROM `' . $this->prefix . 'feed` ORDER BY lastUpdate';
 		$stm = $this->bd->prepare ($sql);
 		$stm->execute ();
 
@@ -315,20 +315,23 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo {
 			if (isset ($dao['id'])) {
 				$key = $dao['id'];
 			}
+			if ($catID === null) {
+				$catID = isset($dao['category']) ? $dao['category'] : 0;
+			}
 
-			$myFeed = new FreshRSS_Feed (isset($dao['url']) ? $dao['url'] : '', false);
-			$myFeed->_category ($catID === null ? $dao['category'] : $catID);
-			$myFeed->_name ($dao['name']);
-			$myFeed->_website ($dao['website'], false);
-			$myFeed->_description (isset($dao['description']) ? $dao['description'] : '');
-			$myFeed->_lastUpdate (isset($dao['lastUpdate']) ? $dao['lastUpdate'] : 0);
-			$myFeed->_priority ($dao['priority']);
-			$myFeed->_pathEntries (isset($dao['pathEntries']) ? $dao['pathEntries'] : '');
-			$myFeed->_httpAuth (isset($dao['httpAuth']) ? base64_decode ($dao['httpAuth']) : '');
-			$myFeed->_error ($dao['error']);
-			$myFeed->_keepHistory (isset($dao['keep_history']) ? $dao['keep_history'] : '');
-			$myFeed->_nbNotRead ($dao['cache_nbUnreads']);
-			$myFeed->_nbEntries ($dao['cache_nbEntries']);
+			$myFeed = new FreshRSS_Feed(isset($dao['url']) ? $dao['url'] : '', false);
+			$myFeed->_category(intval($catID));
+			$myFeed->_name($dao['name']);
+			$myFeed->_website(isset($dao['website']) ? $dao['website'] : '', false);
+			$myFeed->_description(isset($dao['description']) ? $dao['description'] : '');
+			$myFeed->_lastUpdate(isset($dao['lastUpdate']) ? $dao['lastUpdate'] : 0);
+			$myFeed->_priority(isset($dao['priority']) ? $dao['priority'] : 10);
+			$myFeed->_pathEntries(isset($dao['pathEntries']) ? $dao['pathEntries'] : '');
+			$myFeed->_httpAuth(isset($dao['httpAuth']) ? base64_decode ($dao['httpAuth']) : '');
+			$myFeed->_error(isset($dao['error']) ? $dao['error'] : 0);
+			$myFeed->_keepHistory(isset($dao['keep_history']) ? $dao['keep_history'] : -2);
+			$myFeed->_nbNotRead(isset($dao['cache_nbUnreads']) ? $dao['cache_nbUnreads'] : 0);
+			$myFeed->_nbEntries(isset($dao['cache_nbEntries']) ? $dao['cache_nbEntries'] : 0);
 			if (isset ($dao['id'])) {
 				$myFeed->_id ($dao['id']);
 			}

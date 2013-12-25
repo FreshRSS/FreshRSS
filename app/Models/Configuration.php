@@ -14,6 +14,7 @@ class FreshRSS_Configuration extends Minz_Model {
 	private $lazyload;
 	private $sort_order;
 	private $old_entries;
+	private $keep_history_default;
 	private $shortcuts = array ();
 	private $mail_login = '';
 	private $mark_when = array ();
@@ -44,6 +45,7 @@ class FreshRSS_Configuration extends Minz_Model {
 		$this->_lazyload ($confDAO->lazyload);
 		$this->_sortOrder ($confDAO->sort_order);
 		$this->_oldEntries ($confDAO->old_entries);
+		$this->_keepHistoryDefault($confDAO->keep_history_default);
 		$this->_shortcuts ($confDAO->shortcuts);
 		$this->_mailLogin ($confDAO->mail_login);
 		$this->_markWhen ($confDAO->mark_when);
@@ -94,6 +96,9 @@ class FreshRSS_Configuration extends Minz_Model {
 	}
 	public function oldEntries () {
 		return $this->old_entries;
+	}
+	public function keepHistoryDefault() {
+		return $this->keep_history_default;
 	}
 	public function shortcuts () {
 		return $this->shortcuts;
@@ -217,9 +222,16 @@ class FreshRSS_Configuration extends Minz_Model {
 	}
 	public function _oldEntries ($value) {
 		if (ctype_digit ($value) && $value > 0) {
-			$this->old_entries = $value;
+			$this->old_entries = intval($value);
 		} else {
 			$this->old_entries = 3;
+		}
+	}
+	public function _keepHistoryDefault($value) {
+		if (ctype_digit($value) && $value >= -1) {
+			$this->keep_history_default = intval($value);
+		} else {
+			$this->keep_history_default = 0;
 		}
 	}
 	public function _shortcuts ($values) {

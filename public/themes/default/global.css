@@ -99,6 +99,9 @@ input, select, textarea {
 	vertical-align: middle;
 	box-shadow: 0 2px 2px #eee inset;
 }
+	option {
+		padding:0 .5em 0 .5em;
+	}
 	input[type="radio"],
 	input[type="checkbox"] {
 		width: 15px !important;

@@ -130,16 +130,17 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 		// on calcule la date des articles les plus anciens qu'on affiche
 		$nb_month_old = $this->view->conf->oldEntries ();
 		$date_min = $today - (3600 * 24 * 30 * $nb_month_old);	//Do not use a fast changing value such as time() to allow SQL caching
+		$keepHistoryDefault = $this->view->conf->keepHistoryDefault();
 
 		try {
-			$entries = $this->entryDAO->listWhere($getType, $getId, $state, $order, $nb + 1, $first, $filter, $date_min);
+			$entries = $this->entryDAO->listWhere($getType, $getId, $state, $order, $nb + 1, $first, $filter, $date_min, $keepHistoryDefault);
 
 			// Si on a récupéré aucun article "non lus"
 			// on essaye de récupérer tous les articles
 			if ($state === 'not_read' && empty($entries)) {	//TODO: Remove in v0.8
 				Minz_Log::record ('Conflicting information about nbNotRead!', Minz_Log::DEBUG);
 				$this->view->state = 'all';
-				$entries = $this->entryDAO->listWhere($getType, $getId, 'all', $order, $nb, $first, $filter, $date_min);
+				$entries = $this->entryDAO->listWhere($getType, $getId, 'all', $order, $nb, $first, $filter, $date_min, $keepHistoryDefault);
 			}
 
 			if (count($entries) <= $nb) {

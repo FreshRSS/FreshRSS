@@ -97,17 +97,12 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 					$description = sanitizeHTML(Minz_Request::param('description', '', true));
 					$website = Minz_Request::param('website', '');
 					$url = Minz_Request::param('url', '');
-					$hist = Minz_Request::param ('keep_history', 'no');
+					$keep_history = intval(Minz_Request::param ('keep_history', -2));
 					$cat = Minz_Request::param ('category', 0);
 					$path = Minz_Request::param ('path_entries', '');
 					$priority = Minz_Request::param ('priority', 0);
 					$user = Minz_Request::param ('http_user', '');
 					$pass = Minz_Request::param ('http_pass', '');
-
-					$keep_history = false;
-					if ($hist == 'yes') {
-						$keep_history = true;
-					}
 
 					$httpAuth = '';
 					if ($user != '' || $pass != '') {
@@ -165,6 +160,7 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 			$lazyload = Minz_Request::param ('lazyload', 'no');
 			$sort = Minz_Request::param ('sort_order', 'DESC');
 			$old = Minz_Request::param ('old_entries', 3);
+			$keepHistoryDefault = Minz_Request::param('keep_history_default', 0);
 			$mail = Minz_Request::param ('mail_login', false);
 			$anon = Minz_Request::param ('anon_access', 'no');
 			$token = Minz_Request::param ('token', $current_token);
@@ -194,6 +190,7 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 			$this->view->conf->_lazyload ($lazyload);
 			$this->view->conf->_sortOrder ($sort);
 			$this->view->conf->_oldEntries ($old);
+			$this->view->conf->_keepHistoryDefault($keepHistoryDefault);
 			$this->view->conf->_mailLogin ($mail);
 			$this->view->conf->_anonAccess ($anon);
 			$this->view->conf->_token ($token);
@@ -226,6 +223,7 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 				'lazyload' => $this->view->conf->lazyload (),
 				'sort_order' => $this->view->conf->sortOrder (),
 				'old_entries' => $this->view->conf->oldEntries (),
+				'keep_history_default' => $this->view->conf->keepHistoryDefault(),
 				'mail_login' => $this->view->conf->mailLogin (),
 				'anon_access' => $this->view->conf->anonAccess (),
 				'token' => $this->view->conf->token (),

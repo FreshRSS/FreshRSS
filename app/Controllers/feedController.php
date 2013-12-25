@@ -102,14 +102,11 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 						$feedDAO->beginTransaction ();
 						// on ajoute les articles en masse sans vérification
 						foreach ($entries as $entry) {
-							if ($entry->date (true) >= $date_min ||
-							    $feed->keepHistory ()) {
-								$values = $entry->toArray ();
-								$values['id_feed'] = $feed->id ();
-								$values['id'] = min(time(), $entry->date (true)) . uSecString();
-								$values['is_read'] = $is_read;
-								$entryDAO->addEntry ($values);
-							}
+							$values = $entry->toArray ();
+							$values['id_feed'] = $feed->id ();
+							$values['id'] = min(time(), $entry->date (true)) . uSecString();
+							$values['is_read'] = $is_read;
+							$entryDAO->addEntry ($values);
 						}
 						$feedDAO->updateLastUpdate ($feed->id ());
 						$feedDAO->commit ();
@@ -195,7 +192,7 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 		}
 
 		// on calcule la date des articles les plus anciens qu'on accepte
-		$nb_month_old = $this->view->conf->oldEntries ();
+		$nb_month_old = max($this->view->conf->oldEntries(), 1);
 		$date_min = time () - (3600 * 24 * 30 * $nb_month_old);
 
 		$i = 0;
@@ -217,8 +214,7 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 				$feedDAO->beginTransaction ();
 				foreach ($entries as $entry) {
 					if ((!isset ($existingGuids[$entry->guid ()])) &&
-						($entry->date (true) >= $date_min ||
-						$feed->keepHistory ())) {
+						($entry->date (true) >= $date_min)) {
 						$values = $entry->toArray ();
 						//Use declared date at first import, otherwise use discovery date
 						$values['id'] = empty($existingGuids) ? min(time(), $entry->date (true)) . uSecString() : uTimeString();
@@ -227,8 +223,13 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 					}
 				}
 
-				if ((!$feed->keepHistory()) && (rand(0, 30) === 1)) {
-					$nb = $feedDAO->cleanOldEntries ($feed->id (), $date_min, count($entries) + 10);
+				$feedHistory = $feed->keepHistory();
+				if ($feedHistory == -2) {	//default
+					$feedHistory = $this->view->conf->keepHistoryDefault();
+				}
+
+				if (($feedHistory >= 0) && (rand(0, 30) === 1)) {
+					$nb = $feedDAO->cleanOldEntries ($feed->id (), $date_min, max($feedHistory, count($entries) + 10));
 					if ($nb > 0) {
 						Minz_Log::record ($nb . ' old entries cleaned in feed ' . $feed->id (), Minz_Log::DEBUG);
 					}

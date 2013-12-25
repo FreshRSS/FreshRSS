@@ -31,12 +31,14 @@
 			</div>
 		</div>
 
-		<div class="form-group">
-			<label class="group-name" for="old_entries"><?php echo Minz_Translate::t ('delete_articles_every'); ?></label>
+		<div class="form-group form-actions">
 			<div class="group-controls">
-				<input type="number" id="old_entries" name="old_entries" value="<?php echo $this->conf->oldEntries (); ?>" /> <?php echo Minz_Translate::t ('month'); ?>
+				<button type="submit" class="btn btn-important"><?php echo Minz_Translate::t ('save'); ?></button>
+				<button type="reset" class="btn"><?php echo Minz_Translate::t ('cancel'); ?></button>
 			</div>
 		</div>
+
+		<legend><?php echo Minz_Translate::t ('login_configuration'); ?></legend>
 
 		<div class="form-group">
 			<label class="group-name" for="mail_login"><?php echo Minz_Translate::t ('persona_connection_email'); ?></label>
@@ -59,7 +61,42 @@
 				<?php echo FreshRSS_Themes::icon('help'); ?> <?php echo Minz_Translate::t('explain_token', Minz_Url::display(null, 'html', true), $token); ?>
 			</div>
 		</div>
-	
+
+		<div class="form-group form-actions">
+			<div class="group-controls">
+				<button type="submit" class="btn btn-important"><?php echo Minz_Translate::t ('save'); ?></button>
+				<button type="reset" class="btn"><?php echo Minz_Translate::t ('cancel'); ?></button>
+			</div>
+		</div>
+
+		<legend><?php echo Minz_Translate::t ('archiving_configuration'); ?></legend>
+		<p><?php echo FreshRSS_Themes::icon('help'); ?> <?php echo Minz_Translate::t('archiving_configuration_help'); ?></p>
+		
+		<div class="form-group">
+			<label class="group-name" for="old_entries"><?php echo Minz_Translate::t ('delete_articles_every'); ?></label>
+			<div class="group-controls">
+				<input type="number" id="old_entries" name="old_entries" min="1" max="1200" value="<?php echo $this->conf->oldEntries (); ?>" /> <?php echo Minz_Translate::t ('month'); ?>
+				  <a class="btn confirm" href="<?php echo _url('entry', 'purge'); ?>"><?php echo Minz_Translate::t('purge_now'); ?></a>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="group-name" for="keep_history_default"><?php echo Minz_Translate::t('keep_history'), ' ', Minz_Translate::t('by_feed'); ?> (<?php echo Minz_Translate::t('by_default'); ?>)</label>
+			<div class="group-controls">
+				<select class="number" name="keep_history_default" id="keep_history_default"><?php
+					foreach (array(-3 => '', 0 => '0', 10 => '10', 50 => '50', 100 => '100', 500 => '500', 1000 => '1 000', 5000 => '5 000', 10000 => '10 000', -1 => '∞') as $v => $t) {
+						echo '<option value="' . $v . ($this->conf->keepHistoryDefault() == $v ? '" selected="selected' : '') . '">' . $t . ' </option>';
+					}
+				?></select>
+			</div>
+		</div>
+
+		<div class="form-group form-actions">
+			<div class="group-controls">
+				<button type="submit" class="btn btn-important"><?php echo Minz_Translate::t ('save'); ?></button>
+				<button type="reset" class="btn"><?php echo Minz_Translate::t ('cancel'); ?></button>
+			</div>
+		</div>
+
 		<legend><?php echo Minz_Translate::t ('reading_configuration'); ?></legend>
 
 		<div class="form-group">
@@ -160,6 +197,13 @@
 			</div>
 		</div>
 
+		<div class="form-group form-actions">
+			<div class="group-controls">
+				<button type="submit" class="btn btn-important"><?php echo Minz_Translate::t ('save'); ?></button>
+				<button type="reset" class="btn"><?php echo Minz_Translate::t ('cancel'); ?></button>
+			</div>
+		</div>
+
 		<legend><?php echo Minz_Translate::t ('reading_icons'); ?></legend>
 		<div class="form-group">
 			<table>
@@ -193,7 +237,14 @@
 						<td><input type="checkbox" name="bottomline_link" value="yes"<?php echo $this->conf->bottomlineLink () ? ' checked="checked"' : ''; ?> /></td>
 					</tr>
 				</tbody>
-			</table>
+			</table><br />
+		</div>
+
+		<div class="form-group form-actions">
+			<div class="group-controls">
+				<button type="submit" class="btn btn-important"><?php echo Minz_Translate::t ('save'); ?></button>
+				<button type="reset" class="btn"><?php echo Minz_Translate::t ('cancel'); ?></button>
+			</div>
 		</div>
 
 		<legend><?php echo Minz_Translate::t ('advanced'); ?></legend>
@@ -205,13 +256,6 @@
 					<?php echo Minz_Translate::t('optimize_bdd'); ?>
 				</a></p>
 				<?php echo FreshRSS_Themes::icon('help'); ?> <?php echo Minz_Translate::t('optimize_todo_sometimes'); ?>
-			</div>
-		</div>
-
-		<div class="form-group form-actions">
-			<div class="group-controls">
-				<button type="submit" class="btn btn-important"><?php echo Minz_Translate::t ('save'); ?></button>
-				<button type="reset" class="btn"><?php echo Minz_Translate::t ('cancel'); ?></button>
 			</div>
 		</div>
 	</form>

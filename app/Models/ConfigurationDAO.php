@@ -10,6 +10,7 @@ class FreshRSS_ConfigurationDAO extends Minz_ModelArray {
 	public $lazyload = 'yes';
 	public $sort_order = 'DESC';
 	public $old_entries = 3;
+	public $keep_history_default = 0;
 	public $shortcuts = array (
 		'mark_read' => 'r',
 		'mark_favorite' => 'f',
@@ -62,7 +63,7 @@ class FreshRSS_ConfigurationDAO extends Minz_ModelArray {
 			$this->language = $this->array['language'];
 		}
 		if (isset ($this->array['posts_per_page'])) {
-			$this->posts_per_page = $this->array['posts_per_page'];
+			$this->posts_per_page = intval($this->array['posts_per_page']);
 		}
 		if (isset ($this->array['view_mode'])) {
 			$this->view_mode = $this->array['view_mode'];
@@ -83,7 +84,10 @@ class FreshRSS_ConfigurationDAO extends Minz_ModelArray {
 			$this->sort_order = $this->array['sort_order'];
 		}
 		if (isset ($this->array['old_entries'])) {
-			$this->old_entries = $this->array['old_entries'];
+			$this->old_entries = intval($this->array['old_entries']);
+		}
+		if (isset ($this->array['keep_history_default'])) {
+			$this->keep_history_default = intval($this->array['keep_history_default']);
 		}
 		if (isset ($this->array['shortcuts'])) {
 			$this->shortcuts = array_merge (

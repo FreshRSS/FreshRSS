@@ -15,7 +15,7 @@ class FreshRSS_Feed extends Minz_Model {
 	private $pathEntries = '';
 	private $httpAuth = '';
 	private $error = false;
-	private $keep_history = false;
+	private $keep_history = -2;
 
 	public function __construct ($url, $validate=true) {
 		if ($validate) {
@@ -163,19 +163,12 @@ class FreshRSS_Feed extends Minz_Model {
 		$this->httpAuth = $value;
 	}
 	public function _error ($value) {
-		if ($value) {
-			$value = true;
-		} else {
-			$value = false;
-		}
-		$this->error = $value;
+		$this->error = (bool)$value;
 	}
 	public function _keepHistory ($value) {
-		if ($value) {
-			$value = true;
-		} else {
-			$value = false;
-		}
+		$value = intval($value);
+		$value = min($value, 1000000);
+		$value = max($value, -2);
 		$this->keep_history = $value;
 	}
 	public function _nbNotRead ($value) {
@@ -257,11 +250,11 @@ class FreshRSS_Feed extends Minz_Model {
 					$this->_url ($subscribe_url);
 				}
 
-				$title = $feed->get_title ();
+				$title = htmlspecialchars(html_only_entity_decode($feed->get_title()), ENT_COMPAT, 'UTF-8');
 				$this->_name (!is_null ($title) ? $title : $this->url);
 
-				$this->_website ($feed->get_link ());
-				$this->_description ($feed->get_description ());
+				$this->_website(html_only_entity_decode($feed->get_link()));
+				$this->_description(html_only_entity_decode($feed->get_description()));
 
 				// et on charge les articles du flux
 				$this->loadEntries ($feed);
