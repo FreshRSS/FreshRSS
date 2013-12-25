@@ -1,5 +1,5 @@
 <?php
-define('FRESHRSS_VERSION', '0.7-beta');
+define('FRESHRSS_VERSION', '0.7-beta2');
 define('FRESHRSS_WEBSITE', 'http://freshrss.org');
 
 // Constantes de chemins
