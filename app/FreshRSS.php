@@ -1,7 +1,7 @@
 <?php
 class FreshRSS extends Minz_FrontController {
 	public function init () {
-		Minz_Session::init ();
+		Minz_Session::init ('FreshRSS');
 		Minz_Translate::init ();
 
 		$this->loadParamsView ();

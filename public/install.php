@@ -2,7 +2,8 @@
 require('../constants.php');
 include(LIB_PATH . '/lib_rss.php');
 
-session_start ();
+session_name('FreshRSS');
+session_start();
 
 if (isset ($_GET['step'])) {
 	define ('STEP', $_GET['step']);
@@ -479,6 +480,7 @@ function checkStep () {
 	} elseif (STEP > 3 && $s3['all'] != 'ok') {
 		header ('Location: index.php?step=3');
 	}
+	$_SESSION['actualize_feeds'] = true;
 }
 function checkStep0 () {
 	moveOldFiles() && removeOldFiles();
