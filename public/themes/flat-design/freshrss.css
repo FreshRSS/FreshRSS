@@ -662,6 +662,10 @@ body {
 	padding:.5em;
 }
 
+select.number option {
+	text-align:right;
+}
+
 @media(max-width: 840px) {
 	.header,
 	.aside .btn-important,

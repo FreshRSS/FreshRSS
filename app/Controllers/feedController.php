@@ -223,8 +223,13 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 					}
 				}
 
-				if (($feed->keepHistory() >= 0) && (rand(0, 30) === 1)) {
-					$nb = $feedDAO->cleanOldEntries ($feed->id (), $date_min, max($feed->keepHistory(), count($entries) + 10));
+				$feedHistory = $feed->keepHistory();
+				if ($feedHistory == -2) {	//default
+					$feedHistory = $this->view->conf->keepHistoryDefault();
+				}
+
+				if (($feedHistory >= 0) && (rand(0, 30) === 1)) {
+					$nb = $feedDAO->cleanOldEntries ($feed->id (), $date_min, max($feedHistory, count($entries) + 10));
 					if ($nb > 0) {
 						Minz_Log::record ($nb . ' old entries cleaned in feed ' . $feed->id (), Minz_Log::DEBUG);
 					}
