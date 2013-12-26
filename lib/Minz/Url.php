@@ -17,12 +17,16 @@ class Minz_Url {
 	 * @return l'url formatée
 	 */
 	public static function display ($url = array (), $encodage = 'html', $absolute = false) {
-		$url = self::checkUrl ($url);
+		$isArray = is_array($url);
+
+		if ($isArray) {
+			$url = self::checkUrl ($url);
+		}
 
 		$url_string = '';
 
 		if ($absolute) {
-			if (is_array ($url) && isset ($url['protocol'])) {
+			if ($isArray && isset ($url['protocol'])) {
 				$protocol = $url['protocol'];
 			} elseif (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on') {
 				$protocol = 'https:';
@@ -30,12 +34,11 @@ class Minz_Url {
 				$protocol = 'http:';
 			}
 			$url_string = $protocol . '//' . Minz_Request::getDomainName () . Minz_Request::getBaseUrl ();
-		}
-		else {
-			$url_string = '.';
+		} else {
+			$url_string = $isArray ? '.' : PUBLIC_RELATIVE;
 		}
 
-		if (is_array ($url)) {
+		if ($isArray) {
 			$router = new Minz_Router ();
 
 			if (Minz_Configuration::useUrlRewriting ()) {

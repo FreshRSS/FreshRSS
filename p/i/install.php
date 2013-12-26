@@ -1,8 +1,9 @@
 <?php
-require('../constants.php');
+require('../../constants.php');
 include(LIB_PATH . '/lib_rss.php');
 
 session_name('FreshRSS');
+session_set_cookie_params(0, './', null, false, true);
 session_start();
 
 if (isset ($_GET['step'])) {
@@ -381,7 +382,7 @@ function updateDatabase($perform = false) {
 }
 
 function deleteInstall () {
-	$res = unlink (PUBLIC_PATH . '/install.php');
+	$res = unlink (INDEX_PATH . '/install.php');
 	if ($res) {
 		header ('Location: index.php');
 	}
@@ -455,16 +456,6 @@ function delTree($dir) {	//http://php.net/rmdir#110489
 	return rmdir($dir);
 }
 
-function removeOldFiles() {
-	$oldDirs = array('/app/configuration/', '/cache/', '/log/', '/public/data/', '/public/themes/printer/');	//v0.6
-
-	$ok = true;
-	foreach ($oldDirs as $oldDir) {
-		$ok &= delTree(FRESHRSS_PATH . $oldDir);
-	}
-	return $ok;
-}
-
 /*** VÉRIFICATIONS ***/
 function checkStep () {
 	$s0 = checkStep0 ();
@@ -483,7 +474,7 @@ function checkStep () {
 	$_SESSION['actualize_feeds'] = true;
 }
 function checkStep0 () {
-	moveOldFiles() && removeOldFiles();
+	moveOldFiles();
 
 	if (file_exists(DATA_PATH . '/config.php')) {
 		$ini_array = include(DATA_PATH . '/config.php');
@@ -934,7 +925,7 @@ function printStep5 () {
 
 function printStep6 () {
 ?>
-	<p class="alert alert-error"><span class="alert-head"><?php echo _t ('oops'); ?></span> <?php echo _t ('install_not_deleted', PUBLIC_PATH . '/install.php'); ?></p>
+	<p class="alert alert-error"><span class="alert-head"><?php echo _t ('oops'); ?></span> <?php echo _t ('install_not_deleted', INDEX_PATH . '/install.php'); ?></p>
 <?php
 }
 
