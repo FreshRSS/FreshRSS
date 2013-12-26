@@ -25,7 +25,7 @@
 			switch ($get[0]) {
 				case 'c':
 					foreach ($this->cat_aside as $cat) {
-						if ($cat->id () === $this->get_c) {
+						if ($cat->id () == $this->get_c) {
 							$foundCurrent = true;
 							continue;
 						}
@@ -37,9 +37,9 @@
 					break;
 				case 'f':
 					foreach ($this->cat_aside as $cat) {
-						if ($cat->id () === $this->get_c) {
+						if ($cat->id () == $this->get_c) {
 							foreach ($cat->feeds () as $feed) {
-								if ($feed->id () === $this->get_f) {
+								if ($feed->id () == $this->get_f) {
 									$foundCurrent = true;
 									continue;
 								}
