@@ -20,15 +20,6 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 		$this->catDAO->checkDefault ();
 	}
 
-	private static function entryDateComparer($e1, $e2) {
-		$d1 = $e1->date(true);
-		$d2 = $e2->date(true);
-		if ($d1 === $d2) {
-			return 0;
-		}
-		return ($d1 < $d2) ? -1 : 1;
-	}
-
 	public function addAction () {
 		@set_time_limit(300);
 
@@ -55,7 +46,7 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 				}
 				$feed->_httpAuth ($httpAuth);
 
-				$feed->load ();
+				$feed->load(true);
 
 				$feedDAO = new FreshRSS_FeedDAO ();
 				$values = array (
@@ -91,8 +82,7 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 						$is_read = $this->view->conf->markUponReception() === 'yes' ? 1 : 0;
 
 						$entryDAO = new FreshRSS_EntryDAO ();
-						$entries = $feed->entries ();
-						usort($entries, 'self::entryDateComparer');
+						$entries = array_reverse($feed->entries());	//We want chronological order and SimplePie uses reverse order
 
 						// on calcule la date des articles les plus anciens qu'on accepte
 						$nb_month_old = $this->view->conf->oldEntries ();
@@ -199,10 +189,9 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 		$flux_update = 0;
 		foreach ($feeds as $feed) {
 			try {
-				$feed->load ();
-				$feed->faviconPrepare();
-				$entries = $feed->entries ();
-				usort($entries, 'self::entryDateComparer');
+				$url = $feed->url();
+				$feed->load(false);
+				$entries = array_reverse($feed->entries());	//We want chronological order and SimplePie uses reverse order
 
 				$is_read = $this->view->conf->markUponReception() === 'yes' ? 1 : 0;
 
@@ -231,7 +220,7 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 				if (($feedHistory >= 0) && (rand(0, 30) === 1)) {
 					$nb = $feedDAO->cleanOldEntries ($feed->id (), $date_min, max($feedHistory, count($entries) + 10));
 					if ($nb > 0) {
-						Minz_Log::record ($nb . ' old entries cleaned in feed ' . $feed->id (), Minz_Log::DEBUG);
+						Minz_Log::record ($nb . ' old entries cleaned in feed [' . $feed->url() . ']', Minz_Log::DEBUG);
 					}
 				}
 
@@ -239,6 +228,10 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 				$feedDAO->updateLastUpdate ($feed->id ());
 				$feedDAO->commit ();
 				$flux_update++;
+				if ($feed->url() !== $url) {	//URL has changed (auto-discovery)
+					$feedDAO->updateFeed($feed->id(), array('url' => $feed->url()));
+				}
+				$feed->faviconPrepare();
 			} catch (FreshRSS_Feed_Exception $e) {
 				Minz_Log::record ($e->getMessage (), Minz_Log::NOTICE);
 				$feedDAO->updateLastUpdate ($feed->id (), 1);
