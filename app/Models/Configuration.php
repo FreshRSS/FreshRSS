@@ -220,19 +220,13 @@ class FreshRSS_Configuration extends Minz_Model {
 	public function _sortOrder ($value) {
 		$this->sort_order = $value === 'ASC' ? 'ASC' : 'DESC';
 	}
-	public function _oldEntries ($value) {
-		if (ctype_digit ($value) && $value > 0) {
-			$this->old_entries = intval($value);
-		} else {
-			$this->old_entries = 3;
-		}
+	public function _oldEntries($value) {
+		$value = intval($value);
+		$this->old_entries = $value > 0 ? $value : 3;
 	}
 	public function _keepHistoryDefault($value) {
-		if (ctype_digit($value) && $value >= -1) {
-			$this->keep_history_default = intval($value);
-		} else {
-			$this->keep_history_default = 0;
-		}
+		$value = intval($value);
+		$this->keep_history_default = $value >= -1 ? $value : 0;
 	}
 	public function _shortcuts ($values) {
 		foreach ($values as $key => $value) {

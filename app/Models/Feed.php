@@ -154,7 +154,8 @@ class FreshRSS_Feed extends Minz_Model {
 		$this->lastUpdate = $value;
 	}
 	public function _priority ($value) {
-		$this->priority = ctype_digit ($value) ? intval ($value) : 10;
+		$value = intval($value);
+		$this->priority = $value >= 0 ? $value : 10;
 	}
 	public function _pathEntries ($value) {
 		$this->pathEntries = $value;
@@ -172,10 +173,10 @@ class FreshRSS_Feed extends Minz_Model {
 		$this->keep_history = $value;
 	}
 	public function _nbNotRead ($value) {
-		$this->nbNotRead = ctype_digit ($value) ? intval ($value) : -1;
+		$this->nbNotRead = intval($value);
 	}
 	public function _nbEntries ($value) {
-		$this->nbEntries = ctype_digit ($value) ? intval ($value) : -1;
+		$this->nbEntries = intval($value);
 	}
 
 	public function load () {
