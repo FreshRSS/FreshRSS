@@ -567,7 +567,7 @@
 
 /*** NOTIFICATION ***/
 .notification {
-	position: fixed;
+	position: absolute;
 	top: 10px;
 	left: 25%; right: 25%;
 	min-height: 30px;
