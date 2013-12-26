@@ -395,7 +395,7 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 						'type' => 'good',
 						'content' => Minz_Translate::t ('feed_deleted')
 					);
-					FreshRSS_Feed::faviconDelete($id);
+					//TODO: Delete old favicon
 				} else {
 					$notif = array (
 						'type' => 'bad',

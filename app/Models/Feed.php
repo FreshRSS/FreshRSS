@@ -28,6 +28,11 @@ class FreshRSS_Feed extends Minz_Model {
 	public function id () {
 		return $this->id;
 	}
+
+	public function hash() {
+		return hash('crc32b', Minz_Configuration::salt() . $this->url);
+	}
+
 	public function url () {
 		return $this->url;
 	}
@@ -96,7 +101,7 @@ class FreshRSS_Feed extends Minz_Model {
 		return $this->nbNotRead;
 	}
 	public function faviconPrepare() {
-		$file = DATA_PATH . '/favicons/' . $this->id () . '.txt';
+		$file = DATA_PATH . '/favicons/' . $this->hash() . '.txt';
 		if (!file_exists ($file)) {
 			$t = $this->website;
 			if (empty($t)) {
@@ -105,13 +110,13 @@ class FreshRSS_Feed extends Minz_Model {
 			file_put_contents($file, $t);
 		}
 	}
-	public static function faviconDelete($id) {
-		$path = DATA_PATH . '/favicons/' . $id;
+	public static function faviconDelete($hash) {
+		$path = DATA_PATH . '/favicons/' . $hash;
 		@unlink($path . '.ico');
 		@unlink($path . '.txt');
 	}
 	public function favicon () {
-		return Minz_Url::display ('/f.php?' . $this->id ());
+		return Minz_Url::display ('/f.php?' . $this->hash());
 	}
 
 	public function _id ($value) {

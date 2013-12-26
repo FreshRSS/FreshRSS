@@ -37,7 +37,7 @@ function download_favicon ($website, $dest) {
 }
 
 $id = isset($_SERVER['QUERY_STRING']) ? $_SERVER['QUERY_STRING'] : '0';
-if (!ctype_digit($id)) {
+if (!ctype_xdigit($id)) {
 	$id = '0';
 }
 
