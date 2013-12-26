@@ -53,6 +53,7 @@
 	* Déplacement de “./public/data/Configuration.array.php” vers “./data/*_user.php”
 	* Déplacement de “./public/index.php” vers “./p/i/index.php” (voir cookie ci-dessous)
 	* Déplacement de “./public/” vers “./p/”
+	* Déplacement de “./actualize_script.php” vers “./app/actualize_script.php”
 * Divers :
 	* Nouvelle politique de cookie de session (témoin de connexion)
 		* Utilise un nom poli “FreshRSS”

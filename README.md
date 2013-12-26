@@ -45,7 +45,7 @@ Il est recommandé de limiter l’accès à votre FreshRSS, soit :
 # Rafraîchissement automatique des flux
 * Vous pouvez ajouter une tâche CRON sur le script d’actualisation des flux. Par exemple, pour exécuter le script toutes les heures :
 ```
-7 * * * * php /chemin/vers/freshrss/actualize_script.php >/dev/null 2>&1
+7 * * * * php /chemin/vers/FreshRSS/app/actualize_script.php >/dev/null 2>&1
 ```
 
 # Conseils
