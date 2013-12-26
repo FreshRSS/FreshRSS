@@ -51,7 +51,14 @@
 	* Tous les fichiers utilisateur sont dans “./data/” (y compris “cache”, “favicons”, et “log”)
 	* Déplacement de “./app/configuration/application.ini” vers “./data/config.php”
 	* Déplacement de “./public/data/Configuration.array.php” vers “./data/*_user.php”
+	* Déplacement de “./public/index.php” vers “./p/i/index.php” (voir cookie ci-dessous)
+	* Déplacement de “./public/” vers “./p/”
 * Divers :
+	* Nouvelle politique de cookie de session (témoin de connexion)
+		* Utilise un nom poli “FreshRSS”
+		* Se limite au répertoire “./FreshRSS/p/i/” pour de meilleures performances HTTP
+			* Les images, CSS, scripts sont servis sans cookie
+		* utilise “HttpOnly” pour plus de sécurité
 	* Nouvel “agent utilisateur” exposé lors du téléchargement des flux, par exemple :
 		* “FreshRSS/0.7 (Linux; http://freshrss.org) SimplePie/1.3.1”
 
