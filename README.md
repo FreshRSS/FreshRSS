@@ -49,7 +49,7 @@ Il est recommandé de limiter l’accès à votre FreshRSS, soit :
 ```
 
 # Conseils
-* Pour une meilleure sécurité, faites en sorte que seul le répertoire `./p/` soit accessible depuis le Web, par exemple en faisant pointer un sous-domaine sur le répertoire `./public`.
+* Pour une meilleure sécurité, faites en sorte que seul le répertoire `./p/` soit accessible depuis le Web, par exemple en faisant pointer un sous-domaine sur le répertoire `./p/`.
 * Les données personnelles se trouvent dans le répertoire `./data/` (déjà protégé par un .htaccess pour Apache - vérifiez que cela fonctionne -, à protéger vous-même dans le cas d’autres serveurs Web).
 * Le fichier `./constants.php` définit les chemins d’accès aux répertoires clés de l’application. Si vous les bougez, tout se passe ici.
 * En cas de problème, les logs peuvent être utile à lire, soit depuis l’interface de FreshRSS, soit manuellement depuis `./data/log/*.log`.
