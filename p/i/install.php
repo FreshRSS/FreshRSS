@@ -573,7 +573,7 @@ function checkStep2 () {
 	if ($defaultUser === null) {
 		$defaultUser = empty($_SESSION['default_user']) ? '' : $_SESSION['default_user'];
 	}
-	$data = file_exists (DATA_PATH . '/' . $defaultUser . '_user.php');
+	$data = is_writable(DATA_PATH . '/' . $defaultUser . '_user.php');
 	if ($data) {
 		@unlink(DATA_PATH . '/Configuration.array.php');	//v0.6
 	}
@@ -585,7 +585,7 @@ function checkStep2 () {
 	);
 }
 function checkStep3 () {
-	$conf = file_exists (DATA_PATH . '/config.php');
+	$conf = is_writable(DATA_PATH . '/config.php');
 
 	$bd = isset ($_SESSION['bd_type']) &&
 	      isset ($_SESSION['bd_host']) &&
