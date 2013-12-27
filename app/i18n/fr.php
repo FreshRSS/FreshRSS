@@ -60,7 +60,7 @@ return array (
 	'access_denied'			=> 'Vous n’avez pas le droit d’accéder à cette page',
 	'page_not_found'		=> 'La page que vous cherchez n’existe pas',
 	'error_occurred'		=> 'Une erreur est survenue',
-	'error_occurred_update'		=> 'Une erreur est survenue lors de la mise à jour',
+	'error_occurred_update'	=> 'Rien n’a été modifié',
 
 	'default_category'		=> 'Sans catégorie',
 	'categories_updated'		=> 'Les catégories ont été mises à jour',

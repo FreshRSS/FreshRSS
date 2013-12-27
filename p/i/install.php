@@ -117,7 +117,9 @@ WHERE e1.content_bin IS NULL');
 
 define('SQL_CONVERT_UPDATEv006', 'UPDATE `%1$sentry` SET content_bin=COMPRESS(?) WHERE id=?;');
 
-define('SQL_UPDATE_CACHED_VALUESv006', '
+define('SQL_DROP_BACKUPv006', 'DROP TABLE IF EXISTS `%1$sentry006`, `%1$sfeed006`, `%1$scategory006`;');
+
+define('SQL_UPDATE_CACHED_VALUES', '
 UPDATE `%1$sfeed` f
 INNER JOIN (
 	SELECT e.id_feed,
@@ -129,7 +131,7 @@ INNER JOIN (
 SET f.cache_nbEntries=x.nbEntries, f.cache_nbUnreads=x.nbUnreads
 ');
 
-define('SQL_DROP_BACKUPv006', 'DROP TABLE IF EXISTS `%1$sentry006`, `%1$sfeed006`, `%1$scategory006`;');
+define('SQL_UPDATE_HISTORYv007b', 'UPDATE `%1$sfeed` SET keep_history = CASE WHEN keep_history = 0 THEN -2 WHEN keep_history = 1 THEN -1 ELSE keep_history END;');
 //</updates>
 
 function writeLine ($f, $line) {
@@ -349,7 +351,11 @@ function updateDatabase($perform = false) {
 			$stm->execute();
 		}
 
-		$sql = sprintf(SQL_UPDATE_CACHED_VALUESv006, $_SESSION['bd_prefix_user']);
+		$sql = sprintf(SQL_UPDATE_HISTORYv007b, $_SESSION['bd_prefix_user']);
+		$stm = $c->prepare($sql);
+		$stm->execute();
+
+		$sql = sprintf(SQL_UPDATE_CACHED_VALUES, $_SESSION['bd_prefix_user']);
 		$stm = $c->prepare($sql);
 		$stm->execute();
 

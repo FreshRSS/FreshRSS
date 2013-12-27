@@ -60,7 +60,7 @@ return array (
 	'access_denied'			=> 'You don’t have permission to access this page',
 	'page_not_found'		=> 'You are looking for a page which doesn’t exist',
 	'error_occurred'		=> 'An error occurred',
-	'error_occurred_update'		=> 'An error occurred during update',
+	'error_occurred_update'	=> 'Nothing was changed',
 
 	'default_category'		=> 'Uncategorized',
 	'categories_updated'		=> 'Categories have been updated',
