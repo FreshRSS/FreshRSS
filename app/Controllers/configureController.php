@@ -283,6 +283,7 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 	}
 
 	public function importExportAction () {
+		require_once(LIB_PATH . '/lib_opml.php');
 		$catDAO = new FreshRSS_CategoryDAO ();
 		$this->view->categories = $catDAO->listCategories ();
 
