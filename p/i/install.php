@@ -235,6 +235,7 @@ function saveStep2 () {
 
 		$file_data = DATA_PATH . '/' . $_SESSION['default_user'] . '_user.php';
 
+		@unlink($file_data);	//To avoid access-rights problems
 		$f = fopen ($file_data, 'w');
 		writeLine ($f, '<?php');
 		writeLine ($f, 'return array (');
@@ -286,6 +287,8 @@ function saveStep3 () {
 				'prefix' => $_SESSION['bd_prefix'],
 			),
 		);
+
+		@unlink(DATA_PATH . '/config.php');	//To avoid access-rights problems
 		file_put_contents(DATA_PATH . '/config.php', "<?php\n return " . var_export($ini_array, true) . ';');
 
 		if (file_exists(DATA_PATH . '/config.php') && file_exists(DATA_PATH . '/application.ini')) {
@@ -970,8 +973,8 @@ case 6:
 		<meta charset="utf-8">
 		<meta name="viewport" content="initial-scale=1.0">
 		<title><?php echo _t ('freshrss_installation'); ?></title>
-		<link rel="stylesheet" type="text/css" media="all" href="themes/default/global.css" />
-		<link rel="stylesheet" type="text/css" media="all" href="themes/default/freshrss.css" />
+		<link rel="stylesheet" type="text/css" media="all" href="../themes/default/global.css" />
+		<link rel="stylesheet" type="text/css" media="all" href="../themes/default/freshrss.css" />
 	</head>
 	<body>
 
