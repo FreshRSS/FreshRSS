@@ -136,7 +136,8 @@ class FreshRSS_Feed extends Minz_Model {
 		$this->url = $value;
 	}
 	public function _category ($value) {
-		$this->category = $value;
+		$value = intval($value);
+		$this->category = $value >= 0 ? $value : 0;
 	}
 	public function _name ($value) {
 		if (is_null ($value)) {
