@@ -198,23 +198,23 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 				//For this feed, check last n entry GUIDs already in database
 				$existingGuids = array_fill_keys ($entryDAO->listLastGuidsByFeed ($feed->id (), count($entries) + 10), 1);
 
+				$feedHistory = $feed->keepHistory();
+				if ($feedHistory == -2) {	//default
+					$feedHistory = $this->view->conf->keepHistoryDefault();
+				}
+
 				// On ne vérifie pas strictement que l'article n'est pas déjà en BDD
 				// La BDD refusera l'ajout car (id_feed, guid) doit être unique
 				$feedDAO->beginTransaction ();
 				foreach ($entries as $entry) {
 					if ((!isset ($existingGuids[$entry->guid ()])) &&
-						($entry->date (true) >= $date_min)) {
+						(($feedHistory != 0) || ($entry->date (true) >= $date_min))) {
 						$values = $entry->toArray ();
 						//Use declared date at first import, otherwise use discovery date
 						$values['id'] = empty($existingGuids) ? min(time(), $entry->date (true)) . uSecString() : uTimeString();
 						$values['is_read'] = $is_read;
 						$entryDAO->addEntry ($values);
 					}
-				}
-
-				$feedHistory = $feed->keepHistory();
-				if ($feedHistory == -2) {	//default
-					$feedHistory = $this->view->conf->keepHistoryDefault();
 				}
 
 				if (($feedHistory >= 0) && (rand(0, 30) === 1)) {
