@@ -63,7 +63,7 @@ class Minz_Configuration {
 	/*
 	 * Getteurs
 	 */
-	public static function selApplication () {
+	public static function salt () {
 		return self::$sel_application;
 	}
 	public static function environment () {

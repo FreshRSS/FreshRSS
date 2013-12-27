@@ -316,11 +316,13 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo {
 				$key = $dao['id'];
 			}
 			if ($catID === null) {
-				$catID = isset($dao['category']) ? $dao['category'] : 0;
+				$category = isset($dao['category']) ? $dao['category'] : 0;
+			} else {
+				$category = $catID ;
 			}
 
 			$myFeed = new FreshRSS_Feed(isset($dao['url']) ? $dao['url'] : '', false);
-			$myFeed->_category(intval($catID));
+			$myFeed->_category($category);
 			$myFeed->_name($dao['name']);
 			$myFeed->_website(isset($dao['website']) ? $dao['website'] : '', false);
 			$myFeed->_description(isset($dao['description']) ? $dao['description'] : '');

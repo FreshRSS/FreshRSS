@@ -1,8 +1,10 @@
 <?php
-require('../constants.php');
+require('../../constants.php');
 include(LIB_PATH . '/lib_rss.php');
 
-session_start ();
+session_name('FreshRSS');
+session_set_cookie_params(0, './', null, false, true);
+session_start();
 
 if (isset ($_GET['step'])) {
 	define ('STEP', $_GET['step']);
@@ -115,7 +117,9 @@ WHERE e1.content_bin IS NULL');
 
 define('SQL_CONVERT_UPDATEv006', 'UPDATE `%1$sentry` SET content_bin=COMPRESS(?) WHERE id=?;');
 
-define('SQL_UPDATE_CACHED_VALUESv006', '
+define('SQL_DROP_BACKUPv006', 'DROP TABLE IF EXISTS `%1$sentry006`, `%1$sfeed006`, `%1$scategory006`;');
+
+define('SQL_UPDATE_CACHED_VALUES', '
 UPDATE `%1$sfeed` f
 INNER JOIN (
 	SELECT e.id_feed,
@@ -127,7 +131,7 @@ INNER JOIN (
 SET f.cache_nbEntries=x.nbEntries, f.cache_nbUnreads=x.nbUnreads
 ');
 
-define('SQL_DROP_BACKUPv006', 'DROP TABLE IF EXISTS `%1$sentry006`, `%1$sfeed006`, `%1$scategory006`;');
+define('SQL_UPDATE_HISTORYv007b', 'UPDATE `%1$sfeed` SET keep_history = CASE WHEN keep_history = 0 THEN -2 WHEN keep_history = 1 THEN -1 ELSE keep_history END;');
 //</updates>
 
 function writeLine ($f, $line) {
@@ -231,6 +235,7 @@ function saveStep2 () {
 
 		$file_data = DATA_PATH . '/' . $_SESSION['default_user'] . '_user.php';
 
+		@unlink($file_data);	//To avoid access-rights problems
 		$f = fopen ($file_data, 'w');
 		writeLine ($f, '<?php');
 		writeLine ($f, 'return array (');
@@ -282,6 +287,8 @@ function saveStep3 () {
 				'prefix' => $_SESSION['bd_prefix'],
 			),
 		);
+
+		@unlink(DATA_PATH . '/config.php');	//To avoid access-rights problems
 		file_put_contents(DATA_PATH . '/config.php', "<?php\n return " . var_export($ini_array, true) . ';');
 
 		if (file_exists(DATA_PATH . '/config.php') && file_exists(DATA_PATH . '/application.ini')) {
@@ -347,7 +354,11 @@ function updateDatabase($perform = false) {
 			$stm->execute();
 		}
 
-		$sql = sprintf(SQL_UPDATE_CACHED_VALUESv006, $_SESSION['bd_prefix_user']);
+		$sql = sprintf(SQL_UPDATE_HISTORYv007b, $_SESSION['bd_prefix_user']);
+		$stm = $c->prepare($sql);
+		$stm->execute();
+
+		$sql = sprintf(SQL_UPDATE_CACHED_VALUES, $_SESSION['bd_prefix_user']);
 		$stm = $c->prepare($sql);
 		$stm->execute();
 
@@ -380,7 +391,7 @@ function updateDatabase($perform = false) {
 }
 
 function deleteInstall () {
-	$res = unlink (PUBLIC_PATH . '/install.php');
+	$res = unlink (INDEX_PATH . '/install.php');
 	if ($res) {
 		header ('Location: index.php');
 	}
@@ -454,16 +465,6 @@ function delTree($dir) {	//http://php.net/rmdir#110489
 	return rmdir($dir);
 }
 
-function removeOldFiles() {
-	$oldDirs = array('/app/configuration/', '/cache/', '/log/', '/public/data/', '/public/themes/printer/');	//v0.6
-
-	$ok = true;
-	foreach ($oldDirs as $oldDir) {
-		$ok &= delTree(FRESHRSS_PATH . $oldDir);
-	}
-	return $ok;
-}
-
 /*** VÉRIFICATIONS ***/
 function checkStep () {
 	$s0 = checkStep0 ();
@@ -479,9 +480,10 @@ function checkStep () {
 	} elseif (STEP > 3 && $s3['all'] != 'ok') {
 		header ('Location: index.php?step=3');
 	}
+	$_SESSION['actualize_feeds'] = true;
 }
 function checkStep0 () {
-	moveOldFiles() && removeOldFiles();
+	moveOldFiles();
 
 	if (file_exists(DATA_PATH . '/config.php')) {
 		$ini_array = include(DATA_PATH . '/config.php');
@@ -932,7 +934,7 @@ function printStep5 () {
 
 function printStep6 () {
 ?>
-	<p class="alert alert-error"><span class="alert-head"><?php echo _t ('oops'); ?></span> <?php echo _t ('install_not_deleted', PUBLIC_PATH . '/install.php'); ?></p>
+	<p class="alert alert-error"><span class="alert-head"><?php echo _t ('oops'); ?></span> <?php echo _t ('install_not_deleted', INDEX_PATH . '/install.php'); ?></p>
 <?php
 }
 
@@ -971,8 +973,8 @@ case 6:
 		<meta charset="utf-8">
 		<meta name="viewport" content="initial-scale=1.0">
 		<title><?php echo _t ('freshrss_installation'); ?></title>
-		<link rel="stylesheet" type="text/css" media="all" href="themes/default/global.css" />
-		<link rel="stylesheet" type="text/css" media="all" href="themes/default/freshrss.css" />
+		<link rel="stylesheet" type="text/css" media="all" href="../themes/default/global.css" />
+		<link rel="stylesheet" type="text/css" media="all" href="../themes/default/freshrss.css" />
 	</head>
 	<body>
 

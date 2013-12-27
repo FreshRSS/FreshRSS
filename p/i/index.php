@@ -21,7 +21,7 @@
 if (file_exists ('install.php')) {
 	require('install.php');
 } else {
-	require('../constants.php');
+	require('../../constants.php');
 
 	session_cache_limiter('');
 	if (!file_exists(DATA_PATH . '/no-cache.txt')) {

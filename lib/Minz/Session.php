@@ -9,21 +9,24 @@ class Minz_Session {
 	 * $session stocke les variables de session
 	 */
 	private static $session = array ();
-	
+
 	/**
-	 * Initialise la session
+	 * Initialise la session, avec un nom
+	 * Le nom de session est utilisé comme nom pour les cookies et les URLs (i.e. PHPSESSID).
+	 * Il ne doit contenir que des caractères alphanumériques ; il doit être court et descriptif
 	 */
-	public static function init () {
+	public static function init ($name) {
 		// démarre la session
-		session_name (md5 (Minz_Configuration::selApplication ()));
+		session_name ($name);
+		session_set_cookie_params (0, './', null, false, true);
 		session_start ();
-		
+
 		if (isset ($_SESSION)) {
 			self::$session = $_SESSION;
 		}
 	}
-	
-	
+
+
 	/**
 	 * Permet de récupérer une variable de session
 	 * @param $p le paramètre à récupérer
@@ -35,11 +38,11 @@ class Minz_Session {
 		} else {
 			$return = $default;
 		}
-		
+
 		return $return;
 	}
-	
-	
+
+
 	/**
 	 * Permet de créer ou mettre à jour une variable de session
 	 * @param $p le paramètre à créer ou modifier
@@ -59,18 +62,18 @@ class Minz_Session {
 			}
 		}
 	}
-	
-	
+
+
 	/**
 	 * Permet d'effacer une session
 	 * @param $force si à false, n'efface pas le paramètre de langue
 	 */
 	public static function unset_session ($force = false) {
 		$language = self::param ('language');
-		
+
 		session_unset ();
 		self::$session = array ();
-		
+
 		if (!$force) {
 			self::_param ('language', $language);
 		}

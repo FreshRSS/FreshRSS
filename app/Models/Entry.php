@@ -106,11 +106,8 @@ class FreshRSS_Entry extends Minz_Model {
 		$this->link = $value;
 	}
 	public function _date ($value) {
-		if (ctype_digit ($value)) {
-			$this->date = intval ($value);
-		} else {
-			$this->date = time ();
-		}
+		$value = intval($value);
+		$this->date = $value > 1 ? $value : time();
 	}
 	public function _isRead ($value) {
 		$this->is_read = $value;

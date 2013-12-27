@@ -60,7 +60,7 @@ return array (
 	'access_denied'			=> 'Vous n’avez pas le droit d’accéder à cette page',
 	'page_not_found'		=> 'La page que vous cherchez n’existe pas',
 	'error_occurred'		=> 'Une erreur est survenue',
-	'error_occurred_update'		=> 'Une erreur est survenue lors de la mise à jour',
+	'error_occurred_update'	=> 'Rien n’a été modifié',
 
 	'default_category'		=> 'Sans catégorie',
 	'categories_updated'		=> 'Les catégories ont été mises à jour',
@@ -240,6 +240,7 @@ return array (
 	'freshrss_description'		=> 'FreshRSS est un agrégateur de flux RSS à auto-héberger à l’image de <a href="http://tontof.net/kriss/feed/">Kriss Feed</a> ou <a href="http://projet.idleman.fr/leed/">Leed</a>. Il se veut léger et facile à prendre en main tout en étant un outil puissant et paramétrable.',
 	'credits'			=> 'Crédits',
 	'credits_content'		=> 'Des éléments de design sont issus du <a href="http://twitter.github.io/bootstrap/">projet Bootstrap</a> bien que FreshRSS n’utilise pas ce framework. Les <a href="https://git.gnome.org/browse/gnome-icon-theme-symbolic">icônes</a> sont issues du <a href="https://www.gnome.org/">projet GNOME</a>. La police <em>Open Sans</em> utilisée a été créée par <a href="https://www.google.com/webfonts/specimen/Open+Sans">Steve Matteson</a>. Les favicons sont récupérés grâce au site <a href="https://getfavicon.appspot.com/">getFavicon</a>. FreshRSS repose sur <a href="https://github.com/marienfressinaud/MINZ">Minz</a>, un framework PHP.',
+	'version'			=> 'Version',
 
 	'logs'				=> 'Logs',
 	'logs_empty'			=> 'Les logs sont vides',

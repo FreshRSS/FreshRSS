@@ -31,7 +31,7 @@ Privilégiez pour cela des demandes sur GitHub
 
 # Installation
 1. Récupérez l’application FreshRSS via la commande git ou [en téléchargeant l’archive](https://github.com/marienfressinaud/FreshRSS/archive/master.zip)
-2. Placez l’application sur votre serveur (la partie à exposer au Web est le répertoire `./public/`)
+2. Placez l’application sur votre serveur (la partie à exposer au Web est le répertoire `./p/`)
 3. Le serveur Web doit avoir les droits d’écriture dans le répertoire `./data/`
 4. Accédez à FreshRSS à travers votre navigateur Web et suivez les instructions d’installation
 5. Tout devrait fonctionner :) En cas de problème, n’hésitez pas à me contacter.
@@ -45,11 +45,11 @@ Il est recommandé de limiter l’accès à votre FreshRSS, soit :
 # Rafraîchissement automatique des flux
 * Vous pouvez ajouter une tâche CRON sur le script d’actualisation des flux. Par exemple, pour exécuter le script toutes les heures :
 ```
-7 * * * * php /chemin/vers/freshrss/actualize_script.php >/dev/null 2>&1
+7 * * * * php /chemin/vers/FreshRSS/app/actualize_script.php >/dev/null 2>&1
 ```
 
 # Conseils
-* Pour une meilleure sécurité, faites en sorte que seul le répertoire `./public` soit accessible depuis le Web, par exemple en faisant pointer un sous-domaine sur le répertoire `./public`.
+* Pour une meilleure sécurité, faites en sorte que seul le répertoire `./p/` soit accessible depuis le Web, par exemple en faisant pointer un sous-domaine sur le répertoire `./p/`.
 * Les données personnelles se trouvent dans le répertoire `./data/` (déjà protégé par un .htaccess pour Apache - vérifiez que cela fonctionne -, à protéger vous-même dans le cas d’autres serveurs Web).
 * Le fichier `./constants.php` définit les chemins d’accès aux répertoires clés de l’application. Si vous les bougez, tout se passe ici.
 * En cas de problème, les logs peuvent être utile à lire, soit depuis l’interface de FreshRSS, soit manuellement depuis `./data/log/*.log`.

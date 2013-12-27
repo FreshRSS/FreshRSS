@@ -16,6 +16,7 @@ class FreshRSS_Feed extends Minz_Model {
 	private $httpAuth = '';
 	private $error = false;
 	private $keep_history = -2;
+	private $hash = null;
 
 	public function __construct ($url, $validate=true) {
 		if ($validate) {
@@ -28,6 +29,14 @@ class FreshRSS_Feed extends Minz_Model {
 	public function id () {
 		return $this->id;
 	}
+
+	public function hash() {
+		if ($this->hash === null) {
+			$this->hash = hash('crc32b', Minz_Configuration::salt() . $this->url);
+		}
+		return $this->hash;
+	}
+
 	public function url () {
 		return $this->url;
 	}
@@ -96,7 +105,7 @@ class FreshRSS_Feed extends Minz_Model {
 		return $this->nbNotRead;
 	}
 	public function faviconPrepare() {
-		$file = DATA_PATH . '/favicons/' . $this->id () . '.txt';
+		$file = DATA_PATH . '/favicons/' . $this->hash() . '.txt';
 		if (!file_exists ($file)) {
 			$t = $this->website;
 			if (empty($t)) {
@@ -105,13 +114,13 @@ class FreshRSS_Feed extends Minz_Model {
 			file_put_contents($file, $t);
 		}
 	}
-	public static function faviconDelete($id) {
-		$path = DATA_PATH . '/favicons/' . $id;
+	public static function faviconDelete($hash) {
+		$path = DATA_PATH . '/favicons/' . $hash;
 		@unlink($path . '.ico');
 		@unlink($path . '.txt');
 	}
 	public function favicon () {
-		return Minz_Url::display ('/f.php?' . $this->id ());
+		return Minz_Url::display ('/f.php/' . $this->hash());
 	}
 
 	public function _id ($value) {
@@ -127,7 +136,8 @@ class FreshRSS_Feed extends Minz_Model {
 		$this->url = $value;
 	}
 	public function _category ($value) {
-		$this->category = $value;
+		$value = intval($value);
+		$this->category = $value >= 0 ? $value : 0;
 	}
 	public function _name ($value) {
 		if (is_null ($value)) {
@@ -154,7 +164,8 @@ class FreshRSS_Feed extends Minz_Model {
 		$this->lastUpdate = $value;
 	}
 	public function _priority ($value) {
-		$this->priority = ctype_digit ($value) ? intval ($value) : 10;
+		$value = intval($value);
+		$this->priority = $value >= 0 ? $value : 10;
 	}
 	public function _pathEntries ($value) {
 		$this->pathEntries = $value;
@@ -172,13 +183,13 @@ class FreshRSS_Feed extends Minz_Model {
 		$this->keep_history = $value;
 	}
 	public function _nbNotRead ($value) {
-		$this->nbNotRead = ctype_digit ($value) ? intval ($value) : -1;
+		$this->nbNotRead = intval($value);
 	}
 	public function _nbEntries ($value) {
-		$this->nbEntries = ctype_digit ($value) ? intval ($value) : -1;
+		$this->nbEntries = intval($value);
 	}
 
-	public function load () {
+	public function load ($loadDetails = false) {
 		if (!is_null ($this->url)) {
 			if (CACHE_PATH === false) {
 				throw new Minz_FileNotExistException (
@@ -250,11 +261,13 @@ class FreshRSS_Feed extends Minz_Model {
 					$this->_url ($subscribe_url);
 				}
 
-				$title = htmlspecialchars(html_only_entity_decode($feed->get_title()), ENT_COMPAT, 'UTF-8');
-				$this->_name (!is_null ($title) ? $title : $this->url);
+				if ($loadDetails) {
+					$title = htmlspecialchars(html_only_entity_decode($feed->get_title()), ENT_COMPAT, 'UTF-8');
+					$this->_name (!is_null ($title) ? $title : $this->url);
 
-				$this->_website(html_only_entity_decode($feed->get_link()));
-				$this->_description(html_only_entity_decode($feed->get_description()));
+					$this->_website(html_only_entity_decode($feed->get_link()));
+					$this->_description(html_only_entity_decode($feed->get_description()));
+				}
 
 				// et on charge les articles du flux
 				$this->loadEntries ($feed);

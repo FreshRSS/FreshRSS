@@ -1,5 +1,5 @@
 <?php
-require('constants.php');
+require(dirname(__FILE__) . '/../constants.php');
 
 $_GET['c'] = 'feed';
 $_GET['a'] = 'actualize';
