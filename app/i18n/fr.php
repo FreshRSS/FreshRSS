@@ -163,6 +163,8 @@ return array (
 	'auth_token'			=> 'Jeton d’identification',
 	'explain_token'			=> 'Permet d’accéder à la sortie RSS sans besoin de s’authentifier.<br />%s?output=rss&token=%s',
 	'login_configuration'	=> 'Identification',
+	'is_admin'				=> 'est administrateur',
+	'auth_type'				=> 'Méthode d’authentification',
 
 	'language'			=> 'Langue',
 	'month'				=> 'mois',

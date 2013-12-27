@@ -96,6 +96,9 @@ class Minz_Configuration {
 	public static function currentUser () {
 		return self::$current_user;
 	}
+	public static function isAdmin () {
+		return self::$current_user === self::$default_user;
+	}
 
 	/**
 	 * Initialise les variables de configuration

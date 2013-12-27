@@ -7,14 +7,6 @@
 		<legend><?php echo Minz_Translate::t('users'); ?></legend>
 
 		<div class="form-group">
-			<label class="group-name" for="current_user">Current user</label>
-			<div class="group-controls">
-				<input id="current_user" type="text" readonly="readonly" value="<?php echo Minz_Configuration::currentUser(); ?>" />
-				<code>$_SERVER['REMOTE_USER'] = <?php echo isset($_SERVER['REMOTE_USER']) ? $_SERVER['REMOTE_USER'] : ''; ?></code>
-			</div>
-		</div>
-
-		<div class="form-group">
 			<div class="group-controls">
 				<label class="checkbox" for="anon_access">
 					<input type="checkbox" name="anon_access" id="anon_access" value="yes"<?php echo $this->conf->anonAccess() == 'yes' ? ' checked="checked"' : ''; ?> />
@@ -24,7 +16,7 @@
 		</div>
 
 		<div class="form-group">
-			<label class="group-name" for="auth_type">Authentification method</label>
+			<label class="group-name" for="auth_type"><?php echo Minz_Translate::t('auth_type'); ?></label>
 			<div class="group-controls">
 				<select id="auth_type" name="auth_type">
 					<option value="none">None (dangerous)</option>
@@ -32,6 +24,18 @@
 					<option value="persona">Mozilla Persona</option>
 				</select>
 				(selector not implemented yet)
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="group-name" for="current_user"><?php echo Minz_Translate::t('current_user'); ?></label>
+			<div class="group-controls">
+				<input id="current_user" type="text" disabled="disabled" value="<?php echo Minz_Configuration::currentUser(); ?>" />
+				<code>$_SERVER['REMOTE_USER'] = <?php echo isset($_SERVER['REMOTE_USER']) ? $_SERVER['REMOTE_USER'] : ''; ?></code>
+				<label class="checkbox" for="is_admin">
+					<input type="checkbox" id="is_admin" disabled="disabled"<?php echo Minz_Configuration::isAdmin() ? ' checked="checked"' : ''; ?> />
+					<?php echo Minz_Translate::t('is_admin'); ?>
+				</label>
 			</div>
 		</div>
 

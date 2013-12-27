@@ -163,6 +163,8 @@ return array (
 	'auth_token'			=> 'Authentication token',
 	'explain_token'			=> 'Allows to access RSS output without authentication.<br />%s?token=%s',
 	'login_configuration'	=> 'Login',
+	'is_admin'				=> 'is administrator',
+	'auth_type'				=> 'Authentication method',
 
 	'language'			=> 'Language',
 	'month'				=> 'months',
