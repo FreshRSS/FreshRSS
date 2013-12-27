@@ -106,7 +106,7 @@ class FreshRSS_entry_Controller extends Minz_ActionController {
 
 		Minz_Request::forward(array(
 			'c' => 'configure',
-			'a' => 'display'
+			'a' => 'archiving'
 		), true);
 	}
 
@@ -147,7 +147,7 @@ class FreshRSS_entry_Controller extends Minz_ActionController {
 
 		Minz_Request::forward(array(
 			'c' => 'configure',
-			'a' => 'display'
+			'a' => 'archiving'
 		), true);
 	}
 }
