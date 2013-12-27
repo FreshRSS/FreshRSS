@@ -1,0 +1,72 @@
+<?php $this->partial('aside_configure'); ?>
+
+<div class="post">
+	<a href="<?php echo _url('index', 'index'); ?>"><?php echo Minz_Translate::t('back_to_rss_feeds'); ?></a>
+
+	<form method="post" action="<?php echo _url('configure', 'users'); ?>">
+		<legend><?php echo Minz_Translate::t('users'); ?></legend>
+
+		<div class="form-group">
+			<label class="group-name" for="current_user">Current user</label>
+			<div class="group-controls">
+				<input id="current_user" type="text" readonly="readonly" value="<?php echo Minz_Configuration::currentUser(); ?>" />
+				<code>$_SERVER['REMOTE_USER'] = <?php echo isset($_SERVER['REMOTE_USER']) ? $_SERVER['REMOTE_USER'] : ''; ?></code>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<div class="group-controls">
+				<label class="checkbox" for="anon_access">
+					<input type="checkbox" name="anon_access" id="anon_access" value="yes"<?php echo $this->conf->anonAccess() == 'yes' ? ' checked="checked"' : ''; ?> />
+					<?php echo Minz_Translate::t('allow_anonymous'); ?>
+				</label>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="group-name" for="auth_type">Authentification method</label>
+			<div class="group-controls">
+				<select id="auth_type" name="auth_type">
+					<option value="none">None (dangerous)</option>
+					<option value="http_auth">HTTP Auth ($_SERVER['REMOTE_USER'])</option>
+					<option value="persona">Mozilla Persona</option>
+				</select>
+				(selector not implemented yet)
+			</div>
+		</div>
+
+		<div class="form-group form-actions">
+			<div class="group-controls">
+				<button type="submit" class="btn btn-important"><?php echo Minz_Translate::t('save'); ?></button>
+				<button type="reset" class="btn"><?php echo Minz_Translate::t('cancel'); ?></button>
+			</div>
+		</div>
+
+		<legend><?php echo Minz_Translate::t('login_configuration'); ?></legend>
+
+		<div class="form-group">
+			<label class="group-name" for="mail_login"><?php echo Minz_Translate::t('persona_connection_email'); ?></label>
+			<?php $mail = $this->conf->mailLogin(); ?>
+			<div class="group-controls">
+				<input type="email" id="mail_login" name="mail_login" value="<?php echo $mail ? $mail : ''; ?>" placeholder="<?php echo Minz_Translate::t('blank_to_disable'); ?>" />
+				<noscript><b><?php echo Minz_Translate::t('javascript_should_be_activated'); ?></b></noscript>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="group-name" for="token"><?php echo Minz_Translate::t('auth_token'); ?></label>
+			<?php $token = $this->conf->token(); ?>
+			<div class="group-controls">
+				<input type="text" id="token" name="token" value="<?php echo $token; ?>"  placeholder="<?php echo Minz_Translate::t('blank_to_disable'); ?>"/>
+				<?php echo FreshRSS_Themes::icon('help'); ?> <?php echo Minz_Translate::t('explain_token', Minz_Url::display(null, 'html', true), $token); ?>
+			</div>
+		</div>
+
+		<div class="form-group form-actions">
+			<div class="group-controls">
+				<button type="submit" class="btn btn-important"><?php echo Minz_Translate::t('save'); ?></button>
+				<button type="reset" class="btn"><?php echo Minz_Translate::t('cancel'); ?></button>
+			</div>
+		</div>
+	</form>
+</div>

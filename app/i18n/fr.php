@@ -8,7 +8,7 @@ return array (
 	'search_short'			=> 'Rechercher',
 
 	'configuration'			=> 'Configuration',
-	'general_and_reading'		=> 'Général et lecture',
+	'users'				=> 'Utilisateurs',
 	'categories'			=> 'Catégories',
 	'category'			=> 'Catégorie',
 	'shortcuts'			=> 'Raccourcis',
@@ -68,7 +68,6 @@ return array (
 	'feed_updated'			=> 'Le flux a été mis à jour',
 	'rss_feed_management'		=> 'Gestion des flux RSS',
 	'configuration_updated'		=> 'La configuration a été mise à jour',
-	'general_and_reading_management'=> 'Gestion générale et affichage',
 	'sharing_management'		=> 'Gestion des options de partage',
 	'bad_opml_file'			=> 'Votre fichier OPML n’est pas valide',
 	'shortcuts_updated'		=> 'Les raccourcis ont été mis à jour',
@@ -157,16 +156,16 @@ return array (
 	'no_selected_feed'		=> 'Aucun flux sélectionné.',
 	'think_to_add'			=> 'Pensez à en ajouter !',
 
-	'general_configuration'		=> 'Configuration générale',
-	'language'			=> 'Langue',
-	
-	'month'				=> 'mois',
+	'current_user'			=> 'Utilisateur actuel',
 	'default_user'			=> 'Nom de l’utilisateur par défaut (16 caractères alphanumériques maximum)',
 	'persona_connection_email'	=> 'Adresse courriel de connexion (utilise <a href="https://persona.org/">Mozilla Persona</a>)',
 	'allow_anonymous'		=> 'Autoriser la lecture anonyme',
 	'auth_token'			=> 'Jeton d’identification',
 	'explain_token'			=> 'Permet d’accéder à la sortie RSS sans besoin de s’authentifier.<br />%s?output=rss&token=%s',
 	'login_configuration'	=> 'Identification',
+
+	'language'			=> 'Langue',
+	'month'				=> 'mois',
 	'archiving_configuration'	=> 'Archivage',
 	'delete_articles_every'	=> 'Supprimer les articles après',
 	'purge_now'			=> 'Purger maintenant',

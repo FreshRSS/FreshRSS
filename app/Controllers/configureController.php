@@ -159,11 +159,6 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 			$onread_jump_next = Minz_Request::param ('onread_jump_next', 'no');
 			$lazyload = Minz_Request::param ('lazyload', 'no');
 			$sort = Minz_Request::param ('sort_order', 'DESC');
-			$old = Minz_Request::param ('old_entries', 3);
-			$keepHistoryDefault = Minz_Request::param('keep_history_default', 0);
-			$mail = Minz_Request::param ('mail_login', false);
-			$anon = Minz_Request::param ('anon_access', 'no');
-			$token = Minz_Request::param ('token', $current_token);
 			$openArticle = Minz_Request::param ('mark_open_article', 'no');
 			$openSite = Minz_Request::param ('mark_open_site', 'no');
 			$scroll = Minz_Request::param ('mark_scroll', 'no');
@@ -189,11 +184,6 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 			$this->view->conf->_onread_jump_next ($onread_jump_next);
 			$this->view->conf->_lazyload ($lazyload);
 			$this->view->conf->_sortOrder ($sort);
-			$this->view->conf->_oldEntries ($old);
-			$this->view->conf->_keepHistoryDefault($keepHistoryDefault);
-			$this->view->conf->_mailLogin ($mail);
-			$this->view->conf->_anonAccess ($anon);
-			$this->view->conf->_token ($token);
 			$this->view->conf->_markWhen (array (
 				'article' => $openArticle,
 				'site' => $openSite,
@@ -219,14 +209,9 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 				'default_view' => $this->view->conf->defaultView (),
 				'auto_load_more' => $this->view->conf->autoLoadMore (),
 				'display_posts' => $this->view->conf->displayPosts (),
-				'onread_jump_next' => $this->view->conf->onread_jump_next (), 
+				'onread_jump_next' => $this->view->conf->onread_jump_next (),
 				'lazyload' => $this->view->conf->lazyload (),
 				'sort_order' => $this->view->conf->sortOrder (),
-				'old_entries' => $this->view->conf->oldEntries (),
-				'keep_history_default' => $this->view->conf->keepHistoryDefault(),
-				'mail_login' => $this->view->conf->mailLogin (),
-				'anon_access' => $this->view->conf->anonAccess (),
-				'token' => $this->view->conf->token (),
 				'mark_when' => $this->view->conf->markWhen (),
 				'theme' => $this->view->conf->theme (),
 				'topline_read' => $this->view->conf->toplineRead () ? 'yes' : 'no',
@@ -261,11 +246,7 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 
 		$this->view->themes = FreshRSS_Themes::get();
 
-		Minz_View::prependTitle (Minz_Translate::t ('general_and_reading_management') . ' - ');
-
-		$entryDAO = new FreshRSS_EntryDAO ();
-		$this->view->nb_total = $entryDAO->count ();
-		$this->view->size_total = $entryDAO->size ();
+		Minz_View::prependTitle (Minz_Translate::t ('reading_configuration') . ' - ');
 	}
 
 	public function sharingAction () {
@@ -409,5 +390,75 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 		}
 
 		Minz_View::prependTitle (Minz_Translate::t ('shortcuts_management') . ' - ');
+	}
+
+	public function usersAction() {
+		if (Minz_Request::isPost()) {
+			$current_token = $this->view->conf->token();
+
+			$mail = Minz_Request::param('mail_login', false);
+			$anon = Minz_Request::param('anon_access', 'no');
+			$token = Minz_Request::param('token', $current_token);
+			$this->view->conf->_mailLogin($mail);
+			$this->view->conf->_anonAccess($anon);
+			$this->view->conf->_token($token);
+
+			$values = array(
+				'mail_login' => $this->view->conf->mailLogin(),
+				'anon_access' => $this->view->conf->anonAccess(),
+				'token' => $this->view->conf->token(),
+			);
+
+			$confDAO = new FreshRSS_ConfigurationDAO();
+			$confDAO->update($values);
+			Minz_Session::_param('conf', $this->view->conf);
+			Minz_Session::_param('mail', $this->view->conf->mailLogin());
+
+			// notif
+			$notif = array(
+				'type' => 'good',
+				'content' => Minz_Translate::t('configuration_updated')
+			);
+			Minz_Session::_param('notification', $notif);
+
+			Minz_Request::forward(array('c' => 'configure', 'a' => 'users'), true);
+		}
+
+		Minz_View::prependTitle(Minz_Translate::t ('users') . ' - ');
+	}
+
+	public function archivingAction () {
+		if (Minz_Request::isPost()) {
+			$old = Minz_Request::param('old_entries', 3);
+			$keepHistoryDefault = Minz_Request::param('keep_history_default', 0);
+
+			$this->view->conf->_oldEntries($old);
+			$this->view->conf->_keepHistoryDefault($keepHistoryDefault);
+
+			$values = array(
+				'old_entries' => $this->view->conf->oldEntries(),
+				'keep_history_default' => $this->view->conf->keepHistoryDefault(),
+			);
+
+			$confDAO = new FreshRSS_ConfigurationDAO();
+			$confDAO->update($values);
+			Minz_Session::_param('conf', $this->view->conf);
+			Minz_Session::_param('mail', $this->view->conf->mailLogin ());
+
+			// notif
+			$notif = array(
+				'type' => 'good',
+				'content' => Minz_Translate::t('configuration_updated')
+			);
+			Minz_Session::_param('notification', $notif);
+
+			Minz_Request::forward(array('c' => 'configure', 'a' => 'archiving'), true);
+		}
+
+		Minz_View::prependTitle(Minz_Translate::t('archiving_configuration') . ' - ');
+
+		$entryDAO = new FreshRSS_EntryDAO();
+		$this->view->nb_total = $entryDAO->count();
+		$this->view->size_total = $entryDAO->size();
 	}
 }

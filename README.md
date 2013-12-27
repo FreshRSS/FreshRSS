@@ -5,8 +5,8 @@ Il se veut léger et facile à prendre en main tout en étant un outil puissant 
 * Site officiel : http://freshrss.org
 * Démo : http://marienfressinaud.fr/projets/freshrss/
 * Développeur : Marien Fressinaud <dev@marienfressinaud.fr>
-* Version actuelle : 0.7-beta3
-* Date de publication 2014-01-xx
+* Version actuelle : 0.8-dev
+* Date de publication 2014-xx-xx
 * License [GNU AGPL 3](http://www.gnu.org/licenses/agpl-3.0.html)
 
 ![Logo de FreshRSS](http://marienfressinaud.fr/data/images/freshrss/freshrss_title.png)
