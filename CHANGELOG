@@ -7,7 +7,7 @@
 	* Supporte une mise à jour depuis la version 0.6
 		* Juste placer application.ini et Configuration.array.php dans le nouveau répertoire “./data/”
 * Importation OPML instantanée et plus tolérante
-	* Nouvelle gestion des favicons et téléchargement en parallèle
+	* Nouvelle gestion des favicons avec téléchargement en parallèle et compatibilité multi-utilisateurs
 * Nouvelles options
 	* Améliorations partage vers Shaarli, Poche, Diaspora*, Facebook, Twitter, Google+, courriel
 	* Permet la suppression de tous les articles d’un flux
@@ -15,7 +15,8 @@
 	* Permet de configurer plus finement le nombre d’articles minimum à conserver par flux
 	* Permet de modifier la description et l’adresse d’un flux RSS ainsi que le site Web associé
 	* Nouveau raccourci pour ouvrir/fermer un article (‘c’ par défaut)
-	* Bouton pour effacer les logs
+	* Boutons pour effacer les logs et pour purger les vieux articles
+	* Légère réorganisation des options
 * SQL :
 	* Nouveau moteur de recherche, aussi accessible depuis la vue mobile
 		* Mots clefs de recherche “intitle:”, “inurl:”, “author:”
@@ -44,6 +45,7 @@
 	* Meilleure gestion des caractères spéciaux dans différents cas
 	* Amélioration des performances
 	* Encore plus tolérant pour les flux comportant des erreurs
+	* Mise à jour automatique de l’URL du flux (en base de données) lorsque SimplePie découvre qu’elle a changé
 	* Chargement automatique des classes
 	* Alternative dans le cas d’absence de librairie JSON
 	* Pour le développement, le cache HTTP peut être désactivé en créant un fichier “./no-cache.txt”
@@ -51,17 +53,19 @@
 	* Tous les fichiers utilisateur sont dans “./data/” (y compris “cache”, “favicons”, et “log”)
 	* Déplacement de “./app/configuration/application.ini” vers “./data/config.php”
 	* Déplacement de “./public/data/Configuration.array.php” vers “./data/*_user.php”
-	* Déplacement de “./public/index.php” vers “./p/i/index.php” (voir cookie ci-dessous)
 	* Déplacement de “./public/” vers “./p/”
-	* Déplacement de “./actualize_script.php” vers “./app/actualize_script.php”
+		* Déplacement de “./public/index.php” vers “./p/i/index.php” (voir cookie ci-dessous)
+	* Déplacement de “./actualize_script.php” vers “./app/actualize_script.php” (pour une meilleure sécurité)
+		* Pensez à mettre à jour votre CRON !
 * Divers :
 	* Nouvelle politique de cookie de session (témoin de connexion)
-		* Utilise un nom poli “FreshRSS”
+		* Utilise un nom poli “FreshRSS” (évite des problèmes avec certains filtres)
 		* Se limite au répertoire “./FreshRSS/p/i/” pour de meilleures performances HTTP
 			* Les images, CSS, scripts sont servis sans cookie
 		* utilise “HttpOnly” pour plus de sécurité
 	* Nouvel “agent utilisateur” exposé lors du téléchargement des flux, par exemple :
 		* “FreshRSS/0.7 (Linux; http://freshrss.org) SimplePie/1.3.1”
+	* Affichage du numéro de version dans "À propos"
 
 
 ## 2013-11-21 FreshRSS 0.6.1
