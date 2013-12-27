@@ -55,7 +55,7 @@ return array (
 	'update_start'			=> 'Start update process',
 	'update_long'			=> 'This can take a long time, depending on the size of your database. You may have to wait for this page to time out (~5 minutes) and then refresh this page.',
 
-	'installation_is_ok'		=> 'The installation process was successful.<br />The final step will now attempt to delete the <kbd>./public/install.php</kbd> file and any database backup created during the update process.<br />You may choose to skip this step and delete <kbd>./public/install.php</kbd> manually.',
+	'installation_is_ok'		=> 'The installation process was successful.<br />The final step will now attempt to delete the <kbd>./p/i/install.php</kbd> file and any database backup created during the update process.<br />You may choose to skip this step and delete <kbd>./p/i/install.php</kbd> manually.',
 	'finish_installation'		=> 'Complete installation',
 	'install_not_deleted'		=> 'Something went wrong; you must delete the file <em>%s</em> manually.',
 );

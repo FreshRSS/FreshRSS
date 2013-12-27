@@ -41,7 +41,7 @@ return array (
 	'general_conf_is_ok'		=> 'La configuration générale a été enregistrée.',
 	'random_string'			=> 'Chaîne aléatoire',
 	'change_value'			=> 'Vous devriez changer cette valeur par n’importe quelle autre',
-	'base_url'			=> 'Base de l’url',
+	'base_url'			=> 'Base de l’URL',
 	'do_not_change_if_doubt'	=> 'Laissez tel quel dans le doute',
 
 	'bdd_conf_is_ok'		=> 'La configuration de la base de données a été enregistrée.',
@@ -55,7 +55,7 @@ return array (
 	'update_start'			=> 'Lancer la mise à jour',
 	'update_long'			=> 'Ce processus peut prendre longtemps, selon la taille de votre base de données. Vous aurez peut-être à attendre que cette page dépasse son temps maximum d’exécution (~5 minutes) puis à la recharger.',
 
-	'installation_is_ok'		=> 'L’installation s’est bien passée.<br />La dernière étape va maintenant tenter de supprimer le fichier <kbd>/public/install.php</kbd>, ainsi que d’éventuelles copies de base de données créées durant le processus de mise à jour.<br />Vous pouvez choisir de sauter cette étape et de supprimer <kbd>/public/install.php</kbd> manuellement.',
+	'installation_is_ok'		=> 'L’installation s’est bien passée.<br />La dernière étape va maintenant tenter de supprimer le fichier <kbd>./p/i/install.php</kbd>, ainsi que d’éventuelles copies de base de données créées durant le processus de mise à jour.<br />Vous pouvez choisir de sauter cette étape et de supprimer <kbd>./p/i/install.php</kbd> manuellement.',
 	'finish_installation'		=> 'Terminer l’installation',
 	'install_not_deleted'		=> 'Quelque chose s’est mal passé, vous devez supprimer le fichier <em>%s</em> à la main.',
 );
