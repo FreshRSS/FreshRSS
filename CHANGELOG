@@ -62,7 +62,7 @@
 		* Utilise un nom poli “FreshRSS” (évite des problèmes avec certains filtres)
 		* Se limite au répertoire “./FreshRSS/p/i/” pour de meilleures performances HTTP
 			* Les images, CSS, scripts sont servis sans cookie
-		* utilise “HttpOnly” pour plus de sécurité
+		* Utilise “HttpOnly” pour plus de sécurité
 	* Nouvel “agent utilisateur” exposé lors du téléchargement des flux, par exemple :
 		* “FreshRSS/0.7 (Linux; http://freshrss.org) SimplePie/1.3.1”
 	* Affichage du numéro de version dans "À propos"
