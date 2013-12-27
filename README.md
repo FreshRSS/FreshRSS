@@ -5,7 +5,7 @@ Il se veut léger et facile à prendre en main tout en étant un outil puissant 
 * Site officiel : http://freshrss.org
 * Démo : http://marienfressinaud.fr/projets/freshrss/
 * Développeur : Marien Fressinaud <dev@marienfressinaud.fr>
-* Version actuelle : 0.7-beta2
+* Version actuelle : 0.7-beta3
 * Date de publication 2014-01-xx
 * License [GNU AGPL 3](http://www.gnu.org/licenses/agpl-3.0.html)
 
@@ -44,6 +44,7 @@ Il est recommandé de limiter l’accès à votre FreshRSS, soit :
 
 # Rafraîchissement automatique des flux
 * Vous pouvez ajouter une tâche CRON sur le script d’actualisation des flux. Par exemple, pour exécuter le script toutes les heures :
+
 ```
 7 * * * * php /chemin/vers/FreshRSS/app/actualize_script.php >/dev/null 2>&1
 ```
