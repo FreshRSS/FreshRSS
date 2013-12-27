@@ -197,6 +197,7 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 
 				//For this feed, check last n entry GUIDs already in database
 				$existingGuids = array_fill_keys ($entryDAO->listLastGuidsByFeed ($feed->id (), count($entries) + 10), 1);
+				$useDeclaredDate = empty($existingGuids);
 
 				$feedHistory = $feed->keepHistory();
 				if ($feedHistory == -2) {	//default
@@ -207,11 +208,14 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 				// La BDD refusera l'ajout car (id_feed, guid) doit être unique
 				$feedDAO->beginTransaction ();
 				foreach ($entries as $entry) {
+					$eDate = $entry->date (true);
 					if ((!isset ($existingGuids[$entry->guid ()])) &&
-						(($feedHistory != 0) || ($entry->date (true) >= $date_min))) {
+						(($feedHistory != 0) || ($eDate  >= $date_min))) {
 						$values = $entry->toArray ();
 						//Use declared date at first import, otherwise use discovery date
-						$values['id'] = empty($existingGuids) ? min(time(), $entry->date (true)) . uSecString() : uTimeString();
+						$values['id'] = ($useDeclaredDate || $eDate < $date_min) ?
+							min(time(), $eDate) . uSecString() :
+							uTimeString();
 						$values['is_read'] = $is_read;
 						$entryDAO->addEntry ($values);
 					}
