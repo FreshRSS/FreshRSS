@@ -10,7 +10,7 @@
 			<label class="group-name" for="current_user"><?php echo Minz_Translate::t('current_user'); ?></label>
 			<div class="group-controls">
 				<input id="current_user" type="text" disabled="disabled" value="<?php echo Minz_Configuration::currentUser(); ?>" />
-				<code>$_SERVER['REMOTE_USER'] = <?php echo isset($_SERVER['REMOTE_USER']) ? $_SERVER['REMOTE_USER'] : ''; ?></code>
+				<code>$_SERVER['REMOTE_USER'] = <?php echo httpAuthUser(); ?></code>
 				<label class="checkbox" for="is_admin">
 					<input type="checkbox" id="is_admin" disabled="disabled"<?php echo Minz_Configuration::isAdmin() ? ' checked="checked"' : ''; ?> />
 					<?php echo Minz_Translate::t('is_admin'); ?>
@@ -61,7 +61,7 @@
 			<div class="group-controls">
 				<select id="auth_type" name="auth_type">
 					<option value="none">None (dangerous)</option>
-					<option value="http_auth">HTTP Auth ($_SERVER['REMOTE_USER'])</option>
+					<option value="http_auth">HTTP Auth</option>
 					<option value="persona">Mozilla Persona</option>
 				</select>
 				(selector not implemented yet)

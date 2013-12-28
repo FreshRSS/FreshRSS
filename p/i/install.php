@@ -806,7 +806,7 @@ function printStep2 () {
 		<div class="form-group">
 			<label class="group-name" for="default_user"><?php echo _t ('default_user'); ?></label>
 			<div class="group-controls">
-				<input type="text" id="default_user" name="default_user" maxlength="16" value="<?php echo isset ($_SESSION['default_user']) ? $_SESSION['default_user'] : ''; ?>" placeholder="user1" />
+				<input type="text" id="default_user" name="default_user" maxlength="16" value="<?php echo isset ($_SESSION['default_user']) ? $_SESSION['default_user'] : ''; ?>" placeholder="<?php echo httpAuthUser() == '' ? 'user1' : httpAuthUser(); ?>" />
 			</div>
 		</div>
 

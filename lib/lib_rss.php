@@ -188,3 +188,7 @@ function usernameFromPath($userPath) {
 function listUsers() {
 	return array_map('usernameFromPath', glob(DATA_PATH . '/*_user.php'));
 }
+
+function httpAuthUser() {
+	return isset($_SERVER['REMOTE_USER']) ? $_SERVER['REMOTE_USER'] : '';
+}
