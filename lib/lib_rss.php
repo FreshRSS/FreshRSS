@@ -63,7 +63,7 @@ function is_logged () {
 
 // vérifie que le système d'authentification est configuré
 function login_is_conf ($conf) {
-	return $conf->mailLogin () != false;
+	return $conf->mail_login != '';
 }
 
 // tiré de Shaarli de Seb Sauvage	//Format RFC 4648 base64url

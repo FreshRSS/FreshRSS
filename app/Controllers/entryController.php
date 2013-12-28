@@ -113,7 +113,7 @@ class FreshRSS_entry_Controller extends Minz_ActionController {
 	public function purgeAction() {
 		@set_time_limit(300);
 
-		$nb_month_old = max($this->view->conf->oldEntries(), 1);
+		$nb_month_old = max($this->view->conf->old_entries, 1);
 		$date_min = time() - (3600 * 24 * 30 * $nb_month_old);
 
 		$feedDAO = new FreshRSS_FeedDAO();
@@ -125,7 +125,7 @@ class FreshRSS_entry_Controller extends Minz_ActionController {
 		foreach ($feeds as $feed) {
 			$feedHistory = $feed->keepHistory();
 			if ($feedHistory == -2) {	//default
-				$feedHistory = $this->view->conf->keepHistoryDefault();
+				$feedHistory = $this->view->conf->keep_history_default;
 			}
 			if ($feedHistory >= 0) {
 				$nb = $feedDAO->cleanOldEntries($feed->id(), $date_min, $feedHistory);

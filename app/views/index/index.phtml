@@ -1,7 +1,7 @@
 <?php
 
 $output = Minz_Request::param ('output', 'normal');
-$token = $this->conf->token();
+$token = $this->conf->token;
 $token_param = Minz_Request::param ('token', '');
 $token_is_ok = ($token != '' && $token == $token_param);
 

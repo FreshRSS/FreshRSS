@@ -12,7 +12,7 @@
 				<select name="language" id="language">
 				<?php $languages = $this->conf->availableLanguages (); ?>
 				<?php foreach ($languages as $short => $lib) { ?>
-				<option value="<?php echo $short; ?>"<?php echo $this->conf->language () == $short ? ' selected="selected"' : ''; ?>><?php echo $lib; ?></option>
+				<option value="<?php echo $short; ?>"<?php echo $this->conf->language === $short ? ' selected="selected"' : ''; ?>><?php echo $lib; ?></option>
 				<?php } ?>
 				</select>
 			</div>
@@ -23,7 +23,7 @@
 			<div class="group-controls">
 				<select name="theme" id="theme">
 				<?php foreach ($this->themes as $theme) { ?>
-				<option value="<?php echo $theme['path']; ?>"<?php echo $this->conf->theme () == $theme['path'] ? ' selected="selected"' : ''; ?>>
+				<option value="<?php echo $theme['path']; ?>"<?php echo $this->conf->theme === $theme['path'] ? ' selected="selected"' : ''; ?>>
 					<?php echo $theme['name'] . ' ' . Minz_Translate::t ('by') . ' ' . $theme['author']; ?> 
 				</option>
 				<?php } ?>
@@ -43,7 +43,7 @@
 		<div class="form-group">
 			<label class="group-name" for="posts_per_page"><?php echo Minz_Translate::t ('articles_per_page'); ?></label>
 			<div class="group-controls">
-				<input type="number" id="posts_per_page" name="posts_per_page" value="<?php echo $this->conf->postsPerPage (); ?>" />
+				<input type="number" id="posts_per_page" name="posts_per_page" value="<?php echo $this->conf->posts_per_page; ?>" />
 			</div>
 		</div>
 
@@ -51,8 +51,8 @@
 			<label class="group-name" for="sort_order"><?php echo Minz_Translate::t ('sort_order'); ?></label>
 			<div class="group-controls">
 				<select name="sort_order" id="sort_order">
-					<option value="DESC"<?php echo $this->conf->sortOrder () === 'DESC' ? ' selected="selected"' : ''; ?>><?php echo Minz_Translate::t ('newer_first'); ?></option>
-					<option value="ASC"<?php echo $this->conf->sortOrder () === 'ASC' ? ' selected="selected"' : ''; ?>><?php echo Minz_Translate::t ('older_first'); ?></option>
+					<option value="DESC"<?php echo $this->conf->sort_order === 'DESC' ? ' selected="selected"' : ''; ?>><?php echo Minz_Translate::t ('newer_first'); ?></option>
+					<option value="ASC"<?php echo $this->conf->sort_order === 'ASC' ? ' selected="selected"' : ''; ?>><?php echo Minz_Translate::t ('older_first'); ?></option>
 				</select>
 			</div>
 		</div>
@@ -61,16 +61,16 @@
 			<label class="group-name" for="view_mode"><?php echo Minz_Translate::t ('default_view'); ?></label>
 			<div class="group-controls">
 				<select name="view_mode" id="view_mode">
-					<option value="normal"<?php echo $this->conf->viewMode () == 'normal' ? ' selected="selected"' : ''; ?>><?php echo Minz_Translate::t ('normal_view'); ?></option>
-					<option value="reader"<?php echo $this->conf->viewMode () == 'reader' ? ' selected="selected"' : ''; ?>><?php echo Minz_Translate::t ('reader_view'); ?></option>
-					<option value="global"<?php echo $this->conf->viewMode () == 'global' ? ' selected="selected"' : ''; ?>><?php echo Minz_Translate::t ('global_view'); ?></option>
+					<option value="normal"<?php echo $this->conf->view_mode === 'normal' ? ' selected="selected"' : ''; ?>><?php echo Minz_Translate::t ('normal_view'); ?></option>
+					<option value="reader"<?php echo $this->conf->view_mode === 'reader' ? ' selected="selected"' : ''; ?>><?php echo Minz_Translate::t ('reader_view'); ?></option>
+					<option value="global"<?php echo $this->conf->view_mode === 'global' ? ' selected="selected"' : ''; ?>><?php echo Minz_Translate::t ('global_view'); ?></option>
 				</select>
 				<label class="radio" for="radio_all">
-					<input type="radio" name="default_view" id="radio_all" value="all"<?php echo $this->conf->defaultView () == 'all' ? ' checked="checked"' : ''; ?> />
+					<input type="radio" name="default_view" id="radio_all" value="all"<?php echo $this->conf->default_view === 'all' ? ' checked="checked"' : ''; ?> />
 					<?php echo Minz_Translate::t ('show_all_articles'); ?>
 				</label>
 				<label class="radio" for="radio_not_read">
-					<input type="radio" name="default_view" id="radio_not_read" value="not_read"<?php echo $this->conf->defaultView () == 'not_read' ? ' checked="checked"' : ''; ?> />
+					<input type="radio" name="default_view" id="radio_not_read" value="not_read"<?php echo $this->conf->default_view === 'not_read' ? ' checked="checked"' : ''; ?> />
 					<?php echo Minz_Translate::t ('show_not_reads'); ?>
 				</label>
 			</div>
@@ -79,9 +79,9 @@
 		<div class="form-group">
 			<div class="group-controls">
 				<label class="checkbox" for="auto_load_more">
-					<input type="checkbox" name="auto_load_more" id="auto_load_more" value="yes"<?php echo $this->conf->autoLoadMore () == 'yes' ? ' checked="checked"' : ''; ?> />
+					<input type="checkbox" name="auto_load_more" id="auto_load_more" value="1"<?php echo $this->conf->auto_load_more ? ' checked="checked"' : ''; ?> />
 					<?php echo Minz_Translate::t ('auto_load_more'); ?>
-					<?php echo $this->conf->displayPosts () == 'no' ? '<noscript> - <b>' . Minz_Translate::t ('javascript_should_be_activated') . '</b></noscript>' : ''; ?>
+					<noscript> - <strong><?php echo Minz_Translate::t ('javascript_should_be_activated'); ?></strong></noscript>
 				</label>
 			</div>
 		</div>
@@ -89,9 +89,9 @@
 		<div class="form-group">
 			<div class="group-controls">
 				<label class="checkbox" for="display_posts">
-					<input type="checkbox" name="display_posts" id="display_posts" value="yes"<?php echo $this->conf->displayPosts () == 'yes' ? ' checked="checked"' : ''; ?> />
+					<input type="checkbox" name="display_posts" id="display_posts" value="1"<?php echo $this->conf->display_posts ? ' checked="checked"' : ''; ?> />
 					<?php echo Minz_Translate::t ('display_articles_unfolded'); ?>
-					<?php echo $this->conf->displayPosts () == 'no' ? '<noscript> - <b>' . Minz_Translate::t ('javascript_should_be_activated') . '</b></noscript>' : ''; ?>
+					<noscript> - <strong><?php echo Minz_Translate::t ('javascript_should_be_activated'); ?></strong></noscript>
 				</label>
 			</div>
 		</div>
@@ -99,9 +99,9 @@
 		<div class="form-group">
 			<div class="group-controls">
 				<label class="checkbox" for="lazyload">
-					<input type="checkbox" name="lazyload" id="lazyload" value="yes"<?php echo $this->conf->lazyload () == 'yes' ? ' checked="checked"' : ''; ?> />
+					<input type="checkbox" name="lazyload" id="lazyload" value="1"<?php echo $this->conf->lazyload ? ' checked="checked"' : ''; ?> />
 					<?php echo Minz_Translate::t ('img_with_lazyload'); ?>
-					<?php echo $this->conf->lazyload () == 'yes' ? '<noscript> - <b>' . Minz_Translate::t ('javascript_should_be_activated') . '</b></noscript>' : ''; ?>
+					<noscript> - <strong><?php echo Minz_Translate::t ('javascript_should_be_activated'); ?></strong></noscript>
 				</label>
 			</div>
 		</div>
@@ -110,19 +110,19 @@
 			<label class="group-name"><?php echo Minz_Translate::t ('auto_read_when'); ?></label>
 			<div class="group-controls">
 				<label class="checkbox" for="check_open_article">
-					<input type="checkbox" name="mark_open_article" id="check_open_article" value="yes"<?php echo $this->conf->markWhenArticle () == 'yes' ? ' checked="checked"' : ''; ?> />
+					<input type="checkbox" name="mark_open_article" id="check_open_article" value="1"<?php echo $this->conf->mark_when['article'] ? ' checked="checked"' : ''; ?> />
 					<?php echo Minz_Translate::t ('article_selected'); ?>
 				</label>
 				<label class="checkbox" for="check_open_site">
-					<input type="checkbox" name="mark_open_site" id="check_open_site" value="yes"<?php echo $this->conf->markWhenSite () == 'yes' ? ' checked="checked"' : ''; ?> />
+					<input type="checkbox" name="mark_open_site" id="check_open_site" value="1"<?php echo $this->conf->mark_when['site'] ? ' checked="checked"' : ''; ?> />
 					<?php echo Minz_Translate::t ('article_open_on_website'); ?>
 				</label>
 				<label class="checkbox" for="check_scroll">
-					<input type="checkbox" name="mark_scroll" id="check_scroll" value="yes"<?php echo $this->conf->markWhenScroll () == 'yes' ? ' checked="checked"' : ''; ?> />
+					<input type="checkbox" name="mark_scroll" id="check_scroll" value="1"<?php echo $this->conf->mark_when['scroll'] ? ' checked="checked"' : ''; ?> />
 					<?php echo Minz_Translate::t ('scroll'); ?>
 				</label>
 				<label class="checkbox" for="check_reception">
-					<input type="checkbox" name="mark_upon_reception" id="check_reception" value="yes"<?php echo $this->conf->markUponReception () == 'yes' ? ' checked="checked"' : ''; ?> />
+					<input type="checkbox" name="mark_upon_reception" id="check_reception" value="1"<?php echo $this->conf->mark_when['reception'] ? ' checked="checked"' : ''; ?> />
 					<?php echo Minz_Translate::t ('upon_reception'); ?>
 				</label>
 			</div>
@@ -132,7 +132,7 @@
 			<label class="group-name"><?php echo Minz_Translate::t ('after_onread'); ?></label>
 			<div class="group-controls">
 				<label class="checkbox" for="onread_jump_next">
-					<input type="checkbox" name="onread_jump_next" id="onread_jump_next" value="yes"<?php echo $this->conf->onread_jump_next () == 'yes' ? ' checked="checked"' : ''; ?> />
+					<input type="checkbox" name="onread_jump_next" id="onread_jump_next" value="1"<?php echo $this->conf->onread_jump_next ? ' checked="checked"' : ''; ?> />
 					<?php echo Minz_Translate::t ('jump_next'); ?>
 				</label>
 			</div>
@@ -162,20 +162,20 @@
 				<tbody>
 					<tr>
 						<th><?php echo Minz_Translate::t ('top_line'); ?></th>
-						<td><input type="checkbox" name="topline_read" value="yes"<?php echo $this->conf->toplineRead () ? ' checked="checked"' : ''; ?> /></td>
-						<td><input type="checkbox" name="topline_favorite" value="yes"<?php echo $this->conf->toplineFavorite () ? ' checked="checked"' : ''; ?> /></td>
+						<td><input type="checkbox" name="topline_read" value="1"<?php echo $this->conf->topline_read ? ' checked="checked"' : ''; ?> /></td>
+						<td><input type="checkbox" name="topline_favorite" value="1"<?php echo $this->conf->topline_favorite ? ' checked="checked"' : ''; ?> /></td>
 						<td><input type="checkbox" disabled="disabled" /></td>
 						<td><input type="checkbox" disabled="disabled" /></td>
-						<td><input type="checkbox" name="topline_date" value="yes"<?php echo $this->conf->toplineDate () ? ' checked="checked"' : ''; ?> /></td>
-						<td><input type="checkbox" name="topline_link" value="yes"<?php echo $this->conf->toplineLink () ? ' checked="checked"' : ''; ?> /></td>
+						<td><input type="checkbox" name="topline_date" value="1"<?php echo $this->conf->topline_date ? ' checked="checked"' : ''; ?> /></td>
+						<td><input type="checkbox" name="topline_link" value="1"<?php echo $this->conf->topline_link ? ' checked="checked"' : ''; ?> /></td>
 					</tr><tr>
 						<th><?php echo Minz_Translate::t ('bottom_line'); ?></th>
-						<td><input type="checkbox" name="bottomline_read" value="yes"<?php echo $this->conf->bottomlineRead () ? ' checked="checked"' : ''; ?> /></td>
-						<td><input type="checkbox" name="bottomline_favorite" value="yes"<?php echo $this->conf->bottomlineFavorite () ? ' checked="checked"' : ''; ?> /></td>
-						<td><input type="checkbox" name="bottomline_sharing" value="yes"<?php echo $this->conf->bottomlineSharing () ? ' checked="checked"' : ''; ?> /></td>
-						<td><input type="checkbox" name="bottomline_tags" value="yes"<?php echo $this->conf->bottomlineTags () ? ' checked="checked"' : ''; ?> /></td>
-						<td><input type="checkbox" name="bottomline_date" value="yes"<?php echo $this->conf->bottomlineDate () ? ' checked="checked"' : ''; ?> /></td>
-						<td><input type="checkbox" name="bottomline_link" value="yes"<?php echo $this->conf->bottomlineLink () ? ' checked="checked"' : ''; ?> /></td>
+						<td><input type="checkbox" name="bottomline_read" value="1"<?php echo $this->conf->bottomline_read ? ' checked="checked"' : ''; ?> /></td>
+						<td><input type="checkbox" name="bottomline_favorite" value="1"<?php echo $this->conf->bottomline_favorite ? ' checked="checked"' : ''; ?> /></td>
+						<td><input type="checkbox" name="bottomline_sharing" value="1"<?php echo $this->conf->bottomline_sharing ? ' checked="checked"' : ''; ?> /></td>
+						<td><input type="checkbox" name="bottomline_tags" value="1"<?php echo $this->conf->bottomline_tags ? ' checked="checked"' : ''; ?> /></td>
+						<td><input type="checkbox" name="bottomline_date" value="1"<?php echo $this->conf->bottomline_date ? ' checked="checked"' : ''; ?> /></td>
+						<td><input type="checkbox" name="bottomline_link" value="1"<?php echo $this->conf->bottomline_link ? ' checked="checked"' : ''; ?> /></td>
 					</tr>
 				</tbody>
 			</table><br />

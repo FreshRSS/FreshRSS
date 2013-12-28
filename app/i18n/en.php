@@ -159,7 +159,7 @@ return array (
 	'current_user'			=> 'Current user',
 	'default_user'			=> 'Username of the default user (maximum 16 alphanumeric characters)',
 	'persona_connection_email'	=> 'Login mail address (use <a href="https://persona.org/">Mozilla Persona</a>)',
-	'allow_anonymous'		=> 'Allow anonymous reading',
+	'allow_anonymous'		=> 'Allow anonymous reading for the default user (%s)',
 	'auth_token'			=> 'Authentication token',
 	'explain_token'			=> 'Allows to access RSS output without authentication.<br />%s?token=%s',
 	'login_configuration'		=> 'Login',

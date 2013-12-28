@@ -55,11 +55,6 @@ class Minz_Session {
 		} else {
 			$_SESSION[$p] = $v;
 			self::$session[$p] = $v;
-
-			if($p == 'language') {
-				// reset pour remettre à jour le fichier de langue à utiliser
-				Minz_Translate::reset ();
-			}
 		}
 	}
 
@@ -76,6 +71,7 @@ class Minz_Session {
 
 		if (!$force) {
 			self::_param ('language', $language);
+			Minz_Translate::reset ();
 		}
 	}
 }

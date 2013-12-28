@@ -225,14 +225,14 @@ class Minz_Configuration {
 			}
 		}
 		if (isset ($general['delay_cache'])) {
-			self::$delay_cache = $general['delay_cache'];
+			self::$delay_cache = inval($general['delay_cache']);
 		}
 		if (isset ($general['default_user'])) {
 			self::$default_user = $general['default_user'];
 			self::$current_user = self::$default_user;
 		}
 		if (isset ($general['allow_anonymous'])) {
-			self::$allow_anonymous = (bool)($general['allow_anonymous']);
+			self::$allow_anonymous = ((bool)($general['allow_anonymous'])) && ($general['allow_anonymous'] !== 'no');
 		}
 
 		// Base de données

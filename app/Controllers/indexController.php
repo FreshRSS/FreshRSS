@@ -17,7 +17,7 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 	public function indexAction () {
 		$output = Minz_Request::param ('output');
 
-		$token = $this->view->conf->token();
+		$token = $this->view->conf->token;
 		$token_param = Minz_Request::param ('token', '');
 		$token_is_ok = ($token != '' && $token === $token_param);
 
@@ -91,13 +91,13 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 		);
 
 		// On récupère les différents éléments de filtrage
-		$this->view->state = $state = Minz_Request::param ('state', $this->view->conf->defaultView ());
+		$this->view->state = $state = Minz_Request::param ('state', $this->view->conf->default_view);
 		$filter = Minz_Request::param ('search', '');
 		if (!empty($filter)) {
 			$state = 'all';	//Search always in read and unread articles
 		}
-		$this->view->order = $order = Minz_Request::param ('order', $this->view->conf->sortOrder ());
-		$nb = Minz_Request::param ('nb', $this->view->conf->postsPerPage ());
+		$this->view->order = $order = Minz_Request::param ('order', $this->view->conf->sort_order);
+		$nb = Minz_Request::param ('nb', $this->view->conf->posts_per_page);
 		$first = Minz_Request::param ('next', '');
 
 		if ($state === 'not_read') {	//Any unread article in this category at all?
@@ -128,9 +128,9 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 		$this->view->today = $today;
 
 		// on calcule la date des articles les plus anciens qu'on affiche
-		$nb_month_old = $this->view->conf->oldEntries ();
+		$nb_month_old = $this->view->conf->old_entries;
 		$date_min = $today - (3600 * 24 * 30 * $nb_month_old);	//Do not use a fast changing value such as time() to allow SQL caching
-		$keepHistoryDefault = $this->view->conf->keepHistoryDefault();
+		$keepHistoryDefault = $this->view->conf->keep_history_default;
 
 		try {
 			$entries = $this->entryDAO->listWhere($getType, $getId, $state, $order, $nb + 1, $first, $filter, $date_min, $keepHistoryDefault);
@@ -253,7 +253,7 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 		curl_close ($ch);
 
 		$res = json_decode ($result, true);
-		if ($res['status'] === 'okay' && $res['email'] === $this->view->conf->mailLogin ()) {
+		if ($res['status'] === 'okay' && $res['email'] === $this->view->conf->mail_login) {
 			Minz_Session::_param ('mail', $res['email']);
 			invalidateHttpCache();
 		} else {

@@ -9,7 +9,7 @@
 		<?php } ?>
 	</datalist>
 
-	<?php $s = $this->conf->shortcuts (); ?>
+	<?php $s = $this->conf->shortcuts; ?>
 
 	<form method="post" action="<?php echo _url ('configure', 'shortcut'); ?>">
 		<legend><?php echo Minz_Translate::t ('shortcuts_management'); ?></legend>

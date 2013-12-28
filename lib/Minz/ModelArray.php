@@ -9,11 +9,6 @@
  */
 class Minz_ModelArray {
 	/**
-	 * $array Le tableau php contenu dans le fichier $filename
-	 */
-	protected $array = array ();
-
-	/**
 	 * $filename est le nom du fichier
 	 */
 	protected $filename;
@@ -25,29 +20,32 @@ class Minz_ModelArray {
 	 */
 	public function __construct ($filename) {
 		$this->filename = $filename;
+	}
 
+	protected function loadArray() {
 		if (!file_exists($this->filename)) {
 			throw new Minz_FileNotExistException($this->filename, Minz_Exception::WARNING);
 		}
 		elseif (($handle = $this->getLock()) === false) {
 			throw new Minz_PermissionDeniedException($this->filename);
 		} else {
-			$this->array = include($this->filename);
+			$data = include($this->filename);
 			$this->releaseLock($handle);
 
-			if ($this->array === false) {
+			if ($data === false) {
 				throw new Minz_PermissionDeniedException($this->filename);
-			} elseif (!is_array($this->array)) {
-				$this->array = array();
+			} elseif (!is_array($data)) {
+				$data = array();
 			}
+			return $data;
 		}
 	}
 
 	/**
 	 * Sauve le tableau $array dans le fichier $filename
 	 **/
-	protected function writeFile() {
-		if (!file_put_contents($this->filename, "<?php\n return " . var_export($this->array, true) . ';', LOCK_EX)) {
+	protected function writeArray($array) {
+		if (!file_put_contents($this->filename, "<?php\n return " . var_export($array, true) . ';', LOCK_EX)) {
 			throw new Minz_PermissionDeniedException($this->filename);
 		}
 		return true;

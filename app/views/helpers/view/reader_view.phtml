@@ -2,7 +2,7 @@
 $this->partial ('nav_menu');
 
 if (!empty($this->entries)) {
-	$lazyload = $this->conf->lazyload() === 'yes';
+	$lazyload = $this->conf->lazyload;
 ?>
 
 <div id="stream" class="reader">
