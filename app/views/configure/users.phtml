@@ -4,28 +4,7 @@
 	<a href="<?php echo _url('index', 'index'); ?>"><?php echo Minz_Translate::t('back_to_rss_feeds'); ?></a>
 
 	<form method="post" action="<?php echo _url('configure', 'users'); ?>">
-		<legend><?php echo Minz_Translate::t('users'); ?></legend>
-
-		<div class="form-group">
-			<div class="group-controls">
-				<label class="checkbox" for="anon_access">
-					<input type="checkbox" name="anon_access" id="anon_access" value="yes"<?php echo $this->conf->anonAccess() == 'yes' ? ' checked="checked"' : ''; ?> />
-					<?php echo Minz_Translate::t('allow_anonymous'); ?>
-				</label>
-			</div>
-		</div>
-
-		<div class="form-group">
-			<label class="group-name" for="auth_type"><?php echo Minz_Translate::t('auth_type'); ?></label>
-			<div class="group-controls">
-				<select id="auth_type" name="auth_type">
-					<option value="none">None (dangerous)</option>
-					<option value="http_auth">HTTP Auth ($_SERVER['REMOTE_USER'])</option>
-					<option value="persona">Mozilla Persona</option>
-				</select>
-				(selector not implemented yet)
-			</div>
-		</div>
+		<legend><?php echo Minz_Translate::t('login_configuration'); ?></legend>
 
 		<div class="form-group">
 			<label class="group-name" for="current_user"><?php echo Minz_Translate::t('current_user'); ?></label>
@@ -38,31 +17,6 @@
 				</label>
 			</div>
 		</div>
-
-		<?php if (Minz_Configuration::isAdmin()) { ?>
-
-		<div class="form-group">
-			<label class="group-name" for="users_list"><?php echo Minz_Translate::t('users_list'); ?></label>
-			<div class="group-controls">
-				<select id="users_list" name="users_list"><?php
-					foreach (listUsers() as $user) {
-						echo '<option>', $user, '</option>';
-					}
-				?></select>
-				(not implemented yet)
-			</div>
-		</div>
-
-		<?php } ?>
-
-		<div class="form-group form-actions">
-			<div class="group-controls">
-				<button type="submit" class="btn btn-important"><?php echo Minz_Translate::t('save'); ?></button>
-				<button type="reset" class="btn"><?php echo Minz_Translate::t('cancel'); ?></button>
-			</div>
-		</div>
-
-		<legend><?php echo Minz_Translate::t('login_configuration'); ?></legend>
 
 		<div class="form-group">
 			<label class="group-name" for="mail_login"><?php echo Minz_Translate::t('persona_connection_email'); ?></label>
@@ -88,5 +42,51 @@
 				<button type="reset" class="btn"><?php echo Minz_Translate::t('cancel'); ?></button>
 			</div>
 		</div>
+
+		<?php if (Minz_Configuration::isAdmin()) { ?>
+
+		<legend><?php echo Minz_Translate::t('users'); ?></legend>
+
+		<div class="form-group">
+			<div class="group-controls">
+				<label class="checkbox" for="anon_access">
+					<input type="checkbox" name="anon_access" id="anon_access" value="yes"<?php echo $this->conf->anonAccess() == 'yes' ? ' checked="checked"' : ''; ?> />
+					<?php echo Minz_Translate::t('allow_anonymous'); ?>
+				</label>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="group-name" for="auth_type"><?php echo Minz_Translate::t('auth_type'); ?></label>
+			<div class="group-controls">
+				<select id="auth_type" name="auth_type">
+					<option value="none">None (dangerous)</option>
+					<option value="http_auth">HTTP Auth ($_SERVER['REMOTE_USER'])</option>
+					<option value="persona">Mozilla Persona</option>
+				</select>
+				(selector not implemented yet)
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="group-name" for="users_list"><?php echo Minz_Translate::t('users_list'); ?></label>
+			<div class="group-controls">
+				<select id="users_list" name="users_list"><?php
+					foreach (listUsers() as $user) {
+						echo '<option>', $user, '</option>';
+					}
+				?></select>
+				(not implemented yet)
+			</div>
+		</div>
+
+		<div class="form-group form-actions">
+			<div class="group-controls">
+				<button type="submit" class="btn btn-important"><?php echo Minz_Translate::t('save'); ?></button>
+				<button type="reset" class="btn"><?php echo Minz_Translate::t('cancel'); ?></button>
+			</div>
+		</div>
+
+		<?php } ?>
 	</form>
 </div>
