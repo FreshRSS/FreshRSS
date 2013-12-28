@@ -39,6 +39,22 @@
 			</div>
 		</div>
 
+		<?php if (Minz_Configuration::isAdmin()) { ?>
+
+		<div class="form-group">
+			<label class="group-name" for="users_list"><?php echo Minz_Translate::t('users_list'); ?></label>
+			<div class="group-controls">
+				<select id="users_list" name="users_list"><?php
+					foreach (listUsers() as $user) {
+						echo '<option>', $user, '</option>';
+					}
+				?></select>
+				(not implemented yet)
+			</div>
+		</div>
+
+		<?php } ?>
+
 		<div class="form-group form-actions">
 			<div class="group-controls">
 				<button type="submit" class="btn btn-important"><?php echo Minz_Translate::t('save'); ?></button>

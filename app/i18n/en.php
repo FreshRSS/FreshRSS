@@ -162,9 +162,10 @@ return array (
 	'allow_anonymous'		=> 'Allow anonymous reading',
 	'auth_token'			=> 'Authentication token',
 	'explain_token'			=> 'Allows to access RSS output without authentication.<br />%s?token=%s',
-	'login_configuration'	=> 'Login',
-	'is_admin'				=> 'is administrator',
-	'auth_type'				=> 'Authentication method',
+	'login_configuration'		=> 'Login',
+	'is_admin'			=> 'is administrator',
+	'auth_type'			=> 'Authentication method',
+	'users_list'			=> 'List of users',
 
 	'language'			=> 'Language',
 	'month'				=> 'months',

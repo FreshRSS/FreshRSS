@@ -162,9 +162,10 @@ return array (
 	'allow_anonymous'		=> 'Autoriser la lecture anonyme',
 	'auth_token'			=> 'Jeton d’identification',
 	'explain_token'			=> 'Permet d’accéder à la sortie RSS sans besoin de s’authentifier.<br />%s?output=rss&token=%s',
-	'login_configuration'	=> 'Identification',
-	'is_admin'				=> 'est administrateur',
-	'auth_type'				=> 'Méthode d’authentification',
+	'login_configuration'		=> 'Identification',
+	'is_admin'			=> 'est administrateur',
+	'auth_type'			=> 'Méthode d’authentification',
+	'users_list'			=> 'Liste des utilisateurs',
 
 	'language'			=> 'Langue',
 	'month'				=> 'mois',

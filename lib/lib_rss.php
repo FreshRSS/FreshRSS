@@ -176,3 +176,15 @@ function uSecString() {
 function invalidateHttpCache() {
 	file_put_contents(DATA_PATH . '/touch.txt', uTimeString());
 }
+
+function usernameFromPath($userPath) {
+	if (preg_match('%/([a-z0-9]{1,16})_user\.php$%', $userPath, $matches)) {
+		return $matches[1];
+	} else {
+		return '';
+	}
+}
+
+function listUsers() {
+	return array_map('usernameFromPath', glob(DATA_PATH . '/*_user.php'));
+}
