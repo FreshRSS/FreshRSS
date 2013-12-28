@@ -24,7 +24,7 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 		// check if user is log in
 		if(login_is_conf ($this->view->conf) &&
 				!is_logged() &&
-				$this->view->conf->anonAccess() === 'no' &&
+				!Minz_Configuration::allowAnonymous() &&
 				!($output === 'rss' && $token_is_ok)) {
 			return;
 		}
@@ -36,8 +36,8 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 			$params['search'] = urlencode ($params['search']);
 		}
 		if (login_is_conf($this->view->conf) &&
-				$this->view->conf->anonAccess() === 'no' &&
-				$token != '') {
+				!Minz_Configuration::allowAnonymous() &&
+				$token !== '') {
 			$params['token'] = $token;
 		}
 		$this->view->rss_url = array (

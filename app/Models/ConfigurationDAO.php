@@ -38,7 +38,6 @@ class FreshRSS_ConfigurationDAO extends Minz_ModelArray {
 		'print' => true
 	);
 	public $theme = 'default';
-	public $anon_access = 'no';
 	public $token = '';
 	public $auto_load_more = 'yes';
 	public $topline_read = 'yes';
@@ -107,9 +106,6 @@ class FreshRSS_ConfigurationDAO extends Minz_ModelArray {
 		}
 		if (isset ($this->array['theme'])) {
 			$this->theme = $this->array['theme'];
-		}
-		if (isset ($this->array['anon_access'])) {
-			$this->anon_access = $this->array['anon_access'];
 		}
 		if (isset ($this->array['token'])) {
 			$this->token = $this->array['token'];

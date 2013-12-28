@@ -20,7 +20,6 @@ class FreshRSS_Configuration extends Minz_Model {
 	private $mark_when = array ();
 	private $sharing = array ();
 	private $theme;
-	private $anon_access;
 	private $token;
 	private $auto_load_more;
 	private $topline_read;
@@ -52,7 +51,6 @@ class FreshRSS_Configuration extends Minz_Model {
 		$this->_sharing ($confDAO->sharing);
 		$this->_theme ($confDAO->theme);
 		FreshRSS_Themes::setThemeId ($confDAO->theme);
-		$this->_anonAccess ($confDAO->anon_access);
 		$this->_token ($confDAO->token);
 		$this->_autoLoadMore ($confDAO->auto_load_more);
 		$this->_topline_read ($confDAO->topline_read);
@@ -131,9 +129,6 @@ class FreshRSS_Configuration extends Minz_Model {
 	}
 	public function theme () {
 		return $this->theme;
-	}
-	public function anonAccess () {
-		return $this->anon_access;
 	}
 	public function token () {
 		return $this->token;
@@ -282,13 +277,6 @@ class FreshRSS_Configuration extends Minz_Model {
 	}
 	public function _theme ($value) {
 		$this->theme = $value;
-	}
-	public function _anonAccess ($value) {
-		if ($value == 'yes') {
-			$this->anon_access = 'yes';
-		} else {
-			$this->anon_access = 'no';
-		}
 	}
 	public function _token ($value) {
 		$this->token = $value;

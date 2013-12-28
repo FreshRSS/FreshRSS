@@ -7,7 +7,7 @@ $token_is_ok = ($token != '' && $token == $token_param);
 
 if(!login_is_conf ($this->conf) ||
    is_logged() ||
-   $this->conf->anonAccess() == 'yes' ||
+   Minz_Configuration::allowAnonymous() ||
    ($output == 'rss' && $token_is_ok)) {
 	if($output == 'rss') {
 		$this->renderHelper ('view/rss_view');

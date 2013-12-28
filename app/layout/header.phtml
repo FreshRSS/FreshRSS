@@ -21,7 +21,7 @@
 	<div class="item search">
 		<?php if(!login_is_conf ($this->conf) ||
 		         is_logged() ||
-		         $this->conf->anonAccess() == 'yes') { ?>
+		         Minz_Configuration::allowAnonymous()) { ?>
 		<form action="<?php echo _url ('index', 'index'); ?>" method="get">
 			<div class="stick">
 				<?php $search = Minz_Request::param ('search', ''); ?>

@@ -52,6 +52,7 @@ class Minz_Configuration {
 	private static $delay_cache = 3600;
 	private static $default_user = '';
 	private static $current_user = '';
+	private static $allow_anonymous = false;
 
 	private static $db = array (
 		'host' => false,
@@ -99,6 +100,12 @@ class Minz_Configuration {
 	public static function isAdmin () {
 		return self::$current_user === self::$default_user;
 	}
+	public static function allowAnonymous() {
+		return self::$allow_anonymous;
+	}
+	public static function _allowAnonymous($allow = false) {
+		self::$allow_anonymous = (bool)$allow;
+	}
 
 	/**
 	 * Initialise les variables de configuration
@@ -116,8 +123,25 @@ class Minz_Configuration {
 		}
 	}
 
+	public static function writeFile() {
+		$ini_array = array(
+			'general' => array(
+				'environment' => self::$environment,
+				'use_url_rewriting' => self::$use_url_rewriting,
+				'sel_application' => self::$sel_application,
+				'base_url' => self::$base_url,
+				'title' => self::$title,
+				'default_user' => self::$default_user,
+				'allow_anonymous' => self::$allow_anonymous,
+			),
+			'db' => self::$db,
+		);
+		@rename(DATA_PATH . self::CONF_PATH_NAME, DATA_PATH . self::CONF_PATH_NAME . '.bak');
+		return file_put_contents(DATA_PATH . self::CONF_PATH_NAME, "<?php\n return " . var_export($ini_array, true) . ';');
+	}
+
 	/**
-	 * Parse un fichier de configuration de type ".ini"
+	 * Parse un fichier de configuration
 	 * @exception Minz_FileNotExistException si le CONF_PATH_NAME n'existe pas
 	 * @exception Minz_BadConfigurationException si CONF_PATH_NAME mal formaté
 	 */
@@ -158,12 +182,15 @@ class Minz_Configuration {
 
 		if (isset ($general['environment'])) {
 			switch ($general['environment']) {
+			case Minz_Configuration::SILENT:
 			case 'silent':
 				self::$environment = Minz_Configuration::SILENT;
 				break;
+			case Minz_Configuration::DEVELOPMENT:
 			case 'development':
 				self::$environment = Minz_Configuration::DEVELOPMENT;
 				break;
+			case Minz_Configuration::PRODUCTION:
 			case 'production':
 				self::$environment = Minz_Configuration::PRODUCTION;
 				break;
@@ -203,6 +230,9 @@ class Minz_Configuration {
 		if (isset ($general['default_user'])) {
 			self::$default_user = $general['default_user'];
 			self::$current_user = self::$default_user;
+		}
+		if (isset ($general['allow_anonymous'])) {
+			self::$allow_anonymous = (bool)($general['allow_anonymous']);
 		}
 
 		// Base de données
@@ -245,17 +275,21 @@ class Minz_Configuration {
 		}
 	}
 
-	private static function setReporting () {
-		if (self::environment () == self::DEVELOPMENT) {
-			error_reporting (E_ALL);
-			ini_set ('display_errors','On');
-			ini_set('log_errors', 'On');
-		} elseif (self::environment () == self::PRODUCTION) {
-			error_reporting(E_ALL);
-			ini_set('display_errors','Off');
-			ini_set('log_errors', 'On');
-		} else {
-			error_reporting(0);
+	private static function setReporting() {
+		switch (self::$environment) {
+			case self::PRODUCTION:
+				error_reporting(E_ALL);
+				ini_set('display_errors','Off');
+				ini_set('log_errors', 'On');
+				break;
+			case self::DEVELOPMENT:
+				error_reporting(E_ALL);
+				ini_set('display_errors','On');
+				ini_set('log_errors', 'On');
+				break;
+			case self::SILENT:
+				error_reporting(0);
+				break;
 		}
 	}
 }

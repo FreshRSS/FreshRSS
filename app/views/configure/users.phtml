@@ -50,7 +50,7 @@
 		<div class="form-group">
 			<div class="group-controls">
 				<label class="checkbox" for="anon_access">
-					<input type="checkbox" name="anon_access" id="anon_access" value="yes"<?php echo $this->conf->anonAccess() == 'yes' ? ' checked="checked"' : ''; ?> />
+					<input type="checkbox" name="anon_access" id="anon_access" value="1"<?php echo Minz_Configuration::allowAnonymous() ? ' checked="checked"' : ''; ?> />
 					<?php echo Minz_Translate::t('allow_anonymous'); ?>
 				</label>
 			</div>

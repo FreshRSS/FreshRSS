@@ -398,15 +398,13 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 			$current_token = $this->view->conf->token();
 
 			$mail = Minz_Request::param('mail_login', false);
-			$anon = Minz_Request::param('anon_access', 'no');
 			$token = Minz_Request::param('token', $current_token);
+
 			$this->view->conf->_mailLogin($mail);
-			$this->view->conf->_anonAccess($anon);
 			$this->view->conf->_token($token);
 
 			$values = array(
 				'mail_login' => $this->view->conf->mailLogin(),
-				'anon_access' => $this->view->conf->anonAccess(),
 				'token' => $this->view->conf->token(),
 			);
 
@@ -415,7 +413,12 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 			Minz_Session::_param('conf', $this->view->conf);
 			Minz_Session::_param('mail', $this->view->conf->mailLogin());
 
-			// notif
+			$anon = (bool)(Minz_Request::param('anon_access', false));
+			if ($anon != Minz_Configuration::allowAnonymous()) {
+				Minz_Configuration::_allowAnonymous($anon);
+				Minz_Configuration::writeFile();
+			}
+
 			$notif = array(
 				'type' => 'good',
 				'content' => Minz_Translate::t('configuration_updated')
