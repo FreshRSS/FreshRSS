@@ -37,10 +37,8 @@ class Minz_ModelArray {
 
 			if ($this->array === false) {
 				throw new Minz_PermissionDeniedException($this->filename);
-			} elseif (is_array($this->array)) {
-				$this->array = $this->decodeArray($this->array);
-			} else {
-				$this->array = array ();
+			} elseif (!is_array($this->array)) {
+				$this->array = array();
 			}
 		}
 	}
@@ -53,21 +51,6 @@ class Minz_ModelArray {
 			throw new Minz_PermissionDeniedException($this->filename);
 		}
 		return true;
-	}
-
-	//TODO: check if still useful, and if yes, use a native function such as array_map
-	private function decodeArray ($array) {
-		$new_array = array ();
-
-		foreach ($array as $key => $value) {
-			if (is_array ($value)) {
-				$new_array[$key] = $this->decodeArray ($value);
-			} else {
-				$new_array[$key] = stripslashes ($value);
-			}
-		}
-
-		return $new_array;
 	}
 
 	private function getLock() {

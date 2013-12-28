@@ -93,14 +93,6 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 				);
 			} else {
 				if (Minz_Request::isPost () && $this->view->flux) {
-					$name = Minz_Request::param ('name', '');
-					$description = sanitizeHTML(Minz_Request::param('description', '', true));
-					$website = Minz_Request::param('website', '');
-					$url = Minz_Request::param('url', '');
-					$keep_history = intval(Minz_Request::param ('keep_history', -2));
-					$cat = Minz_Request::param ('category', 0);
-					$path = Minz_Request::param ('path_entries', '');
-					$priority = Minz_Request::param ('priority', 0);
 					$user = Minz_Request::param ('http_user', '');
 					$pass = Minz_Request::param ('http_pass', '');
 
@@ -110,15 +102,15 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 					}
 
 					$values = array (
-						'name' => $name,
-						'description' => $description,
-						'website' => $website,
-						'url' => $url,
-						'category' => $cat,
-						'pathEntries' => $path,
-						'priority' => $priority,
+						'name' => Minz_Request::param ('name', ''),
+						'description' => sanitizeHTML(Minz_Request::param('description', '', true)),
+						'website' => Minz_Request::param('website', ''),
+						'url' => Minz_Request::param('url', ''),
+						'category' => intval(Minz_Request::param ('category', 0)),
+						'pathEntries' => Minz_Request::param ('path_entries', ''),
+						'priority' => intval(Minz_Request::param ('priority', 0)),
 						'httpAuth' => $httpAuth,
-						'keep_history' => $keep_history
+						'keep_history' => intval(Minz_Request::param ('keep_history', -2)),
 					);
 
 					if ($feedDAO->updateFeed ($id, $values)) {
@@ -176,7 +168,7 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 			$bottomline_link = Minz_Request::param ('bottomline_link', 'no');
 
 			$this->view->conf->_language ($language);
-			$this->view->conf->_postsPerPage (intval ($nb));
+			$this->view->conf->_postsPerPage ($nb);
 			$this->view->conf->_viewMode ($mode);
 			$this->view->conf->_defaultView ($view);
 			$this->view->conf->_autoLoadMore ($auto_load_more);
@@ -395,6 +387,7 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 
 	public function usersAction() {
 		if (Minz_Request::isPost()) {
+			$ok = true;
 			$current_token = $this->view->conf->token();
 
 			$mail = Minz_Request::param('mail_login', false);
@@ -409,16 +402,19 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 			);
 
 			$confDAO = new FreshRSS_ConfigurationDAO();
-			$confDAO->update($values);
+			$ok &= $confDAO->update($values);
 			Minz_Session::_param('conf', $this->view->conf);
 			Minz_Session::_param('mail', $this->view->conf->mailLogin());
 
-			$anon = (bool)(Minz_Request::param('anon_access', false));
-			if ($anon != Minz_Configuration::allowAnonymous()) {
-				Minz_Configuration::_allowAnonymous($anon);
-				Minz_Configuration::writeFile();
+			if (Minz_Configuration::isAdmin()) {
+				$anon = (bool)(Minz_Request::param('anon_access', false));
+				if ($anon != Minz_Configuration::allowAnonymous()) {
+					Minz_Configuration::_allowAnonymous($anon);
+					$ok &= Minz_Configuration::writeFile();
+				}
 			}
 
+			//TODO: use $ok
 			$notif = array(
 				'type' => 'good',
 				'content' => Minz_Translate::t('configuration_updated')
