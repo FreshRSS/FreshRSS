@@ -1,21 +1,23 @@
 <?php
 
-class FreshRSS_LogDAO extends Minz_ModelTxt {
-	public function __construct () {
-		parent::__construct (LOG_PATH . '/application.log', 'r+');
-	}
+class FreshRSS_LogDAO {
+	private static $filename = '/application.log';
 
-	public function lister () {
+	public static function lines() {
 		$logs = array ();
-		while (($line = $this->readLine ()) !== false) {
-			if (preg_match ('/^\[([^\[]+)\] \[([^\[]+)\] --- (.*)$/', $line, $matches)) {
-				$myLog = new FreshRSS_Log ();
-				$myLog->_date ($matches[1]);
-				$myLog->_level ($matches[2]);
-				$myLog->_info ($matches[3]);
-				$logs[] = $myLog;
+		$handle = @fopen(LOG_PATH . self::$filename, 'r');
+		if ($handle) {
+			while (($line = fgets($handle)) !== false) {
+				if (preg_match ('/^\[([^\[]+)\] \[([^\[]+)\] --- (.*)$/', $line, $matches)) {
+					$myLog = new FreshRSS_Log ();
+					$myLog->_date ($matches[1]);
+					$myLog->_level ($matches[2]);
+					$myLog->_info ($matches[3]);
+					$logs[] = $myLog;
+				}
 			}
+			fclose($handle);
 		}
-		return $logs;
+		return array_reverse($logs);
 	}
 }

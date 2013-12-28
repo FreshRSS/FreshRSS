@@ -225,14 +225,7 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 			file_put_contents(LOG_PATH . '/application.log', '');
 		}
 
-		$logs = array();
-		try {
-			$logDAO = new FreshRSS_LogDAO ();
-			$logs = $logDAO->lister ();
-			$logs = array_reverse ($logs);
-		} catch (Minz_FileNotExistException $e) {
-
-		}
+		$logs = FreshRSS_LogDAO::lines();	//TODO: ask only the necessary lines
 
 		//gestion pagination
 		$page = Minz_Request::param ('page', 1);

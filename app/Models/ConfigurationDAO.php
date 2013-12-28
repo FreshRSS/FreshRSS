@@ -146,12 +146,9 @@ class FreshRSS_ConfigurationDAO extends Minz_ModelArray {
 		}
 	}
 
-	public function update ($values) {
-		foreach ($values as $key => $value) {
-			$this->array[$key] = $value;
-		}
-
-		$this->writeFile($this->array);
+	public function update($values) {
+		$this->array = array_merge($this->array, $values);
 		invalidateHttpCache();
+		return parent::writeFile();
 	}
 }
