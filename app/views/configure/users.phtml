@@ -60,11 +60,10 @@
 			<label class="group-name" for="auth_type"><?php echo Minz_Translate::t('auth_type'); ?></label>
 			<div class="group-controls">
 				<select id="auth_type" name="auth_type">
-					<option value="none">None (dangerous)</option>
-					<option value="http_auth">HTTP Auth</option>
-					<option value="persona">Mozilla Persona</option>
+					<option value="none"<?php echo Minz_Configuration::authType() === 'none' ? ' selected="selected"' : ''; ?>>None (dangerous)</option>
+					<option value="http_auth"<?php echo Minz_Configuration::authType() === 'http_auth' ? ' selected="selected"' : ''; ?>>HTTP Auth</option>
+					<option value="persona"<?php echo Minz_Configuration::authType() === 'persona' ? ' selected="selected"' : ''; ?>>Mozilla Persona</option>
 				</select>
-				(selector not implemented yet)
 			</div>
 		</div>
 
