@@ -1,11 +1,9 @@
 <?php
 
 class FreshRSS_LogDAO {
-	private static $filename = '/application.log';
-
-	public static function lines() {
+	public static function lines($user) {
 		$logs = array ();
-		$handle = @fopen(LOG_PATH . self::$filename, 'r');
+		$handle = @fopen(LOG_PATH . '/' . $user . '.log', 'r');
 		if ($handle) {
 			while (($line = fgets($handle)) !== false) {
 				if (preg_match ('/^\[([^\[]+)\] \[([^\[]+)\] --- (.*)$/', $line, $matches)) {

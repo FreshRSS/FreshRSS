@@ -28,7 +28,6 @@ if (file_exists ('install.php')) {
 		require (LIB_PATH . '/http-conditional.php');
 		$dateLastModification = max(
 			@filemtime(DATA_PATH . '/touch.txt'),
-			@filemtime(LOG_PATH . '/application.log'),
 			@filemtime(DATA_PATH . '/config.php')
 		);
 		$_SERVER['QUERY_STRING'] .= '&utime=' . file_get_contents(DATA_PATH . '/touch.txt');	//For ETag
