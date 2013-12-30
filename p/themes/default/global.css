@@ -112,6 +112,10 @@ input, select, textarea {
 		border-color: #33BBFF;
 		box-shadow: 0 2px 2px #DDDDFF inset;
 	}
+	input:invalid {
+		border-color: red;
+		box-shadow: 0 0 2px 1px red;
+	}
 
 .form-group {
 	margin: 0;

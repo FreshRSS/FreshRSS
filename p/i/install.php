@@ -12,60 +12,7 @@ if (isset ($_GET['step'])) {
 	define ('STEP', 1);
 }
 
-define ('SQL_CREATE_DB', 'CREATE DATABASE %1$s DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;');
-
-define ('SQL_CAT', 'CREATE TABLE IF NOT EXISTS `%1$scategory` (
-	`id` SMALLINT NOT NULL AUTO_INCREMENT,	-- v0.7
-	`name` varchar(255) NOT NULL,
-	`color` char(7),
-	PRIMARY KEY (`id`),
-	UNIQUE KEY (`name`)	-- v0.7
-) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci
-ENGINE = INNODB;');
-
-define ('SQL_FEED', 'CREATE TABLE IF NOT EXISTS `%1$sfeed` (
-	`id` SMALLINT NOT NULL AUTO_INCREMENT,	-- v0.7
-	`url` varchar(511) CHARACTER SET latin1 NOT NULL,
-	`category` SMALLINT DEFAULT 0,	-- v0.7
-	`name` varchar(255) NOT NULL,
-	`website` varchar(255) CHARACTER SET latin1,
-	`description` text,
-	`lastUpdate` int(11) DEFAULT 0,
-	`priority` tinyint(2) NOT NULL DEFAULT 10,
-	`pathEntries` varchar(511) DEFAULT NULL,
-	`httpAuth` varchar(511) DEFAULT NULL,
-	`error` boolean DEFAULT 0,
-	`keep_history` MEDIUMINT NOT NULL DEFAULT -2,	-- v0.7, -2 = default
-	`cache_nbEntries` int DEFAULT 0,	-- v0.7
-	`cache_nbUnreads` int DEFAULT 0,	-- v0.7
-	PRIMARY KEY (`id`),
-	FOREIGN KEY (`category`) REFERENCES `%1$scategory`(`id`) ON DELETE SET NULL ON UPDATE CASCADE,
-	UNIQUE KEY (`url`),	-- v0.7
-	INDEX (`name`),	-- v0.7
-	INDEX (`priority`),	-- v0.7
-	INDEX (`keep_history`)	-- v0.7
-) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci
-ENGINE = INNODB;');
-
-define ('SQL_ENTRY', 'CREATE TABLE IF NOT EXISTS `%1$sentry` (
-	`id` bigint NOT NULL,	-- v0.7
-	`guid` varchar(760) CHARACTER SET latin1 NOT NULL,	-- Maximum for UNIQUE is 767B
-	`title` varchar(255) NOT NULL,
-	`author` varchar(255),
-	`content_bin` blob,	-- v0.7
-	`link` varchar(1023) CHARACTER SET latin1 NOT NULL,
-	`date` int(11),
-	`is_read` boolean NOT NULL DEFAULT 0,
-	`is_favorite` boolean NOT NULL DEFAULT 0,
-	`id_feed` SMALLINT,	-- v0.7
-	`tags` varchar(1023),
-	PRIMARY KEY (`id`),
-	FOREIGN KEY (`id_feed`) REFERENCES `%1$sfeed`(`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-	UNIQUE KEY (`id_feed`,`guid`),	-- v0.7
-	INDEX (`is_favorite`),	-- v0.7
-	INDEX (`is_read`)	-- v0.7
-) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci
-ENGINE = INNODB;');
+include(APP_PATH . '/sql.php');
 
 //<updates>
 define('SQL_SHOW_TABLES', 'SHOW tables;');
@@ -133,21 +80,6 @@ SET f.cache_nbEntries=x.nbEntries, f.cache_nbUnreads=x.nbUnreads
 
 define('SQL_UPDATE_HISTORYv007b', 'UPDATE `%1$sfeed` SET keep_history = CASE WHEN keep_history = 0 THEN -2 WHEN keep_history = 1 THEN -1 ELSE keep_history END;');
 //</updates>
-
-function writeLine ($f, $line) {
-	fwrite ($f, $line . "\n");
-}
-function writeArray ($f, $array) {
-	foreach ($array as $key => $val) {
-		if (is_array ($val)) {
-			writeLine ($f, '\'' . $key . '\' => array (');
-			writeArray ($f, $val);
-			writeLine ($f, '),');
-		} else {
-			writeLine ($f, '\'' . $key . '\' => \'' . $val . '\',');
-		}
-	}
-}
 
 // gestion internationalisation
 $translates = array ();
@@ -220,33 +152,29 @@ function saveStep2 () {
 		}
 
 		$_SESSION['sel_application'] = sha1(uniqid(mt_rand(), true).implode('', stat(__FILE__)));
-		$_SESSION['title'] = addslashes(substr(trim($_POST['title']), 0, 25));
+		$_SESSION['title'] = substr(trim($_POST['title']), 0, 25);
 		$_SESSION['old_entries'] = $_POST['old_entries'];
 		if ((!ctype_digit($_SESSION['old_entries'])) || ($_SESSION['old_entries'] < 1)) {
 			$_SESSION['old_entries'] = 3;
 		}
-		$_SESSION['mail_login'] = addslashes ($_POST['mail_login']);
-		$_SESSION['default_user'] = substr(preg_replace ('/[^a-zA-Z0-9]/', '', $_POST['default_user']), 0, 16);
+		$_SESSION['mail_login'] = filter_var($_POST['mail_login'], FILTER_VALIDATE_EMAIL);
+		$_SESSION['default_user'] = substr(preg_replace('/[^a-zA-Z0-9]/', '', $_POST['default_user']), 0, 16);
 
 		$token = '';
 		if ($_SESSION['mail_login']) {
 			$token = sha1($_SESSION['sel_application'] . $_SESSION['mail_login']);
 		}
 
-		$file_data = DATA_PATH . '/' . $_SESSION['default_user'] . '_user.php';
-
-		@unlink($file_data);	//To avoid access-rights problems
-		$f = fopen ($file_data, 'w');
-		writeLine ($f, '<?php');
-		writeLine ($f, 'return array (');
-		writeArray ($f, array (
+		$config_array = array (
 			'language' => $_SESSION['language'],
 			'old_entries' => $_SESSION['old_entries'],
 			'mail_login' => $_SESSION['mail_login'],
-			'token' => $token
-		));
-		writeLine ($f, ');');
-		fclose ($f);
+			'token' => $token,
+		);
+
+		$configPath = DATA_PATH . '/' . $_SESSION['default_user'] . '_user.php';
+		@unlink(configPath);	//To avoid access-rights problems
+		file_put_contents($configPath, "<?php\n return " . var_export($config_array, true) . ';');
 
 		header ('Location: index.php?step=3');
 	}
@@ -262,11 +190,11 @@ function saveStep3 () {
 		}
 
 		$_SESSION['bd_type'] = isset ($_POST['type']) ? $_POST['type'] : 'mysql';
-		$_SESSION['bd_host'] = addslashes ($_POST['host']);
-		$_SESSION['bd_user'] = addslashes ($_POST['user']);
-		$_SESSION['bd_password'] = addslashes ($_POST['pass']);
-		$_SESSION['bd_base'] = addslashes ($_POST['base']);
-		$_SESSION['bd_prefix'] = addslashes ($_POST['prefix']);
+		$_SESSION['bd_host'] = $_POST['host'];
+		$_SESSION['bd_user'] = $_POST['user'];
+		$_SESSION['bd_password'] = $_POST['pass'];
+		$_SESSION['bd_base'] = substr($_POST['base'], 0, 64);
+		$_SESSION['bd_prefix'] = substr($_POST['prefix'], 0, 16);
 		$_SESSION['bd_prefix_user'] = $_SESSION['bd_prefix'] . (empty($_SESSION['default_user']) ? '' : ($_SESSION['default_user'] . '_'));
 
 		$ini_array = array(
@@ -815,14 +743,14 @@ function printStep2 () {
 		<div class="form-group">
 			<label class="group-name" for="old_entries"><?php echo _t ('delete_articles_every'); ?></label>
 			<div class="group-controls">
-				<input type="number" id="old_entries" name="old_entries" value="<?php echo isset ($_SESSION['old_entries']) ? $_SESSION['old_entries'] : '3'; ?>" /> <?php echo _t ('month'); ?>
+				<input type="number" id="old_entries" name="old_entries" required="required" min="1" max="1200" value="<?php echo isset ($_SESSION['old_entries']) ? $_SESSION['old_entries'] : '3'; ?>" /> <?php echo _t ('month'); ?>
 			</div>
 		</div>
 
 		<div class="form-group">
 			<label class="group-name" for="default_user"><?php echo _t ('default_user'); ?></label>
 			<div class="group-controls">
-				<input type="text" id="default_user" name="default_user" maxlength="16" value="<?php echo isset ($_SESSION['default_user']) ? $_SESSION['default_user'] : ''; ?>" placeholder="<?php echo httpAuthUser() == '' ? 'user1' : httpAuthUser(); ?>" />
+				<input type="text" id="default_user" name="default_user" required="required" size="16" maxlength="16" pattern="[0-9a-zA-Z]{1,16}" value="<?php echo isset ($_SESSION['default_user']) ? $_SESSION['default_user'] : ''; ?>" placeholder="<?php echo httpAuthUser() == '' ? 'user1' : httpAuthUser(); ?>" />
 			</div>
 		</div>
 
@@ -877,14 +805,14 @@ function printStep3 () {
 		<div class="form-group">
 			<label class="group-name" for="host"><?php echo _t ('host'); ?></label>
 			<div class="group-controls">
-				<input type="text" id="host" name="host" value="<?php echo isset ($_SESSION['bd_host']) ? $_SESSION['bd_host'] : 'localhost'; ?>" />
+				<input type="text" id="host" name="host" pattern="[0-9A-Za-z_.-]{1,64}" value="<?php echo isset ($_SESSION['bd_host']) ? $_SESSION['bd_host'] : 'localhost'; ?>" />
 			</div>
 		</div>
 
 		<div class="form-group">
 			<label class="group-name" for="user"><?php echo _t ('username'); ?></label>
 			<div class="group-controls">
-				<input type="text" id="user" name="user" value="<?php echo isset ($_SESSION['bd_user']) ? $_SESSION['bd_user'] : ''; ?>" />
+				<input type="text" id="user" name="user" maxlength="16" pattern="[0-9A-Za-z_]{1,16}" value="<?php echo isset ($_SESSION['bd_user']) ? $_SESSION['bd_user'] : ''; ?>" />
 			</div>
 		</div>
 
@@ -898,14 +826,14 @@ function printStep3 () {
 		<div class="form-group">
 			<label class="group-name" for="base"><?php echo _t ('bdd'); ?></label>
 			<div class="group-controls">
-				<input type="text" id="base" name="base" maxlength="64" value="<?php echo isset ($_SESSION['bd_base']) ? $_SESSION['bd_base'] : ''; ?>" placeholder="freshrss" />
+				<input type="text" id="base" name="base" maxlength="64" pattern="[0-9A-Za-z_]{1,64}" value="<?php echo isset ($_SESSION['bd_base']) ? $_SESSION['bd_base'] : ''; ?>" placeholder="freshrss" />
 			</div>
 		</div>
 
 		<div class="form-group">
 			<label class="group-name" for="prefix"><?php echo _t ('prefix'); ?></label>
 			<div class="group-controls">
-				<input type="text" id="prefix" name="prefix" maxlength="16" value="<?php echo isset ($_SESSION['bd_prefix']) ? $_SESSION['bd_prefix'] : 'freshrss_'; ?>" />
+				<input type="text" id="prefix" name="prefix" maxlength="16" pattern="[0-9A-Za-z_]{1,16}" value="<?php echo isset ($_SESSION['bd_prefix']) ? $_SESSION['bd_prefix'] : 'freshrss_'; ?>" />
 			</div>
 		</div>
 
