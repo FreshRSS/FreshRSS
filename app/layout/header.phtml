@@ -1,9 +1,9 @@
-<?php if (login_is_conf ($this->conf)) { ?>
+<?php if (Minz_Configuration::canLogIn()) { ?>
 <ul class="nav nav-head nav-login">
-	<?php if (!is_logged ()) { ?>
-	<li class="item"><?php echo FreshRSS_Themes::icon('login'); ?> <a class="signin" href="#"><?php echo Minz_Translate::t ('login'); ?></a></li>
-	<?php } else { ?>
+	<?php if ($this->loginOk) { ?>
 	<li class="item"><?php echo FreshRSS_Themes::icon('logout'); ?> <a class="signout" href="#"><?php echo Minz_Translate::t ('logout'); ?></a></li>
+	<?php } else { ?>
+	<li class="item"><?php echo FreshRSS_Themes::icon('login'); ?> <a class="signin" href="#"><?php echo Minz_Translate::t ('login'); ?></a></li>
 	<?php } ?>
 </ul>
 <?php } ?>
@@ -19,9 +19,7 @@
 	</div>
 
 	<div class="item search">
-		<?php if(!login_is_conf ($this->conf) ||
-		         is_logged() ||
-		         Minz_Configuration::allowAnonymous()) { ?>
+		<?php if ($this->loginOk || Minz_Configuration::allowAnonymous()) { ?>
 		<form action="<?php echo _url ('index', 'index'); ?>" method="get">
 			<div class="stick">
 				<?php $search = Minz_Request::param ('search', ''); ?>
@@ -48,11 +46,10 @@
 		<?php } ?>
 	</div>
 
-	<?php if (!login_is_conf ($this->conf) || is_logged ()) { ?>
+	<?php if ($this->loginOk) { ?>
 	<div class="item configure">
 		<div class="dropdown">
 			<div id="dropdown-configure" class="dropdown-target"></div>
-
 			<a class="btn dropdown-toggle" href="#dropdown-configure"><?php echo FreshRSS_Themes::icon('configure'); ?></a>
 			<ul class="dropdown-menu">
 				<li class="dropdown-close"><a href="#close">❌</a></li>
@@ -65,16 +62,14 @@
 				<li class="separator"></li>
 				<li class="item"><a href="<?php echo _url ('index', 'about'); ?>"><?php echo Minz_Translate::t ('about'); ?></a></li>
 				<li class="item"><a href="<?php echo _url ('index', 'logs'); ?>"><?php echo Minz_Translate::t ('logs'); ?></a></li>
-				<?php if (login_is_conf ($this->conf) && is_logged ()) { ?>
+				<?php if (Minz_Configuration::canLogIn()) { ?>
 				<li class="separator"></li>
 				<li class="item"><a class="signout" href="#"><?php echo FreshRSS_Themes::icon('logout'); ?> <?php echo Minz_Translate::t ('logout'); ?></a></li>
 				<?php } ?>
 			</ul>
 		</div>
 	</div>
-	<?php }
-
-	if (login_is_conf ($this->conf) && !is_logged ()) { ?>
+	<?php } elseif (Minz_Configuration::canLogIn()) { ?>
 	<div class="item configure">
 		<?php echo FreshRSS_Themes::icon('login'); ?> <a class="signin" href="#"><?php echo Minz_Translate::t ('login'); ?></a>
 	</div>

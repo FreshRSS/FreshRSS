@@ -22,17 +22,8 @@
 			<label class="group-name" for="mail_login"><?php echo Minz_Translate::t('persona_connection_email'); ?></label>
 			<?php $mail = $this->conf->mail_login; ?>
 			<div class="group-controls">
-				<input type="email" id="mail_login" name="mail_login" value="<?php echo $mail ? $mail : ''; ?>" placeholder="<?php echo Minz_Translate::t('blank_to_disable'); ?>" />
+				<input type="email" id="mail_login" name="mail_login" value="<?php echo $mail ? $mail : ''; ?>" placeholder="alice@example.net" />
 				<noscript><b><?php echo Minz_Translate::t('javascript_should_be_activated'); ?></b></noscript>
-			</div>
-		</div>
-
-		<div class="form-group">
-			<label class="group-name" for="token"><?php echo Minz_Translate::t('auth_token'); ?></label>
-			<?php $token = $this->conf->token; ?>
-			<div class="group-controls">
-				<input type="text" id="token" name="token" value="<?php echo $token; ?>"  placeholder="<?php echo Minz_Translate::t('blank_to_disable'); ?>"/>
-				<?php echo FreshRSS_Themes::icon('help'); ?> <?php echo Minz_Translate::t('explain_token', Minz_Url::display(null, 'html', true), $token); ?>
 			</div>
 		</div>
 
@@ -48,20 +39,11 @@
 		<legend><?php echo Minz_Translate::t('users'); ?></legend>
 
 		<div class="form-group">
-			<div class="group-controls">
-				<label class="checkbox" for="anon_access">
-					<input type="checkbox" name="anon_access" id="anon_access" value="1"<?php echo Minz_Configuration::allowAnonymous() ? ' checked="checked"' : ''; ?> />
-					<?php echo Minz_Translate::t('allow_anonymous', Minz_Configuration::defaultUser()); ?>
-				</label>
-			</div>
-		</div>
-
-		<div class="form-group">
 			<label class="group-name" for="auth_type"><?php echo Minz_Translate::t('auth_type'); ?></label>
 			<div class="group-controls">
 				<select id="auth_type" name="auth_type">
-					<option value="none"<?php echo Minz_Configuration::authType() === 'none' ? ' selected="selected"' : ''; ?>>None (dangerous)</option>
-					<option value="http_auth"<?php echo Minz_Configuration::authType() === 'http_auth' ? ' selected="selected"' : ''; ?>>HTTP Auth</option>
+					<option value="none"<?php echo Minz_Configuration::authType() === 'none' ? ' selected="selected"' : ''; ?>><?php echo Minz_Translate::t('auth_none'); ?></option>
+					<option value="http_auth"<?php echo Minz_Configuration::authType() === 'http_auth' ? ' selected="selected"' : '', httpAuthUser() == '' ? ' disabled="disabled"' : ''; ?>>HTTP Auth</option>
 					<option value="persona"<?php echo Minz_Configuration::authType() === 'persona' ? ' selected="selected"' : ''; ?>>Mozilla Persona</option>
 				</select>
 			</div>
@@ -75,7 +57,32 @@
 						echo '<option>', $user, '</option>';
 					}
 				?></select>
-				(not implemented yet)
+			</div>
+		</div>
+
+		<div class="form-group form-actions">
+			<div class="group-controls">
+				<button type="submit" class="btn btn-important"><?php echo Minz_Translate::t('save'); ?></button>
+				<button type="reset" class="btn"><?php echo Minz_Translate::t('cancel'); ?></button>
+			</div>
+		</div>
+
+		<legend>Mozilla Persona</legend>
+		<div class="form-group">
+			<div class="group-controls">
+				<label class="checkbox" for="anon_access">
+					<input type="checkbox" name="anon_access" id="anon_access" value="1"<?php echo Minz_Configuration::allowAnonymous() ? ' checked="checked"' : ''; ?> />
+					<?php echo Minz_Translate::t('allow_anonymous', Minz_Configuration::defaultUser()); ?>
+				</label>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="group-name" for="token"><?php echo Minz_Translate::t('auth_token'); ?></label>
+			<?php $token = $this->conf->token; ?>
+			<div class="group-controls">
+				<input type="text" id="token" name="token" value="<?php echo $token; ?>"  placeholder="<?php echo Minz_Translate::t('blank_to_disable'); ?>"/>
+				<?php echo FreshRSS_Themes::icon('help'); ?> <?php echo Minz_Translate::t('explain_token', Minz_Url::display(null, 'html', true), $token); ?>
 			</div>
 		</div>
 

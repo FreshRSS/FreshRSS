@@ -2,7 +2,7 @@
 
 class FreshRSS_entry_Controller extends Minz_ActionController {
 	public function firstAction () {
-		if (login_is_conf ($this->view->conf) && !is_logged ()) {
+		if (!$this->view->loginOk) {
 			Minz_Error::error (
 				403,
 				array ('error' => array (Minz_Translate::t ('access_denied')))
@@ -38,7 +38,7 @@ class FreshRSS_entry_Controller extends Minz_ActionController {
 		$nextGet = Minz_Request::param ('nextGet', $get); 
 		$idMax = Minz_Request::param ('idMax', 0);
 
-		$is_read = !!$is_read;
+		$is_read = (bool)$is_read;
 
 		$entryDAO = new FreshRSS_EntryDAO ();
 		if ($id == false) {

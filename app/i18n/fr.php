@@ -158,13 +158,14 @@ return array (
 
 	'current_user'			=> 'Utilisateur actuel',
 	'default_user'			=> 'Nom de l’utilisateur par défaut (16 caractères alphanumériques maximum)',
-	'persona_connection_email'	=> 'Adresse courriel de connexion (utilise <a href="https://persona.org/">Mozilla Persona</a>)',
+	'persona_connection_email'	=> 'Adresse courriel de connexion (pour <a href="https://persona.org/" rel="external">Mozilla Persona</a>)',
 	'allow_anonymous'		=> 'Autoriser la lecture anonyme pour l’utilisateur par défaut (%s)',
 	'auth_token'			=> 'Jeton d’identification',
-	'explain_token'			=> 'Permet d’accéder à la sortie RSS sans besoin de s’authentifier.<br />%s?output=rss&token=%s',
+	'explain_token'			=> 'Permet d’accéder à la sortie RSS de l’utilisateur par défaut sans besoin de s’authentifier.<br /><kbd>%s?output=rss&token=%s</kbd>',
 	'login_configuration'		=> 'Identification',
 	'is_admin'			=> 'est administrateur',
 	'auth_type'			=> 'Méthode d’authentification',
+	'auth_none'			=> 'Aucune (dangereux)',
 	'users_list'			=> 'Liste des utilisateurs',
 
 	'language'			=> 'Langue',

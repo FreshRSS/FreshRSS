@@ -107,6 +107,12 @@ class Minz_Configuration {
 	public static function authType() {
 		return self::$auth_type;
 	}
+	public static function needsLogin() {
+		return self::$auth_type !== 'none';
+	}
+	public static function canLogIn() {
+		return self::$auth_type === 'persona';
+	}
 
 	public static function _allowAnonymous($allow = false) {
 		self::$allow_anonymous = (bool)$allow;
@@ -114,13 +120,17 @@ class Minz_Configuration {
 	public static function _authType($value) {
 		$value = strtolower($value);
 		switch ($value) {
-			case 'none':
 			case 'http_auth':
 			case 'persona':
+			case 'none':
 				self::$auth_type = $value;
 				break;
 		}
 	}
+	public static function _currentUser($user) {
+		self::$current_user = $user;
+	}
+
 
 	/**
 	 * Initialise les variables de configuration

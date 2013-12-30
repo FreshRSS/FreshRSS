@@ -59,10 +59,9 @@ class FreshRSS_Configuration extends Minz_ModelArray {
 		'fr' => 'Français',
 	);
 
-	public function __construct ($filename = '') {
-		if (empty($filename)) {
-			$filename = DATA_PATH . '/' . Minz_Configuration::currentUser () . '_user.php';
-		}
+	public function __construct ($user) {
+		$filename = DATA_PATH . '/' . $user . '_user.php';
+
 		parent::__construct($filename);
 		$data = parent::loadArray();
 
@@ -72,6 +71,7 @@ class FreshRSS_Configuration extends Minz_ModelArray {
 				$this->$function($value);
 			}
 		}
+		$this->data['user'] = $user;
 	}
 
 	public function save() {
@@ -151,10 +151,11 @@ class FreshRSS_Configuration extends Minz_ModelArray {
 		}
 	}
 	public function _mail_login ($value) {
-		if (filter_var($value, FILTER_VALIDATE_EMAIL)) {
-			$this->mail_login = $value;
+		$value = filter_var($value, FILTER_VALIDATE_EMAIL);
+		if ($value) {
+			$this->data['mail_login'] = $value;
 		} else {
-			$this->mail_login = '';
+			$this->data['mail_login'] = '';
 		}
 	}
 	public function _anon_access ($value) {

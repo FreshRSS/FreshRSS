@@ -16,17 +16,18 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 
 	public function indexAction () {
 		$output = Minz_Request::param ('output');
+		$token = '';
 
-		$token = $this->view->conf->token;
-		$token_param = Minz_Request::param ('token', '');
-		$token_is_ok = ($token != '' && $token === $token_param);
-
-		// check if user is log in
-		if(login_is_conf ($this->view->conf) &&
-				!is_logged() &&
-				!Minz_Configuration::allowAnonymous() &&
-				!($output === 'rss' && $token_is_ok)) {
-			return;
+		// check if user is logged in
+		if (!$this->view->loginOk && !Minz_Configuration::allowAnonymous())
+		{
+			$token = $this->view->conf->token;
+			$token_param = Minz_Request::param ('token', '');
+			$token_is_ok = ($token != '' && $token === $token_param);
+			if (!($output === 'rss' && $token_is_ok)) {
+				return;
+			}
+			$params['token'] = $token;
 		}
 
 		// construction of RSS url of this feed
@@ -34,11 +35,6 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 		$params['output'] = 'rss';
 		if (isset ($params['search'])) {
 			$params['search'] = urlencode ($params['search']);
-		}
-		if (login_is_conf($this->view->conf) &&
-				!Minz_Configuration::allowAnonymous() &&
-				$token !== '') {
-			$params['token'] = $token;
 		}
 		$this->view->rss_url = array (
 			'c' => 'index',
@@ -212,7 +208,7 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 	}
 
 	public function logsAction () {
-		if (login_is_conf ($this->view->conf) && !is_logged ()) {
+		if (!$this->view->loginOk) {
 			Minz_Error::error (
 				403,
 				array ('error' => array (Minz_Translate::t ('access_denied')))
@@ -255,6 +251,7 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 		$res = json_decode ($result, true);
 		if ($res['status'] === 'okay' && $res['email'] === $this->view->conf->mail_login) {
 			Minz_Session::_param ('mail', $res['email']);
+			$this->view->loginOk = true;
 			invalidateHttpCache();
 		} else {
 			$res = array ();

@@ -2,18 +2,17 @@
 
 class FreshRSS_feed_Controller extends Minz_ActionController {
 	public function firstAction () {
-		$token = $this->view->conf->token;
-		$token_param = Minz_Request::param ('token', '');
-		$token_is_ok = ($token != '' && $token == $token_param);
-		$action = Minz_Request::actionName ();
-
-		if (login_is_conf ($this->view->conf) &&
-				!is_logged () &&
-				!($token_is_ok && $action == 'actualize')) {
-			Minz_Error::error (
-				403,
-				array ('error' => array (Minz_Translate::t ('access_denied')))
-			);
+		if (!$this->view->loginOk) {
+			$token = $this->view->conf->token;	//TODO: check the token logic again, and if it is still needed
+			$token_param = Minz_Request::param ('token', '');
+			$token_is_ok = ($token != '' && $token == $token_param);
+			$action = Minz_Request::actionName ();
+			if (!($token_is_ok && $action === 'actualize')) {
+				Minz_Error::error (
+					403,
+					array ('error' => array (Minz_Translate::t ('access_denied')))
+				);
+			}
 		}
 
 		$this->catDAO = new FreshRSS_CategoryDAO ();
@@ -411,10 +410,8 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 	}
 
 	private function addCategories ($categories) {
-		$catDAO = new FreshRSS_CategoryDAO ();
-
 		foreach ($categories as $cat) {
-			if (!$catDAO->searchByName ($cat->name ())) {
+			if (!$this->catDAO->searchByName ($cat->name ())) {
 				$values = array (
 					'id' => $cat->id (),
 					'name' => $cat->name (),

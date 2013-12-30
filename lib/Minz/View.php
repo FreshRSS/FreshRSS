@@ -13,7 +13,7 @@ class Minz_View {
 	const LAYOUT_FILENAME = '/layout.phtml';
 
 	private $view_filename = '';
-	private $use_layout = false;
+	private $use_layout = null;
 
 	private static $title = '';
 	private static $styles = array ();
@@ -31,12 +31,6 @@ class Minz_View {
 		                     . Minz_Request::controllerName () . '/'
 		                     . Minz_Request::actionName () . '.phtml';
 
-		if (file_exists (APP_PATH
-		               . self::LAYOUT_PATH_NAME
-		               . self::LAYOUT_FILENAME)) {
-			$this->use_layout = true;
-		}
-
 		self::$title = Minz_Configuration::title ();
 	}
 
@@ -44,6 +38,9 @@ class Minz_View {
 	 * Construit la vue
 	 */
 	public function build () {
+		if ($this->use_layout === null) {	//TODO: avoid file_exists and require views to be explicit
+			$this->use_layout = file_exists (APP_PATH . self::LAYOUT_PATH_NAME . self::LAYOUT_FILENAME);
+		}
 		if ($this->use_layout) {
 			$this->buildLayout ();
 		} else {
@@ -66,10 +63,8 @@ class Minz_View {
 	 * Affiche la Vue en elle-même
 	 */
 	public function render () {
-		if (file_exists ($this->view_filename)) {
-			include ($this->view_filename);
-		} else {
-			Minz_Log::record ('File doesn\'t exist : `'
+		if ((@include($this->view_filename)) === false) {
+			Minz_Log::record ('File not found: `'
 			            . $this->view_filename . '`',
 			            Minz_Log::NOTICE);
 		}
@@ -84,10 +79,8 @@ class Minz_View {
 		             . self::LAYOUT_PATH_NAME . '/'
 		             . $part . '.phtml';
 
-		if (file_exists ($fic_partial)) {
-			include ($fic_partial);
-		} else {
-			Minz_Log::record ('File doesn\'t exist : `'
+		if ((@include($fic_partial)) === false) {
+			Minz_Log::record ('File not found: `'
 			            . $fic_partial . '`',
 			            Minz_Log::WARNING);
 		}
@@ -102,10 +95,8 @@ class Minz_View {
 		            . '/views/helpers/'
 		            . $helper . '.phtml';
 
-		if (file_exists ($fic_helper)) {
-			include ($fic_helper);
-		} else {
-			Minz_Log::record ('File doesn\'t exist : `'
+		if ((@include($fic_helper)) === false) {;
+			Minz_Log::record ('File not found: `'
 			            . $fic_helper . '`',
 			            Minz_Log::WARNING);
 		}

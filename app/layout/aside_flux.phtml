@@ -2,14 +2,14 @@
 	<a class="toggle_aside" href="#close"><?php echo FreshRSS_Themes::icon('close'); ?></a>
 
 	<ul class="categories">
-		<?php if (!login_is_conf ($this->conf) || is_logged ()) { ?>
+		<?php if ($this->loginOk) { ?>
 		<li>
 			<div class="stick">
 				<a class="btn btn-important" href="<?php echo _url ('configure', 'feed'); ?>"><?php echo Minz_Translate::t ('subscription_management'); ?></a>
 				<a class="btn btn-important" href="<?php echo _url ('configure', 'categorize'); ?>" title="<?php echo Minz_Translate::t ('categories_management'); ?>"><?php echo FreshRSS_Themes::icon('category-white'); ?></a>
 			</div>
 		</li>
-		<?php } elseif (login_is_conf ($this->conf)) { ?>
+		<?php } elseif (Minz_Configuration::needsLogin()) { ?>
 		<li><a href="<?php echo _url ('index', 'about'); ?>"><?php echo Minz_Translate::t ('about_freshrss'); ?></a></li>
 		<?php } ?>
 
@@ -69,7 +69,7 @@
 		<li class="dropdown-close"><a href="#close">❌</a></li>
 		<li class="item"><a href="<?php echo _url ('index', 'index', 'get', 'f_!!!!!!'); ?>"><?php echo Minz_Translate::t ('filter'); ?></a></li>
 		<li class="item"><a target="_blank" href="http://example.net/"><?php echo Minz_Translate::t ('see_website'); ?></a></li>
-		<?php if (!login_is_conf ($this->conf) || is_logged ()) { ?>
+		<?php if ($this->loginOk) { ?>
 		<li class="separator"></li>
 		<li class="item"><a href="<?php echo _url ('configure', 'feed', 'id', '!!!!!!'); ?>"><?php echo Minz_Translate::t ('administration'); ?></a></li>
 		<li class="item"><a href="<?php echo _url ('feed', 'actualize', 'id', '!!!!!!'); ?>"><?php echo Minz_Translate::t ('actualize'); ?></a></li>

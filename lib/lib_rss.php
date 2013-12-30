@@ -56,16 +56,6 @@ function checkUrl($url) {
 	}
 }
 
-// vérifie qu'on est connecté
-function is_logged () {
-	return Minz_Session::param ('mail') != false;
-}
-
-// vérifie que le système d'authentification est configuré
-function login_is_conf ($conf) {
-	return $conf->mail_login != '';
-}
-
 // tiré de Shaarli de Seb Sauvage	//Format RFC 4648 base64url
 function small_hash ($txt) {
 	$t = rtrim (base64_encode (hash ('crc32', $txt, true)), '=');
@@ -173,7 +163,7 @@ function uSecString() {
 	return str_pad($t['usec'], 6, '0');
 }
 
-function invalidateHttpCache() {
+function invalidateHttpCache($currentUser = '') {	//TODO: Make multi-user compatible
 	file_put_contents(DATA_PATH . '/touch.txt', uTimeString());
 }
 
@@ -183,6 +173,10 @@ function usernameFromPath($userPath) {
 	} else {
 		return '';
 	}
+}
+
+function isValidUser($user) {
+	return $user != '' && ctype_alnum($user) && file_exists(DATA_PATH . '/' . $user . '_user.php');
 }
 
 function listUsers() {

@@ -543,6 +543,8 @@ function checkStep1 () {
 	$minz = file_exists (LIB_PATH . '/Minz');
 	$curl = extension_loaded ('curl');
 	$pdo = extension_loaded ('pdo_mysql');
+	$pcre = extension_loaded ('pcre');
+	$ctype = extension_loaded ('ctype');
 	$dom = class_exists('DOMDocument');
 	$data = DATA_PATH && is_writable (DATA_PATH);
 	$cache = CACHE_PATH && is_writable (CACHE_PATH);
@@ -554,12 +556,14 @@ function checkStep1 () {
 		'minz' => $minz ? 'ok' : 'ko',
 		'curl' => $curl ? 'ok' : 'ko',
 		'pdo-mysql' => $pdo ? 'ok' : 'ko',
+		'pcre' => $pcre ? 'ok' : 'ko',
+		'ctype' => $ctype ? 'ok' : 'ko',
 		'dom' => $dom ? 'ok' : 'ko',
 		'data' => $data ? 'ok' : 'ko',
 		'cache' => $cache ? 'ok' : 'ko',
 		'log' => $log ? 'ok' : 'ko',
 		'favicons' => $favicons ? 'ok' : 'ko',
-		'all' => $php && $minz && $curl && $pdo && $dom && $data && $cache && $log && $favicons ? 'ok' : 'ko'
+		'all' => $php && $minz && $curl && $pdo && $pcre && $ctype && $dom && $data && $cache && $log && $favicons ? 'ok' : 'ko'
 	);
 }
 
@@ -726,6 +730,12 @@ function printStep1 () {
 	<p class="alert alert-error"><span class="alert-head"><?php echo _t ('damn'); ?></span> <?php echo _t ('minz_is_nok', LIB_PATH . '/Minz'); ?></p>
 	<?php } ?>
 
+	<?php if ($res['pdo-mysql'] == 'ok') { ?>
+	<p class="alert alert-success"><span class="alert-head"><?php echo _t ('ok'); ?></span> <?php echo _t ('pdomysql_is_ok'); ?></p>
+	<?php } else { ?>
+	<p class="alert alert-error"><span class="alert-head"><?php echo _t ('damn'); ?></span> <?php echo _t ('pdomysql_is_nok'); ?></p>
+	<?php } ?>
+
 	<?php if ($res['curl'] == 'ok') { ?>
 	<?php $version = curl_version(); ?>
 	<p class="alert alert-success"><span class="alert-head"><?php echo _t ('ok'); ?></span> <?php echo _t ('curl_is_ok', $version['version']); ?></p>
@@ -733,10 +743,16 @@ function printStep1 () {
 	<p class="alert alert-error"><span class="alert-head"><?php echo _t ('damn'); ?></span> <?php echo _t ('curl_is_nok'); ?></p>
 	<?php } ?>
 
-	<?php if ($res['pdo-mysql'] == 'ok') { ?>
-	<p class="alert alert-success"><span class="alert-head"><?php echo _t ('ok'); ?></span> <?php echo _t ('pdomysql_is_ok'); ?></p>
+	<?php if ($res['pcre'] == 'ok') { ?>
+	<p class="alert alert-success"><span class="alert-head"><?php echo _t ('ok'); ?></span> <?php echo _t ('pcre_is_ok'); ?></p>
 	<?php } else { ?>
-	<p class="alert alert-error"><span class="alert-head"><?php echo _t ('damn'); ?></span> <?php echo _t ('pdomysql_is_nok'); ?></p>
+	<p class="alert alert-error"><span class="alert-head"><?php echo _t ('damn'); ?></span> <?php echo _t ('pcre_is_nok'); ?></p>
+	<?php } ?>
+
+	<?php if ($res['ctype'] == 'ok') { ?>
+	<p class="alert alert-success"><span class="alert-head"><?php echo _t ('ok'); ?></span> <?php echo _t ('ctype_is_ok'); ?></p>
+	<?php } else { ?>
+	<p class="alert alert-error"><span class="alert-head"><?php echo _t ('damn'); ?></span> <?php echo _t ('ctype_is_nok'); ?></p>
 	<?php } ?>
 
 	<?php if ($res['dom'] == 'ok') { ?>

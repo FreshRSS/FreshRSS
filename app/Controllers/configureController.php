@@ -2,7 +2,7 @@
 
 class FreshRSS_configure_Controller extends Minz_ActionController {
 	public function firstAction () {
-		if (login_is_conf ($this->view->conf) && !is_logged ()) {
+		if (!$this->view->loginOk) {
 			Minz_Error::error (
 				403,
 				array ('error' => array (Minz_Translate::t ('access_denied')))
@@ -16,7 +16,6 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 	public function categorizeAction () {
 		$feedDAO = new FreshRSS_FeedDAO ();
 		$catDAO = new FreshRSS_CategoryDAO ();
-		$catDAO->checkDefault ();
 		$defaultCategory = $catDAO->getDefault ();
 		$defaultId = $defaultCategory->id ();
 
@@ -166,8 +165,6 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 			$this->view->conf->_bottomline_date(Minz_Request::param('bottomline_date', false));
 			$this->view->conf->_bottomline_link(Minz_Request::param('bottomline_link', false));
 			$this->view->conf->save();
-
-			Minz_Session::_param ('mail', $this->view->conf->mail_login);
 
 			Minz_Session::_param ('language', $this->view->conf->language);
 			Minz_Translate::reset ();

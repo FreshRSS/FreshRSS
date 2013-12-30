@@ -1,7 +1,7 @@
 <div class="nav_menu">
 	<a class="btn toggle_aside" href="#aside_flux"><?php echo FreshRSS_Themes::icon('category'); ?></a>
 
-	<?php if (!login_is_conf ($this->conf) || is_logged ()) { ?>
+	<?php if ($this->loginOk) { ?>
 	<a id="actualize" class="btn" href="<?php echo _url ('feed', 'actualize'); ?>"><?php echo FreshRSS_Themes::icon('refresh'); ?></a>
 
 	<?php
