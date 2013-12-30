@@ -322,7 +322,7 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 
 			Minz_Session::_param('mail', $this->view->conf->mail_login);
 
-			if (Minz_Configuration::isAdmin()) {
+			if (Minz_Configuration::isAdmin(Minz_Session::param('currentUser', '_'))) {
 				$anon = Minz_Request::param('anon_access', false);
 				$anon = ((bool)$anon) && ($anon !== 'no');
 				$auth_type = Minz_Request::param('auth_type', 'none');

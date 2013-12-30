@@ -218,10 +218,10 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 		Minz_View::prependTitle (Minz_Translate::t ('logs') . ' - ');
 
 		if (Minz_Request::isPost ()) {
-			file_put_contents(LOG_PATH . '/' . Minz_Configuration::currentUser() . '.log', '');	//Truncate
+			FreshRSS_LogDAO::truncate();
 		}
 
-		$logs = FreshRSS_LogDAO::lines(Minz_Configuration::currentUser());	//TODO: ask only the necessary lines
+		$logs = FreshRSS_LogDAO::lines();	//TODO: ask only the necessary lines
 
 		//gestion pagination
 		$page = Minz_Request::param ('page', 1);

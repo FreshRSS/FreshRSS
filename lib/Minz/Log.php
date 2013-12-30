@@ -37,7 +37,7 @@ class Minz_Log {
 		       || ($env === Minz_Configuration::PRODUCTION
 		       && ($level >= Minz_Log::NOTICE)))) {
 			if ($file_name === null) {
-				$file_name = LOG_PATH . '/' . Minz_Configuration::currentUser() . '.log';
+				$file_name = LOG_PATH . '/' . Minz_Session::param('currentUser', '_') . '.log';
 			}
 
 			switch ($level) {

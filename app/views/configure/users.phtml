@@ -9,10 +9,10 @@
 		<div class="form-group">
 			<label class="group-name" for="current_user"><?php echo Minz_Translate::t('current_user'); ?></label>
 			<div class="group-controls">
-				<input id="current_user" type="text" disabled="disabled" value="<?php echo Minz_Configuration::currentUser(); ?>" />
+				<input id="current_user" type="text" disabled="disabled" value="<?php echo Minz_Session::param('currentUser', '_'); ?>" />
 				<code>$_SERVER['REMOTE_USER'] = <?php echo httpAuthUser(); ?></code>
 				<label class="checkbox" for="is_admin">
-					<input type="checkbox" id="is_admin" disabled="disabled"<?php echo Minz_Configuration::isAdmin() ? ' checked="checked"' : ''; ?> />
+					<input type="checkbox" id="is_admin" disabled="disabled"<?php echo Minz_Configuration::isAdmin(Minz_Session::param('currentUser', '_')) ? ' checked="checked"' : ''; ?> />
 					<?php echo Minz_Translate::t('is_admin'); ?>
 				</label>
 			</div>
@@ -34,7 +34,7 @@
 			</div>
 		</div>
 
-		<?php if (Minz_Configuration::isAdmin()) { ?>
+		<?php if (Minz_Configuration::isAdmin(Minz_Session::param('currentUser', '_'))) { ?>
 
 		<legend><?php echo Minz_Translate::t('users'); ?></legend>
 

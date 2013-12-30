@@ -163,8 +163,9 @@ function uSecString() {
 	return str_pad($t['usec'], 6, '0');
 }
 
-function invalidateHttpCache($currentUser = '') {	//TODO: Make multi-user compatible
-	file_put_contents(DATA_PATH . '/touch.txt', uTimeString());
+function invalidateHttpCache() {
+	//touch(LOG_PATH . '/' . Minz_Session::param('currentUser', '_') . '.log');
+	Minz_Session::_param('touch', uTimeString());
 }
 
 function usernameFromPath($userPath) {
@@ -173,10 +174,6 @@ function usernameFromPath($userPath) {
 	} else {
 		return '';
 	}
-}
-
-function isValidUser($user) {
-	return $user != '' && ctype_alnum($user) && file_exists(DATA_PATH . '/' . $user . '_user.php');
 }
 
 function listUsers() {

@@ -10,13 +10,17 @@ $_SERVER['HTTP_HOST'] = '';
 
 require(LIB_PATH . '/lib_rss.php');	//Includes class autoloader
 
-$front_controller = new FreshRSS ();
+$freshRSS = new FreshRSS ();
 
 $users = listUsers();
 shuffle($users);
 
 foreach ($users as $user) {
-	$front_controller->init($user);
-	$front_controller->run();
-	invalidateHttpCache($user);
+	Minz_Session::init('FreshRSS');
+	Minz_Session::_param('currentUser', $user);
+	$freshRSS->init();
+	$freshRSS->run();
+	//invalidateHttpCache();
+	touch(LOG_PATH . '/' . $user . '.log');
+	Minz_Session::unset_session(true);
 }

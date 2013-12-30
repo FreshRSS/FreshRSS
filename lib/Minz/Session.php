@@ -8,7 +8,7 @@ class Minz_Session {
 	/**
 	 * $session stocke les variables de session
 	 */
-	private static $session = array ();
+	private static $session = array ();	//TODO: Try to avoid having another local copy
 
 	/**
 	 * Initialise la session, avec un nom
@@ -33,13 +33,7 @@ class Minz_Session {
 	 * @return la valeur de la variable de session, false si n'existe pas
 	 */
 	public static function param ($p, $default = false) {
-		if (isset (self::$session[$p])) {
-			$return = self::$session[$p];
-		} else {
-			$return = $default;
-		}
-
-		return $return;
+		return isset(self::$session[$p]) ? self::$session[$p] : $default;
 	}
 
 

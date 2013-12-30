@@ -51,7 +51,6 @@ class Minz_Configuration {
 	private static $cache_enabled = false;
 	private static $delay_cache = 3600;
 	private static $default_user = '';
-	private static $current_user = '';
 	private static $allow_anonymous = false;
 	private static $auth_type = 'none';
 
@@ -95,11 +94,8 @@ class Minz_Configuration {
 	public static function defaultUser () {
 		return self::$default_user;
 	}
-	public static function currentUser () {
-		return self::$current_user;
-	}
-	public static function isAdmin () {
-		return self::$current_user === self::$default_user;
+	public static function isAdmin($currentUser) {
+		return $currentUser === self::$default_user;
 	}
 	public static function allowAnonymous() {
 		return self::$allow_anonymous;
@@ -127,10 +123,6 @@ class Minz_Configuration {
 				break;
 		}
 	}
-	public static function _currentUser($user) {
-		self::$current_user = $user;
-	}
-
 
 	/**
 	 * Initialise les variables de configuration
@@ -255,7 +247,6 @@ class Minz_Configuration {
 		}
 		if (isset ($general['default_user'])) {
 			self::$default_user = $general['default_user'];
-			self::$current_user = self::$default_user;
 		}
 		if (isset ($general['allow_anonymous'])) {
 			self::$allow_anonymous = ((bool)($general['allow_anonymous'])) && ($general['allow_anonymous'] !== 'no');

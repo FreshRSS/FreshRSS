@@ -60,8 +60,7 @@ class Minz_ModelPdo {
 			);
 			self::$sharedBd = $this->bd;
 
-			$userPrefix = Minz_Configuration::currentUser ();
-			$this->prefix = $db['prefix'] . (empty($userPrefix) ? '' : ($userPrefix . '_'));
+			$this->prefix = $db['prefix'] . Minz_Session::param('currentUser', '_') . '_';
 			self::$sharedPrefix = $this->prefix;
 		} catch (Exception $e) {
 			throw new Minz_PDOConnectionException (

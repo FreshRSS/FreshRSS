@@ -22,21 +22,22 @@ if (file_exists ('install.php')) {
 	require('install.php');
 } else {
 	require('../../constants.php');
+	require(LIB_PATH . '/lib_rss.php');	//Includes class autoloader
 
 	session_cache_limiter('');
+	Minz_Session::init('FreshRSS');
+
 	if (!file_exists(DATA_PATH . '/no-cache.txt')) {
-		require (LIB_PATH . '/http-conditional.php');
-		$dateLastModification = max(
-			@filemtime(DATA_PATH . '/touch.txt'),
+		require(LIB_PATH . '/http-conditional.php');
+		$currentUser = Minz_Session::param('currentUser', '');
+		$dateLastModification = $currentUser === '' ? time() : max(
+			@filemtime(LOG_PATH . '/' . $currentUser . '.log'),
 			@filemtime(DATA_PATH . '/config.php')
 		);
-		$_SERVER['QUERY_STRING'] .= '&utime=' . file_get_contents(DATA_PATH . '/touch.txt');	//For ETag
 		if (httpConditional($dateLastModification, 0, 0, false, false, true)) {
 			exit();	//No need to send anything
 		}
 	}
-
-	require(LIB_PATH . '/lib_rss.php');	//Includes class autoloader
 
 	try {
 		$front_controller = new FreshRSS();
