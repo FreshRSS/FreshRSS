@@ -44,11 +44,7 @@ class FreshRSS_Feed extends Minz_Model {
 		return $this->category;
 	}
 	public function entries () {
-		if (!is_null ($this->entries)) {
-			return $this->entries;
-		} else {
-			return array ();
-		}
+		return $this->entries === null ? array() : $this->entries;
 	}
 	public function name () {
 		return $this->name;
@@ -140,10 +136,7 @@ class FreshRSS_Feed extends Minz_Model {
 		$this->category = $value >= 0 ? $value : 0;
 	}
 	public function _name ($value) {
-		if (is_null ($value)) {
-			$value = '';
-		}
-		$this->name = $value;
+		$this->name = $value === null ? '' : $value;
 	}
 	public function _website ($value, $validate=true) {
 		if ($validate) {
@@ -155,10 +148,7 @@ class FreshRSS_Feed extends Minz_Model {
 		$this->website = $value;
 	}
 	public function _description ($value) {
-		if (is_null ($value)) {
-			$value = '';
-		}
-		$this->description = $value;
+		$this->description = $value === null ? '' : $value;
 	}
 	public function _lastUpdate ($value) {
 		$this->lastUpdate = $value;
@@ -190,7 +180,7 @@ class FreshRSS_Feed extends Minz_Model {
 	}
 
 	public function load ($loadDetails = false) {
-		if (!is_null ($this->url)) {
+		if ($this->url !== null) {
 			if (CACHE_PATH === false) {
 				throw new Minz_FileNotExistException (
 					'CACHE_PATH',
@@ -253,7 +243,7 @@ class FreshRSS_Feed extends Minz_Model {
 
 				// si on a utilisé l'auto-discover, notre url va avoir changé
 				$subscribe_url = $feed->subscribe_url ();
-				if (!is_null ($subscribe_url) && $subscribe_url != $this->url) {
+				if ($subscribe_url !== null && $subscribe_url !== $this->url) {
 					if ($this->httpAuth != '') {
 						// on enlève les id si authentification HTTP
 						$subscribe_url = preg_replace ('#((.+)://)((.+)@)(.+)#', '${1}${5}', $subscribe_url);
@@ -263,7 +253,7 @@ class FreshRSS_Feed extends Minz_Model {
 
 				if ($loadDetails) {
 					$title = htmlspecialchars(html_only_entity_decode($feed->get_title()), ENT_COMPAT, 'UTF-8');
-					$this->_name (!is_null ($title) ? $title : $this->url);
+					$this->_name ($title === null ? $this->url : $title);
 
 					$this->_website(html_only_entity_decode($feed->get_link()));
 					$this->_description(html_only_entity_decode($feed->get_description()));
@@ -286,7 +276,7 @@ class FreshRSS_Feed extends Minz_Model {
 			// gestion des tags (catégorie == tag)
 			$tags_tmp = $item->get_categories ();
 			$tags = array ();
-			if (!is_null ($tags_tmp)) {
+			if ($tags_tmp !== null) {
 				foreach ($tags_tmp as $tag) {
 					$tags[] = html_only_entity_decode ($tag->get_label ());
 				}
@@ -308,10 +298,10 @@ class FreshRSS_Feed extends Minz_Model {
 			$entry = new FreshRSS_Entry (
 				$this->id (),
 				$item->get_id (),
-				!is_null ($title) ? $title : '',
-				!is_null ($author) ? html_only_entity_decode ($author->name) : '',
-				!is_null ($content) ? $content : '',
-				!is_null ($link) ? $link : '',
+				$title === null ? '' : $title,
+				$author === null ? '' : html_only_entity_decode ($author->name),
+				$content === null ? '' : $content,
+				$link === null ? '' : $link,
 				$date ? $date : time ()
 			);
 			$entry->_tags ($tags);

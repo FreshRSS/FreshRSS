@@ -22,7 +22,7 @@ class Minz_Dispatcher {
 	 * Récupère l'instance du Dispatcher
 	 */
 	public static function getInstance ($router) {
-		if (is_null (self::$instance)) {
+		if (self::$instance === null) {
 			self::$instance = new Minz_Dispatcher ($router);
 		}
 		return self::$instance;
