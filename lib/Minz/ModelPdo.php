@@ -1,5 +1,5 @@
 <?php
-/** 
+/**
  * MINZ - Copyright 2011 Marien Fressinaud
  * Sous licence AGPL3 <http://www.gnu.org/licenses/>
 */
@@ -23,7 +23,7 @@ class Minz_ModelPdo {
 	protected $bd;
 
 	protected $prefix;
-	
+
 	/**
 	 * Créé la connexion à la base de données à l'aide des variables
 	 * HOST, BASE, USER et PASS définies dans le fichier de configuration
@@ -80,11 +80,15 @@ class Minz_ModelPdo {
 		$this->bd->rollBack();
 	}
 
-	public function size() {
+	public function size($all = false) {
 		$db = Minz_Configuration::dataBase ();
 		$sql = 'SELECT SUM(data_length + index_length) FROM information_schema.TABLES WHERE table_schema = ?';
-		$stm = $this->bd->prepare ($sql);
 		$values = array ($db['base']);
+		if (!$all) {
+			$sql .= ' AND table_name LIKE ?';
+			$values[] = $this->prefix . '%';
+		}
+		$stm = $this->bd->prepare ($sql);
 		$stm->execute ($values);
 		$res = $stm->fetchAll(PDO::FETCH_COLUMN, 0);
 		return $res[0];

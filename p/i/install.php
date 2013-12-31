@@ -12,6 +12,8 @@ if (isset ($_GET['step'])) {
 	define ('STEP', 1);
 }
 
+define('SQL_CREATE_DB', 'CREATE DATABASE %1$s DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;');
+
 include(APP_PATH . '/sql.php');
 
 //<updates>
@@ -151,7 +153,7 @@ function saveStep2 () {
 			return false;
 		}
 
-		$_SESSION['sel_application'] = sha1(uniqid(mt_rand(), true).implode('', stat(__FILE__)));
+		$_SESSION['salt'] = sha1(uniqid(mt_rand(), true).implode('', stat(__FILE__)));
 		$_SESSION['title'] = substr(trim($_POST['title']), 0, 25);
 		$_SESSION['old_entries'] = $_POST['old_entries'];
 		if ((!ctype_digit($_SESSION['old_entries'])) || ($_SESSION['old_entries'] < 1)) {
@@ -162,7 +164,7 @@ function saveStep2 () {
 
 		$token = '';
 		if ($_SESSION['mail_login']) {
-			$token = sha1($_SESSION['sel_application'] . $_SESSION['mail_login']);
+			$token = sha1($_SESSION['salt'] . $_SESSION['mail_login']);
 		}
 
 		$config_array = array (
@@ -173,7 +175,7 @@ function saveStep2 () {
 		);
 
 		$configPath = DATA_PATH . '/' . $_SESSION['default_user'] . '_user.php';
-		@unlink(configPath);	//To avoid access-rights problems
+		@unlink($configPath);	//To avoid access-rights problems
 		file_put_contents($configPath, "<?php\n return " . var_export($config_array, true) . ';');
 
 		header ('Location: index.php?step=3');
@@ -201,7 +203,7 @@ function saveStep3 () {
 			'general' => array(
 				'environment' => empty($_SESSION['environment']) ? 'production' : $_SESSION['environment'],
 				'use_url_rewriting' => false,
-				'sel_application' => $_SESSION['sel_application'],
+				'salt' => $_SESSION['salt'],
 				'base_url' => '',
 				'title' => $_SESSION['title'],
 				'default_user' => $_SESSION['default_user'],
@@ -424,7 +426,7 @@ function checkStep0 () {
 	if ($ini_array) {
 		$ini_general = isset($ini_array['general']) ? $ini_array['general'] : null;
 		if ($ini_general) {
-			$keys = array('environment', 'sel_application', 'title', 'default_user');
+			$keys = array('environment', 'salt', 'title', 'default_user');
 			foreach ($keys as $key) {
 				if ((empty($_SESSION[$key])) && isset($ini_general[$key])) {
 					$_SESSION[$key] = $ini_general[$key];
@@ -496,7 +498,7 @@ function checkStep1 () {
 }
 
 function checkStep2 () {
-	$conf = !empty($_SESSION['sel_application']) &&
+	$conf = !empty($_SESSION['salt']) &&
 	        !empty($_SESSION['title']) &&
 	        !empty($_SESSION['old_entries']) &&
 	        isset($_SESSION['mail_login']) &&
@@ -537,7 +539,7 @@ function checkStep3 () {
 }
 
 function checkBD () {
-	$error = false;
+	$ok = false;
 
 	try {
 		$str = '';
@@ -575,35 +577,18 @@ function checkBD () {
 			$res = $c->query($sql);	//Backup tables
 		}
 
-		$sql = sprintf (SQL_CAT, $_SESSION['bd_prefix_user']);
-		$res = $c->query ($sql);
-
-		if (!$res) {
-			$error = true;
-		}
-
-		$sql = sprintf (SQL_FEED, $_SESSION['bd_prefix_user']);
-		$res = $c->query ($sql);
-
-		if (!$res) {
-			$error = true;
-		}
-
-		$sql = sprintf (SQL_ENTRY, $_SESSION['bd_prefix_user']);
-		$res = $c->query ($sql);
-
-		if (!$res) {
-			$error = true;
-		}
+		$sql = sprintf(SQL_CREATE_TABLES, $_SESSION['bd_prefix_user']);
+		$stm = $c->prepare($sql, array(PDO::ATTR_EMULATE_PREPARES => true));
+		$ok = $stm->execute();
 	} catch (PDOException $e) {
 		$error = true;
 	}
 
-	if ($error && file_exists (DATA_PATH . '/config.php')) {
-		unlink (DATA_PATH . '/config.php');
+	if (!$ok) {
+		@unlink(DATA_PATH . '/config.php');
 	}
 
-	return !$error;
+	return $ok;
 }
 
 /*** AFFICHAGE ***/
@@ -729,9 +714,6 @@ function printStep2 () {
 
 	<form action="index.php?step=2" method="post">
 		<legend><?php echo _t ('general_configuration'); ?></legend>
-		<?php
-			$url = substr ($_SERVER['PHP_SELF'], 0, -10);
-		?>
 
 		<div class="form-group">
 			<label class="group-name" for="title"><?php echo _t ('title'); ?></label>

@@ -6,7 +6,7 @@
 	<form method="post" action="<?php echo _url('configure', 'archiving'); ?>">
 		<legend><?php echo Minz_Translate::t('archiving_configuration'); ?></legend>
 		<p><?php echo FreshRSS_Themes::icon('help'); ?> <?php echo Minz_Translate::t('archiving_configuration_help'); ?></p>
-		
+
 		<div class="form-group">
 			<label class="group-name" for="old_entries"><?php echo Minz_Translate::t('delete_articles_every'); ?></label>
 			<div class="group-controls">
@@ -31,17 +31,28 @@
 				<button type="reset" class="btn"><?php echo Minz_Translate::t('cancel'); ?></button>
 			</div>
 		</div>
+	</form>
 
+	<form method="post" action="<?php echo _url('entry', 'optimize'); ?>">
 		<legend><?php echo Minz_Translate::t ('advanced'); ?></legend>
+
 		<div class="form-group">
-			<label class="group-name"></label>
+		<p class="group-name"><?php echo Minz_Translate::t('current_user'); ?></p>
 			<div class="group-controls">
-				<p><?php echo $this->nb_total; ?> <?php echo Minz_Translate::t('articles') ?>, <?php echo formatBytes($this->size_total); ?>.</p>
-				<p><a class="btn" href="<?php echo _url('entry', 'optimize'); ?>">
-					<?php echo Minz_Translate::t('optimize_bdd'); ?>
-				</a></p>
+				<p><?php echo $this->nb_total, ' ', Minz_Translate::t('articles'), ', ', formatBytes($this->size_user); ?></p>
+				<input type="hidden" name="optimiseDatabase" value="1" />
+				<button type="submit" class="btn btn-important"><?php echo Minz_Translate::t('optimize_bdd'); ?></button>
 				<?php echo FreshRSS_Themes::icon('help'); ?> <?php echo Minz_Translate::t('optimize_todo_sometimes'); ?>
 			</div>
 		</div>
+
+		<?php if (Minz_Configuration::isAdmin(Minz_Session::param('currentUser', '_'))) { ?>
+		<div class="form-group">
+			<p class="group-name"><?php echo Minz_Translate::t('users'); ?></p>
+			<div class="group-controls">
+				<p><?php echo formatBytes($this->size_total); ?></p>
+			</div>
+		</div>
+		<?php } ?>
 	</form>
 </div>

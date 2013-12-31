@@ -16,6 +16,7 @@ class FreshRSS_entry_Controller extends Minz_ActionController {
 			$this->view->_useLayout (false);
 		}
 	}
+
 	public function lastAction () {
 		$ajax = Minz_Request::param ('ajax');
 		if (!$ajax && $this->redirect) {
@@ -87,22 +88,23 @@ class FreshRSS_entry_Controller extends Minz_ActionController {
 	}
 
 	public function optimizeAction() {
-		@set_time_limit(300);
-		invalidateHttpCache();
+		if (Minz_Request::isPost()) {
+			@set_time_limit(300);
 
-		// La table des entrées a tendance à grossir énormément
-		// Cette action permet d'optimiser cette table permettant de grapiller un peu de place
-		// Cette fonctionnalité n'est à appeler qu'occasionnellement
-		$entryDAO = new FreshRSS_EntryDAO();
-		$entryDAO->optimizeTable();
+			// La table des entrées a tendance à grossir énormément
+			// Cette action permet d'optimiser cette table permettant de grapiller un peu de place
+			// Cette fonctionnalité n'est à appeler qu'occasionnellement
+			$entryDAO = new FreshRSS_EntryDAO();
+			$entryDAO->optimizeTable();
 
-		invalidateHttpCache();
+			invalidateHttpCache();
 
-		$notif = array (
-			'type' => 'good',
-			'content' => Minz_Translate::t ('optimization_complete')
-		);
-		Minz_Session::_param ('notification', $notif);
+			$notif = array (
+				'type' => 'good',
+				'content' => Minz_Translate::t ('optimization_complete')
+			);
+			Minz_Session::_param ('notification', $notif);
+		}
 
 		Minz_Request::forward(array(
 			'c' => 'configure',

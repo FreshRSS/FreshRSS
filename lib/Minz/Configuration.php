@@ -28,7 +28,7 @@ class Minz_Configuration {
 
 	/**
 	 * définition des variables de configuration
-	 * $sel_application une chaîne de caractères aléatoires (obligatoire)
+	 * $salt une chaîne de caractères aléatoires (obligatoire)
 	 * $environment gère le niveau d'affichage pour log et erreurs
 	 * $use_url_rewriting indique si on utilise l'url_rewriting
 	 * $base_url le chemin de base pour accéder à l'application
@@ -42,7 +42,7 @@ class Minz_Configuration {
 	 *     - password mot de passe de l'utilisateur
 	 *     - base le nom de la base de données
 	 */
-	private static $sel_application = '';
+	private static $salt = '';
 	private static $environment = Minz_Configuration::PRODUCTION;
 	private static $base_url = '';
 	private static $use_url_rewriting = false;
@@ -55,17 +55,19 @@ class Minz_Configuration {
 	private static $auth_type = 'none';
 
 	private static $db = array (
-		'host' => false,
-		'user' => false,
-		'password' => false,
-		'base' => false
+		'type' => 'mysql',
+		'host' => '',
+		'user' => '',
+		'password' => '',
+		'base' => '',
+		'prefix' => '',
 	);
 
 	/*
 	 * Getteurs
 	 */
 	public static function salt () {
-		return self::$sel_application;
+		return self::$salt;
 	}
 	public static function environment () {
 		return self::$environment;
@@ -145,7 +147,7 @@ class Minz_Configuration {
 			'general' => array(
 				'environment' => self::$environment,
 				'use_url_rewriting' => self::$use_url_rewriting,
-				'sel_application' => self::$sel_application,
+				'salt' => self::$salt,
 				'base_url' => self::$base_url,
 				'title' => self::$title,
 				'default_user' => self::$default_user,
@@ -189,14 +191,18 @@ class Minz_Configuration {
 		}
 		$general = $ini_array['general'];
 
-		// sel_application est obligatoire
-		if (!isset ($general['sel_application'])) {
-			throw new Minz_BadConfigurationException (
-				'sel_application',
-				Minz_Exception::ERROR
-			);
+		// salt est obligatoire
+		if (!isset ($general['salt'])) {
+			if (isset($general['sel_application'])) {	//v0.6
+				$general['salt'] = $general['sel_application'];
+			} else {
+				throw new Minz_BadConfigurationException (
+					'salt',
+					Minz_Exception::ERROR
+				);
+			}
 		}
-		self::$sel_application = $general['sel_application'];
+		self::$salt = $general['salt'];
 
 		if (isset ($general['environment'])) {
 			switch ($general['environment']) {
@@ -256,18 +262,15 @@ class Minz_Configuration {
 		}
 
 		// Base de données
-		$db = false;
 		if (isset ($ini_array['db'])) {
 			$db = $ini_array['db'];
-		}
-		if ($db) {
-			if (!isset ($db['host'])) {
+			if (empty($db['host'])) {
 				throw new Minz_BadConfigurationException (
 					'host',
 					Minz_Exception::ERROR
 				);
 			}
-			if (!isset ($db['user'])) {
+			if (empty($db['user'])) {
 				throw new Minz_BadConfigurationException (
 					'user',
 					Minz_Exception::ERROR
@@ -279,19 +282,23 @@ class Minz_Configuration {
 					Minz_Exception::ERROR
 				);
 			}
-			if (!isset ($db['base'])) {
+			if (empty($db['base'])) {
 				throw new Minz_BadConfigurationException (
 					'base',
 					Minz_Exception::ERROR
 				);
 			}
 
-			self::$db['type'] = isset ($db['type']) ? $db['type'] : 'mysql';
+			if (!empty($db['type'])) {
+				self::$db['type'] = $db['type'];
+			}
 			self::$db['host'] = $db['host'];
 			self::$db['user'] = $db['user'];
 			self::$db['password'] = $db['password'];
 			self::$db['base'] = $db['base'];
-			self::$db['prefix'] = isset ($db['prefix']) ? $db['prefix'] : '';
+			if (isset($db['prefix'])) {
+				self::$db['prefix'] = $db['prefix'];
+			}
 		}
 	}
 

@@ -1,16 +1,15 @@
 <?php
-define ('SQL_CREATE_DB', 'CREATE DATABASE %1$s DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;');
-
-define ('SQL_CAT', 'CREATE TABLE IF NOT EXISTS `%1$scategory` (
+define('SQL_CREATE_TABLES', '
+CREATE TABLE IF NOT EXISTS `%1$scategory` (
 	`id` SMALLINT NOT NULL AUTO_INCREMENT,	-- v0.7
 	`name` varchar(255) NOT NULL,
 	`color` char(7),
 	PRIMARY KEY (`id`),
 	UNIQUE KEY (`name`)	-- v0.7
 ) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci
-ENGINE = INNODB;');
+ENGINE = INNODB;
 
-define ('SQL_FEED', 'CREATE TABLE IF NOT EXISTS `%1$sfeed` (
+CREATE TABLE IF NOT EXISTS `%1$sfeed` (
 	`id` SMALLINT NOT NULL AUTO_INCREMENT,	-- v0.7
 	`url` varchar(511) CHARACTER SET latin1 NOT NULL,
 	`category` SMALLINT DEFAULT 0,	-- v0.7
@@ -22,7 +21,7 @@ define ('SQL_FEED', 'CREATE TABLE IF NOT EXISTS `%1$sfeed` (
 	`pathEntries` varchar(511) DEFAULT NULL,
 	`httpAuth` varchar(511) DEFAULT NULL,
 	`error` boolean DEFAULT 0,
-	`keep_history` MEDIUMINT NOT NULL DEFAULT -2,	-- v0.7, -2 = default
+	`keep_history` MEDIUMINT NOT NULL DEFAULT -2,	-- v0.7
 	`cache_nbEntries` int DEFAULT 0,	-- v0.7
 	`cache_nbUnreads` int DEFAULT 0,	-- v0.7
 	PRIMARY KEY (`id`),
@@ -32,9 +31,9 @@ define ('SQL_FEED', 'CREATE TABLE IF NOT EXISTS `%1$sfeed` (
 	INDEX (`priority`),	-- v0.7
 	INDEX (`keep_history`)	-- v0.7
 ) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci
-ENGINE = INNODB;');
+ENGINE = INNODB;
 
-define ('SQL_ENTRY', 'CREATE TABLE IF NOT EXISTS `%1$sentry` (
+CREATE TABLE IF NOT EXISTS `%1$sentry` (
 	`id` bigint NOT NULL,	-- v0.7
 	`guid` varchar(760) CHARACTER SET latin1 NOT NULL,	-- Maximum for UNIQUE is 767B
 	`title` varchar(255) NOT NULL,
@@ -52,4 +51,7 @@ define ('SQL_ENTRY', 'CREATE TABLE IF NOT EXISTS `%1$sentry` (
 	INDEX (`is_favorite`),	-- v0.7
 	INDEX (`is_read`)	-- v0.7
 ) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci
-ENGINE = INNODB;');
+ENGINE = INNODB;
+');
+
+define('SQL_DROP_TABLES', 'DROP TABLES %1$sentry, %1$sfeed, %1$scategory');
