@@ -18,8 +18,18 @@ class FreshRSS extends Minz_FrontController {
 					$loginOk = $currentUser != '';
 					break;
 				case 'persona':
-					$currentUser = Minz_Configuration::defaultUser();	//TODO: Make Persona compatible with multi-user
-					$loginOk = Minz_Session::param('mail') != '';
+					$loginOk = false;
+					$email = filter_var(Minz_Session::param('mail'), FILTER_VALIDATE_EMAIL);
+					if ($email != '') {	//TODO: Remove redundancy with indexController
+						$personaFile = DATA_PATH . '/persona/' . $email . '.txt';
+						if (($currentUser = @file_get_contents($personaFile)) !== false) {
+							$currentUser = trim($currentUser);
+							$loginOk = true;
+						}
+					}
+					if (!$loginOk) {
+						$currentUser = Minz_Configuration::defaultUser();
+					}
 					break;
 				case 'none':
 					$currentUser = Minz_Configuration::defaultUser();
@@ -51,10 +61,10 @@ class FreshRSS extends Minz_FrontController {
 		if ($loginOk) {
 			switch (Minz_Configuration::authType()) {
 				case 'http_auth':
-					$loginOk = $currentUser === httpAuthUser();
+					$loginOk = strcasecmp($currentUser, httpAuthUser()) === 0;
 					break;
 				case 'persona':
-					$loginOk = Minz_Session::param('mail') === $this->conf->mail_login;
+					$loginOk = strcasecmp(Minz_Session::param('mail'), $this->conf->mail_login) === 0;
 					break;
 				case 'none':
 					$loginOk = true;

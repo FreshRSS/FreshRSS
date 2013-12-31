@@ -178,6 +178,12 @@ function saveStep2 () {
 		@unlink($configPath);	//To avoid access-rights problems
 		file_put_contents($configPath, "<?php\n return " . var_export($config_array, true) . ';');
 
+		if ($_SESSION['mail_login'] != '') {
+			$personaFile = DATA_PATH . '/persona/' . $_SESSION['mail_login'] . '.txt';
+			@unlink($personaFile);
+			file_put_contents($personaFile, $_SESSION['default_user']);
+		}
+
 		header ('Location: index.php?step=3');
 	}
 }

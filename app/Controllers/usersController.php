@@ -17,7 +17,14 @@ class FreshRSS_users_Controller extends Minz_ActionController {
 			$this->view->conf->_mail_login($mail);
 			$ok &= $this->view->conf->save();
 
-			Minz_Session::_param('mail', $this->view->conf->mail_login);
+			$email = $this->view->conf->mail_login;
+			Minz_Session::_param('mail', $email);
+
+			if ($email != '') {
+				$personaFile = DATA_PATH . '/persona/' . $email . '.txt';
+				@unlink($personaFile);
+				$ok &= (file_put_contents($personaFile, Minz_Session::param('currentUser', '_')) !== false);
+			}
 
 			//TODO: use $ok
 			$notif = array(
@@ -37,8 +44,6 @@ class FreshRSS_users_Controller extends Minz_ActionController {
 			$token = Minz_Request::param('token', $current_token);
 			$this->view->conf->_token($token);
 			$ok &= $this->view->conf->save();
-
-			Minz_Session::_param('mail', $this->view->conf->mail_login);
 
 			$anon = Minz_Request::param('anon_access', false);
 			$anon = ((bool)$anon) && ($anon !== 'no');
@@ -69,17 +74,26 @@ class FreshRSS_users_Controller extends Minz_ActionController {
 			}
 
 			$new_user_name = Minz_Request::param('new_user_name');
-			$ok = ctype_alnum($new_user_name);
-
-			$new_user_email = filter_var($_POST['new_user_email'], FILTER_VALIDATE_EMAIL);
-			if (empty($new_user_email)) {
-				$new_user_email = '';
-				$ok &= Minz_Configuration::authType() !== 'persona';
-			}
+			$ok = ($new_user_name != '') && ctype_alnum($new_user_name);
 
 			if ($ok) {
+				$ok &= (strcasecmp($new_user_name, Minz_Configuration::defaultUser()) !== 0);	//It is forbidden to alter the default user
+
+				$ok &= !in_array(strtoupper($new_user_name), array_map('strtoupper', listUsers()));	//Not an existing user, case-insensitive
+
 				$configPath = DATA_PATH . '/' . $new_user_name . '_user.php';
 				$ok &= !file_exists($configPath);
+			}
+			if ($ok) {
+				$new_user_email = filter_var($_POST['new_user_email'], FILTER_VALIDATE_EMAIL);
+				if (empty($new_user_email)) {
+					$new_user_email = '';
+					$ok &= Minz_Configuration::authType() !== 'persona';
+				} else {
+					$personaFile = DATA_PATH . '/persona/' . $new_user_email . '.txt';
+					@unlink($personaFile);
+					$ok &= (file_put_contents($personaFile, $new_user_name) !== false);
+				}
 			}
 			if ($ok) {
 				$config_array = array(
@@ -110,7 +124,7 @@ class FreshRSS_users_Controller extends Minz_ActionController {
 			$ok = ctype_alnum($username);
 
 			if ($ok) {
-				$ok &= ($username !== Minz_Configuration::defaultUser());	//It is forbidden to delete the default user
+				$ok &= (strcasecmp($username, Minz_Configuration::defaultUser()) !== 0);	//It is forbidden to delete the default user
 			}
 			if ($ok) {
 				$configPath = DATA_PATH . '/' . $username . '_user.php';
@@ -120,6 +134,7 @@ class FreshRSS_users_Controller extends Minz_ActionController {
 				$userDAO = new FreshRSS_UserDAO();
 				$ok &= $userDAO->deleteUser($username);
 				$ok &= unlink($configPath);
+				//TODO: delete Persona file
 			}
 			$notif = array(
 				'type' => $ok ? 'good' : 'bad',

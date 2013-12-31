@@ -249,14 +249,40 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 		curl_close ($ch);
 
 		$res = json_decode ($result, true);
-		if ($res['status'] === 'okay' && $res['email'] === $this->view->conf->mail_login) {
-			Minz_Session::_param ('mail', $res['email']);
+
+		$loginOk = false;
+		$reason = '';
+		if ($res['status'] === 'okay') {
+			$email = filter_var($res['email'], FILTER_VALIDATE_EMAIL);
+			if ($email != '') {
+				$personaFile = DATA_PATH . '/persona/' . $email . '.txt';
+				if (($currentUser = @file_get_contents($personaFile)) !== false) {
+					$currentUser = trim($currentUser);
+					if (ctype_alnum($currentUser)) {
+						try {
+							$this->conf = new FreshRSS_Configuration($currentUser);
+							$loginOk = strcasecmp($email, $this->conf->mail_login) === 0;
+						} catch (Minz_Exception $e) {
+							$reason = 'Invalid configuration for user [' . $currentUser . ']! ' . $e->getMessage();	//Permission denied or conf file does not exist
+						}
+					} else {
+						$reason = 'Invalid username format [' . $currentUser . ']!';
+					}
+				}
+			} else {
+				$reason = 'Invalid email format [' . $res['email'] . ']!';
+			}
+		}
+		if ($loginOk) {
+			Minz_Session::_param('currentUser', $currentUser);
+			Minz_Session::_param ('mail', $email);
 			$this->view->loginOk = true;
 			invalidateHttpCache();
 		} else {
 			$res = array ();
 			$res['status'] = 'failure';
-			$res['reason'] = Minz_Translate::t ('invalid_login');
+			$res['reason'] = $reason == '' ? Minz_Translate::t ('invalid_login') : $reason;
+			Minz_Log::record ('Persona: ' . $res['reason'], Minz_Log::WARNING);
 		}
 
 		header('Content-Type: application/json; charset=UTF-8');
