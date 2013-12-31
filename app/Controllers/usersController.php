@@ -25,6 +25,7 @@ class FreshRSS_users_Controller extends Minz_ActionController {
 				@unlink($personaFile);
 				$ok &= (file_put_contents($personaFile, Minz_Session::param('currentUser', '_')) !== false);
 			}
+			invalidateHttpCache();
 
 			//TODO: use $ok
 			$notif = array(
@@ -54,6 +55,7 @@ class FreshRSS_users_Controller extends Minz_ActionController {
 				Minz_Configuration::_authType($auth_type);
 				$ok &= Minz_Configuration::writeFile();
 			}
+			invalidateHttpCache();
 
 			$notif = array(
 				'type' => $ok ? 'good' : 'bad',
@@ -106,6 +108,7 @@ class FreshRSS_users_Controller extends Minz_ActionController {
 				$userDAO = new FreshRSS_UserDAO();
 				$ok &= $userDAO->createUser($new_user_name);
 			}
+			invalidateHttpCache();
 
 			$notif = array(
 				'type' => $ok ? 'good' : 'bad',
@@ -136,6 +139,8 @@ class FreshRSS_users_Controller extends Minz_ActionController {
 				$ok &= unlink($configPath);
 				//TODO: delete Persona file
 			}
+			invalidateHttpCache();
+
 			$notif = array(
 				'type' => $ok ? 'good' : 'bad',
 				'content' => Minz_Translate::t($ok ? 'user_deleted' : 'error_occurred', $username)

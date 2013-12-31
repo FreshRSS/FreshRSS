@@ -50,6 +50,7 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 					$catDAO->addCategory ($values);
 				}
 			}
+			invalidateHttpCache();
 
 			$notif = array (
 				'type' => 'good',
@@ -124,6 +125,7 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 							'content' => Minz_Translate::t ('error_occurred_update')
 						);
 					}
+					invalidateHttpCache();
 
 					Minz_Session::_param ('notification', $notif);
 					Minz_Request::forward (array ('c' => 'configure', 'a' => 'feed', 'params' => array ('id' => $id)), true);
@@ -168,6 +170,7 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 
 			Minz_Session::_param ('language', $this->view->conf->language);
 			Minz_Translate::reset ();
+			invalidateHttpCache();
 
 			$notif = array (
 				'type' => 'good',
@@ -196,6 +199,7 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 				'print' => Minz_Request::param ('print', false),
 			));
 			$this->view->conf->save();
+			invalidateHttpCache();
 
 			$notif = array (
 				'type' => 'good',
@@ -235,6 +239,7 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 			$this->view->categories = $list;
 		} elseif ($this->view->req == 'import' && Minz_Request::isPost ()) {
 			if ($_FILES['file']['error'] == 0) {
+				invalidateHttpCache();
 				// on parse le fichier OPML pour récupérer les catégories et les flux associés
 				try {
 					list ($categories, $feeds) = opml_import (
@@ -295,6 +300,7 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 
 			$this->view->conf->_shortcuts ($shortcuts_ok);
 			$this->view->conf->save();
+			invalidateHttpCache();
 
 			$notif = array (
 				'type' => 'good',
@@ -320,6 +326,7 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 			$this->view->conf->_old_entries($old);
 			$this->view->conf->_keep_history_default($keepHistoryDefault);
 			$this->view->conf->save();
+			invalidateHttpCache();
 
 			$notif = array(
 				'type' => 'good',
