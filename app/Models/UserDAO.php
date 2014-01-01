@@ -7,7 +7,10 @@ class FreshRSS_UserDAO extends Minz_ModelPdo {
 
 		$sql = sprintf(SQL_CREATE_TABLES, $db['prefix'] . $username . '_');
 		$stm = $this->bd->prepare($sql, array(PDO::ATTR_EMULATE_PREPARES => true));
-		if ($stm && $stm->execute()) {
+		$values = array(
+			'catName' => Minz_Translate::t('default_category'),
+		);
+		if ($stm && $stm->execute($values)) {
 			return true;
 		} else {
 			$info = $stm->errorInfo();

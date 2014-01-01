@@ -52,6 +52,8 @@ CREATE TABLE IF NOT EXISTS `%1$sentry` (
 	INDEX (`is_read`)	-- v0.7
 ) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci
 ENGINE = INNODB;
+
+INSERT INTO `%1$scategory` (name) VALUES(:catName);
 ');
 
 define('SQL_DROP_TABLES', 'DROP TABLES %1$sentry, %1$sfeed, %1$scategory');

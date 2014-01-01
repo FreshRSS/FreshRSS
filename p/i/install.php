@@ -585,7 +585,10 @@ function checkBD () {
 
 		$sql = sprintf(SQL_CREATE_TABLES, $_SESSION['bd_prefix_user']);
 		$stm = $c->prepare($sql, array(PDO::ATTR_EMULATE_PREPARES => true));
-		$ok = $stm->execute();
+		$values = array(
+			'catName' => _t('default_category'),
+		);
+		$ok = $stm->execute($values);
 	} catch (PDOException $e) {
 		$error = true;
 	}
