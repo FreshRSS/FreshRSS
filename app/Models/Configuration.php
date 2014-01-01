@@ -64,7 +64,7 @@ class FreshRSS_Configuration {
 	public function __construct ($user) {
 		$this->filename = DATA_PATH . '/' . $user . '_user.php';
 
-		$data = include($this->filename);
+		$data = @include($this->filename);
 		if (!is_array($data)) {
 			throw new Minz_PermissionDeniedException($this->filename);
 		}

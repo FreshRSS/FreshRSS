@@ -1,6 +1,7 @@
 # FreshRSS
 FreshRSS est un agrégateur de flux RSS à auto-héberger à l’image de [Leed](http://projet.idleman.fr/leed/) ou de [Kriss Feed](http://tontof.net/kriss/feed/).
 Il se veut léger et facile à prendre en main tout en étant un outil puissant et paramétrable.
+Il permet de gérer plusieurs utilisateurs, et dispose d’un mode de lecture anonyme.
 
 * Site officiel : http://freshrss.org
 * Démo : http://marienfressinaud.fr/projets/freshrss/
@@ -21,11 +22,11 @@ Privilégiez pour cela des demandes sur GitHub
 # Pré-requis
 * Serveur Apache2 ou Nginx (non testé sur les autres)
 * PHP 5.2+ (PHP 5.3.3+ recommandé)
- * Requis : [PDO_MySQL](http://php.net/pdo-mysql), [cURL](http://php.net/curl), [LibXML](http://php.net/xml), [PCRE](http://php.net/pcre), [ctype](http://php.net/ctype)
- * Recommandés : [JSON](http://php.net/json), [zlib](http://php.net/zlib), [mbstring](http://php.net/mbstring), [iconv](http://php.net/iconv)
+	* Requis : [PDO_MySQL](http://php.net/pdo-mysql), [cURL](http://php.net/curl), [LibXML](http://php.net/xml), [PCRE](http://php.net/pcre), [ctype](http://php.net/ctype)
+	* Recommandés : [JSON](http://php.net/json), [zlib](http://php.net/zlib), [mbstring](http://php.net/mbstring), [iconv](http://php.net/iconv)
 * MySQL 5.0.3+ (ou SQLite 3.7.4+ à venir)
 * Un navigateur Web récent tel Firefox, Chrome, Opera, Safari, Internet Explorer 9+
- * Fonctionne aussi sur mobile
+	* Fonctionne aussi sur mobile
 
 ![Capture d’écran de FreshRSS](http://marienfressinaud.fr/data/images/freshrss/freshrss_default-design.png)
 
@@ -37,10 +38,11 @@ Privilégiez pour cela des demandes sur GitHub
 5. Tout devrait fonctionner :) En cas de problème, n’hésitez pas à me contacter.
 
 # Contrôle d’accès
-Il est recommandé de limiter l’accès à votre FreshRSS, soit :
+Il est requis pour le mode multi-utilisateur, et recommandé dans tous les cas, de limiter l’accès à votre FreshRSS :
 * En utilisant l’identification par [Mozilla Persona](https://login.persona.org/about) incluse dans FreshRSS
-* En utilisant un contrôle d’accès défini par votre serveur Web
- * Voir par exemple la [documentation d’Apache sur l’authentification](http://httpd.apache.org/docs/trunk/howto/auth.html)
+* En utilisant un contrôle d’accès HTTP défini par votre serveur Web
+	* Voir par exemple la [documentation d’Apache sur l’authentification](http://httpd.apache.org/docs/trunk/howto/auth.html)
+		* Créer dans ce cas un fichier `./p/i/.htaccess` avec un fichier `.htpasswd` correspondant.
 
 # Rafraîchissement automatique des flux
 * Vous pouvez ajouter une tâche CRON sur le script d’actualisation des flux. Par exemple, pour exécuter le script toutes les heures :
@@ -51,6 +53,6 @@ Il est recommandé de limiter l’accès à votre FreshRSS, soit :
 
 # Conseils
 * Pour une meilleure sécurité, faites en sorte que seul le répertoire `./p/` soit accessible depuis le Web, par exemple en faisant pointer un sous-domaine sur le répertoire `./p/`.
-* Les données personnelles se trouvent dans le répertoire `./data/` (déjà protégé par un .htaccess pour Apache - vérifiez que cela fonctionne -, à protéger vous-même dans le cas d’autres serveurs Web).
+	* En particulier, les données personnelles se trouvent dans le répertoire `./data/`.
 * Le fichier `./constants.php` définit les chemins d’accès aux répertoires clés de l’application. Si vous les bougez, tout se passe ici.
 * En cas de problème, les logs peuvent être utile à lire, soit depuis l’interface de FreshRSS, soit manuellement depuis `./data/log/*.log`.

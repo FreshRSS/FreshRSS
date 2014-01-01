@@ -51,12 +51,25 @@ class FreshRSS extends Minz_FrontController {
 
 		try {
 			$this->conf = new FreshRSS_Configuration($currentUser);
-		} catch (Minz_Exception $e) {
-			Minz_Session::_param('currentUser', '');
-			die('Invalid configuration for user [' . $currentUser . ']! ' . $e->getMessage());	//Permission denied or conf file does not exist
+			Minz_View::_param ('conf', $this->conf);
+			Minz_Session::_param('currentUser', $currentUser);
+		} catch (Minz_Exception $me) {
+			$loginOk = false;
+			try {
+				$this->conf = new FreshRSS_Configuration(Minz_Configuration::defaultUser());
+				Minz_Session::_param('currentUser', Minz_Configuration::defaultUser());
+				Minz_View::_param('conf', $this->conf);
+				$notif = array(
+					'type' => 'bad',
+					'content' => 'Invalid configuration for user [' . $currentUser . ']!',
+				);
+				Minz_Session::_param ('notification', $notif);
+				Minz_Log::record ($notif['content'] . ' ' . $me->getMessage(), Minz_Log::WARNING);
+				Minz_Session::_param('currentUser', '');
+			} catch (Exception $e) {
+				die($e->getMessage());
+			}
 		}
-		Minz_View::_param ('conf', $this->conf);
-		Minz_Session::_param('currentUser', $currentUser);
 
 		if ($loginOk) {
 			switch (Minz_Configuration::authType()) {

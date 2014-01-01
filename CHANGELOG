@@ -1,5 +1,19 @@
 # Journal des modifications
 
+## 2014-01-xx FreshRSS 0.7.5
+
+* Nouveau mode multi-utilisateur
+	* L’utilisateur par défaut (administrateur) peut créer et supprimer d’autres utilisateurs
+	* Nécessite un contrôle d’accès, soit :
+		* par HTTP (par exemple sous Apache en créant un fichier ./p/i/.htaccess et .htpasswd)
+			* le nom d’utilisateur HTTP doit correspondre au nom d’utilisateur FreshRSS
+		* par Mozilla Persona, en renseignant l’adresse courriel des utilisateurs
+* Options
+	* Réorganisation des options
+* PHP
+	* Compatibilité PHP 5.5+ avec OPcache
+	* Amélioration des performances
+
 ## 2014-01-xx FreshRSS 0.7
 
 * Installeur
