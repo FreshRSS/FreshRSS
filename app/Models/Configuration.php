@@ -79,7 +79,8 @@ class FreshRSS_Configuration {
 	}
 
 	public function save() {
-		if (file_put_contents($this->filename, "<?php\n return " . var_export($array, true) . ';', LOCK_EX) === false) {
+		@rename($this->filename, $this->filename . '.bak');
+		if (file_put_contents($this->filename, "<?php\n return " . var_export($this->data, true) . ';', LOCK_EX) === false) {
 			throw new Minz_PermissionDeniedException($this->filename);
 		}
 		if (function_exists('opcache_invalidate')) {
