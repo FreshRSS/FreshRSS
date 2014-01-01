@@ -157,25 +157,22 @@ class Minz_Configuration {
 			'db' => self::$db,
 		);
 		@rename(DATA_PATH . self::CONF_PATH_NAME, DATA_PATH . self::CONF_PATH_NAME . '.bak');
-		return file_put_contents(DATA_PATH . self::CONF_PATH_NAME, "<?php\n return " . var_export($ini_array, true) . ';');
+		$result = file_put_contents(DATA_PATH . self::CONF_PATH_NAME, "<?php\n return " . var_export($ini_array, true) . ';');
+		if (function_exists('opcache_invalidate')) {
+			opcache_invalidate(DATA_PATH . self::CONF_PATH_NAME);	//Clear PHP 5.5+ cache for include
+		}
+		return (bool)$result;
 	}
 
 	/**
 	 * Parse un fichier de configuration
-	 * @exception Minz_FileNotExistException si le CONF_PATH_NAME n'existe pas
+	 * @exception Minz_PermissionDeniedException si le CONF_PATH_NAME n'est pas accessible
 	 * @exception Minz_BadConfigurationException si CONF_PATH_NAME mal formaté
 	 */
 	private static function parseFile () {
-		if (!file_exists (DATA_PATH . self::CONF_PATH_NAME)) {
-			throw new Minz_FileNotExistException (
-				DATA_PATH . self::CONF_PATH_NAME,
-				Minz_Exception::ERROR
-			);
-		}
-
 		$ini_array = include(DATA_PATH . self::CONF_PATH_NAME);
 
-		if (!$ini_array) {
+		if (!is_array($ini_array)) {
 			throw new Minz_PermissionDeniedException (
 				DATA_PATH . self::CONF_PATH_NAME,
 				Minz_Exception::ERROR

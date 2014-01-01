@@ -1,6 +1,8 @@
 <?php
 
-class FreshRSS_Configuration extends Minz_ModelArray {
+class FreshRSS_Configuration {
+	private $filename;
+
 	private $data = array(
 		'language' => 'en',
 		'old_entries' => 3,
@@ -60,10 +62,12 @@ class FreshRSS_Configuration extends Minz_ModelArray {
 	);
 
 	public function __construct ($user) {
-		$filename = DATA_PATH . '/' . $user . '_user.php';
+		$this->filename = DATA_PATH . '/' . $user . '_user.php';
 
-		parent::__construct($filename);
-		$data = parent::loadArray();
+		$data = include($this->filename);
+		if (!is_array($data)) {
+			throw new Minz_PermissionDeniedException($this->filename);
+		}
 
 		foreach ($data as $key => $value) {
 			if (isset($this->data[$key])) {
@@ -75,8 +79,14 @@ class FreshRSS_Configuration extends Minz_ModelArray {
 	}
 
 	public function save() {
+		if (file_put_contents($this->filename, "<?php\n return " . var_export($array, true) . ';', LOCK_EX) === false) {
+			throw new Minz_PermissionDeniedException($this->filename);
+		}
+		if (function_exists('opcache_invalidate')) {
+			opcache_invalidate($this->filename);	//Clear PHP 5.5+ cache for include
+		}
 		invalidateHttpCache();
-		return parent::writeArray($this->data);
+		return true;
 	}
 
 	public function __get($name) {

@@ -45,8 +45,11 @@ class Minz_ModelArray {
 	 * Sauve le tableau $array dans le fichier $filename
 	 **/
 	protected function writeArray($array) {
-		if (!file_put_contents($this->filename, "<?php\n return " . var_export($array, true) . ';', LOCK_EX)) {
+		if (file_put_contents($this->filename, "<?php\n return " . var_export($array, true) . ';', LOCK_EX) === false) {
 			throw new Minz_PermissionDeniedException($this->filename);
+		}
+		if (function_exists('opcache_invalidate')) {
+			opcache_invalidate($this->filename);	//Clear PHP 5.5+ cache for include
 		}
 		return true;
 	}
