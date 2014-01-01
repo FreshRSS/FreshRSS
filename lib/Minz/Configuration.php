@@ -156,7 +156,7 @@ class Minz_Configuration {
 			),
 			'db' => self::$db,
 		);
-		@rename(DATA_PATH . self::CONF_PATH_NAME, DATA_PATH . self::CONF_PATH_NAME . '.bak');
+		@rename(DATA_PATH . self::CONF_PATH_NAME, DATA_PATH . self::CONF_PATH_NAME . '.bak.php');
 		$result = file_put_contents(DATA_PATH . self::CONF_PATH_NAME, "<?php\n return " . var_export($ini_array, true) . ';');
 		if (function_exists('opcache_invalidate')) {
 			opcache_invalidate(DATA_PATH . self::CONF_PATH_NAME);	//Clear PHP 5.5+ cache for include

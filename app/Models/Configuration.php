@@ -79,7 +79,7 @@ class FreshRSS_Configuration {
 	}
 
 	public function save() {
-		@rename($this->filename, $this->filename . '.bak');
+		@rename($this->filename, $this->filename . '.bak.php');
 		if (file_put_contents($this->filename, "<?php\n return " . var_export($this->data, true) . ';', LOCK_EX) === false) {
 			throw new Minz_PermissionDeniedException($this->filename);
 		}

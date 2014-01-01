@@ -4,4 +4,4 @@ config.php
 *.sqlite
 touch.txt
 no-cache.txt
-*.bak
+*.bak.php
