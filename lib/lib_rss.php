@@ -164,7 +164,7 @@ function uSecString() {
 }
 
 function invalidateHttpCache() {
-	//touch(LOG_PATH . '/' . Minz_Session::param('currentUser', '_') . '.log');
+	touch(LOG_PATH . '/' . Minz_Session::param('currentUser', '_') . '.log');
 	Minz_Session::_param('touch', uTimeString());
 }
 
