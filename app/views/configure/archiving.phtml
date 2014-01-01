@@ -17,8 +17,8 @@
 		<div class="form-group">
 			<label class="group-name" for="keep_history_default"><?php echo Minz_Translate::t('keep_history'), ' ', Minz_Translate::t('by_feed'); ?></label>
 			<div class="group-controls">
-				<select class="number" name="keep_history_default" id="keep_history_default"><?php
-					foreach (array(-3 => '', 0 => '0', 10 => '10', 50 => '50', 100 => '100', 500 => '500', 1000 => '1 000', 5000 => '5 000', 10000 => '10 000', -1 => '∞') as $v => $t) {
+				<select class="number" name="keep_history_default" id="keep_history_default" required="required"><?php
+					foreach (array('' => '', 0 => '0', 10 => '10', 50 => '50', 100 => '100', 500 => '500', 1000 => '1 000', 5000 => '5 000', 10000 => '10 000', -1 => '∞') as $v => $t) {
 						echo '<option value="' . $v . ($this->conf->keep_history_default == $v ? '" selected="selected' : '') . '">' . $t . ' </option>';
 					}
 				?></select> (<?php echo Minz_Translate::t('by_default'); ?>)

@@ -10,9 +10,10 @@ class FreshRSS_users_Controller extends Minz_ActionController {
 		}
 	}
 
-	public function idAction() {
+	public function authAction() {
 		if (Minz_Request::isPost()) {
 			$ok = true;
+
 			$mail = Minz_Request::param('mail_login', false);
 			$this->view->conf->_mail_login($mail);
 			$ok &= $this->view->conf->save();
@@ -25,36 +26,24 @@ class FreshRSS_users_Controller extends Minz_ActionController {
 				@unlink($personaFile);
 				$ok &= (file_put_contents($personaFile, Minz_Session::param('currentUser', '_')) !== false);
 			}
-			invalidateHttpCache();
 
-			//TODO: use $ok
-			$notif = array(
-				'type' => 'good',
-				'content' => Minz_Translate::t('configuration_updated')
-			);
-			Minz_Session::_param('notification', $notif);
+			if (Minz_Configuration::isAdmin(Minz_Session::param('currentUser', '_'))) {
+				$current_token = $this->view->conf->token;
+				$token = Minz_Request::param('token', $current_token);
+				$this->view->conf->_token($token);
+				$ok &= $this->view->conf->save();
 
-			Minz_Request::forward(array('c' => 'configure', 'a' => 'users'), true);
-		}
-	}
-
-	public function authAction() {
-		if (Minz_Request::isPost() && Minz_Configuration::isAdmin(Minz_Session::param('currentUser', '_'))) {
-			$ok = true;
-			$current_token = $this->view->conf->token;
-			$token = Minz_Request::param('token', $current_token);
-			$this->view->conf->_token($token);
-			$ok &= $this->view->conf->save();
-
-			$anon = Minz_Request::param('anon_access', false);
-			$anon = ((bool)$anon) && ($anon !== 'no');
-			$auth_type = Minz_Request::param('auth_type', 'none');
-			if ($anon != Minz_Configuration::allowAnonymous() ||
-				$auth_type != Minz_Configuration::authType()) {
-				Minz_Configuration::_allowAnonymous($anon);
-				Minz_Configuration::_authType($auth_type);
-				$ok &= Minz_Configuration::writeFile();
+				$anon = Minz_Request::param('anon_access', false);
+				$anon = ((bool)$anon) && ($anon !== 'no');
+				$auth_type = Minz_Request::param('auth_type', 'none');
+				if ($anon != Minz_Configuration::allowAnonymous() ||
+					$auth_type != Minz_Configuration::authType()) {
+					Minz_Configuration::_allowAnonymous($anon);
+					Minz_Configuration::_authType($auth_type);
+					$ok &= Minz_Configuration::writeFile();
+				}
 			}
+
 			invalidateHttpCache();
 
 			$notif = array(

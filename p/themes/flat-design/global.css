@@ -113,7 +113,7 @@ input, select, textarea {
 		color: #333;
 		border-color: #2980b9;
 	}
-	input:invalid {
+	input:invalid, select:invalid {
 		border-color: red;
 		box-shadow: 0 0 2px 1px red;
 	}

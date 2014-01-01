@@ -3,7 +3,7 @@
 <div class="post">
 	<a href="<?php echo _url('index', 'index'); ?>"><?php echo Minz_Translate::t('back_to_rss_feeds'); ?></a>
 
-	<form method="post" action="<?php echo _url('users', 'id'); ?>">
+	<form method="post" action="<?php echo _url('users', 'auth'); ?>">
 		<legend><?php echo Minz_Translate::t('login_configuration'); ?></legend>
 
 		<div class="form-group">
@@ -34,20 +34,19 @@
 			</div>
 		</div>
 		<?php } ?>
-	</form>
 
 	<?php if (Minz_Configuration::isAdmin(Minz_Session::param('currentUser', '_'))) { ?>
 
-	<form method="post" action="<?php echo _url('users', 'auth'); ?>">
 		<legend><?php echo Minz_Translate::t('auth_type'); ?></legend>
 
 		<div class="form-group">
 			<label class="group-name" for="auth_type"><?php echo Minz_Translate::t('auth_type'); ?></label>
 			<div class="group-controls">
-				<select id="auth_type" name="auth_type">
+				<select id="auth_type" name="auth_type" required="required">
+					<option value=""></option>
 					<option value="none"<?php echo Minz_Configuration::authType() === 'none' ? ' selected="selected"' : ''; ?>><?php echo Minz_Translate::t('auth_none'); ?></option>
 					<option value="http_auth"<?php echo Minz_Configuration::authType() === 'http_auth' ? ' selected="selected"' : '', httpAuthUser() == '' ? ' disabled="disabled"' : ''; ?>>HTTP Auth</option>
-					<option value="persona"<?php echo Minz_Configuration::authType() === 'persona' ? ' selected="selected"' : ''; ?>>Mozilla Persona</option>
+					<option value="persona"<?php echo Minz_Configuration::authType() === 'persona' ? ' selected="selected"' : '', $this->conf->mail_login == '' ? ' disabled="disabled"' : ''; ?>>Mozilla Persona</option>
 				</select>
 				<code>$_SERVER['REMOTE_USER'] = `<?php echo httpAuthUser(); ?>`</code>
 			</div>
