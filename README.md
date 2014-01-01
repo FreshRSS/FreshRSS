@@ -1,6 +1,8 @@
 # FreshRSS
 FreshRSS est un agrégateur de flux RSS à auto-héberger à l’image de [Leed](http://projet.idleman.fr/leed/) ou de [Kriss Feed](http://tontof.net/kriss/feed/).
+
 Il se veut léger et facile à prendre en main tout en étant un outil puissant et paramétrable.
+
 Il permet de gérer plusieurs utilisateurs, et dispose d’un mode de lecture anonyme.
 
 * Site officiel : http://freshrss.org
