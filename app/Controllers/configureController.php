@@ -100,12 +100,14 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 						$httpAuth = $user . ':' . $pass;
 					}
 
+					$cat = intval(Minz_Request::param('category', 0));
+
 					$values = array (
 						'name' => Minz_Request::param ('name', ''),
 						'description' => sanitizeHTML(Minz_Request::param('description', '', true)),
 						'website' => Minz_Request::param('website', ''),
 						'url' => Minz_Request::param('url', ''),
-						'category' => intval(Minz_Request::param ('category', 0)),
+						'category' => $cat,
 						'pathEntries' => Minz_Request::param ('path_entries', ''),
 						'priority' => intval(Minz_Request::param ('priority', 0)),
 						'httpAuth' => $httpAuth,
