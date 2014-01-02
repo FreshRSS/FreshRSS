@@ -1,7 +1,19 @@
 <?php
 require(dirname(__FILE__) . '/../constants.php');
 
-//TODO: check if already running
+//<Mutex>
+$lock = DATA_PATH . '/actualize.lock.txt';
+if (file_exists($lock) && ((time() - @filemtime($lock)) > 3600)) {
+	@unlink($lock);
+}
+if (($handle = @fopen($lock, 'x')) === false) {
+	syslog(LOG_INFO, 'FreshRSS actualize already running?');
+	return;
+}
+register_shutdown_function('unlink', $lock);
+//Could use http://php.net/function.pcntl-signal.php to catch interruptions
+@fclose($handle);
+//</Mutex>
 
 require(LIB_PATH . '/lib_rss.php');	//Includes class autoloader
 
@@ -10,8 +22,12 @@ ob_implicit_flush(false);
 ob_start();
 echo 'Results: ', "\n";	//Buffered
 
+Minz_Configuration::init();
+
 $users = listUsers();
-shuffle($users);
+shuffle($users);	//Process users in random order
+array_unshift($users, Minz_Configuration::defaultUser());	//But always start with admin
+$users = array_unique($users);
 
 foreach ($users as $myUser) {
 	syslog(LOG_INFO, 'FreshRSS actualize ' . $myUser);

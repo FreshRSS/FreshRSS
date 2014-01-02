@@ -6,7 +6,7 @@ class FreshRSS extends Minz_FrontController {
 		}
 		$this->accessControl(Minz_Session::param('currentUser', ''));
 		$this->loadParamsView();
-		$this->loadStylesAndScripts();
+		$this->loadStylesAndScripts();	//TODO: Do not load that when not needed, e.g. some Ajax requests
 		$this->loadNotifications();
 	}
 
