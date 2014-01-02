@@ -40,19 +40,26 @@ class Minz_Dispatcher {
 	 * Remplit le body de Response à partir de la Vue
 	 * @exception Minz_Exception
 	 */
-	public function run () {
+	public function run ($ob = true) {
 		$cache = new Minz_Cache();
 		// Le ob_start est dupliqué : sans ça il y a un bug sous Firefox
 		// ici on l'appelle avec 'ob_gzhandler', après sans.
 		// Vraisemblablement la compression fonctionne mais c'est sale
 		// J'ignore les effets de bord :(
-		ob_start ('ob_gzhandler');
+		if ($ob) {
+			ob_start ('ob_gzhandler');
+		}
 
 		if (Minz_Cache::isEnabled () && !$cache->expired ()) {
-			ob_start ();
+			if ($ob) {
+				ob_start ();
+			}
 			$cache->render ();
-			$text = ob_get_clean();
+			if ($ob) {
+				$text = ob_get_clean();
+			}
 		} else {
+			$text = '';	//TODO: Clean this code
 			while (Minz_Request::$reseted) {
 				Minz_Request::$reseted = false;
 
@@ -67,9 +74,13 @@ class Minz_Dispatcher {
 					$this->controller->lastAction ();
 
 					if (!Minz_Request::$reseted) {
-						ob_start ();
+						if ($ob) {
+							ob_start ();
+						}
 						$this->controller->view ()->build ();
-						$text = ob_get_clean();
+						if ($ob) {
+							$text = ob_get_clean();
+						}
 					}
 				} catch (Minz_Exception $e) {
 					throw $e;

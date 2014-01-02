@@ -93,6 +93,11 @@ class Minz_ModelPdo {
 		$res = $stm->fetchAll(PDO::FETCH_COLUMN, 0);
 		return $res[0];
 	}
+
+	public static function clean() {
+		self::$sharedBd = null;
+		self::$sharedPrefix = '';
+	}
 }
 
 class FreshPDO extends PDO {

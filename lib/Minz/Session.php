@@ -60,7 +60,7 @@ class Minz_Session {
 	public static function unset_session ($force = false) {
 		$language = self::param ('language');
 
-		session_unset ();
+		session_destroy();
 		self::$session = array ();
 
 		if (!$force) {
