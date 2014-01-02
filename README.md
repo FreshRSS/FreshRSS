@@ -8,8 +8,8 @@ Il permet de gérer plusieurs utilisateurs, et dispose d’un mode de lecture an
 * Site officiel : http://freshrss.org
 * Démo : http://marienfressinaud.fr/projets/freshrss/
 * Développeur : Marien Fressinaud <dev@marienfressinaud.fr>
-* Version actuelle : 0.8-dev
-* Date de publication 2014-xx-xx
+* Version actuelle : 0.7-beta4
+* Date de publication 2014-01-xx
 * License [GNU AGPL 3](http://www.gnu.org/licenses/agpl-3.0.html)
 
 ![Logo de FreshRSS](http://marienfressinaud.fr/data/images/freshrss/freshrss_title.png)
@@ -23,7 +23,7 @@ Privilégiez pour cela des demandes sur GitHub
 
 # Pré-requis
 * Serveur Apache2 ou Nginx (non testé sur les autres)
-* PHP 5.2+ (PHP 5.3.3+ recommandé)
+* PHP 5.2+ (PHP 5.3.4+ recommandé)
 	* Requis : [PDO_MySQL](http://php.net/pdo-mysql), [cURL](http://php.net/curl), [LibXML](http://php.net/xml), [PCRE](http://php.net/pcre), [ctype](http://php.net/ctype)
 	* Recommandés : [JSON](http://php.net/json), [zlib](http://php.net/zlib), [mbstring](http://php.net/mbstring), [iconv](http://php.net/iconv)
 * MySQL 5.0.3+ (ou SQLite 3.7.4+ à venir)
@@ -47,10 +47,13 @@ Il est requis pour le mode multi-utilisateur, et recommandé dans tous les cas, 
 		* Créer dans ce cas un fichier `./p/i/.htaccess` avec un fichier `.htpasswd` correspondant.
 
 # Rafraîchissement automatique des flux
-* Vous pouvez ajouter une tâche CRON sur le script d’actualisation des flux. Par exemple, pour exécuter le script toutes les heures :
+* Vous pouvez ajouter une tâche Cron lançant régulièrement le script d’actualisation automatique des flux.
+Consultez la documentation de Cron de votre système d’exploitation ([Debian/Ubuntu](http://doc.ubuntu-fr.org/cron), [Red Hat/Fedora](http://doc.fedora-fr.org/wiki/CRON_:_Configuration_de_t%C3%A2ches_automatis%C3%A9es), [Slackware](http://docs.slackware.com/fr:slackbook:process_control?#cron), [Gentoo](http://wiki.gentoo.org/wiki/Cron/fr), [Arch Linux](http://wiki.archlinux.fr/Cron)…).
+C’est une bonne idée d’utiliser le même utilisateur que votre serveur Web (souvent “www-data”).
+Par exemple, pour exécuter le script toutes les heures :
 
 ```
-7 * * * * php /chemin/vers/FreshRSS/app/actualize_script.php >/dev/null 2>&1
+7 * * * * php /chemin/vers/FreshRSS/app/actualize_script.php > /tmp/FreshRSS.log 2>&1
 ```
 
 # Conseils
