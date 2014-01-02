@@ -7,7 +7,8 @@ if (file_exists($lock) && ((time() - @filemtime($lock)) > 3600)) {
 	@unlink($lock);
 }
 if (($handle = @fopen($lock, 'x')) === false) {
-	syslog(LOG_INFO, 'FreshRSS actualize already running?');
+	syslog(LOG_NOTICE, 'FreshRSS actualize already running?');
+	fwrite(STDERR, 'FreshRSS actualize already running?' . "\n");
 	return;
 }
 register_shutdown_function('unlink', $lock);
