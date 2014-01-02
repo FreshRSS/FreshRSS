@@ -1,6 +1,6 @@
 # Journal des modifications
 
-## 2014-01-xx FreshRSS 0.7.5
+## 2014-01-xx FreshRSS 0.7
 
 * Nouveau mode multi-utilisateur
 	* L’utilisateur par défaut (administrateur) peut créer et supprimer d’autres utilisateurs
@@ -8,21 +8,14 @@
 		* par HTTP (par exemple sous Apache en créant un fichier ./p/i/.htaccess et .htpasswd)
 			* le nom d’utilisateur HTTP doit correspondre au nom d’utilisateur FreshRSS
 		* par Mozilla Persona, en renseignant l’adresse courriel des utilisateurs
-* Options
-	* Réorganisation des options
-* PHP
-	* Compatibilité PHP 5.5+ avec OPcache
-	* Amélioration des performances
-
-## 2014-01-xx FreshRSS 0.7
-
-* Installeur
-	* Nouvel utilisateur par défaut, en prévision du futur support multi-utilisateurs
-	* Supporte une mise à jour depuis la version 0.6
-		* Juste placer application.ini et Configuration.array.php dans le nouveau répertoire “./data/”
+* Installateur supportant les mises à jour :
+	* Depuis une v0.6, placer application.ini et Configuration.array.php dans le nouveau répertoire “./data/” (voir réorganisation ci-dessous)
+	* Pour les versions suivantes, juste garder “./data/config.php” “./data/*_user.php”
 * Importation OPML instantanée et plus tolérante
-	* Nouvelle gestion des favicons avec téléchargement en parallèle et compatibilité multi-utilisateurs
+* Nouvelle gestion des favicons avec téléchargement en parallèle
 * Nouvelles options
+	* Réorganisation des options
+	* Gestion des utilisateurs
 	* Améliorations partage vers Shaarli, Poche, Diaspora*, Facebook, Twitter, Google+, courriel
 	* Permet la suppression de tous les articles d’un flux
 	* Option pour marquer les articles comme lus dès la réception
@@ -30,18 +23,17 @@
 	* Permet de modifier la description et l’adresse d’un flux RSS ainsi que le site Web associé
 	* Nouveau raccourci pour ouvrir/fermer un article (‘c’ par défaut)
 	* Boutons pour effacer les logs et pour purger les vieux articles
-	* Légère réorganisation des options
 * SQL :
 	* Nouveau moteur de recherche, aussi accessible depuis la vue mobile
 		* Mots clefs de recherche “intitle:”, “inurl:”, “author:”
 	* Les articles sont triés selon la date de leur ajout dans FreshRSS plutôt que la date déclarée (souvent erronée)
 		* Permet de marquer tout comme lu sans affecter les nouveaux articles arrivés en cours de lecture
 	* Refactorisation
-		* Les tables sont préfixées avec le nom d’utilisateur en prévision du futur support multi-utilisateurs
+		* Les tables sont préfixées avec le nom d’utilisateur afin de permettre le mode multi-utilisateurs
 		* Amélioration des performances
 		* Tolère un beaucoup plus grand nombre d’articles
 		* Compression des données côté MySQL plutôt que côté PHP
-		* Incompatible avec la version 0.6 (nécessite une mise à jour grâce à l’installeur) 
+		* Incompatible avec la version 0.6 (nécessite une mise à jour grâce à l’installateur) 
 	* Affichage de la taille de la base de données dans FreshRSS
 	* Correction problème de marquage de tous les favoris comme lus
 * HTML5 :
@@ -56,10 +48,11 @@
 		* FreshRSS fonctionne aussi en mode dégradé sans images (alternatives Unicode) et/ou sans CSS
 	* Diverses améliorations mineures
 * PHP :
-	* Meilleure gestion des caractères spéciaux dans différents cas
-	* Amélioration des performances
 	* Encore plus tolérant pour les flux comportant des erreurs
 	* Mise à jour automatique de l’URL du flux (en base de données) lorsque SimplePie découvre qu’elle a changé
+	* Meilleure gestion des caractères spéciaux dans différents cas
+	* Compatibilité PHP 5.5+ avec OPcache
+	* Amélioration des performances
 	* Chargement automatique des classes
 	* Alternative dans le cas d’absence de librairie JSON
 	* Pour le développement, le cache HTTP peut être désactivé en créant un fichier “./no-cache.txt”
