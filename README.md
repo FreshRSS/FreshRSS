@@ -22,7 +22,9 @@ Privilégiez pour cela des demandes sur GitHub
 (https://github.com/marienfressinaud/FreshRSS/issues) ou par mail (dev@marienfressinaud.fr)
 
 # Pré-requis
-* Serveur Apache2 ou Nginx (non testé sur les autres)
+* Serveur modeste, par exemple sous Linux ou Windows
+	* Fonctionne même sur un Raspberry Pi avec des temps de réponse < 1s (testé sur 150 flux, 22k articles, soit 32Mo de données partiellement compressées)
+* Serveur Web Apache2 ou Nginx (non testé sur les autres)
 * PHP 5.2+ (PHP 5.3.4+ recommandé)
 	* Requis : [PDO_MySQL](http://php.net/pdo-mysql), [cURL](http://php.net/curl), [LibXML](http://php.net/xml), [PCRE](http://php.net/pcre), [ctype](http://php.net/ctype)
 	* Recommandés : [JSON](http://php.net/json), [zlib](http://php.net/zlib), [mbstring](http://php.net/mbstring), [iconv](http://php.net/iconv)
