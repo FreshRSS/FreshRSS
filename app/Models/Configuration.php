@@ -33,6 +33,7 @@ class FreshRSS_Configuration {
 			'prev_entry' => 'k',
 			'collapse_entry' => 'c',
 			'load_more' => 'm',
+			'auto_share' => 's',
 		),
 		'topline_read' => true,
 		'topline_favorite' => true,

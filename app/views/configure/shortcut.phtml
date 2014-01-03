@@ -68,6 +68,13 @@
 			</div>
 		</div>
 
+		<div class="form-group">
+			<label class="group-name" for="auto_share_shortcut"><?php echo Minz_Translate::t ('auto_share'); ?></label>
+			<div class="group-controls">
+				<input type="text" id="auto_share_shortcut" name="shortcuts[auto_share]" list="keys" value="<?php echo $s['auto_share']; ?>" />
+			</div>
+		</div>
+
 		<div class="form-group form-actions">
 			<div class="group-controls">
 				<button type="submit" class="btn btn-important"><?php echo Minz_Translate::t ('save'); ?></button>

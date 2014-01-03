@@ -7,9 +7,11 @@ if (!empty($this->entries)) {
 	$display_today = true;
 	$display_yesterday = true;
 	$display_others = true;
-	$shaarli = $this->loginOk && $this->conf->sharing ('shaarli');
-	$poche = $this->loginOk && $this->conf->sharing ('poche');
-	$diaspora = $this->loginOk && $this->conf->sharing ('diaspora');
+	if ($this->loginOk) {
+		$shaarli = $this->conf->sharing ('shaarli');
+		$poche = $this->conf->sharing ('poche');
+		$diaspora = $this->conf->sharing ('diaspora');
+	}
 	$twitter = $this->conf->sharing ('twitter');
 	$google_plus = $this->conf->sharing ('g+');
 	$facebook = $this->conf->sharing ('facebook');

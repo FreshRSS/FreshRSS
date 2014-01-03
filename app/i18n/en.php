@@ -123,6 +123,7 @@ return array (
 	'next_page'			=> 'Skip to the next page',
 	'previous_page'			=> 'Skip to the previous page',
 	'collapse_article'		=> 'Collapse current article',
+	'auto_share'			=> 'Share current article',
 
 	'file_to_import'		=> 'File to import',
 	'import'			=> 'Import',
