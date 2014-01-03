@@ -1,37 +1,41 @@
-var feeds = new Array ();
+"use strict";
+var feeds = [];
 <?php foreach ($this->feeds as $feed) { ?>
-feeds.push ("<?php echo Minz_Url::display (array ('c' => 'feed', 'a' => 'actualize', 'params' => array ('id' => $feed->id (), 'ajax' => '1')), 'php'); ?>");
+feeds.push("<?php echo Minz_Url::display (array ('c' => 'feed', 'a' => 'actualize', 'params' => array ('id' => $feed->id (), 'ajax' => '1')), 'php'); ?>");
 <?php } ?>
 
-function initProgressBar (init) {
+function initProgressBar(init) {
 	if (init) {
-		$("body").after ("\<div id=\"actualizeProgress\" class=\"actualizeProgress\">\
+		$("body").after("\<div id=\"actualizeProgress\" class=\"actualizeProgress\">\
 			<?php echo Minz_Translate::t ('refresh'); ?> <span class=\"progress\">0 / " + feeds.length + "</span><br />\
 			<progress id=\"actualizeProgressBar\" value=\"0\" max=\"" + feeds.length + "\"></progress>\
 		</div>");
 	} else {
-		window.location.reload ();
+		window.location.reload();
 	}
 }
-function updateProgressBar (i) {
+function updateProgressBar(i) {
 	$("#actualizeProgressBar").val(i);
-	$("#actualizeProgress .progress").html (i + " / " + feeds.length);
+	$("#actualizeProgress .progress").html(i + " / " + feeds.length);
 }
 
-function updateFeeds () {
-	initProgressBar (true);
+function updateFeeds() {
+	if (feeds.length === 0) {
+		return;
+	}
+	initProgressBar(true);
 
 	var i = 0;
 	for (var f in feeds) {
-		$.ajax ({
+		$.ajax({
 			type: 'POST',
 			url: feeds[f],
-		}).done (function (data) {
+		}).done(function (data) {
 			i++;
-			updateProgressBar (i);
+			updateProgressBar(i);
 
-			if (i == feeds.length) {
-				initProgressBar (false);
+			if (i === feeds.length) {
+				initProgressBar(false);
 			}
 		});
 	}

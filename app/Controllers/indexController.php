@@ -133,7 +133,7 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 
 			// Si on a récupéré aucun article "non lus"
 			// on essaye de récupérer tous les articles
-			if ($state === 'not_read' && empty($entries)) {	//TODO: Remove in v0.8
+			if ($state === 'not_read' && empty($entries)) {
 				Minz_Log::record ('Conflicting information about nbNotRead!', Minz_Log::DEBUG);
 				$this->view->state = 'all';
 				$entries = $this->entryDAO->listWhere($getType, $getId, 'all', $order, $nb, $first, $filter, $date_min, $keepHistoryDefault);

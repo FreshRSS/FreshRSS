@@ -91,10 +91,17 @@ function timestamptodate ($t, $hour = true) {
 function html_only_entity_decode($text) {
 	static $htmlEntitiesOnly = null;
 	if ($htmlEntitiesOnly === null) {
-		$htmlEntitiesOnly = array_flip(array_diff(
-			get_html_translation_table(HTML_ENTITIES, ENT_NOQUOTES, 'UTF-8'),	//Decode HTML entities
-			get_html_translation_table(HTML_SPECIALCHARS, ENT_NOQUOTES, 'UTF-8')	//Preserve XML entities
-		));
+		if (version_compare(PHP_VERSION, '5.3.4') >= 0) {
+			$htmlEntitiesOnly = array_flip(array_diff(
+				get_html_translation_table(HTML_ENTITIES, ENT_NOQUOTES, 'UTF-8'),	//Decode HTML entities
+				get_html_translation_table(HTML_SPECIALCHARS, ENT_NOQUOTES, 'UTF-8')	//Preserve XML entities
+			));
+		} else {
+			$htmlEntitiesOnly = array_map('utf8_encode', array_flip(array_diff(
+				get_html_translation_table(HTML_ENTITIES, ENT_NOQUOTES),	//Decode HTML entities
+				get_html_translation_table(HTML_SPECIALCHARS, ENT_NOQUOTES)	//Preserve XML entities
+			)));
+		}
 	}
 	return strtr($text, $htmlEntitiesOnly);
 }
