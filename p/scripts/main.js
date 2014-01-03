@@ -223,7 +223,7 @@ function collapse_entry() {
 function auto_share() {
 	var share = $(".flux.current.active").find('.dropdown-target[id^="dropdown-share"]');
 	if (share.length) {
-		window.location.replace('./#' + share.attr('id'));
+		window.location.hash = share.attr('id');
 	}
 }
 
