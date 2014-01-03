@@ -63,3 +63,12 @@ Par exemple, pour exécuter le script toutes les heures :
 	* En particulier, les données personnelles se trouvent dans le répertoire `./data/`.
 * Le fichier `./constants.php` définit les chemins d’accès aux répertoires clés de l’application. Si vous les bougez, tout se passe ici.
 * En cas de problème, les logs peuvent être utile à lire, soit depuis l’interface de FreshRSS, soit manuellement depuis `./data/log/*.log`.
+
+# Sauvegarde
+* Il faut conserver vos fichiers `./data/config.php` ainsi que `./data/*_user.php` et éventuellement `./data/persona/`
+* Vous pouvez exporter votre liste de flux depuis FreshRSS au format OPML
+* Pour sauvegarder les articles eux-même, vous pouvez utiliser [phpMyAdmin](http://www.phpmyadmin.net) ou les outils de MySQL :
+
+```bash
+mysqldump -u utilisateur -p --databases freshrss > freshrss.sql
+```
