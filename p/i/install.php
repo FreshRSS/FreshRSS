@@ -194,7 +194,7 @@ function saveStep3 () {
 		    empty ($_POST['host']) ||
 		    empty ($_POST['user']) ||
 		    empty ($_POST['base'])) {
-			$_SESSION['bd_error'] = true;
+			$_SESSION['bd_error'] = 'Missing parameters!';
 		}
 
 		$_SESSION['bd_type'] = isset ($_POST['type']) ? $_POST['type'] : 'mysql';
@@ -234,10 +234,10 @@ function saveStep3 () {
 		$res = checkBD ();
 
 		if ($res) {
-			$_SESSION['bd_error'] = false;
+			$_SESSION['bd_error'] = '';
 			header ('Location: index.php?step=4');
-		} else {
-			$_SESSION['bd_error'] = true;
+		} elseif (empty($_SESSION['bd_error'])) {
+			$_SESSION['bd_error'] = 'Unknown error!';
 		}
 	}
 	invalidateHttpCache();
@@ -534,7 +534,7 @@ function checkStep3 () {
 	      isset ($_SESSION['bd_base']) &&
 	      isset ($_SESSION['bd_prefix']) &&
 	      isset ($_SESSION['bd_error']);
-	$conn = !isset ($_SESSION['bd_error']) || !$_SESSION['bd_error'];
+	$conn = empty($_SESSION['bd_error']);
 
 	return array (
 		'bd' => $bd ? 'ok' : 'ko',
@@ -592,6 +592,7 @@ function checkBD () {
 		$ok = $stm->execute($values);
 	} catch (PDOException $e) {
 		$ok = false;
+		$_SESSION['bd_error'] = $e->getMessage();
 	}
 
 	if (!$ok) {
@@ -772,7 +773,7 @@ function printStep3 () {
 	<?php $s3 = checkStep3 (); if ($s3['all'] == 'ok') { ?>
 	<p class="alert alert-success"><span class="alert-head"><?php echo _t ('ok'); ?></span> <?php echo _t ('bdd_conf_is_ok'); ?></p>
 	<?php } elseif ($s3['conn'] == 'ko') { ?>
-	<p class="alert alert-error"><span class="alert-head"><?php echo _t ('damn'); ?></span> <?php echo _t ('bdd_conf_is_ko'); ?></p>
+	<p class="alert alert-error"><span class="alert-head"><?php echo _t ('damn'); ?></span> <?php echo _t ('bdd_conf_is_ko'), (empty($_SESSION['bd_error']) ? '' : ' : ' . $_SESSION['bd_error']); ?></p>
 	<?php } ?>
 
 	<form action="index.php?step=3" method="post">
