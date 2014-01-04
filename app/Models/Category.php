@@ -48,7 +48,7 @@ class FreshRSS_Category extends Minz_Model {
 		return $this->nbNotRead;
 	}
 	public function feeds () {
-		if (is_null ($this->feeds)) {
+		if ($this->feeds === null) {
 			$feedDAO = new FreshRSS_FeedDAO ();
 			$this->feeds = $feedDAO->listByCategory ($this->id ());
 			$this->nbFeed = 0;

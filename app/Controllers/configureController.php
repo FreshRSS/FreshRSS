@@ -2,7 +2,7 @@
 
 class FreshRSS_configure_Controller extends Minz_ActionController {
 	public function firstAction () {
-		if (login_is_conf ($this->view->conf) && !is_logged ()) {
+		if (!$this->view->loginOk) {
 			Minz_Error::error (
 				403,
 				array ('error' => array (Minz_Translate::t ('access_denied')))
@@ -16,7 +16,6 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 	public function categorizeAction () {
 		$feedDAO = new FreshRSS_FeedDAO ();
 		$catDAO = new FreshRSS_CategoryDAO ();
-		$catDAO->checkDefault ();
 		$defaultCategory = $catDAO->getDefault ();
 		$defaultId = $defaultCategory->id ();
 
@@ -51,8 +50,8 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 					$catDAO->addCategory ($values);
 				}
 			}
+			invalidateHttpCache();
 
-			// notif
 			$notif = array (
 				'type' => 'good',
 				'content' => Minz_Translate::t ('categories_updated')
@@ -93,14 +92,6 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 				);
 			} else {
 				if (Minz_Request::isPost () && $this->view->flux) {
-					$name = Minz_Request::param ('name', '');
-					$description = sanitizeHTML(Minz_Request::param('description', '', true));
-					$website = Minz_Request::param('website', '');
-					$url = Minz_Request::param('url', '');
-					$keep_history = intval(Minz_Request::param ('keep_history', -2));
-					$cat = Minz_Request::param ('category', 0);
-					$path = Minz_Request::param ('path_entries', '');
-					$priority = Minz_Request::param ('priority', 0);
 					$user = Minz_Request::param ('http_user', '');
 					$pass = Minz_Request::param ('http_pass', '');
 
@@ -109,16 +100,18 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 						$httpAuth = $user . ':' . $pass;
 					}
 
+					$cat = intval(Minz_Request::param('category', 0));
+
 					$values = array (
-						'name' => $name,
-						'description' => $description,
-						'website' => $website,
-						'url' => $url,
+						'name' => Minz_Request::param ('name', ''),
+						'description' => sanitizeHTML(Minz_Request::param('description', '', true)),
+						'website' => Minz_Request::param('website', ''),
+						'url' => Minz_Request::param('url', ''),
 						'category' => $cat,
-						'pathEntries' => $path,
-						'priority' => $priority,
+						'pathEntries' => Minz_Request::param ('path_entries', ''),
+						'priority' => intval(Minz_Request::param ('priority', 0)),
 						'httpAuth' => $httpAuth,
-						'keep_history' => $keep_history
+						'keep_history' => intval(Minz_Request::param ('keep_history', -2)),
 					);
 
 					if ($feedDAO->updateFeed ($id, $values)) {
@@ -134,6 +127,7 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 							'content' => Minz_Translate::t ('error_occurred_update')
 						);
 					}
+					invalidateHttpCache();
 
 					Minz_Session::_param ('notification', $notif);
 					Minz_Request::forward (array ('c' => 'configure', 'a' => 'feed', 'params' => array ('id' => $id)), true);
@@ -147,109 +141,39 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 	}
 
 	public function displayAction () {
-		if (Minz_Request::isPost ()) {
-			$current_token = $this->view->conf->token ();
-
-			$language = Minz_Request::param ('language', 'en');
-			$nb = Minz_Request::param ('posts_per_page', 10);
-			$mode = Minz_Request::param ('view_mode', 'normal');
-			$view = Minz_Request::param ('default_view', 'a');
-			$auto_load_more = Minz_Request::param ('auto_load_more', 'no');
-			$display = Minz_Request::param ('display_posts', 'no');
-			$onread_jump_next = Minz_Request::param ('onread_jump_next', 'no');
-			$lazyload = Minz_Request::param ('lazyload', 'no');
-			$sort = Minz_Request::param ('sort_order', 'DESC');
-			$old = Minz_Request::param ('old_entries', 3);
-			$keepHistoryDefault = Minz_Request::param('keep_history_default', 0);
-			$mail = Minz_Request::param ('mail_login', false);
-			$anon = Minz_Request::param ('anon_access', 'no');
-			$token = Minz_Request::param ('token', $current_token);
-			$openArticle = Minz_Request::param ('mark_open_article', 'no');
-			$openSite = Minz_Request::param ('mark_open_site', 'no');
-			$scroll = Minz_Request::param ('mark_scroll', 'no');
-			$reception = Minz_Request::param ('mark_upon_reception', 'no');
-			$theme = Minz_Request::param ('theme', 'default');
-			$topline_read = Minz_Request::param ('topline_read', 'no');
-			$topline_favorite = Minz_Request::param ('topline_favorite', 'no');
-			$topline_date = Minz_Request::param ('topline_date', 'no');
-			$topline_link = Minz_Request::param ('topline_link', 'no');
-			$bottomline_read = Minz_Request::param ('bottomline_read', 'no');
-			$bottomline_favorite = Minz_Request::param ('bottomline_favorite', 'no');
-			$bottomline_sharing = Minz_Request::param ('bottomline_sharing', 'no');
-			$bottomline_tags = Minz_Request::param ('bottomline_tags', 'no');
-			$bottomline_date = Minz_Request::param ('bottomline_date', 'no');
-			$bottomline_link = Minz_Request::param ('bottomline_link', 'no');
-
-			$this->view->conf->_language ($language);
-			$this->view->conf->_postsPerPage (intval ($nb));
-			$this->view->conf->_viewMode ($mode);
-			$this->view->conf->_defaultView ($view);
-			$this->view->conf->_autoLoadMore ($auto_load_more);
-			$this->view->conf->_displayPosts ($display);
-			$this->view->conf->_onread_jump_next ($onread_jump_next);
-			$this->view->conf->_lazyload ($lazyload);
-			$this->view->conf->_sortOrder ($sort);
-			$this->view->conf->_oldEntries ($old);
-			$this->view->conf->_keepHistoryDefault($keepHistoryDefault);
-			$this->view->conf->_mailLogin ($mail);
-			$this->view->conf->_anonAccess ($anon);
-			$this->view->conf->_token ($token);
-			$this->view->conf->_markWhen (array (
-				'article' => $openArticle,
-				'site' => $openSite,
-				'scroll' => $scroll,
-				'reception' => $reception,
+		if (Minz_Request::isPost()) {
+			$this->view->conf->_language(Minz_Request::param('language', 'en'));
+			$this->view->conf->_posts_per_page(Minz_Request::param('posts_per_page', 10));
+			$this->view->conf->_view_mode(Minz_Request::param('view_mode', 'normal'));
+			$this->view->conf->_default_view (Minz_Request::param('default_view', 'a'));
+			$this->view->conf->_auto_load_more(Minz_Request::param('auto_load_more', false));
+			$this->view->conf->_display_posts(Minz_Request::param('display_posts', false));
+			$this->view->conf->_onread_jump_next(Minz_Request::param('onread_jump_next', false));
+			$this->view->conf->_lazyload (Minz_Request::param('lazyload', false));
+			$this->view->conf->_sort_order(Minz_Request::param('sort_order', 'DESC'));
+			$this->view->conf->_mark_when (array(
+				'article' => Minz_Request::param('mark_open_article', false),
+				'site' => Minz_Request::param('mark_open_site', false),
+				'scroll' => Minz_Request::param('mark_scroll', false),
+				'reception' => Minz_Request::param('mark_upon_reception', false),
 			));
-			$this->view->conf->_theme ($theme);
-			$this->view->conf->_topline_read ($topline_read);
-			$this->view->conf->_topline_favorite ($topline_favorite);
-			$this->view->conf->_topline_date ($topline_date);
-			$this->view->conf->_topline_link ($topline_link);
-			$this->view->conf->_bottomline_read ($bottomline_read);
-			$this->view->conf->_bottomline_favorite ($bottomline_favorite);
-			$this->view->conf->_bottomline_sharing ($bottomline_sharing);
-			$this->view->conf->_bottomline_tags ($bottomline_tags);
-			$this->view->conf->_bottomline_date ($bottomline_date);
-			$this->view->conf->_bottomline_link ($bottomline_link);
+			$this->view->conf->_theme(Minz_Request::param('theme', 'default'));
+			$this->view->conf->_topline_read(Minz_Request::param('topline_read', false));
+			$this->view->conf->_topline_favorite(Minz_Request::param('topline_favorite', false));
+			$this->view->conf->_topline_date(Minz_Request::param('topline_date', false));
+			$this->view->conf->_topline_link(Minz_Request::param('topline_link', false));
+			$this->view->conf->_bottomline_read(Minz_Request::param('bottomline_read', false));
+			$this->view->conf->_bottomline_favorite(Minz_Request::param('bottomline_favorite', false));
+			$this->view->conf->_bottomline_sharing(Minz_Request::param('bottomline_sharing', false));
+			$this->view->conf->_bottomline_tags(Minz_Request::param('bottomline_tags', false));
+			$this->view->conf->_bottomline_date(Minz_Request::param('bottomline_date', false));
+			$this->view->conf->_bottomline_link(Minz_Request::param('bottomline_link', false));
+			$this->view->conf->save();
 
-			$values = array (
-				'language' => $this->view->conf->language (),
-				'posts_per_page' => $this->view->conf->postsPerPage (),
-				'view_mode' => $this->view->conf->viewMode (),
-				'default_view' => $this->view->conf->defaultView (),
-				'auto_load_more' => $this->view->conf->autoLoadMore (),
-				'display_posts' => $this->view->conf->displayPosts (),
-				'onread_jump_next' => $this->view->conf->onread_jump_next (), 
-				'lazyload' => $this->view->conf->lazyload (),
-				'sort_order' => $this->view->conf->sortOrder (),
-				'old_entries' => $this->view->conf->oldEntries (),
-				'keep_history_default' => $this->view->conf->keepHistoryDefault(),
-				'mail_login' => $this->view->conf->mailLogin (),
-				'anon_access' => $this->view->conf->anonAccess (),
-				'token' => $this->view->conf->token (),
-				'mark_when' => $this->view->conf->markWhen (),
-				'theme' => $this->view->conf->theme (),
-				'topline_read' => $this->view->conf->toplineRead () ? 'yes' : 'no',
-				'topline_favorite' => $this->view->conf->toplineFavorite () ? 'yes' : 'no',
-				'topline_date' => $this->view->conf->toplineDate () ? 'yes' : 'no',
-				'topline_link' => $this->view->conf->toplineLink () ? 'yes' : 'no',
-				'bottomline_read' => $this->view->conf->bottomlineRead () ? 'yes' : 'no',
-				'bottomline_favorite' => $this->view->conf->bottomlineFavorite () ? 'yes' : 'no',
-				'bottomline_sharing' => $this->view->conf->bottomlineSharing () ? 'yes' : 'no',
-				'bottomline_tags' => $this->view->conf->bottomlineTags () ? 'yes' : 'no',
-				'bottomline_date' => $this->view->conf->bottomlineDate () ? 'yes' : 'no',
-				'bottomline_link' => $this->view->conf->bottomlineLink () ? 'yes' : 'no',
-			);
-
-			$confDAO = new FreshRSS_ConfigurationDAO ();
-			$confDAO->update ($values);
-			Minz_Session::_param ('conf', $this->view->conf);
-			Minz_Session::_param ('mail', $this->view->conf->mailLogin ());
-
-			Minz_Session::_param ('language', $this->view->conf->language ());
+			Minz_Session::_param ('language', $this->view->conf->language);
 			Minz_Translate::reset ();
+			invalidateHttpCache();
 
-			// notif
 			$notif = array (
 				'type' => 'good',
 				'content' => Minz_Translate::t ('configuration_updated')
@@ -261,31 +185,24 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 
 		$this->view->themes = FreshRSS_Themes::get();
 
-		Minz_View::prependTitle (Minz_Translate::t ('general_and_reading_management') . ' - ');
-
-		$entryDAO = new FreshRSS_EntryDAO ();
-		$this->view->nb_total = $entryDAO->count ();
-		$this->view->size_total = $entryDAO->size ();
+		Minz_View::prependTitle (Minz_Translate::t ('reading_configuration') . ' - ');
 	}
 
 	public function sharingAction () {
 		if (Minz_Request::isPost ()) {
-			$this->view->conf->_sharing (array (
-				'shaarli' => Minz_Request::param ('shaarli', ''),
-				'poche' => Minz_Request::param ('poche', ''),
-				'diaspora' => Minz_Request::param ('diaspora', ''),
-				'twitter' => Minz_Request::param ('twitter', 'no') === 'yes',
-				'g+' => Minz_Request::param ('g+', 'no') === 'yes',
-				'facebook' => Minz_Request::param ('facebook', 'no') === 'yes',
-				'email' => Minz_Request::param ('email', 'no') === 'yes',
-				'print' => Minz_Request::param ('print', 'no') === 'yes'
+			$this->view->conf->_sharing (array(
+				'shaarli' => Minz_Request::param ('shaarli', false),
+				'poche' => Minz_Request::param ('poche', false),
+				'diaspora' => Minz_Request::param ('diaspora', false),
+				'twitter' => Minz_Request::param ('twitter', false),
+				'g+' => Minz_Request::param ('g+', false),
+				'facebook' => Minz_Request::param ('facebook', false),
+				'email' => Minz_Request::param ('email', false),
+				'print' => Minz_Request::param ('print', false),
 			));
+			$this->view->conf->save();
+			invalidateHttpCache();
 
-			$confDAO = new FreshRSS_ConfigurationDAO ();
-			$confDAO->update ($this->view->conf->sharing ());
-			Minz_Session::_param ('conf', $this->view->conf);
-
-			// notif
 			$notif = array (
 				'type' => 'good',
 				'content' => Minz_Translate::t ('configuration_updated')
@@ -296,12 +213,10 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 		}
 
 		Minz_View::prependTitle (Minz_Translate::t ('sharing_management') . ' - ');
-
-		$entryDAO = new FreshRSS_EntryDAO ();
-		$this->view->nb_total = $entryDAO->count ();
 	}
 
 	public function importExportAction () {
+		require_once(LIB_PATH . '/lib_opml.php');
 		$catDAO = new FreshRSS_CategoryDAO ();
 		$this->view->categories = $catDAO->listCategories ();
 
@@ -326,6 +241,7 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 			$this->view->categories = $list;
 		} elseif ($this->view->req == 'import' && Minz_Request::isPost ()) {
 			if ($_FILES['file']['error'] == 0) {
+				invalidateHttpCache();
 				// on parse le fichier OPML pour récupérer les catégories et les flux associés
 				try {
 					list ($categories, $feeds) = opml_import (
@@ -373,32 +289,21 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 		                    '9', 'f1', 'f2', 'f3', 'f4', 'f5', 'f6', 'f7', 'f8', 'f9',
 		                    'f10', 'f11', 'f12');
 		$this->view->list_keys = $list_keys;
-		$list_names = array ('mark_read', 'mark_favorite', 'go_website', 'next_entry',
-		                     'prev_entry', 'next_page', 'prev_page', 'collapse_entry',
-		                     'load_more');
 
 		if (Minz_Request::isPost ()) {
 			$shortcuts = Minz_Request::param ('shortcuts');
 			$shortcuts_ok = array ();
 
 			foreach ($shortcuts as $key => $value) {
-				if (in_array ($key, $list_names)
-				 && in_array ($value, $list_keys)) {
+				if (in_array($value, $list_keys)) {
 					$shortcuts_ok[$key] = $value;
 				}
 			}
 
 			$this->view->conf->_shortcuts ($shortcuts_ok);
+			$this->view->conf->save();
+			invalidateHttpCache();
 
-			$values = array (
-				'shortcuts' => $this->view->conf->shortcuts ()
-			);
-
-			$confDAO = new FreshRSS_ConfigurationDAO ();
-			$confDAO->update ($values);
-			Minz_Session::_param ('conf', $this->view->conf);
-
-			// notif
 			$notif = array (
 				'type' => 'good',
 				'content' => Minz_Translate::t ('shortcuts_updated')
@@ -409,5 +314,39 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 		}
 
 		Minz_View::prependTitle (Minz_Translate::t ('shortcuts_management') . ' - ');
+	}
+
+	public function usersAction() {
+		Minz_View::prependTitle(Minz_Translate::t ('users') . ' - ');
+	}
+
+	public function archivingAction () {
+		if (Minz_Request::isPost()) {
+			$old = Minz_Request::param('old_entries', 3);
+			$keepHistoryDefault = Minz_Request::param('keep_history_default', 0);
+
+			$this->view->conf->_old_entries($old);
+			$this->view->conf->_keep_history_default($keepHistoryDefault);
+			$this->view->conf->save();
+			invalidateHttpCache();
+
+			$notif = array(
+				'type' => 'good',
+				'content' => Minz_Translate::t('configuration_updated')
+			);
+			Minz_Session::_param('notification', $notif);
+
+			Minz_Request::forward(array('c' => 'configure', 'a' => 'archiving'), true);
+		}
+
+		Minz_View::prependTitle(Minz_Translate::t('archiving_configuration') . ' - ');
+
+		$entryDAO = new FreshRSS_EntryDAO();
+		$this->view->nb_total = $entryDAO->count();
+		$this->view->size_user = $entryDAO->size();
+
+		if (Minz_Configuration::isAdmin(Minz_Session::param('currentUser', '_'))) {
+			$this->view->size_total = $entryDAO->size(true);
+		}
 	}
 }

@@ -220,6 +220,13 @@ function collapse_entry() {
 	$(".flux.current").toggleClass("active");
 }
 
+function auto_share() {
+	var share = $(".flux.current.active").find('.dropdown-target[id^="dropdown-share"]');
+	if (share.length) {
+		window.location.hash = share.attr('id');
+	}
+}
+
 function inMarkViewport(flux, box_to_follow, relative_follow) {
 	var top = flux.position().top;
 	if (relative_follow) {
@@ -335,6 +342,11 @@ function init_shortcuts() {
 	});
 	shortcut.add(shortcuts.collapse_entry, function () {
 		collapse_entry();
+	}, {
+		'disable_in_input': true
+	});
+	shortcut.add(shortcuts.auto_share, function () {
+		auto_share();
 	}, {
 		'disable_in_input': true
 	});

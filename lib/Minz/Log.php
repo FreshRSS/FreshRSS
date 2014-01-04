@@ -1,5 +1,5 @@
 <?php
-/** 
+/**
  * MINZ - Copyright 2011 Marien Fressinaud
  * Sous licence AGPL3 <http://www.gnu.org/licenses/>
 */
@@ -19,7 +19,7 @@ class Minz_Log {
 	const WARNING = 4;
 	const NOTICE = 8;
 	const DEBUG = 16;
-	
+
 	/**
 	 * Enregistre un message dans un fichier de log spécifique
 	 * Message non loggué si
@@ -32,14 +32,14 @@ class Minz_Log {
 	 */
 	public static function record ($information, $level, $file_name = null) {
 		$env = Minz_Configuration::environment ();
-		
+
 		if (! ($env === Minz_Configuration::SILENT
 		       || ($env === Minz_Configuration::PRODUCTION
 		       && ($level >= Minz_Log::NOTICE)))) {
-			if (is_null ($file_name)) {
-				$file_name = LOG_PATH . '/application.log';
+			if ($file_name === null) {
+				$file_name = LOG_PATH . '/' . Minz_Session::param('currentUser', '_') . '.log';
 			}
-			
+
 			switch ($level) {
 			case Minz_Log::ERROR :
 				$level_label = 'error';
@@ -56,24 +56,13 @@ class Minz_Log {
 			default :
 				$level_label = 'unknown';
 			}
-			
-			if ($env == Minz_Configuration::PRODUCTION) {
-				$file = @fopen ($file_name, 'a');
-			} else {
-				$file = fopen ($file_name, 'a');
-			}
-			
-			if ($file !== false) {
-				$log = '[' . date('r') . ']';
-				$log .= ' [' . $level_label . ']';
-				$log .= ' --- ' . $information . "\n";
-				fwrite ($file, $log); 
-				fclose ($file);
-			} else {
-				throw new Minz_PermissionDeniedException (
-					$file_name,
-					Minz_Exception::ERROR
-				);
+
+			$log = '[' . date('r') . ']'
+			     . ' [' . $level_label . ']'
+			     . ' --- ' . $information . "\n";
+
+			if (file_put_contents($file_name, $log, FILE_APPEND | LOCK_EX) === false) {
+				throw new Minz_PermissionDeniedException($file_name, Minz_Exception::ERROR);
 			}
 		}
 	}

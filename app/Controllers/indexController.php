@@ -16,17 +16,18 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 
 	public function indexAction () {
 		$output = Minz_Request::param ('output');
+		$token = '';
 
-		$token = $this->view->conf->token();
-		$token_param = Minz_Request::param ('token', '');
-		$token_is_ok = ($token != '' && $token === $token_param);
-
-		// check if user is log in
-		if(login_is_conf ($this->view->conf) &&
-				!is_logged() &&
-				$this->view->conf->anonAccess() === 'no' &&
-				!($output === 'rss' && $token_is_ok)) {
-			return;
+		// check if user is logged in
+		if (!$this->view->loginOk && !Minz_Configuration::allowAnonymous())
+		{
+			$token = $this->view->conf->token;
+			$token_param = Minz_Request::param ('token', '');
+			$token_is_ok = ($token != '' && $token === $token_param);
+			if (!($output === 'rss' && $token_is_ok)) {
+				return;
+			}
+			$params['token'] = $token;
 		}
 
 		// construction of RSS url of this feed
@@ -34,11 +35,6 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 		$params['output'] = 'rss';
 		if (isset ($params['search'])) {
 			$params['search'] = urlencode ($params['search']);
-		}
-		if (login_is_conf($this->view->conf) &&
-				$this->view->conf->anonAccess() === 'no' &&
-				$token != '') {
-			$params['token'] = $token;
 		}
 		$this->view->rss_url = array (
 			'c' => 'index',
@@ -91,13 +87,13 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 		);
 
 		// On récupère les différents éléments de filtrage
-		$this->view->state = $state = Minz_Request::param ('state', $this->view->conf->defaultView ());
+		$this->view->state = $state = Minz_Request::param ('state', $this->view->conf->default_view);
 		$filter = Minz_Request::param ('search', '');
 		if (!empty($filter)) {
 			$state = 'all';	//Search always in read and unread articles
 		}
-		$this->view->order = $order = Minz_Request::param ('order', $this->view->conf->sortOrder ());
-		$nb = Minz_Request::param ('nb', $this->view->conf->postsPerPage ());
+		$this->view->order = $order = Minz_Request::param ('order', $this->view->conf->sort_order);
+		$nb = Minz_Request::param ('nb', $this->view->conf->posts_per_page);
 		$first = Minz_Request::param ('next', '');
 
 		if ($state === 'not_read') {	//Any unread article in this category at all?
@@ -128,16 +124,16 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 		$this->view->today = $today;
 
 		// on calcule la date des articles les plus anciens qu'on affiche
-		$nb_month_old = $this->view->conf->oldEntries ();
+		$nb_month_old = $this->view->conf->old_entries;
 		$date_min = $today - (3600 * 24 * 30 * $nb_month_old);	//Do not use a fast changing value such as time() to allow SQL caching
-		$keepHistoryDefault = $this->view->conf->keepHistoryDefault();
+		$keepHistoryDefault = $this->view->conf->keep_history_default;
 
 		try {
 			$entries = $this->entryDAO->listWhere($getType, $getId, $state, $order, $nb + 1, $first, $filter, $date_min, $keepHistoryDefault);
 
 			// Si on a récupéré aucun article "non lus"
 			// on essaye de récupérer tous les articles
-			if ($state === 'not_read' && empty($entries)) {	//TODO: Remove in v0.8
+			if ($state === 'not_read' && empty($entries)) {
 				Minz_Log::record ('Conflicting information about nbNotRead!', Minz_Log::DEBUG);
 				$this->view->state = 'all';
 				$entries = $this->entryDAO->listWhere($getType, $getId, 'all', $order, $nb, $first, $filter, $date_min, $keepHistoryDefault);
@@ -212,7 +208,7 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 	}
 
 	public function logsAction () {
-		if (login_is_conf ($this->view->conf) && !is_logged ()) {
+		if (!$this->view->loginOk) {
 			Minz_Error::error (
 				403,
 				array ('error' => array (Minz_Translate::t ('access_denied')))
@@ -222,17 +218,10 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 		Minz_View::prependTitle (Minz_Translate::t ('logs') . ' - ');
 
 		if (Minz_Request::isPost ()) {
-			file_put_contents(LOG_PATH . '/application.log', '');
+			FreshRSS_LogDAO::truncate();
 		}
 
-		$logs = array();
-		try {
-			$logDAO = new FreshRSS_LogDAO ();
-			$logs = $logDAO->lister ();
-			$logs = array_reverse ($logs);
-		} catch (Minz_FileNotExistException $e) {
-
-		}
+		$logs = FreshRSS_LogDAO::lines();	//TODO: ask only the necessary lines
 
 		//gestion pagination
 		$page = Minz_Request::param ('page', 1);
@@ -260,13 +249,40 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 		curl_close ($ch);
 
 		$res = json_decode ($result, true);
-		if ($res['status'] === 'okay' && $res['email'] === $this->view->conf->mailLogin ()) {
-			Minz_Session::_param ('mail', $res['email']);
+
+		$loginOk = false;
+		$reason = '';
+		if ($res['status'] === 'okay') {
+			$email = filter_var($res['email'], FILTER_VALIDATE_EMAIL);
+			if ($email != '') {
+				$personaFile = DATA_PATH . '/persona/' . $email . '.txt';
+				if (($currentUser = @file_get_contents($personaFile)) !== false) {
+					$currentUser = trim($currentUser);
+					if (ctype_alnum($currentUser)) {
+						try {
+							$this->conf = new FreshRSS_Configuration($currentUser);
+							$loginOk = strcasecmp($email, $this->conf->mail_login) === 0;
+						} catch (Minz_Exception $e) {
+							$reason = 'Invalid configuration for user [' . $currentUser . ']! ' . $e->getMessage();	//Permission denied or conf file does not exist
+						}
+					} else {
+						$reason = 'Invalid username format [' . $currentUser . ']!';
+					}
+				}
+			} else {
+				$reason = 'Invalid email format [' . $res['email'] . ']!';
+			}
+		}
+		if ($loginOk) {
+			Minz_Session::_param('currentUser', $currentUser);
+			Minz_Session::_param ('mail', $email);
+			$this->view->loginOk = true;
 			invalidateHttpCache();
 		} else {
 			$res = array ();
 			$res['status'] = 'failure';
-			$res['reason'] = Minz_Translate::t ('invalid_login');
+			$res['reason'] = $reason == '' ? Minz_Translate::t ('invalid_login') : $reason;
+			Minz_Log::record ('Persona: ' . $res['reason'], Minz_Log::WARNING);
 		}
 
 		header('Content-Type: application/json; charset=UTF-8');

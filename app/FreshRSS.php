@@ -1,46 +1,121 @@
 <?php
 class FreshRSS extends Minz_FrontController {
-	public function init () {
-		Minz_Session::init ('FreshRSS');
-		Minz_Translate::init ();
+	public function init() {
+		if (!isset($_SESSION)) {
+			Minz_Session::init('FreshRSS');
+		}
+		$this->accessControl(Minz_Session::param('currentUser', ''));
+		$this->loadParamsView();
+		$this->loadStylesAndScripts();	//TODO: Do not load that when not needed, e.g. some Ajax requests
+		$this->loadNotifications();
+	}
 
-		$this->loadParamsView ();
-		$this->loadStylesAndScripts ();
-		$this->loadNotifications ();
+	private function accessControl($currentUser) {
+		if ($currentUser == '') {
+			switch (Minz_Configuration::authType()) {
+				case 'http_auth':
+					$currentUser = httpAuthUser();
+					$loginOk = $currentUser != '';
+					break;
+				case 'persona':
+					$loginOk = false;
+					$email = filter_var(Minz_Session::param('mail'), FILTER_VALIDATE_EMAIL);
+					if ($email != '') {	//TODO: Remove redundancy with indexController
+						$personaFile = DATA_PATH . '/persona/' . $email . '.txt';
+						if (($currentUser = @file_get_contents($personaFile)) !== false) {
+							$currentUser = trim($currentUser);
+							$loginOk = true;
+						}
+					}
+					if (!$loginOk) {
+						$currentUser = Minz_Configuration::defaultUser();
+					}
+					break;
+				case 'none':
+					$currentUser = Minz_Configuration::defaultUser();
+					$loginOk = true;
+					break;
+				default:
+					$currentUser = Minz_Configuration::defaultUser();
+					$loginOk = false;
+					break;
+			}
+		} else {
+			$loginOk = true;
+		}
+
+		if (!ctype_alnum($currentUser)) {
+			Minz_Session::_param('currentUser', '');
+			die('Invalid username [' . $currentUser . ']!');
+		}
+
+		try {
+			$this->conf = new FreshRSS_Configuration($currentUser);
+			Minz_View::_param ('conf', $this->conf);
+			Minz_Session::_param('currentUser', $currentUser);
+		} catch (Minz_Exception $me) {
+			$loginOk = false;
+			try {
+				$this->conf = new FreshRSS_Configuration(Minz_Configuration::defaultUser());
+				Minz_Session::_param('currentUser', Minz_Configuration::defaultUser());
+				Minz_View::_param('conf', $this->conf);
+				$notif = array(
+					'type' => 'bad',
+					'content' => 'Invalid configuration for user [' . $currentUser . ']!',
+				);
+				Minz_Session::_param ('notification', $notif);
+				Minz_Log::record ($notif['content'] . ' ' . $me->getMessage(), Minz_Log::WARNING);
+				Minz_Session::_param('currentUser', '');
+			} catch (Exception $e) {
+				die($e->getMessage());
+			}
+		}
+
+		if ($loginOk) {
+			switch (Minz_Configuration::authType()) {
+				case 'http_auth':
+					$loginOk = strcasecmp($currentUser, httpAuthUser()) === 0;
+					break;
+				case 'persona':
+					$loginOk = strcasecmp(Minz_Session::param('mail'), $this->conf->mail_login) === 0;
+					break;
+				case 'none':
+					$loginOk = true;
+					break;
+				default:
+					$loginOk = false;
+					break;
+			}
+			if ((!$loginOk) && (PHP_SAPI === 'cli') && (Minz_Request::actionName() === 'actualize')) {	//Command line
+				Minz_Configuration::_authType('none');
+				$loginOk = true;
+			}
+		}
+		Minz_View::_param ('loginOk', $loginOk);
 	}
 
 	private function loadParamsView () {
-		try {
-			$this->conf = Minz_Session::param ('conf', new FreshRSS_Configuration ());
-		} catch (Minz_Exception $e) {
-			// Permission denied or conf file does not exist
-			// it's critical!
-			print $e->getMessage();
-			exit();
-		}
-
-		Minz_View::_param ('conf', $this->conf);
-		Minz_Session::_param ('language', $this->conf->language ());
-
+		Minz_Session::_param ('language', $this->conf->language);
+		Minz_Translate::init();
 		$output = Minz_Request::param ('output');
-		if(!$output) {
-			$output = $this->conf->viewMode();
+		if (!$output) {
+			$output = $this->conf->view_mode;
 			Minz_Request::_param ('output', $output);
 		}
 	}
 
 	private function loadStylesAndScripts () {
-		$theme = FreshRSS_Themes::get_infos($this->conf->theme());
+		$theme = FreshRSS_Themes::get_infos($this->conf->theme);
 		if ($theme) {
-			foreach($theme["files"] as $file) {
+			foreach($theme['files'] as $file) {
 				Minz_View::appendStyle (Minz_Url::display ('/themes/' . $theme['path'] . '/' . $file . '?' . @filemtime(PUBLIC_PATH . '/themes/' . $theme['path'] . '/' . $file)));
 			}
 		}
 
-		if (login_is_conf ($this->conf)) {
+		if (Minz_Configuration::authType() === 'persona') {
 			Minz_View::appendScript ('https://login.persona.org/include.js');
 		}
-		$includeLazyLoad = $this->conf->lazyload () === 'yes' && ($this->conf->displayPosts () === 'yes' || Minz_Request::param ('output') === 'reader');
+		$includeLazyLoad = $this->conf->lazyload && ($this->conf->display_posts || Minz_Request::param ('output') === 'reader');
 		Minz_View::appendScript (Minz_Url::display ('/scripts/jquery.min.js?' . @filemtime(PUBLIC_PATH . '/scripts/jquery.min.js')), false, !$includeLazyLoad, !$includeLazyLoad);
 		if ($includeLazyLoad) {
 			Minz_View::appendScript (Minz_Url::display ('/scripts/jquery.lazyload.min.js?' . @filemtime(PUBLIC_PATH . '/scripts/jquery.lazyload.min.js')));

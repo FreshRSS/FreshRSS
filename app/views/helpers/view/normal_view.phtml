@@ -7,39 +7,54 @@ if (!empty($this->entries)) {
 	$display_today = true;
 	$display_yesterday = true;
 	$display_others = true;
-
-	$logged = !login_is_conf ($this->conf) || is_logged ();
-	$shaarli = $this->conf->sharing ('shaarli');
-	$poche = $this->conf->sharing ('poche');
-	$diaspora = $this->conf->sharing ('diaspora');
+	if ($this->loginOk) {
+		$shaarli = $this->conf->sharing ('shaarli');
+		$poche = $this->conf->sharing ('poche');
+		$diaspora = $this->conf->sharing ('diaspora');
+	} else {
+		$shaarli = '';
+		$poche = '';
+		$diaspora = '';
+	}
 	$twitter = $this->conf->sharing ('twitter');
 	$google_plus = $this->conf->sharing ('g+');
 	$facebook = $this->conf->sharing ('facebook');
 	$email = $this->conf->sharing ('email');
 	$print = $this->conf->sharing ('print');
-	$today = $this->today;
-	$hidePosts = $this->conf->displayPosts() === 'no';
-	$lazyload = $this->conf->lazyload() === 'yes';
+	$hidePosts = !$this->conf->display_posts;
+	$lazyload = $this->conf->lazyload;
+	$topline_read = $this->conf->topline_read;
+	$topline_favorite = $this->conf->topline_favorite;
+	$topline_date = $this->conf->topline_date;
+	$topline_link = $this->conf->topline_link;
+	$bottomline_read = $this->conf->bottomline_read;
+	$bottomline_favorite = $this->conf->bottomline_favorite;
+	$bottomline_sharing = $this->conf->bottomline_sharing && (
+		$shaarli || $poche || $diaspora || $twitter ||
+		$google_plus || $facebook || $email || $print);
+	$bottomline_tags = $this->conf->bottomline_tags;
+	$bottomline_date = $this->conf->bottomline_date;
+	$bottomline_link = $this->conf->bottomline_link;
 ?>
 
 <div id="stream" class="normal<?php echo $hidePosts ? ' hide_posts' : ''; ?>">
 	<?php foreach ($this->entries as $item) { ?>
 
-	<?php if ($display_today && $item->isDay (FreshRSS_Days::TODAY, $today)) { ?>
+	<?php if ($display_today && $item->isDay (FreshRSS_Days::TODAY, $this->today)) { ?>
 	<div class="day" id="day_today">
 		<?php echo Minz_Translate::t ('today'); ?>
 		<span class="date"> - <?php echo timestamptodate (time (), false); ?></span>
 		<span class="name"><?php echo $this->currentName; ?></span>
 	</div>
 	<?php $display_today = false; } ?>
-	<?php if ($display_yesterday && $item->isDay (FreshRSS_Days::YESTERDAY, $today)) { ?>
+	<?php if ($display_yesterday && $item->isDay (FreshRSS_Days::YESTERDAY, $this->today)) { ?>
 	<div class="day" id="day_yesterday">
 		<?php echo Minz_Translate::t ('yesterday'); ?>
 		<span class="date"> - <?php echo timestamptodate (time () - 86400, false); ?></span>
 		<span class="name"><?php echo $this->currentName; ?></span>
 	</div>
 	<?php $display_yesterday = false; } ?>
-	<?php if ($display_others && $item->isDay (FreshRSS_Days::BEFORE_YESTERDAY, $today)) { ?>
+	<?php if ($display_others && $item->isDay (FreshRSS_Days::BEFORE_YESTERDAY, $this->today)) { ?>
 	<div class="day" id="day_before_yesterday">
 		<?php echo Minz_Translate::t ('before_yesterday'); ?>
 		<span class="name"><?php echo $this->currentName; ?></span>
@@ -48,14 +63,14 @@ if (!empty($this->entries)) {
 
 	<div class="flux<?php echo !$item->isRead () ? ' not_read' : ''; ?><?php echo $item->isFavorite () ? ' favorite' : ''; ?>" id="flux_<?php echo $item->id (); ?>">
 		<ul class="horizontal-list flux_header"><?php
-			if ($logged) {
-				if ($this->conf->toplineRead ()) {
+			if ($this->loginOk) {
+				if ($topline_read) {
 					?><li class="item manage"><?php
 						?><a class="read" href="<?php echo _url ('entry', 'read', 'id', $item->id (), 'is_read', $item->isRead () ? 0 : 1); ?>"><?php
 							echo FreshRSS_Themes::icon($item->isRead () ? 'read' : 'unread'); ?></a><?php
 					?></li><?php
 				}
-				if ($this->conf->toplineFavorite ()) {
+				if ($topline_favorite) {
 					 ?><li class="item manage"><?php
 						?><a class="bookmark" href="<?php echo _url ('entry', 'bookmark', 'id', $item->id (), 'is_favorite', $item->isFavorite () ? 0 : 1); ?>"><?php
 							echo FreshRSS_Themes::icon($item->isFavorite () ? 'starred' : 'non-starred'); ?></a><?php
@@ -67,8 +82,8 @@ if (!empty($this->entries)) {
 			?>
 			<li class="item website"><a href="<?php echo _url ('index', 'index', 'get', 'f_' . $feed->id ()); ?>"><img class="favicon" src="<?php echo $feed->favicon (); ?>" alt="✇" /> <span><?php echo $feed->name(); ?></span></a></li>
 			<li class="item title"><a target="_blank" href="<?php echo $item->link (); ?>"><?php echo $item->title (); ?></a></li>
-			<?php if ($this->conf->toplineDate ()) { ?><li class="item date"><?php echo $item->date (); ?> </li><?php } ?>
-			<?php if ($this->conf->toplineLink ()) { ?><li class="item link"><a target="_blank" href="<?php echo $item->link (); ?>"><?php echo FreshRSS_Themes::icon('link'); ?></a></li><?php } ?>
+			<?php if ($topline_date) { ?><li class="item date"><?php echo $item->date (); ?> </li><?php } ?>
+			<?php if ($topline_link) { ?><li class="item link"><a target="_blank" href="<?php echo $item->link (); ?>"><?php echo FreshRSS_Themes::icon('link'); ?></a></li><?php } ?>
 		</ul>
 
 		<div class="flux_content">
@@ -85,14 +100,14 @@ if (!empty($this->entries)) {
 				?>
 			</div>
 			<ul class="horizontal-list bottom"><?php
-				if ($logged) {
-					if ($this->conf->bottomlineRead ()) {
+				if ($this->loginOk) {
+					if ($bottomline_read) {
 						?><li class="item manage"><?php
 							?><a class="read" href="<?php echo _url ('entry', 'read', 'id', $item->id (), 'is_read', $item->isRead () ? 0 : 1); ?>"><?php
 								echo FreshRSS_Themes::icon($item->isRead () ? 'read' : 'unread'); ?></a><?php
 						?></li><?php
 					}
-					if ($this->conf->bottomlineFavorite ()) {
+					if ($bottomline_favorite) {
 						?><li class="item manage"><?php
 							?><a class="bookmark" href="<?php echo _url ('entry', 'bookmark', 'id', $item->id (), 'is_favorite', $item->isFavorite () ? 0 : 1); ?>"><?php
 								echo FreshRSS_Themes::icon($item->isFavorite () ? 'starred' : 'non-starred'); ?></a><?php
@@ -101,10 +116,7 @@ if (!empty($this->entries)) {
 				} ?>
 				<li class="item">
 					<?php
-						if ($this->conf->bottomlineSharing () && (
-								$shaarli || $poche || $diaspora || $twitter ||
-								$google_plus || $facebook || $email
-							)) {
+						if ($bottomline_sharing) {
 							$link = urlencode ($item->link ());
 							$title = urlencode ($item->title () . ' - ' . $feed->name ());
 					?>
@@ -117,19 +129,19 @@ if (!empty($this->entries)) {
 
 						<ul class="dropdown-menu">
 							<li class="dropdown-close"><a href="#close">❌</a></li>
-							<?php if ($logged && $shaarli) { ?>
+							<?php if ($shaarli) { ?>
 							<li class="item">
 								<a target="_blank" href="<?php echo $shaarli . '?post=' . $link . '&amp;title=' . $title . '&amp;source=FreshRSS'; ?>">
 									<?php echo Minz_Translate::t ('shaarli'); ?>
 								</a>
 							</li>
-							<?php } if ($logged && $poche) { ?>
+							<?php } if ($poche) { ?>
 							<li class="item">
 								<a target="_blank" href="<?php echo $poche . '?action=add&amp;url=' . base64_encode (urldecode($link)); ?>">
 									<?php echo Minz_Translate::t ('poche'); ?>
 								</a>
 							</li>
-							<?php } if ($logged && $diaspora) { ?>
+							<?php } if ($diaspora) { ?>
 							<li class="item">
 								<a target="_blank" href="<?php echo $diaspora . '/bookmarklet?url=' . $link . '&amp;title=' . $title; ?>">
 									<?php echo Minz_Translate::t ('diaspora'); ?>
@@ -171,7 +183,7 @@ if (!empty($this->entries)) {
 					<?php } ?>
 				</li>
 				<?php
-					$tags = $this->conf->bottomlineTags () ? $item->tags() : null;
+					$tags = $bottomline_tags ? $item->tags() : null;
 					if (!empty($tags)) {
 				?>
 				<li class="item">
@@ -190,8 +202,8 @@ if (!empty($this->entries)) {
 					</div>
 				</li>
 				<?php } ?>
-				<?php if ($this->conf->bottomlineDate ()) { ?><li class="item date"><?php echo $item->date (); ?> </li><?php } ?>
-				<?php if ($this->conf->bottomlineLink ()) { ?><li class="item link"><a target="_blank" href="<?php echo $item->link (); ?>"><?php echo FreshRSS_Themes::icon('link'); ?></a></li><?php } ?>
+				<?php if ($bottomline_date) { ?><li class="item date"><?php echo $item->date (); ?> </li><?php } ?>
+				<?php if ($bottomline_link) { ?><li class="item link"><a target="_blank" href="<?php echo $item->link (); ?>"><?php echo FreshRSS_Themes::icon('link'); ?></a></li><?php } ?>
 			</ul>
 		</div>
 	</div>

@@ -8,7 +8,7 @@ class Minz_Session {
 	/**
 	 * $session stocke les variables de session
 	 */
-	private static $session = array ();
+	private static $session = array ();	//TODO: Try to avoid having another local copy
 
 	/**
 	 * Initialise la session, avec un nom
@@ -33,13 +33,7 @@ class Minz_Session {
 	 * @return la valeur de la variable de session, false si n'existe pas
 	 */
 	public static function param ($p, $default = false) {
-		if (isset (self::$session[$p])) {
-			$return = self::$session[$p];
-		} else {
-			$return = $default;
-		}
-
-		return $return;
+		return isset(self::$session[$p]) ? self::$session[$p] : $default;
 	}
 
 
@@ -55,11 +49,6 @@ class Minz_Session {
 		} else {
 			$_SESSION[$p] = $v;
 			self::$session[$p] = $v;
-
-			if($p == 'language') {
-				// reset pour remettre à jour le fichier de langue à utiliser
-				Minz_Translate::reset ();
-			}
 		}
 	}
 
@@ -71,11 +60,12 @@ class Minz_Session {
 	public static function unset_session ($force = false) {
 		$language = self::param ('language');
 
-		session_unset ();
+		session_destroy();
 		self::$session = array ();
 
 		if (!$force) {
 			self::_param ('language', $language);
+			Minz_Translate::reset ();
 		}
 	}
 }

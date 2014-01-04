@@ -47,7 +47,7 @@
 					foreach ($services as $service) {
 				?>
 				<label class="checkbox" for="<?php echo $service; ?>">
-					<input type="checkbox" name="<?php echo $service; ?>" id="<?php echo $service; ?>" value="yes"<?php echo $this->conf->sharing ($service) ? ' checked="checked"' : ''; ?> />
+					<input type="checkbox" name="<?php echo $service; ?>" id="<?php echo $service; ?>" value="1"<?php echo $this->conf->sharing($service) ? ' checked="checked"' : ''; ?> />
 					<?php echo Minz_Translate::t ($service); ?>
 				</label>
 				<?php } ?>

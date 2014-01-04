@@ -2,7 +2,7 @@
 
 class FreshRSS_entry_Controller extends Minz_ActionController {
 	public function firstAction () {
-		if (login_is_conf ($this->view->conf) && !is_logged ()) {
+		if (!$this->view->loginOk) {
 			Minz_Error::error (
 				403,
 				array ('error' => array (Minz_Translate::t ('access_denied')))
@@ -16,6 +16,7 @@ class FreshRSS_entry_Controller extends Minz_ActionController {
 			$this->view->_useLayout (false);
 		}
 	}
+
 	public function lastAction () {
 		$ajax = Minz_Request::param ('ajax');
 		if (!$ajax && $this->redirect) {
@@ -38,7 +39,7 @@ class FreshRSS_entry_Controller extends Minz_ActionController {
 		$nextGet = Minz_Request::param ('nextGet', $get); 
 		$idMax = Minz_Request::param ('idMax', 0);
 
-		$is_read = !!$is_read;
+		$is_read = (bool)$is_read;
 
 		$entryDAO = new FreshRSS_EntryDAO ();
 		if ($id == false) {
@@ -87,33 +88,34 @@ class FreshRSS_entry_Controller extends Minz_ActionController {
 	}
 
 	public function optimizeAction() {
-		@set_time_limit(300);
-		invalidateHttpCache();
+		if (Minz_Request::isPost()) {
+			@set_time_limit(300);
 
-		// La table des entrées a tendance à grossir énormément
-		// Cette action permet d'optimiser cette table permettant de grapiller un peu de place
-		// Cette fonctionnalité n'est à appeler qu'occasionnellement
-		$entryDAO = new FreshRSS_EntryDAO();
-		$entryDAO->optimizeTable();
+			// La table des entrées a tendance à grossir énormément
+			// Cette action permet d'optimiser cette table permettant de grapiller un peu de place
+			// Cette fonctionnalité n'est à appeler qu'occasionnellement
+			$entryDAO = new FreshRSS_EntryDAO();
+			$entryDAO->optimizeTable();
 
-		invalidateHttpCache();
+			invalidateHttpCache();
 
-		$notif = array (
-			'type' => 'good',
-			'content' => Minz_Translate::t ('optimization_complete')
-		);
-		Minz_Session::_param ('notification', $notif);
+			$notif = array (
+				'type' => 'good',
+				'content' => Minz_Translate::t ('optimization_complete')
+			);
+			Minz_Session::_param ('notification', $notif);
+		}
 
 		Minz_Request::forward(array(
 			'c' => 'configure',
-			'a' => 'display'
+			'a' => 'archiving'
 		), true);
 	}
 
 	public function purgeAction() {
 		@set_time_limit(300);
 
-		$nb_month_old = max($this->view->conf->oldEntries(), 1);
+		$nb_month_old = max($this->view->conf->old_entries, 1);
 		$date_min = time() - (3600 * 24 * 30 * $nb_month_old);
 
 		$feedDAO = new FreshRSS_FeedDAO();
@@ -125,7 +127,7 @@ class FreshRSS_entry_Controller extends Minz_ActionController {
 		foreach ($feeds as $feed) {
 			$feedHistory = $feed->keepHistory();
 			if ($feedHistory == -2) {	//default
-				$feedHistory = $this->view->conf->keepHistoryDefault();
+				$feedHistory = $this->view->conf->keep_history_default;
 			}
 			if ($feedHistory >= 0) {
 				$nb = $feedDAO->cleanOldEntries($feed->id(), $date_min, $feedHistory);
@@ -147,7 +149,7 @@ class FreshRSS_entry_Controller extends Minz_ActionController {
 
 		Minz_Request::forward(array(
 			'c' => 'configure',
-			'a' => 'display'
+			'a' => 'archiving'
 		), true);
 	}
 }

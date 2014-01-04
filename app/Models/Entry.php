@@ -38,11 +38,7 @@ class FreshRSS_Entry extends Minz_Model {
 		return $this->title;
 	}
 	public function author () {
-		if (is_null ($this->author)) {
-			return '';
-		} else {
-			return $this->author;
-		}
+		return $this->author === null ? '' : $this->author;
 	}
 	public function content () {
 		return $this->content;

@@ -9,7 +9,7 @@
 		<?php } ?>
 	</datalist>
 
-	<?php $s = $this->conf->shortcuts (); ?>
+	<?php $s = $this->conf->shortcuts; ?>
 
 	<form method="post" action="<?php echo _url ('configure', 'shortcut'); ?>">
 		<legend><?php echo Minz_Translate::t ('shortcuts_management'); ?></legend>
@@ -65,6 +65,13 @@
 			<label class="group-name" for="load_more_shortcut"><?php echo Minz_Translate::t ('load_more'); ?></label>
 			<div class="group-controls">
 				<input type="text" id="load_more_shortcut" name="shortcuts[load_more]" list="keys" value="<?php echo $s['load_more']; ?>" />
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="group-name" for="auto_share_shortcut"><?php echo Minz_Translate::t ('auto_share'); ?></label>
+			<div class="group-controls">
+				<input type="text" id="auto_share_shortcut" name="shortcuts[auto_share]" list="keys" value="<?php echo $s['auto_share']; ?>" />
 			</div>
 		</div>
 

@@ -5,6 +5,7 @@ return array (
 	'installation_step'		=> 'Installation - step %d',
 	'steps'				=> 'Steps',
 	'checks'			=> 'Checks',
+	'general_configuration'	=> 'General configuration',
 	'bdd_configuration'		=> 'Database configuration',
 	'bdd_type'		=> 'Type of database',
 	'version_update'		=> 'Update',
@@ -31,6 +32,10 @@ return array (
 	'pdomysql_is_nok'		=> 'You lack PDO or its driver for MySQL (php5-mysql package)',
 	'dom_is_ok'			=> 'You have the required library to browse the DOM',
 	'dom_is_nok'			=> 'You lack a required library to browse the DOM (php-xml package)',
+	'pcre_is_ok'			=> 'You have the required library for regular expressions (PCRE)',
+	'pcre_is_nok'			=> 'You lack a required library for regular expressions (php-pcre)',
+	'ctype_is_ok'			=> 'You have the required library for character type checking (ctype)',
+	'ctype_is_nok'			=> 'You lack a required library for character type checking (php-ctype)',
 	'cache_is_ok'			=> 'Permissions on cache directory are good',
 	'log_is_ok'			=> 'Permissions on logs directory are good',
 	'favicons_is_ok'		=> 'Permissions on favicons directory are good',
@@ -55,7 +60,7 @@ return array (
 	'update_start'			=> 'Start update process',
 	'update_long'			=> 'This can take a long time, depending on the size of your database. You may have to wait for this page to time out (~5 minutes) and then refresh this page.',
 
-	'installation_is_ok'		=> 'The installation process was successful.<br />The final step will now attempt to delete the <kbd>./public/install.php</kbd> file and any database backup created during the update process.<br />You may choose to skip this step and delete <kbd>./public/install.php</kbd> manually.',
+	'installation_is_ok'		=> 'The installation process was successful.<br />The final step will now attempt to delete the <kbd>./p/i/install.php</kbd> file and any database backup created during the update process.<br />You may choose to skip this step and delete <kbd>./p/i/install.php</kbd> manually.',
 	'finish_installation'		=> 'Complete installation',
 	'install_not_deleted'		=> 'Something went wrong; you must delete the file <em>%s</em> manually.',
 );

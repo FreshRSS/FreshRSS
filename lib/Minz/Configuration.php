@@ -28,7 +28,7 @@ class Minz_Configuration {
 
 	/**
 	 * définition des variables de configuration
-	 * $sel_application une chaîne de caractères aléatoires (obligatoire)
+	 * $salt une chaîne de caractères aléatoires (obligatoire)
 	 * $environment gère le niveau d'affichage pour log et erreurs
 	 * $use_url_rewriting indique si on utilise l'url_rewriting
 	 * $base_url le chemin de base pour accéder à l'application
@@ -42,7 +42,7 @@ class Minz_Configuration {
 	 *     - password mot de passe de l'utilisateur
 	 *     - base le nom de la base de données
 	 */
-	private static $sel_application = '';
+	private static $salt = '';
 	private static $environment = Minz_Configuration::PRODUCTION;
 	private static $base_url = '';
 	private static $use_url_rewriting = false;
@@ -51,20 +51,23 @@ class Minz_Configuration {
 	private static $cache_enabled = false;
 	private static $delay_cache = 3600;
 	private static $default_user = '';
-	private static $current_user = '';
+	private static $allow_anonymous = false;
+	private static $auth_type = 'none';
 
 	private static $db = array (
-		'host' => false,
-		'user' => false,
-		'password' => false,
-		'base' => false
+		'type' => 'mysql',
+		'host' => '',
+		'user' => '',
+		'password' => '',
+		'base' => '',
+		'prefix' => '',
 	);
 
 	/*
 	 * Getteurs
 	 */
 	public static function salt () {
-		return self::$sel_application;
+		return self::$salt;
 	}
 	public static function environment () {
 		return self::$environment;
@@ -76,7 +79,7 @@ class Minz_Configuration {
 		return self::$use_url_rewriting;
 	}
 	public static function title () {
-		return stripslashes(self::$title);
+		return self::$title;
 	}
 	public static function language () {
 		return self::$language;
@@ -93,8 +96,34 @@ class Minz_Configuration {
 	public static function defaultUser () {
 		return self::$default_user;
 	}
-	public static function currentUser () {
-		return self::$current_user;
+	public static function isAdmin($currentUser) {
+		return $currentUser === self::$default_user;
+	}
+	public static function allowAnonymous() {
+		return self::$allow_anonymous;
+	}
+	public static function authType() {
+		return self::$auth_type;
+	}
+	public static function needsLogin() {
+		return self::$auth_type !== 'none';
+	}
+	public static function canLogIn() {
+		return self::$auth_type === 'persona';
+	}
+
+	public static function _allowAnonymous($allow = false) {
+		self::$allow_anonymous = (bool)$allow;
+	}
+	public static function _authType($value) {
+		$value = strtolower($value);
+		switch ($value) {
+			case 'http_auth':
+			case 'persona':
+			case 'none':
+				self::$auth_type = $value;
+				break;
+		}
 	}
 
 	/**
@@ -113,22 +142,37 @@ class Minz_Configuration {
 		}
 	}
 
+	public static function writeFile() {
+		$ini_array = array(
+			'general' => array(
+				'environment' => self::$environment,
+				'use_url_rewriting' => self::$use_url_rewriting,
+				'salt' => self::$salt,
+				'base_url' => self::$base_url,
+				'title' => self::$title,
+				'default_user' => self::$default_user,
+				'allow_anonymous' => self::$allow_anonymous,
+				'auth_type' => self::$auth_type,
+			),
+			'db' => self::$db,
+		);
+		@rename(DATA_PATH . self::CONF_PATH_NAME, DATA_PATH . self::CONF_PATH_NAME . '.bak.php');
+		$result = file_put_contents(DATA_PATH . self::CONF_PATH_NAME, "<?php\n return " . var_export($ini_array, true) . ';');
+		if (function_exists('opcache_invalidate')) {
+			opcache_invalidate(DATA_PATH . self::CONF_PATH_NAME);	//Clear PHP 5.5+ cache for include
+		}
+		return (bool)$result;
+	}
+
 	/**
-	 * Parse un fichier de configuration de type ".ini"
-	 * @exception Minz_FileNotExistException si le CONF_PATH_NAME n'existe pas
+	 * Parse un fichier de configuration
+	 * @exception Minz_PermissionDeniedException si le CONF_PATH_NAME n'est pas accessible
 	 * @exception Minz_BadConfigurationException si CONF_PATH_NAME mal formaté
 	 */
 	private static function parseFile () {
-		if (!file_exists (DATA_PATH . self::CONF_PATH_NAME)) {
-			throw new Minz_FileNotExistException (
-				DATA_PATH . self::CONF_PATH_NAME,
-				Minz_Exception::ERROR
-			);
-		}
-
 		$ini_array = include(DATA_PATH . self::CONF_PATH_NAME);
 
-		if (!$ini_array) {
+		if (!is_array($ini_array)) {
 			throw new Minz_PermissionDeniedException (
 				DATA_PATH . self::CONF_PATH_NAME,
 				Minz_Exception::ERROR
@@ -144,23 +188,30 @@ class Minz_Configuration {
 		}
 		$general = $ini_array['general'];
 
-		// sel_application est obligatoire
-		if (!isset ($general['sel_application'])) {
-			throw new Minz_BadConfigurationException (
-				'sel_application',
-				Minz_Exception::ERROR
-			);
+		// salt est obligatoire
+		if (!isset ($general['salt'])) {
+			if (isset($general['sel_application'])) {	//v0.6
+				$general['salt'] = $general['sel_application'];
+			} else {
+				throw new Minz_BadConfigurationException (
+					'salt',
+					Minz_Exception::ERROR
+				);
+			}
 		}
-		self::$sel_application = $general['sel_application'];
+		self::$salt = $general['salt'];
 
 		if (isset ($general['environment'])) {
 			switch ($general['environment']) {
+			case Minz_Configuration::SILENT:
 			case 'silent':
 				self::$environment = Minz_Configuration::SILENT;
 				break;
+			case Minz_Configuration::DEVELOPMENT:
 			case 'development':
 				self::$environment = Minz_Configuration::DEVELOPMENT;
 				break;
+			case Minz_Configuration::PRODUCTION:
 			case 'production':
 				self::$environment = Minz_Configuration::PRODUCTION;
 				break;
@@ -195,26 +246,28 @@ class Minz_Configuration {
 			}
 		}
 		if (isset ($general['delay_cache'])) {
-			self::$delay_cache = $general['delay_cache'];
+			self::$delay_cache = inval($general['delay_cache']);
 		}
 		if (isset ($general['default_user'])) {
 			self::$default_user = $general['default_user'];
-			self::$current_user = self::$default_user;
+		}
+		if (isset ($general['allow_anonymous'])) {
+			self::$allow_anonymous = ((bool)($general['allow_anonymous'])) && ($general['allow_anonymous'] !== 'no');
+		}
+		if (isset ($general['auth_type'])) {
+			self::_authType($general['auth_type']);
 		}
 
 		// Base de données
-		$db = false;
 		if (isset ($ini_array['db'])) {
 			$db = $ini_array['db'];
-		}
-		if ($db) {
-			if (!isset ($db['host'])) {
+			if (empty($db['host'])) {
 				throw new Minz_BadConfigurationException (
 					'host',
 					Minz_Exception::ERROR
 				);
 			}
-			if (!isset ($db['user'])) {
+			if (empty($db['user'])) {
 				throw new Minz_BadConfigurationException (
 					'user',
 					Minz_Exception::ERROR
@@ -226,33 +279,41 @@ class Minz_Configuration {
 					Minz_Exception::ERROR
 				);
 			}
-			if (!isset ($db['base'])) {
+			if (empty($db['base'])) {
 				throw new Minz_BadConfigurationException (
 					'base',
 					Minz_Exception::ERROR
 				);
 			}
 
-			self::$db['type'] = isset ($db['type']) ? $db['type'] : 'mysql';
+			if (!empty($db['type'])) {
+				self::$db['type'] = $db['type'];
+			}
 			self::$db['host'] = $db['host'];
 			self::$db['user'] = $db['user'];
 			self::$db['password'] = $db['password'];
 			self::$db['base'] = $db['base'];
-			self::$db['prefix'] = isset ($db['prefix']) ? $db['prefix'] : '';
+			if (isset($db['prefix'])) {
+				self::$db['prefix'] = $db['prefix'];
+			}
 		}
 	}
 
-	private static function setReporting () {
-		if (self::environment () == self::DEVELOPMENT) {
-			error_reporting (E_ALL);
-			ini_set ('display_errors','On');
-			ini_set('log_errors', 'On');
-		} elseif (self::environment () == self::PRODUCTION) {
-			error_reporting(E_ALL);
-			ini_set('display_errors','Off');
-			ini_set('log_errors', 'On');
-		} else {
-			error_reporting(0);
+	private static function setReporting() {
+		switch (self::$environment) {
+			case self::PRODUCTION:
+				error_reporting(E_ALL);
+				ini_set('display_errors','Off');
+				ini_set('log_errors', 'On');
+				break;
+			case self::DEVELOPMENT:
+				error_reporting(E_ALL);
+				ini_set('display_errors','On');
+				ini_set('log_errors', 'On');
+				break;
+			case self::SILENT:
+				error_reporting(0);
+				break;
 		}
 	}
 }

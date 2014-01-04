@@ -4,3 +4,5 @@ config.php
 *.sqlite
 touch.txt
 no-cache.txt
+*.bak.php
+*.lock.txt

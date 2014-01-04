@@ -2,18 +2,17 @@
 
 class FreshRSS_feed_Controller extends Minz_ActionController {
 	public function firstAction () {
-		$token = $this->view->conf->token();
-		$token_param = Minz_Request::param ('token', '');
-		$token_is_ok = ($token != '' && $token == $token_param);
-		$action = Minz_Request::actionName ();
-
-		if (login_is_conf ($this->view->conf) &&
-				!is_logged () &&
-				!($token_is_ok && $action == 'actualize')) {
-			Minz_Error::error (
-				403,
-				array ('error' => array (Minz_Translate::t ('access_denied')))
-			);
+		if (!$this->view->loginOk) {
+			$token = $this->view->conf->token;	//TODO: check the token logic again, and if it is still needed
+			$token_param = Minz_Request::param ('token', '');
+			$token_is_ok = ($token != '' && $token == $token_param);
+			$action = Minz_Request::actionName ();
+			if (!($token_is_ok && $action === 'actualize')) {
+				Minz_Error::error (
+					403,
+					array ('error' => array (Minz_Translate::t ('access_denied')))
+				);
+			}
 		}
 
 		$this->catDAO = new FreshRSS_CategoryDAO ();
@@ -79,13 +78,13 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 						$feed->_id ($id);
 						$feed->faviconPrepare();
 
-						$is_read = $this->view->conf->markUponReception() === 'yes' ? 1 : 0;
+						$is_read = $this->view->conf->mark_when['reception'] ? 1 : 0;
 
 						$entryDAO = new FreshRSS_EntryDAO ();
 						$entries = array_reverse($feed->entries());	//We want chronological order and SimplePie uses reverse order
 
 						// on calcule la date des articles les plus anciens qu'on accepte
-						$nb_month_old = $this->view->conf->oldEntries ();
+						$nb_month_old = $this->view->conf->old_entries;
 						$date_min = time () - (3600 * 24 * 30 * $nb_month_old);
 
 						$transactionStarted = true;
@@ -182,18 +181,17 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 		}
 
 		// on calcule la date des articles les plus anciens qu'on accepte
-		$nb_month_old = max($this->view->conf->oldEntries(), 1);
+		$nb_month_old = max($this->view->conf->old_entries, 1);
 		$date_min = time () - (3600 * 24 * 30 * $nb_month_old);
 
 		$i = 0;
 		$flux_update = 0;
+		$is_read = $this->view->conf->mark_when['reception'] ? 1 : 0;
 		foreach ($feeds as $feed) {
 			try {
 				$url = $feed->url();
 				$feed->load(false);
 				$entries = array_reverse($feed->entries());	//We want chronological order and SimplePie uses reverse order
-
-				$is_read = $this->view->conf->markUponReception() === 'yes' ? 1 : 0;
 
 				//For this feed, check last n entry GUIDs already in database
 				$existingGuids = array_fill_keys ($entryDAO->listLastGuidsByFeed ($feed->id (), count($entries) + 10), 1);
@@ -201,7 +199,7 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 
 				$feedHistory = $feed->keepHistory();
 				if ($feedHistory == -2) {	//default
-					$feedHistory = $this->view->conf->keepHistoryDefault();
+					$feedHistory = $this->view->conf->keep_history_default;
 				}
 
 				// On ne vérifie pas strictement que l'article n'est pas déjà en BDD
@@ -309,7 +307,7 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 		$this->addCategories ($categories);
 
 		// on calcule la date des articles les plus anciens qu'on accepte
-		$nb_month_old = $this->view->conf->oldEntries ();
+		$nb_month_old = $this->view->conf->old_entries;
 		$date_min = time () - (3600 * 24 * 30 * $nb_month_old);
 
 		// la variable $error permet de savoir si une erreur est survenue
@@ -412,10 +410,8 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 	}
 
 	private function addCategories ($categories) {
-		$catDAO = new FreshRSS_CategoryDAO ();
-
 		foreach ($categories as $cat) {
-			if (!$catDAO->searchByName ($cat->name ())) {
+			if (!$this->catDAO->searchByName ($cat->name ())) {
 				$values = array (
 					'id' => $cat->id (),
 					'name' => $cat->name (),

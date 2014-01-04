@@ -96,7 +96,14 @@ class Minz_Request {
 	 * @return la base de l'url
 	 */
 	public static function getBaseUrl () {
-		return Minz_Configuration::baseUrl ();
+		$defaultBaseUrl = Minz_Configuration::baseUrl();
+		if (!empty($defaultBaseUrl)) {
+			return $defaultBaseUrl;
+		} elseif (isset($_SERVER['REQUEST_URI'])) {
+			return dirname($_SERVER['REQUEST_URI']) . '/';
+		} else {
+			return '/';
+		}
 	}
 
 	/**
