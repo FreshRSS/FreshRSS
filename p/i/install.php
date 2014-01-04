@@ -12,7 +12,7 @@ if (isset ($_GET['step'])) {
 	define ('STEP', 1);
 }
 
-define('SQL_CREATE_DB', 'CREATE DATABASE %1$s DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;');
+define('SQL_CREATE_DB', 'CREATE DATABASE IF NOT EXISTS %1$s DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;');
 
 include(APP_PATH . '/sql.php');
 
@@ -556,12 +556,13 @@ function checkBD () {
 					PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8'
 				);
 
-				// on ouvre une connexion juste pour créer la base si elle n'existe pas
-				$str = 'mysql:host=' . $_SESSION['bd_host'] . ';';
-				$c = new PDO ($str, $_SESSION['bd_user'], $_SESSION['bd_password'], $driver_options);
-
-				$sql = sprintf (SQL_CREATE_DB, $_SESSION['bd_base']);
-				$res = $c->query ($sql);
+				try {	// on ouvre une connexion juste pour créer la base si elle n'existe pas
+					$str = 'mysql:host=' . $_SESSION['bd_host'] . ';';
+					$c = new PDO ($str, $_SESSION['bd_user'], $_SESSION['bd_password'], $driver_options);
+					$sql = sprintf (SQL_CREATE_DB, $_SESSION['bd_base']);
+					$res = $c->query ($sql);
+				} catch (PDOException $e) {
+				}
 
 				// on écrase la précédente connexion en sélectionnant la nouvelle BDD
 				$str = 'mysql:host=' . $_SESSION['bd_host'] . ';dbname=' . $_SESSION['bd_base'];
@@ -590,7 +591,7 @@ function checkBD () {
 		);
 		$ok = $stm->execute($values);
 	} catch (PDOException $e) {
-		$error = true;
+		$ok = false;
 	}
 
 	if (!$ok) {
