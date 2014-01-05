@@ -3,7 +3,7 @@ require('../../constants.php');
 include(LIB_PATH . '/lib_rss.php');
 
 session_name('FreshRSS');
-session_set_cookie_params(0, './', null, false, true);
+session_set_cookie_params(0, dirname(empty($_SERVER['REQUEST_URI']) ? '/' : dirname($_SERVER['REQUEST_URI'])), null, false, true);
 session_start();
 
 if (isset ($_GET['step'])) {
