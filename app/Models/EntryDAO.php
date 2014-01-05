@@ -14,8 +14,8 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 			$valuesTmp['content'],
 			substr($valuesTmp['link'], 0, 1023),
 			$valuesTmp['date'],
-			$valuesTmp['is_read'],
-			$valuesTmp['is_favorite'],
+			$valuesTmp['is_read'] ? 1 : 0,
+			$valuesTmp['is_favorite'] ? 1 : 0,
 			$valuesTmp['id_feed'],
 			substr($valuesTmp['tags'], 0, 1023),
 		);
