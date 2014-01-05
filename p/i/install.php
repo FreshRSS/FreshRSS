@@ -213,6 +213,8 @@ function saveStep3 () {
 				'base_url' => '',
 				'title' => $_SESSION['title'],
 				'default_user' => $_SESSION['default_user'],
+				'auth_type' => $_SESSION['auth_type'],
+				'allow_anonymous' => $_SESSION['allow_anonymous'],
 			),
 			'db' => array(
 				'type' => $_SESSION['bd_type'],
@@ -433,7 +435,7 @@ function checkStep0 () {
 	if ($ini_array) {
 		$ini_general = isset($ini_array['general']) ? $ini_array['general'] : null;
 		if ($ini_general) {
-			$keys = array('environment', 'salt', 'title', 'default_user');
+			$keys = array('environment', 'salt', 'title', 'default_user', 'allow_anonymous', 'auth_type');
 			foreach ($keys as $key) {
 				if ((empty($_SESSION[$key])) && isset($ini_general[$key])) {
 					$_SESSION[$key] = $ini_general[$key];
@@ -455,6 +457,12 @@ function checkStep0 () {
 		$userConfig = include(DATA_PATH . '/' . $_SESSION['default_user'] . '_user.php');
 	} elseif (file_exists(DATA_PATH . '/Configuration.array.php')) {
 		$userConfig = include(DATA_PATH . '/Configuration.array.php');	//v0.6
+		if (empty($_SESSION['auth_type'])) {
+			$_SESSION['auth_type'] = empty($userConfig['mail_login']) ? 'none' : 'persona';
+		}
+		if (!isset($_SESSION['allow_anonymous'])) {
+			$_SESSION['allow_anonymous'] = empty($userConfig['anon_access']) ? false : ($userConfig['anon_access'] === 'yes');
+		}
 	} else {
 		$userConfig = array();
 	}
@@ -487,6 +495,7 @@ function checkStep1 () {
 	$cache = CACHE_PATH && is_writable (CACHE_PATH);
 	$log = LOG_PATH && is_writable (LOG_PATH);
 	$favicons = is_writable (DATA_PATH . '/favicons');
+	$persona = is_writable (DATA_PATH . '/persona');
 
 	return array (
 		'php' => $php ? 'ok' : 'ko',
@@ -500,7 +509,8 @@ function checkStep1 () {
 		'cache' => $cache ? 'ok' : 'ko',
 		'log' => $log ? 'ok' : 'ko',
 		'favicons' => $favicons ? 'ok' : 'ko',
-		'all' => $php && $minz && $curl && $pdo && $pcre && $ctype && $dom && $data && $cache && $log && $favicons ? 'ok' : 'ko'
+		'persona' => $persona ? 'ok' : 'ko',
+		'all' => $php && $minz && $curl && $pdo && $pcre && $ctype && $dom && $data && $cache && $log && $favicons && $persona ? 'ok' : 'ko'
 	);
 }
 
@@ -708,6 +718,12 @@ function printStep1 () {
 	<p class="alert alert-success"><span class="alert-head"><?php echo _t ('ok'); ?></span> <?php echo _t ('favicons_is_ok'); ?></p>
 	<?php } else { ?>
 	<p class="alert alert-error"><span class="alert-head"><?php echo _t ('damn'); ?></span> <?php echo _t ('file_is_nok', DATA_PATH . '/favicons'); ?></p>
+	<?php } ?>
+
+	<?php if ($res['persona'] == 'ok') { ?>
+	<p class="alert alert-success"><span class="alert-head"><?php echo _t ('ok'); ?></span> <?php echo _t ('persona_is_ok'); ?></p>
+	<?php } else { ?>
+	<p class="alert alert-error"><span class="alert-head"><?php echo _t ('damn'); ?></span> <?php echo _t ('file_is_nok', DATA_PATH . '/persona'); ?></p>
 	<?php } ?>
 
 	<?php if ($res['all'] == 'ok') { ?>
