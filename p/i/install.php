@@ -423,8 +423,9 @@ function checkStep0 () {
 
 	if (file_exists(DATA_PATH . '/config.php')) {
 		$ini_array = include(DATA_PATH . '/config.php');
-	} elseif (file_exists(DATA_PATH . '/application.ini')) {
+	} elseif (file_exists(DATA_PATH . '/application.ini')) {	//v0.6
 		$ini_array = parse_ini_file(DATA_PATH . '/application.ini', true);
+		$ini_array['general']['title'] = empty($ini_array['general']['title']) ? '' : stripslashes($ini_array['general']['title']);
 	} else {
 		$ini_array = null;
 	}
