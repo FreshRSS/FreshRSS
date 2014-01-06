@@ -257,37 +257,24 @@
 		border-top: 1px solid #ddd;
 		cursor: pointer;
 	}
-		.flux .flux_header > .item > a,
-		.flux .bottom > .item > a {
-			display: inline-block;
-			height: 40px;
-			width: 100%;
+		.flux .item {
 			line-height: 40px;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			white-space: nowrap;
 		}
 		.flux .item.manage {
 			width: 40px;
-			white-space: nowrap;
 			text-align: center;
 		}
 		.flux .item.website {
 			width: 200px;
-			overflow: hidden;
-			white-space: nowrap;
-			text-overflow: ellipsis;
-			line-height: 40px;
 		}
-			.flux .item.website .favicon {
+			.website .favicon {
 				padding: 5px;
-			}
-			.flux .item.website a {
-				display: block;
-				height: 40px;
 			}
 		.flux .item.title {
 			background: inherit;
-			overflow: hidden;
-			white-space: nowrap;
-			text-overflow: ellipsis;
 		}
 		.flux:hover .item.title {
 			border-right: 2px solid rgba(127, 127, 127, 0.1);
@@ -304,10 +291,7 @@
 			}
 		.flux .item.date {
 			width: 200px;
-			overflow: hidden;
 			padding:0 5px 0 0;
-			white-space: nowrap;
-			text-overflow: ellipsis;
 			text-align: right;
 			font-size: 10px;
 			color: #666;

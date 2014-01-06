@@ -48,7 +48,7 @@
 	* Meilleur support des longs titres d’articles sur des écrans étroits
 	* Meilleure accessibilité
 		* FreshRSS fonctionne aussi en mode dégradé sans images (alternatives Unicode) et/ou sans CSS
-	* Nouveau thème noir par @aledeg
+	* Nouveau thème noir
 	* Diverses améliorations mineures
 * PHP :
 	* Encore plus tolérant pour les flux comportant des erreurs

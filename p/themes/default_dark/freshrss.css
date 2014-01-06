@@ -28,7 +28,7 @@
 			.header > .item.title h1 {
 				display: inline-block;
 				margin: 0;
-				text-shadow: 1px -1px 0 #ccc;
+				text-shadow: 1px -1px 0 #777;
 			}
 		.header > .item.search input {
 			width: 230px;
@@ -138,7 +138,7 @@
 		list-style: none;
 	}
 		.categories .feeds .item.active {
-			background: #003388;
+			background: #26303F;
 		}
 		.categories .feeds .item.active .feed {
 			color: #888;
@@ -249,37 +249,24 @@
 		border-top: 1px solid #2f2f2f;
 		cursor: pointer;
 	}
-		.flux .flux_header > .item > a,
-		.flux .bottom > .item > a {
-			display: inline-block;
-			height: 40px;
-			width: 100%;
+		.flux .item {
 			line-height: 40px;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			white-space: nowrap;
 		}
 		.flux .item.manage {
 			width: 40px;
-			white-space: nowrap;
 			text-align: center;
 		}
 		.flux .item.website {
 			width: 200px;
-			overflow: hidden;
-			white-space: nowrap;
-			text-overflow: ellipsis;
-			line-height: 40px;
 		}
-			.flux .item.website .favicon {
+			.website .favicon {
 				padding: 5px;
-			}
-			.flux .item.website a {
-				display: block;
-				height: 40px;
 			}
 		.flux .item.title {
 			background: inherit;
-			overflow: hidden;
-			white-space: nowrap;
-			text-overflow: ellipsis;
 		}
 		.flux:hover .item.title {
 			border-right: 2px solid rgba(127, 127, 127, 0.1);
@@ -296,10 +283,7 @@
 			}
 		.flux .item.date {
 			width: 200px;
-			overflow: hidden;
 			padding:0 5px 0 0;
-			white-space: nowrap;
-			text-overflow: ellipsis;
 			text-align: right;
 			font-size: 10px;
 			color: #666;
@@ -345,7 +329,7 @@
 			height: 35px;
 			margin: 0;
 			padding: 0 10px;
-			background: #003388;
+			background: #26303F;
 			border: none;
 			border-bottom: 1px solid #2f2f2f;
 			border-radius: 5px 5px 0 0;
@@ -785,19 +769,19 @@ select.number option {
 	background: #1c1c1c;
 }
 	.btn:hover {
-		background: -moz-linear-gradient(top, #1e1e1e 0%, #1c1c1c 100%);
-		background: -webkit-linear-gradient(top, #1e1e1e 0%, #1c1c1c 100%);
-		background: -o-linear-gradient(top, #1e1e1e 0%, #1c1c1c 100%);
-		background: -ms-linear-gradient(top, #1e1e1e 0%, #1c1c1c 100%);
+		background: -moz-linear-gradient(top, #4A5D7A 0%, #26303F 100%);
+		background: -webkit-linear-gradient(top, #4A5D7A 0%, #26303F 100%);
+		background: -o-linear-gradient(top, #4A5D7A 0%, #26303F 100%);
+		background: -ms-linear-gradient(top, #4A5D7A 0%, #26303F 100%);
 	}
 	.btn-important {
-		background: #003388;
+		background: #26303F;
 	}
 		.btn-important:hover {
-			background: -moz-linear-gradient(top, #0044CC 0%, #003388 100%);
-			background: -webkit-linear-gradient(top, #0044CC 0%, #003388 100%);
-			background: -o-linear-gradient(top, #0044CC 0%, #003388 100%);
-			background: -ms-linear-gradient(top, #0044CC 0%, #003388 100%);
+			background: -moz-linear-gradient(top, #4A5D7A 0%, #26303F 100%);
+			background: -webkit-linear-gradient(top, #4A5D7A 0%, #26303F 100%);
+			background: -o-linear-gradient(top, #4A5D7A 0%, #26303F 100%);
+			background: -ms-linear-gradient(top, #4A5D7A 0%, #26303F 100%);
 		}
 	.btn-attention {
 		background: #880011;
