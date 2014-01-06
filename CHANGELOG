@@ -10,7 +10,7 @@
 		* par Mozilla Persona, en renseignant l’adresse courriel des utilisateurs
 * Installateur supportant les mises à jour :
 	* Depuis une v0.6, placer application.ini et Configuration.array.php dans le nouveau répertoire “./data/” (voir réorganisation ci-dessous)
-	* Pour les versions suivantes, juste garder “./data/config.php” “./data/*_user.php”
+	* Pour les versions suivantes, juste garder “./data/config.php” et “./data/*_user.php”, éventuellement “./data/persona/*”
 * Importation OPML instantanée et plus tolérante
 * Nouvelle gestion des favicons avec téléchargement en parallèle
 * Nouvelles options
@@ -29,6 +29,7 @@
 		* Mots clefs de recherche “intitle:”, “inurl:”, “author:”
 	* Les articles sont triés selon la date de leur ajout dans FreshRSS plutôt que la date déclarée (souvent erronée)
 		* Permet de marquer tout comme lu sans affecter les nouveaux articles arrivés en cours de lecture
+		* Permet une pagination efficace
 	* Refactorisation
 		* Les tables sont préfixées avec le nom d’utilisateur afin de permettre le mode multi-utilisateurs
 		* Amélioration des performances
@@ -57,7 +58,7 @@
 	* Amélioration des performances
 	* Chargement automatique des classes
 	* Alternative dans le cas d’absence de librairie JSON
-	* Pour le développement, le cache HTTP peut être désactivé en créant un fichier “./no-cache.txt”
+	* Pour le développement, le cache HTTP peut être désactivé en créant un fichier “./data/no-cache.txt”
 * Réorganisation des fichiers et répertoires, en particulier :
 	* Tous les fichiers utilisateur sont dans “./data/” (y compris “cache”, “favicons”, et “log”)
 	* Déplacement de “./app/configuration/application.ini” vers “./data/config.php”
