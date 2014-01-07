@@ -237,7 +237,6 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 		$assert = Minz_Request::param ('assertion');
 		$params = 'assertion=' . $assert . '&audience=' .
 			  urlencode (Minz_Url::display (null, 'php', true));
-		file_put_contents(DATA_PATH . '/log/persona.log', date('c') . ' login params=' . print_r($params, true) . "\n", FILE_APPEND);	//DEBUG
 		$ch = curl_init ();
 		$options = array (
 			CURLOPT_URL => $url,
@@ -253,10 +252,8 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 
 		$loginOk = false;
 		$reason = '';
-		file_put_contents(DATA_PATH . '/log/persona.log', date('c') . ' login response=' . print_r($res, true) . "\n", FILE_APPEND);	//DEBUG
 		if ($res['status'] === 'okay') {
 			$email = filter_var($res['email'], FILTER_VALIDATE_EMAIL);
-			file_put_contents(DATA_PATH . '/log/persona.log', date('c') . ' filtered_email=' . $email . "\n", FILE_APPEND);	//DEBUG
 			if ($email != '') {
 				$personaFile = DATA_PATH . '/persona/' . $email . '.txt';
 				if (($currentUser = @file_get_contents($personaFile)) !== false) {
@@ -280,14 +277,12 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 			Minz_Session::_param('currentUser', $currentUser);
 			Minz_Session::_param ('mail', $email);
 			$this->view->loginOk = true;
-			file_put_contents(DATA_PATH . '/log/persona.log', date('c') . ' Login OK email=' . $email . ', currentUser=' . $currentUser . "\n", FILE_APPEND);	//DEBUG
 			invalidateHttpCache();
 		} else {
 			$res = array ();
 			$res['status'] = 'failure';
 			$res['reason'] = $reason == '' ? Minz_Translate::t ('invalid_login') : $reason;
 			Minz_Log::record ('Persona: ' . $res['reason'], Minz_Log::WARNING);
-			file_put_contents(DATA_PATH . '/log/persona.log', date('c') . ' Failure=' . print_r($res, true) . "\n", FILE_APPEND);	//DEBUG
 		}
 
 		header('Content-Type: application/json; charset=UTF-8');

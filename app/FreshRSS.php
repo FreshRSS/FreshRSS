@@ -11,7 +11,6 @@ class FreshRSS extends Minz_FrontController {
 	}
 
 	private function accessControl($currentUser) {
-		file_put_contents(DATA_PATH . '/log/persona.log', date('c') . ' authType=' . Minz_Configuration::authType() . "\n", FILE_APPEND);	//DEBUG
 		if ($currentUser == '') {
 			switch (Minz_Configuration::authType()) {
 				case 'http_auth':
@@ -19,15 +18,12 @@ class FreshRSS extends Minz_FrontController {
 					$loginOk = $currentUser != '';
 					break;
 				case 'persona':
-					file_put_contents(DATA_PATH . '/log/persona.log', date('c') . ' Persona access control' . "\n", FILE_APPEND);	//DEBUG
 					$loginOk = false;
 					$email = filter_var(Minz_Session::param('mail'), FILTER_VALIDATE_EMAIL);
-					file_put_contents(DATA_PATH . '/log/persona.log', date('c') . ' Persona email=' . Minz_Session::param('mail') . ', filtered_email=' . $email . "\n", FILE_APPEND);
 					if ($email != '') {	//TODO: Remove redundancy with indexController
 						$personaFile = DATA_PATH . '/persona/' . $email . '.txt';
 						if (($currentUser = @file_get_contents($personaFile)) !== false) {
 							$currentUser = trim($currentUser);
-							file_put_contents(DATA_PATH . '/log/persona.log', date('c') . ' Persona user from file=' . $currentUser . "\n", FILE_APPEND);	//DEBUG
 							$loginOk = true;
 						}
 					}
@@ -81,7 +77,6 @@ class FreshRSS extends Minz_FrontController {
 					$loginOk = strcasecmp($currentUser, httpAuthUser()) === 0;
 					break;
 				case 'persona':
-					file_put_contents(DATA_PATH . '/log/persona.log', date('c') . ' Persona compare session_email=' . Minz_Session::param('mail') . ' with config_email=' . $this->conf->mail_login . "\n", FILE_APPEND);	//DEBUG
 					$loginOk = strcasecmp(Minz_Session::param('mail'), $this->conf->mail_login) === 0;
 					break;
 				case 'none':
