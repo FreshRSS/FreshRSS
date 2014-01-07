@@ -28,7 +28,6 @@
 			.header > .item.title h1 {
 				display: inline-block;
 				margin: 0;
-				text-shadow: 1px -1px 0 #777;
 			}
 		.header > .item.search input {
 			width: 230px;
@@ -642,7 +641,7 @@
 }
 
 .form-group tr, .form-group th, .form-group td {
-	border:1px solid #DDD;
+	border:1px solid #2f2f2f;
 	font-weight:normal;
 	padding:.5em;
 }

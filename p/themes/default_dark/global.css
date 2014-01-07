@@ -109,7 +109,7 @@ input, select, textarea {
 		min-height: 15px !important;
 	}
 	input:focus, select:focus, textarea:focus {
-		color: #0062BE;
+		color: #6986b2;
 		border-color: #2f2f2f;
 	}
 	input:invalid, select:invalid {
