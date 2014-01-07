@@ -21,6 +21,6 @@ class FreshRSS_error_Controller extends Minz_ActionController {
 		
 		$this->view->logs = Minz_Request::param ('logs');
 		
-		Minz_View::prependTitle ($this->view->code . ' - ');
+		Minz_View::prependTitle ($this->view->code . ' · ');
 	}
 }

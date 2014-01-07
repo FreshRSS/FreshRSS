@@ -43,14 +43,14 @@ if (!empty($this->entries)) {
 	<?php if ($display_today && $item->isDay (FreshRSS_Days::TODAY, $this->today)) { ?>
 	<div class="day" id="day_today">
 		<?php echo Minz_Translate::t ('today'); ?>
-		<span class="date"> - <?php echo timestamptodate (time (), false); ?></span>
+		<span class="date"> — <?php echo timestamptodate (time (), false); ?></span>
 		<span class="name"><?php echo $this->currentName; ?></span>
 	</div>
 	<?php $display_today = false; } ?>
 	<?php if ($display_yesterday && $item->isDay (FreshRSS_Days::YESTERDAY, $this->today)) { ?>
 	<div class="day" id="day_yesterday">
 		<?php echo Minz_Translate::t ('yesterday'); ?>
-		<span class="date"> - <?php echo timestamptodate (time () - 86400, false); ?></span>
+		<span class="date"> — <?php echo timestamptodate (time () - 86400, false); ?></span>
 		<span class="name"><?php echo $this->currentName; ?></span>
 	</div>
 	<?php $display_yesterday = false; } ?>
@@ -118,7 +118,7 @@ if (!empty($this->entries)) {
 					<?php
 						if ($bottomline_sharing) {
 							$link = urlencode ($item->link ());
-							$title = urlencode ($item->title () . ' - ' . $feed->name ());
+							$title = urlencode ($item->title () . ' · ' . $feed->name ());
 					?>
 					<div class="dropdown">
 						<div id="dropdown-share-<?php echo $item->id ();?>" class="dropdown-target"></div>

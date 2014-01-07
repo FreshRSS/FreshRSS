@@ -87,7 +87,7 @@ function mark_read(active, only_not_read) {
 		}
 
 		//Update unread: title
-		document.title = document.title.replace(/((?: \(\d+\))?)( - .*?)((?: \(\d+\))?)$/, function (m, p1, p2, p3) {
+		document.title = document.title.replace(/((?: \(\d+\))?)( · .*?)((?: \(\d+\))?)$/, function (m, p1, p2, p3) {
 			return incLabel(p1, inc) + p2 + incLabel(p3, feed_priority > 0 ? inc : 0);
 		});
 	});

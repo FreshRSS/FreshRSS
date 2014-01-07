@@ -1,8 +1,8 @@
 <?php
 return array (
-	'freshrss_installation'		=> 'Installation - FreshRSS',
+	'freshrss_installation'		=> 'Installation · FreshRSS',
 	'freshrss'			=> 'FreshRSS',
-	'installation_step'		=> 'Installation - step %d',
+	'installation_step'		=> 'Installation — step %d · FreshRSS',
 	'steps'				=> 'Steps',
 	'checks'			=> 'Checks',
 	'general_configuration'	=> 'General configuration',

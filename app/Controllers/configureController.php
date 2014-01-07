@@ -66,7 +66,7 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 		$this->view->feeds = $feedDAO->listFeeds ();
 		$this->view->flux = false;
 
-		Minz_View::prependTitle (Minz_Translate::t ('categories_management') . ' - ');
+		Minz_View::prependTitle (Minz_Translate::t ('categories_management') . ' · ');
 	}
 
 	public function feedAction () {
@@ -133,10 +133,10 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 					Minz_Request::forward (array ('c' => 'configure', 'a' => 'feed', 'params' => array ('id' => $id)), true);
 				}
 
-				Minz_View::prependTitle (Minz_Translate::t ('rss_feed_management') . ' - ' . $this->view->flux->name () . ' - ');
+				Minz_View::prependTitle (Minz_Translate::t ('rss_feed_management') . ' — ' . $this->view->flux->name () . ' · ');
 			}
 		} else {
-			Minz_View::prependTitle (Minz_Translate::t ('rss_feed_management') . ' - ');
+			Minz_View::prependTitle (Minz_Translate::t ('rss_feed_management') . ' · ');
 		}
 	}
 
@@ -185,7 +185,7 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 
 		$this->view->themes = FreshRSS_Themes::get();
 
-		Minz_View::prependTitle (Minz_Translate::t ('reading_configuration') . ' - ');
+		Minz_View::prependTitle (Minz_Translate::t ('reading_configuration') . ' · ');
 	}
 
 	public function sharingAction () {
@@ -212,7 +212,7 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 			Minz_Request::forward (array ('c' => 'configure', 'a' => 'sharing'), true);
 		}
 
-		Minz_View::prependTitle (Minz_Translate::t ('sharing_management') . ' - ');
+		Minz_View::prependTitle (Minz_Translate::t ('sharing') . ' · ');
 	}
 
 	public function importExportAction () {
@@ -277,7 +277,7 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 		// au niveau de la vue, permet de ne pas voir un flux sélectionné dans la liste
 		$this->view->flux = false;
 
-		Minz_View::prependTitle (Minz_Translate::t ('import_export_opml') . ' - ');
+		Minz_View::prependTitle (Minz_Translate::t ('import_export_opml') . ' · ');
 	}
 
 	public function shortcutAction () {
@@ -313,11 +313,11 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 			Minz_Request::forward (array ('c' => 'configure', 'a' => 'shortcut'), true);
 		}
 
-		Minz_View::prependTitle (Minz_Translate::t ('shortcuts_management') . ' - ');
+		Minz_View::prependTitle (Minz_Translate::t ('shortcuts') . ' · ');
 	}
 
 	public function usersAction() {
-		Minz_View::prependTitle(Minz_Translate::t ('users') . ' - ');
+		Minz_View::prependTitle(Minz_Translate::t ('users') . ' · ');
 	}
 
 	public function archivingAction () {
@@ -339,7 +339,7 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 			Minz_Request::forward(array('c' => 'configure', 'a' => 'archiving'), true);
 		}
 
-		Minz_View::prependTitle(Minz_Translate::t('archiving_configuration') . ' - ');
+		Minz_View::prependTitle(Minz_Translate::t('archiving_configuration') . ' · ');
 
 		$entryDAO = new FreshRSS_EntryDAO();
 		$this->view->nb_total = $entryDAO->count();

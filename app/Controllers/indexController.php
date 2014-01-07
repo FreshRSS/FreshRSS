@@ -83,7 +83,7 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 		Minz_View::prependTitle (
 			$this->view->currentName .
 			($this->nb_not_read_cat > 0 ? ' (' . $this->nb_not_read_cat . ')' : '') .
-			' - '
+			' · '
 		);
 
 		// On récupère les différents éléments de filtrage
@@ -204,7 +204,7 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 	}
 
 	public function aboutAction () {
-		Minz_View::prependTitle (Minz_Translate::t ('about') . ' - ');
+		Minz_View::prependTitle (Minz_Translate::t ('about') . ' · ');
 	}
 
 	public function logsAction () {
@@ -215,7 +215,7 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 			);
 		}
 
-		Minz_View::prependTitle (Minz_Translate::t ('logs') . ' - ');
+		Minz_View::prependTitle (Minz_Translate::t ('logs') . ' · ');
 
 		if (Minz_Request::isPost ()) {
 			FreshRSS_LogDAO::truncate();
