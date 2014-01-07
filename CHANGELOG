@@ -9,8 +9,10 @@
 			* le nom d’utilisateur HTTP doit correspondre au nom d’utilisateur FreshRSS
 		* par Mozilla Persona, en renseignant l’adresse courriel des utilisateurs
 * Installateur supportant les mises à jour :
-	* Depuis une v0.6, placer application.ini et Configuration.array.php dans le nouveau répertoire “./data/” (voir réorganisation ci-dessous)
-	* Pour les versions suivantes, juste garder “./data/config.php” et “./data/*_user.php”, éventuellement “./data/persona/*”
+	* Depuis une v0.6, placer application.ini et Configuration.array.php dans le nouveau répertoire “./data/”
+		(voir réorganisation ci-dessous)
+	* Pour les versions suivantes, juste garder “./data/config.php” et “./data/*_user.php”,
+		éventuellement “./data/persona/*”
 * Importation OPML instantanée et plus tolérante
 * Nouvelle gestion des favicons avec téléchargement en parallèle
 * Nouvelles options
@@ -39,17 +41,18 @@
 	* Affichage de la taille de la base de données dans FreshRSS
 	* Correction problème de marquage de tous les favoris comme lus
 * HTML5 :
-	* Support des balises HTML5 audio, video, et éléments associés (preload="none", et réécriture correcte des adresses, aussi en HTTPS)
+	* Support des balises HTML5 audio, video, et éléments associés
+		* Utilisation de preload="none", et réécriture correcte des adresses, aussi en HTTPS
 	* Protection HTML5 des iframe (sandbox="allow-scripts allow-same-origin")
 	* Filtrage des object et embed
 	* Chargement différé HTML5 (postpone="") pour iframe et video
 	* Chargement différé JavaScript pour iframe
 * CSS :
+	* Nouveau thème sombre
 	* Meilleur support des longs titres d’articles sur des écrans étroits
 	* Meilleure accessibilité
 		* FreshRSS fonctionne aussi en mode dégradé sans images (alternatives Unicode) et/ou sans CSS
-	* Nouveau thème noir
-	* Diverses améliorations mineures
+	* Diverses améliorations
 * PHP :
 	* Encore plus tolérant pour les flux comportant des erreurs
 	* Mise à jour automatique de l’URL du flux (en base de données) lorsque SimplePie découvre qu’elle a changé
@@ -66,7 +69,7 @@
 	* Déplacement de “./public/” vers “./p/”
 		* Déplacement de “./public/index.php” vers “./p/i/index.php” (voir cookie ci-dessous)
 	* Déplacement de “./actualize_script.php” vers “./app/actualize_script.php” (pour une meilleure sécurité)
-		* Pensez à mettre à jour votre CRON !
+		* Pensez à mettre à jour votre Cron !
 * Divers :
 	* Nouvelle politique de cookie de session (témoin de connexion)
 		* Utilise un nom poli “FreshRSS” (évite des problèmes avec certains filtres)
