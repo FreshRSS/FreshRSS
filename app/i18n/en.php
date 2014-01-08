@@ -44,7 +44,7 @@ return array (
 	'rss_view'			=> 'RSS feed',
 	'show_all_articles'		=> 'Show all articles',
 	'show_not_reads'		=> 'Show only unread',
-	'show_read'				=> 'Show only read',
+	'show_read'			=> 'Show only read',
 	'show_favorite'			=> 'Show favorites',
 	'older_first'			=> 'Oldest first',
 	'newer_first'			=> 'Newer first',

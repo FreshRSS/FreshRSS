@@ -26,6 +26,7 @@
 	* Permet de modifier la description et l’adresse d’un flux RSS ainsi que le site Web associé
 	* Nouveau raccourci pour ouvrir/fermer un article (‘c’ par défaut)
 	* Boutons pour effacer les logs et pour purger les vieux articles
+	* Nouveaux filtres d’affichage : seulement les articles favoris, et seulement les articles lus
 * SQL :
 	* Nouveau moteur de recherche, aussi accessible depuis la vue mobile
 		* Mots clefs de recherche “intitle:”, “inurl:”, “author:”
