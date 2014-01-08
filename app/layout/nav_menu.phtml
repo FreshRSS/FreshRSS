@@ -128,24 +128,52 @@
 
 			<li class="separator"></li>
 
+			<?php
+				$url_state = $url;
+				$url_state['params']['state'] = 'all';
+				if (strcmp($this->state, $url_state['params']['state']) <> 0) {
+			?>
 			<li class="item">
-				<?php
-					$url_state = $url;
-					if ($this->state == 'not_read') {
-						$url_state['params']['state'] = 'all';
-				?>
 				<a class="print_all" href="<?php echo Minz_Url::display ($url_state); ?>">
 					<?php echo Minz_Translate::t ('show_all_articles'); ?>
 				</a>
-				<?php
-					} else {
-						$url_state['params']['state'] = 'not_read';
-				?>
+			</li>
+			<?php } ?>
+
+			<?php
+				$url_state['params']['state'] = 'not_read';
+				if (strcmp($this->state, $url_state['params']['state']) <> 0) {
+			?>
+			<li class="item">
 				<a class="print_non_read" href="<?php echo Minz_Url::display ($url_state); ?>">
 					<?php echo Minz_Translate::t ('show_not_reads'); ?>
 				</a>
-				<?php } ?>
 			</li>
+			<?php } ?>
+
+			<?php
+				$url_state['params']['state'] = 'read';
+				if (strcmp($this->state, $url_state['params']['state']) <> 0) {
+			?>
+			<li class="item">
+				<a class="print_read" href="<?php echo Minz_Url::display ($url_state); ?>">
+					<?php echo Minz_Translate::t ('show_read'); ?>
+				</a>
+			</li>
+			<?php } ?>
+
+			<?php
+				$url_state['params']['state'] = 'favorite';
+				if (strcmp($this->state, $url_state['params']['state']) <> 0) {
+			?>
+			<li class="item">
+				<a class="print_read" href="<?php echo Minz_Url::display ($url_state); ?>">
+					<?php echo Minz_Translate::t ('show_favorite'); ?>
+				</a>
+			</li>
+			<?php } ?>
+
+			<li class="separator"></li>
 
 			<li class="item">
 				<?php
