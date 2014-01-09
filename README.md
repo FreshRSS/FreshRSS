@@ -8,7 +8,7 @@ Il permet de gérer plusieurs utilisateurs, et dispose d’un mode de lecture an
 * Site officiel : http://freshrss.org
 * Démo : http://marienfressinaud.fr/projets/freshrss/
 * Développeur : Marien Fressinaud <dev@marienfressinaud.fr>
-* Version actuelle : 0.7-beta4
+* Version actuelle : 0.7-dev
 * Date de publication 2014-01-xx
 * License [GNU AGPL 3](http://www.gnu.org/licenses/agpl-3.0.html)
 
