@@ -132,7 +132,7 @@
 				$url_state = $url;
 				$url_state['params']['state'] = 'all';
 			?>
-			<li class="item <?php if ($this->state == 'all') echo "selected"?>">
+			<li class="item" role="checkbox" aria-checked="<?php echo ($this->state === 'all') ? 'true' :'false'; ?>">
 				<a class="print_all" href="<?php echo Minz_Url::display ($url_state); ?>">
 					<?php echo Minz_Translate::t ('show_all_articles'); ?>
 				</a>
@@ -140,23 +140,23 @@
 			<?php
 				$url_state['params']['state'] = 'not_read';
 			?>
-			<li class="item <?php if ($this->state == 'not_read') echo "selected"?>">
+			<li class="item" role="checkbox" aria-checked="<?php echo ($this->state === 'not_read') ? 'true' :'false'; ?>">
 				<a class="print_non_read" href="<?php echo Minz_Url::display ($url_state); ?>">
 					<?php echo Minz_Translate::t ('show_not_reads'); ?>
 				</a>
 			</li>
 			<?php
-					$url_state['params']['state'] = 'read';
+				$url_state['params']['state'] = 'read';
 			?>
-			<li class="item <?php if ($this->state == 'read') echo "selected"?>">
+			<li class="item" role="checkbox" aria-checked="<?php echo ($this->state === 'read') ? 'true' :'false'; ?>">
 				<a class="print_read" href="<?php echo Minz_Url::display ($url_state); ?>">
 					<?php echo Minz_Translate::t ('show_read'); ?>
 				</a>
 			</li>
 			<?php
-					$url_state['params']['state'] = 'favorite';
+				$url_state['params']['state'] = 'favorite';
 			?>
-			<li class="item <?php if ($this->state == 'favorite') echo "selected"?>">
+			<li class="item" role="checkbox" aria-checked="<?php echo ($this->state === 'favorite') ? 'true' :'false'; ?>">
 				<a class="print_favorite" href="<?php echo Minz_Url::display ($url_state); ?>">
 					<?php echo Minz_Translate::t ('show_favorite'); ?>
 				</a>

@@ -386,22 +386,22 @@ input, select, textarea {
 			font-size: 90%;
 			line-height: 30px;
 		}
-		.dropdown-menu .item.selected{
-			background: #26303f;
-		}
-		.dropdown-menu .item.selected a{
-			color: #888;
-		}
-			.dropdown-menu .item > * {
+			.dropdown-menu > .item > a {
 				display: block;
 				padding: 0 25px;
 				line-height: 30px;
 			}
-			.dropdown-menu .item:hover {
+			.dropdown-menu > .item:hover {
 				background: #26303F;
 				color: #888;
 			}
-				.dropdown-menu .item:hover > * {
+				.dropdown-menu > .item[aria-checked="true"] > a:before {
+					content: '✓ ';
+					font-weight: bold;
+					margin: 0 0 0 -1.2em;
+					padding: 0 0.2em 0 0;
+				}
+				.dropdown-menu > .item:hover > a {
 					color: #888;
 					text-decoration: none;
 				}
