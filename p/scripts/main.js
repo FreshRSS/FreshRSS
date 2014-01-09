@@ -25,6 +25,46 @@ function incLabel(p, inc) {
 	return i > 0 ? ' (' + i + ')' : '';
 }
 
+function incUnreadsFeed(article, feed_id, nb) {
+	//Update unread: feed
+	var elem = $('#' + feed_id + '>.feed').get(0),
+		feed_unreads = elem ? (parseInt(elem.getAttribute('data-unread'), 10) || 0) : 0,
+		feed_priority = elem ? (parseInt(elem.getAttribute('data-priority'), 10) || 0) : 0;
+	if (elem) {
+		elem.setAttribute('data-unread', Math.max(0, feed_unreads + nb));
+	}
+
+	//Update unread: category
+	elem = $('#' + feed_id).parent().prevAll('.category').children(':first').get(0);
+	feed_unreads = elem ? (parseInt(elem.getAttribute('data-unread'), 10) || 0) : 0;
+	if (elem) {
+		elem.setAttribute('data-unread', Math.max(0, feed_unreads + nb));
+	}
+
+	//Update unread: all
+	if (feed_priority > 0) {
+		elem = $('#aside_flux .all').children(':first').get(0);
+		if (elem) {
+			feed_unreads = elem ? (parseInt(elem.getAttribute('data-unread'), 10) || 0) : 0;
+			elem.setAttribute('data-unread', Math.max(0, feed_unreads + nb));
+		}
+	}
+
+	//Update unread: favourites
+	if (article && article.closest('div').hasClass('favorite')) {
+		elem = $('#aside_flux .favorites').children(':first').get(0);
+		if (elem) {
+			feed_unreads = elem ? (parseInt(elem.getAttribute('data-unread'), 10) || 0) : 0;
+			elem.setAttribute('data-unread', Math.max(0, feed_unreads + nb));
+		}
+	}
+
+	//Update unread: title
+	document.title = document.title.replace(/((?: \(\d+\))?)( · .*?)((?: \(\d+\))?)$/, function (m, p1, p2, p3) {
+		return incLabel(p1, nb) + p2 + incLabel(p3, feed_priority > 0 ? nb : 0);
+	});
+}
+
 function mark_read(active, only_not_read) {
 	if (active[0] === undefined || (only_not_read === true && !active.hasClass("not_read"))) {
 		return false;
@@ -51,45 +91,9 @@ function mark_read(active, only_not_read) {
 		}
 		$r.find('.icon').replaceWith(data.icon);
 
-		//Update unread: feed
 		var feed_url = active.find(".website>a").attr("href"),
-			feed_id = feed_url.substr(feed_url.lastIndexOf('f_')),
-			elem = $('#' + feed_id + ' .feed').get(0),
-			feed_unread = elem ? (parseInt(elem.getAttribute('data-unread'), 10) || 0) : 0,
-			feed_priority = elem ? (parseInt(elem.getAttribute('data-priority'), 10) || 0) : 0;
-		if (elem) {
-			elem.setAttribute('data-unread', Math.max(0, feed_unread + inc));
-		}
-
-		//Update unread: category
-		elem = $('#' + feed_id).parent().prevAll('.category').children(':first').get(0);
-		feed_unread = elem ? (parseInt(elem.getAttribute('data-unread'), 10) || 0) : 0;
-		if (elem) {
-			elem.setAttribute('data-unread', Math.max(0, feed_unread + inc));
-		}
-
-		//Update unread: all
-		if (feed_priority > 0) {
-			elem = $('#aside_flux .all').children(':first').get(0);
-			if (elem) {
-				feed_unread = elem ? (parseInt(elem.getAttribute('data-unread'), 10) || 0) : 0;
-				elem.setAttribute('data-unread', Math.max(0, feed_unread + inc));
-			}
-		}
-
-		//Update unread: favourites
-		if (active.closest('div').hasClass('favorite')) {
-			elem = $('#aside_flux .favorites').children(':first').get(0);
-			if (elem) {
-				feed_unread = elem ? (parseInt(elem.getAttribute('data-unread'), 10) || 0) : 0;
-				elem.setAttribute('data-unread', Math.max(0, feed_unread + inc));
-			}
-		}
-
-		//Update unread: title
-		document.title = document.title.replace(/((?: \(\d+\))?)( · .*?)((?: \(\d+\))?)$/, function (m, p1, p2, p3) {
-			return incLabel(p1, inc) + p2 + incLabel(p3, feed_priority > 0 ? inc : 0);
-		});
+			feed_id = feed_url.substr(feed_url.lastIndexOf('f_'));
+		incUnreadsFeed(active, feed_id, inc);
 	});
 }
 
@@ -128,8 +132,8 @@ function mark_favorite(active) {
 
 		if (active.closest('div').hasClass('not_read')) {
 			var elem = $('#aside_flux .favorites').children(':first').get(0),
-				feed_unread = elem ? (parseInt(elem.getAttribute('data-unread'), 10) || 0) : 0;
-			elem.setAttribute('data-unread', Math.max(0, feed_unread + inc));
+				feed_unreads = elem ? (parseInt(elem.getAttribute('data-unread'), 10) || 0) : 0;
+			elem.setAttribute('data-unread', Math.max(0, feed_unreads + inc));
 		}
 	});
 }
@@ -514,6 +518,17 @@ function init_notifications() {
 	}
 }
 
+function refreshUnreads() {
+	$.getJSON('./?c=javascript&a=nbUnreadsPerFeed').done(function (data) {
+		$.each(data, function(feed_id, nbUnreads) {
+			feed_id = 'f_' + feed_id;
+			var elem = $('#' + feed_id + '>.feed').get(0),
+				feed_unreads = elem ? (parseInt(elem.getAttribute('data-unread'), 10) || 0) : 0;
+			incUnreadsFeed(null, feed_id, nbUnreads - feed_unreads);
+		});
+	});
+}
+
 //<endless_mode>
 var url_load_more = "",
 	load_more = false,
@@ -685,6 +700,7 @@ function init_all() {
 	}
 	init_confirm_action();
 	init_print_action();
+	window.setInterval(refreshUnreads, 60000);
 	if (window.console) {
 		console.log('FreshRSS init done.');
 	}
