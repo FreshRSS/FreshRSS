@@ -387,6 +387,13 @@ input, select, textarea {
 			font-size: 90%;
 			line-height: 30px;
 		}
+		.dropdown-menu .item.selected{
+			background: #2980b9;
+		}
+		.dropdown-menu .item.selected a{
+			background: #2980b9;
+			color: #fff;
+		}
 			.dropdown-menu .item > * {
 				display: block;
 				padding: 0 25px;

@@ -130,45 +130,37 @@
 
 			<?php
 				$url_state = $url;
-				if ($this->state !== 'all') {
-					$url_state['params']['state'] = 'all';
+				$url_state['params']['state'] = 'all';
 			?>
-			<li class="item">
+			<li class="item <?php if ($this->state == 'all') echo "selected"?>">
 				<a class="print_all" href="<?php echo Minz_Url::display ($url_state); ?>">
 					<?php echo Minz_Translate::t ('show_all_articles'); ?>
 				</a>
 			</li>
 			<?php
-				}
-				if ($this->state !== 'not_read') {
-					$url_state['params']['state'] = 'not_read';
+				$url_state['params']['state'] = 'not_read';
 			?>
-			<li class="item">
+			<li class="item <?php if ($this->state == 'not_read') echo "selected"?>">
 				<a class="print_non_read" href="<?php echo Minz_Url::display ($url_state); ?>">
 					<?php echo Minz_Translate::t ('show_not_reads'); ?>
 				</a>
 			</li>
 			<?php
-				}
-				if ($this->state !== 'read') {
 					$url_state['params']['state'] = 'read';
 			?>
-			<li class="item">
+			<li class="item <?php if ($this->state == 'read') echo "selected"?>">
 				<a class="print_read" href="<?php echo Minz_Url::display ($url_state); ?>">
 					<?php echo Minz_Translate::t ('show_read'); ?>
 				</a>
 			</li>
 			<?php
-				}
-				if ($this->state != 'favorite') {
 					$url_state['params']['state'] = 'favorite';
 			?>
-			<li class="item">
-				<a class="print_read" href="<?php echo Minz_Url::display ($url_state); ?>">
+			<li class="item <?php if ($this->state == 'favorite') echo "selected"?>">
+				<a class="print_favorite" href="<?php echo Minz_Url::display ($url_state); ?>">
 					<?php echo Minz_Translate::t ('show_favorite'); ?>
 				</a>
 			</li>
-			<?php } ?>
 
 			<li class="separator"></li>
 

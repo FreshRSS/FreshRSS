@@ -398,6 +398,12 @@ input, select, textarea {
 			font-size: 90%;
 			line-height: 30px;
 		}
+		.dropdown-menu .item.selected{
+			background: #0062be;
+		}
+		.dropdown-menu .item.selected a{
+			color: #fff;
+		}
 			.dropdown-menu .item > * {
 				display: block;
 				padding: 0 25px;
