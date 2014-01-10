@@ -700,7 +700,7 @@ function init_all() {
 	}
 	init_confirm_action();
 	init_print_action();
-	window.setInterval(refreshUnreads, 60000);
+	window.setInterval(refreshUnreads, 120000);
 	if (window.console) {
 		console.log('FreshRSS init done.');
 	}
