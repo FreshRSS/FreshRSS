@@ -405,6 +405,9 @@ function init_shortcuts() {
 
 function init_stream_delegates(divStream) {
 	divStream.on('click', '.flux_header', function (e) {	//flux_header_toggle
+		if ($(e.target).closest('.item.website > a').length > 0) {
+			return;
+		}
 		var old_active = $(".flux.current"),
 			new_active = $(this).parent();
 			isCollapsed = true;
@@ -420,19 +423,13 @@ function init_stream_delegates(divStream) {
 	divStream.on('click', '.flux a.read', function () {
 		var active = $(this).parents(".flux");
 		mark_read(active, false);
-
 		return false;
 	});
 
 	divStream.on('click', '.flux a.bookmark', function () {
 		var active = $(this).parents(".flux");
 		mark_favorite(active);
-
 		return false;
-	});
-
-	divStream.on('click', '.flux .content a', function () {
-		$(this).attr('target', '_blank');
 	});
 
 	divStream.on('click', '.item.title>a', function (e) {
@@ -441,6 +438,10 @@ function init_stream_delegates(divStream) {
 		}
 		$(this).parent().click();	//Will perform toggle flux_content
 		return false;
+	});
+
+	divStream.on('click', '.flux .content a', function () {
+		$(this).attr('target', '_blank');
 	});
 
 	if (auto_mark_site) {
