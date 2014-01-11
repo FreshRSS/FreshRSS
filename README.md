@@ -73,6 +73,8 @@ Par exemple, pour exécuter le script toutes les heures :
 mysqldump -u utilisateur -p --databases freshrss > freshrss.sql
 ```
 
+
+
 ---
 
 # Bibliothèques incluses
@@ -87,6 +89,6 @@ mysqldump -u utilisateur -p --databases freshrss > freshrss.sql
 * [phpQuery](http://code.google.com/p/phpquery/)
 * [Lazy Load](http://www.appelsiini.net/projects/lazyload)
 
-## Uniquement si les fonctions natives ne sont pas disponibles
+## Si les fonctions natives ne sont pas disponibles
 * [Services_JSON](http://pear.php.net/pepr/pepr-proposal-show.php?id=198)
 * [password_compat](https://github.com/ircmaxell/password_compat)
