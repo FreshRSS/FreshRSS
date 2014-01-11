@@ -72,3 +72,17 @@ Par exemple, pour exécuter le script toutes les heures :
 ```bash
 mysqldump -u utilisateur -p --databases freshrss > freshrss.sql
 ```
+
+# Bibliothèques incluses
+* [SimplePie](https://github.com/simplepie/simplepie)
+* [MINZ](https://github.com/marienfressinaud/MINZ)
+* [php-http-304](http://alexandre.alapetite.fr/doc-alex/php-http-304/)
+* [jQuery](http://jquery.com/)
+* [keyboard_shortcuts](http://www.openjs.com/scripts/events/keyboard_shortcuts/)
+## Uniquement dans certaines configurations
+* [bcrypt.js](https://github.com/dcodeIO/bcrypt.js)
+* [phpQuery](http://code.google.com/p/phpquery/)
+* [Lazy Load](http://www.appelsiini.net/projects/lazyload)
+## Uniquement si les fonctions natives ne sont pas disponibles
+* [Services_JSON](http://pear.php.net/pepr/pepr-proposal-show.php?id=198)
+* [password_compat](https://github.com/ircmaxell/password_compat)
