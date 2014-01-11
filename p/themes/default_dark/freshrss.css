@@ -419,7 +419,7 @@
 	top: 10px; bottom: 10px;
 	left: 100px; right: 100px;
 	overflow: auto;
-	background: #fff;
+	background: #1c1c1c;
 	border: 1px solid #95a5a6;
 	border-radius: 5px;
 }
