@@ -18,6 +18,14 @@
 		</div>
 
 		<div class="form-group">
+			<label class="group-name" for="passwordPlain"><?php echo Minz_Translate::t('password'); ?></label>
+			<div class="group-controls">
+				<input type="password" id="passwordPlain" name="passwordPlain" />
+				<noscript><b><?php echo Minz_Translate::t('javascript_should_be_activated'); ?></b></noscript>
+			</div>
+		</div>
+
+		<div class="form-group">
 			<label class="group-name" for="mail_login"><?php echo Minz_Translate::t('persona_connection_email'); ?></label>
 			<?php $mail = $this->conf->mail_login; ?>
 			<div class="group-controls">

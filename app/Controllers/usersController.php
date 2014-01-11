@@ -14,8 +14,21 @@ class FreshRSS_users_Controller extends Minz_ActionController {
 		if (Minz_Request::isPost()) {
 			$ok = true;
 
+			$passwordPlain = Minz_Request::param('passwordPlain', false);
+			if ($passwordPlain != '') {
+				Minz_Request::_param('passwordPlain');	//Discard plain-text password ASAP
+				$_POST['passwordPlain'] = '';
+				if (!function_exists('password_hash')) {
+					include_once(LIB_PATH . '/password_compat.php');
+				}
+				$passwordHash = password_hash($passwordPlain, PASSWORD_BCRYPT);	//A bit expensive, on purpose
+				$passwordPlain = '';
+				$this->view->conf->_passwordHash($passwordHash);
+			}
+
 			$mail = Minz_Request::param('mail_login', false);
 			$this->view->conf->_mail_login($mail);
+
 			$ok &= $this->view->conf->save();
 
 			$email = $this->view->conf->mail_login;

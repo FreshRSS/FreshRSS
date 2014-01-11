@@ -160,8 +160,9 @@ return array (
 	'think_to_add'			=> 'Pensez à en ajouter !',
 
 	'current_user'			=> 'Utilisateur actuel',
+	'password'			=>'Mot de passe<br /><small>(pour connexion par formulaire)</small>',
 	'default_user'			=> 'Nom de l’utilisateur par défaut (16 caractères alphanumériques maximum)',
-	'persona_connection_email'	=> 'Adresse courriel de connexion (pour <a href="https://persona.org/" rel="external">Mozilla Persona</a>)',
+	'persona_connection_email'	=> 'Adresse courriel de connexion<br /><small>(pour <a href="https://persona.org/" rel="external">Mozilla Persona</a>)</small>',
 	'allow_anonymous'		=> 'Autoriser la lecture anonyme pour l’utilisateur par défaut (%s)',
 	'auth_token'			=> 'Jeton d’identification',
 	'explain_token'			=> 'Permet d’accéder à la sortie RSS de l’utilisateur par défaut sans besoin de s’authentifier.<br /><kbd>%s?output=rss&token=%s</kbd>',
