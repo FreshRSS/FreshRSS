@@ -74,17 +74,14 @@ mysqldump -u utilisateur -p --databases freshrss > freshrss.sql
 ```
 
 
-
----
-
 # Bibliothèques incluses
-* [SimplePie](https://github.com/simplepie/simplepie)
+* [SimplePie](http://simplepie.org/)
 * [MINZ](https://github.com/marienfressinaud/MINZ)
 * [php-http-304](http://alexandre.alapetite.fr/doc-alex/php-http-304/)
 * [jQuery](http://jquery.com/)
 * [keyboard_shortcuts](http://www.openjs.com/scripts/events/keyboard_shortcuts/)
 
-## Uniquement dans certaines configurations
+## Uniquement pour certaines options
 * [bcrypt.js](https://github.com/dcodeIO/bcrypt.js)
 * [phpQuery](http://code.google.com/p/phpquery/)
 * [Lazy Load](http://www.appelsiini.net/projects/lazyload)

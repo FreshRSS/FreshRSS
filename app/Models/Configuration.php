@@ -9,6 +9,7 @@ class FreshRSS_Configuration {
 		'keep_history_default' => 0,
 		'mail_login' => '',
 		'token' => '',
+		'passwordHash' => '',	//CRYPT_BLOWFISH
 		'posts_per_page' => 20,
 		'view_mode' => 'normal',
 		'default_view' => 'not_read',
@@ -161,6 +162,9 @@ class FreshRSS_Configuration {
 				$this->data['shortcuts'][$key] = $value;
 			}
 		}
+	}
+	public function _passwordHash ($value) {
+		$this->data['passwordHash'] = ctype_graph($value) && (strlen($value) >= 60) ? $value : '';
 	}
 	public function _mail_login ($value) {
 		$value = filter_var($value, FILTER_VALIDATE_EMAIL);
