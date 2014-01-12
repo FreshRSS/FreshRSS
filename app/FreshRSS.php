@@ -116,6 +116,7 @@ class FreshRSS extends Minz_FrontController {
 	private function loadStylesAndScripts ($loginOk) {
 		$theme = FreshRSS_Themes::get_infos($this->conf->theme);
 		if ($theme) {
+			FreshRSS_Themes::setThemeId($this->conf->theme);
 			foreach($theme['files'] as $file) {
 				Minz_View::appendStyle (Minz_Url::display ('/themes/' . $theme['path'] . '/' . $file . '?' . @filemtime(PUBLIC_PATH . '/themes/' . $theme['path'] . '/' . $file)));
 			}
