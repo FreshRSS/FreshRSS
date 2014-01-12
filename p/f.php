@@ -7,13 +7,6 @@ function download_favicon ($website, $dest) {
 	$ok = false;
 	$url = 'http://g.etfv.co/' . $website;
 
-	/*if (!is_dir ($favicons_dir)) {
-		if (!mkdir ($favicons_dir, 0755, true)) {
-			header('Location: ' . $url);
-			return false;
-		}
-	}*/
-
 	$c = curl_init ($url);
 	curl_setopt ($c, CURLOPT_HEADER, false);
 	curl_setopt ($c, CURLOPT_RETURNTRANSFER, true);
@@ -36,13 +29,7 @@ function download_favicon ($website, $dest) {
 	return true;
 }
 
-if (isset($_SERVER['PATH_INFO'])) {
-	$id = substr($_SERVER['PATH_INFO'], 1);
-} elseif (isset($_SERVER['QUERY_STRING'])) {
-	$id = $_SERVER['QUERY_STRING'];
-} else {
-	$id = '0';
-}
+$id = isset($_SERVER['QUERY_STRING']) ? $_SERVER['QUERY_STRING'] : '0';
 
 if (!ctype_xdigit($id)) {
 	$id = '0';
