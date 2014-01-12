@@ -36,8 +36,6 @@
 		'url_logout="', _url ('index', 'logout'), '",',
 		'current_user_mail=', $mail, ",\n";
 
-	echo 'load_shortcuts=', Minz_Request::controllerName () === 'index' && Minz_Request::actionName () === 'index' ? 'true' : 'false', ",\n";
-
 	echo 'str_confirmation="', Minz_Translate::t('confirm_action'), '"', ",\n";
 
 	$autoActualise = Minz_Session::param('actualize_feeds', false);

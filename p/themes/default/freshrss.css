@@ -259,9 +259,11 @@
 	}
 		.flux .item {
 			line-height: 40px;
+			white-space: nowrap;
+		}
+		.flux_header > .item {
 			overflow: hidden;
 			text-overflow: ellipsis;
-			white-space: nowrap;
 		}
 		.flux .item.manage {
 			width: 40px;
