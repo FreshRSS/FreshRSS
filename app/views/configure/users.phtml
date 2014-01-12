@@ -34,14 +34,12 @@
 			</div>
 		</div>
 
-		<?php if (Minz_Configuration::isAdmin(Minz_Session::param('currentUser', '_'))) { ?>
 		<div class="form-group form-actions">
 			<div class="group-controls">
 				<button type="submit" class="btn btn-important"><?php echo Minz_Translate::t('save'); ?></button>
 				<button type="reset" class="btn"><?php echo Minz_Translate::t('cancel'); ?></button>
 			</div>
 		</div>
-		<?php } ?>
 
 	<?php if (Minz_Configuration::isAdmin(Minz_Session::param('currentUser', '_'))) { ?>
 

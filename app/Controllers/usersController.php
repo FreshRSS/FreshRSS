@@ -1,6 +1,9 @@
 <?php
 
 class FreshRSS_users_Controller extends Minz_ActionController {
+
+	const BCRYPT_COST = 9;	//Will also have to be computed client side on mobile devices, so do not use a too high cost
+
 	public function firstAction() {
 		if (!$this->view->loginOk) {
 			Minz_Error::error(
@@ -21,20 +24,21 @@ class FreshRSS_users_Controller extends Minz_ActionController {
 				if (!function_exists('password_hash')) {
 					include_once(LIB_PATH . '/password_compat.php');
 				}
-				$passwordHash = password_hash($passwordPlain, PASSWORD_BCRYPT, array('cost' => 8));	//This will also have to be computed client side on mobile devices, so do not use a too high cost
+				$passwordHash = password_hash($passwordPlain, PASSWORD_BCRYPT, array('cost' => self::BCRYPT_COST));
 				$passwordPlain = '';
 				$passwordHash = preg_replace('/^\$2[xy]\$/', '\$2a\$', $passwordHash);	//Compatibility with bcrypt.js
+				$ok &= ($passwordHash != '');
 				$this->view->conf->_passwordHash($passwordHash);
 			}
+			Minz_Session::_param('passwordHash', $this->view->conf->passwordHash);
 
-			$email = Minz_Request::param('mail_login', false);
-			$this->view->conf->_mail_login($email);
-
-			$ok &= $this->view->conf->save();
-
+			if (Minz_Configuration::isAdmin(Minz_Session::param('currentUser', '_'))) {
+				$this->view->conf->_mail_login(Minz_Request::param('mail_login', false));
+			}
 			$email = $this->view->conf->mail_login;
 			Minz_Session::_param('mail', $email);
-			Minz_Session::_param('passwordHash', $this->view->conf->passwordHash);
+
+			$ok &= $this->view->conf->save();
 
 			if ($email != '') {
 				$personaFile = DATA_PATH . '/persona/' . $email . '.txt';
@@ -100,8 +104,9 @@ class FreshRSS_users_Controller extends Minz_ActionController {
 					if (!function_exists('password_hash')) {
 						include_once(LIB_PATH . '/password_compat.php');
 					}
-					$passwordHash = password_hash($passwordPlain, PASSWORD_BCRYPT, array('cost' => 8));
+					$passwordHash = password_hash($passwordPlain, PASSWORD_BCRYPT, array('cost' => self::BCRYPT_COST));
 					$passwordPlain = '';
+					$ok &= ($passwordHash != '');
 				}
 				if (empty($passwordHash)) {
 					$passwordHash = '';
