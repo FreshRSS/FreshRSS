@@ -170,6 +170,9 @@ return array (
 	'is_admin'			=> 'est administrateur',
 	'auth_type'			=> 'Méthode d’authentification',
 	'auth_none'			=> 'Aucune (dangereux)',
+	'auth_form'			=> 'Formulaire (traditionnel, requiert JavaScript)',
+	'http_auth'			=> 'HTTP (pour utilisateurs avancés avec HTTPS)',
+	'auth_persona'			=> 'Mozilla Persona (moderne, requiert JavaScript)',
 	'users_list'			=> 'Liste des utilisateurs',
 	'create_user'			=> 'Créer un nouvel utilisateur',
 	'username'			=> 'Nom d’utilisateur',
@@ -258,8 +261,8 @@ return array (
 	'logs_empty'			=> 'Les logs sont vides',
 	'clear_logs'			=> 'Effacer les logs',
 
-	'forbidden_access'		=> 'Accès interdit',
-	'forbidden_access_description'	=> 'L’accès est protégé par un mot de passe, veuillez <a class="signin" href="#">vous connecter</a> pour accéder aux flux.',
+	'forbidden_access'		=> 'Accès interdit ! (%s)',
+	'login_required'		=> 'Accès protégé par mot de passe :',
 
 	'confirm_action'		=> 'Êtes-vous sûr(e) de vouloir continuer ? Cette action ne peut être annulée !',
 

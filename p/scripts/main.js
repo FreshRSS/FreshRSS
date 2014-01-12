@@ -587,6 +587,54 @@ function init_load_more(box) {
 }
 //</endless_mode>
 
+//<Web login form>
+function poormanSalt() {	//If crypto.getRandomValues is not available
+	var text = '$2a$04$',
+		base = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ.0123456789/abcdefghijklmnopqrstuvwxyz';
+	for (var i = 22; i > 0; i--) {
+		text += base.charAt(Math.floor(Math.random() * 64));
+	}
+	return text;
+}
+
+function init_loginForm() {
+	var $loginForm = $('#loginForm');
+	if ($loginForm.length === 0) {
+		return;
+	}
+	if (!(window.dcodeIO)) {
+		if (window.console) {
+			console.log('FreshRSS waiting for bcrypt.js…');
+		}
+		window.setTimeout(init_loginForm, 100);
+		return;
+	}
+	$loginForm.on('submit', function() {
+		$('#loginButton').attr('disabled', '');
+		var success = false;
+		$.ajax({
+			url: './?c=javascript&a=nonce&user=' + $('#username').val(),
+			dataType: 'json',
+			async: false
+		}).done(function (data) {
+			if (data.salt1 == '' || data.nonce == '') {
+				alert('Invalid user!');
+			} else {
+				var strong = window.Uint32Array && window.crypto && (typeof window.crypto.getRandomValues === 'function'),
+					s = dcodeIO.bcrypt.hashSync($('#passwordPlain').val(), data.salt1),
+					c = dcodeIO.bcrypt.hashSync(data.nonce + s, strong ? 4 : poormanSalt());
+				$('#challenge').val(c);
+				success = true;
+			}
+		}).fail(function() {
+			alert('Communication error!');
+		});
+		$('#loginButton').removeAttr('disabled');
+		return success;
+	});
+}
+//</Web login form>
+
 //<persona>
 function init_persona() {
 	if (!(navigator.id)) {
@@ -696,8 +744,13 @@ function init_all() {
 	init_notifications();
 	init_actualize();
 	init_load_more($stream);
-	if (use_persona) {
-		init_persona();
+	switch (authType) {
+		case 'form':
+			init_loginForm();
+			break;
+		case 'persona':
+			init_persona();
+			break;
 	}
 	init_confirm_action();
 	init_print_action();

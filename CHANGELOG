@@ -5,6 +5,8 @@
 * Nouveau mode multi-utilisateur
 	* L’utilisateur par défaut (administrateur) peut créer et supprimer d’autres utilisateurs
 	* Nécessite un contrôle d’accès, soit :
+		* par le nouveau mode de connexion par formulaire (nom d’utilisateur + mot de passe)
+			* relativement sûr même sans HTTPS (le mot de passe n’est pas transmis en clair)
 		* par HTTP (par exemple sous Apache en créant un fichier ./p/i/.htaccess et .htpasswd)
 			* le nom d’utilisateur HTTP doit correspondre au nom d’utilisateur FreshRSS
 		* par Mozilla Persona, en renseignant l’adresse courriel des utilisateurs
@@ -68,6 +70,7 @@
 * Réorganisation des fichiers et répertoires, en particulier :
 	* Tous les fichiers utilisateur sont dans “./data/” (y compris “cache”, “favicons”, et “log”)
 	* Déplacement de “./app/configuration/application.ini” vers “./data/config.php”
+		* Meilleure sécurité et compatibilité
 	* Déplacement de “./public/data/Configuration.array.php” vers “./data/*_user.php”
 	* Déplacement de “./public/” vers “./p/”
 		* Déplacement de “./public/index.php” vers “./p/i/index.php” (voir cookie ci-dessous)

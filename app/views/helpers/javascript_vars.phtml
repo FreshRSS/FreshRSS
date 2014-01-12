@@ -30,8 +30,8 @@
 	if ($mail != 'null') {
 		$mail = '"' . $mail . '"';
 	}
-	echo 'use_persona=', Minz_Configuration::authType() === 'persona' ? 'true' : 'false',
-		',url_freshrss="', _url ('index', 'index'), '",',
+	echo 'authType="', Minz_Configuration::authType(), '",',
+		'url_freshrss="', _url ('index', 'index'), '",',
 		'url_login="', _url ('index', 'login'), '",',
 		'url_logout="', _url ('index', 'logout'), '",',
 		'current_user_mail=', $mail, ",\n";

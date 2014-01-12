@@ -21,18 +21,20 @@ class FreshRSS_users_Controller extends Minz_ActionController {
 				if (!function_exists('password_hash')) {
 					include_once(LIB_PATH . '/password_compat.php');
 				}
-				$passwordHash = password_hash($passwordPlain, PASSWORD_BCRYPT);	//A bit expensive, on purpose
+				$passwordHash = password_hash($passwordPlain, PASSWORD_BCRYPT, array('cost' => 8));	//This will also have to be computed client side on mobile devices, so do not use a too high cost
 				$passwordPlain = '';
+				$passwordHash = preg_replace('/^\$2[xy]\$/', '\$2a\$', $passwordHash);	//Compatibility with bcrypt.js
 				$this->view->conf->_passwordHash($passwordHash);
 			}
 
-			$mail = Minz_Request::param('mail_login', false);
-			$this->view->conf->_mail_login($mail);
+			$email = Minz_Request::param('mail_login', false);
+			$this->view->conf->_mail_login($email);
 
 			$ok &= $this->view->conf->save();
 
 			$email = $this->view->conf->mail_login;
 			Minz_Session::_param('mail', $email);
+			Minz_Session::_param('passwordHash', $this->view->conf->passwordHash);
 
 			if ($email != '') {
 				$personaFile = DATA_PATH . '/persona/' . $email . '.txt';
@@ -89,10 +91,25 @@ class FreshRSS_users_Controller extends Minz_ActionController {
 				$ok &= !file_exists($configPath);
 			}
 			if ($ok) {
+			
+				$passwordPlain = Minz_Request::param('new_user_passwordPlain', false);
+				$passwordHash = '';
+				if ($passwordPlain != '') {
+					Minz_Request::_param('new_user_passwordPlain');	//Discard plain-text password ASAP
+					$_POST['new_user_passwordPlain'] = '';
+					if (!function_exists('password_hash')) {
+						include_once(LIB_PATH . '/password_compat.php');
+					}
+					$passwordHash = password_hash($passwordPlain, PASSWORD_BCRYPT, array('cost' => 8));
+					$passwordPlain = '';
+				}
+				if (empty($passwordHash)) {
+					$passwordHash = '';
+				}
+
 				$new_user_email = filter_var($_POST['new_user_email'], FILTER_VALIDATE_EMAIL);
 				if (empty($new_user_email)) {
 					$new_user_email = '';
-					$ok &= Minz_Configuration::authType() !== 'persona';
 				} else {
 					$personaFile = DATA_PATH . '/persona/' . $new_user_email . '.txt';
 					@unlink($personaFile);
@@ -102,6 +119,7 @@ class FreshRSS_users_Controller extends Minz_ActionController {
 			if ($ok) {
 				$config_array = array(
 					'language' => $new_user_language,
+					'passwordHash' => $passwordHash,
 					'mail_login' => $new_user_email,
 				);
 				$ok &= (file_put_contents($configPath, "<?php\n return " . var_export($config_array, true) . ';') !== false);

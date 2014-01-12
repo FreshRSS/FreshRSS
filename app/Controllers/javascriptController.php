@@ -17,7 +17,7 @@ class FreshRSS_javascript_Controller extends Minz_ActionController {
 		$this->view->categories = $catDAO->listCategories(true, false);
 	}
 
-	// For Web-form login
+	//For Web-form login
 	public function nonceAction() {
 		header('Content-Type: application/json; charset=UTF-8');
 		header('Last-Modified: ' . gmdate('D, d M Y H:i:s \G\M\T'));
@@ -29,15 +29,15 @@ class FreshRSS_javascript_Controller extends Minz_ActionController {
 		if (ctype_alnum($user)) {
 			try {
 				$conf = new FreshRSS_Configuration($user);
-				$hash = $conf->passwordHash;	//CRYPT_BLOWFISH - Blowfish hashing with a salt as follows: "$2a$", "$2x$" or "$2y$", a two digit cost parameter, "$", and 22 characters from the alphabet "./0-9A-Za-z".
-				if (strlen($hash) >= 60) {
-					$this->view->salt1 = substr($hash, 0, 29);
+				$s = $conf->passwordHash;
+				if (strlen($s) >= 60) {
+					$this->view->salt1 = substr($s, 0, 29);	//CRYPT_BLOWFISH Salt: "$2a$", a two digit cost parameter, "$", and 22 characters from the alphabet "./0-9A-Za-z".
 					$this->view->nonce = sha1(Minz_Configuration::salt() . uniqid(mt_rand(), true));
-					Minz_Session::_param ('nonce', $this->view->nonce);
+					Minz_Session::_param('nonce', $this->view->nonce);
 					return;	//Success
 				}
 			} catch (Minz_Exception $me) {
-				Minz_Log::record ('Login failure: ' . $me->getMessage(), Minz_Log::WARNING);
+				Minz_Log::record('Login failure: ' . $me->getMessage(), Minz_Log::WARNING);
 			}
 		}
 		$this->view->nonce = '';	//Failure

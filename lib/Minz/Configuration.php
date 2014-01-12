@@ -109,7 +109,7 @@ class Minz_Configuration {
 		return self::$auth_type !== 'none';
 	}
 	public static function canLogIn() {
-		return self::$auth_type === 'persona';
+		return self::$auth_type === 'form' || self::$auth_type === 'persona';
 	}
 
 	public static function _allowAnonymous($allow = false) {
@@ -118,6 +118,7 @@ class Minz_Configuration {
 	public static function _authType($value) {
 		$value = strtolower($value);
 		switch ($value) {
+			case 'form':
 			case 'http_auth':
 			case 'persona':
 			case 'none':

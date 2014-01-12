@@ -170,6 +170,9 @@ return array (
 	'is_admin'			=> 'is administrator',
 	'auth_type'			=> 'Authentication method',
 	'auth_none'			=> 'None (dangerous)',
+	'auth_form'			=> 'Web form (traditional, requires JavaScript)',
+	'http_auth'			=> 'HTTP (for advanced users with HTTPS)',
+	'auth_persona'			=> 'Mozilla Persona (modern, requires JavaScript)',
 	'users_list'			=> 'List of users',
 	'create_user'			=> 'Create new user',
 	'username'			=> 'Username',
@@ -258,8 +261,8 @@ return array (
 	'logs_empty'			=> 'Log file is empty',
 	'clear_logs'			=> 'Clear the logs',
 
-	'forbidden_access'		=> 'Forbidden access',
-	'forbidden_access_description'	=> 'Access is password protected, please <a class="signin" href="#">sign in</a> to read your feeds.',
+	'forbidden_access'		=> 'Access forbidden! (%s)',
+	'login_required'		=> 'Login required:',
 
 	'confirm_action'		=> 'Are you sure you want to perform this action? It cannot be cancelled!',
 
