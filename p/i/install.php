@@ -927,8 +927,8 @@ case 6:
 		<meta charset="utf-8">
 		<meta name="viewport" content="initial-scale=1.0">
 		<title><?php echo _t ('freshrss_installation'); ?></title>
-		<link rel="stylesheet" type="text/css" media="all" href="../themes/default/global.css" />
-		<link rel="stylesheet" type="text/css" media="all" href="../themes/default/freshrss.css" />
+		<link rel="stylesheet" type="text/css" media="all" href="../themes/Origine/global.css" />
+		<link rel="stylesheet" type="text/css" media="all" href="../themes/Origine/freshrss.css" />
 	</head>
 	<body>
 
