@@ -21,9 +21,10 @@
 		<div class="form-group">
 			<label class="group-name" for="theme"><?php echo Minz_Translate::t ('theme'); ?></label>
 			<div class="group-controls">
-				<select name="theme" id="theme">
+				<select name="theme" id="theme" required="">
+				<option></option>
 				<?php foreach ($this->themes as $theme) { ?>
-				<option value="<?php echo $theme['path']; ?>"<?php echo $this->conf->theme === $theme['path'] ? ' selected="selected"' : ''; ?>>
+				<option value="<?php echo $theme['id']; ?>"<?php echo $this->conf->theme === $theme['id'] ? ' selected="selected"' : ''; ?>>
 					<?php echo $theme['name'] . ' — ' . Minz_Translate::t ('by') . ' ' . $theme['author']; ?> 
 				</option>
 				<?php } ?>

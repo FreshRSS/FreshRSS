@@ -25,7 +25,7 @@ class FreshRSS_Configuration {
 			'scroll' => false,
 			'reception' => false,
 		),
-		'theme' => 'default',
+		'theme' => 'Origine',
 		'shortcuts' => array(
 			'mark_read' => 'r',
 			'mark_favorite' => 'f',

@@ -1,7 +1,0 @@
-{
-  "name": "Dark",
-  "author": "AD",
-  "description": "Le coté obscur du thème par défaut pour FreshRSS",
-  "version": 0.1,
-  "files": ["global.css", "freshrss.css"]
-}
