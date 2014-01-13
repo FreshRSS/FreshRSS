@@ -477,6 +477,10 @@ input, select, textarea {
 		font-weight: bold;
 		font-size: 110%;
 	}
+	.alert > a {
+		color: inherit;
+		text-decoration: underline;
+	}
 	.alert-warn {
 		background: #ffe;
 		border: 1px solid #eeb;
