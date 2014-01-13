@@ -1,45 +1,47 @@
 <?php
-	echo '"use strict";', "\n";
-	$mark = $this->conf->mark_when;
-	echo 'var ',
-		'hide_posts=', ($this->conf->display_posts || Minz_Request::param('output') === 'reader') ? 'false' : 'true',
-		',auto_mark_article=', $mark['article'] ? 'true' : 'false',
-		',auto_mark_site=', $mark['site'] ? 'true' : 'false',
-		',auto_mark_scroll=', $mark['scroll'] ? 'true' : 'false',
-		',auto_load_more=', $this->conf->auto_load_more ? 'true' : 'false',
-		',full_lazyload=', $this->conf->lazyload && ($this->conf->display_posts || Minz_Request::param('output') === 'reader') ? 'true' : 'false',
-		',does_lazyload=', $this->conf->lazyload ? 'true' : 'false';
 
-	$s = $this->conf->shortcuts;
-	echo ',shortcuts={',
-			'mark_read:"', $s['mark_read'], '",',
-			'mark_favorite:"', $s['mark_favorite'], '",',
-			'go_website:"', $s['go_website'], '",',
-			'prev_entry:"', $s['prev_entry'], '",',
-			'next_entry:"', $s['next_entry'], '",',
-			'collapse_entry:"', $s['collapse_entry'], '",',
-			'load_more:"', $s['load_more'], '",',
-			'auto_share:"', $s['auto_share'], '"',
-		"},\n";
+echo '"use strict";', "\n";
 
-	if (Minz_Request::param ('output') === 'global') {
-		echo "iconClose='", FreshRSS_Themes::icon('close'), "',\n";
-	}
+$mark = $this->conf->mark_when;
+echo 'var ',
+	'hide_posts=', ($this->conf->display_posts || Minz_Request::param('output') === 'reader') ? 'false' : 'true',
+	',auto_mark_article=', $mark['article'] ? 'true' : 'false',
+	',auto_mark_site=', $mark['site'] ? 'true' : 'false',
+	',auto_mark_scroll=', $mark['scroll'] ? 'true' : 'false',
+	',auto_load_more=', $this->conf->auto_load_more ? 'true' : 'false',
+	',full_lazyload=', $this->conf->lazyload && ($this->conf->display_posts || Minz_Request::param('output') === 'reader') ? 'true' : 'false',
+	',does_lazyload=', $this->conf->lazyload ? 'true' : 'false';
 
-	$mail = Minz_Session::param ('mail', 'null');
-	if ($mail != 'null') {
-		$mail = '"' . $mail . '"';
-	}
-	echo 'authType="', Minz_Configuration::authType(), '",',
-		'url_freshrss="', _url ('index', 'index'), '",',
-		'url_login="', _url ('index', 'login'), '",',
-		'url_logout="', _url ('index', 'logout'), '",',
-		'current_user_mail=', $mail, ",\n";
+$s = $this->conf->shortcuts;
+echo ',shortcuts={',
+	'mark_read:"', $s['mark_read'], '",',
+	'mark_favorite:"', $s['mark_favorite'], '",',
+	'go_website:"', $s['go_website'], '",',
+	'prev_entry:"', $s['prev_entry'], '",',
+	'next_entry:"', $s['next_entry'], '",',
+	'collapse_entry:"', $s['collapse_entry'], '",',
+	'load_more:"', $s['load_more'], '",',
+	'auto_share:"', $s['auto_share'], '"',
+"},\n";
 
-	echo 'str_confirmation="', Minz_Translate::t('confirm_action'), '"', ",\n";
+if (Minz_Request::param ('output') === 'global') {
+	echo "iconClose='", FreshRSS_Themes::icon('close'), "',\n";
+}
 
-	$autoActualise = Minz_Session::param('actualize_feeds', false);
-	echo 'auto_actualize_feeds=', $autoActualise ? 'true' : 'false', ";\n";
-	if ($autoActualise) {
-		Minz_Session::_param('actualize_feeds', false);
-	}
+$authType = Minz_Configuration::authType();
+if ($authType === 'persona') {
+	echo 'current_user_mail="' . Minz_Session::param ('mail', '') . '",';
+}
+
+echo 'authType="', $authType, '",',
+	'url_freshrss="', _url ('index', 'index'), '",',
+	'url_login="', _url ('index', 'login'), '",',
+	'url_logout="', _url ('index', 'logout'), '",';
+
+echo 'str_confirmation="', Minz_Translate::t('confirm_action'), '"', ",\n";
+
+$autoActualise = Minz_Session::param('actualize_feeds', false);
+echo 'auto_actualize_feeds=', $autoActualise ? 'true' : 'false', ";\n";
+if ($autoActualise) {
+	Minz_Session::_param('actualize_feeds', false);
+}
