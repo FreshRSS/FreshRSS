@@ -466,6 +466,19 @@ function checkStep0 () {
 	} else {
 		$userConfig = array();
 	}
+	if (isset($userConfig['theme'])) {
+		switch (strtolower($userConfig['theme'])) {
+			case 'default':	//v0.6
+				$userConfig['theme'] = 'Origine';
+				break;
+			case 'flat-design':	//v0.6
+				$userConfig['theme'] = 'Flat';
+				break;
+			case 'default_dark':	//v0.6
+				$userConfig['theme'] = 'Dark';
+				break;
+		}
+	}
 
 	$keys = array('language', 'old_entries', 'mail_login');
 	foreach ($keys as $key) {
