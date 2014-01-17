@@ -11,7 +11,7 @@
 	<p class="alert alert-error"><span class="alert-head"><?php echo Minz_Translate::t ('damn'); ?></span> <?php echo Minz_Translate::t ('feed_in_error'); ?></p>
 	<?php } ?>
 
-	<form method="post" action="<?php echo _url ('configure', 'feed', 'id', $this->flux->id ()); ?>">
+	<form method="post" action="<?php echo _url ('configure', 'feed', 'id', $this->flux->id ()); ?>" autocomplete="off">
 		<legend><?php echo Minz_Translate::t ('informations'); ?></legend>
 		<div class="form-group">
 			<label class="group-name" for="name"><?php echo Minz_Translate::t ('title'); ?></label>

@@ -30,8 +30,8 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 				$cat = $def_cat->id ();
 			}
 
-			$user = Minz_Request::param ('username');
-			$pass = Minz_Request::param ('password');
+			$user = Minz_Request::param ('http_user');
+			$pass = Minz_Request::param ('http_pass');
 			$params = array ();
 
 			$transactionStarted = false;
