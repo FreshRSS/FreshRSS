@@ -817,7 +817,7 @@ function printStep2 () {
 		<div class="form-group">
 			<label class="group-name" for="passwordPlain"><?php echo _t('password_form'); ?></label>
 			<div class="group-controls">
-				<input type="password" id="passwordPlain" name="passwordPlain" pattern=".{7,}" />
+				<input type="password" id="passwordPlain" name="passwordPlain" pattern=".{7,}" autocomplete="off" />
 				<noscript><b><?php echo _t('javascript_should_be_activated'); ?></b></noscript>
 			</div>
 		</div>

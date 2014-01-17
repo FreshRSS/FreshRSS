@@ -42,6 +42,3 @@ echo 'str_confirmation="', Minz_Translate::t('confirm_action'), '"', ",\n";
 
 $autoActualise = Minz_Session::param('actualize_feeds', false);
 echo 'auto_actualize_feeds=', $autoActualise ? 'true' : 'false', ";\n";
-if ($autoActualise) {
-	Minz_Session::_param('actualize_feeds', false);
-}

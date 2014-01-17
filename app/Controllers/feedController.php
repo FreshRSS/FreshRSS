@@ -164,6 +164,7 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 		$feedDAO = new FreshRSS_FeedDAO ();
 		$entryDAO = new FreshRSS_EntryDAO ();
 
+		Minz_Session::_param('actualize_feeds', false);
 		$id = Minz_Request::param ('id');
 		$force = Minz_Request::param ('force', false);
 
