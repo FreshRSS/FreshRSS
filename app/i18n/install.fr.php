@@ -53,8 +53,6 @@ return array (
 	'bdd_conf_is_ok'		=> 'La configuration de la base de données a été enregistrée.',
 	'bdd_conf_is_ko'		=> 'Vérifiez les informations d’accès à la base de données.',
 	'host'				=> 'Hôte',
-	'username'			=> 'Nom utilisateur',
-	'password'			=> 'Mot de passe',
 	'bdd'				=> 'Base de données',
 	'prefix'			=> 'Préfixe des tables',
 

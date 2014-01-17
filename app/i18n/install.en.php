@@ -53,8 +53,6 @@ return array (
 	'bdd_conf_is_ok'		=> 'Database configuration has been saved.',
 	'bdd_conf_is_ko'		=> 'Verify your database information.',
 	'host'				=> 'Host',
-	'username'			=> 'Username',
-	'password'			=> 'Password',
 	'bdd'				=> 'Database',
 	'prefix'			=> 'Table prefix',
 

@@ -1,5 +1,11 @@
 <?php
+if (function_exists('opcache_reset')) {
+	opcache_reset();
+}
+
 require('../../constants.php');
+const BCRYPT_COST = 9;
+
 include(LIB_PATH . '/lib_rss.php');
 
 session_name('FreshRSS');
@@ -149,6 +155,7 @@ function saveStep2 () {
 	if (!empty ($_POST)) {
 		if (empty ($_POST['title']) ||
 		    empty ($_POST['old_entries']) ||
+		    empty ($_POST['auth_type']) ||
 		    empty ($_POST['default_user'])) {
 			return false;
 		}
@@ -161,6 +168,12 @@ function saveStep2 () {
 		}
 		$_SESSION['mail_login'] = filter_var($_POST['mail_login'], FILTER_VALIDATE_EMAIL);
 		$_SESSION['default_user'] = substr(preg_replace('/[^a-zA-Z0-9]/', '', $_POST['default_user']), 0, 16);
+		$_SESSION['auth_type'] = $_POST['auth_type'];
+		if (!empty($_POST['passwordPlain'])) {
+			$passwordHash = password_hash($_POST['passwordPlain'], PASSWORD_BCRYPT, array('cost' => BCRYPT_COST));
+			$passwordHash = preg_replace('/^\$2[xy]\$/', '\$2a\$', $passwordHash);	//Compatibility with bcrypt.js
+			$_SESSION['passwordHash'] = $passwordHash;
+		}
 
 		$token = '';
 		if ($_SESSION['mail_login']) {
@@ -169,8 +182,10 @@ function saveStep2 () {
 
 		$config_array = array (
 			'language' => $_SESSION['language'],
+			'theme' => $_SESSION['theme'],
 			'old_entries' => $_SESSION['old_entries'],
 			'mail_login' => $_SESSION['mail_login'],
+			'passwordHash' => $_SESSION['passwordHash'],
 			'token' => $token,
 		);
 
@@ -214,7 +229,7 @@ function saveStep3 () {
 				'title' => $_SESSION['title'],
 				'default_user' => $_SESSION['default_user'],
 				'auth_type' => $_SESSION['auth_type'],
-				'allow_anonymous' => $_SESSION['allow_anonymous'],
+				'allow_anonymous' => isset($_SESSION['allow_anonymous']) ? $_SESSION['allow_anonymous'] : false,
 			),
 			'db' => array(
 				'type' => $_SESSION['bd_type'],
@@ -466,21 +481,11 @@ function checkStep0 () {
 	} else {
 		$userConfig = array();
 	}
-	if (isset($userConfig['theme'])) {
-		switch (strtolower($userConfig['theme'])) {
-			case 'default':	//v0.6
-				$userConfig['theme'] = 'Origine';
-				break;
-			case 'flat-design':	//v0.6
-				$userConfig['theme'] = 'Flat';
-				break;
-			case 'default_dark':	//v0.6
-				$userConfig['theme'] = 'Dark';
-				break;
-		}
+	if (empty($_SESSION['auth_type'])) {	//v0.7b
+		$_SESSION['auth_type'] = '';
 	}
 
-	$keys = array('language', 'old_entries', 'mail_login');
+	$keys = array('language', 'theme', 'old_entries', 'mail_login', 'passwordHash');
 	foreach ($keys as $key) {
 		if ((!isset($_SESSION[$key])) && isset($userConfig[$key])) {
 			$_SESSION[$key] = $userConfig[$key];
@@ -490,6 +495,25 @@ function checkStep0 () {
 	$languages = availableLanguages ();
 	$language = isset ($_SESSION['language']) &&
 	            isset ($languages[$_SESSION['language']]);
+
+	if (empty($_SESSION['passwordHash'])) {	//v0.7b
+		$_SESSION['passwordHash'] = '';
+	}
+	if (empty($_SESSION['theme'])) {
+		$_SESSION['theme'] = 'Origine';
+	} else {
+		switch (strtolower($_SESSION['theme'])) {
+			case 'default':	//v0.7b
+				$_SESSION['theme'] = 'Origine';
+				break;
+			case 'flat-design':	//v0.7b
+				$_SESSION['theme'] = 'Flat';
+				break;
+			case 'default_dark':	//v0.7b
+				$_SESSION['theme'] = 'Dark';
+				break;
+		}
+	}
 
 	return array (
 		'language' => $language ? 'ok' : 'ko',
@@ -778,9 +802,30 @@ function printStep2 () {
 		</div>
 
 		<div class="form-group">
+			<label class="group-name" for="auth_type"><?php echo _t('auth_type'); ?></label>
+			<div class="group-controls">
+				<select id="auth_type" name="auth_type" required="required">
+					<option value=""></option>
+					<option value="form"<?php echo $_SESSION['auth_type'] === 'form' ? ' selected="selected"' : ''; ?>><?php echo _t('auth_form'); ?></option>
+					<option value="persona"<?php echo $_SESSION['auth_type'] === 'persona' ? ' selected="selected"' : ''; ?>><?php echo _t('auth_persona'); ?></option>
+					<option value="http_auth"<?php echo $_SESSION['auth_type'] === 'http_auth' ? ' selected="selected"' : '', httpAuthUser() == '' ? ' disabled="disabled"' : ''; ?>><?php echo _t('http_auth'); ?> (REMOTE_USER = '<?php echo httpAuthUser(); ?>')</option>
+					<option value="none"<?php echo $_SESSION['auth_type'] === 'none' ? ' selected="selected"' : ''; ?>><?php echo _t('auth_none'); ?></option>
+				</select>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="group-name" for="passwordPlain"><?php echo _t('password_form'); ?></label>
+			<div class="group-controls">
+				<input type="password" id="passwordPlain" name="passwordPlain" pattern=".{7,}" />
+				<noscript><b><?php echo _t('javascript_should_be_activated'); ?></b></noscript>
+			</div>
+		</div>
+
+		<div class="form-group">
 			<label class="group-name" for="mail_login"><?php echo _t ('persona_connection_email'); ?></label>
 			<div class="group-controls">
-				<input type="email" id="mail_login" name="mail_login" value="<?php echo isset ($_SESSION['mail_login']) ? $_SESSION['mail_login'] : ''; ?>" placeholder="<?php echo _t ('blank_to_disable'); ?>" />
+				<input type="email" id="mail_login" name="mail_login" value="<?php echo isset ($_SESSION['mail_login']) ? $_SESSION['mail_login'] : ''; ?>" placeholder="alice@example.net" />
 				<noscript><b><?php echo _t ('javascript_should_be_activated'); ?></b></noscript>
 			</div>
 		</div>

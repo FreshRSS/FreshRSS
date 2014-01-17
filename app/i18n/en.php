@@ -160,8 +160,8 @@ return array (
 	'think_to_add'			=> '<a href="./?c=configure&amp;a=feed">Remember to add some RSS feeds!</a>',
 
 	'current_user'			=> 'Current user',
-	'default_user'			=> 'Username of the default user (maximum 16 alphanumeric characters)',
-	'password'			=>'Password<br /><small>(for the Web-form login method)</small>',
+	'default_user'			=> 'Username of the default user <small>(maximum 16 alphanumeric characters)</small>',
+	'password_form'			=>'Password<br /><small>(for the Web-form login method)</small>',
 	'persona_connection_email'	=> 'Login mail address<br /><small>(for <a href="https://persona.org/" rel="external">Mozilla Persona</a>)</small>',
 	'allow_anonymous'		=> 'Allow anonymous reading for the default user (%s)',
 	'auth_token'			=> 'Authentication token',
@@ -176,6 +176,7 @@ return array (
 	'users_list'			=> 'List of users',
 	'create_user'			=> 'Create new user',
 	'username'			=> 'Username',
+	'password'			=> 'Password',
 	'create'			=> 'Create',
 	'user_created'			=> 'User %s has been created',
 	'user_deleted'			=> 'User %s has been deleted',
