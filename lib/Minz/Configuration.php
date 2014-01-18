@@ -113,7 +113,7 @@ class Minz_Configuration {
 	}
 
 	public static function _allowAnonymous($allow = false) {
-		self::$allow_anonymous = (bool)$allow;
+		self::$allow_anonymous = ((bool)$allow) && self::canLogIn();
 	}
 	public static function _authType($value) {
 		$value = strtolower($value);
@@ -125,6 +125,7 @@ class Minz_Configuration {
 				self::$auth_type = $value;
 				break;
 		}
+		self::_allowAnonymous(self::$allow_anonymous);
 	}
 
 	/**
@@ -252,11 +253,11 @@ class Minz_Configuration {
 		if (isset ($general['default_user'])) {
 			self::$default_user = $general['default_user'];
 		}
-		if (isset ($general['allow_anonymous'])) {
-			self::$allow_anonymous = ((bool)($general['allow_anonymous'])) && ($general['allow_anonymous'] !== 'no');
-		}
 		if (isset ($general['auth_type'])) {
 			self::_authType($general['auth_type']);
+		}
+		if (isset ($general['allow_anonymous'])) {
+			self::$allow_anonymous = ((bool)($general['allow_anonymous'])) && ($general['allow_anonymous'] !== 'no');
 		}
 
 		// Base de données

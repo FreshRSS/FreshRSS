@@ -57,8 +57,8 @@ class FreshRSS_users_Controller extends Minz_ActionController {
 				$auth_type = Minz_Request::param('auth_type', 'none');
 				if ($anon != Minz_Configuration::allowAnonymous() ||
 					$auth_type != Minz_Configuration::authType()) {
-					Minz_Configuration::_allowAnonymous($anon);
 					Minz_Configuration::_authType($auth_type);
+					Minz_Configuration::_allowAnonymous($anon);
 					$ok &= Minz_Configuration::writeFile();
 				}
 			}

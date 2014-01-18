@@ -58,20 +58,11 @@
 			</div>
 		</div>
 
-		<div class="form-group form-actions">
-			<div class="group-controls">
-				<button type="submit" class="btn btn-important"><?php echo Minz_Translate::t('save'); ?></button>
-				<button type="reset" class="btn"><?php echo Minz_Translate::t('cancel'); ?></button>
-			</div>
-		</div>
-
-		<?php if (Minz_Configuration::authType() === 'persona') { ?>
-
-		<legend>Mozilla Persona</legend>
 		<div class="form-group">
 			<div class="group-controls">
 				<label class="checkbox" for="anon_access">
-					<input type="checkbox" name="anon_access" id="anon_access" value="1"<?php echo Minz_Configuration::allowAnonymous() ? ' checked="checked"' : ''; ?> />
+					<input type="checkbox" name="anon_access" id="anon_access" value="1"<?php echo Minz_Configuration::allowAnonymous() ? ' checked="checked"' : '',
+						Minz_Configuration::canLogIn() ? '' : ' disabled="disabled"'; ?> />
 					<?php echo Minz_Translate::t('allow_anonymous', Minz_Configuration::defaultUser()); ?>
 				</label>
 			</div>
@@ -81,7 +72,8 @@
 			<label class="group-name" for="token"><?php echo Minz_Translate::t('auth_token'); ?></label>
 			<?php $token = $this->conf->token; ?>
 			<div class="group-controls">
-				<input type="text" id="token" name="token" value="<?php echo $token; ?>"  placeholder="<?php echo Minz_Translate::t('blank_to_disable'); ?>"/>
+				<input type="text" id="token" name="token" value="<?php echo $token; ?>"  placeholder="<?php echo Minz_Translate::t('blank_to_disable'); ?>"<?php
+					echo Minz_Configuration::canLogIn() ? '' : ' disabled="disabled"'; ?> />
 				<?php echo FreshRSS_Themes::icon('help'); ?> <?php echo Minz_Translate::t('explain_token', Minz_Url::display(null, 'html', true), $token); ?>
 			</div>
 		</div>
@@ -92,8 +84,6 @@
 				<button type="reset" class="btn"><?php echo Minz_Translate::t('cancel'); ?></button>
 			</div>
 		</div>
-
-		<?php } ?>
 	</form>
 
 	<form method="post" action="<?php echo _url('users', 'delete'); ?>">
