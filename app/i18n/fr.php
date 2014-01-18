@@ -160,7 +160,7 @@ return array (
 	'think_to_add'			=> '<a href="./?c=configure&amp;a=feed">Pensez à en ajouter !</a>',
 
 	'current_user'			=> 'Utilisateur actuel',
-	'password_form'			=>'Mot de passe<br /><small>(pour connexion par formulaire)</small>',
+	'password_form'			=> 'Mot de passe<br /><small>(pour connexion par formulaire)</small>',
 	'default_user'			=> 'Nom de l’utilisateur par défaut <small>(16 caractères alphanumériques maximum)</small>',
 	'persona_connection_email'	=> 'Adresse courriel de connexion<br /><small>(pour <a href="https://persona.org/" rel="external">Mozilla Persona</a>)</small>',
 	'allow_anonymous'		=> 'Autoriser la lecture anonyme des articles de l’utilisateur par défaut (%s)',

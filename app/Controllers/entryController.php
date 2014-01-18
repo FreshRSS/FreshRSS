@@ -10,6 +10,11 @@ class FreshRSS_entry_Controller extends Minz_ActionController {
 		}
 
 		$this->params = array ();
+		$output = Minz_Request::param('output', '');
+		if (($output != '') && ($this->conf->view_mode !== $output)) {
+			$this->params['output'] = $output;
+		}
+
 		$this->redirect = false;
 		$ajax = Minz_Request::param ('ajax');
 		if ($ajax) {
@@ -34,12 +39,9 @@ class FreshRSS_entry_Controller extends Minz_ActionController {
 		$this->redirect = true;
 
 		$id = Minz_Request::param ('id');
-		$is_read = Minz_Request::param ('is_read');
 		$get = Minz_Request::param ('get');
 		$nextGet = Minz_Request::param ('nextGet', $get); 
 		$idMax = Minz_Request::param ('idMax', 0);
-
-		$is_read = (bool)$is_read;
 
 		$entryDAO = new FreshRSS_EntryDAO ();
 		if ($id == false) {
@@ -63,7 +65,7 @@ class FreshRSS_entry_Controller extends Minz_ActionController {
 						break;
 				}
 				if ($nextGet !== 'a') {
-					$this->params = array ('get' => $nextGet);
+					$this->params['get'] = $nextGet;
 				}
 			}
 
@@ -73,6 +75,7 @@ class FreshRSS_entry_Controller extends Minz_ActionController {
 			);
 			Minz_Session::_param ('notification', $notif);
 		} else {
+			$is_read = (bool)(Minz_Request::param ('is_read', true));
 			$entryDAO->markRead ($id, $is_read);
 		}
 	}
@@ -83,7 +86,7 @@ class FreshRSS_entry_Controller extends Minz_ActionController {
 		$id = Minz_Request::param ('id');
 		if ($id) {
 			$entryDAO = new FreshRSS_EntryDAO ();
-			$entryDAO->markFavorite ($id, Minz_Request::param ('is_favorite'));
+			$entryDAO->markFavorite ($id, (bool)(Minz_Request::param ('is_favorite', true)));
 		}
 	}
 

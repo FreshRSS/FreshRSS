@@ -56,7 +56,13 @@
 		}
 		$p = isset($this->entries[0]) ? $this->entries[0] : null;
 		$idMax = $p === null ? '0' : $p->id();
-		$markReadUrl = _url ('entry', 'read', 'is_read', 1, 'get', $get, 'nextGet', $nextGet, 'idMax', $idMax);
+
+		$arUrl = array('c' => 'entry', 'a' => 'read', 'params' => array('get' => $get, 'nextGet' => $nextGet, 'idMax' => $idMax));
+		$output = Minz_Request::param('output', '');
+		if (($output != '') && ($this->conf->view_mode !== $output)) {
+			$arUrl['params']['output'] = $output;
+		}
+		$markReadUrl = Minz_Url::display($arUrl);
 		Minz_Session::_param ('markReadUrl', $markReadUrl);
 	?>
 

@@ -13,15 +13,15 @@
 		<li><a href="<?php echo _url ('index', 'about'); ?>"><?php echo Minz_Translate::t ('about_freshrss'); ?></a></li>
 		<?php } ?>
 
-		<?php 
-			$output = array();
+		<?php
+			$arUrl = array('c' => 'index', 'a' => 'index', 'params' => array());
 			if ($this->conf->view_mode !== Minz_Request::param('output', 'normal')) {
-				$output = array('output', 'normal');
+				$arUrl['params']['output'] = 'normal';
 			}
 		?>
 		<li>
 			<div class="category all">
-				<a data-unread="<?php echo $this->nb_not_read; ?>" class="btn<?php echo $this->get_c == 'a' ? ' active' : ''; ?>" href="<?php echo call_user_func_array('_url', array_merge(array('index', 'index'), $output)); ?>">
+				<a data-unread="<?php echo $this->nb_not_read; ?>" class="btn<?php echo $this->get_c == 'a' ? ' active' : ''; ?>" href="<?php echo Minz_Url::display($arUrl); ?>">
 					<?php echo FreshRSS_Themes::icon('all'); ?>
 					<?php echo Minz_Translate::t ('all_feeds'); ?>
 				</a>
@@ -30,43 +30,46 @@
 
 		<li>
 			<div class="category favorites">
-				<a data-unread="<?php echo $this->nb_favorites['unread']; ?>" class="btn<?php echo $this->get_c == 's' ? ' active' : ''; ?>" href="<?php echo call_user_func_array('_url', array_merge(array('index', 'index', 'get', 's'), $output)); ?>">
+				<a data-unread="<?php echo $this->nb_favorites['unread']; ?>" class="btn<?php echo $this->get_c == 's' ? ' active' : ''; ?>" href="<?php $arUrl['params']['get'] = 's'; echo Minz_Url::display($arUrl); ?>">
 					<?php echo FreshRSS_Themes::icon('bookmark'); ?>
 					<?php echo Minz_Translate::t ('favorite_feeds', $this->nb_favorites['all']); ?>
 				</a>
 			</div>
 		</li>
 
-		<?php foreach ($this->cat_aside as $cat) { ?>
-		<?php $feeds = $cat->feeds (); ?>
-		<?php if (!empty ($feeds)) { ?>
-		<li>
-			<?php $c_active = false; if ($this->get_c == $cat->id ()) { $c_active = true; } ?>
-			<div class="category stick<?php echo $c_active ? ' active' : ''; ?>">
-				<a data-unread="<?php echo $cat->nbNotRead (); ?>" class="btn<?php echo $c_active ? ' active' : ''; ?>" href="<?php echo call_user_func_array('_url', array_merge(array('index', 'index', 'get', 'c_' . $cat->id ()), $output)); ?>"><?php echo $cat->name (); ?></a>
-				<a class="btn dropdown-toggle" href="#"><?php echo FreshRSS_Themes::icon($c_active ? 'up' : 'down'); ?></a>
-			</div>
-
-			<ul class="feeds<?php echo $c_active ? ' active' : ''; ?>">
-				<?php foreach ($feeds as $feed) {
-						$feed_id = $feed->id (); $nbEntries = $feed->nbEntries ();
-						$f_active = ($this->get_f == $feed_id);
-				?>
-				<li id="f_<?php echo $feed_id; ?>" class="item<?php echo $f_active ? ' active' : ''; ?><?php echo $feed->inError () ? ' error' : ''; ?><?php echo $nbEntries == 0 ? ' empty' : ''; ?>">
-					<div class="dropdown">
-						<div class="dropdown-target"></div>
-						<a class="dropdown-toggle" data-fweb="<?php echo $feed->website (); ?>"><?php echo FreshRSS_Themes::icon('configure'); ?></a>
-<?php /* feed_config_template */ ?>
-					</div>
-					<img class="favicon" src="<?php echo $feed->favicon (); ?>" alt="✇" />
-					<a class="feed" data-unread="<?php echo $feed->nbNotRead (); ?>" data-priority="<?php echo $feed->priority (); ?>" href="<?php echo call_user_func_array('_url', array_merge(array('index', 'index', 'get', 'f_' . $feed_id), $output)); ?>"><?php echo $feed->name(); ?></a>
-				</li>
-				<?php } ?>
-			</ul>
-		</li>
-		<?php } } ?>
+		<?php
+		foreach ($this->cat_aside as $cat) {
+			$feeds = $cat->feeds ();
+			if (!empty ($feeds)) {
+				?><li><?php
+				$c_active = false;
+				if ($this->get_c == $cat->id ()) {
+					$c_active = true;
+				}
+				?><div class="category stick<?php echo $c_active ? ' active' : ''; ?>"><?php
+					?><a data-unread="<?php echo $cat->nbNotRead (); ?>" class="btn<?php echo $c_active ? ' active' : ''; ?>" href="<?php $arUrl['params']['get'] = 'c_' . $cat->id(); echo Minz_Url::display($arUrl); ?>"><?php echo $cat->name (); ?></a><?php
+					?><a class="btn dropdown-toggle" href="#"><?php echo FreshRSS_Themes::icon($c_active ? 'up' : 'down'); ?></a><?php
+				?></div><?php
+				?><ul class="feeds<?php echo $c_active ? ' active' : ''; ?>"><?php
+				foreach ($feeds as $feed) {
+					$feed_id = $feed->id ();
+					$nbEntries = $feed->nbEntries ();
+					$f_active = ($this->get_f == $feed_id);
+					?><li id="f_<?php echo $feed_id; ?>" class="item<?php echo $f_active ? ' active' : ''; ?><?php echo $feed->inError () ? ' error' : ''; ?><?php echo $nbEntries == 0 ? ' empty' : ''; ?>"><?php
+						?><div class="dropdown"><?php
+							?><div class="dropdown-target"></div><?php
+							?><a class="dropdown-toggle" data-fweb="<?php echo $feed->website (); ?>"><?php echo FreshRSS_Themes::icon('configure'); ?></a><?php
+							/* feed_config_template */
+						?></div><?php
+						?> <img class="favicon" src="<?php echo $feed->favicon (); ?>" alt="✇" /> <?php
+						?><a class="feed" data-unread="<?php echo $feed->nbNotRead (); ?>" data-priority="<?php echo $feed->priority (); ?>" href="<?php $arUrl['params']['get'] = 'f_' . $feed_id; echo Minz_Url::display($arUrl); ?>"><?php echo $feed->name(); ?></a><?php
+					?></li><?php
+				}
+				?></ul><?php
+				?></li><?php
+			}
+		} ?>
 	</ul>
-
 	<span class="aside_flux_ender"><!-- For fixed menu --></span>
 </div>
 
@@ -79,7 +82,7 @@
 		<li class="separator"></li>
 		<li class="item"><a href="<?php echo _url ('configure', 'feed', 'id', '!!!!!!'); ?>"><?php echo Minz_Translate::t ('administration'); ?></a></li>
 		<li class="item"><a href="<?php echo _url ('feed', 'actualize', 'id', '!!!!!!'); ?>"><?php echo Minz_Translate::t ('actualize'); ?></a></li>
-		<li class="item"><a href="<?php echo _url ('entry', 'read', 'is_read', 1, 'get', 'f_!!!!!!'); ?>"><?php echo Minz_Translate::t ('mark_read'); ?></a></li>
+		<li class="item"><a href="<?php echo _url ('entry', 'read', 'get', 'f_!!!!!!'); ?>"><?php echo Minz_Translate::t ('mark_read'); ?></a></li>
 		<?php } ?>
 	</ul>
 </script>

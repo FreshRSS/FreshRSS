@@ -50,11 +50,14 @@ function init_global_view() {
 
 	$(".nav_menu #nav_menu_read_all, .nav_menu .toggle_aside").remove();
 
-	init_stream_delegates($("#panel"));
+	init_stream($("#panel"));
 }
 
 function init_all_global_view() {
-	if (!(window.$ && window.init_stream_delegates)) {
+	if (!(window.$ && window.init_stream)) {
+		if (window.console) {
+			console.log('FreshRSS Global view waiting for JS…');
+		}
 		window.setTimeout(init_all_global_view, 50);	//Wait for all js to be loaded
 		return;
 	}
