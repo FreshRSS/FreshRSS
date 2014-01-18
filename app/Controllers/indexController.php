@@ -296,7 +296,6 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 	}
 
 	public function formLoginAction () {
-		$this->view->_useLayout (false);
 		if (Minz_Request::isPost()) {
 			$ok = false;
 			$nonce = Minz_Session::param('nonce');
@@ -327,9 +326,10 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 				);
 				Minz_Session::_param('notification', $notif);
 			}
+			$this->view->_useLayout(false);
+			Minz_Request::forward(array('c' => 'index', 'a' => 'index'), true);
 		}
 		invalidateHttpCache();
-		Minz_Request::forward(array('c' => 'index', 'a' => 'index'), true);
 	}
 
 	public function formLogoutAction () {

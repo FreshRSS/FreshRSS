@@ -90,9 +90,16 @@ if (Minz_Configuration::canLogIn()) {
 			</ul>
 		</div>
 	</div>
-	<?php }/* elseif (Minz_Configuration::authType() === 'persona') { ?>
-	<div class="item configure">
-		<?php echo FreshRSS_Themes::icon('login'); ?> <a class="signin" href="#"><?php echo Minz_Translate::t ('login'); ?></a>
-	</div>
-	<?php }*/ ?>
+	<?php } elseif (Minz_Configuration::canLogIn()) {
+		?><div class="item configure"><?php
+		switch (Minz_Configuration::authType()) {
+			case 'form':
+				echo FreshRSS_Themes::icon('login'); ?><a class="signin" href="<?php echo _url ('index', 'formLogin'); ?>"><?php echo Minz_Translate::t ('login'); ?></a></li><?php
+				break;
+			case 'persona':
+				echo FreshRSS_Themes::icon('login'); ?><a class="signin" href="#"><?php echo Minz_Translate::t ('login'); ?></a></li><?php
+				break;
+		}
+		?></div><?php
+	} ?>
 </div>

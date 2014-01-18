@@ -21,8 +21,8 @@ if ($this->loginOk || Minz_Configuration::allowAnonymous()) {
 	if ($token_is_ok) {
 		$this->renderHelper ('view/rss_view');
 	} else {
-		$this->renderHelper ('view/login');
+		Minz_Request::forward(array('c' => 'index', 'a' => 'formLogin'), true);
 	}
 } else {
-	$this->renderHelper ('view/login');
+	Minz_Request::forward(array('c' => 'index', 'a' => 'formLogin'), true);
 }
