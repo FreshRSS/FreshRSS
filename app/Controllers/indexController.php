@@ -46,10 +46,8 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 			// no layout for RSS output
 			$this->view->_useLayout (false);
 			header('Content-Type: application/rss+xml; charset=utf-8');
-		} else {
-			if ($output === 'global') {
-				Minz_View::appendScript (Minz_Url::display ('/scripts/global_view.js?' . @filemtime(PUBLIC_PATH . '/scripts/global_view.js')));
-			}
+		} elseif ($output === 'global') {
+			Minz_View::appendScript (Minz_Url::display ('/scripts/global_view.js?' . @filemtime(PUBLIC_PATH . '/scripts/global_view.js')));
 		}
 
 		$this->view->cat_aside = $this->catDAO->listCategories ();

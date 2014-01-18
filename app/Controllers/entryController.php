@@ -11,7 +11,7 @@ class FreshRSS_entry_Controller extends Minz_ActionController {
 
 		$this->params = array ();
 		$output = Minz_Request::param('output', '');
-		if (($output != '') && ($this->conf->view_mode !== $output)) {
+		if (($output != '') && ($this->view->conf->view_mode !== $output)) {
 			$this->params['output'] = $output;
 		}
 

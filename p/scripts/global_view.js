@@ -24,6 +24,16 @@ function load_panel(link) {
 		// en en ouvrant une autre ensuite, on se retrouve au même point de scroll
 		$("#panel").scrollTop(0);
 
+		$('#nav_menu_read_all a, #bigMarkAsRead').click(function () {
+			$.ajax({
+				url: $(this).attr("href"),
+				async: false
+			});
+			//$("#panel .close").first().click();
+			window.location.reload(false);
+			return false;
+		});
+
 		panel_loading = false;
 	});
 }

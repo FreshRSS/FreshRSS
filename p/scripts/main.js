@@ -137,7 +137,9 @@ function mark_favorite(active) {
 		if (active.closest('div').hasClass('not_read')) {
 			var elem = $('#aside_flux .favorites').children(':first').get(0),
 				feed_unreads = elem ? (parseInt(elem.getAttribute('data-unread'), 10) || 0) : 0;
-			elem.setAttribute('data-unread', Math.max(0, feed_unreads + inc));
+			if (elem) {
+				elem.setAttribute('data-unread', Math.max(0, feed_unreads + inc));
+			}
 		}
 	});
 }
@@ -559,14 +561,14 @@ function load_more_posts() {
 }
 
 function init_load_more(box) {
+	box_load_more = box;
+
 	var $next_link = $("#load_more");
 	if (!$next_link.length) {
 		// no more article to load
 		url_load_more = "";
 		return;
 	}
-
-	box_load_more = box;
 
 	url_load_more = $next_link.attr("href");
 	var $prefetch = $('#prefetch');
