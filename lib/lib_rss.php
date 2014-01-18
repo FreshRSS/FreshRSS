@@ -110,6 +110,7 @@ function sanitizeHTML($data) {
 	static $simplePie = null;
 	if ($simplePie == null) {
 		$simplePie = new SimplePie();
+		$simplePie->init();
 	}
 	return html_only_entity_decode($simplePie->sanitize->sanitize($data, SIMPLEPIE_CONSTRUCT_MAYBE_HTML));
 }
@@ -118,22 +119,13 @@ function sanitizeHTML($data) {
 function get_content_by_parsing ($url, $path) {
 	require_once (LIB_PATH . '/lib_phpQuery.php');
 
+	syslog(LOG_INFO, 'FreshRSS GET ' . $url);
 	$html = file_get_contents ($url);
 
 	if ($html) {
 		$doc = phpQuery::newDocument ($html);
 		$content = $doc->find ($path);
-		$content->find ('*')->removeAttr ('style')
-		                    ->removeAttr ('id')
-		                    ->removeAttr ('class')
-		                    ->removeAttr ('onload')
-		                    ->removeAttr ('target');
-		$content->removeAttr ('style')
-		        ->removeAttr ('id')
-		        ->removeAttr ('class')
-		        ->removeAttr ('onload')
-		        ->removeAttr ('target');
-		return $content->__toString ();
+		return sanitizeHTML($content->__toString());
 	} else {
 		throw new Exception ();
 	}

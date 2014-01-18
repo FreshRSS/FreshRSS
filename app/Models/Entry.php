@@ -159,7 +159,7 @@ class FreshRSS_Entry extends Minz_Model {
 				try {
 					// l'article n'est pas en BDD, on va le chercher sur le site
 					$this->content = get_content_by_parsing(
-						$this->link(), $pathEntries
+						htmlspecialchars_decode($this->link(), ENT_QUOTES), $pathEntries
 					);
 				} catch (Exception $e) {
 					// rien à faire, on garde l'ancien contenu (requête a échoué)
