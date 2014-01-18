@@ -806,7 +806,7 @@ function printStep2 () {
 			<div class="group-controls">
 				<select id="auth_type" name="auth_type" required="required">
 					<option value=""></option>
-					<option value="form"<?php echo $_SESSION['auth_type'] === 'form' ? ' selected="selected"' : ''; ?>><?php echo _t('auth_form'); ?></option>
+					<option value="form"<?php echo $_SESSION['auth_type'] === 'form' ? ' selected="selected"' : '', version_compare(PHP_VERSION, '5.3', '<') ? ' disabled="disabled"' : ''; ?>><?php echo _t('auth_form'); ?></option>
 					<option value="persona"<?php echo $_SESSION['auth_type'] === 'persona' ? ' selected="selected"' : ''; ?>><?php echo _t('auth_persona'); ?></option>
 					<option value="http_auth"<?php echo $_SESSION['auth_type'] === 'http_auth' ? ' selected="selected"' : '', httpAuthUser() == '' ? ' disabled="disabled"' : ''; ?>><?php echo _t('http_auth'); ?> (REMOTE_USER = '<?php echo httpAuthUser(); ?>')</option>
 					<option value="none"<?php echo $_SESSION['auth_type'] === 'none' ? ' selected="selected"' : ''; ?>><?php echo _t('auth_none'); ?></option>

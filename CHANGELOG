@@ -7,6 +7,7 @@
 	* Nécessite un contrôle d’accès, soit :
 		* par le nouveau mode de connexion par formulaire (nom d’utilisateur + mot de passe)
 			* relativement sûr même sans HTTPS (le mot de passe n’est pas transmis en clair)
+			* requiert JavaScript et PHP 5.3+
 		* par HTTP (par exemple sous Apache en créant un fichier ./p/i/.htaccess et .htpasswd)
 			* le nom d’utilisateur HTTP doit correspondre au nom d’utilisateur FreshRSS
 		* par Mozilla Persona, en renseignant l’adresse courriel des utilisateurs
