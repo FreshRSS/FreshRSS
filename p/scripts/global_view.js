@@ -24,7 +24,7 @@ function load_panel(link) {
 		// en en ouvrant une autre ensuite, on se retrouve au même point de scroll
 		$("#panel").scrollTop(0);
 
-		$('#nav_menu_read_all a, #bigMarkAsRead').click(function () {
+		$('#panel').on('click', '#nav_menu_read_all > a, #nav_menu_read_all .item > a, #bigMarkAsRead', function () {
 			$.ajax({
 				url: $(this).attr("href"),
 				async: false
