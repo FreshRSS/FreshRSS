@@ -1,12 +1,25 @@
-<?php if (Minz_Configuration::canLogIn()) { ?>
-<ul class="nav nav-head nav-login">
-	<?php if ($this->loginOk) { ?>
-	<li class="item"><?php echo FreshRSS_Themes::icon('logout'); ?> <a class="signout" href="#"><?php echo Minz_Translate::t ('logout'); ?></a></li>
-	<?php } else { ?>
-	<li class="item"><?php echo FreshRSS_Themes::icon('login'); ?> <a class="signin" href="#"><?php echo Minz_Translate::t ('login'); ?></a></li>
-	<?php } ?>
-</ul>
-<?php } ?>
+<?php
+if (Minz_Configuration::canLogIn()) {
+	?><ul class="nav nav-head nav-login"><?php
+	switch (Minz_Configuration::authType()) {
+		case 'form':
+			if ($this->loginOk) {
+				?><li class="item"><?php echo FreshRSS_Themes::icon('logout'); ?> <a class="signout" href="<?php echo _url ('index', 'formLogout'); ?>"><?php echo Minz_Translate::t ('logout'); ?></a></li><?php
+			} else {
+				?><li class="item"><?php echo FreshRSS_Themes::icon('login'); ?> <a class="signin" href="<?php echo _url ('index', 'formLogin'); ?>"><?php echo Minz_Translate::t ('login'); ?></a></li><?php
+			}
+			break;
+		case 'persona':
+			if ($this->loginOk) {
+				?><li class="item"><?php echo FreshRSS_Themes::icon('logout'); ?> <a class="signout" href="#"><?php echo Minz_Translate::t ('logout'); ?></a></li><?php
+			} else {
+				?><li class="item"><?php echo FreshRSS_Themes::icon('login'); ?> <a class="signin" href="#"><?php echo Minz_Translate::t ('login'); ?></a></li><?php
+			}
+			break;
+	}
+	?></ul><?php
+}
+?>
 
 <div class="header">
 	<div class="item title">
@@ -62,16 +75,31 @@
 				<li class="separator"></li>
 				<li class="item"><a href="<?php echo _url ('index', 'about'); ?>"><?php echo Minz_Translate::t ('about'); ?></a></li>
 				<li class="item"><a href="<?php echo _url ('index', 'logs'); ?>"><?php echo Minz_Translate::t ('logs'); ?></a></li>
-				<?php if (Minz_Configuration::canLogIn()) { ?>
-				<li class="separator"></li>
-				<li class="item"><a class="signout" href="#"><?php echo FreshRSS_Themes::icon('logout'); ?> <?php echo Minz_Translate::t ('logout'); ?></a></li>
-				<?php } ?>
+				<?php
+				if (Minz_Configuration::canLogIn()) {
+					?><li class="separator"></li><?php
+					switch (Minz_Configuration::authType()) {
+						case 'form':
+							?><li class="item"><a class="signout" href="<?php echo _url ('index', 'formLogout'); ?>"><?php echo FreshRSS_Themes::icon('logout'), ' ', Minz_Translate::t ('logout'); ?></a></li><?php
+							break;
+						case 'persona':
+							?><li class="item"><a class="signout" href="#"><?php echo FreshRSS_Themes::icon('logout'), ' ', Minz_Translate::t ('logout'); ?></a></li><?php
+							break;
+					}
+				} ?>
 			</ul>
 		</div>
 	</div>
-	<?php } elseif (Minz_Configuration::canLogIn()) { ?>
-	<div class="item configure">
-		<?php echo FreshRSS_Themes::icon('login'); ?> <a class="signin" href="#"><?php echo Minz_Translate::t ('login'); ?></a>
-	</div>
-	<?php } ?>
+	<?php } elseif (Minz_Configuration::canLogIn()) {
+		?><div class="item configure"><?php
+		switch (Minz_Configuration::authType()) {
+			case 'form':
+				echo FreshRSS_Themes::icon('login'); ?><a class="signin" href="<?php echo _url ('index', 'formLogin'); ?>"><?php echo Minz_Translate::t ('login'); ?></a></li><?php
+				break;
+			case 'persona':
+				echo FreshRSS_Themes::icon('login'); ?><a class="signin" href="#"><?php echo Minz_Translate::t ('login'); ?></a></li><?php
+				break;
+		}
+		?></div><?php
+	} ?>
 </div>

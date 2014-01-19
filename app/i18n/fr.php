@@ -44,6 +44,8 @@ return array (
 	'rss_view'			=> 'Flux RSS',
 	'show_all_articles'		=> 'Afficher tous les articles',
 	'show_not_reads'		=> 'Afficher les non lus',
+	'show_read'			=> 'Afficher les lus',
+	'show_favorite'			=> 'Afficher les favoris',
 	'older_first'			=> 'Plus anciens en premier',
 	'newer_first'			=> 'Plus récents en premier',
 
@@ -155,21 +157,26 @@ return array (
 	'not_yet_implemented'		=> 'Pas encore implémenté',
 	'access_protected_feeds'	=> 'La connexion permet d’accéder aux flux protégés par une authentification HTTP',
 	'no_selected_feed'		=> 'Aucun flux sélectionné.',
-	'think_to_add'			=> 'Pensez à en ajouter !',
+	'think_to_add'			=> '<a href="./?c=configure&amp;a=feed">Pensez à en ajouter !</a>',
 
 	'current_user'			=> 'Utilisateur actuel',
-	'default_user'			=> 'Nom de l’utilisateur par défaut (16 caractères alphanumériques maximum)',
-	'persona_connection_email'	=> 'Adresse courriel de connexion (pour <a href="https://persona.org/" rel="external">Mozilla Persona</a>)',
-	'allow_anonymous'		=> 'Autoriser la lecture anonyme pour l’utilisateur par défaut (%s)',
+	'password_form'			=> 'Mot de passe<br /><small>(pour connexion par formulaire)</small>',
+	'default_user'			=> 'Nom de l’utilisateur par défaut <small>(16 caractères alphanumériques maximum)</small>',
+	'persona_connection_email'	=> 'Adresse courriel de connexion<br /><small>(pour <a href="https://persona.org/" rel="external">Mozilla Persona</a>)</small>',
+	'allow_anonymous'		=> 'Autoriser la lecture anonyme des articles de l’utilisateur par défaut (%s)',
 	'auth_token'			=> 'Jeton d’identification',
 	'explain_token'			=> 'Permet d’accéder à la sortie RSS de l’utilisateur par défaut sans besoin de s’authentifier.<br /><kbd>%s?output=rss&token=%s</kbd>',
 	'login_configuration'		=> 'Identification',
 	'is_admin'			=> 'est administrateur',
 	'auth_type'			=> 'Méthode d’authentification',
 	'auth_none'			=> 'Aucune (dangereux)',
+	'auth_form'			=> 'Formulaire (traditionnel, requiert JavaScript)',
+	'http_auth'			=> 'HTTP (pour utilisateurs avancés avec HTTPS)',
+	'auth_persona'			=> 'Mozilla Persona (moderne, requiert JavaScript)',
 	'users_list'			=> 'Liste des utilisateurs',
 	'create_user'			=> 'Créer un nouvel utilisateur',
 	'username'			=> 'Nom d’utilisateur',
+	'password'			=> 'Mot de passe',
 	'create'			=> 'Créer',
 	'user_created'			=> 'L’utilisateur %s a été créé',
 	'user_deleted'			=> 'L’utilisateur %s a été supprimé',
@@ -236,7 +243,7 @@ return array (
 	'before_yesterday'		=> 'À partir d’avant-hier',
 	'by_author'			=> 'Par <em>%s</em>',
 	'related_tags'			=> 'Tags associés',
-	'no_feed_to_display'		=> 'Il n’y a aucun flux à afficher.',
+	'no_feed_to_display'		=> 'Il n’y a aucun flux à afficher pour l’instant.',
 
 	'about_freshrss'		=> 'À propos de FreshRSS',
 	'project_website'		=> 'Site du projet',
@@ -255,8 +262,8 @@ return array (
 	'logs_empty'			=> 'Les logs sont vides',
 	'clear_logs'			=> 'Effacer les logs',
 
-	'forbidden_access'		=> 'Accès interdit',
-	'forbidden_access_description'	=> 'L’accès est protégé par un mot de passe, veuillez <a class="signin" href="#">vous connecter</a> pour accéder aux flux.',
+	'forbidden_access'		=> 'Accès interdit ! (%s)',
+	'login_required'		=> 'Accès protégé par mot de passe :',
 
 	'confirm_action'		=> 'Êtes-vous sûr(e) de vouloir continuer ? Cette action ne peut être annulée !',
 
@@ -287,6 +294,6 @@ return array (
 	'Nov'				=> '\n\o\v\e\m\b\r\e',
 	'Dec'				=> '\d\é\c\e\m\b\r\e',
 	// format pour la fonction date(), %s permet d'indiquer le mois en toutes lettres
-	'format_date'			=> 'd %s Y',
-	'format_date_hour'		=> '\l\e d %s Y \à H\:i',
+	'format_date'			=> 'j %s Y',
+	'format_date_hour'		=> '\l\e j %s Y \à H\:i',
 );

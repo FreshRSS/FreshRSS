@@ -1,5 +1,11 @@
 <?php
+if (function_exists('opcache_reset')) {
+	opcache_reset();
+}
+
 require('../../constants.php');
+const BCRYPT_COST = 9;
+
 include(LIB_PATH . '/lib_rss.php');
 
 session_name('FreshRSS');
@@ -149,6 +155,7 @@ function saveStep2 () {
 	if (!empty ($_POST)) {
 		if (empty ($_POST['title']) ||
 		    empty ($_POST['old_entries']) ||
+		    empty ($_POST['auth_type']) ||
 		    empty ($_POST['default_user'])) {
 			return false;
 		}
@@ -161,6 +168,12 @@ function saveStep2 () {
 		}
 		$_SESSION['mail_login'] = filter_var($_POST['mail_login'], FILTER_VALIDATE_EMAIL);
 		$_SESSION['default_user'] = substr(preg_replace('/[^a-zA-Z0-9]/', '', $_POST['default_user']), 0, 16);
+		$_SESSION['auth_type'] = $_POST['auth_type'];
+		if (!empty($_POST['passwordPlain'])) {
+			$passwordHash = password_hash($_POST['passwordPlain'], PASSWORD_BCRYPT, array('cost' => BCRYPT_COST));
+			$passwordHash = preg_replace('/^\$2[xy]\$/', '\$2a\$', $passwordHash);	//Compatibility with bcrypt.js
+			$_SESSION['passwordHash'] = $passwordHash;
+		}
 
 		$token = '';
 		if ($_SESSION['mail_login']) {
@@ -169,8 +182,10 @@ function saveStep2 () {
 
 		$config_array = array (
 			'language' => $_SESSION['language'],
+			'theme' => $_SESSION['theme'],
 			'old_entries' => $_SESSION['old_entries'],
 			'mail_login' => $_SESSION['mail_login'],
+			'passwordHash' => $_SESSION['passwordHash'],
 			'token' => $token,
 		);
 
@@ -213,6 +228,8 @@ function saveStep3 () {
 				'base_url' => '',
 				'title' => $_SESSION['title'],
 				'default_user' => $_SESSION['default_user'],
+				'auth_type' => $_SESSION['auth_type'],
+				'allow_anonymous' => isset($_SESSION['allow_anonymous']) ? $_SESSION['allow_anonymous'] : false,
 			),
 			'db' => array(
 				'type' => $_SESSION['bd_type'],
@@ -423,8 +440,9 @@ function checkStep0 () {
 
 	if (file_exists(DATA_PATH . '/config.php')) {
 		$ini_array = include(DATA_PATH . '/config.php');
-	} elseif (file_exists(DATA_PATH . '/application.ini')) {
+	} elseif (file_exists(DATA_PATH . '/application.ini')) {	//v0.6
 		$ini_array = parse_ini_file(DATA_PATH . '/application.ini', true);
+		$ini_array['general']['title'] = empty($ini_array['general']['title']) ? '' : stripslashes($ini_array['general']['title']);
 	} else {
 		$ini_array = null;
 	}
@@ -432,7 +450,7 @@ function checkStep0 () {
 	if ($ini_array) {
 		$ini_general = isset($ini_array['general']) ? $ini_array['general'] : null;
 		if ($ini_general) {
-			$keys = array('environment', 'salt', 'title', 'default_user');
+			$keys = array('environment', 'salt', 'title', 'default_user', 'allow_anonymous', 'auth_type');
 			foreach ($keys as $key) {
 				if ((empty($_SESSION[$key])) && isset($ini_general[$key])) {
 					$_SESSION[$key] = $ini_general[$key];
@@ -454,11 +472,20 @@ function checkStep0 () {
 		$userConfig = include(DATA_PATH . '/' . $_SESSION['default_user'] . '_user.php');
 	} elseif (file_exists(DATA_PATH . '/Configuration.array.php')) {
 		$userConfig = include(DATA_PATH . '/Configuration.array.php');	//v0.6
+		if (empty($_SESSION['auth_type'])) {
+			$_SESSION['auth_type'] = empty($userConfig['mail_login']) ? 'none' : 'persona';
+		}
+		if (!isset($_SESSION['allow_anonymous'])) {
+			$_SESSION['allow_anonymous'] = empty($userConfig['anon_access']) ? false : ($userConfig['anon_access'] === 'yes');
+		}
 	} else {
 		$userConfig = array();
 	}
+	if (empty($_SESSION['auth_type'])) {	//v0.7b
+		$_SESSION['auth_type'] = '';
+	}
 
-	$keys = array('language', 'old_entries', 'mail_login');
+	$keys = array('language', 'theme', 'old_entries', 'mail_login', 'passwordHash');
 	foreach ($keys as $key) {
 		if ((!isset($_SESSION[$key])) && isset($userConfig[$key])) {
 			$_SESSION[$key] = $userConfig[$key];
@@ -468,6 +495,25 @@ function checkStep0 () {
 	$languages = availableLanguages ();
 	$language = isset ($_SESSION['language']) &&
 	            isset ($languages[$_SESSION['language']]);
+
+	if (empty($_SESSION['passwordHash'])) {	//v0.7b
+		$_SESSION['passwordHash'] = '';
+	}
+	if (empty($_SESSION['theme'])) {
+		$_SESSION['theme'] = 'Origine';
+	} else {
+		switch (strtolower($_SESSION['theme'])) {
+			case 'default':	//v0.7b
+				$_SESSION['theme'] = 'Origine';
+				break;
+			case 'flat-design':	//v0.7b
+				$_SESSION['theme'] = 'Flat';
+				break;
+			case 'default_dark':	//v0.7b
+				$_SESSION['theme'] = 'Dark';
+				break;
+		}
+	}
 
 	return array (
 		'language' => $language ? 'ok' : 'ko',
@@ -486,6 +532,7 @@ function checkStep1 () {
 	$cache = CACHE_PATH && is_writable (CACHE_PATH);
 	$log = LOG_PATH && is_writable (LOG_PATH);
 	$favicons = is_writable (DATA_PATH . '/favicons');
+	$persona = is_writable (DATA_PATH . '/persona');
 
 	return array (
 		'php' => $php ? 'ok' : 'ko',
@@ -499,7 +546,8 @@ function checkStep1 () {
 		'cache' => $cache ? 'ok' : 'ko',
 		'log' => $log ? 'ok' : 'ko',
 		'favicons' => $favicons ? 'ok' : 'ko',
-		'all' => $php && $minz && $curl && $pdo && $pcre && $ctype && $dom && $data && $cache && $log && $favicons ? 'ok' : 'ko'
+		'persona' => $persona ? 'ok' : 'ko',
+		'all' => $php && $minz && $curl && $pdo && $pcre && $ctype && $dom && $data && $cache && $log && $favicons && $persona ? 'ok' : 'ko'
 	);
 }
 
@@ -709,6 +757,12 @@ function printStep1 () {
 	<p class="alert alert-error"><span class="alert-head"><?php echo _t ('damn'); ?></span> <?php echo _t ('file_is_nok', DATA_PATH . '/favicons'); ?></p>
 	<?php } ?>
 
+	<?php if ($res['persona'] == 'ok') { ?>
+	<p class="alert alert-success"><span class="alert-head"><?php echo _t ('ok'); ?></span> <?php echo _t ('persona_is_ok'); ?></p>
+	<?php } else { ?>
+	<p class="alert alert-error"><span class="alert-head"><?php echo _t ('damn'); ?></span> <?php echo _t ('file_is_nok', DATA_PATH . '/persona'); ?></p>
+	<?php } ?>
+
 	<?php if ($res['all'] == 'ok') { ?>
 	<a class="btn btn-important next-step" href="?step=2"><?php echo _t ('next_step'); ?></a>
 	<?php } else { ?>
@@ -748,9 +802,30 @@ function printStep2 () {
 		</div>
 
 		<div class="form-group">
+			<label class="group-name" for="auth_type"><?php echo _t('auth_type'); ?></label>
+			<div class="group-controls">
+				<select id="auth_type" name="auth_type" required="required">
+					<option value=""></option>
+					<option value="form"<?php echo $_SESSION['auth_type'] === 'form' ? ' selected="selected"' : '', version_compare(PHP_VERSION, '5.3', '<') ? ' disabled="disabled"' : ''; ?>><?php echo _t('auth_form'); ?></option>
+					<option value="persona"<?php echo $_SESSION['auth_type'] === 'persona' ? ' selected="selected"' : ''; ?>><?php echo _t('auth_persona'); ?></option>
+					<option value="http_auth"<?php echo $_SESSION['auth_type'] === 'http_auth' ? ' selected="selected"' : '', httpAuthUser() == '' ? ' disabled="disabled"' : ''; ?>><?php echo _t('http_auth'); ?> (REMOTE_USER = '<?php echo httpAuthUser(); ?>')</option>
+					<option value="none"<?php echo $_SESSION['auth_type'] === 'none' ? ' selected="selected"' : ''; ?>><?php echo _t('auth_none'); ?></option>
+				</select>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="group-name" for="passwordPlain"><?php echo _t('password_form'); ?></label>
+			<div class="group-controls">
+				<input type="password" id="passwordPlain" name="passwordPlain" pattern=".{7,}" autocomplete="off" />
+				<noscript><b><?php echo _t('javascript_should_be_activated'); ?></b></noscript>
+			</div>
+		</div>
+
+		<div class="form-group">
 			<label class="group-name" for="mail_login"><?php echo _t ('persona_connection_email'); ?></label>
 			<div class="group-controls">
-				<input type="email" id="mail_login" name="mail_login" value="<?php echo isset ($_SESSION['mail_login']) ? $_SESSION['mail_login'] : ''; ?>" placeholder="<?php echo _t ('blank_to_disable'); ?>" />
+				<input type="email" id="mail_login" name="mail_login" value="<?php echo isset ($_SESSION['mail_login']) ? $_SESSION['mail_login'] : ''; ?>" placeholder="alice@example.net" />
 				<noscript><b><?php echo _t ('javascript_should_be_activated'); ?></b></noscript>
 			</div>
 		</div>
@@ -910,8 +985,8 @@ case 6:
 		<meta charset="utf-8">
 		<meta name="viewport" content="initial-scale=1.0">
 		<title><?php echo _t ('freshrss_installation'); ?></title>
-		<link rel="stylesheet" type="text/css" media="all" href="../themes/default/global.css" />
-		<link rel="stylesheet" type="text/css" media="all" href="../themes/default/freshrss.css" />
+		<link rel="stylesheet" type="text/css" media="all" href="../themes/Origine/global.css" />
+		<link rel="stylesheet" type="text/css" media="all" href="../themes/Origine/freshrss.css" />
 	</head>
 	<body>
 

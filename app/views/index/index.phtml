@@ -1,15 +1,5 @@
 <?php
 
-function showForbidden() {
-?><div class="post content">
-	<h1><?php echo Minz_Translate::t ('forbidden_access'); ?></h1>
-	<p><?php echo Minz_Configuration::canLogIn() ?
-		Minz_Translate::t ('forbidden_access_description') :
-		Minz_Translate::t ('forbidden_access') . ' (' . Minz_Configuration::authType() . ')'; ?></p>
-	<p><a href="<?php echo _url ('index', 'about'); ?>"><?php echo Minz_Translate::t ('about_freshrss'); ?></a></p>
-</div><?php
-}
-
 $output = Minz_Request::param ('output', 'normal');
 
 if ($this->loginOk || Minz_Configuration::allowAnonymous()) {
@@ -31,8 +21,8 @@ if ($this->loginOk || Minz_Configuration::allowAnonymous()) {
 	if ($token_is_ok) {
 		$this->renderHelper ('view/rss_view');
 	} else {
-		showForbidden();
+		Minz_Request::forward(array('c' => 'index', 'a' => 'formLogin'), true);
 	}
 } else {
-	showForbidden();
+	Minz_Request::forward(array('c' => 'index', 'a' => 'formLogin'), true);
 }

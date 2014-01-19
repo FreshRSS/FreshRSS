@@ -46,12 +46,8 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 			// no layout for RSS output
 			$this->view->_useLayout (false);
 			header('Content-Type: application/rss+xml; charset=utf-8');
-		} else {
-			Minz_View::appendScript (Minz_Url::display ('/scripts/shortcut.js?' . @filemtime(PUBLIC_PATH . '/scripts/shortcut.js')));
-
-			if ($output === 'global') {
-				Minz_View::appendScript (Minz_Url::display ('/scripts/global_view.js?' . @filemtime(PUBLIC_PATH . '/scripts/global_view.js')));
-			}
+		} elseif ($output === 'global') {
+			Minz_View::appendScript (Minz_Url::display ('/scripts/global_view.js?' . @filemtime(PUBLIC_PATH . '/scripts/global_view.js')));
 		}
 
 		$this->view->cat_aside = $this->catDAO->listCategories ();
@@ -83,7 +79,7 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 		Minz_View::prependTitle (
 			$this->view->currentName .
 			($this->nb_not_read_cat > 0 ? ' (' . $this->nb_not_read_cat . ')' : '') .
-			' - '
+			' · '
 		);
 
 		// On récupère les différents éléments de filtrage
@@ -204,7 +200,7 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 	}
 
 	public function aboutAction () {
-		Minz_View::prependTitle (Minz_Translate::t ('about') . ' - ');
+		Minz_View::prependTitle (Minz_Translate::t ('about') . ' · ');
 	}
 
 	public function logsAction () {
@@ -215,7 +211,7 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 			);
 		}
 
-		Minz_View::prependTitle (Minz_Translate::t ('logs') . ' - ');
+		Minz_View::prependTitle (Minz_Translate::t ('logs') . ' · ');
 
 		if (Minz_Request::isPost ()) {
 			FreshRSS_LogDAO::truncate();
@@ -290,8 +286,56 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 	}
 
 	public function logoutAction () {
-		$this->view->_useLayout (false);
-		Minz_Session::_param ('mail');
+		$this->view->_useLayout(false);
 		invalidateHttpCache();
+		Minz_Session::_param('currentUser');
+		Minz_Session::_param('mail');
+		Minz_Session::_param('passwordHash');
+	}
+
+	public function formLoginAction () {
+		if (Minz_Request::isPost()) {
+			$ok = false;
+			$nonce = Minz_Session::param('nonce');
+			$username = Minz_Request::param('username', '');
+			$c = Minz_Request::param('challenge', '');
+			if (ctype_alnum($username) && ctype_graph($c) && ctype_alnum($nonce)) {
+				if (!function_exists('password_verify')) {
+					include_once(LIB_PATH . '/password_compat.php');
+				}
+				try {
+					$conf = new FreshRSS_Configuration($username);
+					$s = $conf->passwordHash;
+					$ok = password_verify($nonce . $s, $c);
+					if ($ok) {
+						Minz_Session::_param('currentUser', $username);
+						Minz_Session::_param('passwordHash', $s);
+					} else {
+						Minz_Log::record('Password mismatch for user ' . $username . ', nonce=' . $nonce . ', c=' . $c, Minz_Log::WARNING);
+					}
+				} catch (Minz_Exception $me) {
+					Minz_Log::record('Login failure: ' . $me->getMessage(), Minz_Log::WARNING);
+				}
+			}
+			if (!$ok) {
+				$notif = array(
+					'type' => 'bad',
+					'content' => Minz_Translate::t('invalid_login')
+				);
+				Minz_Session::_param('notification', $notif);
+			}
+			$this->view->_useLayout(false);
+			Minz_Request::forward(array('c' => 'index', 'a' => 'index'), true);
+		}
+		invalidateHttpCache();
+	}
+
+	public function formLogoutAction () {
+		$this->view->_useLayout(false);
+		invalidateHttpCache();
+		Minz_Session::_param('currentUser');
+		Minz_Session::_param('mail');
+		Minz_Session::_param('passwordHash');
+		Minz_Request::forward(array('c' => 'index', 'a' => 'index'), true);
 	}
 }

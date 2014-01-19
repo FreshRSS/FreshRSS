@@ -24,6 +24,16 @@ function load_panel(link) {
 		// en en ouvrant une autre ensuite, on se retrouve au même point de scroll
 		$("#panel").scrollTop(0);
 
+		$('#panel').on('click', '#nav_menu_read_all > a, #nav_menu_read_all .item > a, #bigMarkAsRead', function () {
+			$.ajax({
+				url: $(this).attr("href"),
+				async: false
+			});
+			//$("#panel .close").first().click();
+			window.location.reload(false);
+			return false;
+		});
+
 		panel_loading = false;
 	});
 }
@@ -50,11 +60,14 @@ function init_global_view() {
 
 	$(".nav_menu #nav_menu_read_all, .nav_menu .toggle_aside").remove();
 
-	init_stream_delegates($("#panel"));
+	init_stream($("#panel"));
 }
 
 function init_all_global_view() {
-	if (!(window.$ && window.init_stream_delegates)) {
+	if (!(window.$ && window.init_stream)) {
+		if (window.console) {
+			console.log('FreshRSS Global view waiting for JS…');
+		}
 		window.setTimeout(init_all_global_view, 50);	//Wait for all js to be loaded
 		return;
 	}

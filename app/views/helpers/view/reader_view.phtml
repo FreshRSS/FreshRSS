@@ -22,7 +22,7 @@ if (!empty($this->entries)) {
 
 				<div class="author">
 					<?php $author = $item->author (); ?>
-					<?php echo $author != '' ? Minz_Translate::t ('by_author', $author) . ' - ' : ''; ?>
+					<?php echo $author != '' ? Minz_Translate::t ('by_author', $author) . ' — ' : ''; ?>
 					<?php echo $item->date (); ?>
 				</div>
 
@@ -44,5 +44,6 @@ if (!empty($this->entries)) {
 <?php } else { ?>
 <div id="stream" class="alert alert-warn reader">
 	<span class="alert-head"><?php echo Minz_Translate::t ('no_feed_to_display'); ?></span>
+	<?php echo Minz_Translate::t ('think_to_add'); ?>
 </div>
 <?php } ?>

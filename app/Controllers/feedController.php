@@ -30,8 +30,8 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 				$cat = $def_cat->id ();
 			}
 
-			$user = Minz_Request::param ('username');
-			$pass = Minz_Request::param ('password');
+			$user = Minz_Request::param ('http_user');
+			$pass = Minz_Request::param ('http_pass');
 			$params = array ();
 
 			$transactionStarted = false;
@@ -164,6 +164,7 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 		$feedDAO = new FreshRSS_FeedDAO ();
 		$entryDAO = new FreshRSS_EntryDAO ();
 
+		Minz_Session::_param('actualize_feeds', false);
 		$id = Minz_Request::param ('id');
 		$force = Minz_Request::param ('force', false);
 

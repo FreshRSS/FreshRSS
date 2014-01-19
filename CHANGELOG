@@ -5,12 +5,19 @@
 * Nouveau mode multi-utilisateur
 	* L’utilisateur par défaut (administrateur) peut créer et supprimer d’autres utilisateurs
 	* Nécessite un contrôle d’accès, soit :
+		* par le nouveau mode de connexion par formulaire (nom d’utilisateur + mot de passe)
+			* relativement sûr même sans HTTPS (le mot de passe n’est pas transmis en clair)
+			* requiert JavaScript et PHP 5.3+
 		* par HTTP (par exemple sous Apache en créant un fichier ./p/i/.htaccess et .htpasswd)
 			* le nom d’utilisateur HTTP doit correspondre au nom d’utilisateur FreshRSS
 		* par Mozilla Persona, en renseignant l’adresse courriel des utilisateurs
 * Installateur supportant les mises à jour :
-	* Depuis une v0.6, placer application.ini et Configuration.array.php dans le nouveau répertoire “./data/” (voir réorganisation ci-dessous)
-	* Pour les versions suivantes, juste garder “./data/config.php” “./data/*_user.php”
+	* Depuis une v0.6, placer application.ini et Configuration.array.php dans le nouveau répertoire “./data/”
+		(voir réorganisation ci-dessous)
+	* Pour les versions suivantes, juste garder “./data/config.php” et “./data/*_user.php”,
+		éventuellement “./data/persona/*”
+* Rafraîchissement automatique du nombre d’articles non lus toutes les minutes (utilise le cache HTTP à bon escient)
+	* Permet aussi de conserver la session valide, surtout dans le cas de Persona
 * Importation OPML instantanée et plus tolérante
 * Nouvelle gestion des favicons avec téléchargement en parallèle
 * Nouvelles options
@@ -24,11 +31,13 @@
 	* Permet de modifier la description et l’adresse d’un flux RSS ainsi que le site Web associé
 	* Nouveau raccourci pour ouvrir/fermer un article (‘c’ par défaut)
 	* Boutons pour effacer les logs et pour purger les vieux articles
+	* Nouveaux filtres d’affichage : seulement les articles favoris, et seulement les articles lus
 * SQL :
 	* Nouveau moteur de recherche, aussi accessible depuis la vue mobile
 		* Mots clefs de recherche “intitle:”, “inurl:”, “author:”
 	* Les articles sont triés selon la date de leur ajout dans FreshRSS plutôt que la date déclarée (souvent erronée)
 		* Permet de marquer tout comme lu sans affecter les nouveaux articles arrivés en cours de lecture
+		* Permet une pagination efficace
 	* Refactorisation
 		* Les tables sont préfixées avec le nom d’utilisateur afin de permettre le mode multi-utilisateurs
 		* Amélioration des performances
@@ -38,16 +47,19 @@
 	* Affichage de la taille de la base de données dans FreshRSS
 	* Correction problème de marquage de tous les favoris comme lus
 * HTML5 :
-	* Support des balises HTML5 audio, video, et éléments associés (preload="none", et réécriture correcte des adresses, aussi en HTTPS)
+	* Support des balises HTML5 audio, video, et éléments associés
+		* Utilisation de preload="none", et réécriture correcte des adresses, aussi en HTTPS
 	* Protection HTML5 des iframe (sandbox="allow-scripts allow-same-origin")
 	* Filtrage des object et embed
 	* Chargement différé HTML5 (postpone="") pour iframe et video
 	* Chargement différé JavaScript pour iframe
 * CSS :
+	* Nouveau thème sombre
+		* Chargement plus robuste des thèmes
 	* Meilleur support des longs titres d’articles sur des écrans étroits
 	* Meilleure accessibilité
 		* FreshRSS fonctionne aussi en mode dégradé sans images (alternatives Unicode) et/ou sans CSS
-	* Diverses améliorations mineures
+	* Diverses améliorations
 * PHP :
 	* Encore plus tolérant pour les flux comportant des erreurs
 	* Mise à jour automatique de l’URL du flux (en base de données) lorsque SimplePie découvre qu’elle a changé
@@ -56,15 +68,16 @@
 	* Amélioration des performances
 	* Chargement automatique des classes
 	* Alternative dans le cas d’absence de librairie JSON
-	* Pour le développement, le cache HTTP peut être désactivé en créant un fichier “./no-cache.txt”
+	* Pour le développement, le cache HTTP peut être désactivé en créant un fichier “./data/no-cache.txt”
 * Réorganisation des fichiers et répertoires, en particulier :
 	* Tous les fichiers utilisateur sont dans “./data/” (y compris “cache”, “favicons”, et “log”)
 	* Déplacement de “./app/configuration/application.ini” vers “./data/config.php”
+		* Meilleure sécurité et compatibilité
 	* Déplacement de “./public/data/Configuration.array.php” vers “./data/*_user.php”
 	* Déplacement de “./public/” vers “./p/”
 		* Déplacement de “./public/index.php” vers “./p/i/index.php” (voir cookie ci-dessous)
 	* Déplacement de “./actualize_script.php” vers “./app/actualize_script.php” (pour une meilleure sécurité)
-		* Pensez à mettre à jour votre CRON !
+		* Pensez à mettre à jour votre Cron !
 * Divers :
 	* Nouvelle politique de cookie de session (témoin de connexion)
 		* Utilise un nom poli “FreshRSS” (évite des problèmes avec certains filtres)

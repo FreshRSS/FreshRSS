@@ -4,15 +4,20 @@ class FreshRSS extends Minz_FrontController {
 		if (!isset($_SESSION)) {
 			Minz_Session::init('FreshRSS');
 		}
-		$this->accessControl(Minz_Session::param('currentUser', ''));
+		$loginOk = $this->accessControl(Minz_Session::param('currentUser', ''));
 		$this->loadParamsView();
-		$this->loadStylesAndScripts();	//TODO: Do not load that when not needed, e.g. some Ajax requests
+		$this->loadStylesAndScripts($loginOk);	//TODO: Do not load that when not needed, e.g. some Ajax requests
 		$this->loadNotifications();
 	}
 
 	private function accessControl($currentUser) {
 		if ($currentUser == '') {
 			switch (Minz_Configuration::authType()) {
+				case 'form':
+					$currentUser = Minz_Configuration::defaultUser();
+					Minz_Session::_param('passwordHash');
+					$loginOk = false;
+					break;
 				case 'http_auth':
 					$currentUser = httpAuthUser();
 					$loginOk = $currentUser != '';
@@ -73,6 +78,9 @@ class FreshRSS extends Minz_FrontController {
 
 		if ($loginOk) {
 			switch (Minz_Configuration::authType()) {
+				case 'form':
+					$loginOk = Minz_Session::param('passwordHash') === $this->conf->passwordHash;
+					break;
 				case 'http_auth':
 					$loginOk = strcasecmp($currentUser, httpAuthUser()) === 0;
 					break;
@@ -92,6 +100,7 @@ class FreshRSS extends Minz_FrontController {
 			}
 		}
 		Minz_View::_param ('loginOk', $loginOk);
+		return $loginOk;
 	}
 
 	private function loadParamsView () {
@@ -104,22 +113,30 @@ class FreshRSS extends Minz_FrontController {
 		}
 	}
 
-	private function loadStylesAndScripts () {
-		$theme = FreshRSS_Themes::get_infos($this->conf->theme);
+	private function loadStylesAndScripts ($loginOk) {
+		$theme = FreshRSS_Themes::load($this->conf->theme);
 		if ($theme) {
 			foreach($theme['files'] as $file) {
-				Minz_View::appendStyle (Minz_Url::display ('/themes/' . $theme['path'] . '/' . $file . '?' . @filemtime(PUBLIC_PATH . '/themes/' . $theme['path'] . '/' . $file)));
+				Minz_View::appendStyle (Minz_Url::display ('/themes/' . $theme['id'] . '/' . $file . '?' . @filemtime(PUBLIC_PATH . '/themes/' . $theme['id'] . '/' . $file)));
 			}
 		}
 
-		if (Minz_Configuration::authType() === 'persona') {
-			Minz_View::appendScript ('https://login.persona.org/include.js');
+		switch (Minz_Configuration::authType()) {
+			case 'form':
+				if (!$loginOk) {
+					Minz_View::appendScript(Minz_Url::display ('/scripts/bcrypt.min.js?' . @filemtime(PUBLIC_PATH . '/scripts/bcrypt.min.js')));
+				}
+				break;
+			case 'persona':
+				Minz_View::appendScript('https://login.persona.org/include.js');
+				break;
 		}
 		$includeLazyLoad = $this->conf->lazyload && ($this->conf->display_posts || Minz_Request::param ('output') === 'reader');
 		Minz_View::appendScript (Minz_Url::display ('/scripts/jquery.min.js?' . @filemtime(PUBLIC_PATH . '/scripts/jquery.min.js')), false, !$includeLazyLoad, !$includeLazyLoad);
 		if ($includeLazyLoad) {
 			Minz_View::appendScript (Minz_Url::display ('/scripts/jquery.lazyload.min.js?' . @filemtime(PUBLIC_PATH . '/scripts/jquery.lazyload.min.js')));
 		}
+		Minz_View::appendScript (Minz_Url::display ('/scripts/shortcut.js?' . @filemtime(PUBLIC_PATH . '/scripts/shortcut.js')));
 		Minz_View::appendScript (Minz_Url::display ('/scripts/main.js?' . @filemtime(PUBLIC_PATH . '/scripts/main.js')));
 	}
 

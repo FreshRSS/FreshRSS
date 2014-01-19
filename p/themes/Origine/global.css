@@ -392,22 +392,28 @@ input, select, textarea {
 			font-size: 14px;
 			line-height: 30px;
 		}
-		.dropdown-menu .item {
+		.dropdown-menu > .item {
 			display: block;
 			height: 30px;
 			font-size: 90%;
 			line-height: 30px;
 		}
-			.dropdown-menu .item > * {
+			.dropdown-menu > .item > a {
 				display: block;
 				padding: 0 25px;
 				line-height: 30px;
 			}
-			.dropdown-menu .item:hover {
+			.dropdown-menu > .item:hover {
 				background: #0062BE;
 				color: #fff;
 			}
-				.dropdown-menu .item:hover > * {
+				.dropdown-menu > .item[aria-checked="true"] > a:before {
+					content: '✓ ';
+					font-weight: bold;
+					margin: 0 0 0 -1.2em;
+					padding: 0 0.2em 0 0;
+				}
+				.dropdown-menu > .item:hover > a {
 					color: #fff;
 					text-decoration: none;
 				}
@@ -470,6 +476,10 @@ input, select, textarea {
 		margin: 0;
 		font-weight: bold;
 		font-size: 110%;
+	}
+	.alert > a {
+		color: inherit;
+		text-decoration: underline;
 	}
 	.alert-warn {
 		background: #ffe;

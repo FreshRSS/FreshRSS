@@ -25,8 +25,52 @@ function incLabel(p, inc) {
 	return i > 0 ? ' (' + i + ')' : '';
 }
 
+function incUnreadsFeed(article, feed_id, nb) {
+	//Update unread: feed
+	var elem = $('#' + feed_id + '>.feed').get(0),
+		feed_unreads = elem ? (parseInt(elem.getAttribute('data-unread'), 10) || 0) : 0,
+		feed_priority = elem ? (parseInt(elem.getAttribute('data-priority'), 10) || 0) : 0;
+	if (elem) {
+		elem.setAttribute('data-unread', Math.max(0, feed_unreads + nb));
+	}
+
+	//Update unread: category
+	elem = $('#' + feed_id).parent().prevAll('.category').children(':first').get(0);
+	feed_unreads = elem ? (parseInt(elem.getAttribute('data-unread'), 10) || 0) : 0;
+	if (elem) {
+		elem.setAttribute('data-unread', Math.max(0, feed_unreads + nb));
+	}
+
+	//Update unread: all
+	if (feed_priority > 0) {
+		elem = $('#aside_flux .all').children(':first').get(0);
+		if (elem) {
+			feed_unreads = elem ? (parseInt(elem.getAttribute('data-unread'), 10) || 0) : 0;
+			elem.setAttribute('data-unread', Math.max(0, feed_unreads + nb));
+		}
+	}
+
+	//Update unread: favourites
+	if (article && article.closest('div').hasClass('favorite')) {
+		elem = $('#aside_flux .favorites').children(':first').get(0);
+		if (elem) {
+			feed_unreads = elem ? (parseInt(elem.getAttribute('data-unread'), 10) || 0) : 0;
+			elem.setAttribute('data-unread', Math.max(0, feed_unreads + nb));
+		}
+	}
+
+	//Update unread: title
+	document.title = document.title.replace(/((?: \(\d+\))?)( · .*?)((?: \(\d+\))?)$/, function (m, p1, p2, p3) {
+		if (article || ($('#' + feed_id).closest('.active').length > 0)) {
+			return incLabel(p1, nb) + p2 + incLabel(p3, feed_priority > 0 ? nb : 0);
+		} else {
+			return p1 + p2 + incLabel(p3, feed_priority > 0 ? nb : 0);
+		}
+	});
+}
+
 function mark_read(active, only_not_read) {
-	if (active[0] === undefined || (only_not_read === true && !active.hasClass("not_read"))) {
+	if (active.length === 0 || (only_not_read === true && !active.hasClass("not_read"))) {
 		return false;
 	}
 
@@ -51,50 +95,14 @@ function mark_read(active, only_not_read) {
 		}
 		$r.find('.icon').replaceWith(data.icon);
 
-		//Update unread: feed
 		var feed_url = active.find(".website>a").attr("href"),
-			feed_id = feed_url.substr(feed_url.lastIndexOf('f_')),
-			elem = $('#' + feed_id + ' .feed').get(0),
-			feed_unread = elem ? (parseInt(elem.getAttribute('data-unread'), 10) || 0) : 0,
-			feed_priority = elem ? (parseInt(elem.getAttribute('data-priority'), 10) || 0) : 0;
-		if (elem) {
-			elem.setAttribute('data-unread', Math.max(0, feed_unread + inc));
-		}
-
-		//Update unread: category
-		elem = $('#' + feed_id).parent().prevAll('.category').children(':first').get(0);
-		feed_unread = elem ? (parseInt(elem.getAttribute('data-unread'), 10) || 0) : 0;
-		if (elem) {
-			elem.setAttribute('data-unread', Math.max(0, feed_unread + inc));
-		}
-
-		//Update unread: all
-		if (feed_priority > 0) {
-			elem = $('#aside_flux .all').children(':first').get(0);
-			if (elem) {
-				feed_unread = elem ? (parseInt(elem.getAttribute('data-unread'), 10) || 0) : 0;
-				elem.setAttribute('data-unread', Math.max(0, feed_unread + inc));
-			}
-		}
-
-		//Update unread: favourites
-		if (active.closest('div').hasClass('favorite')) {
-			elem = $('#aside_flux .favorites').children(':first').get(0);
-			if (elem) {
-				feed_unread = elem ? (parseInt(elem.getAttribute('data-unread'), 10) || 0) : 0;
-				elem.setAttribute('data-unread', Math.max(0, feed_unread + inc));
-			}
-		}
-
-		//Update unread: title
-		document.title = document.title.replace(/((?: \(\d+\))?)( - .*?)((?: \(\d+\))?)$/, function (m, p1, p2, p3) {
-			return incLabel(p1, inc) + p2 + incLabel(p3, feed_priority > 0 ? inc : 0);
-		});
+			feed_id = feed_url.substr(feed_url.lastIndexOf('f_'));
+		incUnreadsFeed(active, feed_id, inc);
 	});
 }
 
 function mark_favorite(active) {
-	if (active[0] === undefined) {
+	if (active.length === 0) {
 		return false;
 	}
 
@@ -128,13 +136,21 @@ function mark_favorite(active) {
 
 		if (active.closest('div').hasClass('not_read')) {
 			var elem = $('#aside_flux .favorites').children(':first').get(0),
-				feed_unread = elem ? (parseInt(elem.getAttribute('data-unread'), 10) || 0) : 0;
-			elem.setAttribute('data-unread', Math.max(0, feed_unread + inc));
+				feed_unreads = elem ? (parseInt(elem.getAttribute('data-unread'), 10) || 0) : 0;
+			if (elem) {
+				elem.setAttribute('data-unread', Math.max(0, feed_unreads + inc));
+			}
 		}
 	});
 }
 
 function toggleContent(new_active, old_active) {
+	old_active.removeClass("active").removeClass("current");
+
+	if (new_active.length === 0) {
+		return;
+	}
+
 	if (does_lazyload) {
 		new_active.find('img[data-original], iframe[data-original]').each(function () {
 			this.setAttribute('src', this.getAttribute('data-original'));
@@ -142,7 +158,6 @@ function toggleContent(new_active, old_active) {
 		});
 	}
 
-	old_active.removeClass("active").removeClass("current");
 	if (old_active[0] !== new_active[0]) {
 		if (isCollapsed) {
 			new_active.addClass("active");
@@ -188,30 +203,20 @@ function toggleContent(new_active, old_active) {
 
 function prev_entry() {
 	var old_active = $(".flux.current"),
-		last_active = $(".flux:last"),
-		new_active = old_active.prevAll(".flux:first");
-
-	if (new_active.hasClass("flux")) {
-		toggleContent(new_active, old_active);
-	} else if (old_active[0] === undefined && new_active[0] === undefined) {
-		toggleContent(last_active, old_active);
-	}
+		new_active = old_active.length === 0 ? $(".flux:last") : old_active.prevAll(".flux:first");
+	toggleContent(new_active, old_active);
 }
 
 function next_entry() {
 	var old_active = $(".flux.current"),
-		first_active = $(".flux:first"),
-		last_active = $(".flux:last"),
-		new_active = old_active.nextAll(".flux:first");
+		new_active = old_active.length === 0 ? $(".flux:first") : old_active.nextAll(".flux:first");
+	toggleContent(new_active, old_active);
 
-	if (new_active.hasClass("flux")) {
-		toggleContent(new_active, old_active);
-	} else if (old_active[0] === undefined && new_active[0] === undefined) {
-		toggleContent(first_active, old_active);
-	}
-
-	if ((!auto_load_more) && (last_active.attr("id") === new_active.attr("id"))) {
-		load_more_posts();
+	if (!auto_load_more) {
+		var last_active = $(".flux:last");
+		if (last_active.attr("id") === new_active.attr("id")) {
+			load_more_posts();
+		}
 	}
 }
 
@@ -308,6 +313,14 @@ function init_column_categories() {
 		$(this).parent().next(".feeds").slideToggle();
 		return false;
 	});
+	$('#aside_flux').on('click', '.feeds .dropdown-toggle', function () {
+		if ($(this).nextAll('.dropdown-menu').length === 0) {
+			var feed_id = $(this).closest('li').attr('id').substr(2),
+				feed_web = $(this).data('fweb'),
+				template = $('#feed_config_template').html().replace(/!!!!!!/g, feed_id).replace('http://example.net/', feed_web);
+			$(this).attr('href', '#dropdown-' + feed_id).prev('.dropdown-target').attr('id', 'dropdown-' + feed_id).parent().append(template);
+		}
+	});
 }
 
 function init_shortcuts() {
@@ -399,8 +412,11 @@ function init_shortcuts() {
 	});
 }
 
-function init_stream_delegates(divStream) {
+function init_stream(divStream) {
 	divStream.on('click', '.flux_header', function (e) {	//flux_header_toggle
+		if ($(e.target).closest('.item.website > a').length > 0) {
+			return;
+		}
 		var old_active = $(".flux.current"),
 			new_active = $(this).parent();
 			isCollapsed = true;
@@ -416,19 +432,13 @@ function init_stream_delegates(divStream) {
 	divStream.on('click', '.flux a.read', function () {
 		var active = $(this).parents(".flux");
 		mark_read(active, false);
-
 		return false;
 	});
 
 	divStream.on('click', '.flux a.bookmark', function () {
 		var active = $(this).parents(".flux");
 		mark_favorite(active);
-
 		return false;
-	});
-
-	divStream.on('click', '.flux .content a', function () {
-		$(this).attr('target', '_blank');
 	});
 
 	divStream.on('click', '.item.title>a', function (e) {
@@ -437,6 +447,10 @@ function init_stream_delegates(divStream) {
 		}
 		$(this).parent().click();	//Will perform toggle flux_content
 		return false;
+	});
+
+	divStream.on('click', '.flux .content a', function () {
+		$(this).attr('target', '_blank');
 	});
 
 	if (auto_mark_site) {
@@ -470,17 +484,6 @@ function init_nav_entries() {
 	});
 }
 
-function init_templates() {
-	$('#aside_flux').on('click', '.feeds .dropdown-toggle', function () {
-		if ($(this).nextAll('.dropdown-menu').length === 0) {
-			var feed_id = $(this).closest('li').attr('id').substr(2),
-				feed_web = $(this).data('fweb'),
-				template = $('#feed_config_template').html().replace(/!!!!!!/g, feed_id).replace('http://example.net/', feed_web);
-			$(this).attr('href', '#dropdown-' + feed_id).prev('.dropdown-target').attr('id', 'dropdown-' + feed_id).parent().append(template);
-		}
-	});
-}
-
 function init_actualize() {
 	$("#actualize").click(function () {
 		$.getScript('./?c=javascript&a=actualize').done(function () {
@@ -504,7 +507,7 @@ function closeNotification() {
 
 function init_notifications() {
 	var notif = $(".notification");
-	if (notif[0] !== undefined) {
+	if (notif.length > 0) {
 		window.setInterval(closeNotification, 4000);
 
 		notif.find("a.close").click(function () {
@@ -512,6 +515,17 @@ function init_notifications() {
 			return false;
 		});
 	}
+}
+
+function refreshUnreads() {
+	$.getJSON('./?c=javascript&a=nbUnreadsPerFeed').done(function (data) {
+		$.each(data, function(feed_id, nbUnreads) {
+			feed_id = 'f_' + feed_id;
+			var elem = $('#' + feed_id + '>.feed').get(0),
+				feed_unreads = elem ? (parseInt(elem.getAttribute('data-unread'), 10) || 0) : 0;
+			incUnreadsFeed(null, feed_id, nbUnreads - feed_unreads);
+		});
+	});
 }
 
 //<endless_mode>
@@ -547,14 +561,14 @@ function load_more_posts() {
 }
 
 function init_load_more(box) {
+	box_load_more = box;
+
 	var $next_link = $("#load_more");
 	if (!$next_link.length) {
 		// no more article to load
 		url_load_more = "";
 		return;
 	}
-
-	box_load_more = box;
 
 	url_load_more = $next_link.attr("href");
 	var $prefetch = $('#prefetch');
@@ -570,6 +584,58 @@ function init_load_more(box) {
 	});
 }
 //</endless_mode>
+
+//<Web login form>
+function poormanSalt() {	//If crypto.getRandomValues is not available
+	var text = '$2a$04$',
+		base = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ.0123456789/abcdefghijklmnopqrstuvwxyz';
+	for (var i = 22; i > 0; i--) {
+		text += base.charAt(Math.floor(Math.random() * 64));
+	}
+	return text;
+}
+
+function init_loginForm() {
+	var $loginForm = $('#loginForm');
+	if ($loginForm.length === 0) {
+		return;
+	}
+	if (!(window.dcodeIO)) {
+		if (window.console) {
+			console.log('FreshRSS waiting for bcrypt.js…');
+		}
+		window.setTimeout(init_loginForm, 100);
+		return;
+	}
+	$loginForm.on('submit', function() {
+		$('#loginButton').attr('disabled', '');
+		var success = false;
+		$.ajax({
+			url: './?c=javascript&a=nonce&user=' + $('#username').val(),
+			dataType: 'json',
+			async: false
+		}).done(function (data) {
+			if (data.salt1 == '' || data.nonce == '') {
+				alert('Invalid user!');
+			} else {
+				var strong = window.Uint32Array && window.crypto && (typeof window.crypto.getRandomValues === 'function'),
+					s = dcodeIO.bcrypt.hashSync($('#passwordPlain').val(), data.salt1),
+					c = dcodeIO.bcrypt.hashSync(data.nonce + s, strong ? 4 : poormanSalt());
+				$('#challenge').val(c);
+				if (s == '' || c == '') {
+					alert('Crypto error!');
+				} else {
+					success = true;
+				}
+			}
+		}).fail(function() {
+			alert('Communication error!');
+		});
+		$('#loginButton').removeAttr('disabled');
+		return success;
+	});
+}
+//</Web login form>
 
 //<persona>
 function init_persona() {
@@ -668,23 +734,29 @@ function init_all() {
 		window.setTimeout(init_all, 50);
 		return;
 	}
-	$stream = $('#stream');
-	init_posts();
-	init_column_categories();
-	if (load_shortcuts) {
-		init_shortcuts();
-	}
-	init_stream_delegates($stream);
-	init_nav_entries();
-	init_templates();
 	init_notifications();
-	init_actualize();
-	init_load_more($stream);
-	if (use_persona) {
-		init_persona();
+	switch (authType) {
+		case 'form':
+			init_loginForm();
+			break;
+		case 'persona':
+			init_persona();
+			break;
 	}
 	init_confirm_action();
-	init_print_action();
+	$stream = $('#stream');
+	if ($stream.length > 0) {
+		init_actualize();
+		init_column_categories();
+		init_load_more($stream);
+		init_posts();
+		init_stream($stream);
+		init_nav_entries();
+		init_shortcuts();
+		init_print_action();
+		window.setInterval(refreshUnreads, 120000);
+	}
+
 	if (window.console) {
 		console.log('FreshRSS init done.');
 	}

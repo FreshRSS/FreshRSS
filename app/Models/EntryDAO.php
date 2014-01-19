@@ -293,6 +293,9 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 			case 'read':
 				$where .= 'AND e1.is_read = 1 ';
 				break;
+			case 'favorite':
+				$where .= 'AND e1.is_favorite = 1 ';
+				break;
 			default:
 				throw new FreshRSS_EntriesGetter_Exception ('Bad state in Entry->listByType: [' . $state . ']!');
 		}

@@ -3,13 +3,17 @@
 class FreshRSS_Themes extends Minz_Model {
 	private static $themesUrl = '/themes/';
 	private static $defaultIconsUrl = '/themes/icons/';
+	public static $defaultTheme = 'Origine';
 
-	public static function get() {
-		$themes_list = array_diff(
+	public static function getList() {
+		return array_values(array_diff(
 			scandir(PUBLIC_PATH . self::$themesUrl),
 			array('..', '.')
-		);
+		));
+	}
 
+	public static function get() {
+		$themes_list = self::getList();
 		$list = array();
 		foreach ($themes_list as $theme_dir) {
 			$theme = self::get_infos($theme_dir);
@@ -28,7 +32,7 @@ class FreshRSS_Themes extends Minz_Model {
 				$content = file_get_contents($json_filename);
 				$res = json_decode($content, true);
 				if ($res && isset($res['files']) && is_array($res['files'])) {
-					$res['path'] = $theme_id;
+					$res['id'] = $theme_id;
 					return $res;
 				}
 			}
@@ -39,12 +43,26 @@ class FreshRSS_Themes extends Minz_Model {
 	private static $themeIconsUrl;
 	private static $themeIcons;
 
-	public static function setThemeId($theme_id) {
+	public static function load($theme_id) {
+		$infos = self::get_infos($theme_id);
+		if (!$infos) {
+			if ($theme_id !== self::$defaultTheme) {	//Fall-back to default theme
+				return self::load(self::$defaultTheme);
+			}
+			$themes_list = self::getList();
+			if (!empty($themes_list)) {
+				if ($theme_id !== $themes_list[0]) {	//Fall-back to first theme
+					return self::load($themes_list[0]);
+				}
+			}
+			return false;
+		}
 		self::$themeIconsUrl = self::$themesUrl . $theme_id . '/icons/';
 		self::$themeIcons = is_dir(PUBLIC_PATH . self::$themeIconsUrl) ? array_fill_keys(array_diff(
 			scandir(PUBLIC_PATH . self::$themeIconsUrl),
 			array('..', '.')
 		), 1) : array();
+		return $infos;
 	}
 
 	public static function icon($name, $urlOnly = false) {

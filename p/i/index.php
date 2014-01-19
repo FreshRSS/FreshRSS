@@ -26,6 +26,7 @@ if (file_exists ('install.php')) {
 
 	session_cache_limiter('');
 	Minz_Session::init('FreshRSS');
+	Minz_Session::_param('keepAlive', 1);	//For Persona
 
 	if (!file_exists(DATA_PATH . '/no-cache.txt')) {
 		require(LIB_PATH . '/http-conditional.php');

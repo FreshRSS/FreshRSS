@@ -2,13 +2,22 @@
 
 <div id="stream" class="global categories">
 <?php
+	$arUrl = array('c' => 'index', 'a' => 'index', 'params' => array());
+	if ($this->conf->view_mode !== 'normal') {
+		$arUrl['params']['output'] = 'normal';
+	}
+	$p = Minz_Request::param('state', '');
+	if (($p != '') && ($this->conf->default_view !== $p)) {
+		$arUrl['params']['state'] = $p;
+	}
+
 	foreach ($this->cat_aside as $cat) {
 		$feeds = $cat->feeds ();
 		if (!empty ($feeds)) {
 ?>
 	<div class="box-category">
 		<div class="category">
-			<a data-unread="<?php echo $cat->nbNotRead (); ?>" class="btn" href="<?php echo _url ('index', 'index', 'get', 'c_' . $cat->id (), 'output', 'normal'); ?>">
+			<a data-unread="<?php echo $cat->nbNotRead (); ?>" class="btn" href="<?php $arUrl['params']['get'] = 'c_' . $cat->id (); echo Minz_Url::display($arUrl); ?>">
 			<?php echo $cat->name(); ?>
 			</a>
 		</div>
@@ -17,7 +26,7 @@
 			<?php $not_read = $feed->nbNotRead (); ?>
 			<li id="f_<?php echo $feed->id (); ?>" class="item<?php echo $feed->inError () ? ' error' : ''; ?><?php echo $feed->nbEntries () == 0 ? ' empty' : ''; ?>">
 				<img class="favicon" src="<?php echo $feed->favicon (); ?>" alt="✇" />
-				<a class="feed" data-unread="<?php echo $feed->nbNotRead (); ?>" data-priority="<?php echo $feed->priority (); ?>" href="<?php echo _url ('index', 'index', 'get', 'f_' . $feed->id (), 'output', 'normal'); ?>">
+				<a class="feed" data-unread="<?php echo $feed->nbNotRead (); ?>" data-priority="<?php echo $feed->priority (); ?>" href="<?php $arUrl['params']['get'] = 'f_' . $feed->id(); echo Minz_Url::display($arUrl); ?>">
 				<?php echo $feed->name(); ?>
 				</a>
 			</li>

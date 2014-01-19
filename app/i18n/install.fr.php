@@ -1,8 +1,8 @@
 <?php
 return array (
-	'freshrss_installation'		=> 'Installation - FreshRSS',
+	'freshrss_installation'		=> 'Installation · FreshRSS',
 	'freshrss'			=> 'FreshRSS',
-	'installation_step'		=> 'Installation - étape %d',
+	'installation_step'		=> 'Installation — étape %d · FreshRSS',
 	'steps'				=> 'Étapes',
 	'checks'			=> 'Vérifications',
 	'general_configuration'	=> 'Configuration générale',
@@ -40,6 +40,7 @@ return array (
 	'log_is_ok'			=> 'Les droits sur le répertoire des logs sont bons',
 	'favicons_is_ok'		=> 'Les droits sur le répertoire des favicons sont bons',
 	'data_is_ok'			=> 'Les droits sur le répertoire de data sont bons',
+	'persona_is_ok'			=> 'Les droits sur le répertoire de Mozilla Persona sont bons',
 	'file_is_nok'			=> 'Veuillez vérifier les droits sur le répertoire <em>%s</em>. Le serveur HTTP doit être capable d’écrire dedans',
 	'fix_errors_before'		=> 'Veuillez corriger les erreurs avant de passer à l’étape suivante.',
 
@@ -52,8 +53,6 @@ return array (
 	'bdd_conf_is_ok'		=> 'La configuration de la base de données a été enregistrée.',
 	'bdd_conf_is_ko'		=> 'Vérifiez les informations d’accès à la base de données.',
 	'host'				=> 'Hôte',
-	'username'			=> 'Nom utilisateur',
-	'password'			=> 'Mot de passe',
 	'bdd'				=> 'Base de données',
 	'prefix'			=> 'Préfixe des tables',
 

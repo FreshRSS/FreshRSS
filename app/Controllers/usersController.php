@@ -1,6 +1,9 @@
 <?php
 
 class FreshRSS_users_Controller extends Minz_ActionController {
+
+	const BCRYPT_COST = 9;	//Will also have to be computed client side on mobile devices, so do not use a too high cost
+
 	public function firstAction() {
 		if (!$this->view->loginOk) {
 			Minz_Error::error(
@@ -14,12 +17,28 @@ class FreshRSS_users_Controller extends Minz_ActionController {
 		if (Minz_Request::isPost()) {
 			$ok = true;
 
-			$mail = Minz_Request::param('mail_login', false);
-			$this->view->conf->_mail_login($mail);
-			$ok &= $this->view->conf->save();
+			$passwordPlain = Minz_Request::param('passwordPlain', false);
+			if ($passwordPlain != '') {
+				Minz_Request::_param('passwordPlain');	//Discard plain-text password ASAP
+				$_POST['passwordPlain'] = '';
+				if (!function_exists('password_hash')) {
+					include_once(LIB_PATH . '/password_compat.php');
+				}
+				$passwordHash = password_hash($passwordPlain, PASSWORD_BCRYPT, array('cost' => self::BCRYPT_COST));
+				$passwordPlain = '';
+				$passwordHash = preg_replace('/^\$2[xy]\$/', '\$2a\$', $passwordHash);	//Compatibility with bcrypt.js
+				$ok &= ($passwordHash != '');
+				$this->view->conf->_passwordHash($passwordHash);
+			}
+			Minz_Session::_param('passwordHash', $this->view->conf->passwordHash);
 
+			if (Minz_Configuration::isAdmin(Minz_Session::param('currentUser', '_'))) {
+				$this->view->conf->_mail_login(Minz_Request::param('mail_login', false));
+			}
 			$email = $this->view->conf->mail_login;
 			Minz_Session::_param('mail', $email);
+
+			$ok &= $this->view->conf->save();
 
 			if ($email != '') {
 				$personaFile = DATA_PATH . '/persona/' . $email . '.txt';
@@ -38,8 +57,8 @@ class FreshRSS_users_Controller extends Minz_ActionController {
 				$auth_type = Minz_Request::param('auth_type', 'none');
 				if ($anon != Minz_Configuration::allowAnonymous() ||
 					$auth_type != Minz_Configuration::authType()) {
-					Minz_Configuration::_allowAnonymous($anon);
 					Minz_Configuration::_authType($auth_type);
+					Minz_Configuration::_allowAnonymous($anon);
 					$ok &= Minz_Configuration::writeFile();
 				}
 			}
@@ -76,10 +95,26 @@ class FreshRSS_users_Controller extends Minz_ActionController {
 				$ok &= !file_exists($configPath);
 			}
 			if ($ok) {
+			
+				$passwordPlain = Minz_Request::param('new_user_passwordPlain', false);
+				$passwordHash = '';
+				if ($passwordPlain != '') {
+					Minz_Request::_param('new_user_passwordPlain');	//Discard plain-text password ASAP
+					$_POST['new_user_passwordPlain'] = '';
+					if (!function_exists('password_hash')) {
+						include_once(LIB_PATH . '/password_compat.php');
+					}
+					$passwordHash = password_hash($passwordPlain, PASSWORD_BCRYPT, array('cost' => self::BCRYPT_COST));
+					$passwordPlain = '';
+					$ok &= ($passwordHash != '');
+				}
+				if (empty($passwordHash)) {
+					$passwordHash = '';
+				}
+
 				$new_user_email = filter_var($_POST['new_user_email'], FILTER_VALIDATE_EMAIL);
 				if (empty($new_user_email)) {
 					$new_user_email = '';
-					$ok &= Minz_Configuration::authType() !== 'persona';
 				} else {
 					$personaFile = DATA_PATH . '/persona/' . $new_user_email . '.txt';
 					@unlink($personaFile);
@@ -89,6 +124,7 @@ class FreshRSS_users_Controller extends Minz_ActionController {
 			if ($ok) {
 				$config_array = array(
 					'language' => $new_user_language,
+					'passwordHash' => $passwordHash,
 					'mail_login' => $new_user_email,
 				);
 				$ok &= (file_put_contents($configPath, "<?php\n return " . var_export($config_array, true) . ';') !== false);

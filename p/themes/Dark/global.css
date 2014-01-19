@@ -15,11 +15,12 @@ html, body {
 	height: 100%;
 	font-size: 95%;
 	font-family: "OpenSans", "Cantarell", "Helvetica", "Arial", sans-serif;
+	color: #888;
 }
 
 /* LIENS */
 a {
-	color: #2980b9;
+	color: #6986B2;
 	text-decoration: none;
 }
 	a:hover {
@@ -70,36 +71,34 @@ iframe, embed, object, video {
 
 /* FORMULAIRES */
 legend {
-	display: inline-block;
+	display: block;
+	width: 100%;
 	margin: 20px 0 5px;
-	padding: 5px 20px;
+	padding: 5px 0;
+	border-bottom: 1px solid #2f2f2f;
 	font-size: 150%;
 	clear: both;
-	background: #ecf0f1;
-	border-radius: 20px;
 }
 label {
 	display: block;
 	min-height: 25px;
 	padding: 5px 0;
-	font-size: 12px;
+	font-size: 14px;
 	line-height: 25px;
 	cursor: pointer;
-	font-weight: bold;
-	color: #444;
 }
 input, select, textarea {
 	display: inline-block;
 	max-width: 100%;
 	min-height: 25px;
 	padding: 5px;
-	background: #FFF;
-	border: none;
-	border-bottom: 3px solid #ddd;
-	color: #666;
+	background: #333;
+	border: 1px solid #000;
+	border-radius: 3px;
+	color: #999;
 	line-height: 25px;
 	vertical-align: middle;
-	border-radius: 5px;
+	box-shadow: 0 2px 2px #1d1d1d inset;
 }
 	option {
 		padding:0 .5em 0 .5em;
@@ -110,8 +109,8 @@ input, select, textarea {
 		min-height: 15px !important;
 	}
 	input:focus, select:focus, textarea:focus {
-		color: #333;
-		border-color: #2980b9;
+		color: #6986b2;
+		border-color: #2f2f2f;
 	}
 	input:invalid, select:invalid {
 		border-color: red;
@@ -119,26 +118,18 @@ input, select, textarea {
 	}
 
 .form-group {
-	margin: 5px 0;
-	border: 1px solid transparent;
+	margin: 0;
 }
 	.form-group:after {
 		content: "";
 		display: block;
 		clear: both;
 	}
-	.form-group:hover {
-		background: #fff;
-		border: 1px solid #eee;
-		border-radius: 3px;
-	}
 	.form-group.form-actions {
 		min-width: 250px;
-		margin: 20px 0;
 		padding: 5px 0;
-		background: #ecf0f1;
-		border-top: 3px solid #bdc3c7;
-		border-radius: 5px 5px 0 0;
+		background: #1a1a1a;
+		border-top: 1px solid #2f2f2f;
 	}
 		.form-group.form-actions .btn {
 			margin: 0 10px;
@@ -156,11 +147,6 @@ input, select, textarea {
 		margin: 0 0 0 220px;
 		padding: 5px 0;
 	}
-		.form-group .group-controls label {
-			font-weight: normal;
-			font-size: 14px;
-			color: #000;
-		}
 		.form-group .group-controls .control {
 			display: block;
 			min-height: 30px;
@@ -175,19 +161,31 @@ input, select, textarea {
 	font-size: 0px;
 	vertical-align: middle;
 }
-	.stick .btn,
-	.stick input {
-		font-size: 14px;
+	.stick input,
+	.stick .btn {
 		border-radius: 0;
+		font-size: 14px;
 	}
 	.stick .btn:first-child,
 	.stick input:first-child {
-		border-radius: 5px 0 0 5px;
+		border-radius: 3px 0 0 3px;
 	}
+		.stick .btn-important:first-child {
+			border-right: 1px solid #000;
+		}
 	.stick .btn:last-child,
-	.stick input:last-child,
+	.stick input:last-child {
+		border-radius: 0 3px 3px 0;
+	}
+	.stick .btn + .btn,
+	.stick .btn + input,
+	.stick input + .btn,
+	.stick input + input {
+		border-left: none;
+	}
 	.stick .btn + .dropdown > .btn {
-		border-radius: 0 5px 5px 0;
+		border-left: none;
+		border-radius: 0 3px 3px 0;
 	}
 	.stick .btn + .dropdown a {
 		font-size: 12px;
@@ -195,14 +193,13 @@ input, select, textarea {
 
 .btn {
 	display: inline-block;
-	min-height: 38px;
-	min-width: 18px;
+	min-height: 37px;
+	min-width: 15px;
 	padding: 5px 10px;
-	background: #3498db;
-	border-radius: 5px;
-	border: none;
-	border-bottom: 3px solid #2980b9;
-	color: #fff;
+	background: linear-gradient(to bottom, #fff 0%, #eee 100%);
+	border-radius: 3px;
+	border: 1px solid #000;
+	color: #888;
 	line-height: 20px;
 	vertical-align: middle;
 	cursor: pointer;
@@ -212,53 +209,61 @@ input, select, textarea {
 		min-height: 25px;
 		line-height: 25px;
 	}
+	.btn:hover {
+		background: linear-gradient(to bottom, #4A5D7A, #26303F);
+		text-decoration: none;
+	}
 	.btn.active,
 	.btn:active,
-	.btn:hover,
 	.dropdown-target:target ~ .btn.dropdown-toggle {
-		background: #2980b9;
-		text-decoration: none;
+		background: #26303F;
 	}
 
 	.btn-important {
-		background: #e67e22;
-		color: #fff;
-		border-bottom: 3px solid #d35400;
+		background: linear-gradient(to bottom, #0084CC, #0045CC);
+		color: #888888;
+		border: 1px solid #000000;
 	}
-		.btn-important:active,
 		.btn-important:hover {
-			background: #d35400;
+			background: linear-gradient(to bottom, #0066CC, #0045CC);
+		}
+		.btn-important:active {
+			background: #0044CB;
+			box-shadow: none;
 		}
 
 	.btn-attention {
-		background: #e74c3c;
-		color: #fff;
-		border-bottom: 3px solid #c0392b;
+		background: linear-gradient(to bottom, #E95B57, #BD362F);
+		color: #888888;
+		border: 1px solid #000000;
 	}
-		.btn-attention:hover,
+		.btn-attention:hover {
+			background: linear-gradient(to bottom, #D14641, #BD362F);
+		}
 		.btn-attention:active {
-			background: #c0392b;
+			background: #BD362F;
+			box-shadow: none;
 		}
 
 /* NAVIGATION */
-.nav-list {
-	border-right: 1px solid #ecf0f1;
-}
 .nav-list .nav-header,
 .nav-list .item {
 	display: block;
 	height: 35px;
 	line-height: 35px;
-	margin: 5px 0;
 }
-	.nav-list .item:hover,
-	.nav-list .item.active {
-		background: #2980b9;
-		color: #fff;
+	.nav-list .item:hover {
+		background: #1a1a1a;
 	}
-		.nav-list .item:hover a,
+		.nav-list .item:hover a {
+			color: #26303F;
+		}
+	.nav-list .item.active {
+		background: #26303F;
+		color: #1a1a1a;
+	}
 		.nav-list .item.active a {
-			color: #fff;
+			color: #888;
 		}
 	.nav-list .disable {
 		color: #aaa;
@@ -278,7 +283,6 @@ input, select, textarea {
 	.nav-list .item.error a {
 		color: #BD362F;
 	}
-		.nav-list .item:hover.error a,
 		.nav-list .item.active.error a {
 			color: #fff;
 			background: #BD362F;
@@ -286,7 +290,6 @@ input, select, textarea {
 	.nav-list .item.empty a {
 		color: #f39c12;
 	}
-		.nav-list .item:hover.empty a,
 		.nav-list .item.active.empty a {
 			color: #fff;
 			background: #f39c12;
@@ -294,9 +297,8 @@ input, select, textarea {
 
 	.nav-list .nav-header {
 		padding: 0 10px;
-		margin: 0;
-		color: #fff;
-		background: #34495e;
+		background: #1a1a1a;
+		border-bottom: 1px solid #2f2f2f;
 		font-weight: bold;
 	}
 	.nav-list .separator {
@@ -314,13 +316,10 @@ input, select, textarea {
 .nav-head {
 	display: block;
 	margin: 0;
-	background: #34495e;
-	color: #fff;
+	background: linear-gradient(to bottom, #fff, #f0f0f0);
+	border-bottom: 1px solid #ddd;
 	text-align: right;
 }
-	.nav-head a {
-		color: #fff;
-	}
 	.nav-head .item {
 		display: inline-block;
 		padding: 5px 10px;
@@ -355,9 +354,9 @@ input, select, textarea {
 		padding: 5px 0;
 		position: absolute;
 		right: 0px;
-		background: #fff;
-		border: 1px solid #95a5a6;
-		border-radius: 3px;
+		background: #1a1a1a;
+		border: 1px solid #888;
+		border-radius: 5px;
 		text-align: left;
 	}
 	.dropdown-menu:after {
@@ -367,16 +366,16 @@ input, select, textarea {
 		right: 13px;
 		width: 10px;
 		height: 10px;
-		background: #fff;
-		border-top: 1px solid #95a5a6;
-		border-left: 1px solid #95a5a6;
+		background: #1a1a1a;
+		border-top: 1px solid #888;
+		border-left: 1px solid #888;
 		z-index: -10;
 		transform: rotate(45deg);
 	}
 		.dropdown-header {
 			display: block;
 			padding: 0 5px;
-			color: #34495e;
+			color: #888;
 			font-weight: bold;
 			font-size: 14px;
 			line-height: 30px;
@@ -387,17 +386,23 @@ input, select, textarea {
 			font-size: 90%;
 			line-height: 30px;
 		}
-			.dropdown-menu .item > * {
+			.dropdown-menu > .item > a {
 				display: block;
 				padding: 0 25px;
 				line-height: 30px;
 			}
-			.dropdown-menu .item:hover {
-				background: #2980b9;
-				color: #fff;
+			.dropdown-menu > .item:hover {
+				background: #26303F;
+				color: #888;
 			}
-				.dropdown-menu .item:hover > * {
-					color: #fff;
+				.dropdown-menu > .item[aria-checked="true"] > a:before {
+					content: '✓ ';
+					font-weight: bold;
+					margin: 0 0 0 -1.2em;
+					padding: 0 0.2em 0 0;
+				}
+				.dropdown-menu > .item:hover > a {
+					color: #888;
 					text-decoration: none;
 				}
 		.dropdown-menu .input {
@@ -406,9 +411,6 @@ input, select, textarea {
 			font-size: 90%;
 			line-height: 30px;
 		}
-			.dropdown-menu label {
-				font-weight: normal;
-			}
 			.dropdown-menu .input select,
 			.dropdown-menu .input input {
 				display: block;
@@ -426,7 +428,7 @@ input, select, textarea {
 			display: block;
 			height: 0;
 			margin: 5px 0;
-			border-bottom: 1px solid #95a5a6;
+			border-bottom: 1px solid #888;
 		}
 		.dropdown-target:target ~ .dropdown-menu {
 			display: block;
@@ -450,32 +452,32 @@ input, select, textarea {
 	width: 90%;
 	margin: 15px auto;
 	padding: 10px 15px;
-	background: #f4f4f4;
+	background: #1a1a1a;
 	border: 1px solid #ccc;
 	border-right: 1px solid #aaa;
 	border-bottom: 1px solid #aaa;
 	border-radius: 5px;
 	color: #aaa;
-	text-shadow: 0 0 1px #eee;
 }
 	.alert-head {
 		margin: 0;
 		font-weight: bold;
 		font-size: 110%;
 	}
+	.alert > a {
+		color: inherit;
+		text-decoration: underline;
+	}
 	.alert-warn {
-		background: #ffe;
-		border: 1px solid #eeb;
+		border: 1px solid #c95;
 		color: #c95;
 	}
 	.alert-success {
-		background: #dfd;
-		border: 1px solid #cec;
+		border: 1px solid #484;
 		color: #484;
 	}
 	.alert-error {
-		background: #fdd;
-		border: 1px solid #ecc;
+		border: 1px solid #844;
 		color: #844;
 	}
 

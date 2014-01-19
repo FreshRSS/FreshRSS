@@ -56,7 +56,13 @@
 		}
 		$p = isset($this->entries[0]) ? $this->entries[0] : null;
 		$idMax = $p === null ? '0' : $p->id();
-		$markReadUrl = _url ('entry', 'read', 'is_read', 1, 'get', $get, 'nextGet', $nextGet, 'idMax', $idMax);
+
+		$arUrl = array('c' => 'entry', 'a' => 'read', 'params' => array('get' => $get, 'nextGet' => $nextGet, 'idMax' => $idMax));
+		$output = Minz_Request::param('output', '');
+		if (($output != '') && ($this->conf->view_mode !== $output)) {
+			$arUrl['params']['output'] = $output;
+		}
+		$markReadUrl = Minz_Url::display($arUrl);
 		Minz_Session::_param ('markReadUrl', $markReadUrl);
 	?>
 
@@ -103,21 +109,21 @@
 				$url_output = $url;
 				$actual_view = Minz_Request::param('output', 'normal');
 			?>
-			<?php if($actual_view != 'normal') { ?>
+			<?php if($actual_view !== 'normal') { ?>
 			<li class="item">
 				<?php $url_output['params']['output'] = 'normal'; ?>
 				<a class="view_normal" href="<?php echo Minz_Url::display ($url_output); ?>">
 					<?php echo Minz_Translate::t ('normal_view'); ?>
 				</a>
 			</li>
-			<?php } if($actual_view != 'reader') { ?>
+			<?php } if($actual_view !== 'reader') { ?>
 			<li class="item">
 				<?php $url_output['params']['output'] = 'reader'; ?>
 				<a class="view_normal" href="<?php echo Minz_Url::display ($url_output); ?>">
 					<?php echo Minz_Translate::t ('reader_view'); ?>
 				</a>
 			</li>
-			<?php } if($actual_view != 'global') { ?>
+			<?php } if($actual_view !== 'global') { ?>
 			<li class="item">
 				<?php $url_output['params']['output'] = 'global'; ?>
 				<a class="view_normal" href="<?php echo Minz_Url::display ($url_output); ?>">
@@ -128,24 +134,41 @@
 
 			<li class="separator"></li>
 
-			<li class="item">
-				<?php
-					$url_state = $url;
-					if ($this->state == 'not_read') {
-						$url_state['params']['state'] = 'all';
-				?>
+			<?php
+				$url_state = $url;
+				$url_state['params']['state'] = 'all';
+			?>
+			<li class="item" role="checkbox" aria-checked="<?php echo ($this->state === 'all') ? 'true' :'false'; ?>">
 				<a class="print_all" href="<?php echo Minz_Url::display ($url_state); ?>">
 					<?php echo Minz_Translate::t ('show_all_articles'); ?>
 				</a>
-				<?php
-					} else {
-						$url_state['params']['state'] = 'not_read';
-				?>
+			</li>
+			<?php
+				$url_state['params']['state'] = 'not_read';
+			?>
+			<li class="item" role="checkbox" aria-checked="<?php echo ($this->state === 'not_read') ? 'true' :'false'; ?>">
 				<a class="print_non_read" href="<?php echo Minz_Url::display ($url_state); ?>">
 					<?php echo Minz_Translate::t ('show_not_reads'); ?>
 				</a>
-				<?php } ?>
 			</li>
+			<?php
+				$url_state['params']['state'] = 'read';
+			?>
+			<li class="item" role="checkbox" aria-checked="<?php echo ($this->state === 'read') ? 'true' :'false'; ?>">
+				<a class="print_read" href="<?php echo Minz_Url::display ($url_state); ?>">
+					<?php echo Minz_Translate::t ('show_read'); ?>
+				</a>
+			</li>
+			<?php
+				$url_state['params']['state'] = 'favorite';
+			?>
+			<li class="item" role="checkbox" aria-checked="<?php echo ($this->state === 'favorite') ? 'true' :'false'; ?>">
+				<a class="print_favorite" href="<?php echo Minz_Url::display ($url_state); ?>">
+					<?php echo Minz_Translate::t ('show_favorite'); ?>
+				</a>
+			</li>
+
+			<li class="separator"></li>
 
 			<li class="item">
 				<?php
