@@ -264,7 +264,7 @@ body {
 		.flux .item.title {
 			background: inherit;
 		}
-		.flux:hover .item.title {
+		.flux:not(.current):hover .item.title {
 			border-right: 2px solid rgba(127, 127, 127, 0.1);
 			padding-right: 1em;
 			position: absolute;
