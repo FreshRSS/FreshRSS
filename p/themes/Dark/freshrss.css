@@ -269,11 +269,6 @@
 		.flux .item.title {
 			background: inherit;
 		}
-		.flux:not(.current):hover .item.title {
-			border-right: 2px solid rgba(127, 127, 127, 0.1);
-			padding-right: 1em;
-			position: absolute;
-		}
 			.flux .item.title a {
 				color: #888;
 				outline: none;
@@ -650,6 +645,14 @@
 
 select.number option {
 	text-align:right;
+}
+
+@media(min-width: 841px) {
+	.flux:not(.current):hover .item.title {
+		border-right: 2px solid rgba(127, 127, 127, 0.1);
+		padding-right: 1em;
+		position: absolute;
+	}
 }
 
 @media(max-width: 840px) {
