@@ -1,8 +1,5 @@
 <ul class="nav nav-list aside">
 	<li class="nav-header"><?php echo Minz_Translate::t ('configuration'); ?></li>
-	<li class="item<?php echo Minz_Request::actionName () == 'users' ? ' active' : ''; ?>">
-		<a href="<?php echo _url ('configure', 'users'); ?>"><?php echo Minz_Translate::t ('users'); ?></a>
-	</li>
 	<li class="item<?php echo Minz_Request::actionName () == 'display' ? ' active' : ''; ?>">
 		<a href="<?php echo _url ('configure', 'display'); ?>"><?php echo Minz_Translate::t ('reading_configuration'); ?></a>
 	</li>
@@ -14,5 +11,9 @@
 	</li>
 	<li class="item<?php echo Minz_Request::actionName () == 'shortcut' ? ' active' : ''; ?>">
 		<a href="<?php echo _url ('configure', 'shortcut'); ?>"><?php echo Minz_Translate::t ('shortcuts'); ?></a>
+	</li>
+	<li class="separator"></li>
+	<li class="item<?php echo Minz_Request::actionName () == 'users' ? ' active' : ''; ?>">
+		<a href="<?php echo _url ('configure', 'users'); ?>"><?php echo Minz_Translate::t ('users'); ?></a>
 	</li>
 </ul>
