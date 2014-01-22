@@ -250,6 +250,10 @@
 		background: #fff;
 	}
 
+	.horizontal-list > .item > a {
+		display: block
+	}
+
 	.flux_header {
 		background: inherit;
 		height: 25px;
