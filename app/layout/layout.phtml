@@ -28,7 +28,7 @@
 		<meta name="msapplication-TileColor" content="#FFF" />
 		<meta name="robots" content="noindex,nofollow" />
 	</head>
-	<body>
+	<body class="<?php echo Minz_Request::param('output', 'normal'); ?>">
 <?php $this->partial ('header'); ?>
 
 <div id="global">

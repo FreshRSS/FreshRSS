@@ -106,8 +106,8 @@ class FreshRSS extends Minz_FrontController {
 	private function loadParamsView () {
 		Minz_Session::_param ('language', $this->conf->language);
 		Minz_Translate::init();
-		$output = Minz_Request::param ('output');
-		if (!$output) {
+		$output = Minz_Request::param ('output', '');
+		if (($output === '') || ($output !== 'normal' && $output !== 'rss' && $output !== 'reader' && $output !== 'global')) {
 			$output = $this->conf->view_mode;
 			Minz_Request::_param ('output', $output);
 		}
