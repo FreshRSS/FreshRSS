@@ -187,54 +187,12 @@ class FreshRSS_Feed extends Minz_Model {
 					Minz_Exception::ERROR
 				);
 			} else {
-				$feed = new SimplePie ();
-				$feed->set_useragent(Minz_Translate::t ('freshrss') . '/' . FRESHRSS_VERSION . ' (' . PHP_OS . '; ' . FRESHRSS_WEBSITE . ') ' . SIMPLEPIE_NAME . '/' . SIMPLEPIE_VERSION);
 				$url = htmlspecialchars_decode ($this->url, ENT_QUOTES);
 				if ($this->httpAuth != '') {
 					$url = preg_replace ('#((.+)://)(.+)#', '${1}' . $this->httpAuth . '@${3}', $url);
 				}
-
+				$feed = customSimplePie();
 				$feed->set_feed_url ($url);
-				$feed->set_cache_location (CACHE_PATH);
-				$feed->set_cache_duration(1500);
-				$feed->strip_htmltags (array (
-					'base', 'blink', 'body', 'doctype', 'embed',
-					'font', 'form', 'frame', 'frameset', 'html',
-					'input', 'marquee', 'meta', 'noscript',
-					'object', 'param', 'plaintext', 'script', 'style',
-				));
-				$feed->strip_attributes(array_merge($feed->strip_attributes, array(
-					'autoplay', 'onload', 'onunload', 'onclick', 'ondblclick', 'onmousedown', 'onmouseup',
-					'onmouseover', 'onmousemove', 'onmouseout', 'onfocus', 'onblur',
-					'onkeypress', 'onkeydown', 'onkeyup', 'onselect', 'onchange', 'seamless')));
-				$feed->add_attributes(array(
-					'img' => array('lazyload' => ''),	//http://www.w3.org/TR/resource-priorities/
-					'audio' => array('preload' => 'none'),
-					'iframe' => array('postpone' => '', 'sandbox' => 'allow-scripts allow-same-origin'),
-					'video' => array('postpone' => '', 'preload' => 'none'),
-				));
-				$feed->set_url_replacements(array(
-					'a' => 'href',
-					'area' => 'href',
-					'audio' => 'src',
-					'blockquote' => 'cite',
-					'del' => 'cite',
-					'form' => 'action',
-					'iframe' => 'src',
-					'img' => array(
-						'longdesc',
-						'src'
-					),
-					'input' => 'src',
-					'ins' => 'cite',
-					'q' => 'cite',
-					'source' => 'src',
-					'track' => 'src',
-					'video' => array(
-						'poster',
-						'src',
-					),
-				));
 				$feed->init ();
 
 				if ($feed->error ()) {
