@@ -898,3 +898,46 @@ input.extend {
 		text-decoration: underline;
 	}
 }
+
+.stat{
+	border:1px solid #aaa;
+	border-radius:10px;
+	box-shadow:2px 2px 5px #aaa;
+	margin: 10px 0;
+}
+.stat h2{
+	border-bottom:1px solid #aaa;
+	margin:0;
+	padding-left:5px;
+}
+.stat h2 + *{
+	margin:5px;
+}
+.stat h2 + div + div{
+	margin:0 5px 5px 5px;
+}
+.stat h2 + table{
+	border-collapse:collapse;
+	width:calc(100% - 10px);
+}
+.stat h2 + table th{
+	text-transform:capitalize;
+}
+.stat h2 + table td{
+	text-align:center;
+}
+.stat h2 + table thead th{
+	border-bottom:2px solid #aaa;
+}
+.stat h2 + table tbody tr *{
+	border-bottom:1px solid #aaa;
+}
+.stat h2 + table tbody tr:last-child *{
+	border-bottom:0;
+}
+.stat h2 + table tr *{
+	border-left:2px solid #aaa;
+}
+.stat h2 + table tr *:first-child{
+	border-left:0;
+}
