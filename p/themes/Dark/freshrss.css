@@ -807,11 +807,7 @@ select.number option {
 }
 
 .nav-head {
-	background: #fff;
-	background: -moz-linear-gradient(top, #fff 0%, #f0f0f0 100%);
-	background: -webkit-linear-gradient(top, #fff 0%, #f0f0f0 100%);
-	background: -o-linear-gradient(top, #fff 0%, #f0f0f0 100%);
-	background: -ms-linear-gradient(top, #fff 0%, #f0f0f0 100%);
+	background: #1c1c1c;
 }
 
 .header > .item.search input {

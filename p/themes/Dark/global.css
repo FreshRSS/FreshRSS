@@ -317,7 +317,7 @@ input, select, textarea {
 	display: block;
 	margin: 0;
 	background: linear-gradient(to bottom, #fff, #f0f0f0);
-	border-bottom: 1px solid #ddd;
+	border-bottom: 1px solid #2f2f2f;
 	text-align: right;
 }
 	.nav-head .item {
