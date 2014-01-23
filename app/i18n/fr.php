@@ -295,5 +295,5 @@ return array (
 	'Dec'				=> '\d\é\c\e\m\b\r\e',
 	// format pour la fonction date(), %s permet d'indiquer le mois en toutes lettres
 	'format_date'			=> 'j %s Y',
-	'format_date_hour'		=> '\l\e j %s Y \à H\:i',
+	'format_date_hour'		=> 'j %s Y \à H\:i',
 );

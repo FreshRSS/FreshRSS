@@ -1,25 +1,4 @@
-<style>
-h1, div > p {
-	text-align:center;
-}
-p {
-	margin:1em auto;
-}
-form {
-	display:block;
-	margin:1em auto 3em auto;
-	padding:0;
-	width:10em;
-}
-input, button.btn {
-	display:block;
-	margin:.5em auto;
-}
-input {
-	width:99%;
-}
-</style>
-
+<div class="prompt">
 <?php
 if (Minz_Configuration::canLogIn()) {
 	?><h1><?php echo Minz_Translate::t('login'); ?></h1><?php
@@ -52,3 +31,4 @@ if (Minz_Configuration::canLogIn()) {
 ?>
 
 <p><a href="<?php echo _url('index', 'about'); ?>"><?php echo Minz_Translate::t('about_freshrss'); ?></a></p>
+</div>

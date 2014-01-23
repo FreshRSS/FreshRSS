@@ -295,5 +295,5 @@ return array (
 	'Dec'				=> '\D\e\c\e\m\b\e\r',
 	// format for date() function, %s allows to indicate month in letter
 	'format_date'			=> '%s j\<\s\u\p\>S\<\/\s\u\p\> Y',
-	'format_date_hour'		=> '%s j\<\s\u\p\>S\<\/\s\u\p\> Y \a\t H\.i',
+	'format_date_hour'		=> '%s j\<\s\u\p\>S\<\/\s\u\p\> Y \a\t H\:i',
 );
