@@ -250,8 +250,8 @@
 		background: #fff;
 	}
 
-	.horizontal-list > .item > a {
-		display: block
+	.horizontal-list > .item:not(.title):not(.website) > a {
+		display: block;
 	}
 
 	.flux_header {
@@ -658,8 +658,8 @@ select.number option {
 
 @media(min-width: 841px) {
 	.flux:not(.current):hover .item.title {
-		border-right: 2px solid rgba(127, 127, 127, 0.1);
-		padding-right: 1em;
+		max-width: calc(100% - 545px);
+		padding-right: 1.5em;
 		position: absolute;
 	}
 }
