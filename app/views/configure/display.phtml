@@ -21,14 +21,17 @@
 		<div class="form-group">
 			<label class="group-name" for="theme"><?php echo Minz_Translate::t ('theme'); ?></label>
 			<div class="group-controls">
-				<select name="theme" id="theme" required="">
-				<option></option>
-				<?php foreach ($this->themes as $theme) { ?>
-				<option value="<?php echo $theme['id']; ?>"<?php echo $this->conf->theme === $theme['id'] ? ' selected="selected"' : ''; ?>>
-					<?php echo $theme['name'] . ' — ' . Minz_Translate::t ('by') . ' ' . $theme['author']; ?> 
-				</option>
-				<?php } ?>
-				</select>
+				<select name="theme" id="theme" required=""><?php
+					$found = false;
+					foreach ($this->themes as $theme) {
+						?><option value="<?php echo $theme['id']; ?>"<?php if ($this->conf->theme === $theme['id']) { echo ' selected="selected"'; $found = true; } ?>><?php
+							echo $theme['name'] . ' — ' . Minz_Translate::t ('by') . ' ' . $theme['author'];
+						?></option><?php
+					}
+					if (!$found) {
+						?><option selected="selected"></option><?php
+					}
+				?></select>
 			</div>
 		</div>
 
