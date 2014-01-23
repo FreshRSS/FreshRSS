@@ -683,10 +683,6 @@ select.number option {
 		display: block;
 	}
 
-	.content {
-		font-size: 120%;
-	}
-
 	.pagination {
 		margin: 0 0 40px;
 	}
