@@ -653,7 +653,7 @@ select.number option {
 
 @media(min-width: 841px) {
 	.flux:not(.current):hover .item.title {
-		max-width: calc(100% - 545px);
+		max-width: calc(100% - 580px);
 		padding-right: 1.5em;
 		position: absolute;
 	}
