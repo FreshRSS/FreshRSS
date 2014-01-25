@@ -59,14 +59,17 @@ function incUnreadsFeed(article, feed_id, nb) {
 		}
 	}
 
+	var isCurrentView = false;
 	//Update unread: title
 	document.title = document.title.replace(/((?: \(\d+\))?)( · .*?)((?: \(\d+\))?)$/, function (m, p1, p2, p3) {
 		if (article || ($('#' + feed_id).closest('.active').length > 0)) {
+			isCurrentView = true;
 			return incLabel(p1, nb) + p2 + incLabel(p3, feed_priority > 0 ? nb : 0);
 		} else {
 			return p1 + p2 + incLabel(p3, feed_priority > 0 ? nb : 0);
 		}
 	});
+	return isCurrentView;
 }
 
 function mark_read(active, only_not_read) {
@@ -519,21 +522,15 @@ function init_notifications() {
 
 function refreshUnreads() {
 	$.getJSON('./?c=javascript&a=nbUnreadsPerFeed').done(function (data) {
-		var new_article = false;
 		$.each(data, function(feed_id, nbUnreads) {
 			feed_id = 'f_' + feed_id;
 			var elem = $('#' + feed_id + '>.feed').get(0),
 				feed_unreads = elem ? (parseInt(elem.getAttribute('data-unread'), 10) || 0) : 0;
-			incUnreadsFeed(null, feed_id, nbUnreads - feed_unreads);
-
-			if (nbUnreads - feed_unreads > 0) {
-				new_article = true;
-			}
+			if (incUnreadsFeed(null, feed_id, nbUnreads - feed_unreads) &&	//Update of current view?
+				(nbUnreads - feed_unreads > 0)) {
+				$('#new-article').show();
+			};
 		});
-
-		if (new_article) {
-			$('#new-article').show();
-		}
 	});
 }
 
