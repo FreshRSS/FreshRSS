@@ -224,6 +224,25 @@
 		text-align: right;
 	}
 
+#new-article {
+	display: none;
+	min-height: 40px;
+	background: #26303F;
+	text-align: center;
+}
+	#new-article:hover {
+		background: #4A5D7A;
+	}
+	#new-article a {
+		display: block;
+		line-height: 40px;
+		color: #fff;
+		font-weight: bold;
+	}
+		#new-article a:hover {
+			text-decoration: none;
+		}
+
 .flux {
 	border-left: 3px solid #aaa;
 	background: #1c1c1c;

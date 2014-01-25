@@ -241,6 +241,7 @@ return array (
 	'today'				=> 'Aujourd’hui',
 	'yesterday'			=> 'Hier',
 	'before_yesterday'		=> 'À partir d’avant-hier',
+	'new_article'			=> 'Il y a de nouveaux articles disponibles, cliquez pour rafraîchir la page.',
 	'by_author'			=> 'Par <em>%s</em>',
 	'related_tags'			=> 'Tags associés',
 	'no_feed_to_display'		=> 'Il n’y a aucun article à afficher.',

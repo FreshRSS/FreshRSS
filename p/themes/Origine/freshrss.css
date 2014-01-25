@@ -230,6 +230,25 @@
 		text-align: right;
 	}
 
+#new-article {
+	display: none;
+	min-height: 40px;
+	background: #0084CC;
+	text-align: center;
+}
+	#new-article:hover {
+		background: #0066CC;
+	}
+	#new-article a {
+		display: block;
+		line-height: 40px;
+		color: #fff;
+		font-weight: bold;
+	}
+		#new-article a:hover {
+			text-decoration: none;
+		}
+
 .flux {
 	border-left: 3px solid #aaa;
 	background: #fafafa;

@@ -217,6 +217,25 @@ body {
 		z-index: -10;
 	}
 
+#new-article {
+	display: none;
+	min-height: 40px;
+	background: #3498db;
+	text-align: center;
+}
+	#new-article:hover {
+		background: #2980b9;
+	}
+	#new-article a {
+		display: block;
+		line-height: 40px;
+		color: #fff;
+		font-weight: bold;
+	}
+		#new-article a:hover {
+			text-decoration: none;
+		}
+
 .flux {
 	border-left: 3px solid #ecf0f1;
 }

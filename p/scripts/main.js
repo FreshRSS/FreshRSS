@@ -519,12 +519,21 @@ function init_notifications() {
 
 function refreshUnreads() {
 	$.getJSON('./?c=javascript&a=nbUnreadsPerFeed').done(function (data) {
+		var new_article = false;
 		$.each(data, function(feed_id, nbUnreads) {
 			feed_id = 'f_' + feed_id;
 			var elem = $('#' + feed_id + '>.feed').get(0),
 				feed_unreads = elem ? (parseInt(elem.getAttribute('data-unread'), 10) || 0) : 0;
 			incUnreadsFeed(null, feed_id, nbUnreads - feed_unreads);
+
+			if (nbUnreads - feed_unreads > 0) {
+				new_article = true;
+			}
 		});
+
+		if (new_article) {
+			$('#new-article').show();
+		}
 	});
 }
 

@@ -241,6 +241,7 @@ return array (
 	'today'				=> 'Today',
 	'yesterday'			=> 'Yesterday',
 	'before_yesterday'		=> 'Before yesterday',
+	'new_article'			=> 'There are new available articles, click to refresh the page.',
 	'by_author'			=> 'By <em>%s</em>',
 	'related_tags'			=> 'Related tags',
 	'no_feed_to_display'		=> 'There is no article to show.',

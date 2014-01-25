@@ -63,6 +63,13 @@ if (!empty($this->entries)) {
 			$display_others = false;
 		}
 
+		if ($this->entries[0]->id () === $item->id ()) {
+			?><div id="new-article">
+				<a href="<?php echo _url(); ?>"><?php
+				echo Minz_Translate::t ('new_article');
+				?></a></div><?php
+		}
+
 	?><div class="flux<?php echo !$item->isRead () ? ' not_read' : ''; ?><?php echo $item->isFavorite () ? ' favorite' : ''; ?>" id="flux_<?php echo $item->id (); ?>">
 		<ul class="horizontal-list flux_header"><?php
 			if ($this->loginOk) {
