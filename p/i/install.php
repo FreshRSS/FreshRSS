@@ -924,17 +924,26 @@ function printStep4 () {
 ?>
 	<form action="index.php?step=4" method="post">
 		<legend><?php echo _t ('version_update'); ?></legend>
+
+		<?php if (updateDatabase(false)) { ?>
+		<p class="alert"><?php echo _t ('update_long'); ?></p>
+
 		<div class="form-group form-actions">
 			<div class="group-controls">
-				<?php if (updateDatabase(false)) { ?>
 				<input type="hidden" name="updateDatabase" value="1" />
 				<button type="submit" class="btn btn-important"><?php echo _t ('update_start'); ?></button>
-				<p><?php echo _t ('update_long'); ?></p>
-				<?php } else { ?>
-				<a class="btn btn-important next-step" href="?step=5"><?php echo _t ('next_step'); ?></a>
-				<?php } ?>
 			</div>
 		</div>
+
+		<?php } else { ?>
+		<p class="alert"><?php echo _t ('update_end'); ?></p>
+
+		<div class="form-group form-actions">
+			<div class="group-controls">
+				<a class="btn btn-important next-step" href="?step=5"><?php echo _t ('next_step'); ?></a>
+			</div>
+		</div>
+		<?php } ?>
 	</form>
 <?php
 }

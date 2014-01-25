@@ -58,6 +58,8 @@ return array (
 
 	'update_start'			=> 'Start update process',
 	'update_long'			=> 'This can take a long time, depending on the size of your database. You may have to wait for this page to time out (~5 minutes) and then refresh this page.',
+	'update_end'			=> 'Update process is completed, now you can go to the final step.',
+
 
 	'installation_is_ok'		=> 'The installation process was successful.<br />The final step will now attempt to delete the <kbd>./p/i/install.php</kbd> file and any database backup created during the update process.<br />You may choose to skip this step and delete <kbd>./p/i/install.php</kbd> manually.',
 	'finish_installation'		=> 'Complete installation',
