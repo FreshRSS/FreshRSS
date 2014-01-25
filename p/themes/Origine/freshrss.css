@@ -239,13 +239,13 @@
 	#new-article:hover {
 		background: #0066CC;
 	}
-	#new-article a {
+	#new-article > a {
 		display: block;
 		line-height: 40px;
 		color: #fff;
 		font-weight: bold;
 	}
-		#new-article a:hover {
+		#new-article > a:hover {
 			text-decoration: none;
 		}
 
