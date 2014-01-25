@@ -231,10 +231,16 @@ class Minz_Configuration {
 				self::$environment = Minz_Configuration::PRODUCTION;
 				break;
 			default:
-				throw new Minz_BadConfigurationException (
-					'environment',
-					Minz_Exception::ERROR
-				);
+				if ($general['environment'] >= 0 &&
+					$general['environment'] <= 2) {
+					// fallback 0.7-beta
+					self::$environment = $general['environment'];
+				} else {
+					throw new Minz_BadConfigurationException (
+						'environment',
+						Minz_Exception::ERROR
+					);
+				}
 			}
 
 		}
