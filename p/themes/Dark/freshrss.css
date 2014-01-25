@@ -201,8 +201,8 @@
 	font-weight: bold;
 	line-height: 50px;
 	background: #1c1c1c;
-	border-top: 1px solid #888;
-	border-bottom: 1px solid #888;
+	border-top: 1px solid #2f2f2f;
+	border-bottom: 1px solid #2f2f2f;
 }
 	.day:first-child {
 		border-top: none;
@@ -244,7 +244,7 @@
 		}
 
 .flux {
-	border-left: 3px solid #aaa;
+	border-left: 3px solid #2f2f2f;
 	background: #1c1c1c;
 }
 	.flux.not_read {

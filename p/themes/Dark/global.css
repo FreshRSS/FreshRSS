@@ -179,8 +179,13 @@ input, select, textarea {
 	}
 	.stick .btn + .btn,
 	.stick .btn + input,
+	.stick .btn + .dropdown > .btn,
 	.stick input + .btn,
-	.stick input + input {
+	.stick input + input,
+	.stick input + .dropdown > .btn,
+	.stick .dropdown + .btn,
+	.stick .dropdown + input,
+	.stick .dropdown + .dropdown > .btn {
 		border-left: none;
 	}
 	.stick .btn + .dropdown > .btn {
@@ -305,7 +310,7 @@ input, select, textarea {
 		display: block;
 		height: 0;
 		margin: 5px 0;
-		border-bottom: 1px solid #ddd;
+		border-bottom: 1px solid #2f2f2f;
 	}
 
 	.nav-list .nav-form {
