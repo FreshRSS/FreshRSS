@@ -13,6 +13,7 @@ return array (
 	'category'			=> 'Catégorie',
 	'shortcuts'			=> 'Raccourcis',
 	'about'				=> 'À propos',
+	'stats'				=> 'Statistiques',
 
 	'your_rss_feeds'		=> 'Vos flux RSS',
 	'add_rss_feed'			=> 'Ajouter un flux RSS',
@@ -20,7 +21,8 @@ return array (
 	'import_export_opml'		=> 'Importer / exporter (OPML)',
 
 	'subscription_management'	=> 'Gestion des abonnements',
-	'all_feeds'			=> 'Flux principal',
+	'main_stream'			=> 'Flux principal',
+	'all_feeds'				=> 'Tous les flux',
 	'favorite_feeds'		=> 'Favoris (%d)',
 	'not_read'			=> '%d non lu',
 	'not_reads'			=> '%d non lus',
@@ -297,4 +299,14 @@ return array (
 	// format pour la fonction date(), %s permet d'indiquer le mois en toutes lettres
 	'format_date'			=> 'j %s Y',
 	'format_date_hour'		=> 'j %s Y \à H\:i',
+	
+	'status_favorites'	=> 'favoris',
+	'status_read'		=> 'lus',
+	'status_unread'		=> 'non lus',
+	'status_total'		=> 'total',
+	
+	'stats_entry_repartition'	=> 'Répartition des articles',
+	'stats_entry_per_day'		=> 'Nombre d’articles par jour (30 derniers jours)',
+	'stats_feed_per_category'	=> 'Flux par categorie',
+	'stats_entry_per_category'	=> 'Article par categorie',
 );

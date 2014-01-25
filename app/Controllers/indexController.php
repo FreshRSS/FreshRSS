@@ -6,12 +6,14 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 	private $entryDAO;
 	private $feedDAO;
 	private $catDAO;
+	private $statsDAO;
 
 	function __construct($router) {
 		parent::__construct($router);
 		$this->entryDAO = new FreshRSS_EntryDAO ();
 		$this->feedDAO = new FreshRSS_FeedDAO ();
 		$this->catDAO = new FreshRSS_CategoryDAO ();
+		$this->statsDAO = new FreshRSS_StatsDAO ();
 	}
 
 	public function indexAction () {
@@ -197,6 +199,14 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 			default:
 				return false;
 		}
+	}
+	
+	public function statsAction () {
+		Minz_View::appendScript (Minz_Url::display ('/scripts/flotr2.min.js?' . @filemtime(PUBLIC_PATH . '/scripts/flotr2.min.js')));
+		$this->view->repartition = $this->statsDAO->calculateEntryRepartition();
+		$this->view->count = ($this->statsDAO->calculateEntryCount());
+		$this->view->feedByCategory = $this->statsDAO->calculateFeedByCategory();
+		$this->view->entryByCategory = $this->statsDAO->calculateEntryByCategory();
 	}
 
 	public function aboutAction () {

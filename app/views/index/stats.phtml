@@ -1,0 +1,92 @@
+<div class="post content">
+	<a href="<?php echo _url ('index', 'index'); ?>"><?php echo Minz_Translate::t ('back_to_rss_feeds'); ?></a>
+	
+	<h1><?php echo Minz_Translate::t ('stats'); ?></h1>
+	
+	<div class="stat">
+		<h2><?php echo Minz_Translate::t ('stats_entry_repartition')?></h2>
+		<table>
+			<thead>
+				<tr>
+					<th>&nbsp;</th>
+					<th><?php echo Minz_Translate::t ('main_stream')?></th>
+					<th><?php echo Minz_Translate::t ('all_feeds')?></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<th><?php echo Minz_Translate::t ('status_total')?></th>
+					<td><?php echo $this->repartition['main_stream']['total']?></td>
+					<td><?php echo $this->repartition['all_feeds']['total']?></td>
+				</tr>
+				<tr>
+					<th><?php echo Minz_Translate::t ('status_read')?></th>
+					<td><?php echo $this->repartition['main_stream']['read']?></td>
+					<td><?php echo $this->repartition['all_feeds']['read']?></td>
+				</tr>
+				<tr>
+					<th><?php echo Minz_Translate::t ('status_unread')?></th>
+					<td><?php echo $this->repartition['main_stream']['unread']?></td>
+					<td><?php echo $this->repartition['all_feeds']['unread']?></td>
+				</tr>
+				<tr>
+					<th><?php echo Minz_Translate::t ('status_favorites')?></th>
+					<td><?php echo $this->repartition['main_stream']['favorite']?></td>
+					<td><?php echo $this->repartition['all_feeds']['favorite']?></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	
+	<div class="stat">
+		<h2><?php echo Minz_Translate::t ('stats_entry_per_day')?></h2>
+		<div id="statsEntryPerDay" style="height: 300px"></div>
+	</div>
+	
+	<div class="stat">
+		<h2><?php echo Minz_Translate::t ('stats_feed_per_category')?></h2>
+		<div id="statsFeedPerCategory" style="height: 300px"></div>
+		<div id="statsFeedPerCategoryLegend"></div>
+	</div>
+	
+	<div class="stat">
+		<h2><?php echo Minz_Translate::t ('stats_entry_per_category')?></h2>
+		<div id="statsEntryPerCategory" style="height: 300px"></div>
+		<div id="statsEntryPerCategoryLegend"></div>
+	</div>
+	
+</div>
+
+<script>
+	// Entry per day
+	Flotr.draw(document.getElementById('statsEntryPerDay'),
+		[<?php echo $this->count ?>],
+		{
+			bars: {horizontal: false, show: true},
+			xaxis: {noTicks: 6, showLabels: false, tickDecimals: 0},
+			yaxis: {showLabels: false},
+			mouse: {relative: true, track: true, trackDecimals: 0,trackFormatter: function(obj) {return obj.y;}}
+		});
+	// Feed per category
+	Flotr.draw(document.getElementById('statsFeedPerCategory'),
+		<?php echo $this->feedByCategory ?>,
+		{
+			grid: {verticalLines: false, horizontalLines: false},
+			pie: {explode: 2, show: true},
+			xaxis: {showLabels: false},
+			yaxis: {showLabels: false},
+			mouse: {relative: true, track: true, trackDecimals: 0, trackFormatter: function(obj) {return obj.y;}},
+			legend: {container: document.getElementById('statsFeedPerCategoryLegend')}
+		});
+	// Entry per category
+	Flotr.draw(document.getElementById('statsEntryPerCategory'),
+		<?php echo $this->entryByCategory ?>,
+		{
+			grid: {verticalLines: false, horizontalLines: false},
+			pie: {explode: 2, show: true},
+			xaxis: {showLabels: false},
+			yaxis: {showLabels: false},
+			mouse: {relative: true, track: true, trackDecimals: 0, trackFormatter: function(obj) {return obj.y;}},
+			legend: {container: document.getElementById('statsEntryPerCategoryLegend')}
+		});
+</script>
