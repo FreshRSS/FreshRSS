@@ -209,7 +209,7 @@
 	border-top: 1px solid #aaa;
 	border-bottom: 1px solid #aaa;
 }
-	.day:first-child {
+	#new-article + .day {
 		border-top: none;
 	}
 	.day .name {

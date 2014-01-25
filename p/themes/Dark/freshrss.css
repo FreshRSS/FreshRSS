@@ -201,9 +201,8 @@
 	line-height: 50px;
 	background: #1c1c1c;
 	border-top: 1px solid #2f2f2f;
-	border-bottom: 1px solid #2f2f2f;
 }
-	.day:first-child {
+	#new-article + .day {
 		border-top: none;
 	}
 	.day .name {
