@@ -21,7 +21,7 @@ class Minz_Error {
 	*/
 	public static function error ($code = 404, $logs = array (), $redirect = false) {
 		$logs = self::processLogs ($logs);
-		$error_filename = APP_PATH . '/Controllers/ErrorController.php';
+		$error_filename = APP_PATH . '/Controllers/errorController.php';
 
 		if (file_exists ($error_filename)) {
 			$params = array (
