@@ -157,7 +157,7 @@ return array (
 	'not_yet_implemented'		=> 'Pas encore implémenté',
 	'access_protected_feeds'	=> 'La connexion permet d’accéder aux flux protégés par une authentification HTTP',
 	'no_selected_feed'		=> 'Aucun flux sélectionné.',
-	'think_to_add'			=> '<a href="./?c=configure&amp;a=feed">Pensez à en ajouter !</a>',
+	'think_to_add'			=> '<a href="./?c=configure&amp;a=feed">Vous pouvez ajouter des flux</a>.',
 
 	'current_user'			=> 'Utilisateur actuel',
 	'password_form'			=> 'Mot de passe<br /><small>(pour connexion par formulaire)</small>',
@@ -243,7 +243,7 @@ return array (
 	'before_yesterday'		=> 'À partir d’avant-hier',
 	'by_author'			=> 'Par <em>%s</em>',
 	'related_tags'			=> 'Tags associés',
-	'no_feed_to_display'		=> 'Il n’y a aucun flux à afficher pour l’instant.',
+	'no_feed_to_display'		=> 'Il n’y a aucun article à afficher.',
 
 	'about_freshrss'		=> 'À propos de FreshRSS',
 	'project_website'		=> 'Site du projet',

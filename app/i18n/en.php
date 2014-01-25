@@ -157,7 +157,7 @@ return array (
 	'not_yet_implemented'		=> 'Not yet implemented',
 	'access_protected_feeds'	=> 'Connection allows to access HTTP protected RSS feeds',
 	'no_selected_feed'		=> 'No feed selected.',
-	'think_to_add'			=> '<a href="./?c=configure&amp;a=feed">Remember to add some RSS feeds!</a>',
+	'think_to_add'			=> '<a href="./?c=configure&amp;a=feed">You may add some feeds</a>.',
 
 	'current_user'			=> 'Current user',
 	'default_user'			=> 'Username of the default user <small>(maximum 16 alphanumeric characters)</small>',
@@ -232,7 +232,7 @@ return array (
 	'by'				=> 'by',
 
 	'load_more'			=> 'Load more articles',
-	'nothing_to_load'		=> 'There is no more articles',
+	'nothing_to_load'		=> 'There are no more articles',
 
 	'rss_feeds_of'			=> 'RSS feed of %s',
 
@@ -243,7 +243,7 @@ return array (
 	'before_yesterday'		=> 'Before yesterday',
 	'by_author'			=> 'By <em>%s</em>',
 	'related_tags'			=> 'Related tags',
-	'no_feed_to_display'		=> 'There is no feed to show yet.',
+	'no_feed_to_display'		=> 'There is no article to show.',
 
 	'about_freshrss'		=> 'About FreshRSS',
 	'project_website'		=> 'Project website',
