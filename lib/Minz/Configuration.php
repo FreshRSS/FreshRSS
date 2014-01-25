@@ -69,8 +69,24 @@ class Minz_Configuration {
 	public static function salt () {
 		return self::$salt;
 	}
-	public static function environment () {
-		return self::$environment;
+	public static function environment ($str = false) {
+		$env = self::$environment;
+
+		if ($str) {
+			switch (self::$environment) {
+			case self::SILENT:
+				$env = 'silent';
+				break;
+			case self::DEVELOPMENT:
+				$env = 'development';
+				break;
+			case self::PRODUCTION:
+			default:
+				$env = 'production';
+			}
+		}
+
+		return $env;
 	}
 	public static function baseUrl () {
 		return self::$base_url;
@@ -147,7 +163,7 @@ class Minz_Configuration {
 	public static function writeFile() {
 		$ini_array = array(
 			'general' => array(
-				'environment' => self::$environment,
+				'environment' => self::environment(true),
 				'use_url_rewriting' => self::$use_url_rewriting,
 				'salt' => self::$salt,
 				'base_url' => self::$base_url,
@@ -205,15 +221,12 @@ class Minz_Configuration {
 
 		if (isset ($general['environment'])) {
 			switch ($general['environment']) {
-			case Minz_Configuration::SILENT:
 			case 'silent':
 				self::$environment = Minz_Configuration::SILENT;
 				break;
-			case Minz_Configuration::DEVELOPMENT:
 			case 'development':
 				self::$environment = Minz_Configuration::DEVELOPMENT;
 				break;
-			case Minz_Configuration::PRODUCTION:
 			case 'production':
 				self::$environment = Minz_Configuration::PRODUCTION;
 				break;
