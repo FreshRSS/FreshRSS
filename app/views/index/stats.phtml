@@ -58,6 +58,15 @@
 </div>
 
 <script>
+"use strict";
+function initStats() {
+	if (!window.Flotr) {
+		if (window.console) {
+			console.log('FreshRSS waiting for Flotr…');
+		}
+		window.setTimeout(initStats, 50);
+		return;
+	}
 	// Entry per day
 	Flotr.draw(document.getElementById('statsEntryPerDay'),
 		[<?php echo $this->count ?>],
@@ -65,7 +74,7 @@
 			bars: {horizontal: false, show: true},
 			xaxis: {noTicks: 6, showLabels: false, tickDecimals: 0},
 			yaxis: {showLabels: false},
-			mouse: {relative: true, track: true, trackDecimals: 0,trackFormatter: function(obj) {return obj.y;}}
+			mouse: {relative: true, track: true, trackDecimals: 0, trackFormatter: function(obj) {return obj.y;}}
 		});
 	// Feed per category
 	Flotr.draw(document.getElementById('statsFeedPerCategory'),
@@ -89,4 +98,6 @@
 			mouse: {relative: true, track: true, trackDecimals: 0, trackFormatter: function(obj) {return obj.y;}},
 			legend: {container: document.getElementById('statsEntryPerCategoryLegend')}
 		});
+}
+initStats();
 </script>

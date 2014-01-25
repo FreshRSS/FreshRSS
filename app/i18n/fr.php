@@ -22,7 +22,7 @@ return array (
 
 	'subscription_management'	=> 'Gestion des abonnements',
 	'main_stream'			=> 'Flux principal',
-	'all_feeds'				=> 'Tous les flux',
+	'all_feeds'			=> 'Tous les flux',
 	'favorite_feeds'		=> 'Favoris (%d)',
 	'not_read'			=> '%d non lu',
 	'not_reads'			=> '%d non lus',
@@ -300,10 +300,10 @@ return array (
 	'format_date'			=> 'j %s Y',
 	'format_date_hour'		=> 'j %s Y \à H\:i',
 	
-	'status_favorites'	=> 'favoris',
-	'status_read'		=> 'lus',
-	'status_unread'		=> 'non lus',
-	'status_total'		=> 'total',
+	'status_favorites'		=> 'favoris',
+	'status_read'			=> 'lus',
+	'status_unread'			=> 'non lus',
+	'status_total'			=> 'total',
 	
 	'stats_entry_repartition'	=> 'Répartition des articles',
 	'stats_entry_per_day'		=> 'Nombre d’articles par jour (30 derniers jours)',

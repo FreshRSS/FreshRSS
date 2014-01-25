@@ -22,7 +22,7 @@ return array (
 
 	'subscription_management'	=> 'Subscriptions management',
 	'main_stream'			=> 'Main stream',
-	'all_feeds'				=> 'All feeds',
+	'all_feeds'			=> 'All feeds',
 	'favorite_feeds'		=> 'Favourites (%d)',
 	'not_read'			=> '%d unread',
 	'not_reads'			=> '%d unread',
@@ -300,10 +300,10 @@ return array (
 	'format_date'			=> '%s j\<\s\u\p\>S\<\/\s\u\p\> Y',
 	'format_date_hour'		=> '%s j\<\s\u\p\>S\<\/\s\u\p\> Y \a\t H\:i',
 	
-	'status_favorites'	=> 'favourites',
-	'status_read'		=> 'read',
-	'status_unread'		=> 'unread',
-	'status_total'		=> 'total',
+	'status_favorites'		=> 'favourites',
+	'status_read'			=> 'read',
+	'status_unread'			=> 'unread',
+	'status_total'			=> 'total',
 	
 	'stats_entry_repartition'	=> 'Entry repartition',
 	'stats_entry_per_day'		=> 'Entry per day (last 30 days)',
