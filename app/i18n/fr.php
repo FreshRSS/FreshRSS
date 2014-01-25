@@ -307,6 +307,6 @@ return array (
 	
 	'stats_entry_repartition'	=> 'Répartition des articles',
 	'stats_entry_per_day'		=> 'Nombre d’articles par jour (30 derniers jours)',
-	'stats_feed_per_category'	=> 'Flux par categorie',
-	'stats_entry_per_category'	=> 'Article par categorie',
+	'stats_feed_per_category'	=> 'Flux par catégorie',
+	'stats_entry_per_category'	=> 'Articles par catégorie',
 );

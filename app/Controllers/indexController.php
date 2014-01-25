@@ -1,18 +1,7 @@
 <?php
 
 class FreshRSS_index_Controller extends Minz_ActionController {
-	private $get = false;
 	private $nb_not_read_cat = 0;
-	private $entryDAO;
-	private $feedDAO;
-	private $catDAO;
-
-	function __construct($router) {
-		parent::__construct($router);
-		$this->entryDAO = new FreshRSS_EntryDAO ();
-		$this->feedDAO = new FreshRSS_FeedDAO ();
-		$this->catDAO = new FreshRSS_CategoryDAO ();
-	}
 
 	public function indexAction () {
 		$output = Minz_Request::param ('output');
@@ -50,8 +39,11 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 			Minz_View::appendScript (Minz_Url::display ('/scripts/global_view.js?' . @filemtime(PUBLIC_PATH . '/scripts/global_view.js')));
 		}
 
-		$this->view->cat_aside = $this->catDAO->listCategories ();
-		$this->view->nb_favorites = $this->entryDAO->countUnreadReadFavorites ();
+		$catDAO = new FreshRSS_CategoryDAO();
+		$entryDAO = new FreshRSS_EntryDAO();
+
+		$this->view->cat_aside = $catDAO->listCategories ();
+		$this->view->nb_favorites = $entryDAO->countUnreadReadFavorites ();
 		$this->view->currentName = '';
 
 		$this->view->get_c = '';
@@ -125,14 +117,14 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 		$keepHistoryDefault = $this->view->conf->keep_history_default;
 
 		try {
-			$entries = $this->entryDAO->listWhere($getType, $getId, $state, $order, $nb + 1, $first, $filter, $date_min, $keepHistoryDefault);
+			$entries = $entryDAO->listWhere($getType, $getId, $state, $order, $nb + 1, $first, $filter, $date_min, $keepHistoryDefault);
 
 			// Si on a récupéré aucun article "non lus"
 			// on essaye de récupérer tous les articles
 			if ($state === 'not_read' && empty($entries)) {
 				Minz_Log::record ('Conflicting information about nbNotRead!', Minz_Log::DEBUG);
 				$this->view->state = 'all';
-				$entries = $this->entryDAO->listWhere($getType, $getId, 'all', $order, $nb, $first, $filter, $date_min, $keepHistoryDefault);
+				$entries = $entryDAO->listWhere($getType, $getId, 'all', $order, $nb, $first, $filter, $date_min, $keepHistoryDefault);
 			}
 
 			if (count($entries) <= $nb) {
@@ -170,7 +162,8 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 			case 'c':
 				$cat = isset($this->view->cat_aside[$getId]) ? $this->view->cat_aside[$getId] : null;
 				if ($cat === null) {
-					$cat = $this->catDAO->searchById ($getId);
+					$catDAO = new FreshRSS_CategoryDAO();
+					$cat = $catDAO->searchById($getId);
 				}
 				if ($cat) {
 					$this->view->currentName = $cat->name ();
@@ -183,7 +176,8 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 			case 'f':
 				$feed = FreshRSS_CategoryDAO::findFeed($this->view->cat_aside, $getId);
 				if (empty($feed)) {
-					$feed = $this->feedDAO->searchById ($getId);
+					$feedDAO = new FreshRSS_FeedDAO();
+					$feed = $feedDAO->searchById($getId);
 				}
 				if ($feed) {
 					$this->view->currentName = $feed->name ();

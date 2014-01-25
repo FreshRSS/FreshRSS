@@ -305,8 +305,8 @@ return array (
 	'status_unread'			=> 'unread',
 	'status_total'			=> 'total',
 	
-	'stats_entry_repartition'	=> 'Entry repartition',
-	'stats_entry_per_day'		=> 'Entry per day (last 30 days)',
-	'stats_feed_per_category'	=> 'Feed per category',
-	'stats_entry_per_category'	=> 'Entry per category',
+	'stats_entry_repartition'	=> 'Entries repartition',
+	'stats_entry_per_day'		=> 'Entries per day (last 30 days)',
+	'stats_feed_per_category'	=> 'Feeds per category',
+	'stats_entry_per_category'	=> 'Entries per category',
 );
