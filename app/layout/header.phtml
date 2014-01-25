@@ -36,7 +36,7 @@ if (Minz_Configuration::canLogIn()) {
 		<form action="<?php echo _url ('index', 'index'); ?>" method="get">
 			<div class="stick">
 				<?php $search = Minz_Request::param ('search', ''); ?>
-				<input type="search" name="search" id="search" value="<?php echo $search; ?>" placeholder="<?php echo Minz_Translate::t ('search'); ?>" />
+				<input type="search" name="search" id="search" class="extend" value="<?php echo $search; ?>" placeholder="<?php echo Minz_Translate::t ('search'); ?>" />
 
 				<?php $get = Minz_Request::param ('get', ''); ?>
 				<?php if($get != '') { ?>

@@ -32,7 +32,6 @@
 			}
 		.header > .item.search input {
 			width: 230px;
-			transition: width 200ms linear;
 		}
 			.header .item.search input:focus {
 				width: 330px;
@@ -847,9 +846,9 @@ select.number option {
 	background: -ms-linear-gradient(top, #fff 0%, #f0f0f0 100%);
 }
 
-.header > .item.search input {
+input.extend {
 	-moz-transition: width 200ms linear;
-	 -webkit-transition: width 200ms linear;
+	-webkit-transition: width 200ms linear;
 	-o-transition: width 200ms linear;
 	-ms-transition: width 200ms linear;
 }
@@ -857,7 +856,7 @@ select.number option {
 @media(max-width: 840px) {
 	.aside {
 		-moz-transition: width 200ms linear;
-		 -webkit-transition: width 200ms linear;
+		-webkit-transition: width 200ms linear;
 		-o-transition: width 200ms linear;
 		-ms-transition: width 200ms linear;
 	}

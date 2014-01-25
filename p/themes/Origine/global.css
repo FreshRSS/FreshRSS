@@ -86,6 +86,13 @@ label {
 	line-height: 25px;
 	cursor: pointer;
 }
+input {
+	width: 180px;
+}
+textarea {
+	width: 360px;
+	height: 100px;
+}
 input, select, textarea {
 	display: inline-block;
 	max-width: 100%;
@@ -115,6 +122,10 @@ input, select, textarea {
 	input:invalid, select:invalid {
 		border-color: red;
 		box-shadow: 0 0 2px 1px red;
+	}
+	input:focus.extend {
+		width: 300px;
+		transition: width 200ms linear;
 	}
 
 .form-group {

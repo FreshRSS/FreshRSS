@@ -205,7 +205,7 @@
 	<div class="item search">
 		<form action="<?php echo _url ('index', 'index'); ?>" method="get">
 			<?php $search = Minz_Request::param ('search', ''); ?>
-			<input type="search" name="search" value="<?php echo $search; ?>" placeholder="<?php echo Minz_Translate::t ('search_short'); ?>" />
+			<input type="search" name="search" class="extend" value="<?php echo $search; ?>" placeholder="<?php echo Minz_Translate::t ('search_short'); ?>" />
 
 			<?php $get = Minz_Request::param ('get', ''); ?>
 			<?php if($get != '') { ?>

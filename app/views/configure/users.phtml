@@ -29,7 +29,7 @@
 			<label class="group-name" for="mail_login"><?php echo Minz_Translate::t('persona_connection_email'); ?></label>
 			<?php $mail = $this->conf->mail_login; ?>
 			<div class="group-controls">
-				<input type="email" id="mail_login" name="mail_login" value="<?php echo $mail; ?>" <?php echo Minz_Configuration::isAdmin(Minz_Session::param('currentUser', '_')) ? '' : 'disabled="disabled"'; ?> placeholder="alice@example.net" />
+				<input type="email" id="mail_login" name="mail_login" class="extend" value="<?php echo $mail; ?>" <?php echo Minz_Configuration::isAdmin(Minz_Session::param('currentUser', '_')) ? '' : 'disabled="disabled"'; ?> placeholder="alice@example.net" />
 				<noscript><b><?php echo Minz_Translate::t('javascript_should_be_activated'); ?></b></noscript>
 			</div>
 		</div>
@@ -145,7 +145,7 @@
 			<label class="group-name" for="new_user_email"><?php echo Minz_Translate::t('persona_connection_email'); ?></label>
 			<?php $mail = $this->conf->mail_login; ?>
 			<div class="group-controls">
-				<input type="email" id="new_user_email" name="new_user_email" placeholder="alice@example.net" />
+				<input type="email" id="new_user_email" name="new_user_email" class="extend" placeholder="alice@example.net" />
 			</div>
 		</div>
 
