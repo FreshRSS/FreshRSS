@@ -6,7 +6,7 @@ Il se veut léger et facile à prendre en main tout en étant un outil puissant 
 Il permet de gérer plusieurs utilisateurs, et dispose d’un mode de lecture anonyme.
 
 * Site officiel : http://freshrss.org
-* Démo : http://marienfressinaud.fr/projets/freshrss/
+* Démo : http://demo.freshrss.org/
 * Développeur : Marien Fressinaud <dev@marienfressinaud.fr>
 * Version actuelle : 0.7-RC1
 * Date de publication 2014-01-xx
