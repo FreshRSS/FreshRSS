@@ -62,6 +62,11 @@ function small_hash ($txt) {
 	return strtr ($t, '+/', '-_');
 }
 
+function formatNumber($n, $precision = 0) {
+	return str_replace(' ', '&#8239;',	//Espace fine insécable
+		number_format($n, $precision, '.', ' '));	//number_format does not seem to be Unicode-compatible
+}
+
 function formatBytes($bytes, $precision = 2, $system = 'IEC') {
 	if ($system === 'IEC') {
 		$base = 1024;
@@ -74,7 +79,7 @@ function formatBytes($bytes, $precision = 2, $system = 'IEC') {
 	$pow = $bytes === 0 ? 0 : floor(log($bytes) / log($base));
 	$pow = min($pow, count($units) - 1);
 	$bytes /= pow($base, $pow);
-	return round($bytes, $precision) . ' ' . $units[$pow];
+	return formatNumber($bytes, $precision) . ' ' . $units[$pow];
 }
 
 function timestamptodate ($t, $hour = true) {
