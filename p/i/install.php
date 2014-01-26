@@ -4,7 +4,7 @@ if (function_exists('opcache_reset')) {
 }
 
 require('../../constants.php');
-const BCRYPT_COST = 9;
+define('BCRYPT_COST', 9);
 
 include(LIB_PATH . '/lib_rss.php');
 
@@ -170,6 +170,9 @@ function saveStep2 () {
 		$_SESSION['default_user'] = substr(preg_replace('/[^a-zA-Z0-9]/', '', $_POST['default_user']), 0, 16);
 		$_SESSION['auth_type'] = $_POST['auth_type'];
 		if (!empty($_POST['passwordPlain'])) {
+			if (!function_exists('password_hash')) {
+				include_once(LIB_PATH . '/password_compat.php');
+			}
 			$passwordHash = password_hash($_POST['passwordPlain'], PASSWORD_BCRYPT, array('cost' => BCRYPT_COST));
 			$passwordHash = preg_replace('/^\$2[xy]\$/', '\$2a\$', $passwordHash);	//Compatibility with bcrypt.js
 			$_SESSION['passwordHash'] = $passwordHash;
