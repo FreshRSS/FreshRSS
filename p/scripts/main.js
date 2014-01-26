@@ -644,18 +644,18 @@ function init_loginForm() {
 				alert('Invalid user!');
 			} else {
 				try {
-                                        var strong = window.Uint32Array && window.crypto && (typeof window.crypto.getRandomValues === 'function'),
-                                                s = dcodeIO.bcrypt.hashSync($('#passwordPlain').val(), data.salt1),
-                                                c = dcodeIO.bcrypt.hashSync(data.nonce + s, strong ? 4 : poormanSalt());
-                                        $('#challenge').val(c);
-                                        if (s == '' || c == '') {
-                                                alert('Crypto error!');
-                                        } else {
-                                                success = true;
-                                        }
-                                } catch (e) {
-                                        alert('Crypto exception! ' + e);
-                                }
+					var strong = window.Uint32Array && window.crypto && (typeof window.crypto.getRandomValues === 'function'),
+						s = dcodeIO.bcrypt.hashSync($('#passwordPlain').val(), data.salt1),
+						c = dcodeIO.bcrypt.hashSync(data.nonce + s, strong ? 4 : poormanSalt());
+					$('#challenge').val(c);
+					if (s == '' || c == '') {
+					        alert('Crypto error!');
+					} else {
+					        success = true;
+					}
+				} catch (e) {
+					alert('Crypto exception! ' + e);
+				}
 			}
 		}).fail(function() {
 			alert('Communication error!');
