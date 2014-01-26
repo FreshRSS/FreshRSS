@@ -899,45 +899,39 @@ input.extend {
 	}
 }
 
-.stat{
+.stat {
 	border:1px solid #aaa;
 	border-radius:10px;
 	box-shadow:2px 2px 5px #aaa;
-	margin: 10px 0;
+	margin:10px 0;
+	padding:0 5px;
 }
-.stat h2{
+.stat > h2 {
 	border-bottom:1px solid #aaa;
-	margin:0;
+	margin:0 -5px;
 	padding-left:5px;
 }
-.stat h2 + *{
-	margin:5px;
+.stat > div {
+	margin:5px 0;
 }
-.stat h2 + div + div{
-	margin:0 5px 5px 5px;
-}
-.stat h2 + table{
+.stat > table {
 	border-collapse:collapse;
-	width:calc(100% - 10px);
-}
-.stat h2 + table th{
-	text-transform:capitalize;
-}
-.stat h2 + table td{
+	margin:5px 0;
 	text-align:center;
+	width:100%;
 }
-.stat h2 + table thead th{
+.stat > table > thead > tr {
 	border-bottom:2px solid #aaa;
 }
-.stat h2 + table tbody tr *{
+.stat > table > tbody > tr {
 	border-bottom:1px solid #aaa;
 }
-.stat h2 + table tbody tr:last-child *{
+.stat > table > tbody > tr:last-child {
 	border-bottom:0;
 }
-.stat h2 + table tr *{
+.stat > table th, .stat > table td {
 	border-left:2px solid #aaa;
 }
-.stat h2 + table tr *:first-child{
+.stat > table th:first-child, .stat > table td:first-child {
 	border-left:0;
 }
