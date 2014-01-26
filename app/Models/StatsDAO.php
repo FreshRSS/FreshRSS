@@ -122,6 +122,7 @@ FROM {$this->prefix}category AS c,
 {$this->prefix}feed AS f
 WHERE c.id = f.category
 GROUP BY label
+ORDER BY data DESC
 SQL;
 		$stm = $this->bd->prepare($sql);
 		$stm->execute();
@@ -146,12 +147,38 @@ FROM {$this->prefix}category AS c,
 WHERE c.id = f.category
 AND f.id = e.id_feed
 GROUP BY label
+ORDER BY data DESC
 SQL;
 		$stm = $this->bd->prepare($sql);
 		$stm->execute();
 		$res = $stm->fetchAll(PDO::FETCH_ASSOC);
 
 		return $this->convertToPieSerie($res);
+	}
+
+	/**
+	 * Calculates the 10 top feeds based on their number of entries
+	 * 
+	 * @return array
+	 */
+	public function calculateTopFeed() {
+		$sql = <<<SQL
+SELECT f.id AS id
+, MAX(f.name) AS name
+, MAX(c.name) AS category
+, COUNT(e.id) AS count
+FROM {$this->prefix}category AS c,
+{$this->prefix}feed AS f,
+{$this->prefix}entry AS e
+WHERE c.id = f.category
+AND f.id = e.id_feed
+GROUP BY id
+ORDER BY count DESC
+LIMIT 10
+SQL;
+		$stm = $this->bd->prepare($sql);
+		$stm->execute();
+		return $stm->fetchAll(PDO::FETCH_ASSOC);
 	}
 
 	private function convertToSerie($data) {
@@ -168,7 +195,7 @@ SQL;
 		$serie = array();
 
 		foreach ($data as $value) {
-			$value['data'] = array(array(0, (int)$value['data']));
+			$value['data'] = array(array(0, (int) $value['data']));
 			$serie[] = $value;
 		}
 

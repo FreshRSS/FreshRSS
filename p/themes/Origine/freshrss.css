@@ -921,9 +921,12 @@ input.extend {
 	width:calc(100% - 10px);
 }
 .stat h2 + table th{
-	text-transform:capitalize;
+	padding:5px;
 }
 .stat h2 + table td{
+	padding:5px;
+}
+.stat h2 + table td.numeric{
 	text-align:center;
 }
 .stat h2 + table thead th{
