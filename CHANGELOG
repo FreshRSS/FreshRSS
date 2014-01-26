@@ -17,6 +17,7 @@
 	* Pour les versions suivantes, juste garder le répertoire “./data/”
 * Rafraîchissement automatique du nombre d’articles non lus toutes les deux minutes (utilise le cache HTTP à bon escient)
 	* Permet aussi de conserver la session valide, surtout dans le cas de Persona
+* Nouvelle page de statistiques (nombres d’articles par jour / catégorie)
 * Importation OPML instantanée et plus tolérante
 * Nouvelle gestion des favicons avec téléchargement en parallèle
 * Nouvelles options
