@@ -71,9 +71,10 @@ function initStats() {
 	Flotr.draw(document.getElementById('statsEntryPerDay'),
 		[<?php echo $this->count ?>],
 		{
+			grid: {verticalLines: false},
 			bars: {horizontal: false, show: true},
 			xaxis: {noTicks: 6, showLabels: false, tickDecimals: 0},
-			yaxis: {showLabels: false},
+			yaxis: {min: 0},
 			mouse: {relative: true, track: true, trackDecimals: 0, trackFormatter: function(obj) {return obj.y;}}
 		});
 	// Feed per category
@@ -81,22 +82,22 @@ function initStats() {
 		<?php echo $this->feedByCategory ?>,
 		{
 			grid: {verticalLines: false, horizontalLines: false},
-			pie: {explode: 2, show: true},
+			pie: {explode: 10, show: true, labelFormatter: function(){return '';}},
 			xaxis: {showLabels: false},
 			yaxis: {showLabels: false},
-			mouse: {relative: true, track: true, trackDecimals: 0, trackFormatter: function(obj) {return obj.y;}},
-			legend: {container: document.getElementById('statsFeedPerCategoryLegend')}
+			mouse: {relative: true, track: true, trackDecimals: 0, trackFormatter: function(obj) {return obj.series.label + ' - '+ obj.y + ' ('+ (obj.fraction * 100).toFixed(1) + '%)';}},
+			legend: {container: document.getElementById('statsFeedPerCategoryLegend'), noColumns: 3}
 		});
 	// Entry per category
 	Flotr.draw(document.getElementById('statsEntryPerCategory'),
 		<?php echo $this->entryByCategory ?>,
 		{
 			grid: {verticalLines: false, horizontalLines: false},
-			pie: {explode: 2, show: true},
+			pie: {explode: 10, show: true, labelFormatter: function(){return '';}},
 			xaxis: {showLabels: false},
 			yaxis: {showLabels: false},
-			mouse: {relative: true, track: true, trackDecimals: 0, trackFormatter: function(obj) {return obj.y;}},
-			legend: {container: document.getElementById('statsEntryPerCategoryLegend')}
+			mouse: {relative: true, track: true, trackDecimals: 0, trackFormatter: function(obj) {return obj.series.label + ' - '+ obj.y + ' ('+ (obj.fraction * 100).toFixed(1) + '%)';}},
+			legend: {container: document.getElementById('statsEntryPerCategoryLegend'), noColumns: 3}
 		});
 }
 initStats();
