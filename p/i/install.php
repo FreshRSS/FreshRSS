@@ -87,6 +87,8 @@ SET f.cache_nbEntries=x.nbEntries, f.cache_nbUnreads=x.nbUnreads
 ');
 
 define('SQL_UPDATE_HISTORYv007b', 'UPDATE `%1$sfeed` SET keep_history = CASE WHEN keep_history = 0 THEN -2 WHEN keep_history = 1 THEN -1 ELSE keep_history END;');
+
+define('SQL_GET_FEEDS', 'SELECT id, url, website FROM `%1$sfeed`;');
 //</updates>
 
 // gestion internationalisation
@@ -310,14 +312,6 @@ function updateDatabase($perform = false) {
 			$stm->execute();
 		}
 
-		$sql = sprintf(SQL_UPDATE_HISTORYv007b, $_SESSION['bd_prefix_user']);
-		$stm = $c->prepare($sql);
-		$stm->execute();
-
-		$sql = sprintf(SQL_UPDATE_CACHED_VALUES, $_SESSION['bd_prefix_user']);
-		$stm = $c->prepare($sql);
-		$stm->execute();
-
 		$sql = sprintf(SQL_CONVERT_SELECTv006, $_SESSION['bd_prefix'], $_SESSION['bd_prefix_user']);
 		if (!$perform) {
 			$sql .= ' LIMIT 1';
@@ -339,11 +333,57 @@ function updateDatabase($perform = false) {
 			$content = unserialize(gzinflate(base64_decode($row['content'])));
 			$stm2->execute(array($content, $id));
 		}
+
 		return true;
 	} catch (PDOException $e) {
 		return false;
 	}
 	return false;
+}
+
+function newPdo() {
+	switch ($_SESSION['bd_type']) {
+		case 'mysql':
+			$str = 'mysql:host=' . $_SESSION['bd_host'] . ';dbname=' . $_SESSION['bd_base'];
+			$driver_options = array(
+				PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8',
+			);
+			break;
+		case 'sqlite':
+			$str = 'sqlite:' . DATA_PATH . $_SESSION['bd_base'] . '.sqlite';
+			$driver_options = null;
+			break;
+		default:
+			return false;
+	}
+	return new PDO($str, $_SESSION['bd_user'], $_SESSION['bd_password'], $driver_options);
+}
+
+function postUpdate() {
+	$c = newPdo();
+
+	$sql = sprintf(SQL_UPDATE_HISTORYv007b, $_SESSION['bd_prefix_user']);
+	$stm = $c->prepare($sql);
+	$stm->execute();
+
+	$sql = sprintf(SQL_UPDATE_CACHED_VALUES, $_SESSION['bd_prefix_user']);
+	$stm = $c->prepare($sql);
+	$stm->execute();
+
+	//<favicons>
+	$sql = sprintf(SQL_GET_FEEDS, $_SESSION['bd_prefix_user']);
+	$stm = $c->prepare($sql);
+	$stm->execute();
+	$res = $stm->fetchAll(PDO::FETCH_ASSOC);
+	foreach ($res as $feed) {
+		if (empty($feed['url'])) {
+			continue;
+		}
+		$hash = hash('crc32b', $_SESSION['salt'] . $feed['url']);
+		@file_put_contents(DATA_PATH . '/favicons/' . $hash . '.txt',
+			empty($feed['website']) ? $feed['url'] : $feed['website']);
+	}
+	//</favicons>
 }
 
 function deleteInstall () {
@@ -360,22 +400,7 @@ function deleteInstall () {
 	}
 
 	try {
-		switch ($_SESSION['bd_type']) {
-			case 'mysql':
-				$str = 'mysql:host=' . $_SESSION['bd_host'] . ';dbname=' . $_SESSION['bd_base'];
-				$driver_options = array(
-					PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8',
-				);
-				break;
-			case 'sqlite':
-				$str = 'sqlite:' . DATA_PATH . $_SESSION['bd_base'] . '.sqlite';
-				$driver_options = null;
-				break;
-			default:
-				return false;
-		}
-
-		$c = new PDO($str, $_SESSION['bd_user'], $_SESSION['bd_password'], $driver_options);
+		$c = newPdo();
 		$sql = sprintf(SQL_DROP_BACKUPv006, $_SESSION['bd_prefix']);
 		$stm = $c->prepare($sql);
 		$stm->execute();
@@ -987,6 +1012,7 @@ case 4:
 	}
 	break;
 case 5:
+	postUpdate();
 	break;
 case 6:
 	deleteInstall ();
