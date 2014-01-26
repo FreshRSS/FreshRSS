@@ -60,7 +60,6 @@ function incUnreadsFeed(article, feed_id, nb) {
 		elem = $('#aside_flux .all').children(':first').get(0);
 		if (elem) {
 			feed_unreads = elem ? (parseInt(elem.getAttribute('data-unread').replace(' ', ''), 10) || 0) : 0;
-			alert(elem.getAttribute('data-unread') + "\n" + feed_unreads);
 			elem.setAttribute('data-unread', numberFormat(Math.max(0, feed_unreads + nb)));
 		}
 	}
