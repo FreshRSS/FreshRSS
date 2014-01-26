@@ -643,15 +643,19 @@ function init_loginForm() {
 			if (data.salt1 == '' || data.nonce == '') {
 				alert('Invalid user!');
 			} else {
-				var strong = window.Uint32Array && window.crypto && (typeof window.crypto.getRandomValues === 'function'),
-					s = dcodeIO.bcrypt.hashSync($('#passwordPlain').val(), data.salt1),
-					c = dcodeIO.bcrypt.hashSync(data.nonce + s, strong ? 4 : poormanSalt());
-				$('#challenge').val(c);
-				if (s == '' || c == '') {
-					alert('Crypto error!');
-				} else {
-					success = true;
-				}
+				try {
+                                        var strong = window.Uint32Array && window.crypto && (typeof window.crypto.getRandomValues === 'function'),
+                                                s = dcodeIO.bcrypt.hashSync($('#passwordPlain').val(), data.salt1),
+                                                c = dcodeIO.bcrypt.hashSync(data.nonce + s, strong ? 4 : poormanSalt());
+                                        $('#challenge').val(c);
+                                        if (s == '' || c == '') {
+                                                alert('Crypto error!');
+                                        } else {
+                                                success = true;
+                                        }
+                                } catch (e) {
+                                        alert('Crypto exception! ' + e);
+                                }
 			}
 		}).fail(function() {
 			alert('Communication error!');
