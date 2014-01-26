@@ -320,6 +320,8 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 				} catch (Minz_Exception $me) {
 					Minz_Log::record('Login failure: ' . $me->getMessage(), Minz_Log::WARNING);
 				}
+			} else {
+				Minz_Log::record('Invalid credential parameters: user=' . $username . ' challenge=' . $c . ' nonce=' . $nonce, Minz_Log::DEBUG);
 			}
 			if (!$ok) {
 				$notif = array(

@@ -106,6 +106,7 @@ class FreshRSS_users_Controller extends Minz_ActionController {
 					}
 					$passwordHash = password_hash($passwordPlain, PASSWORD_BCRYPT, array('cost' => self::BCRYPT_COST));
 					$passwordPlain = '';
+					$passwordHash = preg_replace('/^\$2[xy]\$/', '\$2a\$', $passwordHash);	//Compatibility with bcrypt.js
 					$ok &= ($passwordHash != '');
 				}
 				if (empty($passwordHash)) {
