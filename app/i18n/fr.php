@@ -11,6 +11,8 @@ return array (
 	'users'				=> 'Utilisateurs',
 	'categories'			=> 'Catégories',
 	'category'			=> 'Catégorie',
+	'feed'				=> 'Flux',
+	'feeds'				=> 'Flux',
 	'shortcuts'			=> 'Raccourcis',
 	'about'				=> 'À propos',
 	'stats'				=> 'Statistiques',
@@ -309,4 +311,6 @@ return array (
 	'stats_entry_per_day'		=> 'Nombre d’articles par jour (30 derniers jours)',
 	'stats_feed_per_category'	=> 'Flux par catégorie',
 	'stats_entry_per_category'	=> 'Articles par catégorie',
+	'stats_top_feed'			=> 'Les dix plus gros flux',
+	'stats_entry_count'			=> 'Nombre d’articles',
 );

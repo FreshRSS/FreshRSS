@@ -11,6 +11,8 @@ return array (
 	'users'				=> 'Users',
 	'categories'			=> 'Categories',
 	'category'			=> 'Category',
+	'feed'				=> 'Feed',
+	'feeds'				=> 'Feeds',
 	'shortcuts'			=> 'Shortcuts',
 	'about'				=> 'About',
 	'stats'				=> 'Statistics',
@@ -309,4 +311,6 @@ return array (
 	'stats_entry_per_day'		=> 'Entries per day (last 30 days)',
 	'stats_feed_per_category'	=> 'Feeds per category',
 	'stats_entry_per_category'	=> 'Entries per category',
+	'stats_top_feed'			=> 'Top ten feeds',
+	'stats_entry_count'			=> 'Entry count',
 );

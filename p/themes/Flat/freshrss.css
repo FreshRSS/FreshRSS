@@ -861,7 +861,6 @@ input.extend {
 .stat > table {
 	border-collapse:collapse;
 	margin:5px 0;
-	text-align:center;
 	width:100%;
 }
 .stat > table > thead > tr {
@@ -875,7 +874,12 @@ input.extend {
 }
 .stat > table th, .stat > table td {
 	border-left:2px solid #aaa;
+	padding:5px;
 }
 .stat > table th:first-child, .stat > table td:first-child {
 	border-left:0;
+}
+.stat > table td.numeric{
+	margin:5px 0;
+	text-align:center;
 }

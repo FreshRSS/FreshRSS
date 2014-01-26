@@ -200,6 +200,7 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 		$this->view->count = ($statsDAO->calculateEntryCount());
 		$this->view->feedByCategory = $statsDAO->calculateFeedByCategory();
 		$this->view->entryByCategory = $statsDAO->calculateEntryByCategory();
+		$this->view->topFeed = $statsDAO->calculateTopFeed();
 	}
 
 	public function aboutAction () {

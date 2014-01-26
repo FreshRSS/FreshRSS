@@ -16,23 +16,23 @@
 			<tbody>
 				<tr>
 					<th><?php echo Minz_Translate::t ('status_total')?></th>
-					<td><?php echo $this->repartition['main_stream']['total']?></td>
-					<td><?php echo $this->repartition['all_feeds']['total']?></td>
+					<td class="numeric"><?php echo $this->repartition['main_stream']['total']?></td>
+					<td class="numeric"><?php echo $this->repartition['all_feeds']['total']?></td>
 				</tr>
 				<tr>
 					<th><?php echo Minz_Translate::t ('status_read')?></th>
-					<td><?php echo $this->repartition['main_stream']['read']?></td>
-					<td><?php echo $this->repartition['all_feeds']['read']?></td>
+					<td class="numeric"><?php echo $this->repartition['main_stream']['read']?></td>
+					<td class="numeric"><?php echo $this->repartition['all_feeds']['read']?></td>
 				</tr>
 				<tr>
 					<th><?php echo Minz_Translate::t ('status_unread')?></th>
-					<td><?php echo $this->repartition['main_stream']['unread']?></td>
-					<td><?php echo $this->repartition['all_feeds']['unread']?></td>
+					<td class="numeric"><?php echo $this->repartition['main_stream']['unread']?></td>
+					<td class="numeric"><?php echo $this->repartition['all_feeds']['unread']?></td>
 				</tr>
 				<tr>
 					<th><?php echo Minz_Translate::t ('status_favorites')?></th>
-					<td><?php echo $this->repartition['main_stream']['favorite']?></td>
-					<td><?php echo $this->repartition['all_feeds']['favorite']?></td>
+					<td class="numeric"><?php echo $this->repartition['main_stream']['favorite']?></td>
+					<td class="numeric"><?php echo $this->repartition['all_feeds']['favorite']?></td>
 				</tr>
 			</tbody>
 		</table>
@@ -55,6 +55,27 @@
 		<div id="statsEntryPerCategoryLegend"></div>
 	</div>
 	
+	<div class="stat">
+		<h2><?php echo Minz_Translate::t ('stats_top_feed')?></h2>
+		<table>
+			<thead>
+				<tr>
+					<th><?php echo Minz_Translate::t ('feed')?></th>
+					<th><?php echo Minz_Translate::t ('category')?></th>
+					<th><?php echo Minz_Translate::t ('stats_entry_count')?></th>
+				</tr>
+			</thead>
+			<tbody>
+				<?php foreach ($this->topFeed as $feed):?>
+					<tr>
+						<td><?php echo $feed['name']?></td>
+						<td><?php echo $feed['category']?></td>
+						<td class="numeric"><?php echo $feed['count']?></td>
+					</tr>
+				<?php endforeach;?>
+			</tbody>
+		</table>
+	</div>
 </div>
 
 <script>
