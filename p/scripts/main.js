@@ -20,11 +20,6 @@ function redirect(url, new_tab) {
 	}
 }
 
-function incLabel(p, inc) {
-	var i = (parseInt(p.replace(/\D/g, ''), 10) || 0) + inc;
-	return i > 0 ? ' (' + i + ')' : '';
-}
-
 function numberFormat(nStr) {
 	// Thx to http://www.mredkj.com/javascript/numberFormat.html
 	nStr += '';
@@ -36,6 +31,11 @@ function numberFormat(nStr) {
 		x1 = x1.replace(rgx, '$1' + " " + '$2');
 	}
 	return x1 + x2;
+}
+
+function incLabel(p, inc) {
+	var i = (parseInt(p.replace(/\D/g, ''), 10) || 0) + inc;
+	return i > 0 ? ' (' + numberFormat(i) + ')' : '';
 }
 
 function incUnreadsFeed(article, feed_id, nb) {
@@ -148,7 +148,10 @@ function mark_favorite(active) {
 
 		var favourites = $('.favorites>a').contents().last().get(0);
 		if (favourites && favourites.textContent) {
-			favourites.textContent = favourites.textContent.replace(/((?: \(\d+\))?\s*)$/, function (m, p1) {
+			// Without javascript, the text displayed is « Favorites (1544) » where 1544 is the number unformatted.
+			// With Javascript, we replace this with « Favorites (1 544) ». To update this, the text is converted
+			// to the non-javascript format before.
+			favourites.textContent = favourites.textContent.replace(/ /g, '').replace('(', ' (').replace(/((?: \(\d+\))?\s*)$/, function (m, p1) {
 				return incLabel(p1, inc);
 			});
 		}
@@ -749,14 +752,19 @@ function init_print_action() {
 	});
 }
 
-function init_number_format_unreads() {
+function init_number_formats() {
 	// Init global counter
 	var elem = $('#aside_flux .categories li .all a');
 	elem.attr('data-unread', numberFormat(elem.attr('data-unread')));
 	
-	// Init favorites counter
+	// Init favorites counters
 	elem = $('#aside_flux .categories li .favorites a');
 	elem.attr('data-unread', numberFormat(elem.attr('data-unread')));
+	
+	var numFavorites = elem.text().replace(/((?: \(\d+\))?\s*)$/, function (m, p1) {
+		return numberFormat(p1)
+	});
+	elem.text(numFavorites);
 	
 	// Init feeds counters
 	$('#aside_flux .categories li .stick').each(function() {
@@ -802,7 +810,7 @@ function init_all() {
 		init_print_action();
 		window.setInterval(refreshUnreads, 120000);
 	}
-	init_number_format_unreads();
+	init_number_formats();
 	if (window.console) {
 		console.log('FreshRSS init done.');
 	}
