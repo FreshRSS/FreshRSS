@@ -302,15 +302,15 @@ return array (
 	'format_date'			=> '%s j\<\s\u\p\>S\<\/\s\u\p\> Y',
 	'format_date_hour'		=> '%s j\<\s\u\p\>S\<\/\s\u\p\> Y \a\t H\:i',
 	
-	'status_favorites'		=> 'favourites',
-	'status_read'			=> 'read',
-	'status_unread'			=> 'unread',
-	'status_total'			=> 'total',
+	'status_favorites'		=> 'Favourites',
+	'status_read'			=> 'Read',
+	'status_unread'			=> 'Unread',
+	'status_total'			=> 'Total',
 	
 	'stats_entry_repartition'	=> 'Entries repartition',
 	'stats_entry_per_day'		=> 'Entries per day (last 30 days)',
 	'stats_feed_per_category'	=> 'Feeds per category',
 	'stats_entry_per_category'	=> 'Entries per category',
-	'stats_top_feed'			=> 'Top ten feeds',
-	'stats_entry_count'			=> 'Entry count',
+	'stats_top_feed'		=> 'Top ten feeds',
+	'stats_entry_count'		=> 'Entry count',
 );
