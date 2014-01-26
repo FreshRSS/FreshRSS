@@ -25,28 +25,43 @@ function incLabel(p, inc) {
 	return i > 0 ? ' (' + i + ')' : '';
 }
 
+function numberFormat(nStr) {
+	// Thx to http://www.mredkj.com/javascript/numberFormat.html
+	nStr += '';
+	var x = nStr.split('.');
+	var x1 = x[0];
+	var x2 = x.length > 1 ? '.' + x[1] : '';
+	var rgx = /(\d+)(\d{3})/;
+	while (rgx.test(x1)) {
+		x1 = x1.replace(rgx, '$1' + " " + '$2');
+	}
+	return x1 + x2;
+}
+
 function incUnreadsFeed(article, feed_id, nb) {
+	
 	//Update unread: feed
 	var elem = $('#' + feed_id + '>.feed').get(0),
-		feed_unreads = elem ? (parseInt(elem.getAttribute('data-unread'), 10) || 0) : 0,
+		feed_unreads = elem ? (parseInt(elem.getAttribute('data-unread').replace(' ', ''), 10) || 0) : 0,
 		feed_priority = elem ? (parseInt(elem.getAttribute('data-priority'), 10) || 0) : 0;
 	if (elem) {
-		elem.setAttribute('data-unread', Math.max(0, feed_unreads + nb));
+		elem.setAttribute('data-unread', numberFormat(Math.max(0, feed_unreads + nb)));
 	}
 
 	//Update unread: category
 	elem = $('#' + feed_id).parent().prevAll('.category').children(':first').get(0);
-	feed_unreads = elem ? (parseInt(elem.getAttribute('data-unread'), 10) || 0) : 0;
+	feed_unreads = elem ? (parseInt(elem.getAttribute('data-unread').replace(' ', ''), 10) || 0) : 0;
 	if (elem) {
-		elem.setAttribute('data-unread', Math.max(0, feed_unreads + nb));
+		elem.setAttribute('data-unread', numberFormat(Math.max(0, feed_unreads + nb)));
 	}
 
 	//Update unread: all
 	if (feed_priority > 0) {
 		elem = $('#aside_flux .all').children(':first').get(0);
 		if (elem) {
-			feed_unreads = elem ? (parseInt(elem.getAttribute('data-unread'), 10) || 0) : 0;
-			elem.setAttribute('data-unread', Math.max(0, feed_unreads + nb));
+			feed_unreads = elem ? (parseInt(elem.getAttribute('data-unread').replace(' ', ''), 10) || 0) : 0;
+			alert(elem.getAttribute('data-unread') + "\n" + feed_unreads);
+			elem.setAttribute('data-unread', numberFormat(Math.max(0, feed_unreads + nb)));
 		}
 	}
 
@@ -54,8 +69,8 @@ function incUnreadsFeed(article, feed_id, nb) {
 	if (article && article.closest('div').hasClass('favorite')) {
 		elem = $('#aside_flux .favorites').children(':first').get(0);
 		if (elem) {
-			feed_unreads = elem ? (parseInt(elem.getAttribute('data-unread'), 10) || 0) : 0;
-			elem.setAttribute('data-unread', Math.max(0, feed_unreads + nb));
+			feed_unreads = elem ? (parseInt(elem.getAttribute('data-unread').replace(' ', ''), 10) || 0) : 0;
+			elem.setAttribute('data-unread', numberFormat(Math.max(0, feed_unreads + nb)));
 		}
 	}
 
@@ -140,9 +155,9 @@ function mark_favorite(active) {
 
 		if (active.closest('div').hasClass('not_read')) {
 			var elem = $('#aside_flux .favorites').children(':first').get(0),
-				feed_unreads = elem ? (parseInt(elem.getAttribute('data-unread'), 10) || 0) : 0;
+				feed_unreads = elem ? (parseInt(elem.getAttribute('data-unread').replace(' ', ''), 10) || 0) : 0;
 			if (elem) {
-				elem.setAttribute('data-unread', Math.max(0, feed_unreads + inc));
+				elem.setAttribute('data-unread', numberFormat(Math.max(0, feed_unreads + inc)));
 			}
 		}
 	});
@@ -527,7 +542,7 @@ function refreshUnreads() {
 		$.each(data, function(feed_id, nbUnreads) {
 			feed_id = 'f_' + feed_id;
 			var elem = $('#' + feed_id + '>.feed').get(0),
-				feed_unreads = elem ? (parseInt(elem.getAttribute('data-unread'), 10) || 0) : 0;
+				feed_unreads = elem ? (parseInt(elem.getAttribute('data-unread').replace(' ', ''), 10) || 0) : 0;
 			if ((incUnreadsFeed(null, feed_id, nbUnreads - feed_unreads) || isAll) &&	//Update of current view?
 				(nbUnreads - feed_unreads > 0)) {
 				$('#new-article').show();
@@ -626,18 +641,14 @@ function init_loginForm() {
 			if (data.salt1 == '' || data.nonce == '') {
 				alert('Invalid user!');
 			} else {
-				try {
-					var strong = window.Uint32Array && window.crypto && (typeof window.crypto.getRandomValues === 'function'),
-						s = dcodeIO.bcrypt.hashSync($('#passwordPlain').val(), data.salt1),
-						c = dcodeIO.bcrypt.hashSync(data.nonce + s, strong ? 4 : poormanSalt());
-					$('#challenge').val(c);
-					if (s == '' || c == '') {
-						alert('Crypto error!');
-					} else {
-						success = true;
-					}
-				} catch (e) {
-					alert('Crypto exception! ' + e);
+				var strong = window.Uint32Array && window.crypto && (typeof window.crypto.getRandomValues === 'function'),
+					s = dcodeIO.bcrypt.hashSync($('#passwordPlain').val(), data.salt1),
+					c = dcodeIO.bcrypt.hashSync(data.nonce + s, strong ? 4 : poormanSalt());
+				$('#challenge').val(c);
+				if (s == '' || c == '') {
+					alert('Crypto error!');
+				} else {
+					success = true;
 				}
 			}
 		}).fail(function() {
@@ -738,6 +749,29 @@ function init_print_action() {
 	});
 }
 
+function init_number_format_unreads() {
+	// Init global counter
+	var elem = $('#aside_flux .categories li .all a');
+	elem.attr('data-unread', numberFormat(elem.attr('data-unread')));
+	
+	// Init favorites counter
+	elem = $('#aside_flux .categories li .favorites a');
+	elem.attr('data-unread', numberFormat(elem.attr('data-unread')));
+	
+	// Init feeds counters
+	$('#aside_flux .categories li .stick').each(function() {
+		// Category-level counter
+		elem = $(this).find('a');
+		elem.attr('data-unread', numberFormat(elem.attr('data-unread')));
+		
+		// Feeds counters
+		$(this).parent().find('ul.feeds li.item').each(function() {
+			elem = $(this).find('a.feed'); // There are two links here. a.feed is the title.
+			elem.attr('data-unread', numberFormat(elem.attr('data-unread')));
+		});
+	});
+}
+
 function init_all() {
 	if (!(window.$ && window.url_freshrss && ((!full_lazyload) || $.fn.lazyload))) {
 		if (window.console) {
@@ -768,7 +802,7 @@ function init_all() {
 		init_print_action();
 		window.setInterval(refreshUnreads, 120000);
 	}
-
+	init_number_format_unreads();
 	if (window.console) {
 		console.log('FreshRSS init done.');
 	}
