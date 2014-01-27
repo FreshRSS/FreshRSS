@@ -21,7 +21,7 @@
 		?>
 		<li>
 			<div class="category all">
-				<a data-unread="<?php echo $this->nb_not_read; ?>" class="btn<?php echo $this->get_c == 'a' ? ' active' : ''; ?>" href="<?php echo Minz_Url::display($arUrl); ?>">
+				<a data-unread="<?php echo formatNumber($this->nb_not_read); ?>" class="btn<?php echo $this->get_c == 'a' ? ' active' : ''; ?>" href="<?php echo Minz_Url::display($arUrl); ?>">
 					<?php echo FreshRSS_Themes::icon('all'); ?>
 					<?php echo Minz_Translate::t ('main_stream'); ?>
 				</a>
@@ -30,9 +30,9 @@
 
 		<li>
 			<div class="category favorites">
-				<a data-unread="<?php echo $this->nb_favorites['unread']; ?>" class="btn<?php echo $this->get_c == 's' ? ' active' : ''; ?>" href="<?php $arUrl['params']['get'] = 's'; echo Minz_Url::display($arUrl); ?>">
+				<a data-unread="<?php echo formatNumber($this->nb_favorites['unread']); ?>" class="btn<?php echo $this->get_c == 's' ? ' active' : ''; ?>" href="<?php $arUrl['params']['get'] = 's'; echo Minz_Url::display($arUrl); ?>">
 					<?php echo FreshRSS_Themes::icon('bookmark'); ?>
-					<?php echo Minz_Translate::t ('favorite_feeds', $this->nb_favorites['all']); ?>
+					<?php echo Minz_Translate::t('favorite_feeds', formatNumber($this->nb_favorites['all'])); ?>
 				</a>
 			</div>
 		</li>
@@ -47,7 +47,7 @@
 					$c_active = true;
 				}
 				?><div class="category stick<?php echo $c_active ? ' active' : ''; ?>"><?php
-					?><a data-unread="<?php echo $cat->nbNotRead (); ?>" class="btn<?php echo $c_active ? ' active' : ''; ?>" href="<?php $arUrl['params']['get'] = 'c_' . $cat->id(); echo Minz_Url::display($arUrl); ?>"><?php echo $cat->name (); ?></a><?php
+					?><a data-unread="<?php echo formatNumber($cat->nbNotRead()); ?>" class="btn<?php echo $c_active ? ' active' : ''; ?>" href="<?php $arUrl['params']['get'] = 'c_' . $cat->id(); echo Minz_Url::display($arUrl); ?>"><?php echo $cat->name (); ?></a><?php
 					?><a class="btn dropdown-toggle" href="#"><?php echo FreshRSS_Themes::icon($c_active ? 'up' : 'down'); ?></a><?php
 				?></div><?php
 				?><ul class="feeds<?php echo $c_active ? ' active' : ''; ?>"><?php
@@ -62,7 +62,7 @@
 							/* feed_config_template */
 						?></div><?php
 						?> <img class="favicon" src="<?php echo $feed->favicon (); ?>" alt="✇" /> <?php
-						?><a class="feed" data-unread="<?php echo $feed->nbNotRead (); ?>" data-priority="<?php echo $feed->priority (); ?>" href="<?php $arUrl['params']['get'] = 'f_' . $feed_id; echo Minz_Url::display($arUrl); ?>"><?php echo $feed->name(); ?></a><?php
+						?><a class="feed" data-unread="<?php echo formatNumber($feed->nbNotRead()); ?>" data-priority="<?php echo $feed->priority (); ?>" href="<?php $arUrl['params']['get'] = 'f_' . $feed_id; echo Minz_Url::display($arUrl); ?>"><?php echo $feed->name(); ?></a><?php
 					?></li><?php
 				}
 				?></ul><?php

@@ -66,11 +66,11 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 		// mise à jour des titres
 		$this->view->rss_title = $this->view->currentName . ' | ' . Minz_View::title();
 		if ($this->view->nb_not_read > 0) {
-			Minz_View::appendTitle (' (' . $this->view->nb_not_read . ')');
+			Minz_View::appendTitle (' (' . formatNumber($this->view->nb_not_read) . ')');
 		}
 		Minz_View::prependTitle (
 			$this->view->currentName .
-			($this->nb_not_read_cat > 0 ? ' (' . $this->nb_not_read_cat . ')' : '') .
+			($this->nb_not_read_cat > 0 ? ' (' . formatNumber($this->nb_not_read_cat) . ')' : '') .
 			' · '
 		);
 

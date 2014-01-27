@@ -17,7 +17,7 @@
 ?>
 	<div class="box-category">
 		<div class="category">
-			<a data-unread="<?php echo $cat->nbNotRead (); ?>" class="btn" href="<?php $arUrl['params']['get'] = 'c_' . $cat->id (); echo Minz_Url::display($arUrl); ?>">
+			<a data-unread="<?php echo formatNumber($cat->nbNotRead()); ?>" class="btn" href="<?php $arUrl['params']['get'] = 'c_' . $cat->id (); echo Minz_Url::display($arUrl); ?>">
 			<?php echo $cat->name(); ?>
 			</a>
 		</div>
@@ -26,7 +26,7 @@
 			<?php $not_read = $feed->nbNotRead (); ?>
 			<li id="f_<?php echo $feed->id (); ?>" class="item<?php echo $feed->inError () ? ' error' : ''; ?><?php echo $feed->nbEntries () == 0 ? ' empty' : ''; ?>">
 				<img class="favicon" src="<?php echo $feed->favicon (); ?>" alt="✇" />
-				<a class="feed" data-unread="<?php echo $feed->nbNotRead (); ?>" data-priority="<?php echo $feed->priority (); ?>" href="<?php $arUrl['params']['get'] = 'f_' . $feed->id(); echo Minz_Url::display($arUrl); ?>">
+				<a class="feed" data-unread="<?php echo formatNumber($feed->nbNotRead()); ?>" data-priority="<?php echo $feed->priority (); ?>" href="<?php $arUrl['params']['get'] = 'f_' . $feed->id(); echo Minz_Url::display($arUrl); ?>">
 				<?php echo $feed->name(); ?>
 				</a>
 			</li>
