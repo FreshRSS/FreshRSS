@@ -34,7 +34,6 @@ body {
 			}
 		.header > .item.search input {
 			width: 230px;
-			transition: width 200ms linear;
 		}
 			.header .item.search input:focus {
 				width: 330px;
@@ -217,6 +216,25 @@ body {
 		z-index: -10;
 	}
 
+#new-article {
+	display: none;
+	min-height: 40px;
+	background: #3498db;
+	text-align: center;
+}
+	#new-article:hover {
+		background: #2980b9;
+	}
+	#new-article > a {
+		display: block;
+		line-height: 40px;
+		color: #fff;
+		font-weight: bold;
+	}
+		#new-article > a:hover {
+			text-decoration: none;
+		}
+
 .flux {
 	border-left: 3px solid #ecf0f1;
 }
@@ -234,6 +252,10 @@ body {
 	.flux.current {
 		border-left-color: #3498db;
 		background: #fff;
+	}
+
+	.horizontal-list > .item:not(.title):not(.website) > a {
+		display: block;
 	}
 
 	.flux_header {
@@ -264,11 +286,6 @@ body {
 		.flux .item.title {
 			background: inherit;
 		}
-		.flux:hover .item.title {
-			border-right: 2px solid rgba(127, 127, 127, 0.1);
-			padding-right: 1em;
-			position: absolute;
-		}
 			.flux .item.title a {
 				color: #333;
 				outline: none;
@@ -278,7 +295,7 @@ body {
 				font-weight: bold;
 			}
 		.flux .item.date {
-			width: 200px;
+			width: 145px;
 			padding:0 5px 0 0;
 			text-align: right;
 			font-size: 10px;
@@ -656,6 +673,14 @@ select.number option {
 	text-align:right;
 }
 
+@media(min-width: 841px) {
+	.flux:not(.current):hover .item.title {
+		max-width: calc(100% - 580px);
+		padding-right: 1.5em;
+		position: absolute;
+	}
+}
+
 @media(max-width: 840px) {
 	.header,
 	.aside .btn-important,
@@ -674,11 +699,6 @@ select.number option {
 
 	.nav-login {
 		display: block;
-	}
-
-	.content {
-		font-size: 120%;
-		padding: 0;
 	}
 
 	.pagination {
@@ -779,6 +799,13 @@ select.number option {
 	-ms-transform: rotate(45deg);
 }
 
+input.extend {
+	-moz-transition: width 200ms linear;
+	-webkit-transition: width 200ms linear;
+	-o-transition: width 200ms linear;
+	-ms-transition: width 200ms linear;
+}
+
 @media print {
 	.header,
 	.aside,
@@ -814,4 +841,45 @@ select.number option {
 		content: " (" attr(href) ") ";
 		text-decoration: underline;
 	}
+}
+
+.stat {
+	border:1px solid #aaa;
+	border-radius:10px;
+	box-shadow:2px 2px 5px #aaa;
+	margin:10px 0;
+	padding:0 5px;
+}
+.stat > h2 {
+	border-bottom:1px solid #aaa;
+	margin:0 -5px;
+	padding-left:5px;
+}
+.stat > div {
+	margin:5px 0;
+}
+.stat > table {
+	border-collapse:collapse;
+	margin:5px 0;
+	width:100%;
+}
+.stat > table > thead > tr {
+	border-bottom:2px solid #aaa;
+}
+.stat > table > tbody > tr {
+	border-bottom:1px solid #aaa;
+}
+.stat > table > tbody > tr:last-child {
+	border-bottom:0;
+}
+.stat > table th, .stat > table td {
+	border-left:2px solid #aaa;
+	padding:5px;
+}
+.stat > table th:first-child, .stat > table td:first-child {
+	border-left:0;
+}
+.stat > table td.numeric{
+	margin:5px 0;
+	text-align:center;
 }

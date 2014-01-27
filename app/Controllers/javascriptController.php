@@ -37,7 +37,7 @@ class FreshRSS_javascript_Controller extends Minz_ActionController {
 					return;	//Success
 				}
 			} catch (Minz_Exception $me) {
-				Minz_Log::record('Login failure: ' . $me->getMessage(), Minz_Log::WARNING);
+				Minz_Log::record('Nonce failure: ' . $me->getMessage(), Minz_Log::WARNING);
 			}
 		}
 		$this->view->nonce = '';	//Failure

@@ -29,7 +29,7 @@
 			<label class="group-name" for="mail_login"><?php echo Minz_Translate::t('persona_connection_email'); ?></label>
 			<?php $mail = $this->conf->mail_login; ?>
 			<div class="group-controls">
-				<input type="email" id="mail_login" name="mail_login" value="<?php echo $mail; ?>" <?php echo Minz_Configuration::isAdmin(Minz_Session::param('currentUser', '_')) ? '' : 'disabled="disabled"'; ?> placeholder="alice@example.net" />
+				<input type="email" id="mail_login" name="mail_login" class="extend" value="<?php echo $mail; ?>" <?php echo Minz_Configuration::isAdmin(Minz_Session::param('currentUser', '_')) ? '' : 'disabled="disabled"'; ?> placeholder="alice@example.net" />
 				<noscript><b><?php echo Minz_Translate::t('javascript_should_be_activated'); ?></b></noscript>
 			</div>
 		</div>
@@ -49,7 +49,9 @@
 			<label class="group-name" for="auth_type"><?php echo Minz_Translate::t('auth_type'); ?></label>
 			<div class="group-controls">
 				<select id="auth_type" name="auth_type" required="required">
-					<option value=""></option>
+					<?php if (!in_array(Minz_Configuration::authType(), array('form', 'persona', 'http_auth', 'none'))) { ?>
+						<option selected="selected"></option>
+					<?php } ?>
 					<option value="form"<?php echo Minz_Configuration::authType() === 'form' ? ' selected="selected"' : '', version_compare(PHP_VERSION, '5.3', '<') ? ' disabled="disabled"' : ''; ?>><?php echo Minz_Translate::t('auth_form'); ?></option>
 					<option value="persona"<?php echo Minz_Configuration::authType() === 'persona' ? ' selected="selected"' : '', $this->conf->mail_login == '' ? ' disabled="disabled"' : ''; ?>><?php echo Minz_Translate::t('auth_persona'); ?></option>
 					<option value="http_auth"<?php echo Minz_Configuration::authType() === 'http_auth' ? ' selected="selected"' : '', httpAuthUser() == '' ? ' disabled="disabled"' : ''; ?>><?php echo Minz_Translate::t('http_auth'); ?> (REMOTE_USER = '<?php echo httpAuthUser(); ?>')</option>
@@ -143,7 +145,7 @@
 			<label class="group-name" for="new_user_email"><?php echo Minz_Translate::t('persona_connection_email'); ?></label>
 			<?php $mail = $this->conf->mail_login; ?>
 			<div class="group-controls">
-				<input type="email" id="new_user_email" name="new_user_email" placeholder="alice@example.net" />
+				<input type="email" id="new_user_email" name="new_user_email" class="extend" placeholder="alice@example.net" />
 			</div>
 		</div>
 

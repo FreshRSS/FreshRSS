@@ -4,7 +4,7 @@ if (function_exists('opcache_reset')) {
 }
 
 require('../../constants.php');
-const BCRYPT_COST = 9;
+define('BCRYPT_COST', 9);
 
 include(LIB_PATH . '/lib_rss.php');
 
@@ -87,6 +87,8 @@ SET f.cache_nbEntries=x.nbEntries, f.cache_nbUnreads=x.nbUnreads
 ');
 
 define('SQL_UPDATE_HISTORYv007b', 'UPDATE `%1$sfeed` SET keep_history = CASE WHEN keep_history = 0 THEN -2 WHEN keep_history = 1 THEN -1 ELSE keep_history END;');
+
+define('SQL_GET_FEEDS', 'SELECT id, url, website FROM `%1$sfeed`;');
 //</updates>
 
 // gestion internationalisation
@@ -170,6 +172,9 @@ function saveStep2 () {
 		$_SESSION['default_user'] = substr(preg_replace('/[^a-zA-Z0-9]/', '', $_POST['default_user']), 0, 16);
 		$_SESSION['auth_type'] = $_POST['auth_type'];
 		if (!empty($_POST['passwordPlain'])) {
+			if (!function_exists('password_hash')) {
+				include_once(LIB_PATH . '/password_compat.php');
+			}
 			$passwordHash = password_hash($_POST['passwordPlain'], PASSWORD_BCRYPT, array('cost' => BCRYPT_COST));
 			$passwordHash = preg_replace('/^\$2[xy]\$/', '\$2a\$', $passwordHash);	//Compatibility with bcrypt.js
 			$_SESSION['passwordHash'] = $passwordHash;
@@ -307,14 +312,6 @@ function updateDatabase($perform = false) {
 			$stm->execute();
 		}
 
-		$sql = sprintf(SQL_UPDATE_HISTORYv007b, $_SESSION['bd_prefix_user']);
-		$stm = $c->prepare($sql);
-		$stm->execute();
-
-		$sql = sprintf(SQL_UPDATE_CACHED_VALUES, $_SESSION['bd_prefix_user']);
-		$stm = $c->prepare($sql);
-		$stm->execute();
-
 		$sql = sprintf(SQL_CONVERT_SELECTv006, $_SESSION['bd_prefix'], $_SESSION['bd_prefix_user']);
 		if (!$perform) {
 			$sql .= ' LIMIT 1';
@@ -336,11 +333,57 @@ function updateDatabase($perform = false) {
 			$content = unserialize(gzinflate(base64_decode($row['content'])));
 			$stm2->execute(array($content, $id));
 		}
+
 		return true;
 	} catch (PDOException $e) {
 		return false;
 	}
 	return false;
+}
+
+function newPdo() {
+	switch ($_SESSION['bd_type']) {
+		case 'mysql':
+			$str = 'mysql:host=' . $_SESSION['bd_host'] . ';dbname=' . $_SESSION['bd_base'];
+			$driver_options = array(
+				PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8',
+			);
+			break;
+		case 'sqlite':
+			$str = 'sqlite:' . DATA_PATH . $_SESSION['bd_base'] . '.sqlite';
+			$driver_options = null;
+			break;
+		default:
+			return false;
+	}
+	return new PDO($str, $_SESSION['bd_user'], $_SESSION['bd_password'], $driver_options);
+}
+
+function postUpdate() {
+	$c = newPdo();
+
+	$sql = sprintf(SQL_UPDATE_HISTORYv007b, $_SESSION['bd_prefix_user']);
+	$stm = $c->prepare($sql);
+	$stm->execute();
+
+	$sql = sprintf(SQL_UPDATE_CACHED_VALUES, $_SESSION['bd_prefix_user']);
+	$stm = $c->prepare($sql);
+	$stm->execute();
+
+	//<favicons>
+	$sql = sprintf(SQL_GET_FEEDS, $_SESSION['bd_prefix_user']);
+	$stm = $c->prepare($sql);
+	$stm->execute();
+	$res = $stm->fetchAll(PDO::FETCH_ASSOC);
+	foreach ($res as $feed) {
+		if (empty($feed['url'])) {
+			continue;
+		}
+		$hash = hash('crc32b', $_SESSION['salt'] . $feed['url']);
+		@file_put_contents(DATA_PATH . '/favicons/' . $hash . '.txt',
+			empty($feed['website']) ? $feed['url'] : $feed['website']);
+	}
+	//</favicons>
 }
 
 function deleteInstall () {
@@ -357,22 +400,7 @@ function deleteInstall () {
 	}
 
 	try {
-		switch ($_SESSION['bd_type']) {
-			case 'mysql':
-				$str = 'mysql:host=' . $_SESSION['bd_host'] . ';dbname=' . $_SESSION['bd_base'];
-				$driver_options = array(
-					PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8',
-				);
-				break;
-			case 'sqlite':
-				$str = 'sqlite:' . DATA_PATH . $_SESSION['bd_base'] . '.sqlite';
-				$driver_options = null;
-				break;
-			default:
-				return false;
-		}
-
-		$c = new PDO($str, $_SESSION['bd_user'], $_SESSION['bd_password'], $driver_options);
+		$c = newPdo();
 		$sql = sprintf(SQL_DROP_BACKUPv006, $_SESSION['bd_prefix']);
 		$stm = $c->prepare($sql);
 		$stm->execute();
@@ -805,7 +833,9 @@ function printStep2 () {
 			<label class="group-name" for="auth_type"><?php echo _t('auth_type'); ?></label>
 			<div class="group-controls">
 				<select id="auth_type" name="auth_type" required="required">
-					<option value=""></option>
+					<?php if (!in_array($_SESSION['auth_type'], array('form', 'persona', 'http_auth', 'none'))) { ?>
+						<option selected="selected"></option>
+					<?php } ?>
 					<option value="form"<?php echo $_SESSION['auth_type'] === 'form' ? ' selected="selected"' : '', version_compare(PHP_VERSION, '5.3', '<') ? ' disabled="disabled"' : ''; ?>><?php echo _t('auth_form'); ?></option>
 					<option value="persona"<?php echo $_SESSION['auth_type'] === 'persona' ? ' selected="selected"' : ''; ?>><?php echo _t('auth_persona'); ?></option>
 					<option value="http_auth"<?php echo $_SESSION['auth_type'] === 'http_auth' ? ' selected="selected"' : '', httpAuthUser() == '' ? ' disabled="disabled"' : ''; ?>><?php echo _t('http_auth'); ?> (REMOTE_USER = '<?php echo httpAuthUser(); ?>')</option>
@@ -922,17 +952,26 @@ function printStep4 () {
 ?>
 	<form action="index.php?step=4" method="post">
 		<legend><?php echo _t ('version_update'); ?></legend>
+
+		<?php if (updateDatabase(false)) { ?>
+		<p class="alert"><?php echo _t ('update_long'); ?></p>
+
 		<div class="form-group form-actions">
 			<div class="group-controls">
-				<?php if (updateDatabase(false)) { ?>
 				<input type="hidden" name="updateDatabase" value="1" />
 				<button type="submit" class="btn btn-important"><?php echo _t ('update_start'); ?></button>
-				<p><?php echo _t ('update_long'); ?></p>
-				<?php } else { ?>
-				<a class="btn btn-important next-step" href="?step=5"><?php echo _t ('next_step'); ?></a>
-				<?php } ?>
 			</div>
 		</div>
+
+		<?php } else { ?>
+		<p class="alert"><?php echo _t ('update_end'); ?></p>
+
+		<div class="form-group form-actions">
+			<div class="group-controls">
+				<a class="btn btn-important next-step" href="?step=5"><?php echo _t ('next_step'); ?></a>
+			</div>
+		</div>
+		<?php } ?>
 	</form>
 <?php
 }
@@ -973,6 +1012,7 @@ case 4:
 	}
 	break;
 case 5:
+	postUpdate();
 	break;
 case 6:
 	deleteInstall ();

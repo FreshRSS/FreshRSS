@@ -12,6 +12,8 @@ if ($this->loginOk || Minz_Configuration::allowAnonymous()) {
 	} elseif ($output === 'global') {
 		$this->renderHelper ('view/global_view');
 	} else {
+		Minz_Request::_param ('output', 'normal');
+		$output = 'normal';
 		$this->renderHelper ('view/normal_view');
 	}
 } elseif ($output === 'rss') {

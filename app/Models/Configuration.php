@@ -48,7 +48,7 @@ class FreshRSS_Configuration {
 		'bottomline_link' => true,
 		'sharing' => array(
 			'shaarli' => '',
-			'poche' => '',
+			'wallabag' => '',
 			'diaspora' => '',
 			'twitter' => true,
 			'g+' => true,
@@ -185,7 +185,7 @@ class FreshRSS_Configuration {
 		}
 	}
 	public function _sharing ($values) {
-		$are_url = array ('shaarli', 'poche', 'diaspora');
+		$are_url = array ('shaarli', 'wallabag', 'diaspora');
 		foreach ($values as $key => $value) {
 			if (in_array($key, $are_url)) {
 				$is_url = (

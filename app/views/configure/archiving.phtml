@@ -39,7 +39,7 @@
 		<div class="form-group">
 		<p class="group-name"><?php echo Minz_Translate::t('current_user'); ?></p>
 			<div class="group-controls">
-				<p><?php echo $this->nb_total, ' ', Minz_Translate::t('articles'), ', ', formatBytes($this->size_user); ?></p>
+				<p><?php echo formatNumber($this->nb_total), ' ', Minz_Translate::t('articles'), ', ', formatBytes($this->size_user); ?></p>
 				<input type="hidden" name="optimiseDatabase" value="1" />
 				<button type="submit" class="btn btn-important"><?php echo Minz_Translate::t('optimize_bdd'); ?></button>
 				<?php echo FreshRSS_Themes::icon('help'); ?> <?php echo Minz_Translate::t('optimize_todo_sometimes'); ?>

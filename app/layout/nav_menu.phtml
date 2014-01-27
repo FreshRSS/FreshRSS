@@ -1,5 +1,10 @@
+<?php
+	$actual_view = Minz_Request::param('output', 'normal');
+?>
 <div class="nav_menu">
+	<?php if ($actual_view === 'normal') { ?>
 	<a class="btn toggle_aside" href="#aside_flux"><?php echo FreshRSS_Themes::icon('category'); ?></a>
+	<?php } ?>
 
 	<?php if ($this->loginOk) { ?>
 	<a id="actualize" class="btn" href="<?php echo _url ('feed', 'actualize'); ?>"><?php echo FreshRSS_Themes::icon('refresh'); ?></a>
@@ -107,9 +112,7 @@
 
 			<?php
 				$url_output = $url;
-				$actual_view = Minz_Request::param('output', 'normal');
-			?>
-			<?php if($actual_view !== 'normal') { ?>
+				if ($actual_view !== 'normal') { ?>
 			<li class="item">
 				<?php $url_output['params']['output'] = 'normal'; ?>
 				<a class="view_normal" href="<?php echo Minz_Url::display ($url_output); ?>">
@@ -202,7 +205,7 @@
 	<div class="item search">
 		<form action="<?php echo _url ('index', 'index'); ?>" method="get">
 			<?php $search = Minz_Request::param ('search', ''); ?>
-			<input type="search" name="search" value="<?php echo $search; ?>" placeholder="<?php echo Minz_Translate::t ('search_short'); ?>" />
+			<input type="search" name="search" class="extend" value="<?php echo $search; ?>" placeholder="<?php echo Minz_Translate::t ('search_short'); ?>" />
 
 			<?php $get = Minz_Request::param ('get', ''); ?>
 			<?php if($get != '') { ?>

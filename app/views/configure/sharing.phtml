@@ -10,20 +10,20 @@
 				<?php echo Minz_Translate::t ('your_shaarli'); ?>
 			</label>
 			<div class="group-controls">
-				<input type="url" id="shaarli" name="shaarli" value="<?php echo $this->conf->sharing ('shaarli'); ?>" placeholder="<?php echo Minz_Translate::t ('blank_to_disable'); ?>" size="64" />
+				<input type="url" id="shaarli" name="shaarli" class="extend" value="<?php echo $this->conf->sharing ('shaarli'); ?>" placeholder="<?php echo Minz_Translate::t ('blank_to_disable'); ?>" size="64" />
 
 				<?php echo FreshRSS_Themes::icon('help'); ?> <a target="_blank" href="http://sebsauvage.net/wiki/doku.php?id=php:shaarli"><?php echo Minz_Translate::t ('more_information'); ?></a>
 			</div>
 		</div>
 
 		<div class="form-group">
-			<label class="group-name" for="poche">
-				<?php echo Minz_Translate::t ('your_poche'); ?>
+			<label class="group-name" for="wallabag">
+				<?php echo Minz_Translate::t ('your_wallabag'); ?>
 			</label>
 			<div class="group-controls">
-				<input type="url" id="poche" name="poche" value="<?php echo $this->conf->sharing ('poche'); ?>" placeholder="<?php echo Minz_Translate::t ('blank_to_disable'); ?>" size="64" />
+				<input type="url" id="wallabag" name="wallabag" class="extend" value="<?php echo $this->conf->sharing ('wallabag'); ?>" placeholder="<?php echo Minz_Translate::t ('blank_to_disable'); ?>" size="64" />
 
-				<?php echo FreshRSS_Themes::icon('help'); ?> <a target="_blank" href="http://www.inthepoche.com/"><?php echo Minz_Translate::t ('more_information'); ?></a>
+				<?php echo FreshRSS_Themes::icon('help'); ?> <a target="_blank" href="http://www.wallabag.org"><?php echo Minz_Translate::t ('more_information'); ?></a>
 			</div>
 		</div>
 
@@ -32,7 +32,7 @@
 				<?php echo Minz_Translate::t ('your_diaspora_pod'); ?>
 			</label>
 			<div class="group-controls">
-				<input type="url" id="diaspora" name="diaspora" value="<?php echo $this->conf->sharing ('diaspora'); ?>" placeholder="<?php echo Minz_Translate::t ('blank_to_disable'); ?>" size="64" />
+				<input type="url" id="diaspora" name="diaspora" class="extend" value="<?php echo $this->conf->sharing ('diaspora'); ?>" placeholder="<?php echo Minz_Translate::t ('blank_to_disable'); ?>" size="64" />
 
 				<?php echo FreshRSS_Themes::icon('help'); ?> <a target="_blank" href="https://diasporafoundation.org/"><?php echo Minz_Translate::t ('more_information'); ?></a>
 			</div>

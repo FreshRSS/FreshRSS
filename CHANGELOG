@@ -1,6 +1,6 @@
 # Journal des modifications
 
-## 2014-01-xx FreshRSS 0.7
+## 2014-01-29 FreshRSS 0.7
 
 * Nouveau mode multi-utilisateur
 	* L’utilisateur par défaut (administrateur) peut créer et supprimer d’autres utilisateurs
@@ -14,10 +14,10 @@
 * Installateur supportant les mises à jour :
 	* Depuis une v0.6, placer application.ini et Configuration.array.php dans le nouveau répertoire “./data/”
 		(voir réorganisation ci-dessous)
-	* Pour les versions suivantes, juste garder “./data/config.php” et “./data/*_user.php”,
-		éventuellement “./data/persona/*”
-* Rafraîchissement automatique du nombre d’articles non lus toutes les minutes (utilise le cache HTTP à bon escient)
+	* Pour les versions suivantes, juste garder le répertoire “./data/”
+* Rafraîchissement automatique du nombre d’articles non lus toutes les deux minutes (utilise le cache HTTP à bon escient)
 	* Permet aussi de conserver la session valide, surtout dans le cas de Persona
+* Nouvelle page de statistiques (nombres d’articles par jour / catégorie)
 * Importation OPML instantanée et plus tolérante
 * Nouvelle gestion des favicons avec téléchargement en parallèle
 * Nouvelles options

@@ -62,6 +62,11 @@ function small_hash ($txt) {
 	return strtr ($t, '+/', '-_');
 }
 
+function formatNumber($n, $precision = 0) {
+	return str_replace(' ', '&#8239;',	//Espace fine insécable
+		number_format($n, $precision, '.', ' '));	//number_format does not seem to be Unicode-compatible
+}
+
 function formatBytes($bytes, $precision = 2, $system = 'IEC') {
 	if ($system === 'IEC') {
 		$base = 1024;
@@ -74,7 +79,7 @@ function formatBytes($bytes, $precision = 2, $system = 'IEC') {
 	$pow = $bytes === 0 ? 0 : floor(log($bytes) / log($base));
 	$pow = min($pow, count($units) - 1);
 	$bytes /= pow($base, $pow);
-	return round($bytes, $precision) . ' ' . $units[$pow];
+	return formatNumber($bytes, $precision) . ' ' . $units[$pow];
 }
 
 function timestamptodate ($t, $hour = true) {
@@ -106,13 +111,59 @@ function html_only_entity_decode($text) {
 	return strtr($text, $htmlEntitiesOnly);
 }
 
-function sanitizeHTML($data) {
+function customSimplePie() {
+	$simplePie = new SimplePie();
+	$simplePie->set_useragent(Minz_Translate::t('freshrss') . '/' . FRESHRSS_VERSION . ' (' . PHP_OS . '; ' . FRESHRSS_WEBSITE . ') ' . SIMPLEPIE_NAME . '/' . SIMPLEPIE_VERSION);
+	$simplePie->set_cache_location(CACHE_PATH);
+	$simplePie->set_cache_duration(1500);
+	$simplePie->strip_htmltags(array(
+		'base', 'blink', 'body', 'doctype', 'embed',
+		'font', 'form', 'frame', 'frameset', 'html',
+		'link', 'input', 'marquee', 'meta', 'noscript',
+		'object', 'param', 'plaintext', 'script', 'style',
+	));
+	$simplePie->strip_attributes(array_merge($simplePie->strip_attributes, array(
+		'autoplay', 'onload', 'onunload', 'onclick', 'ondblclick', 'onmousedown', 'onmouseup',
+		'onmouseover', 'onmousemove', 'onmouseout', 'onfocus', 'onblur',
+		'onkeypress', 'onkeydown', 'onkeyup', 'onselect', 'onchange', 'seamless')));
+	$simplePie->add_attributes(array(
+		'img' => array('lazyload' => ''),	//http://www.w3.org/TR/resource-priorities/
+		'audio' => array('preload' => 'none'),
+		'iframe' => array('postpone' => '', 'sandbox' => 'allow-scripts allow-same-origin'),
+		'video' => array('postpone' => '', 'preload' => 'none'),
+	));
+	$simplePie->set_url_replacements(array(
+		'a' => 'href',
+		'area' => 'href',
+		'audio' => 'src',
+		'blockquote' => 'cite',
+		'del' => 'cite',
+		'form' => 'action',
+		'iframe' => 'src',
+		'img' => array(
+			'longdesc',
+			'src'
+		),
+		'input' => 'src',
+		'ins' => 'cite',
+		'q' => 'cite',
+		'source' => 'src',
+		'track' => 'src',
+		'video' => array(
+			'poster',
+			'src',
+		),
+	));
+	return $simplePie;
+}
+
+function sanitizeHTML($data, $base = '') {
 	static $simplePie = null;
 	if ($simplePie == null) {
-		$simplePie = new SimplePie();
+		$simplePie = customSimplePie();
 		$simplePie->init();
 	}
-	return html_only_entity_decode($simplePie->sanitize->sanitize($data, SIMPLEPIE_CONSTRUCT_MAYBE_HTML));
+	return html_only_entity_decode($simplePie->sanitize->sanitize($data, SIMPLEPIE_CONSTRUCT_HTML, $base));
 }
 
 /* permet de récupérer le contenu d'un article pour un flux qui n'est pas complet */
@@ -125,7 +176,7 @@ function get_content_by_parsing ($url, $path) {
 	if ($html) {
 		$doc = phpQuery::newDocument ($html);
 		$content = $doc->find ($path);
-		return sanitizeHTML($content->__toString());
+		return sanitizeHTML($content->__toString(), $url);
 	} else {
 		throw new Exception ();
 	}

@@ -59,14 +59,18 @@ function incUnreadsFeed(article, feed_id, nb) {
 		}
 	}
 
+	var isCurrentView = false;
 	//Update unread: title
 	document.title = document.title.replace(/((?: \(\d+\))?)( · .*?)((?: \(\d+\))?)$/, function (m, p1, p2, p3) {
-		if (article || ($('#' + feed_id).closest('.active').length > 0)) {
+		var $feed = $('#' + feed_id);
+		if (article || ($feed.closest('.active').length > 0 && $feed.siblings('.active').length === 0)) {
+			isCurrentView = true;
 			return incLabel(p1, nb) + p2 + incLabel(p3, feed_priority > 0 ? nb : 0);
 		} else {
 			return p1 + p2 + incLabel(p3, feed_priority > 0 ? nb : 0);
 		}
 	});
+	return isCurrentView;
 }
 
 function mark_read(active, only_not_read) {
@@ -519,11 +523,15 @@ function init_notifications() {
 
 function refreshUnreads() {
 	$.getJSON('./?c=javascript&a=nbUnreadsPerFeed').done(function (data) {
+		var isAll = $('.category.all > .active').length > 0;
 		$.each(data, function(feed_id, nbUnreads) {
 			feed_id = 'f_' + feed_id;
 			var elem = $('#' + feed_id + '>.feed').get(0),
 				feed_unreads = elem ? (parseInt(elem.getAttribute('data-unread'), 10) || 0) : 0;
-			incUnreadsFeed(null, feed_id, nbUnreads - feed_unreads);
+			if ((incUnreadsFeed(null, feed_id, nbUnreads - feed_unreads) || isAll) &&	//Update of current view?
+				(nbUnreads - feed_unreads > 0)) {
+				$('#new-article').show();
+			};
 		});
 	});
 }
@@ -618,14 +626,18 @@ function init_loginForm() {
 			if (data.salt1 == '' || data.nonce == '') {
 				alert('Invalid user!');
 			} else {
-				var strong = window.Uint32Array && window.crypto && (typeof window.crypto.getRandomValues === 'function'),
-					s = dcodeIO.bcrypt.hashSync($('#passwordPlain').val(), data.salt1),
-					c = dcodeIO.bcrypt.hashSync(data.nonce + s, strong ? 4 : poormanSalt());
-				$('#challenge').val(c);
-				if (s == '' || c == '') {
-					alert('Crypto error!');
-				} else {
-					success = true;
+				try {
+					var strong = window.Uint32Array && window.crypto && (typeof window.crypto.getRandomValues === 'function'),
+						s = dcodeIO.bcrypt.hashSync($('#passwordPlain').val(), data.salt1),
+						c = dcodeIO.bcrypt.hashSync(data.nonce + s, strong ? 4 : poormanSalt());
+					$('#challenge').val(c);
+					if (s == '' || c == '') {
+						alert('Crypto error!');
+					} else {
+						success = true;
+					}
+				} catch (e) {
+					alert('Crypto exception! ' + e);
 				}
 			}
 		}).fail(function() {

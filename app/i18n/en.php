@@ -11,8 +11,11 @@ return array (
 	'users'				=> 'Users',
 	'categories'			=> 'Categories',
 	'category'			=> 'Category',
+	'feed'				=> 'Feed',
+	'feeds'				=> 'Feeds',
 	'shortcuts'			=> 'Shortcuts',
 	'about'				=> 'About',
+	'stats'				=> 'Statistics',
 
 	'your_rss_feeds'		=> 'Your RSS feeds',
 	'add_rss_feed'			=> 'Add a RSS feed',
@@ -20,7 +23,8 @@ return array (
 	'import_export_opml'		=> 'Import / export (OPML)',
 
 	'subscription_management'	=> 'Subscriptions management',
-	'all_feeds'			=> 'Main stream',
+	'main_stream'			=> 'Main stream',
+	'all_feeds'			=> 'All feeds',
 	'favorite_feeds'		=> 'Favourites (%d)',
 	'not_read'			=> '%d unread',
 	'not_reads'			=> '%d unread',
@@ -157,7 +161,7 @@ return array (
 	'not_yet_implemented'		=> 'Not yet implemented',
 	'access_protected_feeds'	=> 'Connection allows to access HTTP protected RSS feeds',
 	'no_selected_feed'		=> 'No feed selected.',
-	'think_to_add'			=> '<a href="./?c=configure&amp;a=feed">Remember to add some RSS feeds!</a>',
+	'think_to_add'			=> '<a href="./?c=configure&amp;a=feed">You may add some feeds</a>.',
 
 	'current_user'			=> 'Current user',
 	'default_user'			=> 'Username of the default user <small>(maximum 16 alphanumeric characters)</small>',
@@ -206,7 +210,7 @@ return array (
 	'scroll'			=> 'during page scrolls',
 	'upon_reception'		=> 'upon reception of the article',
 	'your_shaarli'			=> 'Your Shaarli',
-	'your_poche'			=> 'Your Poche',
+	'your_wallabag'			=> 'Your wallabag',
 	'your_diaspora_pod'		=> 'Your Diaspora* pod',
 	'sharing'			=> 'Sharing',
 	'share'				=> 'Share',
@@ -217,7 +221,7 @@ return array (
 	'more_information'		=> 'More information',
 	'activate_sharing'		=> 'Activate sharing',
 	'shaarli'			=> 'Shaarli',
-	'poche'				=> 'Poche',
+	'wallabag'			=> 'wallabag',
 	'diaspora'			=> 'Diaspora*',
 	'twitter'			=> 'Twitter',
 	'g+'				=> 'Google+',
@@ -232,7 +236,7 @@ return array (
 	'by'				=> 'by',
 
 	'load_more'			=> 'Load more articles',
-	'nothing_to_load'		=> 'There is no more articles',
+	'nothing_to_load'		=> 'There are no more articles',
 
 	'rss_feeds_of'			=> 'RSS feed of %s',
 
@@ -241,9 +245,10 @@ return array (
 	'today'				=> 'Today',
 	'yesterday'			=> 'Yesterday',
 	'before_yesterday'		=> 'Before yesterday',
+	'new_article'			=> 'There are new available articles, click to refresh the page.',
 	'by_author'			=> 'By <em>%s</em>',
 	'related_tags'			=> 'Related tags',
-	'no_feed_to_display'		=> 'There is no feed to show yet.',
+	'no_feed_to_display'		=> 'There is no article to show.',
 
 	'about_freshrss'		=> 'About FreshRSS',
 	'project_website'		=> 'Project website',
@@ -295,5 +300,17 @@ return array (
 	'Dec'				=> '\D\e\c\e\m\b\e\r',
 	// format for date() function, %s allows to indicate month in letter
 	'format_date'			=> '%s j\<\s\u\p\>S\<\/\s\u\p\> Y',
-	'format_date_hour'		=> '%s j\<\s\u\p\>S\<\/\s\u\p\> Y \a\t H\.i',
+	'format_date_hour'		=> '%s j\<\s\u\p\>S\<\/\s\u\p\> Y \a\t H\:i',
+	
+	'status_favorites'		=> 'Favourites',
+	'status_read'			=> 'Read',
+	'status_unread'			=> 'Unread',
+	'status_total'			=> 'Total',
+	
+	'stats_entry_repartition'	=> 'Entries repartition',
+	'stats_entry_per_day'		=> 'Entries per day (last 30 days)',
+	'stats_feed_per_category'	=> 'Feeds per category',
+	'stats_entry_per_category'	=> 'Entries per category',
+	'stats_top_feed'		=> 'Top ten feeds',
+	'stats_entry_count'		=> 'Entry count',
 );

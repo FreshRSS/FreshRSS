@@ -86,6 +86,13 @@ label {
 	line-height: 25px;
 	cursor: pointer;
 }
+input {
+	width: 180px;
+}
+textarea {
+	width: 360px;
+	height: 100px;
+}
 input, select, textarea {
 	display: inline-block;
 	max-width: 100%;
@@ -115,6 +122,10 @@ input, select, textarea {
 	input:invalid, select:invalid {
 		border-color: red;
 		box-shadow: 0 0 2px 1px red;
+	}
+	input:focus.extend {
+		width: 300px;
+		transition: width 200ms linear;
 	}
 
 .form-group {
@@ -179,8 +190,13 @@ input, select, textarea {
 	}
 	.stick .btn + .btn,
 	.stick .btn + input,
+	.stick .btn + .dropdown > .btn,
 	.stick input + .btn,
-	.stick input + input {
+	.stick input + input,
+	.stick input + .dropdown > .btn,
+	.stick .dropdown + .btn,
+	.stick .dropdown + input,
+	.stick .dropdown + .dropdown > .btn {
 		border-left: none;
 	}
 	.stick input + .btn {
@@ -504,4 +520,21 @@ input, select, textarea {
 	height: 16px;
 	vertical-align: middle;
 	line-height: 16px;
+}
+
+/* Prompt (centré) */
+.prompt > h1, .prompt > p {
+	text-align:center;
+}
+.prompt > form {
+	margin:1em auto 2.5em auto;
+	width:10em;
+}
+.prompt .btn {
+	display:block;
+	margin:.5em auto;
+}
+.prompt input {
+	margin:.4em auto 1.1em auto;
+	width:99%;
 }

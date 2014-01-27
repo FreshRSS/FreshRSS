@@ -6,10 +6,10 @@ Il se veut léger et facile à prendre en main tout en étant un outil puissant 
 Il permet de gérer plusieurs utilisateurs, et dispose d’un mode de lecture anonyme.
 
 * Site officiel : http://freshrss.org
-* Démo : http://marienfressinaud.fr/projets/freshrss/
+* Démo : http://demo.freshrss.org/
 * Développeur : Marien Fressinaud <dev@marienfressinaud.fr>
-* Version actuelle : 0.7-RC1
-* Date de publication 2014-01-xx
+* Version actuelle : 0.7
+* Date de publication 2014-01-29
 * License [GNU AGPL 3](http://www.gnu.org/licenses/agpl-3.0.html)
 
 ![Logo de FreshRSS](http://marienfressinaud.fr/data/images/freshrss/freshrss_title.png)
@@ -29,7 +29,7 @@ Privilégiez pour cela des demandes sur GitHub
 	* Requis : [PDO_MySQL](http://php.net/pdo-mysql), [cURL](http://php.net/curl), [LibXML](http://php.net/xml), [PCRE](http://php.net/pcre), [ctype](http://php.net/ctype)
 	* Recommandés : [JSON](http://php.net/json), [zlib](http://php.net/zlib), [mbstring](http://php.net/mbstring), [iconv](http://php.net/iconv)
 * MySQL 5.0.3+ (ou SQLite 3.7.4+ à venir)
-* Un navigateur Web récent tel Firefox, Chrome, Opera, Safari, Internet Explorer 9+
+* Un navigateur Web récent tel Firefox 4+, Chrome, Opera, Safari, Internet Explorer 9+
 	* Fonctionne aussi sur mobile
 
 ![Capture d’écran de FreshRSS](http://marienfressinaud.fr/data/images/freshrss/freshrss_default-design.png)
