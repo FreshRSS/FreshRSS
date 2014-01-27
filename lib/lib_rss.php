@@ -119,7 +119,7 @@ function customSimplePie() {
 	$simplePie->strip_htmltags(array(
 		'base', 'blink', 'body', 'doctype', 'embed',
 		'font', 'form', 'frame', 'frameset', 'html',
-		'input', 'marquee', 'meta', 'noscript',
+		'link', 'input', 'marquee', 'meta', 'noscript',
 		'object', 'param', 'plaintext', 'script', 'style',
 	));
 	$simplePie->strip_attributes(array_merge($simplePie->strip_attributes, array(
