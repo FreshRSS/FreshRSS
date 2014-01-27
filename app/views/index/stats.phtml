@@ -4,73 +4,73 @@
 	<h1><?php echo Minz_Translate::t ('stats'); ?></h1>
 	
 	<div class="stat">
-		<h2><?php echo Minz_Translate::t ('stats_entry_repartition')?></h2>
+		<h2><?php echo Minz_Translate::t ('stats_entry_repartition'); ?></h2>
 		<table>
 			<thead>
 				<tr>
 					<th> </th>
-					<th><?php echo Minz_Translate::t ('main_stream')?></th>
-					<th><?php echo Minz_Translate::t ('all_feeds')?></th>
+					<th><?php echo Minz_Translate::t ('main_stream'); ?></th>
+					<th><?php echo Minz_Translate::t ('all_feeds'); ?></th>
 				</tr>
 			</thead>
 			<tbody>
 				<tr>
-					<th><?php echo Minz_Translate::t ('status_total')?></th>
-					<td class="numeric"><?php echo $this->repartition['main_stream']['total']?></td>
-					<td class="numeric"><?php echo $this->repartition['all_feeds']['total']?></td>
+					<th><?php echo Minz_Translate::t ('status_total'); ?></th>
+					<td class="numeric"><?php echo formatNumber($this->repartition['main_stream']['total']); ?></td>
+					<td class="numeric"><?php echo formatNumber($this->repartition['all_feeds']['total']); ?></td>
 				</tr>
 				<tr>
-					<th><?php echo Minz_Translate::t ('status_read')?></th>
-					<td class="numeric"><?php echo $this->repartition['main_stream']['read']?></td>
-					<td class="numeric"><?php echo $this->repartition['all_feeds']['read']?></td>
+					<th><?php echo Minz_Translate::t ('status_read'); ?></th>
+					<td class="numeric"><?php echo formatNumber($this->repartition['main_stream']['read']); ?></td>
+					<td class="numeric"><?php echo formatNumber($this->repartition['all_feeds']['read']); ?></td>
 				</tr>
 				<tr>
-					<th><?php echo Minz_Translate::t ('status_unread')?></th>
-					<td class="numeric"><?php echo $this->repartition['main_stream']['unread']?></td>
-					<td class="numeric"><?php echo $this->repartition['all_feeds']['unread']?></td>
+					<th><?php echo Minz_Translate::t ('status_unread'); ?></th>
+					<td class="numeric"><?php echo formatNumber($this->repartition['main_stream']['unread']); ?></td>
+					<td class="numeric"><?php echo formatNumber($this->repartition['all_feeds']['unread']); ?></td>
 				</tr>
 				<tr>
-					<th><?php echo Minz_Translate::t ('status_favorites')?></th>
-					<td class="numeric"><?php echo $this->repartition['main_stream']['favorite']?></td>
-					<td class="numeric"><?php echo $this->repartition['all_feeds']['favorite']?></td>
+					<th><?php echo Minz_Translate::t ('status_favorites'); ?></th>
+					<td class="numeric"><?php echo formatNumber($this->repartition['main_stream']['favorite']); ?></td>
+					<td class="numeric"><?php echo formatNumber($this->repartition['all_feeds']['favorite']); ?></td>
 				</tr>
 			</tbody>
 		</table>
 	</div>
 	
 	<div class="stat">
-		<h2><?php echo Minz_Translate::t ('stats_entry_per_day')?></h2>
+		<h2><?php echo Minz_Translate::t ('stats_entry_per_day'); ?></h2>
 		<div id="statsEntryPerDay" style="height: 300px"></div>
 	</div>
 	
 	<div class="stat">
-		<h2><?php echo Minz_Translate::t ('stats_feed_per_category')?></h2>
+		<h2><?php echo Minz_Translate::t ('stats_feed_per_category'); ?></h2>
 		<div id="statsFeedPerCategory" style="height: 300px"></div>
 		<div id="statsFeedPerCategoryLegend"></div>
 	</div>
 	
 	<div class="stat">
-		<h2><?php echo Minz_Translate::t ('stats_entry_per_category')?></h2>
+		<h2><?php echo Minz_Translate::t ('stats_entry_per_category'); ?></h2>
 		<div id="statsEntryPerCategory" style="height: 300px"></div>
 		<div id="statsEntryPerCategoryLegend"></div>
 	</div>
 	
 	<div class="stat">
-		<h2><?php echo Minz_Translate::t ('stats_top_feed')?></h2>
+		<h2><?php echo Minz_Translate::t ('stats_top_feed'); ?></h2>
 		<table>
 			<thead>
 				<tr>
-					<th><?php echo Minz_Translate::t ('feed')?></th>
-					<th><?php echo Minz_Translate::t ('category')?></th>
-					<th><?php echo Minz_Translate::t ('stats_entry_count')?></th>
+					<th><?php echo Minz_Translate::t ('feed'); ?></th>
+					<th><?php echo Minz_Translate::t ('category'); ?></th>
+					<th><?php echo Minz_Translate::t ('stats_entry_count'); ?></th>
 				</tr>
 			</thead>
 			<tbody>
-				<?php foreach ($this->topFeed as $feed):?>
+				<?php foreach ($this->topFeed as $feed): ?>
 					<tr>
-						<td><?php echo $feed['name']?></td>
-						<td><?php echo $feed['category']?></td>
-						<td class="numeric"><?php echo $feed['count']?></td>
+						<td><?php echo $feed['name']; ?></td>
+						<td><?php echo $feed['category']; ?></td>
+						<td class="numeric"><?php echo formatNumber($feed['count']); ?></td>
 					</tr>
 				<?php endforeach;?>
 			</tbody>
@@ -96,7 +96,7 @@ function initStats() {
 			bars: {horizontal: false, show: true},
 			xaxis: {noTicks: 6, showLabels: false, tickDecimals: 0},
 			yaxis: {min: 0},
-			mouse: {relative: true, track: true, trackDecimals: 0, trackFormatter: function(obj) {return obj.y;}}
+			mouse: {relative: true, track: true, trackDecimals: 0, trackFormatter: function(obj) {return numberFormat(obj.y);}}
 		});
 	// Feed per category
 	Flotr.draw(document.getElementById('statsFeedPerCategory'),
@@ -106,7 +106,7 @@ function initStats() {
 			pie: {explode: 10, show: true, labelFormatter: function(){return '';}},
 			xaxis: {showLabels: false},
 			yaxis: {showLabels: false},
-			mouse: {relative: true, track: true, trackDecimals: 0, trackFormatter: function(obj) {return obj.series.label + ' - '+ obj.y + ' ('+ (obj.fraction * 100).toFixed(1) + '%)';}},
+			mouse: {relative: true, track: true, trackDecimals: 0, trackFormatter: function(obj) {return obj.series.label + ' - '+ numberFormat(obj.y) + ' ('+ (obj.fraction * 100).toFixed(1) + '%)';}},
 			legend: {container: document.getElementById('statsFeedPerCategoryLegend'), noColumns: 3}
 		});
 	// Entry per category
@@ -117,7 +117,7 @@ function initStats() {
 			pie: {explode: 10, show: true, labelFormatter: function(){return '';}},
 			xaxis: {showLabels: false},
 			yaxis: {showLabels: false},
-			mouse: {relative: true, track: true, trackDecimals: 0, trackFormatter: function(obj) {return obj.series.label + ' - '+ obj.y + ' ('+ (obj.fraction * 100).toFixed(1) + '%)';}},
+			mouse: {relative: true, track: true, trackDecimals: 0, trackFormatter: function(obj) {return obj.series.label + ' - '+ numberFormat(obj.y) + ' ('+ (obj.fraction * 100).toFixed(1) + '%)';}},
 			legend: {container: document.getElementById('statsEntryPerCategoryLegend'), noColumns: 3}
 		});
 }
