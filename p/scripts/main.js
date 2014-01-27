@@ -75,15 +75,21 @@ function incUnreadsFeed(article, feed_id, nb) {
 
 	var isCurrentView = false;
 	//Update unread: title
-	document.title = document.title.replace(/((?: \(\d+\))?)( · .*?)((?: \(\d+\))?)$/, function (m, p1, p2, p3) {
+	document.title = document.title.replace(/^([^\(]*)((?: \([0-9 ]+\))?)( · .*?)((?: \([0-9 ]+\))?)$/, function(m, p1, p2, p3, p4) {
 		var $feed = $('#' + feed_id);
-		if (article || ($feed.closest('.active').length > 0 && $feed.siblings('.active').length === 0)) {
+
+		p2 = p2.replace(/ /g, '');
+		p4 = p4.replace(/ /g, '');
+
+		if ($('.category.all > .active').length == 0 && $('.category.favorites > .active').length == 0) { // If the current page is not the home page or the favorites page
 			isCurrentView = true;
-			return incLabel(p1, nb) + p2 + incLabel(p3, feed_priority > 0 ? nb : 0);
+			return p1 + incLabel(p2, nb) + p3 + incLabel(p4, feed_priority > 0 ? nb : 0);
 		} else {
-			return p1 + p2 + incLabel(p3, feed_priority > 0 ? nb : 0);
+			return p1 + p3 + incLabel(p4, feed_priority > 0 ? nb : 0);
 		}
+
 	});
+
 	return isCurrentView;
 }
 
