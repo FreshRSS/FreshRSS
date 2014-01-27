@@ -20,7 +20,17 @@ function redirect(url, new_tab) {
 	}
 }
 
+function str2int(str) {
+	if (str == '') {
+		return 0;
+	}
+	return parseInt(str.replace(/\D/g, ''), 10) || 0;
+}
+
 function numberFormat(nStr) {
+	if (nStr < 0) {
+		return 0;
+	}
 	// http://www.mredkj.com/javascript/numberFormat.html
 	nStr += '';
 	var x = nStr.split('.'),
@@ -34,33 +44,32 @@ function numberFormat(nStr) {
 }
 
 function incLabel(p, inc) {
-	var i = (parseInt(p.replace(/\D/g, ''), 10) || 0) + inc;
+	var i = str2int(p) + inc;
 	return i > 0 ? ' (' + numberFormat(i) + ')' : '';
 }
 
 function incUnreadsFeed(article, feed_id, nb) {
-	
 	//Update unread: feed
 	var elem = $('#' + feed_id + '>.feed').get(0),
-		feed_unreads = elem ? (parseInt(elem.getAttribute('data-unread').replace(' ', ''), 10) || 0) : 0,
-		feed_priority = elem ? (parseInt(elem.getAttribute('data-priority'), 10) || 0) : 0;
+		feed_unreads = elem ? str2int(elem.getAttribute('data-unread')) : 0,
+		feed_priority = elem ? str2int(elem.getAttribute('data-priority')) : 0;
 	if (elem) {
-		elem.setAttribute('data-unread', numberFormat(Math.max(0, feed_unreads + nb)));
+		elem.setAttribute('data-unread', numberFormat(feed_unreads + nb));
 	}
 
 	//Update unread: category
 	elem = $('#' + feed_id).parent().prevAll('.category').children(':first').get(0);
-	feed_unreads = elem ? (parseInt(elem.getAttribute('data-unread').replace(' ', ''), 10) || 0) : 0;
+	feed_unreads = elem ? str2int(elem.getAttribute('data-unread')) : 0;
 	if (elem) {
-		elem.setAttribute('data-unread', numberFormat(Math.max(0, feed_unreads + nb)));
+		elem.setAttribute('data-unread', numberFormat(feed_unreads + nb));
 	}
 
 	//Update unread: all
 	if (feed_priority > 0) {
 		elem = $('#aside_flux .all').children(':first').get(0);
 		if (elem) {
-			feed_unreads = elem ? (parseInt(elem.getAttribute('data-unread').replace(' ', ''), 10) || 0) : 0;
-			elem.setAttribute('data-unread', numberFormat(Math.max(0, feed_unreads + nb)));
+			feed_unreads = elem ? str2int(elem.getAttribute('data-unread')) : 0;
+			elem.setAttribute('data-unread', numberFormat(feed_unreads + nb));
 		}
 	}
 
@@ -68,28 +77,22 @@ function incUnreadsFeed(article, feed_id, nb) {
 	if (article && article.closest('div').hasClass('favorite')) {
 		elem = $('#aside_flux .favorites').children(':first').get(0);
 		if (elem) {
-			feed_unreads = elem ? (parseInt(elem.getAttribute('data-unread').replace(' ', ''), 10) || 0) : 0;
-			elem.setAttribute('data-unread', numberFormat(Math.max(0, feed_unreads + nb)));
+			feed_unreads = elem ? str2int(elem.getAttribute('data-unread')) : 0;
+			elem.setAttribute('data-unread', numberFormat(feed_unreads + nb));
 		}
 	}
 
 	var isCurrentView = false;
 	//Update unread: title
-	document.title = document.title.replace(/^([^\(]*)((?: \([0-9 ]+\))?)( · .*?)((?: \([0-9 ]+\))?)$/, function(m, p1, p2, p3, p4) {
+	document.title = document.title.replace(/((?: \([ 0-9]+\))?)( · .*?)((?: \([ 0-9]+\))?)$/, function (m, p1, p2, p3) {
 		var $feed = $('#' + feed_id);
-
-		p2 = p2.replace(/ /g, '');
-		p4 = p4.replace(/ /g, '');
-
-		if ($('.category.all > .active').length == 0 && $('.category.favorites > .active').length == 0) { // If the current page is not the home page or the favorites page
+		if (article || ($feed.closest('.active').length > 0 && $feed.siblings('.active').length === 0)) {
 			isCurrentView = true;
-			return p1 + incLabel(p2, nb) + p3 + incLabel(p4, feed_priority > 0 ? nb : 0);
+			return incLabel(p1, nb) + p2 + incLabel(p3, feed_priority > 0 ? nb : 0);
 		} else {
-			return p1 + p3 + incLabel(p4, feed_priority > 0 ? nb : 0);
+			return p1 + p2 + incLabel(p3, feed_priority > 0 ? nb : 0);
 		}
-
 	});
-
 	return isCurrentView;
 }
 
@@ -153,19 +156,16 @@ function mark_favorite(active) {
 
 		var favourites = $('.favorites>a').contents().last().get(0);
 		if (favourites && favourites.textContent) {
-			// Without javascript, the text displayed is « Favorites (1544) » where 1544 is the number unformatted.
-			// With Javascript, we replace this with « Favorites (1 544) ». To update this, the text is converted
-			// to the non-javascript format before.
-			favourites.textContent = favourites.textContent.replace(/ /g, '').replace('(', ' (').replace(/((?: \(\d+\))?\s*)$/, function (m, p1) {
+			favourites.textContent = favourites.textContent.replace(/((?: \([ 0-9]+\))?\s*)$/, function (m, p1) {
 				return incLabel(p1, inc);
 			});
 		}
 
 		if (active.closest('div').hasClass('not_read')) {
 			var elem = $('#aside_flux .favorites').children(':first').get(0),
-				feed_unreads = elem ? (parseInt(elem.getAttribute('data-unread').replace(' ', ''), 10) || 0) : 0;
+				feed_unreads = elem ? str2int(elem.getAttribute('data-unread')) : 0;
 			if (elem) {
-				elem.setAttribute('data-unread', numberFormat(Math.max(0, feed_unreads + inc)));
+				elem.setAttribute('data-unread', numberFormat(feed_unreads + inc));
 			}
 		}
 	});
@@ -550,7 +550,7 @@ function refreshUnreads() {
 		$.each(data, function(feed_id, nbUnreads) {
 			feed_id = 'f_' + feed_id;
 			var elem = $('#' + feed_id + '>.feed').get(0),
-				feed_unreads = elem ? (parseInt(elem.getAttribute('data-unread').replace(' ', ''), 10) || 0) : 0;
+				feed_unreads = elem ? str2int(elem.getAttribute('data-unread')) : 0;
 			if ((incUnreadsFeed(null, feed_id, nbUnreads - feed_unreads) || isAll) &&	//Update of current view?
 				(nbUnreads - feed_unreads > 0)) {
 				$('#new-article').show();
