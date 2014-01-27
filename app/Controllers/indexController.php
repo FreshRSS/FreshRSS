@@ -44,6 +44,7 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 
 		$this->view->cat_aside = $catDAO->listCategories ();
 		$this->view->nb_favorites = $entryDAO->countUnreadReadFavorites ();
+		$this->view->nb_not_read = FreshRSS_CategoryDAO::CountUnreads($this->view->cat_aside, 1);
 		$this->view->currentName = '';
 
 		$this->view->get_c = '';
@@ -60,8 +61,6 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 			);
 			return;
 		}
-
-		$this->view->nb_not_read = FreshRSS_CategoryDAO::CountUnreads($this->view->cat_aside, 1);
 
 		// mise à jour des titres
 		$this->view->rss_title = $this->view->currentName . ' | ' . Minz_View::title();
@@ -153,10 +152,12 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 		switch ($getType) {
 			case 'a':
 				$this->view->currentName = Minz_Translate::t ('your_rss_feeds');
+				$this->nb_not_read_cat = $this->view->nb_not_read;
 				$this->view->get_c = $getType;
 				return true;
 			case 's':
 				$this->view->currentName = Minz_Translate::t ('your_favorites');
+				$this->nb_not_read_cat = $this->view->nb_favorites['unread'];
 				$this->view->get_c = $getType;
 				return true;
 			case 'c':
