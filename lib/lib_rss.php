@@ -63,7 +63,7 @@ function small_hash ($txt) {
 }
 
 function formatNumber($n, $precision = 0) {
-	return str_replace(' ', '&#8239;',	//Espace fine insécable
+	return str_replace(' ', ' ',	//Espace insécable	//TODO: remplacer par une espace _fine_ insécable
 		number_format($n, $precision, '.', ' '));	//number_format does not seem to be Unicode-compatible
 }
 
