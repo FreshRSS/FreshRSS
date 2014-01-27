@@ -9,11 +9,11 @@ if (!empty($this->entries)) {
 	$display_others = true;
 	if ($this->loginOk) {
 		$shaarli = $this->conf->sharing ('shaarli');
-		$poche = $this->conf->sharing ('poche');
+		$wallabag = $this->conf->sharing ('wallabag');
 		$diaspora = $this->conf->sharing ('diaspora');
 	} else {
 		$shaarli = '';
-		$poche = '';
+		$wallabag = '';
 		$diaspora = '';
 	}
 	$twitter = $this->conf->sharing ('twitter');
@@ -30,7 +30,7 @@ if (!empty($this->entries)) {
 	$bottomline_read = $this->conf->bottomline_read;
 	$bottomline_favorite = $this->conf->bottomline_favorite;
 	$bottomline_sharing = $this->conf->bottomline_sharing && (
-		$shaarli || $poche || $diaspora || $twitter ||
+		$shaarli || $wallabag || $diaspora || $twitter ||
 		$google_plus || $facebook || $email || $print);
 	$bottomline_tags = $this->conf->bottomline_tags;
 	$bottomline_date = $this->conf->bottomline_date;
@@ -152,10 +152,10 @@ if (!empty($this->entries)) {
 									<?php echo Minz_Translate::t ('shaarli'); ?>
 								</a>
 							</li>
-							<?php } if ($poche) { ?>
+							<?php } if ($wallabag) { ?>
 							<li class="item">
-								<a target="_blank" href="<?php echo $poche . '?action=add&amp;url=' . base64_encode (urldecode($link)); ?>">
-									<?php echo Minz_Translate::t ('poche'); ?>
+								<a target="_blank" href="<?php echo $wallabag . '?action=add&amp;url=' . base64_encode (urldecode($link)); ?>">
+									<?php echo Minz_Translate::t ('wallabag'); ?>
 								</a>
 							</li>
 							<?php } if ($diaspora) { ?>

@@ -196,7 +196,7 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 		if (Minz_Request::isPost ()) {
 			$this->view->conf->_sharing (array(
 				'shaarli' => Minz_Request::param ('shaarli', false),
-				'poche' => Minz_Request::param ('poche', false),
+				'wallabag' => Minz_Request::param ('wallabag', false),
 				'diaspora' => Minz_Request::param ('diaspora', false),
 				'twitter' => Minz_Request::param ('twitter', false),
 				'g+' => Minz_Request::param ('g+', false),
