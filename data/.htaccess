@@ -1,0 +1,3 @@
+Order	Allow,Deny
+Deny	from all
+Satisfy	all

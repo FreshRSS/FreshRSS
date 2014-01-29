@@ -35,7 +35,7 @@
   ... //Rest of the script, just as you would do normally.
  ?>
 
- Version 1.7 beta, 2013-11-03, http://alexandre.alapetite.fr/doc-alex/php-http-304/
+ Version 1.7 beta, 2013-12-02, http://alexandre.alapetite.fr/doc-alex/php-http-304/
 
  ------------------------------------------------------------------
  Written by Alexandre Alapetite, http://alexandre.alapetite.fr/cv/
@@ -124,7 +124,7 @@ function httpConditional($UnixTimeStamp,$cacheSeconds=0,$cachePrivacy=0,$feedMod
 	if ($feedMode)
 	{//Special RSS/ATOM
 		global $clientCacheDate;
-		$clientCacheDate=strtotime($dateCacheClient);
+		$clientCacheDate=@strtotime($dateCacheClient);
 		$cachePrivacy=0;
 	}
 

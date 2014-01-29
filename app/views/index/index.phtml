@@ -1,29 +1,30 @@
 <?php
 
-$output = Request::param ('output', 'normal');
-$token = $this->conf->token();
-$token_param = Request::param ('token', '');
-$token_is_ok = ($token != '' && $token == $token_param);
+$output = Minz_Request::param ('output', 'normal');
 
-if(!login_is_conf ($this->conf) ||
-   is_logged() ||
-   $this->conf->anonAccess() == 'yes' ||
-   ($output == 'rss' && $token_is_ok)) {
-	if($output == 'rss') {
+if ($this->loginOk || Minz_Configuration::allowAnonymous()) {
+	if ($output === 'normal') {
+		$this->renderHelper ('view/normal_view');
+	} elseif ($output === 'rss') {
 		$this->renderHelper ('view/rss_view');
-	} elseif($output == 'reader') {
+	} elseif ($output === 'reader') {
 		$this->renderHelper ('view/reader_view');
-	} elseif($output == 'global') {
+	} elseif ($output === 'global') {
 		$this->renderHelper ('view/global_view');
 	} else {
+		Minz_Request::_param ('output', 'normal');
+		$output = 'normal';
 		$this->renderHelper ('view/normal_view');
 	}
+} elseif ($output === 'rss') {
+	$token = $this->conf->token;
+	$token_param = Minz_Request::param ('token', '');
+	$token_is_ok = ($token != '' && $token == $token_param);
+	if ($token_is_ok) {
+		$this->renderHelper ('view/rss_view');
+	} else {
+		Minz_Request::forward(array('c' => 'index', 'a' => 'formLogin'), true);
+	}
 } else {
-?>
-<div class="post content">
-	<h1><?php echo Translate::t ('forbidden_access'); ?></h1>
-	<p><?php echo Translate::t ('forbidden_access_description'); ?></p>
-	<p><a href="<?php echo _url ('index', 'about'); ?>"><?php echo Translate::t ('about_freshrss'); ?></a></p>
-</div>
-<?php
+	Minz_Request::forward(array('c' => 'index', 'a' => 'formLogin'), true);
 }

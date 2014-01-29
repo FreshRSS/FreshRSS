@@ -1,2 +1,3 @@
 <?php
-header('Location: public/');
+header('Location: p/', true, 301);
+include('index.html');

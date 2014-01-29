@@ -1,0 +1,8 @@
+application.ini
+config.php
+*_user.php
+*.sqlite
+touch.txt
+no-cache.txt
+*.bak.php
+*.lock.txt

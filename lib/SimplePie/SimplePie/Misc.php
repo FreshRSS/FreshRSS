@@ -79,6 +79,10 @@ class SimplePie_Misc
 
 	public static function absolutize_url($relative, $base)
 	{
+		if (substr($relative, 0, 2) === '//')	//FreshRSS: disable absolutize_url for "//www.example.net" which will pick HTTP or HTTPS automatically
+		{
+			return $relative;
+		}
 		$iri = SimplePie_IRI::absolutize(new SimplePie_IRI($base), $relative);
 		if ($iri === false)
 		{

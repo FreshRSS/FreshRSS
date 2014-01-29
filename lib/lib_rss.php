@@ -1,210 +1,185 @@
 <?php
-// vérifie qu'on est connecté
-function is_logged () {
-	return Session::param ('mail') != false;
+if (!function_exists('json_decode')) {
+	require_once('JSON.php');
+	function json_decode($var) {
+		$JSON = new Services_JSON;
+		return (array)($JSON->decode($var));
+	}
 }
 
-// vérifie que le système d'authentification est configuré
-function login_is_conf ($conf) {
-	return $conf->mailLogin () != false;
+if (!function_exists('json_encode')) {
+	require_once('JSON.php');
+	function json_encode($var) {
+		$JSON = new Services_JSON;
+		return $JSON->encodeUnsafe($var);
+	}
 }
 
-// tiré de Shaarli de Seb Sauvage
+//<Auto-loading>
+function classAutoloader($class) {
+	if (strpos($class, 'FreshRSS') === 0) {
+		$components = explode('_', $class);
+		switch (count($components)) {
+			case 1:
+				include(APP_PATH . '/' . $components[0] . '.php');
+				return;
+			case 2:
+				include(APP_PATH . '/Models/' . $components[1] . '.php');
+				return;
+			case 3:	//Controllers, Exceptions
+				include(APP_PATH . '/' . $components[2] . 's/' . $components[1] . $components[2] . '.php');
+				return;
+		}
+	} elseif (strpos($class, 'Minz') === 0) {
+		include(LIB_PATH . '/' . str_replace('_', '/', $class) . '.php');
+	} elseif (strpos($class, 'SimplePie') === 0) {
+		include(LIB_PATH . '/SimplePie/' . str_replace('_', '/', $class) . '.php');
+	}
+}
+
+spl_autoload_register('classAutoloader');
+//</Auto-loading>
+
+function checkUrl($url) {
+	if (empty ($url)) {
+		return '';
+	}
+	if (!preg_match ('#^https?://#i', $url)) {
+		$url = 'http://' . $url;
+	}
+	if (filter_var($url, FILTER_VALIDATE_URL) ||
+		(version_compare(PHP_VERSION, '5.3.3', '<') && (strpos($url, '-') > 0) &&	//PHP bug #51192
+		 ($url === filter_var($url, FILTER_SANITIZE_URL)))) {
+		return $url;
+	} else {
+		return false;
+	}
+}
+
+// tiré de Shaarli de Seb Sauvage	//Format RFC 4648 base64url
 function small_hash ($txt) {
 	$t = rtrim (base64_encode (hash ('crc32', $txt, true)), '=');
-	$t = str_replace ('+', '-', $t); // Get rid of characters which need encoding in URLs.
-	$t = str_replace ('/', '_', $t);
-	$t = str_replace ('=', '@', $t);
+	return strtr ($t, '+/', '-_');
+}
 
-	return $t;
+function formatNumber($n, $precision = 0) {
+	return str_replace(' ', ' ',	//Espace insécable	//TODO: remplacer par une espace _fine_ insécable
+		number_format($n, $precision, '.', ' '));	//number_format does not seem to be Unicode-compatible
+}
+
+function formatBytes($bytes, $precision = 2, $system = 'IEC') {
+	if ($system === 'IEC') {
+		$base = 1024;
+		$units = array('B', 'KiB', 'MiB', 'GiB', 'TiB');
+	} elseif ($system === 'SI') {
+		$base = 1000;
+		$units = array('B', 'KB', 'MB', 'GB', 'TB');
+	}
+	$bytes = max(intval($bytes), 0);
+	$pow = $bytes === 0 ? 0 : floor(log($bytes) / log($base));
+	$pow = min($pow, count($units) - 1);
+	$bytes /= pow($base, $pow);
+	return formatNumber($bytes, $precision) . ' ' . $units[$pow];
 }
 
 function timestamptodate ($t, $hour = true) {
-	$month = Translate::t (date('M', $t));
+	$month = Minz_Translate::t (date('M', $t));
 	if ($hour) {
-		$date = Translate::t ('format_date_hour', $month);
+		$date = Minz_Translate::t ('format_date_hour', $month);
 	} else {
-		$date = Translate::t ('format_date', $month);
+		$date = Minz_Translate::t ('format_date', $month);
 	}
 
-	return date ($date, $t);
+	return @date ($date, $t);
 }
 
-function sortEntriesByDate ($entry1, $entry2) {
-	return $entry2->date (true) - $entry1->date (true);
-}
-function sortReverseEntriesByDate ($entry1, $entry2) {
-	return $entry1->date (true) - $entry2->date (true);
-}
-
-function get_domain ($url) {
-	return parse_url($url, PHP_URL_HOST);
-}
-
-function opml_export ($cats) {
-	$txt = '';
-
-	foreach ($cats as $cat) {
-		$txt .= '<outline text="' . $cat['name'] . '">' . "\n";
-
-		foreach ($cat['feeds'] as $feed) {
-			$txt .= "\t" . '<outline text="' . cleanText ($feed->name ()) . '" type="rss" xmlUrl="' . htmlentities ($feed->url (), ENT_COMPAT, 'UTF-8') . '" htmlUrl="' . htmlentities ($feed->website (), ENT_COMPAT, 'UTF-8') . '" />' . "\n";
-		}
-
-		$txt .= '</outline>' . "\n";
-	}
-
-	return $txt;
-}
-
-function cleanText ($text) {
-	return preg_replace ('/&[\w]+;/', '', $text);
-}
-
-function opml_import ($xml) {
-	$opml = @simplexml_load_string ($xml);
-
-	if (!$opml) {
-		throw new OpmlException ();
-	}
-
-	$catDAO = new CategoryDAO();
-	$catDAO->checkDefault();
-	$defCat = $catDAO->getDefault();
-
-	$categories = array ();
-	$feeds = array ();
-
-	foreach ($opml->body->outline as $outline) {
-		if (!isset ($outline['xmlUrl'])) {
-			// Catégorie
-			$title = '';
-
-			if (isset ($outline['text'])) {
-				$title = (string) $outline['text'];
-			} elseif (isset ($outline['title'])) {
-				$title = (string) $outline['title'];
-			}
-
-			if ($title) {
-				// Permet d'éviter les soucis au niveau des id :
-				// ceux-ci sont générés en fonction de la date,
-				// un flux pourrait être dans une catégorie X avec l'id Y
-				// alors qu'il existe déjà la catégorie X mais avec l'id Z
-				// Y ne sera pas ajouté et le flux non plus vu que l'id
-				// de sa catégorie n'exisera pas
-				$catDAO = new CategoryDAO ();
-				$cat = $catDAO->searchByName ($title);
-				if ($cat === false) {
-					$cat = new Category ($title);
-				}
-				$categories[] = $cat;
-
-				$feeds = array_merge ($feeds, getFeedsOutline ($outline, $cat->id ()));
-			}
+function html_only_entity_decode($text) {
+	static $htmlEntitiesOnly = null;
+	if ($htmlEntitiesOnly === null) {
+		if (version_compare(PHP_VERSION, '5.3.4') >= 0) {
+			$htmlEntitiesOnly = array_flip(array_diff(
+				get_html_translation_table(HTML_ENTITIES, ENT_NOQUOTES, 'UTF-8'),	//Decode HTML entities
+				get_html_translation_table(HTML_SPECIALCHARS, ENT_NOQUOTES, 'UTF-8')	//Preserve XML entities
+			));
 		} else {
-			// Flux rss sans catégorie, on récupère l'ajoute dans la catégorie par défaut
-			$feeds[] = getFeed ($outline, $defCat->id());
+			$htmlEntitiesOnly = array_map('utf8_encode', array_flip(array_diff(
+				get_html_translation_table(HTML_ENTITIES, ENT_NOQUOTES),	//Decode HTML entities
+				get_html_translation_table(HTML_SPECIALCHARS, ENT_NOQUOTES)	//Preserve XML entities
+			)));
 		}
 	}
-
-	return array ($categories, $feeds);
+	return strtr($text, $htmlEntitiesOnly);
 }
 
-/**
- * import all feeds of a given outline tag
- */
-function getFeedsOutline ($outline, $cat_id) {
-	$feeds = array ();
+function customSimplePie() {
+	$simplePie = new SimplePie();
+	$simplePie->set_useragent(Minz_Translate::t('freshrss') . '/' . FRESHRSS_VERSION . ' (' . PHP_OS . '; ' . FRESHRSS_WEBSITE . ') ' . SIMPLEPIE_NAME . '/' . SIMPLEPIE_VERSION);
+	$simplePie->set_cache_location(CACHE_PATH);
+	$simplePie->set_cache_duration(1500);
+	$simplePie->strip_htmltags(array(
+		'base', 'blink', 'body', 'doctype', 'embed',
+		'font', 'form', 'frame', 'frameset', 'html',
+		'link', 'input', 'marquee', 'meta', 'noscript',
+		'object', 'param', 'plaintext', 'script', 'style',
+	));
+	$simplePie->strip_attributes(array_merge($simplePie->strip_attributes, array(
+		'autoplay', 'onload', 'onunload', 'onclick', 'ondblclick', 'onmousedown', 'onmouseup',
+		'onmouseover', 'onmousemove', 'onmouseout', 'onfocus', 'onblur',
+		'onkeypress', 'onkeydown', 'onkeyup', 'onselect', 'onchange', 'seamless')));
+	$simplePie->add_attributes(array(
+		'img' => array('lazyload' => ''),	//http://www.w3.org/TR/resource-priorities/
+		'audio' => array('preload' => 'none'),
+		'iframe' => array('postpone' => '', 'sandbox' => 'allow-scripts allow-same-origin'),
+		'video' => array('postpone' => '', 'preload' => 'none'),
+	));
+	$simplePie->set_url_replacements(array(
+		'a' => 'href',
+		'area' => 'href',
+		'audio' => 'src',
+		'blockquote' => 'cite',
+		'del' => 'cite',
+		'form' => 'action',
+		'iframe' => 'src',
+		'img' => array(
+			'longdesc',
+			'src'
+		),
+		'input' => 'src',
+		'ins' => 'cite',
+		'q' => 'cite',
+		'source' => 'src',
+		'track' => 'src',
+		'video' => array(
+			'poster',
+			'src',
+		),
+	));
+	return $simplePie;
+}
 
-	foreach ($outline->children () as $child) {
-		if (isset ($child['xmlUrl'])) {
-			$feeds[] = getFeed ($child, $cat_id);
-		} else {
-			$feeds = array_merge(
-				$feeds,
-				getFeedsOutline ($child, $cat_id)
-			);
-		}
+function sanitizeHTML($data, $base = '') {
+	static $simplePie = null;
+	if ($simplePie == null) {
+		$simplePie = customSimplePie();
+		$simplePie->init();
 	}
-
-	return $feeds;
+	return html_only_entity_decode($simplePie->sanitize->sanitize($data, SIMPLEPIE_CONSTRUCT_HTML, $base));
 }
-
-function getFeed ($outline, $cat_id) {
-	$url = (string) $outline['xmlUrl'];
-	$title = '';
-	if (isset ($outline['text'])) {
-		$title = (string) $outline['text'];
-	} elseif (isset ($outline['title'])) {
-		$title = (string) $outline['title'];
-	}
-	$feed = new Feed ($url);
-	$feed->_category ($cat_id);
-	$feed->_name ($title);
-	return $feed;
-}
-
 
 /* permet de récupérer le contenu d'un article pour un flux qui n'est pas complet */
 function get_content_by_parsing ($url, $path) {
+	require_once (LIB_PATH . '/lib_phpQuery.php');
+
+	syslog(LOG_INFO, 'FreshRSS GET ' . $url);
 	$html = file_get_contents ($url);
 
 	if ($html) {
 		$doc = phpQuery::newDocument ($html);
 		$content = $doc->find ($path);
-		$content->find ('*')->removeAttr ('style')
-		                    ->removeAttr ('id')
-		                    ->removeAttr ('class')
-		                    ->removeAttr ('onload')
-		                    ->removeAttr ('target');
-		$content->removeAttr ('style')
-		        ->removeAttr ('id')
-		        ->removeAttr ('class')
-		        ->removeAttr ('onload')
-		        ->removeAttr ('target');
-		return $content->__toString ();
+		return sanitizeHTML($content->__toString(), $url);
 	} else {
 		throw new Exception ();
 	}
-}
-
-/* Télécharge le favicon d'un site, le place sur le serveur et retourne l'URL */
-function dowload_favicon ($website, $id) {
-	$url = 'http://g.etfv.co/' . $website;
-	$favicons_dir = PUBLIC_PATH . '/data/favicons';
-	$dest = $favicons_dir . '/' . $id . '.ico';
-	$favicon_url = '/data/favicons/' . $id . '.ico';
-
-	if (!is_dir ($favicons_dir)) {
-		if (!mkdir ($favicons_dir, 0755, true)) {
-			return $url;
-		}
-	}
-
-	if (!file_exists ($dest)) {
-		$c = curl_init ($url);
-		curl_setopt ($c, CURLOPT_HEADER, false);
-		curl_setopt ($c, CURLOPT_RETURNTRANSFER, true);
-		curl_setopt ($c, CURLOPT_BINARYTRANSFER, true);
-		$imgRaw = curl_exec ($c);
-
-		if (curl_getinfo ($c, CURLINFO_HTTP_CODE) == 200) {
-			$file = fopen ($dest, 'w');
-			if ($file === false) {
-				return $url;
-			}
-
-			fwrite ($file, $imgRaw);
-			fclose ($file);
-		} else {
-			return $url;
-		}
-
-		curl_close ($c);
-	}
-
-	return $favicon_url;
 }
 
 /**
@@ -214,8 +189,47 @@ function dowload_favicon ($website, $id) {
  */
 function lazyimg($content) {
 	return preg_replace(
-		'/<img([^<]+)src=([\'"])([^"\']*)([\'"])([^<]*)>/i',
-		'<img$1src="' . Url::display('/data/grey.gif') . '" data-original="$3"$5>',
+		'/<img([^>]+?)src=[\'"]([^"\']+)[\'"]([^>]*)>/i',
+		'<img$1src="' . Minz_Url::display('/themes/icons/grey.gif') . '" data-original="$2"$3>',
 		$content
 	);
+}
+
+function lazyIframe($content) {
+	return preg_replace(
+		'/<iframe([^>]+?)src=[\'"]([^"\']+)[\'"]([^>]*)>/i',
+		'<iframe$1src="about:blank" data-original="$2"$3>',
+		$content
+	);
+}
+
+function uTimeString() {
+	$t = @gettimeofday();
+	return $t['sec'] . str_pad($t['usec'], 6, '0');
+}
+
+function uSecString() {
+	$t = @gettimeofday();
+	return str_pad($t['usec'], 6, '0');
+}
+
+function invalidateHttpCache() {
+	touch(LOG_PATH . '/' . Minz_Session::param('currentUser', '_') . '.log');
+	Minz_Session::_param('touch', uTimeString());
+}
+
+function usernameFromPath($userPath) {
+	if (preg_match('%/([a-z0-9]{1,16})_user\.php$%', $userPath, $matches)) {
+		return $matches[1];
+	} else {
+		return '';
+	}
+}
+
+function listUsers() {
+	return array_map('usernameFromPath', glob(DATA_PATH . '/*_user.php'));
+}
+
+function httpAuthUser() {
+	return isset($_SERVER['REMOTE_USER']) ? $_SERVER['REMOTE_USER'] : '';
 }

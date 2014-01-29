@@ -602,6 +602,13 @@ class SimplePie
 	public $strip_attributes = array('bgsound', 'class', 'expr', 'id', 'style', 'onclick', 'onerror', 'onfinish', 'onmouseover', 'onmouseout', 'onfocus', 'onblur', 'lowsrc', 'dynsrc');
 
 	/**
+	 * @var array Stores the default attributes to add to differet tags by add_attributes().
+	 * @see SimplePie::add_attributes()
+	 * @access private
+	 */
+	public $add_attributes = array('audio' => array('preload' => 'none'), 'iframe' => array('sandbox' => 'allow-scripts allow-same-origin'), 'video' => array('preload' => 'none'));	//FreshRSS
+
+	/**
 	 * @var array Stores the default tags to be stripped by strip_htmltags().
 	 * @see SimplePie::strip_htmltags()
 	 * @access private
@@ -1073,6 +1080,7 @@ class SimplePie
 			$this->strip_comments(false);
 			$this->strip_htmltags(false);
 			$this->strip_attributes(false);
+			$this->add_attributes(false);
 			$this->set_image_handler(false);
 		}
 	}
@@ -1117,6 +1125,15 @@ class SimplePie
 			$attribs = $this->strip_attributes;
 		}
 		$this->sanitize->strip_attributes($attribs);
+	}
+
+	public function add_attributes($attribs = '')
+	{
+		if ($attribs === '')
+		{
+			$attribs = $this->add_attributes;
+		}
+		$this->sanitize->add_attributes($attribs);
 	}
 
 	/**
@@ -1296,7 +1313,7 @@ class SimplePie
 		// First check to see if input has been overridden.
 		if ($this->input_encoding !== false)
 		{
-			$encodings[] = $this->input_encoding;
+			$encodings[] = strtoupper($this->input_encoding);
 		}
 
 		$application_types = array('application/xml', 'application/xml-dtd', 'application/xml-external-parsed-entity');
@@ -1313,18 +1330,18 @@ class SimplePie
 				}
 				else
 				{
-					$encodings[] = '';	//Let the DOM parser decide first
+					$encodings[] = '';	//FreshRSS: Let the DOM parser decide first
 				}
 			}
 			elseif (in_array($sniffed, $text_types) || substr($sniffed, 0, 5) === 'text/' && substr($sniffed, -4) === '+xml')
 			{
 				if (isset($headers['content-type']) && preg_match('/;\x20?charset=([^;]*)/i', $headers['content-type'], $charset))
 				{
-					$encodings[] = $charset[1];
+					$encodings[] = strtoupper($charset[1]);
 				}
 				else
 				{
-					$encodings[] = '';
+					$encodings[] = '';	//FreshRSS: Let the DOM parser decide first
 				}
 				$encodings[] = 'US-ASCII';
 			}
@@ -1347,13 +1364,14 @@ class SimplePie
 		foreach ($encodings as $encoding)
 		{
 			// Change the encoding to UTF-8 (as we always use UTF-8 internally)
-			if ($utf8_data = (empty($encoding) || $encoding === 'UTF-8') ? $this->raw_data : $this->registry->call('Misc', 'change_encoding', array($this->raw_data, $encoding, 'UTF-8')))
+			if ($utf8_data = (empty($encoding) || $encoding === 'UTF-8') ? $this->raw_data :	//FreshRSS
+				$this->registry->call('Misc', 'change_encoding', array($this->raw_data, $encoding, 'UTF-8')))
 			{
 				// Create new parser
 				$parser = $this->registry->create('Parser');
 
 				// If it's parsed fine
-				if ($parser->parse($utf8_data, 'UTF-8'))
+				if ($parser->parse($utf8_data, empty($encoding) ? '' : 'UTF-8'))	//FreshRSS
 				{
 					$this->data = $parser->get_data();
 					if (!($this->get_type() & ~SIMPLEPIE_TYPE_NONE))
