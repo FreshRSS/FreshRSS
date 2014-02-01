@@ -2161,36 +2161,12 @@ function embed_wmedia(width, height, link) {
 	/**
 	 * Get the SimplePie build timestamp
 	 *
-	 * Uses the git index if it exists, otherwise uses the modification time
-	 * of the newest file.
+	 * Return SimplePie.php modification time.
 	 */
 	public static function get_build()
 	{
-		$root = dirname(dirname(__FILE__));
-		if (file_exists($root . '/.git/index'))
-		{
-			return filemtime($root . '/.git/index');
-		}
-		elseif (file_exists($root . '/SimplePie'))
-		{
-			$time = 0;
-			foreach (glob($root . '/SimplePie/*.php') as $file)
-			{
-				if (($mtime = filemtime($file)) > $time)
-				{
-					$time = $mtime;
-				}
-			}
-			return $time;
-		}
-		elseif (file_exists(dirname(__FILE__) . '/Core.php'))
-		{
-			return filemtime(dirname(__FILE__) . '/Core.php');
-		}
-		else
-		{
-			return filemtime(__FILE__);
-		}
+		$mtime = @filemtime(dirname(dirname(__FILE__)) . '/SimplePie.php');	//FreshRSS
+		return $mtime ? $mtime : filemtime(__FILE__);
 	}
 
 	/**

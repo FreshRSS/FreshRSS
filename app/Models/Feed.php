@@ -193,9 +193,9 @@ class FreshRSS_Feed extends Minz_Model {
 				}
 				$feed = customSimplePie();
 				$feed->set_feed_url ($url);
-				$initResult = $feed->init ();
+				$mtime = $feed->init();
 
-				if ((!$initResult) || $feed->error()) {
+				if ((!$mtime) || $feed->error()) {
 					throw new FreshRSS_Feed_Exception ($feed->error() . ' [' . $url . ']');
 				}
 
@@ -217,9 +217,11 @@ class FreshRSS_Feed extends Minz_Model {
 					$this->_description(html_only_entity_decode($feed->get_description()));
 				}
 
-				if (($initResult == SIMPLEPIE_INIT_SUCCESS) || $loadDetails) {
+				if (($mtime === true) || ($mtime > $this->lastUpdate)) {
+					syslog(LOG_DEBUG, 'FreshRSS no cache ' . $mtime . ' > ' . $this->lastUpdate);
 					$this->loadEntries($feed);	// et on charge les articles du flux
 				} else {
+					syslog(LOG_DEBUG, 'FreshRSS use cache for ' . $subscribe_url);
 					$this->entries = array();
 				}
 			}
