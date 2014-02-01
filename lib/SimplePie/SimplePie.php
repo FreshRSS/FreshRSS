@@ -402,6 +402,9 @@ define('SIMPLEPIE_FILE_SOURCE_CURL', 8);
  */
 define('SIMPLEPIE_FILE_SOURCE_FILE_GET_CONTENTS', 16);
 
+define('SIMPLEPIE_INIT_FAIL', 0);	//FreshRSS
+define('SIMPLEPIE_INIT_SUCCESS', 1);	//FreshRSS
+define('SIMPLEPIE_INIT_CACHE', 2);	//FreshRSS
 
 
 /**
@@ -1226,7 +1229,7 @@ class SimplePie
 		// Check absolute bare minimum requirements.
 		if (!extension_loaded('xml') || !extension_loaded('pcre'))
 		{
-			return false;
+			return SIMPLEPIE_INIT_FAIL;
 		}
 		// Then check the xml extension is sane (i.e., libxml 2.7.x issue on PHP < 5.2.9 and libxml 2.7.0 to 2.7.2 on any version) if we don't have xmlreader.
 		elseif (!extension_loaded('xmlreader'))
@@ -1241,7 +1244,7 @@ class SimplePie
 			}
 			if (!$xml_is_sane)
 			{
-				return false;
+				return SIMPLEPIE_INIT_FAIL;
 			}
 		}
 
@@ -1273,11 +1276,11 @@ class SimplePie
 				}
 				$i++;
 			}
-			return (bool) $success;
+			return inval($success);
 		}
 		elseif ($this->feed_url === null && $this->raw_data === null)
 		{
-			return false;
+			return SIMPLEPIE_INIT_FAIL;
 		}
 
 		$this->error = null;
@@ -1298,10 +1301,10 @@ class SimplePie
 			// Fetch the data via SimplePie_File into $this->raw_data
 			if (($fetched = $this->fetch_data($cache)) === true)
 			{
-				return true;
+				return SIMPLEPIE_INIT_CACHE;
 			}
 			elseif ($fetched === false) {
-				return false;
+				return SIMPLEPIE_INIT_FAIL;
 			}
 
 			list($headers, $sniffed) = $fetched;
@@ -1378,7 +1381,7 @@ class SimplePie
 					{
 						$this->error = "A feed could not be found at $this->feed_url. This does not appear to be a valid RSS or Atom feed.";
 						$this->registry->call('Misc', 'error', array($this->error, E_USER_NOTICE, __FILE__, __LINE__));
-						return false;
+						return SIMPLEPIE_INIT_FAIL;
 					}
 
 					if (isset($headers))
@@ -1392,7 +1395,7 @@ class SimplePie
 					{
 						trigger_error("$this->cache_location is not writeable. Make sure you've set the correct relative or absolute path, and that the location is server-writable.", E_USER_WARNING);
 					}
-					return true;
+					return SIMPLEPIE_INIT_SUCCESS;
 				}
 			}
 		}
@@ -1409,7 +1412,7 @@ class SimplePie
 
 		$this->registry->call('Misc', 'error', array($this->error, E_USER_NOTICE, __FILE__, __LINE__));
 
-		return false;
+		return SIMPLEPIE_INIT_FAIL;
 	}
 
 	/**

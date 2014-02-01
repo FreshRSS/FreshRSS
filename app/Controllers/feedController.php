@@ -191,36 +191,45 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 		foreach ($feeds as $feed) {
 			try {
 				$url = $feed->url();
+				$feedHistory = $feed->keepHistory();
+
 				$feed->load(false);
 				$entries = array_reverse($feed->entries());	//We want chronological order and SimplePie uses reverse order
+				$hasTransaction = false;
 
-				//For this feed, check last n entry GUIDs already in database
-				$existingGuids = array_fill_keys ($entryDAO->listLastGuidsByFeed ($feed->id (), count($entries) + 10), 1);
-				$useDeclaredDate = empty($existingGuids);
+				if (count($entries) > 0) {
+					//For this feed, check last n entry GUIDs already in database
+					$existingGuids = array_fill_keys ($entryDAO->listLastGuidsByFeed ($feed->id (), count($entries) + 10), 1);
+					$useDeclaredDate = empty($existingGuids);
 
-				$feedHistory = $feed->keepHistory();
-				if ($feedHistory == -2) {	//default
-					$feedHistory = $this->view->conf->keep_history_default;
-				}
+					if ($feedHistory == -2) {	//default
+						$feedHistory = $this->view->conf->keep_history_default;
+					}
 
-				// On ne vérifie pas strictement que l'article n'est pas déjà en BDD
-				// La BDD refusera l'ajout car (id_feed, guid) doit être unique
-				$feedDAO->beginTransaction ();
-				foreach ($entries as $entry) {
-					$eDate = $entry->date (true);
-					if ((!isset ($existingGuids[$entry->guid ()])) &&
-						(($feedHistory != 0) || ($eDate  >= $date_min))) {
-						$values = $entry->toArray ();
-						//Use declared date at first import, otherwise use discovery date
-						$values['id'] = ($useDeclaredDate || $eDate < $date_min) ?
-							min(time(), $eDate) . uSecString() :
-							uTimeString();
-						$values['is_read'] = $is_read;
-						$entryDAO->addEntry ($values);
+					$hasTransaction = true;
+					$feedDAO->beginTransaction();
+
+					// On ne vérifie pas strictement que l'article n'est pas déjà en BDD
+					// La BDD refusera l'ajout car (id_feed, guid) doit être unique
+					foreach ($entries as $entry) {
+						$eDate = $entry->date (true);
+						if ((!isset ($existingGuids[$entry->guid ()])) &&
+							(($feedHistory != 0) || ($eDate  >= $date_min))) {
+							$values = $entry->toArray ();
+							//Use declared date at first import, otherwise use discovery date
+							$values['id'] = ($useDeclaredDate || $eDate < $date_min) ?
+								min(time(), $eDate) . uSecString() :
+								uTimeString();
+							$values['is_read'] = $is_read;
+							$entryDAO->addEntry ($values);
+						}
 					}
 				}
 
 				if (($feedHistory >= 0) && (rand(0, 30) === 1)) {
+					if (!$hasTransaction) {
+						$feedDAO->beginTransaction();
+					}
 					$nb = $feedDAO->cleanOldEntries ($feed->id (), $date_min, max($feedHistory, count($entries) + 10));
 					if ($nb > 0) {
 						Minz_Log::record ($nb . ' old entries cleaned in feed [' . $feed->url() . ']', Minz_Log::DEBUG);
@@ -228,8 +237,10 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 				}
 
 				// on indique que le flux vient d'être mis à jour en BDD
-				$feedDAO->updateLastUpdate ($feed->id ());
-				$feedDAO->commit ();
+				$feedDAO->updateLastUpdate ($feed->id (), 0, $hasTransaction);
+				if ($hasTransaction) {
+					$feedDAO->commit();
+				}
 				$flux_update++;
 				if ($feed->url() !== $url) {	//URL has changed (auto-discovery)
 					$feedDAO->updateFeed($feed->id(), array('url' => $feed->url()));

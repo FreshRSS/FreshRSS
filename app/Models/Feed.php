@@ -193,10 +193,10 @@ class FreshRSS_Feed extends Minz_Model {
 				}
 				$feed = customSimplePie();
 				$feed->set_feed_url ($url);
-				$feed->init ();
+				$initResult = $feed->init ();
 
-				if ($feed->error ()) {
-					throw new FreshRSS_Feed_Exception ($feed->error . ' [' . $url . ']');
+				if ((!$initResult) || $feed->error()) {
+					throw new FreshRSS_Feed_Exception ($feed->error() . ' [' . $url . ']');
 				}
 
 				// si on a utilisé l'auto-discover, notre url va avoir changé
@@ -217,11 +217,15 @@ class FreshRSS_Feed extends Minz_Model {
 					$this->_description(html_only_entity_decode($feed->get_description()));
 				}
 
-				// et on charge les articles du flux
-				$this->loadEntries ($feed);
+				if (($initResult == SIMPLEPIE_INIT_SUCCESS) || $loadDetails) {
+					$this->loadEntries($feed);	// et on charge les articles du flux
+				} else {
+					$this->entries = array();
+				}
 			}
 		}
 	}
+
 	private function loadEntries ($feed) {
 		$entries = array ();
 
