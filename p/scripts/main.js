@@ -252,10 +252,27 @@ function collapse_entry() {
 	$(".flux.current").toggleClass("active");
 }
 
-function auto_share() {
+function auto_share(key) {
 	var share = $(".flux.current.active").find('.dropdown-target[id^="dropdown-share"]');
-	if (share.length) {
+	var shares = share.siblings('.dropdown-menu').find('.item a');
+	if (typeof key === "undefined") {
+		if (!share.length) {
+			return;
+		}
+		// Display the share div
 		window.location.hash = share.attr('id');
+		// Force the key value if there is only one action, so we can trigger it automatically
+		if (shares.length === 1) {
+			key = 1;
+		} else {
+			return;
+		}
+	}
+	// Trigger selected share action and hide the share div
+	key = parseInt(key);
+	if (key <= shares.length) {
+		shares[key - 1].click();
+		share.siblings('.dropdown-menu').find('.dropdown-close a')[0].click();
 	}
 }
 
@@ -390,6 +407,13 @@ function init_shortcuts() {
 	}, {
 		'disable_in_input': true
 	});
+	for(var i = 1; i < 10; i++){
+		shortcut.add(i.toString(), function (e) {
+			auto_share(String.fromCharCode(e.keyCode));
+		}, {
+			'disable_in_input': true
+		});
+	}
 
 	// Touches de navigation
 	shortcut.add(shortcuts.prev_entry, prev_entry, {
