@@ -8,7 +8,10 @@ if (file_exists($lock) && ((time() - @filemtime($lock)) > 3600)) {
 }
 if (($handle = @fopen($lock, 'x')) === false) {
 	syslog(LOG_NOTICE, 'FreshRSS actualize already running?');
-	fwrite(STDERR, 'FreshRSS actualize already running?' . "\n");
+	if (defined('STDERR')) {
+		fwrite(STDERR, 'FreshRSS actualize already running?' . "\n");
+	}
+	echo 'FreshRSS actualize already running?', "\n";
 	return;
 }
 register_shutdown_function('unlink', $lock);
@@ -32,7 +35,9 @@ $users = array_unique($users);
 
 foreach ($users as $myUser) {
 	syslog(LOG_INFO, 'FreshRSS actualize ' . $myUser);
-	fwrite(STDOUT, 'Actualize ' . $myUser . "...\n");	//Unbuffered
+	if (defined('STDOUT')) {
+		fwrite(STDOUT, 'Actualize ' . $myUser . "...\n");	//Unbuffered
+	}
 	echo $myUser, ' ';	//Buffered
 
 	$_GET['c'] = 'feed';
@@ -44,16 +49,26 @@ foreach ($users as $myUser) {
 	$freshRSS = new FreshRSS();
 	$freshRSS->_useOb(false);
 
+	Minz_Configuration::_authType('none');
+
 	Minz_Session::init('FreshRSS');
 	Minz_Session::_param('currentUser', $myUser);
 
 	$freshRSS->init();
 	$freshRSS->run();
 
-	invalidateHttpCache();
+	if (!invalidateHttpCache()) {
+		syslog(LOG_NOTICE, 'FreshRSS write access problem in ' . LOG_PATH . '/*.log!');
+		if (defined('STDERR')) {
+			fwrite(STDERR, 'Write access problem in ' . LOG_PATH . '/*.log!' . "\n");
+		}
+	}
 	Minz_Session::unset_session(true);
 	Minz_ModelPdo::clean();
 }
 syslog(LOG_INFO, 'FreshRSS actualize done.');
+if (defined('STDOUT')) {
+	fwrite(STDOUT, 'Done.' . "\n");
+}
+echo 'End.', "\n";
 ob_end_flush();
-fwrite(STDOUT, 'Done.' . "\n");
