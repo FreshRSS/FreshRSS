@@ -80,6 +80,7 @@ mysqldump -u utilisateur -p --databases freshrss > freshrss.sql
 * [php-http-304](http://alexandre.alapetite.fr/doc-alex/php-http-304/)
 * [jQuery](http://jquery.com/)
 * [keyboard_shortcuts](http://www.openjs.com/scripts/events/keyboard_shortcuts/)
+* [flotr2](http://www.humblesoftware.com/flotr2)
 
 ## Uniquement pour certaines options
 * [bcrypt.js](https://github.com/dcodeIO/bcrypt.js)
