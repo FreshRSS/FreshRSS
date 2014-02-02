@@ -247,6 +247,67 @@ function next_entry() {
 	}
 }
 
+function prev_feed() {
+	if ($('li.active').length > 0) {
+		var pf = $('li.active').prev().find('a.feed');
+		if (pf.length > 0) {
+			pf[0].click();
+		}
+	} else {
+		first_feed();
+	}
+}
+
+function next_feed() {
+	if ($('li.active').length > 0) {
+		var nf = $('li.active').next().find('a.feed');
+		if (nf.length > 0) {
+			nf[0].click();
+		}
+	} else {
+		last_feed();
+	}
+}
+
+function first_feed() {
+	$('.feeds.active li').first().find('a')[1].click();
+}
+
+function last_feed() {
+	$('.feeds.active li').last().find('a')[1].click();
+}
+
+function prev_category() {
+	if ($('div.active').length > 0) {
+		var pc = $('div.active').parent('li').prev().find('div.stick a.btn');
+		if (pc.length > 0) {
+			pc[0].click();
+			return;
+		}
+	} else {
+		first_category();
+	}
+}
+
+function next_category() {
+	if ($('div.active').length > 0) {
+		var nc = $('div.active').parent('li').next().find('div.stick a.btn');
+		if (nc.length > 0) {
+			nc[0].click();
+		}
+	} else {
+		last_category();
+	}
+}
+
+function first_category() {
+	$('div.category.stick').first().find('a.btn')[0].click();
+}
+
+function last_category() {
+	$('div.category.stick').last().find('a.btn')[0].click();
+}
+
 function collapse_entry() {
 	isCollapsed = !isCollapsed;
 	$(".flux.current").toggleClass("active");
@@ -415,11 +476,11 @@ function init_shortcuts() {
 		});
 	}
 
-	// Touches de navigation
+	// Touches de navigation pour les articles
 	shortcut.add(shortcuts.prev_entry, prev_entry, {
 		'disable_in_input': true
 	});
-	shortcut.add("shift+" + shortcuts.prev_entry, function () {
+	shortcut.add(shortcuts.first_entry, function () {
 		var old_active = $(".flux.current"),
 			first = $(".flux:first");
 
@@ -432,7 +493,7 @@ function init_shortcuts() {
 	shortcut.add(shortcuts.next_entry, next_entry, {
 		'disable_in_input': true
 	});
-	shortcut.add("shift+" + shortcuts.next_entry, function () {
+	shortcut.add(shortcuts.last_entry, function () {
 		var old_active = $(".flux.current"),
 			last = $(".flux:last");
 
@@ -442,6 +503,33 @@ function init_shortcuts() {
 	}, {
 		'disable_in_input': true
 	});
+	// Touches de navigation pour les flux
+	shortcut.add("shift+" + shortcuts.prev_entry, prev_feed, {
+		'disable_in_input': true
+	});
+	shortcut.add("shift+" + shortcuts.next_entry, next_feed, {
+		'disable_in_input': true
+	});
+	shortcut.add("shift+" + shortcuts.first_entry, first_feed, {
+		'disable_in_input': true
+	});
+	shortcut.add("shift+" + shortcuts.last_entry, last_feed, {
+		'disable_in_input': true
+	});
+	// Touches de navigation pour les categories
+	shortcut.add("ctrl+" + shortcuts.prev_entry, prev_category, {
+		'disable_in_input': true
+	});
+	shortcut.add("ctrl+" + shortcuts.next_entry, next_category, {
+		'disable_in_input': true
+	});
+	shortcut.add("ctrl+" + shortcuts.first_entry, first_category, {
+		'disable_in_input': true
+	});
+	shortcut.add("ctrl+" + shortcuts.last_entry, last_category, {
+		'disable_in_input': true
+	});
+
 	shortcut.add(shortcuts.go_website, function () {
 		var url_website = $(".flux.active .link a").attr("href");
 

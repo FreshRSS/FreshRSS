@@ -286,7 +286,7 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 
 	public function shortcutAction () {
 		$list_keys = array ('a', 'b', 'backspace', 'c', 'd', 'delete', 'down', 'e', 'end', 'enter',
-		                    'escape', 'f', 'g', 'h', 'i', 'insert', 'j', 'k', 'l', 'left',
+		                    'escape', 'f', 'g', 'h', 'home', 'i', 'insert', 'j', 'k', 'l', 'left',
 		                    'm', 'n', 'o', 'p', 'page_down', 'page_up', 'q', 'r', 'return', 'right',
 		                    's', 'space', 't', 'tab', 'u', 'up', 'v', 'w', 'x', 'y',
 		                    'z', '0', '1', '2', '3', '4', '5', '6', '7', '8',
