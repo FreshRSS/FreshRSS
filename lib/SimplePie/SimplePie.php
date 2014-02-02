@@ -1212,6 +1212,10 @@ class SimplePie
 		$this->item_limit = (int) $limit;
 	}
 
+	function cleanMd5($rss) {	//FreshRSS
+		return md5(preg_replace(array('#<(lastBuildDate|pubDate|updated|feedDate|dc:date|slash:comments)>[^<]+</\\1>#', '#<!--.+?-->#s'), '', $rss));
+	}
+
 	/**
 	 * Initialize the feed object
 	 *
@@ -1305,6 +1309,10 @@ class SimplePie
 			}
 
 			list($headers, $sniffed) = $fetched;
+
+			if (isset($this->data['md5'])) {	//FreshRSS
+				$md5 = $this->data['md5'];
+			}
 		}
 
 		// Set up array of possible encodings
@@ -1387,6 +1395,7 @@ class SimplePie
 					}
 					$this->data['build'] = SIMPLEPIE_BUILD;
 					$this->data['mtime'] = time();	//FreshRSS
+					$this->data['md5'] = empty($md5) ? $this->cleanMd5($this->raw_data) : $md5;	//FreshRSS
 
 					// Cache the file if caching is enabled
 					if ($cache && !$cache->save($this))
@@ -1462,7 +1471,7 @@ class SimplePie
 				elseif ($cache->mtime() + $this->cache_duration < time())
 				{
 					// If we have last-modified and/or etag set
-					if (isset($this->data['headers']['last-modified']) || isset($this->data['headers']['etag']))
+					//if (isset($this->data['headers']['last-modified']) || isset($this->data['headers']['etag']))	//FreshRSS removed
 					{
 						$headers = array(
 							'Accept' => 'application/atom+xml, application/rss+xml, application/rdf+xml;q=0.9, application/xml;q=0.8, text/xml;q=0.8, text/html;q=0.7, unknown/unknown;q=0.1, application/unknown;q=0.1, */*;q=0.1',
@@ -1476,7 +1485,7 @@ class SimplePie
 							$headers['if-none-match'] = $this->data['headers']['etag'];
 						}
 
-						$file = $this->registry->create('File', array($this->feed_url, $this->timeout/10, 5, $headers, $this->useragent, $this->force_fsockopen));
+						$file = $this->registry->create('File', array($this->feed_url, $this->timeout, 5, $headers, $this->useragent, $this->force_fsockopen));	//FreshRSS
 
 						if ($file->success)
 						{
@@ -1488,7 +1497,20 @@ class SimplePie
 						}
 						else
 						{
-							unset($file);
+							$this->error = $file->error;	//FreshRSS
+							return !empty($this->data);	//FreshRSS
+							//unset($file);	//FreshRSS removed
+						}
+					}
+					{	//FreshRSS
+						$md5 = $this->cleanMd5($file->body);
+						if ($this->data['md5'] === $md5) {
+							syslog(LOG_DEBUG, 'SimplePie MD5 cache match for ' . $this->feed_url);
+							$cache->touch();
+							return true;	//Content unchanged even though server did not send a 304
+						} else {
+							syslog(LOG_DEBUG, 'SimplePie MD5 cache no match for ' . $this->feed_url);
+							$this->data['md5'] = $md5;
 						}
 					}
 				}
@@ -1557,6 +1579,7 @@ class SimplePie
 				{
 					$this->data = array('url' => $this->feed_url, 'feed_url' => $file->url, 'build' => SIMPLEPIE_BUILD);
 					$this->data['mtime'] = time();	//FreshRSS
+					$this->data['md5'] = empty($md5) ? $this->cleanMd5($file->body) : $md5;	//FreshRSS
 					if (!$cache->save($this))
 					{
 						trigger_error("$this->cache_location is not writeable. Make sure you've set the correct relative or absolute path, and that the location is server-writable.", E_USER_WARNING);
