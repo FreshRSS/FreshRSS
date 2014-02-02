@@ -230,17 +230,22 @@ function toggleContent(new_active, old_active) {
 
 function prev_entry() {
 	var old_active = $(".flux.current"),
-		new_active = old_active.length === 0 ? $(".flux:last") : old_active.prevAll(".flux:first");
-	toggleContent(new_active, old_active);
+		new_active = old_active.length === 0 ? $(".flux:last") : old_active.prevAll(".flux:first"),
+		first_active = $(".flux:first");
+	if (first_active.attr("id") !== old_active.attr("id")) {
+		toggleContent(new_active, old_active);
+	}
 }
 
 function next_entry() {
 	var old_active = $(".flux.current"),
-		new_active = old_active.length === 0 ? $(".flux:first") : old_active.nextAll(".flux:first");
-	toggleContent(new_active, old_active);
+		new_active = old_active.length === 0 ? $(".flux:first") : old_active.nextAll(".flux:first"),
+		last_active = $(".flux:last");
+	if (last_active.attr("id") !== old_active.attr("id")) {
+		toggleContent(new_active, old_active);
+	}
 
 	if (!auto_load_more) {
-		var last_active = $(".flux:last");
 		if (last_active.attr("id") === new_active.attr("id")) {
 			load_more_posts();
 		}
