@@ -443,7 +443,7 @@ function init_shortcuts() {
 
 function init_stream(divStream) {
 	divStream.on('click', '.flux_header', function (e) {	//flux_header_toggle
-		if ($(e.target).closest('.item.website > a').length > 0) {
+		if ($(e.target).closest('.item.website, .item.link').length > 0) {
 			return;
 		}
 		var old_active = $(".flux.current"),
@@ -470,7 +470,7 @@ function init_stream(divStream) {
 		return false;
 	});
 
-	divStream.on('click', '.item.title>a', function (e) {
+	divStream.on('click', '.item.title > a', function (e) {
 		if (e.ctrlKey) {
 			return true;	//Allow default control-click behaviour such as open in backround-tab
 		}
@@ -483,7 +483,7 @@ function init_stream(divStream) {
 	});
 
 	if (auto_mark_site) {
-		divStream.on('click', '.flux .link a', function () {
+		divStream.on('click', '.flux .link > a', function () {
 			mark_read($(this).parent().parent().parent(), true);
 		});
 	}
