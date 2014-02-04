@@ -14,15 +14,15 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 				);
 			}
 		}
-
-		$this->catDAO = new FreshRSS_CategoryDAO ();
-		$this->catDAO->checkDefault ();
 	}
 
 	public function addAction () {
 		@set_time_limit(300);
 
 		if (Minz_Request::isPost ()) {
+			$this->catDAO = new FreshRSS_CategoryDAO ();
+			$this->catDAO->checkDefault ();
+
 			$url = Minz_Request::param ('url_rss');
 			$cat = Minz_Request::param ('category', false);
 			if ($cat === false) {
@@ -308,6 +308,9 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 
 	public function massiveImportAction () {
 		@set_time_limit(300);
+
+		$this->catDAO = new FreshRSS_CategoryDAO ();
+		$this->catDAO->checkDefault ();
 
 		$entryDAO = new FreshRSS_EntryDAO ();
 		$feedDAO = new FreshRSS_FeedDAO ();
