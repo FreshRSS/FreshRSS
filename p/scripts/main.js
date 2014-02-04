@@ -20,6 +20,16 @@ function redirect(url, new_tab) {
 	}
 }
 
+function needsScroll($elem) {
+	var $win = $(window),
+		winTop = $win.scrollTop(),
+		winHeight = $win.height(),
+		winBottom = winTop + winHeight,
+		elemTop = $elem.offset().top,
+		elemBottom = elemTop + $elem.outerHeight();
+	return (elemTop < winTop || elemBottom > winBottom) ? elemTop - (winHeight / 2) : 0;
+}
+
 function str2int(str) {
 	if (str == '') {
 		return 0;
@@ -255,9 +265,13 @@ function collapse_entry() {
 }
 
 function auto_share() {
-	var share = $(".flux.current.active").find('.dropdown-target[id^="dropdown-share"]');
-	if (share.length) {
-		window.location.hash = share.attr('id');
+	var $share = $(".flux.current").find('.dropdown-target[id^="dropdown-share"]');
+	if ($share.length) {
+		window.location.hash = $share.attr('id');
+		var scroll = needsScroll($share.closest('.bottom'));
+		if (scroll != 0) {
+			$('html,body').scrollTop(scroll);
+		}
 	}
 }
 
