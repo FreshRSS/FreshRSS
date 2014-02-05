@@ -20,6 +20,16 @@ function redirect(url, new_tab) {
 	}
 }
 
+function needsScroll($elem) {
+	var $win = $(window),
+		winTop = $win.scrollTop(),
+		winHeight = $win.height(),
+		winBottom = winTop + winHeight,
+		elemTop = $elem.offset().top,
+		elemBottom = elemTop + $elem.outerHeight();
+	return (elemTop < winTop || elemBottom > winBottom) ? elemTop - (winHeight / 2) : 0;
+}
+
 function str2int(str) {
 	if (str == '') {
 		return 0;
@@ -172,11 +182,13 @@ function mark_favorite(active) {
 }
 
 function toggleContent(new_active, old_active) {
-	old_active.removeClass("active").removeClass("current");
+	old_active.removeClass("active");
 
 	if (new_active.length === 0) {
 		return;
 	}
+
+	old_active.removeClass("current");
 
 	if (does_lazyload) {
 		new_active.find('img[data-original], iframe[data-original]').each(function () {
@@ -322,6 +334,11 @@ function auto_share(key) {
 		}
 		// Display the share div
 		window.location.hash = share.attr('id');
+		// Force scrolling to the share div
+		var scroll = needsScroll(share.closest('.bottom'));
+		if (scroll !== 0) {
+			$('html,body').scrollTop(scroll);
+		}
 		// Force the key value if there is only one action, so we can trigger it automatically
 		if (shares.length === 1) {
 			key = 1;
@@ -553,7 +570,7 @@ function init_shortcuts() {
 
 function init_stream(divStream) {
 	divStream.on('click', '.flux_header', function (e) {	//flux_header_toggle
-		if ($(e.target).closest('.item.website > a').length > 0) {
+		if ($(e.target).closest('.item.website, .item.link').length > 0) {
 			return;
 		}
 		var old_active = $(".flux.current"),
@@ -580,7 +597,7 @@ function init_stream(divStream) {
 		return false;
 	});
 
-	divStream.on('click', '.item.title>a', function (e) {
+	divStream.on('click', '.item.title > a', function (e) {
 		if (e.ctrlKey) {
 			return true;	//Allow default control-click behaviour such as open in backround-tab
 		}
@@ -593,7 +610,7 @@ function init_stream(divStream) {
 	});
 
 	if (auto_mark_site) {
-		divStream.on('click', '.flux .link a', function () {
+		divStream.on('click', '.flux .link > a', function () {
 			mark_read($(this).parent().parent().parent(), true);
 		});
 	}
