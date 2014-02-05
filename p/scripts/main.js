@@ -548,7 +548,7 @@ function init_shortcuts() {
 	});
 
 	shortcut.add(shortcuts.go_website, function () {
-		var url_website = $(".flux.active .link a").attr("href");
+		var url_website = $(".flux.current .link a").attr("href");
 
 		if (auto_mark_site) {
 			$(".flux.current").each(function () {
