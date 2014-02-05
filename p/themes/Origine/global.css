@@ -419,6 +419,11 @@ input, select, textarea {
 				padding: 0 25px;
 				line-height: 30px;
 			}
+			.dropdown-menu > .item.share > a {
+				display: list-item;
+				list-style-position:inside;
+				list-style-type:decimal;
+			}
 			.dropdown-menu > .item:hover {
 				background: #0062BE;
 				color: #fff;
