@@ -1,10 +1,11 @@
 "use strict";
-var feeds = [];
-<?php foreach ($this->feeds as $feed) { ?>
-feeds.push("<?php echo Minz_Url::display (array ('c' => 'feed', 'a' => 'actualize', 'params' => array ('id' => $feed->id (), 'ajax' => '1')), 'php'); ?>");
-<?php } ?>
-var feed_count = feeds.length;
-var feed_processed = 0;
+var feeds = [<?php
+	foreach ($this->feeds as $feed) {
+		echo "'", Minz_Url::display(array('c' => 'feed', 'a' => 'actualize', 'params' => array('id' => $feed->id(), 'ajax' => '1')), 'php'), "',\n";
+	}
+	?>],
+	feed_processed = 0,
+	feed_count = feeds.length;
 
 function initProgressBar(init) {
 	if (init) {
@@ -33,10 +34,10 @@ function updateFeeds() {
 }
 
 function updateFeed() {
-	if (feeds.length === 0) {
+	var feed = feeds.pop();
+	if (feed == undefined) {
 		return;
 	}
-	var feed = feeds.pop();
 	$.ajax({
 		type: 'POST',
 		url: feed,
