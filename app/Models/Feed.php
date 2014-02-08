@@ -224,6 +224,9 @@ class FreshRSS_Feed extends Minz_Model {
 					syslog(LOG_DEBUG, 'FreshRSS use cache for ' . $subscribe_url);
 					$this->entries = array();
 				}
+
+				$feed->__destruct();	//http://simplepie.org/wiki/faq/i_m_getting_memory_leaks
+				unset($feed);
 			}
 		}
 	}
@@ -273,6 +276,7 @@ class FreshRSS_Feed extends Minz_Model {
 			$entry->loadCompleteContent($this->pathEntries());
 
 			$entries[] = $entry;
+			unset($item);
 		}
 
 		$this->entries = $entries;

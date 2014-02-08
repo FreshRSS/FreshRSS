@@ -246,6 +246,7 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 					$feedDAO->updateFeed($feed->id(), array('url' => $feed->url()));
 				}
 				$feed->faviconPrepare();
+				unset($feed);
 			} catch (FreshRSS_Feed_Exception $e) {
 				Minz_Log::record ($e->getMessage (), Minz_Log::NOTICE);
 				$feedDAO->updateLastUpdate ($feed->id (), 1);
