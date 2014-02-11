@@ -44,8 +44,8 @@ UPDATE `%1$sfeed006` f
 INNER JOIN `%1$scategory006` c ON f.category = c.id
 SET f.category2 = c.id2;
 
-INSERT IGNORE INTO `%2$scategory` (name, color)
-SELECT name, color
+INSERT IGNORE INTO `%2$scategory` (name)
+SELECT name
 FROM `%1$scategory006`
 ORDER BY id2;
 
