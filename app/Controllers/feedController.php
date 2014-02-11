@@ -246,11 +246,12 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 					$feedDAO->updateFeed($feed->id(), array('url' => $feed->url()));
 				}
 				$feed->faviconPrepare();
-				unset($feed);
 			} catch (FreshRSS_Feed_Exception $e) {
 				Minz_Log::record ($e->getMessage (), Minz_Log::NOTICE);
 				$feedDAO->updateLastUpdate ($feed->id (), 1);
 			}
+
+			unset($feed);
 
 			// On arrête à 10 flux pour ne pas surcharger le serveur
 			// sauf si le paramètre $force est à vrai
@@ -263,6 +264,7 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 		$url = array ();
 		if ($flux_update === 1) {
 			// on a mis un seul flux à jour
+			$feed = reset ($feeds);
 			$notif = array (
 				'type' => 'good',
 				'content' => Minz_Translate::t ('feed_actualized', $feed->name ())
