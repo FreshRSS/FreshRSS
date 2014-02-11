@@ -114,7 +114,7 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 
 					if ($feedDAO->updateFeed ($id, $values)) {
 						$this->view->flux->_category ($cat);
-
+						$this->view->flux->faviconPrepare();
 						$notif = array (
 							'type' => 'good',
 							'content' => Minz_Translate::t ('feed_updated')
