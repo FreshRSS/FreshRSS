@@ -32,7 +32,13 @@ if (Minz_Request::param ('output') === 'global') {
 
 $authType = Minz_Configuration::authType();
 if ($authType === 'persona') {
-	echo 'current_user_mail="' . Minz_Session::param ('mail', '') . '",';
+	// If user is disconnected, current_user_mail MUST be null
+	$mail = Minz_Session::param ('mail', false);
+	if ($mail) {
+		echo 'current_user_mail="' . $mail . '",';
+	} else {
+		echo 'current_user_mail=null,';
+	}
 }
 
 echo 'authType="', $authType, '",',
