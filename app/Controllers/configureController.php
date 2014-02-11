@@ -29,7 +29,6 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 					$cat = new FreshRSS_Category ($name);
 					$values = array (
 						'name' => $cat->name (),
-						'color' => $cat->color ()
 					);
 					$catDAO->updateCategory ($ids[$key], $values);
 				} elseif ($ids[$key] != $defaultId) {
@@ -43,7 +42,6 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 				$values = array (
 					'id' => $cat->id (),
 					'name' => $cat->name (),
-					'color' => $cat->color ()
 				);
 
 				if ($catDAO->searchByName ($newCat) == false) {
