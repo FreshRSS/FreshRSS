@@ -431,7 +431,6 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 				$values = array (
 					'id' => $cat->id (),
 					'name' => $cat->name (),
-					'color' => $cat->color ()
 				);
 				$catDAO->addCategory ($values);
 			}
