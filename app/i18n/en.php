@@ -142,7 +142,9 @@ return array (
 	'or'				=> 'or',
 
 	'informations'			=> 'Information',
+	'damn'				=> 'Damn!',
 	'feed_in_error'			=> 'This feed has encountered a problem. Please verify that it is always reachable then actualize it.',
+	'feed_empty'			=> 'This feed is empty. Please verify that it is still maintained.',
 	'feed_description'		=> 'Description',
 	'website_url'			=> 'Website URL',
 	'feed_url'			=> 'Feed URL',

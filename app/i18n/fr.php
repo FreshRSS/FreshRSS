@@ -142,7 +142,9 @@ return array (
 	'or'				=> 'ou',
 
 	'informations'			=> 'Informations',
+	'damn'				=> 'Arf !',
 	'feed_in_error'			=> 'Ce flux a rencontré un problème. Veuillez vérifier qu’il est toujours accessible puis actualisez-le.',
+	'feed_empty'			=> 'Ce flux est vide. Veuillez vérifier qu’il est toujours maintenu.',
 	'feed_description'		=> 'Description',
 	'website_url'			=> 'URL du site',
 	'feed_url'			=> 'URL du flux',
