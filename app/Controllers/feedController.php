@@ -189,6 +189,10 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 		$flux_update = 0;
 		$is_read = $this->view->conf->mark_when['reception'] ? 1 : 0;
 		foreach ($feeds as $feed) {
+			if (!$feed->lock()) {
+				Minz_Log::record('Feed already being actualized: ' . $feed->url(), Minz_Log::NOTICE);
+				continue;
+			}
 			try {
 				$url = $feed->url();
 				$feedHistory = $feed->keepHistory();
@@ -251,6 +255,7 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 				$feedDAO->updateLastUpdate ($feed->id (), 1);
 			}
 
+			$feed->unlock();
 			unset($feed);
 
 			// On arrête à 10 flux pour ne pas surcharger le serveur

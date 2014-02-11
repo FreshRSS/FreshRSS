@@ -15,3 +15,5 @@ define('FRESHRSS_PATH', dirname(__FILE__));
 
 	define('LIB_PATH', FRESHRSS_PATH . '/lib');
 		define('APP_PATH', FRESHRSS_PATH . '/app');
+
+define('TMP_PATH', sys_get_temp_dir());

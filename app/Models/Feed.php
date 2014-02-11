@@ -281,4 +281,22 @@ class FreshRSS_Feed extends Minz_Model {
 
 		$this->entries = $entries;
 	}
+
+	function lock() {
+		$lock = TMP_PATH . '/' . md5(Minz_Configuration::salt() . $this->url) . '.freshrss.lock';
+		if (file_exists($lock) && ((time() - @filemtime($lock)) > 3600)) {
+			@unlink($lock);
+		}
+		if (($handle = @fopen($lock, 'x')) === false) {
+			return false;
+		}
+		//register_shutdown_function('unlink', $lock);
+		@fclose($handle);
+		return true;
+	}
+
+	function unlock() {
+		$lock = TMP_PATH . '/' . md5(Minz_Configuration::salt() . $this->url) . '.freshrss.lock';
+		@unlink($lock);
+	}
 }

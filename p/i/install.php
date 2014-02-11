@@ -548,8 +548,9 @@ function checkStep0 () {
 		'all' => $language ? 'ok' : 'ko'
 	);
 }
+
 function checkStep1 () {
-	$php = version_compare (PHP_VERSION, '5.2.0') >= 0;
+	$php = version_compare (PHP_VERSION, '5.2.1') >= 0;
 	$minz = file_exists (LIB_PATH . '/Minz');
 	$curl = extension_loaded ('curl');
 	$pdo = extension_loaded ('pdo_mysql');
@@ -721,7 +722,7 @@ function printStep1 () {
 	<?php if ($res['php'] == 'ok') { ?>
 	<p class="alert alert-success"><span class="alert-head"><?php echo _t ('ok'); ?></span> <?php echo _t ('php_is_ok', PHP_VERSION); ?></p>
 	<?php } else { ?>
-	<p class="alert alert-error"><span class="alert-head"><?php echo _t ('damn'); ?></span> <?php echo _t ('php_is_nok', PHP_VERSION, '5.1.0'); ?></p>
+	<p class="alert alert-error"><span class="alert-head"><?php echo _t ('damn'); ?></span> <?php echo _t ('php_is_nok', PHP_VERSION, '5.2.1'); ?></p>
 	<?php } ?>
 
 	<?php if ($res['minz'] == 'ok') { ?>

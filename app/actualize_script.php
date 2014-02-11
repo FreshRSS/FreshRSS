@@ -1,24 +1,5 @@
 <?php
 require(dirname(__FILE__) . '/../constants.php');
-
-//<Mutex>
-$lock = DATA_PATH . '/actualize.lock.txt';
-if (file_exists($lock) && ((time() - @filemtime($lock)) > 3600)) {
-	@unlink($lock);
-}
-if (($handle = @fopen($lock, 'x')) === false) {
-	syslog(LOG_NOTICE, 'FreshRSS actualize already running?');
-	if (defined('STDERR')) {
-		fwrite(STDERR, 'FreshRSS actualize already running?' . "\n");
-	}
-	echo 'FreshRSS actualize already running?', "\n";
-	return;
-}
-register_shutdown_function('unlink', $lock);
-//Could use http://php.net/function.pcntl-signal.php to catch interruptions
-@fclose($handle);
-//</Mutex>
-
 require(LIB_PATH . '/lib_rss.php');	//Includes class autoloader
 
 session_cache_limiter('');

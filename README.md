@@ -25,7 +25,7 @@ Privilégiez pour cela des demandes sur GitHub
 * Serveur modeste, par exemple sous Linux ou Windows
 	* Fonctionne même sur un Raspberry Pi avec des temps de réponse < 1s (testé sur 150 flux, 22k articles, soit 32Mo de données partiellement compressées)
 * Serveur Web Apache2 ou Nginx (non testé sur les autres)
-* PHP 5.2+ (PHP 5.3.7+ recommandé)
+* PHP 5.2.1+ (PHP 5.3.7+ recommandé)
 	* Requis : [PDO_MySQL](http://php.net/pdo-mysql), [cURL](http://php.net/curl), [LibXML](http://php.net/xml), [PCRE](http://php.net/pcre), [ctype](http://php.net/ctype)
 	* Recommandés : [JSON](http://php.net/json), [zlib](http://php.net/zlib), [mbstring](http://php.net/mbstring), [iconv](http://php.net/iconv)
 * MySQL 5.0.3+ (ou SQLite 3.7.4+ à venir)
