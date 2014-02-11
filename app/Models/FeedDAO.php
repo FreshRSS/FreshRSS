@@ -198,8 +198,11 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo {
 		return self::daoToFeed ($stm->fetchAll (PDO::FETCH_ASSOC));
 	}
 
-	public function listFeedsOrderUpdate () {
-		$sql = 'SELECT id, name, url, lastUpdate, pathEntries, httpAuth, keep_history FROM `' . $this->prefix . 'feed` ORDER BY lastUpdate';
+	public function listFeedsOrderUpdate ($cacheDuration = 1500) {
+		$sql = 'SELECT id, name, url, lastUpdate, pathEntries, httpAuth, keep_history '
+		     . 'FROM `' . $this->prefix . 'feed` '
+		     . 'WHERE lastUpdate < ' . (time() - intval($cacheDuration))
+		     . ' ORDER BY lastUpdate';
 		$stm = $this->bd->prepare ($sql);
 		$stm->execute ();
 
