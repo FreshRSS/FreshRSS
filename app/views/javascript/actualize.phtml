@@ -42,7 +42,7 @@ function updateFeed() {
 	$.ajax({
 		type: 'POST',
 		url: feed,
-	}).done(function (data) {
+	}).complete(function (data) {
 		feed_processed++;
 		updateProgressBar(feed_processed);
 
