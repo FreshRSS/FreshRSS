@@ -17,6 +17,8 @@ if ($this->loginOk || Minz_Configuration::allowAnonymous()) {
 		$this->renderHelper ('view/normal_view');
 	}
 } elseif ($output === 'rss') {
+	// TODO: verification of token and redirection must be done in the
+	// controller, not in the view
 	$token = $this->conf->token;
 	$token_param = Minz_Request::param ('token', '');
 	$token_is_ok = ($token != '' && $token == $token_param);
