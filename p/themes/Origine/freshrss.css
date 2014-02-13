@@ -569,7 +569,7 @@
 	}
 
 /*** NOTIFICATION ***/
-.notification {
+#notification {
 	position: absolute;
 	top: 10px;
 	left: 25%; right: 25%;
@@ -584,13 +584,16 @@
 	font-weight: bold;
 	z-index: 10;
 }
-	.notification.good {
+	#notification.closed {
+		display: none;
+	}
+	#notification.good {
 		background: #f4f899;
 	}
-	.notification.bad {
+	#notification.bad {
 		background: #f4a899;
 	}
-	.notification a.close {
+	#notification a.close {
 		display: inline-block;
 		width: 16px;
 		height: 16px;

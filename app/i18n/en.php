@@ -248,6 +248,7 @@ return array (
 	'rss_feeds_of'			=> 'RSS feed of %s',
 
 	'refresh'			=> 'Refresh',
+	'no_feed_to_refresh'		=> 'There is no feed to refresh…',
 
 	'today'				=> 'Today',
 	'yesterday'			=> 'Yesterday',

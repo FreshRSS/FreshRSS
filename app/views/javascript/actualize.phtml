@@ -24,6 +24,7 @@ function updateProgressBar(i) {
 
 function updateFeeds() {
 	if (feed_count === 0) {
+		openNotification("<?php echo Minz_Translate::t ('no_feed_to_refresh'); ?>", "good");
 		return;
 	}
 	initProgressBar(true);

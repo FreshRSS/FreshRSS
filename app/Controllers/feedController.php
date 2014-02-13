@@ -283,8 +283,8 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 		} else {
 			// aucun flux n'a été mis à jour, oups
 			$notif = array (
-				'type' => 'bad',
-				'content' => Minz_Translate::t ('no_feed_actualized')
+				'type' => 'good',
+				'content' => Minz_Translate::t ('no_feed_to_refresh')
 			);
 		}
 

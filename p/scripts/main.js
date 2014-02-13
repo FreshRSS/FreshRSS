@@ -665,23 +665,51 @@ function init_actualize() {
 	}
 }
 
+
+// <notification>
+var notification = null,
+	notification_interval = null,
+	notification_working = false;
+
+function openNotification(msg, status) {
+	if (notification_working === true) {
+		return false;
+	}
+
+	notification_working = true;
+
+	notification.removeClass();
+	notification.addClass(status);
+	notification.find(".msg").html(msg);
+	notification.fadeIn(300);
+
+	notification_interval = window.setInterval(closeNotification, 4000);
+}
+
 function closeNotification() {
-	$(".notification").fadeOut(600, function () {
-		$(".notification").remove();
+	notification.fadeOut(600, function() {
+		notification.removeClass();
+		notification.addClass('closed');
+
+		window.clearInterval(notification_interval);
+		notification_working = false;
 	});
 }
 
 function init_notifications() {
-	var notif = $(".notification");
-	if (notif.length > 0) {
-		window.setInterval(closeNotification, 4000);
+	notification = $("#notification");
 
-		notif.find("a.close").click(function () {
-			closeNotification();
-			return false;
-		});
+	notification.find("a.close").click(function () {
+		closeNotification();
+		return false;
+	});
+
+	if (notification.find(".msg").html().length > 0) {
+		notification_working = true;
+		notification_interval = window.setInterval(closeNotification, 4000);
 	}
 }
+// </notification>
 
 function refreshUnreads() {
 	$.getJSON('./?c=javascript&a=nbUnreadsPerFeed').done(function (data) {

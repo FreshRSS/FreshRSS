@@ -561,7 +561,7 @@ body {
 	}
 
 /*** NOTIFICATION ***/
-.notification {
+#notification {
 	position: absolute;
 	top: 10px;
 	left: 25%; right: 25%;
@@ -575,15 +575,18 @@ body {
 	font-weight: bold;
 	z-index: 10;
 }
-	.notification.good {
+	#notification.closed {
+		display: none;
+	}
+	#notification.good {
 		background: #1abc9c;
 		color: #fff;
 	}
-	.notification.bad {
+	#notification.bad {
 		background: #e74c3c;
 		color: #fff;
 	}
-	.notification a.close {
+	#notification a.close {
 		display: inline-block;
 		width: 16px;
 		height: 16px;
@@ -593,10 +596,10 @@ body {
 		border-radius: 3px;
 		line-height: 16px;
 	}
-		.notification.good a.close {
+		#notification.good a.close {
 			background: #1abc9c;
 		}
-		.notification.bad a.close {
+		#notification.bad a.close {
 			background: #e74c3c;
 		}
 

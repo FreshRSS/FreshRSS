@@ -248,6 +248,7 @@ return array (
 	'rss_feeds_of'			=> 'Flux RSS de %s',
 
 	'refresh'			=> 'Actualisation',
+	'no_feed_to_refresh'		=> 'Il n’y a aucun flux à actualiser…',
 
 	'today'				=> 'Aujourd’hui',
 	'yesterday'			=> 'Hier',
