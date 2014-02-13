@@ -1,6 +1,7 @@
 "use strict";
 var $stream = null,
-	isCollapsed = true;
+	isCollapsed = true,
+	pending_feed = [];
 
 function is_normal_mode() {
 	return $stream.hasClass('normal');
@@ -107,7 +108,8 @@ function incUnreadsFeed(article, feed_id, nb) {
 }
 
 function mark_read(active, only_not_read) {
-	if (active.length === 0 || (only_not_read === true && !active.hasClass("not_read"))) {
+	if (active.length === 0 ||
+		(only_not_read === true && !active.hasClass("not_read"))) {
 		return false;
 	}
 
@@ -115,6 +117,16 @@ function mark_read(active, only_not_read) {
 	if (url === undefined) {
 		return false;
 	}
+
+	var feed_url = active.find(".website>a").attr("href"),
+		feed_id = feed_url.substr(feed_url.lastIndexOf('f_')),
+		index_pending = pending_feed.indexOf(feed_id);
+
+	if (index_pending !== -1) {
+		return false;
+	}
+
+	pending_feed.push(feed_id);
 
 	$.ajax({
 		type: 'POST',
@@ -132,9 +144,9 @@ function mark_read(active, only_not_read) {
 		}
 		$r.find('.icon').replaceWith(data.icon);
 
-		var feed_url = active.find(".website>a").attr("href"),
-			feed_id = feed_url.substr(feed_url.lastIndexOf('f_'));
 		incUnreadsFeed(active, feed_id, inc);
+
+		pending_feed.splice(index_pending, 1);
 	});
 }
 
