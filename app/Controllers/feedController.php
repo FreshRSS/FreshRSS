@@ -7,7 +7,9 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 			$token_param = Minz_Request::param ('token', '');
 			$token_is_ok = ($token != '' && $token == $token_param);
 			$action = Minz_Request::actionName ();
-			if (!($token_is_ok && $action === 'actualize')) {
+			if (!(($token_is_ok || Minz_Configuration::allowAnonymousRefresh()) &&
+				$action === 'actualize')
+			) {
 				Minz_Error::error (
 					403,
 					array ('error' => array (Minz_Translate::t ('access_denied')))
