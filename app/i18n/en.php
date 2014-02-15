@@ -3,6 +3,7 @@
 return array (
 	// LAYOUT
 	'login'				=> 'Login',
+	'login_with_persona'		=> 'Login with Persona',
 	'logout'			=> 'Logout',
 	'search'			=> 'Search words or #tags',
 	'search_short'			=> 'Search',
@@ -276,7 +277,7 @@ return array (
 	'logs_empty'			=> 'Log file is empty',
 	'clear_logs'			=> 'Clear the logs',
 
-	'forbidden_access'		=> 'Access forbidden! (%s)',
+	'forbidden_access'		=> 'Access is forbidden!',
 	'login_required'		=> 'Login required:',
 
 	'confirm_action'		=> 'Are you sure you want to perform this action? It cannot be cancelled!',

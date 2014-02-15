@@ -528,18 +528,20 @@ input, select, textarea {
 }
 
 /* Prompt (centré) */
-.prompt > h1, .prompt > p {
-	text-align:center;
+.prompt {
+	text-align: center;
 }
-.prompt > form {
-	margin:1em auto 2.5em auto;
-	width:10em;
-}
-.prompt .btn {
-	display:block;
-	margin:.5em auto;
-}
-.prompt input {
-	margin:.4em auto 1.1em auto;
-	width:99%;
-}
+	.prompt label {
+		text-align: left;
+	}
+	.prompt form {
+		margin: 1em auto 2.5em auto;
+		width: 10em;
+	}
+	.prompt input {
+		margin: .4em auto 1.1em auto;
+		width: 100%;
+	}
+	.prompt p {
+		margin: 20px 0;
+	}

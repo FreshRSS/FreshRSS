@@ -351,6 +351,11 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 			}
 			$this->view->_useLayout(false);
 			Minz_Request::forward(array('c' => 'index', 'a' => 'index'), true);
+		} elseif (!Minz_Configuration::canLogIn()) {
+			Minz_Error::error (
+				403,
+				array ('error' => array (Minz_Translate::t ('access_denied')))
+			);
 		}
 		invalidateHttpCache();
 	}

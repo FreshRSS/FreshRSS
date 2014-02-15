@@ -3,6 +3,7 @@
 return array (
 	// LAYOUT
 	'login'				=> 'Connexion',
+	'login_with_persona'		=> 'Connexion avec Persona',
 	'logout'			=> 'Déconnexion',
 	'search'			=> 'Rechercher des mots ou des #tags',
 	'search_short'			=> 'Rechercher',
@@ -276,7 +277,7 @@ return array (
 	'logs_empty'			=> 'Les logs sont vides',
 	'clear_logs'			=> 'Effacer les logs',
 
-	'forbidden_access'		=> 'Accès interdit ! (%s)',
+	'forbidden_access'		=> 'L’accès vous est interdit !',
 	'login_required'		=> 'Accès protégé par mot de passe :',
 
 	'confirm_action'		=> 'Êtes-vous sûr(e) de vouloir continuer ? Cette action ne peut être annulée !',
