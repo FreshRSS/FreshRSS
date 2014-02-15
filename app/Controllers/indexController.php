@@ -5,18 +5,15 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 
 	public function indexAction () {
 		$output = Minz_Request::param ('output');
-		$token = '';
+		$token = $this->view->conf->token;
 
 		// check if user is logged in
-		if (!$this->view->loginOk && !Minz_Configuration::allowAnonymous())
-		{
-			$token = $this->view->conf->token;
+		if (!$this->view->loginOk && !Minz_Configuration::allowAnonymous()) {
 			$token_param = Minz_Request::param ('token', '');
 			$token_is_ok = ($token != '' && $token === $token_param);
 			if (!($output === 'rss' && $token_is_ok)) {
 				return;
 			}
-			$params['token'] = $token;
 		}
 
 		// construction of RSS url of this feed
@@ -24,6 +21,9 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 		$params['output'] = 'rss';
 		if (isset ($params['search'])) {
 			$params['search'] = urlencode ($params['search']);
+		}
+		if (!Minz_Configuration::allowAnonymous()) {
+			$params['token'] = $token;
 		}
 		$this->view->rss_url = array (
 			'c' => 'index',
