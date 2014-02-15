@@ -665,14 +665,23 @@ function init_nav_entries() {
 }
 
 function init_actualize() {
+	var auto = false;
+
 	$("#actualize").click(function () {
 		$.getScript('./?c=javascript&a=actualize').done(function () {
+			if (auto && feed_count < 1) {
+				return;
+			}
+
 			updateFeeds();
+
+			auto = false;
 		});
 		return false;
 	});
 
-	if (auto_actualize_feeds && feed_count > 0) {
+	if (auto_actualize_feeds) {
+		auto = true;
 		$("#actualize").click();
 	}
 }
