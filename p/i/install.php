@@ -955,7 +955,7 @@ function printStep4 () {
 		<legend><?php echo _t ('version_update'); ?></legend>
 
 		<?php if (updateDatabase(false)) { ?>
-		<p class="alert"><?php echo _t ('update_long'); ?></p>
+		<p class="alert alert-warn"><?php echo _t ('update_long'); ?></p>
 
 		<div class="form-group form-actions">
 			<div class="group-controls">
@@ -965,7 +965,7 @@ function printStep4 () {
 		</div>
 
 		<?php } else { ?>
-		<p class="alert"><?php echo _t ('update_end'); ?></p>
+		<p class="alert alert-warn"><?php echo _t ('update_end'); ?></p>
 
 		<div class="form-group form-actions">
 			<div class="group-controls">
