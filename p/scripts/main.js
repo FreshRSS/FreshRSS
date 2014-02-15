@@ -670,12 +670,11 @@ function init_actualize() {
 	$("#actualize").click(function () {
 		$.getScript('./?c=javascript&a=actualize').done(function () {
 			if (auto && feed_count < 1) {
+				auto = false;
 				return;
 			}
 
 			updateFeeds();
-
-			auto = false;
 		});
 		return false;
 	});
