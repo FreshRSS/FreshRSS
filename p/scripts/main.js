@@ -660,7 +660,7 @@ function init_actualize() {
 		return false;
 	});
 
-	if (auto_actualize_feeds) {
+	if (auto_actualize_feeds && feed_count > 0) {
 		$("#actualize").click();
 	}
 }
