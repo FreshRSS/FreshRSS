@@ -1,0 +1,7 @@
+{
+  "name": "Template",
+  "author": "Marien Fressinaud",
+  "description": "A basic template for FreshRSS",
+  "version": 0.1,
+  "files": ["template.css"]
+}
