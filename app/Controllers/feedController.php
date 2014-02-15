@@ -3,7 +3,10 @@
 class FreshRSS_feed_Controller extends Minz_ActionController {
 	public function firstAction () {
 		if (!$this->view->loginOk) {
-			$token = $this->view->conf->token;	//TODO: check the token logic again, and if it is still needed
+			// Token is useful in the case that anonymous refresh is forbidden
+			// and CRON task cannot be used with php command so the user can
+			// set a CRON task to refresh his feeds by using token inside url
+			$token = $this->view->conf->token;
 			$token_param = Minz_Request::param ('token', '');
 			$token_is_ok = ($token != '' && $token == $token_param);
 			$action = Minz_Request::actionName ();

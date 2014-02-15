@@ -11,7 +11,16 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 		if (!$this->view->loginOk && !Minz_Configuration::allowAnonymous()) {
 			$token_param = Minz_Request::param ('token', '');
 			$token_is_ok = ($token != '' && $token === $token_param);
-			if (!($output === 'rss' && $token_is_ok)) {
+			if ($output === 'rss' && !$token_is_ok) {
+				Minz_Error::error (
+					403,
+					array ('error' => array (Minz_Translate::t ('access_denied')))
+				);
+				return;
+			} elseif ($output !== 'rss') {
+				// "hard" redirection is not required, just ask dispatcher to
+				// forward to the login form without 302 redirection
+				Minz_Request::forward(array('c' => 'index', 'a' => 'formLogin'));
 				return;
 			}
 		}
