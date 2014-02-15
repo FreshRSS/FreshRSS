@@ -350,13 +350,15 @@ body {
 			font-size: 120%;
 		}
 			#stream.global .btn:not([data-unread="0"]) {
-				font-weight:bold;
+				background: #3498db;
+				color: #fff;
+				font-weight: bold;
 			}
 			#stream.global .btn:first-child:not([data-unread="0"]):after {
 				top: 0; right: 5px;
 				border: 0;
 				background: none;
-				color: #333;
+				color: #fff;
 				font-weight: bold;
 				box-shadow: none;
 			}
