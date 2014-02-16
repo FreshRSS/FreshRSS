@@ -322,10 +322,10 @@ function last_feed() {
 }
 
 function prev_category() {
-	var active_cat = $("#aside_flux .category.active");
+	var active_cat = $("#aside_flux .category.stick.active");
 
 	if (active_cat.length > 0) {
-		var prev_cat = active_cat.parent('li').prev().find('.category a.btn');
+		var prev_cat = active_cat.parent('li').prev().find('.category.stick a.btn');
 		if (prev_cat.length > 0) {
 			prev_cat[0].click();
 		}
@@ -336,10 +336,10 @@ function prev_category() {
 }
 
 function next_category() {
-	var active_cat = $("#aside_flux .category.active");
+	var active_cat = $("#aside_flux .category.stick.active");
 
 	if (active_cat.length > 0) {
-		var next_cat = active_cat.parent('li').next().find('.category a.btn');
+		var next_cat = active_cat.parent('li').next().find('.category.stick a.btn');
 		if (next_cat.length > 0) {
 			next_cat[0].click();
 		}
@@ -350,14 +350,14 @@ function next_category() {
 }
 
 function first_category() {
-	var cat = $("#aside_flux .category:first");
+	var cat = $("#aside_flux .category.stick:first");
 	if (cat.length > 0) {
 		cat.find('a.btn')[0].click();
 	}
 }
 
 function last_category() {
-	var cat = $("#aside_flux .category:last");
+	var cat = $("#aside_flux .category.stick:last");
 	if (cat.length > 0) {
 		cat.find('a.btn')[0].click();
 	}
@@ -577,16 +577,16 @@ function init_shortcuts() {
 		'disable_in_input': true
 	});
 	// Touches de navigation pour les categories
-	shortcut.add("ctrl+" + shortcuts.prev_entry, prev_category, {
+	shortcut.add("alt+" + shortcuts.prev_entry, prev_category, {
 		'disable_in_input': true
 	});
-	shortcut.add("ctrl+" + shortcuts.next_entry, next_category, {
+	shortcut.add("alt+" + shortcuts.next_entry, next_category, {
 		'disable_in_input': true
 	});
-	shortcut.add("ctrl+" + shortcuts.first_entry, first_category, {
+	shortcut.add("alt+" + shortcuts.first_entry, first_category, {
 		'disable_in_input': true
 	});
-	shortcut.add("ctrl+" + shortcuts.last_entry, last_category, {
+	shortcut.add("alt+" + shortcuts.last_entry, last_category, {
 		'disable_in_input': true
 	});
 
