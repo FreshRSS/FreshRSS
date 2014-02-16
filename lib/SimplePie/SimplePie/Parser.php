@@ -145,10 +145,6 @@ class SimplePie_Parser
 				$dom->loadXML($data);
 				$this->encoding = $encoding = $dom->encoding = 'UTF-8';
 				$data2 = $dom->saveXML();
-				if (function_exists('mb_convert_encoding'))
-				{
-					$data2 = mb_convert_encoding($data2, 'UTF-8', 'UTF-8');
-				}
 				if (strlen($data2) > (strlen($data) / 2.0))
 				{
 					$data = $data2;
