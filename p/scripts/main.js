@@ -286,10 +286,7 @@ function next_entry() {
 function prev_feed() {
 	var active_feed = $("#aside_flux .feeds li.active");
 	if (active_feed.length > 0) {
-		var prev_feed = active_feed.prev().find('a.feed');
-		if (prev_feed.length > 0) {
-			prev_feed[0].click();
-		}
+		active_feed.prev().find('a.feed').each(function(){this.click();});
 	} else {
 		last_feed();
 	}
@@ -298,10 +295,7 @@ function prev_feed() {
 function next_feed() {
 	var active_feed = $("#aside_flux .feeds li.active");
 	if (active_feed.length > 0) {
-		var next_feed = active_feed.next().find('a.feed');
-		if (next_feed.length > 0) {
-			next_feed[0].click();
-		}
+		active_feed.next().find('a.feed').each(function(){this.click();});
 	} else {
 		first_feed();
 	}
