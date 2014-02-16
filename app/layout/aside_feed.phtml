@@ -46,6 +46,10 @@
 		<a href="<?php echo _url ('configure', 'categorize'); ?>"><?php echo Minz_Translate::t ('categories_management'); ?></a>
 	</li>
 
+	<li class="item firefox-feedreader">
+		<a href="<?php echo Minz_Url::display(array('c' => 'feed', 'a' => 'add', 'params' => array('url_rss' => '%s')), 'html', true)?>"><?php echo Minz_Translate::t ('firefox_feadreader'); ?></a>
+	</li>
+
 	<li class="separator"></li>
 
 	<?php if (!empty ($this->feeds)) { ?>

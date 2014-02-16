@@ -397,6 +397,15 @@ function auto_share(key) {
 	}
 }
 
+function addToFirefox() {
+	$('li.firefox-feedreader > a').on('click', function(e){
+		e.preventDefault();
+		navigator.registerContentHandler('application/vnd.mozilla.maybe.feed'
+			,this.href
+			,'FreshRSS');
+	});
+}
+
 function inMarkViewport(flux, box_to_follow, relative_follow) {
 	var top = flux.position().top;
 	if (relative_follow) {
@@ -996,6 +1005,8 @@ function init_all() {
 		init_shortcuts();
 		init_print_action();
 		window.setInterval(refreshUnreads, 120000);
+	} else {
+		addToFirefox();
 	}
 
 	if (window.console) {
