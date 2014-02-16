@@ -80,7 +80,7 @@ return array (
 	'shortcuts_updated'		=> 'Shortcuts have been updated',
 	'shortcuts_management'		=> 'Shortcuts management',
 	'shortcuts_navigation'		=> 'Navigation',
-	'shortcuts_navigation_help'	=> 'With the "Shift" modifier, navigation shortcuts apply on feeds.<br/>With the "Ctrl" modifier, navigation shortcuts apply on categories.',
+	'shortcuts_navigation_help'	=> 'With the "Shift" modifier, navigation shortcuts apply on feeds.<br/>With the "Alt" modifier, navigation shortcuts apply on categories.',
 	'shortcuts_article_action'	=> 'Article actions',
 	'shortcuts_other_action'	=> 'Other actions',
 	'feeds_marked_read'		=> 'Feeds have been marked as read',

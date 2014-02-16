@@ -80,7 +80,7 @@ return array (
 	'shortcuts_updated'		=> 'Les raccourcis ont été mis à jour',
 	'shortcuts_management'		=> 'Gestion des raccourcis',
 	'shortcuts_navigation'		=> 'Navigation',
-	'shortcuts_navigation_help'	=> 'Avec le modificateur "Shift", les raccourcis de navigation s’appliquent aux flux.<br/>Avec le modificateur "Ctrl", les raccourcis de navigation s’appliquent aux catégories.',
+	'shortcuts_navigation_help'	=> 'Avec le modificateur "Shift", les raccourcis de navigation s’appliquent aux flux.<br/>Avec le modificateur "Alt", les raccourcis de navigation s’appliquent aux catégories.',
 	'shortcuts_article_action'	=> 'Actions associées à l’article courant',
 	'shortcuts_other_action'	=> 'Autres actions',
 	'feeds_marked_read'		=> 'Les flux ont été marqués comme lus',
