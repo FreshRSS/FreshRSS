@@ -598,11 +598,11 @@
 		background: #f4a899;
 	}
 	#notification a.close {
+		position: absolute;
+		top: -10px; right: -10px;
 		display: inline-block;
 		width: 16px;
 		height: 16px;
-		float: right;
-		margin: -20px -20px 0 0;
 		padding: 5px;
 		background: #fff;
 		border-radius: 50px;
@@ -790,10 +790,23 @@ select.number option {
 		text-shadow: none;
 	}
 
-	.notification,
+	#notification,
 	.actualizeProgress {
-		left: 10px;
-		right: 10px;
+		top: 0;
+		left: 0;
+		right: 0;
+		border-radius: 0;
+	}
+	#notification a.close {
+		left: 0; right: 0;
+		top: 0; bottom: 0;
+		width: auto;
+		height: auto;
+		background: transparent;
+		border: none;
+	}
+	#notification a.close .icon {
+		display: none;
 	}
 }
 
