@@ -36,13 +36,18 @@
 </div>
 
 <?php
+	$msg = '';
+	$status = 'closed';
 	if (isset ($this->notification)) {
+		$msg = $this->notification['content'];
+		$status = $this->notification['type'];
+
 		invalidateHttpCache();
+	}
 ?>
-<div class="notification <?php echo $this->notification['type']; ?>">
-	<?php echo $this->notification['content']; ?>
+<div id="notification" class="<?php echo $status; ?>">
+	<span class="msg"><?php echo $msg; ?></span>
 	<a class="close" href=""><?php echo FreshRSS_Themes::icon('close'); ?></a>
 </div>
-<?php } ?>
 	</body>
 </html>

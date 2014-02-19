@@ -3,26 +3,31 @@
 class FreshRSS_feed_Controller extends Minz_ActionController {
 	public function firstAction () {
 		if (!$this->view->loginOk) {
-			$token = $this->view->conf->token;	//TODO: check the token logic again, and if it is still needed
+			// Token is useful in the case that anonymous refresh is forbidden
+			// and CRON task cannot be used with php command so the user can
+			// set a CRON task to refresh his feeds by using token inside url
+			$token = $this->view->conf->token;
 			$token_param = Minz_Request::param ('token', '');
 			$token_is_ok = ($token != '' && $token == $token_param);
 			$action = Minz_Request::actionName ();
-			if (!($token_is_ok && $action === 'actualize')) {
+			if (!(($token_is_ok || Minz_Configuration::allowAnonymousRefresh()) &&
+				$action === 'actualize')
+			) {
 				Minz_Error::error (
 					403,
 					array ('error' => array (Minz_Translate::t ('access_denied')))
 				);
 			}
 		}
-
-		$this->catDAO = new FreshRSS_CategoryDAO ();
-		$this->catDAO->checkDefault ();
 	}
 
 	public function addAction () {
 		@set_time_limit(300);
 
 		if (Minz_Request::isPost ()) {
+			$this->catDAO = new FreshRSS_CategoryDAO ();
+			$this->catDAO->checkDefault ();
+
 			$url = Minz_Request::param ('url_rss');
 			$cat = Minz_Request::param ('category', false);
 			if ($cat === false) {
@@ -189,38 +194,51 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 		$flux_update = 0;
 		$is_read = $this->view->conf->mark_when['reception'] ? 1 : 0;
 		foreach ($feeds as $feed) {
+			if (!$feed->lock()) {
+				Minz_Log::record('Feed already being actualized: ' . $feed->url(), Minz_Log::NOTICE);
+				continue;
+			}
 			try {
 				$url = $feed->url();
+				$feedHistory = $feed->keepHistory();
+
 				$feed->load(false);
 				$entries = array_reverse($feed->entries());	//We want chronological order and SimplePie uses reverse order
+				$hasTransaction = false;
 
-				//For this feed, check last n entry GUIDs already in database
-				$existingGuids = array_fill_keys ($entryDAO->listLastGuidsByFeed ($feed->id (), count($entries) + 10), 1);
-				$useDeclaredDate = empty($existingGuids);
+				if (count($entries) > 0) {
+					//For this feed, check last n entry GUIDs already in database
+					$existingGuids = array_fill_keys ($entryDAO->listLastGuidsByFeed ($feed->id (), count($entries) + 10), 1);
+					$useDeclaredDate = empty($existingGuids);
 
-				$feedHistory = $feed->keepHistory();
-				if ($feedHistory == -2) {	//default
-					$feedHistory = $this->view->conf->keep_history_default;
-				}
+					if ($feedHistory == -2) {	//default
+						$feedHistory = $this->view->conf->keep_history_default;
+					}
 
-				// On ne vérifie pas strictement que l'article n'est pas déjà en BDD
-				// La BDD refusera l'ajout car (id_feed, guid) doit être unique
-				$feedDAO->beginTransaction ();
-				foreach ($entries as $entry) {
-					$eDate = $entry->date (true);
-					if ((!isset ($existingGuids[$entry->guid ()])) &&
-						(($feedHistory != 0) || ($eDate  >= $date_min))) {
-						$values = $entry->toArray ();
-						//Use declared date at first import, otherwise use discovery date
-						$values['id'] = ($useDeclaredDate || $eDate < $date_min) ?
-							min(time(), $eDate) . uSecString() :
-							uTimeString();
-						$values['is_read'] = $is_read;
-						$entryDAO->addEntry ($values);
+					$hasTransaction = true;
+					$feedDAO->beginTransaction();
+
+					// On ne vérifie pas strictement que l'article n'est pas déjà en BDD
+					// La BDD refusera l'ajout car (id_feed, guid) doit être unique
+					foreach ($entries as $entry) {
+						$eDate = $entry->date (true);
+						if ((!isset ($existingGuids[$entry->guid ()])) &&
+							(($feedHistory != 0) || ($eDate  >= $date_min))) {
+							$values = $entry->toArray ();
+							//Use declared date at first import, otherwise use discovery date
+							$values['id'] = ($useDeclaredDate || $eDate < $date_min) ?
+								min(time(), $eDate) . uSecString() :
+								uTimeString();
+							$values['is_read'] = $is_read;
+							$entryDAO->addEntry ($values);
+						}
 					}
 				}
 
 				if (($feedHistory >= 0) && (rand(0, 30) === 1)) {
+					if (!$hasTransaction) {
+						$feedDAO->beginTransaction();
+					}
 					$nb = $feedDAO->cleanOldEntries ($feed->id (), $date_min, max($feedHistory, count($entries) + 10));
 					if ($nb > 0) {
 						Minz_Log::record ($nb . ' old entries cleaned in feed [' . $feed->url() . ']', Minz_Log::DEBUG);
@@ -228,17 +246,22 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 				}
 
 				// on indique que le flux vient d'être mis à jour en BDD
-				$feedDAO->updateLastUpdate ($feed->id ());
-				$feedDAO->commit ();
+				$feedDAO->updateLastUpdate ($feed->id (), 0, $hasTransaction);
+				if ($hasTransaction) {
+					$feedDAO->commit();
+				}
 				$flux_update++;
 				if ($feed->url() !== $url) {	//URL has changed (auto-discovery)
 					$feedDAO->updateFeed($feed->id(), array('url' => $feed->url()));
 				}
-				$feed->faviconPrepare();
 			} catch (FreshRSS_Feed_Exception $e) {
 				Minz_Log::record ($e->getMessage (), Minz_Log::NOTICE);
 				$feedDAO->updateLastUpdate ($feed->id (), 1);
 			}
+
+			$feed->faviconPrepare();
+			$feed->unlock();
+			unset($feed);
 
 			// On arrête à 10 flux pour ne pas surcharger le serveur
 			// sauf si le paramètre $force est à vrai
@@ -251,6 +274,7 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 		$url = array ();
 		if ($flux_update === 1) {
 			// on a mis un seul flux à jour
+			$feed = reset ($feeds);
 			$notif = array (
 				'type' => 'good',
 				'content' => Minz_Translate::t ('feed_actualized', $feed->name ())
@@ -264,8 +288,8 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 		} else {
 			// aucun flux n'a été mis à jour, oups
 			$notif = array (
-				'type' => 'bad',
-				'content' => Minz_Translate::t ('no_feed_actualized')
+				'type' => 'good',
+				'content' => Minz_Translate::t ('no_feed_to_refresh')
 			);
 		}
 
@@ -297,6 +321,9 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 
 	public function massiveImportAction () {
 		@set_time_limit(300);
+
+		$this->catDAO = new FreshRSS_CategoryDAO ();
+		$this->catDAO->checkDefault ();
 
 		$entryDAO = new FreshRSS_EntryDAO ();
 		$feedDAO = new FreshRSS_FeedDAO ();
@@ -416,7 +443,6 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 				$values = array (
 					'id' => $cat->id (),
 					'name' => $cat->name (),
-					'color' => $cat->color ()
 				);
 				$catDAO->addCategory ($values);
 			}

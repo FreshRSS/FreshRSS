@@ -1,34 +1,32 @@
 <div class="prompt">
-<?php
-if (Minz_Configuration::canLogIn()) {
-	?><h1><?php echo Minz_Translate::t('login'); ?></h1><?php
+	<h1><?php echo Minz_Translate::t('login'); ?></h1><?php
+
 	switch (Minz_Configuration::authType()) {
+	case 'form':
+	?><form id="loginForm" method="post" action="<?php echo _url('index', 'formLogin'); ?>">
+		<div>
+			<label for="username"><?php echo Minz_Translate::t('username'); ?></label>
+			<input type="text" id="username" name="username" size="16" required="required" maxlength="16" pattern="[0-9a-zA-Z]{1,16}" autofocus="autofocus" />
+		</div>
+		<div>
+			<label for="passwordPlain"><?php echo Minz_Translate::t('password'); ?></label>
+				<input type="password" id="passwordPlain" required="required" />
+				<input type="hidden" id="challenge" name="challenge" /><br />
+				<noscript><strong><?php echo Minz_Translate::t('javascript_should_be_activated'); ?></strong></noscript>
+		</div>
+		<div>
+			<button id="loginButton" type="submit" class="btn btn-important"><?php echo Minz_Translate::t('login'); ?></button>
+		</div>
+	</form><?php
+		break;
 
-		case 'form':
-		?><form id="loginForm" method="post" action="<?php echo _url('index', 'formLogin'); ?>">
-			<p>
-				<label for="username"><?php echo Minz_Translate::t('username'); ?></label>
-				<input type="text" id="username" name="username" size="16" required="required" maxlength="16" pattern="[0-9a-zA-Z]{1,16}" autofocus="autofocus" />
-			</p><p>
-				<label for="passwordPlain"><?php echo Minz_Translate::t('password'); ?></label>
-					<input type="password" id="passwordPlain" required="required" />
-					<input type="hidden" id="challenge" name="challenge" /><br />
-					<noscript><strong><?php echo Minz_Translate::t('javascript_should_be_activated'); ?></strong></noscript>
-			</p><p>
-				<button id="loginButton" type="submit" class="btn btn-important"><?php echo Minz_Translate::t('login'); ?></button>
-			</p>
-		</form><?php
-			break;
+	case 'persona':
+		?><p>
+			<?php echo FreshRSS_Themes::icon('login'); ?>
+			<a class="signin" href="#"><?php echo Minz_Translate::t('login_with_persona'); ?></a>
+		</p><?php
+		break;
+	} ?>
 
-		case 'persona':
-			?><p><?php echo FreshRSS_Themes::icon('login'); ?> <a class="signin" href="#"><?php echo Minz_Translate::t('login'); ?></a></p><?php
-			break;
-	}
-} else {
-	?><h1>FreshRSS</h1>
-	<p><?php echo Minz_Translate::t('forbidden_access', Minz_Configuration::authType()); ?></p><?php
-}
-?>
-
-<p><a href="<?php echo _url('index', 'about'); ?>"><?php echo Minz_Translate::t('about_freshrss'); ?></a></p>
+	<p><a href="<?php echo _url('index', 'about'); ?>"><?php echo Minz_Translate::t('about_freshrss'); ?></a></p>
 </div>

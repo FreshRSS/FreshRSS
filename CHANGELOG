@@ -1,5 +1,11 @@
 # Journal des modifications
 
+## 2014-0x-xx FreshRSS 0.8
+
+* Mise à jour des flux plus rapide grâce à une meilleure utilisation du cache
+	* Utilisation d’une signature MD5 du contenu intéressant pour les flux n’implémentant pas les requêtes conditionnelles
+
+
 ## 2014-01-29 FreshRSS 0.7
 
 * Nouveau mode multi-utilisateur

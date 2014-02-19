@@ -3,6 +3,7 @@
 return array (
 	// LAYOUT
 	'login'				=> 'Login',
+	'login_with_persona'		=> 'Login with Persona',
 	'logout'			=> 'Logout',
 	'search'			=> 'Search words or #tags',
 	'search_short'			=> 'Search',
@@ -78,6 +79,10 @@ return array (
 	'bad_opml_file'			=> 'Your OPML file is invalid',
 	'shortcuts_updated'		=> 'Shortcuts have been updated',
 	'shortcuts_management'		=> 'Shortcuts management',
+	'shortcuts_navigation'		=> 'Navigation',
+	'shortcuts_navigation_help'	=> 'With the "Shift" modifier, navigation shortcuts apply on feeds.<br/>With the "Alt" modifier, navigation shortcuts apply on categories.',
+	'shortcuts_article_action'	=> 'Article actions',
+	'shortcuts_other_action'	=> 'Other actions',
 	'feeds_marked_read'		=> 'Feeds have been marked as read',
 	'updated'			=> 'Modifications have been updated',
 
@@ -121,15 +126,16 @@ return array (
 	'javascript_for_shortcuts'	=> 'JavaScript must be enabled in order to use shortcuts',
 	'javascript_should_be_activated'=> 'JavaScript must be enabled',
 	'shift_for_all_read'		=> '+ <code>shift</code> to mark all articles as read',
-	'see_on_website'		=> 'See article on its original website',
+	'see_on_website'		=> 'See on original website',
 	'next_article'			=> 'Skip to the next article',
-	'shift_for_last'		=> '+ <code>shift</code> to skip to the last article of page',
+	'last_article'			=> 'Skip to the last article',
 	'previous_article'		=> 'Skip to the previous article',
-	'shift_for_first'		=> '+ <code>shift</code> to skip to the first article of page',
+	'first_article'			=> 'Skip to the first article',
 	'next_page'			=> 'Skip to the next page',
 	'previous_page'			=> 'Skip to the previous page',
-	'collapse_article'		=> 'Collapse current article',
-	'auto_share'			=> 'Share current article',
+	'collapse_article'		=> 'Collapse',
+	'auto_share'			=> 'Share',
+	'auto_share_help'		=> 'If there is only one sharing mode, it is used. Else modes are accessible by their number.',
 
 	'file_to_import'		=> 'File to import',
 	'import'			=> 'Import',
@@ -137,7 +143,9 @@ return array (
 	'or'				=> 'or',
 
 	'informations'			=> 'Information',
+	'damn'				=> 'Damn!',
 	'feed_in_error'			=> 'This feed has encountered a problem. Please verify that it is always reachable then actualize it.',
+	'feed_empty'			=> 'This feed is empty. Please verify that it is still maintained.',
 	'feed_description'		=> 'Description',
 	'website_url'			=> 'Website URL',
 	'feed_url'			=> 'Feed URL',
@@ -168,6 +176,7 @@ return array (
 	'password_form'			=> 'Password<br /><small>(for the Web-form login method)</small>',
 	'persona_connection_email'	=> 'Login mail address<br /><small>(for <a href="https://persona.org/" rel="external">Mozilla Persona</a>)</small>',
 	'allow_anonymous'		=> 'Allow anonymous reading of the articles of the default user (%s)',
+	'allow_anonymous_refresh'	=> 'Allow anonymous refresh of the articles',
 	'auth_token'			=> 'Authentication token',
 	'explain_token'			=> 'Allows to access RSS output of the default user without authentication.<br /><kbd>%s?output=rss&token=%s</kbd>',
 	'login_configuration'		=> 'Login',
@@ -241,6 +250,7 @@ return array (
 	'rss_feeds_of'			=> 'RSS feed of %s',
 
 	'refresh'			=> 'Refresh',
+	'no_feed_to_refresh'		=> 'There is no feed to refresh…',
 
 	'today'				=> 'Today',
 	'yesterday'			=> 'Yesterday',
@@ -267,7 +277,7 @@ return array (
 	'logs_empty'			=> 'Log file is empty',
 	'clear_logs'			=> 'Clear the logs',
 
-	'forbidden_access'		=> 'Access forbidden! (%s)',
+	'forbidden_access'		=> 'Access is forbidden!',
 	'login_required'		=> 'Login required:',
 
 	'confirm_action'		=> 'Are you sure you want to perform this action? It cannot be cancelled!',

@@ -5,26 +5,21 @@ $output = Minz_Request::param ('output', 'normal');
 if ($this->loginOk || Minz_Configuration::allowAnonymous()) {
 	if ($output === 'normal') {
 		$this->renderHelper ('view/normal_view');
-	} elseif ($output === 'rss') {
-		$this->renderHelper ('view/rss_view');
 	} elseif ($output === 'reader') {
 		$this->renderHelper ('view/reader_view');
 	} elseif ($output === 'global') {
 		$this->renderHelper ('view/global_view');
+	} elseif ($output === 'rss') {
+		$this->renderHelper ('view/rss_view');
 	} else {
 		Minz_Request::_param ('output', 'normal');
 		$output = 'normal';
 		$this->renderHelper ('view/normal_view');
 	}
 } elseif ($output === 'rss') {
-	$token = $this->conf->token;
-	$token_param = Minz_Request::param ('token', '');
-	$token_is_ok = ($token != '' && $token == $token_param);
-	if ($token_is_ok) {
-		$this->renderHelper ('view/rss_view');
-	} else {
-		Minz_Request::forward(array('c' => 'index', 'a' => 'formLogin'), true);
-	}
+	// token has already been checked in the controller so we can show the view
+	$this->renderHelper ('view/rss_view');
 } else {
-	Minz_Request::forward(array('c' => 'index', 'a' => 'formLogin'), true);
+	// Normally, it should not happen, but log it anyway
+	Minz_Log::record ('Something is wrong in ' . __FILE__ . ' line ' . __LINE__, Minz_Log::ERROR);
 }

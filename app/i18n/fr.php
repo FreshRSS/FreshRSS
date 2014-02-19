@@ -3,6 +3,7 @@
 return array (
 	// LAYOUT
 	'login'				=> 'Connexion',
+	'login_with_persona'		=> 'Connexion avec Persona',
 	'logout'			=> 'Déconnexion',
 	'search'			=> 'Rechercher des mots ou des #tags',
 	'search_short'			=> 'Rechercher',
@@ -78,6 +79,10 @@ return array (
 	'bad_opml_file'			=> 'Votre fichier OPML n’est pas valide',
 	'shortcuts_updated'		=> 'Les raccourcis ont été mis à jour',
 	'shortcuts_management'		=> 'Gestion des raccourcis',
+	'shortcuts_navigation'		=> 'Navigation',
+	'shortcuts_navigation_help'	=> 'Avec le modificateur "Shift", les raccourcis de navigation s’appliquent aux flux.<br/>Avec le modificateur "Alt", les raccourcis de navigation s’appliquent aux catégories.',
+	'shortcuts_article_action'	=> 'Actions associées à l’article courant',
+	'shortcuts_other_action'	=> 'Autres actions',
 	'feeds_marked_read'		=> 'Les flux ont été marqués comme lus',
 	'updated'			=> 'Modifications enregistrées',
 
@@ -121,15 +126,16 @@ return array (
 	'javascript_for_shortcuts'	=> 'Le JavaScript doit être activé pour pouvoir profiter des raccourcis',
 	'javascript_should_be_activated'=> 'Le JavaScript doit être activé',
 	'shift_for_all_read'		=> '+ <code>shift</code> pour marquer tous les articles comme lus',
-	'see_on_website'		=> 'Voir l’article sur le site d’origine',
+	'see_on_website'		=> 'Voir sur le site d’origine',
 	'next_article'			=> 'Passer à l’article suivant',
-	'shift_for_last'		=> '+ <code>shift</code> pour passer au dernier article de la page',
+	'last_article'			=> 'Passer au dernier article',
 	'previous_article'		=> 'Passer à l’article précédent',
-	'shift_for_first'		=> '+ <code>shift</code> pour passer au premier article de la page',
+	'first_article'			=> 'Passer au premier article',
 	'next_page'			=> 'Passer à la page suivante',
 	'previous_page'			=> 'Passer à la page précédente',
-	'collapse_article'		=> 'Refermer l’article courant',
-	'auto_share'			=> 'Partager l’article courant',
+	'collapse_article'		=> 'Refermer',
+	'auto_share'			=> 'Partager',
+	'auto_share_help'		=> 'Si il n’y a qu’un mode de partage, celui ci est utilisé automatiquement. Sinon ils sont accessibles par leur numéro.',
 
 	'file_to_import'		=> 'Fichier à importer',
 	'import'			=> 'Importer',
@@ -137,7 +143,9 @@ return array (
 	'or'				=> 'ou',
 
 	'informations'			=> 'Informations',
+	'damn'				=> 'Arf !',
 	'feed_in_error'			=> 'Ce flux a rencontré un problème. Veuillez vérifier qu’il est toujours accessible puis actualisez-le.',
+	'feed_empty'			=> 'Ce flux est vide. Veuillez vérifier qu’il est toujours maintenu.',
 	'feed_description'		=> 'Description',
 	'website_url'			=> 'URL du site',
 	'feed_url'			=> 'URL du flux',
@@ -168,6 +176,7 @@ return array (
 	'default_user'			=> 'Nom de l’utilisateur par défaut <small>(16 caractères alphanumériques maximum)</small>',
 	'persona_connection_email'	=> 'Adresse courriel de connexion<br /><small>(pour <a href="https://persona.org/" rel="external">Mozilla Persona</a>)</small>',
 	'allow_anonymous'		=> 'Autoriser la lecture anonyme des articles de l’utilisateur par défaut (%s)',
+	'allow_anonymous_refresh'	=> 'Autoriser le rafraîchissement anonyme des flux',
 	'auth_token'			=> 'Jeton d’identification',
 	'explain_token'			=> 'Permet d’accéder à la sortie RSS de l’utilisateur par défaut sans besoin de s’authentifier.<br /><kbd>%s?output=rss&token=%s</kbd>',
 	'login_configuration'		=> 'Identification',
@@ -241,6 +250,7 @@ return array (
 	'rss_feeds_of'			=> 'Flux RSS de %s',
 
 	'refresh'			=> 'Actualisation',
+	'no_feed_to_refresh'		=> 'Il n’y a aucun flux à actualiser…',
 
 	'today'				=> 'Aujourd’hui',
 	'yesterday'			=> 'Hier',
@@ -267,7 +277,7 @@ return array (
 	'logs_empty'			=> 'Les logs sont vides',
 	'clear_logs'			=> 'Effacer les logs',
 
-	'forbidden_access'		=> 'Accès interdit ! (%s)',
+	'forbidden_access'		=> 'L’accès vous est interdit !',
 	'login_required'		=> 'Accès protégé par mot de passe :',
 
 	'confirm_action'		=> 'Êtes-vous sûr(e) de vouloir continuer ? Cette action ne peut être annulée !',

@@ -147,49 +147,49 @@ if (!empty($this->entries)) {
 						<ul class="dropdown-menu">
 							<li class="dropdown-close"><a href="#close">❌</a></li>
 							<?php if ($shaarli) { ?>
-							<li class="item">
+							<li class="item share">
 								<a target="_blank" href="<?php echo $shaarli . '?post=' . $link . '&amp;title=' . $title . '&amp;source=FreshRSS'; ?>">
 									<?php echo Minz_Translate::t ('shaarli'); ?>
 								</a>
 							</li>
 							<?php } if ($wallabag) { ?>
-							<li class="item">
+							<li class="item share">
 								<a target="_blank" href="<?php echo $wallabag . '?action=add&amp;url=' . base64_encode (urldecode($link)); ?>">
 									<?php echo Minz_Translate::t ('wallabag'); ?>
 								</a>
 							</li>
 							<?php } if ($diaspora) { ?>
-							<li class="item">
+							<li class="item share">
 								<a target="_blank" href="<?php echo $diaspora . '/bookmarklet?url=' . $link . '&amp;title=' . $title; ?>">
 									<?php echo Minz_Translate::t ('diaspora'); ?>
 								</a>
 							</li>
 							<?php } if ($twitter) { ?>
-							<li class="item">
+							<li class="item share">
 								<a target="_blank" href="https://twitter.com/share?url=<?php echo $link; ?>&amp;text=<?php echo $title; ?>">
 									<?php echo Minz_Translate::t ('twitter'); ?>
 								</a>
 							</li>
 							<?php } if ($google_plus) { ?>
-							<li class="item">
+							<li class="item share">
 								<a target="_blank" href="https://plus.google.com/share?url=<?php echo $link; ?>">
 									<?php echo Minz_Translate::t ('g+'); ?>
 								</a>
 							</li>
 							<?php } if ($facebook) { ?>
-							<li class="item">
+							<li class="item share">
 								<a target="_blank" href="https://www.facebook.com/sharer.php?u=<?php echo $link; ?>&amp;t=<?php echo $title; ?>">
 									<?php echo Minz_Translate::t ('facebook'); ?>
 								</a>
 							</li>
 							<?php } if ($email) { ?>
-							<li class="item">
+							<li class="item share">
 								<a href="mailto:?subject=<?php echo urldecode($title); ?>&amp;body=<?php echo $link; ?>">
 									<?php echo Minz_Translate::t ('by_email'); ?>
 								</a>
 							</li>
 							<?php } if ($print) { ?>
-							<li class="item">
+							<li class="item share">
 								<a href="#" class="print-article">
 									<?php echo Minz_Translate::t ('print'); ?>
 								</a>

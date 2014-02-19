@@ -44,8 +44,8 @@ UPDATE `%1$sfeed006` f
 INNER JOIN `%1$scategory006` c ON f.category = c.id
 SET f.category2 = c.id2;
 
-INSERT IGNORE INTO `%2$scategory` (name, color)
-SELECT name, color
+INSERT IGNORE INTO `%2$scategory` (name)
+SELECT name
 FROM `%1$scategory006`
 ORDER BY id2;
 
@@ -548,8 +548,9 @@ function checkStep0 () {
 		'all' => $language ? 'ok' : 'ko'
 	);
 }
+
 function checkStep1 () {
-	$php = version_compare (PHP_VERSION, '5.2.0') >= 0;
+	$php = version_compare (PHP_VERSION, '5.2.1') >= 0;
 	$minz = file_exists (LIB_PATH . '/Minz');
 	$curl = extension_loaded ('curl');
 	$pdo = extension_loaded ('pdo_mysql');
@@ -721,7 +722,7 @@ function printStep1 () {
 	<?php if ($res['php'] == 'ok') { ?>
 	<p class="alert alert-success"><span class="alert-head"><?php echo _t ('ok'); ?></span> <?php echo _t ('php_is_ok', PHP_VERSION); ?></p>
 	<?php } else { ?>
-	<p class="alert alert-error"><span class="alert-head"><?php echo _t ('damn'); ?></span> <?php echo _t ('php_is_nok', PHP_VERSION, '5.1.0'); ?></p>
+	<p class="alert alert-error"><span class="alert-head"><?php echo _t ('damn'); ?></span> <?php echo _t ('php_is_nok', PHP_VERSION, '5.2.1'); ?></p>
 	<?php } ?>
 
 	<?php if ($res['minz'] == 'ok') { ?>
@@ -954,7 +955,7 @@ function printStep4 () {
 		<legend><?php echo _t ('version_update'); ?></legend>
 
 		<?php if (updateDatabase(false)) { ?>
-		<p class="alert"><?php echo _t ('update_long'); ?></p>
+		<p class="alert alert-warn"><?php echo _t ('update_long'); ?></p>
 
 		<div class="form-group form-actions">
 			<div class="group-controls">
@@ -964,7 +965,7 @@ function printStep4 () {
 		</div>
 
 		<?php } else { ?>
-		<p class="alert"><?php echo _t ('update_end'); ?></p>
+		<p class="alert alert-warn"><?php echo _t ('update_end'); ?></p>
 
 		<div class="form-group form-actions">
 			<div class="group-controls">

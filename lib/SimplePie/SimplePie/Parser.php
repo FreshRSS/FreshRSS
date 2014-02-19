@@ -33,7 +33,7 @@
  * POSSIBILITY OF SUCH DAMAGE.
  *
  * @package SimplePie
- * @version 1.3.1
+ * @version 1.4-dev
  * @copyright 2004-2012 Ryan Parman, Geoffrey Sneddon, Ryan McCue
  * @author Ryan Parman
  * @author Geoffrey Sneddon
@@ -145,10 +145,15 @@ class SimplePie_Parser
 				$dom->loadXML($data);
 				$this->encoding = $encoding = $dom->encoding = 'UTF-8';
 				$data2 = $dom->saveXML();
+				if (function_exists('mb_convert_encoding'))
+				{
+					$data2 = mb_convert_encoding($data2, 'UTF-8', 'UTF-8');
+				}
 				if (strlen($data2) > (strlen($data) / 2.0))
 				{
 					$data = $data2;
 				}
+				unset($data2);
 			}
 			catch (Exception $e)
 			{

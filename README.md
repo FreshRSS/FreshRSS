@@ -8,8 +8,8 @@ Il permet de gérer plusieurs utilisateurs, et dispose d’un mode de lecture an
 * Site officiel : http://freshrss.org
 * Démo : http://demo.freshrss.org/
 * Développeur : Marien Fressinaud <dev@marienfressinaud.fr>
-* Version actuelle : 0.7
-* Date de publication 2014-01-29
+* Version actuelle : 0.8-dev
+* Date de publication 2014-0x-xx
 * License [GNU AGPL 3](http://www.gnu.org/licenses/agpl-3.0.html)
 
 ![Logo de FreshRSS](http://marienfressinaud.fr/data/images/freshrss/freshrss_title.png)
@@ -25,7 +25,7 @@ Privilégiez pour cela des demandes sur GitHub
 * Serveur modeste, par exemple sous Linux ou Windows
 	* Fonctionne même sur un Raspberry Pi avec des temps de réponse < 1s (testé sur 150 flux, 22k articles, soit 32Mo de données partiellement compressées)
 * Serveur Web Apache2 ou Nginx (non testé sur les autres)
-* PHP 5.2+ (PHP 5.3.7+ recommandé)
+* PHP 5.2.1+ (PHP 5.3.7+ recommandé)
 	* Requis : [PDO_MySQL](http://php.net/pdo-mysql), [cURL](http://php.net/curl), [LibXML](http://php.net/xml), [PCRE](http://php.net/pcre), [ctype](http://php.net/ctype)
 	* Recommandés : [JSON](http://php.net/json), [zlib](http://php.net/zlib), [mbstring](http://php.net/mbstring), [iconv](http://php.net/iconv)
 * MySQL 5.0.3+ (ou SQLite 3.7.4+ à venir)
@@ -80,6 +80,7 @@ mysqldump -u utilisateur -p --databases freshrss > freshrss.sql
 * [php-http-304](http://alexandre.alapetite.fr/doc-alex/php-http-304/)
 * [jQuery](http://jquery.com/)
 * [keyboard_shortcuts](http://www.openjs.com/scripts/events/keyboard_shortcuts/)
+* [flotr2](http://www.humblesoftware.com/flotr2)
 
 ## Uniquement pour certaines options
 * [bcrypt.js](https://github.com/dcodeIO/bcrypt.js)

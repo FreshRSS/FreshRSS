@@ -61,8 +61,7 @@ function opml_import ($xml) {
 				if ($cat === false) {
 					$cat = new FreshRSS_Category ($title);
 					$values = array (
-						'name' => $cat->name (),
-						'color' => $cat->color ()
+						'name' => $cat->name ()
 					);
 					$cat->_id ($catDAO->addCategory ($values));
 				}

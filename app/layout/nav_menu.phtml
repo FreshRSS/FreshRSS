@@ -6,9 +6,11 @@
 	<a class="btn toggle_aside" href="#aside_flux"><?php echo FreshRSS_Themes::icon('category'); ?></a>
 	<?php } ?>
 
-	<?php if ($this->loginOk) { ?>
+	<?php if ($this->loginOk || Minz_Configuration::allowAnonymousRefresh()) { ?>
 	<a id="actualize" class="btn" href="<?php echo _url ('feed', 'actualize'); ?>"><?php echo FreshRSS_Themes::icon('refresh'); ?></a>
+	<?php } ?>
 
+	<?php if ($this->loginOk) { ?>
 	<?php
 		$get = false;
 		$string_mark = Minz_Translate::t ('mark_all_read');

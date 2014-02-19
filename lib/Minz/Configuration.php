@@ -52,6 +52,7 @@ class Minz_Configuration {
 	private static $delay_cache = 3600;
 	private static $default_user = '';
 	private static $allow_anonymous = false;
+	private static $allow_anonymous_refresh = false;
 	private static $auth_type = 'none';
 
 	private static $db = array (
@@ -118,6 +119,9 @@ class Minz_Configuration {
 	public static function allowAnonymous() {
 		return self::$allow_anonymous;
 	}
+	public static function allowAnonymousRefresh() {
+		return self::$allow_anonymous_refresh;
+	}
 	public static function authType() {
 		return self::$auth_type;
 	}
@@ -130,6 +134,9 @@ class Minz_Configuration {
 
 	public static function _allowAnonymous($allow = false) {
 		self::$allow_anonymous = ((bool)$allow) && self::canLogIn();
+	}
+	public static function _allowAnonymousRefresh($allow = false) {
+		self::$allow_anonymous_refresh = ((bool)$allow) && self::allowAnonymous();
 	}
 	public static function _authType($value) {
 		$value = strtolower($value);
@@ -170,6 +177,7 @@ class Minz_Configuration {
 				'title' => self::$title,
 				'default_user' => self::$default_user,
 				'allow_anonymous' => self::$allow_anonymous,
+				'allow_anonymous_refresh' => self::$allow_anonymous_refresh,
 				'auth_type' => self::$auth_type,
 			),
 			'db' => self::$db,
@@ -276,7 +284,16 @@ class Minz_Configuration {
 			self::_authType($general['auth_type']);
 		}
 		if (isset ($general['allow_anonymous'])) {
-			self::$allow_anonymous = ((bool)($general['allow_anonymous'])) && ($general['allow_anonymous'] !== 'no');
+			self::$allow_anonymous = (
+				((bool)($general['allow_anonymous'])) &&
+				($general['allow_anonymous'] !== 'no')
+			);
+		}
+		if (isset ($general['allow_anonymous_refresh'])) {
+			self::$allow_anonymous_refresh = (
+				((bool)($general['allow_anonymous_refresh'])) &&
+				($general['allow_anonymous_refresh'] !== 'no')
+			);
 		}
 
 		// Base de données

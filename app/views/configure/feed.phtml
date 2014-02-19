@@ -7,8 +7,12 @@
 	<h1><?php echo $this->flux->name (); ?></h1>
 	<?php echo $this->flux->description (); ?>
 
+	<?php $nbEntries = $this->flux->nbEntries (); ?>
+
 	<?php if ($this->flux->inError ()) { ?>
 	<p class="alert alert-error"><span class="alert-head"><?php echo Minz_Translate::t ('damn'); ?></span> <?php echo Minz_Translate::t ('feed_in_error'); ?></p>
+	<?php } elseif ($nbEntries === 0) { ?>
+	<p class="alert alert-warn"><?php echo Minz_Translate::t ('feed_empty'); ?></p>
 	<?php } ?>
 
 	<form method="post" action="<?php echo _url ('configure', 'feed', 'id', $this->flux->id ()); ?>" autocomplete="off">
@@ -81,7 +85,7 @@
 		<div class="form-group">
 			<label class="group-name"><?php echo Minz_Translate::t ('number_articles'); ?></label>
 			<div class="group-controls">
-				<span class="control"><?php echo $this->flux->nbEntries (); ?></span>
+				<span class="control"><?php echo $nbEntries; ?></span>
 			</div>
 		</div>
 		<div class="form-group">

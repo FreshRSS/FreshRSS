@@ -52,20 +52,26 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo {
 		}
 	}
 
-	public function updateLastUpdate ($id, $inError = 0) {
-		$sql = 'UPDATE `' . $this->prefix . 'feed` f '	//2 sub-requests with FOREIGN KEY(e.id_feed), INDEX(e.is_read) faster than 1 request with GROUP BY or CASE
-		     . 'SET f.cache_nbEntries=(SELECT COUNT(e1.id) FROM `' . $this->prefix . 'entry` e1 WHERE e1.id_feed=f.id),'
-		     . 'f.cache_nbUnreads=(SELECT COUNT(e2.id) FROM `' . $this->prefix . 'entry` e2 WHERE e2.id_feed=f.id AND e2.is_read=0),'
-		     . 'lastUpdate=?, error=? '
-		     . 'WHERE f.id=?';
-
-		$stm = $this->bd->prepare ($sql);
+	public function updateLastUpdate ($id, $inError = 0, $updateCache = true) {
+		if ($updateCache) {
+			$sql = 'UPDATE `' . $this->prefix . 'feed` f '	//2 sub-requests with FOREIGN KEY(e.id_feed), INDEX(e.is_read) faster than 1 request with GROUP BY or CASE
+			     . 'SET f.cache_nbEntries=(SELECT COUNT(e1.id) FROM `' . $this->prefix . 'entry` e1 WHERE e1.id_feed=f.id),'
+			     . 'f.cache_nbUnreads=(SELECT COUNT(e2.id) FROM `' . $this->prefix . 'entry` e2 WHERE e2.id_feed=f.id AND e2.is_read=0),'
+			     . 'lastUpdate=?, error=? '
+			     . 'WHERE f.id=?';
+		} else {
+			$sql = 'UPDATE `' . $this->prefix . 'feed` f '
+			     . 'SET lastUpdate=?, error=? '
+			     . 'WHERE f.id=?';
+		}
 
 		$values = array (
-			time (),
+			time(),
 			$inError,
 			$id,
 		);
+
+		$stm = $this->bd->prepare ($sql);
 
 		if ($stm && $stm->execute ($values)) {
 			return $stm->rowCount();
@@ -192,8 +198,11 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo {
 		return self::daoToFeed ($stm->fetchAll (PDO::FETCH_ASSOC));
 	}
 
-	public function listFeedsOrderUpdate () {
-		$sql = 'SELECT id, name, url, pathEntries, httpAuth, keep_history FROM `' . $this->prefix . 'feed` ORDER BY lastUpdate';
+	public function listFeedsOrderUpdate ($cacheDuration = 1500) {
+		$sql = 'SELECT id, name, url, lastUpdate, pathEntries, httpAuth, keep_history '
+		     . 'FROM `' . $this->prefix . 'feed` '
+		     . 'WHERE lastUpdate < ' . (time() - intval($cacheDuration))
+		     . ' ORDER BY lastUpdate';
 		$stm = $this->bd->prepare ($sql);
 		$stm->execute ();
 

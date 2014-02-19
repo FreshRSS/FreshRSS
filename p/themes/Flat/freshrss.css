@@ -350,13 +350,15 @@ body {
 			font-size: 120%;
 		}
 			#stream.global .btn:not([data-unread="0"]) {
-				font-weight:bold;
+				background: #3498db;
+				color: #fff;
+				font-weight: bold;
 			}
 			#stream.global .btn:first-child:not([data-unread="0"]):after {
 				top: 0; right: 5px;
 				border: 0;
 				background: none;
-				color: #333;
+				color: #fff;
 				font-weight: bold;
 				box-shadow: none;
 			}
@@ -561,7 +563,7 @@ body {
 	}
 
 /*** NOTIFICATION ***/
-.notification {
+#notification {
 	position: absolute;
 	top: 10px;
 	left: 25%; right: 25%;
@@ -575,28 +577,31 @@ body {
 	font-weight: bold;
 	z-index: 10;
 }
-	.notification.good {
+	#notification.closed {
+		display: none;
+	}
+	#notification.good {
 		background: #1abc9c;
 		color: #fff;
 	}
-	.notification.bad {
+	#notification.bad {
 		background: #e74c3c;
 		color: #fff;
 	}
-	.notification a.close {
+	#notification a.close {
+		position: absolute;
+		top: -6px; right: -6px;
 		display: inline-block;
 		width: 16px;
 		height: 16px;
-		float: right;
-		margin: -16px -16px 0 0;
 		padding: 5px;
 		border-radius: 3px;
 		line-height: 16px;
 	}
-		.notification.good a.close {
+		#notification.good a.close {
 			background: #1abc9c;
 		}
-		.notification.bad a.close {
+		#notification.bad a.close {
 			background: #e74c3c;
 		}
 
@@ -785,10 +790,25 @@ select.number option {
 		text-shadow: none;
 	}
 
-	.notification,
+	#notification,
 	.actualizeProgress {
-		left: 10px;
-		right: 10px;
+		top: 0;
+		left: 0;
+		right: 0;
+		border-radius: 0;
+	}
+	#notification a.close,
+	#notification.good a.close,
+	#notification.bad a.close {
+		left: 0; right: 0;
+		top: 0; bottom: 0;
+		width: auto;
+		height: auto;
+		background: transparent;
+		border: none;
+	}
+	#notification a.close .icon {
+		display: none;
 	}
 }
 

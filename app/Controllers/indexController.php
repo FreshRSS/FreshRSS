@@ -5,18 +5,24 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 
 	public function indexAction () {
 		$output = Minz_Request::param ('output');
-		$token = '';
+		$token = $this->view->conf->token;
 
 		// check if user is logged in
-		if (!$this->view->loginOk && !Minz_Configuration::allowAnonymous())
-		{
-			$token = $this->view->conf->token;
+		if (!$this->view->loginOk && !Minz_Configuration::allowAnonymous()) {
 			$token_param = Minz_Request::param ('token', '');
 			$token_is_ok = ($token != '' && $token === $token_param);
-			if (!($output === 'rss' && $token_is_ok)) {
+			if ($output === 'rss' && !$token_is_ok) {
+				Minz_Error::error (
+					403,
+					array ('error' => array (Minz_Translate::t ('access_denied')))
+				);
+				return;
+			} elseif ($output !== 'rss') {
+				// "hard" redirection is not required, just ask dispatcher to
+				// forward to the login form without 302 redirection
+				Minz_Request::forward(array('c' => 'index', 'a' => 'formLogin'));
 				return;
 			}
-			$params['token'] = $token;
 		}
 
 		// construction of RSS url of this feed
@@ -24,6 +30,9 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 		$params['output'] = 'rss';
 		if (isset ($params['search'])) {
 			$params['search'] = urlencode ($params['search']);
+		}
+		if (!Minz_Configuration::allowAnonymous()) {
+			$params['token'] = $token;
 		}
 		$this->view->rss_url = array (
 			'c' => 'index',
@@ -342,6 +351,11 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 			}
 			$this->view->_useLayout(false);
 			Minz_Request::forward(array('c' => 'index', 'a' => 'index'), true);
+		} elseif (!Minz_Configuration::canLogIn()) {
+			Minz_Error::error (
+				403,
+				array ('error' => array (Minz_Translate::t ('access_denied')))
+			);
 		}
 		invalidateHttpCache();
 	}

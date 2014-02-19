@@ -20,7 +20,7 @@
 		<div class="form-group">
 			<label class="group-name" for="passwordPlain"><?php echo Minz_Translate::t('password_form'); ?></label>
 			<div class="group-controls">
-				<input type="password" id="passwordPlain" name="passwordPlain" pattern=".{7,}" />
+				<input type="password" id="passwordPlain" name="passwordPlain" autocomplete="off" pattern=".{7,}" />
 				<noscript><b><?php echo Minz_Translate::t('javascript_should_be_activated'); ?></b></noscript>
 			</div>
 		</div>
@@ -29,7 +29,7 @@
 			<label class="group-name" for="mail_login"><?php echo Minz_Translate::t('persona_connection_email'); ?></label>
 			<?php $mail = $this->conf->mail_login; ?>
 			<div class="group-controls">
-				<input type="email" id="mail_login" name="mail_login" class="extend" value="<?php echo $mail; ?>" <?php echo Minz_Configuration::isAdmin(Minz_Session::param('currentUser', '_')) ? '' : 'disabled="disabled"'; ?> placeholder="alice@example.net" />
+				<input type="email" id="mail_login" name="mail_login" class="extend" autocomplete="off" value="<?php echo $mail; ?>" <?php echo Minz_Configuration::isAdmin(Minz_Session::param('currentUser', '_')) ? '' : 'disabled="disabled"'; ?> placeholder="alice@example.net" />
 				<noscript><b><?php echo Minz_Translate::t('javascript_should_be_activated'); ?></b></noscript>
 			</div>
 		</div>
@@ -66,6 +66,16 @@
 					<input type="checkbox" name="anon_access" id="anon_access" value="1"<?php echo Minz_Configuration::allowAnonymous() ? ' checked="checked"' : '',
 						Minz_Configuration::canLogIn() ? '' : ' disabled="disabled"'; ?> />
 					<?php echo Minz_Translate::t('allow_anonymous', Minz_Configuration::defaultUser()); ?>
+				</label>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<div class="group-controls">
+				<label class="checkbox" for="anon_refresh">
+					<input type="checkbox" name="anon_refresh" id="anon_refresh" value="1"<?php echo Minz_Configuration::allowAnonymousRefresh() ? ' checked="checked"' : '',
+						Minz_Configuration::canLogIn() ? '' : ' disabled="disabled"'; ?> />
+					<?php echo Minz_Translate::t('allow_anonymous_refresh'); ?>
 				</label>
 			</div>
 		</div>
@@ -129,14 +139,14 @@
 		<div class="form-group">
 			<label class="group-name" for="new_user_name"><?php echo Minz_Translate::t('username'); ?></label>
 			<div class="group-controls">
-				<input id="new_user_name" name="new_user_name" type="text" size="16" required="required" maxlength="16" pattern="[0-9a-zA-Z]{1,16}" placeholder="demo" />
+				<input id="new_user_name" name="new_user_name" type="text" size="16" required="required" maxlength="16" autocomplete="off" pattern="[0-9a-zA-Z]{1,16}" placeholder="demo" />
 			</div>
 		</div>
 
 		<div class="form-group">
 			<label class="group-name" for="new_user_passwordPlain"><?php echo Minz_Translate::t('password_form'); ?></label>
 			<div class="group-controls">
-				<input type="password" id="new_user_passwordPlain" name="new_user_passwordPlain" pattern=".{7,}" />
+				<input type="password" id="new_user_passwordPlain" name="new_user_passwordPlain" autocomplete="off" pattern=".{7,}" />
 				<noscript><b><?php echo Minz_Translate::t('javascript_should_be_activated'); ?></b></noscript>
 			</div>
 		</div>
@@ -145,7 +155,7 @@
 			<label class="group-name" for="new_user_email"><?php echo Minz_Translate::t('persona_connection_email'); ?></label>
 			<?php $mail = $this->conf->mail_login; ?>
 			<div class="group-controls">
-				<input type="email" id="new_user_email" name="new_user_email" class="extend" placeholder="alice@example.net" />
+				<input type="email" id="new_user_email" name="new_user_email" class="extend" autocomplete="off" placeholder="alice@example.net" />
 			</div>
 		</div>
 

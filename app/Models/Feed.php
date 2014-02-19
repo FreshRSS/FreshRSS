@@ -193,10 +193,10 @@ class FreshRSS_Feed extends Minz_Model {
 				}
 				$feed = customSimplePie();
 				$feed->set_feed_url ($url);
-				$feed->init ();
+				$mtime = $feed->init();
 
-				if ($feed->error ()) {
-					throw new FreshRSS_Feed_Exception ($feed->error . ' [' . $url . ']');
+				if ((!$mtime) || $feed->error()) {
+					throw new FreshRSS_Feed_Exception ($feed->error() . ' [' . $url . ']');
 				}
 
 				// si on a utilisé l'auto-discover, notre url va avoir changé
@@ -217,11 +217,20 @@ class FreshRSS_Feed extends Minz_Model {
 					$this->_description(html_only_entity_decode($feed->get_description()));
 				}
 
-				// et on charge les articles du flux
-				$this->loadEntries ($feed);
+				if (($mtime === true) || ($mtime > $this->lastUpdate)) {
+					syslog(LOG_DEBUG, 'FreshRSS no cache ' . $mtime . ' > ' . $this->lastUpdate . ' for ' . $subscribe_url);
+					$this->loadEntries($feed);	// et on charge les articles du flux
+				} else {
+					syslog(LOG_DEBUG, 'FreshRSS use cache for ' . $subscribe_url);
+					$this->entries = array();
+				}
+
+				$feed->__destruct();	//http://simplepie.org/wiki/faq/i_m_getting_memory_leaks
+				unset($feed);
 			}
 		}
 	}
+
 	private function loadEntries ($feed) {
 		$entries = array ();
 
@@ -267,8 +276,27 @@ class FreshRSS_Feed extends Minz_Model {
 			$entry->loadCompleteContent($this->pathEntries());
 
 			$entries[] = $entry;
+			unset($item);
 		}
 
 		$this->entries = $entries;
+	}
+
+	function lock() {
+		$lock = TMP_PATH . '/' . md5(Minz_Configuration::salt() . $this->url) . '.freshrss.lock';
+		if (file_exists($lock) && ((time() - @filemtime($lock)) > 3600)) {
+			@unlink($lock);
+		}
+		if (($handle = @fopen($lock, 'x')) === false) {
+			return false;
+		}
+		//register_shutdown_function('unlink', $lock);
+		@fclose($handle);
+		return true;
+	}
+
+	function unlock() {
+		$lock = TMP_PATH . '/' . md5(Minz_Configuration::salt() . $this->url) . '.freshrss.lock';
+		@unlink($lock);
 	}
 }

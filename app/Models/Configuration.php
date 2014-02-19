@@ -32,6 +32,8 @@ class FreshRSS_Configuration {
 			'go_website' => 'space',
 			'next_entry' => 'j',
 			'prev_entry' => 'k',
+			'first_entry' => 'home',
+			'last_entry' => 'end',
 			'collapse_entry' => 'c',
 			'load_more' => 'm',
 			'auto_share' => 's',

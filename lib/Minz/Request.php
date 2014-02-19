@@ -199,6 +199,6 @@ class Minz_Request {
 	}
 
 	public static function isPost () {
-		return !empty ($_POST) || !empty ($_FILES);
+		return $_SERVER['REQUEST_METHOD'] === 'POST';
 	}
 }
