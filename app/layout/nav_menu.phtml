@@ -61,7 +61,12 @@
 					break;
 			}
 		}
-		$p = isset($this->entries[0]) ? $this->entries[0] : null;
+		if ($this->order === 'ASC') {
+			$nb = count($this->entries) - 1;
+			$p = ($nb >= 0 && isset($this->entries[$nb])) ? $this->entries[$nb] : null;
+		} else {
+			$p = isset($this->entries[0]) ? $this->entries[0] : null;
+		}
 		$idMax = $p === null ? '0' : $p->id();
 
 		$arUrl = array('c' => 'entry', 'a' => 'read', 'params' => array('get' => $get, 'nextGet' => $nextGet, 'idMax' => $idMax));
