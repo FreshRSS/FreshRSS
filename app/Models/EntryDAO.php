@@ -65,7 +65,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 		}
 	}
 	public function markReadEntries ($idMax = 0, $favorites = false) {
-		if ($idMax === 0) {
+		if ($idMax == 0) {
 			$sql = 'UPDATE `' . $this->prefix . 'entry` e INNER JOIN `' . $this->prefix . 'feed` f ON e.id_feed = f.id '
 			     . 'SET e.is_read = 1, f.cache_nbUnreads=0 '
 			     . 'WHERE e.is_read = 0 AND ';
@@ -127,7 +127,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 		}
 	}
 	public function markReadCat ($id, $idMax = 0) {
-		if ($idMax === 0) {
+		if ($idMax == 0) {
 			$sql = 'UPDATE `' . $this->prefix . 'entry` e INNER JOIN `' . $this->prefix . 'feed` f ON e.id_feed = f.id '
 			     . 'SET e.is_read = 1, f.cache_nbUnreads=0 '
 			     . 'WHERE f.category = ? AND e.is_read = 0';
@@ -182,7 +182,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 		}
 	}
 	public function markReadFeed ($id, $idMax = 0) {
-		if ($idMax === 0) {
+		if ($idMax == 0) {
 			$sql = 'UPDATE `' . $this->prefix . 'entry` e INNER JOIN `' . $this->prefix . 'feed` f ON e.id_feed = f.id '
 			     . 'SET e.is_read = 1, f.cache_nbUnreads=0 '
 			     . 'WHERE f.id=? AND e.is_read = 0';
