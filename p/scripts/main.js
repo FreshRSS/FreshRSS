@@ -774,7 +774,11 @@ function load_more_posts() {
 	$.get(url_load_more, function (data) {
 		box_load_more.children('.flux:last').after($('#stream', data).children('.flux, .day'));
 		$('.pagination').replaceWith($('.pagination', data));
-		$('#bigMarkAsRead').attr('href', $('#nav_menu_read_all>a').attr('href'));
+		if (display_order === 'ASC') {
+			$('#nav_menu_read_all>a').attr('href', $('#bigMarkAsRead').attr('href'));
+		} else {
+			$('#bigMarkAsRead').attr('href', $('#nav_menu_read_all>a').attr('href'));
+		}
 
 		$('[id^=day_]').each(function (i) {
 			var ids = $('[id="' + this.id + '"]');

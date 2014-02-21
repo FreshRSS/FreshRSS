@@ -5,6 +5,7 @@ echo '"use strict";', "\n";
 $mark = $this->conf->mark_when;
 echo 'var ',
 	'hide_posts=', ($this->conf->display_posts || Minz_Request::param('output') === 'reader') ? 'false' : 'true',
+	',display_order="', Minz_Request::param('order', $this->conf->sort_order), '"',
 	',auto_mark_article=', $mark['article'] ? 'true' : 'false',
 	',auto_mark_site=', $mark['site'] ? 'true' : 'false',
 	',auto_mark_scroll=', $mark['scroll'] ? 'true' : 'false',
