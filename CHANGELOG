@@ -2,8 +2,35 @@
 
 ## 2014-0x-xx FreshRSS 0.8
 
+
+## 2014-02-19 FreshRSS 0.7.1
+
 * Mise à jour des flux plus rapide grâce à une meilleure utilisation du cache
 	* Utilisation d’une signature MD5 du contenu intéressant pour les flux n’implémentant pas les requêtes conditionnelles
+* Modification des raccourcis
+	* "s" partage directement si un seul moyen de partage
+	* Moyens de partage accessibles par "1", "2", "3", etc.
+	* Premier article : Home ; Dernier article : End
+	* Ajout du déplacement au sein des catégories / flux (via modificateurs shift et alt)
+* UI
+	* Séparation des descriptions des raccourcis par groupes
+	* Revue rapide de la page de connexion
+	* Amélioration de l'affichage des notifications sur mobile
+* Revue du système de rafraîchissement des flux
+	* Meilleure gestion de la file de flux à rafraîchir en JSON
+	* Rafraîchissement uniquement pour les flux non rafraîchis récemment
+	* Possibilité donnée aux anonymes de rafraîchir les flux
+* SimplePie
+	* Mise à jour de la lib
+	* Corrige fuite de mémoire
+	* Meilleure tolérance aux flux invalides
+* Corrections divers
+	* Ne déplie plus l'article lors du clic sur l'icône lien externe
+	* Ne boucle plus à la fin de la navigation dans les articles
+	* Suppression du champ category.color inutile
+	* Corrige bug redirection infinie (Persona)
+	* Amélioration vérification de la requête POST
+	* Ajout d'un verrou lorsqu'une action mark_read ou mark_favorite est en cours
 
 
 ## 2014-01-29 FreshRSS 0.7
