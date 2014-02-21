@@ -22,6 +22,7 @@ return array (
 	'add_rss_feed'			=> 'Ajouter un flux RSS',
 	'no_rss_feed'			=> 'Aucun flux RSS',
 	'import_export_opml'		=> 'Importer / exporter (OPML)',
+	'firefox_feadreader'		=> 'Ajouter FreshRSS à Firefox',
 
 	'subscription_management'	=> 'Gestion des abonnements',
 	'main_stream'			=> 'Flux principal',

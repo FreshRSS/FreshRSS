@@ -24,128 +24,126 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 	public function addAction () {
 		@set_time_limit(300);
 
-		if (Minz_Request::isPost ()) {
-			$this->catDAO = new FreshRSS_CategoryDAO ();
-			$this->catDAO->checkDefault ();
+		$this->catDAO = new FreshRSS_CategoryDAO ();
+		$this->catDAO->checkDefault ();
 
-			$url = Minz_Request::param ('url_rss');
-			$cat = Minz_Request::param ('category', false);
-			if ($cat === false) {
-				$def_cat = $this->catDAO->getDefault ();
-				$cat = $def_cat->id ();
+		$url = Minz_Request::param ('url_rss');
+		$cat = Minz_Request::param ('category', false);
+		if ($cat === false) {
+			$def_cat = $this->catDAO->getDefault ();
+			$cat = $def_cat->id ();
+		}
+
+		$user = Minz_Request::param ('http_user');
+		$pass = Minz_Request::param ('http_pass');
+		$params = array ();
+
+		$transactionStarted = false;
+		try {
+			$feed = new FreshRSS_Feed ($url);
+			$feed->_category ($cat);
+
+			$httpAuth = '';
+			if ($user != '' || $pass != '') {
+				$httpAuth = $user . ':' . $pass;
 			}
+			$feed->_httpAuth ($httpAuth);
 
-			$user = Minz_Request::param ('http_user');
-			$pass = Minz_Request::param ('http_pass');
-			$params = array ();
+			$feed->load(true);
 
-			$transactionStarted = false;
-			try {
-				$feed = new FreshRSS_Feed ($url);
-				$feed->_category ($cat);
+			$feedDAO = new FreshRSS_FeedDAO ();
+			$values = array (
+				'url' => $feed->url (),
+				'category' => $feed->category (),
+				'name' => $feed->name (),
+				'website' => $feed->website (),
+				'description' => $feed->description (),
+				'lastUpdate' => time (),
+				'httpAuth' => $feed->httpAuth (),
+			);
 
-				$httpAuth = '';
-				if ($user != '' || $pass != '') {
-					$httpAuth = $user . ':' . $pass;
-				}
-				$feed->_httpAuth ($httpAuth);
-
-				$feed->load(true);
-
-				$feedDAO = new FreshRSS_FeedDAO ();
-				$values = array (
-					'url' => $feed->url (),
-					'category' => $feed->category (),
-					'name' => $feed->name (),
-					'website' => $feed->website (),
-					'description' => $feed->description (),
-					'lastUpdate' => time (),
-					'httpAuth' => $feed->httpAuth (),
+			if ($feedDAO->searchByUrl ($values['url'])) {
+				// on est déjà abonné à ce flux
+				$notif = array (
+					'type' => 'bad',
+					'content' => Minz_Translate::t ('already_subscribed', $feed->name ())
 				);
-
-				if ($feedDAO->searchByUrl ($values['url'])) {
-					// on est déjà abonné à ce flux
+				Minz_Session::_param ('notification', $notif);
+			} else {
+				$id = $feedDAO->addFeed ($values);
+				if (!$id) {
+					// problème au niveau de la base de données
 					$notif = array (
 						'type' => 'bad',
-						'content' => Minz_Translate::t ('already_subscribed', $feed->name ())
+						'content' => Minz_Translate::t ('feed_not_added', $feed->name ())
 					);
 					Minz_Session::_param ('notification', $notif);
 				} else {
-					$id = $feedDAO->addFeed ($values);
-					if (!$id) {
-						// problème au niveau de la base de données
-						$notif = array (
-							'type' => 'bad',
-							'content' => Minz_Translate::t ('feed_not_added', $feed->name ())
-						);
-						Minz_Session::_param ('notification', $notif);
-					} else {
-						$feed->_id ($id);
-						$feed->faviconPrepare();
+					$feed->_id ($id);
+					$feed->faviconPrepare();
 
-						$is_read = $this->view->conf->mark_when['reception'] ? 1 : 0;
+					$is_read = $this->view->conf->mark_when['reception'] ? 1 : 0;
 
-						$entryDAO = new FreshRSS_EntryDAO ();
-						$entries = array_reverse($feed->entries());	//We want chronological order and SimplePie uses reverse order
+					$entryDAO = new FreshRSS_EntryDAO ();
+					$entries = array_reverse($feed->entries());	//We want chronological order and SimplePie uses reverse order
 
-						// on calcule la date des articles les plus anciens qu'on accepte
-						$nb_month_old = $this->view->conf->old_entries;
-						$date_min = time () - (3600 * 24 * 30 * $nb_month_old);
+					// on calcule la date des articles les plus anciens qu'on accepte
+					$nb_month_old = $this->view->conf->old_entries;
+					$date_min = time () - (3600 * 24 * 30 * $nb_month_old);
 
-						$transactionStarted = true;
-						$feedDAO->beginTransaction ();
-						// on ajoute les articles en masse sans vérification
-						foreach ($entries as $entry) {
-							$values = $entry->toArray ();
-							$values['id_feed'] = $feed->id ();
-							$values['id'] = min(time(), $entry->date (true)) . uSecString();
-							$values['is_read'] = $is_read;
-							$entryDAO->addEntry ($values);
-						}
-						$feedDAO->updateLastUpdate ($feed->id ());
-						$feedDAO->commit ();
-						$transactionStarted = false;
-
-						// ok, ajout terminé
-						$notif = array (
-							'type' => 'good',
-							'content' => Minz_Translate::t ('feed_added', $feed->name ())
-						);
-						Minz_Session::_param ('notification', $notif);
-
-						// permet de rediriger vers la page de conf du flux
-						$params['id'] = $feed->id ();
+					$transactionStarted = true;
+					$feedDAO->beginTransaction ();
+					// on ajoute les articles en masse sans vérification
+					foreach ($entries as $entry) {
+						$values = $entry->toArray ();
+						$values['id_feed'] = $feed->id ();
+						$values['id'] = min(time(), $entry->date (true)) . uSecString();
+						$values['is_read'] = $is_read;
+						$entryDAO->addEntry ($values);
 					}
-				}
-			} catch (FreshRSS_BadUrl_Exception $e) {
-				Minz_Log::record ($e->getMessage (), Minz_Log::WARNING);
-				$notif = array (
-					'type' => 'bad',
-					'content' => Minz_Translate::t ('invalid_url', $url)
-				);
-				Minz_Session::_param ('notification', $notif);
-			} catch (FreshRSS_Feed_Exception $e) {
-				Minz_Log::record ($e->getMessage (), Minz_Log::WARNING);
-				$notif = array (
-					'type' => 'bad',
-					'content' => Minz_Translate::t ('internal_problem_feed')
-				);
-				Minz_Session::_param ('notification', $notif);
-			} catch (Minz_FileNotExistException $e) {
-				// Répertoire de cache n'existe pas
-				Minz_Log::record ($e->getMessage (), Minz_Log::ERROR);
-				$notif = array (
-					'type' => 'bad',
-					'content' => Minz_Translate::t ('internal_problem_feed')
-				);
-				Minz_Session::_param ('notification', $notif);
-			}
-			if ($transactionStarted) {
-				$feedDAO->rollBack ();
-			}
+					$feedDAO->updateLastUpdate ($feed->id ());
+					$feedDAO->commit ();
+					$transactionStarted = false;
 
-			Minz_Request::forward (array ('c' => 'configure', 'a' => 'feed', 'params' => $params), true);
+					// ok, ajout terminé
+					$notif = array (
+						'type' => 'good',
+						'content' => Minz_Translate::t ('feed_added', $feed->name ())
+					);
+					Minz_Session::_param ('notification', $notif);
+
+					// permet de rediriger vers la page de conf du flux
+					$params['id'] = $feed->id ();
+				}
+			}
+		} catch (FreshRSS_BadUrl_Exception $e) {
+			Minz_Log::record ($e->getMessage (), Minz_Log::WARNING);
+			$notif = array (
+				'type' => 'bad',
+				'content' => Minz_Translate::t ('invalid_url', $url)
+			);
+			Minz_Session::_param ('notification', $notif);
+		} catch (FreshRSS_Feed_Exception $e) {
+			Minz_Log::record ($e->getMessage (), Minz_Log::WARNING);
+			$notif = array (
+				'type' => 'bad',
+				'content' => Minz_Translate::t ('internal_problem_feed')
+			);
+			Minz_Session::_param ('notification', $notif);
+		} catch (Minz_FileNotExistException $e) {
+			// Répertoire de cache n'existe pas
+			Minz_Log::record ($e->getMessage (), Minz_Log::ERROR);
+			$notif = array (
+				'type' => 'bad',
+				'content' => Minz_Translate::t ('internal_problem_feed')
+			);
+			Minz_Session::_param ('notification', $notif);
 		}
+		if ($transactionStarted) {
+			$feedDAO->rollBack ();
+		}
+
+		Minz_Request::forward (array ('c' => 'configure', 'a' => 'feed', 'params' => $params), true);
 	}
 
 	public function truncateAction () {
