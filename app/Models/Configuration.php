@@ -48,16 +48,7 @@ class FreshRSS_Configuration {
 		'bottomline_tags' => true,
 		'bottomline_date' => true,
 		'bottomline_link' => true,
-		'sharing' => array(
-			'shaarli' => '',
-			'wallabag' => '',
-			'diaspora' => '',
-			'twitter' => true,
-			'g+' => true,
-			'facebook' => true,
-			'email' => true,
-			'print' => true,
-		),
+		'sharing' => array(),
 	);
 
 	private $available_languages = array(
@@ -65,8 +56,10 @@ class FreshRSS_Configuration {
 		'fr' => 'Français',
 	);
 
-	public function __construct ($user) {
-		$this->filename = DATA_PATH . '/' . $user . '_user.php';
+	private $shares;
+
+	public function __construct($user) {
+		$this->filename = DATA_PATH . DIRECTORY_SEPARATOR . $user . '_user.php';
 
 		$data = @include($this->filename);
 		if (!is_array($data)) {
@@ -80,10 +73,20 @@ class FreshRSS_Configuration {
 			}
 		}
 		$this->data['user'] = $user;
+
+		$this->shares = DATA_PATH . DIRECTORY_SEPARATOR . 'shares.php';
+
+		$shares = @include($this->shares);
+		if (!is_array($shares)) {
+			throw new Minz_PermissionDeniedException($this->shares);
+		}
+
+		$this->data['shares'] = $shares;
 	}
 
 	public function save() {
 		@rename($this->filename, $this->filename . '.bak.php');
+		unset($this->data['shares']); // Remove shares because it is not intended to be stored in user configuration
 		if (file_put_contents($this->filename, "<?php\n return " . var_export($this->data, true) . ';', LOCK_EX) === false) {
 			throw new Minz_PermissionDeniedException($this->filename);
 		}
@@ -102,16 +105,6 @@ class FreshRSS_Configuration {
 			trigger_error('Undefined FreshRSS_Configuration->' . $name . 'in ' . $trace[0]['file'] . ' line ' . $trace[0]['line'], E_USER_NOTICE);	//TODO: Use Minz exceptions
 			return null;
 		}
-	}
-
-	public function sharing($key = false) {
-		if ($key === false) {
-			return $this->data['sharing'];
-		}
-		if (isset($this->data['sharing'][$key])) {
-			return $this->data['sharing'][$key];
-		}
-		return false;
 	}
 
 	public function availableLanguages() {
@@ -187,24 +180,23 @@ class FreshRSS_Configuration {
 		}
 	}
 	public function _sharing ($values) {
-		$are_url = array ('shaarli', 'wallabag', 'diaspora');
-		foreach ($values as $key => $value) {
-			if (in_array($key, $are_url)) {
+		$this->data['sharing'] = array();
+		foreach ($values as $value) {
+			if (array_key_exists('url', $value)) {
 				$is_url = (
-					filter_var ($value, FILTER_VALIDATE_URL) ||
+					filter_var ($value['url'], FILTER_VALIDATE_URL) ||
 					(version_compare(PHP_VERSION, '5.3.3', '<') &&
 						(strpos($value, '-') > 0) &&
 						($value === filter_var($value, FILTER_SANITIZE_URL)))
 				);  //PHP bug #51192
-
 				if (!$is_url) {
-					$value = '';
+					continue;
 				}
-			} elseif (!is_bool($value)) {
-				$value = true;
+				if (!array_key_exists('name', $value) || strcmp($value['name'], '') === 0) {
+					$value['name'] = $value['type'];
+				}
 			}
-
-			$this->data['sharing'][$key] = $value;
+			$this->data['sharing'][] = $value;
 		}
 	}
 	public function _theme($value) {

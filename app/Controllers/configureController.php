@@ -192,16 +192,8 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 
 	public function sharingAction () {
 		if (Minz_Request::isPost ()) {
-			$this->view->conf->_sharing (array(
-				'shaarli' => Minz_Request::param ('shaarli', false),
-				'wallabag' => Minz_Request::param ('wallabag', false),
-				'diaspora' => Minz_Request::param ('diaspora', false),
-				'twitter' => Minz_Request::param ('twitter', false),
-				'g+' => Minz_Request::param ('g+', false),
-				'facebook' => Minz_Request::param ('facebook', false),
-				'email' => Minz_Request::param ('email', false),
-				'print' => Minz_Request::param ('print', false),
-			));
+			$params = Minz_Request::params();
+			$this->view->conf->_sharing ($params['share']);
 			$this->view->conf->save();
 			invalidateHttpCache();
 

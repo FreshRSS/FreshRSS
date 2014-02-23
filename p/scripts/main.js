@@ -1,6 +1,7 @@
 "use strict";
 var $stream = null,
-	isCollapsed = true;
+	isCollapsed = true,
+	shares = 0;
 
 function is_normal_mode() {
 	return $stream.hasClass('normal');
@@ -945,7 +946,7 @@ function init_confirm_action() {
 }
 
 function init_print_action() {
-	$('.print-article').click(function () {
+	$('.item.share > a[href="#"]').click(function () {
 		var content = "<html><head><style>"
 			+ "body { font-family: Serif; text-align: justify; }"
 			+ "a { color: #000; text-decoration: none; }"
@@ -964,6 +965,27 @@ function init_print_action() {
 		return false;
 	});
 }
+
+function init_share_observers() {
+	shares = $('.form-group:not(".form-actions")').length;
+
+	$('.post').on('click', '.share.remove', function(e){
+		e.preventDefault();
+		$(this).parents('.form-group').remove();
+	});
+
+	$('.share.add').on('click',function(e){
+		e.preventDefault();
+		var opt = $(this).siblings('select').find(':selected');
+		var row = $(this).parents('form').data(opt.data('form'));
+		row = row.replace('##label##', opt.html(), 'g');
+		row = row.replace('##type##', opt.val(), 'g');
+		row = row.replace('##help##', opt.data('help'), 'g');
+		row = row.replace('##key##', shares, 'g');
+		$(this).parents('.form-actions').before(row);
+		shares++;
+	});
+};
 
 function init_all() {
 	if (!(window.$ && window.url_freshrss && ((!full_lazyload) || $.fn.lazyload))) {
@@ -994,6 +1016,8 @@ function init_all() {
 		init_shortcuts();
 		init_print_action();
 		window.setInterval(refreshUnreads, 120000);
+	} else {
+		init_share_observers();
 	}
 
 	if (window.console) {
