@@ -167,7 +167,7 @@ return array (
 	'http_password'			=> 'Mot de passe HTTP',
 	'blank_to_disable'		=> 'Laissez vide pour désactiver',
 	'share_name'			=> 'Nom du partage à afficher',
-	'share_url'				=> 'URL du partage à utiliser',
+	'share_url'			=> 'URL du partage à utiliser',
 	'not_yet_implemented'		=> 'Pas encore implémenté',
 	'access_protected_feeds'	=> 'La connexion permet d’accéder aux flux protégés par une authentification HTTP',
 	'no_selected_feed'		=> 'Aucun flux sélectionné.',

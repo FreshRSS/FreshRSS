@@ -167,7 +167,7 @@ return array (
 	'http_password'			=> 'HTTP password',
 	'blank_to_disable'		=> 'Leave blank to disable',
 	'share_name'			=> 'Share name to display',
-	'share_url'				=> 'Share URL to use',
+	'share_url'			=> 'Share URL to use',
 	'not_yet_implemented'		=> 'Not yet implemented',
 	'access_protected_feeds'	=> 'Connection allows to access HTTP protected RSS feeds',
 	'no_selected_feed'		=> 'No feed selected.',

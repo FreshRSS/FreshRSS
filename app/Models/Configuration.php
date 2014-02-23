@@ -182,6 +182,9 @@ class FreshRSS_Configuration {
 	public function _sharing ($values) {
 		$this->data['sharing'] = array();
 		foreach ($values as $value) {
+			if (!is_array($value)) {
+				continue;
+			}
 			if (array_key_exists('url', $value)) {
 				$is_url = (
 					filter_var ($value['url'], FILTER_VALIDATE_URL) ||
