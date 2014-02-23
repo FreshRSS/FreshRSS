@@ -233,3 +233,14 @@ function listUsers() {
 function httpAuthUser() {
 	return isset($_SERVER['REMOTE_USER']) ? $_SERVER['REMOTE_USER'] : '';
 }
+
+function cryptAvailable() {
+	if (version_compare(PHP_VERSION, '5.3.3', '>=')) {
+		try {
+			$hash = '$2y$04$usesomesillystringfore7hnbRJHxXVLeakoG8K30oukPsA.ztMG';
+			return $hash === @crypt('password', $hash);
+		} catch (Exception $e) {
+		}
+	}
+	return false;
+}
