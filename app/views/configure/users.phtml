@@ -52,7 +52,7 @@
 					<?php if (!in_array(Minz_Configuration::authType(), array('form', 'persona', 'http_auth', 'none'))) { ?>
 						<option selected="selected"></option>
 					<?php } ?>
-					<option value="form"<?php echo Minz_Configuration::authType() === 'form' ? ' selected="selected"' : '', version_compare(PHP_VERSION, '5.3', '<') ? ' disabled="disabled"' : ''; ?>><?php echo Minz_Translate::t('auth_form'); ?></option>
+					<option value="form"<?php echo Minz_Configuration::authType() === 'form' ? ' selected="selected"' : '', version_compare(PHP_VERSION, '5.3.4', '<') ? ' disabled="disabled"' : ''; ?>><?php echo Minz_Translate::t('auth_form'); ?></option>
 					<option value="persona"<?php echo Minz_Configuration::authType() === 'persona' ? ' selected="selected"' : '', $this->conf->mail_login == '' ? ' disabled="disabled"' : ''; ?>><?php echo Minz_Translate::t('auth_persona'); ?></option>
 					<option value="http_auth"<?php echo Minz_Configuration::authType() === 'http_auth' ? ' selected="selected"' : '', httpAuthUser() == '' ? ' disabled="disabled"' : ''; ?>><?php echo Minz_Translate::t('http_auth'); ?> (REMOTE_USER = '<?php echo httpAuthUser(); ?>')</option>
 					<option value="none"<?php echo Minz_Configuration::authType() === 'none' ? ' selected="selected"' : ''; ?>><?php echo Minz_Translate::t('auth_none'); ?></option>

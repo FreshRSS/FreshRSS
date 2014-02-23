@@ -42,7 +42,8 @@ Privilégiez pour cela des demandes sur GitHub
 5. Tout devrait fonctionner :) En cas de problème, n’hésitez pas à me contacter.
 
 # Contrôle d’accès
-Il est requis pour le mode multi-utilisateur, et recommandé dans tous les cas, de limiter l’accès à votre FreshRSS :
+Il est requis pour le mode multi-utilisateur, et recommandé dans tous les cas, de limiter l’accès à votre FreshRSS. Au choix :
+* En utilisant l’identification par formulaire (requiert PHP 5.3.4+ et JavaScript)
 * En utilisant l’identification par [Mozilla Persona](https://login.persona.org/about) incluse dans FreshRSS
 * En utilisant un contrôle d’accès HTTP défini par votre serveur Web
 	* Voir par exemple la [documentation d’Apache sur l’authentification](http://httpd.apache.org/docs/trunk/howto/auth.html)
