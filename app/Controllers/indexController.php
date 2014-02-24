@@ -111,9 +111,6 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 					$hasUnread = true;
 					break;
 			}
-			if (!$hasUnread) {
-				$this->view->state = $state = 'all';
-			}
 		}
 
 		$today = @strtotime('today');
@@ -126,14 +123,6 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 
 		try {
 			$entries = $entryDAO->listWhere($getType, $getId, $state, $order, $nb + 1, $first, $filter, $date_min, $keepHistoryDefault);
-
-			// Si on a récupéré aucun article "non lus"
-			// on essaye de récupérer tous les articles
-			if ($state === 'not_read' && empty($entries)) {
-				Minz_Log::record ('Conflicting information about nbNotRead!', Minz_Log::DEBUG);
-				$this->view->state = 'all';
-				$entries = $entryDAO->listWhere($getType, $getId, 'all', $order, $nb, $first, $filter, $date_min, $keepHistoryDefault);
-			}
 
 			if (count($entries) <= $nb) {
 				$this->view->nextId  = '';
