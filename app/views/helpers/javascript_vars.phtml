@@ -11,7 +11,8 @@ echo 'var ',
 	',auto_mark_scroll=', $mark['scroll'] ? 'true' : 'false',
 	',auto_load_more=', $this->conf->auto_load_more ? 'true' : 'false',
 	',full_lazyload=', $this->conf->lazyload && ($this->conf->display_posts || Minz_Request::param('output') === 'reader') ? 'true' : 'false',
-	',does_lazyload=', $this->conf->lazyload ? 'true' : 'false';
+	',does_lazyload=', $this->conf->lazyload ? 'true' : 'false',
+	',sticky_post=', $this->conf->sticky_post ? 'true' : 'false';
 
 $s = $this->conf->shortcuts;
 echo ',shortcuts={',

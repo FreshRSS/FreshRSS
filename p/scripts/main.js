@@ -238,26 +238,28 @@ function toggleContent(new_active, old_active) {
 
 	var new_pos = new_active.position().top,
 		old_scroll = $(box_to_move).scrollTop();
-	if (hide_posts) {
+	if (sticky_post) {
+		if (hide_posts) {
 
-		new_pos = new_active.position().top;
-		old_scroll = $(box_to_move).scrollTop();
+			new_pos = new_active.position().top;
+			old_scroll = $(box_to_move).scrollTop();
 
-		if (relative_move) {
-			new_pos += old_scroll;
+			if (relative_move) {
+				new_pos += old_scroll;
+			}
+
+			if (old_active[0] !== new_active[0]) {
+				new_active.children(".flux_content").first().each(function () {
+					$(box_to_move).scrollTop(new_pos).scrollTop();
+				});
+			}
+		} else {
+			if (relative_move) {
+				new_pos += old_scroll;
+			}
+
+			$(box_to_move).scrollTop(new_pos).scrollTop();
 		}
-
-		if (old_active[0] !== new_active[0]) {
-			new_active.children(".flux_content").first().each(function () {
-				$(box_to_move).scrollTop(new_pos).scrollTop();
-			});
-		}
-	} else {
-		if (relative_move) {
-			new_pos += old_scroll;
-		}
-
-		$(box_to_move).scrollTop(new_pos).scrollTop();
 	}
 
 	if (auto_mark_article) {
