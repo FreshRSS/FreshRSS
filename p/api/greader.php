@@ -124,7 +124,10 @@ function authorizationToUser() {
 	if ($headerAuth != '') {
 		$headerAuthX = explode('/', $headerAuth, 2);
 		if ((count($headerAuthX) === 2) && ($headerAuthX[1] === TEMP_AUTH)) {
-			return $headerAuthX[0];
+			$user = $headerAuthX[0];
+			if (ctype_alnum($user)) {
+				return $user;
+			}
 		}
 	}
 	return null;
