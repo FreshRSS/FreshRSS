@@ -64,15 +64,15 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 			return false;
 		}
 	}
-	public function markReadEntries ($idMax = 0, $favorites = false) {
+	public function markReadEntries ($idMax = 0, $onlyFavorites = false, $priorityMin = 0) {
 		if ($idMax == 0) {
 			$sql = 'UPDATE `' . $this->prefix . 'entry` e INNER JOIN `' . $this->prefix . 'feed` f ON e.id_feed = f.id '
 			     . 'SET e.is_read = 1, f.cache_nbUnreads=0 '
-			     . 'WHERE e.is_read = 0 AND ';
-			if ($favorites) {
-				$sql .= 'e.is_favorite = 1';
-			} else {
-				$sql .= 'f.priority > 0';
+			     . 'WHERE e.is_read = 0';
+			if ($onlyFavorites) {
+				$sql .= ' AND e.is_favorite = 1';
+			} elseif ($priorityMin >= 0) {
+				$sql .= ' AND f.priority > ' . intval($priorityMin);
 			}
 			$stm = $this->bd->prepare ($sql);
 			if ($stm && $stm->execute ()) {
@@ -87,11 +87,11 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 
 			$sql = 'UPDATE `' . $this->prefix . 'entry` e INNER JOIN `' . $this->prefix . 'feed` f ON e.id_feed = f.id '
 			     . 'SET e.is_read = 1 '
-			     . 'WHERE e.is_read = 0 AND e.id <= ? AND ';
-			if ($favorites) {
-				$sql .= 'e.is_favorite = 1';
-			} else {
-				$sql .= 'f.priority > 0';
+			     . 'WHERE e.is_read = 0 AND e.id <= ?';
+			if ($onlyFavorites) {
+				$sql .= ' AND e.is_favorite = 1';
+			} elseif ($priorityMin >= 0) {
+				$sql .= ' AND f.priority > ' . intval($priorityMin);
 			}
 			$values = array ($idMax);
 			$stm = $this->bd->prepare ($sql);
@@ -126,6 +126,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 			return $affected;
 		}
 	}
+
 	public function markReadCat ($id, $idMax = 0) {
 		if ($idMax == 0) {
 			$sql = 'UPDATE `' . $this->prefix . 'entry` e INNER JOIN `' . $this->prefix . 'feed` f ON e.id_feed = f.id '
@@ -181,6 +182,68 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 			return $affected;
 		}
 	}
+
+	public function markReadCatName($name, $idMax = 0) {
+		if ($idMax == 0) {
+			$sql = 'UPDATE `' . $this->prefix . 'entry` e '
+			     . 'INNER JOIN `' . $this->prefix . 'feed` f ON e.id_feed = f.id '
+			     . 'INNER JOIN `' . $this->prefix . 'category` c ON c.id = f.category '
+			     . 'SET e.is_read = 1, f.cache_nbUnreads=0 '
+			     . 'WHERE c.name = ?';
+			$values = array($name);
+			$stm = $this->bd->prepare($sql);
+			if ($stm && $stm->execute($values)) {
+				return $stm->rowCount();
+			} else {
+				$info = $stm->errorInfo();
+				Minz_Log::record('SQL error : ' . $info[2], Minz_Log::ERROR);
+				return false;
+			}
+		} else {
+			$this->bd->beginTransaction();
+
+			$sql = 'UPDATE `' . $this->prefix . 'entry` e '
+			     . 'INNER JOIN `' . $this->prefix . 'feed` f ON e.id_feed = f.id '
+			     . 'INNER JOIN `' . $this->prefix . 'category` c ON c.id = f.category '
+			     . 'SET e.is_read = 1 '
+			     . 'WHERE c.name = ? AND e.id <= ?';
+			$values = array($name, $idMax);
+			$stm = $this->bd->prepare($sql);
+			if (!($stm && $stm->execute($values))) {
+				$info = $stm->errorInfo();
+				Minz_Log::record('SQL error : ' . $info[2], Minz_Log::ERROR);
+				$this->bd->rollBack();
+				return false;
+			}
+			$affected = $stm->rowCount();
+
+			if ($affected > 0) {
+				$sql = 'UPDATE `' . $this->prefix . 'feed` f '
+			     . 'LEFT OUTER JOIN ('
+			     .	'SELECT e.id_feed, '
+			     .	'COUNT(*) AS nbUnreads '
+			     .	'FROM `' . $this->prefix . 'entry` e '
+			     .	'WHERE e.is_read = 0 '
+			     .	'GROUP BY e.id_feed'
+			     . ') x ON x.id_feed=f.id '
+			     . 'INNER JOIN `' . $this->prefix . 'category` c ON c.id = f.category '
+			     . 'SET f.cache_nbUnreads=COALESCE(x.nbUnreads, 0) '
+			     . 'WHERE c.name = ?';
+				$values = array($name);
+				$stm = $this->bd->prepare($sql);
+				if (!($stm && $stm->execute($values))) {
+					$info = $stm->errorInfo();
+					Minz_Log::record('SQL error : ' . $info[2], Minz_Log::ERROR);
+					$this->bd->rollBack();
+					return false;
+				}
+			}
+
+			$this->bd->commit();
+			return $affected;
+		}
+	}
+
 	public function markReadFeed ($id, $idMax = 0) {
 		if ($idMax == 0) {
 			$sql = 'UPDATE `' . $this->prefix . 'entry` e INNER JOIN `' . $this->prefix . 'feed` f ON e.id_feed = f.id '
@@ -280,6 +343,9 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 			case 'f':
 				$where .= 'e1.id_feed = ? ';
 				$values[] = intval($id);
+				break;
+			case 'A':
+				$where .= '1 ';
 				break;
 			default:
 				throw new FreshRSS_EntriesGetter_Exception ('Bad type in Entry->listByType: [' . $type . ']!');
