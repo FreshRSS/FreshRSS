@@ -21,6 +21,7 @@ Server-side API compatible with Google Reader API layer 2
 */
 
 define('TEMP_PASSWORD', 'temp123');	//Change to another ASCII password
+define('TEMP_AUTH', 'XtofqkkOkCULRLH8');	//Change to another random ASCII auth
 
 require('../../constants.php');
 require(LIB_PATH . '/lib_rss.php');	//Includes class autoloader
@@ -119,10 +120,14 @@ function checkCompatibility() {
 }
 
 function authorizationToUser() {
-	$auth = headerVariable('Authorization', 'GoogleLogin_auth');	//Input is 'GoogleLogin auth', but PHP replaces spaces by '_'	http://php.net/language.variables.external
-	//logMe('authorizationToUser, auth => ' . $auth . "\n");
-	list($userName) = explode('/', $auth);
-	return $userName;
+	$headerAuth = headerVariable('Authorization', 'GoogleLogin_auth');	//Input is 'GoogleLogin auth', but PHP replaces spaces by '_'	http://php.net/language.variables.external
+	if ($headerAuth != '') {
+		$headerAuthX = explode('/', $headerAuth, 2);
+		if ((count($headerAuthX) === 2) && ($headerAuthX[1] === TEMP_AUTH)) {
+			return $headerAuthX[0];
+		}
+	}
+	return null;
 }
 
 function clientLogin($email, $pass) {	//http://web.archive.org/web/20130604091042/http://undoc.in/clientLogin.html
@@ -131,7 +136,7 @@ function clientLogin($email, $pass) {	//http://web.archive.org/web/2013060409104
 		unauthorized();
 	}
 	header('Content-Type: text/plain; charset=UTF-8');
-	$auth = $email . '/' . '0123456789';
+	$auth = $email . '/' . TEMP_AUTH;
 	echo 'SID=', $auth, "\n",
 		'Auth=', $auth, "\n";
 	exit();
