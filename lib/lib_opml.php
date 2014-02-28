@@ -58,7 +58,7 @@ function opml_import ($xml) {
 				$title = htmlspecialchars($title, ENT_COMPAT, 'UTF-8');
 				$catDAO = new FreshRSS_CategoryDAO ();
 				$cat = $catDAO->searchByName ($title);
-				if ($cat === false) {
+				if ($cat == null) {
 					$cat = new FreshRSS_Category ($title);
 					$values = array (
 						'name' => $cat->name ()

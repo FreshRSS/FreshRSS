@@ -64,7 +64,7 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo {
 		if (isset ($cat[0])) {
 			return $cat[0];
 		} else {
-			return false;
+			return null;
 		}
 	}
 	public function searchByName ($name) {
@@ -80,7 +80,7 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo {
 		if (isset ($cat[0])) {
 			return $cat[0];
 		} else {
-			return false;
+			return null;
 		}
 	}
 
@@ -120,7 +120,7 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo {
 	public function checkDefault () {
 		$def_cat = $this->searchById (1);
 
-		if ($def_cat === false) {
+		if ($def_cat == null) {
 			$cat = new FreshRSS_Category (Minz_Translate::t ('default_category'));
 			$cat->_id (1);
 

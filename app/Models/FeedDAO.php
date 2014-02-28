@@ -170,7 +170,7 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo {
 		if (isset ($feed[$id])) {
 			return $feed[$id];
 		} else {
-			return false;
+			return null;
 		}
 	}
 	public function searchByUrl ($url) {
@@ -186,7 +186,7 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo {
 		if (isset ($feed)) {
 			return $feed;
 		} else {
-			return false;
+			return null;
 		}
 	}
 
@@ -198,7 +198,7 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo {
 		return self::daoToFeed ($stm->fetchAll (PDO::FETCH_ASSOC));
 	}
 
-	public function listCategoryNames() {
+	public function arrayCategoryNames() {
 		$sql = 'SELECT f.id, c.name as c_name FROM `' . $this->prefix . 'feed` f '
 		     . 'INNER JOIN `' . $this->prefix . 'category` c ON c.id = f.category';
 		$stm = $this->bd->prepare ($sql);

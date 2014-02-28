@@ -307,7 +307,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 		$stm->execute ($values);
 		$res = $stm->fetchAll (PDO::FETCH_ASSOC);
 		$entries = self::daoToEntry ($res);
-		return isset ($entries[0]) ? $entries[0] : false;
+		return isset ($entries[0]) ? $entries[0] : null;
 	}
 
 	public function searchById ($id) {
@@ -320,7 +320,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 		$stm->execute ($values);
 		$res = $stm->fetchAll (PDO::FETCH_ASSOC);
 		$entries = self::daoToEntry ($res);
-		return isset ($entries[0]) ? $entries[0] : false;
+		return isset ($entries[0]) ? $entries[0] : null;
 	}
 
 	public function listWhere($type = 'a', $id = '', $state = 'all', $order = 'DESC', $limit = 1, $firstId = '', $filter = '', $date_min = 0, $keepHistoryDefault = 0) {

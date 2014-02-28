@@ -266,7 +266,7 @@ function streamContents($path, $include_target, $start_time, $count, $order, $ex
 	header('Content-Type: application/json; charset=UTF-8');
 
 	$feedDAO = new FreshRSS_FeedDAO();
-	$feedCategoryNames = $feedDAO->listCategoryNames();
+	$arrayFeedCategoryNames = $feedDAO->arrayCategoryNames();
 
 	switch ($path) {
 		case 'reading-list':
@@ -275,8 +275,14 @@ function streamContents($path, $include_target, $start_time, $count, $order, $ex
 		case 'starred':
 			$type = 's';
 			break;
+		case 'feed':
+			$type = 'f';
+			break;
 		case 'label':
 			$type = 'c';
+			$categoryDAO = new FreshRSS_CategoryDAO();
+			$cat = $categoryDAO->searchByName($include_target);
+			$include_target = $cat == null ? -1 : $cat->id();
 			break;
 		default:
 			$type = 'A';
@@ -298,7 +304,7 @@ function streamContents($path, $include_target, $start_time, $count, $order, $ex
 	$items = array();
 	foreach ($entries as $entry) {
 		$f_id = $entry->feed();
-		$c_name = isset($feedCategoryNames[$f_id]) ? $feedCategoryNames[$f_id] : '_';
+		$c_name = isset($arrayFeedCategoryNames[$f_id]) ? $arrayFeedCategoryNames[$f_id] : '_';
 		$item = array(
 			'id' => /*'tag:google.com,2005:reader/item/' .*/ dec2hex($entry->id()),	//64-bit hexa http://code.google.com/p/google-reader-api/wiki/ItemId
 			'crawlTimeMsec' => substr($entry->id(), 0, -3),
@@ -352,9 +358,11 @@ function streamContentsItemsIds($streamId, $start_time, $count, $order, $exclude
 		$type = 'f';
 		$id = basename($streamId);
 	} elseif (strpos($streamId, 'user/-/label/') === 0) {
-		$type = 'C';
+		$type = 'c';
 		$c_name = basename($streamId);
-		notImplemented();	//TODO
+		$categoryDAO = new FreshRSS_CategoryDAO();
+		$cat = $categoryDAO->searchByName($c_name);
+		$id = $cat == null ? -1 : $cat->id();
 	}
 
 	switch ($exclude_target) {
@@ -441,7 +449,7 @@ function markAllAsRead($streamId, $olderThanId) {
 logMe('----------------------------------------------------------------'."\n");
 logMe(print_r($debugInfo, true));
 
-$pathInfo = empty($_SERVER['PATH_INFO']) ? '/Error' : $_SERVER['PATH_INFO'];
+$pathInfo = empty($_SERVER['PATH_INFO']) ? '/Error' : urldecode($_SERVER['PATH_INFO']);
 $pathInfos = explode('/', $pathInfo);
 
 logMe('pathInfos => ' . print_r($pathInfos, true));
@@ -471,7 +479,9 @@ if ($user != null) {
 
 Minz_Session::_param('currentUser', $user);
 
-if (count($pathInfos)<3) badRequest();
+if (count($pathInfos) < 3) {
+	badRequest();
+}
 elseif ($pathInfos[1] === 'accounts') {
 	if (($pathInfos[2] === 'ClientLogin') && isset($_REQUEST['Email']) && isset($_REQUEST['Passwd']))
 		clientLogin($_REQUEST['Email'], $_REQUEST['Passwd']);

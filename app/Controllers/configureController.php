@@ -44,7 +44,7 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 					'name' => $cat->name (),
 				);
 
-				if ($catDAO->searchByName ($newCat) == false) {
+				if ($catDAO->searchByName ($newCat) == null) {
 					$catDAO->addCategory ($values);
 				}
 			}
