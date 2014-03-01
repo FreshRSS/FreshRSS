@@ -219,7 +219,7 @@ function invalidateHttpCache() {
 }
 
 function usernameFromPath($userPath) {
-	if (preg_match('%/([a-z0-9]{1,16})_user\.php$%', $userPath, $matches)) {
+	if (preg_match('%/([A-Za-z0-9]{1,16})_user\.php$%', $userPath, $matches)) {
 		return $matches[1];
 	} else {
 		return '';
