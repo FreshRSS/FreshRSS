@@ -84,6 +84,7 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 
 		// On récupère les différents éléments de filtrage
 		$this->view->state = $state = Minz_Request::param ('state', $this->view->conf->default_view);
+		$state_param = Minz_Request::param ('state', null);
 		$filter = Minz_Request::param ('search', '');
 		if (!empty($filter)) {
 			$state = 'all';	//Search always in read and unread articles
@@ -111,7 +112,7 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 					$hasUnread = true;
 					break;
 			}
-			if (!$hasUnread) {
+			if (!$hasUnread && is_null($state_param)) {
 				$this->view->state = $state = 'all';
 			}
 		}
@@ -129,7 +130,7 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 
 			// Si on a récupéré aucun article "non lus"
 			// on essaye de récupérer tous les articles
-			if ($state === 'not_read' && empty($entries)) {
+			if ($state === 'not_read' && empty($entries) && is_null($state_param)) {
 				Minz_Log::record ('Conflicting information about nbNotRead!', Minz_Log::DEBUG);
 				$this->view->state = 'all';
 				$entries = $entryDAO->listWhere($getType, $getId, 'all', $order, $nb, $first, $filter, $date_min, $keepHistoryDefault);
