@@ -137,10 +137,12 @@ class FreshRSS_entry_Controller extends Minz_ActionController {
 				if ($nb > 0) {
 					$nbTotal += $nb;
 					Minz_Log::record($nb . ' old entries cleaned in feed [' . $feed->url() . ']', Minz_Log::DEBUG);
-					$feedDAO->updateLastUpdate($feed->id());
+					//$feedDAO->updateLastUpdate($feed->id());
 				}
 			}
 		}
+
+		$feedDAO->updateCachedValues();
 
 		invalidateHttpCache();
 

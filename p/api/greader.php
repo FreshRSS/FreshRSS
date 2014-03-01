@@ -403,17 +403,12 @@ function streamContentsItemsIds($streamId, $start_time, $count, $order, $exclude
 	}
 
 	$entryDAO = new FreshRSS_EntryDAO();
-	$entries = $entryDAO->listWhere($type, $id, $state, $order === 'o' ? 'ASC' : 'DESC', $count, '', '', $start_time);
+	$ids = $entryDAO->listIdsWhere($type, $id, $state, $order === 'o' ? 'ASC' : 'DESC', $count, '', '', $start_time);
 
 	$itemRefs = array();
-	foreach ($entries as $entry) {
-		$f_id = $entry->feed();
+	foreach ($ids as $id) {
 		$itemRefs[] = array(
-			'id' => $entry->id(),	//64-bit decimal
-			//'timestampUsec' => $entry->dateAdded(true),
-			/*'directStreamIds' => array(
-				'feed/' . $entry->feed()
-			),*/
+			'id' => $id,	//64-bit decimal
 		);
 	}
 

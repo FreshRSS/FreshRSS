@@ -35,11 +35,15 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 		}
 	}
 
-	public function markFavorite ($id, $is_favorite = true) {
+	public function markFavorite($ids, $is_favorite = true) {
+		if (!is_array($ids)) {
+			$ids = array($ids);
+		}
 		$sql = 'UPDATE `' . $this->prefix . 'entry` e '
 		     . 'SET e.is_favorite = ? '
-		     . 'WHERE e.id=?';
-		$values = array ($is_favorite ? 1 : 0, $id);
+		     . 'WHERE e.id IN (' . str_repeat('?,', count($ids) - 1). '?)';
+		$values = array ($is_favorite ? 1 : 0);
+		$values = array_merge($values, $ids);
 		$stm = $this->bd->prepare ($sql);
 		if ($stm && $stm->execute ($values)) {
 			return $stm->rowCount();
@@ -49,6 +53,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 			return false;
 		}
 	}
+
 	public function markRead ($id, $is_read = true) {
 		$sql = 'UPDATE `' . $this->prefix . 'entry` e INNER JOIN `' . $this->prefix . 'feed` f ON e.id_feed = f.id '
 		     . 'SET e.is_read = ?,'
@@ -64,6 +69,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 			return false;
 		}
 	}
+
 	public function markReadEntries ($idMax = 0, $onlyFavorites = false, $priorityMin = 0) {
 		if ($idMax == 0) {
 			$sql = 'UPDATE `' . $this->prefix . 'entry` e INNER JOIN `' . $this->prefix . 'feed` f ON e.id_feed = f.id '
@@ -323,7 +329,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 		return isset ($entries[0]) ? $entries[0] : null;
 	}
 
-	public function listWhere($type = 'a', $id = '', $state = 'all', $order = 'DESC', $limit = 1, $firstId = '', $filter = '', $date_min = 0, $keepHistoryDefault = 0) {
+	private function sqlListWhere($type = 'a', $id = '', $state = 'all', $order = 'DESC', $limit = 1, $firstId = '', $filter = '', $date_min = 0, $keepHistoryDefault = 0) {
 		$where = '';
 		$joinFeed = false;
 		$values = array();
@@ -432,14 +438,22 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 			}
 		}
 
+		return array($values,
+			'SELECT e1.id FROM `' . $this->prefix . 'entry` e1 '
+			. ($joinFeed ? 'INNER JOIN `' . $this->prefix . 'feed` f ON e1.id_feed = f.id ' : '')
+			. 'WHERE ' . $where
+			. $search
+			. 'ORDER BY e1.id ' . $order
+			. ($limit > 0 ? ' LIMIT ' . $limit : ''));	//TODO: See http://explainextended.com/2009/10/23/mysql-order-by-limit-performance-late-row-lookups/
+	}
+
+	public function listWhere($type = 'a', $id = '', $state = 'all', $order = 'DESC', $limit = 1, $firstId = '', $filter = '', $date_min = 0, $keepHistoryDefault = 0) {
+		list($values, $sql) = $this->sqlListWhere($type, $id, $state, $order, $limit, $firstId, $filter, $date_min, $keepHistoryDefault);
+
 		$sql = 'SELECT e.id, e.guid, e.title, e.author, UNCOMPRESS(e.content_bin) AS content, e.link, e.date, e.is_read, e.is_favorite, e.id_feed, e.tags '
 		     . 'FROM `' . $this->prefix . 'entry` e '
-		     . 'INNER JOIN (SELECT e1.id FROM `' . $this->prefix . 'entry` e1 '
-			     . ($joinFeed ? 'INNER JOIN `' . $this->prefix . 'feed` f ON e1.id_feed = f.id ' : '')
-			     . 'WHERE ' . $where
-			     . $search
-			     . 'ORDER BY e1.id ' . $order
-			     . ($limit > 0 ? ' LIMIT ' . $limit : '')	//TODO: See http://explainextended.com/2009/10/23/mysql-order-by-limit-performance-late-row-lookups/
+		     . 'INNER JOIN ('
+		     . $sql
 		     . ') e2 ON e2.id = e.id '
 		     . 'ORDER BY e.id ' . $order;
 
@@ -447,6 +461,15 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 		$stm->execute ($values);
 
 		return self::daoToEntry ($stm->fetchAll (PDO::FETCH_ASSOC));
+	}
+
+	public function listIdsWhere($type = 'a', $id = '', $state = 'all', $order = 'DESC', $limit = 1, $firstId = '', $filter = '', $date_min = 0, $keepHistoryDefault = 0) {
+		list($values, $sql) = $this->sqlListWhere($type, $id, $state, $order, $limit, $firstId, $filter, $date_min, $keepHistoryDefault);
+
+		$stm = $this->bd->prepare($sql);
+		$stm->execute($values);
+
+		return $stm->fetchAll(PDO::FETCH_COLUMN, 0);
 	}
 
 	public function listLastGuidsByFeed($id, $n) {

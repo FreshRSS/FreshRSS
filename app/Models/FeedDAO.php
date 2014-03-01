@@ -242,6 +242,7 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo {
 
 		return $res[0]['count'];
 	}
+
 	public function countNotRead ($id) {
 		$sql = 'SELECT COUNT(*) AS count FROM `' . $this->prefix . 'entry` WHERE id_feed=? AND is_read=0';
 		$stm = $this->bd->prepare ($sql);
@@ -251,6 +252,7 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo {
 
 		return $res[0]['count'];
 	}
+
 	public function updateCachedValues () {	//For one single feed, call updateLastUpdate($id)
 		$sql = 'UPDATE `' . $this->prefix . 'feed` f '
 		     . 'INNER JOIN ('
@@ -263,9 +265,7 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo {
 		     . 'SET f.cache_nbEntries=x.nbEntries, f.cache_nbUnreads=x.nbUnreads';
 		$stm = $this->bd->prepare ($sql);
 
-		$values = array ($feed_id);
-
-		if ($stm && $stm->execute ($values)) {
+		if ($stm && $stm->execute()) {
 			return $stm->rowCount();
 		} else {
 			$info = $stm->errorInfo();
