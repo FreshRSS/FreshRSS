@@ -20,9 +20,6 @@ Server-side API compatible with Google Reader API layer 2
 * https://github.com/theoldreader/api
 */
 
-define('TEMP_PASSWORD', 'temp123');	//Change to another ASCII password
-define('TEMP_AUTH', 'XtofqkkOkCULRLH8');	//Change to another random ASCII auth
-
 require('../../constants.php');
 require(LIB_PATH . '/lib_rss.php');	//Includes class autoloader
 
@@ -119,14 +116,28 @@ function checkCompatibility() {
 	exit();
 }
 
-function authorizationToUser() {
+function authorizationToUserConf() {
 	$headerAuth = headerVariable('Authorization', 'GoogleLogin_auth');	//Input is 'GoogleLogin auth', but PHP replaces spaces by '_'	http://php.net/language.variables.external
 	if ($headerAuth != '') {
 		$headerAuthX = explode('/', $headerAuth, 2);
-		if ((count($headerAuthX) === 2) && ($headerAuthX[1] === TEMP_AUTH)) {
+		if (count($headerAuthX) === 2) {
 			$user = $headerAuthX[0];
 			if (ctype_alnum($user)) {
-				return $user;
+				try {
+					$conf = new FreshRSS_Configuration($user);
+				} catch (Exception $e) {
+					logMe($e->getMessage() . "\n");
+					unauthorized();
+				}
+				if ($headerAuthX[1] === sha1(Minz_Configuration::salt() . $conf->user . $conf->apiPasswordHash)) {
+					return $conf;
+				} else {
+					logMe('Invalid API authorisation for user ' . $user . ': ' . $headerAuthX[1] . "\n");
+					Minz_Log::record('Invalid API authorisation for user ' . $user . ': ' . $headerAuthX[1], Minz_Log::WARNING);
+					unauthorized();
+				}
+			} else {
+				badRequest();
 			}
 		}
 	}
@@ -135,28 +146,45 @@ function authorizationToUser() {
 
 function clientLogin($email, $pass) {	//http://web.archive.org/web/20130604091042/http://undoc.in/clientLogin.html
 	logMe('clientLogin(' . $email . ")\n");
-	if ($pass !== TEMP_PASSWORD) {
-		unauthorized();
+	if (ctype_alnum($email)) {
+		if (!function_exists('password_verify')) {
+			include_once(LIB_PATH . '/password_compat.php');
+		}
+		try {
+			$conf = new FreshRSS_Configuration($email);
+		} catch (Exception $e) {
+			logMe($e->getMessage() . "\n");
+			Minz_Log::record('Invalid API user ' . $email, Minz_Log::WARNING);
+			unauthorized();
+		}
+		if ($conf->apiPasswordHash != '' && password_verify($pass, $conf->apiPasswordHash)) {
+			header('Content-Type: text/plain; charset=UTF-8');
+			$auth = $email . '/' . sha1(Minz_Configuration::salt() . $conf->user . $conf->apiPasswordHash);
+			echo 'SID=', $auth, "\n",
+				'Auth=', $auth, "\n";
+			exit();
+		} else {
+			Minz_Log::record('Password API mismatch for user ' . $email, Minz_Log::WARNING);
+			unauthorized();
+		}
+	} else {
+		badRequest();
 	}
-	header('Content-Type: text/plain; charset=UTF-8');
-	$auth = $email . '/' . TEMP_AUTH;
-	echo 'SID=', $auth, "\n",
-		'Auth=', $auth, "\n";
-	exit();
+	die();
 }
 
-function token($user) {
+function token($conf) {
 //http://blog.martindoms.com/2009/08/15/using-the-google-reader-api-part-1/	https://github.com/ericmann/gReader-Library/blob/master/greader.class.php
-	logMe('token('. $user . ")\n");
-	$token = 'ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZ01234';	//Must have 57 characters...
+	logMe('token('. $conf->user . ")\n");	//TODO: Implement real token that expires
+	$token = str_pad(sha1(Minz_Configuration::salt() . $conf->user . $conf->apiPasswordHash), 57, 'Z');	//Must have 57 characters
 	echo $token, "\n";
 	exit();
 }
 
-function checkToken($user, $token) {
+function checkToken($conf, $token) {
 //http://code.google.com/p/google-reader-api/wiki/ActionToken
 	logMe('checkToken(' . $token . ")\n");
-	if ($token === 'ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZ01234') {
+	if ($token === str_pad(sha1(Minz_Configuration::salt() . $conf->user . $conf->apiPasswordHash), 57, 'Z')) {
 		return true;
 	}
 	unauthorized();
@@ -462,20 +490,10 @@ if (!Minz_Configuration::apiEnabled()) {
 
 Minz_Session::init('FreshRSS');
 
-$user = authorizationToUser();
-$conf = null;
+$conf = authorizationToUserConf();
+$user = $conf == null ? '' : $conf->user;
 
 logMe('User => ' . $user . "\n");
-
-if ($user != null) {
-	try {
-		$conf = new FreshRSS_Configuration($user);
-	} catch (Exception $e) {
-		logMe($e->getMessage());
-		$user = null;
-		badRequest();
-	}
-}
 
 Minz_Session::_param('currentUser', $user);
 
@@ -483,11 +501,12 @@ if (count($pathInfos) < 3) {
 	badRequest();
 }
 elseif ($pathInfos[1] === 'accounts') {
-	if (($pathInfos[2] === 'ClientLogin') && isset($_REQUEST['Email']) && isset($_REQUEST['Passwd']))
+	if (($pathInfos[2] === 'ClientLogin') && isset($_REQUEST['Email']) && isset($_REQUEST['Passwd'])) {
 		clientLogin($_REQUEST['Email'], $_REQUEST['Passwd']);
+	}
 }
 elseif ($pathInfos[1] === 'reader' && $pathInfos[2] === 'api' && isset($pathInfos[3]) && $pathInfos[3] === '0' && isset($pathInfos[4])) {
-	if ($user == null) {
+	if ($user == '') {
 		unauthorized();
 	}
 	$timestamp = isset($_GET['ck']) ? intval($_GET['ck']) : 0;	//ck=[unix timestamp] : Use the current Unix time here, helps Google with caching.
@@ -543,7 +562,7 @@ elseif ($pathInfos[1] === 'reader' && $pathInfos[2] === 'api' && isset($pathInfo
 			break;
 		case 'edit-tag':	//http://blog.martindoms.com/2010/01/20/using-the-google-reader-api-part-3/
 			$token = isset($_POST['T']) ? trim($_POST['T']) : '';
-			checkToken($user, $token);
+			checkToken($conf, $token);
 			$a = isset($_POST['a']) ? $_POST['a'] : '';	//Add:	user/-/state/com.google/read	user/-/state/com.google/starred
 			$r = isset($_POST['r']) ? $_POST['r'] : '';	//Remove:	user/-/state/com.google/read	user/-/state/com.google/starred
 			$e_ids = multiplePosts('i');	//item IDs
@@ -551,7 +570,7 @@ elseif ($pathInfos[1] === 'reader' && $pathInfos[2] === 'api' && isset($pathInfo
 			break;
 		case 'mark-all-as-read':
 			$token = isset($_POST['T']) ? trim($_POST['T']) : '';
-			checkToken($user, $token);
+			checkToken($conf, $token);
 			$streamId = $_POST['s'];	//StreamId
 			$ts = isset($_POST['ts']) ? $_POST['ts'] : '0';	//Older than timestamp in nanoseconds
 			if (!ctype_digit($ts)) {
@@ -560,7 +579,7 @@ elseif ($pathInfos[1] === 'reader' && $pathInfos[2] === 'api' && isset($pathInfo
 			markAllAsRead($streamId, $ts);
 			break;
 		case 'token':
-			Token($user);
+			Token($conf);
 			break;
 	}
 } elseif ($pathInfos[1] === 'check' && $pathInfos[2] === 'compatibility') {

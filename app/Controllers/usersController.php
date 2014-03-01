@@ -32,6 +32,18 @@ class FreshRSS_users_Controller extends Minz_ActionController {
 			}
 			Minz_Session::_param('passwordHash', $this->view->conf->passwordHash);
 
+			$passwordPlain = Minz_Request::param('apiPasswordPlain', false);
+			if ($passwordPlain != '') {
+				if (!function_exists('password_hash')) {
+					include_once(LIB_PATH . '/password_compat.php');
+				}
+				$passwordHash = password_hash($passwordPlain, PASSWORD_BCRYPT, array('cost' => self::BCRYPT_COST));
+				$passwordPlain = '';
+				$passwordHash = preg_replace('/^\$2[xy]\$/', '\$2a\$', $passwordHash);	//Compatibility with bcrypt.js
+				$ok &= ($passwordHash != '');
+				$this->view->conf->_apiPasswordHash($passwordHash);
+			}
+
 			if (Minz_Configuration::isAdmin(Minz_Session::param('currentUser', '_'))) {
 				$this->view->conf->_mail_login(Minz_Request::param('mail_login', false));
 			}

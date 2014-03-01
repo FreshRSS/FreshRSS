@@ -176,6 +176,7 @@ return array (
 	'current_user'			=> 'Current user',
 	'default_user'			=> 'Username of the default user <small>(maximum 16 alphanumeric characters)</small>',
 	'password_form'			=> 'Password<br /><small>(for the Web-form login method)</small>',
+	'password_api'			=> 'Password API<br /><small>(e.g., for mobile apps)</small>',
 	'persona_connection_email'	=> 'Login mail address<br /><small>(for <a href="https://persona.org/" rel="external">Mozilla Persona</a>)</small>',
 	'allow_anonymous'		=> 'Allow anonymous reading of the articles of the default user (%s)',
 	'allow_anonymous_refresh'	=> 'Allow anonymous refresh of the articles',

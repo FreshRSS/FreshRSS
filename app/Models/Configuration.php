@@ -10,6 +10,7 @@ class FreshRSS_Configuration {
 		'mail_login' => '',
 		'token' => '',
 		'passwordHash' => '',	//CRYPT_BLOWFISH
+		'apiPasswordHash' => '',	//CRYPT_BLOWFISH
 		'posts_per_page' => 20,
 		'view_mode' => 'normal',
 		'default_view' => 'not_read',
@@ -164,6 +165,9 @@ class FreshRSS_Configuration {
 	}
 	public function _passwordHash ($value) {
 		$this->data['passwordHash'] = ctype_graph($value) && (strlen($value) >= 60) ? $value : '';
+	}
+	public function _apiPasswordHash ($value) {
+		$this->data['apiPasswordHash'] = ctype_graph($value) && (strlen($value) >= 60) ? $value : '';
 	}
 	public function _mail_login ($value) {
 		$value = filter_var($value, FILTER_VALIDATE_EMAIL);
