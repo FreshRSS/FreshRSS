@@ -6,11 +6,11 @@
 	?><form id="loginForm" method="post" action="<?php echo _url('index', 'formLogin'); ?>">
 		<div>
 			<label for="username"><?php echo Minz_Translate::t('username'); ?></label>
-			<input type="text" id="username" name="username" size="16" value="<?php echo isset($_GET['u']) && ctype_alnum($_GET['u']) ? $_GET['u'] : ''; ?>" required="required" maxlength="16" pattern="[0-9a-zA-Z]{1,16}" autofocus="autofocus" />
+			<input type="text" id="username" name="username" size="16" required="required" maxlength="16" pattern="[0-9a-zA-Z]{1,16}" autofocus="autofocus" />
 		</div>
 		<div>
 			<label for="passwordPlain"><?php echo Minz_Translate::t('password'); ?></label>
-				<input type="password" id="passwordPlain" value="<?php echo isset($_GET['p']) && ctype_alnum($_GET['p']) ? $_GET['p'] : ''; ?>" required="required" />
+				<input type="password" id="passwordPlain" required="required" />
 				<input type="hidden" id="challenge" name="challenge" /><br />
 				<noscript><strong><?php echo Minz_Translate::t('javascript_should_be_activated'); ?></strong></noscript>
 		</div>
