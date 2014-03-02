@@ -2,6 +2,11 @@
 
 /*=== GENERAL */
 /*============*/
+html, body {
+	margin: 0;
+	padding: 0;
+}
+
 /*=== Links */
 a {
 	text-decoration: none;
@@ -385,8 +390,11 @@ a.btn {
 .flux:not(.current):hover .item.title {
 	position: absolute;
 	top: 0;
-	max-width: calc(100% - 325px);
+	height: auto;
+	max-width: calc(100% - 320px);
 	background: #fff;
+	white-space: normal;
+	z-index: 10;
 }
 .flux .item.title a {
 	color: #000;
