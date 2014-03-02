@@ -235,6 +235,9 @@ function saveStep3 () {
 				'default_user' => $_SESSION['default_user'],
 				'auth_type' => $_SESSION['auth_type'],
 				'allow_anonymous' => isset($_SESSION['allow_anonymous']) ? $_SESSION['allow_anonymous'] : false,
+				'allow_anonymous_refresh' => false,
+				'unsafe_autologin_enabled' => false,
+				'api_enabled' => false,
 			),
 			'db' => array(
 				'type' => $_SESSION['bd_type'],

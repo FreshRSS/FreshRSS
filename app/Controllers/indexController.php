@@ -352,6 +352,32 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 			}
 			$this->view->_useLayout(false);
 			Minz_Request::forward(array('c' => 'index', 'a' => 'index'), true);
+		} elseif (Minz_Configuration::unsafeAutologinEnabled() && isset($_GET['u']) && isset($_GET['p'])) {
+			Minz_Session::_param('currentUser');
+			Minz_Session::_param('mail');
+			Minz_Session::_param('passwordHash');
+			$username = ctype_alnum($_GET['u']) ? $_GET['u'] : '';
+			$passwordPlain = $_GET['p'];
+			Minz_Request::_param('p');	//Discard plain-text password ASAP
+			$_GET['p'] = '';
+			if (!function_exists('password_verify')) {
+				include_once(LIB_PATH . '/password_compat.php');
+			}
+			try {
+				$conf = new FreshRSS_Configuration($username);
+				$s = $conf->passwordHash;
+				$ok = password_verify($passwordPlain, $s);
+				unset($passwordPlain);
+				if ($ok) {
+					Minz_Session::_param('currentUser', $username);
+					Minz_Session::_param('passwordHash', $s);
+				} else {
+					Minz_Log::record('Unsafe password mismatch for user ' . $username, Minz_Log::WARNING);
+				}
+			} catch (Minz_Exception $me) {
+				Minz_Log::record('Unsafe login failure: ' . $me->getMessage(), Minz_Log::WARNING);
+			}
+			Minz_Request::forward(array('c' => 'index', 'a' => 'index'), true);
 		} elseif (!Minz_Configuration::canLogIn()) {
 			Minz_Error::error (
 				403,

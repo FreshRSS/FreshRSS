@@ -55,6 +55,7 @@ class Minz_Configuration {
 	private static $allow_anonymous_refresh = false;
 	private static $auth_type = 'none';
 	private static $api_enabled = false;
+	private static $unsafe_autologin_enabled = false;
 
 	private static $db = array (
 		'type' => 'mysql',
@@ -135,6 +136,9 @@ class Minz_Configuration {
 	public static function apiEnabled() {
 		return self::$api_enabled;
 	}
+	public static function unsafeAutologinEnabled() {
+		return self::$unsafe_autologin_enabled;
+	}
 
 	public static function _allowAnonymous($allow = false) {
 		self::$allow_anonymous = ((bool)$allow) && self::canLogIn();
@@ -157,6 +161,9 @@ class Minz_Configuration {
 
 	public static function _enableApi($value = false) {
 		self::$api_enabled = (bool)$value;
+	}
+	public static function _enableAutologin($value = false) {
+		self::$unsafe_autologin_enabled = (bool)$value;
 	}
 
 	/**
@@ -188,6 +195,7 @@ class Minz_Configuration {
 				'allow_anonymous_refresh' => self::$allow_anonymous_refresh,
 				'auth_type' => self::$auth_type,
 				'api_enabled' => self::$api_enabled,
+				'unsafe_autologin_enabled' => self::$unsafe_autologin_enabled,
 			),
 			'db' => self::$db,
 		);
@@ -308,6 +316,12 @@ class Minz_Configuration {
 			self::$api_enabled = (
 				((bool)($general['api_enabled'])) &&
 				($general['api_enabled'] !== 'no')
+			);
+		}
+		if (isset ($general['unsafe_autologin_enabled'])) {
+			self::$unsafe_autologin_enabled = (
+				((bool)($general['unsafe_autologin_enabled'])) &&
+				($general['unsafe_autologin_enabled'] !== 'no')
 			);
 		}
 
