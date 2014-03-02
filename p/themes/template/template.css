@@ -605,6 +605,7 @@ a.btn {
 	.flux:not(.current):hover .item.title {
 		position: relative;
 		width: auto;
+		white-space: nowrap;
 	}
 
 	#notification,
