@@ -294,7 +294,7 @@ function streamContents($path, $include_target, $start_time, $count, $order, $ex
 	header('Content-Type: application/json; charset=UTF-8');
 
 	$feedDAO = new FreshRSS_FeedDAO();
-	$arrayFeedCategoryNames = $feedDAO->arrayCategoryNames();
+	$arrayFeedCategoryNames = $feedDAO->arrayFeedCategoryNames();
 
 	switch ($path) {
 		case 'reading-list':
@@ -332,10 +332,17 @@ function streamContents($path, $include_target, $start_time, $count, $order, $ex
 	$items = array();
 	foreach ($entries as $entry) {
 		$f_id = $entry->feed();
-		$c_name = isset($arrayFeedCategoryNames[$f_id]) ? $arrayFeedCategoryNames[$f_id] : '_';
+		if (isset($arrayFeedCategoryNames[$f_id])) {
+			$c_name = $arrayFeedCategoryNames[$f_id]['c_name'];
+			$f_name = $arrayFeedCategoryNames[$f_id]['name'];
+		} else {
+			$c_name = '_';
+			$f_name = '_';
+		}
 		$item = array(
 			'id' => /*'tag:google.com,2005:reader/item/' .*/ dec2hex($entry->id()),	//64-bit hexa http://code.google.com/p/google-reader-api/wiki/ItemId
 			'crawlTimeMsec' => substr($entry->id(), 0, -3),
+			'timestampUsec' => $entry->id(),	//EasyRSS
 			'published' => $entry->date(true),
 			'title' => $entry->title(),
 			'summary' => array('content' => $entry->content()),
@@ -348,7 +355,7 @@ function streamContents($path, $include_target, $start_time, $count, $order, $ex
 			),
 			'origin' => array(
 				'streamId' => 'feed/' . $f_id,
-				//'title' => $line['f_name'],
+				'title' => $f_name,	//EasyRSS
 				//'htmlUrl' => $line['f_website'],
 			),
 		);
@@ -420,32 +427,34 @@ function streamContentsItemsIds($streamId, $start_time, $count, $order, $exclude
 
 function editTag($e_ids, $a, $r) {
 	logMe("editTag()\n");
+
+	foreach ($e_ids as $i => $e_id) {
+		$e_ids[$i] = hex2dec(basename($e_id));	//Strip prefix 'tag:google.com,2005:reader/item/'
+	}
+
 	$entryDAO = new FreshRSS_EntryDAO();
 
-	foreach ($e_ids as $e_id) {	//TODO: User WHERE...IN
-		$e_id = hex2dec(basename($e_id));	//Strip prefix 'tag:google.com,2005:reader/item/'
-		switch ($a) {
-			case 'user/-/state/com.google/read':
-				$entryDAO->markRead($e_id, true);
-				break;
-			case 'user/-/state/com.google/starred':
-				$entryDAO->markFavorite($e_id, true);
-				break;
-			/*case 'user/-/state/com.google/tracking-kept-unread':
-				break;
-			case 'user/-/state/com.google/like':
-				break;
-			case 'user/-/state/com.google/broadcast':
-				break;*/
-		}
-		switch ($r) {
-			case 'user/-/state/com.google/read':
-				$entryDAO->markRead($e_id, false);
-				break;
-			case 'user/-/state/com.google/starred':
-				$entryDAO->markFavorite($e_id, false);
-				break;
-		}
+	switch ($a) {
+		case 'user/-/state/com.google/read':
+			$entryDAO->markRead($e_ids, true);
+			break;
+		case 'user/-/state/com.google/starred':
+			$entryDAO->markFavorite($e_ids, true);
+			break;
+		/*case 'user/-/state/com.google/tracking-kept-unread':
+			break;
+		case 'user/-/state/com.google/like':
+			break;
+		case 'user/-/state/com.google/broadcast':
+			break;*/
+	}
+	switch ($r) {
+		case 'user/-/state/com.google/read':
+			$entryDAO->markRead($e_ids, false);
+			break;
+		case 'user/-/state/com.google/starred':
+			$entryDAO->markFavorite($e_ids, false);
+			break;
 	}
 
 	echo 'OK';
@@ -511,22 +520,27 @@ elseif ($pathInfos[1] === 'reader' && $pathInfos[2] === 'api' && isset($pathInfo
 			$count = isset($_GET['n']) ? intval($_GET['n']) : 20;	//n=[integer] : The maximum number of results to return.
 			$order = isset($_GET['r']) ? $_GET['r'] : 'd';	//r=[d|n|o] : Sort order of item results. d or n gives items in descending date order, o in ascending order.
 			$start_time = isset($_GET['ot']) ? intval($_GET['ot']) : 0;	//ot=[unix timestamp] : The time from which you want to retrieve items. Only items that have been crawled by Google Reader after this time will be returned.
-			if (isset($pathInfos[5]) && $pathInfos[5] === 'contents' && isset($pathInfos[6]) && isset($pathInfos[7])) {
-				if ($pathInfos[6] === 'feed') {
-					$include_target = $pathInfos[7];
-					StreamContents($pathInfos[6], $include_target, $start_time, $count, $order, $exclude_target);
-				} elseif ($pathInfos[6] === 'user' && isset($pathInfos[8]) && isset($pathInfos[9])) {
-					if ($pathInfos[8] === 'state') {
-						if ($pathInfos[9] === 'com.google' && isset($pathInfos[10])) {
-							if ($pathInfos[10] === 'reading-list' || $pathInfos[10] === 'starred') {
-								$include_target = '';
-								streamContents($pathInfos[10], $include_target, $start_time, $count, $order, $exclude_target);
+			if (isset($pathInfos[5]) && $pathInfos[5] === 'contents' && isset($pathInfos[6])) {
+				if (isset($pathInfos[7])) {
+					if ($pathInfos[6] === 'feed') {
+						$include_target = $pathInfos[7];
+						StreamContents($pathInfos[6], $include_target, $start_time, $count, $order, $exclude_target);
+					} elseif ($pathInfos[6] === 'user' && isset($pathInfos[8]) && isset($pathInfos[9])) {
+						if ($pathInfos[8] === 'state') {
+							if ($pathInfos[9] === 'com.google' && isset($pathInfos[10])) {
+								if ($pathInfos[10] === 'reading-list' || $pathInfos[10] === 'starred') {
+									$include_target = '';
+									streamContents($pathInfos[10], $include_target, $start_time, $count, $order, $exclude_target);
+								}
 							}
+						} elseif ($pathInfos[8] === 'label') {
+							$include_target = $pathInfos[9];
+							streamContents($pathInfos[8], $include_target, $start_time, $count, $order, $exclude_target);
 						}
-					} elseif ($pathInfos[8] === 'label') {
-						$include_target = $pathInfos[9];
-						streamContents($pathInfos[8], $include_target, $start_time, $count, $order, $exclude_target);
 					}
+				} else {	//EasyRSS
+					$include_target = '';
+					streamContents('reading-list', $include_target, $start_time, $count, $order, $exclude_target);
 				}
 			} elseif ($pathInfos[5] === 'items') {
 				if ($pathInfos[6] === 'ids' && isset($_GET['s'])) {

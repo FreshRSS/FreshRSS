@@ -54,19 +54,66 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 		}
 	}
 
-	public function markRead ($id, $is_read = true) {
-		$sql = 'UPDATE `' . $this->prefix . 'entry` e INNER JOIN `' . $this->prefix . 'feed` f ON e.id_feed = f.id '
-		     . 'SET e.is_read = ?,'
-		     . 'f.cache_nbUnreads=f.cache_nbUnreads' . ($is_read ? '-' : '+') . '1 '
-		     . 'WHERE e.id=?';
-		$values = array ($is_read ? 1 : 0, $id);
-		$stm = $this->bd->prepare ($sql);
-		if ($stm && $stm->execute ($values)) {
-			return $stm->rowCount();
+	public function markRead($ids, $is_read = true) {
+		if (is_array($ids)) {
+			if (count($ids) < 6) {	//Speed heuristics
+				$affected = 0;
+				foreach ($ids as $id) {
+					$affected += $this->markRead($id, $is_read);
+				}
+				return $affected;
+			}
+
+			$this->bd->beginTransaction();
+			$sql = 'UPDATE `' . $this->prefix . 'entry` e '
+				 . 'SET e.is_read = ? '
+				 . 'WHERE e.id IN (' . str_repeat('?,', count($ids) - 1). '?)';
+			$values = array($is_read ? 1 : 0);
+			$values = array_merge($values, $ids);
+			$stm = $this->bd->prepare($sql);
+			if (!($stm && $stm->execute($values))) {
+				$info = $stm->errorInfo();
+				Minz_Log::record('SQL error : ' . $info[2], Minz_Log::ERROR);
+				$this->bd->rollBack();
+				return false;
+			}
+			$affected = $stm->rowCount();
+
+			if ($affected > 0) {
+				$sql = 'UPDATE `' . $this->prefix . 'feed` f '
+				     . 'INNER JOIN ('
+				     .	'SELECT e.id_feed, '
+				     .	'COUNT(CASE WHEN e.is_read = 0 THEN 1 END) AS nbUnreads, '
+				     .	'COUNT(e.id) AS nbEntries '
+				     .	'FROM `' . $this->prefix . 'entry` e '
+				     .	'GROUP BY e.id_feed'
+				     . ') x ON x.id_feed=f.id '
+				     . 'SET f.cache_nbEntries=x.nbEntries, f.cache_nbUnreads=x.nbUnreads';
+				$stm = $this->bd->prepare($sql);
+				if (!($stm && $stm->execute())) {
+					$info = $stm->errorInfo();
+					Minz_Log::record('SQL error : ' . $info[2], Minz_Log::ERROR);
+					$this->bd->rollBack();
+					return false;
+				}
+			}
+
+			$this->bd->commit();
+			return $affected;
 		} else {
-			$info = $stm->errorInfo();
-			Minz_Log::record ('SQL error : ' . $info[2], Minz_Log::ERROR);
-			return false;
+			$sql = 'UPDATE `' . $this->prefix . 'entry` e INNER JOIN `' . $this->prefix . 'feed` f ON e.id_feed = f.id '
+				 . 'SET e.is_read = ?,'
+				 . 'f.cache_nbUnreads=f.cache_nbUnreads' . ($is_read ? '-' : '+') . '1 '
+				 . 'WHERE e.id=?';
+			$values = array($is_read ? 1 : 0, $ids);
+			$stm = $this->bd->prepare($sql);
+			if ($stm && $stm->execute($values)) {
+				return $stm->rowCount();
+			} else {
+				$info = $stm->errorInfo();
+				Minz_Log::record('SQL error : ' . $info[2], Minz_Log::ERROR);
+				return false;
+			}
 		}
 	}
 
@@ -463,7 +510,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 		return self::daoToEntry ($stm->fetchAll (PDO::FETCH_ASSOC));
 	}
 
-	public function listIdsWhere($type = 'a', $id = '', $state = 'all', $order = 'DESC', $limit = 1, $firstId = '', $filter = '', $date_min = 0, $keepHistoryDefault = 0) {
+	public function listIdsWhere($type = 'a', $id = '', $state = 'all', $order = 'DESC', $limit = 1, $firstId = '', $filter = '', $date_min = 0, $keepHistoryDefault = 0) {	//For API
 		list($values, $sql) = $this->sqlListWhere($type, $id, $state, $order, $limit, $firstId, $filter, $date_min, $keepHistoryDefault);
 
 		$stm = $this->bd->prepare($sql);

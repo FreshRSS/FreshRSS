@@ -198,15 +198,18 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo {
 		return self::daoToFeed ($stm->fetchAll (PDO::FETCH_ASSOC));
 	}
 
-	public function arrayCategoryNames() {
-		$sql = 'SELECT f.id, c.name as c_name FROM `' . $this->prefix . 'feed` f '
+	public function arrayFeedCategoryNames() {	//For API
+		$sql = 'SELECT f.id, f.name, c.name as c_name FROM `' . $this->prefix . 'feed` f '
 		     . 'INNER JOIN `' . $this->prefix . 'category` c ON c.id = f.category';
 		$stm = $this->bd->prepare ($sql);
 		$stm->execute ();
 		$res = $stm->fetchAll(PDO::FETCH_ASSOC);
 		$feedCategoryNames = array();
 		foreach ($res as $line) {
-			$feedCategoryNames[$line['id']] = $line['c_name'];
+			$feedCategoryNames[$line['id']] = array(
+				'name' => $line['name'],
+				'c_name' => $line['c_name'],
+			);
 		}
 		return $feedCategoryNames;
 	}
