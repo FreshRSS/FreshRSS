@@ -133,7 +133,7 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 			if ($state === 'not_read' && empty($entries) && ($state_param === null)) {
 				Minz_Log::record ('Conflicting information about nbNotRead!', Minz_Log::DEBUG);
 				$this->view->state = 'all';
-				$entries = $entryDAO->listWhere($getType, $getId, 'all', $order, $nb, $first, $filter, $date_min, $keepHistoryDefault);
+				$entries = $entryDAO->listWhere($getType, $getId, 'all', $order, $nb, $first, $filter, $date_min, true, $keepHistoryDefault);
 			}
 
 			if (count($entries) <= $nb) {
