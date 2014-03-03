@@ -126,7 +126,7 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 		$keepHistoryDefault = $this->view->conf->keep_history_default;
 
 		try {
-			$entries = $entryDAO->listWhere($getType, $getId, $state, $order, $nb + 1, $first, $filter, $date_min, $keepHistoryDefault);
+			$entries = $entryDAO->listWhere($getType, $getId, $state, $order, $nb + 1, $first, $filter, $date_min, true, $keepHistoryDefault);
 
 			// Si on a récupéré aucun article "non lus"
 			// on essaye de récupérer tous les articles

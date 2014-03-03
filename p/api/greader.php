@@ -288,7 +288,7 @@ function unreadCount() {
 	exit();
 }
 
-function streamContents($path, $include_target, $start_time, $count, $order, $exclude_target)
+function streamContents($path, $include_target, $start_time, $count, $order, $exclude_target, $continuation)
 {//http://code.google.com/p/pyrfeed/wiki/GoogleReaderAPI	http://blog.martindoms.com/2009/10/16/using-the-google-reader-api-part-2/#feed
 	logMe('streamContents(' . $include_target . ")\n");
 	header('Content-Type: application/json; charset=UTF-8');
@@ -326,8 +326,12 @@ function streamContents($path, $include_target, $start_time, $count, $order, $ex
 			break;
 	}
 
+	if (!empty($continuation)) {
+		$count++;	//Shift by one element
+	}
+
 	$entryDAO = new FreshRSS_EntryDAO();
-	$entries = $entryDAO->listWhere($type, $include_target, $state, $order === 'o' ? 'ASC' : 'DESC', $count, '', '', $start_time);
+	$entries = $entryDAO->listWhere($type, $include_target, $state, $order === 'o' ? 'ASC' : 'DESC', $count, $continuation, '', $start_time);
 
 	$items = array();
 	foreach ($entries as $entry) {
@@ -371,11 +375,20 @@ function streamContents($path, $include_target, $start_time, $count, $order, $ex
 		$items[] = $item;
 	}
 
-	echo json_encode(array(
+	if (!empty($continuation)) {
+		array_shift($items);	//Discard first element that was already sent in the previous response
+	}
+
+	$response = array(
 		'id' => 'user/-/state/com.google/reading-list',
 		'updated' => time(),
 		'items' => $items,
-	)), "\n";
+	);
+	if ((count($entries) >= $count) && (!empty($entry))) {
+		$response['continuation'] = $entry->id();
+	}
+
+	echo json_encode($response), "\n";
 	exit();
 }
 
@@ -520,27 +533,28 @@ elseif ($pathInfos[1] === 'reader' && $pathInfos[2] === 'api' && isset($pathInfo
 			$count = isset($_GET['n']) ? intval($_GET['n']) : 20;	//n=[integer] : The maximum number of results to return.
 			$order = isset($_GET['r']) ? $_GET['r'] : 'd';	//r=[d|n|o] : Sort order of item results. d or n gives items in descending date order, o in ascending order.
 			$start_time = isset($_GET['ot']) ? intval($_GET['ot']) : 0;	//ot=[unix timestamp] : The time from which you want to retrieve items. Only items that have been crawled by Google Reader after this time will be returned.
+			$continuation = isset($_GET['c']) ? $_GET['c'] : '';	//Continuation token. If a StreamContents response does not represent all items in a timestamp range, it will have a continuation attribute. The same request can be re-issued with the value of that attribute put in this parameter to get more items
 			if (isset($pathInfos[5]) && $pathInfos[5] === 'contents' && isset($pathInfos[6])) {
 				if (isset($pathInfos[7])) {
 					if ($pathInfos[6] === 'feed') {
 						$include_target = $pathInfos[7];
-						StreamContents($pathInfos[6], $include_target, $start_time, $count, $order, $exclude_target);
+						StreamContents($pathInfos[6], $include_target, $start_time, $count, $order, $exclude_target, $continuation);
 					} elseif ($pathInfos[6] === 'user' && isset($pathInfos[8]) && isset($pathInfos[9])) {
 						if ($pathInfos[8] === 'state') {
 							if ($pathInfos[9] === 'com.google' && isset($pathInfos[10])) {
 								if ($pathInfos[10] === 'reading-list' || $pathInfos[10] === 'starred') {
 									$include_target = '';
-									streamContents($pathInfos[10], $include_target, $start_time, $count, $order, $exclude_target);
+									streamContents($pathInfos[10], $include_target, $start_time, $count, $order, $exclude_target, $continuation);
 								}
 							}
 						} elseif ($pathInfos[8] === 'label') {
 							$include_target = $pathInfos[9];
-							streamContents($pathInfos[8], $include_target, $start_time, $count, $order, $exclude_target);
+							streamContents($pathInfos[8], $include_target, $start_time, $count, $order, $exclude_target, $continuation);
 						}
 					}
 				} else {	//EasyRSS
 					$include_target = '';
-					streamContents('reading-list', $include_target, $start_time, $count, $order, $exclude_target);
+					streamContents('reading-list', $include_target, $start_time, $count, $order, $exclude_target, $continuation);
 				}
 			} elseif ($pathInfos[5] === 'items') {
 				if ($pathInfos[6] === 'ids' && isset($_GET['s'])) {
