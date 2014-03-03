@@ -249,30 +249,36 @@ function subscriptionList() {
 	exit();
 }
 
-function unreadCount() {
+function unreadCount() {	//http://blog.martindoms.com/2009/10/16/using-the-google-reader-api-part-2/#unread-count
 	logMe("unreadCount()\n");
 	header('Content-Type: application/json; charset=UTF-8');
 
-	$pdo = new MyPDO();
-	$stm = $pdo->prepare('SELECT f.id, f.lastUpdate, f.cache_nbUnreads FROM `%_feed` f');
-	$stm->execute();
-	$res = $stm->fetchAll(PDO::FETCH_ASSOC);
-
-	$unreadcounts = array();
 	$totalUnreads = 0;
 	$totalLastUpdate = 0;
-	foreach ($res as $line) {
-		$nbUnreads = $line['cache_nbUnreads'];
-		$totalUnreads += $nbUnreads;
-		$lastUpdate = $line['lastUpdate'];
-		if ($totalLastUpdate < $lastUpdate) {
-			$totalLastUpdate = $lastUpdate;
+
+	$categoryDAO = new FreshRSS_CategoryDAO();
+	foreach ($categoryDAO->listCategories(true, true) as $cat) {
+		$catLastUpdate = 0;
+		foreach ($cat->feeds() as $feed) {
+			$lastUpdate = $feed->lastUpdate();
+			$unreadcounts[] = array(
+				'id' => 'feed/' . $feed->id(),
+				'count' => $feed->nbNotRead(),
+				'newestItemTimestampUsec' => $lastUpdate . '000000',
+			);
+			if ($catLastUpdate < $lastUpdate) {
+				$catLastUpdate = $lastUpdate;
+			}
 		}
 		$unreadcounts[] = array(
-			'id' => 'feed/' . $line['id'],
-			'count' => $nbUnreads,
-			'newestItemTimestampUsec' => $lastUpdate . '000000',
+			'id' => 'user/-/label/' . $cat->name(),
+			'count' => $cat->nbNotRead(),
+			'newestItemTimestampUsec' => $catLastUpdate . '000000',
 		);
+		$totalUnreads += $cat->nbNotRead();
+		if ($totalLastUpdate < $catLastUpdate) {
+			$totalLastUpdate = $catLastUpdate;
+		}
 	}
 
 	$unreadcounts[] = array(
@@ -288,8 +294,7 @@ function unreadCount() {
 	exit();
 }
 
-function streamContents($path, $include_target, $start_time, $count, $order, $exclude_target, $continuation)
-{//http://code.google.com/p/pyrfeed/wiki/GoogleReaderAPI	http://blog.martindoms.com/2009/10/16/using-the-google-reader-api-part-2/#feed
+function streamContents($path, $include_target, $start_time, $count, $order, $exclude_target, $continuation) {	//http://code.google.com/p/pyrfeed/wiki/GoogleReaderAPI	http://blog.martindoms.com/2009/10/16/using-the-google-reader-api-part-2/#feed
 	logMe('streamContents(' . $include_target . ")\n");
 	header('Content-Type: application/json; charset=UTF-8');
 
@@ -392,8 +397,7 @@ function streamContents($path, $include_target, $start_time, $count, $order, $ex
 	exit();
 }
 
-function streamContentsItemsIds($streamId, $start_time, $count, $order, $exclude_target)
-{//http://code.google.com/p/google-reader-api/wiki/ApiStreamItemsIds	http://code.google.com/p/pyrfeed/wiki/GoogleReaderAPI	http://blog.martindoms.com/2009/10/16/using-the-google-reader-api-part-2/#feed
+function streamContentsItemsIds($streamId, $start_time, $count, $order, $exclude_target) {	//http://code.google.com/p/google-reader-api/wiki/ApiStreamItemsIds	http://code.google.com/p/pyrfeed/wiki/GoogleReaderAPI	http://blog.martindoms.com/2009/10/16/using-the-google-reader-api-part-2/#feed
 	logMe('streamContentsItemsIds(' . $streamId . ")\n");
 
 	$type = 'A';
