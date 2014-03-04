@@ -110,9 +110,13 @@ function serviceUnavailable() {
 function checkCompatibility() {
 	logMe("checkCompatibility()\n");
 	header('Content-Type: text/plain; charset=UTF-8');
-	$ok = true;
-	$ok &= function_exists('getallheaders');
-	echo $ok ? 'PASS' : 'FAIL';
+	if (!function_exists('getallheaders')) {
+		die('FAIL getallheaders!');
+	}
+	if (PHP_INT_SIZE < 8 && !function_exists('gmp_init')) {
+		die('FAIL 64-bit or GMP extension!');
+	}
+	echo 'PASS';
 	exit();
 }
 
