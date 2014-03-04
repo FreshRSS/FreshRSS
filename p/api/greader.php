@@ -5,7 +5,7 @@ Server-side API compatible with Google Reader API layer 2
 	for the FreshRSS project http://freshrss.org
 
 == Credits ==
-* 2014-02: Released by Alexandre Alapetite http://alexandre.alapetite.fr
+* 2014-03: Released by Alexandre Alapetite http://alexandre.alapetite.fr
 	under GNU AGPL 3 license http://www.gnu.org/licenses/agpl-3.0.html
 
 == Documentation ==
@@ -24,6 +24,19 @@ require('../../constants.php');
 require(LIB_PATH . '/lib_rss.php');	//Includes class autoloader
 
 $ORIGINAL_INPUT = file_get_contents('php://input');
+
+if (!function_exists('getallheaders')) {	//nginx	http://php.net/getallheaders#84262
+	function getallheaders() {
+		$headers = '';
+		foreach ($_SERVER as $name => $value) {
+			if (substr($name, 0, 5) === 'HTTP_') {
+				$headers[str_replace(' ', '-', ucwords(strtolower(str_replace('_', ' ', substr($name, 5)))))] = $value;
+			}
+		}
+		return $headers;
+	}
+}
+
 $ALL_HEADERS = getallheaders();
 
 $debugInfo = array('date' => date('c'), 'headers' => $ALL_HEADERS, '_SERVER' => $_SERVER, '_GET' => $_GET, '_POST' => $_POST, '_COOKIE' => $_COOKIE, 'INPUT' => $ORIGINAL_INPUT);
@@ -110,9 +123,6 @@ function serviceUnavailable() {
 function checkCompatibility() {
 	logMe("checkCompatibility()\n");
 	header('Content-Type: text/plain; charset=UTF-8');
-	if (!function_exists('getallheaders')) {
-		die('FAIL getallheaders!');
-	}
 	if (PHP_INT_SIZE < 8 && !function_exists('gmp_init')) {
 		die('FAIL 64-bit or GMP extension!');
 	}
@@ -178,7 +188,8 @@ function clientLogin($email, $pass) {	//http://web.archive.org/web/2013060409104
 }
 
 function token($conf) {
-//http://blog.martindoms.com/2009/08/15/using-the-google-reader-api-part-1/	https://github.com/ericmann/gReader-Library/blob/master/greader.class.php
+//http://blog.martindoms.com/2009/08/15/using-the-google-reader-api-part-1/
+//https://github.com/ericmann/gReader-Library/blob/master/greader.class.php
 	logMe('token('. $conf->user . ")\n");	//TODO: Implement real token that expires
 	$token = str_pad(sha1(Minz_Configuration::salt() . $conf->user . $conf->apiPasswordHash), 57, 'Z');	//Must have 57 characters
 	echo $token, "\n";
@@ -298,7 +309,9 @@ function unreadCount() {	//http://blog.martindoms.com/2009/10/16/using-the-googl
 	exit();
 }
 
-function streamContents($path, $include_target, $start_time, $count, $order, $exclude_target, $continuation) {	//http://code.google.com/p/pyrfeed/wiki/GoogleReaderAPI	http://blog.martindoms.com/2009/10/16/using-the-google-reader-api-part-2/#feed
+function streamContents($path, $include_target, $start_time, $count, $order, $exclude_target, $continuation) {
+//http://code.google.com/p/pyrfeed/wiki/GoogleReaderAPI
+//http://blog.martindoms.com/2009/10/16/using-the-google-reader-api-part-2/#feed
 	logMe('streamContents(' . $include_target . ")\n");
 	header('Content-Type: application/json; charset=UTF-8');
 
@@ -401,7 +414,10 @@ function streamContents($path, $include_target, $start_time, $count, $order, $ex
 	exit();
 }
 
-function streamContentsItemsIds($streamId, $start_time, $count, $order, $exclude_target) {	//http://code.google.com/p/google-reader-api/wiki/ApiStreamItemsIds	http://code.google.com/p/pyrfeed/wiki/GoogleReaderAPI	http://blog.martindoms.com/2009/10/16/using-the-google-reader-api-part-2/#feed
+function streamContentsItemsIds($streamId, $start_time, $count, $order, $exclude_target) {
+//http://code.google.com/p/google-reader-api/wiki/ApiStreamItemsIds
+//http://code.google.com/p/pyrfeed/wiki/GoogleReaderAPI
+//http://blog.martindoms.com/2009/10/16/using-the-google-reader-api-part-2/#feed
 	logMe('streamContentsItemsIds(' . $streamId . ")\n");
 
 	$type = 'A';
