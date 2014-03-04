@@ -25,7 +25,9 @@ require(LIB_PATH . '/lib_rss.php');	//Includes class autoloader
 
 $ORIGINAL_INPUT = file_get_contents('php://input');
 
-if (!function_exists('getallheaders')) {	//nginx	http://php.net/getallheaders#84262
+$nativeGetallheaders = function_exists('getallheaders');
+
+if (!$nativeGetallheaders) {	//nginx	http://php.net/getallheaders#84262
 	function getallheaders() {
 		$headers = '';
 		foreach ($_SERVER as $name => $value) {
@@ -125,6 +127,10 @@ function checkCompatibility() {
 	header('Content-Type: text/plain; charset=UTF-8');
 	if (PHP_INT_SIZE < 8 && !function_exists('gmp_init')) {
 		die('FAIL 64-bit or GMP extension!');
+	}
+	global $nativeGetallheaders;
+	if ((!$nativeGetallheaders) && isset($_SERVER['SERVER_SOFTWARE']) && (stripos($_SERVER['SERVER_SOFTWARE'], 'nginx') === false)) {
+		die('FAIL getallheaders! (probably)');
 	}
 	echo 'PASS';
 	exit();
