@@ -25,6 +25,7 @@
 			</div>
 		</div>
 
+		<?php if (Minz_Configuration::apiEnabled()) { ?>
 		<div class="form-group">
 			<label class="group-name" for="apiPasswordPlain"><?php echo Minz_Translate::t('password_api'); ?></label>
 			<div class="group-controls">
@@ -32,6 +33,7 @@
 				<noscript><b><?php echo Minz_Translate::t('javascript_should_be_activated'); ?></b></noscript>
 			</div>
 		</div>
+		<?php } ?>
 
 		<div class="form-group">
 			<label class="group-name" for="mail_login"><?php echo Minz_Translate::t('persona_connection_email'); ?></label>
