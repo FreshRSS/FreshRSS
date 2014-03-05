@@ -5,6 +5,7 @@
 html, body {
 	margin: 0;
 	padding: 0;
+	font-size: 100%;
 }
 
 /*=== Links */
@@ -19,12 +20,27 @@ a:hover {
 ul, ol, dd {
 	margin: 0;
 	padding: 0;
+	font-size: 0.9em;
 }
 
 /*=== Titles */
-h1, h2, h3 {
-	min-height: 40px;
-	line-height: 40px;
+h1 {
+	margin: 0.3em 0 0.6em;
+	font-size: 1.8em;
+}
+h2 {
+	margin: 0.25em 0 0.5em;
+	font-size: 1.6em;
+}
+h3 {
+	margin: 0.25em 0 0.5em;
+	font-size: 1.4em;
+}
+
+/*=== Paragraphs */
+p {
+	margin: 1em 0 0.5em;
+	font-size: 1em;
 }
 
 /*=== Images */
@@ -33,8 +49,9 @@ img {
 	max-width: 100%;
 }
 img.favicon {
-	height: 16px;
-	width: 16px;
+	height: 1em;
+	width: 1em;
+	vertical-align: middle;
 }
 
 /*=== Videos */
@@ -50,25 +67,20 @@ legend {
 }
 label {
 	display: block;
-	min-height: 25px;
-	line-height: 25px;
 }
 input {
 	width: 180px;
 }
 textarea {
-	width: 360px;
-	height: 100px;
+	width: 300px;
 }
 input, select, textarea {
 	display: inline-block;
 	max-width: 100%;
-	min-height: 25px;
 }
 input[type="radio"],
 input[type="checkbox"] {
-	width: 15px !important;
-	min-height: 15px !important;
+	width: 15px;
 }
 input.extend:focus {
 	width: 300px;
@@ -92,13 +104,10 @@ input.extend:focus {
 }
 .form-group .group-controls {
 	min-width: 250px;
-	min-height: 25px;
 	margin: 0 0 0 220px;
 }
 .form-group .group-controls .control {
 	display: block;
-	min-height: 30px;
-	line-height: 30px;
 }
 
 /*=== Buttons */
@@ -106,28 +115,20 @@ input.extend:focus {
 	display: inline-block;
 	white-space: nowrap;
 }
-.btn {
+.btn,
+a.btn {
 	display: inline-block;
-	min-height: 37px;
-	min-width: 15px;
-	line-height: 20px;
 	cursor: pointer;
 	overflow: hidden;
 }
-a.btn {
-	min-height: 25px;
-	line-height: 25px;
-}
 .btn-important {
-	background: #aaa;
+	font-weight: bold;
 }
 
 /*=== Navigation */
 .nav-list .nav-header,
 .nav-list .item {
 	display: block;
-	height: 35px;
-	line-height: 35px;
 }
 .nav-list .item,
 .nav-list .item > a {
@@ -164,9 +165,9 @@ a.btn {
 .dropdown-menu {
 	display: none;
 	min-width: 200px;
-	margin: 5px 0 0;
+	margin: 0;
 	position: absolute;
-	right: 0px;
+	right: 0;
 	background: #fff;
 	border: 1px solid #aaa;	
 }
@@ -175,30 +176,20 @@ a.btn {
 }
 .dropdown-menu > .item {
 	display: block;
-	min-height: 30px;
-	line-height: 30px;
 }
 .dropdown-menu > .item > a {
 	display: block;
-	line-height: 30px;
 }
 .dropdown-menu > .item[aria-checked="true"] > a:before {
 	content: '✓ ';
 }
 .dropdown-menu .input {
 	display: block;
-	height: 40px;
-	line-height: 30px;
 }
 .dropdown-menu .input select,
 .dropdown-menu .input input {
 	display: block;
-	height: 20px;
-	width: 95%;
-}
-.dropdown-menu .input select {
-	width: 70%;
-	height: auto;
+	max-width: 95%;
 }
 .dropdown-target:target ~ .dropdown-menu {
 	display: block;
@@ -321,8 +312,6 @@ a.btn {
 }
 .categories .feeds .feed {
 	display: inline-block;
-	width: 165px;
-	line-height: 35px;
 	overflow: hidden;
 	white-space: nowrap;
 	text-overflow: ellipsis;
@@ -348,11 +337,9 @@ a.btn {
 /*=== New article notification */
 #new-article {
 	display: none;
-	min-height: 40px;
 }
 #new-article > a {
 	display: block;
-	line-height: 40px;
 }
 
 /*=== Day indication */
@@ -368,9 +355,9 @@ a.btn {
 /*=== Feed article header and footer */
 .flux_header {
 	position: relative;
-	height: 25px;
 }
 .flux .item {
+	font-size: 0.9em;
 	line-height: 40px;
 	white-space: nowrap;
 	text-overflow: ellipsis;
@@ -402,6 +389,8 @@ a.btn {
 }
 .flux .item.date {
 	width: 145px;
+	font-size: 0.7em;
+	text-align: right;
 }
 .flux .item:not(.title) > a {
 	display: block;
@@ -421,11 +410,17 @@ a.btn {
 	display: none;
 }
 .content {
-	min-height: 150px;
-	max-width: 550px;
+	min-height: 20em;
+	max-width: 38em;
 	margin: auto;
-	line-height: 170%;
+	line-height: 1.7em;
 	word-wrap: break-word;
+}
+.content ul,
+.content ol,
+.content dd {
+	margin: 0 0 0 15px;
+	padding: 0 0 5px 15px;
 }
 .content pre {
 	overflow: auto;
@@ -434,7 +429,7 @@ a.btn {
 /*=== Notification and actualize notification */
 #notification {
 	position: absolute;
-	top: 10px;
+	top: 1em;
 	left: 25%; right: 25%;
 	z-index: 10;
 	background: #fff;
@@ -445,15 +440,12 @@ a.btn {
 }
 #notification a.close {
 	display: inline-block;
-	width: 16px;
-	height: 16px;
 	float: right;
-	line-height: 16px;
 }
 
 .actualizeProgress {
 	position: fixed;
-	top: 10px;
+	top: 1em;
 	left: 25%; right: 25%;
 	background: #fff;
 	border: 1px solid #aaa;
@@ -486,7 +478,7 @@ a.btn {
 }
 #bigMarkAsRead {
 	display: block;
-	padding: 40px 0;
+	padding: 5em 0;
 	text-align: center;
 }
 .bigTick {
@@ -504,7 +496,8 @@ a.btn {
 /*=== Category boxes */
 #stream.global .box-category {
 	display: inline-block;
-	width: 280px;
+	width: 20em;
+	max-width: 95%;
 	border: 1px solid #aaa;
 	vertical-align: top;
 }
@@ -518,9 +511,6 @@ a.btn {
 	display: block;
 	overflow: auto;
 }
-#stream.global .box-category .feed {
-	width: 220px;
-}
 
 /*=== Panel */
 #overlay {
@@ -533,8 +523,8 @@ a.btn {
 #panel {
 	display: none;
 	position: fixed;
-	top: 10px; bottom: 10px;
-	left: 100px; right: 100px;
+	top: 1em; bottom: 1em;
+	left: 2em; right: 2em;
 	overflow: auto;
 	background: #fff;
 }
@@ -560,9 +550,9 @@ a.btn {
 	position: absolute;
 	right: 0;
 	display: none;
-	width: 26px;
-	height: 26px;
-	line-height: 26px;
+	width: 30px;
+	height: 30px;
+	line-height: 30px;
 	text-align: center;
 }
 
@@ -610,8 +600,8 @@ a.btn {
 
 	#notification,
 	.actualizeProgress {
-		left: 10px;
-		right: 10px;
+		left: 1em;
+		right: 1em;
 	}
 
 	#nav_entries {
@@ -619,14 +609,15 @@ a.btn {
 	}
 
 	#panel {
-		left: 5px; right: 5px;
+		top: 0; bottom: 0;
+		left: 0; right: 0;
 	}
 	#panel .close {
-		top: 10px; right: 0;
+		top: 0; right: 0;
 		left: auto; bottom: auto;
 		display: inline-block;
-		width: 26px;
-		height: 26px;
+		width: 30px;
+		height: 30px;
 	}
 }
 
@@ -645,7 +636,6 @@ a.btn {
 		background: #fff;
 		color: #000;
 		font-family: Serif;
-		font-size: 12pt;
 	}
 	#global,
 	.flux_content {
