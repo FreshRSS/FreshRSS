@@ -3,9 +3,6 @@
 class FreshRSS_Share {
 
 	static public function generateUrl($options, $selected, $link, $title) {
-		if (!array_key_exists('url', $selected)) {
-			$selected['url'] = '';
-		}
 		$share = $options[$selected['type']];
 		$matches = array(
 			'~URL~',

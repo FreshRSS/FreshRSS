@@ -193,7 +193,9 @@ class FreshRSS_Configuration {
 			if (!is_array($value)) {
 				continue;
 			}
-			if (array_key_exists('url', $value)) {
+
+			// Verify URL and add default value when needed
+			if (array_key_exists('url', $value) && $value['url'] !== null) {
 				$is_url = (
 					filter_var ($value['url'], FILTER_VALIDATE_URL) ||
 					(version_compare(PHP_VERSION, '5.3.3', '<') &&
@@ -203,10 +205,15 @@ class FreshRSS_Configuration {
 				if (!$is_url) {
 					continue;
 				}
-				if (!array_key_exists('name', $value) || strcmp($value['name'], '') === 0) {
-					$value['name'] = $value['type'];
-				}
+			} else {
+				$value['url'] = null;
 			}
+
+			// Add a default name
+			if (!array_key_exists('name', $value) || strcmp($value['name'], '') === 0) {
+				$value['name'] = $value['type'];
+			}
+
 			$this->data['sharing'][] = $value;
 		}
 	}
