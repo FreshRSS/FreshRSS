@@ -195,7 +195,7 @@ class FreshRSS_Configuration {
 			}
 
 			// Verify URL and add default value when needed
-			if (array_key_exists('url', $value) && $value['url'] !== null) {
+			if (isset($value['url'])) {
 				$is_url = (
 					filter_var ($value['url'], FILTER_VALIDATE_URL) ||
 					(version_compare(PHP_VERSION, '5.3.3', '<') &&
