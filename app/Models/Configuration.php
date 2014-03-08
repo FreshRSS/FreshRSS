@@ -210,7 +210,7 @@ class FreshRSS_Configuration {
 			}
 
 			// Add a default name
-			if (!array_key_exists('name', $value) || strcmp($value['name'], '') === 0) {
+			if (empty($value['name'])) {
 				$value['name'] = $value['type'];
 			}
 
