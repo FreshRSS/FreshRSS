@@ -180,6 +180,8 @@ return array (
 	'persona_connection_email'	=> 'Adresse courriel de connexion<br /><small>(pour <a href="https://persona.org/" rel="external">Mozilla Persona</a>)</small>',
 	'allow_anonymous'		=> 'Autoriser la lecture anonyme des articles de l’utilisateur par défaut (%s)',
 	'allow_anonymous_refresh'	=> 'Autoriser le rafraîchissement anonyme des flux',
+	'unsafe_autologin'		=> 'Autoriser les connexion automatiques non-sûres au format : ',
+	'api_enabled'			=> 'Autoriser l’accès par <abbr>API</abbr> <small>(nécessaire pour les applis mobiles)</small>',
 	'auth_token'			=> 'Jeton d’identification',
 	'explain_token'			=> 'Permet d’accéder à la sortie RSS de l’utilisateur par défaut sans besoin de s’authentifier.<br /><kbd>%s?output=rss&token=%s</kbd>',
 	'login_configuration'		=> 'Identification',

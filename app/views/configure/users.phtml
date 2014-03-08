@@ -90,6 +90,17 @@
 			</div>
 		</div>
 
+		<div class="form-group">
+			<div class="group-controls">
+				<label class="checkbox" for="unsafe_autologin">
+					<input type="checkbox" name="unsafe_autologin" id="unsafe_autologin" value="1"<?php echo Minz_Configuration::unsafeAutologinEnabled() ? ' checked="checked"' : '',
+						Minz_Configuration::canLogIn() ? '' : ' disabled="disabled"'; ?> />
+					<?php echo Minz_Translate::t('unsafe_autologin'); ?>
+					<kbd>p/i/?a=formLogin&amp;u=Alice&amp;p=1234</kbd>
+				</label>
+			</div>
+		</div>
+
 		<?php if (Minz_Configuration::canLogIn()) { ?>
 		<div class="form-group">
 			<label class="group-name" for="token"><?php echo Minz_Translate::t('auth_token'); ?></label>
@@ -101,6 +112,16 @@
 			</div>
 		</div>
 		<?php } ?>
+
+		<div class="form-group">
+			<div class="group-controls">
+				<label class="checkbox" for="api_enabled">
+					<input type="checkbox" name="api_enabled" id="api_enabled" value="1"<?php echo Minz_Configuration::apiEnabled() ? ' checked="checked"' : '',
+						Minz_Configuration::needsLogin() ? '' : ' disabled="disabled"'; ?> />
+					<?php echo Minz_Translate::t('api_enabled'); ?>
+				</label>
+			</div>
+		</div>
 
 		<div class="form-group form-actions">
 			<div class="group-controls">
