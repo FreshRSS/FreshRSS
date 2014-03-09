@@ -278,11 +278,8 @@ function next_entry() {
 		new_active = old_active.length === 0 ? $(".flux:first") : old_active.nextAll(".flux:first");
 	toggleContent(new_active, old_active);
 
-	if (!auto_load_more) {
-		var last_active = $(".flux:last");
-		if (last_active.attr("id") === new_active.attr("id")) {
-			load_more_posts();
-		}
+	if (new_active.nextAll().length < 3) {
+		load_more_posts();
 	}
 }
 
