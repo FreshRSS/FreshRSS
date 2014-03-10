@@ -986,6 +986,18 @@ function init_share_observers() {
 	});
 };
 
+function init_feed_observers() {
+	$('select[id="category"]').on('change', function(){
+		var detail = $(this).parent('li').next('li');
+		if ($(this).val() === 'nc') {
+			detail.show();
+			detail.find('input').focus();
+		} else {
+			detail.hide();
+		}
+	});
+};
+
 function init_all() {
 	if (!(window.$ && window.url_freshrss && ((!full_lazyload) || $.fn.lazyload))) {
 		if (window.console) {
@@ -1017,6 +1029,7 @@ function init_all() {
 		window.setInterval(refreshUnreads, 120000);
 	} else {
 		init_share_observers();
+		init_feed_observers();
 	}
 
 	if (window.console) {

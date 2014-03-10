@@ -30,6 +30,14 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 
 			$url = Minz_Request::param ('url_rss');
 			$cat = Minz_Request::param ('category', false);
+			if ($cat === 'nc') {
+				$new_cat = Minz_Request::param ('new_category');
+				if (empty($new_cat['name'])) {
+					$cat = false;
+				} else {
+					$cat = $this->catDAO->addCategory($new_cat);
+				}
+			}
 			if ($cat === false) {
 				$def_cat = $this->catDAO->getDefault ();
 				$cat = $def_cat->id ();
