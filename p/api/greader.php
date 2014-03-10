@@ -133,7 +133,9 @@ function checkCompatibility() {
 	if (PHP_INT_SIZE < 8 && !function_exists('gmp_init')) {
 		die('FAIL 64-bit or GMP extension!');
 	}
-	if ((!function_exists('getallheaders')) && isset($_SERVER['SERVER_SOFTWARE']) && (stripos($_SERVER['SERVER_SOFTWARE'], 'nginx') === false)) {
+	if ((!array_key_exists('HTTP_AUTHORIZATION', $_SERVER)) &&	//Apache mod_rewrite trick should be fine
+		(empty($_SERVER['SERVER_SOFTWARE']) || (stripos($_SERVER['SERVER_SOFTWARE'], 'nginx') === false)) &&	//nginx should be fine
+		((!function_exists('getallheaders')) || (stripos(php_sapi_name(), 'cgi') !== false))) {	//Main problem is Apache/CGI mode
 		die('FAIL getallheaders! (probably)');
 	}
 	echo 'PASS';
