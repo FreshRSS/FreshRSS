@@ -526,6 +526,7 @@ function markAllAsRead($streamId, $olderThanId) {
 }
 
 logMe('----------------------------------------------------------------'."\n");
+//logMe(debugInfo());
 
 $pathInfo = empty($_SERVER['PATH_INFO']) ? '/Error' : urldecode($_SERVER['PATH_INFO']);
 $pathInfos = explode('/', $pathInfo);
