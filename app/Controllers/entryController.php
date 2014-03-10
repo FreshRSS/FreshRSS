@@ -100,6 +100,9 @@ class FreshRSS_entry_Controller extends Minz_ActionController {
 			$entryDAO = new FreshRSS_EntryDAO();
 			$entryDAO->optimizeTable();
 
+			$feedDAO = new FreshRSS_FeedDAO();
+			$feedDAO->updateCachedValues();
+
 			invalidateHttpCache();
 
 			$notif = array (
