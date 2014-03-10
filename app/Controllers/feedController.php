@@ -136,7 +136,7 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 				Minz_Log::record ($e->getMessage (), Minz_Log::WARNING);
 				$notif = array (
 					'type' => 'bad',
-					'content' => Minz_Translate::t ('internal_problem_feed')
+					'content' => Minz_Translate::t ('internal_problem_feed', Minz_Url::display(array('a' => 'logs')))
 				);
 				Minz_Session::_param ('notification', $notif);
 			} catch (Minz_FileNotExistException $e) {
@@ -144,7 +144,7 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 				Minz_Log::record ($e->getMessage (), Minz_Log::ERROR);
 				$notif = array (
 					'type' => 'bad',
-					'content' => Minz_Translate::t ('internal_problem_feed')
+					'content' => Minz_Translate::t ('internal_problem_feed', Minz_Url::display(array('a' => 'logs')))
 				);
 				Minz_Session::_param ('notification', $notif);
 			}

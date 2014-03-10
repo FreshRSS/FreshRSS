@@ -89,7 +89,7 @@ return array (
 	'already_subscribed'		=> 'Vous êtes déjà abonné à <em>%s</em>',
 	'feed_added'			=> 'Le flux <em>%s</em> a bien été ajouté',
 	'feed_not_added'		=> '<em>%s</em> n’a pas pu être ajouté',
-	'internal_problem_feed'		=> 'Le flux n’a pas pu être ajouté. Consulter les logs de FreshRSS pour plus de détails.',
+	'internal_problem_feed'		=> 'Le flux n’a pas pu être ajouté. <a href="%s">Consulter les logs de FreshRSS</a> pour plus de détails.',
 	'invalid_url'			=> 'L’url <em>%s</em> est invalide',
 	'feed_actualized'		=> '<em>%s</em> a été mis à jour',
 	'n_feeds_actualized'		=> '%d flux ont été mis à jour',
