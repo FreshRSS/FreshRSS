@@ -606,7 +606,7 @@ function init_shortcuts() {
 }
 
 function init_stream(divStream) {
-	divStream.on('click', '.flux_header', function (e) {	//flux_header_toggle
+	divStream.on('click', '.flux_header,.flux_content > .bottom', function (e) {	//flux_header_toggle, flux_footer_toggle
 		if ($(e.target).closest('.item.website, .item.link').length > 0) {
 			return;
 		}
