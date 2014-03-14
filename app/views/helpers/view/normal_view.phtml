@@ -28,7 +28,7 @@ if (!empty($this->entries)) {
 
 <div id="stream" class="normal<?php echo $hidePosts ? ' hide_posts' : ''; ?>"><?php
 	?><div id="new-article">
-		<a href="<?php echo _url('index', 'index'); ?>"><?php echo Minz_Translate::t ('new_article'); ?></a>
+		<a href="<?php echo Minz_Url::display ($this->url); ?>"><?php echo Minz_Translate::t ('new_article'); ?></a>
 	</div><?php
 	foreach ($this->entries as $item) {
 		if ($display_today && $item->isDay (FreshRSS_Days::TODAY, $this->today)) {
