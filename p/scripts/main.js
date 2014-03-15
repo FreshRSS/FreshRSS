@@ -998,6 +998,17 @@ function init_feed_observers() {
 	});
 };
 
+function init_password_observers() {
+	$('input[type="password"] + a.btn.toggle-password').on('click', function(e){
+		e.preventDefault();
+		var passwordField = $(this).siblings('input[type="password"]');
+		passwordField.attr('type','text');
+		setTimeout(function(){
+			passwordField.attr('type','password');
+		},2000);
+	});
+};
+
 function init_all() {
 	if (!(window.$ && window.url_freshrss && ((!full_lazyload) || $.fn.lazyload))) {
 		if (window.console) {
@@ -1030,6 +1041,7 @@ function init_all() {
 	} else {
 		init_share_observers();
 		init_feed_observers();
+		init_password_observers();
 	}
 
 	if (window.console) {
