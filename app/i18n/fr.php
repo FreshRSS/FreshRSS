@@ -21,7 +21,7 @@ return array (
 	'your_rss_feeds'		=> 'Vos flux RSS',
 	'add_rss_feed'			=> 'Ajouter un flux RSS',
 	'no_rss_feed'			=> 'Aucun flux RSS',
-	'import_export_opml'		=> 'Importer / exporter (OPML)',
+	'import_export'			=> 'Importer / exporter',
 
 	'subscription_management'	=> 'Gestion des abonnements',
 	'main_stream'			=> 'Flux principal',
