@@ -17,11 +17,11 @@
 				<input type="text" id="cat_<?php echo $cat->id (); ?>" name="categories[]" value="<?php echo $cat->name (); ?>" />
 
 				<?php if ($cat->nbFeed () > 0) { ?>
-				<a class="confirm" href="<?php echo _url ('feed', 'delete', 'id', $cat->id (), 'type', 'category'); ?>"><?php echo Minz_Translate::t ('ask_empty'); ?></a>
+				<button type="submit" class="btn btn-attention confirm" formaction="<?php echo _url ('feed', 'delete', 'id', $cat->id (), 'type', 'category'); ?>"><?php echo Minz_Translate::t ('ask_empty'); ?></button>
 				<?php } ?>
 				(<?php echo Minz_Translate::t ('number_feeds', $cat->nbFeed ()); ?>)
 
-				<?php if ($cat->id () == $this->defaultCategory->id ()) { ?>
+				<?php if ($cat->id () === $this->defaultCategory->id ()) { ?>
 				<?php echo FreshRSS_Themes::icon('help'); ?> <?php echo Minz_Translate::t ('can_not_be_deleted'); ?>
 				<?php } ?>
 
