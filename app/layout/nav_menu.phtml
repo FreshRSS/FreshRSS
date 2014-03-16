@@ -99,17 +99,6 @@
 	</div>
 	<?php } ?>
 
-	<?php
-		$params = Minz_Request::params ();
-		if (isset ($params['search'])) {
-			$params['search'] = urlencode ($params['search']);
-		}
-		$url = array (
-			'c' => 'index',
-			'a' => 'index',
-			'params' => $params
-		);
-	?>
 	<div class="dropdown" id="nav_menu_views">
 		<div id="dropdown-views" class="dropdown-target"></div>
 		<a class="dropdown-toggle btn" href="#dropdown-views"><?php echo Minz_Translate::t ('display'); ?> <?php echo FreshRSS_Themes::icon('down'); ?></a>
@@ -117,7 +106,7 @@
 			<li class="dropdown-close"><a href="#close">❌</a></li>
 
 			<?php
-				$url_output = $url;
+				$url_output = $this->url;
 				if ($actual_view !== 'normal') { ?>
 			<li class="item">
 				<?php $url_output['params']['output'] = 'normal'; ?>
@@ -144,7 +133,7 @@
 			<li class="separator"></li>
 
 			<?php
-				$url_state = $url;
+				$url_state = $this->url;
 				$url_state['params']['state'] = 'all';
 			?>
 			<li class="item" role="checkbox" aria-checked="<?php echo ($this->state === 'all') ? 'true' :'false'; ?>">
@@ -181,7 +170,7 @@
 
 			<li class="item">
 				<?php
-					$url_order = $url;
+					$url_order = $this->url;
 					if ($this->order === 'DESC') {
 						$url_order['params']['order'] = 'ASC';
 				?>
@@ -201,7 +190,8 @@
 			<li class="separator"></li>
 
 			<li class="item">
-				<a class="view_rss" target="_blank" href="<?php echo Minz_Url::display ($this->rss_url); ?>">
+				<?php $url_output['params']['output'] = 'rss'; ?>
+				<a class="view_rss" target="_blank" href="<?php echo Minz_Url::display ($url_output); ?>">
 					<?php echo Minz_Translate::t ('rss_view'); ?>
 				</a>
 			</li>

@@ -20,7 +20,12 @@
 							<?php echo $cat->name (); ?>
 						</option>
 						<?php } ?>
+						<option value="nc"><?php echo Minz_Translate::t ('new_category'); ?></option>
 						</select>
+					</li>
+
+					<li class="input" style="display:none">
+						<input type="text" name="new_category[name]" id="new_category_name" autocomplete="off" placeholder="<?php echo Minz_Translate::t ('new_category'); ?>" />
 					</li>
 
 					<li class="separator"></li>

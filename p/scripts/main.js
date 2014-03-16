@@ -278,11 +278,8 @@ function next_entry() {
 		new_active = old_active.length === 0 ? $(".flux:first") : old_active.nextAll(".flux:first");
 	toggleContent(new_active, old_active);
 
-	if (!auto_load_more) {
-		var last_active = $(".flux:last");
-		if (last_active.attr("id") === new_active.attr("id")) {
-			load_more_posts();
-		}
+	if (new_active.nextAll().length < 3) {
+		load_more_posts();
 	}
 }
 
@@ -609,7 +606,7 @@ function init_shortcuts() {
 }
 
 function init_stream(divStream) {
-	divStream.on('click', '.flux_header', function (e) {	//flux_header_toggle
+	divStream.on('click', '.flux_header,.flux_content', function (e) {	//flux_toggle
 		if ($(e.target).closest('.item.website, .item.link').length > 0) {
 			return;
 		}
@@ -971,12 +968,12 @@ function init_print_action() {
 function init_share_observers() {
 	shares = $('.form-group:not(".form-actions")').length;
 
-	$('.post').on('click', '.share.remove', function(e){
+	$('.post').on('click', '.share.remove', function(e) {
 		e.preventDefault();
 		$(this).parents('.form-group').remove();
 	});
 
-	$('.share.add').on('click',function(e){
+	$('.share.add').on('click', function(e) {
 		e.preventDefault();
 		var opt = $(this).siblings('select').find(':selected');
 		var row = $(this).parents('form').data(opt.data('form'));
@@ -987,7 +984,30 @@ function init_share_observers() {
 		$(this).parents('.form-actions').before(row);
 		shares++;
 	});
-};
+}
+
+function init_feed_observers() {
+	$('select[id="category"]').on('change', function() {
+		var detail = $(this).parent('li').next('li');
+		if ($(this).val() === 'nc') {
+			detail.show();
+			detail.find('input').focus();
+		} else {
+			detail.hide();
+		}
+	});
+}
+
+function init_password_observers() {
+	$('input[type="password"] + a.btn.toggle-password').on('click', function(e) {
+		e.preventDefault();
+		var passwordField = $(this).siblings('input[type="password"]');
+		passwordField.attr('type', 'text');
+		setTimeout(function() {
+			passwordField.attr('type', 'password');
+		}, 2000);
+	});
+}
 
 function init_all() {
 	if (!(window.$ && window.url_freshrss && ((!full_lazyload) || $.fn.lazyload))) {
@@ -1020,6 +1040,8 @@ function init_all() {
 		window.setInterval(refreshUnreads, 120000);
 	} else {
 		init_share_observers();
+		init_feed_observers();
+		init_password_observers();
 	}
 
 	if (window.console) {

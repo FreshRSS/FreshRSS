@@ -25,24 +25,6 @@ require(LIB_PATH . '/lib_rss.php');	//Includes class autoloader
 
 $ORIGINAL_INPUT = file_get_contents('php://input');
 
-$nativeGetallheaders = function_exists('getallheaders');
-
-if (!$nativeGetallheaders) {	//nginx	http://php.net/getallheaders#84262
-	function getallheaders() {
-		$headers = '';
-		foreach ($_SERVER as $name => $value) {
-			if (substr($name, 0, 5) === 'HTTP_') {
-				$headers[str_replace(' ', '-', ucwords(strtolower(str_replace('_', ' ', substr($name, 5)))))] = $value;
-			}
-		}
-		return $headers;
-	}
-}
-
-$ALL_HEADERS = getallheaders();
-
-$debugInfo = array('date' => date('c'), 'headers' => $ALL_HEADERS, '_SERVER' => $_SERVER, '_GET' => $_GET, '_POST' => $_POST, '_COOKIE' => $_COOKIE, 'INPUT' => $ORIGINAL_INPUT);
-
 if (PHP_INT_SIZE < 8) {	//32-bit
 	function dec2hex($dec) {
 		return str_pad(gmp_strval(gmp_init($dec, 10), 16), 16, '0', STR_PAD_LEFT);
@@ -60,12 +42,17 @@ if (PHP_INT_SIZE < 8) {	//32-bit
 }
 
 function headerVariable($headerName, $varName) {
-	global $ALL_HEADERS;
-	if (empty($ALL_HEADERS[$headerName])) {
-		return null;
+	$header = '';
+	$upName = 'HTTP_' . strtoupper($headerName);
+	if (isset($_SERVER[$upName])) {
+		$header = $_SERVER[$upName];
+	} elseif (function_exists('getallheaders')) {
+		$ALL_HEADERS = getallheaders();
+		if (isset($ALL_HEADERS[$headerName])) {
+			$header = $ALL_HEADERS[$headerName];
+		}
 	}
-	parse_str($ALL_HEADERS[$headerName], $pairs);
-	//logMe('headerVariable(' . $headerName . ') => ' . print_r($pairs, true));
+	parse_str($header, $pairs);
 	return isset($pairs[$varName]) ? $pairs[$varName] : null;
 }
 
@@ -93,8 +80,24 @@ function logMe($text) {
 	file_put_contents(LOG_PATH . '/api.log', $text, FILE_APPEND);
 }
 
+function debugInfo() {
+	if (function_exists('getallheaders')) {
+		$ALL_HEADERS = getallheaders();
+	} else {	//nginx	http://php.net/getallheaders#84262
+		$ALL_HEADERS = '';
+		foreach ($_SERVER as $name => $value) {
+			if (substr($name, 0, 5) === 'HTTP_') {
+				$ALL_HEADERS[str_replace(' ', '-', ucwords(strtolower(str_replace('_', ' ', substr($name, 5)))))] = $value;
+			}
+		}
+	}
+	global $ORIGINAL_INPUT;
+	return print_r(array('date' => date('c'), 'headers' => $ALL_HEADERS, '_SERVER' => $_SERVER, '_GET' => $_GET, '_POST' => $_POST, '_COOKIE' => $_COOKIE, 'INPUT' => $ORIGINAL_INPUT), true);
+}
+
 function badRequest() {
 	logMe("badRequest()\n");
+	logMe(debugInfo());
 	header('HTTP/1.1 400 Bad Request');
 	header('Content-Type: text/plain; charset=UTF-8');
 	die('Bad Request!');
@@ -102,6 +105,7 @@ function badRequest() {
 
 function unauthorized() {
 	logMe("unauthorized()\n");
+	logMe(debugInfo());
 	header('HTTP/1.1 401 Unauthorized');
 	header('Content-Type: text/plain; charset=UTF-8');
 	header('Google-Bad-Token: true');
@@ -110,6 +114,7 @@ function unauthorized() {
 
 function notImplemented() {
 	logMe("notImplemented()\n");
+	logMe(debugInfo());
 	header('HTTP/1.1 501 Not Implemented');
 	header('Content-Type: text/plain; charset=UTF-8');
 	die('Not Implemented!');
@@ -128,8 +133,9 @@ function checkCompatibility() {
 	if (PHP_INT_SIZE < 8 && !function_exists('gmp_init')) {
 		die('FAIL 64-bit or GMP extension!');
 	}
-	global $nativeGetallheaders;
-	if ((!$nativeGetallheaders) && isset($_SERVER['SERVER_SOFTWARE']) && (stripos($_SERVER['SERVER_SOFTWARE'], 'nginx') === false)) {
+	if ((!array_key_exists('HTTP_AUTHORIZATION', $_SERVER)) &&	//Apache mod_rewrite trick should be fine
+		(empty($_SERVER['SERVER_SOFTWARE']) || (stripos($_SERVER['SERVER_SOFTWARE'], 'nginx') === false)) &&	//nginx should be fine
+		((!function_exists('getallheaders')) || (stripos(php_sapi_name(), 'cgi') !== false))) {	//Main problem is Apache/CGI mode
 		die('FAIL getallheaders! (probably)');
 	}
 	echo 'PASS';
@@ -318,7 +324,7 @@ function unreadCount() {	//http://blog.martindoms.com/2009/10/16/using-the-googl
 function streamContents($path, $include_target, $start_time, $count, $order, $exclude_target, $continuation) {
 //http://code.google.com/p/pyrfeed/wiki/GoogleReaderAPI
 //http://blog.martindoms.com/2009/10/16/using-the-google-reader-api-part-2/#feed
-	logMe('streamContents(' . $include_target . ")\n");
+	logMe("streamContents($path, $include_target, $start_time, $count, $order, $exclude_target, $continuation)\n");
 	header('Content-Type: application/json; charset=UTF-8');
 
 	$feedDAO = new FreshRSS_FeedDAO();
@@ -424,7 +430,7 @@ function streamContentsItemsIds($streamId, $start_time, $count, $order, $exclude
 //http://code.google.com/p/google-reader-api/wiki/ApiStreamItemsIds
 //http://code.google.com/p/pyrfeed/wiki/GoogleReaderAPI
 //http://blog.martindoms.com/2009/10/16/using-the-google-reader-api-part-2/#feed
-	logMe('streamContentsItemsIds(' . $streamId . ")\n");
+	logMe("streamContentsItemsIds($streamId, $start_time, $count, $order, $exclude_target)\n");
 
 	$type = 'A';
 	$id = '';
@@ -505,7 +511,7 @@ function editTag($e_ids, $a, $r) {
 }
 
 function markAllAsRead($streamId, $olderThanId) {
-	logMe('markAllAsRead(' . $streamId . ")\n");
+	logMe("markAllAsRead($streamId, $olderThanId)\n");
 	$entryDAO = new FreshRSS_EntryDAO();
 	if (strpos($streamId, 'feed/') === 0) {
 		$f_id = basename($streamId);
@@ -522,12 +528,10 @@ function markAllAsRead($streamId, $olderThanId) {
 }
 
 logMe('----------------------------------------------------------------'."\n");
-logMe(print_r($debugInfo, true));
+//logMe(debugInfo());
 
 $pathInfo = empty($_SERVER['PATH_INFO']) ? '/Error' : urldecode($_SERVER['PATH_INFO']);
 $pathInfos = explode('/', $pathInfo);
-
-logMe('pathInfos => ' . print_r($pathInfos, true));
 
 Minz_Configuration::init();
 

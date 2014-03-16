@@ -69,13 +69,19 @@ class FreshRSS_users_Controller extends Minz_ActionController {
 				$anon_refresh = Minz_Request::param('anon_refresh', false);
 				$anon_refresh = ((bool)$anon_refresh) && ($anon_refresh !== 'no');
 				$auth_type = Minz_Request::param('auth_type', 'none');
+				$unsafe_autologin = Minz_Request::param('unsafe_autologin', false);
+				$api_enabled = Minz_Request::param('api_enabled', false);
 				if ($anon != Minz_Configuration::allowAnonymous() ||
 					$auth_type != Minz_Configuration::authType() ||
-					$anon_refresh != Minz_Configuration::allowAnonymousRefresh()) {
+					$anon_refresh != Minz_Configuration::allowAnonymousRefresh() ||
+					$unsafe_autologin != Minz_Configuration::unsafeAutologinEnabled() ||
+					$api_enabled != Minz_Configuration::apiEnabled()) {
 
 					Minz_Configuration::_authType($auth_type);
 					Minz_Configuration::_allowAnonymous($anon);
 					Minz_Configuration::_allowAnonymousRefresh($anon_refresh);
+					Minz_Configuration::_enableAutologin($unsafe_autologin);
+					Minz_Configuration::_enableApi($api_enabled);
 					$ok &= Minz_Configuration::writeFile();
 				}
 			}

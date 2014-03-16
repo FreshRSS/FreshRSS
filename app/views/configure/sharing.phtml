@@ -35,7 +35,7 @@
 				<a href='#' class='share add'><?php echo FreshRSS_Themes::icon('add'); ?></a>
 				<select>
 					<?php foreach($this->conf->shares as $key => $params):?>
-						<option value='<?php echo $key?>' data-form='<?php echo $params['form']?>' data-help='<?php echo $params['help']?>'><?php echo Minz_Translate::t($key) ?></option>
+						<option value='<?php echo $key?>' data-form='<?php echo $params['form']?>' data-help='<?php if (!empty($params['help'])) {echo $params['help'];}?>'><?php echo Minz_Translate::t($key) ?></option>
 					<?php endforeach; ?>
 				</select>
 			</div>

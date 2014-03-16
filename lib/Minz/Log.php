@@ -80,4 +80,21 @@ class Minz_Log {
 		self::record($msg_get, Minz_Log::DEBUG, $file_name);
 		self::record($msg_post, Minz_Log::DEBUG, $file_name);
 	}
+
+	/**
+	 * Some helpers to Minz_Log::record() method
+	 * Parameters are the same of those of the record() method.
+	 */
+	public static function debug($msg, $file_name = null) {
+		self::record($msg, Minz_Log::DEBUG, $file_name);
+	}
+	public static function notice($msg, $file_name = null) {
+		self::record($msg, Minz_Log::NOTICE, $file_name);
+	}
+	public static function warning($msg, $file_name = null) {
+		self::record($msg, Minz_Log::WARNING, $file_name);
+	}
+	public static function error($msg, $file_name = null) {
+		self::record($msg, Minz_Log::ERROR, $file_name);
+	}
 }

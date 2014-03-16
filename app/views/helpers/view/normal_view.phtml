@@ -28,7 +28,7 @@ if (!empty($this->entries)) {
 
 <div id="stream" class="normal<?php echo $hidePosts ? ' hide_posts' : ''; ?>"><?php
 	?><div id="new-article">
-		<a href="<?php echo _url('index', 'index'); ?>"><?php echo Minz_Translate::t ('new_article'); ?></a>
+		<a href="<?php echo Minz_Url::display ($this->url); ?>"><?php echo Minz_Translate::t ('new_article'); ?></a>
 	</div><?php
 	foreach ($this->entries as $item) {
 		if ($display_today && $item->isDay (FreshRSS_Days::TODAY, $this->today)) {
@@ -138,7 +138,7 @@ if (!empty($this->entries)) {
 							<?php foreach ($sharing as $share) :?>
 								<li class="item share">
 									<a target="_blank" href="<?php echo FreshRSS_Share::generateUrl($this->conf->shares, $share, $item->link(), $item->title() . ' . ' . $feed->name())?>">
-										<?php echo array_key_exists('name', $share) ? $share['name'] : Minz_Translate::t ($share['type']);?>
+										<?php echo Minz_Translate::t ($share['name']);?>
 									</a>
 								</li>
 							<?php endforeach;?>

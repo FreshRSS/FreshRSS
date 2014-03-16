@@ -18,8 +18,12 @@
 <?php } ?>
 		<link rel="shortcut icon" type="image/x-icon" sizes="16x16 64x64" href="<?php echo Minz_Url::display('/favicon.ico'); ?>" />
 		<link rel="icon msapplication-TileImage apple-touch-icon" type="image/png" sizes="256x256" href="<?php echo Minz_Url::display('/themes/icons/favicon-256.png'); ?>" />
-<?php if (isset ($this->rss_url)) { ?>
-		<link rel="alternate" type="application/rss+xml" title="<?php echo $this->rss_title; ?>" href="<?php echo Minz_Url::display ($this->rss_url); ?>" />
+<?php
+	if (isset($this->url)) {
+		$rss_url = $this->url;
+		$rss_url['params']['output'] = 'rss';
+?>
+		<link rel="alternate" type="application/rss+xml" title="<?php echo $this->rss_title; ?>" href="<?php echo Minz_Url::display ($rss_url); ?>" />
 <?php } ?>
 		<link rel="prefetch" href="<?php echo FreshRSS_Themes::icon('starred', true); ?>">
 		<link rel="prefetch" href="<?php echo FreshRSS_Themes::icon('non-starred', true); ?>">
