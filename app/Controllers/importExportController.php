@@ -57,12 +57,40 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 	}
 
 	public function exportAction() {
-		Minz_View::_title ('freshrss_feeds.opml');
+		if (Minz_Request::isPost()) {
+			$this->view->_useLayout (false);
 
-		$this->view->_useLayout (false);
-		header('Content-Type: application/xml; charset=utf-8');
-		header('Content-disposition: attachment; filename=freshrss_feeds.opml');
+			$export_opml = Minz_Request::param('export_opml', false);
+			$export_starred = Minz_Request::param('export_starred', false);
+			$export_all = Minz_Request::param('export_all', false);
 
+			// code from https://stackoverflow.com/questions/1061710/php-zip-files-on-the-fly
+			$file = tempnam("tmp", "zip");
+			$zip = new ZipArchive();
+			$zip->open($file, ZipArchive::OVERWRITE);
+
+			// Stuff with content
+			if ($export_opml) {
+				$zip->addFromString('feeds.opml', $this->generate_opml());
+			}
+			if ($export_starred) {
+				$zip->addFromString('starred.json', $this->generate_articles('starred'));
+			}
+			if ($export_all) {
+				$zip->addFromString('all.json', $this->generate_articles('all'));
+			}
+
+			// Close and send to users
+			$zip->close();
+			header('Content-Type: application/zip');
+			header('Content-Length: ' . filesize($file));
+			header('Content-Disposition: attachment; filename="freshrss_export.zip"');
+			readfile($file);
+			unlink($file);
+		}
+	}
+
+	private function generate_opml() {
 		$feedDAO = new FreshRSS_FeedDAO ();
 		$catDAO = new FreshRSS_CategoryDAO ();
 
@@ -73,5 +101,17 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 		}
 
 		$this->view->categories = $list;
+
+		// TODO: add a parameter to renderHelper in order to get a variable
+		ob_start();
+		$this->view->renderHelper('export/opml');
+		return ob_get_clean();
+	}
+
+	private function generate_articles($type) {
+		// TODO: same here + we should get articles according to $type
+		ob_start();
+		$this->view->renderHelper('export/articles');
+		return ob_get_clean();
 	}
 }
