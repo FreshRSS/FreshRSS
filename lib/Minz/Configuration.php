@@ -34,8 +34,6 @@ class Minz_Configuration {
 	 * $base_url le chemin de base pour accéder à l'application
 	 * $title le nom de l'application
 	 * $language la langue par défaut de l'application
-	 * $cacheEnabled permet de savoir si le cache doit être activé
-	 * $delayCache la limite de cache
 	 * $db paramètres pour la base de données (tableau)
 	 *     - host le serveur de la base
 	 *     - user nom d'utilisateur
@@ -48,8 +46,6 @@ class Minz_Configuration {
 	private static $use_url_rewriting = false;
 	private static $title = '';
 	private static $language = 'en';
-	private static $cache_enabled = false;
-	private static $delay_cache = 3600;
 	private static $default_user = '';
 	private static $allow_anonymous = false;
 	private static $allow_anonymous_refresh = false;
@@ -102,12 +98,6 @@ class Minz_Configuration {
 	}
 	public static function language () {
 		return self::$language;
-	}
-	public static function cacheEnabled () {
-		return self::$cache_enabled;
-	}
-	public static function delayCache () {
-		return self::$delay_cache;
 	}
 	public static function dataBase () {
 		return self::$db;
@@ -281,18 +271,6 @@ class Minz_Configuration {
 		}
 		if (isset ($general['language'])) {
 			self::$language = $general['language'];
-		}
-		if (isset ($general['cache_enabled'])) {
-			self::$cache_enabled = $general['cache_enabled'];
-			if (CACHE_PATH === false && self::$cache_enabled) {
-				throw new FileNotExistException (
-					'CACHE_PATH',
-					Minz_Exception::ERROR
-				);
-			}
-		}
-		if (isset ($general['delay_cache'])) {
-			self::$delay_cache = inval($general['delay_cache']);
 		}
 		if (isset ($general['default_user'])) {
 			self::$default_user = $general['default_user'];
