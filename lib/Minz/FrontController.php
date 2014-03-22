@@ -26,8 +26,6 @@ class Minz_FrontController {
 	protected $dispatcher;
 	protected $router;
 
-	private $useOb = true;
-
 	/**
 	 * Constructeur
 	 * Initialise le router et le dispatcher
@@ -63,8 +61,7 @@ class Minz_FrontController {
 	 */
 	public function run () {
 		try {
-			$this->dispatcher->run ($this->useOb);
-			Minz_Response::send ();
+			$this->dispatcher->run();
 		} catch (Minz_Exception $e) {
 			try {
 				Minz_Log::record ($e->getMessage (), Minz_Log::ERROR);
@@ -95,16 +92,5 @@ class Minz_FrontController {
 			$txt = 'See logs files';
 		}
 		exit ('### Application problem ###<br />'."\n".$txt);
-	}
-
-	public function useOb() {
-		return $this->useOb;
-	}
-
-	/**
-	 * Use ob_start('ob_gzhandler') or not.
-	 */
-	public function _useOb($ob) {
-		return $this->useOb = (bool)$ob;
 	}
 }

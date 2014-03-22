@@ -103,6 +103,16 @@ class Minz_View {
 	}
 
 	/**
+	 * Retourne renderHelper() dans une chaîne
+	 * @param $helper l'élément à traîter
+	 */
+	public function helperToString($helper) {
+		ob_start();
+		renderHelper($helper);
+		return ob_get_clean();
+	}
+
+	/**
 	 * Permet de choisir si on souhaite utiliser le layout
 	 * @param $use true si on souhaite utiliser le layout, false sinon
 	 */

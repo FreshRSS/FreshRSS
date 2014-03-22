@@ -27,7 +27,7 @@ function classAutoloader($class) {
 				include(APP_PATH . '/Models/' . $components[1] . '.php');
 				return;
 			case 3:	//Controllers, Exceptions
-				include(APP_PATH . '/' . $components[2] . 's/' . $components[1] . $components[2] . '.php');
+				@include(APP_PATH . '/' . $components[2] . 's/' . $components[1] . $components[2] . '.php');
 				return;
 		}
 	} elseif (strpos($class, 'Minz') === 0) {

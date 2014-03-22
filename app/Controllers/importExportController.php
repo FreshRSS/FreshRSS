@@ -65,7 +65,7 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 			$export_all = Minz_Request::param('export_all', false);
 
 			// code from https://stackoverflow.com/questions/1061710/php-zip-files-on-the-fly
-			$file = tempnam("tmp", "zip");
+			$file = tempnam('tmp', 'zip');
 			$zip = new ZipArchive();
 			$zip->open($file, ZipArchive::OVERWRITE);
 
@@ -101,17 +101,11 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 		}
 
 		$this->view->categories = $list;
-
-		// TODO: add a parameter to renderHelper in order to get a variable
-		ob_start();
-		$this->view->renderHelper('export/opml');
-		return ob_get_clean();
+		return $this->view->helperToString('export/opml');
 	}
 
 	private function generate_articles($type) {
-		// TODO: same here + we should get articles according to $type
-		ob_start();
-		$this->view->renderHelper('export/articles');
-		return ob_get_clean();
+		// TODO: we should get articles according to $type
+		return $this->view->helperToString('export/articles');
 	}
 }
