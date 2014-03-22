@@ -41,7 +41,6 @@ class Minz_Dispatcher {
 	 * @exception Minz_Exception
 	 */
 	public function run ($ob = true) {
-		$cache = new Minz_Cache();
 		// Le ob_start est dupliqué : sans ça il y a un bug sous Firefox
 		// ici on l'appelle avec 'ob_gzhandler', après sans.
 		// Vraisemblablement la compression fonctionne mais c'est sale
@@ -50,45 +49,31 @@ class Minz_Dispatcher {
 			ob_start ('ob_gzhandler');
 		}
 
-		if (Minz_Cache::isEnabled () && !$cache->expired ()) {
-			if ($ob) {
-				ob_start ();
-			}
-			$cache->render ();
-			if ($ob) {
-				$text = ob_get_clean();
-			}
-		} else {
-			$text = '';	//TODO: Clean this code
-			while (Minz_Request::$reseted) {
-				Minz_Request::$reseted = false;
+		$text = '';	//TODO: Clean this code
+		while (Minz_Request::$reseted) {
+			Minz_Request::$reseted = false;
 
-				try {
-					$this->createController ('FreshRSS_' . Minz_Request::controllerName () . '_Controller');
-					$this->controller->init ();
-					$this->controller->firstAction ();
-					$this->launchAction (
-						Minz_Request::actionName ()
-						. 'Action'
-					);
-					$this->controller->lastAction ();
+			try {
+				$this->createController ('FreshRSS_' . Minz_Request::controllerName () . '_Controller');
+				$this->controller->init ();
+				$this->controller->firstAction ();
+				$this->launchAction (
+					Minz_Request::actionName ()
+					. 'Action'
+				);
+				$this->controller->lastAction ();
 
-					if (!Minz_Request::$reseted) {
-						if ($ob) {
-							ob_start ();
-						}
-						$this->controller->view ()->build ();
-						if ($ob) {
-							$text = ob_get_clean();
-						}
+				if (!Minz_Request::$reseted) {
+					if ($ob) {
+						ob_start ();
 					}
-				} catch (Minz_Exception $e) {
-					throw $e;
+					$this->controller->view ()->build ();
+					if ($ob) {
+						$text = ob_get_clean();
+					}
 				}
-			}
-
-			if (Minz_Cache::isEnabled ()) {
-				$cache->cache ($text);
+			} catch (Minz_Exception $e) {
+				throw $e;
 			}
 		}
 
