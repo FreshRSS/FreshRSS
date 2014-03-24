@@ -35,7 +35,7 @@ if (file_exists ('install.php')) {
 			@filemtime(LOG_PATH . '/' . $currentUser . '.log'),
 			@filemtime(DATA_PATH . '/config.php')
 		);
-		if (httpConditional($dateLastModification, 0, 0, false, false, true)) {
+		if (httpConditional($dateLastModification, 0, 0, false, PHP_COMPRESSION, true)) {
 			exit();	//No need to send anything
 		}
 	}
