@@ -5,8 +5,7 @@
  */
 class Minz_Url {
 	/**
-	 * Affiche une Url formatée selon que l'on utilise l'url_rewriting ou non
-	 * si oui, on cherche dans la table de routage la correspondance pour formater
+	 * Affiche une Url formatée
 	 * @param $url l'url à formater définie comme un tableau :
 	 *                    $url['c'] = controller
 	 *                    $url['a'] = action
@@ -39,13 +38,7 @@ class Minz_Url {
 		}
 
 		if ($isArray) {
-			$router = new Minz_Router ();
-
-			if (Minz_Configuration::useUrlRewriting ()) {
-				$url_string .= $router->printUriRewrited ($url);
-			} else {
-				$url_string .= self::printUri ($url, $encodage);
-			}
+			$url_string .= self::printUri ($url, $encodage);
 		} else {
 			$url_string .= $url;
 		}
@@ -54,7 +47,7 @@ class Minz_Url {
 	}
 	
 	/**
-	 * Construit l'URI d'une URL sans url rewriting
+	 * Construit l'URI d'une URL
 	 * @param l'url sous forme de tableau
 	 * @param $encodage pour indiquer comment encoder les & (& ou &amp; pour html)
 	 * @return l'uri sous la forme ?key=value&key2=value2

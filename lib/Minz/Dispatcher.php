@@ -16,24 +16,16 @@ class Minz_Dispatcher {
 	private static $instance = null;
 	private static $needsReset;
 
-	private $router;
 	private $controller;
 
 	/**
 	 * Récupère l'instance du Dispatcher
 	 */
-	public static function getInstance ($router) {
+	public static function getInstance () {
 		if (self::$instance === null) {
-			self::$instance = new Minz_Dispatcher ($router);
+			self::$instance = new Minz_Dispatcher ();
 		}
 		return self::$instance;
-	}
-
-	/**
-	 * Constructeur
-	 */
-	private function __construct ($router) {
-		$this->router = $router;
 	}
 
 	/**
@@ -58,7 +50,7 @@ class Minz_Dispatcher {
 				$this->controller->lastAction ();
 
 				if (!self::$needsReset) {
-					echo $this->controller->view ()->build ();
+					$this->controller->view ()->build ();
 				}
 			} catch (Minz_Exception $e) {
 				throw $e;
@@ -90,7 +82,7 @@ class Minz_Dispatcher {
 				Minz_Exception::ERROR
 			);
 		}
-		$this->controller = new $controller_name ($this->router);
+		$this->controller = new $controller_name ();
 
 		if (! ($this->controller instanceof Minz_ActionController)) {
 			throw new Minz_ControllerNotActionControllerException (

@@ -8,16 +8,12 @@
  * La classe ActionController représente le contrôleur de l'application
  */
 class Minz_ActionController {
-	protected $router;
 	protected $view;
 
 	/**
 	 * Constructeur
-	 * @param $controller nom du controller
-	 * @param $action nom de l'action à lancer
 	 */
-	public function __construct ($router) {
-		$this->router = $router;
+	public function __construct () {
 		$this->view = new Minz_View ();
 		$this->view->attributeParams ();
 	}
