@@ -1,30 +1,40 @@
 <?php
-    // TODO: A lot have to be done!
     $username = Minz_Session::param('currentUser', '_');
-    $type_id = "TODO";
-    $title = Minz_Translate::t("TODO");
-    $entries = [];
-?>{
-    "id": "user/<?php echo str_replace("\"", "", $username); ?>/state/org.freshrss/<?php echo $type_id; ?>",
-    "title": "<?php echo addslashes($title); ?>",
-    "author": "<?php echo addslashes($username); ?>",
-    "items": [
-        <?php $i = 0; foreach($entries as $entry) { $i++;
-        echo $i > 1 ? ', ': ''; ?>{
-            "id": "<?php echo $entry->id(); ?>",
-            "categories": [<?php /* TODO */ ?>],
-            "title": "<?php echo addslashes($entry->title()); ?>",
-            "published": <?php echo $entry->date(true); ?>,
-            "updated": <?php echo $entry->date(true); ?>,
-            "content": "<?php echo addslashes($entry->content()); ?>",
-            "origin": {
-                <?php /* TODO */ ?>
-                "streamId": "",
-                "title": "",
-                "htmlUrl": "",
-                "feedUrl": ""
-            }
+
+    $articles = array(
+        'id' => 'user/' . str_replace('/', '', $username) . '/state/org.freshrss/' . $this->type,
+        'title' => $this->list_title,
+        'author' => $username,
+        'items' => array()
+    );
+
+    foreach ($this->entries as $entry) {
+        if (!isset($this->feed)) {
+            $feed = FreshRSS_CategoryDAO::findFeed($this->categories, $entry->feed ());
+        } else {
+            $feed = $this->feed;
         }
-        <?php } ?>
-    ]
-}
+
+        $articles['items'][] = array(
+            'id' => $entry->id(),
+            'categories' => array_values($entry->tags()),
+            'title' => $entry->title(),
+            'published' => $entry->date(true),
+            'updated' => $entry->date(true),
+            'content' => $entry->content(),
+            'origin' => array(
+                'streamId' => $feed->id(),
+                'title' => $feed->name(),
+                'htmlUrl' => $feed->website(),
+                'feedUrl' => $feed->url()
+            )
+        );
+    }
+
+    $options = 0;
+    if (version_compare(PHP_VERSION, '5.4.0') >= 0) {
+        $options = JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE;
+    }
+
+    echo json_encode($articles, $options);
+?>

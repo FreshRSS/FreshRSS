@@ -108,7 +108,7 @@ class Minz_View {
 	 */
 	public function helperToString($helper) {
 		ob_start();
-		renderHelper($helper);
+		$this->renderHelper($helper);
 		return ob_get_clean();
 	}
 

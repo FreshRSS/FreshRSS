@@ -13,16 +13,16 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 	}
 
 	public function indexAction() {
-		$catDAO = new FreshRSS_CategoryDAO ();
-		$this->view->categories = $catDAO->listCategories ();
+		$catDAO = new FreshRSS_CategoryDAO();
+		$this->view->categories = $catDAO->listCategories();
 
-		$feedDAO = new FreshRSS_FeedDAO ();
-		$this->view->feeds = $feedDAO->listFeeds ();
+		$feedDAO = new FreshRSS_FeedDAO();
+		$this->view->feeds = $feedDAO->listFeeds();
 
 		// au niveau de la vue, permet de ne pas voir un flux sélectionné dans la liste
 		$this->view->flux = false;
 
-		Minz_View::prependTitle (Minz_Translate::t ('import_export') . ' · ');
+		Minz_View::prependTitle(Minz_Translate::t('import_export') . ' · ');
 	}
 
 	public function importAction() {
@@ -62,7 +62,7 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 
 			$export_opml = Minz_Request::param('export_opml', false);
 			$export_starred = Minz_Request::param('export_starred', false);
-			$export_all = Minz_Request::param('export_all', false);
+			$export_feeds = Minz_Request::param('export_feeds', false);
 
 			// code from https://stackoverflow.com/questions/1061710/php-zip-files-on-the-fly
 			$file = tempnam('tmp', 'zip');
@@ -76,11 +76,16 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 			if ($export_starred) {
 				$zip->addFromString('starred.json', $this->generate_articles('starred'));
 			}
-			if ($export_all) {
-				$zip->addFromString('all.json', $this->generate_articles('all'));
+			$feedDAO = new FreshRSS_FeedDAO ();
+			foreach ($export_feeds as $feed_id) {
+				$feed = $feedDAO->searchById($feed_id);
+				$zip->addFromString(
+					'feed_' . $feed->category() . '_' . $feed->id() . '.json',
+					$this->generate_articles('feed', $feed)
+				);
 			}
 
-			// Close and send to users
+			// Close and send to user
 			$zip->close();
 			header('Content-Type: application/zip');
 			header('Content-Length: ' . filesize($file));
@@ -104,8 +109,28 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 		return $this->view->helperToString('export/opml');
 	}
 
-	private function generate_articles($type) {
-		// TODO: we should get articles according to $type
+	private function generate_articles($type, $feed = NULL) {
+		$entryDAO = new FreshRSS_EntryDAO();
+
+		$catDAO = new FreshRSS_CategoryDAO();
+		$this->view->categories = $catDAO->listCategories();
+
+		if ($type == 'starred') {
+			$this->view->list_title = Minz_Translate::t("starred_list");
+			$this->view->type = 'starred';
+			$this->view->entries = $entryDAO->listWhere(
+				's', '', 'all', 'ASC',
+				$entryDAO->countUnreadReadFavorites()['all']
+			);
+		} elseif ($type == 'feed' && !is_null($feed)) {
+			$this->view->list_title = Minz_Translate::t("feed_list", $feed->name());
+			$this->view->type = 'feed/' . $feed->id();
+			$this->view->entries = $entryDAO->listWhere(
+				'f', $feed->id(), 'all', 'ASC',
+				$this->view->conf->posts_per_page
+			);
+			$this->view->feed = $feed;
+		}
 		return $this->view->helperToString('export/articles');
 	}
 }

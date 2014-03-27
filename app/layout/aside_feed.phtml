@@ -43,7 +43,7 @@
 		</div>
 	</form></li>
 
-	<li class="item<?php echo Minz_Request::actionName () == 'importExport' ? ' active' : ''; ?>">
+	<li class="item<?php echo Minz_Request::controllerName () == 'importExport' ? ' active' : ''; ?>">
 		<a href="<?php echo _url ('importExport', 'index'); ?>"><?php echo Minz_Translate::t ('import_export'); ?></a>
 	</li>
 
