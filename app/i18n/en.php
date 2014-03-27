@@ -21,7 +21,7 @@ return array (
 	'your_rss_feeds'		=> 'Your RSS feeds',
 	'add_rss_feed'			=> 'Add a RSS feed',
 	'no_rss_feed'			=> 'No RSS feed',
-	'import_export_opml'		=> 'Import / export (OPML)',
+	'import_export'			=> 'Import / export',
 
 	'subscription_management'	=> 'Subscriptions management',
 	'main_stream'			=> 'Main stream',

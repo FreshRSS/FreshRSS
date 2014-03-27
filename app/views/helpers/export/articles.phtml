@@ -1,0 +1,30 @@
+<?php
+    // TODO: A lot have to be done!
+    $username = Minz_Session::param('currentUser', '_');
+    $type_id = "TODO";
+    $title = Minz_Translate::t("TODO");
+    $entries = [];
+?>{
+    "id": "user/<?php echo str_replace("\"", "", $username); ?>/state/org.freshrss/<?php echo $type_id; ?>",
+    "title": "<?php echo addslashes($title); ?>",
+    "author": "<?php echo addslashes($username); ?>",
+    "items": [
+        <?php $i = 0; foreach($entries as $entry) { $i++;
+        echo $i > 1 ? ', ': ''; ?>{
+            "id": "<?php echo $entry->id(); ?>",
+            "categories": [<?php /* TODO */ ?>],
+            "title": "<?php echo addslashes($entry->title()); ?>",
+            "published": <?php echo $entry->date(true); ?>,
+            "updated": <?php echo $entry->date(true); ?>,
+            "content": "<?php echo addslashes($entry->content()); ?>",
+            "origin": {
+                <?php /* TODO */ ?>
+                "streamId": "",
+                "title": "",
+                "htmlUrl": "",
+                "feedUrl": ""
+            }
+        }
+        <?php } ?>
+    ]
+}

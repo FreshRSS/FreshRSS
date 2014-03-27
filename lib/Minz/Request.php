@@ -15,8 +15,6 @@ class Minz_Request {
 	private static $default_controller_name = 'index';
 	private static $default_action_name = 'index';
 
-	public static $reseted = true;
-
 	/**
 	 * Getteurs
 	 */
@@ -137,14 +135,13 @@ class Minz_Request {
 			header ('Location: ' . Minz_Url::display ($url, 'php'));
 			exit ();
 		} else {
-			self::$reseted = true;
-
 			self::_controllerName ($url['c']);
 			self::_actionName ($url['a']);
 			self::_params (array_merge (
 				self::$params,
 				$url['params']
 			));
+			Minz_Dispatcher::reset();
 		}
 	}
 

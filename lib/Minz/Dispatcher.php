@@ -14,25 +14,18 @@ class Minz_Dispatcher {
 
 	/* singleton */
 	private static $instance = null;
+	private static $needsReset;
 
-	private $router;
 	private $controller;
 
 	/**
 	 * Récupère l'instance du Dispatcher
 	 */
-	public static function getInstance ($router) {
+	public static function getInstance () {
 		if (self::$instance === null) {
-			self::$instance = new Minz_Dispatcher ($router);
+			self::$instance = new Minz_Dispatcher ();
 		}
 		return self::$instance;
-	}
-
-	/**
-	 * Constructeur
-	 */
-	private function __construct ($router) {
-		$this->router = $router;
 	}
 
 	/**
@@ -40,44 +33,36 @@ class Minz_Dispatcher {
 	 * Remplit le body de Response à partir de la Vue
 	 * @exception Minz_Exception
 	 */
-	public function run ($ob = true) {
-		// Le ob_start est dupliqué : sans ça il y a un bug sous Firefox
-		// ici on l'appelle avec 'ob_gzhandler', après sans.
-		// Vraisemblablement la compression fonctionne mais c'est sale
-		// J'ignore les effets de bord :(
-		if ($ob) {
-			ob_start ('ob_gzhandler');
-		}
-
-		$text = '';	//TODO: Clean this code
-		while (Minz_Request::$reseted) {
-			Minz_Request::$reseted = false;
+	public function run () {
+		do {
+			self::$needsReset = false;
 
 			try {
 				$this->createController ('FreshRSS_' . Minz_Request::controllerName () . '_Controller');
 				$this->controller->init ();
 				$this->controller->firstAction ();
-				$this->launchAction (
-					Minz_Request::actionName ()
-					. 'Action'
-				);
+				if (!self::$needsReset) {
+					$this->launchAction (
+						Minz_Request::actionName ()
+						. 'Action'
+					);
+				}
 				$this->controller->lastAction ();
 
-				if (!Minz_Request::$reseted) {
-					if ($ob) {
-						ob_start ();
-					}
+				if (!self::$needsReset) {
 					$this->controller->view ()->build ();
-					if ($ob) {
-						$text = ob_get_clean();
-					}
 				}
 			} catch (Minz_Exception $e) {
 				throw $e;
 			}
-		}
+		} while (self::$needsReset);
+	}
 
-		Minz_Response::setBody ($text);
+	/**
+	 * Informe le contrôleur qu'il doit recommancer car la requête a été modifiée
+	 */
+	public static function reset() {
+		self::$needsReset = true;
 	}
 
 	/**
@@ -97,7 +82,7 @@ class Minz_Dispatcher {
 				Minz_Exception::ERROR
 			);
 		}
-		$this->controller = new $controller_name ($this->router);
+		$this->controller = new $controller_name ();
 
 		if (! ($this->controller instanceof Minz_ActionController)) {
 			throw new Minz_ControllerNotActionControllerException (
@@ -114,21 +99,19 @@ class Minz_Dispatcher {
 	 *  le controller
 	 */
 	private function launchAction ($action_name) {
-		if (!Minz_Request::$reseted) {
-			if (!is_callable (array (
-				$this->controller,
-				$action_name
-			))) {
-				throw new Minz_ActionException (
-					get_class ($this->controller),
-					$action_name,
-					Minz_Exception::ERROR
-				);
-			}
-			call_user_func (array (
-				$this->controller,
-				$action_name
-			));
+		if (!is_callable (array (
+			$this->controller,
+			$action_name
+		))) {
+			throw new Minz_ActionException (
+				get_class ($this->controller),
+				$action_name,
+				Minz_Exception::ERROR
+			);
 		}
+		call_user_func (array (
+			$this->controller,
+			$action_name
+		));
 	}
 }

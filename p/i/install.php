@@ -228,7 +228,6 @@ function saveStep3 () {
 		$ini_array = array(
 			'general' => array(
 				'environment' => empty($_SESSION['environment']) ? 'production' : $_SESSION['environment'],
-				'use_url_rewriting' => false,
 				'salt' => $_SESSION['salt'],
 				'base_url' => '',
 				'title' => $_SESSION['title'],

@@ -30,7 +30,6 @@ class Minz_Configuration {
 	 * définition des variables de configuration
 	 * $salt une chaîne de caractères aléatoires (obligatoire)
 	 * $environment gère le niveau d'affichage pour log et erreurs
-	 * $use_url_rewriting indique si on utilise l'url_rewriting
 	 * $base_url le chemin de base pour accéder à l'application
 	 * $title le nom de l'application
 	 * $language la langue par défaut de l'application
@@ -43,7 +42,6 @@ class Minz_Configuration {
 	private static $salt = '';
 	private static $environment = Minz_Configuration::PRODUCTION;
 	private static $base_url = '';
-	private static $use_url_rewriting = false;
 	private static $title = '';
 	private static $language = 'en';
 	private static $default_user = '';
@@ -89,9 +87,6 @@ class Minz_Configuration {
 	}
 	public static function baseUrl () {
 		return self::$base_url;
-	}
-	public static function useUrlRewriting () {
-		return self::$use_url_rewriting;
 	}
 	public static function title () {
 		return self::$title;
@@ -176,7 +171,6 @@ class Minz_Configuration {
 		$ini_array = array(
 			'general' => array(
 				'environment' => self::environment(true),
-				'use_url_rewriting' => self::$use_url_rewriting,
 				'salt' => self::$salt,
 				'base_url' => self::$base_url,
 				'title' => self::$title,
@@ -261,9 +255,6 @@ class Minz_Configuration {
 		}
 		if (isset ($general['base_url'])) {
 			self::$base_url = $general['base_url'];
-		}
-		if (isset ($general['use_url_rewriting'])) {
-			self::$use_url_rewriting = $general['use_url_rewriting'];
 		}
 
 		if (isset ($general['title'])) {
