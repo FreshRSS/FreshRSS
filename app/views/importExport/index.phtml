@@ -19,6 +19,7 @@
 		</div>
 	</form>
 
+	<?php if (count($this->feeds) > 0) { ?>
 	<form method="post" action="<?php echo _url('importExport', 'export'); ?>">
 		<legend><?php echo Minz_Translate::t ('export'); ?></legend>
 		<div class="form-group">
@@ -47,4 +48,5 @@
 			</div>
 		</div>
 	</form>
+	<?php } ?>
 </div>

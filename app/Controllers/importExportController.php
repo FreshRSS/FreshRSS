@@ -131,6 +131,7 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 			);
 			$this->view->feed = $feed;
 		}
+
 		return $this->view->helperToString('export/articles');
 	}
 }
