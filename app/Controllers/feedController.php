@@ -328,6 +328,8 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 	}
 
 	public function massiveImportAction () {
+		# TODO: this function has moved to importExportController.php
+		# I keep it for the moment but should be deleted in a near future.
 		@set_time_limit(300);
 
 		$this->catDAO = new FreshRSS_CategoryDAO ();

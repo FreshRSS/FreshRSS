@@ -16,12 +16,19 @@
         }
 
         $articles['items'][] = array(
-            'id' => $entry->id(),
+            'id' => $entry->guid(),
             'categories' => array_values($entry->tags()),
             'title' => $entry->title(),
+            'author' => $entry->author(),
             'published' => $entry->date(true),
             'updated' => $entry->date(true),
-            'content' => $entry->content(),
+            'alternate' => array(array(
+                'href' => $entry->link(),
+                'type' => 'text/html'
+            )),
+            'content' => array(
+                'content' => $entry->content()
+            ),
             'origin' => array(
                 'streamId' => $feed->id(),
                 'title' => $feed->name(),
