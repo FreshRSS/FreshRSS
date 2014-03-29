@@ -129,71 +129,101 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 	}
 
 	private function import_opml($opml_file) {
-		$categories = array();
-		$feeds = array();
+		$opml_array = array();
 		try {
-			list($categories, $feeds) = opml_import($opml_file);
-		} catch (FreshRSS_Opml_Exception $e) {
+			$opml_array = libopml_parse_string($opml_file);
+		} catch (LibOPML_Exception $e) {
 			Minz_Log::warning($e->getMessage());
 			return true;
 		}
 
 		$this->catDAO->checkDefault();
 
-		// on ajoute les catégories en masse dans une fonction à part
-		$this->addCategories($categories);
+		return $this->addOpmlElements($opml_array['body']);
+	}
 
-		// on calcule la date des articles les plus anciens qu'on accepte
-		$nb_month_old = $this->view->conf->old_entries;
-		$date_min = time() - (3600 * 24 * 30 * $nb_month_old);
-
-		// la variable $error permet de savoir si une erreur est survenue
-		// Le but est de ne pas arrêter l'import même en cas d'erreur
-		// L'utilisateur sera mis au courant s'il y a eu des erreurs, mais
-		// ne connaîtra pas les détails. Ceux-ci seront toutefois logguées
+	private function addOpmlElements($opml_elements, $parent_cat = null) {
 		$error = false;
-		foreach ($feeds as $feed) {
-			try {
-				$values = array(
-					'id' => $feed->id(),
-					'url' => $feed->url(),
-					'category' => $feed->category(),
-					'name' => $feed->name(),
-					'website' => $feed->website(),
-					'description' => $feed->description(),
-					'lastUpdate' => 0,
-					'httpAuth' => $feed->httpAuth()
-				);
+		foreach ($opml_elements as $elt) {
+			$res = false;
+			if (isset($elt['xmlUrl'])) {
+				$res = $this->addFeedOpml($elt, $parent_cat);
+			} else {
+				$res = $this->addCategoryOpml($elt, $parent_cat);
+			}
 
-				// ajout du flux que s'il n'est pas déjà en BDD
-				if (!$this->feedDAO->searchByUrl($values['url'])) {
-					$id = $this->feedDAO->addFeed($values);
-					if ($id) {
-						$feed->_id($id);
-						$feed->faviconPrepare();
-					} else {
-						$error = true;
-					}
-				}
-			} catch (FreshRSS_Feed_Exception $e) {
-				$error = true;
-				Minz_Log::record($e->getMessage(), Minz_Log::WARNING);
+			if (!$error && $res) {
+				// oops: there is at least one error!
+				$error = $res;
 			}
 		}
 
 		return $error;
 	}
 
-	private function addCategories($categories) {
-		foreach ($categories as $cat) {
-			if (!$this->catDAO->searchByName($cat->name())) {
-				$values = array(
-					'id' => $cat->id(),
-					'name' => $cat->name(),
-				);
-				$this->catDAO->addCategory($values);
+	private function addFeedOpml($feed_elt, $parent_cat) {
+		if (is_null($parent_cat)) {
+			// This feed has no parent category so we get the default one
+			$parent_cat = $catDAO->getDefault()->name();
+		}
+
+		$cat = $this->catDAO->searchByName($parent_cat);
+
+		if (!$cat) {
+			return true;
+		}
+
+		// We get different useful information
+		$url = html_chars_utf8($feed_elt['xmlUrl']);
+		$name = html_chars_utf8($feed_elt['text']);
+		$website = '';
+		if (isset($feed_elt['htmlUrl'])) {
+			$website = html_chars_utf8($feed_elt['htmlUrl']);
+		}
+		$description = '';
+		if (isset($feed_elt['description'])) {
+			$description = html_chars_utf8($feed_elt['description']);
+		}
+
+		$error = false;
+		try {
+			// Create a Feed object and add it in DB
+			$feed = new FreshRSS_Feed($url);
+			$feed->_category($cat->id());
+			$feed->_name($name);
+			$feed->_website($website);
+			$feed->_description($description);
+
+			// addFeedObject checks if feed is already in DB so nothing else to
+			// check here
+			$id = $this->feedDAO->addFeedObject($feed);
+			$error = ($id === false);
+		} catch (FreshRSS_Feed_Exception $e) {
+			Minz_Log::record($e->getMessage(), Minz_Log::WARNING);
+			$error = true;
+		}
+
+		return $error;
+	}
+
+	private function addCategoryOpml($cat_elt, $parent_cat) {
+		// Create a new Category object
+		$cat = new FreshRSS_Category(html_chars_utf8($cat_elt['text']));
+
+		$id = $this->catDAO->addCategoryObject($cat);
+		$error = ($id === false);
+
+		if (isset($cat_elt['@outlines'])) {
+			// Our cat_elt contains more categories or more feeds, so we
+			// add them recursively.
+			// Note: FreshRSS does not support yet category arborescence
+			$res = $this->addOpmlElements($cat_elt['@outlines'], $cat->name());
+			if (!$error && $res) {
+				$error = true;
 			}
 		}
+
+		return $error;
 	}
 
 	private function import_articles($article_file, $starred = false) {
