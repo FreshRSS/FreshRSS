@@ -115,7 +115,8 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 
 		if (substr_compare($filename, '.zip', -4) === 0) {
 			return 'zip';
-		} elseif (substr_compare($filename, '.opml', -5) === 0) {
+		} elseif (substr_compare($filename, '.opml', -5) === 0 ||
+		          substr_compare($filename, '.xml', -4) === 0) {
 			return 'opml';
 		} elseif (strcmp($filename, 'starred.json') === 0) {
 			return 'json_starred';
@@ -144,7 +145,7 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 
 		// on calcule la date des articles les plus anciens qu'on accepte
 		$nb_month_old = $this->view->conf->old_entries;
-		$date_min = time() -(3600 * 24 * 30 * $nb_month_old);
+		$date_min = time() - (3600 * 24 * 30 * $nb_month_old);
 
 		// la variable $error permet de savoir si une erreur est survenue
 		// Le but est de ne pas arrêter l'import même en cas d'erreur
@@ -294,7 +295,7 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 			$this->view->type = 'starred';
 			$this->view->entries = $this->entryDAO->listWhere(
 				's', '', 'all', 'ASC',
-				$entryDAO->countUnreadReadFavorites()['all']
+				$this->entryDAO->countUnreadReadFavorites()['all']
 			);
 		} elseif ($type == 'feed' && !is_null($feed)) {
 			$this->view->list_title = Minz_Translate::t("feed_list", $feed->name());

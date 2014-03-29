@@ -34,7 +34,7 @@
 					<?php echo Minz_Translate::t ('export_starred'); ?>
 				</label>
 
-				<select name="export_feeds[]" size="10" multiple="multiple">
+				<select name="export_feeds[]" size="<?php echo min(10, count($this->feeds)); ?>" multiple="multiple">
 					<?php foreach ($this->feeds as $feed) { ?>
 					<option value="<?php echo $feed->id(); ?>"><?php echo $feed->name(); ?></option>
 					<?php } ?>
