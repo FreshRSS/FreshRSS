@@ -20,9 +20,6 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 		$this->view->categories = $this->catDAO->listCategories();
 		$this->view->feeds = $this->feedDAO->listFeeds();
 
-		// au niveau de la vue, permet de ne pas voir un flux sélectionné dans la liste
-		$this->view->flux = false;
-
 		Minz_View::prependTitle(Minz_Translate::t('import_export') . ' · ');
 	}
 
@@ -46,7 +43,9 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 				$zip = zip_open($file['tmp_name']);
 
 				while (($zipfile = zip_read($zip)) !== false) {
-					$type_zipfile = $this->guessFileType(zip_entry_name($zipfile));
+					$type_zipfile = $this->guessFileType(
+						zip_entry_name($zipfile)
+					);
 
 					if ($type_file !== 'unknown') {
 						$list_files[$type_zipfile][] = zip_entry_read(
@@ -58,7 +57,9 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 
 				zip_close($zip);
 			} elseif ($type_file !== 'unknown') {
-				$list_files[$type_file][] = file_get_contents($file['tmp_name']);
+				$list_files[$type_file][] = file_get_contents(
+					$file['tmp_name']
+				);
 			}
 
 			// Import different files.
@@ -79,18 +80,19 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 			// And finally, we get import status and redirect to the home page
 			$notif = null;
 			if ($error === true) {
-				$notif = array(
-					'type' => 'good',
-					'content' => Minz_Translate::t('feeds_imported_with_errors')
+				$content_notif = Minz_Translate::t(
+					'feeds_imported_with_errors'
 				);
 			} else {
-				$notif = array(
-					'type' => 'good',
-					'content' => Minz_Translate::t('feeds_imported')
+				$content_notif = Minz_Translate::t(
+					'feeds_imported'
 				);
 			}
 
-			Minz_Session::_param('notification', $notif);
+			Minz_Session::_param('notification', array(
+				'type' => 'good',
+				'content' => $content_notif
+			));
 			Minz_Session::_param('actualize_feeds', true);
 
 			Minz_Request::forward(array(
@@ -235,7 +237,9 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 
 		$is_read = $this->view->conf->mark_when['reception'] ? 1 : 0;
 
-		$google_compliant = (strpos($article_object['id'], 'com.google') !== false);
+		$google_compliant = (
+			strpos($article_object['id'], 'com.google') !== false
+		);
 
 		$error = false;
 		foreach ($article_object['items'] as $item) {
@@ -246,7 +250,8 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 			}
 
 			$author = isset($item['author']) ? $item['author'] : '';
-			$key_content = $google_compliant && !isset($item['content']) ? 'summary' : 'content';
+			$key_content = ($google_compliant && !isset($item['content'])) ?
+			               'summary' : 'content';
 			$tags = $item['categories'];
 			if ($google_compliant) {
 				$tags = array_filter($tags, function($var) {
@@ -312,17 +317,21 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 			$export_starred = Minz_Request::param('export_starred', false);
 			$export_feeds = Minz_Request::param('export_feeds', false);
 
-			// code from https://stackoverflow.com/questions/1061710/php-zip-files-on-the-fly
+			// From https://stackoverflow.com/questions/1061710/php-zip-files-on-the-fly
 			$file = tempnam('tmp', 'zip');
 			$zip = new ZipArchive();
 			$zip->open($file, ZipArchive::OVERWRITE);
 
 			// Stuff with content
 			if ($export_opml) {
-				$zip->addFromString('feeds.opml', $this->generateOpml());
+				$zip->addFromString(
+					'feeds.opml', $this->generateOpml()
+				);
 			}
 			if ($export_starred) {
-				$zip->addFromString('starred.json', $this->generateArticles('starred'));
+				$zip->addFromString(
+					'starred.json', $this->generateArticles('starred')
+				);
 			}
 			foreach ($export_feeds as $feed_id) {
 				$feed = $this->feedDAO->searchById($feed_id);
@@ -357,14 +366,16 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 		$this->view->categories = $this->catDAO->listCategories();
 
 		if ($type == 'starred') {
-			$this->view->list_title = Minz_Translate::t("starred_list");
+			$this->view->list_title = Minz_Translate::t('starred_list');
 			$this->view->type = 'starred';
 			$this->view->entries = $this->entryDAO->listWhere(
 				's', '', 'all', 'ASC',
 				$this->entryDAO->countUnreadReadFavorites()['all']
 			);
 		} elseif ($type == 'feed' && !is_null($feed)) {
-			$this->view->list_title = Minz_Translate::t("feed_list", $feed->name());
+			$this->view->list_title = Minz_Translate::t(
+				'feed_list', $feed->name()
+			);
 			$this->view->type = 'feed/' . $feed->id();
 			$this->view->entries = $this->entryDAO->listWhere(
 				'f', $feed->id(), 'all', 'ASC',
