@@ -54,7 +54,7 @@ class Minz_Url {
 	 */
 	private static function printUri ($url, $encodage) {
 		$uri = '';
-		$separator = '/?';
+		$separator = '?';
 		
 		if($encodage == 'html') {
 			$and = '&amp;';
