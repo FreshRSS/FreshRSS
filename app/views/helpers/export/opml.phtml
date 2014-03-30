@@ -16,13 +16,11 @@ foreach ($this->categories as $key => $cat) {
 
 	foreach ($cat['feeds'] as $feed) {
 		$opml_array['body'][$key]['@outlines'][] = array(
-			'text' => $feed->name(),
+			'text' => htmlspecialchars_decode($feed->name()),
 			'type' => 'rss',
 			'xmlUrl' => $feed->url(),
 			'htmlUrl' => $feed->website(),
-			'description' => htmlspecialchars(
-				$feed->description(), ENT_COMPAT, 'UTF-8'
-			)
+			'description' => $feed->description()
 		);
 	}
 }
