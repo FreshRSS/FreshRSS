@@ -368,9 +368,10 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 		if ($type == 'starred') {
 			$this->view->list_title = Minz_Translate::t('starred_list');
 			$this->view->type = 'starred';
+			$unread_fav = $this->entryDAO->countUnreadReadFavorites();
 			$this->view->entries = $this->entryDAO->listWhere(
 				's', '', 'all', 'ASC',
-				$this->entryDAO->countUnreadReadFavorites()['all']
+				$unread_fav['all']
 			);
 		} elseif ($type == 'feed' && !is_null($feed)) {
 			$this->view->list_title = Minz_Translate::t(
