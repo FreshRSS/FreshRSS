@@ -138,7 +138,7 @@ return array (
 	'auto_share'			=> 'Partager',
 	'auto_share_help'		=> 'Si il n’y a qu’un mode de partage, celui ci est utilisé automatiquement. Sinon ils sont accessibles par leur numéro.',
 
-	'file_to_import'		=> 'Fichier à importer (OPML)',
+	'file_to_import'		=> 'Fichier à importer<br />(OPML, Json ou Zip)',
 	'import'			=> 'Importer',
 	'export'			=> 'Exporter',
 	'export_opml'			=> 'Exporter la liste des flux (OPML)',

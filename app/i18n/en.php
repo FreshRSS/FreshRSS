@@ -138,7 +138,7 @@ return array (
 	'auto_share'			=> 'Share',
 	'auto_share_help'		=> 'If there is only one sharing mode, it is used. Else modes are accessible by their number.',
 
-	'file_to_import'		=> 'File to import (OPML)',
+	'file_to_import'		=> 'File to import<br />(OPML, Json or Zip)',
 	'import'			=> 'Import',
 	'export'			=> 'Export',
 	'export_opml'			=> 'Export list of feeds (OPML)',
