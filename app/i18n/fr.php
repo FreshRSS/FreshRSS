@@ -138,9 +138,13 @@ return array (
 	'auto_share'			=> 'Partager',
 	'auto_share_help'		=> 'Si il n’y a qu’un mode de partage, celui ci est utilisé automatiquement. Sinon ils sont accessibles par leur numéro.',
 
-	'file_to_import'		=> 'Fichier à importer',
+	'file_to_import'		=> 'Fichier à importer (OPML)',
 	'import'			=> 'Importer',
 	'export'			=> 'Exporter',
+	'export_opml'			=> 'Exporter la liste des flux (OPML)',
+	'export_starred'		=> 'Exporter les favoris',
+	'starred_list'			=> 'Liste des articles favoris',
+	'feed_list'			=> 'Liste des articles de %s',
 	'or'				=> 'ou',
 
 	'informations'			=> 'Informations',

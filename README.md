@@ -27,7 +27,7 @@ Privilégiez pour cela des demandes sur GitHub
 * Serveur Web Apache2 ou Nginx (non testé sur les autres)
 * PHP 5.2.1+ (PHP 5.3.7+ recommandé)
 	* Requis : [PDO_MySQL](http://php.net/pdo-mysql), [cURL](http://php.net/curl), [LibXML](http://php.net/xml), [PCRE](http://php.net/pcre), [ctype](http://php.net/ctype)
-	* Recommandés : [JSON](http://php.net/json), [zlib](http://php.net/zlib), [mbstring](http://php.net/mbstring), [iconv](http://php.net/iconv)
+	* Recommandés : [JSON](http://php.net/json), [zlib](http://php.net/zlib), [mbstring](http://php.net/mbstring), [iconv](http://php.net/iconv), [Zip](http://php.net/zip)
 * MySQL 5.0.3+ (ou SQLite 3.7.4+ à venir)
 * Un navigateur Web récent tel Firefox 4+, Chrome, Opera, Safari, Internet Explorer 9+
 	* Fonctionne aussi sur mobile

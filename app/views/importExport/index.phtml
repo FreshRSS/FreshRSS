@@ -19,6 +19,7 @@
 		</div>
 	</form>
 
+	<?php if (count($this->feeds) > 0) { ?>
 	<form method="post" action="<?php echo _url('importExport', 'export'); ?>">
 		<legend><?php echo Minz_Translate::t ('export'); ?></legend>
 		<div class="form-group">
@@ -33,11 +34,11 @@
 					<?php echo Minz_Translate::t ('export_starred'); ?>
 				</label>
 
-				<label class="checkbox" for="export_all">
-					<input type="checkbox" name="export_all" id="export_all" value="1" />
-					<?php echo Minz_Translate::t ('export_all'); ?>
-					<?php echo FreshRSS_Themes::icon('help'); ?> <?php echo Minz_Translate::t('export_all_is_long'); ?>
-				</label>
+				<select name="export_feeds[]" size="<?php echo min(10, count($this->feeds)); ?>" multiple="multiple">
+					<?php foreach ($this->feeds as $feed) { ?>
+					<option value="<?php echo $feed->id(); ?>"><?php echo $feed->name(); ?></option>
+					<?php } ?>
+				</select>
 			</div>
 		</div>
 
@@ -47,4 +48,5 @@
 			</div>
 		</div>
 	</form>
+	<?php } ?>
 </div>

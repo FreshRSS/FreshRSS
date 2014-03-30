@@ -138,9 +138,13 @@ return array (
 	'auto_share'			=> 'Share',
 	'auto_share_help'		=> 'If there is only one sharing mode, it is used. Else modes are accessible by their number.',
 
-	'file_to_import'		=> 'File to import',
+	'file_to_import'		=> 'File to import (OPML)',
 	'import'			=> 'Import',
 	'export'			=> 'Export',
+	'export_opml'			=> 'Export list of feeds (OPML)',
+	'export_starred'		=> 'Export your favourites',
+	'starred_list'			=> 'List of favourite articles',
+	'feed_list'			=> 'List of %s articles',
 	'or'				=> 'or',
 
 	'informations'			=> 'Information',

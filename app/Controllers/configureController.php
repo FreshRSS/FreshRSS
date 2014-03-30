@@ -62,7 +62,6 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 		$this->view->categories = $catDAO->listCategories (false);
 		$this->view->defaultCategory = $catDAO->getDefault ();
 		$this->view->feeds = $feedDAO->listFeeds ();
-		$this->view->flux = false;
 
 		Minz_View::prependTitle (Minz_Translate::t ('categories_management') . ' · ');
 	}

@@ -18,6 +18,19 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo {
 		}
 	}
 
+	public function addCategoryObject($category) {
+		$cat = $this->searchByName($category->name());
+		if (!$cat) {
+			// Category does not exist yet in DB so we add it before continue
+			$values = array(
+				'name' => $category->name(),
+			);
+			return $this->addCategory($values);
+		}
+
+		return $cat->id();
+	}
+
 	public function updateCategory ($id, $valuesTmp) {
 		$sql = 'UPDATE `' . $this->prefix . 'category` SET name=? WHERE id=?';
 		$stm = $this->bd->prepare ($sql);

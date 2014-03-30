@@ -35,6 +35,36 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 		}
 	}
 
+	public function addEntryObject($entry, $conf, $feedHistory) {
+		$existingGuids = array_fill_keys(
+			$this->listLastGuidsByFeed($entry->feed(), 20), 1
+		);
+
+		$nb_month_old = max($conf->old_entries, 1);
+		$date_min = time() - (3600 * 24 * 30 * $nb_month_old);
+
+		$eDate = $entry->date(true);
+
+		if ($feedHistory == -2) {
+			$feedHistory = $conf->keep_history_default;
+		}
+
+		if (!isset($existingGuids[$entry->guid()]) &&
+				($feedHistory != 0 || $eDate  >= $date_min)) {
+			$values = $entry->toArray();
+
+			$useDeclaredDate = empty($existingGuids);
+			$values['id'] = ($useDeclaredDate || $eDate < $date_min) ?
+				min(time(), $eDate) . uSecString() :
+				uTimeString();
+
+			return $this->addEntry($values);
+		}
+
+		// We don't return Entry object to avoid a research in DB
+		return -1;
+	}
+
 	public function markFavorite($ids, $is_favorite = true) {
 		if (!is_array($ids)) {
 			$ids = array($ids);

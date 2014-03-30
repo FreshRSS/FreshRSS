@@ -244,3 +244,7 @@ function cryptAvailable() {
 	}
 	return false;
 }
+
+function html_chars_utf8($str) {
+	return htmlspecialchars($str, ENT_COMPAT, 'UTF-8');
+}

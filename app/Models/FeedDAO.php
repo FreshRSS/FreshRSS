@@ -24,6 +24,36 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo {
 		}
 	}
 
+	public function addFeedObject($feed) {
+		// TODO: not sure if we should write this method in DAO since DAO
+		// should not be aware about feed class
+
+		// Add feed only if we don't find it in DB
+		$feed_search = $this->searchByUrl($feed->url());
+		if (!$feed_search) {
+			$values = array(
+				'id' => $feed->id(),
+				'url' => $feed->url(),
+				'category' => $feed->category(),
+				'name' => $feed->name(),
+				'website' => $feed->website(),
+				'description' => $feed->description(),
+				'lastUpdate' => 0,
+				'httpAuth' => $feed->httpAuth()
+			);
+
+			$id = $this->addFeed($values);
+			if ($id) {
+				$feed->_id($id);
+				$feed->faviconPrepare();
+			}
+
+			return $id;
+		}
+
+		return $feed_search->id();
+	}
+
 	public function updateFeed ($id, $valuesTmp) {
 		$set = '';
 		foreach ($valuesTmp as $key => $v) {
