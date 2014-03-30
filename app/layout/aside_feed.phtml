@@ -43,6 +43,12 @@
 		</div>
 	</form></li>
 
+	<li class="item">
+		<a href="javascript:(function(){var%20url%20=%20location.href;window.open('<?php echo Minz_Url::display(array('c' => 'feed', 'a' => 'add'), 'html', true); ?>&amp;url_rss='+encodeURIComponent(url), '_blank');})();">
+			<?php echo Minz_Translate::t('bookmark'); ?>
+		</a>
+	</li>
+
 	<li class="item<?php echo Minz_Request::actionName () == 'importExport' ? ' active' : ''; ?>">
 		<a href="<?php echo _url ('importExport', 'index'); ?>"><?php echo Minz_Translate::t ('import_export'); ?></a>
 	</li>

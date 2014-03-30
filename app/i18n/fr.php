@@ -22,6 +22,7 @@ return array (
 	'add_rss_feed'			=> 'Ajouter un flux RSS',
 	'no_rss_feed'			=> 'Aucun flux RSS',
 	'import_export'			=> 'Importer / exporter',
+	'bookmark'			=> 'S’abonner (bookmark FreshRSS)',
 
 	'subscription_management'	=> 'Gestion des abonnements',
 	'main_stream'			=> 'Flux principal',
@@ -89,7 +90,7 @@ return array (
 	'already_subscribed'		=> 'Vous êtes déjà abonné à <em>%s</em>',
 	'feed_added'			=> 'Le flux <em>%s</em> a bien été ajouté',
 	'feed_not_added'		=> '<em>%s</em> n’a pas pu être ajouté',
-	'internal_problem_feed'		=> 'Le flux n’a pas pu être ajouté. <a href="%s">Consulter les logs de FreshRSS</a> pour plus de détails.',
+	'internal_problem_feed'		=> 'Le flux ne peux pas être ajouté. <a href="%s">Consulter les logs de FreshRSS</a> pour plus de détails.',
 	'invalid_url'			=> 'L’url <em>%s</em> est invalide',
 	'feed_actualized'		=> '<em>%s</em> a été mis à jour',
 	'n_feeds_actualized'		=> '%d flux ont été mis à jour',

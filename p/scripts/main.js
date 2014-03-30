@@ -988,7 +988,7 @@ function init_share_observers() {
 
 function init_feed_observers() {
 	$('select[id="category"]').on('change', function() {
-		var detail = $(this).parent('li').next('li');
+		var detail = $('#new_category_name').parent();
 		if ($(this).val() === 'nc') {
 			detail.show();
 			detail.find('input').focus();

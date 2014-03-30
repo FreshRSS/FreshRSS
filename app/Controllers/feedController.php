@@ -22,13 +22,23 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 	}
 
 	public function addAction () {
-		@set_time_limit(300);
+		$url = Minz_Request::param('url_rss', false);
 
-		if (Minz_Request::isPost ()) {
-			$this->catDAO = new FreshRSS_CategoryDAO ();
-			$this->catDAO->checkDefault ();
+		if ($url === false) {
+			Minz_Request::forward(array(
+				'c' => 'configure',
+				'a' => 'feed'
+			), true);
+		}
 
-			$url = Minz_Request::param ('url_rss');
+		$feedDAO = new FreshRSS_FeedDAO ();
+		$this->catDAO = new FreshRSS_CategoryDAO ();
+		$this->catDAO->checkDefault ();
+
+		if (Minz_Request::isPost()) {
+			@set_time_limit(300);
+
+
 			$cat = Minz_Request::param ('category', false);
 			if ($cat === 'nc') {
 				$new_cat = Minz_Request::param ('new_category');
@@ -60,7 +70,6 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 
 				$feed->load(true);
 
-				$feedDAO = new FreshRSS_FeedDAO ();
 				$values = array (
 					'url' => $feed->url (),
 					'category' => $feed->category (),
@@ -153,6 +162,38 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 			}
 
 			Minz_Request::forward (array ('c' => 'configure', 'a' => 'feed', 'params' => $params), true);
+		}
+
+		// GET request so we must ask confirmation to user
+		Minz_View::prependTitle(Minz_Translate::t('add_rss_feed') . ' · ');
+		$this->view->categories = $this->catDAO->listCategories();
+		$this->view->feed = new FreshRSS_Feed($url);
+		try {
+			// We try to get some more information about the feed
+			$this->view->feed->load(true);
+			$this->view->load_ok = true;
+		} catch (Exception $e) {
+			$this->view->load_ok = false;
+		}
+
+		$feed = $feedDAO->searchByUrl($this->view->feed->url());
+		if ($feed) {
+			// Already subscribe so we redirect to the feed configuration page
+			$notif = array(
+				'type' => 'bad',
+				'content' => Minz_Translate::t(
+					'already_subscribed', $feed->name()
+				)
+			);
+			Minz_Session::_param('notification', $notif);
+
+			Minz_Request::forward(array(
+				'c' => 'configure',
+				'a' => 'feed',
+				'params' => array(
+					'id' => $feed->id()
+				)
+			), true);
 		}
 	}
 

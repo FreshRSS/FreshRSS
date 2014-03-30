@@ -22,6 +22,7 @@ return array (
 	'add_rss_feed'			=> 'Add a RSS feed',
 	'no_rss_feed'			=> 'No RSS feed',
 	'import_export'			=> 'Import / export',
+	'bookmark'			=> 'Subscribe (FreshRSS bookmark)',
 
 	'subscription_management'	=> 'Subscriptions management',
 	'main_stream'			=> 'Main stream',
