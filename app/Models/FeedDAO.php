@@ -29,7 +29,8 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo {
 		// should not be aware about feed class
 
 		// Add feed only if we don't find it in DB
-		if (!$this->searchByUrl($feed->url())) {
+		$feed_search = $this->searchByUrl($feed->url());
+		if (!$feed_search) {
 			$values = array(
 				'id' => $feed->id(),
 				'url' => $feed->url(),
@@ -50,7 +51,7 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo {
 			return $id;
 		}
 
-		return false;
+		return $feed_search->id();
 	}
 
 	public function updateFeed ($id, $valuesTmp) {

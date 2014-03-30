@@ -31,7 +31,7 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 			@set_time_limit(300);
 
 			$file = $_FILES['file'];
-			$type_file = $this->guess_file_type($file['name']);
+			$type_file = $this->guessFileType($file['name']);
 
 			$list_files = array(
 				'opml' => array(),
@@ -46,7 +46,7 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 				$zip = zip_open($file['tmp_name']);
 
 				while (($zipfile = zip_read($zip)) !== false) {
-					$type_zipfile = $this->guess_file_type(zip_entry_name($zipfile));
+					$type_zipfile = $this->guessFileType(zip_entry_name($zipfile));
 
 					if ($type_file !== 'unknown') {
 						$list_files[$type_zipfile][] = zip_entry_read(
@@ -67,13 +67,13 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 			// And finally all other files.
 			$error = false;
 			foreach ($list_files['opml'] as $opml_file) {
-				$error = $this->import_opml($opml_file);
+				$error = $this->importOpml($opml_file);
 			}
 			foreach ($list_files['json_starred'] as $article_file) {
-				$error = $this->import_articles($article_file, true);
+				$error = $this->importArticles($article_file, true);
 			}
 			foreach ($list_files['json_feed'] as $article_file) {
-				$error = $this->import_articles($article_file);
+				$error = $this->importArticles($article_file);
 			}
 
 			// And finally, we get import status and redirect to the home page
@@ -107,7 +107,7 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 		));
 	}
 
-	private function guess_file_type($filename) {
+	private function guessFileType($filename) {
 		// A *very* basic guess file type function. Only based on filename
 		// That's could be improved but should be enough, at least for a first
 		// implementation.
@@ -128,7 +128,7 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 		}
 	}
 
-	private function import_opml($opml_file) {
+	private function importOpml($opml_file) {
 		$opml_array = array();
 		try {
 			$opml_array = libopml_parse_string($opml_file);
@@ -164,7 +164,7 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 	private function addFeedOpml($feed_elt, $parent_cat) {
 		if (is_null($parent_cat)) {
 			// This feed has no parent category so we get the default one
-			$parent_cat = $catDAO->getDefault()->name();
+			$parent_cat = $this->catDAO->getDefault()->name();
 		}
 
 		$cat = $this->catDAO->searchByName($parent_cat);
@@ -199,7 +199,7 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 			$id = $this->feedDAO->addFeedObject($feed);
 			$error = ($id === false);
 		} catch (FreshRSS_Feed_Exception $e) {
-			Minz_Log::record($e->getMessage(), Minz_Log::WARNING);
+			Minz_Log::warning($e->getMessage());
 			$error = true;
 		}
 
@@ -226,28 +226,23 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 		return $error;
 	}
 
-	private function import_articles($article_file, $starred = false) {
+	private function importArticles($article_file, $starred = false) {
 		$article_object = json_decode($article_file, true);
 		if (is_null($article_object)) {
 			Minz_Log::warning('Try to import a non-JSON file');
 			return true;
 		}
 
+		$is_read = $this->view->conf->mark_when['reception'] ? 1 : 0;
+
 		$google_compliant = (strpos($article_object['id'], 'com.google') !== false);
 
+		$error = false;
 		foreach ($article_object['items'] as $item) {
-			$key = $google_compliant ? 'htmlUrl' : 'feedUrl';
-			$feed = $this->feedDAO->searchByUrl($item['origin'][$key]);
+			$feed = $this->addFeedArticles($item['origin'], $google_compliant);
 			if (is_null($feed)) {
-				$feed = new FreshRSS_Feed($item['origin'][$key]);
-				$feed->_name ($item['origin']['title']);
-				$feed->_website ($item['origin']['htmlUrl']);
-
-				$error = $this->addFeed($feed);  // TODO
-
-				if ($error) {
-					continue;
-				}
+				$error = true;
+				continue;
 			}
 
 			$author = isset($item['author']) ? $item['author'] : '';
@@ -258,14 +253,55 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 					return strpos($var, '/state/com.google') === false;
 				});
 			}
+
 			$entry = new FreshRSS_Entry(
 				$feed->id(), $item['id'], $item['title'], $author,
 				$item[$key_content]['content'], $item['alternate'][0]['href'],
-				$item['published'], false, $starred, $tags
+				$item['published'], $is_read, $starred
+			);
+			$entry->_tags($tags);
+
+			$id = $this->entryDAO->addEntryObject(
+				$entry, $this->view->conf, $feed->keepHistory()
 			);
 
-			Minz_Log::debug(print_r($entry, true));  // TODO
+			if (!$error && ($id === false)) {
+				$error = true;
+			}
 		}
+
+		return $error;
+	}
+
+	private function addFeedArticles($origin, $google_compliant) {
+		$default_cat = $this->catDAO->getDefault();
+
+		$return = null;
+		$key = $google_compliant ? 'htmlUrl' : 'feedUrl';
+		$url = $origin[$key];
+		$name = $origin['title'];
+		$website = $origin['htmlUrl'];
+		$error = false;
+		try {
+			// Create a Feed object and add it in DB
+			$feed = new FreshRSS_Feed($url);
+			$feed->_category($default_cat->id());
+			$feed->_name($name);
+			$feed->_website($website);
+
+			// addFeedObject checks if feed is already in DB so nothing else to
+			// check here
+			$id = $this->feedDAO->addFeedObject($feed);
+
+			if ($id !== false) {
+				$feed->_id($id);
+				$return = $feed;
+			}
+		} catch (FreshRSS_Feed_Exception $e) {
+			Minz_Log::warning($e->getMessage());
+		}
+
+		return $return;
 	}
 
 	public function exportAction() {
@@ -283,16 +319,16 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 
 			// Stuff with content
 			if ($export_opml) {
-				$zip->addFromString('feeds.opml', $this->generate_opml());
+				$zip->addFromString('feeds.opml', $this->generateOpml());
 			}
 			if ($export_starred) {
-				$zip->addFromString('starred.json', $this->generate_articles('starred'));
+				$zip->addFromString('starred.json', $this->generateArticles('starred'));
 			}
 			foreach ($export_feeds as $feed_id) {
 				$feed = $this->feedDAO->searchById($feed_id);
 				$zip->addFromString(
 					'feed_' . $feed->category() . '_' . $feed->id() . '.json',
-					$this->generate_articles('feed', $feed)
+					$this->generateArticles('feed', $feed)
 				);
 			}
 
@@ -306,7 +342,7 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 		}
 	}
 
-	private function generate_opml() {
+	private function generateOpml() {
 		$list = array();
 		foreach ($this->catDAO->listCategories() as $key => $cat) {
 			$list[$key]['name'] = $cat->name();
@@ -317,7 +353,7 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 		return $this->view->helperToString('export/opml');
 	}
 
-	private function generate_articles($type, $feed = NULL) {
+	private function generateArticles($type, $feed = NULL) {
 		$this->view->categories = $this->catDAO->listCategories();
 
 		if ($type == 'starred') {
