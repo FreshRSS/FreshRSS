@@ -286,7 +286,7 @@ body {
 		.flux .item.title {
 			background: inherit;
 		}
-			.flux .item.title a {
+			.flux .title a {
 				color: #333;
 				outline: none;
 			}

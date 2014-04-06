@@ -300,7 +300,7 @@
 		.flux .item.title {
 			background: inherit;
 		}
-			.flux .item.title a {
+			.flux .title a {
 				color: #000;
 				outline: none;
 			}
