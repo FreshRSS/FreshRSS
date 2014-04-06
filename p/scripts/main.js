@@ -236,14 +236,11 @@ function toggleContent(new_active, old_active) {
 		relative_move = true;
 	}
 
-	var new_pos = new_active.position().top,
-		old_scroll = $(box_to_move).scrollTop();
 	if (sticky_post) {
-		if (hide_posts) {
-
-			new_pos = new_active.position().top;
+		var new_pos = new_active.position().top - new_active.children('.flux_header').outerHeight(),
 			old_scroll = $(box_to_move).scrollTop();
 
+		if (hide_posts) {
 			if (relative_move) {
 				new_pos += old_scroll;
 			}
