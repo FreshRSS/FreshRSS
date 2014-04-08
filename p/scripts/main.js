@@ -604,7 +604,7 @@ function init_shortcuts() {
 
 function init_stream(divStream) {
 	divStream.on('click', '.flux_header,.flux_content', function (e) {	//flux_toggle
-		if ($(e.target).parents('.content').length > 0) {
+		if ($(e.target).closest('.content').length > 0) {
 			return;
 		}
 		if ($(e.target).closest('.item.website, .item.link').length > 0) {
