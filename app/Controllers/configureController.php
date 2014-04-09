@@ -140,21 +140,6 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 	public function displayAction () {
 		if (Minz_Request::isPost()) {
 			$this->view->conf->_language(Minz_Request::param('language', 'en'));
-			$this->view->conf->_posts_per_page(Minz_Request::param('posts_per_page', 10));
-			$this->view->conf->_view_mode(Minz_Request::param('view_mode', 'normal'));
-			$this->view->conf->_default_view (Minz_Request::param('default_view', 'a'));
-			$this->view->conf->_auto_load_more(Minz_Request::param('auto_load_more', false));
-			$this->view->conf->_display_posts(Minz_Request::param('display_posts', false));
-			$this->view->conf->_onread_jump_next(Minz_Request::param('onread_jump_next', false));
-			$this->view->conf->_lazyload (Minz_Request::param('lazyload', false));
-			$this->view->conf->_sticky_post (Minz_Request::param('sticky_post', false));
-			$this->view->conf->_sort_order(Minz_Request::param('sort_order', 'DESC'));
-			$this->view->conf->_mark_when (array(
-				'article' => Minz_Request::param('mark_open_article', false),
-				'site' => Minz_Request::param('mark_open_site', false),
-				'scroll' => Minz_Request::param('mark_scroll', false),
-				'reception' => Minz_Request::param('mark_upon_reception', false),
-			));
 			$themeId = Minz_Request::param('theme', '');
 			if ($themeId == '') {
 				$themeId = FreshRSS_Themes::defaultTheme;
@@ -186,6 +171,41 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 		}
 
 		$this->view->themes = FreshRSS_Themes::get();
+
+		Minz_View::prependTitle (Minz_Translate::t ('display_configuration') . ' · ');
+	}
+
+	public function readingAction () {
+		if (Minz_Request::isPost()) {
+			$this->view->conf->_posts_per_page(Minz_Request::param('posts_per_page', 10));
+			$this->view->conf->_view_mode(Minz_Request::param('view_mode', 'normal'));
+			$this->view->conf->_default_view (Minz_Request::param('default_view', 'a'));
+			$this->view->conf->_auto_load_more(Minz_Request::param('auto_load_more', false));
+			$this->view->conf->_display_posts(Minz_Request::param('display_posts', false));
+			$this->view->conf->_onread_jump_next(Minz_Request::param('onread_jump_next', false));
+			$this->view->conf->_lazyload (Minz_Request::param('lazyload', false));
+			$this->view->conf->_sticky_post (Minz_Request::param('sticky_post', false));
+			$this->view->conf->_sort_order(Minz_Request::param('sort_order', 'DESC'));
+			$this->view->conf->_mark_when (array(
+				'article' => Minz_Request::param('mark_open_article', false),
+				'site' => Minz_Request::param('mark_open_site', false),
+				'scroll' => Minz_Request::param('mark_scroll', false),
+				'reception' => Minz_Request::param('mark_upon_reception', false),
+			));
+			$this->view->conf->save();
+
+			Minz_Session::_param ('language', $this->view->conf->language);
+			Minz_Translate::reset ();
+			invalidateHttpCache();
+
+			$notif = array (
+				'type' => 'good',
+				'content' => Minz_Translate::t ('configuration_updated')
+			);
+			Minz_Session::_param ('notification', $notif);
+
+			Minz_Request::forward (array ('c' => 'configure', 'a' => 'reading'), true);
+		}
 
 		Minz_View::prependTitle (Minz_Translate::t ('reading_configuration') . ' · ');
 	}

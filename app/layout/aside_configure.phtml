@@ -1,7 +1,10 @@
 <ul class="nav nav-list aside">
 	<li class="nav-header"><?php echo Minz_Translate::t ('configuration'); ?></li>
 	<li class="item<?php echo Minz_Request::actionName () == 'display' ? ' active' : ''; ?>">
-		<a href="<?php echo _url ('configure', 'display'); ?>"><?php echo Minz_Translate::t ('reading_configuration'); ?></a>
+		<a href="<?php echo _url ('configure', 'display'); ?>"><?php echo Minz_Translate::t ('display_configuration'); ?></a>
+	</li>
+	<li class="item<?php echo Minz_Request::actionName () == 'reading' ? ' active' : ''; ?>">
+		<a href="<?php echo _url ('configure', 'reading'); ?>"><?php echo Minz_Translate::t ('reading_configuration'); ?></a>
 	</li>
 	<li class="item<?php echo Minz_Request::actionName () == 'archiving' ? ' active' : ''; ?>">
 		<a href="<?php echo _url ('configure', 'archiving'); ?>"><?php echo Minz_Translate::t ('archiving_configuration'); ?></a>
