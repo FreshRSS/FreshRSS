@@ -227,6 +227,8 @@ function toggleContent(new_active, old_active) {
 			new_active.addClass("active");
 		}
 		new_active.addClass("current");
+	} else {
+		new_active.toggleClass("current");
 	}
 
 	var box_to_move = "html,body",
