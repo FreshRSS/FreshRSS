@@ -207,13 +207,9 @@ function mark_favorite(active) {
 }
 
 function toggleContent(new_active, old_active) {
-	old_active.removeClass("active");
-
 	if (new_active.length === 0) {
 		return;
 	}
-
-	old_active.removeClass("current");
 
 	if (does_lazyload) {
 		new_active.find('img[data-original], iframe[data-original]').each(function () {
@@ -226,9 +222,10 @@ function toggleContent(new_active, old_active) {
 		if (isCollapsed) {
 			new_active.addClass("active");
 		}
+		old_active.removeClass("active current");
 		new_active.addClass("current");
 	} else {
-		new_active.toggleClass("current");
+		new_active.toggleClass('active');
 	}
 
 	var box_to_move = "html,body",
