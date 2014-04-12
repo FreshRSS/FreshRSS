@@ -28,15 +28,6 @@
 			</div>
 		</li>
 
-		<li>
-			<div class="category favorites<?php echo $this->get_c == 's' ? ' active' : ''; ?>">
-				<a data-unread="<?php echo formatNumber($this->nb_favorites['unread']); ?>" class="btn<?php echo $this->get_c == 's' ? ' active' : ''; ?>" href="<?php $arUrl['params']['get'] = 's'; echo Minz_Url::display($arUrl); ?>">
-					<?php echo FreshRSS_Themes::icon('bookmark'); ?>
-					<?php echo Minz_Translate::t('favorite_feeds', formatNumber($this->nb_favorites['all'])); ?>
-				</a>
-			</div>
-		</li>
-
 		<?php
 		foreach ($this->cat_aside as $cat) {
 			$feeds = $cat->feeds ();

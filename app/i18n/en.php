@@ -27,7 +27,6 @@ return array (
 	'subscription_management'	=> 'Subscriptions management',
 	'main_stream'			=> 'Main stream',
 	'all_feeds'			=> 'All feeds',
-	'favorite_feeds'		=> 'Favourites (%d)',
 	'not_read'			=> '%d unread',
 	'not_reads'			=> '%d unread',
 
@@ -51,7 +50,8 @@ return array (
 	'show_all_articles'		=> 'Show all articles',
 	'show_not_reads'		=> 'Show only unread',
 	'show_read'			=> 'Show only read',
-	'show_favorite'			=> 'Show favorites',
+	'show_favorite'			=> 'Show only favorites',
+	'show_not_favorite'		=> 'Show all but favorites',
 	'older_first'			=> 'Oldest first',
 	'newer_first'			=> 'Newer first',
 

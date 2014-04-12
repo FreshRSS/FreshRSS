@@ -36,7 +36,7 @@
 					<?php echo Minz_Translate::t ('show_all_articles'); ?>
 				</label>
 				<label class="radio" for="radio_not_read">
-					<input type="radio" name="default_view" id="radio_not_read" value="not_read"<?php echo $this->conf->default_view === 'not_read' ? ' checked="checked"' : ''; ?> />
+					<input type="radio" name="default_view" id="radio_not_read" value="<?php echo FreshRSS_Configuration::STATE_NOT_READ; ?>"<?php echo $this->conf->default_view === FreshRSS_Configuration::STATE_NOT_READ ? ' checked="checked"' : ''; ?> />
 					<?php echo Minz_Translate::t ('show_not_reads'); ?>
 				</label>
 			</div>

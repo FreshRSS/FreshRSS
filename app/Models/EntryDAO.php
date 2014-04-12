@@ -415,9 +415,6 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 				$where .= 'f.priority > 0 ';
 				$joinFeed = true;
 				break;
-			case 's':
-				$where .= 'e1.is_favorite = 1 ';
-				break;
 			case 'c':
 				$where .= 'f.category = ? ';
 				$values[] = intval($id);
@@ -433,21 +430,28 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 			default:
 				throw new FreshRSS_EntriesGetter_Exception ('Bad type in Entry->listByType: [' . $type . ']!');
 		}
-		switch ($state) {
-			case 'all':
-				break;
-			case 'not_read':
+
+		if ($state & FreshRSS_Configuration::STATE_NOT_READ) {
+			if (!($state & FreshRSS_Configuration::STATE_READ)) {
 				$where .= 'AND e1.is_read = 0 ';
-				break;
-			case 'read':
-				$where .= 'AND e1.is_read = 1 ';
-				break;
-			case 'favorite':
-				$where .= 'AND e1.is_favorite = 1 ';
-				break;
-			default:
-				throw new FreshRSS_EntriesGetter_Exception ('Bad state in Entry->listByType: [' . $state . ']!');
+			}
 		}
+		if ($state & FreshRSS_Configuration::STATE_READ) {
+			if (!($state & FreshRSS_Configuration::STATE_NOT_READ)) {
+				$where .= 'AND e1.is_read = 1 ';
+			}
+		}
+		if ($state & FreshRSS_Configuration::STATE_NOT_FAVORITE) {
+			if (!($state & FreshRSS_Configuration::STATE_FAVORITE)) {
+				$where .= 'AND e1.is_favorite = 0 ';
+			}
+		}
+		if ($state & FreshRSS_Configuration::STATE_FAVORITE) {
+			if (!($state & FreshRSS_Configuration::STATE_NOT_FAVORITE)) {
+				$where .= 'AND e1.is_favorite = 1 ';
+			}
+		}
+
 		switch ($order) {
 			case 'DESC':
 			case 'ASC':

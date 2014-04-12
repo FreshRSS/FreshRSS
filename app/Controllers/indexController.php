@@ -91,13 +91,10 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 		$nb = Minz_Request::param ('nb', $this->view->conf->posts_per_page);
 		$first = Minz_Request::param ('next', '');
 
-		if ($state === 'not_read') {	//Any unread article in this category at all?
+		if ($state === FreshRSS_Configuration::STATE_NOT_READ) {	//Any unread article in this category at all?
 			switch ($getType) {
 				case 'a':
 					$hasUnread = $this->view->nb_not_read > 0;
-					break;
-				case 's':
-					$hasUnread = $this->view->nb_favorites['unread'] > 0;
 					break;
 				case 'c':
 					$hasUnread = (!isset($this->view->cat_aside[$getId])) || ($this->view->cat_aside[$getId]->nbNotRead() > 0);
@@ -128,7 +125,7 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 
 			// Si on a récupéré aucun article "non lus"
 			// on essaye de récupérer tous les articles
-			if ($state === 'not_read' && empty($entries) && ($state_param === null)) {
+			if ($state === FreshRSS_Configuration::STATE_NOT_READ && empty($entries) && ($state_param === null)) {
 				Minz_Log::record ('Conflicting information about nbNotRead!', Minz_Log::DEBUG);
 				$this->view->state = 'all';
 				$entries = $entryDAO->listWhere($getType, $getId, 'all', $order, $nb, $first, $filter, $date_min, true, $keepHistoryDefault);
