@@ -418,6 +418,10 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 				$where .= 'f.priority > 0 ';
 				$joinFeed = true;
 				break;
+			case 's':
+				// This is deprecated. The favorite button does not exist anymore
+				$where .= 'e1.is_favorite = 1 ';
+				break;
 			case 'c':
 				$where .= 'f.category = ? ';
 				$values[] = intval($id);

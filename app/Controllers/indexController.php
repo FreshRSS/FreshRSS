@@ -96,6 +96,10 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 				case 'a':
 					$hasUnread = $this->view->nb_not_read > 0;
 					break;
+				case 's':
+					// This is deprecated. The favorite button does not exist anymore
+					$hasUnread = $this->view->nb_favorites['unread'] > 0;
+					break;
 				case 'c':
 					$hasUnread = (!isset($this->view->cat_aside[$getId])) || ($this->view->cat_aside[$getId]->nbNotRead() > 0);
 					break;
