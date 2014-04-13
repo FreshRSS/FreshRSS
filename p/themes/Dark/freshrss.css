@@ -88,10 +88,9 @@
 		.nav_menu .search {
 			display:none;
 		}
-		.nav_menu .btn[aria-checked="true"]:before{
-			content: '✓';
-			font-size: 2.5rem;
-			position: absolute;
+		.nav_menu .btn[aria-checked="true"]{
+			border-color: #2f2f2f;
+			box-shadow: 0 0 10px 3px #2f2f2f inset;
 		}
 
 .favicon {

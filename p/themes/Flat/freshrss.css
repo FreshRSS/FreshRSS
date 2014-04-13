@@ -87,10 +87,9 @@ body {
 		.nav_menu .search {
 			display:none;
 		}
-		.nav_menu .btn[aria-checked="true"]:before{
-			content: '✓';
-			font-size: 2.5rem;
-			position: absolute;
+		.nav_menu .btn[aria-checked="true"]{
+			background-color: #2980B9;
+			border-bottom-color: #3498DB;
 		}
 
 .favicon {
