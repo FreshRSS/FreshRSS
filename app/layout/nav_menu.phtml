@@ -6,10 +6,6 @@
 	<a class="btn toggle_aside" href="#aside_flux"><?php echo FreshRSS_Themes::icon('category'); ?></a>
 	<?php } ?>
 
-	<?php if ($this->loginOk || Minz_Configuration::allowAnonymousRefresh()) { ?>
-	<a id="actualize" class="btn" href="<?php echo _url ('feed', 'actualize'); ?>"><?php echo FreshRSS_Themes::icon('refresh'); ?></a>
-	<?php } ?>
-
 	<?php if ($this->loginOk) { ?>
 	<?php $url_state = $this->url;
 		if ($this->state & FreshRSS_Configuration::STATE_READ) {
@@ -214,15 +210,6 @@
 				</a>
 				<?php } ?>
 			</li>
-
-			<li class="separator"></li>
-
-			<li class="item">
-				<?php $url_output['params']['output'] = 'rss'; ?>
-				<a class="view_rss" target="_blank" href="<?php echo Minz_Url::display ($url_output); ?>">
-					<?php echo Minz_Translate::t ('rss_view'); ?>
-				</a>
-			</li>
 		</ul>
 	</div>
 
@@ -247,4 +234,13 @@
 			<?php } ?>
 		</form>
 	</div>
+	
+	<?php $url_output['params']['output'] = 'rss'; ?>
+	<a class="btn view_rss" target="_blank" href="<?php echo Minz_Url::display ($url_output); ?>" title="<?php echo Minz_Translate::t ('rss_view'); ?>">
+		<?php echo FreshRSS_Themes::icon('rss'); ?>
+	</a>
+	
+	<?php if ($this->loginOk || Minz_Configuration::allowAnonymousRefresh()) { ?>
+	<a id="actualize" class="btn" href="<?php echo _url ('feed', 'actualize'); ?>"><?php echo FreshRSS_Themes::icon('refresh'); ?></a>
+	<?php } ?>
 </div>
