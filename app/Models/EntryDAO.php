@@ -408,7 +408,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 
 	private function sqlListWhere($type = 'a', $id = '', $state = null , $order = 'DESC', $limit = 1, $firstId = '', $filter = '', $date_min = 0, $showOlderUnreadsorFavorites = false, $keepHistoryDefault = 0) {
 		if (!$state) {
-			$state = FreshRSS_Configuration::STATE_ALL;
+			$state = FreshRSS_Entry::STATE_ALL;
 		}
 		$where = '';
 		$joinFeed = false;
@@ -438,23 +438,23 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 				throw new FreshRSS_EntriesGetter_Exception ('Bad type in Entry->listByType: [' . $type . ']!');
 		}
 
-		if ($state & FreshRSS_Configuration::STATE_NOT_READ) {
-			if (!($state & FreshRSS_Configuration::STATE_READ)) {
+		if ($state & FreshRSS_Entry::STATE_NOT_READ) {
+			if (!($state & FreshRSS_Entry::STATE_READ)) {
 				$where .= 'AND e1.is_read = 0 ';
 			}
 		}
-		if ($state & FreshRSS_Configuration::STATE_READ) {
-			if (!($state & FreshRSS_Configuration::STATE_NOT_READ)) {
+		if ($state & FreshRSS_Entry::STATE_READ) {
+			if (!($state & FreshRSS_Entry::STATE_NOT_READ)) {
 				$where .= 'AND e1.is_read = 1 ';
 			}
 		}
-		if ($state & FreshRSS_Configuration::STATE_NOT_FAVORITE) {
-			if (!($state & FreshRSS_Configuration::STATE_FAVORITE)) {
+		if ($state & FreshRSS_Entry::STATE_NOT_FAVORITE) {
+			if (!($state & FreshRSS_Entry::STATE_FAVORITE)) {
 				$where .= 'AND e1.is_favorite = 0 ';
 			}
 		}
-		if ($state & FreshRSS_Configuration::STATE_FAVORITE) {
-			if (!($state & FreshRSS_Configuration::STATE_NOT_FAVORITE)) {
+		if ($state & FreshRSS_Entry::STATE_FAVORITE) {
+			if (!($state & FreshRSS_Entry::STATE_NOT_FAVORITE)) {
 				$where .= 'AND e1.is_favorite = 1 ';
 			}
 		}

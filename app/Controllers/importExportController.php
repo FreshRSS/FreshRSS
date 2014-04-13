@@ -370,7 +370,7 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 			$this->view->type = 'starred';
 			$unread_fav = $this->entryDAO->countUnreadReadFavorites();
 			$this->view->entries = $this->entryDAO->listWhere(
-				's', '', FreshRSS_Configuration::STATE_ALL, 'ASC',
+				's', '', FreshRSS_Entry::STATE_ALL, 'ASC',
 				$unread_fav['all']
 			);
 		} elseif ($type == 'feed' && !is_null($feed)) {
@@ -379,7 +379,7 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 			);
 			$this->view->type = 'feed/' . $feed->id();
 			$this->view->entries = $this->entryDAO->listWhere(
-				'f', $feed->id(), FreshRSS_Configuration::STATE_ALL, 'ASC',
+				'f', $feed->id(), FreshRSS_Entry::STATE_ALL, 'ASC',
 				$this->view->conf->posts_per_page
 			);
 			$this->view->feed = $feed;

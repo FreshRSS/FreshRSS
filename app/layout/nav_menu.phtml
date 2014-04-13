@@ -8,11 +8,11 @@
 
 	<?php if ($this->loginOk) { ?>
 	<?php $url_state = $this->url;
-		if ($this->state & FreshRSS_Configuration::STATE_READ) {
-			$url_state['params']['state'] = $this->state - FreshRSS_Configuration::STATE_READ;
+		if ($this->state & FreshRSS_Entry::STATE_READ) {
+			$url_state['params']['state'] = $this->state - FreshRSS_Entry::STATE_READ;
 			$checked = 'true';
 		} else {
-			$url_state['params']['state'] = $this->state + FreshRSS_Configuration::STATE_READ;
+			$url_state['params']['state'] = $this->state + FreshRSS_Entry::STATE_READ;
 			$checked = 'false';
 		}
 	?>
@@ -24,11 +24,11 @@
 		<?php echo FreshRSS_Themes::icon('read'); ?>
 	</a>
 	<?php
-		if ($this->state & FreshRSS_Configuration::STATE_NOT_READ) {
-			$url_state['params']['state'] = $this->state - FreshRSS_Configuration::STATE_NOT_READ;
+		if ($this->state & FreshRSS_Entry::STATE_NOT_READ) {
+			$url_state['params']['state'] = $this->state - FreshRSS_Entry::STATE_NOT_READ;
 			$checked = 'true';
 		} else {
-			$url_state['params']['state'] = $this->state + FreshRSS_Configuration::STATE_NOT_READ;
+			$url_state['params']['state'] = $this->state + FreshRSS_Entry::STATE_NOT_READ;
 			$checked = 'false';
 		}
 	?>
@@ -40,11 +40,11 @@
 		<?php echo FreshRSS_Themes::icon('unread'); ?>
 	</a>
 	<?php
-		if ($this->state & FreshRSS_Configuration::STATE_FAVORITE) {
-			$url_state['params']['state'] = $this->state - FreshRSS_Configuration::STATE_FAVORITE;
+		if ($this->state & FreshRSS_Entry::STATE_FAVORITE) {
+			$url_state['params']['state'] = $this->state - FreshRSS_Entry::STATE_FAVORITE;
 			$checked = 'true';
 		} else {
-			$url_state['params']['state'] = $this->state + FreshRSS_Configuration::STATE_FAVORITE;
+			$url_state['params']['state'] = $this->state + FreshRSS_Entry::STATE_FAVORITE;
 			$checked = 'false';
 		}
 	?>
@@ -56,11 +56,11 @@
 		<?php echo FreshRSS_Themes::icon('starred'); ?>
 	</a>
 	<?php
-		if ($this->state & FreshRSS_Configuration::STATE_NOT_FAVORITE) {
-			$url_state['params']['state'] = $this->state - FreshRSS_Configuration::STATE_NOT_FAVORITE;
+		if ($this->state & FreshRSS_Entry::STATE_NOT_FAVORITE) {
+			$url_state['params']['state'] = $this->state - FreshRSS_Entry::STATE_NOT_FAVORITE;
 			$checked = 'true';
 		} else {
-			$url_state['params']['state'] = $this->state + FreshRSS_Configuration::STATE_NOT_FAVORITE;
+			$url_state['params']['state'] = $this->state + FreshRSS_Entry::STATE_NOT_FAVORITE;
 			$checked = 'false';
 		}
 	?>

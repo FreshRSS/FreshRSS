@@ -85,13 +85,13 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 		$state_param = Minz_Request::param ('state', null);
 		$filter = Minz_Request::param ('search', '');
 		if (!empty($filter)) {
-			$state = FreshRSS_Configuration::STATE_ALL;	//Search always in read and unread articles
+			$state = FreshRSS_Entry::STATE_ALL;	//Search always in read and unread articles
 		}
 		$this->view->order = $order = Minz_Request::param ('order', $this->view->conf->sort_order);
 		$nb = Minz_Request::param ('nb', $this->view->conf->posts_per_page);
 		$first = Minz_Request::param ('next', '');
 
-		if ($state === FreshRSS_Configuration::STATE_NOT_READ) {	//Any unread article in this category at all?
+		if ($state === FreshRSS_Entry::STATE_NOT_READ) {	//Any unread article in this category at all?
 			switch ($getType) {
 				case 'a':
 					$hasUnread = $this->view->nb_not_read > 0;
@@ -112,7 +112,7 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 					break;
 			}
 			if (!$hasUnread && ($state_param === null)) {
-				$this->view->state = $state = FreshRSS_Configuration::STATE_ALL;
+				$this->view->state = $state = FreshRSS_Entry::STATE_ALL;
 			}
 		}
 
@@ -129,9 +129,9 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 
 			// Si on a récupéré aucun article "non lus"
 			// on essaye de récupérer tous les articles
-			if ($state === FreshRSS_Configuration::STATE_NOT_READ && empty($entries) && ($state_param === null)) {
+			if ($state === FreshRSS_Entry::STATE_NOT_READ && empty($entries) && ($state_param === null)) {
 				Minz_Log::record ('Conflicting information about nbNotRead!', Minz_Log::DEBUG);
-				$this->view->state = FreshRSS_Configuration::STATE_ALL;
+				$this->view->state = FreshRSS_Entry::STATE_ALL;
 				$entries = $entryDAO->listWhere($getType, $getId, $this->view->state, $order, $nb, $first, $filter, $date_min, true, $keepHistoryDefault);
 			}
 
