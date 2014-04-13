@@ -197,27 +197,6 @@
 				</a>
 			</li>
 			<?php } ?>
-
-			<li class="separator"></li>
-
-			<li class="item">
-				<?php
-					$url_order = $this->url;
-					if ($this->order === 'DESC') {
-						$url_order['params']['order'] = 'ASC';
-				?>
-				<a href="<?php echo Minz_Url::display ($url_order); ?>">
-					<?php echo Minz_Translate::t ('older_first'); ?>
-				</a>
-				<?php
-					} else {
-						$url_order['params']['order'] = 'DESC';
-				?>
-				<a href="<?php echo Minz_Url::display ($url_order); ?>">
-					<?php echo Minz_Translate::t ('newer_first'); ?>
-				</a>
-				<?php } ?>
-			</li>
 		</ul>
 	</div>
 
@@ -243,6 +222,23 @@
 		</form>
 	</div>
 	
+	<?php
+		if ($this->order === 'DESC') {
+			$order = 'ASC';
+			$icon = 'up';
+			$title = 'older_first';
+		} else {
+			$order = 'DESC';
+			$icon = 'down';
+			$title = 'newer_first';
+		}
+		$url_order = $this->url;
+		$url_order['params']['order'] = $order;
+	?>
+	<a class="btn" href="<?php echo Minz_Url::display ($url_order); ?>" title="<?php echo Minz_Translate::t ($title); ?>">
+		<?php echo FreshRSS_Themes::icon($icon); ?>
+	</a>
+
 	<?php $url_output['params']['output'] = 'rss'; ?>
 	<a class="btn view_rss" target="_blank" href="<?php echo Minz_Url::display ($url_output); ?>" title="<?php echo Minz_Translate::t ('rss_view'); ?>">
 		<?php echo FreshRSS_Themes::icon('rss'); ?>
