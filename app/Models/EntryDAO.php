@@ -406,7 +406,10 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 		return isset ($entries[0]) ? $entries[0] : null;
 	}
 
-	private function sqlListWhere($type = 'a', $id = '', $state = 'all', $order = 'DESC', $limit = 1, $firstId = '', $filter = '', $date_min = 0, $showOlderUnreadsorFavorites = false, $keepHistoryDefault = 0) {
+	private function sqlListWhere($type = 'a', $id = '', $state = null , $order = 'DESC', $limit = 1, $firstId = '', $filter = '', $date_min = 0, $showOlderUnreadsorFavorites = false, $keepHistoryDefault = 0) {
+		if (!$state) {
+			$state = FreshRSS_Configuration::STATE_ALL;
+		}
 		$where = '';
 		$joinFeed = false;
 		$values = array();
@@ -532,7 +535,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 			. ($limit > 0 ? ' LIMIT ' . $limit : ''));	//TODO: See http://explainextended.com/2009/10/23/mysql-order-by-limit-performance-late-row-lookups/
 	}
 
-	public function listWhere($type = 'a', $id = '', $state = 'all', $order = 'DESC', $limit = 1, $firstId = '', $filter = '', $date_min = 0, $showOlderUnreadsorFavorites = false, $keepHistoryDefault = 0) {
+	public function listWhere($type = 'a', $id = '', $state = null, $order = 'DESC', $limit = 1, $firstId = '', $filter = '', $date_min = 0, $showOlderUnreadsorFavorites = false, $keepHistoryDefault = 0) {
 		list($values, $sql) = $this->sqlListWhere($type, $id, $state, $order, $limit, $firstId, $filter, $date_min, $showOlderUnreadsorFavorites, $keepHistoryDefault);
 
 		$sql = 'SELECT e.id, e.guid, e.title, e.author, UNCOMPRESS(e.content_bin) AS content, e.link, e.date, e.is_read, e.is_favorite, e.id_feed, e.tags '
@@ -548,7 +551,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 		return self::daoToEntry ($stm->fetchAll (PDO::FETCH_ASSOC));
 	}
 
-	public function listIdsWhere($type = 'a', $id = '', $state = 'all', $order = 'DESC', $limit = 1, $firstId = '', $filter = '', $date_min = 0, $showOlderUnreadsorFavorites = false, $keepHistoryDefault = 0) {	//For API
+	public function listIdsWhere($type = 'a', $id = '', $state = null, $order = 'DESC', $limit = 1, $firstId = '', $filter = '', $date_min = 0, $showOlderUnreadsorFavorites = false, $keepHistoryDefault = 0) {	//For API
 		list($values, $sql) = $this->sqlListWhere($type, $id, $state, $order, $limit, $firstId, $filter, $date_min, $showOlderUnreadsorFavorites, $keepHistoryDefault);
 
 		$stm = $this->bd->prepare($sql);

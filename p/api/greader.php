@@ -353,10 +353,10 @@ function streamContents($path, $include_target, $start_time, $count, $order, $ex
 
 	switch ($exclude_target) {
 		case 'user/-/state/com.google/read':
-			$state = 'not_read';
+			$state = FreshRSS_Configuration::STATE_NOT_READ;
 			break;
 		default:
-			$state = 'all';
+			$state = FreshRSS_Configuration::STATE_ALL;
 			break;
 	}
 
@@ -451,10 +451,10 @@ function streamContentsItemsIds($streamId, $start_time, $count, $order, $exclude
 
 	switch ($exclude_target) {
 		case 'user/-/state/com.google/read':
-			$state = 'not_read';
+			$state = FreshRSS_Configuration::STATE_NOT_READ;
 			break;
 		default:
-			$state = 'all';
+			$state = FreshRSS_Configuration::STATE_ALL;
 			break;
 	}
 
