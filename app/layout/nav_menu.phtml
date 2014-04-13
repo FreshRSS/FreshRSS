@@ -11,13 +11,15 @@
 		if ($this->state & FreshRSS_Entry::STATE_READ) {
 			$url_state['params']['state'] = $this->state - FreshRSS_Entry::STATE_READ;
 			$checked = 'true';
+			$class = 'active';
 		} else {
 			$url_state['params']['state'] = $this->state + FreshRSS_Entry::STATE_READ;
 			$checked = 'false';
+			$class = '';
 		}
 	?>
 	<a id="toggle-read"
-	   class="btn"
+	   class="btn <?php echo $class; ?>"
 	   aria-checked="<?php echo $checked; ?>"
 	   href="<?php echo Minz_Url::display ($url_state); ?>"
 	   title="<?php echo Minz_Translate::t ('show_read'); ?>">
@@ -27,13 +29,15 @@
 		if ($this->state & FreshRSS_Entry::STATE_NOT_READ) {
 			$url_state['params']['state'] = $this->state - FreshRSS_Entry::STATE_NOT_READ;
 			$checked = 'true';
+			$class = 'active';
 		} else {
 			$url_state['params']['state'] = $this->state + FreshRSS_Entry::STATE_NOT_READ;
 			$checked = 'false';
+			$class = '';
 		}
 	?>
 	<a id="toggle-unread"
-	   class="btn"
+	   class="btn <?php echo $class; ?>"
 	   aria-checked="<?php echo $checked; ?>"
 	   href="<?php echo Minz_Url::display ($url_state); ?>"
 	   title="<?php echo Minz_Translate::t ('show_not_reads'); ?>">
@@ -43,13 +47,15 @@
 		if ($this->state & FreshRSS_Entry::STATE_FAVORITE) {
 			$url_state['params']['state'] = $this->state - FreshRSS_Entry::STATE_FAVORITE;
 			$checked = 'true';
+			$class = 'active';
 		} else {
 			$url_state['params']['state'] = $this->state + FreshRSS_Entry::STATE_FAVORITE;
 			$checked = 'false';
+			$class = '';
 		}
 	?>
 	<a id="toggle-favorite"
-	   class="btn"
+	   class="btn <?php echo $class; ?>"
 	   aria-checked="<?php echo $checked; ?>"
 	   href="<?php echo Minz_Url::display ($url_state); ?>"
 	   title="<?php echo Minz_Translate::t ('show_favorite'); ?>">
@@ -59,13 +65,15 @@
 		if ($this->state & FreshRSS_Entry::STATE_NOT_FAVORITE) {
 			$url_state['params']['state'] = $this->state - FreshRSS_Entry::STATE_NOT_FAVORITE;
 			$checked = 'true';
+			$class = 'active';
 		} else {
 			$url_state['params']['state'] = $this->state + FreshRSS_Entry::STATE_NOT_FAVORITE;
 			$checked = 'false';
+			$class = '';
 		}
 	?>
 	<a id="toggle-not-favorite"
-	   class="btn"
+	   class="btn <?php echo $class; ?>"
 	   aria-checked="<?php echo $checked; ?>"
 	   href="<?php echo Minz_Url::display ($url_state); ?>"
 	   title="<?php echo Minz_Translate::t ('show_not_favorite'); ?>">
