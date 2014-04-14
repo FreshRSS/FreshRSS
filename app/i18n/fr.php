@@ -27,7 +27,7 @@ return array (
 	'subscription_management'	=> 'Gestion des abonnements',
 	'main_stream'			=> 'Flux principal',
 	'all_feeds'			=> 'Tous les flux',
-	'favorite_feeds'		=> 'Favoris (%d)',
+	'favorite_feeds'		=> 'Favoris (%s)',
 	'not_read'			=> '%d non lu',
 	'not_reads'			=> '%d non lus',
 
