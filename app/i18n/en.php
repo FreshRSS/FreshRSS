@@ -27,6 +27,7 @@ return array (
 	'subscription_management'	=> 'Subscriptions management',
 	'main_stream'			=> 'Main stream',
 	'all_feeds'			=> 'All feeds',
+	'favorite_feeds'		=> 'Favourites (%d)',
 	'not_read'			=> '%d unread',
 	'not_reads'			=> '%d unread',
 
