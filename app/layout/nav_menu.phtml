@@ -9,11 +9,11 @@
 	<?php if ($this->loginOk) { ?>
 	<?php $url_state = $this->url;
 		if ($this->state & FreshRSS_Entry::STATE_READ) {
-			$url_state['params']['state'] = $this->state - FreshRSS_Entry::STATE_READ;
+			$url_state['params']['state'] = $this->state & ~FreshRSS_Entry::STATE_READ;
 			$checked = 'true';
 			$class = 'active';
 		} else {
-			$url_state['params']['state'] = $this->state + FreshRSS_Entry::STATE_READ;
+			$url_state['params']['state'] = $this->state | FreshRSS_Entry::STATE_READ;
 			$checked = 'false';
 			$class = '';
 		}
@@ -28,11 +28,11 @@
 		</a>
 		<?php
 			if ($this->state & FreshRSS_Entry::STATE_NOT_READ) {
-				$url_state['params']['state'] = $this->state - FreshRSS_Entry::STATE_NOT_READ;
+				$url_state['params']['state'] = $this->state & ~FreshRSS_Entry::STATE_NOT_READ;
 				$checked = 'true';
 				$class = 'active';
 			} else {
-				$url_state['params']['state'] = $this->state + FreshRSS_Entry::STATE_NOT_READ;
+				$url_state['params']['state'] = $this->state | FreshRSS_Entry::STATE_NOT_READ;
 				$checked = 'false';
 				$class = '';
 			}
@@ -46,11 +46,11 @@
 		</a>
 		<?php
 			if ($this->state & FreshRSS_Entry::STATE_FAVORITE) {
-				$url_state['params']['state'] = $this->state - FreshRSS_Entry::STATE_FAVORITE;
+				$url_state['params']['state'] = $this->state & ~FreshRSS_Entry::STATE_FAVORITE;
 				$checked = 'true';
 				$class = 'active';
 			} else {
-				$url_state['params']['state'] = $this->state + FreshRSS_Entry::STATE_FAVORITE;
+				$url_state['params']['state'] = $this->state | FreshRSS_Entry::STATE_FAVORITE;
 				$checked = 'false';
 				$class = '';
 			}
@@ -64,11 +64,11 @@
 		</a>
 		<?php
 			if ($this->state & FreshRSS_Entry::STATE_NOT_FAVORITE) {
-				$url_state['params']['state'] = $this->state - FreshRSS_Entry::STATE_NOT_FAVORITE;
+				$url_state['params']['state'] = $this->state & ~FreshRSS_Entry::STATE_NOT_FAVORITE;
 				$checked = 'true';
 				$class = 'active';
 			} else {
-				$url_state['params']['state'] = $this->state + FreshRSS_Entry::STATE_NOT_FAVORITE;
+				$url_state['params']['state'] = $this->state | FreshRSS_Entry::STATE_NOT_FAVORITE;
 				$checked = 'false';
 				$class = '';
 			}
