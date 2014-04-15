@@ -13,7 +13,7 @@ class FreshRSS_Configuration {
 		'apiPasswordHash' => '',	//CRYPT_BLOWFISH
 		'posts_per_page' => 20,
 		'view_mode' => 'normal',
-		'default_view' => 'not_read',
+		'default_view' => FreshRSS_Entry::STATE_NOT_READ,
 		'auto_load_more' => true,
 		'display_posts' => false,
 		'onread_jump_next' => true,
@@ -131,7 +131,7 @@ class FreshRSS_Configuration {
 		}
 	}
 	public function _default_view ($value) {
-		$this->data['default_view'] = $value === 'all' ? 'all' : 'not_read';
+		$this->data['default_view'] = $value === FreshRSS_Entry::STATE_ALL ? FreshRSS_Entry::STATE_ALL : FreshRSS_Entry::STATE_NOT_READ;
 	}
 	public function _display_posts ($value) {
 		$this->data['display_posts'] = ((bool)$value) && $value !== 'no';

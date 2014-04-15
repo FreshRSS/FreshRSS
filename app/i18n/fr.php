@@ -52,6 +52,7 @@ return array (
 	'show_not_reads'		=> 'Afficher les non lus',
 	'show_read'			=> 'Afficher les lus',
 	'show_favorite'			=> 'Afficher les favoris',
+	'show_not_favorite'		=> 'Afficher tout sauf les favoris',
 	'older_first'			=> 'Plus anciens en premier',
 	'newer_first'			=> 'Plus récents en premier',
 

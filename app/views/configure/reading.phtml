@@ -32,11 +32,11 @@
 					<option value="global"<?php echo $this->conf->view_mode === 'global' ? ' selected="selected"' : ''; ?>><?php echo Minz_Translate::t ('global_view'); ?></option>
 				</select>
 				<label class="radio" for="radio_all">
-					<input type="radio" name="default_view" id="radio_all" value="all"<?php echo $this->conf->default_view === 'all' ? ' checked="checked"' : ''; ?> />
+					<input type="radio" name="default_view" id="radio_all" value="<?php echo FreshRSS_Entry::STATE_ALL; ?>"<?php echo $this->conf->default_view === FreshRSS_Entry::STATE_ALL ? ' checked="checked"' : ''; ?> />
 					<?php echo Minz_Translate::t ('show_all_articles'); ?>
 				</label>
 				<label class="radio" for="radio_not_read">
-					<input type="radio" name="default_view" id="radio_not_read" value="not_read"<?php echo $this->conf->default_view === 'not_read' ? ' checked="checked"' : ''; ?> />
+					<input type="radio" name="default_view" id="radio_not_read" value="<?php echo FreshRSS_Entry::STATE_NOT_READ; ?>"<?php echo $this->conf->default_view === FreshRSS_Entry::STATE_NOT_READ ? ' checked="checked"' : ''; ?> />
 					<?php echo Minz_Translate::t ('show_not_reads'); ?>
 				</label>
 			</div>
