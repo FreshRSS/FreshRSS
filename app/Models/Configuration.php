@@ -39,6 +39,7 @@ class FreshRSS_Configuration {
 			'collapse_entry' => 'c',
 			'load_more' => 'm',
 			'auto_share' => 's',
+			'focus_search' => 'a',
 		),
 		'topline_read' => true,
 		'topline_favorite' => true,
