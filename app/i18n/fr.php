@@ -137,6 +137,7 @@ return array (
 	'collapse_article'		=> 'Refermer',
 	'auto_share'			=> 'Partager',
 	'auto_share_help'		=> 'Si il n’y a qu’un mode de partage, celui ci est utilisé automatiquement. Sinon ils sont accessibles par leur numéro.',
+	'focus_search'			=> 'Accéder à la recherche',
 
 	'file_to_import'		=> 'Fichier à importer<br />(OPML, Json ou Zip)',
 	'import'			=> 'Importer',

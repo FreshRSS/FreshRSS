@@ -599,6 +599,12 @@ function init_shortcuts() {
 	}, {
 		'disable_in_input': true
 	});
+
+	shortcut.add(shortcuts.focus_search, function () {
+		focus_search();
+	}, {
+		'disable_in_input': true
+	});
 }
 
 function init_stream(divStream) {
@@ -789,6 +795,10 @@ function load_more_posts() {
 		$('#load_more').removeClass('loading');
 		load_more = false;
 	});
+}
+
+function focus_search() {
+	$('#search').focus();
 }
 
 function init_load_more(box) {
