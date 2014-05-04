@@ -1,0 +1,45 @@
+<?php $this->partial ('aside_configure'); ?>
+
+<div class="post">
+	<a href="<?php echo _url ('index', 'index'); ?>"><?php echo Minz_Translate::t ('back_to_rss_feeds'); ?></a>
+
+	<form method="post" action="<?php echo _url ('configure', 'queries'); ?>">
+		<legend><?php echo Minz_Translate::t ('queries'); ?></legend>
+
+		<?php foreach ($this->conf->queries as $key => $query):?>
+			<div class="form-group">
+				<label class="group-name"><?php echo $key + 1?></label>
+				<div class="group-controls">
+					<input type="hidden" id="queries_<?php echo $key; ?>_search" name="queries[<?php echo $key; ?>][search]" value="<?php echo $query['search']; ?>"/>
+					<input type="hidden" id="queries_<?php echo $key; ?>_state" name="queries[<?php echo $key; ?>][state]" value="<?php echo $query['state']; ?>"/>
+					<input type="hidden" id="queries_<?php echo $key; ?>_order" name="queries[<?php echo $key; ?>][order]" value="<?php echo $query['order']; ?>"/>
+					<input type="hidden" id="queries_<?php echo $key; ?>_get" name="queries[<?php echo $key; ?>][get]" value="<?php echo $query['get']; ?>"/>
+					<input type="text" id="queries_<?php echo $key; ?>_name" name="queries[<?php echo $key; ?>][name]" value="<?php echo $query['name']; ?>"/>
+					<a href='#' class='query remove'><?php echo FreshRSS_Themes::icon('close'); ?></a>
+					<ul>
+						<?php if (isset($query['search'])):?>
+							<li><?php echo Minz_Translate::t ('query-search', $query['search']); ?></li>
+						<?php endif; ?>
+						<?php if (isset($query['state'])):?>
+							<li><?php echo Minz_Translate::t ('query-state-' . $query['state']); ?></li>
+						<?php endif; ?>
+						<?php if (isset($query['order'])):?>
+							<li><?php echo Minz_Translate::t ('query-order-' . strtolower($query['order'])); ?></li>
+						<?php endif; ?>
+						<?php if (isset($query['get'])):?>
+							<li><?php echo Minz_Translate::t ('query-get-' . $this->query_get[$key]['type'], $this->query_get[$key]['name']); ?></li>
+						<?php endif; ?>
+					</ul>
+				</div>
+			</div>
+		<?php endforeach; ?>
+		
+		<div class="form-group form-actions">
+			<div class="group-controls">
+				<button type="submit" class="btn btn-important"><?php echo Minz_Translate::t ('save'); ?></button>
+				<button type="reset" class="btn"><?php echo Minz_Translate::t ('cancel'); ?></button>
+			</div>
+		</div>
+	</form>
+
+</div>

@@ -70,6 +70,7 @@ class FreshRSS_Themes extends Minz_Model {
 			'add' => '✚',
 			'all' => '☰',
 			'bookmark' => '★',
+			'bookmark-add' => '✚',
 			'category' => '☷',
 			'category-white' => '☷',
 			'close' => '❌',

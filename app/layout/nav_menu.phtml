@@ -241,6 +241,14 @@
 		<?php echo FreshRSS_Themes::icon($icon); ?>
 	</a>
 
+	<?php if ($this->loginOk): 
+		$url_query = $this->url;
+		$url_query['c'] = 'configure';
+		$url_query['a'] = 'addQuery';
+	?>
+	<a id="save_query" class="btn" href="<?php echo Minz_Url::display ($url_query); ?>"><?php echo FreshRSS_Themes::icon('bookmark-add'); ?></a>
+	<?php endif; ?>
+
 	<?php $url_output['params']['output'] = 'rss'; ?>
 	<a class="btn view_rss" target="_blank" href="<?php echo Minz_Url::display ($url_output); ?>" title="<?php echo Minz_Translate::t ('rss_view'); ?>">
 		<?php echo FreshRSS_Themes::icon('rss'); ?>

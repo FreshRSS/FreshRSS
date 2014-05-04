@@ -52,6 +52,7 @@ class FreshRSS_Configuration {
 		'bottomline_date' => true,
 		'bottomline_link' => true,
 		'sharing' => array(),
+		'queries' => array(),
 	);
 
 	private $available_languages = array(
@@ -216,6 +217,12 @@ class FreshRSS_Configuration {
 			}
 
 			$this->data['sharing'][] = $value;
+		}
+	}
+	public function _queries ($values) {
+		$this->data['queries'] = array();
+		foreach ($values as $value) {
+			$this->data['queries'][] = array_filter($value);
 		}
 	}
 	public function _theme($value) {
