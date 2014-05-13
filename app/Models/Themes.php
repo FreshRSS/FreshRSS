@@ -85,6 +85,7 @@ class FreshRSS_Themes extends Minz_Model {
 			'non-starred' => '☆',
 			'prev' => '⏪',
 			'read' => '☑',
+			'rss' => '☄',
 			'unread' => '☐',
 			'refresh' => '🔃',	//↻
 			'search' => '🔍',

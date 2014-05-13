@@ -88,6 +88,10 @@
 		.nav_menu .search {
 			display:none;
 		}
+		.nav_menu .btn[aria-checked="true"]{
+			border-color: #2f2f2f;
+			box-shadow: 0 0 10px 3px #2f2f2f inset;
+		}
 
 .favicon {
 	height: 16px;
@@ -290,7 +294,7 @@
 		.flux .item.title {
 			background: inherit;
 		}
-			.flux .item.title a {
+			.flux .title a {
 				color: #888;
 				outline: none;
 			}
@@ -506,10 +510,10 @@
 			font-style: italic;
 		}
 	.pagination:first-child .item {
-		border-bottom: 1px solid #aaa;
+		border-bottom: 1px solid #2f2f2f;
 	}
 	.pagination:last-child .item {
-		border-top: 1px solid #aaa;
+		border-top: 1px solid #2f2f2f;
 	}
 
 #nav_entries {

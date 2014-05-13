@@ -207,13 +207,9 @@ function mark_favorite(active) {
 }
 
 function toggleContent(new_active, old_active) {
-	old_active.removeClass("active");
-
 	if (new_active.length === 0) {
 		return;
 	}
-
-	old_active.removeClass("current");
 
 	if (does_lazyload) {
 		new_active.find('img[data-original], iframe[data-original]').each(function () {
@@ -226,7 +222,10 @@ function toggleContent(new_active, old_active) {
 		if (isCollapsed) {
 			new_active.addClass("active");
 		}
+		old_active.removeClass("active current");
 		new_active.addClass("current");
+	} else {
+		new_active.toggleClass('active');
 	}
 
 	var box_to_move = "html,body",
@@ -236,14 +235,11 @@ function toggleContent(new_active, old_active) {
 		relative_move = true;
 	}
 
-	var new_pos = new_active.position().top,
-		old_scroll = $(box_to_move).scrollTop();
 	if (sticky_post) {
-		if (hide_posts) {
-
-			new_pos = new_active.position().top;
+		var new_pos = new_active.position().top - new_active.children('.flux_header').outerHeight(),
 			old_scroll = $(box_to_move).scrollTop();
 
+		if (hide_posts) {
 			if (relative_move) {
 				new_pos += old_scroll;
 			}
@@ -585,7 +581,7 @@ function init_shortcuts() {
 	});
 
 	shortcut.add(shortcuts.go_website, function () {
-		var url_website = $(".flux.current .link a").attr("href");
+		var url_website = $('.flux.current > .flux_header > .title > a').attr("href");
 
 		if (auto_mark_site) {
 			$(".flux.current").each(function () {
@@ -603,11 +599,17 @@ function init_shortcuts() {
 	}, {
 		'disable_in_input': true
 	});
+
+	shortcut.add(shortcuts.focus_search, function () {
+		focus_search();
+	}, {
+		'disable_in_input': true
+	});
 }
 
 function init_stream(divStream) {
 	divStream.on('click', '.flux_header,.flux_content', function (e) {	//flux_toggle
-		if ($(e.target).closest('.item.website, .item.link').length > 0) {
+		if ($(e.target).closest('.content, .item.website, .item.link').length > 0) {
 			return;
 		}
 		var old_active = $(".flux.current"),
@@ -793,6 +795,10 @@ function load_more_posts() {
 		$('#load_more').removeClass('loading');
 		load_more = false;
 	});
+}
+
+function focus_search() {
+	$('#search').focus();
 }
 
 function init_load_more(box) {

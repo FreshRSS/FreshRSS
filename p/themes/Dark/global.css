@@ -416,12 +416,6 @@ input, select, textarea {
 				background: #26303F;
 				color: #888;
 			}
-				.dropdown-menu > .item[aria-checked="true"] > a:before {
-					content: '✓ ';
-					font-weight: bold;
-					margin: 0 0 0 -1.2em;
-					padding: 0 0.2em 0 0;
-				}
 				.dropdown-menu > .item:hover > a {
 					color: #888;
 					text-decoration: none;

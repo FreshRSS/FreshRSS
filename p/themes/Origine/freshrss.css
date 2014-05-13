@@ -89,6 +89,10 @@
 		.nav_menu .search {
 			display:none;
 		}
+		.nav_menu .btn[aria-checked="true"]{
+			border-color: #aaa #ddd #ddd #aaa;
+			box-shadow: 0 0 10px 3px #ddd inset;
+		}
 
 .favicon {
 	height: 16px;
@@ -300,7 +304,7 @@
 		.flux .item.title {
 			background: inherit;
 		}
-			.flux .item.title a {
+			.flux .title a {
 				color: #000;
 				outline: none;
 			}
