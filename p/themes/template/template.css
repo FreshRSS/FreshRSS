@@ -49,8 +49,8 @@ img {
 	max-width: 100%;
 }
 img.favicon {
-	height: 1em;
-	width: 1em;
+	height: 16px;
+	width: 16px;
 	vertical-align: middle;
 }
 
@@ -80,7 +80,8 @@ input, select, textarea {
 }
 input[type="radio"],
 input[type="checkbox"] {
-	width: 15px;
+	width: 15px !important;
+	min-height: 15px !important;
 }
 input.extend:focus {
 	width: 300px;
@@ -165,11 +166,13 @@ a.btn {
 .dropdown-menu {
 	display: none;
 	min-width: 200px;
+	max-height: 300px;
 	margin: 0;
 	position: absolute;
 	right: 0;
 	background: #fff;
 	border: 1px solid #aaa;	
+	overflow: auto;
 }
 .dropdown-header {
 	display: block;
@@ -181,7 +184,7 @@ a.btn {
 	display: block;
 }
 .dropdown-menu > .item[aria-checked="true"] > a:before {
-	content: '✓ ';
+	content: '✓';
 }
 .dropdown-menu .input {
 	display: block;
@@ -286,6 +289,7 @@ a.btn {
 	display: table-cell;
 	height: 100%;
 	width: 250px;
+	vertical-align: top;
 }
 .aside.aside_flux {
 	background: #fff;
@@ -411,7 +415,6 @@ a.btn {
 }
 .content {
 	min-height: 20em;
-	max-width: 38em;
 	margin: auto;
 	line-height: 1.7em;
 	word-wrap: break-word;
@@ -439,8 +442,9 @@ a.btn {
 	display: none;
 }
 #notification a.close {
+	position: absolute;
+	right: 0;
 	display: inline-block;
-	float: right;
 }
 
 .actualizeProgress {
@@ -472,6 +476,9 @@ a.btn {
 }
 
 /*=== "Load more" part */
+#load_more {
+	min-height: 40px;
+}
 .loading {
 	background: url("loader.gif") center center no-repeat;
 	font-size: 0;
@@ -600,8 +607,9 @@ a.btn {
 
 	#notification,
 	.actualizeProgress {
-		left: 1em;
-		right: 1em;
+		top: 0;
+		left: 0;
+		right: 0;
 	}
 
 	#nav_entries {
