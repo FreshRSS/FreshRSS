@@ -3,54 +3,41 @@
 <div class="post">
 	<a href="<?php echo _url ('index', 'index'); ?>"><?php echo Minz_Translate::t ('back_to_rss_feeds'); ?></a>
 
-	<form method="post" action="<?php echo _url ('configure', 'sharing'); ?>">
+	<form method="post" action="<?php echo _url ('configure', 'sharing'); ?>"
+		data-simple='<div class="form-group"><label class="group-name">##label##</label><div class="group-controls"><a href="#" class="share remove"><?php echo FreshRSS_Themes::icon('close'); ?></a>
+			<input type="hidden" id="share_##key##_type" name="share[##key##][type]" value="##type##" /></div></div>'
+		data-advanced='<div class="form-group"><label class="group-name">##label##</label><div class="group-controls"><a href="#" class="share remove"><?php echo FreshRSS_Themes::icon('close'); ?></a>
+			<input type="hidden" id="share_##key##_type" name="share[##key##][type]" value="##type##" />
+			<input type="text" id="share_##key##_name" name="share[##key##][name]" class="extend" value="" placeholder="<?php echo Minz_Translate::t ('share_name'); ?>" size="64" />
+			<input type="url" id="share_##key##_url" name="share[##key##][url]" class="extend" value="" placeholder="<?php echo Minz_Translate::t ('share_url'); ?>" size="64" />
+			<?php echo FreshRSS_Themes::icon('help'); ?> <a target="_blank" href="##help##"><?php echo Minz_Translate::t ('more_information'); ?></a></div></div>'>
 		<legend><?php echo Minz_Translate::t ('sharing'); ?></legend>
-		<div class="form-group">
-			<label class="group-name" for="shaarli">
-				<?php echo Minz_Translate::t ('your_shaarli'); ?>
-			</label>
-			<div class="group-controls">
-				<input type="url" id="shaarli" name="shaarli" class="extend" value="<?php echo $this->conf->sharing ('shaarli'); ?>" placeholder="<?php echo Minz_Translate::t ('blank_to_disable'); ?>" size="64" />
-
-				<?php echo FreshRSS_Themes::icon('help'); ?> <a target="_blank" href="http://sebsauvage.net/wiki/doku.php?id=php:shaarli"><?php echo Minz_Translate::t ('more_information'); ?></a>
-			</div>
-		</div>
-
-		<div class="form-group">
-			<label class="group-name" for="wallabag">
-				<?php echo Minz_Translate::t ('your_wallabag'); ?>
-			</label>
-			<div class="group-controls">
-				<input type="url" id="wallabag" name="wallabag" class="extend" value="<?php echo $this->conf->sharing ('wallabag'); ?>" placeholder="<?php echo Minz_Translate::t ('blank_to_disable'); ?>" size="64" />
-
-				<?php echo FreshRSS_Themes::icon('help'); ?> <a target="_blank" href="http://www.wallabag.org"><?php echo Minz_Translate::t ('more_information'); ?></a>
-			</div>
-		</div>
-
-		<div class="form-group">
-			<label class="group-name" for="diaspora">
-				<?php echo Minz_Translate::t ('your_diaspora_pod'); ?>
-			</label>
-			<div class="group-controls">
-				<input type="url" id="diaspora" name="diaspora" class="extend" value="<?php echo $this->conf->sharing ('diaspora'); ?>" placeholder="<?php echo Minz_Translate::t ('blank_to_disable'); ?>" size="64" />
-
-				<?php echo FreshRSS_Themes::icon('help'); ?> <a target="_blank" href="https://diasporafoundation.org/"><?php echo Minz_Translate::t ('more_information'); ?></a>
-			</div>
-		</div>
-
-		<div class="form-group">
-			<label class="group-name"><?php echo Minz_Translate::t ('activate_sharing'); ?></label>
-			<div class="group-controls">
-				<?php
-					$services = array ('twitter', 'g+', 'facebook', 'email', 'print');
-
-					foreach ($services as $service) {
-				?>
-				<label class="checkbox" for="<?php echo $service; ?>">
-					<input type="checkbox" name="<?php echo $service; ?>" id="<?php echo $service; ?>" value="1"<?php echo $this->conf->sharing($service) ? ' checked="checked"' : ''; ?> />
-					<?php echo Minz_Translate::t ($service); ?>
+		<?php foreach ($this->conf->sharing as $key => $sharing): ?>
+			<?php $share = $this->conf->shares[$sharing['type']]; ?>
+			<div class="form-group">
+				<label class="group-name">
+					<?php echo Minz_Translate::t ($sharing['type']); ?>
 				</label>
-				<?php } ?>
+				<div class="group-controls">
+					<a href='#' class='share remove'><?php echo FreshRSS_Themes::icon('close'); ?></a>
+					<input type='hidden' id='share_<?php echo $key;?>_type' name="share[<?php echo $key;?>][type]" value='<?php echo $sharing['type']?>' />
+					<?php if ($share['form'] === 'advanced'):?>
+						<input type="text" id="share_<?php echo $key;?>_name" name="share[<?php echo $key;?>][name]" class="extend" value="<?php echo $sharing['name']?>" placeholder="<?php echo Minz_Translate::t ('share_name'); ?>" size="64" />
+						<input type="url" id="share_<?php echo $key;?>_url" name="share[<?php echo $key;?>][url]" class="extend" value="<?php echo $sharing['url']?>" placeholder="<?php echo Minz_Translate::t ('share_url'); ?>" size="64" />
+						<?php echo FreshRSS_Themes::icon('help'); ?> <a target="_blank" href="<?php echo $share['help']?>"><?php echo Minz_Translate::t ('more_information'); ?></a>
+					<?php endif;?>
+				</div>
+			</div>
+		<?php endforeach;?>
+
+		<div class="form-group form-actions">
+			<div class="group-controls">
+				<a href='#' class='share add'><?php echo FreshRSS_Themes::icon('add'); ?></a>
+				<select>
+					<?php foreach($this->conf->shares as $key => $params):?>
+						<option value='<?php echo $key?>' data-form='<?php echo $params['form']?>' data-help='<?php if (!empty($params['help'])) {echo $params['help'];}?>'><?php echo Minz_Translate::t($key) ?></option>
+					<?php endforeach; ?>
+				</select>
 			</div>
 		</div>
 

@@ -33,7 +33,7 @@
  * POSSIBILITY OF SUCH DAMAGE.
  *
  * @package SimplePie
- * @version 1.3.1
+ * @version 1.4-dev-FreshRSS
  * @copyright 2004-2012 Ryan Parman, Geoffrey Sneddon, Ryan McCue
  * @author Ryan Parman
  * @author Geoffrey Sneddon
@@ -50,7 +50,7 @@ define('SIMPLEPIE_NAME', 'SimplePie');
 /**
  * SimplePie Version
  */
-define('SIMPLEPIE_VERSION', '1.3.1');
+define('SIMPLEPIE_VERSION', '1.4-dev-FreshRSS');
 
 /**
  * SimplePie Build
@@ -602,7 +602,7 @@ class SimplePie
 	public $strip_attributes = array('bgsound', 'class', 'expr', 'id', 'style', 'onclick', 'onerror', 'onfinish', 'onmouseover', 'onmouseout', 'onfocus', 'onblur', 'lowsrc', 'dynsrc');
 
 	/**
-	 * @var array Stores the default attributes to add to differet tags by add_attributes().
+	 * @var array Stores the default attributes to add to different tags by add_attributes().
 	 * @see SimplePie::add_attributes()
 	 * @access private
 	 */
@@ -644,7 +644,7 @@ class SimplePie
 		if (func_num_args() > 0)
 		{
 			$level = defined('E_USER_DEPRECATED') ? E_USER_DEPRECATED : E_USER_WARNING;
-			trigger_error('Passing parameters to the constructor is no longer supported. Please use set_feed_url(), set_cache_location(), and set_cache_location() directly.', $level);
+			trigger_error('Passing parameters to the constructor is no longer supported. Please use set_feed_url(), set_cache_location(), and set_cache_duration() directly.', $level);
 
 			$args = func_get_args();
 			switch (count($args)) {
@@ -1212,6 +1212,16 @@ class SimplePie
 		$this->item_limit = (int) $limit;
 	}
 
+	/**
+	 * Enable throwing exceptions
+	 *
+	 * @param boolean $enable Should we throw exceptions, or use the old-style error property?
+	 */
+	public function enable_exceptions($enable = true)
+	{
+		$this->enable_exceptions = $enable;
+	}
+
 	function cleanMd5($rss) {	//FreshRSS
 		return md5(preg_replace(array('#<(lastBuildDate|pubDate|updated|feedDate|dc:date|slash:comments)>[^<]+</\\1>#', '#<!--.+?-->#s'), '', $rss));
 	}
@@ -1321,7 +1331,7 @@ class SimplePie
 		// First check to see if input has been overridden.
 		if ($this->input_encoding !== false)
 		{
-			$encodings[] = strtoupper($this->input_encoding);
+			$encodings[] = strtoupper($this->input_encoding);	//FreshRSS
 		}
 
 		$application_types = array('application/xml', 'application/xml-dtd', 'application/xml-external-parsed-entity');
@@ -1345,7 +1355,7 @@ class SimplePie
 			{
 				if (isset($headers['content-type']) && preg_match('/;\x20?charset=([^;]*)/i', $headers['content-type'], $charset))
 				{
-					$encodings[] = strtoupper($charset[1]);
+					$encodings[] = strtoupper($charset[1]);	//FreshRSS
 				}
 				else
 				{
@@ -2012,7 +2022,21 @@ class SimplePie
 	 */
 	public function sanitize($data, $type, $base = '')
 	{
-		return $this->sanitize->sanitize($data, $type, $base);
+		try
+		{
+			return $this->sanitize->sanitize($data, $type, $base);
+		}
+		catch (SimplePie_Exception $e)
+		{
+			if (!$this->enable_exceptions)
+			{
+				$this->error = $e->getMessage();
+				$this->registry->call('Misc', 'error', array($this->error, E_USER_WARNING, $e->getFile(), $e->getLine()));
+				return '';
+			}
+
+			throw $e;
+		}
 	}
 
 	/**

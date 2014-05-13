@@ -22,14 +22,32 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 	}
 
 	public function addAction () {
-		@set_time_limit(300);
+		$url = Minz_Request::param('url_rss', false);
 
-		if (Minz_Request::isPost ()) {
-			$this->catDAO = new FreshRSS_CategoryDAO ();
-			$this->catDAO->checkDefault ();
+		if ($url === false) {
+			Minz_Request::forward(array(
+				'c' => 'configure',
+				'a' => 'feed'
+			), true);
+		}
 
-			$url = Minz_Request::param ('url_rss');
+		$feedDAO = new FreshRSS_FeedDAO ();
+		$this->catDAO = new FreshRSS_CategoryDAO ();
+		$this->catDAO->checkDefault ();
+
+		if (Minz_Request::isPost()) {
+			@set_time_limit(300);
+
+
 			$cat = Minz_Request::param ('category', false);
+			if ($cat === 'nc') {
+				$new_cat = Minz_Request::param ('new_category');
+				if (empty($new_cat['name'])) {
+					$cat = false;
+				} else {
+					$cat = $this->catDAO->addCategory($new_cat);
+				}
+			}
 			if ($cat === false) {
 				$def_cat = $this->catDAO->getDefault ();
 				$cat = $def_cat->id ();
@@ -52,7 +70,6 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 
 				$feed->load(true);
 
-				$feedDAO = new FreshRSS_FeedDAO ();
 				$values = array (
 					'url' => $feed->url (),
 					'category' => $feed->category (),
@@ -128,7 +145,7 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 				Minz_Log::record ($e->getMessage (), Minz_Log::WARNING);
 				$notif = array (
 					'type' => 'bad',
-					'content' => Minz_Translate::t ('internal_problem_feed')
+					'content' => Minz_Translate::t ('internal_problem_feed', Minz_Url::display(array('a' => 'logs')))
 				);
 				Minz_Session::_param ('notification', $notif);
 			} catch (Minz_FileNotExistException $e) {
@@ -136,7 +153,7 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 				Minz_Log::record ($e->getMessage (), Minz_Log::ERROR);
 				$notif = array (
 					'type' => 'bad',
-					'content' => Minz_Translate::t ('internal_problem_feed')
+					'content' => Minz_Translate::t ('internal_problem_feed', Minz_Url::display(array('a' => 'logs')))
 				);
 				Minz_Session::_param ('notification', $notif);
 			}
@@ -145,6 +162,38 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 			}
 
 			Minz_Request::forward (array ('c' => 'configure', 'a' => 'feed', 'params' => $params), true);
+		}
+
+		// GET request so we must ask confirmation to user
+		Minz_View::prependTitle(Minz_Translate::t('add_rss_feed') . ' · ');
+		$this->view->categories = $this->catDAO->listCategories();
+		$this->view->feed = new FreshRSS_Feed($url);
+		try {
+			// We try to get some more information about the feed
+			$this->view->feed->load(true);
+			$this->view->load_ok = true;
+		} catch (Exception $e) {
+			$this->view->load_ok = false;
+		}
+
+		$feed = $feedDAO->searchByUrl($this->view->feed->url());
+		if ($feed) {
+			// Already subscribe so we redirect to the feed configuration page
+			$notif = array(
+				'type' => 'bad',
+				'content' => Minz_Translate::t(
+					'already_subscribed', $feed->name()
+				)
+			);
+			Minz_Session::_param('notification', $notif);
+
+			Minz_Request::forward(array(
+				'c' => 'configure',
+				'a' => 'feed',
+				'params' => array(
+					'id' => $feed->id()
+				)
+			), true);
 		}
 	}
 
@@ -319,80 +368,6 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 		}
 	}
 
-	public function massiveImportAction () {
-		@set_time_limit(300);
-
-		$this->catDAO = new FreshRSS_CategoryDAO ();
-		$this->catDAO->checkDefault ();
-
-		$entryDAO = new FreshRSS_EntryDAO ();
-		$feedDAO = new FreshRSS_FeedDAO ();
-
-		$categories = Minz_Request::param ('categories', array (), true);
-		$feeds = Minz_Request::param ('feeds', array (), true);
-
-		// on ajoute les catégories en masse dans une fonction à part
-		$this->addCategories ($categories);
-
-		// on calcule la date des articles les plus anciens qu'on accepte
-		$nb_month_old = $this->view->conf->old_entries;
-		$date_min = time () - (3600 * 24 * 30 * $nb_month_old);
-
-		// la variable $error permet de savoir si une erreur est survenue
-		// Le but est de ne pas arrêter l'import même en cas d'erreur
-		// L'utilisateur sera mis au courant s'il y a eu des erreurs, mais
-		// ne connaîtra pas les détails. Ceux-ci seront toutefois logguées
-		$error = false;
-		$i = 0;
-		foreach ($feeds as $feed) {
-			try {
-				$values = array (
-					'id' => $feed->id (),
-					'url' => $feed->url (),
-					'category' => $feed->category (),
-					'name' => $feed->name (),
-					'website' => $feed->website (),
-					'description' => $feed->description (),
-					'lastUpdate' => 0,
-					'httpAuth' => $feed->httpAuth ()
-				);
-
-				// ajout du flux que s'il n'est pas déjà en BDD
-				if (!$feedDAO->searchByUrl ($values['url'])) {
-					$id = $feedDAO->addFeed ($values);
-					if ($id) {
-						$feed->_id ($id);
-						$feed->faviconPrepare();
-					} else {
-						$error = true;
-					}
-				}
-			} catch (FreshRSS_Feed_Exception $e) {
-				$error = true;
-				Minz_Log::record ($e->getMessage (), Minz_Log::WARNING);
-			}
-		}
-
-		if ($error) {
-			$res = Minz_Translate::t ('feeds_imported_with_errors');
-		} else {
-			$res = Minz_Translate::t ('feeds_imported');
-		}
-
-		$notif = array (
-			'type' => 'good',
-			'content' => $res
-		);
-		Minz_Session::_param ('notification', $notif);
-		Minz_Session::_param ('actualize_feeds', true);
-
-		// et on redirige vers la page d'accueil
-		Minz_Request::forward (array (
-			'c' => 'index',
-			'a' => 'index'
-		), true);
-	}
-
 	public function deleteAction () {
 		if (Minz_Request::isPost ()) {
 			$type = Minz_Request::param ('type', 'feed');
@@ -433,18 +408,6 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 				Minz_Request::forward (array ('c' => 'configure', 'a' => 'categorize'), true);
 			} else {
 				Minz_Request::forward (array ('c' => 'configure', 'a' => 'feed'), true);
-			}
-		}
-	}
-
-	private function addCategories ($categories) {
-		foreach ($categories as $cat) {
-			if (!$this->catDAO->searchByName ($cat->name ())) {
-				$values = array (
-					'id' => $cat->id (),
-					'name' => $cat->name (),
-				);
-				$catDAO->addCategory ($values);
 			}
 		}
 	}

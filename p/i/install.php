@@ -228,13 +228,15 @@ function saveStep3 () {
 		$ini_array = array(
 			'general' => array(
 				'environment' => empty($_SESSION['environment']) ? 'production' : $_SESSION['environment'],
-				'use_url_rewriting' => false,
 				'salt' => $_SESSION['salt'],
 				'base_url' => '',
 				'title' => $_SESSION['title'],
 				'default_user' => $_SESSION['default_user'],
 				'auth_type' => $_SESSION['auth_type'],
 				'allow_anonymous' => isset($_SESSION['allow_anonymous']) ? $_SESSION['allow_anonymous'] : false,
+				'allow_anonymous_refresh' => false,
+				'unsafe_autologin_enabled' => false,
+				'api_enabled' => false,
 			),
 			'db' => array(
 				'type' => $_SESSION['bd_type'],
@@ -837,7 +839,7 @@ function printStep2 () {
 					<?php if (!in_array($_SESSION['auth_type'], array('form', 'persona', 'http_auth', 'none'))) { ?>
 						<option selected="selected"></option>
 					<?php } ?>
-					<option value="form"<?php echo $_SESSION['auth_type'] === 'form' ? ' selected="selected"' : '', version_compare(PHP_VERSION, '5.3', '<') ? ' disabled="disabled"' : ''; ?>><?php echo _t('auth_form'); ?></option>
+					<option value="form"<?php echo $_SESSION['auth_type'] === 'form' ? ' selected="selected"' : '', cryptAvailable() ? '' : ' disabled="disabled"'; ?>><?php echo _t('auth_form'); ?></option>
 					<option value="persona"<?php echo $_SESSION['auth_type'] === 'persona' ? ' selected="selected"' : ''; ?>><?php echo _t('auth_persona'); ?></option>
 					<option value="http_auth"<?php echo $_SESSION['auth_type'] === 'http_auth' ? ' selected="selected"' : '', httpAuthUser() == '' ? ' disabled="disabled"' : ''; ?>><?php echo _t('http_auth'); ?> (REMOTE_USER = '<?php echo httpAuthUser(); ?>')</option>
 					<option value="none"<?php echo $_SESSION['auth_type'] === 'none' ? ' selected="selected"' : ''; ?>><?php echo _t('auth_none'); ?></option>
@@ -911,7 +913,7 @@ function printStep3 () {
 		<div class="form-group">
 			<label class="group-name" for="user"><?php echo _t ('username'); ?></label>
 			<div class="group-controls">
-				<input type="text" id="user" name="user" maxlength="16" pattern="[0-9A-Za-z_]{1,16}" value="<?php echo isset ($_SESSION['bd_user']) ? $_SESSION['bd_user'] : ''; ?>" />
+				<input type="text" id="user" name="user" maxlength="16" pattern="[0-9A-Za-z_.-]{1,16}" value="<?php echo isset ($_SESSION['bd_user']) ? $_SESSION['bd_user'] : ''; ?>" />
 			</div>
 		</div>
 

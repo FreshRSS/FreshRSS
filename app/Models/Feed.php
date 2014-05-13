@@ -210,8 +210,8 @@ class FreshRSS_Feed extends Minz_Model {
 				}
 
 				if ($loadDetails) {
-					$title = htmlspecialchars(html_only_entity_decode($feed->get_title()), ENT_COMPAT, 'UTF-8');
-					$this->_name ($title === null ? $this->url : $title);
+					$title = strtr(html_only_entity_decode($feed->get_title()), array('<' => '&lt;', '>' => '&gt;', '"' => '&quot;'));	//HTML to HTML-PRE	//ENT_COMPAT except &
+					$this->_name ($title == '' ? $this->url : $title);
 
 					$this->_website(html_only_entity_decode($feed->get_link()));
 					$this->_description(html_only_entity_decode($feed->get_description()));
@@ -254,11 +254,12 @@ class FreshRSS_Feed extends Minz_Model {
 			$elinks = array();
 			foreach ($item->get_enclosures() as $enclosure) {
 				$elink = $enclosure->get_link();
-				if (array_key_exists($elink, $elinks)) continue;
-				$elinks[$elink] = '1';
-				$mime = strtolower($enclosure->get_type());
-				if (strpos($mime, 'image/') === 0) {
-					$content .= '<br /><img src="' . $elink . '" alt="" />';
+				if (empty($elinks[$elink])) {
+					$elinks[$elink] = '1';
+					$mime = strtolower($enclosure->get_type());
+					if (strpos($mime, 'image/') === 0) {
+						$content .= '<br /><img src="' . $elink . '" alt="" />';
+					}
 				}
 			}
 

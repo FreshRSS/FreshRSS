@@ -2,6 +2,9 @@
 define('FRESHRSS_VERSION', '0.8-dev');
 define('FRESHRSS_WEBSITE', 'http://freshrss.org');
 
+// PHP text output compression http://php.net/ob_gzhandler (better to do it at Web server level)
+define('PHP_COMPRESSION', false);
+
 // Constantes de chemins
 define('FRESHRSS_PATH', dirname(__FILE__));
 

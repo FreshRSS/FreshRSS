@@ -27,7 +27,7 @@ Privilégiez pour cela des demandes sur GitHub
 * Serveur Web Apache2 ou Nginx (non testé sur les autres)
 * PHP 5.2.1+ (PHP 5.3.7+ recommandé)
 	* Requis : [PDO_MySQL](http://php.net/pdo-mysql), [cURL](http://php.net/curl), [LibXML](http://php.net/xml), [PCRE](http://php.net/pcre), [ctype](http://php.net/ctype)
-	* Recommandés : [JSON](http://php.net/json), [zlib](http://php.net/zlib), [mbstring](http://php.net/mbstring), [iconv](http://php.net/iconv)
+	* Recommandés : [JSON](http://php.net/json), [zlib](http://php.net/zlib), [mbstring](http://php.net/mbstring), [iconv](http://php.net/iconv), [Zip](http://php.net/zip)
 * MySQL 5.0.3+ (ou SQLite 3.7.4+ à venir)
 * Un navigateur Web récent tel Firefox 4+, Chrome, Opera, Safari, Internet Explorer 9+
 	* Fonctionne aussi sur mobile
@@ -42,7 +42,8 @@ Privilégiez pour cela des demandes sur GitHub
 5. Tout devrait fonctionner :) En cas de problème, n’hésitez pas à me contacter.
 
 # Contrôle d’accès
-Il est requis pour le mode multi-utilisateur, et recommandé dans tous les cas, de limiter l’accès à votre FreshRSS :
+Il est requis pour le mode multi-utilisateur, et recommandé dans tous les cas, de limiter l’accès à votre FreshRSS. Au choix :
+* En utilisant l’identification par formulaire (requiert JavaScript, et PHP 5.3.7+ recommandé – fonctionne avec certaines versions de PHP 5.3.3+)
 * En utilisant l’identification par [Mozilla Persona](https://login.persona.org/about) incluse dans FreshRSS
 * En utilisant un contrôle d’accès HTTP défini par votre serveur Web
 	* Voir par exemple la [documentation d’Apache sur l’authentification](http://httpd.apache.org/docs/trunk/howto/auth.html)

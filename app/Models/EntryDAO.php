@@ -35,11 +35,45 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 		}
 	}
 
-	public function markFavorite ($id, $is_favorite = true) {
+	public function addEntryObject($entry, $conf, $feedHistory) {
+		$existingGuids = array_fill_keys(
+			$this->listLastGuidsByFeed($entry->feed(), 20), 1
+		);
+
+		$nb_month_old = max($conf->old_entries, 1);
+		$date_min = time() - (3600 * 24 * 30 * $nb_month_old);
+
+		$eDate = $entry->date(true);
+
+		if ($feedHistory == -2) {
+			$feedHistory = $conf->keep_history_default;
+		}
+
+		if (!isset($existingGuids[$entry->guid()]) &&
+				($feedHistory != 0 || $eDate  >= $date_min)) {
+			$values = $entry->toArray();
+
+			$useDeclaredDate = empty($existingGuids);
+			$values['id'] = ($useDeclaredDate || $eDate < $date_min) ?
+				min(time(), $eDate) . uSecString() :
+				uTimeString();
+
+			return $this->addEntry($values);
+		}
+
+		// We don't return Entry object to avoid a research in DB
+		return -1;
+	}
+
+	public function markFavorite($ids, $is_favorite = true) {
+		if (!is_array($ids)) {
+			$ids = array($ids);
+		}
 		$sql = 'UPDATE `' . $this->prefix . 'entry` e '
 		     . 'SET e.is_favorite = ? '
-		     . 'WHERE e.id=?';
-		$values = array ($is_favorite ? 1 : 0, $id);
+		     . 'WHERE e.id IN (' . str_repeat('?,', count($ids) - 1). '?)';
+		$values = array ($is_favorite ? 1 : 0);
+		$values = array_merge($values, $ids);
 		$stm = $this->bd->prepare ($sql);
 		if ($stm && $stm->execute ($values)) {
 			return $stm->rowCount();
@@ -49,30 +83,79 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 			return false;
 		}
 	}
-	public function markRead ($id, $is_read = true) {
-		$sql = 'UPDATE `' . $this->prefix . 'entry` e INNER JOIN `' . $this->prefix . 'feed` f ON e.id_feed = f.id '
-		     . 'SET e.is_read = ?,'
-		     . 'f.cache_nbUnreads=f.cache_nbUnreads' . ($is_read ? '-' : '+') . '1 '
-		     . 'WHERE e.id=?';
-		$values = array ($is_read ? 1 : 0, $id);
-		$stm = $this->bd->prepare ($sql);
-		if ($stm && $stm->execute ($values)) {
-			return $stm->rowCount();
+
+	public function markRead($ids, $is_read = true) {
+		if (is_array($ids)) {
+			if (count($ids) < 6) {	//Speed heuristics
+				$affected = 0;
+				foreach ($ids as $id) {
+					$affected += $this->markRead($id, $is_read);
+				}
+				return $affected;
+			}
+
+			$this->bd->beginTransaction();
+			$sql = 'UPDATE `' . $this->prefix . 'entry` e '
+				 . 'SET e.is_read = ? '
+				 . 'WHERE e.id IN (' . str_repeat('?,', count($ids) - 1). '?)';
+			$values = array($is_read ? 1 : 0);
+			$values = array_merge($values, $ids);
+			$stm = $this->bd->prepare($sql);
+			if (!($stm && $stm->execute($values))) {
+				$info = $stm->errorInfo();
+				Minz_Log::record('SQL error : ' . $info[2], Minz_Log::ERROR);
+				$this->bd->rollBack();
+				return false;
+			}
+			$affected = $stm->rowCount();
+
+			if ($affected > 0) {
+				$sql = 'UPDATE `' . $this->prefix . 'feed` f '
+				     . 'INNER JOIN ('
+				     .	'SELECT e.id_feed, '
+				     .	'COUNT(CASE WHEN e.is_read = 0 THEN 1 END) AS nbUnreads, '
+				     .	'COUNT(e.id) AS nbEntries '
+				     .	'FROM `' . $this->prefix . 'entry` e '
+				     .	'GROUP BY e.id_feed'
+				     . ') x ON x.id_feed=f.id '
+				     . 'SET f.cache_nbEntries=x.nbEntries, f.cache_nbUnreads=x.nbUnreads';
+				$stm = $this->bd->prepare($sql);
+				if (!($stm && $stm->execute())) {
+					$info = $stm->errorInfo();
+					Minz_Log::record('SQL error : ' . $info[2], Minz_Log::ERROR);
+					$this->bd->rollBack();
+					return false;
+				}
+			}
+
+			$this->bd->commit();
+			return $affected;
 		} else {
-			$info = $stm->errorInfo();
-			Minz_Log::record ('SQL error : ' . $info[2], Minz_Log::ERROR);
-			return false;
+			$sql = 'UPDATE `' . $this->prefix . 'entry` e INNER JOIN `' . $this->prefix . 'feed` f ON e.id_feed = f.id '
+				 . 'SET e.is_read = ?,'
+				 . 'f.cache_nbUnreads=f.cache_nbUnreads' . ($is_read ? '-' : '+') . '1 '
+				 . 'WHERE e.id=?';
+			$values = array($is_read ? 1 : 0, $ids);
+			$stm = $this->bd->prepare($sql);
+			if ($stm && $stm->execute($values)) {
+				return $stm->rowCount();
+			} else {
+				$info = $stm->errorInfo();
+				Minz_Log::record('SQL error : ' . $info[2], Minz_Log::ERROR);
+				return false;
+			}
 		}
 	}
-	public function markReadEntries ($idMax = 0, $favorites = false) {
-		if ($idMax === 0) {
+
+	public function markReadEntries ($idMax = 0, $onlyFavorites = false, $priorityMin = 0) {
+		if ($idMax == 0) {
 			$sql = 'UPDATE `' . $this->prefix . 'entry` e INNER JOIN `' . $this->prefix . 'feed` f ON e.id_feed = f.id '
 			     . 'SET e.is_read = 1, f.cache_nbUnreads=0 '
-			     . 'WHERE e.is_read = 0 AND ';
-			if ($favorites) {
-				$sql .= 'e.is_favorite = 1';
-			} else {
-				$sql .= 'f.priority > 0';
+			     . 'WHERE e.is_read = 0';
+			if ($onlyFavorites) {
+				$sql .= ' AND e.is_favorite = 1';
+			} elseif ($priorityMin >= 0) {
+				$sql .= ' AND f.priority > ' . intval($priorityMin);
 			}
 			$stm = $this->bd->prepare ($sql);
 			if ($stm && $stm->execute ()) {
@@ -87,11 +170,11 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 
 			$sql = 'UPDATE `' . $this->prefix . 'entry` e INNER JOIN `' . $this->prefix . 'feed` f ON e.id_feed = f.id '
 			     . 'SET e.is_read = 1 '
-			     . 'WHERE e.is_read = 0 AND e.id <= ? AND ';
-			if ($favorites) {
-				$sql .= 'e.is_favorite = 1';
-			} else {
-				$sql .= 'f.priority > 0';
+			     . 'WHERE e.is_read = 0 AND e.id <= ?';
+			if ($onlyFavorites) {
+				$sql .= ' AND e.is_favorite = 1';
+			} elseif ($priorityMin >= 0) {
+				$sql .= ' AND f.priority > ' . intval($priorityMin);
 			}
 			$values = array ($idMax);
 			$stm = $this->bd->prepare ($sql);
@@ -126,8 +209,9 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 			return $affected;
 		}
 	}
+
 	public function markReadCat ($id, $idMax = 0) {
-		if ($idMax === 0) {
+		if ($idMax == 0) {
 			$sql = 'UPDATE `' . $this->prefix . 'entry` e INNER JOIN `' . $this->prefix . 'feed` f ON e.id_feed = f.id '
 			     . 'SET e.is_read = 1, f.cache_nbUnreads=0 '
 			     . 'WHERE f.category = ? AND e.is_read = 0';
@@ -181,8 +265,70 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 			return $affected;
 		}
 	}
+
+	public function markReadCatName($name, $idMax = 0) {
+		if ($idMax == 0) {
+			$sql = 'UPDATE `' . $this->prefix . 'entry` e '
+			     . 'INNER JOIN `' . $this->prefix . 'feed` f ON e.id_feed = f.id '
+			     . 'INNER JOIN `' . $this->prefix . 'category` c ON c.id = f.category '
+			     . 'SET e.is_read = 1, f.cache_nbUnreads=0 '
+			     . 'WHERE c.name = ?';
+			$values = array($name);
+			$stm = $this->bd->prepare($sql);
+			if ($stm && $stm->execute($values)) {
+				return $stm->rowCount();
+			} else {
+				$info = $stm->errorInfo();
+				Minz_Log::record('SQL error : ' . $info[2], Minz_Log::ERROR);
+				return false;
+			}
+		} else {
+			$this->bd->beginTransaction();
+
+			$sql = 'UPDATE `' . $this->prefix . 'entry` e '
+			     . 'INNER JOIN `' . $this->prefix . 'feed` f ON e.id_feed = f.id '
+			     . 'INNER JOIN `' . $this->prefix . 'category` c ON c.id = f.category '
+			     . 'SET e.is_read = 1 '
+			     . 'WHERE c.name = ? AND e.id <= ?';
+			$values = array($name, $idMax);
+			$stm = $this->bd->prepare($sql);
+			if (!($stm && $stm->execute($values))) {
+				$info = $stm->errorInfo();
+				Minz_Log::record('SQL error : ' . $info[2], Minz_Log::ERROR);
+				$this->bd->rollBack();
+				return false;
+			}
+			$affected = $stm->rowCount();
+
+			if ($affected > 0) {
+				$sql = 'UPDATE `' . $this->prefix . 'feed` f '
+			     . 'LEFT OUTER JOIN ('
+			     .	'SELECT e.id_feed, '
+			     .	'COUNT(*) AS nbUnreads '
+			     .	'FROM `' . $this->prefix . 'entry` e '
+			     .	'WHERE e.is_read = 0 '
+			     .	'GROUP BY e.id_feed'
+			     . ') x ON x.id_feed=f.id '
+			     . 'INNER JOIN `' . $this->prefix . 'category` c ON c.id = f.category '
+			     . 'SET f.cache_nbUnreads=COALESCE(x.nbUnreads, 0) '
+			     . 'WHERE c.name = ?';
+				$values = array($name);
+				$stm = $this->bd->prepare($sql);
+				if (!($stm && $stm->execute($values))) {
+					$info = $stm->errorInfo();
+					Minz_Log::record('SQL error : ' . $info[2], Minz_Log::ERROR);
+					$this->bd->rollBack();
+					return false;
+				}
+			}
+
+			$this->bd->commit();
+			return $affected;
+		}
+	}
+
 	public function markReadFeed ($id, $idMax = 0) {
-		if ($idMax === 0) {
+		if ($idMax == 0) {
 			$sql = 'UPDATE `' . $this->prefix . 'entry` e INNER JOIN `' . $this->prefix . 'feed` f ON e.id_feed = f.id '
 			     . 'SET e.is_read = 1, f.cache_nbUnreads=0 '
 			     . 'WHERE f.id=? AND e.is_read = 0';
@@ -244,7 +390,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 		$stm->execute ($values);
 		$res = $stm->fetchAll (PDO::FETCH_ASSOC);
 		$entries = self::daoToEntry ($res);
-		return isset ($entries[0]) ? $entries[0] : false;
+		return isset ($entries[0]) ? $entries[0] : null;
 	}
 
 	public function searchById ($id) {
@@ -257,10 +403,13 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 		$stm->execute ($values);
 		$res = $stm->fetchAll (PDO::FETCH_ASSOC);
 		$entries = self::daoToEntry ($res);
-		return isset ($entries[0]) ? $entries[0] : false;
+		return isset ($entries[0]) ? $entries[0] : null;
 	}
 
-	public function listWhere($type = 'a', $id = '', $state = 'all', $order = 'DESC', $limit = 1, $firstId = '', $filter = '', $date_min = 0, $keepHistoryDefault = 0) {
+	private function sqlListWhere($type = 'a', $id = '', $state = FreshRSS_Entry::STATE_ALL, $order = 'DESC', $limit = 1, $firstId = '', $filter = '', $date_min = 0, $showOlderUnreadsorFavorites = false, $keepHistoryDefault = 0) {
+		if (!$state) {
+			$state = FreshRSS_Entry::STATE_ALL;
+		}
 		$where = '';
 		$joinFeed = false;
 		$values = array();
@@ -269,7 +418,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 				$where .= 'f.priority > 0 ';
 				$joinFeed = true;
 				break;
-			case 's':
+			case 's':	//Deprecated: use $state instead
 				$where .= 'e1.is_favorite = 1 ';
 				break;
 			case 'c':
@@ -281,24 +430,30 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 				$where .= 'e1.id_feed = ? ';
 				$values[] = intval($id);
 				break;
+			case 'A':
+				$where .= '1 ';
+				break;
 			default:
 				throw new FreshRSS_EntriesGetter_Exception ('Bad type in Entry->listByType: [' . $type . ']!');
 		}
-		switch ($state) {
-			case 'all':
-				break;
-			case 'not_read':
+
+		if ($state & FreshRSS_Entry::STATE_NOT_READ) {
+			if (!($state & FreshRSS_Entry::STATE_READ)) {
 				$where .= 'AND e1.is_read = 0 ';
-				break;
-			case 'read':
-				$where .= 'AND e1.is_read = 1 ';
-				break;
-			case 'favorite':
-				$where .= 'AND e1.is_favorite = 1 ';
-				break;
-			default:
-				throw new FreshRSS_EntriesGetter_Exception ('Bad state in Entry->listByType: [' . $state . ']!');
+			}
 		}
+		elseif ($state & FreshRSS_Entry::STATE_READ) {
+			$where .= 'AND e1.is_read = 1 ';
+		}
+		if ($state & FreshRSS_Entry::STATE_FAVORITE) {
+			if (!($state & FreshRSS_Entry::STATE_NOT_FAVORITE)) {
+				$where .= 'AND e1.is_favorite = 1 ';
+			}
+		}
+		elseif ($state & FreshRSS_Entry::STATE_NOT_FAVORITE) {
+			$where .= 'AND e1.is_favorite = 0 ';
+		}
+
 		switch ($order) {
 			case 'DESC':
 			case 'ASC':
@@ -310,11 +465,15 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 			$where .= 'AND e1.id ' . ($order === 'DESC' ? '<=' : '>=') . $firstId . ' ';
 		}
 		if (($date_min > 0) && ($type !== 's')) {
-			$where .= 'AND (e1.id >= ' . $date_min . '000000 OR e1.is_read = 0 OR e1.is_favorite = 1 OR (f.keep_history <> 0';
-			if (intval($keepHistoryDefault) === 0) {
-				$where .= ' AND f.keep_history <> -2';	//default
+			$where .= 'AND (e1.id >= ' . $date_min . '000000';
+			if ($showOlderUnreadsorFavorites) {	//Lax date constraint
+				$where .= ' OR e1.is_read = 0 OR e1.is_favorite = 1 OR (f.keep_history <> 0';
+				if (intval($keepHistoryDefault) === 0) {
+					$where .= ' AND f.keep_history <> -2';	//default
+				}
+				$where .= ')';
 			}
-			$where .= ')) ';
+			$where .= ') ';
 			$joinFeed = true;
 		}
 		$search = '';
@@ -366,14 +525,22 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 			}
 		}
 
+		return array($values,
+			'SELECT e1.id FROM `' . $this->prefix . 'entry` e1 '
+			. ($joinFeed ? 'INNER JOIN `' . $this->prefix . 'feed` f ON e1.id_feed = f.id ' : '')
+			. 'WHERE ' . $where
+			. $search
+			. 'ORDER BY e1.id ' . $order
+			. ($limit > 0 ? ' LIMIT ' . $limit : ''));	//TODO: See http://explainextended.com/2009/10/23/mysql-order-by-limit-performance-late-row-lookups/
+	}
+
+	public function listWhere($type = 'a', $id = '', $state = FreshRSS_Entry::STATE_ALL, $order = 'DESC', $limit = 1, $firstId = '', $filter = '', $date_min = 0, $showOlderUnreadsorFavorites = false, $keepHistoryDefault = 0) {
+		list($values, $sql) = $this->sqlListWhere($type, $id, $state, $order, $limit, $firstId, $filter, $date_min, $showOlderUnreadsorFavorites, $keepHistoryDefault);
+
 		$sql = 'SELECT e.id, e.guid, e.title, e.author, UNCOMPRESS(e.content_bin) AS content, e.link, e.date, e.is_read, e.is_favorite, e.id_feed, e.tags '
 		     . 'FROM `' . $this->prefix . 'entry` e '
-		     . 'INNER JOIN (SELECT e1.id FROM `' . $this->prefix . 'entry` e1 '
-			     . ($joinFeed ? 'INNER JOIN `' . $this->prefix . 'feed` f ON e1.id_feed = f.id ' : '')
-			     . 'WHERE ' . $where
-			     . $search
-			     . 'ORDER BY e1.id ' . $order
-			     . ($limit > 0 ? ' LIMIT ' . $limit : '')	//TODO: See http://explainextended.com/2009/10/23/mysql-order-by-limit-performance-late-row-lookups/
+		     . 'INNER JOIN ('
+		     . $sql
 		     . ') e2 ON e2.id = e.id '
 		     . 'ORDER BY e.id ' . $order;
 
@@ -381,6 +548,15 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 		$stm->execute ($values);
 
 		return self::daoToEntry ($stm->fetchAll (PDO::FETCH_ASSOC));
+	}
+
+	public function listIdsWhere($type = 'a', $id = '', $state = FreshRSS_Entry::STATE_ALL, $order = 'DESC', $limit = 1, $firstId = '', $filter = '', $date_min = 0, $showOlderUnreadsorFavorites = false, $keepHistoryDefault = 0) {	//For API
+		list($values, $sql) = $this->sqlListWhere($type, $id, $state, $order, $limit, $firstId, $filter, $date_min, $showOlderUnreadsorFavorites, $keepHistoryDefault);
+
+		$stm = $this->bd->prepare($sql);
+		$stm->execute($values);
+
+		return $stm->fetchAll(PDO::FETCH_COLUMN, 0);
 	}
 
 	public function listLastGuidsByFeed($id, $n) {

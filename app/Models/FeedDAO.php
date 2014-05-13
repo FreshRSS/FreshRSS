@@ -24,6 +24,36 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo {
 		}
 	}
 
+	public function addFeedObject($feed) {
+		// TODO: not sure if we should write this method in DAO since DAO
+		// should not be aware about feed class
+
+		// Add feed only if we don't find it in DB
+		$feed_search = $this->searchByUrl($feed->url());
+		if (!$feed_search) {
+			$values = array(
+				'id' => $feed->id(),
+				'url' => $feed->url(),
+				'category' => $feed->category(),
+				'name' => $feed->name(),
+				'website' => $feed->website(),
+				'description' => $feed->description(),
+				'lastUpdate' => 0,
+				'httpAuth' => $feed->httpAuth()
+			);
+
+			$id = $this->addFeed($values);
+			if ($id) {
+				$feed->_id($id);
+				$feed->faviconPrepare();
+			}
+
+			return $id;
+		}
+
+		return $feed_search->id();
+	}
+
 	public function updateFeed ($id, $valuesTmp) {
 		$set = '';
 		foreach ($valuesTmp as $key => $v) {
@@ -170,7 +200,7 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo {
 		if (isset ($feed[$id])) {
 			return $feed[$id];
 		} else {
-			return false;
+			return null;
 		}
 	}
 	public function searchByUrl ($url) {
@@ -186,7 +216,7 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo {
 		if (isset ($feed)) {
 			return $feed;
 		} else {
-			return false;
+			return null;
 		}
 	}
 
@@ -196,6 +226,22 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo {
 		$stm->execute ();
 
 		return self::daoToFeed ($stm->fetchAll (PDO::FETCH_ASSOC));
+	}
+
+	public function arrayFeedCategoryNames() {	//For API
+		$sql = 'SELECT f.id, f.name, c.name as c_name FROM `' . $this->prefix . 'feed` f '
+		     . 'INNER JOIN `' . $this->prefix . 'category` c ON c.id = f.category';
+		$stm = $this->bd->prepare ($sql);
+		$stm->execute ();
+		$res = $stm->fetchAll(PDO::FETCH_ASSOC);
+		$feedCategoryNames = array();
+		foreach ($res as $line) {
+			$feedCategoryNames[$line['id']] = array(
+				'name' => $line['name'],
+				'c_name' => $line['c_name'],
+			);
+		}
+		return $feedCategoryNames;
 	}
 
 	public function listFeedsOrderUpdate ($cacheDuration = 1500) {
@@ -229,6 +275,7 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo {
 
 		return $res[0]['count'];
 	}
+
 	public function countNotRead ($id) {
 		$sql = 'SELECT COUNT(*) AS count FROM `' . $this->prefix . 'entry` WHERE id_feed=? AND is_read=0';
 		$stm = $this->bd->prepare ($sql);
@@ -238,6 +285,7 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo {
 
 		return $res[0]['count'];
 	}
+
 	public function updateCachedValues () {	//For one single feed, call updateLastUpdate($id)
 		$sql = 'UPDATE `' . $this->prefix . 'feed` f '
 		     . 'INNER JOIN ('
@@ -250,9 +298,7 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo {
 		     . 'SET f.cache_nbEntries=x.nbEntries, f.cache_nbUnreads=x.nbUnreads';
 		$stm = $this->bd->prepare ($sql);
 
-		$values = array ($feed_id);
-
-		if ($stm && $stm->execute ($values)) {
+		if ($stm && $stm->execute()) {
 			return $stm->rowCount();
 		} else {
 			$info = $stm->errorInfo();

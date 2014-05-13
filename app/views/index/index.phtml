@@ -3,12 +3,14 @@
 $output = Minz_Request::param ('output', 'normal');
 
 if ($this->loginOk || Minz_Configuration::allowAnonymous()) {
-	if ($output === 'rss') {
-		$this->renderHelper ('view/rss_view');
+	if ($output === 'normal') {
+		$this->renderHelper ('view/normal_view');
 	} elseif ($output === 'reader') {
 		$this->renderHelper ('view/reader_view');
 	} elseif ($output === 'global') {
 		$this->renderHelper ('view/global_view');
+	} elseif ($output === 'rss') {
+		$this->renderHelper ('view/rss_view');
 	} else {
 		Minz_Request::_param ('output', 'normal');
 		$output = 'normal';

@@ -25,16 +25,14 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 			}
 		}
 
-		// construction of RSS url of this feed
 		$params = Minz_Request::params ();
-		$params['output'] = 'rss';
 		if (isset ($params['search'])) {
 			$params['search'] = urlencode ($params['search']);
 		}
 		if (!Minz_Configuration::allowAnonymous()) {
 			$params['token'] = $token;
 		}
-		$this->view->rss_url = array (
+		$this->view->url = array (
 			'c' => 'index',
 			'a' => 'index',
 			'params' => $params
@@ -84,20 +82,22 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 
 		// On récupère les différents éléments de filtrage
 		$this->view->state = $state = Minz_Request::param ('state', $this->view->conf->default_view);
+		$state_param = Minz_Request::param ('state', null);
 		$filter = Minz_Request::param ('search', '');
 		if (!empty($filter)) {
-			$state = 'all';	//Search always in read and unread articles
+			$state = FreshRSS_Entry::STATE_ALL;	//Search always in read and unread articles
 		}
 		$this->view->order = $order = Minz_Request::param ('order', $this->view->conf->sort_order);
 		$nb = Minz_Request::param ('nb', $this->view->conf->posts_per_page);
 		$first = Minz_Request::param ('next', '');
 
-		if ($state === 'not_read') {	//Any unread article in this category at all?
+		if ($state === FreshRSS_Entry::STATE_NOT_READ) {	//Any unread article in this category at all?
 			switch ($getType) {
 				case 'a':
 					$hasUnread = $this->view->nb_not_read > 0;
 					break;
 				case 's':
+					// This is deprecated. The favorite button does not exist anymore
 					$hasUnread = $this->view->nb_favorites['unread'] > 0;
 					break;
 				case 'c':
@@ -111,8 +111,8 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 					$hasUnread = true;
 					break;
 			}
-			if (!$hasUnread) {
-				$this->view->state = $state = 'all';
+			if (!$hasUnread && ($state_param === null)) {
+				$this->view->state = $state = FreshRSS_Entry::STATE_ALL;
 			}
 		}
 
@@ -125,14 +125,14 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 		$keepHistoryDefault = $this->view->conf->keep_history_default;
 
 		try {
-			$entries = $entryDAO->listWhere($getType, $getId, $state, $order, $nb + 1, $first, $filter, $date_min, $keepHistoryDefault);
+			$entries = $entryDAO->listWhere($getType, $getId, $state, $order, $nb + 1, $first, $filter, $date_min, true, $keepHistoryDefault);
 
 			// Si on a récupéré aucun article "non lus"
 			// on essaye de récupérer tous les articles
-			if ($state === 'not_read' && empty($entries)) {
+			if ($state === FreshRSS_Entry::STATE_NOT_READ && empty($entries) && ($state_param === null)) {
 				Minz_Log::record ('Conflicting information about nbNotRead!', Minz_Log::DEBUG);
-				$this->view->state = 'all';
-				$entries = $entryDAO->listWhere($getType, $getId, 'all', $order, $nb, $first, $filter, $date_min, $keepHistoryDefault);
+				$this->view->state = FreshRSS_Entry::STATE_ALL;
+				$entries = $entryDAO->listWhere($getType, $getId, $this->view->state, $order, $nb, $first, $filter, $date_min, true, $keepHistoryDefault);
 			}
 
 			if (count($entries) <= $nb) {
@@ -350,6 +350,32 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 				Minz_Session::_param('notification', $notif);
 			}
 			$this->view->_useLayout(false);
+			Minz_Request::forward(array('c' => 'index', 'a' => 'index'), true);
+		} elseif (Minz_Configuration::unsafeAutologinEnabled() && isset($_GET['u']) && isset($_GET['p'])) {
+			Minz_Session::_param('currentUser');
+			Minz_Session::_param('mail');
+			Minz_Session::_param('passwordHash');
+			$username = ctype_alnum($_GET['u']) ? $_GET['u'] : '';
+			$passwordPlain = $_GET['p'];
+			Minz_Request::_param('p');	//Discard plain-text password ASAP
+			$_GET['p'] = '';
+			if (!function_exists('password_verify')) {
+				include_once(LIB_PATH . '/password_compat.php');
+			}
+			try {
+				$conf = new FreshRSS_Configuration($username);
+				$s = $conf->passwordHash;
+				$ok = password_verify($passwordPlain, $s);
+				unset($passwordPlain);
+				if ($ok) {
+					Minz_Session::_param('currentUser', $username);
+					Minz_Session::_param('passwordHash', $s);
+				} else {
+					Minz_Log::record('Unsafe password mismatch for user ' . $username, Minz_Log::WARNING);
+				}
+			} catch (Minz_Exception $me) {
+				Minz_Log::record('Unsafe login failure: ' . $me->getMessage(), Minz_Log::WARNING);
+			}
 			Minz_Request::forward(array('c' => 'index', 'a' => 'index'), true);
 		} elseif (!Minz_Configuration::canLogIn()) {
 			Minz_Error::error (

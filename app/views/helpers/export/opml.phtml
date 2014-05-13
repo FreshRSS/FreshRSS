@@ -1,0 +1,28 @@
+<?php
+
+$opml_array = array(
+	'head' => array(
+		'title' => Minz_Configuration::title(),
+		'dateCreated' => date('D, d M Y H:i:s')
+	),
+	'body' => array()
+);
+
+foreach ($this->categories as $key => $cat) {
+	$opml_array['body'][$key] = array(
+		'text' => $cat['name'],
+		'@outlines' => array()
+	);
+
+	foreach ($cat['feeds'] as $feed) {
+		$opml_array['body'][$key]['@outlines'][] = array(
+			'text' => htmlspecialchars_decode($feed->name()),
+			'type' => 'rss',
+			'xmlUrl' => $feed->url(),
+			'htmlUrl' => $feed->website(),
+			'description' => $feed->description()
+		);
+	}
+}
+
+echo libopml_render($opml_array);

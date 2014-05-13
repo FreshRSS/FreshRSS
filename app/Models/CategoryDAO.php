@@ -18,6 +18,19 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo {
 		}
 	}
 
+	public function addCategoryObject($category) {
+		$cat = $this->searchByName($category->name());
+		if (!$cat) {
+			// Category does not exist yet in DB so we add it before continue
+			$values = array(
+				'name' => $category->name(),
+			);
+			return $this->addCategory($values);
+		}
+
+		return $cat->id();
+	}
+
 	public function updateCategory ($id, $valuesTmp) {
 		$sql = 'UPDATE `' . $this->prefix . 'category` SET name=? WHERE id=?';
 		$stm = $this->bd->prepare ($sql);
@@ -64,7 +77,7 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo {
 		if (isset ($cat[0])) {
 			return $cat[0];
 		} else {
-			return false;
+			return null;
 		}
 	}
 	public function searchByName ($name) {
@@ -80,7 +93,7 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo {
 		if (isset ($cat[0])) {
 			return $cat[0];
 		} else {
-			return false;
+			return null;
 		}
 	}
 
@@ -120,7 +133,7 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo {
 	public function checkDefault () {
 		$def_cat = $this->searchById (1);
 
-		if ($def_cat === false) {
+		if ($def_cat == null) {
 			$cat = new FreshRSS_Category (Minz_Translate::t ('default_category'));
 			$cat->_id (1);
 
