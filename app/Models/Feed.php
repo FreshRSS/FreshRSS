@@ -261,6 +261,8 @@ class FreshRSS_Feed extends Minz_Model {
 						$content .= '<br /><img src="' . $elink . '" alt="" />';
 					} elseif (strpos($mime, 'audio/') === 0) {
 						$content .= '<br /><audio src="' . $elink . '" controls="controls" />';
+					} elseif (strpos($mime, 'video/') === 0) {
+						$content .= '<br /><video src="' . $elink . '" controls="controls" />';
 					}
 				}
 			}
