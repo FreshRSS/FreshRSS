@@ -20,7 +20,7 @@ return array (
 	'query-order-asc'		=> 'Display oldest articles first',
 	'query-order-desc'		=> 'Display newest articles first',
 	'query-get-category'		=> 'Display "%s" category',
-	'query-get-feed'			=> 'Display "%s" feed',
+	'query-get-feed'		=> 'Display "%s" feed',
 	'query-state-0'			=> 'Display all articles',
 	'query-state-1'			=> 'Display read articles',
 	'query-state-2'			=> 'Display unread articles',
