@@ -10,11 +10,11 @@
 			<div class="form-group">
 				<label class="group-name"><?php echo $key + 1?></label>
 				<div class="group-controls">
-					<input type="hidden" id="queries_<?php echo $key; ?>_search" name="queries[<?php echo $key; ?>][search]" value="<?php echo $query['search']; ?>"/>
-					<input type="hidden" id="queries_<?php echo $key; ?>_state" name="queries[<?php echo $key; ?>][state]" value="<?php echo $query['state']; ?>"/>
-					<input type="hidden" id="queries_<?php echo $key; ?>_order" name="queries[<?php echo $key; ?>][order]" value="<?php echo $query['order']; ?>"/>
-					<input type="hidden" id="queries_<?php echo $key; ?>_get" name="queries[<?php echo $key; ?>][get]" value="<?php echo $query['get']; ?>"/>
-					<input type="text" id="queries_<?php echo $key; ?>_name" name="queries[<?php echo $key; ?>][name]" value="<?php echo $query['name']; ?>"/>
+					<input type="hidden" id="queries_<?php echo $key; ?>_search" name="queries[<?php echo $key; ?>][search]" value="<?php echo isset($query['search']) ? $query['search'] : ""; ?>"/>
+					<input type="hidden" id="queries_<?php echo $key; ?>_state" name="queries[<?php echo $key; ?>][state]" value="<?php echo isset($query['state']) ? $query['state'] : ""; ?>"/>
+					<input type="hidden" id="queries_<?php echo $key; ?>_order" name="queries[<?php echo $key; ?>][order]" value="<?php echo isset($query['order']) ? $query['order'] : ""; ?>"/>
+					<input type="hidden" id="queries_<?php echo $key; ?>_get" name="queries[<?php echo $key; ?>][get]" value="<?php echo isset($query['get']) ? $query['get'] : ""; ?>"/>
+					<input type="text" id="queries_<?php echo $key; ?>_name" name="queries[<?php echo $key; ?>][name]" value="<?php echo isset($query['name']) ? $query['name'] : ""; ?>"/>
 					<a href='#' class='query remove'><?php echo FreshRSS_Themes::icon('close'); ?></a>
 					<ul>
 						<?php if (isset($query['search'])):?>

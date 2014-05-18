@@ -302,7 +302,7 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 	public function queriesAction () {
 		if (Minz_Request::isPost ()) {
 			$params = Minz_Request::params();
-			$this->view->conf->_queries ($params['queries']);
+			$this->view->conf->_queries (isset($params['queries']) ? $params['queries'] : array());
 			$this->view->conf->save();
 
 			$notif = array (
