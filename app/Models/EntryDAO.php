@@ -482,7 +482,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 			$filter = trim($filter);
 			$filter = addcslashes($filter, '\\%_');
 			$terms = array_unique(explode(' ', $filter));
-			sort($terms);	//Put #tags first
+			//sort($terms);	//Put #tags first	//TODO: Put the cheapest filters first
 			foreach ($terms as $word) {
 				$word = trim($word);
 				if (stripos($word, 'intitle:') === 0) {
