@@ -82,7 +82,7 @@ function _dateRelative($d1, $d2) {
 
 /**
  * Parameter $dateInterval is a string containing an ISO 8601 time intervals.
- * Returns an array with the minimum and maximum Unix timestamp of this interval, or null if open interval.
+ * Returns an array with the minimum and maximum Unix timestamp of this interval, or null if open interval, or false if error.
  */
 function parseDateInterval($dateInterval) {
 	$dateInterval = trim($dateInterval);
