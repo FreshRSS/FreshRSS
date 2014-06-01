@@ -478,48 +478,50 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 		}
 		$search = '';
 		if ($filter !== '') {
+			require_once(LIB_PATH . '/lib_date.php');
 			$filter = trim($filter);
 			$filter = addcslashes($filter, '\\%_');
-			if (stripos($filter, 'intitle:') === 0) {
-				$filter = substr($filter, strlen('intitle:'));
-				$intitle = true;
-			} else {
-				$intitle = false;
-			}
-			if (stripos($filter, 'inurl:') === 0) {
-				$filter = substr($filter, strlen('inurl:'));
-				$inurl = true;
-			} else {
-				$inurl = false;
-			}
-			if (stripos($filter, 'author:') === 0) {
-				$filter = substr($filter, strlen('author:'));
-				$author = true;
-			} else {
-				$author = false;
-			}
 			$terms = array_unique(explode(' ', $filter));
 			sort($terms);	//Put #tags first
 			foreach ($terms as $word) {
 				$word = trim($word);
-				if (strlen($word) > 0) {
-					if ($intitle) {
-						$search .= 'AND e1.title LIKE ? ';
-						$values[] = '%' . $word .'%';
-					} elseif ($inurl) {
-						$search .= 'AND CONCAT(e1.link, e1.guid) LIKE ? ';
-						$values[] = '%' . $word .'%';
-					} elseif ($author) {
-						$search .= 'AND e1.author LIKE ? ';
+				if (stripos($word, 'intitle:') === 0) {
+					$word = substr($word, strlen('intitle:'));
+					$search .= 'AND e1.title LIKE ? ';
+					$values[] = '%' . $word .'%';
+				} elseif (stripos($word, 'inurl:') === 0) {
+					$word = substr($word, strlen('inurl:'));
+					$search .= 'AND CONCAT(e1.link, e1.guid) LIKE ? ';
+					$values[] = '%' . $word .'%';
+				} elseif (stripos($word, 'author:') === 0) {
+					$word = substr($word, strlen('author:'));
+					$search .= 'AND e1.author LIKE ? ';
+					$values[] = '%' . $word .'%';
+				} elseif (stripos($word, 'date:') === 0) {
+					$word = substr($word, strlen('date:'));
+					list($minDate, $maxDate) = parseDateInterval($word);
+					if ($minDate) {
+						$search .= 'AND e1.id >= ' . $minDate . '000000 ';
+					}
+					if ($maxDate) {
+						$search .= 'AND e1.id <= ' . $maxDate . '000000 ';
+					}
+				} elseif (stripos($word, 'pubdate:') === 0) {
+					$word = substr($word, strlen('pubdate:'));
+					list($minDate, $maxDate) = parseDateInterval($word);
+					if ($minDate) {
+						$search .= 'AND e1.date >= ' . $minDate . ' ';
+					}
+					if ($maxDate) {
+						$search .= 'AND e1.date <= ' . $maxDate . ' ';
+					}
+				} else {
+					if ($word[0] === '#' && isset($word[1])) {
+						$search .= 'AND e1.tags LIKE ? ';
 						$values[] = '%' . $word .'%';
 					} else {
-						if ($word[0] === '#' && isset($word[1])) {
-							$search .= 'AND e1.tags LIKE ? ';
-							$values[] = '%' . $word .'%';
-						} else {
-							$search .= 'AND CONCAT(e1.title, UNCOMPRESS(e1.content_bin)) LIKE ? ';
-							$values[] = '%' . $word .'%';
-						}
+						$search .= 'AND CONCAT(e1.title, UNCOMPRESS(e1.content_bin)) LIKE ? ';
+						$values[] = '%' . $word .'%';
 					}
 				}
 			}
