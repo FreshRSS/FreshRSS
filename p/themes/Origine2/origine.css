@@ -87,22 +87,15 @@ input:focus.extend {
 	min-height: 25px;
 	padding: 5px 0;
 }
-.form-group .group-controls .control {
-	min-height: 30px;
-	padding: 5px 0;
-	line-height: 25px;
-	font-size: 14px;
-}
 
 /*=== Buttons */
 .stick {
-	font-size: 0px;
 	vertical-align: middle;
+	font-size: 0;
 }
 .stick input,
 .stick .btn {
 	border-radius: 0;
-	font-size: 0.9rem;
 }
 .stick .btn:first-child,
 .stick input:first-child {
@@ -134,7 +127,6 @@ input:focus.extend {
 	border-radius: 0 3px 3px 0;
 }
 .stick .btn + .dropdown a {
-	font-size: 0.9rem;
 }
 
 .btn {
@@ -154,6 +146,7 @@ input:focus.extend {
 	border-right: 1px solid #aaa;
 	color: #666;
 	text-shadow: 0px -1px 0 #ddd;
+	font-size: 0.9rem;
 	vertical-align: middle;
 	cursor: pointer;
 	overflow: hidden;
@@ -230,6 +223,7 @@ a.btn {
 .nav-list .item {
 	height: 2.5em;
 	line-height: 2.5em;
+	font-size: 0.9rem;
 }
 .nav-list .item:hover {
 	background: #fafafa;
@@ -315,6 +309,7 @@ a.btn {
 	border: 1px solid #ddd;
 	border-radius: 5px;
 	box-shadow: 3px 3px 3px #ddd;
+	font-size: 0.8rem;
 	text-align: left;
 }
 .dropdown-menu:after {
@@ -337,11 +332,9 @@ a.btn {
 	padding: 0 5px 5px;
 	color: #888;
 	font-weight: bold;
-	font-size: 0.9rem;
 	text-align: left;
 }
 .dropdown-menu > .item {
-	font-size: 0.9em;
 }
 .dropdown-menu > .item > a {
 	padding: 0 25px;
@@ -491,7 +484,6 @@ a.btn {
 	padding: 1px 5px;
 	background: #ccc;
 	color: #fff;
-	font-size: 0.9em;
 	border: 1px solid #bbb;
 	border-radius: 5px;
 	box-shadow: 1px 3px 3px #aaa inset;
@@ -521,7 +513,7 @@ a.btn {
 	margin: 0;
 	width: 165px;
 	line-height: 3em;
-	font-size: 0.9em;
+	font-size: 0.8em;
 	text-align: left;
 }
 .categories .feeds .feed:not([data-unread="0"]) {

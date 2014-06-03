@@ -20,7 +20,6 @@ a:hover {
 ul, ol, dd {
 	margin: 0;
 	padding: 0;
-	font-size: 0.9em;
 }
 
 /*=== Titles */
@@ -166,7 +165,6 @@ a.btn {
 .dropdown-menu {
 	display: none;
 	min-width: 200px;
-	max-height: 300px;
 	margin: 0;
 	position: absolute;
 	right: 0;
