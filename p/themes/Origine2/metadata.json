@@ -1,0 +1,7 @@
+{
+  "name": "Origine2",
+  "author": "Marien Fressinaud",
+  "description": "Le thème par défaut pour FreshRSS",
+  "version": 0.1,
+  "files": ["template.css", "origine.css"]
+}
