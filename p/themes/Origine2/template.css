@@ -169,8 +169,7 @@ a.btn {
 	position: absolute;
 	right: 0;
 	background: #fff;
-	border: 1px solid #aaa;	
-	overflow: auto;
+	border: 1px solid #aaa;
 }
 .dropdown-header {
 	display: block;
@@ -294,6 +293,10 @@ a.btn {
 }
 
 /*=== Aside main page (categories) */
+.categories {
+	list-style: none;
+	margin: 0;
+}
 .category {
 	display: block;
 	overflow: hidden;
@@ -359,10 +362,10 @@ a.btn {
 	position: relative;
 }
 .flux .item {
-	font-size: 0.9em;
 	line-height: 40px;
 	white-space: nowrap;
 	text-overflow: ellipsis;
+	overflow: hidden;
 }
 .flux .item.manage,
 .flux .item.link {
@@ -391,14 +394,16 @@ a.btn {
 }
 .flux .item.date {
 	width: 145px;
-	font-size: 0.7em;
 	text-align: right;
+}
+.flux .item > a {
+	display: block;
 }
 .flux .item:not(.title) > a {
 	display: block;
-}
-.flux .flux_header .item,
-.flux .bottom .item.date {
+	text-decoration: none;
+	white-space: nowrap;
+	text-overflow: ellipsis;
 	overflow: hidden;
 }
 .flux .item.share > a {
@@ -417,6 +422,15 @@ a.btn {
 	line-height: 1.7em;
 	word-wrap: break-word;
 }
+.content.large {
+	max-width: 1000px;
+}
+.content.medium {
+	max-width: 800px;
+}
+.content.thin {
+	max-width: 550px;
+}
 .content ul,
 .content ol,
 .content dd {
@@ -428,7 +442,7 @@ a.btn {
 }
 
 /*=== Notification and actualize notification */
-#notification {
+.notification {
 	position: absolute;
 	top: 1em;
 	left: 25%; right: 25%;
@@ -436,24 +450,21 @@ a.btn {
 	background: #fff;
 	border: 1px solid #aaa;
 }
-#notification.closed {
+.notification.closed {
 	display: none;
 }
-#notification a.close {
+.notification a.close {
 	position: absolute;
 	right: 0;
 	display: inline-block;
 }
 
-.actualizeProgress {
-	position: fixed;
-	top: 1em;
-	left: 25%; right: 25%;
-	background: #fff;
-	border: 1px solid #aaa;
-}
-.actualizeProgress progress {
+#actualizeProgress progress {
 	max-width: 100%;
+	vertical-align: middle;
+}
+#actualizeProgress .progress {
+	vertical-align: middle;
 }
 
 /*=== Navigation menu (for articles) */
@@ -501,9 +512,10 @@ a.btn {
 /*=== Category boxes */
 #stream.global .box-category {
 	display: inline-block;
-	width: 20em;
+	width: 19em;
 	max-width: 95%;
-	border: 1px solid #aaa;
+	margin: 20px 10px;
+	border: 1px solid #ccc;
 	vertical-align: top;
 }
 #stream.global .category {
@@ -515,6 +527,10 @@ a.btn {
 #stream.global .box-category .feeds {
 	display: block;
 	overflow: auto;
+}
+#stream.global .box-category .feed {
+	width: 19em;
+	max-width: 90%;
 }
 
 /*=== Panel */
@@ -571,26 +587,30 @@ a.btn {
 	.item.date, .day .date {
 		display: none;
 	}
-	.nav-login,
-	#panel .close img {
+	.nav-login {
 		display: block;
 	}
 	.nav_menu .toggle_aside,
 	.aside .toggle_aside,
-	.nav_menu .search {
+	.nav_menu .search,
+	#panel .close img {
 		display: inline-block;
 	}
 
 	.aside {
 		position: fixed;
-		top: 0; left: 0;
+		top: 0; bottom: 0;
+		left: 0;
 		width: 0;
 		overflow: hidden;
-		z-index: 10;
+		z-index: 100;
 	}
 	.aside:target {
-		width: 80%;
+		width: 90%;
 		overflow: auto;
+	}
+	.aside .categories {
+		margin: 10px 0 75px;
 	}
 
 	.flux_header .item.website {
@@ -612,6 +632,10 @@ a.btn {
 
 	#nav_entries {
 		width: 100%;
+	}
+
+	#stream.global .box-category {
+		margin: 10px 0;
 	}
 
 	#panel {
