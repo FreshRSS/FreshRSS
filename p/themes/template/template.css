@@ -24,15 +24,15 @@ ul, ol, dd {
 
 /*=== Titles */
 h1 {
-	margin: 0.3em 0 0.6em;
+	margin: 0.6em 0 0.3em;
 	font-size: 1.8em;
 }
 h2 {
-	margin: 0.25em 0 0.5em;
+	margin: 0.5em 0 0.25em;
 	font-size: 1.6em;
 }
 h3 {
-	margin: 0.25em 0 0.5em;
+	margin: 0.5em 0 0.25em;
 	font-size: 1.4em;
 }
 
@@ -235,6 +235,8 @@ a.btn {
 .pagination {
 	display: table;
 	width: 100%;
+	margin: 0;
+	padding: 0;
 	table-layout: fixed;
 }
 .pagination .item {
@@ -363,9 +365,6 @@ a.btn {
 }
 .flux .item {
 	line-height: 40px;
-	white-space: nowrap;
-	text-overflow: ellipsis;
-	overflow: hidden;
 }
 .flux .item.manage,
 .flux .item.link {
@@ -381,12 +380,8 @@ a.btn {
 }
 .flux:not(.current):hover .item.title {
 	position: absolute;
-	top: 0;
-	height: auto;
 	max-width: calc(100% - 320px);
 	background: #fff;
-	white-space: normal;
-	z-index: 10;
 }
 .flux .item.title a {
 	color: #000;
@@ -399,7 +394,7 @@ a.btn {
 .flux .item > a {
 	display: block;
 }
-.flux .item:not(.title) > a {
+.flux .item > a {
 	display: block;
 	text-decoration: none;
 	white-space: nowrap;
@@ -455,10 +450,14 @@ a.btn {
 }
 .notification a.close {
 	position: absolute;
+	top: 0; bottom: 0;
 	right: 0;
 	display: inline-block;
 }
 
+#actualizeProgress {
+	position: fixed;
+}
 #actualizeProgress progress {
 	max-width: 100%;
 	vertical-align: middle;
@@ -503,7 +502,7 @@ a.btn {
 }
 
 /*=== Statistiques */
-.stat table {
+.stat > table {
 	width: 100%;
 }
 
@@ -623,8 +622,7 @@ a.btn {
 		white-space: nowrap;
 	}
 
-	#notification,
-	.actualizeProgress {
+	.notification {
 		top: 0;
 		left: 0;
 		right: 0;

@@ -70,13 +70,19 @@ input.extend {
 /*=== Tables */
 table {
 	border-collapse: collapse;
-	text-align: center;
 }
 
 tr, th, td {
 	padding: 0.5em;
 	border: 1px solid #ddd;
+}
+th {
+	background: #f6f6f6;
+}
+form td,
+form th {
 	font-weight: normal;
+	text-align: center;
 }
 
 /*=== COMPONENTS */
@@ -305,6 +311,8 @@ a.btn {
 }
 .nav-head .item {
 	padding: 5px 10px;
+	font-size: 0.9rem;
+	line-height: 1.5rem;
 }
 
 /*=== Horizontal-list */
@@ -416,11 +424,14 @@ a.btn {
 
 /*=== Pagination */
 .pagination {
-	margin: 0;
 	background: #fafafa;
 	text-align: center;
 	color: #333;
 	font-size: 0.8em;
+}
+.content .pagination {
+	margin: 0;
+	padding: 0;
 }
 .pagination .item.pager-current {
 	font-weight: bold;
@@ -431,6 +442,10 @@ a.btn {
 	color: #333;
 	font-style: italic;
 	line-height: 3em;
+	text-decoration: none;
+}
+.pagination .item a:hover {
+	background: #ddd;
 }
 .pagination:first-child .item {
 	border-bottom: 1px solid #aaa;
@@ -552,6 +567,9 @@ a.btn {
 }
 .post form {
 	margin: 10px 0;
+}
+.post.content {
+	max-width: 550px;
 }
 
 /*=== Prompt (centered) */
@@ -680,6 +698,48 @@ a.btn {
 	color: #000;
 }
 
+.content hr {
+	margin: 30px 10px;
+	height: 1px;
+	background: #ddd;
+	border: 0;
+	box-shadow: 0 2px 5px #ccc;
+}
+
+.content pre {
+	margin: 10px auto;
+	padding: 10px 20px;
+	overflow: auto;
+	background: #222;
+	color: #fff;
+	font-size: 0.9rem;
+	border-radius: 3px;
+}
+.content code {
+	padding: 2px 5px;
+	color: #dd1144;
+	background: #fafafa;
+	border: 1px solid #eee;
+	border-radius: 3px;
+}
+.content pre code {
+	background: transparent;
+	color: #fff;
+	border: none;
+}
+
+.content blockquote {
+	display: block;
+	padding: 5px 20px;
+	border-top: 1px solid #ddd;
+	border-bottom: 1px solid #ddd;
+	background: #fafafa;
+	color: #333;
+}
+.content blockquote p {
+	margin: 0;
+}
+
 /*=== Notification and actualize notification */
 .notification {
 	padding: 0 0 0 5px;
@@ -799,7 +859,6 @@ a.btn {
 	font-size: 0.9rem;
 }
 
-
 /*=== DIVERS */
 /*===========*/
 .aside.aside_feed .nav-form input,
@@ -813,6 +872,59 @@ a.btn {
 	right: 33px;
 }
 
+/*=== STATISTICS */
+/*===============*/
+.stat {
+	margin: 10px 0 20px;
+}
+
+.stat th,
+.stat td,
+.stat tr {
+	border: none;
+}
+.stat > table td,
+.stat > table th {
+	border-bottom: 1px solid #ddd;
+	text-align: center;
+}
+
+/*=== LOGS */
+/*=========*/
+.logs {
+	border: 1px solid #aaa;
+	border-radius: 5px;
+	overflow: hidden;
+}
+.log {
+	padding: 5px 10px;
+	background: #fafafa;
+	color: #333;
+	font-size: 90%;
+}
+.log+.log {
+	border-top: 1px solid #aaa;
+}
+.log .date {
+	display: block;
+	font-weight: bold;
+}
+.log.error {
+	background: #fdd;
+	color: #844;
+}
+.log.warning {
+	background: #ffe;
+	color: #c95;
+}
+.log.notice {
+	background: #f4f4f4;
+	color: #aaa;
+}
+.log.debug {
+	background: #333;
+	color: #eee;
+}
 
 /*=== MOBILE */
 /*===========*/
@@ -868,5 +980,17 @@ a.btn {
 
 	.flux_header .item.website .favicon {
 		padding: 12px;
+	}
+
+	.notification a.close {
+		display: block;
+		left: 0;
+		background: transparent;
+	}
+	.notification a.close:hover {
+		opacity: 0.5;
+	}
+	.notification a.close .icon {
+		display: none;
 	}
 }
