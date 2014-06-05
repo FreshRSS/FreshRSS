@@ -981,15 +981,16 @@ function init_share_observers() {
 	});
 
 	$('.share.add').on('click', function(e) {
-		e.preventDefault();
 		var opt = $(this).siblings('select').find(':selected');
 		var row = $(this).parents('form').data(opt.data('form'));
 		row = row.replace('##label##', opt.html(), 'g');
 		row = row.replace('##type##', opt.val(), 'g');
 		row = row.replace('##help##', opt.data('help'), 'g');
 		row = row.replace('##key##', shares, 'g');
-		$(this).parents('.form-actions').before(row);
+		$(this).parents('.form-group').before(row);
 		shares++;
+
+		return false;
 	});
 }
 

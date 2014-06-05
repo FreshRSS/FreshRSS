@@ -6,6 +6,10 @@
 	* FreshRSS can now be used from e.g.:
 		* (Android) News+ https://play.google.com/store/apps/details?id=com.noinnion.android.newsplus.extension.google_reader
 		* (Android) EasyRSS https://github.com/Alkarex/EasyRSS
+* Basic support for audio and video podcasts
+* Searching
+	* New search filters date: and pubdate: accepting ISO 8601 date intervals such as `date:2013-2014` or `pubdate:P1W`
+	* Possibility to combine search filters, e.g. `date:2014-05 intitle:FreshRSS intitle:Open great reader #Internet`
 
 
 ## 2014-02-19 FreshRSS 0.7.1

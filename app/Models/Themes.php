@@ -93,6 +93,9 @@ class FreshRSS_Themes extends Minz_Model {
 			'starred' => '★',
 			'tag' => '⚐',
 			'up' => '△',
+			'view-normal' => '☰',
+			'view-global' => '☷',
+			'view-reader' => '☕',
 		);
 		if (!isset($alts[$name])) {
 			return '';

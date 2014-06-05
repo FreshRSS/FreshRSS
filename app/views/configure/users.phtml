@@ -20,8 +20,10 @@
 		<div class="form-group">
 			<label class="group-name" for="passwordPlain"><?php echo Minz_Translate::t('password_form'); ?></label>
 			<div class="group-controls">
-				<input type="password" id="passwordPlain" name="passwordPlain" autocomplete="off" pattern=".{7,}" <?php echo cryptAvailable() ? '' : 'disabled="disabled" '; ?>/>
-				<a class="btn toggle-password"/><?php echo FreshRSS_Themes::icon('key'); ?></a>
+				<div class="stick">
+					<input type="password" id="passwordPlain" name="passwordPlain" autocomplete="off" pattern=".{7,}" <?php echo cryptAvailable() ? '' : 'disabled="disabled" '; ?>/>
+					<a class="btn toggle-password"/><?php echo FreshRSS_Themes::icon('key'); ?></a>
+				</div>
 				<noscript><b><?php echo Minz_Translate::t('javascript_should_be_activated'); ?></b></noscript>
 			</div>
 		</div>
@@ -31,7 +33,7 @@
 			<label class="group-name" for="apiPasswordPlain"><?php echo Minz_Translate::t('password_api'); ?></label>
 			<div class="group-controls">
 				<input type="password" id="apiPasswordPlain" name="apiPasswordPlain" autocomplete="off" pattern=".{7,}" <?php echo cryptAvailable() ? '' : 'disabled="disabled" '; ?>/>
-				<noscript><b><?php echo Minz_Translate::t('javascript_should_be_activated'); ?></b></noscript>
+				<a class="btn toggle-password"/><?php echo FreshRSS_Themes::icon('key'); ?></a>
 			</div>
 		</div>
 		<?php } ?>
@@ -178,8 +180,10 @@
 		<div class="form-group">
 			<label class="group-name" for="new_user_passwordPlain"><?php echo Minz_Translate::t('password_form'); ?></label>
 			<div class="group-controls">
-				<input type="password" id="new_user_passwordPlain" name="new_user_passwordPlain" autocomplete="off" pattern=".{7,}" />
-				<a class="btn toggle-password"/><?php echo FreshRSS_Themes::icon('key'); ?></a>
+				<div class="stick">
+					<input type="password" id="new_user_passwordPlain" name="new_user_passwordPlain" autocomplete="off" pattern=".{7,}" />
+					<a class="btn toggle-password"/><?php echo FreshRSS_Themes::icon('key'); ?></a>
+				</div>
 				<noscript><b><?php echo Minz_Translate::t('javascript_should_be_activated'); ?></b></noscript>
 			</div>
 		</div>

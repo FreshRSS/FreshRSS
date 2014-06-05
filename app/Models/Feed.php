@@ -259,6 +259,10 @@ class FreshRSS_Feed extends Minz_Model {
 					$mime = strtolower($enclosure->get_type());
 					if (strpos($mime, 'image/') === 0) {
 						$content .= '<br /><img src="' . $elink . '" alt="" />';
+					} elseif (strpos($mime, 'audio/') === 0) {
+						$content .= '<br /><audio src="' . $elink . '" controls="controls" />';
+					} elseif (strpos($mime, 'video/') === 0) {
+						$content .= '<br /><video src="' . $elink . '" controls="controls" />';
 					}
 				}
 			}
