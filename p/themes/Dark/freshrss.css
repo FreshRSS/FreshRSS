@@ -564,7 +564,7 @@
 	}
 
 /*** NOTIFICATION ***/
-#notification {
+.notification {
 	position: absolute;
 	top: 10px;
 	left: 25%; right: 25%;
@@ -580,10 +580,10 @@
 	font-weight: bold;
 	z-index: 10;
 }
-	#notification.closed {
+	.notification.closed {
 		display: none;
 	}
-	#notification a.close {
+	.notification a.close {
 		position: absolute;
 		top: -10px; right: -10px;
 		display: inline-block;
@@ -600,25 +600,16 @@
 	display: none;
 }
 
-.actualizeProgress {
+#actualizeProgress {
 	position: fixed;
-	top: 10px;
-	left: 25%; right: 25%;
-	padding: 5px;
-	background: #1a1a1a;
-	text-align: center;
-	border: 1px solid #2f2f2f;
-	border-radius: 5px;
 }
-	.actualizeProgress progress {
-		max-width: 100%;
-		vertical-align: middle;
-	}
-	.actualizeProgress .progress {
-		color: #888;
-		font-size: 90%;
-		vertical-align: middle;
-	}
+#actualizeProgress progress {
+	max-width: 100%;
+	vertical-align: middle;
+}
+#actualizeProgress .progress {
+	vertical-align: middle;
+}
 
 .logs {
 	border: 1px solid #aaa;
@@ -776,8 +767,8 @@ select.number option {
 		text-shadow: none;
 	}
 
-	#notification,
-	.actualizeProgress {
+	.notification,
+	#actualizeProgress {
 		top: 0;
 		left: 0;
 		right: 0;
@@ -785,7 +776,7 @@ select.number option {
 		border: none;
 		border-bottom: 1px solid #f4f899;
 	}
-	#notification a.close {
+	.notification a.close {
 		left: 0; right: 0;
 		top: 0; bottom: 0;
 		width: auto;
@@ -793,7 +784,7 @@ select.number option {
 		background: transparent;
 		border: none;
 	}
-	#notification a.close .icon {
+	.notification a.close .icon {
 		display: none;
 	}
 }
