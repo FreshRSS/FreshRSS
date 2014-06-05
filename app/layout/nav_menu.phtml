@@ -169,37 +169,27 @@
 	</div>
 	<?php } ?>
 
-	<div class="dropdown" id="nav_menu_views">
-		<div id="dropdown-views" class="dropdown-target"></div>
-		<a class="dropdown-toggle btn" href="#dropdown-views"><?php echo Minz_Translate::t ('display'); ?> <?php echo FreshRSS_Themes::icon('down'); ?></a>
-		<ul class="dropdown-menu">
-			<li class="dropdown-close"><a href="#close">❌</a></li>
+	<?php $url_output = $this->url; ?>
+	<div class="stick" id="nav_menu_views">
+		<?php $url_output['params']['output'] = 'normal'; ?>
+		<a class="view_normal btn <?php echo $actual_view == 'normal'? 'active' : ''; ?>" title="<?php echo Minz_Translate::t('normal_view'); ?>" href="<?php echo Minz_Url::display($url_output); ?>">
+			<?php echo FreshRSS_Themes::icon("view-normal"); ?>
+		</a>
 
-			<?php
-				$url_output = $this->url;
-				if ($actual_view !== 'normal') { ?>
-			<li class="item">
-				<?php $url_output['params']['output'] = 'normal'; ?>
-				<a class="view_normal" href="<?php echo Minz_Url::display ($url_output); ?>">
-					<?php echo Minz_Translate::t ('normal_view'); ?>
-				</a>
-			</li>
-			<?php } if($actual_view !== 'reader') { ?>
-			<li class="item">
-				<?php $url_output['params']['output'] = 'reader'; ?>
-				<a class="view_normal" href="<?php echo Minz_Url::display ($url_output); ?>">
-					<?php echo Minz_Translate::t ('reader_view'); ?>
-				</a>
-			</li>
-			<?php } if($actual_view !== 'global') { ?>
-			<li class="item">
-				<?php $url_output['params']['output'] = 'global'; ?>
-				<a class="view_normal" href="<?php echo Minz_Url::display ($url_output); ?>">
-					<?php echo Minz_Translate::t ('global_view'); ?>
-				</a>
-			</li>
-			<?php } ?>
-		</ul>
+		<?php $url_output['params']['output'] = 'global'; ?>
+		<a class="view_global btn <?php echo $actual_view == 'global'? 'active' : ''; ?>" title="<?php echo Minz_Translate::t('global_view'); ?>" href="<?php echo Minz_Url::display($url_output); ?>">
+			<?php echo FreshRSS_Themes::icon("view-global"); ?>
+		</a>
+
+		<?php $url_output['params']['output'] = 'reader'; ?>
+		<a class="view_reader btn <?php echo $actual_view == 'reader'? 'active' : ''; ?>" title="<?php echo Minz_Translate::t('reader_view'); ?>" href="<?php echo Minz_Url::display($url_output); ?>">
+			<?php echo FreshRSS_Themes::icon("view-reader"); ?>
+		</a>
+
+		<?php $url_output['params']['output'] = 'rss'; ?>
+		<a class="view_rss btn" target="_blank" title="<?php echo Minz_Translate::t ('rss_view'); ?>" href="<?php echo Minz_Url::display($url_output); ?>">
+			<?php echo FreshRSS_Themes::icon('rss'); ?>
+		</a>
 	</div>
 
 	<div class="item search">
@@ -239,11 +229,6 @@
 	?>
 	<a class="btn" href="<?php echo Minz_Url::display ($url_order); ?>" title="<?php echo Minz_Translate::t ($title); ?>">
 		<?php echo FreshRSS_Themes::icon($icon); ?>
-	</a>
-
-	<?php $url_output['params']['output'] = 'rss'; ?>
-	<a class="btn view_rss" target="_blank" href="<?php echo Minz_Url::display ($url_output); ?>" title="<?php echo Minz_Translate::t ('rss_view'); ?>">
-		<?php echo FreshRSS_Themes::icon('rss'); ?>
 	</a>
 	
 	<?php if ($this->loginOk || Minz_Configuration::allowAnonymousRefresh()) { ?>
