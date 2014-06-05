@@ -28,6 +28,7 @@ class FreshRSS_Configuration {
 			'reception' => false,
 		),
 		'theme' => 'Origine',
+		'content_width' => 'thin',
 		'shortcuts' => array(
 			'mark_read' => 'r',
 			'mark_favorite' => 'f',
@@ -220,6 +221,15 @@ class FreshRSS_Configuration {
 	}
 	public function _theme($value) {
 		$this->data['theme'] = $value;
+	}
+	public function _content_width($value) {
+		if ($value === 'medium' ||
+				$value === 'large' ||
+				$value === 'no_limit') {
+			$this->data['content_width'] = $value;
+		} else {
+			$this->data['content_width'] = 'thin';
+		}
 	}
 	public function _token($value) {
 		$this->data['token'] = $value;

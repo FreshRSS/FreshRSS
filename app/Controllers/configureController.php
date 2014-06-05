@@ -145,6 +145,7 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 				$themeId = FreshRSS_Themes::defaultTheme;
 			}
 			$this->view->conf->_theme($themeId);
+			$this->view->conf->_content_width(Minz_Request::param('content_width', 'thin'));
 			$this->view->conf->_topline_read(Minz_Request::param('topline_read', false));
 			$this->view->conf->_topline_favorite(Minz_Request::param('topline_favorite', false));
 			$this->view->conf->_topline_date(Minz_Request::param('topline_date', false));

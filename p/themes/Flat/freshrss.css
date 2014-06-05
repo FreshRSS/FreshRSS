@@ -567,7 +567,7 @@ body {
 	}
 
 /*** NOTIFICATION ***/
-#notification {
+.notification {
 	position: absolute;
 	top: 10px;
 	left: 25%; right: 25%;
@@ -581,18 +581,18 @@ body {
 	font-weight: bold;
 	z-index: 10;
 }
-	#notification.closed {
+	.notification.closed {
 		display: none;
 	}
-	#notification.good {
+	.notification.good {
 		background: #1abc9c;
 		color: #fff;
 	}
-	#notification.bad {
+	.notification.bad {
 		background: #e74c3c;
 		color: #fff;
 	}
-	#notification a.close {
+	.notification a.close {
 		position: absolute;
 		top: -6px; right: -6px;
 		display: inline-block;
@@ -602,10 +602,10 @@ body {
 		border-radius: 3px;
 		line-height: 16px;
 	}
-		#notification.good a.close {
+		.notification.good a.close {
 			background: #1abc9c;
 		}
-		#notification.bad a.close {
+		.notification.bad a.close {
 			background: #e74c3c;
 		}
 
@@ -613,28 +613,16 @@ body {
 	display: none;
 }
 
-.actualizeProgress {
+#actualizeProgress {
 	position: fixed;
-	top: 10px;
-	left: 25%; right: 25%;
-	padding: 5px;
-	background: #3498db;
-	color: #fff;
-	text-align: center;
-	border-radius: 3px;
-	font-weight: bold;
 }
-	.actualizeProgress progress {
-		max-width: 100%;
-		width: 250px;
-		height: 15px;
-		vertical-align: middle;
-		background: #fff;
-		border: none;
-	}
-	.actualizeProgress .progress {
-		color: #ecf0f1;
-	}
+#actualizeProgress progress {
+	max-width: 100%;
+	vertical-align: middle;
+}
+#actualizeProgress .progress {
+	vertical-align: middle;
+}
 
 .logs {
 	border: 1px solid #34495e;
@@ -794,16 +782,15 @@ select.number option {
 		text-shadow: none;
 	}
 
-	#notification,
-	.actualizeProgress {
+	.notification {
 		top: 0;
 		left: 0;
 		right: 0;
 		border-radius: 0;
 	}
-	#notification a.close,
-	#notification.good a.close,
-	#notification.bad a.close {
+	.notification a.close,
+	.notification.good a.close,
+	.notification.bad a.close {
 		left: 0; right: 0;
 		top: 0; bottom: 0;
 		width: auto;
@@ -811,7 +798,7 @@ select.number option {
 		background: transparent;
 		border: none;
 	}
-	#notification a.close .icon {
+	.notification a.close .icon {
 		display: none;
 	}
 }

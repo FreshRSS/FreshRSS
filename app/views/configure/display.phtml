@@ -35,6 +35,27 @@
 			</div>
 		</div>
 
+		<?php $width = $this->conf->content_width; ?>
+		<div class="form-group">
+			<label class="group-name" for="content_width"><?php echo Minz_Translate::t('content_width'); ?></label>
+			<div class="group-controls">
+				<select name="content_width" id="content_width" required="">
+					<option value="thin" <?php echo $width === 'thin'? 'selected="selected"' : ''; ?>>
+						<?php echo Minz_Translate::t('width_thin'); ?>
+					</option>
+					<option value="medium" <?php echo $width === 'medium'? 'selected="selected"' : ''; ?>>
+						<?php echo Minz_Translate::t('width_medium'); ?>
+					</option>
+					<option value="large" <?php echo $width === 'large'? 'selected="selected"' : ''; ?>>
+						<?php echo Minz_Translate::t('width_large'); ?>
+					</option>
+					<option value="no_limit" <?php echo $width === 'no_limit'? 'selected="selected"' : ''; ?>>
+						<?php echo Minz_Translate::t('width_no_limit'); ?>
+					</option>
+				</select>
+			</div>
+		</div>
+
 		<div class="form-group">
 			<label class="group-name" for="theme"><?php echo Minz_Translate::t ('article_icons'); ?></label>
 			<table>

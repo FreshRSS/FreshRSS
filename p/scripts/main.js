@@ -714,6 +714,7 @@ function openNotification(msg, status) {
 	notification_working = true;
 
 	notification.removeClass();
+	notification.addClass("notification");
 	notification.addClass(status);
 	notification.find(".msg").html(msg);
 	notification.fadeIn(300);
@@ -1007,12 +1008,18 @@ function init_feed_observers() {
 
 function init_password_observers() {
 	$('input[type="password"] + a.btn.toggle-password').on('click', function(e) {
-		e.preventDefault();
+		var button = $(this);
 		var passwordField = $(this).siblings('input[type="password"]');
+
 		passwordField.attr('type', 'text');
+		button.addClass('active');
+
 		setTimeout(function() {
 			passwordField.attr('type', 'password');
+			button.removeClass('active');
 		}, 2000);
+
+		return false;
 	});
 }
 
