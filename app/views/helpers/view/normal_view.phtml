@@ -24,6 +24,8 @@ if (!empty($this->entries)) {
 	$bottomline_tags = $this->conf->bottomline_tags;
 	$bottomline_date = $this->conf->bottomline_date;
 	$bottomline_link = $this->conf->bottomline_link;
+
+	$content_width = $this->conf->content_width;
 ?>
 
 <div id="stream" class="normal<?php echo $hidePosts ? ' hide_posts' : ''; ?>"><?php
@@ -87,7 +89,7 @@ if (!empty($this->entries)) {
 		</ul>
 
 		<div class="flux_content">
-			<div class="content">
+			<div class="content <?php echo $content_width; ?>">
 				<h1 class="title"><a target="_blank" href="<?php echo $item->link (); ?>"><?php echo $item->title (); ?></a></h1>
 				<?php
 					$author = $item->author ();
