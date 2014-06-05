@@ -41,6 +41,7 @@ input, select, textarea {
 	border: 1px solid #bbb;
 	border-radius: 3px;
 	color: #666;
+	line-height: 25px;
 	vertical-align: middle;
 	box-shadow: 0 2px 2px #eee inset;
 }
@@ -146,13 +147,12 @@ form th {
 	border-left: none;
 	border-radius: 0 3px 3px 0;
 }
-.stick .btn + .dropdown a {
-}
 
 .btn {
 	display: inline-block;
 	min-height: 37px;
 	min-width: 15px;
+	margin: 0;
 	padding: 5px 10px;
 	background: #fff;
 	background: linear-gradient(to bottom, #fff 0%, #eee 100%);
@@ -783,10 +783,20 @@ a.btn {
 	text-align: center;
 	text-decoration: none;	
 	text-shadow: 0 -1px 0 #aaa;
+	color: #666;
+	background: #fafafa;
 }
 #bigMarkAsRead:hover {
-	background: #333;
-	color: #fff;
+	color: #000;
+	background: #ccc;
+	background: radial-gradient(circle at 50% -25% , #ccc 0%, #fafafa 50%);
+	background: -moz-radial-gradient(circle at 50% -25% , #ccc 0%, #fafafa 50%);
+	background: -webkit-radial-gradient(circle at 50% -25% , #ccc 0%, #fafafa 50%);
+	background: -o-radial-gradient(circle at 50% -25% , #ccc 0%, #fafafa 50%);
+	background: -ms-radial-gradient(circle at 50% -25% , #ccc 0%, #fafafa 50%);
+}
+#bigMarkAsRead:hover .bigTick {
+	text-shadow: 0 0 10px #666;
 }
 
 /*=== Navigation menu (for articles) */

@@ -365,6 +365,7 @@ a.btn {
 }
 .flux .item {
 	line-height: 40px;
+	white-space: nowrap;
 }
 .flux .item.manage,
 .flux .item.link {
@@ -493,7 +494,7 @@ a.btn {
 }
 #bigMarkAsRead {
 	display: block;
-	padding: 5em 0;
+	padding: 3em 0;
 	text-align: center;
 }
 .bigTick {
