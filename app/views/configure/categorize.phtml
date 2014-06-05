@@ -14,11 +14,13 @@
 				<?php echo Minz_Translate::t ('category_number', $i); ?>
 			</label>
 			<div class="group-controls">
-				<input type="text" id="cat_<?php echo $cat->id (); ?>" name="categories[]" value="<?php echo $cat->name (); ?>" />
+				<div class="stick">
+					<input type="text" id="cat_<?php echo $cat->id (); ?>" name="categories[]" value="<?php echo $cat->name (); ?>" />
 
-				<?php if ($cat->nbFeed () > 0) { ?>
-				<button type="submit" class="btn btn-attention confirm" formaction="<?php echo _url ('feed', 'delete', 'id', $cat->id (), 'type', 'category'); ?>"><?php echo Minz_Translate::t ('ask_empty'); ?></button>
-				<?php } ?>
+					<?php if ($cat->nbFeed () > 0) { ?>
+					<button type="submit" class="btn btn-attention confirm" formaction="<?php echo _url ('feed', 'delete', 'id', $cat->id (), 'type', 'category'); ?>"><?php echo Minz_Translate::t ('ask_empty'); ?></button>
+					<?php } ?>
+				</div>
 				(<?php echo Minz_Translate::t ('number_feeds', $cat->nbFeed ()); ?>)
 
 				<?php if ($cat->id () === $this->defaultCategory->id ()) { ?>
