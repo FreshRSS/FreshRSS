@@ -714,6 +714,7 @@ function openNotification(msg, status) {
 	notification_working = true;
 
 	notification.removeClass();
+	notification.addClass("notification");
 	notification.addClass(status);
 	notification.find(".msg").html(msg);
 	notification.fadeIn(300);
