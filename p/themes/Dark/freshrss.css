@@ -88,10 +88,6 @@
 		.nav_menu .search {
 			display:none;
 		}
-		.nav_menu .btn[aria-checked="true"]{
-			border-color: #2f2f2f;
-			box-shadow: 0 0 10px 3px #2f2f2f inset;
-		}
 
 .favicon {
 	height: 16px;
@@ -387,12 +383,20 @@
 
 .content {
 	min-height: 150px;
-	max-width: 550px;
 	margin: 0 auto;
 	padding: 20px 10px;
 	line-height: 170%;
 	word-wrap: break-word;
 }
+	.content.large {
+		max-width: 1000px;
+	}
+	.content.medium {
+		max-width: 800px;
+	}
+	.content.thin {
+		max-width: 550px;
+	}
 	.content h1, .content h2, .content h3 {
 		margin: 20px 0 5px;
 	}

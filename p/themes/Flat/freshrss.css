@@ -87,10 +87,6 @@ body {
 		.nav_menu .search {
 			display:none;
 		}
-		.nav_menu .btn[aria-checked="true"]{
-			background-color: #2980B9;
-			border-bottom-color: #3498DB;
-		}
 
 .favicon {
 	height: 16px;
@@ -383,12 +379,20 @@ body {
 
 .content {
 	min-height: 150px;
-	max-width: 550px;
 	margin: 0 auto;
 	padding: 20px 10px;
 	line-height: 170%;
 	word-wrap: break-word;
 }
+	.content.large {
+		max-width: 1000px;
+	}
+	.content.medium {
+		max-width: 800px;
+	}
+	.content.thin {
+		max-width: 550px;
+	}
 	.content h1, .content h2, .content h3 {
 		margin: 20px 0 5px;
 	}

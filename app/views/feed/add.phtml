@@ -28,10 +28,8 @@
 		<div class="form-group">
 			<label class="group-name"><?php echo Minz_Translate::t('website_url'); ?></label>
 			<div class="group-controls">
-				<label>
 				<?php echo $this->feed->website(); ?>
-				<a target="_blank" href="<?php echo $this->feed->website(); ?>"><?php echo FreshRSS_Themes::icon('link'); ?></a>
-				</label>
+				<a class="btn" target="_blank" href="<?php echo $this->feed->website(); ?>"><?php echo FreshRSS_Themes::icon('link'); ?></a>
 			</div>
 		</div>
 		<?php } ?>
@@ -39,9 +37,11 @@
 		<div class="form-group">
 			<label class="group-name" for="url"><?php echo Minz_Translate::t('feed_url'); ?></label>
 			<div class="group-controls">
-				<input type="text" name="url_rss" id="url" class="extend" value="<?php echo $this->feed->url(); ?>" />
-				<a target="_blank" href="<?php echo $this->feed->url(); ?>"><?php echo FreshRSS_Themes::icon('link'); ?></a>
-				  <a class="btn" target="_blank" href="http://validator.w3.org/feed/check.cgi?url=<?php echo $this->feed->url(); ?>"><?php echo Minz_Translate::t('feed_validator'); ?></a>
+				<div class="stick">
+					<input type="text" name="url_rss" id="url" class="extend" value="<?php echo $this->feed->url(); ?>" />
+					<a class="btn" target="_blank" href="<?php echo $this->feed->url(); ?>"><?php echo FreshRSS_Themes::icon('link'); ?></a>
+				</div>
+				<a class="btn" target="_blank" href="http://validator.w3.org/feed/check.cgi?url=<?php echo $this->feed->url(); ?>"><?php echo Minz_Translate::t('feed_validator'); ?></a>
 			</div>
 		</div>
 		<div class="form-group">

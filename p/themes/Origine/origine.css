@@ -674,6 +674,9 @@ a.btn {
 	font-size: 0.8rem;
 	cursor: pointer;
 }
+.flux .title {
+	font-size: 0.9rem;
+}
 .flux .website .favicon {
 	padding: 5px;
 }
@@ -990,6 +993,10 @@ a.btn {
 
 	.flux_header .item.website .favicon {
 		padding: 12px;
+	}
+
+	.pagination {
+		margin: 0 0 3.5em;
 	}
 
 	.notification a.close {
