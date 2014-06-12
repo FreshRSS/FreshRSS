@@ -502,16 +502,16 @@ a.btn {
 	text-align: center;
 }
 .category {
-	width: 220px;
+	width: 235px;
 	margin: 10px auto;
 	text-align: left;
 }
 .category .btn:first-child {
 	position: relative;
-	width: 197px;
+	width: 213px;
 }
 .category.stick .btn:first-child {
-	width: 160px;
+	width: 176px;
 }
 .category .btn:first-child:not([data-unread="0"]):after {
 	position: absolute;
