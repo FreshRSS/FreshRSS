@@ -14,6 +14,13 @@ Il permet de gérer plusieurs utilisateurs, et dispose d’un mode de lecture an
 
 ![Logo de FreshRSS](http://marienfressinaud.fr/data/images/freshrss/freshrss_title.png)
 
+# Note sur les branches
+**Ce logiciel est encore en développement !** Veuillez vous assurer d'utiliser la branche qui vous correspond :
+
+* Utilisez [la branche master](https://github.com/marienfressinaud/FreshRSS/tree/master/) si vous visez la stabilité.
+* [La branche beta](https://github.com/marienfressinaud/FreshRSS/tree/beta) est celle par défaut : les nouveautés y sont ajoutées environ tous les mois.
+* Pour les développeurs et ceux qui savent ce qu'ils font, [la branche dev](https://github.com/marienfressinaud/FreshRSS/tree/dev) vous ouvre les bras !
+
 # Disclaimer
 Cette application a été développée pour s’adapter à des besoins personnels et non professionnels.
 Je ne garantis en aucun cas la sécurité de celle-ci, ni son bon fonctionnement.
