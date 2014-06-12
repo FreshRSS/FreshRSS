@@ -680,7 +680,7 @@ a.btn {
 	font-size: 0.8rem;
 	cursor: pointer;
 }
-.flux .title {
+.flux_header .title {
 	font-size: 0.9rem;
 }
 .flux .website .favicon {
@@ -739,6 +739,7 @@ a.btn {
 
 .content blockquote {
 	display: block;
+	margin: 0;
 	padding: 5px 20px;
 	border-top: 1px solid #ddd;
 	border-bottom: 1px solid #ddd;
