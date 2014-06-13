@@ -29,9 +29,7 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 		if (isset ($params['search'])) {
 			$params['search'] = urlencode ($params['search']);
 		}
-		if (!Minz_Configuration::allowAnonymous()) {
-			$params['token'] = $token;
-		}
+
 		$this->view->url = array (
 			'c' => 'index',
 			'a' => 'index',
