@@ -5,53 +5,15 @@
         
         <h1><?php echo Minz_Translate::t ('stats_idle'); ?></h1>
         
-        <div class="stat">
-                <h2><?php echo Minz_Translate::t ('last_week'); ?></h2>
+        <?php foreach ($this->idleFeeds as $period => $feeds): ?>
+                <div class="stat">
+                        <h2><?php echo Minz_Translate::t ($period); ?></h2>
 
-                <ul>
-                        <?php foreach ($this->idleFeeds['lastWeek'] as $feed): ?>
-                                <li><?php echo $feed; ?></li>
-                        <?php endforeach; ?>
-                </ul>
-        </div>
-
-        <div class="stat">
-                <h2><?php echo Minz_Translate::t ('last_month'); ?></h2>
-
-                <ul>
-                        <?php foreach ($this->idleFeeds['lastMonth'] as $feed): ?>
-                                <li><?php echo $feed; ?></li>
-                        <?php endforeach; ?>
-                </ul>
-        </div>
-
-        <div class="stat">
-                <h2><?php echo Minz_Translate::t ('last_3_month'); ?></h2>
-
-                <ul>
-                        <?php foreach ($this->idleFeeds['last3Month'] as $feed): ?>
-                                <li><?php echo $feed; ?></li>
-                        <?php endforeach; ?>
-                </ul>
-        </div>
-
-        <div class="stat">
-                <h2><?php echo Minz_Translate::t ('last_6_month'); ?></h2>
-
-                <ul>
-                        <?php foreach ($this->idleFeeds['last6Month'] as $feed): ?>
-                                <li><?php echo $feed; ?></li>
-                        <?php endforeach; ?>
-                </ul>
-        </div>
-
-        <div class="stat">
-                <h2><?php echo Minz_Translate::t ('last_year'); ?></h2>
-
-                <ul>
-                        <?php foreach ($this->idleFeeds['lastYear'] as $feed): ?>
-                                <li><?php echo $feed; ?></li>
-                        <?php endforeach; ?>
-                </ul>
-        </div>
+                        <ul>
+                                <?php foreach ($feeds as $feed): ?>
+                                        <li><?php echo $feed; ?></li>
+                                <?php endforeach; ?>
+                        </ul>
+                </div>
+        <?php endforeach; ?>
 </div>
