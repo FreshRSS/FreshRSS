@@ -1,6 +1,6 @@
 # Journal des modifications
 
-## 2014-0x-xx FreshRSS 0.8
+## 2014-06-13 FreshRSS 0.7.2
 
 * API compatible with Google Reader API level 2
 	* FreshRSS can now be used from e.g.:
@@ -10,6 +10,13 @@
 * Searching
 	* New search filters date: and pubdate: accepting ISO 8601 date intervals such as `date:2013-2014` or `pubdate:P1W`
 	* Possibility to combine search filters, e.g. `date:2014-05 intitle:FreshRSS intitle:Open great reader #Internet`
+* Change nav menu with more buttons instead of dropdown menus and add some filters
+* New system of import / export
+	* Support OPML, Json (like Google Reader) and Zip archives
+	* Can export and import articles (specific option for favorites)
+* Refactor "Origine" theme
+	* Some improvements
+	* Based on a template file (other themes will use it too)
 
 
 ## 2014-02-19 FreshRSS 0.7.1
