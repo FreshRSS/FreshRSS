@@ -51,23 +51,23 @@ class FreshRSS_stats_Controller extends Minz_ActionController {
                                 continue;
                         }
                         if ($feedDate < $lastWeek) {
-                                $idleFeeds['lastWeek'][] = $feed['name'];
+                                $idleFeeds['last_week'][] = $feed['name'];
                         }
                         if ($feedDate < $lastMonth) {
-                                $idleFeeds['lastMonth'][] = $feed['name'];
+                                $idleFeeds['last_month'][] = $feed['name'];
                         }
                         if ($feedDate < $last3Month) {
-                                $idleFeeds['last3Month'][] = $feed['name'];
+                                $idleFeeds['last_3_month'][] = $feed['name'];
                         }
                         if ($feedDate < $last6Month) {
-                                $idleFeeds['last6Month'][] = $feed['name'];
+                                $idleFeeds['last_6_month'][] = $feed['name'];
                         }
                         if ($feedDate < $lastYear) {
-                                $idleFeeds['lastYear'][] = $feed['name'];
+                                $idleFeeds['last_year'][] = $feed['name'];
                         }
                 }
 
-                $this->view->idleFeeds = $idleFeeds;
+                $this->view->idleFeeds = array_reverse($idleFeeds);
         }
 
 }
