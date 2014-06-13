@@ -180,6 +180,26 @@ SQL;
 		$stm->execute();
 		return $stm->fetchAll(PDO::FETCH_ASSOC);
 	}
+        
+        /**
+         * Calculates the last publication date for each feed
+         * 
+         * @return array
+         */
+        public function calculateFeedLastDate() {
+                $sql = <<<SQL
+SELECT MAX(f.name) AS name
+, MAX(date) AS last_date
+FROM {$this->prefix}feed AS f,
+{$this->prefix}entry AS e
+WHERE f.id = e.id_feed
+GROUP BY f.id
+ORDER BY name
+SQL;
+                $stm = $this->bd->prepare($sql);
+                $stm->execute();
+                return $stm->fetchAll(PDO::FETCH_ASSOC);
+        }
 
 	private function convertToSerie($data) {
 		$serie = array();
