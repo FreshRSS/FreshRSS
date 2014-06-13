@@ -36,6 +36,23 @@
 				</a>
 			</div>
 		</li>
+		
+		<?php 
+		$count = 0;
+		foreach ($this->conf->queries as $query_conf):
+			$count++;
+			$name = $count;
+			if (isset($query_conf['name'])) {
+				$name = $query_conf['name'];
+				unset($query_conf['name']);
+			}
+			$url_user_query = array('c' => 'index', 'a' => 'index', 'params' => $query_conf); ?>
+		<li>
+			<div class="category">
+				<a  data-unread="0" class="btn" href="<?php echo Minz_Url::display($url_user_query)?>"><?php echo $name?></a>
+			</div>
+		</li>
+		<?php endforeach; ?>
 
 		<?php
 		foreach ($this->cat_aside as $cat) {

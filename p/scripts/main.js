@@ -994,6 +994,13 @@ function init_share_observers() {
 	});
 }
 
+function init_queries_observers() {
+	$('.post').on('click', '.query.remove', function(e) {
+		e.preventDefault();
+		$(this).parents('.form-group').remove();
+	});
+}
+
 function init_feed_observers() {
 	$('select[id="category"]').on('change', function() {
 		var detail = $('#new_category_name').parent();
@@ -1054,6 +1061,7 @@ function init_all() {
 		window.setInterval(refreshUnreads, 120000);
 	} else {
 		init_share_observers();
+		init_queries_observers();
 		init_feed_observers();
 		init_password_observers();
 	}

@@ -233,6 +233,14 @@
 	<a class="btn" href="<?php echo Minz_Url::display ($url_order); ?>" title="<?php echo Minz_Translate::t ($title); ?>">
 		<?php echo FreshRSS_Themes::icon($icon); ?>
 	</a>
+
+	<?php if ($this->loginOk) {
+		$url_query = $this->url;
+		$url_query['c'] = 'configure';
+		$url_query['a'] = 'addQuery';
+	?>
+	<a id="save_query" class="btn" href="<?php echo Minz_Url::display ($url_query); ?>"><?php echo FreshRSS_Themes::icon('bookmark-add'); ?></a>
+	<?php } ?>
 	
 	<?php if ($this->loginOk || Minz_Configuration::allowAnonymousRefresh()) { ?>
 	<a id="actualize" class="btn" href="<?php echo _url ('feed', 'actualize'); ?>"><?php echo FreshRSS_Themes::icon('refresh'); ?></a>
