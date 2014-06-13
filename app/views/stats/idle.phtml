@@ -1,0 +1,57 @@
+<?php $this->partial('aside_stats'); ?>
+
+<div class="post content">
+        <a href="<?php echo _url ('index', 'index'); ?>"><?php echo Minz_Translate::t ('back_to_rss_feeds'); ?></a>
+        
+        <h1><?php echo Minz_Translate::t ('stats_idle'); ?></h1>
+        
+        <div class="stat">
+                <h2><?php echo Minz_Translate::t ('last_week'); ?></h2>
+
+                <ul>
+                        <?php foreach ($this->idleFeeds['lastWeek'] as $feed): ?>
+                                <li><?php echo $feed; ?></li>
+                        <?php endforeach; ?>
+                </ul>
+        </div>
+
+        <div class="stat">
+                <h2><?php echo Minz_Translate::t ('last_month'); ?></h2>
+
+                <ul>
+                        <?php foreach ($this->idleFeeds['lastMonth'] as $feed): ?>
+                                <li><?php echo $feed; ?></li>
+                        <?php endforeach; ?>
+                </ul>
+        </div>
+
+        <div class="stat">
+                <h2><?php echo Minz_Translate::t ('last_3_month'); ?></h2>
+
+                <ul>
+                        <?php foreach ($this->idleFeeds['last3Month'] as $feed): ?>
+                                <li><?php echo $feed; ?></li>
+                        <?php endforeach; ?>
+                </ul>
+        </div>
+
+        <div class="stat">
+                <h2><?php echo Minz_Translate::t ('last_6_month'); ?></h2>
+
+                <ul>
+                        <?php foreach ($this->idleFeeds['last6Month'] as $feed): ?>
+                                <li><?php echo $feed; ?></li>
+                        <?php endforeach; ?>
+                </ul>
+        </div>
+
+        <div class="stat">
+                <h2><?php echo Minz_Translate::t ('last_year'); ?></h2>
+
+                <ul>
+                        <?php foreach ($this->idleFeeds['lastYear'] as $feed): ?>
+                                <li><?php echo $feed; ?></li>
+                        <?php endforeach; ?>
+                </ul>
+        </div>
+</div>

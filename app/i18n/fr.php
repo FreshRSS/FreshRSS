@@ -46,6 +46,14 @@ return array (
 	'no_query_filter'		=> 'Aucun filtre appliqué',
 	'about'				=> 'À propos',
 	'stats'				=> 'Statistiques',
+        'stats_idle'                    => 'Flux inactifs',
+        'stats_main'                    => 'Statistiques principales',
+
+        'last_week'                     => 'La dernière semaine',
+        'last_month'                    => 'Le dernier mois',
+        'last_3_month'                  => 'Les derniers trois mois',
+        'last_6_month'                  => 'Les derniers six mois',
+        'last_year'                     => 'La dernière année',
 
 	'your_rss_feeds'		=> 'Vos flux RSS',
 	'add_rss_feed'			=> 'Ajouter un flux RSS',
