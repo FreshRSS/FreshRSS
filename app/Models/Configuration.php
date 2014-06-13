@@ -10,13 +10,15 @@ class FreshRSS_Configuration {
 		'mail_login' => '',
 		'token' => '',
 		'passwordHash' => '',	//CRYPT_BLOWFISH
+		'apiPasswordHash' => '',	//CRYPT_BLOWFISH
 		'posts_per_page' => 20,
 		'view_mode' => 'normal',
-		'default_view' => 'not_read',
+		'default_view' => FreshRSS_Entry::STATE_NOT_READ,
 		'auto_load_more' => true,
 		'display_posts' => false,
 		'onread_jump_next' => true,
 		'lazyload' => true,
+		'sticky_post' => true,
 		'sort_order' => 'DESC',
 		'anon_access' => false,
 		'mark_when' => array(
@@ -26,15 +28,19 @@ class FreshRSS_Configuration {
 			'reception' => false,
 		),
 		'theme' => 'Origine',
+		'content_width' => 'thin',
 		'shortcuts' => array(
 			'mark_read' => 'r',
 			'mark_favorite' => 'f',
 			'go_website' => 'space',
 			'next_entry' => 'j',
 			'prev_entry' => 'k',
+			'first_entry' => 'home',
+			'last_entry' => 'end',
 			'collapse_entry' => 'c',
 			'load_more' => 'm',
 			'auto_share' => 's',
+			'focus_search' => 'a',
 		),
 		'topline_read' => true,
 		'topline_favorite' => true,
@@ -46,16 +52,7 @@ class FreshRSS_Configuration {
 		'bottomline_tags' => true,
 		'bottomline_date' => true,
 		'bottomline_link' => true,
-		'sharing' => array(
-			'shaarli' => '',
-			'wallabag' => '',
-			'diaspora' => '',
-			'twitter' => true,
-			'g+' => true,
-			'facebook' => true,
-			'email' => true,
-			'print' => true,
-		),
+		'sharing' => array(),
 	);
 
 	private $available_languages = array(
@@ -63,8 +60,10 @@ class FreshRSS_Configuration {
 		'fr' => 'Français',
 	);
 
-	public function __construct ($user) {
-		$this->filename = DATA_PATH . '/' . $user . '_user.php';
+	private $shares;
+
+	public function __construct($user) {
+		$this->filename = DATA_PATH . DIRECTORY_SEPARATOR . $user . '_user.php';
 
 		$data = @include($this->filename);
 		if (!is_array($data)) {
@@ -78,10 +77,20 @@ class FreshRSS_Configuration {
 			}
 		}
 		$this->data['user'] = $user;
+
+		$this->shares = DATA_PATH . DIRECTORY_SEPARATOR . 'shares.php';
+
+		$shares = @include($this->shares);
+		if (!is_array($shares)) {
+			throw new Minz_PermissionDeniedException($this->shares);
+		}
+
+		$this->data['shares'] = $shares;
 	}
 
 	public function save() {
 		@rename($this->filename, $this->filename . '.bak.php');
+		unset($this->data['shares']); // Remove shares because it is not intended to be stored in user configuration
 		if (file_put_contents($this->filename, "<?php\n return " . var_export($this->data, true) . ';', LOCK_EX) === false) {
 			throw new Minz_PermissionDeniedException($this->filename);
 		}
@@ -100,16 +109,6 @@ class FreshRSS_Configuration {
 			trigger_error('Undefined FreshRSS_Configuration->' . $name . 'in ' . $trace[0]['file'] . ' line ' . $trace[0]['line'], E_USER_NOTICE);	//TODO: Use Minz exceptions
 			return null;
 		}
-	}
-
-	public function sharing($key = false) {
-		if ($key === false) {
-			return $this->data['sharing'];
-		}
-		if (isset($this->data['sharing'][$key])) {
-			return $this->data['sharing'][$key];
-		}
-		return false;
 	}
 
 	public function availableLanguages() {
@@ -134,7 +133,7 @@ class FreshRSS_Configuration {
 		}
 	}
 	public function _default_view ($value) {
-		$this->data['default_view'] = $value === 'all' ? 'all' : 'not_read';
+		$this->data['default_view'] = $value === FreshRSS_Entry::STATE_ALL ? FreshRSS_Entry::STATE_ALL : FreshRSS_Entry::STATE_NOT_READ;
 	}
 	public function _display_posts ($value) {
 		$this->data['display_posts'] = ((bool)$value) && $value !== 'no';
@@ -144,6 +143,9 @@ class FreshRSS_Configuration {
 	}
 	public function _lazyload ($value) {
 		$this->data['lazyload'] = ((bool)$value) && $value !== 'no';
+	}
+	public function _sticky_post($value) {
+		$this->data['sticky_post'] = ((bool)$value) && $value !== 'no';
 	}
 	public function _sort_order ($value) {
 		$this->data['sort_order'] = $value === 'ASC' ? 'ASC' : 'DESC';
@@ -166,6 +168,9 @@ class FreshRSS_Configuration {
 	public function _passwordHash ($value) {
 		$this->data['passwordHash'] = ctype_graph($value) && (strlen($value) >= 60) ? $value : '';
 	}
+	public function _apiPasswordHash ($value) {
+		$this->data['apiPasswordHash'] = ctype_graph($value) && (strlen($value) >= 60) ? $value : '';
+	}
 	public function _mail_login ($value) {
 		$value = filter_var($value, FILTER_VALIDATE_EMAIL);
 		if ($value) {
@@ -185,28 +190,46 @@ class FreshRSS_Configuration {
 		}
 	}
 	public function _sharing ($values) {
-		$are_url = array ('shaarli', 'wallabag', 'diaspora');
-		foreach ($values as $key => $value) {
-			if (in_array($key, $are_url)) {
+		$this->data['sharing'] = array();
+		foreach ($values as $value) {
+			if (!is_array($value)) {
+				continue;
+			}
+
+			// Verify URL and add default value when needed
+			if (isset($value['url'])) {
 				$is_url = (
-					filter_var ($value, FILTER_VALIDATE_URL) ||
+					filter_var ($value['url'], FILTER_VALIDATE_URL) ||
 					(version_compare(PHP_VERSION, '5.3.3', '<') &&
 						(strpos($value, '-') > 0) &&
 						($value === filter_var($value, FILTER_SANITIZE_URL)))
 				);  //PHP bug #51192
-
 				if (!$is_url) {
-					$value = '';
+					continue;
 				}
-			} elseif (!is_bool($value)) {
-				$value = true;
+			} else {
+				$value['url'] = null;
 			}
 
-			$this->data['sharing'][$key] = $value;
+			// Add a default name
+			if (empty($value['name'])) {
+				$value['name'] = $value['type'];
+			}
+
+			$this->data['sharing'][] = $value;
 		}
 	}
 	public function _theme($value) {
 		$this->data['theme'] = $value;
+	}
+	public function _content_width($value) {
+		if ($value === 'medium' ||
+				$value === 'large' ||
+				$value === 'no_limit') {
+			$this->data['content_width'] = $value;
+		} else {
+			$this->data['content_width'] = 'thin';
+		}
 	}
 	public function _token($value) {
 		$this->data['token'] = $value;

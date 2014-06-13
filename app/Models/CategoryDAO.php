@@ -2,12 +2,11 @@
 
 class FreshRSS_CategoryDAO extends Minz_ModelPdo {
 	public function addCategory ($valuesTmp) {
-		$sql = 'INSERT INTO `' . $this->prefix . 'category` (name, color) VALUES(?, ?)';
+		$sql = 'INSERT INTO `' . $this->prefix . 'category` (name) VALUES(?)';
 		$stm = $this->bd->prepare ($sql);
 
 		$values = array (
 			substr($valuesTmp['name'], 0, 255),
-			substr($valuesTmp['color'], 0, 7),
 		);
 
 		if ($stm && $stm->execute ($values)) {
@@ -19,13 +18,25 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo {
 		}
 	}
 
+	public function addCategoryObject($category) {
+		$cat = $this->searchByName($category->name());
+		if (!$cat) {
+			// Category does not exist yet in DB so we add it before continue
+			$values = array(
+				'name' => $category->name(),
+			);
+			return $this->addCategory($values);
+		}
+
+		return $cat->id();
+	}
+
 	public function updateCategory ($id, $valuesTmp) {
-		$sql = 'UPDATE `' . $this->prefix . 'category` SET name=?, color=? WHERE id=?';
+		$sql = 'UPDATE `' . $this->prefix . 'category` SET name=? WHERE id=?';
 		$stm = $this->bd->prepare ($sql);
 
 		$values = array (
 			$valuesTmp['name'],
-			$valuesTmp['color'],
 			$id
 		);
 
@@ -66,7 +77,7 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo {
 		if (isset ($cat[0])) {
 			return $cat[0];
 		} else {
-			return false;
+			return null;
 		}
 	}
 	public function searchByName ($name) {
@@ -82,14 +93,13 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo {
 		if (isset ($cat[0])) {
 			return $cat[0];
 		} else {
-			return false;
+			return null;
 		}
 	}
 
 	public function listCategories ($prePopulateFeeds = true, $details = false) {
 		if ($prePopulateFeeds) {
 			$sql = 'SELECT c.id AS c_id, c.name AS c_name, '
-			     . ($details ? 'c.color AS c_color, ' : '')
 			     . ($details ? 'f.* ' : 'f.id, f.name, f.url, f.website, f.priority, f.error, f.cache_nbEntries, f.cache_nbUnreads ')
 			     . 'FROM `' . $this->prefix . 'category` c '
 			     . 'LEFT OUTER JOIN `' . $this->prefix . 'feed` f ON f.category = c.id '
@@ -123,14 +133,13 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo {
 	public function checkDefault () {
 		$def_cat = $this->searchById (1);
 
-		if ($def_cat === false) {
+		if ($def_cat == null) {
 			$cat = new FreshRSS_Category (Minz_Translate::t ('default_category'));
 			$cat->_id (1);
 
 			$values = array (
 				'id' => $cat->id (),
 				'name' => $cat->name (),
-				'color' => $cat->color ()
 			);
 
 			$this->addCategory ($values);
@@ -203,7 +212,6 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo {
 				// End of the current category, we add it to the $list
 				$cat = new FreshRSS_Category (
 					$previousLine['c_name'],
-					isset($previousLine['c_color']) ? $previousLine['c_color'] : '',
 					FreshRSS_FeedDAO::daoToFeed ($feedsDao, $previousLine['c_id'])
 				);
 				$cat->_id ($previousLine['c_id']);
@@ -220,7 +228,6 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo {
 		if ($previousLine != null) {
 			$cat = new FreshRSS_Category (
 				$previousLine['c_name'],
-				isset($previousLine['c_color']) ? $previousLine['c_color'] : '',
 				FreshRSS_FeedDAO::daoToFeed ($feedsDao, $previousLine['c_id'])
 			);
 			$cat->_id ($previousLine['c_id']);
@@ -239,8 +246,7 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo {
 
 		foreach ($listDAO as $key => $dao) {
 			$cat = new FreshRSS_Category (
-				$dao['name'],
-				$dao['color']
+				$dao['name']
 			);
 			$cat->_id ($dao['id']);
 			$list[$key] = $cat;

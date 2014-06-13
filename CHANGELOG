@@ -1,5 +1,54 @@
 # Journal des modifications
 
+## 2014-06-13 FreshRSS 0.7.2
+
+* API compatible with Google Reader API level 2
+	* FreshRSS can now be used from e.g.:
+		* (Android) News+ https://play.google.com/store/apps/details?id=com.noinnion.android.newsplus.extension.google_reader
+		* (Android) EasyRSS https://github.com/Alkarex/EasyRSS
+* Basic support for audio and video podcasts
+* Searching
+	* New search filters date: and pubdate: accepting ISO 8601 date intervals such as `date:2013-2014` or `pubdate:P1W`
+	* Possibility to combine search filters, e.g. `date:2014-05 intitle:FreshRSS intitle:Open great reader #Internet`
+* Change nav menu with more buttons instead of dropdown menus and add some filters
+* New system of import / export
+	* Support OPML, Json (like Google Reader) and Zip archives
+	* Can export and import articles (specific option for favorites)
+* Refactor "Origine" theme
+	* Some improvements
+	* Based on a template file (other themes will use it too)
+
+
+## 2014-02-19 FreshRSS 0.7.1
+
+* Mise à jour des flux plus rapide grâce à une meilleure utilisation du cache
+	* Utilisation d’une signature MD5 du contenu intéressant pour les flux n’implémentant pas les requêtes conditionnelles
+* Modification des raccourcis
+	* "s" partage directement si un seul moyen de partage
+	* Moyens de partage accessibles par "1", "2", "3", etc.
+	* Premier article : Home ; Dernier article : End
+	* Ajout du déplacement au sein des catégories / flux (via modificateurs shift et alt)
+* UI
+	* Séparation des descriptions des raccourcis par groupes
+	* Revue rapide de la page de connexion
+	* Amélioration de l'affichage des notifications sur mobile
+* Revue du système de rafraîchissement des flux
+	* Meilleure gestion de la file de flux à rafraîchir en JSON
+	* Rafraîchissement uniquement pour les flux non rafraîchis récemment
+	* Possibilité donnée aux anonymes de rafraîchir les flux
+* SimplePie
+	* Mise à jour de la lib
+	* Corrige fuite de mémoire
+	* Meilleure tolérance aux flux invalides
+* Corrections divers
+	* Ne déplie plus l'article lors du clic sur l'icône lien externe
+	* Ne boucle plus à la fin de la navigation dans les articles
+	* Suppression du champ category.color inutile
+	* Corrige bug redirection infinie (Persona)
+	* Amélioration vérification de la requête POST
+	* Ajout d'un verrou lorsqu'une action mark_read ou mark_favorite est en cours
+
+
 ## 2014-01-29 FreshRSS 0.7
 
 * Nouveau mode multi-utilisateur

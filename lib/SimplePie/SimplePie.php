@@ -33,7 +33,7 @@
  * POSSIBILITY OF SUCH DAMAGE.
  *
  * @package SimplePie
- * @version 1.3.1
+ * @version 1.4-dev-FreshRSS
  * @copyright 2004-2012 Ryan Parman, Geoffrey Sneddon, Ryan McCue
  * @author Ryan Parman
  * @author Geoffrey Sneddon
@@ -50,7 +50,7 @@ define('SIMPLEPIE_NAME', 'SimplePie');
 /**
  * SimplePie Version
  */
-define('SIMPLEPIE_VERSION', '1.3.1');
+define('SIMPLEPIE_VERSION', '1.4-dev-FreshRSS');
 
 /**
  * SimplePie Build
@@ -602,7 +602,7 @@ class SimplePie
 	public $strip_attributes = array('bgsound', 'class', 'expr', 'id', 'style', 'onclick', 'onerror', 'onfinish', 'onmouseover', 'onmouseout', 'onfocus', 'onblur', 'lowsrc', 'dynsrc');
 
 	/**
-	 * @var array Stores the default attributes to add to differet tags by add_attributes().
+	 * @var array Stores the default attributes to add to different tags by add_attributes().
 	 * @see SimplePie::add_attributes()
 	 * @access private
 	 */
@@ -644,7 +644,7 @@ class SimplePie
 		if (func_num_args() > 0)
 		{
 			$level = defined('E_USER_DEPRECATED') ? E_USER_DEPRECATED : E_USER_WARNING;
-			trigger_error('Passing parameters to the constructor is no longer supported. Please use set_feed_url(), set_cache_location(), and set_cache_location() directly.', $level);
+			trigger_error('Passing parameters to the constructor is no longer supported. Please use set_feed_url(), set_cache_location(), and set_cache_duration() directly.', $level);
 
 			$args = func_get_args();
 			switch (count($args)) {
@@ -1213,13 +1213,27 @@ class SimplePie
 	}
 
 	/**
+	 * Enable throwing exceptions
+	 *
+	 * @param boolean $enable Should we throw exceptions, or use the old-style error property?
+	 */
+	public function enable_exceptions($enable = true)
+	{
+		$this->enable_exceptions = $enable;
+	}
+
+	function cleanMd5($rss) {	//FreshRSS
+		return md5(preg_replace(array('#<(lastBuildDate|pubDate|updated|feedDate|dc:date|slash:comments)>[^<]+</\\1>#', '#<!--.+?-->#s'), '', $rss));
+	}
+
+	/**
 	 * Initialize the feed object
 	 *
 	 * This is what makes everything happen.  Period.  This is where all of the
 	 * configuration options get processed, feeds are fetched, cached, and
 	 * parsed, and all of that other good stuff.
 	 *
-	 * @return boolean True if successful, false otherwise
+	 * @return positive integer with modification time if using cache, boolean true if otherwise successful, false otherwise
 	 */
 	public function init()
 	{
@@ -1298,13 +1312,17 @@ class SimplePie
 			// Fetch the data via SimplePie_File into $this->raw_data
 			if (($fetched = $this->fetch_data($cache)) === true)
 			{
-				return true;
+				return $this->data['mtime'];	//FreshRSS
 			}
 			elseif ($fetched === false) {
 				return false;
 			}
 
 			list($headers, $sniffed) = $fetched;
+
+			if (isset($this->data['md5'])) {	//FreshRSS
+				$md5 = $this->data['md5'];
+			}
 		}
 
 		// Set up array of possible encodings
@@ -1386,6 +1404,8 @@ class SimplePie
 						$this->data['headers'] = $headers;
 					}
 					$this->data['build'] = SIMPLEPIE_BUILD;
+					$this->data['mtime'] = time();	//FreshRSS
+					$this->data['md5'] = empty($md5) ? $this->cleanMd5($this->raw_data) : $md5;	//FreshRSS
 
 					// Cache the file if caching is enabled
 					if ($cache && !$cache->save($this))
@@ -1461,7 +1481,7 @@ class SimplePie
 				elseif ($cache->mtime() + $this->cache_duration < time())
 				{
 					// If we have last-modified and/or etag set
-					if (isset($this->data['headers']['last-modified']) || isset($this->data['headers']['etag']))
+					//if (isset($this->data['headers']['last-modified']) || isset($this->data['headers']['etag']))	//FreshRSS removed
 					{
 						$headers = array(
 							'Accept' => 'application/atom+xml, application/rss+xml, application/rdf+xml;q=0.9, application/xml;q=0.8, text/xml;q=0.8, text/html;q=0.7, unknown/unknown;q=0.1, application/unknown;q=0.1, */*;q=0.1',
@@ -1475,7 +1495,7 @@ class SimplePie
 							$headers['if-none-match'] = $this->data['headers']['etag'];
 						}
 
-						$file = $this->registry->create('File', array($this->feed_url, $this->timeout/10, 5, $headers, $this->useragent, $this->force_fsockopen));
+						$file = $this->registry->create('File', array($this->feed_url, $this->timeout, 5, $headers, $this->useragent, $this->force_fsockopen));	//FreshRSS
 
 						if ($file->success)
 						{
@@ -1487,7 +1507,20 @@ class SimplePie
 						}
 						else
 						{
-							unset($file);
+							$this->error = $file->error;	//FreshRSS
+							return !empty($this->data);	//FreshRSS
+							//unset($file);	//FreshRSS removed
+						}
+					}
+					{	//FreshRSS
+						$md5 = $this->cleanMd5($file->body);
+						if ($this->data['md5'] === $md5) {
+							syslog(LOG_DEBUG, 'SimplePie MD5 cache match for ' . $this->feed_url);
+							$cache->touch();
+							return true;	//Content unchanged even though server did not send a 304
+						} else {
+							syslog(LOG_DEBUG, 'SimplePie MD5 cache no match for ' . $this->feed_url);
+							$this->data['md5'] = $md5;
 						}
 					}
 				}
@@ -1555,6 +1588,8 @@ class SimplePie
 				if ($cache)
 				{
 					$this->data = array('url' => $this->feed_url, 'feed_url' => $file->url, 'build' => SIMPLEPIE_BUILD);
+					$this->data['mtime'] = time();	//FreshRSS
+					$this->data['md5'] = empty($md5) ? $this->cleanMd5($file->body) : $md5;	//FreshRSS
 					if (!$cache->save($this))
 					{
 						trigger_error("$this->cache_location is not writeable. Make sure you've set the correct relative or absolute path, and that the location is server-writable.", E_USER_WARNING);
@@ -1987,7 +2022,21 @@ class SimplePie
 	 */
 	public function sanitize($data, $type, $base = '')
 	{
-		return $this->sanitize->sanitize($data, $type, $base);
+		try
+		{
+			return $this->sanitize->sanitize($data, $type, $base);
+		}
+		catch (SimplePie_Exception $e)
+		{
+			if (!$this->enable_exceptions)
+			{
+				$this->error = $e->getMessage();
+				$this->registry->call('Misc', 'error', array($this->error, E_USER_WARNING, $e->getFile(), $e->getLine()));
+				return '';
+			}
+
+			throw $e;
+		}
 	}
 
 	/**

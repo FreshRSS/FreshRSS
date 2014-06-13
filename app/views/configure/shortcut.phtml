@@ -12,9 +12,43 @@
 	<?php $s = $this->conf->shortcuts; ?>
 
 	<form method="post" action="<?php echo _url ('configure', 'shortcut'); ?>">
-		<legend><?php echo Minz_Translate::t ('shortcuts_management'); ?></legend>
+		<legend><?php echo Minz_Translate::t ('shortcuts'); ?></legend>
 
 		<noscript><p class="alert alert-error"><?php echo Minz_Translate::t ('javascript_for_shortcuts'); ?></p></noscript>
+
+		<legend><?php echo Minz_Translate::t ('shortcuts_navigation'); ?></legend>
+
+		<div class="form-group">
+			<label class="group-name" for="next_entry"><?php echo Minz_Translate::t ('next_article'); ?></label>
+			<div class="group-controls">
+				<input type="text" id="next_entry" name="shortcuts[next_entry]" list="keys" value="<?php echo $s['next_entry']; ?>" />
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="group-name" for="prev_entry"><?php echo Minz_Translate::t ('previous_article'); ?></label>
+			<div class="group-controls">
+				<input type="text" id="prev_entry" name="shortcuts[prev_entry]" list="keys" value="<?php echo $s['prev_entry']; ?>" />
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="group-name" for="first_entry"><?php echo Minz_Translate::t ('first_article'); ?></label>
+			<div class="group-controls">
+				<input type="text" id="first_entry" name="shortcuts[first_entry]" list="keys" value="<?php echo $s['first_entry']; ?>" />
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="group-name" for="last_entry"><?php echo Minz_Translate::t ('last_article'); ?></label>
+			<div class="group-controls">
+				<input type="text" id="last_entry" name="shortcuts[last_entry]" list="keys" value="<?php echo $s['last_entry']; ?>" />
+			</div>
+		</div>
+
+		<div><?php echo Minz_Translate::t ('shortcuts_navigation_help');?></div>
+
+		<legend><?php echo Minz_Translate::t ('shortcuts_article_action');?></legend>
 
 		<div class="form-group">
 			<label class="group-name" for="mark_read"><?php echo Minz_Translate::t ('mark_read'); ?></label>
@@ -39,18 +73,10 @@
 		</div>
 
 		<div class="form-group">
-			<label class="group-name" for="next_entry"><?php echo Minz_Translate::t ('next_article'); ?></label>
+			<label class="group-name" for="auto_share_shortcut"><?php echo Minz_Translate::t ('auto_share'); ?></label>
 			<div class="group-controls">
-				<input type="text" id="next_entry" name="shortcuts[next_entry]" list="keys" value="<?php echo $s['next_entry']; ?>" />
-				<?php echo Minz_Translate::t ('shift_for_last'); ?>
-			</div>
-		</div>
-
-		<div class="form-group">
-			<label class="group-name" for="prev_entry"><?php echo Minz_Translate::t ('previous_article'); ?></label>
-			<div class="group-controls">
-				<input type="text" id="prev_entry" name="shortcuts[prev_entry]" list="keys" value="<?php echo $s['prev_entry']; ?>" />
-				<?php echo Minz_Translate::t ('shift_for_first'); ?>
+				<input type="text" id="auto_share_shortcut" name="shortcuts[auto_share]" list="keys" value="<?php echo $s['auto_share']; ?>" />
+				<?php echo Minz_Translate::t ('auto_share_help'); ?>
 			</div>
 		</div>
 
@@ -61,6 +87,8 @@
 			</div>
 		</div>
 
+		<legend><?php echo Minz_Translate::t ('shortcuts_other_action');?></legend>
+
 		<div class="form-group">
 			<label class="group-name" for="load_more_shortcut"><?php echo Minz_Translate::t ('load_more'); ?></label>
 			<div class="group-controls">
@@ -69,9 +97,9 @@
 		</div>
 
 		<div class="form-group">
-			<label class="group-name" for="auto_share_shortcut"><?php echo Minz_Translate::t ('auto_share'); ?></label>
+			<label class="group-name" for="focus_search_shortcut"><?php echo Minz_Translate::t ('focus_search'); ?></label>
 			<div class="group-controls">
-				<input type="text" id="auto_share_shortcut" name="shortcuts[auto_share]" list="keys" value="<?php echo $s['auto_share']; ?>" />
+				<input type="text" id="focus_search_shortcut" name="shortcuts[focus_search]" list="keys" value="<?php echo $s['focus_search']; ?>" />
 			</div>
 		</div>
 

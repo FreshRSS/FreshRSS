@@ -8,11 +8,18 @@ Il permet de gérer plusieurs utilisateurs, et dispose d’un mode de lecture an
 * Site officiel : http://freshrss.org
 * Démo : http://demo.freshrss.org/
 * Développeur : Marien Fressinaud <dev@marienfressinaud.fr>
-* Version actuelle : 0.7
-* Date de publication 2014-01-29
+* Version actuelle : 0.8-dev
+* Date de publication 2014-0x-xx
 * License [GNU AGPL 3](http://www.gnu.org/licenses/agpl-3.0.html)
 
 ![Logo de FreshRSS](http://marienfressinaud.fr/data/images/freshrss/freshrss_title.png)
+
+# Note sur les branches
+**Ce logiciel est encore en développement !** Veuillez vous assurer d'utiliser la branche qui vous correspond :
+
+* Utilisez [la branche master](https://github.com/marienfressinaud/FreshRSS/tree/master/) si vous visez la stabilité.
+* [La branche beta](https://github.com/marienfressinaud/FreshRSS/tree/beta) est celle par défaut : les nouveautés y sont ajoutées environ tous les mois.
+* Pour les développeurs et ceux qui savent ce qu'ils font, [la branche dev](https://github.com/marienfressinaud/FreshRSS/tree/dev) vous ouvre les bras !
 
 # Disclaimer
 Cette application a été développée pour s’adapter à des besoins personnels et non professionnels.
@@ -25,9 +32,9 @@ Privilégiez pour cela des demandes sur GitHub
 * Serveur modeste, par exemple sous Linux ou Windows
 	* Fonctionne même sur un Raspberry Pi avec des temps de réponse < 1s (testé sur 150 flux, 22k articles, soit 32Mo de données partiellement compressées)
 * Serveur Web Apache2 ou Nginx (non testé sur les autres)
-* PHP 5.2+ (PHP 5.3.7+ recommandé)
+* PHP 5.2.1+ (PHP 5.3.7+ recommandé)
 	* Requis : [PDO_MySQL](http://php.net/pdo-mysql), [cURL](http://php.net/curl), [LibXML](http://php.net/xml), [PCRE](http://php.net/pcre), [ctype](http://php.net/ctype)
-	* Recommandés : [JSON](http://php.net/json), [zlib](http://php.net/zlib), [mbstring](http://php.net/mbstring), [iconv](http://php.net/iconv)
+	* Recommandés : [JSON](http://php.net/json), [zlib](http://php.net/zlib), [mbstring](http://php.net/mbstring), [iconv](http://php.net/iconv), [Zip](http://php.net/zip)
 * MySQL 5.0.3+ (ou SQLite 3.7.4+ à venir)
 * Un navigateur Web récent tel Firefox 4+, Chrome, Opera, Safari, Internet Explorer 9+
 	* Fonctionne aussi sur mobile
@@ -42,7 +49,8 @@ Privilégiez pour cela des demandes sur GitHub
 5. Tout devrait fonctionner :) En cas de problème, n’hésitez pas à me contacter.
 
 # Contrôle d’accès
-Il est requis pour le mode multi-utilisateur, et recommandé dans tous les cas, de limiter l’accès à votre FreshRSS :
+Il est requis pour le mode multi-utilisateur, et recommandé dans tous les cas, de limiter l’accès à votre FreshRSS. Au choix :
+* En utilisant l’identification par formulaire (requiert JavaScript, et PHP 5.3.7+ recommandé – fonctionne avec certaines versions de PHP 5.3.3+)
 * En utilisant l’identification par [Mozilla Persona](https://login.persona.org/about) incluse dans FreshRSS
 * En utilisant un contrôle d’accès HTTP défini par votre serveur Web
 	* Voir par exemple la [documentation d’Apache sur l’authentification](http://httpd.apache.org/docs/trunk/howto/auth.html)
@@ -80,6 +88,7 @@ mysqldump -u utilisateur -p --databases freshrss > freshrss.sql
 * [php-http-304](http://alexandre.alapetite.fr/doc-alex/php-http-304/)
 * [jQuery](http://jquery.com/)
 * [keyboard_shortcuts](http://www.openjs.com/scripts/events/keyboard_shortcuts/)
+* [flotr2](http://www.humblesoftware.com/flotr2)
 
 ## Uniquement pour certaines options
 * [bcrypt.js](https://github.com/dcodeIO/bcrypt.js)

@@ -290,7 +290,7 @@
 		.flux .item.title {
 			background: inherit;
 		}
-			.flux .item.title a {
+			.flux .title a {
 				color: #888;
 				outline: none;
 			}
@@ -354,13 +354,15 @@
 			font-size: 120%;
 		}
 			#stream.global .btn:not([data-unread="0"]) {
-				font-weight:bold;
+				background: #34495e;
+				color: #fff;
+				font-weight: bold;
 			}
 			#stream.global .btn:first-child:not([data-unread="0"]):after {
 				top: 0; right: 5px;
 				border: 0;
 				background: none;
-				color: #666;
+				color: #fff;
 				font-weight: bold;
 				box-shadow: none;
 			}
@@ -381,12 +383,20 @@
 
 .content {
 	min-height: 150px;
-	max-width: 550px;
 	margin: 0 auto;
 	padding: 20px 10px;
 	line-height: 170%;
 	word-wrap: break-word;
 }
+	.content.large {
+		max-width: 1000px;
+	}
+	.content.medium {
+		max-width: 800px;
+	}
+	.content.thin {
+		max-width: 550px;
+	}
 	.content h1, .content h2, .content h3 {
 		margin: 20px 0 5px;
 	}
@@ -504,10 +514,10 @@
 			font-style: italic;
 		}
 	.pagination:first-child .item {
-		border-bottom: 1px solid #aaa;
+		border-bottom: 1px solid #2f2f2f;
 	}
 	.pagination:last-child .item {
-		border-top: 1px solid #aaa;
+		border-top: 1px solid #2f2f2f;
 	}
 
 #nav_entries {
@@ -570,56 +580,40 @@
 	box-shadow: 0 0 5px #666;
 	background: #1a1a1a;
 	color: #888;
+	border: 1px solid #f4f899;
 	font-weight: bold;
 	z-index: 10;
 }
-	.notification.good {
-		border:1px solid #f4f899;
-	}
-	.notification.bad {
-		border:1px solid #f4a899;
+	.notification.closed {
+		display: none;
 	}
 	.notification a.close {
+		position: absolute;
+		top: -10px; right: -10px;
 		display: inline-block;
 		width: 16px;
 		height: 16px;
-		float: right;
-		margin: -20px -20px 0 0;
 		padding: 5px;
 		background: #1a1a1a;
 		border-radius: 50px;
 		line-height: 16px;
-	}
-	.notification.good a.close{
 		border:1px solid #f4f899;
-	}
-	.notification.bad a.close{
-		border:1px solid #f4a899;
 	}
 
 .toggle_aside, .btn.toggle_aside {
 	display: none;
 }
 
-.actualizeProgress {
+#actualizeProgress {
 	position: fixed;
-	top: 10px;
-	left: 25%; right: 25%;
-	padding: 5px;
-	background: #1a1a1a;
-	text-align: center;
-	border: 1px solid #2f2f2f;
-	border-radius: 5px;
 }
-	.actualizeProgress progress {
-		max-width: 100%;
-		vertical-align: middle;
-	}
-	.actualizeProgress .progress {
-		color: #888;
-		font-size: 90%;
-		vertical-align: middle;
-	}
+#actualizeProgress progress {
+	max-width: 100%;
+	vertical-align: middle;
+}
+#actualizeProgress .progress {
+	vertical-align: middle;
+}
 
 .logs {
 	border: 1px solid #aaa;
@@ -778,9 +772,24 @@ select.number option {
 	}
 
 	.notification,
-	.actualizeProgress {
-		left: 10px;
-		right: 10px;
+	#actualizeProgress {
+		top: 0;
+		left: 0;
+		right: 0;
+		border-radius: 0;
+		border: none;
+		border-bottom: 1px solid #f4f899;
+	}
+	.notification a.close {
+		left: 0; right: 0;
+		top: 0; bottom: 0;
+		width: auto;
+		height: auto;
+		background: transparent;
+		border: none;
+	}
+	.notification a.close .icon {
+		display: none;
 	}
 }
 

@@ -3,7 +3,6 @@ define('SQL_CREATE_TABLES', '
 CREATE TABLE IF NOT EXISTS `%1$scategory` (
 	`id` SMALLINT NOT NULL AUTO_INCREMENT,	-- v0.7
 	`name` varchar(255) NOT NULL,
-	`color` char(7),
 	PRIMARY KEY (`id`),
 	UNIQUE KEY (`name`)	-- v0.7
 ) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci

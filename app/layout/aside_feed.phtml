@@ -20,7 +20,12 @@
 							<?php echo $cat->name (); ?>
 						</option>
 						<?php } ?>
+						<option value="nc"><?php echo Minz_Translate::t ('new_category'); ?></option>
 						</select>
+					</li>
+
+					<li class="input" style="display:none">
+						<input type="text" name="new_category[name]" id="new_category_name" autocomplete="off" placeholder="<?php echo Minz_Translate::t ('new_category'); ?>" />
 					</li>
 
 					<li class="separator"></li>
@@ -38,8 +43,14 @@
 		</div>
 	</form></li>
 
-	<li class="item<?php echo Minz_Request::actionName () == 'importExport' ? ' active' : ''; ?>">
-		<a href="<?php echo _url ('configure', 'importExport'); ?>"><?php echo Minz_Translate::t ('import_export_opml'); ?></a>
+	<li class="item">
+		<a onclick="return false;" href="javascript:(function(){var%20url%20=%20location.href;window.open('<?php echo Minz_Url::display(array('c' => 'feed', 'a' => 'add'), 'html', true); ?>&amp;url_rss='+encodeURIComponent(url), '_blank');})();">
+			<?php echo Minz_Translate::t('bookmark'); ?>
+		</a>
+	</li>
+
+	<li class="item<?php echo Minz_Request::controllerName () == 'importExport' ? ' active' : ''; ?>">
+		<a href="<?php echo _url ('importExport', 'index'); ?>"><?php echo Minz_Translate::t ('import_export'); ?></a>
 	</li>
 
 	<li class="item<?php echo Minz_Request::actionName () == 'categorize' ? ' active' : ''; ?>">
@@ -51,7 +62,7 @@
 	<?php if (!empty ($this->feeds)) { ?>
 	<?php foreach ($this->feeds as $feed) { ?>
 	<?php $nbEntries = $feed->nbEntries (); ?>
-	<li class="item<?php echo ($this->flux && $this->flux->id () == $feed->id ()) ? ' active' : ''; ?><?php echo $feed->inError () ? ' error' : ''; ?><?php echo $nbEntries == 0 ? ' empty' : ''; ?>">
+	<li class="item<?php echo (isset($this->flux) && $this->flux->id () == $feed->id ()) ? ' active' : ''; ?><?php echo $feed->inError () ? ' error' : ''; ?><?php echo $nbEntries == 0 ? ' empty' : ''; ?>">
 		<a href="<?php echo _url ('configure', 'feed', 'id', $feed->id ()); ?>">
 			<img class="favicon" src="<?php echo $feed->favicon (); ?>" alt="✇" />
 			<?php echo $feed->name (); ?>

@@ -193,10 +193,10 @@ class FreshRSS_Feed extends Minz_Model {
 				}
 				$feed = customSimplePie();
 				$feed->set_feed_url ($url);
-				$feed->init ();
+				$mtime = $feed->init();
 
-				if ($feed->error ()) {
-					throw new FreshRSS_Feed_Exception ($feed->error . ' [' . $url . ']');
+				if ((!$mtime) || $feed->error()) {
+					throw new FreshRSS_Feed_Exception ($feed->error() . ' [' . $url . ']');
 				}
 
 				// si on a utilisé l'auto-discover, notre url va avoir changé
@@ -210,18 +210,27 @@ class FreshRSS_Feed extends Minz_Model {
 				}
 
 				if ($loadDetails) {
-					$title = htmlspecialchars(html_only_entity_decode($feed->get_title()), ENT_COMPAT, 'UTF-8');
-					$this->_name ($title === null ? $this->url : $title);
+					$title = strtr(html_only_entity_decode($feed->get_title()), array('<' => '&lt;', '>' => '&gt;', '"' => '&quot;'));	//HTML to HTML-PRE	//ENT_COMPAT except &
+					$this->_name ($title == '' ? $this->url : $title);
 
 					$this->_website(html_only_entity_decode($feed->get_link()));
 					$this->_description(html_only_entity_decode($feed->get_description()));
 				}
 
-				// et on charge les articles du flux
-				$this->loadEntries ($feed);
+				if (($mtime === true) || ($mtime > $this->lastUpdate)) {
+					syslog(LOG_DEBUG, 'FreshRSS no cache ' . $mtime . ' > ' . $this->lastUpdate . ' for ' . $subscribe_url);
+					$this->loadEntries($feed);	// et on charge les articles du flux
+				} else {
+					syslog(LOG_DEBUG, 'FreshRSS use cache for ' . $subscribe_url);
+					$this->entries = array();
+				}
+
+				$feed->__destruct();	//http://simplepie.org/wiki/faq/i_m_getting_memory_leaks
+				unset($feed);
 			}
 		}
 	}
+
 	private function loadEntries ($feed) {
 		$entries = array ();
 
@@ -245,11 +254,16 @@ class FreshRSS_Feed extends Minz_Model {
 			$elinks = array();
 			foreach ($item->get_enclosures() as $enclosure) {
 				$elink = $enclosure->get_link();
-				if (array_key_exists($elink, $elinks)) continue;
-				$elinks[$elink] = '1';
-				$mime = strtolower($enclosure->get_type());
-				if (strpos($mime, 'image/') === 0) {
-					$content .= '<br /><img src="' . $elink . '" alt="" />';
+				if (empty($elinks[$elink])) {
+					$elinks[$elink] = '1';
+					$mime = strtolower($enclosure->get_type());
+					if (strpos($mime, 'image/') === 0) {
+						$content .= '<br /><img src="' . $elink . '" alt="" />';
+					} elseif (strpos($mime, 'audio/') === 0) {
+						$content .= '<br /><audio src="' . $elink . '" controls="controls" />';
+					} elseif (strpos($mime, 'video/') === 0) {
+						$content .= '<br /><video src="' . $elink . '" controls="controls" />';
+					}
 				}
 			}
 
@@ -267,8 +281,27 @@ class FreshRSS_Feed extends Minz_Model {
 			$entry->loadCompleteContent($this->pathEntries());
 
 			$entries[] = $entry;
+			unset($item);
 		}
 
 		$this->entries = $entries;
+	}
+
+	function lock() {
+		$lock = TMP_PATH . '/' . md5(Minz_Configuration::salt() . $this->url) . '.freshrss.lock';
+		if (file_exists($lock) && ((time() - @filemtime($lock)) > 3600)) {
+			@unlink($lock);
+		}
+		if (($handle = @fopen($lock, 'x')) === false) {
+			return false;
+		}
+		//register_shutdown_function('unlink', $lock);
+		@fclose($handle);
+		return true;
+	}
+
+	function unlock() {
+		$lock = TMP_PATH . '/' . md5(Minz_Configuration::salt() . $this->url) . '.freshrss.lock';
+		@unlink($lock);
 	}
 }

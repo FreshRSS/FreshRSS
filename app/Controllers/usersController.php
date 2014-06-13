@@ -32,6 +32,18 @@ class FreshRSS_users_Controller extends Minz_ActionController {
 			}
 			Minz_Session::_param('passwordHash', $this->view->conf->passwordHash);
 
+			$passwordPlain = Minz_Request::param('apiPasswordPlain', false);
+			if ($passwordPlain != '') {
+				if (!function_exists('password_hash')) {
+					include_once(LIB_PATH . '/password_compat.php');
+				}
+				$passwordHash = password_hash($passwordPlain, PASSWORD_BCRYPT, array('cost' => self::BCRYPT_COST));
+				$passwordPlain = '';
+				$passwordHash = preg_replace('/^\$2[xy]\$/', '\$2a\$', $passwordHash);	//Compatibility with bcrypt.js
+				$ok &= ($passwordHash != '');
+				$this->view->conf->_apiPasswordHash($passwordHash);
+			}
+
 			if (Minz_Configuration::isAdmin(Minz_Session::param('currentUser', '_'))) {
 				$this->view->conf->_mail_login(Minz_Request::param('mail_login', false));
 			}
@@ -54,11 +66,22 @@ class FreshRSS_users_Controller extends Minz_ActionController {
 
 				$anon = Minz_Request::param('anon_access', false);
 				$anon = ((bool)$anon) && ($anon !== 'no');
+				$anon_refresh = Minz_Request::param('anon_refresh', false);
+				$anon_refresh = ((bool)$anon_refresh) && ($anon_refresh !== 'no');
 				$auth_type = Minz_Request::param('auth_type', 'none');
+				$unsafe_autologin = Minz_Request::param('unsafe_autologin', false);
+				$api_enabled = Minz_Request::param('api_enabled', false);
 				if ($anon != Minz_Configuration::allowAnonymous() ||
-					$auth_type != Minz_Configuration::authType()) {
+					$auth_type != Minz_Configuration::authType() ||
+					$anon_refresh != Minz_Configuration::allowAnonymousRefresh() ||
+					$unsafe_autologin != Minz_Configuration::unsafeAutologinEnabled() ||
+					$api_enabled != Minz_Configuration::apiEnabled()) {
+
 					Minz_Configuration::_authType($auth_type);
 					Minz_Configuration::_allowAnonymous($anon);
+					Minz_Configuration::_allowAnonymousRefresh($anon_refresh);
+					Minz_Configuration::_enableAutologin($unsafe_autologin);
+					Minz_Configuration::_enableApi($api_enabled);
 					$ok &= Minz_Configuration::writeFile();
 				}
 			}

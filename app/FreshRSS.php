@@ -94,10 +94,6 @@ class FreshRSS extends Minz_FrontController {
 					$loginOk = false;
 					break;
 			}
-			if ((!$loginOk) && (PHP_SAPI === 'cli') && (Minz_Request::actionName() === 'actualize')) {	//Command line
-				Minz_Configuration::_authType('none');
-				$loginOk = true;
-			}
 		}
 		Minz_View::_param ('loginOk', $loginOk);
 		return $loginOk;

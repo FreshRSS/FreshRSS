@@ -8,19 +8,10 @@ if (!empty($this->entries)) {
 	$display_yesterday = true;
 	$display_others = true;
 	if ($this->loginOk) {
-		$shaarli = $this->conf->sharing ('shaarli');
-		$wallabag = $this->conf->sharing ('wallabag');
-		$diaspora = $this->conf->sharing ('diaspora');
+		$sharing = $this->conf->sharing;
 	} else {
-		$shaarli = '';
-		$wallabag = '';
-		$diaspora = '';
+		$sharing = array();
 	}
-	$twitter = $this->conf->sharing ('twitter');
-	$google_plus = $this->conf->sharing ('g+');
-	$facebook = $this->conf->sharing ('facebook');
-	$email = $this->conf->sharing ('email');
-	$print = $this->conf->sharing ('print');
 	$hidePosts = !$this->conf->display_posts;
 	$lazyload = $this->conf->lazyload;
 	$topline_read = $this->conf->topline_read;
@@ -29,17 +20,17 @@ if (!empty($this->entries)) {
 	$topline_link = $this->conf->topline_link;
 	$bottomline_read = $this->conf->bottomline_read;
 	$bottomline_favorite = $this->conf->bottomline_favorite;
-	$bottomline_sharing = $this->conf->bottomline_sharing && (
-		$shaarli || $wallabag || $diaspora || $twitter ||
-		$google_plus || $facebook || $email || $print);
+	$bottomline_sharing = $this->conf->bottomline_sharing && (count($sharing));
 	$bottomline_tags = $this->conf->bottomline_tags;
 	$bottomline_date = $this->conf->bottomline_date;
 	$bottomline_link = $this->conf->bottomline_link;
+
+	$content_width = $this->conf->content_width;
 ?>
 
 <div id="stream" class="normal<?php echo $hidePosts ? ' hide_posts' : ''; ?>"><?php
 	?><div id="new-article">
-		<a href="<?php echo _url('index', 'index'); ?>"><?php echo Minz_Translate::t ('new_article'); ?></a>
+		<a href="<?php echo Minz_Url::display ($this->url); ?>"><?php echo Minz_Translate::t ('new_article'); ?></a>
 	</div><?php
 	foreach ($this->entries as $item) {
 		if ($display_today && $item->isDay (FreshRSS_Days::TODAY, $this->today)) {
@@ -98,8 +89,8 @@ if (!empty($this->entries)) {
 		</ul>
 
 		<div class="flux_content">
-			<div class="content">
-				<h1 class="title"><?php echo $item->title (); ?></h1>
+			<div class="content <?php echo $content_width; ?>">
+				<h1 class="title"><a target="_blank" href="<?php echo $item->link (); ?>"><?php echo $item->title (); ?></a></h1>
 				<?php
 					$author = $item->author ();
 					echo $author != '' ? '<div class="author">' . Minz_Translate::t ('by_author', $author) . '</div>' : '';
@@ -146,55 +137,13 @@ if (!empty($this->entries)) {
 
 						<ul class="dropdown-menu">
 							<li class="dropdown-close"><a href="#close">❌</a></li>
-							<?php if ($shaarli) { ?>
-							<li class="item">
-								<a target="_blank" href="<?php echo $shaarli . '?post=' . $link . '&amp;title=' . $title . '&amp;source=FreshRSS'; ?>">
-									<?php echo Minz_Translate::t ('shaarli'); ?>
-								</a>
-							</li>
-							<?php } if ($wallabag) { ?>
-							<li class="item">
-								<a target="_blank" href="<?php echo $wallabag . '?action=add&amp;url=' . base64_encode (urldecode($link)); ?>">
-									<?php echo Minz_Translate::t ('wallabag'); ?>
-								</a>
-							</li>
-							<?php } if ($diaspora) { ?>
-							<li class="item">
-								<a target="_blank" href="<?php echo $diaspora . '/bookmarklet?url=' . $link . '&amp;title=' . $title; ?>">
-									<?php echo Minz_Translate::t ('diaspora'); ?>
-								</a>
-							</li>
-							<?php } if ($twitter) { ?>
-							<li class="item">
-								<a target="_blank" href="https://twitter.com/share?url=<?php echo $link; ?>&amp;text=<?php echo $title; ?>">
-									<?php echo Minz_Translate::t ('twitter'); ?>
-								</a>
-							</li>
-							<?php } if ($google_plus) { ?>
-							<li class="item">
-								<a target="_blank" href="https://plus.google.com/share?url=<?php echo $link; ?>">
-									<?php echo Minz_Translate::t ('g+'); ?>
-								</a>
-							</li>
-							<?php } if ($facebook) { ?>
-							<li class="item">
-								<a target="_blank" href="https://www.facebook.com/sharer.php?u=<?php echo $link; ?>&amp;t=<?php echo $title; ?>">
-									<?php echo Minz_Translate::t ('facebook'); ?>
-								</a>
-							</li>
-							<?php } if ($email) { ?>
-							<li class="item">
-								<a href="mailto:?subject=<?php echo urldecode($title); ?>&amp;body=<?php echo $link; ?>">
-									<?php echo Minz_Translate::t ('by_email'); ?>
-								</a>
-							</li>
-							<?php } if ($print) { ?>
-							<li class="item">
-								<a href="#" class="print-article">
-									<?php echo Minz_Translate::t ('print'); ?>
-								</a>
-							</li>
-							<?php } ?>
+							<?php foreach ($sharing as $share) :?>
+								<li class="item share">
+									<a target="_blank" href="<?php echo FreshRSS_Share::generateUrl($this->conf->shares, $share, $item->link(), $item->title() . ' . ' . $feed->name())?>">
+										<?php echo Minz_Translate::t ($share['name']);?>
+									</a>
+								</li>
+							<?php endforeach;?>
 						</ul>
 					</div>
 					<?php } ?>

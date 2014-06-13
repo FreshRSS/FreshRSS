@@ -44,8 +44,8 @@ UPDATE `%1$sfeed006` f
 INNER JOIN `%1$scategory006` c ON f.category = c.id
 SET f.category2 = c.id2;
 
-INSERT IGNORE INTO `%2$scategory` (name, color)
-SELECT name, color
+INSERT IGNORE INTO `%2$scategory` (name)
+SELECT name
 FROM `%1$scategory006`
 ORDER BY id2;
 
@@ -228,13 +228,15 @@ function saveStep3 () {
 		$ini_array = array(
 			'general' => array(
 				'environment' => empty($_SESSION['environment']) ? 'production' : $_SESSION['environment'],
-				'use_url_rewriting' => false,
 				'salt' => $_SESSION['salt'],
 				'base_url' => '',
 				'title' => $_SESSION['title'],
 				'default_user' => $_SESSION['default_user'],
 				'auth_type' => $_SESSION['auth_type'],
 				'allow_anonymous' => isset($_SESSION['allow_anonymous']) ? $_SESSION['allow_anonymous'] : false,
+				'allow_anonymous_refresh' => false,
+				'unsafe_autologin_enabled' => false,
+				'api_enabled' => false,
 			),
 			'db' => array(
 				'type' => $_SESSION['bd_type'],
@@ -548,8 +550,9 @@ function checkStep0 () {
 		'all' => $language ? 'ok' : 'ko'
 	);
 }
+
 function checkStep1 () {
-	$php = version_compare (PHP_VERSION, '5.2.0') >= 0;
+	$php = version_compare (PHP_VERSION, '5.2.1') >= 0;
 	$minz = file_exists (LIB_PATH . '/Minz');
 	$curl = extension_loaded ('curl');
 	$pdo = extension_loaded ('pdo_mysql');
@@ -721,7 +724,7 @@ function printStep1 () {
 	<?php if ($res['php'] == 'ok') { ?>
 	<p class="alert alert-success"><span class="alert-head"><?php echo _t ('ok'); ?></span> <?php echo _t ('php_is_ok', PHP_VERSION); ?></p>
 	<?php } else { ?>
-	<p class="alert alert-error"><span class="alert-head"><?php echo _t ('damn'); ?></span> <?php echo _t ('php_is_nok', PHP_VERSION, '5.1.0'); ?></p>
+	<p class="alert alert-error"><span class="alert-head"><?php echo _t ('damn'); ?></span> <?php echo _t ('php_is_nok', PHP_VERSION, '5.2.1'); ?></p>
 	<?php } ?>
 
 	<?php if ($res['minz'] == 'ok') { ?>
@@ -836,7 +839,7 @@ function printStep2 () {
 					<?php if (!in_array($_SESSION['auth_type'], array('form', 'persona', 'http_auth', 'none'))) { ?>
 						<option selected="selected"></option>
 					<?php } ?>
-					<option value="form"<?php echo $_SESSION['auth_type'] === 'form' ? ' selected="selected"' : '', version_compare(PHP_VERSION, '5.3', '<') ? ' disabled="disabled"' : ''; ?>><?php echo _t('auth_form'); ?></option>
+					<option value="form"<?php echo $_SESSION['auth_type'] === 'form' ? ' selected="selected"' : '', cryptAvailable() ? '' : ' disabled="disabled"'; ?>><?php echo _t('auth_form'); ?></option>
 					<option value="persona"<?php echo $_SESSION['auth_type'] === 'persona' ? ' selected="selected"' : ''; ?>><?php echo _t('auth_persona'); ?></option>
 					<option value="http_auth"<?php echo $_SESSION['auth_type'] === 'http_auth' ? ' selected="selected"' : '', httpAuthUser() == '' ? ' disabled="disabled"' : ''; ?>><?php echo _t('http_auth'); ?> (REMOTE_USER = '<?php echo httpAuthUser(); ?>')</option>
 					<option value="none"<?php echo $_SESSION['auth_type'] === 'none' ? ' selected="selected"' : ''; ?>><?php echo _t('auth_none'); ?></option>
@@ -910,7 +913,7 @@ function printStep3 () {
 		<div class="form-group">
 			<label class="group-name" for="user"><?php echo _t ('username'); ?></label>
 			<div class="group-controls">
-				<input type="text" id="user" name="user" maxlength="16" pattern="[0-9A-Za-z_]{1,16}" value="<?php echo isset ($_SESSION['bd_user']) ? $_SESSION['bd_user'] : ''; ?>" />
+				<input type="text" id="user" name="user" maxlength="16" pattern="[0-9A-Za-z_.-]{1,16}" value="<?php echo isset ($_SESSION['bd_user']) ? $_SESSION['bd_user'] : ''; ?>" />
 			</div>
 		</div>
 
@@ -954,7 +957,7 @@ function printStep4 () {
 		<legend><?php echo _t ('version_update'); ?></legend>
 
 		<?php if (updateDatabase(false)) { ?>
-		<p class="alert"><?php echo _t ('update_long'); ?></p>
+		<p class="alert alert-warn"><?php echo _t ('update_long'); ?></p>
 
 		<div class="form-group form-actions">
 			<div class="group-controls">
@@ -964,7 +967,7 @@ function printStep4 () {
 		</div>
 
 		<?php } else { ?>
-		<p class="alert"><?php echo _t ('update_end'); ?></p>
+		<p class="alert alert-warn"><?php echo _t ('update_end'); ?></p>
 
 		<div class="form-group form-actions">
 			<div class="group-controls">
@@ -1025,8 +1028,8 @@ case 6:
 		<meta charset="utf-8">
 		<meta name="viewport" content="initial-scale=1.0">
 		<title><?php echo _t ('freshrss_installation'); ?></title>
-		<link rel="stylesheet" type="text/css" media="all" href="../themes/Origine/global.css" />
-		<link rel="stylesheet" type="text/css" media="all" href="../themes/Origine/freshrss.css" />
+		<link rel="stylesheet" type="text/css" media="all" href="../themes/Origine/template.css" />
+		<link rel="stylesheet" type="text/css" media="all" href="../themes/Origine/origine.css" />
 	</head>
 	<body>
 

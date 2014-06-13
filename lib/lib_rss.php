@@ -27,7 +27,7 @@ function classAutoloader($class) {
 				include(APP_PATH . '/Models/' . $components[1] . '.php');
 				return;
 			case 3:	//Controllers, Exceptions
-				include(APP_PATH . '/' . $components[2] . 's/' . $components[1] . $components[2] . '.php');
+				@include(APP_PATH . '/' . $components[2] . 's/' . $components[1] . $components[2] . '.php');
 				return;
 		}
 	} elseif (strpos($class, 'Minz') === 0) {
@@ -214,12 +214,12 @@ function uSecString() {
 }
 
 function invalidateHttpCache() {
-	touch(LOG_PATH . '/' . Minz_Session::param('currentUser', '_') . '.log');
 	Minz_Session::_param('touch', uTimeString());
+	return touch(LOG_PATH . '/' . Minz_Session::param('currentUser', '_') . '.log');
 }
 
 function usernameFromPath($userPath) {
-	if (preg_match('%/([a-z0-9]{1,16})_user\.php$%', $userPath, $matches)) {
+	if (preg_match('%/([A-Za-z0-9]{1,16})_user\.php$%', $userPath, $matches)) {
 		return $matches[1];
 	} else {
 		return '';
@@ -232,4 +232,19 @@ function listUsers() {
 
 function httpAuthUser() {
 	return isset($_SERVER['REMOTE_USER']) ? $_SERVER['REMOTE_USER'] : '';
+}
+
+function cryptAvailable() {
+	if (version_compare(PHP_VERSION, '5.3.3', '>=')) {
+		try {
+			$hash = '$2y$04$usesomesillystringfore7hnbRJHxXVLeakoG8K30oukPsA.ztMG';
+			return $hash === @crypt('password', $hash);
+		} catch (Exception $e) {
+		}
+	}
+	return false;
+}
+
+function html_chars_utf8($str) {
+	return htmlspecialchars($str, ENT_COMPAT, 'UTF-8');
 }

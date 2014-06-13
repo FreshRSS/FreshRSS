@@ -1,0 +1,47 @@
+<?php
+    $username = Minz_Session::param('currentUser', '_');
+
+    $articles = array(
+        'id' => 'user/' . str_replace('/', '', $username) . '/state/org.freshrss/' . $this->type,
+        'title' => $this->list_title,
+        'author' => $username,
+        'items' => array()
+    );
+
+    foreach ($this->entries as $entry) {
+        if (!isset($this->feed)) {
+            $feed = FreshRSS_CategoryDAO::findFeed($this->categories, $entry->feed ());
+        } else {
+            $feed = $this->feed;
+        }
+
+        $articles['items'][] = array(
+            'id' => $entry->guid(),
+            'categories' => array_values($entry->tags()),
+            'title' => $entry->title(),
+            'author' => $entry->author(),
+            'published' => $entry->date(true),
+            'updated' => $entry->date(true),
+            'alternate' => array(array(
+                'href' => $entry->link(),
+                'type' => 'text/html'
+            )),
+            'content' => array(
+                'content' => $entry->content()
+            ),
+            'origin' => array(
+                'streamId' => $feed->id(),
+                'title' => $feed->name(),
+                'htmlUrl' => $feed->website(),
+                'feedUrl' => $feed->url()
+            )
+        );
+    }
+
+    $options = 0;
+    if (version_compare(PHP_VERSION, '5.4.0') >= 0) {
+        $options = JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE;
+    }
+
+    echo json_encode($articles, $options);
+?>

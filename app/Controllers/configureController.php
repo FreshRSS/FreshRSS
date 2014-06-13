@@ -29,7 +29,6 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 					$cat = new FreshRSS_Category ($name);
 					$values = array (
 						'name' => $cat->name (),
-						'color' => $cat->color ()
 					);
 					$catDAO->updateCategory ($ids[$key], $values);
 				} elseif ($ids[$key] != $defaultId) {
@@ -43,10 +42,9 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 				$values = array (
 					'id' => $cat->id (),
 					'name' => $cat->name (),
-					'color' => $cat->color ()
 				);
 
-				if ($catDAO->searchByName ($newCat) == false) {
+				if ($catDAO->searchByName ($newCat) == null) {
 					$catDAO->addCategory ($values);
 				}
 			}
@@ -64,7 +62,6 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 		$this->view->categories = $catDAO->listCategories (false);
 		$this->view->defaultCategory = $catDAO->getDefault ();
 		$this->view->feeds = $feedDAO->listFeeds ();
-		$this->view->flux = false;
 
 		Minz_View::prependTitle (Minz_Translate::t ('categories_management') . ' · ');
 	}
@@ -116,7 +113,7 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 
 					if ($feedDAO->updateFeed ($id, $values)) {
 						$this->view->flux->_category ($cat);
-
+						$this->view->flux->faviconPrepare();
 						$notif = array (
 							'type' => 'good',
 							'content' => Minz_Translate::t ('feed_updated')
@@ -143,25 +140,12 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 	public function displayAction () {
 		if (Minz_Request::isPost()) {
 			$this->view->conf->_language(Minz_Request::param('language', 'en'));
-			$this->view->conf->_posts_per_page(Minz_Request::param('posts_per_page', 10));
-			$this->view->conf->_view_mode(Minz_Request::param('view_mode', 'normal'));
-			$this->view->conf->_default_view (Minz_Request::param('default_view', 'a'));
-			$this->view->conf->_auto_load_more(Minz_Request::param('auto_load_more', false));
-			$this->view->conf->_display_posts(Minz_Request::param('display_posts', false));
-			$this->view->conf->_onread_jump_next(Minz_Request::param('onread_jump_next', false));
-			$this->view->conf->_lazyload (Minz_Request::param('lazyload', false));
-			$this->view->conf->_sort_order(Minz_Request::param('sort_order', 'DESC'));
-			$this->view->conf->_mark_when (array(
-				'article' => Minz_Request::param('mark_open_article', false),
-				'site' => Minz_Request::param('mark_open_site', false),
-				'scroll' => Minz_Request::param('mark_scroll', false),
-				'reception' => Minz_Request::param('mark_upon_reception', false),
-			));
 			$themeId = Minz_Request::param('theme', '');
 			if ($themeId == '') {
 				$themeId = FreshRSS_Themes::defaultTheme;
 			}
 			$this->view->conf->_theme($themeId);
+			$this->view->conf->_content_width(Minz_Request::param('content_width', 'thin'));
 			$this->view->conf->_topline_read(Minz_Request::param('topline_read', false));
 			$this->view->conf->_topline_favorite(Minz_Request::param('topline_favorite', false));
 			$this->view->conf->_topline_date(Minz_Request::param('topline_date', false));
@@ -189,21 +173,48 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 
 		$this->view->themes = FreshRSS_Themes::get();
 
+		Minz_View::prependTitle (Minz_Translate::t ('display_configuration') . ' · ');
+	}
+
+	public function readingAction () {
+		if (Minz_Request::isPost()) {
+			$this->view->conf->_posts_per_page(Minz_Request::param('posts_per_page', 10));
+			$this->view->conf->_view_mode(Minz_Request::param('view_mode', 'normal'));
+			$this->view->conf->_default_view (Minz_Request::param('default_view', 'a'));
+			$this->view->conf->_auto_load_more(Minz_Request::param('auto_load_more', false));
+			$this->view->conf->_display_posts(Minz_Request::param('display_posts', false));
+			$this->view->conf->_onread_jump_next(Minz_Request::param('onread_jump_next', false));
+			$this->view->conf->_lazyload (Minz_Request::param('lazyload', false));
+			$this->view->conf->_sticky_post (Minz_Request::param('sticky_post', false));
+			$this->view->conf->_sort_order(Minz_Request::param('sort_order', 'DESC'));
+			$this->view->conf->_mark_when (array(
+				'article' => Minz_Request::param('mark_open_article', false),
+				'site' => Minz_Request::param('mark_open_site', false),
+				'scroll' => Minz_Request::param('mark_scroll', false),
+				'reception' => Minz_Request::param('mark_upon_reception', false),
+			));
+			$this->view->conf->save();
+
+			Minz_Session::_param ('language', $this->view->conf->language);
+			Minz_Translate::reset ();
+			invalidateHttpCache();
+
+			$notif = array (
+				'type' => 'good',
+				'content' => Minz_Translate::t ('configuration_updated')
+			);
+			Minz_Session::_param ('notification', $notif);
+
+			Minz_Request::forward (array ('c' => 'configure', 'a' => 'reading'), true);
+		}
+
 		Minz_View::prependTitle (Minz_Translate::t ('reading_configuration') . ' · ');
 	}
 
 	public function sharingAction () {
 		if (Minz_Request::isPost ()) {
-			$this->view->conf->_sharing (array(
-				'shaarli' => Minz_Request::param ('shaarli', false),
-				'wallabag' => Minz_Request::param ('wallabag', false),
-				'diaspora' => Minz_Request::param ('diaspora', false),
-				'twitter' => Minz_Request::param ('twitter', false),
-				'g+' => Minz_Request::param ('g+', false),
-				'facebook' => Minz_Request::param ('facebook', false),
-				'email' => Minz_Request::param ('email', false),
-				'print' => Minz_Request::param ('print', false),
-			));
+			$params = Minz_Request::params();
+			$this->view->conf->_sharing ($params['share']);
 			$this->view->conf->save();
 			invalidateHttpCache();
 
@@ -219,74 +230,9 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 		Minz_View::prependTitle (Minz_Translate::t ('sharing') . ' · ');
 	}
 
-	public function importExportAction () {
-		require_once(LIB_PATH . '/lib_opml.php');
-		$catDAO = new FreshRSS_CategoryDAO ();
-		$this->view->categories = $catDAO->listCategories ();
-
-		$this->view->req = Minz_Request::param ('q');
-
-		if ($this->view->req == 'export') {
-			Minz_View::_title ('freshrss_feeds.opml');
-
-			$this->view->_useLayout (false);
-			header('Content-Type: application/xml; charset=utf-8');
-			header('Content-disposition: attachment; filename=freshrss_feeds.opml');
-
-			$feedDAO = new FreshRSS_FeedDAO ();
-			$catDAO = new FreshRSS_CategoryDAO ();
-
-			$list = array ();
-			foreach ($catDAO->listCategories () as $key => $cat) {
-				$list[$key]['name'] = $cat->name ();
-				$list[$key]['feeds'] = $feedDAO->listByCategory ($cat->id ());
-			}
-
-			$this->view->categories = $list;
-		} elseif ($this->view->req == 'import' && Minz_Request::isPost ()) {
-			if ($_FILES['file']['error'] == 0) {
-				invalidateHttpCache();
-				// on parse le fichier OPML pour récupérer les catégories et les flux associés
-				try {
-					list ($categories, $feeds) = opml_import (
-						file_get_contents ($_FILES['file']['tmp_name'])
-					);
-
-					// On redirige vers le controller feed qui va se charger d'insérer les flux en BDD
-					// les flux sont mis au préalable dans des variables de Request
-					Minz_Request::_param ('q', 'null');
-					Minz_Request::_param ('categories', $categories);
-					Minz_Request::_param ('feeds', $feeds);
-					Minz_Request::forward (array ('c' => 'feed', 'a' => 'massiveImport'));
-				} catch (FreshRSS_Opml_Exception $e) {
-					Minz_Log::record ($e->getMessage (), Minz_Log::WARNING);
-
-					$notif = array (
-						'type' => 'bad',
-						'content' => Minz_Translate::t ('bad_opml_file')
-					);
-					Minz_Session::_param ('notification', $notif);
-
-					Minz_Request::forward (array (
-						'c' => 'configure',
-						'a' => 'importExport'
-					), true);
-				}
-			}
-		}
-
-		$feedDAO = new FreshRSS_FeedDAO ();
-		$this->view->feeds = $feedDAO->listFeeds ();
-
-		// au niveau de la vue, permet de ne pas voir un flux sélectionné dans la liste
-		$this->view->flux = false;
-
-		Minz_View::prependTitle (Minz_Translate::t ('import_export_opml') . ' · ');
-	}
-
 	public function shortcutAction () {
 		$list_keys = array ('a', 'b', 'backspace', 'c', 'd', 'delete', 'down', 'e', 'end', 'enter',
-		                    'escape', 'f', 'g', 'h', 'i', 'insert', 'j', 'k', 'l', 'left',
+		                    'escape', 'f', 'g', 'h', 'home', 'i', 'insert', 'j', 'k', 'l', 'left',
 		                    'm', 'n', 'o', 'p', 'page_down', 'page_up', 'q', 'r', 'return', 'right',
 		                    's', 'space', 't', 'tab', 'u', 'up', 'v', 'w', 'x', 'y',
 		                    'z', '0', '1', '2', '3', '4', '5', '6', '7', '8',

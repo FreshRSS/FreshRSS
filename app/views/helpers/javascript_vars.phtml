@@ -5,12 +5,14 @@ echo '"use strict";', "\n";
 $mark = $this->conf->mark_when;
 echo 'var ',
 	'hide_posts=', ($this->conf->display_posts || Minz_Request::param('output') === 'reader') ? 'false' : 'true',
+	',display_order="', Minz_Request::param('order', $this->conf->sort_order), '"',
 	',auto_mark_article=', $mark['article'] ? 'true' : 'false',
 	',auto_mark_site=', $mark['site'] ? 'true' : 'false',
 	',auto_mark_scroll=', $mark['scroll'] ? 'true' : 'false',
 	',auto_load_more=', $this->conf->auto_load_more ? 'true' : 'false',
 	',full_lazyload=', $this->conf->lazyload && ($this->conf->display_posts || Minz_Request::param('output') === 'reader') ? 'true' : 'false',
-	',does_lazyload=', $this->conf->lazyload ? 'true' : 'false';
+	',does_lazyload=', $this->conf->lazyload ? 'true' : 'false',
+	',sticky_post=', $this->conf->sticky_post ? 'true' : 'false';
 
 $s = $this->conf->shortcuts;
 echo ',shortcuts={',
@@ -19,9 +21,12 @@ echo ',shortcuts={',
 	'go_website:"', $s['go_website'], '",',
 	'prev_entry:"', $s['prev_entry'], '",',
 	'next_entry:"', $s['next_entry'], '",',
+	'first_entry:"', $s['first_entry'], '",',
+	'last_entry:"', $s['last_entry'], '",',
 	'collapse_entry:"', $s['collapse_entry'], '",',
 	'load_more:"', $s['load_more'], '",',
-	'auto_share:"', $s['auto_share'], '"',
+	'auto_share:"', $s['auto_share'], '",',
+	'focus_search:"', $s['focus_search'], '"',
 "},\n";
 
 if (Minz_Request::param ('output') === 'global') {
@@ -30,7 +35,13 @@ if (Minz_Request::param ('output') === 'global') {
 
 $authType = Minz_Configuration::authType();
 if ($authType === 'persona') {
-	echo 'current_user_mail="' . Minz_Session::param ('mail', '') . '",';
+	// If user is disconnected, current_user_mail MUST be null
+	$mail = Minz_Session::param ('mail', false);
+	if ($mail) {
+		echo 'current_user_mail="' . $mail . '",';
+	} else {
+		echo 'current_user_mail=null,';
+	}
 }
 
 echo 'authType="', $authType, '",',

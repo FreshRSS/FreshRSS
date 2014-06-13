@@ -286,7 +286,7 @@ body {
 		.flux .item.title {
 			background: inherit;
 		}
-			.flux .item.title a {
+			.flux .title a {
 				color: #333;
 				outline: none;
 			}
@@ -350,13 +350,15 @@ body {
 			font-size: 120%;
 		}
 			#stream.global .btn:not([data-unread="0"]) {
-				font-weight:bold;
+				background: #3498db;
+				color: #fff;
+				font-weight: bold;
 			}
 			#stream.global .btn:first-child:not([data-unread="0"]):after {
 				top: 0; right: 5px;
 				border: 0;
 				background: none;
-				color: #333;
+				color: #fff;
 				font-weight: bold;
 				box-shadow: none;
 			}
@@ -377,12 +379,20 @@ body {
 
 .content {
 	min-height: 150px;
-	max-width: 550px;
 	margin: 0 auto;
 	padding: 20px 10px;
 	line-height: 170%;
 	word-wrap: break-word;
 }
+	.content.large {
+		max-width: 1000px;
+	}
+	.content.medium {
+		max-width: 800px;
+	}
+	.content.thin {
+		max-width: 550px;
+	}
 	.content h1, .content h2, .content h3 {
 		margin: 20px 0 5px;
 	}
@@ -575,6 +585,9 @@ body {
 	font-weight: bold;
 	z-index: 10;
 }
+	.notification.closed {
+		display: none;
+	}
 	.notification.good {
 		background: #1abc9c;
 		color: #fff;
@@ -584,11 +597,11 @@ body {
 		color: #fff;
 	}
 	.notification a.close {
+		position: absolute;
+		top: -6px; right: -6px;
 		display: inline-block;
 		width: 16px;
 		height: 16px;
-		float: right;
-		margin: -16px -16px 0 0;
 		padding: 5px;
 		border-radius: 3px;
 		line-height: 16px;
@@ -604,28 +617,16 @@ body {
 	display: none;
 }
 
-.actualizeProgress {
+#actualizeProgress {
 	position: fixed;
-	top: 10px;
-	left: 25%; right: 25%;
-	padding: 5px;
-	background: #3498db;
-	color: #fff;
-	text-align: center;
-	border-radius: 3px;
-	font-weight: bold;
 }
-	.actualizeProgress progress {
-		max-width: 100%;
-		width: 250px;
-		height: 15px;
-		vertical-align: middle;
-		background: #fff;
-		border: none;
-	}
-	.actualizeProgress .progress {
-		color: #ecf0f1;
-	}
+#actualizeProgress progress {
+	max-width: 100%;
+	vertical-align: middle;
+}
+#actualizeProgress .progress {
+	vertical-align: middle;
+}
 
 .logs {
 	border: 1px solid #34495e;
@@ -785,10 +786,24 @@ select.number option {
 		text-shadow: none;
 	}
 
-	.notification,
-	.actualizeProgress {
-		left: 10px;
-		right: 10px;
+	.notification {
+		top: 0;
+		left: 0;
+		right: 0;
+		border-radius: 0;
+	}
+	.notification a.close,
+	.notification.good a.close,
+	.notification.bad a.close {
+		left: 0; right: 0;
+		top: 0; bottom: 0;
+		width: auto;
+		height: auto;
+		background: transparent;
+		border: none;
+	}
+	.notification a.close .icon {
+		display: none;
 	}
 }
 
