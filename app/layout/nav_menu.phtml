@@ -89,7 +89,7 @@
 		<div class="dropdown">
 			<div id="dropdown-query" class="dropdown-target"></div>
 
-			<a class="dropdown-toggle btn" href="#dropdown-query"><?php echo FreshRSS_Themes::icon('bookmark-add'); ?></a>
+			<a class="dropdown-toggle btn" href="#dropdown-query"><?php echo FreshRSS_Themes::icon('down'); ?></a>
 			<ul class="dropdown-menu">
 				<li class="dropdown-close"><a href="#close">❌</a></li>
 
@@ -110,7 +110,7 @@
 					$url_query['c'] = 'configure';
 					$url_query['a'] = 'addQuery';
 				?>
-				<li class="item no-mobile"><a href="<?php echo Minz_Url::display($url_query); ?>"><?php echo Minz_Translate::t('add_query'); ?></a></li>
+				<li class="item no-mobile"><a href="<?php echo Minz_Url::display($url_query); ?>"><?php echo FreshRSS_Themes::icon('bookmark-add'); ?> <?php echo Minz_Translate::t('add_query'); ?></a></li>
 			</ul>
 		</div>
 	</div>
