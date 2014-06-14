@@ -82,9 +82,6 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 		$this->view->state = $state = Minz_Request::param ('state', $this->view->conf->default_view);
 		$state_param = Minz_Request::param ('state', null);
 		$filter = Minz_Request::param ('search', '');
-		if (!empty($filter)) {
-			$state = FreshRSS_Entry::STATE_ALL;	//Search always in read and unread articles
-		}
 		$this->view->order = $order = Minz_Request::param ('order', $this->view->conf->sort_order);
 		$nb = Minz_Request::param ('nb', $this->view->conf->posts_per_page);
 		$first = Minz_Request::param ('next', '');

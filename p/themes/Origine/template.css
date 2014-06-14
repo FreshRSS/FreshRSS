@@ -180,7 +180,8 @@ a.btn {
 .dropdown-menu > .item {
 	display: block;
 }
-.dropdown-menu > .item > a {
+.dropdown-menu > .item > a,
+.dropdown-menu > .item > span {
 	display: block;
 }
 .dropdown-menu > .item[aria-checked="true"] > a:before {
@@ -220,9 +221,15 @@ a.btn {
 	display: block;
 	width: 90%;
 }
+.group-controls .alert {
+	width: 100%
+}
 .alert-head {
 	margin: 0;
 	font-weight: bold;
+}
+.alert ul {
+	margin: 5px 20px;
 }
 
 /*=== Icons */
@@ -587,7 +594,9 @@ a.btn {
 	.aside .btn-important,
 	.aside .feeds .dropdown,
 	.flux_header .item.website span,
-	.item.date, .day .date {
+	.item.date, .day .date,
+	.dropdown-menu > .no-mobile,
+	.no-mobile {
 		display: none;
 	}
 	.nav-login {

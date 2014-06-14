@@ -975,11 +975,6 @@ function init_print_action() {
 function init_share_observers() {
 	shares = $('.form-group:not(".form-actions")').length;
 
-	$('.post').on('click', '.share.remove', function(e) {
-		e.preventDefault();
-		$(this).parents('.form-group').remove();
-	});
-
 	$('.share.add').on('click', function(e) {
 		var opt = $(this).siblings('select').find(':selected');
 		var row = $(this).parents('form').data(opt.data('form'));
@@ -989,6 +984,19 @@ function init_share_observers() {
 		row = row.replace('##key##', shares, 'g');
 		$(this).parents('.form-group').before(row);
 		shares++;
+
+		return false;
+	});
+}
+
+function init_remove_observers() {
+	$('.post').on('click', 'a.remove', function(e) {
+		var remove_what = $(this).attr('data-remove');
+
+		if (remove_what !== undefined) {
+			var remove_obj = $('#' + remove_what);
+			remove_obj.remove();
+		}
 
 		return false;
 	});
@@ -1054,6 +1062,7 @@ function init_all() {
 		window.setInterval(refreshUnreads, 120000);
 	} else {
 		init_share_observers();
+		init_remove_observers();
 		init_feed_observers();
 		init_password_observers();
 	}
