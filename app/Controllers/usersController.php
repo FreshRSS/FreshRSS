@@ -17,7 +17,7 @@ class FreshRSS_users_Controller extends Minz_ActionController {
 		if (Minz_Request::isPost()) {
 			$ok = true;
 
-			$passwordPlain = Minz_Request::param('passwordPlain', false);
+			$passwordPlain = Minz_Request::param('passwordPlain', '', true);
 			if ($passwordPlain != '') {
 				Minz_Request::_param('passwordPlain');	//Discard plain-text password ASAP
 				$_POST['passwordPlain'] = '';
@@ -32,7 +32,7 @@ class FreshRSS_users_Controller extends Minz_ActionController {
 			}
 			Minz_Session::_param('passwordHash', $this->view->conf->passwordHash);
 
-			$passwordPlain = Minz_Request::param('apiPasswordPlain', false);
+			$passwordPlain = Minz_Request::param('apiPasswordPlain', '', true);
 			if ($passwordPlain != '') {
 				if (!function_exists('password_hash')) {
 					include_once(LIB_PATH . '/password_compat.php');
@@ -45,7 +45,7 @@ class FreshRSS_users_Controller extends Minz_ActionController {
 			}
 
 			if (Minz_Configuration::isAdmin(Minz_Session::param('currentUser', '_'))) {
-				$this->view->conf->_mail_login(Minz_Request::param('mail_login', false));
+				$this->view->conf->_mail_login(Minz_Request::param('mail_login', '', true));
 			}
 			$email = $this->view->conf->mail_login;
 			Minz_Session::_param('mail', $email);
@@ -119,7 +119,7 @@ class FreshRSS_users_Controller extends Minz_ActionController {
 			}
 			if ($ok) {
 			
-				$passwordPlain = Minz_Request::param('new_user_passwordPlain', false);
+				$passwordPlain = Minz_Request::param('new_user_passwordPlain', '', true);
 				$passwordHash = '';
 				if ($passwordPlain != '') {
 					Minz_Request::_param('new_user_passwordPlain');	//Discard plain-text password ASAP
