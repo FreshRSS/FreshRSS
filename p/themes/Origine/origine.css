@@ -362,6 +362,10 @@ a.btn {
 	padding: 0 25px;
 	line-height: 2.5em;
 }
+.dropdown-menu > .item > span {
+	padding: 0 25px;
+	line-height: 2em;
+}
 .dropdown-menu > .item:hover {
 	background: #0062BE;
 	color: #fff;
@@ -400,7 +404,7 @@ a.btn {
 	font-size: 0.9em;
 }
 .alert-head {
-	font-size: 1.2em;
+	font-size: 1.15em;
 }
 .alert > a {
 	color: inherit;

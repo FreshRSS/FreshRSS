@@ -223,7 +223,13 @@ class FreshRSS_Configuration {
 	public function _queries ($values) {
 		$this->data['queries'] = array();
 		foreach ($values as $value) {
-			$this->data['queries'][] = array_filter($value);
+			$value = array_filter($value);
+			$params = $value;
+			unset($params['name']);
+			unset($params['url']);
+			$value['url'] = Minz_Url::display(array('params' => $params));
+
+			$this->data['queries'][] = $value;
 		}
 	}
 	public function _theme($value) {

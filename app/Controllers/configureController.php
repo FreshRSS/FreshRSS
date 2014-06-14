@@ -302,8 +302,14 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 	
 	public function queriesAction () {
 		if (Minz_Request::isPost ()) {
-			$params = Minz_Request::params();
-			$this->view->conf->_queries (isset($params['queries']) ? $params['queries'] : array());
+			$queries = Minz_Request::param('queries', array());
+
+			foreach ($queries as $key => $query) {
+				if (!$query['name']) {
+					$query['name'] = Minz_Translate::t('query_number', $key + 1);
+				}
+			}
+			$this->view->conf->_queries($queries);
 			$this->view->conf->save();
 
 			$notif = array (
@@ -316,25 +322,39 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 		} else {
 			$this->view->query_get = array();
 			foreach ($this->view->conf->queries as $key => $query) {
-				if (isset($query['get'])) {
-					switch ($query['get'][0]) {
-						case 'c':
-							$dao = new FreshRSS_CategoryDAO();
-							$category = $dao->searchById(substr($query['get'], 2));
-							$this->view->query_get[$key] = array(
-								'type' => 'category',
-								'name' => $category->name(),
-							);
-							break;
-						case 'f':
-							$dao = new FreshRSS_FeedDAO();
-							$feed = $dao->searchById(substr($query['get'], 2));
-							$this->view->query_get[$key] = array(
-								'type' => 'feed',
-								'name' => $feed->name(),
-							);
-							break;
-					}
+				if (!isset($query['get'])) {
+					continue;
+				}
+
+				switch ($query['get'][0]) {
+				case 'c':
+					$dao = new FreshRSS_CategoryDAO();
+					$category = $dao->searchById(substr($query['get'], 2));
+					$this->view->query_get[$key] = array(
+						'type' => 'category',
+						'name' => $category->name(),
+					);
+					break;
+				case 'f':
+					$dao = new FreshRSS_FeedDAO();
+					$feed = $dao->searchById(substr($query['get'], 2));
+					$this->view->query_get[$key] = array(
+						'type' => 'feed',
+						'name' => $feed->name(),
+					);
+					break;
+				case 's':
+					$this->view->query_get[$key] = array(
+						'type' => 'favorite',
+						'name' => 'favorite',
+					);
+					break;
+				case 'a':
+					$this->view->query_get[$key] = array(
+						'type' => 'all',
+						'name' => 'all',
+					);
+					break;
 				}
 			}
 		}
@@ -345,12 +365,14 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 	public function addQueryAction () {
 		$queries = $this->view->conf->queries;
 		$query = Minz_Request::params();
+		$query['name'] = Minz_Translate::t('query_number', count($queries) + 1);
 		unset($query['output']);
 		unset($query['token']);
 		$queries[] = $query;
 		$this->view->conf->_queries($queries);
 		$this->view->conf->save();
-		
+
+		// Minz_Request::forward(array('params' => $query), true);
 		Minz_Request::forward(array('c' => 'configure', 'a' => 'queries'), true);
 	}
 }
