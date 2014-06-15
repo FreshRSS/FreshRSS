@@ -1,0 +1,127 @@
+<?php $this->partial('aside_stats'); ?>
+
+<div class="post content">
+        <a href="<?php echo _url ('index', 'index'); ?>"><?php echo Minz_Translate::t ('back_to_rss_feeds'); ?></a>
+        
+        <h1><?php echo Minz_Translate::t ('stats_main'); ?></h1>
+
+        <div class="stat">
+		<h2><?php echo Minz_Translate::t ('stats_entry_repartition'); ?></h2>
+		<table>
+			<thead>
+				<tr>
+					<th> </th>
+					<th><?php echo Minz_Translate::t ('main_stream'); ?></th>
+					<th><?php echo Minz_Translate::t ('all_feeds'); ?></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<th><?php echo Minz_Translate::t ('status_total'); ?></th>
+					<td class="numeric"><?php echo formatNumber($this->repartition['main_stream']['total']); ?></td>
+					<td class="numeric"><?php echo formatNumber($this->repartition['all_feeds']['total']); ?></td>
+				</tr>
+				<tr>
+					<th><?php echo Minz_Translate::t ('status_read'); ?></th>
+					<td class="numeric"><?php echo formatNumber($this->repartition['main_stream']['read']); ?></td>
+					<td class="numeric"><?php echo formatNumber($this->repartition['all_feeds']['read']); ?></td>
+				</tr>
+				<tr>
+					<th><?php echo Minz_Translate::t ('status_unread'); ?></th>
+					<td class="numeric"><?php echo formatNumber($this->repartition['main_stream']['unread']); ?></td>
+					<td class="numeric"><?php echo formatNumber($this->repartition['all_feeds']['unread']); ?></td>
+				</tr>
+				<tr>
+					<th><?php echo Minz_Translate::t ('status_favorites'); ?></th>
+					<td class="numeric"><?php echo formatNumber($this->repartition['main_stream']['favorite']); ?></td>
+					<td class="numeric"><?php echo formatNumber($this->repartition['all_feeds']['favorite']); ?></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	
+	<div class="stat">
+		<h2><?php echo Minz_Translate::t ('stats_entry_per_day'); ?></h2>
+		<div id="statsEntryPerDay" style="height: 300px"></div>
+	</div>
+	
+	<div class="stat">
+		<h2><?php echo Minz_Translate::t ('stats_feed_per_category'); ?></h2>
+		<div id="statsFeedPerCategory" style="height: 300px"></div>
+		<div id="statsFeedPerCategoryLegend"></div>
+	</div>
+	
+	<div class="stat">
+		<h2><?php echo Minz_Translate::t ('stats_entry_per_category'); ?></h2>
+		<div id="statsEntryPerCategory" style="height: 300px"></div>
+		<div id="statsEntryPerCategoryLegend"></div>
+	</div>
+	
+	<div class="stat">
+		<h2><?php echo Minz_Translate::t ('stats_top_feed'); ?></h2>
+		<table>
+			<thead>
+				<tr>
+					<th><?php echo Minz_Translate::t ('feed'); ?></th>
+					<th><?php echo Minz_Translate::t ('category'); ?></th>
+					<th><?php echo Minz_Translate::t ('stats_entry_count'); ?></th>
+				</tr>
+			</thead>
+			<tbody>
+				<?php foreach ($this->topFeed as $feed): ?>
+					<tr>
+						<td><?php echo $feed['name']; ?></td>
+						<td><?php echo $feed['category']; ?></td>
+						<td class="numeric"><?php echo formatNumber($feed['count']); ?></td>
+					</tr>
+				<?php endforeach;?>
+			</tbody>
+		</table>
+	</div>
+</div>
+
+<script>
+"use strict";
+function initStats() {
+	if (!window.Flotr) {
+		if (window.console) {
+			console.log('FreshRSS waiting for Flotr…');
+		}
+		window.setTimeout(initStats, 50);
+		return;
+	}
+	// Entry per day
+	Flotr.draw(document.getElementById('statsEntryPerDay'),
+		[<?php echo $this->count ?>],
+		{
+			grid: {verticalLines: false},
+			bars: {horizontal: false, show: true},
+			xaxis: {noTicks: 6, showLabels: false, tickDecimals: 0},
+			yaxis: {min: 0},
+			mouse: {relative: true, track: true, trackDecimals: 0, trackFormatter: function(obj) {return numberFormat(obj.y);}}
+		});
+	// Feed per category
+	Flotr.draw(document.getElementById('statsFeedPerCategory'),
+		<?php echo $this->feedByCategory ?>,
+		{
+			grid: {verticalLines: false, horizontalLines: false},
+			pie: {explode: 10, show: true, labelFormatter: function(){return '';}},
+			xaxis: {showLabels: false},
+			yaxis: {showLabels: false},
+			mouse: {relative: true, track: true, trackDecimals: 0, trackFormatter: function(obj) {return obj.series.label + ' - '+ numberFormat(obj.y) + ' ('+ (obj.fraction * 100).toFixed(1) + '%)';}},
+			legend: {container: document.getElementById('statsFeedPerCategoryLegend'), noColumns: 3}
+		});
+	// Entry per category
+	Flotr.draw(document.getElementById('statsEntryPerCategory'),
+		<?php echo $this->entryByCategory ?>,
+		{
+			grid: {verticalLines: false, horizontalLines: false},
+			pie: {explode: 10, show: true, labelFormatter: function(){return '';}},
+			xaxis: {showLabels: false},
+			yaxis: {showLabels: false},
+			mouse: {relative: true, track: true, trackDecimals: 0, trackFormatter: function(obj) {return obj.series.label + ' - '+ numberFormat(obj.y) + ' ('+ (obj.fraction * 100).toFixed(1) + '%)';}},
+			legend: {container: document.getElementById('statsEntryPerCategoryLegend'), noColumns: 3}
+		});
+}
+initStats();
+</script>
