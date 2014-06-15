@@ -1,15 +1,15 @@
 <?php $this->partial('aside_configure'); ?>
 
 <div class="post">
-	<a href="<?php echo _url('index', 'index'); ?>"><?php echo Minz_Translate::t('back_to_rss_feeds'); ?></a>
+	<a href="<?php echo _url('index', 'index'); ?>"><?php echo _t('back_to_rss_feeds'); ?></a>
 
 	<form method="post" action="<?php echo _url('configure', 'queries'); ?>">
-		<legend><?php echo Minz_Translate::t('queries'); ?></legend>
+		<legend><?php echo _t('queries'); ?></legend>
 
 		<?php foreach ($this->conf->queries as $key => $query) { ?>
 		<div class="form-group" id="query-group-<?php echo $key; ?>">
 			<label class="group-name" for="queries_<?php echo $key; ?>_name">
-				<?php echo Minz_Translate::t('query_number', $key + 1); ?>
+				<?php echo _t('query_number', $key + 1); ?>
 			</label>
 
 			<div class="group-controls">
@@ -27,11 +27,11 @@
 					/>
 
 					<a class="btn" href="<?php echo $query['url']; ?>">
-						<?php echo FreshRSS_Themes::icon('link'); ?>
+						<?php echo _i('link'); ?>
 					</a>
 
 					<a class="btn btn-attention remove" href="#" data-remove="query-group-<?php echo $key; ?>">
-						<?php echo FreshRSS_Themes::icon('close'); ?>
+						<?php echo _i('close'); ?>
 					</a>
 				</div>
 
@@ -46,27 +46,27 @@
 
 				<?php if ($exist === 0) { ?>
 				<div class="alert alert-warn">
-					<div class="alert-head"><?php echo Minz_Translate::t('no_query_filter'); ?></div>
+					<div class="alert-head"><?php echo _t('no_query_filter'); ?></div>
 				</div>
 				<?php } else { ?>
 				<div class="alert alert-success">
-					<div class="alert-head"><?php echo Minz_Translate::t('query_filter'); ?></div>
+					<div class="alert-head"><?php echo _t('query_filter'); ?></div>
 
 					<ul>
 						<?php if (isset($query['search'])) { $exist = true; ?>
-						<li class="item"><?php echo Minz_Translate::t('query_search', $query['search']); ?></li>
+						<li class="item"><?php echo _t('query_search', $query['search']); ?></li>
 						<?php } ?>
 
 						<?php if (isset($query['state'])) { $exist = true; ?>
-						<li class="item"><?php echo Minz_Translate::t('query_state_' . $query['state']); ?></li>
+						<li class="item"><?php echo _t('query_state_' . $query['state']); ?></li>
 						<?php } ?>
 
 						<?php if (isset($query['order'])) { $exist = true; ?>
-						<li class="item"><?php echo Minz_Translate::t('query_order_' . strtolower($query['order'])); ?></li>
+						<li class="item"><?php echo _t('query_order_' . strtolower($query['order'])); ?></li>
 						<?php } ?>
 
 						<?php if (isset($query['get'])) { $exist = true; ?>
-						<li class="item"><?php echo Minz_Translate::t('query_get_' . $this->query_get[$key]['type'], $this->query_get[$key]['name']); ?></li>
+						<li class="item"><?php echo _t('query_get_' . $this->query_get[$key]['type'], $this->query_get[$key]['name']); ?></li>
 						<?php } ?>
 					</ul>
 				</div>
@@ -78,12 +78,12 @@
 		<?php if (count($this->conf->queries) > 0) { ?>
 		<div class="form-group form-actions">
 			<div class="group-controls">
-				<button type="submit" class="btn btn-important"><?php echo Minz_Translate::t ('save'); ?></button>
-				<button type="reset" class="btn"><?php echo Minz_Translate::t ('cancel'); ?></button>
+				<button type="submit" class="btn btn-important"><?php echo _t('save'); ?></button>
+				<button type="reset" class="btn"><?php echo _t('cancel'); ?></button>
 			</div>
 		</div>
 		<?php } else { ?>
-		<p class="alert alert-warn"><span class="alert-head"><?php echo Minz_Translate::t ('damn'); ?></span> <?php echo Minz_Translate::t('no_query'); ?></p>
+		<p class="alert alert-warn"><span class="alert-head"><?php echo _t('damn'); ?></span> <?php echo _t('no_query'); ?></p>
 		<?php } ?>
 	</form>
 
