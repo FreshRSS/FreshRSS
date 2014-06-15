@@ -5,15 +5,15 @@
         
         <h1><?php echo Minz_Translate::t ('stats_idle'); ?></h1>
         
-        <?php foreach ($this->idleFeeds as $period => $feeds): ?>
+        <?php foreach ($this->idleFeeds as $period => $feeds){ ?>
                 <div class="stat">
                         <h2><?php echo Minz_Translate::t ($period); ?></h2>
 
                         <ul>
-                                <?php foreach ($feeds as $feed): ?>
+                                <?php foreach ($feeds as $feed){ ?>
                                         <li><?php echo $feed; ?></li>
-                                <?php endforeach; ?>
+				<?php } ?>
                         </ul>
                 </div>
-        <?php endforeach; ?>
+	<?php } ?>
 </div>

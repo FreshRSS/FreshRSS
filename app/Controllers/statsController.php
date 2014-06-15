@@ -3,13 +3,7 @@
 class FreshRSS_stats_Controller extends Minz_ActionController {
 
         public function mainAction() {
-                if (!$this->view->loginOk) {
-                        Minz_Error::error(
-                            403, array('error' => array(Minz_Translate::t('access_denied')))
-                        );
-                }
-
-                Minz_View::prependTitle(Minz_Translate::t('stats') . ' · ');
+		$this->initAction();
                 
                 $statsDAO = new FreshRSS_StatsDAO ();
 		Minz_View::appendScript (Minz_Url::display ('/scripts/flotr2.min.js?' . @filemtime(PUBLIC_PATH . '/scripts/flotr2.min.js')));
@@ -21,13 +15,7 @@ class FreshRSS_stats_Controller extends Minz_ActionController {
         }
 
         public function idleAction() {
-                if (!$this->view->loginOk) {
-                        Minz_Error::error(
-                            403, array('error' => array(Minz_Translate::t('access_denied')))
-                        );
-                }
-
-                Minz_View::prependTitle(Minz_Translate::t('stats') . ' · ');
+		$this->initAction();
 
                 $statsDAO = new FreshRSS_StatsDAO ();
                 $feeds = $statsDAO->calculateFeedLastDate();
@@ -69,5 +57,15 @@ class FreshRSS_stats_Controller extends Minz_ActionController {
 
                 $this->view->idleFeeds = array_reverse($idleFeeds);
         }
+	
+	private function initAction() {
+		if (!$this->view->loginOk) {
+                        Minz_Error::error(
+                            403, array('error' => array(Minz_Translate::t('access_denied')))
+                        );
+                }
+
+                Minz_View::prependTitle(Minz_Translate::t('stats') . ' · ');
+	}
 
 }
