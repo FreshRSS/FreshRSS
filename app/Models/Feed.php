@@ -17,6 +17,7 @@ class FreshRSS_Feed extends Minz_Model {
 	private $error = false;
 	private $keep_history = -2;
 	private $hash = null;
+	private $lockPath = '';
 
 	public function __construct ($url, $validate=true) {
 		if ($validate) {
@@ -193,28 +194,35 @@ class FreshRSS_Feed extends Minz_Model {
 				}
 				$feed = customSimplePie();
 				$feed->set_feed_url ($url);
+				if (!$loadDetails) {	//Only activates auto-discovery when adding a new feed
+					$feed->set_autodiscovery_level(SIMPLEPIE_LOCATOR_NONE);
+				}
 				$mtime = $feed->init();
 
 				if ((!$mtime) || $feed->error()) {
 					throw new FreshRSS_Feed_Exception ($feed->error() . ' [' . $url . ']');
 				}
 
-				// si on a utilisé l'auto-discover, notre url va avoir changé
-				$subscribe_url = $feed->subscribe_url ();
+				if ($loadDetails) {
+					// si on a utilisé l'auto-discover, notre url va avoir changé
+					$subscribe_url = $feed->subscribe_url(false);
+
+					$title = strtr(html_only_entity_decode($feed->get_title()), array('<' => '&lt;', '>' => '&gt;', '"' => '&quot;'));	//HTML to HTML-PRE	//ENT_COMPAT except &
+					$this->_name ($title == '' ? $this->url : $title);
+
+					$this->_website(html_only_entity_decode($feed->get_link()));
+					$this->_description(html_only_entity_decode($feed->get_description()));
+				} else {
+					//The case of HTTP 301 Moved Permanently
+					$subscribe_url = $feed->subscribe_url(true);
+				}
+
 				if ($subscribe_url !== null && $subscribe_url !== $this->url) {
 					if ($this->httpAuth != '') {
 						// on enlève les id si authentification HTTP
 						$subscribe_url = preg_replace ('#((.+)://)((.+)@)(.+)#', '${1}${5}', $subscribe_url);
 					}
 					$this->_url ($subscribe_url);
-				}
-
-				if ($loadDetails) {
-					$title = strtr(html_only_entity_decode($feed->get_title()), array('<' => '&lt;', '>' => '&gt;', '"' => '&quot;'));	//HTML to HTML-PRE	//ENT_COMPAT except &
-					$this->_name ($title == '' ? $this->url : $title);
-
-					$this->_website(html_only_entity_decode($feed->get_link()));
-					$this->_description(html_only_entity_decode($feed->get_description()));
 				}
 
 				if (($mtime === true) || ($mtime > $this->lastUpdate)) {
@@ -288,20 +296,19 @@ class FreshRSS_Feed extends Minz_Model {
 	}
 
 	function lock() {
-		$lock = TMP_PATH . '/' . md5(Minz_Configuration::salt() . $this->url) . '.freshrss.lock';
-		if (file_exists($lock) && ((time() - @filemtime($lock)) > 3600)) {
-			@unlink($lock);
+		$this->lockPath = TMP_PATH . '/' . md5(Minz_Configuration::salt() . $this->url) . '.freshrss.lock';
+		if (file_exists($this->lockPath) && ((time() - @filemtime($this->lockPath)) > 3600)) {
+			@unlink($this->lockPath);
 		}
-		if (($handle = @fopen($lock, 'x')) === false) {
+		if (($handle = @fopen($this->lockPath, 'x')) === false) {
 			return false;
 		}
-		//register_shutdown_function('unlink', $lock);
+		//register_shutdown_function('unlink', $this->lockPath);
 		@fclose($handle);
 		return true;
 	}
 
 	function unlock() {
-		$lock = TMP_PATH . '/' . md5(Minz_Configuration::salt() . $this->url) . '.freshrss.lock';
-		@unlink($lock);
+		@unlink($this->lockPath);
 	}
 }

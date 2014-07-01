@@ -162,38 +162,39 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 			}
 
 			Minz_Request::forward (array ('c' => 'configure', 'a' => 'feed', 'params' => $params), true);
-		}
+		} else {
 
-		// GET request so we must ask confirmation to user
-		Minz_View::prependTitle(Minz_Translate::t('add_rss_feed') . ' · ');
-		$this->view->categories = $this->catDAO->listCategories();
-		$this->view->feed = new FreshRSS_Feed($url);
-		try {
-			// We try to get some more information about the feed
-			$this->view->feed->load(true);
-			$this->view->load_ok = true;
-		} catch (Exception $e) {
-			$this->view->load_ok = false;
-		}
+			// GET request so we must ask confirmation to user
+			Minz_View::prependTitle(Minz_Translate::t('add_rss_feed') . ' · ');
+			$this->view->categories = $this->catDAO->listCategories();
+			$this->view->feed = new FreshRSS_Feed($url);
+			try {
+				// We try to get some more information about the feed
+				$this->view->feed->load(true);
+				$this->view->load_ok = true;
+			} catch (Exception $e) {
+				$this->view->load_ok = false;
+			}
 
-		$feed = $feedDAO->searchByUrl($this->view->feed->url());
-		if ($feed) {
-			// Already subscribe so we redirect to the feed configuration page
-			$notif = array(
-				'type' => 'bad',
-				'content' => Minz_Translate::t(
-					'already_subscribed', $feed->name()
-				)
-			);
-			Minz_Session::_param('notification', $notif);
+			$feed = $feedDAO->searchByUrl($this->view->feed->url());
+			if ($feed) {
+				// Already subscribe so we redirect to the feed configuration page
+				$notif = array(
+					'type' => 'bad',
+					'content' => Minz_Translate::t(
+						'already_subscribed', $feed->name()
+					)
+				);
+				Minz_Session::_param('notification', $notif);
 
-			Minz_Request::forward(array(
-				'c' => 'configure',
-				'a' => 'feed',
-				'params' => array(
-					'id' => $feed->id()
-				)
-			), true);
+				Minz_Request::forward(array(
+					'c' => 'configure',
+					'a' => 'feed',
+					'params' => array(
+						'id' => $feed->id()
+					)
+				), true);
+			}
 		}
 	}
 
@@ -300,7 +301,8 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 					$feedDAO->commit();
 				}
 				$flux_update++;
-				if ($feed->url() !== $url) {	//URL has changed (auto-discovery)
+				if (($feed->url() !== $url)) {	//HTTP 301 Moved Permanently
+					Minz_Log::record('Feed ' . $url . ' moved permanently to ' . $feed->url(), Minz_Log::NOTICE);
 					$feedDAO->updateFeed($feed->id(), array('url' => $feed->url()));
 				}
 			} catch (FreshRSS_Feed_Exception $e) {
