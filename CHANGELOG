@@ -1,5 +1,11 @@
 # Journal des modifications
 
+## 2014-xx-xx FreshRSS 0.7.x
+
+* SimplePie
+	* Complies with HTTP "301 Moved Permanently" responses by automatically updating the URL of feeds that have changed address.
+
+
 ## 2014-06-13 FreshRSS 0.7.2
 
 * API compatible with Google Reader API level 2
