@@ -105,7 +105,7 @@ class FreshRSS_Feed extends Minz_Model {
 		$file = DATA_PATH . '/favicons/' . $this->hash() . '.txt';
 		if (!file_exists ($file)) {
 			$t = $this->website;
-			if (empty($t)) {
+			if ($t == '') {
 				$t = $this->url;
 			}
 			file_put_contents($file, $t);
@@ -296,7 +296,7 @@ class FreshRSS_Feed extends Minz_Model {
 	}
 
 	function lock() {
-		$this->lockPath = TMP_PATH . '/' . md5(Minz_Configuration::salt() . $this->url) . '.freshrss.lock';
+		$this->lockPath = TMP_PATH . '/' . $this->hash() . '.freshrss.lock';
 		if (file_exists($this->lockPath) && ((time() - @filemtime($this->lockPath)) > 3600)) {
 			@unlink($this->lockPath);
 		}

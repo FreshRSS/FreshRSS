@@ -56,12 +56,6 @@ function checkUrl($url) {
 	}
 }
 
-// tiré de Shaarli de Seb Sauvage	//Format RFC 4648 base64url
-function small_hash ($txt) {
-	$t = rtrim (base64_encode (hash ('crc32', $txt, true)), '=');
-	return strtr ($t, '+/', '-_');
-}
-
 function formatNumber($n, $precision = 0) {
 	return str_replace(' ', ' ',	//Espace insécable	//TODO: remplacer par une espace _fine_ insécable
 		number_format($n, $precision, '.', ' '));	//number_format does not seem to be Unicode-compatible
