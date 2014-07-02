@@ -245,7 +245,7 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo {
 	}
 
 	public function listFeedsOrderUpdate ($cacheDuration = 1500) {
-		$sql = 'SELECT id, name, url, lastUpdate, pathEntries, httpAuth, keep_history '
+		$sql = 'SELECT id, url, name, website, lastUpdate, pathEntries, httpAuth, keep_history '
 		     . 'FROM `' . $this->prefix . 'feed` '
 		     . 'WHERE lastUpdate < ' . (time() - intval($cacheDuration))
 		     . ' ORDER BY lastUpdate';
