@@ -45,7 +45,7 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 		}
 
 		$catDAO = new FreshRSS_CategoryDAO();
-		$entryDAO = new FreshRSS_EntryDAO();
+		$entryDAO = FreshRSS_Factory::createEntryDao();
 
 		$this->view->cat_aside = $catDAO->listCategories ();
 		$this->view->nb_favorites = $entryDAO->countUnreadReadFavorites ();

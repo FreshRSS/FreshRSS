@@ -52,7 +52,9 @@ CREATE TABLE IF NOT EXISTS `%1$sentry` (
 ) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci
 ENGINE = INNODB;
 
-INSERT IGNORE INTO `%1$scategory` (id, name) VALUES(1, :catName);
+INSERT IGNORE INTO `%1$scategory` (id, name) VALUES(1, "%2$s");
 ');
 
 define('SQL_DROP_TABLES', 'DROP TABLES %1$sentry, %1$sfeed, %1$scategory');
+
+define('SQL_SHOW_TABLES', 'SHOW tables;');

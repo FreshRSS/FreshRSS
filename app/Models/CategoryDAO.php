@@ -12,8 +12,8 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo {
 		if ($stm && $stm->execute ($values)) {
 			return $this->bd->lastInsertId();
 		} else {
-			$info = $stm->errorInfo();
-			Minz_Log::record ('SQL error : ' . $info[2], Minz_Log::ERROR);
+			$info = $stm == null ? array(2 => 'syntax error') : $stm->errorInfo();
+			Minz_Log::record('SQL error addCategory: ' . $info[2], Minz_Log::ERROR);
 			return false;
 		}
 	}
@@ -43,8 +43,8 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo {
 		if ($stm && $stm->execute ($values)) {
 			return $stm->rowCount();
 		} else {
-			$info = $stm->errorInfo();
-			Minz_Log::record ('SQL error : ' . $info[2], Minz_Log::ERROR);
+			$info = $stm == null ? array(2 => 'syntax error') : $stm->errorInfo();
+			Minz_Log::record('SQL error updateCategory: ' . $info[2], Minz_Log::ERROR);
 			return false;
 		}
 	}
@@ -58,8 +58,8 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo {
 		if ($stm && $stm->execute ($values)) {
 			return $stm->rowCount();
 		} else {
-			$info = $stm->errorInfo();
-			Minz_Log::record ('SQL error : ' . $info[2], Minz_Log::ERROR);
+			$info = $stm == null ? array(2 => 'syntax error') : $stm->errorInfo();
+			Minz_Log::record('SQL error deleteCategory: ' . $info[2], Minz_Log::ERROR);
 			return false;
 		}
 	}

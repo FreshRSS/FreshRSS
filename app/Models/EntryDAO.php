@@ -1,9 +1,18 @@
 <?php
 
 class FreshRSS_EntryDAO extends Minz_ModelPdo {
+
+	public function isCompressed() {
+		return parent::$sharedDbType !== 'sqlite';
+	}
+
 	public function addEntry ($valuesTmp) {
-		$sql = 'INSERT INTO `' . $this->prefix . 'entry`(id, guid, title, author, content_bin, link, date, is_read, is_favorite, id_feed, tags) '
-		     . 'VALUES(?, ?, ?, ?, COMPRESS(?), ?, ?, ?, ?, ?, ?)';
+		$sql = 'INSERT INTO `' . $this->prefix . 'entry`(id, guid, title, author, '
+		     . ($this->isCompressed() ? 'content_bin' : 'content')
+		     . ', link, date, is_read, is_favorite, id_feed, tags) '
+		     . 'VALUES(?, ?, ?, ?, '
+		     . ($this->isCompressed() ? 'COMPRESS(?)' : '?')
+		     . ', ?, ?, ?, ?, ?, ?)';
 		$stm = $this->bd->prepare ($sql);
 
 		$values = array (
@@ -23,9 +32,9 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 		if ($stm && $stm->execute ($values)) {
 			return $this->bd->lastInsertId();
 		} else {
-			$info = $stm->errorInfo();
+			$info = $stm == null ? array(2 => 'syntax error') : $stm->errorInfo();
 			if ((int)($info[0] / 1000) !== 23) {	//Filter out "SQLSTATE Class code 23: Constraint Violation" because of expected duplicate entries
-				Minz_Log::record ('SQL error ' . $info[0] . ': ' . $info[1] . ' ' . $info[2]
+				Minz_Log::record('SQL error addEntry: ' . $info[0] . ': ' . $info[1] . ' ' . $info[2]
 				. ' while adding entry in feed ' . $valuesTmp['id_feed'] . ' with title: ' . $valuesTmp['title'], Minz_Log::ERROR);
 			} /*else {
 				Minz_Log::record ('SQL error ' . $info[0] . ': ' . $info[1] . ' ' . $info[2]
@@ -78,14 +87,14 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 		if ($stm && $stm->execute ($values)) {
 			return $stm->rowCount();
 		} else {
-			$info = $stm->errorInfo();
-			Minz_Log::record ('SQL error : ' . $info[2], Minz_Log::ERROR);
+			$info = $stm == null ? array(2 => 'syntax error') : $stm->errorInfo();
+			Minz_Log::record('SQL error markFavorite: ' . $info[2], Minz_Log::ERROR);
 			return false;
 		}
 	}
 
 	public function markRead($ids, $is_read = true) {
-		if (is_array($ids)) {
+		if (is_array($ids)) {	//Many IDs at once
 			if (count($ids) < 6) {	//Speed heuristics
 				$affected = 0;
 				foreach ($ids as $id) {
@@ -102,8 +111,8 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 			$values = array_merge($values, $ids);
 			$stm = $this->bd->prepare($sql);
 			if (!($stm && $stm->execute($values))) {
-				$info = $stm->errorInfo();
-				Minz_Log::record('SQL error : ' . $info[2], Minz_Log::ERROR);
+				$info = $stm == null ? array(2 => 'syntax error') : $stm->errorInfo();
+				Minz_Log::record('SQL error markRead: ' . $info[2], Minz_Log::ERROR);
 				$this->bd->rollBack();
 				return false;
 			}
@@ -121,8 +130,8 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 				     . 'SET f.cache_nbEntries=x.nbEntries, f.cache_nbUnreads=x.nbUnreads';
 				$stm = $this->bd->prepare($sql);
 				if (!($stm && $stm->execute())) {
-					$info = $stm->errorInfo();
-					Minz_Log::record('SQL error : ' . $info[2], Minz_Log::ERROR);
+					$info = $stm == null ? array(2 => 'syntax error') : $stm->errorInfo();
+					Minz_Log::record('SQL error markRead: ' . $info[2], Minz_Log::ERROR);
 					$this->bd->rollBack();
 					return false;
 				}
@@ -134,14 +143,14 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 			$sql = 'UPDATE `' . $this->prefix . 'entry` e INNER JOIN `' . $this->prefix . 'feed` f ON e.id_feed = f.id '
 				 . 'SET e.is_read = ?,'
 				 . 'f.cache_nbUnreads=f.cache_nbUnreads' . ($is_read ? '-' : '+') . '1 '
-				 . 'WHERE e.id=?';
-			$values = array($is_read ? 1 : 0, $ids);
+				 . 'WHERE e.id=? AND e.is_read<>?';
+			$values = array($is_read ? 1 : 0, $ids, $is_read ? 1 : 0);
 			$stm = $this->bd->prepare($sql);
 			if ($stm && $stm->execute($values)) {
 				return $stm->rowCount();
 			} else {
-				$info = $stm->errorInfo();
-				Minz_Log::record('SQL error : ' . $info[2], Minz_Log::ERROR);
+				$info = $stm == null ? array(2 => 'syntax error') : $stm->errorInfo();
+				Minz_Log::record('SQL error markRead: ' . $info[2], Minz_Log::ERROR);
 				return false;
 			}
 		}
@@ -161,8 +170,8 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 			if ($stm && $stm->execute ()) {
 				return $stm->rowCount();
 			} else {
-				$info = $stm->errorInfo();
-				Minz_Log::record ('SQL error : ' . $info[2], Minz_Log::ERROR);
+				$info = $stm == null ? array(2 => 'syntax error') : $stm->errorInfo();
+				Minz_Log::record('SQL error markReadEntries: ' . $info[2], Minz_Log::ERROR);
 				return false;
 			}
 		} else {
@@ -179,8 +188,8 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 			$values = array ($idMax);
 			$stm = $this->bd->prepare ($sql);
 			if (!($stm && $stm->execute ($values))) {
-				$info = $stm->errorInfo();
-				Minz_Log::record ('SQL error : ' . $info[2], Minz_Log::ERROR);
+				$info = $stm == null ? array(2 => 'syntax error') : $stm->errorInfo();
+				Minz_Log::record('SQL error markReadEntries: ' . $info[2], Minz_Log::ERROR);
 				$this->bd->rollBack ();
 				return false;
 			}
@@ -198,8 +207,8 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 			     . 'SET f.cache_nbUnreads=COALESCE(x.nbUnreads, 0)';
 				$stm = $this->bd->prepare ($sql);
 				if (!($stm && $stm->execute ())) {
-					$info = $stm->errorInfo();
-					Minz_Log::record ('SQL error : ' . $info[2], Minz_Log::ERROR);
+					$info = $stm == null ? array(2 => 'syntax error') : $stm->errorInfo();
+					Minz_Log::record('SQL error markReadEntries: ' . $info[2], Minz_Log::ERROR);
 					$this->bd->rollBack ();
 					return false;
 				}
@@ -220,8 +229,8 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 			if ($stm && $stm->execute ($values)) {
 				return $stm->rowCount();
 			} else {
-				$info = $stm->errorInfo();
-				Minz_Log::record ('SQL error : ' . $info[2], Minz_Log::ERROR);
+				$info = $stm == null ? array(2 => 'syntax error') : $stm->errorInfo();
+				Minz_Log::record('SQL error markReadCat: ' . $info[2], Minz_Log::ERROR);
 				return false;
 			}
 		} else {
@@ -233,8 +242,8 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 			$values = array ($id, $idMax);
 			$stm = $this->bd->prepare ($sql);
 			if (!($stm && $stm->execute ($values))) {
-				$info = $stm->errorInfo();
-				Minz_Log::record ('SQL error : ' . $info[2], Minz_Log::ERROR);
+				$info = $stm == null ? array(2 => 'syntax error') : $stm->errorInfo();
+				Minz_Log::record('SQL error markReadCat: ' . $info[2], Minz_Log::ERROR);
 				$this->bd->rollBack ();
 				return false;
 			}
@@ -254,8 +263,8 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 				$values = array ($id);
 				$stm = $this->bd->prepare ($sql);
 				if (!($stm && $stm->execute ($values))) {
-					$info = $stm->errorInfo();
-					Minz_Log::record ('SQL error : ' . $info[2], Minz_Log::ERROR);
+					$info = $stm == null ? array(2 => 'syntax error') : $stm->errorInfo();
+					Minz_Log::record('SQL error markReadCat: ' . $info[2], Minz_Log::ERROR);
 					$this->bd->rollBack ();
 					return false;
 				}
@@ -278,8 +287,8 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 			if ($stm && $stm->execute($values)) {
 				return $stm->rowCount();
 			} else {
-				$info = $stm->errorInfo();
-				Minz_Log::record('SQL error : ' . $info[2], Minz_Log::ERROR);
+				$info = $stm == null ? array(2 => 'syntax error') : $stm->errorInfo();
+				Minz_Log::record('SQL error markReadCatName: ' . $info[2], Minz_Log::ERROR);
 				return false;
 			}
 		} else {
@@ -293,8 +302,8 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 			$values = array($name, $idMax);
 			$stm = $this->bd->prepare($sql);
 			if (!($stm && $stm->execute($values))) {
-				$info = $stm->errorInfo();
-				Minz_Log::record('SQL error : ' . $info[2], Minz_Log::ERROR);
+				$info = $stm == null ? array(2 => 'syntax error') : $stm->errorInfo();
+				Minz_Log::record('SQL error markReadCatName: ' . $info[2], Minz_Log::ERROR);
 				$this->bd->rollBack();
 				return false;
 			}
@@ -315,8 +324,8 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 				$values = array($name);
 				$stm = $this->bd->prepare($sql);
 				if (!($stm && $stm->execute($values))) {
-					$info = $stm->errorInfo();
-					Minz_Log::record('SQL error : ' . $info[2], Minz_Log::ERROR);
+					$info = $stm == null ? array(2 => 'syntax error') : $stm->errorInfo();
+					Minz_Log::record('SQL error markReadCatName: ' . $info[2], Minz_Log::ERROR);
 					$this->bd->rollBack();
 					return false;
 				}
@@ -337,8 +346,8 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 			if ($stm && $stm->execute ($values)) {
 				return $stm->rowCount();
 			} else {
-				$info = $stm->errorInfo();
-				Minz_Log::record ('SQL error : ' . $info[2], Minz_Log::ERROR);
+				$info = $stm == null ? array(2 => 'syntax error') : $stm->errorInfo();
+				Minz_Log::record('SQL error markReadFeed: ' . $info[2], Minz_Log::ERROR);
 				return false;
 			}
 		} else {
@@ -350,8 +359,8 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 			$values = array ($id, $idMax);
 			$stm = $this->bd->prepare ($sql);
 			if (!($stm && $stm->execute ($values))) {
-				$info = $stm->errorInfo();
-				Minz_Log::record ('SQL error : ' . $info[2], Minz_Log::ERROR);
+				$info = $stm == null ? array(2 => 'syntax error') : $stm->errorInfo();
+				Minz_Log::record('SQL error markReadFeed: ' . $info[2], Minz_Log::ERROR);
 				$this->bd->rollBack ();
 				return false;
 			}
@@ -364,8 +373,8 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 				$values = array ($id);
 				$stm = $this->bd->prepare ($sql);
 				if (!($stm && $stm->execute ($values))) {
-					$info = $stm->errorInfo();
-					Minz_Log::record ('SQL error : ' . $info[2], Minz_Log::ERROR);
+					$info = $stm == null ? array(2 => 'syntax error') : $stm->errorInfo();
+					Minz_Log::record('SQL error markReadFeed: ' . $info[2], Minz_Log::ERROR);
 					$this->bd->rollBack ();
 					return false;
 				}
@@ -378,7 +387,9 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 
 	public function searchByGuid ($feed_id, $id) {
 		// un guid est unique pour un flux donné
-		$sql = 'SELECT id, guid, title, author, UNCOMPRESS(content_bin) AS content, link, date, is_read, is_favorite, id_feed, tags '
+		$sql = 'SELECT id, guid, title, author, '
+		     . ($this->isCompressed() ? 'UNCOMPRESS(content_bin) AS content' : 'content')
+		     . ', link, date, is_read, is_favorite, id_feed, tags '
 		     . 'FROM `' . $this->prefix . 'entry` WHERE id_feed=? AND guid=?';
 		$stm = $this->bd->prepare ($sql);
 
@@ -394,7 +405,9 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 	}
 
 	public function searchById ($id) {
-		$sql = 'SELECT id, guid, title, author, UNCOMPRESS(content_bin) AS content, link, date, is_read, is_favorite, id_feed, tags '
+		$sql = 'SELECT id, guid, title, author, '
+		     . ($this->isCompressed() ? 'UNCOMPRESS(content_bin) AS content' : 'content')
+		     . ', link, date, is_read, is_favorite, id_feed, tags '
 		     . 'FROM `' . $this->prefix . 'entry` WHERE id=?';
 		$stm = $this->bd->prepare ($sql);
 
@@ -520,7 +533,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 						$search .= 'AND e1.tags LIKE ? ';
 						$values[] = '%' . $word .'%';
 					} else {
-						$search .= 'AND CONCAT(e1.title, UNCOMPRESS(e1.content_bin)) LIKE ? ';
+						$search .= 'AND CONCAT(e1.title, ' . ($this->isCompressed() ? 'UNCOMPRESS(content_bin)' : 'content') . ') LIKE ? ';
 						$values[] = '%' . $word .'%';
 					}
 				}
@@ -539,7 +552,9 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 	public function listWhere($type = 'a', $id = '', $state = FreshRSS_Entry::STATE_ALL, $order = 'DESC', $limit = 1, $firstId = '', $filter = '', $date_min = 0, $showOlderUnreadsorFavorites = false, $keepHistoryDefault = 0) {
 		list($values, $sql) = $this->sqlListWhere($type, $id, $state, $order, $limit, $firstId, $filter, $date_min, $showOlderUnreadsorFavorites, $keepHistoryDefault);
 
-		$sql = 'SELECT e.id, e.guid, e.title, e.author, UNCOMPRESS(e.content_bin) AS content, e.link, e.date, e.is_read, e.is_favorite, e.id_feed, e.tags '
+		$sql = 'SELECT e.id, e.guid, e.title, e.author, '
+		     . ($this->isCompressed() ? 'UNCOMPRESS(content_bin) AS content' : 'content')
+		     . ', e.link, e.date, e.is_read, e.is_favorite, e.id_feed, e.tags '
 		     . 'FROM `' . $this->prefix . 'entry` e '
 		     . 'INNER JOIN ('
 		     . $sql

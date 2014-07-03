@@ -43,7 +43,7 @@ class FreshRSS_entry_Controller extends Minz_ActionController {
 		$nextGet = Minz_Request::param ('nextGet', $get); 
 		$idMax = Minz_Request::param ('idMax', 0);
 
-		$entryDAO = new FreshRSS_EntryDAO ();
+		$entryDAO = FreshRSS_Factory::createEntryDao();
 		if ($id == false) {
 			if (!$get) {
 				$entryDAO->markReadEntries ($idMax);
@@ -85,7 +85,7 @@ class FreshRSS_entry_Controller extends Minz_ActionController {
 
 		$id = Minz_Request::param ('id');
 		if ($id) {
-			$entryDAO = new FreshRSS_EntryDAO ();
+			$entryDAO = FreshRSS_Factory::createEntryDao();
 			$entryDAO->markFavorite ($id, (bool)(Minz_Request::param ('is_favorite', true)));
 		}
 	}
@@ -97,7 +97,7 @@ class FreshRSS_entry_Controller extends Minz_ActionController {
 			// La table des entrées a tendance à grossir énormément
 			// Cette action permet d'optimiser cette table permettant de grapiller un peu de place
 			// Cette fonctionnalité n'est à appeler qu'occasionnellement
-			$entryDAO = new FreshRSS_EntryDAO();
+			$entryDAO = FreshRSS_Factory::createEntryDao();
 			$entryDAO->optimizeTable();
 
 			$feedDAO = new FreshRSS_FeedDAO();

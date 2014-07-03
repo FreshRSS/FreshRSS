@@ -16,6 +16,7 @@ class Minz_ModelPdo {
 	public static $useSharedBd = true;
 	private static $sharedBd = null;
 	private static $sharedPrefix;
+	protected static $sharedDbType;
 
 	/**
 	 * $bd variable représentant la base de données
@@ -24,46 +25,57 @@ class Minz_ModelPdo {
 
 	protected $prefix;
 
+	public function dbType() {
+		return self::$sharedDbType;
+	}
+
 	/**
 	 * Créé la connexion à la base de données à l'aide des variables
 	 * HOST, BASE, USER et PASS définies dans le fichier de configuration
 	 */
-	public function __construct () {
+	public function __construct() {
 		if (self::$useSharedBd && self::$sharedBd != null) {
 			$this->bd = self::$sharedBd;
 			$this->prefix = self::$sharedPrefix;
 			return;
 		}
 
-		$db = Minz_Configuration::dataBase ();
-		$driver_options = null;
+		$db = Minz_Configuration::dataBase();
 
 		try {
 			$type = $db['type'];
-			if($type == 'mysql') {
-				$string = $type
-				        . ':host=' . $db['host']
+			if ($type === 'mysql') {
+				$string = 'mysql:host=' . $db['host']
 				        . ';dbname=' . $db['base']
 				        . ';charset=utf8';
 				$driver_options = array(
-					PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8'
+					PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8',
 				);
-			} elseif($type == 'sqlite') {
-				$string = $type . ':/' . DATA_PATH . $db['base'] . '.sqlite';	//TODO: DEBUG UTF-8 http://www.siteduzero.com/forum/sujet/sqlite-connexion-utf-8-18797
+				$this->prefix = $db['prefix'] . Minz_Session::param('currentUser', '_') . '_';
+			} elseif ($type === 'sqlite') {
+				$string = 'sqlite:' . DATA_PATH . '/' . Minz_Session::param('currentUser', '_') . '.sqlite';
+				$driver_options = array(
+					//PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+				);
+				$this->prefix = '';
+			} else {
+				throw new Minz_PDOConnectionException(
+					'Invalid database type!',
+					$db['user'], Minz_Exception::ERROR
+				);
 			}
+			self::$sharedDbType = $type;
+			self::$sharedPrefix = $this->prefix;
 
-			$this->bd = new FreshPDO (
+			$this->bd = new FreshPDO(
 				$string,
 				$db['user'],
 				$db['password'],
 				$driver_options
 			);
 			self::$sharedBd = $this->bd;
-
-			$this->prefix = $db['prefix'] . Minz_Session::param('currentUser', '_') . '_';
-			self::$sharedPrefix = $this->prefix;
 		} catch (Exception $e) {
-			throw new Minz_PDOConnectionException (
+			throw new Minz_PDOConnectionException(
 				$string,
 				$db['user'], Minz_Exception::ERROR
 			);
@@ -81,15 +93,15 @@ class Minz_ModelPdo {
 	}
 
 	public function size($all = false) {
-		$db = Minz_Configuration::dataBase ();
+		$db = Minz_Configuration::dataBase();
 		$sql = 'SELECT SUM(data_length + index_length) FROM information_schema.TABLES WHERE table_schema = ?';
-		$values = array ($db['base']);
+		$values = array($db['base']);
 		if (!$all) {
 			$sql .= ' AND table_name LIKE ?';
 			$values[] = $this->prefix . '%';
 		}
-		$stm = $this->bd->prepare ($sql);
-		$stm->execute ($values);
+		$stm = $this->bd->prepare($sql);
+		$stm->execute($values);
 		$res = $stm->fetchAll(PDO::FETCH_COLUMN, 0);
 		return $res[0];
 	}
@@ -107,12 +119,12 @@ class FreshPDO extends PDO {
 		}
 	}
 
-	public function prepare ($statement, $driver_options = array()) {
+	public function prepare($statement, $driver_options = array()) {
 		FreshPDO::check($statement);
 		return parent::prepare($statement, $driver_options);
 	}
 
-	public function exec ($statement) {
+	public function exec($statement) {
 		FreshPDO::check($statement);
 		return parent::exec($statement);
 	}

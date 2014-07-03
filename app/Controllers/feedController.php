@@ -102,7 +102,7 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 
 						$is_read = $this->view->conf->mark_when['reception'] ? 1 : 0;
 
-						$entryDAO = new FreshRSS_EntryDAO ();
+						$entryDAO = FreshRSS_Factory::createEntryDao();
 						$entries = array_reverse($feed->entries());	//We want chronological order and SimplePie uses reverse order
 
 						// on calcule la date des articles les plus anciens qu'on accepte
@@ -217,7 +217,7 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 		@set_time_limit(300);
 
 		$feedDAO = new FreshRSS_FeedDAO ();
-		$entryDAO = new FreshRSS_EntryDAO ();
+		$entryDAO = FreshRSS_Factory::createEntryDao();
 
 		Minz_Session::_param('actualize_feeds', false);
 		$id = Minz_Request::param ('id');
