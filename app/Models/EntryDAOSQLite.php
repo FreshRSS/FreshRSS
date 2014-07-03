@@ -1,6 +1,6 @@
 <?php
 
-class FreshRSS_EntryDAO_SQLite extends FreshRSS_EntryDAO {
+class FreshRSS_EntryDAOSQLite extends FreshRSS_EntryDAO {
 
 	public function markRead($ids, $is_read = true) {
 		if (is_array($ids)) {	//Many IDs at once

@@ -49,7 +49,7 @@ $SQL_CREATE_TABLES = array(
 'CREATE INDEX IF NOT EXISTS entry_is_favorite_index ON `%1$sentry`(`is_favorite`);',
 'CREATE INDEX IF NOT EXISTS entry_is_read_index ON `%1$sentry`(`is_read`);',
 
-'INSERT OR IGNORE INTO `%1$scategory` (id, name) VALUES(1, "%1$s");',
+'INSERT OR IGNORE INTO `%1$scategory` (id, name) VALUES(1, "%2$s");',
 );
 
 define('SQL_DROP_TABLES', 'DROP TABLES %1$sentry, %1$sfeed, %1$scategory');

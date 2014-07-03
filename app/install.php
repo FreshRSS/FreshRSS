@@ -366,7 +366,7 @@ function newPdo() {
 			);
 			break;
 		case 'sqlite':
-			$str = 'sqlite:' . DATA_PATH . '/' . $_SESSION['bd_base'] . '.sqlite';
+			$str = 'sqlite:' . DATA_PATH . '/' . $_SESSION['default_user'] . '.sqlite';
 			$driver_options = array(
 				PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
 			);
@@ -407,7 +407,7 @@ function postUpdate() {
 }
 
 function deleteInstall () {
-	$res = unlink (DATA_PATH . 'do-install.txt');
+	$res = unlink (DATA_PATH . '/do-install.txt');
 	if ($res) {
 		header ('Location: index.php');
 	}
@@ -665,7 +665,7 @@ function checkBD () {
 				$str = 'mysql:host=' . $_SESSION['bd_host'] . ';dbname=' . $_SESSION['bd_base'];
 				break;
 			case 'sqlite':
-				$str = 'sqlite:' . DATA_PATH . '/' . $_SESSION['bd_base'] . '.sqlite';
+				$str = 'sqlite:' . DATA_PATH . '/' . $_SESSION['default_user'] . '.sqlite';
 				$driver_options = array(
 					PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
 				);
@@ -921,7 +921,7 @@ function printStep3 () {
 		<div class="form-group">
 			<label class="group-name" for="type"><?php echo _t ('bdd_type'); ?></label>
 			<div class="group-controls">
-				<select name="type" id="type">
+				<select name="type" id="type" onchange="mySqlShowHide()">
 				<option value="mysql"
 					<?php echo (isset($_SESSION['bd_type']) && $_SESSION['bd_type'] === 'mysql') ? 'selected="selected"' : ''; ?>>
 					MySQL
@@ -934,6 +934,7 @@ function printStep3 () {
 			</div>
 		</div>
 
+		<div id="mysql">
 		<div class="form-group">
 			<label class="group-name" for="host"><?php echo _t ('host'); ?></label>
 			<div class="group-controls">
@@ -968,6 +969,13 @@ function printStep3 () {
 				<input type="text" id="prefix" name="prefix" maxlength="16" pattern="[0-9A-Za-z_]{1,16}" value="<?php echo isset ($_SESSION['bd_prefix']) ? $_SESSION['bd_prefix'] : 'freshrss_'; ?>" />
 			</div>
 		</div>
+		</div>
+		<script>
+			function mySqlShowHide() {
+				document.getElementById('mysql').style.display = document.getElementById('type').value === 'mysql' ? 'block' : 'none';
+			}
+			mySqlShowHide();
+		</script>
 
 		<div class="form-group form-actions">
 			<div class="group-controls">
