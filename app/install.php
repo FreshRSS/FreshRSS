@@ -3,10 +3,7 @@ if (function_exists('opcache_reset')) {
 	opcache_reset();
 }
 
-require('../../constants.php');
 define('BCRYPT_COST', 9);
-
-include(LIB_PATH . '/lib_rss.php');
 
 session_name('FreshRSS');
 session_set_cookie_params(0, dirname(empty($_SERVER['REQUEST_URI']) ? '/' : dirname($_SERVER['REQUEST_URI'])), null, false, true);
@@ -20,11 +17,18 @@ if (isset ($_GET['step'])) {
 
 define('SQL_CREATE_DB', 'CREATE DATABASE IF NOT EXISTS %1$s DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;');
 
-include(APP_PATH . '/sql.php');
+if (isset($_SESSION['bd_type'])) {
+	switch ($_SESSION['bd_type']) {
+		case 'mysql':
+			include(APP_PATH . '/SQL/install.sql.mysql.php');
+			break;
+		case 'sqlite':
+			include(APP_PATH . '/SQL/install.sql.sqlite.php');
+			break;
+	}
+}
 
 //<updates>
-define('SQL_SHOW_TABLES', 'SHOW tables;');
-
 define('SQL_BACKUP006', 'RENAME TABLE `%1$scategory` TO `%1$scategory006`, `%1$sfeed` TO `%1$sfeed006`, `%1$sentry` TO `%1$sentry006`;');
 
 define('SQL_SHOW_COLUMNS_UPDATEv006', 'SHOW columns FROM `%1$sentry006` LIKE "id2";');
@@ -70,7 +74,9 @@ FROM `%1$sentry006` e0
 INNER JOIN `%2$sentry` e1 ON e0.id2 = e1.id
 WHERE e1.content_bin IS NULL');
 
-define('SQL_CONVERT_UPDATEv006', 'UPDATE `%1$sentry` SET content_bin=COMPRESS(?) WHERE id=?;');
+define('SQL_CONVERT_UPDATEv006', 'UPDATE `%1$sentry` SET '
+	. (isset($_SESSION['bd_type']) && $_SESSION['bd_type'] === 'mysql' ? 'content_bin=COMPRESS(?)' : 'content=?')
+	. ' WHERE id=?;');
 
 define('SQL_DROP_BACKUPv006', 'DROP TABLE IF EXISTS `%1$sentry006`, `%1$sfeed006`, `%1$scategory006`;');
 
@@ -210,20 +216,30 @@ function saveStep2 () {
 
 function saveStep3 () {
 	if (!empty ($_POST)) {
-		if (empty ($_POST['type']) ||
-		    empty ($_POST['host']) ||
-		    empty ($_POST['user']) ||
-		    empty ($_POST['base'])) {
-			$_SESSION['bd_error'] = 'Missing parameters!';
-		}
 
-		$_SESSION['bd_type'] = isset ($_POST['type']) ? $_POST['type'] : 'mysql';
-		$_SESSION['bd_host'] = $_POST['host'];
-		$_SESSION['bd_user'] = $_POST['user'];
-		$_SESSION['bd_password'] = $_POST['pass'];
-		$_SESSION['bd_base'] = substr($_POST['base'], 0, 64);
-		$_SESSION['bd_prefix'] = substr($_POST['prefix'], 0, 16);
-		$_SESSION['bd_prefix_user'] = $_SESSION['bd_prefix'] . (empty($_SESSION['default_user']) ? '' : ($_SESSION['default_user'] . '_'));
+		$_SESSION['bd_type'] = isset ($_POST['type']) ? $_POST['type'] : '';
+
+		if ($_SESSION['bd_type'] === 'sqlite') {
+			$_SESSION['bd_base'] = $_SESSION['default_user'];
+			$_SESSION['bd_host'] = '';
+			$_SESSION['bd_user'] = '';
+			$_SESSION['bd_password'] = '';
+			$_SESSION['bd_prefix'] = '';
+			$_SESSION['bd_prefix_user'] = '';	//No prefix for SQLite
+		} else {
+			if (empty ($_POST['type']) ||
+			    empty ($_POST['host']) ||
+			    empty ($_POST['user']) ||
+			    empty ($_POST['base'])) {
+				$_SESSION['bd_error'] = 'Missing parameters!';
+			}
+			$_SESSION['bd_base'] = substr($_POST['base'], 0, 64);
+			$_SESSION['bd_host'] = $_POST['host'];
+			$_SESSION['bd_user'] = $_POST['user'];
+			$_SESSION['bd_password'] = $_POST['pass'];
+			$_SESSION['bd_prefix'] = substr($_POST['prefix'], 0, 16);
+			$_SESSION['bd_prefix_user'] = $_SESSION['bd_prefix'] . (empty($_SESSION['default_user']) ? '' : ($_SESSION['default_user'] . '_'));
+		}
 
 		$ini_array = array(
 			'general' => array(
@@ -285,9 +301,7 @@ function updateDatabase($perform = false) {
 				);
 				break;
 			case 'sqlite':
-				$str = 'sqlite:' . DATA_PATH . $_SESSION['bd_base'] . '.sqlite';
-				$driver_options = null;
-				break;
+				return false;	//No update for SQLite needed so far
 			default:
 				return false;
 		}
@@ -352,8 +366,10 @@ function newPdo() {
 			);
 			break;
 		case 'sqlite':
-			$str = 'sqlite:' . DATA_PATH . $_SESSION['bd_base'] . '.sqlite';
-			$driver_options = null;
+			$str = 'sqlite:' . DATA_PATH . '/' . $_SESSION['bd_base'] . '.sqlite';
+			$driver_options = array(
+				PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+			);
 			break;
 		default:
 			return false;
@@ -364,13 +380,15 @@ function newPdo() {
 function postUpdate() {
 	$c = newPdo();
 
-	$sql = sprintf(SQL_UPDATE_HISTORYv007b, $_SESSION['bd_prefix_user']);
-	$stm = $c->prepare($sql);
-	$stm->execute();
+	if ($_SESSION['bd_type'] !== 'sqlite') {	//No update for SQLite needed yet
+		$sql = sprintf(SQL_UPDATE_HISTORYv007b, $_SESSION['bd_prefix_user']);
+		$stm = $c->prepare($sql);
+		$stm->execute();
 
-	$sql = sprintf(SQL_UPDATE_CACHED_VALUES, $_SESSION['bd_prefix_user']);
-	$stm = $c->prepare($sql);
-	$stm->execute();
+		$sql = sprintf(SQL_UPDATE_CACHED_VALUES, $_SESSION['bd_prefix_user']);
+		$stm = $c->prepare($sql);
+		$stm->execute();
+	}
 
 	//<favicons>
 	$sql = sprintf(SQL_GET_FEEDS, $_SESSION['bd_prefix_user']);
@@ -389,7 +407,7 @@ function postUpdate() {
 }
 
 function deleteInstall () {
-	$res = unlink (INDEX_PATH . '/install.php');
+	$res = unlink (DATA_PATH . 'do-install.txt');
 	if ($res) {
 		header ('Location: index.php');
 	}
@@ -647,7 +665,10 @@ function checkBD () {
 				$str = 'mysql:host=' . $_SESSION['bd_host'] . ';dbname=' . $_SESSION['bd_base'];
 				break;
 			case 'sqlite':
-				$str = 'sqlite:' . DATA_PATH . $_SESSION['bd_base'] . '.sqlite';
+				$str = 'sqlite:' . DATA_PATH . '/' . $_SESSION['bd_base'] . '.sqlite';
+				$driver_options = array(
+					PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+				);
 				break;
 			default:
 				return false;
@@ -655,20 +676,31 @@ function checkBD () {
 
 		$c = new PDO ($str, $_SESSION['bd_user'], $_SESSION['bd_password'], $driver_options);
 
-		$stm = $c->prepare(SQL_SHOW_TABLES);
-		$stm->execute();
-		$res = $stm->fetchAll(PDO::FETCH_COLUMN, 0);
-		if (in_array($_SESSION['bd_prefix'] . 'entry', $res) && !in_array($_SESSION['bd_prefix'] . 'entry006', $res)) {
-			$sql = sprintf(SQL_BACKUP006, $_SESSION['bd_prefix']);	//v0.6
-			$res = $c->query($sql);	//Backup tables
+		if ($_SESSION['bd_type'] !== 'sqlite') {	//No SQL backup for SQLite
+			$stm = $c->prepare(SQL_SHOW_TABLES);
+			$stm->execute();
+			$res = $stm->fetchAll(PDO::FETCH_COLUMN, 0);
+			if (in_array($_SESSION['bd_prefix'] . 'entry', $res) && !in_array($_SESSION['bd_prefix'] . 'entry006', $res)) {
+				$sql = sprintf(SQL_BACKUP006, $_SESSION['bd_prefix']);	//v0.6
+				$res = $c->query($sql);	//Backup tables
+			}
 		}
 
-		$sql = sprintf(SQL_CREATE_TABLES, $_SESSION['bd_prefix_user']);
-		$stm = $c->prepare($sql, array(PDO::ATTR_EMULATE_PREPARES => true));
-		$values = array(
-			'catName' => _t('default_category'),
-		);
-		$ok = $stm->execute($values);
+		if (defined('SQL_CREATE_TABLES')) {
+			$sql = sprintf(SQL_CREATE_TABLES, $_SESSION['bd_prefix_user'], _t('default_category'));
+			$stm = $c->prepare($sql);
+			$ok = $stm->execute();
+		} else {
+			global $SQL_CREATE_TABLES;
+			if (is_array($SQL_CREATE_TABLES)) {
+				$ok = true;
+				foreach ($SQL_CREATE_TABLES as $instruction) {
+					$sql = sprintf($instruction, $_SESSION['bd_prefix_user'], _t('default_category'));
+					$stm = $c->prepare($sql);
+					$ok &= $stm->execute();
+				}
+			}
+		}
 	} catch (PDOException $e) {
 		$ok = false;
 		$_SESSION['bd_error'] = $e->getMessage();
@@ -894,11 +926,10 @@ function printStep3 () {
 					<?php echo (isset($_SESSION['bd_type']) && $_SESSION['bd_type'] === 'mysql') ? 'selected="selected"' : ''; ?>>
 					MySQL
 				</option>
-				<!-- TODO : l'utilisation de SQLite n'est pas encore possible. Pour tester tout de même, décommentez ce bloc
 				<option value="sqlite"
 					<?php echo (isset($_SESSION['bd_type']) && $_SESSION['bd_type'] === 'sqlite') ? 'selected="selected"' : ''; ?>>
 					SQLite
-				</option>-->
+				</option>
 				</select>
 			</div>
 		</div>
@@ -988,7 +1019,7 @@ function printStep5 () {
 
 function printStep6 () {
 ?>
-	<p class="alert alert-error"><span class="alert-head"><?php echo _t ('oops'); ?></span> <?php echo _t ('install_not_deleted', INDEX_PATH . '/install.php'); ?></p>
+	<p class="alert alert-error"><span class="alert-head"><?php echo _t ('oops'); ?></span> <?php echo _t ('install_not_deleted', DATA_PATH . '/do-install.txt'); ?></p>
 <?php
 }
 

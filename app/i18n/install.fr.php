@@ -60,7 +60,7 @@ return array (
 	'update_long'			=> 'Ce processus peut prendre longtemps, selon la taille de votre base de données. Vous aurez peut-être à attendre que cette page dépasse son temps maximum d’exécution (~5 minutes) puis à la recharger.',
 	'update_end'			=> 'La mise à jour est terminée, vous pouvez maintenant passer à l’étape finale.',
 
-	'installation_is_ok'		=> 'L’installation s’est bien passée.<br />La dernière étape va maintenant tenter de supprimer le fichier <kbd>./p/i/install.php</kbd>, ainsi que d’éventuelles copies de base de données créées durant le processus de mise à jour.<br />Vous pouvez choisir de sauter cette étape et de supprimer <kbd>./p/i/install.php</kbd> manuellement.',
+	'installation_is_ok'		=> 'L’installation s’est bien passée.<br />La dernière étape va maintenant tenter de supprimer les fichiers ainsi que d’éventuelles copies de base de données créés durant le processus de mise à jour.<br />Vous pouvez choisir de sauter cette étape en supprimant <kbd>./data/do-install.txt</kbd> manuellement.',
 	'finish_installation'		=> 'Terminer l’installation',
 	'install_not_deleted'		=> 'Quelque chose s’est mal passé, vous devez supprimer le fichier <em>%s</em> à la main.',
 );

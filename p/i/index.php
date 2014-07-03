@@ -18,12 +18,12 @@
 #
 # ***** END LICENSE BLOCK *****
 
-if (file_exists ('install.php')) {
-	require('install.php');
-} else {
-	require('../../constants.php');
-	require(LIB_PATH . '/lib_rss.php');	//Includes class autoloader
+require('../../constants.php');
+require(LIB_PATH . '/lib_rss.php');	//Includes class autoloader
 
+if (file_exists(DATA_PATH . '/do-install.txt')) {
+	require(APP_PATH . '/install.php');
+} else {
 	session_cache_limiter('');
 	Minz_Session::init('FreshRSS');
 	Minz_Session::_param('keepAlive', 1);	//For Persona
@@ -42,11 +42,11 @@ if (file_exists ('install.php')) {
 
 	try {
 		$front_controller = new FreshRSS();
-		$front_controller->init ();
-		$front_controller->run ();
+		$front_controller->init();
+		$front_controller->run();
 	} catch (Exception $e) {
 		echo '### Fatal error! ###<br />', "\n";
-		Minz_Log::record ($e->getMessage (), Minz_Log::ERROR);
+		Minz_Log::record($e->getMessage(), Minz_Log::ERROR);
 		echo 'See logs files.';
 	}
 }

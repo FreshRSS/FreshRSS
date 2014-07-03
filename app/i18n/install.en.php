@@ -61,7 +61,7 @@ return array (
 	'update_end'			=> 'Update process is completed, now you can go to the final step.',
 
 
-	'installation_is_ok'		=> 'The installation process was successful.<br />The final step will now attempt to delete the <kbd>./p/i/install.php</kbd> file and any database backup created during the update process.<br />You may choose to skip this step and delete <kbd>./p/i/install.php</kbd> manually.',
+	'installation_is_ok'		=> 'The installation process was successful.<br />The final step will now attempt to delete any file and database backup created during the update process.<br />You may choose to skip this step by deleting <kbd>./data/do-install.txt</kbd> manually.',
 	'finish_installation'		=> 'Complete installation',
 	'install_not_deleted'		=> 'Something went wrong; you must delete the file <em>%s</em> manually.',
 );
