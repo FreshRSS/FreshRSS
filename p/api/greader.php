@@ -327,7 +327,7 @@ function streamContents($path, $include_target, $start_time, $count, $order, $ex
 	logMe("streamContents($path, $include_target, $start_time, $count, $order, $exclude_target, $continuation)\n");
 	header('Content-Type: application/json; charset=UTF-8');
 
-	$feedDAO = new FreshRSS_FeedDAO();
+	$feedDAO = FreshRSS_Factory::createFeedDao();
 	$arrayFeedCategoryNames = $feedDAO->arrayFeedCategoryNames();
 
 	switch ($path) {

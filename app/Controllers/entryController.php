@@ -100,7 +100,7 @@ class FreshRSS_entry_Controller extends Minz_ActionController {
 			$entryDAO = FreshRSS_Factory::createEntryDao();
 			$entryDAO->optimizeTable();
 
-			$feedDAO = new FreshRSS_FeedDAO();
+			$feedDAO = FreshRSS_Factory::createFeedDao();
 			$feedDAO->updateCachedValues();
 
 			invalidateHttpCache();
@@ -124,7 +124,7 @@ class FreshRSS_entry_Controller extends Minz_ActionController {
 		$nb_month_old = max($this->view->conf->old_entries, 1);
 		$date_min = time() - (3600 * 24 * 30 * $nb_month_old);
 
-		$feedDAO = new FreshRSS_FeedDAO();
+		$feedDAO = FreshRSS_Factory::createFeedDao();
 		$feeds = $feedDAO->listFeedsOrderUpdate();
 		$nbTotal = 0;
 

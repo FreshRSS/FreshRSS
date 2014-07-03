@@ -31,7 +31,7 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 			), true);
 		}
 
-		$feedDAO = new FreshRSS_FeedDAO ();
+		$feedDAO = FreshRSS_Factory::createFeedDao();
 		$this->catDAO = new FreshRSS_CategoryDAO ();
 		$this->catDAO->checkDefault ();
 
@@ -201,7 +201,7 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 	public function truncateAction () {
 		if (Minz_Request::isPost ()) {
 			$id = Minz_Request::param ('id');
-			$feedDAO = new FreshRSS_FeedDAO ();
+			$feedDAO = FreshRSS_Factory::createFeedDao();
 			$n = $feedDAO->truncate($id);
 			$notif = array(
 				'type' => $n === false ? 'bad' : 'good',
@@ -216,7 +216,7 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 	public function actualizeAction () {
 		@set_time_limit(300);
 
-		$feedDAO = new FreshRSS_FeedDAO ();
+		$feedDAO = FreshRSS_Factory::createFeedDao();
 		$entryDAO = FreshRSS_Factory::createEntryDao();
 
 		Minz_Session::_param('actualize_feeds', false);
@@ -375,7 +375,7 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 			$type = Minz_Request::param ('type', 'feed');
 			$id = Minz_Request::param ('id');
 
-			$feedDAO = new FreshRSS_FeedDAO ();
+			$feedDAO = FreshRSS_Factory::createFeedDao();
 			if ($type == 'category') {
 				if ($feedDAO->deleteFeedByCategory ($id)) {
 					$notif = array (

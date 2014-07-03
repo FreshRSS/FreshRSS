@@ -13,7 +13,7 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 
 		$this->catDAO = new FreshRSS_CategoryDAO();
 		$this->entryDAO = FreshRSS_Factory::createEntryDao();
-		$this->feedDAO = new FreshRSS_FeedDAO();
+		$this->feedDAO = FreshRSS_Factory::createFeedDao();
 	}
 
 	public function indexAction() {

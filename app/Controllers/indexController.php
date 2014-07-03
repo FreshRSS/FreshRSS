@@ -126,7 +126,7 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 			// on essaye de récupérer tous les articles
 			if ($state === FreshRSS_Entry::STATE_NOT_READ && empty($entries) && ($state_param === null)) {
 				Minz_Log::record ('Conflicting information about nbNotRead!', Minz_Log::DEBUG);
-				$feedDAO = new FreshRSS_FeedDAO();
+				$feedDAO = FreshRSS_Factory::createFeedDao();
 				try {
 					$feedDAO->updateCachedValues();
 				} catch (Exception $ex) {
@@ -187,7 +187,7 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 			case 'f':
 				$feed = FreshRSS_CategoryDAO::findFeed($this->view->cat_aside, $getId);
 				if (empty($feed)) {
-					$feedDAO = new FreshRSS_FeedDAO();
+					$feedDAO = FreshRSS_Factory::createFeedDao();
 					$feed = $feedDAO->searchById($getId);
 				}
 				if ($feed) {

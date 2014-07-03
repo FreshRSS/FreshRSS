@@ -14,7 +14,7 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 	}
 
 	public function categorizeAction () {
-		$feedDAO = new FreshRSS_FeedDAO ();
+		$feedDAO = FreshRSS_Factory::createFeedDao();
 		$catDAO = new FreshRSS_CategoryDAO ();
 		$defaultCategory = $catDAO->getDefault ();
 		$defaultId = $defaultCategory->id ();
@@ -70,7 +70,7 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 		$catDAO = new FreshRSS_CategoryDAO ();
 		$this->view->categories = $catDAO->listCategories (false);
 
-		$feedDAO = new FreshRSS_FeedDAO ();
+		$feedDAO = FreshRSS_Factory::createFeedDao();
 		$this->view->feeds = $feedDAO->listFeeds ();
 
 		$id = Minz_Request::param ('id');
@@ -336,7 +336,7 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 					);
 					break;
 				case 'f':
-					$dao = new FreshRSS_FeedDAO();
+					$dao = FreshRSS_Factory::createFeedDao();
 					$feed = $dao->searchById(substr($query['get'], 2));
 					$this->view->query_get[$key] = array(
 						'type' => 'feed',

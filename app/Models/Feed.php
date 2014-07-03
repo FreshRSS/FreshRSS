@@ -87,7 +87,7 @@ class FreshRSS_Feed extends Minz_Model {
 	}
 	public function nbEntries () {
 		if ($this->nbEntries < 0) {
-			$feedDAO = new FreshRSS_FeedDAO ();
+			$feedDAO = FreshRSS_Factory::createFeedDao();
 			$this->nbEntries = $feedDAO->countEntries ($this->id ());
 		}
 
@@ -95,7 +95,7 @@ class FreshRSS_Feed extends Minz_Model {
 	}
 	public function nbNotRead () {
 		if ($this->nbNotRead < 0) {
-			$feedDAO = new FreshRSS_FeedDAO ();
+			$feedDAO = FreshRSS_Factory::createFeedDao();
 			$this->nbNotRead = $feedDAO->countNotRead ($this->id ());
 		}
 

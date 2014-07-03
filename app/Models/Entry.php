@@ -74,7 +74,7 @@ class FreshRSS_Entry extends Minz_Model {
 	}
 	public function feed ($object = false) {
 		if ($object) {
-			$feedDAO = new FreshRSS_FeedDAO ();
+			$feedDAO = FreshRSS_Factory::createFeedDao();
 			return $feedDAO->searchById ($this->feed);
 		} else {
 			return $this->feed;
