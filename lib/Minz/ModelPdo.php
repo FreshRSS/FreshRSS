@@ -92,20 +92,6 @@ class Minz_ModelPdo {
 		$this->bd->rollBack();
 	}
 
-	public function size($all = false) {
-		$db = Minz_Configuration::dataBase();
-		$sql = 'SELECT SUM(data_length + index_length) FROM information_schema.TABLES WHERE table_schema = ?';
-		$values = array($db['base']);
-		if (!$all) {
-			$sql .= ' AND table_name LIKE ?';
-			$values[] = $this->prefix . '%';
-		}
-		$stm = $this->bd->prepare($sql);
-		$stm->execute($values);
-		$res = $stm->fetchAll(PDO::FETCH_COLUMN, 0);
-		return $res[0];
-	}
-
 	public static function clean() {
 		self::$sharedBd = null;
 		self::$sharedPrefix = '';

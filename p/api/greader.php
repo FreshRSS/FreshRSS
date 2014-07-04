@@ -364,7 +364,7 @@ function streamContents($path, $include_target, $start_time, $count, $order, $ex
 		$count++;	//Shift by one element
 	}
 
-	$entryDAO = new FreshRSS_EntryDAO();
+	$entryDAO = FreshRSS_Factory::createEntryDao();
 	$entries = $entryDAO->listWhere($type, $include_target, $state, $order === 'o' ? 'ASC' : 'DESC', $count, $continuation, '', $start_time);
 
 	$items = array();
@@ -458,7 +458,7 @@ function streamContentsItemsIds($streamId, $start_time, $count, $order, $exclude
 			break;
 	}
 
-	$entryDAO = new FreshRSS_EntryDAO();
+	$entryDAO = FreshRSS_Factory::createEntryDao();
 	$ids = $entryDAO->listIdsWhere($type, $id, $state, $order === 'o' ? 'ASC' : 'DESC', $count, '', '', $start_time);
 
 	$itemRefs = array();
@@ -481,7 +481,7 @@ function editTag($e_ids, $a, $r) {
 		$e_ids[$i] = hex2dec(basename($e_id));	//Strip prefix 'tag:google.com,2005:reader/item/'
 	}
 
-	$entryDAO = new FreshRSS_EntryDAO();
+	$entryDAO = FreshRSS_Factory::createEntryDao();
 
 	switch ($a) {
 		case 'user/-/state/com.google/read':
@@ -512,13 +512,15 @@ function editTag($e_ids, $a, $r) {
 
 function markAllAsRead($streamId, $olderThanId) {
 	logMe("markAllAsRead($streamId, $olderThanId)\n");
-	$entryDAO = new FreshRSS_EntryDAO();
+	$entryDAO = FreshRSS_Factory::createEntryDao();
 	if (strpos($streamId, 'feed/') === 0) {
 		$f_id = basename($streamId);
 		$entryDAO->markReadFeed($f_id, $olderThanId);
 	} elseif (strpos($streamId, 'user/-/label/') === 0) {
 		$c_name = basename($streamId);
-		$entryDAO->markReadCatName($c_name, $olderThanId);
+		$categoryDAO = new FreshRSS_CategoryDAO();
+		$cat = $categoryDAO->searchByName($c_name);
+		$entryDAO->markReadCat($cat === null ? -1 : $cat->id(), $olderThanId);
 	} elseif ($streamId === 'user/-/state/com.google/reading-list') {
 		$entryDAO->markReadEntries($olderThanId, false, -1);
 	}

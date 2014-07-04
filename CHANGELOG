@@ -2,6 +2,8 @@
 
 ## 2014-xx-xx FreshRSS 0.7.x
 
+* SQL
+	* Add support for SQLite (beta) in addition to MySQL
 * SimplePie
 	* Complies with HTTP "301 Moved Permanently" responses by automatically updating the URL of feeds that have changed address.
 
