@@ -12,7 +12,7 @@
 	<?php $params['next'] = $this->nextId; ?>
 	<a id="load_more" href="<?php echo Minz_Url::display (array ('c' => $c, 'a' => $a, 'params' => $params)); ?>"><?php echo Minz_Translate::t ('load_more'); ?></a>
 	<?php } elseif ($markReadUrl) { ?>
-	<a id="bigMarkAsRead" href="<?php echo $markReadUrl; ?>">
+	<a id="bigMarkAsRead" href="<?php echo $markReadUrl; ?>" class="confirm">
 		<?php echo Minz_Translate::t ('nothing_to_load'); ?><br />
 		<span class="bigTick">✔</span><br />
 		<?php echo Minz_Translate::t ('mark_all_read'); ?>
