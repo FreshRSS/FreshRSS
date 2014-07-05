@@ -448,6 +448,7 @@ function init_posts() {
 				load_more_posts();
 			}
 		});
+		box_to_follow.scroll();
 	}
 }
 
