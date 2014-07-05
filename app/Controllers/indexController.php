@@ -124,13 +124,13 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 
 			// Si on a récupéré aucun article "non lus"
 			// on essaye de récupérer tous les articles
-			if ($state === FreshRSS_Entry::STATE_NOT_READ && empty($entries) && ($state_param === null)) {
-				Minz_Log::record ('Conflicting information about nbNotRead!', Minz_Log::DEBUG);
+			if ($state === FreshRSS_Entry::STATE_NOT_READ && empty($entries) && ($state_param === null) && ($filter == '')) {
+				Minz_Log::record('Conflicting information about nbNotRead!', Minz_Log::DEBUG);
 				$feedDAO = FreshRSS_Factory::createFeedDao();
 				try {
 					$feedDAO->updateCachedValues();
 				} catch (Exception $ex) {
-					Minz_Log::record ('Failed to automatically correct nbNotRead! ' + $ex->getMessage(), Minz_Log::NOTICE);
+					Minz_Log::record('Failed to automatically correct nbNotRead! ' + $ex->getMessage(), Minz_Log::NOTICE);
 				}
 				$this->view->state = FreshRSS_Entry::STATE_ALL;
 				$entries = $entryDAO->listWhere($getType, $getId, $this->view->state, $order, $nb, $first, $filter, $date_min, true, $keepHistoryDefault);
