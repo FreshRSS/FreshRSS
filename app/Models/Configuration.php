@@ -7,6 +7,7 @@ class FreshRSS_Configuration {
 		'language' => 'en',
 		'old_entries' => 3,
 		'keep_history_default' => 0,
+		'ttl_default' => 3600,
 		'mail_login' => '',
 		'token' => '',
 		'passwordHash' => '',	//CRYPT_BLOWFISH
@@ -158,6 +159,10 @@ class FreshRSS_Configuration {
 	public function _keep_history_default($value) {
 		$value = intval($value);
 		$this->data['keep_history_default'] = $value >= -1 ? $value : 0;
+	}
+	public function _ttl_default($value) {
+		$value = intval($value);
+		$this->data['ttl_default'] = $value >= -1 ? $value : 3600;
 	}
 	public function _shortcuts ($values) {
 		foreach ($values as $key => $value) {

@@ -109,7 +109,7 @@ function customSimplePie() {
 	$simplePie = new SimplePie();
 	$simplePie->set_useragent(Minz_Translate::t('freshrss') . '/' . FRESHRSS_VERSION . ' (' . PHP_OS . '; ' . FRESHRSS_WEBSITE . ') ' . SIMPLEPIE_NAME . '/' . SIMPLEPIE_VERSION);
 	$simplePie->set_cache_location(CACHE_PATH);
-	$simplePie->set_cache_duration(1500);
+	$simplePie->set_cache_duration(800);
 	$simplePie->strip_htmltags(array(
 		'base', 'blink', 'body', 'doctype', 'embed',
 		'font', 'form', 'frame', 'frameset', 'html',

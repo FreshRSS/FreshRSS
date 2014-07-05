@@ -109,6 +109,7 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 						'priority' => intval(Minz_Request::param ('priority', 0)),
 						'httpAuth' => $httpAuth,
 						'keep_history' => intval(Minz_Request::param ('keep_history', -2)),
+						'ttl' => intval(Minz_Request::param('ttl', -2)),
 					);
 
 					if ($feedDAO->updateFeed ($id, $values)) {
@@ -274,9 +275,11 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 		if (Minz_Request::isPost()) {
 			$old = Minz_Request::param('old_entries', 3);
 			$keepHistoryDefault = Minz_Request::param('keep_history_default', 0);
+			$ttlDefault = Minz_Request::param('ttl_default', -2);
 
 			$this->view->conf->_old_entries($old);
 			$this->view->conf->_keep_history_default($keepHistoryDefault);
+			$this->view->conf->_ttl_default($ttlDefault);
 			$this->view->conf->save();
 			invalidateHttpCache();
 

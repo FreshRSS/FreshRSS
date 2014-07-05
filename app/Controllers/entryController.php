@@ -125,7 +125,7 @@ class FreshRSS_entry_Controller extends Minz_ActionController {
 		$date_min = time() - (3600 * 24 * 30 * $nb_month_old);
 
 		$feedDAO = FreshRSS_Factory::createFeedDao();
-		$feeds = $feedDAO->listFeedsOrderUpdate();
+		$feeds = $feedDAO->listFeeds();
 		$nbTotal = 0;
 
 		invalidateHttpCache();

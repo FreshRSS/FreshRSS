@@ -197,6 +197,7 @@ return array (
 	'by_feed'			=> 'par flux',
 	'by_default'			=> 'Par défaut',
 	'keep_history'			=> 'Nombre minimum d’articles à conserver',
+	'ttl'				=> 'Ne pas automatiquement rafraîchir plus souvent que',
 	'categorize'			=> 'Ranger dans une catégorie',
 	'truncate'			=> 'Supprimer tous les articles',
 	'advanced'			=> 'Avancé',

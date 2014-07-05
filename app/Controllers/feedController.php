@@ -233,7 +233,7 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 				$feeds = array ($feed);
 			}
 		} else {
-			$feeds = $feedDAO->listFeedsOrderUpdate ();
+			$feeds = $feedDAO->listFeedsOrderUpdate($this->view->conf->ttl_default);
 		}
 
 		// on calcule la date des articles les plus anciens qu'on accepte

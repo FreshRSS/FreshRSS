@@ -2,7 +2,7 @@
 
 class FreshRSS_FeedDAO extends Minz_ModelPdo {
 	public function addFeed($valuesTmp) {
-		$sql = 'INSERT INTO `' . $this->prefix . 'feed` (url, category, name, website, description, lastUpdate, priority, httpAuth, error, keep_history) VALUES(?, ?, ?, ?, ?, ?, 10, ?, 0, -2)';
+		$sql = 'INSERT INTO `' . $this->prefix . 'feed` (url, category, name, website, description, lastUpdate, priority, httpAuth, error, keep_history, ttl) VALUES(?, ?, ?, ?, ?, ?, 10, ?, 0, -2, -2)';
 		$stm = $this->bd->prepare($sql);
 
 		$values = array(
@@ -222,13 +222,19 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo {
 		return $feedCategoryNames;
 	}
 
-	public function listFeedsOrderUpdate($cacheDuration = 1500) {
-		$sql = 'SELECT id, url, name, website, lastUpdate, pathEntries, httpAuth, keep_history '
+	public function listFeedsOrderUpdate($defaultCacheDuration = 3600) {
+		$sql = 'SELECT id, url, name, website, lastUpdate, pathEntries, httpAuth, keep_history, ttl '
 		     . 'FROM `' . $this->prefix . 'feed` '
-		     . 'WHERE lastUpdate < ' . (time() - intval($cacheDuration))
-		     . ' ORDER BY lastUpdate';
+		     . 'WHERE ttl <> -1 AND lastUpdate < (' . (time() + 60) . '-(CASE WHEN ttl=-2 THEN ' . intval($defaultCacheDuration) . ' ELSE ttl END)) '
+		     . 'ORDER BY lastUpdate';
 		$stm = $this->bd->prepare($sql);
-		$stm->execute();
+		if (!($stm && $stm->execute())) {
+			$sql2 = 'ALTER TABLE `' . $this->prefix . 'feed` ADD COLUMN ttl INT NOT NULL DEFAULT -2';	//v0.7.3
+			$stm = $this->bd->prepare($sql2);
+			$stm->execute();
+			$stm = $this->bd->prepare($sql);
+			$stm->execute();
+		}
 
 		return self::daoToFeed($stm->fetchAll(PDO::FETCH_ASSOC));
 	}
@@ -365,6 +371,7 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo {
 			$myFeed->_httpAuth(isset($dao['httpAuth']) ? base64_decode($dao['httpAuth']) : '');
 			$myFeed->_error(isset($dao['error']) ? $dao['error'] : 0);
 			$myFeed->_keepHistory(isset($dao['keep_history']) ? $dao['keep_history'] : -2);
+			$myFeed->_ttl(isset($dao['ttl']) ? $dao['ttl'] : -2);
 			$myFeed->_nbNotRead(isset($dao['cache_nbUnreads']) ? $dao['cache_nbUnreads'] : 0);
 			$myFeed->_nbEntries(isset($dao['cache_nbEntries']) ? $dao['cache_nbEntries'] : 0);
 			if (isset($dao['id'])) {
