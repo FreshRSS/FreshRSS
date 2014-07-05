@@ -124,6 +124,7 @@ class FreshRSS_Feed extends Minz_Model {
 		$this->id = $value;
 	}
 	public function _url ($value, $validate=true) {
+		$this->hash = null;
 		if ($validate) {
 			$value = checkUrl($value);
 		}
