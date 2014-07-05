@@ -204,25 +204,6 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 		}
 	}
 	
-	public function statsAction () {
-		if (!$this->view->loginOk) {
-			Minz_Error::error (
-				403,
-				array ('error' => array (Minz_Translate::t ('access_denied')))
-			);
-		}
-
-		Minz_View::prependTitle (Minz_Translate::t ('stats') . ' · ');
-
-		$statsDAO = new FreshRSS_StatsDAO ();
-		Minz_View::appendScript (Minz_Url::display ('/scripts/flotr2.min.js?' . @filemtime(PUBLIC_PATH . '/scripts/flotr2.min.js')));
-		$this->view->repartition = $statsDAO->calculateEntryRepartition();
-		$this->view->count = ($statsDAO->calculateEntryCount());
-		$this->view->feedByCategory = $statsDAO->calculateFeedByCategory();
-		$this->view->entryByCategory = $statsDAO->calculateEntryByCategory();
-		$this->view->topFeed = $statsDAO->calculateTopFeed();
-	}
-
 	public function aboutAction () {
 		Minz_View::prependTitle (Minz_Translate::t ('about') . ' · ');
 	}

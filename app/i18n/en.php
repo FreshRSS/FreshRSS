@@ -46,6 +46,14 @@ return array (
 	'no_query_filter'		=> 'No filter',
 	'about'				=> 'About',
 	'stats'				=> 'Statistics',
+	'stats_idle'			=> 'Idle feeds',
+	'stats_main'			=> 'Main statistics',
+    
+	'last_week'			=> 'Last week',
+	'last_month'			=> 'Last month',
+	'last_3_month'			=> 'Last three months',
+	'last_6_month'			=> 'Last six months',
+	'last_year'			=> 'Last year',
 
 	'your_rss_feeds'		=> 'Your RSS feeds',
 	'add_rss_feed'			=> 'Add a RSS feed',
