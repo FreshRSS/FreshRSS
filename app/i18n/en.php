@@ -265,7 +265,7 @@ return array (
 	'img_with_lazyload'		=> 'Use "lazy load" mode to load pictures',
 	'sticky_post'			=> 'Stick the article to the top when opened',
 	'auto_read_when'		=> 'Mark article as read…',
-	'article_viewed'		=> 'when article is view',
+	'article_viewed'		=> 'when article is viewed',
 	'article_open_on_website'	=> 'when article is opened on its original website',
 	'scroll'			=> 'during page scrolls',
 	'upon_reception'		=> 'upon reception of the article',
