@@ -223,6 +223,9 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo {
 	}
 
 	public function listFeedsOrderUpdate($defaultCacheDuration = 3600) {
+		if ($defaultCacheDuration < 0) {
+			$defaultCacheDuration = 2147483647;
+		}
 		$sql = 'SELECT id, url, name, website, lastUpdate, pathEntries, httpAuth, keep_history, ttl '
 		     . 'FROM `' . $this->prefix . 'feed` '
 		     . 'WHERE ttl <> -1 AND lastUpdate < (' . (time() + 60) . '-(CASE WHEN ttl=-2 THEN ' . intval($defaultCacheDuration) . ' ELSE ttl END)) '
