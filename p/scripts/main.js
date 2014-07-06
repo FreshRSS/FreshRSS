@@ -258,7 +258,7 @@ function toggleContent(new_active, old_active) {
 		}
 	}
 
-	if (auto_mark_article) {
+	if (auto_mark_article && new_active.hasClass('active')) {
 		mark_read(new_active, true);
 	}
 }

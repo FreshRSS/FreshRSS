@@ -265,7 +265,7 @@ return array (
 	'img_with_lazyload'		=> 'Utiliser le mode “chargement différé” pour les images',
 	'sticky_post'			=> 'Aligner l’article en haut quand il est ouvert',
 	'auto_read_when'		=> 'Marquer un article comme lu…',
-	'article_selected'		=> 'lorsque l’article est sélectionné',
+	'article_viewed'		=> 'lorsque l’article est affiché',
 	'article_open_on_website'	=> 'lorsque l’article est ouvert sur le site d’origine',
 	'scroll'			=> 'au défilement de la page',
 	'upon_reception'		=> 'dès la réception du nouvel article',
