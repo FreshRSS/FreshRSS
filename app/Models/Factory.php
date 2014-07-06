@@ -19,4 +19,14 @@ class FreshRSS_Factory {
 			return new FreshRSS_EntryDAO();
 		}
 	}
+
+	public static function createStatsDAO() {
+		$db = Minz_Configuration::dataBase();
+		if ($db['type'] === 'sqlite') {
+			return new FreshRSS_StatsDAOSQLite();
+		} else {
+			return new FreshRSS_StatsDAO();
+		}
+	}
+
 }

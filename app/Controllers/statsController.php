@@ -3,7 +3,7 @@
 class FreshRSS_stats_Controller extends Minz_ActionController {
 
 	public function indexAction() {
-		$statsDAO = new FreshRSS_StatsDAO ();
+		$statsDAO = FreshRSS_Factory::createStatsDAO();
 		Minz_View::appendScript (Minz_Url::display ('/scripts/flotr2.min.js?' . @filemtime(PUBLIC_PATH . '/scripts/flotr2.min.js')));
 		$this->view->repartition = $statsDAO->calculateEntryRepartition();
 		$this->view->count = ($statsDAO->calculateEntryCount());
@@ -13,7 +13,7 @@ class FreshRSS_stats_Controller extends Minz_ActionController {
 	}
 
 	public function idleAction() {
-		$statsDAO = new FreshRSS_StatsDAO ();
+		$statsDAO = FreshRSS_Factory::createStatsDAO();
 		$feeds = $statsDAO->calculateFeedLastDate();
 		$idleFeeds = array();
 		$now = new \DateTime();

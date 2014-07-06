@@ -201,7 +201,7 @@ SQL;
 		return $stm->fetchAll(PDO::FETCH_ASSOC);
 	}
 
-	private function convertToSerie($data) {
+	protected function convertToSerie($data) {
 		$serie = array();
 
 		foreach ($data as $key => $value) {
@@ -211,7 +211,7 @@ SQL;
 		return json_encode($serie);
 	}
 
-	private function convertToPieSerie($data) {
+	protected function convertToPieSerie($data) {
 		$serie = array();
 
 		foreach ($data as $value) {
