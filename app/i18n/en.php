@@ -255,6 +255,7 @@ return array (
 	'bottom_line'			=> 'Bottom line',
 	'img_with_lazyload'		=> 'Use "lazy load" mode to load pictures',
 	'sticky_post'			=> 'Stick the article to the top when opened',
+	'reading_confirm'		=> 'Display a confirmation dialog on “mark all as read” actions',
 	'auto_read_when'		=> 'Mark article as read…',
 	'article_selected'		=> 'when article is selected',
 	'article_open_on_website'	=> 'when article is opened on its original website',

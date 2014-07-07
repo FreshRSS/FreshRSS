@@ -255,6 +255,7 @@ return array (
 	'bottom_line'			=> 'Ligne du bas',
 	'img_with_lazyload'		=> 'Utiliser le mode “chargement différé” pour les images',
 	'sticky_post'			=> 'Aligner l’article en haut quand il est ouvert',
+	'reading_confirm'		=> 'Afficher une confirmation lors des actions “marquer tout comme lu”',
 	'auto_read_when'		=> 'Marquer un article comme lu…',
 	'article_selected'		=> 'lorsque l’article est sélectionné',
 	'article_open_on_website'	=> 'lorsque l’article est ouvert sur le site d’origine',
