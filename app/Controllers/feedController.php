@@ -109,18 +109,23 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 						$nb_month_old = $this->view->conf->old_entries;
 						$date_min = time () - (3600 * 24 * 30 * $nb_month_old);
 
+						//MySQL: http://docs.oracle.com/cd/E17952_01/refman-5.5-en/optimizing-innodb-transaction-management.html
+						//SQLite: http://stackoverflow.com/questions/1711631/how-do-i-improve-the-performance-of-sqlite
+						$preparedStatement = $entryDAO->addEntryPrepare();
 						$transactionStarted = true;
-						$feedDAO->beginTransaction ();
+						$feedDAO->beginTransaction();
 						// on ajoute les articles en masse sans vérification
 						foreach ($entries as $entry) {
-							$values = $entry->toArray ();
-							$values['id_feed'] = $feed->id ();
-							$values['id'] = min(time(), $entry->date (true)) . uSecString();
+							$values = $entry->toArray();
+							$values['id_feed'] = $feed->id();
+							$values['id'] = min(time(), $entry->date(true)) . uSecString();
 							$values['is_read'] = $is_read;
-							$entryDAO->addEntry ($values);
+							$entryDAO->addEntry($values, $preparedStatement);
 						}
-						$feedDAO->updateLastUpdate ($feed->id ());
-						$feedDAO->commit ();
+						$feedDAO->updateLastUpdate($feed->id());
+						if ($transactionStarted) {
+							$feedDAO->commit();
+						}
 						$transactionStarted = false;
 
 						// ok, ajout terminé
@@ -265,22 +270,23 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 						$feedHistory = $this->view->conf->keep_history_default;
 					}
 
+					$preparedStatement = $entryDAO->addEntryPrepare();
 					$hasTransaction = true;
 					$feedDAO->beginTransaction();
 
 					// On ne vérifie pas strictement que l'article n'est pas déjà en BDD
 					// La BDD refusera l'ajout car (id_feed, guid) doit être unique
 					foreach ($entries as $entry) {
-						$eDate = $entry->date (true);
-						if ((!isset ($existingGuids[$entry->guid ()])) &&
+						$eDate = $entry->date(true);
+						if ((!isset($existingGuids[$entry->guid()])) &&
 							(($feedHistory != 0) || ($eDate  >= $date_min))) {
-							$values = $entry->toArray ();
+							$values = $entry->toArray();
 							//Use declared date at first import, otherwise use discovery date
 							$values['id'] = ($useDeclaredDate || $eDate < $date_min) ?
 								min(time(), $eDate) . uSecString() :
 								uTimeString();
 							$values['is_read'] = $is_read;
-							$entryDAO->addEntry ($values);
+							$entryDAO->addEntry($values, $preparedStatement);
 						}
 					}
 				}

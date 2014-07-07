@@ -6,14 +6,18 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 		return parent::$sharedDbType !== 'sqlite';
 	}
 
-	public function addEntry($valuesTmp) {
+	public function addEntryPrepare() {
 		$sql = 'INSERT INTO `' . $this->prefix . 'entry`(id, guid, title, author, '
 		     . ($this->isCompressed() ? 'content_bin' : 'content')
 		     . ', link, date, is_read, is_favorite, id_feed, tags) '
 		     . 'VALUES(?, ?, ?, ?, '
 		     . ($this->isCompressed() ? 'COMPRESS(?)' : '?')
 		     . ', ?, ?, ?, ?, ?, ?)';
-		$stm = $this->bd->prepare($sql);
+		return $this->bd->prepare($sql);
+	}
+
+	public function addEntry($valuesTmp, $preparedStatement = null) {
+		$stm = $preparedStatement === null ? addEntryPrepare() : $preparedStatement;
 
 		$values = array(
 			$valuesTmp['id'],

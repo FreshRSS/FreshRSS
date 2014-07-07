@@ -266,6 +266,7 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 			);
 			$entry->_tags($tags);
 
+			//FIME: Use entryDAO->addEntryPrepare(). Do not call entryDAO->listLastGuidsByFeed() for each entry. Consider using a transaction.
 			$id = $this->entryDAO->addEntryObject(
 				$entry, $this->view->conf, $feed->keepHistory()
 			);
