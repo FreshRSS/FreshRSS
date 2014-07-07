@@ -2,6 +2,6 @@
   "name": "Flat design",
   "author": "Marien Fressinaud",
   "description": "Thème plat pour FreshRSS",
-  "version": 0.1,
-  "files": ["global.css", "freshrss.css"]
+  "version": 0.2,
+  "files": ["template.css", "flat.css"]
 }
