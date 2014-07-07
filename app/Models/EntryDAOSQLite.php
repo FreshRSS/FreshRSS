@@ -10,7 +10,7 @@ class FreshRSS_EntryDAOSQLite extends FreshRSS_EntryDAO {
 		$sql = 'UPDATE `' . $this->prefix . 'feed` '
 		 . 'SET cache_nbUnreads=('
 		 .	'SELECT COUNT(*) AS nbUnreads FROM `' . $this->prefix . 'entry` e '
-		 .	'WHERE e.id_feed=feed.id AND e.is_read=0) '
+		 .	'WHERE e.id_feed=`' . $this->prefix . 'feed`.id AND e.is_read=0) '
 		 . 'WHERE 1';
 		$values = array();
 		if ($feedId !== false) {
