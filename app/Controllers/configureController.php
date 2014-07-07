@@ -185,8 +185,9 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 			$this->view->conf->_auto_load_more(Minz_Request::param('auto_load_more', false));
 			$this->view->conf->_display_posts(Minz_Request::param('display_posts', false));
 			$this->view->conf->_onread_jump_next(Minz_Request::param('onread_jump_next', false));
-			$this->view->conf->_lazyload(Minz_Request::param('lazyload', false));
-			$this->view->conf->_sticky_post(Minz_Request::param('sticky_post', false));
+			$this->view->conf->_lazyload (Minz_Request::param('lazyload', false));
+			$this->view->conf->_sticky_post (Minz_Request::param('sticky_post', false));
+			$this->view->conf->_reading_confirm (Minz_Request::param('reading_confirm', false));
 			$this->view->conf->_sort_order(Minz_Request::param('sort_order', 'DESC'));
 			$this->view->conf->_mark_when(array(
 				'article' => Minz_Request::param('mark_open_article', false),
