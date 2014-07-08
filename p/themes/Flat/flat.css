@@ -242,7 +242,7 @@ a.btn {
 .nav-list .item.empty a {
 	color: #f39c12;
 }
-.nav-list .item.active.empty a,
+.nav-list .item:hover.empty a,
 .nav-list .item.active.empty a {
 	color: #fff;
 	background: #f39c12;
@@ -323,8 +323,6 @@ a.btn {
 	text-align: left;
 	color: #34495e;
 }
-.dropdown-menu > .item {
-}
 .dropdown-menu > .item > a {
 	padding: 0 25px;
 	line-height: 2.5em;
@@ -332,8 +330,6 @@ a.btn {
 .dropdown-menu > .item > span {
 	padding: 0 25px;
 	line-height: 2em;
-}
-.dropdown-menu > .item:hover {
 }
 .dropdown-menu > .item[aria-checked="true"] > a:before {
 	font-weight: bold;
@@ -420,10 +416,6 @@ a.btn {
 	background: #34495e;
 	color: #ecf0f1;
 }
-.pagination:first-child .item {
-}
-.pagination:last-child .item {
-}
 
 .pagination .loading,
 .pagination a:hover.loading {
@@ -442,8 +434,7 @@ a.btn {
 	vertical-align: middle;
 	text-align: center;
 }
-.header > .item.title h1 {
-}
+
 .header > .item.title h1 a {
 	text-decoration: none;
 }
@@ -455,8 +446,6 @@ a.btn {
 }
 
 /*=== Body */
-#global {
-}
 .aside {
 	background: #ecf0f1;
 }
@@ -470,16 +459,16 @@ a.btn {
 	text-align: center;
 }
 .category {
-	width: 235px;
+	width: 233px;
 	margin: 10px auto;
 	text-align: left;
 }
 .category .btn:first-child {
 	position: relative;
-	width: 213px;
+	width: 212px;
 }
 .category.stick .btn:first-child {
-	width: 176px;
+	width: 175px;
 }
 .category .btn:first-child:not([data-unread="0"]):after {
 	position: absolute;
@@ -588,8 +577,6 @@ a.btn {
 	line-height: 3em;
 	border-left: 2px solid #ecf0f1;
 }
-#new-article + .day {
-}
 .day .name {
 	padding: 0 10px 0 0;
 	font-size: 1.8em;
@@ -620,12 +607,14 @@ a.btn {
 	border-left-color: #FF5300;
 }
 .flux.not_read:not(.current):hover .item.title {
+	background: #FFF3ED;
 }
 .flux.favorite {
 	background: #FFF6DA;
 	border-left-color: #FFC300;
 }
 .flux.favorite:not(.current):hover .item.title {
+	background: #FFF6DA;
 }
 .flux.current {
 	background: #fff;
@@ -755,8 +744,6 @@ a.btn {
 	background: #34495e;
 	color: #fff;
 }
-#bigMarkAsRead:hover .bigTick {
-}
 
 /*=== Navigation menu (for articles) */
 #nav_entries {
@@ -845,9 +832,11 @@ a.btn {
 .stat th,
 .stat td,
 .stat tr {
+	border: none;
 }
 .stat > table td,
 .stat > table th {
+	border-bottom: 1px solid #ddd;
 	text-align: center;
 }
 
