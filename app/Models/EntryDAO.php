@@ -137,7 +137,6 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 				return $affected;
 			}
 
-			$this->bd->beginTransaction();
 			$sql = 'UPDATE `' . $this->prefix . 'entry` '
 				 . 'SET is_read=? '
 				 . 'WHERE id IN (' . str_repeat('?,', count($ids) - 1). '?)';
@@ -147,15 +146,12 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 			if (!($stm && $stm->execute($values))) {
 				$info = $stm == null ? array(2 => 'syntax error') : $stm->errorInfo();
 				Minz_Log::record('SQL error markRead: ' . $info[2], Minz_Log::ERROR);
-				$this->bd->rollBack();
 				return false;
 			}
 			$affected = $stm->rowCount();
 			if (($affected > 0) && (!$this->updateCacheUnreads(false, false))) {
-				$this->bd->rollBack();
 				return false;
 			}
-			$this->bd->commit();
 			return $affected;
 		} else {
 			$sql = 'UPDATE `' . $this->prefix . 'entry` e INNER JOIN `' . $this->prefix . 'feed` f ON e.id_feed=f.id '
@@ -179,7 +175,6 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 			$idMax = time() . '000000';
 			Minz_Log::record($nb . 'Calling markReadEntries(0) is deprecated!', Minz_Log::DEBUG);
 		}
-		$this->bd->beginTransaction();
 
 		$sql = 'UPDATE `' . $this->prefix . 'entry` e INNER JOIN `' . $this->prefix . 'feed` f ON e.id_feed=f.id '
 			 . 'SET e.is_read=1 '
@@ -194,15 +189,12 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 		if (!($stm && $stm->execute($values))) {
 			$info = $stm == null ? array(2 => 'syntax error') : $stm->errorInfo();
 			Minz_Log::record('SQL error markReadEntries: ' . $info[2], Minz_Log::ERROR);
-			$this->bd->rollBack();
 			return false;
 		}
 		$affected = $stm->rowCount();
 		if (($affected > 0) && (!$this->updateCacheUnreads(false, false))) {
-			$this->bd->rollBack();
 			return false;
 		}
-		$this->bd->commit();
 		return $affected;
 	}
 
@@ -211,7 +203,6 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 			$idMax = time() . '000000';
 			Minz_Log::record($nb . 'Calling markReadCat(0) is deprecated!', Minz_Log::DEBUG);
 		}
-		$this->bd->beginTransaction();
 
 		$sql = 'UPDATE `' . $this->prefix . 'entry` e INNER JOIN `' . $this->prefix . 'feed` f ON e.id_feed=f.id '
 			 . 'SET e.is_read=1 '
@@ -221,15 +212,12 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 		if (!($stm && $stm->execute($values))) {
 			$info = $stm == null ? array(2 => 'syntax error') : $stm->errorInfo();
 			Minz_Log::record('SQL error markReadCat: ' . $info[2], Minz_Log::ERROR);
-			$this->bd->rollBack();
 			return false;
 		}
 		$affected = $stm->rowCount();
 		if (($affected > 0) && (!$this->updateCacheUnreads($id, false))) {
-			$this->bd->rollBack();
 			return false;
 		}
-		$this->bd->commit();
 		return $affected;
 	}
 
