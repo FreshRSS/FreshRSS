@@ -75,7 +75,6 @@ class FreshRSS_EntryDAOSQLite extends FreshRSS_EntryDAO {
 			Minz_Log::record($nb . 'Calling markReadEntries(0) is deprecated!', Minz_Log::DEBUG);
 		}
 
-		$this->bd->beginTransaction();
 		$sql = 'UPDATE `' . $this->prefix . 'entry` SET is_read=1 WHERE is_read=0 AND id <= ?';
 		if ($onlyFavorites) {
 			$sql .= ' AND is_favorite=1';
@@ -86,16 +85,13 @@ class FreshRSS_EntryDAOSQLite extends FreshRSS_EntryDAO {
 		$stm = $this->bd->prepare($sql);
 		if (!($stm && $stm->execute($values))) {
 			$info = $stm == null ? array(2 => 'syntax error') : $stm->errorInfo();
-			Minz_Log::record('SQL error markReadEntries 1: ' . $info[2], Minz_Log::ERROR);
-			$this->bd->rollBack();
+			Minz_Log::record('SQL error markReadEntries: ' . $info[2], Minz_Log::ERROR);
 			return false;
 		}
 		$affected = $stm->rowCount();
 		if (($affected > 0) && (!$this->updateCacheUnreads(false, false))) {
-			$this->bd->rollBack();
 			return false;
 		}
-		$this->bd->commit();
 		return $affected;
 	}
 
@@ -104,7 +100,6 @@ class FreshRSS_EntryDAOSQLite extends FreshRSS_EntryDAO {
 			$idMax = time() . '000000';
 			Minz_Log::record($nb . 'Calling markReadCat(0) is deprecated!', Minz_Log::DEBUG);
 		}
-		$this->bd->beginTransaction();
 
 		$sql = 'UPDATE `' . $this->prefix . 'entry` '
 			 . 'SET is_read=1 '
@@ -115,15 +110,12 @@ class FreshRSS_EntryDAOSQLite extends FreshRSS_EntryDAO {
 		if (!($stm && $stm->execute($values))) {
 			$info = $stm == null ? array(2 => 'syntax error') : $stm->errorInfo();
 			Minz_Log::record('SQL error markReadCat: ' . $info[2], Minz_Log::ERROR);
-			$this->bd->rollBack();
 			return false;
 		}
 		$affected = $stm->rowCount();
 		if (($affected > 0) && (!$this->updateCacheUnreads($id, false))) {
-			$this->bd->rollBack();
 			return false;
 		}
-		$this->bd->commit();
 		return $affected;
 	}
 
