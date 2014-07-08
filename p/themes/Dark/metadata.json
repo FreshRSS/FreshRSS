@@ -2,6 +2,6 @@
 	"name": "Dark",
 	"author": "AD",
 	"description": "Le coté obscur du thème “Origine”",
-	"version": 0.1,
-	"files": ["global.css", "freshrss.css"]
+	"version": 0.2,
+	"files": ["template.css", "dark.css"]
 }
