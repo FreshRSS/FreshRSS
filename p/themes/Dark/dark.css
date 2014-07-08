@@ -150,8 +150,6 @@ form th {
 .stick .dropdown + .dropdown > .btn {
 	border-left: none;
 }
-.stick input + .btn {
-}
 .stick .btn + .dropdown > .btn {
 	border-left: none;
 	border-radius: 0 3px 3px 0;
@@ -327,8 +325,6 @@ a.btn {
 	text-align: left;
 	color: #888;
 }
-.dropdown-menu > .item {
-}
 .dropdown-menu > .item > a {
 	padding: 0 25px;
 	line-height: 2.5em;
@@ -413,8 +409,6 @@ a.btn {
 	text-decoration: none;
 	color: #666;
 }
-.pagination .item a:hover {
-}
 .pagination:first-child .item {
 	border-bottom: 1px solid #333;
 }
@@ -430,15 +424,11 @@ a.btn {
 /*=== STRUCTURE */
 /*===============*/
 /*=== Header */
-.header {
-}
 .header > .item {
 	padding: 10px 0;
 	vertical-align: middle;
 	text-align: center;
 	border-bottom: 1px solid #333;
-}
-.header > .item.title h1 {
 }
 .header > .item.title h1 a {
 	text-decoration: none;
@@ -451,8 +441,6 @@ a.btn {
 }
 
 /*=== Body */
-#global {
-}
 .aside {
 	border-right: 1px solid #333;
 	background: #1c1c1c;

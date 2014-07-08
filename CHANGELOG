@@ -11,7 +11,7 @@
 * SimplePie
 	* Complies with HTTP "301 Moved Permanently" responses by automatically updating the URL of feeds that have changed address.
 * Themes
-	* Flat design is based on same template file as Origine
+	* Flat and Dark designs are based on same template file as Origine
 
 
 ## 2014-06-13 FreshRSS 0.7.2
