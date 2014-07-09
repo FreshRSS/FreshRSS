@@ -66,9 +66,8 @@ input:invalid, select:invalid {
 	box-shadow: 0 0 2px 1px #f00;
 }
 input:disabled, select:disabled {
-	background: #888;
-	color: #000;
-	box-shadow: none;
+	background: #666;
+	color: #aaa;
 }
 input.extend {
 	transition: width 200ms linear;
@@ -150,6 +149,12 @@ form th {
 .stick .dropdown + .dropdown > .btn {
 	border-left: none;
 }
+.stick input:focus+input {
+	border-left: 1px solid #000;
+}
+.stick input+input:focus {
+	border-left: 1px solid #333;
+}
 .stick .btn + .dropdown > .btn {
 	border-left: none;
 	border-radius: 0 3px 3px 0;
@@ -165,7 +170,7 @@ form th {
 	vertical-align: middle;
 	cursor: pointer;
 	overflow: hidden;
-	background: #1c1c1c;
+	background: #111;
 	border-radius: 3px;
 	border: 1px solid #000;
 	color: #888;
@@ -183,8 +188,10 @@ a.btn {
 	background: -ms-linear-gradient(top, #4A5D7A 0%, #26303F 100%);
 }
 .btn.active,
-.btn:active,
 .dropdown-target:target ~ .btn.dropdown-toggle {
+	background: #333;
+}
+.btn:active {
 	background: #26303F;
 }
 
@@ -224,9 +231,11 @@ a.btn {
 	line-height: 2.5em;
 	font-size: 0.9rem;
 }
-.nav-list .item:hover,
-.nav-list .item.active {
+.nav-list .item:hover {
 	background: #26303F;
+}
+.nav-list .item.active {
+	background: #333;
 }
 .nav-list .item:hover a,
 .nav-list .item.active a {
@@ -391,7 +400,7 @@ a.btn {
 .pagination {
 	text-align: center;
 	font-size: 0.8em;
-	background: #1a1a1a;
+	background: #1c1c1c;
 	color: #888;
 }
 .content .pagination {
@@ -401,6 +410,7 @@ a.btn {
 .pagination .item.pager-current {
 	font-weight: bold;
 	font-size: 1.5em;
+	background: #111;
 }
 .pagination .item a {
 	display: block;
@@ -408,6 +418,9 @@ a.btn {
 	line-height: 3em;
 	text-decoration: none;
 	color: #666;
+}
+.pagination .item a:hover {
+	background-color: #111;
 }
 .pagination:first-child .item {
 	border-bottom: 1px solid #333;
@@ -479,7 +492,7 @@ a.btn {
 
 /*=== Aside main page (feeds) */
 .categories .feeds .item.active {
-	background: #26303F;
+	background: #333;
 }
 .categories .feeds .item.active .feed {
 	color: #888;
@@ -579,6 +592,7 @@ a.btn {
 	font-weight: bold;
 	line-height: 3em;
 	border-top: 1px solid #333;
+	border-bottom: 1px solid #333;
 }
 .day .name {
 	padding: 0 10px 0 0;
@@ -601,6 +615,9 @@ a.btn {
 .flux {
 	border-left: 2px solid #2f2f2f;
 }
+.flux:hover {
+	background: #111;
+}
 .flux.current {
 	border-left: 2px solid #0062BE;
 	background: #111;
@@ -616,7 +633,6 @@ a.btn {
 .flux_header {
 	font-size: 0.8rem;
 	cursor: pointer;
-	border-top: 1px solid #333;
 }
 .flux_header .title {
 	font-size: 0.9rem;
@@ -632,8 +648,7 @@ a.btn {
 	color: #666;
 }
 .flux:not(.current):hover .item.title {
-	top: 1px;
-	background: #1c1c1c;
+	background: #111;
 }
 
 .flux .bottom {
@@ -933,10 +948,6 @@ a.btn {
 
 	.day .name {
 		font-size: 1.1rem;
-	}
-
-	.flux_header .item.website .favicon {
-		padding: 12px;
 	}
 
 	.pagination {
