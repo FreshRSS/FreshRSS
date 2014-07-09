@@ -1,7 +1,8 @@
 "use strict";
 var $stream = null,
 	isCollapsed = true,
-	shares = 0;
+	shares = 0,
+	ajax_loading = false;
 
 function is_normal_mode() {
 	return $stream.hasClass('normal');
@@ -684,14 +685,22 @@ function init_actualize() {
 	var auto = false;
 
 	$("#actualize").click(function () {
+		if (ajax_loading) {
+			return false;
+		}
+
+		ajax_loading = true;
+
 		$.getScript('./?c=javascript&a=actualize').done(function () {
 			if (auto && feed_count < 1) {
 				auto = false;
-				return;
+				ajax_loading = false;
+				return false;
 			}
 
 			updateFeeds();
 		});
+
 		return false;
 	});
 
