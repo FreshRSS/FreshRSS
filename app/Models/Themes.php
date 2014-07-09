@@ -78,6 +78,7 @@ class FreshRSS_Themes extends Minz_Model {
 			'down' => '▽',
 			'favorite' => '★',
 			'help' => 'ⓘ',
+			'icon' => '⊚',
 			'key' => '⚿',
 			'link' => '↗',
 			'login' => '🔒',
