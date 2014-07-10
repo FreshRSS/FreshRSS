@@ -181,7 +181,7 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 		if (Minz_Request::isPost()) {
 			$this->view->conf->_posts_per_page(Minz_Request::param('posts_per_page', 10));
 			$this->view->conf->_view_mode(Minz_Request::param('view_mode', 'normal'));
-			$this->view->conf->_default_view(Minz_Request::param('default_view', 'a'));
+			$this->view->conf->_default_view((int)Minz_Request::param('default_view', FreshRSS_Entry::STATE_ALL));
 			$this->view->conf->_auto_load_more(Minz_Request::param('auto_load_more', false));
 			$this->view->conf->_display_posts(Minz_Request::param('display_posts', false));
 			$this->view->conf->_onread_jump_next(Minz_Request::param('onread_jump_next', false));
