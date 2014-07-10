@@ -352,6 +352,9 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 			default:
 				throw new FreshRSS_EntriesGetter_Exception('Bad order in Entry->listByType: [' . $order . ']!');
 		}
+		if ($firstId === '' && parent::$sharedDbType === 'mysql') {
+			$firstId = '9000000000' . '000000';	//MySQL optimization. Tested on MySQL 5.5 with 150k articles
+		}
 		if ($firstId !== '') {
 			$where .= 'AND e1.id ' . ($order === 'DESC' ? '<=' : '>=') . $firstId . ' ';
 		}
