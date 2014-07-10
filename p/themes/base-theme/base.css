@@ -332,13 +332,15 @@ a.btn {
 /*===============*/
 /*=== Header */
 .header {
+	height: 85px;
 }
 .header > .item {
-	padding: 10px 0;
+	padding: 10px;
 	vertical-align: middle;
 	text-align: center;
 }
 .header > .item.title h1 {
+	margin: 0.5em 0;
 }
 .header > .item.title h1 a {
 	text-decoration: none;
@@ -352,6 +354,7 @@ a.btn {
 
 /*=== Body */
 #global {
+	height: calc(100% - 85px);
 }
 .aside {
 }
