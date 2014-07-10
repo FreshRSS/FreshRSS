@@ -31,7 +31,10 @@ class FreshRSS_Themes extends Minz_Model {
 			if (file_exists($json_filename)) {
 				$content = file_get_contents($json_filename);
 				$res = json_decode($content, true);
-				if ($res && isset($res['files']) && is_array($res['files'])) {
+				if ($res &&
+						!empty($res['name']) &&
+						isset($res['files']) &&
+						is_array($res['files'])) {
 					$res['id'] = $theme_id;
 					return $res;
 				}
