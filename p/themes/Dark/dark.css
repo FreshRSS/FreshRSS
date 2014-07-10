@@ -446,6 +446,9 @@ a.btn {
 	text-align: center;
 	border-bottom: 1px solid #333;
 }
+.header > .item.title{
+	width: 230px;
+}
 .header > .item.title h1 {
 	margin: 0.5em 0;
 }
