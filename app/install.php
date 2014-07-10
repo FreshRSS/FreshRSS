@@ -10,12 +10,16 @@ session_set_cookie_params(0, dirname(empty($_SERVER['REQUEST_URI']) ? '/' : dirn
 session_start();
 
 if (isset ($_GET['step'])) {
-	define ('STEP', $_GET['step']);
+	define ('STEP', (int)$_GET['step']);
 } else {
 	define ('STEP', 1);
 }
 
 define('SQL_CREATE_DB', 'CREATE DATABASE IF NOT EXISTS %1$s DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;');
+
+if (STEP === 3 && isset($_POST['type'])) {
+	$_SESSION['bd_type'] = $_POST['type'];
+}
 
 if (isset($_SESSION['bd_type'])) {
 	switch ($_SESSION['bd_type']) {
@@ -216,9 +220,6 @@ function saveStep2 () {
 
 function saveStep3 () {
 	if (!empty ($_POST)) {
-
-		$_SESSION['bd_type'] = isset ($_POST['type']) ? $_POST['type'] : '';
-
 		if ($_SESSION['bd_type'] === 'sqlite') {
 			$_SESSION['bd_base'] = $_SESSION['default_user'];
 			$_SESSION['bd_host'] = '';
