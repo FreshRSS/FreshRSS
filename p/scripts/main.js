@@ -499,7 +499,13 @@ function init_shortcuts() {
 	shortcut.add("shift+" + shortcuts.mark_read, function () {
 		// on marque tout comme lu
 		var url = $(".nav_menu a.read_all").attr("href");
-		redirect(url, false);
+		if ($(".nav_menu a.read_all").hasClass('confirm')) {
+			if (confirm(str_confirmation)) {
+				redirect(url, false);
+			}
+		} else {
+			redirect(url, false);
+		}
 	}, {
 		'disable_in_input': true
 	});
