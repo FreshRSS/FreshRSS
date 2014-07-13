@@ -55,7 +55,7 @@ function numberFormat(nStr) {
 	return x1 + x2;
 }
 
-function incLabel(p, inc, spaceAfter = false) {
+function incLabel(p, inc, spaceAfter) {
 	var i = str2int(p) + inc;
 	return i > 0
 		? ((spaceAfter ? '' : ' ') + '(' + numberFormat(i) + ')' + (spaceAfter ? ' ' : ''))
@@ -193,7 +193,7 @@ function mark_favorite(active) {
 		var favourites = $('.favorites>a').contents().last().get(0);
 		if (favourites && favourites.textContent) {
 			favourites.textContent = favourites.textContent.replace(/((?: \([ 0-9]+\))?\s*)$/, function (m, p1) {
-				return incLabel(p1, inc);
+				return incLabel(p1, inc, false);
 			});
 		}
 
