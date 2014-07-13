@@ -55,9 +55,11 @@ function numberFormat(nStr) {
 	return x1 + x2;
 }
 
-function incLabel(p, inc) {
+function incLabel(p, inc, spaceAfter = false) {
 	var i = str2int(p) + inc;
-	return i > 0 ? ' (' + numberFormat(i) + ')' : '';
+	return i > 0
+		? ((spaceAfter ? '' : ' ') + '(' + numberFormat(i) + ')' + (spaceAfter ? ' ' : ''))
+		: '';
 }
 
 function incUnreadsFeed(article, feed_id, nb) {
@@ -96,13 +98,13 @@ function incUnreadsFeed(article, feed_id, nb) {
 
 	var isCurrentView = false;
 	//Update unread: title
-	document.title = document.title.replace(/((?: \([ 0-9]+\))?)( · .*?)((?: \([ 0-9]+\))?)$/, function (m, p1, p2, p3) {
+	document.title = document.title.replace(/^((?:\([ 0-9]+\) )?)(.*? · )((?:\([ 0-9]+\) )?)/, function (m, p1, p2, p3) {
 		var $feed = $('#' + feed_id);
 		if (article || ($feed.closest('.active').length > 0 && $feed.siblings('.active').length === 0)) {
 			isCurrentView = true;
-			return incLabel(p1, nb) + p2 + incLabel(p3, feed_priority > 0 ? nb : 0);
+			return incLabel(p1, nb, true) + p2 + incLabel(p3, feed_priority > 0 ? nb : 0, true);
 		} else {
-			return p1 + p2 + incLabel(p3, feed_priority > 0 ? nb : 0);
+			return p1 + p2 + incLabel(p3, feed_priority > 0 ? nb : 0, true);
 		}
 	});
 	return isCurrentView;
