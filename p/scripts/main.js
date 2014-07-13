@@ -103,6 +103,9 @@ function incUnreadsFeed(article, feed_id, nb) {
 		if (article || ($feed.closest('.active').length > 0 && $feed.siblings('.active').length === 0)) {
 			isCurrentView = true;
 			return incLabel(p1, nb, true) + p2 + incLabel(p3, feed_priority > 0 ? nb : 0, true);
+		} else if ($('.all.active').length > 0) {
+			isCurrentView = feed_priority > 0;
+			return incLabel(p1, feed_priority > 0 ? nb : 0, true) + p2 + incLabel(p3, feed_priority > 0 ? nb : 0, true);
 		} else {
 			return p1 + p2 + incLabel(p3, feed_priority > 0 ? nb : 0, true);
 		}
