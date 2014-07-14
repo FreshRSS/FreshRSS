@@ -645,9 +645,6 @@ a.btn {
 	font-size: 0.7rem;
 	color: #666;
 }
-.flux:not(.current):hover .item.title {
-	top: 1px;
-}
 
 .flux .bottom {
 	font-size: 0.8rem;
