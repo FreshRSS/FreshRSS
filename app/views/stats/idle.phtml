@@ -1,0 +1,19 @@
+<?php $this->partial('aside_stats'); ?>
+
+<div class="post content">
+	<a href="<?php echo _url ('index', 'index'); ?>"><?php echo _t ('back_to_rss_feeds'); ?></a>
+
+	<h1><?php echo _t ('stats_idle'); ?></h1>
+
+	<?php foreach ($this->idleFeeds as $period => $feeds){ ?>
+		<div class="stat">
+			<h2><?php echo _t ($period); ?></h2>
+
+			<ul>
+				<?php foreach ($feeds as $feed){ ?>
+					<li><?php echo $feed; ?></li>
+				<?php } ?>
+			</ul>
+		</div>
+	<?php } ?>
+</div>

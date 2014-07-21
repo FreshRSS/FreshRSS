@@ -10,7 +10,7 @@ var feeds = [<?php
 function initProgressBar(init) {
 	if (init) {
 		$("body").after("\<div id=\"actualizeProgress\" class=\"notification good\">\
-			<?php echo Minz_Translate::t ('refresh'); ?> <span class=\"progress\">0 / " + feed_count + "</span><br />\
+			<?php echo _t('refresh'); ?> <span class=\"progress\">0 / " + feed_count + "</span><br />\
 			<progress id=\"actualizeProgressBar\" value=\"0\" max=\"" + feed_count + "\"></progress>\
 		</div>");
 	} else {
@@ -24,7 +24,8 @@ function updateProgressBar(i) {
 
 function updateFeeds() {
 	if (feed_count === 0) {
-		openNotification("<?php echo Minz_Translate::t ('no_feed_to_refresh'); ?>", "good");
+		openNotification("<?php echo _t('no_feed_to_refresh'); ?>", "good");
+		ajax_loading = false;
 		return;
 	}
 	initProgressBar(true);
@@ -39,6 +40,7 @@ function updateFeed() {
 	if (feed == undefined) {
 		return;
 	}
+
 	$.ajax({
 		type: 'POST',
 		url: feed,

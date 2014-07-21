@@ -1,7 +1,8 @@
 "use strict";
 var $stream = null,
 	isCollapsed = true,
-	shares = 0;
+	shares = 0,
+	ajax_loading = false;
 
 function is_normal_mode() {
 	return $stream.hasClass('normal');
@@ -54,9 +55,11 @@ function numberFormat(nStr) {
 	return x1 + x2;
 }
 
-function incLabel(p, inc) {
+function incLabel(p, inc, spaceAfter) {
 	var i = str2int(p) + inc;
-	return i > 0 ? ' (' + numberFormat(i) + ')' : '';
+	return i > 0
+		? ((spaceAfter ? '' : ' ') + '(' + numberFormat(i) + ')' + (spaceAfter ? ' ' : ''))
+		: '';
 }
 
 function incUnreadsFeed(article, feed_id, nb) {
@@ -95,13 +98,16 @@ function incUnreadsFeed(article, feed_id, nb) {
 
 	var isCurrentView = false;
 	//Update unread: title
-	document.title = document.title.replace(/((?: \([ 0-9]+\))?)( · .*?)((?: \([ 0-9]+\))?)$/, function (m, p1, p2, p3) {
+	document.title = document.title.replace(/^((?:\([ 0-9]+\) )?)(.*? · )((?:\([ 0-9]+\) )?)/, function (m, p1, p2, p3) {
 		var $feed = $('#' + feed_id);
 		if (article || ($feed.closest('.active').length > 0 && $feed.siblings('.active').length === 0)) {
 			isCurrentView = true;
-			return incLabel(p1, nb) + p2 + incLabel(p3, feed_priority > 0 ? nb : 0);
+			return incLabel(p1, nb, true) + p2 + incLabel(p3, feed_priority > 0 ? nb : 0, true);
+		} else if ($('.all.active').length > 0) {
+			isCurrentView = feed_priority > 0;
+			return incLabel(p1, feed_priority > 0 ? nb : 0, true) + p2 + incLabel(p3, feed_priority > 0 ? nb : 0, true);
 		} else {
-			return p1 + p2 + incLabel(p3, feed_priority > 0 ? nb : 0);
+			return p1 + p2 + incLabel(p3, feed_priority > 0 ? nb : 0, true);
 		}
 	});
 	return isCurrentView;
@@ -190,7 +196,7 @@ function mark_favorite(active) {
 		var favourites = $('.favorites>a').contents().last().get(0);
 		if (favourites && favourites.textContent) {
 			favourites.textContent = favourites.textContent.replace(/((?: \([ 0-9]+\))?\s*)$/, function (m, p1) {
-				return incLabel(p1, inc);
+				return incLabel(p1, inc, false);
 			});
 		}
 
@@ -258,7 +264,7 @@ function toggleContent(new_active, old_active) {
 		}
 	}
 
-	if (auto_mark_article) {
+	if (auto_mark_article && new_active.hasClass('active')) {
 		mark_read(new_active, true);
 	}
 }
@@ -448,6 +454,7 @@ function init_posts() {
 				load_more_posts();
 			}
 		});
+		box_to_follow.scroll();
 	}
 }
 
@@ -497,7 +504,13 @@ function init_shortcuts() {
 	shortcut.add("shift+" + shortcuts.mark_read, function () {
 		// on marque tout comme lu
 		var url = $(".nav_menu a.read_all").attr("href");
-		redirect(url, false);
+		if ($(".nav_menu a.read_all").hasClass('confirm')) {
+			if (confirm(str_confirmation)) {
+				redirect(url, false);
+			}
+		} else {
+			redirect(url, false);
+		}
 	}, {
 		'disable_in_input': true
 	});
@@ -683,14 +696,22 @@ function init_actualize() {
 	var auto = false;
 
 	$("#actualize").click(function () {
+		if (ajax_loading) {
+			return false;
+		}
+
+		ajax_loading = true;
+
 		$.getScript('./?c=javascript&a=actualize').done(function () {
 			if (auto && feed_count < 1) {
 				auto = false;
-				return;
+				ajax_loading = false;
+				return false;
 			}
 
 			updateFeeds();
 		});
+
 		return false;
 	});
 
@@ -975,11 +996,6 @@ function init_print_action() {
 function init_share_observers() {
 	shares = $('.form-group:not(".form-actions")').length;
 
-	$('.post').on('click', '.share.remove', function(e) {
-		e.preventDefault();
-		$(this).parents('.form-group').remove();
-	});
-
 	$('.share.add').on('click', function(e) {
 		var opt = $(this).siblings('select').find(':selected');
 		var row = $(this).parents('form').data(opt.data('form'));
@@ -989,6 +1005,19 @@ function init_share_observers() {
 		row = row.replace('##key##', shares, 'g');
 		$(this).parents('.form-group').before(row);
 		shares++;
+
+		return false;
+	});
+}
+
+function init_remove_observers() {
+	$('.post').on('click', 'a.remove', function(e) {
+		var remove_what = $(this).attr('data-remove');
+
+		if (remove_what !== undefined) {
+			var remove_obj = $('#' + remove_what);
+			remove_obj.remove();
+		}
 
 		return false;
 	});
@@ -1054,6 +1083,7 @@ function init_all() {
 		window.setInterval(refreshUnreads, 120000);
 	} else {
 		init_share_observers();
+		init_remove_observers();
 		init_feed_observers();
 		init_password_observers();
 	}

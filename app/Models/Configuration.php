@@ -7,6 +7,7 @@ class FreshRSS_Configuration {
 		'language' => 'en',
 		'old_entries' => 3,
 		'keep_history_default' => 0,
+		'ttl_default' => 3600,
 		'mail_login' => '',
 		'token' => '',
 		'passwordHash' => '',	//CRYPT_BLOWFISH
@@ -19,6 +20,7 @@ class FreshRSS_Configuration {
 		'onread_jump_next' => true,
 		'lazyload' => true,
 		'sticky_post' => true,
+		'reading_confirm' => false,
 		'sort_order' => 'DESC',
 		'anon_access' => false,
 		'mark_when' => array(
@@ -53,6 +55,7 @@ class FreshRSS_Configuration {
 		'bottomline_date' => true,
 		'bottomline_link' => true,
 		'sharing' => array(),
+		'queries' => array(),
 	);
 
 	private $available_languages = array(
@@ -147,6 +150,9 @@ class FreshRSS_Configuration {
 	public function _sticky_post($value) {
 		$this->data['sticky_post'] = ((bool)$value) && $value !== 'no';
 	}
+	public function _reading_confirm($value) {
+		$this->data['reading_confirm'] = ((bool)$value) && $value !== 'no';
+	}
 	public function _sort_order ($value) {
 		$this->data['sort_order'] = $value === 'ASC' ? 'ASC' : 'DESC';
 	}
@@ -157,6 +163,10 @@ class FreshRSS_Configuration {
 	public function _keep_history_default($value) {
 		$value = intval($value);
 		$this->data['keep_history_default'] = $value >= -1 ? $value : 0;
+	}
+	public function _ttl_default($value) {
+		$value = intval($value);
+		$this->data['ttl_default'] = $value >= -1 ? $value : 3600;
 	}
 	public function _shortcuts ($values) {
 		foreach ($values as $key => $value) {
@@ -217,6 +227,18 @@ class FreshRSS_Configuration {
 			}
 
 			$this->data['sharing'][] = $value;
+		}
+	}
+	public function _queries ($values) {
+		$this->data['queries'] = array();
+		foreach ($values as $value) {
+			$value = array_filter($value);
+			$params = $value;
+			unset($params['name']);
+			unset($params['url']);
+			$value['url'] = Minz_Url::display(array('params' => $params));
+
+			$this->data['queries'][] = $value;
 		}
 	}
 	public function _theme($value) {

@@ -83,11 +83,21 @@
 		</div>
 
 		<div class="form-group">
+			<div class="group-controls">
+				<label class="checkbox" for="reading_confirm">
+					<input type="checkbox" name="reading_confirm" id="reading_confirm" value="1"<?php echo $this->conf->reading_confirm ? ' checked="checked"' : ''; ?> />
+					<?php echo Minz_Translate::t ('reading_confirm'); ?>
+					<noscript> — <strong><?php echo Minz_Translate::t ('javascript_should_be_activated'); ?></strong></noscript>
+				</label>
+			</div>
+		</div>
+
+		<div class="form-group">
 			<label class="group-name"><?php echo Minz_Translate::t ('auto_read_when'); ?></label>
 			<div class="group-controls">
 				<label class="checkbox" for="check_open_article">
 					<input type="checkbox" name="mark_open_article" id="check_open_article" value="1"<?php echo $this->conf->mark_when['article'] ? ' checked="checked"' : ''; ?> />
-					<?php echo Minz_Translate::t ('article_selected'); ?>
+					<?php echo Minz_Translate::t('article_viewed'); ?>
 				</label>
 				<label class="checkbox" for="check_open_site">
 					<input type="checkbox" name="mark_open_site" id="check_open_site" value="1"<?php echo $this->conf->mark_when['site'] ? ' checked="checked"' : ''; ?> />

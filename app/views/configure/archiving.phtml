@@ -24,6 +24,27 @@
 				?></select> (<?php echo Minz_Translate::t('by_default'); ?>)
 			</div>
 		</div>
+		<div class="form-group">
+			<label class="group-name" for="ttl_default"><?php echo Minz_Translate::t('ttl'); ?></label>
+			<div class="group-controls">
+				<select class="number" name="ttl_default" id="ttl_default" required="required"><?php
+					$found = false;
+					foreach (array(1200 => '20min', 1500 => '25min', 1800 => '30min', 2700 => '45min',
+					                3600 => '1h', 5400 => '1.5h', 7200 => '2h', 10800 => '3h', 14400 => '4h', 18800 => '5h', 21600 => '6h', 25200 => '7h', 28800 => '8h',
+					                36000 => '10h', 43200 => '12h', 64800 => '18h',
+					                86400 => '1d', 129600 => '1.5d', 172800 => '2d', 259200 => '3d', 345600 => '4d', 432000 => '5d', 518400 => '6d',
+					                604800 => '1wk', -1 => '∞') as $v => $t) {
+						echo '<option value="' . $v . ($this->conf->ttl_default == $v ? '" selected="selected' : '') . '">' . $t . '</option>';
+						if ($this->conf->ttl_default == $v) {
+							$found = true;
+						}
+					}
+					if (!$found) {
+						echo '<option value="' . intval($this->conf->ttl_default) . '" selected="selected">' . intval($this->conf->ttl_default) . 's</option>';
+					}
+				?></select> (<?php echo Minz_Translate::t('by_default'); ?>)
+			</div>
+		</div>
 
 		<div class="form-group form-actions">
 			<div class="group-controls">

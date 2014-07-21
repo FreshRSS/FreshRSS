@@ -446,6 +446,13 @@ class SimplePie
 	public $feed_url;
 
 	/**
+	 * @var string Original feed URL, or new feed URL iff HTTP 301 Moved Permanently
+	 * @see SimplePie::subscribe_url()
+	 * @access private
+	 */
+	public $permanent_url = null;	//FreshRSS
+
+	/**
 	 * @var object Instance of SimplePie_File to use as a feed
 	 * @see SimplePie::set_file()
 	 * @access private
@@ -735,6 +742,7 @@ class SimplePie
 		else
 		{
 			$this->feed_url = $this->registry->call('Misc', 'fix_protocol', array($url, 1));
+			$this->permanent_url = $this->feed_url;	//FreshRSS
 		}
 	}
 
@@ -749,6 +757,7 @@ class SimplePie
 		if ($file instanceof SimplePie_File)
 		{
 			$this->feed_url = $file->url;
+			$this->permanent_url = $this->feed_url;	//FreshRSS
 			$this->file =& $file;
 			return true;
 		}
@@ -1602,7 +1611,7 @@ class SimplePie
 		}
 
 		$this->raw_data = $file->body;
-
+		$this->permanent_url = $file->permanent_url;	//FreshRSS
 		$headers = $file->headers;
 		$sniffer = $this->registry->create('Content_Type_Sniffer', array(&$file));
 		$sniffed = $sniffer->get_type();
@@ -1788,26 +1797,39 @@ class SimplePie
 
 	/**
 	 * Get the URL for the feed
+	 * 
+	 * When the 'permanent' mode is enabled, returns the original feed URL,
+	 * except in the case of an `HTTP 301 Moved Permanently` status response,
+	 * in which case the location of the first redirection is returned.
 	 *
-	 * May or may not be different from the URL passed to {@see set_feed_url()},
+	 * When the 'permanent' mode is disabled (default),
+	 * may or may not be different from the URL passed to {@see set_feed_url()},
 	 * depending on whether auto-discovery was used.
 	 *
 	 * @since Preview Release (previously called `get_feed_url()` since SimplePie 0.8.)
-	 * @todo If we have a perm redirect we should return the new URL
-	 * @todo When we make the above change, let's support <itunes:new-feed-url> as well
+	 * @todo Support <itunes:new-feed-url>
 	 * @todo Also, |atom:link|@rel=self
+	 * @param bool $permanent Permanent mode to return only the original URL or the first redirection
+	 *  iff it is a 301 redirection
 	 * @return string|null
 	 */
-	public function subscribe_url()
+	public function subscribe_url($permanent = false)
 	{
-		if ($this->feed_url !== null)
+		if ($permanent)	//FreshRSS
 		{
-			return $this->sanitize($this->feed_url, SIMPLEPIE_CONSTRUCT_IRI);
+			if ($this->permanent_url !== null)
+			{
+				return $this->sanitize($this->permanent_url, SIMPLEPIE_CONSTRUCT_IRI);
+			}
 		}
 		else
 		{
-			return null;
+			if ($this->feed_url !== null)
+			{
+				return $this->sanitize($this->feed_url, SIMPLEPIE_CONSTRUCT_IRI);
+			}
 		}
+		return null;
 	}
 
 	/**

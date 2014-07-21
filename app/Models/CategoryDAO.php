@@ -12,8 +12,8 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo {
 		if ($stm && $stm->execute ($values)) {
 			return $this->bd->lastInsertId();
 		} else {
-			$info = $stm->errorInfo();
-			Minz_Log::record ('SQL error : ' . $info[2], Minz_Log::ERROR);
+			$info = $stm == null ? array(2 => 'syntax error') : $stm->errorInfo();
+			Minz_Log::record('SQL error addCategory: ' . $info[2], Minz_Log::ERROR);
 			return false;
 		}
 	}
@@ -43,8 +43,8 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo {
 		if ($stm && $stm->execute ($values)) {
 			return $stm->rowCount();
 		} else {
-			$info = $stm->errorInfo();
-			Minz_Log::record ('SQL error : ' . $info[2], Minz_Log::ERROR);
+			$info = $stm == null ? array(2 => 'syntax error') : $stm->errorInfo();
+			Minz_Log::record('SQL error updateCategory: ' . $info[2], Minz_Log::ERROR);
 			return false;
 		}
 	}
@@ -58,8 +58,8 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo {
 		if ($stm && $stm->execute ($values)) {
 			return $stm->rowCount();
 		} else {
-			$info = $stm->errorInfo();
-			Minz_Log::record ('SQL error : ' . $info[2], Minz_Log::ERROR);
+			$info = $stm == null ? array(2 => 'syntax error') : $stm->errorInfo();
+			Minz_Log::record('SQL error deleteCategory: ' . $info[2], Minz_Log::ERROR);
 			return false;
 		}
 	}
@@ -102,7 +102,7 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo {
 			$sql = 'SELECT c.id AS c_id, c.name AS c_name, '
 			     . ($details ? 'f.* ' : 'f.id, f.name, f.url, f.website, f.priority, f.error, f.cache_nbEntries, f.cache_nbUnreads ')
 			     . 'FROM `' . $this->prefix . 'category` c '
-			     . 'LEFT OUTER JOIN `' . $this->prefix . 'feed` f ON f.category = c.id '
+			     . 'LEFT OUTER JOIN `' . $this->prefix . 'feed` f ON f.category=c.id '
 			     . 'GROUP BY f.id '
 			     . 'ORDER BY c.name, f.name';
 			$stm = $this->bd->prepare ($sql);
@@ -166,7 +166,7 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo {
 	}
 
 	public function countNotRead ($id) {
-		$sql = 'SELECT COUNT(*) AS count FROM `' . $this->prefix . 'entry` e INNER JOIN `' . $this->prefix . 'feed` f ON e.id_feed = f.id WHERE category=? AND e.is_read=0';
+		$sql = 'SELECT COUNT(*) AS count FROM `' . $this->prefix . 'entry` e INNER JOIN `' . $this->prefix . 'feed` f ON e.id_feed=f.id WHERE category=? AND e.is_read=0';
 		$stm = $this->bd->prepare ($sql);
 		$values = array ($id);
 		$stm->execute ($values);

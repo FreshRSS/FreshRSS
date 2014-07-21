@@ -74,7 +74,7 @@ class FreshRSS_Entry extends Minz_Model {
 	}
 	public function feed ($object = false) {
 		if ($object) {
-			$feedDAO = new FreshRSS_FeedDAO ();
+			$feedDAO = FreshRSS_Factory::createFeedDao();
 			return $feedDAO->searchById ($this->feed);
 		} else {
 			return $this->feed;
@@ -154,7 +154,7 @@ class FreshRSS_Entry extends Minz_Model {
 		// Gestion du contenu
 		// On cherche à récupérer les articles en entier... même si le flux ne le propose pas
 		if ($pathEntries) {
-			$entryDAO = new FreshRSS_EntryDAO();
+			$entryDAO = FreshRSS_Factory::createEntryDao();
 			$entry = $entryDAO->searchByGuid($this->feed, $this->guid);
 
 			if($entry) {

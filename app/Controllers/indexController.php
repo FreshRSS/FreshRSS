@@ -45,7 +45,7 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 		}
 
 		$catDAO = new FreshRSS_CategoryDAO();
-		$entryDAO = new FreshRSS_EntryDAO();
+		$entryDAO = FreshRSS_Factory::createEntryDao();
 
 		$this->view->cat_aside = $catDAO->listCategories ();
 		$this->view->nb_favorites = $entryDAO->countUnreadReadFavorites ();
@@ -70,11 +70,11 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 		// mise à jour des titres
 		$this->view->rss_title = $this->view->currentName . ' | ' . Minz_View::title();
 		if ($this->view->nb_not_read > 0) {
-			Minz_View::appendTitle (' (' . formatNumber($this->view->nb_not_read) . ')');
+			Minz_View::prependTitle('(' . formatNumber($this->view->nb_not_read) . ') ');
 		}
-		Minz_View::prependTitle (
+		Minz_View::prependTitle(
+			($this->nb_not_read_cat > 0 ? '(' . formatNumber($this->nb_not_read_cat) . ') ' : '') .
 			$this->view->currentName .
-			($this->nb_not_read_cat > 0 ? ' (' . formatNumber($this->nb_not_read_cat) . ')' : '') .
 			' · '
 		);
 
@@ -82,9 +82,6 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 		$this->view->state = $state = Minz_Request::param ('state', $this->view->conf->default_view);
 		$state_param = Minz_Request::param ('state', null);
 		$filter = Minz_Request::param ('search', '');
-		if (!empty($filter)) {
-			$state = FreshRSS_Entry::STATE_ALL;	//Search always in read and unread articles
-		}
 		$this->view->order = $order = Minz_Request::param ('order', $this->view->conf->sort_order);
 		$nb = Minz_Request::param ('nb', $this->view->conf->posts_per_page);
 		$first = Minz_Request::param ('next', '');
@@ -127,8 +124,14 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 
 			// Si on a récupéré aucun article "non lus"
 			// on essaye de récupérer tous les articles
-			if ($state === FreshRSS_Entry::STATE_NOT_READ && empty($entries) && ($state_param === null)) {
-				Minz_Log::record ('Conflicting information about nbNotRead!', Minz_Log::DEBUG);
+			if ($state === FreshRSS_Entry::STATE_NOT_READ && empty($entries) && ($state_param === null) && ($filter == '')) {
+				Minz_Log::record('Conflicting information about nbNotRead!', Minz_Log::DEBUG);
+				$feedDAO = FreshRSS_Factory::createFeedDao();
+				try {
+					$feedDAO->updateCachedValues();
+				} catch (Exception $ex) {
+					Minz_Log::record('Failed to automatically correct nbNotRead! ' + $ex->getMessage(), Minz_Log::NOTICE);
+				}
 				$this->view->state = FreshRSS_Entry::STATE_ALL;
 				$entries = $entryDAO->listWhere($getType, $getId, $this->view->state, $order, $nb, $first, $filter, $date_min, true, $keepHistoryDefault);
 			}
@@ -184,7 +187,7 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 			case 'f':
 				$feed = FreshRSS_CategoryDAO::findFeed($this->view->cat_aside, $getId);
 				if (empty($feed)) {
-					$feedDAO = new FreshRSS_FeedDAO();
+					$feedDAO = FreshRSS_Factory::createFeedDao();
 					$feed = $feedDAO->searchById($getId);
 				}
 				if ($feed) {
@@ -201,25 +204,6 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 		}
 	}
 	
-	public function statsAction () {
-		if (!$this->view->loginOk) {
-			Minz_Error::error (
-				403,
-				array ('error' => array (Minz_Translate::t ('access_denied')))
-			);
-		}
-
-		Minz_View::prependTitle (Minz_Translate::t ('stats') . ' · ');
-
-		$statsDAO = new FreshRSS_StatsDAO ();
-		Minz_View::appendScript (Minz_Url::display ('/scripts/flotr2.min.js?' . @filemtime(PUBLIC_PATH . '/scripts/flotr2.min.js')));
-		$this->view->repartition = $statsDAO->calculateEntryRepartition();
-		$this->view->count = ($statsDAO->calculateEntryCount());
-		$this->view->feedByCategory = $statsDAO->calculateFeedByCategory();
-		$this->view->entryByCategory = $statsDAO->calculateEntryByCategory();
-		$this->view->topFeed = $statsDAO->calculateTopFeed();
-	}
-
 	public function aboutAction () {
 		Minz_View::prependTitle (Minz_Translate::t ('about') . ' · ');
 	}

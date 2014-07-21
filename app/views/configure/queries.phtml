@@ -1,0 +1,90 @@
+<?php $this->partial('aside_configure'); ?>
+
+<div class="post">
+	<a href="<?php echo _url('index', 'index'); ?>"><?php echo _t('back_to_rss_feeds'); ?></a>
+
+	<form method="post" action="<?php echo _url('configure', 'queries'); ?>">
+		<legend><?php echo _t('queries'); ?></legend>
+
+		<?php foreach ($this->conf->queries as $key => $query) { ?>
+		<div class="form-group" id="query-group-<?php echo $key; ?>">
+			<label class="group-name" for="queries_<?php echo $key; ?>_name">
+				<?php echo _t('query_number', $key + 1); ?>
+			</label>
+
+			<div class="group-controls">
+				<input type="hidden" id="queries_<?php echo $key; ?>_search" name="queries[<?php echo $key; ?>][search]" value="<?php echo isset($query['search']) ? $query['search'] : ""; ?>"/>
+				<input type="hidden" id="queries_<?php echo $key; ?>_state" name="queries[<?php echo $key; ?>][state]" value="<?php echo isset($query['state']) ? $query['state'] : ""; ?>"/>
+				<input type="hidden" id="queries_<?php echo $key; ?>_order" name="queries[<?php echo $key; ?>][order]" value="<?php echo isset($query['order']) ? $query['order'] : ""; ?>"/>
+				<input type="hidden" id="queries_<?php echo $key; ?>_get" name="queries[<?php echo $key; ?>][get]" value="<?php echo isset($query['get']) ? $query['get'] : ""; ?>"/>
+
+				<div class="stick">
+					<input class="extend"
+					       type="text"
+					       id="queries_<?php echo $key; ?>_name"
+					       name="queries[<?php echo $key; ?>][name]"
+					       value="<?php echo $query['name']; ?>"
+					/>
+
+					<a class="btn" href="<?php echo $query['url']; ?>">
+						<?php echo _i('link'); ?>
+					</a>
+
+					<a class="btn btn-attention remove" href="#" data-remove="query-group-<?php echo $key; ?>">
+						<?php echo _i('close'); ?>
+					</a>
+				</div>
+
+				<?php
+					$exist = (isset($query['search']) ? 1 : 0)
+						   + (isset($query['state']) ? 1 : 0)
+						   + (isset($query['order']) ? 1 : 0)
+						   + (isset($query['get']) ? 1 : 0);
+					// If the only filter is "all" articles, we consider there is no filter
+					$exist = ($exist === 1 && isset($query['get']) && $query['get'] === 'a') ? 0 : $exist;
+				?>
+
+				<?php if ($exist === 0) { ?>
+				<div class="alert alert-warn">
+					<div class="alert-head"><?php echo _t('no_query_filter'); ?></div>
+				</div>
+				<?php } else { ?>
+				<div class="alert alert-success">
+					<div class="alert-head"><?php echo _t('query_filter'); ?></div>
+
+					<ul>
+						<?php if (isset($query['search'])) { $exist = true; ?>
+						<li class="item"><?php echo _t('query_search', $query['search']); ?></li>
+						<?php } ?>
+
+						<?php if (isset($query['state'])) { $exist = true; ?>
+						<li class="item"><?php echo _t('query_state_' . $query['state']); ?></li>
+						<?php } ?>
+
+						<?php if (isset($query['order'])) { $exist = true; ?>
+						<li class="item"><?php echo _t('query_order_' . strtolower($query['order'])); ?></li>
+						<?php } ?>
+
+						<?php if (isset($query['get'])) { $exist = true; ?>
+						<li class="item"><?php echo _t('query_get_' . $this->query_get[$key]['type'], $this->query_get[$key]['name']); ?></li>
+						<?php } ?>
+					</ul>
+				</div>
+				<?php } ?>
+			</div>
+		</div>
+		<?php } ?>
+
+		<?php if (count($this->conf->queries) > 0) { ?>
+		<div class="form-group form-actions">
+			<div class="group-controls">
+				<button type="submit" class="btn btn-important"><?php echo _t('save'); ?></button>
+				<button type="reset" class="btn"><?php echo _t('cancel'); ?></button>
+			</div>
+		</div>
+		<?php } else { ?>
+		<p class="alert alert-warn"><span class="alert-head"><?php echo _t('damn'); ?></span> <?php echo _t('no_query'); ?></p>
+		<?php } ?>
+	</form>
+
+</div>

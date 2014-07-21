@@ -11,11 +11,13 @@
 html, body {
 	height: 100%;
 	font-family: "OpenSans", "Cantarell", "Helvetica", "Arial", sans-serif;
+	background: #fafafa;
 }
 
 /*=== Links */
 a {
 	color: #0062be;
+	outline: none;
 }
 
 /*=== Forms */
@@ -362,6 +364,10 @@ a.btn {
 	padding: 0 25px;
 	line-height: 2.5em;
 }
+.dropdown-menu > .item > span {
+	padding: 0 25px;
+	line-height: 2em;
+}
 .dropdown-menu > .item:hover {
 	background: #0062BE;
 	color: #fff;
@@ -400,7 +406,7 @@ a.btn {
 	font-size: 0.9em;
 }
 .alert-head {
-	font-size: 1.2em;
+	font-size: 1.15em;
 }
 .alert > a {
 	color: inherit;
@@ -464,15 +470,20 @@ a.btn {
 /*===============*/
 /*=== Header */
 .header {
+	height: 85px;
 	background: #f4f4f4;
 }
 .header > .item {
-	padding: 10px 0;
+	padding: 10px;
 	border-bottom: 1px solid #aaa;
 	vertical-align: middle;
 	text-align: center;
 }
+.header > .item.title{
+	width: 230px;
+}
 .header > .item.title h1 {
+	margin: 0.5em 0;
 	text-shadow: 1px -1px 0 #ccc;
 }
 .header > .item.title h1 a {
@@ -487,14 +498,14 @@ a.btn {
 
 /*=== Body */
 #global {
-	background: #fafafa;
+	height: calc(100% - 85px);
 }
 .aside {
 	border-right: 1px solid #aaa;
 	background: #fff;
 }
 .aside.aside_flux {
-	padding: 10px 0 40px;
+	padding: 10px 0 50px;
 }
 
 /*=== Aside main page (categories) */
@@ -689,9 +700,6 @@ a.btn {
 .flux .date {
 	color: #666;
 	font-size: 0.7rem;
-}
-.flux:not(.current):hover .item.title {
-	top: 1px;
 }
 
 .flux .bottom {
@@ -920,7 +928,7 @@ a.btn {
 	padding: 5px 10px;
 	background: #fafafa;
 	color: #333;
-	font-size: 90%;
+	font-size: 0.8rem;
 }
 .log+.log {
 	border-top: 1px solid #aaa;
@@ -996,10 +1004,6 @@ a.btn {
 	.day .name {
 		font-size: 1.1rem;
 		text-shadow: none;
-	}
-
-	.flux_header .item.website .favicon {
-		padding: 12px;
 	}
 
 	.pagination {
