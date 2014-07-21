@@ -1,6 +1,6 @@
 # Journal des modifications
 
-## 2014-xx-xx FreshRSS 0.7.x
+## 2014-07-21 FreshRSS 0.7.3
 
 * New options
 	* Add system of user queries which are shortcuts to filter the view
@@ -12,6 +12,13 @@
 	* Complies with HTTP "301 Moved Permanently" responses by automatically updating the URL of feeds that have changed address.
 * Themes
 	* Flat and Dark designs are based on same template file as Origine
+* Statistics
+	* Refactor code
+	* Add an idle feed page
+* Misc
+	* Several bug fixes
+	* Add confirmation option when marking all articles as read
+	* Fix some typo
 
 
 ## 2014-06-13 FreshRSS 0.7.2
