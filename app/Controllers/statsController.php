@@ -4,9 +4,9 @@ class FreshRSS_stats_Controller extends Minz_ActionController {
 
 	public function indexAction() {
 		$statsDAO = FreshRSS_Factory::createStatsDAO();
-		Minz_View::appendScript (Minz_Url::display ('/scripts/flotr2.min.js?' . @filemtime(PUBLIC_PATH . '/scripts/flotr2.min.js')));
+		Minz_View::appendScript(Minz_Url::display('/scripts/flotr2.min.js?' . @filemtime(PUBLIC_PATH . '/scripts/flotr2.min.js')));
 		$this->view->repartition = $statsDAO->calculateEntryRepartition();
-		$this->view->count = ($statsDAO->calculateEntryCount());
+		$this->view->count = $statsDAO->calculateEntryCount();
 		$this->view->feedByCategory = $statsDAO->calculateFeedByCategory();
 		$this->view->entryByCategory = $statsDAO->calculateEntryByCategory();
 		$this->view->topFeed = $statsDAO->calculateTopFeed();
@@ -35,19 +35,19 @@ class FreshRSS_stats_Controller extends Minz_ActionController {
 				continue;
 			}
 			if ($feedDate < $lastWeek) {
-				$idleFeeds['last_week'][] = $feed['name'];
+				$idleFeeds['last_week'][] = $feed;
 			}
 			if ($feedDate < $lastMonth) {
-				$idleFeeds['last_month'][] = $feed['name'];
+				$idleFeeds['last_month'][] = $feed;
 			}
 			if ($feedDate < $last3Month) {
-				$idleFeeds['last_3_month'][] = $feed['name'];
+				$idleFeeds['last_3_month'][] = $feed;
 			}
 			if ($feedDate < $last6Month) {
-				$idleFeeds['last_6_month'][] = $feed['name'];
+				$idleFeeds['last_6_month'][] = $feed;
 			}
 			if ($feedDate < $lastYear) {
-				$idleFeeds['last_year'][] = $feed['name'];
+				$idleFeeds['last_year'][] = $feed;
 			}
 		}
 

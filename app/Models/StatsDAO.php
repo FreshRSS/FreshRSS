@@ -170,7 +170,8 @@ SQL;
 	 */
 	public function calculateFeedLastDate() {
 		$sql = <<<SQL
-SELECT MAX(f.name) AS name
+SELECT MAX(f.id) as id
+, MAX(f.name) AS name
 , MAX(date) AS last_date
 FROM {$this->prefix}feed AS f,
 {$this->prefix}entry AS e

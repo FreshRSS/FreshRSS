@@ -11,7 +11,7 @@
 
 			<ul>
 				<?php foreach ($feeds as $feed){ ?>
-					<li><?php echo $feed; ?></li>
+					<li><a href="<?php echo _url('configure', 'feed', 'id', $feed['id']); ?>"><?php echo $feed['name']; ?></a></li>
 				<?php } ?>
 			</ul>
 		</div>
