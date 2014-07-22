@@ -15,7 +15,13 @@ class FreshRSS_stats_Controller extends Minz_ActionController {
 	public function idleAction() {
 		$statsDAO = FreshRSS_Factory::createStatsDAO();
 		$feeds = $statsDAO->calculateFeedLastDate();
-		$idleFeeds = array();
+		$idleFeeds = array(
+			'last_year' => array(),
+			'last_6_month' => array(),
+			'last_3_month' => array(),
+			'last_month' => array(),
+			'last_week' => array(),
+		);
 		$now = new \DateTime();
 		$feedDate = clone $now;
 		$lastWeek = clone $now;
@@ -34,24 +40,20 @@ class FreshRSS_stats_Controller extends Minz_ActionController {
 			if ($feedDate >= $lastWeek) {
 				continue;
 			}
-			if ($feedDate < $lastWeek) {
-				$idleFeeds['last_week'][] = $feed;
-			}
-			if ($feedDate < $lastMonth) {
-				$idleFeeds['last_month'][] = $feed;
-			}
-			if ($feedDate < $last3Month) {
-				$idleFeeds['last_3_month'][] = $feed;
-			}
-			if ($feedDate < $last6Month) {
-				$idleFeeds['last_6_month'][] = $feed;
-			}
 			if ($feedDate < $lastYear) {
 				$idleFeeds['last_year'][] = $feed;
+			} elseif ($feedDate < $last6Month) {
+				$idleFeeds['last_6_month'][] = $feed;
+			} elseif ($feedDate < $last3Month) {
+				$idleFeeds['last_3_month'][] = $feed;
+			} elseif ($feedDate < $lastMonth) {
+				$idleFeeds['last_month'][] = $feed;
+			} elseif ($feedDate < $lastWeek) {
+				$idleFeeds['last_week'][] = $feed;
 			}
 		}
 
-		$this->view->idleFeeds = array_reverse($idleFeeds);
+		$this->view->idleFeeds = $idleFeeds;
 	}
 	
 	public function firstAction() {
