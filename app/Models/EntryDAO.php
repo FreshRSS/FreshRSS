@@ -17,7 +17,9 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 	}
 
 	public function addEntry($valuesTmp, $preparedStatement = null) {
-		$stm = $preparedStatement === null ? addEntryPrepare() : $preparedStatement;
+		$stm = $preparedStatement === null ?
+				FreshRSS_EntryDAO::addEntryPrepare() :
+				$preparedStatement;
 
 		$values = array(
 			$valuesTmp['id'],
