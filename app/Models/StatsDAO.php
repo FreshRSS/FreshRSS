@@ -95,7 +95,7 @@ SQL;
 	 * @return string
 	 */
 	public function calculateEntryRepartitionPerFeedPerHour($feed = null) {
-		return $this->calculateEntryRepartitionPerFeedPerPeriod('%k', $feed);
+		return $this->calculateEntryRepartitionPerFeedPerPeriod('%H', $feed);
 	}
 
 	/**
