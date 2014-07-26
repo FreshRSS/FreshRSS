@@ -100,7 +100,7 @@ class FreshRSS_users_Controller extends Minz_ActionController {
 	public function createAction() {
 		if (Minz_Request::isPost() && Minz_Configuration::isAdmin(Minz_Session::param('currentUser', '_'))) {
 			$db = Minz_Configuration::dataBase();
-			require_once(APP_PATH . '/SQL/sql.' . $db['type'] . '.php');
+			require_once(APP_PATH . '/SQL/install.sql.' . $db['type'] . '.php');
 
 			$new_user_language = Minz_Request::param('new_user_language', $this->view->conf->language);
 			if (!in_array($new_user_language, $this->view->conf->availableLanguages())) {
@@ -172,7 +172,7 @@ class FreshRSS_users_Controller extends Minz_ActionController {
 	public function deleteAction() {
 		if (Minz_Request::isPost() && Minz_Configuration::isAdmin(Minz_Session::param('currentUser', '_'))) {
 			$db = Minz_Configuration::dataBase();
-			require_once(APP_PATH . '/SQL/sql.' . $db['type'] . '.php');
+			require_once(APP_PATH . '/SQL/install.sql.' . $db['type'] . '.php');
 
 			$username = Minz_Request::param('username');
 			$ok = ctype_alnum($username);

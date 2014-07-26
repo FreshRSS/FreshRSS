@@ -3,11 +3,11 @@
 class FreshRSS_UserDAO extends Minz_ModelPdo {
 	public function createUser($username) {
 		$db = Minz_Configuration::dataBase();
-		require_once(APP_PATH . '/SQL/sql.' . $db['type'] . '.php');
+		require_once(APP_PATH . '/SQL/install.sql.' . $db['type'] . '.php');
 		
 		if (defined('SQL_CREATE_TABLES')) {
 			$sql = sprintf(SQL_CREATE_TABLES, $db['prefix'] . $username . '_', Minz_Translate::t('default_category'));
-			$stm = $c->prepare($sql);
+			$stm = $this->bd->prepare($sql);
 			$ok = $stm && $stm->execute();
 		} else {
 			global $SQL_CREATE_TABLES;
@@ -32,7 +32,7 @@ class FreshRSS_UserDAO extends Minz_ModelPdo {
 
 	public function deleteUser($username) {
 		$db = Minz_Configuration::dataBase();
-		require_once(APP_PATH . '/SQL/sql.' . $db['type'] . '.php');
+		require_once(APP_PATH . '/SQL/install.sql.' . $db['type'] . '.php');
 
 		$sql = sprintf(SQL_DROP_TABLES, $db['prefix'] . $username . '_');
 		$stm = $this->bd->prepare($sql);
