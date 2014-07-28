@@ -6,4 +6,7 @@
 	<li class="item<?php echo Minz_Request::actionName () == 'idle' ? ' active' : ''; ?>">
 		<a href="<?php echo _url ('stats', 'idle'); ?>"><?php echo Minz_Translate::t ('stats_idle'); ?></a>
 	</li>
+	<li class="item<?php echo Minz_Request::actionName () == 'repartition' ? ' active' : ''; ?>">
+		<a href="<?php echo _url ('stats', 'repartition'); ?>"><?php echo Minz_Translate::t ('stats_repartition'); ?></a>
+	</li>
 </ul>
