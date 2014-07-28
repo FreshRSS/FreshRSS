@@ -1,32 +1,32 @@
-<?php $this->partial ('aside_stats'); ?>
+<?php $this->partial('aside_stats'); ?>
 
 <div class="post content">
-	<a href="<?php echo _url ('index', 'index'); ?>"><?php echo _t ('back_to_rss_feeds'); ?></a>
+	<a href="<?php echo _url('index', 'index'); ?>"><?php echo _t('back_to_rss_feeds'); ?></a>
 	
 	<?php if ($this->feed) {?>
 		<h1>
-			<?php echo _t ('stats_repartition'), " - "; ?>
-			<a href="<?php echo _url ('configure', 'feed', 'id', $this->feed->id()); ?>"
-			   title="<?php echo date ('Y-m-d', $feed['last_date']); ?>">
+			<?php echo _t('stats_repartition'), " - "; ?>
+			<a href="<?php echo _url('configure', 'feed', 'id', $this->feed->id()); ?>"
+			   title="<?php echo date('Y-m-d', $feed['last_date']); ?>">
 				<?php echo $this->feed->name(); ?>
 			</a>
 		</h1>
 	<?php } else {?>
-		<h1><?php echo _t ('stats_repartition'); ?></h1>
+		<h1><?php echo _t('stats_repartition'); ?></h1>
 	<?php }?>
 	
 	<div class="stat">
-		<h2><?php echo _t ('stats_entry_per_hour'); ?></h2>
+		<h2><?php echo _t('stats_entry_per_hour'); ?></h2>
 		<div id="statsEntryPerHour" style="height: 300px"></div>
 	</div>
 	
 	<div class="stat">
-		<h2><?php echo _t ('stats_entry_per_day_of_week'); ?></h2>
+		<h2><?php echo _t('stats_entry_per_day_of_week'); ?></h2>
 		<div id="statsEntryPerDayOfWeek" style="height: 300px"></div>
 	</div>
 
 	<div class="stat">
-		<h2><?php echo _t ('stats_entry_per_month'); ?></h2>
+		<h2><?php echo _t('stats_entry_per_month'); ?></h2>
 		<div id="statsEntryPerMonth" style="height: 300px"></div>
 	</div>
 </div>
