@@ -55,7 +55,20 @@ class FreshRSS_stats_Controller extends Minz_ActionController {
 
 		$this->view->idleFeeds = $idleFeeds;
 	}
-	
+
+	public function repartitionAction() {
+		$statsDAO = FreshRSS_Factory::createStatsDAO();
+		$feedDAO = FreshRSS_Factory::createFeedDao();
+		Minz_View::appendScript(Minz_Url::display('/scripts/flotr2.min.js?' . @filemtime(PUBLIC_PATH . '/scripts/flotr2.min.js')));
+		$id = Minz_Request::param ('id', null);
+		$this->view->feed = $feedDAO->searchById($id);
+		$this->view->days = $statsDAO->getDays();
+		$this->view->months = $statsDAO->getMonths();
+		$this->view->repartitionHour = $statsDAO->calculateEntryRepartitionPerFeedPerHour($id);
+		$this->view->repartitionDayOfWeek = $statsDAO->calculateEntryRepartitionPerFeedPerDayOfWeek($id);
+		$this->view->repartitionMonth = $statsDAO->calculateEntryRepartitionPerFeedPerMonth($id);
+	}
+
 	public function firstAction() {
 		if (!$this->view->loginOk) {
 			Minz_Error::error(

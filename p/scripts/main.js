@@ -69,6 +69,10 @@ function incUnreadsFeed(article, feed_id, nb) {
 		feed_priority = elem ? str2int(elem.getAttribute('data-priority')) : 0;
 	if (elem) {
 		elem.setAttribute('data-unread', numberFormat(feed_unreads + nb));
+		elem = $(elem).closest('li').get(0);
+		if (elem) {
+			elem.setAttribute('data-unread', feed_unreads + nb);
+		}
 	}
 
 	//Update unread: category
@@ -76,6 +80,10 @@ function incUnreadsFeed(article, feed_id, nb) {
 	feed_unreads = elem ? str2int(elem.getAttribute('data-unread')) : 0;
 	if (elem) {
 		elem.setAttribute('data-unread', numberFormat(feed_unreads + nb));
+		elem = $(elem).closest('li').get(0);
+		if (elem) {
+			elem.setAttribute('data-unread', feed_unreads + nb);
+		}
 	}
 
 	//Update unread: all

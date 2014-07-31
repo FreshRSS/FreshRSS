@@ -5,7 +5,10 @@
 
 	<h1><?php echo _t('stats_idle'); ?></h1>
 
-	<?php foreach ($this->idleFeeds as $period => $feeds) { ?>
+	<?php
+		foreach ($this->idleFeeds as $period => $feeds) {
+			if (!empty($feeds)) {
+	?>
 		<div class="stat">
 			<h2><?php echo _t($period); ?></h2>
 
@@ -15,5 +18,8 @@
 				<?php } ?>
 			</ul>
 		</div>
-	<?php } ?>
+	<?php
+			}
+		}
+	?>
 </div>
