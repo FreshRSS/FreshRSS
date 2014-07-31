@@ -361,7 +361,12 @@ function last_category() {
 
 function collapse_entry() {
 	isCollapsed = !isCollapsed;
-	$(".flux.current").toggleClass("active");
+
+	var flux_current = $(".flux.current");
+	flux_current.toggleClass("active");
+	if (isCollapsed) {
+		mark_read(flux_current, true);
+	}
 }
 
 function auto_share(key) {
