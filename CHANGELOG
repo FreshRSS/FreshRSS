@@ -2,8 +2,9 @@
 
 ## 2014-08-xx FreshRSS 0.7.4
 
-* New options
+* UI
 	* Hide categories/feeds with unread articles when showing only unread articles
+	* Dynamic favicon showing the number of unread articles
 * Statistics
 	* New page with article repartition
 	* Improvements

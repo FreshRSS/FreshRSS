@@ -160,6 +160,7 @@ function mark_read(active, only_not_read) {
 		$r.find('.icon').replaceWith(data.icon);
 
 		incUnreadsFeed(active, feed_id, inc);
+		faviconNbUnread();
 
 		pending_feeds.splice(index_pending, 1);
 	});
@@ -793,6 +794,7 @@ function refreshUnreads() {
 				$('#new-article').show();
 			};
 		});
+		faviconNbUnread();
 	});
 }
 
@@ -1065,6 +1067,35 @@ function init_password_observers() {
 	});
 }
 
+function faviconNbUnread(n) {
+	if (typeof n === 'undefined') {
+		n = parseInt($('.category.all>a').attr('data-unread'));
+	}
+	//http://remysharp.com/2010/08/24/dynamic-favicons/
+	var canvas = document.createElement('canvas'),
+		link = document.getElementById('favicon').cloneNode(true);
+	if (canvas.getContext && link) {
+		canvas.height = canvas.width = 16;
+		var img = document.createElement('img');
+		img.onload = function () {
+			var ctx = canvas.getContext('2d'),
+				text = n < 100 ? n : '99+';
+			ctx.drawImage(this, 0, 0);
+			if (n > 0) {
+				ctx.font = 'bold 9px "Arial", sans-serif';
+				ctx.fillStyle = 'rgba(255, 255, 255, 127)';
+				ctx.fillRect(0, 8, 1 + ctx.measureText(text).width, 7);
+				ctx.fillStyle = '#F00';
+				ctx.fillText(text, 0, 16);
+			}
+			link.href = canvas.toDataURL('image/png');
+			$('link[rel~=icon]').remove();
+			document.head.appendChild(link);
+		};
+		img.src = '../favicon.ico';
+	}
+}
+
 function init_all() {
 	if (!(window.$ && window.url_freshrss && ((!full_lazyload) || $.fn.lazyload))) {
 		if (window.console) {
@@ -1092,6 +1123,7 @@ function init_all() {
 		init_stream($stream);
 		init_nav_entries();
 		init_shortcuts();
+		faviconNbUnread();
 		init_print_action();
 		window.setInterval(refreshUnreads, 120000);
 	} else {
