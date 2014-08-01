@@ -1,5 +1,17 @@
 # Journal des modifications
 
+## 2014-08-xx FreshRSS 0.7.4
+
+* New options
+	* Hide categories/feeds with unread articles when showing only unread articles
+* Statistics
+	* New page with article repartition
+	* Improvements
+* Security
+	* Basic protection against XSRF (Cross-Site Request Forgery) based on HTTP Referer (POST requests only)
+* Bux fixes in export function, add/remove users, keyboard shortcuts, etc.
+
+
 ## 2014-07-21 FreshRSS 0.7.3
 
 * New options
