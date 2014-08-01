@@ -249,11 +249,11 @@ function saveStep3 () {
 				'base_url' => '',
 				'title' => $_SESSION['title'],
 				'default_user' => $_SESSION['default_user'],
-				'auth_type' => $_SESSION['auth_type'],
 				'allow_anonymous' => isset($_SESSION['allow_anonymous']) ? $_SESSION['allow_anonymous'] : false,
-				'allow_anonymous_refresh' => false,
-				'unsafe_autologin_enabled' => false,
-				'api_enabled' => false,
+				'allow_anonymous_refresh' => isset($_SESSION['allow_anonymous_refresh']) ? $_SESSION['allow_anonymous_refresh'] : false,
+				'auth_type' => $_SESSION['auth_type'],
+				'api_enabled' => isset($_SESSION['api_enabled']) ? $_SESSION['api_enabled'] : false,
+				'unsafe_autologin_enabled' => isset($_SESSION['unsafe_autologin_enabled']) ? $_SESSION['unsafe_autologin_enabled'] : false,
 			),
 			'db' => array(
 				'type' => $_SESSION['bd_type'],
@@ -499,7 +499,7 @@ function checkStep0 () {
 	if ($ini_array) {
 		$ini_general = isset($ini_array['general']) ? $ini_array['general'] : null;
 		if ($ini_general) {
-			$keys = array('environment', 'salt', 'title', 'default_user', 'allow_anonymous', 'auth_type');
+			$keys = array('environment', 'salt', 'title', 'default_user', 'allow_anonymous', 'allow_anonymous_refresh', 'auth_type', 'api_enabled', 'unsafe_autologin_enabled');
 			foreach ($keys as $key) {
 				if ((empty($_SESSION[$key])) && isset($ini_general[$key])) {
 					$_SESSION[$key] = $ini_general[$key];
