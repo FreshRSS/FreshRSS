@@ -6,6 +6,16 @@ class FreshRSS extends Minz_FrontController {
 		}
 		$loginOk = $this->accessControl(Minz_Session::param('currentUser', ''));
 		$this->loadParamsView();
+		if (Minz_Request::isPost() && !empty($_SERVER['HTTP_REFERER']) &&
+			Minz_Request::getDomainName() !== parse_url($_SERVER['HTTP_REFERER'], PHP_URL_HOST)) {
+			$loginOk = false;	//Basic protection against XSRF attacks
+			Minz_Error::error(
+				403,
+				array('error' => array(Minz_Translate::t('access_denied') . ' [HTTP_REFERER=' .
+					htmlspecialchars(empty($_SERVER['HTTP_REFERER']) ? '' : $_SERVER['HTTP_REFERER']) . ']'))
+			);
+		}
+		Minz_View::_param('loginOk', $loginOk);
 		$this->loadStylesAndScripts($loginOk);	//TODO: Do not load that when not needed, e.g. some Ajax requests
 		$this->loadNotifications();
 	}
@@ -95,7 +105,6 @@ class FreshRSS extends Minz_FrontController {
 					break;
 			}
 		}
-		Minz_View::_param ('loginOk', $loginOk);
 		return $loginOk;
 	}
 
