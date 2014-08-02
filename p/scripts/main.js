@@ -421,21 +421,7 @@ function inMarkViewport(flux, box_to_follow, relative_follow) {
 	return (windowBot >= begin && bot >= windowBot);
 }
 
-function init_lazyload() {
-	if ($.fn.lazyload) {
-		if (is_global_mode()) {
-			$(".flux_content img").lazyload({
-				container: $("#panel")
-			});
-		} else {
-			$(".flux_content img").lazyload();
-		}
-	}
-}
-
 function init_posts() {
-	init_lazyload();
-
 	var box_to_follow = $(window),
 		relative_follow = false;
 	if (is_global_mode()) {
@@ -827,7 +813,6 @@ function load_more_posts() {
 		});
 
 		init_load_more(box_load_more);
-		init_lazyload();
 
 		$('#load_more').removeClass('loading');
 		load_more = false;
@@ -840,6 +825,12 @@ function focus_search() {
 
 function init_load_more(box) {
 	box_load_more = box;
+
+	if (!does_lazyload) {
+		$('img[postpone], audio[postpone], iframe[postpone], video[postpone]').each(function () {
+			this.removeAttribute('postpone');
+		});
+	}
 
 	var $next_link = $("#load_more");
 	if (!$next_link.length) {
@@ -1093,7 +1084,7 @@ function faviconNbUnread(n) {
 				ctx.fillStyle = 'rgba(255, 255, 255, 127)';
 				ctx.fillRect(0, 8, 1 + ctx.measureText(text).width, 7);
 				ctx.fillStyle = '#F00';
-				ctx.fillText(text, 0, 16);
+				ctx.fillText(text, 0, canvas.height);
 			}
 			link.href = canvas.toDataURL('image/png');
 			$('link[rel~=icon]').remove();
@@ -1104,7 +1095,7 @@ function faviconNbUnread(n) {
 }
 
 function init_all() {
-	if (!(window.$ && window.url_freshrss && ((!full_lazyload) || $.fn.lazyload))) {
+	if (!(window.$ && window.url_freshrss)) {
 		if (window.console) {
 			console.log('FreshRSS waiting for JS…');
 		}

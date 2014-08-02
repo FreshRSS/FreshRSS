@@ -93,7 +93,6 @@ mysqldump -u utilisateur -p --databases freshrss > freshrss.sql
 ## Uniquement pour certaines options
 * [bcrypt.js](https://github.com/dcodeIO/bcrypt.js)
 * [phpQuery](http://code.google.com/p/phpquery/)
-* [Lazy Load](http://www.appelsiini.net/projects/lazyload)
 
 ## Si les fonctions natives ne sont pas disponibles
 * [Services_JSON](http://pear.php.net/pepr/pepr-proposal-show.php?id=198)

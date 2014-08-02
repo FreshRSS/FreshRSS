@@ -92,13 +92,9 @@ if (!empty($this->entries)) {
 			<div class="content <?php echo $content_width; ?>">
 				<h1 class="title"><a target="_blank" href="<?php echo $item->link (); ?>"><?php echo $item->title (); ?></a></h1>
 				<?php
-					$author = $item->author ();
-					echo $author != '' ? '<div class="author">' . Minz_Translate::t ('by_author', $author) . '</div>' : '';
-					if ($lazyload) {
-						echo $hidePosts ? lazyIframe(lazyimg($item->content())) : lazyimg($item->content());
-					} else {
-						echo $item->content();
-					}
+					$author = $item->author();
+					echo $author != '' ? '<div class="author">' . Minz_Translate::t('by_author', $author) . '</div>' : '',
+						$lazyload && $hidePosts ? lazyimg($item->content()) : $item->content();
 				?>
 			</div>
 			<ul class="horizontal-list bottom"><?php
