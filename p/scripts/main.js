@@ -1079,7 +1079,7 @@ function faviconNbUnread(n) {
 		var img = document.createElement('img');
 		img.onload = function () {
 			var ctx = canvas.getContext('2d');
-			ctx.drawImage(this, 0, 0);
+			ctx.drawImage(this, 0, 0, canvas.width, canvas.height);
 			if (n > 0) {
 				var text = '';
 				if (n < 1000) {
