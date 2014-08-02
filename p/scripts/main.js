@@ -1069,7 +1069,7 @@ function init_password_observers() {
 
 function faviconNbUnread(n) {
 	if (typeof n === 'undefined') {
-		n = parseInt($('.category.all>a').attr('data-unread'));
+		n = str2int($('.category.all>a').attr('data-unread'));
 	}
 	//http://remysharp.com/2010/08/24/dynamic-favicons/
 	var canvas = document.createElement('canvas'),
@@ -1078,10 +1078,19 @@ function faviconNbUnread(n) {
 		canvas.height = canvas.width = 16;
 		var img = document.createElement('img');
 		img.onload = function () {
-			var ctx = canvas.getContext('2d'),
-				text = n < 100 ? n : '99+';
+			var ctx = canvas.getContext('2d');
 			ctx.drawImage(this, 0, 0);
 			if (n > 0) {
+				var text = '';
+				if (n < 100) {
+					text = n;
+				} else if (n < 1000) {
+					text = Math.floor(n / 100) + 'h+';
+				} else if (n < 10000) {
+					text = Math.floor(n / 1000) + 'k+';
+				} else {
+					text = '10k+';
+				}
 				ctx.font = 'bold 9px "Arial", sans-serif';
 				ctx.fillStyle = 'rgba(255, 255, 255, 127)';
 				ctx.fillRect(0, 8, 1 + ctx.measureText(text).width, 7);
