@@ -1082,14 +1082,12 @@ function faviconNbUnread(n) {
 			ctx.drawImage(this, 0, 0);
 			if (n > 0) {
 				var text = '';
-				if (n < 100) {
+				if (n < 1000) {
 					text = n;
-				} else if (n < 1000) {
-					text = Math.floor(n / 100) + 'h+';
-				} else if (n < 10000) {
-					text = Math.floor(n / 1000) + 'k+';
+				} else if (n < 100000) {
+					text = Math.floor(n / 1000) + 'k';
 				} else {
-					text = '10k+';
+					text = 'E' + Math.min(99, Math.floor(Math.log10(n)));
 				}
 				ctx.font = 'bold 9px "Arial", sans-serif';
 				ctx.fillStyle = 'rgba(255, 255, 255, 127)';
