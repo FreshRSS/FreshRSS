@@ -1078,7 +1078,7 @@ function faviconNbUnread(n) {
 				} else if (n < 100000) {
 					text = Math.floor(n / 1000) + 'k';
 				} else {
-					text = 'E' + Math.min(99, Math.floor(Math.log10(n)));
+					text = 'E' + Math.floor(Math.log10(n));
 				}
 				ctx.font = 'bold 9px "Arial", sans-serif';
 				ctx.fillStyle = 'rgba(255, 255, 255, 127)';
