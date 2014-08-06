@@ -1060,7 +1060,10 @@ function init_password_observers() {
 
 function faviconNbUnread(n) {
 	if (typeof n === 'undefined') {
-		n = str2int($('.category.all>a').attr('data-unread'));
+		n = 0;
+		$('.feed[data-unread]').each(function() {
+			n += str2int(this.getAttribute('data-unread'));
+		});
 	}
 	//http://remysharp.com/2010/08/24/dynamic-favicons/
 	var canvas = document.createElement('canvas'),
