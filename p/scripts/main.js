@@ -1081,10 +1081,10 @@ function faviconNbUnread(n) {
 					text = 'E' + Math.floor(Math.log10(n));
 				}
 				ctx.font = 'bold 9px "Arial", sans-serif';
-				ctx.fillStyle = 'rgba(255, 255, 255, 127)';
-				ctx.fillRect(0, 8, 1 + ctx.measureText(text).width, 7);
+				ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
+				ctx.fillRect(0, 7, 1 + ctx.measureText(text).width, 9);
 				ctx.fillStyle = '#F00';
-				ctx.fillText(text, 0, canvas.height);
+				ctx.fillText(text, 0, canvas.height - 1);
 			}
 			link.href = canvas.toDataURL('image/png');
 			$('link[rel~=icon]').remove();
