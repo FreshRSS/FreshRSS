@@ -175,7 +175,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 	public function markReadEntries($idMax = 0, $onlyFavorites = false, $priorityMin = 0) {
 		if ($idMax == 0) {
 			$idMax = time() . '000000';
-			Minz_Log::record($nb . 'Calling markReadEntries(0) is deprecated!', Minz_Log::DEBUG);
+			Minz_Log::record('Calling markReadEntries(0) is deprecated!', Minz_Log::DEBUG);
 		}
 
 		$sql = 'UPDATE `' . $this->prefix . 'entry` e INNER JOIN `' . $this->prefix . 'feed` f ON e.id_feed=f.id '
@@ -203,7 +203,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 	public function markReadCat($id, $idMax = 0) {
 		if ($idMax == 0) {
 			$idMax = time() . '000000';
-			Minz_Log::record($nb . 'Calling markReadCat(0) is deprecated!', Minz_Log::DEBUG);
+			Minz_Log::record('Calling markReadCat(0) is deprecated!', Minz_Log::DEBUG);
 		}
 
 		$sql = 'UPDATE `' . $this->prefix . 'entry` e INNER JOIN `' . $this->prefix . 'feed` f ON e.id_feed=f.id '
@@ -226,7 +226,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 	public function markReadFeed($id, $idMax = 0) {
 		if ($idMax == 0) {
 			$idMax = time() . '000000';
-			Minz_Log::record($nb . 'Calling markReadFeed(0) is deprecated!', Minz_Log::DEBUG);
+			Minz_Log::record('Calling markReadFeed(0) is deprecated!', Minz_Log::DEBUG);
 		}
 		$this->bd->beginTransaction();
 
