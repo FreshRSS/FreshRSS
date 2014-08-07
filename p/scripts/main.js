@@ -1082,7 +1082,7 @@ function faviconNbUnread(n) {
 				}
 				ctx.font = 'bold 9px "Arial", sans-serif';
 				ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
-				ctx.fillRect(0, 7, 1 + ctx.measureText(text).width, 9);
+				ctx.fillRect(0, 7, ctx.measureText(text).width, 9);
 				ctx.fillStyle = '#F00';
 				ctx.fillText(text, 0, canvas.height - 1);
 			}
