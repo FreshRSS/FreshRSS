@@ -339,7 +339,17 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 			$nb_files = count($export_files);
 			if ($nb_files > 1) {
 				// If there are more than 1 file to export, we need an .zip
-				$this->exportZip($export_files);
+				try {
+					$this->exportZip($export_files);
+				} catch (Exception $e) {
+					# Oops, there is no Zip extension!
+					$notif = array(
+						'type' => 'bad',
+						'content' => _t('export_no_zip_extension')
+					);
+					Minz_Session::_param('notification', $notif);
+					Minz_Request::forward(array('c' => 'importExport'), true);
+				}
 			} elseif ($nb_files === 1) {
 				// Only one file? Guess its type and export it.
 				$filename = key($export_files);
@@ -351,6 +361,8 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 				}
 
 				$this->exportFile($filename, $export_files[$filename], $type);
+			} else {
+				Minz_Request::forward(array('c' => 'importExport'), true);
 			}
 		}
 	}
@@ -393,6 +405,10 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 	}
 
 	private function exportZip($files) {
+		if (!extension_loaded('zip')) {
+			throw new Exception();
+		}
+
 		// From https://stackoverflow.com/questions/1061710/php-zip-files-on-the-fly
 		$zip_file = tempnam('tmp', 'zip');
 		$zip = new ZipArchive();
@@ -412,6 +428,10 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 	}
 
 	private function exportFile($filename, $content, $type) {
+		if (is_null($type)) {
+			return;
+		}
+
 		header('Content-Type: ' . $type . '; charset=utf-8');
 		header('Content-disposition: attachment; filename=' . $filename);
 		print($content);

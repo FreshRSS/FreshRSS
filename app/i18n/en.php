@@ -185,6 +185,7 @@ return array (
 	'export'			=> 'Export',
 	'export_opml'			=> 'Export list of feeds (OPML)',
 	'export_starred'		=> 'Export your favourites',
+	'export_no_zip_extension'	=> 'Zip extension is not present on your server. Please try to export files one by one.',
 	'starred_list'			=> 'List of favourite articles',
 	'feed_list'			=> 'List of %s articles',
 	'or'				=> 'or',

@@ -185,6 +185,7 @@ return array (
 	'export'			=> 'Exporter',
 	'export_opml'			=> 'Exporter la liste des flux (OPML)',
 	'export_starred'		=> 'Exporter les favoris',
+	'export_no_zip_extension'	=> 'L’extension Zip n’est pas présente sur votre serveur. Veuillez essayer d’exporter les fichiers un par un.',
 	'starred_list'			=> 'Liste des articles favoris',
 	'feed_list'			=> 'Liste des articles de %s',
 	'or'				=> 'ou',
