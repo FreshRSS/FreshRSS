@@ -1018,7 +1018,7 @@ function init_persona() {
 //</persona>
 
 function init_confirm_action() {
-	$('.confirm').click(function () {
+	$('body').on('click', '.confirm', function () {
 		return confirm(str_confirmation);
 	});
 }
