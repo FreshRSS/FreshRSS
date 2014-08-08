@@ -49,6 +49,8 @@ echo 'authType="', $authType, '",',
 	'url_logout="', _url ('index', 'logout'), '",';
 
 echo 'str_confirmation="', Minz_Translate::t('confirm_action'), '"', ",\n";
+echo 'str_notif_title_articles="', Minz_Translate::t('notif_title_new_articles'), '"', ",\n";
+echo 'str_notif_body_articles="', Minz_Translate::t('notif_body_new_articles'), '"', ",\n";
 
 $autoActualise = Minz_Session::param('actualize_feeds', false);
 echo 'auto_actualize_feeds=', $autoActualise ? 'true' : 'false', ";\n";
