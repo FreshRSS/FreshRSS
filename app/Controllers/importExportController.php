@@ -329,11 +329,13 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 
 			foreach ($export_feeds as $feed_id) {
 				$feed = $this->feedDAO->searchById($feed_id);
-				$filename = 'feed_' . $feed->category() . '_'
-				          . $feed->id() . '.json';
-				$export_files[$filename] = $this->generateArticles(
-					'feed', $feed
-				);
+				if ($feed) {
+					$filename = 'feed_' . $feed->category() . '_'
+					          . $feed->id() . '.json';
+					$export_files[$filename] = $this->generateArticles(
+						'feed', $feed
+					);
+				}
 			}
 
 			$nb_files = count($export_files);
