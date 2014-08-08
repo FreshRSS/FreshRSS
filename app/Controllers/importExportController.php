@@ -316,39 +316,42 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 
 			$export_opml = Minz_Request::param('export_opml', false);
 			$export_starred = Minz_Request::param('export_starred', false);
-			$export_feeds = Minz_Request::param('export_feeds', false);
+			$export_feeds = Minz_Request::param('export_feeds', array ());
 
-			// From https://stackoverflow.com/questions/1061710/php-zip-files-on-the-fly
-			$file = tempnam('tmp', 'zip');
-			$zip = new ZipArchive();
-			$zip->open($file, ZipArchive::OVERWRITE);
-
-			// Stuff with content
+			$export_files = array ();
 			if ($export_opml) {
-				$zip->addFromString(
-					'feeds.opml', $this->generateOpml()
-				);
+				$export_files['feeds.opml'] = $this->generateOpml();
 			}
+
 			if ($export_starred) {
-				$zip->addFromString(
-					'starred.json', $this->generateArticles('starred')
-				);
+				$export_files['starred.json'] = $this->generateArticles('starred');
 			}
+
 			foreach ($export_feeds as $feed_id) {
 				$feed = $this->feedDAO->searchById($feed_id);
-				$zip->addFromString(
-					'feed_' . $feed->category() . '_' . $feed->id() . '.json',
-					$this->generateArticles('feed', $feed)
+				$filename = 'feed_' . $feed->category() . '_'
+				          . $feed->id() . '.json';
+				$export_files[$filename] = $this->generateArticles(
+					'feed', $feed
 				);
 			}
 
-			// Close and send to user
-			$zip->close();
-			header('Content-Type: application/zip');
-			header('Content-Length: ' . filesize($file));
-			header('Content-Disposition: attachment; filename="freshrss_export.zip"');
-			readfile($file);
-			unlink($file);
+			$nb_files = count($export_files);
+			if ($nb_files > 1) {
+				// If there are more than 1 file to export, we need an .zip
+				$this->exportZip($export_files);
+			} elseif ($nb_files === 1) {
+				// Only one file? Guess its type and export it.
+				$filename = key($export_files);
+				$type = null;
+				if (substr_compare($filename, '.opml', -5) === 0) {
+					$type = "text/xml";
+				} elseif (substr_compare($filename, '.json', -5) === 0) {
+					$type = "text/json";
+				}
+
+				$this->exportFile($filename, $export_files[$filename], $type);
+			}
 		}
 	}
 
@@ -387,5 +390,30 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 		}
 
 		return $this->view->helperToString('export/articles');
+	}
+
+	private function exportZip($files) {
+		// From https://stackoverflow.com/questions/1061710/php-zip-files-on-the-fly
+		$zip_file = tempnam('tmp', 'zip');
+		$zip = new ZipArchive();
+		$zip->open($zip_file, ZipArchive::OVERWRITE);
+
+		foreach ($files as $filename => $content) {
+			$zip->addFromString($filename, $content);
+		}
+
+		// Close and send to user
+		$zip->close();
+		header('Content-Type: application/zip');
+		header('Content-Length: ' . filesize($zip_file));
+		header('Content-Disposition: attachment; filename="freshrss_export.zip"');
+		readfile($zip_file);
+		unlink($zip_file);
+	}
+
+	private function exportFile($filename, $content, $type) {
+		header('Content-Type: ' . $type . '; charset=utf-8');
+		header('Content-disposition: attachment; filename=' . $filename);
+		print($content);
 	}
 }
