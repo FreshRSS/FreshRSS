@@ -30,18 +30,18 @@
 				</label>
 
 				<label class="checkbox" for="export_starred">
-					<input type="checkbox" name="export_starred" id="export_starred" value="1" checked="checked" />
+					<input type="checkbox" name="export_starred" id="export_starred" value="1" <?php echo extension_loaded('zip') ? 'checked="checked"' : ''; ?> />
 					<?php echo _t('export_starred'); ?>
 				</label>
 
 				<?php
 					$select_args = '';
 					if (extension_loaded('zip')) {
-						$select_args = ' size="<?php echo min(10, count($this->feeds)); ?>" multiple="multiple"';
+						$select_args = ' size="' . min(10, count($this->feeds)) .'" multiple="multiple"';
 					}
 				?>
-				<select name="export_feeds[]"<?php echo $select_arg; ?>>
-					<?php echo extension_loaded('zip')? '': '<option></option>'; ?>
+				<select name="export_feeds[]"<?php echo $select_args; ?>>
+					<?php echo extension_loaded('zip') ? '' : '<option></option>'; ?>
 					<?php foreach ($this->feeds as $feed) { ?>
 					<option value="<?php echo $feed->id(); ?>"><?php echo $feed->name(); ?></option>
 					<?php } ?>
