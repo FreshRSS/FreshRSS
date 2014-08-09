@@ -44,10 +44,9 @@
 
 		<div class="form-group">
 			<div class="group-controls">
-				<label class="checkbox" for="auto_load_more">
-					<input type="checkbox" name="auto_load_more" id="auto_load_more" value="1"<?php echo $this->conf->auto_load_more ? ' checked="checked"' : ''; ?> />
-					<?php echo Minz_Translate::t ('auto_load_more'); ?>
-					<noscript> — <strong><?php echo Minz_Translate::t ('javascript_should_be_activated'); ?></strong></noscript>
+				<label class="checkbox" for="hide_read_feeds">
+					<input type="checkbox" name="hide_read_feeds" id="hide_read_feeds" value="1"<?php echo $this->conf->hide_read_feeds ? ' checked="checked"' : ''; ?> />
+					<?php echo Minz_Translate::t('hide_read_feeds'); ?>
 				</label>
 			</div>
 		</div>
@@ -64,9 +63,20 @@
 
 		<div class="form-group">
 			<div class="group-controls">
-				<label class="checkbox" for="hide_read_feeds">
-					<input type="checkbox" name="hide_read_feeds" id="hide_read_feeds" value="1"<?php echo $this->conf->hide_read_feeds ? ' checked="checked"' : ''; ?> />
-					<?php echo Minz_Translate::t('hide_read_feeds'); ?>
+				<label class="checkbox" for="sticky_post">
+					<input type="checkbox" name="sticky_post" id="sticky_post" value="1"<?php echo $this->conf->sticky_post ? ' checked="checked"' : ''; ?> />
+					<?php echo Minz_Translate::t ('sticky_post'); ?>
+					<noscript> — <strong><?php echo Minz_Translate::t ('javascript_should_be_activated'); ?></strong></noscript>
+				</label>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<div class="group-controls">
+				<label class="checkbox" for="auto_load_more">
+					<input type="checkbox" name="auto_load_more" id="auto_load_more" value="1"<?php echo $this->conf->auto_load_more ? ' checked="checked"' : ''; ?> />
+					<?php echo Minz_Translate::t ('auto_load_more'); ?>
+					<noscript> — <strong><?php echo Minz_Translate::t ('javascript_should_be_activated'); ?></strong></noscript>
 				</label>
 			</div>
 		</div>
@@ -76,16 +86,6 @@
 				<label class="checkbox" for="lazyload">
 					<input type="checkbox" name="lazyload" id="lazyload" value="1"<?php echo $this->conf->lazyload ? ' checked="checked"' : ''; ?> />
 					<?php echo Minz_Translate::t ('img_with_lazyload'); ?>
-					<noscript> — <strong><?php echo Minz_Translate::t ('javascript_should_be_activated'); ?></strong></noscript>
-				</label>
-			</div>
-		</div>
-
-		<div class="form-group">
-			<div class="group-controls">
-				<label class="checkbox" for="sticky_post">
-					<input type="checkbox" name="sticky_post" id="sticky_post" value="1"<?php echo $this->conf->sticky_post ? ' checked="checked"' : ''; ?> />
-					<?php echo Minz_Translate::t ('sticky_post'); ?>
 					<noscript> — <strong><?php echo Minz_Translate::t ('javascript_should_be_activated'); ?></strong></noscript>
 				</label>
 			</div>
