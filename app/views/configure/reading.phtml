@@ -64,6 +64,15 @@
 
 		<div class="form-group">
 			<div class="group-controls">
+				<label class="checkbox" for="hide_read_feeds">
+					<input type="checkbox" name="hide_read_feeds" id="hide_read_feeds" value="1"<?php echo $this->conf->hide_read_feeds ? ' checked="checked"' : ''; ?> />
+					<?php echo Minz_Translate::t('hide_read_feeds'); ?>
+				</label>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<div class="group-controls">
 				<label class="checkbox" for="lazyload">
 					<input type="checkbox" name="lazyload" id="lazyload" value="1"<?php echo $this->conf->lazyload ? ' checked="checked"' : ''; ?> />
 					<?php echo Minz_Translate::t ('img_with_lazyload'); ?>
