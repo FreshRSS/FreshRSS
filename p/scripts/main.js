@@ -769,8 +769,7 @@ function init_notifications() {
 // </notification>
 
 // <notifs html5>
-var notifs_html5_permission = 'denied',
-    notifs_html5_shown = false;
+var notifs_html5_permission = 'denied';
 
 function notifs_html5_is_supported() {
 	return window.Notification !== undefined;
@@ -783,7 +782,7 @@ function notifs_html5_ask_permission() {
 }
 
 function notifs_html5_show(nb) {
-	if (notifs_html5_permission !== "granted" || notifs_html5_shown) {
+	if (notifs_html5_permission !== "granted") {
 		return
 	}
 
@@ -795,8 +794,6 @@ function notifs_html5_show(nb) {
 	notification.onclick = function() {
 		window.location.reload();
 	}
-
-	notifs_html5_shown = true;
 }
 
 function init_notifs_html5() {
@@ -810,19 +807,24 @@ function init_notifs_html5() {
 
 function refreshUnreads() {
 	$.getJSON('./?c=javascript&a=nbUnreadsPerFeed').done(function (data) {
-		var isAll = $('.category.all > .active').length > 0;
+		var isAll = $('.category.all > .active').length > 0,
+		    new_articles = false;
+
 		$.each(data, function(feed_id, nbUnreads) {
 			feed_id = 'f_' + feed_id;
 			var elem = $('#' + feed_id + '>.feed').get(0),
 				feed_unreads = elem ? str2int(elem.getAttribute('data-unread')) : 0;
+
 			if ((incUnreadsFeed(null, feed_id, nbUnreads - feed_unreads) || isAll) &&	//Update of current view?
 				(nbUnreads - feed_unreads > 0)) {
 				$('#new-article').show();
+				new_articles = true;
 			};
 		});
 
 		var nb_unreads = str2int($('.category.all>a').attr('data-unread'));
-		if (nb_unreads > 0) {
+
+		if (nb_unreads > 0 && new_articles) {
 			faviconNbUnread(nb_unreads);
 			notifs_html5_show(nb_unreads);
 		}
