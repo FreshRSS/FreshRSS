@@ -221,7 +221,9 @@
 
 		<?php
 			$url_output['params']['output'] = 'rss';
-			$url_output['params']['token'] = $this->conf->token;
+			if ($this->conf->token) {
+				$url_output['params']['token'] = $this->conf->token;
+			}
 		?>
 		<a class="view_rss btn" target="_blank" title="<?php echo Minz_Translate::t ('rss_view'); ?>" href="<?php echo Minz_Url::display($url_output); ?>">
 			<?php echo FreshRSS_Themes::icon('rss'); ?>
