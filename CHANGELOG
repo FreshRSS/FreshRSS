@@ -5,6 +5,7 @@
 * UI
 	* Hide categories/feeds with unread articles when showing only unread articles
 	* Dynamic favicon showing the number of unread articles
+	* New theme: Screwdriver by Mister aiR
 * Statistics
 	* New page with article repartition
 	* Improvements
@@ -12,6 +13,7 @@
 	* Basic protection against XSRF (Cross-Site Request Forgery) based on HTTP Referer (POST requests only)
 * Misc.
 	* Changed lazyload implementation
+	* Support of HTML5 notifications for new upcoming articles
 * Bux fixes in export function, add/remove users, keyboard shortcuts, etc.
 
 

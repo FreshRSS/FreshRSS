@@ -262,6 +262,7 @@ return array (
 	'sort_order'			=> 'Ordre de tri',
 	'auto_load_more'		=> 'Charger les articles suivants en bas de page',
 	'display_articles_unfolded'	=> 'Afficher les articles dépliés par défaut',
+	'hide_read_feeds'		=> 'Cacher les catégories &amp; flux sans article non-lu (uniquement en affichage “articles non lus”)',
 	'after_onread'			=> 'Après “marquer tout comme lu”,',
 	'jump_next'			=> 'sauter au prochain voisin non lu (flux ou catégorie)',
 	'article_icons'			=> 'Icônes d’article',

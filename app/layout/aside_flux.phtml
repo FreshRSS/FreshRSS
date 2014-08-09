@@ -1,4 +1,4 @@
-<div class="aside aside_flux<?php if (($this->state & FreshRSS_Entry::STATE_NOT_READ) && !($this->state & FreshRSS_Entry::STATE_READ)) echo ' state_unread'; ?>" id="aside_flux">
+<div class="aside aside_flux<?php if ($this->conf->hide_read_feeds && ($this->state & FreshRSS_Entry::STATE_NOT_READ) && !($this->state & FreshRSS_Entry::STATE_READ)) echo ' state_unread'; ?>" id="aside_flux">
 	<a class="toggle_aside" href="#close"><?php echo FreshRSS_Themes::icon('close'); ?></a>
 
 	<ul class="categories">
