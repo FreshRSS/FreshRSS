@@ -408,4 +408,6 @@ return array (
 	'stats_entry_per_category'	=> 'Articles par catégorie',
 	'stats_top_feed'		=> 'Les dix plus gros flux',
 	'stats_entry_count'		=> 'Nombre d’articles',
+
+	'update_can_apply'		=> 'Il y’a une mise à jour à appliquer. <a class="btn" href="%s">Appliquer</a>',
 );

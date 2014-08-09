@@ -408,4 +408,6 @@ return array (
 	'stats_entry_per_category'	=> 'Entries per category',
 	'stats_top_feed'		=> 'Top ten feeds',
 	'stats_entry_count'		=> 'Entry count',
+
+	'update_can_apply'		=> 'There is an available update. <a class="btn" href="%s">Apply</a>',
 );

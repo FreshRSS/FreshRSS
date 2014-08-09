@@ -26,12 +26,19 @@ class Minz_View {
 	 * Détermine si on utilise un layout ou non
 	 */
 	public function __construct () {
+		$this->change_view(Minz_Request::controllerName(),
+		                   Minz_Request::actionName());
+		self::$title = Minz_Configuration::title ();
+	}
+
+	/**
+	 * Change le fichier de vue en fonction d'un controller / action
+	 */
+	public function change_view($controller_name, $action_name) {
 		$this->view_filename = APP_PATH
 		                     . self::VIEWS_PATH_NAME . '/'
-		                     . Minz_Request::controllerName () . '/'
-		                     . Minz_Request::actionName () . '.phtml';
-
-		self::$title = Minz_Configuration::title ();
+		                     . $controller_name . '/'
+		                     . $action_name . '.phtml';
 	}
 
 	/**
