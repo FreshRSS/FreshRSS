@@ -44,11 +44,13 @@ function recurse_copy($src,$dst) {
 } 
 
 
+// Remove previous backup of data.
 function remove_data_backup() {
 	return del_tree(DATA_PATH . '.back');
 }
 
 
+// Create a backup of data.
 function data_backup() {
 	$from = DATA_PATH;
 	$to = $from .'.back';
@@ -61,7 +63,9 @@ function data_backup() {
 }
 
 
+// Save and unzip FreshRSS package.
 function save_package($url) {
+	// Download first package at $url.
 	$zip_filename = PACKAGE_PATHNAME . '.zip';
 	$zip_file = fopen($zip_filename, 'w+');
 	$c = curl_init($url);
@@ -79,6 +83,7 @@ function save_package($url) {
 		return false;
 	}
 
+	// And unzip package in PACKAGE_PATHNAME (should be under DATA_PATHNAME).
 	$zip = new ZipArchive;
 	if ($zip->open($zip_filename) === false) {
 		return false;
@@ -91,16 +96,19 @@ function save_package($url) {
 }
 
 
+// Deploy FreshRSS package by replacing old version by the new one.
 function deploy_package() {
 	$base_pathname = array_pop(array_diff(scandir(PACKAGE_PATHNAME),
 	                                      array('.', '..')));
 	$base_pathname = PACKAGE_PATHNAME . '/' . $base_pathname;
 
+	// Remove old version.
 	del_tree(APP_PATH);
 	del_tree(LIB_PATH);
 	del_tree(PUBLIC_PATH);
 	unlink(FRESHRSS_PATH . '/constants.php');
 
+	// Copy FRSS package at the good place.
 	recurse_copy($base_pathname . '/app', APP_PATH);
 	recurse_copy($base_pathname . '/lib', LIB_PATH);
 	recurse_copy($base_pathname . '/p', PUBLIC_PATH);
@@ -110,9 +118,11 @@ function deploy_package() {
 }
 
 
+// Remove files of FRSS package.
 function clean_package() {
 	return del_tree(PACKAGE_PATHNAME);
 }
 
 
+// NOTE: don't remove this close tag!
 ?>
