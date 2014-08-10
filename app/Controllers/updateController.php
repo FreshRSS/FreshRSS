@@ -79,10 +79,15 @@ class FreshRSS_update_Controller extends Minz_ActionController {
 				'body' => _t('update_server_not_found', FRESHRSS_UPDATE_WEBSITE)
 			);
 		}
+
 		curl_close($c);
 	}
 
 	public function applyAction() {
+		if (!file_exists(UPDATE_FILENAME)) {
+			Minz_Request::forward(array('c' => 'update'), true);
+		}
+
 		require(UPDATE_FILENAME);
 
 		if (Minz_Request::isPost()) {
