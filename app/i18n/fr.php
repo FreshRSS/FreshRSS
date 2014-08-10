@@ -192,6 +192,7 @@ return array (
 
 	'informations'			=> 'Informations',
 	'damn'				=> 'Arf !',
+	'ok'				=> 'Ok !',
 	'feed_in_error'			=> 'Ce flux a rencontré un problème. Veuillez vérifier qu’il est toujours accessible puis actualisez-le.',
 	'feed_empty'			=> 'Ce flux est vide. Veuillez vérifier qu’il est toujours maintenu.',
 	'feed_description'		=> 'Description',
@@ -409,5 +410,13 @@ return array (
 	'stats_top_feed'		=> 'Les dix plus gros flux',
 	'stats_entry_count'		=> 'Nombre d’articles',
 
-	'update_can_apply'		=> 'Il y’a une mise à jour à appliquer. <a class="btn" href="%s">Appliquer</a>',
+	'update'			=> 'Mise à jour',
+	'update_system'			=> 'Système de mise à jour',
+	'update_check'			=> 'Vérifier les mises à jour',
+	'update_last'			=> 'Dernière mise à jour : %s',
+	'update_can_apply'		=> 'Il y’a une mise à jour à appliquer. <a class="btn" href="%s">Appliquer la mise à jour</a>',
+	'update_server_not_found'	=> 'Le serveur de mise à jour n’a pas été trouvé. [%s]',
+	'no_update'			=> 'Aucune mise à jour à appliquer',
+	'update_problem'		=> 'La mise à jour a rencontré un problème : %s',
+	'update_finished'		=> 'La mise à jour est terminée !',
 );

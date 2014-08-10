@@ -12,8 +12,10 @@
 
 	<?php if (empty($this->message) || $this->message['status'] !== 'good') { ?>
 	<p>
-		<a href="<?php echo _url('update', 'check'); ?>" class="btn"><?php echo _t('update_check'); ?></a>
 		<?php echo _i('help'); ?> <?php echo _t('update_last', $this->last_update_time); ?>
+	</p>
+	<p>
+		<a href="<?php echo _url('update', 'check'); ?>" class="btn"><?php echo _t('update_check'); ?></a>
 	</p>
 	<?php } ?>
 </div>

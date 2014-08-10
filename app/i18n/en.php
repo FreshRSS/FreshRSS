@@ -192,6 +192,7 @@ return array (
 
 	'informations'			=> 'Information',
 	'damn'				=> 'Damn!',
+	'ok'				=> 'Ok!',
 	'feed_in_error'			=> 'This feed has encountered a problem. Please verify that it is always reachable then actualize it.',
 	'feed_empty'			=> 'This feed is empty. Please verify that it is still maintained.',
 	'feed_description'		=> 'Description',
@@ -409,5 +410,13 @@ return array (
 	'stats_top_feed'		=> 'Top ten feeds',
 	'stats_entry_count'		=> 'Entry count',
 
+	'update'			=> 'Update',
+	'update_system'			=> 'Update system',
+	'update_check'			=> 'Check for new updates',
+	'update_last'			=> 'Last update: %s',
 	'update_can_apply'		=> 'There is an available update. <a class="btn" href="%s">Apply</a>',
+	'update_server_not_found'	=> 'Update server cannot be found. [%s]',
+	'no_update'			=> 'No update to apply',
+	'update_problem'		=> 'Update has encountered an error: %s',
+	'update_finished'		=> 'Update is now  finished!',
 );

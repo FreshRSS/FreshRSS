@@ -11,6 +11,7 @@ class FreshRSS_update_Controller extends Minz_ActionController {
 		}
 
 		Minz_View::prependTitle(_t('update_system') . ' · ');
+		$this->view->last_update_time = 'unknown';  // TODO
 	}
 
 	public function indexAction() {
@@ -61,7 +62,7 @@ class FreshRSS_update_Controller extends Minz_ActionController {
 					$this->view->message = array(
 						'status' => 'bad',
 						'title' => _t('damn'),
-						'body' => _t('update_problem')
+						'body' => _t('update_problem', 'Cannot save the update script')
 					);
 				}
 			} else {
@@ -88,6 +89,8 @@ class FreshRSS_update_Controller extends Minz_ActionController {
 		if ($res === true) {
 			@unlink(UPDATE_FILENAME);
 
+			// TODO: record last update
+
 			Minz_Session::_param('notification', array(
 				'type' => 'good',
 				'content' => Minz_Translate::t('update_finished')
@@ -97,7 +100,7 @@ class FreshRSS_update_Controller extends Minz_ActionController {
 		} else {
 			Minz_Session::_param('notification', array(
 				'type' => 'bad',
-				'content' => Minz_Translate::t('update_failed', $res)
+				'content' => Minz_Translate::t('update_problem', $res)
 			));
 
 			Minz_Request::forward(array('c' => 'update'), true);
