@@ -15,13 +15,15 @@ class Minz_Session {
 	 * Le nom de session est utilisé comme nom pour les cookies et les URLs (i.e. PHPSESSID).
 	 * Il ne doit contenir que des caractères alphanumériques ; il doit être court et descriptif
 	 */
-	public static function init ($name) {
-		// démarre la session
-		session_name ($name);
-		session_set_cookie_params (0, dirname(empty($_SERVER['REQUEST_URI']) ? '/' : dirname($_SERVER['REQUEST_URI'])), null, false, true);
-		session_start ();
+	public static function init($name) {
+		$cookie = session_get_cookie_params();
+		self::keepCookie($cookie['lifetime']);
 
-		if (isset ($_SESSION)) {
+		// démarre la session
+		session_name($name);
+		session_start();
+
+		if (isset($_SESSION)) {
 			self::$session = $_SESSION;
 		}
 	}
@@ -68,4 +70,27 @@ class Minz_Session {
 			Minz_Translate::reset ();
 		}
 	}
+
+
+	/**
+	 * Spécifie la durée de vie des cookies
+	 * @param $l la durée de vie
+	 */
+	public static function keepCookie($l) {
+		$cookie_dir = dirname(
+			empty($_SERVER['SCRIPT_NAME']) ? '' : $_SERVER['SCRIPT_NAME']
+		) . '/';
+		session_set_cookie_params($l, $cookie_dir, $_SERVER['HTTP_HOST'],
+		                          false, true);
+	}
+
+
+	/**
+	 * Régénère un id de session.
+	 * Utile pour appeler session_set_cookie_params après session_start()
+	 */
+	public static function regenerateID() {
+		session_regenerate_id(true);
+	}
+
 }

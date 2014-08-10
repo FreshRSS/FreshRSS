@@ -3,6 +3,7 @@
 return array (
 	// LAYOUT
 	'login'				=> 'Login',
+	'keep_logged_in'		=> 'Keep me logged in',
 	'login_with_persona'		=> 'Login with Persona',
 	'logout'			=> 'Logout',
 	'search'			=> 'Search words or #tags',

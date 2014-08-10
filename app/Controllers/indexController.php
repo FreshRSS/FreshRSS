@@ -298,6 +298,7 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 	public function formLoginAction () {
 		if (Minz_Request::isPost()) {
 			$ok = false;
+			$keep_logged_in = Minz_Request::param('keep_logged_in', false);
 			$nonce = Minz_Session::param('nonce');
 			$username = Minz_Request::param('username', '');
 			$c = Minz_Request::param('challenge', '');
@@ -312,6 +313,11 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 					if ($ok) {
 						Minz_Session::_param('currentUser', $username);
 						Minz_Session::_param('passwordHash', $s);
+						if ($keep_logged_in) {
+							// New cookie with a lifetime of 1 year!
+							Minz_Session::keepCookie(31536000);
+							Minz_Session::regenerateID();
+						}
 					} else {
 						Minz_Log::record('Password mismatch for user ' . $username . ', nonce=' . $nonce . ', c=' . $c, Minz_Log::WARNING);
 					}
@@ -371,6 +377,9 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 		Minz_Session::_param('currentUser');
 		Minz_Session::_param('mail');
 		Minz_Session::_param('passwordHash');
+		Minz_Session::keepCookie(0);
+		Minz_Session::regenerateID();
+
 		Minz_Request::forward(array('c' => 'index', 'a' => 'index'), true);
 	}
 }
