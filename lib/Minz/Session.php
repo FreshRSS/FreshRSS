@@ -82,6 +82,9 @@ class Minz_Session {
 		) . '/';
 		session_set_cookie_params($l, $cookie_dir, $_SERVER['HTTP_HOST'],
 		                          false, true);
+
+		$l_session = max(1440, $l);
+		ini_set('session.gc_maxlifetime', $l_session);
 	}
 
 
