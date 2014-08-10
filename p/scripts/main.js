@@ -106,16 +106,16 @@ function incUnreadsFeed(article, feed_id, nb) {
 
 	var isCurrentView = false;
 	//Update unread: title
-	document.title = document.title.replace(/^((?:\([ 0-9]+\) )?)(.*? · )((?:\([ 0-9]+\) )?)/, function (m, p1, p2, p3) {
+	document.title = document.title.replace(/^((?:\([ 0-9]+\) )?)/, function (m, p1) {
 		var $feed = $('#' + feed_id);
 		if (article || ($feed.closest('.active').length > 0 && $feed.siblings('.active').length === 0)) {
 			isCurrentView = true;
-			return incLabel(p1, nb, true) + p2 + incLabel(p3, feed_priority > 0 ? nb : 0, true);
+			return incLabel(p1, nb, true);
 		} else if ($('.all.active').length > 0) {
 			isCurrentView = feed_priority > 0;
-			return incLabel(p1, feed_priority > 0 ? nb : 0, true) + p2 + incLabel(p3, feed_priority > 0 ? nb : 0, true);
+			return incLabel(p1, feed_priority > 0 ? nb : 0, true);
 		} else {
-			return p1 + p2 + incLabel(p3, feed_priority > 0 ? nb : 0, true);
+			return p1;
 		}
 	});
 	return isCurrentView;
