@@ -84,26 +84,33 @@ class FreshRSS_update_Controller extends Minz_ActionController {
 
 	public function applyAction() {
 		require(UPDATE_FILENAME);
-		$res = apply_update();
 
-		if ($res === true) {
-			@unlink(UPDATE_FILENAME);
+		if (Minz_Request::isPost()) {
+			save_info_update();
+		}
 
-			// TODO: record last update
+		if (!need_info_update()) {
+			$res = apply_update();
 
-			Minz_Session::_param('notification', array(
-				'type' => 'good',
-				'content' => Minz_Translate::t('update_finished')
-			));
+			if ($res === true) {
+				@unlink(UPDATE_FILENAME);
 
-			Minz_Request::forward(array(), true);
-		} else {
-			Minz_Session::_param('notification', array(
-				'type' => 'bad',
-				'content' => Minz_Translate::t('update_problem', $res)
-			));
+				// TODO: record last update
 
-			Minz_Request::forward(array('c' => 'update'), true);
+				Minz_Session::_param('notification', array(
+					'type' => 'good',
+					'content' => Minz_Translate::t('update_finished')
+				));
+
+				Minz_Request::forward(array(), true);
+			} else {
+				Minz_Session::_param('notification', array(
+					'type' => 'bad',
+					'content' => Minz_Translate::t('update_problem', $res)
+				));
+
+				Minz_Request::forward(array('c' => 'update'), true);
+			}
 		}
 	}
 }
