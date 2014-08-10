@@ -3,7 +3,7 @@
 return array (
 	// LAYOUT
 	'login'				=> 'Connexion',
-	'keep_logged_in'		=> 'Rester connecté',
+	'keep_logged_in'		=> 'Rester connecté <small>(1 mois)</small>',
 	'login_with_persona'		=> 'Connexion avec Persona',
 	'logout'			=> 'Déconnexion',
 	'search'			=> 'Rechercher des mots ou des #tags',
