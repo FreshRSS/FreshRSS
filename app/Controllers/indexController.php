@@ -314,8 +314,8 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 						Minz_Session::_param('currentUser', $username);
 						Minz_Session::_param('passwordHash', $s);
 						if ($keep_logged_in) {
-							// New cookie with a lifetime of 1 year!
-							Minz_Session::keepCookie(31536000);
+							// New cookie with a lifetime of 1 month.
+							Minz_Session::keepCookie(2592000);
 							Minz_Session::regenerateID();
 						}
 					} else {
