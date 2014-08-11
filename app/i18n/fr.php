@@ -182,7 +182,9 @@ return array (
 	'focus_search'			=> 'Accéder à la recherche',
 
 	'file_to_import'		=> 'Fichier à importer<br />(OPML, Json ou Zip)',
+	'file_to_import_no_zip'		=> 'Fichier à importer<br />(OPML ou Json)',
 	'import'			=> 'Importer',
+	'no_zip_extension'		=> 'L’extension Zip n’est pas présente sur votre serveur.',
 	'export'			=> 'Exporter',
 	'export_opml'			=> 'Exporter la liste des flux (OPML)',
 	'export_starred'		=> 'Exporter les favoris',

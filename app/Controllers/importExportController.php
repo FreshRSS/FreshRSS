@@ -39,7 +39,7 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 			// We try to list all files according to their type
 			// A zip file is first opened and then its files are listed
 			$list = array();
-			if ($type_file === 'zip') {
+			if ($type_file === 'zip' && extension_loaded('zip')) {
 				$zip = zip_open($file['tmp_name']);
 
 				while (($zipfile = zip_read($zip)) !== false) {
@@ -56,6 +56,14 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 				}
 
 				zip_close($zip);
+			} elseif ($type_file === 'zip') {
+				// Zip extension is not loaded
+				Minz_Session::_param('notification', array(
+					'type' => 'bad',
+					'content' => _t('no_zip_extension')
+				));
+
+				Minz_Request::forward(array('c' => 'importExport'), true);
 			} elseif ($type_file !== 'unknown') {
 				$list_files[$type_file][] = file_get_contents(
 					$file['tmp_name']

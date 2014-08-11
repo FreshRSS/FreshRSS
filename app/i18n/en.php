@@ -182,7 +182,9 @@ return array (
 	'focus_search'			=> 'Access search box',
 
 	'file_to_import'		=> 'File to import<br />(OPML, Json or Zip)',
+	'file_to_import_no_zip'		=> 'File to import<br />(OPML or Json)',
 	'import'			=> 'Import',
+	'no_zip_extension'		=> 'Zip extension is not present on your server.',
 	'export'			=> 'Export',
 	'export_opml'			=> 'Export list of feeds (OPML)',
 	'export_starred'		=> 'Export your favourites',
