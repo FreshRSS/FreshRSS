@@ -42,6 +42,20 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 			if ($type_file === 'zip' && extension_loaded('zip')) {
 				$zip = zip_open($file['tmp_name']);
 
+				if (!is_resource($zip)) {
+					Minz_Log::error(
+						'Zip file cannot be imported. Error code: ' . $zip
+					);
+
+					// zip_open cannot open file: something is wrong
+					Minz_Session::_param('notification', array(
+						'type' => 'bad',
+						'content' => _t('zip_error')
+					));
+
+					Minz_Request::forward(array('c' => 'importExport'), true);
+				}
+
 				while (($zipfile = zip_read($zip)) !== false) {
 					$type_zipfile = $this->guessFileType(
 						zip_entry_name($zipfile)

@@ -184,6 +184,7 @@ return array (
 	'file_to_import'		=> 'Fichier à importer<br />(OPML, Json ou Zip)',
 	'file_to_import_no_zip'		=> 'Fichier à importer<br />(OPML ou Json)',
 	'import'			=> 'Importer',
+	'zip_error'			=> 'Une erreur est survenue durant l’import du fichier Zip.',
 	'no_zip_extension'		=> 'L’extension Zip n’est pas présente sur votre serveur.',
 	'export'			=> 'Exporter',
 	'export_opml'			=> 'Exporter la liste des flux (OPML)',
