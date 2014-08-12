@@ -19,4 +19,15 @@ class Minz_Helper {
 			return stripslashes($var);
 		}
 	}
+
+	/**
+	 * Wrapper for htmlspecialchars.
+	 * Force UTf-8 value and can be used on array too.
+	 */
+	public static function htmlspecialchars_utf8($p) {
+		if (is_array($p)) {
+			return array_map('self::htmlspecialchars_utf8', $p);
+		}
+		return htmlspecialchars($p, ENT_COMPAT, 'UTF-8');
+	}
 }

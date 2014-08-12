@@ -27,19 +27,13 @@ class Minz_Request {
 	public static function params() {
 		return self::$params;
 	}
-	static function htmlspecialchars_utf8($p) {
-		if (is_array($p)) {
-			return array_map('self::htmlspecialchars_utf8', $p);
-		}
-		return htmlspecialchars($p, ENT_COMPAT, 'UTF-8');
-	}
 	public static function param($key, $default = false, $specialchars = false) {
 		if (isset(self::$params[$key])) {
 			$p = self::$params[$key];
 			if (is_object($p) || $specialchars) {
 				return $p;
 			} else {
-				return self::htmlspecialchars_utf8($p);
+				return Minz_Helper::htmlspecialchars_utf8($p);
 			}
 		} else {
 			return $default;

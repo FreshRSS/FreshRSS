@@ -166,15 +166,15 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 		}
 
 		// We get different useful information
-		$url = html_chars_utf8($feed_elt['xmlUrl']);
-		$name = html_chars_utf8($feed_elt['text']);
+		$url = Minz_Helper::htmlspecialchars_utf8($feed_elt['xmlUrl']);
+		$name = Minz_Helper::htmlspecialchars_utf8($feed_elt['text']);
 		$website = '';
 		if (isset($feed_elt['htmlUrl'])) {
-			$website = html_chars_utf8($feed_elt['htmlUrl']);
+			$website = Minz_Helper::htmlspecialchars_utf8($feed_elt['htmlUrl']);
 		}
 		$description = '';
 		if (isset($feed_elt['description'])) {
-			$description = html_chars_utf8($feed_elt['description']);
+			$description = Minz_Helper::htmlspecialchars_utf8($feed_elt['description']);
 		}
 
 		$error = false;
@@ -200,7 +200,7 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 
 	private function addCategoryOpml($cat_elt, $parent_cat) {
 		// Create a new Category object
-		$cat = new FreshRSS_Category(html_chars_utf8($cat_elt['text']));
+		$cat = new FreshRSS_Category(Minz_Helper::htmlspecialchars_utf8($cat_elt['text']));
 
 		$id = $this->catDAO->addCategoryObject($cat);
 		$error = ($id === false);
