@@ -44,43 +44,47 @@ class FreshRSS_update_Controller extends Minz_ActionController {
 
 		$c = curl_init(FRESHRSS_UPDATE_WEBSITE);
 		curl_setopt($c, CURLOPT_RETURNTRANSFER, true);
+		curl_setopt($c, CURLOPT_SSL_VERIFYPEER, true);
+		curl_setopt($c, CURLOPT_SSL_VERIFYHOST, 2);
 		$result = curl_exec($c);
+		$c_status = curl_getinfo($c, CURLINFO_HTTP_CODE);
+		curl_close($c);
 
-		if (curl_getinfo($c, CURLINFO_HTTP_CODE) == 200) {
-			$res_array = explode("\n", $result, 2);
-			$status = $res_array[0];
-
-			if (strpos($status, 'UPDATE') === 0) {
-				$script = $res_array[1];
-				if (file_put_contents(UPDATE_FILENAME, $script) !== false) {
-					$this->view->message = array(
-						'status' => 'good',
-						'title' => _t('ok'),
-						'body' => _t('update_can_apply', _url('update', 'apply'))
-					);
-				} else {
-					$this->view->message = array(
-						'status' => 'bad',
-						'title' => _t('damn'),
-						'body' => _t('update_problem', 'Cannot save the update script')
-					);
-				}
-			} else {
-				$this->view->message = array(
-					'status' => 'bad',
-					'title' => _t('damn'),
-					'body' => _t('no_update')
-				);
-			}
-		} else {
+		if ($c_status !== 200) {
 			$this->view->message = array(
 				'status' => 'bad',
 				'title' => _t('damn'),
 				'body' => _t('update_server_not_found', FRESHRSS_UPDATE_WEBSITE)
 			);
+			return;
 		}
 
-		curl_close($c);
+		$res_array = explode("\n", $result, 2);
+		$status = $res_array[0];
+		if (strpos($status, 'UPDATE') !== 0) {
+			$this->view->message = array(
+				'status' => 'bad',
+				'title' => _t('damn'),
+				'body' => _t('no_update')
+			);
+
+			return;
+		}
+
+		$script = $res_array[1];
+		if (file_put_contents(UPDATE_FILENAME, $script) !== false) {
+			$this->view->message = array(
+				'status' => 'good',
+				'title' => _t('ok'),
+				'body' => _t('update_can_apply', _url('update', 'apply'))
+			);
+		} else {
+			$this->view->message = array(
+				'status' => 'bad',
+				'title' => _t('damn'),
+				'body' => _t('update_problem', 'Cannot save the update script')
+			);
+		}
 	}
 
 	public function applyAction() {
