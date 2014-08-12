@@ -184,6 +184,7 @@ return array (
 	'file_to_import'		=> 'File to import<br />(OPML, Json or Zip)',
 	'file_to_import_no_zip'		=> 'File to import<br />(OPML or Json)',
 	'import'			=> 'Import',
+	'file_cannot_be_uploaded'	=> 'File cannot be uploaded!',
 	'zip_error'			=> 'An error occured during Zip import.',
 	'no_zip_extension'		=> 'Zip extension is not present on your server.',
 	'export'			=> 'Export',

@@ -24,35 +24,49 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 	}
 
 	public function importAction() {
-		if (Minz_Request::isPost() && $_FILES['file']['error'] == 0) {
-			@set_time_limit(300);
+		if (!Minz_Request::isPost()) {
+			// What are you doing? you have to call this controller
+			// with a POST request!
+			Minz_Request::forward(array('c' => 'importExport', 'a' => 'index'), true);
+		}
 
-			$file = $_FILES['file'];
-			$type_file = $this->guessFileType($file['name']);
+		$file = $_FILES['file'];
+		$status_file = $file['error'];
 
-			$list_files = array(
-				'opml' => array(),
-				'json_starred' => array(),
-				'json_feed' => array()
-			);
+		if ($status_file !== 0) {
+			Minz_Log::error('File cannot be imported. Error code: ' . $status_file);
+			Minz_Request::bad(_t('file_cannot_be_imported'),
+			                  array('c' => 'importExport', 'a' => 'index'));
+		}
 
-			// We try to list all files according to their type
-			// A zip file is first opened and then its files are listed
-			$list = array();
-			if ($type_file === 'zip' && extension_loaded('zip')) {
-				$zip = zip_open($file['tmp_name']);
+		@set_time_limit(300);
 
-				if (!is_resource($zip)) {
-					// zip_open cannot open file: something is wrong
-					Minz_Log::error('Zip file cannot be imported. Error code: ' . $zip);
-					Minz_Request::bad(_t('zip_error'), array('c' => 'importExport'));
-				}
+		$type_file = $this->guessFileType($file['name']);
 
-				while (($zipfile = zip_read($zip)) !== false) {
-					$type_zipfile = $this->guessFileType(
-						zip_entry_name($zipfile)
-					);
+		$list_files = array(
+			'opml' => array(),
+			'json_starred' => array(),
+			'json_feed' => array()
+		);
 
+		// We try to list all files according to their type
+		// A zip file is first opened and then its files are listed
+		$list = array();
+		if ($type_file === 'zip' && extension_loaded('zip')) {
+			$zip = zip_open($file['tmp_name']);
+
+			if (!is_resource($zip)) {
+				// zip_open cannot open file: something is wrong
+				Minz_Log::error('Zip archive cannot be imported. Error code: ' . $zip);
+				Minz_Request::bad(_t('zip_error'), array('c' => 'importExport'));
+			}
+
+			while (($zipfile = zip_read($zip)) !== false) {
+				if (!is_resource($zipfile)) {
+					// zip_entry() can also return an error code!
+					Minz_Log::error('Zip file cannot be imported. Error code: ' . $zipfile);
+				} else {
+					$type_zipfile = $this->guessFileType(zip_entry_name($zipfile));
 					if ($type_file !== 'unknown') {
 						$list_files[$type_zipfile][] = zip_entry_read(
 							$zipfile,
@@ -60,43 +74,39 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 						);
 					}
 				}
-
-				zip_close($zip);
-			} elseif ($type_file === 'zip') {
-				// Zip extension is not loaded
-				Minz_Request::bad(_t('no_zip_extension'), array('c' => 'importExport'));
-			} elseif ($type_file !== 'unknown') {
-				$list_files[$type_file][] = file_get_contents(
-					$file['tmp_name']
-				);
 			}
 
-			// Import different files.
-			// OPML first(so categories and feeds are imported)
-			// Starred articles then so the "favourite" status is already set
-			// And finally all other files.
-			$error = false;
-			foreach ($list_files['opml'] as $opml_file) {
-				$error = $this->importOpml($opml_file);
-			}
-			foreach ($list_files['json_starred'] as $article_file) {
-				$error = $this->importArticles($article_file, true);
-			}
-			foreach ($list_files['json_feed'] as $article_file) {
-				$error = $this->importArticles($article_file);
-			}
-
-			// And finally, we get import status and redirect to the home page
-			Minz_Session::_param('actualize_feeds', true);
-
-			$content_notif = $error === true ? _t('feeds_imported_with_errors') :
-			                                   _t('feeds_imported');
-			Minz_Request::good($content_notif);
+			zip_close($zip);
+		} elseif ($type_file === 'zip') {
+			// Zip extension is not loaded
+			Minz_Request::bad(_t('no_zip_extension'), array('c' => 'importExport'));
+		} elseif ($type_file !== 'unknown') {
+			$list_files[$type_file][] = file_get_contents(
+				$file['tmp_name']
+			);
 		}
 
-		// What are you doing? you have to call this controller
-		// with a POST request!
-		Minz_Request::forward(array('c' => 'importExport'));
+		// Import different files.
+		// OPML first(so categories and feeds are imported)
+		// Starred articles then so the "favourite" status is already set
+		// And finally all other files.
+		$error = false;
+		foreach ($list_files['opml'] as $opml_file) {
+			$error = $this->importOpml($opml_file);
+		}
+		foreach ($list_files['json_starred'] as $article_file) {
+			$error = $this->importArticles($article_file, true);
+		}
+		foreach ($list_files['json_feed'] as $article_file) {
+			$error = $this->importArticles($article_file);
+		}
+
+		// And finally, we get import status and redirect to the home page
+		Minz_Session::_param('actualize_feeds', true);
+
+		$content_notif = $error === true ? _t('feeds_imported_with_errors') :
+		                                   _t('feeds_imported');
+		Minz_Request::good($content_notif);
 	}
 
 	private function guessFileType($filename) {
@@ -335,7 +345,8 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 					$this->exportZip($export_files);
 				} catch (Exception $e) {
 					# Oops, there is no Zip extension!
-					Minz_Request::bad(_t('export_no_zip_extension'), array('c' => 'importExport'));
+					Minz_Request::bad(_t('export_no_zip_extension'),
+					                  array('c' => 'importExport', 'a' => 'index'));
 				}
 			} elseif ($nb_files === 1) {
 				// Only one file? Guess its type and export it.
@@ -349,7 +360,7 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 
 				$this->exportFile($filename, $export_files[$filename], $type);
 			} else {
-				Minz_Request::forward(array('c' => 'importExport'));
+				Minz_Request::forward(array('c' => 'importExport', 'a' => 'index'), true);
 			}
 		}
 	}
