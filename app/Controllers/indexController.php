@@ -295,10 +295,39 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 		Minz_Session::_param('passwordHash');
 	}
 
+	private static function makeLongTermCookie($username, $passwordHash) {
+		do {
+			$token = sha1(Minz_Configuration::salt() . $username . uniqid(mt_rand(), true));
+			$tokenFile = DATA_PATH . '/tokens/' . $token . '.txt';
+		} while (file_exists($tokenFile));
+		if (@file_put_contents($tokenFile, $username . "\t" . $passwordHash) === false) {
+			return false;
+		}
+		$expire = time() + 2629744;	//1 month	//TODO: Use a configuration instead
+		Minz_Session::setLongTermCookie('FreshRSS_login', $token, $expire);
+		Minz_Session::_param('token', $token);
+		return $token;
+	}
+
+	private static function deleteLongTermCookie() {
+		Minz_Session::deleteLongTermCookie('FreshRSS_login');
+		$token = Minz_Session::param('token', null);
+		if (ctype_alnum($token)) {
+			@unlink(DATA_PATH . '/tokens/' . $token . '.txt');
+		}
+		Minz_Session::_param('token');
+		if (rand(0, 10) === 1) {
+			self::purgeTokens();
+		}
+	}
+
+	private static function purgeTokens() {
+		//TODO: Delete old token files
+	}
+
 	public function formLoginAction () {
 		if (Minz_Request::isPost()) {
 			$ok = false;
-			$keep_logged_in = Minz_Request::param('keep_logged_in', false);
 			$nonce = Minz_Session::param('nonce');
 			$username = Minz_Request::param('username', '');
 			$c = Minz_Request::param('challenge', '');
@@ -313,10 +342,8 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 					if ($ok) {
 						Minz_Session::_param('currentUser', $username);
 						Minz_Session::_param('passwordHash', $s);
-						if ($keep_logged_in) {
-							// New cookie with a lifetime of 1 month.
-							Minz_Session::keepCookie(2592000);
-							Minz_Session::regenerateID();
+						if (Minz_Request::param('keep_logged_in', false)) {
+							self::makeLongTermCookie($username, $s);
 						}
 					} else {
 						Minz_Log::record('Password mismatch for user ' . $username . ', nonce=' . $nonce . ', c=' . $c, Minz_Log::WARNING);
@@ -377,9 +404,7 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 		Minz_Session::_param('currentUser');
 		Minz_Session::_param('mail');
 		Minz_Session::_param('passwordHash');
-		Minz_Session::keepCookie(0);
-		Minz_Session::regenerateID();
-
+		self::deleteLongTermCookie();
 		Minz_Request::forward(array('c' => 'index', 'a' => 'index'), true);
 	}
 }

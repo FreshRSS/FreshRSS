@@ -65,11 +65,8 @@ class Minz_Session {
 	 * @param $l la durée de vie
 	 */
 	public static function keepCookie($l) {
-		$cookie_dir = dirname(
-			empty($_SERVER['REQUEST_URI']) ? '' : $_SERVER['REQUEST_URI']
-		) . '/';
-		session_set_cookie_params($l, $cookie_dir, $_SERVER['HTTP_HOST'],
-		                          false, true);
+		$cookie_dir = empty($_SERVER['REQUEST_URI']) ? '' : $_SERVER['REQUEST_URI'];
+		session_set_cookie_params($l, $cookie_dir, '', false, true);
 	}
 
 
@@ -79,6 +76,18 @@ class Minz_Session {
 	 */
 	public static function regenerateID() {
 		session_regenerate_id(true);
+	}
+
+	public static function deleteLongTermCookie($name) {
+		setcookie($name, '', 1, '', '', false, true);
+	}
+
+	public static function setLongTermCookie($name, $value, $expire) {
+		setcookie($name, $value, $expire, '', '', false, true);
+	}
+
+	public static function getLongTermCookie($name) {
+		return isset($_COOKIE[$name]) ? $_COOKIE[$name] : null;
 	}
 
 }
