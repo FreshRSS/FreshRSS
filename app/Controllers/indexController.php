@@ -344,6 +344,8 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 						Minz_Session::_param('passwordHash', $s);
 						if (Minz_Request::param('keep_logged_in', false)) {
 							self::makeLongTermCookie($username, $s);
+						} else {
+							self::deleteLongTermCookie();
 						}
 					} else {
 						Minz_Log::record('Password mismatch for user ' . $username . ', nonce=' . $nonce . ', c=' . $c, Minz_Log::WARNING);
