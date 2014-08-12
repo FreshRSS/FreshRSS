@@ -78,7 +78,7 @@ class Minz_Session {
 	 */
 	public static function keepCookie($l) {
 		$cookie_dir = dirname(
-			empty($_SERVER['SCRIPT_NAME']) ? '' : $_SERVER['SCRIPT_NAME']
+			empty($_SERVER['REQUEST_URI']) ? '' : $_SERVER['REQUEST_URI']
 		) . '/';
 		session_set_cookie_params($l, $cookie_dir, $_SERVER['HTTP_HOST'],
 		                          false, true);
