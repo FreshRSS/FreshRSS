@@ -43,17 +43,9 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 				$zip = zip_open($file['tmp_name']);
 
 				if (!is_resource($zip)) {
-					Minz_Log::error(
-						'Zip file cannot be imported. Error code: ' . $zip
-					);
-
 					// zip_open cannot open file: something is wrong
-					Minz_Session::_param('notification', array(
-						'type' => 'bad',
-						'content' => _t('zip_error')
-					));
-
-					Minz_Request::forward(array('c' => 'importExport'), true);
+					Minz_Log::error('Zip file cannot be imported. Error code: ' . $zip);
+					Minz_Request::bad(_t('zip_error'), array('c' => 'importExport'));
 				}
 
 				while (($zipfile = zip_read($zip)) !== false) {
@@ -72,12 +64,7 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 				zip_close($zip);
 			} elseif ($type_file === 'zip') {
 				// Zip extension is not loaded
-				Minz_Session::_param('notification', array(
-					'type' => 'bad',
-					'content' => _t('no_zip_extension')
-				));
-
-				Minz_Request::forward(array('c' => 'importExport'), true);
+				Minz_Request::bad(_t('no_zip_extension'), array('c' => 'importExport'));
 			} elseif ($type_file !== 'unknown') {
 				$list_files[$type_file][] = file_get_contents(
 					$file['tmp_name']
@@ -100,35 +87,16 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 			}
 
 			// And finally, we get import status and redirect to the home page
-			$notif = null;
-			if ($error === true) {
-				$content_notif = Minz_Translate::t(
-					'feeds_imported_with_errors'
-				);
-			} else {
-				$content_notif = Minz_Translate::t(
-					'feeds_imported'
-				);
-			}
-
-			Minz_Session::_param('notification', array(
-				'type' => 'good',
-				'content' => $content_notif
-			));
 			Minz_Session::_param('actualize_feeds', true);
 
-			Minz_Request::forward(array(
-				'c' => 'index',
-				'a' => 'index'
-			), true);
+			$content_notif = $error === true ? _t('feeds_imported_with_errors') :
+			                                   _t('feeds_imported');
+			Minz_Request::good($content_notif);
 		}
 
 		// What are you doing? you have to call this controller
 		// with a POST request!
-		Minz_Request::forward(array(
-			'c' => 'importExport',
-			'a' => 'index'
-		));
+		Minz_Request::forward(array('c' => 'importExport'));
 	}
 
 	private function guessFileType($filename) {
@@ -362,17 +330,12 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 
 			$nb_files = count($export_files);
 			if ($nb_files > 1) {
-				// If there are more than 1 file to export, we need an .zip
+				// If there are more than 1 file to export, we need a zip archive.
 				try {
 					$this->exportZip($export_files);
 				} catch (Exception $e) {
 					# Oops, there is no Zip extension!
-					$notif = array(
-						'type' => 'bad',
-						'content' => _t('export_no_zip_extension')
-					);
-					Minz_Session::_param('notification', $notif);
-					Minz_Request::forward(array('c' => 'importExport'), true);
+					Minz_Request::bad(_t('export_no_zip_extension'), array('c' => 'importExport'));
 				}
 			} elseif ($nb_files === 1) {
 				// Only one file? Guess its type and export it.
@@ -386,7 +349,7 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 
 				$this->exportFile($filename, $export_files[$filename], $type);
 			} else {
-				Minz_Request::forward(array('c' => 'importExport'), true);
+				Minz_Request::forward(array('c' => 'importExport'));
 			}
 		}
 	}

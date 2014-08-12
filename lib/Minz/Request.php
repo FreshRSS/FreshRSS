@@ -146,6 +146,31 @@ class Minz_Request {
 		}
 	}
 
+
+	/**
+	 * Wrappers good notifications + redirection
+	 * @param $msg notification content
+	 * @param $url url array to where we should be forwarded
+	 */
+	public static function good($msg, $url = array()) {
+		Minz_Session::_param('notification', array(
+			'type' => 'good',
+			'content' => $msg
+		));
+
+		Minz_Request::forward($url, true);
+	}
+
+	public static function bad($msg, $url = array()) {
+		Minz_Session::_param('notification', array(
+			'type' => 'bad',
+			'content' => $msg
+		));
+
+		Minz_Request::forward($url, true);
+	}
+
+
 	/**
 	 * Permet de récupérer une variable de type $_GET
 	 * @param $param nom de la variable
