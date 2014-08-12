@@ -12,9 +12,9 @@ class Minz_Helper {
 	 * Annule les effets des magic_quotes pour une variable donnée
 	 * @param $var variable à traiter (tableau ou simple variable)
 	 */
-	public static function stripslashes_r ($var) {
-		if (is_array ($var)){
-			return array_map (array ('Helper', 'stripslashes_r'), $var);
+	public static function stripslashes_r($var) {
+		if (is_array($var)){
+			return array_map(array('Helper', 'stripslashes_r'), $var);
 		} else {
 			return stripslashes($var);
 		}
@@ -24,10 +24,10 @@ class Minz_Helper {
 	 * Wrapper for htmlspecialchars.
 	 * Force UTf-8 value and can be used on array too.
 	 */
-	public static function htmlspecialchars_utf8($p) {
-		if (is_array($p)) {
-			return array_map('self::htmlspecialchars_utf8', $p);
+	public static function htmlspecialchars_utf8($var) {
+		if (is_array($var)) {
+			return array_map(array('Helper', 'htmlspecialchars_utf8'), $var);
 		}
-		return htmlspecialchars($p, ENT_COMPAT, 'UTF-8');
+		return htmlspecialchars($var, ENT_COMPAT, 'UTF-8');
 	}
 }
