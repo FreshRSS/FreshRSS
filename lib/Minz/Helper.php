@@ -14,7 +14,7 @@ class Minz_Helper {
 	 */
 	public static function stripslashes_r($var) {
 		if (is_array($var)){
-			return array_map(array('Helper', 'stripslashes_r'), $var);
+			return array_map(array('Minz_Helper', 'stripslashes_r'), $var);
 		} else {
 			return stripslashes($var);
 		}
@@ -26,7 +26,7 @@ class Minz_Helper {
 	 */
 	public static function htmlspecialchars_utf8($var) {
 		if (is_array($var)) {
-			return array_map(array('Helper', 'htmlspecialchars_utf8'), $var);
+			return array_map(array('Minz_Helper', 'htmlspecialchars_utf8'), $var);
 		}
 		return htmlspecialchars($var, ENT_COMPAT, 'UTF-8');
 	}
