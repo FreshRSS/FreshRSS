@@ -28,11 +28,11 @@ if (!empty($this->entries)) {
 	$content_width = $this->conf->content_width;
 ?>
 
-<div id="stream" class="normal<?php echo $hidePosts ? ' hide_posts' : ''; ?>"><?php
-	?><div id="new-article">
+<div id="stream" class="normal<?php echo $hidePosts ? ' hide_posts' : ''; ?>">
+	<div id="new-article">
 		<a href="<?php echo Minz_Url::display ($this->url); ?>"><?php echo Minz_Translate::t ('new_article'); ?></a>
-	</div><?php
-	foreach ($this->entries as $item) {
+	</div>
+	<?php foreach ($this->entries as $item) {
 		if ($display_today && $item->isDay (FreshRSS_Days::TODAY, $this->today)) {
 			?><div class="day" id="day_today"><?php
 				echo Minz_Translate::t ('today');
