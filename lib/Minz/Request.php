@@ -222,6 +222,7 @@ class Minz_Request {
 	}
 
 	public static function isPost() {
-		return $_SERVER['REQUEST_METHOD'] === 'POST';
+		return isset($_SERVER['REQUEST_METHOD']) &&
+			$_SERVER['REQUEST_METHOD'] === 'POST';
 	}
 }
