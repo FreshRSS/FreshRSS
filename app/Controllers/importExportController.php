@@ -34,8 +34,8 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 		$status_file = $file['error'];
 
 		if ($status_file !== 0) {
-			Minz_Log::error('File cannot be imported. Error code: ' . $status_file);
-			Minz_Request::bad(_t('file_cannot_be_imported'),
+			Minz_Log::error('File cannot be uploaded. Error code: ' . $status_file);
+			Minz_Request::bad(_t('file_cannot_be_uploaded'),
 			                  array('c' => 'importExport', 'a' => 'index'));
 		}
 
@@ -50,7 +50,6 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 		);
 
 		// We try to list all files according to their type
-		// A zip file is first opened and then its files are listed
 		$list = array();
 		if ($type_file === 'zip' && extension_loaded('zip')) {
 			$zip = zip_open($file['tmp_name']);
@@ -58,7 +57,8 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 			if (!is_resource($zip)) {
 				// zip_open cannot open file: something is wrong
 				Minz_Log::error('Zip archive cannot be imported. Error code: ' . $zip);
-				Minz_Request::bad(_t('zip_error'), array('c' => 'importExport'));
+				Minz_Request::bad(_t('zip_error'),
+				                  array('c' => 'importExport', 'a' => 'index'));
 			}
 
 			while (($zipfile = zip_read($zip)) !== false) {
@@ -79,14 +79,13 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 			zip_close($zip);
 		} elseif ($type_file === 'zip') {
 			// Zip extension is not loaded
-			Minz_Request::bad(_t('no_zip_extension'), array('c' => 'importExport'));
+			Minz_Request::bad(_t('no_zip_extension'),
+			                  array('c' => 'importExport', 'a' => 'index'));
 		} elseif ($type_file !== 'unknown') {
-			$list_files[$type_file][] = file_get_contents(
-				$file['tmp_name']
-			);
+			$list_files[$type_file][] = file_get_contents($file['tmp_name']);
 		}
 
-		// Import different files.
+		// Import file contents.
 		// OPML first(so categories and feeds are imported)
 		// Starred articles then so the "favourite" status is already set
 		// And finally all other files.
@@ -103,7 +102,6 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 
 		// And finally, we get import status and redirect to the home page
 		Minz_Session::_param('actualize_feeds', true);
-
 		$content_notif = $error === true ? _t('feeds_imported_with_errors') :
 		                                   _t('feeds_imported');
 		Minz_Request::good($content_notif);
