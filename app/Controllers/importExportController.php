@@ -5,7 +5,7 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 		if (!$this->view->loginOk) {
 			Minz_Error::error(
 				403,
-				array('error' => array(Minz_Translate::t('access_denied')))
+				array('error' => array(_t('access_denied')))
 			);
 		}
 
@@ -20,13 +20,11 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 		$this->view->categories = $this->catDAO->listCategories();
 		$this->view->feeds = $this->feedDAO->listFeeds();
 
-		Minz_View::prependTitle(Minz_Translate::t('import_export') . ' · ');
+		Minz_View::prependTitle(_t('import_export') . ' · ');
 	}
 
 	public function importAction() {
 		if (!Minz_Request::isPost()) {
-			// What are you doing? you have to call this controller
-			// with a POST request!
 			Minz_Request::forward(array('c' => 'importExport', 'a' => 'index'), true);
 		}
 
@@ -309,57 +307,53 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 	}
 
 	public function exportAction() {
-		if (Minz_Request::isPost()) {
-			$this->view->_useLayout(false);
+		if (!Minz_Request::isPost()) {
+			Minz_Request::forward(array('c' => 'importExport', 'a' => 'index'), true);
+		}
 
-			$export_opml = Minz_Request::param('export_opml', false);
-			$export_starred = Minz_Request::param('export_starred', false);
-			$export_feeds = Minz_Request::param('export_feeds', array ());
+		$this->view->_useLayout(false);
 
-			$export_files = array ();
-			if ($export_opml) {
-				$export_files['feeds.opml'] = $this->generateOpml();
+		$export_opml = Minz_Request::param('export_opml', false);
+		$export_starred = Minz_Request::param('export_starred', false);
+		$export_feeds = Minz_Request::param('export_feeds', array());
+
+		$export_files = array();
+		if ($export_opml) {
+			$export_files['feeds.opml'] = $this->generateOpml();
+		}
+
+		if ($export_starred) {
+			$export_files['starred.json'] = $this->generateArticles('starred');
+		}
+
+		foreach ($export_feeds as $feed_id) {
+			$feed = $this->feedDAO->searchById($feed_id);
+			if ($feed) {
+				$filename = 'feed_' . $feed->category() . '_'
+				          . $feed->id() . '.json';
+				$export_files[$filename] = $this->generateArticles(
+					'feed', $feed
+				);
 			}
+		}
 
-			if ($export_starred) {
-				$export_files['starred.json'] = $this->generateArticles('starred');
+		$nb_files = count($export_files);
+		if ($nb_files > 1) {
+			// If there are more than 1 file to export, we need a zip archive.
+			try {
+				$this->exportZip($export_files);
+			} catch (Exception $e) {
+				# Oops, there is no Zip extension!
+				Minz_Request::bad(_t('export_no_zip_extension'),
+				                  array('c' => 'importExport', 'a' => 'index'));
 			}
-
-			foreach ($export_feeds as $feed_id) {
-				$feed = $this->feedDAO->searchById($feed_id);
-				if ($feed) {
-					$filename = 'feed_' . $feed->category() . '_'
-					          . $feed->id() . '.json';
-					$export_files[$filename] = $this->generateArticles(
-						'feed', $feed
-					);
-				}
-			}
-
-			$nb_files = count($export_files);
-			if ($nb_files > 1) {
-				// If there are more than 1 file to export, we need a zip archive.
-				try {
-					$this->exportZip($export_files);
-				} catch (Exception $e) {
-					# Oops, there is no Zip extension!
-					Minz_Request::bad(_t('export_no_zip_extension'),
-					                  array('c' => 'importExport', 'a' => 'index'));
-				}
-			} elseif ($nb_files === 1) {
-				// Only one file? Guess its type and export it.
-				$filename = key($export_files);
-				$type = null;
-				if (substr_compare($filename, '.opml', -5) === 0) {
-					$type = "text/xml";
-				} elseif (substr_compare($filename, '.json', -5) === 0) {
-					$type = "text/json";
-				}
-
-				$this->exportFile($filename, $export_files[$filename], $type);
-			} else {
-				Minz_Request::forward(array('c' => 'importExport', 'a' => 'index'), true);
-			}
+		} elseif ($nb_files === 1) {
+			// Only one file? Guess its type and export it.
+			$filename = key($export_files);
+			$type = $this->guessFileType($filename);
+			$this->exportFile('freshrss_' . $filename, $export_files[$filename], $type);
+		} else {
+			Minz_Request::forward(array('c' => 'importExport', 'a' => 'index'), true);
 		}
 	}
 
@@ -378,7 +372,7 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 		$this->view->categories = $this->catDAO->listCategories();
 
 		if ($type == 'starred') {
-			$this->view->list_title = Minz_Translate::t('starred_list');
+			$this->view->list_title = _t('starred_list');
 			$this->view->type = 'starred';
 			$unread_fav = $this->entryDAO->countUnreadReadFavorites();
 			$this->view->entries = $this->entryDAO->listWhere(
@@ -386,9 +380,7 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 				$unread_fav['all']
 			);
 		} elseif ($type == 'feed' && !is_null($feed)) {
-			$this->view->list_title = Minz_Translate::t(
-				'feed_list', $feed->name()
-			);
+			$this->view->list_title = _t('feed_list', $feed->name());
 			$this->view->type = 'feed/' . $feed->id();
 			$this->view->entries = $this->entryDAO->listWhere(
 				'f', $feed->id(), FreshRSS_Entry::STATE_ALL, 'ASC',
@@ -424,11 +416,18 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 	}
 
 	private function exportFile($filename, $content, $type) {
-		if (is_null($type)) {
+		if ($type === 'unknown') {
 			return;
 		}
 
-		header('Content-Type: ' . $type . '; charset=utf-8');
+		$content_type = '';
+		if ($type === 'opml') {
+			$content_type = "text/opml";
+		} elseif ($type === 'json_feed' || $type === 'json_starred') {
+			$content_type = "text/json";
+		}
+
+		header('Content-Type: ' . $content_type . '; charset=utf-8');
 		header('Content-disposition: attachment; filename=' . $filename);
 		print($content);
 	}
