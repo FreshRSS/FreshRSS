@@ -28,6 +28,12 @@ class FreshRSS_Feed extends Minz_Model {
 		}
 	}
 
+	public static function example() {
+		$f = new FreshRSS_Feed('http://example.net/', false);
+		$f->faviconPrepare();
+		return $f;
+	}
+
 	public function id() {
 		return $this->id;
 	}
