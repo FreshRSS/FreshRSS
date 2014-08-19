@@ -6,16 +6,16 @@
 	<h1><?php echo _t('stats_repartition'); ?></h1>
 
 	<select id="feed_select">
-		<option data-url="<?php echo _url ('stats', 'repartition')?>"></option>
+		<option data-url="<?php echo _url('stats', 'repartition')?>"></option>
 	<?php foreach ($this->categories as $category) {
-		$feeds = $category->feeds ();
-		if (!empty ($feeds)) {
+		$feeds = $category->feeds();
+		if (!empty($feeds)) {
 			echo '<optgroup label=', $category->name(), '>';
 			foreach ($feeds as $feed) {
 				if ($this->feed && $feed->id() == $this->feed->id()){
-					echo '<option value ="', $feed->id(), '" selected data-url="', _url ('stats', 'repartition', 'id', $feed->id()), '">', $feed->name(), '</option>';
+					echo '<option value ="', $feed->id(), '" selected data-url="', _url('stats', 'repartition', 'id', $feed->id()), '">', $feed->name(), '</option>';
 				} else {
-					echo '<option value ="', $feed->id(), '" data-url="', _url ('stats', 'repartition', 'id', $feed->id()), '">', $feed->name(), '</option>';
+					echo '<option value ="', $feed->id(), '" data-url="', _url('stats', 'repartition', 'id', $feed->id()), '">', $feed->name(), '</option>';
 				}
 			}
 			echo '</optgroup>';

@@ -62,7 +62,7 @@ class FreshRSS_stats_Controller extends Minz_ActionController {
 		$feedDAO = FreshRSS_Factory::createFeedDao();
 		Minz_View::appendScript(Minz_Url::display('/scripts/flotr2.min.js?' . @filemtime(PUBLIC_PATH . '/scripts/flotr2.min.js')));
 		$id = Minz_Request::param ('id', null);
-		$this->view->categories = $categoryDAO->listCategories ();
+		$this->view->categories = $categoryDAO->listCategories();
 		$this->view->feed = $feedDAO->searchById($id);
 		$this->view->days = $statsDAO->getDays();
 		$this->view->months = $statsDAO->getMonths();
