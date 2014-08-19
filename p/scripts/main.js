@@ -1063,6 +1063,12 @@ function init_share_observers() {
 	});
 }
 
+function init_stats_observers() {
+	$('#feed_select').on('change', function(e) {
+		redirect($(this).find(':selected').data('url'));
+	});
+}
+
 function init_remove_observers() {
 	$('.post').on('click', 'a.remove', function(e) {
 		var remove_what = $(this).attr('data-remove');
@@ -1177,6 +1183,7 @@ function init_all() {
 		init_remove_observers();
 		init_feed_observers();
 		init_password_observers();
+		init_stats_observers();
 	}
 
 	if (window.console) {

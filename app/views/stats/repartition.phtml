@@ -2,23 +2,38 @@
 
 <div class="post content">
 	<a href="<?php echo _url('index', 'index'); ?>"><?php echo _t('back_to_rss_feeds'); ?></a>
-	
+
+	<h1><?php echo _t('stats_repartition'); ?></h1>
+
+	<select id="feed_select">
+		<option data-url="<?php echo _url ('stats', 'repartition')?>"></option>
+	<?php foreach ($this->categories as $category) {
+		$feeds = $category->feeds ();
+		if (!empty ($feeds)) {
+			echo '<optgroup label=', $category->name(), '>';
+			foreach ($feeds as $feed) {
+				if ($this->feed && $feed->id() == $this->feed->id()){
+					echo '<option value ="', $feed->id(), '" selected data-url="', _url ('stats', 'repartition', 'id', $feed->id()), '">', $feed->name(), '</option>';
+				} else {
+					echo '<option value ="', $feed->id(), '" data-url="', _url ('stats', 'repartition', 'id', $feed->id()), '">', $feed->name(), '</option>';
+				}
+			}
+			echo '</optgroup>';
+		}
+	}?>
+	</select>
+
 	<?php if ($this->feed) {?>
-		<h1>
-			<?php echo _t('stats_repartition'), " - "; ?>
-			<a href="<?php echo _url('configure', 'feed', 'id', $this->feed->id()); ?>">
-				<?php echo $this->feed->name(); ?>
-			</a>
-		</h1>
-	<?php } else {?>
-		<h1><?php echo _t('stats_repartition'); ?></h1>
+		<a href="<?php echo _url('configure', 'feed', 'id', $this->feed->id()); ?>">
+			<?php echo _t('administration'); ?>
+		</a>
 	<?php }?>
-	
+
 	<div class="stat">
 		<h2><?php echo _t('stats_entry_per_hour'); ?></h2>
 		<div id="statsEntryPerHour" style="height: 300px"></div>
 	</div>
-	
+
 	<div class="stat">
 		<h2><?php echo _t('stats_entry_per_day_of_week'); ?></h2>
 		<div id="statsEntryPerDayOfWeek" style="height: 300px"></div>
@@ -93,7 +108,7 @@ function initStats() {
 			yaxis: {min: 0},
 			mouse: {relative: true, track: true, trackDecimals: 0, trackFormatter: function(obj) {return numberFormat(obj.y);}}
 		});
-	
+
 }
 initStats();
 </script>
