@@ -230,7 +230,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 		}
 		$this->bd->beginTransaction();
 
-		$sql = 'UPDATE `' . $this->prefix . 'entry`  '
+		$sql = 'UPDATE `' . $this->prefix . 'entry` '
 			 . 'SET is_read=1 '
 			 . 'WHERE id_feed=? AND is_read=0 AND id <= ?';
 		$values = array($id, $idMax);
