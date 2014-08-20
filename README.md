@@ -33,8 +33,8 @@ Privilégiez pour cela des demandes sur GitHub
 	* Fonctionne même sur un Raspberry Pi avec des temps de réponse < 1s (testé sur 150 flux, 22k articles, soit 32Mo de données partiellement compressées)
 * Serveur Web Apache2 (recommandé), ou nginx, lighttpd (non testé sur les autres)
 * PHP 5.2.1+ (PHP 5.3.7+ recommandé)
-	* Requis : [PDO_MySQL](http://php.net/pdo-mysql), [cURL](http://php.net/curl), [LibXML](http://php.net/xml), [PCRE](http://php.net/pcre), [ctype](http://php.net/ctype)
-	* Recommandés : [JSON](http://php.net/json), [zlib](http://php.net/zlib), [mbstring](http://php.net/mbstring), [iconv](http://php.net/iconv), [Zip](http://php.net/zip)
+	* Requis : [PDO_MySQL](http://php.net/pdo-mysql) ou [PDO_SQLite](http://php.net/pdo-sqlite), [cURL](http://php.net/curl), [GMP](http://php.net/gmp) (seulement pour accès API sur platformes < 64 bits)
+	* Recommandés : [JSON](http://php.net/json), [mbstring](http://php.net/mbstring), [zlib](http://php.net/zlib), [Zip](http://php.net/zip)
 * MySQL 5.0.3+ (recommandé) ou SQLite 3.7.4+
 * Un navigateur Web récent tel Firefox 4+, Chrome, Opera, Safari, Internet Explorer 9+
 	* Fonctionne aussi sur mobile
