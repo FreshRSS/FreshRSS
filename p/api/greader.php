@@ -135,6 +135,7 @@ function checkCompatibility() {
 	}
 	if ((!array_key_exists('HTTP_AUTHORIZATION', $_SERVER)) &&	//Apache mod_rewrite trick should be fine
 		(empty($_SERVER['SERVER_SOFTWARE']) || (stripos($_SERVER['SERVER_SOFTWARE'], 'nginx') === false)) &&	//nginx should be fine
+		(empty($_SERVER['SERVER_SOFTWARE']) || (stripos($_SERVER['SERVER_SOFTWARE'], 'lighttpd') === false)) &&	//lighttpd should be fine
 		((!function_exists('getallheaders')) || (stripos(php_sapi_name(), 'cgi') !== false))) {	//Main problem is Apache/CGI mode
 		die('FAIL getallheaders! (probably)');
 	}
