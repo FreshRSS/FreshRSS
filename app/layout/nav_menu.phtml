@@ -164,11 +164,15 @@
 					break;
 			}
 		}
-		if ($this->order === 'ASC') {
-			$idMax = 0;
-		} else {
-			$p = isset($this->entries[0]) ? $this->entries[0] : null;
-			$idMax = $p === null ? '0' : $p->id();
+
+		$p = isset($this->entries[0]) ? $this->entries[0] : null;
+		$idMax = $p === null ? (time() - 1) . '000000' : $p->id();
+
+		if ($this->order === 'ASC') {	//In this case we do not know but we guess idMax
+			$idMax2 = (time() - 1) . '000000';
+			if (strcmp($idMax2, $idMax) > 0) {
+				$idMax = $idMax2;
+			}
 		}
 
 		$arUrl = array('c' => 'entry', 'a' => 'read', 'params' => array('get' => $get, 'nextGet' => $nextGet, 'idMax' => $idMax));
@@ -221,7 +225,9 @@
 
 		<?php
 			$url_output['params']['output'] = 'rss';
-			$url_output['params']['token'] = $this->conf->token;
+			if ($this->conf->token) {
+				$url_output['params']['token'] = $this->conf->token;
+			}
 		?>
 		<a class="view_rss btn" target="_blank" title="<?php echo Minz_Translate::t ('rss_view'); ?>" href="<?php echo Minz_Url::display($url_output); ?>">
 			<?php echo FreshRSS_Themes::icon('rss'); ?>

@@ -1,25 +1,24 @@
 "use strict";
-var feeds = [<?php
-	foreach ($this->feeds as $feed) {
-		echo "'", Minz_Url::display(array('c' => 'feed', 'a' => 'actualize', 'params' => array('id' => $feed->id(), 'ajax' => '1')), 'php'), "',\n";
-	}
-	?>],
+var feeds = [<?php foreach ($this->feeds as $feed) { ?>{<?php
+	?>url: "<?php echo Minz_Url::display(array('c' => 'feed', 'a' => 'actualize', 'params' => array('id' => $feed->id(), 'ajax' => '1')), 'php'); ?>",<?php
+	?>title: "<?php echo $feed->name(); ?>"<?php
+?>},<?php } ?>],
 	feed_processed = 0,
 	feed_count = feeds.length;
 
 function initProgressBar(init) {
 	if (init) {
 		$("body").after("\<div id=\"actualizeProgress\" class=\"notification good\">\
-			<?php echo _t('refresh'); ?> <span class=\"progress\">0 / " + feed_count + "</span><br />\
-			<progress id=\"actualizeProgressBar\" value=\"0\" max=\"" + feed_count + "\"></progress>\
+			<?php echo _t('refresh'); ?><br /><span class=\"title\">/</span><br />\
+			<span class=\"progress\">0 / " + feed_count + "</span>\
 		</div>");
 	} else {
 		window.location.reload();
 	}
 }
-function updateProgressBar(i) {
-	$("#actualizeProgressBar").val(i);
+function updateProgressBar(i, title_feed) {
 	$("#actualizeProgress .progress").html(i + " / " + feed_count);
+	$("#actualizeProgress .title").html(title_feed);
 }
 
 function updateFeeds() {
@@ -43,10 +42,10 @@ function updateFeed() {
 
 	$.ajax({
 		type: 'POST',
-		url: feed,
+		url: feed['url'],
 	}).complete(function (data) {
 		feed_processed++;
-		updateProgressBar(feed_processed);
+		updateProgressBar(feed_processed, feed['title']);
 
 		if (feed_processed === feed_count) {
 			initProgressBar(false);

@@ -6,17 +6,49 @@ class FreshRSS extends Minz_FrontController {
 		}
 		$loginOk = $this->accessControl(Minz_Session::param('currentUser', ''));
 		$this->loadParamsView();
+		if (Minz_Request::isPost() && (empty($_SERVER['HTTP_REFERER']) ||
+			Minz_Request::getDomainName() !== parse_url($_SERVER['HTTP_REFERER'], PHP_URL_HOST))) {
+			$loginOk = false;	//Basic protection against XSRF attacks
+			Minz_Error::error(
+				403,
+				array('error' => array(Minz_Translate::t('access_denied') . ' [HTTP_REFERER=' .
+					htmlspecialchars(empty($_SERVER['HTTP_REFERER']) ? '' : $_SERVER['HTTP_REFERER']) . ']'))
+			);
+		}
+		Minz_View::_param('loginOk', $loginOk);
 		$this->loadStylesAndScripts($loginOk);	//TODO: Do not load that when not needed, e.g. some Ajax requests
 		$this->loadNotifications();
+	}
+
+	private static function getCredentialsFromLongTermCookie() {
+		$token = Minz_Session::getLongTermCookie('FreshRSS_login');
+		if (!ctype_alnum($token)) {
+			return array();
+		}
+		$tokenFile = DATA_PATH . '/tokens/' . $token . '.txt';
+		$mtime = @filemtime($tokenFile);
+		if ($mtime + 2629744 < time()) {	//1 month	//TODO: Use a configuration instead
+			@unlink($tokenFile);
+			return array(); 	//Expired or token does not exist
+		}
+		$credentials = @file_get_contents($tokenFile);
+		return $credentials === false ? array() : explode("\t", $credentials, 2);
 	}
 
 	private function accessControl($currentUser) {
 		if ($currentUser == '') {
 			switch (Minz_Configuration::authType()) {
 				case 'form':
-					$currentUser = Minz_Configuration::defaultUser();
-					Minz_Session::_param('passwordHash');
-					$loginOk = false;
+					$credentials = self::getCredentialsFromLongTermCookie();
+					if (isset($credentials[1])) {
+						$currentUser = trim($credentials[0]);
+						Minz_Session::_param('passwordHash', trim($credentials[1]));
+					}
+					$loginOk = $currentUser != '';
+					if (!$loginOk) {
+						$currentUser = Minz_Configuration::defaultUser();
+						Minz_Session::_param('passwordHash');
+					}
 					break;
 				case 'http_auth':
 					$currentUser = httpAuthUser();
@@ -95,7 +127,6 @@ class FreshRSS extends Minz_FrontController {
 					break;
 			}
 		}
-		Minz_View::_param ('loginOk', $loginOk);
 		return $loginOk;
 	}
 
@@ -127,13 +158,9 @@ class FreshRSS extends Minz_FrontController {
 				Minz_View::appendScript('https://login.persona.org/include.js');
 				break;
 		}
-		$includeLazyLoad = $this->conf->lazyload && ($this->conf->display_posts || Minz_Request::param ('output') === 'reader');
-		Minz_View::appendScript (Minz_Url::display ('/scripts/jquery.min.js?' . @filemtime(PUBLIC_PATH . '/scripts/jquery.min.js')), false, !$includeLazyLoad, !$includeLazyLoad);
-		if ($includeLazyLoad) {
-			Minz_View::appendScript (Minz_Url::display ('/scripts/jquery.lazyload.min.js?' . @filemtime(PUBLIC_PATH . '/scripts/jquery.lazyload.min.js')));
-		}
-		Minz_View::appendScript (Minz_Url::display ('/scripts/shortcut.js?' . @filemtime(PUBLIC_PATH . '/scripts/shortcut.js')));
-		Minz_View::appendScript (Minz_Url::display ('/scripts/main.js?' . @filemtime(PUBLIC_PATH . '/scripts/main.js')));
+		Minz_View::appendScript(Minz_Url::display('/scripts/jquery.min.js?' . @filemtime(PUBLIC_PATH . '/scripts/jquery.min.js')));
+		Minz_View::appendScript(Minz_Url::display('/scripts/shortcut.js?' . @filemtime(PUBLIC_PATH . '/scripts/shortcut.js')));
+		Minz_View::appendScript(Minz_Url::display('/scripts/main.js?' . @filemtime(PUBLIC_PATH . '/scripts/main.js')));
 	}
 
 	private function loadNotifications () {

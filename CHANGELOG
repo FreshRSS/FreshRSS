@@ -1,5 +1,25 @@
 # Journal des modifications
 
+## 2014-08-xx FreshRSS 0.7.4
+
+* UI
+	* Hide categories/feeds with unread articles when showing only unread articles
+	* Dynamic favicon showing the number of unread articles
+	* New theme: Screwdriver by Mister aiR
+* Statistics
+	* New page with article repartition
+	* Improvements
+* Security
+	* Basic protection against XSRF (Cross-Site Request Forgery) based on HTTP Referer (POST requests only)
+* API
+	* Compatible with lighttpd
+* Misc.
+	* Changed lazyload implementation
+	* Support of HTML5 notifications for new upcoming articles
+	* Add option to stay logged in
+* Bux fixes in export function, add/remove users, keyboard shortcuts, etc.
+
+
 ## 2014-07-21 FreshRSS 0.7.3
 
 * New options

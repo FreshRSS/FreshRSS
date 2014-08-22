@@ -85,9 +85,83 @@ SQL;
 	 * @return array
 	 */
 	protected function initEntryCountArray() {
+		return $this->initStatsArray(-self::ENTRY_COUNT_PERIOD, -1);
+	}
+
+	/**
+	 * Calculates the number of article per hour of the day per feed
+	 *
+	 * @param integer $feed id
+	 * @return string
+	 */
+	public function calculateEntryRepartitionPerFeedPerHour($feed = null) {
+		return $this->calculateEntryRepartitionPerFeedPerPeriod('%H', $feed);
+	}
+
+	/**
+	 * Calculates the number of article per day of week per feed
+	 *
+	 * @param integer $feed id
+	 * @return string
+	 */
+	public function calculateEntryRepartitionPerFeedPerDayOfWeek($feed = null) {
+		return $this->calculateEntryRepartitionPerFeedPerPeriod('%w', $feed);
+	}
+
+	/**
+	 * Calculates the number of article per month per feed
+	 *
+	 * @param integer $feed
+	 * @return string
+	 */
+	public function calculateEntryRepartitionPerFeedPerMonth($feed = null) {
+		return $this->calculateEntryRepartitionPerFeedPerPeriod('%m', $feed);
+	}
+
+	/**
+	 * Calculates the number of article per period per feed
+	 *
+	 * @param string $period format string to use for grouping
+	 * @param integer $feed id
+	 * @return string
+	 */
+	protected function calculateEntryRepartitionPerFeedPerPeriod($period, $feed = null) {
+		if ($feed) {
+			$restrict = "WHERE e.id_feed = {$feed}";
+		} else {
+			$restrict = '';
+		}
+		$sql = <<<SQL
+SELECT DATE_FORMAT(FROM_UNIXTIME(e.date), '{$period}') AS period
+, COUNT(1) AS count
+FROM {$this->prefix}entry AS e
+{$restrict}
+GROUP BY period
+ORDER BY period ASC
+SQL;
+
+		$stm = $this->bd->prepare($sql);
+		$stm->execute();
+		$res = $stm->fetchAll(PDO::FETCH_NAMED);
+
+		foreach ($res as $value) {
+			$repartition[(int) $value['period']] = (int) $value['count'];
+		}
+
+		return $this->convertToSerie($repartition);
+	}
+
+	/**
+	 * Initialize an array for statistics depending on a range
+	 *
+	 * @param integer $min
+	 * @param integer $max
+	 * @return array
+	 */
+	protected function initStatsArray($min, $max) {
 		return array_map(function () {
 			return 0;
-		}, array_flip(range(-self::ENTRY_COUNT_PERIOD, -1)));
+		}, array_flip(range($min, $max)));
 	}
 
 	/**
@@ -170,7 +244,8 @@ SQL;
 	 */
 	public function calculateFeedLastDate() {
 		$sql = <<<SQL
-SELECT MAX(f.name) AS name
+SELECT MAX(f.id) as id
+, MAX(f.name) AS name
 , MAX(date) AS last_date
 FROM {$this->prefix}feed AS f,
 {$this->prefix}entry AS e
@@ -202,6 +277,59 @@ SQL;
 		}
 
 		return json_encode($serie);
+	}
+
+	/**
+	 * Gets days ready for graphs
+	 *
+	 * @return string
+	 */
+	public function getDays() {
+		return $this->convertToTranslatedJson(array(
+			'sun',
+			'mon',
+			'tue',
+			'wed',
+			'thu',
+			'fri',
+			'sat',
+		));
+	}
+
+	/**
+	 * Gets months ready for graphs
+	 *
+	 * @return string
+	 */
+	public function getMonths() {
+		return $this->convertToTranslatedJson(array(
+			'jan',
+			'feb',
+			'mar',
+			'apr',
+			'may',
+			'jun',
+			'jul',
+			'aug',
+			'sep',
+			'oct',
+			'nov',
+			'dec',
+		));
+	}
+
+	/**
+	 * Translates array content and encode it as JSON
+	 *
+	 * @param array $data
+	 * @return string
+	 */
+	private function convertToTranslatedJson($data = array()) {
+		$translated = array_map(function ($a) {
+			return Minz_Translate::t($a);
+		}, $data);
+
+		return json_encode($translated);
 	}
 
 }

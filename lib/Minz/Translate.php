@@ -75,5 +75,5 @@ function _t($key) {
 	unset($args[0]);
 	array_unshift($args, $key);
 
-	return call_user_func_array("Minz_Translate::t", $args);
+	return call_user_func_array('Minz_Translate::t', $args);
 }
