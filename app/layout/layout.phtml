@@ -5,7 +5,7 @@
 		<meta name="viewport" content="initial-scale=1.0" />
 		<?php echo self::headTitle(); ?>
 		<?php echo self::headStyle(); ?>
-		<?php echo self::headScript(); ?>
+		
 		<script>//<![CDATA[
 <?php $this->renderHelper('javascript_vars'); ?>
 		//]]></script>
@@ -57,5 +57,8 @@
 	<span class="msg"><?php echo $msg; ?></span>
 	<a class="close" href=""><?php echo FreshRSS_Themes::icon('close'); ?></a>
 </div>
+    
+    <?php echo self::headScript(); ?>
+
 	</body>
 </html>

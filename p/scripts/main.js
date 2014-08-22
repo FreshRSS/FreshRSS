@@ -693,6 +693,11 @@ function init_nav_entries() {
 }
 
 function init_actualize() {
+
+	if (window.console) {
+		console.log('init_actualize called…');
+	}
+
 	var auto = false;
 
 	$("#actualize").click(function () {
@@ -1097,12 +1102,30 @@ if (document.readyState && document.readyState !== 'loading') {
 	if (window.console) {
 		console.log('FreshRSS immediate init…');
 	}
-	init_all();
+		
+  // get any new feeds every x minutes
+  (function autoUpdateFeeds() {
+      init_all();
+
+      // check every minutes specified below
+      var numMinutes = 30;
+      setTimeout(autoUpdateFeeds, numMinutes * 60 * 1000);
+  })();  	
+	
 } else if (document.addEventListener) {
 	document.addEventListener('DOMContentLoaded', function () {
 		if (window.console) {
 			console.log('FreshRSS waiting for DOMContentLoaded…');
 		}
-		init_all();
+		
+  // get any new feeds every x minutes
+  (function autoUpdateFeeds() {
+      init_all();
+
+      // check every minutes specified below
+      var numMinutes = 30;
+      setTimeout(autoUpdateFeeds, numMinutes * 60 * 1000);
+  })();  		
+		
 	}, false);
 }
