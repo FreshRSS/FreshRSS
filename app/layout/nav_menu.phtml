@@ -164,11 +164,15 @@
 					break;
 			}
 		}
-		if ($this->order === 'ASC') {
-			$idMax = 0;
-		} else {
-			$p = isset($this->entries[0]) ? $this->entries[0] : null;
-			$idMax = $p === null ? '0' : $p->id();
+
+		$p = isset($this->entries[0]) ? $this->entries[0] : null;
+		$idMax = $p === null ? (time() - 1) . '000000' : $p->id();
+
+		if ($this->order === 'ASC') {	//In this case we do not know but we guess idMax
+			$idMax2 = (time() - 1) . '000000';
+			if (strcmp($idMax2, $idMax) > 0) {
+				$idMax = $idMax2;
+			}
 		}
 
 		$arUrl = array('c' => 'entry', 'a' => 'read', 'params' => array('get' => $get, 'nextGet' => $nextGet, 'idMax' => $idMax));
