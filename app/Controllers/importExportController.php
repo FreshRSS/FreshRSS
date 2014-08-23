@@ -116,7 +116,8 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 		} elseif (substr_compare($filename, '.opml', -5) === 0 ||
 		          substr_compare($filename, '.xml', -4) === 0) {
 			return 'opml';
-		} elseif (strcmp($filename, 'starred.json') === 0) {
+		} elseif (substr_compare($filename, '.json', -5) === 0 &&
+		          strpos($filename, 'starred') !== false) {
 			return 'json_starred';
 		} elseif (substr_compare($filename, '.json', -5) === 0 &&
 		          strpos($filename, 'feed_') === 0) {
