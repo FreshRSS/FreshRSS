@@ -6,7 +6,7 @@
 	<h1><?php echo _t('stats_repartition'); ?></h1>
 
 	<select id="feed_select">
-		<option data-url="<?php echo _url('stats', 'repartition')?>"></option>
+		<option data-url="<?php echo _url('stats', 'repartition')?>"><?php echo _t('all_feeds')?></option>
 	<?php foreach ($this->categories as $category) {
 		$feeds = $category->feeds();
 		if (!empty($feeds)) {
