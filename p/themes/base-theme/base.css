@@ -390,15 +390,17 @@ a.btn {
 /*=== Aside main page (feeds) */
 .categories .feeds .item.active {
 }
-.categories .feeds .item.active .feed {
+.categories .feeds .item.empty.active {
+}
+.categories .feeds .item.error.active {
 }
 .categories .feeds .item.empty .feed {
 }
-.categories .feeds .item.empty.active {
-}
-.categories .feeds .item.empty.active .feed {
-}
 .categories .feeds .item.error .feed {
+}
+.categories .feeds .item.active .feed,
+.categories .feeds .item.empty.active .feed,
+.categories .feeds .item.error.active .feed {
 }
 .categories .feeds .item .feed {
 	margin: 0;
