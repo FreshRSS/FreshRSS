@@ -1,3 +1,5 @@
+* [Version française](README.fr.md)
+
 # FreshRSS
 FreshRSS is a self-hosted RSS feed agregator like [Leed](http://projet.idleman.fr/leed/) or [Kriss Feed](http://tontof.net/kriss/feed/).
 
