@@ -42,8 +42,14 @@
 			$feeds = $cat->feeds ();
 			if (!empty ($feeds)) {
 				$c_active = false;
-				if ($this->get_c == $cat->id ()) {
-					$c_active = true;
+				if ($this->conf->display_categories) {
+					if ($this->get_c == $cat->id () && $this->get_f) {
+						$c_active = true;
+					}
+				} else {
+					if ($this->get_c == $cat->id ()) {
+						$c_active = true;
+					}
 				}
 				?><li data-unread="<?php echo $cat->nbNotRead(); ?>"<?php if ($c_active) echo ' class="active"'; ?>><?php
 				?><div class="category stick<?php echo $c_active ? ' active' : ''; ?>"><?php

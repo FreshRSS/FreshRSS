@@ -17,6 +17,7 @@ class FreshRSS_Configuration {
 		'default_view' => FreshRSS_Entry::STATE_NOT_READ,
 		'auto_load_more' => true,
 		'display_posts' => false,
+		'display_categories' => false,
 		'hide_read_feeds' => true,
 		'onread_jump_next' => true,
 		'lazyload' => true,
@@ -141,6 +142,9 @@ class FreshRSS_Configuration {
 	}
 	public function _display_posts ($value) {
 		$this->data['display_posts'] = ((bool)$value) && $value !== 'no';
+	}
+	public function _display_categories ($value) {
+		$this->data['display_categories'] = ((bool)$value) && $value !== 'no';
 	}
 	public function _hide_read_feeds($value) {
 		$this->data['hide_read_feeds'] = (bool)$value;
