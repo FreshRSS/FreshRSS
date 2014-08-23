@@ -267,6 +267,7 @@ return array (
 	'sort_order'			=> 'Sort order',
 	'auto_load_more'		=> 'Load next articles at the page bottom',
 	'display_articles_unfolded'	=> 'Show articles unfolded by default',
+	'display_categories_unfolded'	=> 'Show categories folded by default',
 	'hide_read_feeds'		=> 'Hide categories &amp; feeds with no unread article (only in “unread articles” display mode)',
 	'after_onread'			=> 'After “mark all as read”,',
 	'jump_next'			=> 'jump to next unread sibling (feed or category)',
