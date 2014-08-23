@@ -663,7 +663,7 @@ function init_stream(divStream) {
 
 	if (auto_mark_site) {
 		divStream.on('click', '.flux .link > a', function () {
-			mark_read($(this).parent().parent().parent(), true);
+			mark_read($(this).parents(".flux"), true);
 		});
 	}
 }
