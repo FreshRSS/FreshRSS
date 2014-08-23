@@ -65,7 +65,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 		}
 
 		if (!isset($existingGuids[$entry->guid()]) &&
-				($feedHistory != 0 || $eDate  >= $date_min)) {
+				($feedHistory != 0 || $eDate >= $date_min || $entry->isFavorite())) {
 			$values = $entry->toArray();
 
 			$useDeclaredDate = empty($existingGuids);

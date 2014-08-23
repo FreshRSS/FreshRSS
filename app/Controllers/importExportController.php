@@ -284,7 +284,7 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 		$url = $origin[$key];
 		$name = $origin['title'];
 		$website = $origin['htmlUrl'];
-		$error = false;
+
 		try {
 			// Create a Feed object and add it in DB
 			$feed = new FreshRSS_Feed($url);
