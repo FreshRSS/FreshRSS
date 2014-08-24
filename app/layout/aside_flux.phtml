@@ -42,21 +42,19 @@
 			$feeds = $cat->feeds ();
 			if (!empty ($feeds)) {
 				$c_active = false;
-				if ($this->conf->display_categories) {
-					if ($this->get_c == $cat->id () && $this->get_f) {
-						$c_active = true;
-					}
-				} else {
-					if ($this->get_c == $cat->id ()) {
-						$c_active = true;
+				$c_show = false;
+				if ($this->get_c == $cat->id ()) {
+					$c_active = true;
+					if (!$this->conf->display_categories || $this->get_f) {
+						$c_show = true;
 					}
 				}
 				?><li data-unread="<?php echo $cat->nbNotRead(); ?>"<?php if ($c_active) echo ' class="active"'; ?>><?php
 				?><div class="category stick<?php echo $c_active ? ' active' : ''; ?>"><?php
 					?><a data-unread="<?php echo formatNumber($cat->nbNotRead()); ?>" class="btn<?php echo $c_active ? ' active' : ''; ?>" href="<?php $arUrl['params']['get'] = 'c_' . $cat->id(); echo Minz_Url::display($arUrl); ?>"><?php echo $cat->name (); ?></a><?php
-					?><a class="btn dropdown-toggle" href="#"><?php echo FreshRSS_Themes::icon($c_active ? 'up' : 'down'); ?></a><?php
+					?><a class="btn dropdown-toggle" href="#"><?php echo FreshRSS_Themes::icon($c_show ? 'up' : 'down'); ?></a><?php
 				?></div><?php
-				?><ul class="feeds<?php echo $c_active ? ' active' : ''; ?>"><?php
+				?><ul class="feeds<?php echo $c_show ? ' active' : ''; ?>"><?php
 				foreach ($feeds as $feed) {
 					$feed_id = $feed->id ();
 					$nbEntries = $feed->nbEntries ();
