@@ -1,7 +1,7 @@
 <?php
 define('FRESHRSS_VERSION', '0.8-dev');
 define('FRESHRSS_WEBSITE', 'http://freshrss.org');
-define('FRESHRSS_WIKI', 'http://doc.freshrss.org/doku.php?id=fr:start');
+define('FRESHRSS_WIKI', 'http://doc.freshrss.org');
 
 // PHP text output compression http://php.net/ob_gzhandler (better to do it at Web server level)
 define('PHP_COMPRESSION', false);
