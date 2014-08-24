@@ -180,6 +180,8 @@ return array (
 	'auto_share'			=> 'Partager',
 	'auto_share_help'		=> 'S’il n’y a qu’un mode de partage, celui ci est utilisé automatiquement. Sinon ils sont accessibles par leur numéro.',
 	'focus_search'			=> 'Accéder à la recherche',
+	'user_filter'			=> 'Accéder aux filtres utilisateur',
+	'user_filter_help'		=> 'S’il n’y a qu’un filtre utilisateur, celui ci est utilisé automatiquement. Sinon ils sont accessibles par leur numéro.',
 
 	'file_to_import'		=> 'Fichier à importer<br />(OPML, Json ou Zip)',
 	'file_to_import_no_zip'		=> 'Fichier à importer<br />(OPML ou Json)',
