@@ -540,20 +540,22 @@ a.btn {
 .categories .feeds .item.active {
 	background: #0062BE;
 }
-.categories .feeds .item.active .feed {
-	color: #fff;
+.categories .feeds .item.empty.active {
+	background: #e67e22;
+}
+.categories .feeds .item.error.active {
+	background: #BD362F;
 }
 .categories .feeds .item.empty .feed {
 	color: #e67e22;
 }
-.categories .feeds .item.empty.active {
-	background: #e67e22;
-}
-.categories .feeds .item.empty.active .feed {
-	color: #fff;
-}
 .categories .feeds .item.error .feed {
 	color: #BD362F;
+}
+.categories .feeds .item.active .feed,
+.categories .feeds .item.empty.active .feed,
+.categories .feeds .item.error.active .feed {
+	color: #fff;
 }
 .categories .feeds .item .feed {
 	margin: 0;
@@ -598,7 +600,7 @@ a.btn {
 }
 .prompt form {
 	margin: 10px auto 20px auto;
-	width: 180px;
+	width: 200px;
 }
 .prompt input {
 	margin: 5px auto;

@@ -249,11 +249,11 @@ function saveStep3 () {
 				'base_url' => '',
 				'title' => $_SESSION['title'],
 				'default_user' => $_SESSION['default_user'],
-				'auth_type' => $_SESSION['auth_type'],
 				'allow_anonymous' => isset($_SESSION['allow_anonymous']) ? $_SESSION['allow_anonymous'] : false,
-				'allow_anonymous_refresh' => false,
-				'unsafe_autologin_enabled' => false,
-				'api_enabled' => false,
+				'allow_anonymous_refresh' => isset($_SESSION['allow_anonymous_refresh']) ? $_SESSION['allow_anonymous_refresh'] : false,
+				'auth_type' => $_SESSION['auth_type'],
+				'api_enabled' => isset($_SESSION['api_enabled']) ? $_SESSION['api_enabled'] : false,
+				'unsafe_autologin_enabled' => isset($_SESSION['unsafe_autologin_enabled']) ? $_SESSION['unsafe_autologin_enabled'] : false,
 			),
 			'db' => array(
 				'type' => $_SESSION['bd_type'],
@@ -499,7 +499,7 @@ function checkStep0 () {
 	if ($ini_array) {
 		$ini_general = isset($ini_array['general']) ? $ini_array['general'] : null;
 		if ($ini_general) {
-			$keys = array('environment', 'salt', 'title', 'default_user', 'allow_anonymous', 'auth_type');
+			$keys = array('environment', 'salt', 'title', 'default_user', 'allow_anonymous', 'allow_anonymous_refresh', 'auth_type', 'api_enabled', 'unsafe_autologin_enabled');
 			foreach ($keys as $key) {
 				if ((empty($_SESSION[$key])) && isset($ini_general[$key])) {
 					$_SESSION[$key] = $ini_general[$key];
@@ -574,7 +574,9 @@ function checkStep1 () {
 	$php = version_compare (PHP_VERSION, '5.2.1') >= 0;
 	$minz = file_exists (LIB_PATH . '/Minz');
 	$curl = extension_loaded ('curl');
-	$pdo = extension_loaded ('pdo_mysql');
+	$pdo_mysql = extension_loaded ('pdo_mysql');
+	$pdo_sqlite = extension_loaded ('pdo_sqlite');
+	$pdo = $pdo_mysql || $pdo_sqlite;
 	$pcre = extension_loaded ('pcre');
 	$ctype = extension_loaded ('ctype');
 	$dom = class_exists('DOMDocument');
@@ -588,7 +590,9 @@ function checkStep1 () {
 		'php' => $php ? 'ok' : 'ko',
 		'minz' => $minz ? 'ok' : 'ko',
 		'curl' => $curl ? 'ok' : 'ko',
-		'pdo-mysql' => $pdo ? 'ok' : 'ko',
+		'pdo-mysql' => $pdo_mysql ? 'ok' : 'ko',
+		'pdo-sqlite' => $pdo_sqlite ? 'ok' : 'ko',
+		'pdo' => $pdo ? 'ok' : 'ko',
 		'pcre' => $pcre ? 'ok' : 'ko',
 		'ctype' => $ctype ? 'ok' : 'ko',
 		'dom' => $dom ? 'ok' : 'ko',
@@ -766,10 +770,10 @@ function printStep1 () {
 	<p class="alert alert-error"><span class="alert-head"><?php echo _t ('damn'); ?></span> <?php echo _t ('minz_is_nok', LIB_PATH . '/Minz'); ?></p>
 	<?php } ?>
 
-	<?php if ($res['pdo-mysql'] == 'ok') { ?>
-	<p class="alert alert-success"><span class="alert-head"><?php echo _t ('ok'); ?></span> <?php echo _t ('pdomysql_is_ok'); ?></p>
+	<?php if ($res['pdo'] == 'ok') { ?>
+	<p class="alert alert-success"><span class="alert-head"><?php echo _t ('ok'); ?></span> <?php echo _t ('pdo_is_ok'); ?></p>
 	<?php } else { ?>
-	<p class="alert alert-error"><span class="alert-head"><?php echo _t ('damn'); ?></span> <?php echo _t ('pdomysql_is_nok'); ?></p>
+	<p class="alert alert-error"><span class="alert-head"><?php echo _t ('damn'); ?></span> <?php echo _t ('pdo_is_nok'); ?></p>
 	<?php } ?>
 
 	<?php if ($res['curl'] == 'ok') { ?>
@@ -923,14 +927,18 @@ function printStep3 () {
 			<label class="group-name" for="type"><?php echo _t ('bdd_type'); ?></label>
 			<div class="group-controls">
 				<select name="type" id="type" onchange="mySqlShowHide()">
+				<?php if (extension_loaded('pdo_mysql')) {?>
 				<option value="mysql"
 					<?php echo (isset($_SESSION['bd_type']) && $_SESSION['bd_type'] === 'mysql') ? 'selected="selected"' : ''; ?>>
 					MySQL
 				</option>
+				<?php }?>
+				<?php if (extension_loaded('pdo_sqlite')) {?>
 				<option value="sqlite"
 					<?php echo (isset($_SESSION['bd_type']) && $_SESSION['bd_type'] === 'sqlite') ? 'selected="selected"' : ''; ?>>
 					SQLite
 				</option>
+				<?php }?>
 				</select>
 			</div>
 		</div>

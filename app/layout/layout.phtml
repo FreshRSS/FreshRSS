@@ -16,7 +16,7 @@
 ?>
 		<link id="prefetch" rel="next prefetch" href="<?php echo Minz_Url::display(array('c' => Minz_Request::controllerName(), 'a' => Minz_Request::actionName(), 'params' => $params)); ?>" />
 <?php } ?>
-		<link rel="shortcut icon" type="image/x-icon" sizes="16x16 64x64" href="<?php echo Minz_Url::display('/favicon.ico'); ?>" />
+		<link rel="shortcut icon" id="favicon" type="image/x-icon" sizes="16x16 64x64" href="<?php echo Minz_Url::display('/favicon.ico'); ?>" />
 		<link rel="icon msapplication-TileImage apple-touch-icon" type="image/png" sizes="256x256" href="<?php echo Minz_Url::display('/themes/icons/favicon-256.png'); ?>" />
 <?php
 	if (isset($this->url)) {

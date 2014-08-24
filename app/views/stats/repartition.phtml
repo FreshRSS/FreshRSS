@@ -1,0 +1,114 @@
+<?php $this->partial('aside_stats'); ?>
+
+<div class="post content">
+	<a href="<?php echo _url('index', 'index'); ?>"><?php echo _t('back_to_rss_feeds'); ?></a>
+
+	<h1><?php echo _t('stats_repartition'); ?></h1>
+
+	<select id="feed_select">
+		<option data-url="<?php echo _url('stats', 'repartition')?>"><?php echo _t('all_feeds')?></option>
+	<?php foreach ($this->categories as $category) {
+		$feeds = $category->feeds();
+		if (!empty($feeds)) {
+			echo '<optgroup label=', $category->name(), '>';
+			foreach ($feeds as $feed) {
+				if ($this->feed && $feed->id() == $this->feed->id()){
+					echo '<option value ="', $feed->id(), '" selected data-url="', _url('stats', 'repartition', 'id', $feed->id()), '">', $feed->name(), '</option>';
+				} else {
+					echo '<option value ="', $feed->id(), '" data-url="', _url('stats', 'repartition', 'id', $feed->id()), '">', $feed->name(), '</option>';
+				}
+			}
+			echo '</optgroup>';
+		}
+	}?>
+	</select>
+
+	<?php if ($this->feed) {?>
+		<a href="<?php echo _url('configure', 'feed', 'id', $this->feed->id()); ?>">
+			<?php echo _t('administration'); ?>
+		</a>
+	<?php }?>
+
+	<div class="stat">
+		<h2><?php echo _t('stats_entry_per_hour'); ?></h2>
+		<div id="statsEntryPerHour" style="height: 300px"></div>
+	</div>
+
+	<div class="stat">
+		<h2><?php echo _t('stats_entry_per_day_of_week'); ?></h2>
+		<div id="statsEntryPerDayOfWeek" style="height: 300px"></div>
+	</div>
+
+	<div class="stat">
+		<h2><?php echo _t('stats_entry_per_month'); ?></h2>
+		<div id="statsEntryPerMonth" style="height: 300px"></div>
+	</div>
+</div>
+
+<script>
+"use strict";
+function initStats() {
+	if (!window.Flotr) {
+		if (window.console) {
+			console.log('FreshRSS waiting for Flotr…');
+		}
+		window.setTimeout(initStats, 50);
+		return;
+	}
+	// Entry per hour
+	Flotr.draw(document.getElementById('statsEntryPerHour'),
+		[<?php echo $this->repartitionHour ?>],
+		{
+			grid: {verticalLines: false},
+			bars: {horizontal: false, show: true},
+			xaxis: {noTicks: 23,
+				tickFormatter: function(x) {
+					var x = parseInt(x);
+					return x + 1;
+				},
+				min: -0.9,
+				max: 23.9,
+				tickDecimals: 0},
+			yaxis: {min: 0},
+			mouse: {relative: true, track: true, trackDecimals: 0, trackFormatter: function(obj) {return numberFormat(obj.y);}}
+		});
+	// Entry per day of week
+	Flotr.draw(document.getElementById('statsEntryPerDayOfWeek'),
+		[<?php echo $this->repartitionDayOfWeek ?>],
+		{
+			grid: {verticalLines: false},
+			bars: {horizontal: false, show: true},
+			xaxis: {noTicks: 6,
+				tickFormatter: function(x) {
+					var x = parseInt(x),
+					    days = <?php echo $this->days?>;
+					return days[x];
+				},
+				min: -0.9,
+				max: 6.9,
+				tickDecimals: 0},
+			yaxis: {min: 0},
+			mouse: {relative: true, track: true, trackDecimals: 0, trackFormatter: function(obj) {return numberFormat(obj.y);}}
+		});
+	// Entry per month
+	Flotr.draw(document.getElementById('statsEntryPerMonth'),
+		[<?php echo $this->repartitionMonth ?>],
+		{
+			grid: {verticalLines: false},
+			bars: {horizontal: false, show: true},
+			xaxis: {noTicks: 12,
+				tickFormatter: function(x) {
+					var x = parseInt(x),
+					    months = <?php echo $this->months?>;
+					return months[(x - 1)];
+				},
+				min: 0.1,
+				max: 12.9,
+				tickDecimals: 0},
+			yaxis: {min: 0},
+			mouse: {relative: true, track: true, trackDecimals: 0, trackFormatter: function(obj) {return numberFormat(obj.y);}}
+		});
+
+}
+initStats();
+</script>

@@ -72,7 +72,7 @@ class FreshRSS_EntryDAOSQLite extends FreshRSS_EntryDAO {
 	public function markReadEntries($idMax = 0, $onlyFavorites = false, $priorityMin = 0) {
 		if ($idMax == 0) {
 			$idMax = time() . '000000';
-			Minz_Log::record($nb . 'Calling markReadEntries(0) is deprecated!', Minz_Log::DEBUG);
+			Minz_Log::record('Calling markReadEntries(0) is deprecated!', Minz_Log::DEBUG);
 		}
 
 		$sql = 'UPDATE `' . $this->prefix . 'entry` SET is_read=1 WHERE is_read=0 AND id <= ?';
@@ -98,7 +98,7 @@ class FreshRSS_EntryDAOSQLite extends FreshRSS_EntryDAO {
 	public function markReadCat($id, $idMax = 0) {
 		if ($idMax == 0) {
 			$idMax = time() . '000000';
-			Minz_Log::record($nb . 'Calling markReadCat(0) is deprecated!', Minz_Log::DEBUG);
+			Minz_Log::record('Calling markReadCat(0) is deprecated!', Minz_Log::DEBUG);
 		}
 
 		$sql = 'UPDATE `' . $this->prefix . 'entry` '

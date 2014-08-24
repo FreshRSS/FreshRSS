@@ -5,7 +5,7 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 		if (!$this->view->loginOk) {
 			Minz_Error::error(
 				403,
-				array('error' => array(Minz_Translate::t('access_denied')))
+				array('error' => array(_t('access_denied')))
 			);
 		}
 
@@ -20,33 +20,51 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 		$this->view->categories = $this->catDAO->listCategories();
 		$this->view->feeds = $this->feedDAO->listFeeds();
 
-		Minz_View::prependTitle(Minz_Translate::t('import_export') . ' · ');
+		Minz_View::prependTitle(_t('import_export') . ' · ');
 	}
 
 	public function importAction() {
-		if (Minz_Request::isPost() && $_FILES['file']['error'] == 0) {
-			@set_time_limit(300);
+		if (!Minz_Request::isPost()) {
+			Minz_Request::forward(array('c' => 'importExport', 'a' => 'index'), true);
+		}
 
-			$file = $_FILES['file'];
-			$type_file = $this->guessFileType($file['name']);
+		$file = $_FILES['file'];
+		$status_file = $file['error'];
 
-			$list_files = array(
-				'opml' => array(),
-				'json_starred' => array(),
-				'json_feed' => array()
-			);
+		if ($status_file !== 0) {
+			Minz_Log::error('File cannot be uploaded. Error code: ' . $status_file);
+			Minz_Request::bad(_t('file_cannot_be_uploaded'),
+			                  array('c' => 'importExport', 'a' => 'index'));
+		}
 
-			// We try to list all files according to their type
-			// A zip file is first opened and then its files are listed
-			$list = array();
-			if ($type_file === 'zip') {
-				$zip = zip_open($file['tmp_name']);
+		@set_time_limit(300);
 
-				while (($zipfile = zip_read($zip)) !== false) {
-					$type_zipfile = $this->guessFileType(
-						zip_entry_name($zipfile)
-					);
+		$type_file = $this->guessFileType($file['name']);
 
+		$list_files = array(
+			'opml' => array(),
+			'json_starred' => array(),
+			'json_feed' => array()
+		);
+
+		// We try to list all files according to their type
+		$list = array();
+		if ($type_file === 'zip' && extension_loaded('zip')) {
+			$zip = zip_open($file['tmp_name']);
+
+			if (!is_resource($zip)) {
+				// zip_open cannot open file: something is wrong
+				Minz_Log::error('Zip archive cannot be imported. Error code: ' . $zip);
+				Minz_Request::bad(_t('zip_error'),
+				                  array('c' => 'importExport', 'a' => 'index'));
+			}
+
+			while (($zipfile = zip_read($zip)) !== false) {
+				if (!is_resource($zipfile)) {
+					// zip_entry() can also return an error code!
+					Minz_Log::error('Zip file cannot be imported. Error code: ' . $zipfile);
+				} else {
+					$type_zipfile = $this->guessFileType(zip_entry_name($zipfile));
 					if ($type_file !== 'unknown') {
 						$list_files[$type_zipfile][] = zip_entry_read(
 							$zipfile,
@@ -54,59 +72,37 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 						);
 					}
 				}
-
-				zip_close($zip);
-			} elseif ($type_file !== 'unknown') {
-				$list_files[$type_file][] = file_get_contents(
-					$file['tmp_name']
-				);
 			}
 
-			// Import different files.
-			// OPML first(so categories and feeds are imported)
-			// Starred articles then so the "favourite" status is already set
-			// And finally all other files.
-			$error = false;
-			foreach ($list_files['opml'] as $opml_file) {
-				$error = $this->importOpml($opml_file);
-			}
-			foreach ($list_files['json_starred'] as $article_file) {
-				$error = $this->importArticles($article_file, true);
-			}
-			foreach ($list_files['json_feed'] as $article_file) {
-				$error = $this->importArticles($article_file);
-			}
-
-			// And finally, we get import status and redirect to the home page
-			$notif = null;
-			if ($error === true) {
-				$content_notif = Minz_Translate::t(
-					'feeds_imported_with_errors'
-				);
-			} else {
-				$content_notif = Minz_Translate::t(
-					'feeds_imported'
-				);
-			}
-
-			Minz_Session::_param('notification', array(
-				'type' => 'good',
-				'content' => $content_notif
-			));
-			Minz_Session::_param('actualize_feeds', true);
-
-			Minz_Request::forward(array(
-				'c' => 'index',
-				'a' => 'index'
-			), true);
+			zip_close($zip);
+		} elseif ($type_file === 'zip') {
+			// Zip extension is not loaded
+			Minz_Request::bad(_t('no_zip_extension'),
+			                  array('c' => 'importExport', 'a' => 'index'));
+		} elseif ($type_file !== 'unknown') {
+			$list_files[$type_file][] = file_get_contents($file['tmp_name']);
 		}
 
-		// What are you doing? you have to call this controller
-		// with a POST request!
-		Minz_Request::forward(array(
-			'c' => 'importExport',
-			'a' => 'index'
-		));
+		// Import file contents.
+		// OPML first(so categories and feeds are imported)
+		// Starred articles then so the "favourite" status is already set
+		// And finally all other files.
+		$error = false;
+		foreach ($list_files['opml'] as $opml_file) {
+			$error = $this->importOpml($opml_file);
+		}
+		foreach ($list_files['json_starred'] as $article_file) {
+			$error = $this->importArticles($article_file, true);
+		}
+		foreach ($list_files['json_feed'] as $article_file) {
+			$error = $this->importArticles($article_file);
+		}
+
+		// And finally, we get import status and redirect to the home page
+		Minz_Session::_param('actualize_feeds', true);
+		$content_notif = $error === true ? _t('feeds_imported_with_errors') :
+		                                   _t('feeds_imported');
+		Minz_Request::good($content_notif);
 	}
 
 	private function guessFileType($filename) {
@@ -120,7 +116,8 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 		} elseif (substr_compare($filename, '.opml', -5) === 0 ||
 		          substr_compare($filename, '.xml', -4) === 0) {
 			return 'opml';
-		} elseif (strcmp($filename, 'starred.json') === 0) {
+		} elseif (substr_compare($filename, '.json', -5) === 0 &&
+		          strpos($filename, 'starred') !== false) {
 			return 'json_starred';
 		} elseif (substr_compare($filename, '.json', -5) === 0 &&
 		          strpos($filename, 'feed_') === 0) {
@@ -176,15 +173,15 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 		}
 
 		// We get different useful information
-		$url = html_chars_utf8($feed_elt['xmlUrl']);
-		$name = html_chars_utf8($feed_elt['text']);
+		$url = Minz_Helper::htmlspecialchars_utf8($feed_elt['xmlUrl']);
+		$name = Minz_Helper::htmlspecialchars_utf8($feed_elt['text']);
 		$website = '';
 		if (isset($feed_elt['htmlUrl'])) {
-			$website = html_chars_utf8($feed_elt['htmlUrl']);
+			$website = Minz_Helper::htmlspecialchars_utf8($feed_elt['htmlUrl']);
 		}
 		$description = '';
 		if (isset($feed_elt['description'])) {
-			$description = html_chars_utf8($feed_elt['description']);
+			$description = Minz_Helper::htmlspecialchars_utf8($feed_elt['description']);
 		}
 
 		$error = false;
@@ -210,7 +207,7 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 
 	private function addCategoryOpml($cat_elt, $parent_cat) {
 		// Create a new Category object
-		$cat = new FreshRSS_Category(html_chars_utf8($cat_elt['text']));
+		$cat = new FreshRSS_Category(Minz_Helper::htmlspecialchars_utf8($cat_elt['text']));
 
 		$id = $this->catDAO->addCategoryObject($cat);
 		$error = ($id === false);
@@ -287,7 +284,7 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 		$url = $origin[$key];
 		$name = $origin['title'];
 		$website = $origin['htmlUrl'];
-		$error = false;
+
 		try {
 			// Create a Feed object and add it in DB
 			$feed = new FreshRSS_Feed($url);
@@ -311,44 +308,53 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 	}
 
 	public function exportAction() {
-		if (Minz_Request::isPost()) {
-			$this->view->_useLayout(false);
+		if (!Minz_Request::isPost()) {
+			Minz_Request::forward(array('c' => 'importExport', 'a' => 'index'), true);
+		}
 
-			$export_opml = Minz_Request::param('export_opml', false);
-			$export_starred = Minz_Request::param('export_starred', false);
-			$export_feeds = Minz_Request::param('export_feeds', false);
+		$this->view->_useLayout(false);
 
-			// From https://stackoverflow.com/questions/1061710/php-zip-files-on-the-fly
-			$file = tempnam('tmp', 'zip');
-			$zip = new ZipArchive();
-			$zip->open($file, ZipArchive::OVERWRITE);
+		$export_opml = Minz_Request::param('export_opml', false);
+		$export_starred = Minz_Request::param('export_starred', false);
+		$export_feeds = Minz_Request::param('export_feeds', array());
 
-			// Stuff with content
-			if ($export_opml) {
-				$zip->addFromString(
-					'feeds.opml', $this->generateOpml()
+		$export_files = array();
+		if ($export_opml) {
+			$export_files['feeds.opml'] = $this->generateOpml();
+		}
+
+		if ($export_starred) {
+			$export_files['starred.json'] = $this->generateArticles('starred');
+		}
+
+		foreach ($export_feeds as $feed_id) {
+			$feed = $this->feedDAO->searchById($feed_id);
+			if ($feed) {
+				$filename = 'feed_' . $feed->category() . '_'
+				          . $feed->id() . '.json';
+				$export_files[$filename] = $this->generateArticles(
+					'feed', $feed
 				);
 			}
-			if ($export_starred) {
-				$zip->addFromString(
-					'starred.json', $this->generateArticles('starred')
-				);
-			}
-			foreach ($export_feeds as $feed_id) {
-				$feed = $this->feedDAO->searchById($feed_id);
-				$zip->addFromString(
-					'feed_' . $feed->category() . '_' . $feed->id() . '.json',
-					$this->generateArticles('feed', $feed)
-				);
-			}
+		}
 
-			// Close and send to user
-			$zip->close();
-			header('Content-Type: application/zip');
-			header('Content-Length: ' . filesize($file));
-			header('Content-Disposition: attachment; filename="freshrss_export.zip"');
-			readfile($file);
-			unlink($file);
+		$nb_files = count($export_files);
+		if ($nb_files > 1) {
+			// If there are more than 1 file to export, we need a zip archive.
+			try {
+				$this->exportZip($export_files);
+			} catch (Exception $e) {
+				# Oops, there is no Zip extension!
+				Minz_Request::bad(_t('export_no_zip_extension'),
+				                  array('c' => 'importExport', 'a' => 'index'));
+			}
+		} elseif ($nb_files === 1) {
+			// Only one file? Guess its type and export it.
+			$filename = key($export_files);
+			$type = $this->guessFileType($filename);
+			$this->exportFile('freshrss_' . $filename, $export_files[$filename], $type);
+		} else {
+			Minz_Request::forward(array('c' => 'importExport', 'a' => 'index'), true);
 		}
 	}
 
@@ -367,7 +373,7 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 		$this->view->categories = $this->catDAO->listCategories();
 
 		if ($type == 'starred') {
-			$this->view->list_title = Minz_Translate::t('starred_list');
+			$this->view->list_title = _t('starred_list');
 			$this->view->type = 'starred';
 			$unread_fav = $this->entryDAO->countUnreadReadFavorites();
 			$this->view->entries = $this->entryDAO->listWhere(
@@ -375,9 +381,7 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 				$unread_fav['all']
 			);
 		} elseif ($type == 'feed' && !is_null($feed)) {
-			$this->view->list_title = Minz_Translate::t(
-				'feed_list', $feed->name()
-			);
+			$this->view->list_title = _t('feed_list', $feed->name());
 			$this->view->type = 'feed/' . $feed->id();
 			$this->view->entries = $this->entryDAO->listWhere(
 				'f', $feed->id(), FreshRSS_Entry::STATE_ALL, 'ASC',
@@ -387,5 +391,45 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 		}
 
 		return $this->view->helperToString('export/articles');
+	}
+
+	private function exportZip($files) {
+		if (!extension_loaded('zip')) {
+			throw new Exception();
+		}
+
+		// From https://stackoverflow.com/questions/1061710/php-zip-files-on-the-fly
+		$zip_file = tempnam('tmp', 'zip');
+		$zip = new ZipArchive();
+		$zip->open($zip_file, ZipArchive::OVERWRITE);
+
+		foreach ($files as $filename => $content) {
+			$zip->addFromString($filename, $content);
+		}
+
+		// Close and send to user
+		$zip->close();
+		header('Content-Type: application/zip');
+		header('Content-Length: ' . filesize($zip_file));
+		header('Content-Disposition: attachment; filename="freshrss_export.zip"');
+		readfile($zip_file);
+		unlink($zip_file);
+	}
+
+	private function exportFile($filename, $content, $type) {
+		if ($type === 'unknown') {
+			return;
+		}
+
+		$content_type = '';
+		if ($type === 'opml') {
+			$content_type = "text/opml";
+		} elseif ($type === 'json_feed' || $type === 'json_starred') {
+			$content_type = "text/json";
+		}
+
+		header('Content-Type: ' . $content_type . '; charset=utf-8');
+		header('Content-disposition: attachment; filename=' . $filename);
+		print($content);
 	}
 }

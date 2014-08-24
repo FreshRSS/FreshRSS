@@ -69,6 +69,10 @@ function incUnreadsFeed(article, feed_id, nb) {
 		feed_priority = elem ? str2int(elem.getAttribute('data-priority')) : 0;
 	if (elem) {
 		elem.setAttribute('data-unread', numberFormat(feed_unreads + nb));
+		elem = $(elem).closest('li').get(0);
+		if (elem) {
+			elem.setAttribute('data-unread', feed_unreads + nb);
+		}
 	}
 
 	//Update unread: category
@@ -76,6 +80,10 @@ function incUnreadsFeed(article, feed_id, nb) {
 	feed_unreads = elem ? str2int(elem.getAttribute('data-unread')) : 0;
 	if (elem) {
 		elem.setAttribute('data-unread', numberFormat(feed_unreads + nb));
+		elem = $(elem).closest('li').get(0);
+		if (elem) {
+			elem.setAttribute('data-unread', feed_unreads + nb);
+		}
 	}
 
 	//Update unread: all
@@ -98,16 +106,16 @@ function incUnreadsFeed(article, feed_id, nb) {
 
 	var isCurrentView = false;
 	//Update unread: title
-	document.title = document.title.replace(/^((?:\([ 0-9]+\) )?)(.*? · )((?:\([ 0-9]+\) )?)/, function (m, p1, p2, p3) {
+	document.title = document.title.replace(/^((?:\([ 0-9]+\) )?)/, function (m, p1) {
 		var $feed = $('#' + feed_id);
 		if (article || ($feed.closest('.active').length > 0 && $feed.siblings('.active').length === 0)) {
 			isCurrentView = true;
-			return incLabel(p1, nb, true) + p2 + incLabel(p3, feed_priority > 0 ? nb : 0, true);
+			return incLabel(p1, nb, true);
 		} else if ($('.all.active').length > 0) {
 			isCurrentView = feed_priority > 0;
-			return incLabel(p1, feed_priority > 0 ? nb : 0, true) + p2 + incLabel(p3, feed_priority > 0 ? nb : 0, true);
+			return incLabel(p1, feed_priority > 0 ? nb : 0, true);
 		} else {
-			return p1 + p2 + incLabel(p3, feed_priority > 0 ? nb : 0, true);
+			return p1;
 		}
 	});
 	return isCurrentView;
@@ -152,6 +160,7 @@ function mark_read(active, only_not_read) {
 		$r.find('.icon').replaceWith(data.icon);
 
 		incUnreadsFeed(active, feed_id, inc);
+		faviconNbUnread();
 
 		pending_feeds.splice(index_pending, 1);
 	});
@@ -361,7 +370,12 @@ function last_category() {
 
 function collapse_entry() {
 	isCollapsed = !isCollapsed;
-	$(".flux.current").toggleClass("active");
+
+	var flux_current = $(".flux.current");
+	flux_current.toggleClass("active");
+	if (isCollapsed) {
+		mark_read(flux_current, true);
+	}
 }
 
 function auto_share(key) {
@@ -407,21 +421,7 @@ function inMarkViewport(flux, box_to_follow, relative_follow) {
 	return (windowBot >= begin && bot >= windowBot);
 }
 
-function init_lazyload() {
-	if ($.fn.lazyload) {
-		if (is_global_mode()) {
-			$(".flux_content img").lazyload({
-				container: $("#panel")
-			});
-		} else {
-			$(".flux_content img").lazyload();
-		}
-	}
-}
-
 function init_posts() {
-	init_lazyload();
-
 	var box_to_follow = $(window),
 		relative_follow = false;
 	if (is_global_mode()) {
@@ -663,7 +663,7 @@ function init_stream(divStream) {
 
 	if (auto_mark_site) {
 		divStream.on('click', '.flux .link > a', function () {
-			mark_read($(this).parent().parent().parent(), true);
+			mark_read($(this).parents(".flux"), true);
 		});
 	}
 }
@@ -768,18 +768,66 @@ function init_notifications() {
 }
 // </notification>
 
+// <notifs html5>
+var notifs_html5_permission = 'denied';
+
+function notifs_html5_is_supported() {
+	return window.Notification !== undefined;
+}
+
+function notifs_html5_ask_permission() {
+	window.Notification.requestPermission(function () {
+		notifs_html5_permission = window.Notification.permission;
+	});
+}
+
+function notifs_html5_show(nb) {
+	if (notifs_html5_permission !== "granted") {
+		return
+	}
+
+	var notification = new window.Notification(str_notif_title_articles, {
+		icon: "../themes/icons/favicon-256.png",
+		body: str_notif_body_articles.replace("\d", nb)
+	});
+
+	notification.onclick = function() {
+		window.location.reload();
+	}
+}
+
+function init_notifs_html5() {
+	if (!notifs_html5_is_supported()) {
+		return;
+	}
+
+	notifs_html5_permission = notifs_html5_ask_permission();
+}
+// </notifs html5>
+
 function refreshUnreads() {
 	$.getJSON('./?c=javascript&a=nbUnreadsPerFeed').done(function (data) {
-		var isAll = $('.category.all > .active').length > 0;
+		var isAll = $('.category.all > .active').length > 0,
+		    new_articles = false;
+
 		$.each(data, function(feed_id, nbUnreads) {
 			feed_id = 'f_' + feed_id;
 			var elem = $('#' + feed_id + '>.feed').get(0),
 				feed_unreads = elem ? str2int(elem.getAttribute('data-unread')) : 0;
+
 			if ((incUnreadsFeed(null, feed_id, nbUnreads - feed_unreads) || isAll) &&	//Update of current view?
 				(nbUnreads - feed_unreads > 0)) {
 				$('#new-article').show();
+				new_articles = true;
 			};
 		});
+
+		var nb_unreads = str2int($('.category.all>a').attr('data-unread'));
+
+		if (nb_unreads > 0 && new_articles) {
+			faviconNbUnread(nb_unreads);
+			notifs_html5_show(nb_unreads);
+		}
 	});
 }
 
@@ -812,7 +860,6 @@ function load_more_posts() {
 		});
 
 		init_load_more(box_load_more);
-		init_lazyload();
 
 		$('#load_more').removeClass('loading');
 		load_more = false;
@@ -825,6 +872,12 @@ function focus_search() {
 
 function init_load_more(box) {
 	box_load_more = box;
+
+	if (!does_lazyload) {
+		$('img[postpone], audio[postpone], iframe[postpone], video[postpone]').each(function () {
+			this.removeAttribute('postpone');
+		});
+	}
 
 	var $next_link = $("#load_more");
 	if (!$next_link.length) {
@@ -967,7 +1020,7 @@ function init_persona() {
 //</persona>
 
 function init_confirm_action() {
-	$('.confirm').click(function () {
+	$('body').on('click', '.confirm', function () {
 		return confirm(str_confirmation);
 	});
 }
@@ -1007,6 +1060,12 @@ function init_share_observers() {
 		shares++;
 
 		return false;
+	});
+}
+
+function init_stats_observers() {
+	$('#feed_select').on('change', function(e) {
+		redirect($(this).find(':selected').data('url'));
 	});
 }
 
@@ -1052,8 +1111,44 @@ function init_password_observers() {
 	});
 }
 
+function faviconNbUnread(n) {
+	if (typeof n === 'undefined') {
+		n = str2int($('.category.all>a').attr('data-unread'));
+	}
+	//http://remysharp.com/2010/08/24/dynamic-favicons/
+	var canvas = document.createElement('canvas'),
+		link = document.getElementById('favicon').cloneNode(true);
+	if (canvas.getContext && link) {
+		canvas.height = canvas.width = 16;
+		var img = document.createElement('img');
+		img.onload = function () {
+			var ctx = canvas.getContext('2d');
+			ctx.drawImage(this, 0, 0, canvas.width, canvas.height);
+			if (n > 0) {
+				var text = '';
+				if (n < 1000) {
+					text = n;
+				} else if (n < 100000) {
+					text = Math.floor(n / 1000) + 'k';
+				} else {
+					text = 'E' + Math.floor(Math.log10(n));
+				}
+				ctx.font = 'bold 9px "Arial", sans-serif';
+				ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
+				ctx.fillRect(0, 7, ctx.measureText(text).width, 9);
+				ctx.fillStyle = '#F00';
+				ctx.fillText(text, 0, canvas.height - 1);
+			}
+			link.href = canvas.toDataURL('image/png');
+			$('link[rel~=icon]').remove();
+			document.head.appendChild(link);
+		};
+		img.src = '../favicon.ico';
+	}
+}
+
 function init_all() {
-	if (!(window.$ && window.url_freshrss && ((!full_lazyload) || $.fn.lazyload))) {
+	if (!(window.$ && window.url_freshrss)) {
 		if (window.console) {
 			console.log('FreshRSS waiting for JS…');
 		}
@@ -1079,13 +1174,16 @@ function init_all() {
 		init_stream($stream);
 		init_nav_entries();
 		init_shortcuts();
+		faviconNbUnread();
 		init_print_action();
+		init_notifs_html5();
 		window.setInterval(refreshUnreads, 120000);
 	} else {
 		init_share_observers();
 		init_remove_observers();
 		init_feed_observers();
 		init_password_observers();
+		init_stats_observers();
 	}
 
 	if (window.console) {

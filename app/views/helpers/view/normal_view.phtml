@@ -81,7 +81,12 @@ if (!empty($this->entries)) {
 				}
 			}
 			$feed = FreshRSS_CategoryDAO::findFeed($this->cat_aside, $item->feed ());	//We most likely already have the feed object in cache
-			if (empty($feed)) $feed = $item->feed (true);
+			if ($feed == null) {
+				$feed = $item->feed(true);
+				if ($feed == null) {
+					$feed = FreshRSS_Feed::example();
+				}
+			}
 			?><li class="item website"><a href="<?php echo _url ('index', 'index', 'get', 'f_' . $feed->id ()); ?>"><img class="favicon" src="<?php echo $feed->favicon (); ?>" alt="✇" /> <span><?php echo $feed->name(); ?></span></a></li>
 			<li class="item title"><a target="_blank" href="<?php echo $item->link (); ?>"><?php echo $item->title (); ?></a></li>
 			<?php if ($topline_date) { ?><li class="item date"><?php echo $item->date (); ?> </li><?php } ?>
@@ -92,13 +97,9 @@ if (!empty($this->entries)) {
 			<div class="content <?php echo $content_width; ?>">
 				<h1 class="title"><a target="_blank" href="<?php echo $item->link (); ?>"><?php echo $item->title (); ?></a></h1>
 				<?php
-					$author = $item->author ();
-					echo $author != '' ? '<div class="author">' . Minz_Translate::t ('by_author', $author) . '</div>' : '';
-					if ($lazyload) {
-						echo $hidePosts ? lazyIframe(lazyimg($item->content())) : lazyimg($item->content());
-					} else {
-						echo $item->content();
-					}
+					$author = $item->author();
+					echo $author != '' ? '<div class="author">' . Minz_Translate::t('by_author', $author) . '</div>' : '',
+						$lazyload && $hidePosts ? lazyimg($item->content()) : $item->content();
 				?>
 			</div>
 			<ul class="horizontal-list bottom"><?php

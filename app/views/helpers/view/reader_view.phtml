@@ -21,19 +21,13 @@ if (!empty($this->entries)) {
 				</a>
 				<h1 class="title"><?php echo $item->title (); ?></h1>
 
-				<div class="author">
-					<?php $author = $item->author (); ?>
-					<?php echo $author != '' ? Minz_Translate::t ('by_author', $author) . ' — ' : ''; ?>
-					<?php echo $item->date (); ?>
-				</div>
+				<div class="author"><?php
+					$author = $item->author();
+					echo $author != '' ? Minz_Translate::t('by_author', $author) . ' — ' : '',
+						$item->date();
+				?></div>
 
-				<?php
-					if ($lazyload) {
-						echo lazyimg($item->content ());
-					} else {
-						echo $item->content();
-					}
-				?>
+				<?php echo $item->content(); ?>
 			</div>
 		</div>
 	</div>

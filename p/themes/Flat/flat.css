@@ -492,10 +492,6 @@ a.btn {
 .categories .feeds .item.active {
 	background: #2980b9;
 }
-.categories .feeds .item.active .feed,
-.categories .feeds .item.empty.active .feed {
-	color: #fff;
-}
 .categories .feeds .item.empty.active {
 	background: #f39c12;
 }
@@ -507,6 +503,11 @@ a.btn {
 }
 .categories .feeds .item.error .feed {
 	color: #bd362f;
+}
+.categories .feeds .item.active .feed,
+.categories .feeds .item.empty.active .feed,
+.categories .feeds .item.error.active .feed {
+	color: #fff;
 }
 .categories .feeds .item .feed {
 	margin: 0;
@@ -551,7 +552,7 @@ a.btn {
 }
 .prompt form {
 	margin: 10px auto 20px auto;
-	width: 180px;
+	width: 200px;
 }
 .prompt input {
 	margin: 5px auto;

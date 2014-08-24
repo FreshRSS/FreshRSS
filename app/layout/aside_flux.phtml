@@ -1,4 +1,4 @@
-<div class="aside aside_flux" id="aside_flux">
+<div class="aside aside_flux<?php if ($this->conf->hide_read_feeds && ($this->state & FreshRSS_Entry::STATE_NOT_READ) && !($this->state & FreshRSS_Entry::STATE_READ)) echo ' state_unread'; ?>" id="aside_flux">
 	<a class="toggle_aside" href="#close"><?php echo FreshRSS_Themes::icon('close'); ?></a>
 
 	<ul class="categories">
@@ -41,11 +41,17 @@
 		foreach ($this->cat_aside as $cat) {
 			$feeds = $cat->feeds ();
 			if (!empty ($feeds)) {
-				?><li><?php
 				$c_active = false;
-				if ($this->get_c == $cat->id ()) {
-					$c_active = true;
+				if ($this->conf->display_categories) {
+					if ($this->get_c == $cat->id () && $this->get_f) {
+						$c_active = true;
+					}
+				} else {
+					if ($this->get_c == $cat->id ()) {
+						$c_active = true;
+					}
 				}
+				?><li data-unread="<?php echo $cat->nbNotRead(); ?>"<?php if ($c_active) echo ' class="active"'; ?>><?php
 				?><div class="category stick<?php echo $c_active ? ' active' : ''; ?>"><?php
 					?><a data-unread="<?php echo formatNumber($cat->nbNotRead()); ?>" class="btn<?php echo $c_active ? ' active' : ''; ?>" href="<?php $arUrl['params']['get'] = 'c_' . $cat->id(); echo Minz_Url::display($arUrl); ?>"><?php echo $cat->name (); ?></a><?php
 					?><a class="btn dropdown-toggle" href="#"><?php echo FreshRSS_Themes::icon($c_active ? 'up' : 'down'); ?></a><?php
@@ -55,7 +61,7 @@
 					$feed_id = $feed->id ();
 					$nbEntries = $feed->nbEntries ();
 					$f_active = ($this->get_f == $feed_id);
-					?><li id="f_<?php echo $feed_id; ?>" class="item<?php echo $f_active ? ' active' : ''; ?><?php echo $feed->inError () ? ' error' : ''; ?><?php echo $nbEntries == 0 ? ' empty' : ''; ?>"><?php
+					?><li id="f_<?php echo $feed_id; ?>" class="item<?php echo $f_active ? ' active' : ''; ?><?php echo $feed->inError () ? ' error' : ''; ?><?php echo $nbEntries == 0 ? ' empty' : ''; ?>" data-unread="<?php echo $feed->nbNotRead(); ?>"><?php
 						?><div class="dropdown"><?php
 							?><div class="dropdown-target"></div><?php
 							?><a class="dropdown-toggle" data-fweb="<?php echo $feed->website (); ?>"><?php echo FreshRSS_Themes::icon('configure'); ?></a><?php
@@ -77,6 +83,7 @@
 	<ul class="dropdown-menu">
 		<li class="dropdown-close"><a href="#close">❌</a></li>
 		<li class="item"><a href="<?php echo _url ('index', 'index', 'get', 'f_!!!!!!'); ?>"><?php echo Minz_Translate::t ('filter'); ?></a></li>
+		<li class="item"><a href="<?php echo _url ('stats', 'repartition', 'id', '!!!!!!'); ?>"><?php echo Minz_Translate::t ('stats'); ?></a></li>
 		<li class="item"><a target="_blank" href="http://example.net/"><?php echo Minz_Translate::t ('see_website'); ?></a></li>
 		<?php if ($this->loginOk) { ?>
 		<li class="separator"></li>

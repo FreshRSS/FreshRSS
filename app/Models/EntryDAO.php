@@ -17,7 +17,9 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 	}
 
 	public function addEntry($valuesTmp, $preparedStatement = null) {
-		$stm = $preparedStatement === null ? addEntryPrepare() : $preparedStatement;
+		$stm = $preparedStatement === null ?
+				FreshRSS_EntryDAO::addEntryPrepare() :
+				$preparedStatement;
 
 		$values = array(
 			$valuesTmp['id'],
@@ -63,7 +65,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 		}
 
 		if (!isset($existingGuids[$entry->guid()]) &&
-				($feedHistory != 0 || $eDate  >= $date_min)) {
+				($feedHistory != 0 || $eDate >= $date_min || $entry->isFavorite())) {
 			$values = $entry->toArray();
 
 			$useDeclaredDate = empty($existingGuids);
@@ -173,7 +175,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 	public function markReadEntries($idMax = 0, $onlyFavorites = false, $priorityMin = 0) {
 		if ($idMax == 0) {
 			$idMax = time() . '000000';
-			Minz_Log::record($nb . 'Calling markReadEntries(0) is deprecated!', Minz_Log::DEBUG);
+			Minz_Log::record('Calling markReadEntries(0) is deprecated!', Minz_Log::DEBUG);
 		}
 
 		$sql = 'UPDATE `' . $this->prefix . 'entry` e INNER JOIN `' . $this->prefix . 'feed` f ON e.id_feed=f.id '
@@ -201,7 +203,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 	public function markReadCat($id, $idMax = 0) {
 		if ($idMax == 0) {
 			$idMax = time() . '000000';
-			Minz_Log::record($nb . 'Calling markReadCat(0) is deprecated!', Minz_Log::DEBUG);
+			Minz_Log::record('Calling markReadCat(0) is deprecated!', Minz_Log::DEBUG);
 		}
 
 		$sql = 'UPDATE `' . $this->prefix . 'entry` e INNER JOIN `' . $this->prefix . 'feed` f ON e.id_feed=f.id '
@@ -224,11 +226,11 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 	public function markReadFeed($id, $idMax = 0) {
 		if ($idMax == 0) {
 			$idMax = time() . '000000';
-			Minz_Log::record($nb . 'Calling markReadFeed(0) is deprecated!', Minz_Log::DEBUG);
+			Minz_Log::record('Calling markReadFeed(0) is deprecated!', Minz_Log::DEBUG);
 		}
 		$this->bd->beginTransaction();
 
-		$sql = 'UPDATE `' . $this->prefix . 'entry`  '
+		$sql = 'UPDATE `' . $this->prefix . 'entry` '
 			 . 'SET is_read=1 '
 			 . 'WHERE id_feed=? AND is_read=0 AND id <= ?';
 		$values = array($id, $idMax);

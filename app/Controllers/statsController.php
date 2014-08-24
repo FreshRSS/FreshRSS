@@ -4,9 +4,9 @@ class FreshRSS_stats_Controller extends Minz_ActionController {
 
 	public function indexAction() {
 		$statsDAO = FreshRSS_Factory::createStatsDAO();
-		Minz_View::appendScript (Minz_Url::display ('/scripts/flotr2.min.js?' . @filemtime(PUBLIC_PATH . '/scripts/flotr2.min.js')));
+		Minz_View::appendScript(Minz_Url::display('/scripts/flotr2.min.js?' . @filemtime(PUBLIC_PATH . '/scripts/flotr2.min.js')));
 		$this->view->repartition = $statsDAO->calculateEntryRepartition();
-		$this->view->count = ($statsDAO->calculateEntryCount());
+		$this->view->count = $statsDAO->calculateEntryCount();
 		$this->view->feedByCategory = $statsDAO->calculateFeedByCategory();
 		$this->view->entryByCategory = $statsDAO->calculateEntryByCategory();
 		$this->view->topFeed = $statsDAO->calculateTopFeed();
@@ -15,7 +15,13 @@ class FreshRSS_stats_Controller extends Minz_ActionController {
 	public function idleAction() {
 		$statsDAO = FreshRSS_Factory::createStatsDAO();
 		$feeds = $statsDAO->calculateFeedLastDate();
-		$idleFeeds = array();
+		$idleFeeds = array(
+			'last_year' => array(),
+			'last_6_month' => array(),
+			'last_3_month' => array(),
+			'last_month' => array(),
+			'last_week' => array(),
+		);
 		$now = new \DateTime();
 		$feedDate = clone $now;
 		$lastWeek = clone $now;
@@ -34,26 +40,37 @@ class FreshRSS_stats_Controller extends Minz_ActionController {
 			if ($feedDate >= $lastWeek) {
 				continue;
 			}
-			if ($feedDate < $lastWeek) {
-				$idleFeeds['last_week'][] = $feed['name'];
-			}
-			if ($feedDate < $lastMonth) {
-				$idleFeeds['last_month'][] = $feed['name'];
-			}
-			if ($feedDate < $last3Month) {
-				$idleFeeds['last_3_month'][] = $feed['name'];
-			}
-			if ($feedDate < $last6Month) {
-				$idleFeeds['last_6_month'][] = $feed['name'];
-			}
 			if ($feedDate < $lastYear) {
-				$idleFeeds['last_year'][] = $feed['name'];
+				$idleFeeds['last_year'][] = $feed;
+			} elseif ($feedDate < $last6Month) {
+				$idleFeeds['last_6_month'][] = $feed;
+			} elseif ($feedDate < $last3Month) {
+				$idleFeeds['last_3_month'][] = $feed;
+			} elseif ($feedDate < $lastMonth) {
+				$idleFeeds['last_month'][] = $feed;
+			} elseif ($feedDate < $lastWeek) {
+				$idleFeeds['last_week'][] = $feed;
 			}
 		}
 
-		$this->view->idleFeeds = array_reverse($idleFeeds);
+		$this->view->idleFeeds = $idleFeeds;
 	}
-	
+
+	public function repartitionAction() {
+		$statsDAO = FreshRSS_Factory::createStatsDAO();
+		$categoryDAO = new FreshRSS_CategoryDAO();
+		$feedDAO = FreshRSS_Factory::createFeedDao();
+		Minz_View::appendScript(Minz_Url::display('/scripts/flotr2.min.js?' . @filemtime(PUBLIC_PATH . '/scripts/flotr2.min.js')));
+		$id = Minz_Request::param ('id', null);
+		$this->view->categories = $categoryDAO->listCategories();
+		$this->view->feed = $feedDAO->searchById($id);
+		$this->view->days = $statsDAO->getDays();
+		$this->view->months = $statsDAO->getMonths();
+		$this->view->repartitionHour = $statsDAO->calculateEntryRepartitionPerFeedPerHour($id);
+		$this->view->repartitionDayOfWeek = $statsDAO->calculateEntryRepartitionPerFeedPerDayOfWeek($id);
+		$this->view->repartitionMonth = $statsDAO->calculateEntryRepartitionPerFeedPerMonth($id);
+	}
+
 	public function firstAction() {
 		if (!$this->view->loginOk) {
 			Minz_Error::error(

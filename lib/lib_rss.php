@@ -121,10 +121,10 @@ function customSimplePie() {
 		'onmouseover', 'onmousemove', 'onmouseout', 'onfocus', 'onblur',
 		'onkeypress', 'onkeydown', 'onkeyup', 'onselect', 'onchange', 'seamless')));
 	$simplePie->add_attributes(array(
-		'img' => array('lazyload' => ''),	//http://www.w3.org/TR/resource-priorities/
-		'audio' => array('preload' => 'none'),
-		'iframe' => array('postpone' => '', 'sandbox' => 'allow-scripts allow-same-origin'),
-		'video' => array('postpone' => '', 'preload' => 'none'),
+		'img' => array('lazyload' => '', 'postpone' => ''),	//http://www.w3.org/TR/resource-priorities/
+		'audio' => array('lazyload' => '', 'postpone' => '', 'preload' => 'none'),
+		'iframe' => array('lazyload' => '', 'postpone' => '', 'sandbox' => 'allow-scripts allow-same-origin'),
+		'video' => array('lazyload' => '', 'postpone' => '', 'preload' => 'none'),
 	));
 	$simplePie->set_url_replacements(array(
 		'a' => 'href',
@@ -183,16 +183,8 @@ function get_content_by_parsing ($url, $path) {
  */
 function lazyimg($content) {
 	return preg_replace(
-		'/<img([^>]+?)src=[\'"]([^"\']+)[\'"]([^>]*)>/i',
-		'<img$1src="' . Minz_Url::display('/themes/icons/grey.gif') . '" data-original="$2"$3>',
-		$content
-	);
-}
-
-function lazyIframe($content) {
-	return preg_replace(
-		'/<iframe([^>]+?)src=[\'"]([^"\']+)[\'"]([^>]*)>/i',
-		'<iframe$1src="about:blank" data-original="$2"$3>',
+		'/<((?:img|iframe)[^>]+?)src=[\'"]([^"\']+)[\'"]([^>]*)>/i',
+		'<$1src="' . Minz_Url::display('/themes/icons/grey.gif') . '" data-original="$2"$3>',
 		$content
 	);
 }
@@ -237,8 +229,4 @@ function cryptAvailable() {
 		}
 	}
 	return false;
-}
-
-function html_chars_utf8($str) {
-	return htmlspecialchars($str, ENT_COMPAT, 'UTF-8');
 }

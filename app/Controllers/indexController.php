@@ -69,9 +69,6 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 
 		// mise à jour des titres
 		$this->view->rss_title = $this->view->currentName . ' | ' . Minz_View::title();
-		if ($this->view->nb_not_read > 0) {
-			Minz_View::prependTitle('(' . formatNumber($this->view->nb_not_read) . ') ');
-		}
 		Minz_View::prependTitle(
 			($this->nb_not_read_cat > 0 ? '(' . formatNumber($this->nb_not_read_cat) . ') ' : '') .
 			$this->view->currentName .
@@ -79,14 +76,14 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 		);
 
 		// On récupère les différents éléments de filtrage
-		$this->view->state = $state = Minz_Request::param ('state', $this->view->conf->default_view);
+		$this->view->state = Minz_Request::param('state', $this->view->conf->default_view);
 		$state_param = Minz_Request::param ('state', null);
 		$filter = Minz_Request::param ('search', '');
 		$this->view->order = $order = Minz_Request::param ('order', $this->view->conf->sort_order);
 		$nb = Minz_Request::param ('nb', $this->view->conf->posts_per_page);
 		$first = Minz_Request::param ('next', '');
 
-		if ($state === FreshRSS_Entry::STATE_NOT_READ) {	//Any unread article in this category at all?
+		if ($this->view->state === FreshRSS_Entry::STATE_NOT_READ) {	//Any unread article in this category at all?
 			switch ($getType) {
 				case 'a':
 					$hasUnread = $this->view->nb_not_read > 0;
@@ -107,7 +104,7 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 					break;
 			}
 			if (!$hasUnread && ($state_param === null)) {
-				$this->view->state = $state = FreshRSS_Entry::STATE_ALL;
+				$this->view->state = FreshRSS_Entry::STATE_ALL;
 			}
 		}
 
@@ -120,11 +117,11 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 		$keepHistoryDefault = $this->view->conf->keep_history_default;
 
 		try {
-			$entries = $entryDAO->listWhere($getType, $getId, $state, $order, $nb + 1, $first, $filter, $date_min, true, $keepHistoryDefault);
+			$entries = $entryDAO->listWhere($getType, $getId, $this->view->state, $order, $nb + 1, $first, $filter, $date_min, true, $keepHistoryDefault);
 
 			// Si on a récupéré aucun article "non lus"
 			// on essaye de récupérer tous les articles
-			if ($state === FreshRSS_Entry::STATE_NOT_READ && empty($entries) && ($state_param === null) && ($filter == '')) {
+			if ($this->view->state === FreshRSS_Entry::STATE_NOT_READ && empty($entries) && ($state_param === null) && ($filter == '')) {
 				Minz_Log::record('Conflicting information about nbNotRead!', Minz_Log::DEBUG);
 				$feedDAO = FreshRSS_Factory::createFeedDao();
 				try {
@@ -135,6 +132,7 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 				$this->view->state = FreshRSS_Entry::STATE_ALL;
 				$entries = $entryDAO->listWhere($getType, $getId, $this->view->state, $order, $nb, $first, $filter, $date_min, true, $keepHistoryDefault);
 			}
+			Minz_Request::_param('state', $this->view->state);
 
 			if (count($entries) <= $nb) {
 				$this->view->nextId  = '';
@@ -298,6 +296,41 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 		Minz_Session::_param('passwordHash');
 	}
 
+	private static function makeLongTermCookie($username, $passwordHash) {
+		do {
+			$token = sha1(Minz_Configuration::salt() . $username . uniqid(mt_rand(), true));
+			$tokenFile = DATA_PATH . '/tokens/' . $token . '.txt';
+		} while (file_exists($tokenFile));
+		if (@file_put_contents($tokenFile, $username . "\t" . $passwordHash) === false) {
+			return false;
+		}
+		$expire = time() + 2629744;	//1 month	//TODO: Use a configuration instead
+		Minz_Session::setLongTermCookie('FreshRSS_login', $token, $expire);
+		Minz_Session::_param('token', $token);
+		return $token;
+	}
+
+	private static function deleteLongTermCookie() {
+		Minz_Session::deleteLongTermCookie('FreshRSS_login');
+		$token = Minz_Session::param('token', null);
+		if (ctype_alnum($token)) {
+			@unlink(DATA_PATH . '/tokens/' . $token . '.txt');
+		}
+		Minz_Session::_param('token');
+		if (rand(0, 10) === 1) {
+			self::purgeTokens();
+		}
+	}
+
+	private static function purgeTokens() {
+		$oldest = time() - 2629744;	//1 month	//TODO: Use a configuration instead
+		foreach (new DirectoryIterator(DATA_PATH . '/tokens/') as $fileInfo) {
+			if ($fileInfo->getExtension() === 'txt' && $fileInfo->getMTime() < $oldest) {
+				@unlink($fileInfo->getPathname());
+			}
+		}
+	}
+
 	public function formLoginAction () {
 		if (Minz_Request::isPost()) {
 			$ok = false;
@@ -315,6 +348,11 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 					if ($ok) {
 						Minz_Session::_param('currentUser', $username);
 						Minz_Session::_param('passwordHash', $s);
+						if (Minz_Request::param('keep_logged_in', false)) {
+							self::makeLongTermCookie($username, $s);
+						} else {
+							self::deleteLongTermCookie();
+						}
 					} else {
 						Minz_Log::record('Password mismatch for user ' . $username . ', nonce=' . $nonce . ', c=' . $c, Minz_Log::WARNING);
 					}
@@ -374,6 +412,7 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 		Minz_Session::_param('currentUser');
 		Minz_Session::_param('mail');
 		Minz_Session::_param('passwordHash');
+		self::deleteLongTermCookie();
 		Minz_Request::forward(array('c' => 'index', 'a' => 'index'), true);
 	}
 }

@@ -33,14 +33,18 @@ class Minz_ModelPdo {
 	 * Créé la connexion à la base de données à l'aide des variables
 	 * HOST, BASE, USER et PASS définies dans le fichier de configuration
 	 */
-	public function __construct() {
-		if (self::$useSharedBd && self::$sharedBd != null) {
+	public function __construct($currentUser = null) {
+		if (self::$useSharedBd && self::$sharedBd != null && $currentUser === null) {
 			$this->bd = self::$sharedBd;
 			$this->prefix = self::$sharedPrefix;
 			return;
 		}
 
 		$db = Minz_Configuration::dataBase();
+
+		if ($currentUser === null) {
+			$currentUser = Minz_Session::param('currentUser', '_');
+		}
 
 		try {
 			$type = $db['type'];
@@ -51,9 +55,9 @@ class Minz_ModelPdo {
 				$driver_options = array(
 					PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8',
 				);
-				$this->prefix = $db['prefix'] . Minz_Session::param('currentUser', '_') . '_';
+				$this->prefix = $db['prefix'] . $currentUser . '_';
 			} elseif ($type === 'sqlite') {
-				$string = 'sqlite:' . DATA_PATH . '/' . Minz_Session::param('currentUser', '_') . '.sqlite';
+				$string = 'sqlite:' . DATA_PATH . '/' . $currentUser . '.sqlite';
 				$driver_options = array(
 					//PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
 				);
@@ -67,7 +71,7 @@ class Minz_ModelPdo {
 			self::$sharedDbType = $type;
 			self::$sharedPrefix = $this->prefix;
 
-			$this->bd = new FreshPDO(
+			$this->bd = new MinzPDO(
 				$string,
 				$db['user'],
 				$db['password'],
@@ -98,7 +102,7 @@ class Minz_ModelPdo {
 	}
 }
 
-class FreshPDO extends PDO {
+class MinzPDO extends PDO {
 	private static function check($statement) {
 		if (preg_match('/^(?:UPDATE|INSERT|DELETE)/i', $statement)) {
 			invalidateHttpCache();
@@ -106,12 +110,12 @@ class FreshPDO extends PDO {
 	}
 
 	public function prepare($statement, $driver_options = array()) {
-		FreshPDO::check($statement);
+		MinzPDO::check($statement);
 		return parent::prepare($statement, $driver_options);
 	}
 
 	public function exec($statement) {
-		FreshPDO::check($statement);
+		MinzPDO::check($statement);
 		return parent::exec($statement);
 	}
 }
