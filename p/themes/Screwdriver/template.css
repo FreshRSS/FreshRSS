@@ -309,6 +309,9 @@ a.btn {
 	list-style: none;
 	margin: 0;
 }
+.state_unread li:not(.active)[data-unread="0"] {
+	display: none;
+}
 .category {
 	display: block;
 	overflow: hidden;
