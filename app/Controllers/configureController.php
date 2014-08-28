@@ -240,7 +240,7 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 		                    'm', 'n', 'o', 'p', 'page_down', 'page_up', 'q', 'r', 'return', 'right',
 		                    's', 'space', 't', 'tab', 'u', 'up', 'v', 'w', 'x', 'y',
 		                    'z', '0', '1', '2', '3', '4', '5', '6', '7', '8',
-		                    '9', 'f2', 'f3', 'f4', 'f5', 'f6', 'f7', 'f8', 'f9',
+		                    '9', 'f1', 'f2', 'f3', 'f4', 'f5', 'f6', 'f7', 'f8', 'f9',
 		                    'f10', 'f11', 'f12');
 		$this->view->list_keys = $list_keys;
 
