@@ -61,6 +61,7 @@ class FreshRSS_Configuration {
 	);
 
 	private $available_languages = array(
+		'de' => 'Deutsch',
 		'en' => 'English',
 		'fr' => 'Français',
 	);
