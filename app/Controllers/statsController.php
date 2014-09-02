@@ -67,8 +67,11 @@ class FreshRSS_stats_Controller extends Minz_ActionController {
 		$this->view->days = $statsDAO->getDays();
 		$this->view->months = $statsDAO->getMonths();
 		$this->view->repartitionHour = $statsDAO->calculateEntryRepartitionPerFeedPerHour($id);
+		$this->view->averageHour = $statsDAO->calculateEntryAveragePerFeedPerHour($id);
 		$this->view->repartitionDayOfWeek = $statsDAO->calculateEntryRepartitionPerFeedPerDayOfWeek($id);
+		$this->view->averageDayOfWeek = $statsDAO->calculateEntryAveragePerFeedPerDayOfWeek($id);
 		$this->view->repartitionMonth = $statsDAO->calculateEntryRepartitionPerFeedPerMonth($id);
+		$this->view->averageMonth = $statsDAO->calculateEntryAveragePerFeedPerMonth($id);
 	}
 
 	public function firstAction() {
