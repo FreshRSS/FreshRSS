@@ -180,6 +180,9 @@ return array (
 	'auto_share'			=> 'Share',
 	'auto_share_help'		=> 'If there is only one sharing mode, it is used. Else modes are accessible by their number.',
 	'focus_search'			=> 'Access search box',
+	'user_filter'			=> 'Access user filters',
+	'user_filter_help'		=> 'If there is only one user filter, it is used. Else filters are accessible by their number.',
+	'help'				=> 'Display documentation',
 
 	'file_to_import'		=> 'File to import<br />(OPML, Json or Zip)',
 	'file_to_import_no_zip'		=> 'File to import<br />(OPML or Json)',

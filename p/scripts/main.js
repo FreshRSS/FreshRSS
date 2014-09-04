@@ -378,6 +378,36 @@ function collapse_entry() {
 	}
 }
 
+function user_filter(key) {
+	console.log('user filter');
+	console.warn(key);
+	var filter = $('#dropdown-query');
+	var filters = filter.siblings('.dropdown-menu').find('.item.query a');
+	if (typeof key === "undefined") {
+		if (!filter.length) {
+			return;
+		}
+		// Display the filter div
+		window.location.hash = filter.attr('id');
+		// Force scrolling to the filter div
+		var scroll = needsScroll($('.header'));
+		if (scroll !== 0) {
+			$('html,body').scrollTop(scroll);
+		}
+		// Force the key value if there is only one action, so we can trigger it automatically
+		if (filters.length === 1) {
+			key = 1;
+		} else {
+			return;
+		}
+	}
+	// Trigger selected share action
+	key = parseInt(key);
+	if (key <= filters.length) {
+		filters[key - 1].click();
+	}
+}
+
 function auto_share(key) {
 	var share = $(".flux.current.active").find('.dropdown-target[id^="dropdown-share"]');
 	var shares = share.siblings('.dropdown-menu').find('.item a');
@@ -531,9 +561,19 @@ function init_shortcuts() {
 	}, {
 		'disable_in_input': true
 	});
+
+	shortcut.add(shortcuts.user_filter, function () {
+		user_filter();
+	}, {
+		'disable_in_input': true
+	});
 	for(var i = 1; i < 10; i++){
 		shortcut.add(i.toString(), function (e) {
-			auto_share(String.fromCharCode(e.keyCode));
+			if ($('#dropdown-query').siblings('.dropdown-menu').is(':visible')) {
+				user_filter(String.fromCharCode(e.keyCode));
+			} else {
+				auto_share(String.fromCharCode(e.keyCode));
+			}
 		}, {
 			'disable_in_input': true
 		});
@@ -618,6 +658,13 @@ function init_shortcuts() {
 	}, {
 		'disable_in_input': true
 	});
+
+	shortcut.add(shortcuts.help, function () {
+		redirect(help_url, true);
+	}, {
+		'disable_in_input': true
+	});
+
 }
 
 function init_stream(divStream) {

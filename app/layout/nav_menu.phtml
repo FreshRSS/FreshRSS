@@ -96,7 +96,7 @@
 				<li class="dropdown-header"><?php echo Minz_Translate::t('queries'); ?> <a class="no-mobile" href="<?php echo _url('configure', 'queries'); ?>"><?php echo FreshRSS_Themes::icon('configure'); ?></a></li>
 
 				<?php foreach ($this->conf->queries as $query) { ?>
-				<li class="item">
+				<li class="item query">
 					<a href="<?php echo $query['url']; ?>"><?php echo $query['name']; ?></a>
 				</li>
 				<?php } ?>
