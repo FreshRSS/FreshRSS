@@ -373,7 +373,7 @@ function collapse_entry() {
 
 	var flux_current = $(".flux.current");
 	flux_current.toggleClass("active");
-	if (isCollapsed) {
+	if (isCollapsed && auto_mark_article) {
 		mark_read(flux_current, true);
 	}
 }
