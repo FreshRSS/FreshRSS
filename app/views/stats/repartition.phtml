@@ -56,11 +56,22 @@ function initStats() {
 		return;
 	}
 	// Entry per hour
+	var avg_h = [];
+	for (var i = -1; i <= 24; i++) {
+		avg_h.push([i, <?php echo $this->averageHour?>]);
+	}
 	Flotr.draw(document.getElementById('statsEntryPerHour'),
-		[<?php echo $this->repartitionHour ?>],
+		[{
+			data: <?php echo $this->repartitionHour ?>,
+			bars: {horizontal: false, show: true}
+		}, {
+			data: avg_h,
+			lines: {show: true},
+			label: <?php echo $this->averageHour?>,
+			yaxis: 2
+		}],
 		{
 			grid: {verticalLines: false},
-			bars: {horizontal: false, show: true},
 			xaxis: {noTicks: 23,
 				tickFormatter: function(x) {
 					var x = parseInt(x);
@@ -70,14 +81,26 @@ function initStats() {
 				max: 23.9,
 				tickDecimals: 0},
 			yaxis: {min: 0},
+			y2axis: {showLabels: false},
 			mouse: {relative: true, track: true, trackDecimals: 0, trackFormatter: function(obj) {return numberFormat(obj.y);}}
 		});
 	// Entry per day of week
+	var avg_dow = [];
+	for (var i = -1; i <= 7; i++) {
+		avg_dow.push([i, <?php echo $this->averageDayOfWeek?>]);
+	}
 	Flotr.draw(document.getElementById('statsEntryPerDayOfWeek'),
-		[<?php echo $this->repartitionDayOfWeek ?>],
+		[{
+			data: <?php echo $this->repartitionDayOfWeek ?>,
+			bars: {horizontal: false, show: true}
+		}, {
+			data: avg_dow,
+			lines: {show: true},
+			label: <?php echo $this->averageDayOfWeek?>,
+			yaxis: 2
+		}],
 		{
 			grid: {verticalLines: false},
-			bars: {horizontal: false, show: true},
 			xaxis: {noTicks: 6,
 				tickFormatter: function(x) {
 					var x = parseInt(x),
@@ -88,14 +111,26 @@ function initStats() {
 				max: 6.9,
 				tickDecimals: 0},
 			yaxis: {min: 0},
+			y2axis: {showLabels: false},
 			mouse: {relative: true, track: true, trackDecimals: 0, trackFormatter: function(obj) {return numberFormat(obj.y);}}
 		});
 	// Entry per month
+	var avg_m = [];
+	for (var i = 0; i <= 13; i++) {
+		avg_m.push([i, <?php echo $this->averageMonth?>]);
+	}
 	Flotr.draw(document.getElementById('statsEntryPerMonth'),
-		[<?php echo $this->repartitionMonth ?>],
+		[{
+			data: <?php echo $this->repartitionMonth ?>,
+			bars: {horizontal: false, show: true}
+		}, {
+			data: avg_m,
+			lines: {show: true},
+			label: <?php echo $this->averageMonth?>,
+			yaxis: 2
+		}],
 		{
 			grid: {verticalLines: false},
-			bars: {horizontal: false, show: true},
 			xaxis: {noTicks: 12,
 				tickFormatter: function(x) {
 					var x = parseInt(x),
@@ -106,6 +141,7 @@ function initStats() {
 				max: 12.9,
 				tickDecimals: 0},
 			yaxis: {min: 0},
+			y2axis: {showLabels: false},
 			mouse: {relative: true, track: true, trackDecimals: 0, trackFormatter: function(obj) {return numberFormat(obj.y);}}
 		});
 
