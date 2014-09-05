@@ -297,7 +297,7 @@ function next_entry() {
 function prev_feed() {
 	var active_feed = $("#aside_flux .feeds li.active");
 	if (active_feed.length > 0) {
-		active_feed.prev().find('a.feed').each(function(){this.click();});
+		active_feed.prevAll(':visible:first').find('a.feed').each(function(){this.click();});
 	} else {
 		last_feed();
 	}
@@ -306,21 +306,21 @@ function prev_feed() {
 function next_feed() {
 	var active_feed = $("#aside_flux .feeds li.active");
 	if (active_feed.length > 0) {
-		active_feed.next().find('a.feed').each(function(){this.click();});
+		active_feed.nextAll(':visible:first').find('a.feed').each(function(){this.click();});
 	} else {
 		first_feed();
 	}
 }
 
 function first_feed() {
-	var feed = $("#aside_flux .feeds.active li:first");
+	var feed = $("#aside_flux .feeds.active li:visible:first");
 	if (feed.length > 0) {
 		feed.find('a')[1].click();
 	}
 }
 
 function last_feed() {
-	var feed = $("#aside_flux .feeds.active li:last");
+	var feed = $("#aside_flux .feeds.active li:visible:last");
 	if (feed.length > 0) {
 		feed.find('a')[1].click();
 	}
@@ -330,7 +330,7 @@ function prev_category() {
 	var active_cat = $("#aside_flux .category.stick.active");
 
 	if (active_cat.length > 0) {
-		var prev_cat = active_cat.parent('li').prev().find('.category.stick a.btn');
+		var prev_cat = active_cat.parent('li').prevAll(':visible:first').find('.category.stick a.btn');
 		if (prev_cat.length > 0) {
 			prev_cat[0].click();
 		}
@@ -344,7 +344,7 @@ function next_category() {
 	var active_cat = $("#aside_flux .category.stick.active");
 
 	if (active_cat.length > 0) {
-		var next_cat = active_cat.parent('li').next().find('.category.stick a.btn');
+		var next_cat = active_cat.parent('li').nextAll(':visible:first').find('.category.stick a.btn');
 		if (next_cat.length > 0) {
 			next_cat[0].click();
 		}
@@ -355,14 +355,14 @@ function next_category() {
 }
 
 function first_category() {
-	var cat = $("#aside_flux .category.stick:first");
+	var cat = $("#aside_flux .category.stick:visible:first");
 	if (cat.length > 0) {
 		cat.find('a.btn')[0].click();
 	}
 }
 
 function last_category() {
-	var cat = $("#aside_flux .category.stick:last");
+	var cat = $("#aside_flux .category.stick:visible:last");
 	if (cat.length > 0) {
 		cat.find('a.btn')[0].click();
 	}
