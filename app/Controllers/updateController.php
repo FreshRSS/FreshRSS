@@ -11,7 +11,11 @@ class FreshRSS_update_Controller extends Minz_ActionController {
 		}
 
 		Minz_View::prependTitle(_t('update_system') . ' · ');
-		$this->view->last_update_time = 'unknown';  // TODO
+		$this->view->last_update_time = 'unknown';
+		$timestamp = (int)@file_get_contents(DATA_PATH . '/last_update.txt');
+		if (is_numeric($timestamp) && $timestamp > 0) {
+			$this->view->last_update_time = timestamptodate($timestamp);
+		}
 	}
 
 	public function indexAction() {
@@ -99,8 +103,7 @@ class FreshRSS_update_Controller extends Minz_ActionController {
 
 			if ($res === true) {
 				@unlink(UPDATE_FILENAME);
-
-				// TODO: record last update_finished
+				@file_put_contents(DATA_PATH . '/last_update.txt', time());
 
 				Minz_Request::good(_t('update_finished'));
 			} else {
