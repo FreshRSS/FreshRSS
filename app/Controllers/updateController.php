@@ -15,15 +15,19 @@ class FreshRSS_update_Controller extends Minz_ActionController {
 	}
 
 	public function indexAction() {
-		if (file_exists(UPDATE_FILENAME)) {
+		if (file_exists(UPDATE_FILENAME) && !is_writable(FRESHRSS_PATH)) {
+			$this->view->message = array(
+				'status' => 'bad',
+				'title' => _t('damn'),
+				'body' => _t('file_is_nok', FRESHRSS_PATH)
+			);
+		} elseif (file_exists(UPDATE_FILENAME)) {
 			// There is an update file to apply!
 			$this->view->message = array(
 				'status' => 'good',
 				'title' => _t('ok'),
 				'body' => _t('update_can_apply', _url('update', 'apply'))
 			);
-
-			return;
 		}
 	}
 
@@ -33,11 +37,7 @@ class FreshRSS_update_Controller extends Minz_ActionController {
 		if (file_exists(UPDATE_FILENAME)) {
 			// There is already an update file to apply: we don't need to check
 			// the webserver!
-			$this->view->message = array(
-				'status' => 'good',
-				'title' => _t('ok'),
-				'body' => _t('update_can_apply', _url('update', 'apply'))
-			);
+			Minz_Request::forward(array('c' => 'update'));
 
 			return;
 		}
@@ -73,11 +73,7 @@ class FreshRSS_update_Controller extends Minz_ActionController {
 
 		$script = $res_array[1];
 		if (file_put_contents(UPDATE_FILENAME, $script) !== false) {
-			$this->view->message = array(
-				'status' => 'good',
-				'title' => _t('ok'),
-				'body' => _t('update_can_apply', _url('update', 'apply'))
-			);
+			Minz_Request::forward(array('c' => 'update'));
 		} else {
 			$this->view->message = array(
 				'status' => 'bad',
@@ -88,7 +84,7 @@ class FreshRSS_update_Controller extends Minz_ActionController {
 	}
 
 	public function applyAction() {
-		if (!file_exists(UPDATE_FILENAME)) {
+		if (!file_exists(UPDATE_FILENAME) || !is_writable(FRESHRSS_PATH)) {
 			Minz_Request::forward(array('c' => 'update'), true);
 		}
 
@@ -104,21 +100,12 @@ class FreshRSS_update_Controller extends Minz_ActionController {
 			if ($res === true) {
 				@unlink(UPDATE_FILENAME);
 
-				// TODO: record last update
+				// TODO: record last update_finished
 
-				Minz_Session::_param('notification', array(
-					'type' => 'good',
-					'content' => Minz_Translate::t('update_finished')
-				));
-
-				Minz_Request::forward(array(), true);
+				Minz_Request::good(_t('update_finished'));
 			} else {
-				Minz_Session::_param('notification', array(
-					'type' => 'bad',
-					'content' => Minz_Translate::t('update_problem', $res)
-				));
-
-				Minz_Request::forward(array('c' => 'update'), true);
+				Minz_Request::bad(_t('update_problem', $res),
+				                  array('c' => 'update', 'a' => 'index'));
 			}
 		}
 	}

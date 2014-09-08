@@ -152,6 +152,8 @@ return array (
 	'public'			=> 'Public',
 	'invalid_login'			=> 'L’identifiant est invalide !',
 
+	'file_is_nok'			=> 'Veuillez vérifier les droits sur le répertoire <em>%s</em>. Le serveur HTTP doit être capable d’écrire dedans.',
+
 	// VIEWS
 	'save'				=> 'Enregistrer',
 	'delete'			=> 'Supprimer',

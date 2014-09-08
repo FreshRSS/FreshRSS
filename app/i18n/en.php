@@ -152,6 +152,8 @@ return array (
 	'public'			=> 'Public',
 	'invalid_login'			=> 'Login is invalid',
 
+	'file_is_nok'			=> 'Check permissions on <em>%s</em> directory. HTTP server must have rights to write into.',
+
 	// VIEWS
 	'save'				=> 'Save',
 	'delete'			=> 'Delete',
