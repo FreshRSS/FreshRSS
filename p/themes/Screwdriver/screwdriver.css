@@ -206,6 +206,10 @@ a.btn {
 	background: linear-gradient(180deg, #EDE7DE 0%, #FFF 100%) #EDE7DE;
 	background: -webkit-linear-gradient(top, #EDE7DE 0%, #FFF 100%);
 }
+#loginButton.btn{
+	border:none;
+	box-shadow: 0px 1px rgba(255, 255, 255, 0.08) inset,0 -1px #171717,0px 1px rgba(255, 255, 255, 0.08);
+}
 .nav_menu .btn.active, .nav_menu .btn:active, .nav_menu .dropdown-target:target ~ .btn.dropdown-toggle{
 	box-shadow: 0px 2px #E2972A;
 	border-radius: 0;
@@ -333,7 +337,7 @@ a.btn {
 .nav-head {
 	margin: 0;
 	background: linear-gradient(0deg, #EDE7DE 0%, #FFF 100%) #EDE7DE;
-	background: -webkit-linear-gradient(0deg, #EDE7DE 0%, #FFF 100%);
+	background: -webkit-linear-gradient(bottom, #EDE7DE 0%, #FFF 100%);
 	text-align: right;
 }
 .nav-head .item {
@@ -674,6 +678,15 @@ ul.feeds.active{
 .prompt p {
 	margin: 20px 0;
 }
+.prompt input#username,.prompt input#passwordPlain{
+	border:none;
+	box-shadow: 0px 1px rgba(255, 255, 255, 0.08) inset,0 -1px #171717,0px 1px rgba(255, 255, 255, 0.08);
+	background:#EDE7DE;
+}
+.prompt input#username:focus,.prompt input#passwordPlain:focus{
+	border: solid 1px #E7AB34;
+	box-shadow: 0 0 3px #E7AB34;
+}
 
 /*=== New article notification */
 #new-article {
@@ -755,13 +768,13 @@ ul.feeds.active{
 }
 
 .flux .item.title {
-text-decoration: line-through;
+opacity: 0.35;
 }
 .flux.favorite .item.title {
-text-decoration: none;
+opacity: 1;
 }
 .flux.not_read .item.title {
-text-decoration: none;
+opacity: 1;
 }
 .flux.current .item.title a {
 	color: #0f0f0f;
@@ -1084,7 +1097,7 @@ text-decoration: none;
 		text-align: center;
 		background: #171717;
 		box-shadow: 0 1px rgba(255,255,255,0.08);
-		border-radius: 0 0 0 5px;
+		border-radius: 0 8px 0 8px;
 	}
 	.aside .btn-important {
 		display: inline-block;

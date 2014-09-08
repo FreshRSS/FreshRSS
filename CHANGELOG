@@ -11,9 +11,12 @@
 	* Improvements
 * Security
 	* Basic protection against XSRF (Cross-Site Request Forgery) based on HTTP Referer (POST requests only)
+* API
+	* Compatible with lighttpd
 * Misc.
 	* Changed lazyload implementation
 	* Support of HTML5 notifications for new upcoming articles
+	* Add option to stay logged in
 * Bux fixes in export function, add/remove users, keyboard shortcuts, etc.
 
 

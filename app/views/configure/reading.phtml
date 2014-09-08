@@ -63,6 +63,16 @@
 
 		<div class="form-group">
 			<div class="group-controls">
+				<label class="checkbox" for="display_categories">
+					<input type="checkbox" name="display_categories" id="display_categories" value="1"<?php echo $this->conf->display_categories ? ' checked="checked"' : ''; ?> />
+					<?php echo Minz_Translate::t ('display_categories_unfolded'); ?>
+					<noscript> — <strong><?php echo Minz_Translate::t ('javascript_should_be_activated'); ?></strong></noscript>
+				</label>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<div class="group-controls">
 				<label class="checkbox" for="sticky_post">
 					<input type="checkbox" name="sticky_post" id="sticky_post" value="1"<?php echo $this->conf->sticky_post ? ' checked="checked"' : ''; ?> />
 					<?php echo Minz_Translate::t ('sticky_post'); ?>

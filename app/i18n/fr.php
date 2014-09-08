@@ -3,6 +3,7 @@
 return array (
 	// LAYOUT
 	'login'				=> 'Connexion',
+	'keep_logged_in'		=> 'Rester connecté <small>(1 mois)</small>',
 	'login_with_persona'		=> 'Connexion avec Persona',
 	'logout'			=> 'Déconnexion',
 	'search'			=> 'Rechercher des mots ou des #tags',
@@ -179,9 +180,16 @@ return array (
 	'auto_share'			=> 'Partager',
 	'auto_share_help'		=> 'S’il n’y a qu’un mode de partage, celui ci est utilisé automatiquement. Sinon ils sont accessibles par leur numéro.',
 	'focus_search'			=> 'Accéder à la recherche',
+	'user_filter'			=> 'Accéder aux filtres utilisateur',
+	'user_filter_help'		=> 'S’il n’y a qu’un filtre utilisateur, celui ci est utilisé automatiquement. Sinon ils sont accessibles par leur numéro.',
+	'help'				=> 'Afficher la documentation',
 
 	'file_to_import'		=> 'Fichier à importer<br />(OPML, Json ou Zip)',
+	'file_to_import_no_zip'		=> 'Fichier à importer<br />(OPML ou Json)',
 	'import'			=> 'Importer',
+	'file_cannot_be_uploaded'	=> 'Le fichier ne peut pas être téléchargé!',
+	'zip_error'			=> 'Une erreur est survenue durant l’import du fichier Zip.',
+	'no_zip_extension'		=> 'L’extension Zip n’est pas présente sur votre serveur.',
 	'export'			=> 'Exporter',
 	'export_opml'			=> 'Exporter la liste des flux (OPML)',
 	'export_starred'		=> 'Exporter les favoris',
@@ -263,6 +271,7 @@ return array (
 	'sort_order'			=> 'Ordre de tri',
 	'auto_load_more'		=> 'Charger les articles suivants en bas de page',
 	'display_articles_unfolded'	=> 'Afficher les articles dépliés par défaut',
+	'display_categories_unfolded'	=> 'Afficher les catégories pliées par défaut',
 	'hide_read_feeds'		=> 'Cacher les catégories &amp; flux sans article non-lu (uniquement en affichage “articles non lus”)',
 	'after_onread'			=> 'Après “marquer tout comme lu”,',
 	'jump_next'			=> 'sauter au prochain voisin non lu (flux ou catégorie)',

@@ -6,7 +6,9 @@
 	<form method="post" action="<?php echo _url('importExport', 'import'); ?>" enctype="multipart/form-data">
 		<legend><?php echo _t('import'); ?></legend>
 		<div class="form-group">
-			<label class="group-name" for="file"><?php echo _t('file_to_import'); ?></label>
+			<label class="group-name" for="file">
+				<?php echo extension_loaded('zip') ? _t('file_to_import') : _t('file_to_import_no_zip'); ?>
+			</label>
 			<div class="group-controls">
 				<input type="file" name="file" id="file" />
 			</div>

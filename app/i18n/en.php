@@ -3,6 +3,7 @@
 return array (
 	// LAYOUT
 	'login'				=> 'Login',
+	'keep_logged_in'		=> 'Keep me logged in <small>(1 month)</small>',
 	'login_with_persona'		=> 'Login with Persona',
 	'logout'			=> 'Logout',
 	'search'			=> 'Search words or #tags',
@@ -179,9 +180,16 @@ return array (
 	'auto_share'			=> 'Share',
 	'auto_share_help'		=> 'If there is only one sharing mode, it is used. Else modes are accessible by their number.',
 	'focus_search'			=> 'Access search box',
+	'user_filter'			=> 'Access user filters',
+	'user_filter_help'		=> 'If there is only one user filter, it is used. Else filters are accessible by their number.',
+	'help'				=> 'Display documentation',
 
 	'file_to_import'		=> 'File to import<br />(OPML, Json or Zip)',
+	'file_to_import_no_zip'		=> 'File to import<br />(OPML or Json)',
 	'import'			=> 'Import',
+	'file_cannot_be_uploaded'	=> 'File cannot be uploaded!',
+	'zip_error'			=> 'An error occured during Zip import.',
+	'no_zip_extension'		=> 'Zip extension is not present on your server.',
 	'export'			=> 'Export',
 	'export_opml'			=> 'Export list of feeds (OPML)',
 	'export_starred'		=> 'Export your favourites',
@@ -263,6 +271,7 @@ return array (
 	'sort_order'			=> 'Sort order',
 	'auto_load_more'		=> 'Load next articles at the page bottom',
 	'display_articles_unfolded'	=> 'Show articles unfolded by default',
+	'display_categories_unfolded'	=> 'Show categories folded by default',
 	'hide_read_feeds'		=> 'Hide categories &amp; feeds with no unread article (only in “unread articles” display mode)',
 	'after_onread'			=> 'After “mark all as read”,',
 	'jump_next'			=> 'jump to next unread sibling (feed or category)',

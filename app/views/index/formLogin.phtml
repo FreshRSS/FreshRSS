@@ -1,32 +1,39 @@
 <div class="prompt">
-	<h1><?php echo Minz_Translate::t('login'); ?></h1><?php
+	<h1><?php echo _t('login'); ?></h1><?php
 
 	switch (Minz_Configuration::authType()) {
 	case 'form':
 	?><form id="loginForm" method="post" action="<?php echo _url('index', 'formLogin'); ?>">
 		<div>
-			<label for="username"><?php echo Minz_Translate::t('username'); ?></label>
+			<label for="username"><?php echo _t('username'); ?></label>
 			<input type="text" id="username" name="username" size="16" required="required" maxlength="16" pattern="[0-9a-zA-Z]{1,16}" autofocus="autofocus" />
 		</div>
 		<div>
-			<label for="passwordPlain"><?php echo Minz_Translate::t('password'); ?></label>
+			<label for="passwordPlain"><?php echo _t('password'); ?></label>
 				<input type="password" id="passwordPlain" required="required" />
 				<input type="hidden" id="challenge" name="challenge" /><br />
-				<noscript><strong><?php echo Minz_Translate::t('javascript_should_be_activated'); ?></strong></noscript>
+				<noscript><strong><?php echo _t('javascript_should_be_activated'); ?></strong></noscript>
 		</div>
 		<div>
-			<button id="loginButton" type="submit" class="btn btn-important"><?php echo Minz_Translate::t('login'); ?></button>
+			<label class="checkbox" for="keep_logged_in">
+				<input type="checkbox" name="keep_logged_in" id="keep_logged_in" value="1" />
+				<?php echo _t('keep_logged_in'); ?>
+			</label>
+			<br />
+		</div>
+		<div>
+			<button id="loginButton" type="submit" class="btn btn-important"><?php echo _t('login'); ?></button>
 		</div>
 	</form><?php
 		break;
 
 	case 'persona':
 		?><p>
-			<?php echo FreshRSS_Themes::icon('login'); ?>
-			<a class="signin" href="#"><?php echo Minz_Translate::t('login_with_persona'); ?></a>
+			<?php echo _i('login'); ?>
+			<a class="signin" href="#"><?php echo _t('login_with_persona'); ?></a>
 		</p><?php
 		break;
 	} ?>
 
-	<p><a href="<?php echo _url('index', 'about'); ?>"><?php echo Minz_Translate::t('about_freshrss'); ?></a></p>
+	<p><a href="<?php echo _url('index', 'about'); ?>"><?php echo _t('about_freshrss'); ?></a></p>
 </div>

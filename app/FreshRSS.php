@@ -6,8 +6,7 @@ class FreshRSS extends Minz_FrontController {
 		}
 		$loginOk = $this->accessControl(Minz_Session::param('currentUser', ''));
 		$this->loadParamsView();
-		if (Minz_Request::isPost() && (empty($_SERVER['HTTP_REFERER']) ||
-			Minz_Request::getDomainName() !== parse_url($_SERVER['HTTP_REFERER'], PHP_URL_HOST))) {
+		if (Minz_Request::isPost() && !Minz_Request::isRefererFromSameDomain()) {
 			$loginOk = false;	//Basic protection against XSRF attacks
 			Minz_Error::error(
 				403,
@@ -20,13 +19,35 @@ class FreshRSS extends Minz_FrontController {
 		$this->loadNotifications();
 	}
 
+	private static function getCredentialsFromLongTermCookie() {
+		$token = Minz_Session::getLongTermCookie('FreshRSS_login');
+		if (!ctype_alnum($token)) {
+			return array();
+		}
+		$tokenFile = DATA_PATH . '/tokens/' . $token . '.txt';
+		$mtime = @filemtime($tokenFile);
+		if ($mtime + 2629744 < time()) {	//1 month	//TODO: Use a configuration instead
+			@unlink($tokenFile);
+			return array(); 	//Expired or token does not exist
+		}
+		$credentials = @file_get_contents($tokenFile);
+		return $credentials === false ? array() : explode("\t", $credentials, 2);
+	}
+
 	private function accessControl($currentUser) {
 		if ($currentUser == '') {
 			switch (Minz_Configuration::authType()) {
 				case 'form':
-					$currentUser = Minz_Configuration::defaultUser();
-					Minz_Session::_param('passwordHash');
-					$loginOk = false;
+					$credentials = self::getCredentialsFromLongTermCookie();
+					if (isset($credentials[1])) {
+						$currentUser = trim($credentials[0]);
+						Minz_Session::_param('passwordHash', trim($credentials[1]));
+					}
+					$loginOk = $currentUser != '';
+					if (!$loginOk) {
+						$currentUser = Minz_Configuration::defaultUser();
+						Minz_Session::_param('passwordHash');
+					}
 					break;
 				case 'http_auth':
 					$currentUser = httpAuthUser();
