@@ -32,8 +32,7 @@ function recurse_copy($src,$dst) {
         if (($file != '.') && ($file != '..')) {
             if (is_dir($src . '/' . $file)) {
                 recurse_copy($src . '/' . $file,$dst . '/' . $file);
-            }
-            else {
+            } else {
                 copy($src . '/' . $file,$dst . '/' . $file);
             }
         }
@@ -65,7 +64,7 @@ function data_backup() {
 
 // Save and unzip FreshRSS package.
 function save_package($url) {
-	// Download first package at $url.
+	// First, download package from $url.
 	$zip_filename = PACKAGE_PATHNAME . '.zip';
 	$zip_file = fopen($zip_filename, 'w+');
 	$c = curl_init($url);
