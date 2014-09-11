@@ -4,7 +4,7 @@
 	<ul class="categories">
 		<?php if ($this->loginOk) { ?>
 		<li>
-			<div class="stick">
+			<div class="stick configure-feeds">
 				<a class="btn btn-important" href="<?php echo _url ('configure', 'feed'); ?>"><?php echo Minz_Translate::t ('subscription_management'); ?></a>
 				<a class="btn btn-important" href="<?php echo _url ('configure', 'categorize'); ?>" title="<?php echo Minz_Translate::t ('categories_management'); ?>"><?php echo FreshRSS_Themes::icon('category-white'); ?></a>
 			</div>
