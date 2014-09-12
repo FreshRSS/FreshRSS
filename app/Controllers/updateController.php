@@ -56,9 +56,14 @@ class FreshRSS_update_Controller extends Minz_ActionController {
 		curl_setopt($c, CURLOPT_SSL_VERIFYHOST, 2);
 		$result = curl_exec($c);
 		$c_status = curl_getinfo($c, CURLINFO_HTTP_CODE);
+		$c_error = curl_error($c);
 		curl_close($c);
 
 		if ($c_status !== 200) {
+			Minz_Log::error(
+				'Error during update (HTTP code ' . $c_status . '): ' . $c_error
+			);
+
 			$this->view->message = array(
 				'status' => 'bad',
 				'title' => _t('damn'),
