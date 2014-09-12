@@ -239,6 +239,7 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 
 
 		$error = false;
+		$prepared_statement = $this->entryDAO->addEntryPrepare();
 		foreach ($article_object['items'] as $item) {
 			$feed = $this->addFeedArticles($item['origin'], $google_compliant);
 			if (is_null($feed)) {
@@ -261,15 +262,14 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 				$item[$key_content]['content'], $item['alternate'][0]['href'],
 				$item['published'], $is_read, $starred
 			);
+			$entry->_id(min(time(), $entry->date(true)) . uSecString());
 			$entry->_tags($tags);
 
 			// FIXME
-			// Use entryDAO->addEntryPrepare().
 			// Do not call entryDAO->listLastGuidsByFeed() for each entry.
 			// Consider using a transaction.
-			$id = $this->entryDAO->addEntryObject(
-				$entry, $this->view->conf, $feed->keepHistory()
-			);
+			$values = $entry->toArray();
+			$id = $this->entryDAO->addEntry($values, $prepared_statement);
 
 			if (!$error && ($id === false)) {
 				$error = true;
