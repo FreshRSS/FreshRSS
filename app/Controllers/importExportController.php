@@ -119,8 +119,7 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 		} elseif (substr_compare($filename, '.json', -5) === 0 &&
 		          strpos($filename, 'starred') !== false) {
 			return 'json_starred';
-		} elseif (substr_compare($filename, '.json', -5) === 0 &&
-		          strpos($filename, 'feed_') === 0) {
+		} elseif (substr_compare($filename, '.json', -5) === 0) {
 			return 'json_feed';
 		} else {
 			return 'unknown';
@@ -238,6 +237,7 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 			strpos($article_object['id'], 'com.google') !== false
 		);
 
+
 		$error = false;
 		foreach ($article_object['items'] as $item) {
 			$feed = $this->addFeedArticles($item['origin'], $google_compliant);
@@ -263,7 +263,10 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 			);
 			$entry->_tags($tags);
 
-			//FIME: Use entryDAO->addEntryPrepare(). Do not call entryDAO->listLastGuidsByFeed() for each entry. Consider using a transaction.
+			// FIXME
+			// Use entryDAO->addEntryPrepare().
+			// Do not call entryDAO->listLastGuidsByFeed() for each entry.
+			// Consider using a transaction.
 			$id = $this->entryDAO->addEntryObject(
 				$entry, $this->view->conf, $feed->keepHistory()
 			);
