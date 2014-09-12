@@ -38,7 +38,11 @@ class FreshRSS_update_Controller extends Minz_ActionController {
 	public function checkAction() {
 		$this->view->change_view('update', 'index');
 
-		if (file_exists(UPDATE_FILENAME)) {
+		// Get the last update. If already check during the last hour, do nothing.
+		$last_update = (int)@file_get_contents(DATA_PATH . '/last_update.txt');
+		$check_last_hour = (time() - 3600) <= $last_update;
+
+		if (file_exists(UPDATE_FILENAME) || $check_last_hour) {
 			// There is already an update file to apply: we don't need to check
 			// the webserver!
 			Minz_Request::forward(array('c' => 'update'));
