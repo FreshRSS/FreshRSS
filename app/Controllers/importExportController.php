@@ -237,16 +237,28 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 			strpos($article_object['id'], 'com.google') !== false
 		);
 
-
 		$error = false;
-		$prepared_statement = $this->entryDAO->addEntryPrepare();
+		$article_to_feed = array();
+
+		// First, we check feeds of articles are in DB (and add them if needed).
 		foreach ($article_object['items'] as $item) {
 			$feed = $this->addFeedArticles($item['origin'], $google_compliant);
 			if (is_null($feed)) {
 				$error = true;
+			} else {
+				$article_to_feed[$item['id']] = $feed->id();
+			}
+		}
+
+		// Then, articles are imported.
+		$prepared_statement = $this->entryDAO->addEntryPrepare();
+		$this->entryDAO->beginTransaction();
+		foreach ($article_object['items'] as $item) {
+			if (!isset($article_to_feed[$item['id']])) {
 				continue;
 			}
 
+			$feed_id = $article_to_feed[$item['id']];
 			$author = isset($item['author']) ? $item['author'] : '';
 			$key_content = ($google_compliant && !isset($item['content'])) ?
 			               'summary' : 'content';
@@ -258,16 +270,13 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 			}
 
 			$entry = new FreshRSS_Entry(
-				$feed->id(), $item['id'], $item['title'], $author,
+				$feed_id, $item['id'], $item['title'], $author,
 				$item[$key_content]['content'], $item['alternate'][0]['href'],
 				$item['published'], $is_read, $starred
 			);
 			$entry->_id(min(time(), $entry->date(true)) . uSecString());
 			$entry->_tags($tags);
 
-			// FIXME
-			// Do not call entryDAO->listLastGuidsByFeed() for each entry.
-			// Consider using a transaction.
 			$values = $entry->toArray();
 			$id = $this->entryDAO->addEntry($values, $prepared_statement);
 
@@ -275,6 +284,7 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 				$error = true;
 			}
 		}
+		$this->entryDAO->commit();
 
 		return $error;
 	}
