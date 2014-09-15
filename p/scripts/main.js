@@ -787,7 +787,7 @@ function openNotification(msg, status) {
 	notification.find(".msg").html(msg);
 	notification.fadeIn(300);
 
-	notification_interval = window.setInterval(closeNotification, 4000);
+	notification_interval = window.setTimeout(closeNotification, 4000);
 }
 
 function closeNotification() {
@@ -810,7 +810,7 @@ function init_notifications() {
 
 	if (notification.find(".msg").html().length > 0) {
 		notification_working = true;
-		notification_interval = window.setInterval(closeNotification, 4000);
+		notification_interval = window.setTimeout(closeNotification, 4000);
 	}
 }
 // </notification>
@@ -1224,7 +1224,7 @@ function init_all() {
 		faviconNbUnread();
 		init_print_action();
 		init_notifs_html5();
-		window.setInterval(refreshUnreads, 120000);
+		window.setTimeout(refreshUnreads, 120000);
 	} else {
 		init_share_observers();
 		init_remove_observers();
