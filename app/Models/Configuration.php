@@ -212,6 +212,7 @@ class FreshRSS_Configuration {
 	}
 	public function _sharing ($values) {
 		$this->data['sharing'] = array();
+		$unique = array();
 		foreach ($values as $value) {
 			if (!is_array($value)) {
 				continue;
@@ -237,7 +238,11 @@ class FreshRSS_Configuration {
 				$value['name'] = $value['type'];
 			}
 
-			$this->data['sharing'][] = $value;
+			$json_value = json_encode($value);
+			if (!in_array($json_value, $unique)) {
+				$unique[] = $json_value;
+				$this->data['sharing'][] = $value;
+			}
 		}
 	}
 	public function _queries ($values) {
