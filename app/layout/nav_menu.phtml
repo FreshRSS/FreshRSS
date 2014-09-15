@@ -7,7 +7,7 @@
 	<?php } ?>
 
 	<?php if ($this->loginOk) { ?>
-	<div class="stick">
+	<div id="nav_menu_actions" class="stick">
 		<?php
 			$url_state = $this->url;
 
@@ -269,7 +269,7 @@
 		$url_order = $this->url;
 		$url_order['params']['order'] = $order;
 	?>
-	<a class="btn" href="<?php echo Minz_Url::display ($url_order); ?>" title="<?php echo Minz_Translate::t ($title); ?>">
+	<a id="toggle-order" class="btn" href="<?php echo Minz_Url::display ($url_order); ?>" title="<?php echo Minz_Translate::t ($title); ?>">
 		<?php echo FreshRSS_Themes::icon($icon); ?>
 	</a>
 	
