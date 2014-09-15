@@ -109,7 +109,6 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 		// A *very* basic guess file type function. Only based on filename
 		// That's could be improved but should be enough, at least for a first
 		// implementation.
-		// TODO: improve this function?
 
 		if (substr_compare($filename, '.zip', -4) === 0) {
 			return 'zip';

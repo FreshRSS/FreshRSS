@@ -139,11 +139,20 @@ class FreshRSS extends Minz_FrontController {
 		}
 	}
 
-	private function loadStylesAndScripts ($loginOk) {
+	private function loadStylesAndScripts($loginOk) {
 		$theme = FreshRSS_Themes::load($this->conf->theme);
 		if ($theme) {
 			foreach($theme['files'] as $file) {
-				Minz_View::appendStyle (Minz_Url::display ('/themes/' . $theme['id'] . '/' . $file . '?' . @filemtime(PUBLIC_PATH . '/themes/' . $theme['id'] . '/' . $file)));
+				$theme_id = $theme['id'];
+				$filename = $file;
+				if ($file[0] == '_') {
+					$theme_id = 'base-theme';
+					$filename = substr($file, 1);
+				}
+				$filetime = @filemtime(PUBLIC_PATH . '/themes/' . $theme_id . '/' . $filename);
+				Minz_View::appendStyle(Minz_Url::display(
+					'/themes/' . $theme_id . '/' . $filename . '?' . $filetime
+				));
 			}
 		}
 
