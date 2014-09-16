@@ -424,7 +424,7 @@ return array (
 	'update'			=> 'Mise à jour',
 	'update_system'			=> 'Système de mise à jour',
 	'update_check'			=> 'Vérifier les mises à jour',
-	'update_last'			=> 'Dernière mise à jour : %s',
+	'update_last'			=> 'Dernière vérification : %s',
 	'update_can_apply'		=> 'Il y’a une mise à jour à appliquer. <a class="btn" href="%s">Appliquer la mise à jour</a>',
 	'update_server_not_found'	=> 'Le serveur de mise à jour n’a pas été trouvé. [%s]',
 	'no_update'			=> 'Aucune mise à jour à appliquer',

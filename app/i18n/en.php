@@ -424,7 +424,7 @@ return array (
 	'update'			=> 'Update',
 	'update_system'			=> 'Update system',
 	'update_check'			=> 'Check for new updates',
-	'update_last'			=> 'Last update: %s',
+	'update_last'			=> 'Last verification: %s',
 	'update_can_apply'		=> 'There is an available update. <a class="btn" href="%s">Apply</a>',
 	'update_server_not_found'	=> 'Update server cannot be found. [%s]',
 	'no_update'			=> 'No update to apply',
