@@ -517,8 +517,9 @@ a.btn {
 #bigMarkAsRead {
 	display: block;
 	width: 100%;
-	padding: 3em 0;
+	padding: 2em 0;
 	text-align: center;
+	font-size: 1.8em;
 }
 .bigTick {
 	font-size: 7em;

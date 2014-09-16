@@ -805,19 +805,15 @@ a.btn {
 	text-decoration: none;	
 	text-shadow: 0 -1px 0 #aaa;
 	color: #666;
-	background: #fafafa;
+	background: #eee;
 }
 #bigMarkAsRead:hover {
-	color: #000;
-	background: #ccc;
-	background: radial-gradient(circle at 50% -25% , #ccc 0%, #fafafa 50%);
-	background: -moz-radial-gradient(circle at 50% -25% , #ccc 0%, #fafafa 50%);
-	background: -webkit-radial-gradient(circle at 50% -25% , #ccc 0%, #fafafa 50%);
-	background: -o-radial-gradient(circle at 50% -25% , #ccc 0%, #fafafa 50%);
-	background: -ms-radial-gradient(circle at 50% -25% , #ccc 0%, #fafafa 50%);
+	color: #27ae60;
+	text-shadow: 0 0 2px #27ae60;
+	background: #fff;
 }
 #bigMarkAsRead:hover .bigTick {
-	text-shadow: 0 0 10px #666;
+	text-shadow: 0 0 10px #27ae60;
 }
 
 /*=== Navigation menu (for articles) */
