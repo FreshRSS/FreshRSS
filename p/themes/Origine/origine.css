@@ -809,7 +809,6 @@ a.btn {
 }
 #bigMarkAsRead:hover {
 	color: #27ae60;
-	text-shadow: 0 0 2px #27ae60;
 	background: #fff;
 }
 #bigMarkAsRead:hover .bigTick {
