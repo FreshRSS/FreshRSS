@@ -185,7 +185,8 @@
 	?>
 
 	<div class="stick" id="nav_menu_read_all">
-		<a class="read_all btn<?php if ($this->conf->reading_confirm) {echo ' confirm';} ?>" href="<?php echo $markReadUrl; ?>"><?php echo _t('mark_read'); ?></a>
+		<?php $confirm = $this->conf->reading_confirm ? ' confirm' : ''; ?>
+		<a class="read_all btn<?php echo $confirm; ?>" href="<?php echo $markReadUrl; ?>"><?php echo _t('mark_read'); ?></a>
 		<div class="dropdown">
 			<div id="dropdown-read" class="dropdown-target"></div>
 
@@ -193,14 +194,14 @@
 			<ul class="dropdown-menu">
 				<li class="dropdown-close"><a href="#close">❌</a></li>
 
-				<li class="item"><a href="<?php echo $markReadUrl; ?>"><?php echo $string_mark; ?></a></li>
+				<li class="item"><a class="<?php echo $confirm; ?>" href="<?php echo $markReadUrl; ?>"><?php echo $string_mark; ?></a></li>
 				<li class="separator"></li>
 <?php
 	$today = $this->today;
 	$one_week = $today - 604800;
 ?>
-				<li class="item"><a href="<?php echo _url('entry', 'read', 'is_read', 1, 'get', $get, 'idMax', $today . '000000'); ?>"><?php echo _t('before_one_day'); ?></a></li>
-				<li class="item"><a href="<?php echo _url('entry', 'read', 'is_read', 1, 'get', $get, 'idMax', $one_week . '000000'); ?>"><?php echo _t('before_one_week'); ?></a></li>
+				<li class="item"><a class="<?php echo $confirm; ?>" href="<?php echo _url('entry', 'read', 'is_read', 1, 'get', $get, 'idMax', $today . '000000'); ?>"><?php echo _t('before_one_day'); ?></a></li>
+				<li class="item"><a class="<?php echo $confirm; ?>" href="<?php echo _url('entry', 'read', 'is_read', 1, 'get', $get, 'idMax', $one_week . '000000'); ?>"><?php echo _t('before_one_week'); ?></a></li>
 			</ul>
 		</div>
 	</div>
