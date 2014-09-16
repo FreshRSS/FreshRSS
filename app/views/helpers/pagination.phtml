@@ -14,11 +14,15 @@
 			<?php echo _t('load_more'); ?>
 		</a>
 	<?php } elseif ($markReadUrl) { ?>
-		<a id="bigMarkAsRead" href="<?php echo $markReadUrl; ?>"<?php if ($this->conf->reading_confirm) { echo ' class="confirm"';} ?>>
+		<button id="bigMarkAsRead"
+		        class="as-link <?php echo $this->conf->reading_confirm ? 'confirm' : ''; ?>"
+		        form="mark-read"
+		        formaction="<?php echo $markReadUrl; ?>"
+		        type="submit">
 			<?php echo _t('nothing_to_load'); ?><br />
 			<span class="bigTick">✓</span><br />
 			<?php echo _t('mark_all_read'); ?>
-		</a>
+		</button>
 	<?php } else { ?>
 		<a id="bigMarkAsRead" href=".">
 			<?php echo _t('nothing_to_load'); ?><br />
