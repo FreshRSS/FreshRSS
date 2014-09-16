@@ -702,11 +702,25 @@ function init_stream(divStream) {
 	});
 
 	divStream.on('click', '.item.title > a', function (e) {
+		// Allow default control-click behaviour such as open in backround-tab.
+		return e.ctrlKey;
+	});
+	divStream.on('mouseup', '.item.title > a', function (e) {
+		// Mouseup enables us to catch middle click.
 		if (e.ctrlKey) {
-			return true;	//Allow default control-click behaviour such as open in backround-tab
+			// CTRL+click, it will be manage by previous rule.
+			return;
 		}
-		$(this).parent().click();	//Will perform toggle flux_content
-		return false;
+
+		if (e.which == 2) {
+			// If middle click, we want same behaviour as CTRL+click.
+			var e = jQuery.Event("click");
+			e.ctrlKey = true;
+			$(this).trigger(e);
+		} else if(e.which == 1) {
+			// Normal click, just toggle article.
+			$(this).parent().click();
+		}
 	});
 
 	divStream.on('click', '.flux .content a', function () {
@@ -714,7 +728,13 @@ function init_stream(divStream) {
 	});
 
 	if (auto_mark_site) {
-		divStream.on('click', '.flux .link > a', function () {
+		// catch mouseup instead of click so we can have the correct behaviour
+		// with middle button click (scroll button).
+		divStream.on('mouseup', '.flux .link > a', function (e) {
+			if (e.which == 3) {
+				return;
+			}
+
 			mark_read($(this).parents(".flux"), true);
 		});
 	}
