@@ -533,13 +533,13 @@ function init_shortcuts() {
 	});
 	shortcut.add("shift+" + shortcuts.mark_read, function () {
 		// on marque tout comme lu
-		var url = $(".nav_menu a.read_all").attr("href");
-		if ($(".nav_menu a.read_all").hasClass('confirm')) {
+		var btn = $(".nav_menu .read_all");
+		if (btn.hasClass('confirm')) {
 			if (confirm(str_confirmation)) {
-				redirect(url, false);
+				btn.click();
 			}
 		} else {
-			redirect(url, false);
+			btn.click();
 		}
 	}, {
 		'disable_in_input': true
