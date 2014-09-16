@@ -813,7 +813,7 @@ a.btn {
 	background: #fff;
 }
 #bigMarkAsRead:hover .bigTick {
-	text-shadow: 0 0 10px #27ae60;
+	text-shadow: 0 0 5px #27ae60;
 }
 
 /*=== Navigation menu (for articles) */
