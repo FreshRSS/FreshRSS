@@ -15,7 +15,7 @@ html, body {
 }
 
 /*=== Links */
-a {
+a, button.as-link {
 	color: #2980b9;
 	outline: none;
 }
@@ -338,9 +338,14 @@ a.btn {
 	padding: 0 25px;
 	line-height: 2.5em;
 }
-.dropdown-menu > .item > span {
+.dropdown-menu > .item > span,
+.dropdown-menu > .item > .as-link {
 	padding: 0 25px;
 	line-height: 2em;
+}
+.dropdown-menu > .item:hover {
+	background: #2980b9;
+	color: #fff;
 }
 .dropdown-menu > .item[aria-checked="true"] > a:before {
 	font-weight: bold;
@@ -348,7 +353,6 @@ a.btn {
 }
 .dropdown-menu > .item:hover > a {
 	text-decoration: none;
-	background: #2980b9;
 	color: #fff;
 }
 .dropdown-menu .input select,

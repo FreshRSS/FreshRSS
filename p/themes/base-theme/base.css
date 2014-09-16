@@ -14,7 +14,7 @@ html, body {
 }
 
 /*=== Links */
-a {
+a, button.as-link {
 	outline: none;
 }
 
@@ -255,7 +255,8 @@ a.btn {
 	padding: 0 25px;
 	line-height: 2.5em;
 }
-.dropdown-menu > .item > span {
+.dropdown-menu > .item > span,
+.dropdown-menu > .item > .as-link {
 	padding: 0 25px;
 	line-height: 2em;
 }

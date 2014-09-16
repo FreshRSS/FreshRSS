@@ -88,6 +88,15 @@ input[type="checkbox"] {
 input.extend:focus {
 	width: 300px;
 }
+button.as-link,
+button.as-link:hover,
+button.as-link:active {
+	background: transparent;
+	border: none;
+	color: inherit;
+	cursor: pointer;
+	font-size: 1.1em;
+}
 
 /*=== COMPONENTS */
 /*===============*/

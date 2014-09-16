@@ -16,9 +16,9 @@ html, body {
 }
 
 /*=== Links */
-a {
-	outline: none;
+a, button.as-link {
 	color: #6986B2;
+	outline: none;
 }
 
 /*=== Images */
@@ -338,7 +338,8 @@ a.btn {
 	padding: 0 25px;
 	line-height: 2.5em;
 }
-.dropdown-menu > .item > span {
+.dropdown-menu > .item > span,
+.dropdown-menu > .item > .as-link {
 	padding: 0 25px;
 	line-height: 2em;
 }
