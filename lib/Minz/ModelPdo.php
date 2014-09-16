@@ -77,6 +77,9 @@ class Minz_ModelPdo {
 				$db['password'],
 				$driver_options
 			);
+			if ($type === 'sqlite') {
+				$this->bd->exec('PRAGMA foreign_keys = ON;');
+			}
 			self::$sharedBd = $this->bd;
 		} catch (Exception $e) {
 			throw new Minz_PDOConnectionException(
