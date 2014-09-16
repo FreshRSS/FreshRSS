@@ -608,7 +608,10 @@ function printStep2() {
 		<div class="form-group">
 			<label class="group-name" for="passwordPlain"><?php echo _t('password_form'); ?></label>
 			<div class="group-controls">
-				<input type="password" id="passwordPlain" name="passwordPlain" pattern=".{7,}" autocomplete="off" <?php echo $_SESSION['auth_type'] === 'form' ? ' required="required"' : ''; ?> />
+				<div class="stick">
+					<input type="password" id="passwordPlain" name="passwordPlain" pattern=".{7,}" autocomplete="off" <?php echo $_SESSION['auth_type'] === 'form' ? ' required="required"' : ''; ?> />
+					<a class="btn toggle-password" data-toggle="passwordPlain"><?php echo FreshRSS_Themes::icon('key'); ?></a>
+				</div>
 				<noscript><b><?php echo _t('javascript_should_be_activated'); ?></b></noscript>
 			</div>
 		</div>
@@ -622,6 +625,25 @@ function printStep2() {
 		</div>
 
 		<script>
+			function toggle_password() {
+				var button = this;
+				var passwordField = document.getElementById(button.getAttribute('data-toggle'));
+
+				passwordField.setAttribute('type', 'text');
+				button.className += ' active';
+
+				setTimeout(function() {
+					passwordField.setAttribute('type', 'password');
+					button.className = button.className.replace(/(?:^|\s)active(?!\S)/g , '');
+				}, 2000);
+
+				return false;
+			}
+			toggles = document.getElementsByClassName('toggle-password');
+			for (var i = 0 ; i < toggles.length ; i++) {
+				toggles[i].addEventListener('click', toggle_password);
+			}
+
 			function auth_type_change() {
 				var auth_value = document.getElementById('auth_type').value,
 				    password_input = document.getElementById('passwordPlain'),
