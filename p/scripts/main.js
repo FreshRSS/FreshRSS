@@ -1224,7 +1224,7 @@ function init_all() {
 		faviconNbUnread();
 		init_print_action();
 		init_notifs_html5();
-		window.setTimeout(refreshUnreads, 120000);
+		window.setInterval(refreshUnreads, 120000);
 	} else {
 		init_share_observers();
 		init_remove_observers();
