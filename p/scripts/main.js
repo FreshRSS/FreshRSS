@@ -251,8 +251,13 @@ function toggleContent(new_active, old_active) {
 	}
 
 	if (sticky_post) {
-		var new_pos = new_active.position().top - new_active.children('.flux_header').outerHeight(),
+		var prev_article = new_active.prevAll('.flux'),
+		    new_pos = new_active.position().top,
 			old_scroll = $(box_to_move).scrollTop();
+
+		if (prev_article.length > 0 && new_pos - prev_article.position().top <= 150) {
+			new_pos = prev_article.position().top;
+		}
 
 		if (hide_posts) {
 			if (relative_move) {
