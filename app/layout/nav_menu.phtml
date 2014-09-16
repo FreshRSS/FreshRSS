@@ -208,19 +208,21 @@
 				</li>
 				<li class="separator"></li>
 <?php
-	$today = $this->today;
-	$one_week = $today - 604800;
+	$mark_before_today = $arUrl;
+	$mark_before_today['params']['idMax'] = $this->today . '000000';
+	$mark_before_one_week = $arUrl;
+	$mark_before_one_week['params']['idMax'] = ($this->today - 604800) . '000000';
 ?>
 				<li class="item">
 					<button class="as-link <?php echo $confirm; ?>"
 					        form="mark-read"
-					        formaction="<?php echo _url('entry', 'read', 'is_read', 1, 'get', $get, 'idMax', $today . '000000'); ?>"
+					        formaction="<?php echo Minz_Url::display($mark_before_today); ?>"
 					        type="submit"><?php echo _t('before_one_day'); ?></button>
 				</li>
 				<li class="item">
 					<button class="as-link <?php echo $confirm; ?>"
 					        form="mark-read"
-					        formaction="<?php echo _url('entry', 'read', 'is_read', 1, 'get', $get, 'idMax', $one_week . '000000'); ?>"
+					        formaction="<?php echo Minz_Url::display($mark_before_one_week); ?>"
 					        type="submit"><?php echo _t('before_one_week'); ?></button>
 				</li>
 			</ul>
