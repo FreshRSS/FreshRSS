@@ -25,7 +25,7 @@ function del_tree($dir) {
 
 
 // Do a recursive copy (from http://fr2.php.net/manual/en/function.copy.php#91010)
-function recurse_copy($src,$dst) {
+function recurse_copy($src, $dst) {
     $dir = opendir($src);
     @mkdir($dst);
     while (false !== ($file = readdir($dir))) {
@@ -59,6 +59,46 @@ function data_backup() {
 	}
 
 	return false;
+}
+
+
+// Check if a directory exists and if it is writable.
+function check_directory($dir) {
+	if (!file_exists($dir)) {
+		$res = @mkdir($dir, 0775);
+		if (!$res) {
+			return false;
+		}
+	}
+
+	if (!is_writable($dir)) {
+		$res = chmod($dir, 0775);
+		if (!$res) {
+			return false;
+		}
+	}
+
+	$index = $dir . '/index.html';
+	$data = <<<EOF
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-GB" lang="en-GB">
+<head>
+<meta charset="UTF-8" />
+<meta http-equiv="Refresh" content="0; url=/" />
+<title>Redirection</title>
+<meta name="robots" content="noindex" />
+</head>
+
+<body>
+<p><a href="/">Redirection</a></p>
+</body>
+</html>
+EOF;
+	if (!file_exists($index)) {
+		@file_put_contents($index, $data);
+	}
+
+	return true;
 }
 
 

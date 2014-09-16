@@ -1,6 +1,14 @@
 <?php
 
 define('PACKAGE_URL', 'https://github.com/marienfressinaud/FreshRSS/archive/dev.zip');
+$DIRS_TO_CHECK = array(
+	DATA_PATH,
+	DATA_PATH . '/cache',
+	DATA_PATH . '/favicons',
+	DATA_PATH . '/log',
+	DATA_PATH . '/persona',
+	DATA_PATH . '/tokens',
+);
 
 
 // Apply the update by replacing old version of FreshRSS by the new one.
@@ -13,6 +21,15 @@ function apply_update() {
 	$res = data_backup();
 	if (!$res) {
 		return 'can\'t do a backup of ' . DATA_PATH;
+	}
+
+	// For each directory, we check it exists, dir/index.html exists and we can
+	// write inside.
+	foreach ($DIRS_TO_CHECK as $dir) {
+		$res = check_directory($dir);
+		if (!$res) {
+			return '`' . $dir . '` does not exist or FreshRSS cannot write inside';
+		}
 	}
 
 	// Get the FRSS package.
