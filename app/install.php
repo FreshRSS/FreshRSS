@@ -307,6 +307,7 @@ function checkStep1() {
 	$log = LOG_PATH && is_writable(LOG_PATH);
 	$favicons = is_writable(DATA_PATH . '/favicons');
 	$persona = is_writable(DATA_PATH . '/persona');
+	$http_referer = !empty($_SERVER['HTTP_REFERER']);
 
 	return array(
 		'php' => $php ? 'ok' : 'ko',
@@ -323,8 +324,10 @@ function checkStep1() {
 		'log' => $log ? 'ok' : 'ko',
 		'favicons' => $favicons ? 'ok' : 'ko',
 		'persona' => $persona ? 'ok' : 'ko',
+		'http_referer' => $http_referer ? 'ok' : 'ko',
 		'all' => $php && $minz && $curl && $pdo && $pcre && $ctype && $dom &&
-		         $data && $cache && $log && $favicons && $persona ? 'ok' : 'ko'
+		         $data && $cache && $log && $favicons && $persona && $http_referer ?
+		         'ok' : 'ko'
 	);
 }
 
@@ -546,6 +549,12 @@ function printStep1() {
 	<p class="alert alert-success"><span class="alert-head"><?php echo _t('ok'); ?></span> <?php echo _t('persona_is_ok'); ?></p>
 	<?php } else { ?>
 	<p class="alert alert-error"><span class="alert-head"><?php echo _t('damn'); ?></span> <?php echo _t('file_is_nok', DATA_PATH . '/persona'); ?></p>
+	<?php } ?>
+
+	<?php if ($res['http_referer'] == 'ok') { ?>
+	<p class="alert alert-success"><span class="alert-head"><?php echo _t('ok'); ?></span> <?php echo _t('http_referer_is_ok'); ?></p>
+	<?php } else { ?>
+	<p class="alert alert-error"><span class="alert-head"><?php echo _t('damn'); ?></span> <?php echo _t('http_referer_is_nok'); ?></p>
 	<?php } ?>
 
 	<?php if ($res['all'] == 'ok') { ?>
