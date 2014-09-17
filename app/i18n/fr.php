@@ -428,7 +428,7 @@ return array (
 	'update_system'			=> 'Système de mise à jour',
 	'update_check'			=> 'Vérifier les mises à jour',
 	'update_last'			=> 'Dernière vérification : %s',
-	'update_can_apply'		=> 'Il y’a une mise à jour à appliquer.',
+	'update_can_apply'		=> 'Une mise à jour est disponible.',
 	'update_apply'			=> 'Appliquer la mise à jour',
 	'update_server_not_found'	=> 'Le serveur de mise à jour n’a pas été trouvé. [%s]',
 	'no_update'			=> 'Aucune mise à jour à appliquer',

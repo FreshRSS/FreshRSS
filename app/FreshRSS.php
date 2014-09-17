@@ -143,11 +143,12 @@ class FreshRSS extends Minz_FrontController {
 		$theme = FreshRSS_Themes::load($this->conf->theme);
 		if ($theme) {
 			foreach($theme['files'] as $file) {
-				$theme_id = $theme['id'];
-				$filename = $file;
-				if ($file[0] == '_') {
+				if ($file[0] === '_') {
 					$theme_id = 'base-theme';
 					$filename = substr($file, 1);
+				} else {
+					$theme_id = $theme['id'];
+					$filename = $file;
 				}
 				$filetime = @filemtime(PUBLIC_PATH . '/themes/' . $theme_id . '/' . $filename);
 				Minz_View::appendStyle(Minz_Url::display(

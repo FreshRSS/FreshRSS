@@ -428,10 +428,10 @@ return array (
 	'update_system'			=> 'Update system',
 	'update_check'			=> 'Check for new updates',
 	'update_last'			=> 'Last verification: %s',
-	'update_can_apply'		=> 'There is an available update.',
+	'update_can_apply'		=> 'An update is available.',
 	'update_apply'			=> 'Apply',
 	'update_server_not_found'	=> 'Update server cannot be found. [%s]',
 	'no_update'			=> 'No update to apply',
-	'update_problem'		=> 'Update has encountered an error: %s',
-	'update_finished'		=> 'Update is now  finished!',
+	'update_problem'		=> 'The update process has encountered an error: %s',
+	'update_finished'		=> 'Update completed!',
 );
