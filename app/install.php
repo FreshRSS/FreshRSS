@@ -307,7 +307,7 @@ function checkStep1() {
 	$log = LOG_PATH && is_writable(LOG_PATH);
 	$favicons = is_writable(DATA_PATH . '/favicons');
 	$persona = is_writable(DATA_PATH . '/persona');
-	$http_referer = !empty($_SERVER['HTTP_REFERER']);
+	$http_referer = is_referer_from_same_domain();
 
 	return array(
 		'php' => $php ? 'ok' : 'ko',

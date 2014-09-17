@@ -6,7 +6,7 @@ class FreshRSS extends Minz_FrontController {
 		}
 		$loginOk = $this->accessControl(Minz_Session::param('currentUser', ''));
 		$this->loadParamsView();
-		if (Minz_Request::isPost() && !Minz_Request::isRefererFromSameDomain()) {
+		if (Minz_Request::isPost() && !is_referer_from_same_domain()) {
 			$loginOk = false;	//Basic protection against XSRF attacks
 			Minz_Error::error(
 				403,
