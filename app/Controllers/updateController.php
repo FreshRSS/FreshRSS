@@ -11,6 +11,7 @@ class FreshRSS_update_Controller extends Minz_ActionController {
 		}
 
 		Minz_View::prependTitle(_t('update_system') . ' · ');
+		$this->view->update_to_apply = false;
 		$this->view->last_update_time = 'unknown';
 		$this->view->check_last_hour = false;
 		$timestamp = (int)@file_get_contents(DATA_PATH . '/last_update.txt');
@@ -29,10 +30,11 @@ class FreshRSS_update_Controller extends Minz_ActionController {
 			);
 		} elseif (file_exists(UPDATE_FILENAME)) {
 			// There is an update file to apply!
+			$this->view->update_to_apply = true;
 			$this->view->message = array(
 				'status' => 'good',
 				'title' => _t('ok'),
-				'body' => _t('update_can_apply', _url('update', 'apply'))
+				'body' => _t('update_can_apply')
 			);
 		}
 	}
