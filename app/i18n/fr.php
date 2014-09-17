@@ -269,6 +269,7 @@ return array (
 	'reading_configuration'		=> 'Lecture',
 	'display_configuration'		=> 'Affichage',
 	'articles_per_page'		=> 'Nombre d’articles par page',
+	'number_divided_when_unfolded'	=> 'Divisé par 2 lors du chargement d’articles dépliés.',
 	'default_view'			=> 'Vue par défaut',
 	'sort_order'			=> 'Ordre de tri',
 	'auto_load_more'		=> 'Charger les articles suivants en bas de page',

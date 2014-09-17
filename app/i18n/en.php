@@ -269,6 +269,7 @@ return array (
 	'reading_configuration'		=> 'Reading',
 	'display_configuration'		=> 'Display',
 	'articles_per_page'		=> 'Number of articles per page',
+	'number_divided_when_unfolded'	=> 'Divided by 2 during loading of unfolded articles.',
 	'default_view'			=> 'Default view',
 	'sort_order'			=> 'Sort order',
 	'auto_load_more'		=> 'Load next articles at the page bottom',

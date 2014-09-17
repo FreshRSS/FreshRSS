@@ -10,6 +10,9 @@
 			<label class="group-name" for="posts_per_page"><?php echo Minz_Translate::t ('articles_per_page'); ?></label>
 			<div class="group-controls">
 				<input type="number" id="posts_per_page" name="posts_per_page" value="<?php echo $this->conf->posts_per_page; ?>" min="5" max="50" />
+				<?php if ($this->conf->display_posts) { ?>
+				<?php echo _i('help'); ?> <?php echo _t('number_divided_when_unfolded'); ?>
+				<?php } ?>
 			</div>
 		</div>
 
