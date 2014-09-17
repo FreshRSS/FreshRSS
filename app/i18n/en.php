@@ -92,7 +92,7 @@ return array (
 	'rss_view'			=> 'RSS feed',
 	'show_all_articles'		=> 'Show all articles',
 	'show_not_reads'		=> 'Show only unread',
-	'show_not_reads_with_fallback'	=> 'Show only unread or read if no unread',
+	'show_adaptive'			=> 'Adjust showing',
 	'show_read'			=> 'Show only read',
 	'show_favorite'			=> 'Show only favorites',
 	'show_not_favorite'		=> 'Show all but favorites',

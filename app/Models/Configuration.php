@@ -141,18 +141,18 @@ class FreshRSS_Configuration {
 		}
 	}
 	public function _default_view ($value) {
-		switch ($value):
-			case FreshRSS_Entry::STATE_ALL:
-				// left blank on purpose
-			case FreshRSS_Entry::STATE_NOT_READ:
-				// left blank on purpose
-			case FreshRSS_Entry::STATE_NOT_READ_STRICT:
-				$this->data['default_view'] = $value;
-				break;
-			default:
-				$this->data['default_view'] = FreshRSS_Entry::STATE_ALL;
-				break;
-		endswitch;
+		switch ($value) {
+		case FreshRSS_Entry::STATE_ALL:
+			// left blank on purpose
+		case FreshRSS_Entry::STATE_NOT_READ:
+			// left blank on purpose
+		case FreshRSS_Entry::STATE_NOT_READ_STRICT:
+			$this->data['default_view'] = $value;
+			break;
+		default:
+			$this->data['default_view'] = FreshRSS_Entry::STATE_ALL;
+			break;
+		}
 	}
 	public function _display_posts ($value) {
 		$this->data['display_posts'] = ((bool)$value) && $value !== 'no';

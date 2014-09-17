@@ -38,12 +38,12 @@
 		</div>
 
 		<div class="form-group">
-			<label class="group-name" for="view_mode"><?php echo Minz_Translate::t ('articles_to_display'); ?></label>
+			<label class="group-name" for="view_mode"><?php echo _t('articles_to_display'); ?></label>
 			<div class="group-controls">
 				<select name="default_view" id="default_view">
-					<option value="<?php echo FreshRSS_Entry::STATE_ALL; ?>"<?php echo $this->conf->default_view === FreshRSS_Entry::STATE_ALL ? ' selected="selected"' : ''; ?>><?php echo Minz_Translate::t ('show_all_articles'); ?></option>
-					<option value="<?php echo FreshRSS_Entry::STATE_NOT_READ; ?>"<?php echo $this->conf->default_view === FreshRSS_Entry::STATE_NOT_READ ? ' selected="selected"' : ''; ?>><?php echo Minz_Translate::t ('show_not_reads_with_fallback'); ?></option>
-					<option value="<?php echo FreshRSS_Entry::STATE_NOT_READ_STRICT; ?>"<?php echo $this->conf->default_view === FreshRSS_Entry::STATE_NOT_READ_STRICT ? ' selected="selected"' : ''; ?>><?php echo Minz_Translate::t ('show_not_reads'); ?></option>
+					<option value="<?php echo FreshRSS_Entry::STATE_NOT_READ; ?>"<?php echo $this->conf->default_view === FreshRSS_Entry::STATE_NOT_READ ? ' selected="selected"' : ''; ?>><?php echo _t('show_adaptive'); ?></option>
+					<option value="<?php echo FreshRSS_Entry::STATE_ALL; ?>"<?php echo $this->conf->default_view === FreshRSS_Entry::STATE_ALL ? ' selected="selected"' : ''; ?>><?php echo _t('show_all_articles'); ?></option>
+					<option value="<?php echo FreshRSS_Entry::STATE_NOT_READ_STRICT; ?>"<?php echo $this->conf->default_view === FreshRSS_Entry::STATE_NOT_READ_STRICT ? ' selected="selected"' : ''; ?>><?php echo _t('show_not_reads'); ?></option>
 				</select>
 			</div>
 		</div>

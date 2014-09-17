@@ -92,7 +92,7 @@ return array (
 	'rss_view'			=> 'Flux RSS',
 	'show_all_articles'		=> 'Afficher tous les articles',
 	'show_not_reads'		=> 'Afficher les non lus',
-	'show_not_reads_with_fallback'	=> 'Afficher les non lus ou les lus si aucun non lus',
+	'show_adaptive'			=> 'Adapter l’affichage',
 	'show_read'			=> 'Afficher les lus',
 	'show_favorite'			=> 'Afficher les favoris',
 	'show_not_favorite'		=> 'Afficher tout sauf les favoris',
