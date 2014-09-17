@@ -458,6 +458,12 @@ a.btn {
 .content pre {
 	overflow: auto;
 }
+br {
+	line-height: 1em;
+}
+br + br + br {
+	display: none;
+}
 
 /*=== Notification and actualize notification */
 .notification {
