@@ -34,14 +34,17 @@
 					<option value="reader"<?php echo $this->conf->view_mode === 'reader' ? ' selected="selected"' : ''; ?>><?php echo Minz_Translate::t ('reader_view'); ?></option>
 					<option value="global"<?php echo $this->conf->view_mode === 'global' ? ' selected="selected"' : ''; ?>><?php echo Minz_Translate::t ('global_view'); ?></option>
 				</select>
-				<label class="radio" for="radio_all">
-					<input type="radio" name="default_view" id="radio_all" value="<?php echo FreshRSS_Entry::STATE_ALL; ?>"<?php echo $this->conf->default_view === FreshRSS_Entry::STATE_ALL ? ' checked="checked"' : ''; ?> />
-					<?php echo Minz_Translate::t ('show_all_articles'); ?>
-				</label>
-				<label class="radio" for="radio_not_read">
-					<input type="radio" name="default_view" id="radio_not_read" value="<?php echo FreshRSS_Entry::STATE_NOT_READ; ?>"<?php echo $this->conf->default_view === FreshRSS_Entry::STATE_NOT_READ ? ' checked="checked"' : ''; ?> />
-					<?php echo Minz_Translate::t ('show_not_reads'); ?>
-				</label>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="group-name" for="view_mode"><?php echo Minz_Translate::t ('articles_to_display'); ?></label>
+			<div class="group-controls">
+				<select name="default_view" id="default_view">
+					<option value="<?php echo FreshRSS_Entry::STATE_ALL; ?>"<?php echo $this->conf->default_view === FreshRSS_Entry::STATE_ALL ? ' selected="selected"' : ''; ?>><?php echo Minz_Translate::t ('show_all_articles'); ?></option>
+					<option value="<?php echo FreshRSS_Entry::STATE_NOT_READ; ?>"<?php echo $this->conf->default_view === FreshRSS_Entry::STATE_NOT_READ ? ' selected="selected"' : ''; ?>><?php echo Minz_Translate::t ('show_not_reads_with_fallback'); ?></option>
+					<option value="<?php echo FreshRSS_Entry::STATE_NOT_READ_STRICT; ?>"<?php echo $this->conf->default_view === FreshRSS_Entry::STATE_NOT_READ_STRICT ? ' selected="selected"' : ''; ?>><?php echo Minz_Translate::t ('show_not_reads'); ?></option>
+				</select>
 			</div>
 		</div>
 
