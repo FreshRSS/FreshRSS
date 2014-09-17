@@ -13,6 +13,7 @@
 	if (!empty($this->nextId)) {
 		$params = Minz_Request::params();
 		$params['next'] = $this->nextId;
+		$params['ajax'] = 1;
 ?>
 		<link id="prefetch" rel="next prefetch" href="<?php echo Minz_Url::display(array('c' => Minz_Request::controllerName(), 'a' => Minz_Request::actionName(), 'params' => $params)); ?>" />
 <?php } ?>

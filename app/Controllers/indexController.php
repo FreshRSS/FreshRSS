@@ -83,6 +83,11 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 		$nb = Minz_Request::param ('nb', $this->view->conf->posts_per_page);
 		$first = Minz_Request::param ('next', '');
 
+		$ajax_request = Minz_Request::param('ajax', false);
+		if ($ajax_request == 1 && $this->view->conf->display_posts) {
+			$nb = max(1, round($nb / 2));
+		}
+
 		if ($this->view->state === FreshRSS_Entry::STATE_NOT_READ) {	//Any unread article in this category at all?
 			switch ($getType) {
 				case 'a':
