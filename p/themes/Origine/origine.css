@@ -805,11 +805,12 @@ a.btn {
 	text-decoration: none;	
 	text-shadow: 0 -1px 0 #aaa;
 	color: #666;
-	background: #eee;
+	background: #fafafa;
 }
 #bigMarkAsRead:hover {
 	color: #27ae60;
 	background: #fff;
+	box-shadow: 0 -5px 10px #eee inset;
 }
 #bigMarkAsRead:hover .bigTick {
 	text-shadow: 0 0 5px #27ae60;
