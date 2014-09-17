@@ -10,6 +10,8 @@ class FreshRSS_update_Controller extends Minz_ActionController {
 			);
 		}
 
+		invalidateHttpCache();
+
 		Minz_View::prependTitle(_t('update_system') . ' · ');
 		$this->view->update_to_apply = false;
 		$this->view->last_update_time = 'unknown';
