@@ -808,12 +808,12 @@ a.btn {
 	background: #fafafa;
 }
 #bigMarkAsRead:hover {
-	color: #27ae60;
+	color: #0062be;
 	background: #fff;
 	box-shadow: 0 -5px 10px #eee inset;
 }
 #bigMarkAsRead:hover .bigTick {
-	text-shadow: 0 0 5px #27ae60;
+	text-shadow: 0 0 5px #0062be;
 }
 
 /*=== Navigation menu (for articles) */
