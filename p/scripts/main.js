@@ -1012,7 +1012,7 @@ function init_crypto_form() {
 			async: false
 		}).done(function (data) {
 			if (data.salt1 == '' || data.nonce == '') {
-				alert('Invalid user!');
+				openNotification('Invalid user!', 'bad');
 			} else {
 				try {
 					var strong = window.Uint32Array && window.crypto && (typeof window.crypto.getRandomValues === 'function'),
@@ -1020,16 +1020,16 @@ function init_crypto_form() {
 						c = dcodeIO.bcrypt.hashSync(data.nonce + s, strong ? 4 : poormanSalt());
 					$('#challenge').val(c);
 					if (s == '' || c == '') {
-						alert('Crypto error!');
+						openNotification('Crypto error!', 'bad');
 					} else {
 						success = true;
 					}
 				} catch (e) {
-					alert('Crypto exception! ' + e);
+					openNotification('Crypto exception! ' + e, 'bad');
 				}
 			}
 		}).fail(function() {
-			alert('Communication error!');
+			openNotification('Communication error!', 'bad');
 		});
 
 		$submit_button.removeAttr('disabled');
