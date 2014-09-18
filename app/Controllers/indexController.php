@@ -420,4 +420,81 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 		self::deleteLongTermCookie();
 		Minz_Request::forward(array('c' => 'index', 'a' => 'index'), true);
 	}
+
+	public function resetAuthAction() {
+		Minz_View::prependTitle(_t('reset_auth') . ' · ');
+
+		$this->view->no_form = false;
+		// Enable changement of auth only if Persona!
+		if (Minz_Configuration::authType() != 'persona') {
+			$this->view->message = array(
+				'status' => 'bad',
+				'title' => _t('damn'),
+				'body' => _t('auth_not_persona')
+			);
+			$this->view->no_form = true;
+			return;
+		}
+
+		$conf = new FreshRSS_Configuration(Minz_Configuration::defaultUser());
+		// Admin user must have set its master password.
+		if (!$conf->passwordHash) {
+			$this->view->message = array(
+				'status' => 'bad',
+				'title' => _t('damn'),
+				'body' => _t('auth_no_password_set')
+			);
+			$this->view->no_form = true;
+			return;
+		}
+
+		if (Minz_Request::isPost()) {
+			$nonce = Minz_Session::param('nonce');
+			$username = Minz_Request::param('username', '');
+			$c = Minz_Request::param('challenge', '');
+			if (!(ctype_alnum($username) && ctype_graph($c) && ctype_alnum($nonce))) {
+				Minz_Log::debug('Invalid credential parameters:' .
+				                ' user=' . $username .
+				                ' challenge=' . $c .
+				                ' nonce=' . $nonce);
+				Minz_Session::_param('notification', array(
+					'type' => 'bad',
+					'content' => Minz_Translate::t('invalid_login')
+				));
+				return;
+			}
+
+			if (!function_exists('password_verify')) {
+				include_once(LIB_PATH . '/password_compat.php');
+			}
+
+			try {
+				$s = $conf->passwordHash;
+				$ok = password_verify($nonce . $s, $c);
+				if (!$ok) {
+					Minz_Log::debug('Password mismatch for user ' . $username .
+					                ', nonce=' . $nonce . ', c=' . $c);
+					Minz_Session::_param('notification', array(
+						'type' => 'bad',
+						'content' => Minz_Translate::t('invalid_login')
+					));
+					return;
+				}
+
+				Minz_Configuration::_authType('form');
+				$ok = Minz_Configuration::writeFile();
+
+				if ($ok) {
+					Minz_Request::good(_t('auth_form_set'));
+				} else {
+					Minz_Session::_param('notification', array(
+						'type' => 'bad',
+						'content' => _t('auth_form_not_set')
+					));
+				}
+			} catch (Minz_Exception $e) {
+				Minz_Log::warning('Login failure: ' . $e->getMessage());
+			}
+		}
+	}
 }
