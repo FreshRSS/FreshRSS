@@ -91,6 +91,13 @@
 				</tbody>
 			</table><br />
 		</div>
+		
+		<div class="form-group">
+			<label class="group-name" for="posts_per_page"><?php echo Minz_Translate::t ('html5_notif_timeout'); ?></label>
+			<div class="group-controls">
+				<input type="number" id="html5_notif_timeout" name="html5_notif_timeout" value="<?php echo $this->conf->html5_notif_timeout; ?>" /> <?php echo Minz_Translate::t ('seconds_(0_means_no_timeout)'); ?>
+			</div>
+		</div>
 
 		<div class="form-group form-actions">
 			<div class="group-controls">
