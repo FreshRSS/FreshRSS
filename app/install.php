@@ -149,7 +149,7 @@ function saveStep2() {
 
 		$config_array = array(
 			'language' => $_SESSION['language'],
-			'theme' => $_SESSION['theme'],
+			'theme' => 'Origine',
 			'old_entries' => $_SESSION['old_entries'],
 			'mail_login' => $_SESSION['mail_login'],
 			'passwordHash' => $_SESSION['passwordHash'],
@@ -337,9 +337,15 @@ function checkStep2() {
 	        isset($_SESSION['mail_login']) &&
 	        !empty($_SESSION['default_user']);
 
-	$form = $_SESSION['auth_type'] != 'form' || !empty($_SESSION['passwordHash']);
+	$form = (
+		isset($_SESSION['auth_type']) &&
+		($_SESSION['auth_type'] != 'form' || !empty($_SESSION['passwordHash']))
+	);
 
-	$persona = $_SESSION['auth_type'] != 'persona' || !empty($_SESSION['mail_login']);
+	$persona = (
+		isset($_SESSION['auth_type']) &&
+		($_SESSION['auth_type'] != 'persona' || !empty($_SESSION['mail_login']))
+	);
 
 	$defaultUser = empty($_POST['default_user']) ? null : $_POST['default_user'];
 	if ($defaultUser === null) {
@@ -600,16 +606,17 @@ function printStep2() {
 		<div class="form-group">
 			<label class="group-name" for="auth_type"><?php echo _t('auth_type'); ?></label>
 			<div class="group-controls">
-				<select id="auth_type" name="auth_type" required="required" onchange="auth_type_change()">
+				<select id="auth_type" name="auth_type" required="required" onchange="auth_type_change(true)">
 					<?php
-						function no_auth() {
-							return !in_array($_SESSION['auth_type'], array('form', 'persona', 'http_auth', 'none'));
+						function no_auth($auth_type) {
+							return !in_array($auth_type, array('form', 'persona', 'http_auth', 'none'));
 						}
+						$auth_type = isset($_SESSION['auth_type']) ? $_SESSION['auth_type'] : '';
 					?>
-					<option value="form"<?php echo $_SESSION['auth_type'] === 'form' || no_auth() ? ' selected="selected"' : '', cryptAvailable() ? '' : ' disabled="disabled"'; ?>><?php echo _t('auth_form'); ?></option>
-					<option value="persona"<?php echo $_SESSION['auth_type'] === 'persona' ? ' selected="selected"' : ''; ?>><?php echo _t('auth_persona'); ?></option>
-					<option value="http_auth"<?php echo $_SESSION['auth_type'] === 'http_auth' ? ' selected="selected"' : '', httpAuthUser() == '' ? ' disabled="disabled"' : ''; ?>><?php echo _t('http_auth'); ?>(REMOTE_USER = '<?php echo httpAuthUser(); ?>')</option>
-					<option value="none"<?php echo $_SESSION['auth_type'] === 'none' ? ' selected="selected"' : ''; ?>><?php echo _t('auth_none'); ?></option>
+					<option value="form"<?php echo $auth_type === 'form' || no_auth($auth_type) ? ' selected="selected"' : '', cryptAvailable() ? '' : ' disabled="disabled"'; ?>><?php echo _t('auth_form'); ?></option>
+					<option value="persona"<?php echo $auth_type === 'persona' ? ' selected="selected"' : ''; ?>><?php echo _t('auth_persona'); ?></option>
+					<option value="http_auth"<?php echo $auth_type === 'http_auth' ? ' selected="selected"' : '', httpAuthUser() == '' ? ' disabled="disabled"' : ''; ?>><?php echo _t('http_auth'); ?>(REMOTE_USER = '<?php echo httpAuthUser(); ?>')</option>
+					<option value="none"<?php echo $auth_type === 'none' ? ' selected="selected"' : ''; ?>><?php echo _t('auth_none'); ?></option>
 				</select>
 			</div>
 		</div>
@@ -618,7 +625,7 @@ function printStep2() {
 			<label class="group-name" for="passwordPlain"><?php echo _t('password_form'); ?></label>
 			<div class="group-controls">
 				<div class="stick">
-					<input type="password" id="passwordPlain" name="passwordPlain" pattern=".{7,}" autocomplete="off" <?php echo $_SESSION['auth_type'] === 'form' ? ' required="required"' : ''; ?> />
+					<input type="password" id="passwordPlain" name="passwordPlain" pattern=".{7,}" autocomplete="off" <?php echo $auth_type === 'form' ? ' required="required"' : ''; ?> />
 					<a class="btn toggle-password" data-toggle="passwordPlain"><?php echo FreshRSS_Themes::icon('key'); ?></a>
 				</div>
 				<noscript><b><?php echo _t('javascript_should_be_activated'); ?></b></noscript>
@@ -628,7 +635,7 @@ function printStep2() {
 		<div class="form-group">
 			<label class="group-name" for="mail_login"><?php echo _t('persona_connection_email'); ?></label>
 			<div class="group-controls">
-				<input type="email" id="mail_login" name="mail_login" value="<?php echo isset($_SESSION['mail_login']) ? $_SESSION['mail_login'] : ''; ?>" placeholder="alice@example.net" <?php echo $_SESSION['auth_type'] === 'persona' ? ' required="required"' : ''; ?> />
+				<input type="email" id="mail_login" name="mail_login" value="<?php echo isset($_SESSION['mail_login']) ? $_SESSION['mail_login'] : ''; ?>" placeholder="alice@example.net" <?php echo $auth_type === 'persona' ? ' required="required"' : ''; ?> />
 				<noscript><b><?php echo _t('javascript_should_be_activated'); ?></b></noscript>
 			</div>
 		</div>
@@ -653,7 +660,7 @@ function printStep2() {
 				toggles[i].addEventListener('click', toggle_password);
 			}
 
-			function auth_type_change() {
+			function auth_type_change(focus) {
 				var auth_value = document.getElementById('auth_type').value,
 				    password_input = document.getElementById('passwordPlain'),
 				    mail_input = document.getElementById('mail_login');
@@ -661,15 +668,21 @@ function printStep2() {
 				if (auth_value === 'form') {
 					password_input.required = true;
 					mail_input.required = false;
+					if (focus) {
+						password_input.focus();
+					}
 				} else if (auth_value === 'persona') {
 					password_input.required = false;
 					mail_input.required = true;
+					if (focus) {
+						mail_input.focus();
+					}
 				} else {
 					password_input.required = false;
 					mail_input.required = false;
 				}
 			}
-			auth_type_change();
+			auth_type_change(false);
 		</script>
 
 		<div class="form-group form-actions">
