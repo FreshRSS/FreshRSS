@@ -451,6 +451,8 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 			return;
 		}
 
+		invalidateHttpCache();
+
 		if (Minz_Request::isPost()) {
 			$nonce = Minz_Session::param('nonce');
 			$username = Minz_Request::param('username', '');
@@ -460,43 +462,32 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 				                ' user=' . $username .
 				                ' challenge=' . $c .
 				                ' nonce=' . $nonce);
-				Minz_Session::_param('notification', array(
-					'type' => 'bad',
-					'content' => Minz_Translate::t('invalid_login')
-				));
-				return;
+				Minz_Request::bad(_t('invalid_login'),
+				                  array('c' => 'index', 'a' => 'resetAuth'));
 			}
 
 			if (!function_exists('password_verify')) {
 				include_once(LIB_PATH . '/password_compat.php');
 			}
 
-			try {
-				$s = $conf->passwordHash;
-				$ok = password_verify($nonce . $s, $c);
-				if (!$ok) {
-					Minz_Log::debug('Password mismatch for user ' . $username .
-					                ', nonce=' . $nonce . ', c=' . $c);
-					Minz_Session::_param('notification', array(
-						'type' => 'bad',
-						'content' => Minz_Translate::t('invalid_login')
-					));
-					return;
-				}
-
+			$s = $conf->passwordHash;
+			$ok = password_verify($nonce . $s, $c);
+			if ($ok) {
 				Minz_Configuration::_authType('form');
 				$ok = Minz_Configuration::writeFile();
 
 				if ($ok) {
 					Minz_Request::good(_t('auth_form_set'));
 				} else {
-					Minz_Session::_param('notification', array(
-						'type' => 'bad',
-						'content' => _t('auth_form_not_set')
-					));
+					Minz_Request::bad(_t('auth_form_not_set'),
+				                      array('c' => 'index', 'a' => 'resetAuth'));
 				}
-			} catch (Minz_Exception $e) {
-				Minz_Log::warning('Login failure: ' . $e->getMessage());
+			} else {
+				Minz_Log::debug('Password mismatch for user ' . $username .
+				                ', nonce=' . $nonce . ', c=' . $c);
+
+				Minz_Request::bad(_t('invalid_login'),
+				                  array('c' => 'index', 'a' => 'resetAuth'));
 			}
 		}
 	}
