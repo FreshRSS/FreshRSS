@@ -3,7 +3,7 @@
 
 	switch (Minz_Configuration::authType()) {
 	case 'form':
-	?><form id="loginForm" method="post" action="<?php echo _url('index', 'formLogin'); ?>">
+	?><form id="crypto-form" method="post" action="<?php echo _url('index', 'formLogin'); ?>">
 		<div>
 			<label for="username"><?php echo _t('username'); ?></label>
 			<input type="text" id="username" name="username" size="16" required="required" maxlength="16" pattern="[0-9a-zA-Z]{1,16}" autofocus="autofocus" />

@@ -423,6 +423,9 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 
 	public function resetAuthAction() {
 		Minz_View::prependTitle(_t('reset_auth') . ' · ');
+		Minz_View::appendScript(Minz_Url::display(
+			'/scripts/bcrypt.min.js?' . @filemtime(PUBLIC_PATH . '/scripts/bcrypt.min.js')
+		));
 
 		$this->view->no_form = false;
 		// Enable changement of auth only if Persona!
