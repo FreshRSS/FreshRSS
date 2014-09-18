@@ -5,6 +5,7 @@ return array (
 	'login'				=> 'Connexion',
 	'keep_logged_in'		=> 'Rester connecté <small>(1 mois)</small>',
 	'login_with_persona'		=> 'Connexion avec Persona',
+	'login_persona_problem'		=> 'Problème de connexion à Persona ?',
 	'logout'			=> 'Déconnexion',
 	'search'			=> 'Rechercher des mots ou des #tags',
 	'search_short'			=> 'Rechercher',

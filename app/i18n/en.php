@@ -5,6 +5,7 @@ return array (
 	'login'				=> 'Login',
 	'keep_logged_in'		=> 'Keep me logged in <small>(1 month)</small>',
 	'login_with_persona'		=> 'Login with Persona',
+	'login_persona_problem'		=> 'Problem of connection with Persona?',
 	'logout'			=> 'Logout',
 	'search'			=> 'Search words or #tags',
 	'search_short'			=> 'Search',
