@@ -280,7 +280,7 @@ return array (
 	'article_icons'			=> 'Icônes d’article',
 	'top_line'			=> 'Ligne du haut',
 	'bottom_line'			=> 'Ligne du bas',
-	'html5_notif_timeout'	=> 'Temps d\'affichage de la notification HTML5',
+	'html5_notif_timeout'		=> 'Temps d\'affichage de la notification HTML5',
 	'seconds_(0_means_no_timeout)'	=> 'secondes (0 signifie aucun timeout ) ',
 	'img_with_lazyload'		=> 'Utiliser le mode “chargement différé” pour les images',
 	'sticky_post'			=> 'Aligner l’article en haut quand il est ouvert',

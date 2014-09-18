@@ -280,7 +280,7 @@ return array (
 	'article_icons'			=> 'Article icons',
 	'top_line'			=> 'Top line',
 	'bottom_line'			=> 'Bottom line',
-	'html5_notif_timeout'	=> 'HTML5 notification timeout',
+	'html5_notif_timeout'		=> 'HTML5 notification timeout',
 	'seconds_(0_means_no_timeout)'	=> 'seconds (0 means no timeout)',
 	'img_with_lazyload'		=> 'Use "lazy load" mode to load pictures',
 	'sticky_post'			=> 'Stick the article to the top when opened',

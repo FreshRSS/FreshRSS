@@ -212,7 +212,7 @@ return array (
 	'reading_icons'			=> 'Lese Symbol',
 	'top_line'			=> 'Kopfzeile',
 	'bottom_line'			=> 'Fusszeile',
-	'html5_notif_timeout'	=> 'HTML5 notification timeout',
+	'html5_notif_timeout'		=> 'HTML5 notification timeout',
 	'seconds_(0_means_no_timeout)'	=> 'seconds (0 means no timeout)',
 	'img_with_lazyload'		=> 'Verwende die "tr&auml;ge laden" Methode zum laden von Bildern',
 	'auto_read_when'		=> 'Artikel als gelesen markieren…',
