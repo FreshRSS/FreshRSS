@@ -60,6 +60,7 @@ class FreshRSS_Configuration {
 		'bottomline_link' => true,
 		'sharing' => array(),
 		'queries' => array(),
+		'html5_notif_timeout' => 0,
 	);
 
 	private $available_languages = array(
@@ -269,6 +270,12 @@ class FreshRSS_Configuration {
 			$this->data['content_width'] = 'thin';
 		}
 	}
+	
+	public function _html5_notif_timeout ($value) {
+		$value = intval($value);
+		$this->data['html5_notif_timeout'] = $value >= 0 ? $value : 0;
+	}
+	
 	public function _token($value) {
 		$this->data['token'] = $value;
 	}
