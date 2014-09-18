@@ -2,6 +2,6 @@
   "name": "Pafat",
   "author": "Plopoyop",
   "description": "Un thème pour FreshRss",
-  "version": 0.1,
-  "files": ["template.css", "pafat.css"]
+  "version": 0.2,
+  "files": ["_template.css", "pafat.css"]
 }
