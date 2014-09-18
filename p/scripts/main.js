@@ -860,7 +860,8 @@ function notifs_html5_show(nb) {
 
 	var notification = new window.Notification(str_notif_title_articles, {
 		icon: "../themes/icons/favicon-256.png",
-		body: str_notif_body_articles.replace("\d", nb)
+		body: str_notif_body_articles.replace("\d", nb),
+		tag: "freshRssNewArticles"
 	});
 
 	notification.onclick = function() {
