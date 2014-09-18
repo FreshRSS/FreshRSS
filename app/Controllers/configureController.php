@@ -157,6 +157,7 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 			$this->view->conf->_bottomline_tags(Minz_Request::param('bottomline_tags', false));
 			$this->view->conf->_bottomline_date(Minz_Request::param('bottomline_date', false));
 			$this->view->conf->_bottomline_link(Minz_Request::param('bottomline_link', false));
+			$this->view->conf->_html5_notif_timeout(Minz_Request::param('html5_notif_timeout', 0));
 			$this->view->conf->save();
 
 			Minz_Session::_param('language', $this->view->conf->language);

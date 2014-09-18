@@ -3,7 +3,7 @@
 
 	switch (Minz_Configuration::authType()) {
 	case 'form':
-	?><form id="loginForm" method="post" action="<?php echo _url('index', 'formLogin'); ?>">
+	?><form id="crypto-form" method="post" action="<?php echo _url('index', 'formLogin'); ?>">
 		<div>
 			<label for="username"><?php echo _t('username'); ?></label>
 			<input type="text" id="username" name="username" size="16" required="required" maxlength="16" pattern="[0-9a-zA-Z]{1,16}" autofocus="autofocus" />
@@ -29,8 +29,15 @@
 
 	case 'persona':
 		?><p>
-			<?php echo _i('login'); ?>
-			<a class="signin" href="#"><?php echo _t('login_with_persona'); ?></a>
+			<a class="signin btn btn-important" href="#">
+				<?php echo _i('login'); ?>
+				<?php echo _t('login_with_persona'); ?>
+			</a><br /><br />
+
+			<?php echo _i('help'); ?>
+			<small>
+				<a href="<?php echo _url('index', 'resetAuth'); ?>"><?php echo _t('login_persona_problem'); ?></a>
+			</small>
 		</p><?php
 		break;
 	} ?>

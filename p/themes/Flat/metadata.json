@@ -3,5 +3,5 @@
   "author": "Marien Fressinaud",
   "description": "Thème plat pour FreshRSS",
   "version": 0.2,
-  "files": ["template.css", "flat.css"]
+  "files": ["_template.css", "flat.css"]
 }

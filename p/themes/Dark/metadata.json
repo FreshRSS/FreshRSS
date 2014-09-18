@@ -3,5 +3,5 @@
 	"author": "AD",
 	"description": "Le coté obscur du thème “Origine”",
 	"version": 0.2,
-	"files": ["template.css", "dark.css"]
+	"files": ["_template.css", "dark.css"]
 }

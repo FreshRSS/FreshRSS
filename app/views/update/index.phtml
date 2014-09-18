@@ -1,0 +1,36 @@
+<?php $this->partial('aside_configure'); ?>
+
+<div class="post">
+	<a href="<?php echo _url('index', 'index'); ?>"><?php echo _t('back_to_rss_feeds'); ?></a>
+
+	<h1><?php echo _t('update_system'); ?></h1>
+
+	<p>
+		<?php echo _i('help'); ?> <?php echo _t('update_last', $this->last_update_time); ?>
+	</p>
+
+	<?php if (!empty($this->message)) { ?>
+	<p class="alert <?php echo $this->message['status'] === 'bad' ? 'alert-error' : 'alert-warn'; ?>">
+		<span class="alert-head"><?php echo $this->message['title']; ?></span>
+		<?php echo $this->message['body']; ?>
+	</p>
+	<?php } elseif ($this->check_last_hour) { ?>
+	<p class="alert alert-warn">
+		<span class="alert-head"><?php echo _t('damn'); ?></span>
+		<?php echo _t('no_update'); ?>
+	</p>
+	<?php } ?>
+
+	<?php
+		if (!$this->check_last_hour &&
+				(empty($this->message) || $this->message['status'] !== 'good')) {
+	?>
+	<p>
+		<a href="<?php echo _url('update', 'check'); ?>" class="btn"><?php echo _t('update_check'); ?></a>
+	</p>
+	<?php } ?>
+
+	<?php if ($this->update_to_apply) { ?>
+	<a class="btn btn-important" href="<?php echo _url('update', 'apply'); ?>"><?php echo _t('update_apply'); ?></a>
+	<?php } ?>
+</div>

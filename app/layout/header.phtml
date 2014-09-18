@@ -75,6 +75,12 @@ if (Minz_Configuration::canLogIn()) {
 				<li class="item"><a href="<?php echo _url('configure', 'queries'); ?>"><?php echo _t('queries'); ?></a></li>
 				<li class="separator"></li>
 				<li class="item"><a href="<?php echo _url('configure', 'users'); ?>"><?php echo _t('users'); ?></a></li>
+				<?php
+					$current_user = Minz_Session::param('currentUser', '');
+					if (Minz_Configuration::isAdmin($current_user)) {
+				?>
+				<li class="item"><a href="<?php echo _url('update', 'index'); ?>"><?php echo _t('update'); ?></a></li>
+				<?php } ?>
 				<li class="separator"></li>
 				<li class="item"><a href="<?php echo _url('stats', 'index'); ?>"><?php echo _t('stats'); ?></a></li>
 				<li class="item"><a href="<?php echo _url('index', 'logs'); ?>"><?php echo _t('logs'); ?></a></li>

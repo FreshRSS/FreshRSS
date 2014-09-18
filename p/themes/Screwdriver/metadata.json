@@ -3,5 +3,5 @@
   "author": "Mister aiR",
   "description": "C'est un cocktail ! C'est chaud mais « fresh » à la fois. Ce thème tue du chaton.",
   "version": 1.1,
-  "files": ["template.css","screwdriver.css"]
+  "files": ["_template.css","screwdriver.css"]
 }

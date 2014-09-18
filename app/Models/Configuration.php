@@ -45,6 +45,8 @@ class FreshRSS_Configuration {
 			'load_more' => 'm',
 			'auto_share' => 's',
 			'focus_search' => 'a',
+			'user_filter' => 'u',
+			'help' => 'f1',
 		),
 		'topline_read' => true,
 		'topline_favorite' => true,
@@ -58,9 +60,11 @@ class FreshRSS_Configuration {
 		'bottomline_link' => true,
 		'sharing' => array(),
 		'queries' => array(),
+		'html5_notif_timeout' => 0,
 	);
 
 	private $available_languages = array(
+		'de' => 'Deutsch',
 		'en' => 'English',
 		'fr' => 'Français',
 	);
@@ -138,7 +142,18 @@ class FreshRSS_Configuration {
 		}
 	}
 	public function _default_view ($value) {
-		$this->data['default_view'] = $value === FreshRSS_Entry::STATE_ALL ? FreshRSS_Entry::STATE_ALL : FreshRSS_Entry::STATE_NOT_READ;
+		switch ($value) {
+		case FreshRSS_Entry::STATE_ALL:
+			// left blank on purpose
+		case FreshRSS_Entry::STATE_NOT_READ:
+			// left blank on purpose
+		case FreshRSS_Entry::STATE_NOT_READ_STRICT:
+			$this->data['default_view'] = $value;
+			break;
+		default:
+			$this->data['default_view'] = FreshRSS_Entry::STATE_ALL;
+			break;
+		}
 	}
 	public function _display_posts ($value) {
 		$this->data['display_posts'] = ((bool)$value) && $value !== 'no';
@@ -209,6 +224,7 @@ class FreshRSS_Configuration {
 	}
 	public function _sharing ($values) {
 		$this->data['sharing'] = array();
+		$unique = array();
 		foreach ($values as $value) {
 			if (!is_array($value)) {
 				continue;
@@ -234,7 +250,11 @@ class FreshRSS_Configuration {
 				$value['name'] = $value['type'];
 			}
 
-			$this->data['sharing'][] = $value;
+			$json_value = json_encode($value);
+			if (!in_array($json_value, $unique)) {
+				$unique[] = $json_value;
+				$this->data['sharing'][] = $value;
+			}
 		}
 	}
 	public function _queries ($values) {
@@ -261,6 +281,12 @@ class FreshRSS_Configuration {
 			$this->data['content_width'] = 'thin';
 		}
 	}
+	
+	public function _html5_notif_timeout ($value) {
+		$value = intval($value);
+		$this->data['html5_notif_timeout'] = $value >= 0 ? $value : 0;
+	}
+	
 	public function _token($value) {
 		$this->data['token'] = $value;
 	}

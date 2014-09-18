@@ -88,6 +88,15 @@ input[type="checkbox"] {
 input.extend:focus {
 	width: 300px;
 }
+button.as-link,
+button.as-link:hover,
+button.as-link:active {
+	background: transparent;
+	border: none;
+	color: inherit;
+	cursor: pointer;
+	font-size: 1.1em;
+}
 
 /*=== COMPONENTS */
 /*===============*/
@@ -449,6 +458,12 @@ a.btn {
 .content pre {
 	overflow: auto;
 }
+br {
+	line-height: 1em;
+}
+br + br + br {
+	display: none;
+}
 
 /*=== Notification and actualize notification */
 .notification {
@@ -507,12 +522,13 @@ a.btn {
 }
 #bigMarkAsRead {
 	display: block;
-	padding: 3em 0;
+	width: 100%;
+	padding: 1em 0;
 	text-align: center;
+	font-size: 1.4em;
 }
 .bigTick {
-	font-size: 7em;
-	line-height: 1.6em;
+	font-size: 4em;
 }
 
 /*=== Statistiques */
