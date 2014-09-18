@@ -1,0 +1,7 @@
+{
+  "name": "Pafat",
+  "author": "Plopoyop",
+  "description": "Un thème pour FreshRss",
+  "version": 0.1,
+  "files": ["template.css", "pafat.css"]
+}
