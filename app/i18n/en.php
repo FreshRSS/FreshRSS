@@ -159,6 +159,7 @@ return array (
 	'save'				=> 'Save',
 	'delete'			=> 'Delete',
 	'cancel'			=> 'Cancel',
+	'submit'			=> 'Submit',
 
 	'back_to_rss_feeds'		=> '← Go back to your RSS feeds',
 	'feeds_moved_category_deleted'	=> 'When you delete a category, their feeds are automatically classified under <em>%s</em>.',
@@ -204,6 +205,7 @@ return array (
 	'informations'			=> 'Information',
 	'damn'				=> 'Damn!',
 	'ok'				=> 'Ok!',
+	'attention'			=> 'Be careful!',
 	'feed_in_error'			=> 'This feed has encountered a problem. Please verify that it is always reachable then actualize it.',
 	'feed_empty'			=> 'This feed is empty. Please verify that it is still maintained.',
 	'feed_description'		=> 'Description',
@@ -255,6 +257,7 @@ return array (
 	'users_list'			=> 'List of users',
 	'create_user'			=> 'Create new user',
 	'username'			=> 'Username',
+	'username_admin'		=> 'Administrator username',
 	'password'			=> 'Password',
 	'create'			=> 'Create',
 	'user_created'			=> 'User %s has been created',
@@ -434,4 +437,11 @@ return array (
 	'no_update'			=> 'No update to apply',
 	'update_problem'		=> 'The update process has encountered an error: %s',
 	'update_finished'		=> 'Update completed!',
+
+	'auth_reset'			=> 'Authentication reset',
+	'auth_will_reset'		=> 'Authentication system will be reseted: form will be used instead of Persona.',
+	'auth_not_persona'		=> 'Only Persona system can be reseted.',
+	'auth_no_password_set'		=> 'Administrator password hasn’t been set. This feature isn’t available.',
+	'auth_form_set'			=> 'Form is now your default authentication system.',
+	'auth_form_not_set'		=> 'A problem occured during authentication system configuration. Please retry later.',
 );

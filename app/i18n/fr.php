@@ -159,6 +159,7 @@ return array (
 	'save'				=> 'Enregistrer',
 	'delete'			=> 'Supprimer',
 	'cancel'			=> 'Annuler',
+	'submit'			=> 'Valider',
 
 	'back_to_rss_feeds'		=> '← Retour à vos flux RSS',
 	'feeds_moved_category_deleted'	=> 'Lors de la suppression d’une catégorie, ses flux seront automatiquement classés dans <em>%s</em>.',
@@ -204,6 +205,7 @@ return array (
 	'informations'			=> 'Informations',
 	'damn'				=> 'Arf !',
 	'ok'				=> 'Ok !',
+	'attention'			=> 'Attention !',
 	'feed_in_error'			=> 'Ce flux a rencontré un problème. Veuillez vérifier qu’il est toujours accessible puis actualisez-le.',
 	'feed_empty'			=> 'Ce flux est vide. Veuillez vérifier qu’il est toujours maintenu.',
 	'feed_description'		=> 'Description',
@@ -255,6 +257,7 @@ return array (
 	'users_list'			=> 'Liste des utilisateurs',
 	'create_user'			=> 'Créer un nouvel utilisateur',
 	'username'			=> 'Nom d’utilisateur',
+	'username_admin'		=> 'Nom d’utilisateur administrateur',
 	'password'			=> 'Mot de passe',
 	'create'			=> 'Créer',
 	'user_created'			=> 'L’utilisateur %s a été créé.',
@@ -434,4 +437,11 @@ return array (
 	'no_update'			=> 'Aucune mise à jour à appliquer',
 	'update_problem'		=> 'La mise à jour a rencontré un problème : %s',
 	'update_finished'		=> 'La mise à jour est terminée !',
+
+	'auth_reset'			=> 'Reset de l’authentification',
+	'auth_will_reset'		=> 'Le système d’authentification va être remis à zéro : le formulaire sera utilisé à la place de Persona.',
+	'auth_not_persona'		=> 'Seul le système d’authentification Persona peut être remis à zéro.',
+	'auth_no_password_set'		=> 'Aucun mot de passe administrateur n’a été précisé. Cette fonctionnalité n’est pas disponible.',
+	'auth_form_set'			=> 'Le formulaire est désormais votre système d’authentification.',
+	'auth_form_not_set'		=> 'Un problème est survenu lors de la configuration de votre système d’authentification. Veuillez réessayer plus tard.',
 );

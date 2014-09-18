@@ -422,7 +422,7 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 	}
 
 	public function resetAuthAction() {
-		Minz_View::prependTitle(_t('reset_auth') . ' · ');
+		Minz_View::prependTitle(_t('auth_reset') . ' · ');
 		Minz_View::appendScript(Minz_Url::display(
 			'/scripts/bcrypt.min.js?' . @filemtime(PUBLIC_PATH . '/scripts/bcrypt.min.js')
 		));
