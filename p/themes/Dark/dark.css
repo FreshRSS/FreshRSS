@@ -872,7 +872,6 @@ a.btn {
 .stat > table td,
 .stat > table th {
 	border-bottom: 1px solid #333;
-	text-align: center;
 }
 
 /*=== LOGS */

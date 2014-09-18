@@ -98,6 +98,15 @@ button.as-link:active {
 	font-size: 1.1em;
 }
 
+/*=== Tables */
+table {
+	max-width: 100%;
+}
+th.numeric,
+td.numeric {
+	text-align: center;
+}
+
 /*=== COMPONENTS */
 /*===============*/
 /*=== Forms */
