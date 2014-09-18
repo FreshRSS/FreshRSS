@@ -866,6 +866,12 @@ function notifs_html5_show(nb) {
 	notification.onclick = function() {
 		window.location.reload();
 	}
+
+	if (html5_notif_timeout !== 0){
+		setTimeout(function() {
+					notification.close();
+				}, html5_notif_timeout * 1000);
+	}
 }
 
 function init_notifs_html5() {
