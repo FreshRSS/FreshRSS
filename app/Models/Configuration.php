@@ -147,7 +147,7 @@ class FreshRSS_Configuration {
 			// left blank on purpose
 		case FreshRSS_Entry::STATE_NOT_READ:
 			// left blank on purpose
-		case FreshRSS_Entry::STATE_NOT_READ_STRICT:
+		case FreshRSS_Entry::STATE_STRICT + FreshRSS_Entry::STATE_NOT_READ:
 			$this->data['default_view'] = $value;
 			break;
 		default:
