@@ -6,6 +6,10 @@
 	<h1><?php echo _t('stats_idle'); ?></h1>
 
 	<?php
+		$current_url = urlencode(Minz_Url::display(
+			array('c' => 'stats', 'a' => 'idle'),
+			'php', true
+		));
 		$nothing = true;
 		foreach ($this->idleFeeds as $period => $feeds) {
 			if (!empty($feeds)) {
@@ -22,7 +26,7 @@
 					<div class="stick">
 						<a class="btn" href="<?php echo _url('index', 'index', 'get', 'f_' . $feed['id']); ?>"><?php echo _i('link'); ?> <?php echo _t('filter'); ?></a>
 						<a class="btn" href="<?php echo _url('configure', 'feed', 'id', $feed['id']); ?>"><?php echo _i('configure'); ?> <?php echo _t('administration'); ?></a>
-						<button class="btn btn-attention confirm" form="form-delete" formaction="<?php echo _url('feed', 'delete', 'id', $feed['id']); ?>"><?php echo _t('delete'); ?></button>
+						<button class="btn btn-attention confirm" form="form-delete" formaction="<?php echo _url('feed', 'delete', 'id', $feed['id'], 'r', $current_url); ?>"><?php echo _t('delete'); ?></button>
 					</div>
 				</li>
 				<li class="item">

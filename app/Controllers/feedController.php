@@ -412,10 +412,13 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 
 			Minz_Session::_param ('notification', $notif);
 
-			if ($type == 'category') {
-				Minz_Request::forward (array ('c' => 'configure', 'a' => 'categorize'), true);
+			$redirect_url = Minz_Request::param('r', false, true);
+			if ($redirect_url) {
+				Minz_Request::forward($redirect_url);
+			} elseif ($type == 'category') {
+				Minz_Request::forward(array ('c' => 'configure', 'a' => 'categorize'), true);
 			} else {
-				Minz_Request::forward (array ('c' => 'configure', 'a' => 'feed'), true);
+				Minz_Request::forward(array ('c' => 'configure', 'a' => 'feed'), true);
 			}
 		}
 	}

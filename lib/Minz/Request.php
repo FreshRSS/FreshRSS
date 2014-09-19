@@ -124,6 +124,11 @@ class Minz_Request {
 	 *                > sinon, le dispatcher recharge en interne
 	 */
 	public static function forward($url = array(), $redirect = false) {
+		if (!is_array($url)) {
+			header('Location: ' . $url);
+			exit();
+		}
+
 		$url = Minz_Url::checkUrl($url);
 
 		if ($redirect) {
