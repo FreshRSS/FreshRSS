@@ -209,8 +209,14 @@ SQL;
 		$date_max = new \DateTime();
 		$date_max->setTimestamp($res['date_max']);
 		$interval = $date_max->diff($date_min, true);
+		$interval_in_days = $interval->format('%a');
+		if ($interval_in_days <= 0) {
+			// Surely only one article.
+			// We will return count / (period/period) == count.
+			$interval_in_days = $period;
+		}
 
-		return round($res['count'] / ($interval->format('%a') / ($period)), 2);
+		return round($res['count'] / ($interval_in_days / $period), 2);
 	}
 
 	/**

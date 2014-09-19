@@ -53,6 +53,7 @@ SQL;
 		$stm->execute();
 		$res = $stm->fetchAll(PDO::FETCH_NAMED);
 
+		$repartition = array();
 		foreach ($res as $value) {
 			$repartition[(int) $value['period']] = (int) $value['count'];
 		}
