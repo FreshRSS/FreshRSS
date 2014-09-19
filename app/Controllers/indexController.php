@@ -337,6 +337,10 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 	}
 
 	public function formLoginAction () {
+		if ($this->view->loginOk) {
+			Minz_Request::forward(array('c' => 'index', 'a' => 'index'), true);
+		}
+
 		if (Minz_Request::isPost()) {
 			$ok = false;
 			$nonce = Minz_Session::param('nonce');
