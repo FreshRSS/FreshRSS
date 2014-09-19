@@ -57,11 +57,11 @@ return array (
 	'stats_entry_per_day_of_week'	=> 'Par jour de la semaine',
 	'stats_entry_per_month'		=> 'Par mois',
 
-	'last_week'			=> 'La dernière semaine',
-	'last_month'			=> 'Le dernier mois',
-	'last_3_month'			=> 'Les derniers trois mois',
-	'last_6_month'			=> 'Les derniers six mois',
-	'last_year'			=> 'La dernière année',
+	'last_week'			=> 'Depuis la semaine dernière',
+	'last_month'			=> 'Depuis le mois dernier',
+	'last_3_month'			=> 'Depuis les trois derniers mois',
+	'last_6_month'			=> 'Depuis les six derniers mois',
+	'last_year'			=> 'Depuis l’année dernière',
 
 	'your_rss_feeds'		=> 'Vos flux RSS',
 	'add_rss_feed'			=> 'Ajouter un flux RSS',
@@ -431,7 +431,7 @@ return array (
 	'stats_entry_per_category'	=> 'Articles par catégorie',
 	'stats_top_feed'		=> 'Les dix plus gros flux',
 	'stats_entry_count'		=> 'Nombre d’articles',
-	'stats_no_idle'			=> 'Il n’a aucun flux inactif !',
+	'stats_no_idle'			=> 'Il n’y a aucun flux inactif !',
 
 	'update'			=> 'Mise à jour',
 	'update_system'			=> 'Système de mise à jour',
