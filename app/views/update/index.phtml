@@ -29,4 +29,8 @@
 		<a href="<?php echo _url('update', 'check'); ?>" class="btn"><?php echo _t('update_check'); ?></a>
 	</p>
 	<?php } ?>
+
+	<?php if ($this->update_to_apply) { ?>
+	<a class="btn btn-important" href="<?php echo _url('update', 'apply'); ?>"><?php echo _t('update_apply'); ?></a>
+	<?php } ?>
 </div>

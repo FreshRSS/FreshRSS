@@ -6,7 +6,7 @@ class FreshRSS extends Minz_FrontController {
 		}
 		$loginOk = $this->accessControl(Minz_Session::param('currentUser', ''));
 		$this->loadParamsView();
-		if (Minz_Request::isPost() && !Minz_Request::isRefererFromSameDomain()) {
+		if (Minz_Request::isPost() && !is_referer_from_same_domain()) {
 			$loginOk = false;	//Basic protection against XSRF attacks
 			Minz_Error::error(
 				403,
@@ -143,11 +143,12 @@ class FreshRSS extends Minz_FrontController {
 		$theme = FreshRSS_Themes::load($this->conf->theme);
 		if ($theme) {
 			foreach($theme['files'] as $file) {
-				$theme_id = $theme['id'];
-				$filename = $file;
-				if ($file[0] == '_') {
+				if ($file[0] === '_') {
 					$theme_id = 'base-theme';
 					$filename = substr($file, 1);
+				} else {
+					$theme_id = $theme['id'];
+					$filename = $file;
 				}
 				$filetime = @filemtime(PUBLIC_PATH . '/themes/' . $theme_id . '/' . $filename);
 				Minz_View::appendStyle(Minz_Url::display(

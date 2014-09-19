@@ -984,7 +984,7 @@ function init_load_more(box) {
 }
 //</endless_mode>
 
-//<Web login form>
+//<crypto form (Web login)>
 function poormanSalt() {	//If crypto.getRandomValues is not available
 	var text = '$2a$04$',
 		base = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ.0123456789/abcdefghijklmnopqrstuvwxyz';
@@ -994,20 +994,24 @@ function poormanSalt() {	//If crypto.getRandomValues is not available
 	return text;
 }
 
-function init_loginForm() {
-	var $loginForm = $('#loginForm');
-	if ($loginForm.length === 0) {
+function init_crypto_form() {
+	var $crypto_form = $('#crypto-form');
+	if ($crypto_form.length === 0) {
 		return;
 	}
+
 	if (!(window.dcodeIO)) {
 		if (window.console) {
 			console.log('FreshRSS waiting for bcrypt.js…');
 		}
-		window.setTimeout(init_loginForm, 100);
+		window.setTimeout(init_crypto_form, 100);
 		return;
 	}
-	$loginForm.on('submit', function() {
-		$('#loginButton').attr('disabled', '');
+
+	$crypto_form.on('submit', function() {
+		var $submit_button = $(this).find('button[type="submit"]');
+		$submit_button.attr('disabled', '');
+
 		var success = false;
 		$.ajax({
 			url: './?c=javascript&a=nonce&user=' + $('#username').val(),
@@ -1015,7 +1019,7 @@ function init_loginForm() {
 			async: false
 		}).done(function (data) {
 			if (data.salt1 == '' || data.nonce == '') {
-				alert('Invalid user!');
+				openNotification('Invalid user!', 'bad');
 			} else {
 				try {
 					var strong = window.Uint32Array && window.crypto && (typeof window.crypto.getRandomValues === 'function'),
@@ -1023,22 +1027,23 @@ function init_loginForm() {
 						c = dcodeIO.bcrypt.hashSync(data.nonce + s, strong ? 4 : poormanSalt());
 					$('#challenge').val(c);
 					if (s == '' || c == '') {
-						alert('Crypto error!');
+						openNotification('Crypto error!', 'bad');
 					} else {
 						success = true;
 					}
 				} catch (e) {
-					alert('Crypto exception! ' + e);
+					openNotification('Crypto exception! ' + e, 'bad');
 				}
 			}
 		}).fail(function() {
-			alert('Communication error!');
+			openNotification('Communication error!', 'bad');
 		});
-		$('#loginButton').removeAttr('disabled');
+
+		$submit_button.removeAttr('disabled');
 		return success;
 	});
 }
-//</Web login form>
+//</crypto form (Web login)>
 
 //<persona>
 function init_persona() {
@@ -1240,14 +1245,12 @@ function init_all() {
 	}
 	init_notifications();
 	switch (authType) {
-		case 'form':
-			init_loginForm();
-			break;
 		case 'persona':
 			init_persona();
 			break;
 	}
 	init_confirm_action();
+	init_crypto_form();
 	$stream = $('#stream');
 	if ($stream.length > 0) {
 		init_actualize();

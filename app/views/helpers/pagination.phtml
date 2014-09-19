@@ -9,7 +9,10 @@
 <ul class="pagination">
 	<li class="item pager-next">
 	<?php if (!empty($this->nextId)) { ?>
-		<?php $params['next'] = $this->nextId; ?>
+		<?php
+			$params['next'] = $this->nextId;
+			$params['ajax'] = 1;
+		?>
 		<a id="load_more" href="<?php echo Minz_Url::display(array('c' => $c, 'a' => $a, 'params' => $params)); ?>">
 			<?php echo _t('load_more'); ?>
 		</a>

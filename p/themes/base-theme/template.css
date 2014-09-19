@@ -98,6 +98,15 @@ button.as-link:active {
 	font-size: 1.1em;
 }
 
+/*=== Tables */
+table {
+	max-width: 100%;
+}
+th.numeric,
+td.numeric {
+	text-align: center;
+}
+
 /*=== COMPONENTS */
 /*===============*/
 /*=== Forms */
@@ -458,6 +467,12 @@ a.btn {
 .content pre {
 	overflow: auto;
 }
+br {
+	line-height: 1em;
+}
+br + br + br {
+	display: none;
+}
 
 /*=== Notification and actualize notification */
 .notification {
@@ -526,6 +541,14 @@ a.btn {
 }
 
 /*=== Statistiques */
+.stat {
+	margin: 15px 0;
+}
+.stat.half {
+	display: inline-block;
+	width: 46%;
+	padding: 0 2%;
+}
 .stat > table {
 	width: 100%;
 }

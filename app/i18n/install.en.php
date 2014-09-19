@@ -42,6 +42,8 @@ return array (
 	'data_is_ok'			=> 'Permissions on data directory are good',
 	'persona_is_ok'			=> 'Permissions on Mozilla Persona directory are good',
 	'file_is_nok'			=> 'Check permissions on <em>%s</em> directory. HTTP server must have rights to write into',
+	'http_referer_is_ok'		=> 'Your HTTP REFERER is known and corresponds to your server.',
+	'http_referer_is_nok'		=> 'Please check that you are not altering your HTTP REFERER.',
 	'fix_errors_before'		=> 'Fix errors before skip to the next step.',
 
 	'general_conf_is_ok'		=> 'General configuration has been saved.',
