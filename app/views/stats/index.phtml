@@ -53,7 +53,7 @@
 			<tbody>
 				<?php foreach ($this->topFeed as $feed): ?>
 					<tr>
-						<td><?php echo $feed['name']; ?></td>
+						<td><a href="<?php echo _url('stats', 'repartition', 'id', $feed['id']); ?>"><?php echo $feed['name']; ?></a></td>
 						<td><?php echo $feed['category']; ?></td>
 						<td class="numeric"><?php echo formatNumber($feed['count']); ?></td>
 					</tr>
