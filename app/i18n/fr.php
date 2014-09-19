@@ -43,6 +43,7 @@ return array (
 	'query_state_15'		=> 'Afficher tous les articles',
 	'query_number'			=> 'Filtre n°%d',
 	'add_query'			=> 'Créer un filtre',
+	'query_created'			=> 'Le filtre "%s" a bien été créé.',
 	'no_query'			=> 'Vous n’avez pas encore créé de filtre.',
 	'query_filter'			=> 'Filtres appliqués :',
 	'no_query_filter'		=> 'Aucun filtre appliqué',

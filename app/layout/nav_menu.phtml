@@ -93,7 +93,10 @@
 			<ul class="dropdown-menu">
 				<li class="dropdown-close"><a href="#close">❌</a></li>
 
-				<li class="dropdown-header"><?php echo _t('queries'); ?> <a class="no-mobile" href="<?php echo _url('configure', 'queries'); ?>"><?php echo _i('configure'); ?></a></li>
+				<li class="dropdown-header">
+					<?php echo _t('queries'); ?>
+					<a class="no-mobile" href="<?php echo _url('configure', 'queries'); ?>"><?php echo _i('configure'); ?></a>
+				</li>
 
 				<?php foreach ($this->conf->queries as $query) { ?>
 				<li class="item query">

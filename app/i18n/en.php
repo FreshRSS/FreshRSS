@@ -43,6 +43,7 @@ return array (
 	'query_state_15'		=> 'Display all articles',
 	'query_number'			=> 'Query n°%d',
 	'add_query'			=> 'Add a query',
+	'query_created'			=> 'Query "%s" has been created.',
 	'no_query'			=> 'You haven’t created any user query yet.',
 	'query_filter'			=> 'Filter applied:',
 	'no_query_filter'		=> 'No filter',

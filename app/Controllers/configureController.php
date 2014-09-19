@@ -313,19 +313,14 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 
 			foreach ($queries as $key => $query) {
 				if (!$query['name']) {
-					$query['name'] = Minz_Translate::t('query_number', $key + 1);
+					$query['name'] = _t('query_number', $key + 1);
 				}
 			}
 			$this->view->conf->_queries($queries);
 			$this->view->conf->save();
 
-			$notif = array(
-				'type' => 'good',
-				'content' => Minz_Translate::t('configuration_updated')
-			);
-			Minz_Session::_param('notification', $notif);
-
-			Minz_Request::forward(array('c' => 'configure', 'a' => 'queries'), true);
+			Minz_Request::good(_t('configuration_updated'),
+			                   array('c' => 'configure', 'a' => 'queries'));
 		} else {
 			$this->view->query_get = array();
 			$cat_dao = new FreshRSS_CategoryDAO();
@@ -392,14 +387,14 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 	public function addQueryAction() {
 		$queries = $this->view->conf->queries;
 		$query = Minz_Request::params();
-		$query['name'] = Minz_Translate::t('query_number', count($queries) + 1);
+		$query['name'] = _t('query_number', count($queries) + 1);
 		unset($query['output']);
 		unset($query['token']);
 		$queries[] = $query;
 		$this->view->conf->_queries($queries);
 		$this->view->conf->save();
 
-		// Minz_Request::forward(array('params' => $query), true);
-		Minz_Request::forward(array('c' => 'configure', 'a' => 'queries'), true);
+		Minz_Request::good(_t('query_created', $query['name']),
+		                   array('c' => 'configure', 'a' => 'queries'));
 	}
 }
