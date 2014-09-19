@@ -46,6 +46,7 @@ return array (
 	'no_query'			=> 'Vous n’avez pas encore créé de filtre.',
 	'query_filter'			=> 'Filtres appliqués :',
 	'no_query_filter'		=> 'Aucun filtre appliqué',
+	'query_deprecated'		=> 'Ce filtre n’est plus valide. La catégorie ou le flux concerné a été supprimé.',
 	'about'				=> 'À propos',
 	'stats'				=> 'Statistiques',
 	'stats_idle'			=> 'Flux inactifs',

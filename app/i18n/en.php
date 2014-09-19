@@ -46,6 +46,7 @@ return array (
 	'no_query'			=> 'You haven’t created any user query yet.',
 	'query_filter'			=> 'Filter applied:',
 	'no_query_filter'		=> 'No filter',
+	'query_deprecated'		=> 'This query is no longer valid. The concerned category or feed has been deleted.',
 	'about'				=> 'About',
 	'stats'				=> 'Statistics',
 	'stats_idle'			=> 'Idle feeds',

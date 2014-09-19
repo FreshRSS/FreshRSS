@@ -42,30 +42,37 @@
 						   + (isset($query['get']) ? 1 : 0);
 					// If the only filter is "all" articles, we consider there is no filter
 					$exist = ($exist === 1 && isset($query['get']) && $query['get'] === 'a') ? 0 : $exist;
+
+					$deprecated = (isset($this->query_get[$key]) &&
+					               $this->query_get[$key]['deprecated']);
 				?>
 
 				<?php if ($exist === 0) { ?>
 				<div class="alert alert-warn">
 					<div class="alert-head"><?php echo _t('no_query_filter'); ?></div>
 				</div>
+				<?php } elseif ($deprecated) { ?>
+				<div class="alert alert-error">
+					<div class="alert-head"><?php echo _t('query_deprecated'); ?></div>
+				</div>
 				<?php } else { ?>
 				<div class="alert alert-success">
 					<div class="alert-head"><?php echo _t('query_filter'); ?></div>
 
 					<ul>
-						<?php if (isset($query['search'])) { $exist = true; ?>
+						<?php if (isset($query['search'])) { ?>
 						<li class="item"><?php echo _t('query_search', $query['search']); ?></li>
 						<?php } ?>
 
-						<?php if (isset($query['state'])) { $exist = true; ?>
+						<?php if (isset($query['state'])) { ?>
 						<li class="item"><?php echo _t('query_state_' . $query['state']); ?></li>
 						<?php } ?>
 
-						<?php if (isset($query['order'])) { $exist = true; ?>
+						<?php if (isset($query['order'])) { ?>
 						<li class="item"><?php echo _t('query_order_' . strtolower($query['order'])); ?></li>
 						<?php } ?>
 
-						<?php if (isset($query['get'])) { $exist = true; ?>
+						<?php if (isset($query['get'])) { ?>
 						<li class="item"><?php echo _t('query_get_' . $this->query_get[$key]['type'], $this->query_get[$key]['name']); ?></li>
 						<?php } ?>
 					</ul>
