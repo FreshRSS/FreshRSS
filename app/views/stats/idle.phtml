@@ -23,7 +23,9 @@
 						<button class="btn btn-attention confirm" form="form-delete" formaction="<?php echo _url('feed', 'delete', 'id', $feed['id']); ?>"><?php echo _t('delete'); ?></button>
 					</div>
 				</li>
-				<li class="item"><span title="<?php echo timestamptodate($feed['last_date'], false); ?>"><?php echo $feed['name']; ?></span></li>
+				<li class="item">
+					<span title="<?php echo timestamptodate($feed['last_date'], false); ?>"><?php echo $feed['name']; ?> (<?php echo _t('number_articles', $feed['nb_articles']); ?>)</span>
+				</li>
 			</ul>
 			<?php } ?>
 		</div>

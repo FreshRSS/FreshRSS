@@ -315,6 +315,7 @@ SQL;
 SELECT MAX(f.id) as id
 , MAX(f.name) AS name
 , MAX(date) AS last_date
+, COUNT(*) AS nb_articles
 FROM {$this->prefix}feed AS f,
 {$this->prefix}entry AS e
 WHERE f.id = e.id_feed

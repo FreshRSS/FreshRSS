@@ -215,7 +215,7 @@ return array (
 	'website_url'			=> 'URL du site',
 	'feed_url'			=> 'URL du flux',
 	'articles'			=> 'articles',
-	'number_articles'		=> 'Nombre d’articles',
+	'number_articles'		=> '%d articles',
 	'by_feed'			=> 'par flux',
 	'by_default'			=> 'Par défaut',
 	'keep_history'			=> 'Nombre minimum d’articles à conserver',

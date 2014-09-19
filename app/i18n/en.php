@@ -215,7 +215,7 @@ return array (
 	'website_url'			=> 'Website URL',
 	'feed_url'			=> 'Feed URL',
 	'articles'			=> 'articles',
-	'number_articles'		=> 'Number of articles',
+	'number_articles'		=> '%d articles',
 	'by_feed'			=> 'by feed',
 	'by_default'			=> 'By default',
 	'keep_history'			=> 'Minimum number of articles to keep',

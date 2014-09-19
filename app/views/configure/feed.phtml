@@ -70,6 +70,13 @@
 				</label>
 			</div>
 		</div>
+		<div class="form-group">
+			<div class="group-controls">
+				<a class="" href="<?php echo _url('stats', 'repartition', 'id', $this->flux->id()); ?>">
+					<?php echo _i('stats'); ?> <?php echo _t('stats'); ?>
+				</a>
+			</div>
+		</div>
 		<div class="form-group form-actions">
 			<div class="group-controls">
 				<button class="btn btn-important"><?php echo Minz_Translate::t ('save'); ?></button>
@@ -80,17 +87,13 @@
 		<legend><?php echo Minz_Translate::t ('archiving_configuration'); ?></legend>
 
 		<div class="form-group">
-			<label class="group-name"></label>
 			<div class="group-controls">
-				<a class="btn" href="<?php echo _url ('feed', 'actualize', 'id', $this->flux->id ()); ?>">
-					<?php echo FreshRSS_Themes::icon('refresh'); ?> <?php echo Minz_Translate::t('actualize'); ?>
-				</a>
-			</div>
-		</div>
-		<div class="form-group">
-			<label class="group-name"><?php echo Minz_Translate::t ('number_articles'); ?></label>
-			<div class="group-controls">
-				<span class="control"><?php echo $nbEntries; ?></span>
+				<div class="stick">
+					<input type="text" value="<?php echo _t('number_articles', $nbEntries); ?>" disabled="disabled" />
+					<a class="btn" href="<?php echo _url('feed', 'actualize', 'id', $this->flux->id ()); ?>">
+						<?php echo _i('refresh'); ?> <?php echo _t('actualize'); ?>
+					</a>
+				</div>
 			</div>
 		</div>
 		<div class="form-group">

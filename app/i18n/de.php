@@ -150,7 +150,7 @@ return array (
 	'website_url'			=> 'Webseiten-Adresse URL',
 	'feed_url'			=> 'Feed URL',
 	'articles'			=> 'Artikel',
-	'number_articles'		=> 'Anzahl der Artikel',
+	'number_articles'		=> '%d Artikel',
 	'by_feed'			=> 'per Feed',
 	'by_default'			=> 'Als Vorgabe',
 	'keep_history'			=> 'Kleinste Anzahl der Artikel, die behalten werden',
