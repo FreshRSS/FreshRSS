@@ -276,7 +276,7 @@ return array (
 	'reading_configuration'		=> 'Lecture',
 	'display_configuration'		=> 'Affichage',
 	'articles_per_page'		=> 'Nombre d’articles par page',
-	'number_divided_when_unfolded'	=> 'Divisé par 2 lors du chargement d’articles dépliés.',
+	'number_divided_when_reader'	=> 'Divisé par 2 dans la vue de lecture.',
 	'default_view'			=> 'Vue par défaut',
 	'articles_to_display'		=> 'Articles à afficher',
 	'sort_order'			=> 'Ordre de tri',

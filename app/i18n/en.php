@@ -276,7 +276,7 @@ return array (
 	'reading_configuration'		=> 'Reading',
 	'display_configuration'		=> 'Display',
 	'articles_per_page'		=> 'Number of articles per page',
-	'number_divided_when_unfolded'	=> 'Divided by 2 during loading of unfolded articles.',
+	'number_divided_when_reader'	=> 'Divided by 2 in the reading view.',
 	'default_view'			=> 'Default view',
 	'articles_to_display'		=> 'Articles to display',
 	'sort_order'			=> 'Sort order',

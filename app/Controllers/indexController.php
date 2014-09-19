@@ -84,7 +84,7 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 		$first = Minz_Request::param ('next', '');
 
 		$ajax_request = Minz_Request::param('ajax', false);
-		if ($ajax_request == 1 && $this->view->conf->display_posts) {
+		if ($output === 'reader') {
 			$nb = max(1, round($nb / 2));
 		}
 
