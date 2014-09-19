@@ -1250,7 +1250,6 @@ function init_all() {
 			break;
 	}
 	init_confirm_action();
-	init_crypto_form();
 	$stream = $('#stream');
 	if ($stream.length > 0) {
 		init_actualize();
@@ -1265,6 +1264,7 @@ function init_all() {
 		init_notifs_html5();
 		window.setInterval(refreshUnreads, 120000);
 	} else {
+		init_crypto_form();
 		init_share_observers();
 		init_remove_observers();
 		init_feed_observers();
