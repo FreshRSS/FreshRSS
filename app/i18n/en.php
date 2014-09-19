@@ -237,7 +237,7 @@ return array (
 	'not_yet_implemented'		=> 'Not yet implemented',
 	'access_protected_feeds'	=> 'Connection allows to access HTTP protected RSS feeds',
 	'no_selected_feed'		=> 'No feed selected.',
-	'think_to_add'			=> '<a href="./?c=configure&amp;a=feed">You may add some feeds</a>.',
+	'think_to_add'			=> 'You may add some feeds.',
 
 	'current_user'			=> 'Current user',
 	'default_user'			=> 'Username of the default user <small>(maximum 16 alphanumeric characters)</small>',

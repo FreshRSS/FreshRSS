@@ -169,7 +169,7 @@ return array (
 	'not_yet_implemented'		=> 'Noch nicht implementiert',
 	'access_protected_feeds'	=> 'Die Verbindung erlaubt Zugriff zu HTTP-gesch&uuml;tzten RSS Feeds',
 	'no_selected_feed'		=> 'Kein Feed ausgew&auml;hlt.',
-	'think_to_add'			=> '<a href="./?c=configure&amp;a=feed">Sie k&ouml;nnen Feeds hinzuf&uuml;gen</a>.',
+	'think_to_add'			=> 'Sie k&ouml;nnen Feeds hinzuf&uuml;gen.',
 
 	'current_user'			=> 'Aktuelle Nutzung',
 	'default_user'			=> 'Nutzername des Standardnutzers <small>(maximal 16 Zeichen - alphanumerisch)</small>',

@@ -237,7 +237,7 @@ return array (
 	'not_yet_implemented'		=> 'Pas encore implémenté',
 	'access_protected_feeds'	=> 'La connexion permet d’accéder aux flux protégés par une authentification HTTP.',
 	'no_selected_feed'		=> 'Aucun flux sélectionné.',
-	'think_to_add'			=> '<a href="./?c=configure&amp;a=feed">Vous pouvez ajouter des flux</a>.',
+	'think_to_add'			=> 'Vous pouvez ajouter des flux.',
 
 	'current_user'			=> 'Utilisateur actuel',
 	'password_form'			=> 'Mot de passe<br /><small>(pour connexion par formulaire)</small>',
