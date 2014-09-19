@@ -431,6 +431,7 @@ return array (
 	'stats_entry_per_category'	=> 'Entries per category',
 	'stats_top_feed'		=> 'Top ten feeds',
 	'stats_entry_count'		=> 'Entry count',
+	'stats_no_idle'			=> 'There is no idle feed!',
 
 	'update'			=> 'Update',
 	'update_system'			=> 'Update system',

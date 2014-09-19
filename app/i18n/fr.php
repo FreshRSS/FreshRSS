@@ -431,6 +431,7 @@ return array (
 	'stats_entry_per_category'	=> 'Articles par catégorie',
 	'stats_top_feed'		=> 'Les dix plus gros flux',
 	'stats_entry_count'		=> 'Nombre d’articles',
+	'stats_no_idle'			=> 'Il n’a aucun flux inactif !',
 
 	'update'			=> 'Mise à jour',
 	'update_system'			=> 'Système de mise à jour',

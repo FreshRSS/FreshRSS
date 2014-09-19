@@ -6,8 +6,10 @@
 	<h1><?php echo _t('stats_idle'); ?></h1>
 
 	<?php
+		$nothing = true;
 		foreach ($this->idleFeeds as $period => $feeds) {
 			if (!empty($feeds)) {
+				$nothing = false;
 	?>
 		<div class="stat">
 			<h2><?php echo _t($period); ?></h2>
@@ -32,5 +34,11 @@
 	<?php
 			}
 		}
+
+		if ($nothing) {
 	?>
+	<p class="alert alert-warn">
+		<span class="alert-head"><?php echo _t('stats_no_idle'); ?></span>
+	</p>
+	<?php } ?>
 </div>
