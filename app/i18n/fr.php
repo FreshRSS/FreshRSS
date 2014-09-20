@@ -249,7 +249,7 @@ return array (
 	'unsafe_autologin'		=> 'Autoriser les connexions automatiques non-sûres au format : ',
 	'api_enabled'			=> 'Autoriser l’accès par <abbr>API</abbr> <small>(nécessaire pour les applis mobiles)</small>',
 	'auth_token'			=> 'Jeton d’identification',
-	'explain_token'			=> 'Permet d’accéder à la sortie RSS de l’utilisateur par défaut sans besoin de s’authentifier.<br /><kbd>%s?output=rss&token=%s</kbd>',
+	'explain_token'			=> 'Permet d’accéder à la sortie RSS de l’utilisateur par défaut sans besoin de s’authentifier.<br /><kbd>%s?output=rss&amp;token=%s</kbd>',
 	'login_configuration'		=> 'Identification',
 	'is_admin'			=> 'est administrateur',
 	'auth_type'			=> 'Méthode d’authentification',
