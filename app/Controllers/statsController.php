@@ -91,7 +91,7 @@ class FreshRSS_stats_Controller extends Minz_ActionController {
 	 *   - month
 	 *
 	 * @todo verify that the metrics used here make some sense. Especially
-	 * for the average.
+	 *       for the average.
 	 */
 	public function repartitionAction() {
 		$statsDAO = FreshRSS_Factory::createStatsDAO();

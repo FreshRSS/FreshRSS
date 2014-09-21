@@ -10,7 +10,7 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 	 * underlying framework.
 	 *
 	 * @todo see if the category default configuration is needed here or if
-	 * we can move it to the categorize action
+	 *       we can move it to the categorize action
 	 */
 	public function firstAction() {
 		if (!$this->view->loginOk) {
@@ -357,7 +357,7 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 	 * tab and up.
 	 *
 	 * @todo remove numbers from the list of authorized shortcuts since they
-	 * are used to access shortcuts and user queries
+	 *       are used to access shortcuts and user queries
 	 * @todo change the notification code
 	 */
 	public function shortcutAction() {
@@ -418,10 +418,10 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 	 *   - refresh frequency (default: -2)
 	 *
 	 * @todo explain why the default value is -2 but this value does not
-	 * exist in the drop-down list
+	 *       exist in the drop-down list
 	 * @todo change the notification code
 	 * @todo refactor configuration setting syntax to be consistent with the
-	 * other methods
+	 *       other methods
 	 */
 	public function archivingAction() {
 		if (Minz_Request::isPost()) {
@@ -550,9 +550,9 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 	 * lean data.
 	 *
 	 * @todo change the way of keeping lean data to have a more defensive
-	 * code. At the moment, the code accepts any parameters and discard those
-	 * on the black list. I think it is safer if we maintain a whitelist
-	 * instead.
+	 *       code. At the moment, the code accepts any parameters and discard
+	 *       those on the black list. I think it is safer if we maintain a
+	 *       whitelist instead.
 	 */
 	public function addQueryAction() {
 		$queries = $this->view->conf->queries;
