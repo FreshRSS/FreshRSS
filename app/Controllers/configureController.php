@@ -504,6 +504,9 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 				unset($query[$key]);
 			}
 		}
+		if ($query['state'] & FreshRSS_Entry::STATE_STRICT) {
+			$query['state'] -= FreshRSS_Entry::STATE_STRICT;
+		}
 		$queries[] = $query;
 		$this->view->conf->_queries($queries);
 		$this->view->conf->save();
