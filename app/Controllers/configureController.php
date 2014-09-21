@@ -198,17 +198,11 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 	 *   - display of open action in footer
 	 *   - html5 notification timeout (default: 0)
 	 * Default values are false unless specified.
-	 *
-	 * @todo refactor theme section to use the same syntax everywhere
 	 */
 	public function displayAction() {
 		if (Minz_Request::isPost()) {
 			$this->view->conf->_language(Minz_Request::param('language', 'en'));
-			$themeId = Minz_Request::param('theme', '');
-			if ($themeId == '') {
-				$themeId = FreshRSS_Themes::defaultTheme;
-			}
-			$this->view->conf->_theme($themeId);
+			$this->view->conf->_theme(Minz_Request::param('theme', FreshRSS_Themes::$defaultTheme));
 			$this->view->conf->_content_width(Minz_Request::param('content_width', 'thin'));
 			$this->view->conf->_topline_read(Minz_Request::param('topline_read', false));
 			$this->view->conf->_topline_favorite(Minz_Request::param('topline_favorite', false));
@@ -386,18 +380,12 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 	 *
 	 * @todo explain why the default value is -2 but this value does not
 	 *       exist in the drop-down list
-	 * @todo refactor configuration setting syntax to be consistent with the
-	 *       other methods
 	 */
 	public function archivingAction() {
 		if (Minz_Request::isPost()) {
-			$old = Minz_Request::param('old_entries', 3);
-			$keepHistoryDefault = Minz_Request::param('keep_history_default', 0);
-			$ttlDefault = Minz_Request::param('ttl_default', -2);
-
-			$this->view->conf->_old_entries($old);
-			$this->view->conf->_keep_history_default($keepHistoryDefault);
-			$this->view->conf->_ttl_default($ttlDefault);
+			$this->view->conf->_old_entries(Minz_Request::param('old_entries', 3));
+			$this->view->conf->_keep_history_default(Minz_Request::param('keep_history_default', 0));
+			$this->view->conf->_ttl_default(Minz_Request::param('ttl_default', -2));
 			$this->view->conf->save();
 			invalidateHttpCache();
 
