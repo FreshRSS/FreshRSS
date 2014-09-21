@@ -206,7 +206,7 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 	 *   - html5 notification timeout (default: 0)
 	 * Default values are false unless specified.
 	 *
-	 * @todo refactor to theme section to use the same syntax everywhere
+	 * @todo refactor theme section to use the same syntax everywhere
 	 * @todo change the notification code
 	 */
 	public function displayAction() {
