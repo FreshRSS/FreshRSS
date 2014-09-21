@@ -493,18 +493,17 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 	 * It gets the GET parameters and stores them in the configuration query
 	 * storage. Before it is saved, the unwanted parameters are unset to keep
 	 * lean data.
-	 *
-	 * @todo change the way of keeping lean data to have a more defensive
-	 *       code. At the moment, the code accepts any parameters and discard
-	 *       those on the black list. I think it is safer if we maintain a
-	 *       whitelist instead.
 	 */
 	public function addQueryAction() {
+		$whitelist = array('get', 'order', 'name', 'search', 'state');
 		$queries = $this->view->conf->queries;
 		$query = Minz_Request::params();
 		$query['name'] = _t('query_number', count($queries) + 1);
-		unset($query['output']);
-		unset($query['token']);
+		foreach ($query as $key => $value) {
+			if (!in_array($key, $whitelist)) {
+				unset($query[$key]);
+			}
+		}
 		$queries[] = $query;
 		$this->view->conf->_queries($queries);
 		$this->view->conf->save();
