@@ -1,6 +1,17 @@
 <?php
 
+/**
+ * Controller to handle every configuration options.
+ */
 class FreshRSS_configure_Controller extends Minz_ActionController {
+	/**
+	 * This action is called before every other action in that class. It is
+	 * the common boiler plate for every action. It is triggered by the
+	 * underlying framework.
+	 *
+	 * @todo see if the category default configuration is needed here or if
+	 * we can move it to the categorize action
+	 */
 	public function firstAction() {
 		if (!$this->view->loginOk) {
 			Minz_Error::error(
@@ -13,6 +24,17 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 		$catDAO->checkDefault();
 	}
 
+	/**
+	 * This action handles the category configuration page
+	 *
+	 * It displays the category configuration page.
+	 * If this action is reached through a POST request, it loops through
+	 * every category to check for modification then add a new category if
+	 * needed then sends a notification to the user.
+	 * If a category name is emptied, the category is deleted and all
+	 * related feeds are moved to the default category.
+	 * If a category name is changed, it is updated.
+	 */
 	public function categorizeAction() {
 		$feedDAO = FreshRSS_Factory::createFeedDao();
 		$catDAO = new FreshRSS_CategoryDAO();
@@ -66,6 +88,28 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 		Minz_View::prependTitle(Minz_Translate::t('categories_management') . ' · ');
 	}
 
+	/**
+	 * This action handles the feed configuration page.
+	 *
+	 * It displays the feed configuration page.
+	 * If this action is reached through a POST request, it stores all new
+	 * configuraiton values then sends a notification to the user.
+	 *
+	 * The options available on the page are:
+	 *   - name
+	 *   - description
+	 *   - website URL
+	 *   - feed URL
+	 *   - category id (default: default category id)
+	 *   - CSS path to article on website
+	 *   - display in main stream (default: 0)
+	 *   - HTTP authentication
+	 *   - number of article to retain (default: -2)
+	 *   - refresh frequency (default: -2)
+	 * Default values are empty strings unless specified.
+	 *
+	 * @todo change the notification code
+	 */
 	public function feedAction() {
 		$catDAO = new FreshRSS_CategoryDAO();
 		$this->view->categories = $catDAO->listCategories(false);
@@ -138,6 +182,33 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 		}
 	}
 
+	/**
+	 * This action handles the display configuration page.
+	 *
+	 * It displays the display configuration page.
+	 * If this action is reached through a POST request, it stores all new
+	 * configuration values then sends a notification to the user.
+	 *
+	 * The options available on the page are:
+	 *   - language (default: en)
+	 *   - theme (default: Origin)
+	 *   - content width (default: thin)
+	 *   - display of read action in header
+	 *   - display of favorite action in header
+	 *   - display of date in header
+	 *   - display of open action in header
+	 *   - display of read action in footer
+	 *   - display of favorite action in footer
+	 *   - display of sharing action in footer
+	 *   - display of tags in footer
+	 *   - display of date in footer
+	 *   - display of open action in footer
+	 *   - html5 notification timeout (default: 0)
+	 * Default values are false unless specified.
+	 *
+	 * @todo refactor to theme section to use the same syntax everywhere
+	 * @todo change the notification code
+	 */
 	public function displayAction() {
 		if (Minz_Request::isPost()) {
 			$this->view->conf->_language(Minz_Request::param('language', 'en'));
@@ -178,6 +249,35 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 		Minz_View::prependTitle(Minz_Translate::t('display_configuration') . ' · ');
 	}
 
+	/**
+	 * This action handles the reading configuration page.
+	 *
+	 * It displays the reading configuration page.
+	 * If this action is reached through a POST request, it stores all new
+	 * configuration values then sends a notification to the user.
+	 *
+	 * The options available on the page are:
+	 *   - number of posts per page (default: 10)
+	 *   - view mode (default: normal)
+	 *   - default article view (default: all)
+	 *   - load automatically articles
+	 *   - display expanded articles
+	 *   - display expanded categories
+	 *   - hide categories and feeds without unread articles
+	 *   - jump on next category or feed when marked as read
+	 *   - image lazy loading
+	 *   - stick open articles to the top
+	 *   - display a confirmation when reading all articles
+	 *   - article order (default: DESC)
+	 *   - mark articles as read when:
+	 *       - displayed
+	 *       - opened on site
+	 *       - scrolled
+	 *       - received
+	 * Default values are false unless specified.
+	 *
+	 * @todo change the notification code
+	 */
 	public function readingAction() {
 		if (Minz_Request::isPost()) {
 			$this->view->conf->_posts_per_page(Minz_Request::param('posts_per_page', 10));
@@ -216,6 +316,15 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 		Minz_View::prependTitle(Minz_Translate::t('reading_configuration') . ' · ');
 	}
 
+	/**
+	 * This action handles the sharing configuration page.
+	 *
+	 * It displays the sharing configuration page.
+	 * If this action is reached through a POST request, it stores all
+	 * configuration values then sends a notification to the user.
+	 *
+	 * @todo change the notification code
+	 */
 	public function sharingAction() {
 		if (Minz_Request::isPost()) {
 			$params = Minz_Request::params();
@@ -235,6 +344,22 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 		Minz_View::prependTitle(Minz_Translate::t('sharing') . ' · ');
 	}
 
+	/**
+	 * This action handles the shortcut configuration page.
+	 *
+	 * It displays the shortcut configuration page.
+	 * If this action is reached through a POST request, it stores all new
+	 * configuration values then sends a notification to the user.
+	 *
+	 * The authorized values for shortcuts are letters (a to z), numbers (0
+	 * to 9), function keys (f1 to f12), backspace, delete, down, end, enter,
+	 * escape, home, insert, left, page down, page up, return, right, space,
+	 * tab and up.
+	 *
+	 * @todo remove numbers from the list of authorized shortcuts since they
+	 * are used to access shortcuts and user queries
+	 * @todo change the notification code
+	 */
 	public function shortcutAction() {
 		$list_keys = array('a', 'b', 'backspace', 'c', 'd', 'delete', 'down', 'e', 'end', 'enter',
 		                    'escape', 'f', 'g', 'h', 'home', 'i', 'insert', 'j', 'k', 'l', 'left',
@@ -271,10 +396,31 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 		Minz_View::prependTitle(Minz_Translate::t('shortcuts') . ' · ');
 	}
 
+	/**
+	 * This action display the user configuration page
+	 *
+	 * @todo move that action in the user controller
+	 */
 	public function usersAction() {
 		Minz_View::prependTitle(Minz_Translate::t('users') . ' · ');
 	}
 
+	/**
+	 * This action handles the archive configuration page.
+	 *
+	 * It displays the archive configuration page.
+	 * If this action is reached through a POST request, it stores all new
+	 * configuration values then sends a notification to the user.
+	 *
+	 * The options available on that page are:
+	 *   - duration to retain old article (default: 3)
+	 *   - number of article to retain per feed (default: 0)
+	 *   - refresh frequency (default: -2)
+	 *
+	 * @todo explain why the default value is -2 but this value does not
+	 * exist in the drop-down list
+	 * @todo change the notification code
+	 */
 	public function archivingAction() {
 		if (Minz_Request::isPost()) {
 			$old = Minz_Request::param('old_entries', 3);
@@ -306,7 +452,17 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 			$this->view->size_total = $entryDAO->size(true);
 		}
 	}
-	
+
+	/**
+	 * This action handles the user queries configuration page.
+	 *
+	 * If this action is reached through a POST request, it stores all new
+	 * configuration values then sends a notification to the user then
+	 * redirect to the same page.
+	 * If this action is not reached through a POST request, it displays the
+	 * configuration page and verifies that every user query is runable by
+	 * checking if categories and feeds are still in use.
+	 */
 	public function queriesAction() {
 		if (Minz_Request::isPost()) {
 			$queries = Minz_Request::param('queries', array());
@@ -383,7 +539,19 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 
 		Minz_View::prependTitle(Minz_Translate::t('queries') . ' · ');
 	}
-	
+
+	/**
+	 * This action handles the creation of a user query.
+	 *
+	 * It gets the GET parameters and stores them in the configuration query
+	 * storage. Before it is saved, the unwanted parameters are unset to keep
+	 * lean data.
+	 *
+	 * @todo change the way of keeping lean data to have a more defensive
+	 * code. At the moment, the code accepts any parameters and discard those
+	 * on the black list. I think it is safer if we maintain a whitelist
+	 * instead.
+	 */
 	public function addQueryAction() {
 		$queries = $this->view->conf->queries;
 		$query = Minz_Request::params();
