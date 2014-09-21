@@ -72,13 +72,8 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 			}
 			invalidateHttpCache();
 
-			$notif = array(
-				'type' => 'good',
-				'content' => Minz_Translate::t('categories_updated')
-			);
-			Minz_Session::_param('notification', $notif);
-
-			Minz_Request::forward(array('c' => 'configure', 'a' => 'categorize'), true);
+			Minz_Request::good(_t('categories_updated'),
+		                   array('c' => 'configure', 'a' => 'categorize'));
 		}
 
 		$this->view->categories = $catDAO->listCategories(false);
@@ -107,8 +102,6 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 	 *   - number of article to retain (default: -2)
 	 *   - refresh frequency (default: -2)
 	 * Default values are empty strings unless specified.
-	 *
-	 * @todo change the notification code
 	 */
 	public function feedAction() {
 		$catDAO = new FreshRSS_CategoryDAO();
@@ -207,7 +200,6 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 	 * Default values are false unless specified.
 	 *
 	 * @todo refactor theme section to use the same syntax everywhere
-	 * @todo change the notification code
 	 */
 	public function displayAction() {
 		if (Minz_Request::isPost()) {
@@ -235,13 +227,8 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 			Minz_Translate::reset();
 			invalidateHttpCache();
 
-			$notif = array(
-				'type' => 'good',
-				'content' => Minz_Translate::t('configuration_updated')
-			);
-			Minz_Session::_param('notification', $notif);
-
-			Minz_Request::forward(array('c' => 'configure', 'a' => 'display'), true);
+			Minz_Request::good(_t('configuration_updated'),
+				array('c' => 'configure', 'a' => 'display'));
 		}
 
 		$this->view->themes = FreshRSS_Themes::get();
@@ -275,8 +262,6 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 	 *       - scrolled
 	 *       - received
 	 * Default values are false unless specified.
-	 *
-	 * @todo change the notification code
 	 */
 	public function readingAction() {
 		if (Minz_Request::isPost()) {
@@ -304,13 +289,8 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 			Minz_Translate::reset();
 			invalidateHttpCache();
 
-			$notif = array(
-				'type' => 'good',
-				'content' => Minz_Translate::t('configuration_updated')
-			);
-			Minz_Session::_param('notification', $notif);
-
-			Minz_Request::forward(array('c' => 'configure', 'a' => 'reading'), true);
+			Minz_Request::good(_t('configuration_updated'),
+				array('c' => 'configure', 'a' => 'reading'));
 		}
 
 		Minz_View::prependTitle(Minz_Translate::t('reading_configuration') . ' · ');
@@ -322,8 +302,6 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 	 * It displays the sharing configuration page.
 	 * If this action is reached through a POST request, it stores all
 	 * configuration values then sends a notification to the user.
-	 *
-	 * @todo change the notification code
 	 */
 	public function sharingAction() {
 		if (Minz_Request::isPost()) {
@@ -332,13 +310,8 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 			$this->view->conf->save();
 			invalidateHttpCache();
 
-			$notif = array(
-				'type' => 'good',
-				'content' => Minz_Translate::t('configuration_updated')
-			);
-			Minz_Session::_param('notification', $notif);
-
-			Minz_Request::forward(array('c' => 'configure', 'a' => 'sharing'), true);
+			Minz_Request::good(_t('configuration_updated'),
+				array('c' => 'configure', 'a' => 'sharing'));
 		}
 
 		Minz_View::prependTitle(Minz_Translate::t('sharing') . ' · ');
@@ -358,7 +331,6 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 	 *
 	 * @todo remove numbers from the list of authorized shortcuts since they
 	 *       are used to access shortcuts and user queries
-	 * @todo change the notification code
 	 */
 	public function shortcutAction() {
 		$list_keys = array('a', 'b', 'backspace', 'c', 'd', 'delete', 'down', 'e', 'end', 'enter',
@@ -384,13 +356,8 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 			$this->view->conf->save();
 			invalidateHttpCache();
 
-			$notif = array(
-				'type' => 'good',
-				'content' => Minz_Translate::t('shortcuts_updated')
-			);
-			Minz_Session::_param('notification', $notif);
-
-			Minz_Request::forward(array('c' => 'configure', 'a' => 'shortcut'), true);
+			Minz_Request::good(_t('shortcuts_updated'),
+				array('c' => 'configure', 'a' => 'shortcut'));
 		}
 
 		Minz_View::prependTitle(Minz_Translate::t('shortcuts') . ' · ');
@@ -419,7 +386,6 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 	 *
 	 * @todo explain why the default value is -2 but this value does not
 	 *       exist in the drop-down list
-	 * @todo change the notification code
 	 * @todo refactor configuration setting syntax to be consistent with the
 	 *       other methods
 	 */
@@ -435,13 +401,8 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 			$this->view->conf->save();
 			invalidateHttpCache();
 
-			$notif = array(
-				'type' => 'good',
-				'content' => Minz_Translate::t('configuration_updated')
-			);
-			Minz_Session::_param('notification', $notif);
-
-			Minz_Request::forward(array('c' => 'configure', 'a' => 'archiving'), true);
+			Minz_Request::good(_t('configuration_updated'),
+				array('c' => 'configure', 'a' => 'archiving'));
 		}
 
 		Minz_View::prependTitle(Minz_Translate::t('archiving_configuration') . ' · ');
