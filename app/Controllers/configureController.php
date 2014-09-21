@@ -420,6 +420,8 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 	 * @todo explain why the default value is -2 but this value does not
 	 * exist in the drop-down list
 	 * @todo change the notification code
+	 * @todo refactor configuration setting syntax to be consistent with the
+	 * other methods
 	 */
 	public function archivingAction() {
 		if (Minz_Request::isPost()) {
