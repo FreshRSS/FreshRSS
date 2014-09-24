@@ -16,7 +16,7 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 		if (!$this->view->loginOk) {
 			Minz_Error::error(
 				403,
-				array('error' => array(Minz_Translate::t('access_denied')))
+				array('error' => array(_t('access_denied')))
 			);
 		}
 
@@ -73,14 +73,14 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 			invalidateHttpCache();
 
 			Minz_Request::good(_t('categories_updated'),
-		                   array('c' => 'configure', 'a' => 'categorize'));
+			                   array('c' => 'configure', 'a' => 'categorize'));
 		}
 
 		$this->view->categories = $catDAO->listCategories(false);
 		$this->view->defaultCategory = $catDAO->getDefault();
 		$this->view->feeds = $feedDAO->listFeeds();
 
-		Minz_View::prependTitle(Minz_Translate::t('categories_management') . ' · ');
+		Minz_View::prependTitle(_t('categories_management') . ' · ');
 	}
 
 	/**
@@ -122,7 +122,7 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 			if (!$this->view->flux) {
 				Minz_Error::error(
 					404,
-					array('error' => array(Minz_Translate::t('page_not_found')))
+					array('error' => array(_t('page_not_found')))
 				);
 			} else {
 				if (Minz_Request::isPost() && $this->view->flux) {
@@ -154,12 +154,12 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 						$this->view->flux->faviconPrepare();
 						$notif = array(
 							'type' => 'good',
-							'content' => Minz_Translate::t('feed_updated')
+							'content' => _t('feed_updated')
 						);
 					} else {
 						$notif = array(
 							'type' => 'bad',
-							'content' => Minz_Translate::t('error_occurred_update')
+							'content' => _t('error_occurred_update')
 						);
 					}
 					invalidateHttpCache();
@@ -168,10 +168,10 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 					Minz_Request::forward(array('c' => 'configure', 'a' => 'feed', 'params' => array('id' => $id)), true);
 				}
 
-				Minz_View::prependTitle(Minz_Translate::t('rss_feed_management') . ' — ' . $this->view->flux->name() . ' · ');
+				Minz_View::prependTitle(_t('rss_feed_management') . ' — ' . $this->view->flux->name() . ' · ');
 			}
 		} else {
-			Minz_View::prependTitle(Minz_Translate::t('rss_feed_management') . ' · ');
+			Minz_View::prependTitle(_t('rss_feed_management') . ' · ');
 		}
 	}
 
@@ -222,12 +222,12 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 			invalidateHttpCache();
 
 			Minz_Request::good(_t('configuration_updated'),
-				array('c' => 'configure', 'a' => 'display'));
+			                   array('c' => 'configure', 'a' => 'display'));
 		}
 
 		$this->view->themes = FreshRSS_Themes::get();
 
-		Minz_View::prependTitle(Minz_Translate::t('display_configuration') . ' · ');
+		Minz_View::prependTitle(_t('display_configuration') . ' · ');
 	}
 
 	/**
@@ -284,10 +284,10 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 			invalidateHttpCache();
 
 			Minz_Request::good(_t('configuration_updated'),
-				array('c' => 'configure', 'a' => 'reading'));
+			                   array('c' => 'configure', 'a' => 'reading'));
 		}
 
-		Minz_View::prependTitle(Minz_Translate::t('reading_configuration') . ' · ');
+		Minz_View::prependTitle(_t('reading_configuration') . ' · ');
 	}
 
 	/**
@@ -305,10 +305,10 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 			invalidateHttpCache();
 
 			Minz_Request::good(_t('configuration_updated'),
-				array('c' => 'configure', 'a' => 'sharing'));
+			                   array('c' => 'configure', 'a' => 'sharing'));
 		}
 
-		Minz_View::prependTitle(Minz_Translate::t('sharing') . ' · ');
+		Minz_View::prependTitle(_t('sharing') . ' · ');
 	}
 
 	/**
@@ -347,10 +347,10 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 			invalidateHttpCache();
 
 			Minz_Request::good(_t('shortcuts_updated'),
-				array('c' => 'configure', 'a' => 'shortcut'));
+			                   array('c' => 'configure', 'a' => 'shortcut'));
 		}
 
-		Minz_View::prependTitle(Minz_Translate::t('shortcuts') . ' · ');
+		Minz_View::prependTitle(_t('shortcuts') . ' · ');
 	}
 
 	/**
@@ -359,7 +359,7 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 	 * @todo move that action in the user controller
 	 */
 	public function usersAction() {
-		Minz_View::prependTitle(Minz_Translate::t('users') . ' · ');
+		Minz_View::prependTitle(_t('users') . ' · ');
 	}
 
 	/**
@@ -386,10 +386,10 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 			invalidateHttpCache();
 
 			Minz_Request::good(_t('configuration_updated'),
-				array('c' => 'configure', 'a' => 'archiving'));
+			                   array('c' => 'configure', 'a' => 'archiving'));
 		}
 
-		Minz_View::prependTitle(Minz_Translate::t('archiving_configuration') . ' · ');
+		Minz_View::prependTitle(_t('archiving_configuration') . ' · ');
 
 		$entryDAO = FreshRSS_Factory::createEntryDao();
 		$this->view->nb_total = $entryDAO->count();
@@ -484,7 +484,7 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 			}
 		}
 
-		Minz_View::prependTitle(Minz_Translate::t('queries') . ' · ');
+		Minz_View::prependTitle(_t('queries') . ' · ');
 	}
 
 	/**
