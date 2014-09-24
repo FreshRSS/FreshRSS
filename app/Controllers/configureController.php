@@ -32,7 +32,8 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 	 * every category to check for modification then add a new category if
 	 * needed then sends a notification to the user.
 	 * If a category name is emptied, the category is deleted and all
-	 * related feeds are moved to the default category.
+	 * related feeds are moved to the default category. Related user queries
+	 * are deleted too.
 	 * If a category name is changed, it is updated.
 	 */
 	public function categorizeAction() {
@@ -56,6 +57,18 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 				} elseif ($ids[$key] != $defaultId) {
 					$feedDAO->changeCategory($ids[$key], $defaultId);
 					$catDAO->deleteCategory($ids[$key]);
+
+					// Remove related queries.
+					$final_queries = array();
+					$id_cat_in_query = 'c_' . $ids[$key];
+					foreach ($this->view->conf->queries as $key => $query) {
+						if (empty($query['get']) ||
+								$query['get'] !== $id_cat_in_query) {
+							$final_queries[$key] = $query;
+						}
+					}
+					$this->view->conf->_queries($final_queries);
+					$this->view->conf->save();
 				}
 			}
 
