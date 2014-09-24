@@ -49,7 +49,7 @@
 		</a>
 
 		<?php
-			if ($this->state & FreshRSS_Entry::STATE_FAVORITE) {
+			if ($this->state & FreshRSS_Entry::STATE_FAVORITE || $this->get_c == 's') {
 				$url_state['params']['state'] = $this->state & ~FreshRSS_Entry::STATE_FAVORITE;
 				$checked = 'true';
 				$class = 'active';
