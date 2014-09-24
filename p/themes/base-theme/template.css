@@ -96,6 +96,7 @@ button.as-link:active {
 	color: inherit;
 	cursor: pointer;
 	font-size: 1.1em;
+	text-align: left;
 }
 
 /*=== Tables */
@@ -199,8 +200,10 @@ a.btn {
 	display: block;
 }
 .dropdown-menu > .item > a,
+.dropdown-menu > .item > .as-link,
 .dropdown-menu > .item > span {
 	display: block;
+	min-width: 200px;
 }
 .dropdown-menu > .item[aria-checked="true"] > a:before {
 	content: '✓';

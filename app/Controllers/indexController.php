@@ -84,7 +84,7 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 		$first = Minz_Request::param ('next', '');
 
 		$ajax_request = Minz_Request::param('ajax', false);
-		if ($ajax_request == 1 && $this->view->conf->display_posts) {
+		if ($output === 'reader') {
 			$nb = max(1, round($nb / 2));
 		}
 
@@ -337,6 +337,10 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 	}
 
 	public function formLoginAction () {
+		if ($this->view->loginOk) {
+			Minz_Request::forward(array('c' => 'index', 'a' => 'index'), true);
+		}
+
 		if (Minz_Request::isPost()) {
 			$ok = false;
 			$nonce = Minz_Session::param('nonce');

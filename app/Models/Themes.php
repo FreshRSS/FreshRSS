@@ -96,6 +96,7 @@ class FreshRSS_Themes extends Minz_Model {
 			'search' => '🔍',
 			'share' => '♺',
 			'starred' => '★',
+			'stats' => '%',
 			'tag' => '⚐',
 			'up' => '△',
 			'view-normal' => '☰',

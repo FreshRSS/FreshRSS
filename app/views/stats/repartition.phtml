@@ -24,8 +24,8 @@
 	</select>
 
 	<?php if ($this->feed) {?>
-		<a href="<?php echo _url('configure', 'feed', 'id', $this->feed->id()); ?>">
-			<?php echo _t('administration'); ?>
+		<a class="btn" href="<?php echo _url('configure', 'feed', 'id', $this->feed->id()); ?>">
+			<?php echo _i('configure'); ?> <?php echo _t('administration'); ?>
 		</a>
 	<?php }?>
 

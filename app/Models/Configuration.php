@@ -124,6 +124,16 @@ class FreshRSS_Configuration {
 		return $this->available_languages;
 	}
 
+	public function remove_query_by_get($get) {
+		$final_queries = array();
+		foreach ($this->queries as $key => $query) {
+			if (empty($query['get']) || $query['get'] !== $get) {
+				$final_queries[$key] = $query;
+			}
+		}
+		$this->_queries($final_queries);
+	}
+
 	public function _language($value) {
 		if (!isset($this->available_languages[$value])) {
 			$value = 'en';
@@ -147,7 +157,7 @@ class FreshRSS_Configuration {
 			// left blank on purpose
 		case FreshRSS_Entry::STATE_NOT_READ:
 			// left blank on purpose
-		case FreshRSS_Entry::STATE_NOT_READ_STRICT:
+		case FreshRSS_Entry::STATE_STRICT + FreshRSS_Entry::STATE_NOT_READ:
 			$this->data['default_view'] = $value;
 			break;
 		default:

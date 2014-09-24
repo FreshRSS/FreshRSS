@@ -209,8 +209,14 @@ SQL;
 		$date_max = new \DateTime();
 		$date_max->setTimestamp($res['date_max']);
 		$interval = $date_max->diff($date_min, true);
+		$interval_in_days = $interval->format('%a');
+		if ($interval_in_days <= 0) {
+			// Surely only one article.
+			// We will return count / (period/period) == count.
+			$interval_in_days = $period;
+		}
 
-		return round($res['count'] / ($interval->format('%a') / ($period)), 2);
+		return round($res['count'] / ($interval_in_days / $period), 2);
 	}
 
 	/**
@@ -309,6 +315,7 @@ SQL;
 SELECT MAX(f.id) as id
 , MAX(f.name) AS name
 , MAX(date) AS last_date
+, COUNT(*) AS nb_articles
 FROM {$this->prefix}feed AS f,
 {$this->prefix}entry AS e
 WHERE f.id = e.id_feed

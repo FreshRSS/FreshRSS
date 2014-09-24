@@ -333,13 +333,12 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 		if ($state & FreshRSS_Entry::STATE_NOT_READ) {
 			if (!($state & FreshRSS_Entry::STATE_READ)) {
 				$where .= 'AND e1.is_read=0 ';
+			} elseif ($state & FreshRSS_Entry::STATE_STRICT) {
+				$where .= 'AND e1.is_read=0 ';
 			}
 		}
 		elseif ($state & FreshRSS_Entry::STATE_READ) {
 			$where .= 'AND e1.is_read=1 ';
-		}
-		elseif ($state & FreshRSS_Entry::STATE_NOT_READ_STRICT) {
-			$where .= 'AND e1.is_read=0 ';
 		}
 		if ($state & FreshRSS_Entry::STATE_FAVORITE) {
 			if (!($state & FreshRSS_Entry::STATE_NOT_FAVORITE)) {
