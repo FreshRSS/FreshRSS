@@ -1109,6 +1109,11 @@ function init_persona() {
 
 function init_confirm_action() {
 	$('body').on('click', '.confirm', function () {
+		var str_confirmation = $(this).attr('data-str-confirm');
+		if (!str_confirmation) {
+			str_confirmation = str_confirmation_default;
+		}
+
 		return confirm(str_confirmation);
 	});
 }

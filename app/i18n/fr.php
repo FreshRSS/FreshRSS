@@ -368,6 +368,7 @@ return array (
 	'login_required'		=> 'Accès protégé par mot de passe :',
 
 	'confirm_action'		=> 'Êtes-vous sûr(e) de vouloir continuer ? Cette action ne peut être annulée !',
+	'confirm_action_feed_cat'	=> 'Êtes-vous sûr(e) de vouloir continuer ? Vous pourriez perdre les favoris et les filtres associés. Cette action ne peut être annulée !',
 	'notif_title_new_articles'	=> 'FreshRSS : nouveaux articles !',
 	'notif_body_new_articles'	=> 'Il y a \d nouveaux articles à lire sur FreshRSS.',
 
