@@ -383,7 +383,16 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 
 			$feedDAO = FreshRSS_Factory::createFeedDao();
 			if ($type == 'category') {
+				// List feeds to remove then related user queries.
+				$feeds = $feedDAO->listByCategory($id);
+
 				if ($feedDAO->deleteFeedByCategory ($id)) {
+					// Remove related queries
+					foreach ($feeds as $feed) {
+						$this->view->conf->remove_query_by_get('f_' . $feed->id());
+					}
+					$this->view->conf->save();
+
 					$notif = array (
 						'type' => 'good',
 						'content' => Minz_Translate::t ('category_emptied')
@@ -397,6 +406,10 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 				}
 			} else {
 				if ($feedDAO->deleteFeed ($id)) {
+					// Remove related queries
+					$this->view->conf->remove_query_by_get('f_' . $id);
+					$this->view->conf->save();
+
 					$notif = array (
 						'type' => 'good',
 						'content' => Minz_Translate::t ('feed_deleted')
