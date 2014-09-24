@@ -59,15 +59,7 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 					$catDAO->deleteCategory($ids[$key]);
 
 					// Remove related queries.
-					$final_queries = array();
-					$id_cat_in_query = 'c_' . $ids[$key];
-					foreach ($this->view->conf->queries as $key => $query) {
-						if (empty($query['get']) ||
-								$query['get'] !== $id_cat_in_query) {
-							$final_queries[$key] = $query;
-						}
-					}
-					$this->view->conf->_queries($final_queries);
+					$this->view->conf->remove_query_by_get('c_' . $ids[$key]);
 					$this->view->conf->save();
 				}
 			}
