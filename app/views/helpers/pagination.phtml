@@ -6,6 +6,8 @@
 	Minz_Session::_param('markReadUrl', false);
 ?>
 
+<form id="mark-read-pagination" method="post" style="display: none"></form>
+
 <ul class="pagination">
 	<li class="item pager-next">
 	<?php if (!empty($this->nextId)) { ?>
@@ -19,7 +21,7 @@
 	<?php } elseif ($markReadUrl) { ?>
 		<button id="bigMarkAsRead"
 		        class="as-link <?php echo $this->conf->reading_confirm ? 'confirm' : ''; ?>"
-		        form="mark-read"
+		        form="mark-read-pagination"
 		        formaction="<?php echo $markReadUrl; ?>"
 		        type="submit">
 			<?php echo _t('nothing_to_load'); ?><br />

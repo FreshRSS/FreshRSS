@@ -187,12 +187,12 @@
 		Minz_Session::_param('markReadUrl', $markReadUrl);
 	?>
 
-	<form id="mark-read" method="post" style="display: none"></form>
+	<form id="mark-read-menu" method="post" style="display: none"></form>
 
 	<div class="stick" id="nav_menu_read_all">
 		<?php $confirm = $this->conf->reading_confirm ? 'confirm' : ''; ?>
 		<button class="read_all btn <?php echo $confirm; ?>"
-		        form="mark-read"
+		        form="mark-read-menu"
 		        formaction="<?php echo $markReadUrl; ?>"
 		        type="submit"><?php echo _t('mark_read'); ?></button>
 
@@ -205,7 +205,7 @@
 
 				<li class="item">
 					<button class="as-link <?php echo $confirm; ?>"
-					        form="mark-read"
+					        form="mark-read-menu"
 					        formaction="<?php echo $markReadUrl; ?>"
 					        type="submit"><?php echo $string_mark; ?></button>
 				</li>
@@ -218,13 +218,13 @@
 ?>
 				<li class="item">
 					<button class="as-link <?php echo $confirm; ?>"
-					        form="mark-read"
+					        form="mark-read-menu"
 					        formaction="<?php echo Minz_Url::display($mark_before_today); ?>"
 					        type="submit"><?php echo _t('before_one_day'); ?></button>
 				</li>
 				<li class="item">
 					<button class="as-link <?php echo $confirm; ?>"
-					        form="mark-read"
+					        form="mark-read-menu"
 					        formaction="<?php echo Minz_Url::display($mark_before_one_week); ?>"
 					        type="submit"><?php echo _t('before_one_week'); ?></button>
 				</li>

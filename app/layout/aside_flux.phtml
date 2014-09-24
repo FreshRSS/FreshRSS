@@ -3,6 +3,8 @@
 
 	<ul class="categories">
 		<?php if ($this->loginOk) { ?>
+		<form id="mark-read-aside" method="post" style="display: none"></form>
+
 		<li>
 			<div class="stick configure-feeds">
 				<a class="btn btn-important" href="<?php echo _url ('configure', 'feed'); ?>"><?php echo Minz_Translate::t ('subscription_management'); ?></a>
@@ -87,7 +89,13 @@
 		<li class="separator"></li>
 		<li class="item"><a href="<?php echo _url ('configure', 'feed', 'id', '!!!!!!'); ?>"><?php echo Minz_Translate::t ('administration'); ?></a></li>
 		<li class="item"><a href="<?php echo _url ('feed', 'actualize', 'id', '!!!!!!'); ?>"><?php echo Minz_Translate::t ('actualize'); ?></a></li>
-		<li class="item"><a href="<?php echo _url ('entry', 'read', 'get', 'f_!!!!!!'); ?>"><?php echo Minz_Translate::t ('mark_read'); ?></a></li>
+		<li class="item">
+			<?php $confirm = $this->conf->reading_confirm ? 'confirm' : ''; ?>
+			<button class="read_all as-link <?php echo $confirm; ?>"
+			        form="mark-read-aside"
+			        formaction="<?php echo _url('entry', 'read', 'get', 'f_!!!!!!'); ?>"
+			        type="submit"><?php echo _t('mark_read'); ?></button>
+		</li>
 		<?php } ?>
 	</ul>
 </script>
