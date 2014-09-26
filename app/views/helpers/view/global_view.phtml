@@ -1,5 +1,6 @@
 <?php $this->partial ('nav_menu'); ?>
 
+<?php if (!empty($this->entries)) { ?>
 <div id="stream" class="global categories">
 <?php
 	$arUrl = array('c' => 'index', 'a' => 'index', 'params' => array());
@@ -43,3 +44,10 @@
 <div id="panel"<?php echo $this->conf->display_posts ? '' : ' class="hide_posts"'; ?>>
 	<a class="close" href="#"><?php echo FreshRSS_Themes::icon('close'); ?></a>
 </div>
+
+<?php } else { ?>
+<div id="stream" class="prompt alert alert-warn global">
+	<h2><?php echo _t('no_feed_to_display'); ?></h2>
+	<a href="<?php echo _url('configure', 'feed'); ?>"><?php echo _t('think_to_add'); ?></a><br /><br />
+</div>
+<?php } ?>

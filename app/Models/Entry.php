@@ -1,6 +1,12 @@
 <?php
 
 class FreshRSS_Entry extends Minz_Model {
+	const STATE_ALL = 0;
+	const STATE_READ = 1;
+	const STATE_NOT_READ = 2;
+	const STATE_FAVORITE = 4;
+	const STATE_NOT_FAVORITE = 8;
+	const STATE_STRICT = 16;
 
 	private $id = 0;
 	private $guid;
@@ -69,7 +75,7 @@ class FreshRSS_Entry extends Minz_Model {
 	}
 	public function feed ($object = false) {
 		if ($object) {
-			$feedDAO = new FreshRSS_FeedDAO ();
+			$feedDAO = FreshRSS_Factory::createFeedDao();
 			return $feedDAO->searchById ($this->feed);
 		} else {
 			return $this->feed;
@@ -149,7 +155,7 @@ class FreshRSS_Entry extends Minz_Model {
 		// Gestion du contenu
 		// On cherche à récupérer les articles en entier... même si le flux ne le propose pas
 		if ($pathEntries) {
-			$entryDAO = new FreshRSS_EntryDAO();
+			$entryDAO = FreshRSS_Factory::createEntryDao();
 			$entry = $entryDAO->searchByGuid($this->feed, $this->guid);
 
 			if($entry) {

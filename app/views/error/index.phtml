@@ -1,18 +1,9 @@
 <div class="post">
 	<div class="alert alert-error">
 		<h1 class="alert-head"><?php echo $this->code; ?></h1>
-
 		<p>
-			<?php
-			switch(Minz_Request::param ('code')) {
-			case 403:
-				echo Minz_Translate::t ('forbidden_access');
-				break;
-			case 404:
-			default:
-				echo Minz_Translate::t ('page_not_found');
-			} ?><br />
-			<a href="<?php echo _url ('index', 'index'); ?>"><?php echo Minz_Translate::t ('back_to_rss_feeds'); ?></a>
+			<?php echo $this->errorMessage; ?><br />
+			<a href="<?php echo _url('index', 'index'); ?>"><?php echo Minz_Translate::t('back_to_rss_feeds'); ?></a>
 		</p>
 	</div>
 </div>

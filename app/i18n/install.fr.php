@@ -28,8 +28,8 @@ return array (
 	'minz_is_nok'			=> 'Vous ne disposez pas de la librairie Minz. Vous devriez exécuter le script <em>build.sh</em> ou bien <a href="https://github.com/marienfressinaud/MINZ">la télécharger sur Github</a> et installer dans le répertoire <em>%s</em> le contenu de son répertoire <em>/lib</em>.',
 	'curl_is_ok'			=> 'Vous disposez de cURL dans sa version %s',
 	'curl_is_nok'			=> 'Vous ne disposez pas de cURL (paquet php5-curl)',
-	'pdomysql_is_ok'		=> 'Vous disposez de PDO et de son driver pour MySQL (paquet php5-mysql)',
-	'pdomysql_is_nok'		=> 'Vous ne disposez pas de PDO ou de son driver pour MySQL',
+	'pdo_is_ok'			=> 'Vous disposez de PDO et d’au moins un des drivers supportés (pdo_mysql, pdo_sqlite)',
+	'pdo_is_nok'			=> 'Vous ne disposez pas de PDO ou d’un des drivers supportés (pdo_mysql, pdo_sqlite)',
 	'dom_is_ok'			=> 'Vous disposez du nécessaire pour parcourir le DOM',
 	'dom_is_nok'			=> 'Il manque une librairie pour parcourir le DOM (paquet php-xml)',
 	'pcre_is_ok'			=> 'Vous disposez du nécessaire pour les expressions régulières (PCRE)',
@@ -42,6 +42,8 @@ return array (
 	'data_is_ok'			=> 'Les droits sur le répertoire de data sont bons',
 	'persona_is_ok'			=> 'Les droits sur le répertoire de Mozilla Persona sont bons',
 	'file_is_nok'			=> 'Veuillez vérifier les droits sur le répertoire <em>%s</em>. Le serveur HTTP doit être capable d’écrire dedans',
+	'http_referer_is_ok'		=> 'Le HTTP REFERER est connu et semble correspondre à votre serveur.',
+	'http_referer_is_nok'		=> 'Veuillez vérifier que vous ne modifiez pas votre HTTP REFERER.',
 	'fix_errors_before'		=> 'Veuillez corriger les erreurs avant de passer à l’étape suivante.',
 
 	'general_conf_is_ok'		=> 'La configuration générale a été enregistrée.',
@@ -60,7 +62,7 @@ return array (
 	'update_long'			=> 'Ce processus peut prendre longtemps, selon la taille de votre base de données. Vous aurez peut-être à attendre que cette page dépasse son temps maximum d’exécution (~5 minutes) puis à la recharger.',
 	'update_end'			=> 'La mise à jour est terminée, vous pouvez maintenant passer à l’étape finale.',
 
-	'installation_is_ok'		=> 'L’installation s’est bien passée.<br />La dernière étape va maintenant tenter de supprimer le fichier <kbd>./p/i/install.php</kbd>, ainsi que d’éventuelles copies de base de données créées durant le processus de mise à jour.<br />Vous pouvez choisir de sauter cette étape et de supprimer <kbd>./p/i/install.php</kbd> manuellement.',
+	'installation_is_ok'		=> 'L’installation s’est bien passée.<br />La dernière étape va maintenant tenter de supprimer les fichiers ainsi que d’éventuelles copies de base de données créés durant le processus de mise à jour.<br />Vous pouvez choisir de sauter cette étape en supprimant <kbd>./data/do-install.txt</kbd> manuellement.',
 	'finish_installation'		=> 'Terminer l’installation',
 	'install_not_deleted'		=> 'Quelque chose s’est mal passé, vous devez supprimer le fichier <em>%s</em> à la main.',
 );

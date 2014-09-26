@@ -27,7 +27,7 @@ function classAutoloader($class) {
 				include(APP_PATH . '/Models/' . $components[1] . '.php');
 				return;
 			case 3:	//Controllers, Exceptions
-				include(APP_PATH . '/' . $components[2] . 's/' . $components[1] . $components[2] . '.php');
+				@include(APP_PATH . '/' . $components[2] . 's/' . $components[1] . $components[2] . '.php');
 				return;
 		}
 	} elseif (strpos($class, 'Minz') === 0) {
@@ -54,12 +54,6 @@ function checkUrl($url) {
 	} else {
 		return false;
 	}
-}
-
-// tiré de Shaarli de Seb Sauvage	//Format RFC 4648 base64url
-function small_hash ($txt) {
-	$t = rtrim (base64_encode (hash ('crc32', $txt, true)), '=');
-	return strtr ($t, '+/', '-_');
 }
 
 function formatNumber($n, $precision = 0) {
@@ -115,7 +109,7 @@ function customSimplePie() {
 	$simplePie = new SimplePie();
 	$simplePie->set_useragent(Minz_Translate::t('freshrss') . '/' . FRESHRSS_VERSION . ' (' . PHP_OS . '; ' . FRESHRSS_WEBSITE . ') ' . SIMPLEPIE_NAME . '/' . SIMPLEPIE_VERSION);
 	$simplePie->set_cache_location(CACHE_PATH);
-	$simplePie->set_cache_duration(1500);
+	$simplePie->set_cache_duration(800);
 	$simplePie->strip_htmltags(array(
 		'base', 'blink', 'body', 'doctype', 'embed',
 		'font', 'form', 'frame', 'frameset', 'html',
@@ -127,10 +121,10 @@ function customSimplePie() {
 		'onmouseover', 'onmousemove', 'onmouseout', 'onfocus', 'onblur',
 		'onkeypress', 'onkeydown', 'onkeyup', 'onselect', 'onchange', 'seamless')));
 	$simplePie->add_attributes(array(
-		'img' => array('lazyload' => ''),	//http://www.w3.org/TR/resource-priorities/
-		'audio' => array('preload' => 'none'),
-		'iframe' => array('postpone' => '', 'sandbox' => 'allow-scripts allow-same-origin'),
-		'video' => array('postpone' => '', 'preload' => 'none'),
+		'img' => array('lazyload' => '', 'postpone' => ''),	//http://www.w3.org/TR/resource-priorities/
+		'audio' => array('lazyload' => '', 'postpone' => '', 'preload' => 'none'),
+		'iframe' => array('lazyload' => '', 'postpone' => '', 'sandbox' => 'allow-scripts allow-same-origin'),
+		'video' => array('lazyload' => '', 'postpone' => '', 'preload' => 'none'),
 	));
 	$simplePie->set_url_replacements(array(
 		'a' => 'href',
@@ -189,16 +183,8 @@ function get_content_by_parsing ($url, $path) {
  */
 function lazyimg($content) {
 	return preg_replace(
-		'/<img([^>]+?)src=[\'"]([^"\']+)[\'"]([^>]*)>/i',
-		'<img$1src="' . Minz_Url::display('/themes/icons/grey.gif') . '" data-original="$2"$3>',
-		$content
-	);
-}
-
-function lazyIframe($content) {
-	return preg_replace(
-		'/<iframe([^>]+?)src=[\'"]([^"\']+)[\'"]([^>]*)>/i',
-		'<iframe$1src="about:blank" data-original="$2"$3>',
+		'/<((?:img|iframe)[^>]+?)src=[\'"]([^"\']+)[\'"]([^>]*)>/i',
+		'<$1src="' . Minz_Url::display('/themes/icons/grey.gif') . '" data-original="$2"$3>',
 		$content
 	);
 }
@@ -219,7 +205,7 @@ function invalidateHttpCache() {
 }
 
 function usernameFromPath($userPath) {
-	if (preg_match('%/([a-z0-9]{1,16})_user\.php$%', $userPath, $matches)) {
+	if (preg_match('%/([A-Za-z0-9]{1,16})_user\.php$%', $userPath, $matches)) {
 		return $matches[1];
 	} else {
 		return '';
@@ -232,4 +218,29 @@ function listUsers() {
 
 function httpAuthUser() {
 	return isset($_SERVER['REMOTE_USER']) ? $_SERVER['REMOTE_USER'] : '';
+}
+
+function cryptAvailable() {
+	if (version_compare(PHP_VERSION, '5.3.3', '>=')) {
+		try {
+			$hash = '$2y$04$usesomesillystringfore7hnbRJHxXVLeakoG8K30oukPsA.ztMG';
+			return $hash === @crypt('password', $hash);
+		} catch (Exception $e) {
+		}
+	}
+	return false;
+}
+
+function is_referer_from_same_domain() {
+	if (empty($_SERVER['HTTP_REFERER'])) {
+		return false;
+	}
+	$host = parse_url(((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on') ? 'https://' : 'http://') .
+		(empty($_SERVER['HTTP_HOST']) ? $_SERVER['SERVER_NAME'] : $_SERVER['HTTP_HOST']));
+	$referer = parse_url($_SERVER['HTTP_REFERER']);
+	if (empty($host['scheme']) || empty($referer['scheme']) || $host['scheme'] !== $referer['scheme'] ||
+	    empty($host['host']) || empty($referer['host']) || $host['host'] !== $referer['host']) {
+		return false;
+	}
+	return (isset($host['port']) ? $host['port'] : 0) === (isset($referer['port']) ? $referer['port'] : 0);
 }

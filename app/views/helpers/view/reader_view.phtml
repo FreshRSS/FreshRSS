@@ -3,6 +3,7 @@ $this->partial ('nav_menu');
 
 if (!empty($this->entries)) {
 	$lazyload = $this->conf->lazyload;
+	$content_width = $this->conf->content_width;
 ?>
 
 <div id="stream" class="reader">
@@ -10,7 +11,7 @@ if (!empty($this->entries)) {
 
 	<div class="flux<?php echo !$item->isRead () ? ' not_read' : ''; ?><?php echo $item->isFavorite () ? ' favorite' : ''; ?>" id="flux_<?php echo $item->id (); ?>">
 		<div class="flux_content">
-			<div class="content">
+			<div class="content <?php echo $content_width; ?>">
 				<?php
 					$feed = FreshRSS_CategoryDAO::findFeed($this->cat_aside, $item->feed ());	//We most likely already have the feed object in cache
 					if (empty($feed)) $feed = $item->feed (true);
@@ -20,19 +21,13 @@ if (!empty($this->entries)) {
 				</a>
 				<h1 class="title"><?php echo $item->title (); ?></h1>
 
-				<div class="author">
-					<?php $author = $item->author (); ?>
-					<?php echo $author != '' ? Minz_Translate::t ('by_author', $author) . ' — ' : ''; ?>
-					<?php echo $item->date (); ?>
-				</div>
+				<div class="author"><?php
+					$author = $item->author();
+					echo $author != '' ? Minz_Translate::t('by_author', $author) . ' — ' : '',
+						$item->date();
+				?></div>
 
-				<?php
-					if ($lazyload) {
-						echo lazyimg($item->content ());
-					} else {
-						echo $item->content();
-					}
-				?>
+				<?php echo $item->content(); ?>
 			</div>
 		</div>
 	</div>
@@ -42,8 +37,8 @@ if (!empty($this->entries)) {
 </div>
 
 <?php } else { ?>
-<div id="stream" class="alert alert-warn reader">
-	<span class="alert-head"><?php echo Minz_Translate::t ('no_feed_to_display'); ?></span>
-	<?php echo Minz_Translate::t ('think_to_add'); ?>
+<div id="stream" class="prompt alert alert-warn reader">
+	<h2><?php echo _t('no_feed_to_display'); ?></h2>
+	<a href="<?php echo _url('configure', 'feed'); ?>"><?php echo _t('think_to_add'); ?></a><br /><br />
 </div>
 <?php } ?>

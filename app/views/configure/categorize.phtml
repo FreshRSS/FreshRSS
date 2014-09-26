@@ -14,14 +14,22 @@
 				<?php echo Minz_Translate::t ('category_number', $i); ?>
 			</label>
 			<div class="group-controls">
-				<input type="text" id="cat_<?php echo $cat->id (); ?>" name="categories[]" value="<?php echo $cat->name (); ?>" />
+				<div class="stick">
+					<input type="text" id="cat_<?php echo $cat->id (); ?>" name="categories[]" value="<?php echo $cat->name (); ?>" />
 
-				<?php if ($cat->nbFeed () > 0) { ?>
-				<a class="confirm" href="<?php echo _url ('feed', 'delete', 'id', $cat->id (), 'type', 'category'); ?>"><?php echo Minz_Translate::t ('ask_empty'); ?></a>
-				<?php } ?>
+					<?php if ($cat->nbFeed () > 0) { ?>
+					<a class="btn" href="<?php echo _url('index', 'index', 'get', 'c_' . $cat->id ()); ?>">
+						<?php echo _i('link'); ?>
+					</a>
+					<button formaction="<?php echo _url('feed', 'delete', 'id', $cat->id (), 'type', 'category'); ?>"
+					        class="btn btn-attention confirm"
+					        data-str-confirm="<?php echo _t('confirm_action_feed_cat'); ?>"
+					        type="submit"><?php echo _t('ask_empty'); ?></button>
+					<?php } ?>
+				</div>
 				(<?php echo Minz_Translate::t ('number_feeds', $cat->nbFeed ()); ?>)
 
-				<?php if ($cat->id () == $this->defaultCategory->id ()) { ?>
+				<?php if ($cat->id () === $this->defaultCategory->id ()) { ?>
 				<?php echo FreshRSS_Themes::icon('help'); ?> <?php echo Minz_Translate::t ('can_not_be_deleted'); ?>
 				<?php } ?>
 

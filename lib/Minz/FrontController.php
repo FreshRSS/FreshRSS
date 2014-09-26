@@ -24,13 +24,10 @@
  */
 class Minz_FrontController {
 	protected $dispatcher;
-	protected $router;
-
-	private $useOb = true;
 
 	/**
 	 * Constructeur
-	 * Initialise le router et le dispatcher
+	 * Initialise le dispatcher, met à jour la Request
 	 */
 	public function __construct () {
 		if (LOG_PATH === false) {
@@ -42,29 +39,50 @@ class Minz_FrontController {
 
 			Minz_Request::init ();
 
-			$this->router = new Minz_Router ();
-			$this->router->init ();
-		} catch (Minz_RouteNotFoundException $e) {
-			Minz_Log::record ($e->getMessage (), Minz_Log::ERROR);
-			Minz_Error::error (
-				404,
-				array ('error' => array ($e->getMessage ()))
+			$url = $this->buildUrl();
+			$url['params'] = array_merge (
+				$url['params'],
+				Minz_Request::fetchPOST ()
 			);
+			Minz_Request::forward ($url);
 		} catch (Minz_Exception $e) {
 			Minz_Log::record ($e->getMessage (), Minz_Log::ERROR);
 			$this->killApp ($e->getMessage ());
 		}
 
-		$this->dispatcher = Minz_Dispatcher::getInstance ($this->router);
+		$this->dispatcher = Minz_Dispatcher::getInstance();
 	}
 
 	/**
-	 * Démarre l'application (lance le dispatcher et renvoie la réponse
+	 * Retourne un tableau représentant l'url passée par la barre d'adresses
+	 * @return tableau représentant l'url
+	 */
+	private function buildUrl() {
+		$url = array ();
+
+		$url['c'] = Minz_Request::fetchGET (
+			'c',
+			Minz_Request::defaultControllerName ()
+		);
+		$url['a'] = Minz_Request::fetchGET (
+			'a',
+			Minz_Request::defaultActionName ()
+		);
+		$url['params'] = Minz_Request::fetchGET ();
+
+		// post-traitement
+		unset ($url['params']['c']);
+		unset ($url['params']['a']);
+
+		return $url;
+	}
+
+	/**
+	 * Démarre l'application (lance le dispatcher et renvoie la réponse)
 	 */
 	public function run () {
 		try {
-			$this->dispatcher->run ($this->useOb);
-			Minz_Response::send ();
+			$this->dispatcher->run();
 		} catch (Minz_Exception $e) {
 			try {
 				Minz_Log::record ($e->getMessage (), Minz_Log::ERROR);
@@ -95,16 +113,5 @@ class Minz_FrontController {
 			$txt = 'See logs files';
 		}
 		exit ('### Application problem ###<br />'."\n".$txt);
-	}
-
-	public function useOb() {
-		return $this->useOb;
-	}
-
-	/**
-	 * Use ob_start('ob_gzhandler') or not.
-	 */
-	public function _useOb($ob) {
-		return $this->useOb = (bool)$ob;
 	}
 }

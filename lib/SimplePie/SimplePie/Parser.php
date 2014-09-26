@@ -142,7 +142,7 @@ class SimplePie_Parser
 				$dom = new DOMDocument();
 				$dom->recover = true;
 				$dom->strictErrorChecking = false;
-				$dom->loadXML($data);
+				@$dom->loadXML($data);
 				$this->encoding = $encoding = $dom->encoding = 'UTF-8';
 				$data2 = $dom->saveXML();
 				if (function_exists('mb_convert_encoding'))

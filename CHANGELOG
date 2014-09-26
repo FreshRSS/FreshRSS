@@ -1,5 +1,87 @@
 # Journal des modifications
 
+## 2014-09-xx FreshRSS 0.8.0
+
+* UI
+	* New interface for statistics
+	* Fix filter buttons
+	* Number of articles divided by 2 in reading view
+	* Redesign of bigMarkAsRead
+* Features
+	* New automatic update system
+	* New reset auth system
+* Security
+	* "Mark as read" requires POST requests for several articles
+	* Test HTTP REFERER in install.php
+* Configuration
+	* New "Show all articles" / "Show only unread" / "Adjust viewing" option
+	* New notification timeout option
+* Misc.
+	* Improve coding style + comments
+	* Fix SQLite bug "ON DELETE CASCADE"
+	* Improve performance when importing articles
+
+
+## 2014-08-24 FreshRSS 0.7.4
+
+* UI
+	* Hide categories/feeds with unread articles when showing only unread articles
+	* Dynamic favicon showing the number of unread articles
+	* New theme: Screwdriver by Mister aiR
+* Statistics
+	* New page with article repartition
+	* Improvements
+* Security
+	* Basic protection against XSRF (Cross-Site Request Forgery) based on HTTP Referer (POST requests only)
+* API
+	* Compatible with lighttpd
+* Misc.
+	* Changed lazyload implementation
+	* Support of HTML5 notifications for new upcoming articles
+	* Add option to stay logged in
+* Bux fixes in export function, add/remove users, keyboard shortcuts, etc.
+
+
+## 2014-07-21 FreshRSS 0.7.3
+
+* New options
+	* Add system of user queries which are shortcuts to filter the view
+	* New TTL option to limit the frequency at which feeds are refreshed (by cron or manual refresh button).
+		It is still possible to manually refresh an individual feed at a higher frequency.
+* SQL
+	* Add support for SQLite (beta) in addition to MySQL
+* SimplePie
+	* Complies with HTTP "301 Moved Permanently" responses by automatically updating the URL of feeds that have changed address.
+* Themes
+	* Flat and Dark designs are based on same template file as Origine
+* Statistics
+	* Refactor code
+	* Add an idle feed page
+* Misc
+	* Several bug fixes
+	* Add confirmation option when marking all articles as read
+	* Fix some typo
+
+
+## 2014-06-13 FreshRSS 0.7.2
+
+* API compatible with Google Reader API level 2
+	* FreshRSS can now be used from e.g.:
+		* (Android) News+ https://play.google.com/store/apps/details?id=com.noinnion.android.newsplus.extension.google_reader
+		* (Android) EasyRSS https://github.com/Alkarex/EasyRSS
+* Basic support for audio and video podcasts
+* Searching
+	* New search filters date: and pubdate: accepting ISO 8601 date intervals such as `date:2013-2014` or `pubdate:P1W`
+	* Possibility to combine search filters, e.g. `date:2014-05 intitle:FreshRSS intitle:Open great reader #Internet`
+* Change nav menu with more buttons instead of dropdown menus and add some filters
+* New system of import / export
+	* Support OPML, Json (like Google Reader) and Zip archives
+	* Can export and import articles (specific option for favorites)
+* Refactor "Origine" theme
+	* Some improvements
+	* Based on a template file (other themes will use it too)
+
+
 ## 2014-02-19 FreshRSS 0.7.1
 
 * Mise à jour des flux plus rapide grâce à une meilleure utilisation du cache

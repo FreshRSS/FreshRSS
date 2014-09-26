@@ -17,7 +17,7 @@ class FreshRSS_users_Controller extends Minz_ActionController {
 		if (Minz_Request::isPost()) {
 			$ok = true;
 
-			$passwordPlain = Minz_Request::param('passwordPlain', false);
+			$passwordPlain = Minz_Request::param('passwordPlain', '', true);
 			if ($passwordPlain != '') {
 				Minz_Request::_param('passwordPlain');	//Discard plain-text password ASAP
 				$_POST['passwordPlain'] = '';
@@ -32,8 +32,20 @@ class FreshRSS_users_Controller extends Minz_ActionController {
 			}
 			Minz_Session::_param('passwordHash', $this->view->conf->passwordHash);
 
+			$passwordPlain = Minz_Request::param('apiPasswordPlain', '', true);
+			if ($passwordPlain != '') {
+				if (!function_exists('password_hash')) {
+					include_once(LIB_PATH . '/password_compat.php');
+				}
+				$passwordHash = password_hash($passwordPlain, PASSWORD_BCRYPT, array('cost' => self::BCRYPT_COST));
+				$passwordPlain = '';
+				$passwordHash = preg_replace('/^\$2[xy]\$/', '\$2a\$', $passwordHash);	//Compatibility with bcrypt.js
+				$ok &= ($passwordHash != '');
+				$this->view->conf->_apiPasswordHash($passwordHash);
+			}
+
 			if (Minz_Configuration::isAdmin(Minz_Session::param('currentUser', '_'))) {
-				$this->view->conf->_mail_login(Minz_Request::param('mail_login', false));
+				$this->view->conf->_mail_login(Minz_Request::param('mail_login', '', true));
 			}
 			$email = $this->view->conf->mail_login;
 			Minz_Session::_param('mail', $email);
@@ -57,13 +69,19 @@ class FreshRSS_users_Controller extends Minz_ActionController {
 				$anon_refresh = Minz_Request::param('anon_refresh', false);
 				$anon_refresh = ((bool)$anon_refresh) && ($anon_refresh !== 'no');
 				$auth_type = Minz_Request::param('auth_type', 'none');
+				$unsafe_autologin = Minz_Request::param('unsafe_autologin', false);
+				$api_enabled = Minz_Request::param('api_enabled', false);
 				if ($anon != Minz_Configuration::allowAnonymous() ||
 					$auth_type != Minz_Configuration::authType() ||
-					$anon_refresh != Minz_Configuration::allowAnonymousRefresh()) {
+					$anon_refresh != Minz_Configuration::allowAnonymousRefresh() ||
+					$unsafe_autologin != Minz_Configuration::unsafeAutologinEnabled() ||
+					$api_enabled != Minz_Configuration::apiEnabled()) {
 
 					Minz_Configuration::_authType($auth_type);
 					Minz_Configuration::_allowAnonymous($anon);
 					Minz_Configuration::_allowAnonymousRefresh($anon_refresh);
+					Minz_Configuration::_enableAutologin($unsafe_autologin);
+					Minz_Configuration::_enableApi($api_enabled);
 					$ok &= Minz_Configuration::writeFile();
 				}
 			}
@@ -81,7 +99,8 @@ class FreshRSS_users_Controller extends Minz_ActionController {
 
 	public function createAction() {
 		if (Minz_Request::isPost() && Minz_Configuration::isAdmin(Minz_Session::param('currentUser', '_'))) {
-			require_once(APP_PATH . '/sql.php');
+			$db = Minz_Configuration::dataBase();
+			require_once(APP_PATH . '/SQL/install.sql.' . $db['type'] . '.php');
 
 			$new_user_language = Minz_Request::param('new_user_language', $this->view->conf->language);
 			if (!in_array($new_user_language, $this->view->conf->availableLanguages())) {
@@ -101,7 +120,7 @@ class FreshRSS_users_Controller extends Minz_ActionController {
 			}
 			if ($ok) {
 			
-				$passwordPlain = Minz_Request::param('new_user_passwordPlain', false);
+				$passwordPlain = Minz_Request::param('new_user_passwordPlain', '', true);
 				$passwordHash = '';
 				if ($passwordPlain != '') {
 					Minz_Request::_param('new_user_passwordPlain');	//Discard plain-text password ASAP
@@ -152,7 +171,8 @@ class FreshRSS_users_Controller extends Minz_ActionController {
 
 	public function deleteAction() {
 		if (Minz_Request::isPost() && Minz_Configuration::isAdmin(Minz_Session::param('currentUser', '_'))) {
-			require_once(APP_PATH . '/sql.php');
+			$db = Minz_Configuration::dataBase();
+			require_once(APP_PATH . '/SQL/install.sql.' . $db['type'] . '.php');
 
 			$username = Minz_Request::param('username');
 			$ok = ctype_alnum($username);

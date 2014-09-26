@@ -43,8 +43,12 @@ class FreshRSS_entry_Controller extends Minz_ActionController {
 		$nextGet = Minz_Request::param ('nextGet', $get); 
 		$idMax = Minz_Request::param ('idMax', 0);
 
-		$entryDAO = new FreshRSS_EntryDAO ();
+		$entryDAO = FreshRSS_Factory::createEntryDao();
 		if ($id == false) {
+			if (!Minz_Request::isPost()) {
+				return;
+			}
+
 			if (!$get) {
 				$entryDAO->markReadEntries ($idMax);
 			} else {
@@ -85,7 +89,7 @@ class FreshRSS_entry_Controller extends Minz_ActionController {
 
 		$id = Minz_Request::param ('id');
 		if ($id) {
-			$entryDAO = new FreshRSS_EntryDAO ();
+			$entryDAO = FreshRSS_Factory::createEntryDao();
 			$entryDAO->markFavorite ($id, (bool)(Minz_Request::param ('is_favorite', true)));
 		}
 	}
@@ -97,8 +101,11 @@ class FreshRSS_entry_Controller extends Minz_ActionController {
 			// La table des entrées a tendance à grossir énormément
 			// Cette action permet d'optimiser cette table permettant de grapiller un peu de place
 			// Cette fonctionnalité n'est à appeler qu'occasionnellement
-			$entryDAO = new FreshRSS_EntryDAO();
+			$entryDAO = FreshRSS_Factory::createEntryDao();
 			$entryDAO->optimizeTable();
+
+			$feedDAO = FreshRSS_Factory::createFeedDao();
+			$feedDAO->updateCachedValues();
 
 			invalidateHttpCache();
 
@@ -121,8 +128,8 @@ class FreshRSS_entry_Controller extends Minz_ActionController {
 		$nb_month_old = max($this->view->conf->old_entries, 1);
 		$date_min = time() - (3600 * 24 * 30 * $nb_month_old);
 
-		$feedDAO = new FreshRSS_FeedDAO();
-		$feeds = $feedDAO->listFeedsOrderUpdate();
+		$feedDAO = FreshRSS_Factory::createFeedDao();
+		$feeds = $feedDAO->listFeeds();
 		$nbTotal = 0;
 
 		invalidateHttpCache();
@@ -137,10 +144,12 @@ class FreshRSS_entry_Controller extends Minz_ActionController {
 				if ($nb > 0) {
 					$nbTotal += $nb;
 					Minz_Log::record($nb . ' old entries cleaned in feed [' . $feed->url() . ']', Minz_Log::DEBUG);
-					$feedDAO->updateLastUpdate($feed->id());
+					//$feedDAO->updateLastUpdate($feed->id());
 				}
 			}
 		}
+
+		$feedDAO->updateCachedValues();
 
 		invalidateHttpCache();
 

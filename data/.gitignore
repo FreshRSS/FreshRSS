@@ -6,3 +6,5 @@ touch.txt
 no-cache.txt
 *.bak.php
 *.lock.txt
+last_update.txt
+update.php

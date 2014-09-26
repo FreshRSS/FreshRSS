@@ -2,20 +2,20 @@
 if (Minz_Configuration::canLogIn()) {
 	?><ul class="nav nav-head nav-login"><?php
 	switch (Minz_Configuration::authType()) {
-		case 'form':
-			if ($this->loginOk) {
-				?><li class="item"><?php echo FreshRSS_Themes::icon('logout'); ?> <a class="signout" href="<?php echo _url ('index', 'formLogout'); ?>"><?php echo Minz_Translate::t ('logout'); ?></a></li><?php
-			} else {
-				?><li class="item"><?php echo FreshRSS_Themes::icon('login'); ?> <a class="signin" href="<?php echo _url ('index', 'formLogin'); ?>"><?php echo Minz_Translate::t ('login'); ?></a></li><?php
-			}
-			break;
-		case 'persona':
-			if ($this->loginOk) {
-				?><li class="item"><?php echo FreshRSS_Themes::icon('logout'); ?> <a class="signout" href="#"><?php echo Minz_Translate::t ('logout'); ?></a></li><?php
-			} else {
-				?><li class="item"><?php echo FreshRSS_Themes::icon('login'); ?> <a class="signin" href="#"><?php echo Minz_Translate::t ('login'); ?></a></li><?php
-			}
-			break;
+	case 'form':
+		if ($this->loginOk) {
+			?><li class="item"><?php echo _i('logout'); ?> <a class="signout" href="<?php echo _url('index', 'formLogout'); ?>"><?php echo _t('logout'); ?></a></li><?php
+		} else {
+			?><li class="item"><?php echo _i('login'); ?> <a class="signin" href="<?php echo _url('index', 'formLogin'); ?>"><?php echo _t('login'); ?></a></li><?php
+		}
+		break;
+	case 'persona':
+		if ($this->loginOk) {
+			?><li class="item"><?php echo _i('logout'); ?> <a class="signout" href="#"><?php echo _t('logout'); ?></a></li><?php
+		} else {
+			?><li class="item"><?php echo _i('login'); ?> <a class="signin" href="#"><?php echo _t('login'); ?></a></li><?php
+		}
+		break;
 	}
 	?></ul><?php
 }
@@ -24,36 +24,36 @@ if (Minz_Configuration::canLogIn()) {
 <div class="header">
 	<div class="item title">
 		<h1>
-			<a href="<?php echo _url ('index', 'index'); ?>">
-				<img class="logo" src="<?php echo Minz_Url::display ('/themes/icons/icon.svg'); ?>" alt="⊚" />
-				<?php echo Minz_Configuration::title (); ?>
+			<a href="<?php echo _url('index', 'index'); ?>">
+				<img class="logo" src="<?php echo _i('icon', true); ?>" alt="⊚" />
+				<?php echo Minz_Configuration::title(); ?>
 			</a>
 		</h1>
 	</div>
 
 	<div class="item search">
 		<?php if ($this->loginOk || Minz_Configuration::allowAnonymous()) { ?>
-		<form action="<?php echo _url ('index', 'index'); ?>" method="get">
+		<form action="<?php echo _url('index', 'index'); ?>" method="get">
 			<div class="stick">
-				<?php $search = Minz_Request::param ('search', ''); ?>
-				<input type="search" name="search" id="search" class="extend" value="<?php echo $search; ?>" placeholder="<?php echo Minz_Translate::t ('search'); ?>" />
+				<?php $search = Minz_Request::param('search', ''); ?>
+				<input type="search" name="search" id="search" class="extend" value="<?php echo $search; ?>" placeholder="<?php echo _t('search'); ?>" />
 
-				<?php $get = Minz_Request::param ('get', ''); ?>
-				<?php if($get != '') { ?>
+				<?php $get = Minz_Request::param('get', ''); ?>
+				<?php if ($get != '') { ?>
 				<input type="hidden" name="get" value="<?php echo $get; ?>" />
 				<?php } ?>
 
-				<?php $order = Minz_Request::param ('order', ''); ?>
-				<?php if($order != '') { ?>
+				<?php $order = Minz_Request::param('order', ''); ?>
+				<?php if ($order != '') { ?>
 				<input type="hidden" name="order" value="<?php echo $order; ?>" />
 				<?php } ?>
 
-				<?php $state = Minz_Request::param ('state', ''); ?>
-				<?php if($state != '') { ?>
+				<?php $state = Minz_Request::param('state', ''); ?>
+				<?php if ($state != '') { ?>
 				<input type="hidden" name="state" value="<?php echo $state; ?>" />
 				<?php } ?>
 
-				<button class="btn" type="submit"><?php echo FreshRSS_Themes::icon('search'); ?></button>
+				<button class="btn" type="submit"><?php echo _i('search'); ?></button>
 			</div>
 		</form>
 		<?php } ?>
@@ -63,30 +63,38 @@ if (Minz_Configuration::canLogIn()) {
 	<div class="item configure">
 		<div class="dropdown">
 			<div id="dropdown-configure" class="dropdown-target"></div>
-			<a class="btn dropdown-toggle" href="#dropdown-configure"><?php echo FreshRSS_Themes::icon('configure'); ?></a>
+			<a class="btn dropdown-toggle" href="#dropdown-configure"><?php echo _i('configure'); ?></a>
 			<ul class="dropdown-menu">
 				<li class="dropdown-close"><a href="#close">❌</a></li>
-				<li class="dropdown-header"><?php echo Minz_Translate::t ('configuration'); ?></li>
-				<li class="item"><a href="<?php echo _url ('configure', 'display'); ?>"><?php echo Minz_Translate::t ('reading_configuration'); ?></a></li>
-				<li class="item"><a href="<?php echo _url ('configure', 'archiving'); ?>"><?php echo Minz_Translate::t ('archiving_configuration'); ?></a></li>
-				<li class="item"><a href="<?php echo _url ('configure', 'sharing'); ?>"><?php echo Minz_Translate::t ('sharing'); ?></a></li>
-				<li class="item"><a href="<?php echo _url ('configure', 'shortcut'); ?>"><?php echo Minz_Translate::t ('shortcuts'); ?></a></li>
+				<li class="dropdown-header"><?php echo _t('configuration'); ?></li>
+				<li class="item"><a href="<?php echo _url('configure', 'display'); ?>"><?php echo _t('display_configuration'); ?></a></li>
+				<li class="item"><a href="<?php echo _url('configure', 'reading'); ?>"><?php echo _t('reading_configuration'); ?></a></li>
+				<li class="item"><a href="<?php echo _url('configure', 'archiving'); ?>"><?php echo _t('archiving_configuration'); ?></a></li>
+				<li class="item"><a href="<?php echo _url('configure', 'sharing'); ?>"><?php echo _t('sharing'); ?></a></li>
+				<li class="item"><a href="<?php echo _url('configure', 'shortcut'); ?>"><?php echo _t('shortcuts'); ?></a></li>
+				<li class="item"><a href="<?php echo _url('configure', 'queries'); ?>"><?php echo _t('queries'); ?></a></li>
 				<li class="separator"></li>
-				<li class="item"><a href="<?php echo _url ('configure', 'users'); ?>"><?php echo Minz_Translate::t ('users'); ?></a></li>
+				<li class="item"><a href="<?php echo _url('configure', 'users'); ?>"><?php echo _t('users'); ?></a></li>
+				<?php
+					$current_user = Minz_Session::param('currentUser', '');
+					if (Minz_Configuration::isAdmin($current_user)) {
+				?>
+				<li class="item"><a href="<?php echo _url('update', 'index'); ?>"><?php echo _t('update'); ?></a></li>
+				<?php } ?>
 				<li class="separator"></li>
-				<li class="item"><a href="<?php echo _url ('index', 'stats'); ?>"><?php echo Minz_Translate::t ('stats'); ?></a></li>
-				<li class="item"><a href="<?php echo _url ('index', 'logs'); ?>"><?php echo Minz_Translate::t ('logs'); ?></a></li>
-				<li class="item"><a href="<?php echo _url ('index', 'about'); ?>"><?php echo Minz_Translate::t ('about'); ?></a></li>
+				<li class="item"><a href="<?php echo _url('stats', 'index'); ?>"><?php echo _t('stats'); ?></a></li>
+				<li class="item"><a href="<?php echo _url('index', 'logs'); ?>"><?php echo _t('logs'); ?></a></li>
+				<li class="item"><a href="<?php echo _url('index', 'about'); ?>"><?php echo _t('about'); ?></a></li>
 				<?php
 				if (Minz_Configuration::canLogIn()) {
 					?><li class="separator"></li><?php
 					switch (Minz_Configuration::authType()) {
-						case 'form':
-							?><li class="item"><a class="signout" href="<?php echo _url ('index', 'formLogout'); ?>"><?php echo FreshRSS_Themes::icon('logout'), ' ', Minz_Translate::t ('logout'); ?></a></li><?php
-							break;
-						case 'persona':
-							?><li class="item"><a class="signout" href="#"><?php echo FreshRSS_Themes::icon('logout'), ' ', Minz_Translate::t ('logout'); ?></a></li><?php
-							break;
+					case 'form':
+						?><li class="item"><a class="signout" href="<?php echo _url('index', 'formLogout'); ?>"><?php echo _i('logout'), ' ', _t('logout'); ?></a></li><?php
+						break;
+					case 'persona':
+						?><li class="item"><a class="signout" href="#"><?php echo _i('logout'), ' ', _t('logout'); ?></a></li><?php
+						break;
 					}
 				} ?>
 			</ul>
@@ -95,12 +103,12 @@ if (Minz_Configuration::canLogIn()) {
 	<?php } elseif (Minz_Configuration::canLogIn()) {
 		?><div class="item configure"><?php
 		switch (Minz_Configuration::authType()) {
-			case 'form':
-				echo FreshRSS_Themes::icon('login'); ?><a class="signin" href="<?php echo _url ('index', 'formLogin'); ?>"><?php echo Minz_Translate::t ('login'); ?></a></li><?php
-				break;
-			case 'persona':
-				echo FreshRSS_Themes::icon('login'); ?><a class="signin" href="#"><?php echo Minz_Translate::t ('login'); ?></a></li><?php
-				break;
+		case 'form':
+			echo _i('login'); ?><a class="signin" href="<?php echo _url('index', 'formLogin'); ?>"><?php echo _t('login'); ?></a></li><?php
+			break;
+		case 'persona':
+			echo _i('login'); ?><a class="signin" href="#"><?php echo _t('login'); ?></a></li><?php
+			break;
 		}
 		?></div><?php
 	} ?>

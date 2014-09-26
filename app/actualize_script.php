@@ -28,7 +28,6 @@ foreach ($users as $myUser) {
 	$_SERVER['HTTP_HOST'] = '';
 
 	$freshRSS = new FreshRSS();
-	$freshRSS->_useOb(false);
 
 	Minz_Configuration::_authType('none');
 

@@ -30,12 +30,9 @@ class Minz_Configuration {
 	 * définition des variables de configuration
 	 * $salt une chaîne de caractères aléatoires (obligatoire)
 	 * $environment gère le niveau d'affichage pour log et erreurs
-	 * $use_url_rewriting indique si on utilise l'url_rewriting
 	 * $base_url le chemin de base pour accéder à l'application
 	 * $title le nom de l'application
 	 * $language la langue par défaut de l'application
-	 * $cacheEnabled permet de savoir si le cache doit être activé
-	 * $delayCache la limite de cache
 	 * $db paramètres pour la base de données (tableau)
 	 *     - host le serveur de la base
 	 *     - user nom d'utilisateur
@@ -45,15 +42,14 @@ class Minz_Configuration {
 	private static $salt = '';
 	private static $environment = Minz_Configuration::PRODUCTION;
 	private static $base_url = '';
-	private static $use_url_rewriting = false;
 	private static $title = '';
 	private static $language = 'en';
-	private static $cache_enabled = false;
-	private static $delay_cache = 3600;
 	private static $default_user = '';
 	private static $allow_anonymous = false;
 	private static $allow_anonymous_refresh = false;
 	private static $auth_type = 'none';
+	private static $api_enabled = false;
+	private static $unsafe_autologin_enabled = false;
 
 	private static $db = array (
 		'type' => 'mysql',
@@ -92,20 +88,11 @@ class Minz_Configuration {
 	public static function baseUrl () {
 		return self::$base_url;
 	}
-	public static function useUrlRewriting () {
-		return self::$use_url_rewriting;
-	}
 	public static function title () {
 		return self::$title;
 	}
 	public static function language () {
 		return self::$language;
-	}
-	public static function cacheEnabled () {
-		return self::$cache_enabled;
-	}
-	public static function delayCache () {
-		return self::$delay_cache;
 	}
 	public static function dataBase () {
 		return self::$db;
@@ -131,6 +118,12 @@ class Minz_Configuration {
 	public static function canLogIn() {
 		return self::$auth_type === 'form' || self::$auth_type === 'persona';
 	}
+	public static function apiEnabled() {
+		return self::$api_enabled;
+	}
+	public static function unsafeAutologinEnabled() {
+		return self::$unsafe_autologin_enabled;
+	}
 
 	public static function _allowAnonymous($allow = false) {
 		self::$allow_anonymous = ((bool)$allow) && self::canLogIn();
@@ -149,6 +142,13 @@ class Minz_Configuration {
 				break;
 		}
 		self::_allowAnonymous(self::$allow_anonymous);
+	}
+
+	public static function _enableApi($value = false) {
+		self::$api_enabled = (bool)$value;
+	}
+	public static function _enableAutologin($value = false) {
+		self::$unsafe_autologin_enabled = (bool)$value;
 	}
 
 	/**
@@ -171,7 +171,6 @@ class Minz_Configuration {
 		$ini_array = array(
 			'general' => array(
 				'environment' => self::environment(true),
-				'use_url_rewriting' => self::$use_url_rewriting,
 				'salt' => self::$salt,
 				'base_url' => self::$base_url,
 				'title' => self::$title,
@@ -179,6 +178,8 @@ class Minz_Configuration {
 				'allow_anonymous' => self::$allow_anonymous,
 				'allow_anonymous_refresh' => self::$allow_anonymous_refresh,
 				'auth_type' => self::$auth_type,
+				'api_enabled' => self::$api_enabled,
+				'unsafe_autologin_enabled' => self::$unsafe_autologin_enabled,
 			),
 			'db' => self::$db,
 		);
@@ -255,27 +256,12 @@ class Minz_Configuration {
 		if (isset ($general['base_url'])) {
 			self::$base_url = $general['base_url'];
 		}
-		if (isset ($general['use_url_rewriting'])) {
-			self::$use_url_rewriting = $general['use_url_rewriting'];
-		}
 
 		if (isset ($general['title'])) {
 			self::$title = $general['title'];
 		}
 		if (isset ($general['language'])) {
 			self::$language = $general['language'];
-		}
-		if (isset ($general['cache_enabled'])) {
-			self::$cache_enabled = $general['cache_enabled'];
-			if (CACHE_PATH === false && self::$cache_enabled) {
-				throw new FileNotExistException (
-					'CACHE_PATH',
-					Minz_Exception::ERROR
-				);
-			}
-		}
-		if (isset ($general['delay_cache'])) {
-			self::$delay_cache = inval($general['delay_cache']);
 		}
 		if (isset ($general['default_user'])) {
 			self::$default_user = $general['default_user'];
@@ -295,45 +281,77 @@ class Minz_Configuration {
 				($general['allow_anonymous_refresh'] !== 'no')
 			);
 		}
+		if (isset ($general['api_enabled'])) {
+			self::$api_enabled = (
+				((bool)($general['api_enabled'])) &&
+				($general['api_enabled'] !== 'no')
+			);
+		}
+		if (isset ($general['unsafe_autologin_enabled'])) {
+			self::$unsafe_autologin_enabled = (
+				((bool)($general['unsafe_autologin_enabled'])) &&
+				($general['unsafe_autologin_enabled'] !== 'no')
+			);
+		}
 
 		// Base de données
 		if (isset ($ini_array['db'])) {
 			$db = $ini_array['db'];
-			if (empty($db['host'])) {
+			if (empty($db['type'])) {
 				throw new Minz_BadConfigurationException (
-					'host',
+					'type',
 					Minz_Exception::ERROR
 				);
 			}
-			if (empty($db['user'])) {
-				throw new Minz_BadConfigurationException (
-					'user',
-					Minz_Exception::ERROR
-				);
+			switch ($db['type']) {
+				case 'mysql':
+					if (empty($db['host'])) {
+						throw new Minz_BadConfigurationException (
+							'host',
+							Minz_Exception::ERROR
+						);
+					}
+					if (empty($db['user'])) {
+						throw new Minz_BadConfigurationException (
+							'user',
+							Minz_Exception::ERROR
+						);
+					}
+					if (!isset($db['password'])) {
+						throw new Minz_BadConfigurationException (
+							'password',
+							Minz_Exception::ERROR
+						);
+					}
+					if (empty($db['base'])) {
+						throw new Minz_BadConfigurationException (
+							'base',
+							Minz_Exception::ERROR
+						);
+					}
+					self::$db['host'] = $db['host'];
+					self::$db['user'] = $db['user'];
+					self::$db['password'] = $db['password'];
+					self::$db['base'] = $db['base'];
+					if (isset($db['prefix'])) {
+						self::$db['prefix'] = $db['prefix'];
+					}
+					break;
+				case 'sqlite':
+					self::$db['host'] = '';
+					self::$db['user'] = '';
+					self::$db['password'] = '';
+					self::$db['base'] = '';
+					self::$db['prefix'] = '';
+					break;
+				default:
+					throw new Minz_BadConfigurationException (
+						'type',
+						Minz_Exception::ERROR
+					);
+					break;
 			}
-			if (!isset ($db['password'])) {
-				throw new Minz_BadConfigurationException (
-					'password',
-					Minz_Exception::ERROR
-				);
-			}
-			if (empty($db['base'])) {
-				throw new Minz_BadConfigurationException (
-					'base',
-					Minz_Exception::ERROR
-				);
-			}
-
-			if (!empty($db['type'])) {
-				self::$db['type'] = $db['type'];
-			}
-			self::$db['host'] = $db['host'];
-			self::$db['user'] = $db['user'];
-			self::$db['password'] = $db['password'];
-			self::$db['base'] = $db['base'];
-			if (isset($db['prefix'])) {
-				self::$db['prefix'] = $db['prefix'];
-			}
+			self::$db['type'] = $db['type'];
 		}
 	}
 

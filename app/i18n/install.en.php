@@ -28,8 +28,8 @@ return array (
 	'minz_is_nok'			=> 'You lack the Minz framework. You should execute <em>build.sh</em> script or <a href="https://github.com/marienfressinaud/MINZ">download it on Github</a> and install in <em>%s</em> directory the content of its <em>/lib</em> directory.',
 	'curl_is_ok'			=> 'You have version %s of cURL',
 	'curl_is_nok'			=> 'You lack cURL (php5-curl package)',
-	'pdomysql_is_ok'		=> 'You have PDO and its driver for MySQL',
-	'pdomysql_is_nok'		=> 'You lack PDO or its driver for MySQL (php5-mysql package)',
+	'pdo_is_ok'			=> 'You have PDO and at least one of the supported drivers (pdo_mysql, pdo_sqlite)',
+	'pdo_is_nok'			=> 'You lack PDO or one of the supported drivers (pdo_mysql, pdo_sqlite)',
 	'dom_is_ok'			=> 'You have the required library to browse the DOM',
 	'dom_is_nok'			=> 'You lack a required library to browse the DOM (php-xml package)',
 	'pcre_is_ok'			=> 'You have the required library for regular expressions (PCRE)',
@@ -42,6 +42,8 @@ return array (
 	'data_is_ok'			=> 'Permissions on data directory are good',
 	'persona_is_ok'			=> 'Permissions on Mozilla Persona directory are good',
 	'file_is_nok'			=> 'Check permissions on <em>%s</em> directory. HTTP server must have rights to write into',
+	'http_referer_is_ok'		=> 'Your HTTP REFERER is known and corresponds to your server.',
+	'http_referer_is_nok'		=> 'Please check that you are not altering your HTTP REFERER.',
 	'fix_errors_before'		=> 'Fix errors before skip to the next step.',
 
 	'general_conf_is_ok'		=> 'General configuration has been saved.',
@@ -61,7 +63,7 @@ return array (
 	'update_end'			=> 'Update process is completed, now you can go to the final step.',
 
 
-	'installation_is_ok'		=> 'The installation process was successful.<br />The final step will now attempt to delete the <kbd>./p/i/install.php</kbd> file and any database backup created during the update process.<br />You may choose to skip this step and delete <kbd>./p/i/install.php</kbd> manually.',
+	'installation_is_ok'		=> 'The installation process was successful.<br />The final step will now attempt to delete any file and database backup created during the update process.<br />You may choose to skip this step by deleting <kbd>./data/do-install.txt</kbd> manually.',
 	'finish_installation'		=> 'Complete installation',
 	'install_not_deleted'		=> 'Something went wrong; you must delete the file <em>%s</em> manually.',
 );
