@@ -110,7 +110,8 @@ form th {
 .form-group .group-controls {
 	min-height: 25px;
 	padding: 5px 0;
-	margin-bottom : 5px;
+	margin : 10px 0 10px 0;
+
 }
 .form-group table {
 	margin: 10px 0 0 220px;
@@ -362,8 +363,8 @@ a.btn {
 	width: 10px;
 	height: 10px;
 	background: #fff;
-	border-top: 1px solid #ddd;
-	border-left: 1px solid #ddd;
+	border-top: 1px solid #aaa;
+	border-left: 1px solid #aaa;
 	z-index: -10;
 	transform: rotate(45deg);
 	-moz-transform: rotate(45deg);
@@ -385,11 +386,14 @@ a.btn {
 	color: #666;
 	font-size: 0.8rem;
 }
+
 .dropdown-menu > .item > span,
 .dropdown-menu > .item > .as-link {
 	padding: 0 22px;
 	line-height: 2em;
+	font-size: 0.8rem;
 }
+
 .dropdown-menu > .item:hover {
 	background: #eee;
 	color: #666;
