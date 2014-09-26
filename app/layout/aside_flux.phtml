@@ -83,7 +83,9 @@
 	<ul class="dropdown-menu">
 		<li class="dropdown-close"><a href="#close">❌</a></li>
 		<li class="item"><a href="<?php echo _url('index', 'index', 'get', 'f_!!!!!!'); ?>"><?php echo _t('filter'); ?></a></li>
+		<?php if ($this->loginOk) { ?>
 		<li class="item"><a href="<?php echo _url('stats', 'repartition', 'id', '!!!!!!'); ?>"><?php echo _t('stats'); ?></a></li>
+		<?php } ?>
 		<li class="item"><a target="_blank" href="http://example.net/"><?php echo _t('see_website'); ?></a></li>
 		<?php if ($this->loginOk) { ?>
 		<li class="separator"></li>
