@@ -15,7 +15,7 @@ html, body {
 }
 
 /*=== Links */
-a {
+a, button.as-link {
 	color: #2980b9;
 	outline: none;
 }
@@ -49,6 +49,7 @@ input, select, textarea {
 	background: #fff;
 	border: none;
 	border-bottom: 3px solid #ddd;
+	border-left-color: #ddd;
 	color: #666;
 	border-radius: 5px;
 }
@@ -155,10 +156,17 @@ form th {
 .stick .btn + .dropdown > .btn {
 	border-radius: 0 5px 5px 0;
 }
+.stick .btn + .btn,
 .stick .btn + input,
+.stick .btn + .dropdown > .btn,
+.stick input + .btn,
 .stick input + input,
-.stick .dropdown + input {
-	border-left: 1px solid #ddd;
+.stick input + .dropdown > .btn,
+.stick .dropdown + .btn,
+.stick .dropdown + input,
+.stick .dropdown + .dropdown > .btn {
+	border-left-width: 1px;
+	border-left-style: solid;
 }
 
 .btn {
@@ -175,6 +183,7 @@ form th {
 	border-radius: 5px;
 	border: none;
 	border-bottom: 3px solid #2980b9;
+	border-left-color: #2980b9;
 	color: #fff;
 }
 a.btn {
@@ -196,6 +205,7 @@ a.btn {
 	background: #e67e22;
 	color: #fff;
 	border-bottom: 3px solid #d35400;
+	border-left-color: #d35400;
 }
 .btn-important:hover,
 .btn-important:active {
@@ -206,6 +216,7 @@ a.btn {
 	background: #e74c3c;
 	color: #fff;
 	border-bottom: 3px solid #c0392b;
+	border-left-color: #c0392b;
 }
 .btn-attention:hover,
 .btn-attention:active {
@@ -327,9 +338,14 @@ a.btn {
 	padding: 0 25px;
 	line-height: 2.5em;
 }
-.dropdown-menu > .item > span {
-	padding: 0 25px;
+.dropdown-menu > .item > span,
+.dropdown-menu > .item > .as-link {
+	padding: 0 22px;
 	line-height: 2em;
+}
+.dropdown-menu > .item:hover {
+	background: #2980b9;
+	color: #fff;
 }
 .dropdown-menu > .item[aria-checked="true"] > a:before {
 	font-weight: bold;
@@ -337,7 +353,6 @@ a.btn {
 }
 .dropdown-menu > .item:hover > a {
 	text-decoration: none;
-	background: #2980b9;
 	color: #fff;
 }
 .dropdown-menu .input select,
@@ -844,7 +859,18 @@ a.btn {
 .stat > table td,
 .stat > table th {
 	border-bottom: 1px solid #ddd;
-	text-align: center;
+}
+
+.stat > .horizontal-list {
+	margin: 0 0 5px;
+}
+.stat > .horizontal-list .item {
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+.stat > .horizontal-list .item:first-child {
+	width: 270px;
 }
 
 /*=== LOGS */

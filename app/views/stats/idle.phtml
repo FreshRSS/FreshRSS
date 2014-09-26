@@ -1,25 +1,48 @@
 <?php $this->partial('aside_stats'); ?>
 
-<div class="post content">
+<div class="post">
 	<a href="<?php echo _url('index', 'index'); ?>"><?php echo _t('back_to_rss_feeds'); ?></a>
 
 	<h1><?php echo _t('stats_idle'); ?></h1>
 
 	<?php
+		$current_url = urlencode(Minz_Url::display(
+			array('c' => 'stats', 'a' => 'idle'),
+			'php', true
+		));
+		$nothing = true;
 		foreach ($this->idleFeeds as $period => $feeds) {
 			if (!empty($feeds)) {
+				$nothing = false;
 	?>
 		<div class="stat">
 			<h2><?php echo _t($period); ?></h2>
 
-			<ul>
-				<?php foreach ($feeds as $feed) { ?>
-					<li><a href="<?php echo _url('configure', 'feed', 'id', $feed['id']); ?>" title="<?php echo date('Y-m-d', $feed['last_date']); ?>"><?php echo $feed['name']; ?></a></li>
-				<?php } ?>
+			<form id="form-delete" method="post" style="display: none"></form>
+
+			<?php foreach ($feeds as $feed) { ?>
+			<ul class="horizontal-list">
+				<li class="item">
+					<div class="stick">
+						<a class="btn" href="<?php echo _url('index', 'index', 'get', 'f_' . $feed['id']); ?>"><?php echo _i('link'); ?> <?php echo _t('filter'); ?></a>
+						<a class="btn" href="<?php echo _url('configure', 'feed', 'id', $feed['id']); ?>"><?php echo _i('configure'); ?> <?php echo _t('administration'); ?></a>
+						<button class="btn btn-attention confirm" form="form-delete" formaction="<?php echo _url('feed', 'delete', 'id', $feed['id'], 'r', $current_url); ?>"><?php echo _t('delete'); ?></button>
+					</div>
+				</li>
+				<li class="item">
+					<span title="<?php echo timestamptodate($feed['last_date'], false); ?>"><?php echo $feed['name']; ?> (<?php echo _t('number_articles', $feed['nb_articles']); ?>)</span>
+				</li>
 			</ul>
+			<?php } ?>
 		</div>
 	<?php
 			}
 		}
+
+		if ($nothing) {
 	?>
+	<p class="alert alert-warn">
+		<span class="alert-head"><?php echo _t('stats_no_idle'); ?></span>
+	</p>
+	<?php } ?>
 </div>

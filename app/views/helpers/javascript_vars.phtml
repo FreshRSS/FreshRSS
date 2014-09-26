@@ -4,7 +4,8 @@ echo '"use strict";', "\n";
 
 $mark = $this->conf->mark_when;
 echo 'var ',
-	'hide_posts=', ($this->conf->display_posts || Minz_Request::param('output') === 'reader') ? 'false' : 'true',
+	'help_url="', FRESHRSS_WIKI, '"',
+	',hide_posts=', ($this->conf->display_posts || Minz_Request::param('output') === 'reader') ? 'false' : 'true',
 	',display_order="', Minz_Request::param('order', $this->conf->sort_order), '"',
 	',auto_mark_article=', $mark['article'] ? 'true' : 'false',
 	',auto_mark_site=', $mark['site'] ? 'true' : 'false',
@@ -25,7 +26,9 @@ echo ',shortcuts={',
 	'collapse_entry:"', $s['collapse_entry'], '",',
 	'load_more:"', $s['load_more'], '",',
 	'auto_share:"', $s['auto_share'], '",',
-	'focus_search:"', $s['focus_search'], '"',
+	'focus_search:"', $s['focus_search'], '",',
+	'user_filter:"', $s['user_filter'], '",',
+	'help:"', $s['help'], '"',
 "},\n";
 
 if (Minz_Request::param ('output') === 'global') {
@@ -48,9 +51,11 @@ echo 'authType="', $authType, '",',
 	'url_login="', _url ('index', 'login'), '",',
 	'url_logout="', _url ('index', 'logout'), '",';
 
-echo 'str_confirmation="', Minz_Translate::t('confirm_action'), '"', ",\n";
+echo 'str_confirmation_default="', Minz_Translate::t('confirm_action'), '"', ",\n";
 echo 'str_notif_title_articles="', Minz_Translate::t('notif_title_new_articles'), '"', ",\n";
 echo 'str_notif_body_articles="', Minz_Translate::t('notif_body_new_articles'), '"', ",\n";
+echo 'html5_notif_timeout=', $this->conf->html5_notif_timeout,",\n";
+
 
 $autoActualise = Minz_Session::param('actualize_feeds', false);
 echo 'auto_actualize_feeds=', $autoActualise ? 'true' : 'false', ";\n";

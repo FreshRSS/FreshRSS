@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" height="16" width="16">
-<g transform="translate(-201.0002,-237)" fill="#bebebe">
-<path style="color:#bebebe;" d="m204,246c-0.554,0-1,0.446-1,1v0.53125,5.4688h12v-5.4688-0.53c0-0.554-0.446-1-1-1h-10z" fill-rule="nonzero"/>
+<g transform="translate(-201.0002,-237)" fill="#666">
+<path style="color:#666;" d="m204,246c-0.554,0-1,0.446-1,1v0.53125,5.4688h12v-5.4688-0.53c0-0.554-0.446-1-1-1h-10z" fill-rule="nonzero"/>
 <path style="baseline-shift:baseline;block-progression:tb;color:#bebebe;direction:ltr;text-indent:0;text-align:start;enable-background:accumulate;text-transform:none;" d="m208,237c-1.6447,0-3,1.3553-3,3v3h2v-3c0-0.57129,0.42873-1,1-1h2c0.57127,0,1,0.42871,1,1v7h2v-7c0-1.6447-1.3553-3-3-3h-2z"/>
 </g>
 </svg>

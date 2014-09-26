@@ -109,7 +109,6 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 		// A *very* basic guess file type function. Only based on filename
 		// That's could be improved but should be enough, at least for a first
 		// implementation.
-		// TODO: improve this function?
 
 		if (substr_compare($filename, '.zip', -4) === 0) {
 			return 'zip';
@@ -119,8 +118,7 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 		} elseif (substr_compare($filename, '.json', -5) === 0 &&
 		          strpos($filename, 'starred') !== false) {
 			return 'json_starred';
-		} elseif (substr_compare($filename, '.json', -5) === 0 &&
-		          strpos($filename, 'feed_') === 0) {
+		} elseif (substr_compare($filename, '.json', -5) === 0) {
 			return 'json_feed';
 		} else {
 			return 'unknown';
@@ -239,13 +237,27 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 		);
 
 		$error = false;
+		$article_to_feed = array();
+
+		// First, we check feeds of articles are in DB (and add them if needed).
 		foreach ($article_object['items'] as $item) {
 			$feed = $this->addFeedArticles($item['origin'], $google_compliant);
 			if (is_null($feed)) {
 				$error = true;
+			} else {
+				$article_to_feed[$item['id']] = $feed->id();
+			}
+		}
+
+		// Then, articles are imported.
+		$prepared_statement = $this->entryDAO->addEntryPrepare();
+		$this->entryDAO->beginTransaction();
+		foreach ($article_object['items'] as $item) {
+			if (!isset($article_to_feed[$item['id']])) {
 				continue;
 			}
 
+			$feed_id = $article_to_feed[$item['id']];
 			$author = isset($item['author']) ? $item['author'] : '';
 			$key_content = ($google_compliant && !isset($item['content'])) ?
 			               'summary' : 'content';
@@ -257,21 +269,21 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 			}
 
 			$entry = new FreshRSS_Entry(
-				$feed->id(), $item['id'], $item['title'], $author,
+				$feed_id, $item['id'], $item['title'], $author,
 				$item[$key_content]['content'], $item['alternate'][0]['href'],
 				$item['published'], $is_read, $starred
 			);
+			$entry->_id(min(time(), $entry->date(true)) . uSecString());
 			$entry->_tags($tags);
 
-			//FIME: Use entryDAO->addEntryPrepare(). Do not call entryDAO->listLastGuidsByFeed() for each entry. Consider using a transaction.
-			$id = $this->entryDAO->addEntryObject(
-				$entry, $this->view->conf, $feed->keepHistory()
-			);
+			$values = $entry->toArray();
+			$id = $this->entryDAO->addEntry($values, $prepared_statement);
 
 			if (!$error && ($id === false)) {
 				$error = true;
 			}
 		}
+		$this->entryDAO->commit();
 
 		return $error;
 	}

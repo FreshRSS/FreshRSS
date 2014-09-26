@@ -6,8 +6,7 @@ class FreshRSS extends Minz_FrontController {
 		}
 		$loginOk = $this->accessControl(Minz_Session::param('currentUser', ''));
 		$this->loadParamsView();
-		if (Minz_Request::isPost() && (empty($_SERVER['HTTP_REFERER']) ||
-			Minz_Request::getDomainName() !== parse_url($_SERVER['HTTP_REFERER'], PHP_URL_HOST))) {
+		if (Minz_Request::isPost() && !is_referer_from_same_domain()) {
 			$loginOk = false;	//Basic protection against XSRF attacks
 			Minz_Error::error(
 				403,
@@ -140,11 +139,21 @@ class FreshRSS extends Minz_FrontController {
 		}
 	}
 
-	private function loadStylesAndScripts ($loginOk) {
+	private function loadStylesAndScripts($loginOk) {
 		$theme = FreshRSS_Themes::load($this->conf->theme);
 		if ($theme) {
 			foreach($theme['files'] as $file) {
-				Minz_View::appendStyle (Minz_Url::display ('/themes/' . $theme['id'] . '/' . $file . '?' . @filemtime(PUBLIC_PATH . '/themes/' . $theme['id'] . '/' . $file)));
+				if ($file[0] === '_') {
+					$theme_id = 'base-theme';
+					$filename = substr($file, 1);
+				} else {
+					$theme_id = $theme['id'];
+					$filename = $file;
+				}
+				$filetime = @filemtime(PUBLIC_PATH . '/themes/' . $theme_id . '/' . $filename);
+				Minz_View::appendStyle(Minz_Url::display(
+					'/themes/' . $theme_id . '/' . $filename . '?' . $filetime
+				));
 			}
 		}
 

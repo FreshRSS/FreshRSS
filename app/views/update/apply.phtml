@@ -1,0 +1,9 @@
+<?php $this->partial('aside_configure'); ?>
+
+<div class="post">
+	<a href="<?php echo _url('index', 'index'); ?>"><?php echo _t('back_to_rss_feeds'); ?></a>
+
+	<h1><?php echo _t('update_system'); ?></h1>
+
+	<?php ask_info_update(); ?>
+</div>

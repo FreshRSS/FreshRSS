@@ -1,8 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
 	<title>Logo FreshRSS</title>
-	<circle fill="#FFF" cx="128" cy="128" r="128"/>
-	<circle fill="#0062BE" cx="128" cy="128" r="33"/>
-	<g fill="none" stroke="#0062BE" stroke-width="24">
+	<circle fill="#C5C6CA" cx="128" cy="128" r="33"/>
+	<g fill="none" stroke="#C5C6CA" stroke-width="24">
 		<g stroke-opacity="0.3">
 			<path d="M12,128 A116,116 0 1,1 128,244"/>
 			<path d="M54,128 A74,74 0 1,1 128,202"/>

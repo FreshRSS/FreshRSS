@@ -15,7 +15,7 @@ html, body {
 }
 
 /*=== Links */
-a {
+a, button.as-link {
 	color: #0062be;
 	outline: none;
 }
@@ -364,8 +364,9 @@ a.btn {
 	padding: 0 25px;
 	line-height: 2.5em;
 }
-.dropdown-menu > .item > span {
-	padding: 0 25px;
+.dropdown-menu > .item > span,
+.dropdown-menu > .item > .as-link {
+	padding: 0 22px;
 	line-height: 2em;
 }
 .dropdown-menu > .item:hover {
@@ -807,16 +808,12 @@ a.btn {
 	background: #fafafa;
 }
 #bigMarkAsRead:hover {
-	color: #000;
-	background: #ccc;
-	background: radial-gradient(circle at 50% -25% , #ccc 0%, #fafafa 50%);
-	background: -moz-radial-gradient(circle at 50% -25% , #ccc 0%, #fafafa 50%);
-	background: -webkit-radial-gradient(circle at 50% -25% , #ccc 0%, #fafafa 50%);
-	background: -o-radial-gradient(circle at 50% -25% , #ccc 0%, #fafafa 50%);
-	background: -ms-radial-gradient(circle at 50% -25% , #ccc 0%, #fafafa 50%);
+	color: #0062be;
+	background: #fff;
+	box-shadow: 0 -5px 10px #eee inset;
 }
 #bigMarkAsRead:hover .bigTick {
-	text-shadow: 0 0 10px #666;
+	text-shadow: 0 0 5px #0062be;
 }
 
 /*=== Navigation menu (for articles) */
@@ -916,7 +913,18 @@ a.btn {
 .stat > table td,
 .stat > table th {
 	border-bottom: 1px solid #ddd;
-	text-align: center;
+}
+
+.stat > .horizontal-list {
+	margin: 0 0 5px;
+}
+.stat > .horizontal-list .item {
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+.stat > .horizontal-list .item:first-child {
+	width: 270px;
 }
 
 /*=== LOGS */

@@ -103,6 +103,21 @@
 			</div>
 		</div>
 
+		<div class="form-group">
+			<label class="group-name" for="user_filter_shortcut"><?php echo Minz_Translate::t ('user_filter'); ?></label>
+			<div class="group-controls">
+				<input type="text" id="user_filter_shortcut" name="shortcuts[user_filter]" list="keys" value="<?php echo $s['user_filter']; ?>" />
+				<?php echo Minz_Translate::t ('user_filter_help'); ?>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="group-name" for="help_shortcut"><?php echo Minz_Translate::t ('help'); ?></label>
+			<div class="group-controls">
+				<input type="text" id="help_shortcut" name="shortcuts[help]" list="keys" value="<?php echo $s['help']; ?>" />
+			</div>
+		</div>
+
 		<div class="form-group form-actions">
 			<div class="group-controls">
 				<button type="submit" class="btn btn-important"><?php echo Minz_Translate::t ('save'); ?></button>

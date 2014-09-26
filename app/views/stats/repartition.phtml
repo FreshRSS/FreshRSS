@@ -1,6 +1,6 @@
 <?php $this->partial('aside_stats'); ?>
 
-<div class="post content">
+<div class="post ">
 	<a href="<?php echo _url('index', 'index'); ?>"><?php echo _t('back_to_rss_feeds'); ?></a>
 
 	<h1><?php echo _t('stats_repartition'); ?></h1>
@@ -10,12 +10,12 @@
 	<?php foreach ($this->categories as $category) {
 		$feeds = $category->feeds();
 		if (!empty($feeds)) {
-			echo '<optgroup label=', $category->name(), '>';
+			echo '<optgroup label="', $category->name(), '">';
 			foreach ($feeds as $feed) {
 				if ($this->feed && $feed->id() == $this->feed->id()){
-					echo '<option value ="', $feed->id(), '" selected data-url="', _url('stats', 'repartition', 'id', $feed->id()), '">', $feed->name(), '</option>';
+					echo '<option value="', $feed->id(), '" selected="selected" data-url="', _url('stats', 'repartition', 'id', $feed->id()), '">', $feed->name(), '</option>';
 				} else {
-					echo '<option value ="', $feed->id(), '" data-url="', _url('stats', 'repartition', 'id', $feed->id()), '">', $feed->name(), '</option>';
+					echo '<option value="', $feed->id(), '" data-url="', _url('stats', 'repartition', 'id', $feed->id()), '">', $feed->name(), '</option>';
 				}
 			}
 			echo '</optgroup>';
@@ -24,8 +24,8 @@
 	</select>
 
 	<?php if ($this->feed) {?>
-		<a href="<?php echo _url('configure', 'feed', 'id', $this->feed->id()); ?>">
-			<?php echo _t('administration'); ?>
+		<a class="btn" href="<?php echo _url('configure', 'feed', 'id', $this->feed->id()); ?>">
+			<?php echo _i('configure'); ?> <?php echo _t('administration'); ?>
 		</a>
 	<?php }?>
 
@@ -34,12 +34,12 @@
 		<div id="statsEntryPerHour" style="height: 300px"></div>
 	</div>
 
-	<div class="stat">
+	<div class="stat half">
 		<h2><?php echo _t('stats_entry_per_day_of_week'); ?></h2>
 		<div id="statsEntryPerDayOfWeek" style="height: 300px"></div>
-	</div>
+	</div><!--
 
-	<div class="stat">
+	--><div class="stat half">
 		<h2><?php echo _t('stats_entry_per_month'); ?></h2>
 		<div id="statsEntryPerMonth" style="height: 300px"></div>
 	</div>
@@ -56,11 +56,22 @@ function initStats() {
 		return;
 	}
 	// Entry per hour
+	var avg_h = [];
+	for (var i = -1; i <= 24; i++) {
+		avg_h.push([i, <?php echo $this->averageHour?>]);
+	}
 	Flotr.draw(document.getElementById('statsEntryPerHour'),
-		[<?php echo $this->repartitionHour ?>],
+		[{
+			data: <?php echo $this->repartitionHour ?>,
+			bars: {horizontal: false, show: true}
+		}, {
+			data: avg_h,
+			lines: {show: true},
+			label: <?php echo $this->averageHour?>,
+			yaxis: 2
+		}],
 		{
 			grid: {verticalLines: false},
-			bars: {horizontal: false, show: true},
 			xaxis: {noTicks: 23,
 				tickFormatter: function(x) {
 					var x = parseInt(x);
@@ -70,14 +81,26 @@ function initStats() {
 				max: 23.9,
 				tickDecimals: 0},
 			yaxis: {min: 0},
+			y2axis: {showLabels: false},
 			mouse: {relative: true, track: true, trackDecimals: 0, trackFormatter: function(obj) {return numberFormat(obj.y);}}
 		});
 	// Entry per day of week
+	var avg_dow = [];
+	for (var i = -1; i <= 7; i++) {
+		avg_dow.push([i, <?php echo $this->averageDayOfWeek?>]);
+	}
 	Flotr.draw(document.getElementById('statsEntryPerDayOfWeek'),
-		[<?php echo $this->repartitionDayOfWeek ?>],
+		[{
+			data: <?php echo $this->repartitionDayOfWeek ?>,
+			bars: {horizontal: false, show: true}
+		}, {
+			data: avg_dow,
+			lines: {show: true},
+			label: <?php echo $this->averageDayOfWeek?>,
+			yaxis: 2
+		}],
 		{
 			grid: {verticalLines: false},
-			bars: {horizontal: false, show: true},
 			xaxis: {noTicks: 6,
 				tickFormatter: function(x) {
 					var x = parseInt(x),
@@ -88,14 +111,26 @@ function initStats() {
 				max: 6.9,
 				tickDecimals: 0},
 			yaxis: {min: 0},
+			y2axis: {showLabels: false},
 			mouse: {relative: true, track: true, trackDecimals: 0, trackFormatter: function(obj) {return numberFormat(obj.y);}}
 		});
 	// Entry per month
+	var avg_m = [];
+	for (var i = 0; i <= 13; i++) {
+		avg_m.push([i, <?php echo $this->averageMonth?>]);
+	}
 	Flotr.draw(document.getElementById('statsEntryPerMonth'),
-		[<?php echo $this->repartitionMonth ?>],
+		[{
+			data: <?php echo $this->repartitionMonth ?>,
+			bars: {horizontal: false, show: true}
+		}, {
+			data: avg_m,
+			lines: {show: true},
+			label: <?php echo $this->averageMonth?>,
+			yaxis: 2
+		}],
 		{
 			grid: {verticalLines: false},
-			bars: {horizontal: false, show: true},
 			xaxis: {noTicks: 12,
 				tickFormatter: function(x) {
 					var x = parseInt(x),
@@ -106,6 +141,7 @@ function initStats() {
 				max: 12.9,
 				tickDecimals: 0},
 			yaxis: {min: 0},
+			y2axis: {showLabels: false},
 			mouse: {relative: true, track: true, trackDecimals: 0, trackFormatter: function(obj) {return numberFormat(obj.y);}}
 		});
 

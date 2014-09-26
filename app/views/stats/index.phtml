@@ -1,11 +1,11 @@
 <?php $this->partial('aside_stats'); ?>
 
-<div class="post content">
+<div class="post">
 	<a href="<?php echo _url ('index', 'index'); ?>"><?php echo _t ('back_to_rss_feeds'); ?></a>
-	
+
 	<h1><?php echo _t ('stats_main'); ?></h1>
 
-	<div class="stat">
+	<div class="stat half">
 		<h2><?php echo _t ('stats_entry_repartition'); ?></h2>
 		<table>
 			<thead>
@@ -38,26 +38,9 @@
 				</tr>
 			</tbody>
 		</table>
-	</div>
-	
-	<div class="stat">
-		<h2><?php echo _t ('stats_entry_per_day'); ?></h2>
-		<div id="statsEntryPerDay" style="height: 300px"></div>
-	</div>
-	
-	<div class="stat">
-		<h2><?php echo _t ('stats_feed_per_category'); ?></h2>
-		<div id="statsFeedPerCategory" style="height: 300px"></div>
-		<div id="statsFeedPerCategoryLegend"></div>
-	</div>
-	
-	<div class="stat">
-		<h2><?php echo _t ('stats_entry_per_category'); ?></h2>
-		<div id="statsEntryPerCategory" style="height: 300px"></div>
-		<div id="statsEntryPerCategoryLegend"></div>
-	</div>
-	
-	<div class="stat">
+	</div><!--
+
+	--><div class="stat half">
 		<h2><?php echo _t ('stats_top_feed'); ?></h2>
 		<table>
 			<thead>
@@ -70,13 +53,30 @@
 			<tbody>
 				<?php foreach ($this->topFeed as $feed): ?>
 					<tr>
-						<td><?php echo $feed['name']; ?></td>
+						<td><a href="<?php echo _url('stats', 'repartition', 'id', $feed['id']); ?>"><?php echo $feed['name']; ?></a></td>
 						<td><?php echo $feed['category']; ?></td>
 						<td class="numeric"><?php echo formatNumber($feed['count']); ?></td>
 					</tr>
 				<?php endforeach;?>
 			</tbody>
 		</table>
+	</div>
+
+	<div class="stat">
+		<h2><?php echo _t ('stats_entry_per_day'); ?></h2>
+		<div id="statsEntryPerDay" style="height: 300px"></div>
+	</div>
+
+	<div class="stat half">
+		<h2><?php echo _t ('stats_feed_per_category'); ?></h2>
+		<div id="statsFeedPerCategory" style="height: 300px"></div>
+		<div id="statsFeedPerCategoryLegend"></div>
+	</div><!--
+
+	--><div class="stat half">
+		<h2><?php echo _t ('stats_entry_per_category'); ?></h2>
+		<div id="statsEntryPerCategory" style="height: 300px"></div>
+		<div id="statsEntryPerCategoryLegend"></div>
 	</div>
 </div>
 

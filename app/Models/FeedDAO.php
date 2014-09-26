@@ -331,7 +331,7 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo {
 		$id_max = intval($date_min) . '000000';
 
 		$stm->bindParam(':id_feed', $id, PDO::PARAM_INT);
-		$stm->bindParam(':id_max', $id_max, PDO::PARAM_INT);
+		$stm->bindParam(':id_max', $id_max, PDO::PARAM_STR);
 		$stm->bindParam(':keep', $keep, PDO::PARAM_INT);
 
 		if ($stm && $stm->execute()) {

@@ -1,25 +1,33 @@
 <ul class="nav nav-list aside">
-	<li class="nav-header"><?php echo Minz_Translate::t ('configuration'); ?></li>
-	<li class="item<?php echo Minz_Request::actionName () == 'display' ? ' active' : ''; ?>">
-		<a href="<?php echo _url ('configure', 'display'); ?>"><?php echo Minz_Translate::t ('display_configuration'); ?></a>
+	<li class="nav-header"><?php echo _t('configuration'); ?></li>
+	<li class="item<?php echo Minz_Request::actionName() === 'display' ? ' active' : ''; ?>">
+		<a href="<?php echo _url('configure', 'display'); ?>"><?php echo _t('display_configuration'); ?></a>
 	</li>
-	<li class="item<?php echo Minz_Request::actionName () == 'reading' ? ' active' : ''; ?>">
-		<a href="<?php echo _url ('configure', 'reading'); ?>"><?php echo Minz_Translate::t ('reading_configuration'); ?></a>
+	<li class="item<?php echo Minz_Request::actionName() === 'reading' ? ' active' : ''; ?>">
+		<a href="<?php echo _url('configure', 'reading'); ?>"><?php echo _t('reading_configuration'); ?></a>
 	</li>
-	<li class="item<?php echo Minz_Request::actionName () == 'archiving' ? ' active' : ''; ?>">
-		<a href="<?php echo _url ('configure', 'archiving'); ?>"><?php echo Minz_Translate::t ('archiving_configuration'); ?></a>
+	<li class="item<?php echo Minz_Request::actionName() === 'archiving' ? ' active' : ''; ?>">
+		<a href="<?php echo _url('configure', 'archiving'); ?>"><?php echo _t('archiving_configuration'); ?></a>
 	</li>
-	<li class="item<?php echo Minz_Request::actionName () == 'sharing' ? ' active' : ''; ?>">
-		<a href="<?php echo _url ('configure', 'sharing'); ?>"><?php echo Minz_Translate::t ('sharing'); ?></a>
+	<li class="item<?php echo Minz_Request::actionName() === 'sharing' ? ' active' : ''; ?>">
+		<a href="<?php echo _url('configure', 'sharing'); ?>"><?php echo _t('sharing'); ?></a>
 	</li>
-	<li class="item<?php echo Minz_Request::actionName () == 'shortcut' ? ' active' : ''; ?>">
-		<a href="<?php echo _url ('configure', 'shortcut'); ?>"><?php echo Minz_Translate::t ('shortcuts'); ?></a>
+	<li class="item<?php echo Minz_Request::actionName() === 'shortcut' ? ' active' : ''; ?>">
+		<a href="<?php echo _url('configure', 'shortcut'); ?>"><?php echo _t('shortcuts'); ?></a>
 	</li>
-	<li class="item<?php echo Minz_Request::actionName () == 'queries' ? ' active' : ''; ?>">
-		<a href="<?php echo _url ('configure', 'queries'); ?>"><?php echo Minz_Translate::t ('queries'); ?></a>
+	<li class="item<?php echo Minz_Request::actionName() === 'queries' ? ' active' : ''; ?>">
+		<a href="<?php echo _url('configure', 'queries'); ?>"><?php echo _t('queries'); ?></a>
 	</li>
 	<li class="separator"></li>
-	<li class="item<?php echo Minz_Request::actionName () == 'users' ? ' active' : ''; ?>">
-		<a href="<?php echo _url ('configure', 'users'); ?>"><?php echo Minz_Translate::t ('users'); ?></a>
+	<li class="item<?php echo Minz_Request::actionName() === 'users' ? ' active' : ''; ?>">
+		<a href="<?php echo _url('configure', 'users'); ?>"><?php echo _t('users'); ?></a>
 	</li>
+	<?php
+		$current_user = Minz_Session::param('currentUser', '');
+		if (Minz_Configuration::isAdmin($current_user)) {
+	?>
+	<li class="item<?php echo Minz_Request::controllerName() === 'update' ? ' active' : ''; ?>">
+		<a href="<?php echo _url('update', 'index'); ?>"><?php echo _t('update'); ?></a>
+	</li>
+	<?php } ?>
 </ul>

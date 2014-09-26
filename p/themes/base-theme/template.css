@@ -88,6 +88,25 @@ input[type="checkbox"] {
 input.extend:focus {
 	width: 300px;
 }
+button.as-link,
+button.as-link:hover,
+button.as-link:active {
+	background: transparent;
+	border: none;
+	color: inherit;
+	cursor: pointer;
+	font-size: 1.1em;
+	text-align: left;
+}
+
+/*=== Tables */
+table {
+	max-width: 100%;
+}
+th.numeric,
+td.numeric {
+	text-align: center;
+}
 
 /*=== COMPONENTS */
 /*===============*/
@@ -181,8 +200,10 @@ a.btn {
 	display: block;
 }
 .dropdown-menu > .item > a,
+.dropdown-menu > .item > .as-link,
 .dropdown-menu > .item > span {
 	display: block;
+	min-width: 200px;
 }
 .dropdown-menu > .item[aria-checked="true"] > a:before {
 	content: '✓';
@@ -449,6 +470,12 @@ a.btn {
 .content pre {
 	overflow: auto;
 }
+br {
+	line-height: 1em;
+}
+br + br + br {
+	display: none;
+}
 
 /*=== Notification and actualize notification */
 .notification {
@@ -507,15 +534,24 @@ a.btn {
 }
 #bigMarkAsRead {
 	display: block;
-	padding: 3em 0;
+	width: 100%;
+	padding: 1em 0;
 	text-align: center;
+	font-size: 1.4em;
 }
 .bigTick {
-	font-size: 7em;
-	line-height: 1.6em;
+	font-size: 4em;
 }
 
 /*=== Statistiques */
+.stat {
+	margin: 15px 0;
+}
+.stat.half {
+	display: inline-block;
+	width: 46%;
+	padding: 0 2%;
+}
 .stat > table {
 	width: 100%;
 }

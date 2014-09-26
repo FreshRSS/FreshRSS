@@ -16,9 +16,9 @@ html, body {
 }
 
 /*=== Links */
-a {
-	outline: none;
+a, button.as-link {
 	color: #6986B2;
+	outline: none;
 }
 
 /*=== Images */
@@ -338,8 +338,9 @@ a.btn {
 	padding: 0 25px;
 	line-height: 2.5em;
 }
-.dropdown-menu > .item > span {
-	padding: 0 25px;
+.dropdown-menu > .item > span,
+.dropdown-menu > .item > .as-link {
+	padding: 0 22px;
 	line-height: 2em;
 }
 .dropdown-menu > .item:hover {
@@ -871,7 +872,18 @@ a.btn {
 .stat > table td,
 .stat > table th {
 	border-bottom: 1px solid #333;
-	text-align: center;
+}
+
+.stat > .horizontal-list {
+	margin: 0 0 5px;
+}
+.stat > .horizontal-list .item {
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+.stat > .horizontal-list .item:first-child {
+	width: 270px;
 }
 
 /*=== LOGS */

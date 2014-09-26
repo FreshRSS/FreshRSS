@@ -42,6 +42,8 @@ return array (
 	'data_is_ok'			=> 'Les droits sur le répertoire de data sont bons',
 	'persona_is_ok'			=> 'Les droits sur le répertoire de Mozilla Persona sont bons',
 	'file_is_nok'			=> 'Veuillez vérifier les droits sur le répertoire <em>%s</em>. Le serveur HTTP doit être capable d’écrire dedans',
+	'http_referer_is_ok'		=> 'Le HTTP REFERER est connu et semble correspondre à votre serveur.',
+	'http_referer_is_nok'		=> 'Veuillez vérifier que vous ne modifiez pas votre HTTP REFERER.',
 	'fix_errors_before'		=> 'Veuillez corriger les erreurs avant de passer à l’étape suivante.',
 
 	'general_conf_is_ok'		=> 'La configuration générale a été enregistrée.',

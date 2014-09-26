@@ -1,6 +1,28 @@
 # Journal des modifications
 
-## 2014-08-xx FreshRSS 0.7.4
+## 2014-09-xx FreshRSS 0.8.0
+
+* UI
+	* New interface for statistics
+	* Fix filter buttons
+	* Number of articles divided by 2 in reading view
+	* Redesign of bigMarkAsRead
+* Features
+	* New automatic update system
+	* New reset auth system
+* Security
+	* "Mark as read" requires POST requests for several articles
+	* Test HTTP REFERER in install.php
+* Configuration
+	* New "Show all articles" / "Show only unread" / "Adjust viewing" option
+	* New notification timeout option
+* Misc.
+	* Improve coding style + comments
+	* Fix SQLite bug "ON DELETE CASCADE"
+	* Improve performance when importing articles
+
+
+## 2014-08-24 FreshRSS 0.7.4
 
 * UI
 	* Hide categories/feeds with unread articles when showing only unread articles

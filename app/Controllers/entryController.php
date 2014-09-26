@@ -45,6 +45,10 @@ class FreshRSS_entry_Controller extends Minz_ActionController {
 
 		$entryDAO = FreshRSS_Factory::createEntryDao();
 		if ($id == false) {
+			if (!Minz_Request::isPost()) {
+				return;
+			}
+
 			if (!$get) {
 				$entryDAO->markReadEntries ($idMax);
 			} else {

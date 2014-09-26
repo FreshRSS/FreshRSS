@@ -1,7 +1,21 @@
 <?php
 
+/**
+ * Controller to handle application statistics.
+ */
 class FreshRSS_stats_Controller extends Minz_ActionController {
 
+	/**
+	 * This action handles the statistic main page.
+	 *
+	 * It displays the statistic main page.
+	 * The values computed to display the page are:
+	 *   - repartition of read/unread/favorite/not favorite
+	 *   - number of article per day
+	 *   - number of feed by category
+	 *   - number of article by category
+	 *   - list of most prolific feed
+	 */
 	public function indexAction() {
 		$statsDAO = FreshRSS_Factory::createStatsDAO();
 		Minz_View::appendScript(Minz_Url::display('/scripts/flotr2.min.js?' . @filemtime(PUBLIC_PATH . '/scripts/flotr2.min.js')));
@@ -12,6 +26,17 @@ class FreshRSS_stats_Controller extends Minz_ActionController {
 		$this->view->topFeed = $statsDAO->calculateTopFeed();
 	}
 
+	/**
+	 * This action handles the idle feed statistic page.
+	 *
+	 * It displays the list of idle feed for different period. The supported
+	 * periods are:
+	 *   - last year
+	 *   - last 6 months
+	 *   - last 3 months
+	 *   - last month
+	 *   - last week
+	 */
 	public function idleAction() {
 		$statsDAO = FreshRSS_Factory::createStatsDAO();
 		$feeds = $statsDAO->calculateFeedLastDate();
@@ -56,6 +81,18 @@ class FreshRSS_stats_Controller extends Minz_ActionController {
 		$this->view->idleFeeds = $idleFeeds;
 	}
 
+	/**
+	 * This action handles the article repartition statistic page.
+	 *
+	 * It displays the number of article and the average of article for the
+	 * following periods:
+	 *   - hour of the day
+	 *   - day of the week
+	 *   - month
+	 *
+	 * @todo verify that the metrics used here make some sense. Especially
+	 *       for the average.
+	 */
 	public function repartitionAction() {
 		$statsDAO = FreshRSS_Factory::createStatsDAO();
 		$categoryDAO = new FreshRSS_CategoryDAO();
@@ -67,10 +104,18 @@ class FreshRSS_stats_Controller extends Minz_ActionController {
 		$this->view->days = $statsDAO->getDays();
 		$this->view->months = $statsDAO->getMonths();
 		$this->view->repartitionHour = $statsDAO->calculateEntryRepartitionPerFeedPerHour($id);
+		$this->view->averageHour = $statsDAO->calculateEntryAveragePerFeedPerHour($id);
 		$this->view->repartitionDayOfWeek = $statsDAO->calculateEntryRepartitionPerFeedPerDayOfWeek($id);
+		$this->view->averageDayOfWeek = $statsDAO->calculateEntryAveragePerFeedPerDayOfWeek($id);
 		$this->view->repartitionMonth = $statsDAO->calculateEntryRepartitionPerFeedPerMonth($id);
+		$this->view->averageMonth = $statsDAO->calculateEntryAveragePerFeedPerMonth($id);
 	}
 
+	/**
+	 * This action is called before every other action in that class. It is
+	 * the common boiler plate for every action. It is triggered by the
+	 * underlying framework.
+	 */
 	public function firstAction() {
 		if (!$this->view->loginOk) {
 			Minz_Error::error(

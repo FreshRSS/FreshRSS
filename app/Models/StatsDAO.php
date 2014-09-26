@@ -152,6 +152,74 @@ SQL;
 	}
 
 	/**
+	 * Calculates the average number of article per hour per feed
+	 *
+	 * @param integer $feed id
+	 * @return integer
+	 */
+	public function calculateEntryAveragePerFeedPerHour($feed = null) {
+		return $this->calculateEntryAveragePerFeedPerPeriod(1/24, $feed);
+	}
+	
+	/**
+	 * Calculates the average number of article per day of week per feed
+	 *
+	 * @param integer $feed id
+	 * @return integer
+	 */
+	public function calculateEntryAveragePerFeedPerDayOfWeek($feed = null) {
+		return $this->calculateEntryAveragePerFeedPerPeriod(7, $feed);
+	}
+
+	/**
+	 * Calculates the average number of article per month per feed
+	 *
+	 * @param integer $feed id
+	 * @return integer
+	 */
+	public function calculateEntryAveragePerFeedPerMonth($feed = null) {
+		return $this->calculateEntryAveragePerFeedPerPeriod(30, $feed);
+	}
+	
+	/**
+	 * Calculates the average number of article per feed
+	 * 
+	 * @param float $period number used to divide the number of day in the period
+	 * @param integer $feed id
+	 * @return integer
+	 */
+	protected function calculateEntryAveragePerFeedPerPeriod($period, $feed = null) {
+		if ($feed) {
+			$restrict = "WHERE e.id_feed = {$feed}";
+		} else {
+			$restrict = '';
+		}
+		$sql = <<<SQL
+SELECT COUNT(1) AS count
+, MIN(date) AS date_min
+, MAX(date) AS date_max
+FROM {$this->prefix}entry AS e
+{$restrict}
+SQL;
+		$stm = $this->bd->prepare($sql);
+		$stm->execute();
+		$res = $stm->fetch(PDO::FETCH_NAMED);
+		$date_min = new \DateTime();
+		$date_min->setTimestamp($res['date_min']);
+		$date_max = new \DateTime();
+		$date_max->setTimestamp($res['date_max']);
+		$interval = $date_max->diff($date_min, true);
+		$interval_in_days = $interval->format('%a');
+		if ($interval_in_days <= 0) {
+			// Surely only one article.
+			// We will return count / (period/period) == count.
+			$interval_in_days = $period;
+		}
+
+		return round($res['count'] / ($interval_in_days / $period), 2);
+	}
+
+	/**
 	 * Initialize an array for statistics depending on a range
 	 *
 	 * @param integer $min
@@ -247,6 +315,7 @@ SQL;
 SELECT MAX(f.id) as id
 , MAX(f.name) AS name
 , MAX(date) AS last_date
+, COUNT(*) AS nb_articles
 FROM {$this->prefix}feed AS f,
 {$this->prefix}entry AS e
 WHERE f.id = e.id_feed

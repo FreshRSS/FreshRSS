@@ -83,6 +83,11 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 		$nb = Minz_Request::param ('nb', $this->view->conf->posts_per_page);
 		$first = Minz_Request::param ('next', '');
 
+		$ajax_request = Minz_Request::param('ajax', false);
+		if ($output === 'reader') {
+			$nb = max(1, round($nb / 2));
+		}
+
 		if ($this->view->state === FreshRSS_Entry::STATE_NOT_READ) {	//Any unread article in this category at all?
 			switch ($getType) {
 				case 'a':
@@ -332,6 +337,10 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 	}
 
 	public function formLoginAction () {
+		if ($this->view->loginOk) {
+			Minz_Request::forward(array('c' => 'index', 'a' => 'index'), true);
+		}
+
 		if (Minz_Request::isPost()) {
 			$ok = false;
 			$nonce = Minz_Session::param('nonce');
@@ -414,5 +423,76 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 		Minz_Session::_param('passwordHash');
 		self::deleteLongTermCookie();
 		Minz_Request::forward(array('c' => 'index', 'a' => 'index'), true);
+	}
+
+	public function resetAuthAction() {
+		Minz_View::prependTitle(_t('auth_reset') . ' · ');
+		Minz_View::appendScript(Minz_Url::display(
+			'/scripts/bcrypt.min.js?' . @filemtime(PUBLIC_PATH . '/scripts/bcrypt.min.js')
+		));
+
+		$this->view->no_form = false;
+		// Enable changement of auth only if Persona!
+		if (Minz_Configuration::authType() != 'persona') {
+			$this->view->message = array(
+				'status' => 'bad',
+				'title' => _t('damn'),
+				'body' => _t('auth_not_persona')
+			);
+			$this->view->no_form = true;
+			return;
+		}
+
+		$conf = new FreshRSS_Configuration(Minz_Configuration::defaultUser());
+		// Admin user must have set its master password.
+		if (!$conf->passwordHash) {
+			$this->view->message = array(
+				'status' => 'bad',
+				'title' => _t('damn'),
+				'body' => _t('auth_no_password_set')
+			);
+			$this->view->no_form = true;
+			return;
+		}
+
+		invalidateHttpCache();
+
+		if (Minz_Request::isPost()) {
+			$nonce = Minz_Session::param('nonce');
+			$username = Minz_Request::param('username', '');
+			$c = Minz_Request::param('challenge', '');
+			if (!(ctype_alnum($username) && ctype_graph($c) && ctype_alnum($nonce))) {
+				Minz_Log::debug('Invalid credential parameters:' .
+				                ' user=' . $username .
+				                ' challenge=' . $c .
+				                ' nonce=' . $nonce);
+				Minz_Request::bad(_t('invalid_login'),
+				                  array('c' => 'index', 'a' => 'resetAuth'));
+			}
+
+			if (!function_exists('password_verify')) {
+				include_once(LIB_PATH . '/password_compat.php');
+			}
+
+			$s = $conf->passwordHash;
+			$ok = password_verify($nonce . $s, $c);
+			if ($ok) {
+				Minz_Configuration::_authType('form');
+				$ok = Minz_Configuration::writeFile();
+
+				if ($ok) {
+					Minz_Request::good(_t('auth_form_set'));
+				} else {
+					Minz_Request::bad(_t('auth_form_not_set'),
+				                      array('c' => 'index', 'a' => 'resetAuth'));
+				}
+			} else {
+				Minz_Log::debug('Password mismatch for user ' . $username .
+				                ', nonce=' . $nonce . ', c=' . $c);
+
+				Minz_Request::bad(_t('invalid_login'),
+				                  array('c' => 'index', 'a' => 'resetAuth'));
+			}
+		}
 	}
 }

@@ -6,6 +6,7 @@ class FreshRSS_Entry extends Minz_Model {
 	const STATE_NOT_READ = 2;
 	const STATE_FAVORITE = 4;
 	const STATE_NOT_FAVORITE = 8;
+	const STATE_STRICT = 16;
 
 	private $id = 0;
 	private $guid;
