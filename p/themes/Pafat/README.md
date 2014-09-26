@@ -1,4 +1,4 @@
 Pafat
 =====
 
-Thème Pafat pour FreshRss
+Thème Pafat pour FreshRSS
