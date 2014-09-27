@@ -538,14 +538,7 @@ function init_shortcuts() {
 	});
 	shortcut.add("shift+" + shortcuts.mark_read, function () {
 		// on marque tout comme lu
-		var btn = $(".nav_menu .read_all");
-		if (btn.hasClass('confirm')) {
-			if (confirm(str_confirmation)) {
-				btn.click();
-			}
-		} else {
-			btn.click();
-		}
+		$(".nav_menu .read_all").click();
 	}, {
 		'disable_in_input': true
 	});
