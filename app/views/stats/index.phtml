@@ -92,7 +92,14 @@ function initStats() {
 	}
 	// Entry per day
 	Flotr.draw(document.getElementById('statsEntryPerDay'),
-		[<?php echo $this->count ?>],
+		[{
+			data: <?php echo $this->count ?>,
+			bars: {horizontal: false, show: true}
+		},{
+			data: avg,
+			lines: {show: true},
+			label: "<?php echo $this->average?>"
+		}],
 		{
 			grid: {verticalLines: false},
 			bars: {horizontal: false, show: true},
