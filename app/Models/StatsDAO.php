@@ -80,6 +80,27 @@ SQL;
 	}
 
 	/**
+	 * Calculates entry average per day on a 30 days period.
+	 *
+	 * @return integer
+	 */
+	public function calculateEntryAverage() {
+		$period = self::ENTRY_COUNT_PERIOD;
+
+		// Get stats per day for the last 30 days
+		$sql = <<<SQL
+SELECT COUNT(1) / {$period} AS average
+FROM {$this->prefix}entry AS e
+WHERE FROM_UNIXTIME(e.date, '%Y%m%d') BETWEEN DATE_FORMAT(DATE_ADD(NOW(), INTERVAL -{$period} DAY), '%Y%m%d') AND DATE_FORMAT(DATE_ADD(NOW(), INTERVAL -1 DAY), '%Y%m%d')
+SQL;
+		$stm = $this->bd->prepare($sql);
+		$stm->execute();
+		$res = $stm->fetch(PDO::FETCH_NAMED);
+
+		return round($res['average'], 2);
+	}
+
+	/**
 	 * Initialize an array for the entry count.
 	 *
 	 * @return array
@@ -160,7 +181,7 @@ SQL;
 	public function calculateEntryAveragePerFeedPerHour($feed = null) {
 		return $this->calculateEntryAveragePerFeedPerPeriod(1/24, $feed);
 	}
-	
+
 	/**
 	 * Calculates the average number of article per day of week per feed
 	 *
@@ -180,10 +201,10 @@ SQL;
 	public function calculateEntryAveragePerFeedPerMonth($feed = null) {
 		return $this->calculateEntryAveragePerFeedPerPeriod(30, $feed);
 	}
-	
+
 	/**
 	 * Calculates the average number of article per feed
-	 * 
+	 *
 	 * @param float $period number used to divide the number of day in the period
 	 * @param integer $feed id
 	 * @return integer

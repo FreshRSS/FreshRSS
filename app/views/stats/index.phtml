@@ -91,6 +91,10 @@ function initStats() {
 		return;
 	}
 	// Entry per day
+	var avg = [];
+	for (var i = -31; i <= 0; i++) {
+		avg.push([i, <?php echo $this->average?>]);
+	}
 	Flotr.draw(document.getElementById('statsEntryPerDay'),
 		[{
 			data: <?php echo $this->count ?>,
@@ -102,8 +106,7 @@ function initStats() {
 		}],
 		{
 			grid: {verticalLines: false},
-			bars: {horizontal: false, show: true},
-			xaxis: {noTicks: 6, showLabels: false, tickDecimals: 0},
+			xaxis: {noTicks: 6, showLabels: false, tickDecimals: 0, min: -30.75, max: -0.25},
 			yaxis: {min: 0},
 			mouse: {relative: true, track: true, trackDecimals: 0, trackFormatter: function(obj) {return numberFormat(obj.y);}}
 		});
