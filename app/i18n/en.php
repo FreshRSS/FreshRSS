@@ -56,6 +56,7 @@ return array (
 	'stats_entry_per_hour'		=> 'Per hour',
 	'stats_entry_per_day_of_week'	=> 'Per day of week',
 	'stats_entry_per_month'		=> 'Per month',
+	'stats_percent_of_total'	=> '%% of total',
     
 	'last_week'			=> 'Last week',
 	'last_month'			=> 'Last month',
