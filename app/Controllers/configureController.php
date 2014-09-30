@@ -45,7 +45,6 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 		if (Minz_Request::isPost()) {
 			$cats = Minz_Request::param('categories', array());
 			$ids = Minz_Request::param('ids', array());
-			$newCat = trim(Minz_Request::param('new_category', ''));
 
 			foreach ($cats as $key => $name) {
 				if (strlen($name) > 0) {
@@ -64,17 +63,6 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 				}
 			}
 
-			if ($newCat != '') {
-				$cat = new FreshRSS_Category($newCat);
-				$values = array(
-					'id' => $cat->id(),
-					'name' => $cat->name(),
-				);
-
-				if ($catDAO->searchByName($newCat) == null) {
-					$catDAO->addCategory($values);
-				}
-			}
 			invalidateHttpCache();
 
 			Minz_Request::good(_t('categories_updated'),

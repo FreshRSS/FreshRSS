@@ -7,7 +7,7 @@
 		<div class="box-title"><label for="new-category"><?php echo _t('add_category'); ?></label></div>
 
 		<div class="box-content">
-			<form action="" methos="post">
+			<form action="<?php echo _url('category', 'create'); ?>" method="post">
 				<input type="text" id="new-category" name="new-category" placeholder="<?php echo _t('new_category'); ?>" />
 				<input type="submit" value="<?php echo _t('submit'); ?>" />
 			</form>
