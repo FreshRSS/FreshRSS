@@ -299,7 +299,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 		return 'CONCAT(' . $s1 . ',' . $s2 . ')';	//MySQL
 	}
 
-	private function sqlListWhere($type = 'a', $id = '', $state = FreshRSS_Entry::STATE_ALL, $order = 'DESC', $limit = 1, $firstId = '', $filter = '', $date_min = 0, $showOlderUnreadsorFavorites = false, $keepHistoryDefault = 0) {
+	private function sqlListWhere($type = 'a', $id = '', $state = FreshRSS_Entry::STATE_ALL, $order = 'DESC', $limit = 1, $firstId = '', $filter = '', $date_min = 0) {
 		if (!$state) {
 			$state = FreshRSS_Entry::STATE_ALL;
 		}
@@ -356,23 +356,14 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 			default:
 				throw new FreshRSS_EntriesGetter_Exception('Bad order in Entry->listByType: [' . $order . ']!');
 		}
-		if ($firstId === '' && parent::$sharedDbType === 'mysql') {
-			$firstId = $order === 'DESC' ? '9000000000'. '000000' : '0';	//MySQL optimization. Tested on MySQL 5.5 with 150k articles
-		}
+		/*if ($firstId === '' && parent::$sharedDbType === 'mysql') {
+			$firstId = $order === 'DESC' ? '9000000000'. '000000' : '0';	//MySQL optimization. TODO: check if this is needed again, after the filtering for old articles has been removed in 0.9-dev
+		}*/
 		if ($firstId !== '') {
 			$where .= 'AND e1.id ' . ($order === 'DESC' ? '<=' : '>=') . $firstId . ' ';
 		}
-		if (($date_min > 0) && ($type !== 's')) {
-			$where .= 'AND (e1.id >= ' . $date_min . '000000';
-			if ($showOlderUnreadsorFavorites) {	//Lax date constraint
-				$where .= ' OR e1.is_read=0 OR e1.is_favorite=1 OR (f.keep_history <> 0';
-				if (intval($keepHistoryDefault) === 0) {
-					$where .= ' AND f.keep_history <> -2';	//default
-				}
-				$where .= ')';
-			}
-			$where .= ') ';
-			$joinFeed = true;
+		if ($date_min > 0) {
+			$where .= 'AND e1.id >= ' . $date_min . '000000 ';
 		}
 		$search = '';
 		if ($filter !== '') {
@@ -434,8 +425,8 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 			. ($limit > 0 ? ' LIMIT ' . $limit : ''));	//TODO: See http://explainextended.com/2009/10/23/mysql-order-by-limit-performance-late-row-lookups/
 	}
 
-	public function listWhere($type = 'a', $id = '', $state = FreshRSS_Entry::STATE_ALL, $order = 'DESC', $limit = 1, $firstId = '', $filter = '', $date_min = 0, $showOlderUnreadsorFavorites = false, $keepHistoryDefault = 0) {
-		list($values, $sql) = $this->sqlListWhere($type, $id, $state, $order, $limit, $firstId, $filter, $date_min, $showOlderUnreadsorFavorites, $keepHistoryDefault);
+	public function listWhere($type = 'a', $id = '', $state = FreshRSS_Entry::STATE_ALL, $order = 'DESC', $limit = 1, $firstId = '', $filter = '', $date_min = 0) {
+		list($values, $sql) = $this->sqlListWhere($type, $id, $state, $order, $limit, $firstId, $filter, $date_min);
 
 		$sql = 'SELECT e.id, e.guid, e.title, e.author, '
 		     . ($this->isCompressed() ? 'UNCOMPRESS(content_bin) AS content' : 'content')
@@ -452,8 +443,8 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 		return self::daoToEntry($stm->fetchAll(PDO::FETCH_ASSOC));
 	}
 
-	public function listIdsWhere($type = 'a', $id = '', $state = FreshRSS_Entry::STATE_ALL, $order = 'DESC', $limit = 1, $firstId = '', $filter = '', $date_min = 0, $showOlderUnreadsorFavorites = false, $keepHistoryDefault = 0) {	//For API
-		list($values, $sql) = $this->sqlListWhere($type, $id, $state, $order, $limit, $firstId, $filter, $date_min, $showOlderUnreadsorFavorites, $keepHistoryDefault);
+	public function listIdsWhere($type = 'a', $id = '', $state = FreshRSS_Entry::STATE_ALL, $order = 'DESC', $limit = 1, $firstId = '', $filter = '', $date_min = 0) {	//For API
+		list($values, $sql) = $this->sqlListWhere($type, $id, $state, $order, $limit, $firstId, $filter, $date_min);
 
 		$stm = $this->bd->prepare($sql);
 		$stm->execute($values);
