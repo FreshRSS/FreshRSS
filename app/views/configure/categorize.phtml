@@ -1,7 +1,6 @@
 <?php $this->partial('aside_feed'); ?>
 
 <div>
-	<form id="configure-categorize" method="post" style="display: none;"></form>
 
 	<div class="box">
 		<div class="box-title"><label for="new-category"><?php echo _t('add_category'); ?></label></div>
@@ -13,6 +12,8 @@
 			</form>
 		</div>
 	</div>
+
+	<form id="controller-category" method="post" style="display: none;"></form>
 
 	<?php
 		foreach ($this->categories as $cat) {
@@ -32,8 +33,9 @@
 						<button class="as-link confirm"
 						        data-str-confirm="<?php echo _t('confirm_action_feed_cat'); ?>"
 						        type="submit"
-						        form="configure-categorize"
-						        formaction="<?php echo _url('feed', 'delete', 'id', $cat->id(), 'type', 'category'); ?>"><?php echo _t('ask_empty'); ?></button>
+						        form="controller-category"
+						        formaction="<?php echo _url('category', 'empty', 'id', $cat->id()); ?>">
+						        <?php echo _t('ask_empty'); ?></button>
 					</li>
 					<li class="item"><a href=""><?php echo _t('delete'); ?></a></li>
 				</ul>

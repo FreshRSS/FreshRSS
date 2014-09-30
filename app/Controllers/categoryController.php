@@ -26,7 +26,7 @@ class FreshRSS_category_Controller extends Minz_ActionController {
 	/**
 	 * This action creates a new category.
 	 *
-	 * URL parameter is:
+	 * Request parameter is:
 	 *   - new-category
 	 */
 	public function createAction() {
@@ -55,7 +55,46 @@ class FreshRSS_category_Controller extends Minz_ActionController {
 			if ($catDAO->addCategory($values)) {
 				Minz_Request::good(_t('category_created', $cat->name()), $url_redirect);
 			} else {
-				Minz_Request::bad(_t('category_not_created'), $url_redirect);
+				Minz_Request::bad(_t('error_occured'), $url_redirect);
+			}
+		}
+
+		Minz_Request::forward($url_redirect, true);
+	}
+
+	/**
+	 * This action deletes all the feeds relative to a given category
+	 *
+	 * Request parameter is:
+	 *   - id (of a category)
+	 */
+	public function emptyAction() {
+		$feedDAO = FreshRSS_Factory::createFeedDao();
+		$url_redirect = array('c' => 'configure', 'a' => 'categorize');
+
+		if (Minz_Request::isPost()) {
+			invalidateHttpCache();
+
+			$id = Minz_Request::param('id');
+			if (!$id) {
+				Minz_Request::bad(_t('category_no_id'), $url_redirect);
+			}
+
+			// List feeds to remove then related user queries.
+			$feeds = $feedDAO->listByCategory($id);
+
+			if ($feedDAO->deleteFeedByCategory($id)) {
+				// TODO: Delete old favicons
+
+				// Remove related queries
+				foreach ($feeds as $feed) {
+					$this->view->conf->remove_query_by_get('f_' . $feed->id());
+				}
+				$this->view->conf->save();
+
+				Minz_Request::good(_t('category_emptied'), $url_redirect);
+			} else {
+				Minz_Request::bad(_t('error_occured'), $url_redirect);
 			}
 		}
 
