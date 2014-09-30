@@ -467,6 +467,36 @@ a.btn {
 	font-size: 0;
 }
 
+/*=== Boxes */
+.box {
+	background: #fff;
+	border-radius: 5px;
+	box-shadow: 0 0 3px #bbb;
+}
+.box .box-title {
+	margin: 0;
+	padding: 5px 10px;
+	background: #f6f6f6;
+	border-bottom: 1px solid #ddd;
+	border-radius: 5px 5px 0 0;
+}
+.box .box-content {
+	max-height: 260px;
+}
+
+.box .box-content .item {
+	padding: 0 10px;
+	font-size: 0.9rem;
+	line-height: 2.5em;
+}
+
+.box .box-content .item .configure {
+	visibility: hidden;
+}
+.box .box-content .item:hover .configure {
+	visibility: visible;
+}
+
 /*=== STRUCTURE */
 /*===============*/
 /*=== Header */

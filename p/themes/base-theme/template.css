@@ -280,6 +280,40 @@ a.btn {
 	width: 100px;
 }
 
+/*=== Boxes */
+.box {
+	display: inline-block;
+	width: 20rem;
+	max-width: 95%;
+	margin: 20px 10px;
+	border: 1px solid #ccc;
+	vertical-align: top;
+}
+.box .box-title {
+	font-size: 1.2rem;
+	font-weight: bold;
+	text-align: center;
+}
+.box .box-title form {
+	margin: 0;
+}
+.box .box-content {
+	display: block;
+	overflow: auto;
+}
+.box .box-content .item {
+	display: block;
+}
+
+.box .box-content-centered {
+	padding: 30px 5px;
+	text-align: center;
+}
+.box .box-content-centered .btn {
+	margin: 20px 0 0;
+}
+
+
 /*=== STRUCTURE */
 /*===============*/
 /*=== Header */
@@ -584,23 +618,6 @@ br + br + br {
 	max-width: 90%;
 }
 /* TODO </delete */
-
-.box {
-	display: inline-block;
-	width: 19em;
-	max-width: 95%;
-	margin: 20px 10px;
-	border: 1px solid #ccc;
-	vertical-align: top;
-}
-.box .box-content {
-	display: block;
-	overflow: auto;
-}
-.box .box-content .item {
-	width: 19em;
-	max-width: 90%;
-}
 
 /*=== Panel */
 #overlay {

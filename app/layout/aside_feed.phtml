@@ -57,20 +57,4 @@
 	<li class="item<?php echo Minz_Request::actionName() == 'categorize' ? ' active' : ''; ?>">
 		<a href="<?php echo _url('configure', 'categorize'); ?>"><?php echo _t('categories_management'); ?></a>
 	</li>
-
-	<li class="separator"></li>
-
-	<?php if (!empty($this->feeds)) { ?>
-	<?php foreach ($this->feeds as $feed) { ?>
-	<?php $nbEntries = $feed->nbEntries(); ?>
-	<li class="item<?php echo (isset($this->flux) && $this->flux->id() == $feed->id()) ? ' active' : ''; ?><?php echo $feed->inError() ? ' error' : ''; ?><?php echo $nbEntries == 0 ? ' empty' : ''; ?>">
-		<a href="<?php echo _url('configure', 'feed', 'id', $feed->id()); ?>">
-			<img class="favicon" src="<?php echo $feed->favicon(); ?>" alt="✇" />
-			<?php echo $feed->name(); ?>
-		</a>
-	</li>
-	<?php } ?>
-	<?php } else { ?>
-	<li class="item disable"><?php echo _t('no_rss_feed'); ?></li>
-	<?php } ?>
 </ul>

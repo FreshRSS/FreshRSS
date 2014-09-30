@@ -12,12 +12,12 @@
 	<div class="box">
 		<div class="box-title"><label for="new-category"><?php echo _t('add_category'); ?></label></div>
 
-		<div class="box-content">
+		<ul class="box-content box-content-centered">
 			<form action="<?php echo _url('category', 'create'); ?>" method="post">
-				<input type="text" id="new-category" name="new-category" placeholder="<?php echo _t('new_category'); ?>" />
-				<input type="submit" value="<?php echo _t('submit'); ?>" />
+				<li class="item"><input type="text" id="new-category" name="new-category" placeholder="<?php echo _t('new_category'); ?>" /></li>
+				<li class="item"><button class="btn btn-important" type="submit"><?php echo _t('submit'); ?></button></li>
 			</form>
-		</div>
+		</ul>
 	</div>
 
 	<form id="controller-category" method="post" style="display: none;"></form>
@@ -27,10 +27,9 @@
 			$feeds = $cat->feeds();
 	?>
 	<div class="box">
-		<div class="box-title stick">
+		<div class="box-title">
 			<form action="<?php echo _url('category', 'update', 'id', $cat->id()); ?>" method="post">
 				<input type="text" name="name" value="<?php echo $cat->name(); ?>" />
-				<button class="btn" type="submit">✓</button>
 
 				<div class="dropdown">
 					<div id="dropdown-cat-<?php echo $cat->id(); ?>" class="dropdown-target"></div>
@@ -38,6 +37,10 @@
 					<a class="dropdown-toggle btn" href="#dropdown-cat-<?php echo $cat->id(); ?>"><?php echo _i('down'); ?></a>
 					<ul class="dropdown-menu">
 						<li class="dropdown-close"><a href="#close">❌</a></li>
+
+						<li class="item"><a href="<?php echo _url('index', 'index', 'get', 'c_' . $cat->id()); ?>"><?php echo _t('filter'); ?></a></li>
+
+						<li class="separator"></li>
 
 						<?php if (!empty($feeds)) { ?>
 						<li class="item">
@@ -69,15 +72,14 @@
 						$error = $feed->inError() ? ' error' : '';
 						$empty = $feed->nbEntries() == 0 ? ' empty' : '';
 			?>
-			<li id="f_<?php echo $feed->id(); ?>" class="item<?php echo $error, $empty; ?>">
-				<a href="<?php echo _url('configure', 'feed', 'id', $feed->id()); ?>"><?php echo _i('configure'); ?></a>
+			<li class="item<?php echo $error, $empty; ?>">
+				<a class="configure" href="<?php echo _url('configure', 'feed', 'id', $feed->id()); ?>"><?php echo _i('configure'); ?></a>
 				<img class="favicon" src="<?php echo $feed->favicon(); ?>" alt="✇" /> <?php echo $feed->name(); ?>
 			</li>
-			<?php
-					}
+			<?php 	}
 				} else {
 			?>
-			<li>Empty</li>
+			<li class="item"><?php echo _t('category_empty'); ?></li>
 			<?php } ?>
 		</ul>
 	</div>
