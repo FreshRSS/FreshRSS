@@ -53,13 +53,6 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 						'name' => $cat->name(),
 					);
 					$catDAO->updateCategory($ids[$key], $values);
-				} elseif ($ids[$key] != $defaultId) {
-					$feedDAO->changeCategory($ids[$key], $defaultId);
-					$catDAO->deleteCategory($ids[$key]);
-
-					// Remove related queries.
-					$this->view->conf->remove_query_by_get('c_' . $ids[$key]);
-					$this->view->conf->save();
 				}
 			}
 

@@ -55,7 +55,7 @@ class FreshRSS_category_Controller extends Minz_ActionController {
 			if ($catDAO->addCategory($values)) {
 				Minz_Request::good(_t('category_created', $cat->name()), $url_redirect);
 			} else {
-				Minz_Request::bad(_t('error_occured'), $url_redirect);
+				Minz_Request::bad(_t('error_occurred'), $url_redirect);
 			}
 		}
 
@@ -63,7 +63,48 @@ class FreshRSS_category_Controller extends Minz_ActionController {
 	}
 
 	/**
-	 * This action deletes all the feeds relative to a given category
+	 * This action deletes a category.
+	 * Feeds in the given category are moved in the default category.
+	 * Related user queries are deleted too.
+	 *
+	 * Request parameter is:
+	 *   - id (of a category)
+	 */
+	public function deleteAction() {
+		$feedDAO = FreshRSS_Factory::createFeedDao();
+		$catDAO = new FreshRSS_CategoryDAO();
+		$default_category = $catDAO->getDefault();
+		$url_redirect = array('c' => 'configure', 'a' => 'categorize');
+
+		if (Minz_Request::isPost()) {
+			invalidateHttpCache();
+
+			$id = Minz_Request::param('id');
+			if (!$id) {
+				Minz_Request::bad(_t('category_no_id'), $url_redirect);
+			}
+
+			if ($feedDAO->changeCategory($id, $default_category->id()) === false) {
+				Minz_Request::bad(_t('error_occurred'), $url_redirect);
+			}
+
+			if ($catDAO->deleteCategory($id) === false) {
+				Minz_Request::bad(_t('error_occurred'), $url_redirect);
+			}
+
+			// Remove related queries.
+			$this->view->conf->remove_query_by_get('c_' . $id);
+			$this->view->conf->save();
+
+			Minz_Request::good(_t('category_deleted'), $url_redirect);
+		}
+
+		Minz_Request::forward($url_redirect, true);
+	}
+
+	/**
+	 * This action deletes all the feeds relative to a given category.
+	 * Feed-related queries are deleted.
 	 *
 	 * Request parameter is:
 	 *   - id (of a category)
@@ -94,7 +135,7 @@ class FreshRSS_category_Controller extends Minz_ActionController {
 
 				Minz_Request::good(_t('category_emptied'), $url_redirect);
 			} else {
-				Minz_Request::bad(_t('error_occured'), $url_redirect);
+				Minz_Request::bad(_t('error_occurred'), $url_redirect);
 			}
 		}
 

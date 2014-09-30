@@ -44,7 +44,14 @@
 						        formaction="<?php echo _url('category', 'empty', 'id', $cat->id()); ?>">
 						        <?php echo _t('ask_empty'); ?></button>
 					</li>
-					<li class="item"><a href=""><?php echo _t('delete'); ?></a></li>
+					<li class="item">
+						<button class="as-link confirm"
+						        data-str-confirm="<?php echo _t('confirm_action_feed_cat'); ?>"
+						        type="submit"
+						        form="controller-category"
+						        formaction="<?php echo _url('category', 'delete', 'id', $cat->id()); ?>">
+						        <?php echo _t('delete'); ?></button>
+					</li>
 				</ul>
 			</div>
 		</div>
