@@ -63,6 +63,45 @@ class FreshRSS_category_Controller extends Minz_ActionController {
 	}
 
 	/**
+	 * This action updates the given category.
+	 *
+	 * Request parameters are:
+	 *   - id
+	 *   - name
+	 */
+	public function updateAction() {
+		$catDAO = new FreshRSS_CategoryDAO();
+		$url_redirect = array('c' => 'configure', 'a' => 'categorize');
+
+		if (Minz_Request::isPost()) {
+			invalidateHttpCache();
+
+			$id = Minz_Request::param('id');
+			$name = Minz_Request::param('name', '');
+			if (strlen($name) <= 0) {
+				Minz_Request::bad(_t('category_no_name'), $url_redirect);
+			}
+
+			if ($catDAO->searchById($id) == null) {
+				Minz_Request::bad(_t('category_not_exist'), $url_redirect);
+			}
+
+			$cat = new FreshRSS_Category($name);
+			$values = array(
+				'name' => $cat->name(),
+			);
+
+			if ($catDAO->updateCategory($id, $values)) {
+				Minz_Request::good(_t('category_updated'), $url_redirect);
+			} else {
+				Minz_Request::bad(_t('error_occurred'), $url_redirect);
+			}
+		}
+
+		Minz_Request::forward($url_redirect, true);
+	}
+
+	/**
 	 * This action deletes a category.
 	 * Feeds in the given category are moved in the default category.
 	 * Related user queries are deleted too.

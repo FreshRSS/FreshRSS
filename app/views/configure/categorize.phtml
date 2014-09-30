@@ -28,32 +28,38 @@
 	?>
 	<div class="box">
 		<div class="box-title stick">
-			<input type="text" value="<?php echo $cat->name(); ?>" />
-			<div class="dropdown">
-				<div id="dropdown-cat-<?php echo $cat->id(); ?>" class="dropdown-target"></div>
+			<form action="<?php echo _url('category', 'update', 'id', $cat->id()); ?>" method="post">
+				<input type="text" name="name" value="<?php echo $cat->name(); ?>" />
+				<button class="btn" type="submit">✓</button>
 
-				<a class="dropdown-toggle btn" href="#dropdown-cat-<?php echo $cat->id(); ?>"><?php echo _i('down'); ?></a>
-				<ul class="dropdown-menu">
-					<li class="dropdown-close"><a href="#close">❌</a></li>
+				<div class="dropdown">
+					<div id="dropdown-cat-<?php echo $cat->id(); ?>" class="dropdown-target"></div>
 
-					<li class="item">
-						<button class="as-link confirm"
-						        data-str-confirm="<?php echo _t('confirm_action_feed_cat'); ?>"
-						        type="submit"
-						        form="controller-category"
-						        formaction="<?php echo _url('category', 'empty', 'id', $cat->id()); ?>">
-						        <?php echo _t('ask_empty'); ?></button>
-					</li>
-					<li class="item">
-						<button class="as-link confirm"
-						        data-str-confirm="<?php echo _t('confirm_action_feed_cat'); ?>"
-						        type="submit"
-						        form="controller-category"
-						        formaction="<?php echo _url('category', 'delete', 'id', $cat->id()); ?>">
-						        <?php echo _t('delete'); ?></button>
-					</li>
-				</ul>
-			</div>
+					<a class="dropdown-toggle btn" href="#dropdown-cat-<?php echo $cat->id(); ?>"><?php echo _i('down'); ?></a>
+					<ul class="dropdown-menu">
+						<li class="dropdown-close"><a href="#close">❌</a></li>
+
+						<?php if (!empty($feeds)) { ?>
+						<li class="item">
+							<button class="as-link confirm"
+							        data-str-confirm="<?php echo _t('confirm_action_feed_cat'); ?>"
+							        type="submit"
+							        form="controller-category"
+							        formaction="<?php echo _url('category', 'empty', 'id', $cat->id()); ?>">
+							        <?php echo _t('ask_empty'); ?></button>
+						</li>
+						<?php } ?>
+						<li class="item">
+							<button class="as-link confirm"
+							        data-str-confirm="<?php echo _t('confirm_action_feed_cat'); ?>"
+							        type="submit"
+							        form="controller-category"
+							        formaction="<?php echo _url('category', 'delete', 'id', $cat->id()); ?>">
+							        <?php echo _t('delete'); ?></button>
+						</li>
+					</ul>
+				</div>
+			</form>
 		</div>
 
 		<ul class="box-content">
