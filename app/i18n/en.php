@@ -368,7 +368,7 @@ return array (
 	'login_required'		=> 'Login required:',
 
 	'confirm_action'		=> 'Are you sure you want to perform this action? It cannot be cancelled!',
-	'confirm_action_feed_cat'	=> 'Are you sure you want to perform this action? You may lost related favorites and user queries. It cannot be cancelled!',
+	'confirm_action_feed_cat'	=> 'Are you sure you want to perform this action? You may lose related favorites and user queries. It cannot be cancelled!',
 	'notif_title_new_articles'	=> 'FreshRSS: new articles!',
 	'notif_body_new_articles'	=> 'There are \d new articles to read on FreshRSS.',
 
