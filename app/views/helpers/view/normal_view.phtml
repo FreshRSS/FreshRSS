@@ -153,14 +153,15 @@ if (!empty($this->entries)) {
 				if (!empty($tags)) {
 				?><li class="item">
 					<div class="dropdown">
-						<div id="dropdown-tags-<?php echo $item->id ();?>" class="dropdown-target"></div>
-						<a class="dropdown-toggle" href="#dropdown-tags-<?php echo $item->id ();?>"><?php
-							echo FreshRSS_Themes::icon('tag'), Minz_Translate::t ('related_tags');
+						<div id="dropdown-tags-<?php echo $item->id();?>" class="dropdown-target"></div>
+						<?php echo _i('tag'); ?>
+						<a class="dropdown-toggle" href="#dropdown-tags-<?php echo $item->id();?>"><?php
+							echo _t('related_tags');
 						?></a>
 						<ul class="dropdown-menu">
 							<li class="dropdown-close"><a href="#close">❌</a></li><?php
 							foreach($tags as $tag) {
-								?><li class="item"><a href="<?php echo _url ('index', 'index', 'search', urlencode ('#' . $tag)); ?>"><?php echo $tag; ?></a></li><?php
+								?><li class="item"><a href="<?php echo _url('index', 'index', 'search', urlencode('#' . $tag)); ?>"><?php echo $tag; ?></a></li><?php
 							} ?>
 						</ul>
 					</div>
