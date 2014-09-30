@@ -1,6 +1,13 @@
 <?php $this->partial('aside_feed'); ?>
 
-<div>
+<div class="post">
+	<a href="<?php echo _url('index', 'index'); ?>"><?php echo _t('back_to_rss_feeds'); ?></a>
+
+	<h2><?php echo _t('categories_management'); ?></h2>
+
+	<p class="alert alert-warn">
+		<?php echo _t('feeds_moved_category_deleted', $this->defaultCategory->name()); ?>
+	</p>
 
 	<div class="box">
 		<div class="box-title"><label for="new-category"><?php echo _t('add_category'); ?></label></div>
