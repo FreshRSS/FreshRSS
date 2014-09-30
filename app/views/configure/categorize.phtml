@@ -1,55 +1,63 @@
-<?php $this->partial ('aside_feed'); ?>
+<?php $this->partial('aside_feed'); ?>
 
-<div class="post">
-	<a href="<?php echo _url ('index', 'index'); ?>"><?php echo Minz_Translate::t ('back_to_rss_feeds'); ?></a>
+<div>
+	<form id="configure-categorize" method="post" style="display: none;"></form>
 
-	<form method="post" action="<?php echo _url ('configure', 'categorize'); ?>">
-		<legend><?php echo Minz_Translate::t ('categories_management'); ?></legend>
+	<div class="box">
+		<div class="box-title"><label for="new-category"><?php echo _t('add_category'); ?></label></div>
 
-		<p class="alert alert-warn"><?php echo Minz_Translate::t ('feeds_moved_category_deleted', $this->defaultCategory->name ()); ?></p>
-
-		<?php $i = 0; foreach ($this->categories as $cat) { $i++; ?>
-		<div class="form-group">
-			<label class="group-name" for="cat_<?php echo $cat->id (); ?>">
-				<?php echo Minz_Translate::t ('category_number', $i); ?>
-			</label>
-			<div class="group-controls">
-				<div class="stick">
-					<input type="text" id="cat_<?php echo $cat->id (); ?>" name="categories[]" value="<?php echo $cat->name (); ?>" />
-
-					<?php if ($cat->nbFeed () > 0) { ?>
-					<a class="btn" href="<?php echo _url('index', 'index', 'get', 'c_' . $cat->id ()); ?>">
-						<?php echo _i('link'); ?>
-					</a>
-					<button formaction="<?php echo _url('feed', 'delete', 'id', $cat->id (), 'type', 'category'); ?>"
-					        class="btn btn-attention confirm"
-					        data-str-confirm="<?php echo _t('confirm_action_feed_cat'); ?>"
-					        type="submit"><?php echo _t('ask_empty'); ?></button>
-					<?php } ?>
-				</div>
-				(<?php echo Minz_Translate::t ('number_feeds', $cat->nbFeed ()); ?>)
-
-				<?php if ($cat->id () === $this->defaultCategory->id ()) { ?>
-				<?php echo FreshRSS_Themes::icon('help'); ?> <?php echo Minz_Translate::t ('can_not_be_deleted'); ?>
-				<?php } ?>
-
-				<input type="hidden" name="ids[]" value="<?php echo $cat->id (); ?>" />
-			</div>
+		<div class="box-content">
+			<form action="" methos="post">
+				<input type="text" id="new-category" name="new-category" placeholder="<?php echo _t('new_category'); ?>" />
+				<input type="submit" value="<?php echo _t('submit'); ?>" />
+			</form>
 		</div>
-		<?php } ?>
+	</div>
 
-		<div class="form-group">
-			<label class="group-name" for="new_category"><?php echo Minz_Translate::t ('add_category'); ?></label>
-			<div class="group-controls">
-				<input type="text" id="new_category" name="new_category" placeholder="<?php echo Minz_Translate::t ('new_category'); ?>" />
+	<?php
+		foreach ($this->categories as $cat) {
+			$feeds = $cat->feeds();
+	?>
+	<div class="box">
+		<div class="box-title stick">
+			<input type="text" value="<?php echo $cat->name(); ?>" />
+			<div class="dropdown">
+				<div id="dropdown-cat-<?php echo $cat->id(); ?>" class="dropdown-target"></div>
+
+				<a class="dropdown-toggle btn" href="#dropdown-cat-<?php echo $cat->id(); ?>"><?php echo _i('down'); ?></a>
+				<ul class="dropdown-menu">
+					<li class="dropdown-close"><a href="#close">❌</a></li>
+
+					<li class="item">
+						<button class="as-link confirm"
+						        data-str-confirm="<?php echo _t('confirm_action_feed_cat'); ?>"
+						        type="submit"
+						        form="configure-categorize"
+						        formaction="<?php echo _url('feed', 'delete', 'id', $cat->id(), 'type', 'category'); ?>"><?php echo _t('ask_empty'); ?></button>
+					</li>
+					<li class="item"><a href=""><?php echo _t('delete'); ?></a></li>
+				</ul>
 			</div>
 		</div>
 
-		<div class="form-group form-actions">
-			<div class="group-controls">
-				<button type="submit" class="btn btn-important"><?php echo Minz_Translate::t ('save'); ?></button>
-				<button type="reset" class="btn"><?php echo Minz_Translate::t ('cancel'); ?></button>
-			</div>
-		</div>
-	</form>
+		<ul class="box-content">
+			<?php if (!empty($feeds)) { ?>
+			<?php
+					foreach ($feeds as $feed) {
+						$error = $feed->inError() ? ' error' : '';
+						$empty = $feed->nbEntries() == 0 ? ' empty' : '';
+			?>
+			<li id="f_<?php echo $feed->id(); ?>" class="item<?php echo $error, $empty; ?>">
+				<a href="<?php echo _url('configure', 'feed', 'id', $feed->id()); ?>"><?php echo _i('configure'); ?></a>
+				<img class="favicon" src="<?php echo $feed->favicon(); ?>" alt="✇" /> <?php echo $feed->name(); ?>
+			</li>
+			<?php
+					}
+				} else {
+			?>
+			<li>Empty</li>
+			<?php } ?>
+		</ul>
+	</div>
+	<?php } ?>
 </div>

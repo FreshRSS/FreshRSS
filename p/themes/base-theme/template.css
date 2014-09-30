@@ -559,6 +559,8 @@ br + br + br {
 /*=== GLOBAL VIEW */
 /*================*/
 /*=== Category boxes */
+
+/* TODO <delete> */
 #stream.global .box-category {
 	display: inline-block;
 	width: 19em;
@@ -578,6 +580,24 @@ br + br + br {
 	overflow: auto;
 }
 #stream.global .box-category .feed {
+	width: 19em;
+	max-width: 90%;
+}
+/* TODO </delete */
+
+.box {
+	display: inline-block;
+	width: 19em;
+	max-width: 95%;
+	margin: 20px 10px;
+	border: 1px solid #ccc;
+	vertical-align: top;
+}
+.box .box-content {
+	display: block;
+	overflow: auto;
+}
+.box .box-content .item {
 	width: 19em;
 	max-width: 90%;
 }
