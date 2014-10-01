@@ -123,6 +123,10 @@ class FreshRSS_category_Controller extends Minz_ActionController {
 				Minz_Request::bad(_t('category_no_id'), $url_redirect);
 			}
 
+			if ($id === $default_category->id()) {
+				Minz_Request::bad(_t('category_not_delete_default'), $url_redirect);
+			}
+
 			if ($feedDAO->changeCategory($id, $default_category->id()) === false) {
 				Minz_Request::bad(_t('error_occurred'), $url_redirect);
 			}

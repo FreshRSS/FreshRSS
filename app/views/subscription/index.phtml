@@ -82,9 +82,14 @@
 
 						<li class="item"><a href="<?php echo _url('index', 'index', 'get', 'c_' . $cat->id()); ?>"><?php echo _t('filter'); ?></a></li>
 
-						<li class="separator"></li>
+						<?php
+							$no_feed = empty($feeds);
+							$is_default = ($cat->id() === $this->default_category->id());
 
-						<?php if (!empty($feeds)) { ?>
+							if (!$no_feed || !$is_default) {
+						?>
+						<li class="separator"></li>
+						<?php } if (!$no_feed) { ?>
 						<li class="item">
 							<button class="as-link confirm"
 							        data-str-confirm="<?php echo _t('confirm_action_feed_cat'); ?>"
@@ -93,7 +98,7 @@
 							        formaction="<?php echo _url('category', 'empty', 'id', $cat->id()); ?>">
 							        <?php echo _t('ask_empty'); ?></button>
 						</li>
-						<?php } ?>
+						<?php } if (!$is_default) { ?>
 						<li class="item">
 							<button class="as-link confirm"
 							        data-str-confirm="<?php echo _t('confirm_action_feed_cat'); ?>"
@@ -102,6 +107,7 @@
 							        formaction="<?php echo _url('category', 'delete', 'id', $cat->id()); ?>">
 							        <?php echo _t('delete'); ?></button>
 						</li>
+						<?php } ?>
 					</ul>
 				</div>
 			</form>
