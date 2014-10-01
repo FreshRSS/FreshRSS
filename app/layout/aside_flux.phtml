@@ -7,8 +7,8 @@
 
 		<li>
 			<div class="stick configure-feeds">
-				<a class="btn btn-important" href="<?php echo _url('configure', 'feed'); ?>"><?php echo _t('subscription_management'); ?></a>
-				<a class="btn btn-important" href="<?php echo _url('configure', 'categorize'); ?>" title="<?php echo _t('categories_management'); ?>"><?php echo _i('category-white'); ?></a>
+				<a class="btn btn-important" href="<?php echo _url('subscription', 'index'); ?>"><?php echo _t('subscription_management'); ?></a>
+				<a class="btn btn-important" href="<?php echo _url('importExport', 'index'); ?>"><?php echo _i('import'); ?></a>
 			</div>
 		</li>
 		<?php } elseif (Minz_Configuration::needsLogin()) { ?>

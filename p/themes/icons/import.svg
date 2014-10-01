@@ -1,0 +1,9 @@
+<svg xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns="http://www.w3.org/2000/svg" height="16" width="16" version="1.1" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/">
+<g transform="translate(-80,-648)" fill="#ffffff">
+<path style="baseline-shift:baseline;block-progression:tb;color:#ffffff;direction:ltr;text-indent:0;text-align:start;enable-background:accumulate;text-transform:none;" d="m84.406,657a0.50005,0.50005,0,0,0,-0.3125,0.21875l-1,1.5a0.50005,0.50005,0,1,0,0.8125,0.5625l1-1.5a0.50005,0.50005,0,0,0,-0.5,-0.78zm7,0a0.50005,0.50005,0,0,0,-0.3125,0.78125l1,1.5a0.50005,0.50005,0,1,0,0.8125,-0.5625l-1-1.5a0.50005,0.50005,0,0,0,-0.5,-0.22z"/>
+<g transform="translate(-80,110)">
+<path style="block-progression:tb;color:#000000;direction:ltr;text-indent:0;text-align:start;enable-background:accumulate;text-transform:none;" d="m167,539,0,5.5625-1.2812-1.2812c-0.19-0.19-0.45-0.28-0.72-0.28h-1v1c0.00001,0.2653,0.0931,0.53058,0.28125,0.71875l3,3,0.28125,0.28125h0.875l0.28125-0.28125,3-3c0.19-0.19,0.28-0.45,0.28-0.72v-1h-1c-0.2653,0.00001-0.53059,0.0931-0.71875,0.28125l-1.28,1.28v-5.56z"/>
+<path style="enable-background:accumulate;color:#000000;" d="m163,549,0,4,10,0,0-4zm3.3438,1.4375c0.0208-0.001,0.0417-0.001,0.0625,0,0.29096-0.0556,0.59898,0.20383,0.59375,0.5v0.0625h2v-0.0625c-0.004-0.26416,0.23582-0.50712,0.5-0.50712s0.50373,0.24296,0.5,0.50712l-9.99,0.06c0,0.54535-0.45465,1-1,1h-2c-0.54535,0-1-0.45465-1-1v-0.0625c-0.0108-0.21706,0.13723-0.43234,0.34375-0.5z" fill-rule="evenodd"/>
+</g>
+</g>
+</svg>

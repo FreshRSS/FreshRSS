@@ -1,9 +1,51 @@
-<?php $this->partial('aside_feed'); ?>
+<?php $this->partial('aside_subscription'); ?>
 
 <div class="post">
 	<a href="<?php echo _url('index', 'index'); ?>"><?php echo _t('back_to_rss_feeds'); ?></a>
 
-	<h2><?php echo _t('categories_management'); ?></h2>
+	<h2><?php echo _t('subscription_management'); ?></h2>
+
+	<form id="add_rss" method="post" action="<?php echo _url('feed', 'add'); ?>" autocomplete="off">
+		<div class="stick">
+			<input type="url" name="url_rss" class="extend" placeholder="<?php echo _t('add_rss_feed'); ?>" />
+			<div class="dropdown">
+				<div id="dropdown-cat" class="dropdown-target"></div>
+
+				<a class="dropdown-toggle btn" href="#dropdown-cat"><?php echo _i('down'); ?></a>
+				<ul class="dropdown-menu">
+					<li class="dropdown-close"><a href="#close">❌</a></li>
+
+					<li class="dropdown-header"><?php echo _t('category'); ?></li>
+
+					<li class="input">
+						<select name="category" id="category">
+						<?php foreach ($this->categories as $cat) { ?>
+						<option value="<?php echo $cat->id(); ?>"<?php echo $cat->id() == 1 ? ' selected="selected"' : ''; ?>>
+							<?php echo $cat->name(); ?>
+						</option>
+						<?php } ?>
+						<option value="nc"><?php echo _t('new_category'); ?></option>
+						</select>
+					</li>
+
+					<li class="input" style="display:none">
+						<input type="text" name="new_category[name]" id="new_category_name" autocomplete="off" placeholder="<?php echo _t('new_category'); ?>" />
+					</li>
+
+					<li class="separator"></li>
+
+					<li class="dropdown-header"><?php echo _t('http_authentication'); ?></li>
+					<li class="input">
+						<input type="text" name="http_user" id="http_user_add" autocomplete="off" placeholder="<?php echo _t('username'); ?>" />
+					</li>
+					<li class="input">
+						<input type="password" name="http_pass" id="http_pass_add" autocomplete="off" placeholder="<?php echo _t('password'); ?>" />
+					</li>
+				</ul>
+			</div>
+			<button class="btn" type="submit"><?php echo _i('add'); ?></button>
+		</div>
+	</form>
 
 	<p class="alert alert-warn">
 		<?php echo _t('feeds_moved_category_deleted', $this->default_category->name()); ?>
@@ -73,7 +115,7 @@
 						$empty = $feed->nbEntries() == 0 ? ' empty' : '';
 			?>
 			<li class="item<?php echo $error, $empty; ?>">
-				<a class="configure open-slider" href="<?php echo _url('configure', 'feed', 'id', $feed->id()); ?>"><?php echo _i('configure'); ?></a>
+				<a class="configure open-slider" href="<?php echo _url('subscription', 'feed', 'id', $feed->id()); ?>"><?php echo _i('configure'); ?></a>
 				<img class="favicon" src="<?php echo $feed->favicon(); ?>" alt="✇" /> <?php echo $feed->name(); ?>
 			</li>
 			<?php 	}

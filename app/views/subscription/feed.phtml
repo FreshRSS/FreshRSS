@@ -1,6 +1,6 @@
 <?php
 	if (!Minz_Request::param('ajax')) {
-		$this->partial('aside_feed');
+		$this->partial('aside_subscription');
 	}
 ?>
 
@@ -19,7 +19,7 @@
 	<p class="alert alert-warn"><?php echo Minz_Translate::t ('feed_empty'); ?></p>
 	<?php } ?>
 
-	<form method="post" action="<?php echo _url ('configure', 'feed', 'id', $this->flux->id ()); ?>" autocomplete="off">
+	<form method="post" action="<?php echo _url ('subscription', 'feed', 'id', $this->flux->id ()); ?>" autocomplete="off">
 		<legend><?php echo Minz_Translate::t ('informations'); ?></legend>
 		<div class="form-group">
 			<label class="group-name" for="name"><?php echo Minz_Translate::t ('title'); ?></label>
