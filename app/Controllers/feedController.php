@@ -26,8 +26,8 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 
 		if ($url === false) {
 			Minz_Request::forward(array(
-				'c' => 'configure',
-				'a' => 'feed'
+				'c' => 'subscription',
+				'a' => 'index'
 			), true);
 		}
 
@@ -166,7 +166,7 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 				$feedDAO->rollBack ();
 			}
 
-			Minz_Request::forward (array ('c' => 'configure', 'a' => 'feed', 'params' => $params), true);
+			Minz_Request::forward (array ('c' => 'subscription', 'a' => 'index', 'params' => $params), true);
 		} else {
 
 			// GET request so we must ask confirmation to user
@@ -193,8 +193,8 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 				Minz_Session::_param('notification', $notif);
 
 				Minz_Request::forward(array(
-					'c' => 'configure',
-					'a' => 'feed',
+					'c' => 'subscription',
+					'a' => 'index',
 					'params' => array(
 						'id' => $feed->id()
 					)
@@ -214,7 +214,9 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 			);
 			Minz_Session::_param ('notification', $notif);
 			invalidateHttpCache();
-			Minz_Request::forward (array ('c' => 'configure', 'a' => 'feed', 'params' => array('id' => $id)), true);
+			Minz_Request::forward (array ('c' => 'subscription',
+			                              'a' => 'index',
+			                              'params' => array('id' => $id)), true);
 		}
 	}
 
@@ -405,7 +407,7 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 			if ($redirect_url) {
 				Minz_Request::forward($redirect_url);
 			} else {
-				Minz_Request::forward(array('c' => 'configure', 'a' => 'feed'), true);
+				Minz_Request::forward(array('c' => 'subscription', 'a' => 'index'), true);
 			}
 		}
 	}

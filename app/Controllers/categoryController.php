@@ -31,7 +31,7 @@ class FreshRSS_category_Controller extends Minz_ActionController {
 	 */
 	public function createAction() {
 		$catDAO = new FreshRSS_CategoryDAO();
-		$url_redirect = array('c' => 'configure', 'a' => 'categorize');
+		$url_redirect = array('c' => 'subscription', 'a' => 'index');
 
 		if (Minz_Request::isPost()) {
 			invalidateHttpCache();
@@ -71,7 +71,7 @@ class FreshRSS_category_Controller extends Minz_ActionController {
 	 */
 	public function updateAction() {
 		$catDAO = new FreshRSS_CategoryDAO();
-		$url_redirect = array('c' => 'configure', 'a' => 'categorize');
+		$url_redirect = array('c' => 'subscription', 'a' => 'index');
 
 		if (Minz_Request::isPost()) {
 			invalidateHttpCache();
@@ -113,7 +113,7 @@ class FreshRSS_category_Controller extends Minz_ActionController {
 		$feedDAO = FreshRSS_Factory::createFeedDao();
 		$catDAO = new FreshRSS_CategoryDAO();
 		$default_category = $catDAO->getDefault();
-		$url_redirect = array('c' => 'configure', 'a' => 'categorize');
+		$url_redirect = array('c' => 'subscription', 'a' => 'index');
 
 		if (Minz_Request::isPost()) {
 			invalidateHttpCache();
@@ -150,7 +150,7 @@ class FreshRSS_category_Controller extends Minz_ActionController {
 	 */
 	public function emptyAction() {
 		$feedDAO = FreshRSS_Factory::createFeedDao();
-		$url_redirect = array('c' => 'configure', 'a' => 'categorize');
+		$url_redirect = array('c' => 'subscription', 'a' => 'index');
 
 		if (Minz_Request::isPost()) {
 			invalidateHttpCache();
