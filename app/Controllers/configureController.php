@@ -28,43 +28,12 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 	 * This action handles the category configuration page
 	 *
 	 * It displays the category configuration page.
-	 * If this action is reached through a POST request, it loops through
-	 * every category to check for modification then add a new category if
-	 * needed then sends a notification to the user.
-	 * If a category name is emptied, the category is deleted and all
-	 * related feeds are moved to the default category. Related user queries
-	 * are deleted too.
-	 * If a category name is changed, it is updated.
 	 */
 	public function categorizeAction() {
-		$feedDAO = FreshRSS_Factory::createFeedDao();
 		$catDAO = new FreshRSS_CategoryDAO();
-		$defaultCategory = $catDAO->getDefault();
-		$defaultId = $defaultCategory->id();
-
-		if (Minz_Request::isPost()) {
-			$cats = Minz_Request::param('categories', array());
-			$ids = Minz_Request::param('ids', array());
-
-			foreach ($cats as $key => $name) {
-				if (strlen($name) > 0) {
-					$cat = new FreshRSS_Category($name);
-					$values = array(
-						'name' => $cat->name(),
-					);
-					$catDAO->updateCategory($ids[$key], $values);
-				}
-			}
-
-			invalidateHttpCache();
-
-			Minz_Request::good(_t('categories_updated'),
-			                   array('c' => 'configure', 'a' => 'categorize'));
-		}
 
 		$this->view->categories = $catDAO->listCategories(false);
-		$this->view->defaultCategory = $catDAO->getDefault();
-		$this->view->feeds = $feedDAO->listFeeds();
+		$this->view->default_category = $catDAO->getDefault();
 
 		Minz_View::prependTitle(_t('categories_management') . ' · ');
 	}
