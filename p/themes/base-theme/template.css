@@ -647,7 +647,29 @@ br + br + br {
 
 /*=== Slider */
 #slider {
-	min-height: 50px;
+	position: fixed;
+	top: 0; bottom: 0;
+	left: 100%; right: 0;
+	overflow: auto;
+	background: #fff;
+	border-left: 1px solid #aaa;
+	transition: left 200ms linear;
+	-moz-transition: left 200ms linear;
+	-webkit-transition: left 200ms linear;
+	-o-transition: left 200ms linear;
+	-ms-transition: left 200ms linear;
+}
+#slider.active {
+	left: 40%;
+}
+#close-slider {
+	position: fixed;
+	top: 0; bottom: 0;
+	left: 100%; right: 0;
+	cursor: pointer;
+}
+#close-slider.active {
+	left: 0;
 }
 
 /*=== DIVERS */

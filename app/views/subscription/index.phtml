@@ -134,9 +134,10 @@
 	<?php } ?>
 </div>
 
-<div id="slider">
+<a id="close-slider"></a>
+<div id="slider"<?php echo isset($this->feed) ? ' class="active"' : ''; ?>>
 <?php
-	if (isset($this->feed) && $this->feed) {
+	if (isset($this->feed)) {
 		$this->renderHelper('feed/update');
 	}
 ?>

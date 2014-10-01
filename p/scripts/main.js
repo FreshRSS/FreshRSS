@@ -1241,7 +1241,8 @@ function faviconNbUnread(n) {
 }
 
 function init_slider_observers() {
-	var slider = $('#slider');
+	var slider = $('#slider'),
+	    closer = $('#close-slider');
 	if (slider.length < 1) {
 		return;
 	}
@@ -1252,7 +1253,6 @@ function init_slider_observers() {
 		}
 
 		ajax_loading = true;
-
 		var url_slide = $(this).attr('href');
 
 		$.ajax({
@@ -1261,12 +1261,18 @@ function init_slider_observers() {
 			data : { ajax: true }
 		}).done(function (data) {
 			slider.html(data);
-			slider.show();
+			closer.addClass('active');
+			slider.addClass('active');
 			ajax_loading = false;
 		});
 
 		return false;
-	})
+	});
+
+	closer.on('click', function() {
+		closer.removeClass('active');
+		slider.removeClass('active');
+	});
 }
 
 function init_all() {
