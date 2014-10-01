@@ -129,4 +129,9 @@
 </div>
 
 <div id="slider">
+<?php
+	if (isset($this->feed) && $this->feed) {
+		$this->renderHelper('feed/update');
+	}
+?>
 </div>
