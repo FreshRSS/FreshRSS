@@ -1272,6 +1272,7 @@ function init_slider_observers() {
 	closer.on('click', function() {
 		closer.removeClass('active');
 		slider.removeClass('active');
+		return false;
 	});
 }
 
