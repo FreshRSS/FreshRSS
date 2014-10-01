@@ -645,6 +645,11 @@ br + br + br {
 	display: none;
 }
 
+/*=== Slider */
+#slider {
+	min-height: 50px;
+}
+
 /*=== DIVERS */
 /*===========*/
 .nav-login,

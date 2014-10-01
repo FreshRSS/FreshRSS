@@ -90,6 +90,10 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 	 * Default values are empty strings unless specified.
 	 */
 	public function feedAction() {
+		if (Minz_Request::param('ajax')) {
+			$this->view->_useLayout(false);
+		}
+
 		$catDAO = new FreshRSS_CategoryDAO();
 		$this->view->categories = $catDAO->listCategories(false);
 

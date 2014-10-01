@@ -73,7 +73,7 @@
 						$empty = $feed->nbEntries() == 0 ? ' empty' : '';
 			?>
 			<li class="item<?php echo $error, $empty; ?>">
-				<a class="configure" href="<?php echo _url('configure', 'feed', 'id', $feed->id()); ?>"><?php echo _i('configure'); ?></a>
+				<a class="configure open-slider" href="<?php echo _url('configure', 'feed', 'id', $feed->id()); ?>"><?php echo _i('configure'); ?></a>
 				<img class="favicon" src="<?php echo $feed->favicon(); ?>" alt="✇" /> <?php echo $feed->name(); ?>
 			</li>
 			<?php 	}
@@ -84,4 +84,7 @@
 		</ul>
 	</div>
 	<?php } ?>
+</div>
+
+<div id="slider">
 </div>
