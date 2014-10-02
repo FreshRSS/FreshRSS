@@ -1,6 +1,6 @@
 <?php $this->partial('aside_subscription'); ?>
 
-<div class="post">
+<div class="post drop-section">
 	<a href="<?php echo _url('index', 'index'); ?>"><?php echo _t('back_to_rss_feeds'); ?></a>
 
 	<h2><?php echo _t('subscription_management'); ?></h2>
@@ -113,21 +113,24 @@
 			</form>
 		</div>
 
-		<ul class="box-content" dropzone="move" data-cat-id="<?php echo $cat->id(); ?>">
+		<ul class="box-content" data-cat-id="<?php echo $cat->id(); ?>">
 			<?php if (!empty($feeds)) { ?>
 			<?php
 					foreach ($feeds as $feed) {
 						$error = $feed->inError() ? ' error' : '';
 						$empty = $feed->nbEntries() == 0 ? ' empty' : '';
 			?>
-			<li class="item feed<?php echo $error, $empty; ?>" draggable="true" data-feed-id="<?php echo $feed->id(); ?>">
+			<li class="item feed<?php echo $error, $empty; ?>"
+			    draggable="true"
+			    data-feed-id="<?php echo $feed->id(); ?>"
+			    dropzone="move">
 				<a class="configure open-slider" href="<?php echo _url('subscription', 'feed', 'id', $feed->id()); ?>"><?php echo _i('configure'); ?></a>
 				<img class="favicon" src="<?php echo $feed->favicon(); ?>" alt="✇" /> <?php echo $feed->name(); ?>
 			</li>
 			<?php 	}
 				} else {
 			?>
-			<li class="item"><?php echo _t('category_empty'); ?></li>
+			<li class="item disabled" dropzone="move"><?php echo _t('category_empty'); ?></li>
 			<?php } ?>
 		</ul>
 	</div>

@@ -1,37 +1,65 @@
 "use strict";
 
+var loading = false,
+	dnd_successful = false;
+
+function dragend_process(t) {
+	if (loading) {
+		window.setTimeout(function() {
+			dragend_process(t);
+		}, 50);
+	}
+
+	if (!dnd_successful) {
+		t.style.opacity = 1.0;
+	} else {
+		t.parentNode.removeChild(t);
+	}
+}
+
 
 function init_draggable() {
+	if (!(window.$ && window.url_freshrss)) {
+		if (window.console) {
+			console.log('FreshRSS waiting for JS…');
+		}
+		window.setTimeout(init_draggable, 50);
+		return;
+	}
+
 	$.event.props.push('dataTransfer');
 
-	var feeds_draggable = '.box-content > .feed',
-	    box_dropzone = '.box-content';
+	var draggable = '[draggable="true"]',
+	    dropzone = '[dropzone="move"]';
 
-	$('.box').on('dragstart', feeds_draggable, function(e) {
+	$('.drop-section').on('dragstart', draggable, function(e) {
 		e.dataTransfer.effectAllowed = 'move';
-		e.dataTransfer.setData('html', e.target.outerHTML);
-		e.dataTransfer.setData('feed-id', e.target.getAttribute('data-feed-id'));
+		e.dataTransfer.setData('text/html', e.target.outerHTML);
+		e.dataTransfer.setData('text', e.target.getAttribute('data-feed-id'));
+		e.target.style.opacity = 0.3;
+
+		dnd_successful = false;
 	});
-	$('.box').on('dragend', feeds_draggable, function(e) {
-		var parent = e.target.parentNode;
-		parent.removeChild(e.target);
-		
+	$('.drop-section').on('dragend', draggable, function(e) {
+		dragend_process(e.target);
 	});
 
-	$('.box').on('dragenter', box_dropzone, function(e) {
+	$('.drop-section').on('dragenter', dropzone, function(e) {
 		$(e.target).addClass('drag-hover');
 	});
-	$('.box').on('dragleave', box_dropzone, function(e) {
+	$('.drop-section').on('dragleave', dropzone, function(e) {
 		$(e.target).removeClass('drag-hover');
 	});
-	$('.box').on('dragover', box_dropzone, function(e) {
+	$('.drop-section').on('dragover', dropzone, function(e) {
 		e.dataTransfer.dropEffect = "move";
 
 		return false;
 	});
-	$('.box').on('drop', box_dropzone, function(e) {
-		var feed_id = e.dataTransfer.getData('feed-id'),
+	$('.drop-section').on('drop', dropzone, function(e) {
+		var feed_id = e.dataTransfer.getData('text'),
 		    cat_id = e.target.parentNode.getAttribute('data-cat-id');
+
+		loading = true;
 
 		$.ajax({
 			type: 'POST',
@@ -40,10 +68,15 @@ function init_draggable() {
 				f_id: feed_id,
 				c_id: cat_id
 			}
+		}).success(function() {
+			$(e.target).after(e.dataTransfer.getData('text/html'));
+			loading = false;
+		}).complete(function() {
+			dnd_successful = true;
 		});
 
-		$(e.target).after(e.dataTransfer.getData('html'));
 		$(e.target).removeClass('drag-hover');
+
 		return false;
 	});
 }

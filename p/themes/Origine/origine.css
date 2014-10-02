@@ -498,15 +498,6 @@ a.btn {
 	visibility: visible;
 }
 
-/*=== Draggable */
-.drag-hover {
-	background: #dfd;
-	transition: all linear 0.2s;
-}
-[draggable=true] {
-	cursor: grab;
-}
-
 /*=== STRUCTURE */
 /*===============*/
 /*=== Header */

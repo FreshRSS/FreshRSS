@@ -304,6 +304,10 @@ a.btn {
 .box .box-content .item {
 	display: block;
 }
+.box .box-content .item.disabled {
+	text-align: center;
+	font-style: italic;
+}
 
 .box .box-content-centered {
 	padding: 30px 5px;
@@ -313,6 +317,14 @@ a.btn {
 	margin: 20px 0 0;
 }
 
+/*=== Draggable */
+.drag-hover {
+	margin: 0 0 5px;
+	border-bottom: 2px solid #ccc;
+}
+[draggable=true] {
+	cursor: grab;
+}
 
 /*=== STRUCTURE */
 /*===============*/
