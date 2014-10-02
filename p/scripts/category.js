@@ -4,6 +4,8 @@ var loading = false,
 	dnd_successful = false;
 
 function dragend_process(t) {
+	t.style.display = 'none';
+
 	if (loading) {
 		window.setTimeout(function() {
 			dragend_process(t);
@@ -11,12 +13,12 @@ function dragend_process(t) {
 	}
 
 	if (!dnd_successful) {
+		t.style.display = 'block';
 		t.style.opacity = 1.0;
 	} else {
 		t.parentNode.removeChild(t);
 	}
 }
-
 
 function init_draggable() {
 	if (!(window.$ && window.url_freshrss)) {
@@ -45,14 +47,31 @@ function init_draggable() {
 	});
 
 	$('.drop-section').on('dragenter', dropzone, function(e) {
-		$(e.target).addClass('drag-hover');
+		$(this).addClass('drag-hover');
+
+		e.preventDefault();
 	});
 	$('.drop-section').on('dragleave', dropzone, function(e) {
-		$(e.target).removeClass('drag-hover');
+		var pos_this = $(this).position(),
+		    scroll_top = $(document).scrollTop(),
+		    top = pos_this.top,
+		    left = pos_this.left,
+		    right = left + $(this).width(),
+		    bottom = top + $(this).height(),
+		    mouse_x = e.originalEvent.screenX,
+		    mouse_y = e.originalEvent.clientY + scroll_top;
+
+		if (left <= mouse_x && mouse_x <= right &&
+			top <= mouse_y && mouse_y <= bottom) {
+			// HACK because dragleave is triggered when hovering children!
+			return;
+		}
+		$(this).removeClass('drag-hover');
 	});
 	$('.drop-section').on('dragover', dropzone, function(e) {
 		e.dataTransfer.dropEffect = "move";
 
+		e.preventDefault();
 		return false;
 	});
 	$('.drop-section').on('drop', dropzone, function(e) {
@@ -70,14 +89,14 @@ function init_draggable() {
 			}
 		}).success(function() {
 			$(e.target).after(e.dataTransfer.getData('text/html'));
-			loading = false;
-		}).complete(function() {
 			dnd_successful = true;
+		}).complete(function() {
+			loading = false;
 		});
 
-		$(e.target).removeClass('drag-hover');
+		$(this).removeClass('drag-hover');
 
-		return false;
+		e.preventDefault();
 	});
 }
 
