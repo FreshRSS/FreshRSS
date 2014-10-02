@@ -378,6 +378,21 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 		}
 	}
 
+	public function moveAction() {
+		if (Minz_Request::isPost()) {
+			$feed_id = Minz_Request::param('f_id');
+			$cat_id = Minz_Request::param('c_id');
+
+			$feedDAO = FreshRSS_Factory::createFeedDao();
+
+			$values = array(
+				'category' => $cat_id,
+			);
+
+			$feedDAO->updateFeed($feed_id, $values);
+		}
+	}
+
 	public function deleteAction() {
 		if (Minz_Request::isPost()) {
 			$id = Minz_Request::param('id');
