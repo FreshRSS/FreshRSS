@@ -171,7 +171,7 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 
 			// GET request so we must ask confirmation to user
 			Minz_View::prependTitle(Minz_Translate::t('add_rss_feed') . ' · ');
-			$this->view->categories = $this->catDAO->listCategories();
+			$this->view->categories = $this->catDAO->listCategories(false);
 			$this->view->feed = new FreshRSS_Feed($url);
 			try {
 				// We try to get some more information about the feed
