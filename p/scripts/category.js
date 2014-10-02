@@ -16,7 +16,12 @@ function dragend_process(t) {
 		t.style.display = 'block';
 		t.style.opacity = 1.0;
 	} else {
-		t.parentNode.removeChild(t);
+		var parent = $(t.parentNode);
+		$(t).remove();
+
+		if (parent.children().length <= 0) {
+			parent.append('<li class="item disabled" dropzone="move">' + str_category_empty + '</li>');
+		}
 	}
 }
 
@@ -89,6 +94,9 @@ function init_draggable() {
 			}
 		}).success(function() {
 			$(e.target).after(e.dataTransfer.getData('text/html'));
+			if ($(e.target).hasClass('disabled')) {
+				$(e.target).remove();
+			}
 			dnd_successful = true;
 		}).complete(function() {
 			loading = false;
