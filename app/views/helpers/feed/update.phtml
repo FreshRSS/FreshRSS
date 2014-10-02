@@ -1,8 +1,10 @@
 <div class="post">
-	<!-- <a href="<?php echo _url ('index', 'index'); ?>"><?php echo Minz_Translate::t ('back_to_rss_feeds'); ?></a> <?php echo Minz_Translate::t ('or'); ?> <a href="<?php echo _url ('index', 'index', 'get', 'f_' . $this->feed->id ()); ?>"><?php echo Minz_Translate::t ('filter'); ?></a> -->
-
 	<h1><?php echo $this->feed->name (); ?></h1>
 	<?php echo $this->feed->description (); ?>
+
+	<a href="<?php echo _url('index', 'index', 'get', 'f_' . $this->feed->id ()); ?>"><?php echo _i('link'); ?> <?php echo _t('filter'); ?></a>
+	<?php echo _t('or'); ?>
+	<a href="<?php echo _url('stats', 'repartition', 'id', $this->feed->id()); ?>"><?php echo _i('stats'); ?> <?php echo _t('stats'); ?></a>
 
 	<?php $nbEntries = $this->feed->nbEntries (); ?>
 
@@ -67,13 +69,7 @@
 				</label>
 			</div>
 		</div>
-		<div class="form-group">
-			<div class="group-controls">
-				<a href="<?php echo _url('stats', 'repartition', 'id', $this->feed->id()); ?>">
-					<?php echo _i('stats'); ?> <?php echo _t('stats'); ?>
-				</a>
-			</div>
-		</div>
+
 		<div class="form-group form-actions">
 			<div class="group-controls">
 				<button class="btn btn-important"><?php echo _t('save'); ?></button>
