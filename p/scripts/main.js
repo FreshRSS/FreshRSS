@@ -1240,7 +1240,7 @@ function init_slider_observers() {
 		return;
 	}
 
-	$('.open-slider').on('click', function() {
+	$('.post').on('click', '.open-slider', function() {
 		if (ajax_loading) {
 			return false;
 		}
