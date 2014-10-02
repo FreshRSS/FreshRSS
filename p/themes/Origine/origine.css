@@ -481,6 +481,7 @@ a.btn {
 	border-radius: 5px 5px 0 0;
 }
 .box .box-content {
+	min-height: 2.5em;
 	max-height: 260px;
 }
 

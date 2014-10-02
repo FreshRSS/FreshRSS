@@ -2,17 +2,20 @@
 
 
 function init_draggable() {
+	$.event.props.push('dataTransfer');
+
 	var feeds_draggable = '.box-content > .feed',
 	    box_dropzone = '.box-content';
 
 	$('.box').on('dragstart', feeds_draggable, function(e) {
-		e.originalEvent.dataTransfer.effectAllowed = 'move';
-		e.originalEvent.dataTransfer.setData('html', e.target.outerHTML);
-		e.originalEvent.dataTransfer.setData('feed-id', e.target.getAttribute('data-feed-id'));
+		e.dataTransfer.effectAllowed = 'move';
+		e.dataTransfer.setData('html', e.target.outerHTML);
+		e.dataTransfer.setData('feed-id', e.target.getAttribute('data-feed-id'));
 	});
 	$('.box').on('dragend', feeds_draggable, function(e) {
 		var parent = e.target.parentNode;
 		parent.removeChild(e.target);
+		
 	});
 
 	$('.box').on('dragenter', box_dropzone, function(e) {
@@ -22,12 +25,12 @@ function init_draggable() {
 		$(e.target).removeClass('drag-hover');
 	});
 	$('.box').on('dragover', box_dropzone, function(e) {
-		e.originalEvent.dataTransfer.dropEffect = "move";
+		e.dataTransfer.dropEffect = "move";
 
 		return false;
 	});
 	$('.box').on('drop', box_dropzone, function(e) {
-		var feed_id = e.originalEvent.dataTransfer.getData('feed-id'),
+		var feed_id = e.dataTransfer.getData('feed-id'),
 		    cat_id = e.target.parentNode.getAttribute('data-cat-id');
 
 		$.ajax({
@@ -39,7 +42,7 @@ function init_draggable() {
 			}
 		});
 
-		$(e.target).after(e.originalEvent.dataTransfer.getData('html'));
+		$(e.target).after(e.dataTransfer.getData('html'));
 		$(e.target).removeClass('drag-hover');
 		return false;
 	});
