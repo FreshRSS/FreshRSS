@@ -1233,6 +1233,42 @@ function faviconNbUnread(n) {
 	}
 }
 
+function init_slider_observers() {
+	var slider = $('#slider'),
+	    closer = $('#close-slider');
+	if (slider.length < 1) {
+		return;
+	}
+
+	$('.open-slider').on('click', function() {
+		if (ajax_loading) {
+			return false;
+		}
+
+		ajax_loading = true;
+		var url_slide = $(this).attr('href');
+
+		$.ajax({
+			type: 'GET',
+			url: url_slide,
+			data : { ajax: true }
+		}).done(function (data) {
+			slider.html(data);
+			closer.addClass('active');
+			slider.addClass('active');
+			ajax_loading = false;
+		});
+
+		return false;
+	});
+
+	closer.on('click', function() {
+		closer.removeClass('active');
+		slider.removeClass('active');
+		return false;
+	});
+}
+
 function init_all() {
 	if (!(window.$ && window.url_freshrss)) {
 		if (window.console) {
@@ -1268,6 +1304,7 @@ function init_all() {
 		init_feed_observers();
 		init_password_observers();
 		init_stats_observers();
+		init_slider_observers();
 	}
 
 	if (window.console) {

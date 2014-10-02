@@ -61,7 +61,7 @@ class FreshRSS_Category extends Minz_Model {
 		$this->id = $value;
 	}
 	public function _name ($value) {
-		$this->name = $value;
+		$this->name = substr(trim($value), 0, 255);
 	}
 	public function _feeds ($values) {
 		if (!is_array ($values)) {

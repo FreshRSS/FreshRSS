@@ -7,8 +7,8 @@
 
 		<li>
 			<div class="stick configure-feeds">
-				<a class="btn btn-important" href="<?php echo _url('configure', 'feed'); ?>"><?php echo _t('subscription_management'); ?></a>
-				<a class="btn btn-important" href="<?php echo _url('configure', 'categorize'); ?>" title="<?php echo _t('categories_management'); ?>"><?php echo _i('category-white'); ?></a>
+				<a class="btn btn-important" href="<?php echo _url('subscription', 'index'); ?>"><?php echo _t('subscription_management'); ?></a>
+				<a class="btn btn-important" href="<?php echo _url('importExport', 'index'); ?>"><?php echo _i('import'); ?></a>
 			</div>
 		</li>
 		<?php } elseif (Minz_Configuration::needsLogin()) { ?>
@@ -89,7 +89,7 @@
 		<li class="item"><a target="_blank" href="http://example.net/"><?php echo _t('see_website'); ?></a></li>
 		<?php if ($this->loginOk) { ?>
 		<li class="separator"></li>
-		<li class="item"><a href="<?php echo _url('configure', 'feed', 'id', '!!!!!!'); ?>"><?php echo _t('administration'); ?></a></li>
+		<li class="item"><a href="<?php echo _url('subscription', 'index', 'id', '!!!!!!'); ?>"><?php echo _t('administration'); ?></a></li>
 		<li class="item"><a href="<?php echo _url('feed', 'actualize', 'id', '!!!!!!'); ?>"><?php echo _t('actualize'); ?></a></li>
 		<li class="item">
 			<?php $confirm = $this->conf->reading_confirm ? 'confirm' : ''; ?>

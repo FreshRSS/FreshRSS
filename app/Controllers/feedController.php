@@ -26,8 +26,8 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 
 		if ($url === false) {
 			Minz_Request::forward(array(
-				'c' => 'configure',
-				'a' => 'feed'
+				'c' => 'subscription',
+				'a' => 'index'
 			), true);
 		}
 
@@ -166,7 +166,7 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 				$feedDAO->rollBack ();
 			}
 
-			Minz_Request::forward (array ('c' => 'configure', 'a' => 'feed', 'params' => $params), true);
+			Minz_Request::forward (array ('c' => 'subscription', 'a' => 'index', 'params' => $params), true);
 		} else {
 
 			// GET request so we must ask confirmation to user
@@ -193,8 +193,8 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 				Minz_Session::_param('notification', $notif);
 
 				Minz_Request::forward(array(
-					'c' => 'configure',
-					'a' => 'feed',
+					'c' => 'subscription',
+					'a' => 'index',
 					'params' => array(
 						'id' => $feed->id()
 					)
@@ -214,7 +214,9 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 			);
 			Minz_Session::_param ('notification', $notif);
 			invalidateHttpCache();
-			Minz_Request::forward (array ('c' => 'configure', 'a' => 'feed', 'params' => array('id' => $id)), true);
+			Minz_Request::forward (array ('c' => 'subscription',
+			                              'a' => 'index',
+			                              'params' => array('id' => $id)), true);
 		}
 	}
 
@@ -376,62 +378,36 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 		}
 	}
 
-	public function deleteAction () {
-		if (Minz_Request::isPost ()) {
-			$type = Minz_Request::param ('type', 'feed');
-			$id = Minz_Request::param ('id');
-
+	public function deleteAction() {
+		if (Minz_Request::isPost()) {
+			$id = Minz_Request::param('id');
 			$feedDAO = FreshRSS_Factory::createFeedDao();
-			if ($type == 'category') {
-				// List feeds to remove then related user queries.
-				$feeds = $feedDAO->listByCategory($id);
 
-				if ($feedDAO->deleteFeedByCategory ($id)) {
-					// Remove related queries
-					foreach ($feeds as $feed) {
-						$this->view->conf->remove_query_by_get('f_' . $feed->id());
-					}
-					$this->view->conf->save();
+			if ($feedDAO->deleteFeed($id)) {
+				// TODO: Delete old favicon
 
-					$notif = array (
-						'type' => 'good',
-						'content' => Minz_Translate::t ('category_emptied')
-					);
-					//TODO: Delete old favicons
-				} else {
-					$notif = array (
-						'type' => 'bad',
-						'content' => Minz_Translate::t ('error_occured')
-					);
-				}
+				// Remove related queries
+				$this->view->conf->remove_query_by_get('f_' . $id);
+				$this->view->conf->save();
+
+				$notif = array(
+					'type' => 'good',
+					'content' => _t('feed_deleted')
+				);
 			} else {
-				if ($feedDAO->deleteFeed ($id)) {
-					// Remove related queries
-					$this->view->conf->remove_query_by_get('f_' . $id);
-					$this->view->conf->save();
-
-					$notif = array (
-						'type' => 'good',
-						'content' => Minz_Translate::t ('feed_deleted')
-					);
-					//TODO: Delete old favicon
-				} else {
-					$notif = array (
-						'type' => 'bad',
-						'content' => Minz_Translate::t ('error_occured')
-					);
-				}
+				$notif = array(
+					'type' => 'bad',
+					'content' => _t('error_occured')
+				);
 			}
 
-			Minz_Session::_param ('notification', $notif);
+			Minz_Session::_param('notification', $notif);
 
 			$redirect_url = Minz_Request::param('r', false, true);
 			if ($redirect_url) {
 				Minz_Request::forward($redirect_url);
-			} elseif ($type == 'category') {
-				Minz_Request::forward(array ('c' => 'configure', 'a' => 'categorize'), true);
 			} else {
-				Minz_Request::forward(array ('c' => 'configure', 'a' => 'feed'), true);
+				Minz_Request::forward(array('c' => 'subscription', 'a' => 'index'), true);
 			}
 		}
 	}

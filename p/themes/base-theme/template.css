@@ -280,6 +280,40 @@ a.btn {
 	width: 100px;
 }
 
+/*=== Boxes */
+.box {
+	display: inline-block;
+	width: 20rem;
+	max-width: 95%;
+	margin: 20px 10px;
+	border: 1px solid #ccc;
+	vertical-align: top;
+}
+.box .box-title {
+	font-size: 1.2rem;
+	font-weight: bold;
+	text-align: center;
+}
+.box .box-title form {
+	margin: 0;
+}
+.box .box-content {
+	display: block;
+	overflow: auto;
+}
+.box .box-content .item {
+	display: block;
+}
+
+.box .box-content-centered {
+	padding: 30px 5px;
+	text-align: center;
+}
+.box .box-content-centered .btn {
+	margin: 20px 0 0;
+}
+
+
 /*=== STRUCTURE */
 /*===============*/
 /*=== Header */
@@ -559,6 +593,8 @@ br + br + br {
 /*=== GLOBAL VIEW */
 /*================*/
 /*=== Category boxes */
+
+/* TODO <delete> */
 #stream.global .box-category {
 	display: inline-block;
 	width: 19em;
@@ -581,6 +617,7 @@ br + br + br {
 	width: 19em;
 	max-width: 90%;
 }
+/* TODO </delete */
 
 /*=== Panel */
 #overlay {
@@ -606,6 +643,33 @@ br + br + br {
 }
 #panel .close img {
 	display: none;
+}
+
+/*=== Slider */
+#slider {
+	position: fixed;
+	top: 0; bottom: 0;
+	left: 100%; right: 0;
+	overflow: auto;
+	background: #fff;
+	border-left: 1px solid #aaa;
+	transition: left 200ms linear;
+	-moz-transition: left 200ms linear;
+	-webkit-transition: left 200ms linear;
+	-o-transition: left 200ms linear;
+	-ms-transition: left 200ms linear;
+}
+#slider.active {
+	left: 40%;
+}
+#close-slider {
+	position: fixed;
+	top: 0; bottom: 0;
+	left: 100%; right: 0;
+	cursor: pointer;
+}
+#close-slider.active {
+	left: 0;
 }
 
 /*=== DIVERS */

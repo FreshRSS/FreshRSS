@@ -438,6 +438,36 @@ a.btn {
 	background: url("loader.gif") center center no-repeat #34495e;
 }
 
+/*=== Boxes */
+.box {
+	border: 1px solid #ddd;
+	border-radius: 5px;
+}
+.box .box-title {
+	margin: 0;
+	padding: 5px 10px;
+	background: #ecf0f1;
+	color: #333;
+	border-bottom: 1px solid #ddd;
+	border-radius: 5px 5px 0 0;
+}
+.box .box-content {
+	max-height: 260px;
+}
+
+.box .box-content .item {
+	padding: 0 10px;
+	font-size: 0.9rem;
+	line-height: 2.5em;
+}
+
+.box .box-content .item .configure {
+	visibility: hidden;
+}
+.box .box-content .item:hover .configure {
+	visibility: visible;
+}
+
 /*=== STRUCTURE */
 /*===============*/
 /*=== Header */
