@@ -464,6 +464,11 @@ a.btn {
 .box .box-content .item .configure {
 	visibility: hidden;
 }
+.box .box-content .item .configure .icon {
+	vertical-align: middle;
+	background-color: #95a5a6;
+	border-radius: 3px;
+}
 .box .box-content .item:hover .configure {
 	visibility: visible;
 }

@@ -73,7 +73,9 @@ label {
 input {
 	width: 180px;
 }
-textarea {
+textarea,
+input[type="file"],
+input.extend:focus {
 	width: 300px;
 }
 input, select, textarea {
@@ -84,9 +86,6 @@ input[type="radio"],
 input[type="checkbox"] {
 	width: 15px !important;
 	min-height: 15px !important;
-}
-input.extend:focus {
-	width: 300px;
 }
 button.as-link,
 button.as-link:hover,
