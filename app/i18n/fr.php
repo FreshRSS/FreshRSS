@@ -191,6 +191,7 @@ return array (
 	'user_filter'			=> 'Accéder aux filtres utilisateur',
 	'user_filter_help'		=> 'S’il n’y a qu’un filtre utilisateur, celui ci est utilisé automatiquement. Sinon ils sont accessibles par leur numéro.',
 	'help'				=> 'Afficher la documentation',
+	'close_dropdown'		=> 'Fermer les listes déroulantes',
 
 	'file_to_import'		=> 'Fichier à importer<br />(OPML, Json ou Zip)',
 	'file_to_import_no_zip'		=> 'Fichier à importer<br />(OPML ou Json)',
