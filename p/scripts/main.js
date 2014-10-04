@@ -33,7 +33,7 @@ function needsScroll($elem) {
 }
 
 function str2int(str) {
-	if (str == '' || str === undefined) {
+	if (!str) {
 		return 0;
 	}
 	return parseInt(str.replace(/\D/g, ''), 10) || 0;
