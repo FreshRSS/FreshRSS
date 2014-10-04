@@ -652,6 +652,12 @@ a.btn {
 	padding: 5px 0;
 }
 
+#dropdown-query ~ .dropdown-menu .dropdown-header .icon {
+	vertical-align: middle;
+	background-color: #95a5a6;
+	border-radius: 3px;
+}
+
 /*=== Feed articles */
 .flux {
 	border-left: 2px solid #ecf0f1;
