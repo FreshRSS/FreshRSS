@@ -47,6 +47,7 @@ class FreshRSS_Configuration {
 			'focus_search' => 'a',
 			'user_filter' => 'u',
 			'help' => 'f1',
+			'close_dropdown' => 'escape',
 		),
 		'topline_read' => true,
 		'topline_favorite' => true,

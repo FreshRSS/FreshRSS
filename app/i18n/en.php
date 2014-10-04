@@ -191,6 +191,7 @@ return array (
 	'user_filter'			=> 'Access user filters',
 	'user_filter_help'		=> 'If there is only one user filter, it is used. Else filters are accessible by their number.',
 	'help'				=> 'Display documentation',
+	'close_dropdown'		=> 'Close drop-down lists',
 
 	'file_to_import'		=> 'File to import<br />(OPML, Json or Zip)',
 	'file_to_import_no_zip'		=> 'File to import<br />(OPML or Json)',

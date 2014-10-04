@@ -663,6 +663,12 @@ function init_shortcuts() {
 		'disable_in_input': true
 	});
 
+	shortcut.add(shortcuts.close_dropdown, function () {
+		window.location.hash = null;
+	}, {
+		'disable_in_input': true
+	});
+
 }
 
 function init_stream(divStream) {
