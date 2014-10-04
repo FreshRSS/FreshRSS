@@ -384,8 +384,6 @@ function collapse_entry() {
 }
 
 function user_filter(key) {
-	console.log('user filter');
-	console.warn(key);
 	var filter = $('#dropdown-query');
 	var filters = filter.siblings('.dropdown-menu').find('.item.query a');
 	if (typeof key === "undefined") {
