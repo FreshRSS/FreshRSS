@@ -66,7 +66,7 @@ if (!empty($this->entries)) {
 							$arUrl['params']['is_read'] = 0;
 						}
 						?><a class="read" href="<?php echo Minz_Url::display($arUrl); ?>"><?php
-							echo FreshRSS_Themes::icon($item->isRead () ? 'read' : 'unread'); ?></a><?php
+							echo _i($item->isRead () ? 'read' : 'unread'); ?></a><?php
 					?></li><?php
 				}
 				if ($topline_favorite) {
@@ -76,7 +76,7 @@ if (!empty($this->entries)) {
 							$arUrl['params']['is_favorite'] = 0;
 						}
 						?><a class="bookmark" href="<?php echo Minz_Url::display($arUrl); ?>"><?php
-							echo FreshRSS_Themes::icon($item->isFavorite () ? 'starred' : 'non-starred'); ?></a><?php
+							echo _i($item->isFavorite () ? 'starred' : 'non-starred'); ?></a><?php
 					?></li><?php
 				}
 			}
@@ -90,7 +90,7 @@ if (!empty($this->entries)) {
 			?><li class="item website"><a href="<?php echo _url ('index', 'index', 'get', 'f_' . $feed->id ()); ?>"><img class="favicon" src="<?php echo $feed->favicon (); ?>" alt="✇" /> <span><?php echo $feed->name(); ?></span></a></li>
 			<li class="item title"><a target="_blank" href="<?php echo $item->link (); ?>"><?php echo $item->title (); ?></a></li>
 			<?php if ($topline_date) { ?><li class="item date"><?php echo $item->date (); ?> </li><?php } ?>
-			<?php if ($topline_link) { ?><li class="item link"><a target="_blank" href="<?php echo $item->link (); ?>"><?php echo FreshRSS_Themes::icon('link'); ?></a></li><?php } ?>
+			<?php if ($topline_link) { ?><li class="item link"><a target="_blank" href="<?php echo $item->link (); ?>"><?php echo _i('link'); ?></a></li><?php } ?>
 		</ul>
 
 		<div class="flux_content">
@@ -111,7 +111,7 @@ if (!empty($this->entries)) {
 								$arUrl['params']['is_read'] = 0;
 							}
 							?><a class="read" href="<?php echo Minz_Url::display($arUrl); ?>"><?php
-								echo FreshRSS_Themes::icon($item->isRead () ? 'read' : 'unread'); ?></a><?php
+								echo _i($item->isRead () ? 'read' : 'unread'); ?></a><?php
 						?></li><?php
 					}
 					if ($bottomline_favorite) {
@@ -121,7 +121,7 @@ if (!empty($this->entries)) {
 								$arUrl['params']['is_favorite'] = 0;
 							}
 							?><a class="bookmark" href="<?php echo Minz_Url::display($arUrl); ?>"><?php
-								echo FreshRSS_Themes::icon($item->isFavorite () ? 'starred' : 'non-starred'); ?></a><?php
+								echo _i($item->isFavorite () ? 'starred' : 'non-starred'); ?></a><?php
 						?></li><?php
 					}
 				} ?>
@@ -132,7 +132,7 @@ if (!empty($this->entries)) {
 					?><div class="dropdown">
 						<div id="dropdown-share-<?php echo $item->id ();?>" class="dropdown-target"></div>
 						<a class="dropdown-toggle" href="#dropdown-share-<?php echo $item->id ();?>">
-							<?php echo FreshRSS_Themes::icon('share'); ?>
+							<?php echo _i('share'); ?>
 							<?php echo _t('share'); ?>
 						</a>
 
@@ -171,7 +171,7 @@ if (!empty($this->entries)) {
 					?><li class="item date"><?php echo $item->date (); ?></li><?php
 				}
 				if ($bottomline_link) {
-					?><li class="item link"><a target="_blank" href="<?php echo $item->link (); ?>"><?php echo FreshRSS_Themes::icon('link'); ?></a></li><?php
+					?><li class="item link"><a target="_blank" href="<?php echo $item->link (); ?>"><?php echo _i('link'); ?></a></li><?php
 				} ?>
 			</ul>
 		</div>

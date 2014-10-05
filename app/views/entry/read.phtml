@@ -13,4 +13,4 @@ $url = Minz_Url::display (array (
 	'params' => Minz_Request::params (),
 ));
 
-echo json_encode (array ('url' => str_ireplace ('&amp;', '&', $url), 'icon' => FreshRSS_Themes::icon(Minz_Request::param ('is_read') ? 'unread' : 'read')));
+echo json_encode (array ('url' => str_ireplace ('&amp;', '&', $url), 'icon' => _i(Minz_Request::param ('is_read') ? 'unread' : 'read')));

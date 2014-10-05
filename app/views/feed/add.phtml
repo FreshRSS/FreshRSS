@@ -29,7 +29,7 @@
 			<label class="group-name"><?php echo _t('website_url'); ?></label>
 			<div class="group-controls">
 				<?php echo $this->feed->website(); ?>
-				<a class="btn" target="_blank" href="<?php echo $this->feed->website(); ?>"><?php echo FreshRSS_Themes::icon('link'); ?></a>
+				<a class="btn" target="_blank" href="<?php echo $this->feed->website(); ?>"><?php echo _i('link'); ?></a>
 			</div>
 		</div>
 		<?php } ?>
@@ -39,7 +39,7 @@
 			<div class="group-controls">
 				<div class="stick">
 					<input type="text" name="url_rss" id="url" class="extend" value="<?php echo $this->feed->url(); ?>" />
-					<a class="btn" target="_blank" href="<?php echo $this->feed->url(); ?>"><?php echo FreshRSS_Themes::icon('link'); ?></a>
+					<a class="btn" target="_blank" href="<?php echo $this->feed->url(); ?>"><?php echo _i('link'); ?></a>
 				</div>
 				<a class="btn" target="_blank" href="http://validator.w3.org/feed/check.cgi?url=<?php echo $this->feed->url(); ?>"><?php echo _t('feed_validator'); ?></a>
 			</div>
@@ -76,7 +76,7 @@
 			</div>
 
 			<div class="group-controls">
-				<?php echo FreshRSS_Themes::icon('help'); ?> <?php echo _t('access_protected_feeds'); ?>
+				<?php echo _i('help'); ?> <?php echo _t('access_protected_feeds'); ?>
 			</div>
 		</div>
 

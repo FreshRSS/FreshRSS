@@ -22,7 +22,7 @@
 			<div class="group-controls">
 				<div class="stick">
 					<input type="password" id="passwordPlain" name="passwordPlain" autocomplete="off" pattern=".{7,}" <?php echo cryptAvailable() ? '' : 'disabled="disabled" '; ?>/>
-					<a class="btn toggle-password"><?php echo FreshRSS_Themes::icon('key'); ?></a>
+					<a class="btn toggle-password"><?php echo _i('key'); ?></a>
 				</div>
 				<noscript><b><?php echo _t('javascript_should_be_activated'); ?></b></noscript>
 			</div>
@@ -34,7 +34,7 @@
 			<div class="group-controls">
 				<div class="stick">
 					<input type="password" id="apiPasswordPlain" name="apiPasswordPlain" autocomplete="off" pattern=".{7,}" <?php echo cryptAvailable() ? '' : 'disabled="disabled" '; ?>/>
-					<a class="btn toggle-password"><?php echo FreshRSS_Themes::icon('key'); ?></a>
+					<a class="btn toggle-password"><?php echo _i('key'); ?></a>
 				</div>
 			</div>
 		</div>
@@ -113,7 +113,7 @@
 			<div class="group-controls">
 				<input type="text" id="token" name="token" value="<?php echo $token; ?>" placeholder="<?php echo _t('blank_to_disable'); ?>"<?php
 					echo Minz_Configuration::canLogIn() ? '' : ' disabled="disabled"'; ?> />
-				<?php echo FreshRSS_Themes::icon('help'); ?> <?php echo _t('explain_token', Minz_Url::display(null, 'html', true), $token); ?>
+				<?php echo _i('help'); ?> <?php echo _t('explain_token', Minz_Url::display(null, 'html', true), $token); ?>
 			</div>
 		</div>
 		<?php } ?>
@@ -184,7 +184,7 @@
 			<div class="group-controls">
 				<div class="stick">
 					<input type="password" id="new_user_passwordPlain" name="new_user_passwordPlain" autocomplete="off" pattern=".{7,}" />
-					<a class="btn toggle-password"><?php echo FreshRSS_Themes::icon('key'); ?></a>
+					<a class="btn toggle-password"><?php echo _i('key'); ?></a>
 				</div>
 				<noscript><b><?php echo _t('javascript_should_be_activated'); ?></b></noscript>
 			</div>

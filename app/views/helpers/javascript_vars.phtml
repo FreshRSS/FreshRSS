@@ -33,7 +33,7 @@ echo ',shortcuts={',
 "},\n";
 
 if (Minz_Request::param ('output') === 'global') {
-	echo "iconClose='", FreshRSS_Themes::icon('close'), "',\n";
+	echo "iconClose='", _i('close'), "',\n";
 }
 
 $authType = Minz_Configuration::authType();
