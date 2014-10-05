@@ -59,7 +59,7 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 		$getType = $get[0];
 		$getId = substr($get, 2);
 		if (!$this->checkAndProcessType($getType, $getId)) {
-			Minz_Log::record('Not found [' . $getType . '][' . $getId . ']', Minz_Log::DEBUG);
+			Minz_Log::debug('Not found [' . $getType . '][' . $getId . ']');
 			Minz_Error::error(
 				404,
 				array('error' => array(_t('page_not_found')))
@@ -122,12 +122,12 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 			// Si on a récupéré aucun article "non lus"
 			// on essaye de récupérer tous les articles
 			if ($this->view->state === FreshRSS_Entry::STATE_NOT_READ && empty($entries) && ($state_param === null) && ($filter == '')) {
-				Minz_Log::record('Conflicting information about nbNotRead!', Minz_Log::DEBUG);
+				Minz_Log::debug('Conflicting information about nbNotRead!');
 				$feedDAO = FreshRSS_Factory::createFeedDao();
 				try {
 					$feedDAO->updateCachedValues();
 				} catch (Exception $ex) {
-					Minz_Log::record('Failed to automatically correct nbNotRead! ' + $ex->getMessage(), Minz_Log::NOTICE);
+					Minz_Log::notice('Failed to automatically correct nbNotRead! ' + $ex->getMessage());
 				}
 				$this->view->state = FreshRSS_Entry::STATE_ALL;
 				$entries = $entryDAO->listWhere($getType, $getId, $this->view->state, $order, $nb, $first, $filter);
@@ -143,7 +143,7 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 
 			$this->view->entries = $entries;
 		} catch (FreshRSS_EntriesGetter_Exception $e) {
-			Minz_Log::record($e->getMessage(), Minz_Log::NOTICE);
+			Minz_Log::notice($e->getMessage());
 			Minz_Error::error(
 				404,
 				array('error' => array(_t('page_not_found')))
@@ -281,7 +281,7 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 			$res = array();
 			$res['status'] = 'failure';
 			$res['reason'] = $reason == '' ? _t('invalid_login') : $reason;
-			Minz_Log::record('Persona: ' . $res['reason'], Minz_Log::WARNING);
+			Minz_Log::warning('Persona: ' . $res['reason']);
 		}
 
 		header('Content-Type: application/json; charset=UTF-8');
@@ -358,13 +358,13 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 							self::deleteLongTermCookie();
 						}
 					} else {
-						Minz_Log::record('Password mismatch for user ' . $username . ', nonce=' . $nonce . ', c=' . $c, Minz_Log::WARNING);
+						Minz_Log::warning('Password mismatch for user ' . $username . ', nonce=' . $nonce . ', c=' . $c);
 					}
 				} catch (Minz_Exception $me) {
-					Minz_Log::record('Login failure: ' . $me->getMessage(), Minz_Log::WARNING);
+					Minz_Log::warning('Login failure: ' . $me->getMessage());
 				}
 			} else {
-				Minz_Log::record('Invalid credential parameters: user=' . $username . ' challenge=' . $c . ' nonce=' . $nonce, Minz_Log::DEBUG);
+				Minz_Log::debug('Invalid credential parameters: user=' . $username . ' challenge=' . $c . ' nonce=' . $nonce);
 			}
 			if (!$ok) {
 				$notif = array(
@@ -395,10 +395,10 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 					Minz_Session::_param('currentUser', $username);
 					Minz_Session::_param('passwordHash', $s);
 				} else {
-					Minz_Log::record('Unsafe password mismatch for user ' . $username, Minz_Log::WARNING);
+					Minz_Log::warning('Unsafe password mismatch for user ' . $username);
 				}
 			} catch (Minz_Exception $me) {
-				Minz_Log::record('Unsafe login failure: ' . $me->getMessage(), Minz_Log::WARNING);
+				Minz_Log::warning('Unsafe login failure: ' . $me->getMessage());
 			}
 			Minz_Request::forward(array('c' => 'index', 'a' => 'index'), true);
 		} elseif (!Minz_Configuration::canLogIn()) {

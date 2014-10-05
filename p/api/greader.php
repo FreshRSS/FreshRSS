@@ -160,7 +160,7 @@ function authorizationToUserConf() {
 					return $conf;
 				} else {
 					logMe('Invalid API authorisation for user ' . $user . ': ' . $headerAuthX[1] . "\n");
-					Minz_Log::record('Invalid API authorisation for user ' . $user . ': ' . $headerAuthX[1], Minz_Log::WARNING);
+					Minz_Log::warning('Invalid API authorisation for user ' . $user . ': ' . $headerAuthX[1]);
 					unauthorized();
 				}
 			} else {
@@ -181,7 +181,7 @@ function clientLogin($email, $pass) {	//http://web.archive.org/web/2013060409104
 			$conf = new FreshRSS_Configuration($email);
 		} catch (Exception $e) {
 			logMe($e->getMessage() . "\n");
-			Minz_Log::record('Invalid API user ' . $email, Minz_Log::WARNING);
+			Minz_Log::warning('Invalid API user ' . $email);
 			unauthorized();
 		}
 		if ($conf->apiPasswordHash != '' && password_verify($pass, $conf->apiPasswordHash)) {
@@ -191,7 +191,7 @@ function clientLogin($email, $pass) {	//http://web.archive.org/web/2013060409104
 				'Auth=', $auth, "\n";
 			exit();
 		} else {
-			Minz_Log::record('Password API mismatch for user ' . $email, Minz_Log::WARNING);
+			Minz_Log::warning('Password API mismatch for user ' . $email);
 			unauthorized();
 		}
 	} else {

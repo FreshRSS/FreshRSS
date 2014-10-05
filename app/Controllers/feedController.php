@@ -140,14 +140,14 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 					}
 				}
 			} catch (FreshRSS_BadUrl_Exception $e) {
-				Minz_Log::record($e->getMessage(), Minz_Log::WARNING);
+				Minz_Log::warning($e->getMessage());
 				$notif = array(
 					'type' => 'bad',
 					'content' => _t('invalid_url', $url)
 				);
 				Minz_Session::_param('notification', $notif);
 			} catch (FreshRSS_Feed_Exception $e) {
-				Minz_Log::record($e->getMessage(), Minz_Log::WARNING);
+				Minz_Log::warning($e->getMessage());
 				$notif = array(
 					'type' => 'bad',
 					'content' => _t('internal_problem_feed',
@@ -156,7 +156,7 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 				Minz_Session::_param('notification', $notif);
 			} catch (Minz_FileNotExistException $e) {
 				// Répertoire de cache n'existe pas
-				Minz_Log::record($e->getMessage(), Minz_Log::ERROR);
+				Minz_Log::error($e->getMessage());
 				$notif = array(
 					'type' => 'bad',
 					'content' => _t('internal_problem_feed',
@@ -258,7 +258,7 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 		$is_read = $this->view->conf->mark_when['reception'] ? 1 : 0;
 		foreach ($feeds as $feed) {
 			if (!$feed->lock()) {
-				Minz_Log::record('Feed already being actualized: ' . $feed->url(), Minz_Log::NOTICE);
+				Minz_Log::notice('Feed already being actualized: ' . $feed->url());
 				continue;
 			}
 			try {
@@ -307,7 +307,7 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 					}
 					$nb = $feedDAO->cleanOldEntries($feed->id(), $date_min, max($feedHistory, count($entries) + 10));
 					if ($nb > 0) {
-						Minz_Log::record($nb . ' old entries cleaned in feed [' . $feed->url() . ']', Minz_Log::DEBUG);
+						Minz_Log::debug($nb . ' old entries cleaned in feed [' . $feed->url() . ']');
 					}
 				}
 
@@ -318,11 +318,11 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 				}
 				$flux_update++;
 				if (($feed->url() !== $url)) {	//HTTP 301 Moved Permanently
-					Minz_Log::record('Feed ' . $url . ' moved permanently to ' . $feed->url(), Minz_Log::NOTICE);
+					Minz_Log::notice('Feed ' . $url . ' moved permanently to ' . $feed->url());
 					$feedDAO->updateFeed($feed->id(), array('url' => $feed->url()));
 				}
 			} catch (FreshRSS_Feed_Exception $e) {
-				Minz_Log::record($e->getMessage(), Minz_Log::NOTICE);
+				Minz_Log::notice($e->getMessage());
 				$feedDAO->updateLastUpdate($feed->id(), 1);
 			}
 

@@ -101,7 +101,7 @@ class FreshRSS extends Minz_FrontController {
 					'content' => 'Invalid configuration for user [' . $currentUser . ']!',
 				);
 				Minz_Session::_param('notification', $notif);
-				Minz_Log::record($notif['content'] . ' ' . $me->getMessage(), Minz_Log::WARNING);
+				Minz_Log::warning($notif['content'] . ' ' . $me->getMessage());
 				Minz_Session::_param('currentUser', '');
 			} catch (Exception $e) {
 				die($e->getMessage());

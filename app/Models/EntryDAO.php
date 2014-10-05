@@ -40,11 +40,11 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 		} else {
 			$info = $stm == null ? array(2 => 'syntax error') : $stm->errorInfo();
 			if ((int)($info[0] / 1000) !== 23) {	//Filter out "SQLSTATE Class code 23: Constraint Violation" because of expected duplicate entries
-				Minz_Log::record('SQL error addEntry: ' . $info[0] . ': ' . $info[1] . ' ' . $info[2]
-				. ' while adding entry in feed ' . $valuesTmp['id_feed'] . ' with title: ' . $valuesTmp['title'], Minz_Log::ERROR);
+				Minz_Log::error('SQL error addEntry: ' . $info[0] . ': ' . $info[1] . ' ' . $info[2]
+				. ' while adding entry in feed ' . $valuesTmp['id_feed'] . ' with title: ' . $valuesTmp['title']);
 			} /*else {
-				Minz_Log::record ('SQL error ' . $info[0] . ': ' . $info[1] . ' ' . $info[2]
-				. ' while adding entry in feed ' . $valuesTmp['id_feed'] . ' with title: ' . $valuesTmp['title'], Minz_Log::DEBUG);
+				Minz_Log::debug('SQL error ' . $info[0] . ': ' . $info[1] . ' ' . $info[2]
+				. ' while adding entry in feed ' . $valuesTmp['id_feed'] . ' with title: ' . $valuesTmp['title']);
 			}*/
 			return false;
 		}
@@ -94,7 +94,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 			return $stm->rowCount();
 		} else {
 			$info = $stm == null ? array(2 => 'syntax error') : $stm->errorInfo();
-			Minz_Log::record('SQL error markFavorite: ' . $info[2], Minz_Log::ERROR);
+			Minz_Log::error('SQL error markFavorite: ' . $info[2]);
 			return false;
 		}
 	}
@@ -124,7 +124,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 			return true;
 		} else {
 			$info = $stm == null ? array(2 => 'syntax error') : $stm->errorInfo();
-			Minz_Log::record('SQL error updateCacheUnreads: ' . $info[2], Minz_Log::ERROR);
+			Minz_Log::error('SQL error updateCacheUnreads: ' . $info[2]);
 			return false;
 		}
 	}
@@ -147,7 +147,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 			$stm = $this->bd->prepare($sql);
 			if (!($stm && $stm->execute($values))) {
 				$info = $stm == null ? array(2 => 'syntax error') : $stm->errorInfo();
-				Minz_Log::record('SQL error markRead: ' . $info[2], Minz_Log::ERROR);
+				Minz_Log::error('SQL error markRead: ' . $info[2]);
 				return false;
 			}
 			$affected = $stm->rowCount();
@@ -166,7 +166,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 				return $stm->rowCount();
 			} else {
 				$info = $stm == null ? array(2 => 'syntax error') : $stm->errorInfo();
-				Minz_Log::record('SQL error markRead: ' . $info[2], Minz_Log::ERROR);
+				Minz_Log::error('SQL error markRead: ' . $info[2]);
 				return false;
 			}
 		}
@@ -175,7 +175,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 	public function markReadEntries($idMax = 0, $onlyFavorites = false, $priorityMin = 0) {
 		if ($idMax == 0) {
 			$idMax = time() . '000000';
-			Minz_Log::record('Calling markReadEntries(0) is deprecated!', Minz_Log::DEBUG);
+			Minz_Log::debug('Calling markReadEntries(0) is deprecated!');
 		}
 
 		$sql = 'UPDATE `' . $this->prefix . 'entry` e INNER JOIN `' . $this->prefix . 'feed` f ON e.id_feed=f.id '
@@ -190,7 +190,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 		$stm = $this->bd->prepare($sql);
 		if (!($stm && $stm->execute($values))) {
 			$info = $stm == null ? array(2 => 'syntax error') : $stm->errorInfo();
-			Minz_Log::record('SQL error markReadEntries: ' . $info[2], Minz_Log::ERROR);
+			Minz_Log::error('SQL error markReadEntries: ' . $info[2]);
 			return false;
 		}
 		$affected = $stm->rowCount();
@@ -203,7 +203,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 	public function markReadCat($id, $idMax = 0) {
 		if ($idMax == 0) {
 			$idMax = time() . '000000';
-			Minz_Log::record('Calling markReadCat(0) is deprecated!', Minz_Log::DEBUG);
+			Minz_Log::debug('Calling markReadCat(0) is deprecated!');
 		}
 
 		$sql = 'UPDATE `' . $this->prefix . 'entry` e INNER JOIN `' . $this->prefix . 'feed` f ON e.id_feed=f.id '
@@ -213,7 +213,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 		$stm = $this->bd->prepare($sql);
 		if (!($stm && $stm->execute($values))) {
 			$info = $stm == null ? array(2 => 'syntax error') : $stm->errorInfo();
-			Minz_Log::record('SQL error markReadCat: ' . $info[2], Minz_Log::ERROR);
+			Minz_Log::error('SQL error markReadCat: ' . $info[2]);
 			return false;
 		}
 		$affected = $stm->rowCount();
@@ -226,7 +226,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 	public function markReadFeed($id, $idMax = 0) {
 		if ($idMax == 0) {
 			$idMax = time() . '000000';
-			Minz_Log::record('Calling markReadFeed(0) is deprecated!', Minz_Log::DEBUG);
+			Minz_Log::debug('Calling markReadFeed(0) is deprecated!');
 		}
 		$this->bd->beginTransaction();
 
@@ -237,7 +237,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 		$stm = $this->bd->prepare($sql);
 		if (!($stm && $stm->execute($values))) {
 			$info = $stm == null ? array(2 => 'syntax error') : $stm->errorInfo();
-			Minz_Log::record('SQL error markReadFeed: ' . $info[2], Minz_Log::ERROR);
+			Minz_Log::error('SQL error markReadFeed: ' . $info[2]);
 			$this->bd->rollBack();
 			return false;
 		}
@@ -251,7 +251,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 			$stm = $this->bd->prepare($sql);
 			if (!($stm && $stm->execute($values))) {
 				$info = $stm == null ? array(2 => 'syntax error') : $stm->errorInfo();
-				Minz_Log::record('SQL error markReadFeed: ' . $info[2], Minz_Log::ERROR);
+				Minz_Log::error('SQL error markReadFeed: ' . $info[2]);
 				$this->bd->rollBack();
 				return false;
 			}
