@@ -16,6 +16,7 @@ class Minz_ModelPdo {
 	public static $useSharedBd = true;
 	private static $sharedBd = null;
 	private static $sharedPrefix;
+	private static $has_transaction = false;
 	protected static $sharedDbType;
 
 	/**
@@ -91,12 +92,18 @@ class Minz_ModelPdo {
 
 	public function beginTransaction() {
 		$this->bd->beginTransaction();
+		$this->has_transaction = true;
+	}
+	public function hasTransaction() {
+		return $this->has_transaction;
 	}
 	public function commit() {
 		$this->bd->commit();
+		$this->has_transaction = false;
 	}
 	public function rollBack() {
 		$this->bd->rollBack();
+		$this->has_transaction = false;
 	}
 
 	public static function clean() {
