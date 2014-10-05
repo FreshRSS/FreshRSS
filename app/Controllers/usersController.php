@@ -8,7 +8,7 @@ class FreshRSS_users_Controller extends Minz_ActionController {
 		if (!$this->view->loginOk) {
 			Minz_Error::error(
 				403,
-				array('error' => array(Minz_Translate::t('access_denied')))
+				array('error' => array(_t('access_denied')))
 			);
 		}
 	}
@@ -90,7 +90,7 @@ class FreshRSS_users_Controller extends Minz_ActionController {
 
 			$notif = array(
 				'type' => $ok ? 'good' : 'bad',
-				'content' => Minz_Translate::t($ok ? 'configuration_updated' : 'error_occurred')
+				'content' => _t($ok ? 'configuration_updated' : 'error_occurred')
 			);
 			Minz_Session::_param('notification', $notif);
 		}
@@ -162,7 +162,7 @@ class FreshRSS_users_Controller extends Minz_ActionController {
 
 			$notif = array(
 				'type' => $ok ? 'good' : 'bad',
-				'content' => Minz_Translate::t($ok ? 'user_created' : 'error_occurred', $new_user_name)
+				'content' => _t($ok ? 'user_created' : 'error_occurred', $new_user_name)
 			);
 			Minz_Session::_param('notification', $notif);
 		}
@@ -194,7 +194,7 @@ class FreshRSS_users_Controller extends Minz_ActionController {
 
 			$notif = array(
 				'type' => $ok ? 'good' : 'bad',
-				'content' => Minz_Translate::t($ok ? 'user_deleted' : 'error_occurred', $username)
+				'content' => _t($ok ? 'user_deleted' : 'error_occurred', $username)
 			);
 			Minz_Session::_param('notification', $notif);
 		}

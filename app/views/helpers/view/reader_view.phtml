@@ -23,7 +23,7 @@ if (!empty($this->entries)) {
 
 				<div class="author"><?php
 					$author = $item->author();
-					echo $author != '' ? Minz_Translate::t('by_author', $author) . ' — ' : '',
+					echo $author != '' ? _t('by_author', $author) . ' — ' : '',
 						$item->date();
 				?></div>
 

@@ -120,11 +120,11 @@ class FreshRSS_stats_Controller extends Minz_ActionController {
 	public function firstAction() {
 		if (!$this->view->loginOk) {
 			Minz_Error::error(
-			    403, array('error' => array(Minz_Translate::t('access_denied')))
+			    403, array('error' => array(_t('access_denied')))
 			);
 		}
 
-		Minz_View::prependTitle(Minz_Translate::t('stats') . ' · ');
+		Minz_View::prependTitle(_t('stats') . ' · ');
 	}
 
 }

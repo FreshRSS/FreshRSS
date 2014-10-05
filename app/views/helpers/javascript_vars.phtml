@@ -52,10 +52,10 @@ echo 'authType="', $authType, '",',
 	'url_login="', _url ('index', 'login'), '",',
 	'url_logout="', _url ('index', 'logout'), '",';
 
-echo 'str_confirmation_default="', Minz_Translate::t('confirm_action'), '"', ",\n";
-echo 'str_notif_title_articles="', Minz_Translate::t('notif_title_new_articles'), '"', ",\n";
-echo 'str_notif_body_articles="', Minz_Translate::t('notif_body_new_articles'), '"', ",\n";
-echo 'str_category_empty="', Minz_Translate::t('category_empty'), '"', ",\n";
+echo 'str_confirmation_default="', _t('confirm_action'), '"', ",\n";
+echo 'str_notif_title_articles="', _t('notif_title_new_articles'), '"', ",\n";
+echo 'str_notif_body_articles="', _t('notif_body_new_articles'), '"', ",\n";
+echo 'str_category_empty="', _t('category_empty'), '"', ",\n";
 echo 'html5_notif_timeout=', $this->conf->html5_notif_timeout,",\n";
 
 

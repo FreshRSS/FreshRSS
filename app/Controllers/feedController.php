@@ -15,7 +15,7 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 			) {
 				Minz_Error::error (
 					403,
-					array ('error' => array (Minz_Translate::t ('access_denied')))
+					array ('error' => array (_t('access_denied')))
 				);
 			}
 		}
@@ -84,7 +84,7 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 					// on est déjà abonné à ce flux
 					$notif = array (
 						'type' => 'bad',
-						'content' => Minz_Translate::t ('already_subscribed', $feed->name ())
+						'content' => _t('already_subscribed', $feed->name ())
 					);
 					Minz_Session::_param ('notification', $notif);
 				} else {
@@ -93,7 +93,7 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 						// problème au niveau de la base de données
 						$notif = array (
 							'type' => 'bad',
-							'content' => Minz_Translate::t ('feed_not_added', $feed->name ())
+							'content' => _t('feed_not_added', $feed->name ())
 						);
 						Minz_Session::_param ('notification', $notif);
 					} else {
@@ -131,7 +131,7 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 						// ok, ajout terminé
 						$notif = array (
 							'type' => 'good',
-							'content' => Minz_Translate::t ('feed_added', $feed->name ())
+							'content' => _t('feed_added', $feed->name ())
 						);
 						Minz_Session::_param ('notification', $notif);
 
@@ -143,14 +143,14 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 				Minz_Log::record ($e->getMessage (), Minz_Log::WARNING);
 				$notif = array (
 					'type' => 'bad',
-					'content' => Minz_Translate::t ('invalid_url', $url)
+					'content' => _t('invalid_url', $url)
 				);
 				Minz_Session::_param ('notification', $notif);
 			} catch (FreshRSS_Feed_Exception $e) {
 				Minz_Log::record ($e->getMessage (), Minz_Log::WARNING);
 				$notif = array (
 					'type' => 'bad',
-					'content' => Minz_Translate::t ('internal_problem_feed', Minz_Url::display(array('a' => 'logs')))
+					'content' => _t('internal_problem_feed', Minz_Url::display(array('a' => 'logs')))
 				);
 				Minz_Session::_param ('notification', $notif);
 			} catch (Minz_FileNotExistException $e) {
@@ -158,7 +158,7 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 				Minz_Log::record ($e->getMessage (), Minz_Log::ERROR);
 				$notif = array (
 					'type' => 'bad',
-					'content' => Minz_Translate::t ('internal_problem_feed', Minz_Url::display(array('a' => 'logs')))
+					'content' => _t('internal_problem_feed', Minz_Url::display(array('a' => 'logs')))
 				);
 				Minz_Session::_param ('notification', $notif);
 			}
@@ -170,7 +170,7 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 		} else {
 
 			// GET request so we must ask confirmation to user
-			Minz_View::prependTitle(Minz_Translate::t('add_rss_feed') . ' · ');
+			Minz_View::prependTitle(_t('add_rss_feed') . ' · ');
 			$this->view->categories = $this->catDAO->listCategories(false);
 			$this->view->feed = new FreshRSS_Feed($url);
 			try {
@@ -186,9 +186,7 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 				// Already subscribe so we redirect to the feed configuration page
 				$notif = array(
 					'type' => 'bad',
-					'content' => Minz_Translate::t(
-						'already_subscribed', $feed->name()
-					)
+					'content' => _t('already_subscribed', $feed->name())
 				);
 				Minz_Session::_param('notification', $notif);
 
@@ -210,7 +208,7 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 			$n = $feedDAO->truncate($id);
 			$notif = array(
 				'type' => $n === false ? 'bad' : 'good',
-				'content' => Minz_Translate::t ('n_entries_deleted', $n)
+				'content' => _t('n_entries_deleted', $n)
 			);
 			Minz_Session::_param ('notification', $notif);
 			invalidateHttpCache();
@@ -336,19 +334,19 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 			$feed = reset ($feeds);
 			$notif = array (
 				'type' => 'good',
-				'content' => Minz_Translate::t ('feed_actualized', $feed->name ())
+				'content' => _t('feed_actualized', $feed->name ())
 			);
 		} elseif ($flux_update > 1) {
 			// plusieurs flux on été mis à jour
 			$notif = array (
 				'type' => 'good',
-				'content' => Minz_Translate::t ('n_feeds_actualized', $flux_update)
+				'content' => _t('n_feeds_actualized', $flux_update)
 			);
 		} else {
 			// aucun flux n'a été mis à jour, oups
 			$notif = array (
 				'type' => 'good',
-				'content' => Minz_Translate::t ('no_feed_to_refresh')
+				'content' => _t('no_feed_to_refresh')
 			);
 		}
 
@@ -370,7 +368,7 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 			// ressenti utilisateur
 			$notif = array (
 				'type' => 'good',
-				'content' => Minz_Translate::t ('feeds_actualized')
+				'content' => _t('feeds_actualized')
 			);
 			Minz_Session::_param ('notification', $notif);
 			// et on désactive le layout car ne sert à rien

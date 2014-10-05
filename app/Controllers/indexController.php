@@ -14,7 +14,7 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 			if ($output === 'rss' && !$token_is_ok) {
 				Minz_Error::error (
 					403,
-					array ('error' => array (Minz_Translate::t ('access_denied')))
+					array ('error' => array (_t('access_denied')))
 				);
 				return;
 			} elseif ($output !== 'rss') {
@@ -62,7 +62,7 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 			Minz_Log::record ('Not found [' . $getType . '][' . $getId . ']', Minz_Log::DEBUG);
 			Minz_Error::error (
 				404,
-				array ('error' => array (Minz_Translate::t ('page_not_found')))
+				array ('error' => array (_t('page_not_found')))
 			);
 			return;
 		}
@@ -145,7 +145,7 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 			Minz_Log::record ($e->getMessage (), Minz_Log::NOTICE);
 			Minz_Error::error (
 				404,
-				array ('error' => array (Minz_Translate::t ('page_not_found')))
+				array ('error' => array (_t('page_not_found')))
 			);
 		}
 	}
@@ -158,12 +158,12 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 	private function checkAndProcessType ($getType, $getId) {
 		switch ($getType) {
 			case 'a':
-				$this->view->currentName = Minz_Translate::t ('your_rss_feeds');
+				$this->view->currentName = _t('your_rss_feeds');
 				$this->nb_not_read_cat = $this->view->nb_not_read;
 				$this->view->get_c = $getType;
 				return true;
 			case 's':
-				$this->view->currentName = Minz_Translate::t ('your_favorites');
+				$this->view->currentName = _t('your_favorites');
 				$this->nb_not_read_cat = $this->view->nb_favorites['unread'];
 				$this->view->get_c = $getType;
 				return true;
@@ -202,18 +202,18 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 	}
 	
 	public function aboutAction () {
-		Minz_View::prependTitle (Minz_Translate::t ('about') . ' · ');
+		Minz_View::prependTitle (_t('about') . ' · ');
 	}
 
 	public function logsAction () {
 		if (!$this->view->loginOk) {
 			Minz_Error::error (
 				403,
-				array ('error' => array (Minz_Translate::t ('access_denied')))
+				array ('error' => array (_t('access_denied')))
 			);
 		}
 
-		Minz_View::prependTitle (Minz_Translate::t ('logs') . ' · ');
+		Minz_View::prependTitle (_t('logs') . ' · ');
 
 		if (Minz_Request::isPost ()) {
 			FreshRSS_LogDAO::truncate();
@@ -279,7 +279,7 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 		} else {
 			$res = array ();
 			$res['status'] = 'failure';
-			$res['reason'] = $reason == '' ? Minz_Translate::t ('invalid_login') : $reason;
+			$res['reason'] = $reason == '' ? _t('invalid_login') : $reason;
 			Minz_Log::record ('Persona: ' . $res['reason'], Minz_Log::WARNING);
 		}
 
@@ -368,7 +368,7 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 			if (!$ok) {
 				$notif = array(
 					'type' => 'bad',
-					'content' => Minz_Translate::t('invalid_login')
+					'content' => _t('invalid_login')
 				);
 				Minz_Session::_param('notification', $notif);
 			}
@@ -403,7 +403,7 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 		} elseif (!Minz_Configuration::canLogIn()) {
 			Minz_Error::error (
 				403,
-				array ('error' => array (Minz_Translate::t ('access_denied')))
+				array ('error' => array (_t('access_denied')))
 			);
 		}
 		invalidateHttpCache();

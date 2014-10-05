@@ -134,7 +134,7 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo {
 		$def_cat = $this->searchById (1);
 
 		if ($def_cat == null) {
-			$cat = new FreshRSS_Category (Minz_Translate::t ('default_category'));
+			$cat = new FreshRSS_Category (_t('default_category'));
 			$cat->_id (1);
 
 			$values = array (

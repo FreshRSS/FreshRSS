@@ -5,7 +5,7 @@ class FreshRSS_entry_Controller extends Minz_ActionController {
 		if (!$this->view->loginOk) {
 			Minz_Error::error (
 				403,
-				array ('error' => array (Minz_Translate::t ('access_denied')))
+				array ('error' => array (_t('access_denied')))
 			);
 		}
 
@@ -75,7 +75,7 @@ class FreshRSS_entry_Controller extends Minz_ActionController {
 
 			$notif = array (
 				'type' => 'good',
-				'content' => Minz_Translate::t ('feeds_marked_read')
+				'content' => _t('feeds_marked_read')
 			);
 			Minz_Session::_param ('notification', $notif);
 		} else {
@@ -111,7 +111,7 @@ class FreshRSS_entry_Controller extends Minz_ActionController {
 
 			$notif = array (
 				'type' => 'good',
-				'content' => Minz_Translate::t ('optimization_complete')
+				'content' => _t('optimization_complete')
 			);
 			Minz_Session::_param ('notification', $notif);
 		}
@@ -155,7 +155,7 @@ class FreshRSS_entry_Controller extends Minz_ActionController {
 
 		$notif = array(
 			'type' => 'good',
-			'content' => Minz_Translate::t('purge_completed', $nbTotal)
+			'content' => _t('purge_completed', $nbTotal)
 		);
 		Minz_Session::_param('notification', $notif);
 

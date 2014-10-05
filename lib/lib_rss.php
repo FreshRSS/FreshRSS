@@ -77,11 +77,11 @@ function formatBytes($bytes, $precision = 2, $system = 'IEC') {
 }
 
 function timestamptodate ($t, $hour = true) {
-	$month = Minz_Translate::t (date('M', $t));
+	$month = _t(date('M', $t));
 	if ($hour) {
-		$date = Minz_Translate::t ('format_date_hour', $month);
+		$date = _t('format_date_hour', $month);
 	} else {
-		$date = Minz_Translate::t ('format_date', $month);
+		$date = _t('format_date', $month);
 	}
 
 	return @date ($date, $t);
@@ -107,7 +107,7 @@ function html_only_entity_decode($text) {
 
 function customSimplePie() {
 	$simplePie = new SimplePie();
-	$simplePie->set_useragent(Minz_Translate::t('freshrss') . '/' . FRESHRSS_VERSION . ' (' . PHP_OS . '; ' . FRESHRSS_WEBSITE . ') ' . SIMPLEPIE_NAME . '/' . SIMPLEPIE_VERSION);
+	$simplePie->set_useragent(_t('freshrss') . '/' . FRESHRSS_VERSION . ' (' . PHP_OS . '; ' . FRESHRSS_WEBSITE . ') ' . SIMPLEPIE_NAME . '/' . SIMPLEPIE_VERSION);
 	$simplePie->set_cache_location(CACHE_PATH);
 	$simplePie->set_cache_duration(800);
 	$simplePie->strip_htmltags(array(

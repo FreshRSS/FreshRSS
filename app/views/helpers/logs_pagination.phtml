@@ -9,14 +9,14 @@
 	<?php $params[$getteur] = 1; ?>
 	<li class="item pager-first">
 		<?php if ($this->currentPage > 1) { ?>
-		<a href="<?php echo Minz_Url::display (array ('c' => $c, 'a' => $a, 'params' => $params)); ?>">« <?php echo Minz_Translate::t('first'); ?></a>
+		<a href="<?php echo Minz_Url::display (array ('c' => $c, 'a' => $a, 'params' => $params)); ?>">« <?php echo _t('first'); ?></a>
 		<?php } ?>
 	</li>
 
 	<?php $params[$getteur] = $this->currentPage - 1; ?>
 	<li class="item pager-previous">
 		<?php if ($this->currentPage > 1) { ?>
-		<a href="<?php echo Minz_Url::display (array ('c' => $c, 'a' => $a, 'params' => $params)); ?>">‹ <?php echo Minz_Translate::t('previous'); ?></a>
+		<a href="<?php echo Minz_Url::display (array ('c' => $c, 'a' => $a, 'params' => $params)); ?>">‹ <?php echo _t('previous'); ?></a>
 		<?php } ?>
 	</li>
 
@@ -34,13 +34,13 @@
 	<?php $params[$getteur] = $this->currentPage + 1; ?>
 	<li class="item pager-next">
 		<?php if ($this->currentPage < $this->nbPage) { ?>
-		<a href="<?php echo Minz_Url::display (array ('c' => $c, 'a' => $a, 'params' => $params)); ?>"><?php echo Minz_Translate::t('next'); ?> ›</a>
+		<a href="<?php echo Minz_Url::display (array ('c' => $c, 'a' => $a, 'params' => $params)); ?>"><?php echo _t('next'); ?> ›</a>
 		<?php } ?>
 	</li>
 	<?php $params[$getteur] = $this->nbPage; ?>
 	<li class="item pager-last">
 		<?php if ($this->currentPage < $this->nbPage) { ?>
-		<a href="<?php echo Minz_Url::display (array ('c' => $c, 'a' => $a, 'params' => $params)); ?>"><?php echo Minz_Translate::t('last'); ?> »</a>
+		<a href="<?php echo Minz_Url::display (array ('c' => $c, 'a' => $a, 'params' => $params)); ?>"><?php echo _t('last'); ?> »</a>
 		<?php } ?>
 	</li>
 </ul>

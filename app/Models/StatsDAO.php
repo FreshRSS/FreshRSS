@@ -416,7 +416,7 @@ SQL;
 	 */
 	private function convertToTranslatedJson($data = array()) {
 		$translated = array_map(function ($a) {
-			return Minz_Translate::t($a);
+			return _t($a);
 		}, $data);
 
 		return json_encode($translated);

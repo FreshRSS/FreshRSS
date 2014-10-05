@@ -10,7 +10,7 @@ class FreshRSS extends Minz_FrontController {
 			$loginOk = false;	//Basic protection against XSRF attacks
 			Minz_Error::error(
 				403,
-				array('error' => array(Minz_Translate::t('access_denied') . ' [HTTP_REFERER=' .
+				array('error' => array(_t('access_denied') . ' [HTTP_REFERER=' .
 					htmlspecialchars(empty($_SERVER['HTTP_REFERER']) ? '' : $_SERVER['HTTP_REFERER']) . ']'))
 			);
 		}
