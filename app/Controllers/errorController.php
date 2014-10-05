@@ -23,13 +23,13 @@ class FreshRSS_error_Controller extends Minz_ActionController {
 		$this->view->errorMessage = trim(implode($errors));
 		if ($this->view->errorMessage == '') {
 			switch(Minz_Request::param('code')) {
-				case 403:
-					$this->view->errorMessage = _t('forbidden_access');
-					break;
-				case 404:
-				default:
-					$this->view->errorMessage = _t('page_not_found');
-					break;
+			case 403:
+				$this->view->errorMessage = _t('forbidden_access');
+				break;
+			case 404:
+			default:
+				$this->view->errorMessage = _t('page_not_found');
+				break;
 			}
 		}
 
