@@ -390,8 +390,10 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 
 			$feed = $feedDAO->searchById($feed_id);
 
-			if (!$feed || ($feed->category() != $cat_id &&
-			               !$feedDAO->updateFeed($feed_id, $values))) {
+			if ($feed && ($feed->category() == $cat_id ||
+			              $feedDAO->updateFeed($feed_id, $values))) {
+				// TODO: return something useful
+			} else {
 				Minz_Error::error(
 					404,
 					array('error' => array(_t('error_occurred')))
