@@ -4,14 +4,6 @@ var $stream = null,
 	shares = 0,
 	ajax_loading = false;
 
-function is_normal_mode() {
-	return $stream.hasClass('normal');
-}
-
-function is_global_mode() {
-	return $stream.hasClass('global');
-}
-
 function redirect(url, new_tab) {
 	if (url) {
 		if (new_tab) {
@@ -226,7 +218,7 @@ function toggleContent(new_active, old_active) {
 		return;
 	}
 
-	if (does_lazyload) {
+	if (context['does_lazyload']) {
 		new_active.find('img[data-original], iframe[data-original]').each(function () {
 			this.setAttribute('src', this.getAttribute('data-original'));
 			this.removeAttribute('data-original');
@@ -245,12 +237,12 @@ function toggleContent(new_active, old_active) {
 
 	var box_to_move = "html,body",
 		relative_move = false;
-	if (is_global_mode()) {
+	if (context['current_view'] == 'global') {
 		box_to_move = "#panel";
 		relative_move = true;
 	}
 
-	if (sticky_post) {
+	if (context['sticky_post']) {
 		var prev_article = new_active.prevAll('.flux'),
 		    new_pos = new_active.position().top,
 			old_scroll = $(box_to_move).scrollTop();
@@ -259,7 +251,7 @@ function toggleContent(new_active, old_active) {
 			new_pos = prev_article.position().top;
 		}
 
-		if (hide_posts) {
+		if (context['hide_posts']) {
 			if (relative_move) {
 				new_pos += old_scroll;
 			}
@@ -278,7 +270,7 @@ function toggleContent(new_active, old_active) {
 		}
 	}
 
-	if (auto_mark_article && new_active.hasClass('active')) {
+	if (context['auto_mark_article'] && new_active.hasClass('active')) {
 		mark_read(new_active, true);
 	}
 }
@@ -378,7 +370,7 @@ function collapse_entry() {
 
 	var flux_current = $(".flux.current");
 	flux_current.toggleClass("active");
-	if (isCollapsed && auto_mark_article) {
+	if (isCollapsed && context['auto_mark_article']) {
 		mark_read(flux_current, true);
 	}
 }
@@ -457,12 +449,12 @@ function inMarkViewport(flux, box_to_follow, relative_follow) {
 function init_posts() {
 	var box_to_follow = $(window),
 		relative_follow = false;
-	if (is_global_mode()) {
+	if (context['current_view'] == 'global') {
 		box_to_follow = $("#panel");
 		relative_follow = true;
 	}
 
-	if (auto_mark_scroll) {
+	if (context['auto_mark_scroll']) {
 		box_to_follow.scroll(function () {
 			$('.not_read:visible').each(function () {
 				if ($(this).children(".flux_content").is(':visible') && inMarkViewport($(this), box_to_follow, relative_follow)) {
@@ -472,7 +464,7 @@ function init_posts() {
 		});
 	}
 
-	if (auto_load_more) {
+	if (context['auto_load_more']) {
 		box_to_follow.scroll(function () {
 			var load_more = $("#load_more");
 			if (!load_more.is(':visible')) {
@@ -492,7 +484,7 @@ function init_posts() {
 }
 
 function init_column_categories() {
-	if (!is_normal_mode()) {
+	if (context['current_view'] !== 'normal') {
 		return;
 	}
 	$('#aside_flux').on('click', '.category>a.dropdown-toggle', function () {
@@ -632,7 +624,7 @@ function init_shortcuts() {
 	shortcut.add(shortcuts.go_website, function () {
 		var url_website = $('.flux.current > .flux_header > .title > a').attr("href");
 
-		if (auto_mark_site) {
+		if (context['auto_mark_site']) {
 			$(".flux.current").each(function () {
 				mark_read($(this), true);
 			});
@@ -656,7 +648,7 @@ function init_shortcuts() {
 	});
 
 	shortcut.add(shortcuts.help, function () {
-		redirect(help_url, true);
+		redirect(url['help'], true);
 	}, {
 		'disable_in_input': true
 	});
@@ -678,7 +670,7 @@ function init_stream(divStream) {
 			new_active = $(this).parent();
 			isCollapsed = true;
 		if (e.target.tagName.toUpperCase() === 'A') {	//Leave real links alone
-			if (auto_mark_article) {
+			if (context['auto_mark_article']) {
 				mark_read(new_active, true);
 			}
 			return true;
@@ -724,7 +716,7 @@ function init_stream(divStream) {
 		$(this).attr('target', '_blank');
 	});
 
-	if (auto_mark_site) {
+	if (context['auto_mark_site']) {
 		// catch mouseup instead of click so we can have the correct behaviour
 		// with middle button click (scroll button).
 		divStream.on('mouseup', '.flux .link > a', function (e) {
@@ -784,7 +776,7 @@ function init_actualize() {
 		return false;
 	});
 
-	if (auto_actualize_feeds) {
+	if (context['auto_actualize_feeds']) {
 		auto = true;
 		$("#actualize").click();
 	}
@@ -855,9 +847,9 @@ function notifs_html5_show(nb) {
 		return
 	}
 
-	var notification = new window.Notification(str_notif_title_articles, {
+	var notification = new window.Notification(i18n['notif_title_articles'], {
 		icon: "../themes/icons/favicon-256.png",
-		body: str_notif_body_articles.replace("\d", nb),
+		body: i18n['notif_body_articles.replace("\d", nb)'],
 		tag: "freshRssNewArticles"
 	});
 
@@ -865,10 +857,10 @@ function notifs_html5_show(nb) {
 		window.location.reload();
 	}
 
-	if (html5_notif_timeout !== 0){
+	if (context['html5_notif_timeout'] !== 0){
 		setTimeout(function() {
 					notification.close();
-				}, html5_notif_timeout * 1000);
+				}, context['html5_notif_timeout'] * 1000);
 	}
 }
 
@@ -922,7 +914,7 @@ function load_more_posts() {
 	$.get(url_load_more, function (data) {
 		box_load_more.children('.flux:last').after($('#stream', data).children('.flux, .day'));
 		$('.pagination').replaceWith($('.pagination', data));
-		if (display_order === 'ASC') {
+		if (context['display_order'] === 'ASC') {
 			$('#nav_menu_read_all > .read_all').attr(
 				'formaction', $('#bigMarkAsRead').attr('formaction')
 			);
@@ -953,7 +945,7 @@ function focus_search() {
 function init_load_more(box) {
 	box_load_more = box;
 
-	if (!does_lazyload) {
+	if (!context['does_lazyload']) {
 		$('img[postpone], audio[postpone], iframe[postpone], video[postpone]').each(function () {
 			this.removeAttribute('postpone');
 		});
@@ -1062,7 +1054,7 @@ function init_persona() {
 	});
 
 	navigator.id.watch({
-		loggedInUser: current_user_mail,
+		loggedInUser: context['current_user_mail'],
 
 		onlogin: function(assertion) {
 			// A user has logged in! Here you need to:
@@ -1070,13 +1062,13 @@ function init_persona() {
 			// 2. Update your UI.
 			$.ajax ({
 				type: 'POST',
-				url: url_login,
+				url: url['login'],
 				data: {assertion: assertion},
 				success: function(res, status, xhr) {
 					/*if (res.status === 'failure') {
 						alert (res_obj.reason);
 					} else*/ if (res.status === 'okay') {
-						location.href = url_freshrss;
+						location.href = url['index'];
 					}
 				},
 				error: function(res, status, xhr) {
@@ -1091,9 +1083,9 @@ function init_persona() {
 			// (That's a literal JavaScript null. Not false, 0, or undefined. null.)
 			$.ajax ({
 				type: 'POST',
-				url: url_logout,
+				url: url['logout'],
 				success: function(res, status, xhr) {
-					location.href = url_freshrss;
+					location.href = url['index'];
 				},
 				error: function(res, status, xhr) {
 					//alert("logout failure" + res);
@@ -1108,7 +1100,7 @@ function init_confirm_action() {
 	$('body').on('click', '.confirm', function () {
 		var str_confirmation = $(this).attr('data-str-confirm');
 		if (!str_confirmation) {
-			str_confirmation = str_confirmation_default;
+			str_confirmation = i18n['confirmation_default'];
 		}
 
 		return confirm(str_confirmation);
@@ -1274,7 +1266,7 @@ function init_slider_observers() {
 }
 
 function init_all() {
-	if (!(window.$ && window.url_freshrss)) {
+	if (!(window.$ && window.context)) {
 		if (window.console) {
 			console.log('FreshRSS waiting for JS…');
 		}
@@ -1282,7 +1274,7 @@ function init_all() {
 		return;
 	}
 	init_notifications();
-	switch (authType) {
+	switch (context['auth_type']) {
 		case 'persona':
 			init_persona();
 			break;

@@ -20,13 +20,13 @@ function dragend_process(t) {
 		$(t).remove();
 
 		if (parent.children().length <= 0) {
-			parent.append('<li class="item disabled" dropzone="move">' + str_category_empty + '</li>');
+			parent.append('<li class="item disabled" dropzone="move">' + i18n['category_empty'] + '</li>');
 		}
 	}
 }
 
 function init_draggable() {
-	if (!(window.$ && window.url_freshrss)) {
+	if (!(window.$ && window.i18n)) {
 		if (window.console) {
 			console.log('FreshRSS waiting for JS…');
 		}
