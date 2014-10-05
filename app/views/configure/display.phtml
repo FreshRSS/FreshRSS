@@ -1,16 +1,16 @@
-<?php $this->partial ('aside_configure'); ?>
+<?php $this->partial('aside_configure'); ?>
 
 <div class="post">
-	<a href="<?php echo _url ('index', 'index'); ?>"><?php echo _t('back_to_rss_feeds'); ?></a>
+	<a href="<?php echo _url('index', 'index'); ?>"><?php echo _t('back_to_rss_feeds'); ?></a>
 
-	<form method="post" action="<?php echo _url ('configure', 'display'); ?>">
+	<form method="post" action="<?php echo _url('configure', 'display'); ?>">
 		<legend><?php echo _t('display_configuration'); ?></legend>
 
 		<div class="form-group">
 			<label class="group-name" for="language"><?php echo _t('language'); ?></label>
 			<div class="group-controls">
 				<select name="language" id="language">
-				<?php $languages = $this->conf->availableLanguages (); ?>
+				<?php $languages = $this->conf->availableLanguages(); ?>
 				<?php foreach ($languages as $short => $lib) { ?>
 				<option value="<?php echo $short; ?>"<?php echo $this->conf->language === $short ? ' selected="selected"' : ''; ?>><?php echo $lib; ?></option>
 				<?php } ?>

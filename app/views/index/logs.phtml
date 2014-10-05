@@ -1,23 +1,23 @@
 <div class="post content">
-	<a href="<?php echo _url ('index', 'index'); ?>"><?php echo _t('back_to_rss_feeds'); ?></a>
+	<a href="<?php echo _url('index', 'index'); ?>"><?php echo _t('back_to_rss_feeds'); ?></a>
 
 	<h1><?php echo _t('logs'); ?></h1>
-	<form method="post" action="<?php echo _url ('index', 'logs'); ?>"><p>
+	<form method="post" action="<?php echo _url('index', 'logs'); ?>"><p>
 		<input type="hidden" name="clearLogs" />
 		<button type="submit" class="btn"><?php echo _t('clear_logs'); ?></button>
 	</p></form>
 
-	<?php $items = $this->logsPaginator->items (); ?>
+	<?php $items = $this->logsPaginator->items(); ?>
 
-	<?php if (!empty ($items)) { ?>
+	<?php if (!empty($items)) { ?>
 	<div class="logs">
-		<?php $this->logsPaginator->render ('logs_pagination.phtml', 'page'); ?>
+		<?php $this->logsPaginator->render('logs_pagination.phtml', 'page'); ?>
 
 		<?php foreach ($items as $log) { ?>
-		<div class="log <?php echo $log->level (); ?>"><span class="date"><?php echo @date ('Y-m-d H:i:s', @strtotime ($log->date ())); ?></span><?php echo htmlspecialchars ($log->info (), ENT_NOQUOTES, 'UTF-8'); ?></div>
+		<div class="log <?php echo $log->level(); ?>"><span class="date"><?php echo @date('Y-m-d H:i:s', @strtotime($log->date())); ?></span><?php echo htmlspecialchars($log->info(), ENT_NOQUOTES, 'UTF-8'); ?></div>
 		<?php } ?>
 
-		<?php $this->logsPaginator->render ('logs_pagination.phtml','page'); ?>
+		<?php $this->logsPaginator->render('logs_pagination.phtml','page'); ?>
 	</div>
 	<?php } else { ?>
 	<p class="alert alert-warn"><?php echo _t('logs_empty'); ?></p>

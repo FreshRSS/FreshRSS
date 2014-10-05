@@ -164,7 +164,7 @@
 			<label class="group-name" for="new_user_language"><?php echo _t('language'); ?></label>
 			<div class="group-controls">
 				<select name="new_user_language" id="new_user_language">
-				<?php $languages = $this->conf->availableLanguages (); ?>
+				<?php $languages = $this->conf->availableLanguages(); ?>
 				<?php foreach ($languages as $short => $lib) { ?>
 				<option value="<?php echo $short; ?>"<?php echo $this->conf->language === $short ? ' selected="selected"' : ''; ?>><?php echo $lib; ?></option>
 				<?php } ?>

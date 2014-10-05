@@ -1,28 +1,28 @@
 <div class="post">
-	<h1><?php echo $this->feed->name (); ?></h1>
+	<h1><?php echo $this->feed->name(); ?></h1>
 
 	<div>
-		<a href="<?php echo _url('index', 'index', 'get', 'f_' . $this->feed->id ()); ?>"><?php echo _i('link'); ?> <?php echo _t('filter'); ?></a>
+		<a href="<?php echo _url('index', 'index', 'get', 'f_' . $this->feed->id()); ?>"><?php echo _i('link'); ?> <?php echo _t('filter'); ?></a>
 		<?php echo _t('or'); ?>
 		<a href="<?php echo _url('stats', 'repartition', 'id', $this->feed->id()); ?>"><?php echo _i('stats'); ?> <?php echo _t('stats'); ?></a>
 	</div>
 
-	<p><?php echo $this->feed->description (); ?></p>
+	<p><?php echo $this->feed->description(); ?></p>
 
-	<?php $nbEntries = $this->feed->nbEntries (); ?>
+	<?php $nbEntries = $this->feed->nbEntries(); ?>
 
-	<?php if ($this->feed->inError ()) { ?>
+	<?php if ($this->feed->inError()) { ?>
 	<p class="alert alert-error"><span class="alert-head"><?php echo _t('damn'); ?></span> <?php echo _t('feed_in_error'); ?></p>
 	<?php } elseif ($nbEntries === 0) { ?>
 	<p class="alert alert-warn"><?php echo _t('feed_empty'); ?></p>
 	<?php } ?>
 
-	<form method="post" action="<?php echo _url ('subscription', 'feed', 'id', $this->feed->id ()); ?>" autocomplete="off">
+	<form method="post" action="<?php echo _url('subscription', 'feed', 'id', $this->feed->id()); ?>" autocomplete="off">
 		<legend><?php echo _t('informations'); ?></legend>
 		<div class="form-group">
 			<label class="group-name" for="name"><?php echo _t('title'); ?></label>
 			<div class="group-controls">
-				<input type="text" name="name" id="name" class="extend" value="<?php echo $this->feed->name () ; ?>" />
+				<input type="text" name="name" id="name" class="extend" value="<?php echo $this->feed->name() ; ?>" />
 			</div>
 		</div>
 		<div class="form-group">
@@ -35,8 +35,8 @@
 			<label class="group-name" for="website"><?php echo _t('website_url'); ?></label>
 			<div class="group-controls">
 				<div class="stick">
-					<input type="text" name="website" id="website" class="extend" value="<?php echo $this->feed->website (); ?>" />
-					<a class="btn" target="_blank" href="<?php echo $this->feed->website (); ?>"><?php echo _i('link'); ?></a>
+					<input type="text" name="website" id="website" class="extend" value="<?php echo $this->feed->website(); ?>" />
+					<a class="btn" target="_blank" href="<?php echo $this->feed->website(); ?>"><?php echo _i('link'); ?></a>
 				</div>
 			</div>
 		</div>
@@ -44,11 +44,11 @@
 			<label class="group-name" for="url"><?php echo _t('feed_url'); ?></label>
 			<div class="group-controls">
 				<div class="stick">
-					<input type="text" name="url" id="url" class="extend" value="<?php echo $this->feed->url (); ?>" />
-					<a class="btn" target="_blank" href="<?php echo $this->feed->url (); ?>"><?php echo _i('link'); ?></a>
+					<input type="text" name="url" id="url" class="extend" value="<?php echo $this->feed->url(); ?>" />
+					<a class="btn" target="_blank" href="<?php echo $this->feed->url(); ?>"><?php echo _i('link'); ?></a>
 				</div>
 
-				<a class="btn" target="_blank" href="http://validator.w3.org/feed/check.cgi?url=<?php echo $this->feed->url (); ?>"><?php echo _t('feed_validator'); ?></a>
+				<a class="btn" target="_blank" href="http://validator.w3.org/feed/check.cgi?url=<?php echo $this->feed->url(); ?>"><?php echo _t('feed_validator'); ?></a>
 			</div>
 		</div>
 		<div class="form-group">
@@ -56,8 +56,8 @@
 			<div class="group-controls">
 				<select name="category" id="category">
 				<?php foreach ($this->categories as $cat) { ?>
-				<option value="<?php echo $cat->id (); ?>"<?php echo $cat->id ()== $this->feed->category () ? ' selected="selected"' : ''; ?>>
-					<?php echo $cat->name (); ?>
+				<option value="<?php echo $cat->id(); ?>"<?php echo $cat->id()== $this->feed->category() ? ' selected="selected"' : ''; ?>>
+					<?php echo $cat->name(); ?>
 				</option>
 				<?php } ?>
 				</select>
@@ -67,7 +67,7 @@
 			<label class="group-name" for="priority"><?php echo _t('show_in_all_flux'); ?></label>
 			<div class="group-controls">
 				<label class="checkbox" for="priority">
-					<input type="checkbox" name="priority" id="priority" value="10"<?php echo $this->feed->priority () > 0 ? ' checked="checked"' : ''; ?> />
+					<input type="checkbox" name="priority" id="priority" value="10"<?php echo $this->feed->priority() > 0 ? ' checked="checked"' : ''; ?> />
 					<?php echo _t('yes'); ?>
 				</label>
 			</div>
@@ -78,7 +78,7 @@
 				<button class="btn btn-important"><?php echo _t('save'); ?></button>
 				<button class="btn btn-attention confirm"
 				        data-str-confirm="<?php echo _t('confirm_action_feed_cat'); ?>"
-				        formaction="<?php echo _url('feed', 'delete', 'id', $this->feed->id ()); ?>"
+				        formaction="<?php echo _url('feed', 'delete', 'id', $this->feed->id()); ?>"
 				        formmethod="post"><?php echo _t('delete'); ?></button>
 			</div>
 		</div>
@@ -89,7 +89,7 @@
 			<div class="group-controls">
 				<div class="stick">
 					<input type="text" value="<?php echo _t('number_articles', $nbEntries); ?>" disabled="disabled" />
-					<a class="btn" href="<?php echo _url('feed', 'actualize', 'id', $this->feed->id ()); ?>">
+					<a class="btn" href="<?php echo _url('feed', 'actualize', 'id', $this->feed->id()); ?>">
 						<?php echo _i('refresh'); ?> <?php echo _t('actualize'); ?>
 					</a>
 				</div>
@@ -129,12 +129,12 @@
 		<div class="form-group form-actions">
 			<div class="group-controls">
 				<button class="btn btn-important"><?php echo _t('save'); ?></button>
-				<button class="btn btn-attention confirm" formmethod="post" formaction="<?php echo Minz_Url::display (array ('c' => 'feed', 'a' => 'truncate', 'params' => array ('id' => $this->feed->id ()))); ?>"><?php echo _t('truncate'); ?></button>
+				<button class="btn btn-attention confirm" formmethod="post" formaction="<?php echo _url('feed', 'truncate', 'id', $this->feed->id()); ?>"><?php echo _t('truncate'); ?></button>
 			</div>
 		</div>
 
 		<legend><?php echo _t('login_configuration'); ?></legend>
-		<?php $auth = $this->feed->httpAuth (false); ?>
+		<?php $auth = $this->feed->httpAuth(false); ?>
 		<div class="form-group">
 			<label class="group-name" for="http_user"><?php echo _t('http_username'); ?></label>
 			<div class="group-controls">
@@ -159,7 +159,7 @@
 		<div class="form-group">
 			<label class="group-name" for="path_entries"><?php echo _t('css_path_on_website'); ?></label>
 			<div class="group-controls">
-				<input type="text" name="path_entries" id="path_entries" class="extend" value="<?php echo $this->feed->pathEntries (); ?>" placeholder="<?php echo _t('blank_to_disable'); ?>" />
+				<input type="text" name="path_entries" id="path_entries" class="extend" value="<?php echo $this->feed->pathEntries(); ?>" placeholder="<?php echo _t('blank_to_disable'); ?>" />
 				<?php echo _i('help'); ?> <?php echo _t('retrieve_truncated_feeds'); ?>
 			</div>
 		</div>

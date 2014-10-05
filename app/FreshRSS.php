@@ -88,7 +88,7 @@ class FreshRSS extends Minz_FrontController {
 
 		try {
 			$this->conf = new FreshRSS_Configuration($currentUser);
-			Minz_View::_param ('conf', $this->conf);
+			Minz_View::_param('conf', $this->conf);
 			Minz_Session::_param('currentUser', $currentUser);
 		} catch (Minz_Exception $me) {
 			$loginOk = false;
@@ -100,8 +100,8 @@ class FreshRSS extends Minz_FrontController {
 					'type' => 'bad',
 					'content' => 'Invalid configuration for user [' . $currentUser . ']!',
 				);
-				Minz_Session::_param ('notification', $notif);
-				Minz_Log::record ($notif['content'] . ' ' . $me->getMessage(), Minz_Log::WARNING);
+				Minz_Session::_param('notification', $notif);
+				Minz_Log::record($notif['content'] . ' ' . $me->getMessage(), Minz_Log::WARNING);
 				Minz_Session::_param('currentUser', '');
 			} catch (Exception $e) {
 				die($e->getMessage());
@@ -130,13 +130,13 @@ class FreshRSS extends Minz_FrontController {
 		return $loginOk;
 	}
 
-	private function loadParamsView () {
-		Minz_Session::_param ('language', $this->conf->language);
+	private function loadParamsView() {
+		Minz_Session::_param('language', $this->conf->language);
 		Minz_Translate::init();
-		$output = Minz_Request::param ('output', '');
+		$output = Minz_Request::param('output', '');
 		if (($output === '') || ($output !== 'normal' && $output !== 'rss' && $output !== 'reader' && $output !== 'global')) {
 			$output = $this->conf->view_mode;
-			Minz_Request::_param ('output', $output);
+			Minz_Request::_param('output', $output);
 		}
 	}
 
@@ -161,7 +161,7 @@ class FreshRSS extends Minz_FrontController {
 		switch (Minz_Configuration::authType()) {
 			case 'form':
 				if (!$loginOk) {
-					Minz_View::appendScript(Minz_Url::display ('/scripts/bcrypt.min.js?' . @filemtime(PUBLIC_PATH . '/scripts/bcrypt.min.js')));
+					Minz_View::appendScript(Minz_Url::display('/scripts/bcrypt.min.js?' . @filemtime(PUBLIC_PATH . '/scripts/bcrypt.min.js')));
 				}
 				break;
 			case 'persona':
@@ -173,11 +173,11 @@ class FreshRSS extends Minz_FrontController {
 		Minz_View::appendScript(Minz_Url::display('/scripts/main.js?' . @filemtime(PUBLIC_PATH . '/scripts/main.js')));
 	}
 
-	private function loadNotifications () {
-		$notif = Minz_Session::param ('notification');
+	private function loadNotifications() {
+		$notif = Minz_Session::param('notification');
 		if ($notif) {
-			Minz_View::_param ('notification', $notif);
-			Minz_Session::_param ('notification');
+			Minz_View::_param('notification', $notif);
+			Minz_Session::_param('notification');
 		}
 	}
 
