@@ -20,6 +20,9 @@ if (isset($_GET['j'])) {
 	header('Content-Type: text/css; charset=UTF-8');
 	header('Content-Disposition: inline; filename="style.css"');
 	$filename .= 'style.css';
+} else {
+	header('HTTP/1.1 400 Bad Request');
+	die();
 }
 
 $mtime = @filemtime($filename);
