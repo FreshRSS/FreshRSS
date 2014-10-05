@@ -92,18 +92,18 @@ class Minz_ModelPdo {
 
 	public function beginTransaction() {
 		$this->bd->beginTransaction();
-		$this->has_transaction = true;
+		self::$has_transaction = true;
 	}
 	public function hasTransaction() {
-		return $this->has_transaction;
+		return self::$has_transaction;
 	}
 	public function commit() {
 		$this->bd->commit();
-		$this->has_transaction = false;
+		self::$has_transaction = false;
 	}
 	public function rollBack() {
 		$this->bd->rollBack();
-		$this->has_transaction = false;
+		self::$has_transaction = false;
 	}
 
 	public static function clean() {
