@@ -1,11 +1,11 @@
 <?php
 
 class FreshRSS_javascript_Controller extends Minz_ActionController {
-	public function firstAction () {
-		$this->view->_useLayout (false);
+	public function firstAction() {
+		$this->view->_useLayout(false);
 	}
 
-	public function actualizeAction () {
+	public function actualizeAction() {
 		header('Content-Type: text/javascript; charset=UTF-8');
 		$feedDAO = FreshRSS_Factory::createFeedDao();
 		$this->view->feeds = $feedDAO->listFeedsOrderUpdate($this->view->conf->ttl_default);

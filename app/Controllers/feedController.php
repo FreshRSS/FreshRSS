@@ -1,27 +1,27 @@
 <?php
 
 class FreshRSS_feed_Controller extends Minz_ActionController {
-	public function firstAction () {
+	public function firstAction() {
 		if (!$this->view->loginOk) {
 			// Token is useful in the case that anonymous refresh is forbidden
 			// and CRON task cannot be used with php command so the user can
 			// set a CRON task to refresh his feeds by using token inside url
 			$token = $this->view->conf->token;
-			$token_param = Minz_Request::param ('token', '');
+			$token_param = Minz_Request::param('token', '');
 			$token_is_ok = ($token != '' && $token == $token_param);
-			$action = Minz_Request::actionName ();
+			$action = Minz_Request::actionName();
 			if (!(($token_is_ok || Minz_Configuration::allowAnonymousRefresh()) &&
 				$action === 'actualize')
 			) {
-				Minz_Error::error (
+				Minz_Error::error(
 					403,
-					array ('error' => array (_t('access_denied')))
+					array('error' => array(_t('access_denied')))
 				);
 			}
 		}
 	}
 
-	public function addAction () {
+	public function addAction() {
 		$url = Minz_Request::param('url_rss', false);
 
 		if ($url === false) {
@@ -32,16 +32,16 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 		}
 
 		$feedDAO = FreshRSS_Factory::createFeedDao();
-		$this->catDAO = new FreshRSS_CategoryDAO ();
-		$this->catDAO->checkDefault ();
+		$this->catDAO = new FreshRSS_CategoryDAO();
+		$this->catDAO->checkDefault();
 
 		if (Minz_Request::isPost()) {
 			@set_time_limit(300);
 
 
-			$cat = Minz_Request::param ('category', false);
+			$cat = Minz_Request::param('category', false);
 			if ($cat === 'nc') {
-				$new_cat = Minz_Request::param ('new_category');
+				$new_cat = Minz_Request::param('new_category');
 				if (empty($new_cat['name'])) {
 					$cat = false;
 				} else {
@@ -49,55 +49,55 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 				}
 			}
 			if ($cat === false) {
-				$def_cat = $this->catDAO->getDefault ();
-				$cat = $def_cat->id ();
+				$def_cat = $this->catDAO->getDefault();
+				$cat = $def_cat->id();
 			}
 
-			$user = Minz_Request::param ('http_user');
-			$pass = Minz_Request::param ('http_pass');
-			$params = array ();
+			$user = Minz_Request::param('http_user');
+			$pass = Minz_Request::param('http_pass');
+			$params = array();
 
 			$transactionStarted = false;
 			try {
-				$feed = new FreshRSS_Feed ($url);
-				$feed->_category ($cat);
+				$feed = new FreshRSS_Feed($url);
+				$feed->_category($cat);
 
 				$httpAuth = '';
 				if ($user != '' || $pass != '') {
 					$httpAuth = $user . ':' . $pass;
 				}
-				$feed->_httpAuth ($httpAuth);
+				$feed->_httpAuth($httpAuth);
 
 				$feed->load(true);
 
-				$values = array (
-					'url' => $feed->url (),
-					'category' => $feed->category (),
-					'name' => $feed->name (),
-					'website' => $feed->website (),
-					'description' => $feed->description (),
-					'lastUpdate' => time (),
-					'httpAuth' => $feed->httpAuth (),
+				$values = array(
+					'url' => $feed->url(),
+					'category' => $feed->category(),
+					'name' => $feed->name(),
+					'website' => $feed->website(),
+					'description' => $feed->description(),
+					'lastUpdate' => time(),
+					'httpAuth' => $feed->httpAuth(),
 				);
 
-				if ($feedDAO->searchByUrl ($values['url'])) {
+				if ($feedDAO->searchByUrl($values['url'])) {
 					// on est déjà abonné à ce flux
-					$notif = array (
+					$notif = array(
 						'type' => 'bad',
-						'content' => _t('already_subscribed', $feed->name ())
+						'content' => _t('already_subscribed', $feed->name())
 					);
-					Minz_Session::_param ('notification', $notif);
+					Minz_Session::_param('notification', $notif);
 				} else {
-					$id = $feedDAO->addFeed ($values);
+					$id = $feedDAO->addFeed($values);
 					if (!$id) {
 						// problème au niveau de la base de données
-						$notif = array (
+						$notif = array(
 							'type' => 'bad',
-							'content' => _t('feed_not_added', $feed->name ())
+							'content' => _t('feed_not_added', $feed->name())
 						);
-						Minz_Session::_param ('notification', $notif);
+						Minz_Session::_param('notification', $notif);
 					} else {
-						$feed->_id ($id);
+						$feed->_id($id);
 						$feed->faviconPrepare();
 
 						$is_read = $this->view->conf->mark_when['reception'] ? 1 : 0;
@@ -107,7 +107,7 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 
 						// on calcule la date des articles les plus anciens qu'on accepte
 						$nb_month_old = $this->view->conf->old_entries;
-						$date_min = time () - (3600 * 24 * 30 * $nb_month_old);
+						$date_min = time() - (3600 * 24 * 30 * $nb_month_old);
 
 						//MySQL: http://docs.oracle.com/cd/E17952_01/refman-5.5-en/optimizing-innodb-transaction-management.html
 						//SQLite: http://stackoverflow.com/questions/1711631/how-do-i-improve-the-performance-of-sqlite
@@ -129,44 +129,50 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 						$transactionStarted = false;
 
 						// ok, ajout terminé
-						$notif = array (
+						$notif = array(
 							'type' => 'good',
-							'content' => _t('feed_added', $feed->name ())
+							'content' => _t('feed_added', $feed->name())
 						);
-						Minz_Session::_param ('notification', $notif);
+						Minz_Session::_param('notification', $notif);
 
 						// permet de rediriger vers la page de conf du flux
-						$params['id'] = $feed->id ();
+						$params['id'] = $feed->id();
 					}
 				}
 			} catch (FreshRSS_BadUrl_Exception $e) {
-				Minz_Log::record ($e->getMessage (), Minz_Log::WARNING);
-				$notif = array (
+				Minz_Log::record($e->getMessage(), Minz_Log::WARNING);
+				$notif = array(
 					'type' => 'bad',
 					'content' => _t('invalid_url', $url)
 				);
-				Minz_Session::_param ('notification', $notif);
+				Minz_Session::_param('notification', $notif);
 			} catch (FreshRSS_Feed_Exception $e) {
-				Minz_Log::record ($e->getMessage (), Minz_Log::WARNING);
-				$notif = array (
+				Minz_Log::record($e->getMessage(), Minz_Log::WARNING);
+				$notif = array(
 					'type' => 'bad',
-					'content' => _t('internal_problem_feed', Minz_Url::display(array('a' => 'logs')))
+					'content' => _t('internal_problem_feed',
+					                Minz_Url::display(array('a' => 'logs')))
 				);
-				Minz_Session::_param ('notification', $notif);
+				Minz_Session::_param('notification', $notif);
 			} catch (Minz_FileNotExistException $e) {
 				// Répertoire de cache n'existe pas
-				Minz_Log::record ($e->getMessage (), Minz_Log::ERROR);
-				$notif = array (
+				Minz_Log::record($e->getMessage(), Minz_Log::ERROR);
+				$notif = array(
 					'type' => 'bad',
-					'content' => _t('internal_problem_feed', Minz_Url::display(array('a' => 'logs')))
+					'content' => _t('internal_problem_feed',
+					                Minz_Url::display(array('a' => 'logs')))
 				);
-				Minz_Session::_param ('notification', $notif);
+				Minz_Session::_param('notification', $notif);
 			}
 			if ($transactionStarted) {
-				$feedDAO->rollBack ();
+				$feedDAO->rollBack();
 			}
 
-			Minz_Request::forward (array ('c' => 'subscription', 'a' => 'index', 'params' => $params), true);
+			Minz_Request::forward(array(
+				'c' => 'subscription',
+				'a' => 'index',
+				'params' => $params
+			), true);
 		} else {
 
 			// GET request so we must ask confirmation to user
@@ -201,41 +207,43 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 		}
 	}
 
-	public function truncateAction () {
-		if (Minz_Request::isPost ()) {
-			$id = Minz_Request::param ('id');
+	public function truncateAction() {
+		if (Minz_Request::isPost()) {
+			$id = Minz_Request::param('id');
 			$feedDAO = FreshRSS_Factory::createFeedDao();
 			$n = $feedDAO->truncate($id);
 			$notif = array(
 				'type' => $n === false ? 'bad' : 'good',
 				'content' => _t('n_entries_deleted', $n)
 			);
-			Minz_Session::_param ('notification', $notif);
+			Minz_Session::_param('notification', $notif);
 			invalidateHttpCache();
-			Minz_Request::forward (array ('c' => 'subscription',
-			                              'a' => 'index',
-			                              'params' => array('id' => $id)), true);
+			Minz_Request::forward(array(
+				'c' => 'subscription',
+				'a' => 'index',
+				'params' => array('id' => $id)
+			), true);
 		}
 	}
 
-	public function actualizeAction () {
+	public function actualizeAction() {
 		@set_time_limit(300);
 
 		$feedDAO = FreshRSS_Factory::createFeedDao();
 		$entryDAO = FreshRSS_Factory::createEntryDao();
 
 		Minz_Session::_param('actualize_feeds', false);
-		$id = Minz_Request::param ('id');
-		$force = Minz_Request::param ('force', false);
+		$id = Minz_Request::param('id');
+		$force = Minz_Request::param('force', false);
 
 		// on créé la liste des flux à mettre à actualiser
 		// si on veut mettre un flux à jour spécifiquement, on le met
 		// dans la liste, mais seul (permet d'automatiser le traitement)
-		$feeds = array ();
+		$feeds = array();
 		if ($id) {
-			$feed = $feedDAO->searchById ($id);
+			$feed = $feedDAO->searchById($id);
 			if ($feed) {
-				$feeds = array ($feed);
+				$feeds = array($feed);
 			}
 		} else {
 			$feeds = $feedDAO->listFeedsOrderUpdate($this->view->conf->ttl_default);
@@ -243,7 +251,7 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 
 		// on calcule la date des articles les plus anciens qu'on accepte
 		$nb_month_old = max($this->view->conf->old_entries, 1);
-		$date_min = time () - (3600 * 24 * 30 * $nb_month_old);
+		$date_min = time() - (3600 * 24 * 30 * $nb_month_old);
 
 		$i = 0;
 		$flux_update = 0;
@@ -263,7 +271,9 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 
 				if (count($entries) > 0) {
 					//For this feed, check last n entry GUIDs already in database
-					$existingGuids = array_fill_keys ($entryDAO->listLastGuidsByFeed ($feed->id (), count($entries) + 10), 1);
+					$existingGuids = array_fill_keys(
+						$entryDAO->listLastGuidsByFeed($feed->id(),
+						                               count($entries) + 10), 1);
 					$useDeclaredDate = empty($existingGuids);
 
 					if ($feedHistory == -2) {	//default
@@ -295,14 +305,14 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 					if (!$hasTransaction) {
 						$feedDAO->beginTransaction();
 					}
-					$nb = $feedDAO->cleanOldEntries ($feed->id (), $date_min, max($feedHistory, count($entries) + 10));
+					$nb = $feedDAO->cleanOldEntries($feed->id(), $date_min, max($feedHistory, count($entries) + 10));
 					if ($nb > 0) {
-						Minz_Log::record ($nb . ' old entries cleaned in feed [' . $feed->url() . ']', Minz_Log::DEBUG);
+						Minz_Log::record($nb . ' old entries cleaned in feed [' . $feed->url() . ']', Minz_Log::DEBUG);
 					}
 				}
 
 				// on indique que le flux vient d'être mis à jour en BDD
-				$feedDAO->updateLastUpdate ($feed->id (), 0, $hasTransaction);
+				$feedDAO->updateLastUpdate($feed->id(), 0, $hasTransaction);
 				if ($hasTransaction) {
 					$feedDAO->commit();
 				}
@@ -312,8 +322,8 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 					$feedDAO->updateFeed($feed->id(), array('url' => $feed->url()));
 				}
 			} catch (FreshRSS_Feed_Exception $e) {
-				Minz_Log::record ($e->getMessage (), Minz_Log::NOTICE);
-				$feedDAO->updateLastUpdate ($feed->id (), 1);
+				Minz_Log::record($e->getMessage(), Minz_Log::NOTICE);
+				$feedDAO->updateLastUpdate($feed->id(), 1);
 			}
 
 			$feed->faviconPrepare();
@@ -328,23 +338,23 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 			}
 		}
 
-		$url = array ();
+		$url = array();
 		if ($flux_update === 1) {
 			// on a mis un seul flux à jour
-			$feed = reset ($feeds);
-			$notif = array (
+			$feed = reset($feeds);
+			$notif = array(
 				'type' => 'good',
-				'content' => _t('feed_actualized', $feed->name ())
+				'content' => _t('feed_actualized', $feed->name())
 			);
 		} elseif ($flux_update > 1) {
 			// plusieurs flux on été mis à jour
-			$notif = array (
+			$notif = array(
 				'type' => 'good',
 				'content' => _t('n_feeds_actualized', $flux_update)
 			);
 		} else {
 			// aucun flux n'a été mis à jour, oups
-			$notif = array (
+			$notif = array(
 				'type' => 'good',
 				'content' => _t('no_feed_to_refresh')
 			);
@@ -353,26 +363,26 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 		if ($i === 1) {
 			// Si on a voulu mettre à jour qu'un flux
 			// on filtre l'affichage par ce flux
-			$feed = reset ($feeds);
-			$url['params'] = array ('get' => 'f_' . $feed->id ());
+			$feed = reset($feeds);
+			$url['params'] = array('get' => 'f_' . $feed->id());
 		}
 
-		if (Minz_Request::param ('ajax', 0) === 0) {
-			Minz_Session::_param ('notification', $notif);
-			Minz_Request::forward ($url, true);
+		if (Minz_Request::param('ajax', 0) === 0) {
+			Minz_Session::_param('notification', $notif);
+			Minz_Request::forward($url, true);
 		} else {
 			// Une requête Ajax met un seul flux à jour.
 			// Comme en principe plusieurs requêtes ont lieu,
 			// on indique que "plusieurs flux ont été mis à jour".
 			// Cela permet d'avoir une notification plus proche du
 			// ressenti utilisateur
-			$notif = array (
+			$notif = array(
 				'type' => 'good',
 				'content' => _t('feeds_actualized')
 			);
-			Minz_Session::_param ('notification', $notif);
+			Minz_Session::_param('notification', $notif);
 			// et on désactive le layout car ne sert à rien
-			$this->view->_useLayout (false);
+			$this->view->_useLayout(false);
 		}
 	}
 
