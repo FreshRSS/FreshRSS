@@ -18,6 +18,8 @@
 
 		<legend><?php echo Minz_Translate::t ('shortcuts_navigation'); ?></legend>
 
+		<p class="alert alert-warn"><?php echo Minz_Translate::t('shortcuts_navigation_help');?></p>
+
 		<div class="form-group">
 			<label class="group-name" for="next_entry"><?php echo Minz_Translate::t ('next_article'); ?></label>
 			<div class="group-controls">
@@ -45,8 +47,6 @@
 				<input type="text" id="last_entry" name="shortcuts[last_entry]" list="keys" value="<?php echo $s['last_entry']; ?>" />
 			</div>
 		</div>
-
-		<div><?php echo Minz_Translate::t ('shortcuts_navigation_help');?></div>
 
 		<legend><?php echo Minz_Translate::t ('shortcuts_article_action');?></legend>
 
