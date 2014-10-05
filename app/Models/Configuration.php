@@ -140,18 +140,18 @@ class FreshRSS_Configuration {
 		}
 		$this->data['language'] = $value;
 	}
-	public function _posts_per_page ($value) {
+	public function _posts_per_page($value) {
 		$value = intval($value);
 		$this->data['posts_per_page'] = $value > 0 ? $value : 10;
 	}
-	public function _view_mode ($value) {
+	public function _view_mode($value) {
 		if ($value === 'global' || $value === 'reader') {
 			$this->data['view_mode'] = $value;
 		} else {
 			$this->data['view_mode'] = 'normal';
 		}
 	}
-	public function _default_view ($value) {
+	public function _default_view($value) {
 		switch ($value) {
 		case FreshRSS_Entry::STATE_ALL:
 			// left blank on purpose
@@ -165,19 +165,19 @@ class FreshRSS_Configuration {
 			break;
 		}
 	}
-	public function _display_posts ($value) {
+	public function _display_posts($value) {
 		$this->data['display_posts'] = ((bool)$value) && $value !== 'no';
 	}
-	public function _display_categories ($value) {
+	public function _display_categories($value) {
 		$this->data['display_categories'] = ((bool)$value) && $value !== 'no';
 	}
 	public function _hide_read_feeds($value) {
 		$this->data['hide_read_feeds'] = (bool)$value;
 	}
-	public function _onread_jump_next ($value) {
+	public function _onread_jump_next($value) {
 		$this->data['onread_jump_next'] = ((bool)$value) && $value !== 'no';
 	}
-	public function _lazyload ($value) {
+	public function _lazyload($value) {
 		$this->data['lazyload'] = ((bool)$value) && $value !== 'no';
 	}
 	public function _sticky_post($value) {
@@ -186,7 +186,7 @@ class FreshRSS_Configuration {
 	public function _reading_confirm($value) {
 		$this->data['reading_confirm'] = ((bool)$value) && $value !== 'no';
 	}
-	public function _sort_order ($value) {
+	public function _sort_order($value) {
 		$this->data['sort_order'] = $value === 'ASC' ? 'ASC' : 'DESC';
 	}
 	public function _old_entries($value) {
@@ -201,20 +201,20 @@ class FreshRSS_Configuration {
 		$value = intval($value);
 		$this->data['ttl_default'] = $value >= -1 ? $value : 3600;
 	}
-	public function _shortcuts ($values) {
+	public function _shortcuts($values) {
 		foreach ($values as $key => $value) {
 			if (isset($this->data['shortcuts'][$key])) {
 				$this->data['shortcuts'][$key] = $value;
 			}
 		}
 	}
-	public function _passwordHash ($value) {
+	public function _passwordHash($value) {
 		$this->data['passwordHash'] = ctype_graph($value) && (strlen($value) >= 60) ? $value : '';
 	}
-	public function _apiPasswordHash ($value) {
+	public function _apiPasswordHash($value) {
 		$this->data['apiPasswordHash'] = ctype_graph($value) && (strlen($value) >= 60) ? $value : '';
 	}
-	public function _mail_login ($value) {
+	public function _mail_login($value) {
 		$value = filter_var($value, FILTER_VALIDATE_EMAIL);
 		if ($value) {
 			$this->data['mail_login'] = $value;
@@ -222,17 +222,17 @@ class FreshRSS_Configuration {
 			$this->data['mail_login'] = '';
 		}
 	}
-	public function _anon_access ($value) {
+	public function _anon_access($value) {
 		$this->data['anon_access'] = ((bool)$value) && $value !== 'no';
 	}
-	public function _mark_when ($values) {
+	public function _mark_when($values) {
 		foreach ($values as $key => $value) {
 			if (isset($this->data['mark_when'][$key])) {
 				$this->data['mark_when'][$key] = ((bool)$value) && $value !== 'no';
 			}
 		}
 	}
-	public function _sharing ($values) {
+	public function _sharing($values) {
 		$this->data['sharing'] = array();
 		$unique = array();
 		foreach ($values as $value) {
@@ -243,7 +243,7 @@ class FreshRSS_Configuration {
 			// Verify URL and add default value when needed
 			if (isset($value['url'])) {
 				$is_url = (
-					filter_var ($value['url'], FILTER_VALIDATE_URL) ||
+					filter_var($value['url'], FILTER_VALIDATE_URL) ||
 					(version_compare(PHP_VERSION, '5.3.3', '<') &&
 						(strpos($value, '-') > 0) &&
 						($value === filter_var($value, FILTER_SANITIZE_URL)))
@@ -267,7 +267,7 @@ class FreshRSS_Configuration {
 			}
 		}
 	}
-	public function _queries ($values) {
+	public function _queries($values) {
 		$this->data['queries'] = array();
 		foreach ($values as $value) {
 			$value = array_filter($value);
@@ -292,7 +292,7 @@ class FreshRSS_Configuration {
 		}
 	}
 	
-	public function _html5_notif_timeout ($value) {
+	public function _html5_notif_timeout($value) {
 		$value = intval($value);
 		$this->data['html5_notif_timeout'] = $value >= 0 ? $value : 0;
 	}

@@ -415,7 +415,7 @@ SQL;
 	 * @return string
 	 */
 	private function convertToTranslatedJson($data = array()) {
-		$translated = array_map(function ($a) {
+		$translated = array_map(function($a) {
 			return _t($a);
 		}, $data);
 

@@ -307,27 +307,27 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 		$joinFeed = false;
 		$values = array();
 		switch ($type) {
-			case 'a':
-				$where .= 'f.priority > 0 ';
-				$joinFeed = true;
-				break;
-			case 's':	//Deprecated: use $state instead
-				$where .= 'e1.is_favorite=1 ';
-				break;
-			case 'c':
-				$where .= 'f.category=? ';
-				$values[] = intval($id);
-				$joinFeed = true;
-				break;
-			case 'f':
-				$where .= 'e1.id_feed=? ';
-				$values[] = intval($id);
-				break;
-			case 'A':
-				$where .= '1 ';
-				break;
-			default:
-				throw new FreshRSS_EntriesGetter_Exception('Bad type in Entry->listByType: [' . $type . ']!');
+		case 'a':
+			$where .= 'f.priority > 0 ';
+			$joinFeed = true;
+			break;
+		case 's':	//Deprecated: use $state instead
+			$where .= 'e1.is_favorite=1 ';
+			break;
+		case 'c':
+			$where .= 'f.category=? ';
+			$values[] = intval($id);
+			$joinFeed = true;
+			break;
+		case 'f':
+			$where .= 'e1.id_feed=? ';
+			$values[] = intval($id);
+			break;
+		case 'A':
+			$where .= '1 ';
+			break;
+		default:
+			throw new FreshRSS_EntriesGetter_Exception('Bad type in Entry->listByType: [' . $type . ']!');
 		}
 
 		if ($state & FreshRSS_Entry::STATE_NOT_READ) {
