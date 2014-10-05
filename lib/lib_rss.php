@@ -110,6 +110,7 @@ function customSimplePie() {
 	$simplePie->set_useragent(_t('freshrss') . '/' . FRESHRSS_VERSION . ' (' . PHP_OS . '; ' . FRESHRSS_WEBSITE . ') ' . SIMPLEPIE_NAME . '/' . SIMPLEPIE_VERSION);
 	$simplePie->set_cache_location(CACHE_PATH);
 	$simplePie->set_cache_duration(800);
+	$simplePie->set_timeout(10);	//TODO: Make a user setting
 	$simplePie->strip_htmltags(array(
 		'base', 'blink', 'body', 'doctype', 'embed',
 		'font', 'form', 'frame', 'frameset', 'html',
