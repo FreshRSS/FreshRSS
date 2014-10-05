@@ -19,8 +19,8 @@
 		<a href="<?php echo _url('configure', 'queries'); ?>"><?php echo _t('queries'); ?></a>
 	</li>
 	<li class="separator"></li>
-	<li class="item<?php echo Minz_Request::actionName() === 'users' ? ' active' : ''; ?>">
-		<a href="<?php echo _url('configure', 'users'); ?>"><?php echo _t('users'); ?></a>
+	<li class="item<?php echo Minz_Request::controllerName() === 'users' ? ' active' : ''; ?>">
+		<a href="<?php echo _url('users', 'index'); ?>"><?php echo _t('users'); ?></a>
 	</li>
 	<?php
 		$current_user = Minz_Session::param('currentUser', '');

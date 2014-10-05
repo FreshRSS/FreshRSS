@@ -168,11 +168,11 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 	 */
 	public function shortcutAction() {
 		$list_keys = array('a', 'b', 'backspace', 'c', 'd', 'delete', 'down', 'e', 'end', 'enter',
-		                    'escape', 'f', 'g', 'h', 'home', 'i', 'insert', 'j', 'k', 'l', 'left',
-		                    'm', 'n', 'o', 'p', 'page_down', 'page_up', 'q', 'r', 'return', 'right',
-		                    's', 'space', 't', 'tab', 'u', 'up', 'v', 'w', 'x', 'y',
-		                    'z', 'f1', 'f2', 'f3', 'f4', 'f5', 'f6', 'f7', 'f8', 'f9',
-		                    'f10', 'f11', 'f12');
+		                   'escape', 'f', 'g', 'h', 'home', 'i', 'insert', 'j', 'k', 'l', 'left',
+		                   'm', 'n', 'o', 'p', 'page_down', 'page_up', 'q', 'r', 'return', 'right',
+		                   's', 'space', 't', 'tab', 'u', 'up', 'v', 'w', 'x', 'y',
+		                   'z', 'f1', 'f2', 'f3', 'f4', 'f5', 'f6', 'f7', 'f8', 'f9',
+		                   'f10', 'f11', 'f12');
 		$this->view->list_keys = $list_keys;
 
 		if (Minz_Request::isPost()) {
@@ -194,15 +194,6 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 		}
 
 		Minz_View::prependTitle(_t('shortcuts') . ' · ');
-	}
-
-	/**
-	 * This action display the user configuration page
-	 *
-	 * @todo move that action in the user controller
-	 */
-	public function usersAction() {
-		Minz_View::prependTitle(_t('users') . ' · ');
 	}
 
 	/**

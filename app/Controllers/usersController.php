@@ -13,6 +13,13 @@ class FreshRSS_users_Controller extends Minz_ActionController {
 		}
 	}
 
+	/**
+	 * This action display the user configuration page
+	 */
+	public function indexAction() {
+		Minz_View::prependTitle(_t('users') . ' · ');
+	}
+
 	public function authAction() {
 		if (Minz_Request::isPost()) {
 			$ok = true;
@@ -94,7 +101,7 @@ class FreshRSS_users_Controller extends Minz_ActionController {
 			);
 			Minz_Session::_param('notification', $notif);
 		}
-		Minz_Request::forward(array('c' => 'configure', 'a' => 'users'), true);
+		Minz_Request::forward(array('c' => 'users', 'a' => 'index'), true);
 	}
 
 	public function createAction() {
@@ -166,7 +173,7 @@ class FreshRSS_users_Controller extends Minz_ActionController {
 			);
 			Minz_Session::_param('notification', $notif);
 		}
-		Minz_Request::forward(array('c' => 'configure', 'a' => 'users'), true);
+		Minz_Request::forward(array('c' => 'users', 'a' => 'index'), true);
 	}
 
 	public function deleteAction() {
@@ -198,6 +205,6 @@ class FreshRSS_users_Controller extends Minz_ActionController {
 			);
 			Minz_Session::_param('notification', $notif);
 		}
-		Minz_Request::forward(array('c' => 'configure', 'a' => 'users'), true);
+		Minz_Request::forward(array('c' => 'users', 'a' => 'index'), true);
 	}
 }

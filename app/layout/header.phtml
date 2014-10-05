@@ -74,7 +74,7 @@ if (Minz_Configuration::canLogIn()) {
 				<li class="item"><a href="<?php echo _url('configure', 'shortcut'); ?>"><?php echo _t('shortcuts'); ?></a></li>
 				<li class="item"><a href="<?php echo _url('configure', 'queries'); ?>"><?php echo _t('queries'); ?></a></li>
 				<li class="separator"></li>
-				<li class="item"><a href="<?php echo _url('configure', 'users'); ?>"><?php echo _t('users'); ?></a></li>
+				<li class="item"><a href="<?php echo _url('users', 'index'); ?>"><?php echo _t('users'); ?></a></li>
 				<?php
 					$current_user = Minz_Session::param('currentUser', '');
 					if (Minz_Configuration::isAdmin($current_user)) {
