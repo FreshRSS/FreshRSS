@@ -332,7 +332,7 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 			}
 
 			if ($feed_history >= 0 && rand(0, 30) === 1) {
-				// TODO: move this function in web cron when available
+				// TODO: move this function in web cron when available (see entry::purge)
 				// Remove old entries once in 30.
 				if (!$feedDAO->hasTransaction()) {
 					$feedDAO->beginTransaction();
