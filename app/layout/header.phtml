@@ -1,22 +1,11 @@
 <?php
 if (Minz_Configuration::canLogIn()) {
 	?><ul class="nav nav-head nav-login"><?php
-	switch (Minz_Configuration::authType()) {
-	case 'form':
-		if ($this->loginOk) {
-			?><li class="item"><?php echo _i('logout'); ?> <a class="signout" href="<?php echo _url('index', 'formLogout'); ?>"><?php echo _t('logout'); ?></a></li><?php
+		if (FreshRSS_Auth::hasAccess()) {
+			?><li class="item"><?php echo _i('logout'); ?> <a class="signout" href="<?php echo _url('index', 'logout'); ?>"><?php echo _t('logout'); ?></a></li><?php
 		} else {
-			?><li class="item"><?php echo _i('login'); ?> <a class="signin" href="<?php echo _url('index', 'formLogin'); ?>"><?php echo _t('login'); ?></a></li><?php
+			?><li class="item"><?php echo _i('login'); ?> <a class="signin" href="<?php echo _url('index', 'login'); ?>"><?php echo _t('login'); ?></a></li><?php
 		}
-		break;
-	case 'persona':
-		if ($this->loginOk) {
-			?><li class="item"><?php echo _i('logout'); ?> <a class="signout" href="#"><?php echo _t('logout'); ?></a></li><?php
-		} else {
-			?><li class="item"><?php echo _i('login'); ?> <a class="signin" href="#"><?php echo _t('login'); ?></a></li><?php
-		}
-		break;
-	}
 	?></ul><?php
 }
 ?>
@@ -32,7 +21,7 @@ if (Minz_Configuration::canLogIn()) {
 	</div>
 
 	<div class="item search">
-		<?php if ($this->loginOk || Minz_Configuration::allowAnonymous()) { ?>
+		<?php if (FreshRSS_Auth::hasAccess() || Minz_Configuration::allowAnonymous()) { ?>
 		<form action="<?php echo _url('index', 'index'); ?>" method="get">
 			<div class="stick">
 				<?php $search = Minz_Request::param('search', ''); ?>
@@ -59,7 +48,7 @@ if (Minz_Configuration::canLogIn()) {
 		<?php } ?>
 	</div>
 
-	<?php if ($this->loginOk) { ?>
+	<?php if (FreshRSS_Auth::hasAccess()) { ?>
 	<div class="item configure">
 		<div class="dropdown">
 			<div id="dropdown-configure" class="dropdown-target"></div>
@@ -87,15 +76,8 @@ if (Minz_Configuration::canLogIn()) {
 				<li class="item"><a href="<?php echo _url('index', 'about'); ?>"><?php echo _t('about'); ?></a></li>
 				<?php
 				if (Minz_Configuration::canLogIn()) {
-					?><li class="separator"></li><?php
-					switch (Minz_Configuration::authType()) {
-					case 'form':
-						?><li class="item"><a class="signout" href="<?php echo _url('index', 'formLogout'); ?>"><?php echo _i('logout'), ' ', _t('logout'); ?></a></li><?php
-						break;
-					case 'persona':
-						?><li class="item"><a class="signout" href="#"><?php echo _i('logout'), ' ', _t('logout'); ?></a></li><?php
-						break;
-					}
+					?><li class="separator"></li>
+				<li class="item"><a class="signout" href="<?php echo _url('index', 'logout'); ?>"><?php echo _i('logout'), ' ', _t('logout'); ?></a></li><?php
 				} ?>
 			</ul>
 		</div>

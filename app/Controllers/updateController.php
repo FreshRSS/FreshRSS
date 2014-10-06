@@ -3,7 +3,7 @@
 class FreshRSS_update_Controller extends Minz_ActionController {
 	public function firstAction() {
 		$current_user = Minz_Session::param('currentUser', '');
-		if (!$this->view->loginOk && Minz_Configuration::isAdmin($current_user)) {
+		if (!FreshRSS_Auth::hasAccess() && Minz_Configuration::isAdmin($current_user)) {
 			Minz_Error::error(
 				403,
 				array('error' => array(_t('access_denied')))
