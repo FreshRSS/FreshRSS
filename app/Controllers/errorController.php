@@ -1,8 +1,21 @@
 <?php
 
+/**
+ * Controller to handle error page.
+ */
 class FreshRSS_error_Controller extends Minz_ActionController {
+	/**
+	 * This action is the default one for the controller.
+	 *
+	 * It is called by Minz_Error::error() method.
+	 *
+	 * Parameters are:
+	 *   - code (default: 404)
+	 *   - logs (default: array())
+	 */
 	public function indexAction() {
-		switch (Minz_Request::param('code')) {
+		$code_int = Minz_Request::param('code', 404);
+		switch ($code_int) {
 		case 403:
 			$this->view->code = 'Error 403 - Forbidden';
 			break;
@@ -22,7 +35,7 @@ class FreshRSS_error_Controller extends Minz_ActionController {
 		$errors = Minz_Request::param('logs', array());
 		$this->view->errorMessage = trim(implode($errors));
 		if ($this->view->errorMessage == '') {
-			switch(Minz_Request::param('code')) {
+			switch($code_int) {
 			case 403:
 				$this->view->errorMessage = _t('forbidden_access');
 				break;
