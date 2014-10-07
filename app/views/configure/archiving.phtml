@@ -67,7 +67,7 @@
 			</div>
 		</div>
 
-		<?php if (Minz_Configuration::isAdmin(Minz_Session::param('currentUser', '_'))) { ?>
+		<?php if (FreshRSS_Auth::hasAccess('admin')) { ?>
 		<div class="form-group">
 			<p class="group-name"><?php echo _t('users'); ?></p>
 			<div class="group-controls">

@@ -51,7 +51,7 @@ class FreshRSS_users_Controller extends Minz_ActionController {
 				$this->view->conf->_apiPasswordHash($passwordHash);
 			}
 
-			if (Minz_Configuration::isAdmin(Minz_Session::param('currentUser', '_'))) {
+			if (FreshRSS_Auth::hasAccess('admin')) {
 				$this->view->conf->_mail_login(Minz_Request::param('mail_login', '', true));
 			}
 			$email = $this->view->conf->mail_login;
@@ -65,7 +65,7 @@ class FreshRSS_users_Controller extends Minz_ActionController {
 				$ok &= (file_put_contents($personaFile, Minz_Session::param('currentUser', '_')) !== false);
 			}
 
-			if (Minz_Configuration::isAdmin(Minz_Session::param('currentUser', '_'))) {
+			if (FreshRSS_Auth::hasAccess('admin')) {
 				$current_token = $this->view->conf->token;
 				$token = Minz_Request::param('token', $current_token);
 				$this->view->conf->_token($token);
@@ -105,7 +105,7 @@ class FreshRSS_users_Controller extends Minz_ActionController {
 	}
 
 	public function createAction() {
-		if (Minz_Request::isPost() && Minz_Configuration::isAdmin(Minz_Session::param('currentUser', '_'))) {
+		if (Minz_Request::isPost() && FreshRSS_Auth::hasAccess('admin')) {
 			$db = Minz_Configuration::dataBase();
 			require_once(APP_PATH . '/SQL/install.sql.' . $db['type'] . '.php');
 
@@ -177,7 +177,7 @@ class FreshRSS_users_Controller extends Minz_ActionController {
 	}
 
 	public function deleteAction() {
-		if (Minz_Request::isPost() && Minz_Configuration::isAdmin(Minz_Session::param('currentUser', '_'))) {
+		if (Minz_Request::isPost() && FreshRSS_Auth::hasAccess('admin')) {
 			$db = Minz_Configuration::dataBase();
 			require_once(APP_PATH . '/SQL/install.sql.' . $db['type'] . '.php');
 

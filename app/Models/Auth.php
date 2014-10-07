@@ -99,12 +99,23 @@ class FreshRSS_Auth {
 	}
 
 	/**
-	 * Returns if current user is connected.
+	 * Returns if current user has access to the given scope.
 	 *
-	 * @return boolean true if user is connected, false else.
+	 * @param string $scope general (default) or admin
+	 * @return boolean true if user has corresponding access, false else.
 	 */
-	public static function hasAccess() {
-		return self::$login_ok;
+	public static function hasAccess($scope = 'general') {
+		$ok = self::$login_ok;
+		switch ($scope) {
+		case 'general':
+			break;
+		case 'admin':
+			$ok &= Minz_Session::param('currentUser') === Minz_Configuration::defaultUser();
+			break;
+		default:
+			$ok = false;
+		}
+		return $ok;
 	}
 
 	/**
