@@ -179,4 +179,72 @@ class FreshRSS_auth_Controller extends Minz_ActionController {
 		Minz_Request::good(_t('disconnected'),
 		                   array('c' => 'index', 'a' => 'index'));
 	}
+
+	/**
+	 * This action resets the authentication system.
+	 *
+	 * After reseting, form auth is set by default.
+	 */
+	public function resetAction() {
+		Minz_View::prependTitle(_t('auth_reset') . ' · ');
+
+		Minz_View::appendScript(Minz_Url::display(
+			'/scripts/bcrypt.min.js?' . @filemtime(PUBLIC_PATH . '/scripts/bcrypt.min.js')
+		));
+
+		$this->view->no_form = false;
+		// Enable changement of auth only if Persona!
+		if (Minz_Configuration::authType() != 'persona') {
+			$this->view->message = array(
+				'status' => 'bad',
+				'title' => _t('damn'),
+				'body' => _t('auth_not_persona')
+			);
+			$this->view->no_form = true;
+			return;
+		}
+
+		$conf = new FreshRSS_Configuration(Minz_Configuration::defaultUser());
+		// Admin user must have set its master password.
+		if (!$conf->passwordHash) {
+			$this->view->message = array(
+				'status' => 'bad',
+				'title' => _t('damn'),
+				'body' => _t('auth_no_password_set')
+			);
+			$this->view->no_form = true;
+			return;
+		}
+
+		invalidateHttpCache();
+
+		if (Minz_Request::isPost()) {
+			$nonce = Minz_Session::param('nonce');
+			$username = Minz_Request::param('username', '');
+			$challenge = Minz_Request::param('challenge', '');
+
+			$ok = FreshRSS_FormAuth::checkCredentials(
+				$username, $conf->passwordHash, $nonce, $challenge
+			);
+
+			if ($ok) {
+				Minz_Configuration::_authType('form');
+				$ok = Minz_Configuration::writeFile();
+
+				if ($ok) {
+					Minz_Request::good(_t('auth_form_set'));
+				} else {
+					Minz_Request::bad(_t('auth_form_not_set'),
+				                      array('c' => 'auth', 'a' => 'reset'));
+				}
+			} else {
+				Minz_Log::warning('Password mismatch for' .
+				                  ' user=' . $username .
+				                  ', nonce=' . $nonce .
+				                  ', c=' . $challenge);
+				Minz_Request::bad(_t('invalid_login'),
+				                  array('c' => 'auth', 'a' => 'reset'));
+			}
+		}
+	}
 }
