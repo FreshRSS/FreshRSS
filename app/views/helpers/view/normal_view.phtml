@@ -7,7 +7,7 @@ if (!empty($this->entries)) {
 	$display_today = true;
 	$display_yesterday = true;
 	$display_others = true;
-	if ($this->loginOk) {
+	if (FreshRSS_Auth::hasAccess()) {
 		$sharing = $this->conf->sharing;
 	} else {
 		$sharing = array();
@@ -58,7 +58,7 @@ if (!empty($this->entries)) {
 		}
 	?><div class="flux<?php echo !$item->isRead() ? ' not_read' : ''; ?><?php echo $item->isFavorite() ? ' favorite' : ''; ?>" id="flux_<?php echo $item->id(); ?>">
 		<ul class="horizontal-list flux_header"><?php
-			if ($this->loginOk) {
+			if (FreshRSS_Auth::hasAccess()) {
 				if ($topline_read) {
 					?><li class="item manage"><?php
 						$arUrl = array('c' => 'entry', 'a' => 'read', 'params' => array('id' => $item->id()));
@@ -103,7 +103,7 @@ if (!empty($this->entries)) {
 				?>
 			</div>
 			<ul class="horizontal-list bottom"><?php
-				if ($this->loginOk) {
+				if (FreshRSS_Auth::hasAccess()) {
 					if ($bottomline_read) {
 						?><li class="item manage"><?php
 							$arUrl = array('c' => 'entry', 'a' => 'read', 'params' => array('id' => $item->id()));

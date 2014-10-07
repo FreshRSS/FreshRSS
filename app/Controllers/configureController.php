@@ -10,7 +10,7 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 	 * underlying framework.
 	 */
 	public function firstAction() {
-		if (!$this->view->loginOk) {
+		if (!FreshRSS_Auth::hasAccess()) {
 			Minz_Error::error(
 				403,
 				array('error' => array(_t('access_denied')))
@@ -229,7 +229,7 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 		$this->view->nb_total = $entryDAO->count();
 		$this->view->size_user = $entryDAO->size();
 
-		if (Minz_Configuration::isAdmin(Minz_Session::param('currentUser', '_'))) {
+		if (FreshRSS_Auth::hasAccess('admin')) {
 			$this->view->size_total = $entryDAO->size(true);
 		}
 	}

@@ -100,9 +100,6 @@ class Minz_Configuration {
 	public static function defaultUser () {
 		return self::$default_user;
 	}
-	public static function isAdmin($currentUser) {
-		return $currentUser === self::$default_user;
-	}
 	public static function allowAnonymous() {
 		return self::$allow_anonymous;
 	}

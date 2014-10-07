@@ -8,6 +8,15 @@ $hide_posts = ($this->conf->display_posts ||
                Minz_Request::param('output') === 'reader');
 $s = $this->conf->shortcuts;
 
+$url_login = Minz_Url::display(array(
+	'c' => 'auth',
+	'a' => 'login'
+), 'php');
+$url_logout = Minz_Url::display(array(
+	'c' => 'auth',
+	'a' => 'logout'
+), 'php');
+
 echo 'var context={',
 	'hide_posts:', $hide_posts ? 'false' : 'true', ',',
 	'display_order:"', Minz_Request::param('order', $this->conf->sort_order), '",',
@@ -43,8 +52,8 @@ echo 'shortcuts={',
 
 echo 'url={',
 	'index:"', _url('index', 'index'), '",',
-	'login:"', _url('index', 'login'), '",',
-	'logout:"', _url('index', 'logout'), '",',
+	'login:"', $url_login, '",',
+	'logout:"', $url_logout, '",',
 	'help:"', FRESHRSS_WIKI, '"',
 "},\n";
 

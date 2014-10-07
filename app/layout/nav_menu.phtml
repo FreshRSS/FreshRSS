@@ -6,7 +6,7 @@
 	<a class="btn toggle_aside" href="#aside_flux"><?php echo _i('category'); ?></a>
 	<?php } ?>
 
-	<?php if ($this->loginOk) { ?>
+	<?php if (FreshRSS_Auth::hasAccess()) { ?>
 	<div id="nav_menu_actions" class="stick">
 		<?php
 			$url_state = $this->url;
@@ -300,7 +300,7 @@
 		<?php echo _i($icon); ?>
 	</a>
 	
-	<?php if ($this->loginOk || Minz_Configuration::allowAnonymousRefresh()) { ?>
+	<?php if (FreshRSS_Auth::hasAccess() || Minz_Configuration::allowAnonymousRefresh()) { ?>
 	<a id="actualize" class="btn" href="<?php echo _url('feed', 'actualize'); ?>"><?php echo _i('refresh'); ?></a>
 	<?php } ?>
 </div>

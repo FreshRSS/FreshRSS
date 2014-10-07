@@ -12,7 +12,7 @@ class FreshRSS_category_Controller extends Minz_ActionController {
 	 *
 	 */
 	public function firstAction() {
-		if (!$this->view->loginOk) {
+		if (!FreshRSS_Auth::hasAccess()) {
 			Minz_Error::error(
 				403,
 				array('error' => array(_t('access_denied')))

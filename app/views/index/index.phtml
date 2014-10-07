@@ -2,7 +2,7 @@
 
 $output = Minz_Request::param('output', 'normal');
 
-if ($this->loginOk || Minz_Configuration::allowAnonymous()) {
+if (FreshRSS_Auth::hasAccess() || Minz_Configuration::allowAnonymous()) {
 	if ($output === 'normal') {
 		$this->renderHelper('view/normal_view');
 	} elseif ($output === 'reader') {

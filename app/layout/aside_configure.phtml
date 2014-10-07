@@ -22,10 +22,7 @@
 	<li class="item<?php echo Minz_Request::controllerName() === 'users' ? ' active' : ''; ?>">
 		<a href="<?php echo _url('users', 'index'); ?>"><?php echo _t('users'); ?></a>
 	</li>
-	<?php
-		$current_user = Minz_Session::param('currentUser', '');
-		if (Minz_Configuration::isAdmin($current_user)) {
-	?>
+	<?php if (FreshRSS_Auth::hasAccess('admin')) { ?>
 	<li class="item<?php echo Minz_Request::controllerName() === 'update' ? ' active' : ''; ?>">
 		<a href="<?php echo _url('update', 'index'); ?>"><?php echo _t('update'); ?></a>
 	</li>

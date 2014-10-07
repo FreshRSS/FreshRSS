@@ -8,7 +8,7 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 		$token = $this->view->conf->token;
 
 		// check if user is logged in
-		if (!$this->view->loginOk && !Minz_Configuration::allowAnonymous()) {
+		if (!FreshRSS_Auth::hasAccess() && !Minz_Configuration::allowAnonymous()) {
 			$token_param = Minz_Request::param('token', '');
 			$token_is_ok = ($token != '' && $token === $token_param);
 			if ($output === 'rss' && !$token_is_ok) {
@@ -20,7 +20,7 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 			} elseif ($output !== 'rss') {
 				// "hard" redirection is not required, just ask dispatcher to
 				// forward to the login form without 302 redirection
-				Minz_Request::forward(array('c' => 'index', 'a' => 'formLogin'));
+				Minz_Request::forward(array('c' => 'auth', 'a' => 'login'));
 				return;
 			}
 		}
@@ -207,7 +207,7 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 	}
 
 	public function logsAction() {
-		if (!$this->view->loginOk) {
+		if (!FreshRSS_Auth::hasAccess()) {
 			Minz_Error::error(
 				403,
 				array('error' => array(_t('access_denied')))
@@ -227,267 +227,5 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 		$this->view->logsPaginator = new Minz_Paginator($logs);
 		$this->view->logsPaginator->_nbItemsPerPage(50);
 		$this->view->logsPaginator->_currentPage($page);
-	}
-
-	public function loginAction() {
-		$this->view->_useLayout(false);
-
-		$url = 'https://verifier.login.persona.org/verify';
-		$assert = Minz_Request::param('assertion');
-		$params = 'assertion=' . $assert . '&audience=' .
-		          urlencode(Minz_Url::display(null, 'php', true));
-		$ch = curl_init();
-		$options = array(
-			CURLOPT_URL => $url,
-			CURLOPT_RETURNTRANSFER => TRUE,
-			CURLOPT_POST => 2,
-			CURLOPT_POSTFIELDS => $params
-		);
-		curl_setopt_array($ch, $options);
-		$result = curl_exec($ch);
-		curl_close($ch);
-
-		$res = json_decode($result, true);
-
-		$loginOk = false;
-		$reason = '';
-		if ($res['status'] === 'okay') {
-			$email = filter_var($res['email'], FILTER_VALIDATE_EMAIL);
-			if ($email != '') {
-				$personaFile = DATA_PATH . '/persona/' . $email . '.txt';
-				if (($currentUser = @file_get_contents($personaFile)) !== false) {
-					$currentUser = trim($currentUser);
-					if (ctype_alnum($currentUser)) {
-						try {
-							$this->conf = new FreshRSS_Configuration($currentUser);
-							$loginOk = strcasecmp($email, $this->conf->mail_login) === 0;
-						} catch (Minz_Exception $e) {
-							$reason = 'Invalid configuration for user [' . $currentUser . ']! ' . $e->getMessage();	//Permission denied or conf file does not exist
-						}
-					} else {
-						$reason = 'Invalid username format [' . $currentUser . ']!';
-					}
-				}
-			} else {
-				$reason = 'Invalid email format [' . $res['email'] . ']!';
-			}
-		}
-		if ($loginOk) {
-			Minz_Session::_param('currentUser', $currentUser);
-			Minz_Session::_param('mail', $email);
-			$this->view->loginOk = true;
-			invalidateHttpCache();
-		} else {
-			$res = array();
-			$res['status'] = 'failure';
-			$res['reason'] = $reason == '' ? _t('invalid_login') : $reason;
-			Minz_Log::warning('Persona: ' . $res['reason']);
-		}
-
-		header('Content-Type: application/json; charset=UTF-8');
-		$this->view->res = json_encode($res);
-	}
-
-	public function logoutAction() {
-		$this->view->_useLayout(false);
-		invalidateHttpCache();
-		Minz_Session::_param('currentUser');
-		Minz_Session::_param('mail');
-		Minz_Session::_param('passwordHash');
-	}
-
-	private static function makeLongTermCookie($username, $passwordHash) {
-		do {
-			$token = sha1(Minz_Configuration::salt() . $username . uniqid(mt_rand(), true));
-			$tokenFile = DATA_PATH . '/tokens/' . $token . '.txt';
-		} while (file_exists($tokenFile));
-		if (@file_put_contents($tokenFile, $username . "\t" . $passwordHash) === false) {
-			return false;
-		}
-		$expire = time() + 2629744;	//1 month	//TODO: Use a configuration instead
-		Minz_Session::setLongTermCookie('FreshRSS_login', $token, $expire);
-		Minz_Session::_param('token', $token);
-		return $token;
-	}
-
-	private static function deleteLongTermCookie() {
-		Minz_Session::deleteLongTermCookie('FreshRSS_login');
-		$token = Minz_Session::param('token', null);
-		if (ctype_alnum($token)) {
-			@unlink(DATA_PATH . '/tokens/' . $token . '.txt');
-		}
-		Minz_Session::_param('token');
-		if (rand(0, 10) === 1) {
-			self::purgeTokens();
-		}
-	}
-
-	private static function purgeTokens() {
-		$oldest = time() - 2629744;	//1 month	//TODO: Use a configuration instead
-		foreach (new DirectoryIterator(DATA_PATH . '/tokens/') as $fileInfo) {
-			if ($fileInfo->getExtension() === 'txt' && $fileInfo->getMTime() < $oldest) {
-				@unlink($fileInfo->getPathname());
-			}
-		}
-	}
-
-	public function formLoginAction() {
-		if ($this->view->loginOk) {
-			Minz_Request::forward(array('c' => 'index', 'a' => 'index'), true);
-		}
-
-		if (Minz_Request::isPost()) {
-			$ok = false;
-			$nonce = Minz_Session::param('nonce');
-			$username = Minz_Request::param('username', '');
-			$c = Minz_Request::param('challenge', '');
-			if (ctype_alnum($username) && ctype_graph($c) && ctype_alnum($nonce)) {
-				if (!function_exists('password_verify')) {
-					include_once(LIB_PATH . '/password_compat.php');
-				}
-				try {
-					$conf = new FreshRSS_Configuration($username);
-					$s = $conf->passwordHash;
-					$ok = password_verify($nonce . $s, $c);
-					if ($ok) {
-						Minz_Session::_param('currentUser', $username);
-						Minz_Session::_param('passwordHash', $s);
-						if (Minz_Request::param('keep_logged_in', false)) {
-							self::makeLongTermCookie($username, $s);
-						} else {
-							self::deleteLongTermCookie();
-						}
-					} else {
-						Minz_Log::warning('Password mismatch for user ' . $username . ', nonce=' . $nonce . ', c=' . $c);
-					}
-				} catch (Minz_Exception $me) {
-					Minz_Log::warning('Login failure: ' . $me->getMessage());
-				}
-			} else {
-				Minz_Log::debug('Invalid credential parameters: user=' . $username . ' challenge=' . $c . ' nonce=' . $nonce);
-			}
-			if (!$ok) {
-				$notif = array(
-					'type' => 'bad',
-					'content' => _t('invalid_login')
-				);
-				Minz_Session::_param('notification', $notif);
-			}
-			$this->view->_useLayout(false);
-			Minz_Request::forward(array('c' => 'index', 'a' => 'index'), true);
-		} elseif (Minz_Configuration::unsafeAutologinEnabled() && isset($_GET['u']) && isset($_GET['p'])) {
-			Minz_Session::_param('currentUser');
-			Minz_Session::_param('mail');
-			Minz_Session::_param('passwordHash');
-			$username = ctype_alnum($_GET['u']) ? $_GET['u'] : '';
-			$passwordPlain = $_GET['p'];
-			Minz_Request::_param('p');	//Discard plain-text password ASAP
-			$_GET['p'] = '';
-			if (!function_exists('password_verify')) {
-				include_once(LIB_PATH . '/password_compat.php');
-			}
-			try {
-				$conf = new FreshRSS_Configuration($username);
-				$s = $conf->passwordHash;
-				$ok = password_verify($passwordPlain, $s);
-				unset($passwordPlain);
-				if ($ok) {
-					Minz_Session::_param('currentUser', $username);
-					Minz_Session::_param('passwordHash', $s);
-				} else {
-					Minz_Log::warning('Unsafe password mismatch for user ' . $username);
-				}
-			} catch (Minz_Exception $me) {
-				Minz_Log::warning('Unsafe login failure: ' . $me->getMessage());
-			}
-			Minz_Request::forward(array('c' => 'index', 'a' => 'index'), true);
-		} elseif (!Minz_Configuration::canLogIn()) {
-			Minz_Error::error(
-				403,
-				array('error' => array(_t('access_denied')))
-			);
-		}
-		invalidateHttpCache();
-	}
-
-	public function formLogoutAction() {
-		$this->view->_useLayout(false);
-		invalidateHttpCache();
-		Minz_Session::_param('currentUser');
-		Minz_Session::_param('mail');
-		Minz_Session::_param('passwordHash');
-		self::deleteLongTermCookie();
-		Minz_Request::forward(array('c' => 'index', 'a' => 'index'), true);
-	}
-
-	public function resetAuthAction() {
-		Minz_View::prependTitle(_t('auth_reset') . ' · ');
-		Minz_View::appendScript(Minz_Url::display(
-			'/scripts/bcrypt.min.js?' . @filemtime(PUBLIC_PATH . '/scripts/bcrypt.min.js')
-		));
-
-		$this->view->no_form = false;
-		// Enable changement of auth only if Persona!
-		if (Minz_Configuration::authType() != 'persona') {
-			$this->view->message = array(
-				'status' => 'bad',
-				'title' => _t('damn'),
-				'body' => _t('auth_not_persona')
-			);
-			$this->view->no_form = true;
-			return;
-		}
-
-		$conf = new FreshRSS_Configuration(Minz_Configuration::defaultUser());
-		// Admin user must have set its master password.
-		if (!$conf->passwordHash) {
-			$this->view->message = array(
-				'status' => 'bad',
-				'title' => _t('damn'),
-				'body' => _t('auth_no_password_set')
-			);
-			$this->view->no_form = true;
-			return;
-		}
-
-		invalidateHttpCache();
-
-		if (Minz_Request::isPost()) {
-			$nonce = Minz_Session::param('nonce');
-			$username = Minz_Request::param('username', '');
-			$c = Minz_Request::param('challenge', '');
-			if (!(ctype_alnum($username) && ctype_graph($c) && ctype_alnum($nonce))) {
-				Minz_Log::debug('Invalid credential parameters:' .
-				                ' user=' . $username .
-				                ' challenge=' . $c .
-				                ' nonce=' . $nonce);
-				Minz_Request::bad(_t('invalid_login'),
-				                  array('c' => 'index', 'a' => 'resetAuth'));
-			}
-
-			if (!function_exists('password_verify')) {
-				include_once(LIB_PATH . '/password_compat.php');
-			}
-
-			$s = $conf->passwordHash;
-			$ok = password_verify($nonce . $s, $c);
-			if ($ok) {
-				Minz_Configuration::_authType('form');
-				$ok = Minz_Configuration::writeFile();
-
-				if ($ok) {
-					Minz_Request::good(_t('auth_form_set'));
-				} else {
-					Minz_Request::bad(_t('auth_form_not_set'),
-				                      array('c' => 'index', 'a' => 'resetAuth'));
-				}
-			} else {
-				Minz_Log::debug('Password mismatch for user ' . $username .
-				                ', nonce=' . $nonce . ', c=' . $c);
-
-				Minz_Request::bad(_t('invalid_login'),
-				                  array('c' => 'index', 'a' => 'resetAuth'));
-			}
-		}
 	}
 }

@@ -11,7 +11,7 @@
 			<div class="group-controls">
 				<input id="current_user" type="text" disabled="disabled" value="<?php echo Minz_Session::param('currentUser', '_'); ?>" />
 				<label class="checkbox" for="is_admin">
-					<input type="checkbox" id="is_admin" disabled="disabled" <?php echo Minz_Configuration::isAdmin(Minz_Session::param('currentUser', '_')) ? 'checked="checked" ' : ''; ?>/>
+					<input type="checkbox" id="is_admin" disabled="disabled" <?php echo FreshRSS_Auth::hasAccess('admin') ? 'checked="checked" ' : ''; ?>/>
 					<?php echo _t('is_admin'); ?>
 				</label>
 			</div>
@@ -44,7 +44,7 @@
 			<label class="group-name" for="mail_login"><?php echo _t('persona_connection_email'); ?></label>
 			<?php $mail = $this->conf->mail_login; ?>
 			<div class="group-controls">
-				<input type="email" id="mail_login" name="mail_login" class="extend" autocomplete="off" value="<?php echo $mail; ?>" <?php echo Minz_Configuration::isAdmin(Minz_Session::param('currentUser', '_')) ? '' : 'disabled="disabled"'; ?> placeholder="alice@example.net" />
+				<input type="email" id="mail_login" name="mail_login" class="extend" autocomplete="off" value="<?php echo $mail; ?>" <?php echo FreshRSS_Auth::hasAccess('admin') ? '' : 'disabled="disabled"'; ?> placeholder="alice@example.net" />
 				<noscript><b><?php echo _t('javascript_should_be_activated'); ?></b></noscript>
 			</div>
 		</div>
@@ -56,7 +56,7 @@
 			</div>
 		</div>
 
-	<?php if (Minz_Configuration::isAdmin(Minz_Session::param('currentUser', '_'))) { ?>
+	<?php if (FreshRSS_Auth::hasAccess('admin')) { ?>
 
 		<legend><?php echo _t('auth_type'); ?></legend>
 

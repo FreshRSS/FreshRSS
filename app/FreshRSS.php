@@ -4,130 +4,33 @@ class FreshRSS extends Minz_FrontController {
 		if (!isset($_SESSION)) {
 			Minz_Session::init('FreshRSS');
 		}
-		$loginOk = $this->accessControl(Minz_Session::param('currentUser', ''));
+
+		FreshRSS_Auth::init();
+		$this->loadConfiguration();
 		$this->loadParamsView();
 		if (Minz_Request::isPost() && !is_referer_from_same_domain()) {
-			$loginOk = false;	//Basic protection against XSRF attacks
+			//Basic protection against XSRF attacks
+			FreshRSS_Auth::removeAccess();
 			Minz_Error::error(
 				403,
 				array('error' => array(_t('access_denied') . ' [HTTP_REFERER=' .
-					htmlspecialchars(empty($_SERVER['HTTP_REFERER']) ? '' : $_SERVER['HTTP_REFERER']) . ']'))
+				      htmlspecialchars(empty($_SERVER['HTTP_REFERER']) ? '' : $_SERVER['HTTP_REFERER']) . ']'))
 			);
 		}
-		Minz_View::_param('loginOk', $loginOk);
-		$this->loadStylesAndScripts($loginOk);	//TODO: Do not load that when not needed, e.g. some Ajax requests
+		$this->loadStylesAndScripts();
 		$this->loadNotifications();
 		$this->loadExtensions();
 	}
 
-	private static function getCredentialsFromLongTermCookie() {
-		$token = Minz_Session::getLongTermCookie('FreshRSS_login');
-		if (!ctype_alnum($token)) {
-			return array();
-		}
-		$tokenFile = DATA_PATH . '/tokens/' . $token . '.txt';
-		$mtime = @filemtime($tokenFile);
-		if ($mtime + 2629744 < time()) {	//1 month	//TODO: Use a configuration instead
-			@unlink($tokenFile);
-			return array(); 	//Expired or token does not exist
-		}
-		$credentials = @file_get_contents($tokenFile);
-		return $credentials === false ? array() : explode("\t", $credentials, 2);
-	}
-
-	private function accessControl($currentUser) {
-		if ($currentUser == '') {
-			switch (Minz_Configuration::authType()) {
-				case 'form':
-					$credentials = self::getCredentialsFromLongTermCookie();
-					if (isset($credentials[1])) {
-						$currentUser = trim($credentials[0]);
-						Minz_Session::_param('passwordHash', trim($credentials[1]));
-					}
-					$loginOk = $currentUser != '';
-					if (!$loginOk) {
-						$currentUser = Minz_Configuration::defaultUser();
-						Minz_Session::_param('passwordHash');
-					}
-					break;
-				case 'http_auth':
-					$currentUser = httpAuthUser();
-					$loginOk = $currentUser != '';
-					break;
-				case 'persona':
-					$loginOk = false;
-					$email = filter_var(Minz_Session::param('mail'), FILTER_VALIDATE_EMAIL);
-					if ($email != '') {	//TODO: Remove redundancy with indexController
-						$personaFile = DATA_PATH . '/persona/' . $email . '.txt';
-						if (($currentUser = @file_get_contents($personaFile)) !== false) {
-							$currentUser = trim($currentUser);
-							$loginOk = true;
-						}
-					}
-					if (!$loginOk) {
-						$currentUser = Minz_Configuration::defaultUser();
-					}
-					break;
-				case 'none':
-					$currentUser = Minz_Configuration::defaultUser();
-					$loginOk = true;
-					break;
-				default:
-					$currentUser = Minz_Configuration::defaultUser();
-					$loginOk = false;
-					break;
-			}
-		} else {
-			$loginOk = true;
-		}
-
-		if (!ctype_alnum($currentUser)) {
-			Minz_Session::_param('currentUser', '');
-			die('Invalid username [' . $currentUser . ']!');
-		}
-
+	private function loadConfiguration() {
+		$current_user = Minz_Session::param('currentUser');
 		try {
-			$this->conf = new FreshRSS_Configuration($currentUser);
+			$this->conf = new FreshRSS_Configuration($current_user);
 			Minz_View::_param('conf', $this->conf);
-			Minz_Session::_param('currentUser', $currentUser);
-		} catch (Minz_Exception $me) {
-			$loginOk = false;
-			try {
-				$this->conf = new FreshRSS_Configuration(Minz_Configuration::defaultUser());
-				Minz_Session::_param('currentUser', Minz_Configuration::defaultUser());
-				Minz_View::_param('conf', $this->conf);
-				$notif = array(
-					'type' => 'bad',
-					'content' => 'Invalid configuration for user [' . $currentUser . ']!',
-				);
-				Minz_Session::_param('notification', $notif);
-				Minz_Log::warning($notif['content'] . ' ' . $me->getMessage());
-				Minz_Session::_param('currentUser', '');
-			} catch (Exception $e) {
-				die($e->getMessage());
-			}
+		} catch(Minz_Exception $e) {
+			Minz_Log::error('Cannot load configuration file of user `' . $current_user . '`');
+			die($e->getMessage());
 		}
-
-		if ($loginOk) {
-			switch (Minz_Configuration::authType()) {
-				case 'form':
-					$loginOk = Minz_Session::param('passwordHash') === $this->conf->passwordHash;
-					break;
-				case 'http_auth':
-					$loginOk = strcasecmp($currentUser, httpAuthUser()) === 0;
-					break;
-				case 'persona':
-					$loginOk = strcasecmp(Minz_Session::param('mail'), $this->conf->mail_login) === 0;
-					break;
-				case 'none':
-					$loginOk = true;
-					break;
-				default:
-					$loginOk = false;
-					break;
-			}
-		}
-		return $loginOk;
 	}
 
 	private function loadParamsView() {
@@ -140,7 +43,7 @@ class FreshRSS extends Minz_FrontController {
 		}
 	}
 
-	private function loadStylesAndScripts($loginOk) {
+	private function loadStylesAndScripts() {
 		$theme = FreshRSS_Themes::load($this->conf->theme);
 		if ($theme) {
 			foreach($theme['files'] as $file) {
@@ -158,19 +61,17 @@ class FreshRSS extends Minz_FrontController {
 			}
 		}
 
-		switch (Minz_Configuration::authType()) {
-			case 'form':
-				if (!$loginOk) {
-					Minz_View::appendScript(Minz_Url::display('/scripts/bcrypt.min.js?' . @filemtime(PUBLIC_PATH . '/scripts/bcrypt.min.js')));
-				}
-				break;
-			case 'persona':
-				Minz_View::appendScript('https://login.persona.org/include.js');
-				break;
-		}
 		Minz_View::appendScript(Minz_Url::display('/scripts/jquery.min.js?' . @filemtime(PUBLIC_PATH . '/scripts/jquery.min.js')));
 		Minz_View::appendScript(Minz_Url::display('/scripts/shortcut.js?' . @filemtime(PUBLIC_PATH . '/scripts/shortcut.js')));
 		Minz_View::appendScript(Minz_Url::display('/scripts/main.js?' . @filemtime(PUBLIC_PATH . '/scripts/main.js')));
+
+		if (Minz_Configuration::authType() === 'persona') {
+			// TODO move it in a plugin
+			// Needed for login AND logout with Persona.
+			Minz_View::appendScript('https://login.persona.org/include.js');
+			$file_mtime = @filemtime(PUBLIC_PATH . '/scripts/persona.js');
+			Minz_View::appendScript(Minz_Url::display('/scripts/persona.js?' . $file_mtime));
+		}
 	}
 
 	private function loadNotifications() {

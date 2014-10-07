@@ -2,7 +2,7 @@
 	<a class="toggle_aside" href="#close"><?php echo _i('close'); ?></a>
 
 	<ul class="categories">
-		<?php if ($this->loginOk) { ?>
+		<?php if (FreshRSS_Auth::hasAccess()) { ?>
 		<form id="mark-read-aside" method="post" style="display: none"></form>
 
 		<li>
@@ -83,11 +83,11 @@
 	<ul class="dropdown-menu">
 		<li class="dropdown-close"><a href="#close">❌</a></li>
 		<li class="item"><a href="<?php echo _url('index', 'index', 'get', 'f_!!!!!!'); ?>"><?php echo _t('filter'); ?></a></li>
-		<?php if ($this->loginOk) { ?>
+		<?php if (FreshRSS_Auth::hasAccess()) { ?>
 		<li class="item"><a href="<?php echo _url('stats', 'repartition', 'id', '!!!!!!'); ?>"><?php echo _t('stats'); ?></a></li>
 		<?php } ?>
 		<li class="item"><a target="_blank" href="http://example.net/"><?php echo _t('see_website'); ?></a></li>
-		<?php if ($this->loginOk) { ?>
+		<?php if (FreshRSS_Auth::hasAccess()) { ?>
 		<li class="separator"></li>
 		<li class="item"><a href="<?php echo _url('subscription', 'index', 'id', '!!!!!!'); ?>"><?php echo _t('administration'); ?></a></li>
 		<li class="item"><a href="<?php echo _url('feed', 'actualize', 'id', '!!!!!!'); ?>"><?php echo _t('actualize'); ?></a></li>
