@@ -20,7 +20,7 @@ class FreshRSS_Auth {
 			Minz_Session::_param('currentUser', $current_user);
 		}
 
-		$access_ok = self::accessControl($current_user);
+		$access_ok = self::accessControl();
 
 		if ($access_ok) {
 			self::giveAccess();
@@ -36,10 +36,9 @@ class FreshRSS_Auth {
 	 * Required session parameters are also set in this method (such as
 	 * currentUser).
 	 *
-	 * @param string $username username of the user to check access.
 	 * @return boolean true if user can be connected, false else.
 	 */
-	public static function accessControl($username) {
+	public static function accessControl() {
 		if (self::$login_ok) {
 			return true;
 		}
@@ -61,6 +60,16 @@ class FreshRSS_Auth {
 				Minz_Session::_param('currentUser', $current_user);
 			}
 			return $login_ok;
+		case 'persona':
+			$email = filter_var(Minz_Session::param('mail'), FILTER_VALIDATE_EMAIL);
+			$persona_file = DATA_PATH . '/persona/' . $email . '.txt';
+			if (($current_user = @file_get_contents($persona_file)) !== false) {
+				$current_user = trim($current_user);
+				Minz_Session::_param('currentUser', $current_user);
+				Minz_Session::_param('mail', $email);
+				return true;
+			}
+			return false;
 		case 'none':
 			return true;
 		default:
@@ -86,6 +95,9 @@ class FreshRSS_Auth {
 			break;
 		case 'http_auth':
 			self::$login_ok = strcasecmp($current_user, httpAuthUser()) === 0;
+			break;
+		case 'persona':
+			self::$login_ok = strcasecmp(Minz_Session::param('mail'), $conf->mail_login) === 0;
 			break;
 		case 'none':
 			self::$login_ok = true;
@@ -130,6 +142,9 @@ class FreshRSS_Auth {
 		case 'form':
 			Minz_Session::_param('passwordHash');
 			FreshRSS_FormAuth::deleteCookie();
+			break;
+		case 'persona':
+			Minz_Session::_param('mail');
 			break;
 		case 'http_auth':
 		case 'none':

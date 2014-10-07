@@ -2,9 +2,9 @@
 if (Minz_Configuration::canLogIn()) {
 	?><ul class="nav nav-head nav-login"><?php
 		if (FreshRSS_Auth::hasAccess()) {
-			?><li class="item"><?php echo _i('logout'); ?> <a class="signout" href="<?php echo _url('index', 'logout'); ?>"><?php echo _t('logout'); ?></a></li><?php
+			?><li class="item"><?php echo _i('logout'); ?> <a class="signout" href="<?php echo _url('auth', 'logout'); ?>"><?php echo _t('logout'); ?></a></li><?php
 		} else {
-			?><li class="item"><?php echo _i('login'); ?> <a class="signin" href="<?php echo _url('index', 'login'); ?>"><?php echo _t('login'); ?></a></li><?php
+			?><li class="item"><?php echo _i('login'); ?> <a class="signin" href="<?php echo _url('auth', 'login'); ?>"><?php echo _t('login'); ?></a></li><?php
 		}
 	?></ul><?php
 }
@@ -74,21 +74,14 @@ if (Minz_Configuration::canLogIn()) {
 				<?php
 				if (Minz_Configuration::canLogIn()) {
 					?><li class="separator"></li>
-				<li class="item"><a class="signout" href="<?php echo _url('index', 'logout'); ?>"><?php echo _i('logout'), ' ', _t('logout'); ?></a></li><?php
+				<li class="item"><a class="signout" href="<?php echo _url('auth', 'logout'); ?>"><?php echo _i('logout'), ' ', _t('logout'); ?></a></li><?php
 				} ?>
 			</ul>
 		</div>
 	</div>
-	<?php } elseif (Minz_Configuration::canLogIn()) {
-		?><div class="item configure"><?php
-		switch (Minz_Configuration::authType()) {
-		case 'form':
-			echo _i('login'); ?><a class="signin" href="<?php echo _url('index', 'formLogin'); ?>"><?php echo _t('login'); ?></a></li><?php
-			break;
-		case 'persona':
-			echo _i('login'); ?><a class="signin" href="#"><?php echo _t('login'); ?></a></li><?php
-			break;
-		}
-		?></div><?php
-	} ?>
+	<?php } elseif (Minz_Configuration::canLogIn()) { ?>
+	<div class="item configure">
+		<?php echo _i('login'); ?><a class="signin" href="<?php echo _url('auth', 'login'); ?>"><?php echo _t('login'); ?></a>
+	</div>
+	<?php } ?>
 </div>

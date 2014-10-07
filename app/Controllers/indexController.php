@@ -20,7 +20,7 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 			} elseif ($output !== 'rss') {
 				// "hard" redirection is not required, just ask dispatcher to
 				// forward to the login form without 302 redirection
-				Minz_Request::forward(array('c' => 'index', 'a' => 'login'));
+				Minz_Request::forward(array('c' => 'auth', 'a' => 'login'));
 				return;
 			}
 		}
@@ -227,93 +227,5 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 		$this->view->logsPaginator = new Minz_Paginator($logs);
 		$this->view->logsPaginator->_nbItemsPerPage(50);
 		$this->view->logsPaginator->_currentPage($page);
-	}
-
-	/**
-	 * This action handles the login page.
-	 */
-	public function loginAction() {
-		if (FreshRSS_Auth::hasAccess()) {
-			Minz_Request::forward(array('c' => 'index', 'a' => 'index'), true);
-		}
-
-		invalidateHttpCache();
-
-		$auth_type = Minz_Configuration::authType();
-		switch ($auth_type) {
-		case 'form':
-			Minz_Request::forward(array('c' => 'index', 'a' => 'formLogin'));
-			break;
-		case 'http_auth':
-		case 'none':
-			// It should not happened!
-			Minz_Error::error(404);
-		default:
-			// TODO load plugin instead
-			Minz_Error::error(404);
-		}
-	}
-
-	/**
-	 *
-	 */
-	public function formLoginAction() {
-		if (FreshRSS_Auth::hasAccess()) {
-			Minz_Request::forward(array('c' => 'index', 'a' => 'index'), true);
-		}
-
-		invalidateHttpCache();
-
-		$file_mtime = @filemtime(PUBLIC_PATH . '/scripts/bcrypt.min.js');
-		Minz_View::appendScript(Minz_Url::display('/scripts/bcrypt.min.js?' . $file_mtime));
-
-		if (Minz_Request::isPost()) {
-			$nonce = Minz_Session::param('nonce');
-			$username = Minz_Request::param('username', '');
-			$challenge = Minz_Request::param('challenge', '');
-			try {
-				$conf = new FreshRSS_Configuration($username);
-			} catch(Minz_Exception $e) {
-				// $username is not a valid user, nor the configuration file!
-				Minz_Log::warning('Login failure: ' . $e->getMessage());
-				Minz_Request::bad(_t('invalid_login'),
-				                  array('c' => 'index', 'a' => 'login'));
-			}
-
-			$ok = FreshRSS_FormAuth::checkCredentials(
-				$username, $conf->passwordHash, $nonce, $challenge
-			);
-			if ($ok) {
-				// Set session parameter to give access to the user.
-				Minz_Session::_param('currentUser', $username);
-				Minz_Session::_param('passwordHash', $conf->passwordHash);
-				FreshRSS_Auth::giveAccess();
-
-				// Set cookie parameter if nedded.
-				if (Minz_Request::param('keep_logged_in', false)) {
-					FreshRSS_FormAuth::makeCookie($username, $conf->passwordHash);
-				} else {
-					FreshRSS_FormAuth::deleteCookie();
-				}
-
-				// All is good, go back to the index.
-				Minz_Request::good(_t('login'),
-				                   array('c' => 'index', 'a' => 'index'));
-			} else {
-				Minz_Log::warning('Password mismatch for' .
-				                  ' user=' . $username .
-				                  ', nonce=' . $nonce .
-				                  ', c=' . $challenge);
-				Minz_Request::bad(_t('invalid_login'),
-				                  array('c' => 'index', 'a' => 'login'));
-			}
-		}
-	}
-
-	public function logoutAction() {
-		invalidateHttpCache();
-		FreshRSS_Auth::removeAccess();
-		Minz_Request::good(_t('disconnected'),
-		                   array('c' => 'index', 'a' => 'index'));
 	}
 }
