@@ -1,106 +1,103 @@
-<div class="aside aside_flux" id="aside_flux">
-	<a class="toggle_aside" href="#close"><i class="icon i_close"></i></a>
+<div class="aside aside_flux<?php if ($this->conf->hide_read_feeds && ($this->state & FreshRSS_Entry::STATE_NOT_READ) && !($this->state & FreshRSS_Entry::STATE_READ)) echo ' state_unread'; ?>" id="aside_flux">
+	<a class="toggle_aside" href="#close"><?php echo _i('close'); ?></a>
 
 	<ul class="categories">
-		<?php
-			$params = Request::params ();
-			$params['output'] = 'rss';
-			if (isset ($params['search'])) {
-				$params['search'] = urlencode ($params['search']);
-			}
+		<?php if ($this->loginOk) { ?>
+		<form id="mark-read-aside" method="post" style="display: none"></form>
 
-			$token = $this->conf->token ();
-			if (login_is_conf($this->conf) && $token != '') {
-				$params['token'] = $token;
-			}
-
-			$url = array (
-				'c' => 'index',
-				'a' => 'index',
-				'params' => $params
-			);
-		?>
-		<?php if (!login_is_conf ($this->conf) || is_logged ()) { ?>
 		<li>
-			<div class="stick">
-				<a class="btn btn-important" href="<?php echo _url ('configure', 'feed'); ?>"><?php echo Translate::t ('subscription_management'); ?></a>
-				<a class="btn btn-important" href="<?php echo Url::display ($url); ?>"><i class="icon i_rss"></i></a>
+			<div class="stick configure-feeds">
+				<a class="btn btn-important" href="<?php echo _url('configure', 'feed'); ?>"><?php echo _t('subscription_management'); ?></a>
+				<a class="btn btn-important" href="<?php echo _url('configure', 'categorize'); ?>" title="<?php echo _t('categories_management'); ?>"><?php echo _i('category-white'); ?></a>
 			</div>
 		</li>
+		<?php } elseif (Minz_Configuration::needsLogin()) { ?>
+		<li><a href="<?php echo _url('index', 'about'); ?>"><?php echo _t('about_freshrss'); ?></a></li>
 		<?php } ?>
 
+		<?php
+			$arUrl = array('c' => 'index', 'a' => 'index', 'params' => array());
+			if ($this->conf->view_mode !== Minz_Request::param('output', 'normal')) {
+				$arUrl['params']['output'] = 'normal';
+			}
+		?>
 		<li>
-			<div class="all">
-				<a class="btn<?php echo $this->get_c == 'all' ? ' active' : ''; ?>" href="<?php echo _url ('index', 'index'); ?>">
-					<i class="icon i_all"></i>
-					<?php echo Translate::t ('all_feeds', $this->nb_total); ?>
-					<?php if ($this->nb_not_read > 0) { ?>
-					<span class="notRead"><?php echo $this->nb_not_read > 1 ? Translate::t ('not_reads', $this->nb_not_read) : Translate::t ('not_read', $this->nb_not_read); ?></span>
-					<?php } ?>
+			<div class="category all<?php echo $this->get_c == 'a' ? ' active' : ''; ?>">
+				<a data-unread="<?php echo formatNumber($this->nb_not_read); ?>" class="btn<?php echo $this->get_c == 'a' ? ' active' : ''; ?>" href="<?php echo Minz_Url::display($arUrl); ?>">
+					<?php echo _i('all'); ?>
+					<?php echo _t('main_stream'); ?>
 				</a>
 			</div>
 		</li>
 
 		<li>
-			<div class="favorites">
-				<a class="btn<?php echo $this->get_c == 'favoris' ? ' active' : ''; ?>" href="<?php echo _url ('index', 'index', 'get', 'favoris'); ?>">
-					<i class="icon i_bookmark"></i>
-					<?php echo Translate::t ('favorite_feeds', $this->nb_favorites); ?>
+			<div class="category favorites<?php echo $this->get_c == 's' ? ' active' : ''; ?>">
+				<a data-unread="<?php echo formatNumber($this->nb_favorites['unread']); ?>" class="btn<?php echo $this->get_c == 's' ? ' active' : ''; ?>" href="<?php $arUrl['params']['get'] = 's'; echo Minz_Url::display($arUrl); ?>">
+					<?php echo _i('bookmark'); ?>
+					<?php echo _t('favorite_feeds', formatNumber($this->nb_favorites['all'])); ?>
 				</a>
 			</div>
 		</li>
 
-		<?php foreach ($this->cat_aside as $cat) { ?>
-		<?php $feeds = $cat->feeds (); $catNotRead = $cat->nbNotRead (); ?>
-		<?php if (!empty ($feeds)) { ?>
-		<li>
-			<?php $c_active = false; if ($this->get_c == $cat->id ()) { $c_active = true; } ?>
-			<div class="category<?php echo $c_active ? ' active' : ''; ?>">
-				<a class="btn<?php echo $c_active ? ' active' : ''; ?>" href="<?php echo _url ('index', 'index', 'get', 'c_' . $cat->id ()); ?>">
-					<?php echo $cat->name (); ?>
-					<?php if ($catNotRead > 0) { ?>
-					<span class="notRead" title="<?php echo $catNotRead > 1 ? Translate::t ('not_reads', $catNotRead) : Translate::t ('not_read', $catNotRead); ?>"><?php echo $catNotRead ; ?></span>
-					<?php } ?>
-				</a>
-			</div>
-
-			<ul class="feeds<?php echo $c_active ? ' active' : ''; ?>">
-				<?php foreach ($feeds as $feed) { ?>
-				<?php $nbEntries = $feed->nbEntries (); ?>
-				<?php $f_active = false; if ($this->get_f == $feed->id ()) { $f_active = true; } ?>
-				<li class="item<?php echo $f_active ? ' active' : ''; ?><?php echo $feed->inError () ? ' error' : ''; ?><?php echo $nbEntries == 0 ? ' empty' : ''; ?>">
-					<div class="dropdown">
-						<div id="dropdown-<?php echo $feed->id(); ?>" class="dropdown-target"></div>
-						<a class="dropdown-toggle" href="#dropdown-<?php echo $feed->id(); ?>"><i class="icon i_configure"></i></a>
-						<ul class="dropdown-menu">
-							<li class="dropdown-close"><a href="#close">&nbsp;</a></li>
-							<li class="item"><a href="<?php echo _url ('index', 'index', 'get', 'f_' . $feed->id ()); ?>"><?php echo Translate::t ('filter'); ?></a></li>
-							<li class="item"><a target="_blank" href="<?php echo $feed->website (); ?>"><?php echo Translate::t ('see_website'); ?></a></li>
-							<?php if (!login_is_conf ($this->conf) || is_logged ()) { ?>
-							<li class="separator"></li>
-
-							<li class="item"><a href="<?php echo _url ('configure', 'feed', 'id', $feed->id ()); ?>"><?php echo Translate::t ('administration'); ?></a></li>
-							<li class="item"><a href="<?php echo _url ('feed', 'actualize', 'id', $feed->id ()); ?>"><?php echo Translate::t ('actualize'); ?></a></li>
-							<li class="item"><a href="<?php echo _url ('entry', 'read', 'is_read', 1, 'get', 'f_' . $feed->id ()); ?>"><?php echo Translate::t ('mark_read'); ?></a></li>
-							<?php } ?>
-						</ul>
-					</div>
-
-					<?php $not_read = $feed->nbNotRead (); ?>
-
-					<img class="favicon" src="<?php echo $feed->favicon (); ?>" alt="" />
-					<?php echo $not_read > 0 ? '<b>' : ''; ?>
-					<a class="feed" href="<?php echo _url ('index', 'index', 'get', 'f_' . $feed->id ()); ?>">
-						<?php echo $not_read > 0 ? '(' . $not_read . ') ' : ''; ?>
-						<?php echo $feed->name(); ?>
-					</a>
-					<?php echo $not_read > 0 ? '</b>' : ''; ?>
-				</li>
-				<?php } ?>
-			</ul>
-		</li>
-		<?php } } ?>
+		<?php
+		foreach ($this->cat_aside as $cat) {
+			$feeds = $cat->feeds();
+			if (!empty($feeds)) {
+				$c_active = false;
+				$c_show = false;
+				if ($this->get_c == $cat->id()) {
+					$c_active = true;
+					if (!$this->conf->display_categories || $this->get_f) {
+						$c_show = true;
+					}
+				}
+				?><li data-unread="<?php echo $cat->nbNotRead(); ?>"<?php if ($c_active) echo ' class="active"'; ?>><?php
+				?><div class="category stick<?php echo $c_active ? ' active' : ''; ?>"><?php
+					?><a data-unread="<?php echo formatNumber($cat->nbNotRead()); ?>" class="btn<?php echo $c_active ? ' active' : ''; ?>" href="<?php $arUrl['params']['get'] = 'c_' . $cat->id(); echo Minz_Url::display($arUrl); ?>"><?php echo $cat->name(); ?></a><?php
+					?><a class="btn dropdown-toggle" href="#"><?php echo _i($c_show ? 'up' : 'down'); ?></a><?php
+				?></div><?php
+				?><ul class="feeds<?php echo $c_show ? ' active' : ''; ?>"><?php
+				foreach ($feeds as $feed) {
+					$feed_id = $feed->id();
+					$nbEntries = $feed->nbEntries();
+					$f_active = ($this->get_f == $feed_id);
+					?><li id="f_<?php echo $feed_id; ?>" class="item<?php echo $f_active ? ' active' : ''; ?><?php echo $feed->inError() ? ' error' : ''; ?><?php echo $nbEntries == 0 ? ' empty' : ''; ?>" data-unread="<?php echo $feed->nbNotRead(); ?>"><?php
+						?><div class="dropdown"><?php
+							?><div class="dropdown-target"></div><?php
+							?><a class="dropdown-toggle" data-fweb="<?php echo $feed->website(); ?>"><?php echo _i('configure'); ?></a><?php
+							/* feed_config_template */
+						?></div><?php
+						?> <img class="favicon" src="<?php echo $feed->favicon(); ?>" alt="✇" /> <?php
+						?><a class="feed" data-unread="<?php echo formatNumber($feed->nbNotRead()); ?>" data-priority="<?php echo $feed->priority(); ?>" href="<?php $arUrl['params']['get'] = 'f_' . $feed_id; echo Minz_Url::display($arUrl); ?>"><?php echo $feed->name(); ?></a><?php
+					?></li><?php
+				}
+				?></ul><?php
+				?></li><?php
+			}
+		} ?>
 	</ul>
-
-	<span class="aside_flux_ender"><!-- hack for fix menus, if it can be helpful ;) --></span>
+	<span class="aside_flux_ender"><!-- For fixed menu --></span>
 </div>
+
+<script id="feed_config_template" type="text/html">
+	<ul class="dropdown-menu">
+		<li class="dropdown-close"><a href="#close">❌</a></li>
+		<li class="item"><a href="<?php echo _url('index', 'index', 'get', 'f_!!!!!!'); ?>"><?php echo _t('filter'); ?></a></li>
+		<?php if ($this->loginOk) { ?>
+		<li class="item"><a href="<?php echo _url('stats', 'repartition', 'id', '!!!!!!'); ?>"><?php echo _t('stats'); ?></a></li>
+		<?php } ?>
+		<li class="item"><a target="_blank" href="http://example.net/"><?php echo _t('see_website'); ?></a></li>
+		<?php if ($this->loginOk) { ?>
+		<li class="separator"></li>
+		<li class="item"><a href="<?php echo _url('configure', 'feed', 'id', '!!!!!!'); ?>"><?php echo _t('administration'); ?></a></li>
+		<li class="item"><a href="<?php echo _url('feed', 'actualize', 'id', '!!!!!!'); ?>"><?php echo _t('actualize'); ?></a></li>
+		<li class="item">
+			<?php $confirm = $this->conf->reading_confirm ? 'confirm' : ''; ?>
+			<button class="read_all as-link <?php echo $confirm; ?>"
+			        form="mark-read-aside"
+			        formaction="<?php echo _url('entry', 'read', 'get', 'f_!!!!!!'); ?>"
+			        type="submit"><?php echo _t('mark_read'); ?></button>
+		</li>
+		<?php } ?>
+	</ul>
+</script>

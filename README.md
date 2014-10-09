@@ -1,44 +1,101 @@
+* [Version française](README.fr.md)
+
 # FreshRSS
-FreshRSS est un agrégateur de flux RSS à auto-héberger à l'image de [Selfoss](http://selfoss.aditu.de/), [TinyTinyRSS](http://tt-rss.org/redmine/projects/tt-rss/wiki), [Leed](http://projet.idleman.fr/leed/) our encore [Kriss Feed](http://tontof.net/kriss/feed/). Il se veut léger et facile à prendre en main tout en étant un outil puissant et paramétrable.
+FreshRSS is a self-hosted RSS feed agregator like [Leed](http://projet.idleman.fr/leed/) or [Kriss Feed](http://tontof.net/kriss/feed/).
 
-* Site officiel : http://marienfressinaud.github.io/FreshRSS/
-* Démo : http://marienfressinaud.fr/projets/freshrss/
-* Développeur : Marien Fressinaud <dev@marienfressinaud.fr>
-* Version actuelle : 0.5.0
-* Date de publication 2013-10-12
-* License AGPL3
+It is at the same time light-weight, easy to work with, powerful and customizable.
 
-![Logo de FreshRSS](http://marienfressinaud.fr/data/images/freshrss/freshrss_title.png)
+It is a multi-user application with an anonymous reading mode.
+
+* Official website: http://freshrss.org
+* Demo: http://demo.freshrss.org/
+* Developer: Marien Fressinaud <dev@marienfressinaud.fr>
+* Current version: 0.8.0
+* Publication date: 2014-09-26
+* License [GNU AGPL 3](http://www.gnu.org/licenses/agpl-3.0.html)
+
+![FreshRSS logo](http://marienfressinaud.fr/data/images/freshrss/freshrss_title.png)
+
+# Note on branches
+**This application is still in development!** Please use the branch that suits your needs:
+
+* Use [the master branch](https://github.com/marienfressinaud/FreshRSS/tree/master/) if you need a stable version.
+* [The beta branch](https://github.com/marienfressinaud/FreshRSS/tree/beta) is the default branch: new features are added on a monthly basis.
+* For developers and tech savvy persons, [the dev branch](https://github.com/marienfressinaud/FreshRSS/tree/dev) is waiting for you!
 
 # Disclaimer
-Cette application a été développée pour s'adapter à mes besoins personnels.
-Je ne garantis en aucun cas la sécurité de celle-ci, ni son bon fonctionnement
-sur un autre serveur que le mien. Je m'engage néanmoins à répondre dans la
-mesure du possible aux demandes d'évolution si celles-ci me semblent justifiées.
-Privilégiez pour cela des demandes sur GitHub
-(https://github.com/marienfressinaud/FreshRSS/issues) ou par mail (dev@marienfressinaud.fr)
+This application was developed to fulfill personal needs not professional needs.
+There is no guarantee neither on its security nor its proper functioning.
+If there is feature requests which I think are good for the project, I'll do my best to include them.
+The best way is to open issues on GitHub
+(https://github.com/marienfressinaud/FreshRSS/issues) or by email (dev@marienfressinaud.fr)
 
-# Pré-requis
-* Serveur Apache ou Nginx (non testé sur les autres)
-* PHP 5.3 (il me faudrait des retours sur d'autres versions antérieures)
-* libxml pour PHP
-* cURL
-* PDO et MySQL
+# Requirements
+* Light server running Linux or Windows
+	* It even works on Raspberry Pi with response time under a second (tested with 150 feeds, 22k articles, or 32Mo of compressed data)
+* A web server: Apache2 (recommanded), nginx, lighttpd (not tested on others)
+* PHP 5.2.1+ (PHP 5.3.7+ recommanded)
+	* Required extensions: [PDO_MySQL](http://php.net/pdo-mysql) or [PDO_SQLite](http://php.net/pdo-sqlite), [cURL](http://php.net/curl), [GMP](http://php.net/gmp) (only for API access on platforms under 64 bits)
+	* Recommanded extensions : [JSON](http://php.net/json), [mbstring](http://php.net/mbstring), [zlib](http://php.net/zlib), [Zip](http://php.net/zip)
+* MySQL 5.0.3+ (recommanded) ou SQLite 3.7.4+
+* A recent browser like Firefox 4+, Chrome, Opera, Safari, Internet Explorer 9+
+	* Works on mobile
 
-![Capture d'écran de FreshRSS](http://marienfressinaud.fr/data/images/freshrss/freshrss_default-design.png)
+![FreshRSS screenshot](http://marienfressinaud.fr/data/images/freshrss/freshrss_default-design.png)
 
 # Installation
-1. Récupérez l'application FreshRSS via la commande git ou [en téléchargeant l'archive](https://github.com/marienfressinaud/FreshRSS/archive/master.zip)
-2. Déplacez l'application où vous voulez sur votre serveur (attention, la partie accessible se trouve dans le répertoire `./public`)
-3. Accédez à FreshRSS à travers votre navigateur web et suivez les instructions d'installation
-4. Tout devrait fonctionner :) En cas de problème, n'hésitez pas à me contacter.
+1. Get FreshRSS with git or [by downloading the archive](https://github.com/marienfressinaud/FreshRSS/archive/master.zip)
+2. Dump the application on your server (expose only the `./p/` folder)
+3. Add write access on `./data/` folder to the webserver user
+4. Access FreshRSS with your browser and follow the installation process
+5. Every thing should be working :) If you encounter any problem, feel free to contact me.
 
-# Sécurité et conseils
-1. Pour une meilleure sécurité, faites en sorte que seul le répertoire `./public` soit accessible par le navigateur. Faites pointer un sous-domaine sur le répertoire `./public` par exemple
-2. Dans tous les cas, assurez-vous que `./app/configuration/application.ini` ne puisse pas être téléchargé !
-3. Le fichier de log peut être utile à lire si vous avez des soucis
-4. Le fichier `./public/index.php` défini les chemins d'accès aux répertoires clés de l'application. Si vous les bougez, tout se passe ici.
-5. Vous pouvez ajouter une tâche CRON sur le script d'actualisation des flux. Il s'agit d'un script PHP à exécuter avec la commande `php`. Par exemple, pour exécuter le script toutes les heures :
+# Access control
+It is needed for the multi-user mode to limit access to FreshRSS. You can:
+* use form authentication (need JavaScript and PHP 5.3.7+, works with some PHP 5.3.3+)
+* use [Mozilla Persona](https://login.persona.org/about) authentication included in FreshRSS
+* use HTTP authentication supported by your web server
+	* See [Apache documentation](http://httpd.apache.org/docs/trunk/howto/auth.html)
+		* In that case, create a `./p/i/.htaccess` file with a matching `.htpasswd` file.
+
+# Automatic feed update
+* You can add a Cron job to launch the update script.
+Check the Cron documentation related to your distribution ([Debian/Ubuntu](https://help.ubuntu.com/community/CronHowto), [Red Hat/Fedora](https://fedoraproject.org/wiki/Administration_Guide_Draft/Cron), [Slackware](http://docs.slackware.com/fr:slackbook:process_control?#cron), [Gentoo](https://wiki.gentoo.org/wiki/Cron), [Arch Linux](https://wiki.archlinux.org/index.php/Cron)…).
+It’s a good idea to use the web server user .
+For example, if you want to run the script every hour:
+
 ```
-0 * * * * php /chemin/vers/freshrss/actualize_script.php >/dev/null 2>&1
+7 * * * * php /chemin/vers/FreshRSS/app/actualize_script.php > /tmp/FreshRSS.log 2>&1
 ```
+
+# Advices
+* For a better security, expose only the `./p/` folder on the web.
+	* Be aware that the `./data/` folder contain all personal data, so it is a bad idea to expose it.
+* The `./constants.php` file define access to application folder. If you want to customize your installation, every thing happens here.
+* If you encounter some problem, logs are accessibles from the interface or manually in `./data/log/*.log` files.
+
+# Backup
+* You need to keep `./data/config.php`, `./data/*_user.php` and `./data/persona/` files
+* You can export your feed list in OPML format from FreshRSS
+* To save articles, you can use [phpMyAdmin](http://www.phpmyadmin.net) or MySQL tools:
+
+```bash
+mysqldump -u user -p --databases freshrss > freshrss.sql
+```
+
+
+# Included libraries
+* [SimplePie](http://simplepie.org/)
+* [MINZ](https://github.com/marienfressinaud/MINZ)
+* [php-http-304](http://alexandre.alapetite.fr/doc-alex/php-http-304/)
+* [jQuery](http://jquery.com/)
+* [keyboard_shortcuts](http://www.openjs.com/scripts/events/keyboard_shortcuts/)
+* [flotr2](http://www.humblesoftware.com/flotr2)
+
+## Only for some options
+* [bcrypt.js](https://github.com/dcodeIO/bcrypt.js)
+* [phpQuery](http://code.google.com/p/phpquery/)
+
+## If native functions are not available
+* [Services_JSON](http://pear.php.net/pepr/pepr-proposal-show.php?id=198)
+* [password_compat](https://github.com/ircmaxell/password_compat)

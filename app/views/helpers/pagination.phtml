@@ -1,20 +1,37 @@
 <?php
-	$c = Request::controllerName ();
-	$a = Request::actionName ();
-	$params = Request::params ();
+	$c = Minz_Request::controllerName();
+	$a = Minz_Request::actionName();
+	$params = Minz_Request::params();
+	$markReadUrl = Minz_Session::param('markReadUrl');
+	Minz_Session::_param('markReadUrl', false);
 ?>
+
+<form id="mark-read-pagination" method="post" style="display: none"></form>
 
 <ul class="pagination">
 	<li class="item pager-next">
-	<?php if ($this->next != '') { ?>
-	<?php $params[$getteur] = $this->next; ?>
-	<a id="load_more" href="<?php echo Url::display (array ('c' => $c, 'a' => $a, 'params' => $params)); ?>"><?php echo Translate::t ('load_more'); ?></a>
+	<?php if (!empty($this->nextId)) { ?>
+		<?php
+			$params['next'] = $this->nextId;
+			$params['ajax'] = 1;
+		?>
+		<a id="load_more" href="<?php echo Minz_Url::display(array('c' => $c, 'a' => $a, 'params' => $params)); ?>">
+			<?php echo _t('load_more'); ?>
+		</a>
+	<?php } elseif ($markReadUrl) { ?>
+		<button id="bigMarkAsRead"
+		        class="as-link <?php echo $this->conf->reading_confirm ? 'confirm' : ''; ?>"
+		        form="mark-read-pagination"
+		        formaction="<?php echo $markReadUrl; ?>"
+		        type="submit">
+			<?php echo _t('nothing_to_load'); ?><br />
+			<span class="bigTick">✓</span><br />
+			<?php echo _t('mark_all_read'); ?>
+		</button>
 	<?php } else { ?>
-	<div class="bigMarkAsRead">
-		<p><?php echo Translate::t ('nothing_to_load'); ?></p>
-		<p class="bigTick">✔</p>
-		<p><?php echo Translate::t ('mark_all_read'); ?></p>
-	</div>
+		<a id="bigMarkAsRead" href=".">
+			<?php echo _t('nothing_to_load'); ?><br />
+		</a>
 	<?php } ?>
 	</li>
 </ul>

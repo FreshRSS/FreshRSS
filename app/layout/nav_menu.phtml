@@ -1,168 +1,306 @@
+<?php
+	$actual_view = Minz_Request::param('output', 'normal');
+?>
 <div class="nav_menu">
-	<a class="btn toggle_aside" href="#aside_flux"><i class="icon i_category"></i></a>
+	<?php if ($actual_view === 'normal') { ?>
+	<a class="btn toggle_aside" href="#aside_flux"><?php echo _i('category'); ?></a>
+	<?php } ?>
 
-	<?php if (!login_is_conf ($this->conf) || is_logged ()) { ?>
-	<a id="actualize" class="btn" href="<?php echo _url ('feed', 'actualize'); ?>"><i class="icon i_refresh"></i></a>
+	<?php if ($this->loginOk) { ?>
+	<div id="nav_menu_actions" class="stick">
+		<?php
+			$url_state = $this->url;
 
+			if ($this->state & FreshRSS_Entry::STATE_READ) {
+				$url_state['params']['state'] = $this->state & ~FreshRSS_Entry::STATE_READ;
+				$checked = 'true';
+				$class = 'active';
+			} else {
+				$url_state['params']['state'] = $this->state | FreshRSS_Entry::STATE_READ;
+				$checked = 'false';
+				$class = '';
+			}
+		?>
+		<a id="toggle-read"
+		   class="btn <?php echo $class; ?>"
+		   aria-checked="<?php echo $checked; ?>"
+		   href="<?php echo Minz_Url::display($url_state); ?>"
+		   title="<?php echo _t('show_read'); ?>">
+			<?php echo _i('read'); ?>
+		</a>
+
+		<?php
+			if ($this->state & FreshRSS_Entry::STATE_NOT_READ) {
+				$url_state['params']['state'] = $this->state & ~FreshRSS_Entry::STATE_NOT_READ;
+				$checked = 'true';
+				$class = 'active';
+			} else {
+				$url_state['params']['state'] = $this->state | FreshRSS_Entry::STATE_NOT_READ;
+				$checked = 'false';
+				$class = '';
+			}
+		?>
+		<a id="toggle-unread"
+		   class="btn <?php echo $class; ?>"
+		   aria-checked="<?php echo $checked; ?>"
+		   href="<?php echo Minz_Url::display($url_state); ?>"
+		   title="<?php echo _t('show_not_reads'); ?>">
+			<?php echo _i('unread'); ?>
+		</a>
+
+		<?php
+			if ($this->state & FreshRSS_Entry::STATE_FAVORITE || $this->get_c == 's') {
+				$url_state['params']['state'] = $this->state & ~FreshRSS_Entry::STATE_FAVORITE;
+				$checked = 'true';
+				$class = 'active';
+			} else {
+				$url_state['params']['state'] = $this->state | FreshRSS_Entry::STATE_FAVORITE;
+				$checked = 'false';
+				$class = '';
+			}
+		?>
+		<a id="toggle-favorite"
+		   class="btn <?php echo $class; ?>"
+		   aria-checked="<?php echo $checked; ?>"
+		   href="<?php echo Minz_Url::display($url_state); ?>"
+		   title="<?php echo _t('show_favorite'); ?>">
+			<?php echo _i('starred'); ?>
+		</a>
+
+		<?php
+			if ($this->state & FreshRSS_Entry::STATE_NOT_FAVORITE) {
+				$url_state['params']['state'] = $this->state & ~FreshRSS_Entry::STATE_NOT_FAVORITE;
+				$checked = 'true';
+				$class = 'active';
+			} else {
+				$url_state['params']['state'] = $this->state | FreshRSS_Entry::STATE_NOT_FAVORITE;
+				$checked = 'false';
+				$class = '';
+			}
+		?>
+		<a id="toggle-not-favorite"
+		   class="btn <?php echo $class; ?>"
+		   aria-checked="<?php echo $checked; ?>"
+		   href="<?php echo Minz_Url::display($url_state); ?>"
+		   title="<?php echo _t('show_not_favorite'); ?>">
+			<?php echo _i('non-starred'); ?>
+		</a>
+
+		<div class="dropdown">
+			<div id="dropdown-query" class="dropdown-target"></div>
+
+			<a class="dropdown-toggle btn" href="#dropdown-query"><?php echo _i('down'); ?></a>
+			<ul class="dropdown-menu">
+				<li class="dropdown-close"><a href="#close">❌</a></li>
+
+				<li class="dropdown-header">
+					<?php echo _t('queries'); ?>
+					<a class="no-mobile" href="<?php echo _url('configure', 'queries'); ?>"><?php echo _i('configure'); ?></a>
+				</li>
+
+				<?php foreach ($this->conf->queries as $query) { ?>
+				<li class="item query">
+					<a href="<?php echo $query['url']; ?>"><?php echo $query['name']; ?></a>
+				</li>
+				<?php } ?>
+
+				<?php if (count($this->conf->queries) > 0) { ?>
+				<li class="separator no-mobile"></li>
+				<?php } ?>
+
+				<?php
+					$url_query = $this->url;
+					$url_query['c'] = 'configure';
+					$url_query['a'] = 'addQuery';
+				?>
+				<li class="item no-mobile"><a href="<?php echo Minz_Url::display($url_query); ?>"><?php echo _i('bookmark-add'); ?> <?php echo _t('add_query'); ?></a></li>
+			</ul>
+		</div>
+	</div>
 	<?php
 		$get = false;
-		$string_mark = Translate::t ('mark_all_read');
+		$string_mark = _t('mark_all_read');
 		if ($this->get_f) {
 			$get = 'f_' . $this->get_f;
-			$string_mark = Translate::t ('mark_feed_read');
-		} elseif ($this->get_c &&
-		          $this->get_c != 'all' &&
-		          $this->get_c != 'favoris' &&
-		          $this->get_c != 'public') {
-			$get = 'c_' . $this->get_c;
-			$string_mark = Translate::t ('mark_cat_read');
+			$string_mark = _t('mark_feed_read');
+		} elseif ($this->get_c && $this->get_c != 'a') {
+			if ($this->get_c === 's') {
+				$get = 's';
+			} else {
+				$get = 'c_' . $this->get_c;
+			}
+			$string_mark = _t('mark_cat_read');
 		}
 		$nextGet = $get;
-		if (($this->conf->onread_jump_next () === 'yes') && (strlen ($get) > 2)) {
+		if ($this->conf->onread_jump_next && strlen($get) > 2) {
 			$anotherUnreadId = '';
 			$foundCurrent = false;
 			switch ($get[0]) {
-				case 'c':
-					foreach ($this->cat_aside as $cat) {
-						if ($cat->id () === $this->get_c) {
-							$foundCurrent = true;
-							continue;
-						}
-						if ($cat->nbNotRead () <= 0) continue;
-						$anotherUnreadId = $cat->id ();
-						if ($foundCurrent) break;
+			case 'c':
+				foreach ($this->cat_aside as $cat) {
+					if ($cat->id() == $this->get_c) {
+						$foundCurrent = true;
+						continue;
 					}
-					$nextGet = strlen ($anotherUnreadId) > 1 ? 'c_' . $anotherUnreadId : 'all';
-					break;
-				case 'f':
-					foreach ($this->cat_aside as $cat) {
-						if ($cat->id () === $this->get_c) {
-							foreach ($cat->feeds () as $feed) {
-								if ($feed->id () === $this->get_f) {
-									$foundCurrent = true;
-									continue;
-								}
-								if ($feed->nbNotRead () <= 0) continue;
-								$anotherUnreadId = $feed->id ();
-								if ($foundCurrent) break;
+					if ($cat->nbNotRead() <= 0) continue;
+					$anotherUnreadId = $cat->id();
+					if ($foundCurrent) break;
+				}
+				$nextGet = empty($anotherUnreadId) ? 'a' : 'c_' . $anotherUnreadId;
+				break;
+			case 'f':
+				foreach ($this->cat_aside as $cat) {
+					if ($cat->id() == $this->get_c) {
+						foreach ($cat->feeds() as $feed) {
+							if ($feed->id() == $this->get_f) {
+								$foundCurrent = true;
+								continue;
 							}
-							break;
+							if ($feed->nbNotRead() <= 0) continue;
+							$anotherUnreadId = $feed->id();
+							if ($foundCurrent) break;
 						}
+						break;
 					}
-					$nextGet = strlen ($anotherUnreadId) > 1 ? 'f_' . $anotherUnreadId : 'c_' . $this->get_c;
-					break;
+				}
+				$nextGet = empty($anotherUnreadId) ? 'c_' . $this->get_c : 'f_' . $anotherUnreadId;
+				break;
 			}
 		}
+
+		$p = isset($this->entries[0]) ? $this->entries[0] : null;
+		$idMax = $p === null ? (time() - 1) . '000000' : $p->id();
+
+		if ($this->order === 'ASC') {	//In this case we do not know but we guess idMax
+			$idMax2 = (time() - 1) . '000000';
+			if (strcmp($idMax2, $idMax) > 0) {
+				$idMax = $idMax2;
+			}
+		}
+
+		$arUrl = array('c' => 'entry', 'a' => 'read', 'params' => array('get' => $get, 'nextGet' => $nextGet, 'idMax' => $idMax));
+		$output = Minz_Request::param('output', '');
+		if ($output != '' && $this->conf->view_mode !== $output) {
+			$arUrl['params']['output'] = $output;
+		}
+		$markReadUrl = Minz_Url::display($arUrl);
+		Minz_Session::_param('markReadUrl', $markReadUrl);
 	?>
 
+	<form id="mark-read-menu" method="post" style="display: none"></form>
+
 	<div class="stick" id="nav_menu_read_all">
-		<a class="read_all btn" href="<?php echo _url ('entry', 'read', 'is_read', 1, 'get', $get, 'nextGet', $nextGet); ?>"><?php echo Translate::t ('mark_read'); ?></a>
+		<?php $confirm = $this->conf->reading_confirm ? 'confirm' : ''; ?>
+		<button class="read_all btn <?php echo $confirm; ?>"
+		        form="mark-read-menu"
+		        formaction="<?php echo $markReadUrl; ?>"
+		        type="submit"><?php echo _t('mark_read'); ?></button>
+
 		<div class="dropdown">
 			<div id="dropdown-read" class="dropdown-target"></div>
 
-			<a class="dropdown-toggle btn" href="#dropdown-read"><i class="icon i_down"></i></a>
+			<a class="dropdown-toggle btn" href="#dropdown-read"><?php echo _i('down'); ?></a>
 			<ul class="dropdown-menu">
-				<li class="dropdown-close"><a href="#close">&nbsp;</a></li>
+				<li class="dropdown-close"><a href="#close">❌</a></li>
 
-				<li class="item"><a href="<?php echo _url ('entry', 'read', 'is_read', 1, 'get', $get, 'nextGet', $nextGet); ?>"><?php echo $string_mark; ?></a></li> 
+				<li class="item">
+					<button class="as-link <?php echo $confirm; ?>"
+					        form="mark-read-menu"
+					        formaction="<?php echo $markReadUrl; ?>"
+					        type="submit"><?php echo $string_mark; ?></button>
+				</li>
 				<li class="separator"></li>
 <?php
-	$date = getdate ();
-	$today = mktime (0, 0, 0, $date['mon'], $date['mday'], $date['year']);
-	$one_week = $today - 604800;
+	$mark_before_today = $arUrl;
+	$mark_before_today['params']['idMax'] = $this->today . '000000';
+	$mark_before_one_week = $arUrl;
+	$mark_before_one_week['params']['idMax'] = ($this->today - 604800) . '000000';
 ?>
-				<li class="item"><a href="<?php echo _url ('entry', 'read', 'is_read', 1, 'get', $get, 'dateMax', $today); ?>"><?php echo Translate::t ('before_one_day'); ?></a></li>
-				<li class="item"><a href="<?php echo _url ('entry', 'read', 'is_read', 1, 'get', $get, 'dateMax', $one_week); ?>"><?php echo Translate::t ('before_one_week'); ?></a></li>
+				<li class="item">
+					<button class="as-link <?php echo $confirm; ?>"
+					        form="mark-read-menu"
+					        formaction="<?php echo Minz_Url::display($mark_before_today); ?>"
+					        type="submit"><?php echo _t('before_one_day'); ?></button>
+				</li>
+				<li class="item">
+					<button class="as-link <?php echo $confirm; ?>"
+					        form="mark-read-menu"
+					        formaction="<?php echo Minz_Url::display($mark_before_one_week); ?>"
+					        type="submit"><?php echo _t('before_one_week'); ?></button>
+				</li>
 			</ul>
 		</div>
 	</div>
 	<?php } ?>
 
-	<?php
-		$params = Request::params ();
-		if (isset ($params['search'])) {
-			$params['search'] = urlencode ($params['search']);
-		}
-		$url = array (
-			'c' => 'index',
-			'a' => 'index',
-			'params' => $params
-		);
-	?>
-	<div class="dropdown" id="nav_menu_views">
-		<div id="dropdown-views" class="dropdown-target"></div>
-		<a class="dropdown-toggle btn" href="#dropdown-views"><?php echo Translate::t ('display'); ?> <i class="icon i_down"></i></a>
-		<ul class="dropdown-menu">
-			<li class="dropdown-close"><a href="#close">&nbsp;</a></li>
+	<?php $url_output = $this->url; ?>
+	<div class="stick" id="nav_menu_views">
+		<?php $url_output['params']['output'] = 'normal'; ?>
+		<a class="view_normal btn <?php echo $actual_view == 'normal'? 'active' : ''; ?>" title="<?php echo _t('normal_view'); ?>" href="<?php echo Minz_Url::display($url_output); ?>">
+			<?php echo _i("view-normal"); ?>
+		</a>
 
-			<?php
-				$url_output = $url;
-				$actual_view = Request::param('output', 'normal');
-			?>
-			<?php if($actual_view != 'normal') { ?>
-			<li class="item">
-				<?php $url_output['params']['output'] = 'normal'; ?>
-				<a class="view_normal" href="<?php echo Url::display ($url_output); ?>">
-					<?php echo Translate::t ('normal_view'); ?>
-				</a>
-			</li>
-			<?php } if($actual_view != 'reader') { ?>
-			<li class="item">
-				<?php $url_output['params']['output'] = 'reader'; ?>
-				<a class="view_normal" href="<?php echo Url::display ($url_output); ?>">
-					<?php echo Translate::t ('reader_view'); ?>
-				</a>
-			</li>
-			<?php } if($actual_view != 'global') { ?>
-			<li class="item">
-				<?php $url_output['params']['output'] = 'global'; ?>
-				<a class="view_normal" href="<?php echo Url::display ($url_output); ?>">
-					<?php echo Translate::t ('global_view'); ?>
-				</a>
-			</li>
+		<?php $url_output['params']['output'] = 'global'; ?>
+		<a class="view_global btn <?php echo $actual_view == 'global'? 'active' : ''; ?>" title="<?php echo _t('global_view'); ?>" href="<?php echo Minz_Url::display($url_output); ?>">
+			<?php echo _i("view-global"); ?>
+		</a>
+
+		<?php $url_output['params']['output'] = 'reader'; ?>
+		<a class="view_reader btn <?php echo $actual_view == 'reader'? 'active' : ''; ?>" title="<?php echo _t('reader_view'); ?>" href="<?php echo Minz_Url::display($url_output); ?>">
+			<?php echo _i("view-reader"); ?>
+		</a>
+
+		<?php
+			$url_output['params']['output'] = 'rss';
+			if ($this->conf->token) {
+				$url_output['params']['token'] = $this->conf->token;
+			}
+		?>
+		<a class="view_rss btn" target="_blank" title="<?php echo _t('rss_view'); ?>" href="<?php echo Minz_Url::display($url_output); ?>">
+			<?php echo _i('rss'); ?>
+		</a>
+	</div>
+
+	<div class="item search">
+		<form action="<?php echo _url('index', 'index'); ?>" method="get">
+			<?php $search = Minz_Request::param('search', ''); ?>
+			<input type="search" name="search" class="extend" value="<?php echo $search; ?>" placeholder="<?php echo _t('search_short'); ?>" />
+
+			<?php $get = Minz_Request::param('get', ''); ?>
+			<?php if($get != '') { ?>
+			<input type="hidden" name="get" value="<?php echo $get; ?>" />
 			<?php } ?>
 
-			<li class="separator"></li>
+			<?php $order = Minz_Request::param('order', ''); ?>
+			<?php if($order != '') { ?>
+			<input type="hidden" name="order" value="<?php echo $order; ?>" />
+			<?php } ?>
 
-			<li class="item">
-				<?php
-					$url_state = $url;
-					if ($this->state == 'not_read') {
-						$url_state['params']['state'] = 'all';
-				?>
-				<a class="print_all" href="<?php echo Url::display ($url_state); ?>">
-					<?php echo Translate::t ('show_all_articles'); ?>
-				</a>
-				<?php
-					} else {
-						$url_state['params']['state'] = 'not_read';
-				?>
-				<a class="print_non_read" href="<?php echo Url::display ($url_state); ?>">
-					<?php echo Translate::t ('show_not_reads'); ?>
-				</a>
-				<?php } ?>
-			</li>
-
-			<li class="separator"></li>
-
-			<li class="item">
-				<?php
-					$url_order = $url;
-					if ($this->order == 'low_to_high') {
-						$url_order['params']['order'] = 'high_to_low';
-				?>
-				<a href="<?php echo Url::display ($url_order); ?>">
-					<?php echo Translate::t ('older_first'); ?>
-				</a>
-				<?php
-					} else {
-						$url_order['params']['order'] = 'low_to_high';
-				?>
-				<a href="<?php echo Url::display ($url_order); ?>">
-					<?php echo Translate::t ('newer_first'); ?>
-				</a>
-				<?php } ?>
-			</li>
-		</ul>
+			<?php $state = Minz_Request::param('state', ''); ?>
+			<?php if($state != '') { ?>
+			<input type="hidden" name="state" value="<?php echo $state; ?>" />
+			<?php } ?>
+		</form>
 	</div>
+	
+	<?php
+		if ($this->order === 'DESC') {
+			$order = 'ASC';
+			$icon = 'up';
+			$title = 'older_first';
+		} else {
+			$order = 'DESC';
+			$icon = 'down';
+			$title = 'newer_first';
+		}
+		$url_order = $this->url;
+		$url_order['params']['order'] = $order;
+	?>
+	<a id="toggle-order" class="btn" href="<?php echo Minz_Url::display($url_order); ?>" title="<?php echo _t($title); ?>">
+		<?php echo _i($icon); ?>
+	</a>
+	
+	<?php if ($this->loginOk || Minz_Configuration::allowAnonymousRefresh()) { ?>
+	<a id="actualize" class="btn" href="<?php echo _url('feed', 'actualize'); ?>"><?php echo _i('refresh'); ?></a>
+	<?php } ?>
 </div>

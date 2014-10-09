@@ -1,184 +1,108 @@
 <?php $this->partial ('aside_configure'); ?>
 
 <div class="post">
-	<a href="<?php echo _url ('index', 'index'); ?>"><?php echo Translate::t ('back_to_rss_feeds'); ?></a>
+	<a href="<?php echo _url ('index', 'index'); ?>"><?php echo Minz_Translate::t ('back_to_rss_feeds'); ?></a>
 
 	<form method="post" action="<?php echo _url ('configure', 'display'); ?>">
-		<legend><?php echo Translate::t ('general_configuration'); ?></legend>
+		<legend><?php echo Minz_Translate::t ('display_configuration'); ?></legend>
 
 		<div class="form-group">
-			<label class="group-name" for="language"><?php echo Translate::t ('language'); ?></label>
+			<label class="group-name" for="language"><?php echo Minz_Translate::t ('language'); ?></label>
 			<div class="group-controls">
 				<select name="language" id="language">
 				<?php $languages = $this->conf->availableLanguages (); ?>
 				<?php foreach ($languages as $short => $lib) { ?>
-				<option value="<?php echo $short; ?>"<?php echo $this->conf->language () == $short ? ' selected="selected"' : ''; ?>><?php echo $lib; ?></option>
+				<option value="<?php echo $short; ?>"<?php echo $this->conf->language === $short ? ' selected="selected"' : ''; ?>><?php echo $lib; ?></option>
 				<?php } ?>
 				</select>
 			</div>
 		</div>
 
 		<div class="form-group">
-			<label class="group-name" for="theme"><?php echo Translate::t ('theme'); ?></label>
+			<label class="group-name" for="theme"><?php echo Minz_Translate::t ('theme'); ?></label>
 			<div class="group-controls">
-				<select name="theme" id="theme">
-				<?php foreach ($this->themes as $theme) { ?>
-				<option value="<?php echo $theme['path']; ?>"<?php echo $this->conf->theme () == $theme['path'] ? ' selected="selected"' : ''; ?>>
-					<?php echo $theme['name'] . ' ' . Translate::t ('by') . ' ' . $theme['author']; ?> 
-				</option>
-				<?php } ?>
+				<select name="theme" id="theme" required=""><?php
+					$found = false;
+					foreach ($this->themes as $theme) {
+						?><option value="<?php echo $theme['id']; ?>"<?php if ($this->conf->theme === $theme['id']) { echo ' selected="selected"'; $found = true; } ?>><?php
+							echo $theme['name'] . ' — ' . Minz_Translate::t ('by') . ' ' . $theme['author'];
+						?></option><?php
+					}
+					if (!$found) {
+						?><option selected="selected"></option><?php
+					}
+				?></select>
+			</div>
+		</div>
+
+		<?php $width = $this->conf->content_width; ?>
+		<div class="form-group">
+			<label class="group-name" for="content_width"><?php echo Minz_Translate::t('content_width'); ?></label>
+			<div class="group-controls">
+				<select name="content_width" id="content_width" required="">
+					<option value="thin" <?php echo $width === 'thin'? 'selected="selected"' : ''; ?>>
+						<?php echo Minz_Translate::t('width_thin'); ?>
+					</option>
+					<option value="medium" <?php echo $width === 'medium'? 'selected="selected"' : ''; ?>>
+						<?php echo Minz_Translate::t('width_medium'); ?>
+					</option>
+					<option value="large" <?php echo $width === 'large'? 'selected="selected"' : ''; ?>>
+						<?php echo Minz_Translate::t('width_large'); ?>
+					</option>
+					<option value="no_limit" <?php echo $width === 'no_limit'? 'selected="selected"' : ''; ?>>
+						<?php echo Minz_Translate::t('width_no_limit'); ?>
+					</option>
 				</select>
 			</div>
 		</div>
 
 		<div class="form-group">
-			<label class="group-name" for="old_entries"><?php echo Translate::t ('delete_articles_every'); ?></label>
-			<div class="group-controls">
-				<input type="number" id="old_entries" name="old_entries" value="<?php echo $this->conf->oldEntries (); ?>" /> <?php echo Translate::t ('month'); ?>
-			</div>
+			<label class="group-name" for="theme"><?php echo Minz_Translate::t ('article_icons'); ?></label>
+			<table>
+				<thead>
+					<tr>
+						<th> </th>
+						<th title="<?php echo Minz_Translate::t ('mark_read'); ?>"><?php echo FreshRSS_Themes::icon('read'); ?></th>
+						<th title="<?php echo Minz_Translate::t ('mark_favorite'); ?>"><?php echo FreshRSS_Themes::icon('bookmark'); ?></th>
+						<th><?php echo Minz_Translate::t ('sharing'); ?></th>
+						<th><?php echo Minz_Translate::t ('related_tags'); ?></th>
+						<th><?php echo Minz_Translate::t ('publication_date'); ?></th>
+						<th><?php echo FreshRSS_Themes::icon('link'); ?></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<th><?php echo Minz_Translate::t ('top_line'); ?></th>
+						<td><input type="checkbox" name="topline_read" value="1"<?php echo $this->conf->topline_read ? ' checked="checked"' : ''; ?> /></td>
+						<td><input type="checkbox" name="topline_favorite" value="1"<?php echo $this->conf->topline_favorite ? ' checked="checked"' : ''; ?> /></td>
+						<td><input type="checkbox" disabled="disabled" /></td>
+						<td><input type="checkbox" disabled="disabled" /></td>
+						<td><input type="checkbox" name="topline_date" value="1"<?php echo $this->conf->topline_date ? ' checked="checked"' : ''; ?> /></td>
+						<td><input type="checkbox" name="topline_link" value="1"<?php echo $this->conf->topline_link ? ' checked="checked"' : ''; ?> /></td>
+					</tr><tr>
+						<th><?php echo Minz_Translate::t ('bottom_line'); ?></th>
+						<td><input type="checkbox" name="bottomline_read" value="1"<?php echo $this->conf->bottomline_read ? ' checked="checked"' : ''; ?> /></td>
+						<td><input type="checkbox" name="bottomline_favorite" value="1"<?php echo $this->conf->bottomline_favorite ? ' checked="checked"' : ''; ?> /></td>
+						<td><input type="checkbox" name="bottomline_sharing" value="1"<?php echo $this->conf->bottomline_sharing ? ' checked="checked"' : ''; ?> /></td>
+						<td><input type="checkbox" name="bottomline_tags" value="1"<?php echo $this->conf->bottomline_tags ? ' checked="checked"' : ''; ?> /></td>
+						<td><input type="checkbox" name="bottomline_date" value="1"<?php echo $this->conf->bottomline_date ? ' checked="checked"' : ''; ?> /></td>
+						<td><input type="checkbox" name="bottomline_link" value="1"<?php echo $this->conf->bottomline_link ? ' checked="checked"' : ''; ?> /></td>
+					</tr>
+				</tbody>
+			</table><br />
 		</div>
-
+		
 		<div class="form-group">
-			<label class="group-name" for="mail_login"><?php echo Translate::t ('persona_connection_email'); ?></label>
-			<?php $mail = $this->conf->mailLogin (); ?>
+			<label class="group-name" for="posts_per_page"><?php echo Minz_Translate::t ('html5_notif_timeout'); ?></label>
 			<div class="group-controls">
-				<input type="email" id="mail_login" name="mail_login" value="<?php echo $mail ? $mail : ''; ?>" placeholder="<?php echo Translate::t ('blank_to_disable'); ?>" />
-				<noscript><b><?php echo Translate::t ('javascript_should_be_activated'); ?></b></noscript>
-				<label class="checkbox" for="anon_access">
-					<input type="checkbox" name="anon_access" id="anon_access" value="yes"<?php echo $this->conf->anonAccess () == 'yes' ? ' checked="checked"' : ''; ?> />
-					<?php echo Translate::t ('allow_anonymous'); ?>
-				</label>
-			</div>
-		</div>
-
-		<div class="form-group">
-			<label class="group-name" for="token"><?php echo Translate::t ('auth_token'); ?></label>
-			<?php $token = $this->conf->token (); ?>
-			<div class="group-controls">
-				<input type="text" id="token" name="token" value="<?php echo $token; ?>"  placeholder="<?php echo Translate::t ('blank_to_disable'); ?>"/>
-				<i class="icon i_help"></i> <?php echo Translate::t('explain_token', Url::display(), $token); ?>
-			</div>
-		</div>
-	
-		<legend><?php echo Translate::t ('reading_configuration'); ?></legend>
-
-		<div class="form-group">
-			<label class="group-name" for="posts_per_page"><?php echo Translate::t ('articles_per_page'); ?></label>
-			<div class="group-controls">
-				<input type="number" id="posts_per_page" name="posts_per_page" value="<?php echo $this->conf->postsPerPage (); ?>" />
-			</div>
-		</div>
-
-		<div class="form-group">
-			<label class="group-name" for="sort_order"><?php echo Translate::t ('sort_order'); ?></label>
-			<div class="group-controls">
-				<select name="sort_order" id="sort_order">
-					<option value="low_to_high"<?php echo $this->conf->sortOrder () == 'low_to_high' ? ' selected="selected"' : ''; ?>><?php echo Translate::t ('newer_first'); ?></option>
-					<option value="high_to_low"<?php echo $this->conf->sortOrder () == 'high_to_low' ? ' selected="selected"' : ''; ?>><?php echo Translate::t ('older_first'); ?></option>
-				</select>
-			</div>
-		</div>
-
-		<div class="form-group">
-			<label class="group-name" for="view_mode"><?php echo Translate::t ('default_view'); ?></label>
-			<div class="group-controls">
-				<select name="view_mode" id="view_mode">
-					<option value="normal"<?php echo $this->conf->viewMode () == 'normal' ? ' selected="selected"' : ''; ?>><?php echo Translate::t ('normal_view'); ?></option>
-					<option value="reader"<?php echo $this->conf->viewMode () == 'reader' ? ' selected="selected"' : ''; ?>><?php echo Translate::t ('reader_view'); ?></option>
-					<option value="global"<?php echo $this->conf->viewMode () == 'global' ? ' selected="selected"' : ''; ?>><?php echo Translate::t ('global_view'); ?></option>
-				</select>
-				<label class="radio" for="radio_all">
-					<input type="radio" name="default_view" id="radio_all" value="all"<?php echo $this->conf->defaultView () == 'all' ? ' checked="checked"' : ''; ?> />
-					<?php echo Translate::t ('show_all_articles'); ?>
-				</label>
-				<label class="radio" for="radio_not_read">
-					<input type="radio" name="default_view" id="radio_not_read" value="not_read"<?php echo $this->conf->defaultView () == 'not_read' ? ' checked="checked"' : ''; ?> />
-					<?php echo Translate::t ('show_not_reads'); ?>
-				</label>
-			</div>
-		</div>
-
-		<div class="form-group">
-			<div class="group-controls">
-				<label class="checkbox" for="auto_load_more">
-					<input type="checkbox" name="auto_load_more" id="auto_load_more" value="yes"<?php echo $this->conf->autoLoadMore () == 'yes' ? ' checked="checked"' : ''; ?> />
-					<?php echo Translate::t ('auto_load_more'); ?>
-					<?php echo $this->conf->displayPosts () == 'no' ? '<noscript> - <b>' . Translate::t ('javascript_should_be_activated') . '</b></noscript>' : ''; ?>
-				</label>
-			</div>
-		</div>
-
-		<div class="form-group">
-			<div class="group-controls">
-				<label class="checkbox" for="display_posts">
-					<input type="checkbox" name="display_posts" id="display_posts" value="yes"<?php echo $this->conf->displayPosts () == 'yes' ? ' checked="checked"' : ''; ?> />
-					<?php echo Translate::t ('display_articles_unfolded'); ?>
-					<?php echo $this->conf->displayPosts () == 'no' ? '<noscript> - <b>' . Translate::t ('javascript_should_be_activated') . '</b></noscript>' : ''; ?>
-				</label>
-			</div>
-		</div>
-
-		<div class="form-group">
-			<div class="group-controls">
-				<label class="checkbox" for="lazyload">
-					<input type="checkbox" name="lazyload" id="lazyload" value="yes"<?php echo $this->conf->lazyload () == 'yes' ? ' checked="checked"' : ''; ?> />
-					<?php echo Translate::t ('img_with_lazyload'); ?>
-					<?php echo $this->conf->lazyload () == 'yes' ? '<noscript> - <b>' . Translate::t ('javascript_should_be_activated') . '</b></noscript>' : ''; ?>
-				</label>
-			</div>
-		</div>
-
-		<div class="form-group">
-			<label class="group-name"><?php echo Translate::t ('auto_read_when'); ?></label>
-			<div class="group-controls">
-				<label class="checkbox" for="check_open_article">
-					<input type="checkbox" name="mark_open_article" id="check_open_article" value="yes"<?php echo $this->conf->markWhenArticle () == 'yes' ? ' checked="checked"' : ''; ?> />
-					<?php echo Translate::t ('article_selected'); ?>
-				</label>
-				<label class="checkbox" for="check_open_site">
-					<input type="checkbox" name="mark_open_site" id="check_open_site" value="yes"<?php echo $this->conf->markWhenSite () == 'yes' ? ' checked="checked"' : ''; ?> />
-					<?php echo Translate::t ('article_open_on_website'); ?>
-				</label>
-				<label class="checkbox" for="check_scroll">
-					<input type="checkbox" name="mark_scroll" id="check_scroll" value="yes"<?php echo $this->conf->markWhenScroll () == 'yes' ? ' checked="checked"' : ''; ?> />
-					<?php echo Translate::t ('scroll'); ?>
-				</label>
-			</div>
-		</div>
-
-		<div class="form-group">
-			<label class="group-name"><?php echo Translate::t ('after_onread'); ?></label>
-			<div class="group-controls">
-				<label class="checkbox" for="onread_jump_next">
-					<input type="checkbox" name="onread_jump_next" id="onread_jump_next" value="yes"<?php echo $this->conf->onread_jump_next () == 'yes' ? ' checked="checked"' : ''; ?> />
-					<?php echo Translate::t ('jump_next'); ?>
-				</label>
-			</div>
-		</div>
-
-		<legend><?php echo Translate::t ('sharing'); ?></legend>
-		<div class="form-group">
-			<label class="group-name" for="shaarli"><?php echo Translate::t ('your_shaarli'); ?></label>
-			<div class="group-controls">
-				<input type="text" id="shaarli" name="shaarli" value="<?php echo $this->conf->urlShaarli (); ?>" placeholder="<?php echo Translate::t ('blank_to_disable'); ?>"/>
-			</div>
-		</div>
-
-		<legend><?php echo Translate::t ('advanced'); ?></legend>
-		<div class="form-group">
-			<label class="group-name"></label>
-			<div class="group-controls">
-				<a class="btn" href="<?php echo _url('entry', 'optimize'); ?>">
-					<?php echo Translate::t('optimize_bdd'); ?>
-				</a>
-				<i class="icon i_help"></i> <?php echo Translate::t('optimize_todo_sometimes'); ?>
+				<input type="number" id="html5_notif_timeout" name="html5_notif_timeout" value="<?php echo $this->conf->html5_notif_timeout; ?>" /> <?php echo Minz_Translate::t ('seconds_(0_means_no_timeout)'); ?>
 			</div>
 		</div>
 
 		<div class="form-group form-actions">
 			<div class="group-controls">
-				<button type="submit" class="btn btn-important"><?php echo Translate::t ('save'); ?></button>
-				<button type="reset" class="btn"><?php echo Translate::t ('cancel'); ?></button>
+				<button type="submit" class="btn btn-important"><?php echo Minz_Translate::t ('save'); ?></button>
+				<button type="reset" class="btn"><?php echo Minz_Translate::t ('cancel'); ?></button>
 			</div>
 		</div>
 	</form>

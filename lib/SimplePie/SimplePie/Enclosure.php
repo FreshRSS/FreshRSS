@@ -33,7 +33,7 @@
  * POSSIBILITY OF SUCH DAMAGE.
  *
  * @package SimplePie
- * @version 1.3.1
+ * @version 1.4-dev
  * @copyright 2004-2012 Ryan Parman, Geoffrey Sneddon, Ryan McCue
  * @author Ryan Parman
  * @author Geoffrey Sneddon
@@ -942,7 +942,7 @@ class SimplePie_Enclosure
 	 * - `height` (integer): The height of the embedded media. Accepts any
 	 *    numeric pixel value (such as `360`) or `auto`. Defaults to `auto`,
 	 *    and it is recommended that you use this default.
-	 * - `loop` (boolean): Do you want the media to loop when its done?
+	 * - `loop` (boolean): Do you want the media to loop when it's done?
 	 *    Defaults to `false`.
 	 * - `mediaplayer` (string): The location of the included
 	 *    `mediaplayer.swf` file. This allows for the playback of Flash Video

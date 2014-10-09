@@ -33,7 +33,7 @@
  * POSSIBILITY OF SUCH DAMAGE.
  *
  * @package SimplePie
- * @version 1.3.1
+ * @version 1.4-dev
  * @copyright 2004-2012 Ryan Parman, Geoffrey Sneddon, Ryan McCue
  * @author Ryan Parman
  * @author Geoffrey Sneddon
@@ -277,7 +277,7 @@ class SimplePie_Locator
 				$parsed = $this->registry->call('Misc', 'parse_url', array($href));
 				if ($parsed['scheme'] === '' || preg_match('/^(http(s)|feed)?$/i', $parsed['scheme']))
 				{
-					if ($this->base_location < $link->getLineNo())
+					if (method_exists($link, 'getLineNo') && $this->base_location < $link->getLineNo())
 					{
 						$href = $this->registry->call('Misc', 'absolutize_url', array(trim($link->getAttribute('href')), $this->base));
 					}

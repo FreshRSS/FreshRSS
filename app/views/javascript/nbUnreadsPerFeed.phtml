@@ -1,0 +1,8 @@
+<?php
+$result = array();
+foreach ($this->categories as $cat) {
+	foreach ($cat->feeds() as $feed) {
+		$result[$feed->id()] = $feed->nbNotRead();
+	}
+}
+echo json_encode($result);

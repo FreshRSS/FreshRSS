@@ -33,7 +33,7 @@
  * POSSIBILITY OF SUCH DAMAGE.
  *
  * @package SimplePie
- * @version 1.3.1
+ * @version 1.4-dev-FreshRSS
  * @copyright 2004-2012 Ryan Parman, Geoffrey Sneddon, Ryan McCue
  * @author Ryan Parman
  * @author Geoffrey Sneddon
@@ -50,7 +50,7 @@ define('SIMPLEPIE_NAME', 'SimplePie');
 /**
  * SimplePie Version
  */
-define('SIMPLEPIE_VERSION', '1.3.1');
+define('SIMPLEPIE_VERSION', '1.4-dev-FreshRSS');
 
 /**
  * SimplePie Build
@@ -446,6 +446,13 @@ class SimplePie
 	public $feed_url;
 
 	/**
+	 * @var string Original feed URL, or new feed URL iff HTTP 301 Moved Permanently
+	 * @see SimplePie::subscribe_url()
+	 * @access private
+	 */
+	public $permanent_url = null;	//FreshRSS
+
+	/**
 	 * @var object Instance of SimplePie_File to use as a feed
 	 * @see SimplePie::set_file()
 	 * @access private
@@ -602,6 +609,13 @@ class SimplePie
 	public $strip_attributes = array('bgsound', 'class', 'expr', 'id', 'style', 'onclick', 'onerror', 'onfinish', 'onmouseover', 'onmouseout', 'onfocus', 'onblur', 'lowsrc', 'dynsrc');
 
 	/**
+	 * @var array Stores the default attributes to add to different tags by add_attributes().
+	 * @see SimplePie::add_attributes()
+	 * @access private
+	 */
+	public $add_attributes = array('audio' => array('preload' => 'none'), 'iframe' => array('sandbox' => 'allow-scripts allow-same-origin'), 'video' => array('preload' => 'none'));	//FreshRSS
+
+	/**
 	 * @var array Stores the default tags to be stripped by strip_htmltags().
 	 * @see SimplePie::strip_htmltags()
 	 * @access private
@@ -637,7 +651,7 @@ class SimplePie
 		if (func_num_args() > 0)
 		{
 			$level = defined('E_USER_DEPRECATED') ? E_USER_DEPRECATED : E_USER_WARNING;
-			trigger_error('Passing parameters to the constructor is no longer supported. Please use set_feed_url(), set_cache_location(), and set_cache_location() directly.', $level);
+			trigger_error('Passing parameters to the constructor is no longer supported. Please use set_feed_url(), set_cache_location(), and set_cache_duration() directly.', $level);
 
 			$args = func_get_args();
 			switch (count($args)) {
@@ -728,6 +742,7 @@ class SimplePie
 		else
 		{
 			$this->feed_url = $this->registry->call('Misc', 'fix_protocol', array($url, 1));
+			$this->permanent_url = $this->feed_url;	//FreshRSS
 		}
 	}
 
@@ -742,6 +757,7 @@ class SimplePie
 		if ($file instanceof SimplePie_File)
 		{
 			$this->feed_url = $file->url;
+			$this->permanent_url = $this->feed_url;	//FreshRSS
 			$this->file =& $file;
 			return true;
 		}
@@ -1073,6 +1089,7 @@ class SimplePie
 			$this->strip_comments(false);
 			$this->strip_htmltags(false);
 			$this->strip_attributes(false);
+			$this->add_attributes(false);
 			$this->set_image_handler(false);
 		}
 	}
@@ -1117,6 +1134,15 @@ class SimplePie
 			$attribs = $this->strip_attributes;
 		}
 		$this->sanitize->strip_attributes($attribs);
+	}
+
+	public function add_attributes($attribs = '')
+	{
+		if ($attribs === '')
+		{
+			$attribs = $this->add_attributes;
+		}
+		$this->sanitize->add_attributes($attribs);
 	}
 
 	/**
@@ -1196,13 +1222,27 @@ class SimplePie
 	}
 
 	/**
+	 * Enable throwing exceptions
+	 *
+	 * @param boolean $enable Should we throw exceptions, or use the old-style error property?
+	 */
+	public function enable_exceptions($enable = true)
+	{
+		$this->enable_exceptions = $enable;
+	}
+
+	function cleanMd5($rss) {	//FreshRSS
+		return md5(preg_replace(array('#<(lastBuildDate|pubDate|updated|feedDate|dc:date|slash:comments)>[^<]+</\\1>#', '#<!--.+?-->#s'), '', $rss));
+	}
+
+	/**
 	 * Initialize the feed object
 	 *
 	 * This is what makes everything happen.  Period.  This is where all of the
 	 * configuration options get processed, feeds are fetched, cached, and
 	 * parsed, and all of that other good stuff.
 	 *
-	 * @return boolean True if successful, false otherwise
+	 * @return positive integer with modification time if using cache, boolean true if otherwise successful, false otherwise
 	 */
 	public function init()
 	{
@@ -1281,13 +1321,17 @@ class SimplePie
 			// Fetch the data via SimplePie_File into $this->raw_data
 			if (($fetched = $this->fetch_data($cache)) === true)
 			{
-				return true;
+				return $this->data['mtime'];	//FreshRSS
 			}
 			elseif ($fetched === false) {
 				return false;
 			}
 
 			list($headers, $sniffed) = $fetched;
+
+			if (isset($this->data['md5'])) {	//FreshRSS
+				$md5 = $this->data['md5'];
+			}
 		}
 
 		// Set up array of possible encodings
@@ -1296,7 +1340,7 @@ class SimplePie
 		// First check to see if input has been overridden.
 		if ($this->input_encoding !== false)
 		{
-			$encodings[] = $this->input_encoding;
+			$encodings[] = strtoupper($this->input_encoding);
 		}
 
 		$application_types = array('application/xml', 'application/xml-dtd', 'application/xml-external-parsed-entity');
@@ -1311,14 +1355,20 @@ class SimplePie
 				{
 					$encodings[] = strtoupper($charset[1]);
 				}
-				$encodings = array_merge($encodings, $this->registry->call('Misc', 'xml_encoding', array($this->raw_data, &$this->registry)));
-				$encodings[] = 'UTF-8';
+				else
+				{
+					$encodings[] = '';	//FreshRSS: Let the DOM parser decide first
+				}
 			}
 			elseif (in_array($sniffed, $text_types) || substr($sniffed, 0, 5) === 'text/' && substr($sniffed, -4) === '+xml')
 			{
 				if (isset($headers['content-type']) && preg_match('/;\x20?charset=([^;]*)/i', $headers['content-type'], $charset))
 				{
-					$encodings[] = $charset[1];
+					$encodings[] = strtoupper($charset[1]);
+				}
+				else
+				{
+					$encodings[] = '';	//FreshRSS: Let the DOM parser decide first
 				}
 				$encodings[] = 'US-ASCII';
 			}
@@ -1341,13 +1391,14 @@ class SimplePie
 		foreach ($encodings as $encoding)
 		{
 			// Change the encoding to UTF-8 (as we always use UTF-8 internally)
-			if ($utf8_data = $this->registry->call('Misc', 'change_encoding', array($this->raw_data, $encoding, 'UTF-8')))
+			if ($utf8_data = (empty($encoding) || $encoding === 'UTF-8') ? $this->raw_data :	//FreshRSS
+				$this->registry->call('Misc', 'change_encoding', array($this->raw_data, $encoding, 'UTF-8')))
 			{
 				// Create new parser
 				$parser = $this->registry->create('Parser');
 
 				// If it's parsed fine
-				if ($parser->parse($utf8_data, 'UTF-8'))
+				if ($parser->parse($utf8_data, empty($encoding) ? '' : 'UTF-8'))	//FreshRSS
 				{
 					$this->data = $parser->get_data();
 					if (!($this->get_type() & ~SIMPLEPIE_TYPE_NONE))
@@ -1362,6 +1413,8 @@ class SimplePie
 						$this->data['headers'] = $headers;
 					}
 					$this->data['build'] = SIMPLEPIE_BUILD;
+					$this->data['mtime'] = time();	//FreshRSS
+					$this->data['md5'] = empty($md5) ? $this->cleanMd5($this->raw_data) : $md5;	//FreshRSS
 
 					// Cache the file if caching is enabled
 					if ($cache && !$cache->save($this))
@@ -1437,7 +1490,7 @@ class SimplePie
 				elseif ($cache->mtime() + $this->cache_duration < time())
 				{
 					// If we have last-modified and/or etag set
-					if (isset($this->data['headers']['last-modified']) || isset($this->data['headers']['etag']))
+					//if (isset($this->data['headers']['last-modified']) || isset($this->data['headers']['etag']))	//FreshRSS removed
 					{
 						$headers = array(
 							'Accept' => 'application/atom+xml, application/rss+xml, application/rdf+xml;q=0.9, application/xml;q=0.8, text/xml;q=0.8, text/html;q=0.7, unknown/unknown;q=0.1, application/unknown;q=0.1, */*;q=0.1',
@@ -1451,7 +1504,7 @@ class SimplePie
 							$headers['if-none-match'] = $this->data['headers']['etag'];
 						}
 
-						$file = $this->registry->create('File', array($this->feed_url, $this->timeout/10, 5, $headers, $this->useragent, $this->force_fsockopen));
+						$file = $this->registry->create('File', array($this->feed_url, $this->timeout, 5, $headers, $this->useragent, $this->force_fsockopen));	//FreshRSS
 
 						if ($file->success)
 						{
@@ -1463,7 +1516,20 @@ class SimplePie
 						}
 						else
 						{
-							unset($file);
+							$this->error = $file->error;	//FreshRSS
+							return !empty($this->data);	//FreshRSS
+							//unset($file);	//FreshRSS removed
+						}
+					}
+					{	//FreshRSS
+						$md5 = $this->cleanMd5($file->body);
+						if ($this->data['md5'] === $md5) {
+							syslog(LOG_DEBUG, 'SimplePie MD5 cache match for ' . $this->feed_url);
+							$cache->touch();
+							return true;	//Content unchanged even though server did not send a 304
+						} else {
+							syslog(LOG_DEBUG, 'SimplePie MD5 cache no match for ' . $this->feed_url);
+							$this->data['md5'] = $md5;
 						}
 					}
 				}
@@ -1531,6 +1597,8 @@ class SimplePie
 				if ($cache)
 				{
 					$this->data = array('url' => $this->feed_url, 'feed_url' => $file->url, 'build' => SIMPLEPIE_BUILD);
+					$this->data['mtime'] = time();	//FreshRSS
+					$this->data['md5'] = empty($md5) ? $this->cleanMd5($file->body) : $md5;	//FreshRSS
 					if (!$cache->save($this))
 					{
 						trigger_error("$this->cache_location is not writeable. Make sure you've set the correct relative or absolute path, and that the location is server-writable.", E_USER_WARNING);
@@ -1543,7 +1611,7 @@ class SimplePie
 		}
 
 		$this->raw_data = $file->body;
-
+		$this->permanent_url = $file->permanent_url;	//FreshRSS
 		$headers = $file->headers;
 		$sniffer = $this->registry->create('Content_Type_Sniffer', array(&$file));
 		$sniffed = $sniffer->get_type();
@@ -1729,26 +1797,39 @@ class SimplePie
 
 	/**
 	 * Get the URL for the feed
+	 * 
+	 * When the 'permanent' mode is enabled, returns the original feed URL,
+	 * except in the case of an `HTTP 301 Moved Permanently` status response,
+	 * in which case the location of the first redirection is returned.
 	 *
-	 * May or may not be different from the URL passed to {@see set_feed_url()},
+	 * When the 'permanent' mode is disabled (default),
+	 * may or may not be different from the URL passed to {@see set_feed_url()},
 	 * depending on whether auto-discovery was used.
 	 *
 	 * @since Preview Release (previously called `get_feed_url()` since SimplePie 0.8.)
-	 * @todo If we have a perm redirect we should return the new URL
-	 * @todo When we make the above change, let's support <itunes:new-feed-url> as well
+	 * @todo Support <itunes:new-feed-url>
 	 * @todo Also, |atom:link|@rel=self
+	 * @param bool $permanent Permanent mode to return only the original URL or the first redirection
+	 *  iff it is a 301 redirection
 	 * @return string|null
 	 */
-	public function subscribe_url()
+	public function subscribe_url($permanent = false)
 	{
-		if ($this->feed_url !== null)
+		if ($permanent)	//FreshRSS
 		{
-			return $this->sanitize($this->feed_url, SIMPLEPIE_CONSTRUCT_IRI);
+			if ($this->permanent_url !== null)
+			{
+				return $this->sanitize($this->permanent_url, SIMPLEPIE_CONSTRUCT_IRI);
+			}
 		}
 		else
 		{
-			return null;
+			if ($this->feed_url !== null)
+			{
+				return $this->sanitize($this->feed_url, SIMPLEPIE_CONSTRUCT_IRI);
+			}
 		}
+		return null;
 	}
 
 	/**
@@ -1963,7 +2044,21 @@ class SimplePie
 	 */
 	public function sanitize($data, $type, $base = '')
 	{
-		return $this->sanitize->sanitize($data, $type, $base);
+		try
+		{
+			return $this->sanitize->sanitize($data, $type, $base);
+		}
+		catch (SimplePie_Exception $e)
+		{
+			if (!$this->enable_exceptions)
+			{
+				$this->error = $e->getMessage();
+				$this->registry->call('Misc', 'error', array($this->error, E_USER_WARNING, $e->getFile(), $e->getLine()));
+				return '';
+			}
+
+			throw $e;
+		}
 	}
 
 	/**

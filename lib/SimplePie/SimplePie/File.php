@@ -33,7 +33,7 @@
  * POSSIBILITY OF SUCH DAMAGE.
  *
  * @package SimplePie
- * @version 1.3.1
+ * @version 1.4-dev
  * @copyright 2004-2012 Ryan Parman, Geoffrey Sneddon, Ryan McCue
  * @author Ryan Parman
  * @author Geoffrey Sneddon
@@ -64,6 +64,7 @@ class SimplePie_File
 	var $redirects = 0;
 	var $error;
 	var $method = SIMPLEPIE_FILE_SOURCE_NONE;
+	var $permanent_url;	//FreshRSS
 
 	public function __construct($url, $timeout = 10, $redirects = 5, $headers = null, $useragent = null, $force_fsockopen = false)
 	{
@@ -74,9 +75,11 @@ class SimplePie_File
 			$url = SimplePie_Misc::compress_parse_url($parsed['scheme'], $idn->encode($parsed['authority']), $parsed['path'], $parsed['query'], $parsed['fragment']);
 		}
 		$this->url = $url;
+		$this->permanent_url = $url;	//FreshRSS
 		$this->useragent = $useragent;
 		if (preg_match('/^http(s)?:\/\//i', $url))
 		{
+			syslog(LOG_INFO, 'SimplePie GET ' . $url);	//FreshRSS
 			if ($useragent === null)
 			{
 				$useragent = ini_get('user_agent');
@@ -107,7 +110,7 @@ class SimplePie_File
 				curl_setopt($fp, CURLOPT_REFERER, $url);
 				curl_setopt($fp, CURLOPT_USERAGENT, $useragent);
 				curl_setopt($fp, CURLOPT_HTTPHEADER, $headers2);
-				curl_setopt($fp, CURLOPT_SSL_VERIFYPEER, false);
+				curl_setopt($fp, CURLOPT_SSL_VERIFYPEER, false);	//FreshRSS
 				if (!ini_get('open_basedir') && !ini_get('safe_mode') && version_compare(SimplePie_Misc::get_curl_version(), '7.15.2', '>='))
 				{
 					curl_setopt($fp, CURLOPT_FOLLOWLOCATION, 1);
@@ -141,7 +144,10 @@ class SimplePie_File
 						{
 							$this->redirects++;
 							$location = SimplePie_Misc::absolutize_url($this->headers['location'], $url);
-							return $this->__construct($location, $timeout, $redirects, $headers, $useragent, $force_fsockopen);
+							$previousStatusCode = $this->status_code;
+							$this->__construct($location, $timeout, $redirects, $headers, $useragent, $force_fsockopen);
+							$this->permanent_url = ($previousStatusCode == 301) ? $location : $url;	//FreshRSS
+							return;
 						}
 					}
 				}
@@ -223,7 +229,10 @@ class SimplePie_File
 							{
 								$this->redirects++;
 								$location = SimplePie_Misc::absolutize_url($this->headers['location'], $url);
-								return $this->__construct($location, $timeout, $redirects, $headers, $useragent, $force_fsockopen);
+								$previousStatusCode = $this->status_code;
+								$this->__construct($location, $timeout, $redirects, $headers, $useragent, $force_fsockopen);
+								$this->permanent_url = ($previousStatusCode == 301) ? $location : $url;	//FreshRSS
+								return;
 							}
 							if (isset($this->headers['content-encoding']))
 							{
@@ -283,7 +292,7 @@ class SimplePie_File
 		else
 		{
 			$this->method = SIMPLEPIE_FILE_SOURCE_LOCAL | SIMPLEPIE_FILE_SOURCE_FILE_GET_CONTENTS;
-			if (!$this->body = file_get_contents($url))
+			if (empty($url) || !($this->body = file_get_contents($url)))
 			{
 				$this->error = 'file_get_contents could not read the file';
 				$this->success = false;

@@ -1,76 +1,115 @@
-<?php if (login_is_conf ($this->conf)) { ?>
-<ul class="nav nav-head nav-login">
-	<?php if (!is_logged ()) { ?>
-	<li class="item"><i class="icon i_login"></i> <a class="signin" href="#"><?php echo Translate::t ('login'); ?></a></li>
-	<?php } else { ?>
-	<li class="item"><i class="icon i_logout"></i> <a class="signout" href="#"><?php echo Translate::t ('logout'); ?></a></li>
-	<?php } ?>
-</ul>
-<?php } ?>
+<?php
+if (Minz_Configuration::canLogIn()) {
+	?><ul class="nav nav-head nav-login"><?php
+	switch (Minz_Configuration::authType()) {
+	case 'form':
+		if ($this->loginOk) {
+			?><li class="item"><?php echo _i('logout'); ?> <a class="signout" href="<?php echo _url('index', 'formLogout'); ?>"><?php echo _t('logout'); ?></a></li><?php
+		} else {
+			?><li class="item"><?php echo _i('login'); ?> <a class="signin" href="<?php echo _url('index', 'formLogin'); ?>"><?php echo _t('login'); ?></a></li><?php
+		}
+		break;
+	case 'persona':
+		if ($this->loginOk) {
+			?><li class="item"><?php echo _i('logout'); ?> <a class="signout" href="#"><?php echo _t('logout'); ?></a></li><?php
+		} else {
+			?><li class="item"><?php echo _i('login'); ?> <a class="signin" href="#"><?php echo _t('login'); ?></a></li><?php
+		}
+		break;
+	}
+	?></ul><?php
+}
+?>
 
 <div class="header">
 	<div class="item title">
-		<img class="logo" src="<?php echo Url::display ('/icons/icon-32.png'); ?>" alt="" />
-		<h1><a href="<?php echo _url ('index', 'index'); ?>"><?php echo Configuration::title (); ?></a></h1>
+		<h1>
+			<a href="<?php echo _url('index', 'index'); ?>">
+				<img class="logo" src="<?php echo _i('icon', true); ?>" alt="⊚" />
+				<?php echo Minz_Configuration::title(); ?>
+			</a>
+		</h1>
 	</div>
 
 	<div class="item search">
-		<?php if(!login_is_conf ($this->conf) ||
-		         is_logged() ||
-		         $this->conf->anonAccess() == 'yes') { ?>
-		<form action="<?php echo _url ('index', 'index'); ?>" method="get">
+		<?php if ($this->loginOk || Minz_Configuration::allowAnonymous()) { ?>
+		<form action="<?php echo _url('index', 'index'); ?>" method="get">
 			<div class="stick">
-				<?php $search = Request::param ('search', ''); ?>
-				<input type="text" name="search" id="search" value="<?php echo $search; ?>" placeholder="<?php echo Translate::t ('search'); ?>" />
+				<?php $search = Minz_Request::param('search', ''); ?>
+				<input type="search" name="search" id="search" class="extend" value="<?php echo $search; ?>" placeholder="<?php echo _t('search'); ?>" />
 
-				<?php $get = Request::param ('get', ''); ?>
-				<?php if($get != '') { ?>
+				<?php $get = Minz_Request::param('get', ''); ?>
+				<?php if ($get != '') { ?>
 				<input type="hidden" name="get" value="<?php echo $get; ?>" />
 				<?php } ?>
 
-				<?php $order = Request::param ('order', ''); ?>
-				<?php if($order != '') { ?>
+				<?php $order = Minz_Request::param('order', ''); ?>
+				<?php if ($order != '') { ?>
 				<input type="hidden" name="order" value="<?php echo $order; ?>" />
 				<?php } ?>
 
-				<?php $state = Request::param ('state', ''); ?>
-				<?php if($state != '') { ?>
+				<?php $state = Minz_Request::param('state', ''); ?>
+				<?php if ($state != '') { ?>
 				<input type="hidden" name="state" value="<?php echo $state; ?>" />
 				<?php } ?>
 
-				<button class="btn" type="submit"><i class="icon i_search"></i></button>
+				<button class="btn" type="submit"><?php echo _i('search'); ?></button>
 			</div>
 		</form>
 		<?php } ?>
 	</div>
 
-	<?php if (!login_is_conf ($this->conf) || is_logged ()) { ?>
+	<?php if ($this->loginOk) { ?>
 	<div class="item configure">
 		<div class="dropdown">
 			<div id="dropdown-configure" class="dropdown-target"></div>
-
-			<a class="btn dropdown-toggle" href="#dropdown-configure"><i class="icon i_configure"></i></a>
+			<a class="btn dropdown-toggle" href="#dropdown-configure"><?php echo _i('configure'); ?></a>
 			<ul class="dropdown-menu">
-				<li class="dropdown-close"><a href="#close">&nbsp;</a></li>
-				<li class="dropdown-header"><?php echo Translate::t ('configuration'); ?></li>
-				<li class="item"><a href="<?php echo _url ('configure', 'display'); ?>"><?php echo Translate::t ('general_and_reading'); ?></a></li>
-				<li class="item"><a href="<?php echo _url ('configure', 'categorize'); ?>"><?php echo Translate::t ('categories'); ?></a></li>
-				<li class="item"><a href="<?php echo _url ('configure', 'shortcut'); ?>"><?php echo Translate::t ('shortcuts'); ?></a></li>
+				<li class="dropdown-close"><a href="#close">❌</a></li>
+				<li class="dropdown-header"><?php echo _t('configuration'); ?></li>
+				<li class="item"><a href="<?php echo _url('configure', 'display'); ?>"><?php echo _t('display_configuration'); ?></a></li>
+				<li class="item"><a href="<?php echo _url('configure', 'reading'); ?>"><?php echo _t('reading_configuration'); ?></a></li>
+				<li class="item"><a href="<?php echo _url('configure', 'archiving'); ?>"><?php echo _t('archiving_configuration'); ?></a></li>
+				<li class="item"><a href="<?php echo _url('configure', 'sharing'); ?>"><?php echo _t('sharing'); ?></a></li>
+				<li class="item"><a href="<?php echo _url('configure', 'shortcut'); ?>"><?php echo _t('shortcuts'); ?></a></li>
+				<li class="item"><a href="<?php echo _url('configure', 'queries'); ?>"><?php echo _t('queries'); ?></a></li>
 				<li class="separator"></li>
-				<li class="item"><a href="<?php echo _url ('index', 'about'); ?>"><?php echo Translate::t ('about'); ?></a></li>
-				<li class="item"><a href="<?php echo _url ('index', 'logs'); ?>"><?php echo Translate::t ('logs'); ?></a></li>
-				<?php if (login_is_conf ($this->conf) && is_logged ()) { ?>
-				<li class="separator"></li>
-				<li class="item"><a class="signout" href="#"><i class="icon i_logout"></i> <?php echo Translate::t ('logout'); ?></a></li>
+				<li class="item"><a href="<?php echo _url('configure', 'users'); ?>"><?php echo _t('users'); ?></a></li>
+				<?php
+					$current_user = Minz_Session::param('currentUser', '');
+					if (Minz_Configuration::isAdmin($current_user)) {
+				?>
+				<li class="item"><a href="<?php echo _url('update', 'index'); ?>"><?php echo _t('update'); ?></a></li>
 				<?php } ?>
+				<li class="separator"></li>
+				<li class="item"><a href="<?php echo _url('stats', 'index'); ?>"><?php echo _t('stats'); ?></a></li>
+				<li class="item"><a href="<?php echo _url('index', 'logs'); ?>"><?php echo _t('logs'); ?></a></li>
+				<li class="item"><a href="<?php echo _url('index', 'about'); ?>"><?php echo _t('about'); ?></a></li>
+				<?php
+				if (Minz_Configuration::canLogIn()) {
+					?><li class="separator"></li><?php
+					switch (Minz_Configuration::authType()) {
+					case 'form':
+						?><li class="item"><a class="signout" href="<?php echo _url('index', 'formLogout'); ?>"><?php echo _i('logout'), ' ', _t('logout'); ?></a></li><?php
+						break;
+					case 'persona':
+						?><li class="item"><a class="signout" href="#"><?php echo _i('logout'), ' ', _t('logout'); ?></a></li><?php
+						break;
+					}
+				} ?>
 			</ul>
 		</div>
 	</div>
-	<?php }
-
-	if (login_is_conf ($this->conf) && !is_logged ()) { ?>
-	<div class="item configure">
-		<i class="icon i_login"></i> <a class="signin" href="#"><?php echo Translate::t ('login'); ?></a>
-	</div>
-	<?php } ?>
+	<?php } elseif (Minz_Configuration::canLogIn()) {
+		?><div class="item configure"><?php
+		switch (Minz_Configuration::authType()) {
+		case 'form':
+			echo _i('login'); ?><a class="signin" href="<?php echo _url('index', 'formLogin'); ?>"><?php echo _t('login'); ?></a></li><?php
+			break;
+		case 'persona':
+			echo _i('login'); ?><a class="signin" href="#"><?php echo _t('login'); ?></a></li><?php
+			break;
+		}
+		?></div><?php
+	} ?>
 </div>
