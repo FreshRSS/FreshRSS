@@ -288,6 +288,8 @@ class FreshRSS_Feed extends Minz_Model {
 						$content .= '<br /><audio lazyload="" postpone="" preload="none" src="' . $elink . '" controls="controls" />';
 					} elseif (strpos($mime, 'video/') === 0) {
 						$content .= '<br /><video lazyload="" postpone="" preload="none" src="' . $elink . '" controls="controls" />';
+					} else {
+						unset($elinks[$elink]);
 					}
 				}
 			}

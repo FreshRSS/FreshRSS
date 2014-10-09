@@ -34,6 +34,29 @@ SQL;
 		return $this->convertToSerie($count);
 	}
 
+	/**
+	 * Calculates entry average per day on a 30 days period.
+	 *
+	 * @return integer
+	 */
+	public function calculateEntryAverage() {
+		$period = self::ENTRY_COUNT_PERIOD;
+
+		// Get stats per day for the last 30 days
+		$sql = <<<SQL
+SELECT COUNT(1) / {$period} AS average
+FROM {$this->prefix}entry AS e
+WHERE strftime('%Y%m%d', e.date, 'unixepoch')
+	BETWEEN strftime('%Y%m%d', 'now', '-{$period} days')
+	AND strftime('%Y%m%d', 'now', '-1 day')
+SQL;
+		$stm = $this->bd->prepare($sql);
+		$stm->execute();
+		$res = $stm->fetch(PDO::FETCH_NAMED);
+
+		return round($res['average'], 2);
+	}
+
 	protected function calculateEntryRepartitionPerFeedPerPeriod($period, $feed = null) {
 		if ($feed) {
 			$restrict = "WHERE e.id_feed = {$feed}";
