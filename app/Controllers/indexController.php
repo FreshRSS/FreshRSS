@@ -330,7 +330,8 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 	private static function purgeTokens() {
 		$oldest = time() - 2629744;	//1 month	//TODO: Use a configuration instead
 		foreach (new DirectoryIterator(DATA_PATH . '/tokens/') as $fileInfo) {
-			if ($fileInfo->getExtension() === 'txt' && $fileInfo->getMTime() < $oldest) {
+			$extension = pathinfo($fileInfo->getFilename(), PATHINFO_EXTENSION);
+			if ($extension === 'txt' && $fileInfo->getMTime() < $oldest) {
 				@unlink($fileInfo->getPathname());
 			}
 		}

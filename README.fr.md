@@ -10,8 +10,8 @@ Il permet de gérer plusieurs utilisateurs, et dispose d’un mode de lecture an
 * Site officiel : http://freshrss.org
 * Démo : http://demo.freshrss.org/
 * Développeur : Marien Fressinaud <dev@marienfressinaud.fr>
-* Version actuelle : 0.8.0
-* Date de publication 2014-09-26
+* Version actuelle : x.y.z
+* Date de publication : YYYY-MM-DD
 * License [GNU AGPL 3](http://www.gnu.org/licenses/agpl-3.0.html)
 
 ![Logo de FreshRSS](http://marienfressinaud.fr/data/images/freshrss/freshrss_title.png)
