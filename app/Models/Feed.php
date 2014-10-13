@@ -263,7 +263,7 @@ class FreshRSS_Feed extends Minz_Model {
 			$title = html_only_entity_decode(strip_tags($item->get_title()));
 			$author = $item->get_author();
 			$link = $item->get_permalink();
-			$date = @strtotime($item->get_date());
+			$date = @strtotime($item->get_gmdate());
 
 			// gestion des tags (catégorie == tag)
 			$tags_tmp = $item->get_categories();
