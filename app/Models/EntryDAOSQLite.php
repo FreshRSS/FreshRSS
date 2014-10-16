@@ -124,6 +124,6 @@ class FreshRSS_EntryDAOSQLite extends FreshRSS_EntryDAO {
 	}
 
 	public function size($all = false) {
-		return @filesize(DATA_PATH . '/' . Minz_Session::param('currentUser', '_') . '.sqlite');
+		return @filesize(DATA_PATH . '/' . $this->current_user . '.sqlite');
 	}
 }

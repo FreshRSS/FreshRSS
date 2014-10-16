@@ -24,6 +24,7 @@ class Minz_ModelPdo {
 	 */
 	protected $bd;
 
+	protected $current_user;
 	protected $prefix;
 
 	public function dbType() {
@@ -46,6 +47,7 @@ class Minz_ModelPdo {
 		if ($currentUser === null) {
 			$currentUser = Minz_Session::param('currentUser', '_');
 		}
+		$this->current_user = $currentUser;
 
 		try {
 			$type = $db['type'];
