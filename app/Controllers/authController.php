@@ -5,6 +5,66 @@
  */
 class FreshRSS_auth_Controller extends Minz_ActionController {
 	/**
+	 * This action handles authentication management page.
+	 *
+	 * Parameters are:
+	 *   - token (default: current token)
+	 *   - anon_access (default: false)
+	 *   - anon_refresh (default: false)
+	 *   - auth_type (default: none)
+	 *   - unsafe_autologin (default: false)
+	 *   - api_enabled (default: false)
+	 *
+	 * @todo move unsafe_autologin in an extension.
+	 */
+	public function indexAction() {
+		if (!FreshRSS_Auth::hasAccess('admin')) {
+			Minz_Error::error(403,
+			                  array('error' => array(_t('access_denied'))));
+		}
+
+		if (Minz_Request::isPost()) {
+			$ok = true;
+
+			$current_token = $this->view->conf->token;
+			$token = Minz_Request::param('token', $current_token);
+			$this->view->conf->_token($token);
+			$ok &= $this->view->conf->save();
+
+			$anon = Minz_Request::param('anon_access', false);
+			$anon = ((bool)$anon) && ($anon !== 'no');
+			$anon_refresh = Minz_Request::param('anon_refresh', false);
+			$anon_refresh = ((bool)$anon_refresh) && ($anon_refresh !== 'no');
+			$auth_type = Minz_Request::param('auth_type', 'none');
+			$unsafe_autologin = Minz_Request::param('unsafe_autologin', false);
+			$api_enabled = Minz_Request::param('api_enabled', false);
+			if ($anon != Minz_Configuration::allowAnonymous() ||
+				$auth_type != Minz_Configuration::authType() ||
+				$anon_refresh != Minz_Configuration::allowAnonymousRefresh() ||
+				$unsafe_autologin != Minz_Configuration::unsafeAutologinEnabled() ||
+				$api_enabled != Minz_Configuration::apiEnabled()) {
+
+				Minz_Configuration::_authType($auth_type);
+				Minz_Configuration::_allowAnonymous($anon);
+				Minz_Configuration::_allowAnonymousRefresh($anon_refresh);
+				Minz_Configuration::_enableAutologin($unsafe_autologin);
+				Minz_Configuration::_enableApi($api_enabled);
+				$ok &= Minz_Configuration::writeFile();
+			}
+
+			invalidateHttpCache();
+
+			if ($ok) {
+				Minz_Request::good('configuration_updated',
+				                   array('c' => 'auth', 'a' => 'index'));
+			} else {
+				Minz_Request::bad('error_occurred',
+				                  array('c' => 'auth', 'a' => 'index'));
+			}
+		}
+	}
+
+	/**
 	 * This action handles the login page.
 	 *
 	 * It forwards to the correct login page (form or Persona) or main page if

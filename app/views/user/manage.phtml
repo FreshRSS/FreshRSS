@@ -1,0 +1,76 @@
+<?php $this->partial('aside_configure'); ?>
+
+<div class="post">
+	<a href="<?php echo _url('index', 'index'); ?>"><?php echo _t('back_to_rss_feeds'); ?></a>
+
+	<form method="post" action="<?php echo _url('user', 'delete'); ?>">
+		<legend><?php echo _t('users'); ?></legend>
+
+		<div class="form-group">
+			<label class="group-name" for="users_list"><?php echo _t('users_list'); ?></label>
+			<div class="group-controls">
+				<select id="users_list" name="username"><?php
+					foreach (listUsers() as $user) {
+						echo '<option>', $user, '</option>';
+					}
+				?></select>
+			</div>
+		</div>
+
+		<div class="form-group form-actions">
+			<div class="group-controls">
+				<button type="submit" class="btn btn-attention confirm"><?php echo _t('delete'); ?></button>
+			</div>
+		</div>
+	</form>
+
+	<form method="post" action="<?php echo _url('user', 'create'); ?>">
+		<legend><?php echo _t('create_user'); ?></legend>
+
+		<div class="form-group">
+			<label class="group-name" for="new_user_language"><?php echo _t('language'); ?></label>
+			<div class="group-controls">
+				<select name="new_user_language" id="new_user_language">
+				<?php $languages = $this->conf->availableLanguages(); ?>
+				<?php foreach ($languages as $short => $lib) { ?>
+				<option value="<?php echo $short; ?>"<?php echo $this->conf->language === $short ? ' selected="selected"' : ''; ?>><?php echo $lib; ?></option>
+				<?php } ?>
+				</select>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="group-name" for="new_user_name"><?php echo _t('username'); ?></label>
+			<div class="group-controls">
+				<input id="new_user_name" name="new_user_name" type="text" size="16" required="required" maxlength="16" autocomplete="off" pattern="[0-9a-zA-Z]{1,16}" placeholder="demo" />
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="group-name" for="new_user_passwordPlain"><?php echo _t('password_form'); ?></label>
+			<div class="group-controls">
+				<div class="stick">
+					<input type="password" id="new_user_passwordPlain" name="new_user_passwordPlain" autocomplete="off" pattern=".{7,}" />
+					<a class="btn toggle-password"><?php echo _i('key'); ?></a>
+				</div>
+				<noscript><b><?php echo _t('javascript_should_be_activated'); ?></b></noscript>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="group-name" for="new_user_email"><?php echo _t('persona_connection_email'); ?></label>
+			<?php $mail = $this->conf->mail_login; ?>
+			<div class="group-controls">
+				<input type="email" id="new_user_email" name="new_user_email" class="extend" autocomplete="off" placeholder="alice@example.net" />
+			</div>
+		</div>
+
+		<div class="form-group form-actions">
+			<div class="group-controls">
+				<button type="submit" class="btn btn-important"><?php echo _t('create'); ?></button>
+				<button type="reset" class="btn"><?php echo _t('cancel'); ?></button>
+			</div>
+		</div>
+
+	</form>
+</div>

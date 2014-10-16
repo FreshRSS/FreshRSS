@@ -1,9 +1,18 @@
 <?php
 
-class FreshRSS_users_Controller extends Minz_ActionController {
+/**
+ * Controller to handle user actions.
+ */
+class FreshRSS_user_Controller extends Minz_ActionController {
+	// Will also have to be computed client side on mobile devices,
+	// so do not use a too high cost
+	const BCRYPT_COST = 9;
 
-	const BCRYPT_COST = 9;	//Will also have to be computed client side on mobile devices, so do not use a too high cost
-
+	/**
+	 * This action is called before every other action in that class. It is
+	 * the common boiler plate for every action. It is triggered by the
+	 * underlying framework.
+	 */
 	public function firstAction() {
 		if (!FreshRSS_Auth::hasAccess()) {
 			Minz_Error::error(
@@ -14,13 +23,11 @@ class FreshRSS_users_Controller extends Minz_ActionController {
 	}
 
 	/**
-	 * This action display the user configuration page
+	 * This action displays the user profil page.
 	 */
-	public function indexAction() {
-		Minz_View::prependTitle(_t('users') . ' · ');
-	}
+	public function profilAction() {
+		Minz_View::prependTitle(_t('users.profil') . ' · ');
 
-	public function authAction() {
 		if (Minz_Request::isPost()) {
 			$ok = true;
 
@@ -51,6 +58,7 @@ class FreshRSS_users_Controller extends Minz_ActionController {
 				$this->view->conf->_apiPasswordHash($passwordHash);
 			}
 
+			// TODO: why do we need of hasAccess here?
 			if (FreshRSS_Auth::hasAccess('admin')) {
 				$this->view->conf->_mail_login(Minz_Request::param('mail_login', '', true));
 			}
@@ -65,43 +73,21 @@ class FreshRSS_users_Controller extends Minz_ActionController {
 				$ok &= (file_put_contents($personaFile, Minz_Session::param('currentUser', '_')) !== false);
 			}
 
-			if (FreshRSS_Auth::hasAccess('admin')) {
-				$current_token = $this->view->conf->token;
-				$token = Minz_Request::param('token', $current_token);
-				$this->view->conf->_token($token);
-				$ok &= $this->view->conf->save();
-
-				$anon = Minz_Request::param('anon_access', false);
-				$anon = ((bool)$anon) && ($anon !== 'no');
-				$anon_refresh = Minz_Request::param('anon_refresh', false);
-				$anon_refresh = ((bool)$anon_refresh) && ($anon_refresh !== 'no');
-				$auth_type = Minz_Request::param('auth_type', 'none');
-				$unsafe_autologin = Minz_Request::param('unsafe_autologin', false);
-				$api_enabled = Minz_Request::param('api_enabled', false);
-				if ($anon != Minz_Configuration::allowAnonymous() ||
-					$auth_type != Minz_Configuration::authType() ||
-					$anon_refresh != Minz_Configuration::allowAnonymousRefresh() ||
-					$unsafe_autologin != Minz_Configuration::unsafeAutologinEnabled() ||
-					$api_enabled != Minz_Configuration::apiEnabled()) {
-
-					Minz_Configuration::_authType($auth_type);
-					Minz_Configuration::_allowAnonymous($anon);
-					Minz_Configuration::_allowAnonymousRefresh($anon_refresh);
-					Minz_Configuration::_enableAutologin($unsafe_autologin);
-					Minz_Configuration::_enableApi($api_enabled);
-					$ok &= Minz_Configuration::writeFile();
-				}
+			if ($ok) {
+				Minz_Request::good('users.profil.updated',
+				                   array('c' => 'user', 'a' => 'profil'));
+			} else {
+				Minz_Request::bad('error_occurred',
+				                  array('c' => 'user', 'a' => 'profil'));
 			}
-
-			invalidateHttpCache();
-
-			$notif = array(
-				'type' => $ok ? 'good' : 'bad',
-				'content' => _t($ok ? 'configuration_updated' : 'error_occurred')
-			);
-			Minz_Session::_param('notification', $notif);
 		}
-		Minz_Request::forward(array('c' => 'users', 'a' => 'index'), true);
+	}
+
+	/**
+	 * This action displays the user management page.
+	 */
+	public function manageAction() {
+		Minz_View::prependTitle(_t('users.manage') . ' · ');
 	}
 
 	public function createAction() {
@@ -173,7 +159,8 @@ class FreshRSS_users_Controller extends Minz_ActionController {
 			);
 			Minz_Session::_param('notification', $notif);
 		}
-		Minz_Request::forward(array('c' => 'users', 'a' => 'index'), true);
+
+		Minz_Request::forward(array('c' => 'user', 'a' => 'manage'), true);
 	}
 
 	public function deleteAction() {
@@ -205,6 +192,7 @@ class FreshRSS_users_Controller extends Minz_ActionController {
 			);
 			Minz_Session::_param('notification', $notif);
 		}
-		Minz_Request::forward(array('c' => 'users', 'a' => 'index'), true);
+
+		Minz_Request::forward(array('c' => 'user', 'a' => 'manage'), true);
 	}
 }
