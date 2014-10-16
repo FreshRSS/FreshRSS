@@ -53,4 +53,8 @@ class FreshRSS_UserDAO extends Minz_ModelPdo {
 			}
 		}
 	}
+
+	public function exist($username) {
+		return file_exists(DATA_PATH . '/' . $username . '_user.php');
+	}
 }

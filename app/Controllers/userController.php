@@ -87,11 +87,24 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 	 * This action displays the user management page.
 	 */
 	public function manageAction() {
+		if (!FreshRSS_Auth::hasAccess('admin')) {
+			Minz_Error::error(403,
+			                  array('error' => array(_t('access_denied'))));
+		}
+
 		Minz_View::prependTitle(_t('users.manage') . ' · ');
 
-		$this->view->current_user = Minz_Request::param(
-			'u', Minz_Session::param('currentUser', '_')
-		);
+		$userDAO = new FreshRSS_UserDAO();
+
+		$username = Minz_Request::param('u', Minz_Session::param('currentUser'));
+		if (!$userDAO->exist($username)) {
+			$username = Minz_Session::param('currentUser');
+		}
+		$this->view->current_user = $username;
+
+		$entryDAO = FreshRSS_Factory::createEntryDao($this->view->current_user);
+		$this->view->nb_articles = $entryDAO->count();
+		$this->view->size_user = $entryDAO->size();
 	}
 
 	public function createAction() {

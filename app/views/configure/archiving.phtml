@@ -60,7 +60,7 @@
 		<div class="form-group">
 		<p class="group-name"><?php echo _t('current_user'); ?></p>
 			<div class="group-controls">
-				<p><?php echo formatNumber($this->nb_total), ' ', _t('articles'), ', ', formatBytes($this->size_user); ?></p>
+				<p><?php echo _t('articles', formatNumber($this->nb_total)), ' — ', formatBytes($this->size_user); ?></p>
 				<input type="hidden" name="optimiseDatabase" value="1" />
 				<button type="submit" class="btn btn-important"><?php echo _t('optimize_bdd'); ?></button>
 				<?php echo _i('help'); ?> <?php echo _t('optimize_todo_sometimes'); ?>

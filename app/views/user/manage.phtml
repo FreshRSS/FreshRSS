@@ -63,6 +63,8 @@
 					<option data-url="<?php echo _url('user', 'manage', 'u', $username); ?>" <?php echo $this->current_user === $username ? 'selected="selected"' : ''; ?> value="<?php echo $username; ?>"><?php echo $username; ?></option>
 					<?php } ?>
 				</select>
+
+				<p><?php echo _t('articles', formatNumber($this->nb_articles)), ', ', formatBytes($this->size_user); ?></p>
 			</div>
 		</div>
 
