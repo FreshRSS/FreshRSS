@@ -3,27 +3,6 @@
 <div class="post">
 	<a href="<?php echo _url('index', 'index'); ?>"><?php echo _t('back_to_rss_feeds'); ?></a>
 
-	<form method="post" action="<?php echo _url('user', 'delete'); ?>">
-		<legend><?php echo _t('users'); ?></legend>
-
-		<div class="form-group">
-			<label class="group-name" for="users_list"><?php echo _t('users_list'); ?></label>
-			<div class="group-controls">
-				<select id="users_list" name="username"><?php
-					foreach (listUsers() as $user) {
-						echo '<option>', $user, '</option>';
-					}
-				?></select>
-			</div>
-		</div>
-
-		<div class="form-group form-actions">
-			<div class="group-controls">
-				<button type="submit" class="btn btn-attention confirm"><?php echo _t('delete'); ?></button>
-			</div>
-		</div>
-	</form>
-
 	<form method="post" action="<?php echo _url('user', 'create'); ?>">
 		<legend><?php echo _t('create_user'); ?></legend>
 
@@ -71,6 +50,26 @@
 				<button type="reset" class="btn"><?php echo _t('cancel'); ?></button>
 			</div>
 		</div>
+	</form>
 
+	<form method="post" action="<?php echo _url('user', 'delete'); ?>">
+		<legend><?php echo _t('users'); ?></legend>
+
+		<div class="form-group">
+			<label class="group-name" for="user-list"><?php echo _t('users_list'); ?></label>
+			<div class="group-controls">
+				<select id="user-list" class="select-change" name="username">
+					<?php foreach (listUsers() as $username) { ?>
+					<option data-url="<?php echo _url('user', 'manage', 'u', $username); ?>" <?php echo $this->current_user === $username ? 'selected="selected"' : ''; ?> value="<?php echo $username; ?>"><?php echo $username; ?></option>
+					<?php } ?>
+				</select>
+			</div>
+		</div>
+
+		<div class="form-group form-actions">
+			<div class="group-controls">
+				<button type="submit" class="btn btn-attention confirm"><?php echo _t('delete'); ?></button>
+			</div>
+		</div>
 	</form>
 </div>

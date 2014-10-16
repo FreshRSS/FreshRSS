@@ -88,6 +88,10 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 	 */
 	public function manageAction() {
 		Minz_View::prependTitle(_t('users.manage') . ' · ');
+
+		$this->view->current_user = Minz_Request::param(
+			'u', Minz_Session::param('currentUser', '_')
+		);
 	}
 
 	public function createAction() {

@@ -1086,7 +1086,7 @@ function init_share_observers() {
 }
 
 function init_stats_observers() {
-	$('#feed_select').on('change', function(e) {
+	$('.select-change').on('change', function(e) {
 		redirect($(this).find(':selected').data('url'));
 	});
 }
