@@ -58,20 +58,25 @@
 		<legend><?php echo _t('advanced'); ?></legend>
 
 		<div class="form-group">
-		<p class="group-name"><?php echo _t('current_user'); ?></p>
+			<label class="group-name"><?php echo _t('current_user'); ?></label>
 			<div class="group-controls">
-				<p><?php echo _t('articles', formatNumber($this->nb_total)), ' — ', formatBytes($this->size_user); ?></p>
-				<input type="hidden" name="optimiseDatabase" value="1" />
-				<button type="submit" class="btn btn-important"><?php echo _t('optimize_bdd'); ?></button>
-				<?php echo _i('help'); ?> <?php echo _t('optimize_todo_sometimes'); ?>
+				<?php echo _t('conf.users.articles_and_size', formatNumber($this->nb_total), formatBytes($this->size_user)); ?>
 			</div>
 		</div>
 
 		<?php if (FreshRSS_Auth::hasAccess('admin')) { ?>
 		<div class="form-group">
-			<p class="group-name"><?php echo _t('users'); ?></p>
+			<label class="group-name"><?php echo _t('users'); ?></label>
 			<div class="group-controls">
-				<p><?php echo formatBytes($this->size_total); ?></p>
+				<?php echo formatBytes($this->size_total); ?>
+			</div>
+		</div>
+
+		<div class="form-group form-actions">
+			<div class="group-controls">
+				<input type="hidden" name="optimiseDatabase" value="1" />
+				<button type="submit" class="btn btn-important"><?php echo _t('optimize_bdd'); ?></button>
+				<?php echo _i('help'); ?> <?php echo _t('optimize_todo_sometimes'); ?>
 			</div>
 		</div>
 		<?php } ?>

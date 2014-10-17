@@ -64,7 +64,9 @@
 					<?php } ?>
 				</select>
 
-				<p><?php echo _t('articles', formatNumber($this->nb_articles)), ', ', formatBytes($this->size_user); ?></p>
+				<p><?php echo _t('admin.users.articles_and_size',
+				                 formatNumber($this->nb_articles),
+				                 formatBytes($this->size_user)); ?></p>
 			</div>
 		</div>
 

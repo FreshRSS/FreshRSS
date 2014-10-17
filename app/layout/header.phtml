@@ -62,12 +62,12 @@ if (Minz_Configuration::canLogIn()) {
 				<li class="item"><a href="<?php echo _url('configure', 'sharing'); ?>"><?php echo _t('sharing'); ?></a></li>
 				<li class="item"><a href="<?php echo _url('configure', 'shortcut'); ?>"><?php echo _t('shortcuts'); ?></a></li>
 				<li class="item"><a href="<?php echo _url('configure', 'queries'); ?>"><?php echo _t('queries'); ?></a></li>
-				<li class="item"><a href="<?php echo _url('user', 'profil'); ?>"><?php echo _t('users.profil'); ?></a></li>
-				<li class="separator"></li>
+				<li class="item"><a href="<?php echo _url('user', 'profil'); ?>"><?php echo _t('gen.menu.profil'); ?></a></li>
 				<?php if (FreshRSS_Auth::hasAccess('admin')) { ?>
-				<li class="dropdown-header"><?php echo _t('administration'); ?></li>
-				<li class="item"><a href="<?php echo _url('user', 'manage'); ?>"><?php echo _t('users.manage'); ?></a></li>
-				<li class="item"><a href="<?php echo _url('auth', 'index'); ?>"><?php echo _t('authentication'); ?></a></li>
+				<li class="separator"></li>
+				<li class="dropdown-header"><?php echo _t('gen.menu.admin'); ?></li>
+				<li class="item"><a href="<?php echo _url('user', 'manage'); ?>"><?php echo _t('gen.menu.manage_users'); ?></a></li>
+				<li class="item"><a href="<?php echo _url('auth', 'index'); ?>"><?php echo _t('gen.menu.authentication'); ?></a></li>
 				<li class="item"><a href="<?php echo _url('update', 'index'); ?>"><?php echo _t('update'); ?></a></li>
 				<?php } ?>
 				<li class="separator"></li>
