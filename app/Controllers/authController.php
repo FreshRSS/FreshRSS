@@ -26,10 +26,10 @@ class FreshRSS_auth_Controller extends Minz_ActionController {
 		if (Minz_Request::isPost()) {
 			$ok = true;
 
-			$current_token = $this->view->conf->token;
+			$current_token = FreshRSS_Context::$conf->token;
 			$token = Minz_Request::param('token', $current_token);
-			$this->view->conf->_token($token);
-			$ok &= $this->view->conf->save();
+			FreshRSS_Context::$conf->_token($token);
+			$ok &= FreshRSS_Context::$conf->save();
 
 			$anon = Minz_Request::param('anon_access', false);
 			$anon = ((bool)$anon) && ($anon !== 'no');

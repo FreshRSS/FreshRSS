@@ -20,7 +20,7 @@
 		</a>
 	<?php } elseif ($markReadUrl) { ?>
 		<button id="bigMarkAsRead"
-		        class="as-link <?php echo $this->conf->reading_confirm ? 'confirm' : ''; ?>"
+		        class="as-link <?php echo FreshRSS_Context::$conf->reading_confirm ? 'confirm' : ''; ?>"
 		        form="mark-read-pagination"
 		        formaction="<?php echo $markReadUrl; ?>"
 		        type="submit">

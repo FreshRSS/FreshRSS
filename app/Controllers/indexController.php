@@ -5,7 +5,7 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 
 	public function indexAction() {
 		$output = Minz_Request::param('output');
-		$token = $this->view->conf->token;
+		$token = FreshRSS_Context::$conf->token;
 
 		// check if user is logged in
 		if (!FreshRSS_Auth::hasAccess() && !Minz_Configuration::allowAnonymous()) {
@@ -76,11 +76,11 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 		);
 
 		// On récupère les différents éléments de filtrage
-		$this->view->state = Minz_Request::param('state', $this->view->conf->default_view);
+		$this->view->state = Minz_Request::param('state', FreshRSS_Context::$conf->default_view);
 		$state_param = Minz_Request::param('state', null);
 		$filter = Minz_Request::param('search', '');
-		$this->view->order = $order = Minz_Request::param('order', $this->view->conf->sort_order);
-		$nb = Minz_Request::param('nb', $this->view->conf->posts_per_page);
+		$this->view->order = $order = Minz_Request::param('order', FreshRSS_Context::$conf->sort_order);
+		$nb = Minz_Request::param('nb', FreshRSS_Context::$conf->posts_per_page);
 		$first = Minz_Request::param('next', '');
 
 		$ajax_request = Minz_Request::param('ajax', false);

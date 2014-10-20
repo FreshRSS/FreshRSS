@@ -42,9 +42,9 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 				$passwordPlain = '';
 				$passwordHash = preg_replace('/^\$2[xy]\$/', '\$2a\$', $passwordHash);	//Compatibility with bcrypt.js
 				$ok &= ($passwordHash != '');
-				$this->view->conf->_passwordHash($passwordHash);
+				FreshRSS_Context::$conf->_passwordHash($passwordHash);
 			}
-			Minz_Session::_param('passwordHash', $this->view->conf->passwordHash);
+			Minz_Session::_param('passwordHash', FreshRSS_Context::$conf->passwordHash);
 
 			$passwordPlain = Minz_Request::param('apiPasswordPlain', '', true);
 			if ($passwordPlain != '') {
@@ -55,17 +55,17 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 				$passwordPlain = '';
 				$passwordHash = preg_replace('/^\$2[xy]\$/', '\$2a\$', $passwordHash);	//Compatibility with bcrypt.js
 				$ok &= ($passwordHash != '');
-				$this->view->conf->_apiPasswordHash($passwordHash);
+				FreshRSS_Context::$conf->_apiPasswordHash($passwordHash);
 			}
 
 			// TODO: why do we need of hasAccess here?
 			if (FreshRSS_Auth::hasAccess('admin')) {
-				$this->view->conf->_mail_login(Minz_Request::param('mail_login', '', true));
+				FreshRSS_Context::$conf->_mail_login(Minz_Request::param('mail_login', '', true));
 			}
-			$email = $this->view->conf->mail_login;
+			$email = FreshRSS_Context::$conf->mail_login;
 			Minz_Session::_param('mail', $email);
 
-			$ok &= $this->view->conf->save();
+			$ok &= FreshRSS_Context::$conf->save();
 
 			if ($email != '') {
 				$personaFile = DATA_PATH . '/persona/' . $email . '.txt';
@@ -113,9 +113,9 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 			$db = Minz_Configuration::dataBase();
 			require_once(APP_PATH . '/SQL/install.sql.' . $db['type'] . '.php');
 
-			$new_user_language = Minz_Request::param('new_user_language', $this->view->conf->language);
-			if (!in_array($new_user_language, $this->view->conf->availableLanguages())) {
-				$new_user_language = $this->view->conf->language;
+			$new_user_language = Minz_Request::param('new_user_language', FreshRSS_Context::$conf->language);
+			if (!in_array($new_user_language, FreshRSS_Context::$conf->availableLanguages())) {
+				$new_user_language = FreshRSS_Context::$conf->language;
 			}
 
 			$new_user_name = Minz_Request::param('new_user_name');

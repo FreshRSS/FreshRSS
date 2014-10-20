@@ -10,9 +10,9 @@
 			<label class="group-name" for="language"><?php echo _t('language'); ?></label>
 			<div class="group-controls">
 				<select name="language" id="language">
-				<?php $languages = $this->conf->availableLanguages(); ?>
+				<?php $languages = FreshRSS_Context::$conf->availableLanguages(); ?>
 				<?php foreach ($languages as $short => $lib) { ?>
-				<option value="<?php echo $short; ?>"<?php echo $this->conf->language === $short ? ' selected="selected"' : ''; ?>><?php echo $lib; ?></option>
+				<option value="<?php echo $short; ?>"<?php echo FreshRSS_Context::$conf->language === $short ? ' selected="selected"' : ''; ?>><?php echo $lib; ?></option>
 				<?php } ?>
 				</select>
 			</div>
@@ -24,7 +24,7 @@
 				<select name="theme" id="theme" required=""><?php
 					$found = false;
 					foreach ($this->themes as $theme) {
-						?><option value="<?php echo $theme['id']; ?>"<?php if ($this->conf->theme === $theme['id']) { echo ' selected="selected"'; $found = true; } ?>><?php
+						?><option value="<?php echo $theme['id']; ?>"<?php if (FreshRSS_Context::$conf->theme === $theme['id']) { echo ' selected="selected"'; $found = true; } ?>><?php
 							echo $theme['name'] . ' — ' . _t('by') . ' ' . $theme['author'];
 						?></option><?php
 					}
@@ -35,7 +35,7 @@
 			</div>
 		</div>
 
-		<?php $width = $this->conf->content_width; ?>
+		<?php $width = FreshRSS_Context::$conf->content_width; ?>
 		<div class="form-group">
 			<label class="group-name" for="content_width"><?php echo _t('content_width'); ?></label>
 			<div class="group-controls">
@@ -73,20 +73,20 @@
 				<tbody>
 					<tr>
 						<th><?php echo _t('top_line'); ?></th>
-						<td><input type="checkbox" name="topline_read" value="1"<?php echo $this->conf->topline_read ? ' checked="checked"' : ''; ?> /></td>
-						<td><input type="checkbox" name="topline_favorite" value="1"<?php echo $this->conf->topline_favorite ? ' checked="checked"' : ''; ?> /></td>
+						<td><input type="checkbox" name="topline_read" value="1"<?php echo FreshRSS_Context::$conf->topline_read ? ' checked="checked"' : ''; ?> /></td>
+						<td><input type="checkbox" name="topline_favorite" value="1"<?php echo FreshRSS_Context::$conf->topline_favorite ? ' checked="checked"' : ''; ?> /></td>
 						<td><input type="checkbox" disabled="disabled" /></td>
 						<td><input type="checkbox" disabled="disabled" /></td>
-						<td><input type="checkbox" name="topline_date" value="1"<?php echo $this->conf->topline_date ? ' checked="checked"' : ''; ?> /></td>
-						<td><input type="checkbox" name="topline_link" value="1"<?php echo $this->conf->topline_link ? ' checked="checked"' : ''; ?> /></td>
+						<td><input type="checkbox" name="topline_date" value="1"<?php echo FreshRSS_Context::$conf->topline_date ? ' checked="checked"' : ''; ?> /></td>
+						<td><input type="checkbox" name="topline_link" value="1"<?php echo FreshRSS_Context::$conf->topline_link ? ' checked="checked"' : ''; ?> /></td>
 					</tr><tr>
 						<th><?php echo _t('bottom_line'); ?></th>
-						<td><input type="checkbox" name="bottomline_read" value="1"<?php echo $this->conf->bottomline_read ? ' checked="checked"' : ''; ?> /></td>
-						<td><input type="checkbox" name="bottomline_favorite" value="1"<?php echo $this->conf->bottomline_favorite ? ' checked="checked"' : ''; ?> /></td>
-						<td><input type="checkbox" name="bottomline_sharing" value="1"<?php echo $this->conf->bottomline_sharing ? ' checked="checked"' : ''; ?> /></td>
-						<td><input type="checkbox" name="bottomline_tags" value="1"<?php echo $this->conf->bottomline_tags ? ' checked="checked"' : ''; ?> /></td>
-						<td><input type="checkbox" name="bottomline_date" value="1"<?php echo $this->conf->bottomline_date ? ' checked="checked"' : ''; ?> /></td>
-						<td><input type="checkbox" name="bottomline_link" value="1"<?php echo $this->conf->bottomline_link ? ' checked="checked"' : ''; ?> /></td>
+						<td><input type="checkbox" name="bottomline_read" value="1"<?php echo FreshRSS_Context::$conf->bottomline_read ? ' checked="checked"' : ''; ?> /></td>
+						<td><input type="checkbox" name="bottomline_favorite" value="1"<?php echo FreshRSS_Context::$conf->bottomline_favorite ? ' checked="checked"' : ''; ?> /></td>
+						<td><input type="checkbox" name="bottomline_sharing" value="1"<?php echo FreshRSS_Context::$conf->bottomline_sharing ? ' checked="checked"' : ''; ?> /></td>
+						<td><input type="checkbox" name="bottomline_tags" value="1"<?php echo FreshRSS_Context::$conf->bottomline_tags ? ' checked="checked"' : ''; ?> /></td>
+						<td><input type="checkbox" name="bottomline_date" value="1"<?php echo FreshRSS_Context::$conf->bottomline_date ? ' checked="checked"' : ''; ?> /></td>
+						<td><input type="checkbox" name="bottomline_link" value="1"<?php echo FreshRSS_Context::$conf->bottomline_link ? ' checked="checked"' : ''; ?> /></td>
 					</tr>
 				</tbody>
 			</table><br />
@@ -95,7 +95,7 @@
 		<div class="form-group">
 			<label class="group-name" for="posts_per_page"><?php echo _t('html5_notif_timeout'); ?></label>
 			<div class="group-controls">
-				<input type="number" id="html5_notif_timeout" name="html5_notif_timeout" value="<?php echo $this->conf->html5_notif_timeout; ?>" /> <?php echo _t('seconds_(0_means_no_timeout)'); ?>
+				<input type="number" id="html5_notif_timeout" name="html5_notif_timeout" value="<?php echo FreshRSS_Context::$conf->html5_notif_timeout; ?>" /> <?php echo _t('seconds_(0_means_no_timeout)'); ?>
 			</div>
 		</div>
 

@@ -24,9 +24,7 @@ class FreshRSS extends Minz_FrontController {
 		}
 
 		// Load context and configuration.
-		// TODO: remove $this->view->conf variable which is contained in context
 		FreshRSS_Context::init();
-		Minz_View::_param('conf', FreshRSS_Context::$conf);
 
 		$this->loadParamsView();
 		$this->loadStylesAndScripts();

@@ -1,4 +1,4 @@
-<div class="aside aside_flux<?php if ($this->conf->hide_read_feeds && ($this->state & FreshRSS_Entry::STATE_NOT_READ) && !($this->state & FreshRSS_Entry::STATE_READ)) echo ' state_unread'; ?>" id="aside_flux">
+<div class="aside aside_flux<?php if (FreshRSS_Context::$conf->hide_read_feeds && ($this->state & FreshRSS_Entry::STATE_NOT_READ) && !($this->state & FreshRSS_Entry::STATE_READ)) echo ' state_unread'; ?>" id="aside_flux">
 	<a class="toggle_aside" href="#close"><?php echo _i('close'); ?></a>
 
 	<ul class="categories">
@@ -17,7 +17,7 @@
 
 		<?php
 			$arUrl = array('c' => 'index', 'a' => 'index', 'params' => array());
-			if ($this->conf->view_mode !== Minz_Request::param('output', 'normal')) {
+			if (FreshRSS_Context::$conf->view_mode !== Minz_Request::param('output', 'normal')) {
 				$arUrl['params']['output'] = 'normal';
 			}
 		?>
@@ -47,7 +47,7 @@
 				$c_show = false;
 				if ($this->get_c == $cat->id()) {
 					$c_active = true;
-					if (!$this->conf->display_categories || $this->get_f) {
+					if (!FreshRSS_Context::$conf->display_categories || $this->get_f) {
 						$c_show = true;
 					}
 				}
@@ -92,7 +92,7 @@
 		<li class="item"><a href="<?php echo _url('subscription', 'index', 'id', '!!!!!!'); ?>"><?php echo _t('administration'); ?></a></li>
 		<li class="item"><a href="<?php echo _url('feed', 'actualize', 'id', '!!!!!!'); ?>"><?php echo _t('actualize'); ?></a></li>
 		<li class="item">
-			<?php $confirm = $this->conf->reading_confirm ? 'confirm' : ''; ?>
+			<?php $confirm = FreshRSS_Context::$conf->reading_confirm ? 'confirm' : ''; ?>
 			<button class="read_all as-link <?php echo $confirm; ?>"
 			        form="mark-read-aside"
 			        formaction="<?php echo _url('entry', 'read', 'get', 'f_!!!!!!'); ?>"

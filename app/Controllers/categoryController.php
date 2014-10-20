@@ -136,8 +136,8 @@ class FreshRSS_category_Controller extends Minz_ActionController {
 			}
 
 			// Remove related queries.
-			$this->view->conf->remove_query_by_get('c_' . $id);
-			$this->view->conf->save();
+			FreshRSS_Context::$conf->remove_query_by_get('c_' . $id);
+			FreshRSS_Context::$conf->save();
 
 			Minz_Request::good(_t('category_deleted'), $url_redirect);
 		}
@@ -172,9 +172,9 @@ class FreshRSS_category_Controller extends Minz_ActionController {
 
 				// Remove related queries
 				foreach ($feeds as $feed) {
-					$this->view->conf->remove_query_by_get('f_' . $feed->id());
+					FreshRSS_Context::$conf->remove_query_by_get('f_' . $feed->id());
 				}
-				$this->view->conf->save();
+				FreshRSS_Context::$conf->save();
 
 				Minz_Request::good(_t('category_emptied'), $url_redirect);
 			} else {

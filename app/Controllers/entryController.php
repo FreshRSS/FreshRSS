@@ -21,7 +21,7 @@ class FreshRSS_entry_Controller extends Minz_ActionController {
 		// the end.
 		$this->params = array();
 		$output = Minz_Request::param('output', '');
-		if ($output != '' && $this->view->conf->view_mode !== $output) {
+		if ($output != '' && FreshRSS_Context::$conf->view_mode !== $output) {
 			$this->params['output'] = $output;
 		}
 
@@ -167,7 +167,7 @@ class FreshRSS_entry_Controller extends Minz_ActionController {
 	public function purgeAction() {
 		@set_time_limit(300);
 
-		$nb_month_old = max($this->view->conf->old_entries, 1);
+		$nb_month_old = max(FreshRSS_Context::$conf->old_entries, 1);
 		$date_min = time() - (3600 * 24 * 30 * $nb_month_old);
 
 		$feedDAO = FreshRSS_Factory::createFeedDao();
@@ -181,7 +181,7 @@ class FreshRSS_entry_Controller extends Minz_ActionController {
 			if ($feed_history == -2) {
 				// TODO: -2 must be a constant!
 				// -2 means we take the default value from configuration
-				$feed_history = $this->view->conf->keep_history_default;
+				$feed_history = FreshRSS_Context::$conf->keep_history_default;
 			}
 
 			if ($feed_history >= 0) {

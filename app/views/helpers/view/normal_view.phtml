@@ -8,24 +8,24 @@ if (!empty($this->entries)) {
 	$display_yesterday = true;
 	$display_others = true;
 	if (FreshRSS_Auth::hasAccess()) {
-		$sharing = $this->conf->sharing;
+		$sharing = FreshRSS_Context::$conf->sharing;
 	} else {
 		$sharing = array();
 	}
-	$hidePosts = !$this->conf->display_posts;
-	$lazyload = $this->conf->lazyload;
-	$topline_read = $this->conf->topline_read;
-	$topline_favorite = $this->conf->topline_favorite;
-	$topline_date = $this->conf->topline_date;
-	$topline_link = $this->conf->topline_link;
-	$bottomline_read = $this->conf->bottomline_read;
-	$bottomline_favorite = $this->conf->bottomline_favorite;
-	$bottomline_sharing = $this->conf->bottomline_sharing && (count($sharing));
-	$bottomline_tags = $this->conf->bottomline_tags;
-	$bottomline_date = $this->conf->bottomline_date;
-	$bottomline_link = $this->conf->bottomline_link;
+	$hidePosts = !FreshRSS_Context::$conf->display_posts;
+	$lazyload = FreshRSS_Context::$conf->lazyload;
+	$topline_read = FreshRSS_Context::$conf->topline_read;
+	$topline_favorite = FreshRSS_Context::$conf->topline_favorite;
+	$topline_date = FreshRSS_Context::$conf->topline_date;
+	$topline_link = FreshRSS_Context::$conf->topline_link;
+	$bottomline_read = FreshRSS_Context::$conf->bottomline_read;
+	$bottomline_favorite = FreshRSS_Context::$conf->bottomline_favorite;
+	$bottomline_sharing = FreshRSS_Context::$conf->bottomline_sharing && (count($sharing));
+	$bottomline_tags = FreshRSS_Context::$conf->bottomline_tags;
+	$bottomline_date = FreshRSS_Context::$conf->bottomline_date;
+	$bottomline_link = FreshRSS_Context::$conf->bottomline_link;
 
-	$content_width = $this->conf->content_width;
+	$content_width = FreshRSS_Context::$conf->content_width;
 ?>
 
 <div id="stream" class="normal<?php echo $hidePosts ? ' hide_posts' : ''; ?>"><?php
@@ -140,7 +140,7 @@ if (!empty($this->entries)) {
 							<li class="dropdown-close"><a href="#close">❌</a></li>
 							<?php foreach ($sharing as $share) :?>
 								<li class="item share">
-									<a target="_blank" href="<?php echo FreshRSS_Share::generateUrl($this->conf->shares, $share, $item->link(), $item->title() . ' . ' . $feed->name())?>">
+									<a target="_blank" href="<?php echo FreshRSS_Share::generateUrl(FreshRSS_Context::$conf->shares, $share, $item->link(), $item->title() . ' . ' . $feed->name())?>">
 										<?php echo _t($share['name']);?>
 									</a>
 								</li>

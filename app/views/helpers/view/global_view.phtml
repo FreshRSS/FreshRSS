@@ -4,11 +4,11 @@
 <div id="stream" class="global categories">
 <?php
 	$arUrl = array('c' => 'index', 'a' => 'index', 'params' => array());
-	if ($this->conf->view_mode !== 'normal') {
+	if (FreshRSS_Context::$conf->view_mode !== 'normal') {
 		$arUrl['params']['output'] = 'normal';
 	}
 	$p = Minz_Request::param('state', '');
-	if (($p != '') && ($this->conf->default_view !== $p)) {
+	if (($p != '') && (FreshRSS_Context::$conf->default_view !== $p)) {
 		$arUrl['params']['state'] = $p;
 	}
 
@@ -41,7 +41,7 @@
 </div>
 
 <div id="overlay"></div>
-<div id="panel"<?php echo $this->conf->display_posts ? '' : ' class="hide_posts"'; ?>>
+<div id="panel"<?php echo FreshRSS_Context::$conf->display_posts ? '' : ' class="hide_posts"'; ?>>
 	<a class="close" href="#"><?php echo _i('close'); ?></a>
 </div>
 

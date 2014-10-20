@@ -42,7 +42,7 @@
 
 		<div class="form-group">
 			<label class="group-name" for="mail_login"><?php echo _t('persona_connection_email'); ?></label>
-			<?php $mail = $this->conf->mail_login; ?>
+			<?php $mail = FreshRSS_Context::$conf->mail_login; ?>
 			<div class="group-controls">
 				<input type="email" id="mail_login" name="mail_login" class="extend" autocomplete="off" value="<?php echo $mail; ?>" <?php echo FreshRSS_Auth::hasAccess('admin') ? '' : 'disabled="disabled"'; ?> placeholder="alice@example.net" />
 				<noscript><b><?php echo _t('javascript_should_be_activated'); ?></b></noscript>

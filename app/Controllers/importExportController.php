@@ -289,7 +289,7 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 			return true;
 		}
 
-		$is_read = $this->view->conf->mark_when['reception'] ? 1 : 0;
+		$is_read = FreshRSS_Context::$conf->mark_when['reception'] ? 1 : 0;
 
 		$google_compliant = strpos($article_object['id'], 'com.google') !== false;
 
@@ -484,7 +484,7 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 			$this->view->type = 'feed/' . $feed->id();
 			$this->view->entries = $this->entryDAO->listWhere(
 				'f', $feed->id(), FreshRSS_Entry::STATE_ALL, 'ASC',
-				$this->view->conf->posts_per_page
+				FreshRSS_Context::$conf->posts_per_page
 			);
 			$this->view->feed = $feed;
 		}
