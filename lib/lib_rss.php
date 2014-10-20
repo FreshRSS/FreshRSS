@@ -248,7 +248,9 @@ function is_referer_from_same_domain() {
 
 
 /**
+ * Check PHP and its extensions are well-installed.
  *
+ * @return array of tested values.
  */
 function check_install_php() {
 	return array(
@@ -268,7 +270,9 @@ function check_install_php() {
 
 
 /**
+ * Check different data files and directories exist.
  *
+ * @return array of tested values.
  */
 function check_install_files() {
 	return array(
@@ -283,7 +287,9 @@ function check_install_files() {
 
 
 /**
+ * Check database is well-installed.
  *
+ * @return array of tested values.
  */
 function check_install_database() {
 	$status = array(
