@@ -7,7 +7,13 @@
 
 	<?php foreach ($this->status_php as $key => $status) { ?>
 	<p class="alert <?php echo $status ? 'alert-success' : 'alert-error'; ?>">
-		<?php echo _t('admin.check_install.' . $key . '.' . ($status ? 'ok' : 'nok')); ?>
+		<?php
+			if ($key === 'php') {
+				echo _t('admin.check_install.' . $key . '.' . ($status ? 'ok' : 'nok'), PHP_VERSION, '5.2.1');
+			} else {
+				echo _t('admin.check_install.' . $key . '.' . ($status ? 'ok' : 'nok'));
+			}
+		?>
 	</p>
 	<?php } ?>
 
