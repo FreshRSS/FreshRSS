@@ -1,0 +1,46 @@
+<?php //$this->partial('nav_menu'); ?>
+
+<div id="stream" class="global categories">
+<?php
+	$url_base = array(
+		'c' => 'index',
+		'a' => 'index',
+		'params' => array(
+			'state' => FreshRSS_Context::$state
+		)
+	);
+
+	foreach ($this->categories as $cat) {
+		$feeds = $cat->feeds();
+		$url_base['params']['get'] = 'c_' . $cat->id();
+
+		if (!empty($feeds)) {
+?>
+	<div class="box">
+		<div class="box-title"><a data-unread="<?php echo format_number($cat->nbNotRead()); ?>" href="<?php echo Minz_Url::display($url_base); ?>"><?php echo $cat->name(); ?></a></div>
+
+		<ul class="box-content">
+			<?php
+				foreach ($feeds as $feed) {
+					$nb_not_read = $feed->nbNotRead();
+					$error = $feed->inError() ? 'error ' : '';
+					$empty = $feed->nbEntries() === 0 ? 'empty ' : '';
+					$url_base['params']['get'] = 'f_' . $feed->id();
+			?>
+			<li class="item feed<?php echo $error, $empty; ?>">
+				<img class="favicon" src="<?php echo $feed->favicon(); ?>" alt="✇" />
+				<a data-unread="<?php echo format_number($feed->nbNotRead()); ?>" data-priority="<?php echo $feed->priority(); ?>" href="<?php echo Minz_Url::display($url_base); ?>"><?php echo $feed->name(); ?></a>
+			</li>
+			<?php } ?>
+		</ul>
+	</div>
+<?php
+		}
+	}
+?>
+</div>
+
+<div id="overlay"></div>
+<div id="panel"<?php echo FreshRSS_Context::$conf->display_posts ? '' : ' class="hide_posts"'; ?>>
+	<a class="close" href="#"><?php echo _i('close'); ?></a>
+</div>

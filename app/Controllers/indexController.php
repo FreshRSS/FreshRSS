@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * This class handles main actions of FreshRSS.
+ */
 class FreshRSS_index_Controller extends Minz_ActionController {
 	private $nb_not_read_cat = 0;
 
@@ -12,10 +15,7 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 			$token_param = Minz_Request::param('token', '');
 			$token_is_ok = ($token != '' && $token === $token_param);
 			if ($output === 'rss' && !$token_is_ok) {
-				Minz_Error::error(
-					403,
-					array('error' => array(_t('access_denied')))
-				);
+				Minz_Error::error(403);
 				return;
 			} elseif ($output !== 'rss') {
 				// "hard" redirection is not required, just ask dispatcher to
@@ -201,17 +201,34 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 			return false;
 		}
 	}
+
+	/**
+	 * This action displays the global view of FreshRSS.
+	 */
+	public function globalAction() {
+		if (!FreshRSS_Auth::hasAccess() && !Minz_Configuration::allowAnonymous()) {
+			Minz_Error::error(403);
+		}
+
+		Minz_View::appendScript(Minz_Url::display('/scripts/global_view.js?' . @filemtime(PUBLIC_PATH . '/scripts/global_view.js')));
+
+		$catDAO = new FreshRSS_CategoryDAO();
+		$this->view->categories = $catDAO->listCategories();
+	}
 	
+	/**
+	 * This action displays the about page of FreshRSS.
+	 */
 	public function aboutAction() {
 		Minz_View::prependTitle(_t('about') . ' · ');
 	}
 
+	/**
+	 * This action displays logs of FreshRSS for the current user.
+	 */
 	public function logsAction() {
 		if (!FreshRSS_Auth::hasAccess()) {
-			Minz_Error::error(
-				403,
-				array('error' => array(_t('access_denied')))
-			);
+			Minz_Error::error(403);
 		}
 
 		Minz_View::prependTitle(_t('logs') . ' · ');

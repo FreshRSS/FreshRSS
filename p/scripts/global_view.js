@@ -50,7 +50,8 @@ function init_close_panel() {
 }
 
 function init_global_view() {
-	$("#stream .box-category a").click(function () {
+	// TODO: should be based on generic classes.
+	$(".box a").click(function () {
 		var link = $(this).attr("href");
 
 		load_panel(link);

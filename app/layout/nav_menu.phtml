@@ -240,7 +240,7 @@
 			<?php echo _i("view-normal"); ?>
 		</a>
 
-		<?php $url_output['params']['output'] = 'global'; ?>
+		<?php $url_output['a'] = 'global'; unset($url_output['params']['output']); ?>
 		<a class="view_global btn <?php echo $actual_view == 'global'? 'active' : ''; ?>" title="<?php echo _t('global_view'); ?>" href="<?php echo Minz_Url::display($url_output); ?>">
 			<?php echo _i("view-global"); ?>
 		</a>

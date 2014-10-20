@@ -60,6 +60,10 @@ function formatNumber($n, $precision = 0) {
 	return str_replace(' ', ' ',	//Espace insécable	//TODO: remplacer par une espace _fine_ insécable
 		number_format($n, $precision, '.', ' '));	//number_format does not seem to be Unicode-compatible
 }
+function format_number($n, $precision = 0) {
+	// TODO: coding style, prefer THIS function. Remove formatNumber.
+	return formatNumber($n, $precision);
+}
 
 function formatBytes($bytes, $precision = 2, $system = 'IEC') {
 	if ($system === 'IEC') {
