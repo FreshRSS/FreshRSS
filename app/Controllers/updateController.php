@@ -12,7 +12,6 @@ class FreshRSS_update_Controller extends Minz_ActionController {
 
 		invalidateHttpCache();
 
-		Minz_View::prependTitle(_t('update_system') . ' · ');
 		$this->view->update_to_apply = false;
 		$this->view->last_update_time = 'unknown';
 		$this->view->check_last_hour = false;
@@ -24,6 +23,8 @@ class FreshRSS_update_Controller extends Minz_ActionController {
 	}
 
 	public function indexAction() {
+		Minz_View::prependTitle(_t('update_system') . ' · ');
+
 		if (file_exists(UPDATE_FILENAME) && !is_writable(FRESHRSS_PATH)) {
 			$this->view->message = array(
 				'status' => 'bad',
@@ -125,5 +126,16 @@ class FreshRSS_update_Controller extends Minz_ActionController {
 				                  array('c' => 'update', 'a' => 'index'));
 			}
 		}
+	}
+
+	/**
+	 * This action displays information about installation.
+	 */
+	public function checkInstallAction() {
+		Minz_View::prependTitle(_t('gen.title.check_install') . ' · ');
+
+		$this->view->status_php = check_install_php();
+		$this->view->status_files = check_install_files();
+		$this->view->status_database = check_install_database();
 	}
 }

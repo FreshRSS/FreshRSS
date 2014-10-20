@@ -31,7 +31,12 @@
 	<li class="item<?php echo Minz_Request::controllerName() === 'auth' ? ' active' : ''; ?>">
 		<a href="<?php echo _url('auth', 'index'); ?>"><?php echo _t('gen.menu.authentication'); ?></a>
 	</li>
-	<li class="item<?php echo Minz_Request::controllerName() === 'update' ? ' active' : ''; ?>">
+	<li class="item<?php echo Minz_Request::controllerName() === 'update' &&
+	                          Minz_Request::actionName() === 'checkInstall' ? ' active' : ''; ?>">
+		<a href="<?php echo _url('update', 'checkInstall'); ?>"><?php echo _t('gen.menu.check_install'); ?></a>
+	</li>
+	<li class="item<?php echo Minz_Request::controllerName() === 'update' &&
+	                          Minz_Request::actionName() === 'index' ? ' active' : ''; ?>">
 		<a href="<?php echo _url('update', 'index'); ?>"><?php echo _t('update'); ?></a>
 	</li>
 	<?php } ?>

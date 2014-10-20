@@ -245,3 +245,65 @@ function is_referer_from_same_domain() {
 	}
 	return (isset($host['port']) ? $host['port'] : 0) === (isset($referer['port']) ? $referer['port'] : 0);
 }
+
+
+/**
+ *
+ */
+function check_install_php() {
+	return array(
+		'php' => version_compare(PHP_VERSION, '5.2.1') >= 0,
+		'minz' => file_exists(LIB_PATH . '/Minz'),
+		'curl' => extension_loaded('curl'),
+		'pdo_mysql' => extension_loaded('pdo_mysql'),
+		'pdo_sqlite' => extension_loaded('pdo_sqlite'),
+		'pdo' => extension_loaded('pdo_mysql') || extension_loaded('pdo_sqlite'),
+		'pcre' => extension_loaded('pcre'),
+		'ctype' => extension_loaded('ctype'),
+		'dom' => class_exists('DOMDocument'),
+		'json' => extension_loaded('json'),
+		'zip' => extension_loaded('zip'),
+	);
+}
+
+
+/**
+ *
+ */
+function check_install_files() {
+	return array(
+		'data' => DATA_PATH && is_writable(DATA_PATH),
+		'cache' => CACHE_PATH && is_writable(CACHE_PATH),
+		'logs' => LOG_PATH && is_writable(LOG_PATH),
+		'favicons' => is_writable(DATA_PATH . '/favicons'),
+		'persona' => is_writable(DATA_PATH . '/persona'),
+		'tokens' => is_writable(DATA_PATH . '/tokens'),
+	);
+}
+
+
+/**
+ *
+ */
+function check_install_database() {
+	$status = array(
+		'connection' => true,
+		'tables' => false,
+		'categories' => false,
+		'feeds' => false,
+		'entries' => false,
+	);
+
+	try {
+		$dbDAO = FreshRSS_Factory::createDatabaseDAO();
+
+		$status['tables'] = $dbDAO->tablesAreCorrect();
+		$status['categories'] = $dbDAO->categoryIsCorrect();
+		$status['feeds'] = $dbDAO->feedIsCorrect();
+		$status['entries'] = $dbDAO->entryIsCorrect();
+	} catch(Minz_PDOConnectionException $e) {
+		$status['connection'] = false;
+	}
+
+	return $status;
+}
