@@ -104,6 +104,8 @@ class FreshRSS_auth_Controller extends Minz_ActionController {
 	 *   - username (default: '')
 	 *   - challenge (default: '')
 	 *   - keep_logged_in (default: false)
+	 *
+	 * @todo move unsafe autologin in an extension.
 	 */
 	public function formLoginAction() {
 		invalidateHttpCache();
@@ -148,6 +150,42 @@ class FreshRSS_auth_Controller extends Minz_ActionController {
 				                  ' user=' . $username .
 				                  ', nonce=' . $nonce .
 				                  ', c=' . $challenge);
+				Minz_Request::bad(_t('invalid_login'),
+				                  array('c' => 'auth', 'a' => 'login'));
+			}
+		} elseif (Minz_Configuration::unsafeAutologinEnabled()) {
+			$username = Minz_Request::param('u', '');
+			$password = Minz_Request::param('p', '');
+			Minz_Request::_param('p');
+
+			if (!$username) {
+				return;
+			}
+
+			try {
+				$conf = new FreshRSS_Configuration($username);
+			} catch(Minz_Exception $e) {
+				// $username is not a valid user, nor the configuration file!
+				Minz_Log::warning('Login failure: ' . $e->getMessage());
+				return;
+			}
+
+			if (!function_exists('password_verify')) {
+				include_once(LIB_PATH . '/password_compat.php');
+			}
+
+			$s = $conf->passwordHash;
+			$ok = password_verify($password, $s);
+			unset($password);
+			if ($ok) {
+				Minz_Session::_param('currentUser', $username);
+				Minz_Session::_param('passwordHash', $s);
+				FreshRSS_Auth::giveAccess();
+
+				Minz_Request::good(_t('login'),
+				                   array('c' => 'index', 'a' => 'index'));
+			} else {
+				Minz_Log::warning('Unsafe password mismatch for user ' . $username);
 				Minz_Request::bad(_t('invalid_login'),
 				                  array('c' => 'auth', 'a' => 'login'));
 			}
