@@ -11,8 +11,11 @@ Minz_Configuration::init();
 
 $users = listUsers();
 shuffle($users);	//Process users in random order
-array_unshift($users, Minz_Configuration::defaultUser());	//But always start with admin
-$users = array_unique($users);
+
+if (Minz_Configuration::defaultUser() !== ''){
+	array_unshift($users, Minz_Configuration::defaultUser());	//But always start with admin
+	$users = array_unique($users);
+}
 
 foreach ($users as $myUser) {
 	syslog(LOG_INFO, 'FreshRSS actualize ' . $myUser);
