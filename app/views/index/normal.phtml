@@ -80,7 +80,7 @@ if (!empty($this->entries)) {
 					?></li><?php
 				}
 			}
-			$feed = FreshRSS_CategoryDAO::findFeed($this->cat_aside, $item->feed());	//We most likely already have the feed object in cache
+			$feed = FreshRSS_CategoryDAO::findFeed($this->categories, $item->feed());	//We most likely already have the feed object in cache
 			if ($feed == null) {
 				$feed = $item->feed(true);
 				if ($feed == null) {

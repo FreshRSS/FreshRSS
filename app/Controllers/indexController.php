@@ -7,47 +7,17 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 	private $nb_not_read_cat = 0;
 
 	public function indexAction() {
-		$output = Minz_Request::param('output');
-		$token = FreshRSS_Context::$conf->token;
+		// TODO: update the context with information from request.
+		// TODO: then, in dedicated action, get corresponding entries
 
-		// check if user is logged in
-		if (!FreshRSS_Auth::hasAccess() && !Minz_Configuration::allowAnonymous()) {
-			$token_param = Minz_Request::param('token', '');
-			$token_is_ok = ($token != '' && $token === $token_param);
-			if ($output === 'rss' && !$token_is_ok) {
-				Minz_Error::error(403);
-				return;
-			} elseif ($output !== 'rss') {
-				// "hard" redirection is not required, just ask dispatcher to
-				// forward to the login form without 302 redirection
-				Minz_Request::forward(array('c' => 'auth', 'a' => 'login'));
-				return;
-			}
-		}
-
-		$params = Minz_Request::params();
-		if (isset($params['search'])) {
-			$params['search'] = urlencode($params['search']);
-		}
-
-		$this->view->url = array(
+		$prefered_output = FreshRSS_Context::$conf->view_mode;
+		Minz_Request::forward(array(
 			'c' => 'index',
-			'a' => 'index',
-			'params' => $params
-		);
+			'a' => $prefered_output
+		));
 
-		if ($output === 'rss') {
-			// no layout for RSS output
-			$this->view->_useLayout(false);
-			header('Content-Type: application/rss+xml; charset=utf-8');
-		} elseif ($output === 'global') {
-			Minz_View::appendScript(Minz_Url::display('/scripts/global_view.js?' . @filemtime(PUBLIC_PATH . '/scripts/global_view.js')));
-		}
+		return;
 
-		$catDAO = new FreshRSS_CategoryDAO();
-		$entryDAO = FreshRSS_Factory::createEntryDao();
-
-		$this->view->cat_aside = $catDAO->listCategories();
 		$this->view->nb_favorites = $entryDAO->countUnreadReadFavorites();
 		$this->view->nb_not_read = FreshRSS_CategoryDAO::CountUnreads($this->view->cat_aside, 1);
 		$this->view->currentName = '';
@@ -60,10 +30,7 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 		$getId = substr($get, 2);
 		if (!$this->checkAndProcessType($getType, $getId)) {
 			Minz_Log::debug('Not found [' . $getType . '][' . $getId . ']');
-			Minz_Error::error(
-				404,
-				array('error' => array(_t('page_not_found')))
-			);
+			Minz_Error::error(404);
 			return;
 		}
 
@@ -144,10 +111,7 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 			$this->view->entries = $entries;
 		} catch (FreshRSS_EntriesGetter_Exception $e) {
 			Minz_Log::notice($e->getMessage());
-			Minz_Error::error(
-				404,
-				array('error' => array(_t('page_not_found')))
-			);
+			Minz_Error::error(404);
 		}
 	}
 
@@ -203,19 +167,58 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 	}
 
 	/**
+	 * This action displays the normal view of FreshRSS.
+	 */
+	public function normalAction() {
+		if (!FreshRSS_Auth::hasAccess() && !Minz_Configuration::allowAnonymous()) {
+			Minz_Request::forward(array('c' => 'auth', 'a' => 'login'));
+			return;
+		}
+
+		$catDAO = new FreshRSS_CategoryDAO();
+		$entryDAO = FreshRSS_Factory::createEntryDao();
+
+		$this->view->categories = $catDAO->listCategories();
+
+	}
+
+	/**
 	 * This action displays the global view of FreshRSS.
 	 */
 	public function globalAction() {
 		if (!FreshRSS_Auth::hasAccess() && !Minz_Configuration::allowAnonymous()) {
-			Minz_Error::error(403);
+			Minz_Request::forward(array('c' => 'auth', 'a' => 'login'));
+			return;
 		}
 
 		Minz_View::appendScript(Minz_Url::display('/scripts/global_view.js?' . @filemtime(PUBLIC_PATH . '/scripts/global_view.js')));
 
 		$catDAO = new FreshRSS_CategoryDAO();
 		$this->view->categories = $catDAO->listCategories();
+
+		Minz_View::prependTitle(_t('gen.title.global_view') . ' · ');
 	}
-	
+
+	/**
+	 * This action displays the RSS feed of FreshRSS.
+	 */
+	public function rssAction() {
+		$token = FreshRSS_Context::$conf->token;
+		$token_param = Minz_Request::param('token', '');
+		$token_is_ok = ($token != '' && $token === $token_param);
+
+		// Check if user has access.
+		if (!FreshRSS_Auth::hasAccess() &&
+				!Minz_Configuration::allowAnonymous() &&
+				!$token_is_ok) {
+			Minz_Error::error(403);
+		}
+
+		// No layout for RSS output.
+		$this->view->_useLayout(false);
+		header('Content-Type: application/rss+xml; charset=utf-8');
+	}
+
 	/**
 	 * This action displays the about page of FreshRSS.
 	 */

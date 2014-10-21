@@ -26,19 +26,9 @@ class FreshRSS extends Minz_FrontController {
 		// Load context and configuration.
 		FreshRSS_Context::init();
 
-		$this->loadParamsView();
 		$this->loadStylesAndScripts();
 		$this->loadNotifications();
 		$this->loadExtensions();
-	}
-
-	private function loadParamsView() {
-		// TODO: outputs should be different actions.
-		$output = Minz_Request::param('output', '');
-		if (($output === '') || ($output !== 'normal' && $output !== 'rss' && $output !== 'reader' && $output !== 'global')) {
-			$output = FreshRSS_Context::$conf->view_mode;
-			Minz_Request::_param('output', $output);
-		}
 	}
 
 	private function loadStylesAndScripts() {
