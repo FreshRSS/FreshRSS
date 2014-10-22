@@ -192,9 +192,9 @@ class FreshRSS_Context {
 					break;
 				}
 
-				self::$next_get['get'] = empty($another_unread_id) ?
-				                         'c_' . self::$current_get['category'] :
-				                         'f_' . $another_unread_id;
+				self::$next_get = empty($another_unread_id) ?
+				                  'c_' . self::$current_get['category'] :
+				                  'f_' . $another_unread_id;
 				break;
 			case 'c':
 				foreach (self::$categories as $cat) {
@@ -211,9 +211,9 @@ class FreshRSS_Context {
 					}
 				}
 
-				self::$next_get['get'] = empty($another_unread_id) ?
-				                         'a' :
-				                         'c_' . $another_unread_id;
+				self::$next_get = empty($another_unread_id) ?
+				                  'a' :
+				                  'c_' . $another_unread_id;
 				break;
 			}
 		}
