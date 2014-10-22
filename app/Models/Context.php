@@ -42,10 +42,6 @@ class FreshRSS_Context {
 			die($e->getMessage());
 		}
 
-		// Init i18n.
-		Minz_Session::_param('language', self::$conf->language);
-		Minz_Translate::init();
-
 		$catDAO = new FreshRSS_CategoryDAO();
 		$entryDAO = FreshRSS_Factory::createEntryDao();
 

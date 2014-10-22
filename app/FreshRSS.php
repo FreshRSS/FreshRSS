@@ -26,6 +26,10 @@ class FreshRSS extends Minz_FrontController {
 		// Load context and configuration.
 		FreshRSS_Context::init();
 
+		// Init i18n.
+		Minz_Session::_param('language', FreshRSS_Context::$conf->language);
+		Minz_Translate::init();
+
 		$this->loadStylesAndScripts();
 		$this->loadNotifications();
 		$this->loadExtensions();
