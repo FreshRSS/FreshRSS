@@ -126,13 +126,13 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 	private function updateContext() {
 		FreshRSS_Context::_get(Minz_Request::param('get', 'a'));
 
-		// TODO: change default_view by default_state.
 		FreshRSS_Context::$state = Minz_Request::param(
-			'state', FreshRSS_Context::$conf->default_view
+			'state', FreshRSS_Context::$conf->default_state
 		);
 		$state_forced_by_user = Minz_Request::param('state', false) !== false;
-		if (FreshRSS_Context::isStateEnabled(FreshRSS_Entry::STATE_NOT_READ) &&
+		if (FreshRSS_Context::$conf->default_view === 'adaptive' &&
 				FreshRSS_Context::$get_unread <= 0 &&
+				!FreshRSS_Context::isStateEnabled(FreshRSS_Entry::STATE_READ) &&
 				!$state_forced_by_user) {
 			FreshRSS_Context::$state |= FreshRSS_Entry::STATE_READ;
 		}
