@@ -28,7 +28,8 @@ class FreshRSS_Context {
 	public static $order = 'DESC';
 	public static $number = 0;
 	public static $search = '';
-	public static $first_id = 0;
+	public static $first_id = '';
+	public static $next_id = '';
 
 	public static function init() {
 		// Init configuration.
@@ -127,15 +128,23 @@ class FreshRSS_Context {
 		}
 	}
 
-	public static function currentGet() {
+	public static function currentGet($array = false) {
 		if (self::$current_get['all']) {
 			return 'a';
 		} elseif (self::$current_get['starred']) {
 			return 's';
 		} elseif (self::$current_get['feed']) {
-			return 'f_' . self::$current_get['feed'];
+			if ($array) {
+				return array('f', self::$current_get['feed']);
+			} else {
+				return 'f_' . self::$current_get['feed'];
+			}
 		} elseif (self::$current_get['category']) {
-			return 'c_' . self::$current_get['category'];
+			if ($array) {
+				return array('c', self::$current_get['category']);
+			} else {
+				return 'c_' . self::$current_get['category'];
+			}
 		}
 	}
 

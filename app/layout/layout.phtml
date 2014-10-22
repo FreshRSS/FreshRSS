@@ -10,9 +10,9 @@
 <?php $this->renderHelper('javascript_vars'); ?>
 		//]]></script>
 <?php
-	if (!empty($this->nextId)) {
+	if (FreshRSS_Context::$next_id !== '') {
 		$params = Minz_Request::params();
-		$params['next'] = $this->nextId;
+		$params['next'] = FreshRSS_Context::$next_id;
 		$params['ajax'] = 1;
 ?>
 		<link id="prefetch" rel="next prefetch" href="<?php echo Minz_Url::display(array('c' => Minz_Request::controllerName(), 'a' => Minz_Request::actionName(), 'params' => $params)); ?>" />

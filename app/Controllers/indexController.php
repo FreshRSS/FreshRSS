@@ -14,23 +14,6 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 			'c' => 'index',
 			'a' => $prefered_output
 		));
-
-		return;
-
-		try {
-			$entries = $entryDAO->listWhere($getType, $getId, $this->view->state, $order, $nb + 1, $first, $filter);
-
-			if (count($entries) > $nb) {
-				// We have more elements for pagination
-				$last_entry = array_pop($entries);
-				FreshRSS_Context::$next_id = $last_entry->id();
-			}
-
-			$this->view->entries = $entries;
-		} catch (FreshRSS_EntriesGetter_Exception $e) {
-			Minz_Log::notice($e->getMessage());
-			Minz_Error::error(404);
-		}
 	}
 
 	/**
@@ -45,6 +28,21 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 		try {
 			$this->updateContext();
 		} catch (Minz_Exception $e) {
+			Minz_Error::error(404);
+		}
+
+		try {
+			$entries = $this->listByContext();
+
+			if (count($entries) > FreshRSS_Context::$number) {
+				// We have more elements for pagination
+				$last_entry = array_pop($entries);
+				FreshRSS_Context::$next_id = $last_entry->id();
+			}
+
+			$this->view->entries = $entries;
+		} catch (FreshRSS_EntriesGetter_Exception $e) {
+			Minz_Log::notice($e->getMessage());
 			Minz_Error::error(404);
 		}
 
@@ -100,6 +98,13 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 			Minz_Error::error(404);
 		}
 
+		try {
+			$this->view->entries = $this->listByContext();
+		} catch (FreshRSS_EntriesGetter_Exception $e) {
+			Minz_Log::notice($e->getMessage());
+			Minz_Error::error(404);
+		}
+
 		// No layout for RSS output.
 		$this->view->rss_title = FreshRSS_Context::$name . ' | ' . Minz_View::title();
 		$this->view->_useLayout(false);
@@ -128,6 +133,25 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 			'nb', FreshRSS_Context::$conf->posts_per_page
 		);
 		FreshRSS_Context::$first_id = Minz_Request::param('next', '');
+	}
+
+	private function listByContext() {
+		$entryDAO = FreshRSS_Factory::createEntryDao();
+
+		$get = FreshRSS_Context::currentGet(true);
+		if (count($get) > 1) {
+			$type = $get[0];
+			$id = $get[1];
+		} else {
+			$type = $get;
+			$id = '';
+		}
+
+		return $entryDAO->listWhere(
+			$type, $id, FreshRSS_Context::$state, FreshRSS_Context::$order,
+			FreshRSS_Context::$number + 1, FreshRSS_Context::$first_id,
+			FreshRSS_Context::$search
+		);
 	}
 
 	/**
