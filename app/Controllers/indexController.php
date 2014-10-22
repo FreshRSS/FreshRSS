@@ -137,6 +137,13 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 	 *   - next (default: empty string)
 	 */
 	private function updateContext() {
+		// Update number of read / unread variables.
+		$entryDAO = FreshRSS_Factory::createEntryDao();
+		FreshRSS_Context::$total_starred = $entryDAO->countUnreadReadFavorites();
+		FreshRSS_Context::$total_unread = FreshRSS_CategoryDAO::CountUnreads(
+			FreshRSS_Context::$categories, 1
+		);
+
 		FreshRSS_Context::_get(Minz_Request::param('get', 'a'));
 
 		FreshRSS_Context::$state = Minz_Request::param(
