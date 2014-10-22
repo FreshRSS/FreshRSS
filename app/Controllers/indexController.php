@@ -4,7 +4,6 @@
  * This class handles main actions of FreshRSS.
  */
 class FreshRSS_index_Controller extends Minz_ActionController {
-	private $nb_not_read_cat = 0;
 
 	public function indexAction() {
 		// TODO: update the context with information from request.
@@ -17,30 +16,6 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 		));
 
 		return;
-
-		$this->view->nb_favorites = $entryDAO->countUnreadReadFavorites();
-		$this->view->nb_not_read = FreshRSS_CategoryDAO::CountUnreads($this->view->cat_aside, 1);
-		$this->view->currentName = '';
-
-		$this->view->get_c = '';
-		$this->view->get_f = '';
-
-		$get = Minz_Request::param('get', 'a');
-		$getType = $get[0];
-		$getId = substr($get, 2);
-		if (!$this->checkAndProcessType($getType, $getId)) {
-			Minz_Log::debug('Not found [' . $getType . '][' . $getId . ']');
-			Minz_Error::error(404);
-			return;
-		}
-
-		// mise à jour des titres
-		$this->view->rss_title = $this->view->currentName . ' | ' . Minz_View::title();
-		Minz_View::prependTitle(
-			($this->nb_not_read_cat > 0 ? '(' . formatNumber($this->nb_not_read_cat) . ') ' : '') .
-			$this->view->currentName .
-			' · '
-		);
 
 		// On récupère les différents éléments de filtrage
 		$this->view->state = Minz_Request::param('state', FreshRSS_Context::$conf->default_view);
@@ -115,57 +90,6 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 		}
 	}
 
-	/*
-	 * Vérifie que la catégorie / flux sélectionné existe
-	 * + Initialise correctement les variables de vue get_c et get_f
-	 * + Met à jour la variable $this->nb_not_read_cat
-	 */
-	private function checkAndProcessType($getType, $getId) {
-		switch($getType) {
-		case 'a':
-			$this->view->currentName = _t('your_rss_feeds');
-			$this->nb_not_read_cat = $this->view->nb_not_read;
-			$this->view->get_c = $getType;
-			return true;
-		case 's':
-			$this->view->currentName = _t('your_favorites');
-			$this->nb_not_read_cat = $this->view->nb_favorites['unread'];
-			$this->view->get_c = $getType;
-			return true;
-		case 'c':
-			$cat = isset($this->view->cat_aside[$getId]) ? $this->view->cat_aside[$getId] : null;
-			if ($cat === null) {
-				$catDAO = new FreshRSS_CategoryDAO();
-				$cat = $catDAO->searchById($getId);
-			}
-			if ($cat) {
-				$this->view->currentName = $cat->name();
-				$this->nb_not_read_cat = $cat->nbNotRead();
-				$this->view->get_c = $getId;
-				return true;
-			} else {
-				return false;
-			}
-		case 'f':
-			$feed = FreshRSS_CategoryDAO::findFeed($this->view->cat_aside, $getId);
-			if (empty($feed)) {
-				$feedDAO = FreshRSS_Factory::createFeedDao();
-				$feed = $feedDAO->searchById($getId);
-			}
-			if ($feed) {
-				$this->view->currentName = $feed->name();
-				$this->nb_not_read_cat = $feed->nbNotRead();
-				$this->view->get_f = $getId;
-				$this->view->get_c = $feed->category();
-				return true;
-			} else {
-				return false;
-			}
-		default:
-			return false;
-		}
-	}
-
 	/**
 	 * This action displays the normal view of FreshRSS.
 	 */
@@ -175,11 +99,19 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 			return;
 		}
 
-		$catDAO = new FreshRSS_CategoryDAO();
-		$entryDAO = FreshRSS_Factory::createEntryDao();
+		try {
+			$this->updateContext();
+		} catch (Minz_Exception $e) {
+			Minz_Error::error(404);
+		}
 
-		$this->view->categories = $catDAO->listCategories();
+		$this->view->categories = FreshRSS_Context::$categories;
 
+		$title = FreshRSS_Context::$name;
+		if (FreshRSS_Context::$get_unread > 0) {
+			$title = '(' . FreshRSS_Context::$get_unread . ') · ' . $title;
+		}
+		Minz_View::prependTitle($title . ' · ');
 	}
 
 	/**
@@ -193,8 +125,13 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 
 		Minz_View::appendScript(Minz_Url::display('/scripts/global_view.js?' . @filemtime(PUBLIC_PATH . '/scripts/global_view.js')));
 
-		$catDAO = new FreshRSS_CategoryDAO();
-		$this->view->categories = $catDAO->listCategories();
+		try {
+			$this->updateContext();
+		} catch (Minz_Exception $e) {
+			Minz_Error::error(404);
+		}
+
+		$this->view->categories = FreshRSS_Context::$categories;
 
 		Minz_View::prependTitle(_t('gen.title.global_view') . ' · ');
 	}
@@ -214,9 +151,23 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 			Minz_Error::error(403);
 		}
 
+		try {
+			$this->updateContext();
+		} catch (Minz_Exception $e) {
+			Minz_Error::error(404);
+		}
+
 		// No layout for RSS output.
+		$this->view->rss_title = FreshRSS_Context::$name . ' | ' . Minz_View::title();
 		$this->view->_useLayout(false);
 		header('Content-Type: application/rss+xml; charset=utf-8');
+	}
+
+	/**
+	 * This action updates the Context object by using request parameters.
+	 */
+	private function updateContext() {
+		FreshRSS_Context::_get(Minz_Request::param('get', 'a'));
 	}
 
 	/**
