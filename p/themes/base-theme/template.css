@@ -325,6 +325,26 @@ a.btn {
 	cursor: grab;
 }
 
+/*=== Tree */
+.tree {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+.tree-folder-title {
+	display: block;
+}
+.tree-folder-items {
+	padding: 0;
+	list-style: none;
+}
+.tree-folder-items .item {
+	display: block;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+
 /*=== STRUCTURE */
 /*===============*/
 /*=== Header */
@@ -371,52 +391,31 @@ a.btn {
 }
 
 /*=== Aside main page (categories) */
-.categories {
-	list-style: none;
-	margin: 0;
-}
-.state_unread li:not(.active)[data-unread="0"] {
+.aside_flux.state_unread .tree-folder:not(.active)[data-unread="0"],
+.aside_flux.state_unread .tree-folder .item:not(.active)[data-unread="0"] {
 	display: none;
 }
-.category {
-	display: block;
-	overflow: hidden;
-	white-space: nowrap;
-	text-overflow: ellipsis;
-}
-.category .btn:not([data-unread="0"]):after {
+.aside_flux .tree-folder-title > a:not([data-unread="0"]):after {
 	content: attr(data-unread);
 }
 
 /*=== Aside main page (feeds) */
-.categories .feeds {
-	width: 100%;
-	list-style: none;
-}
-.categories .feeds:not(.active) {
+.aside_flux .tree-folder-items:not(.active) {
 	display: none;
 }
-.categories .feeds .feed {
-	display: inline-block;
-	overflow: hidden;
-	white-space: nowrap;
-	text-overflow: ellipsis;
-	vertical-align: middle;
-}
-.categories .feeds .feed:not([data-unread="0"]):before {
+.aside_flux .tree-folder-items .item > a:not([data-unread="0"]):before {
 	content: "(" attr(data-unread) ") ";
 }
-.categories .feeds .dropdown-menu {
+.aside_flux .tree-folder-items .dropdown-menu {
 	left: 0;
 }
-.categories .feeds .item .dropdown-toggle > .icon {
+.aside_flux .tree-folder-items .item .dropdown-toggle > .icon {
 	visibility: hidden;
 	cursor: pointer;
-	vertical-align: top;
 }
-.categories .feeds .item .dropdown-target:target ~ .dropdown-toggle > .icon,
-.categories .feeds .item:hover .dropdown-toggle > .icon,
-.categories .feeds .item.active .dropdown-toggle > .icon {
+.aside_flux .tree-folder-items .item .dropdown-target:target ~ .dropdown-toggle > .icon,
+.aside_flux .tree-folder-items .item:hover .dropdown-toggle > .icon,
+.aside_flux .tree-folder-items .item.active .dropdown-toggle > .icon {
 	visibility: visible;
 }
 

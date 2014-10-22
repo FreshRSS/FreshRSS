@@ -353,6 +353,22 @@ a.btn {
 	visibility: visible;
 }
 
+/*=== Tree */
+.tree {
+	margin: 10px 0;
+}
+.tree-folder-title {
+	padding: 0 10px;
+	line-height: 2.5rem;
+	font-size: 1.2rem;
+	font-weight: bold;
+}
+.tree-folder-items .item {
+	padding: 0 5px 0 20px;
+	line-height: 2.5rem;
+	font-size: 0.8rem;
+}
+
 /*=== STRUCTURE */
 /*===============*/
 /*=== Header */
