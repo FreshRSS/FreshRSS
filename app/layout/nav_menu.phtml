@@ -61,7 +61,6 @@
 
 	<?php
 		$get = FreshRSS_Context::currentGet();
-		$next_step = FreshRSS_Context::nextStep();
 		$string_mark = _t('mark_all_read');
 		if ($get[0] == 'f') {
 			$string_mark = _t('mark_feed_read');
@@ -74,8 +73,8 @@
 			'a' => 'read',
 			'params' => array(
 				'get' => $get,
-				'nextGet' => $next_step['get'],
-				'idMax' => $next_step['idMax']
+				'nextGet' => FreshRSS_Context::$next_get,
+				'idMax' => FreshRSS_Context::$id_max,
 			)
 		);
 	?>

@@ -24,6 +24,7 @@ class FreshRSS_Context {
 		'feed' => false,
 		'category' => false,
 	);
+	public static $next_get = 'a';
 
 	public static $state = 0;
 	public static $order = 'DESC';
@@ -31,6 +32,7 @@ class FreshRSS_Context {
 	public static $search = '';
 	public static $first_id = '';
 	public static $next_id = '';
+	public static $id_max = '';
 
 	public static function init() {
 		// Init configuration.
@@ -84,8 +86,6 @@ class FreshRSS_Context {
 			self::$state = self::$state | FreshRSS_Entry::STATE_FAVORITE;
 			break;
 		case 'f':
-			self::$current_get['feed'] = $id;
-
 			$feed = FreshRSS_CategoryDAO::findFeed(self::$categories, $id);
 			if ($feed === null) {
 				$feedDAO = FreshRSS_Factory::createFeedDao();
@@ -96,6 +96,8 @@ class FreshRSS_Context {
 				}
 			}
 
+			self::$current_get['feed'] = $id;
+			self::$current_get['category'] = $feed->category();
 			self::$name = $feed->name();
 			self::$get_unread = $feed->nbNotRead();
 			break;
@@ -118,6 +120,8 @@ class FreshRSS_Context {
 		default:
 			throw new FreshRSS_Context_Exception('Invalid getter: ' . $get);
 		}
+
+		self::_nextGet();
 	}
 
 	public static function currentGet($array = false) {
@@ -150,19 +154,68 @@ class FreshRSS_Context {
 		case 's':
 			return self::$current_get['starred'];
 		case 'f':
-			return self::$current_get['feed'] === $id;
+			return self::$current_get['feed'] == $id;
 		case 'c':
-			return self::$current_get['category'] === $id;
+			return self::$current_get['category'] == $id;
 		default:
 			return false;
 		}
 	}
 
-	public static function nextStep() {
-		// TODO: fix this method.
-		return array(
-			'get' => 'a',
-			'idMax' => (time() - 1) . '000000'
-		);
+	public static function _nextGet() {
+		$get = self::currentGet();
+		self::$next_get = $get;
+
+		if (self::$conf->onread_jump_next && strlen($get) > 2) {
+			$another_unread_id = '';
+			$found_current_get = false;
+			switch ($get[0]) {
+			case 'f':
+				foreach (self::$categories as $cat) {
+					if ($cat->id() != self::$current_get['category']) {
+						continue;
+					}
+
+					foreach ($cat->feeds() as $feed) {
+						if ($feed->id() == self::$current_get['feed']) {
+							$found_current_get = true;
+							continue;
+						}
+
+						if ($feed->nbNotRead() > 0) {
+							$another_unread_id = $feed->id();
+							if ($found_current_get) {
+								break;
+							}
+						}
+					}
+					break;
+				}
+
+				self::$next_get['get'] = empty($another_unread_id) ?
+				                         'c_' . self::$current_get['category'] :
+				                         'f_' . $another_unread_id;
+				break;
+			case 'c':
+				foreach (self::$categories as $cat) {
+					if ($cat->id() == self::$current_get['category']) {
+						$found_current_get = true;
+						continue;
+					}
+
+					if ($cat->nbNotRead() > 0) {
+						$another_unread_id = $cat->id();
+						if ($found_current_get) {
+							break;
+						}
+					}
+				}
+
+				self::$next_get['get'] = empty($another_unread_id) ?
+				                         'a' :
+				                         'c_' . $another_unread_id;
+				break;
+			}
+		}
 	}
 }

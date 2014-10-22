@@ -34,10 +34,23 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 		try {
 			$entries = $this->listEntriesByContext();
 
-			if (count($entries) > FreshRSS_Context::$number) {
+			$nb_entries = count($entries);
+			if ($nb_entries > FreshRSS_Context::$number) {
 				// We have more elements for pagination
 				$last_entry = array_pop($entries);
 				FreshRSS_Context::$next_id = $last_entry->id();
+			}
+
+			$first_entry = $nb_entries > 0 ? $entries[0] : null;
+			FreshRSS_Context::$id_max = $first_entry === null ?
+			                            (time() - 1) . '000000' :
+			                            $first_entry->id();
+			if (FreshRSS_Context::$order === 'ASC') {
+				// In this case we do not know but we guess id_max
+				$id_max = (time() - 1) . '000000';
+				if (strcmp($id_max, FreshRSS_Context::$id_max) > 0) {
+					FreshRSS_Context::$id_max = $id_max;
+				}
 			}
 
 			$this->view->entries = $entries;

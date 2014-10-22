@@ -17,14 +17,6 @@ class FreshRSS_entry_Controller extends Minz_ActionController {
 			);
 		}
 
-		// Keep parameter information (output) to do a correct redirection at
-		// the end.
-		$this->params = array();
-		$output = Minz_Request::param('output', '');
-		if ($output != '' && FreshRSS_Context::$conf->view_mode !== $output) {
-			$this->params['output'] = $output;
-		}
-
 		// If ajax request, we do not print layout
 		$this->ajax = Minz_Request::param('ajax');
 		if ($this->ajax) {
@@ -53,6 +45,7 @@ class FreshRSS_entry_Controller extends Minz_ActionController {
 		$get = Minz_Request::param('get');
 		$next_get = Minz_Request::param('nextGet', $get);
 		$id_max = Minz_Request::param('idMax', 0);
+		$params = array();
 
 		$entryDAO = FreshRSS_Factory::createEntryDao();
 		if ($id === false) {
@@ -86,7 +79,7 @@ class FreshRSS_entry_Controller extends Minz_ActionController {
 					// Redirect to the correct page (category, feed or starred)
 					// Not "a" because it is the default value if nothing is
 					// given.
-					$this->params['get'] = $next_get;
+					$params['get'] = $next_get;
 				}
 			}
 		} else {
@@ -98,7 +91,7 @@ class FreshRSS_entry_Controller extends Minz_ActionController {
 			Minz_Request::good(_t('feeds_marked_read'), array(
 				'c' => 'index',
 				'a' => 'index',
-				'params' => $this->params,
+				'params' => $params,
 			), true);
 		}
 	}
@@ -123,7 +116,6 @@ class FreshRSS_entry_Controller extends Minz_ActionController {
 			Minz_Request::forward(array(
 				'c' => 'index',
 				'a' => 'index',
-				'params' => $this->params,
 			), true);
 		}
 	}
