@@ -10,21 +10,22 @@
 <?php $this->renderHelper('javascript_vars'); ?>
 		//]]></script>
 <?php
+	$url_base = Minz_Request::currentRequest();
 	if (FreshRSS_Context::$next_id !== '') {
-		$params = Minz_Request::params();
-		$params['next'] = FreshRSS_Context::$next_id;
-		$params['ajax'] = 1;
+		$url_next = $url_base;
+		$url_next['params']['next'] = FreshRSS_Context::$next_id;
+		$url_next['params']['ajax'] = 1;
 ?>
-		<link id="prefetch" rel="next prefetch" href="<?php echo Minz_Url::display(array('c' => Minz_Request::controllerName(), 'a' => Minz_Request::actionName(), 'params' => $params)); ?>" />
+		<link id="prefetch" rel="next prefetch" href="<?php echo Minz_Url::display($url_next); ?>" />
 <?php } ?>
 		<link rel="shortcut icon" id="favicon" type="image/x-icon" sizes="16x16 64x64" href="<?php echo Minz_Url::display('/favicon.ico'); ?>" />
 		<link rel="icon msapplication-TileImage apple-touch-icon" type="image/png" sizes="256x256" href="<?php echo Minz_Url::display('/themes/icons/favicon-256.png'); ?>" />
 <?php
-	if (isset($this->url)) {
-		$rss_url = $this->url;
-		$rss_url['params']['output'] = 'rss';
+	if (isset($this->rss_title)) {
+		$url_rss = $url_base;
+		$url_rss['a'] = 'rss';
 ?>
-		<link rel="alternate" type="application/rss+xml" title="<?php echo $this->rss_title; ?>" href="<?php echo Minz_Url::display($rss_url); ?>" />
+		<link rel="alternate" type="application/rss+xml" title="<?php echo $this->rss_title; ?>" href="<?php echo Minz_Url::display($url_rss); ?>" />
 <?php } ?>
 		<link rel="prefetch" href="<?php echo FreshRSS_Themes::icon('starred', true); ?>">
 		<link rel="prefetch" href="<?php echo FreshRSS_Themes::icon('non-starred', true); ?>">

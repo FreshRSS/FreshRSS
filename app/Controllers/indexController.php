@@ -5,10 +5,10 @@
  */
 class FreshRSS_index_Controller extends Minz_ActionController {
 
+	/**
+	 * This action only redirect on the default view mode (normal or global)
+	 */
 	public function indexAction() {
-		// TODO: update the context with information from request.
-		// TODO: then, in dedicated action, get corresponding entries
-
 		$prefered_output = FreshRSS_Context::$conf->view_mode;
 		Minz_Request::forward(array(
 			'c' => 'index',
@@ -27,12 +27,12 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 
 		try {
 			$this->updateContext();
-		} catch (Minz_Exception $e) {
+		} catch (FreshRSS_Context_Exception $e) {
 			Minz_Error::error(404);
 		}
 
 		try {
-			$entries = $this->listByContext();
+			$entries = $this->listEntriesByContext();
 
 			if (count($entries) > FreshRSS_Context::$number) {
 				// We have more elements for pagination
@@ -48,6 +48,7 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 
 		$this->view->categories = FreshRSS_Context::$categories;
 
+		$this->view->rss_title = FreshRSS_Context::$name . ' | ' . Minz_View::title();
 		$title = FreshRSS_Context::$name;
 		if (FreshRSS_Context::$get_unread > 0) {
 			$title = '(' . FreshRSS_Context::$get_unread . ') · ' . $title;
@@ -68,12 +69,13 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 
 		try {
 			$this->updateContext();
-		} catch (Minz_Exception $e) {
+		} catch (FreshRSS_Context_Exception $e) {
 			Minz_Error::error(404);
 		}
 
 		$this->view->categories = FreshRSS_Context::$categories;
 
+		$this->view->rss_title = FreshRSS_Context::$name . ' | ' . Minz_View::title();
 		Minz_View::prependTitle(_t('gen.title.global_view') . ' · ');
 	}
 
@@ -94,12 +96,12 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 
 		try {
 			$this->updateContext();
-		} catch (Minz_Exception $e) {
+		} catch (FreshRSS_Context_Exception $e) {
 			Minz_Error::error(404);
 		}
 
 		try {
-			$this->view->entries = $this->listByContext();
+			$this->view->entries = $this->listEntriesByContext();
 		} catch (FreshRSS_EntriesGetter_Exception $e) {
 			Minz_Log::notice($e->getMessage());
 			Minz_Error::error(404);
@@ -113,15 +115,25 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 
 	/**
 	 * This action updates the Context object by using request parameters.
+	 *
+	 * Parameters are:
+	 *   - state (default: conf->default_view)
+	 *   - search (default: empty string)
+	 *   - order (default: conf->sort_order)
+	 *   - nb (default: conf->posts_per_page)
+	 *   - next (default: empty string)
 	 */
 	private function updateContext() {
 		FreshRSS_Context::_get(Minz_Request::param('get', 'a'));
 
-		FreshRSS_Context::$state |= Minz_Request::param(
+		// TODO: change default_view by default_state.
+		FreshRSS_Context::$state = Minz_Request::param(
 			'state', FreshRSS_Context::$conf->default_view
 		);
-		if (FreshRSS_Context::$state & FreshRSS_Entry::STATE_NOT_READ &&
-				FreshRSS_Context::$get_unread <= 0) {
+		$state_forced_by_user = Minz_Request::param('state', false) !== false;
+		if (FreshRSS_Context::isStateEnabled(FreshRSS_Entry::STATE_NOT_READ) &&
+				FreshRSS_Context::$get_unread <= 0 &&
+				!$state_forced_by_user) {
 			FreshRSS_Context::$state |= FreshRSS_Entry::STATE_READ;
 		}
 
@@ -135,7 +147,10 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 		FreshRSS_Context::$first_id = Minz_Request::param('next', '');
 	}
 
-	private function listByContext() {
+	/**
+	 * This method returns a list of entries based on the Context object.
+	 */
+	private function listEntriesByContext() {
 		$entryDAO = FreshRSS_Factory::createEntryDao();
 
 		$get = FreshRSS_Context::currentGet(true);

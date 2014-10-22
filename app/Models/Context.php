@@ -17,14 +17,15 @@ class FreshRSS_Context {
 		'unread' => 0,
 	);
 
-	public static $state = 0;
+	public static $get_unread = 0;
 	public static $current_get = array(
 		'all' => false,
 		'starred' => false,
 		'feed' => false,
 		'category' => false,
 	);
-	public static $get_unread = 0;
+
+	public static $state = 0;
 	public static $order = 'DESC';
 	public static $number = 0;
 	public static $search = '';
@@ -48,8 +49,6 @@ class FreshRSS_Context {
 		$catDAO = new FreshRSS_CategoryDAO();
 		$entryDAO = FreshRSS_Factory::createEntryDao();
 
-		// Get the current state.
-		// self::$state = self::$conf->default_view;
 		self::$categories = $catDAO->listCategories();
 
 		// Update number of read / unread variables.
@@ -97,8 +96,7 @@ class FreshRSS_Context {
 				$feed = $feedDAO->searchById($id);
 
 				if (!$feed) {
-					// TODO: raise an exception
-					return false;
+					throw new FreshRSS_Context_Exception('Invalid feed: ' . $id);
 				}
 			}
 
@@ -112,8 +110,7 @@ class FreshRSS_Context {
 				$cat = $catDAO->searchById($id);
 
 				if (!$cat) {
-					// TODO: raise an exception
-					return false;
+					throw new FreshRSS_Context_Exception('Invalid category: ' . $id);
 				}
 			} else {
 				$cat = self::$categories[$id];
@@ -123,8 +120,7 @@ class FreshRSS_Context {
 			self::$get_unread = $cat->nbNotRead();
 			break;
 		default:
-			// TODO: raise an exception!
-			return false;
+			throw new FreshRSS_Context_Exception('Invalid getter: ' . $get);
 		}
 	}
 
