@@ -26,6 +26,8 @@ if (!empty($this->entries)) {
 	$bottomline_link = FreshRSS_Context::$conf->bottomline_link;
 
 	$content_width = FreshRSS_Context::$conf->content_width;
+
+	$today = @strtotime('today');
 ?>
 
 <div id="stream" class="normal<?php echo $hidePosts ? ' hide_posts' : ''; ?>"><?php
@@ -33,7 +35,7 @@ if (!empty($this->entries)) {
 		<a href="<?php echo Minz_Url::display($this->url); ?>"><?php echo _t('new_article'); ?></a>
 	</div><?php
 	foreach ($this->entries as $item) {
-		if ($display_today && $item->isDay(FreshRSS_Days::TODAY, $this->today)) {
+		if ($display_today && $item->isDay(FreshRSS_Days::TODAY, $today)) {
 			?><div class="day" id="day_today"><?php
 				echo _t('today');
 				?><span class="date"> — <?php echo timestamptodate(time(), false); ?></span><?php
@@ -41,7 +43,7 @@ if (!empty($this->entries)) {
 			?></div><?php
 			$display_today = false;
 		}
-		if ($display_yesterday && $item->isDay(FreshRSS_Days::YESTERDAY, $this->today)) {
+		if ($display_yesterday && $item->isDay(FreshRSS_Days::YESTERDAY, $today)) {
 			?><div class="day" id="day_yesterday"><?php
 				echo _t('yesterday');
 				?><span class="date"> — <?php echo timestamptodate(time() - 86400, false); ?></span><?php
@@ -49,7 +51,7 @@ if (!empty($this->entries)) {
 			?></div><?php
 			$display_yesterday = false;
 		}
-		if ($display_others && $item->isDay(FreshRSS_Days::BEFORE_YESTERDAY, $this->today)) {
+		if ($display_others && $item->isDay(FreshRSS_Days::BEFORE_YESTERDAY, $today)) {
 			?><div class="day" id="day_before_yesterday"><?php
 				echo _t('before_yesterday');
 				?><span class="name"><?php echo $this->currentName; ?></span><?php

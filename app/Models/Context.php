@@ -26,6 +26,9 @@ class FreshRSS_Context {
 	);
 	public static $get_unread = 0;
 	public static $order = 'DESC';
+	public static $number = 0;
+	public static $search = '';
+	public static $first_id = 0;
 
 	public static function init() {
 		// Init configuration.
@@ -80,6 +83,9 @@ class FreshRSS_Context {
 			self::$current_get['starred'] = true;
 			self::$name = _t('your_favorites');
 			self::$get_unread = self::$total_starred['unread'];
+
+			// Update state if favorite is not yet enabled.
+			self::$state = self::$state | FreshRSS_Entry::STATE_FAVORITE;
 			break;
 		case 'f':
 			self::$current_get['feed'] = $id;

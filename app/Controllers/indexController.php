@@ -17,70 +17,13 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 
 		return;
 
-		// On récupère les différents éléments de filtrage
-		$this->view->state = Minz_Request::param('state', FreshRSS_Context::$conf->default_view);
-		$state_param = Minz_Request::param('state', null);
-		$filter = Minz_Request::param('search', '');
-		$this->view->order = $order = Minz_Request::param('order', FreshRSS_Context::$conf->sort_order);
-		$nb = Minz_Request::param('nb', FreshRSS_Context::$conf->posts_per_page);
-		$first = Minz_Request::param('next', '');
-
-		$ajax_request = Minz_Request::param('ajax', false);
-		if ($output === 'reader') {
-			$nb = max(1, round($nb / 2));
-		}
-
-		if ($this->view->state === FreshRSS_Entry::STATE_NOT_READ) {	//Any unread article in this category at all?
-			switch ($getType) {
-			case 'a':
-				$hasUnread = $this->view->nb_not_read > 0;
-				break;
-			case 's':
-				// This is deprecated. The favorite button does not exist anymore
-				$hasUnread = $this->view->nb_favorites['unread'] > 0;
-				break;
-			case 'c':
-				$hasUnread = (!isset($this->view->cat_aside[$getId]) ||
-				              $this->view->cat_aside[$getId]->nbNotRead() > 0);
-				break;
-			case 'f':
-				$myFeed = FreshRSS_CategoryDAO::findFeed($this->view->cat_aside, $getId);
-				$hasUnread = ($myFeed === null) || ($myFeed->nbNotRead() > 0);
-				break;
-			default:
-				$hasUnread = true;
-				break;
-			}
-			if (!$hasUnread && ($state_param === null)) {
-				$this->view->state = FreshRSS_Entry::STATE_ALL;
-			}
-		}
-
-		$this->view->today = @strtotime('today');
-
 		try {
 			$entries = $entryDAO->listWhere($getType, $getId, $this->view->state, $order, $nb + 1, $first, $filter);
 
-			// Si on a récupéré aucun article "non lus"
-			// on essaye de récupérer tous les articles
-			if ($this->view->state === FreshRSS_Entry::STATE_NOT_READ && empty($entries) && ($state_param === null) && ($filter == '')) {
-				Minz_Log::debug('Conflicting information about nbNotRead!');
-				$feedDAO = FreshRSS_Factory::createFeedDao();
-				try {
-					$feedDAO->updateCachedValues();
-				} catch (Exception $ex) {
-					Minz_Log::notice('Failed to automatically correct nbNotRead! ' + $ex->getMessage());
-				}
-				$this->view->state = FreshRSS_Entry::STATE_ALL;
-				$entries = $entryDAO->listWhere($getType, $getId, $this->view->state, $order, $nb, $first, $filter);
-			}
-			Minz_Request::_param('state', $this->view->state);
-
-			if (count($entries) <= $nb) {
-				$this->view->nextId  = '';
-			} else {	//We have more elements for pagination
-				$lastEntry = array_pop($entries);
-				$this->view->nextId  = $lastEntry->id();
+			if (count($entries) > $nb) {
+				// We have more elements for pagination
+				$last_entry = array_pop($entries);
+				FreshRSS_Context::$next_id = $last_entry->id();
 			}
 
 			$this->view->entries = $entries;
@@ -168,6 +111,23 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 	 */
 	private function updateContext() {
 		FreshRSS_Context::_get(Minz_Request::param('get', 'a'));
+
+		FreshRSS_Context::$state |= Minz_Request::param(
+			'state', FreshRSS_Context::$conf->default_view
+		);
+		if (FreshRSS_Context::$state & FreshRSS_Entry::STATE_NOT_READ &&
+				FreshRSS_Context::$get_unread <= 0) {
+			FreshRSS_Context::$state |= FreshRSS_Entry::STATE_READ;
+		}
+
+		FreshRSS_Context::$search = Minz_Request::param('search', '');
+		FreshRSS_Context::$order = Minz_Request::param(
+			'order', FreshRSS_Context::$conf->sort_order
+		);
+		FreshRSS_Context::$number = Minz_Request::param(
+			'nb', FreshRSS_Context::$conf->posts_per_page
+		);
+		FreshRSS_Context::$first_id = Minz_Request::param('next', '');
 	}
 
 	/**
