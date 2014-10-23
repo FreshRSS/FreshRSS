@@ -54,13 +54,12 @@
 						$f_active = FreshRSS_Context::isCurrentGet('f_' . $feed->id());
 				?>
 				<li id="f_<?php echo $feed->id(); ?>" class="item<?php echo $f_active ? ' active' : ''; ?><?php echo $feed->inError() ? ' error' : ''; ?><?php echo $feed->nbEntries() <= 0 ? ' empty' : ''; ?>" data-unread="<?php echo $feed->nbNotRead(); ?>" data-priority="<?php echo $feed->priority(); ?>">
-					<div class="dropdown">
+					<div class="dropdown no-mobile">
 						<div class="dropdown-target"></div>
 						<a class="dropdown-toggle" data-fweb="<?php echo $feed->website(); ?>"><?php echo _i('configure'); ?></a>
 						<?php /* feed_config_template */ ?>
 					</div>
-					<img class="favicon" src="<?php echo $feed->favicon(); ?>" alt="✇" />
-					<a data-unread="<?php echo format_number($feed->nbNotRead()); ?>" href="<?php echo _url('index', 'index', 'get', 'f_' . $feed->id()); ?>"><?php echo $feed->name(); ?></a>
+					<a data-unread="<?php echo format_number($feed->nbNotRead()); ?>" href="<?php echo _url('index', 'index', 'get', 'f_' . $feed->id()); ?>"><img class="favicon" src="<?php echo $feed->favicon(); ?>" alt="✇" /> <?php echo $feed->name(); ?></a>
 				</li>
 				<?php } ?>
 			</ul>

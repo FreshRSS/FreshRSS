@@ -503,10 +503,25 @@ a.btn {
 	margin: 10px 0;
 }
 .tree-folder-title {
+	position: relative;
 	padding: 0 10px;
+	background: #fff;
 	line-height: 2.5rem;
 	font-size: 1rem;
 	font-weight: bold;
+}
+.tree-folder-title .title {
+	background: inherit;
+	color: #444;
+}
+.tree-folder-title .title:hover {
+	text-decoration: none;
+}
+.tree-folder.active .tree-folder-title {
+	background: #f0f0f0;
+}
+.tree-folder.active .tree-folder-title .title {
+	color: #0062BE;
 }
 .tree-folder-items {
 	border-top: 1px solid #ccc;
@@ -517,6 +532,15 @@ a.btn {
 	padding: 0 10px;
 	line-height: 2.5rem;
 	font-size: 0.8rem;
+}
+.tree-folder-items > .item.active {
+	background: #0062be;
+}
+.tree-folder-items > .item > a {
+	text-decoration: none;
+}
+.tree-folder-items > .item.active > a {
+	color: #fff;
 }
 
 /*=== STRUCTURE */
@@ -561,22 +585,12 @@ a.btn {
 	padding: 10px 0 50px;
 	text-align: center;
 }
+.aside.aside_feed .tree {
+	position: sticky;
+	top: 0;
+}
 
 /*=== Aside main page (categories) */
-.aside.aside_feed .tree {
-	text-align: left;
-}
-.aside_feed .tree-folder-title {
-	position: relative;
-	background: #fff;
-}
-.aside_feed .tree-folder-title .title {
-	background: inherit;
-	color: #444;
-}
-.aside_feed .tree-folder-title .title:hover {
-	text-decoration: none;
-}
 .aside_feed .tree-folder-title > .title:not([data-unread="0"]):after {
 	position: absolute;
 	right: 0;
@@ -587,38 +601,23 @@ a.btn {
 	background: inherit;
 	border-left: 1px solid #aaa;
 }
-.aside_feed .tree-folder.active .tree-folder-title {
-	background: #f0f0f0;
-}
-.aside_feed .tree-folder.active .tree-folder-title .title {
-	color: #0062BE;
-}
 
 /*=== Aside main page (feeds) */
-.aside_feed .tree-folder-items .item.active {
-	background: #0062BE;
-}
-.aside_feed .tree-folder-items .item.empty.active {
+.aside_feed .tree-folder-items > .item.empty.active {
 	background: #e67e22;
 }
-.aside_feed .tree-folder-items .item.error.active {
-	background: #BD362F;
+.aside_feed .tree-folder-items > .item.error.active {
+	background: #bd362f;
 }
-.aside_feed .tree-folder-items .item.empty > a {
+.aside_feed .tree-folder-items > .item.empty > a {
 	color: #e67e22;
 }
-.aside_feed .tree-folder-items .item.error > a {
-	color: #BD362F;
+.aside_feed .tree-folder-items > .item.error > a {
+	color: #bd362f;
 }
-.aside_feed .tree-folder-items .item.active > a,
-.aside_feed .tree-folder-items .item.empty.active > a,
-.aside_feed .tree-folder-items .item.error.active > a {
+.aside_feed .tree-folder-items > .item.empty.active > a,
+.aside_feed .tree-folder-items > .item.error.active > a {
 	color: #fff;
-}
-.aside_feed .tree-folder-items > .item > a {
-	line-height: 3em;
-	text-align: left;
-	text-decoration: none;
 }
 .aside_feed .tree-folder-items > .item:not([data-unread="0"]) {
 	font-weight: bold;

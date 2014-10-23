@@ -330,6 +330,7 @@ a.btn {
 	margin: 0;
 	padding: 0;
 	list-style: none;
+	text-align: left;
 }
 .tree-folder-items {
 	padding: 0;
@@ -351,7 +352,7 @@ a.btn {
 .tree-folder-items > .item > a {
 	display: inline-block;
 	vertical-align: middle;
-	width: calc(100% - 32px);
+	width: calc(100% - 16px);
 	overflow: hidden;
 	white-space: nowrap;
 	text-overflow: ellipsis;
@@ -717,7 +718,6 @@ br + br + br {
 @media(max-width: 840px) {
 	.header,
 	.aside .btn-important,
-	.aside .feeds .dropdown,
 	.flux_header .item.website span,
 	.item.date, .day .date,
 	.dropdown-menu > .no-mobile,
@@ -746,9 +746,6 @@ br + br + br {
 		width: 90%;
 		overflow: auto;
 	}
-	.aside .categories {
-		margin: 10px 0 75px;
-	}
 
 	.flux_header .item.website {
 		width: 40px;
@@ -768,10 +765,6 @@ br + br + br {
 
 	#nav_entries {
 		width: 100%;
-	}
-
-	#stream.global .box-category {
-		margin: 10px 0;
 	}
 
 	#panel {
