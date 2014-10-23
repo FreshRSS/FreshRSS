@@ -505,7 +505,7 @@ a.btn {
 .tree-folder-title {
 	padding: 0 10px;
 	line-height: 2.5rem;
-	font-size: 1.2rem;
+	font-size: 1rem;
 	font-weight: bold;
 }
 .tree-folder-items {
@@ -513,7 +513,7 @@ a.btn {
 	border-bottom: 1px solid #ccc;
 	background: #f6f6f6;
 }
-.tree-folder-items .item {
+.tree-folder-items > .item {
 	padding: 0 10px;
 	line-height: 2.5rem;
 	font-size: 0.8rem;
@@ -606,12 +606,12 @@ a.btn {
 .aside_feed .tree-folder-items .item.error.active > a {
 	color: #fff;
 }
-.aside_feed .tree-folder-items .item > a {
+.aside_feed .tree-folder-items > .item > a {
 	line-height: 3em;
 	text-align: left;
 	text-decoration: none;
 }
-.aside_feed .tree-folder-items .item:not([data-unread="0"]) {
+.aside_feed .tree-folder-items > .item:not([data-unread="0"]) {
 	font-weight: bold;
 }
 .aside_feed .tree-folder-items .dropdown-menu:after {

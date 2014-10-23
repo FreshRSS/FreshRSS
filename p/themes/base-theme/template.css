@@ -331,15 +331,27 @@ a.btn {
 	padding: 0;
 	list-style: none;
 }
-.tree-folder-title {
-	display: block;
-}
 .tree-folder-items {
 	padding: 0;
 	list-style: none;
 }
-.tree-folder-items .item {
+.tree-folder-title {
 	display: block;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+.tree-folder-title .title {
+	vertical-align: middle;
+}
+.tree-folder-items > .item {
+	display: block;
+	white-space: nowrap;
+}
+.tree-folder-items > .item > a {
+	display: inline-block;
+	vertical-align: middle;
+	width: calc(100% - 32px);
 	overflow: hidden;
 	white-space: nowrap;
 	text-overflow: ellipsis;
@@ -392,7 +404,7 @@ a.btn {
 
 /*=== Aside main page (categories) */
 .aside_feed.state_unread .tree-folder:not(.active)[data-unread="0"],
-.aside_feed.state_unread .tree-folder .item:not(.active)[data-unread="0"] {
+.aside_feed.state_unread .tree-folder > .item:not(.active)[data-unread="0"] {
 	display: none;
 }
 .aside_feed .tree-folder-title > .title:not([data-unread="0"]):after {
@@ -403,7 +415,7 @@ a.btn {
 .aside_feed .tree-folder-items:not(.active) {
 	display: none;
 }
-.aside_feed .tree-folder-items .item > a:not([data-unread="0"]):before {
+.aside_feed .tree-folder-items > .item > a:not([data-unread="0"]):before {
 	content: "(" attr(data-unread) ") ";
 }
 .aside_feed .tree-folder-items .dropdown-menu {
