@@ -498,6 +498,22 @@ a.btn {
 	visibility: visible;
 }
 
+/*=== Tree */
+.tree {
+	margin: 10px 0;
+}
+.tree-folder-title {
+	padding: 0 10px;
+	line-height: 2.5rem;
+	font-size: 1.2rem;
+	font-weight: bold;
+}
+.tree-folder-items .item {
+	padding: 0 5px 0 20px;
+	line-height: 2.5rem;
+	font-size: 0.8rem;
+}
+
 /*=== STRUCTURE */
 /*===============*/
 /*=== Header */
@@ -538,28 +554,21 @@ a.btn {
 }
 .aside.aside_flux {
 	padding: 10px 0 50px;
+	text-align: center;
 }
 
 /*=== Aside main page (categories) */
-.categories {
-	text-align: center;
-}
-.category {
-	width: 235px;
-	margin: 10px auto;
+.aside.aside_flux .tree {
 	text-align: left;
 }
-.category .btn:first-child {
+.aside_flux .tree-folder-title {
 	position: relative;
-	width: 213px;
+	margin: 5px 0;
 }
-.category.stick .btn:first-child {
-	width: 176px;
-}
-.category .btn:first-child:not([data-unread="0"]):after {
+.aside_flux .tree-folder-title > a:not([data-unread="0"]):after {
 	position: absolute;
 	top: 3px; right: 3px;
-	padding: 1px 5px;
+	padding: 0 5px;
 	background: #ccc;
 	color: #fff;
 	border: 1px solid #bbb;
