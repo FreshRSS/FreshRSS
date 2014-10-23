@@ -699,19 +699,11 @@ br + br + br {
 /*===========*/
 .nav-login,
 .nav_menu .search,
+.aside .toggle_aside,
 .nav_menu .toggle_aside {
 	display: none;
 }
 
-.aside .toggle_aside {
-	position: absolute;
-	right: 0;
-	display: none;
-	width: 30px;
-	height: 30px;
-	line-height: 30px;
-	text-align: center;
-}
 
 /*=== MOBILE */
 /*===========*/
@@ -724,11 +716,11 @@ br + br + br {
 	.no-mobile {
 		display: none;
 	}
+	.aside .toggle_aside,
 	.nav-login {
 		display: block;
 	}
 	.nav_menu .toggle_aside,
-	.aside .toggle_aside,
 	.nav_menu .search,
 	#panel .close img {
 		display: inline-block;
