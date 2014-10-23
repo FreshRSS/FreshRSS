@@ -395,7 +395,7 @@ a.btn {
 .aside_feed.state_unread .tree-folder .item:not(.active)[data-unread="0"] {
 	display: none;
 }
-.aside_feed .tree-folder-title > a:not([data-unread="0"]):after {
+.aside_feed .tree-folder-title > .title:not([data-unread="0"]):after {
 	content: attr(data-unread);
 }
 

@@ -565,7 +565,7 @@ a.btn {
 	position: relative;
 	margin: 5px 0;
 }
-.aside_feed .tree-folder-title > a:not([data-unread="0"]):after {
+.aside_feed .tree-folder-title > .title:not([data-unread="0"]):after {
 	position: absolute;
 	top: 3px; right: 3px;
 	padding: 0 5px;
