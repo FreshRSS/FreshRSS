@@ -402,19 +402,19 @@ a.btn {
 }
 .aside {
 }
-.aside.aside_flux {
+.aside.aside_feed {
 	padding: 10px 0 50px;
 	text-align: center;
 }
 
 /*=== Aside main page (categories) */
-.aside.aside_flux .tree {
+.aside.aside_feed .tree {
 	text-align: left;
 }
-.aside_flux .tree-folder-title {
+.aside_feed .tree-folder-title {
 	position: relative;
 }
-.aside_flux .tree-folder-title > a:not([data-unread="0"]):after {
+.aside_feed .tree-folder-title > a:not([data-unread="0"]):after {
 	position: absolute;
 	top: 3px; right: 3px;
 	padding: 1px 5px;

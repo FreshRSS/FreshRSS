@@ -80,7 +80,7 @@ function incUnreadsFeed(article, feed_id, nb) {
 
 	//Update unread: all
 	if (feed_priority > 0) {
-		elem = $('#aside_flux .all').children(':first').get(0);
+		elem = $('#aside_feed .all').children(':first').get(0);
 		if (elem) {
 			feed_unreads = elem ? str2int(elem.getAttribute('data-unread')) : 0;
 			elem.setAttribute('data-unread', numberFormat(feed_unreads + nb));
@@ -89,7 +89,7 @@ function incUnreadsFeed(article, feed_id, nb) {
 
 	//Update unread: favourites
 	if (article && article.closest('div').hasClass('favorite')) {
-		elem = $('#aside_flux .favorites').children(':first').get(0);
+		elem = $('#aside_feed .favorites').children(':first').get(0);
 		if (elem) {
 			feed_unreads = elem ? str2int(elem.getAttribute('data-unread')) : 0;
 			elem.setAttribute('data-unread', numberFormat(feed_unreads + nb));
@@ -202,7 +202,7 @@ function mark_favorite(active) {
 		}
 
 		if (active.closest('div').hasClass('not_read')) {
-			var elem = $('#aside_flux .favorites').children(':first').get(0),
+			var elem = $('#aside_feed .favorites').children(':first').get(0),
 				feed_unreads = elem ? str2int(elem.getAttribute('data-unread')) : 0;
 			if (elem) {
 				elem.setAttribute('data-unread', numberFormat(feed_unreads + inc));
@@ -292,7 +292,7 @@ function next_entry() {
 }
 
 function prev_feed() {
-	var active_feed = $("#aside_flux .feeds li.active");
+	var active_feed = $("#aside_feed .feeds li.active");
 	if (active_feed.length > 0) {
 		active_feed.prevAll(':visible:first').find('a.feed').each(function(){this.click();});
 	} else {
@@ -301,7 +301,7 @@ function prev_feed() {
 }
 
 function next_feed() {
-	var active_feed = $("#aside_flux .feeds li.active");
+	var active_feed = $("#aside_feed .feeds li.active");
 	if (active_feed.length > 0) {
 		active_feed.nextAll(':visible:first').find('a.feed').each(function(){this.click();});
 	} else {
@@ -310,21 +310,21 @@ function next_feed() {
 }
 
 function first_feed() {
-	var feed = $("#aside_flux .feeds.active li:visible:first");
+	var feed = $("#aside_feed .feeds.active li:visible:first");
 	if (feed.length > 0) {
 		feed.find('a')[1].click();
 	}
 }
 
 function last_feed() {
-	var feed = $("#aside_flux .feeds.active li:visible:last");
+	var feed = $("#aside_feed .feeds.active li:visible:last");
 	if (feed.length > 0) {
 		feed.find('a')[1].click();
 	}
 }
 
 function prev_category() {
-	var active_cat = $("#aside_flux .category.stick.active");
+	var active_cat = $("#aside_feed .category.stick.active");
 
 	if (active_cat.length > 0) {
 		var prev_cat = active_cat.parent('li').prevAll(':visible:first').find('.category.stick a.btn');
@@ -338,7 +338,7 @@ function prev_category() {
 }
 
 function next_category() {
-	var active_cat = $("#aside_flux .category.stick.active");
+	var active_cat = $("#aside_feed .category.stick.active");
 
 	if (active_cat.length > 0) {
 		var next_cat = active_cat.parent('li').nextAll(':visible:first').find('.category.stick a.btn');
@@ -352,14 +352,14 @@ function next_category() {
 }
 
 function first_category() {
-	var cat = $("#aside_flux .category.stick:visible:first");
+	var cat = $("#aside_feed .category.stick:visible:first");
 	if (cat.length > 0) {
 		cat.find('a.btn')[0].click();
 	}
 }
 
 function last_category() {
-	var cat = $("#aside_flux .category.stick:visible:last");
+	var cat = $("#aside_feed .category.stick:visible:last");
 	if (cat.length > 0) {
 		cat.find('a.btn')[0].click();
 	}
@@ -487,7 +487,7 @@ function init_column_categories() {
 	if (context['current_view'] !== 'normal') {
 		return;
 	}
-	$('#aside_flux').on('click', '.category>a.dropdown-toggle', function () {
+	$('#aside_feed').on('click', '.category>a.dropdown-toggle', function () {
 		$(this).children().each(function() {
 			if (this.alt === '▽') {
 				this.src = this.src.replace('/icons/down.', '/icons/up.');
@@ -500,7 +500,7 @@ function init_column_categories() {
 		$(this).parent().next(".feeds").slideToggle();
 		return false;
 	});
-	$('#aside_flux').on('click', '.feeds .dropdown-toggle', function () {
+	$('#aside_feed').on('click', '.feeds .dropdown-toggle', function () {
 		if ($(this).nextAll('.dropdown-menu').length === 0) {
 			var feed_id = $(this).closest('li').attr('id').substr(2),
 				feed_web = $(this).data('fweb'),
