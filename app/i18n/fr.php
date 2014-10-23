@@ -186,10 +186,10 @@ return array (
 	'previous_page'			=> 'Passer à la page précédente',
 	'collapse_article'		=> 'Refermer',
 	'auto_share'			=> 'Partager',
-	'auto_share_help'		=> 'S’il n’y a qu’un mode de partage, celui ci est utilisé automatiquement. Sinon ils sont accessibles par leur numéro.',
+	'auto_share_help'		=> 'S’il n’y a qu’un mode de partage, celui-ci est utilisé automatiquement. Sinon ils sont accessibles par leur numéro.',
 	'focus_search'			=> 'Accéder à la recherche',
 	'user_filter'			=> 'Accéder aux filtres utilisateur',
-	'user_filter_help'		=> 'S’il n’y a qu’un filtre utilisateur, celui ci est utilisé automatiquement. Sinon ils sont accessibles par leur numéro.',
+	'user_filter_help'		=> 'S’il n’y a qu’un filtre utilisateur, celui-ci est utilisé automatiquement. Sinon ils sont accessibles par leur numéro.',
 	'help'				=> 'Afficher la documentation',
 
 	'file_to_import'		=> 'Fichier à importer<br />(OPML, Json ou Zip)',
