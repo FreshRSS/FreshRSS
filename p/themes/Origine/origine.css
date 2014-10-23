@@ -582,7 +582,10 @@ a.btn {
 	font-size: 1rem;
 }
 .aside_feed .tree-folder.active .tree-folder-title {
-	background: #e6e6e6;
+	background: #f0f0f0;
+}
+.aside_feed .tree-folder.active .tree-folder-title .title {
+	color: #0062BE;
 }
 
 /*=== Aside main page (feeds) */
