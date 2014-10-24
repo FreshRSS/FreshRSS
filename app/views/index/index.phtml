@@ -7,8 +7,6 @@ if (FreshRSS_Auth::hasAccess() || Minz_Configuration::allowAnonymous()) {
 		$this->renderHelper('view/normal_view');
 	} elseif ($output === 'reader') {
 		$this->renderHelper('view/reader_view');
-	} elseif ($output === 'global') {
-		$this->renderHelper('view/global_view');
 	} elseif ($output === 'rss') {
 		$this->renderHelper('view/rss_view');
 	} else {

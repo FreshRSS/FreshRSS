@@ -37,7 +37,7 @@ class FreshRSS_error_Controller extends Minz_ActionController {
 		if ($this->view->errorMessage == '') {
 			switch($code_int) {
 			case 403:
-				$this->view->errorMessage = _t('forbidden_access');
+				$this->view->errorMessage = _t('access_denied');
 				break;
 			case 404:
 			default:

@@ -56,31 +56,31 @@ function incLabel(p, inc, spaceAfter) {
 
 function incUnreadsFeed(article, feed_id, nb) {
 	//Update unread: feed
-	var elem = $('#' + feed_id + '>.feed').get(0),
+	var elem = $('#' + feed_id).get(0),
 		feed_unreads = elem ? str2int(elem.getAttribute('data-unread')) : 0,
 		feed_priority = elem ? str2int(elem.getAttribute('data-priority')) : 0;
 	if (elem) {
-		elem.setAttribute('data-unread', numberFormat(feed_unreads + nb));
-		elem = $(elem).closest('li').get(0);
+		elem.setAttribute('data-unread', feed_unreads + nb);
+		elem = $(elem).children('.item-title').get(0);
 		if (elem) {
-			elem.setAttribute('data-unread', feed_unreads + nb);
+			elem.setAttribute('data-unread', numberFormat(feed_unreads + nb));
 		}
 	}
 
 	//Update unread: category
-	elem = $('#' + feed_id).parent().prevAll('.category').children(':first').get(0);
+	elem = $('#' + feed_id).parents('.category').get(0);
 	feed_unreads = elem ? str2int(elem.getAttribute('data-unread')) : 0;
 	if (elem) {
-		elem.setAttribute('data-unread', numberFormat(feed_unreads + nb));
-		elem = $(elem).closest('li').get(0);
+		elem.setAttribute('data-unread', feed_unreads + nb);
+		elem = $(elem).find('.title').get(0);
 		if (elem) {
-			elem.setAttribute('data-unread', feed_unreads + nb);
+			elem.setAttribute('data-unread', numberFormat(feed_unreads + nb));
 		}
 	}
 
 	//Update unread: all
 	if (feed_priority > 0) {
-		elem = $('#aside_flux .all').children(':first').get(0);
+		elem = $('#aside_feed .all .title').get(0);
 		if (elem) {
 			feed_unreads = elem ? str2int(elem.getAttribute('data-unread')) : 0;
 			elem.setAttribute('data-unread', numberFormat(feed_unreads + nb));
@@ -89,7 +89,7 @@ function incUnreadsFeed(article, feed_id, nb) {
 
 	//Update unread: favourites
 	if (article && article.closest('div').hasClass('favorite')) {
-		elem = $('#aside_flux .favorites').children(':first').get(0);
+		elem = $('#aside_feed .favorites .title').get(0);
 		if (elem) {
 			feed_unreads = elem ? str2int(elem.getAttribute('data-unread')) : 0;
 			elem.setAttribute('data-unread', numberFormat(feed_unreads + nb));
@@ -97,7 +97,7 @@ function incUnreadsFeed(article, feed_id, nb) {
 	}
 
 	var isCurrentView = false;
-	//Update unread: title
+	// Update unread: title
 	document.title = document.title.replace(/^((?:\([ 0-9]+\) )?)/, function (m, p1) {
 		var $feed = $('#' + feed_id);
 		if (article || ($feed.closest('.active').length > 0 && $feed.siblings('.active').length === 0)) {
@@ -194,7 +194,7 @@ function mark_favorite(active) {
 		}
 		$b.find('.icon').replaceWith(data.icon);
 
-		var favourites = $('.favorites>a').contents().last().get(0);
+		var favourites = $('#aside_feed .favorites .title').contents().last().get(0);
 		if (favourites && favourites.textContent) {
 			favourites.textContent = favourites.textContent.replace(/((?: \([ 0-9]+\))?\s*)$/, function (m, p1) {
 				return incLabel(p1, inc, false);
@@ -202,7 +202,7 @@ function mark_favorite(active) {
 		}
 
 		if (active.closest('div').hasClass('not_read')) {
-			var elem = $('#aside_flux .favorites').children(':first').get(0),
+			var elem = $('#aside_feed .favorites .title').get(0),
 				feed_unreads = elem ? str2int(elem.getAttribute('data-unread')) : 0;
 			if (elem) {
 				elem.setAttribute('data-unread', numberFormat(feed_unreads + inc));
@@ -292,42 +292,42 @@ function next_entry() {
 }
 
 function prev_feed() {
-	var active_feed = $("#aside_flux .feeds li.active");
+	var active_feed = $("#aside_feed .tree-folder-items .item.active");
 	if (active_feed.length > 0) {
-		active_feed.prevAll(':visible:first').find('a.feed').each(function(){this.click();});
+		active_feed.prevAll(':visible:first').find('a').each(function(){this.click();});
 	} else {
 		last_feed();
 	}
 }
 
 function next_feed() {
-	var active_feed = $("#aside_flux .feeds li.active");
+	var active_feed = $("#aside_feed .tree-folder-items .item.active");
 	if (active_feed.length > 0) {
-		active_feed.nextAll(':visible:first').find('a.feed').each(function(){this.click();});
+		active_feed.nextAll(':visible:first').find('a').each(function(){this.click();});
 	} else {
 		first_feed();
 	}
 }
 
 function first_feed() {
-	var feed = $("#aside_flux .feeds.active li:visible:first");
+	var feed = $("#aside_feed .tree-folder-items.active .item:visible:first");
 	if (feed.length > 0) {
 		feed.find('a')[1].click();
 	}
 }
 
 function last_feed() {
-	var feed = $("#aside_flux .feeds.active li:visible:last");
+	var feed = $("#aside_feed .tree-folder-items.active .item:visible:last");
 	if (feed.length > 0) {
 		feed.find('a')[1].click();
 	}
 }
 
 function prev_category() {
-	var active_cat = $("#aside_flux .category.stick.active");
+	var active_cat = $("#aside_feed .tree-folder.active");
 
 	if (active_cat.length > 0) {
-		var prev_cat = active_cat.parent('li').prevAll(':visible:first').find('.category.stick a.btn');
+		var prev_cat = active_cat.prevAll(':visible:first').find('.tree-folder-title .title');
 		if (prev_cat.length > 0) {
 			prev_cat[0].click();
 		}
@@ -338,10 +338,10 @@ function prev_category() {
 }
 
 function next_category() {
-	var active_cat = $("#aside_flux .category.stick.active");
+	var active_cat = $("#aside_feed .tree-folder.active");
 
 	if (active_cat.length > 0) {
-		var next_cat = active_cat.parent('li').nextAll(':visible:first').find('.category.stick a.btn');
+		var next_cat = active_cat.nextAll(':visible:first').find('.tree-folder-title .title');
 		if (next_cat.length > 0) {
 			next_cat[0].click();
 		}
@@ -352,16 +352,16 @@ function next_category() {
 }
 
 function first_category() {
-	var cat = $("#aside_flux .category.stick:visible:first");
+	var cat = $("#aside_feed .tree-folder:visible:first");
 	if (cat.length > 0) {
-		cat.find('a.btn')[0].click();
+		cat.find('.tree-folder-title .title')[0].click();
 	}
 }
 
 function last_category() {
-	var cat = $("#aside_flux .category.stick:visible:last");
+	var cat = $("#aside_feed .tree-folder:visible:last");
 	if (cat.length > 0) {
-		cat.find('a.btn')[0].click();
+		cat.find('.tree-folder-title .title')[0].click();
 	}
 }
 
@@ -487,7 +487,8 @@ function init_column_categories() {
 	if (context['current_view'] !== 'normal') {
 		return;
 	}
-	$('#aside_flux').on('click', '.category>a.dropdown-toggle', function () {
+
+	$('#aside_feed').on('click', '.tree-folder>.tree-folder-title>a.dropdown-toggle', function () {
 		$(this).children().each(function() {
 			if (this.alt === '▽') {
 				this.src = this.src.replace('/icons/down.', '/icons/up.');
@@ -497,12 +498,12 @@ function init_column_categories() {
 				this.alt = '▽';
 			}
 		});
-		$(this).parent().next(".feeds").slideToggle();
+		$(this).parent().next(".tree-folder-items").slideToggle();
 		return false;
 	});
-	$('#aside_flux').on('click', '.feeds .dropdown-toggle', function () {
+	$('#aside_feed').on('click', '.tree-folder-items .item .dropdown-toggle', function () {
 		if ($(this).nextAll('.dropdown-menu').length === 0) {
-			var feed_id = $(this).closest('li').attr('id').substr(2),
+			var feed_id = $(this).closest('.item').attr('id').substr(2),
 				feed_web = $(this).data('fweb'),
 				template = $('#feed_config_template').html().replace(/!!!!!!/g, feed_id).replace('http://example.net/', feed_web);
 			$(this).attr('href', '#dropdown-' + feed_id).prev('.dropdown-target').attr('id', 'dropdown-' + feed_id).parent().append(template);
@@ -875,12 +876,12 @@ function init_notifs_html5() {
 
 function refreshUnreads() {
 	$.getJSON('./?c=javascript&a=nbUnreadsPerFeed').done(function (data) {
-		var isAll = $('.category.all > .active').length > 0,
+		var isAll = $('.category.all.active').length > 0,
 		    new_articles = false;
 
 		$.each(data, function(feed_id, nbUnreads) {
 			feed_id = 'f_' + feed_id;
-			var elem = $('#' + feed_id + '>.feed').get(0),
+			var elem = $('#' + feed_id).get(0),
 				feed_unreads = elem ? str2int(elem.getAttribute('data-unread')) : 0;
 
 			if ((incUnreadsFeed(null, feed_id, nbUnreads - feed_unreads) || isAll) &&	//Update of current view?
@@ -890,7 +891,7 @@ function refreshUnreads() {
 			};
 		});
 
-		var nb_unreads = str2int($('.category.all>a').attr('data-unread'));
+		var nb_unreads = str2int($('.category.all .title').attr('data-unread'));
 
 		if (nb_unreads > 0 && new_articles) {
 			faviconNbUnread(nb_unreads);
@@ -1135,7 +1136,7 @@ function init_password_observers() {
 
 function faviconNbUnread(n) {
 	if (typeof n === 'undefined') {
-		n = str2int($('.category.all>a').attr('data-unread'));
+		n = str2int($('.category.all .title').attr('data-unread'));
 	}
 	//http://remysharp.com/2010/08/24/dynamic-favicons/
 	var canvas = document.createElement('canvas'),
