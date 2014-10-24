@@ -480,21 +480,23 @@ a.btn {
 .tree-folder-title {
 	position: relative;
 	padding: 0 10px;
+	background: #34495e;
 	line-height: 2.5rem;
 	font-size: 1rem;
+	font-weight: bold;
 }
 .tree-folder-title .title {
 	background: inherit;
+	color: #fff;
 }
 .tree-folder-title .title:hover {
 	text-decoration: none;
 }
 .tree-folder.active .tree-folder-title {
-	font-weight: bold;
-}
-.tree-folder.active .tree-folder-title .title {
+	background: #2980b9;
 }
 .tree-folder-items {
+	background: #2c3e50;
 }
 .tree-folder-items > .item {
 	padding: 0 10px;
@@ -502,11 +504,11 @@ a.btn {
 	font-size: 0.8rem;
 }
 .tree-folder-items > .item.active {
+	background: #2980b9;
 }
 .tree-folder-items > .item > a {
 	text-decoration: none;
-}
-.tree-folder-items > .item.active > a {
+	color: #fff;
 }
 
 /*=== STRUCTURE */
@@ -547,6 +549,8 @@ a.btn {
 .aside.aside_feed {
 	padding: 10px 0;
 	text-align: center;
+	background: #34495e;
+	border-radius: 0 10px 0 0;
 }
 .aside.aside_feed .tree {
 	position: sticky;
@@ -557,21 +561,30 @@ a.btn {
 /*=== Aside main page (categories) */
 .aside_feed .tree-folder-title > .title:not([data-unread="0"]):after {
 	position: absolute;
-	top: 3px; right: 3px;
-	padding: 1px 5px;
+	right: 0;
+	margin: 10px 0;
+	padding: 0 10px;
+	font-size: 0.9rem;
+	line-height: 1.5rem;
+	background: inherit;
 }
 
 /*=== Aside main page (feeds) */
 .aside_feed .tree-folder-items > .item.empty.active {
+	background: #f39c12;
 }
 .aside_feed .tree-folder-items > .item.error.active {
+	background: #bd362f;
 }
 .aside_feed .tree-folder-items > .item.empty > a {
+	color: #e67e22;
 }
 .aside_feed .tree-folder-items > .item.error > a {
+	color: #bd362f;
 }
 .aside_feed .tree-folder-items > .item.empty.active > a,
 .aside_feed .tree-folder-items > .item.error.active > a {
+	color: #fff;
 }
 .aside_feed .tree-folder-items > .item:not([data-unread="0"]) {
 	font-weight: bold;
@@ -584,74 +597,6 @@ a.btn {
 .aside_feed .tree-folder-items .item.active .dropdown-toggle > .icon {
 	border-radius: 3px;
 	vertical-align: middle;
-}
-
-/*=== Aside main page (categories) */
-.categories {
-	text-align: center;
-}
-.category {
-	width: 233px;
-	margin: 10px auto;
-	text-align: left;
-}
-.category .btn:first-child {
-	position: relative;
-	width: 212px;
-}
-.category.stick .btn:first-child {
-	width: 175px;
-}
-.category .btn:first-child:not([data-unread="0"]):after {
-	position: absolute;
-	top: 5px; right: 5px;
-	padding: 1px 5px;
-	background: #3498DB;
-	color: #fff;
-	border-radius: 5px;
-}
-
-/*=== Aside main page (feeds) */
-.categories .feeds .item.active {
-	background: #2980b9;
-}
-.categories .feeds .item.empty.active {
-	background: #f39c12;
-}
-.categories .feeds .item.error.active {
-	background: #bd362f;
-}
-.categories .feeds .item.empty .feed {
-	color: #e67e22;
-}
-.categories .feeds .item.error .feed {
-	color: #bd362f;
-}
-.categories .feeds .item.active .feed,
-.categories .feeds .item.empty.active .feed,
-.categories .feeds .item.error.active .feed {
-	color: #fff;
-}
-.categories .feeds .item .feed {
-	margin: 0;
-	width: 165px;
-	line-height: 3em;
-	font-size: 0.8em;
-	text-align: left;
-	text-decoration: none;
-}
-.categories .feeds .feed:not([data-unread="0"]) {
-	font-weight: bold;
-}
-.categories .feeds .dropdown-menu:after {
-	left: 2px;
-}
-.categories .feeds .item .dropdown-target:target ~ .dropdown-toggle > .icon,
-.categories .feeds .item:hover .dropdown-toggle > .icon,
-.categories .feeds .item.active .dropdown-toggle > .icon {
-	vertical-align: middle;
-	background-color: #95a5a6;
-	border-radius: 3px;
 }
 
 /*=== Configuration pages */
@@ -1039,7 +984,7 @@ a.btn {
 		height: 50px;
 		line-height: 50px;
 		text-align: center;
-		background: #34495e;
+		background: #2c3e50;
 	}
 
 	.aside.aside_feed {
