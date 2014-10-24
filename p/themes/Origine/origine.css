@@ -603,9 +603,6 @@ a.btn {
 	background: inherit;
 	border-left: 1px solid #aaa;
 }
-.feed .item-title:not([data-unread="0"]) {
-	font-weight: bold;
-}
 
 /*=== Aside main page (feeds) */
 .aside_feed .tree-folder-items > .item.empty.active {

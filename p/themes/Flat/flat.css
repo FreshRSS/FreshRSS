@@ -851,44 +851,33 @@ a.btn {
 
 /*=== GLOBAL VIEW */
 /*================*/
-#stream.global .box-category {
+.box.category .box-title .title {
+	font-weight: normal;
+	text-decoration: none;
 	text-align: left;
-	border: 1px solid #ddd;
-	border-radius: 5px;
 }
-#stream.global .category {
-	margin: 0;
-}
-#stream.global .btn {
-	width: auto;
-	height: 2em;
-	margin: 0;
-	padding: 0 10px;
-	line-height: 2em;
-	font-size: 1.2rem;
-	background: #ecf0f1;
-	color: #333;
-	border-bottom: 1px solid #ddd;
-	border-radius: 5px 5px 0 0;
-}
-#stream.global .btn:not([data-unread="0"]) {
-	font-weight: bold;
+.box.category:not([data-unread="0"]) .box-title {
 	background: #3498db;
-	color: #fff;
 }
-#stream.global .btn:first-child:not([data-unread="0"]):after {
-	top: 0; right: 5px;
+.box.category:not([data-unread="0"]) .box-title:active {
+	background: #2980b9;
+}
+.box.category:not([data-unread="0"]) .box-title .title {
 	font-weight: bold;
-	background: none;
-	border: 0;
 	color: #fff;
 }
-#stream.global .box-category .feeds {
-	max-height: 250px;
+.box.category .title:not([data-unread="0"]):after {
+	position: absolute;
+	top: 5px; right: 10px;
+	border: 0;
+	background: none;
+	font-weight: bold;
+	box-shadow: none;
+	text-shadow: none;
 }
-#stream.global .box-category .feeds .item {
+.box.category .item.feed {
 	padding: 2px 10px;
-	font-size: 0.9rem;
+	font-size: 0.8rem;
 }
 
 /*=== DIVERS */

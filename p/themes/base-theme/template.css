@@ -673,6 +673,9 @@ br + br + br {
 .feed .item-title:not([data-unread="0"]):before {
 	content: "(" attr(data-unread) ") ";
 }
+.feed .item-title:not([data-unread="0"]) {
+	font-weight: bold;
+}
 
 .state_unread .category:not(.active)[data-unread="0"],
 .state_unread .feed:not(.active)[data-unread="0"] {

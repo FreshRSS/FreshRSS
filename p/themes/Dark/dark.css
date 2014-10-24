@@ -845,43 +845,34 @@ a.btn {
 
 /*=== GLOBAL VIEW */
 /*================*/
-#stream.global .box-category {
+.box.category .box-title .title {
+	font-weight: normal;
+	text-decoration: none;
 	text-align: left;
-	background: #1a1a1a;
-	border: 1px solid #000;
-	border-radius: 5px;
-	text-align: left;
+	color: #888;
 }
-#stream.global .btn {
-	width: auto;
-	height: 2em;
-	margin: 0;
-	padding: 0 10px;
-	line-height: 2em;
-	font-size: 1.2rem;
+.box.category:not([data-unread="0"]) .box-title {
+	background: #34495E;
+}
+.box.category:not([data-unread="0"]) .box-title:active {
 	background: #26303F;
-	border: none;
-	border-bottom: 1px solid #000;
-	border-radius: 5px 5px 0 0;
 }
-#stream.global .btn:not([data-unread="0"]) {
-	font-weight: bold;
-	background: #34495e;
+.box.category:not([data-unread="0"]) .box-title .title {
 	color: #fff;
-}
-#stream.global .btn:first-child:not([data-unread="0"]):after {
-	top: 0; right: 5px;
 	font-weight: bold;
+}
+.box.category .title:not([data-unread="0"]):after {
+	position: absolute;
+	top: 5px; right: 10px;
 	border: 0;
 	background: none;
-	color: #fff;
+	font-weight: bold;
+	box-shadow: none;
+	text-shadow: none;
 }
-#stream.global .box-category .feeds {
-	max-height: 250px;
-}
-#stream.global .box-category .feeds .item {
+.box.category .item.feed {
 	padding: 2px 10px;
-	font-size: 0.9rem;
+	font-size: 0.8rem;
 }
 
 /*=== Panel */
