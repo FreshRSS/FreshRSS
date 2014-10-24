@@ -402,7 +402,7 @@ a.btn {
 
 /*=== Aside main page (categories) */
 .aside_feed.state_unread .tree-folder:not(.active)[data-unread="0"],
-.aside_feed.state_unread .tree-folder > .item:not(.active)[data-unread="0"] {
+.aside_feed.state_unread .tree-folder-items > .item:not(.active)[data-unread="0"] {
 	display: none;
 }
 .aside_feed .tree-folder-title > .title:not([data-unread="0"]):after {
