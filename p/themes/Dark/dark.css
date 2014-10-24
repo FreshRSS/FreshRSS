@@ -571,15 +571,19 @@ a.btn {
 .feed.item.error.active {
 	background: #a44;
 }
+.feed.item.empty,
 .feed.item.empty > a {
 	color: #c95;
 }
+.feed.item.error,
 .feed.item.error > a {
 	color: #a44;
 }
+.feed.item.empty.active,
 .feed.item.empty.active > a {
 	color: #111;
 }
+.feed.item.error.active,
 .feed.item.error.active > a {
 	color: #fff;
 }

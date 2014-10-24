@@ -621,12 +621,16 @@ a.btn {
 .feed.item.error.active {
 	background: #bd362f;
 }
+.feed.item.empty,
 .feed.item.empty > a {
 	color: #e67e22;
 }
+.feed.item.error,
 .feed.item.error > a {
 	color: #bd362f;
 }
+.feed.item.empty.active,
+.feed.item.error.active,
 .feed.item.empty.active > a,
 .feed.item.error.active > a {
 	color: #fff;

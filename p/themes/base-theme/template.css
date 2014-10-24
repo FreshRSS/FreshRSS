@@ -179,6 +179,7 @@ a.btn {
 .dropdown {
 	position: relative;
 	display: inline-block;
+	vertical-align: middle;
 }
 .dropdown-target {
 	display: none;

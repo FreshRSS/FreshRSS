@@ -649,9 +649,11 @@ a.btn {
 }
 
 /*=== Aside main page (feeds) */
+.feed.item.empty,
 .feed.item.empty > a {
 	color: #e67e22;
 }
+.feed.item.error,
 .feed.item.error > a {
 	color: #BD362F;
 }

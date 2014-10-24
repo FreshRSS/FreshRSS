@@ -447,10 +447,14 @@ a.btn {
 }
 .feed.item.error.active {
 }
+.feed.item.empty,
 .feed.item.empty > a {
 }
+.feed.item.error,
 .feed.item.error > a {
 }
+.feed.item.empty.active,
+.feed.item.error.active,
 .feed.item.empty.active > a,
 .feed.item.error.active > a {
 }
