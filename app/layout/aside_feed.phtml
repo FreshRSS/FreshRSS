@@ -59,7 +59,7 @@
 						<a class="dropdown-toggle" data-fweb="<?php echo $feed->website(); ?>"><?php echo _i('configure'); ?></a>
 						<?php /* feed_config_template */ ?>
 					</div>
-					<a data-unread="<?php echo format_number($feed->nbNotRead()); ?>" href="<?php echo _url('index', 'index', 'get', 'f_' . $feed->id()); ?>"><img class="favicon" src="<?php echo $feed->favicon(); ?>" alt="✇" /> <?php echo $feed->name(); ?></a>
+					<img class="favicon" src="<?php echo $feed->favicon(); ?>" alt="✇" /> <a data-unread="<?php echo format_number($feed->nbNotRead()); ?>" href="<?php echo _url('index', 'index', 'get', 'f_' . $feed->id()); ?>"><?php echo $feed->name(); ?></a>
 				</li>
 				<?php } ?>
 			</ul>

@@ -584,10 +584,12 @@ a.btn {
 .aside.aside_feed {
 	padding: 10px 0;
 	text-align: center;
+	background: #fff;
 }
 .aside.aside_feed .tree {
 	position: sticky;
 	top: 0;
+	margin: 10px 0 50px;
 }
 
 /*=== Aside main page (categories) */

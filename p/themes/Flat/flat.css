@@ -473,6 +473,42 @@ a.btn {
 	visibility: visible;
 }
 
+/*=== Tree */
+.tree {
+	margin: 10px 0;
+}
+.tree-folder-title {
+	position: relative;
+	padding: 0 10px;
+	line-height: 2.5rem;
+	font-size: 1rem;
+}
+.tree-folder-title .title {
+	background: inherit;
+}
+.tree-folder-title .title:hover {
+	text-decoration: none;
+}
+.tree-folder.active .tree-folder-title {
+	font-weight: bold;
+}
+.tree-folder.active .tree-folder-title .title {
+}
+.tree-folder-items {
+}
+.tree-folder-items > .item {
+	padding: 0 10px;
+	line-height: 2.5rem;
+	font-size: 0.8rem;
+}
+.tree-folder-items > .item.active {
+}
+.tree-folder-items > .item > a {
+	text-decoration: none;
+}
+.tree-folder-items > .item.active > a {
+}
+
 /*=== STRUCTURE */
 /*===============*/
 /*=== Header */
@@ -508,9 +544,46 @@ a.btn {
 .aside {
 	background: #ecf0f1;
 }
-.aside.aside_flux {
-	padding: 10px 0 50px;
-	background: #ecf0f1;
+.aside.aside_feed {
+	padding: 10px 0;
+	text-align: center;
+}
+.aside.aside_feed .tree {
+	position: sticky;
+	top: 0;
+	margin: 10px 0 50px;
+}
+
+/*=== Aside main page (categories) */
+.aside_feed .tree-folder-title > .title:not([data-unread="0"]):after {
+	position: absolute;
+	top: 3px; right: 3px;
+	padding: 1px 5px;
+}
+
+/*=== Aside main page (feeds) */
+.aside_feed .tree-folder-items > .item.empty.active {
+}
+.aside_feed .tree-folder-items > .item.error.active {
+}
+.aside_feed .tree-folder-items > .item.empty > a {
+}
+.aside_feed .tree-folder-items > .item.error > a {
+}
+.aside_feed .tree-folder-items > .item.empty.active > a,
+.aside_feed .tree-folder-items > .item.error.active > a {
+}
+.aside_feed .tree-folder-items > .item:not([data-unread="0"]) {
+	font-weight: bold;
+}
+.aside_feed .tree-folder-items .dropdown-menu:after {
+	left: 2px;
+}
+.aside_feed .tree-folder-items .item .dropdown-target:target ~ .dropdown-toggle > .icon,
+.aside_feed .tree-folder-items .item:hover .dropdown-toggle > .icon,
+.aside_feed .tree-folder-items .item.active .dropdown-toggle > .icon {
+	border-radius: 3px;
+	vertical-align: middle;
 }
 
 /*=== Aside main page (categories) */
@@ -961,15 +1034,19 @@ a.btn {
 	}
 	.aside .toggle_aside,
 	#panel .close {
-		position: absolute;
 		display: block;
-		top: 0; right: 0;
-		width: 32px;
-		height: 32px;
-		line-height: 30px;
+		width: 100%;
+		height: 50px;
+		line-height: 50px;
 		text-align: center;
 		background: #34495e;
-		border-radius: 0 0 0 5px;
+	}
+
+	.aside.aside_feed {
+		padding: 0;
+	}
+	.aside.aside_feed .tree {
+		position: static;
 	}
 
 	.nav_menu .btn {

@@ -358,15 +358,35 @@ a.btn {
 	margin: 10px 0;
 }
 .tree-folder-title {
+	position: relative;
 	padding: 0 10px;
 	line-height: 2.5rem;
-	font-size: 1.2rem;
+	font-size: 1rem;
+}
+.tree-folder-title .title {
+	background: inherit;
+}
+.tree-folder-title .title:hover {
+	text-decoration: none;
+}
+.tree-folder.active .tree-folder-title {
 	font-weight: bold;
 }
-.tree-folder-items .item {
-	padding: 0 5px 0 20px;
+.tree-folder.active .tree-folder-title .title {
+}
+.tree-folder-items {
+}
+.tree-folder-items > .item {
+	padding: 0 10px;
 	line-height: 2.5rem;
 	font-size: 0.8rem;
+}
+.tree-folder-items > .item.active {
+}
+.tree-folder-items > .item > a {
+	text-decoration: none;
+}
+.tree-folder-items > .item.active > a {
 }
 
 /*=== STRUCTURE */
@@ -403,55 +423,44 @@ a.btn {
 .aside {
 }
 .aside.aside_feed {
-	padding: 10px 0 50px;
+	padding: 10px 0;
 	text-align: center;
+}
+.aside.aside_feed .tree {
+	position: sticky;
+	top: 0;
+	margin: 10px 0 50px;
 }
 
 /*=== Aside main page (categories) */
-.aside.aside_feed .tree {
-	text-align: left;
-}
-.aside_feed .tree-folder-title {
-	position: relative;
-}
-.aside_feed .tree-folder-title > a:not([data-unread="0"]):after {
+.aside_feed .tree-folder-title > .title:not([data-unread="0"]):after {
 	position: absolute;
 	top: 3px; right: 3px;
 	padding: 1px 5px;
 }
 
 /*=== Aside main page (feeds) */
-.categories .feeds .item.active {
+.aside_feed .tree-folder-items > .item.empty.active {
 }
-.categories .feeds .item.empty.active {
+.aside_feed .tree-folder-items > .item.error.active {
 }
-.categories .feeds .item.error.active {
+.aside_feed .tree-folder-items > .item.empty > a {
 }
-.categories .feeds .item.empty .feed {
+.aside_feed .tree-folder-items > .item.error > a {
 }
-.categories .feeds .item.error .feed {
+.aside_feed .tree-folder-items > .item.empty.active > a,
+.aside_feed .tree-folder-items > .item.error.active > a {
 }
-.categories .feeds .item.active .feed,
-.categories .feeds .item.empty.active .feed,
-.categories .feeds .item.error.active .feed {
-}
-.categories .feeds .item .feed {
-	margin: 0;
-	width: 165px;
-	line-height: 3em;
-	font-size: 0.8em;
-	text-align: left;
-	text-decoration: none;
-}
-.categories .feeds .feed:not([data-unread="0"]) {
+.aside_feed .tree-folder-items > .item:not([data-unread="0"]) {
 	font-weight: bold;
 }
-.categories .feeds .dropdown-menu:after {
+.aside_feed .tree-folder-items .dropdown-menu:after {
 	left: 2px;
 }
-.categories .feeds .item .dropdown-target:target ~ .dropdown-toggle > .icon,
-.categories .feeds .item:hover .dropdown-toggle > .icon,
-.categories .feeds .item.active .dropdown-toggle > .icon {
+.aside_feed .tree-folder-items .item .dropdown-target:target ~ .dropdown-toggle > .icon,
+.aside_feed .tree-folder-items .item:hover .dropdown-toggle > .icon,
+.aside_feed .tree-folder-items .item.active .dropdown-toggle > .icon {
+	border-radius: 3px;
 	vertical-align: middle;
 }
 
@@ -758,13 +767,18 @@ a.btn {
 	}
 	.aside .toggle_aside,
 	#panel .close {
-		position: absolute;
 		display: block;
-		top: 0; right: 0;
-		width: 30px;
-		height: 30px;
-		line-height: 30px;
+		width: 100%;
+		height: 50px;
+		line-height: 50px;
 		text-align: center;
+	}
+
+	.aside.aside_feed {
+		padding: 0;
+	}
+	.aside.aside_feed .tree {
+		position: static;
 	}
 
 	.nav_menu .btn {

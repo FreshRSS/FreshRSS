@@ -352,7 +352,7 @@ a.btn {
 .tree-folder-items > .item > a {
 	display: inline-block;
 	vertical-align: middle;
-	width: calc(100% - 16px);
+	width: calc(100% - 32px);
 	overflow: hidden;
 	white-space: nowrap;
 	text-overflow: ellipsis;
@@ -398,9 +398,6 @@ a.btn {
 	height: 100%;
 	width: 250px;
 	vertical-align: top;
-}
-.aside.aside_feed {
-	background: #fff;
 }
 
 /*=== Aside main page (categories) */
