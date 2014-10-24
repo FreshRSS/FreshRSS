@@ -22,13 +22,13 @@
 	<form id="mark-read-aside" method="post" style="display: none"></form>
 
 	<ul class="tree">
-		<li class="tree-folder all<?php echo FreshRSS_Context::isCurrentGet('a') ? ' active' : ''; ?>">
+		<li class="tree-folder category all<?php echo FreshRSS_Context::isCurrentGet('a') ? ' active' : ''; ?>">
 			<div class="tree-folder-title">
 				<?php echo _i('all'); ?> <a class="title" data-unread="<?php echo format_number(FreshRSS_Context::$total_unread); ?>" href="<?php echo _url('index', 'index'); ?>"><?php echo _t('main_stream'); ?></a>
 			</div>
 		</li>
 
-		<li class="tree-folder favorites<?php echo FreshRSS_Context::isCurrentGet('s') ? ' active' : ''; ?>">
+		<li class="tree-folder category favorites<?php echo FreshRSS_Context::isCurrentGet('s') ? ' active' : ''; ?>">
 			<div class="tree-folder-title">
 				<?php echo _i('bookmark'); ?> <a class="title" data-unread="<?php echo format_number(FreshRSS_Context::$total_starred['unread']); ?>" href="<?php echo _url('index', 'index', 'get', 's'); ?>"><?php echo _t('favorite_feeds', format_number(FreshRSS_Context::$total_starred['all'])); ?></a>
 			</div>

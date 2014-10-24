@@ -61,18 +61,18 @@ function incUnreadsFeed(article, feed_id, nb) {
 		feed_priority = elem ? str2int(elem.getAttribute('data-priority')) : 0;
 	if (elem) {
 		elem.setAttribute('data-unread', feed_unreads + nb);
-		elem = $(elem).children('a').get(0);
+		elem = $(elem).children('.item-title').get(0);
 		if (elem) {
 			elem.setAttribute('data-unread', numberFormat(feed_unreads + nb));
 		}
 	}
 
 	//Update unread: category
-	elem = $('#' + feed_id).parents('.tree-folder').get(0);
+	elem = $('#' + feed_id).parents('.category').get(0);
 	feed_unreads = elem ? str2int(elem.getAttribute('data-unread')) : 0;
 	if (elem) {
 		elem.setAttribute('data-unread', feed_unreads + nb);
-		elem = $(elem).find('.tree-folder-title .title').get(0);
+		elem = $(elem).find('.title').get(0);
 		if (elem) {
 			elem.setAttribute('data-unread', numberFormat(feed_unreads + nb));
 		}
@@ -80,7 +80,7 @@ function incUnreadsFeed(article, feed_id, nb) {
 
 	//Update unread: all
 	if (feed_priority > 0) {
-		elem = $('#aside_feed .all .tree-folder-title .title').get(0);
+		elem = $('#aside_feed .all .title').get(0);
 		if (elem) {
 			feed_unreads = elem ? str2int(elem.getAttribute('data-unread')) : 0;
 			elem.setAttribute('data-unread', numberFormat(feed_unreads + nb));
@@ -89,7 +89,7 @@ function incUnreadsFeed(article, feed_id, nb) {
 
 	//Update unread: favourites
 	if (article && article.closest('div').hasClass('favorite')) {
-		elem = $('#aside_feed .favorites .tree-folder-title .title').get(0);
+		elem = $('#aside_feed .favorites .title').get(0);
 		if (elem) {
 			feed_unreads = elem ? str2int(elem.getAttribute('data-unread')) : 0;
 			elem.setAttribute('data-unread', numberFormat(feed_unreads + nb));
@@ -194,7 +194,7 @@ function mark_favorite(active) {
 		}
 		$b.find('.icon').replaceWith(data.icon);
 
-		var favourites = $('#aside_feed .favorites .tree-folder-title .title').contents().last().get(0);
+		var favourites = $('#aside_feed .favorites .title').contents().last().get(0);
 		if (favourites && favourites.textContent) {
 			favourites.textContent = favourites.textContent.replace(/((?: \([ 0-9]+\))?\s*)$/, function (m, p1) {
 				return incLabel(p1, inc, false);
@@ -202,7 +202,7 @@ function mark_favorite(active) {
 		}
 
 		if (active.closest('div').hasClass('not_read')) {
-			var elem = $('#aside_feed .favorites .tree-folder-title .title').get(0),
+			var elem = $('#aside_feed .favorites .title').get(0),
 				feed_unreads = elem ? str2int(elem.getAttribute('data-unread')) : 0;
 			if (elem) {
 				elem.setAttribute('data-unread', numberFormat(feed_unreads + inc));
@@ -876,12 +876,12 @@ function init_notifs_html5() {
 
 function refreshUnreads() {
 	$.getJSON('./?c=javascript&a=nbUnreadsPerFeed').done(function (data) {
-		var isAll = $('.category.all > .active').length > 0,
+		var isAll = $('.category.all.active').length > 0,
 		    new_articles = false;
 
 		$.each(data, function(feed_id, nbUnreads) {
 			feed_id = 'f_' + feed_id;
-			var elem = $('#' + feed_id + '>.feed').get(0),
+			var elem = $('#' + feed_id).get(0),
 				feed_unreads = elem ? str2int(elem.getAttribute('data-unread')) : 0;
 
 			if ((incUnreadsFeed(null, feed_id, nbUnreads - feed_unreads) || isAll) &&	//Update of current view?
@@ -891,7 +891,7 @@ function refreshUnreads() {
 			};
 		});
 
-		var nb_unreads = str2int($('.category.all>a').attr('data-unread'));
+		var nb_unreads = str2int($('.category.all .title').attr('data-unread'));
 
 		if (nb_unreads > 0 && new_articles) {
 			faviconNbUnread(nb_unreads);
@@ -1136,7 +1136,7 @@ function init_password_observers() {
 
 function faviconNbUnread(n) {
 	if (typeof n === 'undefined') {
-		n = str2int($('.category.all>a').attr('data-unread'));
+		n = str2int($('.category.all .title').attr('data-unread'));
 	}
 	//http://remysharp.com/2010/08/24/dynamic-favicons/
 	var canvas = document.createElement('canvas'),
