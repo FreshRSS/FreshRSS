@@ -615,24 +615,21 @@ a.btn {
 }
 
 /*=== Aside main page (feeds) */
-.aside_feed .tree-folder-items > .item.empty.active {
+.feed.item.empty.active {
 	background: #e67e22;
 }
-.aside_feed .tree-folder-items > .item.error.active {
+.feed.item.error.active {
 	background: #bd362f;
 }
-.aside_feed .tree-folder-items > .item.empty > a {
+.feed.item.empty > a {
 	color: #e67e22;
 }
-.aside_feed .tree-folder-items > .item.error > a {
+.feed.item.error > a {
 	color: #bd362f;
 }
-.aside_feed .tree-folder-items > .item.empty.active > a,
-.aside_feed .tree-folder-items > .item.error.active > a {
+.feed.item.empty.active > a,
+.feed.item.error.active > a {
 	color: #fff;
-}
-.aside_feed .tree-folder-items > .item:not([data-unread="0"]) {
-	font-weight: bold;
 }
 .aside_feed .tree-folder-items .dropdown-menu:after {
 	left: 2px;

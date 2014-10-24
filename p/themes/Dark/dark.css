@@ -565,26 +565,23 @@ a.btn {
 }
 
 /*=== Aside main page (feeds) */
-.aside_feed .tree-folder-items > .item.empty.active {
+.feed.item.empty.active {
 	background: #c95;
 }
-.aside_feed .tree-folder-items > .item.error.active {
+.feed.item.error.active {
 	background: #a44;
 }
-.aside_feed .tree-folder-items > .item.empty > a {
+.feed.item.empty > a {
 	color: #c95;
 }
-.aside_feed .tree-folder-items > .item.error > a {
+.feed.item.error > a {
 	color: #a44;
 }
-.aside_feed .tree-folder-items > .item.empty.active > a {
+.feed.item.empty.active > a {
 	color: #111;
 }
-.aside_feed .tree-folder-items > .item.error.active > a {
+.feed.item.error.active > a {
 	color: #fff;
-}
-.aside_feed .tree-folder-items > .item:not([data-unread="0"]) {
-	font-weight: bold;
 }
 .aside_feed .tree-folder-items .dropdown-menu:after {
 	left: 2px;

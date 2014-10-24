@@ -649,14 +649,11 @@ a.btn {
 }
 
 /*=== Aside main page (feeds) */
-.aside_feed .tree-folder-items > .item.empty > a {
+.feed.item.empty > a {
 	color: #e67e22;
 }
-.aside_feed .tree-folder-items > .item.error > a {
+.feed.item.error > a {
 	color: #BD362F;
-}
-.aside_feed .tree-folder-items > .item:not([data-unread="0"]) {
-	font-weight: bold;
 }
 .aside_feed .tree-folder-items .dropdown-menu:after {
 	left: 2px;
@@ -997,7 +994,7 @@ opacity: 1;
 	padding: 2px 10px;
 	font-size: 0.8rem;
 }
-.box.category .item.feed .item-title {
+.box.category .item.feed:not(.empty):not(.error) .item-title {
 	color: #222;
 }
 
