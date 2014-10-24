@@ -133,6 +133,11 @@
 			<?php echo _i("view-normal"); ?>
 		</a>
 
+		<?php $url_output['a'] = 'reader'; ?>
+		<a class="view_reader btn <?php echo $actual_view == 'reader'? 'active' : ''; ?>" title="<?php echo _t('global_view'); ?>" href="<?php echo Minz_Url::display($url_output); ?>">
+			<?php echo _i("view-reader"); ?>
+		</a>
+
 		<?php $url_output['a'] = 'global'; ?>
 		<a class="view_global btn <?php echo $actual_view == 'global'? 'active' : ''; ?>" title="<?php echo _t('global_view'); ?>" href="<?php echo Minz_Url::display($url_output); ?>">
 			<?php echo _i("view-global"); ?>

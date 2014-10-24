@@ -70,6 +70,15 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 	}
 
 	/**
+	 * This action displays the reader view of FreshRSS.
+	 *
+	 * @todo: change this view into specific CSS rules?
+	 */
+	public function readerAction() {
+		$this->normalAction();
+	}
+
+	/**
 	 * This action displays the global view of FreshRSS.
 	 */
 	public function globalAction() {
