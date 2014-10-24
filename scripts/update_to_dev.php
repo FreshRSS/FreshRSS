@@ -1,6 +1,6 @@
 <?php
 
-define('PACKAGE_URL', 'https://github.com/marienfressinaud/FreshRSS/archive/dev.zip');
+define('PACKAGE_URL', 'https://codeload.github.com/marienfressinaud/FreshRSS/zip/dev');
 $DIRS_TO_CHECK = array(
 	DATA_PATH,
 	DATA_PATH . '/cache',

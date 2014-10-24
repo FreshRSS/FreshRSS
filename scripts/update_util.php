@@ -110,7 +110,6 @@ function save_package($url) {
 	$c = curl_init($url);
 	curl_setopt($c, CURLOPT_HEADER, false);
 	curl_setopt($c, CURLOPT_BINARYTRANSFER, true);
-	curl_setopt($c, CURLOPT_FOLLOWLOCATION, true);
 	curl_setopt($c, CURLOPT_FILE, $zip_file);
 	curl_exec($c);
 
