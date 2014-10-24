@@ -435,8 +435,11 @@ a.btn {
 /*=== Aside main page (categories) */
 .aside_feed .tree-folder-title > .title:not([data-unread="0"]):after {
 	position: absolute;
-	top: 3px; right: 3px;
-	padding: 1px 5px;
+	right: 0;
+	margin: 10px 0;
+	padding: 0 10px;
+	font-size: 0.9rem;
+	line-height: 1.5rem;
 }
 
 /*=== Aside main page (feeds) */
