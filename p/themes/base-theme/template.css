@@ -289,6 +289,7 @@ a.btn {
 	vertical-align: top;
 }
 .box .box-title {
+	position: relative;
 	font-size: 1.2rem;
 	font-weight: bold;
 	text-align: center;
@@ -400,21 +401,9 @@ a.btn {
 	vertical-align: top;
 }
 
-/*=== Aside main page (categories) */
-.aside_feed.state_unread .tree-folder:not(.active)[data-unread="0"],
-.aside_feed.state_unread .tree-folder-items > .item:not(.active)[data-unread="0"] {
-	display: none;
-}
-.aside_feed .tree-folder-title > .title:not([data-unread="0"]):after {
-	content: attr(data-unread);
-}
-
 /*=== Aside main page (feeds) */
 .aside_feed .tree-folder-items:not(.active) {
 	display: none;
-}
-.aside_feed .tree-folder-items > .item > a:not([data-unread="0"]):before {
-	content: "(" attr(data-unread) ") ";
 }
 .aside_feed .tree-folder-items .dropdown-menu {
 	left: 0;
@@ -612,32 +601,13 @@ br + br + br {
 
 /*=== GLOBAL VIEW */
 /*================*/
-/*=== Category boxes */
+#stream.global {
+	text-align: center;
+}
 
-/* TODO <delete> */
-#stream.global .box-category {
-	display: inline-block;
-	width: 19em;
-	max-width: 95%;
-	margin: 20px 10px;
-	border: 1px solid #ccc;
-	vertical-align: top;
+#stream.global .box {
+	text-align: left;
 }
-#stream.global .category {
-	width: 100%;
-}
-#stream.global .btn {
-	display: block;
-}
-#stream.global .box-category .feeds {
-	display: block;
-	overflow: auto;
-}
-#stream.global .box-category .feed {
-	width: 19em;
-	max-width: 90%;
-}
-/* TODO </delete */
 
 /*=== Panel */
 #overlay {
@@ -694,6 +664,18 @@ br + br + br {
 
 /*=== DIVERS */
 /*===========*/
+.category .title:not([data-unread="0"]):after {
+	content: attr(data-unread);
+}
+.feed .item-title:not([data-unread="0"]):before {
+	content: "(" attr(data-unread) ") ";
+}
+
+.state_unread .category:not(.active)[data-unread="0"],
+.state_unread .feed:not(.active)[data-unread="0"] {
+	display: none;
+}
+
 .nav-login,
 .nav_menu .search,
 .aside .toggle_aside,

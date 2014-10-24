@@ -969,9 +969,6 @@ opacity: 1;
 	box-shadow: 0 0 4px #171717;
 	overflow:hidden;
 }
-#stream.global .category {
-	margin: 0;
-}
 #stream.global .btn {
 	width: auto;
 	height: 2em;

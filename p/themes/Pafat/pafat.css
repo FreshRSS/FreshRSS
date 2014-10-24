@@ -914,10 +914,6 @@ a.btn {
 	text-align: left;
 }
 
-#stream.global .category {
-	margin: 0;
-}
-
 #stream.global .category:first-child {
 	margin: 0;
 }

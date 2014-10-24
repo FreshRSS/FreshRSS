@@ -1,11 +1,20 @@
-<?php //$this->partial('nav_menu'); ?>
+<?php
+	$this->partial('nav_menu');
 
-<div id="stream" class="global categories">
+	$class = '';
+	if (FreshRSS_Context::$conf->hide_read_feeds &&
+			FreshRSS_Context::isStateEnabled(FreshRSS_Entry::STATE_NOT_READ) &&
+			!FreshRSS_Context::isStateEnabled(FreshRSS_Entry::STATE_READ)) {
+		$class = ' state_unread';
+	}
+?>
+
+<div id="stream" class="global<?php echo $class; ?>">
 <?php
 	$url_base = array(
 		'c' => 'index',
 		'a' => 'index',
-		'params' => array()
+		'params' => Minz_Request::params()
 	);
 
 	foreach ($this->categories as $cat) {
@@ -14,20 +23,20 @@
 
 		if (!empty($feeds)) {
 ?>
-	<div class="box">
-		<div class="box-title"><a data-unread="<?php echo format_number($cat->nbNotRead()); ?>" href="<?php echo Minz_Url::display($url_base); ?>"><?php echo $cat->name(); ?></a></div>
+	<div class="box category" data-unread="<?php echo $cat->nbNotRead(); ?>">
+		<div class="box-title"><a class="title" data-unread="<?php echo format_number($cat->nbNotRead()); ?>" href="<?php echo Minz_Url::display($url_base); ?>"><?php echo $cat->name(); ?></a></div>
 
 		<ul class="box-content">
 			<?php
 				foreach ($feeds as $feed) {
 					$nb_not_read = $feed->nbNotRead();
-					$error = $feed->inError() ? 'error ' : '';
-					$empty = $feed->nbEntries() === 0 ? 'empty ' : '';
+					$error = $feed->inError() ? ' error' : '';
+					$empty = $feed->nbEntries() === 0 ? ' empty' : '';
 					$url_base['params']['get'] = 'f_' . $feed->id();
 			?>
-			<li class="item feed<?php echo $error, $empty; ?>">
+			<li class="item feed<?php echo $error, $empty; ?>" data-unread="<?php echo $feed->nbNotRead(); ?>">
 				<img class="favicon" src="<?php echo $feed->favicon(); ?>" alt="✇" />
-				<a data-unread="<?php echo format_number($feed->nbNotRead()); ?>" data-priority="<?php echo $feed->priority(); ?>" href="<?php echo Minz_Url::display($url_base); ?>"><?php echo $feed->name(); ?></a>
+				<a class="item-title" data-unread="<?php echo format_number($feed->nbNotRead()); ?>" data-priority="<?php echo $feed->priority(); ?>" href="<?php echo Minz_Url::display($url_base); ?>"><?php echo $feed->name(); ?></a>
 			</li>
 			<?php } ?>
 		</ul>

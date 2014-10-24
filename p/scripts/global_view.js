@@ -9,7 +9,7 @@ function load_panel(link) {
 	panel_loading = true;
 
 	$.get(link, function (data) {
-		$("#panel").append($(".nav_menu, #stream .day, #stream .flux, #stream .pagination", data));
+		$("#panel").append($(".nav_menu, #stream .day, #stream .flux, #stream .pagination, #stream.prompt", data));
 
 		$("#panel .nav_menu").children().not("#nav_menu_read_all").remove();
 

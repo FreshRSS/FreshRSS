@@ -42,7 +42,7 @@
 					$c_show = $c_active && (!FreshRSS_Context::$conf->display_categories ||
 					                        FreshRSS_Context::$current_get['feed']);
 		?>
-		<li class="tree-folder<?php echo $c_active ? ' active' : ''; ?>" data-unread="<?php echo $cat->nbNotRead(); ?>">
+		<li class="tree-folder category<?php echo $c_active ? ' active' : ''; ?>" data-unread="<?php echo $cat->nbNotRead(); ?>">
 			<div class="tree-folder-title">
 				<a class="dropdown-toggle" href="#"><?php echo _i($c_show ? 'up' : 'down'); ?></a>
 				<a class="title" data-unread="<?php echo format_number($cat->nbNotRead()); ?>" href="<?php echo _url('index', 'index', 'get', 'c_' . $cat->id()); ?>"><?php echo $cat->name(); ?></a>
@@ -53,13 +53,13 @@
 					foreach ($feeds as $feed) {
 						$f_active = FreshRSS_Context::isCurrentGet('f_' . $feed->id());
 				?>
-				<li id="f_<?php echo $feed->id(); ?>" class="item<?php echo $f_active ? ' active' : ''; ?><?php echo $feed->inError() ? ' error' : ''; ?><?php echo $feed->nbEntries() <= 0 ? ' empty' : ''; ?>" data-unread="<?php echo $feed->nbNotRead(); ?>" data-priority="<?php echo $feed->priority(); ?>">
+				<li id="f_<?php echo $feed->id(); ?>" class="item feed<?php echo $f_active ? ' active' : ''; ?><?php echo $feed->inError() ? ' error' : ''; ?><?php echo $feed->nbEntries() <= 0 ? ' empty' : ''; ?>" data-unread="<?php echo $feed->nbNotRead(); ?>" data-priority="<?php echo $feed->priority(); ?>">
 					<div class="dropdown no-mobile">
 						<div class="dropdown-target"></div>
 						<a class="dropdown-toggle" data-fweb="<?php echo $feed->website(); ?>"><?php echo _i('configure'); ?></a>
 						<?php /* feed_config_template */ ?>
 					</div>
-					<img class="favicon" src="<?php echo $feed->favicon(); ?>" alt="✇" /> <a data-unread="<?php echo format_number($feed->nbNotRead()); ?>" href="<?php echo _url('index', 'index', 'get', 'f_' . $feed->id()); ?>"><?php echo $feed->name(); ?></a>
+					<img class="favicon" src="<?php echo $feed->favicon(); ?>" alt="✇" /> <a class="item-title" data-unread="<?php echo format_number($feed->nbNotRead()); ?>" href="<?php echo _url('index', 'index', 'get', 'f_' . $feed->id()); ?>"><?php echo $feed->name(); ?></a>
 				</li>
 				<?php } ?>
 			</ul>
