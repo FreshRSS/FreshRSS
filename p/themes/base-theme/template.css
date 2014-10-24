@@ -294,6 +294,9 @@ a.btn {
 	font-weight: bold;
 	text-align: center;
 }
+.box .box-title a {
+	display: block;
+}
 .box .box-title form {
 	margin: 0;
 }
