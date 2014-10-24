@@ -617,7 +617,7 @@ a.btn {
 /*=== Body */
 #global {
 	background:#EDE7DE;
-	height: calc(100% - 85px);
+	height: calc(100% - 60px);
 }
 .aside {
 	border-radius: 0px 12px 0px 0px;
