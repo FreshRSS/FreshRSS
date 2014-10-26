@@ -113,7 +113,7 @@ class FreshRSS_Themes extends Minz_Model {
 			(self::$defaultIconsUrl . $url);
 
 		return $urlOnly ? Minz_Url::display($url) :
-			'<img class="icon" src="' . Minz_Url::display($url) . '" alt="' . $alts[$name] . '" />';
+			'<span class="icon icon-' . $name . ' icons-' . $name . '-dims"></span>';
 	}
 }
 

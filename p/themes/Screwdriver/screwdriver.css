@@ -1195,3 +1195,12 @@ opacity: 1;
 		display: none;
 	}
 }
+/* Icons from directory "" */
+.icon-bookmark,.icon-bookmark\:regular{background-image:url('icons/icons.svg');background-position:0 0;background-repeat:no-repeat}
+.icon-bookmark-dims{width:16px;height:16px}
+.icon-read,.icon-read\:regular{background-image:url('icons/icons.svg');background-position:0 -16px;background-repeat:no-repeat}
+.icon-read-dims{width:16px;height:16px}
+.icon-starred,.icon-starred\:regular{background-image:url('icons/icons.svg');background-position:0 -32px;background-repeat:no-repeat}
+.icon-starred-dims{width:16px;height:16px}
+.icon-unread,.icon-unread\:regular{background-image:url('icons/icons.svg');background-position:0 -48px;background-repeat:no-repeat}
+.icon-unread-dims{width:16px;height:16px}
