@@ -23,6 +23,8 @@ class FreshRSS_auth_Controller extends Minz_ActionController {
 			                  array('error' => array(_t('access_denied'))));
 		}
 
+		Minz_View::prependTitle(_t('gen.title.authentication') . ' · ');
+
 		if (Minz_Request::isPost()) {
 			$ok = true;
 
@@ -55,10 +57,10 @@ class FreshRSS_auth_Controller extends Minz_ActionController {
 			invalidateHttpCache();
 
 			if ($ok) {
-				Minz_Request::good('configuration_updated',
+				Minz_Request::good(_t('configuration_updated'),
 				                   array('c' => 'auth', 'a' => 'index'));
 			} else {
-				Minz_Request::bad('error_occurred',
+				Minz_Request::bad(_t('error_occurred'),
 				                  array('c' => 'auth', 'a' => 'index'));
 			}
 		}
