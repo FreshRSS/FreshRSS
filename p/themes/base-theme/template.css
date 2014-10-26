@@ -348,6 +348,8 @@ a.btn {
 	text-overflow: ellipsis;
 }
 .tree-folder-title .title {
+	display: inline-block;
+	width: 100%;
 	vertical-align: middle;
 }
 .tree-folder-items > .item {
@@ -406,6 +408,10 @@ a.btn {
 }
 
 /*=== Aside main page */
+.aside_feed .category .title {
+	width: calc(100% - 35px);
+}
+
 .aside_feed .tree-folder-title .icon {
 	padding: 5px;
 }
