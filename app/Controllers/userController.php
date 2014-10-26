@@ -23,10 +23,10 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 	}
 
 	/**
-	 * This action displays the user profil page.
+	 * This action displays the user profile page.
 	 */
-	public function profilAction() {
-		Minz_View::prependTitle(_t('users.profil') . ' · ');
+	public function profileAction() {
+		Minz_View::prependTitle(_t('gen.title.user_profile') . ' · ');
 
 		if (Minz_Request::isPost()) {
 			$ok = true;
@@ -74,11 +74,11 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 			}
 
 			if ($ok) {
-				Minz_Request::good('users.profil.updated',
-				                   array('c' => 'user', 'a' => 'profil'));
+				Minz_Request::good(_t('feedback.user_profile.updated'),
+				                   array('c' => 'user', 'a' => 'profile'));
 			} else {
-				Minz_Request::bad('error_occurred',
-				                  array('c' => 'user', 'a' => 'profil'));
+				Minz_Request::bad(_t('error_occurred'),
+				                  array('c' => 'user', 'a' => 'profile'));
 			}
 		}
 	}
@@ -92,7 +92,7 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 			                  array('error' => array(_t('access_denied'))));
 		}
 
-		Minz_View::prependTitle(_t('users.manage') . ' · ');
+		Minz_View::prependTitle(_t('gen.title.user_management') . ' · ');
 
 		// Get the correct current user.
 		$userDAO = new FreshRSS_UserDAO();
