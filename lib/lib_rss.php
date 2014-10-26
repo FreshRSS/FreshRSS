@@ -257,13 +257,13 @@ function is_referer_from_same_domain() {
  * @return array of tested values.
  */
 function check_install_php() {
+	$pdo_mysql = extension_loaded('pdo_mysql');
+	$pdo_sqlite = extension_loaded('pdo_sqlite');
 	return array(
 		'php' => version_compare(PHP_VERSION, '5.2.1') >= 0,
 		'minz' => file_exists(LIB_PATH . '/Minz'),
 		'curl' => extension_loaded('curl'),
-		'pdo_mysql' => extension_loaded('pdo_mysql'),
-		'pdo_sqlite' => extension_loaded('pdo_sqlite'),
-		'pdo' => extension_loaded('pdo_mysql') || extension_loaded('pdo_sqlite'),
+		'pdo' => $pdo_mysql || $pdo_sqlite,
 		'pcre' => extension_loaded('pcre'),
 		'ctype' => extension_loaded('ctype'),
 		'dom' => class_exists('DOMDocument'),
