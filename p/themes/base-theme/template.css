@@ -569,7 +569,7 @@ br + br + br {
 	position: fixed;
 	bottom: 0; left: 0;
 	display: table;
-	width: 250px;
+	width: 300px;
 	background: #fff;
 	table-layout: fixed;
 }
