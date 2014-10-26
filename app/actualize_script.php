@@ -7,6 +7,11 @@ ob_implicit_flush(false);
 ob_start();
 echo 'Results: ', "\n";	//Buffered
 
+if (defined('STDOUT')) {
+	$begin_date = date_create('now');
+	fwrite(STDOUT, 'Starting feed actualization at ' . $begin_date->format('c') . "\n");	//Unbuffered
+}
+
 Minz_Configuration::init();
 
 $users = listUsers();
@@ -52,6 +57,10 @@ foreach ($users as $myUser) {
 syslog(LOG_INFO, 'FreshRSS actualize done.');
 if (defined('STDOUT')) {
 	fwrite(STDOUT, 'Done.' . "\n");
+	$end_date = date_create('now');
+	$duration = date_diff($end_date, $begin_date);
+	fwrite(STDOUT, 'Ending feed actualization at ' . $end_date->format('c') . "\n");	//Unbuffered
+	fwrite(STDOUT, 'Feed actualizations took ' . $duration->format('%a day(s), %h hour(s),  %i minute(s) and %s seconds') . ' for ' . count($users) . " users\n");	//Unbuffered
 }
 echo 'End.', "\n";
 ob_end_flush();
