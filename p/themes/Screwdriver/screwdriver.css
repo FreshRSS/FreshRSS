@@ -664,7 +664,6 @@ a.btn {
 .aside_feed .tree-folder-items .item:hover .dropdown-toggle > .icon,
 .aside_feed .tree-folder-items .item.active .dropdown-toggle > .icon {
 	border-radius: 3px;
-	vertical-align: middle;
 }
 
 /*=== Configuration pages */

@@ -483,7 +483,6 @@ a.btn {
 	background: #34495e;
 	line-height: 2.5rem;
 	font-size: 1rem;
-	font-weight: bold;
 }
 .tree-folder-title .title {
 	background: inherit;
@@ -494,6 +493,7 @@ a.btn {
 }
 .tree-folder.active .tree-folder-title {
 	background: #2980b9;
+	font-weight: bold;
 }
 .tree-folder-items {
 	background: #2c3e50;
@@ -597,7 +597,6 @@ a.btn {
 .aside_feed .tree-folder-items .item:hover .dropdown-toggle > .icon,
 .aside_feed .tree-folder-items .item.active .dropdown-toggle > .icon {
 	border-radius: 3px;
-	vertical-align: middle;
 }
 
 /*=== Configuration pages */

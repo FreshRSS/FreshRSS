@@ -508,7 +508,6 @@ a.btn {
 	background: #fff;
 	line-height: 2.5rem;
 	font-size: 1rem;
-	font-weight: bold;
 }
 .tree-folder-title .title {
 	background: inherit;
@@ -519,6 +518,7 @@ a.btn {
 }
 .tree-folder.active .tree-folder-title {
 	background: #f0f0f0;
+	font-weight: bold;
 }
 .tree-folder.active .tree-folder-title .title {
 	color: #0062BE;
@@ -629,11 +629,9 @@ a.btn {
 	left: 2px;
 }
 .aside_feed .tree-folder-items .item .dropdown-target:target ~ .dropdown-toggle > .icon,
-.aside_feed .tree-folder-items .item:hover .dropdown-toggle > .icon,
 .aside_feed .tree-folder-items .item.active .dropdown-toggle > .icon {
 	background-color: #fff;
 	border-radius: 3px;
-	vertical-align: middle;
 }
 
 /*=== Configuration pages */

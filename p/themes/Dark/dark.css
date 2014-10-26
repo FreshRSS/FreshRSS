@@ -474,7 +474,6 @@ a.btn {
 	line-height: 2.5rem;
 	font-size: 1rem;
 	background: #1c1c1c;
-	font-weight: bold;
 }
 .tree-folder-title .title {
 	background: inherit;
@@ -485,6 +484,7 @@ a.btn {
 }
 .tree-folder.active .tree-folder-title {
 	background: #2c2c2c;
+	font-weight: bold;
 }
 .tree-folder-items {
 	border-top: 1px solid #222;
@@ -594,7 +594,6 @@ a.btn {
 .aside_feed .tree-folder-items .item:hover .dropdown-toggle > .icon,
 .aside_feed .tree-folder-items .item.active .dropdown-toggle > .icon {
 	border-radius: 3px;
-	vertical-align: middle;
 	background-color: #111;
 }
 

@@ -401,13 +401,22 @@ a.btn {
 .aside {
 	display: table-cell;
 	height: 100%;
-	width: 250px;
+	width: 300px;
 	vertical-align: top;
 }
 
-/*=== Aside main page (feeds) */
+/*=== Aside main page */
+.aside_feed .tree-folder-title .icon {
+	padding: 5px;
+}
+.aside_feed .tree-folder-items .item.feed {
+	padding: 0px 15px;
+}
 .aside_feed .tree-folder-items:not(.active) {
 	display: none;
+}
+.aside_feed .tree-folder-items .dropdown {
+	vertical-align: top;
 }
 .aside_feed .tree-folder-items .dropdown-menu {
 	left: 0;
@@ -472,6 +481,7 @@ a.btn {
 .flux .item.date {
 	width: 145px;
 	text-align: right;
+	overflow: hidden;
 }
 .flux .item > a {
 	display: block;
