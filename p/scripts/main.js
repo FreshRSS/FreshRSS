@@ -1014,7 +1014,7 @@ function init_crypto_form() {
 				try {
 					var strong = window.Uint32Array && window.crypto && (typeof window.crypto.getRandomValues === 'function'),
 						s = dcodeIO.bcrypt.hashSync($('#passwordPlain').val(), data.salt1),
-						c = dcodeIO.bcrypt.hashSync(data.nonce + s, strong ? 4 : poormanSalt());
+						c = dcodeIO.bcrypt.hashSync(data.nonce + s, strong ? dcodeIO.bcrypt.genSaltSync(4) : poormanSalt());
 					$('#challenge').val(c);
 					if (s == '' || c == '') {
 						openNotification('Crypto error!', 'bad');
