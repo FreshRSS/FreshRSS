@@ -60,6 +60,12 @@ class Minz_Configuration {
 		'prefix' => '',
 	);
 
+	const MAX_SMALL_INT = 16384;
+	private static $limits = array(
+		'max_feeds' => Minz_Configuration::MAX_SMALL_INT,
+		'max_categories' => Minz_Configuration::MAX_SMALL_INT,
+	);
+
 	/*
 	 * Getteurs
 	 */
@@ -96,6 +102,9 @@ class Minz_Configuration {
 	}
 	public static function dataBase () {
 		return self::$db;
+	}
+	public static function limits() {
+		return self::$limits;
 	}
 	public static function defaultUser () {
 		return self::$default_user;
@@ -178,6 +187,7 @@ class Minz_Configuration {
 				'api_enabled' => self::$api_enabled,
 				'unsafe_autologin_enabled' => self::$unsafe_autologin_enabled,
 			),
+			'limits' => self::$limits,
 			'db' => self::$db,
 		);
 		@rename(DATA_PATH . self::CONF_PATH_NAME, DATA_PATH . self::CONF_PATH_NAME . '.bak.php');
@@ -289,6 +299,22 @@ class Minz_Configuration {
 				((bool)($general['unsafe_autologin_enabled'])) &&
 				($general['unsafe_autologin_enabled'] !== 'no')
 			);
+		}
+
+		if (isset($ini_array['limits'])) {
+			$limits = $ini_array['limits'];
+			if (isset($limits['max_feeds'])) {
+				self::$limits['max_feeds'] = intval($limits['max_feeds']);
+				if (self::$limits['max_feeds'] < 0 || self::$limits['max_feeds'] > Minz_Configuration::MAX_SMALL_INT) {
+					self::$limits['max_feeds'] = Minz_Configuration::MAX_SMALL_INT;
+				}
+			}
+			if (isset($limits['max_categories'])) {
+				self::$limits['max_categories'] = intval($limits['max_categories']);
+				if (self::$limits['max_categories'] < 0 || self::$limits['max_categories'] > Minz_Configuration::MAX_SMALL_INT) {
+					self::$limits['max_categories'] = Minz_Configuration::MAX_SMALL_INT;
+				}
+			}
 		}
 
 		// Base de données
