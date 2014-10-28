@@ -20,10 +20,11 @@ class FreshRSS_Auth {
 			Minz_Session::_param('currentUser', $current_user);
 		}
 
-		$access_ok = self::accessControl();
-
-		if ($access_ok) {
+		if (self::$login_ok) {
 			self::giveAccess();
+		} elseif (self::accessControl()) {
+			self::giveAccess();
+			FreshRSS_UserDAO::touch($current_user);
 		} else {
 			// Be sure all accesses are removed!
 			self::removeAccess();
@@ -38,11 +39,7 @@ class FreshRSS_Auth {
 	 *
 	 * @return boolean true if user can be connected, false else.
 	 */
-	public static function accessControl() {
-		if (self::$login_ok) {
-			return true;
-		}
-
+	private static function accessControl() {
 		switch (Minz_Configuration::authType()) {
 		case 'form':
 			$credentials = FreshRSS_FormAuth::getCredentialsFromCookie();

@@ -95,9 +95,8 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 		Minz_View::prependTitle(_t('gen.title.user_management') . ' · ');
 
 		// Get the correct current user.
-		$userDAO = new FreshRSS_UserDAO();
 		$username = Minz_Request::param('u', Minz_Session::param('currentUser'));
-		if (!$userDAO->exist($username)) {
+		if (!FreshRSS_UserDAO::exist($username)) {
 			$username = Minz_Session::param('currentUser');
 		}
 		$this->view->current_user = $username;

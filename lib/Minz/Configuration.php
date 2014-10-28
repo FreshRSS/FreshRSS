@@ -64,6 +64,7 @@ class Minz_Configuration {
 	private static $limits = array(
 		'cache_duration' => 800,	//SimplePie cache duration in seconds
 		'timeout' => 10,	//SimplePie timeout in seconds
+		'max_inactivity' => PHP_INT_MAX,	//Time in seconds after which a user who has not used the account is considered inactive (no auto-refresh of feeds).
 		'max_feeds' => Minz_Configuration::MAX_SMALL_INT,
 		'max_categories' => Minz_Configuration::MAX_SMALL_INT,
 	);
@@ -315,6 +316,12 @@ class Minz_Configuration {
 				$v = intval($limits['timeout']);
 				if ($v > 0) {
 					self::$limits['timeout'] = $v;
+				}
+			}
+			if (isset($limits['max_inactivity'])) {
+				$v = intval($limits['max_inactivity']);
+				if ($v > 0) {
+					self::$limits['max_inactivity'] = $v;
 				}
 			}
 			if (isset($limits['max_feeds'])) {

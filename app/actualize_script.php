@@ -22,7 +22,17 @@ if (Minz_Configuration::defaultUser() !== ''){
 	$users = array_unique($users);
 }
 
+$limits = Minz_Configuration::limits();
+$minLastActivity = time() - $limits['max_inactivity'];
+
 foreach ($users as $myUser) {
+	if (($myUser !== Minz_Configuration::defaultUser()) && (FreshRSS_UserDAO::mtime($myUser) < $minLastActivity)) {
+		syslog(LOG_INFO, 'FreshRSS skip inactive user ' . $myUser);
+		if (defined('STDOUT')) {
+			fwrite(STDOUT, 'FreshRSS skip inactive user ' . $myUser . "\n");	//Unbuffered
+		}
+		continue;
+	}
 	syslog(LOG_INFO, 'FreshRSS actualize ' . $myUser);
 	if (defined('STDOUT')) {
 		fwrite(STDOUT, 'Actualize ' . $myUser . "...\n");	//Unbuffered
