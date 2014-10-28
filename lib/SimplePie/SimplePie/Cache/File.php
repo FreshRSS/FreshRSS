@@ -136,11 +136,11 @@ class SimplePie_Cache_File implements SimplePie_Cache_Base
 	 */
 	public function mtime()
 	{
-		if (file_exists($this->name))
+		//if (file_exists($this->name))	//FreshRSS removed
 		{
-			return filemtime($this->name);
+			return @filemtime($this->name);	//FreshRSS
 		}
-		return false;
+		//return false;	//FreshRSS removed
 	}
 
 	/**
@@ -150,11 +150,11 @@ class SimplePie_Cache_File implements SimplePie_Cache_Base
 	 */
 	public function touch()
 	{
-		if (file_exists($this->name))
+		//if (file_exists($this->name))	//FreshRSS removed
 		{
-			return touch($this->name);
+			return @touch($this->name);	//FreshRSS
 		}
-		return false;
+		//return false;	//FreshRSS removed
 	}
 
 	/**

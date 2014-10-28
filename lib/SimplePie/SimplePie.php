@@ -1455,7 +1455,11 @@ class SimplePie
 		{
 			// Load the Cache
 			$this->data = $cache->load();
-			if (!empty($this->data))
+			if ($cache->mtime() + $this->cache_duration > time()) {	//FreshRSS
+				$this->raw_data = false;
+				return true;	// If the cache is still valid, just return true
+			}
+			elseif (!empty($this->data))
 			{
 				// If the cache is for an outdated build of SimplePie
 				if (!isset($this->data['build']) || $this->data['build'] !== SIMPLEPIE_BUILD)
@@ -1487,7 +1491,7 @@ class SimplePie
 					}
 				}
 				// Check if the cache has been updated
-				elseif ($cache->mtime() + $this->cache_duration < time())
+				else //if ($cache->mtime() + $this->cache_duration < time())	//FreshRSS removed
 				{
 					// If we have last-modified and/or etag set
 					//if (isset($this->data['headers']['last-modified']) || isset($this->data['headers']['etag']))	//FreshRSS removed
@@ -1516,6 +1520,7 @@ class SimplePie
 						}
 						else
 						{
+							$cache->touch();	//FreshRSS
 							$this->error = $file->error;	//FreshRSS
 							return !empty($this->data);	//FreshRSS
 							//unset($file);	//FreshRSS removed
@@ -1533,17 +1538,18 @@ class SimplePie
 						}
 					}
 				}
-				// If the cache is still valid, just return true
-				else
-				{
-					$this->raw_data = false;
-					return true;
-				}
+				//// If the cache is still valid, just return true
+				//else	//FreshRSS removed
+				//{
+				//	$this->raw_data = false;
+				//	return true;
+				//}
 			}
 			// If the cache is empty, delete it
 			else
 			{
-				$cache->unlink();
+				//$cache->unlink();	//FreshRSS removed
+				$cache->touch();	//FreshRSS
 				$this->data = array();
 			}
 		}

@@ -217,7 +217,8 @@ class FreshRSS_Feed extends Minz_Model {
 				$mtime = $feed->init();
 
 				if ((!$mtime) || $feed->error()) {
-					throw new FreshRSS_Feed_Exception($feed->error() . ' [' . $url . ']');
+					$errorMessage = $feed->error();
+					throw new FreshRSS_Feed_Exception(($errorMessage == '' ? 'Feed error' : $errorMessage) . ' [' . $url . ']');
 				}
 
 				if ($loadDetails) {
