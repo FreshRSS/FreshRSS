@@ -1,5 +1,11 @@
 # Journal des modifications
 
+##
+
+* Configuration
+	* New options in config.php for cache duration, timeout, max number of feeds and categories per user.
+
+
 ## 2014-09-26 FreshRSS 0.8.0 / 0.9.0 (beta)
 
 * UI

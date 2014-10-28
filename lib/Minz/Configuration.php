@@ -62,6 +62,8 @@ class Minz_Configuration {
 
 	const MAX_SMALL_INT = 16384;
 	private static $limits = array(
+		'cache_duration' => 800,	//SimplePie cache duration in seconds
+		'timeout' => 10,	//SimplePie timeout in seconds
 		'max_feeds' => Minz_Configuration::MAX_SMALL_INT,
 		'max_categories' => Minz_Configuration::MAX_SMALL_INT,
 	);
@@ -303,16 +305,28 @@ class Minz_Configuration {
 
 		if (isset($ini_array['limits'])) {
 			$limits = $ini_array['limits'];
+			if (isset($limits['cache_duration'])) {
+				$v = intval($limits['cache_duration']);
+				if ($v > 0) {
+					self::$limits['cache_duration'] = $v;
+				}
+			}
+			if (isset($limits['timeout'])) {
+				$v = intval($limits['timeout']);
+				if ($v > 0) {
+					self::$limits['timeout'] = $v;
+				}
+			}
 			if (isset($limits['max_feeds'])) {
-				self::$limits['max_feeds'] = intval($limits['max_feeds']);
-				if (self::$limits['max_feeds'] < 0 || self::$limits['max_feeds'] > Minz_Configuration::MAX_SMALL_INT) {
-					self::$limits['max_feeds'] = Minz_Configuration::MAX_SMALL_INT;
+				$v = intval($limits['max_feeds']);
+				if ($v > 0 && $v < Minz_Configuration::MAX_SMALL_INT) {
+					self::$limits['max_feeds'] = $v;
 				}
 			}
 			if (isset($limits['max_categories'])) {
-				self::$limits['max_categories'] = intval($limits['max_categories']);
-				if (self::$limits['max_categories'] < 0 || self::$limits['max_categories'] > Minz_Configuration::MAX_SMALL_INT) {
-					self::$limits['max_categories'] = Minz_Configuration::MAX_SMALL_INT;
+				$v = intval($limits['max_categories']);
+				if ($v > 0 && $v < Minz_Configuration::MAX_SMALL_INT) {
+					self::$limits['max_categories'] = $v;
 				}
 			}
 		}
