@@ -35,9 +35,10 @@ class FreshRSS_category_Controller extends Minz_ActionController {
 
 		$limits = Minz_Configuration::limits();
 		$this->view->categories = $catDAO->listCategories(false);
+
 		if (count($this->view->categories) >= $limits['max_categories']) {
-			Minz_Request::bad(_t('over_max_categories', $limits['max_categories']), $url_redirect);
-			return;
+			Minz_Request::bad(_t('sub.categories.over_max', $limits['max_categories']),
+			                  $url_redirect);
 		}
 
 		if (Minz_Request::isPost()) {
