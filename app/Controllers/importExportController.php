@@ -176,19 +176,43 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 	 */
 	private function addOpmlElements($opml_elements, $parent_cat = null) {
 		$error = false;
+
+		$nb_feeds = count($this->feedDAO->listFeeds());
+		$nb_cats = count($this->catDAO->listCategories(false));
+		$limits = Minz_Configuration::limits();
+
 		foreach ($opml_elements as $elt) {
-			$res = false;
+			$is_error = false;
 			if (isset($elt['xmlUrl'])) {
 				// If xmlUrl exists, it means it is a feed
-				$res = $this->addFeedOpml($elt, $parent_cat);
+				if ($nb_feeds >= $limits['max_feeds']) {
+					Minz_Log::warning(_t('sub.feeds.over_max',
+					                  $limits['max_feeds']));
+					$is_error = true;
+					continue;
+				}
+
+				$is_error = $this->addFeedOpml($elt, $parent_cat);
+				if (!$is_error) {
+					$nb_feeds += 1;
+				}
 			} else {
 				// No xmlUrl? It should be a category!
-				$res = $this->addCategoryOpml($elt, $parent_cat);
+				$limit_reached = ($nb_cats >= $limits['max_categories']);
+				if ($limit_reached) {
+					Minz_Log::warning(_t('sub.categories.over_max',
+					                  $limits['max_categories']));
+				}
+
+				$is_error = $this->addCategoryOpml($elt, $parent_cat, $limit_reached);
+				if (!$is_error) {
+					$nb_cats += 1;
+				}
 			}
 
-			if (!$error && $res) {
+			if (!$error && $is_error) {
 				// oops: there is at least one error!
-				$error = $res;
+				$error = $is_error;
 			}
 		}
 
@@ -203,16 +227,18 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 	 * @return boolean true if an error occured, false else.
 	 */
 	private function addFeedOpml($feed_elt, $parent_cat) {
+		$default_cat = $this->catDAO->getDefault();
 		if (is_null($parent_cat)) {
 			// This feed has no parent category so we get the default one
-			$parent_cat = $this->catDAO->getDefault()->name();
+			$parent_cat = $default_cat->name();
 		}
 
 		$cat = $this->catDAO->searchByName($parent_cat);
-		if (!$cat) {
+		if (is_null($cat)) {
 			// If there is not $cat, it means parent category does not exist in
-			// database. It should not happened!
-			return true;
+			// database.
+			// If it happens, take the default category.
+			$cat = $default_cat;
 		}
 
 		// We get different useful information
@@ -253,14 +279,19 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 	 *
 	 * @param array $cat_elt an OPML element (must be a category element).
 	 * @param string $parent_cat the name of the parent category.
+	 * @param boolean $cat_limit_reached indicates if category limit has been reached.
+	 *                if yes, category is not added (but we try for feeds!)
 	 * @return boolean true if an error occured, false else.
 	 */
-	private function addCategoryOpml($cat_elt, $parent_cat) {
+	private function addCategoryOpml($cat_elt, $parent_cat, $cat_limit_reached) {
 		// Create a new Category object
 		$cat = new FreshRSS_Category(Minz_Helper::htmlspecialchars_utf8($cat_elt['text']));
 
-		$id = $this->catDAO->addCategoryObject($cat);
-		$error = ($id === false);
+		$error = true;
+		if (!$cat_limit_reached) {
+			$id = $this->catDAO->addCategoryObject($cat);
+			$error = ($id === false);
+		}
 
 		if (isset($cat_elt['@outlines'])) {
 			// Our cat_elt contains more categories or more feeds, so we
