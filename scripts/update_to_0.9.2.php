@@ -16,7 +16,7 @@ function fix_configuration($conf) {
 	$not_read = 2;
 	$strict = 16;
 
-	// Update to >= 0.9.2
+	// Update from <=0.9.1
 	switch ($conf->default_view){
 	case $not_read:
 		$conf->_default_view('adaptive');
