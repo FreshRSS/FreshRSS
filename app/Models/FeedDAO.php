@@ -191,7 +191,7 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo {
 		$res = $stm->fetchAll(PDO::FETCH_ASSOC);
 		$feed = current(self::daoToFeed($res));
 
-		if (isset($feed)) {
+		if (isset($feed) && $feed !== false) {
 			return $feed;
 		} else {
 			return null;

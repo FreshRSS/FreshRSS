@@ -327,12 +327,34 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 		$error = false;
 		$article_to_feed = array();
 
+		$nb_feeds = count($this->feedDAO->listFeeds());
+		$limits = Minz_Configuration::limits();
+
 		// First, we check feeds of articles are in DB (and add them if needed).
 		foreach ($article_object['items'] as $item) {
-			$feed = $this->addFeedJson($item['origin'], $google_compliant);
+			$key = $google_compliant ? 'htmlUrl' : 'feedUrl';
+			$feed = new FreshRSS_Feed($item['origin'][$key]);
+			$feed = $this->feedDAO->searchByUrl($feed->url());
+
 			if (is_null($feed)) {
-				$error = true;
-			} else {
+				// Feed does not exist in DB,we should to try to add it.
+				if ($nb_feeds >= $limits['max_feeds']) {
+					// Oops, no more place!
+					Minz_Log::warning(_t('sub.feeds.over_max', $limits['max_feeds']));
+				} else {
+					$feed = $this->addFeedJson($item['origin'], $google_compliant);
+				}
+
+				if (is_null($feed)) {
+					// Still null? It means something went wrong.
+					$error = true;
+				} else {
+					// Nice! Increase the counter.
+					$nb_feeds += 1;
+				}
+			}
+
+			if (!is_null($feed)) {
 				$article_to_feed[$item['id']] = $feed->id();
 			}
 		}
