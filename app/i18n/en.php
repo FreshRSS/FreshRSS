@@ -474,6 +474,7 @@
   'steps' => 'Steps',
   'sticky_post' => 'Stick the article to the top when opened',
   'sub.categories.over_max' => 'You have reached your limit of categories (%d)',
+  'sub.feeds.over_max' => 'You have reached your limit of feeds (%d)',
   'submit' => 'Submit',
   'subscription_management' => 'Subscriptions management',
   'sun' => 'Sun',

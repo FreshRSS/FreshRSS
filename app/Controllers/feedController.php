@@ -71,8 +71,8 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 		$limits = Minz_Configuration::limits();
 		$this->view->feeds = $feedDAO->listFeeds();
 		if (count($this->view->feeds) >= $limits['max_feeds']) {
-			Minz_Request::bad(_t('over_max_feeds', $limits['max_feeds']), $url_redirect);
-			return;
+			Minz_Request::bad(_t('sub.feeds.over_max', $limits['max_feeds']),
+			                  $url_redirect);
 		}
 
 		if (Minz_Request::isPost()) {

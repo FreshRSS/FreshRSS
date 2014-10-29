@@ -474,6 +474,7 @@
   'steps' => 'Étapes',
   'sticky_post' => 'Aligner l’article en haut quand il est ouvert',
   'sub.categories.over_max' => 'Vous avez atteint votre limite de catégories (%d)',
+  'sub.feeds.over_max' => 'Vous avez atteint votre limite de flux (%d)',
   'submit' => 'Valider',
   'subscription_management' => 'Gestion des abonnements',
   'sun' => 'dim.',
