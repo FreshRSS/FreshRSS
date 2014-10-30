@@ -1,14 +1,6 @@
 <?php
 
 define('PACKAGE_URL', 'https://codeload.github.com/marienfressinaud/FreshRSS/zip/0.9.2');
-$DIRS_TO_CHECK = array(
-	DATA_PATH,
-	DATA_PATH . '/cache',
-	DATA_PATH . '/favicons',
-	DATA_PATH . '/log',
-	DATA_PATH . '/persona',
-	DATA_PATH . '/tokens',
-);
 
 
 function fix_configuration($conf) {
@@ -32,11 +24,22 @@ function fix_configuration($conf) {
 	}
 
 	$conf->save();
+
+	return false;
 }
 
 
 // Apply the update by replacing old version of FreshRSS by the new one.
 function apply_update() {
+	$dirs_to_check = array(
+		DATA_PATH,
+		DATA_PATH . '/cache',
+		DATA_PATH . '/favicons',
+		DATA_PATH . '/log',
+		DATA_PATH . '/persona',
+		DATA_PATH . '/tokens',
+	);
+
 	// First, do a backup.
 	$res = remove_data_backup();
 	if (!$res) {
@@ -49,7 +52,7 @@ function apply_update() {
 
 	// For each directory, we check it exists, dir/index.html exists and we can
 	// write inside.
-	foreach ($DIRS_TO_CHECK as $dir) {
+	foreach ($dirs_to_check as $dir) {
 		$res = check_directory($dir);
 		if (!$res) {
 			return '`' . $dir . '` does not exist or FreshRSS cannot write inside';
@@ -76,9 +79,8 @@ function apply_update() {
 
 	// Finally, we fix configuration if needed for each user.
 	// First, we HAVE to reload the configuration file
-	runkit_import(APP_PATH . '/Models/Configuration.php');
 	$error = '';
-	for (listUsers() as $username) {
+	foreach (listUsers() as $username) {
 		try {
 			$conf = new FreshRSS_Configuration($username);
 			$res = fix_configuration($conf);
