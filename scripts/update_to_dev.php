@@ -69,3 +69,7 @@ function save_info_update() {
 function ask_info_update() {
 
 }
+
+function do_post_update() {
+
+}
