@@ -25,7 +25,7 @@ function fix_configuration($conf) {
 
 	$conf->save();
 
-	return false;
+	return true;
 }
 
 
