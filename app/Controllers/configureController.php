@@ -225,7 +225,7 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 
 		Minz_View::prependTitle(_t('archiving_configuration') . ' · ');
 
-		$entryDAO = FreshRSS_Factory::createEntryDao();
+		$entryDAO = FreshRSS_Factory::createEntryDao('freshrss');
 		$this->view->nb_total = $entryDAO->count();
 		$this->view->size_user = $entryDAO->size();
 

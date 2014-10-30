@@ -17,6 +17,7 @@ class Minz_ModelPdo {
 	private static $sharedBd = null;
 	private static $sharedPrefix;
 	private static $has_transaction = false;
+	private static $sharedCurrentUser;
 	protected static $sharedDbType;
 
 	/**
@@ -39,6 +40,7 @@ class Minz_ModelPdo {
 		if (self::$useSharedBd && self::$sharedBd != null && $currentUser === null) {
 			$this->bd = self::$sharedBd;
 			$this->prefix = self::$sharedPrefix;
+			$this->current_user = self::$sharedCurrentUser;
 			return;
 		}
 
@@ -48,6 +50,7 @@ class Minz_ModelPdo {
 			$currentUser = Minz_Session::param('currentUser', '_');
 		}
 		$this->current_user = $currentUser;
+		self::$sharedCurrentUser = $currentUser;
 
 		try {
 			$type = $db['type'];
