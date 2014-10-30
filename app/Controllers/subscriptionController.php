@@ -11,10 +11,7 @@ class FreshRSS_subscription_Controller extends Minz_ActionController {
 	 */
 	public function firstAction() {
 		if (!FreshRSS_Auth::hasAccess()) {
-			Minz_Error::error(
-				403,
-				array('error' => array(_t('access_denied')))
-			);
+			Minz_Error::error(403);
 		}
 
 		$catDAO = new FreshRSS_CategoryDAO();
@@ -71,10 +68,7 @@ class FreshRSS_subscription_Controller extends Minz_ActionController {
 
 		$id = Minz_Request::param('id');
 		if ($id === false || !isset($this->view->feeds[$id])) {
-			Minz_Error::error(
-				404,
-				array('error' => array(_t('page_not_found')))
-			);
+			Minz_Error::error(404);
 			return;
 		}
 

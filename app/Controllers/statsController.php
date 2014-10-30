@@ -6,6 +6,19 @@
 class FreshRSS_stats_Controller extends Minz_ActionController {
 
 	/**
+	 * This action is called before every other action in that class. It is
+	 * the common boiler plate for every action. It is triggered by the
+	 * underlying framework.
+	 */
+	public function firstAction() {
+		if (!FreshRSS_Auth::hasAccess()) {
+			Minz_Error::error(403);
+		}
+
+		Minz_View::prependTitle(_t('stats') . ' · ');
+	}
+
+	/**
 	 * This action handles the statistic main page.
 	 *
 	 * It displays the statistic main page.
@@ -111,20 +124,4 @@ class FreshRSS_stats_Controller extends Minz_ActionController {
 		$this->view->repartitionMonth = $statsDAO->calculateEntryRepartitionPerFeedPerMonth($id);
 		$this->view->averageMonth = $statsDAO->calculateEntryAveragePerFeedPerMonth($id);
 	}
-
-	/**
-	 * This action is called before every other action in that class. It is
-	 * the common boiler plate for every action. It is triggered by the
-	 * underlying framework.
-	 */
-	public function firstAction() {
-		if (!FreshRSS_Auth::hasAccess()) {
-			Minz_Error::error(
-			    403, array('error' => array(_t('access_denied')))
-			);
-		}
-
-		Minz_View::prependTitle(_t('stats') . ' · ');
-	}
-
 }

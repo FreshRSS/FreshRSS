@@ -11,10 +11,7 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 	 */
 	public function firstAction() {
 		if (!FreshRSS_Auth::hasAccess()) {
-			Minz_Error::error(
-				403,
-				array('error' => array(_t('access_denied')))
-			);
+			Minz_Error::error(403);
 		}
 
 		require_once(LIB_PATH . '/lib_opml.php');

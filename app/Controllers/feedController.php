@@ -20,10 +20,7 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 			$action = Minz_Request::actionName();
 			if ($action !== 'actualize' ||
 					!(Minz_Configuration::allowAnonymousRefresh() || $token_is_ok)) {
-				Minz_Error::error(
-					403,
-					array('error' => array(_t('access_denied')))
-				);
+				Minz_Error::error(403);
 			}
 		}
 	}
@@ -442,10 +439,7 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 		} else {
 			Minz_Log::warning('Cannot move feed `' . $feed_id . '` ' .
 			                  'in the category `' . $cat_id . '`');
-			Minz_Error::error(
-				404,
-				array('error' => array(_t('error_occurred')))
-			);
+			Minz_Error::error(404);
 		}
 	}
 
