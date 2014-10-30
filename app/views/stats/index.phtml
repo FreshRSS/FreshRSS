@@ -18,23 +18,23 @@
 			<tbody>
 				<tr>
 					<th><?php echo _t('status_total'); ?></th>
-					<td class="numeric"><?php echo formatNumber($this->repartition['main_stream']['total']); ?></td>
-					<td class="numeric"><?php echo formatNumber($this->repartition['all_feeds']['total']); ?></td>
+					<td class="numeric"><?php echo format_number($this->repartition['main_stream']['total']); ?></td>
+					<td class="numeric"><?php echo format_number($this->repartition['all_feeds']['total']); ?></td>
 				</tr>
 				<tr>
 					<th><?php echo _t('status_read'); ?></th>
-					<td class="numeric"><?php echo formatNumber($this->repartition['main_stream']['read']); ?></td>
-					<td class="numeric"><?php echo formatNumber($this->repartition['all_feeds']['read']); ?></td>
+					<td class="numeric"><?php echo FreshRSS_Context::$conf($this->repartition['main_stream']['read']); ?></td>
+					<td class="numeric"><?php echo format_number($this->repartition['all_feeds']['read']); ?></td>
 				</tr>
 				<tr>
 					<th><?php echo _t('status_unread'); ?></th>
-					<td class="numeric"><?php echo formatNumber($this->repartition['main_stream']['unread']); ?></td>
-					<td class="numeric"><?php echo formatNumber($this->repartition['all_feeds']['unread']); ?></td>
+					<td class="numeric"><?php echo format_number($this->repartition['main_stream']['unread']); ?></td>
+					<td class="numeric"><?php echo format_number($this->repartition['all_feeds']['unread']); ?></td>
 				</tr>
 				<tr>
 					<th><?php echo _t('status_favorites'); ?></th>
-					<td class="numeric"><?php echo formatNumber($this->repartition['main_stream']['favorite']); ?></td>
-					<td class="numeric"><?php echo formatNumber($this->repartition['all_feeds']['favorite']); ?></td>
+					<td class="numeric"><?php echo format_number($this->repartition['main_stream']['favorite']); ?></td>
+					<td class="numeric"><?php echo format_number($this->repartition['all_feeds']['favorite']); ?></td>
 				</tr>
 			</tbody>
 		</table>
@@ -56,8 +56,8 @@
 					<tr>
 						<td><a href="<?php echo _url('stats', 'repartition', 'id', $feed['id']); ?>"><?php echo $feed['name']; ?></a></td>
 						<td><?php echo $feed['category']; ?></td>
-						<td class="numeric"><?php echo formatNumber($feed['count']); ?></td>
-						<td class="numeric"><?php echo formatNumber($feed['count'] / $this->repartition['all_feeds']['total'] * 100, 1);?></td>
+						<td class="numeric"><?php echo format_number($feed['count']); ?></td>
+						<td class="numeric"><?php echo format_number($feed['count'] / $this->repartition['all_feeds']['total'] * 100, 1);?></td>
 					</tr>
 				<?php endforeach;?>
 			</tbody>

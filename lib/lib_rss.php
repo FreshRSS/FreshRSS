@@ -56,16 +56,14 @@ function checkUrl($url) {
 	}
 }
 
-function formatNumber($n, $precision = 0) {
-	return str_replace(' ', ' ',	//Espace insécable	//TODO: remplacer par une espace _fine_ insécable
-		number_format($n, $precision, '.', ' '));	//number_format does not seem to be Unicode-compatible
-}
 function format_number($n, $precision = 0) {
-	// TODO: coding style, prefer THIS function. Remove formatNumber.
-	return formatNumber($n, $precision);
+	// number_format does not seem to be Unicode-compatible
+	return str_replace(' ', ' ',	//Espace insécable	//TODO: remplacer par une espace _fine_ insécable
+		number_format($n, $precision, '.', ' ')
+	);
 }
 
-function formatBytes($bytes, $precision = 2, $system = 'IEC') {
+function format_bytes($bytes, $precision = 2, $system = 'IEC') {
 	if ($system === 'IEC') {
 		$base = 1024;
 		$units = array('B', 'KiB', 'MiB', 'GiB', 'TiB');
@@ -77,7 +75,7 @@ function formatBytes($bytes, $precision = 2, $system = 'IEC') {
 	$pow = $bytes === 0 ? 0 : floor(log($bytes) / log($base));
 	$pow = min($pow, count($units) - 1);
 	$bytes /= pow($base, $pow);
-	return formatNumber($bytes, $precision) . ' ' . $units[$pow];
+	return format_number($bytes, $precision) . ' ' . $units[$pow];
 }
 
 function timestamptodate ($t, $hour = true) {

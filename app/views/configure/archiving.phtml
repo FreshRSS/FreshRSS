@@ -60,7 +60,7 @@
 		<div class="form-group">
 			<label class="group-name"><?php echo _t('current_user'); ?></label>
 			<div class="group-controls">
-				<?php echo _t('conf.users.articles_and_size', formatNumber($this->nb_total), formatBytes($this->size_user)); ?>
+				<?php echo _t('conf.users.articles_and_size', format_number($this->nb_total), format_bytes($this->size_user)); ?>
 			</div>
 		</div>
 
@@ -68,7 +68,7 @@
 		<div class="form-group">
 			<label class="group-name"><?php echo _t('users'); ?></label>
 			<div class="group-controls">
-				<?php echo formatBytes($this->size_total); ?>
+				<?php echo format_bytes($this->size_total); ?>
 			</div>
 		</div>
 
