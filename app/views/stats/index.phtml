@@ -23,7 +23,7 @@
 				</tr>
 				<tr>
 					<th><?php echo _t('status_read'); ?></th>
-					<td class="numeric"><?php echo FreshRSS_Context::$conf($this->repartition['main_stream']['read']); ?></td>
+					<td class="numeric"><?php echo format_number($this->repartition['main_stream']['read']); ?></td>
 					<td class="numeric"><?php echo format_number($this->repartition['all_feeds']['read']); ?></td>
 				</tr>
 				<tr>
