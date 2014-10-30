@@ -109,6 +109,19 @@ class FreshRSS_update_Controller extends Minz_ActionController {
 
 		require(UPDATE_FILENAME);
 
+		if (Minz_Request::param('post_conf', false)) {
+			$res = do_post_update();
+
+			if ($res === true) {
+				@unlink(UPDATE_FILENAME);
+				@file_put_contents(DATA_PATH . '/last_update.txt', time());
+				Minz_Request::good(_t('update_finished'));
+			} else {
+				Minz_Request::bad(_t('update_problem', $res),
+				                  array('c' => 'update', 'a' => 'index'));
+			}
+		}
+
 		if (Minz_Request::isPost()) {
 			save_info_update();
 		}
@@ -117,10 +130,11 @@ class FreshRSS_update_Controller extends Minz_ActionController {
 			$res = apply_update();
 
 			if ($res === true) {
-				@unlink(UPDATE_FILENAME);
-				@file_put_contents(DATA_PATH . '/last_update.txt', time());
-
-				Minz_Request::good(_t('update_finished'));
+				Minz_Request::forward(array(
+					'c' => 'update',
+					'a' => 'apply',
+					'params' => array('post_conf' => true)
+				), true);
 			} else {
 				Minz_Request::bad(_t('update_problem', $res),
 				                  array('c' => 'update', 'a' => 'index'));
