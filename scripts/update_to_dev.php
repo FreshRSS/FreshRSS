@@ -71,5 +71,6 @@ function ask_info_update() {
 }
 
 function do_post_update() {
-
+	$ok = true;
+	return $ok;
 }
