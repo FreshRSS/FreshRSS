@@ -1,6 +1,6 @@
 <?php
 
-define('PACKAGE_URL', 'https://codeload.github.com/marienfressinaud/FreshRSS/zip/dev');
+define('PACKAGE_URL', 'https://codeload.github.com/FreshRSS/FreshRSS/zip/dev');
 
 
 // Apply the update by replacing old version of FreshRSS by the new one.
