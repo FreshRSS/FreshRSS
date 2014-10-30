@@ -58,7 +58,7 @@ function checkUrl($url) {
 
 function format_number($n, $precision = 0) {
 	// number_format does not seem to be Unicode-compatible
-	return str_replace(' ', ' ',	//Espace insécable	//TODO: remplacer par une espace _fine_ insécable
+	return str_replace(' ', ' ',  //Espace fine insécable
 		number_format($n, $precision, '.', ' ')
 	);
 }
