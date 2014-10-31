@@ -645,13 +645,13 @@ br + br + br {
 	overflow: auto;
 	background: #fff;
 }
-#panel .close {
+#overlay .close {
 	position: fixed;
 	top: 0; bottom: 0;
 	left: 0; right: 0;
 	display: block;
 }
-#panel .close img {
+#overlay .close img {
 	display: none;
 }
 
@@ -762,7 +762,7 @@ br + br + br {
 	}
 
 	#panel {
-		top: 0; bottom: 0;
+		top: 25px; bottom: 30px;
 		left: 0; right: 0;
 	}
 	#panel .close {
