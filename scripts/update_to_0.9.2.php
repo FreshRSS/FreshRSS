@@ -1,6 +1,6 @@
 <?php
 
-define('PACKAGE_URL', 'https://codeload.github.com/marienfressinaud/FreshRSS/zip/0.9.2');
+define('PACKAGE_URL', 'https://codeload.github.com/FreshRSS/FreshRSS/zip/0.9.2');
 
 
 function fix_configuration($conf) {
