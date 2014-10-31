@@ -237,7 +237,7 @@ SQL;
 			$interval_in_days = $period;
 		}
 
-		return round($res['count'] / ($interval_in_days / $period), 2);
+		return $res['count'] / ($interval_in_days / $period);
 	}
 
 	/**
@@ -415,8 +415,8 @@ SQL;
 	 * @return string
 	 */
 	private function convertToTranslatedJson($data = array()) {
-		$translated = array_map(function ($a) {
-			return Minz_Translate::t($a);
+		$translated = array_map(function($a) {
+			return _t($a);
 		}, $data);
 
 		return json_encode($translated);

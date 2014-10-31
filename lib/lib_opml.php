@@ -101,6 +101,7 @@ function libopml_parse_string($xml) {
 
 	// First, we get all "head" elements. Head is required but its sub-elements
 	// are optional.
+	// TODO: test head exists!
 	foreach ($opml->head->children() as $key => $value) {
 		if (in_array($key, unserialize(HEAD_ELEMENTS), true)) {
 			$array['head'][$key] = (string)$value;
@@ -114,6 +115,7 @@ function libopml_parse_string($xml) {
 	// Then, we get body oulines. Body must contain at least one outline
 	// element.
 	$at_least_one_outline = false;
+	// TODO: test body exists!
 	foreach ($opml->body->children() as $key => $value) {
 		if ($key === 'outline') {
 			$at_least_one_outline = true;

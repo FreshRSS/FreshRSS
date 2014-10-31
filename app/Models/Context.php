@@ -1,0 +1,268 @@
+<?php
+
+/**
+ * The context object handles the current configuration file and different
+ * useful functions associated to the current view state.
+ */
+class FreshRSS_Context {
+	public static $conf = null;
+	public static $categories = array();
+
+	public static $name = '';
+
+	public static $total_unread = 0;
+	public static $total_starred = array(
+		'all' => 0,
+		'read' => 0,
+		'unread' => 0,
+	);
+
+	public static $get_unread = 0;
+	public static $current_get = array(
+		'all' => false,
+		'starred' => false,
+		'feed' => false,
+		'category' => false,
+	);
+	public static $next_get = 'a';
+
+	public static $state = 0;
+	public static $order = 'DESC';
+	public static $number = 0;
+	public static $search = '';
+	public static $first_id = '';
+	public static $next_id = '';
+	public static $id_max = '';
+
+	/**
+	 * Initialize the context.
+	 *
+	 * Set the correct $conf and $categories variables.
+	 */
+	public static function init() {
+		// Init configuration.
+		$current_user = Minz_Session::param('currentUser');
+		try {
+			self::$conf = new FreshRSS_Configuration($current_user);
+		} catch(Minz_Exception $e) {
+			Minz_Log::error('Cannot load configuration file of user `' . $current_user . '`');
+			die($e->getMessage());
+		}
+
+		$catDAO = new FreshRSS_CategoryDAO();
+		self::$categories = $catDAO->listCategories();
+	}
+
+	/**
+	 * Returns if the current state includes $state parameter.
+	 */
+	public static function isStateEnabled($state) {
+		return self::$state & $state;
+	}
+
+	/**
+	 * Returns the current state with or without $state parameter.
+	 */
+	public static function getRevertState($state) {
+		if (self::$state & $state) {
+			return self::$state & ~$state;
+		} else {
+			return self::$state | $state;
+		}
+	}
+
+	/**
+	 * Return the current get as a string or an array.
+	 *
+	 * If $array is true, the first item of the returned value is 'f' or 'c' and
+	 * the second is the id.
+	 */
+	public static function currentGet($array = false) {
+		if (self::$current_get['all']) {
+			return 'a';
+		} elseif (self::$current_get['starred']) {
+			return 's';
+		} elseif (self::$current_get['feed']) {
+			if ($array) {
+				return array('f', self::$current_get['feed']);
+			} else {
+				return 'f_' . self::$current_get['feed'];
+			}
+		} elseif (self::$current_get['category']) {
+			if ($array) {
+				return array('c', self::$current_get['category']);
+			} else {
+				return 'c_' . self::$current_get['category'];
+			}
+		}
+	}
+
+	/**
+	 * Return true if $get parameter correspond to the $current_get attribute.
+	 */
+	public static function isCurrentGet($get) {
+		$type = $get[0];
+		$id = substr($get, 2);
+
+		switch($type) {
+		case 'a':
+			return self::$current_get['all'];
+		case 's':
+			return self::$current_get['starred'];
+		case 'f':
+			return self::$current_get['feed'] == $id;
+		case 'c':
+			return self::$current_get['category'] == $id;
+		default:
+			return false;
+		}
+	}
+
+	/**
+	 * Set the current $get attribute.
+	 *
+	 * Valid $get parameter are:
+	 *   - a
+	 *   - s
+	 *   - f_<feed id>
+	 *   - c_<category id>
+	 *
+	 * $name and $get_unread attributes are also updated as $next_get
+	 * Raise an exception if id or $get is invalid.
+	 */
+	public static function _get($get) {
+		$type = $get[0];
+		$id = substr($get, 2);
+		$nb_unread = 0;
+
+		switch($type) {
+		case 'a':
+			self::$current_get['all'] = true;
+			self::$name = _t('your_rss_feeds');
+			self::$get_unread = self::$total_unread;
+			break;
+		case 's':
+			self::$current_get['starred'] = true;
+			self::$name = _t('your_favorites');
+			self::$get_unread = self::$total_starred['unread'];
+
+			// Update state if favorite is not yet enabled.
+			self::$state = self::$state | FreshRSS_Entry::STATE_FAVORITE;
+			break;
+		case 'f':
+			// We try to find the corresponding feed.
+			$feed = FreshRSS_CategoryDAO::findFeed(self::$categories, $id);
+			if ($feed === null) {
+				$feedDAO = FreshRSS_Factory::createFeedDao();
+				$feed = $feedDAO->searchById($id);
+
+				if (!$feed) {
+					throw new FreshRSS_Context_Exception('Invalid feed: ' . $id);
+				}
+			}
+
+			self::$current_get['feed'] = $id;
+			self::$current_get['category'] = $feed->category();
+			self::$name = $feed->name();
+			self::$get_unread = $feed->nbNotRead();
+			break;
+		case 'c':
+			// We try to find the corresponding category.
+			self::$current_get['category'] = $id;
+			if (!isset(self::$categories[$id])) {
+				$catDAO = new FreshRSS_CategoryDAO();
+				$cat = $catDAO->searchById($id);
+
+				if (!$cat) {
+					throw new FreshRSS_Context_Exception('Invalid category: ' . $id);
+				}
+			} else {
+				$cat = self::$categories[$id];
+			}
+
+			self::$name = $cat->name();
+			self::$get_unread = $cat->nbNotRead();
+			break;
+		default:
+			throw new FreshRSS_Context_Exception('Invalid getter: ' . $get);
+		}
+
+		self::_nextGet();
+	}
+
+	/**
+	 * Set the value of $next_get attribute.
+	 */
+	public static function _nextGet() {
+		$get = self::currentGet();
+		// By default, $next_get == $get
+		self::$next_get = $get;
+
+		if (self::$conf->onread_jump_next && strlen($get) > 2) {
+			$another_unread_id = '';
+			$found_current_get = false;
+			switch ($get[0]) {
+			case 'f':
+				// We search the next feed with at least one unread article in
+				// same category as the currend feed.
+				foreach (self::$categories as $cat) {
+					if ($cat->id() != self::$current_get['category']) {
+						// We look into the category of the current feed!
+						continue;
+					}
+
+					foreach ($cat->feeds() as $feed) {
+						if ($feed->id() == self::$current_get['feed']) {
+							// Here is our current feed! Fine, the next one will
+							// be a potential candidate.
+							$found_current_get = true;
+							continue;
+						}
+
+						if ($feed->nbNotRead() > 0) {
+							$another_unread_id = $feed->id();
+							if ($found_current_get) {
+								// We have found our current feed and now we
+								// have an feed with unread articles. Leave the
+								// loop!
+								break;
+							}
+						}
+					}
+					break;
+				}
+
+				// If no feed have been found, next_get is the current category.
+				self::$next_get = empty($another_unread_id) ?
+				                  'c_' . self::$current_get['category'] :
+				                  'f_' . $another_unread_id;
+				break;
+			case 'c':
+				// We search the next category with at least one unread article.
+				foreach (self::$categories as $cat) {
+					if ($cat->id() == self::$current_get['category']) {
+						// Here is our current category! Next one could be our
+						// champion if it has unread articles.
+						$found_current_get = true;
+						continue;
+					}
+
+					if ($cat->nbNotRead() > 0) {
+						$another_unread_id = $cat->id();
+						if ($found_current_get) {
+							// Unread articles and the current category has
+							// already been found? Leave the loop!
+							break;
+						}
+					}
+				}
+
+				// No unread category? The main stream will be our destination!
+				self::$next_get = empty($another_unread_id) ?
+				                  'a' :
+				                  'c_' . $another_unread_id;
+				break;
+			}
+		}
+	}
+}

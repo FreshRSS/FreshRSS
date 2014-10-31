@@ -71,9 +71,7 @@ class Minz_View {
 	 */
 	public function render () {
 		if ((include($this->view_filename)) === false) {
-			Minz_Log::record ('File not found: `'
-			            . $this->view_filename . '`',
-			            Minz_Log::NOTICE);
+			Minz_Log::notice('File not found: `' . $this->view_filename . '`');
 		}
 	}
 
@@ -87,9 +85,7 @@ class Minz_View {
 		             . $part . '.phtml';
 
 		if ((include($fic_partial)) === false) {
-			Minz_Log::record ('File not found: `'
-			            . $fic_partial . '`',
-			            Minz_Log::WARNING);
+			Minz_Log::warning('File not found: `' . $fic_partial . '`');
 		}
 	}
 
@@ -103,9 +99,7 @@ class Minz_View {
 		            . $helper . '.phtml';
 
 		if ((include($fic_helper)) === false) {;
-			Minz_Log::record ('File not found: `'
-			            . $fic_helper . '`',
-			            Minz_Log::WARNING);
+			Minz_Log::warning('File not found: `' . $fic_helper . '`');
 		}
 	}
 

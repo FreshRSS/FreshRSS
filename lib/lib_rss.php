@@ -56,12 +56,14 @@ function checkUrl($url) {
 	}
 }
 
-function formatNumber($n, $precision = 0) {
-	return str_replace(' ', ' ',	//Espace insécable	//TODO: remplacer par une espace _fine_ insécable
-		number_format($n, $precision, '.', ' '));	//number_format does not seem to be Unicode-compatible
+function format_number($n, $precision = 0) {
+	// number_format does not seem to be Unicode-compatible
+	return str_replace(' ', ' ',  //Espace fine insécable
+		number_format($n, $precision, '.', ' ')
+	);
 }
 
-function formatBytes($bytes, $precision = 2, $system = 'IEC') {
+function format_bytes($bytes, $precision = 2, $system = 'IEC') {
 	if ($system === 'IEC') {
 		$base = 1024;
 		$units = array('B', 'KiB', 'MiB', 'GiB', 'TiB');
@@ -73,15 +75,15 @@ function formatBytes($bytes, $precision = 2, $system = 'IEC') {
 	$pow = $bytes === 0 ? 0 : floor(log($bytes) / log($base));
 	$pow = min($pow, count($units) - 1);
 	$bytes /= pow($base, $pow);
-	return formatNumber($bytes, $precision) . ' ' . $units[$pow];
+	return format_number($bytes, $precision) . ' ' . $units[$pow];
 }
 
 function timestamptodate ($t, $hour = true) {
-	$month = Minz_Translate::t (date('M', $t));
+	$month = _t(date('M', $t));
 	if ($hour) {
-		$date = Minz_Translate::t ('format_date_hour', $month);
+		$date = _t('format_date_hour', $month);
 	} else {
-		$date = Minz_Translate::t ('format_date', $month);
+		$date = _t('format_date', $month);
 	}
 
 	return @date ($date, $t);
@@ -106,10 +108,12 @@ function html_only_entity_decode($text) {
 }
 
 function customSimplePie() {
+	$limits = Minz_Configuration::limits();
 	$simplePie = new SimplePie();
-	$simplePie->set_useragent(Minz_Translate::t('freshrss') . '/' . FRESHRSS_VERSION . ' (' . PHP_OS . '; ' . FRESHRSS_WEBSITE . ') ' . SIMPLEPIE_NAME . '/' . SIMPLEPIE_VERSION);
+	$simplePie->set_useragent(_t('freshrss') . '/' . FRESHRSS_VERSION . ' (' . PHP_OS . '; ' . FRESHRSS_WEBSITE . ') ' . SIMPLEPIE_NAME . '/' . SIMPLEPIE_VERSION);
 	$simplePie->set_cache_location(CACHE_PATH);
-	$simplePie->set_cache_duration(800);
+	$simplePie->set_cache_duration($limits['cache_duration']);
+	$simplePie->set_timeout($limits['timeout']);
 	$simplePie->strip_htmltags(array(
 		'base', 'blink', 'body', 'doctype', 'embed',
 		'font', 'form', 'frame', 'frameset', 'html',
@@ -243,4 +247,72 @@ function is_referer_from_same_domain() {
 		return false;
 	}
 	return (isset($host['port']) ? $host['port'] : 0) === (isset($referer['port']) ? $referer['port'] : 0);
+}
+
+
+/**
+ * Check PHP and its extensions are well-installed.
+ *
+ * @return array of tested values.
+ */
+function check_install_php() {
+	$pdo_mysql = extension_loaded('pdo_mysql');
+	$pdo_sqlite = extension_loaded('pdo_sqlite');
+	return array(
+		'php' => version_compare(PHP_VERSION, '5.2.1') >= 0,
+		'minz' => file_exists(LIB_PATH . '/Minz'),
+		'curl' => extension_loaded('curl'),
+		'pdo' => $pdo_mysql || $pdo_sqlite,
+		'pcre' => extension_loaded('pcre'),
+		'ctype' => extension_loaded('ctype'),
+		'dom' => class_exists('DOMDocument'),
+		'json' => extension_loaded('json'),
+		'zip' => extension_loaded('zip'),
+	);
+}
+
+
+/**
+ * Check different data files and directories exist.
+ *
+ * @return array of tested values.
+ */
+function check_install_files() {
+	return array(
+		'data' => DATA_PATH && is_writable(DATA_PATH),
+		'cache' => CACHE_PATH && is_writable(CACHE_PATH),
+		'logs' => LOG_PATH && is_writable(LOG_PATH),
+		'favicons' => is_writable(DATA_PATH . '/favicons'),
+		'persona' => is_writable(DATA_PATH . '/persona'),
+		'tokens' => is_writable(DATA_PATH . '/tokens'),
+	);
+}
+
+
+/**
+ * Check database is well-installed.
+ *
+ * @return array of tested values.
+ */
+function check_install_database() {
+	$status = array(
+		'connection' => true,
+		'tables' => false,
+		'categories' => false,
+		'feeds' => false,
+		'entries' => false,
+	);
+
+	try {
+		$dbDAO = FreshRSS_Factory::createDatabaseDAO();
+
+		$status['tables'] = $dbDAO->tablesAreCorrect();
+		$status['categories'] = $dbDAO->categoryIsCorrect();
+		$status['feeds'] = $dbDAO->feedIsCorrect();
+		$status['entries'] = $dbDAO->entryIsCorrect();
+	} catch(Minz_PDOConnectionException $e) {
+		$status['connection'] = false;
+	}
+
+	return $status;
 }

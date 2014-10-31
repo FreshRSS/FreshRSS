@@ -1,14 +1,14 @@
 <?php
 
 class FreshRSS_javascript_Controller extends Minz_ActionController {
-	public function firstAction () {
-		$this->view->_useLayout (false);
+	public function firstAction() {
+		$this->view->_useLayout(false);
 	}
 
-	public function actualizeAction () {
+	public function actualizeAction() {
 		header('Content-Type: text/javascript; charset=UTF-8');
 		$feedDAO = FreshRSS_Factory::createFeedDao();
-		$this->view->feeds = $feedDAO->listFeedsOrderUpdate($this->view->conf->ttl_default);
+		$this->view->feeds = $feedDAO->listFeedsOrderUpdate(FreshRSS_Context::$conf->ttl_default);
 	}
 
 	public function nbUnreadsPerFeedAction() {
@@ -37,7 +37,7 @@ class FreshRSS_javascript_Controller extends Minz_ActionController {
 					return;	//Success
 				}
 			} catch (Minz_Exception $me) {
-				Minz_Log::record('Nonce failure: ' . $me->getMessage(), Minz_Log::WARNING);
+				Minz_Log::warning('Nonce failure: ' . $me->getMessage());
 			}
 		}
 		$this->view->nonce = '';	//Failure

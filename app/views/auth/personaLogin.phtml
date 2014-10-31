@@ -1,0 +1,24 @@
+<?php if ($this->res === false) { ?>
+<div class="prompt">
+	<h1><?php echo _t('login'); ?></h1>
+
+	<p>
+		<a class="signin btn btn-important" href="<?php echo _url('auth', 'login'); ?>">
+			<?php echo _i('login'); ?> <?php echo _t('login_with_persona'); ?>
+		</a>
+
+		<br /><br />
+
+		<?php echo _i('help'); ?>
+		<small>
+			<a href="<?php echo _url('auth', 'reset'); ?>"><?php echo _t('login_persona_problem'); ?></a>
+		</small>
+	</p>
+
+	<p><a href="<?php echo _url('index', 'about'); ?>"><?php echo _t('about_freshrss'); ?></a></p>
+</div>
+<?php
+} else {
+	echo json_encode($this->res);
+}
+?>

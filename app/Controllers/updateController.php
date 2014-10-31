@@ -3,16 +3,12 @@
 class FreshRSS_update_Controller extends Minz_ActionController {
 	public function firstAction() {
 		$current_user = Minz_Session::param('currentUser', '');
-		if (!$this->view->loginOk && Minz_Configuration::isAdmin($current_user)) {
-			Minz_Error::error(
-				403,
-				array('error' => array(_t('access_denied')))
-			);
+		if (!FreshRSS_Auth::hasAccess('admin')) {
+			Minz_Error::error(403);
 		}
 
 		invalidateHttpCache();
 
-		Minz_View::prependTitle(_t('update_system') . ' · ');
 		$this->view->update_to_apply = false;
 		$this->view->last_update_time = 'unknown';
 		$this->view->check_last_hour = false;
@@ -24,6 +20,8 @@ class FreshRSS_update_Controller extends Minz_ActionController {
 	}
 
 	public function indexAction() {
+		Minz_View::prependTitle(_t('update_system') . ' · ');
+
 		if (file_exists(UPDATE_FILENAME) && !is_writable(FRESHRSS_PATH)) {
 			$this->view->message = array(
 				'status' => 'bad',
@@ -108,6 +106,19 @@ class FreshRSS_update_Controller extends Minz_ActionController {
 
 		require(UPDATE_FILENAME);
 
+		if (Minz_Request::param('post_conf', false)) {
+			$res = do_post_update();
+
+			if ($res === true) {
+				@unlink(UPDATE_FILENAME);
+				@file_put_contents(DATA_PATH . '/last_update.txt', time());
+				Minz_Request::good(_t('update_finished'));
+			} else {
+				Minz_Request::bad(_t('update_problem', $res),
+				                  array('c' => 'update', 'a' => 'index'));
+			}
+		}
+
 		if (Minz_Request::isPost()) {
 			save_info_update();
 		}
@@ -116,14 +127,26 @@ class FreshRSS_update_Controller extends Minz_ActionController {
 			$res = apply_update();
 
 			if ($res === true) {
-				@unlink(UPDATE_FILENAME);
-				@file_put_contents(DATA_PATH . '/last_update.txt', time());
-
-				Minz_Request::good(_t('update_finished'));
+				Minz_Request::forward(array(
+					'c' => 'update',
+					'a' => 'apply',
+					'params' => array('post_conf' => true)
+				), true);
 			} else {
 				Minz_Request::bad(_t('update_problem', $res),
 				                  array('c' => 'update', 'a' => 'index'));
 			}
 		}
+	}
+
+	/**
+	 * This action displays information about installation.
+	 */
+	public function checkInstallAction() {
+		Minz_View::prependTitle(_t('gen.title.check_install') . ' · ');
+
+		$this->view->status_php = check_install_php();
+		$this->view->status_files = check_install_files();
+		$this->view->status_database = check_install_database();
 	}
 }

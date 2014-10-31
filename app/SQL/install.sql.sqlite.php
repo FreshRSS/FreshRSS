@@ -55,5 +55,3 @@ $SQL_CREATE_TABLES = array(
 );
 
 define('SQL_DROP_TABLES', 'DROP TABLES %1$sentry, %1$sfeed, %1$scategory');
-
-define('SQL_SHOW_TABLES', 'SELECT name FROM sqlite_master WHERE type="table"');
