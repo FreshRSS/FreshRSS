@@ -2,30 +2,39 @@
 
 class FreshRSS_Factory {
 
-	public static function createFeedDao() {
+	public static function createFeedDao($username = null) {
 		$db = Minz_Configuration::dataBase();
 		if ($db['type'] === 'sqlite') {
-			return new FreshRSS_FeedDAOSQLite();
+			return new FreshRSS_FeedDAOSQLite($username);
 		} else {
-			return new FreshRSS_FeedDAO();
+			return new FreshRSS_FeedDAO($username);
 		}
 	}
 
-	public static function createEntryDao() {
+	public static function createEntryDao($username = null) {
 		$db = Minz_Configuration::dataBase();
 		if ($db['type'] === 'sqlite') {
-			return new FreshRSS_EntryDAOSQLite();
+			return new FreshRSS_EntryDAOSQLite($username);
 		} else {
-			return new FreshRSS_EntryDAO();
+			return new FreshRSS_EntryDAO($username);
 		}
 	}
 
-	public static function createStatsDAO() {
+	public static function createStatsDAO($username = null) {
 		$db = Minz_Configuration::dataBase();
 		if ($db['type'] === 'sqlite') {
-			return new FreshRSS_StatsDAOSQLite();
+			return new FreshRSS_StatsDAOSQLite($username);
 		} else {
-			return new FreshRSS_StatsDAO();
+			return new FreshRSS_StatsDAO($username);
+		}
+	}
+
+	public static function createDatabaseDAO($username = null) {
+		$db = Minz_Configuration::dataBase();
+		if ($db['type'] === 'sqlite') {
+			return new FreshRSS_DatabaseDAOSQLite($username);
+		} else {
+			return new FreshRSS_DatabaseDAO($username);
 		}
 	}
 

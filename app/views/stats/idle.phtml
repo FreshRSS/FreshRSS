@@ -25,7 +25,7 @@
 				<li class="item">
 					<div class="stick">
 						<a class="btn" href="<?php echo _url('index', 'index', 'get', 'f_' . $feed['id']); ?>"><?php echo _i('link'); ?> <?php echo _t('filter'); ?></a>
-						<a class="btn" href="<?php echo _url('configure', 'feed', 'id', $feed['id']); ?>"><?php echo _i('configure'); ?> <?php echo _t('administration'); ?></a>
+						<a class="btn" href="<?php echo _url('subscription', 'index', 'id', $feed['id']); ?>"><?php echo _i('configure'); ?> <?php echo _t('administration'); ?></a>
 						<button class="btn btn-attention confirm" form="form-delete" formaction="<?php echo _url('feed', 'delete', 'id', $feed['id'], 'r', $current_url); ?>"><?php echo _t('delete'); ?></button>
 					</div>
 				</li>

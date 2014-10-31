@@ -19,7 +19,7 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo {
 			return $this->bd->lastInsertId();
 		} else {
 			$info = $stm == null ? array(2 => 'syntax error') : $stm->errorInfo();
-			Minz_Log::record('SQL error addFeed: ' . $info[2], Minz_Log::ERROR);
+			Minz_Log::error('SQL error addFeed: ' . $info[2]);
 			return false;
 		}
 	}
@@ -77,7 +77,7 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo {
 			return $stm->rowCount();
 		} else {
 			$info = $stm == null ? array(2 => 'syntax error') : $stm->errorInfo();
-			Minz_Log::record('SQL error updateFeed: ' . $info[2], Minz_Log::ERROR);
+			Minz_Log::error('SQL error updateFeed: ' . $info[2]);
 			return false;
 		}
 	}
@@ -107,7 +107,7 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo {
 			return $stm->rowCount();
 		} else {
 			$info = $stm == null ? array(2 => 'syntax error') : $stm->errorInfo();
-			Minz_Log::record('SQL error updateLastUpdate: ' . $info[2], Minz_Log::ERROR);
+			Minz_Log::error('SQL error updateLastUpdate: ' . $info[2]);
 			return false;
 		}
 	}
@@ -131,7 +131,7 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo {
 			return $stm->rowCount();
 		} else {
 			$info = $stm == null ? array(2 => 'syntax error') : $stm->errorInfo();
-			Minz_Log::record('SQL error changeCategory: ' . $info[2], Minz_Log::ERROR);
+			Minz_Log::error('SQL error changeCategory: ' . $info[2]);
 			return false;
 		}
 	}
@@ -146,7 +146,7 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo {
 			return $stm->rowCount();
 		} else {
 			$info = $stm == null ? array(2 => 'syntax error') : $stm->errorInfo();
-			Minz_Log::record('SQL error deleteFeed: ' . $info[2], Minz_Log::ERROR);
+			Minz_Log::error('SQL error deleteFeed: ' . $info[2]);
 			return false;
 		}
 	}
@@ -160,7 +160,7 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo {
 			return $stm->rowCount();
 		} else {
 			$info = $stm == null ? array(2 => 'syntax error') : $stm->errorInfo();
-			Minz_Log::record('SQL error deleteFeedByCategory: ' . $info[2], Minz_Log::ERROR);
+			Minz_Log::error('SQL error deleteFeedByCategory: ' . $info[2]);
 			return false;
 		}
 	}
@@ -191,7 +191,7 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo {
 		$res = $stm->fetchAll(PDO::FETCH_ASSOC);
 		$feed = current(self::daoToFeed($res));
 
-		if (isset($feed)) {
+		if (isset($feed) && $feed !== false) {
 			return $feed;
 		} else {
 			return null;
@@ -289,7 +289,7 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo {
 			return $stm->rowCount();
 		} else {
 			$info = $stm == null ? array(2 => 'syntax error') : $stm->errorInfo();
-			Minz_Log::record('SQL error updateCachedValues: ' . $info[2], Minz_Log::ERROR);
+			Minz_Log::error('SQL error updateCachedValues: ' . $info[2]);
 			return false;
 		}
 	}
@@ -301,7 +301,7 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo {
 		$this->bd->beginTransaction();
 		if (!($stm && $stm->execute($values))) {
 			$info = $stm == null ? array(2 => 'syntax error') : $stm->errorInfo();
-			Minz_Log::record('SQL error truncate: ' . $info[2], Minz_Log::ERROR);
+			Minz_Log::error('SQL error truncate: ' . $info[2]);
 			$this->bd->rollBack();
 			return false;
 		}
@@ -313,7 +313,7 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo {
 		$stm = $this->bd->prepare($sql);
 		if (!($stm && $stm->execute($values))) {
 			$info = $stm == null ? array(2 => 'syntax error') : $stm->errorInfo();
-			Minz_Log::record('SQL error truncate: ' . $info[2], Minz_Log::ERROR);
+			Minz_Log::error('SQL error truncate: ' . $info[2]);
 			$this->bd->rollBack();
 			return false;
 		}
@@ -338,7 +338,7 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo {
 			return $stm->rowCount();
 		} else {
 			$info = $stm == null ? array(2 => 'syntax error') : $stm->errorInfo();
-			Minz_Log::record('SQL error cleanOldEntries: ' . $info[2], Minz_Log::ERROR);
+			Minz_Log::error('SQL error cleanOldEntries: ' . $info[2]);
 			return false;
 		}
 	}

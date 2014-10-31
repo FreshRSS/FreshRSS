@@ -11,7 +11,7 @@ class FreshRSS_FeedDAOSQLite extends FreshRSS_FeedDAO {
 			return $stm->rowCount();
 		} else {
 			$info = $stm == null ? array(2 => 'syntax error') : $stm->errorInfo();
-			Minz_Log::record('SQL error updateCachedValues: ' . $info[2], Minz_Log::ERROR);
+			Minz_Log::error('SQL error updateCachedValues: ' . $info[2]);
 			return false;
 		}
 	}

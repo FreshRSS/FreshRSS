@@ -46,7 +46,7 @@ class Minz_FrontController {
 			);
 			Minz_Request::forward ($url);
 		} catch (Minz_Exception $e) {
-			Minz_Log::record ($e->getMessage (), Minz_Log::ERROR);
+			Minz_Log::error($e->getMessage());
 			$this->killApp ($e->getMessage ());
 		}
 
@@ -85,7 +85,7 @@ class Minz_FrontController {
 			$this->dispatcher->run();
 		} catch (Minz_Exception $e) {
 			try {
-				Minz_Log::record ($e->getMessage (), Minz_Log::ERROR);
+				Minz_Log::error($e->getMessage());
 			} catch (Minz_PermissionDeniedException $e) {
 				$this->killApp ($e->getMessage ());
 			}

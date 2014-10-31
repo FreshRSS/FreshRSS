@@ -1,12 +1,11 @@
 <?php
 
 class FreshRSS_Entry extends Minz_Model {
-	const STATE_ALL = 0;
 	const STATE_READ = 1;
 	const STATE_NOT_READ = 2;
+	const STATE_ALL = 3;
 	const STATE_FAVORITE = 4;
 	const STATE_NOT_FAVORITE = 8;
-	const STATE_STRICT = 16;
 
 	private $id = 0;
 	private $guid;
@@ -20,134 +19,134 @@ class FreshRSS_Entry extends Minz_Model {
 	private $feed;
 	private $tags;
 
-	public function __construct ($feed = '', $guid = '', $title = '', $author = '', $content = '',
-	                             $link = '', $pubdate = 0, $is_read = false, $is_favorite = false, $tags = '') {
-		$this->_guid ($guid);
-		$this->_title ($title);
-		$this->_author ($author);
-		$this->_content ($content);
-		$this->_link ($link);
-		$this->_date ($pubdate);
-		$this->_isRead ($is_read);
-		$this->_isFavorite ($is_favorite);
-		$this->_feed ($feed);
-		$this->_tags (preg_split('/[\s#]/', $tags));
+	public function __construct($feed = '', $guid = '', $title = '', $author = '', $content = '',
+	                            $link = '', $pubdate = 0, $is_read = false, $is_favorite = false, $tags = '') {
+		$this->_guid($guid);
+		$this->_title($title);
+		$this->_author($author);
+		$this->_content($content);
+		$this->_link($link);
+		$this->_date($pubdate);
+		$this->_isRead($is_read);
+		$this->_isFavorite($is_favorite);
+		$this->_feed($feed);
+		$this->_tags(preg_split('/[\s#]/', $tags));
 	}
 
-	public function id () {
+	public function id() {
 		return $this->id;
 	}
-	public function guid () {
+	public function guid() {
 		return $this->guid;
 	}
-	public function title () {
+	public function title() {
 		return $this->title;
 	}
-	public function author () {
+	public function author() {
 		return $this->author === null ? '' : $this->author;
 	}
-	public function content () {
+	public function content() {
 		return $this->content;
 	}
-	public function link () {
+	public function link() {
 		return $this->link;
 	}
-	public function date ($raw = false) {
+	public function date($raw = false) {
 		if ($raw) {
 			return $this->date;
 		} else {
-			return timestamptodate ($this->date);
+			return timestamptodate($this->date);
 		}
 	}
-	public function dateAdded ($raw = false) {
+	public function dateAdded($raw = false) {
 		$date = intval(substr($this->id, 0, -6));
 		if ($raw) {
 			return $date;
 		} else {
-			return timestamptodate ($date);
+			return timestamptodate($date);
 		}
 	}
-	public function isRead () {
+	public function isRead() {
 		return $this->is_read;
 	}
-	public function isFavorite () {
+	public function isFavorite() {
 		return $this->is_favorite;
 	}
-	public function feed ($object = false) {
+	public function feed($object = false) {
 		if ($object) {
 			$feedDAO = FreshRSS_Factory::createFeedDao();
-			return $feedDAO->searchById ($this->feed);
+			return $feedDAO->searchById($this->feed);
 		} else {
 			return $this->feed;
 		}
 	}
-	public function tags ($inString = false) {
+	public function tags($inString = false) {
 		if ($inString) {
-			return empty ($this->tags) ? '' : '#' . implode(' #', $this->tags);
+			return empty($this->tags) ? '' : '#' . implode(' #', $this->tags);
 		} else {
 			return $this->tags;
 		}
 	}
 
-	public function _id ($value) {
+	public function _id($value) {
 		$this->id = $value;
 	}
-	public function _guid ($value) {
+	public function _guid($value) {
 		$this->guid = $value;
 	}
-	public function _title ($value) {
+	public function _title($value) {
 		$this->title = $value;
 	}
-	public function _author ($value) {
+	public function _author($value) {
 		$this->author = $value;
 	}
-	public function _content ($value) {
+	public function _content($value) {
 		$this->content = $value;
 	}
-	public function _link ($value) {
+	public function _link($value) {
 		$this->link = $value;
 	}
-	public function _date ($value) {
+	public function _date($value) {
 		$value = intval($value);
 		$this->date = $value > 1 ? $value : time();
 	}
-	public function _isRead ($value) {
+	public function _isRead($value) {
 		$this->is_read = $value;
 	}
-	public function _isFavorite ($value) {
+	public function _isFavorite($value) {
 		$this->is_favorite = $value;
 	}
-	public function _feed ($value) {
+	public function _feed($value) {
 		$this->feed = $value;
 	}
-	public function _tags ($value) {
-		if (!is_array ($value)) {
-			$value = array ($value);
+	public function _tags($value) {
+		if (!is_array($value)) {
+			$value = array($value);
 		}
 
 		foreach ($value as $key => $t) {
 			if (!$t) {
-				unset ($value[$key]);
+				unset($value[$key]);
 			}
 		}
 
 		$this->tags = $value;
 	}
 
-	public function isDay ($day, $today) {
+	public function isDay($day, $today) {
 		$date = $this->dateAdded(true);
 		switch ($day) {
-			case FreshRSS_Days::TODAY:
-				$tomorrow = $today + 86400;
-				return $date >= $today && $date < $tomorrow;
-			case FreshRSS_Days::YESTERDAY:
-				$yesterday = $today - 86400;
-				return $date >= $yesterday && $date < $today;
-			case FreshRSS_Days::BEFORE_YESTERDAY:
-				$yesterday = $today - 86400;
-				return $date < $yesterday;
-			default:
-				return false;
+		case FreshRSS_Days::TODAY:
+			$tomorrow = $today + 86400;
+			return $date >= $today && $date < $tomorrow;
+		case FreshRSS_Days::YESTERDAY:
+			$yesterday = $today - 86400;
+			return $date >= $yesterday && $date < $today;
+		case FreshRSS_Days::BEFORE_YESTERDAY:
+			$yesterday = $today - 86400;
+			return $date < $yesterday;
+		default:
+			return false;
 		}
 	}
 
@@ -158,7 +157,7 @@ class FreshRSS_Entry extends Minz_Model {
 			$entryDAO = FreshRSS_Factory::createEntryDao();
 			$entry = $entryDAO->searchByGuid($this->feed, $this->guid);
 
-			if($entry) {
+			if ($entry) {
 				// l'article existe déjà en BDD, en se contente de recharger ce contenu
 				$this->content = $entry->content();
 			} else {
@@ -168,25 +167,25 @@ class FreshRSS_Entry extends Minz_Model {
 						htmlspecialchars_decode($this->link(), ENT_QUOTES), $pathEntries
 					);
 				} catch (Exception $e) {
-					// rien à faire, on garde l'ancien contenu (requête a échoué)
+					// rien à faire, on garde l'ancien contenu(requête a échoué)
 				}
 			}
 		}
 	}
 
-	public function toArray () {
-		return array (
-			'id' => $this->id (),
-			'guid' => $this->guid (),
-			'title' => $this->title (),
-			'author' => $this->author (),
-			'content' => $this->content (),
-			'link' => $this->link (),
-			'date' => $this->date (true),
-			'is_read' => $this->isRead (),
-			'is_favorite' => $this->isFavorite (),
-			'id_feed' => $this->feed (),
-			'tags' => $this->tags (true),
+	public function toArray() {
+		return array(
+			'id' => $this->id(),
+			'guid' => $this->guid(),
+			'title' => $this->title(),
+			'author' => $this->author(),
+			'content' => $this->content(),
+			'link' => $this->link(),
+			'date' => $this->date(true),
+			'is_read' => $this->isRead(),
+			'is_favorite' => $this->isFavorite(),
+			'id_feed' => $this->feed(),
+			'tags' => $this->tags(true),
 		);
 	}
 }

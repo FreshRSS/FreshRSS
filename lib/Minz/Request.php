@@ -45,6 +45,13 @@ class Minz_Request {
 	public static function defaultActionName() {
 		return self::$default_action_name;
 	}
+	public static function currentRequest() {
+		return array(
+			'c' => self::$controller_name,
+			'a' => self::$action_name,
+			'params' => self::$params,
+		);
+	}
 
 	/**
 	 * Setteurs

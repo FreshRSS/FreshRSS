@@ -26,7 +26,7 @@ class FreshRSS_EntryDAOSQLite extends FreshRSS_EntryDAO {
 			return true;
 		} else {
 			$info = $stm == null ? array(2 => 'syntax error') : $stm->errorInfo();
-			Minz_Log::record('SQL error updateCacheUnreads: ' . $info[2], Minz_Log::ERROR);
+			Minz_Log::error('SQL error updateCacheUnreads: ' . $info[2]);
 			return false;
 		}
 	}
@@ -47,7 +47,7 @@ class FreshRSS_EntryDAOSQLite extends FreshRSS_EntryDAO {
 			$stm = $this->bd->prepare($sql);
 			if (!($stm && $stm->execute($values))) {
 				$info = $stm == null ? array(2 => 'syntax error') : $stm->errorInfo();
-				Minz_Log::record('SQL error markRead 1: ' . $info[2], Minz_Log::ERROR);
+				Minz_Log::error('SQL error markRead 1: ' . $info[2]);
 				$this->bd->rollBack();
 				return false;
 			}
@@ -59,7 +59,7 @@ class FreshRSS_EntryDAOSQLite extends FreshRSS_EntryDAO {
 				$stm = $this->bd->prepare($sql);
 				if (!($stm && $stm->execute($values))) {
 					$info = $stm == null ? array(2 => 'syntax error') : $stm->errorInfo();
-					Minz_Log::record('SQL error markRead 2: ' . $info[2], Minz_Log::ERROR);
+					Minz_Log::error('SQL error markRead 2: ' . $info[2]);
 					$this->bd->rollBack();
 					return false;
 				}
@@ -72,7 +72,7 @@ class FreshRSS_EntryDAOSQLite extends FreshRSS_EntryDAO {
 	public function markReadEntries($idMax = 0, $onlyFavorites = false, $priorityMin = 0) {
 		if ($idMax == 0) {
 			$idMax = time() . '000000';
-			Minz_Log::record('Calling markReadEntries(0) is deprecated!', Minz_Log::DEBUG);
+			Minz_Log::debug('Calling markReadEntries(0) is deprecated!');
 		}
 
 		$sql = 'UPDATE `' . $this->prefix . 'entry` SET is_read=1 WHERE is_read=0 AND id <= ?';
@@ -85,7 +85,7 @@ class FreshRSS_EntryDAOSQLite extends FreshRSS_EntryDAO {
 		$stm = $this->bd->prepare($sql);
 		if (!($stm && $stm->execute($values))) {
 			$info = $stm == null ? array(2 => 'syntax error') : $stm->errorInfo();
-			Minz_Log::record('SQL error markReadEntries: ' . $info[2], Minz_Log::ERROR);
+			Minz_Log::error('SQL error markReadEntries: ' . $info[2]);
 			return false;
 		}
 		$affected = $stm->rowCount();
@@ -98,7 +98,7 @@ class FreshRSS_EntryDAOSQLite extends FreshRSS_EntryDAO {
 	public function markReadCat($id, $idMax = 0) {
 		if ($idMax == 0) {
 			$idMax = time() . '000000';
-			Minz_Log::record('Calling markReadCat(0) is deprecated!', Minz_Log::DEBUG);
+			Minz_Log::debug('Calling markReadCat(0) is deprecated!');
 		}
 
 		$sql = 'UPDATE `' . $this->prefix . 'entry` '
@@ -109,7 +109,7 @@ class FreshRSS_EntryDAOSQLite extends FreshRSS_EntryDAO {
 		$stm = $this->bd->prepare($sql);
 		if (!($stm && $stm->execute($values))) {
 			$info = $stm == null ? array(2 => 'syntax error') : $stm->errorInfo();
-			Minz_Log::record('SQL error markReadCat: ' . $info[2], Minz_Log::ERROR);
+			Minz_Log::error('SQL error markReadCat: ' . $info[2]);
 			return false;
 		}
 		$affected = $stm->rowCount();
@@ -124,6 +124,6 @@ class FreshRSS_EntryDAOSQLite extends FreshRSS_EntryDAO {
 	}
 
 	public function size($all = false) {
-		return @filesize(DATA_PATH . '/' . Minz_Session::param('currentUser', '_') . '.sqlite');
+		return @filesize(DATA_PATH . '/' . $this->current_user . '.sqlite');
 	}
 }

@@ -54,11 +54,6 @@ function initTranslate() {
 	if (file_exists($file)) {
 		$translates = array_merge($translates, include($file));
 	}
-
-	$file = APP_PATH . '/i18n/install.' . $actual . '.php';
-	if (file_exists($file)) {
-		$translates = array_merge($translates, include($file));
-	}
 }
 
 function getBetterLanguage($fallback) {

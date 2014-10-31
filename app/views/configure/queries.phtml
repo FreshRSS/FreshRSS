@@ -6,7 +6,7 @@
 	<form method="post" action="<?php echo _url('configure', 'queries'); ?>">
 		<legend><?php echo _t('queries'); ?></legend>
 
-		<?php foreach ($this->conf->queries as $key => $query) { ?>
+		<?php foreach (FreshRSS_Context::$conf->queries as $key => $query) { ?>
 		<div class="form-group" id="query-group-<?php echo $key; ?>">
 			<label class="group-name" for="queries_<?php echo $key; ?>_name">
 				<?php echo _t('query_number', $key + 1); ?>
@@ -82,7 +82,7 @@
 		</div>
 		<?php } ?>
 
-		<?php if (count($this->conf->queries) > 0) { ?>
+		<?php if (count(FreshRSS_Context::$conf->queries) > 0) { ?>
 		<div class="form-group form-actions">
 			<div class="group-controls">
 				<button type="submit" class="btn btn-important"><?php echo _t('save'); ?></button>

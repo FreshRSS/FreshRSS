@@ -1,16 +1,16 @@
 <?php
 header('Content-Type: application/json; charset=UTF-8');
 
-if (Minz_Request::param ('is_favorite', true)) {
-	Minz_Request::_param ('is_favorite', 0);
+if (Minz_Request::param('is_favorite', true)) {
+	Minz_Request::_param('is_favorite', 0);
 } else {
-	Minz_Request::_param ('is_favorite', 1);
+	Minz_Request::_param('is_favorite', 1);
 }
 
-$url = Minz_Url::display (array (
-	'c' => Minz_Request::controllerName (),
-	'a' => Minz_Request::actionName (),
-	'params' => Minz_Request::params (),
+$url = Minz_Url::display(array(
+	'c' => Minz_Request::controllerName(),
+	'a' => Minz_Request::actionName(),
+	'params' => Minz_Request::params(),
 ));
 
-echo json_encode (array ('url' => str_ireplace ('&amp;', '&', $url), 'icon' => FreshRSS_Themes::icon(Minz_Request::param ('is_favorite') ? 'non-starred' : 'starred')));
+echo json_encode(array('url' => str_ireplace('&amp;', '&', $url), 'icon' => _i(Minz_Request::param('is_favorite') ? 'non-starred' : 'starred')));

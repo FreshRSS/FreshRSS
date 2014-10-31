@@ -40,11 +40,11 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 		} else {
 			$info = $stm == null ? array(2 => 'syntax error') : $stm->errorInfo();
 			if ((int)($info[0] / 1000) !== 23) {	//Filter out "SQLSTATE Class code 23: Constraint Violation" because of expected duplicate entries
-				Minz_Log::record('SQL error addEntry: ' . $info[0] . ': ' . $info[1] . ' ' . $info[2]
-				. ' while adding entry in feed ' . $valuesTmp['id_feed'] . ' with title: ' . $valuesTmp['title'], Minz_Log::ERROR);
+				Minz_Log::error('SQL error addEntry: ' . $info[0] . ': ' . $info[1] . ' ' . $info[2]
+				. ' while adding entry in feed ' . $valuesTmp['id_feed'] . ' with title: ' . $valuesTmp['title']);
 			} /*else {
-				Minz_Log::record ('SQL error ' . $info[0] . ': ' . $info[1] . ' ' . $info[2]
-				. ' while adding entry in feed ' . $valuesTmp['id_feed'] . ' with title: ' . $valuesTmp['title'], Minz_Log::DEBUG);
+				Minz_Log::debug('SQL error ' . $info[0] . ': ' . $info[1] . ' ' . $info[2]
+				. ' while adding entry in feed ' . $valuesTmp['id_feed'] . ' with title: ' . $valuesTmp['title']);
 			}*/
 			return false;
 		}
@@ -94,7 +94,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 			return $stm->rowCount();
 		} else {
 			$info = $stm == null ? array(2 => 'syntax error') : $stm->errorInfo();
-			Minz_Log::record('SQL error markFavorite: ' . $info[2], Minz_Log::ERROR);
+			Minz_Log::error('SQL error markFavorite: ' . $info[2]);
 			return false;
 		}
 	}
@@ -124,7 +124,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 			return true;
 		} else {
 			$info = $stm == null ? array(2 => 'syntax error') : $stm->errorInfo();
-			Minz_Log::record('SQL error updateCacheUnreads: ' . $info[2], Minz_Log::ERROR);
+			Minz_Log::error('SQL error updateCacheUnreads: ' . $info[2]);
 			return false;
 		}
 	}
@@ -147,7 +147,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 			$stm = $this->bd->prepare($sql);
 			if (!($stm && $stm->execute($values))) {
 				$info = $stm == null ? array(2 => 'syntax error') : $stm->errorInfo();
-				Minz_Log::record('SQL error markRead: ' . $info[2], Minz_Log::ERROR);
+				Minz_Log::error('SQL error markRead: ' . $info[2]);
 				return false;
 			}
 			$affected = $stm->rowCount();
@@ -166,7 +166,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 				return $stm->rowCount();
 			} else {
 				$info = $stm == null ? array(2 => 'syntax error') : $stm->errorInfo();
-				Minz_Log::record('SQL error markRead: ' . $info[2], Minz_Log::ERROR);
+				Minz_Log::error('SQL error markRead: ' . $info[2]);
 				return false;
 			}
 		}
@@ -175,7 +175,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 	public function markReadEntries($idMax = 0, $onlyFavorites = false, $priorityMin = 0) {
 		if ($idMax == 0) {
 			$idMax = time() . '000000';
-			Minz_Log::record('Calling markReadEntries(0) is deprecated!', Minz_Log::DEBUG);
+			Minz_Log::debug('Calling markReadEntries(0) is deprecated!');
 		}
 
 		$sql = 'UPDATE `' . $this->prefix . 'entry` e INNER JOIN `' . $this->prefix . 'feed` f ON e.id_feed=f.id '
@@ -190,7 +190,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 		$stm = $this->bd->prepare($sql);
 		if (!($stm && $stm->execute($values))) {
 			$info = $stm == null ? array(2 => 'syntax error') : $stm->errorInfo();
-			Minz_Log::record('SQL error markReadEntries: ' . $info[2], Minz_Log::ERROR);
+			Minz_Log::error('SQL error markReadEntries: ' . $info[2]);
 			return false;
 		}
 		$affected = $stm->rowCount();
@@ -203,7 +203,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 	public function markReadCat($id, $idMax = 0) {
 		if ($idMax == 0) {
 			$idMax = time() . '000000';
-			Minz_Log::record('Calling markReadCat(0) is deprecated!', Minz_Log::DEBUG);
+			Minz_Log::debug('Calling markReadCat(0) is deprecated!');
 		}
 
 		$sql = 'UPDATE `' . $this->prefix . 'entry` e INNER JOIN `' . $this->prefix . 'feed` f ON e.id_feed=f.id '
@@ -213,7 +213,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 		$stm = $this->bd->prepare($sql);
 		if (!($stm && $stm->execute($values))) {
 			$info = $stm == null ? array(2 => 'syntax error') : $stm->errorInfo();
-			Minz_Log::record('SQL error markReadCat: ' . $info[2], Minz_Log::ERROR);
+			Minz_Log::error('SQL error markReadCat: ' . $info[2]);
 			return false;
 		}
 		$affected = $stm->rowCount();
@@ -226,7 +226,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 	public function markReadFeed($id, $idMax = 0) {
 		if ($idMax == 0) {
 			$idMax = time() . '000000';
-			Minz_Log::record('Calling markReadFeed(0) is deprecated!', Minz_Log::DEBUG);
+			Minz_Log::debug('Calling markReadFeed(0) is deprecated!');
 		}
 		$this->bd->beginTransaction();
 
@@ -237,7 +237,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 		$stm = $this->bd->prepare($sql);
 		if (!($stm && $stm->execute($values))) {
 			$info = $stm == null ? array(2 => 'syntax error') : $stm->errorInfo();
-			Minz_Log::record('SQL error markReadFeed: ' . $info[2], Minz_Log::ERROR);
+			Minz_Log::error('SQL error markReadFeed: ' . $info[2]);
 			$this->bd->rollBack();
 			return false;
 		}
@@ -251,7 +251,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 			$stm = $this->bd->prepare($sql);
 			if (!($stm && $stm->execute($values))) {
 				$info = $stm == null ? array(2 => 'syntax error') : $stm->errorInfo();
-				Minz_Log::record('SQL error markReadFeed: ' . $info[2], Minz_Log::ERROR);
+				Minz_Log::error('SQL error markReadFeed: ' . $info[2]);
 				$this->bd->rollBack();
 				return false;
 			}
@@ -299,7 +299,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 		return 'CONCAT(' . $s1 . ',' . $s2 . ')';	//MySQL
 	}
 
-	private function sqlListWhere($type = 'a', $id = '', $state = FreshRSS_Entry::STATE_ALL, $order = 'DESC', $limit = 1, $firstId = '', $filter = '', $date_min = 0, $showOlderUnreadsorFavorites = false, $keepHistoryDefault = 0) {
+	private function sqlListWhere($type = 'a', $id = '', $state = FreshRSS_Entry::STATE_ALL, $order = 'DESC', $limit = 1, $firstId = '', $filter = '', $date_min = 0) {
 		if (!$state) {
 			$state = FreshRSS_Entry::STATE_ALL;
 		}
@@ -307,33 +307,31 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 		$joinFeed = false;
 		$values = array();
 		switch ($type) {
-			case 'a':
-				$where .= 'f.priority > 0 ';
-				$joinFeed = true;
-				break;
-			case 's':	//Deprecated: use $state instead
-				$where .= 'e1.is_favorite=1 ';
-				break;
-			case 'c':
-				$where .= 'f.category=? ';
-				$values[] = intval($id);
-				$joinFeed = true;
-				break;
-			case 'f':
-				$where .= 'e1.id_feed=? ';
-				$values[] = intval($id);
-				break;
-			case 'A':
-				$where .= '1 ';
-				break;
-			default:
-				throw new FreshRSS_EntriesGetter_Exception('Bad type in Entry->listByType: [' . $type . ']!');
+		case 'a':
+			$where .= 'f.priority > 0 ';
+			$joinFeed = true;
+			break;
+		case 's':	//Deprecated: use $state instead
+			$where .= 'e1.is_favorite=1 ';
+			break;
+		case 'c':
+			$where .= 'f.category=? ';
+			$values[] = intval($id);
+			$joinFeed = true;
+			break;
+		case 'f':
+			$where .= 'e1.id_feed=? ';
+			$values[] = intval($id);
+			break;
+		case 'A':
+			$where .= '1 ';
+			break;
+		default:
+			throw new FreshRSS_EntriesGetter_Exception('Bad type in Entry->listByType: [' . $type . ']!');
 		}
 
 		if ($state & FreshRSS_Entry::STATE_NOT_READ) {
 			if (!($state & FreshRSS_Entry::STATE_READ)) {
-				$where .= 'AND e1.is_read=0 ';
-			} elseif ($state & FreshRSS_Entry::STATE_STRICT) {
 				$where .= 'AND e1.is_read=0 ';
 			}
 		}
@@ -356,23 +354,14 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 			default:
 				throw new FreshRSS_EntriesGetter_Exception('Bad order in Entry->listByType: [' . $order . ']!');
 		}
-		if ($firstId === '' && parent::$sharedDbType === 'mysql') {
-			$firstId = $order === 'DESC' ? '9000000000'. '000000' : '0';	//MySQL optimization. Tested on MySQL 5.5 with 150k articles
-		}
+		/*if ($firstId === '' && parent::$sharedDbType === 'mysql') {
+			$firstId = $order === 'DESC' ? '9000000000'. '000000' : '0';	//MySQL optimization. TODO: check if this is needed again, after the filtering for old articles has been removed in 0.9-dev
+		}*/
 		if ($firstId !== '') {
 			$where .= 'AND e1.id ' . ($order === 'DESC' ? '<=' : '>=') . $firstId . ' ';
 		}
-		if (($date_min > 0) && ($type !== 's')) {
-			$where .= 'AND (e1.id >= ' . $date_min . '000000';
-			if ($showOlderUnreadsorFavorites) {	//Lax date constraint
-				$where .= ' OR e1.is_read=0 OR e1.is_favorite=1 OR (f.keep_history <> 0';
-				if (intval($keepHistoryDefault) === 0) {
-					$where .= ' AND f.keep_history <> -2';	//default
-				}
-				$where .= ')';
-			}
-			$where .= ') ';
-			$joinFeed = true;
+		if ($date_min > 0) {
+			$where .= 'AND e1.id >= ' . $date_min . '000000 ';
 		}
 		$search = '';
 		if ($filter !== '') {
@@ -434,8 +423,8 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 			. ($limit > 0 ? ' LIMIT ' . $limit : ''));	//TODO: See http://explainextended.com/2009/10/23/mysql-order-by-limit-performance-late-row-lookups/
 	}
 
-	public function listWhere($type = 'a', $id = '', $state = FreshRSS_Entry::STATE_ALL, $order = 'DESC', $limit = 1, $firstId = '', $filter = '', $date_min = 0, $showOlderUnreadsorFavorites = false, $keepHistoryDefault = 0) {
-		list($values, $sql) = $this->sqlListWhere($type, $id, $state, $order, $limit, $firstId, $filter, $date_min, $showOlderUnreadsorFavorites, $keepHistoryDefault);
+	public function listWhere($type = 'a', $id = '', $state = FreshRSS_Entry::STATE_ALL, $order = 'DESC', $limit = 1, $firstId = '', $filter = '', $date_min = 0) {
+		list($values, $sql) = $this->sqlListWhere($type, $id, $state, $order, $limit, $firstId, $filter, $date_min);
 
 		$sql = 'SELECT e.id, e.guid, e.title, e.author, '
 		     . ($this->isCompressed() ? 'UNCOMPRESS(content_bin) AS content' : 'content')
@@ -452,8 +441,8 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 		return self::daoToEntry($stm->fetchAll(PDO::FETCH_ASSOC));
 	}
 
-	public function listIdsWhere($type = 'a', $id = '', $state = FreshRSS_Entry::STATE_ALL, $order = 'DESC', $limit = 1, $firstId = '', $filter = '', $date_min = 0, $showOlderUnreadsorFavorites = false, $keepHistoryDefault = 0) {	//For API
-		list($values, $sql) = $this->sqlListWhere($type, $id, $state, $order, $limit, $firstId, $filter, $date_min, $showOlderUnreadsorFavorites, $keepHistoryDefault);
+	public function listIdsWhere($type = 'a', $id = '', $state = FreshRSS_Entry::STATE_ALL, $order = 'DESC', $limit = 1, $firstId = '', $filter = '', $date_min = 0) {	//For API
+		list($values, $sql) = $this->sqlListWhere($type, $id, $state, $order, $limit, $firstId, $filter, $date_min);
 
 		$stm = $this->bd->prepare($sql);
 		$stm->execute($values);

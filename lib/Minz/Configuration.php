@@ -60,6 +60,15 @@ class Minz_Configuration {
 		'prefix' => '',
 	);
 
+	const MAX_SMALL_INT = 16384;
+	private static $limits = array(
+		'cache_duration' => 800,	//SimplePie cache duration in seconds
+		'timeout' => 10,	//SimplePie timeout in seconds
+		'max_inactivity' => PHP_INT_MAX,	//Time in seconds after which a user who has not used the account is considered inactive (no auto-refresh of feeds).
+		'max_feeds' => Minz_Configuration::MAX_SMALL_INT,
+		'max_categories' => Minz_Configuration::MAX_SMALL_INT,
+	);
+
 	/*
 	 * Getteurs
 	 */
@@ -97,11 +106,11 @@ class Minz_Configuration {
 	public static function dataBase () {
 		return self::$db;
 	}
+	public static function limits() {
+		return self::$limits;
+	}
 	public static function defaultUser () {
 		return self::$default_user;
-	}
-	public static function isAdmin($currentUser) {
-		return $currentUser === self::$default_user;
 	}
 	public static function allowAnonymous() {
 		return self::$allow_anonymous;
@@ -181,6 +190,7 @@ class Minz_Configuration {
 				'api_enabled' => self::$api_enabled,
 				'unsafe_autologin_enabled' => self::$unsafe_autologin_enabled,
 			),
+			'limits' => self::$limits,
 			'db' => self::$db,
 		);
 		@rename(DATA_PATH . self::CONF_PATH_NAME, DATA_PATH . self::CONF_PATH_NAME . '.bak.php');
@@ -292,6 +302,40 @@ class Minz_Configuration {
 				((bool)($general['unsafe_autologin_enabled'])) &&
 				($general['unsafe_autologin_enabled'] !== 'no')
 			);
+		}
+
+		if (isset($ini_array['limits'])) {
+			$limits = $ini_array['limits'];
+			if (isset($limits['cache_duration'])) {
+				$v = intval($limits['cache_duration']);
+				if ($v > 0) {
+					self::$limits['cache_duration'] = $v;
+				}
+			}
+			if (isset($limits['timeout'])) {
+				$v = intval($limits['timeout']);
+				if ($v > 0) {
+					self::$limits['timeout'] = $v;
+				}
+			}
+			if (isset($limits['max_inactivity'])) {
+				$v = intval($limits['max_inactivity']);
+				if ($v > 0) {
+					self::$limits['max_inactivity'] = $v;
+				}
+			}
+			if (isset($limits['max_feeds'])) {
+				$v = intval($limits['max_feeds']);
+				if ($v > 0 && $v < Minz_Configuration::MAX_SMALL_INT) {
+					self::$limits['max_feeds'] = $v;
+				}
+			}
+			if (isset($limits['max_categories'])) {
+				$v = intval($limits['max_categories']);
+				if ($v > 0 && $v < Minz_Configuration::MAX_SMALL_INT) {
+					self::$limits['max_categories'] = $v;
+				}
+			}
 		}
 
 		// Base de données
