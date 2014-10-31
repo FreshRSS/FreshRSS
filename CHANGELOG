@@ -1,9 +1,42 @@
 # Journal des modifications
 
-##
+## 2014-10-31 FreshRSS 0.9.2 (beta)
 
+* UI
+	* New subscription page (introduce .box items)
+	* Change feed category by drag and drop
+	* New feed aside on the main page
+	* New configuration / administration organization
 * Configuration
 	* New options in config.php for cache duration, timeout, max inactivity, max number of feeds and categories per user.
+* Refactoring
+	* Refactor authentication system (introduce FreshRSS_Auth model)
+	* Refactor indexController (introduce FreshRSS_Context model)
+	* Use ```_t()```, ```_i()```, ```_url()```, ```Minz_Request::good()``` and ```Minz_Request::bad()``` as much as possible
+	* Refactor javascript_vars.phtml
+	* Better coding style
+* I18n
+	* Introduce a new system for i18n keys (not finished yet)
+* Misc.
+	* Fix global view (didn't work anymore)
+	* Add do_post_update for update system
+	* Introduce ```checkInstallAction``` to test if FreshRSS installation is ok
+
+
+
+## 2014-10-09 FreshRSS 0.8.1 / 0.9.1 (beta)
+
+* UI
+	* Add a space after tag icon
+* Statistics
+	* Add an average per day on the 30 day period graph
+	* Add percent of total on top 10 feed
+* Bug fixes
+	* Fix "mark as read" in global view
+	* Fix "read all" shortcut
+	* Fix categories not appearing when adding a new feed (GET action)
+	* Fix enclosure problem
+	* Fix getExtension() on PHP < 5.3.7
 
 
 ## 2014-09-26 FreshRSS 0.8.0 / 0.9.0 (beta)
