@@ -499,7 +499,8 @@ a.btn {
 	text-overflow: ellipsis;
 	overflow: hidden;
 }
-.flux .item.share > a {
+.flux .item.share > a,
+.item.query > a {
 	display: list-item;
 	list-style-position: inside;
 	list-style-type: decimal;
