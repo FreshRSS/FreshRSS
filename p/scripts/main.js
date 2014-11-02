@@ -231,6 +231,14 @@ function toggleContent(new_active, old_active) {
 		}
 		old_active.removeClass("active current");
 		new_active.addClass("current");
+		if (context['auto_remove_article'] && !old_active.hasClass('not_read')) {
+			var p = old_active.prev();
+			var n = old_active.next();
+			if (p.hasClass('day') && n.hasClass('day')) {
+				p.remove();
+			}
+			old_active.remove();
+		}
 	} else {
 		new_active.toggleClass('active');
 	}

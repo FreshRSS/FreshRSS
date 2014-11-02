@@ -89,6 +89,7 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 	 *   - image lazy loading
 	 *   - stick open articles to the top
 	 *   - display a confirmation when reading all articles
+	 *   - auto remove article after reading
 	 *   - article order (default: DESC)
 	 *   - mark articles as read when:
 	 *       - displayed
@@ -110,6 +111,7 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 			FreshRSS_Context::$conf->_lazyload(Minz_Request::param('lazyload', false));
 			FreshRSS_Context::$conf->_sticky_post(Minz_Request::param('sticky_post', false));
 			FreshRSS_Context::$conf->_reading_confirm(Minz_Request::param('reading_confirm', false));
+			FreshRSS_Context::$conf->_auto_remove_article(Minz_Request::param('auto_remove_article', false));
 			FreshRSS_Context::$conf->_sort_order(Minz_Request::param('sort_order', 'DESC'));
 			FreshRSS_Context::$conf->_mark_when(array(
 				'article' => Minz_Request::param('mark_open_article', false),
