@@ -242,11 +242,14 @@ function is_referer_from_same_domain() {
 	$host = parse_url(((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on') ? 'https://' : 'http://') .
 		(empty($_SERVER['HTTP_HOST']) ? $_SERVER['SERVER_NAME'] : $_SERVER['HTTP_HOST']));
 	$referer = parse_url($_SERVER['HTTP_REFERER']);
-	if (empty($host['scheme']) || empty($referer['scheme']) || $host['scheme'] !== $referer['scheme'] ||
-	    empty($host['host']) || empty($referer['host']) || $host['host'] !== $referer['host']) {
+	if (empty($host['host']) || empty($referer['host']) || $host['host'] !== $referer['host']) {
 		return false;
 	}
-	return (isset($host['port']) ? $host['port'] : 0) === (isset($referer['port']) ? $referer['port'] : 0);
+	//TODO: check 'scheme', taking into account the case of a proxy
+	if ((isset($host['port']) ? $host['port'] : 0) !== (isset($referer['port']) ? $referer['port'] : 0)) {
+		return false;
+	}
+	return true;
 }
 
 
