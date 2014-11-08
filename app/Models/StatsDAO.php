@@ -151,10 +151,9 @@ SQL;
 	 * @return string
 	 */
 	protected function calculateEntryRepartitionPerFeedPerPeriod($period, $feed = null) {
+		$restrict = '';
 		if ($feed) {
 			$restrict = "WHERE e.id_feed = {$feed}";
-		} else {
-			$restrict = '';
 		}
 		$sql = <<<SQL
 SELECT DATE_FORMAT(FROM_UNIXTIME(e.date), '{$period}') AS period
@@ -214,10 +213,9 @@ SQL;
 	 * @return integer
 	 */
 	protected function calculateEntryAveragePerFeedPerPeriod($period, $feed = null) {
+		$restrict = '';
 		if ($feed) {
 			$restrict = "WHERE e.id_feed = {$feed}";
-		} else {
-			$restrict = '';
 		}
 		$sql = <<<SQL
 SELECT COUNT(1) AS count
