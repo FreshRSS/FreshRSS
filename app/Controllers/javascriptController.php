@@ -39,6 +39,8 @@ class FreshRSS_javascript_Controller extends Minz_ActionController {
 			} catch (Minz_Exception $me) {
 				Minz_Log::warning('Nonce failure: ' . $me->getMessage());
 			}
+		} else {
+			Minz_Log::notice('Nonce failure due to invalid username!');
 		}
 		$this->view->nonce = '';	//Failure
 		$this->view->salt1 = '';
