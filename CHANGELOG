@@ -1,5 +1,13 @@
 # Journal des modifications
 
+## Dev
+
+* SimplePie
+	* Support for content-type application/x-rss+xml
+	* New force_feed option (for feeds sent with the wrong content-type / MIME) by adding #force_feed at the end of the feed URL
+	* Improved error messages
+
+
 ## 2014-10-31 FreshRSS 0.9.2 (beta)
 
 * UI
