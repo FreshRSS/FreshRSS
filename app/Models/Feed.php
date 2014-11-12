@@ -210,6 +210,10 @@ class FreshRSS_Feed extends Minz_Model {
 					$url = preg_replace('#((.+)://)(.+)#', '${1}' . $this->httpAuth . '@${3}', $url);
 				}
 				$feed = customSimplePie();
+				if (substr($url, -11) === '#force_feed') {
+					$feed->force_feed(true);
+					$url = substr($url, 0, -11);
+				}
 				$feed->set_feed_url($url);
 				if (!$loadDetails) {	//Only activates auto-discovery when adding a new feed
 					$feed->set_autodiscovery_level(SIMPLEPIE_LOCATOR_NONE);
@@ -226,7 +230,7 @@ class FreshRSS_Feed extends Minz_Model {
 					$subscribe_url = $feed->subscribe_url(false);
 
 					$title = strtr(html_only_entity_decode($feed->get_title()), array('<' => '&lt;', '>' => '&gt;', '"' => '&quot;'));	//HTML to HTML-PRE	//ENT_COMPAT except &
-					$this->_name($title == '' ? $this->url : $title);
+					$this->_name($title == '' ? $url : $title);
 
 					$this->_website(html_only_entity_decode($feed->get_link()));
 					$this->_description(html_only_entity_decode($feed->get_description()));
@@ -235,7 +239,7 @@ class FreshRSS_Feed extends Minz_Model {
 					$subscribe_url = $feed->subscribe_url(true);
 				}
 
-				if ($subscribe_url !== null && $subscribe_url !== $this->url) {
+				if ($subscribe_url !== null && $subscribe_url !== $url) {
 					if ($this->httpAuth != '') {
 						// on enlève les id si authentification HTTP
 						$subscribe_url = preg_replace('#((.+)://)((.+)@)(.+)#', '${1}${5}', $subscribe_url);
