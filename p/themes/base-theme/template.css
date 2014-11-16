@@ -692,6 +692,7 @@ br + br + br {
 	position: relative;
 	min-width: 260px;
 	max-width: 640px;
+	margin-bottom: 30px;
 }
 .slides * {
 	user-select: none;
@@ -740,25 +741,18 @@ br + br + br {
 	padding: 0;
 }
 .properties {
-	bottom: 15px;
-	display: none;
-	left: 15%;
-	padding: 5px;
+	bottom: -35px;
 	position: absolute;
-	text-align: center;
-	width: 70%;
-	font-size: 15pt;
-	text-shadow: 0px 0px 15px rgb(119, 119, 119);
-	border-radius: 5px;
-	box-shadow: 5px 5px 10px;
-	border: 1px solid;
-	background-color: #fff;
+	width: 100%;
+	display: none;
+}
+.properties .page-number {
+	right: 0;
+	top: 0;
+	position: absolute;
 }
 .slide:hover + .nav label {
 	opacity: 0.5;
-}
-.slide:hover ~ .properties {
-	display: block;
 }
 .nav label:hover {
 	opacity: 1;
@@ -772,6 +766,9 @@ input:checked + .slide-container .slide {
 	transition: opacity 1s ease-in-out;
 }
 input:checked + .slide-container .nav label {
+	display: block;
+}
+input:checked + .slide-container .properties {
 	display: block;
 }
 
