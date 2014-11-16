@@ -21,17 +21,31 @@
 		<div class="form-group">
 			<label class="group-name" for="theme"><?php echo _t('theme'); ?></label>
 			<div class="group-controls">
-				<select name="theme" id="theme" required=""><?php
-					$found = false;
-					foreach ($this->themes as $theme) {
-						?><option value="<?php echo $theme['id']; ?>"<?php if (FreshRSS_Context::$conf->theme === $theme['id']) { echo ' selected="selected"'; $found = true; } ?>><?php
-							echo $theme['name'] . ' — ' . _t('by') . ' ' . $theme['author'];
-						?></option><?php
-					}
-					if (!$found) {
-						?><option selected="selected"></option><?php
-					}
-				?></select>
+				<ul class="slides">
+					<?php $slides = count($this->themes); $i = 1; ?>
+					<?php foreach($this->themes as $theme) { ?>
+						<input type="radio" name="theme" id="img-<?php echo $i ?>" <?php if (FreshRSS_Context::$conf->theme === $theme['id']) {echo "checked";}?> value="<?php echo $theme['id'] ?>"/>
+						<li class="slide-container">
+							<div class="slide">
+								<img src="<?php echo Minz_Url::display('/themes/' . $theme['id'] . '/thumbs/original.png')?>"/>
+							</div>
+							<div class="nav">
+								<?php if ($i !== 1) {?>
+									<label for="img-<?php echo $i - 1 ?>" class="prev">&#x2039;</label>
+								<?php } ?>
+								<?php if ($i !== $slides) {?>
+									<label for="img-<?php echo $i + 1 ?>" class="next">&#x203a;</label>
+								<?php } ?>
+							</div>
+							<div class="properties">
+								<div><?php echo sprintf('%s - %s %s', $theme['name'], _t('by'), $theme['author']) ?></div>
+								<div><?php echo $theme['description'] ?></div>
+								<div class="page-number"><?php echo sprintf('%d/%d', $i, $slides) ?></div>
+							</div>
+						</li>
+						<?php $i++ ?>
+					<?php } ?>
+				</ul>
 			</div>
 		</div>
 
