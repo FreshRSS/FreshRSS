@@ -265,4 +265,26 @@ class FreshRSS_Context {
 			}
 		}
 	}
+
+	/**
+	 * Determine if the auto remove is available in the current context.
+	 * This feature is available if:
+	 *   - it is activated in the configuration
+	 *   - the "read" state is not enable
+	 *   - the "unread" state is enable
+	 *
+	 * @return boolean
+	 */
+	public static function isAutoRemoveAvailable() {
+		if (!self::$conf->auto_remove_article) {
+			return false;
+		}
+		if (self::isStateEnabled(FreshRSS_Entry::STATE_READ)) {
+			return false;
+		}
+		if (!self::isStateEnabled(FreshRSS_Entry::STATE_NOT_READ)) {
+			return false;
+		}
+		return true;
+	}
 }

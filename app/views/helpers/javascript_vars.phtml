@@ -18,6 +18,7 @@ $url_logout = Minz_Url::display(array(
 ), 'php');
 
 echo 'var context={',
+	'auto_remove_article:', FreshRSS_Context::isAutoRemoveAvailable() ? 'true' : 'false', ',',
 	'hide_posts:', $hide_posts ? 'false' : 'true', ',',
 	'display_order:"', Minz_Request::param('order', FreshRSS_Context::$conf->sort_order), '",',
 	'auto_mark_article:', $mark['article'] ? 'true' : 'false', ',',
