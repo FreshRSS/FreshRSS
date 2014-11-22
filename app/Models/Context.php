@@ -287,4 +287,22 @@ class FreshRSS_Context {
 		}
 		return true;
 	}
+
+	/**
+	 * Determine if the "sticky post" option is enabled. It can be enable
+	 * by the user when it is selected in the configuration page or by the
+	 * application when the context allows to auto-remove articles when they
+	 * are read.
+	 *
+	 * @return boolean
+	 */
+	public static function isStickyPostEnabled() {
+		if (self::$conf->sticky_post) {
+			return true;
+		}
+		if (self::isAutoRemoveAvailable()) {
+			return true;
+		}
+		return false;
+	}
 }
