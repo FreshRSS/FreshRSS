@@ -52,7 +52,7 @@ input, select, textarea {
 	color: #222;
 	line-height: 25px;
 	vertical-align: middle;
-	box-shadow: 0 2px 2px #eee inset, 0 1px #fff;
+	box-shadow: 0 1px 2px #ccc inset, 0 1px #fff;
 }
 option {
 	padding: 0 .5em;
@@ -121,30 +121,14 @@ form th {
 }
 
 /*=== Buttons */
-form#add_rss .stick input, .dropdown-menu select{
-    background:#393939;
-    box-shadow: 0 2px  2px #171717 inset,0 1px rgba(255,255,255,0.08);
-    border-left:solid 1px #171717;
-    border-top:solid 1px #171717;
-    border-bottom:solid 1px #171717;
-    border-right:none;
+
+.dropdown-menu .input select, .dropdown-menu .input input {
+    background:#444;
     color:#fff;
+    box-shadow:0 2px 2px #222 inset, 0px 1px rgba(255, 255, 255, 0.08);
+    border:solid 1px #171717;
 }
-form#add_rss .stick .btn{
-    background:linear-gradient(180deg, #222 0%, #171717 100%) #171717;
-    background: -webkit-linear-gradient(top, #222 0%, #171717 100%);
-    box-shadow:0 1px rgba(255,255,255,0.08), 0px 1px rgba(255, 255, 255, 0.08) inset;
-    border-right:solid 1px #171717;
-    border-top:solid 1px #171717;
-    border-bottom:solid 1px #171717;
-    border-left:none;
-}
-form#add_rss .stick .btn.dropdown-toggle{
-    border-right:solid 1px #171717;
-    border-top:solid 1px #171717;
-    border-bottom:solid 1px #171717;
-    border-left:solid 1px #171717;
-}
+
 .stick {
 	vertical-align: middle;
 	font-size: 0;
@@ -206,14 +190,13 @@ a.btn {
 	background: linear-gradient(180deg, #EDE7DE 0%, #FFF 100%) #EDE7DE;
 	background: -webkit-linear-gradient(top, #EDE7DE 0%, #FFF 100%);
 }
-#loginButton.btn{
-	border:none;
-	box-shadow: 0px 1px rgba(255, 255, 255, 0.08) inset,0 -1px #171717,0px 1px rgba(255, 255, 255, 0.08);
-}
+
 .nav_menu .btn.active, .nav_menu .btn:active, .nav_menu .dropdown-target:target ~ .btn.dropdown-toggle{
-	box-shadow: 0px 2px #E2972A;
-	border-radius: 0;
-	background:transparent;
+	box-shadow: 0 1px #fff;
+	border-radius: 4px;
+	background: linear-gradient(180deg, #EDE7DE 0%, #F6F6F6 100%) #EDE7DE;
+	background: -webkit-linear-gradient(top, #EDE7DE 0%, #F6F6F6 100%);
+	border: solid 1px #ccc;
 }
 .nav_menu .btn {
 	border: 0;
@@ -500,7 +483,8 @@ a.btn {
 /*=== Boxes */
 .box {
 	background: #EDE7DE;
-	border-radius: 4px 4px 0 0;
+	border-radius: 4px;
+	box-shadow: 0 1px #fff;
 }
 .box .box-title {
 	margin: 0;
@@ -575,6 +559,7 @@ a.btn {
 .tree-folder-items > .item > a {
 	text-decoration: none;
 	color: #fff;
+	font-size: 0.92em;
 }
 .tree-folder-items > .item.active > a {
 }
@@ -593,7 +578,8 @@ a.btn {
 	text-align: center;
 }
 .header > .item.title .logo {
-	display: none;
+	height: 60px;
+	width: 60px;
 }
 .header > .item.title{
 	width: 250px;
@@ -603,9 +589,9 @@ a.btn {
 }
 .header > .item.title h1 a {
 	text-decoration: none;
-	font-size: 38px;
-	color:#ccc;
-	text-shadow: 0 1px #fff, 0 -1px rgba(162, 162, 162, 1);
+	font-size: 28px;
+	color:#222;
+	text-shadow: 0 1px #fff;
 }
 .header > .item.search input {
 	width: 230px;
@@ -681,11 +667,8 @@ a.btn {
 /*=== Prompt (centered) */
 .prompt {
 	text-align: center;
-	color: #FFF;
-	background: #222;
 	padding: 14px 0px;
-	box-shadow: 0px -1px #FFF, 0px 1px #FFF, 0px 2px 2px #171717 inset, 0px -2px 2px #171717 inset;
-	text-shadow: 0 -1px #171717, 0 1px rgba(255,255,255,0.08);
+	text-shadow: 0 1px rgba(255,255,255,0.08);
 }
 .prompt label {
 	text-align: left;
@@ -702,9 +685,9 @@ a.btn {
 	margin: 20px 0;
 }
 .prompt input#username,.prompt input#passwordPlain{
-	border:none;
-	box-shadow: 0px 1px rgba(255, 255, 255, 0.08) inset,0 -1px #171717,0px 1px rgba(255, 255, 255, 0.08);
-	background:#EDE7DE;
+	border:solid 1px #ccc;
+	box-shadow: 0 4px -4px #ccc inset,0px 1px rgba(255, 255, 255, 0.08);
+	background:#fff;
 }
 .prompt input#username:focus,.prompt input#passwordPlain:focus{
 	border: solid 1px #E7AB34;
@@ -734,7 +717,11 @@ a.btn {
 	padding: 0 10px;
 	font-style:italic;
 	line-height: 3em;
-	background: #fff;
+	box-shadow: 0 1px #BDB7AE inset, 0 -1px rgba(255,255,255,0.28) inset;
+	background: linear-gradient(0deg, #EDE7DE 0%, #C2BCB3 100%) #EDE7DE;
+    background: -webkit-linear-gradient(bottom, #C2BCB3 0%, #FFF 100%);
+	color: #666;
+	text-shadow: 0 1px rgba(255,255,255,0.28);
 	text-align: center;
 }
 #new-article + .day {
@@ -748,9 +735,25 @@ a.btn {
 .nav_menu {
 	background: #EDE7DE;
 	border-bottom: 1px solid #ccc;
-	box-shadow:0 -1px #fff inset;
+	box-shadow:0 -1px rgba(255, 255, 255, 0.28) inset;
 	text-align: center;
 	padding: 5px 0;
+}
+#panel >.nav_menu{
+	background: linear-gradient(0deg, #EDE7DE 0%, #FFF 100%) #EDE7DE;
+    background: -webkit-linear-gradient(bottom, #EDE7DE 0%, #FFF 100%);
+}
+#panel > .nav_menu > #nav_menu_read_all{
+	background: linear-gradient(0deg, #EDE7DE 0%, #FFF 100%) #EDE7DE;
+    background: -webkit-linear-gradient(bottom, #EDE7DE 0%, #FFF 100%);
+	border-radius: 4px;
+	border: 1px solid #CCC;
+	box-shadow: 0px 1px #FFF;
+}
+#panel > .nav_menu > #nav_menu_read_all > .dropdown > .btn.dropdown-toggle{
+	border-radius: 0 4px 4px 0;
+	border:none;
+	border-left: solid 1px #ccc;
 }
 
 /*=== Feed articles */
@@ -810,6 +813,7 @@ opacity: 1;
 	border-top: 1px solid #ddd;
 	font-size: 0.8rem;
 	cursor: pointer;
+	box-shadow: 0 -1px rgba(255,255,255,0.28) inset;
 }
 .flux_header .title {
 	font-size: 0.9rem;
@@ -917,6 +921,7 @@ opacity: 1;
 	text-shadow: 0 -1px 0 #aaa;
 	color: #666;
 	background: #EDE7DE;
+	box-shadow: 0 1px rgba(255,255,255,0.28)inset;
 }
 #bigMarkAsRead:hover {
 	color: #000;
@@ -956,9 +961,8 @@ opacity: 1;
 /*=== GLOBAL VIEW */
 /*================*/
 #stream.global {
-	background: #222;
 	padding: 24px 0;
-	box-shadow: 0 1px #fff, 0 -2px 2px #171717 inset, 0 2px 2px #171717 inset;
+	box-shadow: 0px 8px 8px #C2BCB3 inset;
 }
 
 .box.category .box-title {
@@ -1004,6 +1008,7 @@ opacity: 1;
 #panel {
 	box-shadow: 0px 0px 4px #000;
 	border-radius: 8px;
+	background:#EDE7DE;
 }
 /*=== DIVERS */
 /*===========*/
@@ -1082,6 +1087,14 @@ opacity: 1;
 .log.debug {
 	background: #333;
 	color: #eee;
+}
+
+#slider.active {
+    box-shadow: -4px 0 4px rgba(15, 15, 15, 0.55);
+    background: #F8F8F8;
+}
+#close-slider.active {
+    background: rgba(15, 15, 15, 0.35);
 }
 
 /*=== MOBILE */
