@@ -168,7 +168,7 @@ function sanitizeHTML($data, $base = '') {
 function get_content_by_parsing ($url, $path) {
 	require_once (LIB_PATH . '/lib_phpQuery.php');
 
-	syslog(LOG_INFO, 'FreshRSS GET ' . $url);
+	syslog(LOG_INFO, 'FreshRSS GET ' . prepareUrlForLogging($url));
 	$html = file_get_contents ($url);
 
 	if ($html) {
@@ -318,4 +318,14 @@ function check_install_database() {
 	}
 
 	return $status;
+}
+
+/**
+ * Prepare an URL for logging by removing the HTTP authentication values
+ *
+ * @param string $url
+ * @return string
+ */
+function prepareUrlForLogging ($url) {
+	return preg_replace('/[^\/]*:[^:]*@/', '', $url);
 }
