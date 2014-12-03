@@ -42,18 +42,12 @@ function param($key, $default = false) {
 
 
 // gestion internationalisation
-$translates = array();
-$actual = 'en';
 function initTranslate() {
-	global $translates;
-	global $actual;
-
-	$actual = isset($_SESSION['language']) ? $_SESSION['language'] : getBetterLanguage('en');
-
-	$file = APP_PATH . '/i18n/' . $actual . '.php';
-	if (file_exists($file)) {
-		$translates = array_merge($translates, include($file));
+	if (!isset($_SESSION['language'])) {
+		$_SESSION['language'] = getBetterLanguage('en');
 	}
+
+	Minz_Translate::init();
 }
 
 function getBetterLanguage($fallback) {
@@ -73,19 +67,6 @@ function availableLanguages() {
 		'en' => 'English',
 		'fr' => 'Français'
 	);
-}
-
-function _t($key) {
-	global $translates;
-	$translate = $key;
-	if (isset($translates[$key])) {
-		$translate = $translates[$key];
-	}
-
-	$args = func_get_args();
-	unset($args[0]);
-
-	return vsprintf($translate, $args);
 }
 
 
