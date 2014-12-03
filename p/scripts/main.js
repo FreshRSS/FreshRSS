@@ -144,6 +144,7 @@ function mark_read(active, only_not_read) {
 			inc = 0;
 		if (active.hasClass("not_read")) {
 			active.removeClass("not_read");
+			hide_article(active);
 			inc--;
 		} else if (only_not_read !== true || active.hasClass("not_read")) {
 			active.addClass("not_read");
@@ -231,14 +232,7 @@ function toggleContent(new_active, old_active) {
 		}
 		old_active.removeClass("active current");
 		new_active.addClass("current");
-		if (context['auto_remove_article'] && !old_active.hasClass('not_read')) {
-			var p = old_active.prev();
-			var n = old_active.next();
-			if (p.hasClass('day') && n.hasClass('day')) {
-				p.remove();
-			}
-			old_active.remove();
-		}
+		hide_article(old_active);
 	} else {
 		new_active.toggleClass('active');
 	}
@@ -280,6 +274,17 @@ function toggleContent(new_active, old_active) {
 
 	if (context['auto_mark_article'] && new_active.hasClass('active')) {
 		mark_read(new_active, true);
+	}
+}
+
+function hide_article(article) {
+	if (context['auto_remove_article'] && !article.hasClass('not_read')) {
+		var p = article.prev();
+		var n = article.next();
+		if (p.hasClass('day') && n.hasClass('day')) {
+			p.remove();
+		}
+		article.remove();
 	}
 }
 
@@ -690,9 +695,6 @@ function init_stream(divStream) {
 	divStream.on('click', '.flux a.read', function () {
 		var active = $(this).parents(".flux");
 		mark_read(active, false);
-		if (context['auto_remove_article']) {
-			active.remove();
-		}
 		return false;
 	});
 
