@@ -62,6 +62,7 @@ return array(
 	'author' => 'Auteur',
 	'auto_load_more' => 'Charger les articles suivants en bas de page',
 	'auto_read_when' => 'Marquer un article comme lu…',
+	'auto_remove_article' => 'Cacher les articles après lecture',
 	'auto_share' => 'Partager',
 	'auto_share_help' => 'S’il n’y a qu’un mode de partage, celui-ci est utilisé automatiquement. Sinon ils sont accessibles par leur numéro.',
 	'back_to_rss_feeds' => '← Retour à vos flux RSS',
