@@ -62,6 +62,7 @@ return array(
 	'author' => 'Author',
 	'auto_load_more' => 'Load next articles at the page bottom',
 	'auto_read_when' => 'Mark article as read…',
+	'auto_remove_article' => 'Hide articles as they are read'
 	'auto_share' => 'Share',
 	'auto_share_help' => 'If there is only one sharing mode, it is used. Else modes are accessible by their number.',
 	'back_to_rss_feeds' => '← Go back to your RSS feeds',
