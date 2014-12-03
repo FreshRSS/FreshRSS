@@ -689,10 +689,15 @@ function init_stream(divStream) {
 
 	divStream.on('click', '.flux a.read', function () {
 		var active = $(this).parents(".flux");
-		mark_read(active, false);
-		if (context['auto_remove_article']) {
+		if (context['auto_remove_article'] && active.hasClass('not_read')) {
+			var p = active.prev();
+			var n = active.next();
+			if (p.hasClass('day') && n.hasClass('day')) {
+				p.remove();
+			}
 			active.remove();
 		}
+		mark_read(active, false);
 		return false;
 	});
 
