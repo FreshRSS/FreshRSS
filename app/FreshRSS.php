@@ -6,7 +6,7 @@ class FreshRSS extends Minz_FrontController {
 			Minz_Session::init('FreshRSS');
 		}
 
-		// Load list of extensions and initialize the "system" ones.
+		// Load list of extensions and enable the "system" ones.
 		Minz_ExtensionManager::init();
 
 		// Need to be called just after session init because it initializes
@@ -28,6 +28,10 @@ class FreshRSS extends Minz_FrontController {
 
 		// Load context and configuration.
 		FreshRSS_Context::init();
+
+		// Enable extensions for the current user.
+		$ext_list = FreshRSS_Context::$conf->extensions_enabled;
+		Minz_ExtensionManager::enable_by_list($ext_list);
 
 		// Init i18n.
 		Minz_Session::_param('language', FreshRSS_Context::$conf->language);

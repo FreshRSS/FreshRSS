@@ -64,6 +64,7 @@ class FreshRSS_Configuration {
 		'sharing' => array(),
 		'queries' => array(),
 		'html5_notif_timeout' => 0,
+		'extensions_enabled' => array(),
 	);
 
 	private $available_languages = array(
@@ -341,5 +342,12 @@ class FreshRSS_Configuration {
 	}
 	public function _bottomline_link($value) {
 		$this->data['bottomline_link'] = ((bool)$value) && $value !== 'no';
+	}
+
+	public function _extensions_enabled($value) {
+		if (!is_array($value)) {
+			$value = array($value);
+		}
+		$this->data['extensions_enabled'] = $value;
 	}
 }

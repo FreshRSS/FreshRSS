@@ -147,4 +147,15 @@ class Minz_ExtensionManager {
 			$ext->init();
 		}
 	}
+
+	/**
+	 * Enable a list of extensions.
+	 *
+	 * @param $ext_list the names of extensions we want to load.
+	 */
+	public static function enable_by_list($ext_list) {
+		foreach ($ext_list as $ext_name) {
+			self::enable($ext_name);
+		}
+	}
 }
