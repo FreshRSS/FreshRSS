@@ -1,32 +1,33 @@
 <?php
-if (!isset($_GET['e'])) {
-	header('HTTP/1.1 400 Bad Request');
-	die();
-}
-$extension = substr($_GET['e'], 0, 64);
-if (!ctype_alpha($extension)) {
+if (!isset($_GET['f']) ||
+		!isset($_GET['t'])) {
 	header('HTTP/1.1 400 Bad Request');
 	die();
 }
 
 require('../constants.php');
-$filename = FRESHRSS_PATH . '/extensions/' . $extension . '/';
 
-if (isset($_GET['j'])) {
-	header('Content-Type: application/javascript; charset=UTF-8');
-	header('Content-Disposition: inline; filename="script.js"');
-	$filename .= 'script.js';
-} elseif (isset($_GET['c'])) {
+$file_name = urldecode($_GET['f']);
+$file_type = $_GET['t'];
+
+$absolute_filename = EXTENSIONS_PATH . '/' . $file_name;
+
+switch ($file_type) {
+case 'css':
 	header('Content-Type: text/css; charset=UTF-8');
-	header('Content-Disposition: inline; filename="style.css"');
-	$filename .= 'style.css';
-} else {
+	header('Content-Disposition: inline; filename="' . $file_name . '"');
+	break;
+case 'js':
+	header('Content-Type: application/javascript; charset=UTF-8');
+	header('Content-Disposition: inline; filename="' . $file_name . '"');
+	break;
+default:
 	header('HTTP/1.1 400 Bad Request');
 	die();
 }
 
-$mtime = @filemtime($filename);
-if ($mtime == false) {
+$mtime = @filemtime($absolute_filename);
+if ($mtime === false) {
 	header('HTTP/1.1 404 Not Found');
 	die();
 }
@@ -34,5 +35,5 @@ if ($mtime == false) {
 require(LIB_PATH . '/http-conditional.php');
 
 if (!httpConditional($mtime, 604800, 2)) {
-	readfile($filename);
+	readfile($absolute_filename);
 }

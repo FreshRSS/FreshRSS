@@ -75,6 +75,9 @@ class Minz_Extension {
 	public function getEntrypoint() {
 		return $this->entrypoint;
 	}
+	public function getPath() {
+		return $this->path;
+	}
 	public function getAuthor() {
 		return $this->author;
 	}
@@ -92,5 +95,25 @@ class Minz_Extension {
 			throw new Minz_ExtensionException('invalid `type` info', $this->name);
 		}
 		$this->type = $type;
+	}
+
+	/**
+	 * Return the url for a given file.
+	 *
+	 * @param $filename name of the file to serve.
+	 * @param $type the type (js or css) of the file to serve.
+	 * @return the url corresponding to the file.
+	 */
+	public function getFileUrl($filename, $type) {
+		$dir = end(explode('/', $this->path));
+		$file_name_url = urlencode($dir . '/' . $filename);
+
+		$absolute_path = $this->path . '/' . $filename;
+		$mtime = @filemtime($absolute_path);
+
+		$url = '/ext.php?f=' . $file_name_url .
+		       '&amp;t=' . $type .
+		       '&amp;' . $mtime;
+		return Minz_Url::display($url);
 	}
 }
