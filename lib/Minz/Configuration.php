@@ -69,6 +69,8 @@ class Minz_Configuration {
 		'max_categories' => Minz_Configuration::MAX_SMALL_INT,
 	);
 
+	private static $extensions_enabled = array();
+
 	/*
 	 * Getteurs
 	 */
@@ -132,6 +134,9 @@ class Minz_Configuration {
 	}
 	public static function unsafeAutologinEnabled() {
 		return self::$unsafe_autologin_enabled;
+	}
+	public static function extensionsEnabled() {
+		return self::$extensions_enabled;
 	}
 
 	public static function _allowAnonymous($allow = false) {
@@ -336,6 +341,11 @@ class Minz_Configuration {
 					self::$limits['max_categories'] = $v;
 				}
 			}
+		}
+
+		// Extensions
+		if (isset($ini_array['extensions']) && is_array($ini_array['extensions'])) {
+			self::$extensions_enabled = $ini_array['extensions'];
 		}
 
 		// Base de données

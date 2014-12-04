@@ -20,6 +20,7 @@ define('FRESHRSS_PATH', dirname(__FILE__));
 		define('CACHE_PATH', DATA_PATH . '/cache');
 
 	define('LIB_PATH', FRESHRSS_PATH . '/lib');
-		define('APP_PATH', FRESHRSS_PATH . '/app');
+	define('APP_PATH', FRESHRSS_PATH . '/app');
+	define('EXTENSIONS_PATH', FRESHRSS_PATH . '/extensions');
 
 define('TMP_PATH', sys_get_temp_dir());

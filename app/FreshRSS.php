@@ -6,6 +6,9 @@ class FreshRSS extends Minz_FrontController {
 			Minz_Session::init('FreshRSS');
 		}
 
+		// Load list of extensions and initialize the "system" ones.
+		Minz_ExtensionManager::init();
+
 		// Need to be called just after session init because it initializes
 		// current user.
 		FreshRSS_Auth::init();
@@ -32,7 +35,6 @@ class FreshRSS extends Minz_FrontController {
 
 		$this->loadStylesAndScripts();
 		$this->loadNotifications();
-		$this->loadExtensions();
 	}
 
 	private function loadStylesAndScripts() {
@@ -74,23 +76,23 @@ class FreshRSS extends Minz_FrontController {
 		}
 	}
 
-	private function loadExtensions() {
-		$extensionPath = FRESHRSS_PATH . '/extensions/';
-		//TODO: Add a preference to load only user-selected extensions
-		foreach (scandir($extensionPath) as $key => $extension) {
-			if (ctype_alpha($extension)) {
-				$mtime = @filemtime($extensionPath . $extension . '/style.css');
-				if ($mtime !== false) {
-					Minz_View::appendStyle(Minz_Url::display('/ext.php?c&amp;e=' . $extension . '&amp;' . $mtime));
-				}
-				$mtime = @filemtime($extensionPath . $extension . '/script.js');
-				if ($mtime !== false) {
-					Minz_View::appendScript(Minz_Url::display('/ext.php?j&amp;e=' . $extension . '&amp;' . $mtime));
-				}
-				if (file_exists($extensionPath . $extension . '/module.php')) {
-					//TODO: include
-				} 
-			}
-		}
-	}
+	// private function loadExtensions() {
+	// 	$extensionPath = FRESHRSS_PATH . '/extensions/';
+	// 	//TODO: Add a preference to load only user-selected extensions
+	// 	foreach (scandir($extensionPath) as $key => $extension) {
+	// 		if (ctype_alpha($extension)) {
+	// 			$mtime = @filemtime($extensionPath . $extension . '/style.css');
+	// 			if ($mtime !== false) {
+	// 				Minz_View::appendStyle(Minz_Url::display('/ext.php?c&amp;e=' . $extension . '&amp;' . $mtime));
+	// 			}
+	// 			$mtime = @filemtime($extensionPath . $extension . '/script.js');
+	// 			if ($mtime !== false) {
+	// 				Minz_View::appendScript(Minz_Url::display('/ext.php?j&amp;e=' . $extension . '&amp;' . $mtime));
+	// 			}
+	// 			if (file_exists($extensionPath . $extension . '/module.php')) {
+	// 				//TODO: include
+	// 			} 
+	// 		}
+	// 	}
+	// }
 }
