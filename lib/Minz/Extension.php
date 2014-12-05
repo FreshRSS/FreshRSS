@@ -136,4 +136,17 @@ class Minz_Extension {
 		       '&amp;' . $mtime;
 		return Minz_Url::display($url);
 	}
+
+	/**
+	 * Register a controller in the Dispatcher.
+	 *
+	 * @param @base_name the base name of the controller. Final name will be:
+	 *                   FreshExtension_<base_name>_Controller.
+	 */
+	public function registerController($base_name) {
+		$controller_name = 'FreshExtension_' . $base_name . '_Controller';
+		$filename = $this->path . '/controllers/' . $base_name . 'Controller.php';
+
+		Minz_Dispatcher::registerController($base_name, $controller_name, $filename);
+	}
 }
