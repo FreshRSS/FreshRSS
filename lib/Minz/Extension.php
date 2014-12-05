@@ -17,6 +17,8 @@ class Minz_Extension {
 		'user',
 	);
 
+	private $is_enabled;
+
 	/**
 	 * The constructor to assign specific information to the extension.
 	 *
@@ -41,6 +43,8 @@ class Minz_Extension {
 		$this->description = isset($meta_info['description']) ? $meta_info['description'] : '';
 		$this->version = isset($meta_info['version']) ? $meta_info['version'] : '0.1';
 		$this->setType(isset($meta_info['type']) ? $meta_info['type'] : 'user');
+
+		$this->is_enabled = false;
 	}
 
 	/**
@@ -65,6 +69,22 @@ class Minz_Extension {
 	 * It must be redefined by child classes.
 	 */
 	public function init() {}
+
+	/**
+	 * Set the current extension to enable.
+	 */
+	public function enable() {
+		$this->is_enabled = true;
+	}
+
+	/**
+	 * Return if the extension is currently enabled.
+	 *
+	 * @return true if extension is enabled, false else.
+	 */
+	public function is_enabled() {
+		return $this->is_enabled;
+	}
 
 	/**
 	 * Getters and setters.

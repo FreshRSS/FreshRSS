@@ -144,6 +144,7 @@ class Minz_ExtensionManager {
 		if (isset(self::$ext_list[$ext_name])) {
 			$ext = self::$ext_list[$ext_name];
 			self::$ext_list_enabled[$ext_name] = $ext;
+			$ext->enable();
 			$ext->init();
 		}
 	}
@@ -156,6 +157,22 @@ class Minz_ExtensionManager {
 	public static function enable_by_list($ext_list) {
 		foreach ($ext_list as $ext_name) {
 			self::enable($ext_name);
+		}
+	}
+
+
+
+	/**
+	 * Returns a list of extensions.
+	 *
+	 * @param $only_enabled if true returns only the enabled extensions (false by default).
+	 * @return an array of extensions.
+	 */
+	public static function list_extensions($only_enabled = false) {
+		if ($only_enabled) {
+			return self::$ext_list_enabled;
+		} else {
+			return self::$ext_list;
 		}
 	}
 }

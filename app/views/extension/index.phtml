@@ -1,0 +1,35 @@
+<?php $this->partial('aside_configure'); ?>
+
+<div class="post">
+	<a href="<?php echo _url('index', 'index'); ?>"><?php echo _t('gen.back_to_rss_feeds'); ?></a>
+
+	<h1><?php echo _t('admin.extensions.title'); ?></h1>
+
+	<?php if (!empty($this->extension_list)) { ?>
+	<form id="form-extension" method="post" style="display: none"></form>
+	<?php foreach ($this->extension_list as $ext) { ?>
+	<ul class="horizontal-list">
+		<li class="item">
+			<?php $name_encoded = urlencode($ext->getName()); ?>
+			<div class="stick">
+				<a class="btn open-slider" href="<?php echo _url('extension', 'configure', 'e', $name_encoded); ?>"><?php echo _i('configure'); ?> <?php echo _t('admin.extensions.manage'); ?></a>
+				<?php if ($ext->is_enabled()) { ?>
+				<button class="btn" form="form-extension" formaction="<?php echo _url('extension', 'disable', 'e', $name_encoded); ?>"><?php echo _t('admin.extensions.disable'); ?></button>
+				<?php } else { ?>
+				<button class="btn" form="form-extension" formaction="<?php echo _url('extension', 'enable', 'e', $name_encoded); ?>"><?php echo _t('admin.extensions.enable'); ?></button>
+				<?php } ?>
+				<?php if (FreshRSS_Auth::hasAccess('admin')) { ?>
+				<button class="btn btn-attention confirm" form="form-extension" formaction="<?php echo _url('extension', 'remove', 'e', $name_encoded); ?>"><?php echo _t('admin.extensions.remove'); ?></button>
+				<?php } ?>
+			</div>
+		</li>
+		<li class="item"><?php echo $ext->getName(); ?></li>
+	</ul>
+	<?php } ?>
+	<?php } else { ?>
+	<p class="alert alert-warn"><?php echo _t('admin.extensions.empty_list'); ?></p>
+	<?php } ?>
+</div>
+
+<a href="#" id="close-slider"></a>
+<div id="slider"></div>
