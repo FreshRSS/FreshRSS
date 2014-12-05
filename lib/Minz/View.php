@@ -12,6 +12,7 @@ class Minz_View {
 	const LAYOUT_PATH_NAME = '/layout';
 	const LAYOUT_FILENAME = '/layout.phtml';
 
+	private $base_pathname = APP_PATH;
 	private $view_filename = '';
 	private $use_layout = null;
 
@@ -35,10 +36,13 @@ class Minz_View {
 	 * Change le fichier de vue en fonction d'un controller / action
 	 */
 	public function change_view($controller_name, $action_name) {
-		$this->view_filename = APP_PATH
-		                     . self::VIEWS_PATH_NAME . '/'
+		$this->view_filename = self::VIEWS_PATH_NAME . '/'
 		                     . $controller_name . '/'
 		                     . $action_name . '.phtml';
+	}
+
+	public function setBasePathname($base_pathname) {
+		$this->base_pathname = $base_pathname;
 	}
 
 	/**
@@ -70,7 +74,7 @@ class Minz_View {
 	 * Affiche la Vue en elle-même
 	 */
 	public function render () {
-		if ((include($this->view_filename)) === false) {
+		if ((include($this->base_pathname . $this->view_filename)) === false) {
 			Minz_Log::notice('File not found: `' . $this->view_filename . '`');
 		}
 	}

@@ -144,9 +144,6 @@ class Minz_Extension {
 	 *                   FreshExtension_<base_name>_Controller.
 	 */
 	public function registerController($base_name) {
-		$controller_name = 'FreshExtension_' . $base_name . '_Controller';
-		$filename = $this->path . '/controllers/' . $base_name . 'Controller.php';
-
-		Minz_Dispatcher::registerController($base_name, $controller_name, $filename);
+		Minz_Dispatcher::registerController($base_name, $this->path);
 	}
 }

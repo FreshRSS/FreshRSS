@@ -68,16 +68,17 @@ class Minz_Dispatcher {
 
 	/**
 	 * Instancie le Controller
-	 * @param $controller_name le nom du controller à instancier
+	 * @param $base_name le nom du controller à instancier
 	 * @exception ControllerNotExistException le controller n'existe pas
 	 * @exception ControllerNotActionControllerException controller n'est
 	 *          > pas une instance de ActionController
 	 */
-	private function createController ($controller_name) {
-		if (self::isRegistered($controller_name)) {
-			$controller_name = self::loadController($controller_name);
+	private function createController ($base_name) {
+		if (self::isRegistered($base_name)) {
+			self::loadController($base_name);
+			$controller_name = 'FreshExtension_' . $base_name . '_Controller';
 		} else {
-			$controller_name = 'FreshRSS_' . $controller_name . '_Controller';
+			$controller_name = 'FreshRSS_' . $base_name . '_Controller';
 		}
 
 		if (!class_exists ($controller_name)) {
@@ -93,6 +94,10 @@ class Minz_Dispatcher {
 				$controller_name,
 				Minz_Exception::ERROR
 			);
+		}
+
+		if (self::isRegistered($base_name)) {
+			$this->setViewPath($this->controller, $base_name);
 		}
 	}
 
@@ -123,15 +128,11 @@ class Minz_Dispatcher {
 	 * Register a controller file.
 	 *
 	 * @param $base_name the base name of the controller (i.e. ./?c=<base_name>)
-	 * @param $controller_name the name of the controller (e.g. HelloWorldController).
-	 * @param $filename the file which contains the controller.
+	 * @param $base_path the base path where we should look into to find info.
 	 */
-	public static function registerController($base_name, $controller_name, $filename) {
-		if (file_exists($filename)) {
-			self::$registrations[$base_name] = array(
-				$controller_name,
-				$filename,
-			);
+	public static function registerController($base_name, $base_path) {
+		if (!self::isRegistered($base_name)) {
+			self::$registrations[$base_name] = $base_path;
 		}
 	}
 
@@ -146,13 +147,18 @@ class Minz_Dispatcher {
 	}
 
 	/**
-	 * Load a controller file (include) and return its name.
+	 * Load a controller file (include).
 	 *
 	 * @param $base_name the base name of the controller.
 	 */
 	private static function loadController($base_name) {
-		list($controller_name, $filename) = self::$registrations[$base_name];
-		include($filename);
-		return $controller_name;
+		$base_path = self::$registrations[$base_name];
+		$controller_filename = $base_path . '/controllers/' . $base_name . 'Controller.php';
+		include($controller_filename);
+	}
+
+	private static function setViewPath($controller, $base_name) {
+		$base_path = self::$registrations[$base_name];
+		$controller->view()->setBasePathname($base_path);
 	}
 }
