@@ -106,9 +106,9 @@ class Minz_Extension {
 	 */
 	public function getFileUrl($filename, $type) {
 		$dir = end(explode('/', $this->path));
-		$file_name_url = urlencode($dir . '/' . $filename);
+		$file_name_url = urlencode($dir . '/static/' . $filename);
 
-		$absolute_path = $this->path . '/' . $filename;
+		$absolute_path = $this->path . '/static/' . $filename;
 		$mtime = @filemtime($absolute_path);
 
 		$url = '/ext.php?f=' . $file_name_url .
