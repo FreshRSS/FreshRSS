@@ -130,6 +130,11 @@ class FreshRSS_extension_Controller extends Minz_ActionController {
 	}
 
 	public function removeAction() {
-		
+		if (!FreshRSS_Auth::hasAccess('admin')) {
+			Minz_Error::error(403);
+		}
+
+		$url_redirect = array('c' => 'extension', 'a' => 'index');
+		Minz_Request::bad('not implemented yet!', $url_redirect);
 	}
 }
