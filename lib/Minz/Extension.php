@@ -153,4 +153,14 @@ class Minz_Extension {
 	public function registerViews() {
 		Minz_View::addBasePathname($this->path);
 	}
+
+	/**
+	 * Register a new hook.
+	 *
+	 * @param $hook_name the hook name (must exist).
+	 * @param $hook_function the function name to call (must be callable).
+	 */
+	public function registerHook($hook_name, $hook_function) {
+		Minz_ExtensionManager::addHook($hook_name, $hook_function, $this);
+	}
 }

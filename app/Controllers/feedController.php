@@ -329,9 +329,16 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 						$id = min(time(), $entry_date) . uSecString();
 					}
 
+					$entry->_id($id);
+					$entry->_isRead($is_read);
+
+					$entry = Minz_ExtensionManager::callHook('entry_before_insert', $entry);
+					if (is_null($entry)) {
+						// An extension has returned a null value, there is nothing to insert.
+						continue;
+					}
+
 					$values = $entry->toArray();
-					$values['id'] = $id;
-					$values['is_read'] = $is_read;
 					$entryDAO->addEntry($values, $prepared_statement);
 				}
 			}

@@ -2,6 +2,8 @@
 
 /**
  * An extension manager to load extensions present in EXTENSIONS_PATH.
+ *
+ * @todo see coding style for methods!!
  */
 class Minz_ExtensionManager {
 	private static $ext_metaname = 'metadata.json';
@@ -10,6 +12,11 @@ class Minz_ExtensionManager {
 	private static $ext_list_enabled = array();
 
 	private static $ext_auto_enabled = array();
+
+	private static $hook_list = array(
+		'entry_before_insert' => array(),  // function($entry)
+	);
+	private static $ext_to_hooks = array();
 
 	/**
 	 * Initialize the extension manager by loading extensions in EXTENSIONS_PATH.
@@ -131,6 +138,8 @@ class Minz_ExtensionManager {
 				in_array($name, self::$ext_auto_enabled)) {
 			self::enable($ext->getName());
 		}
+
+		self::$ext_to_hooks[$name] = array();
 	}
 
 	/**
@@ -186,5 +195,51 @@ class Minz_ExtensionManager {
 		}
 
 		return self::$ext_list[$ext_name];
+	}
+
+	/**
+	 * Add a hook function to a given hook.
+	 *
+	 * The hook name must be a valid one. For the valid list, see self::$hook_list
+	 * array keys.
+	 *
+	 * @param $hook_name the hook name (must exist).
+	 * @param $hook_function the function name to call (must be callable).
+	 * @param $ext the extension which register the hook.
+	 */
+	public static function addHook($hook_name, $hook_function, $ext) {
+		if (isset(self::$hook_list[$hook_name]) && is_callable($hook_function)) {
+			self::$hook_list[$hook_name][] = $hook_function;
+			self::$ext_to_hooks[$ext->getName()][] = $hook_name;
+		}
+	}
+
+	/**
+	 * Call functions related to a given hook.
+	 *
+	 * The hook name must be a valid one. For the valid list, see self::$hook_list
+	 * array keys.
+	 *
+	 * @param $hook_name the hook to call.
+	 * @param additionnal parameters (for signature, please see self::$hook_list comments)
+	 * @todo hook functions will have different signatures. So the $res = func($args);
+	 *       $args = $res; will not work for all of them in the future. We must
+	 *       find a better way to call hooks.
+	 */
+	public static function callHook($hook_name) {
+		$args = func_get_args();
+		unset($args[0]);
+
+		$result = $args;
+		foreach (self::$hook_list[$hook_name] as $function) {
+			$result = call_user_func_array($function, $args);
+
+			if (is_null($result)) {
+				break;
+			}
+
+			$args = $result;
+		}
+		return $result;
 	}
 }
