@@ -160,10 +160,8 @@ class Minz_ExtensionManager {
 		}
 	}
 
-
-
 	/**
-	 * Returns a list of extensions.
+	 * Return a list of extensions.
 	 *
 	 * @param $only_enabled if true returns only the enabled extensions (false by default).
 	 * @return an array of extensions.
@@ -174,5 +172,19 @@ class Minz_ExtensionManager {
 		} else {
 			return self::$ext_list;
 		}
+	}
+
+	/**
+	 * Return an extension by its name.
+	 *
+	 * @param $ext_name the name of the extension.
+	 * @return the corresponding extension or null if it doesn't exist.
+	 */
+	public static function find_extension($ext_name) {
+		if (!isset(self::$ext_list[$ext_name])) {
+			return null;
+		}
+
+		return self::$ext_list[$ext_name];
 	}
 }

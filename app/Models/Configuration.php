@@ -350,4 +350,16 @@ class FreshRSS_Configuration {
 		}
 		$this->data['extensions_enabled'] = $value;
 	}
+	public function removeExtension($ext_name) {
+		$this->data['extensions_enabled'] = array_diff(
+			$this->data['extensions_enabled'],
+			array($ext_name)
+		);
+	}
+	public function addExtension($ext_name) {
+		$found = array_search($ext_name, $this->data['extensions_enabled']) !== false;
+		if (!$found) {
+			$this->data['extensions_enabled'][] = $ext_name;
+		}
+	}
 }
