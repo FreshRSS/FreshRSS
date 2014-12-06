@@ -165,6 +165,19 @@ class Minz_Configuration {
 		self::$unsafe_autologin_enabled = (bool)$value;
 	}
 
+	public function removeExtension($ext_name) {
+		self::$extensions_enabled = array_diff(
+			self::$extensions_enabled,
+			array($ext_name)
+		);
+	}
+	public function addExtension($ext_name) {
+		$found = array_search($ext_name, self::$extensions_enabled) !== false;
+		if (!$found) {
+			self::$extensions_enabled[] = $ext_name;
+		}
+	}
+
 	/**
 	 * Initialise les variables de configuration
 	 * @exception Minz_FileNotExistException si le CONF_PATH_NAME n'existe pas
@@ -197,6 +210,7 @@ class Minz_Configuration {
 			),
 			'limits' => self::$limits,
 			'db' => self::$db,
+			'extensions_enabled' => self::$extensions_enabled,
 		);
 		@rename(DATA_PATH . self::CONF_PATH_NAME, DATA_PATH . self::CONF_PATH_NAME . '.bak.php');
 		$result = file_put_contents(DATA_PATH . self::CONF_PATH_NAME, "<?php\n return " . var_export($ini_array, true) . ';');
@@ -344,8 +358,9 @@ class Minz_Configuration {
 		}
 
 		// Extensions
-		if (isset($ini_array['extensions']) && is_array($ini_array['extensions'])) {
-			self::$extensions_enabled = $ini_array['extensions'];
+		if (isset($ini_array['extensions_enabled']) &&
+				is_array($ini_array['extensions_enabled'])) {
+			self::$extensions_enabled = $ini_array['extensions_enabled'];
 		}
 
 		// Base de données

@@ -10,6 +10,7 @@
 	<?php foreach ($this->extension_list as $ext) { ?>
 	<ul class="horizontal-list">
 		<li class="item">
+			<?php if ($ext->getType() === 'user' || FreshRSS_Auth::hasAccess('admin')) { ?>
 			<?php $name_encoded = urlencode($ext->getName()); ?>
 			<div class="stick">
 				<a class="btn open-slider" href="<?php echo _url('extension', 'configure', 'e', $name_encoded); ?>"><?php echo _i('configure'); ?> <?php echo _t('admin.extensions.manage'); ?></a>
@@ -22,6 +23,9 @@
 				<button class="btn btn-attention confirm" form="form-extension" formaction="<?php echo _url('extension', 'remove', 'e', $name_encoded); ?>"><?php echo _t('admin.extensions.remove'); ?></button>
 				<?php } ?>
 			</div>
+			<?php } else { ?>
+			<?php echo _t('admin.extensions.system'); ?>
+			<?php } ?>
 		</li>
 		<li class="item"><?php echo $ext->getName(); ?></li>
 	</ul>
