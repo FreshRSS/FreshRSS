@@ -80,6 +80,16 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 		return -1;
 	}
 
+	/**
+	 * Toggle favorite marker on one or more article
+	 *
+	 * @todo simplify the query by removing the str_repeat. I am pretty sure
+	 * there is an other way to do that.
+	 *
+	 * @param integer|array $ids
+	 * @param boolean $is_favorite
+	 * @return false|integer
+	 */
 	public function markFavorite($ids, $is_favorite = true) {
 		if (!is_array($ids)) {
 			$ids = array($ids);
@@ -99,6 +109,17 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 		}
 	}
 
+	/**
+	 * Update the unread article cache held on every feed details.
+	 * Depending on the parameters, it updates the cache on one feed, on all
+	 * feeds from one category or on all feeds.
+	 *
+	 * @todo It can use the query builder refactoring to build that query
+	 *
+	 * @param false|integer $catId category ID
+	 * @param false|integer $feedId feed ID
+	 * @return boolean
+	 */
 	protected function updateCacheUnreads($catId = false, $feedId = false) {
 		$sql = 'UPDATE `' . $this->prefix . 'feed` f '
 		 . 'LEFT OUTER JOIN ('
@@ -129,6 +150,19 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 		}
 	}
 
+	/**
+	 * Toggle the read marker on one or more article.
+	 * Then the cache is updated.
+	 *
+	 * @todo change the way the query is build because it seems there is
+	 * unnecessary code in here. For instance, the part with the str_repeat.
+	 * @todo remove code duplication. It seems the code is basically the
+	 * same if it is an array or not.
+	 *
+	 * @param integer|array $ids
+	 * @param boolean $is_read
+	 * @return integer affected rows
+	 */
 	public function markRead($ids, $is_read = true) {
 		if (is_array($ids)) {	//Many IDs at once (used by API)
 			if (count($ids) < 6) {	//Speed heuristics
@@ -172,6 +206,27 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 		}
 	}
 
+	/**
+	 * Mark all entries as read depending on parameters.
+	 * If $onlyFavorites is true, it is used when the user mark as read in
+	 * the favorite pseudo-category.
+	 * If $priorityMin is greater than 0, it is used when the user mark as
+	 * read in the main feed pseudo-category.
+	 * Then the cache is updated.
+	 *
+	 * If $idMax equals 0, a deprecated debug message is logged
+	 *
+	 * @todo refactor this method along with markReadCat and markReadFeed
+	 * since they are all doing the same thing. I think we need to build a
+	 * tool to generate the query instead of having queries all over the
+	 * place. It will be reused also for the filtering making every thing
+	 * separated.
+	 *
+	 * @param integer $idMax fail safe article ID
+	 * @param boolean $onlyFavorites
+	 * @param integer $priorityMin
+	 * @return integer affected rows
+	 */
 	public function markReadEntries($idMax = 0, $onlyFavorites = false, $priorityMin = 0) {
 		if ($idMax == 0) {
 			$idMax = time() . '000000';
@@ -200,6 +255,17 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 		return $affected;
 	}
 
+	/**
+	 * Mark all the articles in a category as read.
+	 * There is a fail safe to prevent to mark as read articles that are
+	 * loaded during the mark as read action. Then the cache is updated.
+	 *
+	 * If $idMax equals 0, a deprecated debug message is logged
+	 *
+	 * @param integer $id category ID
+	 * @param integer $idMax fail safe article ID
+	 * @return integer affected rows
+	 */
 	public function markReadCat($id, $idMax = 0) {
 		if ($idMax == 0) {
 			$idMax = time() . '000000';
@@ -223,6 +289,17 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 		return $affected;
 	}
 
+	/**
+	 * Mark all the articles in a feed as read.
+	 * There is a fail safe to prevent to mark as read articles that are
+	 * loaded during the mark as read action. Then the cache is updated.
+	 *
+	 * If $idMax equals 0, a deprecated debug message is logged
+	 *
+	 * @param integer $id feed ID
+	 * @param integer $idMax fail safe article ID
+	 * @return integer affected rows
+	 */
 	public function markReadFeed($id, $idMax = 0) {
 		if ($idMax == 0) {
 			$idMax = time() . '000000';
