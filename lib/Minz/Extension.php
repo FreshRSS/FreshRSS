@@ -146,4 +146,11 @@ class Minz_Extension {
 	public function registerController($base_name) {
 		Minz_Dispatcher::registerController($base_name, $this->path);
 	}
+
+	/**
+	 * Register the views in order to be accessible by the application.
+	 */
+	public function registerViews() {
+		Minz_View::addBasePathname($this->path);
+	}
 }

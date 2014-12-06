@@ -95,10 +95,6 @@ class Minz_Dispatcher {
 				Minz_Exception::ERROR
 			);
 		}
-
-		if (self::isRegistered($base_name)) {
-			$this->setViewPath($this->controller, $base_name);
-		}
 	}
 
 	/**
@@ -154,7 +150,7 @@ class Minz_Dispatcher {
 	private static function loadController($base_name) {
 		$base_path = self::$registrations[$base_name];
 		$controller_filename = $base_path . '/controllers/' . $base_name . 'Controller.php';
-		include($controller_filename);
+		include_once $controller_filename;
 	}
 
 	private static function setViewPath($controller, $base_name) {

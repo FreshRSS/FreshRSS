@@ -12,10 +12,10 @@ class Minz_View {
 	const LAYOUT_PATH_NAME = '/layout';
 	const LAYOUT_FILENAME = '/layout.phtml';
 
-	private $base_pathname = APP_PATH;
 	private $view_filename = '';
 	private $use_layout = null;
 
+	private static $base_pathnames = array(APP_PATH);
 	private static $title = '';
 	private static $styles = array ();
 	private static $scripts = array ();
@@ -41,8 +41,15 @@ class Minz_View {
 		                     . $action_name . '.phtml';
 	}
 
-	public function setBasePathname($base_pathname) {
-		$this->base_pathname = $base_pathname;
+	/**
+	 * Add a base pathname to search views.
+	 *
+	 * New pathnames will be added at the beginning of the list.
+	 *
+	 * @param $base_pathname the new base pathname.
+	 */
+	public static function addBasePathname($base_pathname) {
+		array_unshift(self::$base_pathnames, $base_pathname);
 	}
 
 	/**
@@ -74,7 +81,20 @@ class Minz_View {
 	 * Affiche la Vue en elle-même
 	 */
 	public function render () {
-		if ((include($this->base_pathname . $this->view_filename)) === false) {
+		$view_found = false;
+
+		// We search the view in the list of base pathnames. Only the first view
+		// found is considered.
+		foreach (self::$base_pathnames as $base) {
+			$filename = $base . $this->view_filename;
+			if (file_exists($filename)) {
+				include $filename;
+				$view_found = true;
+				break;
+			}
+		}
+
+		if (!$view_found) {
 			Minz_Log::notice('File not found: `' . $this->view_filename . '`');
 		}
 	}
