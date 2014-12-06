@@ -190,10 +190,17 @@ return array(
 	'freshrss_installation' => 'Installation · FreshRSS',
 	'fri' => 'Fri',
 	'g+' => 'Google+',
+	'actions' => array(
+		'disable' => 'Disable',
+		'enable' => 'Enable',
+		'manage' => 'Manage',
+		'remove' => 'Remove',
+	),
 	'menu' => array(
 		'admin' => 'Administration',
 		'authentication' => 'Authentication',
 		'check_install' => 'Installation checking',
+		'extensions' => 'Extensions',
 		'user_management' => 'Manage users',
 		'user_profile' => 'Profile',
 	),

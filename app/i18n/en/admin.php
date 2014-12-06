@@ -86,6 +86,11 @@ return array(
 			'ok' => 'You have ZIP extension.',
 		),
 	),
+	'extensions' => array(
+		'empty_list' => 'There is no installed extension',
+		'system' => 'System extension (you have no rights on it)',
+		'title' => 'Extensions',
+	),
 	'users' => array(
 		'articles_and_size' => '%s articles (%s)',
 	),

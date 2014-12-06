@@ -191,10 +191,17 @@ return array(
 	'freshrss_installation' => 'Installation · FreshRSS',
 	'fri' => 'ven.',
 	'g+' => 'Google+',
+	'actions' => array(
+		'disable' => 'Désactiver',
+		'enable' => 'Activer',
+		'manage' => 'Gérer',
+		'remove' => 'Supprimer',
+	),
 	'menu' => array(
 		'admin' => 'Administration',
 		'authentication' => 'Authentification',
 		'check_install' => 'Vérification de l’installation',
+		'extensions' => 'Extensions',
 		'user_management' => 'Gestion des utilisateurs',
 		'user_profile' => 'Profil',
 	),

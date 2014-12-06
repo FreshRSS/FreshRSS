@@ -45,11 +45,13 @@ class FreshRSS_extension_Controller extends Minz_ActionController {
 			$ext = Minz_ExtensionManager::find_extension($ext_name);
 
 			if (is_null($ext)) {
-				Minz_Request::bad('feedback.extensions.not_found', $url_redirect);
+				Minz_Request::bad(_t('feedback.extensions.not_found', $ext_name),
+				                  $url_redirect);
 			}
 
 			if ($ext->is_enabled()) {
-				Minz_Request::bad('feedback.extensions.already_enabled', $url_redirect);
+				Minz_Request::bad(_t('feedback.extensions.already_enabled', $ext_name),
+				                  $url_redirect);
 			}
 
 			if ($ext->getType() === 'system' && FreshRSS_Auth::hasAccess('admin')) {
@@ -58,16 +60,19 @@ class FreshRSS_extension_Controller extends Minz_ActionController {
 				Minz_Configuration::addExtension($ext_name);
 				Minz_Configuration::writeFile();
 
-				Minz_Request::good('feedback.extensions.enabled', $url_redirect);
+				Minz_Request::good(_t('feedback.extensions.enabled', $ext_name),
+				                  $url_redirect);
 			} elseif ($ext->getType() === 'user') {
 				$ext->install();
 
 				FreshRSS_Context::$conf->addExtension($ext_name);
 				FreshRSS_Context::$conf->save();
 
-				Minz_Request::good('feedback.extensions.enabled', $url_redirect);
+				Minz_Request::good(_t('feedback.extensions.enabled', $ext_name),
+				                  $url_redirect);
 			} else {
-				Minz_Request::bad('feedback.extensions.no_access', $url_redirect);
+				Minz_Request::bad(_t('feedback.extensions.no_access', $ext_name),
+				                  $url_redirect);
 			}
 		}
 
@@ -90,11 +95,13 @@ class FreshRSS_extension_Controller extends Minz_ActionController {
 			$ext = Minz_ExtensionManager::find_extension($ext_name);
 
 			if (is_null($ext)) {
-				Minz_Request::bad('feedback.extensions.not_found', $url_redirect);
+				Minz_Request::bad(_t('feedback.extensions.not_found', $ext_name),
+				                  $url_redirect);
 			}
 
 			if (!$ext->is_enabled()) {
-				Minz_Request::bad('feedback.extensions.not_enabled', $url_redirect);
+				Minz_Request::bad(_t('feedback.extensions.not_enabled', $ext_name),
+				                  $url_redirect);
 			}
 
 			if ($ext->getType() === 'system' && FreshRSS_Auth::hasAccess('admin')) {
@@ -103,16 +110,19 @@ class FreshRSS_extension_Controller extends Minz_ActionController {
 				Minz_Configuration::removeExtension($ext_name);
 				Minz_Configuration::writeFile();
 
-				Minz_Request::good('feedback.extensions.disabled', $url_redirect);
+				Minz_Request::good(_t('feedback.extensions.disabled', $ext_name),
+				                  $url_redirect);
 			} elseif ($ext->getType() === 'user') {
 				$ext->uninstall();
 
 				FreshRSS_Context::$conf->removeExtension($ext_name);
 				FreshRSS_Context::$conf->save();
 
-				Minz_Request::good('feedback.extensions.disabled', $url_redirect);
+				Minz_Request::good(_t('feedback.extensions.disabled', $ext_name),
+				                  $url_redirect);
 			} else {
-				Minz_Request::bad('feedback.extensions.no_access', $url_redirect);
+				Minz_Request::bad(_t('feedback.extensions.no_access', $ext_name),
+				                  $url_redirect);
 			}
 		}
 
