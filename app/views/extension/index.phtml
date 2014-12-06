@@ -15,7 +15,7 @@
 			<div class="stick">
 				<a class="btn open-slider" href="<?php echo _url('extension', 'configure', 'e', $name_encoded); ?>"><?php echo _i('configure'); ?> <?php echo _t('admin.extensions.manage'); ?></a>
 				<?php if ($ext->is_enabled()) { ?>
-				<button class="btn" form="form-extension" formaction="<?php echo _url('extension', 'disable', 'e', $name_encoded); ?>"><?php echo _t('admin.extensions.disable'); ?></button>
+				<button class="btn active" form="form-extension" formaction="<?php echo _url('extension', 'disable', 'e', $name_encoded); ?>"><?php echo _t('admin.extensions.disable'); ?></button>
 				<?php } else { ?>
 				<button class="btn" form="form-extension" formaction="<?php echo _url('extension', 'enable', 'e', $name_encoded); ?>"><?php echo _t('admin.extensions.enable'); ?></button>
 				<?php } ?>
