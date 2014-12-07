@@ -29,18 +29,18 @@ class FreshRSS extends Minz_FrontController {
 		// Load context and configuration.
 		FreshRSS_Context::init();
 
-		// Enable extensions for the current (logged) user.
-		if (FreshRSS_Auth::hasAccess()) {
-			$ext_list = FreshRSS_Context::$conf->extensions_enabled;
-			Minz_ExtensionManager::enable_by_list($ext_list);
-		}
-
 		// Init i18n.
 		Minz_Session::_param('language', FreshRSS_Context::$conf->language);
 		Minz_Translate::init();
 
 		$this->loadStylesAndScripts();
 		$this->loadNotifications();
+
+		// Enable extensions for the current (logged) user.
+		if (FreshRSS_Auth::hasAccess()) {
+			$ext_list = FreshRSS_Context::$conf->extensions_enabled;
+			Minz_ExtensionManager::enable_by_list($ext_list);
+		}
 	}
 
 	private function loadStylesAndScripts() {
