@@ -13,8 +13,10 @@ class Minz_ExtensionManager {
 
 	private static $ext_auto_enabled = array();
 
+	// List of available hooks. Please keep this list sorted.
 	private static $hook_list = array(
-		'entry_before_insert' => array(),  // function($entry)
+		'entry_before_display' => array(),  // function($entry) -> Entry | null
+		'entry_before_insert' => array(),  // function($entry) -> Entry | null
 	);
 	private static $ext_to_hooks = array();
 
@@ -230,7 +232,7 @@ class Minz_ExtensionManager {
 		$args = func_get_args();
 		unset($args[0]);
 
-		$result = $args;
+		$result = $args[1];
 		foreach (self::$hook_list[$hook_name] as $function) {
 			$result = call_user_func_array($function, $args);
 
