@@ -13,7 +13,7 @@ class Minz_View {
 	const LAYOUT_FILENAME = '/layout.phtml';
 
 	private $view_filename = '';
-	private $use_layout = null;
+	private $use_layout = true;
 
 	private static $base_pathnames = array(APP_PATH);
 	private static $title = '';
@@ -56,9 +56,6 @@ class Minz_View {
 	 * Construit la vue
 	 */
 	public function build () {
-		if ($this->use_layout === null) {	//TODO: avoid file_exists and require views to be explicit
-			$this->use_layout = file_exists (APP_PATH . self::LAYOUT_PATH_NAME . self::LAYOUT_FILENAME);
-		}
 		if ($this->use_layout) {
 			$this->buildLayout ();
 		} else {
@@ -67,34 +64,39 @@ class Minz_View {
 	}
 
 	/**
+	 * Include a view file.
+	 *
+	 * The file is searched inside list of $base_pathnames.
+	 *
+	 * @param $filename the name of the file to include.
+	 * @return true if the file has been included, false else.
+	 */
+	private function includeFile($filename) {
+		// We search the filename in the list of base pathnames. Only the first view
+		// found is considered.
+		foreach (self::$base_pathnames as $base) {
+			$absolute_filename = $base . $filename;
+			if (file_exists($absolute_filename)) {
+				include $absolute_filename;
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	/**
 	 * Construit le layout
 	 */
 	public function buildLayout () {
-		include (
-			APP_PATH
-			. self::LAYOUT_PATH_NAME
-			. self::LAYOUT_FILENAME
-		);
+		$this->includeFile(self::LAYOUT_PATH_NAME . self::LAYOUT_FILENAME);
 	}
 
 	/**
 	 * Affiche la Vue en elle-même
 	 */
 	public function render () {
-		$view_found = false;
-
-		// We search the view in the list of base pathnames. Only the first view
-		// found is considered.
-		foreach (self::$base_pathnames as $base) {
-			$filename = $base . $this->view_filename;
-			if (file_exists($filename)) {
-				include $filename;
-				$view_found = true;
-				break;
-			}
-		}
-
-		if (!$view_found) {
+		if (!$this->includeFile($this->view_filename)) {
 			Minz_Log::notice('File not found: `' . $this->view_filename . '`');
 		}
 	}
@@ -104,11 +106,8 @@ class Minz_View {
 	 * @param $part l'élément partial à ajouter
 	 */
 	public function partial ($part) {
-		$fic_partial = APP_PATH
-		             . self::LAYOUT_PATH_NAME . '/'
-		             . $part . '.phtml';
-
-		if ((include($fic_partial)) === false) {
+		$fic_partial = self::LAYOUT_PATH_NAME . '/' . $part . '.phtml';
+		if (!$this->includeFile($fic_partial)) {
 			Minz_Log::warning('File not found: `' . $fic_partial . '`');
 		}
 	}
@@ -118,11 +117,8 @@ class Minz_View {
 	 * @param $helper l'élément à afficher
 	 */
 	public function renderHelper ($helper) {
-		$fic_helper = APP_PATH
-		            . '/views/helpers/'
-		            . $helper . '.phtml';
-
-		if ((include($fic_helper)) === false) {;
+		$fic_helper = '/views/helpers/' . $helper . '.phtml';
+		if (!$this->includeFile($fic_helper)) {
 			Minz_Log::warning('File not found: `' . $fic_helper . '`');
 		}
 	}
