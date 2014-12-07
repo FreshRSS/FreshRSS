@@ -1,0 +1,84 @@
+<?php
+	$sharing = array();
+	if (FreshRSS_Auth::hasAccess()) {
+		$sharing = FreshRSS_Context::$conf->sharing;
+	}
+
+	$bottomline_read = FreshRSS_Context::$conf->bottomline_read;
+	$bottomline_favorite = FreshRSS_Context::$conf->bottomline_favorite;
+	$bottomline_sharing = FreshRSS_Context::$conf->bottomline_sharing && (count($sharing) > 0);
+	$bottomline_tags = FreshRSS_Context::$conf->bottomline_tags;
+	$bottomline_date = FreshRSS_Context::$conf->bottomline_date;
+	$bottomline_link = FreshRSS_Context::$conf->bottomline_link;
+?><ul class="horizontal-list bottom"><?php
+	if (FreshRSS_Auth::hasAccess()) {
+		if ($bottomline_read) {
+			?><li class="item manage"><?php
+				$arUrl = array('c' => 'entry', 'a' => 'read', 'params' => array('id' => $this->entry->id()));
+				if ($this->entry->isRead()) {
+					$arUrl['params']['is_read'] = 0;
+				}
+				?><a class="read" href="<?php echo Minz_Url::display($arUrl); ?>"><?php
+					echo _i($this->entry->isRead() ? 'read' : 'unread'); ?></a><?php
+			?></li><?php
+		}
+		if ($bottomline_favorite) {
+			?><li class="item manage"><?php
+				$arUrl = array('c' => 'entry', 'a' => 'bookmark', 'params' => array('id' => $this->entry->id()));
+				if ($this->entry->isFavorite()) {
+					$arUrl['params']['is_favorite'] = 0;
+				}
+				?><a class="bookmark" href="<?php echo Minz_Url::display($arUrl); ?>"><?php
+					echo _i($this->entry->isFavorite() ? 'starred' : 'non-starred'); ?></a><?php
+			?></li><?php
+		}
+	} ?>
+	<li class="item"><?php
+			if ($bottomline_sharing) {
+				$link = urlencode($this->entry->link());
+				$title = urlencode($this->entry->title() . ' · ' . $feed->name());
+		?><div class="dropdown">
+			<div id="dropdown-share-<?php echo $this->entry->id();?>" class="dropdown-target"></div>
+			<a class="dropdown-toggle" href="#dropdown-share-<?php echo $this->entry->id();?>">
+				<?php echo _i('share'); ?>
+				<?php echo _t('share'); ?>
+			</a>
+
+			<ul class="dropdown-menu">
+				<li class="dropdown-close"><a href="#close">❌</a></li>
+				<?php foreach ($sharing as $share) :?>
+					<li class="item share">
+						<a target="_blank" href="<?php echo FreshRSS_Share::generateUrl(FreshRSS_Context::$conf->shares, $share, $this->entry->link(), $this->entry->title() . ' . ' . $feed->name())?>">
+							<?php echo _t($share['name']);?>
+						</a>
+					</li>
+				<?php endforeach;?>
+			</ul>
+		</div>
+		<?php } ?>
+	</li><?php
+	$tags = $bottomline_tags ? $this->entry->tags() : null;
+	if (!empty($tags)) {
+	?><li class="item">
+		<div class="dropdown">
+			<div id="dropdown-tags-<?php echo $this->entry->id();?>" class="dropdown-target"></div>
+			<?php echo _i('tag'); ?>
+			<a class="dropdown-toggle" href="#dropdown-tags-<?php echo $this->entry->id();?>"><?php
+				echo _t('related_tags');
+			?></a>
+			<ul class="dropdown-menu">
+				<li class="dropdown-close"><a href="#close">❌</a></li><?php
+				foreach($tags as $tag) {
+					?><li class="item"><a href="<?php echo _url('index', 'index', 'search', urlencode('#' . $tag)); ?>"><?php echo $tag; ?></a></li><?php
+				} ?>
+			</ul>
+		</div>
+	</li><?php
+	}
+	if ($bottomline_date) {
+		?><li class="item date"><?php echo $this->entry->date(); ?></li><?php
+	}
+	if ($bottomline_link) {
+		?><li class="item link"><a target="_blank" href="<?php echo $this->entry->link(); ?>"><?php echo _i('link'); ?></a></li><?php
+	} ?>
+</ul>
