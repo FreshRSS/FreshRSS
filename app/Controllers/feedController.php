@@ -174,10 +174,17 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 			$feedDAO->beginTransaction();
 			foreach ($entries as $entry) {
 				// Entries are added without any verification.
+				$entry->_feed($feed->id());
+				$entry->_id(min(time(), $entry->date(true)) . uSecString());
+				$entry->_isRead($is_read);
+
+				$entry = Minz_ExtensionManager::callHook('entry_before_insert', $entry);
+				if (is_null($entry)) {
+					// An extension has returned a null value, there is nothing to insert.
+					continue;
+				}
+
 				$values = $entry->toArray();
-				$values['id_feed'] = $feed->id();
-				$values['id'] = min(time(), $entry->date(true)) . uSecString();
-				$values['is_read'] = $is_read;
 				$entryDAO->addEntry($values, $prepared_statement);
 			}
 			$feedDAO->updateLastUpdate($feed->id());

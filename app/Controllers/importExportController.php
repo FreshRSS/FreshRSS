@@ -385,6 +385,12 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 			$entry->_id(min(time(), $entry->date(true)) . uSecString());
 			$entry->_tags($tags);
 
+			$entry = Minz_ExtensionManager::callHook('entry_before_insert', $entry);
+			if (is_null($entry)) {
+				// An extension has returned a null value, there is nothing to insert.
+				continue;
+			}
+
 			$values = $entry->toArray();
 			$id = $this->entryDAO->addEntry($values, $prepared_statement);
 
