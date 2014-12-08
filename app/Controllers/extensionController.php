@@ -172,6 +172,26 @@ class FreshRSS_extension_Controller extends Minz_ActionController {
 		}
 
 		$url_redirect = array('c' => 'extension', 'a' => 'index');
-		Minz_Request::bad('not implemented yet!', $url_redirect);
+
+		if (Minz_Request::isPost()) {
+			$ext_name = urldecode(Minz_Request::param('e'));
+			$ext = Minz_ExtensionManager::find_extension($ext_name);
+
+			if (is_null($ext)) {
+				Minz_Request::bad(_t('feedback.extensions.not_found', $ext_name),
+				                  $url_redirect);
+			}
+
+			$res = recursive_unlink($ext->getPath());
+			if ($res) {
+				Minz_Request::good(_t('feedback.extensions.removed', $ext_name),
+				                  $url_redirect);
+			} else {
+				Minz_Request::bad(_t('feedback.extensions.cannot_delete', $ext_name),
+				                  $url_redirect);
+			}
+		}
+
+		Minz_Request::forward($url_redirect, true);
 	}
 }

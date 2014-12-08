@@ -319,3 +319,29 @@ function check_install_database() {
 
 	return $status;
 }
+
+/**
+ * Remove a directory recursively.
+ *
+ * From http://php.net/rmdir#110489
+ *
+ * @param $dir the directory to remove
+ */
+function recursive_unlink($dir) {
+	if (!is_dir($dir)) {
+		return true;
+	}
+
+	$files = array_diff(scandir($dir), array('.', '..'));
+	foreach ($files as $filename) {
+		$filename = $dir . '/' . $filename;
+		if (is_dir($filename)) {
+			@chmod($filename, 0777);
+			recursive_unlink($filename);
+		} else {
+			unlink($filename);
+		}
+	}
+
+	return rmdir($dir);
+}
