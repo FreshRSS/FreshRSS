@@ -23,6 +23,16 @@ class FreshRSS_extension_Controller extends Minz_ActionController {
 		$this->view->extension_list = Minz_ExtensionManager::list_extensions();
 	}
 
+	/**
+	 * This action handles configuration of a given extension.
+	 *
+	 * Only administrator can configure a system extension.
+	 *
+	 * Parameters are:
+	 * - e: the extension name (urlencoded)
+	 * - additional parameters which should be handle by the extension
+	 *   handleConfigureAction() method (POST request).
+	 */
 	public function configureAction() {
 		if (Minz_Request::param('ajax')) {
 			$this->view->_useLayout(false);
@@ -49,6 +59,7 @@ class FreshRSS_extension_Controller extends Minz_ActionController {
 	 * This action enables a disabled extension for the current user.
 	 *
 	 * System extensions can only be enabled by an administrator.
+	 * This action must be reached by a POST request.
 	 *
 	 * Parameter is:
 	 * - e: the extension name (urlencoded).
@@ -99,6 +110,7 @@ class FreshRSS_extension_Controller extends Minz_ActionController {
 	 * This action disables an enabled extension for the current user.
 	 *
 	 * System extensions can only be disabled by an administrator.
+	 * This action must be reached by a POST request.
 	 *
 	 * Parameter is:
 	 * - e: the extension name (urlencoded).
@@ -145,6 +157,15 @@ class FreshRSS_extension_Controller extends Minz_ActionController {
 		Minz_Request::forward($url_redirect, true);
 	}
 
+	/**
+	 * This action handles deletion of an extension.
+	 *
+	 * Only administrator can remove an extension.
+	 * This action must be reached by a POST request.
+	 *
+	 * Parameter is:
+	 * -e: extension name (urlencoded)
+	 */
 	public function removeAction() {
 		if (!FreshRSS_Auth::hasAccess('admin')) {
 			Minz_Error::error(403);
