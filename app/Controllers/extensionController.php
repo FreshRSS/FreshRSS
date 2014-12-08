@@ -27,6 +27,22 @@ class FreshRSS_extension_Controller extends Minz_ActionController {
 		if (Minz_Request::param('ajax')) {
 			$this->view->_useLayout(false);
 		}
+
+		$ext_name = urldecode(Minz_Request::param('e'));
+		$ext = Minz_ExtensionManager::find_extension($ext_name);
+
+		if (is_null($ext)) {
+			Minz_Error::error(404);
+		}
+		if ($ext->getType() === 'system' && !FreshRSS_Auth::hasAccess('admin')) {
+			Minz_Error::error(403);
+		}
+
+		$this->view->extension = $ext;
+
+		if (Minz_Request::isPost()) {
+			$this->view->extension->handleConfigureAction();
+		}
 	}
 
 	/**

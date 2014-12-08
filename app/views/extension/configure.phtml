@@ -7,6 +7,17 @@ if (!Minz_Request::param('ajax')) {
 ?>
 
 <div class="post">
-	<h1>Extension name</h1>
-	Not implemented yet!
+	<h1><?php echo $this->extension->getName(); ?> (<?php echo $this->extension->getVersion(); ?>) — <?php echo $this->extension->getType(); ?></h1>
+
+	<p class="alert alert-warn"><?php echo $this->extension->getDescription(); ?> — <?php echo _t('gen.by'), ' ', $this->extension->getAuthor(); ?></p>
+
+	<h2><?php echo _t('gen.actions.manage'); ?></h2>
+	<?php
+		$configure_view = $this->extension->getConfigureView();
+		if ($configure_view !== false) {
+			echo $configure_view;
+		} else {
+	?>
+	<p class="alert alert-warn"><?php echo _t('admin.extensions.no_configure_view'); ?></p>
+	<?php } ?>
 </div>

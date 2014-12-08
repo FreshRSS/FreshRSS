@@ -87,6 +87,27 @@ class Minz_Extension {
 	}
 
 	/**
+	 * Return the content of the configure view for the current extension.
+	 *
+	 * @return the html content from ext_dir/configure.phtml, false if it does
+	 *         not exist.
+	 */
+	public function getConfigureView() {
+		$filename = $this->path . '/configure.phtml';
+		if (!file_exists($filename)) {
+			return false;
+		}
+		return @file_get_contents($filename);
+	}
+
+	/**
+	 * Handle the configure POST action.
+	 *
+	 * It must be redefined by child classes.
+	 */
+	public function handleConfigureAction() {}
+
+	/**
 	 * Getters and setters.
 	 */
 	public function getName() {
