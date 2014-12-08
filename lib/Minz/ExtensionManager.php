@@ -17,6 +17,7 @@ class Minz_ExtensionManager {
 	private static $hook_list = array(
 		'entry_before_display' => array(),  // function($entry) -> Entry | null
 		'entry_before_insert' => array(),  // function($entry) -> Entry | null
+		'feed_before_insert' => array(),  // function($feed) -> Feed | null
 	);
 	private static $ext_to_hooks = array();
 

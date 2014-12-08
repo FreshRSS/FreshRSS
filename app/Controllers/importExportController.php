@@ -259,10 +259,16 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 			$feed->_website($website);
 			$feed->_description($description);
 
-			// addFeedObject checks if feed is already in DB so nothing else to
-			// check here
-			$id = $this->feedDAO->addFeedObject($feed);
-			$error = ($id === false);
+			// Call the extension hook
+			$feed = Minz_ExtensionManager::callHook('feed_before_insert', $feed);
+			if (!is_null($feed)) {
+				// addFeedObject checks if feed is already in DB so nothing else to
+				// check here
+				$id = $this->feedDAO->addFeedObject($feed);
+				$error = ($id === false);
+			} else {
+				$error = true;
+			}
 		} catch (FreshRSS_Feed_Exception $e) {
 			Minz_Log::warning($e->getMessage());
 			$error = true;
@@ -427,13 +433,17 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 			$feed->_name($name);
 			$feed->_website($website);
 
-			// addFeedObject checks if feed is already in DB so nothing else to
-			// check here.
-			$id = $this->feedDAO->addFeedObject($feed);
+			// Call the extension hook
+			$feed = Minz_ExtensionManager::callHook('feed_before_insert', $feed);
+			if (!is_null($feed)) {
+				// addFeedObject checks if feed is already in DB so nothing else to
+				// check here.
+				$id = $this->feedDAO->addFeedObject($feed);
 
-			if ($id !== false) {
-				$feed->_id($id);
-				$return = $feed;
+				if ($id !== false) {
+					$feed->_id($id);
+					$return = $feed;
+				}
 			}
 		} catch (FreshRSS_Feed_Exception $e) {
 			Minz_Log::warning($e->getMessage());
