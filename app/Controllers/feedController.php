@@ -139,9 +139,10 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 			$feed->_httpAuth($http_auth);
 
 			// Call the extension hook
+			$name = $feed->name();
 			$feed = Minz_ExtensionManager::callHook('feed_before_insert', $feed);
 			if (is_null($feed)) {
-				Minz_Request::bad(_t('feed_not_added', $feed->name()), $url_redirect);
+				Minz_Request::bad(_t('feed_not_added', $name), $url_redirect);
 			}
 
 			$values = array(
