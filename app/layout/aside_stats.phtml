@@ -1,12 +1,12 @@
 <ul class="nav nav-list aside">
-	<li class="nav-header"><?php echo _t('stats'); ?></li>
+	<li class="nav-header"><?php echo _t('admin.stats'); ?></li>
 	<li class="item<?php echo Minz_Request::actionName() == 'index' ? ' active' : ''; ?>">
-		<a href="<?php echo _url('stats', 'index'); ?>"><?php echo _t('stats_main'); ?></a>
+		<a href="<?php echo _url('stats', 'index'); ?>"><?php echo _t('admin.stats.main'); ?></a>
 	</li>
 	<li class="item<?php echo Minz_Request::actionName() == 'idle' ? ' active' : ''; ?>">
-		<a href="<?php echo _url('stats', 'idle'); ?>"><?php echo _t('stats_idle'); ?></a>
+		<a href="<?php echo _url('stats', 'idle'); ?>"><?php echo _t('admin.stats.idle'); ?></a>
 	</li>
 	<li class="item<?php echo Minz_Request::actionName() == 'repartition' ? ' active' : ''; ?>">
-		<a href="<?php echo _url('stats', 'repartition'); ?>"><?php echo _t('stats_repartition'); ?></a>
+		<a href="<?php echo _url('stats', 'repartition'); ?>"><?php echo _t('admin.stats.repartition'); ?></a>
 	</li>
 </ul>

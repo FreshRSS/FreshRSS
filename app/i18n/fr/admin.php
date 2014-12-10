@@ -86,6 +86,11 @@ return array(
 			'ok' => 'Vous disposez de l\'extension ZIP.',
 		),
 	),
+	'stats' => array(
+		'idle' => 'Flux inactifs',
+		'main' => 'Statistiques principales',
+		'repartition' => 'Répartition des articles',
+	),
 	'users' => array(
 		'articles_and_size' => '%s articles (%s)',
 	),
