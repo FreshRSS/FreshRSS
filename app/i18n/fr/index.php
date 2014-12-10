@@ -1,7 +1,14 @@
 <?php
 
 return array(
-	'logs' => array(
+	'entry' => array(
+		'by_author' => 'Par <em>%s</em>',
+	),
+	'feed' => array(
+		'title' => 'Vos flux RSS',
+		'title_fav' => 'Vos favoris',
+	),
+	'log' => array(
 		'_' => 'Logs',
 		'clear' => 'Effacer les logs',
 		'empty' => 'Les logs sont vides.',
@@ -28,10 +35,26 @@ return array(
 		'read' => 'Afficher les non lus',
 		'reader_view' => 'Vue lecture',
 		'rss_view' => 'Flux RSS',
+		'search_short' => 'Rechercher',
 		'see_website' => 'Voir le site',
 		'starred' => 'Afficher les favoris',
 		'stats' => 'Statistiques',
 		'subscription' => 'Gestion des abonnements',
 		'unread' => 'Afficher les lus',
+	),
+	'share' => array(
+		'_' => 'Partager',
+		'blogotext' => 'Blogotext',
+		'diaspora' => 'Diaspora*',
+		'email' => 'Courriel',
+		'facebook' => 'Facebook',
+		'g+' => 'Google+',
+		'print' => 'Imprimer',
+		'shaarli' => 'Shaarli',
+		'twitter' => 'Twitter',
+		'wallabag' => 'wallabag',
+	),
+	'tag' => array(
+		'related' => 'Tags associés',
 	),
 );

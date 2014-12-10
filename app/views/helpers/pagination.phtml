@@ -20,7 +20,7 @@
 	<li class="item pager-next">
 	<?php if (FreshRSS_Context::$next_id) { ?>
 		<a id="load_more" href="<?php echo Minz_Url::display($url_next); ?>">
-			<?php echo _t('load_more'); ?>
+			<?php echo _t('gen.pagination.load_more'); ?>
 		</a>
 	<?php } elseif ($url_mark_read) { ?>
 		<button id="bigMarkAsRead"
@@ -28,13 +28,13 @@
 		        form="mark-read-pagination"
 		        formaction="<?php echo Minz_Url::display($url_mark_read); ?>"
 		        type="submit">
-			<?php echo _t('nothing_to_load'); ?><br />
+			<?php echo _t('gen.pagination.nothing_to_load'); ?><br />
 			<span class="bigTick">✓</span><br />
-			<?php echo _t('mark_all_read'); ?>
+			<?php echo _t('gen.pagination.mark_all_read'); ?>
 		</button>
 	<?php } else { ?>
 		<a id="bigMarkAsRead" href=".">
-			<?php echo _t('nothing_to_load'); ?><br />
+			<?php echo _t('gen.pagination.nothing_to_load'); ?><br />
 		</a>
 	<?php } ?>
 	</li>

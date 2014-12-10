@@ -1,7 +1,14 @@
 <?php
 
 return array(
-	'logs' => array(
+	'entry' => array(
+		'by_author' => 'By <em>%s</em>',
+	),
+	'feed' => array(
+		'title' => 'Your RSS feeds',
+		'title_fav' => 'Your favourites',
+	),
+	'log' => array(
 		'_' => 'Logs',
 		'clear' => 'Clear the logs',
 		'empty' => 'Log file is empty',
@@ -28,10 +35,26 @@ return array(
 		'read' => 'Show only unread',
 		'reader_view' => 'Reading view',
 		'rss_view' => 'RSS feed',
+		'search_short' => 'Search',
 		'see_website' => 'See website',
 		'starred' => 'Show only favorites',
 		'stats' => 'Statistics',
 		'subscription' => 'Subscriptions management',
 		'unread' => 'Show only read',
+	),
+	'share' => array(
+		'_' => 'Share',
+		'blogotext' => 'Blogotext',
+		'diaspora' => 'Diaspora*',
+		'email' => 'Email',
+		'facebook' => 'Facebook',
+		'g+' => 'Google+',
+		'print' => 'Print',
+		'shaarli' => 'Shaarli',
+		'twitter' => 'Twitter',
+		'wallabag' => 'wallabag',
+	),
+	'tag' => array(
+		'related' => 'Related tags',
 	),
 );
