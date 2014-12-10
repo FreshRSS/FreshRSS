@@ -217,7 +217,7 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 			Minz_Error::error(403);
 		}
 
-		Minz_View::prependTitle(_t('logs') . ' · ');
+		Minz_View::prependTitle(_t('index.logs.title') . ' · ');
 
 		if (Minz_Request::isPost()) {
 			FreshRSS_LogDAO::truncate();

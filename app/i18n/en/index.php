@@ -1,6 +1,12 @@
 <?php
 
 return array(
+	'logs' => array(
+		'_' => 'Logs',
+		'clear' => 'Clear the logs',
+		'empty' => 'Log file is empty',
+		'title' => 'Logs',
+	),
 	'menu' => array(
 		'about' => 'About FreshRSS',
 		'actualize' => 'Actualize',
