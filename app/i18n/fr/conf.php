@@ -143,6 +143,7 @@ return array(
 		'first_article' => 'Passer au premier article',
 		'focus_search' => 'Accéder à la recherche',
 		'help' => 'Afficher la documentation',
+		'javascript' => 'Le JavaScript doit être activé pour pouvoir profiter des raccourcis.',
 		'last_article' => 'Passer au dernier article',
 		'load_more' => 'Charger plus d’articles',
 		'mark_read' => 'Marquer comme lu',
