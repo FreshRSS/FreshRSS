@@ -81,6 +81,7 @@ return array(
 			'nok' => 'Il manque une ou plusieurs tables en base de données.',
 			'ok' => 'Les tables sont bien présentes en base de données.',
 		),
+		'title' => 'Vérification de l’installation',
 		'tokens' => array(
 			'nok' => 'Veuillez vérifier les droits sur le répertoire <em>./data/tokens</em>. Le serveur HTTP doit être capable d’écrire dedans',
 			'ok' => 'Les droits sur le répertoire des tokens sont bons.',
@@ -122,7 +123,11 @@ return array(
 		'title' => 'Statistiques',
 		'top_feed' => 'Les dix plus gros flux',
 	),
-	'users' => array(
+	'update' => array(
+		'title' => 'Système de mise à jour',
+	),
+	'user' => array(
 		'articles_and_size' => '%s articles (%s)',
+		'title' => 'Gestion des utilisateurs',
 	),
 );

@@ -11,6 +11,9 @@ return array(
 		'number' => 'Filtre n°%d',
 		'title' => 'Filtres utilisateurs',
 	),
+	'profile' => array(
+		'title' => 'Profil',
+	),
 	'reading' => array(
 		'title' => 'Lecture',
 	),

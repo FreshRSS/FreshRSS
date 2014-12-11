@@ -70,7 +70,26 @@ return array(
 		),
 		'purge_completed' => 'Purge completed (%d articles deleted)',
 	),
-	'user_profile' => array(
+	'update' => array(
+		'can_apply' => 'An update is available.',
+		'error' => 'The update process has encountered an error: %s',
+		'file_is_nok' => 'Check permissions on <em>%s</em> directory. HTTP server must have rights to write into',
+		'finished' => 'Update completed!',
+		'none' => 'No update to apply',
+		'server_not_found' => 'Update server cannot be found. [%s]',
+	),
+	'user' => array(
+		'created' => array(
+			'_' => 'User %s has been created',
+			'error' => 'User %s cannot be created',
+		),
+		'deleted' => array(
+			'_' => 'User %s has been deleted',
+			'error' => 'User %s cannot be deleted',
+		),
+	),
+	'profile' => array(
+		'error' => 'Your profile cannot be modified',
 		'updated' => 'Your profile has been modified',
 	),
 );

@@ -81,6 +81,7 @@ return array(
 			'nok' => 'There is one or more lacking tables in the database.',
 			'ok' => 'Tables are existing in the database.',
 		),
+		'title' => 'Installation checking',
 		'tokens' => array(
 			'nok' => 'Check permissions on <em>./data/tokens</em> directory. HTTP server must have rights to write into',
 			'ok' => 'Permissions on tokens directory are good.',
@@ -122,7 +123,11 @@ return array(
 		'title' => 'Statistics',
 		'top_feed' => 'Top ten feeds',
 	),
+	'update' => array(
+		'title' => 'Update system',
+	),
 	'users' => array(
 		'articles_and_size' => '%s articles (%s)',
+		'title' => 'Manage users',
 	),
 );

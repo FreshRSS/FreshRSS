@@ -23,7 +23,7 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 	 * This action displays the user profile page.
 	 */
 	public function profileAction() {
-		Minz_View::prependTitle(_t('gen.title.user_profile') . ' · ');
+		Minz_View::prependTitle(_t('conf.profile.title') . ' · ');
 
 		if (Minz_Request::isPost()) {
 			$ok = true;
@@ -71,10 +71,10 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 			}
 
 			if ($ok) {
-				Minz_Request::good(_t('feedback.user_profile.updated'),
+				Minz_Request::good(_t('feedback.profile.updated'),
 				                   array('c' => 'user', 'a' => 'profile'));
 			} else {
-				Minz_Request::bad(_t('error_occurred'),
+				Minz_Request::bad(_t('feedback.profile.error'),
 				                  array('c' => 'user', 'a' => 'profile'));
 			}
 		}
@@ -88,7 +88,7 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 			Minz_Error::error(403);
 		}
 
-		Minz_View::prependTitle(_t('gen.title.user_management') . ' · ');
+		Minz_View::prependTitle(_t('admin.user.title') . ' · ');
 
 		// Get the correct current user.
 		$username = Minz_Request::param('u', Minz_Session::param('currentUser'));
@@ -168,7 +168,7 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 
 			$notif = array(
 				'type' => $ok ? 'good' : 'bad',
-				'content' => _t($ok ? 'user_created' : 'error_occurred', $new_user_name)
+				'content' => _t('feedback.user.created' . (!$ok ? '.error' : ''), $new_user_name)
 			);
 			Minz_Session::_param('notification', $notif);
 		}
@@ -201,7 +201,7 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 
 			$notif = array(
 				'type' => $ok ? 'good' : 'bad',
-				'content' => _t($ok ? 'user_deleted' : 'error_occurred', $username)
+				'content' => _t('feedback.user.deleted' . (!$ok ? '.error' : ''), $username)
 			);
 			Minz_Session::_param('notification', $notif);
 		}

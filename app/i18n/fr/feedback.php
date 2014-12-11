@@ -70,7 +70,26 @@ return array(
 		),
 		'purge_completed' => 'Purge effectuée (%d articles supprimés).',
 	),
-	'user_profile' => array(
+	'update' => array(
+		'can_apply' => 'Une mise à jour est disponible.',
+		'error' => 'La mise à jour a rencontré un problème : %s',
+		'file_is_nok' => 'Veuillez vérifier les droits sur le répertoire <em>%s</em>. Le serveur HTTP doit être capable d’écrire dedans',
+		'finished' => 'La mise à jour est terminée !',
+		'none' => 'Aucune mise à jour à appliquer',
+		'server_not_found' => 'Le serveur de mise à jour n’a pas été trouvé. [%s]',
+	),
+	'user' => array(
+		'created' => array(
+			'_' => 'L’utilisateur %s a été créé.',
+			'error' => 'L’utilisateur %s ne peut pas être créé.',
+		),
+		'deleted' => array(
+			'_' => 'L’utilisateur %s a été supprimé.',
+			'error' => 'L’utilisateur %s ne peut pas être supprimé.',
+		),
+	),
+	'profile' => array(
+		'error' => 'Votre profil n’a pas pu être mis à jour',
 		'updated' => 'Votre profil a été mis à jour',
 	),
 );

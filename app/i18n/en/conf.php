@@ -11,6 +11,9 @@ return array(
 		'number' => 'Query n°%d',
 		'title' => 'User queries',
 	),
+	'profile' => array(
+		'title' => 'Profile',
+	),
 	'reading' => array(
 		'title' => 'Reading',
 	),
