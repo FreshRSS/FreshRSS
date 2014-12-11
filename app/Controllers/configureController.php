@@ -61,13 +61,13 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 			Minz_Translate::reset();
 			invalidateHttpCache();
 
-			Minz_Request::good(_t('configuration_updated'),
+			Minz_Request::good(_t('feedback.conf.updated'),
 			                   array('c' => 'configure', 'a' => 'display'));
 		}
 
 		$this->view->themes = FreshRSS_Themes::get();
 
-		Minz_View::prependTitle(_t('display_configuration') . ' · ');
+		Minz_View::prependTitle(_t('conf.display.title') . ' · ');
 	}
 
 	/**
@@ -125,11 +125,11 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 			Minz_Translate::reset();
 			invalidateHttpCache();
 
-			Minz_Request::good(_t('configuration_updated'),
+			Minz_Request::good(_t('feedback.conf.updated'),
 			                   array('c' => 'configure', 'a' => 'reading'));
 		}
 
-		Minz_View::prependTitle(_t('reading_configuration') . ' · ');
+		Minz_View::prependTitle(_t('conf.reading.title') . ' · ');
 	}
 
 	/**
@@ -146,11 +146,11 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 			FreshRSS_Context::$conf->save();
 			invalidateHttpCache();
 
-			Minz_Request::good(_t('configuration_updated'),
+			Minz_Request::good(_t('feedback.conf.updated'),
 			                   array('c' => 'configure', 'a' => 'sharing'));
 		}
 
-		Minz_View::prependTitle(_t('sharing') . ' · ');
+		Minz_View::prependTitle(_t('conf.sharing.title') . ' · ');
 	}
 
 	/**
@@ -188,11 +188,11 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 			FreshRSS_Context::$conf->save();
 			invalidateHttpCache();
 
-			Minz_Request::good(_t('shortcuts_updated'),
+			Minz_Request::good(_t('feedback.conf.shortcuts_updated'),
 			                   array('c' => 'configure', 'a' => 'shortcut'));
 		}
 
-		Minz_View::prependTitle(_t('shortcuts') . ' · ');
+		Minz_View::prependTitle(_t('conf.shortcut.title') . ' · ');
 	}
 
 	/**
@@ -218,11 +218,11 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 			FreshRSS_Context::$conf->save();
 			invalidateHttpCache();
 
-			Minz_Request::good(_t('configuration_updated'),
+			Minz_Request::good(_t('feedback.conf.updated'),
 			                   array('c' => 'configure', 'a' => 'archiving'));
 		}
 
-		Minz_View::prependTitle(_t('archiving_configuration') . ' · ');
+		Minz_View::prependTitle(_t('conf.archiving.title') . ' · ');
 
 		$entryDAO = FreshRSS_Factory::createEntryDao();
 		$this->view->nb_total = $entryDAO->count();
@@ -249,13 +249,13 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 
 			foreach ($queries as $key => $query) {
 				if (!$query['name']) {
-					$query['name'] = _t('query_number', $key + 1);
+					$query['name'] = _t('conf.query.number', $key + 1);
 				}
 			}
 			FreshRSS_Context::$conf->_queries($queries);
 			FreshRSS_Context::$conf->save();
 
-			Minz_Request::good(_t('configuration_updated'),
+			Minz_Request::good(_t('feedback.conf.updated'),
 			                   array('c' => 'configure', 'a' => 'queries'));
 		} else {
 			$this->view->query_get = array();
@@ -317,7 +317,7 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 			}
 		}
 
-		Minz_View::prependTitle(_t('queries') . ' · ');
+		Minz_View::prependTitle(_t('conf.query.title') . ' · ');
 	}
 
 	/**
@@ -331,7 +331,7 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 		$whitelist = array('get', 'order', 'name', 'search', 'state');
 		$queries = FreshRSS_Context::$conf->queries;
 		$query = Minz_Request::params();
-		$query['name'] = _t('query_number', count($queries) + 1);
+		$query['name'] = _t('conf.query.number', count($queries) + 1);
 		foreach ($query as $key => $value) {
 			if (!in_array($key, $whitelist)) {
 				unset($query[$key]);
@@ -341,7 +341,7 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 		FreshRSS_Context::$conf->_queries($queries);
 		FreshRSS_Context::$conf->save();
 
-		Minz_Request::good(_t('query_created', $query['name']),
+		Minz_Request::good(_t('feedback.conf.query_created', $query['name']),
 		                   array('c' => 'configure', 'a' => 'queries'));
 	}
 }

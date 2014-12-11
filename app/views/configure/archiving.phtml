@@ -1,31 +1,31 @@
 <?php $this->partial('aside_configure'); ?>
 
 <div class="post">
-	<a href="<?php echo _url('index', 'index'); ?>"><?php echo _t('back_to_rss_feeds'); ?></a>
+	<a href="<?php echo _url('index', 'index'); ?>"><?php echo _t('gen.action.back_to_rss_feeds'); ?></a>
 
 	<form method="post" action="<?php echo _url('configure', 'archiving'); ?>">
-		<legend><?php echo _t('archiving_configuration'); ?></legend>
-		<p><?php echo _i('help'); ?> <?php echo _t('archiving_configuration_help'); ?></p>
+		<legend><?php echo _t('conf.archiving'); ?></legend>
+		<p><?php echo _i('help'); ?> <?php echo _t('conf.archiving.help'); ?></p>
 
 		<div class="form-group">
-			<label class="group-name" for="old_entries"><?php echo _t('delete_articles_every'); ?></label>
+			<label class="group-name" for="old_entries"><?php echo _t('conf.archiving.delete_after'); ?></label>
 			<div class="group-controls">
-				<input type="number" id="old_entries" name="old_entries" min="1" max="1200" value="<?php echo FreshRSS_Context::$conf->old_entries; ?>" /> <?php echo _t('month'); ?>
-				  <a class="btn confirm" href="<?php echo _url('entry', 'purge'); ?>"><?php echo _t('purge_now'); ?></a>
+				<input type="number" id="old_entries" name="old_entries" min="1" max="1200" value="<?php echo FreshRSS_Context::$conf->old_entries; ?>" /> <?php echo _t('gen.date.month'); ?>
+				  <a class="btn confirm" href="<?php echo _url('entry', 'purge'); ?>"><?php echo _t('conf.archiving.purge_now'); ?></a>
 			</div>
 		</div>
 		<div class="form-group">
-			<label class="group-name" for="keep_history_default"><?php echo _t('keep_history'), ' ', _t('by_feed'); ?></label>
+			<label class="group-name" for="keep_history_default"><?php echo _t('conf.archiving.keep_history_by_feed'); ?></label>
 			<div class="group-controls">
 				<select class="number" name="keep_history_default" id="keep_history_default" required="required"><?php
 					foreach (array('' => '', 0 => '0', 10 => '10', 50 => '50', 100 => '100', 500 => '500', 1000 => '1 000', 5000 => '5 000', 10000 => '10 000', -1 => '∞') as $v => $t) {
 						echo '<option value="' . $v . (FreshRSS_Context::$conf->keep_history_default == $v ? '" selected="selected' : '') . '">' . $t . ' </option>';
 					}
-				?></select> (<?php echo _t('by_default'); ?>)
+				?></select> (<?php echo _t('gen.short.by_default'); ?>)
 			</div>
 		</div>
 		<div class="form-group">
-			<label class="group-name" for="ttl_default"><?php echo _t('ttl'); ?></label>
+			<label class="group-name" for="ttl_default"><?php echo _t('conf.archiving.ttl'); ?></label>
 			<div class="group-controls">
 				<select class="number" name="ttl_default" id="ttl_default" required="required"><?php
 					$found = false;
@@ -42,31 +42,31 @@
 					if (!$found) {
 						echo '<option value="' . intval(FreshRSS_Context::$conf->ttl_default) . '" selected="selected">' . intval(FreshRSS_Context::$conf->ttl_default) . 's</option>';
 					}
-				?></select> (<?php echo _t('by_default'); ?>)
+				?></select> (<?php echo _t('gen.short.by_default'); ?>)
 			</div>
 		</div>
 
 		<div class="form-group form-actions">
 			<div class="group-controls">
-				<button type="submit" class="btn btn-important"><?php echo _t('save'); ?></button>
-				<button type="reset" class="btn"><?php echo _t('cancel'); ?></button>
+				<button type="submit" class="btn btn-important"><?php echo _t('gen.action.submit'); ?></button>
+				<button type="reset" class="btn"><?php echo _t('gen.action.cancel'); ?></button>
 			</div>
 		</div>
 	</form>
 
 	<form method="post" action="<?php echo _url('entry', 'optimize'); ?>">
-		<legend><?php echo _t('advanced'); ?></legend>
+		<legend><?php echo _t('conf.archiving.advanced'); ?></legend>
 
 		<div class="form-group">
-			<label class="group-name"><?php echo _t('current_user'); ?></label>
+			<label class="group-name"><?php echo _t('conf.user.current'); ?></label>
 			<div class="group-controls">
-				<?php echo _t('conf.users.articles_and_size', format_number($this->nb_total), format_bytes($this->size_user)); ?>
+				<?php echo _t('conf.user.articles_and_size', format_number($this->nb_total), format_bytes($this->size_user)); ?>
 			</div>
 		</div>
 
 		<?php if (FreshRSS_Auth::hasAccess('admin')) { ?>
 		<div class="form-group">
-			<label class="group-name"><?php echo _t('users'); ?></label>
+			<label class="group-name"><?php echo _t('conf.user.users'); ?></label>
 			<div class="group-controls">
 				<?php echo format_bytes($this->size_total); ?>
 			</div>
@@ -75,8 +75,8 @@
 		<div class="form-group form-actions">
 			<div class="group-controls">
 				<input type="hidden" name="optimiseDatabase" value="1" />
-				<button type="submit" class="btn btn-important"><?php echo _t('optimize_bdd'); ?></button>
-				<?php echo _i('help'); ?> <?php echo _t('optimize_todo_sometimes'); ?>
+				<button type="submit" class="btn btn-important"><?php echo _t('conf.archiving.optimize'); ?></button>
+				<?php echo _i('help'); ?> <?php echo _t('conf.archiving.optimize_help'); ?>
 			</div>
 		</div>
 		<?php } ?>

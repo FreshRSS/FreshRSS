@@ -68,7 +68,7 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 		$limits = Minz_Configuration::limits();
 		$this->view->feeds = $feedDAO->listFeeds();
 		if (count($this->view->feeds) >= $limits['max_feeds']) {
-			Minz_Request::bad(_t('sub.feeds.over_max', $limits['max_feeds']),
+			Minz_Request::bad(_t('feedback.sub.feed.over_max', $limits['max_feeds']),
 			                  $url_redirect);
 		}
 
@@ -110,7 +110,7 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 			} catch (FreshRSS_BadUrl_Exception $e) {
 				// Given url was not a valid url!
 				Minz_Log::warning($e->getMessage());
-				Minz_Request::bad(_t('invalid_url', $url), $url_redirect);
+				Minz_Request::bad(_t('feedback.sub.feed.invalid_url', $url), $url_redirect);
 			}
 
 			try {
@@ -119,20 +119,23 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 				// Something went bad (timeout, server not found, etc.)
 				Minz_Log::warning($e->getMessage());
 				Minz_Request::bad(
-					_t('internal_problem_feed', _url('index', 'logs')),
+					_t('feedback.sub.feed.internal_problem', _url('index', 'logs')),
 					$url_redirect
 				);
 			} catch (Minz_FileNotExistException $e) {
 				// Cache directory doesn't exist!
 				Minz_Log::error($e->getMessage());
 				Minz_Request::bad(
-					_t('internal_problem_feed', _url('index', 'logs')),
+					_t('feedback.sub.feed.internal_problem', _url('index', 'logs')),
 					$url_redirect
 				);
 			}
 
 			if ($feedDAO->searchByUrl($feed->url())) {
-				Minz_Request::bad(_t('already_subscribed', $feed->name()), $url_redirect);
+				Minz_Request::bad(
+					_t('feedback.sub.feed.already_subscribed', $feed->name()),
+					$url_redirect
+				);
 			}
 
 			$feed->_category($cat);
@@ -151,7 +154,7 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 			$id = $feedDAO->addFeed($values);
 			if (!$id) {
 				// There was an error in database... we cannot say what here.
-				Minz_Request::bad(_t('feed_not_added', $feed->name()), $url_redirect);
+				Minz_Request::bad(_t('feedback.sub.feed.not_added', $feed->name()), $url_redirect);
 			}
 
 			// Ok, feed has been added in database. Now we have to refresh entries.
@@ -185,10 +188,10 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 
 			// Entries are in DB, we redirect to feed configuration page.
 			$url_redirect['params']['id'] = $feed->id();
-			Minz_Request::good(_t('feed_added', $feed->name()), $url_redirect);
+			Minz_Request::good(_t('feedback.sub.feed.added', $feed->name()), $url_redirect);
 		} else {
 			// GET request: we must ask confirmation to user before adding feed.
-			Minz_View::prependTitle(_t('add_rss_feed') . ' · ');
+			Minz_View::prependTitle(_t('sub.feed.title_add') . ' · ');
 
 			$this->view->categories = $this->catDAO->listCategories(false);
 			$this->view->feed = new FreshRSS_Feed($url);
@@ -204,7 +207,7 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 			if ($feed) {
 				// Already subscribe so we redirect to the feed configuration page.
 				$url_redirect['params']['id'] = $feed->id();
-				Minz_Request::good(_t('already_subscribed', $feed->name()), $url_redirect);
+				Minz_Request::good(_t('feedback.sub.feed.already_subscribed', $feed->name()), $url_redirect);
 			}
 		}
 	}
@@ -234,9 +237,9 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 
 		invalidateHttpCache();
 		if ($n === false) {
-			Minz_Request::bad(_t('error_occurred'), $url_redirect);
+			Minz_Request::bad(_t('feedback.sub.feed.error'), $url_redirect);
 		} else {
-			Minz_Request::good(_t('n_entries_deleted', $n), $url_redirect);
+			Minz_Request::good(_t('feedback.sub.feed.n_entries_deleted', $n), $url_redirect);
 		}
 	}
 
@@ -381,7 +384,7 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 			// are several updated feeds.
 			$notif = array(
 				'type' => 'good',
-				'content' => _t('feeds_actualized')
+				'content' => _t('feedback.sub.feed.actualizeds')
 			);
 			Minz_Session::_param('notification', $notif);
 			// No layout in ajax request.
@@ -392,13 +395,13 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 		// Redirect to the main page with correct notification.
 		if ($updated_feeds === 1) {
 			$feed = reset($feeds);
-			Minz_Request::good(_t('feed_actualized', $feed->name()), array(
+			Minz_Request::good(_t('feedback.sub.feed.actualized', $feed->name()), array(
 				'params' => array('get' => 'f_' . $feed->id())
 			));
 		} elseif ($updated_feeds > 1) {
-			Minz_Request::good(_t('n_feeds_actualized', $updated_feeds), array());
+			Minz_Request::good(_t('feedback.sub.feed.n_actualized', $updated_feeds), array());
 		} else {
-			Minz_Request::good(_t('no_feed_to_refresh'), array());
+			Minz_Request::good(_t('feedback.sub.feed.no_refresh'), array());
 		}
 	}
 
@@ -476,9 +479,9 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 			FreshRSS_Context::$conf->remove_query_by_get('f_' . $id);
 			FreshRSS_Context::$conf->save();
 
-			Minz_Request::good(_t('feed_deleted'), $redirect_url);
+			Minz_Request::good(_t('feedback.sub.feed.deleted'), $redirect_url);
 		} else {
-			Minz_Request::bad(_t('error_occurred'), $redirect_url);
+			Minz_Request::bad(_t('feedback.sub.feed.error'), $redirect_url);
 		}
 	}
 }

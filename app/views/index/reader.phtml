@@ -23,7 +23,7 @@ if (!empty($this->entries)) {
 
 				<div class="author"><?php
 					$author = $item->author();
-					echo $author != '' ? _t('by_author', $author) . ' — ' : '',
+					echo $author != '' ? _t('gen.short.by_author', $author) . ' — ' : '',
 						$item->date();
 				?></div>
 
@@ -38,7 +38,7 @@ if (!empty($this->entries)) {
 
 <?php } else { ?>
 <div id="stream" class="prompt alert alert-warn reader">
-	<h2><?php echo _t('no_feed_to_display'); ?></h2>
-	<a href="<?php echo _url('subscription', 'index'); ?>"><?php echo _t('think_to_add'); ?></a><br /><br />
+	<h2><?php echo _t('index.feed.empty'); ?></h2>
+	<a href="<?php echo _url('subscription', 'index'); ?>"><?php echo _t('index.feed.add'); ?></a><br /><br />
 </div>
 <?php } ?>

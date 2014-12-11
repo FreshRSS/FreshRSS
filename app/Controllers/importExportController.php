@@ -26,7 +26,7 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 	 */
 	public function indexAction() {
 		$this->view->feeds = $this->feedDAO->listFeeds();
-		Minz_View::prependTitle(_t('import_export') . ' · ');
+		Minz_View::prependTitle(_t('sub.import_export.title') . ' · ');
 	}
 
 	/**
@@ -48,7 +48,7 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 
 		if ($status_file !== 0) {
 			Minz_Log::error('File cannot be uploaded. Error code: ' . $status_file);
-			Minz_Request::bad(_t('file_cannot_be_uploaded'),
+			Minz_Request::bad(_t('feedback.import_export.file_cannot_be_uploaded'),
 			                  array('c' => 'importExport', 'a' => 'index'));
 		}
 
@@ -70,7 +70,7 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 			if (!is_resource($zip)) {
 				// zip_open cannot open file: something is wrong
 				Minz_Log::error('Zip archive cannot be imported. Error code: ' . $zip);
-				Minz_Request::bad(_t('zip_error'),
+				Minz_Request::bad(_t('feedback.import_export.zip_error'),
 				                  array('c' => 'importExport', 'a' => 'index'));
 			}
 
@@ -92,7 +92,7 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 			zip_close($zip);
 		} elseif ($type_file === 'zip') {
 			// Zip extension is not loaded
-			Minz_Request::bad(_t('no_zip_extension'),
+			Minz_Request::bad(_t('feedback.import_export.no_zip_extension'),
 			                  array('c' => 'importExport', 'a' => 'index'));
 		} elseif ($type_file !== 'unknown') {
 			$list_files[$type_file][] = file_get_contents($file['tmp_name']);
@@ -115,8 +115,8 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 
 		// And finally, we get import status and redirect to the home page
 		Minz_Session::_param('actualize_feeds', true);
-		$content_notif = $error === true ? _t('feeds_imported_with_errors') :
-		                                   _t('feeds_imported');
+		$content_notif = $error === true ? _t('feedback.import_export.feeds_imported_with_errors') :
+		                                   _t('feedback.import_export.feeds_imported');
 		Minz_Request::good($content_notif);
 	}
 
@@ -183,7 +183,7 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 			if (isset($elt['xmlUrl'])) {
 				// If xmlUrl exists, it means it is a feed
 				if ($nb_feeds >= $limits['max_feeds']) {
-					Minz_Log::warning(_t('sub.feeds.over_max',
+					Minz_Log::warning(_t('feedback.sub.feed.over_max',
 					                  $limits['max_feeds']));
 					$is_error = true;
 					continue;
@@ -197,7 +197,7 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 				// No xmlUrl? It should be a category!
 				$limit_reached = ($nb_cats >= $limits['max_categories']);
 				if ($limit_reached) {
-					Minz_Log::warning(_t('sub.categories.over_max',
+					Minz_Log::warning(_t('feedback.sub.category.over_max',
 					                  $limits['max_categories']));
 				}
 
@@ -337,7 +337,7 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 				// Feed does not exist in DB,we should to try to add it.
 				if ($nb_feeds >= $limits['max_feeds']) {
 					// Oops, no more place!
-					Minz_Log::warning(_t('sub.feeds.over_max', $limits['max_feeds']));
+					Minz_Log::warning(_t('feedback.sub.feed.over_max', $limits['max_feeds']));
 				} else {
 					$feed = $this->addFeedJson($item['origin'], $google_compliant);
 				}
@@ -482,7 +482,7 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 				$this->exportZip($export_files);
 			} catch (Exception $e) {
 				# Oops, there is no Zip extension!
-				Minz_Request::bad(_t('export_no_zip_extension'),
+				Minz_Request::bad(_t('feedback.import_export.export_no_zip_extension'),
 				                  array('c' => 'importExport', 'a' => 'index'));
 			}
 		} elseif ($nb_files === 1) {
@@ -523,14 +523,14 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 		$this->view->categories = $this->catDAO->listCategories();
 
 		if ($type == 'starred') {
-			$this->view->list_title = _t('starred_list');
+			$this->view->list_title = _t('sub.import_export.starred_list');
 			$this->view->type = 'starred';
 			$unread_fav = $this->entryDAO->countUnreadReadFavorites();
 			$this->view->entries = $this->entryDAO->listWhere(
 				's', '', FreshRSS_Entry::STATE_ALL, 'ASC', $unread_fav['all']
 			);
 		} elseif ($type == 'feed' && !is_null($feed)) {
-			$this->view->list_title = _t('feed_list', $feed->name());
+			$this->view->list_title = _t('sub.import_export.feed_list', $feed->name());
 			$this->view->type = 'feed/' . $feed->id();
 			$this->view->entries = $this->entryDAO->listWhere(
 				'f', $feed->id(), FreshRSS_Entry::STATE_ALL, 'ASC',
