@@ -139,6 +139,7 @@ return array(
 		'apply' => 'Apply',
 		'check' => 'Check for new updates',
 		'last' => 'Last verification: %s',
+		'none' => 'No update to apply',
 		'title' => 'Update system',
 	),
 	'user' => array(
