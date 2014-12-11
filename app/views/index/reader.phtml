@@ -23,7 +23,7 @@ if (!empty($this->entries)) {
 
 				<div class="author"><?php
 					$author = $item->author();
-					echo $author != '' ? _t('index.entry.by_author', $author) . ' — ' : '',
+					echo $author != '' ? _t('gen.short.by_author', $author) . ' — ' : '',
 						$item->date();
 				?></div>
 

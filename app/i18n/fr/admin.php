@@ -2,8 +2,19 @@
 
 return array(
 	'auth' => array(
+		'allow_anonymous' => 'Autoriser la lecture anonyme des articles de l’utilisateur par défaut (%s)',
+		'allow_anonymous_refresh' => 'Autoriser le rafraîchissement anonyme des flux',
+		'api_enabled' => 'Autoriser l’accès par <abbr>API</abbr> <small>(nécessaire pour les applis mobiles)</small>',
+		'form' => 'Formulaire (traditionnel, requiert JavaScript)',
+		'http' => 'HTTP (pour utilisateurs avancés avec HTTPS)',
+		'none' => 'Aucune (dangereux)',
+		'persona' => 'Mozilla Persona (moderne, requiert JavaScript)',
 		'title' => 'Authentification',
 		'title_reset' => 'Réinitialisation de l’authentification',
+		'token' => 'Jeton d’identification',
+		'token_help' => 'Permet d’accéder à la sortie RSS de l’utilisateur par défaut sans besoin de s’authentifier.<br /><kbd>%s?output=rss&token=%s</kbd>',
+		'type' => 'Méthode d’authentification',
+		'unsafe_autologin' => 'Autoriser les connexions automatiques non-sûres au format : ',
 	),
 	'check_install' => array(
 		'cache' => array(

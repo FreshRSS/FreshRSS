@@ -100,7 +100,7 @@ if (!empty($this->entries)) {
 				<h1 class="title"><a target="_blank" href="<?php echo $item->link(); ?>"><?php echo $item->title(); ?></a></h1>
 				<?php
 					$author = $item->author();
-					echo $author != '' ? '<div class="author">' . _t('index.entry.by_author', $author) . '</div>' : '',
+					echo $author != '' ? '<div class="author">' . _t('gen.short.by_author', $author) . '</div>' : '',
 						$lazyload && $hidePosts ? lazyimg($item->content()) : $item->content();
 				?>
 			</div>

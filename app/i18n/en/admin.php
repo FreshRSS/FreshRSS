@@ -2,8 +2,19 @@
 
 return array(
 	'auth' => array(
+		'allow_anonymous' => 'Allow anonymous reading of the articles of the default user (%s)',
+		'allow_anonymous_refresh' => 'Allow anonymous refresh of the articles',
+		'api_enabled' => 'Allow <abbr>API</abbr> access <small>(required for mobile apps)</small>',
+		'form' => 'Web form (traditional, requires JavaScript)',
+		'http' => 'HTTP (for advanced users with HTTPS)',
+		'none' => 'None (dangerous)',
+		'persona' => 'Mozilla Persona (modern, requires JavaScript)',
 		'title' => 'Authentication',
 		'title_reset' => 'Authentication reset',
+		'token' => 'Authentication token',
+		'token_help' => 'Allows to access RSS output of the default user without authentication.<br /><kbd>%s?output=rss&token=%s</kbd>',
+		'type' => 'Authentication method',
+		'unsafe_autologin' => 'Allow unsafe automatic login using the format: ',
 	),
 	'check_install' => array(
 		'cache' => array(
