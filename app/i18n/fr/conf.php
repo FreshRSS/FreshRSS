@@ -71,6 +71,10 @@ return array(
 		'title' => 'Filtres utilisateurs',
 	),
 	'profile' => array(
+		'_' => 'Gestion du profil',
+		'email_persona' => 'Adresse courriel de connexion<br /><small>(pour <a href="https://persona.org/" rel="external">Mozilla Persona</a>)</small>',
+		'password_api' => 'Mot de passe API<br /><small>(ex. : pour applis mobiles)</small>',
+		'password_form' => 'Mot de passe<br /><small>(pour connexion par formulaire)</small>',
 		'title' => 'Profil',
 	),
 	'reading' => array(
@@ -157,6 +161,7 @@ return array(
 	'user' => array(
 		'articles_and_size' => '%s articles (%s)',
 		'current' => 'Utilisateur actuel',
+		'is_admin' => 'est administrateur',
 		'users' => 'Utilisateurs',
 	),
 );

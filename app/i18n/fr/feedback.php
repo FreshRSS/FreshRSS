@@ -38,6 +38,7 @@ return array(
 		'zip_error' => 'Une erreur est survenue durant l’import du fichier Zip.',
 	),
 	'sub' => array(
+		'actualize' => 'Actualiser',
 		'category' => array(
 			'created' => 'La catégorie %s a été créée.',
 			'deleted' => 'La catégorie a été supprimée.',

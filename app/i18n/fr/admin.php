@@ -135,10 +135,21 @@ return array(
 		'top_feed' => 'Les dix plus gros flux',
 	),
 	'update' => array(
+		'_' => 'Système de mise à jour',
+		'apply' => 'Appliquer la mise à jour',
+		'check' => 'Vérifier les mises à jour',
+		'last' => 'Dernière vérification : %s',
 		'title' => 'Système de mise à jour',
 	),
 	'user' => array(
 		'articles_and_size' => '%s articles (%s)',
+		'create' => 'Créer un nouvel utilisateur',
+		'email_persona' => 'Adresse courriel de connexion<br /><small>(pour <a href="https://persona.org/" rel="external">Mozilla Persona</a>)</small>',
+		'language' => 'Langue',
+		'password_form' => 'Mot de passe<br /><small>(pour connexion par formulaire)</small>',
 		'title' => 'Gestion des utilisateurs',
+		'user_list' => 'Liste des utilisateurs',
+		'username' => 'Nom d’utilisateur',
+		'users' => 'Utilisateurs',
 	),
 );
