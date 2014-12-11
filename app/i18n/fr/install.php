@@ -17,7 +17,7 @@ return array(
 	'bdd' => array(
 		'_' => 'Base de données',
 		'conf' => array(
-			'_' => 'Base de données',
+			'_' => 'Configuration de la base de données',
 			'ko' => 'Vérifiez les informations d’accès à la base de données.',
 			'ok' => 'La configuration de la base de données a été enregistrée.',
 		),
@@ -96,8 +96,8 @@ return array(
 		'choose' => 'Choisissez la langue pour FreshRSS',
 		'defined' => 'La langue a bien été définie.',
 	),
-	'ok' => 'L’installation s’est bien passée.',
 	'not_deleted' => 'Quelque chose s’est mal passé, vous devez supprimer le fichier <em>%s</em> à la main.',
+	'ok' => 'L’installation s’est bien passée.',
 	'step' => 'étape %d',
 	'steps' => 'Étapes',
 	'title' => 'Installation · FreshRSS',

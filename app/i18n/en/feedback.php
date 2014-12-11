@@ -38,6 +38,7 @@ return array(
 		'zip_error' => 'An error occured during Zip import.',
 	),
 	'sub' => array(
+		'actualize' => 'Actualize',
 		'category' => array(
 			'created' => 'Category %s has been created.',
 			'deleted' => 'Category has been deleted.',

@@ -135,10 +135,21 @@ return array(
 		'top_feed' => 'Top ten feeds',
 	),
 	'update' => array(
+		'_' => 'Update system',
+		'apply' => 'Apply',
+		'check' => 'Check for new updates',
+		'last' => 'Last verification: %s',
 		'title' => 'Update system',
 	),
-	'users' => array(
+	'user' => array(
 		'articles_and_size' => '%s articles (%s)',
+		'create' => 'Create new user',
+		'email_persona' => 'Login mail address<br /><small>(for <a href="https://persona.org/" rel="external">Mozilla Persona</a>)</small>',
+		'language' => 'Language',
+		'password_form' => 'Password<br /><small>(for the Web-form login method)</small>',
 		'title' => 'Manage users',
+		'user_list' => 'List of users',
+		'username' => 'Username',
+		'users' => 'Users',
 	),
 );

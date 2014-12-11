@@ -16,9 +16,6 @@ return array(
 		'version' => 'Version',
 		'website' => 'Website',
 	),
-	'entry' => array(
-		'by_author' => 'By <em>%s</em>',
-	),
 	'feed' => array(
 		'add' => 'You may add some feeds.',
 		'empty' => 'There is no article to show.',
@@ -42,6 +39,8 @@ return array(
 		'global_view' => 'Global view',
 		'main_stream' => 'Main stream',
 		'mark_all_read' => 'Mark all as read',
+		'mark_cat_read' => 'Mark category as read',
+		'mark_feed_read' => 'Mark feed as read',
 		'newer_first' => 'Newer first',
 		'non-starred' => 'Show all but favorites',
 		'normal_view' => 'Normal view',
