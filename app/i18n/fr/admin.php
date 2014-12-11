@@ -108,7 +108,7 @@ return array(
 			'repartition' => 'Répartition des articles',
 		),
 		'no_idle' => 'Il n’y a aucun flux inactif !',
-		'number_articles' => '%d articles',
+		'number_entries' => '%d articles',
 		'percent_of_total' => '%% du total',
 		'repartition' => 'Répartition des articles',
 		'status_favorites' => 'favoris',

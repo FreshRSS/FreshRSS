@@ -29,7 +29,7 @@ class FreshRSS_subscription_Controller extends Minz_ActionController {
 	public function indexAction() {
 		Minz_View::appendScript(Minz_Url::display('/scripts/category.js?' .
 		                        @filemtime(PUBLIC_PATH . '/scripts/category.js')));
-		Minz_View::prependTitle(_t('subscription_management') . ' · ');
+		Minz_View::prependTitle(_t('sub.title') . ' · ');
 
 		$id = Minz_Request::param('id');
 		if ($id !== false) {
@@ -74,7 +74,7 @@ class FreshRSS_subscription_Controller extends Minz_ActionController {
 
 		$this->view->feed = $this->view->feeds[$id];
 
-		Minz_View::prependTitle(_t('rss_feed_management') . ' · ' . $this->view->feed->name() . ' · ');
+		Minz_View::prependTitle(_t('sub.title.feed_management') . ' · ' . $this->view->feed->name() . ' · ');
 
 		if (Minz_Request::isPost()) {
 			$user = Minz_Request::param('http_user', '');
@@ -106,9 +106,9 @@ class FreshRSS_subscription_Controller extends Minz_ActionController {
 				$this->view->feed->_category($cat);
 				$this->view->feed->faviconPrepare();
 
-				Minz_Request::good(_t('feed_updated'), array('c' => 'subscription', 'params' => array('id' => $id)));
+				Minz_Request::good(_t('feedback.sub.feed_updated'), array('c' => 'subscription', 'params' => array('id' => $id)));
 			} else {
-				Minz_Request::bad(_t('error_occurred_update'), array('c' => 'subscription'));
+				Minz_Request::bad(_t('feedback.sub.error_occurred'), array('c' => 'subscription'));
 			}
 		}
 	}

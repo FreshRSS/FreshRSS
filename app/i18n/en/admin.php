@@ -108,7 +108,7 @@ return array(
 			'repartition' => 'Articles repartition',
 		),
 		'no_idle' => 'There is no idle feed!',
-		'number_articles' => '%d articles',
+		'number_entries' => '%d articles',
 		'percent_of_total' => '%% of total',
 		'repartition' => 'Articles repartition',
 		'status_favorites' => 'Favourites',

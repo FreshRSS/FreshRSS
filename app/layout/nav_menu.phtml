@@ -86,7 +86,7 @@
 		<button class="read_all btn <?php echo $confirm; ?>"
 		        form="mark-read-menu"
 		        formaction="<?php echo Minz_Url::display($mark_read_url); ?>"
-		        type="submit"><?php echo _t('index.menu.mark_read'); ?></button>
+		        type="submit"><?php echo _t('gen.action.mark_read'); ?></button>
 
 		<div class="dropdown">
 			<div id="dropdown-read" class="dropdown-target"></div>
@@ -194,6 +194,6 @@
 	</a>
 	
 	<?php if (FreshRSS_Auth::hasAccess() || Minz_Configuration::allowAnonymousRefresh()) { ?>
-	<a id="actualize" class="btn" href="<?php echo _url('feed', 'actualize'); ?>" title="<?php echo _t('index.menu.actualize'); ?>"><?php echo _i('refresh'); ?></a>
+	<a id="actualize" class="btn" href="<?php echo _url('feed', 'actualize'); ?>" title="<?php echo _t('gen.action.actualize'); ?>"><?php echo _i('refresh'); ?></a>
 	<?php } ?>
 </div>
