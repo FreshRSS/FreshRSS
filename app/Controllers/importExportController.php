@@ -183,7 +183,7 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 			if (isset($elt['xmlUrl'])) {
 				// If xmlUrl exists, it means it is a feed
 				if ($nb_feeds >= $limits['max_feeds']) {
-					Minz_Log::warning(_t('sub.feed.over_max',
+					Minz_Log::warning(_t('feedback.sub.feed.over_max',
 					                  $limits['max_feeds']));
 					$is_error = true;
 					continue;
@@ -197,7 +197,7 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 				// No xmlUrl? It should be a category!
 				$limit_reached = ($nb_cats >= $limits['max_categories']);
 				if ($limit_reached) {
-					Minz_Log::warning(_t('sub.category.over_max',
+					Minz_Log::warning(_t('feedback.sub.category.over_max',
 					                  $limits['max_categories']));
 				}
 
@@ -337,7 +337,7 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 				// Feed does not exist in DB,we should to try to add it.
 				if ($nb_feeds >= $limits['max_feeds']) {
 					// Oops, no more place!
-					Minz_Log::warning(_t('sub.feed.over_max', $limits['max_feeds']));
+					Minz_Log::warning(_t('feedback.sub.feed.over_max', $limits['max_feeds']));
 				} else {
 					$feed = $this->addFeedJson($item['origin'], $google_compliant);
 				}

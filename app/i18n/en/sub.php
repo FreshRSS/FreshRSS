@@ -6,7 +6,6 @@ return array(
 		'add' => 'Add a category',
 		'empty' => 'Empty category',
 		'new' => 'New category',
-		'over_max' => 'You have reached your limit of categories (%d)',
 	),
 	'feed' => array(
 		'add' => 'Add a RSS feed',
@@ -29,7 +28,6 @@ return array(
 		'keep_history' => 'Minimum number of articles to keep',
 		'moved_category_deleted' => 'When you delete a category, their feeds are automatically classified under <em>%s</em>.',
 		'number_entries' => '%d articles',
-		'over_max' => 'You have reached your limit of feeds (%d)',
 		'stats' => 'Statistics',
 		'title' => 'Title',
 		'ttl' => 'Do not automatically refresh more often than',

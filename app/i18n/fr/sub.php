@@ -6,7 +6,6 @@ return array(
 		'add' => 'Ajouter une catégorie',
 		'empty' => 'Catégorie vide',
 		'new' => 'Nouvelle catégorie',
-		'over_max' => 'Vous avez atteint votre limite de catégories (%d)',
 	),
 	'feed' => array(
 		'add' => 'Ajouter un flux RSS',
@@ -29,7 +28,6 @@ return array(
 		'keep_history' => 'Nombre minimum d’articles à conserver',
 		'moved_category_deleted' => 'Lors de la suppression d’une catégorie, ses flux seront automatiquement classés dans <em>%s</em>.',
 		'number_entries' => '%d articles',
-		'over_max' => 'Vous avez atteint votre limite de flux (%d)',
 		'stats' => 'Statistiques',
 		'title' => 'Titre',
 		'ttl' => 'Ne pas automatiquement rafraîchir plus souvent que',
