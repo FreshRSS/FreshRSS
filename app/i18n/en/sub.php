@@ -37,6 +37,17 @@ return array(
 		'validator' => 'Check the validity of the feed',
 		'website' => 'Website URL',
 	),
+	'import_export' => array(
+		'export' => 'Export',
+		'export_opml' => 'Export list of feeds (OPML)',
+		'export_starred' => 'Export your favourites',
+		'feed_list' => 'List of %s articles',
+		'file_to_import' => 'File to import<br />(OPML, Json or Zip)',
+		'file_to_import_no_zip' => 'File to import<br />(OPML or Json)',
+		'import' => 'Import',
+		'starred_list' => 'List of favourite articles',
+		'title' => 'Import / export',
+	),
 	'menu' => array(
 		'bookmark' => 'Subscribe (FreshRSS bookmark)',
 		'import_export' => 'Import / export',

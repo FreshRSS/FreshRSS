@@ -37,6 +37,17 @@ return array(
 		'validator' => 'Vérifier la valididé du flux',
 		'website' => 'URL du site',
 	),
+	'import_export' => array(
+		'export' => 'Exporter',
+		'export_opml' => 'Exporter la liste des flux (OPML)',
+		'export_starred' => 'Exporter les favoris',
+		'feed_list' => 'Liste des articles de %s',
+		'file_to_import' => 'Fichier à importer<br />(OPML, Json ou Zip)',
+		'file_to_import_no_zip' => 'Fichier à importer<br />(OPML ou Json)',
+		'import' => 'Importer',
+		'starred_list' => 'Liste des articles favoris',
+		'title' => 'Importer / exporter',
+	),
 	'menu' => array(
 		'bookmark' => 'S’abonner (bookmark FreshRSS)',
 		'import_export' => 'Importer / exporter',
