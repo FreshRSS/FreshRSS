@@ -30,6 +30,7 @@ return array(
 		'number_entries' => '%d articles',
 		'stats' => 'Statistiques',
 		'title' => 'Titre',
+		'title_add' => 'Ajouter un flux RSS',
 		'ttl' => 'Ne pas automatiquement rafraîchir plus souvent que',
 		'url' => 'URL du flux',
 		'validator' => 'Vérifier la valididé du flux',

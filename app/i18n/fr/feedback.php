@@ -1,6 +1,13 @@
 <?php
 
 return array(
+	'admin' => array(
+		'optimization_complete' => 'Optimisation terminée.',
+	),
+	'access' => array(
+		'denied' => 'Vous n’avez pas le droit d’accéder à cette page !',
+		'not_found' => 'La page que vous cherchez n’existe pas !',
+	),
 	'auth' => array(
 		'form' => array(
 			'not_set' => 'Un problème est survenu lors de la configuration de votre système d’authentification. Veuillez réessayer plus tard.',
@@ -16,9 +23,11 @@ return array(
 		'no_password_set' => 'Aucun mot de passe administrateur n’a été précisé. Cette fonctionnalité n’est pas disponible.',
 		'not_persona' => 'Seul le système d’authentification Persona peut être réinitialisé.',
 	),
-	'configuration' => array(
+	'conf' => array(
+		'error' => 'Une erreur est survenue durant la sauvegarde de la configuration',
+		'query_created' => 'Le filtre "%s" a bien été créé.',
+		'shortcuts_updated' => 'Les raccourcis ont été mis à jour.',
 		'updated' => 'La configuration a été mise à jour',
-		'error' => 'Une erreur est survenue en sauvegardant la configuration',
 	),
 	'import_export' => array(
 		'export_no_zip_extension' => 'L’extension Zip n’est pas présente sur votre serveur. Veuillez essayer d’exporter les fichiers un par un.',
@@ -43,10 +52,23 @@ return array(
 			'updated' => 'La catégorie a été mise à jour.',
 		),
 		'feed' => array(
-			'error' => 'Le flux n’a pas pu être modifié',
+			'actualized' => '<em>%s</em> a été mis à jour.',
+			'actualizeds' => 'Les flux ont été mis à jour.',
+			'added' => 'Le flux <em>%s</em> a bien été ajouté.',
+			'already_subscribed' => 'Vous êtes déjà abonné à <em>%s</em>',
+			'deleted' => 'Le flux a été supprimé.',
+			'error' => 'Une erreur est survenue',
+			'internal_problem' => 'Le flux ne peut pas être ajouté. <a href="%s">Consulter les logs de FreshRSS</a> pour plus de détails.',
+			'invalid_url' => 'L’url <em>%s</em> est invalide.',
+			'marked_read' => 'Les flux ont été marqués comme lus.',
+			'n_actualized' => '%d flux ont été mis à jour.',
+			'n_entries_deleted' => '%d articles ont été supprimés.',
+			'no_refresh' => 'Il n’y a aucun flux à actualiser…',
+			'not_added' => '<em>%s</em> n’a pas pu être ajouté.',
 			'over_max' => 'Vous avez atteint votre limite de flux (%d)',
 			'updated' => 'Le flux a été mis à jour',
 		),
+		'purge_completed' => 'Purge effectuée (%d articles supprimés).',
 	),
 	'user_profile' => array(
 		'updated' => 'Votre profil a été mis à jour',

@@ -106,9 +106,9 @@ class FreshRSS_subscription_Controller extends Minz_ActionController {
 				$this->view->feed->_category($cat);
 				$this->view->feed->faviconPrepare();
 
-				Minz_Request::good(_t('feedback.sub.feed_updated'), array('c' => 'subscription', 'params' => array('id' => $id)));
+				Minz_Request::good(_t('feedback.sub.feed.updated'), array('c' => 'subscription', 'params' => array('id' => $id)));
 			} else {
-				Minz_Request::bad(_t('feedback.sub.error_occurred'), array('c' => 'subscription'));
+				Minz_Request::bad(_t('feedback.sub.error'), array('c' => 'subscription'));
 			}
 		}
 	}

@@ -22,7 +22,7 @@ class FreshRSS_auth_Controller extends Minz_ActionController {
 			Minz_Error::error(403);
 		}
 
-		Minz_View::prependTitle(_t('gen.auth.title') . ' · ');
+		Minz_View::prependTitle(_t('admin.auth.title') . ' · ');
 
 		if (Minz_Request::isPost()) {
 			$ok = true;
@@ -56,10 +56,10 @@ class FreshRSS_auth_Controller extends Minz_ActionController {
 			invalidateHttpCache();
 
 			if ($ok) {
-				Minz_Request::good(_t('feedback.configuration.updated'),
+				Minz_Request::good(_t('feedback.conf.updated'),
 				                   array('c' => 'auth', 'a' => 'index'));
 			} else {
-				Minz_Request::bad(_t('feedback.configuration.error'),
+				Minz_Request::bad(_t('feedback.conf.error'),
 				                  array('c' => 'auth', 'a' => 'index'));
 			}
 		}
@@ -285,7 +285,7 @@ class FreshRSS_auth_Controller extends Minz_ActionController {
 	 * After reseting, form auth is set by default.
 	 */
 	public function resetAction() {
-		Minz_View::prependTitle(_t('feedback.auth.title_reset') . ' · ');
+		Minz_View::prependTitle(_t('admin.auth.title_reset') . ' · ');
 
 		Minz_View::appendScript(Minz_Url::display(
 			'/scripts/bcrypt.min.js?' . @filemtime(PUBLIC_PATH . '/scripts/bcrypt.min.js')

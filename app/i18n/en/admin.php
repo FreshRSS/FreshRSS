@@ -1,6 +1,10 @@
 <?php
 
 return array(
+	'auth' => array(
+		'title' => 'Authentication',
+		'title_reset' => 'Authentication reset',
+	),
 	'check_install' => array(
 		'cache' => array(
 			'nok' => 'Check permissions on <em>./data/cache</em> directory. HTTP server must have rights to write into',

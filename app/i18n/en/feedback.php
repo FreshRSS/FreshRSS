@@ -1,6 +1,13 @@
 <?php
 
 return array(
+	'admin' => array(
+		'optimization_complete' => 'Optimization complete',
+	),
+	'access' => array(
+		'denied' => 'You don’t have permission to access this page',
+		'not_found' => 'You are looking for a page which doesn’t exist',
+	),
 	'auth' => array(
 		'form' => array(
 			'not_set' => 'A problem occured during authentication system configuration. Please retry later.',
@@ -16,9 +23,11 @@ return array(
 		'no_password_set' => 'Administrator password hasn’t been set. This feature isn’t available.',
 		'not_persona' => 'Only Persona system can be reset.',
 	),
-	'configuration' => array(
-		'updated' => 'Configuration has been updated',
+	'conf' => array(
 		'error' => 'An error occurred during configuration saving',
+		'query_created' => 'Query "%s" has been created.',
+		'shortcuts_updated' => 'Shortcuts have been updated',
+		'updated' => 'Configuration has been updated',
 	),
 	'import_export' => array(
 		'export_no_zip_extension' => 'Zip extension is not present on your server. Please try to export files one by one.',
@@ -43,10 +52,23 @@ return array(
 			'updated' => 'Category has been updated.',
 		),
 		'feed' => array(
+			'actualized' => '<em>%s</em> has been updated',
+			'actualizeds' => 'RSS feeds have been updated',
+			'added' => 'RSS feed <em>%s</em> has been added',
+			'already_subscribed' => 'You have already subscribed to <em>%s</em>',
+			'deleted' => 'Feed has been deleted',
 			'error' => 'Feed cannot be updated',
+			'internal_problem_feed' => 'The RSS feed could not be added. <a href="%s">Check FressRSS logs</a> for details.',
+			'invalid_url' => 'URL <em>%s</em> is invalid',
+			'marked_read' => 'Feeds have been marked as read',
+			'n_actualized' => '%d feeds have been updated',
+			'n_entries_deleted' => '%d articles have been deleted',
+			'no_refresh' => 'There is no feed to refresh…',
+			'not_added' => '<em>%s</em> could not be added',
 			'over_max' => 'You have reached your limit of feeds (%d)',
 			'updated' => 'Feed has been updated',
 		),
+		'purge_completed' => 'Purge completed (%d articles deleted)',
 	),
 	'user_profile' => array(
 		'updated' => 'Your profile has been modified',

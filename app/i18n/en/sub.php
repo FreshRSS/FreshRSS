@@ -30,6 +30,7 @@ return array(
 		'number_entries' => '%d articles',
 		'stats' => 'Statistics',
 		'title' => 'Title',
+		'title_add' => 'Add a RSS feed',
 		'ttl' => 'Do not automatically refresh more often than',
 		'url' => 'Feed URL',
 		'validator' => 'Check the validity of the feed',
