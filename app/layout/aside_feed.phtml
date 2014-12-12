@@ -12,11 +12,11 @@
 
 	<?php if (FreshRSS_Auth::hasAccess()) { ?>
 	<div class="stick configure-feeds no-mobile">
-		<a class="btn btn-important" href="<?php echo _url('subscription', 'index'); ?>"><?php echo _t('subscription_management'); ?></a>
+		<a class="btn btn-important" href="<?php echo _url('subscription', 'index'); ?>"><?php echo _t('index.menu.subscription'); ?></a>
 		<a class="btn btn-important" href="<?php echo _url('importExport', 'index'); ?>"><?php echo _i('import'); ?></a>
 	</div>
 	<?php } elseif (Minz_Configuration::needsLogin()) { ?>
-	<a href="<?php echo _url('index', 'about'); ?>"><?php echo _t('about_freshrss'); ?></a>
+	<a href="<?php echo _url('index', 'about'); ?>"><?php echo _t('index.menu.about'); ?></a>
 	<?php } ?>
 
 	<form id="mark-read-aside" method="post" style="display: none"></form>
@@ -24,13 +24,13 @@
 	<ul class="tree">
 		<li class="tree-folder category all<?php echo FreshRSS_Context::isCurrentGet('a') ? ' active' : ''; ?>">
 			<div class="tree-folder-title">
-				<?php echo _i('all'); ?> <a class="title" data-unread="<?php echo format_number(FreshRSS_Context::$total_unread); ?>" href="<?php echo _url('index', 'index'); ?>"><?php echo _t('main_stream'); ?></a>
+				<?php echo _i('all'); ?> <a class="title" data-unread="<?php echo format_number(FreshRSS_Context::$total_unread); ?>" href="<?php echo _url('index', 'index'); ?>"><?php echo _t('index.menu.main_stream'); ?></a>
 			</div>
 		</li>
 
 		<li class="tree-folder category favorites<?php echo FreshRSS_Context::isCurrentGet('s') ? ' active' : ''; ?>">
 			<div class="tree-folder-title">
-				<?php echo _i('bookmark'); ?> <a class="title" data-unread="<?php echo format_number(FreshRSS_Context::$total_starred['unread']); ?>" href="<?php echo _url('index', 'index', 'get', 's'); ?>"><?php echo _t('favorite_feeds', format_number(FreshRSS_Context::$total_starred['all'])); ?></a>
+				<?php echo _i('bookmark'); ?> <a class="title" data-unread="<?php echo format_number(FreshRSS_Context::$total_starred['unread']); ?>" href="<?php echo _url('index', 'index', 'get', 's'); ?>"><?php echo _t('index.menu.favorites', format_number(FreshRSS_Context::$total_starred['all'])); ?></a>
 			</div>
 		</li>
 
@@ -74,21 +74,21 @@
 <script id="feed_config_template" type="text/html">
 	<ul class="dropdown-menu">
 		<li class="dropdown-close"><a href="#close">❌</a></li>
-		<li class="item"><a href="<?php echo _url('index', 'index', 'get', 'f_!!!!!!'); ?>"><?php echo _t('filter'); ?></a></li>
+		<li class="item"><a href="<?php echo _url('index', 'index', 'get', 'f_!!!!!!'); ?>"><?php echo _t('gen.action.filter'); ?></a></li>
 		<?php if (FreshRSS_Auth::hasAccess()) { ?>
-		<li class="item"><a href="<?php echo _url('stats', 'repartition', 'id', '!!!!!!'); ?>"><?php echo _t('stats'); ?></a></li>
+		<li class="item"><a href="<?php echo _url('stats', 'repartition', 'id', '!!!!!!'); ?>"><?php echo _t('index.menu.stats'); ?></a></li>
 		<?php } ?>
-		<li class="item"><a target="_blank" href="http://example.net/"><?php echo _t('see_website'); ?></a></li>
+		<li class="item"><a target="_blank" href="http://example.net/"><?php echo _t('gen.action.see_website'); ?></a></li>
 		<?php if (FreshRSS_Auth::hasAccess()) { ?>
 		<li class="separator"></li>
-		<li class="item"><a href="<?php echo _url('subscription', 'index', 'id', '!!!!!!'); ?>"><?php echo _t('administration'); ?></a></li>
-		<li class="item"><a href="<?php echo _url('feed', 'actualize', 'id', '!!!!!!'); ?>"><?php echo _t('actualize'); ?></a></li>
+		<li class="item"><a href="<?php echo _url('subscription', 'index', 'id', '!!!!!!'); ?>"><?php echo _t('gen.action.manage'); ?></a></li>
+		<li class="item"><a href="<?php echo _url('feed', 'actualize', 'id', '!!!!!!'); ?>"><?php echo _t('gen.action.actualize'); ?></a></li>
 		<li class="item">
 			<?php $confirm = FreshRSS_Context::$conf->reading_confirm ? 'confirm' : ''; ?>
 			<button class="read_all as-link <?php echo $confirm; ?>"
 			        form="mark-read-aside"
 			        formaction="<?php echo _url('entry', 'read', 'get', 'f_!!!!!!'); ?>"
-			        type="submit"><?php echo _t('mark_read'); ?></button>
+			        type="submit"><?php echo _t('gen.action.mark_read'); ?></button>
 		</li>
 		<?php } ?>
 	</ul>

@@ -18,6 +18,7 @@ $url_logout = Minz_Url::display(array(
 ), 'php');
 
 echo 'var context={',
+	'auto_remove_article:', FreshRSS_Context::isAutoRemoveAvailable() ? 'true' : 'false', ',',
 	'hide_posts:', $hide_posts ? 'false' : 'true', ',',
 	'display_order:"', Minz_Request::param('order', FreshRSS_Context::$conf->sort_order), '",',
 	'auto_mark_article:', $mark['article'] ? 'true' : 'false', ',',
@@ -26,7 +27,7 @@ echo 'var context={',
 	'auto_load_more:', FreshRSS_Context::$conf->auto_load_more ? 'true' : 'false', ',',
 	'auto_actualize_feeds:', $auto_actualize ? 'true' : 'false', ',',
 	'does_lazyload:', FreshRSS_Context::$conf->lazyload ? 'true' : 'false', ',',
-	'sticky_post:', FreshRSS_Context::$conf->sticky_post ? 'true' : 'false', ',',
+	'sticky_post:', FreshRSS_Context::isStickyPostEnabled() ? 'true' : 'false', ',',
 	'html5_notif_timeout:', FreshRSS_Context::$conf->html5_notif_timeout, ',',
 	'auth_type:"', Minz_Configuration::authType(), '",',
 	'current_user_mail:', $mail ? ('"' . $mail . '"') : 'null', ',',
@@ -58,10 +59,10 @@ echo 'url={',
 "},\n";
 
 echo 'i18n={',
-	'confirmation_default:"', _t('confirm_action'), '",',
-	'notif_title_articles:"', _t('notif_title_new_articles'), '",',
-	'notif_body_articles:"', _t('notif_body_new_articles'), '",',
-	'category_empty:"', _t('category_empty'), '"',
+	'confirmation_default:"', _t('gen.js.confirm_action'), '",',
+	'notif_title_articles:"', _t('gen.js.notif_title_new_articles'), '",',
+	'notif_body_articles:"', _t('gen.js.notif_body_new_articles'), '",',
+	'category_empty:"', _t('gen.js.category_empty'), '"',
 "},\n";
 
 echo 'icons={',

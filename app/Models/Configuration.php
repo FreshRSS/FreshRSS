@@ -24,6 +24,7 @@ class FreshRSS_Configuration {
 		'lazyload' => true,
 		'sticky_post' => true,
 		'reading_confirm' => false,
+		'auto_remove_article' => false,
 		'sort_order' => 'DESC',
 		'anon_access' => false,
 		'mark_when' => array(
@@ -190,6 +191,9 @@ class FreshRSS_Configuration {
 	}
 	public function _reading_confirm($value) {
 		$this->data['reading_confirm'] = ((bool)$value) && $value !== 'no';
+	}
+	public function _auto_remove_article($value) {
+		$this->data['auto_remove_article'] = ((bool)$value) && $value !== 'no';
 	}
 	public function _sort_order($value) {
 		$this->data['sort_order'] = $value === 'ASC' ? 'ASC' : 'DESC';

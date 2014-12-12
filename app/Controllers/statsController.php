@@ -15,7 +15,7 @@ class FreshRSS_stats_Controller extends Minz_ActionController {
 			Minz_Error::error(403);
 		}
 
-		Minz_View::prependTitle(_t('stats') . ' · ');
+		Minz_View::prependTitle(_t('admin.stats.title') . ' · ');
 	}
 
 	/**
@@ -117,6 +117,7 @@ class FreshRSS_stats_Controller extends Minz_ActionController {
 		$this->view->feed = $feedDAO->searchById($id);
 		$this->view->days = $statsDAO->getDays();
 		$this->view->months = $statsDAO->getMonths();
+		$this->view->repartition = $statsDAO->calculateEntryRepartitionPerFeed($id);
 		$this->view->repartitionHour = $statsDAO->calculateEntryRepartitionPerFeedPerHour($id);
 		$this->view->averageHour = $statsDAO->calculateEntryAveragePerFeedPerHour($id);
 		$this->view->repartitionDayOfWeek = $statsDAO->calculateEntryRepartitionPerFeedPerDayOfWeek($id);

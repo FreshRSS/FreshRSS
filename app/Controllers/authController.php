@@ -22,7 +22,7 @@ class FreshRSS_auth_Controller extends Minz_ActionController {
 			Minz_Error::error(403);
 		}
 
-		Minz_View::prependTitle(_t('gen.title.authentication') . ' · ');
+		Minz_View::prependTitle(_t('admin.auth.title') . ' · ');
 
 		if (Minz_Request::isPost()) {
 			$ok = true;
@@ -56,10 +56,10 @@ class FreshRSS_auth_Controller extends Minz_ActionController {
 			invalidateHttpCache();
 
 			if ($ok) {
-				Minz_Request::good(_t('configuration_updated'),
+				Minz_Request::good(_t('feedback.conf.updated'),
 				                   array('c' => 'auth', 'a' => 'index'));
 			} else {
-				Minz_Request::bad(_t('error_occurred'),
+				Minz_Request::bad(_t('feedback.conf.error'),
 				                  array('c' => 'auth', 'a' => 'index'));
 			}
 		}
@@ -123,7 +123,7 @@ class FreshRSS_auth_Controller extends Minz_ActionController {
 			} catch(Minz_Exception $e) {
 				// $username is not a valid user, nor the configuration file!
 				Minz_Log::warning('Login failure: ' . $e->getMessage());
-				Minz_Request::bad(_t('invalid_login'),
+				Minz_Request::bad(_t('feedback.auth.login.invalid'),
 				                  array('c' => 'auth', 'a' => 'login'));
 			}
 
@@ -144,14 +144,14 @@ class FreshRSS_auth_Controller extends Minz_ActionController {
 				}
 
 				// All is good, go back to the index.
-				Minz_Request::good(_t('feedback.login.success'),
+				Minz_Request::good(_t('feedback.auth.login.success'),
 				                   array('c' => 'index', 'a' => 'index'));
 			} else {
 				Minz_Log::warning('Password mismatch for' .
 				                  ' user=' . $username .
 				                  ', nonce=' . $nonce .
 				                  ', c=' . $challenge);
-				Minz_Request::bad(_t('invalid_login'),
+				Minz_Request::bad(_t('feedback.auth.login.invalid'),
 				                  array('c' => 'auth', 'a' => 'login'));
 			}
 		} elseif (Minz_Configuration::unsafeAutologinEnabled()) {
@@ -183,11 +183,11 @@ class FreshRSS_auth_Controller extends Minz_ActionController {
 				Minz_Session::_param('passwordHash', $s);
 				FreshRSS_Auth::giveAccess();
 
-				Minz_Request::good(_t('feedback.login.success'),
+				Minz_Request::good(_t('feedback.auth.login.success'),
 				                   array('c' => 'index', 'a' => 'index'));
 			} else {
 				Minz_Log::warning('Unsafe password mismatch for user ' . $username);
-				Minz_Request::bad(_t('invalid_login'),
+				Minz_Request::bad(_t('feedback.auth.login.invalid'),
 				                  array('c' => 'auth', 'a' => 'login'));
 			}
 		}
@@ -261,7 +261,7 @@ class FreshRSS_auth_Controller extends Minz_ActionController {
 
 				$res = array();
 				$res['status'] = 'failure';
-				$res['reason'] = _t('invalid_login');
+				$res['reason'] = _t('feedback.auth.login.invalid');
 			}
 
 			header('Content-Type: application/json; charset=UTF-8');
@@ -275,7 +275,7 @@ class FreshRSS_auth_Controller extends Minz_ActionController {
 	public function logoutAction() {
 		invalidateHttpCache();
 		FreshRSS_Auth::removeAccess();
-		Minz_Request::good(_t('feedback.logout.success'),
+		Minz_Request::good(_t('feedback.auth.logout.success'),
 		                   array('c' => 'index', 'a' => 'index'));
 	}
 
@@ -285,7 +285,7 @@ class FreshRSS_auth_Controller extends Minz_ActionController {
 	 * After reseting, form auth is set by default.
 	 */
 	public function resetAction() {
-		Minz_View::prependTitle(_t('auth_reset') . ' · ');
+		Minz_View::prependTitle(_t('admin.auth.title_reset') . ' · ');
 
 		Minz_View::appendScript(Minz_Url::display(
 			'/scripts/bcrypt.min.js?' . @filemtime(PUBLIC_PATH . '/scripts/bcrypt.min.js')
@@ -296,8 +296,8 @@ class FreshRSS_auth_Controller extends Minz_ActionController {
 		if (Minz_Configuration::authType() != 'persona') {
 			$this->view->message = array(
 				'status' => 'bad',
-				'title' => _t('damn'),
-				'body' => _t('auth_not_persona')
+				'title' => _t('gen.short.damn'),
+				'body' => _t('feedback.auth.not_persona')
 			);
 			$this->view->no_form = true;
 			return;
@@ -308,8 +308,8 @@ class FreshRSS_auth_Controller extends Minz_ActionController {
 		if (!$conf->passwordHash) {
 			$this->view->message = array(
 				'status' => 'bad',
-				'title' => _t('damn'),
-				'body' => _t('auth_no_password_set')
+				'title' => _t('gen.short.damn'),
+				'body' => _t('feedback.auth.no_password_set')
 			);
 			$this->view->no_form = true;
 			return;
@@ -331,9 +331,9 @@ class FreshRSS_auth_Controller extends Minz_ActionController {
 				$ok = Minz_Configuration::writeFile();
 
 				if ($ok) {
-					Minz_Request::good(_t('auth_form_set'));
+					Minz_Request::good(_t('feedback.auth.form.set'));
 				} else {
-					Minz_Request::bad(_t('auth_form_not_set'),
+					Minz_Request::bad(_t('feedback.auth.form.not_set'),
 				                      array('c' => 'auth', 'a' => 'reset'));
 				}
 			} else {
@@ -341,7 +341,7 @@ class FreshRSS_auth_Controller extends Minz_ActionController {
 				                  ' user=' . $username .
 				                  ', nonce=' . $nonce .
 				                  ', c=' . $challenge);
-				Minz_Request::bad(_t('invalid_login'),
+				Minz_Request::bad(_t('feedback.auth.login.invalid'),
 				                  array('c' => 'auth', 'a' => 'reset'));
 			}
 		}

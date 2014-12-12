@@ -138,12 +138,12 @@ class FreshRSS_Context {
 		switch($type) {
 		case 'a':
 			self::$current_get['all'] = true;
-			self::$name = _t('your_rss_feeds');
+			self::$name = _t('index.feed.title');
 			self::$get_unread = self::$total_unread;
 			break;
 		case 's':
 			self::$current_get['starred'] = true;
-			self::$name = _t('your_favorites');
+			self::$name = _t('index.feed.title_fav');
 			self::$get_unread = self::$total_starred['unread'];
 
 			// Update state if favorite is not yet enabled.
@@ -264,5 +264,45 @@ class FreshRSS_Context {
 				break;
 			}
 		}
+	}
+
+	/**
+	 * Determine if the auto remove is available in the current context.
+	 * This feature is available if:
+	 *   - it is activated in the configuration
+	 *   - the "read" state is not enable
+	 *   - the "unread" state is enable
+	 *
+	 * @return boolean
+	 */
+	public static function isAutoRemoveAvailable() {
+		if (!self::$conf->auto_remove_article) {
+			return false;
+		}
+		if (self::isStateEnabled(FreshRSS_Entry::STATE_READ)) {
+			return false;
+		}
+		if (!self::isStateEnabled(FreshRSS_Entry::STATE_NOT_READ)) {
+			return false;
+		}
+		return true;
+	}
+
+	/**
+	 * Determine if the "sticky post" option is enabled. It can be enable
+	 * by the user when it is selected in the configuration page or by the
+	 * application when the context allows to auto-remove articles when they
+	 * are read.
+	 *
+	 * @return boolean
+	 */
+	public static function isStickyPostEnabled() {
+		if (self::$conf->sticky_post) {
+			return true;
+		}
+		if (self::isAutoRemoveAvailable()) {
+			return true;
+		}
+		return false;
 	}
 }

@@ -2,9 +2,9 @@
 if (Minz_Configuration::canLogIn()) {
 	?><ul class="nav nav-head nav-login"><?php
 		if (FreshRSS_Auth::hasAccess()) {
-			?><li class="item"><?php echo _i('logout'); ?> <a class="signout" href="<?php echo _url('auth', 'logout'); ?>"><?php echo _t('logout'); ?></a></li><?php
+			?><li class="item"><?php echo _i('logout'); ?> <a class="signout" href="<?php echo _url('auth', 'logout'); ?>"><?php echo _t('gen.auth.logout'); ?></a></li><?php
 		} else {
-			?><li class="item"><?php echo _i('login'); ?> <a class="signin" href="<?php echo _url('auth', 'login'); ?>"><?php echo _t('login'); ?></a></li><?php
+			?><li class="item"><?php echo _i('login'); ?> <a class="signin" href="<?php echo _url('auth', 'login'); ?>"><?php echo _t('gen.auth.login'); ?></a></li><?php
 		}
 	?></ul><?php
 }
@@ -25,7 +25,7 @@ if (Minz_Configuration::canLogIn()) {
 		<form action="<?php echo _url('index', 'index'); ?>" method="get">
 			<div class="stick">
 				<?php $search = Minz_Request::param('search', ''); ?>
-				<input type="search" name="search" id="search" class="extend" value="<?php echo $search; ?>" placeholder="<?php echo _t('search'); ?>" />
+				<input type="search" name="search" id="search" class="extend" value="<?php echo $search; ?>" placeholder="<?php echo _t('gen.menu.search'); ?>" />
 
 				<?php $get = Minz_Request::param('get', ''); ?>
 				<?php if ($get != '') { ?>
@@ -55,13 +55,13 @@ if (Minz_Configuration::canLogIn()) {
 			<a class="btn dropdown-toggle" href="#dropdown-configure"><?php echo _i('configure'); ?></a>
 			<ul class="dropdown-menu">
 				<li class="dropdown-close"><a href="#close">❌</a></li>
-				<li class="dropdown-header"><?php echo _t('configuration'); ?></li>
-				<li class="item"><a href="<?php echo _url('configure', 'display'); ?>"><?php echo _t('display_configuration'); ?></a></li>
-				<li class="item"><a href="<?php echo _url('configure', 'reading'); ?>"><?php echo _t('reading_configuration'); ?></a></li>
-				<li class="item"><a href="<?php echo _url('configure', 'archiving'); ?>"><?php echo _t('archiving_configuration'); ?></a></li>
-				<li class="item"><a href="<?php echo _url('configure', 'sharing'); ?>"><?php echo _t('sharing'); ?></a></li>
-				<li class="item"><a href="<?php echo _url('configure', 'shortcut'); ?>"><?php echo _t('shortcuts'); ?></a></li>
-				<li class="item"><a href="<?php echo _url('configure', 'queries'); ?>"><?php echo _t('queries'); ?></a></li>
+				<li class="dropdown-header"><?php echo _t('gen.menu.configuration'); ?></li>
+				<li class="item"><a href="<?php echo _url('configure', 'display'); ?>"><?php echo _t('gen.menu.display'); ?></a></li>
+				<li class="item"><a href="<?php echo _url('configure', 'reading'); ?>"><?php echo _t('gen.menu.reading'); ?></a></li>
+				<li class="item"><a href="<?php echo _url('configure', 'archiving'); ?>"><?php echo _t('gen.menu.archiving'); ?></a></li>
+				<li class="item"><a href="<?php echo _url('configure', 'sharing'); ?>"><?php echo _t('gen.menu.sharing'); ?></a></li>
+				<li class="item"><a href="<?php echo _url('configure', 'shortcut'); ?>"><?php echo _t('gen.menu.shortcuts'); ?></a></li>
+				<li class="item"><a href="<?php echo _url('configure', 'queries'); ?>"><?php echo _t('gen.menu.queries'); ?></a></li>
 				<li class="item"><a href="<?php echo _url('user', 'profile'); ?>"><?php echo _t('gen.menu.user_profile'); ?></a></li>
 				<?php if (FreshRSS_Auth::hasAccess('admin')) { ?>
 				<li class="separator"></li>
@@ -69,23 +69,23 @@ if (Minz_Configuration::canLogIn()) {
 				<li class="item"><a href="<?php echo _url('user', 'manage'); ?>"><?php echo _t('gen.menu.user_management'); ?></a></li>
 				<li class="item"><a href="<?php echo _url('auth', 'index'); ?>"><?php echo _t('gen.menu.authentication'); ?></a></li>
 				<li class="item"><a href="<?php echo _url('update', 'checkInstall'); ?>"><?php echo _t('gen.menu.check_install'); ?></a></li>
-				<li class="item"><a href="<?php echo _url('update', 'index'); ?>"><?php echo _t('update'); ?></a></li>
+				<li class="item"><a href="<?php echo _url('update', 'index'); ?>"><?php echo _t('gen.menu.update'); ?></a></li>
 				<?php } ?>
 				<li class="separator"></li>
-				<li class="item"><a href="<?php echo _url('stats', 'index'); ?>"><?php echo _t('stats'); ?></a></li>
-				<li class="item"><a href="<?php echo _url('index', 'logs'); ?>"><?php echo _t('logs'); ?></a></li>
-				<li class="item"><a href="<?php echo _url('index', 'about'); ?>"><?php echo _t('about'); ?></a></li>
+				<li class="item"><a href="<?php echo _url('stats', 'index'); ?>"><?php echo _t('gen.menu.stats'); ?></a></li>
+				<li class="item"><a href="<?php echo _url('index', 'logs'); ?>"><?php echo _t('gen.menu.logs'); ?></a></li>
+				<li class="item"><a href="<?php echo _url('index', 'about'); ?>"><?php echo _t('gen.menu.about'); ?></a></li>
 				<?php
 				if (Minz_Configuration::canLogIn()) {
 					?><li class="separator"></li>
-				<li class="item"><a class="signout" href="<?php echo _url('auth', 'logout'); ?>"><?php echo _i('logout'), ' ', _t('logout'); ?></a></li><?php
+				<li class="item"><a class="signout" href="<?php echo _url('auth', 'logout'); ?>"><?php echo _i('logout'), ' ', _t('gen.auth.logout'); ?></a></li><?php
 				} ?>
 			</ul>
 		</div>
 	</div>
 	<?php } elseif (Minz_Configuration::canLogIn()) { ?>
 	<div class="item configure">
-		<?php echo _i('login'); ?><a class="signin" href="<?php echo _url('auth', 'login'); ?>"><?php echo _t('login'); ?></a>
+		<?php echo _i('login'); ?><a class="signin" href="<?php echo _url('auth', 'login'); ?>"><?php echo _t('gen.auth.login'); ?></a>
 	</div>
 	<?php } ?>
 </div>

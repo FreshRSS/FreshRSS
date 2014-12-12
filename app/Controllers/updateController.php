@@ -20,21 +20,21 @@ class FreshRSS_update_Controller extends Minz_ActionController {
 	}
 
 	public function indexAction() {
-		Minz_View::prependTitle(_t('update_system') . ' · ');
+		Minz_View::prependTitle(_t('admin.update.title') . ' · ');
 
 		if (file_exists(UPDATE_FILENAME) && !is_writable(FRESHRSS_PATH)) {
 			$this->view->message = array(
 				'status' => 'bad',
-				'title' => _t('damn'),
-				'body' => _t('file_is_nok', FRESHRSS_PATH)
+				'title' => _t('gen.short.damn'),
+				'body' => _t('feedback.update.file_is_nok', FRESHRSS_PATH)
 			);
 		} elseif (file_exists(UPDATE_FILENAME)) {
 			// There is an update file to apply!
 			$this->view->update_to_apply = true;
 			$this->view->message = array(
 				'status' => 'good',
-				'title' => _t('ok'),
-				'body' => _t('update_can_apply')
+				'title' => _t('gen.short.ok'),
+				'body' => _t('feedback.update.can_apply')
 			);
 		}
 	}
@@ -67,8 +67,8 @@ class FreshRSS_update_Controller extends Minz_ActionController {
 
 			$this->view->message = array(
 				'status' => 'bad',
-				'title' => _t('damn'),
-				'body' => _t('update_server_not_found', FRESHRSS_UPDATE_WEBSITE)
+				'title' => _t('gen.short.damn'),
+				'body' => _t('feedback.update.server_not_found', FRESHRSS_UPDATE_WEBSITE)
 			);
 			return;
 		}
@@ -78,8 +78,8 @@ class FreshRSS_update_Controller extends Minz_ActionController {
 		if (strpos($status, 'UPDATE') !== 0) {
 			$this->view->message = array(
 				'status' => 'bad',
-				'title' => _t('damn'),
-				'body' => _t('no_update')
+				'title' => _t('gen.short.damn'),
+				'body' => _t('feedback.update.none')
 			);
 
 			@file_put_contents(DATA_PATH . '/last_update.txt', time());
@@ -93,8 +93,8 @@ class FreshRSS_update_Controller extends Minz_ActionController {
 		} else {
 			$this->view->message = array(
 				'status' => 'bad',
-				'title' => _t('damn'),
-				'body' => _t('update_problem', 'Cannot save the update script')
+				'title' => _t('gen.short.damn'),
+				'body' => _t('feedback.update.error', 'Cannot save the update script')
 			);
 		}
 	}
@@ -112,9 +112,9 @@ class FreshRSS_update_Controller extends Minz_ActionController {
 			if ($res === true) {
 				@unlink(UPDATE_FILENAME);
 				@file_put_contents(DATA_PATH . '/last_update.txt', time());
-				Minz_Request::good(_t('update_finished'));
+				Minz_Request::good(_t('feedback.update.finished'));
 			} else {
-				Minz_Request::bad(_t('update_problem', $res),
+				Minz_Request::bad(_t('feedback.update.error', $res),
 				                  array('c' => 'update', 'a' => 'index'));
 			}
 		}
@@ -133,7 +133,7 @@ class FreshRSS_update_Controller extends Minz_ActionController {
 					'params' => array('post_conf' => true)
 				), true);
 			} else {
-				Minz_Request::bad(_t('update_problem', $res),
+				Minz_Request::bad(_t('feedback.update.error', $res),
 				                  array('c' => 'update', 'a' => 'index'));
 			}
 		}
@@ -143,7 +143,7 @@ class FreshRSS_update_Controller extends Minz_ActionController {
 	 * This action displays information about installation.
 	 */
 	public function checkInstallAction() {
-		Minz_View::prependTitle(_t('gen.title.check_install') . ' · ');
+		Minz_View::prependTitle(_t('admin.check_install.title') . ' · ');
 
 		$this->view->status_php = check_install_php();
 		$this->view->status_files = check_install_files();
