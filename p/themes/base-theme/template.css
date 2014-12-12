@@ -693,6 +693,7 @@ br + br + br {
 	min-width: 260px;
 	max-width: 640px;
 	margin-bottom: 30px;
+	border: 1px solid #aaa;
 }
 .slides * {
 	user-select: none;
@@ -743,8 +744,8 @@ br + br + br {
 .properties {
 	display: none;
 	bottom: 0;
+	left: 0; right: 0;
 	position: absolute;
-	width: 100%;
 	padding: 5px;
 	background: rgba(255, 255, 255, 0.7);
 	color: #000;
@@ -752,7 +753,7 @@ br + br + br {
 	z-index: 10;
 }
 .properties .page-number {
-	right: 0;
+	right: 5px;
 	top: 0;
 	position: absolute;
 }
