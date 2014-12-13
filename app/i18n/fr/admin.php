@@ -12,7 +12,7 @@ return array(
 		'title' => 'Authentification',
 		'title_reset' => 'Réinitialisation de l’authentification',
 		'token' => 'Jeton d’identification',
-		'token_help' => 'Permet d’accéder à la sortie RSS de l’utilisateur par défaut sans besoin de s’authentifier.<br /><kbd>%s?output=rss&token=%s</kbd>',
+		'token_help' => 'Permet d’accéder à la sortie RSS de l’utilisateur par défaut sans besoin de s’authentifier :',
 		'type' => 'Méthode d’authentification',
 		'unsafe_autologin' => 'Autoriser les connexions automatiques non-sûres au format : ',
 	),
