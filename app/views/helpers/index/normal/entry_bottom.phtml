@@ -36,7 +36,7 @@
 	<li class="item"><?php
 			if ($bottomline_sharing) {
 				$link = urlencode($this->entry->link());
-				$title = urlencode($this->entry->title() . ' · ' . $feed->name());
+				$title = urlencode($this->entry->title() . ' · ' . $this->feed->name());
 		?><div class="dropdown">
 			<div id="dropdown-share-<?php echo $this->entry->id();?>" class="dropdown-target"></div>
 			<a class="dropdown-toggle" href="#dropdown-share-<?php echo $this->entry->id();?>">
@@ -48,7 +48,7 @@
 				<li class="dropdown-close"><a href="#close">❌</a></li>
 				<?php foreach ($sharing as $share) :?>
 					<li class="item share">
-						<a target="_blank" href="<?php echo FreshRSS_Share::generateUrl(FreshRSS_Context::$conf->shares, $share, $this->entry->link(), $this->entry->title() . ' . ' . $feed->name())?>">
+						<a target="_blank" href="<?php echo FreshRSS_Share::generateUrl(FreshRSS_Context::$conf->shares, $share, $this->entry->link(), $this->entry->title() . ' . ' . $this->feed->name())?>">
 							<?php echo _t($share['name']);?>
 						</a>
 					</li>
