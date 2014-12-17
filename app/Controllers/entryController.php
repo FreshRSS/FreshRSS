@@ -34,8 +34,6 @@ class FreshRSS_entry_Controller extends Minz_ActionController {
 	 *   - nextGet (default: $get)
 	 *   - idMax (default: 0)
 	 *   - is_read (default: true)
-	 *
-	 * @todo nextGet system should not be present here... or should be?
 	 */
 	public function readAction() {
 		$id = Minz_Request::param('id');
@@ -85,7 +83,7 @@ class FreshRSS_entry_Controller extends Minz_ActionController {
 		}
 
 		if (!$this->ajax) {
-			Minz_Request::good(_t('feeds_marked_read'), array(
+			Minz_Request::good(_t('feedback.sub.feed.marked_read'), array(
 				'c' => 'index',
 				'a' => 'index',
 				'params' => $params,
@@ -144,7 +142,7 @@ class FreshRSS_entry_Controller extends Minz_ActionController {
 		$feedDAO->updateCachedValues();
 
 		invalidateHttpCache();
-		Minz_Request::good(_t('optimization_complete'), $url_redirect);
+		Minz_Request::good(_t('feedback.admin.optimization_complete'), $url_redirect);
 	}
 
 	/**
@@ -185,7 +183,7 @@ class FreshRSS_entry_Controller extends Minz_ActionController {
 		$feedDAO->updateCachedValues();
 
 		invalidateHttpCache();
-		Minz_Request::good(_t('purge_completed', $nb_total), array(
+		Minz_Request::good(_t('feedback.sub.purge_completed', $nb_total), array(
 			'c' => 'configure',
 			'a' => 'archiving'
 		));

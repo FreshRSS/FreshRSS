@@ -41,18 +41,22 @@
 			<div id="dropdown-share-<?php echo $this->entry->id();?>" class="dropdown-target"></div>
 			<a class="dropdown-toggle" href="#dropdown-share-<?php echo $this->entry->id();?>">
 				<?php echo _i('share'); ?>
-				<?php echo _t('share'); ?>
+				<?php echo _t('index.share'); ?>
 			</a>
 
 			<ul class="dropdown-menu">
 				<li class="dropdown-close"><a href="#close">❌</a></li>
-				<?php foreach ($sharing as $share) :?>
+				<?php
+					foreach ($sharing as $share) {
+						$type_share = FreshRSS_Context::$conf->shares[$share['type']];
+						$has_specific_title = ($type_share['form'] === 'advanced');
+				?>
 					<li class="item share">
 						<a target="_blank" href="<?php echo FreshRSS_Share::generateUrl(FreshRSS_Context::$conf->shares, $share, $this->entry->link(), $this->entry->title() . ' . ' . $this->feed->name())?>">
-							<?php echo _t($share['name']);?>
+							<?php echo $has_specific_title ? $share['name'] : _t('index.share.' . $share['name']); ?>
 						</a>
 					</li>
-				<?php endforeach;?>
+				<?php } ?>
 			</ul>
 		</div>
 		<?php } ?>
@@ -64,7 +68,7 @@
 			<div id="dropdown-tags-<?php echo $this->entry->id();?>" class="dropdown-target"></div>
 			<?php echo _i('tag'); ?>
 			<a class="dropdown-toggle" href="#dropdown-tags-<?php echo $this->entry->id();?>"><?php
-				echo _t('related_tags');
+				echo _t('index.tag.related');
 			?></a>
 			<ul class="dropdown-menu">
 				<li class="dropdown-close"><a href="#close">❌</a></li><?php

@@ -98,7 +98,7 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 		$this->view->categories = FreshRSS_Context::$categories;
 
 		$this->view->rss_title = FreshRSS_Context::$name . ' | ' . Minz_View::title();
-		$title = _t('gen.title.global_view');
+		$title = _t('index.feed.title_global');
 		if (FreshRSS_Context::$get_unread > 0) {
 			$title = '(' . FreshRSS_Context::$get_unread . ') ' . $title;
 		}
@@ -206,7 +206,7 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 	 * This action displays the about page of FreshRSS.
 	 */
 	public function aboutAction() {
-		Minz_View::prependTitle(_t('about') . ' · ');
+		Minz_View::prependTitle(_t('index.about.title') . ' · ');
 	}
 
 	/**
@@ -217,7 +217,7 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 			Minz_Error::error(403);
 		}
 
-		Minz_View::prependTitle(_t('logs') . ' · ');
+		Minz_View::prependTitle(_t('index.log.title') . ' · ');
 
 		if (Minz_Request::isPost()) {
 			FreshRSS_LogDAO::truncate();

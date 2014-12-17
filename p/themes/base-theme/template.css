@@ -693,14 +693,7 @@ br + br + br {
 	min-width: 260px;
 	max-width: 640px;
 	margin-bottom: 30px;
-}
-.slides * {
-	user-select: none;
-	-ms-user-select: none;
-	-moz-user-select: none;
-	-khtml-user-select: none;
-	-webkit-user-select: none;
-	-webkit-touch-callout: none;
+	border: 1px solid #aaa;
 }
 .slides input {
 	display: none;
@@ -741,13 +734,18 @@ br + br + br {
 	padding: 0;
 }
 .properties {
-	bottom: -35px;
-	position: absolute;
-	width: 100%;
 	display: none;
+	bottom: 0;
+	left: 0; right: 0;
+	position: absolute;
+	padding: 5px;
+	background: rgba(255, 255, 255, 0.7);
+	color: #000;
+	border-top: 1px solid #aaa;
+	z-index: 10;
 }
 .properties .page-number {
-	right: 0;
+	right: 5px;
 	top: 0;
 	position: absolute;
 }

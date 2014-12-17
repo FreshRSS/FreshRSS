@@ -51,7 +51,7 @@ class Minz_Translate {
 		$group = explode('.', $key);
 
 		if (count($group) < 2) {
-			// Minz_Log::debug($key . ' is not in a valid format');
+			Minz_Log::debug($key . ' is not in a valid format');
 			$top_level = 'gen';
 		} else {
 			$top_level = array_shift($group);

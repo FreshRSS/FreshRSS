@@ -9,7 +9,7 @@ var feeds = [<?php foreach ($this->feeds as $feed) { ?>{<?php
 function initProgressBar(init) {
 	if (init) {
 		$("body").after("\<div id=\"actualizeProgress\" class=\"notification good\">\
-			<?php echo _t('refresh'); ?><br /><span class=\"title\">/</span><br />\
+			<?php echo _t('feedback.sub.actualize'); ?><br /><span class=\"title\">/</span><br />\
 			<span class=\"progress\">0 / " + feed_count + "</span>\
 		</div>");
 	} else {
@@ -23,7 +23,7 @@ function updateProgressBar(i, title_feed) {
 
 function updateFeeds() {
 	if (feed_count === 0) {
-		openNotification("<?php echo _t('no_feed_to_refresh'); ?>", "good");
+		openNotification("<?php echo _t('feedback.sub.feed.no_refresh'); ?>", "good");
 		ajax_loading = false;
 		return;
 	}
