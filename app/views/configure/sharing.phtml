@@ -15,7 +15,7 @@
 			<a target="_blank" class="btn" title="<?php echo _t('conf.sharing.more_information'); ?>" href="##help##"><?php echo _i('help'); ?></a>
 			</div></div>'>
 		<legend><?php echo _t('conf.sharing'); ?></legend>
-		<?php foreach (FreshRSS_Context::$conf->sharing as $key => $sharing): ?>
+		<?php foreach (FreshRSS_Context::$conf->sharing as $key => $sharing) { ?>
 			<?php $share = FreshRSS_Context::$conf->shares[$sharing['type']]; ?>
 			<div class="form-group" id="group-share-<?php echo $key; ?>">
 				<label class="group-name">
@@ -36,14 +36,14 @@
 					<?php } ?>
 				</div>
 			</div>
-		<?php endforeach;?>
+		<?php } ?>
 
 		<div class="form-group">
 			<div class="group-controls">
 				<select>
-					<?php foreach(FreshRSS_Context::$conf->shares as $key => $params):?>
+					<?php foreach(FreshRSS_Context::$conf->shares as $key => $params) { ?>
 						<option value='<?php echo $key?>' data-form='<?php echo $params['form']?>' data-help='<?php if (!empty($params['help'])) {echo $params['help'];}?>'><?php echo _t('conf.sharing.' . $key) ?></option>
-					<?php endforeach; ?>
+					<?php } ?>
 				</select>
 				<a href='#' class='share add btn'><?php echo _i('add'); ?></a>
 			</div>

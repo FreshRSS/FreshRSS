@@ -141,7 +141,7 @@ if (!empty($this->entries)) {
 						<ul class="dropdown-menu">
 							<li class="dropdown-close"><a href="#close">❌</a></li>
 							<?php
-								foreach ($sharing as $share) :
+								foreach ($sharing as $share) {
 									$type_share = FreshRSS_Context::$conf->shares[$share['type']];
 									$has_specific_title = ($type_share['form'] === 'advanced');
 							?>
@@ -150,7 +150,7 @@ if (!empty($this->entries)) {
 										<?php echo $has_specific_title ? $share['name'] : _t('index.share.' . $share['name']); ?>
 									</a>
 								</li>
-							<?php endforeach;?>
+							<?php } ?>
 						</ul>
 					</div>
 					<?php } ?>
