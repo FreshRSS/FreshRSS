@@ -9,9 +9,9 @@ if (!Minz_Request::param('ajax')) {
 <div class="post">
 	<h1><?php echo $this->extension->getName(); ?> (<?php echo $this->extension->getVersion(); ?>) — <?php echo $this->extension->getType(); ?></h1>
 
-	<p class="alert alert-warn"><?php echo $this->extension->getDescription(); ?> — <?php echo _t('gen.by'), ' ', $this->extension->getAuthor(); ?></p>
+	<p class="alert alert-warn"><?php echo $this->extension->getDescription(); ?> — <?php echo _t('gen.short.by_author', $this->extension->getAuthor()); ?></p>
 
-	<h2><?php echo _t('gen.actions.manage'); ?></h2>
+	<h2><?php echo _t('gen.action.manage'); ?></h2>
 	<?php
 		$configure_view = $this->extension->getConfigureView();
 		if ($configure_view !== false) {
