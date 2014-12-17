@@ -34,8 +34,6 @@ class FreshRSS_entry_Controller extends Minz_ActionController {
 	 *   - nextGet (default: $get)
 	 *   - idMax (default: 0)
 	 *   - is_read (default: true)
-	 *
-	 * @todo nextGet system should not be present here... or should be?
 	 */
 	public function readAction() {
 		$id = Minz_Request::param('id');
