@@ -97,7 +97,10 @@ class Minz_Extension {
 		if (!file_exists($filename)) {
 			return false;
 		}
-		return @file_get_contents($filename);
+
+		ob_start();
+		include($filename);
+		return ob_get_clean();
 	}
 
 	/**
