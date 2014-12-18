@@ -15,9 +15,9 @@ class Minz_Translate {
 	private static $lang_name;
 
 	/**
-	 * $lang_path is the pathname of i18n files (e.g. ./app/i18n/en/).
+	 * $lang_files is a list of registered i18n files.
 	 */
-	private static $lang_path;
+	private static $lang_files = array();
 
 	/**
 	 * $translates is a cache for i18n translation.
@@ -30,7 +30,10 @@ class Minz_Translate {
 	public static function init() {
 		$l = Minz_Configuration::language();
 		self::$lang_name = Minz_Session::param('language', $l);
-		self::$lang_path = APP_PATH . '/i18n/' . self::$lang_name . '/';
+		self::$lang_files = array();
+		self::$translates = array();
+
+		self::registerPath(APP_PATH . '/i18n');
 	}
 
 	/**
@@ -38,6 +41,63 @@ class Minz_Translate {
 	 */
 	public static function reset() {
 		self::init();
+	}
+
+	/**
+	 * Register a new path and load i18n files inside.
+	 *
+	 * @param $path a path containing i18n directories (e.g. ./en/, ./fr/).
+	 */
+	public static function registerPath($path) {
+		// We load first i18n files for the current language.
+		$lang_path = $path . '/' . self::$lang_name;
+		$list_i18n_files = array_values(array_diff(
+			scandir($lang_path),
+			array('..', '.')
+		));
+
+		// Each file basename correspond to a top-level i18n key. For each of
+		// these keys we store the file pathname and mark translations must be
+		// reloaded (by setting $translates[$i18n_key] to null).
+		foreach ($list_i18n_files as $i18n_filename) {
+			$i18n_key = basename($i18n_filename, '.php');
+			if (!isset(self::$lang_files[$i18n_key])) {
+				self::$lang_files[$i18n_key] = array();
+			}
+			self::$lang_files[$i18n_key][] = $lang_path . '/' . $i18n_filename;
+			self::$translates[$i18n_key] = null;
+		}
+	}
+
+	/**
+	 * Load the files associated to $key into $translates.
+	 *
+	 * @param $key the top level i18n key we want to load.
+	 */
+	private static function loadKey($key) {
+		// The top level key is not in $lang_files, it means it does not exist!
+		if (!isset(self::$lang_files[$key])) {
+			Minz_Log::debug($key . ' is not a valid top level key');
+			return false;
+		}
+
+		self::$translates[$key] = array();
+
+		foreach (self::$lang_files[$key] as $lang_pathname) {
+			$i18n_array = include($lang_pathname);
+			if (!is_array($i18n_array)) {
+				Minz_Log::warning('`' . $lang_pathname . '` does not contain a PHP array');
+				continue;
+			}
+
+			// We must avoid to erase previous data so we just override them if
+			// needed.
+			self::$translates[$key] = array_replace_recursive(
+				self::$translates[$key], $i18n_array
+			);
+		}
+
+		return true;
 	}
 
 	/**
@@ -57,16 +117,13 @@ class Minz_Translate {
 			$top_level = array_shift($group);
 		}
 
-		$filename = self::$lang_path . $top_level . '.php';
-
-		// Try to load the i18n file if it's not done yet.
-		if (!isset(self::$translates[$top_level])) {
-			if (!file_exists($filename)) {
-				Minz_Log::debug($top_level . ' is not a valid top level key');
+		// If $translates[$top_level] is null it means we have to load the
+		// corresponding files.
+		if (is_null(self::$translates[$top_level])) {
+			$res = self::loadKey($top_level);
+			if (!$res) {
 				return $key;
 			}
-
-			self::$translates[$top_level] = include($filename);
 		}
 
 		// Go through the i18n keys to get the correct translation value.

@@ -179,6 +179,14 @@ class Minz_Extension {
 	}
 
 	/**
+	 * Register i18n files from ext_dir/i18n/
+	 */
+	public function registerTranslates() {
+		$i18n_dir = $this->path . '/i18n';
+		Minz_Translate::registerPath($i18n_dir);
+	}
+
+	/**
 	 * Register a new hook.
 	 *
 	 * @param $hook_name the hook name (must exist).
