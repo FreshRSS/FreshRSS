@@ -109,7 +109,8 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 			require_once(APP_PATH . '/SQL/install.sql.' . $db['type'] . '.php');
 
 			$new_user_language = Minz_Request::param('new_user_language', FreshRSS_Context::$conf->language);
-			if (!in_array($new_user_language, FreshRSS_Context::$conf->availableLanguages())) {
+			$languages = FreshRSS_Context::$conf->availableLanguages();
+			if (!isset($languages[$new_user_language])) {
 				$new_user_language = FreshRSS_Context::$conf->language;
 			}
 
@@ -121,11 +122,10 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 
 				$ok &= !in_array(strtoupper($new_user_name), array_map('strtoupper', listUsers()));	//Not an existing user, case-insensitive
 
-				$configPath = DATA_PATH . '/' . $new_user_name . '_user.php';
+				$configPath = join_path(DATA_PATH, 'users', $new_user_name, 'config.php');
 				$ok &= !file_exists($configPath);
 			}
 			if ($ok) {
-			
 				$passwordPlain = Minz_Request::param('new_user_passwordPlain', '', true);
 				$passwordHash = '';
 				if ($passwordPlain != '') {
@@ -147,12 +147,13 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 				if (empty($new_user_email)) {
 					$new_user_email = '';
 				} else {
-					$personaFile = DATA_PATH . '/persona/' . $new_user_email . '.txt';
+					$personaFile = join_path(DATA_PATH, 'persona', $new_user_email . '.txt');
 					@unlink($personaFile);
 					$ok &= (file_put_contents($personaFile, $new_user_name) !== false);
 				}
 			}
 			if ($ok) {
+				mkdir(join_path(DATA_PATH, 'users', $new_user_name));
 				$config_array = array(
 					'language' => $new_user_language,
 					'passwordHash' => $passwordHash,
@@ -183,18 +184,18 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 
 			$username = Minz_Request::param('username');
 			$ok = ctype_alnum($username);
+			$user_data = join_path(DATA_PATH, 'users', $username);
 
 			if ($ok) {
 				$ok &= (strcasecmp($username, Minz_Configuration::defaultUser()) !== 0);	//It is forbidden to delete the default user
 			}
 			if ($ok) {
-				$configPath = DATA_PATH . '/' . $username . '_user.php';
-				$ok &= file_exists($configPath);
+				$ok &= is_dir($user_data);
 			}
 			if ($ok) {
 				$userDAO = new FreshRSS_UserDAO();
 				$ok &= $userDAO->deleteUser($username);
-				$ok &= unlink($configPath);
+				$ok &= recursive_unlink($user_data);
 				//TODO: delete Persona file
 			}
 			invalidateHttpCache();

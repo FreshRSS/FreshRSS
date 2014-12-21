@@ -15,6 +15,17 @@ if (!function_exists('json_encode')) {
 	}
 }
 
+/**
+ * Build a directory path by concatenating a list of directory names.
+ *
+ * @param $path_parts a list of directory names
+ * @return a string corresponding to the final pathname
+ */
+function join_path() {
+	$path_parts = func_get_args();
+	return join(DIRECTORY_SEPARATOR, $path_parts);
+}
+
 //<Auto-loading>
 function classAutoloader($class) {
 	if (strpos($class, 'FreshRSS') === 0) {
@@ -208,16 +219,11 @@ function invalidateHttpCache() {
 	return touch(LOG_PATH . '/' . Minz_Session::param('currentUser', '_') . '.log');
 }
 
-function usernameFromPath($userPath) {
-	if (preg_match('%/([A-Za-z0-9]{1,16})_user\.php$%', $userPath, $matches)) {
-		return $matches[1];
-	} else {
-		return '';
-	}
-}
-
 function listUsers() {
-	return array_map('usernameFromPath', glob(DATA_PATH . '/*_user.php'));
+	return array_values(array_diff(
+		scandir(join_path(DATA_PATH, 'users')),
+		array('..', '.')
+	));
 }
 
 function httpAuthUser() {
