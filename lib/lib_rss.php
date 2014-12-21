@@ -216,14 +216,21 @@ function uSecString() {
 
 function invalidateHttpCache() {
 	Minz_Session::_param('touch', uTimeString());
-	return touch(LOG_PATH . '/' . Minz_Session::param('currentUser', '_') . '.log');
+	return touch(join_path(DATA_PATH, 'users', Minz_Session::param('currentUser', '_'), 'log.txt'));
 }
 
 function listUsers() {
-	return array_values(array_diff(
-		scandir(join_path(DATA_PATH, 'users')),
-		array('..', '.')
-	));
+	$final_list = array();
+	$base_path = join_path(DATA_PATH, 'users');
+	$dir_list = array_values(array_diff(scandir($base_path), array('..', '.')));
+
+	foreach ($dir_list as $file) {
+		if (is_dir(join_path($base_path, $file))) {
+			$final_list[] = $file;
+		}
+	}
+
+	return $final_list;
 }
 
 function httpAuthUser() {
