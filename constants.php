@@ -16,7 +16,7 @@ define('FRESHRSS_PATH', dirname(__FILE__));
 
 	define('DATA_PATH', FRESHRSS_PATH . '/data');
 		define('UPDATE_FILENAME', DATA_PATH . '/update.php');
-		define('LOG_PATH', DATA_PATH . '/log');
+		define('USERS_PATH', DATA_PATH . '/users');
 		define('CACHE_PATH', DATA_PATH . '/cache');
 
 	define('LIB_PATH', FRESHRSS_PATH . '/lib');

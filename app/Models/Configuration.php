@@ -74,7 +74,7 @@ class FreshRSS_Configuration {
 	private $shares;
 
 	public function __construct($user) {
-		$this->filename = DATA_PATH . DIRECTORY_SEPARATOR . $user . '_user.php';
+		$this->filename = join_path(DATA_PATH, 'users', $user, 'config.php');
 
 		$data = @include($this->filename);
 		if (!is_array($data)) {
@@ -89,7 +89,7 @@ class FreshRSS_Configuration {
 		}
 		$this->data['user'] = $user;
 
-		$this->shares = DATA_PATH . DIRECTORY_SEPARATOR . 'shares.php';
+		$this->shares = join_path(DATA_PATH, 'shares.php');
 
 		$shares = @include($this->shares);
 		if (!is_array($shares)) {

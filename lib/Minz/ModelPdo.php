@@ -63,7 +63,7 @@ class Minz_ModelPdo {
 				);
 				$this->prefix = $db['prefix'] . $currentUser . '_';
 			} elseif ($type === 'sqlite') {
-				$string = 'sqlite:' . DATA_PATH . '/' . $currentUser . '.sqlite';
+				$string = 'sqlite:' . join_path(DATA_PATH, 'users', $currentUser, 'db.sqlite');
 				$driver_options = array(
 					//PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
 				);

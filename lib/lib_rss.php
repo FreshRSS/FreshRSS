@@ -15,6 +15,17 @@ if (!function_exists('json_encode')) {
 	}
 }
 
+/**
+ * Build a directory path by concatenating a list of directory names.
+ *
+ * @param $path_parts a list of directory names
+ * @return a string corresponding to the final pathname
+ */
+function join_path() {
+	$path_parts = func_get_args();
+	return join(DIRECTORY_SEPARATOR, $path_parts);
+}
+
 //<Auto-loading>
 function classAutoloader($class) {
 	if (strpos($class, 'FreshRSS') === 0) {
@@ -205,19 +216,24 @@ function uSecString() {
 
 function invalidateHttpCache() {
 	Minz_Session::_param('touch', uTimeString());
-	return touch(LOG_PATH . '/' . Minz_Session::param('currentUser', '_') . '.log');
-}
-
-function usernameFromPath($userPath) {
-	if (preg_match('%/([A-Za-z0-9]{1,16})_user\.php$%', $userPath, $matches)) {
-		return $matches[1];
-	} else {
-		return '';
-	}
+	return touch(join_path(DATA_PATH, 'users', Minz_Session::param('currentUser', '_'), 'log.txt'));
 }
 
 function listUsers() {
-	return array_map('usernameFromPath', glob(DATA_PATH . '/*_user.php'));
+	$final_list = array();
+	$base_path = join_path(DATA_PATH, 'users');
+	$dir_list = array_values(array_diff(
+		scandir($base_path),
+		array('..', '.', '_')
+	));
+
+	foreach ($dir_list as $file) {
+		if (is_dir(join_path($base_path, $file))) {
+			$final_list[] = $file;
+		}
+	}
+
+	return $final_list;
 }
 
 function httpAuthUser() {
@@ -284,7 +300,7 @@ function check_install_files() {
 	return array(
 		'data' => DATA_PATH && is_writable(DATA_PATH),
 		'cache' => CACHE_PATH && is_writable(CACHE_PATH),
-		'logs' => LOG_PATH && is_writable(LOG_PATH),
+		'users' => USERS_PATH && is_writable(USERS_PATH),
 		'favicons' => is_writable(DATA_PATH . '/favicons'),
 		'persona' => is_writable(DATA_PATH . '/persona'),
 		'tokens' => is_writable(DATA_PATH . '/tokens'),

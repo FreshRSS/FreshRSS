@@ -30,10 +30,6 @@ class Minz_FrontController {
 	 * Initialise le dispatcher, met à jour la Request
 	 */
 	public function __construct () {
-		if (LOG_PATH === false) {
-			$this->killApp ('Path not found: LOG_PATH');
-		}
-
 		try {
 			Minz_Configuration::init ();
 

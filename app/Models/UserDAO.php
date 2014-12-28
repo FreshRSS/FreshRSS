@@ -38,7 +38,7 @@ class FreshRSS_UserDAO extends Minz_ModelPdo {
 		require_once(APP_PATH . '/SQL/install.sql.' . $db['type'] . '.php');
 
 		if ($db['type'] === 'sqlite') {
-			return unlink(DATA_PATH . '/' . $username . '.sqlite');
+			return unlink(join_path(DATA_PATH, 'users', $username, 'db.sqlite'));
 		} else {
 			$userPDO = new Minz_ModelPdo($username);
 
@@ -55,14 +55,14 @@ class FreshRSS_UserDAO extends Minz_ModelPdo {
 	}
 
 	public static function exist($username) {
-		return file_exists(DATA_PATH . '/' . $username . '_user.php');
+		return is_dir(join_path(DATA_PATH , 'users', $username));
 	}
 
 	public static function touch($username) {
-		return touch(DATA_PATH . '/' . $username . '_user.php');
+		return touch(join_path(DATA_PATH , 'users', $username, 'config.php'));
 	}
 
 	public static function mtime($username) {
-		return @filemtime(DATA_PATH . '/' . $username . '_user.php');
+		return @filemtime(join_path(DATA_PATH , 'users', $username, 'config.php'));
 	}
 }
