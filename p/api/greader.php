@@ -77,7 +77,7 @@ class MyPDO extends Minz_ModelPdo {
 }
 
 function logMe($text) {
-	file_put_contents(LOG_PATH . '/api.log', $text, FILE_APPEND);
+	file_put_contents(join_path(USERS_PATH, '_', 'log_api.txt'), $text, FILE_APPEND);
 }
 
 function debugInfo() {

@@ -222,7 +222,10 @@ function invalidateHttpCache() {
 function listUsers() {
 	$final_list = array();
 	$base_path = join_path(DATA_PATH, 'users');
-	$dir_list = array_values(array_diff(scandir($base_path), array('..', '.')));
+	$dir_list = array_values(array_diff(
+		scandir($base_path),
+		array('..', '.', '_')
+	));
 
 	foreach ($dir_list as $file) {
 		if (is_dir(join_path($base_path, $file))) {
@@ -297,7 +300,7 @@ function check_install_files() {
 	return array(
 		'data' => DATA_PATH && is_writable(DATA_PATH),
 		'cache' => CACHE_PATH && is_writable(CACHE_PATH),
-		'logs' => LOG_PATH && is_writable(LOG_PATH),
+		'users' => USERS_PATH && is_writable(USERS_PATH),
 		'favicons' => is_writable(DATA_PATH . '/favicons'),
 		'persona' => is_writable(DATA_PATH . '/persona'),
 		'tokens' => is_writable(DATA_PATH . '/tokens'),

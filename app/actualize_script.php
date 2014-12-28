@@ -56,9 +56,9 @@ foreach ($users as $myUser) {
 	$freshRSS->run();
 
 	if (!invalidateHttpCache()) {
-		syslog(LOG_NOTICE, 'FreshRSS write access problem in ' . LOG_PATH . '/*.log!');
+		syslog(LOG_NOTICE, 'FreshRSS write access problem in ' . USERS_PATH . '/*/log.txt!');
 		if (defined('STDERR')) {
-			fwrite(STDERR, 'Write access problem in ' . LOG_PATH . '/*.log!' . "\n");
+			fwrite(STDERR, 'Write access problem in ' . USERS_PATH . '/*/log.txt!' . "\n");
 		}
 	}
 	Minz_Session::unset_session(true);

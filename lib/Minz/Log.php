@@ -28,7 +28,7 @@ class Minz_Log {
 	 * 	- level = NOTICE et environment = PRODUCTION
 	 * @param $information message d'erreur / information à enregistrer
 	 * @param $level niveau d'erreur
-	 * @param $file_name fichier de log, par défaut LOG_PATH/application.log
+	 * @param $file_name fichier de log
 	 */
 	public static function record ($information, $level, $file_name = null) {
 		$env = Minz_Configuration::environment ();
@@ -37,7 +37,7 @@ class Minz_Log {
 		       || ($env === Minz_Configuration::PRODUCTION
 		       && ($level >= Minz_Log::NOTICE)))) {
 			if ($file_name === null) {
-				$file_name = join_path(DATA_PATH, 'users', Minz_Session::param('currentUser', '_'), 'log.txt');
+				$file_name = join_path(USERS_PATH, Minz_Session::param('currentUser', '_'), 'log.txt');
 			}
 
 			switch ($level) {
@@ -71,7 +71,7 @@ class Minz_Log {
 	 * Automatise le log des variables globales $_GET et $_POST
 	 * Fait appel à la fonction record(...)
 	 * Ne fonctionne qu'en environnement "development"
-	 * @param $file_name fichier de log, par défaut LOG_PATH/application.log
+	 * @param $file_name fichier de log
 	 */
 	public static function recordRequest($file_name = null) {
 		$msg_get = str_replace("\n", '', '$_GET content : ' . print_r($_GET, true));
