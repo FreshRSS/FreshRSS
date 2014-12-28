@@ -70,9 +70,9 @@ function move_user_data($username) {
 	}
 
 	$filenames = array(
-		DATA_PATH . '/' . $username . '_conf.php' => $user_path . '/config.php',
+		DATA_PATH . '/' . $username . '_user.php' => $user_path . '/config.php',
 		DATA_PATH . '/' . $username . '.sqlite' => $user_path . '/db.sqlite',
-		DATA_PATH . '/logs/' . $username . '.log' => $user_path . '/log.txt',
+		DATA_PATH . '/log/' . $username . '.log' => $user_path . '/log.txt',
 	);
 
 	// Move list of files one by one.
