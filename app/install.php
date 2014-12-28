@@ -132,12 +132,17 @@ function saveStep2() {
 			'token' => $token,
 		);
 
-		$configPath = DATA_PATH . '/' . $_SESSION['default_user'] . '_user.php';
-		@unlink($configPath);	//To avoid access-rights problems
-		file_put_contents($configPath, "<?php\n return " . var_export($config_array, true) . ';');
+		// Create default user files but first, we delete previous data to
+		// avoid access right problems.
+		$user_dir = join_path(USERS_PATH, $_SESSION['default_user']);
+		$user_config_path = join_path($user_dir, 'config.php');
+
+		recursive_unlink($user_dir);
+		mkdir($user_dir);
+		file_put_contents($user_config_path, "<?php\n return " . var_export($config_array, true) . ';');
 
 		if ($_SESSION['mail_login'] != '') {
-			$personaFile = DATA_PATH . '/persona/' . $_SESSION['mail_login'] . '.txt';
+			$personaFile = join_path(DATA_PATH, 'persona', $_SESSION['mail_login'] . '.txt');
 			@unlink($personaFile);
 			file_put_contents($personaFile, $_SESSION['default_user']);
 		}
@@ -193,8 +198,8 @@ function saveStep3() {
 			),
 		);
 
-		@unlink(DATA_PATH . '/config.php');	//To avoid access-rights problems
-		file_put_contents(DATA_PATH . '/config.php', "<?php\n return " . var_export($ini_array, true) . ';');
+		@unlink(join_path(DATA_PATH, 'config.php'));	//To avoid access-rights problems
+		file_put_contents(join_path(DATA_PATH, 'config.php'), "<?php\n return " . var_export($ini_array, true) . ';');
 
 		$res = checkBD();
 
@@ -217,7 +222,7 @@ function newPdo() {
 		);
 		break;
 	case 'sqlite':
-		$str = 'sqlite:' . DATA_PATH . '/' . $_SESSION['default_user'] . '.sqlite';
+		$str = 'sqlite:' . join_path(USERS_PATH, $_SESSION['default_user'], 'db.sqlite');
 		$driver_options = array(
 			PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
 		);
@@ -229,7 +234,7 @@ function newPdo() {
 }
 
 function deleteInstall() {
-	$res = unlink(DATA_PATH . '/do-install.txt');
+	$res = unlink(join_path(DATA_PATH, 'do-install.txt'));
 
 	if (!$res) {
 		return false;
@@ -270,7 +275,7 @@ function checkStep0() {
 
 function checkStep1() {
 	$php = version_compare(PHP_VERSION, '5.2.1') >= 0;
-	$minz = file_exists(LIB_PATH . '/Minz');
+	$minz = file_exists(join_path(LIB_PATH, 'Minz'));
 	$curl = extension_loaded('curl');
 	$pdo_mysql = extension_loaded('pdo_mysql');
 	$pdo_sqlite = extension_loaded('pdo_sqlite');
@@ -280,9 +285,9 @@ function checkStep1() {
 	$dom = class_exists('DOMDocument');
 	$data = DATA_PATH && is_writable(DATA_PATH);
 	$cache = CACHE_PATH && is_writable(CACHE_PATH);
-	$log = LOG_PATH && is_writable(LOG_PATH);
-	$favicons = is_writable(DATA_PATH . '/favicons');
-	$persona = is_writable(DATA_PATH . '/persona');
+	$users = USERS_PATH && is_writable(USERS_PATH);
+	$favicons = is_writable(join_path(DATA_PATH, 'favicons'));
+	$persona = is_writable(join_path(DATA_PATH, 'persona'));
 	$http_referer = is_referer_from_same_domain();
 
 	return array(
@@ -297,12 +302,12 @@ function checkStep1() {
 		'dom' => $dom ? 'ok' : 'ko',
 		'data' => $data ? 'ok' : 'ko',
 		'cache' => $cache ? 'ok' : 'ko',
-		'log' => $log ? 'ok' : 'ko',
+		'users' => $users ? 'ok' : 'ko',
 		'favicons' => $favicons ? 'ok' : 'ko',
 		'persona' => $persona ? 'ok' : 'ko',
 		'http_referer' => $http_referer ? 'ok' : 'ko',
 		'all' => $php && $minz && $curl && $pdo && $pcre && $ctype && $dom &&
-		         $data && $cache && $log && $favicons && $persona && $http_referer ?
+		         $data && $cache && $users && $favicons && $persona && $http_referer ?
 		         'ok' : 'ko'
 	);
 }
@@ -327,7 +332,7 @@ function checkStep2() {
 	if ($defaultUser === null) {
 		$defaultUser = empty($_SESSION['default_user']) ? '' : $_SESSION['default_user'];
 	}
-	$data = is_writable(DATA_PATH . '/' . $defaultUser . '_user.php');
+	$data = is_writable(join_path(USERS_PATH, $defaultUser, 'config.php'));
 
 	return array(
 		'conf' => $conf ? 'ok' : 'ko',
@@ -339,7 +344,7 @@ function checkStep2() {
 }
 
 function checkStep3() {
-	$conf = is_writable(DATA_PATH . '/config.php');
+	$conf = is_writable(join_path(DATA_PATH, 'config.php'));
 
 	$bd = isset($_SESSION['bd_type']) &&
 	      isset($_SESSION['bd_host']) &&
@@ -382,7 +387,7 @@ function checkBD() {
 			$str = 'mysql:host=' . $_SESSION['bd_host'] . ';dbname=' . $_SESSION['bd_base'];
 			break;
 		case 'sqlite':
-			$str = 'sqlite:' . DATA_PATH . '/' . $_SESSION['default_user'] . '.sqlite';
+			$str = 'sqlite:' . join_path(USERS_PATH, $_SESSION['default_user'], 'db.sqlite');
 			$driver_options = array(
 				PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
 			);
@@ -414,7 +419,7 @@ function checkBD() {
 	}
 
 	if (!$ok) {
-		@unlink(DATA_PATH . '/config.php');
+		@unlink(join_path(DATA_PATH, 'config.php'));
 	}
 
 	return $ok;
@@ -470,7 +475,7 @@ function printStep1() {
 	<?php if ($res['minz'] == 'ok') { ?>
 	<p class="alert alert-success"><span class="alert-head"><?php echo _t('gen.short.ok'); ?></span> <?php echo _t('install.check.minz.ok'); ?></p>
 	<?php } else { ?>
-	<p class="alert alert-error"><span class="alert-head"><?php echo _t('gen.short.damn'); ?></span> <?php echo _t('install.check.minz.nok', LIB_PATH . '/Minz'); ?></p>
+	<p class="alert alert-error"><span class="alert-head"><?php echo _t('gen.short.damn'); ?></span> <?php echo _t('install.check.minz.nok', join_path(LIB_PATH, 'Minz')); ?></p>
 	<?php } ?>
 
 	<?php if ($res['pdo'] == 'ok') { ?>
@@ -516,10 +521,10 @@ function printStep1() {
 	<p class="alert alert-error"><span class="alert-head"><?php echo _t('gen.short.damn'); ?></span> <?php echo _t('install.check.cache.nok', CACHE_PATH); ?></p>
 	<?php } ?>
 
-	<?php if ($res['log'] == 'ok') { ?>
-	<p class="alert alert-success"><span class="alert-head"><?php echo _t('gen.short.ok'); ?></span> <?php echo _t('install.check.logs.ok'); ?></p>
+	<?php if ($res['users'] == 'ok') { ?>
+	<p class="alert alert-success"><span class="alert-head"><?php echo _t('gen.short.ok'); ?></span> <?php echo _t('install.check.users.ok'); ?></p>
 	<?php } else { ?>
-	<p class="alert alert-error"><span class="alert-head"><?php echo _t('gen.short.damn'); ?></span> <?php echo _t('install.check.logs.nok', LOG_PATH); ?></p>
+	<p class="alert alert-error"><span class="alert-head"><?php echo _t('gen.short.damn'); ?></span> <?php echo _t('install.check.users.nok', USERS_PATH); ?></p>
 	<?php } ?>
 
 	<?php if ($res['favicons'] == 'ok') { ?>
