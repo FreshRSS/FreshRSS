@@ -7,19 +7,19 @@ include(LIB_PATH . '/Favicon/DataAccess.php');
 
 
 $favicons_dir = DATA_PATH . '/favicons/';
-$default_favicon = PUBLIC_PATH . '/themes/icons/default_favicon.png';
+$default_favicon = PUBLIC_PATH . '/themes/icons/default_favicon.ico';
 
 
 /* Télécharge le favicon d'un site et le place sur le serveur */
 function download_favicon($website, $dest) {
-	global $favicons_dir;
+	global $favicons_dir, $default_favicon;
 
 	$favicon_getter = new \Favicon\Favicon();
 	$favicon_getter->setCacheDir($favicons_dir);
 	$favicon_url = $favicon_getter->get($website);
 
 	if ($favicon_url === false) {
-		return false;
+		return @copy($default_favicon, $dest);
 	}
 
 	$c = curl_init($favicon_url);
@@ -47,7 +47,7 @@ function show_default_favicon() {
 	global $default_favicon;
 
 	header('HTTP/1.1 404 Not Found');
-	header('Content-Type: image/png');
+	header('Content-Type: image/ico');
 	readfile($default_favicon);
 	die();
 }
