@@ -28,7 +28,7 @@ function download_favicon($website, $dest) {
 	curl_setopt($c, CURLOPT_BINARYTRANSFER, true);
 	$img_raw = curl_exec($c);
 	$status_code = curl_getinfo($c, CURLINFO_HTTP_CODE);
-	curl_close ($c);
+	curl_close($c);
 
 	if ($status_code === 200) {
 		$file = fopen($dest, 'w');
