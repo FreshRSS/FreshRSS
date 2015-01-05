@@ -16,7 +16,8 @@ class FreshRSS_Auth {
 		self::$login_ok = Minz_Session::param('loginOk', false);
 		$current_user = Minz_Session::param('currentUser', '');
 		if ($current_user === '') {
-			$current_user = Minz_Configuration::defaultUser();
+			$conf = Minz_Configuration::get('system');
+			$current_user = $conf->general['default_user'];
 			Minz_Session::_param('currentUser', $current_user);
 		}
 
@@ -40,7 +41,9 @@ class FreshRSS_Auth {
 	 * @return boolean true if user can be connected, false else.
 	 */
 	private static function accessControl() {
-		switch (Minz_Configuration::authType()) {
+		$conf = Minz_Configuration::get('system');
+		$auth_type = $conf->general['auth_type'];
+		switch ($auth_type) {
 		case 'form':
 			$credentials = FreshRSS_FormAuth::getCredentialsFromCookie();
 			$current_user = '';
@@ -79,22 +82,19 @@ class FreshRSS_Auth {
 	 * Gives access to the current user.
 	 */
 	public static function giveAccess() {
-		$current_user = Minz_Session::param('currentUser');
-		try {
-			$conf = new FreshRSS_Configuration($current_user);
-		} catch(Minz_Exception $e) {
-			die($e->getMessage());
-		}
+		$user_conf = Minz_Configuration::get('user');
+		$system_conf = Minz_Configuration::get('system');
+		$auth_type = $system_conf->general['auth_type'];
 
-		switch (Minz_Configuration::authType()) {
+		switch ($auth_type) {
 		case 'form':
-			self::$login_ok = Minz_Session::param('passwordHash') === $conf->passwordHash;
+			self::$login_ok = Minz_Session::param('passwordHash') === $user_conf->passwordHash;
 			break;
 		case 'http_auth':
 			self::$login_ok = strcasecmp($current_user, httpAuthUser()) === 0;
 			break;
 		case 'persona':
-			self::$login_ok = strcasecmp(Minz_Session::param('mail'), $conf->mail_login) === 0;
+			self::$login_ok = strcasecmp(Minz_Session::param('mail'), $user_conf->mail_login) === 0;
 			break;
 		case 'none':
 			self::$login_ok = true;
@@ -114,12 +114,14 @@ class FreshRSS_Auth {
 	 * @return boolean true if user has corresponding access, false else.
 	 */
 	public static function hasAccess($scope = 'general') {
+		$conf = Minz_Configuration::get('system');
+		$default_user = $conf->general['default_user'];
 		$ok = self::$login_ok;
 		switch ($scope) {
 		case 'general':
 			break;
 		case 'admin':
-			$ok &= Minz_Session::param('currentUser') === Minz_Configuration::defaultUser();
+			$ok &= Minz_Session::param('currentUser') === $default_user;
 			break;
 		default:
 			$ok = false;
@@ -133,9 +135,10 @@ class FreshRSS_Auth {
 	public static function removeAccess() {
 		Minz_Session::_param('loginOk');
 		self::$login_ok = false;
-		Minz_Session::_param('currentUser', Minz_Configuration::defaultUser());
+		$conf = Minz_Configuration::get('system');
+		Minz_Session::_param('currentUser', $conf->general['default_user']);
 
-		switch (Minz_Configuration::authType()) {
+		switch ($conf->general['auth_type']) {
 		case 'form':
 			Minz_Session::_param('passwordHash');
 			FreshRSS_FormAuth::deleteCookie();
@@ -150,6 +153,15 @@ class FreshRSS_Auth {
 		default:
 			// TODO: extensions
 		}
+	}
+
+	/**
+	 * Return if authentication is enabled on this instance of FRSS.
+	 */
+	public static function accessNeedLogin() {
+		$conf = Minz_Configuration::get('system');
+		$auth_type = $conf->general['auth_type'];
+		return $auth_type === 'form' || $auth_type === 'persona';
 	}
 }
 

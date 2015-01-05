@@ -41,10 +41,10 @@ class FreshRSS_Context {
 	 */
 	public static function init() {
 		// Init configuration.
-		$current_user = Minz_Session::param('currentUser');
 		try {
-			self::$conf = new FreshRSS_Configuration($current_user);
+			self::$conf = Minz_Configuration::get('user');
 		} catch(Minz_Exception $e) {
+			$current_user = Minz_Session::param('currentUser', '_');
 			Minz_Log::error('Cannot load configuration file of user `' . $current_user . '`');
 			die($e->getMessage());
 		}

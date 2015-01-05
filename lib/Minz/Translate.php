@@ -28,7 +28,8 @@ class Minz_Translate {
 	 * Load $lang_name and $lang_path based on configuration and selected language.
 	 */
 	public static function init() {
-		$l = Minz_Configuration::language();
+		$conf = Minz_Configuration::get('system');
+		$l = $conf->general['language'];
 		self::$lang_name = Minz_Session::param('language', $l);
 		self::$lang_path = APP_PATH . '/i18n/' . self::$lang_name . '/';
 	}

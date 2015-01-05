@@ -27,6 +27,8 @@ class FreshRSS_auth_Controller extends Minz_ActionController {
 		if (Minz_Request::isPost()) {
 			$ok = true;
 
+			$system_conf = Minz_Configuration::get('system');
+			$general = $system_conf->general;
 			$current_token = FreshRSS_Context::$conf->token;
 			$token = Minz_Request::param('token', $current_token);
 			FreshRSS_Context::$conf->_token($token);
@@ -39,18 +41,21 @@ class FreshRSS_auth_Controller extends Minz_ActionController {
 			$auth_type = Minz_Request::param('auth_type', 'none');
 			$unsafe_autologin = Minz_Request::param('unsafe_autologin', false);
 			$api_enabled = Minz_Request::param('api_enabled', false);
-			if ($anon != Minz_Configuration::allowAnonymous() ||
-				$auth_type != Minz_Configuration::authType() ||
-				$anon_refresh != Minz_Configuration::allowAnonymousRefresh() ||
-				$unsafe_autologin != Minz_Configuration::unsafeAutologinEnabled() ||
-				$api_enabled != Minz_Configuration::apiEnabled()) {
+			if ($anon != $general['allow_anonymous'] ||
+				$auth_type != $general['auth_type'] ||
+				$anon_refresh != $general['allow_anonymous_refresh'] ||
+				$unsafe_autologin != $general['unsafe_autologin_enabled'] ||
+				$api_enabled != $general['api_enabled']) {
 
-				Minz_Configuration::_authType($auth_type);
-				Minz_Configuration::_allowAnonymous($anon);
-				Minz_Configuration::_allowAnonymousRefresh($anon_refresh);
-				Minz_Configuration::_enableAutologin($unsafe_autologin);
-				Minz_Configuration::_enableApi($api_enabled);
-				$ok &= Minz_Configuration::writeFile();
+				// TODO: test values from form
+				$general['auth_type'] = $auth_type;
+				$general['allow_anonymous'] = $anon;
+				$general['allow_anonymous_refresh'] = $anon_refresh;
+				$general['unsafe_autologin_enabled'] = $unsafe_autologin;
+				$general['api_enabled'] = $api_enabled;
+
+				$system_conf->general = $general;
+				$ok &= $system_conf->save();
 			}
 
 			invalidateHttpCache();
@@ -76,7 +81,8 @@ class FreshRSS_auth_Controller extends Minz_ActionController {
 			Minz_Request::forward(array('c' => 'index', 'a' => 'index'), true);
 		}
 
-		$auth_type = Minz_Configuration::authType();
+		$conf = Minz_Configuration::get('system');
+		$auth_type = $conf->general['auth_type'];
 		switch ($auth_type) {
 		case 'form':
 			Minz_Request::forward(array('c' => 'auth', 'a' => 'formLogin'));
@@ -113,6 +119,8 @@ class FreshRSS_auth_Controller extends Minz_ActionController {
 
 		$file_mtime = @filemtime(PUBLIC_PATH . '/scripts/bcrypt.min.js');
 		Minz_View::appendScript(Minz_Url::display('/scripts/bcrypt.min.js?' . $file_mtime));
+
+		$conf = Minz_Configuration::get('system');
 
 		if (Minz_Request::isPost()) {
 			$nonce = Minz_Session::param('nonce');
@@ -154,7 +162,7 @@ class FreshRSS_auth_Controller extends Minz_ActionController {
 				Minz_Request::bad(_t('feedback.auth.login.invalid'),
 				                  array('c' => 'auth', 'a' => 'login'));
 			}
-		} elseif (Minz_Configuration::unsafeAutologinEnabled()) {
+		} elseif ($conf->general['unsafe_autologin_enabled']) {
 			$username = Minz_Request::param('u', '');
 			$password = Minz_Request::param('p', '');
 			Minz_Request::_param('p');

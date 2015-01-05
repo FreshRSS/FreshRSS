@@ -6,6 +6,11 @@ class FreshRSS extends Minz_FrontController {
 			Minz_Session::init('FreshRSS');
 		}
 
+		$current_user = Minz_Session::param('currentUser', '_');
+		Minz_Configuration::register('user',
+		                             join_path(USERS_PATH, $current_user, 'config.php'),
+		                             join_path(USERS_PATH, '_', 'config.default.php'));
+
 		// Need to be called just after session init because it initializes
 		// current user.
 		FreshRSS_Auth::init();
@@ -57,7 +62,8 @@ class FreshRSS extends Minz_FrontController {
 		Minz_View::appendScript(Minz_Url::display('/scripts/shortcut.js?' . @filemtime(PUBLIC_PATH . '/scripts/shortcut.js')));
 		Minz_View::appendScript(Minz_Url::display('/scripts/main.js?' . @filemtime(PUBLIC_PATH . '/scripts/main.js')));
 
-		if (Minz_Configuration::authType() === 'persona') {
+		$conf = Minz_Configuration::get('system');
+		if ($conf->general['auth_type'] === 'persona') {
 			// TODO move it in a plugin
 			// Needed for login AND logout with Persona.
 			Minz_View::appendScript('https://login.persona.org/include.js');

@@ -39,8 +39,9 @@ class FreshRSS_Feed extends Minz_Model {
 	}
 
 	public function hash() {
+		$conf = Minz_Configuration::get('system');
 		if ($this->hash === null) {
-			$this->hash = hash('crc32b', Minz_Configuration::salt() . $this->url);
+			$this->hash = hash('crc32b', $conf->general['salt'] . $this->url);
 		}
 		return $this->hash;
 	}
