@@ -39,13 +39,13 @@
 					<a class="no-mobile" href="<?php echo _url('configure', 'queries'); ?>"><?php echo _i('configure'); ?></a>
 				</li>
 
-				<?php foreach (FreshRSS_Context::$conf->queries as $query) { ?>
+				<?php foreach (FreshRSS_Context::$user_conf->queries as $query) { ?>
 				<li class="item query">
 					<a href="<?php echo $query['url']; ?>"><?php echo $query['name']; ?></a>
 				</li>
 				<?php } ?>
 
-				<?php if (count(FreshRSS_Context::$conf->queries) > 0) { ?>
+				<?php if (count(FreshRSS_Context::$user_conf->queries) > 0) { ?>
 				<li class="separator no-mobile"></li>
 				<?php } ?>
 
@@ -82,7 +82,7 @@
 	<form id="mark-read-menu" method="post" style="display: none"></form>
 
 	<div class="stick" id="nav_menu_read_all">
-		<?php $confirm = FreshRSS_Context::$conf->reading_confirm ? 'confirm' : ''; ?>
+		<?php $confirm = FreshRSS_Context::$user_conf->reading_confirm ? 'confirm' : ''; ?>
 		<button class="read_all btn <?php echo $confirm; ?>"
 		        form="mark-read-menu"
 		        formaction="<?php echo Minz_Url::display($mark_read_url); ?>"
@@ -145,8 +145,8 @@
 
 		<?php
 			$url_output['a'] = 'rss';
-			if (FreshRSS_Context::$conf->token) {
-				$url_output['params']['token'] = FreshRSS_Context::$conf->token;
+			if (FreshRSS_Context::$user_conf->token) {
+				$url_output['params']['token'] = FreshRSS_Context::$user_conf->token;
 			}
 		?>
 		<a class="view_rss btn" target="_blank" title="<?php echo _t('index.menu.rss_view'); ?>" href="<?php echo Minz_Url::display($url_output); ?>">

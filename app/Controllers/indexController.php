@@ -9,7 +9,7 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 	 * This action only redirect on the default view mode (normal or global)
 	 */
 	public function indexAction() {
-		$prefered_output = FreshRSS_Context::$conf->view_mode;
+		$prefered_output = FreshRSS_Context::$user_conf->view_mode;
 		Minz_Request::forward(array(
 			'c' => 'index',
 			'a' => $prefered_output
@@ -109,7 +109,7 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 	 * This action displays the RSS feed of FreshRSS.
 	 */
 	public function rssAction() {
-		$token = FreshRSS_Context::$conf->token;
+		$token = FreshRSS_Context::$user_conf->token;
 		$token_param = Minz_Request::param('token', '');
 		$token_is_ok = ($token != '' && $token === $token_param);
 
@@ -160,10 +160,10 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 		FreshRSS_Context::_get(Minz_Request::param('get', 'a'));
 
 		FreshRSS_Context::$state = Minz_Request::param(
-			'state', FreshRSS_Context::$conf->default_state
+			'state', FreshRSS_Context::$user_conf->default_state
 		);
 		$state_forced_by_user = Minz_Request::param('state', false) !== false;
-		if (FreshRSS_Context::$conf->default_view === 'adaptive' &&
+		if (FreshRSS_Context::$user_conf->default_view === 'adaptive' &&
 				FreshRSS_Context::$get_unread <= 0 &&
 				!FreshRSS_Context::isStateEnabled(FreshRSS_Entry::STATE_READ) &&
 				!$state_forced_by_user) {
@@ -172,10 +172,10 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 
 		FreshRSS_Context::$search = Minz_Request::param('search', '');
 		FreshRSS_Context::$order = Minz_Request::param(
-			'order', FreshRSS_Context::$conf->sort_order
+			'order', FreshRSS_Context::$user_conf->sort_order
 		);
 		FreshRSS_Context::$number = Minz_Request::param(
-			'nb', FreshRSS_Context::$conf->posts_per_page
+			'nb', FreshRSS_Context::$user_conf->posts_per_page
 		);
 		FreshRSS_Context::$first_id = Minz_Request::param('next', '');
 	}

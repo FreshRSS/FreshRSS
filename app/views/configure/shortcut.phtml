@@ -9,7 +9,7 @@
 		<?php } ?>
 	</datalist>
 
-	<?php $s = FreshRSS_Context::$conf->shortcuts; ?>
+	<?php $s = FreshRSS_Context::$user_conf->shortcuts; ?>
 
 	<form method="post" action="<?php echo _url('configure', 'shortcut'); ?>">
 		<legend><?php echo _t('conf.shortcut'); ?></legend>

@@ -30,7 +30,7 @@ class FreshRSS_category_Controller extends Minz_ActionController {
 		$catDAO = new FreshRSS_CategoryDAO();
 		$url_redirect = array('c' => 'subscription', 'a' => 'index');
 
-		$limits = Minz_Configuration::limits();
+		$limits = FreshRSS_Context::$system_conf->limits;
 		$this->view->categories = $catDAO->listCategories(false);
 
 		if (count($this->view->categories) >= $limits['max_categories']) {
@@ -141,8 +141,8 @@ class FreshRSS_category_Controller extends Minz_ActionController {
 			}
 
 			// Remove related queries.
-			FreshRSS_Context::$conf->remove_query_by_get('c_' . $id);
-			FreshRSS_Context::$conf->save();
+			FreshRSS_Context::$user_conf->remove_query_by_get('c_' . $id);
+			FreshRSS_Context::$user_conf->save();
 
 			Minz_Request::good(_t('feedback.sub.category.deleted'), $url_redirect);
 		}
@@ -177,9 +177,9 @@ class FreshRSS_category_Controller extends Minz_ActionController {
 
 				// Remove related queries
 				foreach ($feeds as $feed) {
-					FreshRSS_Context::$conf->remove_query_by_get('f_' . $feed->id());
+					FreshRSS_Context::$user_conf->remove_query_by_get('f_' . $feed->id());
 				}
-				FreshRSS_Context::$conf->save();
+				FreshRSS_Context::$user_conf->save();
 
 				Minz_Request::good(_t('feedback.sub.category.emptied'), $url_redirect);
 			} else {

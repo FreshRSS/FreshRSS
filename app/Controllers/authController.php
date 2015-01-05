@@ -27,12 +27,11 @@ class FreshRSS_auth_Controller extends Minz_ActionController {
 		if (Minz_Request::isPost()) {
 			$ok = true;
 
-			$system_conf = Minz_Configuration::get('system');
-			$general = $system_conf->general;
-			$current_token = FreshRSS_Context::$conf->token;
+			$general = FreshRSS_Context::$system_conf->general;
+			$current_token = FreshRSS_Context::$user_conf->token;
 			$token = Minz_Request::param('token', $current_token);
-			FreshRSS_Context::$conf->_token($token);
-			$ok &= FreshRSS_Context::$conf->save();
+			FreshRSS_Context::$user_conf->_token($token);
+			$ok &= FreshRSS_Context::$user_conf->save();
 
 			$anon = Minz_Request::param('anon_access', false);
 			$anon = ((bool)$anon) && ($anon !== 'no');
@@ -81,8 +80,7 @@ class FreshRSS_auth_Controller extends Minz_ActionController {
 			Minz_Request::forward(array('c' => 'index', 'a' => 'index'), true);
 		}
 
-		$conf = Minz_Configuration::get('system');
-		$auth_type = $conf->general['auth_type'];
+		$auth_type = FreshRSS_Context::$system_conf->general['auth_type'];
 		switch ($auth_type) {
 		case 'form':
 			Minz_Request::forward(array('c' => 'auth', 'a' => 'formLogin'));
@@ -120,12 +118,12 @@ class FreshRSS_auth_Controller extends Minz_ActionController {
 		$file_mtime = @filemtime(PUBLIC_PATH . '/scripts/bcrypt.min.js');
 		Minz_View::appendScript(Minz_Url::display('/scripts/bcrypt.min.js?' . $file_mtime));
 
-		$conf = Minz_Configuration::get('system');
-
 		if (Minz_Request::isPost()) {
 			$nonce = Minz_Session::param('nonce');
 			$username = Minz_Request::param('username', '');
 			$challenge = Minz_Request::param('challenge', '');
+
+			// TODO #730: change the way to get the configuration
 			try {
 				$conf = new FreshRSS_Configuration($username);
 			} catch(Minz_Exception $e) {
@@ -162,7 +160,7 @@ class FreshRSS_auth_Controller extends Minz_ActionController {
 				Minz_Request::bad(_t('feedback.auth.login.invalid'),
 				                  array('c' => 'auth', 'a' => 'login'));
 			}
-		} elseif ($conf->general['unsafe_autologin_enabled']) {
+		} elseif (FreshRSS_Context::$system_conf->general['unsafe_autologin_enabled']) {
 			$username = Minz_Request::param('u', '');
 			$password = Minz_Request::param('p', '');
 			Minz_Request::_param('p');
@@ -171,6 +169,7 @@ class FreshRSS_auth_Controller extends Minz_ActionController {
 				return;
 			}
 
+			// TODO #730: change the way to get the configuration
 			try {
 				$conf = new FreshRSS_Configuration($username);
 			} catch(Minz_Exception $e) {
@@ -243,6 +242,7 @@ class FreshRSS_auth_Controller extends Minz_ActionController {
 					$persona_file = DATA_PATH . '/persona/' . $email . '.txt';
 					if (($current_user = @file_get_contents($persona_file)) !== false) {
 						$current_user = trim($current_user);
+						// TODO #730: change the way to get the configuration
 						try {
 							$conf = new FreshRSS_Configuration($current_user);
 							$login_ok = strcasecmp($email, $conf->mail_login) === 0;
@@ -301,7 +301,7 @@ class FreshRSS_auth_Controller extends Minz_ActionController {
 
 		$this->view->no_form = false;
 		// Enable changement of auth only if Persona!
-		if (Minz_Configuration::authType() != 'persona') {
+		if (FreshRSS_Context::$system_conf->general['auth_type'] != 'persona') {
 			$this->view->message = array(
 				'status' => 'bad',
 				'title' => _t('gen.short.damn'),
@@ -311,6 +311,7 @@ class FreshRSS_auth_Controller extends Minz_ActionController {
 			return;
 		}
 
+		// TODO #730
 		$conf = new FreshRSS_Configuration(Minz_Configuration::defaultUser());
 		// Admin user must have set its master password.
 		if (!$conf->passwordHash) {
@@ -335,6 +336,7 @@ class FreshRSS_auth_Controller extends Minz_ActionController {
 			);
 
 			if ($ok) {
+				// TODO #730
 				Minz_Configuration::_authType('form');
 				$ok = Minz_Configuration::writeFile();
 

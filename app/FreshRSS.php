@@ -32,7 +32,7 @@ class FreshRSS extends Minz_FrontController {
 		FreshRSS_Context::init();
 
 		// Init i18n.
-		Minz_Session::_param('language', FreshRSS_Context::$conf->language);
+		Minz_Session::_param('language', FreshRSS_Context::$user_conf->language);
 		Minz_Translate::init();
 
 		$this->loadStylesAndScripts();
@@ -41,7 +41,7 @@ class FreshRSS extends Minz_FrontController {
 	}
 
 	private function loadStylesAndScripts() {
-		$theme = FreshRSS_Themes::load(FreshRSS_Context::$conf->theme);
+		$theme = FreshRSS_Themes::load(FreshRSS_Context::$user_conf->theme);
 		if ($theme) {
 			foreach($theme['files'] as $file) {
 				if ($file[0] === '_') {
@@ -62,8 +62,7 @@ class FreshRSS extends Minz_FrontController {
 		Minz_View::appendScript(Minz_Url::display('/scripts/shortcut.js?' . @filemtime(PUBLIC_PATH . '/scripts/shortcut.js')));
 		Minz_View::appendScript(Minz_Url::display('/scripts/main.js?' . @filemtime(PUBLIC_PATH . '/scripts/main.js')));
 
-		$conf = Minz_Configuration::get('system');
-		if ($conf->general['auth_type'] === 'persona') {
+		if (FreshRSS_Context::$system_conf->general['auth_type'] === 'persona') {
 			// TODO move it in a plugin
 			// Needed for login AND logout with Persona.
 			Minz_View::appendScript('https://login.persona.org/include.js');
