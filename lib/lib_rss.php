@@ -119,7 +119,8 @@ function html_only_entity_decode($text) {
 }
 
 function customSimplePie() {
-	$limits = Minz_Configuration::limits();
+	$system_conf = Minz_Configuration::get('system');
+	$limits = $system_conf->limits;
 	$simplePie = new SimplePie();
 	$simplePie->set_useragent(_t('gen.freshrss') . '/' . FRESHRSS_VERSION . ' (' . PHP_OS . '; ' . FRESHRSS_WEBSITE . ') ' . SIMPLEPIE_NAME . '/' . SIMPLEPIE_VERSION);
 	$simplePie->set_cache_location(CACHE_PATH);

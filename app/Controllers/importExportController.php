@@ -174,7 +174,7 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 
 		$nb_feeds = count($this->feedDAO->listFeeds());
 		$nb_cats = count($this->catDAO->listCategories(false));
-		$limits = Minz_Configuration::limits();
+		$limits = FreshRSS_Context::$system_conf->limits;
 
 		foreach ($opml_elements as $elt) {
 			$is_error = false;
@@ -323,7 +323,7 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 		$article_to_feed = array();
 
 		$nb_feeds = count($this->feedDAO->listFeeds());
-		$limits = Minz_Configuration::limits();
+		$limits = FreshRSS_Context::$system_conf->limits;
 
 		// First, we check feeds of articles are in DB (and add them if needed).
 		foreach ($article_object['items'] as $item) {

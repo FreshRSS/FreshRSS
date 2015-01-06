@@ -18,8 +18,9 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 			$token_param = Minz_Request::param('token', '');
 			$token_is_ok = ($token != '' && $token == $token_param);
 			$action = Minz_Request::actionName();
+			$allow_anonymous_refresh = FreshRSS_Context::$system_conf->general['allow_anonymous_refresh'];
 			if ($action !== 'actualize' ||
-					!(Minz_Configuration::allowAnonymousRefresh() || $token_is_ok)) {
+					!($allow_anonymous_refresh || $token_is_ok)) {
 				Minz_Error::error(403);
 			}
 		}
@@ -65,7 +66,7 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 			'params' => array(),
 		);
 
-		$limits = Minz_Configuration::limits();
+		$limits = FreshRSS_Context::$system_conf->limits;
 		$this->view->feeds = $feedDAO->listFeeds();
 		if (count($this->view->feeds) >= $limits['max_feeds']) {
 			Minz_Request::bad(_t('feedback.sub.feed.over_max', $limits['max_feeds']),
