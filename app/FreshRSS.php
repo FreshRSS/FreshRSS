@@ -38,16 +38,12 @@ class FreshRSS extends Minz_FrontController {
 	}
 
 	private function initI18n() {
-		$lang = Minz_Session::param('language');
-		if ($lang === false) {
-			Minz_Session::_param('language', FreshRSS_Context::$user_conf->language);
-			$lang = FreshRSS_Context::$user_conf->language;
-		}
+		Minz_Session::_param('language', FreshRSS_Context::$user_conf->language);
 
 		Minz_Translate::init(array(
 			'en' => 'English',
 			'fr' => 'Français',
-		), $lang);
+		), FreshRSS_Context::$user_conf->language);
 	}
 
 	private function loadStylesAndScripts() {
