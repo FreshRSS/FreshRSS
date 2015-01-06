@@ -150,13 +150,12 @@ function authorizationToUserConf() {
 		if (count($headerAuthX) === 2) {
 			$user = $headerAuthX[0];
 			if (ctype_alnum($user)) {
-				try {
-					$conf = new FreshRSS_Configuration($user);
-				} catch (Exception $e) {
-					logMe($e->getMessage() . "\n");
+				$conf = get_user_configuration($user);
+				if (is_null($conf)) {
 					unauthorized();
 				}
-				if ($headerAuthX[1] === sha1(Minz_Configuration::salt() . $conf->user . $conf->apiPasswordHash)) {
+				$system_conf = Minz_Configuration::get('system');
+				if ($headerAuthX[1] === sha1($system_conf->salt . $conf->user . $conf->apiPasswordHash)) {
 					return $conf;
 				} else {
 					logMe('Invalid API authorisation for user ' . $user . ': ' . $headerAuthX[1] . "\n");
@@ -177,16 +176,16 @@ function clientLogin($email, $pass) {	//http://web.archive.org/web/2013060409104
 		if (!function_exists('password_verify')) {
 			include_once(LIB_PATH . '/password_compat.php');
 		}
-		try {
-			$conf = new FreshRSS_Configuration($email);
-		} catch (Exception $e) {
-			logMe($e->getMessage() . "\n");
-			Minz_Log::warning('Invalid API user ' . $email);
+
+		$conf = get_user_configuration($email);
+		if (is_null($conf)) {
 			unauthorized();
 		}
+
 		if ($conf->apiPasswordHash != '' && password_verify($pass, $conf->apiPasswordHash)) {
 			header('Content-Type: text/plain; charset=UTF-8');
-			$auth = $email . '/' . sha1(Minz_Configuration::salt() . $conf->user . $conf->apiPasswordHash);
+			$system_conf = Minz_Configuration::get('system');
+			$auth = $email . '/' . sha1($system_conf->salt . $conf->user . $conf->apiPasswordHash);
 			echo 'SID=', $auth, "\n",
 				'Auth=', $auth, "\n";
 			exit();
@@ -204,7 +203,8 @@ function token($conf) {
 //http://blog.martindoms.com/2009/08/15/using-the-google-reader-api-part-1/
 //https://github.com/ericmann/gReader-Library/blob/master/greader.class.php
 	logMe('token('. $conf->user . ")\n");	//TODO: Implement real token that expires
-	$token = str_pad(sha1(Minz_Configuration::salt() . $conf->user . $conf->apiPasswordHash), 57, 'Z');	//Must have 57 characters
+	$system_conf = Minz_Configuration::get('system');
+	$token = str_pad(sha1($system_conf->salt . $conf->user . $conf->apiPasswordHash), 57, 'Z');	//Must have 57 characters
 	echo $token, "\n";
 	exit();
 }
@@ -212,7 +212,8 @@ function token($conf) {
 function checkToken($conf, $token) {
 //http://code.google.com/p/google-reader-api/wiki/ActionToken
 	logMe('checkToken(' . $token . ")\n");
-	if ($token === str_pad(sha1(Minz_Configuration::salt() . $conf->user . $conf->apiPasswordHash), 57, 'Z')) {
+	$system_conf = Minz_Configuration::get('system');
+	if ($token === str_pad(sha1($system_conf->salt . $conf->user . $conf->apiPasswordHash), 57, 'Z')) {
 		return true;
 	}
 	unauthorized();
@@ -536,9 +537,11 @@ logMe('----------------------------------------------------------------'."\n");
 $pathInfo = empty($_SERVER['PATH_INFO']) ? '/Error' : urldecode($_SERVER['PATH_INFO']);
 $pathInfos = explode('/', $pathInfo);
 
-Minz_Configuration::init();
-
-if (!Minz_Configuration::apiEnabled()) {
+Minz_Configuration::register('system',
+                             DATA_PATH . '/config.php',
+                             DATA_PATH . '/config.default.php');
+$system_conf = Minz_Configuration::get('system');
+if (!$system_conf->api_enabled) {
 	serviceUnavailable();
 }
 
