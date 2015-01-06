@@ -39,7 +39,7 @@ class Minz_Configuration {
 	 * @return an array of values
 	 * @throws Minz_FileNotExistException if the file does not exist.
 	 */
-	public static function parseFile($filename) {
+	public static function load($filename) {
 		if (!file_exists($filename)) {
 			throw new Minz_FileNotExistException($filename);
 		}
@@ -106,7 +106,7 @@ class Minz_Configuration {
 		$this->config_filename = $config_filename;
 
 		try {
-			$this->data = self::parseFile($this->config_filename);
+			$this->data = self::load($this->config_filename);
 		} catch (Minz_FileNotExistException $e) {
 			if (is_null($default_filename)) {
 				throw $e;
@@ -115,7 +115,7 @@ class Minz_Configuration {
 
 		$this->default_filename = $default_filename;
 		if (!is_null($this->default_filename)) {
-			$this->data_default = self::parseFile($this->default_filename);
+			$this->data_default = self::load($this->default_filename);
 		}
 	}
 
