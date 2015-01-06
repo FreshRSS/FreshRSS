@@ -29,7 +29,7 @@ class FreshRSS_auth_Controller extends Minz_ActionController {
 
 			$current_token = FreshRSS_Context::$user_conf->token;
 			$token = Minz_Request::param('token', $current_token);
-			FreshRSS_Context::$user_conf->_token($token);
+			FreshRSS_Context::$user_conf->token = $token;
 			$ok &= FreshRSS_Context::$user_conf->save();
 
 			$anon = Minz_Request::param('anon_access', false);

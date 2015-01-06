@@ -39,7 +39,7 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 				$passwordPlain = '';
 				$passwordHash = preg_replace('/^\$2[xy]\$/', '\$2a\$', $passwordHash);	//Compatibility with bcrypt.js
 				$ok &= ($passwordHash != '');
-				FreshRSS_Context::$user_conf->_passwordHash($passwordHash);
+				FreshRSS_Context::$user_conf->passwordHash = $passwordHash;
 			}
 			Minz_Session::_param('passwordHash', FreshRSS_Context::$user_conf->passwordHash);
 
@@ -52,12 +52,12 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 				$passwordPlain = '';
 				$passwordHash = preg_replace('/^\$2[xy]\$/', '\$2a\$', $passwordHash);	//Compatibility with bcrypt.js
 				$ok &= ($passwordHash != '');
-				FreshRSS_Context::$user_conf->_apiPasswordHash($passwordHash);
+				FreshRSS_Context::$user_conf->apiPasswordHash = $passwordHash;
 			}
 
 			// TODO: why do we need of hasAccess here?
 			if (FreshRSS_Auth::hasAccess('admin')) {
-				FreshRSS_Context::$user_conf->_mail_login(Minz_Request::param('mail_login', '', true));
+				FreshRSS_Context::$user_conf->mail_login = Minz_Request::param('mail_login', '', true);
 			}
 			$email = FreshRSS_Context::$user_conf->mail_login;
 			Minz_Session::_param('mail', $email);
