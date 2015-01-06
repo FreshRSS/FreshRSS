@@ -109,7 +109,7 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 			require_once(APP_PATH . '/SQL/install.sql.' . $db['type'] . '.php');
 
 			$new_user_language = Minz_Request::param('new_user_language', FreshRSS_Context::$user_conf->language);
-			$languages = FreshRSS_Context::$user_conf->availableLanguages();
+			$languages = Minz_Translate::availableLanguages();
 			if (!isset($languages[$new_user_language])) {
 				$new_user_language = FreshRSS_Context::$user_conf->language;
 			}
