@@ -116,7 +116,7 @@ class Minz_FrontController {
 
 	private function setReporting() {
 		$conf = Minz_Configuration::get('system');
-		switch($conf->general['environment']) {
+		switch($conf->environment) {
 		case 'production':
 			error_reporting(E_ALL);
 			ini_set('display_errors','Off');

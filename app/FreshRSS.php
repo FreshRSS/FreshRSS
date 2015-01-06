@@ -62,7 +62,7 @@ class FreshRSS extends Minz_FrontController {
 		Minz_View::appendScript(Minz_Url::display('/scripts/shortcut.js?' . @filemtime(PUBLIC_PATH . '/scripts/shortcut.js')));
 		Minz_View::appendScript(Minz_Url::display('/scripts/main.js?' . @filemtime(PUBLIC_PATH . '/scripts/main.js')));
 
-		if (FreshRSS_Context::$system_conf->general['auth_type'] === 'persona') {
+		if (FreshRSS_Context::$system_conf->auth_type === 'persona') {
 			// TODO move it in a plugin
 			// Needed for login AND logout with Persona.
 			Minz_View::appendScript('https://login.persona.org/include.js');

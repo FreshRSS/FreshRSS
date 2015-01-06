@@ -17,7 +17,7 @@ class FreshRSS_Auth {
 		$current_user = Minz_Session::param('currentUser', '');
 		if ($current_user === '') {
 			$conf = Minz_Configuration::get('system');
-			$current_user = $conf->general['default_user'];
+			$current_user = $conf->default_user;
 			Minz_Session::_param('currentUser', $current_user);
 		}
 
@@ -42,7 +42,7 @@ class FreshRSS_Auth {
 	 */
 	private static function accessControl() {
 		$conf = Minz_Configuration::get('system');
-		$auth_type = $conf->general['auth_type'];
+		$auth_type = $conf->auth_type;
 		switch ($auth_type) {
 		case 'form':
 			$credentials = FreshRSS_FormAuth::getCredentialsFromCookie();
@@ -84,7 +84,7 @@ class FreshRSS_Auth {
 	public static function giveAccess() {
 		$user_conf = Minz_Configuration::get('user');
 		$system_conf = Minz_Configuration::get('system');
-		$auth_type = $system_conf->general['auth_type'];
+		$auth_type = $system_conf->auth_type;
 
 		switch ($auth_type) {
 		case 'form':
@@ -115,7 +115,7 @@ class FreshRSS_Auth {
 	 */
 	public static function hasAccess($scope = 'general') {
 		$conf = Minz_Configuration::get('system');
-		$default_user = $conf->general['default_user'];
+		$default_user = $conf->default_user;
 		$ok = self::$login_ok;
 		switch ($scope) {
 		case 'general':
@@ -136,9 +136,9 @@ class FreshRSS_Auth {
 		Minz_Session::_param('loginOk');
 		self::$login_ok = false;
 		$conf = Minz_Configuration::get('system');
-		Minz_Session::_param('currentUser', $conf->general['default_user']);
+		Minz_Session::_param('currentUser', $conf->default_user);
 
-		switch ($conf->general['auth_type']) {
+		switch ($conf->auth_type) {
 		case 'form':
 			Minz_Session::_param('passwordHash');
 			FreshRSS_FormAuth::deleteCookie();
@@ -160,7 +160,7 @@ class FreshRSS_Auth {
 	 */
 	public static function accessNeedLogin() {
 		$conf = Minz_Configuration::get('system');
-		$auth_type = $conf->general['auth_type'];
+		$auth_type = $conf->auth_type;
 		return $auth_type === 'form' || $auth_type === 'persona';
 	}
 }

@@ -30,7 +30,7 @@ class Minz_View {
 		                   Minz_Request::actionName());
 
 		$conf = Minz_Configuration::get('system');
-		self::$title = $conf->general['title'];
+		self::$title = $conf->title;
 	}
 
 	/**

@@ -1,7 +1,5 @@
 <?php
 
-$conf = Minz_Configuration::get('system');
-
 if (FreshRSS_Auth::accessNeedLogin()) {
 	?><ul class="nav nav-head nav-login"><?php
 		if (FreshRSS_Auth::hasAccess()) {
@@ -18,13 +16,13 @@ if (FreshRSS_Auth::accessNeedLogin()) {
 		<h1>
 			<a href="<?php echo _url('index', 'index'); ?>">
 				<img class="logo" src="<?php echo _i('icon', true); ?>" alt="⊚" />
-				<?php echo $conf->general['title']; ?>
+				<?php echo FreshRSS_Context::$system_conf->title; ?>
 			</a>
 		</h1>
 	</div>
 
 	<div class="item search">
-		<?php if (FreshRSS_Auth::hasAccess() || $conf->general['allow_anonymous']) { ?>
+		<?php if (FreshRSS_Auth::hasAccess() || FreshRSS_Context::$system_conf->allow_anonymous) { ?>
 		<form action="<?php echo _url('index', 'index'); ?>" method="get">
 			<div class="stick">
 				<?php $search = Minz_Request::param('search', ''); ?>

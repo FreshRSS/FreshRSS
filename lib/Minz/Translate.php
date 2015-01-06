@@ -29,7 +29,7 @@ class Minz_Translate {
 	 */
 	public static function init() {
 		$conf = Minz_Configuration::get('system');
-		$l = $conf->general['language'];
+		$l = $conf->language;
 		self::$lang_name = Minz_Session::param('language', $l);
 		self::$lang_path = APP_PATH . '/i18n/' . self::$lang_name . '/';
 	}

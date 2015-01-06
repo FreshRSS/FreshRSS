@@ -20,7 +20,7 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 	 * This action displays the normal view of FreshRSS.
 	 */
 	public function normalAction() {
-		$allow_anonymous = FreshRSS_Context::$system_conf->general['allow_anonymous'];
+		$allow_anonymous = FreshRSS_Context::$system_conf->allow_anonymous;
 		if (!FreshRSS_Auth::hasAccess() && !$allow_anonymous) {
 			Minz_Request::forward(array('c' => 'auth', 'a' => 'login'));
 			return;
@@ -83,7 +83,7 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 	 * This action displays the global view of FreshRSS.
 	 */
 	public function globalAction() {
-		$allow_anonymous = FreshRSS_Context::$system_conf->general['allow_anonymous'];
+		$allow_anonymous = FreshRSS_Context::$system_conf->allow_anonymous;
 		if (!FreshRSS_Auth::hasAccess() && !$allow_anonymous) {
 			Minz_Request::forward(array('c' => 'auth', 'a' => 'login'));
 			return;
@@ -111,7 +111,7 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 	 * This action displays the RSS feed of FreshRSS.
 	 */
 	public function rssAction() {
-		$allow_anonymous = FreshRSS_Context::$system_conf->general['allow_anonymous'];
+		$allow_anonymous = FreshRSS_Context::$system_conf->allow_anonymous;
 		$token = FreshRSS_Context::$user_conf->token;
 		$token_param = Minz_Request::param('token', '');
 		$token_is_ok = ($token != '' && $token === $token_param);

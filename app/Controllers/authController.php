@@ -27,7 +27,6 @@ class FreshRSS_auth_Controller extends Minz_ActionController {
 		if (Minz_Request::isPost()) {
 			$ok = true;
 
-			$general = FreshRSS_Context::$system_conf->general;
 			$current_token = FreshRSS_Context::$user_conf->token;
 			$token = Minz_Request::param('token', $current_token);
 			FreshRSS_Context::$user_conf->_token($token);
@@ -40,20 +39,19 @@ class FreshRSS_auth_Controller extends Minz_ActionController {
 			$auth_type = Minz_Request::param('auth_type', 'none');
 			$unsafe_autologin = Minz_Request::param('unsafe_autologin', false);
 			$api_enabled = Minz_Request::param('api_enabled', false);
-			if ($anon != $general['allow_anonymous'] ||
-				$auth_type != $general['auth_type'] ||
-				$anon_refresh != $general['allow_anonymous_refresh'] ||
-				$unsafe_autologin != $general['unsafe_autologin_enabled'] ||
-				$api_enabled != $general['api_enabled']) {
+			if ($anon != FreshRSS_Context::$system_conf->allow_anonymous ||
+				$auth_type != FreshRSS_Context::$system_conf->auth_type ||
+				$anon_refresh != FreshRSS_Context::$system_conf->allow_anonymous_refresh ||
+				$unsafe_autologin != FreshRSS_Context::$system_conf->unsafe_autologin_enabled ||
+				$api_enabled != FreshRSS_Context::$system_conf->api_enabled) {
 
 				// TODO: test values from form
-				$general['auth_type'] = $auth_type;
-				$general['allow_anonymous'] = $anon;
-				$general['allow_anonymous_refresh'] = $anon_refresh;
-				$general['unsafe_autologin_enabled'] = $unsafe_autologin;
-				$general['api_enabled'] = $api_enabled;
+				FreshRSS_Context::$system_conf->auth_type = $auth_type;
+				FreshRSS_Context::$system_conf->allow_anonymous = $anon;
+				FreshRSS_Context::$system_conf->allow_anonymous_refresh = $anon_refresh;
+				FreshRSS_Context::$system_conf->unsafe_autologin_enabled = $unsafe_autologin;
+				FreshRSS_Context::$system_conf->api_enabled = $api_enabled;
 
-				$system_conf->general = $general;
 				$ok &= $system_conf->save();
 			}
 
@@ -80,7 +78,7 @@ class FreshRSS_auth_Controller extends Minz_ActionController {
 			Minz_Request::forward(array('c' => 'index', 'a' => 'index'), true);
 		}
 
-		$auth_type = FreshRSS_Context::$system_conf->general['auth_type'];
+		$auth_type = FreshRSS_Context::$system_conf->auth_type;
 		switch ($auth_type) {
 		case 'form':
 			Minz_Request::forward(array('c' => 'auth', 'a' => 'formLogin'));
@@ -160,7 +158,7 @@ class FreshRSS_auth_Controller extends Minz_ActionController {
 				Minz_Request::bad(_t('feedback.auth.login.invalid'),
 				                  array('c' => 'auth', 'a' => 'login'));
 			}
-		} elseif (FreshRSS_Context::$system_conf->general['unsafe_autologin_enabled']) {
+		} elseif (FreshRSS_Context::$system_conf->unsafe_autologin_enabled) {
 			$username = Minz_Request::param('u', '');
 			$password = Minz_Request::param('p', '');
 			Minz_Request::_param('p');
@@ -301,7 +299,7 @@ class FreshRSS_auth_Controller extends Minz_ActionController {
 
 		$this->view->no_form = false;
 		// Enable changement of auth only if Persona!
-		if (FreshRSS_Context::$system_conf->general['auth_type'] != 'persona') {
+		if (FreshRSS_Context::$system_conf->auth_type != 'persona') {
 			$this->view->message = array(
 				'status' => 'bad',
 				'title' => _t('gen.short.damn'),

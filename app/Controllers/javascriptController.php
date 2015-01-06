@@ -28,7 +28,7 @@ class FreshRSS_javascript_Controller extends Minz_ActionController {
 		$user = isset($_GET['user']) ? $_GET['user'] : '';
 		if (ctype_alnum($user)) {
 			try {
-				$salt = FreshRSS_Context::$system_conf->general['salt'];
+				$salt = FreshRSS_Context::$system_conf->salt;
 				$conf = new FreshRSS_Configuration($user);
 				$s = $conf->passwordHash;
 				if (strlen($s) >= 60) {

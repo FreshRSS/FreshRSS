@@ -83,7 +83,7 @@ class Minz_Error {
 	 */
 	private static function processLogs ($logs) {
 		$conf = Minz_Configuration::get('system');
-		$env = $conf->general['environment'];
+		$env = $conf->environment;
 		$logs_ok = array ();
 		$error = array ();
 		$warning = array ();

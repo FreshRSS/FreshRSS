@@ -97,7 +97,7 @@ class Minz_Request {
 	 */
 	public static function getBaseUrl() {
 		$conf = Minz_Configuration::get('system');
-		$defaultBaseUrl = $conf->general['base_url'];
+		$defaultBaseUrl = $conf->base_url;
 		if (!empty($defaultBaseUrl)) {
 			return $defaultBaseUrl;
 		} elseif (isset($_SERVER['REQUEST_URI'])) {

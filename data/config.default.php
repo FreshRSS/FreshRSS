@@ -1,19 +1,17 @@
 <?php
 
 return array(
-	'general' => array(
-		'environment' => 'production',
-		'salt' => '',
-		'base_url' => '',
-		'language' => 'en',
-		'title' => 'FreshRSS',
-		'default_user' => '_',
-		'allow_anonymous' => false,
-		'allow_anonymous_refresh' => false,
-		'auth_type' => 'none',
-		'api_enabled' => false,
-		'unsafe_autologin_enabled' => false,
-	),
+	'environment' => 'production',
+	'salt' => '',
+	'base_url' => '',
+	'language' => 'en',
+	'title' => 'FreshRSS',
+	'default_user' => '_',
+	'allow_anonymous' => false,
+	'allow_anonymous_refresh' => false,
+	'auth_type' => 'none',
+	'api_enabled' => false,
+	'unsafe_autologin_enabled' => false,
 	'limits' => array(
 		'cache_duration' => 800,
 		'timeout' => 10,

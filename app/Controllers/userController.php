@@ -118,7 +118,7 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 			$ok = ($new_user_name != '') && ctype_alnum($new_user_name);
 
 			if ($ok) {
-				$default_user = FreshRSS_Context::$system_conf->general['default_user'];
+				$default_user = FreshRSS_Context::$system_conf->default_user;
 				$ok &= (strcasecmp($new_user_name, $default_user) !== 0);	//It is forbidden to alter the default user
 
 				$ok &= !in_array(strtoupper($new_user_name), array_map('strtoupper', listUsers()));	//Not an existing user, case-insensitive
@@ -188,7 +188,7 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 			$user_data = join_path(DATA_PATH, 'users', $username);
 
 			if ($ok) {
-				$default_user = FreshRSS_Context::$system_conf->general['default_user'];
+				$default_user = FreshRSS_Context::$system_conf->default_user;
 				$ok &= (strcasecmp($username, $default_user) !== 0);	//It is forbidden to delete the default user
 			}
 			if ($ok) {

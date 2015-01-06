@@ -1,7 +1,6 @@
 "use strict";
 <?php
 
-$conf = Minz_Configuration::get('system');
 $mark = FreshRSS_Context::$user_conf->mark_when;
 $mail = Minz_Session::param('mail', false);
 $auto_actualize = Minz_Session::param('actualize_feeds', false);
@@ -30,7 +29,7 @@ echo 'var context={',
 	'does_lazyload:', FreshRSS_Context::$user_conf->lazyload ? 'true' : 'false', ',',
 	'sticky_post:', FreshRSS_Context::isStickyPostEnabled() ? 'true' : 'false', ',',
 	'html5_notif_timeout:', FreshRSS_Context::$user_conf->html5_notif_timeout, ',',
-	'auth_type:"', $conf->general['auth_type'], '",',
+	'auth_type:"', FreshRSS_Context::$system_conf->auth_type, '",',
 	'current_user_mail:', $mail ? ('"' . $mail . '"') : 'null', ',',
 	'current_view:"', Minz_Request::param('output', 'normal'), '"',
 "},\n";

@@ -33,7 +33,7 @@ class Minz_Log {
 	public static function record ($information, $level, $file_name = null) {
 		try {
 			$conf = Minz_Configuration::get('system');
-			$env = $conf->general['environment'];
+			$env = $conf->environment;
 		} catch (Minz_ConfigurationException $e) {
 			$env = 'production';
 		}
