@@ -52,7 +52,7 @@ class FreshRSS_auth_Controller extends Minz_ActionController {
 				FreshRSS_Context::$system_conf->unsafe_autologin_enabled = $unsafe_autologin;
 				FreshRSS_Context::$system_conf->api_enabled = $api_enabled;
 
-				$ok &= $system_conf->save();
+				$ok &= FreshRSS_Context::$system_conf->save();
 			}
 
 			invalidateHttpCache();
