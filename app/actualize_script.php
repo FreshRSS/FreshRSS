@@ -38,32 +38,32 @@ if ($system_conf->default_user !== ''){
 
 
 $limits = $system_conf->limits;
-$minLastActivity = time() - $limits['max_inactivity'];
-foreach ($users as $myUser) {
-	if (($myUser !== $system_conf->default_user) &&
-			(FreshRSS_UserDAO::mtime($myUser) < $minLastActivity)) {
-		syslog(LOG_INFO, 'FreshRSS skip inactive user ' . $myUser);
+$min_last_activity = time() - $limits['max_inactivity'];
+foreach ($users as $user) {
+	if (($user !== $system_conf->default_user) &&
+			(FreshRSS_UserDAO::mtime($user) < $min_last_activity)) {
+		syslog(LOG_INFO, 'FreshRSS skip inactive user ' . $user);
 		if (defined('STDOUT')) {
-			fwrite(STDOUT, 'FreshRSS skip inactive user ' . $myUser . "\n");	//Unbuffered
+			fwrite(STDOUT, 'FreshRSS skip inactive user ' . $user . "\n");	//Unbuffered
 		}
 		continue;
 	}
-	syslog(LOG_INFO, 'FreshRSS actualize ' . $myUser);
+	syslog(LOG_INFO, 'FreshRSS actualize ' . $user);
 	if (defined('STDOUT')) {
-		fwrite(STDOUT, 'Actualize ' . $myUser . "...\n");	//Unbuffered
+		fwrite(STDOUT, 'Actualize ' . $user . "...\n");	//Unbuffered
 	}
-	echo $myUser, ' ';	//Buffered
+	echo $user, ' ';	//Buffered
 
 
-	Minz_Session::_param('currentUser', $myUser);
+	Minz_Session::_param('currentUser', $user);
 	FreshRSS_Auth::giveAccess();
 	$app->run();
 
 
 	if (!invalidateHttpCache()) {
-		syslog(LOG_NOTICE, 'FreshRSS write access problem in ' . join_path(USERS_PATH, $myUser, 'log.txt'));
+		syslog(LOG_NOTICE, 'FreshRSS write access problem in ' . join_path(USERS_PATH, $user, 'log.txt'));
 		if (defined('STDERR')) {
-			fwrite(STDERR, 'Write access problem in ' . join_path(USERS_PATH, $myUser, 'log.txt') . "\n");
+			fwrite(STDERR, 'Write access problem in ' . join_path(USERS_PATH, $user, 'log.txt') . "\n");
 		}
 	}
 }
