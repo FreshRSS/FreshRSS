@@ -15,7 +15,7 @@
 		<a class="btn btn-important" href="<?php echo _url('subscription', 'index'); ?>"><?php echo _t('index.menu.subscription'); ?></a>
 		<a class="btn btn-important" href="<?php echo _url('importExport', 'index'); ?>"><?php echo _i('import'); ?></a>
 	</div>
-	<?php } elseif (Minz_Configuration::needsLogin()) { ?>
+	<?php } elseif (FreshRSS_Auth::accessNeedsLogin()) { ?>
 	<a href="<?php echo _url('index', 'about'); ?>"><?php echo _t('index.menu.about'); ?></a>
 	<?php } ?>
 

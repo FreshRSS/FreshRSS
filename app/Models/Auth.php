@@ -158,7 +158,16 @@ class FreshRSS_Auth {
 	/**
 	 * Return if authentication is enabled on this instance of FRSS.
 	 */
-	public static function accessNeedLogin() {
+	public static function accessNeedsLogin() {
+		$conf = Minz_Configuration::get('system');
+		$auth_type = $conf->auth_type;
+		return $auth_type !== 'none';
+	}
+
+	/**
+	 * Return if authentication requires a PHP action.
+	 */
+	public static function accessNeedsAction() {
 		$conf = Minz_Configuration::get('system');
 		$auth_type = $conf->auth_type;
 		return $auth_type === 'form' || $auth_type === 'persona';
@@ -206,7 +215,8 @@ class FreshRSS_FormAuth {
 
 	public static function makeCookie($username, $password_hash) {
 		do {
-			$token = sha1(Minz_Configuration::salt() . $username . uniqid(mt_rand(), true));
+			$conf = Minz_Configuration::get('system');
+			$token = sha1($conf->salt . $username . uniqid(mt_rand(), true));
 			$token_file = DATA_PATH . '/tokens/' . $token . '.txt';
 		} while (file_exists($token_file));
 

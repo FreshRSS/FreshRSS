@@ -1,6 +1,6 @@
 <?php
 
-if (FreshRSS_Auth::accessNeedLogin()) {
+if (FreshRSS_Auth::accessNeedsAction()) {
 	?><ul class="nav nav-head nav-login"><?php
 		if (FreshRSS_Auth::hasAccess()) {
 			?><li class="item"><?php echo _i('logout'); ?> <a class="signout" href="<?php echo _url('auth', 'logout'); ?>"><?php echo _t('gen.auth.logout'); ?></a></li><?php
@@ -77,14 +77,14 @@ if (FreshRSS_Auth::accessNeedLogin()) {
 				<li class="item"><a href="<?php echo _url('index', 'logs'); ?>"><?php echo _t('gen.menu.logs'); ?></a></li>
 				<li class="item"><a href="<?php echo _url('index', 'about'); ?>"><?php echo _t('gen.menu.about'); ?></a></li>
 				<?php
-				if (FreshRSS_Auth::accessNeedLogin()) {
+				if (FreshRSS_Auth::accessNeedsAction()) {
 					?><li class="separator"></li>
 				<li class="item"><a class="signout" href="<?php echo _url('auth', 'logout'); ?>"><?php echo _i('logout'), ' ', _t('gen.auth.logout'); ?></a></li><?php
 				} ?>
 			</ul>
 		</div>
 	</div>
-	<?php } elseif (FreshRSS_Auth::accessNeedLogin()) { ?>
+	<?php } elseif (FreshRSS_Auth::accessNeedsAction()) { ?>
 	<div class="item configure">
 		<?php echo _i('login'); ?><a class="signin" href="<?php echo _url('auth', 'login'); ?>"><?php echo _t('gen.auth.login'); ?></a>
 	</div>

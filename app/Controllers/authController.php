@@ -310,7 +310,7 @@ class FreshRSS_auth_Controller extends Minz_ActionController {
 		}
 
 		// TODO #730
-		$conf = new FreshRSS_Configuration(Minz_Configuration::defaultUser());
+		$conf = new FreshRSS_Configuration(FreshRSS_Context::$system_conf->default_user);
 		// Admin user must have set its master password.
 		if (!$conf->passwordHash) {
 			$this->view->message = array(
@@ -334,9 +334,8 @@ class FreshRSS_auth_Controller extends Minz_ActionController {
 			);
 
 			if ($ok) {
-				// TODO #730
-				Minz_Configuration::_authType('form');
-				$ok = Minz_Configuration::writeFile();
+				FreshRSS_Context::$system_conf->auth_type = 'form';
+				$ok = FreshRSS_Context::$system_conf->save();
 
 				if ($ok) {
 					Minz_Request::good(_t('feedback.auth.form.set'));

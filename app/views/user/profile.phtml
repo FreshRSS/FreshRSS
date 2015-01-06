@@ -28,7 +28,7 @@
 			</div>
 		</div>
 
-		<?php if (Minz_Configuration::apiEnabled()) { ?>
+		<?php if (FreshRSS_Context::$system_conf->api_enabled) { ?>
 		<div class="form-group">
 			<label class="group-name" for="apiPasswordPlain"><?php echo _t('conf.profile.password_api'); ?></label>
 			<div class="group-controls">

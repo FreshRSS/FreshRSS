@@ -10,7 +10,6 @@
 <?php $this->renderHelper('javascript_vars'); ?>
 		//]]></script>
 <?php
-	$conf = Minz_Configuration::get('system');
 	$url_base = Minz_Request::currentRequest();
 	if (FreshRSS_Context::$next_id !== '') {
 		$url_next = $url_base;

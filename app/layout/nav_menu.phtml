@@ -193,7 +193,7 @@
 		<?php echo _i($icon); ?>
 	</a>
 	
-	<?php if (FreshRSS_Auth::hasAccess() || Minz_Configuration::allowAnonymousRefresh()) { ?>
+	<?php if (FreshRSS_Auth::hasAccess() || FreshRSS_Context::$system_conf->allow_anonymous_refresh) { ?>
 	<a id="actualize" class="btn" href="<?php echo _url('feed', 'actualize'); ?>" title="<?php echo _t('gen.action.actualize'); ?>"><?php echo _i('refresh'); ?></a>
 	<?php } ?>
 </div>
