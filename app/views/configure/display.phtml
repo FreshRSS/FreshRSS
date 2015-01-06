@@ -10,7 +10,7 @@
 			<label class="group-name" for="language"><?php echo _t('conf.display.language'); ?></label>
 			<div class="group-controls">
 				<select name="language" id="language">
-				<?php $languages = FreshRSS_Context::$user_conf->availableLanguages(); ?>
+				<?php $languages = Minz_Translate::availableLanguages(); ?>
 				<?php foreach ($languages as $short => $lib) { ?>
 				<option value="<?php echo $short; ?>"<?php echo FreshRSS_Context::$user_conf->language === $short ? ' selected="selected"' : ''; ?>><?php echo $lib; ?></option>
 				<?php } ?>

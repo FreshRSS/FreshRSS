@@ -10,6 +10,11 @@
  */
 class Minz_Translate {
 	/**
+	 * $lang_list is the list of available languages.
+	 */
+	private static $lang_list = array();
+
+	/**
 	 * $lang_name is the name of the current language to use.
 	 */
 	private static $lang_name;
@@ -25,20 +30,30 @@ class Minz_Translate {
 	private static $translates = array();
 
 	/**
-	 * Load $lang_name and $lang_path based on configuration and selected language.
+	 * Init the translation object.
+	 * @param $lang_list the list of available languages.
+	 * @param $lang_name the lang to show.
 	 */
-	public static function init() {
-		$conf = Minz_Configuration::get('system');
-		$l = $conf->language;
-		self::$lang_name = Minz_Session::param('language', $l);
+	public static function init($lang_list, $lang_name) {
+		self::$lang_list = $lang_list;
+		self::$lang_name = $lang_name;
 		self::$lang_path = APP_PATH . '/i18n/' . self::$lang_name . '/';
 	}
 
 	/**
-	 * Alias for init().
+	 * Reset the translation object with a new language.
+	 * @param $lang_name the new language to use
 	 */
-	public static function reset() {
-		self::init();
+	public static function reset($lang_name) {
+		self::init(self::$lang_list, $lang_name);
+	}
+
+	/**
+	 * Return the list of available languages.
+	 * @return an array.
+	 */
+	public static function availableLanguages() {
+		return self::$lang_list;
 	}
 
 	/**
