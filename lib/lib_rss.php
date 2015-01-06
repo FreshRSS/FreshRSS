@@ -237,6 +237,29 @@ function listUsers() {
 	return $final_list;
 }
 
+
+/**
+ * Register and return the configuration for a given user.
+ *
+ * Note this function has been created to generate temporary configuration
+ * objects. If you need a long-time configuration, please don't use this function.
+ *
+ * @param $username the name of the user of which we want the configuration.
+ * @return a Minz_Configuration object, null if the configuration cannot be loaded.
+ */
+function get_user_configuration($username) {
+	$namespace = time() . '_user_' . $username;
+	try {
+		Minz_Configuration::register($namespace,
+		                             join_path(USERS_PATH, $username, 'config.php'),
+		                             join_path(USERS_PATH, '_', 'config.default.php'));
+		return Minz_Configuration::get($namespace);
+	} catch(Minz_ConfigurationException $e) {
+		return null;
+	}
+}
+
+
 function httpAuthUser() {
 	return isset($_SERVER['REMOTE_USER']) ? $_SERVER['REMOTE_USER'] : '';
 }

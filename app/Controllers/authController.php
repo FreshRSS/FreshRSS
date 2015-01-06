@@ -121,12 +121,8 @@ class FreshRSS_auth_Controller extends Minz_ActionController {
 			$username = Minz_Request::param('username', '');
 			$challenge = Minz_Request::param('challenge', '');
 
-			// TODO #730: change the way to get the configuration
-			try {
-				$conf = new FreshRSS_Configuration($username);
-			} catch(Minz_Exception $e) {
-				// $username is not a valid user, nor the configuration file!
-				Minz_Log::warning('Login failure: ' . $e->getMessage());
+			$conf = get_user_configuration($username);
+			if (is_null($conf)) {
 				Minz_Request::bad(_t('feedback.auth.login.invalid'),
 				                  array('c' => 'auth', 'a' => 'login'));
 			}
@@ -167,12 +163,8 @@ class FreshRSS_auth_Controller extends Minz_ActionController {
 				return;
 			}
 
-			// TODO #730: change the way to get the configuration
-			try {
-				$conf = new FreshRSS_Configuration($username);
-			} catch(Minz_Exception $e) {
-				// $username is not a valid user, nor the configuration file!
-				Minz_Log::warning('Login failure: ' . $e->getMessage());
+			$conf = get_user_configuration($username);
+			if (is_null($conf)) {
 				return;
 			}
 
@@ -240,14 +232,12 @@ class FreshRSS_auth_Controller extends Minz_ActionController {
 					$persona_file = DATA_PATH . '/persona/' . $email . '.txt';
 					if (($current_user = @file_get_contents($persona_file)) !== false) {
 						$current_user = trim($current_user);
-						// TODO #730: change the way to get the configuration
-						try {
-							$conf = new FreshRSS_Configuration($current_user);
+						$conf = get_user_configuration($current_user);
+						if (!is_null($conf)) {
 							$login_ok = strcasecmp($email, $conf->mail_login) === 0;
-						} catch (Minz_Exception $e) {
-							//Permission denied or conf file does not exist
+						} else {
 							$reason = 'Invalid configuration for user ' .
-							          '[' . $current_user . '] ' . $e->getMessage();
+							          '[' . $current_user . ']';
 						}
 					}
 				} else {
@@ -309,8 +299,11 @@ class FreshRSS_auth_Controller extends Minz_ActionController {
 			return;
 		}
 
-		// TODO #730
-		$conf = new FreshRSS_Configuration(FreshRSS_Context::$system_conf->default_user);
+		$conf = get_user_configuration(FreshRSS_Context::$system_conf->default_user);
+		if (is_null($conf)) {
+			return;
+		}
+
 		// Admin user must have set its master password.
 		if (!$conf->passwordHash) {
 			$this->view->message = array(
