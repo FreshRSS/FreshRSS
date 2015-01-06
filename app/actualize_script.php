@@ -56,6 +56,7 @@ foreach ($users as $myUser) {
 
 
 	Minz_Session::_param('currentUser', $myUser);
+	FreshRSS_Auth::giveAccess();
 	$app->run();
 
 
