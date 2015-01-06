@@ -82,11 +82,11 @@ class FreshRSS_Auth {
 	 * Gives access to the current user.
 	 */
 	public static function giveAccess() {
-		$user_conf = Minz_Configuration::get('user');
+		$current_user = Minz_Session::param('currentUser');
+		$user_conf = get_user_configuration($current_user);
 		$system_conf = Minz_Configuration::get('system');
-		$auth_type = $system_conf->auth_type;
 
-		switch ($auth_type) {
+		switch ($system_conf->auth_type) {
 		case 'form':
 			self::$login_ok = Minz_Session::param('passwordHash') === $user_conf->passwordHash;
 			break;

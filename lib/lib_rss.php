@@ -253,10 +253,14 @@ function get_user_configuration($username) {
 		Minz_Configuration::register($namespace,
 		                             join_path(USERS_PATH, $username, 'config.php'),
 		                             join_path(USERS_PATH, '_', 'config.default.php'));
-		return Minz_Configuration::get($namespace);
-	} catch(Minz_ConfigurationException $e) {
+	} catch (Minz_ConfigurationNamespaceException $e) {
+		// namespace already exists, do nothing.
+	} catch (Minz_FileNotExistException $e) {
+		Minz_Log::warning($e->getMessage());
 		return null;
 	}
+
+	return Minz_Configuration::get($namespace);
 }
 
 
