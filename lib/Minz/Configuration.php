@@ -135,9 +135,8 @@ class Minz_Configuration {
 		} elseif (isset($this->data_default[$key])) {
 			return $this->data_default[$key];
 		} else {
-			throw new Minz_ConfigurationParamException(
-				$key . ' param does not exist'
-			);
+			Minz_Log::warning($key . ' does not exist in configuration');
+			return null;
 		}
 	}
 
