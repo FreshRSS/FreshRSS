@@ -176,11 +176,9 @@ class Minz_Configuration {
 	 * @param $value the value to set. If null, the key is removed from the configuration.
 	 */
 	public function _param($key, $value = null) {
-		if (!is_null($this->configuration_setter)) {
-			$value = $this->configuration_setter->handle($key, $value);
-		}
-
-		if (isset($this->data[$key]) && is_null($value)) {
+		if (!is_null($this->configuration_setter) && $this->configuration_setter->support($key)) {
+			$this->configuration_setter->handle($this->data, $key, $value);
+		} elseif (isset($this->data[$key]) && is_null($value)) {
 			unset($this->data[$key]);
 		} elseif (!is_null($value)) {
 			$this->data[$key] = $value;
