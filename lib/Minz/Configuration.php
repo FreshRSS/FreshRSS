@@ -15,9 +15,11 @@ class Minz_Configuration {
 	 * @param $namespace the name of the current configuration
 	 * @param $config_filename the filename of the configuration
 	 * @param $default_filename a filename containing default values for the configuration
+	 * @param $configuration_setter an optional helper to set values in configuration
 	 * @throws Minz_ConfigurationNamespaceException if the namespace already exists.
 	 */
-	public static function register($namespace, $config_filename, $default_filename = null) {
+	public static function register($namespace, $config_filename, $default_filename = null,
+	                                $configuration_setter = null) {
 		if (isset(self::$config_list[$namespace])) {
 			throw new Minz_ConfigurationNamespaceException(
 				$namespace . ' namespace already exists'
@@ -25,7 +27,7 @@ class Minz_Configuration {
 		}
 
 		self::$config_list[$namespace] = new Minz_Configuration(
-			$namespace, $config_filename, $default_filename
+			$namespace, $config_filename, $default_filename, $configuration_setter
 		);
 	}
 
@@ -95,13 +97,20 @@ class Minz_Configuration {
 	private $data_default = array();
 
 	/**
+	 * An object which help to set good values in configuration.
+	 */
+	private $configuration_setter = null;
+
+	/**
 	 * Create a new Minz_Configuration object.
 	 * 
 	 * @param $namespace the name of the current configuration.
 	 * @param $config_filename the file containing configuration values.
 	 * @param $default_filename the file containing default values, null by default.
+	 * @param $configuration_setter an optional helper to set values in configuration
 	 */
-	private function __construct($namespace, $config_filename, $default_filename = null) {
+	private function __construct($namespace, $config_filename, $default_filename = null,
+	                             $configuration_setter = null) {
 		$this->namespace = $namespace;
 		$this->config_filename = $config_filename;
 
@@ -117,6 +126,8 @@ class Minz_Configuration {
 		if (!is_null($this->default_filename)) {
 			$this->data_default = self::load($this->default_filename);
 		}
+
+		$this->configuration_setter = $configuration_setter;
 	}
 
 	/**
@@ -154,9 +165,13 @@ class Minz_Configuration {
 	 * @param $value the value to set. If null, the key is removed from the configuration.
 	 */
 	public function _param($key, $value = null) {
+		if (!is_null($this->configuration_setter)) {
+			$value = $this->configuration_setter->handle($key, $value);
+		}
+
 		if (isset($this->data[$key]) && is_null($value)) {
 			unset($this->data[$key]);
-		} else {
+		} elseif (!is_null($value)) {
 			$this->data[$key] = $value;
 		}
 	}
