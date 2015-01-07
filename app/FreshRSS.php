@@ -6,15 +6,25 @@ class FreshRSS extends Minz_FrontController {
 			Minz_Session::init('FreshRSS');
 		}
 
+		$this->initConfiguration();
+		$this->initAuth();
+		FreshRSS_Context::init();
+		$this->initI18n();
+		FreshRSS_Share::load(join_path(DATA_PATH, 'shares.php'));
+		$this->loadStylesAndScripts();
+		$this->loadNotifications();
+		$this->loadExtensions();
+	}
+
+	private function initConfiguration() {
 		$current_user = Minz_Session::param('currentUser', '_');
 		Minz_Configuration::register('user',
 		                             join_path(USERS_PATH, $current_user, 'config.php'),
 		                             join_path(USERS_PATH, '_', 'config.default.php'));
+	}
 
-		// Need to be called just after session init because it initializes
-		// current user.
+	private function initAuth() {
 		FreshRSS_Auth::init();
-
 		if (Minz_Request::isPost() && !is_referer_from_same_domain()) {
 			// Basic protection against XSRF attacks
 			FreshRSS_Auth::removeAccess();
@@ -27,17 +37,6 @@ class FreshRSS extends Minz_FrontController {
 				))
 			);
 		}
-
-		// Load context and configuration.
-		FreshRSS_Context::init();
-
-		$this->initI18n();
-
-		FreshRSS_Share::load(join_path(DATA_PATH, 'shares.php'));
-
-		$this->loadStylesAndScripts();
-		$this->loadNotifications();
-		$this->loadExtensions();
 	}
 
 	private function initI18n() {
