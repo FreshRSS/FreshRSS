@@ -127,7 +127,18 @@ class Minz_Configuration {
 			$this->data_default = self::load($this->default_filename);
 		}
 
-		$this->configuration_setter = $configuration_setter;
+		$this->_configurationSetter($configuration_setter);
+	}
+
+	/**
+	 * Set a configuration setter for the current configuration.
+	 * @param $configuration_setter the setter to call when modifying data. It
+	 *        must implement an handle($key, $value) method.
+	 */
+	public function _configurationSetter($configuration_setter) {
+		if (is_callable(array($configuration_setter, 'handle'))) {
+			$this->configuration_setter = $configuration_setter;
+		}
 	}
 
 	/**
