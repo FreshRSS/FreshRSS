@@ -129,8 +129,6 @@ if (!empty($this->entries)) {
 				} ?>
 				<li class="item"><?php
 						if ($bottomline_sharing) {
-							$link = urlencode($item->link());
-							$title = urlencode($item->title() . ' · ' . $feed->name());
 					?><div class="dropdown">
 						<div id="dropdown-share-<?php echo $item->id();?>" class="dropdown-target"></div>
 						<a class="dropdown-toggle" href="#dropdown-share-<?php echo $item->id();?>">
@@ -139,19 +137,19 @@ if (!empty($this->entries)) {
 						</a>
 
 						<ul class="dropdown-menu">
-							<li class="dropdown-close"><a href="#close">❌</a></li>
-							<?php
-								foreach ($sharing as $share) {
-									$type_share = FreshRSS_Context::$user_conf->shares[$share['type']];
-									$has_specific_title = ($type_share['form'] === 'advanced');
-							?>
-								<li class="item share">
-									<a target="_blank" href="<?php echo FreshRSS_Share::generateUrl(FreshRSS_Context::$user_conf->shares, $share, $item->link(), $item->title() . ' . ' . $feed->name())?>">
-										<?php echo $has_specific_title ? $share['name'] : _t('index.share.' . $share['name']); ?>
-									</a>
-								</li>
-							<?php } ?>
-						</ul>
+							<li class="dropdown-close"><a href="#close">❌</a></li><?php
+								$link = $item->link();
+								$title = $item->title() . ' · ' . $feed->name();
+								foreach (FreshRSS_Context::$user_conf->sharing as $share_options) {
+									$share = FreshRSS_Share::get($share_options['type']);
+									$share_options['link'] = $link;
+									$share_options['title'] = $title;
+									$share->update($share_options);
+							?><li class="item share">
+								<a target="_blank" href="<?php echo $share->url(); ?>"><?php echo $share->name(); ?></a>
+							</li><?php
+								}
+						?></ul>
 					</div>
 					<?php } ?>
 				</li><?php

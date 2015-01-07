@@ -32,6 +32,9 @@ class FreshRSS extends Minz_FrontController {
 		FreshRSS_Context::init();
 
 		$this->initI18n();
+
+		FreshRSS_Share::load(join_path(DATA_PATH, 'shares.php'));
+
 		$this->loadStylesAndScripts();
 		$this->loadNotifications();
 		$this->loadExtensions();
