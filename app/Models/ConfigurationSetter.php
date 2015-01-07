@@ -23,13 +23,24 @@ class FreshRSS_ConfigurationSetter {
 	}
 
 	/**
-	 * The (long) list of setters.
+	 * A helper to set boolean values.
+	 *
+	 * @param $value the tested value.
+	 * @return true if value is true and different from no, false else.
+	 */
+	private function handleBool($value) {
+		return ((bool)$value) && $value !== 'no';
+	}
+
+	/**
+	 * The (long) list of setters for user configuration.
 	 */
 	private function _apiPasswordHash(&$data, $value) {
 		$data['apiPasswordHash'] = ctype_graph($value) && (strlen($value) >= 60) ? $value : '';
 	}
 
 	private function _content_width(&$data, $value) {
+		$value = strtolower($value);
 		if (!in_array($value, array('thin', 'medium', 'large', 'no_limit'))) {
 			$value = 'thin';
 		}
@@ -66,7 +77,9 @@ class FreshRSS_ConfigurationSetter {
 		$data['keep_history_default'] = $value >= -1 ? $value : 0;
 	}
 
+	// It works for system config too!
 	private function _language(&$data, $value) {
+		$value = strtolower($value);
 		$languages = Minz_Translate::availableLanguages();
 		if (!isset($languages[$value])) {
 			$value = 'en';
@@ -149,6 +162,7 @@ class FreshRSS_ConfigurationSetter {
 	}
 
 	private function _view_mode(&$data, $value) {
+		$value = strtolower($value);
 		if (!in_array($value, array('global', 'normal', 'reader'))) {
 			$value = 'normal';
 		}
@@ -158,10 +172,6 @@ class FreshRSS_ConfigurationSetter {
 	/**
 	 * A list of boolean setters.
 	 */
-	private function handleBool($value) {
-		return ((bool)$value) && $value !== 'no';
-	}
-
 	private function _anon_access(&$data, $value) {
 		$data['anon_access'] = $this->handleBool($value);
 	}
@@ -240,5 +250,119 @@ class FreshRSS_ConfigurationSetter {
 	}
 	private function _topline_read(&$data, $value) {
 		$data['topline_read'] = $this->handleBool($value);
+	}
+
+	/**
+	 * The (not so long) list of setters for system configuration.
+	 */
+	private function _allow_anonymous(&$data, $value) {
+		$data['allow_anonymous'] = $this->handleBool($value) && FreshRSS_Auth::accessNeedsAction();
+	}
+
+	private function _allow_anonymous_refresh(&$data, $value) {
+		$data['allow_anonymous_refresh'] = $this->handleBool($value) && $data['allow_anonymous'];
+	}
+
+	private function _api_enabled(&$data, $value) {
+		$data['api_enabled'] = $this->handleBool($value);
+	}
+
+	private function _auth_type(&$data, $value) {
+		$value = strtolower($value);
+		if (!in_array($value, array('form', 'http_auth', 'persona', 'none'))) {
+			$value = 'none';
+		}
+		$data['auth_type'] = $value;
+		$this->_allow_anonymous($data, $data['allow_anonymous']);
+	}
+
+	private function _db(&$data, $value) {
+		if (!isset($value['type'])) {
+			return;
+		}
+
+		switch ($value['type']) {
+		case 'mysql':
+			if (empty($value['host']) ||
+					empty($value['user']) ||
+					empty($value['base']) ||
+					!isset($value['password'])) {
+				return;
+			}
+
+			$data['db']['type'] = $value['type'];
+			$data['db']['host'] = $value['host'];
+			$data['db']['user'] = $value['user'];
+			$data['db']['base'] = $value['base'];
+			$data['db']['password'] = $value['password'];
+			$data['db']['prefix'] = isset($value['prefix']) ? $value['prefix'] : '';
+			break;
+		case 'sqlite':
+			$data['db']['type'] = $value['type'];
+			$data['db']['host'] = '';
+			$data['db']['user'] = '';
+			$data['db']['base'] = '';
+			$data['db']['password'] = '';
+			$data['db']['prefix'] = '';
+			break;
+		default:
+			return;
+		}
+	}
+
+	private function _default_user(&$data, $value) {
+		$user_list = listUsers();
+		if (in_array($value, $user_list)) {
+			$data['default_user'] = $value;
+		}
+	}
+
+	private function _environment(&$data, $value) {
+		$value = strtolower($value);
+		if (!in_array($value, array('silent', 'development', 'production'))) {
+			$value = 'production';
+		}
+		$data['environment'] =  $value;
+	}
+
+	private function _limits(&$data, $values) {
+		$max_small_int = 16384;
+		$limits_keys = array(
+			'cache_duration' => array(
+				'min' => 0,
+			),
+			'timeout' => array(
+				'min' => 0,
+			),
+			'max_inactivity' => array(
+				'min' => 0,
+			),
+			'max_feeds' => array(
+				'min' => 0,
+				'max' => $max_small_int,
+			),
+			'max_categories' => array(
+				'min' => 0,
+				'max' => $max_small_int,
+			),
+		);
+
+		foreach ($values as $key => $value) {
+			if (!isset($limits_keys[$key])) {
+				continue;
+			}
+
+			$limits = $limits_keys[$key];
+			if (
+				(!isset($limits['min']) || $value > $limits['min']) &&
+				(!isset($limits['max']) || $value < $limits['max'])
+			) {
+				$data['limits'][$key] = $value;
+			}
+		}
+	}
+
+	private function _unsafe_autologin_enabled(&$data, $value) {
+		$data['unsafe_autologin_enabled'] = $this->handleBool($value);
 	}
 }
