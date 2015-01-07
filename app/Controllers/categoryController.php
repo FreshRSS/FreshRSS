@@ -141,7 +141,8 @@ class FreshRSS_category_Controller extends Minz_ActionController {
 			}
 
 			// Remove related queries.
-			FreshRSS_Context::$user_conf->remove_query_by_get('c_' . $id);
+			FreshRSS_Context::$user_conf->queries = remove_query_by_get(
+				'c_' . $id, FreshRSS_Context::$user_conf->queries);
 			FreshRSS_Context::$user_conf->save();
 
 			Minz_Request::good(_t('feedback.sub.category.deleted'), $url_redirect);
@@ -177,7 +178,8 @@ class FreshRSS_category_Controller extends Minz_ActionController {
 
 				// Remove related queries
 				foreach ($feeds as $feed) {
-					FreshRSS_Context::$user_conf->remove_query_by_get('f_' . $feed->id());
+					FreshRSS_Context::$user_conf->queries = remove_query_by_get(
+						'f_' . $feed->id(), FreshRSS_Context::$user_conf->queries);
 				}
 				FreshRSS_Context::$user_conf->save();
 

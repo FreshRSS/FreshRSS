@@ -387,3 +387,20 @@ function recursive_unlink($dir) {
 	}
 	return rmdir($dir);
 }
+
+
+/**
+ * Remove queries where $get is appearing.
+ * @param $get the get attribute which should be removed.
+ * @param $queries an array of queries.
+ * @return the same array whithout those where $get is appearing.
+ */
+function remove_query_by_get($get, $queries) {
+	$final_queries = array();
+	foreach ($queries as $key => $query) {
+		if (empty($query['get']) || $query['get'] !== $get) {
+			$final_queries[$key] = $query;
+		}
+	}
+	return $final_queries;
+}

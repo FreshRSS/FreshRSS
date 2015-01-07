@@ -477,7 +477,8 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 			// TODO: Delete old favicon
 
 			// Remove related queries
-			FreshRSS_Context::$user_conf->remove_query_by_get('f_' . $id);
+			FreshRSS_Context::$user_conf->queries = remove_query_by_get(
+				'f_' . $id, FreshRSS_Context::$user_conf->queries);
 			FreshRSS_Context::$user_conf->save();
 
 			Minz_Request::good(_t('feedback.sub.feed.deleted'), $redirect_url);
