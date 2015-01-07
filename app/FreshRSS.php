@@ -17,10 +17,15 @@ class FreshRSS extends Minz_FrontController {
 	}
 
 	private function initConfiguration() {
+		$configuration_setter = new FreshRSS_ConfigurationSetter();
 		$current_user = Minz_Session::param('currentUser', '_');
+
 		Minz_Configuration::register('user',
 		                             join_path(USERS_PATH, $current_user, 'config.php'),
-		                             join_path(USERS_PATH, '_', 'config.default.php'));
+		                             join_path(USERS_PATH, '_', 'config.default.php'),
+		                             $configuration_setter);
+		$system_conf = Minz_Configuration::get('system');
+		$system_conf->_configurationSetter($configuration_setter);
 	}
 
 	private function initAuth() {
