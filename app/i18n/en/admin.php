@@ -102,6 +102,12 @@ return array(
 			'ok' => 'You have ZIP extension.',
 		),
 	),
+	'extensions' => array(
+		'empty_list' => 'There is no installed extension',
+		'no_configure_view' => 'This extension cannot be configured.',
+		'system' => 'System extension (you have no rights on it)',
+		'title' => 'Extensions',
+	),
 	'stats' => array(
 		'_' => 'Statistics',
 		'all_feeds' => 'All feeds',

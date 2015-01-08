@@ -64,6 +64,7 @@ if (FreshRSS_Auth::accessNeedsAction()) {
 				<li class="item"><a href="<?php echo _url('configure', 'shortcut'); ?>"><?php echo _t('gen.menu.shortcuts'); ?></a></li>
 				<li class="item"><a href="<?php echo _url('configure', 'queries'); ?>"><?php echo _t('gen.menu.queries'); ?></a></li>
 				<li class="item"><a href="<?php echo _url('user', 'profile'); ?>"><?php echo _t('gen.menu.user_profile'); ?></a></li>
+				<li class="item"><a href="<?php echo _url('extension', 'index'); ?>"><?php echo _t('gen.menu.extensions'); ?></a></li>
 				<?php if (FreshRSS_Auth::hasAccess('admin')) { ?>
 				<li class="separator"></li>
 				<li class="dropdown-header"><?php echo _t('gen.menu.admin'); ?></li>

@@ -6,6 +6,8 @@ class FreshRSS extends Minz_FrontController {
 			Minz_Session::init('FreshRSS');
 		}
 
+		// Load list of extensions and enable the "system" ones.
+		Minz_ExtensionManager::init();
 		$this->initConfiguration();
 		$this->initAuth();
 		FreshRSS_Context::init();
@@ -13,7 +15,11 @@ class FreshRSS extends Minz_FrontController {
 		FreshRSS_Share::load(join_path(DATA_PATH, 'shares.php'));
 		$this->loadStylesAndScripts();
 		$this->loadNotifications();
-		$this->loadExtensions();
+		// Enable extensions for the current (logged) user.
+		if (FreshRSS_Auth::hasAccess()) {
+			$ext_list = FreshRSS_Context::$user_conf->extensions_enabled;
+			Minz_ExtensionManager::enable_by_list($ext_list);
+		}
 	}
 
 	private function initConfiguration() {
@@ -46,11 +52,7 @@ class FreshRSS extends Minz_FrontController {
 
 	private function initI18n() {
 		Minz_Session::_param('language', FreshRSS_Context::$user_conf->language);
-
-		Minz_Translate::init(array(
-			'en' => 'English',
-			'fr' => 'Français',
-		), FreshRSS_Context::$user_conf->language);
+		Minz_Translate::init(FreshRSS_Context::$user_conf->language);
 	}
 
 	private function loadStylesAndScripts() {
@@ -89,26 +91,6 @@ class FreshRSS extends Minz_FrontController {
 		if ($notif) {
 			Minz_View::_param('notification', $notif);
 			Minz_Session::_param('notification');
-		}
-	}
-
-	private function loadExtensions() {
-		$extensionPath = FRESHRSS_PATH . '/extensions/';
-		//TODO: Add a preference to load only user-selected extensions
-		foreach (scandir($extensionPath) as $key => $extension) {
-			if (ctype_alpha($extension)) {
-				$mtime = @filemtime($extensionPath . $extension . '/style.css');
-				if ($mtime !== false) {
-					Minz_View::appendStyle(Minz_Url::display('/ext.php?c&amp;e=' . $extension . '&amp;' . $mtime));
-				}
-				$mtime = @filemtime($extensionPath . $extension . '/script.js');
-				if ($mtime !== false) {
-					Minz_View::appendScript(Minz_Url::display('/ext.php?j&amp;e=' . $extension . '&amp;' . $mtime));
-				}
-				if (file_exists($extensionPath . $extension . '/module.php')) {
-					//TODO: include
-				} 
-			}
 		}
 	}
 }

@@ -375,6 +375,7 @@ function recursive_unlink($dir) {
 	if (!is_dir($dir)) {
 		return true;
 	}
+
 	$files = array_diff(scandir($dir), array('.', '..'));
 	foreach ($files as $filename) {
 		$filename = $dir . '/' . $filename;
@@ -385,6 +386,7 @@ function recursive_unlink($dir) {
 			unlink($filename);
 		}
 	}
+
 	return rmdir($dir);
 }
 
@@ -403,4 +405,27 @@ function remove_query_by_get($get, $queries) {
 		}
 	}
 	return $final_queries;
+}
+
+
+/**
+ * Add a value in an array and take care it is unique.
+ * @param $array the array in which we add the value.
+ * @param $value the value to add.
+ */
+function array_push_unique(&$array, $value) {
+	$found = array_search($value, $array) !== false;
+	if (!$found) {
+		$array[] = $value;
+	}
+}
+
+
+/**
+ * Remove a value from an array.
+ * @param $array the array from wich value is removed.
+ * @param $value the value to remove.
+ */
+function array_remove(&$array, $value) {
+	$array = array_diff($array, array($value));
 }

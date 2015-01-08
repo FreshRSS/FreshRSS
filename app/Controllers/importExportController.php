@@ -257,10 +257,16 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 			$feed->_website($website);
 			$feed->_description($description);
 
-			// addFeedObject checks if feed is already in DB so nothing else to
-			// check here
-			$id = $this->feedDAO->addFeedObject($feed);
-			$error = ($id === false);
+			// Call the extension hook
+			$feed = Minz_ExtensionManager::callHook('feed_before_insert', $feed);
+			if (!is_null($feed)) {
+				// addFeedObject checks if feed is already in DB so nothing else to
+				// check here
+				$id = $this->feedDAO->addFeedObject($feed);
+				$error = ($id === false);
+			} else {
+				$error = true;
+			}
 		} catch (FreshRSS_Feed_Exception $e) {
 			Minz_Log::warning($e->getMessage());
 			$error = true;
@@ -383,6 +389,12 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 			$entry->_id(min(time(), $entry->date(true)) . uSecString());
 			$entry->_tags($tags);
 
+			$entry = Minz_ExtensionManager::callHook('entry_before_insert', $entry);
+			if (is_null($entry)) {
+				// An extension has returned a null value, there is nothing to insert.
+				continue;
+			}
+
 			$values = $entry->toArray();
 			$id = $this->entryDAO->addEntry($values, $prepared_statement);
 
@@ -419,13 +431,17 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 			$feed->_name($name);
 			$feed->_website($website);
 
-			// addFeedObject checks if feed is already in DB so nothing else to
-			// check here.
-			$id = $this->feedDAO->addFeedObject($feed);
+			// Call the extension hook
+			$feed = Minz_ExtensionManager::callHook('feed_before_insert', $feed);
+			if (!is_null($feed)) {
+				// addFeedObject checks if feed is already in DB so nothing else to
+				// check here.
+				$id = $this->feedDAO->addFeedObject($feed);
 
-			if ($id !== false) {
-				$feed->_id($id);
-				$return = $feed;
+				if ($id !== false) {
+					$feed->_id($id);
+					$return = $feed;
+				}
 			}
 		} catch (FreshRSS_Feed_Exception $e) {
 			Minz_Log::warning($e->getMessage());

@@ -29,6 +29,14 @@ return array(
 		'shortcuts_updated' => 'Shortcuts have been updated',
 		'updated' => 'Configuration has been updated',
 	),
+	'extensions' => array(
+		'already_enabled' => '%s is already enabled',
+		'disabled' => '%s is now disabled',
+		'enabled' => '%s is now enabled',
+		'no_access' => 'You have no access on %s',
+		'not_enabled' => '%s is not enabled yet',
+		'not_found' => '%s does not exist',
+	),
 	'import_export' => array(
 		'export_no_zip_extension' => 'Zip extension is not present on your server. Please try to export files one by one.',
 		'feeds_imported' => 'Your feeds have been imported and will now be updated',

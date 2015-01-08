@@ -1,0 +1,33 @@
+<?php
+	$topline_read = FreshRSS_Context::$user_conf->topline_read;
+	$topline_favorite = FreshRSS_Context::$user_conf->topline_favorite;
+	$topline_date = FreshRSS_Context::$user_conf->topline_date;
+	$topline_link = FreshRSS_Context::$user_conf->topline_link;
+?><ul class="horizontal-list flux_header"><?php
+	if (FreshRSS_Auth::hasAccess()) {
+		if ($topline_read) {
+			?><li class="item manage"><?php
+				$arUrl = array('c' => 'entry', 'a' => 'read', 'params' => array('id' => $this->entry->id()));
+				if ($this->entry->isRead()) {
+					$arUrl['params']['is_read'] = 0;
+				}
+				?><a class="read" href="<?php echo Minz_Url::display($arUrl); ?>"><?php
+					echo _i($this->entry->isRead() ? 'read' : 'unread'); ?></a><?php
+			?></li><?php
+		}
+		if ($topline_favorite) {
+			?><li class="item manage"><?php
+				$arUrl = array('c' => 'entry', 'a' => 'bookmark', 'params' => array('id' => $this->entry->id()));
+				if ($this->entry->isFavorite()) {
+					$arUrl['params']['is_favorite'] = 0;
+				}
+				?><a class="bookmark" href="<?php echo Minz_Url::display($arUrl); ?>"><?php
+					echo _i($this->entry->isFavorite() ? 'starred' : 'non-starred'); ?></a><?php
+			?></li><?php
+		}
+	}
+	?><li class="item website"><a href="<?php echo _url('index', 'index', 'get', 'f_' . $this->feed->id()); ?>"><img class="favicon" src="<?php echo $this->feed->favicon(); ?>" alt="✇" /> <span><?php echo $this->feed->name(); ?></span></a></li>
+	<li class="item title"><a target="_blank" href="<?php echo $this->entry->link(); ?>"><?php echo $this->entry->title(); ?></a></li>
+	<?php if ($topline_date) { ?><li class="item date"><?php echo $this->entry->date(); ?> </li><?php } ?>
+	<?php if ($topline_link) { ?><li class="item link"><a target="_blank" href="<?php echo $this->entry->link(); ?>"><?php echo _i('link'); ?></a></li><?php } ?>
+</ul>

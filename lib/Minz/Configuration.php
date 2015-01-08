@@ -101,6 +101,19 @@ class Minz_Configuration {
 	 */
 	private $configuration_setter = null;
 
+	public function removeExtension($ext_name) {
+		self::$extensions_enabled = array_diff(
+			self::$extensions_enabled,
+			array($ext_name)
+		);
+	}
+	public function addExtension($ext_name) {
+		$found = array_search($ext_name, self::$extensions_enabled) !== false;
+		if (!$found) {
+			self::$extensions_enabled[] = $ext_name;
+		}
+	}
+
 	/**
 	 * Create a new Minz_Configuration object.
 	 * 

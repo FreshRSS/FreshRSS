@@ -142,6 +142,13 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 			$feed->_category($cat);
 			$feed->_httpAuth($http_auth);
 
+			// Call the extension hook
+			$name = $feed->name();
+			$feed = Minz_ExtensionManager::callHook('feed_before_insert', $feed);
+			if (is_null($feed)) {
+				Minz_Request::bad(_t('feed_not_added', $name), $url_redirect);
+			}
+
 			$values = array(
 				'url' => $feed->url(),
 				'category' => $feed->category(),
@@ -178,10 +185,17 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 			$feedDAO->beginTransaction();
 			foreach ($entries as $entry) {
 				// Entries are added without any verification.
+				$entry->_feed($feed->id());
+				$entry->_id(min(time(), $entry->date(true)) . uSecString());
+				$entry->_isRead($is_read);
+
+				$entry = Minz_ExtensionManager::callHook('entry_before_insert', $entry);
+				if (is_null($entry)) {
+					// An extension has returned a null value, there is nothing to insert.
+					continue;
+				}
+
 				$values = $entry->toArray();
-				$values['id_feed'] = $feed->id();
-				$values['id'] = min(time(), $entry->date(true)) . uSecString();
-				$values['is_read'] = $is_read;
 				$entryDAO->addEntry($values, $prepared_statement);
 			}
 			$feedDAO->updateLastUpdate($feed->id());
@@ -333,9 +347,16 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 						$id = min(time(), $entry_date) . uSecString();
 					}
 
+					$entry->_id($id);
+					$entry->_isRead($is_read);
+
+					$entry = Minz_ExtensionManager::callHook('entry_before_insert', $entry);
+					if (is_null($entry)) {
+						// An extension has returned a null value, there is nothing to insert.
+						continue;
+					}
+
 					$values = $entry->toArray();
-					$values['id'] = $id;
-					$values['is_read'] = $is_read;
 					$entryDAO->addEntry($values, $prepared_statement);
 				}
 			}

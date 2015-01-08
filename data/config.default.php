@@ -27,4 +27,5 @@ return array(
 		'base' => '',
 		'prefix' => '',
 	),
+	'extensions_enabled' => array(),
 );

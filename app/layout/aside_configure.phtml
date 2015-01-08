@@ -22,6 +22,10 @@
 	                          Minz_Request::actionName() === 'profile'? ' active' : ''; ?>">
 		<a href="<?php echo _url('user', 'profile'); ?>"><?php echo _t('gen.menu.user_profile'); ?></a>
 	</li>
+	<li class="item<?php echo Minz_Request::controllerName() === 'extension' &&
+	                          Minz_Request::actionName() === 'index'? ' active' : ''; ?>">
+		<a href="<?php echo _url('extension', 'index'); ?>"><?php echo _t('gen.menu.extensions'); ?></a>
+	</li>
 	<?php if (FreshRSS_Auth::hasAccess('admin')) { ?>
 	<li class="nav-header"><?php echo _t('gen.menu.admin'); ?></li>
 	<li class="item<?php echo Minz_Request::controllerName() === 'user' &&

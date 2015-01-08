@@ -63,4 +63,5 @@ return array (
 	'queries' => array (
 	),
 	'html5_notif_timeout' => 0,
+	'extensions_enabled' => array(),
 );

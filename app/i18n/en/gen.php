@@ -100,6 +100,10 @@ return array(
 		'notif_title_new_articles' => 'FreshRSS: new articles!',
 		'should_be_activated' => 'JavaScript must be enabled',
 	),
+	'lang' => array(
+		'en' => 'English',
+		'fr' => 'Français',
+	),
 	'menu' => array(
 		'about' => 'About',
 		'admin' => 'Administration',
@@ -108,6 +112,7 @@ return array(
 		'check_install' => 'Installation checking',
 		'configuration' => 'Configuration',
 		'display' => 'Display',
+		'extensions' => 'Extensions',
 		'logs' => 'Logs',
 		'queries' => 'User queries',
 		'reading' => 'Reading',

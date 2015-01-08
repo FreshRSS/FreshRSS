@@ -29,6 +29,14 @@ return array(
 		'shortcuts_updated' => 'Les raccourcis ont été mis à jour.',
 		'updated' => 'La configuration a été mise à jour',
 	),
+	'extensions' => array(
+		'already_enabled' => '%s est déjà activée',
+		'disabled' => '%s est désormais désactivée',
+		'enabled' => '%s est désormais activée',
+		'no_access' => 'Vous n’avez aucun accès sur %s',
+		'not_enabled' => '%s n’est pas encore activée',
+		'not_found' => '%s n’existe pas',
+	),
 	'import_export' => array(
 		'export_no_zip_extension' => 'L’extension Zip n’est pas présente sur votre serveur. Veuillez essayer d’exporter les fichiers un par un.',
 		'feeds_imported' => 'Vos flux ont été importés et vont maintenant être actualisés.',
