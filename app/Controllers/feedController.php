@@ -14,12 +14,13 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 			// Token is useful in the case that anonymous refresh is forbidden
 			// and CRON task cannot be used with php command so the user can
 			// set a CRON task to refresh his feeds by using token inside url
-			$token = FreshRSS_Context::$conf->token;
+			$token = FreshRSS_Context::$user_conf->token;
 			$token_param = Minz_Request::param('token', '');
 			$token_is_ok = ($token != '' && $token == $token_param);
 			$action = Minz_Request::actionName();
+			$allow_anonymous_refresh = FreshRSS_Context::$system_conf->allow_anonymous_refresh;
 			if ($action !== 'actualize' ||
-					!(Minz_Configuration::allowAnonymousRefresh() || $token_is_ok)) {
+					!($allow_anonymous_refresh || $token_is_ok)) {
 				Minz_Error::error(403);
 			}
 		}
@@ -65,7 +66,7 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 			'params' => array(),
 		);
 
-		$limits = Minz_Configuration::limits();
+		$limits = FreshRSS_Context::$system_conf->limits;
 		$this->view->feeds = $feedDAO->listFeeds();
 		if (count($this->view->feeds) >= $limits['max_feeds']) {
 			Minz_Request::bad(_t('feedback.sub.feed.over_max', $limits['max_feeds']),
@@ -161,14 +162,14 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 			$feed->_id($id);
 			$feed->faviconPrepare();
 
-			$is_read = FreshRSS_Context::$conf->mark_when['reception'] ? 1 : 0;
+			$is_read = FreshRSS_Context::$user_conf->mark_when['reception'] ? 1 : 0;
 
 			$entryDAO = FreshRSS_Factory::createEntryDao();
 			// We want chronological order and SimplePie uses reverse order.
 			$entries = array_reverse($feed->entries());
 
 			// Calculate date of oldest entries we accept in DB.
-			$nb_month_old = FreshRSS_Context::$conf->old_entries;
+			$nb_month_old = FreshRSS_Context::$user_conf->old_entries;
 			$date_min = time() - (3600 * 24 * 30 * $nb_month_old);
 
 			// Use a shared statement and a transaction to improve a LOT the
@@ -272,15 +273,15 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 				$feeds[] = $feed;
 			}
 		} else {
-			$feeds = $feedDAO->listFeedsOrderUpdate(FreshRSS_Context::$conf->ttl_default);
+			$feeds = $feedDAO->listFeedsOrderUpdate(FreshRSS_Context::$user_conf->ttl_default);
 		}
 
 		// Calculate date of oldest entries we accept in DB.
-		$nb_month_old = max(FreshRSS_Context::$conf->old_entries, 1);
+		$nb_month_old = max(FreshRSS_Context::$user_conf->old_entries, 1);
 		$date_min = time() - (3600 * 24 * 30 * $nb_month_old);
 
 		$updated_feeds = 0;
-		$is_read = FreshRSS_Context::$conf->mark_when['reception'] ? 1 : 0;
+		$is_read = FreshRSS_Context::$user_conf->mark_when['reception'] ? 1 : 0;
 		foreach ($feeds as $feed) {
 			if (!$feed->lock()) {
 				Minz_Log::notice('Feed already being actualized: ' . $feed->url());
@@ -302,7 +303,7 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 			if ($feed_history == -2) {
 				// TODO: -2 must be a constant!
 				// -2 means we take the default value from configuration
-				$feed_history = FreshRSS_Context::$conf->keep_history_default;
+				$feed_history = FreshRSS_Context::$user_conf->keep_history_default;
 			}
 
 			// We want chronological order and SimplePie uses reverse order.
@@ -476,8 +477,9 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 			// TODO: Delete old favicon
 
 			// Remove related queries
-			FreshRSS_Context::$conf->remove_query_by_get('f_' . $id);
-			FreshRSS_Context::$conf->save();
+			FreshRSS_Context::$user_conf->queries = remove_query_by_get(
+				'f_' . $id, FreshRSS_Context::$user_conf->queries);
+			FreshRSS_Context::$user_conf->save();
 
 			Minz_Request::good(_t('feedback.sub.feed.deleted'), $redirect_url);
 		} else {

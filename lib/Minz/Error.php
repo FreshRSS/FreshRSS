@@ -82,7 +82,8 @@ class Minz_Error {
 	 *       > en fonction de l'environment
 	 */
 	private static function processLogs ($logs) {
-		$env = Minz_Configuration::environment ();
+		$conf = Minz_Configuration::get('system');
+		$env = $conf->environment;
 		$logs_ok = array ();
 		$error = array ();
 		$warning = array ();
@@ -98,10 +99,10 @@ class Minz_Error {
 			$notice = $logs['notice'];
 		}
 
-		if ($env == Minz_Configuration::PRODUCTION) {
+		if ($env == 'production') {
 			$logs_ok = $error;
 		}
-		if ($env == Minz_Configuration::DEVELOPMENT) {
+		if ($env == 'development') {
 			$logs_ok = array_merge ($error, $warning, $notice);
 		}
 

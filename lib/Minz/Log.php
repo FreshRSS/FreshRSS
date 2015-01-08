@@ -31,10 +31,15 @@ class Minz_Log {
 	 * @param $file_name fichier de log
 	 */
 	public static function record ($information, $level, $file_name = null) {
-		$env = Minz_Configuration::environment ();
+		try {
+			$conf = Minz_Configuration::get('system');
+			$env = $conf->environment;
+		} catch (Minz_ConfigurationException $e) {
+			$env = 'production';
+		}
 
-		if (! ($env === Minz_Configuration::SILENT
-		       || ($env === Minz_Configuration::PRODUCTION
+		if (! ($env === 'silent'
+		       || ($env === 'production'
 		       && ($level >= Minz_Log::NOTICE)))) {
 			if ($file_name === null) {
 				$file_name = join_path(USERS_PATH, Minz_Session::param('currentUser', '_'), 'log.txt');

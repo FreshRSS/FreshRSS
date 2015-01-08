@@ -8,24 +8,24 @@ if (!empty($this->entries)) {
 	$display_yesterday = true;
 	$display_others = true;
 	if (FreshRSS_Auth::hasAccess()) {
-		$sharing = FreshRSS_Context::$conf->sharing;
+		$sharing = FreshRSS_Context::$user_conf->sharing;
 	} else {
 		$sharing = array();
 	}
-	$hidePosts = !FreshRSS_Context::$conf->display_posts;
-	$lazyload = FreshRSS_Context::$conf->lazyload;
-	$topline_read = FreshRSS_Context::$conf->topline_read;
-	$topline_favorite = FreshRSS_Context::$conf->topline_favorite;
-	$topline_date = FreshRSS_Context::$conf->topline_date;
-	$topline_link = FreshRSS_Context::$conf->topline_link;
-	$bottomline_read = FreshRSS_Context::$conf->bottomline_read;
-	$bottomline_favorite = FreshRSS_Context::$conf->bottomline_favorite;
-	$bottomline_sharing = FreshRSS_Context::$conf->bottomline_sharing && (count($sharing));
-	$bottomline_tags = FreshRSS_Context::$conf->bottomline_tags;
-	$bottomline_date = FreshRSS_Context::$conf->bottomline_date;
-	$bottomline_link = FreshRSS_Context::$conf->bottomline_link;
+	$hidePosts = !FreshRSS_Context::$user_conf->display_posts;
+	$lazyload = FreshRSS_Context::$user_conf->lazyload;
+	$topline_read = FreshRSS_Context::$user_conf->topline_read;
+	$topline_favorite = FreshRSS_Context::$user_conf->topline_favorite;
+	$topline_date = FreshRSS_Context::$user_conf->topline_date;
+	$topline_link = FreshRSS_Context::$user_conf->topline_link;
+	$bottomline_read = FreshRSS_Context::$user_conf->bottomline_read;
+	$bottomline_favorite = FreshRSS_Context::$user_conf->bottomline_favorite;
+	$bottomline_sharing = FreshRSS_Context::$user_conf->bottomline_sharing && (count($sharing));
+	$bottomline_tags = FreshRSS_Context::$user_conf->bottomline_tags;
+	$bottomline_date = FreshRSS_Context::$user_conf->bottomline_date;
+	$bottomline_link = FreshRSS_Context::$user_conf->bottomline_link;
 
-	$content_width = FreshRSS_Context::$conf->content_width;
+	$content_width = FreshRSS_Context::$user_conf->content_width;
 
 	$today = @strtotime('today');
 ?>
@@ -129,8 +129,6 @@ if (!empty($this->entries)) {
 				} ?>
 				<li class="item"><?php
 						if ($bottomline_sharing) {
-							$link = urlencode($item->link());
-							$title = urlencode($item->title() . ' · ' . $feed->name());
 					?><div class="dropdown">
 						<div id="dropdown-share-<?php echo $item->id();?>" class="dropdown-target"></div>
 						<a class="dropdown-toggle" href="#dropdown-share-<?php echo $item->id();?>">
@@ -139,19 +137,19 @@ if (!empty($this->entries)) {
 						</a>
 
 						<ul class="dropdown-menu">
-							<li class="dropdown-close"><a href="#close">❌</a></li>
-							<?php
-								foreach ($sharing as $share) {
-									$type_share = FreshRSS_Context::$conf->shares[$share['type']];
-									$has_specific_title = ($type_share['form'] === 'advanced');
-							?>
-								<li class="item share">
-									<a target="_blank" href="<?php echo FreshRSS_Share::generateUrl(FreshRSS_Context::$conf->shares, $share, $item->link(), $item->title() . ' . ' . $feed->name())?>">
-										<?php echo $has_specific_title ? $share['name'] : _t('index.share.' . $share['name']); ?>
-									</a>
-								</li>
-							<?php } ?>
-						</ul>
+							<li class="dropdown-close"><a href="#close">❌</a></li><?php
+								$link = $item->link();
+								$title = $item->title() . ' · ' . $feed->name();
+								foreach (FreshRSS_Context::$user_conf->sharing as $share_options) {
+									$share = FreshRSS_Share::get($share_options['type']);
+									$share_options['link'] = $link;
+									$share_options['title'] = $title;
+									$share->update($share_options);
+							?><li class="item share">
+								<a target="_blank" href="<?php echo $share->url(); ?>"><?php echo $share->name(); ?></a>
+							</li><?php
+								}
+						?></ul>
 					</div>
 					<?php } ?>
 				</li><?php

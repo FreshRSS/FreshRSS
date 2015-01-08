@@ -119,7 +119,8 @@ function html_only_entity_decode($text) {
 }
 
 function customSimplePie() {
-	$limits = Minz_Configuration::limits();
+	$system_conf = Minz_Configuration::get('system');
+	$limits = $system_conf->limits;
 	$simplePie = new SimplePie();
 	$simplePie->set_useragent(_t('gen.freshrss') . '/' . FRESHRSS_VERSION . ' (' . PHP_OS . '; ' . FRESHRSS_WEBSITE . ') ' . SIMPLEPIE_NAME . '/' . SIMPLEPIE_VERSION);
 	$simplePie->set_cache_location(CACHE_PATH);
@@ -235,6 +236,33 @@ function listUsers() {
 
 	return $final_list;
 }
+
+
+/**
+ * Register and return the configuration for a given user.
+ *
+ * Note this function has been created to generate temporary configuration
+ * objects. If you need a long-time configuration, please don't use this function.
+ *
+ * @param $username the name of the user of which we want the configuration.
+ * @return a Minz_Configuration object, null if the configuration cannot be loaded.
+ */
+function get_user_configuration($username) {
+	$namespace = time() . '_user_' . $username;
+	try {
+		Minz_Configuration::register($namespace,
+		                             join_path(USERS_PATH, $username, 'config.php'),
+		                             join_path(USERS_PATH, '_', 'config.default.php'));
+	} catch (Minz_ConfigurationNamespaceException $e) {
+		// namespace already exists, do nothing.
+	} catch (Minz_FileNotExistException $e) {
+		Minz_Log::warning($e->getMessage());
+		return null;
+	}
+
+	return Minz_Configuration::get($namespace);
+}
+
 
 function httpAuthUser() {
 	return isset($_SERVER['REMOTE_USER']) ? $_SERVER['REMOTE_USER'] : '';
@@ -358,4 +386,21 @@ function recursive_unlink($dir) {
 		}
 	}
 	return rmdir($dir);
+}
+
+
+/**
+ * Remove queries where $get is appearing.
+ * @param $get the get attribute which should be removed.
+ * @param $queries an array of queries.
+ * @return the same array whithout those where $get is appearing.
+ */
+function remove_query_by_get($get, $queries) {
+	$final_queries = array();
+	foreach ($queries as $key => $query) {
+		if (empty($query['get']) || $query['get'] !== $get) {
+			$final_queries[$key] = $query;
+		}
+	}
+	return $final_queries;
 }

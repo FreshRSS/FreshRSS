@@ -55,7 +55,7 @@ class Minz_Session {
 
 		if (!$force) {
 			self::_param('language', $language);
-			Minz_Translate::reset();
+			Minz_Translate::reset($language);
 		}
 	}
 

@@ -40,7 +40,8 @@ class FreshRSS_Feed extends Minz_Model {
 
 	public function hash() {
 		if ($this->hash === null) {
-			$this->hash = hash('crc32b', Minz_Configuration::salt() . $this->url);
+			$salt = FreshRSS_Context::$system_conf->salt;
+			$this->hash = hash('crc32b', $salt . $this->url);
 		}
 		return $this->hash;
 	}

@@ -28,7 +28,9 @@ class Minz_View {
 	public function __construct () {
 		$this->change_view(Minz_Request::controllerName(),
 		                   Minz_Request::actionName());
-		self::$title = Minz_Configuration::title ();
+
+		$conf = Minz_Configuration::get('system');
+		self::$title = $conf->title;
 	}
 
 	/**

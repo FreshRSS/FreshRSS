@@ -2,8 +2,8 @@
 $this->partial('nav_menu');
 
 if (!empty($this->entries)) {
-	$lazyload = FreshRSS_Context::$conf->lazyload;
-	$content_width = FreshRSS_Context::$conf->content_width;
+	$lazyload = FreshRSS_Context::$user_conf->lazyload;
+	$content_width = FreshRSS_Context::$user_conf->content_width;
 ?>
 
 <div id="stream" class="reader">

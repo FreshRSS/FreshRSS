@@ -44,7 +44,8 @@ class Minz_ModelPdo {
 			return;
 		}
 
-		$db = Minz_Configuration::dataBase();
+		$conf = Minz_Configuration::get('system');
+		$db = $conf->db;
 
 		if ($currentUser === null) {
 			$currentUser = Minz_Session::param('currentUser', '_');

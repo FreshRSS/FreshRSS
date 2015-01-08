@@ -12,58 +12,63 @@ if (defined('STDOUT')) {
 	fwrite(STDOUT, 'Starting feed actualization at ' . $begin_date->format('c') . "\n");	//Unbuffered
 }
 
-Minz_Configuration::init();
 
+// Set the header params ($_GET) to call the FRSS application.
+$_GET['c'] = 'feed';
+$_GET['a'] = 'actualize';
+$_GET['ajax'] = 1;
+$_GET['force'] = true;
+$_SERVER['HTTP_HOST'] = '';
+
+
+$app = new FreshRSS();
+$app->init();
+
+$system_conf = Minz_Configuration::get('system');
+$system_conf->auth_type = 'none';  // avoid necessity to be logged in (not saved!)
+
+// Create the list of users to actualize.
+// Users are processed in a random order but always start with admin
 $users = listUsers();
-shuffle($users);	//Process users in random order
-
-if (Minz_Configuration::defaultUser() !== ''){
-	array_unshift($users, Minz_Configuration::defaultUser());	//But always start with admin
+shuffle($users);
+if ($system_conf->default_user !== ''){
+	array_unshift($users, $system_conf->default_user);
 	$users = array_unique($users);
 }
 
-$limits = Minz_Configuration::limits();
-$minLastActivity = time() - $limits['max_inactivity'];
 
-foreach ($users as $myUser) {
-	if (($myUser !== Minz_Configuration::defaultUser()) && (FreshRSS_UserDAO::mtime($myUser) < $minLastActivity)) {
-		syslog(LOG_INFO, 'FreshRSS skip inactive user ' . $myUser);
+$limits = $system_conf->limits;
+$min_last_activity = time() - $limits['max_inactivity'];
+foreach ($users as $user) {
+	if (($user !== $system_conf->default_user) &&
+			(FreshRSS_UserDAO::mtime($user) < $min_last_activity)) {
+		syslog(LOG_INFO, 'FreshRSS skip inactive user ' . $user);
 		if (defined('STDOUT')) {
-			fwrite(STDOUT, 'FreshRSS skip inactive user ' . $myUser . "\n");	//Unbuffered
+			fwrite(STDOUT, 'FreshRSS skip inactive user ' . $user . "\n");	//Unbuffered
 		}
 		continue;
 	}
-	syslog(LOG_INFO, 'FreshRSS actualize ' . $myUser);
+	syslog(LOG_INFO, 'FreshRSS actualize ' . $user);
 	if (defined('STDOUT')) {
-		fwrite(STDOUT, 'Actualize ' . $myUser . "...\n");	//Unbuffered
+		fwrite(STDOUT, 'Actualize ' . $user . "...\n");	//Unbuffered
 	}
-	echo $myUser, ' ';	//Buffered
+	echo $user, ' ';	//Buffered
 
-	$_GET['c'] = 'feed';
-	$_GET['a'] = 'actualize';
-	$_GET['ajax'] = 1;
-	$_GET['force'] = true;
-	$_SERVER['HTTP_HOST'] = '';
 
-	$freshRSS = new FreshRSS();
+	Minz_Session::_param('currentUser', $user);
+	FreshRSS_Auth::giveAccess();
+	$app->run();
 
-	Minz_Configuration::_authType('none');
-
-	Minz_Session::init('FreshRSS');
-	Minz_Session::_param('currentUser', $myUser);
-
-	$freshRSS->init();
-	$freshRSS->run();
 
 	if (!invalidateHttpCache()) {
-		syslog(LOG_NOTICE, 'FreshRSS write access problem in ' . USERS_PATH . '/*/log.txt!');
+		syslog(LOG_NOTICE, 'FreshRSS write access problem in ' . join_path(USERS_PATH, $user, 'log.txt'));
 		if (defined('STDERR')) {
-			fwrite(STDERR, 'Write access problem in ' . USERS_PATH . '/*/log.txt!' . "\n");
+			fwrite(STDERR, 'Write access problem in ' . join_path(USERS_PATH, $user, 'log.txt') . "\n");
 		}
 	}
-	Minz_Session::unset_session(true);
-	Minz_ModelPdo::clean();
 }
+
+
 syslog(LOG_INFO, 'FreshRSS actualize done.');
 if (defined('STDOUT')) {
 	fwrite(STDOUT, 'Done.' . "\n");

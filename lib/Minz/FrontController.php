@@ -31,9 +31,12 @@ class Minz_FrontController {
 	 */
 	public function __construct () {
 		try {
-			Minz_Configuration::init ();
+			Minz_Configuration::register('system',
+			                             DATA_PATH . '/config.php',
+			                             DATA_PATH . '/config.default.php');
+			$this->setReporting();
 
-			Minz_Request::init ();
+			Minz_Request::init();
 
 			$url = $this->buildUrl();
 			$url['params'] = array_merge (
@@ -109,5 +112,24 @@ class Minz_FrontController {
 			$txt = 'See logs files';
 		}
 		exit ('### Application problem ###<br />'."\n".$txt);
+	}
+
+	private function setReporting() {
+		$conf = Minz_Configuration::get('system');
+		switch($conf->environment) {
+		case 'production':
+			error_reporting(E_ALL);
+			ini_set('display_errors','Off');
+			ini_set('log_errors', 'On');
+			break;
+		case 'development':
+			error_reporting(E_ALL);
+			ini_set('display_errors','On');
+			ini_set('log_errors', 'On');
+			break;
+		case 'silent':
+			error_reporting(0);
+			break;
+		}
 	}
 }

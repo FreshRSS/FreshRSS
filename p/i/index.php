@@ -33,7 +33,7 @@ if (file_exists(DATA_PATH . '/do-install.txt')) {
 		$currentUser = Minz_Session::param('currentUser', '');
 		$dateLastModification = $currentUser === '' ? time() : max(
 			@filemtime(join_path(USERS_PATH, $currentUser, 'log.txt')),
-			@filemtime(join_path(DATA_PATH . 'config.php'))
+			@filemtime(join_path(DATA_PATH, 'config.php'))
 		);
 		if (httpConditional($dateLastModification, 0, 0, false, PHP_COMPRESSION, true)) {
 			exit();	//No need to send anything

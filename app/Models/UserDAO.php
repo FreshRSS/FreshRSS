@@ -2,7 +2,7 @@
 
 class FreshRSS_UserDAO extends Minz_ModelPdo {
 	public function createUser($username) {
-		$db = Minz_Configuration::dataBase();
+		$db = FreshRSS_Context::$system_conf->db;
 		require_once(APP_PATH . '/SQL/install.sql.' . $db['type'] . '.php');
 
 		$userPDO = new Minz_ModelPdo($username);
@@ -34,7 +34,7 @@ class FreshRSS_UserDAO extends Minz_ModelPdo {
 	}
 
 	public function deleteUser($username) {
-		$db = Minz_Configuration::dataBase();
+		$db = FreshRSS_Context::$system_conf->db;
 		require_once(APP_PATH . '/SQL/install.sql.' . $db['type'] . '.php');
 
 		if ($db['type'] === 'sqlite') {

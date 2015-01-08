@@ -2,7 +2,7 @@
 	$this->partial('nav_menu');
 
 	$class = '';
-	if (FreshRSS_Context::$conf->hide_read_feeds &&
+	if (FreshRSS_Context::$user_conf->hide_read_feeds &&
 			FreshRSS_Context::isStateEnabled(FreshRSS_Entry::STATE_NOT_READ) &&
 			!FreshRSS_Context::isStateEnabled(FreshRSS_Entry::STATE_READ)) {
 		$class = ' state_unread';
@@ -50,5 +50,5 @@
 <div id="overlay">
 	<a class="close" href="#"><?php echo _i('close'); ?></a>
 </div>
-<div id="panel"<?php echo FreshRSS_Context::$conf->display_posts ? '' : ' class="hide_posts"'; ?>>
+<div id="panel"<?php echo FreshRSS_Context::$user_conf->display_posts ? '' : ' class="hide_posts"'; ?>>
 </div>
