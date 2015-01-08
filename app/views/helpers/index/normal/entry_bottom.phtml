@@ -36,16 +36,16 @@
 	<li class="item"><?php
 			if ($bottomline_sharing) {
 		?><div class="dropdown">
-			<div id="dropdown-share-<?php echo $item->id();?>" class="dropdown-target"></div>
-			<a class="dropdown-toggle" href="#dropdown-share-<?php echo $item->id();?>">
+			<div id="dropdown-share-<?php echo $this->entry->id();?>" class="dropdown-target"></div>
+			<a class="dropdown-toggle" href="#dropdown-share-<?php echo $this->entry->id();?>">
 				<?php echo _i('share'); ?>
 				<?php echo _t('index.share'); ?>
 			</a>
 
 			<ul class="dropdown-menu">
 				<li class="dropdown-close"><a href="#close">❌</a></li><?php
-					$link = $item->link();
-					$title = $item->title() . ' · ' . $feed->name();
+					$link = $this->entry->link();
+					$title = $this->entry->title() . ' · ' . $this->feed->name();
 					foreach (FreshRSS_Context::$user_conf->sharing as $share_options) {
 						$share = FreshRSS_Share::get($share_options['type']);
 						$share_options['link'] = $link;
