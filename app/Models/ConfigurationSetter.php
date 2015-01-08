@@ -67,6 +67,14 @@ class FreshRSS_ConfigurationSetter {
 		}
 	}
 
+	// It works for system config too!
+	private function _extensions_enabled(&$data, $value) {
+		if (!is_array($value)) {
+			$value = array($value);
+		}
+		$data['extensions_enabled'] = $value;
+	}
+
 	private function _html5_notif_timeout(&$data, $value) {
 		$value = intval($value);
 		$data['html5_notif_timeout'] = $value >= 0 ? $value : 0;
