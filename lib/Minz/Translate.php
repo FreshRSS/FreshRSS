@@ -35,10 +35,12 @@ class Minz_Translate {
 	 */
 	public static function init($lang_name = null) {
 		self::$lang_name = $lang_name;
-		self::$path_list = array();
 		self::$lang_files = array();
 		self::$translates = array();
 		self::registerPath(APP_PATH . '/i18n');
+		foreach (self::$path_list as $path) {
+			self::loadLang($path);
+		}
 	}
 
 	/**
@@ -74,7 +76,7 @@ class Minz_Translate {
 	}
 
 	/**
-	 * Register a new path and load i18n files inside.
+	 * Register a new path.
 	 * @param $path a path containing i18n directories (e.g. ./en/, ./fr/).
 	 */
 	public static function registerPath($path) {
@@ -83,7 +85,6 @@ class Minz_Translate {
 		}
 
 		self::$path_list[] = $path;
-		self::loadLang($path);
 	}
 
 	/**
@@ -164,7 +165,8 @@ class Minz_Translate {
 
 		// If $translates[$top_level] is null it means we have to load the
 		// corresponding files.
-		if (is_null(self::$translates[$top_level])) {
+		if (!isset(self::$translates[$top_level]) ||
+				is_null(self::$translates[$top_level])) {
 			$res = self::loadKey($top_level);
 			if (!$res) {
 				return $key;
