@@ -25,22 +25,31 @@ class Minz_Translate {
 	private static $translates = array();
 
 	/**
-	 * Load $lang_name and $lang_path based on configuration and selected language.
+	 * Init the translation object.
+	 * @param $lang_name the lang to show.
 	 */
-	public static function init() {
-		$l = Minz_Configuration::language();
-		self::$lang_name = Minz_Session::param('language', $l);
+	public static function init($lang_name) {
+		self::$lang_name = $lang_name;
 		self::$lang_files = array();
 		self::$translates = array();
-
 		self::registerPath(APP_PATH . '/i18n');
 	}
 
 	/**
-	 * Alias for init().
+	 * Reset the translation object with a new language.
+	 * @param $lang_name the new language to use
 	 */
-	public static function reset() {
-		self::init();
+	public static function reset($lang_name) {
+		self::init($lang_name);
+	}
+
+	/**
+	 * Return the list of available languages.
+	 * @return an array.
+	 * @todo fix this method.
+	 */
+	public static function availableLanguages() {
+		return array();
 	}
 
 	/**

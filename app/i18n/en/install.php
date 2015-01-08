@@ -3,6 +3,7 @@
 return array(
 	'action' => array(
 		'finish' => 'Complete installation',
+		'fix_errors_before' => 'Fix errors before skip to the next step.',
 		'next_step' => 'Go to the next step',
 	),
 	'auth' => array(
@@ -57,10 +58,6 @@ return array(
 			'nok' => 'Please check that you are not altering your HTTP REFERER.',
 			'ok' => 'Your HTTP REFERER is known and corresponds to your server.',
 		),
-		'logs' => array(
-			'nok' => 'Check permissions on <em>./data/logs</em> directory. HTTP server must have rights to write into',
-			'ok' => 'Permissions on logs directory are good.',
-		),
 		'minz' => array(
 			'nok' => 'You lack the Minz framework.',
 			'ok' => 'You have the Minz framework.',
@@ -80,6 +77,10 @@ return array(
 		'php' => array(
 			'nok' => 'Your PHP version is %s but FreshRSS requires at least version %s.',
 			'ok' => 'Your PHP version is %s, which is compatible with FreshRSS.',
+		),
+		'users' => array(
+			'nok' => 'Check permissions on <em>./data/users</em> directory. HTTP server must have rights to write into',
+			'ok' => 'Permissions on users directory are good.',
 		),
 	),
 	'conf' => array(

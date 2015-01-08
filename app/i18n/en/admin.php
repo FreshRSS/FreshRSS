@@ -63,10 +63,6 @@ return array(
 			'nok' => 'You lack JSON (php5-json package).',
 			'ok' => 'You have JSON extension.',
 		),
-		'logs' => array(
-			'nok' => 'Check permissions on <em>./data/logs</em> directory. HTTP server must have rights to write into',
-			'ok' => 'Permissions on logs directory are good.',
-		),
 		'minz' => array(
 			'nok' => 'You lack the Minz framework.',
 			'ok' => 'You have the Minz framework.',
@@ -96,6 +92,10 @@ return array(
 		'tokens' => array(
 			'nok' => 'Check permissions on <em>./data/tokens</em> directory. HTTP server must have rights to write into',
 			'ok' => 'Permissions on tokens directory are good.',
+		),
+		'users' => array(
+			'nok' => 'Check permissions on <em>./data/users</em> directory. HTTP server must have rights to write into',
+			'ok' => 'Permissions on users directory are good.',
 		),
 		'zip' => array(
 			'nok' => 'You lack ZIP extension (php5-zip package).',

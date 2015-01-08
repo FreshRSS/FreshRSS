@@ -1,8 +1,8 @@
 <?php
-	$topline_read = FreshRSS_Context::$conf->topline_read;
-	$topline_favorite = FreshRSS_Context::$conf->topline_favorite;
-	$topline_date = FreshRSS_Context::$conf->topline_date;
-	$topline_link = FreshRSS_Context::$conf->topline_link;
+	$topline_read = FreshRSS_Context::$user_conf->topline_read;
+	$topline_favorite = FreshRSS_Context::$user_conf->topline_favorite;
+	$topline_date = FreshRSS_Context::$user_conf->topline_date;
+	$topline_link = FreshRSS_Context::$user_conf->topline_link;
 ?><ul class="horizontal-list flux_header"><?php
 	if (FreshRSS_Auth::hasAccess()) {
 		if ($topline_read) {

@@ -1086,7 +1086,7 @@ function init_print_action() {
 }
 
 function init_share_observers() {
-	shares = $('.form-group:not(".form-actions")').length;
+	shares = $('.group-share').length;
 
 	$('.share.add').on('click', function(e) {
 		var opt = $(this).siblings('select').find(':selected');

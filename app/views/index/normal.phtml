@@ -7,10 +7,9 @@ if (!empty($this->entries)) {
 	$display_today = true;
 	$display_yesterday = true;
 	$display_others = true;
-	$hidePosts = !FreshRSS_Context::$conf->display_posts;
-	$lazyload = FreshRSS_Context::$conf->lazyload;
-
-	$content_width = FreshRSS_Context::$conf->content_width;
+	$hidePosts = !FreshRSS_Context::$user_conf->display_posts;
+	$lazyload = FreshRSS_Context::$user_conf->lazyload;
+	$content_width = FreshRSS_Context::$user_conf->content_width;
 
 	$today = @strtotime('today');
 ?>

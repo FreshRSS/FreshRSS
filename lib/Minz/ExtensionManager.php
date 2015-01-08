@@ -38,7 +38,8 @@ class Minz_ExtensionManager {
 			array('..', '.')
 		));
 
-		self::$ext_auto_enabled = Minz_Configuration::extensionsEnabled();
+		$system_conf = Minz_Configuration::get('system');
+		self::$ext_auto_enabled = $system_conf->extensions_enabled;
 
 		foreach ($list_potential_extensions as $ext_dir) {
 			$ext_pathname = EXTENSIONS_PATH . '/' . $ext_dir;

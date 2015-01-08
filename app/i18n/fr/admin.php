@@ -63,10 +63,6 @@ return array(
 			'nok' => 'Vous ne disposez pas de JSON (paquet php5-json).',
 			'ok' => 'Vous disposez de l\'extension JSON.',
 		),
-		'logs' => array(
-			'nok' => 'Veuillez vérifier les droits sur le répertoire <em>./data/logs</em>. Le serveur HTTP doit être capable d’écrire dedans',
-			'ok' => 'Les droits sur le répertoire des logs sont bons.',
-		),
 		'minz' => array(
 			'nok' => 'Vous ne disposez pas de la librairie Minz.',
 			'ok' => 'Vous disposez du framework Minz',
@@ -96,6 +92,10 @@ return array(
 		'tokens' => array(
 			'nok' => 'Veuillez vérifier les droits sur le répertoire <em>./data/tokens</em>. Le serveur HTTP doit être capable d’écrire dedans',
 			'ok' => 'Les droits sur le répertoire des tokens sont bons.',
+		),
+		'users' => array(
+			'nok' => 'Veuillez vérifier les droits sur le répertoire <em>./data/users</em>. Le serveur HTTP doit être capable d’écrire dedans',
+			'ok' => 'Les droits sur le répertoire des utilisateurs sont bons.',
 		),
 		'zip' => array(
 			'nok' => 'Vous ne disposez pas de l\'extension ZIP (paquet php5-zip).',

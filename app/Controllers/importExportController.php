@@ -174,7 +174,7 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 
 		$nb_feeds = count($this->feedDAO->listFeeds());
 		$nb_cats = count($this->catDAO->listCategories(false));
-		$limits = Minz_Configuration::limits();
+		$limits = FreshRSS_Context::$system_conf->limits;
 
 		foreach ($opml_elements as $elt) {
 			$is_error = false;
@@ -321,7 +321,7 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 			return true;
 		}
 
-		$is_read = FreshRSS_Context::$conf->mark_when['reception'] ? 1 : 0;
+		$is_read = FreshRSS_Context::$user_conf->mark_when['reception'] ? 1 : 0;
 
 		$google_compliant = strpos($article_object['id'], 'com.google') !== false;
 
@@ -329,7 +329,7 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 		$article_to_feed = array();
 
 		$nb_feeds = count($this->feedDAO->listFeeds());
-		$limits = Minz_Configuration::limits();
+		$limits = FreshRSS_Context::$system_conf->limits;
 
 		// First, we check feeds of articles are in DB (and add them if needed).
 		foreach ($article_object['items'] as $item) {
@@ -548,7 +548,7 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 			$this->view->type = 'feed/' . $feed->id();
 			$this->view->entries = $this->entryDAO->listWhere(
 				'f', $feed->id(), FreshRSS_Entry::STATE_ALL, 'ASC',
-				FreshRSS_Context::$conf->posts_per_page
+				FreshRSS_Context::$user_conf->posts_per_page
 			);
 			$this->view->feed = $feed;
 		}

@@ -121,7 +121,7 @@ return array(
 		'_' => 'Partage',
 		'blogotext' => 'Blogotext',
 		'diaspora' => 'Diaspora*',
-		'email' => 'Email',
+		'email' => 'Courriel',
 		'facebook' => 'Facebook',
 		'g+' => 'Google+',
 		'more_information' => 'Plus d’informations',

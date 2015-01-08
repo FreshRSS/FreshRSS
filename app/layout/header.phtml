@@ -1,5 +1,6 @@
 <?php
-if (Minz_Configuration::canLogIn()) {
+
+if (FreshRSS_Auth::accessNeedsAction()) {
 	?><ul class="nav nav-head nav-login"><?php
 		if (FreshRSS_Auth::hasAccess()) {
 			?><li class="item"><?php echo _i('logout'); ?> <a class="signout" href="<?php echo _url('auth', 'logout'); ?>"><?php echo _t('gen.auth.logout'); ?></a></li><?php
@@ -15,13 +16,13 @@ if (Minz_Configuration::canLogIn()) {
 		<h1>
 			<a href="<?php echo _url('index', 'index'); ?>">
 				<img class="logo" src="<?php echo _i('icon', true); ?>" alt="⊚" />
-				<?php echo Minz_Configuration::title(); ?>
+				<?php echo FreshRSS_Context::$system_conf->title; ?>
 			</a>
 		</h1>
 	</div>
 
 	<div class="item search">
-		<?php if (FreshRSS_Auth::hasAccess() || Minz_Configuration::allowAnonymous()) { ?>
+		<?php if (FreshRSS_Auth::hasAccess() || FreshRSS_Context::$system_conf->allow_anonymous) { ?>
 		<form action="<?php echo _url('index', 'index'); ?>" method="get">
 			<div class="stick">
 				<?php $search = Minz_Request::param('search', ''); ?>
@@ -77,14 +78,14 @@ if (Minz_Configuration::canLogIn()) {
 				<li class="item"><a href="<?php echo _url('index', 'logs'); ?>"><?php echo _t('gen.menu.logs'); ?></a></li>
 				<li class="item"><a href="<?php echo _url('index', 'about'); ?>"><?php echo _t('gen.menu.about'); ?></a></li>
 				<?php
-				if (Minz_Configuration::canLogIn()) {
+				if (FreshRSS_Auth::accessNeedsAction()) {
 					?><li class="separator"></li>
 				<li class="item"><a class="signout" href="<?php echo _url('auth', 'logout'); ?>"><?php echo _i('logout'), ' ', _t('gen.auth.logout'); ?></a></li><?php
 				} ?>
 			</ul>
 		</div>
 	</div>
-	<?php } elseif (Minz_Configuration::canLogIn()) { ?>
+	<?php } elseif (FreshRSS_Auth::accessNeedsAction()) { ?>
 	<div class="item configure">
 		<?php echo _i('login'); ?><a class="signin" href="<?php echo _url('auth', 'login'); ?>"><?php echo _t('gen.auth.login'); ?></a>
 	</div>

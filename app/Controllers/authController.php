@@ -27,10 +27,10 @@ class FreshRSS_auth_Controller extends Minz_ActionController {
 		if (Minz_Request::isPost()) {
 			$ok = true;
 
-			$current_token = FreshRSS_Context::$conf->token;
+			$current_token = FreshRSS_Context::$user_conf->token;
 			$token = Minz_Request::param('token', $current_token);
-			FreshRSS_Context::$conf->_token($token);
-			$ok &= FreshRSS_Context::$conf->save();
+			FreshRSS_Context::$user_conf->token = $token;
+			$ok &= FreshRSS_Context::$user_conf->save();
 
 			$anon = Minz_Request::param('anon_access', false);
 			$anon = ((bool)$anon) && ($anon !== 'no');
@@ -39,18 +39,20 @@ class FreshRSS_auth_Controller extends Minz_ActionController {
 			$auth_type = Minz_Request::param('auth_type', 'none');
 			$unsafe_autologin = Minz_Request::param('unsafe_autologin', false);
 			$api_enabled = Minz_Request::param('api_enabled', false);
-			if ($anon != Minz_Configuration::allowAnonymous() ||
-				$auth_type != Minz_Configuration::authType() ||
-				$anon_refresh != Minz_Configuration::allowAnonymousRefresh() ||
-				$unsafe_autologin != Minz_Configuration::unsafeAutologinEnabled() ||
-				$api_enabled != Minz_Configuration::apiEnabled()) {
+			if ($anon != FreshRSS_Context::$system_conf->allow_anonymous ||
+				$auth_type != FreshRSS_Context::$system_conf->auth_type ||
+				$anon_refresh != FreshRSS_Context::$system_conf->allow_anonymous_refresh ||
+				$unsafe_autologin != FreshRSS_Context::$system_conf->unsafe_autologin_enabled ||
+				$api_enabled != FreshRSS_Context::$system_conf->api_enabled) {
 
-				Minz_Configuration::_authType($auth_type);
-				Minz_Configuration::_allowAnonymous($anon);
-				Minz_Configuration::_allowAnonymousRefresh($anon_refresh);
-				Minz_Configuration::_enableAutologin($unsafe_autologin);
-				Minz_Configuration::_enableApi($api_enabled);
-				$ok &= Minz_Configuration::writeFile();
+				// TODO: test values from form
+				FreshRSS_Context::$system_conf->auth_type = $auth_type;
+				FreshRSS_Context::$system_conf->allow_anonymous = $anon;
+				FreshRSS_Context::$system_conf->allow_anonymous_refresh = $anon_refresh;
+				FreshRSS_Context::$system_conf->unsafe_autologin_enabled = $unsafe_autologin;
+				FreshRSS_Context::$system_conf->api_enabled = $api_enabled;
+
+				$ok &= FreshRSS_Context::$system_conf->save();
 			}
 
 			invalidateHttpCache();
@@ -76,7 +78,7 @@ class FreshRSS_auth_Controller extends Minz_ActionController {
 			Minz_Request::forward(array('c' => 'index', 'a' => 'index'), true);
 		}
 
-		$auth_type = Minz_Configuration::authType();
+		$auth_type = FreshRSS_Context::$system_conf->auth_type;
 		switch ($auth_type) {
 		case 'form':
 			Minz_Request::forward(array('c' => 'auth', 'a' => 'formLogin'));
@@ -118,11 +120,9 @@ class FreshRSS_auth_Controller extends Minz_ActionController {
 			$nonce = Minz_Session::param('nonce');
 			$username = Minz_Request::param('username', '');
 			$challenge = Minz_Request::param('challenge', '');
-			try {
-				$conf = new FreshRSS_Configuration($username);
-			} catch(Minz_Exception $e) {
-				// $username is not a valid user, nor the configuration file!
-				Minz_Log::warning('Login failure: ' . $e->getMessage());
+
+			$conf = get_user_configuration($username);
+			if (is_null($conf)) {
 				Minz_Request::bad(_t('feedback.auth.login.invalid'),
 				                  array('c' => 'auth', 'a' => 'login'));
 			}
@@ -154,7 +154,7 @@ class FreshRSS_auth_Controller extends Minz_ActionController {
 				Minz_Request::bad(_t('feedback.auth.login.invalid'),
 				                  array('c' => 'auth', 'a' => 'login'));
 			}
-		} elseif (Minz_Configuration::unsafeAutologinEnabled()) {
+		} elseif (FreshRSS_Context::$system_conf->unsafe_autologin_enabled) {
 			$username = Minz_Request::param('u', '');
 			$password = Minz_Request::param('p', '');
 			Minz_Request::_param('p');
@@ -163,11 +163,8 @@ class FreshRSS_auth_Controller extends Minz_ActionController {
 				return;
 			}
 
-			try {
-				$conf = new FreshRSS_Configuration($username);
-			} catch(Minz_Exception $e) {
-				// $username is not a valid user, nor the configuration file!
-				Minz_Log::warning('Login failure: ' . $e->getMessage());
+			$conf = get_user_configuration($username);
+			if (is_null($conf)) {
 				return;
 			}
 
@@ -235,13 +232,12 @@ class FreshRSS_auth_Controller extends Minz_ActionController {
 					$persona_file = DATA_PATH . '/persona/' . $email . '.txt';
 					if (($current_user = @file_get_contents($persona_file)) !== false) {
 						$current_user = trim($current_user);
-						try {
-							$conf = new FreshRSS_Configuration($current_user);
+						$conf = get_user_configuration($current_user);
+						if (!is_null($conf)) {
 							$login_ok = strcasecmp($email, $conf->mail_login) === 0;
-						} catch (Minz_Exception $e) {
-							//Permission denied or conf file does not exist
+						} else {
 							$reason = 'Invalid configuration for user ' .
-							          '[' . $current_user . '] ' . $e->getMessage();
+							          '[' . $current_user . ']';
 						}
 					}
 				} else {
@@ -293,7 +289,7 @@ class FreshRSS_auth_Controller extends Minz_ActionController {
 
 		$this->view->no_form = false;
 		// Enable changement of auth only if Persona!
-		if (Minz_Configuration::authType() != 'persona') {
+		if (FreshRSS_Context::$system_conf->auth_type != 'persona') {
 			$this->view->message = array(
 				'status' => 'bad',
 				'title' => _t('gen.short.damn'),
@@ -303,7 +299,11 @@ class FreshRSS_auth_Controller extends Minz_ActionController {
 			return;
 		}
 
-		$conf = new FreshRSS_Configuration(Minz_Configuration::defaultUser());
+		$conf = get_user_configuration(FreshRSS_Context::$system_conf->default_user);
+		if (is_null($conf)) {
+			return;
+		}
+
 		// Admin user must have set its master password.
 		if (!$conf->passwordHash) {
 			$this->view->message = array(
@@ -327,8 +327,8 @@ class FreshRSS_auth_Controller extends Minz_ActionController {
 			);
 
 			if ($ok) {
-				Minz_Configuration::_authType('form');
-				$ok = Minz_Configuration::writeFile();
+				FreshRSS_Context::$system_conf->auth_type = 'form';
+				$ok = FreshRSS_Context::$system_conf->save();
 
 				if ($ok) {
 					Minz_Request::good(_t('feedback.auth.form.set'));

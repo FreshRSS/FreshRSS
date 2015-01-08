@@ -129,6 +129,17 @@ return array(
 		'nothing_to_load' => 'Fin des articles',
 		'previous' => 'Précédent',
 	),
+	'share' => array(
+		'blogotext' => 'Blogotext',
+		'diaspora' => 'Diaspora*',
+		'email' => 'Courriel',
+		'facebook' => 'Facebook',
+		'g+' => 'Google+',
+		'print' => 'Imprimer',
+		'shaarli' => 'Shaarli',
+		'twitter' => 'Twitter',
+		'wallabag' => 'wallabag',
+	),
 	'short' => array(
 		'attention' => 'Attention !',
 		'blank_to_disable' => 'Laissez vide pour désactiver',

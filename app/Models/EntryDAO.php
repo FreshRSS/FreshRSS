@@ -586,7 +586,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 	}
 
 	public function size($all = false) {
-		$db = Minz_Configuration::dataBase();
+		$db = FreshRSS_Context::$system_conf->db;
 		$sql = 'SELECT SUM(data_length + index_length) FROM information_schema.TABLES WHERE table_schema=?';	//MySQL
 		$values = array($db['base']);
 		if (!$all) {

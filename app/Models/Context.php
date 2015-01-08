@@ -5,7 +5,8 @@
  * useful functions associated to the current view state.
  */
 class FreshRSS_Context {
-	public static $conf = null;
+	public static $user_conf = null;
+	public static $system_conf = null;
 	public static $categories = array();
 
 	public static $name = '';
@@ -37,17 +38,12 @@ class FreshRSS_Context {
 	/**
 	 * Initialize the context.
 	 *
-	 * Set the correct $conf and $categories variables.
+	 * Set the correct configurations and $categories variables.
 	 */
 	public static function init() {
 		// Init configuration.
-		$current_user = Minz_Session::param('currentUser');
-		try {
-			self::$conf = new FreshRSS_Configuration($current_user);
-		} catch(Minz_Exception $e) {
-			Minz_Log::error('Cannot load configuration file of user `' . $current_user . '`');
-			die($e->getMessage());
-		}
+		self::$system_conf = Minz_Configuration::get('system');
+		self::$user_conf = Minz_Configuration::get('user');
 
 		$catDAO = new FreshRSS_CategoryDAO();
 		self::$categories = $catDAO->listCategories();
@@ -198,7 +194,7 @@ class FreshRSS_Context {
 		// By default, $next_get == $get
 		self::$next_get = $get;
 
-		if (self::$conf->onread_jump_next && strlen($get) > 2) {
+		if (self::$user_conf->onread_jump_next && strlen($get) > 2) {
 			$another_unread_id = '';
 			$found_current_get = false;
 			switch ($get[0]) {
@@ -276,7 +272,7 @@ class FreshRSS_Context {
 	 * @return boolean
 	 */
 	public static function isAutoRemoveAvailable() {
-		if (!self::$conf->auto_remove_article) {
+		if (!self::$user_conf->auto_remove_article) {
 			return false;
 		}
 		if (self::isStateEnabled(FreshRSS_Entry::STATE_READ)) {
@@ -297,7 +293,7 @@ class FreshRSS_Context {
 	 * @return boolean
 	 */
 	public static function isStickyPostEnabled() {
-		if (self::$conf->sticky_post) {
+		if (self::$user_conf->sticky_post) {
 			return true;
 		}
 		if (self::isAutoRemoveAvailable()) {
