@@ -100,6 +100,10 @@ return array(
 		'notif_title_new_articles' => 'FreshRSS : nouveaux articles !',
 		'should_be_activated' => 'Le JavaScript doit être activé.',
 	),
+	'lang' => array(
+		'en' => 'English',
+		'fr' => 'Français',
+	),
 	'menu' => array(
 		'about' => 'À propos',
 		'admin' => 'Administration',

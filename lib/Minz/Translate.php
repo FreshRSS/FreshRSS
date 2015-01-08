@@ -10,6 +10,11 @@
  */
 class Minz_Translate {
 	/**
+	 * $path_list is the list of registered base path to search translations.
+	 */
+	private static $path_list = array();
+
+	/**
 	 * $lang_name is the name of the current language to use.
 	 */
 	private static $lang_name;
@@ -30,6 +35,7 @@ class Minz_Translate {
 	 */
 	public static function init($lang_name) {
 		self::$lang_name = $lang_name;
+		self::$path_list = array();
 		self::$lang_files = array();
 		self::$translates = array();
 		self::registerPath(APP_PATH . '/i18n');
@@ -45,11 +51,21 @@ class Minz_Translate {
 
 	/**
 	 * Return the list of available languages.
-	 * @return an array.
-	 * @todo fix this method.
+	 * @return an array containing langs found in different registered paths.
 	 */
 	public static function availableLanguages() {
-		return array();
+		$list_langs = array();
+
+		foreach (self::$path_list as $path) {
+			$path_langs = array_values(array_diff(
+				scandir($path),
+				array('..', '.')
+			));
+
+			$list_langs = array_merge($list_langs, $path_langs);
+		}
+
+		return array_unique($list_langs);
 	}
 
 	/**
@@ -58,6 +74,12 @@ class Minz_Translate {
 	 * @param $path a path containing i18n directories (e.g. ./en/, ./fr/).
 	 */
 	public static function registerPath($path) {
+		if (in_array($path, self::$path_list)) {
+			return;
+		}
+
+		self::$path_list[] = $path;
+
 		// We load first i18n files for the current language.
 		$lang_path = $path . '/' . self::$lang_name;
 		$list_i18n_files = array_values(array_diff(

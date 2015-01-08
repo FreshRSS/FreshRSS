@@ -11,8 +11,8 @@
 			<div class="group-controls">
 				<select name="language" id="language">
 				<?php $languages = Minz_Translate::availableLanguages(); ?>
-				<?php foreach ($languages as $short => $lib) { ?>
-				<option value="<?php echo $short; ?>"<?php echo FreshRSS_Context::$user_conf->language === $short ? ' selected="selected"' : ''; ?>><?php echo $lib; ?></option>
+				<?php foreach ($languages as $lang) { ?>
+				<option value="<?php echo $lang; ?>"<?php echo FreshRSS_Context::$user_conf->language === $lang ? ' selected="selected"' : ''; ?>><?php echo _t('gen.lang.' . $lang); ?></option>
 				<?php } ?>
 				</select>
 			</div>

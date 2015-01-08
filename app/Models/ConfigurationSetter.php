@@ -89,7 +89,7 @@ class FreshRSS_ConfigurationSetter {
 	private function _language(&$data, $value) {
 		$value = strtolower($value);
 		$languages = Minz_Translate::availableLanguages();
-		if (!isset($languages[$value])) {
+		if (!in_array($value, $languages)) {
 			$value = 'en';
 		}
 		$data['language'] = $value;
