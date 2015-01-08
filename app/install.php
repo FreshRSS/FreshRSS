@@ -174,19 +174,12 @@ function saveStep3() {
 			$_SESSION['bd_prefix_user'] = $_SESSION['bd_prefix'] .(empty($_SESSION['default_user']) ? '' :($_SESSION['default_user'] . '_'));
 		}
 
-		$ini_array = array(
-			'general' => array(
-				'environment' => empty($_SESSION['environment']) ? 'production' : $_SESSION['environment'],
-				'salt' => $_SESSION['salt'],
-				'base_url' => '',
-				'title' => $_SESSION['title'],
-				'default_user' => $_SESSION['default_user'],
-				'allow_anonymous' => isset($_SESSION['allow_anonymous']) ? $_SESSION['allow_anonymous'] : false,
-				'allow_anonymous_refresh' => isset($_SESSION['allow_anonymous_refresh']) ? $_SESSION['allow_anonymous_refresh'] : false,
-				'auth_type' => $_SESSION['auth_type'],
-				'api_enabled' => isset($_SESSION['api_enabled']) ? $_SESSION['api_enabled'] : false,
-				'unsafe_autologin_enabled' => isset($_SESSION['unsafe_autologin_enabled']) ? $_SESSION['unsafe_autologin_enabled'] : false,
-			),
+		$config_array = array(
+			'environment' => 'production',
+			'salt' => $_SESSION['salt'],
+			'title' => $_SESSION['title'],
+			'default_user' => $_SESSION['default_user'],
+			'auth_type' => $_SESSION['auth_type'],
 			'db' => array(
 				'type' => $_SESSION['bd_type'],
 				'host' => $_SESSION['bd_host'],
@@ -198,7 +191,7 @@ function saveStep3() {
 		);
 
 		@unlink(join_path(DATA_PATH, 'config.php'));	//To avoid access-rights problems
-		file_put_contents(join_path(DATA_PATH, 'config.php'), "<?php\n return " . var_export($ini_array, true) . ';');
+		file_put_contents(join_path(DATA_PATH, 'config.php'), "<?php\n return " . var_export($config_array, true) . ';');
 
 		$res = checkBD();
 
