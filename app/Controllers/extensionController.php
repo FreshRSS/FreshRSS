@@ -49,10 +49,7 @@ class FreshRSS_extension_Controller extends Minz_ActionController {
 		}
 
 		$this->view->extension = $ext;
-
-		if (Minz_Request::isPost()) {
-			$this->view->extension->handleConfigureAction();
-		}
+		$this->view->extension->handleConfigureAction();
 	}
 
 	/**

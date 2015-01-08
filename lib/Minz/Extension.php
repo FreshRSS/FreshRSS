@@ -104,7 +104,7 @@ class Minz_Extension {
 	}
 
 	/**
-	 * Handle the configure POST action.
+	 * Handle the configure action.
 	 *
 	 * It must be redefined by child classes.
 	 */
