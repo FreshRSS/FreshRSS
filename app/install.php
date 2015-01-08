@@ -43,30 +43,29 @@ function param($key, $default = false) {
 
 // gestion internationalisation
 function initTranslate() {
-	if (!isset($_SESSION['language'])) {
-		$_SESSION['language'] = getBetterLanguage('en');
-	}
-
-	Minz_Translate::init();
-}
-
-function getBetterLanguage($fallback) {
-	$available = availableLanguages();
-	$accept = $_SERVER['HTTP_ACCEPT_LANGUAGE'];
-	$language = strtolower(substr($accept, 0, 2));
-
-	if (isset($available[$language])) {
-		return $language;
-	} else {
-		return $fallback;
-	}
-}
-
-function availableLanguages() {
-	return array(
+	$available_languages = array(
 		'en' => 'English',
 		'fr' => 'Français'
 	);
+
+	if (!isset($_SESSION['language'])) {
+		$best = get_best_language();
+		if (!isset($available_languages[$best])) {
+			$best = 'en';
+		}
+
+		$_SESSION['language'] = $best;
+	}
+
+	Minz_Translate::init(array(
+		'en' => 'English',
+		'fr' => 'Français',
+	), $_SESSION['language']);
+}
+
+function get_best_language() {
+	$accept = $_SERVER['HTTP_ACCEPT_LANGUAGE'];
+	return strtolower(substr($accept, 0, 2));
 }
 
 
@@ -263,7 +262,7 @@ function checkStep() {
 }
 
 function checkStep0() {
-	$languages = availableLanguages();
+	$languages = Minz_Translate::availableLanguages();
 	$language = isset($_SESSION['language']) &&
 	            isset($languages[$_SESSION['language']]);
 
@@ -427,7 +426,8 @@ function checkBD() {
 
 /*** AFFICHAGE ***/
 function printStep0() {
-	global $actual;
+	$actual = Minz_Translate::language();
+	$languages = Minz_Translate::availableLanguages();
 ?>
 	<?php $s0 = checkStep0(); if ($s0['all'] == 'ok') { ?>
 	<p class="alert alert-success"><span class="alert-head"><?php echo _t('gen.short.ok'); ?></span> <?php echo _t('install.language.defined'); ?></p>
@@ -439,7 +439,6 @@ function printStep0() {
 			<label class="group-name" for="language"><?php echo _t('install.language'); ?></label>
 			<div class="group-controls">
 				<select name="language" id="language">
-				<?php $languages = availableLanguages(); ?>
 				<?php foreach ($languages as $short => $lib) { ?>
 				<option value="<?php echo $short; ?>"<?php echo $actual == $short ? ' selected="selected"' : ''; ?>><?php echo $lib; ?></option>
 				<?php } ?>
