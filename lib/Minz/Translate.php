@@ -85,6 +85,7 @@ class Minz_Translate {
 		}
 
 		self::$path_list[] = $path;
+		self::loadLang($path);
 	}
 
 	/**

@@ -104,6 +104,7 @@ return array(
 	),
 	'extensions' => array(
 		'empty_list' => 'Il n’y a aucune extension installée.',
+		'no_configure_view' => 'Cette extension ne peut pas être configurée.',
 		'system' => 'Extension système (vous n’avez aucun droit dessus)',
 		'title' => 'Extensions',
 	),
