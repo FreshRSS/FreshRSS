@@ -43,21 +43,18 @@ function param($key, $default = false) {
 
 // gestion internationalisation
 function initTranslate() {
-	$available_languages = array(
-		'en' => 'English',
-		'fr' => 'Français'
-	);
+	Minz_Translate::init();
+	$available_languages = Minz_Translate::availableLanguages();
 
 	if (!isset($_SESSION['language'])) {
-		$best = get_best_language();
-		if (!isset($available_languages[$best])) {
-			$best = 'en';
-		}
-
-		$_SESSION['language'] = $best;
+		$_SESSION['language'] = get_best_language();
 	}
 
-	Minz_Translate::init($_SESSION['language']);
+	if (!in_array($_SESSION['language'], $available_languages)) {
+		$_SESSION['language'] = 'en';
+	}
+
+	Minz_Translate::reset($_SESSION['language']);
 }
 
 function get_best_language() {
@@ -254,7 +251,7 @@ function checkStep() {
 function checkStep0() {
 	$languages = Minz_Translate::availableLanguages();
 	$language = isset($_SESSION['language']) &&
-	            isset($languages[$_SESSION['language']]);
+	            in_array($_SESSION['language'], $languages);
 
 	return array(
 		'language' => $language ? 'ok' : 'ko',
@@ -429,8 +426,10 @@ function printStep0() {
 			<label class="group-name" for="language"><?php echo _t('install.language'); ?></label>
 			<div class="group-controls">
 				<select name="language" id="language">
-				<?php foreach ($languages as $short => $lib) { ?>
-				<option value="<?php echo $short; ?>"<?php echo $actual == $short ? ' selected="selected"' : ''; ?>><?php echo $lib; ?></option>
+				<?php foreach ($languages as $lang) { ?>
+				<option value="<?php echo $lang; ?>"<?php echo $actual == $lang ? ' selected="selected"' : ''; ?>>
+					<?php echo _t('gen.lang.' . $lang); ?>
+				</option>
 				<?php } ?>
 				</select>
 			</div>

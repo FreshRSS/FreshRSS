@@ -49,7 +49,7 @@ class Minz_Translate {
 		self::$lang_name = $lang_name;
 		self::$lang_files = array();
 		self::$translates = array();
-		foreach ($path_list as $path) {
+		foreach (self::$path_list as $path) {
 			self::loadLang($path);
 		}
 	}
