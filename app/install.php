@@ -778,9 +778,9 @@ function printStep5() {
 <?php
 }
 
-checkStep();
-
 initTranslate();
+
+checkStep();
 
 switch (STEP) {
 case 0:
