@@ -3,7 +3,40 @@
 define('PACKAGE_URL', 'https://codeload.github.com/FreshRSS/FreshRSS/zip/0.9.4');
 
 
-// Fix configuration file (>= 0.9.2)
+// Fix system configuration (>= 0.9.4)
+function fix_system_config() {
+	$filename = DATA_PATH . '/config.php';
+	$config = include($filename);
+
+	if (!is_array($config)) {
+		return false;
+	}
+
+	if (!isset($config['general'])) {
+		// No general array? It means config is already fine.
+		return true;
+	}
+
+	$general = $config['general'];
+	$config['environment'] = $general['environment'];
+	$config['salt'] = $general['salt'];
+	$config['base_url'] = $general['base_url'];
+	$config['title'] = $general['title'];
+	$config['default_user'] = $general['default_user'];
+	$config['allow_anonymous'] = $general['allow_anonymous'];
+	$config['allow_anonymous_refresh'] = $general['allow_anonymous_refresh'];
+	$config['auth_type'] = $general['auth_type'];
+	$config['api_enabled'] = $general['api_enabled'];
+	$config['unsafe_autologin_enabled'] = $general['unsafe_autologin_enabled'];
+
+	unset($config['general']);
+	return file_put_contents($filename,
+	                         "<?php\nreturn " . var_export($config, true) . ';',
+	                         LOCK_EX) !== false;
+}
+
+
+// Fix user configuration file (>= 0.9.2)
 function fix_configuration($conf) {
 	$all = 0;
 	$not_read = 2;
@@ -24,27 +57,6 @@ function fix_configuration($conf) {
 	}
 
 	$conf->save();
-
-	return true;
-}
-
-
-// Prepare the users directory (>= 0.9.4)
-function prepare_users_dir() {
-	// The default dir can be used for logs when no default user has been set.
-	// So we create it and check rights on it are good.
-	$default_path = DATA_PATH . '/users/_';
-	$res = @mkdir($default_path);
-	if (!$res) {
-		return false;
-	}
-
-	if (!is_writable($default_path)) {
-		$res = chmod($default_path, 0775);
-		if (!$res) {
-			return false;
-		}
-	}
 
 	return true;
 }
@@ -87,7 +99,7 @@ function move_user_data($username) {
 		} else {
 			// Move old file to new file
 			$res = rename($old_name, $new_name);
-			if (!$res) {
+			if (!$res && file_exists($old_name)) {
 				$is_error = true;
 			}
 		}
@@ -106,6 +118,7 @@ function apply_update() {
 		DATA_PATH . '/persona',
 		DATA_PATH . '/tokens',
 		DATA_PATH . '/users',
+		DATA_PATH . '/users/_',
 		FRESHRSS_PATH . '/extensions',
 	);
 
@@ -146,11 +159,10 @@ function apply_update() {
 		return 'can\'t clean update package';
 	}
 
-	// We have to move user data in the new correct directory (DATA_PATH/users)
-	// First, we prepare this new directory
-	$res = prepare_users_dir();
+	// Fix the system config
+	$res = fix_system_config();
 	if (!$res) {
-		return 'can\'t create user directory';
+		return 'can\'t fix system configuration';
 	}
 
 	// Finally, we fix configuration if needed for each user.

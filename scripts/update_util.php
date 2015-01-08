@@ -40,7 +40,7 @@ function recurse_copy($src, $dst) {
     closedir($dir);
 
     return true;
-} 
+}
 
 
 // Remove previous backup of data.
@@ -151,6 +151,12 @@ function deploy_package() {
 	recurse_copy($base_pathname . '/lib', LIB_PATH);
 	recurse_copy($base_pathname . '/p', PUBLIC_PATH);
 	copy($base_pathname . '/constants.php', FRESHRSS_PATH . '/constants.php');
+	// These functions can fail because config.default.php has been introduced
+	// in the 0.9.4 version.
+	@copy($base_pathname . '/data/config.default.php',
+	      DATA_PATH . '/config.default.php');
+	@copy($base_pathname . '/data/users/_/config.default.php',
+	      DATA_PATH . '/users/_/config.default.php');
 
 	return true;
 }

@@ -12,6 +12,9 @@ function apply_update() {
 		DATA_PATH . '/log',
 		DATA_PATH . '/persona',
 		DATA_PATH . '/tokens',
+		DATA_PATH . '/users',
+		DATA_PATH . '/users/_',
+		FRESHRSS_PATH . '/extensions',
 	);
 
 	// First, do a backup.
