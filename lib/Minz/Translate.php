@@ -33,7 +33,7 @@ class Minz_Translate {
 	 * Init the translation object.
 	 * @param $lang_name the lang to show.
 	 */
-	public static function init($lang_name) {
+	public static function init($lang_name = null) {
 		self::$lang_name = $lang_name;
 		self::$path_list = array();
 		self::$lang_files = array();
@@ -46,7 +46,12 @@ class Minz_Translate {
 	 * @param $lang_name the new language to use
 	 */
 	public static function reset($lang_name) {
-		self::init($lang_name);
+		self::$lang_name = $lang_name;
+		self::$lang_files = array();
+		self::$translates = array();
+		foreach ($path_list as $path) {
+			self::loadLang($path);
+		}
 	}
 
 	/**
@@ -70,7 +75,6 @@ class Minz_Translate {
 
 	/**
 	 * Register a new path and load i18n files inside.
-	 *
 	 * @param $path a path containing i18n directories (e.g. ./en/, ./fr/).
 	 */
 	public static function registerPath($path) {
@@ -79,9 +83,20 @@ class Minz_Translate {
 		}
 
 		self::$path_list[] = $path;
+		self::loadLang($path);
+	}
 
-		// We load first i18n files for the current language.
+	/**
+	 * Load translations of the current language from the given path.
+	 * @param $path the path containing i18n directories.
+	 */
+	private static function loadLang($path) {
 		$lang_path = $path . '/' . self::$lang_name;
+		if (!file_exists($lang_path) || is_null(self::$lang_name)) {
+			// The lang path does not exist, nothing more to do.
+			return;
+		}
+
 		$list_i18n_files = array_values(array_diff(
 			scandir($lang_path),
 			array('..', '.')
@@ -102,7 +117,6 @@ class Minz_Translate {
 
 	/**
 	 * Load the files associated to $key into $translates.
-	 *
 	 * @param $key the top level i18n key we want to load.
 	 */
 	private static function loadKey($key) {
