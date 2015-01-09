@@ -1,15 +1,50 @@
 <?php
 
 class FreshRSS extends Minz_FrontController {
+	/**
+	 * Initialize the different FreshRSS / Minz components.
+	 *
+	 * PLEASE DON'T CHANGE THE ORDER OF INITIALIZATIONS UNLESS YOU KNOW WHAT
+	 * YOU DO!!
+	 *
+	 * Here is the list of components:
+	 * - Create a configuration setter and register it to system conf
+	 * - Init extension manager and enable system extensions (has to be done asap)
+	 * - Init authentication system
+	 * - Init user configuration (need auth system)
+	 * - Init FreshRSS context (need user conf)
+	 * - Init i18n (need context)
+	 * - Init sharing system (need user conf and i18n)
+	 * - Init generic styles and scripts (need user conf)
+	 * - Init notifications
+	 * - Enable user extensions (need all the other initializations)
+	 */
 	public function init() {
 		if (!isset($_SESSION)) {
 			Minz_Session::init('FreshRSS');
 		}
 
+		// Register the configuration setter for the system configuration
+		$configuration_setter = new FreshRSS_ConfigurationSetter();
+		$system_conf = Minz_Configuration::get('system');
+		$system_conf->_configurationSetter($configuration_setter);
+
 		// Load list of extensions and enable the "system" ones.
 		Minz_ExtensionManager::init();
-		$this->initConfiguration();
+
+		// Auth has to be initialized before using currentUser session parameter
+		// because it's this part which create this parameter.
 		$this->initAuth();
+
+		// Then, register the user configuration and use the configuration setter
+		// created above.
+		$current_user = Minz_Session::param('currentUser', '_');
+		Minz_Configuration::register('user',
+		                             join_path(USERS_PATH, $current_user, 'config.php'),
+		                             join_path(USERS_PATH, '_', 'config.default.php'),
+		                             $configuration_setter);
+
+		// Finish to initialize the other FreshRSS / Minz components.
 		FreshRSS_Context::init();
 		$this->initI18n();
 		FreshRSS_Share::load(join_path(DATA_PATH, 'shares.php'));
@@ -20,18 +55,6 @@ class FreshRSS extends Minz_FrontController {
 			$ext_list = FreshRSS_Context::$user_conf->extensions_enabled;
 			Minz_ExtensionManager::enable_by_list($ext_list);
 		}
-	}
-
-	private function initConfiguration() {
-		$configuration_setter = new FreshRSS_ConfigurationSetter();
-		$current_user = Minz_Session::param('currentUser', '_');
-
-		Minz_Configuration::register('user',
-		                             join_path(USERS_PATH, $current_user, 'config.php'),
-		                             join_path(USERS_PATH, '_', 'config.default.php'),
-		                             $configuration_setter);
-		$system_conf = Minz_Configuration::get('system');
-		$system_conf->_configurationSetter($configuration_setter);
 	}
 
 	private function initAuth() {
