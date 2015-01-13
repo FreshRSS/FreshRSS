@@ -9,7 +9,6 @@ function apply_update() {
 		DATA_PATH,
 		DATA_PATH . '/cache',
 		DATA_PATH . '/favicons',
-		DATA_PATH . '/log',
 		DATA_PATH . '/persona',
 		DATA_PATH . '/tokens',
 		DATA_PATH . '/users',
