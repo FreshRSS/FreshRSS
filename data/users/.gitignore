@@ -1,4 +1,4 @@
 db.sqlite
 config.php
-log.txt
+log*.txt
 
