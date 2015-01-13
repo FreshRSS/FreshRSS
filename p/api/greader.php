@@ -168,7 +168,7 @@ function authorizationToUser() {
 			}
 		}
 	}
-	return null;
+	return '';
 }
 
 function clientLogin($email, $pass) {	//http://web.archive.org/web/20130604091042/http://undoc.in/clientLogin.html
@@ -552,10 +552,10 @@ if (!$system_conf->api_enabled) {
 Minz_Session::init('FreshRSS');
 
 $user = authorizationToUser();
-if (is_null($user)) {
-	unauthorized();
+$conf = null;
+if ($user !== '') {
+	$conf = get_user_configuration($user);
 }
-$conf = get_user_configuration($user);
 
 logMe('User => ' . $user . "\n");
 
