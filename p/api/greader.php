@@ -152,7 +152,7 @@ function authorizationToUserConf() {
 			if (ctype_alnum($user)) {
 				$conf = get_user_configuration($user);
 				if (is_null($conf)) {
-					logMe('Invalid configuration API file for user ' . $user);
+					Minz_Log::warning('Invalid API user ' . $user . ': configuration cannot be found.');
 					unauthorized();
 				}
 				$system_conf = Minz_Configuration::get('system');
@@ -180,6 +180,7 @@ function clientLogin($email, $pass) {	//http://web.archive.org/web/2013060409104
 
 		$conf = get_user_configuration($email);
 		if (is_null($conf)) {
+			Minz_Log::warning('Invalid API user ' . $email . ': configuration cannot be found.');
 			unauthorized();
 		}
 
