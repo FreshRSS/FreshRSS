@@ -80,7 +80,7 @@ return array(
 		'purge_completed' => 'Purge effectuée (%d articles supprimés).',
 	),
 	'update' => array(
-		'can_apply' => 'Une mise à jour est disponible.',
+		'can_apply' => 'FreshRSS va maintenant être mis à jour vers la <strong>version %s</strong>.',
 		'error' => 'La mise à jour a rencontré un problème : %s',
 		'file_is_nok' => 'Veuillez vérifier les droits sur le répertoire <em>%s</em>. Le serveur HTTP doit être capable d’écrire dedans',
 		'finished' => 'La mise à jour est terminée !',

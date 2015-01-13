@@ -80,7 +80,7 @@ return array(
 		'purge_completed' => 'Purge completed (%d articles deleted)',
 	),
 	'update' => array(
-		'can_apply' => 'An update is available.',
+		'can_apply' => 'FreshRSS will be now updated to the <strong>version %s</strong>.',
 		'error' => 'The update process has encountered an error: %s',
 		'file_is_nok' => 'Check permissions on <em>%s</em> directory. HTTP server must have rights to write into',
 		'finished' => 'Update completed!',
