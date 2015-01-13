@@ -152,6 +152,7 @@ function authorizationToUserConf() {
 			if (ctype_alnum($user)) {
 				$conf = get_user_configuration($user);
 				if (is_null($conf)) {
+					logMe('Invalid configuration API file for user ' . $user);
 					unauthorized();
 				}
 				$system_conf = Minz_Configuration::get('system');
