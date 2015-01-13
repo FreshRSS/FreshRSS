@@ -22,7 +22,7 @@
 			<div class="group-controls">
 				<div class="stick">
 					<input type="password" id="passwordPlain" name="passwordPlain" autocomplete="off" pattern=".{7,}" <?php echo cryptAvailable() ? '' : 'disabled="disabled" '; ?>/>
-					<a class="btn toggle-password"><?php echo _i('key'); ?></a>
+					<a class="btn toggle-password" data-toggle="passwordPlain"><?php echo _i('key'); ?></a>
 				</div>
 				<noscript><b><?php echo _t('gen.js.should_be_activated'); ?></b></noscript>
 			</div>
@@ -34,7 +34,7 @@
 			<div class="group-controls">
 				<div class="stick">
 					<input type="password" id="apiPasswordPlain" name="apiPasswordPlain" autocomplete="off" pattern=".{7,}" <?php echo cryptAvailable() ? '' : 'disabled="disabled" '; ?>/>
-					<a class="btn toggle-password"><?php echo _i('key'); ?></a>
+					<a class="btn toggle-password" data-toggle="apiPasswordPlain"><?php echo _i('key'); ?></a>
 				</div>
 			</div>
 		</div>

@@ -1134,17 +1134,18 @@ function init_feed_observers() {
 }
 
 function init_password_observers() {
-	$('input[type="password"] + a.btn.toggle-password').on('click', function(e) {
+	$('.toggle-password').on('mousedown', function(e) {
 		var button = $(this);
-		var passwordField = $(this).siblings('input[type="password"]');
-
+		var passwordField = $('#' + button.attr('data-toggle'));
 		passwordField.attr('type', 'text');
 		button.addClass('active');
 
-		setTimeout(function() {
-			passwordField.attr('type', 'password');
-			button.removeClass('active');
-		}, 2000);
+		return false;
+	}).on('mouseup', function(e) {
+		var button = $(this);
+		var passwordField = $('#' + button.attr('data-toggle'));
+		passwordField.attr('type', 'password');
+		button.removeClass('active');
 
 		return false;
 	});

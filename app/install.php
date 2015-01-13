@@ -611,23 +611,26 @@ function printStep2() {
 		</div>
 
 		<script>
-			function toggle_password() {
+			function show_password() {
 				var button = this;
 				var passwordField = document.getElementById(button.getAttribute('data-toggle'));
-
 				passwordField.setAttribute('type', 'text');
 				button.className += ' active';
 
-				setTimeout(function() {
-					passwordField.setAttribute('type', 'password');
-					button.className = button.className.replace(/(?:^|\s)active(?!\S)/g , '');
-				}, 2000);
+				return false;
+			}
+			function hide_password() {
+				var button = this;
+				var passwordField = document.getElementById(button.getAttribute('data-toggle'));
+				passwordField.setAttribute('type', 'password');
+				button.className = button.className.replace(/(?:^|\s)active(?!\S)/g , '');
 
 				return false;
 			}
 			toggles = document.getElementsByClassName('toggle-password');
 			for (var i = 0 ; i < toggles.length ; i++) {
-				toggles[i].addEventListener('click', toggle_password);
+				toggles[i].addEventListener('mousedown', show_password);
+				toggles[i].addEventListener('mouseup', hide_password);
 			}
 
 			function auth_type_change(focus) {
