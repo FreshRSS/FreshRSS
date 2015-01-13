@@ -144,6 +144,7 @@ return array(
 		'_' => 'Système de mise à jour',
 		'apply' => 'Appliquer la mise à jour',
 		'check' => 'Vérifier les mises à jour',
+		'current_version' => 'Votre version actuelle de FreshRSS est la %s.',
 		'last' => 'Dernière vérification : %s',
 		'none' => 'Aucune mise à jour à appliquer',
 		'title' => 'Système de mise à jour',

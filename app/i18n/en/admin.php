@@ -144,6 +144,7 @@ return array(
 		'_' => 'Update system',
 		'apply' => 'Apply',
 		'check' => 'Check for new updates',
+		'current_version' => 'Your current version of FreshRSS is the %s.',
 		'last' => 'Last verification: %s',
 		'none' => 'No update to apply',
 		'title' => 'Update system',

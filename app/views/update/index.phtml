@@ -6,7 +6,11 @@
 	<h1><?php echo _t('admin.update'); ?></h1>
 
 	<p>
-		<?php echo _i('help'); ?> <?php echo _t('admin.update.last', $this->last_update_time); ?>
+		<?php echo _i('help'); ?> <?php echo _t('admin.update.current_version', FRESHRSS_VERSION); ?>
+	</p>
+
+	<p>
+		<?php echo _t('admin.update.last', $this->last_update_time); ?>
 	</p>
 
 	<?php if (!empty($this->message)) { ?>
