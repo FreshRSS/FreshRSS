@@ -25,7 +25,7 @@ class FreshRSS_extension_Controller extends Minz_ActionController {
 			'user' => array(),
 		);
 
-		$extensions = Minz_ExtensionManager::list_extensions();
+		$extensions = Minz_ExtensionManager::listExtensions();
 		foreach ($extensions as $ext) {
 			$this->view->extension_list[$ext->getType()][] = $ext;
 		}
@@ -50,7 +50,7 @@ class FreshRSS_extension_Controller extends Minz_ActionController {
 		}
 
 		$ext_name = urldecode(Minz_Request::param('e'));
-		$ext = Minz_ExtensionManager::find_extension($ext_name);
+		$ext = Minz_ExtensionManager::findExtension($ext_name);
 
 		if (is_null($ext)) {
 			Minz_Error::error(404);
@@ -77,7 +77,7 @@ class FreshRSS_extension_Controller extends Minz_ActionController {
 
 		if (Minz_Request::isPost()) {
 			$ext_name = urldecode(Minz_Request::param('e'));
-			$ext = Minz_ExtensionManager::find_extension($ext_name);
+			$ext = Minz_ExtensionManager::findExtension($ext_name);
 
 			if (is_null($ext)) {
 				Minz_Request::bad(_t('feedback.extensions.not_found', $ext_name),
@@ -133,7 +133,7 @@ class FreshRSS_extension_Controller extends Minz_ActionController {
 
 		if (Minz_Request::isPost()) {
 			$ext_name = urldecode(Minz_Request::param('e'));
-			$ext = Minz_ExtensionManager::find_extension($ext_name);
+			$ext = Minz_ExtensionManager::findExtension($ext_name);
 
 			if (is_null($ext)) {
 				Minz_Request::bad(_t('feedback.extensions.not_found', $ext_name),
@@ -193,7 +193,7 @@ class FreshRSS_extension_Controller extends Minz_ActionController {
 
 		if (Minz_Request::isPost()) {
 			$ext_name = urldecode(Minz_Request::param('e'));
-			$ext = Minz_ExtensionManager::find_extension($ext_name);
+			$ext = Minz_ExtensionManager::findExtension($ext_name);
 
 			if (is_null($ext)) {
 				Minz_Request::bad(_t('feedback.extensions.not_found', $ext_name),

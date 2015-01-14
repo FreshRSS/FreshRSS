@@ -53,7 +53,7 @@ class FreshRSS extends Minz_FrontController {
 		// Enable extensions for the current (logged) user.
 		if (FreshRSS_Auth::hasAccess()) {
 			$ext_list = FreshRSS_Context::$user_conf->extensions_enabled;
-			Minz_ExtensionManager::enable_by_list($ext_list);
+			Minz_ExtensionManager::enableByList($ext_list);
 		}
 	}
 

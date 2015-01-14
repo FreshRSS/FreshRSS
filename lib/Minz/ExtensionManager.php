@@ -52,7 +52,7 @@ class Minz_ExtensionManager {
 			}
 			$meta_raw_content = file_get_contents($metadata_filename);
 			$meta_json = json_decode($meta_raw_content, true);
-			if (!$meta_json || !self::is_valid_metadata($meta_json)) {
+			if (!$meta_json || !self::isValidMetadata($meta_json)) {
 				// metadata.json is not a json file? Invalid!
 				// or metadata.json is invalid (no required information), invalid!
 				Minz_Log::warning('`' . $metadata_filename . '` is not a valid metadata file');
@@ -81,7 +81,7 @@ class Minz_ExtensionManager {
 	 * @param $meta is an array of values.
 	 * @return true if the array is valid, false else.
 	 */
-	public static function is_valid_metadata($meta) {
+	public static function isValidMetadata($meta) {
 		$valid_chars = array('_');
 		return !(empty($meta['name']) ||
 		         empty($meta['entrypoint']) ||
@@ -168,7 +168,7 @@ class Minz_ExtensionManager {
 	 *
 	 * @param $ext_list the names of extensions we want to load.
 	 */
-	public static function enable_by_list($ext_list) {
+	public static function enableByList($ext_list) {
 		foreach ($ext_list as $ext_name) {
 			self::enable($ext_name);
 		}
@@ -180,7 +180,7 @@ class Minz_ExtensionManager {
 	 * @param $only_enabled if true returns only the enabled extensions (false by default).
 	 * @return an array of extensions.
 	 */
-	public static function list_extensions($only_enabled = false) {
+	public static function listExtensions($only_enabled = false) {
 		if ($only_enabled) {
 			return self::$ext_list_enabled;
 		} else {
@@ -194,7 +194,7 @@ class Minz_ExtensionManager {
 	 * @param $ext_name the name of the extension.
 	 * @return the corresponding extension or null if it doesn't exist.
 	 */
-	public static function find_extension($ext_name) {
+	public static function findExtension($ext_name) {
 		if (!isset(self::$ext_list[$ext_name])) {
 			return null;
 		}
