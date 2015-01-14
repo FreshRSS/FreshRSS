@@ -204,7 +204,7 @@ function clientLogin($email, $pass) {	//http://web.archive.org/web/2013060409104
 function token($conf) {
 //http://blog.martindoms.com/2009/08/15/using-the-google-reader-api-part-1/
 //https://github.com/ericmann/gReader-Library/blob/master/greader.class.php
-	$user = Minz_Session::_param('currentUser', '_');
+	$user = Minz_Session::param('currentUser', '_');
 	logMe('token('. $user . ")\n");	//TODO: Implement real token that expires
 	$system_conf = Minz_Configuration::get('system');
 	$token = str_pad(sha1($system_conf->salt . $user . $conf->apiPasswordHash), 57, 'Z');	//Must have 57 characters
@@ -214,7 +214,7 @@ function token($conf) {
 
 function checkToken($conf, $token) {
 //http://code.google.com/p/google-reader-api/wiki/ActionToken
-	$user = Minz_Session::_param('currentUser', '_');
+	$user = Minz_Session::param('currentUser', '_');
 	logMe('checkToken(' . $token . ")\n");
 	$system_conf = Minz_Configuration::get('system');
 	if ($token === str_pad(sha1($system_conf->salt . $user . $conf->apiPasswordHash), 57, 'Z')) {
@@ -649,7 +649,7 @@ elseif ($pathInfos[1] === 'reader' && $pathInfos[2] === 'api' && isset($pathInfo
 			markAllAsRead($streamId, $ts);
 			break;
 		case 'token':
-			Token($conf);
+			token($conf);
 			break;
 	}
 } elseif ($pathInfos[1] === 'check' && $pathInfos[2] === 'compatibility') {
