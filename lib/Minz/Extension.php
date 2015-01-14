@@ -92,7 +92,7 @@ class Minz_Extension {
 	 *
 	 * @return true if extension is enabled, false else.
 	 */
-	public function is_enabled() {
+	public function isEnabled() {
 		return $this->is_enabled;
 	}
 

@@ -73,7 +73,7 @@ class FreshRSS_extension_Controller extends Minz_ActionController {
 				                  $url_redirect);
 			}
 
-			if ($ext->is_enabled()) {
+			if ($ext->isEnabled()) {
 				Minz_Request::bad(_t('feedback.extensions.already_enabled', $ext_name),
 				                  $url_redirect);
 			}
@@ -129,7 +129,7 @@ class FreshRSS_extension_Controller extends Minz_ActionController {
 				                  $url_redirect);
 			}
 
-			if (!$ext->is_enabled()) {
+			if (!$ext->isEnabled()) {
 				Minz_Request::bad(_t('feedback.extensions.not_enabled', $ext_name),
 				                  $url_redirect);
 			}
