@@ -5,35 +5,40 @@
 
 	<h1><?php echo _t('admin.extensions.title'); ?></h1>
 
-	<?php if (!empty($this->extension_list)) { ?>
 	<form id="form-extension" method="post" style="display: none"></form>
-	<?php foreach ($this->extension_list as $ext) { ?>
-	<ul class="horizontal-list">
-		<li class="item">
-			<?php if ($ext->getType() === 'user' || FreshRSS_Auth::hasAccess('admin')) { ?>
-			<?php $name_encoded = urlencode($ext->getName()); ?>
-			<div class="stick">
-				<a class="btn open-slider" href="<?php echo _url('extension', 'configure', 'e', $name_encoded); ?>"><?php echo _i('configure'); ?> <?php echo _t('gen.action.manage'); ?></a>
-				<?php if ($ext->isEnabled()) { ?>
-				<button class="btn active" form="form-extension" formaction="<?php echo _url('extension', 'disable', 'e', $name_encoded); ?>"><?php echo _t('gen.action.disable'); ?></button>
-				<?php } else { ?>
-				<button class="btn" form="form-extension" formaction="<?php echo _url('extension', 'enable', 'e', $name_encoded); ?>"><?php echo _t('gen.action.enable'); ?></button>
-				<?php } ?>
-				<?php if (FreshRSS_Auth::hasAccess('admin')) { ?>
-				<button class="btn btn-attention confirm" form="form-extension" formaction="<?php echo _url('extension', 'remove', 'e', $name_encoded); ?>"><?php echo _t('gen.action.remove'); ?></button>
-				<?php } ?>
-			</div>
-			<?php } else { ?>
-			<?php echo _t('admin.extensions.system'); ?>
-			<?php } ?>
-		</li>
-		<li class="item"><?php echo $ext->getName(); ?></li>
-	</ul>
+	<?php if (!empty($this->extension_list['system'])) { ?>
+	<h2><?php echo _t('admin.extensions.system'); ?></h2>
+	<?php
+		foreach ($this->extension_list['system'] as $ext) {
+			$this->ext_details = $ext;
+			$this->renderHelper('extension/details');
+		}
+	?>
 	<?php } ?>
-	<?php } else { ?>
+
+	<?php if (!empty($this->extension_list['user'])) { ?>
+	<h2><?php echo _t('admin.extensions.user'); ?></h2>
+	<?php
+		foreach ($this->extension_list['user'] as $ext) {
+			$this->ext_details = $ext;
+			$this->renderHelper('extension/details');
+		}
+	?>
+	<?php
+		}
+
+		if (empty($this->extension_list['system']) && empty($this->extension_list['user'])) {
+	?>
 	<p class="alert alert-warn"><?php echo _t('admin.extensions.empty_list'); ?></p>
 	<?php } ?>
 </div>
 
-<a href="#" id="close-slider"></a>
-<div id="slider"></div>
+<?php $class = isset($this->extension) ? ' class="active"' : ''; ?>
+<a href="#" id="close-slider"<?php echo $class; ?>></a>
+<div id="slider"<?php echo $class; ?>>
+<?php
+	if (isset($this->extension)) {
+		$this->renderHelper('extension/configure');
+	}
+?>
+</div>

@@ -20,7 +20,15 @@ class FreshRSS_extension_Controller extends Minz_ActionController {
 	 */
 	public function indexAction() {
 		Minz_View::prependTitle(_t('admin.extensions.title') . ' · ');
-		$this->view->extension_list = Minz_ExtensionManager::list_extensions();
+		$this->view->extension_list = array(
+			'system' => array(),
+			'user' => array(),
+		);
+
+		$extensions = Minz_ExtensionManager::list_extensions();
+		foreach ($extensions as $ext) {
+			$this->view->extension_list[$ext->getType()][] = $ext;
+		}
 	}
 
 	/**
@@ -36,6 +44,9 @@ class FreshRSS_extension_Controller extends Minz_ActionController {
 	public function configureAction() {
 		if (Minz_Request::param('ajax')) {
 			$this->view->_useLayout(false);
+		} else {
+			$this->indexAction();
+			$this->view->change_view('extension', 'index');
 		}
 
 		$ext_name = urldecode(Minz_Request::param('e'));

@@ -103,10 +103,16 @@ return array(
 		),
 	),
 	'extensions' => array(
+		'disabled' => 'Désactivée',
 		'empty_list' => 'Il n’y a aucune extension installée.',
+		'enabled' => 'Activée',
 		'no_configure_view' => 'Cette extension ne peut pas être configurée.',
-		'system' => 'Extension système (vous n’avez aucun droit dessus)',
+		'system' => array(
+			'_' => 'Extensions système',
+			'no_rights' => 'Extension système (vous n’avez aucun droit dessus)',
+		),
 		'title' => 'Extensions',
+		'user' => 'Extensions utilisateur',
 	),
 	'stats' => array(
 		'_' => 'Statistiques',
