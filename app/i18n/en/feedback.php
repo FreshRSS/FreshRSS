@@ -31,8 +31,14 @@ return array(
 	),
 	'extensions' => array(
 		'already_enabled' => '%s is already enabled',
-		'disabled' => '%s is now disabled',
-		'enabled' => '%s is now enabled',
+		'disable' => array(
+			'ko' => '%s cannot be disabled. <a href="%s">Check FressRSS logs</a> for details.',
+			'ok' => '%s is now disabled',
+		),
+		'enable' => array(
+			'ko' => '%s cannot be enabled. <a href="%s">Check FressRSS logs</a> for details.',
+			'ok' => '%s is now enabled',
+		),
 		'no_access' => 'You have no access on %s',
 		'not_enabled' => '%s is not enabled yet',
 		'not_found' => '%s does not exist',
@@ -67,7 +73,7 @@ return array(
 			'already_subscribed' => 'You have already subscribed to <em>%s</em>',
 			'deleted' => 'Feed has been deleted',
 			'error' => 'Feed cannot be updated',
-			'internal_problem_feed' => 'The RSS feed could not be added. <a href="%s">Check FressRSS logs</a> for details.',
+			'internal_problem' => 'The RSS feed could not be added. <a href="%s">Check FressRSS logs</a> for details.',
 			'invalid_url' => 'URL <em>%s</em> is invalid',
 			'marked_read' => 'Feeds have been marked as read',
 			'n_actualized' => '%d feeds have been updated',

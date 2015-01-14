@@ -51,16 +51,26 @@ class Minz_Extension {
 	 * Used when installing an extension (e.g. update the database scheme).
 	 *
 	 * It must be redefined by child classes.
+	 *
+	 * @return true if the extension has been installed or a string explaining
+	 *         the problem.
 	 */
-	public function install() {}
+	public function install() {
+		return true;
+	}
 
 	/**
 	 * Used when uninstalling an extension (e.g. revert the database scheme to
 	 * cancel changes from install).
 	 *
 	 * It must be redefined by child classes.
+	 *
+	 * @return true if the extension has been uninstalled or a string explaining
+	 *         the problem.
 	 */
-	public function uninstall() {}
+	public function uninstall() {
+		return true;
+	}
 
 	/**
 	 * Call at the initialization of the extension (i.e. when the extension is

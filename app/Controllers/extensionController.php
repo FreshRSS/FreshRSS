@@ -88,15 +88,21 @@ class FreshRSS_extension_Controller extends Minz_ActionController {
 				                  $url_redirect);
 			}
 
-			$ext->install();
+			$res = $ext->install();
 
-			$ext_list = $conf->extensions_enabled;
-			array_push_unique($ext_list, $ext_name);
-			$conf->extensions_enabled = $ext_list;
-			$conf->save();
+			if ($res === true) {
+				$ext_list = $conf->extensions_enabled;
+				array_push_unique($ext_list, $ext_name);
+				$conf->extensions_enabled = $ext_list;
+				$conf->save();
 
-			Minz_Request::good(_t('feedback.extensions.enabled', $ext_name),
-			                  $url_redirect);
+				Minz_Request::good(_t('feedback.extensions.enable.ok', $ext_name),
+				                   $url_redirect);
+			} else {
+				Minz_Log::warning('Can not enable extension ' . $ext_name . ': ' . $res);
+				Minz_Request::bad(_t('feedback.extensions.enable.ko', $ext_name, _url('index', 'logs')),
+				                  $url_redirect);
+			}
 		}
 
 		Minz_Request::forward($url_redirect, true);
@@ -138,15 +144,21 @@ class FreshRSS_extension_Controller extends Minz_ActionController {
 				                  $url_redirect);
 			}
 
-			$ext->uninstall();
+			$res = $ext->uninstall();
 
-			$ext_list = $conf->extensions_enabled;
-			array_remove($ext_list, $ext_name);
-			$conf->extensions_enabled = $ext_list;
-			$conf->save();
+			if ($res === true) {
+				$ext_list = $conf->extensions_enabled;
+				array_remove($ext_list, $ext_name);
+				$conf->extensions_enabled = $ext_list;
+				$conf->save();
 
-			Minz_Request::good(_t('feedback.extensions.disabled', $ext_name),
-			                  $url_redirect);
+				Minz_Request::good(_t('feedback.extensions.disable.ok', $ext_name),
+				                   $url_redirect);
+			} else {
+				Minz_Log::warning('Can not unable extension ' . $ext_name . ': ' . $res);
+				Minz_Request::bad(_t('feedback.extensions.disable.ko', $ext_name, _url('index', 'logs')),
+				                  $url_redirect);
+			}
 		}
 
 		Minz_Request::forward($url_redirect, true);
