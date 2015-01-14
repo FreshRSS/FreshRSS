@@ -82,9 +82,10 @@ class Minz_ExtensionManager {
 	 * @return true if the array is valid, false else.
 	 */
 	public static function is_valid_metadata($meta) {
+		$valid_chars = array('_');
 		return !(empty($meta['name']) ||
 		         empty($meta['entrypoint']) ||
-		         !ctype_alnum($meta['entrypoint']));
+		         !ctype_alnum(str_replace($valid_chars, '', $meta['entrypoint'])));
 	}
 
 	/**
