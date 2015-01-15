@@ -6,6 +6,11 @@ define('PACKAGE_URL', 'https://codeload.github.com/FreshRSS/FreshRSS/zip/0.9.4')
 // Fix system configuration (>= 0.9.4)
 function fix_system_config() {
 	$filename = DATA_PATH . '/config.php';
+
+	if (!is_writable($filename)) {
+		@chmod($filename, 0774);
+	}
+
 	$config = include($filename);
 
 	if (!is_array($config)) {
