@@ -11,11 +11,9 @@ class FreshRSS_update_Controller extends Minz_ActionController {
 
 		$this->view->update_to_apply = false;
 		$this->view->last_update_time = 'unknown';
-		$this->view->check_last_hour = false;
 		$timestamp = @filemtime(join_path(DATA_PATH, 'last_update.txt'));
 		if ($timestamp !== false) {
 			$this->view->last_update_time = timestamptodate($timestamp);
-			$this->view->check_last_hour = (time() - 3600) <= $timestamp;
 		}
 	}
 
@@ -43,11 +41,11 @@ class FreshRSS_update_Controller extends Minz_ActionController {
 	public function checkAction() {
 		$this->view->change_view('update', 'index');
 
-		if (file_exists(UPDATE_FILENAME) || $this->view->check_last_hour) {
+		if (file_exists(UPDATE_FILENAME)) {
 			// There is already an update file to apply: we don't need to check
 			// the webserver!
 			// Or if already check during the last hour, do nothing.
-			Minz_Request::forward(array('c' => 'update'));
+			Minz_Request::forward(array('c' => 'update'), true);
 
 			return;
 		}
@@ -94,7 +92,7 @@ class FreshRSS_update_Controller extends Minz_ActionController {
 			$version = $version[1];
 			@file_put_contents(join_path(DATA_PATH, 'last_update.txt'), $version);
 
-			Minz_Request::forward(array('c' => 'update'));
+			Minz_Request::forward(array('c' => 'update'), true);
 		} else {
 			$this->view->message = array(
 				'status' => 'bad',
