@@ -15,9 +15,22 @@ class Minz_ExtensionManager {
 
 	// List of available hooks. Please keep this list sorted.
 	private static $hook_list = array(
-		'entry_before_display' => array(),  // function($entry) -> Entry | null
-		'entry_before_insert' => array(),  // function($entry) -> Entry | null
-		'feed_before_insert' => array(),  // function($feed) -> Feed | null
+		'entry_before_display' => array(  // function($entry) -> Entry | null
+			'list' => array(),
+			'signature' => 'OneToOne',
+		),
+		'entry_before_insert' => array(  // function($entry) -> Entry | null
+			'list' => array(),
+			'signature' => 'OneToOne',
+		),
+		'feed_before_insert' => array(  // function($feed) -> Feed | null
+			'list' => array(),
+			'signature' => 'OneToOne',
+		),
+		'post_update' => array(  // function(none) -> none
+			'list' => array(),
+			'signature' => 'NoneToNone',
+		),
 	);
 	private static $ext_to_hooks = array();
 
@@ -214,7 +227,7 @@ class Minz_ExtensionManager {
 	 */
 	public static function addHook($hook_name, $hook_function, $ext) {
 		if (isset(self::$hook_list[$hook_name]) && is_callable($hook_function)) {
-			self::$hook_list[$hook_name][] = $hook_function;
+			self::$hook_list[$hook_name]['list'][] = $hook_function;
 			self::$ext_to_hooks[$ext->getName()][] = $hook_name;
 		}
 	}
@@ -226,25 +239,60 @@ class Minz_ExtensionManager {
 	 * array keys.
 	 *
 	 * @param $hook_name the hook to call.
-	 * @param additionnal parameters (for signature, please see self::$hook_list comments)
-	 * @todo hook functions will have different signatures. So the $res = func($args);
-	 *       $args = $res; will not work for all of them in the future. We must
-	 *       find a better way to call hooks.
+	 * @param additionnal parameters (for signature, please see self::$hook_list).
+	 * @return the final result of the called hook.
 	 */
 	public static function callHook($hook_name) {
-		$args = func_get_args();
-		unset($args[0]);
+		if (!isset(self::$hook_list[$hook_name])) {
+			return;
+		}
 
-		$result = $args[1];
-		foreach (self::$hook_list[$hook_name] as $function) {
-			$result = call_user_func_array($function, $args);
+		$signature = self::$hook_list[$hook_name]['signature'];
+		$signature = 'self::call' . $signature;
+		$args = func_get_args();
+
+		return call_user_func_array($signature, $args);
+	}
+
+	/**
+	 * Call a hook which takes one argument and return a result.
+	 *
+	 * The result is chained between the extension, for instance, first extension
+	 * hook will receive the initial argument and return a result which will be
+	 * passed as an argument to the next extension hook and so on.
+	 *
+	 * If a hook return a null value, the method is stopped and return null.
+	 *
+	 * @param $hook_name is the hook to call.
+	 * @param $arg is the argument to pass to the first extension hook.
+	 * @return the final chained result of the hooks. If nothing is changed,
+	 *         the initial argument is returned.
+	 */
+	private static function callOneToOne($hook_name, $arg) {
+		$result = $arg;
+		foreach (self::$hook_list[$hook_name]['list'] as $function) {
+			$result = call_user_func($function, $arg);
 
 			if (is_null($result)) {
 				break;
 			}
 
-			$args = $result;
+			$arg = $result;
 		}
 		return $result;
+	}
+
+	/**
+	 * Call a hook which takes no argument and returns nothing.
+	 *
+	 * This case is simpler than callOneToOne because hooks are called one by
+	 * one, without any consideration of argument nor result.
+	 *
+	 * @param $hook_name is the hook to call.
+	 */
+	private static function callNoneToNone($hook_name) {
+		foreach (self::$hook_list[$hook_name]['list'] as $function) {
+			call_user_func($function);
+		}
 	}
 }

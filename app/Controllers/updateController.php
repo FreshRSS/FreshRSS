@@ -112,6 +112,8 @@ class FreshRSS_update_Controller extends Minz_ActionController {
 		if (Minz_Request::param('post_conf', false)) {
 			$res = do_post_update();
 
+			Minz_ExtensionManager::callHook('post_update');
+
 			if ($res === true) {
 				@unlink(UPDATE_FILENAME);
 				@file_put_contents(join_path(DATA_PATH, 'last_update.txt'), '');
