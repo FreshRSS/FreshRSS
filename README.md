@@ -10,8 +10,8 @@ It is a multi-user application with an anonymous reading mode.
 * Official website: http://freshrss.org
 * Demo: http://demo.freshrss.org/
 * Developer: Marien Fressinaud <dev@marienfressinaud.fr>
-* Current version: 0.9.3
-* Publication date: 2014-12-12
+* Current version: 0.9.4
+* Publication date: 2015-01-15
 * License [GNU AGPL 3](http://www.gnu.org/licenses/agpl-3.0.html)
 
 ![FreshRSS logo](http://marienfressinaud.fr/data/images/freshrss/freshrss_title.png)
