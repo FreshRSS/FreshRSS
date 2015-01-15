@@ -159,7 +159,7 @@ class Minz_Extension {
 	 * @return the url corresponding to the file.
 	 */
 	public function getFileUrl($filename, $type) {
-		$dir = end(explode('/', $this->path));
+		$dir = substr(strrchr($this->path, '/'), 1);
 		$file_name_url = urlencode($dir . '/static/' . $filename);
 
 		$absolute_path = $this->path . '/static/' . $filename;
