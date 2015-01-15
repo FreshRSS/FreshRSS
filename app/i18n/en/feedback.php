@@ -29,6 +29,20 @@ return array(
 		'shortcuts_updated' => 'Shortcuts have been updated',
 		'updated' => 'Configuration has been updated',
 	),
+	'extensions' => array(
+		'already_enabled' => '%s is already enabled',
+		'disable' => array(
+			'ko' => '%s cannot be disabled. <a href="%s">Check FressRSS logs</a> for details.',
+			'ok' => '%s is now disabled',
+		),
+		'enable' => array(
+			'ko' => '%s cannot be enabled. <a href="%s">Check FressRSS logs</a> for details.',
+			'ok' => '%s is now enabled',
+		),
+		'no_access' => 'You have no access on %s',
+		'not_enabled' => '%s is not enabled yet',
+		'not_found' => '%s does not exist',
+	),
 	'import_export' => array(
 		'export_no_zip_extension' => 'Zip extension is not present on your server. Please try to export files one by one.',
 		'feeds_imported' => 'Your feeds have been imported and will now be updated',
@@ -59,7 +73,7 @@ return array(
 			'already_subscribed' => 'You have already subscribed to <em>%s</em>',
 			'deleted' => 'Feed has been deleted',
 			'error' => 'Feed cannot be updated',
-			'internal_problem_feed' => 'The RSS feed could not be added. <a href="%s">Check FressRSS logs</a> for details.',
+			'internal_problem' => 'The RSS feed could not be added. <a href="%s">Check FressRSS logs</a> for details.',
 			'invalid_url' => 'URL <em>%s</em> is invalid',
 			'marked_read' => 'Feeds have been marked as read',
 			'n_actualized' => '%d feeds have been updated',
@@ -72,7 +86,7 @@ return array(
 		'purge_completed' => 'Purge completed (%d articles deleted)',
 	),
 	'update' => array(
-		'can_apply' => 'An update is available.',
+		'can_apply' => 'FreshRSS will be now updated to the <strong>version %s</strong>.',
 		'error' => 'The update process has encountered an error: %s',
 		'file_is_nok' => 'Check permissions on <em>%s</em> directory. HTTP server must have rights to write into',
 		'finished' => 'Update completed!',

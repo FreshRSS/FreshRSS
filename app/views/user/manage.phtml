@@ -10,9 +10,9 @@
 			<label class="group-name" for="new_user_language"><?php echo _t('admin.user.language'); ?></label>
 			<div class="group-controls">
 				<select name="new_user_language" id="new_user_language">
-				<?php $languages = FreshRSS_Context::$conf->availableLanguages(); ?>
-				<?php foreach ($languages as $short => $lib) { ?>
-				<option value="<?php echo $short; ?>"<?php echo FreshRSS_Context::$conf->language === $short ? ' selected="selected"' : ''; ?>><?php echo $lib; ?></option>
+				<?php $languages = Minz_Translate::availableLanguages(); ?>
+				<?php foreach ($languages as $lang) { ?>
+				<option value="<?php echo $lang; ?>"<?php echo FreshRSS_Context::$user_conf->language === $lang ? ' selected="selected"' : ''; ?>><?php echo _t('gen.lang.' . $lang); ?></option>
 				<?php } ?>
 				</select>
 			</div>
@@ -30,7 +30,7 @@
 			<div class="group-controls">
 				<div class="stick">
 					<input type="password" id="new_user_passwordPlain" name="new_user_passwordPlain" autocomplete="off" pattern=".{7,}" />
-					<a class="btn toggle-password"><?php echo _i('key'); ?></a>
+					<a class="btn toggle-password" data-toggle="new_user_passwordPlain"><?php echo _i('key'); ?></a>
 				</div>
 				<noscript><b><?php echo _t('gen.js.should_be_activated'); ?></b></noscript>
 			</div>
@@ -38,7 +38,7 @@
 
 		<div class="form-group">
 			<label class="group-name" for="new_user_email"><?php echo _t('admin.user.email_persona'); ?></label>
-			<?php $mail = FreshRSS_Context::$conf->mail_login; ?>
+			<?php $mail = FreshRSS_Context::$user_conf->mail_login; ?>
 			<div class="group-controls">
 				<input type="email" id="new_user_email" name="new_user_email" class="extend" autocomplete="off" placeholder="alice@example.net" />
 			</div>

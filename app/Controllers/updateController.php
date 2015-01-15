@@ -1,8 +1,8 @@
 <?php
 
 class FreshRSS_update_Controller extends Minz_ActionController {
+
 	public function firstAction() {
-		$current_user = Minz_Session::param('currentUser', '');
 		if (!FreshRSS_Auth::hasAccess('admin')) {
 			Minz_Error::error(403);
 		}
@@ -11,11 +11,9 @@ class FreshRSS_update_Controller extends Minz_ActionController {
 
 		$this->view->update_to_apply = false;
 		$this->view->last_update_time = 'unknown';
-		$this->view->check_last_hour = false;
-		$timestamp = (int)@file_get_contents(DATA_PATH . '/last_update.txt');
-		if (is_numeric($timestamp) && $timestamp > 0) {
+		$timestamp = @filemtime(join_path(DATA_PATH, 'last_update.txt'));
+		if ($timestamp !== false) {
 			$this->view->last_update_time = timestamptodate($timestamp);
-			$this->view->check_last_hour = (time() - 3600) <= $timestamp;
 		}
 	}
 
@@ -30,11 +28,12 @@ class FreshRSS_update_Controller extends Minz_ActionController {
 			);
 		} elseif (file_exists(UPDATE_FILENAME)) {
 			// There is an update file to apply!
+			$version = file_get_contents(join_path(DATA_PATH, 'last_update.txt'));
 			$this->view->update_to_apply = true;
 			$this->view->message = array(
 				'status' => 'good',
 				'title' => _t('gen.short.ok'),
-				'body' => _t('feedback.update.can_apply')
+				'body' => _t('feedback.update.can_apply', $version)
 			);
 		}
 	}
@@ -42,11 +41,11 @@ class FreshRSS_update_Controller extends Minz_ActionController {
 	public function checkAction() {
 		$this->view->change_view('update', 'index');
 
-		if (file_exists(UPDATE_FILENAME) || $this->view->check_last_hour) {
+		if (file_exists(UPDATE_FILENAME)) {
 			// There is already an update file to apply: we don't need to check
 			// the webserver!
 			// Or if already check during the last hour, do nothing.
-			Minz_Request::forward(array('c' => 'update'));
+			Minz_Request::forward(array('c' => 'update'), true);
 
 			return;
 		}
@@ -82,14 +81,18 @@ class FreshRSS_update_Controller extends Minz_ActionController {
 				'body' => _t('feedback.update.none')
 			);
 
-			@file_put_contents(DATA_PATH . '/last_update.txt', time());
+			@touch(join_path(DATA_PATH, 'last_update.txt'));
 
 			return;
 		}
 
 		$script = $res_array[1];
 		if (file_put_contents(UPDATE_FILENAME, $script) !== false) {
-			Minz_Request::forward(array('c' => 'update'));
+			$version = explode(' ', $status, 2);
+			$version = $version[1];
+			@file_put_contents(join_path(DATA_PATH, 'last_update.txt'), $version);
+
+			Minz_Request::forward(array('c' => 'update'), true);
 		} else {
 			$this->view->message = array(
 				'status' => 'bad',
@@ -109,9 +112,11 @@ class FreshRSS_update_Controller extends Minz_ActionController {
 		if (Minz_Request::param('post_conf', false)) {
 			$res = do_post_update();
 
+			Minz_ExtensionManager::callHook('post_update');
+
 			if ($res === true) {
 				@unlink(UPDATE_FILENAME);
-				@file_put_contents(DATA_PATH . '/last_update.txt', time());
+				@file_put_contents(join_path(DATA_PATH, 'last_update.txt'), '');
 				Minz_Request::good(_t('feedback.update.finished'));
 			} else {
 				Minz_Request::bad(_t('feedback.update.error', $res),

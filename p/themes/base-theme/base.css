@@ -427,8 +427,6 @@ a.btn {
 	text-align: center;
 }
 .aside.aside_feed .tree {
-	position: sticky;
-	top: 0;
 	margin: 10px 0 50px;
 }
 
@@ -776,9 +774,6 @@ a.btn {
 
 	.aside.aside_feed {
 		padding: 0;
-	}
-	.aside.aside_feed .tree {
-		position: static;
 	}
 
 	.nav_menu .btn {

@@ -1,6 +1,6 @@
 <?php
 	$class = '';
-	if (FreshRSS_Context::$conf->hide_read_feeds &&
+	if (FreshRSS_Context::$user_conf->hide_read_feeds &&
 			FreshRSS_Context::isStateEnabled(FreshRSS_Entry::STATE_NOT_READ) &&
 			!FreshRSS_Context::isStateEnabled(FreshRSS_Entry::STATE_READ)) {
 		$class = ' state_unread';
@@ -15,7 +15,7 @@
 		<a class="btn btn-important" href="<?php echo _url('subscription', 'index'); ?>"><?php echo _t('index.menu.subscription'); ?></a>
 		<a class="btn btn-important" href="<?php echo _url('importExport', 'index'); ?>"><?php echo _i('import'); ?></a>
 	</div>
-	<?php } elseif (Minz_Configuration::needsLogin()) { ?>
+	<?php } elseif (FreshRSS_Auth::accessNeedsLogin()) { ?>
 	<a href="<?php echo _url('index', 'about'); ?>"><?php echo _t('index.menu.about'); ?></a>
 	<?php } ?>
 
@@ -39,7 +39,7 @@
 				$feeds = $cat->feeds();
 				if (!empty($feeds)) {
 					$c_active = FreshRSS_Context::isCurrentGet('c_' . $cat->id());
-					$c_show = $c_active && (!FreshRSS_Context::$conf->display_categories ||
+					$c_show = $c_active && (!FreshRSS_Context::$user_conf->display_categories ||
 					                        FreshRSS_Context::$current_get['feed']);
 		?>
 		<li class="tree-folder category<?php echo $c_active ? ' active' : ''; ?>" data-unread="<?php echo $cat->nbNotRead(); ?>">
@@ -84,7 +84,7 @@
 		<li class="item"><a href="<?php echo _url('subscription', 'index', 'id', '!!!!!!'); ?>"><?php echo _t('gen.action.manage'); ?></a></li>
 		<li class="item"><a href="<?php echo _url('feed', 'actualize', 'id', '!!!!!!'); ?>"><?php echo _t('gen.action.actualize'); ?></a></li>
 		<li class="item">
-			<?php $confirm = FreshRSS_Context::$conf->reading_confirm ? 'confirm' : ''; ?>
+			<?php $confirm = FreshRSS_Context::$user_conf->reading_confirm ? 'confirm' : ''; ?>
 			<button class="read_all as-link <?php echo $confirm; ?>"
 			        form="mark-read-aside"
 			        formaction="<?php echo _url('entry', 'read', 'get', 'f_!!!!!!'); ?>"

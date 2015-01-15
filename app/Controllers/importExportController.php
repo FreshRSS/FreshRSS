@@ -125,8 +125,6 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 	 *
 	 * Itis a *very* basic guess file type function. Only based on filename.
 	 * That's could be improved but should be enough for what we have to do.
-	 *
-	 * @todo move into lib_rss.php
 	 */
 	private function guessFileType($filename) {
 		if (substr_compare($filename, '.zip', -4) === 0) {
@@ -176,7 +174,7 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 
 		$nb_feeds = count($this->feedDAO->listFeeds());
 		$nb_cats = count($this->catDAO->listCategories(false));
-		$limits = Minz_Configuration::limits();
+		$limits = FreshRSS_Context::$system_conf->limits;
 
 		foreach ($opml_elements as $elt) {
 			$is_error = false;
@@ -259,10 +257,16 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 			$feed->_website($website);
 			$feed->_description($description);
 
-			// addFeedObject checks if feed is already in DB so nothing else to
-			// check here
-			$id = $this->feedDAO->addFeedObject($feed);
-			$error = ($id === false);
+			// Call the extension hook
+			$feed = Minz_ExtensionManager::callHook('feed_before_insert', $feed);
+			if (!is_null($feed)) {
+				// addFeedObject checks if feed is already in DB so nothing else to
+				// check here
+				$id = $this->feedDAO->addFeedObject($feed);
+				$error = ($id === false);
+			} else {
+				$error = true;
+			}
 		} catch (FreshRSS_Feed_Exception $e) {
 			Minz_Log::warning($e->getMessage());
 			$error = true;
@@ -317,7 +321,7 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 			return true;
 		}
 
-		$is_read = FreshRSS_Context::$conf->mark_when['reception'] ? 1 : 0;
+		$is_read = FreshRSS_Context::$user_conf->mark_when['reception'] ? 1 : 0;
 
 		$google_compliant = strpos($article_object['id'], 'com.google') !== false;
 
@@ -325,7 +329,7 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 		$article_to_feed = array();
 
 		$nb_feeds = count($this->feedDAO->listFeeds());
-		$limits = Minz_Configuration::limits();
+		$limits = FreshRSS_Context::$system_conf->limits;
 
 		// First, we check feeds of articles are in DB (and add them if needed).
 		foreach ($article_object['items'] as $item) {
@@ -385,6 +389,12 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 			$entry->_id(min(time(), $entry->date(true)) . uSecString());
 			$entry->_tags($tags);
 
+			$entry = Minz_ExtensionManager::callHook('entry_before_insert', $entry);
+			if (is_null($entry)) {
+				// An extension has returned a null value, there is nothing to insert.
+				continue;
+			}
+
 			$values = $entry->toArray();
 			$id = $this->entryDAO->addEntry($values, $prepared_statement);
 
@@ -421,13 +431,17 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 			$feed->_name($name);
 			$feed->_website($website);
 
-			// addFeedObject checks if feed is already in DB so nothing else to
-			// check here.
-			$id = $this->feedDAO->addFeedObject($feed);
+			// Call the extension hook
+			$feed = Minz_ExtensionManager::callHook('feed_before_insert', $feed);
+			if (!is_null($feed)) {
+				// addFeedObject checks if feed is already in DB so nothing else to
+				// check here.
+				$id = $this->feedDAO->addFeedObject($feed);
 
-			if ($id !== false) {
-				$feed->_id($id);
-				$return = $feed;
+				if ($id !== false) {
+					$feed->_id($id);
+					$return = $feed;
+				}
 			}
 		} catch (FreshRSS_Feed_Exception $e) {
 			Minz_Log::warning($e->getMessage());
@@ -534,7 +548,7 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 			$this->view->type = 'feed/' . $feed->id();
 			$this->view->entries = $this->entryDAO->listWhere(
 				'f', $feed->id(), FreshRSS_Entry::STATE_ALL, 'ASC',
-				FreshRSS_Context::$conf->posts_per_page
+				FreshRSS_Context::$user_conf->posts_per_page
 			);
 			$this->view->feed = $feed;
 		}

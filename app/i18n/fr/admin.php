@@ -12,7 +12,7 @@ return array(
 		'title' => 'Authentification',
 		'title_reset' => 'Réinitialisation de l’authentification',
 		'token' => 'Jeton d’identification',
-		'token_help' => 'Permet d’accéder à la sortie RSS de l’utilisateur par défaut sans besoin de s’authentifier.<br /><kbd>%s?output=rss&token=%s</kbd>',
+		'token_help' => 'Permet d’accéder à la sortie RSS de l’utilisateur par défaut sans besoin de s’authentifier :',
 		'type' => 'Méthode d’authentification',
 		'unsafe_autologin' => 'Autoriser les connexions automatiques non-sûres au format : ',
 	),
@@ -63,10 +63,6 @@ return array(
 			'nok' => 'Vous ne disposez pas de JSON (paquet php5-json).',
 			'ok' => 'Vous disposez de l\'extension JSON.',
 		),
-		'logs' => array(
-			'nok' => 'Veuillez vérifier les droits sur le répertoire <em>./data/logs</em>. Le serveur HTTP doit être capable d’écrire dedans',
-			'ok' => 'Les droits sur le répertoire des logs sont bons.',
-		),
 		'minz' => array(
 			'nok' => 'Vous ne disposez pas de la librairie Minz.',
 			'ok' => 'Vous disposez du framework Minz',
@@ -97,10 +93,26 @@ return array(
 			'nok' => 'Veuillez vérifier les droits sur le répertoire <em>./data/tokens</em>. Le serveur HTTP doit être capable d’écrire dedans',
 			'ok' => 'Les droits sur le répertoire des tokens sont bons.',
 		),
+		'users' => array(
+			'nok' => 'Veuillez vérifier les droits sur le répertoire <em>./data/users</em>. Le serveur HTTP doit être capable d’écrire dedans',
+			'ok' => 'Les droits sur le répertoire des utilisateurs sont bons.',
+		),
 		'zip' => array(
 			'nok' => 'Vous ne disposez pas de l\'extension ZIP (paquet php5-zip).',
 			'ok' => 'Vous disposez de l\'extension ZIP.',
 		),
+	),
+	'extensions' => array(
+		'disabled' => 'Désactivée',
+		'empty_list' => 'Il n’y a aucune extension installée.',
+		'enabled' => 'Activée',
+		'no_configure_view' => 'Cette extension ne peut pas être configurée.',
+		'system' => array(
+			'_' => 'Extensions système',
+			'no_rights' => 'Extension système (vous n’avez aucun droit dessus)',
+		),
+		'title' => 'Extensions',
+		'user' => 'Extensions utilisateur',
 	),
 	'stats' => array(
 		'_' => 'Statistiques',
@@ -138,6 +150,7 @@ return array(
 		'_' => 'Système de mise à jour',
 		'apply' => 'Appliquer la mise à jour',
 		'check' => 'Vérifier les mises à jour',
+		'current_version' => 'Votre version actuelle de FreshRSS est la %s.',
 		'last' => 'Dernière vérification : %s',
 		'none' => 'Aucune mise à jour à appliquer',
 		'title' => 'Système de mise à jour',

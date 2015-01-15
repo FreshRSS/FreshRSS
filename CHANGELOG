@@ -1,5 +1,22 @@
 # Journal des modifications
 
+## 2015-01-15 FreshRSS 0.9.4 (beta)
+
+* Feature
+	* Extension system (!!): some extensions are available at https://github.com/FreshRSS/Extensions
+* Refactoring
+	* Front controller (FreshRSS class)
+	* Configuration system
+	* Sharing system
+	* New data files organization
+* Updates
+	* Remove restriction of 1h for updates
+	* Show the current version of FreshRSS and the next one
+* UI
+	* Remove the "sticky position" of the feed aside (moved into an extension)
+	* "Show password" shows the password only while the user is pressing the mouse.
+
+
 ## 2014-12-12 FreshRSS 0.9.3 (beta)
 
 * SimplePie

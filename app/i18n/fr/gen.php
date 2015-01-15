@@ -100,6 +100,10 @@ return array(
 		'notif_title_new_articles' => 'FreshRSS : nouveaux articles !',
 		'should_be_activated' => 'Le JavaScript doit être activé.',
 	),
+	'lang' => array(
+		'en' => 'English',
+		'fr' => 'Français',
+	),
 	'menu' => array(
 		'about' => 'À propos',
 		'admin' => 'Administration',
@@ -108,6 +112,7 @@ return array(
 		'check_install' => 'Vérification de l’installation',
 		'configuration' => 'Configuration',
 		'display' => 'Affichage',
+		'extensions' => 'Extensions',
 		'logs' => 'Logs',
 		'queries' => 'Filtres utilisateurs',
 		'reading' => 'Lecture',
@@ -127,6 +132,17 @@ return array(
 		'next' => 'Suivant',
 		'nothing_to_load' => 'Fin des articles',
 		'previous' => 'Précédent',
+	),
+	'share' => array(
+		'blogotext' => 'Blogotext',
+		'diaspora' => 'Diaspora*',
+		'email' => 'Courriel',
+		'facebook' => 'Facebook',
+		'g+' => 'Google+',
+		'print' => 'Imprimer',
+		'shaarli' => 'Shaarli',
+		'twitter' => 'Twitter',
+		'wallabag' => 'wallabag',
 	),
 	'short' => array(
 		'attention' => 'Attention !',

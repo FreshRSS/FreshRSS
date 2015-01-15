@@ -43,30 +43,23 @@ function param($key, $default = false) {
 
 // gestion internationalisation
 function initTranslate() {
-	if (!isset($_SESSION['language'])) {
-		$_SESSION['language'] = getBetterLanguage('en');
-	}
-
 	Minz_Translate::init();
-}
+	$available_languages = Minz_Translate::availableLanguages();
 
-function getBetterLanguage($fallback) {
-	$available = availableLanguages();
-	$accept = $_SERVER['HTTP_ACCEPT_LANGUAGE'];
-	$language = strtolower(substr($accept, 0, 2));
-
-	if (isset($available[$language])) {
-		return $language;
-	} else {
-		return $fallback;
+	if (!isset($_SESSION['language'])) {
+		$_SESSION['language'] = get_best_language();
 	}
+
+	if (!in_array($_SESSION['language'], $available_languages)) {
+		$_SESSION['language'] = 'en';
+	}
+
+	Minz_Translate::reset($_SESSION['language']);
 }
 
-function availableLanguages() {
-	return array(
-		'en' => 'English',
-		'fr' => 'Français'
-	);
+function get_best_language() {
+	$accept = $_SERVER['HTTP_ACCEPT_LANGUAGE'];
+	return strtolower(substr($accept, 0, 2));
 }
 
 
@@ -132,12 +125,17 @@ function saveStep2() {
 			'token' => $token,
 		);
 
-		$configPath = DATA_PATH . '/' . $_SESSION['default_user'] . '_user.php';
-		@unlink($configPath);	//To avoid access-rights problems
-		file_put_contents($configPath, "<?php\n return " . var_export($config_array, true) . ';');
+		// Create default user files but first, we delete previous data to
+		// avoid access right problems.
+		$user_dir = join_path(USERS_PATH, $_SESSION['default_user']);
+		$user_config_path = join_path($user_dir, 'config.php');
+
+		recursive_unlink($user_dir);
+		mkdir($user_dir);
+		file_put_contents($user_config_path, "<?php\n return " . var_export($config_array, true) . ';');
 
 		if ($_SESSION['mail_login'] != '') {
-			$personaFile = DATA_PATH . '/persona/' . $_SESSION['mail_login'] . '.txt';
+			$personaFile = join_path(DATA_PATH, 'persona', $_SESSION['mail_login'] . '.txt');
 			@unlink($personaFile);
 			file_put_contents($personaFile, $_SESSION['default_user']);
 		}
@@ -170,19 +168,12 @@ function saveStep3() {
 			$_SESSION['bd_prefix_user'] = $_SESSION['bd_prefix'] .(empty($_SESSION['default_user']) ? '' :($_SESSION['default_user'] . '_'));
 		}
 
-		$ini_array = array(
-			'general' => array(
-				'environment' => empty($_SESSION['environment']) ? 'production' : $_SESSION['environment'],
-				'salt' => $_SESSION['salt'],
-				'base_url' => '',
-				'title' => $_SESSION['title'],
-				'default_user' => $_SESSION['default_user'],
-				'allow_anonymous' => isset($_SESSION['allow_anonymous']) ? $_SESSION['allow_anonymous'] : false,
-				'allow_anonymous_refresh' => isset($_SESSION['allow_anonymous_refresh']) ? $_SESSION['allow_anonymous_refresh'] : false,
-				'auth_type' => $_SESSION['auth_type'],
-				'api_enabled' => isset($_SESSION['api_enabled']) ? $_SESSION['api_enabled'] : false,
-				'unsafe_autologin_enabled' => isset($_SESSION['unsafe_autologin_enabled']) ? $_SESSION['unsafe_autologin_enabled'] : false,
-			),
+		$config_array = array(
+			'environment' => 'production',
+			'salt' => $_SESSION['salt'],
+			'title' => $_SESSION['title'],
+			'default_user' => $_SESSION['default_user'],
+			'auth_type' => $_SESSION['auth_type'],
 			'db' => array(
 				'type' => $_SESSION['bd_type'],
 				'host' => $_SESSION['bd_host'],
@@ -193,8 +184,8 @@ function saveStep3() {
 			),
 		);
 
-		@unlink(DATA_PATH . '/config.php');	//To avoid access-rights problems
-		file_put_contents(DATA_PATH . '/config.php', "<?php\n return " . var_export($ini_array, true) . ';');
+		@unlink(join_path(DATA_PATH, 'config.php'));	//To avoid access-rights problems
+		file_put_contents(join_path(DATA_PATH, 'config.php'), "<?php\n return " . var_export($config_array, true) . ';');
 
 		$res = checkBD();
 
@@ -217,7 +208,7 @@ function newPdo() {
 		);
 		break;
 	case 'sqlite':
-		$str = 'sqlite:' . DATA_PATH . '/' . $_SESSION['default_user'] . '.sqlite';
+		$str = 'sqlite:' . join_path(USERS_PATH, $_SESSION['default_user'], 'db.sqlite');
 		$driver_options = array(
 			PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
 		);
@@ -229,7 +220,7 @@ function newPdo() {
 }
 
 function deleteInstall() {
-	$res = unlink(DATA_PATH . '/do-install.txt');
+	$res = unlink(join_path(DATA_PATH, 'do-install.txt'));
 
 	if (!$res) {
 		return false;
@@ -258,9 +249,9 @@ function checkStep() {
 }
 
 function checkStep0() {
-	$languages = availableLanguages();
+	$languages = Minz_Translate::availableLanguages();
 	$language = isset($_SESSION['language']) &&
-	            isset($languages[$_SESSION['language']]);
+	            in_array($_SESSION['language'], $languages);
 
 	return array(
 		'language' => $language ? 'ok' : 'ko',
@@ -270,7 +261,7 @@ function checkStep0() {
 
 function checkStep1() {
 	$php = version_compare(PHP_VERSION, '5.2.1') >= 0;
-	$minz = file_exists(LIB_PATH . '/Minz');
+	$minz = file_exists(join_path(LIB_PATH, 'Minz'));
 	$curl = extension_loaded('curl');
 	$pdo_mysql = extension_loaded('pdo_mysql');
 	$pdo_sqlite = extension_loaded('pdo_sqlite');
@@ -280,9 +271,9 @@ function checkStep1() {
 	$dom = class_exists('DOMDocument');
 	$data = DATA_PATH && is_writable(DATA_PATH);
 	$cache = CACHE_PATH && is_writable(CACHE_PATH);
-	$log = LOG_PATH && is_writable(LOG_PATH);
-	$favicons = is_writable(DATA_PATH . '/favicons');
-	$persona = is_writable(DATA_PATH . '/persona');
+	$users = USERS_PATH && is_writable(USERS_PATH);
+	$favicons = is_writable(join_path(DATA_PATH, 'favicons'));
+	$persona = is_writable(join_path(DATA_PATH, 'persona'));
 	$http_referer = is_referer_from_same_domain();
 
 	return array(
@@ -297,12 +288,12 @@ function checkStep1() {
 		'dom' => $dom ? 'ok' : 'ko',
 		'data' => $data ? 'ok' : 'ko',
 		'cache' => $cache ? 'ok' : 'ko',
-		'log' => $log ? 'ok' : 'ko',
+		'users' => $users ? 'ok' : 'ko',
 		'favicons' => $favicons ? 'ok' : 'ko',
 		'persona' => $persona ? 'ok' : 'ko',
 		'http_referer' => $http_referer ? 'ok' : 'ko',
 		'all' => $php && $minz && $curl && $pdo && $pcre && $ctype && $dom &&
-		         $data && $cache && $log && $favicons && $persona && $http_referer ?
+		         $data && $cache && $users && $favicons && $persona && $http_referer ?
 		         'ok' : 'ko'
 	);
 }
@@ -327,7 +318,7 @@ function checkStep2() {
 	if ($defaultUser === null) {
 		$defaultUser = empty($_SESSION['default_user']) ? '' : $_SESSION['default_user'];
 	}
-	$data = is_writable(DATA_PATH . '/' . $defaultUser . '_user.php');
+	$data = is_writable(join_path(USERS_PATH, $defaultUser, 'config.php'));
 
 	return array(
 		'conf' => $conf ? 'ok' : 'ko',
@@ -339,7 +330,7 @@ function checkStep2() {
 }
 
 function checkStep3() {
-	$conf = is_writable(DATA_PATH . '/config.php');
+	$conf = is_writable(join_path(DATA_PATH, 'config.php'));
 
 	$bd = isset($_SESSION['bd_type']) &&
 	      isset($_SESSION['bd_host']) &&
@@ -382,7 +373,7 @@ function checkBD() {
 			$str = 'mysql:host=' . $_SESSION['bd_host'] . ';dbname=' . $_SESSION['bd_base'];
 			break;
 		case 'sqlite':
-			$str = 'sqlite:' . DATA_PATH . '/' . $_SESSION['default_user'] . '.sqlite';
+			$str = 'sqlite:' . join_path(USERS_PATH, $_SESSION['default_user'], 'db.sqlite');
 			$driver_options = array(
 				PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
 			);
@@ -414,7 +405,7 @@ function checkBD() {
 	}
 
 	if (!$ok) {
-		@unlink(DATA_PATH . '/config.php');
+		@unlink(join_path(DATA_PATH, 'config.php'));
 	}
 
 	return $ok;
@@ -422,7 +413,8 @@ function checkBD() {
 
 /*** AFFICHAGE ***/
 function printStep0() {
-	global $actual;
+	$actual = Minz_Translate::language();
+	$languages = Minz_Translate::availableLanguages();
 ?>
 	<?php $s0 = checkStep0(); if ($s0['all'] == 'ok') { ?>
 	<p class="alert alert-success"><span class="alert-head"><?php echo _t('gen.short.ok'); ?></span> <?php echo _t('install.language.defined'); ?></p>
@@ -434,9 +426,10 @@ function printStep0() {
 			<label class="group-name" for="language"><?php echo _t('install.language'); ?></label>
 			<div class="group-controls">
 				<select name="language" id="language">
-				<?php $languages = availableLanguages(); ?>
-				<?php foreach ($languages as $short => $lib) { ?>
-				<option value="<?php echo $short; ?>"<?php echo $actual == $short ? ' selected="selected"' : ''; ?>><?php echo $lib; ?></option>
+				<?php foreach ($languages as $lang) { ?>
+				<option value="<?php echo $lang; ?>"<?php echo $actual == $lang ? ' selected="selected"' : ''; ?>>
+					<?php echo _t('gen.lang.' . $lang); ?>
+				</option>
 				<?php } ?>
 				</select>
 			</div>
@@ -470,7 +463,7 @@ function printStep1() {
 	<?php if ($res['minz'] == 'ok') { ?>
 	<p class="alert alert-success"><span class="alert-head"><?php echo _t('gen.short.ok'); ?></span> <?php echo _t('install.check.minz.ok'); ?></p>
 	<?php } else { ?>
-	<p class="alert alert-error"><span class="alert-head"><?php echo _t('gen.short.damn'); ?></span> <?php echo _t('install.check.minz.nok', LIB_PATH . '/Minz'); ?></p>
+	<p class="alert alert-error"><span class="alert-head"><?php echo _t('gen.short.damn'); ?></span> <?php echo _t('install.check.minz.nok', join_path(LIB_PATH, 'Minz')); ?></p>
 	<?php } ?>
 
 	<?php if ($res['pdo'] == 'ok') { ?>
@@ -516,10 +509,10 @@ function printStep1() {
 	<p class="alert alert-error"><span class="alert-head"><?php echo _t('gen.short.damn'); ?></span> <?php echo _t('install.check.cache.nok', CACHE_PATH); ?></p>
 	<?php } ?>
 
-	<?php if ($res['log'] == 'ok') { ?>
-	<p class="alert alert-success"><span class="alert-head"><?php echo _t('gen.short.ok'); ?></span> <?php echo _t('install.check.logs.ok'); ?></p>
+	<?php if ($res['users'] == 'ok') { ?>
+	<p class="alert alert-success"><span class="alert-head"><?php echo _t('gen.short.ok'); ?></span> <?php echo _t('install.check.users.ok'); ?></p>
 	<?php } else { ?>
-	<p class="alert alert-error"><span class="alert-head"><?php echo _t('gen.short.damn'); ?></span> <?php echo _t('install.check.logs.nok', LOG_PATH); ?></p>
+	<p class="alert alert-error"><span class="alert-head"><?php echo _t('gen.short.damn'); ?></span> <?php echo _t('install.check.users.nok', USERS_PATH); ?></p>
 	<?php } ?>
 
 	<?php if ($res['favicons'] == 'ok') { ?>
@@ -618,23 +611,26 @@ function printStep2() {
 		</div>
 
 		<script>
-			function toggle_password() {
+			function show_password() {
 				var button = this;
 				var passwordField = document.getElementById(button.getAttribute('data-toggle'));
-
 				passwordField.setAttribute('type', 'text');
 				button.className += ' active';
 
-				setTimeout(function() {
-					passwordField.setAttribute('type', 'password');
-					button.className = button.className.replace(/(?:^|\s)active(?!\S)/g , '');
-				}, 2000);
+				return false;
+			}
+			function hide_password() {
+				var button = this;
+				var passwordField = document.getElementById(button.getAttribute('data-toggle'));
+				passwordField.setAttribute('type', 'password');
+				button.className = button.className.replace(/(?:^|\s)active(?!\S)/g , '');
 
 				return false;
 			}
 			toggles = document.getElementsByClassName('toggle-password');
 			for (var i = 0 ; i < toggles.length ; i++) {
-				toggles[i].addEventListener('click', toggle_password);
+				toggles[i].addEventListener('mousedown', show_password);
+				toggles[i].addEventListener('mouseup', hide_password);
 			}
 
 			function auth_type_change(focus) {
@@ -774,9 +770,9 @@ function printStep5() {
 <?php
 }
 
-checkStep();
-
 initTranslate();
+
+checkStep();
 
 switch (STEP) {
 case 0:

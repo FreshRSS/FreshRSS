@@ -22,19 +22,19 @@
 			<div class="group-controls">
 				<div class="stick">
 					<input type="password" id="passwordPlain" name="passwordPlain" autocomplete="off" pattern=".{7,}" <?php echo cryptAvailable() ? '' : 'disabled="disabled" '; ?>/>
-					<a class="btn toggle-password"><?php echo _i('key'); ?></a>
+					<a class="btn toggle-password" data-toggle="passwordPlain"><?php echo _i('key'); ?></a>
 				</div>
 				<noscript><b><?php echo _t('gen.js.should_be_activated'); ?></b></noscript>
 			</div>
 		</div>
 
-		<?php if (Minz_Configuration::apiEnabled()) { ?>
+		<?php if (FreshRSS_Context::$system_conf->api_enabled) { ?>
 		<div class="form-group">
 			<label class="group-name" for="apiPasswordPlain"><?php echo _t('conf.profile.password_api'); ?></label>
 			<div class="group-controls">
 				<div class="stick">
 					<input type="password" id="apiPasswordPlain" name="apiPasswordPlain" autocomplete="off" pattern=".{7,}" <?php echo cryptAvailable() ? '' : 'disabled="disabled" '; ?>/>
-					<a class="btn toggle-password"><?php echo _i('key'); ?></a>
+					<a class="btn toggle-password" data-toggle="apiPasswordPlain"><?php echo _i('key'); ?></a>
 				</div>
 			</div>
 		</div>
@@ -42,7 +42,7 @@
 
 		<div class="form-group">
 			<label class="group-name" for="mail_login"><?php echo _t('conf.profile.email_persona'); ?></label>
-			<?php $mail = FreshRSS_Context::$conf->mail_login; ?>
+			<?php $mail = FreshRSS_Context::$user_conf->mail_login; ?>
 			<div class="group-controls">
 				<input type="email" id="mail_login" name="mail_login" class="extend" autocomplete="off" value="<?php echo $mail; ?>" <?php echo FreshRSS_Auth::hasAccess('admin') ? '' : 'disabled="disabled"'; ?> placeholder="alice@example.net" />
 				<noscript><b><?php echo _t('gen.js.should_be_activated'); ?></b></noscript>

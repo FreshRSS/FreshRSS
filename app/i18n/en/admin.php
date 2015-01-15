@@ -12,7 +12,7 @@ return array(
 		'title' => 'Authentication',
 		'title_reset' => 'Authentication reset',
 		'token' => 'Authentication token',
-		'token_help' => 'Allows to access RSS output of the default user without authentication.<br /><kbd>%s?output=rss&token=%s</kbd>',
+		'token_help' => 'Allows to access RSS output of the default user without authentication:',
 		'type' => 'Authentication method',
 		'unsafe_autologin' => 'Allow unsafe automatic login using the format: ',
 	),
@@ -63,10 +63,6 @@ return array(
 			'nok' => 'You lack JSON (php5-json package).',
 			'ok' => 'You have JSON extension.',
 		),
-		'logs' => array(
-			'nok' => 'Check permissions on <em>./data/logs</em> directory. HTTP server must have rights to write into',
-			'ok' => 'Permissions on logs directory are good.',
-		),
 		'minz' => array(
 			'nok' => 'You lack the Minz framework.',
 			'ok' => 'You have the Minz framework.',
@@ -97,10 +93,26 @@ return array(
 			'nok' => 'Check permissions on <em>./data/tokens</em> directory. HTTP server must have rights to write into',
 			'ok' => 'Permissions on tokens directory are good.',
 		),
+		'users' => array(
+			'nok' => 'Check permissions on <em>./data/users</em> directory. HTTP server must have rights to write into',
+			'ok' => 'Permissions on users directory are good.',
+		),
 		'zip' => array(
 			'nok' => 'You lack ZIP extension (php5-zip package).',
 			'ok' => 'You have ZIP extension.',
 		),
+	),
+	'extensions' => array(
+		'disabled' => 'Disabled',
+		'empty_list' => 'There is no installed extension',
+		'enabled' => 'Enabled',
+		'no_configure_view' => 'This extension cannot be configured.',
+		'system' => array(
+			'_' => 'System extensions',
+			'no_rights' => 'System extension (you have no rights on it)',
+		),
+		'title' => 'Extensions',
+		'user' => 'User extensions',
 	),
 	'stats' => array(
 		'_' => 'Statistics',
@@ -138,6 +150,7 @@ return array(
 		'_' => 'Update system',
 		'apply' => 'Apply',
 		'check' => 'Check for new updates',
+		'current_version' => 'Your current version of FreshRSS is the %s.',
 		'last' => 'Last verification: %s',
 		'none' => 'No update to apply',
 		'title' => 'Update system',

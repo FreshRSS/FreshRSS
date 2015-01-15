@@ -2,14 +2,17 @@
 $this->partial('nav_menu');
 
 if (!empty($this->entries)) {
-	$lazyload = FreshRSS_Context::$conf->lazyload;
-	$content_width = FreshRSS_Context::$conf->content_width;
+	$lazyload = FreshRSS_Context::$user_conf->lazyload;
+	$content_width = FreshRSS_Context::$user_conf->content_width;
 ?>
 
-<div id="stream" class="reader">
-	<?php foreach ($this->entries as $item) { ?>
-
-	<div class="flux<?php echo !$item->isRead() ? ' not_read' : ''; ?><?php echo $item->isFavorite() ? ' favorite' : ''; ?>" id="flux_<?php echo $item->id(); ?>">
+<div id="stream" class="reader"><?php
+	foreach ($this->entries as $item) {
+		$item = Minz_ExtensionManager::callHook('entry_before_display', $item);
+		if (is_null($item)) {
+			continue;
+		}
+	?><div class="flux<?php echo !$item->isRead() ? ' not_read' : ''; ?><?php echo $item->isFavorite() ? ' favorite' : ''; ?>" id="flux_<?php echo $item->id(); ?>">
 		<div class="flux_content">
 			<div class="content <?php echo $content_width; ?>">
 				<?php

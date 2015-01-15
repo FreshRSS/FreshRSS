@@ -29,6 +29,20 @@ return array(
 		'shortcuts_updated' => 'Les raccourcis ont été mis à jour.',
 		'updated' => 'La configuration a été mise à jour',
 	),
+	'extensions' => array(
+		'already_enabled' => '%s est déjà activée',
+		'disable' => array(
+			'ko' => '%s ne peut pas être désactivée. <a href="%s">Consulter les logs de FreshRSS</a> pour plus de détails.',
+			'ok' => '%s est désormais désactivée',
+		),
+		'enable' => array(
+			'ko' => '%s ne peut pas être activée. <a href="%s">Consulter les logs de FreshRSS</a> pour plus de détails.',
+			'ok' => '%s est désormais activée',
+		),
+		'no_access' => 'Vous n’avez aucun accès sur %s',
+		'not_enabled' => '%s n’est pas encore activée',
+		'not_found' => '%s n’existe pas',
+	),
 	'import_export' => array(
 		'export_no_zip_extension' => 'L’extension Zip n’est pas présente sur votre serveur. Veuillez essayer d’exporter les fichiers un par un.',
 		'feeds_imported' => 'Vos flux ont été importés et vont maintenant être actualisés.',
@@ -72,7 +86,7 @@ return array(
 		'purge_completed' => 'Purge effectuée (%d articles supprimés).',
 	),
 	'update' => array(
-		'can_apply' => 'Une mise à jour est disponible.',
+		'can_apply' => 'FreshRSS va maintenant être mis à jour vers la <strong>version %s</strong>.',
 		'error' => 'La mise à jour a rencontré un problème : %s',
 		'file_is_nok' => 'Veuillez vérifier les droits sur le répertoire <em>%s</em>. Le serveur HTTP doit être capable d’écrire dedans',
 		'finished' => 'La mise à jour est terminée !',

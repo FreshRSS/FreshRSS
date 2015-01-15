@@ -52,14 +52,14 @@
 				</tr>
 			</thead>
 			<tbody>
-				<?php foreach ($this->topFeed as $feed): ?>
+				<?php foreach ($this->topFeed as $feed) { ?>
 					<tr>
 						<td><a href="<?php echo _url('stats', 'repartition', 'id', $feed['id']); ?>"><?php echo $feed['name']; ?></a></td>
 						<td><?php echo $feed['category']; ?></td>
 						<td class="numeric"><?php echo format_number($feed['count']); ?></td>
 						<td class="numeric"><?php echo format_number($feed['count'] / $this->repartition['all_feeds']['total'] * 100, 1);?></td>
 					</tr>
-				<?php endforeach;?>
+				<?php } ?>
 			</tbody>
 		</table>
 	</div>

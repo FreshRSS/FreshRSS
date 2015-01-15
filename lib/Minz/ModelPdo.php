@@ -44,7 +44,8 @@ class Minz_ModelPdo {
 			return;
 		}
 
-		$db = Minz_Configuration::dataBase();
+		$conf = Minz_Configuration::get('system');
+		$db = $conf->db;
 
 		if ($currentUser === null) {
 			$currentUser = Minz_Session::param('currentUser', '_');
@@ -63,7 +64,7 @@ class Minz_ModelPdo {
 				);
 				$this->prefix = $db['prefix'] . $currentUser . '_';
 			} elseif ($type === 'sqlite') {
-				$string = 'sqlite:' . DATA_PATH . '/' . $currentUser . '.sqlite';
+				$string = 'sqlite:' . join_path(DATA_PATH, 'users', $currentUser, 'db.sqlite');
 				$driver_options = array(
 					//PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
 				);
