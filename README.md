@@ -70,9 +70,9 @@ For example, if you want to run the script every hour:
 
 # Advices
 * For a better security, expose only the `./p/` folder on the web.
-	* Be aware that the `./data/` folder contain all personal data, so it is a bad idea to expose it.
-* The `./constants.php` file define access to application folder. If you want to customize your installation, every thing happens here.
-* If you encounter some problem, logs are accessibles from the interface or manually in `./data/log/*.log` files.
+	* Be aware that the `./data/` folder contains all personal data, so it is a bad idea to expose it.
+* The `./constants.php` file defines access to application folder. If you want to customize your installation, every thing happens here.
+* If you encounter any problem, logs are accessibles from the interface or manually in `./data/log/*.log` files.
 
 # Backup
 * You need to keep `./data/config.php`, `./data/*_user.php` and `./data/persona/` files
