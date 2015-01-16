@@ -154,9 +154,7 @@ class FreshRSS_ConfigurationSetter {
 
 	private function _shortcuts(&$data, $values) {
 		foreach ($values as $key => $value) {
-			if (isset($data['shortcuts'][$key])) {
-				$data['shortcuts'][$key] = $value;
-			}
+			$data['shortcuts'][$key] = $value;
 		}
 	}
 
