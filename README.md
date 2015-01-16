@@ -37,7 +37,7 @@ The best way is to open issues on GitHub
 * PHP 5.2.1+ (PHP 5.3.7+ recommanded)
 	* Required extensions: [PDO_MySQL](http://php.net/pdo-mysql) or [PDO_SQLite](http://php.net/pdo-sqlite), [cURL](http://php.net/curl), [GMP](http://php.net/gmp) (only for API access on platforms under 64 bits)
 	* Recommanded extensions : [JSON](http://php.net/json), [mbstring](http://php.net/mbstring), [zlib](http://php.net/zlib), [Zip](http://php.net/zip)
-* MySQL 5.0.3+ (recommanded) ou SQLite 3.7.4+
+* MySQL 5.0.3+ (recommanded) or SQLite 3.7.4+
 * A recent browser like Firefox 4+, Chrome, Opera, Safari, Internet Explorer 9+
 	* Works on mobile
 
