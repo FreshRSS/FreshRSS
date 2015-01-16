@@ -153,9 +153,11 @@ class FreshRSS_ConfigurationSetter {
 	}
 
 	private function _shortcuts(&$data, $values) {
-		foreach ($values as $key => $value) {
-			$data['shortcuts'][$key] = $value;
+		if (!is_array($values)) {
+			return;
 		}
+
+		$data['shortcuts'] = $values;
 	}
 
 	private function _sort_order(&$data, $value) {
