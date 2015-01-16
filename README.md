@@ -37,7 +37,7 @@ The best way is to open issues on GitHub
 * PHP 5.2.1+ (PHP 5.3.7+ recommanded)
 	* Required extensions: [PDO_MySQL](http://php.net/pdo-mysql) or [PDO_SQLite](http://php.net/pdo-sqlite), [cURL](http://php.net/curl), [GMP](http://php.net/gmp) (only for API access on platforms under 64 bits)
 	* Recommanded extensions : [JSON](http://php.net/json), [mbstring](http://php.net/mbstring), [zlib](http://php.net/zlib), [Zip](http://php.net/zip)
-* MySQL 5.0.3+ (recommanded) ou SQLite 3.7.4+
+* MySQL 5.0.3+ (recommanded) or SQLite 3.7.4+
 * A recent browser like Firefox 4+, Chrome, Opera, Safari, Internet Explorer 9+
 	* Works on mobile
 
@@ -70,9 +70,9 @@ For example, if you want to run the script every hour:
 
 # Advices
 * For a better security, expose only the `./p/` folder on the web.
-	* Be aware that the `./data/` folder contain all personal data, so it is a bad idea to expose it.
-* The `./constants.php` file define access to application folder. If you want to customize your installation, every thing happens here.
-* If you encounter some problem, logs are accessibles from the interface or manually in `./data/log/*.log` files.
+	* Be aware that the `./data/` folder contains all personal data, so it is a bad idea to expose it.
+* The `./constants.php` file defines access to application folder. If you want to customize your installation, every thing happens here.
+* If you encounter any problem, logs are accessibles from the interface or manually in `./data/log/*.log` files.
 
 # Backup
 * You need to keep `./data/config.php`, `./data/*_user.php` and `./data/persona/` files
