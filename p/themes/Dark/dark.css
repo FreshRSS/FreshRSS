@@ -955,6 +955,9 @@ a.btn {
 	background: #111;
 	color: #eee;
 }
+#slider.active {
+	background-color: #1c1c1c;
+}
 
 /*=== MOBILE */
 /*===========*/
