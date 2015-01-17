@@ -108,7 +108,7 @@ class FreshRSS_subscription_Controller extends Minz_ActionController {
 
 				Minz_Request::good(_t('feedback.sub.feed.updated'), array('c' => 'subscription', 'params' => array('id' => $id)));
 			} else {
-				Minz_Request::bad(_t('feedback.sub.error'), array('c' => 'subscription'));
+				Minz_Request::bad(_t('feedback.sub.feed.error'), array('c' => 'subscription'));
 			}
 		}
 	}
