@@ -95,6 +95,9 @@ return array(
 		'category_empty' => 'Catégorie vide',
 		'confirm_action' => 'Êtes-vous sûr(e) de vouloir continuer ? Cette action ne peut être annulée !',
 		'confirm_action_feed_cat' => 'Êtes-vous sûr(e) de vouloir continuer ? Vous perdrez les favoris et les filtres associés. Cette action ne peut être annulée !',
+		'feedback' => array(
+			'request_failed' => 'Un problème est survenu et la requête a échoué.'
+		),
 		'new_article' => 'Il y a de nouveaux articles disponibles, cliquez pour rafraîchir la page.',
 		'notif_body_new_articles' => 'Il y a \\d nouveaux articles à lire sur FreshRSS.',
 		'notif_title_new_articles' => 'FreshRSS : nouveaux articles !',

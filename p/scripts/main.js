@@ -155,6 +155,9 @@ function mark_read(active, only_not_read) {
 		faviconNbUnread();
 
 		pending_feeds.splice(index_pending, 1);
+	}).fail(function (data) {
+		openNotification(i18n.notif_request_failed, 'bad');
+		pending_feeds.splice(index_pending, 1);
 	});
 }
 
@@ -209,6 +212,9 @@ function mark_favorite(active) {
 			}
 		}
 
+		pending_feeds.splice(index_pending, 1);
+	}).fail(function (data) {
+		openNotification(i18n.notif_request_failed, 'bad');
 		pending_feeds.splice(index_pending, 1);
 	});
 }

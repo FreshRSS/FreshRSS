@@ -95,6 +95,9 @@ return array(
 		'category_empty' => 'Empty category',
 		'confirm_action' => 'Are you sure you want to perform this action? It cannot be cancelled!',
 		'confirm_action_feed_cat' => 'Are you sure you want to perform this action? You will lose related favorites and user queries. It cannot be cancelled!',
+		'feedback' => array(
+			'request_failed' => 'A problem happened and the request failed.'
+		),
 		'new_article' => 'There are new available articles, click to refresh the page.',
 		'notif_body_new_articles' => 'There are \\d new articles to read on FreshRSS.',
 		'notif_title_new_articles' => 'FreshRSS: new articles!',
