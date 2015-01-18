@@ -9,41 +9,43 @@ class FreshRSS_error_Controller extends Minz_ActionController {
 	 *
 	 * It is called by Minz_Error::error() method.
 	 *
-	 * Parameters are:
-	 *   - code (default: 404)
-	 *   - logs (default: array())
+	 * Parameters are passed by Minz_Session to have a proper url:
+	 *   - error_code (default: 404)
+	 *   - error_logs (default: array())
 	 */
 	public function indexAction() {
-		$code_int = Minz_Request::param('code', 404);
+		$code_int = Minz_Session::param('error_code', 404);
+		$error_logs = Minz_Session::param('error_logs', array());
+		Minz_Session::_param('error_code');
+		Minz_Session::_param('error_logs');
+
 		switch ($code_int) {
-		case 403:
-			$this->view->code = 'Error 403 - Forbidden';
+		case 200 :
+			header('HTTP/1.1 200 OK');
 			break;
-		case 404:
-			$this->view->code = 'Error 404 - Not found';
+		case 403:
+			header('HTTP/1.1 403 Forbidden');
+			$this->view->code = 'Error 403 - Forbidden';
+			$this->view->errorMessage = _t('feedback.access.denied');
 			break;
 		case 500:
+			header('HTTP/1.1 500 Internal Server Error');
 			$this->view->code = 'Error 500 - Internal Server Error';
 			break;
 		case 503:
+			header('HTTP/1.1 503 Service Unavailable');
 			$this->view->code = 'Error 503 - Service Unavailable';
 			break;
+		case 404:
 		default:
+			header('HTTP/1.1 404 Not Found');
 			$this->view->code = 'Error 404 - Not found';
+			$this->view->errorMessage = _t('feedback.access.not_found');
 		}
 
-		$errors = Minz_Request::param('logs', array());
-		$this->view->errorMessage = trim(implode($errors));
-		if ($this->view->errorMessage == '') {
-			switch($code_int) {
-			case 403:
-				$this->view->errorMessage = _t('feedback.access.denied');
-				break;
-			case 404:
-			default:
-				$this->view->errorMessage = _t('feedback.access.not_found');
-				break;
-			}
+		$error_message = trim(implode($error_logs));
+		if ($error_message !== '') {
+			$this->view->errorMessage = $error_message;
 		}
 
 		Minz_View::prependTitle($this->view->code . ' · ');
