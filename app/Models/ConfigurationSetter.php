@@ -210,9 +210,7 @@ class FreshRSS_ConfigurationSetter {
 
 	private function _mark_when(&$data, $values) {
 		foreach ($values as $key => $value) {
-			if (isset($data['mark_when'][$key])) {
-				$data['mark_when'][$key] = $this->handleBool($value);
-			}
+			$data['mark_when'][$key] = $this->handleBool($value);
 		}
 	}
 
