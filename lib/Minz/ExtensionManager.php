@@ -56,6 +56,9 @@ class Minz_ExtensionManager {
 
 		foreach ($list_potential_extensions as $ext_dir) {
 			$ext_pathname = EXTENSIONS_PATH . '/' . $ext_dir;
+			if (!is_dir($ext_pathname)) {
+				continue;
+			}
 			$metadata_filename = $ext_pathname . '/' . self::$ext_metaname;
 
 			// Try to load metadata file.
