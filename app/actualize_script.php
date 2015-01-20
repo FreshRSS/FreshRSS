@@ -22,7 +22,6 @@ $_SERVER['HTTP_HOST'] = '';
 
 
 $app = new FreshRSS();
-$app->init();
 
 $system_conf = Minz_Configuration::get('system');
 $system_conf->auth_type = 'none';  // avoid necessity to be logged in (not saved!)
@@ -56,7 +55,9 @@ foreach ($users as $user) {
 
 
 	Minz_Session::_param('currentUser', $user);
+	new Minz_ModelPdo($user);	//TODO: FIXME: Quick-fix while waiting for a better FreshRSS() constructor/init
 	FreshRSS_Auth::giveAccess();
+	$app->init();
 	$app->run();
 
 
