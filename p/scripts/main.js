@@ -519,7 +519,7 @@ function init_column_categories() {
 		if ($(this).nextAll('.dropdown-menu').length === 0) {
 			var feed_id = $(this).closest('.item').attr('id').substr(2),
 				feed_web = $(this).data('fweb'),
-				template = $('#feed_config_template').html().replace(/!!!!!!/g, feed_id).replace('http://example.net/', feed_web);
+				template = $('#feed_config_template').html().replace(/______/g, feed_id).replace('http://example.net/', feed_web);
 			$(this).attr('href', '#dropdown-' + feed_id).prev('.dropdown-target').attr('id', 'dropdown-' + feed_id).parent().append(template);
 		}
 	});
