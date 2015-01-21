@@ -65,7 +65,9 @@ class Minz_Session {
 	 * @param $l la durée de vie
 	 */
 	public static function keepCookie($l) {
-		$cookie_dir = empty($_SERVER['REQUEST_URI']) ? '' : $_SERVER['REQUEST_URI'];
+		// Get the script_name (e.g. /p/i/index.php) and remove index.php
+		$cookie_dir = empty($_SERVER['SCRIPT_NAME']) ? '' : $_SERVER['SCRIPT_NAME'];
+		$cookie_dir = substr($cookie_dir, 0, -strlen(basename($cookie_dir)));
 		session_set_cookie_params($l, $cookie_dir, '', false, true);
 	}
 
