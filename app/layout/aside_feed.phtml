@@ -74,20 +74,20 @@
 <script id="feed_config_template" type="text/html">
 	<ul class="dropdown-menu">
 		<li class="dropdown-close"><a href="#close">❌</a></li>
-		<li class="item"><a href="<?php echo _url('index', 'index', 'get', 'f_______'); ?>"><?php echo _t('gen.action.filter'); ?></a></li>
+		<li class="item"><a href="<?php echo _url('index', 'index', 'get', 'f_!!!!!!'); ?>"><?php echo _t('gen.action.filter'); ?></a></li>
 		<?php if (FreshRSS_Auth::hasAccess()) { ?>
-		<li class="item"><a href="<?php echo _url('stats', 'repartition', 'id', '______'); ?>"><?php echo _t('index.menu.stats'); ?></a></li>
+		<li class="item"><a href="<?php echo _url('stats', 'repartition', 'id', '!!!!!!'); ?>"><?php echo _t('index.menu.stats'); ?></a></li>
 		<?php } ?>
 		<li class="item"><a target="_blank" href="http://example.net/"><?php echo _t('gen.action.see_website'); ?></a></li>
 		<?php if (FreshRSS_Auth::hasAccess()) { ?>
 		<li class="separator"></li>
-		<li class="item"><a href="<?php echo _url('subscription', 'index', 'id', '______'); ?>"><?php echo _t('gen.action.manage'); ?></a></li>
-		<li class="item"><a href="<?php echo _url('feed', 'actualize', 'id', '______'); ?>"><?php echo _t('gen.action.actualize'); ?></a></li>
+		<li class="item"><a href="<?php echo _url('subscription', 'index', 'id', '!!!!!!'); ?>"><?php echo _t('gen.action.manage'); ?></a></li>
+		<li class="item"><a href="<?php echo _url('feed', 'actualize', 'id', '!!!!!!'); ?>"><?php echo _t('gen.action.actualize'); ?></a></li>
 		<li class="item">
 			<?php $confirm = FreshRSS_Context::$user_conf->reading_confirm ? 'confirm' : ''; ?>
 			<button class="read_all as-link <?php echo $confirm; ?>"
 			        form="mark-read-aside"
-			        formaction="<?php echo _url('entry', 'read', 'get', 'f_______'); ?>"
+			        formaction="<?php echo _url('entry', 'read', 'get', 'f_!!!!!!'); ?>"
 			        type="submit"><?php echo _t('gen.action.mark_read'); ?></button>
 		</li>
 		<?php } ?>
