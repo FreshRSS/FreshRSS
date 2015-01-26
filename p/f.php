@@ -4,6 +4,7 @@ require('../constants.php');
 
 include(LIB_PATH . '/Favicon/Favicon.php');
 include(LIB_PATH . '/Favicon/DataAccess.php');
+require(LIB_PATH . '/http-conditional.php');
 
 
 $favicons_dir = DATA_PATH . '/favicons/';
@@ -46,9 +47,13 @@ function download_favicon($website, $dest) {
 function show_default_favicon() {
 	global $default_favicon;
 
-	header('Content-Type: image/ico');
-	readfile($default_favicon);
-	die();
+	header('Content-Type: image/x-icon');
+	header('Content-Disposition: inline; filename="default_favicon.ico"');
+
+	$default_mtime = @filemtime($default_favicon);
+	if (!httpConditional($default_mtime, 2592000, 2)) {
+		readfile($default_favicon);
+	}
 }
 
 
@@ -63,18 +68,21 @@ $ico = $favicons_dir . $id . '.ico';
 $ico_mtime = @filemtime($ico);
 $txt_mtime = @filemtime($txt);
 
-if (($ico_mtime == false) || ($txt_mtime > $ico_mtime)) {
+
+if ($ico_mtime == false || $txt_mtime > $ico_mtime) {
 	if ($txt_mtime == false) {
 		show_default_favicon();
+		return;
 	}
 
+	// no ico file or we should download a new one.
 	$url = file_get_contents($txt);
 	if (!download_favicon($url, $ico)) {
+		// Download failed, show the default favicon
 		show_default_favicon();
+		return;
 	}
 }
-
-require(LIB_PATH . '/http-conditional.php');
 
 header('Content-Type: image/x-icon');
 header('Content-Disposition: inline; filename="' . $id . '.ico"');
