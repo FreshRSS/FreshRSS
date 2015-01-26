@@ -161,6 +161,7 @@ return array(
 		'email_persona' => 'Anmelde-E-Mail-Adresse<br /><small>(für <a href="https://persona.org/" rel="external">Mozilla Persona</a>)</small>',
 		'language' => 'Sprache',
 		'password_form' => 'Passwort<br /><small>(für die Anmeldemethode per Webformular)</small>',
+		'password_format' => 'mindestens 7 Zeichen',
 		'title' => 'Benutzer verwalten',
 		'user_list' => 'Liste der Benutzer',
 		'username' => 'Nutzername',

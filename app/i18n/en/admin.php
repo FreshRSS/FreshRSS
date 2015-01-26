@@ -161,6 +161,7 @@ return array(
 		'email_persona' => 'Login mail address<br /><small>(for <a href="https://persona.org/" rel="external">Mozilla Persona</a>)</small>',
 		'language' => 'Language',
 		'password_form' => 'Password<br /><small>(for the Web-form login method)</small>',
+		'password_format' => 'At least 7 characters',
 		'title' => 'Manage users',
 		'user_list' => 'List of users',
 		'username' => 'Username',

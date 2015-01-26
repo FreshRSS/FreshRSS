@@ -24,6 +24,7 @@
 					<input type="password" id="passwordPlain" name="passwordPlain" autocomplete="off" pattern=".{7,}" <?php echo cryptAvailable() ? '' : 'disabled="disabled" '; ?>/>
 					<a class="btn toggle-password" data-toggle="passwordPlain"><?php echo _i('key'); ?></a>
 				</div>
+				<?php echo _i('help'); ?> <?php echo _t('conf.profile.password_format'); ?>
 				<noscript><b><?php echo _t('gen.js.should_be_activated'); ?></b></noscript>
 			</div>
 		</div>
