@@ -46,7 +46,6 @@ function download_favicon($website, $dest) {
 function show_default_favicon() {
 	global $default_favicon;
 
-	header('HTTP/1.1 404 Not Found');
 	header('Content-Type: image/ico');
 	readfile($default_favicon);
 	die();
