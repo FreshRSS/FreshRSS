@@ -97,7 +97,7 @@ return array(
 		'confirm_action_feed_cat' => 'Êtes-vous sûr(e) de vouloir continuer ? Vous perdrez les favoris et les filtres associés. Cette action ne peut être annulée !',
 		'feedback' => array(
 			'body_new_articles' => 'Il y a \\d nouveaux articles à lire sur FreshRSS.',
-			'request_failed' => 'Un problème est survenu et la requête a échoué.',
+			'request_failed' => 'Une requête a échoué, cela peut être dû à des problèmes de connexion à Internet.',
 			'title_new_articles' => 'FreshRSS : nouveaux articles !',
 		),
 		'new_article' => 'Il y a de nouveaux articles disponibles, cliquez pour rafraîchir la page.',

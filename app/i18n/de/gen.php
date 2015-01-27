@@ -97,7 +97,7 @@ return array(
 		'confirm_action_feed_cat' => 'Sind Sie sicher, dass Sie diese Aktion durchführen wollen? Sie werden zugehörige Favoriten und Benutzerabfragen verlieren. Dies kann nicht abgebrochen werden!',
 		'feedback' => array(
 			'body_new_articles' => 'Es gibt \\d neue Artikel zum Lesen auf FreshRSS.',
-			'request_failed' => 'Ein Problem trat auf und die Anfrage schlug fehl.',
+			'request_failed' => 'Eine Anforderung ist fehlgeschlagen, kann es von einigen Internet-Verbindungsprobleme aufgetreten sind.',
 			'title_new_articles' => 'FreshRSS: neue Artikel!',
 		),
 		'new_article' => 'Es gibt neue verfügbare Artikel. Klicken Sie, um die Seite zu aktualisieren.',
