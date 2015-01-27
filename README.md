@@ -9,26 +9,23 @@ It is a multi-user application with an anonymous reading mode.
 
 * Official website: http://freshrss.org
 * Demo: http://demo.freshrss.org/
-* Developer: Marien Fressinaud <dev@marienfressinaud.fr>
-* Current version: 0.10-dev
-* Publication date: 2014-xx-xx
-* License [GNU AGPL 3](http://www.gnu.org/licenses/agpl-3.0.html)
+* License: [GNU AGPL 3](http://www.gnu.org/licenses/agpl-3.0.html)
 
 ![FreshRSS logo](http://marienfressinaud.fr/data/images/freshrss/freshrss_title.png)
 
 # Note on branches
 **This application is still in development!** Please use the branch that suits your needs:
 
-* Use [the master branch](https://github.com/marienfressinaud/FreshRSS/tree/master/) if you need a stable version.
-* [The beta branch](https://github.com/marienfressinaud/FreshRSS/tree/beta) is the default branch: new features are added on a monthly basis.
-* For developers and tech savvy persons, [the dev branch](https://github.com/marienfressinaud/FreshRSS/tree/dev) is waiting for you!
+* Use [the master branch](https://github.com/FreshRSS/FreshRSS/tree/master/) if you need a stable version.
+* [The beta branch](https://github.com/FreshRSS/FreshRSS/tree/beta) is the default branch: new features are added on a monthly basis.
+* For developers and tech savvy persons, [the dev branch](https://github.com/FreshRSS/FreshRSS/tree/dev) is waiting for you!
 
 # Disclaimer
 This application was developed to fulfill personal needs not professional needs.
 There is no guarantee neither on its security nor its proper functioning.
 If there is feature requests which I think are good for the project, I'll do my best to include them.
 The best way is to open issues on GitHub
-(https://github.com/marienfressinaud/FreshRSS/issues) or by email (dev@marienfressinaud.fr)
+(https://github.com/FreshRSS/FreshRSS/issues).
 
 # Requirements
 * Light server running Linux or Windows
@@ -44,7 +41,7 @@ The best way is to open issues on GitHub
 ![FreshRSS screenshot](http://marienfressinaud.fr/data/images/freshrss/freshrss_default-design.png)
 
 # Installation
-1. Get FreshRSS with git or [by downloading the archive](https://github.com/marienfressinaud/FreshRSS/archive/master.zip)
+1. Get FreshRSS with git or [by downloading the archive](https://github.com/FreshRSS/FreshRSS/archive/master.zip)
 2. Dump the application on your server (expose only the `./p/` folder)
 3. Add write access on `./data/` folder to the webserver user
 4. Access FreshRSS with your browser and follow the installation process
