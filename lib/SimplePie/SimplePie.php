@@ -1529,11 +1529,11 @@ class SimplePie
 					{	//FreshRSS
 						$md5 = $this->cleanMd5($file->body);
 						if ($this->data['md5'] === $md5) {
-							syslog(LOG_DEBUG, 'SimplePie MD5 cache match for ' . $this->feed_url);
+							// syslog(LOG_DEBUG, 'SimplePie MD5 cache match for ' . $this->feed_url);
 							$cache->touch();
 							return true;	//Content unchanged even though server did not send a 304
 						} else {
-							syslog(LOG_DEBUG, 'SimplePie MD5 cache no match for ' . $this->feed_url);
+							// syslog(LOG_DEBUG, 'SimplePie MD5 cache no match for ' . $this->feed_url);
 							$this->data['md5'] = $md5;
 						}
 					}

@@ -180,7 +180,7 @@ function sanitizeHTML($data, $base = '') {
 function get_content_by_parsing ($url, $path) {
 	require_once (LIB_PATH . '/lib_phpQuery.php');
 
-	syslog(LOG_INFO, 'FreshRSS GET ' . $url);
+	Minz_Log::notice('FreshRSS GET ' . $url);
 	$html = file_get_contents ($url);
 
 	if ($html) {
