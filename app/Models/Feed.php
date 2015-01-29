@@ -240,19 +240,16 @@ class FreshRSS_Feed extends Minz_Model {
 					$subscribe_url = $feed->subscribe_url(true);
 				}
 
+				$clean_url = url_remove_credentials($subscribe_url);
 				if ($subscribe_url !== null && $subscribe_url !== $url) {
-					if ($this->httpAuth != '') {
-						// on enlève les id si authentification HTTP
-						$subscribe_url = preg_replace('#((.+)://)((.+)@)(.+)#', '${1}${5}', $subscribe_url);
-					}
-					$this->_url($subscribe_url);
+					$this->_url($clean_url);
 				}
 
 				if (($mtime === true) ||($mtime > $this->lastUpdate)) {
-					Minz_Log::notice('FreshRSS no cache ' . $mtime . ' > ' . $this->lastUpdate . ' for ' . $subscribe_url);
+					Minz_Log::notice('FreshRSS no cache ' . $mtime . ' > ' . $this->lastUpdate . ' for ' . $clean_url);
 					$this->loadEntries($feed);	// et on charge les articles du flux
 				} else {
-					Minz_Log::notice('FreshRSS use cache for ' . $subscribe_url);
+					Minz_Log::notice('FreshRSS use cache for ' . $clean_url);
 					$this->entries = array();
 				}
 
