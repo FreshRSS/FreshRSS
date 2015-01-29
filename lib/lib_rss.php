@@ -429,3 +429,13 @@ function array_push_unique(&$array, $value) {
 function array_remove(&$array, $value) {
 	$array = array_diff($array, array($value));
 }
+
+
+/**
+ * Sanitize a URL by removing HTTP credentials.
+ * @param $url the URL to sanitize.
+ * @return the same URL without HTTP credentials.
+ */
+function url_remove_credentials($url) {
+	return preg_replace('#((.+)://)((.+)@)?(.+)#', '${1}${5}', $url);
+}
