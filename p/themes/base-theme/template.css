@@ -75,6 +75,7 @@ input {
 }
 textarea,
 input[type="file"],
+input.long,
 input.extend:focus {
 	width: 300px;
 }
