@@ -437,5 +437,5 @@ function array_remove(&$array, $value) {
  * @return the same URL without HTTP credentials.
  */
 function url_remove_credentials($url) {
-	return preg_replace('#((.+)://)((.+)@)?(.+)#', '${1}${5}', $url);
+	return preg_replace('/[^\/]*:[^:]*@/', '', $url);
 }
