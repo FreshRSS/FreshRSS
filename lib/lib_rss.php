@@ -248,7 +248,7 @@ function listUsers() {
  * @return a Minz_Configuration object, null if the configuration cannot be loaded.
  */
 function get_user_configuration($username) {
-	$namespace = time() . '_user_' . $username;
+	$namespace = 'user_' . $username;
 	try {
 		Minz_Configuration::register($namespace,
 		                             join_path(USERS_PATH, $username, 'config.php'),
