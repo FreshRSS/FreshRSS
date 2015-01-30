@@ -47,6 +47,9 @@ Privilégiez pour cela des demandes sur GitHub
 4. Accédez à FreshRSS à travers votre navigateur Web et suivez les instructions d’installation
 5. Tout devrait fonctionner :) En cas de problème, n’hésitez pas à me contacter.
 
+# Installation alternative avec Docker
+Voir [les instructions sur le dépôt Docker](https://registry.hub.docker.com/u/marienfressinaud/freshrss/)
+
 # Contrôle d’accès
 Il est requis pour le mode multi-utilisateur, et recommandé dans tous les cas, de limiter l’accès à votre FreshRSS. Au choix :
 * En utilisant l’identification par formulaire (requiert JavaScript, et PHP 5.3.7+ recommandé – fonctionne avec certaines versions de PHP 5.3.3+)
