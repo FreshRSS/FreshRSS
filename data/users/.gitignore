@@ -1,0 +1,4 @@
+db.sqlite
+config.php
+log*.txt
+

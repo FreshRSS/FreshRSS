@@ -1,12 +1,17 @@
 <?php
 
+/**
+ * Controller to handle every import and export actions.
+ */
 class FreshRSS_importExport_Controller extends Minz_ActionController {
+	/**
+	 * This action is called before every other action in that class. It is
+	 * the common boiler plate for every action. It is triggered by the
+	 * underlying framework.
+	 */
 	public function firstAction() {
-		if (!$this->view->loginOk) {
-			Minz_Error::error(
-				403,
-				array('error' => array(_t('access_denied')))
-			);
+		if (!FreshRSS_Auth::hasAccess()) {
+			Minz_Error::error(403);
 		}
 
 		require_once(LIB_PATH . '/lib_opml.php');
@@ -16,13 +21,23 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 		$this->feedDAO = FreshRSS_Factory::createFeedDao();
 	}
 
+	/**
+	 * This action displays the main page for import / export system.
+	 */
 	public function indexAction() {
-		$this->view->categories = $this->catDAO->listCategories();
 		$this->view->feeds = $this->feedDAO->listFeeds();
-
-		Minz_View::prependTitle(_t('import_export') . ' · ');
+		Minz_View::prependTitle(_t('sub.import_export.title') . ' · ');
 	}
 
+	/**
+	 * This action handles import action.
+	 *
+	 * It must be reached by a POST request.
+	 *
+	 * Parameter is:
+	 *   - file (default: nothing!)
+	 * Available file types are: zip, json or xml.
+	 */
 	public function importAction() {
 		if (!Minz_Request::isPost()) {
 			Minz_Request::forward(array('c' => 'importExport', 'a' => 'index'), true);
@@ -33,7 +48,7 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 
 		if ($status_file !== 0) {
 			Minz_Log::error('File cannot be uploaded. Error code: ' . $status_file);
-			Minz_Request::bad(_t('file_cannot_be_uploaded'),
+			Minz_Request::bad(_t('feedback.import_export.file_cannot_be_uploaded'),
 			                  array('c' => 'importExport', 'a' => 'index'));
 		}
 
@@ -55,7 +70,7 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 			if (!is_resource($zip)) {
 				// zip_open cannot open file: something is wrong
 				Minz_Log::error('Zip archive cannot be imported. Error code: ' . $zip);
-				Minz_Request::bad(_t('zip_error'),
+				Minz_Request::bad(_t('feedback.import_export.zip_error'),
 				                  array('c' => 'importExport', 'a' => 'index'));
 			}
 
@@ -77,7 +92,7 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 			zip_close($zip);
 		} elseif ($type_file === 'zip') {
 			// Zip extension is not loaded
-			Minz_Request::bad(_t('no_zip_extension'),
+			Minz_Request::bad(_t('feedback.import_export.no_zip_extension'),
 			                  array('c' => 'importExport', 'a' => 'index'));
 		} elseif ($type_file !== 'unknown') {
 			$list_files[$type_file][] = file_get_contents($file['tmp_name']);
@@ -92,24 +107,26 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 			$error = $this->importOpml($opml_file);
 		}
 		foreach ($list_files['json_starred'] as $article_file) {
-			$error = $this->importArticles($article_file, true);
+			$error = $this->importJson($article_file, true);
 		}
 		foreach ($list_files['json_feed'] as $article_file) {
-			$error = $this->importArticles($article_file);
+			$error = $this->importJson($article_file);
 		}
 
 		// And finally, we get import status and redirect to the home page
 		Minz_Session::_param('actualize_feeds', true);
-		$content_notif = $error === true ? _t('feeds_imported_with_errors') :
-		                                   _t('feeds_imported');
+		$content_notif = $error === true ? _t('feedback.import_export.feeds_imported_with_errors') :
+		                                   _t('feedback.import_export.feeds_imported');
 		Minz_Request::good($content_notif);
 	}
 
+	/**
+	 * This method tries to guess the file type based on its name.
+	 *
+	 * Itis a *very* basic guess file type function. Only based on filename.
+	 * That's could be improved but should be enough for what we have to do.
+	 */
 	private function guessFileType($filename) {
-		// A *very* basic guess file type function. Only based on filename
-		// That's could be improved but should be enough, at least for a first
-		// implementation.
-
 		if (substr_compare($filename, '.zip', -4) === 0) {
 			return 'zip';
 		} elseif (substr_compare($filename, '.opml', -5) === 0 ||
@@ -125,10 +142,16 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 		}
 	}
 
+	/**
+	 * This method parses and imports an OPML file.
+	 *
+	 * @param string $opml_file the OPML file content.
+	 * @return boolean true if an error occured, false else.
+	 */
 	private function importOpml($opml_file) {
 		$opml_array = array();
 		try {
-			$opml_array = libopml_parse_string($opml_file);
+			$opml_array = libopml_parse_string($opml_file, false);
 		} catch (LibOPML_Exception $e) {
 			Minz_Log::warning($e->getMessage());
 			return true;
@@ -139,35 +162,78 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 		return $this->addOpmlElements($opml_array['body']);
 	}
 
+	/**
+	 * This method imports an OPML file based on its body.
+	 *
+	 * @param array $opml_elements an OPML element (body or outline).
+	 * @param string $parent_cat the name of the parent category.
+	 * @return boolean true if an error occured, false else.
+	 */
 	private function addOpmlElements($opml_elements, $parent_cat = null) {
 		$error = false;
+
+		$nb_feeds = count($this->feedDAO->listFeeds());
+		$nb_cats = count($this->catDAO->listCategories(false));
+		$limits = FreshRSS_Context::$system_conf->limits;
+
 		foreach ($opml_elements as $elt) {
-			$res = false;
+			$is_error = false;
 			if (isset($elt['xmlUrl'])) {
-				$res = $this->addFeedOpml($elt, $parent_cat);
+				// If xmlUrl exists, it means it is a feed
+				if ($nb_feeds >= $limits['max_feeds']) {
+					Minz_Log::warning(_t('feedback.sub.feed.over_max',
+					                  $limits['max_feeds']));
+					$is_error = true;
+					continue;
+				}
+
+				$is_error = $this->addFeedOpml($elt, $parent_cat);
+				if (!$is_error) {
+					$nb_feeds += 1;
+				}
 			} else {
-				$res = $this->addCategoryOpml($elt, $parent_cat);
+				// No xmlUrl? It should be a category!
+				$limit_reached = ($nb_cats >= $limits['max_categories']);
+				if ($limit_reached) {
+					Minz_Log::warning(_t('feedback.sub.category.over_max',
+					                  $limits['max_categories']));
+				}
+
+				$is_error = $this->addCategoryOpml($elt, $parent_cat, $limit_reached);
+				if (!$is_error) {
+					$nb_cats += 1;
+				}
 			}
 
-			if (!$error && $res) {
+			if (!$error && $is_error) {
 				// oops: there is at least one error!
-				$error = $res;
+				$error = $is_error;
 			}
 		}
 
 		return $error;
 	}
 
+	/**
+	 * This method imports an OPML feed element.
+	 *
+	 * @param array $feed_elt an OPML element (must be a feed element).
+	 * @param string $parent_cat the name of the parent category.
+	 * @return boolean true if an error occured, false else.
+	 */
 	private function addFeedOpml($feed_elt, $parent_cat) {
+		$default_cat = $this->catDAO->getDefault();
 		if (is_null($parent_cat)) {
 			// This feed has no parent category so we get the default one
-			$parent_cat = $this->catDAO->getDefault()->name();
+			$parent_cat = $default_cat->name();
 		}
 
 		$cat = $this->catDAO->searchByName($parent_cat);
-
-		if (!$cat) {
-			return true;
+		if (is_null($cat)) {
+			// If there is not $cat, it means parent category does not exist in
+			// database.
+			// If it happens, take the default category.
+			$cat = $default_cat;
 		}
 
 		// We get different useful information
@@ -191,10 +257,16 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 			$feed->_website($website);
 			$feed->_description($description);
 
-			// addFeedObject checks if feed is already in DB so nothing else to
-			// check here
-			$id = $this->feedDAO->addFeedObject($feed);
-			$error = ($id === false);
+			// Call the extension hook
+			$feed = Minz_ExtensionManager::callHook('feed_before_insert', $feed);
+			if (!is_null($feed)) {
+				// addFeedObject checks if feed is already in DB so nothing else to
+				// check here
+				$id = $this->feedDAO->addFeedObject($feed);
+				$error = ($id === false);
+			} else {
+				$error = true;
+			}
 		} catch (FreshRSS_Feed_Exception $e) {
 			Minz_Log::warning($e->getMessage());
 			$error = true;
@@ -203,12 +275,24 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 		return $error;
 	}
 
-	private function addCategoryOpml($cat_elt, $parent_cat) {
+	/**
+	 * This method imports an OPML category element.
+	 *
+	 * @param array $cat_elt an OPML element (must be a category element).
+	 * @param string $parent_cat the name of the parent category.
+	 * @param boolean $cat_limit_reached indicates if category limit has been reached.
+	 *                if yes, category is not added (but we try for feeds!)
+	 * @return boolean true if an error occured, false else.
+	 */
+	private function addCategoryOpml($cat_elt, $parent_cat, $cat_limit_reached) {
 		// Create a new Category object
 		$cat = new FreshRSS_Category(Minz_Helper::htmlspecialchars_utf8($cat_elt['text']));
 
-		$id = $this->catDAO->addCategoryObject($cat);
-		$error = ($id === false);
+		$error = true;
+		if (!$cat_limit_reached) {
+			$id = $this->catDAO->addCategoryObject($cat);
+			$error = ($id === false);
+		}
 
 		if (isset($cat_elt['@outlines'])) {
 			// Our cat_elt contains more categories or more feeds, so we
@@ -223,28 +307,55 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 		return $error;
 	}
 
-	private function importArticles($article_file, $starred = false) {
+	/**
+	 * This method import a JSON-based file (Google Reader format).
+	 *
+	 * @param string $article_file the JSON file content.
+	 * @param boolean $starred true if articles from the file must be starred.
+	 * @return boolean true if an error occured, false else.
+	 */
+	private function importJson($article_file, $starred = false) {
 		$article_object = json_decode($article_file, true);
 		if (is_null($article_object)) {
 			Minz_Log::warning('Try to import a non-JSON file');
 			return true;
 		}
 
-		$is_read = $this->view->conf->mark_when['reception'] ? 1 : 0;
+		$is_read = FreshRSS_Context::$user_conf->mark_when['reception'] ? 1 : 0;
 
-		$google_compliant = (
-			strpos($article_object['id'], 'com.google') !== false
-		);
+		$google_compliant = strpos($article_object['id'], 'com.google') !== false;
 
 		$error = false;
 		$article_to_feed = array();
 
+		$nb_feeds = count($this->feedDAO->listFeeds());
+		$limits = FreshRSS_Context::$system_conf->limits;
+
 		// First, we check feeds of articles are in DB (and add them if needed).
 		foreach ($article_object['items'] as $item) {
-			$feed = $this->addFeedArticles($item['origin'], $google_compliant);
+			$key = $google_compliant ? 'htmlUrl' : 'feedUrl';
+			$feed = new FreshRSS_Feed($item['origin'][$key]);
+			$feed = $this->feedDAO->searchByUrl($feed->url());
+
 			if (is_null($feed)) {
-				$error = true;
-			} else {
+				// Feed does not exist in DB,we should to try to add it.
+				if ($nb_feeds >= $limits['max_feeds']) {
+					// Oops, no more place!
+					Minz_Log::warning(_t('feedback.sub.feed.over_max', $limits['max_feeds']));
+				} else {
+					$feed = $this->addFeedJson($item['origin'], $google_compliant);
+				}
+
+				if (is_null($feed)) {
+					// Still null? It means something went wrong.
+					$error = true;
+				} else {
+					// Nice! Increase the counter.
+					$nb_feeds += 1;
+				}
+			}
+
+			if (!is_null($feed)) {
 				$article_to_feed[$item['id']] = $feed->id();
 			}
 		}
@@ -254,6 +365,7 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 		$this->entryDAO->beginTransaction();
 		foreach ($article_object['items'] as $item) {
 			if (!isset($article_to_feed[$item['id']])) {
+				// Related feed does not exist for this entry, do nothing.
 				continue;
 			}
 
@@ -263,6 +375,7 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 			               'summary' : 'content';
 			$tags = $item['categories'];
 			if ($google_compliant) {
+				// Remove tags containing "/state/com.google" which are useless.
 				$tags = array_filter($tags, function($var) {
 					return strpos($var, '/state/com.google') === false;
 				});
@@ -276,6 +389,12 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 			$entry->_id(min(time(), $entry->date(true)) . uSecString());
 			$entry->_tags($tags);
 
+			$entry = Minz_ExtensionManager::callHook('entry_before_insert', $entry);
+			if (is_null($entry)) {
+				// An extension has returned a null value, there is nothing to insert.
+				continue;
+			}
+
 			$values = $entry->toArray();
 			$id = $this->entryDAO->addEntry($values, $prepared_statement);
 
@@ -288,7 +407,15 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 		return $error;
 	}
 
-	private function addFeedArticles($origin, $google_compliant) {
+	/**
+	 * This method import a JSON-based feed (Google Reader format).
+	 *
+	 * @param array $origin represents a feed.
+	 * @param boolean $google_compliant takes care of some specific values if true.
+	 * @return FreshRSS_Feed if feed is in database at the end of the process,
+	 *         else null.
+	 */
+	private function addFeedJson($origin, $google_compliant) {
 		$default_cat = $this->catDAO->getDefault();
 
 		$return = null;
@@ -298,19 +425,23 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 		$website = $origin['htmlUrl'];
 
 		try {
-			// Create a Feed object and add it in DB
+			// Create a Feed object and add it in database.
 			$feed = new FreshRSS_Feed($url);
 			$feed->_category($default_cat->id());
 			$feed->_name($name);
 			$feed->_website($website);
 
-			// addFeedObject checks if feed is already in DB so nothing else to
-			// check here
-			$id = $this->feedDAO->addFeedObject($feed);
+			// Call the extension hook
+			$feed = Minz_ExtensionManager::callHook('feed_before_insert', $feed);
+			if (!is_null($feed)) {
+				// addFeedObject checks if feed is already in DB so nothing else to
+				// check here.
+				$id = $this->feedDAO->addFeedObject($feed);
 
-			if ($id !== false) {
-				$feed->_id($id);
-				$return = $feed;
+				if ($id !== false) {
+					$feed->_id($id);
+					$return = $feed;
+				}
 			}
 		} catch (FreshRSS_Feed_Exception $e) {
 			Minz_Log::warning($e->getMessage());
@@ -319,6 +450,16 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 		return $return;
 	}
 
+	/**
+	 * This action handles export action.
+	 *
+	 * This action must be reached by a POST request.
+	 *
+	 * Parameters are:
+	 *   - export_opml (default: false)
+	 *   - export_starred (default: false)
+	 *   - export_feeds (default: array()) a list of feed ids
+	 */
 	public function exportAction() {
 		if (!Minz_Request::isPost()) {
 			Minz_Request::forward(array('c' => 'importExport', 'a' => 'index'), true);
@@ -336,7 +477,7 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 		}
 
 		if ($export_starred) {
-			$export_files['starred.json'] = $this->generateArticles('starred');
+			$export_files['starred.json'] = $this->generateEntries('starred');
 		}
 
 		foreach ($export_feeds as $feed_id) {
@@ -344,9 +485,7 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 			if ($feed) {
 				$filename = 'feed_' . $feed->category() . '_'
 				          . $feed->id() . '.json';
-				$export_files[$filename] = $this->generateArticles(
-					'feed', $feed
-				);
+				$export_files[$filename] = $this->generateEntries('feed', $feed);
 			}
 		}
 
@@ -357,7 +496,7 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 				$this->exportZip($export_files);
 			} catch (Exception $e) {
 				# Oops, there is no Zip extension!
-				Minz_Request::bad(_t('export_no_zip_extension'),
+				Minz_Request::bad(_t('feedback.import_export.export_no_zip_extension'),
 				                  array('c' => 'importExport', 'a' => 'index'));
 			}
 		} elseif ($nb_files === 1) {
@@ -366,10 +505,16 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 			$type = $this->guessFileType($filename);
 			$this->exportFile('freshrss_' . $filename, $export_files[$filename], $type);
 		} else {
+			// Nothing to do...
 			Minz_Request::forward(array('c' => 'importExport', 'a' => 'index'), true);
 		}
 	}
 
+	/**
+	 * This method returns the OPML file based on user subscriptions.
+	 *
+	 * @return string the OPML file content.
+	 */
 	private function generateOpml() {
 		$list = array();
 		foreach ($this->catDAO->listCategories() as $key => $cat) {
@@ -381,23 +526,29 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 		return $this->view->helperToString('export/opml');
 	}
 
-	private function generateArticles($type, $feed = NULL) {
+	/**
+	 * This method returns a JSON file content.
+	 *
+	 * @param string $type must be "starred" or "feed"
+	 * @param FreshRSS_Feed $feed feed of which we want to get entries.
+	 * @return string the JSON file content.
+	 */
+	private function generateEntries($type, $feed = NULL) {
 		$this->view->categories = $this->catDAO->listCategories();
 
 		if ($type == 'starred') {
-			$this->view->list_title = _t('starred_list');
+			$this->view->list_title = _t('sub.import_export.starred_list');
 			$this->view->type = 'starred';
 			$unread_fav = $this->entryDAO->countUnreadReadFavorites();
 			$this->view->entries = $this->entryDAO->listWhere(
-				's', '', FreshRSS_Entry::STATE_ALL, 'ASC',
-				$unread_fav['all']
+				's', '', FreshRSS_Entry::STATE_ALL, 'ASC', $unread_fav['all']
 			);
 		} elseif ($type == 'feed' && !is_null($feed)) {
-			$this->view->list_title = _t('feed_list', $feed->name());
+			$this->view->list_title = _t('sub.import_export.feed_list', $feed->name());
 			$this->view->type = 'feed/' . $feed->id();
 			$this->view->entries = $this->entryDAO->listWhere(
 				'f', $feed->id(), FreshRSS_Entry::STATE_ALL, 'ASC',
-				$this->view->conf->posts_per_page
+				FreshRSS_Context::$user_conf->posts_per_page
 			);
 			$this->view->feed = $feed;
 		}
@@ -405,6 +556,12 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 		return $this->view->helperToString('export/articles');
 	}
 
+	/**
+	 * This method zips a list of files and returns it by HTTP.
+	 *
+	 * @param array $files list of files where key is filename and value the content.
+	 * @throws Exception if Zip extension is not loaded.
+	 */
 	private function exportZip($files) {
 		if (!extension_loaded('zip')) {
 			throw new Exception();
@@ -428,6 +585,14 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 		unlink($zip_file);
 	}
 
+	/**
+	 * This method returns a single file (OPML or JSON) by HTTP.
+	 *
+	 * @param string $filename
+	 * @param string $content
+	 * @param string $type the file type (opml, json_feed or json_starred).
+	 *                     If equals to unknown, nothing happens.
+	 */
 	private function exportFile($filename, $content, $type) {
 		if ($type === 'unknown') {
 			return;

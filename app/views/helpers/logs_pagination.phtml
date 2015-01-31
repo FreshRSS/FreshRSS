@@ -1,7 +1,7 @@
 <?php
-	$c = Minz_Request::controllerName ();
-	$a = Minz_Request::actionName ();
-	$params = Minz_Request::params ();
+	$c = Minz_Request::controllerName();
+	$a = Minz_Request::actionName();
+	$params = Minz_Request::params();
 ?>
 
 <?php if ($this->nbPage > 1) { ?>
@@ -9,14 +9,14 @@
 	<?php $params[$getteur] = 1; ?>
 	<li class="item pager-first">
 		<?php if ($this->currentPage > 1) { ?>
-		<a href="<?php echo Minz_Url::display (array ('c' => $c, 'a' => $a, 'params' => $params)); ?>">« <?php echo Minz_Translate::t('first'); ?></a>
+		<a href="<?php echo Minz_Url::display(array('c' => $c, 'a' => $a, 'params' => $params)); ?>">« <?php echo _t('gen.pagination.first'); ?></a>
 		<?php } ?>
 	</li>
 
 	<?php $params[$getteur] = $this->currentPage - 1; ?>
 	<li class="item pager-previous">
 		<?php if ($this->currentPage > 1) { ?>
-		<a href="<?php echo Minz_Url::display (array ('c' => $c, 'a' => $a, 'params' => $params)); ?>">‹ <?php echo Minz_Translate::t('previous'); ?></a>
+		<a href="<?php echo Minz_Url::display(array('c' => $c, 'a' => $a, 'params' => $params)); ?>">‹ <?php echo _t('gen.pagination.previous'); ?></a>
 		<?php } ?>
 	</li>
 
@@ -24,7 +24,7 @@
 		<?php if($i > 0 && $i <= $this->nbPage) { ?>
 			<?php if ($i != $this->currentPage) { ?>
 			<?php $params[$getteur] = $i; ?>
-			<li class="item pager-item"><a href="<?php echo Minz_Url::display (array ('c' => $c, 'a' => $a, 'params' => $params)); ?>"><?php echo $i; ?></a></li>
+			<li class="item pager-item"><a href="<?php echo Minz_Url::display(array('c' => $c, 'a' => $a, 'params' => $params)); ?>"><?php echo $i; ?></a></li>
 			<?php } else { ?>
 			<li class="item pager-current"><?php echo $i; ?></li>
 			<?php } ?>
@@ -34,13 +34,13 @@
 	<?php $params[$getteur] = $this->currentPage + 1; ?>
 	<li class="item pager-next">
 		<?php if ($this->currentPage < $this->nbPage) { ?>
-		<a href="<?php echo Minz_Url::display (array ('c' => $c, 'a' => $a, 'params' => $params)); ?>"><?php echo Minz_Translate::t('next'); ?> ›</a>
+		<a href="<?php echo Minz_Url::display(array('c' => $c, 'a' => $a, 'params' => $params)); ?>"><?php echo _t('gen.pagination.next'); ?> ›</a>
 		<?php } ?>
 	</li>
 	<?php $params[$getteur] = $this->nbPage; ?>
 	<li class="item pager-last">
 		<?php if ($this->currentPage < $this->nbPage) { ?>
-		<a href="<?php echo Minz_Url::display (array ('c' => $c, 'a' => $a, 'params' => $params)); ?>"><?php echo Minz_Translate::t('last'); ?> »</a>
+		<a href="<?php echo Minz_Url::display(array('c' => $c, 'a' => $a, 'params' => $params)); ?>"><?php echo _t('gen.pagination.last'); ?> »</a>
 		<?php } ?>
 	</li>
 </ul>

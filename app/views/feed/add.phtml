@@ -1,16 +1,16 @@
 <?php if ($this->feed) { ?>
 <div class="post">
-	<h1><?php echo Minz_Translate::t ('add_rss_feed'); ?></h1>
+	<h1><?php echo _t('sub.feed.add'); ?></h1>
 
 	<?php if (!$this->load_ok) { ?>
-	<p class="alert alert-error"><span class="alert-head"><?php echo Minz_Translate::t('damn'); ?></span> <?php echo Minz_Translate::t('internal_problem_feed', _url('index', 'logs')); ?></p>
+	<p class="alert alert-error"><span class="alert-head"><?php echo _t('gen.short.damn'); ?></span> <?php echo _t('feedback.sub.feed.internal_problem', _url('index', 'logs')); ?></p>
 	<?php } ?>
 
 	<form method="post" action="<?php echo _url('feed', 'add'); ?>" autocomplete="off">
-		<legend><?php echo Minz_Translate::t('informations'); ?></legend>
+		<legend><?php echo _t('sub.feed.informations'); ?></legend>
 		<?php if ($this->load_ok) { ?>
 		<div class="form-group">
-			<label class="group-name"><?php echo Minz_Translate::t('title'); ?></label>
+			<label class="group-name"><?php echo _t('sub.feed.title'); ?></label>
 			<div class="group-controls">
 				<label><?php echo $this->feed->name() ; ?></label>
 			</div>
@@ -18,7 +18,7 @@
 
 		<?php $desc = $this->feed->description(); if ($desc != '') { ?>
 		<div class="form-group">
-			<label class="group-name"><?php echo Minz_Translate::t('feed_description'); ?></label>
+			<label class="group-name"><?php echo _t('sub.feed.description'); ?></label>
 			<div class="group-controls">
 				<label><?php echo htmlspecialchars($desc, ENT_NOQUOTES, 'UTF-8'); ?></label>
 			</div>
@@ -26,26 +26,26 @@
 		<?php } ?>
 
 		<div class="form-group">
-			<label class="group-name"><?php echo Minz_Translate::t('website_url'); ?></label>
+			<label class="group-name"><?php echo _t('sub.feed.website'); ?></label>
 			<div class="group-controls">
 				<?php echo $this->feed->website(); ?>
-				<a class="btn" target="_blank" href="<?php echo $this->feed->website(); ?>"><?php echo FreshRSS_Themes::icon('link'); ?></a>
+				<a class="btn" target="_blank" href="<?php echo $this->feed->website(); ?>"><?php echo _i('link'); ?></a>
 			</div>
 		</div>
 		<?php } ?>
 
 		<div class="form-group">
-			<label class="group-name" for="url"><?php echo Minz_Translate::t('feed_url'); ?></label>
+			<label class="group-name" for="url"><?php echo _t('sub.feed.url'); ?></label>
 			<div class="group-controls">
 				<div class="stick">
 					<input type="text" name="url_rss" id="url" class="extend" value="<?php echo $this->feed->url(); ?>" />
-					<a class="btn" target="_blank" href="<?php echo $this->feed->url(); ?>"><?php echo FreshRSS_Themes::icon('link'); ?></a>
+					<a class="btn" target="_blank" href="<?php echo $this->feed->url(); ?>"><?php echo _i('link'); ?></a>
 				</div>
-				<a class="btn" target="_blank" href="http://validator.w3.org/feed/check.cgi?url=<?php echo $this->feed->url(); ?>"><?php echo Minz_Translate::t('feed_validator'); ?></a>
+				<a class="btn" target="_blank" href="http://validator.w3.org/feed/check.cgi?url=<?php echo $this->feed->url(); ?>"><?php echo _t('sub.feed.validator'); ?></a>
 			</div>
 		</div>
 		<div class="form-group">
-			<label class="group-name" for="category"><?php echo Minz_Translate::t('category'); ?></label>
+			<label class="group-name" for="category"><?php echo _t('sub.category'); ?></label>
 			<div class="group-controls">
 				<select name="category" id="category">
 					<?php foreach ($this->categories as $cat) { ?>
@@ -53,37 +53,37 @@
 						<?php echo $cat->name(); ?>
 					</option>
 					<?php } ?>
-					<option value="nc"><?php echo Minz_Translate::t('new_category'); ?></option>
+					<option value="nc"><?php echo _t('sub.category.new'); ?></option>
 				</select>
 
 				<span style="display: none;">
-					<input type="text" name="new_category[name]" id="new_category_name" autocomplete="off" placeholder="<?php echo Minz_Translate::t('new_category'); ?>" />
+					<input type="text" name="new_category[name]" id="new_category_name" autocomplete="off" placeholder="<?php echo _t('sub.category.new'); ?>" />
 				</span>
 			</div>
 		</div>
 
-		<legend><?php echo Minz_Translate::t('http_authentication'); ?></legend>
+		<legend><?php echo _t('sub.feed.auth.http'); ?></legend>
 		<?php $auth = $this->feed->httpAuth(false); ?>
 		<div class="form-group">
-			<label class="group-name" for="http_user"><?php echo Minz_Translate::t('http_username'); ?></label>
+			<label class="group-name" for="http_user"><?php echo _t('sub.feed.auth.username'); ?></label>
 			<div class="group-controls">
 				<input type="text" name="http_user" id="http_user" class="extend" value="<?php echo $auth['username']; ?>" autocomplete="off" />
 			</div>
 
-			<label class="group-name" for="http_pass"><?php echo Minz_Translate::t('http_password'); ?></label>
+			<label class="group-name" for="http_pass"><?php echo _t('sub.feed.auth.password'); ?></label>
 			<div class="group-controls">
 				<input type="password" name="http_pass" id="http_pass" class="extend" value="<?php echo $auth['password']; ?>" autocomplete="off" />
 			</div>
 
 			<div class="group-controls">
-				<?php echo FreshRSS_Themes::icon('help'); ?> <?php echo Minz_Translate::t('access_protected_feeds'); ?>
+				<?php echo _i('help'); ?> <?php echo _t('sub.feed.auth.help'); ?>
 			</div>
 		</div>
 
 		<div class="form-group form-actions">
 			<div class="group-controls">
-				<button type="submit" class="btn btn-important"><?php echo Minz_Translate::t('save'); ?></button>
-				<button type="reset" class="btn"><?php echo Minz_Translate::t('cancel'); ?></button>
+				<button type="submit" class="btn btn-important"><?php echo _t('gen.action.submit'); ?></button>
+				<button type="reset" class="btn"><?php echo _t('gen.action.cancel'); ?></button>
 			</div>
 		</div>
 	</form>

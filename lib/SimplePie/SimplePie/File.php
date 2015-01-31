@@ -79,7 +79,7 @@ class SimplePie_File
 		$this->useragent = $useragent;
 		if (preg_match('/^http(s)?:\/\//i', $url))
 		{
-			syslog(LOG_INFO, 'SimplePie GET ' . $url);	//FreshRSS
+			// syslog(LOG_INFO, 'SimplePie GET ' . $url);	//FreshRSS
 			if ($useragent === null)
 			{
 				$useragent = ini_get('user_agent');

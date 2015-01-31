@@ -1,12 +1,12 @@
 <ul class="nav nav-list aside">
-	<li class="nav-header"><?php echo Minz_Translate::t ('stats'); ?></li>
-	<li class="item<?php echo Minz_Request::actionName () == 'index' ? ' active' : ''; ?>">
-		<a href="<?php echo _url ('stats', 'index'); ?>"><?php echo Minz_Translate::t ('stats_main'); ?></a>
+	<li class="nav-header"><?php echo _t('admin.stats'); ?></li>
+	<li class="item<?php echo Minz_Request::actionName() == 'index' ? ' active' : ''; ?>">
+		<a href="<?php echo _url('stats', 'index'); ?>"><?php echo _t('admin.stats.menu.main'); ?></a>
 	</li>
-	<li class="item<?php echo Minz_Request::actionName () == 'idle' ? ' active' : ''; ?>">
-		<a href="<?php echo _url ('stats', 'idle'); ?>"><?php echo Minz_Translate::t ('stats_idle'); ?></a>
+	<li class="item<?php echo Minz_Request::actionName() == 'idle' ? ' active' : ''; ?>">
+		<a href="<?php echo _url('stats', 'idle'); ?>"><?php echo _t('admin.stats.menu.idle'); ?></a>
 	</li>
-	<li class="item<?php echo Minz_Request::actionName () == 'repartition' ? ' active' : ''; ?>">
-		<a href="<?php echo _url ('stats', 'repartition'); ?>"><?php echo Minz_Translate::t ('stats_repartition'); ?></a>
+	<li class="item<?php echo Minz_Request::actionName() == 'repartition' ? ' active' : ''; ?>">
+		<a href="<?php echo _url('stats', 'repartition'); ?>"><?php echo _t('admin.stats.menu.repartition'); ?></a>
 	</li>
 </ul>

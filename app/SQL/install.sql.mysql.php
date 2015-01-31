@@ -57,5 +57,3 @@ INSERT IGNORE INTO `%1$scategory` (id, name) VALUES(1, "%2$s");
 ');
 
 define('SQL_DROP_TABLES', 'DROP TABLES %1$sentry, %1$sfeed, %1$scategory');
-
-define('SQL_SHOW_TABLES', 'SHOW tables;');

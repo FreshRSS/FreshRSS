@@ -30,14 +30,13 @@ class Minz_FrontController {
 	 * Initialise le dispatcher, met à jour la Request
 	 */
 	public function __construct () {
-		if (LOG_PATH === false) {
-			$this->killApp ('Path not found: LOG_PATH');
-		}
-
 		try {
-			Minz_Configuration::init ();
+			Minz_Configuration::register('system',
+			                             DATA_PATH . '/config.php',
+			                             DATA_PATH . '/config.default.php');
+			$this->setReporting();
 
-			Minz_Request::init ();
+			Minz_Request::init();
 
 			$url = $this->buildUrl();
 			$url['params'] = array_merge (
@@ -46,7 +45,7 @@ class Minz_FrontController {
 			);
 			Minz_Request::forward ($url);
 		} catch (Minz_Exception $e) {
-			Minz_Log::record ($e->getMessage (), Minz_Log::ERROR);
+			Minz_Log::error($e->getMessage());
 			$this->killApp ($e->getMessage ());
 		}
 
@@ -85,7 +84,7 @@ class Minz_FrontController {
 			$this->dispatcher->run();
 		} catch (Minz_Exception $e) {
 			try {
-				Minz_Log::record ($e->getMessage (), Minz_Log::ERROR);
+				Minz_Log::error($e->getMessage());
 			} catch (Minz_PermissionDeniedException $e) {
 				$this->killApp ($e->getMessage ());
 			}
@@ -113,5 +112,24 @@ class Minz_FrontController {
 			$txt = 'See logs files';
 		}
 		exit ('### Application problem ###<br />'."\n".$txt);
+	}
+
+	private function setReporting() {
+		$conf = Minz_Configuration::get('system');
+		switch($conf->environment) {
+		case 'production':
+			error_reporting(E_ALL);
+			ini_set('display_errors','Off');
+			ini_set('log_errors', 'On');
+			break;
+		case 'development':
+			error_reporting(E_ALL);
+			ini_set('display_errors','On');
+			ini_set('log_errors', 'On');
+			break;
+		case 'silent':
+			error_reporting(0);
+			break;
+		}
 	}
 }

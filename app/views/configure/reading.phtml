@@ -1,47 +1,47 @@
-<?php $this->partial ('aside_configure'); ?>
+<?php $this->partial('aside_configure'); ?>
 
 <div class="post">
-	<a href="<?php echo _url ('index', 'index'); ?>"><?php echo Minz_Translate::t ('back_to_rss_feeds'); ?></a>
+	<a href="<?php echo _url('index', 'index'); ?>"><?php echo _t('gen.action.back_to_rss_feeds'); ?></a>
 
-	<form method="post" action="<?php echo _url ('configure', 'reading'); ?>">
-		<legend><?php echo Minz_Translate::t ('reading_configuration'); ?></legend>
+	<form method="post" action="<?php echo _url('configure', 'reading'); ?>">
+		<legend><?php echo _t('conf.reading'); ?></legend>
 
 		<div class="form-group">
-			<label class="group-name" for="posts_per_page"><?php echo Minz_Translate::t ('articles_per_page'); ?></label>
+			<label class="group-name" for="posts_per_page"><?php echo _t('conf.reading.articles_per_page'); ?></label>
 			<div class="group-controls">
-				<input type="number" id="posts_per_page" name="posts_per_page" value="<?php echo $this->conf->posts_per_page; ?>" min="5" max="50" />
-				<?php echo _i('help'); ?> <?php echo _t('number_divided_when_reader'); ?>
+				<input type="number" id="posts_per_page" name="posts_per_page" value="<?php echo FreshRSS_Context::$user_conf->posts_per_page; ?>" min="5" max="50" />
+				<?php echo _i('help'); ?> <?php echo _t('conf.reading.number_divided_when_reader'); ?>
 			</div>
 		</div>
 
 		<div class="form-group">
-			<label class="group-name" for="sort_order"><?php echo Minz_Translate::t ('sort_order'); ?></label>
+			<label class="group-name" for="sort_order"><?php echo _t('conf.reading.sort'); ?></label>
 			<div class="group-controls">
 				<select name="sort_order" id="sort_order">
-					<option value="DESC"<?php echo $this->conf->sort_order === 'DESC' ? ' selected="selected"' : ''; ?>><?php echo Minz_Translate::t ('newer_first'); ?></option>
-					<option value="ASC"<?php echo $this->conf->sort_order === 'ASC' ? ' selected="selected"' : ''; ?>><?php echo Minz_Translate::t ('older_first'); ?></option>
+					<option value="DESC"<?php echo FreshRSS_Context::$user_conf->sort_order === 'DESC' ? ' selected="selected"' : ''; ?>><?php echo _t('conf.reading.sort.newer_first'); ?></option>
+					<option value="ASC"<?php echo FreshRSS_Context::$user_conf->sort_order === 'ASC' ? ' selected="selected"' : ''; ?>><?php echo _t('conf.reading.sort.older_first'); ?></option>
 				</select>
 			</div>
 		</div>
 
 		<div class="form-group">
-			<label class="group-name" for="view_mode"><?php echo Minz_Translate::t ('default_view'); ?></label>
+			<label class="group-name" for="view_mode"><?php echo _t('conf.reading.view.default'); ?></label>
 			<div class="group-controls">
 				<select name="view_mode" id="view_mode">
-					<option value="normal"<?php echo $this->conf->view_mode === 'normal' ? ' selected="selected"' : ''; ?>><?php echo Minz_Translate::t ('normal_view'); ?></option>
-					<option value="reader"<?php echo $this->conf->view_mode === 'reader' ? ' selected="selected"' : ''; ?>><?php echo Minz_Translate::t ('reader_view'); ?></option>
-					<option value="global"<?php echo $this->conf->view_mode === 'global' ? ' selected="selected"' : ''; ?>><?php echo Minz_Translate::t ('global_view'); ?></option>
+					<option value="normal"<?php echo FreshRSS_Context::$user_conf->view_mode === 'normal' ? ' selected="selected"' : ''; ?>><?php echo _t('conf.reading.view.normal'); ?></option>
+					<option value="reader"<?php echo FreshRSS_Context::$user_conf->view_mode === 'reader' ? ' selected="selected"' : ''; ?>><?php echo _t('conf.reading.view.reader'); ?></option>
+					<option value="global"<?php echo FreshRSS_Context::$user_conf->view_mode === 'global' ? ' selected="selected"' : ''; ?>><?php echo _t('conf.reading.view.global'); ?></option>
 				</select>
 			</div>
 		</div>
 
 		<div class="form-group">
-			<label class="group-name" for="view_mode"><?php echo _t('articles_to_display'); ?></label>
+			<label class="group-name" for="view_mode"><?php echo _t('conf.reading.show'); ?></label>
 			<div class="group-controls">
 				<select name="default_view" id="default_view">
-					<option value="<?php echo FreshRSS_Entry::STATE_NOT_READ; ?>"<?php echo $this->conf->default_view === FreshRSS_Entry::STATE_NOT_READ ? ' selected="selected"' : ''; ?>><?php echo _t('show_adaptive'); ?></option>
-					<option value="<?php echo FreshRSS_Entry::STATE_ALL; ?>"<?php echo $this->conf->default_view === FreshRSS_Entry::STATE_ALL ? ' selected="selected"' : ''; ?>><?php echo _t('show_all_articles'); ?></option>
-					<option value="<?php echo FreshRSS_Entry::STATE_STRICT + FreshRSS_Entry::STATE_NOT_READ; ?>"<?php echo $this->conf->default_view === FreshRSS_Entry::STATE_STRICT + FreshRSS_Entry::STATE_NOT_READ ? ' selected="selected"' : ''; ?>><?php echo _t('show_not_reads'); ?></option>
+					<option value="adaptive"<?php echo FreshRSS_Context::$user_conf->default_view === 'adaptive' ? ' selected="selected"' : ''; ?>><?php echo _t('conf.reading.show.adaptive'); ?></option>
+					<option value="all"<?php echo FreshRSS_Context::$user_conf->default_view === 'all' ? ' selected="selected"' : ''; ?>><?php echo _t('conf.reading.show.all_articles'); ?></option>
+					<option value="unread"<?php echo FreshRSS_Context::$user_conf->default_view === 'unread' ? ' selected="selected"' : ''; ?>><?php echo _t('conf.reading.show.unread'); ?></option>
 				</select>
 			</div>
 		</div>
@@ -49,8 +49,8 @@
 		<div class="form-group">
 			<div class="group-controls">
 				<label class="checkbox" for="hide_read_feeds">
-					<input type="checkbox" name="hide_read_feeds" id="hide_read_feeds" value="1"<?php echo $this->conf->hide_read_feeds ? ' checked="checked"' : ''; ?> />
-					<?php echo Minz_Translate::t('hide_read_feeds'); ?>
+					<input type="checkbox" name="hide_read_feeds" id="hide_read_feeds" value="1"<?php echo FreshRSS_Context::$user_conf->hide_read_feeds ? ' checked="checked"' : ''; ?> />
+					<?php echo _t('conf.reading.hide_read_feeds'); ?>
 				</label>
 			</div>
 		</div>
@@ -58,9 +58,9 @@
 		<div class="form-group">
 			<div class="group-controls">
 				<label class="checkbox" for="display_posts">
-					<input type="checkbox" name="display_posts" id="display_posts" value="1"<?php echo $this->conf->display_posts ? ' checked="checked"' : ''; ?> />
-					<?php echo Minz_Translate::t ('display_articles_unfolded'); ?>
-					<noscript> — <strong><?php echo Minz_Translate::t ('javascript_should_be_activated'); ?></strong></noscript>
+					<input type="checkbox" name="display_posts" id="display_posts" value="1"<?php echo FreshRSS_Context::$user_conf->display_posts ? ' checked="checked"' : ''; ?> />
+					<?php echo _t('conf.reading.display_articles_unfolded'); ?>
+					<noscript> — <strong><?php echo _t('gen.js.should_be_activated'); ?></strong></noscript>
 				</label>
 			</div>
 		</div>
@@ -68,9 +68,9 @@
 		<div class="form-group">
 			<div class="group-controls">
 				<label class="checkbox" for="display_categories">
-					<input type="checkbox" name="display_categories" id="display_categories" value="1"<?php echo $this->conf->display_categories ? ' checked="checked"' : ''; ?> />
-					<?php echo Minz_Translate::t ('display_categories_unfolded'); ?>
-					<noscript> — <strong><?php echo Minz_Translate::t ('javascript_should_be_activated'); ?></strong></noscript>
+					<input type="checkbox" name="display_categories" id="display_categories" value="1"<?php echo FreshRSS_Context::$user_conf->display_categories ? ' checked="checked"' : ''; ?> />
+					<?php echo _t('conf.reading.display_categories_unfolded'); ?>
+					<noscript> — <strong><?php echo _t('gen.js.should_be_activated'); ?></strong></noscript>
 				</label>
 			</div>
 		</div>
@@ -78,9 +78,9 @@
 		<div class="form-group">
 			<div class="group-controls">
 				<label class="checkbox" for="sticky_post">
-					<input type="checkbox" name="sticky_post" id="sticky_post" value="1"<?php echo $this->conf->sticky_post ? ' checked="checked"' : ''; ?> />
-					<?php echo Minz_Translate::t ('sticky_post'); ?>
-					<noscript> — <strong><?php echo Minz_Translate::t ('javascript_should_be_activated'); ?></strong></noscript>
+					<input type="checkbox" name="sticky_post" id="sticky_post" value="1"<?php echo FreshRSS_Context::$user_conf->sticky_post ? ' checked="checked"' : ''; ?> />
+					<?php echo _t('conf.reading.sticky_post'); ?>
+					<noscript> — <strong><?php echo _t('gen.js.should_be_activated'); ?></strong></noscript>
 				</label>
 			</div>
 		</div>
@@ -88,9 +88,9 @@
 		<div class="form-group">
 			<div class="group-controls">
 				<label class="checkbox" for="auto_load_more">
-					<input type="checkbox" name="auto_load_more" id="auto_load_more" value="1"<?php echo $this->conf->auto_load_more ? ' checked="checked"' : ''; ?> />
-					<?php echo Minz_Translate::t ('auto_load_more'); ?>
-					<noscript> — <strong><?php echo Minz_Translate::t ('javascript_should_be_activated'); ?></strong></noscript>
+					<input type="checkbox" name="auto_load_more" id="auto_load_more" value="1"<?php echo FreshRSS_Context::$user_conf->auto_load_more ? ' checked="checked"' : ''; ?> />
+					<?php echo _t('conf.reading.auto_load_more'); ?>
+					<noscript> — <strong><?php echo _t('gen.js.should_be_activated'); ?></strong></noscript>
 				</label>
 			</div>
 		</div>
@@ -98,9 +98,9 @@
 		<div class="form-group">
 			<div class="group-controls">
 				<label class="checkbox" for="lazyload">
-					<input type="checkbox" name="lazyload" id="lazyload" value="1"<?php echo $this->conf->lazyload ? ' checked="checked"' : ''; ?> />
-					<?php echo Minz_Translate::t ('img_with_lazyload'); ?>
-					<noscript> — <strong><?php echo Minz_Translate::t ('javascript_should_be_activated'); ?></strong></noscript>
+					<input type="checkbox" name="lazyload" id="lazyload" value="1"<?php echo FreshRSS_Context::$user_conf->lazyload ? ' checked="checked"' : ''; ?> />
+					<?php echo _t('conf.reading.img_with_lazyload'); ?>
+					<noscript> — <strong><?php echo _t('gen.js.should_be_activated'); ?></strong></noscript>
 				</label>
 			</div>
 		</div>
@@ -108,49 +108,59 @@
 		<div class="form-group">
 			<div class="group-controls">
 				<label class="checkbox" for="reading_confirm">
-					<input type="checkbox" name="reading_confirm" id="reading_confirm" value="1"<?php echo $this->conf->reading_confirm ? ' checked="checked"' : ''; ?> />
-					<?php echo Minz_Translate::t ('reading_confirm'); ?>
-					<noscript> — <strong><?php echo Minz_Translate::t ('javascript_should_be_activated'); ?></strong></noscript>
+					<input type="checkbox" name="reading_confirm" id="reading_confirm" value="1"<?php echo FreshRSS_Context::$user_conf->reading_confirm ? ' checked="checked"' : ''; ?> />
+					<?php echo _t('conf.reading.confirm_enabled'); ?>
+					<noscript> — <strong><?php echo _t('gen.js.should_be_activated'); ?></strong></noscript>
 				</label>
 			</div>
 		</div>
 
 		<div class="form-group">
-			<label class="group-name"><?php echo Minz_Translate::t ('auto_read_when'); ?></label>
+			<div class="group-controls">
+				<label class="checkbox" for="auto_remove_article">
+					<input type="checkbox" name="auto_remove_article" id="auto_remove_article" value="1"<?php echo FreshRSS_Context::$user_conf->auto_remove_article ? ' checked="checked"' : ''; ?> />
+					<?php echo _t('conf.reading.auto_remove_article'); ?>
+					<noscript> — <strong><?php echo _t('gen.js.should_be_activated'); ?></strong></noscript>
+				</label>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="group-name"><?php echo _t('conf.reading.read.when'); ?></label>
 			<div class="group-controls">
 				<label class="checkbox" for="check_open_article">
-					<input type="checkbox" name="mark_open_article" id="check_open_article" value="1"<?php echo $this->conf->mark_when['article'] ? ' checked="checked"' : ''; ?> />
-					<?php echo Minz_Translate::t('article_viewed'); ?>
+					<input type="checkbox" name="mark_open_article" id="check_open_article" value="1"<?php echo FreshRSS_Context::$user_conf->mark_when['article'] ? ' checked="checked"' : ''; ?> />
+					<?php echo _t('conf.reading.read.article_viewed'); ?>
 				</label>
 				<label class="checkbox" for="check_open_site">
-					<input type="checkbox" name="mark_open_site" id="check_open_site" value="1"<?php echo $this->conf->mark_when['site'] ? ' checked="checked"' : ''; ?> />
-					<?php echo Minz_Translate::t ('article_open_on_website'); ?>
+					<input type="checkbox" name="mark_open_site" id="check_open_site" value="1"<?php echo FreshRSS_Context::$user_conf->mark_when['site'] ? ' checked="checked"' : ''; ?> />
+					<?php echo _t('conf.reading.read.article_open_on_website'); ?>
 				</label>
 				<label class="checkbox" for="check_scroll">
-					<input type="checkbox" name="mark_scroll" id="check_scroll" value="1"<?php echo $this->conf->mark_when['scroll'] ? ' checked="checked"' : ''; ?> />
-					<?php echo Minz_Translate::t ('scroll'); ?>
+					<input type="checkbox" name="mark_scroll" id="check_scroll" value="1"<?php echo FreshRSS_Context::$user_conf->mark_when['scroll'] ? ' checked="checked"' : ''; ?> />
+					<?php echo _t('conf.reading.read.scroll'); ?>
 				</label>
 				<label class="checkbox" for="check_reception">
-					<input type="checkbox" name="mark_upon_reception" id="check_reception" value="1"<?php echo $this->conf->mark_when['reception'] ? ' checked="checked"' : ''; ?> />
-					<?php echo Minz_Translate::t ('upon_reception'); ?>
+					<input type="checkbox" name="mark_upon_reception" id="check_reception" value="1"<?php echo FreshRSS_Context::$user_conf->mark_when['reception'] ? ' checked="checked"' : ''; ?> />
+					<?php echo _t('conf.reading.read.upon_reception'); ?>
 				</label>
 			</div>
 		</div>
 
 		<div class="form-group">
-			<label class="group-name"><?php echo Minz_Translate::t ('after_onread'); ?></label>
+			<label class="group-name"><?php echo _t('conf.reading.after_onread'); ?></label>
 			<div class="group-controls">
 				<label class="checkbox" for="onread_jump_next">
-					<input type="checkbox" name="onread_jump_next" id="onread_jump_next" value="1"<?php echo $this->conf->onread_jump_next ? ' checked="checked"' : ''; ?> />
-					<?php echo Minz_Translate::t ('jump_next'); ?>
+					<input type="checkbox" name="onread_jump_next" id="onread_jump_next" value="1"<?php echo FreshRSS_Context::$user_conf->onread_jump_next ? ' checked="checked"' : ''; ?> />
+					<?php echo _t('conf.reading.jump_next'); ?>
 				</label>
 			</div>
 		</div>
 
 		<div class="form-group form-actions">
 			<div class="group-controls">
-				<button type="submit" class="btn btn-important"><?php echo Minz_Translate::t ('save'); ?></button>
-				<button type="reset" class="btn"><?php echo Minz_Translate::t ('cancel'); ?></button>
+				<button type="submit" class="btn btn-important"><?php echo _t('gen.action.submit'); ?></button>
+				<button type="reset" class="btn"><?php echo _t('gen.action.cancel'); ?></button>
 			</div>
 		</div>
 

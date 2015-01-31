@@ -1,75 +1,95 @@
-<ul class="nav nav-list aside aside_feed">
-	<li class="nav-header"><?php echo Minz_Translate::t ('your_rss_feeds'); ?></li>
+<?php
+	$class = '';
+	if (FreshRSS_Context::$user_conf->hide_read_feeds &&
+			FreshRSS_Context::isStateEnabled(FreshRSS_Entry::STATE_NOT_READ) &&
+			!FreshRSS_Context::isStateEnabled(FreshRSS_Entry::STATE_READ)) {
+		$class = ' state_unread';
+	}
+?>
 
-	<li class="nav-form"><form id="add_rss" method="post" action="<?php echo Minz_Url::display (array ('c' => 'feed', 'a' => 'add')); ?>" autocomplete="off">
-		<div class="stick">
-			<input type="url" name="url_rss" placeholder="<?php echo Minz_Translate::t ('add_rss_feed'); ?>" />
-			<div class="dropdown">
-				<div id="dropdown-cat" class="dropdown-target"></div>
+<div class="aside aside_feed<?php echo $class; ?>" id="aside_feed">
+	<a class="toggle_aside" href="#close"><?php echo _i('close'); ?></a>
 
-				<a class="dropdown-toggle btn" href="#dropdown-cat"><?php echo FreshRSS_Themes::icon('down'); ?></a>
-				<ul class="dropdown-menu">
-					<li class="dropdown-close"><a href="#close">❌</a></li>
+	<?php if (FreshRSS_Auth::hasAccess()) { ?>
+	<div class="stick configure-feeds no-mobile">
+		<a class="btn btn-important" href="<?php echo _url('subscription', 'index'); ?>"><?php echo _t('index.menu.subscription'); ?></a>
+		<a class="btn btn-important" href="<?php echo _url('importExport', 'index'); ?>"><?php echo _i('import'); ?></a>
+	</div>
+	<?php } elseif (FreshRSS_Auth::accessNeedsLogin()) { ?>
+	<a href="<?php echo _url('index', 'about'); ?>"><?php echo _t('index.menu.about'); ?></a>
+	<?php } ?>
 
-					<li class="dropdown-header"><?php echo Minz_Translate::t ('category'); ?></li>
+	<form id="mark-read-aside" method="post" style="display: none"></form>
 
-					<li class="input">
-						<select name="category" id="category">
-						<?php foreach ($this->categories as $cat) { ?>
-						<option value="<?php echo $cat->id (); ?>"<?php echo $cat->id () == 1 ? ' selected="selected"' : ''; ?>>
-							<?php echo $cat->name (); ?>
-						</option>
-						<?php } ?>
-						<option value="nc"><?php echo Minz_Translate::t ('new_category'); ?></option>
-						</select>
-					</li>
-
-					<li class="input" style="display:none">
-						<input type="text" name="new_category[name]" id="new_category_name" autocomplete="off" placeholder="<?php echo Minz_Translate::t ('new_category'); ?>" />
-					</li>
-
-					<li class="separator"></li>
-
-					<li class="dropdown-header"><?php echo Minz_Translate::t ('http_authentication'); ?></li>
-					<li class="input">
-						<input type="text" name="http_user" id="http_user_add" autocomplete="off" placeholder="<?php echo Minz_Translate::t ('username'); ?>" />
-					</li>
-					<li class="input">
-						<input type="password" name="http_pass" id="http_pass_add" autocomplete="off" placeholder="<?php echo Minz_Translate::t ('password'); ?>" />
-					</li>
-				</ul>
+	<ul class="tree">
+		<li class="tree-folder category all<?php echo FreshRSS_Context::isCurrentGet('a') ? ' active' : ''; ?>">
+			<div class="tree-folder-title">
+				<?php echo _i('all'); ?> <a class="title" data-unread="<?php echo format_number(FreshRSS_Context::$total_unread); ?>" href="<?php echo _url('index', 'index'); ?>"><?php echo _t('index.menu.main_stream'); ?></a>
 			</div>
-			<button class="btn" type="submit"><?php echo FreshRSS_Themes::icon('add'); ?></button>
-		</div>
-	</form></li>
+		</li>
 
-	<li class="item">
-		<a onclick="return false;" href="javascript:(function(){var%20url%20=%20location.href;window.open('<?php echo Minz_Url::display(array('c' => 'feed', 'a' => 'add'), 'html', true); ?>&amp;url_rss='+encodeURIComponent(url), '_blank');})();">
-			<?php echo Minz_Translate::t('bookmark'); ?>
-		</a>
-	</li>
+		<li class="tree-folder category favorites<?php echo FreshRSS_Context::isCurrentGet('s') ? ' active' : ''; ?>">
+			<div class="tree-folder-title">
+				<?php echo _i('bookmark'); ?> <a class="title" data-unread="<?php echo format_number(FreshRSS_Context::$total_starred['unread']); ?>" href="<?php echo _url('index', 'index', 'get', 's'); ?>"><?php echo _t('index.menu.favorites', format_number(FreshRSS_Context::$total_starred['all'])); ?></a>
+			</div>
+		</li>
 
-	<li class="item<?php echo Minz_Request::controllerName () == 'importExport' ? ' active' : ''; ?>">
-		<a href="<?php echo _url ('importExport', 'index'); ?>"><?php echo Minz_Translate::t ('import_export'); ?></a>
-	</li>
+		<?php
+			foreach ($this->categories as $cat) {
+				$feeds = $cat->feeds();
+				if (!empty($feeds)) {
+					$c_active = FreshRSS_Context::isCurrentGet('c_' . $cat->id());
+					$c_show = $c_active && (!FreshRSS_Context::$user_conf->display_categories ||
+					                        FreshRSS_Context::$current_get['feed']);
+		?>
+		<li class="tree-folder category<?php echo $c_active ? ' active' : ''; ?>" data-unread="<?php echo $cat->nbNotRead(); ?>">
+			<div class="tree-folder-title">
+				<a class="dropdown-toggle" href="#"><?php echo _i($c_show ? 'up' : 'down'); ?></a>
+				<a class="title" data-unread="<?php echo format_number($cat->nbNotRead()); ?>" href="<?php echo _url('index', 'index', 'get', 'c_' . $cat->id()); ?>"><?php echo $cat->name(); ?></a>
+			</div>
 
-	<li class="item<?php echo Minz_Request::actionName () == 'categorize' ? ' active' : ''; ?>">
-		<a href="<?php echo _url ('configure', 'categorize'); ?>"><?php echo Minz_Translate::t ('categories_management'); ?></a>
-	</li>
+			<ul class="tree-folder-items<?php echo $c_show ? ' active' : ''; ?>">
+				<?php
+					foreach ($feeds as $feed) {
+						$f_active = FreshRSS_Context::isCurrentGet('f_' . $feed->id());
+				?>
+				<li id="f_<?php echo $feed->id(); ?>" class="item feed<?php echo $f_active ? ' active' : ''; ?><?php echo $feed->inError() ? ' error' : ''; ?><?php echo $feed->nbEntries() <= 0 ? ' empty' : ''; ?>" data-unread="<?php echo $feed->nbNotRead(); ?>" data-priority="<?php echo $feed->priority(); ?>">
+					<div class="dropdown no-mobile">
+						<div class="dropdown-target"></div>
+						<a class="dropdown-toggle" data-fweb="<?php echo $feed->website(); ?>"><?php echo _i('configure'); ?></a>
+						<?php /* feed_config_template */ ?>
+					</div>
+					<img class="favicon" src="<?php echo $feed->favicon(); ?>" alt="✇" /> <a class="item-title" data-unread="<?php echo format_number($feed->nbNotRead()); ?>" href="<?php echo _url('index', 'index', 'get', 'f_' . $feed->id()); ?>"><?php echo $feed->name(); ?></a>
+				</li>
+				<?php } ?>
+			</ul>
+		</li>
+		<?php
+				}
+			}
+		?>
+	</ul>
+</div>
 
-	<li class="separator"></li>
-
-	<?php if (!empty ($this->feeds)) { ?>
-	<?php foreach ($this->feeds as $feed) { ?>
-	<?php $nbEntries = $feed->nbEntries (); ?>
-	<li class="item<?php echo (isset($this->flux) && $this->flux->id () == $feed->id ()) ? ' active' : ''; ?><?php echo $feed->inError () ? ' error' : ''; ?><?php echo $nbEntries == 0 ? ' empty' : ''; ?>">
-		<a href="<?php echo _url ('configure', 'feed', 'id', $feed->id ()); ?>">
-			<img class="favicon" src="<?php echo $feed->favicon (); ?>" alt="✇" />
-			<?php echo $feed->name (); ?>
-		</a>
-	</li>
-	<?php } ?>
-	<?php } else { ?>
-	<li class="item disable"><?php echo Minz_Translate::t ('no_rss_feed'); ?></li>
-	<?php } ?>
-</ul>
+<script id="feed_config_template" type="text/html">
+	<ul class="dropdown-menu">
+		<li class="dropdown-close"><a href="#close">❌</a></li>
+		<li class="item"><a href="<?php echo _url('index', 'index', 'get', 'f_------'); ?>"><?php echo _t('gen.action.filter'); ?></a></li>
+		<?php if (FreshRSS_Auth::hasAccess()) { ?>
+		<li class="item"><a href="<?php echo _url('stats', 'repartition', 'id', '------'); ?>"><?php echo _t('index.menu.stats'); ?></a></li>
+		<?php } ?>
+		<li class="item"><a target="_blank" href="http://example.net/"><?php echo _t('gen.action.see_website'); ?></a></li>
+		<?php if (FreshRSS_Auth::hasAccess()) { ?>
+		<li class="separator"></li>
+		<li class="item"><a href="<?php echo _url('subscription', 'index', 'id', '------'); ?>"><?php echo _t('gen.action.manage'); ?></a></li>
+		<li class="item"><a href="<?php echo _url('feed', 'actualize', 'id', '------'); ?>"><?php echo _t('gen.action.actualize'); ?></a></li>
+		<li class="item">
+			<?php $confirm = FreshRSS_Context::$user_conf->reading_confirm ? 'confirm' : ''; ?>
+			<button class="read_all as-link <?php echo $confirm; ?>"
+			        form="mark-read-aside"
+			        formaction="<?php echo _url('entry', 'read', 'get', 'f_------'); ?>"
+			        type="submit"><?php echo _t('gen.action.mark_read'); ?></button>
+		</li>
+		<?php } ?>
+	</ul>
+</script>

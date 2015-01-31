@@ -435,6 +435,77 @@ a.btn {
 	font-size: 0;
 }
 
+/*=== Boxes */
+.box {
+	border: 1px solid #000;
+	border-radius: 5px;
+}
+.box .box-title {
+	margin: 0;
+	padding: 5px 10px;
+	background: #26303F;
+	border-bottom: 1px solid #000;
+	border-radius: 5px 5px 0 0;
+}
+.box .box-content {
+	max-height: 260px;
+}
+
+.box .box-content .item {
+	padding: 0 10px;
+	font-size: 0.9rem;
+	line-height: 2.5em;
+}
+
+.box .box-content .item .configure {
+	visibility: hidden;
+}
+.box .box-content .item:hover .configure {
+	visibility: visible;
+}
+
+/*=== Tree */
+.tree {
+	margin: 10px 0;
+}
+.tree-folder-title {
+	position: relative;
+	padding: 0 10px;
+	line-height: 2.5rem;
+	font-size: 1rem;
+	background: #1c1c1c;
+}
+.tree-folder-title .title {
+	background: inherit;
+	color: #888;
+}
+.tree-folder-title .title:hover {
+	text-decoration: none;
+}
+.tree-folder.active .tree-folder-title {
+	background: #2c2c2c;
+	font-weight: bold;
+}
+.tree-folder-items {
+	border-top: 1px solid #222;
+	border-bottom: 1px solid #222;
+	background: #161616;
+}
+.tree-folder-items > .item {
+	padding: 0 10px;
+	line-height: 2.5rem;
+	font-size: 0.8rem;
+}
+.tree-folder-items > .item.active {
+	background: #1c1c1c;
+}
+.tree-folder-items > .item > a {
+	text-decoration: none;
+}
+.tree-folder-items > .item.active > a {
+	color: #888;
+}
+
 /*=== STRUCTURE */
 /*===============*/
 /*=== Header */
@@ -471,81 +542,56 @@ a.btn {
 	border-right: 1px solid #333;
 	background: #1c1c1c;
 }
-.aside.aside_flux {
-	padding: 10px 0 50px;
-	border-right: 1px solid #333;
-	background: #1c1c1c;
+.aside.aside_feed {
+	padding: 10px 0;
+	text-align: center;
+}
+.aside.aside_feed .tree {
+	margin: 10px 0 50px;
 }
 
 /*=== Aside main page (categories) */
-.categories {
-	text-align: center;
-}
-.category {
-	width: 235px;
-	margin: 10px auto;
-	text-align: left;
-}
-.category .btn:first-child {
-	position: relative;
-	width: 213px;
-}
-.category.stick .btn:first-child {
-	width: 176px;
-}
-.category .btn:first-child:not([data-unread="0"]):after {
+.aside_feed .tree-folder-title > .title:not([data-unread="0"]):after {
 	position: absolute;
-	top: 3px; right: 3px;
-	padding: 1px 5px;
-	background: #111;
-	color: #888;
-	border: 1px solid #000;
-	border-radius: 5px;
+	right: 0;
+	margin: 10px 0;
+	padding: 0 10px;
+	font-size: 0.9rem;
+	line-height: 1.5rem;
+	background: inherit;
 }
 
 /*=== Aside main page (feeds) */
-.categories .feeds .item.active {
-	background: #333;
-}
-.categories .feeds .item.active .feed {
-	color: #888;
-}
-.categories .feeds .item.empty .feed {
-	color: #c95;
-}
-.categories .feeds .item.empty.active {
+.feed.item.empty.active {
 	background: #c95;
 }
-.categories .feeds .item.error .feed {
-	color: #a44;
-}
-.categories .feeds .item.error.active {
+.feed.item.error.active {
 	background: #a44;
 }
-.categories .feeds .item.empty.active .feed,
-.categories .feeds .item.error.active .feed {
+.feed.item.empty,
+.feed.item.empty > a {
+	color: #c95;
+}
+.feed.item.error,
+.feed.item.error > a {
+	color: #a44;
+}
+.feed.item.empty.active,
+.feed.item.empty.active > a {
+	color: #111;
+}
+.feed.item.error.active,
+.feed.item.error.active > a {
 	color: #fff;
 }
-.categories .feeds .item .feed {
-	margin: 0;
-	width: 165px;
-	line-height: 3em;
-	font-size: 0.8em;
-	text-align: left;
-	text-decoration: none;
-}
-.categories .feeds .feed:not([data-unread="0"]) {
-	font-weight: bold;
-}
-.categories .feeds .dropdown-menu:after {
+.aside_feed .tree-folder-items .dropdown-menu:after {
 	left: 2px;
 }
-.categories .feeds .item .dropdown-target:target ~ .dropdown-toggle > .icon,
-.categories .feeds .item:hover .dropdown-toggle > .icon,
-.categories .feeds .item.active .dropdown-toggle > .icon {
-	vertical-align: middle;
-	background-color: #111;
+.aside_feed .tree-folder-items .item .dropdown-target:target ~ .dropdown-toggle > .icon,
+.aside_feed .tree-folder-items .item:hover .dropdown-toggle > .icon,
+.aside_feed .tree-folder-items .item.active .dropdown-toggle > .icon {
 	border-radius: 3px;
+	background-color: #111;
 }
 
 /*=== Configuration pages */
@@ -796,46 +842,34 @@ a.btn {
 
 /*=== GLOBAL VIEW */
 /*================*/
-#stream.global .box-category {
+.box.category .box-title .title {
+	font-weight: normal;
+	text-decoration: none;
 	text-align: left;
-	background: #1a1a1a;
-	border: 1px solid #000;
-	border-radius: 5px;
-	text-align: left;
+	color: #888;
 }
-#stream.global .category {
-	margin: 0;
+.box.category:not([data-unread="0"]) .box-title {
+	background: #34495E;
 }
-#stream.global .btn {
-	width: auto;
-	height: 2em;
-	margin: 0;
-	padding: 0 10px;
-	line-height: 2em;
-	font-size: 1.2rem;
+.box.category:not([data-unread="0"]) .box-title:active {
 	background: #26303F;
-	border: none;
-	border-bottom: 1px solid #000;
-	border-radius: 5px 5px 0 0;
 }
-#stream.global .btn:not([data-unread="0"]) {
-	font-weight: bold;
-	background: #34495e;
+.box.category:not([data-unread="0"]) .box-title .title {
 	color: #fff;
-}
-#stream.global .btn:first-child:not([data-unread="0"]):after {
-	top: 0; right: 5px;
 	font-weight: bold;
+}
+.box.category .title:not([data-unread="0"]):after {
+	position: absolute;
+	top: 5px; right: 10px;
 	border: 0;
 	background: none;
-	color: #fff;
+	font-weight: bold;
+	box-shadow: none;
+	text-shadow: none;
 }
-#stream.global .box-category .feeds {
-	max-height: 250px;
-}
-#stream.global .box-category .feeds .item {
+.box.category .item.feed {
 	padding: 2px 10px;
-	font-size: 0.9rem;
+	font-size: 0.8rem;
 }
 
 /*=== Panel */
@@ -843,6 +877,12 @@ a.btn {
 	background: #1c1c1c;
 	border: 1px solid #666;
 	border-radius: 3px;
+}
+
+/*=== Slider */
+#slider {
+	background-color: #1c1c1c;
+	border-left: 1px solid #666;
 }
 
 /*=== DIVERS */
@@ -934,17 +974,17 @@ a.btn {
 	}
 	.aside .toggle_aside,
 	#panel .close {
-		position: absolute;
 		display: block;
-		top: 0; right: 0;
-		width: 30px;
-		height: 30px;
-		line-height: 30px;
+		width: 100%;
+		height: 50px;
+		line-height: 50px;
 		text-align: center;
 		background: #111;
-		border-left: 1px solid #333;
 		border-bottom: 1px solid #333;
-		border-radius: 0 0 0 5px;
+	}
+
+	.aside.aside_feed {
+		padding: 0;
 	}
 
 	.nav_menu .btn {

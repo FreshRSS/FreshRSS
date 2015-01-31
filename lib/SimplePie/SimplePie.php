@@ -1455,7 +1455,11 @@ class SimplePie
 		{
 			// Load the Cache
 			$this->data = $cache->load();
-			if (!empty($this->data))
+			if ($cache->mtime() + $this->cache_duration > time()) {	//FreshRSS
+				$this->raw_data = false;
+				return true;	// If the cache is still valid, just return true
+			}
+			elseif (!empty($this->data))
 			{
 				// If the cache is for an outdated build of SimplePie
 				if (!isset($this->data['build']) || $this->data['build'] !== SIMPLEPIE_BUILD)
@@ -1487,7 +1491,7 @@ class SimplePie
 					}
 				}
 				// Check if the cache has been updated
-				elseif ($cache->mtime() + $this->cache_duration < time())
+				else //if ($cache->mtime() + $this->cache_duration < time())	//FreshRSS removed
 				{
 					// If we have last-modified and/or etag set
 					//if (isset($this->data['headers']['last-modified']) || isset($this->data['headers']['etag']))	//FreshRSS removed
@@ -1516,6 +1520,7 @@ class SimplePie
 						}
 						else
 						{
+							$cache->touch();	//FreshRSS
 							$this->error = $file->error;	//FreshRSS
 							return !empty($this->data);	//FreshRSS
 							//unset($file);	//FreshRSS removed
@@ -1524,26 +1529,27 @@ class SimplePie
 					{	//FreshRSS
 						$md5 = $this->cleanMd5($file->body);
 						if ($this->data['md5'] === $md5) {
-							syslog(LOG_DEBUG, 'SimplePie MD5 cache match for ' . $this->feed_url);
+							// syslog(LOG_DEBUG, 'SimplePie MD5 cache match for ' . $this->feed_url);
 							$cache->touch();
 							return true;	//Content unchanged even though server did not send a 304
 						} else {
-							syslog(LOG_DEBUG, 'SimplePie MD5 cache no match for ' . $this->feed_url);
+							// syslog(LOG_DEBUG, 'SimplePie MD5 cache no match for ' . $this->feed_url);
 							$this->data['md5'] = $md5;
 						}
 					}
 				}
-				// If the cache is still valid, just return true
-				else
-				{
-					$this->raw_data = false;
-					return true;
-				}
+				//// If the cache is still valid, just return true
+				//else	//FreshRSS removed
+				//{
+				//	$this->raw_data = false;
+				//	return true;
+				//}
 			}
 			// If the cache is empty, delete it
 			else
 			{
-				$cache->unlink();
+				//$cache->unlink();	//FreshRSS removed
+				$cache->touch();	//FreshRSS
 				$this->data = array();
 			}
 		}
@@ -1576,13 +1582,15 @@ class SimplePie
 
 			if (!$locate->is_feed($file))
 			{
+				$copyStatusCode = $file->status_code;	//FreshRSS
+				$copyContentType = $file->headers['content-type'];	//FreshRSS
 				// We need to unset this so that if SimplePie::set_file() has been called that object is untouched
 				unset($file);
 				try
 				{
 					if (!($file = $locate->find($this->autodiscovery, $this->all_discovered_feeds)))
 					{
-						$this->error = "A feed could not be found at $this->feed_url. A feed with an invalid mime type may fall victim to this error, or " . SIMPLEPIE_NAME . " was unable to auto-discover it.. Use force_feed() if you are certain this URL is a real feed.";
+						$this->error = "A feed could not be found at `$this->feed_url`; the status code is `$copyStatusCode` and content-type is `$copyContentType`";	//FreshRSS
 						$this->registry->call('Misc', 'error', array($this->error, E_USER_NOTICE, __FILE__, __LINE__));
 						return false;
 					}

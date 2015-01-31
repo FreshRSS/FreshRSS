@@ -1,0 +1,21 @@
+<ul class="horizontal-list">
+	<li class="item">
+		<?php if ($this->ext_details->getType() === 'user' || FreshRSS_Auth::hasAccess('admin')) { ?>
+		<?php $name_encoded = urlencode($this->ext_details->getName()); ?>
+		<div class="stick">
+			<a class="btn open-slider" href="<?php echo _url('extension', 'configure', 'e', $name_encoded); ?>"><?php echo _i('configure'); ?> <?php echo _t('gen.action.manage'); ?></a>
+			<?php if ($this->ext_details->isEnabled()) { ?>
+			<button class="btn active" form="form-extension" formaction="<?php echo _url('extension', 'disable', 'e', $name_encoded); ?>"><?php echo _t('gen.action.disable'); ?></button>
+			<?php } else { ?>
+			<button class="btn" form="form-extension" formaction="<?php echo _url('extension', 'enable', 'e', $name_encoded); ?>"><?php echo _t('gen.action.enable'); ?></button>
+			<?php } ?>
+			<?php if (FreshRSS_Auth::hasAccess('admin')) { ?>
+			<button class="btn btn-attention confirm" form="form-extension" formaction="<?php echo _url('extension', 'remove', 'e', $name_encoded); ?>"><?php echo _t('gen.action.remove'); ?></button>
+			<?php } ?>
+		</div>
+		<?php } else { ?>
+		<?php echo _t('admin.extensions.system.no_rights'); ?>
+		<?php } ?>
+	</li>
+	<li class="item"><?php echo $this->ext_details->getName(); ?></li>
+</ul>

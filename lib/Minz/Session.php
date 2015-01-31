@@ -55,7 +55,7 @@ class Minz_Session {
 
 		if (!$force) {
 			self::_param('language', $language);
-			Minz_Translate::reset();
+			Minz_Translate::reset($language);
 		}
 	}
 
@@ -65,7 +65,9 @@ class Minz_Session {
 	 * @param $l la durée de vie
 	 */
 	public static function keepCookie($l) {
-		$cookie_dir = empty($_SERVER['REQUEST_URI']) ? '' : $_SERVER['REQUEST_URI'];
+		// Get the script_name (e.g. /p/i/index.php) and keep only the path.
+		$cookie_dir = empty($_SERVER['SCRIPT_NAME']) ? '' : $_SERVER['SCRIPT_NAME'];
+		$cookie_dir = dirname($cookie_dir);
 		session_set_cookie_params($l, $cookie_dir, '', false, true);
 	}
 

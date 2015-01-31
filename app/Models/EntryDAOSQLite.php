@@ -26,11 +26,24 @@ class FreshRSS_EntryDAOSQLite extends FreshRSS_EntryDAO {
 			return true;
 		} else {
 			$info = $stm == null ? array(2 => 'syntax error') : $stm->errorInfo();
-			Minz_Log::record('SQL error updateCacheUnreads: ' . $info[2], Minz_Log::ERROR);
+			Minz_Log::error('SQL error updateCacheUnreads: ' . $info[2]);
 			return false;
 		}
 	}
 
+	/**
+	 * Toggle the read marker on one or more article.
+	 * Then the cache is updated.
+	 *
+	 * @todo change the way the query is build because it seems there is
+	 * unnecessary code in here. For instance, the part with the str_repeat.
+	 * @todo remove code duplication. It seems the code is basically the
+	 * same if it is an array or not.
+	 *
+	 * @param integer|array $ids
+	 * @param boolean $is_read
+	 * @return integer affected rows
+	 */
 	public function markRead($ids, $is_read = true) {
 		if (is_array($ids)) {	//Many IDs at once (used by API)
 			if (true) {	//Speed heuristics	//TODO: Not implemented yet for SQLite (so always call IDs one by one)
@@ -47,7 +60,7 @@ class FreshRSS_EntryDAOSQLite extends FreshRSS_EntryDAO {
 			$stm = $this->bd->prepare($sql);
 			if (!($stm && $stm->execute($values))) {
 				$info = $stm == null ? array(2 => 'syntax error') : $stm->errorInfo();
-				Minz_Log::record('SQL error markRead 1: ' . $info[2], Minz_Log::ERROR);
+				Minz_Log::error('SQL error markRead 1: ' . $info[2]);
 				$this->bd->rollBack();
 				return false;
 			}
@@ -59,7 +72,7 @@ class FreshRSS_EntryDAOSQLite extends FreshRSS_EntryDAO {
 				$stm = $this->bd->prepare($sql);
 				if (!($stm && $stm->execute($values))) {
 					$info = $stm == null ? array(2 => 'syntax error') : $stm->errorInfo();
-					Minz_Log::record('SQL error markRead 2: ' . $info[2], Minz_Log::ERROR);
+					Minz_Log::error('SQL error markRead 2: ' . $info[2]);
 					$this->bd->rollBack();
 					return false;
 				}
@@ -69,10 +82,31 @@ class FreshRSS_EntryDAOSQLite extends FreshRSS_EntryDAO {
 		}
 	}
 
+	/**
+	 * Mark all entries as read depending on parameters.
+	 * If $onlyFavorites is true, it is used when the user mark as read in
+	 * the favorite pseudo-category.
+	 * If $priorityMin is greater than 0, it is used when the user mark as
+	 * read in the main feed pseudo-category.
+	 * Then the cache is updated.
+	 *
+	 * If $idMax equals 0, a deprecated debug message is logged
+	 *
+	 * @todo refactor this method along with markReadCat and markReadFeed
+	 * since they are all doing the same thing. I think we need to build a
+	 * tool to generate the query instead of having queries all over the
+	 * place. It will be reused also for the filtering making every thing
+	 * separated.
+	 *
+	 * @param integer $idMax fail safe article ID
+	 * @param boolean $onlyFavorites
+	 * @param integer $priorityMin
+	 * @return integer affected rows
+	 */
 	public function markReadEntries($idMax = 0, $onlyFavorites = false, $priorityMin = 0) {
 		if ($idMax == 0) {
 			$idMax = time() . '000000';
-			Minz_Log::record('Calling markReadEntries(0) is deprecated!', Minz_Log::DEBUG);
+			Minz_Log::debug('Calling markReadEntries(0) is deprecated!');
 		}
 
 		$sql = 'UPDATE `' . $this->prefix . 'entry` SET is_read=1 WHERE is_read=0 AND id <= ?';
@@ -85,7 +119,7 @@ class FreshRSS_EntryDAOSQLite extends FreshRSS_EntryDAO {
 		$stm = $this->bd->prepare($sql);
 		if (!($stm && $stm->execute($values))) {
 			$info = $stm == null ? array(2 => 'syntax error') : $stm->errorInfo();
-			Minz_Log::record('SQL error markReadEntries: ' . $info[2], Minz_Log::ERROR);
+			Minz_Log::error('SQL error markReadEntries: ' . $info[2]);
 			return false;
 		}
 		$affected = $stm->rowCount();
@@ -95,10 +129,21 @@ class FreshRSS_EntryDAOSQLite extends FreshRSS_EntryDAO {
 		return $affected;
 	}
 
+	/**
+	 * Mark all the articles in a category as read.
+	 * There is a fail safe to prevent to mark as read articles that are
+	 * loaded during the mark as read action. Then the cache is updated.
+	 *
+	 * If $idMax equals 0, a deprecated debug message is logged
+	 *
+	 * @param integer $id category ID
+	 * @param integer $idMax fail safe article ID
+	 * @return integer affected rows
+	 */
 	public function markReadCat($id, $idMax = 0) {
 		if ($idMax == 0) {
 			$idMax = time() . '000000';
-			Minz_Log::record('Calling markReadCat(0) is deprecated!', Minz_Log::DEBUG);
+			Minz_Log::debug('Calling markReadCat(0) is deprecated!');
 		}
 
 		$sql = 'UPDATE `' . $this->prefix . 'entry` '
@@ -109,7 +154,7 @@ class FreshRSS_EntryDAOSQLite extends FreshRSS_EntryDAO {
 		$stm = $this->bd->prepare($sql);
 		if (!($stm && $stm->execute($values))) {
 			$info = $stm == null ? array(2 => 'syntax error') : $stm->errorInfo();
-			Minz_Log::record('SQL error markReadCat: ' . $info[2], Minz_Log::ERROR);
+			Minz_Log::error('SQL error markReadCat: ' . $info[2]);
 			return false;
 		}
 		$affected = $stm->rowCount();
@@ -124,6 +169,6 @@ class FreshRSS_EntryDAOSQLite extends FreshRSS_EntryDAO {
 	}
 
 	public function size($all = false) {
-		return @filesize(DATA_PATH . '/' . Minz_Session::param('currentUser', '_') . '.sqlite');
+		return @filesize(join_path(DATA_PATH, 'users', $this->current_user, 'db.sqlite'));
 	}
 }

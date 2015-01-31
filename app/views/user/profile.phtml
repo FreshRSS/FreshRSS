@@ -1,0 +1,60 @@
+<?php $this->partial('aside_configure'); ?>
+
+<div class="post">
+	<a href="<?php echo _url('index', 'index'); ?>"><?php echo _t('gen.action.back_to_rss_feeds'); ?></a>
+
+	<form method="post" action="<?php echo _url('user', 'profile'); ?>">
+		<legend><?php echo _t('conf.profile'); ?></legend>
+
+		<div class="form-group">
+			<label class="group-name" for="current_user"><?php echo _t('conf.user.current'); ?></label>
+			<div class="group-controls">
+				<input id="current_user" type="text" disabled="disabled" value="<?php echo Minz_Session::param('currentUser', '_'); ?>" />
+				<label class="checkbox" for="is_admin">
+					<input type="checkbox" id="is_admin" disabled="disabled" <?php echo FreshRSS_Auth::hasAccess('admin') ? 'checked="checked" ' : ''; ?>/>
+					<?php echo _t('conf.user.is_admin'); ?>
+				</label>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="group-name" for="passwordPlain"><?php echo _t('conf.profile.password_form'); ?></label>
+			<div class="group-controls">
+				<div class="stick">
+					<input type="password" id="passwordPlain" name="passwordPlain" autocomplete="off" pattern=".{7,}" <?php echo cryptAvailable() ? '' : 'disabled="disabled" '; ?>/>
+					<a class="btn toggle-password" data-toggle="passwordPlain"><?php echo _i('key'); ?></a>
+				</div>
+				<?php echo _i('help'); ?> <?php echo _t('conf.profile.password_format'); ?>
+				<noscript><b><?php echo _t('gen.js.should_be_activated'); ?></b></noscript>
+			</div>
+		</div>
+
+		<?php if (FreshRSS_Context::$system_conf->api_enabled) { ?>
+		<div class="form-group">
+			<label class="group-name" for="apiPasswordPlain"><?php echo _t('conf.profile.password_api'); ?></label>
+			<div class="group-controls">
+				<div class="stick">
+					<input type="password" id="apiPasswordPlain" name="apiPasswordPlain" autocomplete="off" pattern=".{7,}" <?php echo cryptAvailable() ? '' : 'disabled="disabled" '; ?>/>
+					<a class="btn toggle-password" data-toggle="apiPasswordPlain"><?php echo _i('key'); ?></a>
+				</div>
+			</div>
+		</div>
+		<?php } ?>
+
+		<div class="form-group">
+			<label class="group-name" for="mail_login"><?php echo _t('conf.profile.email_persona'); ?></label>
+			<?php $mail = FreshRSS_Context::$user_conf->mail_login; ?>
+			<div class="group-controls">
+				<input type="email" id="mail_login" name="mail_login" class="extend" autocomplete="off" value="<?php echo $mail; ?>" <?php echo FreshRSS_Auth::hasAccess('admin') ? '' : 'disabled="disabled"'; ?> placeholder="alice@example.net" />
+				<noscript><b><?php echo _t('gen.js.should_be_activated'); ?></b></noscript>
+			</div>
+		</div>
+
+		<div class="form-group form-actions">
+			<div class="group-controls">
+				<button type="submit" class="btn btn-important"><?php echo _t('gen.action.submit'); ?></button>
+				<button type="reset" class="btn"><?php echo _t('gen.action.cancel'); ?></button>
+			</div>
+		</div>
+	</form>
+</div>

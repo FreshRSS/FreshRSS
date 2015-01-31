@@ -6,18 +6,36 @@ class FreshRSS_StatsDAO extends Minz_ModelPdo {
 
 	/**
 	 * Calculates entry repartition for all feeds and for main stream.
+	 *
+	 * @return array
+	 */
+	public function calculateEntryRepartition() {
+		return array(
+		    'main_stream' => $this->calculateEntryRepartitionPerFeed(null, true),
+		    'all_feeds' => $this->calculateEntryRepartitionPerFeed(null, false),
+		);
+	}
+
+	/**
+	 * Calculates entry repartition for the selection.
 	 * The repartition includes:
 	 *   - total entries
 	 *   - read entries
 	 *   - unread entries
 	 *   - favorite entries
 	 *
-	 * @return type
+	 * @param null|integer $feed feed id
+	 * @param boolean $only_main
+	 * @return array
 	 */
-	public function calculateEntryRepartition() {
-		$repartition = array();
-
-		// Generates the repartition for the main stream of entry
+	public function calculateEntryRepartitionPerFeed($feed = null, $only_main = false) {
+		$filter = '';
+		if ($only_main) {
+			$filter .= 'AND f.priority = 10';
+		}
+		if (!is_null($feed)) {
+			$filter .= "AND e.id_feed = {$feed}";
+		}
 		$sql = <<<SQL
 SELECT COUNT(1) AS `total`,
 COUNT(1) - SUM(e.is_read) AS `unread`,
@@ -26,27 +44,13 @@ SUM(e.is_favorite) AS `favorite`
 FROM {$this->prefix}entry AS e
 , {$this->prefix}feed AS f
 WHERE e.id_feed = f.id
-AND f.priority = 10
+{$filter}
 SQL;
 		$stm = $this->bd->prepare($sql);
 		$stm->execute();
 		$res = $stm->fetchAll(PDO::FETCH_ASSOC);
-		$repartition['main_stream'] = $res[0];
 
-		// Generates the repartition for all entries
-		$sql = <<<SQL
-SELECT COUNT(1) AS `total`,
-COUNT(1) - SUM(e.is_read) AS `unread`,
-SUM(e.is_read) AS `read`,
-SUM(e.is_favorite) AS `favorite`
-FROM {$this->prefix}entry AS e
-SQL;
-		$stm = $this->bd->prepare($sql);
-		$stm->execute();
-		$res = $stm->fetchAll(PDO::FETCH_ASSOC);
-		$repartition['all_feeds'] = $res[0];
-
-		return $repartition;
+		return $res[0];
 	}
 
 	/**
@@ -147,10 +151,9 @@ SQL;
 	 * @return string
 	 */
 	protected function calculateEntryRepartitionPerFeedPerPeriod($period, $feed = null) {
+		$restrict = '';
 		if ($feed) {
 			$restrict = "WHERE e.id_feed = {$feed}";
-		} else {
-			$restrict = '';
 		}
 		$sql = <<<SQL
 SELECT DATE_FORMAT(FROM_UNIXTIME(e.date), '{$period}') AS period
@@ -179,7 +182,7 @@ SQL;
 	 * @return integer
 	 */
 	public function calculateEntryAveragePerFeedPerHour($feed = null) {
-		return $this->calculateEntryAveragePerFeedPerPeriod(1/24, $feed);
+		return $this->calculateEntryAveragePerFeedPerPeriod(1 / 24, $feed);
 	}
 
 	/**
@@ -210,10 +213,9 @@ SQL;
 	 * @return integer
 	 */
 	protected function calculateEntryAveragePerFeedPerPeriod($period, $feed = null) {
+		$restrict = '';
 		if ($feed) {
 			$restrict = "WHERE e.id_feed = {$feed}";
-		} else {
-			$restrict = '';
 		}
 		$sql = <<<SQL
 SELECT COUNT(1) AS count
@@ -237,7 +239,7 @@ SQL;
 			$interval_in_days = $period;
 		}
 
-		return round($res['count'] / ($interval_in_days / $period), 2);
+		return $res['count'] / ($interval_in_days / $period);
 	}
 
 	/**
@@ -415,8 +417,8 @@ SQL;
 	 * @return string
 	 */
 	private function convertToTranslatedJson($data = array()) {
-		$translated = array_map(function ($a) {
-			return Minz_Translate::t($a);
+		$translated = array_map(function($a) {
+			return _t('gen.date.' . $a);
 		}, $data);
 
 		return json_encode($translated);

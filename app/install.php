@@ -42,55 +42,24 @@ function param($key, $default = false) {
 
 
 // gestion internationalisation
-$translates = array();
-$actual = 'en';
 function initTranslate() {
-	global $translates;
-	global $actual;
+	Minz_Translate::init();
+	$available_languages = Minz_Translate::availableLanguages();
 
-	$actual = isset($_SESSION['language']) ? $_SESSION['language'] : getBetterLanguage('en');
-
-	$file = APP_PATH . '/i18n/' . $actual . '.php';
-	if (file_exists($file)) {
-		$translates = array_merge($translates, include($file));
+	if (!isset($_SESSION['language'])) {
+		$_SESSION['language'] = get_best_language();
 	}
 
-	$file = APP_PATH . '/i18n/install.' . $actual . '.php';
-	if (file_exists($file)) {
-		$translates = array_merge($translates, include($file));
+	if (!in_array($_SESSION['language'], $available_languages)) {
+		$_SESSION['language'] = 'en';
 	}
+
+	Minz_Translate::reset($_SESSION['language']);
 }
 
-function getBetterLanguage($fallback) {
-	$available = availableLanguages();
+function get_best_language() {
 	$accept = $_SERVER['HTTP_ACCEPT_LANGUAGE'];
-	$language = strtolower(substr($accept, 0, 2));
-
-	if (isset($available[$language])) {
-		return $language;
-	} else {
-		return $fallback;
-	}
-}
-
-function availableLanguages() {
-	return array(
-		'en' => 'English',
-		'fr' => 'Français'
-	);
-}
-
-function _t($key) {
-	global $translates;
-	$translate = $key;
-	if (isset($translates[$key])) {
-		$translate = $translates[$key];
-	}
-
-	$args = func_get_args();
-	unset($args[0]);
-
-	return vsprintf($translate, $args);
+	return strtolower(substr($accept, 0, 2));
 }
 
 
@@ -109,7 +78,7 @@ function saveLanguage() {
 
 function saveStep2() {
 	if (!empty($_POST)) {
-		$_SESSION['title'] = substr(trim(param('title', _t('freshrss'))), 0, 25);
+		$_SESSION['title'] = substr(trim(param('title', _t('gen.freshrss'))), 0, 25);
 		$_SESSION['old_entries'] = param('old_entries', 3);
 		$_SESSION['auth_type'] = param('auth_type', 'form');
 		$_SESSION['default_user'] = substr(preg_replace('/[^a-zA-Z0-9]/', '', param('default_user', '')), 0, 16);
@@ -156,12 +125,17 @@ function saveStep2() {
 			'token' => $token,
 		);
 
-		$configPath = DATA_PATH . '/' . $_SESSION['default_user'] . '_user.php';
-		@unlink($configPath);	//To avoid access-rights problems
-		file_put_contents($configPath, "<?php\n return " . var_export($config_array, true) . ';');
+		// Create default user files but first, we delete previous data to
+		// avoid access right problems.
+		$user_dir = join_path(USERS_PATH, $_SESSION['default_user']);
+		$user_config_path = join_path($user_dir, 'config.php');
+
+		recursive_unlink($user_dir);
+		mkdir($user_dir);
+		file_put_contents($user_config_path, "<?php\n return " . var_export($config_array, true) . ';');
 
 		if ($_SESSION['mail_login'] != '') {
-			$personaFile = DATA_PATH . '/persona/' . $_SESSION['mail_login'] . '.txt';
+			$personaFile = join_path(DATA_PATH, 'persona', $_SESSION['mail_login'] . '.txt');
 			@unlink($personaFile);
 			file_put_contents($personaFile, $_SESSION['default_user']);
 		}
@@ -194,19 +168,12 @@ function saveStep3() {
 			$_SESSION['bd_prefix_user'] = $_SESSION['bd_prefix'] .(empty($_SESSION['default_user']) ? '' :($_SESSION['default_user'] . '_'));
 		}
 
-		$ini_array = array(
-			'general' => array(
-				'environment' => empty($_SESSION['environment']) ? 'production' : $_SESSION['environment'],
-				'salt' => $_SESSION['salt'],
-				'base_url' => '',
-				'title' => $_SESSION['title'],
-				'default_user' => $_SESSION['default_user'],
-				'allow_anonymous' => isset($_SESSION['allow_anonymous']) ? $_SESSION['allow_anonymous'] : false,
-				'allow_anonymous_refresh' => isset($_SESSION['allow_anonymous_refresh']) ? $_SESSION['allow_anonymous_refresh'] : false,
-				'auth_type' => $_SESSION['auth_type'],
-				'api_enabled' => isset($_SESSION['api_enabled']) ? $_SESSION['api_enabled'] : false,
-				'unsafe_autologin_enabled' => isset($_SESSION['unsafe_autologin_enabled']) ? $_SESSION['unsafe_autologin_enabled'] : false,
-			),
+		$config_array = array(
+			'environment' => 'production',
+			'salt' => $_SESSION['salt'],
+			'title' => $_SESSION['title'],
+			'default_user' => $_SESSION['default_user'],
+			'auth_type' => $_SESSION['auth_type'],
 			'db' => array(
 				'type' => $_SESSION['bd_type'],
 				'host' => $_SESSION['bd_host'],
@@ -217,8 +184,8 @@ function saveStep3() {
 			),
 		);
 
-		@unlink(DATA_PATH . '/config.php');	//To avoid access-rights problems
-		file_put_contents(DATA_PATH . '/config.php', "<?php\n return " . var_export($ini_array, true) . ';');
+		@unlink(join_path(DATA_PATH, 'config.php'));	//To avoid access-rights problems
+		file_put_contents(join_path(DATA_PATH, 'config.php'), "<?php\n return " . var_export($config_array, true) . ';');
 
 		$res = checkBD();
 
@@ -241,7 +208,7 @@ function newPdo() {
 		);
 		break;
 	case 'sqlite':
-		$str = 'sqlite:' . DATA_PATH . '/' . $_SESSION['default_user'] . '.sqlite';
+		$str = 'sqlite:' . join_path(USERS_PATH, $_SESSION['default_user'], 'db.sqlite');
 		$driver_options = array(
 			PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
 		);
@@ -253,7 +220,7 @@ function newPdo() {
 }
 
 function deleteInstall() {
-	$res = unlink(DATA_PATH . '/do-install.txt');
+	$res = unlink(join_path(DATA_PATH, 'do-install.txt'));
 
 	if (!$res) {
 		return false;
@@ -282,9 +249,9 @@ function checkStep() {
 }
 
 function checkStep0() {
-	$languages = availableLanguages();
+	$languages = Minz_Translate::availableLanguages();
 	$language = isset($_SESSION['language']) &&
-	            isset($languages[$_SESSION['language']]);
+	            in_array($_SESSION['language'], $languages);
 
 	return array(
 		'language' => $language ? 'ok' : 'ko',
@@ -294,7 +261,7 @@ function checkStep0() {
 
 function checkStep1() {
 	$php = version_compare(PHP_VERSION, '5.2.1') >= 0;
-	$minz = file_exists(LIB_PATH . '/Minz');
+	$minz = file_exists(join_path(LIB_PATH, 'Minz'));
 	$curl = extension_loaded('curl');
 	$pdo_mysql = extension_loaded('pdo_mysql');
 	$pdo_sqlite = extension_loaded('pdo_sqlite');
@@ -304,9 +271,9 @@ function checkStep1() {
 	$dom = class_exists('DOMDocument');
 	$data = DATA_PATH && is_writable(DATA_PATH);
 	$cache = CACHE_PATH && is_writable(CACHE_PATH);
-	$log = LOG_PATH && is_writable(LOG_PATH);
-	$favicons = is_writable(DATA_PATH . '/favicons');
-	$persona = is_writable(DATA_PATH . '/persona');
+	$users = USERS_PATH && is_writable(USERS_PATH);
+	$favicons = is_writable(join_path(DATA_PATH, 'favicons'));
+	$persona = is_writable(join_path(DATA_PATH, 'persona'));
 	$http_referer = is_referer_from_same_domain();
 
 	return array(
@@ -321,12 +288,12 @@ function checkStep1() {
 		'dom' => $dom ? 'ok' : 'ko',
 		'data' => $data ? 'ok' : 'ko',
 		'cache' => $cache ? 'ok' : 'ko',
-		'log' => $log ? 'ok' : 'ko',
+		'users' => $users ? 'ok' : 'ko',
 		'favicons' => $favicons ? 'ok' : 'ko',
 		'persona' => $persona ? 'ok' : 'ko',
 		'http_referer' => $http_referer ? 'ok' : 'ko',
 		'all' => $php && $minz && $curl && $pdo && $pcre && $ctype && $dom &&
-		         $data && $cache && $log && $favicons && $persona && $http_referer ?
+		         $data && $cache && $users && $favicons && $persona && $http_referer ?
 		         'ok' : 'ko'
 	);
 }
@@ -351,7 +318,7 @@ function checkStep2() {
 	if ($defaultUser === null) {
 		$defaultUser = empty($_SESSION['default_user']) ? '' : $_SESSION['default_user'];
 	}
-	$data = is_writable(DATA_PATH . '/' . $defaultUser . '_user.php');
+	$data = is_writable(join_path(USERS_PATH, $defaultUser, 'config.php'));
 
 	return array(
 		'conf' => $conf ? 'ok' : 'ko',
@@ -363,7 +330,7 @@ function checkStep2() {
 }
 
 function checkStep3() {
-	$conf = is_writable(DATA_PATH . '/config.php');
+	$conf = is_writable(join_path(DATA_PATH, 'config.php'));
 
 	$bd = isset($_SESSION['bd_type']) &&
 	      isset($_SESSION['bd_host']) &&
@@ -406,7 +373,7 @@ function checkBD() {
 			$str = 'mysql:host=' . $_SESSION['bd_host'] . ';dbname=' . $_SESSION['bd_base'];
 			break;
 		case 'sqlite':
-			$str = 'sqlite:' . DATA_PATH . '/' . $_SESSION['default_user'] . '.sqlite';
+			$str = 'sqlite:' . join_path(USERS_PATH, $_SESSION['default_user'], 'db.sqlite');
 			$driver_options = array(
 				PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
 			);
@@ -418,7 +385,7 @@ function checkBD() {
 		$c = new PDO($str, $_SESSION['bd_user'], $_SESSION['bd_password'], $driver_options);
 
 		if (defined('SQL_CREATE_TABLES')) {
-			$sql = sprintf(SQL_CREATE_TABLES, $_SESSION['bd_prefix_user'], _t('default_category'));
+			$sql = sprintf(SQL_CREATE_TABLES, $_SESSION['bd_prefix_user'], _t('gen.short.default_category'));
 			$stm = $c->prepare($sql);
 			$ok = $stm->execute();
 		} else {
@@ -426,7 +393,7 @@ function checkBD() {
 			if (is_array($SQL_CREATE_TABLES)) {
 				$ok = true;
 				foreach ($SQL_CREATE_TABLES as $instruction) {
-					$sql = sprintf($instruction, $_SESSION['bd_prefix_user'], _t('default_category'));
+					$sql = sprintf($instruction, $_SESSION['bd_prefix_user'], _t('gen.short.default_category'));
 					$stm = $c->prepare($sql);
 					$ok &= $stm->execute();
 				}
@@ -438,7 +405,7 @@ function checkBD() {
 	}
 
 	if (!$ok) {
-		@unlink(DATA_PATH . '/config.php');
+		@unlink(join_path(DATA_PATH, 'config.php'));
 	}
 
 	return $ok;
@@ -446,21 +413,23 @@ function checkBD() {
 
 /*** AFFICHAGE ***/
 function printStep0() {
-	global $actual;
+	$actual = Minz_Translate::language();
+	$languages = Minz_Translate::availableLanguages();
 ?>
 	<?php $s0 = checkStep0(); if ($s0['all'] == 'ok') { ?>
-	<p class="alert alert-success"><span class="alert-head"><?php echo _t('ok'); ?></span> <?php echo _t('language_defined'); ?></p>
+	<p class="alert alert-success"><span class="alert-head"><?php echo _t('gen.short.ok'); ?></span> <?php echo _t('install.language.defined'); ?></p>
 	<?php } ?>
 
 	<form action="index.php?step=0" method="post">
-		<legend><?php echo _t('choose_language'); ?></legend>
+		<legend><?php echo _t('install.language.choose'); ?></legend>
 		<div class="form-group">
-			<label class="group-name" for="language"><?php echo _t('language'); ?></label>
+			<label class="group-name" for="language"><?php echo _t('install.language'); ?></label>
 			<div class="group-controls">
 				<select name="language" id="language">
-				<?php $languages = availableLanguages(); ?>
-				<?php foreach ($languages as $short => $lib) { ?>
-				<option value="<?php echo $short; ?>"<?php echo $actual == $short ? ' selected="selected"' : ''; ?>><?php echo $lib; ?></option>
+				<?php foreach ($languages as $lang) { ?>
+				<option value="<?php echo $lang; ?>"<?php echo $actual == $lang ? ' selected="selected"' : ''; ?>>
+					<?php echo _t('gen.lang.' . $lang); ?>
+				</option>
 				<?php } ?>
 				</select>
 			</div>
@@ -468,10 +437,10 @@ function printStep0() {
 
 		<div class="form-group form-actions">
 			<div class="group-controls">
-				<button type="submit" class="btn btn-important"><?php echo _t('save'); ?></button>
-				<button type="reset" class="btn"><?php echo _t('cancel'); ?></button>
+				<button type="submit" class="btn btn-important"><?php echo _t('gen.action.submit'); ?></button>
+				<button type="reset" class="btn"><?php echo _t('gen.action.cancel'); ?></button>
 				<?php if ($s0['all'] == 'ok') { ?>
-				<a class="btn btn-important next-step" href="?step=1"><?php echo _t('next_step'); ?></a>
+				<a class="btn btn-important next-step" href="?step=1"><?php echo _t('install.action.next_step'); ?></a>
 				<?php } ?>
 			</div>
 		</div>
@@ -479,94 +448,95 @@ function printStep0() {
 <?php
 }
 
+// @todo refactor this view with the check_install action
 function printStep1() {
 	$res = checkStep1();
 ?>
-	<noscript><p class="alert alert-warn"><span class="alert-head"><?php echo _t('attention'); ?></span> <?php echo _t('javascript_is_better'); ?></p></noscript>
+	<noscript><p class="alert alert-warn"><span class="alert-head"><?php echo _t('gen.short.attention'); ?></span> <?php echo _t('install.javascript_is_better'); ?></p></noscript>
 
 	<?php if ($res['php'] == 'ok') { ?>
-	<p class="alert alert-success"><span class="alert-head"><?php echo _t('ok'); ?></span> <?php echo _t('php_is_ok', PHP_VERSION); ?></p>
+	<p class="alert alert-success"><span class="alert-head"><?php echo _t('gen.short.ok'); ?></span> <?php echo _t('install.check.php.ok', PHP_VERSION); ?></p>
 	<?php } else { ?>
-	<p class="alert alert-error"><span class="alert-head"><?php echo _t('damn'); ?></span> <?php echo _t('php_is_nok', PHP_VERSION, '5.2.1'); ?></p>
+	<p class="alert alert-error"><span class="alert-head"><?php echo _t('gen.short.damn'); ?></span> <?php echo _t('install.check.php.nok', PHP_VERSION, '5.2.1'); ?></p>
 	<?php } ?>
 
 	<?php if ($res['minz'] == 'ok') { ?>
-	<p class="alert alert-success"><span class="alert-head"><?php echo _t('ok'); ?></span> <?php echo _t('minz_is_ok'); ?></p>
+	<p class="alert alert-success"><span class="alert-head"><?php echo _t('gen.short.ok'); ?></span> <?php echo _t('install.check.minz.ok'); ?></p>
 	<?php } else { ?>
-	<p class="alert alert-error"><span class="alert-head"><?php echo _t('damn'); ?></span> <?php echo _t('minz_is_nok', LIB_PATH . '/Minz'); ?></p>
+	<p class="alert alert-error"><span class="alert-head"><?php echo _t('gen.short.damn'); ?></span> <?php echo _t('install.check.minz.nok', join_path(LIB_PATH, 'Minz')); ?></p>
 	<?php } ?>
 
 	<?php if ($res['pdo'] == 'ok') { ?>
-	<p class="alert alert-success"><span class="alert-head"><?php echo _t('ok'); ?></span> <?php echo _t('pdo_is_ok'); ?></p>
+	<p class="alert alert-success"><span class="alert-head"><?php echo _t('gen.short.ok'); ?></span> <?php echo _t('install.check.pdo.ok'); ?></p>
 	<?php } else { ?>
-	<p class="alert alert-error"><span class="alert-head"><?php echo _t('damn'); ?></span> <?php echo _t('pdo_is_nok'); ?></p>
+	<p class="alert alert-error"><span class="alert-head"><?php echo _t('gen.short.damn'); ?></span> <?php echo _t('install.check.pdo.nok'); ?></p>
 	<?php } ?>
 
 	<?php if ($res['curl'] == 'ok') { ?>
 	<?php $version = curl_version(); ?>
-	<p class="alert alert-success"><span class="alert-head"><?php echo _t('ok'); ?></span> <?php echo _t('curl_is_ok', $version['version']); ?></p>
+	<p class="alert alert-success"><span class="alert-head"><?php echo _t('gen.short.ok'); ?></span> <?php echo _t('install.check.curl.ok', $version['version']); ?></p>
 	<?php } else { ?>
-	<p class="alert alert-error"><span class="alert-head"><?php echo _t('damn'); ?></span> <?php echo _t('curl_is_nok'); ?></p>
+	<p class="alert alert-error"><span class="alert-head"><?php echo _t('gen.short.damn'); ?></span> <?php echo _t('install.check.curl.nok'); ?></p>
 	<?php } ?>
 
 	<?php if ($res['pcre'] == 'ok') { ?>
-	<p class="alert alert-success"><span class="alert-head"><?php echo _t('ok'); ?></span> <?php echo _t('pcre_is_ok'); ?></p>
+	<p class="alert alert-success"><span class="alert-head"><?php echo _t('gen.short.ok'); ?></span> <?php echo _t('install.check.pcre.ok'); ?></p>
 	<?php } else { ?>
-	<p class="alert alert-error"><span class="alert-head"><?php echo _t('damn'); ?></span> <?php echo _t('pcre_is_nok'); ?></p>
+	<p class="alert alert-error"><span class="alert-head"><?php echo _t('gen.short.damn'); ?></span> <?php echo _t('install.check.pcre.nok'); ?></p>
 	<?php } ?>
 
 	<?php if ($res['ctype'] == 'ok') { ?>
-	<p class="alert alert-success"><span class="alert-head"><?php echo _t('ok'); ?></span> <?php echo _t('ctype_is_ok'); ?></p>
+	<p class="alert alert-success"><span class="alert-head"><?php echo _t('gen.short.ok'); ?></span> <?php echo _t('install.check.ctype.ok'); ?></p>
 	<?php } else { ?>
-	<p class="alert alert-error"><span class="alert-head"><?php echo _t('damn'); ?></span> <?php echo _t('ctype_is_nok'); ?></p>
+	<p class="alert alert-error"><span class="alert-head"><?php echo _t('gen.short.damn'); ?></span> <?php echo _t('install.check.ctype.nok'); ?></p>
 	<?php } ?>
 
 	<?php if ($res['dom'] == 'ok') { ?>
-	<p class="alert alert-success"><span class="alert-head"><?php echo _t('ok'); ?></span> <?php echo _t('dom_is_ok'); ?></p>
+	<p class="alert alert-success"><span class="alert-head"><?php echo _t('gen.short.ok'); ?></span> <?php echo _t('install.check.dom.ok'); ?></p>
 	<?php } else { ?>
-	<p class="alert alert-error"><span class="alert-head"><?php echo _t('damn'); ?></span> <?php echo _t('dom_is_nok'); ?></p>
+	<p class="alert alert-error"><span class="alert-head"><?php echo _t('gen.short.damn'); ?></span> <?php echo _t('install.check.dom.nok'); ?></p>
 	<?php } ?>
 
 	<?php if ($res['data'] == 'ok') { ?>
-	<p class="alert alert-success"><span class="alert-head"><?php echo _t('ok'); ?></span> <?php echo _t('data_is_ok'); ?></p>
+	<p class="alert alert-success"><span class="alert-head"><?php echo _t('gen.short.ok'); ?></span> <?php echo _t('install.check.data.ok'); ?></p>
 	<?php } else { ?>
-	<p class="alert alert-error"><span class="alert-head"><?php echo _t('damn'); ?></span> <?php echo _t('file_is_nok', DATA_PATH); ?></p>
+	<p class="alert alert-error"><span class="alert-head"><?php echo _t('gen.short.damn'); ?></span> <?php echo _t('install.check.data.nok', DATA_PATH); ?></p>
 	<?php } ?>
 
 	<?php if ($res['cache'] == 'ok') { ?>
-	<p class="alert alert-success"><span class="alert-head"><?php echo _t('ok'); ?></span> <?php echo _t('cache_is_ok'); ?></p>
+	<p class="alert alert-success"><span class="alert-head"><?php echo _t('gen.short.ok'); ?></span> <?php echo _t('install.check.cache.ok'); ?></p>
 	<?php } else { ?>
-	<p class="alert alert-error"><span class="alert-head"><?php echo _t('damn'); ?></span> <?php echo _t('file_is_nok', CACHE_PATH); ?></p>
+	<p class="alert alert-error"><span class="alert-head"><?php echo _t('gen.short.damn'); ?></span> <?php echo _t('install.check.cache.nok', CACHE_PATH); ?></p>
 	<?php } ?>
 
-	<?php if ($res['log'] == 'ok') { ?>
-	<p class="alert alert-success"><span class="alert-head"><?php echo _t('ok'); ?></span> <?php echo _t('log_is_ok'); ?></p>
+	<?php if ($res['users'] == 'ok') { ?>
+	<p class="alert alert-success"><span class="alert-head"><?php echo _t('gen.short.ok'); ?></span> <?php echo _t('install.check.users.ok'); ?></p>
 	<?php } else { ?>
-	<p class="alert alert-error"><span class="alert-head"><?php echo _t('damn'); ?></span> <?php echo _t('file_is_nok', LOG_PATH); ?></p>
+	<p class="alert alert-error"><span class="alert-head"><?php echo _t('gen.short.damn'); ?></span> <?php echo _t('install.check.users.nok', USERS_PATH); ?></p>
 	<?php } ?>
 
 	<?php if ($res['favicons'] == 'ok') { ?>
-	<p class="alert alert-success"><span class="alert-head"><?php echo _t('ok'); ?></span> <?php echo _t('favicons_is_ok'); ?></p>
+	<p class="alert alert-success"><span class="alert-head"><?php echo _t('gen.short.ok'); ?></span> <?php echo _t('install.check.favicons.ok'); ?></p>
 	<?php } else { ?>
-	<p class="alert alert-error"><span class="alert-head"><?php echo _t('damn'); ?></span> <?php echo _t('file_is_nok', DATA_PATH . '/favicons'); ?></p>
+	<p class="alert alert-error"><span class="alert-head"><?php echo _t('gen.short.damn'); ?></span> <?php echo _t('install.check.favicons.nok', DATA_PATH . '/favicons'); ?></p>
 	<?php } ?>
 
 	<?php if ($res['persona'] == 'ok') { ?>
-	<p class="alert alert-success"><span class="alert-head"><?php echo _t('ok'); ?></span> <?php echo _t('persona_is_ok'); ?></p>
+	<p class="alert alert-success"><span class="alert-head"><?php echo _t('gen.short.ok'); ?></span> <?php echo _t('install.check.persona.ok'); ?></p>
 	<?php } else { ?>
-	<p class="alert alert-error"><span class="alert-head"><?php echo _t('damn'); ?></span> <?php echo _t('file_is_nok', DATA_PATH . '/persona'); ?></p>
+	<p class="alert alert-error"><span class="alert-head"><?php echo _t('gen.short.damn'); ?></span> <?php echo _t('install.check.persona.nok', DATA_PATH . '/persona'); ?></p>
 	<?php } ?>
 
 	<?php if ($res['http_referer'] == 'ok') { ?>
-	<p class="alert alert-success"><span class="alert-head"><?php echo _t('ok'); ?></span> <?php echo _t('http_referer_is_ok'); ?></p>
+	<p class="alert alert-success"><span class="alert-head"><?php echo _t('gen.short.ok'); ?></span> <?php echo _t('install.check.http_referer.ok'); ?></p>
 	<?php } else { ?>
-	<p class="alert alert-error"><span class="alert-head"><?php echo _t('damn'); ?></span> <?php echo _t('http_referer_is_nok'); ?></p>
+	<p class="alert alert-error"><span class="alert-head"><?php echo _t('gen.short.damn'); ?></span> <?php echo _t('install.check.http_referer.nok'); ?></p>
 	<?php } ?>
 
 	<?php if ($res['all'] == 'ok') { ?>
-	<a class="btn btn-important next-step" href="?step=2"><?php echo _t('next_step'); ?></a>
+	<a class="btn btn-important next-step" href="?step=2"><?php echo _t('install.action.next_step'); ?></a>
 	<?php } else { ?>
-	<p class="alert alert-error"><?php echo _t('fix_errors_before'); ?></p>
+	<p class="alert alert-error"><?php echo _t('install.action.fix_errors_before'); ?></p>
 	<?php } ?>
 <?php
 }
@@ -574,37 +544,37 @@ function printStep1() {
 function printStep2() {
 ?>
 	<?php $s2 = checkStep2(); if ($s2['all'] == 'ok') { ?>
-	<p class="alert alert-success"><span class="alert-head"><?php echo _t('ok'); ?></span> <?php echo _t('general_conf_is_ok'); ?></p>
+	<p class="alert alert-success"><span class="alert-head"><?php echo _t('gen.short.ok'); ?></span> <?php echo _t('install.conf.ok'); ?></p>
 	<?php } elseif (!empty($_POST)) { ?>
-	<p class="alert alert-error"><?php echo _t('fix_errors_before'); ?></p>
+	<p class="alert alert-error"><?php echo _t('install.fix_errors_before'); ?></p>
 	<?php } ?>
 
 	<form action="index.php?step=2" method="post">
-		<legend><?php echo _t('general_configuration'); ?></legend>
+		<legend><?php echo _t('install.conf'); ?></legend>
 
 		<div class="form-group">
-			<label class="group-name" for="title"><?php echo _t('title'); ?></label>
+			<label class="group-name" for="title"><?php echo _t('install.title'); ?></label>
 			<div class="group-controls">
-				<input type="text" id="title" name="title" value="<?php echo isset($_SESSION['title']) ? $_SESSION['title'] : _t('freshrss'); ?>" />
+				<input type="text" id="title" name="title" value="<?php echo isset($_SESSION['title']) ? $_SESSION['title'] : _t('gen.freshrss'); ?>" />
 			</div>
 		</div>
 
 		<div class="form-group">
-			<label class="group-name" for="old_entries"><?php echo _t('delete_articles_every'); ?></label>
+			<label class="group-name" for="old_entries"><?php echo _t('install.delete_articles_after'); ?></label>
 			<div class="group-controls">
-				<input type="number" id="old_entries" name="old_entries" required="required" min="1" max="1200" value="<?php echo isset($_SESSION['old_entries']) ? $_SESSION['old_entries'] : '3'; ?>" /> <?php echo _t('month'); ?>
+				<input type="number" id="old_entries" name="old_entries" required="required" min="1" max="1200" value="<?php echo isset($_SESSION['old_entries']) ? $_SESSION['old_entries'] : '3'; ?>" /> <?php echo _t('gen.date.month'); ?>
 			</div>
 		</div>
 
 		<div class="form-group">
-			<label class="group-name" for="default_user"><?php echo _t('default_user'); ?></label>
+			<label class="group-name" for="default_user"><?php echo _t('install.default_user'); ?></label>
 			<div class="group-controls">
-				<input type="text" id="default_user" name="default_user" required="required" size="16" maxlength="16" pattern="[0-9a-zA-Z]{1,16}" value="<?php echo isset($_SESSION['default_user']) ? $_SESSION['default_user'] : ''; ?>" placeholder="<?php echo httpAuthUser() == '' ? 'user1' : httpAuthUser(); ?>" />
+				<input type="text" id="default_user" name="default_user" required="required" size="16" maxlength="16" pattern="[0-9a-zA-Z]{1,16}" value="<?php echo isset($_SESSION['default_user']) ? $_SESSION['default_user'] : ''; ?>" placeholder="<?php echo httpAuthUser() == '' ? 'alice' : httpAuthUser(); ?>" />
 			</div>
 		</div>
 
 		<div class="form-group">
-			<label class="group-name" for="auth_type"><?php echo _t('auth_type'); ?></label>
+			<label class="group-name" for="auth_type"><?php echo _t('install.auth.type'); ?></label>
 			<div class="group-controls">
 				<select id="auth_type" name="auth_type" required="required" onchange="auth_type_change(true)">
 					<?php
@@ -613,51 +583,55 @@ function printStep2() {
 						}
 						$auth_type = isset($_SESSION['auth_type']) ? $_SESSION['auth_type'] : '';
 					?>
-					<option value="form"<?php echo $auth_type === 'form' || no_auth($auth_type) ? ' selected="selected"' : '', cryptAvailable() ? '' : ' disabled="disabled"'; ?>><?php echo _t('auth_form'); ?></option>
-					<option value="persona"<?php echo $auth_type === 'persona' ? ' selected="selected"' : ''; ?>><?php echo _t('auth_persona'); ?></option>
-					<option value="http_auth"<?php echo $auth_type === 'http_auth' ? ' selected="selected"' : '', httpAuthUser() == '' ? ' disabled="disabled"' : ''; ?>><?php echo _t('http_auth'); ?>(REMOTE_USER = '<?php echo httpAuthUser(); ?>')</option>
-					<option value="none"<?php echo $auth_type === 'none' ? ' selected="selected"' : ''; ?>><?php echo _t('auth_none'); ?></option>
+					<option value="form"<?php echo $auth_type === 'form' || no_auth($auth_type) ? ' selected="selected"' : '', cryptAvailable() ? '' : ' disabled="disabled"'; ?>><?php echo _t('install.auth.form'); ?></option>
+					<option value="persona"<?php echo $auth_type === 'persona' ? ' selected="selected"' : ''; ?>><?php echo _t('install.auth.persona'); ?></option>
+					<option value="http_auth"<?php echo $auth_type === 'http_auth' ? ' selected="selected"' : '', httpAuthUser() == '' ? ' disabled="disabled"' : ''; ?>><?php echo _t('install.auth.http'); ?>(REMOTE_USER = '<?php echo httpAuthUser(); ?>')</option>
+					<option value="none"<?php echo $auth_type === 'none' ? ' selected="selected"' : ''; ?>><?php echo _t('install.auth.none'); ?></option>
 				</select>
 			</div>
 		</div>
 
 		<div class="form-group">
-			<label class="group-name" for="passwordPlain"><?php echo _t('password_form'); ?></label>
+			<label class="group-name" for="passwordPlain"><?php echo _t('install.auth.password_form'); ?></label>
 			<div class="group-controls">
 				<div class="stick">
 					<input type="password" id="passwordPlain" name="passwordPlain" pattern=".{7,}" autocomplete="off" <?php echo $auth_type === 'form' ? ' required="required"' : ''; ?> />
 					<a class="btn toggle-password" data-toggle="passwordPlain"><?php echo FreshRSS_Themes::icon('key'); ?></a>
 				</div>
-				<noscript><b><?php echo _t('javascript_should_be_activated'); ?></b></noscript>
+				<?php echo _i('help'); ?> <?php echo _t('install.auth.password_format'); ?>
+				<noscript><b><?php echo _t('gen.js.should_be_activated'); ?></b></noscript>
 			</div>
 		</div>
 
 		<div class="form-group">
-			<label class="group-name" for="mail_login"><?php echo _t('persona_connection_email'); ?></label>
+			<label class="group-name" for="mail_login"><?php echo _t('install.auth.email_persona'); ?></label>
 			<div class="group-controls">
 				<input type="email" id="mail_login" name="mail_login" value="<?php echo isset($_SESSION['mail_login']) ? $_SESSION['mail_login'] : ''; ?>" placeholder="alice@example.net" <?php echo $auth_type === 'persona' ? ' required="required"' : ''; ?> />
-				<noscript><b><?php echo _t('javascript_should_be_activated'); ?></b></noscript>
+				<noscript><b><?php echo _t('gen.js.should_be_activated'); ?></b></noscript>
 			</div>
 		</div>
 
 		<script>
-			function toggle_password() {
+			function show_password() {
 				var button = this;
 				var passwordField = document.getElementById(button.getAttribute('data-toggle'));
-
 				passwordField.setAttribute('type', 'text');
 				button.className += ' active';
 
-				setTimeout(function() {
-					passwordField.setAttribute('type', 'password');
-					button.className = button.className.replace(/(?:^|\s)active(?!\S)/g , '');
-				}, 2000);
+				return false;
+			}
+			function hide_password() {
+				var button = this;
+				var passwordField = document.getElementById(button.getAttribute('data-toggle'));
+				passwordField.setAttribute('type', 'password');
+				button.className = button.className.replace(/(?:^|\s)active(?!\S)/g , '');
 
 				return false;
 			}
 			toggles = document.getElementsByClassName('toggle-password');
 			for (var i = 0 ; i < toggles.length ; i++) {
-				toggles[i].addEventListener('click', toggle_password);
+				toggles[i].addEventListener('mousedown', show_password);
+				toggles[i].addEventListener('mouseup', hide_password);
 			}
 
 			function auth_type_change(focus) {
@@ -687,10 +661,10 @@ function printStep2() {
 
 		<div class="form-group form-actions">
 			<div class="group-controls">
-				<button type="submit" class="btn btn-important"><?php echo _t('save'); ?></button>
-				<button type="reset" class="btn"><?php echo _t('cancel'); ?></button>
+				<button type="submit" class="btn btn-important"><?php echo _t('gen.action.submit'); ?></button>
+				<button type="reset" class="btn"><?php echo _t('gen.action.cancel'); ?></button>
 				<?php if ($s2['all'] == 'ok') { ?>
-				<a class="btn btn-important next-step" href="?step=3"><?php echo _t('next_step'); ?></a>
+				<a class="btn btn-important next-step" href="?step=3"><?php echo _t('install.action.next_step'); ?></a>
 				<?php } ?>
 			</div>
 		</div>
@@ -701,15 +675,15 @@ function printStep2() {
 function printStep3() {
 ?>
 	<?php $s3 = checkStep3(); if ($s3['all'] == 'ok') { ?>
-	<p class="alert alert-success"><span class="alert-head"><?php echo _t('ok'); ?></span> <?php echo _t('bdd_conf_is_ok'); ?></p>
+	<p class="alert alert-success"><span class="alert-head"><?php echo _t('gen.short.ok'); ?></span> <?php echo _t('install.bdd.conf.ok'); ?></p>
 	<?php } elseif ($s3['conn'] == 'ko') { ?>
-	<p class="alert alert-error"><span class="alert-head"><?php echo _t('damn'); ?></span> <?php echo _t('bdd_conf_is_ko'),(empty($_SESSION['bd_error']) ? '' : ' : ' . $_SESSION['bd_error']); ?></p>
+	<p class="alert alert-error"><span class="alert-head"><?php echo _t('gen.short.damn'); ?></span> <?php echo _t('install.bdd.conf.ko'),(empty($_SESSION['bd_error']) ? '' : ' : ' . $_SESSION['bd_error']); ?></p>
 	<?php } ?>
 
 	<form action="index.php?step=3" method="post">
-		<legend><?php echo _t('bdd_configuration'); ?></legend>
+		<legend><?php echo _t('install.bdd.conf'); ?></legend>
 		<div class="form-group">
-			<label class="group-name" for="type"><?php echo _t('bdd_type'); ?></label>
+			<label class="group-name" for="type"><?php echo _t('install.bdd.type'); ?></label>
 			<div class="group-controls">
 				<select name="type" id="type" onchange="mySqlShowHide()">
 				<?php if (extension_loaded('pdo_mysql')) {?>
@@ -730,35 +704,35 @@ function printStep3() {
 
 		<div id="mysql">
 		<div class="form-group">
-			<label class="group-name" for="host"><?php echo _t('host'); ?></label>
+			<label class="group-name" for="host"><?php echo _t('install.bdd.host'); ?></label>
 			<div class="group-controls">
 				<input type="text" id="host" name="host" pattern="[0-9A-Za-z_.-]{1,64}" value="<?php echo isset($_SESSION['bd_host']) ? $_SESSION['bd_host'] : 'localhost'; ?>" />
 			</div>
 		</div>
 
 		<div class="form-group">
-			<label class="group-name" for="user"><?php echo _t('username'); ?></label>
+			<label class="group-name" for="user"><?php echo _t('install.bdd.username'); ?></label>
 			<div class="group-controls">
 				<input type="text" id="user" name="user" maxlength="16" pattern="[0-9A-Za-z_.-]{1,16}" value="<?php echo isset($_SESSION['bd_user']) ? $_SESSION['bd_user'] : ''; ?>" />
 			</div>
 		</div>
 
 		<div class="form-group">
-			<label class="group-name" for="pass"><?php echo _t('password'); ?></label>
+			<label class="group-name" for="pass"><?php echo _t('install.bdd.password'); ?></label>
 			<div class="group-controls">
 				<input type="password" id="pass" name="pass" value="<?php echo isset($_SESSION['bd_password']) ? $_SESSION['bd_password'] : ''; ?>" />
 			</div>
 		</div>
 
 		<div class="form-group">
-			<label class="group-name" for="base"><?php echo _t('bdd'); ?></label>
+			<label class="group-name" for="base"><?php echo _t('install.bdd'); ?></label>
 			<div class="group-controls">
-				<input type="text" id="base" name="base" maxlength="64" pattern="[0-9A-Za-z_]{1,64}" value="<?php echo isset($_SESSION['bd_base']) ? $_SESSION['bd_base'] : ''; ?>" placeholder="freshrss" />
+				<input type="text" id="base" name="base" maxlength="64" pattern="[0-9A-Za-z_]{1,64}" value="<?php echo isset($_SESSION['bd_base']) ? $_SESSION['bd_base'] : ''; ?>" />
 			</div>
 		</div>
 
 		<div class="form-group">
-			<label class="group-name" for="prefix"><?php echo _t('prefix'); ?></label>
+			<label class="group-name" for="prefix"><?php echo _t('install.bdd.prefix'); ?></label>
 			<div class="group-controls">
 				<input type="text" id="prefix" name="prefix" maxlength="16" pattern="[0-9A-Za-z_]{1,16}" value="<?php echo isset($_SESSION['bd_prefix']) ? $_SESSION['bd_prefix'] : 'freshrss_'; ?>" />
 			</div>
@@ -773,10 +747,10 @@ function printStep3() {
 
 		<div class="form-group form-actions">
 			<div class="group-controls">
-				<button type="submit" class="btn btn-important"><?php echo _t('save'); ?></button>
-				<button type="reset" class="btn"><?php echo _t('cancel'); ?></button>
+				<button type="submit" class="btn btn-important"><?php echo _t('gen.action.submit'); ?></button>
+				<button type="reset" class="btn"><?php echo _t('gen.action.cancel'); ?></button>
 				<?php if ($s3['all'] == 'ok') { ?>
-				<a class="btn btn-important next-step" href="?step=4"><?php echo _t('next_step'); ?></a>
+				<a class="btn btn-important next-step" href="?step=4"><?php echo _t('install.action.next_step'); ?></a>
 				<?php } ?>
 			</div>
 		</div>
@@ -786,20 +760,20 @@ function printStep3() {
 
 function printStep4() {
 ?>
-	<p class="alert alert-success"><span class="alert-head"><?php echo _t('congratulations'); ?></span> <?php echo _t('installation_is_ok'); ?></p>
-	<a class="btn btn-important next-step" href="?step=5"><?php echo _t('finish_installation'); ?></a>
+	<p class="alert alert-success"><span class="alert-head"><?php echo _t('install.congratulations'); ?></span> <?php echo _t('install.ok'); ?></p>
+	<a class="btn btn-important next-step" href="?step=5"><?php echo _t('install.action.finish'); ?></a>
 <?php
 }
 
 function printStep5() {
 ?>
-	<p class="alert alert-error"><span class="alert-head"><?php echo _t('oops'); ?></span> <?php echo _t('install_not_deleted', DATA_PATH . '/do-install.txt'); ?></p>
+	<p class="alert alert-error"><span class="alert-head"><?php echo _t('gen.short.damn'); ?></span> <?php echo _t('install.not_deleted', DATA_PATH . '/do-install.txt'); ?></p>
 <?php
 }
 
-checkStep();
-
 initTranslate();
+
+checkStep();
 
 switch (STEP) {
 case 0:
@@ -826,7 +800,7 @@ case 5:
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="initial-scale=1.0">
-		<title><?php echo _t('freshrss_installation'); ?></title>
+		<title><?php echo _t('install.title'); ?></title>
 		<link rel="stylesheet" type="text/css" media="all" href="../themes/base-theme/template.css" />
 		<link rel="stylesheet" type="text/css" media="all" href="../themes/Origine/origine.css" />
 	</head>
@@ -834,19 +808,19 @@ case 5:
 
 <div class="header">
 	<div class="item title">
-		<h1><a href="index.php"><?php echo _t('freshrss'); ?></a></h1>
-		<h2><?php echo _t('installation_step', STEP); ?></h2>
+		<h1><a href="index.php"><?php echo _t('install.title'); ?></a></h1>
+		<h2><?php echo _t('install.step', STEP); ?></h2>
 	</div>
 </div>
 
 <div id="global">
 	<ul class="nav nav-list aside">
-		<li class="nav-header"><?php echo _t('steps'); ?></li>
-		<li class="item<?php echo STEP == 0 ? ' active' : ''; ?>"><a href="?step=0"><?php echo _t('language'); ?></a></li>
-		<li class="item<?php echo STEP == 1 ? ' active' : ''; ?>"><a href="?step=1"><?php echo _t('checks'); ?></a></li>
-		<li class="item<?php echo STEP == 2 ? ' active' : ''; ?>"><a href="?step=2"><?php echo _t('general_configuration'); ?></a></li>
-		<li class="item<?php echo STEP == 3 ? ' active' : ''; ?>"><a href="?step=3"><?php echo _t('bdd_configuration'); ?></a></li>
-		<li class="item<?php echo STEP == 4 ? ' active' : ''; ?>"><a href="?step=5"><?php echo _t('this_is_the_end'); ?></a></li>
+		<li class="nav-header"><?php echo _t('install.steps'); ?></li>
+		<li class="item<?php echo STEP == 0 ? ' active' : ''; ?>"><a href="?step=0"><?php echo _t('install.language'); ?></a></li>
+		<li class="item<?php echo STEP == 1 ? ' active' : ''; ?>"><a href="?step=1"><?php echo _t('install.check'); ?></a></li>
+		<li class="item<?php echo STEP == 2 ? ' active' : ''; ?>"><a href="?step=2"><?php echo _t('install.conf'); ?></a></li>
+		<li class="item<?php echo STEP == 3 ? ' active' : ''; ?>"><a href="?step=3"><?php echo _t('install.bdd.conf'); ?></a></li>
+		<li class="item<?php echo STEP == 4 ? ' active' : ''; ?>"><a href="?step=5"><?php echo _t('install.this_is_the_end'); ?></a></li>
 	</ul>
 
 	<div class="post">

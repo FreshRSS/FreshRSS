@@ -1,15 +1,15 @@
 <?php $this->partial('aside_configure'); ?>
 
 <div class="post">
-	<a href="<?php echo _url('index', 'index'); ?>"><?php echo _t('back_to_rss_feeds'); ?></a>
+	<a href="<?php echo _url('index', 'index'); ?>"><?php echo _t('gen.action.back_to_rss_feeds'); ?></a>
 
 	<form method="post" action="<?php echo _url('configure', 'queries'); ?>">
-		<legend><?php echo _t('queries'); ?></legend>
+		<legend><?php echo _t('conf.query'); ?></legend>
 
-		<?php foreach ($this->conf->queries as $key => $query) { ?>
+		<?php foreach (FreshRSS_Context::$user_conf->queries as $key => $query) { ?>
 		<div class="form-group" id="query-group-<?php echo $key; ?>">
 			<label class="group-name" for="queries_<?php echo $key; ?>_name">
-				<?php echo _t('query_number', $key + 1); ?>
+				<?php echo _t('conf.query.number', $key + 1); ?>
 			</label>
 
 			<div class="group-controls">
@@ -49,31 +49,31 @@
 
 				<?php if ($exist === 0) { ?>
 				<div class="alert alert-warn">
-					<div class="alert-head"><?php echo _t('no_query_filter'); ?></div>
+					<div class="alert-head"><?php echo _t('conf.query.no_filter'); ?></div>
 				</div>
 				<?php } elseif ($deprecated) { ?>
 				<div class="alert alert-error">
-					<div class="alert-head"><?php echo _t('query_deprecated'); ?></div>
+					<div class="alert-head"><?php echo _t('conf.query.deprecated'); ?></div>
 				</div>
 				<?php } else { ?>
 				<div class="alert alert-success">
-					<div class="alert-head"><?php echo _t('query_filter'); ?></div>
+					<div class="alert-head"><?php echo _t('conf.query.filter'); ?></div>
 
 					<ul>
 						<?php if (isset($query['search'])) { ?>
-						<li class="item"><?php echo _t('query_search', $query['search']); ?></li>
+						<li class="item"><?php echo _t('conf.query.search', $query['search']); ?></li>
 						<?php } ?>
 
 						<?php if (isset($query['state'])) { ?>
-						<li class="item"><?php echo _t('query_state_' . $query['state']); ?></li>
+						<li class="item"><?php echo _t('conf.query.state_' . $query['state']); ?></li>
 						<?php } ?>
 
 						<?php if (isset($query['order'])) { ?>
-						<li class="item"><?php echo _t('query_order_' . strtolower($query['order'])); ?></li>
+						<li class="item"><?php echo _t('conf.query.order_' . strtolower($query['order'])); ?></li>
 						<?php } ?>
 
 						<?php if (isset($query['get'])) { ?>
-						<li class="item"><?php echo _t('query_get_' . $this->query_get[$key]['type'], $this->query_get[$key]['name']); ?></li>
+						<li class="item"><?php echo _t('conf.query.get_' . $this->query_get[$key]['type'], $this->query_get[$key]['name']); ?></li>
 						<?php } ?>
 					</ul>
 				</div>
@@ -82,15 +82,15 @@
 		</div>
 		<?php } ?>
 
-		<?php if (count($this->conf->queries) > 0) { ?>
+		<?php if (count(FreshRSS_Context::$user_conf->queries) > 0) { ?>
 		<div class="form-group form-actions">
 			<div class="group-controls">
-				<button type="submit" class="btn btn-important"><?php echo _t('save'); ?></button>
-				<button type="reset" class="btn"><?php echo _t('cancel'); ?></button>
+				<button type="submit" class="btn btn-important"><?php echo _t('gen.action.submit'); ?></button>
+				<button type="reset" class="btn"><?php echo _t('gen.action.cancel'); ?></button>
 			</div>
 		</div>
 		<?php } else { ?>
-		<p class="alert alert-warn"><span class="alert-head"><?php echo _t('damn'); ?></span> <?php echo _t('no_query'); ?></p>
+		<p class="alert alert-warn"><span class="alert-head"><?php echo _t('gen.short.damn'); ?></span> <?php echo _t('conf.query.none'); ?></p>
 		<?php } ?>
 	</form>
 

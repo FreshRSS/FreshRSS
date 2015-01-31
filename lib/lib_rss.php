@@ -15,6 +15,17 @@ if (!function_exists('json_encode')) {
 	}
 }
 
+/**
+ * Build a directory path by concatenating a list of directory names.
+ *
+ * @param $path_parts a list of directory names
+ * @return a string corresponding to the final pathname
+ */
+function join_path() {
+	$path_parts = func_get_args();
+	return join(DIRECTORY_SEPARATOR, $path_parts);
+}
+
 //<Auto-loading>
 function classAutoloader($class) {
 	if (strpos($class, 'FreshRSS') === 0) {
@@ -56,12 +67,14 @@ function checkUrl($url) {
 	}
 }
 
-function formatNumber($n, $precision = 0) {
-	return str_replace(' ', ' ',	//Espace insécable	//TODO: remplacer par une espace _fine_ insécable
-		number_format($n, $precision, '.', ' '));	//number_format does not seem to be Unicode-compatible
+function format_number($n, $precision = 0) {
+	// number_format does not seem to be Unicode-compatible
+	return str_replace(' ', ' ',  //Espace fine insécable
+		number_format($n, $precision, '.', ' ')
+	);
 }
 
-function formatBytes($bytes, $precision = 2, $system = 'IEC') {
+function format_bytes($bytes, $precision = 2, $system = 'IEC') {
 	if ($system === 'IEC') {
 		$base = 1024;
 		$units = array('B', 'KiB', 'MiB', 'GiB', 'TiB');
@@ -73,15 +86,15 @@ function formatBytes($bytes, $precision = 2, $system = 'IEC') {
 	$pow = $bytes === 0 ? 0 : floor(log($bytes) / log($base));
 	$pow = min($pow, count($units) - 1);
 	$bytes /= pow($base, $pow);
-	return formatNumber($bytes, $precision) . ' ' . $units[$pow];
+	return format_number($bytes, $precision) . ' ' . $units[$pow];
 }
 
 function timestamptodate ($t, $hour = true) {
-	$month = Minz_Translate::t (date('M', $t));
+	$month = _t('gen.date.' . date('M', $t));
 	if ($hour) {
-		$date = Minz_Translate::t ('format_date_hour', $month);
+		$date = _t('gen.date.format_date_hour', $month);
 	} else {
-		$date = Minz_Translate::t ('format_date', $month);
+		$date = _t('gen.date.format_date', $month);
 	}
 
 	return @date ($date, $t);
@@ -106,10 +119,13 @@ function html_only_entity_decode($text) {
 }
 
 function customSimplePie() {
+	$system_conf = Minz_Configuration::get('system');
+	$limits = $system_conf->limits;
 	$simplePie = new SimplePie();
-	$simplePie->set_useragent(Minz_Translate::t('freshrss') . '/' . FRESHRSS_VERSION . ' (' . PHP_OS . '; ' . FRESHRSS_WEBSITE . ') ' . SIMPLEPIE_NAME . '/' . SIMPLEPIE_VERSION);
+	$simplePie->set_useragent(_t('gen.freshrss') . '/' . FRESHRSS_VERSION . ' (' . PHP_OS . '; ' . FRESHRSS_WEBSITE . ') ' . SIMPLEPIE_NAME . '/' . SIMPLEPIE_VERSION);
 	$simplePie->set_cache_location(CACHE_PATH);
-	$simplePie->set_cache_duration(800);
+	$simplePie->set_cache_duration($limits['cache_duration']);
+	$simplePie->set_timeout($limits['timeout']);
 	$simplePie->strip_htmltags(array(
 		'base', 'blink', 'body', 'doctype', 'embed',
 		'font', 'form', 'frame', 'frameset', 'html',
@@ -164,7 +180,7 @@ function sanitizeHTML($data, $base = '') {
 function get_content_by_parsing ($url, $path) {
 	require_once (LIB_PATH . '/lib_phpQuery.php');
 
-	syslog(LOG_INFO, 'FreshRSS GET ' . $url);
+	Minz_Log::notice('FreshRSS GET ' . url_remove_credentials($url));
 	$html = file_get_contents ($url);
 
 	if ($html) {
@@ -201,20 +217,52 @@ function uSecString() {
 
 function invalidateHttpCache() {
 	Minz_Session::_param('touch', uTimeString());
-	return touch(LOG_PATH . '/' . Minz_Session::param('currentUser', '_') . '.log');
-}
-
-function usernameFromPath($userPath) {
-	if (preg_match('%/([A-Za-z0-9]{1,16})_user\.php$%', $userPath, $matches)) {
-		return $matches[1];
-	} else {
-		return '';
-	}
+	return touch(join_path(DATA_PATH, 'users', Minz_Session::param('currentUser', '_'), 'log.txt'));
 }
 
 function listUsers() {
-	return array_map('usernameFromPath', glob(DATA_PATH . '/*_user.php'));
+	$final_list = array();
+	$base_path = join_path(DATA_PATH, 'users');
+	$dir_list = array_values(array_diff(
+		scandir($base_path),
+		array('..', '.', '_')
+	));
+
+	foreach ($dir_list as $file) {
+		if (is_dir(join_path($base_path, $file))) {
+			$final_list[] = $file;
+		}
+	}
+
+	return $final_list;
 }
+
+
+/**
+ * Register and return the configuration for a given user.
+ *
+ * Note this function has been created to generate temporary configuration
+ * objects. If you need a long-time configuration, please don't use this function.
+ *
+ * @param $username the name of the user of which we want the configuration.
+ * @return a Minz_Configuration object, null if the configuration cannot be loaded.
+ */
+function get_user_configuration($username) {
+	$namespace = 'user_' . $username;
+	try {
+		Minz_Configuration::register($namespace,
+		                             join_path(USERS_PATH, $username, 'config.php'),
+		                             join_path(USERS_PATH, '_', 'config.default.php'));
+	} catch (Minz_ConfigurationNamespaceException $e) {
+		// namespace already exists, do nothing.
+	} catch (Minz_FileNotExistException $e) {
+		Minz_Log::warning($e->getMessage());
+		return null;
+	}
+
+	return Minz_Configuration::get($namespace);
+}
+
 
 function httpAuthUser() {
 	return isset($_SERVER['REMOTE_USER']) ? $_SERVER['REMOTE_USER'] : '';
@@ -238,9 +286,156 @@ function is_referer_from_same_domain() {
 	$host = parse_url(((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on') ? 'https://' : 'http://') .
 		(empty($_SERVER['HTTP_HOST']) ? $_SERVER['SERVER_NAME'] : $_SERVER['HTTP_HOST']));
 	$referer = parse_url($_SERVER['HTTP_REFERER']);
-	if (empty($host['scheme']) || empty($referer['scheme']) || $host['scheme'] !== $referer['scheme'] ||
-	    empty($host['host']) || empty($referer['host']) || $host['host'] !== $referer['host']) {
+	if (empty($host['host']) || empty($referer['host']) || $host['host'] !== $referer['host']) {
 		return false;
 	}
-	return (isset($host['port']) ? $host['port'] : 0) === (isset($referer['port']) ? $referer['port'] : 0);
+	//TODO: check 'scheme', taking into account the case of a proxy
+	if ((isset($host['port']) ? $host['port'] : 0) !== (isset($referer['port']) ? $referer['port'] : 0)) {
+		return false;
+	}
+	return true;
+}
+
+
+/**
+ * Check PHP and its extensions are well-installed.
+ *
+ * @return array of tested values.
+ */
+function check_install_php() {
+	$pdo_mysql = extension_loaded('pdo_mysql');
+	$pdo_sqlite = extension_loaded('pdo_sqlite');
+	return array(
+		'php' => version_compare(PHP_VERSION, '5.2.1') >= 0,
+		'minz' => file_exists(LIB_PATH . '/Minz'),
+		'curl' => extension_loaded('curl'),
+		'pdo' => $pdo_mysql || $pdo_sqlite,
+		'pcre' => extension_loaded('pcre'),
+		'ctype' => extension_loaded('ctype'),
+		'dom' => class_exists('DOMDocument'),
+		'json' => extension_loaded('json'),
+		'zip' => extension_loaded('zip'),
+	);
+}
+
+
+/**
+ * Check different data files and directories exist.
+ *
+ * @return array of tested values.
+ */
+function check_install_files() {
+	return array(
+		'data' => DATA_PATH && is_writable(DATA_PATH),
+		'cache' => CACHE_PATH && is_writable(CACHE_PATH),
+		'users' => USERS_PATH && is_writable(USERS_PATH),
+		'favicons' => is_writable(DATA_PATH . '/favicons'),
+		'persona' => is_writable(DATA_PATH . '/persona'),
+		'tokens' => is_writable(DATA_PATH . '/tokens'),
+	);
+}
+
+
+/**
+ * Check database is well-installed.
+ *
+ * @return array of tested values.
+ */
+function check_install_database() {
+	$status = array(
+		'connection' => true,
+		'tables' => false,
+		'categories' => false,
+		'feeds' => false,
+		'entries' => false,
+	);
+
+	try {
+		$dbDAO = FreshRSS_Factory::createDatabaseDAO();
+
+		$status['tables'] = $dbDAO->tablesAreCorrect();
+		$status['categories'] = $dbDAO->categoryIsCorrect();
+		$status['feeds'] = $dbDAO->feedIsCorrect();
+		$status['entries'] = $dbDAO->entryIsCorrect();
+	} catch(Minz_PDOConnectionException $e) {
+		$status['connection'] = false;
+	}
+
+	return $status;
+}
+
+/**
+ * Remove a directory recursively.
+ *
+ * From http://php.net/rmdir#110489
+ *
+ * @param $dir the directory to remove
+ */
+function recursive_unlink($dir) {
+	if (!is_dir($dir)) {
+		return true;
+	}
+
+	$files = array_diff(scandir($dir), array('.', '..'));
+	foreach ($files as $filename) {
+		$filename = $dir . '/' . $filename;
+		if (is_dir($filename)) {
+			@chmod($filename, 0777);
+			recursive_unlink($filename);
+		} else {
+			unlink($filename);
+		}
+	}
+
+	return rmdir($dir);
+}
+
+
+/**
+ * Remove queries where $get is appearing.
+ * @param $get the get attribute which should be removed.
+ * @param $queries an array of queries.
+ * @return the same array whithout those where $get is appearing.
+ */
+function remove_query_by_get($get, $queries) {
+	$final_queries = array();
+	foreach ($queries as $key => $query) {
+		if (empty($query['get']) || $query['get'] !== $get) {
+			$final_queries[$key] = $query;
+		}
+	}
+	return $final_queries;
+}
+
+
+/**
+ * Add a value in an array and take care it is unique.
+ * @param $array the array in which we add the value.
+ * @param $value the value to add.
+ */
+function array_push_unique(&$array, $value) {
+	$found = array_search($value, $array) !== false;
+	if (!$found) {
+		$array[] = $value;
+	}
+}
+
+
+/**
+ * Remove a value from an array.
+ * @param $array the array from wich value is removed.
+ * @param $value the value to remove.
+ */
+function array_remove(&$array, $value) {
+	$array = array_diff($array, array($value));
+}
+
+
+/**
+ * Sanitize a URL by removing HTTP credentials.
+ * @param $url the URL to sanitize.
+ * @return the same URL without HTTP credentials.
+ */
+function url_remove_credentials($url) {
+	return preg_replace('/[^\/]*:[^:]*@/', '', $url);
 }

@@ -1,27 +1,24 @@
 <div class="post content">
-	<a href="<?php echo _url ('index', 'index'); ?>"><?php echo Minz_Translate::t ('back_to_rss_feeds'); ?></a>
+	<a href="<?php echo _url('index', 'index'); ?>"><?php echo _t('gen.action.back_to_rss_feeds'); ?></a>
 
-	<h1><?php echo Minz_Translate::t ('about_freshrss'); ?></h1>
+	<h1><?php echo _t('index.about'); ?></h1>
 
 	<dl class="infos">
-		<dt><?php echo Minz_Translate::t ('project_website'); ?></dt>
+		<dt><?php echo _t('index.about.project_website'); ?></dt>
 		<dd><a href="<?php echo FRESHRSS_WEBSITE; ?>"><?php echo FRESHRSS_WEBSITE; ?></a></dd>
 
-		<dt><?php echo Minz_Translate::t ('lead_developer'); ?></dt>
-		<dd><a href="mailto:contact@marienfressinaud.fr">Marien Fressinaud</a> — <a href="http://marienfressinaud.fr"><?php echo Minz_Translate::t ('website'); ?></a></dd>
+		<dt><?php echo _t('index.about.bugs_reports'); ?></dt>
+		<dd><?php echo _t('index.about.github'); ?></dd>
 
-		<dt><?php echo Minz_Translate::t ('bugs_reports'); ?></dt>
-		<dd><?php echo Minz_Translate::t ('github_or_email'); ?></dd>
+		<dt><?php echo _t('index.about.license'); ?></dt>
+		<dd><?php echo _t('index.about.agpl3'); ?></dd>
 
-		<dt><?php echo Minz_Translate::t ('license'); ?></dt>
-		<dd><?php echo Minz_Translate::t ('agpl3'); ?></dd>
-
-		<dt><?php echo Minz_Translate::t ('version'); ?></dt>
+		<dt><?php echo _t('index.about.version'); ?></dt>
 		<dd><?php echo FRESHRSS_VERSION; ?></dd>
 	</dl>
 
-	<p><?php echo Minz_Translate::t ('freshrss_description'); ?></p>
+	<p><?php echo _t('index.about.freshrss_description'); ?></p>
 
-	<h1><?php echo Minz_Translate::t ('credits'); ?></h1>
-	<p><?php echo Minz_Translate::t ('credits_content'); ?></p>
+	<h1><?php echo _t('index.about.credits'); ?></h1>
+	<p><?php echo _t('index.about.credits_content'); ?></p>
 </div>

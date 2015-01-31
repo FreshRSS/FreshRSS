@@ -6,6 +6,19 @@
 class FreshRSS_stats_Controller extends Minz_ActionController {
 
 	/**
+	 * This action is called before every other action in that class. It is
+	 * the common boiler plate for every action. It is triggered by the
+	 * underlying framework.
+	 */
+	public function firstAction() {
+		if (!FreshRSS_Auth::hasAccess()) {
+			Minz_Error::error(403);
+		}
+
+		Minz_View::prependTitle(_t('admin.stats.title') . ' · ');
+	}
+
+	/**
 	 * This action handles the statistic main page.
 	 *
 	 * It displays the statistic main page.
@@ -99,11 +112,12 @@ class FreshRSS_stats_Controller extends Minz_ActionController {
 		$categoryDAO = new FreshRSS_CategoryDAO();
 		$feedDAO = FreshRSS_Factory::createFeedDao();
 		Minz_View::appendScript(Minz_Url::display('/scripts/flotr2.min.js?' . @filemtime(PUBLIC_PATH . '/scripts/flotr2.min.js')));
-		$id = Minz_Request::param ('id', null);
+		$id = Minz_Request::param('id', null);
 		$this->view->categories = $categoryDAO->listCategories();
 		$this->view->feed = $feedDAO->searchById($id);
 		$this->view->days = $statsDAO->getDays();
 		$this->view->months = $statsDAO->getMonths();
+		$this->view->repartition = $statsDAO->calculateEntryRepartitionPerFeed($id);
 		$this->view->repartitionHour = $statsDAO->calculateEntryRepartitionPerFeedPerHour($id);
 		$this->view->averageHour = $statsDAO->calculateEntryAveragePerFeedPerHour($id);
 		$this->view->repartitionDayOfWeek = $statsDAO->calculateEntryRepartitionPerFeedPerDayOfWeek($id);
@@ -111,20 +125,4 @@ class FreshRSS_stats_Controller extends Minz_ActionController {
 		$this->view->repartitionMonth = $statsDAO->calculateEntryRepartitionPerFeedPerMonth($id);
 		$this->view->averageMonth = $statsDAO->calculateEntryAveragePerFeedPerMonth($id);
 	}
-
-	/**
-	 * This action is called before every other action in that class. It is
-	 * the common boiler plate for every action. It is triggered by the
-	 * underlying framework.
-	 */
-	public function firstAction() {
-		if (!$this->view->loginOk) {
-			Minz_Error::error(
-			    403, array('error' => array(Minz_Translate::t('access_denied')))
-			);
-		}
-
-		Minz_View::prependTitle(Minz_Translate::t('stats') . ' · ');
-	}
-
 }

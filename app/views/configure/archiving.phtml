@@ -1,31 +1,31 @@
 <?php $this->partial('aside_configure'); ?>
 
 <div class="post">
-	<a href="<?php echo _url('index', 'index'); ?>"><?php echo Minz_Translate::t('back_to_rss_feeds'); ?></a>
+	<a href="<?php echo _url('index', 'index'); ?>"><?php echo _t('gen.action.back_to_rss_feeds'); ?></a>
 
 	<form method="post" action="<?php echo _url('configure', 'archiving'); ?>">
-		<legend><?php echo Minz_Translate::t('archiving_configuration'); ?></legend>
-		<p><?php echo FreshRSS_Themes::icon('help'); ?> <?php echo Minz_Translate::t('archiving_configuration_help'); ?></p>
+		<legend><?php echo _t('conf.archiving'); ?></legend>
+		<p><?php echo _i('help'); ?> <?php echo _t('conf.archiving.help'); ?></p>
 
 		<div class="form-group">
-			<label class="group-name" for="old_entries"><?php echo Minz_Translate::t('delete_articles_every'); ?></label>
+			<label class="group-name" for="old_entries"><?php echo _t('conf.archiving.delete_after'); ?></label>
 			<div class="group-controls">
-				<input type="number" id="old_entries" name="old_entries" min="1" max="1200" value="<?php echo $this->conf->old_entries; ?>" /> <?php echo Minz_Translate::t('month'); ?>
-				  <a class="btn confirm" href="<?php echo _url('entry', 'purge'); ?>"><?php echo Minz_Translate::t('purge_now'); ?></a>
+				<input type="number" id="old_entries" name="old_entries" min="1" max="1200" value="<?php echo FreshRSS_Context::$user_conf->old_entries; ?>" /> <?php echo _t('gen.date.month'); ?>
+				  <a class="btn confirm" href="<?php echo _url('entry', 'purge'); ?>"><?php echo _t('conf.archiving.purge_now'); ?></a>
 			</div>
 		</div>
 		<div class="form-group">
-			<label class="group-name" for="keep_history_default"><?php echo Minz_Translate::t('keep_history'), ' ', Minz_Translate::t('by_feed'); ?></label>
+			<label class="group-name" for="keep_history_default"><?php echo _t('conf.archiving.keep_history_by_feed'); ?></label>
 			<div class="group-controls">
 				<select class="number" name="keep_history_default" id="keep_history_default" required="required"><?php
 					foreach (array('' => '', 0 => '0', 10 => '10', 50 => '50', 100 => '100', 500 => '500', 1000 => '1 000', 5000 => '5 000', 10000 => '10 000', -1 => '∞') as $v => $t) {
-						echo '<option value="' . $v . ($this->conf->keep_history_default == $v ? '" selected="selected' : '') . '">' . $t . ' </option>';
+						echo '<option value="' . $v . (FreshRSS_Context::$user_conf->keep_history_default == $v ? '" selected="selected' : '') . '">' . $t . ' </option>';
 					}
-				?></select> (<?php echo Minz_Translate::t('by_default'); ?>)
+				?></select> (<?php echo _t('gen.short.by_default'); ?>)
 			</div>
 		</div>
 		<div class="form-group">
-			<label class="group-name" for="ttl_default"><?php echo Minz_Translate::t('ttl'); ?></label>
+			<label class="group-name" for="ttl_default"><?php echo _t('conf.archiving.ttl'); ?></label>
 			<div class="group-controls">
 				<select class="number" name="ttl_default" id="ttl_default" required="required"><?php
 					$found = false;
@@ -34,44 +34,49 @@
 					                36000 => '10h', 43200 => '12h', 64800 => '18h',
 					                86400 => '1d', 129600 => '1.5d', 172800 => '2d', 259200 => '3d', 345600 => '4d', 432000 => '5d', 518400 => '6d',
 					                604800 => '1wk', -1 => '∞') as $v => $t) {
-						echo '<option value="' . $v . ($this->conf->ttl_default == $v ? '" selected="selected' : '') . '">' . $t . '</option>';
-						if ($this->conf->ttl_default == $v) {
+						echo '<option value="' . $v . (FreshRSS_Context::$user_conf->ttl_default == $v ? '" selected="selected' : '') . '">' . $t . '</option>';
+						if (FreshRSS_Context::$user_conf->ttl_default == $v) {
 							$found = true;
 						}
 					}
 					if (!$found) {
-						echo '<option value="' . intval($this->conf->ttl_default) . '" selected="selected">' . intval($this->conf->ttl_default) . 's</option>';
+						echo '<option value="' . intval(FreshRSS_Context::$user_conf->ttl_default) . '" selected="selected">' . intval(FreshRSS_Context::$user_conf->ttl_default) . 's</option>';
 					}
-				?></select> (<?php echo Minz_Translate::t('by_default'); ?>)
+				?></select> (<?php echo _t('gen.short.by_default'); ?>)
 			</div>
 		</div>
 
 		<div class="form-group form-actions">
 			<div class="group-controls">
-				<button type="submit" class="btn btn-important"><?php echo Minz_Translate::t('save'); ?></button>
-				<button type="reset" class="btn"><?php echo Minz_Translate::t('cancel'); ?></button>
+				<button type="submit" class="btn btn-important"><?php echo _t('gen.action.submit'); ?></button>
+				<button type="reset" class="btn"><?php echo _t('gen.action.cancel'); ?></button>
 			</div>
 		</div>
 	</form>
 
 	<form method="post" action="<?php echo _url('entry', 'optimize'); ?>">
-		<legend><?php echo Minz_Translate::t ('advanced'); ?></legend>
+		<legend><?php echo _t('conf.archiving.advanced'); ?></legend>
 
 		<div class="form-group">
-		<p class="group-name"><?php echo Minz_Translate::t('current_user'); ?></p>
+			<label class="group-name"><?php echo _t('conf.user.current'); ?></label>
 			<div class="group-controls">
-				<p><?php echo formatNumber($this->nb_total), ' ', Minz_Translate::t('articles'), ', ', formatBytes($this->size_user); ?></p>
-				<input type="hidden" name="optimiseDatabase" value="1" />
-				<button type="submit" class="btn btn-important"><?php echo Minz_Translate::t('optimize_bdd'); ?></button>
-				<?php echo FreshRSS_Themes::icon('help'); ?> <?php echo Minz_Translate::t('optimize_todo_sometimes'); ?>
+				<?php echo _t('conf.user.articles_and_size', format_number($this->nb_total), format_bytes($this->size_user)); ?>
 			</div>
 		</div>
 
-		<?php if (Minz_Configuration::isAdmin(Minz_Session::param('currentUser', '_'))) { ?>
+		<?php if (FreshRSS_Auth::hasAccess('admin')) { ?>
 		<div class="form-group">
-			<p class="group-name"><?php echo Minz_Translate::t('users'); ?></p>
+			<label class="group-name"><?php echo _t('conf.user.users'); ?></label>
 			<div class="group-controls">
-				<p><?php echo formatBytes($this->size_total); ?></p>
+				<?php echo format_bytes($this->size_total); ?>
+			</div>
+		</div>
+
+		<div class="form-group form-actions">
+			<div class="group-controls">
+				<input type="hidden" name="optimiseDatabase" value="1" />
+				<button type="submit" class="btn btn-important"><?php echo _t('conf.archiving.optimize'); ?></button>
+				<?php echo _i('help'); ?> <?php echo _t('conf.archiving.optimize_help'); ?>
 			</div>
 		</div>
 		<?php } ?>

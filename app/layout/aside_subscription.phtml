@@ -1,0 +1,17 @@
+<ul class="nav nav-list aside">
+	<li class="nav-header"><?php echo _t('sub.menu.subscription_management'); ?></li>
+
+	<li class="item<?php echo Minz_Request::controllerName() == 'subscription' ? ' active' : ''; ?>">
+		<a href="<?php echo _url('subscription', 'index'); ?>"><?php echo _t('sub.menu.subscription_management'); ?></a>
+	</li>
+
+	<li class="item<?php echo Minz_Request::controllerName() == 'importExport' ? ' active' : ''; ?>">
+		<a href="<?php echo _url('importExport', 'index'); ?>"><?php echo _t('sub.menu.import_export'); ?></a>
+	</li>
+
+	<li class="item">
+		<a onclick="return false;" href="javascript:(function(){var%20url%20=%20location.href;window.open('<?php echo Minz_Url::display(array('c' => 'feed', 'a' => 'add'), 'html', true); ?>&amp;url_rss='+encodeURIComponent(url), '_blank');})();">
+			<?php echo _t('sub.menu.bookmark'); ?>
+		</a>
+	</li>
+</ul>

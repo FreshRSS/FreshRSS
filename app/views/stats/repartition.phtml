@@ -1,12 +1,12 @@
 <?php $this->partial('aside_stats'); ?>
 
 <div class="post ">
-	<a href="<?php echo _url('index', 'index'); ?>"><?php echo _t('back_to_rss_feeds'); ?></a>
+	<a href="<?php echo _url('index', 'index'); ?>"><?php echo _t('gen.action.back_to_rss_feeds'); ?></a>
 
-	<h1><?php echo _t('stats_repartition'); ?></h1>
+	<h1><?php echo _t('admin.stats.repartition'); ?></h1>
 
-	<select id="feed_select">
-		<option data-url="<?php echo _url('stats', 'repartition')?>"><?php echo _t('all_feeds')?></option>
+	<select id="feed_select" class="select-change">
+		<option data-url="<?php echo _url('stats', 'repartition')?>"><?php echo _t('admin.stats.all_feeds')?></option>
 	<?php foreach ($this->categories as $category) {
 		$feeds = $category->feeds();
 		if (!empty($feeds)) {
@@ -24,23 +24,40 @@
 	</select>
 
 	<?php if ($this->feed) {?>
-		<a class="btn" href="<?php echo _url('configure', 'feed', 'id', $this->feed->id()); ?>">
-			<?php echo _i('configure'); ?> <?php echo _t('administration'); ?>
+		<a class="btn" href="<?php echo _url('subscription', 'index', 'id', $this->feed->id()); ?>">
+			<?php echo _i('configure'); ?> <?php echo _t('gen.action.manage'); ?>
 		</a>
 	<?php }?>
 
 	<div class="stat">
-		<h2><?php echo _t('stats_entry_per_hour'); ?></h2>
+	    <table>
+		<tr>
+		    <th><?php echo _t('admin.stats.status_total'); ?></th>
+		    <th><?php echo _t('admin.stats.status_read'); ?></th>
+		    <th><?php echo _t('admin.stats.status_unread'); ?></th>
+		    <th><?php echo _t('admin.stats.status_favorites'); ?></th>
+		</tr>
+		<tr>
+		    <td class="numeric"><?php echo $this->repartition['total']; ?></td>
+		    <td class="numeric"><?php echo $this->repartition['read']; ?></td>
+		    <td class="numeric"><?php echo $this->repartition['unread']; ?></td>
+		    <td class="numeric"><?php echo $this->repartition['favorite']; ?></td>
+		</tr>
+	    </table>
+	</div>
+
+	<div class="stat">
+		<h2><?php echo _t('admin.stats.entry_per_hour', $this->averageHour); ?></h2>
 		<div id="statsEntryPerHour" style="height: 300px"></div>
 	</div>
 
 	<div class="stat half">
-		<h2><?php echo _t('stats_entry_per_day_of_week'); ?></h2>
+		<h2><?php echo _t('admin.stats.entry_per_day_of_week', $this->averageDayOfWeek); ?></h2>
 		<div id="statsEntryPerDayOfWeek" style="height: 300px"></div>
 	</div><!--
 
 	--><div class="stat half">
-		<h2><?php echo _t('stats_entry_per_month'); ?></h2>
+		<h2><?php echo _t('admin.stats.entry_per_month', $this->averageMonth); ?></h2>
 		<div id="statsEntryPerMonth" style="height: 300px"></div>
 	</div>
 </div>
@@ -56,19 +73,10 @@ function initStats() {
 		return;
 	}
 	// Entry per hour
-	var avg_h = [];
-	for (var i = -1; i <= 24; i++) {
-		avg_h.push([i, <?php echo $this->averageHour?>]);
-	}
 	Flotr.draw(document.getElementById('statsEntryPerHour'),
 		[{
 			data: <?php echo $this->repartitionHour ?>,
 			bars: {horizontal: false, show: true}
-		}, {
-			data: avg_h,
-			lines: {show: true},
-			label: "<?php echo $this->averageHour?>",
-			yaxis: 2
 		}],
 		{
 			grid: {verticalLines: false},
@@ -81,23 +89,13 @@ function initStats() {
 				max: 23.9,
 				tickDecimals: 0},
 			yaxis: {min: 0},
-			y2axis: {showLabels: false},
 			mouse: {relative: true, track: true, trackDecimals: 0, trackFormatter: function(obj) {return numberFormat(obj.y);}}
 		});
 	// Entry per day of week
-	var avg_dow = [];
-	for (var i = -1; i <= 7; i++) {
-		avg_dow.push([i, <?php echo $this->averageDayOfWeek?>]);
-	}
 	Flotr.draw(document.getElementById('statsEntryPerDayOfWeek'),
 		[{
 			data: <?php echo $this->repartitionDayOfWeek ?>,
 			bars: {horizontal: false, show: true}
-		}, {
-			data: avg_dow,
-			lines: {show: true},
-			label: "<?php echo $this->averageDayOfWeek?>",
-			yaxis: 2
 		}],
 		{
 			grid: {verticalLines: false},
@@ -111,23 +109,13 @@ function initStats() {
 				max: 6.9,
 				tickDecimals: 0},
 			yaxis: {min: 0},
-			y2axis: {showLabels: false},
 			mouse: {relative: true, track: true, trackDecimals: 0, trackFormatter: function(obj) {return numberFormat(obj.y);}}
 		});
 	// Entry per month
-	var avg_m = [];
-	for (var i = 0; i <= 13; i++) {
-		avg_m.push([i, <?php echo $this->averageMonth?>]);
-	}
 	Flotr.draw(document.getElementById('statsEntryPerMonth'),
 		[{
 			data: <?php echo $this->repartitionMonth ?>,
 			bars: {horizontal: false, show: true}
-		}, {
-			data: avg_m,
-			lines: {show: true},
-			label: "<?php echo $this->averageMonth?>",
-			yaxis: 2
 		}],
 		{
 			grid: {verticalLines: false},
@@ -141,7 +129,6 @@ function initStats() {
 				max: 12.9,
 				tickDecimals: 0},
 			yaxis: {min: 0},
-			y2axis: {showLabels: false},
 			mouse: {relative: true, track: true, trackDecimals: 0, trackFormatter: function(obj) {return numberFormat(obj.y);}}
 		});
 

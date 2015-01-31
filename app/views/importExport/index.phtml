@@ -1,13 +1,13 @@
-<?php $this->partial('aside_feed'); ?>
+<?php $this->partial('aside_subscription'); ?>
 
 <div class="post ">
-	<a href="<?php echo _url('index', 'index'); ?>"><?php echo _t('back_to_rss_feeds'); ?></a>
+	<a href="<?php echo _url('index', 'index'); ?>"><?php echo _t('gen.action.back_to_rss_feeds'); ?></a>
 
 	<form method="post" action="<?php echo _url('importExport', 'import'); ?>" enctype="multipart/form-data">
-		<legend><?php echo _t('import'); ?></legend>
+		<legend><?php echo _t('sub.import_export.import'); ?></legend>
 		<div class="form-group">
 			<label class="group-name" for="file">
-				<?php echo extension_loaded('zip') ? _t('file_to_import') : _t('file_to_import_no_zip'); ?>
+				<?php echo extension_loaded('zip') ? _t('sub.import_export.file_to_import') : _t('sub.import_export.file_to_import_no_zip'); ?>
 			</label>
 			<div class="group-controls">
 				<input type="file" name="file" id="file" />
@@ -16,24 +16,24 @@
 
 		<div class="form-group form-actions">
 			<div class="group-controls">
-				<button type="submit" class="btn btn-important"><?php echo _t('import'); ?></button>
+				<button type="submit" class="btn btn-important"><?php echo _t('gen.action.import'); ?></button>
 			</div>
 		</div>
 	</form>
 
 	<?php if (count($this->feeds) > 0) { ?>
 	<form method="post" action="<?php echo _url('importExport', 'export'); ?>">
-		<legend><?php echo _t('export'); ?></legend>
+		<legend><?php echo _t('sub.import_export.export'); ?></legend>
 		<div class="form-group">
 			<div class="group-controls">
 				<label class="checkbox" for="export_opml">
 					<input type="checkbox" name="export_opml" id="export_opml" value="1" checked="checked" />
-					<?php echo _t('export_opml'); ?>
+					<?php echo _t('sub.import_export.export_opml'); ?>
 				</label>
 
 				<label class="checkbox" for="export_starred">
 					<input type="checkbox" name="export_starred" id="export_starred" value="1" <?php echo extension_loaded('zip') ? 'checked="checked"' : ''; ?> />
-					<?php echo _t('export_starred'); ?>
+					<?php echo _t('sub.import_export.export_starred'); ?>
 				</label>
 
 				<?php
@@ -53,7 +53,7 @@
 
 		<div class="form-group form-actions">
 			<div class="group-controls">
-				<button type="submit" class="btn btn-important"><?php echo _t('export'); ?></button>
+				<button type="submit" class="btn btn-important"><?php echo _t('gen.action.export'); ?></button>
 			</div>
 		</div>
 	</form>

@@ -40,7 +40,8 @@ class FreshRSS_Feed extends Minz_Model {
 
 	public function hash() {
 		if ($this->hash === null) {
-			$this->hash = hash('crc32b', Minz_Configuration::salt() . $this->url);
+			$salt = FreshRSS_Context::$system_conf->salt;
+			$this->hash = hash('crc32b', $salt . $this->url);
 		}
 		return $this->hash;
 	}
@@ -210,6 +211,10 @@ class FreshRSS_Feed extends Minz_Model {
 					$url = preg_replace('#((.+)://)(.+)#', '${1}' . $this->httpAuth . '@${3}', $url);
 				}
 				$feed = customSimplePie();
+				if (substr($url, -11) === '#force_feed') {
+					$feed->force_feed(true);
+					$url = substr($url, 0, -11);
+				}
 				$feed->set_feed_url($url);
 				if (!$loadDetails) {	//Only activates auto-discovery when adding a new feed
 					$feed->set_autodiscovery_level(SIMPLEPIE_LOCATOR_NONE);
@@ -217,7 +222,8 @@ class FreshRSS_Feed extends Minz_Model {
 				$mtime = $feed->init();
 
 				if ((!$mtime) || $feed->error()) {
-					throw new FreshRSS_Feed_Exception($feed->error() . ' [' . $url . ']');
+					$errorMessage = $feed->error();
+					throw new FreshRSS_Feed_Exception(($errorMessage == '' ? 'Feed error' : $errorMessage) . ' [' . $url . ']');
 				}
 
 				if ($loadDetails) {
@@ -225,7 +231,7 @@ class FreshRSS_Feed extends Minz_Model {
 					$subscribe_url = $feed->subscribe_url(false);
 
 					$title = strtr(html_only_entity_decode($feed->get_title()), array('<' => '&lt;', '>' => '&gt;', '"' => '&quot;'));	//HTML to HTML-PRE	//ENT_COMPAT except &
-					$this->_name($title == '' ? $this->url : $title);
+					$this->_name($title == '' ? $url : $title);
 
 					$this->_website(html_only_entity_decode($feed->get_link()));
 					$this->_description(html_only_entity_decode($feed->get_description()));
@@ -234,19 +240,16 @@ class FreshRSS_Feed extends Minz_Model {
 					$subscribe_url = $feed->subscribe_url(true);
 				}
 
-				if ($subscribe_url !== null && $subscribe_url !== $this->url) {
-					if ($this->httpAuth != '') {
-						// on enlève les id si authentification HTTP
-						$subscribe_url = preg_replace('#((.+)://)((.+)@)(.+)#', '${1}${5}', $subscribe_url);
-					}
-					$this->_url($subscribe_url);
+				$clean_url = url_remove_credentials($subscribe_url);
+				if ($subscribe_url !== null && $subscribe_url !== $url) {
+					$this->_url($clean_url);
 				}
 
 				if (($mtime === true) ||($mtime > $this->lastUpdate)) {
-					syslog(LOG_DEBUG, 'FreshRSS no cache ' . $mtime . ' > ' . $this->lastUpdate . ' for ' . $subscribe_url);
+					Minz_Log::notice('FreshRSS no cache ' . $mtime . ' > ' . $this->lastUpdate . ' for ' . $clean_url);
 					$this->loadEntries($feed);	// et on charge les articles du flux
 				} else {
-					syslog(LOG_DEBUG, 'FreshRSS use cache for ' . $subscribe_url);
+					Minz_Log::notice('FreshRSS use cache for ' . $clean_url);
 					$this->entries = array();
 				}
 

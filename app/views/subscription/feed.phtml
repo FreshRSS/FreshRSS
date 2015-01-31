@@ -1,0 +1,15 @@
+<?php
+
+if (!Minz_Request::param('ajax')) {
+	$this->partial('aside_subscription');
+}
+
+if ($this->feed) {
+	$this->renderHelper('feed/update');
+} else {
+?>
+<div class="alert alert-warn">
+	<span class="alert-head"><?php echo _t('sub.feed.no_selected'); ?></span>
+	<?php echo _t('sub.feed.think_to_add'); ?>
+</div>
+<?php } ?>

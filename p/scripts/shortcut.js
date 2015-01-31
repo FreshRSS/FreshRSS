@@ -43,7 +43,9 @@ shortcut = {
 			//Find Which key is pressed
 			if (e.keyCode) code = e.keyCode;
 			else if (e.which) code = e.which;
-			var character = String.fromCharCode(code).toLowerCase();
+			if (code == 32 || (code >= 48 && code <= 90) || (code >= 96 && code <= 111) || (code >= 186 && code <= 192) || (code >= 219 && code <= 222)) {	//FreshRSS
+				var character = String.fromCharCode(code).toLowerCase();
+			}
 			
 			if(code == 188) character=","; //If the user presses , when the type is onkeydown
 			if(code == 190) character="."; //If the user presses , when the type is onkeydown

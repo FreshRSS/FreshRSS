@@ -1,108 +1,122 @@
-<?php $this->partial ('aside_configure'); ?>
+<?php $this->partial('aside_configure'); ?>
 
 <div class="post">
-	<a href="<?php echo _url ('index', 'index'); ?>"><?php echo Minz_Translate::t ('back_to_rss_feeds'); ?></a>
+	<a href="<?php echo _url('index', 'index'); ?>"><?php echo _t('gen.action.back_to_rss_feeds'); ?></a>
 
-	<form method="post" action="<?php echo _url ('configure', 'display'); ?>">
-		<legend><?php echo Minz_Translate::t ('display_configuration'); ?></legend>
+	<form method="post" action="<?php echo _url('configure', 'display'); ?>">
+		<legend><?php echo _t('conf.display'); ?></legend>
 
 		<div class="form-group">
-			<label class="group-name" for="language"><?php echo Minz_Translate::t ('language'); ?></label>
+			<label class="group-name" for="language"><?php echo _t('conf.display.language'); ?></label>
 			<div class="group-controls">
 				<select name="language" id="language">
-				<?php $languages = $this->conf->availableLanguages (); ?>
-				<?php foreach ($languages as $short => $lib) { ?>
-				<option value="<?php echo $short; ?>"<?php echo $this->conf->language === $short ? ' selected="selected"' : ''; ?>><?php echo $lib; ?></option>
+				<?php $languages = Minz_Translate::availableLanguages(); ?>
+				<?php foreach ($languages as $lang) { ?>
+				<option value="<?php echo $lang; ?>"<?php echo FreshRSS_Context::$user_conf->language === $lang ? ' selected="selected"' : ''; ?>><?php echo _t('gen.lang.' . $lang); ?></option>
 				<?php } ?>
 				</select>
 			</div>
 		</div>
 
 		<div class="form-group">
-			<label class="group-name" for="theme"><?php echo Minz_Translate::t ('theme'); ?></label>
+			<label class="group-name" for="theme"><?php echo _t('conf.display.theme'); ?></label>
 			<div class="group-controls">
-				<select name="theme" id="theme" required=""><?php
-					$found = false;
-					foreach ($this->themes as $theme) {
-						?><option value="<?php echo $theme['id']; ?>"<?php if ($this->conf->theme === $theme['id']) { echo ' selected="selected"'; $found = true; } ?>><?php
-							echo $theme['name'] . ' — ' . Minz_Translate::t ('by') . ' ' . $theme['author'];
-						?></option><?php
-					}
-					if (!$found) {
-						?><option selected="selected"></option><?php
-					}
-				?></select>
+				<ul class="slides">
+					<?php $slides = count($this->themes); $i = 1; ?>
+					<?php foreach($this->themes as $theme) { ?>
+						<input type="radio" name="theme" id="img-<?php echo $i ?>" <?php if (FreshRSS_Context::$user_conf->theme === $theme['id']) {echo "checked";}?> value="<?php echo $theme['id'] ?>"/>
+						<li class="slide-container">
+							<div class="slide">
+								<img src="<?php echo Minz_Url::display('/themes/' . $theme['id'] . '/thumbs/original.png')?>"/>
+							</div>
+							<div class="nav">
+								<?php if ($i !== 1) {?>
+									<label for="img-<?php echo $i - 1 ?>" class="prev">&#x2039;</label>
+								<?php } ?>
+								<?php if ($i !== $slides) {?>
+									<label for="img-<?php echo $i + 1 ?>" class="next">&#x203a;</label>
+								<?php } ?>
+							</div>
+							<div class="properties">
+								<div><?php echo sprintf('%s — %s', $theme['name'], _t('gen.short.by_author', $theme['author'])); ?></div>
+								<div><?php echo $theme['description'] ?></div>
+								<div class="page-number"><?php echo sprintf('%d/%d', $i, $slides) ?></div>
+							</div>
+						</li>
+						<?php $i++ ?>
+					<?php } ?>
+				</ul>
 			</div>
 		</div>
 
-		<?php $width = $this->conf->content_width; ?>
+		<?php $width = FreshRSS_Context::$user_conf->content_width; ?>
 		<div class="form-group">
-			<label class="group-name" for="content_width"><?php echo Minz_Translate::t('content_width'); ?></label>
+			<label class="group-name" for="content_width"><?php echo _t('conf.display.width.content'); ?></label>
 			<div class="group-controls">
 				<select name="content_width" id="content_width" required="">
 					<option value="thin" <?php echo $width === 'thin'? 'selected="selected"' : ''; ?>>
-						<?php echo Minz_Translate::t('width_thin'); ?>
+						<?php echo _t('conf.display.width.thin'); ?>
 					</option>
 					<option value="medium" <?php echo $width === 'medium'? 'selected="selected"' : ''; ?>>
-						<?php echo Minz_Translate::t('width_medium'); ?>
+						<?php echo _t('conf.display.width.medium'); ?>
 					</option>
 					<option value="large" <?php echo $width === 'large'? 'selected="selected"' : ''; ?>>
-						<?php echo Minz_Translate::t('width_large'); ?>
+						<?php echo _t('conf.display.width.large'); ?>
 					</option>
 					<option value="no_limit" <?php echo $width === 'no_limit'? 'selected="selected"' : ''; ?>>
-						<?php echo Minz_Translate::t('width_no_limit'); ?>
+						<?php echo _t('conf.display.width.no_limit'); ?>
 					</option>
 				</select>
 			</div>
 		</div>
 
 		<div class="form-group">
-			<label class="group-name" for="theme"><?php echo Minz_Translate::t ('article_icons'); ?></label>
+			<label class="group-name" for="theme"><?php echo _t('conf.display.icon.entry'); ?></label>
 			<table>
 				<thead>
 					<tr>
 						<th> </th>
-						<th title="<?php echo Minz_Translate::t ('mark_read'); ?>"><?php echo FreshRSS_Themes::icon('read'); ?></th>
-						<th title="<?php echo Minz_Translate::t ('mark_favorite'); ?>"><?php echo FreshRSS_Themes::icon('bookmark'); ?></th>
-						<th><?php echo Minz_Translate::t ('sharing'); ?></th>
-						<th><?php echo Minz_Translate::t ('related_tags'); ?></th>
-						<th><?php echo Minz_Translate::t ('publication_date'); ?></th>
-						<th><?php echo FreshRSS_Themes::icon('link'); ?></th>
+						<th title="<?php echo _t('gen.action.mark_read'); ?>"><?php echo _i('read'); ?></th>
+						<th title="<?php echo _t('gen.action.mark_favorite'); ?>"><?php echo _i('bookmark'); ?></th>
+						<th><?php echo _t('conf.display.icon.sharing'); ?></th>
+						<th><?php echo _t('conf.display.icon.related_tags'); ?></th>
+						<th><?php echo _t('conf.display.icon.publication_date'); ?></th>
+						<th><?php echo _i('link'); ?></th>
 					</tr>
 				</thead>
 				<tbody>
 					<tr>
-						<th><?php echo Minz_Translate::t ('top_line'); ?></th>
-						<td><input type="checkbox" name="topline_read" value="1"<?php echo $this->conf->topline_read ? ' checked="checked"' : ''; ?> /></td>
-						<td><input type="checkbox" name="topline_favorite" value="1"<?php echo $this->conf->topline_favorite ? ' checked="checked"' : ''; ?> /></td>
+						<th><?php echo _t('conf.display.icon.top_line'); ?></th>
+						<td><input type="checkbox" name="topline_read" value="1"<?php echo FreshRSS_Context::$user_conf->topline_read ? ' checked="checked"' : ''; ?> /></td>
+						<td><input type="checkbox" name="topline_favorite" value="1"<?php echo FreshRSS_Context::$user_conf->topline_favorite ? ' checked="checked"' : ''; ?> /></td>
 						<td><input type="checkbox" disabled="disabled" /></td>
 						<td><input type="checkbox" disabled="disabled" /></td>
-						<td><input type="checkbox" name="topline_date" value="1"<?php echo $this->conf->topline_date ? ' checked="checked"' : ''; ?> /></td>
-						<td><input type="checkbox" name="topline_link" value="1"<?php echo $this->conf->topline_link ? ' checked="checked"' : ''; ?> /></td>
+						<td><input type="checkbox" name="topline_date" value="1"<?php echo FreshRSS_Context::$user_conf->topline_date ? ' checked="checked"' : ''; ?> /></td>
+						<td><input type="checkbox" name="topline_link" value="1"<?php echo FreshRSS_Context::$user_conf->topline_link ? ' checked="checked"' : ''; ?> /></td>
 					</tr><tr>
-						<th><?php echo Minz_Translate::t ('bottom_line'); ?></th>
-						<td><input type="checkbox" name="bottomline_read" value="1"<?php echo $this->conf->bottomline_read ? ' checked="checked"' : ''; ?> /></td>
-						<td><input type="checkbox" name="bottomline_favorite" value="1"<?php echo $this->conf->bottomline_favorite ? ' checked="checked"' : ''; ?> /></td>
-						<td><input type="checkbox" name="bottomline_sharing" value="1"<?php echo $this->conf->bottomline_sharing ? ' checked="checked"' : ''; ?> /></td>
-						<td><input type="checkbox" name="bottomline_tags" value="1"<?php echo $this->conf->bottomline_tags ? ' checked="checked"' : ''; ?> /></td>
-						<td><input type="checkbox" name="bottomline_date" value="1"<?php echo $this->conf->bottomline_date ? ' checked="checked"' : ''; ?> /></td>
-						<td><input type="checkbox" name="bottomline_link" value="1"<?php echo $this->conf->bottomline_link ? ' checked="checked"' : ''; ?> /></td>
+						<th><?php echo _t('conf.display.icon.bottom_line'); ?></th>
+						<td><input type="checkbox" name="bottomline_read" value="1"<?php echo FreshRSS_Context::$user_conf->bottomline_read ? ' checked="checked"' : ''; ?> /></td>
+						<td><input type="checkbox" name="bottomline_favorite" value="1"<?php echo FreshRSS_Context::$user_conf->bottomline_favorite ? ' checked="checked"' : ''; ?> /></td>
+						<td><input type="checkbox" name="bottomline_sharing" value="1"<?php echo FreshRSS_Context::$user_conf->bottomline_sharing ? ' checked="checked"' : ''; ?> /></td>
+						<td><input type="checkbox" name="bottomline_tags" value="1"<?php echo FreshRSS_Context::$user_conf->bottomline_tags ? ' checked="checked"' : ''; ?> /></td>
+						<td><input type="checkbox" name="bottomline_date" value="1"<?php echo FreshRSS_Context::$user_conf->bottomline_date ? ' checked="checked"' : ''; ?> /></td>
+						<td><input type="checkbox" name="bottomline_link" value="1"<?php echo FreshRSS_Context::$user_conf->bottomline_link ? ' checked="checked"' : ''; ?> /></td>
 					</tr>
 				</tbody>
 			</table><br />
 		</div>
 		
 		<div class="form-group">
-			<label class="group-name" for="posts_per_page"><?php echo Minz_Translate::t ('html5_notif_timeout'); ?></label>
+			<label class="group-name" for="posts_per_page"><?php echo _t('conf.display.notif_html5.timeout'); ?></label>
 			<div class="group-controls">
-				<input type="number" id="html5_notif_timeout" name="html5_notif_timeout" value="<?php echo $this->conf->html5_notif_timeout; ?>" /> <?php echo Minz_Translate::t ('seconds_(0_means_no_timeout)'); ?>
+				<input type="number" id="html5_notif_timeout" name="html5_notif_timeout" value="<?php echo FreshRSS_Context::$user_conf->html5_notif_timeout; ?>" /> <?php echo _t('conf.display.notif_html5.seconds'); ?>
 			</div>
 		</div>
 
 		<div class="form-group form-actions">
 			<div class="group-controls">
-				<button type="submit" class="btn btn-important"><?php echo Minz_Translate::t ('save'); ?></button>
-				<button type="reset" class="btn"><?php echo Minz_Translate::t ('cancel'); ?></button>
+				<button type="submit" class="btn btn-important"><?php echo _t('gen.action.submit'); ?></button>
+				<button type="reset" class="btn"><?php echo _t('gen.action.cancel'); ?></button>
 			</div>
 		</div>
 	</form>

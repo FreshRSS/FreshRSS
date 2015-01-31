@@ -1,4 +1,90 @@
-# Journal des modifications
+# Changelog
+
+## 2015-01-31 FreshRSS 1.0.0 / 1.1.0 (beta)
+
+* UI
+	* Slider math with Dark theme
+	* Add a message if request failed for mark as read / favourite
+* I18n
+	* Fix some sentences
+	* Add German as a supported language
+	* Add some indications on password format
+* Bug fixing
+	* Some shortcuts was never saved
+	* Global view didn't work if set by default
+	* Minz_Error was badly raised
+	* Feed update failed if nothing had changed (MySQL only)
+	* CRON task failed with multiple users
+	* Tricky bug caused by cookie path
+	* Email sharing was badly supported (no urlencode())
+* Misc.
+	* Add a CREDIT file with contributor names
+	* Update lib_opml
+	* Default favicon is now served by HTTP code 200
+	* Change calls to syslog by Minz_Log::notice
+	* HTTP credentials are no longer logged
+
+
+## 2015-01-15 FreshRSS 0.9.4 (beta)
+
+* Feature
+	* Extension system (!!): some extensions are available at https://github.com/FreshRSS/Extensions
+* Refactoring
+	* Front controller (FreshRSS class)
+	* Configuration system
+	* Sharing system
+	* New data files organization
+* Updates
+	* Remove restriction of 1h for updates
+	* Show the current version of FreshRSS and the next one
+* UI
+	* Remove the "sticky position" of the feed aside (moved into an extension)
+	* "Show password" shows the password only while the user is pressing the mouse.
+
+
+## 2014-12-12 FreshRSS 0.9.3 (beta)
+
+* SimplePie
+	* Support for content-type application/x-rss+xml
+	* New force_feed option (for feeds sent with the wrong content-type / MIME) by adding #force_feed at the end of the feed URL
+	* Improved error messages
+* Statistics
+	* Add information on feed repartition pages
+	* Add percent repartition for the bigger feeds
+* UI
+	* New theme selector
+	* Update Screwdriver theme
+	* Add BlueLagoon theme by Mister aiR
+* Misc.
+	* Add option to remove articles after reading them
+	* Add comments
+	* Refactor i18n system to not load unnecessary strings
+	* Fix security issue in Minz_Error::error() method
+	* Fix redirection after refreshing a given feed
+
+
+## 2014-10-31 FreshRSS 0.9.2 (beta)
+
+* UI
+	* New subscription page (introduce .box items)
+	* Change feed category by drag and drop
+	* New feed aside on the main page
+	* New configuration / administration organization
+* Configuration
+	* New options in config.php for cache duration, timeout, max inactivity, max number of feeds and categories per user.
+* Refactoring
+	* Refactor authentication system (introduce FreshRSS_Auth model)
+	* Refactor indexController (introduce FreshRSS_Context model)
+	* Use ```_t()```, ```_i()```, ```_url()```, ```Minz_Request::good()``` and ```Minz_Request::bad()``` as much as possible
+	* Refactor javascript_vars.phtml
+	* Better coding style
+* I18n
+	* Introduce a new system for i18n keys (not finished yet)
+* Misc.
+	* Fix global view (didn't work anymore)
+	* Add do_post_update for update system
+	* Introduce ```checkInstallAction``` to test if FreshRSS installation is ok
+
 
 ## 2014-10-09 FreshRSS 0.8.1 / 0.9.1 (beta)
 

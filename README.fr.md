@@ -9,26 +9,23 @@ Il permet de gérer plusieurs utilisateurs, et dispose d’un mode de lecture an
 
 * Site officiel : http://freshrss.org
 * Démo : http://demo.freshrss.org/
-* Développeur : Marien Fressinaud <dev@marienfressinaud.fr>
-* Version actuelle : 0.8.1
-* Date de publication : 2014-10-09
-* License [GNU AGPL 3](http://www.gnu.org/licenses/agpl-3.0.html)
+* Licence : [GNU AGPL 3](http://www.gnu.org/licenses/agpl-3.0.html)
 
 ![Logo de FreshRSS](http://marienfressinaud.fr/data/images/freshrss/freshrss_title.png)
 
 # Note sur les branches
 **Ce logiciel est encore en développement !** Veuillez vous assurer d'utiliser la branche qui vous correspond :
 
-* Utilisez [la branche master](https://github.com/marienfressinaud/FreshRSS/tree/master/) si vous visez la stabilité.
-* [La branche beta](https://github.com/marienfressinaud/FreshRSS/tree/beta) est celle par défaut : les nouveautés y sont ajoutées environ tous les mois.
-* Pour les développeurs et ceux qui savent ce qu'ils font, [la branche dev](https://github.com/marienfressinaud/FreshRSS/tree/dev) vous ouvre les bras !
+* Utilisez [la branche master](https://github.com/FreshRSS/FreshRSS/tree/master/) si vous visez la stabilité.
+* [La branche beta](https://github.com/FreshRSS/FreshRSS/tree/beta) est celle par défaut : les nouveautés y sont ajoutées environ tous les mois.
+* Pour les développeurs et ceux qui savent ce qu'ils font, [la branche dev](https://github.com/FreshRSS/FreshRSS/tree/dev) vous ouvre les bras !
 
 # Disclaimer
 Cette application a été développée pour s’adapter à des besoins personnels et non professionnels.
 Je ne garantis en aucun cas la sécurité de celle-ci, ni son bon fonctionnement.
 Je m’engage néanmoins à répondre dans la mesure du possible aux demandes d’évolution si celles-ci me semblent justifiées.
 Privilégiez pour cela des demandes sur GitHub
-(https://github.com/marienfressinaud/FreshRSS/issues) ou par mail (dev@marienfressinaud.fr)
+(https://github.com/FreshRSS/FreshRSS/issues).
 
 # Pré-requis
 * Serveur modeste, par exemple sous Linux ou Windows
@@ -44,7 +41,7 @@ Privilégiez pour cela des demandes sur GitHub
 ![Capture d’écran de FreshRSS](http://marienfressinaud.fr/data/images/freshrss/freshrss_default-design.png)
 
 # Installation
-1. Récupérez l’application FreshRSS via la commande git ou [en téléchargeant l’archive](https://github.com/marienfressinaud/FreshRSS/archive/master.zip)
+1. Récupérez l’application FreshRSS via la commande git ou [en téléchargeant l’archive](https://github.com/FreshRSS/FreshRSS/archive/master.zip)
 2. Placez l’application sur votre serveur (la partie à exposer au Web est le répertoire `./p/`)
 3. Le serveur Web doit avoir les droits d’écriture dans le répertoire `./data/`
 4. Accédez à FreshRSS à travers votre navigateur Web et suivez les instructions d’installation

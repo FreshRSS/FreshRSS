@@ -45,45 +45,45 @@ class Minz_Url {
 
 		return $url_string;
 	}
-	
+
 	/**
 	 * Construit l'URI d'une URL
 	 * @param l'url sous forme de tableau
 	 * @param $encodage pour indiquer comment encoder les & (& ou &amp; pour html)
 	 * @return l'uri sous la forme ?key=value&key2=value2
 	 */
-	private static function printUri ($url, $encodage) {
+	private static function printUri($url, $encodage) {
 		$uri = '';
 		$separator = '?';
-		
-		if($encodage == 'html') {
+
+		if ($encodage === 'html') {
 			$and = '&amp;';
 		} else {
 			$and = '&';
 		}
-		
-		if (isset ($url['c'])
-		 && $url['c'] != Minz_Request::defaultControllerName ()) {
+
+		if (isset($url['c'])
+		 && $url['c'] != Minz_Request::defaultControllerName()) {
 			$uri .= $separator . 'c=' . $url['c'];
 			$separator = $and;
 		}
-		
-		if (isset ($url['a'])
-		 && $url['a'] != Minz_Request::defaultActionName ()) {
+
+		if (isset($url['a'])
+		 && $url['a'] != Minz_Request::defaultActionName()) {
 			$uri .= $separator . 'a=' . $url['a'];
 			$separator = $and;
 		}
-		
-		if (isset ($url['params'])) {
+
+		if (isset($url['params'])) {
 			foreach ($url['params'] as $key => $param) {
-				$uri .= $separator . $key . '=' . $param;
+				$uri .= $separator . urlencode($key) . '=' . urlencode($param);
 				$separator = $and;
 			}
 		}
-		
+
 		return $uri;
 	}
-	
+
 	/**
 	 * Vérifie que les éléments du tableau représentant une url soit ok
 	 * @param l'url sous forme de tableau (sinon renverra directement $url)
@@ -91,7 +91,7 @@ class Minz_Url {
 	 */
 	public static function checkUrl ($url) {
 		$url_checked = $url;
-		
+
 		if (is_array ($url)) {
 			if (!isset ($url['c'])) {
 				$url_checked['c'] = Minz_Request::defaultControllerName ();
@@ -103,7 +103,7 @@ class Minz_Url {
 				$url_checked['params'] = array ();
 			}
 		}
-		
+
 		return $url_checked;
 	}
 }

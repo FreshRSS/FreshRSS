@@ -1,7 +1,7 @@
-<?php $this->partial ('aside_configure'); ?>
+<?php $this->partial('aside_configure'); ?>
 
 <div class="post">
-	<a href="<?php echo _url ('index', 'index'); ?>"><?php echo Minz_Translate::t ('back_to_rss_feeds'); ?></a>
+	<a href="<?php echo _url('index', 'index'); ?>"><?php echo _t('gen.action.back_to_rss_feeds'); ?></a>
 
 	<datalist id="keys">
 		<?php foreach ($this->list_keys as $key) { ?>
@@ -9,110 +9,117 @@
 		<?php } ?>
 	</datalist>
 
-	<?php $s = $this->conf->shortcuts; ?>
+	<?php $s = FreshRSS_Context::$user_conf->shortcuts; ?>
 
-	<form method="post" action="<?php echo _url ('configure', 'shortcut'); ?>">
-		<legend><?php echo Minz_Translate::t ('shortcuts'); ?></legend>
+	<form method="post" action="<?php echo _url('configure', 'shortcut'); ?>">
+		<legend><?php echo _t('conf.shortcut'); ?></legend>
 
-		<noscript><p class="alert alert-error"><?php echo Minz_Translate::t ('javascript_for_shortcuts'); ?></p></noscript>
+		<noscript><p class="alert alert-error"><?php echo _t('conf.shortcut.javascript'); ?></p></noscript>
 
-		<legend><?php echo Minz_Translate::t ('shortcuts_navigation'); ?></legend>
+		<legend><?php echo _t('conf.shortcut.navigation'); ?></legend>
+
+		<p class="alert alert-warn"><?php echo _t('conf.shortcut.navigation_help');?></p>
 
 		<div class="form-group">
-			<label class="group-name" for="next_entry"><?php echo Minz_Translate::t ('next_article'); ?></label>
+			<label class="group-name" for="next_entry"><?php echo _t('conf.shortcut.next_article'); ?></label>
 			<div class="group-controls">
 				<input type="text" id="next_entry" name="shortcuts[next_entry]" list="keys" value="<?php echo $s['next_entry']; ?>" />
 			</div>
 		</div>
 
 		<div class="form-group">
-			<label class="group-name" for="prev_entry"><?php echo Minz_Translate::t ('previous_article'); ?></label>
+			<label class="group-name" for="prev_entry"><?php echo _t('conf.shortcut.previous_article'); ?></label>
 			<div class="group-controls">
 				<input type="text" id="prev_entry" name="shortcuts[prev_entry]" list="keys" value="<?php echo $s['prev_entry']; ?>" />
 			</div>
 		</div>
 
 		<div class="form-group">
-			<label class="group-name" for="first_entry"><?php echo Minz_Translate::t ('first_article'); ?></label>
+			<label class="group-name" for="first_entry"><?php echo _t('conf.shortcut.first_article'); ?></label>
 			<div class="group-controls">
 				<input type="text" id="first_entry" name="shortcuts[first_entry]" list="keys" value="<?php echo $s['first_entry']; ?>" />
 			</div>
 		</div>
 
 		<div class="form-group">
-			<label class="group-name" for="last_entry"><?php echo Minz_Translate::t ('last_article'); ?></label>
+			<label class="group-name" for="last_entry"><?php echo _t('conf.shortcut.last_article'); ?></label>
 			<div class="group-controls">
 				<input type="text" id="last_entry" name="shortcuts[last_entry]" list="keys" value="<?php echo $s['last_entry']; ?>" />
 			</div>
 		</div>
 
-		<div><?php echo Minz_Translate::t ('shortcuts_navigation_help');?></div>
-
-		<legend><?php echo Minz_Translate::t ('shortcuts_article_action');?></legend>
+		<legend><?php echo _t('conf.shortcut.article_action');?></legend>
 
 		<div class="form-group">
-			<label class="group-name" for="mark_read"><?php echo Minz_Translate::t ('mark_read'); ?></label>
+			<label class="group-name" for="mark_read"><?php echo _t('conf.shortcut.mark_read'); ?></label>
 			<div class="group-controls">
 				<input type="text" id="mark_read" name="shortcuts[mark_read]" list="keys" value="<?php echo $s['mark_read']; ?>" />
-				<?php echo Minz_Translate::t ('shift_for_all_read'); ?>
+				<?php echo _t('conf.shortcut.shift_for_all_read'); ?>
 			</div>
 		</div>
 
 		<div class="form-group">
-			<label class="group-name" for="mark_favorite"><?php echo Minz_Translate::t ('mark_favorite'); ?></label>
+			<label class="group-name" for="mark_favorite"><?php echo _t('conf.shortcut.mark_favorite'); ?></label>
 			<div class="group-controls">
 				<input type="text" id="mark_favorite" name="shortcuts[mark_favorite]" list="keys" value="<?php echo $s['mark_favorite']; ?>" />
 			</div>
 		</div>
 
 		<div class="form-group">
-			<label class="group-name" for="go_website"><?php echo Minz_Translate::t ('see_on_website'); ?></label>
+			<label class="group-name" for="go_website"><?php echo _t('conf.shortcut.see_on_website'); ?></label>
 			<div class="group-controls">
 				<input type="text" id="go_website" name="shortcuts[go_website]" list="keys" value="<?php echo $s['go_website']; ?>" />
 			</div>
 		</div>
 
 		<div class="form-group">
-			<label class="group-name" for="auto_share_shortcut"><?php echo Minz_Translate::t ('auto_share'); ?></label>
+			<label class="group-name" for="auto_share_shortcut"><?php echo _t('conf.shortcut.auto_share'); ?></label>
 			<div class="group-controls">
 				<input type="text" id="auto_share_shortcut" name="shortcuts[auto_share]" list="keys" value="<?php echo $s['auto_share']; ?>" />
-				<?php echo Minz_Translate::t ('auto_share_help'); ?>
+				<?php echo _t('conf.shortcut.auto_share_help'); ?>
 			</div>
 		</div>
 
 		<div class="form-group">
-			<label class="group-name" for="collapse_entry"><?php echo Minz_Translate::t ('collapse_article'); ?></label>
+			<label class="group-name" for="collapse_entry"><?php echo _t('conf.shortcut.collapse_article'); ?></label>
 			<div class="group-controls">
 				<input type="text" id="collapse_entry" name="shortcuts[collapse_entry]" list="keys" value="<?php echo $s['collapse_entry']; ?>" />
 			</div>
 		</div>
 
-		<legend><?php echo Minz_Translate::t ('shortcuts_other_action');?></legend>
+		<legend><?php echo _t('conf.shortcut.other_action');?></legend>
 
 		<div class="form-group">
-			<label class="group-name" for="load_more_shortcut"><?php echo Minz_Translate::t ('load_more'); ?></label>
+			<label class="group-name" for="load_more_shortcut"><?php echo _t('conf.shortcut.load_more'); ?></label>
 			<div class="group-controls">
 				<input type="text" id="load_more_shortcut" name="shortcuts[load_more]" list="keys" value="<?php echo $s['load_more']; ?>" />
 			</div>
 		</div>
 
 		<div class="form-group">
-			<label class="group-name" for="focus_search_shortcut"><?php echo Minz_Translate::t ('focus_search'); ?></label>
+			<label class="group-name" for="focus_search_shortcut"><?php echo _t('conf.shortcut.focus_search'); ?></label>
 			<div class="group-controls">
 				<input type="text" id="focus_search_shortcut" name="shortcuts[focus_search]" list="keys" value="<?php echo $s['focus_search']; ?>" />
 			</div>
 		</div>
 
 		<div class="form-group">
-			<label class="group-name" for="user_filter_shortcut"><?php echo Minz_Translate::t ('user_filter'); ?></label>
+			<label class="group-name" for="user_filter_shortcut"><?php echo _t('conf.shortcut.user_filter'); ?></label>
 			<div class="group-controls">
 				<input type="text" id="user_filter_shortcut" name="shortcuts[user_filter]" list="keys" value="<?php echo $s['user_filter']; ?>" />
-				<?php echo Minz_Translate::t ('user_filter_help'); ?>
+				<?php echo _t('conf.shortcut.user_filter_help'); ?>
 			</div>
 		</div>
 
 		<div class="form-group">
-			<label class="group-name" for="help_shortcut"><?php echo Minz_Translate::t ('help'); ?></label>
+			<label class="group-name" for="close_dropdown_shortcut"><?php echo _t('conf.shortcut.close_dropdown'); ?></label>
+			<div class="group-controls">
+				<input type="text" id="close_dropdown" name="shortcuts[close_dropdown]" list="keys" value="<?php echo $s['close_dropdown']; ?>" />
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="group-name" for="help_shortcut"><?php echo _t('conf.shortcut.help'); ?></label>
 			<div class="group-controls">
 				<input type="text" id="help_shortcut" name="shortcuts[help]" list="keys" value="<?php echo $s['help']; ?>" />
 			</div>
@@ -120,8 +127,8 @@
 
 		<div class="form-group form-actions">
 			<div class="group-controls">
-				<button type="submit" class="btn btn-important"><?php echo Minz_Translate::t ('save'); ?></button>
-				<button type="reset" class="btn"><?php echo Minz_Translate::t ('cancel'); ?></button>
+				<button type="submit" class="btn btn-important"><?php echo _t('gen.action.submit'); ?></button>
+				<button type="reset" class="btn"><?php echo _t('gen.action.cancel'); ?></button>
 			</div>
 		</div>
 	</form>

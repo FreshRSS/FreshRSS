@@ -1,146 +1,85 @@
 <?php
+
 class FreshRSS extends Minz_FrontController {
+	/**
+	 * Initialize the different FreshRSS / Minz components.
+	 *
+	 * PLEASE DON'T CHANGE THE ORDER OF INITIALIZATIONS UNLESS YOU KNOW WHAT
+	 * YOU DO!!
+	 *
+	 * Here is the list of components:
+	 * - Create a configuration setter and register it to system conf
+	 * - Init extension manager and enable system extensions (has to be done asap)
+	 * - Init authentication system
+	 * - Init user configuration (need auth system)
+	 * - Init FreshRSS context (need user conf)
+	 * - Init i18n (need context)
+	 * - Init sharing system (need user conf and i18n)
+	 * - Init generic styles and scripts (need user conf)
+	 * - Init notifications
+	 * - Enable user extensions (need all the other initializations)
+	 */
 	public function init() {
 		if (!isset($_SESSION)) {
 			Minz_Session::init('FreshRSS');
 		}
-		$loginOk = $this->accessControl(Minz_Session::param('currentUser', ''));
-		$this->loadParamsView();
+
+		// Register the configuration setter for the system configuration
+		$configuration_setter = new FreshRSS_ConfigurationSetter();
+		$system_conf = Minz_Configuration::get('system');
+		$system_conf->_configurationSetter($configuration_setter);
+
+		// Load list of extensions and enable the "system" ones.
+		Minz_ExtensionManager::init();
+
+		// Auth has to be initialized before using currentUser session parameter
+		// because it's this part which create this parameter.
+		$this->initAuth();
+
+		// Then, register the user configuration and use the configuration setter
+		// created above.
+		$current_user = Minz_Session::param('currentUser', '_');
+		Minz_Configuration::register('user',
+		                             join_path(USERS_PATH, $current_user, 'config.php'),
+		                             join_path(USERS_PATH, '_', 'config.default.php'),
+		                             $configuration_setter);
+
+		// Finish to initialize the other FreshRSS / Minz components.
+		FreshRSS_Context::init();
+		$this->initI18n();
+		FreshRSS_Share::load(join_path(DATA_PATH, 'shares.php'));
+		$this->loadStylesAndScripts();
+		$this->loadNotifications();
+		// Enable extensions for the current (logged) user.
+		if (FreshRSS_Auth::hasAccess()) {
+			$ext_list = FreshRSS_Context::$user_conf->extensions_enabled;
+			Minz_ExtensionManager::enableByList($ext_list);
+		}
+	}
+
+	private function initAuth() {
+		FreshRSS_Auth::init();
 		if (Minz_Request::isPost() && !is_referer_from_same_domain()) {
-			$loginOk = false;	//Basic protection against XSRF attacks
+			// Basic protection against XSRF attacks
+			FreshRSS_Auth::removeAccess();
+			$http_referer = empty($_SERVER['HTTP_REFERER']) ? '' : $_SERVER['HTTP_REFERER'];
 			Minz_Error::error(
 				403,
-				array('error' => array(Minz_Translate::t('access_denied') . ' [HTTP_REFERER=' .
-					htmlspecialchars(empty($_SERVER['HTTP_REFERER']) ? '' : $_SERVER['HTTP_REFERER']) . ']'))
+				array('error' => array(
+					_t('access_denied'),
+					' [HTTP_REFERER=' . htmlspecialchars($http_referer) . ']'
+				))
 			);
 		}
-		Minz_View::_param('loginOk', $loginOk);
-		$this->loadStylesAndScripts($loginOk);	//TODO: Do not load that when not needed, e.g. some Ajax requests
-		$this->loadNotifications();
 	}
 
-	private static function getCredentialsFromLongTermCookie() {
-		$token = Minz_Session::getLongTermCookie('FreshRSS_login');
-		if (!ctype_alnum($token)) {
-			return array();
-		}
-		$tokenFile = DATA_PATH . '/tokens/' . $token . '.txt';
-		$mtime = @filemtime($tokenFile);
-		if ($mtime + 2629744 < time()) {	//1 month	//TODO: Use a configuration instead
-			@unlink($tokenFile);
-			return array(); 	//Expired or token does not exist
-		}
-		$credentials = @file_get_contents($tokenFile);
-		return $credentials === false ? array() : explode("\t", $credentials, 2);
+	private function initI18n() {
+		Minz_Session::_param('language', FreshRSS_Context::$user_conf->language);
+		Minz_Translate::init(FreshRSS_Context::$user_conf->language);
 	}
 
-	private function accessControl($currentUser) {
-		if ($currentUser == '') {
-			switch (Minz_Configuration::authType()) {
-				case 'form':
-					$credentials = self::getCredentialsFromLongTermCookie();
-					if (isset($credentials[1])) {
-						$currentUser = trim($credentials[0]);
-						Minz_Session::_param('passwordHash', trim($credentials[1]));
-					}
-					$loginOk = $currentUser != '';
-					if (!$loginOk) {
-						$currentUser = Minz_Configuration::defaultUser();
-						Minz_Session::_param('passwordHash');
-					}
-					break;
-				case 'http_auth':
-					$currentUser = httpAuthUser();
-					$loginOk = $currentUser != '';
-					break;
-				case 'persona':
-					$loginOk = false;
-					$email = filter_var(Minz_Session::param('mail'), FILTER_VALIDATE_EMAIL);
-					if ($email != '') {	//TODO: Remove redundancy with indexController
-						$personaFile = DATA_PATH . '/persona/' . $email . '.txt';
-						if (($currentUser = @file_get_contents($personaFile)) !== false) {
-							$currentUser = trim($currentUser);
-							$loginOk = true;
-						}
-					}
-					if (!$loginOk) {
-						$currentUser = Minz_Configuration::defaultUser();
-					}
-					break;
-				case 'none':
-					$currentUser = Minz_Configuration::defaultUser();
-					$loginOk = true;
-					break;
-				default:
-					$currentUser = Minz_Configuration::defaultUser();
-					$loginOk = false;
-					break;
-			}
-		} else {
-			$loginOk = true;
-		}
-
-		if (!ctype_alnum($currentUser)) {
-			Minz_Session::_param('currentUser', '');
-			die('Invalid username [' . $currentUser . ']!');
-		}
-
-		try {
-			$this->conf = new FreshRSS_Configuration($currentUser);
-			Minz_View::_param ('conf', $this->conf);
-			Minz_Session::_param('currentUser', $currentUser);
-		} catch (Minz_Exception $me) {
-			$loginOk = false;
-			try {
-				$this->conf = new FreshRSS_Configuration(Minz_Configuration::defaultUser());
-				Minz_Session::_param('currentUser', Minz_Configuration::defaultUser());
-				Minz_View::_param('conf', $this->conf);
-				$notif = array(
-					'type' => 'bad',
-					'content' => 'Invalid configuration for user [' . $currentUser . ']!',
-				);
-				Minz_Session::_param ('notification', $notif);
-				Minz_Log::record ($notif['content'] . ' ' . $me->getMessage(), Minz_Log::WARNING);
-				Minz_Session::_param('currentUser', '');
-			} catch (Exception $e) {
-				die($e->getMessage());
-			}
-		}
-
-		if ($loginOk) {
-			switch (Minz_Configuration::authType()) {
-				case 'form':
-					$loginOk = Minz_Session::param('passwordHash') === $this->conf->passwordHash;
-					break;
-				case 'http_auth':
-					$loginOk = strcasecmp($currentUser, httpAuthUser()) === 0;
-					break;
-				case 'persona':
-					$loginOk = strcasecmp(Minz_Session::param('mail'), $this->conf->mail_login) === 0;
-					break;
-				case 'none':
-					$loginOk = true;
-					break;
-				default:
-					$loginOk = false;
-					break;
-			}
-		}
-		return $loginOk;
-	}
-
-	private function loadParamsView () {
-		Minz_Session::_param ('language', $this->conf->language);
-		Minz_Translate::init();
-		$output = Minz_Request::param ('output', '');
-		if (($output === '') || ($output !== 'normal' && $output !== 'rss' && $output !== 'reader' && $output !== 'global')) {
-			$output = $this->conf->view_mode;
-			Minz_Request::_param ('output', $output);
-		}
-	}
-
-	private function loadStylesAndScripts($loginOk) {
-		$theme = FreshRSS_Themes::load($this->conf->theme);
+	private function loadStylesAndScripts() {
+		$theme = FreshRSS_Themes::load(FreshRSS_Context::$user_conf->theme);
 		if ($theme) {
 			foreach($theme['files'] as $file) {
 				if ($file[0] === '_') {
@@ -157,26 +96,24 @@ class FreshRSS extends Minz_FrontController {
 			}
 		}
 
-		switch (Minz_Configuration::authType()) {
-			case 'form':
-				if (!$loginOk) {
-					Minz_View::appendScript(Minz_Url::display ('/scripts/bcrypt.min.js?' . @filemtime(PUBLIC_PATH . '/scripts/bcrypt.min.js')));
-				}
-				break;
-			case 'persona':
-				Minz_View::appendScript('https://login.persona.org/include.js');
-				break;
-		}
 		Minz_View::appendScript(Minz_Url::display('/scripts/jquery.min.js?' . @filemtime(PUBLIC_PATH . '/scripts/jquery.min.js')));
 		Minz_View::appendScript(Minz_Url::display('/scripts/shortcut.js?' . @filemtime(PUBLIC_PATH . '/scripts/shortcut.js')));
 		Minz_View::appendScript(Minz_Url::display('/scripts/main.js?' . @filemtime(PUBLIC_PATH . '/scripts/main.js')));
+
+		if (FreshRSS_Context::$system_conf->auth_type === 'persona') {
+			// TODO move it in a plugin
+			// Needed for login AND logout with Persona.
+			Minz_View::appendScript('https://login.persona.org/include.js');
+			$file_mtime = @filemtime(PUBLIC_PATH . '/scripts/persona.js');
+			Minz_View::appendScript(Minz_Url::display('/scripts/persona.js?' . $file_mtime));
+		}
 	}
 
-	private function loadNotifications () {
-		$notif = Minz_Session::param ('notification');
+	private function loadNotifications() {
+		$notif = Minz_Session::param('notification');
 		if ($notif) {
-			Minz_View::_param ('notification', $notif);
-			Minz_Session::_param ('notification');
+			Minz_View::_param('notification', $notif);
+			Minz_Session::_param('notification');
 		}
 	}
 }

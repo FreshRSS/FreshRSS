@@ -1,0 +1,44 @@
+<?php $this->partial('aside_configure'); ?>
+
+<div class="post">
+	<a href="<?php echo _url('index', 'index'); ?>"><?php echo _t('gen.action.back_to_rss_feeds'); ?></a>
+
+	<h1><?php echo _t('admin.extensions.title'); ?></h1>
+
+	<form id="form-extension" method="post" style="display: none"></form>
+	<?php if (!empty($this->extension_list['system'])) { ?>
+	<h2><?php echo _t('admin.extensions.system'); ?></h2>
+	<?php
+		foreach ($this->extension_list['system'] as $ext) {
+			$this->ext_details = $ext;
+			$this->renderHelper('extension/details');
+		}
+	?>
+	<?php } ?>
+
+	<?php if (!empty($this->extension_list['user'])) { ?>
+	<h2><?php echo _t('admin.extensions.user'); ?></h2>
+	<?php
+		foreach ($this->extension_list['user'] as $ext) {
+			$this->ext_details = $ext;
+			$this->renderHelper('extension/details');
+		}
+	?>
+	<?php
+		}
+
+		if (empty($this->extension_list['system']) && empty($this->extension_list['user'])) {
+	?>
+	<p class="alert alert-warn"><?php echo _t('admin.extensions.empty_list'); ?></p>
+	<?php } ?>
+</div>
+
+<?php $class = isset($this->extension) ? ' class="active"' : ''; ?>
+<a href="#" id="close-slider"<?php echo $class; ?>></a>
+<div id="slider"<?php echo $class; ?>>
+<?php
+	if (isset($this->extension)) {
+		$this->renderHelper('extension/configure');
+	}
+?>
+</div>

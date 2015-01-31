@@ -16,6 +16,8 @@ class Minz_ModelPdo {
 	public static $useSharedBd = true;
 	private static $sharedBd = null;
 	private static $sharedPrefix;
+	private static $has_transaction = false;
+	private static $sharedCurrentUser;
 	protected static $sharedDbType;
 
 	/**
@@ -23,6 +25,7 @@ class Minz_ModelPdo {
 	 */
 	protected $bd;
 
+	protected $current_user;
 	protected $prefix;
 
 	public function dbType() {
@@ -37,14 +40,18 @@ class Minz_ModelPdo {
 		if (self::$useSharedBd && self::$sharedBd != null && $currentUser === null) {
 			$this->bd = self::$sharedBd;
 			$this->prefix = self::$sharedPrefix;
+			$this->current_user = self::$sharedCurrentUser;
 			return;
 		}
 
-		$db = Minz_Configuration::dataBase();
+		$conf = Minz_Configuration::get('system');
+		$db = $conf->db;
 
 		if ($currentUser === null) {
 			$currentUser = Minz_Session::param('currentUser', '_');
 		}
+		$this->current_user = $currentUser;
+		self::$sharedCurrentUser = $currentUser;
 
 		try {
 			$type = $db['type'];
@@ -57,7 +64,7 @@ class Minz_ModelPdo {
 				);
 				$this->prefix = $db['prefix'] . $currentUser . '_';
 			} elseif ($type === 'sqlite') {
-				$string = 'sqlite:' . DATA_PATH . '/' . $currentUser . '.sqlite';
+				$string = 'sqlite:' . join_path(DATA_PATH, 'users', $currentUser, 'db.sqlite');
 				$driver_options = array(
 					//PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
 				);
@@ -91,12 +98,18 @@ class Minz_ModelPdo {
 
 	public function beginTransaction() {
 		$this->bd->beginTransaction();
+		self::$has_transaction = true;
+	}
+	public function hasTransaction() {
+		return self::$has_transaction;
 	}
 	public function commit() {
 		$this->bd->commit();
+		self::$has_transaction = false;
 	}
 	public function rollBack() {
 		$this->bd->rollBack();
+		self::$has_transaction = false;
 	}
 
 	public static function clean() {

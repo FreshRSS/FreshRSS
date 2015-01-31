@@ -45,6 +45,13 @@ class Minz_Request {
 	public static function defaultActionName() {
 		return self::$default_action_name;
 	}
+	public static function currentRequest() {
+		return array(
+			'c' => self::$controller_name,
+			'a' => self::$action_name,
+			'params' => self::$params,
+		);
+	}
 
 	/**
 	 * Setteurs
@@ -89,7 +96,8 @@ class Minz_Request {
 	 * @return la base de l'url
 	 */
 	public static function getBaseUrl() {
-		$defaultBaseUrl = Minz_Configuration::baseUrl();
+		$conf = Minz_Configuration::get('system');
+		$defaultBaseUrl = $conf->base_url;
 		if (!empty($defaultBaseUrl)) {
 			return $defaultBaseUrl;
 		} elseif (isset($_SERVER['REQUEST_URI'])) {
