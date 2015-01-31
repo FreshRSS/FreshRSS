@@ -164,6 +164,11 @@ function apply_update() {
 		return 'can\'t clean update package';
 	}
 
+	if (FRESHRSS_VERSION === '0.9.4') {
+		// We are already ok!
+		continue;
+	}
+
 	// Fix the system config
 	$res = fix_system_config();
 	if (!$res) {
