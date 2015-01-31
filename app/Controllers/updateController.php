@@ -28,7 +28,10 @@ class FreshRSS_update_Controller extends Minz_ActionController {
 			);
 		} elseif (file_exists(UPDATE_FILENAME)) {
 			// There is an update file to apply!
-			$version = file_get_contents(join_path(DATA_PATH, 'last_update.txt'));
+			$version = @file_get_contents(join_path(DATA_PATH, 'last_update.txt'));
+			if (empty($version)) {
+				$version = 'unknown';
+			}
 			$this->view->update_to_apply = true;
 			$this->view->message = array(
 				'status' => 'good',

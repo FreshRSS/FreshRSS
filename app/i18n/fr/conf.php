@@ -75,6 +75,7 @@ return array(
 		'email_persona' => 'Adresse courriel de connexion<br /><small>(pour <a href="https://persona.org/" rel="external">Mozilla Persona</a>)</small>',
 		'password_api' => 'Mot de passe API<br /><small>(ex. : pour applis mobiles)</small>',
 		'password_form' => 'Mot de passe<br /><small>(pour connexion par formulaire)</small>',
+		'password_format' => '7 caractères minimum',
 		'title' => 'Profil',
 	),
 	'reading' => array(

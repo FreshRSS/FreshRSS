@@ -16,16 +16,9 @@ class Minz_Configuration {
 	 * @param $config_filename the filename of the configuration
 	 * @param $default_filename a filename containing default values for the configuration
 	 * @param $configuration_setter an optional helper to set values in configuration
-	 * @throws Minz_ConfigurationNamespaceException if the namespace already exists.
 	 */
 	public static function register($namespace, $config_filename, $default_filename = null,
 	                                $configuration_setter = null) {
-		if (isset(self::$config_list[$namespace])) {
-			throw new Minz_ConfigurationNamespaceException(
-				$namespace . ' namespace already exists'
-			);
-		}
-
 		self::$config_list[$namespace] = new Minz_Configuration(
 			$namespace, $config_filename, $default_filename, $configuration_setter
 		);

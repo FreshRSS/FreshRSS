@@ -56,6 +56,9 @@ class Minz_ExtensionManager {
 
 		foreach ($list_potential_extensions as $ext_dir) {
 			$ext_pathname = EXTENSIONS_PATH . '/' . $ext_dir;
+			if (!is_dir($ext_pathname)) {
+				continue;
+			}
 			$metadata_filename = $ext_pathname . '/' . self::$ext_metaname;
 
 			// Try to load metadata file.
@@ -111,7 +114,7 @@ class Minz_ExtensionManager {
 		$entry_point_filename = $info['path'] . '/' . self::$ext_entry_point;
 		$ext_class_name = $info['entrypoint'] . 'Extension';
 
-		include($entry_point_filename);
+		include_once($entry_point_filename);
 
 		// Test if the given extension class exists.
 		if (!class_exists($ext_class_name)) {

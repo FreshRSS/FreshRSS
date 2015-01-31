@@ -153,11 +153,11 @@ class FreshRSS_ConfigurationSetter {
 	}
 
 	private function _shortcuts(&$data, $values) {
-		foreach ($values as $key => $value) {
-			if (isset($data['shortcuts'][$key])) {
-				$data['shortcuts'][$key] = $value;
-			}
+		if (!is_array($values)) {
+			return;
 		}
+
+		$data['shortcuts'] = $values;
 	}
 
 	private function _sort_order(&$data, $value) {
@@ -210,9 +210,7 @@ class FreshRSS_ConfigurationSetter {
 
 	private function _mark_when(&$data, $values) {
 		foreach ($values as $key => $value) {
-			if (isset($data['mark_when'][$key])) {
-				$data['mark_when'][$key] = $this->handleBool($value);
-			}
+			$data['mark_when'][$key] = $this->handleBool($value);
 		}
 	}
 

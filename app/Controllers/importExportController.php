@@ -151,7 +151,7 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 	private function importOpml($opml_file) {
 		$opml_array = array();
 		try {
-			$opml_array = libopml_parse_string($opml_file);
+			$opml_array = libopml_parse_string($opml_file, false);
 		} catch (LibOPML_Exception $e) {
 			Minz_Log::warning($e->getMessage());
 			return true;

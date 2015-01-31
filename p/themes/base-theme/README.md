@@ -8,5 +8,5 @@ A base theme for [FreshRSS](http://freshrss.org)
 3. Choose your new theme in FreshRSS configuration
 4. Enjoy your wonderful theme!
 
-Don't hesitate to share your theme with us [on Github](https://github.com/marienfressinaud/FreshRSS/issues) :)
+Don't hesitate to share your theme with us [on Github](https://github.com/FreshRSS/FreshRSS/issues) :)
 

@@ -12,6 +12,7 @@ return array(
 		'http' => 'HTTP (pour utilisateurs avancés avec HTTPS)',
 		'none' => 'Aucune (dangereux)',
 		'password_form' => 'Mot de passe<br /><small>(pour connexion par formulaire)</small>',
+		'password_format' => '7 caractères minimum',
 		'persona' => 'Mozilla Persona (moderne, requiert JavaScript)',
 		'type' => 'Méthode d’authentification',
 	),

@@ -102,13 +102,14 @@ class FreshRSS_subscription_Controller extends Minz_ActionController {
 
 			invalidateHttpCache();
 
-			if ($feedDAO->updateFeed($id, $values)) {
+			$url_redirect = array('c' => 'subscription', 'params' => array('id' => $id));
+			if ($feedDAO->updateFeed($id, $values) !== false) {
 				$this->view->feed->_category($cat);
 				$this->view->feed->faviconPrepare();
 
-				Minz_Request::good(_t('feedback.sub.feed.updated'), array('c' => 'subscription', 'params' => array('id' => $id)));
+				Minz_Request::good(_t('feedback.sub.feed.updated'), $url_redirect);
 			} else {
-				Minz_Request::bad(_t('feedback.sub.error'), array('c' => 'subscription'));
+				Minz_Request::bad(_t('feedback.sub.feed.error'), $url_redirect);
 			}
 		}
 	}

@@ -23,42 +23,13 @@ class Minz_Error {
 		$logs = self::processLogs ($logs);
 		$error_filename = APP_PATH . '/Controllers/errorController.php';
 
-		switch ($code) {
-			case 200 :
-				header('HTTP/1.1 200 OK');
-				break;
-			case 403 :
-				header('HTTP/1.1 403 Forbidden');
-				break;
-			case 404 :
-				header('HTTP/1.1 404 Not Found');
-				break;
-			case 500 :
-				header('HTTP/1.1 500 Internal Server Error');
-				break;
-			case 503 :
-				header('HTTP/1.1 503 Service Unavailable');
-				break;
-			default :
-				header('HTTP/1.1 500 Internal Server Error');
-		}
-
 		if (file_exists ($error_filename)) {
-			$params = array (
-				'code' => $code,
-				'logs' => $logs
-			);
+			Minz_Session::_param('error_code', $code);
+			Minz_Session::_param('error_logs', $logs);
 
-			if ($redirect) {
-				Minz_Request::forward (array (
-					'c' => 'error'
-				), true);
-			} else {
-				Minz_Request::forward (array (
-					'c' => 'error',
-					'params' => $params
-				), false);
-			}
+			Minz_Request::forward (array (
+				'c' => 'error'
+			), $redirect);
 		} else {
 			echo '<h1>An error occured</h1>' . "\n";
 

@@ -879,6 +879,12 @@ a.btn {
 	border-radius: 3px;
 }
 
+/*=== Slider */
+#slider {
+	background-color: #1c1c1c;
+	border-left: 1px solid #666;
+}
+
 /*=== DIVERS */
 /*===========*/
 .aside.aside_feed .nav-form input,

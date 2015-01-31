@@ -180,7 +180,7 @@ function sanitizeHTML($data, $base = '') {
 function get_content_by_parsing ($url, $path) {
 	require_once (LIB_PATH . '/lib_phpQuery.php');
 
-	syslog(LOG_INFO, 'FreshRSS GET ' . $url);
+	Minz_Log::notice('FreshRSS GET ' . url_remove_credentials($url));
 	$html = file_get_contents ($url);
 
 	if ($html) {
@@ -248,7 +248,7 @@ function listUsers() {
  * @return a Minz_Configuration object, null if the configuration cannot be loaded.
  */
 function get_user_configuration($username) {
-	$namespace = time() . '_user_' . $username;
+	$namespace = 'user_' . $username;
 	try {
 		Minz_Configuration::register($namespace,
 		                             join_path(USERS_PATH, $username, 'config.php'),
@@ -428,4 +428,14 @@ function array_push_unique(&$array, $value) {
  */
 function array_remove(&$array, $value) {
 	$array = array_diff($array, array($value));
+}
+
+
+/**
+ * Sanitize a URL by removing HTTP credentials.
+ * @param $url the URL to sanitize.
+ * @return the same URL without HTTP credentials.
+ */
+function url_remove_credentials($url) {
+	return preg_replace('/[^\/]*:[^:]*@/', '', $url);
 }

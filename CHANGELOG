@@ -1,4 +1,29 @@
-# Journal des modifications
+# Changelog
+
+## 2015-01-31 FreshRSS 1.0.0 / 1.1.0 (beta)
+
+* UI
+	* Slider math with Dark theme
+	* Add a message if request failed for mark as read / favourite
+* I18n
+	* Fix some sentences
+	* Add German as a supported language
+	* Add some indications on password format
+* Bug fixing
+	* Some shortcuts was never saved
+	* Global view didn't work if set by default
+	* Minz_Error was badly raised
+	* Feed update failed if nothing had changed (MySQL only)
+	* CRON task failed with multiple users
+	* Tricky bug caused by cookie path
+	* Email sharing was badly supported (no urlencode())
+* Misc.
+	* Add a CREDIT file with contributor names
+	* Update lib_opml
+	* Default favicon is now served by HTTP code 200
+	* Change calls to syslog by Minz_Log::notice
+	* HTTP credentials are no longer logged
+
 
 ## 2015-01-15 FreshRSS 0.9.4 (beta)
 

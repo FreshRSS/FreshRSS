@@ -75,6 +75,7 @@ input {
 }
 textarea,
 input[type="file"],
+input.long,
 input.extend:focus {
 	width: 300px;
 }
@@ -485,7 +486,7 @@ a.btn {
 	text-decoration: none;
 }
 .flux .item.date {
-	width: 145px;
+	width: 155px;
 	text-align: right;
 	overflow: hidden;
 }
