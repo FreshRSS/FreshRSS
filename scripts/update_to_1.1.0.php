@@ -166,7 +166,7 @@ function apply_update() {
 
 	if (FRESHRSS_VERSION === '0.9.4') {
 		// We are already ok!
-		continue;
+		return;
 	}
 
 	// Fix the system config
