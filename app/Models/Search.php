@@ -5,8 +5,6 @@
  *
  * It allows to extract meaningful bits of the search and store them in a
  * convenient object
- *
- * @author alexis
  */
 class FreshRSS_Search {
 
