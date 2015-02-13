@@ -32,7 +32,7 @@ class FreshRSS_Search {
 		$input = $this->parsePubdateSearch($input);
 		$input = $this->parseDateSearch($input);
 		$input = $this->parseTagsSeach($input);
-		$this->search = $input;
+		$this->search = $this->cleanSearch($input);
 	}
 
 	public function getRawInput() {
@@ -86,12 +86,13 @@ class FreshRSS_Search {
 	private function parseIntitleSearch($input) {
 		if (preg_match('/intitle:(?P<delim>[\'"])(?P<search>.*)(?P=delim)/U', $input, $matches)) {
 			$this->intitle = $matches['search'];
-			$input = str_replace($matches[0], '', $input);
-		} else if (preg_match('/intitle:(?P<search>\w*)/', $input, $matches)) {
-			$this->intitle = $matches['search'];
-			$input = str_replace($matches[0], '', $input);
+			return str_replace($matches[0], '', $input);
 		}
-		return $this->cleanSearch($input);
+		if (preg_match('/intitle:(?P<search>\w*)/', $input, $matches)) {
+			$this->intitle = $matches['search'];
+			return str_replace($matches[0], '', $input);
+		}
+		return $input;
 	}
 
 	/**
@@ -107,12 +108,13 @@ class FreshRSS_Search {
 	private function parseAuthorSearch($input) {
 		if (preg_match('/author:(?P<delim>[\'"])(?P<search>.*)(?P=delim)/U', $input, $matches)) {
 			$this->author = $matches['search'];
-			$input = str_replace($matches[0], '', $input);
-		} else if (preg_match('/author:(?P<search>\w*)/', $input, $matches)) {
-			$this->author = $matches['search'];
-			$input = str_replace($matches[0], '', $input);
+			return str_replace($matches[0], '', $input);
 		}
-		return $this->cleanSearch($input);
+		if (preg_match('/author:(?P<search>\w*)/', $input, $matches)) {
+			$this->author = $matches['search'];
+			return str_replace($matches[0], '', $input);
+		}
+		return $input;
 	}
 
 	/**
@@ -126,9 +128,9 @@ class FreshRSS_Search {
 	private function parseInurlSearch($input) {
 		if (preg_match('/inurl:(?P<search>[^\s]*)/', $input, $matches)) {
 			$this->inurl = $matches['search'];
-			$input = str_replace($matches[0], '', $input);
+			return str_replace($matches[0], '', $input);
 		}
-		return $this->cleanSearch($input);
+		return $input;
 	}
 
 	/**
@@ -142,9 +144,9 @@ class FreshRSS_Search {
 	private function parseDateSearch($input) {
 		if (preg_match('/date:(?P<search>[^\s]*)/', $input, $matches)) {
 			list($this->min_date, $this->max_date) = parseDateInterval($matches['search']);
-			$input = str_replace($matches[0], '', $input);
+			return str_replace($matches[0], '', $input);
 		}
-		return $this->cleanSearch($input);
+		return $input;
 	}
 
 	/**
@@ -158,9 +160,9 @@ class FreshRSS_Search {
 	private function parsePubdateSearch($input) {
 		if (preg_match('/pubdate:(?P<search>[^\s]*)/', $input, $matches)) {
 			list($this->min_pubdate, $this->max_pubdate) = parseDateInterval($matches['search']);
-			$input = str_replace($matches[0], '', $input);
+			return str_replace($matches[0], '', $input);
 		}
-		return $this->cleanSearch($input);
+		return $input;
 	}
 
 	/**
@@ -174,11 +176,17 @@ class FreshRSS_Search {
 	private function parseTagsSeach($input) {
 		if (preg_match_all('/#(?P<search>[^\s]+)/', $input, $matches)) {
 			$this->tags = $matches['search'];
-			$input = str_replace($matches[0], '', $input);
+			return str_replace($matches[0], '', $input);
 		}
-		return $this->cleanSearch($input);
+		return $input;
 	}
 
+	/**
+	 * Remove all unnecessary spaces in the search
+	 *
+	 * @param string $input
+	 * @return string
+	 */
 	private function cleanSearch($input) {
 		$input = preg_replace('/\s+/', ' ', $input);
 		return trim($input);
