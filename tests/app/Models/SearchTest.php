@@ -230,6 +230,7 @@ class SearchTest extends \PHPUnit_Framework_TestCase {
 		$this->assertEquals($max_pubdate_value, $search->getMaxPubdate());
 		$this->assertEquals($tags_value, $search->getTags());
 		$this->assertEquals($search_value, $search->getSearch());
+		$this->assertEquals($input, $search->getRawInput());
 	}
 
 	public function provideMultipleSearch() {
