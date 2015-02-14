@@ -152,7 +152,7 @@ class FreshRSS_Share {
 	 * Return the current name of the share option.
 	 */
 	public function name($real = false) {
-		if ($real || is_null($this->custom_name)) {
+		if ($real || is_null($this->custom_name) || empty($this->custom_name)) {
 			return $this->name;
 		} else {
 			return $this->custom_name;
