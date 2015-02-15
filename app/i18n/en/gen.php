@@ -107,6 +107,7 @@ return array(
 		'de' => 'Deutsch',
 		'en' => 'English',
 		'fr' => 'Français',
+		'he' => 'עברית',
 	),
 	'menu' => array(
 		'about' => 'About',
