@@ -23,11 +23,9 @@ If you have to create a new ticket, try to apply the following advices:
 Did you want to fix a bug? To keep a great coordination between collaborators, you will have to follow these indications:
 
 1. Be sure the bug is associated to a ticket and say you work on it.
-2. Fork the FreshRSS repository.
-3. Get your repository `git clone -b dev git@github.com:your_username/FreshRSS.git && cd FreshRSS`
-4. It's better to create a dedicated branch to fix your bug: the name of the branch must be explicit and being prefixed by the related ticket id. For instance, `783-contributing-file` to fix [ticket #783](https://github.com/FreshRSS/FreshRSS/issues/783).
-5. Once you'll have finished, commit your work, push your branch upstream (`git push --set-upstream origin your_branch_name`) and do a [pull request](https://github.com/FreshRSS/FreshRSS/compare) on the **dev branch**.
-6. Wait and see.
+2. [Fork this project repository](https://help.github.com/articles/fork-a-repo/).
+3. [Create a new branch](https://help.github.com/articles/creating-and-deleting-branches-within-your-repository/). The name of the branch must be explicit and being prefixed by the related ticket id. For instance, `783-contributing-file` to fix [ticket #783](https://github.com/FreshRSS/FreshRSS/issues/783).
+4. Make your changes to your fork and [send a pull request](https://help.github.com/articles/using-pull-requests/) on the **dev branch**.
 
 If you have to write code, please follow [our coding style recommendations](http://doc2.freshrss.org/en/Developer_documentation/First_steps/Coding_style).
 
@@ -39,18 +37,16 @@ You have great ideas, yes! Don't be shy and open [a new ticket](https://github.c
 
 If your idea is nice, we'll have a look at it.
 
-TODO: complete
-
 ## Contribute to internationalization (i18n)
 
 If you want to improve internationalization, please open a new ticket first and follow indications from « Fix a bug » section.
 
-TODO: finish
+Translations are present in the subdirectories of `./app/i18n/`.
 
-We are working on a better way to handle internationalization.
+We are working on a better way to handle internationalization but don't hesitate to suggest any idea!
 
 ## Contribute to documentation
 
 The documentation needs a lot of improvements in order to be more useful to new contributors and we are working on it. If you want to give some help, meet us on [the dedicated repository](https://github.com/FreshRSS/documentation)!
 
-TODO: finish
+The best is to open tickets to ask your questions or to do any suggestions.
