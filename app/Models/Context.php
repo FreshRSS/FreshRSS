@@ -301,4 +301,5 @@ class FreshRSS_Context {
 		}
 		return false;
 	}
+
 }
