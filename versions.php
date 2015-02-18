@@ -12,4 +12,5 @@ return array(
 	'1.1.0' => '1.1.1',  // don't exist yet
 	'0.8-dev' => 'dev',
 	'0.10-dev' => 'dev',
+	'0.12-dev' => 'dev',
 );
