@@ -55,5 +55,3 @@ We are working on a better way to handle internationalization but don't hesitate
 ## Contribute to documentation
 
 The documentation needs a lot of improvements in order to be more useful to new contributors and we are working on it. If you want to give some help, meet us on [the dedicated repository](https://github.com/FreshRSS/documentation)!
-
-The best is to open tickets to ask your questions or to do any suggestions.
