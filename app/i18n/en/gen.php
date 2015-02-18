@@ -156,7 +156,7 @@ return array(
 		'damn' => 'Damn!',
 		'default_category' => 'Uncategorized',
 		'no' => 'No',
-		'not_applicable' => 'N/A',
+		'not_applicable' => 'Not available',
 		'ok' => 'Ok!',
 		'or' => 'or',
 		'yes' => 'Yes',

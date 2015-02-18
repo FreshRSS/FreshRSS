@@ -156,7 +156,7 @@ return array(
 		'damn' => 'Arf !',
 		'default_category' => 'Sans catégorie',
 		'no' => 'Non',
-		'not_applicable' => 'N/A',
+		'not_applicable' => 'Non disponible',
 		'ok' => 'Ok !',
 		'or' => 'ou',
 		'yes' => 'Oui',
