@@ -11,7 +11,7 @@ require_once(LIB_PATH . '/lib_date.php');
 class FreshRSS_Search {
 
 	// This contains the user input string
-	private $raw_input;
+	private $raw_input = '';
 	// The following properties are extracted from the raw input
 	private $intitle;
 	private $min_date;

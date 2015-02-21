@@ -10,7 +10,7 @@ class SearchTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function test__construct_whenInputIsEmpty_getsOnlyNullValues($input) {
 		$search = new FreshRSS_Search($input);
-		$this->assertNull($search->getRawInput());
+		$this->assertEquals('', $search->getRawInput());
 		$this->assertNull($search->getIntitle());
 		$this->assertNull($search->getMinDate());
 		$this->assertNull($search->getMaxDate());
