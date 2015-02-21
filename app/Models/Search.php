@@ -36,6 +36,10 @@ class FreshRSS_Search {
 		$input = $this->parseTagsSeach($input);
 		$this->search = $this->cleanSearch($input);
 	}
+	
+	public function __toString() {
+		return $this->getRawInput();
+	}
 
 	public function getRawInput() {
 		return $this->raw_input;
