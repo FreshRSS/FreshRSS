@@ -1,5 +1,7 @@
 <?php
 
+require_once(LIB_PATH . '/lib_date.php');
+
 /**
  * Contains a search from the search form.
  *
@@ -9,7 +11,7 @@
 class FreshRSS_Search {
 
 	// This contains the user input string
-	private $raw_input;
+	private $raw_input = '';
 	// The following properties are extracted from the raw input
 	private $intitle;
 	private $min_date;
@@ -33,6 +35,10 @@ class FreshRSS_Search {
 		$input = $this->parseDateSearch($input);
 		$input = $this->parseTagsSeach($input);
 		$this->search = $this->cleanSearch($input);
+	}
+	
+	public function __toString() {
+		return $this->getRawInput();
 	}
 
 	public function getRawInput() {

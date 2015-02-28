@@ -30,7 +30,7 @@ class FreshRSS_Context {
 	public static $state = 0;
 	public static $order = 'DESC';
 	public static $number = 0;
-	public static $search = '';
+	public static $search;
 	public static $first_id = '';
 	public static $next_id = '';
 	public static $id_max = '';

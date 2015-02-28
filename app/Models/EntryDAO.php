@@ -441,53 +441,45 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 			$where .= 'AND e1.id >= ' . $date_min . '000000 ';
 		}
 		$search = '';
-		if ($filter !== '') {
-			require_once(LIB_PATH . '/lib_date.php');
-			$filter = trim($filter);
-			$filter = addcslashes($filter, '\\%_');
-			$terms = array_unique(explode(' ', $filter));
-			//sort($terms);	//Put #tags first	//TODO: Put the cheapest filters first
-			foreach ($terms as $word) {
-				$word = trim($word);
-				if (stripos($word, 'intitle:') === 0) {
-					$word = substr($word, strlen('intitle:'));
-					$search .= 'AND e1.title LIKE ? ';
-					$values[] = '%' . $word .'%';
-				} elseif (stripos($word, 'inurl:') === 0) {
-					$word = substr($word, strlen('inurl:'));
-					$search .= 'AND CONCAT(e1.link, e1.guid) LIKE ? ';
-					$values[] = '%' . $word .'%';
-				} elseif (stripos($word, 'author:') === 0) {
-					$word = substr($word, strlen('author:'));
-					$search .= 'AND e1.author LIKE ? ';
-					$values[] = '%' . $word .'%';
-				} elseif (stripos($word, 'date:') === 0) {
-					$word = substr($word, strlen('date:'));
-					list($minDate, $maxDate) = parseDateInterval($word);
-					if ($minDate) {
-						$search .= 'AND e1.id >= ' . $minDate . '000000 ';
-					}
-					if ($maxDate) {
-						$search .= 'AND e1.id <= ' . $maxDate . '000000 ';
-					}
-				} elseif (stripos($word, 'pubdate:') === 0) {
-					$word = substr($word, strlen('pubdate:'));
-					list($minDate, $maxDate) = parseDateInterval($word);
-					if ($minDate) {
-						$search .= 'AND e1.date >= ' . $minDate . ' ';
-					}
-					if ($maxDate) {
-						$search .= 'AND e1.date <= ' . $maxDate . ' ';
-					}
-				} else {
-					if ($word[0] === '#' && isset($word[1])) {
-						$search .= 'AND e1.tags LIKE ? ';
-						$values[] = '%' . $word .'%';
-					} else {
-						$search .= 'AND ' . $this->sqlconcat('e1.title', $this->isCompressed() ? 'UNCOMPRESS(content_bin)' : 'content') . ' LIKE ? ';
-						$values[] = '%' . $word .'%';
-					}
+		if ($filter !== null) {
+			if ($filter->getIntitle()) {
+				$search .= 'AND e1.title LIKE ? ';
+				$values[] = "%{$filter->getIntitle()}%";
+			}
+			if ($filter->getInurl()) {
+				$search .= 'AND CONCAT(e1.link, e1.guid) LIKE ? ';
+				$values[] = "%{$filter->getInurl()}%";
+			}
+			if ($filter->getAuthor()) {
+				$search .= 'AND e1.author LIKE ? ';
+				$values[] = "%{$filter->getAuthor()}%";
+			}
+			if ($filter->getMinDate()) {
+				$search .= 'AND e1.id >= ? ';
+				$values[] = "{$filter->getMinDate()}000000";
+			}
+			if ($filter->getMaxDate()) {
+				$search .= 'AND e1.id <= ?';
+				$values[] = "{$filter->getMaxDate()}000000";
+			}
+			if ($filter->getMinPubdate()) {
+				$search .= 'AND e1.date >= ? ';
+				$values[] = $filter->getMinPubdate();
+			}
+			if ($filter->getMaxPubdate()) {
+				$search .= 'AND e1.date <= ? ';
+				$values[] = $filter->getMaxPubdate();
+			}
+			if ($filter->getTags()) {
+				$tags = $filter->getTags();
+				foreach ($tags as $tag) {
+					$search .= 'AND e1.tags LIKE ? ';
+					$values[] = "%{$tag}%";
 				}
+			}
+			if ($filter->getSearch()) {
+				$search .= 'AND ' . $this->sqlconcat('e1.title', $this->isCompressed() ? 'UNCOMPRESS(content_bin)' : 'content') . ' LIKE ? ';
+				$values[] = "%{$filter->getSearch()}%";
 			}
 		}
 
