@@ -2,5 +2,5 @@
 
 interface FreshRSS_Searchable {
 
-	public function searchById();
+	public function searchById($id);
 }
