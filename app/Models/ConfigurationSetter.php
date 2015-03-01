@@ -117,12 +117,7 @@ class FreshRSS_ConfigurationSetter {
 	private function _queries(&$data, $values) {
 		$data['queries'] = array();
 		foreach ($values as $value) {
-			$value = array_filter($value);
-			$params = $value;
-			unset($params['name']);
-			unset($params['url']);
-			$value['url'] = Minz_Url::display(array('params' => $params));
-			$data['queries'][] = $value;
+			$data['queries'][] = $value->toArray();
 		}
 	}
 
