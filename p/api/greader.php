@@ -371,7 +371,7 @@ function streamContents($path, $include_target, $start_time, $count, $order, $ex
 	}
 
 	$entryDAO = FreshRSS_Factory::createEntryDao();
-	$entries = $entryDAO->listWhere($type, $include_target, $state, $order === 'o' ? 'ASC' : 'DESC', $count, $continuation, '', $start_time);
+	$entries = $entryDAO->listWhere($type, $include_target, $state, $order === 'o' ? 'ASC' : 'DESC', $count, $continuation, new FreshRSS_Search(''), $start_time);
 
 	$items = array();
 	foreach ($entries as $entry) {
