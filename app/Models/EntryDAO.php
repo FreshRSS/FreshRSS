@@ -459,7 +459,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 				$values[] = "{$filter->getMinDate()}000000";
 			}
 			if ($filter->getMaxDate()) {
-				$search .= 'AND e1.id <= ?';
+				$search .= 'AND e1.id <= ? ';
 				$values[] = "{$filter->getMaxDate()}000000";
 			}
 			if ($filter->getMinPubdate()) {
