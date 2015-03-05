@@ -465,7 +465,7 @@ function streamContentsItemsIds($streamId, $start_time, $count, $order, $exclude
 	}
 
 	$entryDAO = FreshRSS_Factory::createEntryDao();
-	$ids = $entryDAO->listIdsWhere($type, $id, $state, $order === 'o' ? 'ASC' : 'DESC', $count, '', '', $start_time);
+	$ids = $entryDAO->listIdsWhere($type, $id, $state, $order === 'o' ? 'ASC' : 'DESC', $count, '', new FreshRSS_Search(''), $start_time);
 
 	$itemRefs = array();
 	foreach ($ids as $id) {
