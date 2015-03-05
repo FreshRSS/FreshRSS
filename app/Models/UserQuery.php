@@ -104,11 +104,11 @@ class FreshRSS_UserQuery {
 	 * Parse the query string when it is a "category" query
 	 *
 	 * @param integer $id
-	 * @throws FreshRSS_DAOException
+	 * @throws FreshRSS_DAO_Exception
 	 */
 	private function parseCategory($id) {
 		if (is_null($this->category_dao)) {
-			throw new FreshRSS_DAOException('Category DAO is not loaded i UserQuery');
+			throw new FreshRSS_DAO_Exception('Category DAO is not loaded in UserQuery');
 		}
 		$category = $this->category_dao->searchById($id);
 		if ($category) {
@@ -123,11 +123,11 @@ class FreshRSS_UserQuery {
 	 * Parse the query string when it is a "feed" query
 	 *
 	 * @param integer $id
-	 * @throws FreshRSS_DAOException
+	 * @throws FreshRSS_DAO_Exception
 	 */
 	private function parseFeed($id) {
 		if (is_null($this->feed_dao)) {
-			throw new FreshRSS_DAOException('Feed DAO is not loaded i UserQuery');
+			throw new FreshRSS_DAO_Exception('Feed DAO is not loaded in UserQuery');
 		}
 		$feed = $this->feed_dao->searchById($id);
 		if ($feed) {
