@@ -1,5 +1,5 @@
 <?php
 
-class FreshRSS_DAOException extends \Exception {
+class FreshRSS_DAO_Exception extends \Exception {
 
 }

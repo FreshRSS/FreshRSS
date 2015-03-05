@@ -20,7 +20,7 @@ class UserQueryTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	/**
-	 * @expectedException Exceptions/FreshRSS_DAOException
+	 * @expectedException Exceptions/FreshRSS_DAO_Exception
 	 * @expectedExceptionMessage Category DAO is not loaded in UserQuery
 	 */
 	public function test__construct_whenCategoryQueryAndNoDao_throwsException() {
@@ -48,7 +48,7 @@ class UserQueryTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	/**
-	 * @expectedException Exceptions/FreshRSS_DAOException
+	 * @expectedException Exceptions/FreshRSS_DAO_Exception
 	 * @expectedExceptionMessage Feed DAO is not loaded in UserQuery
 	 */
 	public function test__construct_whenFeedQueryAndNoDao_throwsException() {
