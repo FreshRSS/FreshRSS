@@ -1,6 +1,6 @@
 <?php
 
-class FreshRSS_CategoryDAO extends Minz_ModelPdo implements FreshRSS_Searchable{
+class FreshRSS_CategoryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 	public function addCategory($valuesTmp) {
 		$sql = 'INSERT INTO `' . $this->prefix . 'category`(name) VALUES(?)';
 		$stm = $this->bd->prepare($sql);

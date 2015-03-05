@@ -1,6 +1,6 @@
 <?php
 
-class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable{
+class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 
 	public function isCompressed() {
 		return parent::$sharedDbType !== 'sqlite';
