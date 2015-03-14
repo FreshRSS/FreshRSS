@@ -28,9 +28,9 @@
 				<div class="group-controls">
 					<input type='hidden' id='share_<?php echo $key; ?>_type' name="share[<?php echo $key; ?>][type]" value='<?php echo $share->type(); ?>' />
 					<div class="stick">
-						<input type="text" id="share_<?php echo $key; ?>_name" name="share[<?php echo $key; ?>][name]" class="extend" value="<?php echo $share->name(); ?>" placeholder="<?php echo _t('conf.sharing.share_name'); ?>" size="64" />
+						<input type="text" id="share_<?php echo $key; ?>_name" name="share[<?php echo $key; ?>][name]" class="extend" value="<?php echo $share->name(); ?>" placeholder="<?php echo _t('conf.sharing.share_name'); ?>" size="64" data-leave-validation="<?php echo $share->name(); ?>"/>
 					<?php if ($share->formType() === 'advanced') { ?>
-						<input type="url" id="share_<?php echo $key; ?>_url" name="share[<?php echo $key; ?>][url]" class="extend" value="<?php echo $share->baseUrl(); ?>" placeholder="<?php echo _t('conf.sharing.share_url'); ?>" size="64" />
+						<input type="url" id="share_<?php echo $key; ?>_url" name="share[<?php echo $key; ?>][url]" class="extend" value="<?php echo $share->baseUrl(); ?>" placeholder="<?php echo _t('conf.sharing.share_url'); ?>" size="64" data-leave-validation="<?php echo $share->baseUrl(); ?>"/>
 					<?php } else { ?>
 						<input type="url" id="share_<?php echo $key; ?>_url" name="share[<?php echo $key; ?>][url]" class="extend" value="<?php echo $share->baseUrl(); ?>" placeholder="<?php echo _t('gen.short.not_applicable'); ?>" size="64" disabled/>
 					<?php } ?>
