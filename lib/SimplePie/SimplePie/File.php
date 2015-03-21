@@ -66,7 +66,7 @@ class SimplePie_File
 	var $method = SIMPLEPIE_FILE_SOURCE_NONE;
 	var $permanent_url;	//FreshRSS
 
-	public function __construct($url, $timeout = 10, $redirects = 5, $headers = null, $useragent = null, $force_fsockopen = false)
+	public function __construct($url, $timeout = 10, $redirects = 5, $headers = null, $useragent = null, $force_fsockopen = false, $syslog_enabled = SIMPLEPIE_SYSLOG)
 	{
 		if (class_exists('idna_convert'))
 		{
@@ -79,7 +79,10 @@ class SimplePie_File
 		$this->useragent = $useragent;
 		if (preg_match('/^http(s)?:\/\//i', $url))
 		{
-			// syslog(LOG_INFO, 'SimplePie GET ' . $url);	//FreshRSS
+			if ($syslog_enabled)
+			{
+				syslog(LOG_INFO, 'SimplePie GET ' . $url);	//FreshRSS
+			}
 			if ($useragent === null)
 			{
 				$useragent = ini_get('user_agent');
