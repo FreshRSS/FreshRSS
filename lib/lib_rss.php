@@ -123,6 +123,7 @@ function customSimplePie() {
 	$limits = $system_conf->limits;
 	$simplePie = new SimplePie();
 	$simplePie->set_useragent(_t('gen.freshrss') . '/' . FRESHRSS_VERSION . ' (' . PHP_OS . '; ' . FRESHRSS_WEBSITE . ') ' . SIMPLEPIE_NAME . '/' . SIMPLEPIE_VERSION);
+	$simplePie->set_syslog($system_conf->simplepie_syslog_enabled);
 	$simplePie->set_cache_location(CACHE_PATH);
 	$simplePie->set_cache_duration($limits['cache_duration']);
 	$simplePie->set_timeout($limits['timeout']);

@@ -246,10 +246,10 @@ class FreshRSS_Feed extends Minz_Model {
 				}
 
 				if (($mtime === true) ||($mtime > $this->lastUpdate)) {
-					Minz_Log::notice('FreshRSS no cache ' . $mtime . ' > ' . $this->lastUpdate . ' for ' . $clean_url);
+					//Minz_Log::debug('FreshRSS no cache ' . $mtime . ' > ' . $this->lastUpdate . ' for ' . $clean_url);
 					$this->loadEntries($feed);	// et on charge les articles du flux
 				} else {
-					Minz_Log::notice('FreshRSS use cache for ' . $clean_url);
+					//Minz_Log::debug('FreshRSS use cache for ' . $clean_url);
 					$this->entries = array();
 				}
 

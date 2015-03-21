@@ -12,6 +12,7 @@ return array(
 	'auth_type' => 'none',
 	'api_enabled' => false,
 	'unsafe_autologin_enabled' => false,
+	'simplepie_syslog_enabled' => true,
 	'limits' => array(
 		'cache_duration' => 800,
 		'timeout' => 10,
