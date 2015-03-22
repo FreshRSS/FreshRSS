@@ -1554,14 +1554,14 @@ class SimplePie
 						if ($this->data['md5'] === $md5) {
 							if ($this->syslog_enabled)
 							{
-								syslog(LOG_DEBUG, 'SimplePie MD5 cache match for ' . $this->feed_url);
+								syslog(LOG_DEBUG, 'SimplePie MD5 cache match for ' . SimplePie_Misc::url_remove_credentials($this->feed_url));
 							}
 							$cache->touch();
 							return true;	//Content unchanged even though server did not send a 304
 						} else {
 							if ($this->syslog_enabled)
 							{
-								syslog(LOG_DEBUG, 'SimplePie MD5 cache no match for ' . $this->feed_url);
+								syslog(LOG_DEBUG, 'SimplePie MD5 cache no match for ' . SimplePie_Misc::url_remove_credentials($this->feed_url));
 							}
 							$this->data['md5'] = $md5;
 						}

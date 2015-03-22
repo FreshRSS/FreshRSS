@@ -240,7 +240,7 @@ class FreshRSS_Feed extends Minz_Model {
 					$subscribe_url = $feed->subscribe_url(true);
 				}
 
-				$clean_url = url_remove_credentials($subscribe_url);
+				$clean_url = SimplePie_Misc::url_remove_credentials($subscribe_url);
 				if ($subscribe_url !== null && $subscribe_url !== $url) {
 					$this->_url($clean_url);
 				}

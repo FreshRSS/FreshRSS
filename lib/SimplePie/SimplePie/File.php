@@ -81,7 +81,7 @@ class SimplePie_File
 		{
 			if ($syslog_enabled)
 			{
-				syslog(LOG_INFO, 'SimplePie GET ' . $url);	//FreshRSS
+				syslog(LOG_INFO, 'SimplePie GET ' . SimplePie_Misc::url_remove_credentials($url));	//FreshRSS
 			}
 			if ($useragent === null)
 			{
