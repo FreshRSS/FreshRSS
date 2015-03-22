@@ -2248,7 +2248,7 @@ function embed_wmedia(width, height, link) {
 	 */
 	function url_remove_credentials($url)	//FreshRSS
 	{
-		return preg_replace('#(?<=//)[^/:@]+:[^/:@]+@#', '', $url);
+		return preg_replace('#(?<=^https?://)[^/:@]+:[^/:@]+@#', '', $url);
 	}
 }
 
