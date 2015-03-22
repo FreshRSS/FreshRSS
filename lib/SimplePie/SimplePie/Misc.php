@@ -2240,5 +2240,15 @@ function embed_wmedia(width, height, link) {
 	{
 		// No-op
 	}
+
+	/**
+	 * Sanitize a URL by removing HTTP credentials.
+	 * @param $url the URL to sanitize.
+	 * @return the same URL without HTTP credentials.
+	 */
+	function url_remove_credentials($url)	//FreshRSS
+	{
+		return preg_replace('#(?<=//)[^/:@]+:[^/:@]+@#', '', $url);
+	}
 }
 
