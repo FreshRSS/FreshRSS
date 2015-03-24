@@ -117,7 +117,7 @@ class FreshRSS_ConfigurationSetter {
 	private function _queries(&$data, $values) {
 		$data['queries'] = array();
 		foreach ($values as $value) {
-			if ($value != null) {
+			if ($value instanceof FreshRSS_UserQuery) {
 				$data['queries'][] = $value->toArray();
 			}
 		}
