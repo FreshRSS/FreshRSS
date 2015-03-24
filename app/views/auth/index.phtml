@@ -9,7 +9,7 @@
 		<div class="form-group">
 			<label class="group-name" for="auth_type"><?php echo _t('admin.auth.type'); ?></label>
 			<div class="group-controls">
-				<select id="auth_type" name="auth_type" required="required">
+				<select id="auth_type" name="auth_type" required="required" data-leave-validation="<?php echo FreshRSS_Context::$system_conf->auth_type; ?>">
 					<?php if (!in_array(FreshRSS_Context::$system_conf->auth_type, array('form', 'persona', 'http_auth', 'none'))) { ?>
 						<option selected="selected"></option>
 					<?php } ?>
@@ -25,7 +25,7 @@
 			<div class="group-controls">
 				<label class="checkbox" for="anon_access">
 					<input type="checkbox" name="anon_access" id="anon_access" value="1"<?php echo FreshRSS_Context::$system_conf->allow_anonymous ? ' checked="checked"' : '',
-						FreshRSS_Auth::accessNeedsAction() ? '' : ' disabled="disabled"'; ?> />
+						FreshRSS_Auth::accessNeedsAction() ? '' : ' disabled="disabled"'; ?> data-leave-validation="<?php echo FreshRSS_Context::$system_conf->allow_anonymous; ?>"/>
 					<?php echo _t('admin.auth.allow_anonymous', FreshRSS_Context::$system_conf->default_user); ?>
 				</label>
 			</div>
@@ -35,7 +35,7 @@
 			<div class="group-controls">
 				<label class="checkbox" for="anon_refresh">
 					<input type="checkbox" name="anon_refresh" id="anon_refresh" value="1"<?php echo FreshRSS_Context::$system_conf->allow_anonymous_refresh ? ' checked="checked"' : '',
-						FreshRSS_Auth::accessNeedsAction() ? '' : ' disabled="disabled"'; ?> />
+						FreshRSS_Auth::accessNeedsAction() ? '' : ' disabled="disabled"'; ?> data-leave-validation="<?php echo FreshRSS_Context::$system_conf->allow_anonymous_refresh; ?>"/>
 					<?php echo _t('admin.auth.allow_anonymous_refresh'); ?>
 				</label>
 			</div>
@@ -45,7 +45,7 @@
 			<div class="group-controls">
 				<label class="checkbox" for="unsafe_autologin">
 					<input type="checkbox" name="unsafe_autologin" id="unsafe_autologin" value="1"<?php echo FreshRSS_Context::$system_conf->unsafe_autologin_enabled ? ' checked="checked"' : '',
-						FreshRSS_Auth::accessNeedsAction() ? '' : ' disabled="disabled"'; ?> />
+						FreshRSS_Auth::accessNeedsAction() ? '' : ' disabled="disabled"'; ?> data-leave-validation="<?php echo FreshRSS_Context::$system_conf->unsafe_autologin_enabled; ?>"/>
 					<?php echo _t('admin.auth.unsafe_autologin'); ?>
 					<kbd><?php echo Minz_Url::display(array('c' => 'auth', 'a' => 'login', 'params' => array('u' => 'alice', 'p' => '1234')), 'html', true); ?></kbd>
 				</label>
@@ -58,7 +58,7 @@
 			<?php $token = FreshRSS_Context::$user_conf->token; ?>
 			<div class="group-controls">
 				<input type="text" id="token" name="token" value="<?php echo $token; ?>" placeholder="<?php echo _t('gen.short.blank_to_disable'); ?>"<?php
-					echo FreshRSS_Auth::accessNeedsAction() ? '' : ' disabled="disabled"'; ?> />
+					echo FreshRSS_Auth::accessNeedsAction() ? '' : ' disabled="disabled"'; ?> data-leave-validation="<?php echo $token; ?>"/>
 				<?php echo _i('help'); ?> <?php echo _t('admin.auth.token_help'); ?>
 				<kbd><?php echo Minz_Url::display(array('params' => array('output' => 'rss', 'token' => $token)), 'html', true); ?></kbd>
 			</div>
@@ -69,7 +69,7 @@
 			<div class="group-controls">
 				<label class="checkbox" for="api_enabled">
 					<input type="checkbox" name="api_enabled" id="api_enabled" value="1"<?php echo FreshRSS_Context::$system_conf->api_enabled ? ' checked="checked"' : '',
-						FreshRSS_Auth::accessNeedsLogin() ? '' : ' disabled="disabled"'; ?> />
+						FreshRSS_Auth::accessNeedsLogin() ? '' : ' disabled="disabled"'; ?> data-leave-validation="<?php echo FreshRSS_Context::$system_conf->api_enabled; ?>"/>
 					<?php echo _t('admin.auth.api_enabled'); ?>
 				</label>
 			</div>

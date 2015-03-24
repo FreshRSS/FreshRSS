@@ -1229,6 +1229,33 @@ function init_slider_observers() {
 	});
 }
 
+function init_configuration_alert() {
+	$(window).on('beforeunload', function(e){
+		if (e.originalEvent.explicitOriginalTarget.type === 'submit') {
+			// we don't want an alert when submitting the form with the submit button
+			return;
+		}
+		if ($(e.originalEvent.explicitOriginalTarget).attr('data-leave-validation') !== undefined) {
+			// we don't want an alert when submitting the form by pressing the enter key
+			return;
+		}
+		var fields = $("[data-leave-validation]");
+		for (var i = 0; i < fields.length; i++) {
+			if ($(fields[i]).attr('type') === 'checkbox' || $(fields[i]).attr('type') === 'radio') {
+				// The use of != is done on purpose to check boolean against integer
+				if ($(fields[i]).is(':checked') != $(fields[i]).attr('data-leave-validation')) {
+					return false;
+				}
+			} else {
+				if ($(fields[i]).attr('data-leave-validation') !== $(fields[i]).val()) {
+					return false;
+				}
+			}
+		}
+		return;
+	});
+}
+
 function init_all() {
 	if (!(window.$ && window.context)) {
 		if (window.console) {
@@ -1260,6 +1287,7 @@ function init_all() {
 		init_password_observers();
 		init_stats_observers();
 		init_slider_observers();
+		init_configuration_alert();
 	}
 
 	if (window.console) {
