@@ -255,6 +255,7 @@ class FreshRSS_Feed extends Minz_Model {
 
 				$feed->__destruct();	//http://simplepie.org/wiki/faq/i_m_getting_memory_leaks
 				unset($feed);
+				//TODO: Return a different information in case of cache/no-cache, and give access to the GUIDs in case of cache
 			}
 		}
 	}
