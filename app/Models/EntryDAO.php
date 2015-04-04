@@ -6,20 +6,57 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 		return parent::$sharedDbType !== 'sqlite';
 	}
 
-	public function addEntryPrepare() {
-		$sql = 'INSERT INTO `' . $this->prefix . 'entry`(id, guid, title, author, '
-		     . ($this->isCompressed() ? 'content_bin' : 'content')
-		     . ', link, date, is_read, is_favorite, id_feed, tags) '
-		     . 'VALUES(?, ?, ?, ?, '
-		     . ($this->isCompressed() ? 'COMPRESS(?)' : '?')
-		     . ', ?, ?, ?, ?, ?, ?)';
-		return $this->bd->prepare($sql);
+	protected function autoAddColumn($errorInfo) {
+		if (isset($errorInfo[0])) {
+			if ($errorInfo[0] == '42S22') {	//ER_BAD_FIELD_ERROR
+				$hasTransaction = false;
+				try {
+					$stm = null;
+					if (stripos($errorInfo[2], 'lastSeen') !== false) {	//v1.2
+						if (!$this->bd->inTransaction()) {
+							$this->bd->beginTransaction();
+							$hasTransaction = true;
+						}
+						$stm = $this->bd->prepare('ALTER TABLE `' . $this->prefix . 'entry` ADD COLUMN lastSeen INT(11) NOT NULL');
+						if ($stm && $stm->execute()) {
+							$stm = $this->bd->prepare('CREATE INDEX entry_lastSeen_index ON `' . $this->prefix . 'entry`(`lastSeen`);');	//"IF NOT EXISTS" does not exist in MySQL 5.7
+							if ($stm && $stm->execute()) {
+								if ($hasTransaction) {
+									$this->bd->commit();
+								}
+								return true;
+							}
+						}
+						if ($hasTransaction) {
+							$this->bd->rollBack();
+						}
+					} elseif (stripos($errorInfo[2], 'hash') !== false) {	//v1.2
+						$stm = $this->bd->prepare('ALTER TABLE `' . $this->prefix . 'entry` ADD COLUMN hash BINARY(16) NOT NULL');
+						return $stm && $stm->execute();
+					}
+				} catch (Exception $e) {
+					Minz_Log::debug('FreshRSS_EntryDAO::autoAddColumn error: ' . $e->getMessage());
+					if ($hasTransaction) {
+						$this->bd->rollBack();
+					}
+				}
+			}
+		}
+		return false;
 	}
 
-	public function addEntry($valuesTmp, $preparedStatement = null) {
-		$stm = $preparedStatement === null ?
-				FreshRSS_EntryDAO::addEntryPrepare() :
-				$preparedStatement;
+	private $addEntryPrepared = null;
+
+	public function addEntry($valuesTmp) {
+		if ($this->addEntryPrepared === null) {
+			$sql = 'INSERT INTO `' . $this->prefix . 'entry` (id, guid, title, author, '
+			     . ($this->isCompressed() ? 'content_bin' : 'content')
+			     . ', link, date, lastSeen, hash, is_read, is_favorite, id_feed, tags) '
+			     . 'VALUES(?, ?, ?, ?, '
+			     . ($this->isCompressed() ? 'COMPRESS(?)' : '?')
+			     . ', ?, ?, ?, X?, ?, ?, ?, ?)';
+			$this->addEntryPrepared = $this->bd->prepare($sql);
+		}
 
 		$values = array(
 			$valuesTmp['id'],
@@ -29,55 +66,65 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 			$valuesTmp['content'],
 			substr($valuesTmp['link'], 0, 1023),
 			$valuesTmp['date'],
+			time(),
+			$valuesTmp['hash'],
 			$valuesTmp['is_read'] ? 1 : 0,
 			$valuesTmp['is_favorite'] ? 1 : 0,
 			$valuesTmp['id_feed'],
 			substr($valuesTmp['tags'], 0, 1023),
 		);
 
-		if ($stm && $stm->execute($values)) {
+		if ($this->addEntryPrepared && $this->addEntryPrepared->execute($values)) {
 			return $this->bd->lastInsertId();
 		} else {
-			$info = $stm == null ? array(2 => 'syntax error') : $stm->errorInfo();
-			if ((int)($info[0] / 1000) !== 23) {	//Filter out "SQLSTATE Class code 23: Constraint Violation" because of expected duplicate entries
+			$info = $this->addEntryPrepared == null ? array(2 => 'syntax error') : $this->addEntryPrepared->errorInfo();
+			if ($this->autoAddColumn($info)) {
+				return $this->addEntry($valuesTmp);
+			} elseif ((int)($info[0] / 1000) !== 23) {	//Filter out "SQLSTATE Class code 23: Constraint Violation" because of expected duplicate entries
 				Minz_Log::error('SQL error addEntry: ' . $info[0] . ': ' . $info[1] . ' ' . $info[2]
 				. ' while adding entry in feed ' . $valuesTmp['id_feed'] . ' with title: ' . $valuesTmp['title']);
-			} /*else {
-				Minz_Log::debug('SQL error ' . $info[0] . ': ' . $info[1] . ' ' . $info[2]
-				. ' while adding entry in feed ' . $valuesTmp['id_feed'] . ' with title: ' . $valuesTmp['title']);
-			}*/
+			}
 			return false;
 		}
 	}
 
-	public function addEntryObject($entry, $conf, $feedHistory) {
-		$existingGuids = array_fill_keys(
-			$this->listLastGuidsByFeed($entry->feed(), 20), 1
+	private $updateEntryPrepared = null;
+
+	public function updateEntry($valuesTmp) {
+		if ($this->updateEntryPrepared === null) {
+			$sql = 'UPDATE `' . $this->prefix . 'entry` '
+			     . 'SET title=?, author=?, '
+			     . ($this->isCompressed() ? 'content_bin=COMPRESS(?)' : 'content=?')
+			     . ', link=?, date=?, lastSeen=?, hash=X?, is_read=?, tags=? '
+			     . 'WHERE id_feed=? AND guid=?';
+			$this->updateEntryPrepared = $this->bd->prepare($sql);
+		}
+
+		$values = array(
+			substr($valuesTmp['title'], 0, 255),
+			substr($valuesTmp['author'], 0, 255),
+			$valuesTmp['content'],
+			substr($valuesTmp['link'], 0, 1023),
+			$valuesTmp['date'],
+			time(),
+			$valuesTmp['hash'],
+			$valuesTmp['is_read'] ? 1 : 0,
+			substr($valuesTmp['tags'], 0, 1023),
+			$valuesTmp['id_feed'],
+			substr($valuesTmp['guid'], 0, 760),
 		);
 
-		$nb_month_old = max($conf->old_entries, 1);
-		$date_min = time() - (3600 * 24 * 30 * $nb_month_old);
-
-		$eDate = $entry->date(true);
-
-		if ($feedHistory == -2) {
-			$feedHistory = $conf->keep_history_default;
+		if ($this->updateEntryPrepared && $this->updateEntryPrepared->execute($values)) {
+			return $this->bd->lastInsertId();
+		} else {
+			$info = $this->updateEntryPrepared == null ? array(2 => 'syntax error') : $this->updateEntryPrepared->errorInfo();
+			if ($this->autoAddColumn($info)) {
+				return $this->updateEntry($valuesTmp);
+			}
+			Minz_Log::error('SQL error updateEntry: ' . $info[0] . ': ' . $info[1] . ' ' . $info[2]
+				. ' while updating entry with GUID ' . $valuesTmp['guid'] . ' in feed ' . $valuesTmp['id_feed']);
+			return false;
 		}
-
-		if (!isset($existingGuids[$entry->guid()]) &&
-				($feedHistory != 0 || $eDate >= $date_min || $entry->isFavorite())) {
-			$values = $entry->toArray();
-
-			$useDeclaredDate = empty($existingGuids);
-			$values['id'] = ($useDeclaredDate || $eDate < $date_min) ?
-				min(time(), $eDate) . uSecString() :
-				uTimeString();
-
-			return $this->addEntry($values);
-		}
-
-		// We don't return Entry object to avoid a research in DB
-		return -1;
 	}
 
 	/**
@@ -93,6 +140,9 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 	public function markFavorite($ids, $is_favorite = true) {
 		if (!is_array($ids)) {
 			$ids = array($ids);
+		}
+		if (count($ids) < 1) {
+			return 0;
 		}
 		$sql = 'UPDATE `' . $this->prefix . 'entry` '
 		     . 'SET is_favorite=? '
@@ -296,11 +346,11 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 	 *
 	 * If $idMax equals 0, a deprecated debug message is logged
 	 *
-	 * @param integer $id feed ID
+	 * @param integer $id_feed feed ID
 	 * @param integer $idMax fail safe article ID
 	 * @return integer affected rows
 	 */
-	public function markReadFeed($id, $idMax = 0) {
+	public function markReadFeed($id_feed, $idMax = 0) {
 		if ($idMax == 0) {
 			$idMax = time() . '000000';
 			Minz_Log::debug('Calling markReadFeed(0) is deprecated!');
@@ -310,7 +360,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 		$sql = 'UPDATE `' . $this->prefix . 'entry` '
 			 . 'SET is_read=1 '
 			 . 'WHERE id_feed=? AND is_read=0 AND id <= ?';
-		$values = array($id, $idMax);
+		$values = array($id_feed, $idMax);
 		$stm = $this->bd->prepare($sql);
 		if (!($stm && $stm->execute($values))) {
 			$info = $stm == null ? array(2 => 'syntax error') : $stm->errorInfo();
@@ -324,7 +374,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 			$sql = 'UPDATE `' . $this->prefix . 'feed` '
 				 . 'SET cache_nbUnreads=cache_nbUnreads-' . $affected
 				 . ' WHERE id=?';
-			$values = array($id);
+			$values = array($id_feed);
 			$stm = $this->bd->prepare($sql);
 			if (!($stm && $stm->execute($values))) {
 				$info = $stm == null ? array(2 => 'syntax error') : $stm->errorInfo();
@@ -338,7 +388,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 		return $affected;
 	}
 
-	public function searchByGuid($feed_id, $id) {
+	public function searchByGuid($id_feed, $guid) {
 		// un guid est unique pour un flux donné
 		$sql = 'SELECT id, guid, title, author, '
 		     . ($this->isCompressed() ? 'UNCOMPRESS(content_bin) AS content' : 'content')
@@ -347,8 +397,8 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 		$stm = $this->bd->prepare($sql);
 
 		$values = array(
-			$feed_id,
-			$id
+			$id_feed,
+			$guid,
 		);
 
 		$stm->execute($values);
@@ -519,12 +569,52 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 		return $stm->fetchAll(PDO::FETCH_COLUMN, 0);
 	}
 
-	public function listLastGuidsByFeed($id, $n) {
-		$sql = 'SELECT guid FROM `' . $this->prefix . 'entry` WHERE id_feed=? ORDER BY id DESC LIMIT ' . intval($n);
+	public function listHashForFeedGuids($id_feed, $guids) {
+		if (count($guids) < 1) {
+			return array();
+		}
+		$sql = 'SELECT guid, hex(hash) AS hexHash FROM `' . $this->prefix . 'entry` WHERE id_feed=? AND guid IN (' . str_repeat('?,', count($guids) - 1). '?)';
 		$stm = $this->bd->prepare($sql);
-		$values = array($id);
-		$stm->execute($values);
-		return $stm->fetchAll(PDO::FETCH_COLUMN, 0);
+		$values = array($id_feed);
+		$values = array_merge($values, $guids);
+		if ($stm && $stm->execute($values)) {
+			$result = array();
+			$rows = $stm->fetchAll(PDO::FETCH_ASSOC);
+			foreach ($rows as $row) {
+				$result[$row['guid']] = $row['hexHash'];
+			}
+			return $result;
+		} else {
+			
+			$info = $stm == null ? array(2 => 'syntax error') : $stm->errorInfo();
+			if ($this->autoAddColumn($info)) {
+				return $this->listHashForFeedGuids($id_feed, $guids);
+			}
+			Minz_Log::error('SQL error listHashForFeedGuids: ' . $info[0] . ': ' . $info[1] . ' ' . $info[2]
+				. ' while querying feed ' . $id_feed);
+			return false;
+		}
+	}
+
+	public function updateLastSeen($id_feed, $guids) {
+		if (count($guids) < 1) {
+			return 0;
+		}
+		$sql = 'UPDATE `' . $this->prefix . 'entry` SET lastSeen=? WHERE id_feed=? AND guid IN (' . str_repeat('?,', count($guids) - 1). '?)';
+		$stm = $this->bd->prepare($sql);
+		$values = array(time(), $id_feed);
+		$values = array_merge($values, $guids);
+		if ($stm && $stm->execute($values)) {
+			return $stm->rowCount();
+		} else {
+			$info = $stm == null ? array(2 => 'syntax error') : $stm->errorInfo();
+			if ($this->autoAddColumn($info)) {
+				return $this->updateLastSeen($id_feed, $guids);
+			}
+			Minz_Log::error('SQL error updateLastSeen: ' . $info[0] . ': ' . $info[1] . ' ' . $info[2]
+				. ' while updating feed ' . $id_feed);
+			return false;
+		}
 	}
 
 	public function countUnreadRead() {
