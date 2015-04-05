@@ -51,6 +51,21 @@ function classAutoloader($class) {
 spl_autoload_register('classAutoloader');
 //</Auto-loading>
 
+function idn_to_punny($url) {
+	if (function_exists('idn_to_ascii')) {
+		$parts = parse_url($url);
+		if (!empty($parts['host'])) {
+			$idn = $parts['host'];
+			$punny = idn_to_ascii($idn);
+			$pos = strpos($url, $idn);
+			if ($pos !== false) {
+				return substr_replace($url, $punny, $pos, strlen($idn));
+			}
+		}
+	}
+	return $url;
+}
+
 function checkUrl($url) {
 	if (empty ($url)) {
 		return '';
@@ -58,6 +73,7 @@ function checkUrl($url) {
 	if (!preg_match ('#^https?://#i', $url)) {
 		$url = 'http://' . $url;
 	}
+	$url = idn_to_punny($url);	//PHP bug #53474 IDN
 	if (filter_var($url, FILTER_VALIDATE_URL) ||
 		(version_compare(PHP_VERSION, '5.3.3', '<') && (strpos($url, '-') > 0) &&	//PHP bug #51192
 		 ($url === filter_var($url, FILTER_SANITIZE_URL)))) {
