@@ -478,11 +478,13 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 				}
 			}
 			if ($filter->getSearch()) {
-				$search .= 'AND ' . $this->sqlconcat('e1.title', $this->isCompressed() ? 'UNCOMPRESS(content_bin)' : 'content') . ' LIKE ? ';
-				$values[] = "%{$filter->getSearch()}%";
+				$search_values = $filter->getSearch();
+				foreach ($search_values as $search_value) {
+					$search .= 'AND ' . $this->sqlconcat('e1.title', $this->isCompressed() ? 'UNCOMPRESS(content_bin)' : 'content') . ' LIKE ? ';
+					$values[] = "%{$search_value}%";
+				}
 			}
 		}
-
 		return array($values,
 			'SELECT e1.id FROM `' . $this->prefix . 'entry` e1 '
 			. ($joinFeed ? 'INNER JOIN `' . $this->prefix . 'feed` f ON e1.id_feed=f.id ' : '')
