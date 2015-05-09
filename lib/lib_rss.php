@@ -123,6 +123,7 @@ function customSimplePie() {
 	$limits = $system_conf->limits;
 	$simplePie = new SimplePie();
 	$simplePie->set_useragent(_t('gen.freshrss') . '/' . FRESHRSS_VERSION . ' (' . PHP_OS . '; ' . FRESHRSS_WEBSITE . ') ' . SIMPLEPIE_NAME . '/' . SIMPLEPIE_VERSION);
+	$simplePie->set_syslog($system_conf->simplepie_syslog_enabled);
 	$simplePie->set_cache_location(CACHE_PATH);
 	$simplePie->set_cache_duration($limits['cache_duration']);
 	$simplePie->set_timeout($limits['timeout']);
@@ -180,7 +181,7 @@ function sanitizeHTML($data, $base = '') {
 function get_content_by_parsing ($url, $path) {
 	require_once (LIB_PATH . '/lib_phpQuery.php');
 
-	Minz_Log::notice('FreshRSS GET ' . url_remove_credentials($url));
+	Minz_Log::notice('FreshRSS GET ' . SimplePie_Misc::url_remove_credentials($url));
 	$html = file_get_contents ($url);
 
 	if ($html) {
@@ -428,14 +429,4 @@ function array_push_unique(&$array, $value) {
  */
 function array_remove(&$array, $value) {
 	$array = array_diff($array, array($value));
-}
-
-
-/**
- * Sanitize a URL by removing HTTP credentials.
- * @param $url the URL to sanitize.
- * @return the same URL without HTTP credentials.
- */
-function url_remove_credentials($url) {
-	return preg_replace('/[^\/]*:[^:]*@/', '', $url);
 }
