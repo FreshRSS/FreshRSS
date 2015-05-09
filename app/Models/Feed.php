@@ -245,7 +245,7 @@ class FreshRSS_Feed extends Minz_Model {
 					$this->_url($clean_url);
 				}
 
-				if (($mtime === true) ||($mtime > $this->lastUpdate)) {
+				if (($mtime === true) || ($mtime > $this->lastUpdate)) {
 					//Minz_Log::debug('FreshRSS no cache ' . $mtime . ' > ' . $this->lastUpdate . ' for ' . $clean_url);
 					$this->loadEntries($feed);	// et on charge les articles du flux
 				} else {
@@ -255,7 +255,6 @@ class FreshRSS_Feed extends Minz_Model {
 
 				$feed->__destruct();	//http://simplepie.org/wiki/faq/i_m_getting_memory_leaks
 				unset($feed);
-				//TODO: Return a different information in case of cache/no-cache, and give access to the GUIDs in case of cache
 			}
 		}
 	}

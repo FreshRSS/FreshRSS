@@ -329,7 +329,6 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 				// For this feed, check existing GUIDs already in database.
 				$existingHashForGuids = $entryDAO->listHashForFeedGuids($feed->id(), $newGuids);
 				unset($newGuids);
-				$use_declared_date = empty($existingHashForGuids);
 
 				$oldGuids = array();
 				// Add entries in database if possible.
@@ -353,14 +352,14 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 						// This entry should not be added considering configuration and date.
 						$oldGuids[] = $entry->guid();
 					} else {
-						$id = uTimeString();
-						if ($use_declared_date || $entry_date < $date_min) {
-							// Use declared date at first import.
+						if ($entry_date < $date_min) {
 							$id = min(time(), $entry_date) . uSecString();
+							$entry->_isRead(true);	//Old article that was not in database. Probably an error, so mark as read
+						} else {
+							$id = uTimeString();
+							$entry->_isRead($is_read);
 						}
-
 						$entry->_id($id);
-						$entry->_isRead($is_read);
 
 						$entry = Minz_ExtensionManager::callHook('entry_before_insert', $entry);
 						if ($entry === null) {
@@ -376,7 +375,6 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 				}
 				$entryDAO->updateLastSeen($feed->id(), $oldGuids);
 			}
-			//TODO: updateLastSeen old GUIDS once in a while, in the case of caching (i.e. the whole feed content has not changed)
 
 			if ($feed_history >= 0 && rand(0, 30) === 1) {
 				// TODO: move this function in web cron when available (see entry::purge)
@@ -384,7 +382,6 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 				if (!$entryDAO->hasTransaction()) {
 					$entryDAO->beginTransaction();
 				}
-				//TODO: more robust system based on entry.lastSeen to avoid cleaning entries that are still published in the RSS feed.
 
 				$nb = $feedDAO->cleanOldEntries($feed->id(),
 				                                $date_min,
