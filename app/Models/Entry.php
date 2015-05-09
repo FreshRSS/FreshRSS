@@ -15,7 +15,7 @@ class FreshRSS_Entry extends Minz_Model {
 	private $link;
 	private $date;
 	private $hash = null;
-	private $is_read;
+	private $is_read;	//Nullable boolean
 	private $is_favorite;
 	private $feed;
 	private $tags;
@@ -125,7 +125,7 @@ class FreshRSS_Entry extends Minz_Model {
 		$this->date = $value > 1 ? $value : time();
 	}
 	public function _isRead($value) {
-		$this->is_read = $value;
+		$this->is_read = $value === null ? null : (bool)$value;
 	}
 	public function _isFavorite($value) {
 		$this->is_favorite = $value;
