@@ -51,20 +51,21 @@ class SearchTest extends \PHPUnit_Framework_TestCase {
 	public function provideIntitleSearch() {
 		return array(
 		    array('intitle:word1', 'word1', null),
-		    array('intitle:word1 word2', 'word1', 'word2'),
+		    array('intitle:word1 word2', 'word1', array('word2')),
 		    array('intitle:"word1 word2"', 'word1 word2', null),
 		    array("intitle:'word1 word2'", 'word1 word2', null),
-		    array('word1 intitle:word2', 'word2', 'word1'),
-		    array('word1 intitle:word2 word3', 'word2', 'word1 word3'),
-		    array('word1 intitle:"word2 word3"', 'word2 word3', 'word1'),
-		    array("word1 intitle:'word2 word3'", 'word2 word3', 'word1'),
-		    array('intitle:word1 intitle:word2', 'word1', 'intitle:word2'),
-		    array('intitle: word1 word2', null, 'word1 word2'),
+		    array('word1 intitle:word2', 'word2', array('word1')),
+		    array('word1 intitle:word2 word3', 'word2', array('word1', 'word3')),
+		    array('word1 intitle:"word2 word3"', 'word2 word3', array('word1')),
+		    array("word1 intitle:'word2 word3'", 'word2 word3', array('word1')),
+		    array('intitle:word1 intitle:word2', 'word1', array('intitle:word2')),
+		    array('intitle: word1 word2', null, array('word1', 'word2')),
 		    array('intitle:123', '123', null),
-		    array('intitle:"word1 word2" word3"', 'word1 word2', 'word3"'),
-		    array("intitle:'word1 word2' word3'", 'word1 word2', "word3'"),
+		    array('intitle:"word1 word2" word3"', 'word1 word2', array('word3"')),
+		    array("intitle:'word1 word2' word3'", 'word1 word2', array("word3'")),
 		    array('intitle:"word1 word2\' word3"', "word1 word2' word3", null),
 		    array("intitle:'word1 word2\" word3'", 'word1 word2" word3', null),
+		    array("intitle:word1 'word2 word3' word4", 'word1', array('word2 word3', 'word4')),
 		);
 	}
 
@@ -86,20 +87,21 @@ class SearchTest extends \PHPUnit_Framework_TestCase {
 	public function provideAuthorSearch() {
 		return array(
 		    array('author:word1', 'word1', null),
-		    array('author:word1 word2', 'word1', 'word2'),
+		    array('author:word1 word2', 'word1', array('word2')),
 		    array('author:"word1 word2"', 'word1 word2', null),
 		    array("author:'word1 word2'", 'word1 word2', null),
-		    array('word1 author:word2', 'word2', 'word1'),
-		    array('word1 author:word2 word3', 'word2', 'word1 word3'),
-		    array('word1 author:"word2 word3"', 'word2 word3', 'word1'),
-		    array("word1 author:'word2 word3'", 'word2 word3', 'word1'),
-		    array('author:word1 author:word2', 'word1', 'author:word2'),
-		    array('author: word1 word2', null, 'word1 word2'),
+		    array('word1 author:word2', 'word2', array('word1')),
+		    array('word1 author:word2 word3', 'word2', array('word1', 'word3')),
+		    array('word1 author:"word2 word3"', 'word2 word3', array('word1')),
+		    array("word1 author:'word2 word3'", 'word2 word3', array('word1')),
+		    array('author:word1 author:word2', 'word1', array('author:word2')),
+		    array('author: word1 word2', null, array('word1', 'word2')),
 		    array('author:123', '123', null),
-		    array('author:"word1 word2" word3"', 'word1 word2', 'word3"'),
-		    array("author:'word1 word2' word3'", 'word1 word2', "word3'"),
+		    array('author:"word1 word2" word3"', 'word1 word2', array('word3"')),
+		    array("author:'word1 word2' word3'", 'word1 word2', array("word3'")),
 		    array('author:"word1 word2\' word3"', "word1 word2' word3", null),
 		    array("author:'word1 word2\" word3'", 'word1 word2" word3', null),
+		    array("author:word1 'word2 word3' word4", 'word1', array('word2 word3', 'word4')),
 		);
 	}
 
@@ -121,10 +123,11 @@ class SearchTest extends \PHPUnit_Framework_TestCase {
 	public function provideInurlSearch() {
 		return array(
 		    array('inurl:word1', 'word1', null),
-		    array('inurl: word1', null, 'word1'),
+		    array('inurl: word1', null, array('word1')),
 		    array('inurl:123', '123', null),
-		    array('inurl:word1 word2', 'word1', 'word2'),
-		    array('inurl:"word1 word2"', '"word1', 'word2"'),
+		    array('inurl:word1 word2', 'word1', array('word2')),
+		    array('inurl:"word1 word2"', '"word1', array('word2"')),
+		    array("inurl:word1 'word2 word3' word4", 'word1', array('word2 word3', 'word4')),
 		);
 	}
 
@@ -198,11 +201,12 @@ class SearchTest extends \PHPUnit_Framework_TestCase {
 	public function provideTagsSearch() {
 		return array(
 		    array('#word1', array('word1'), null),
-		    array('# word1', null, '# word1'),
+		    array('# word1', null, array('#', 'word1')),
 		    array('#123', array('123'), null),
-		    array('#word1 word2', array('word1'), 'word2'),
-		    array('#"word1 word2"', array('"word1'), 'word2"'),
+		    array('#word1 word2', array('word1'), array('word2')),
+		    array('#"word1 word2"', array('"word1'), array('word2"')),
 		    array('#word1 #word2', array('word1', 'word2'), null),
+		    array("#word1 'word2 word3' word4", array('word1'), array('word2 word3', 'word4')),
 		);
 	}
 
@@ -257,7 +261,7 @@ class SearchTest extends \PHPUnit_Framework_TestCase {
 			'1172725200',
 			'1210564799',
 			array('word4', 'word5'),
-			'word6',
+			array('word6'),
 		    ),
 		    array(
 			'word6 intitle:word2 inurl:word3 pubdate:2007-03-01/2008-05-11 #word4 author:word1 #word5 word7 date:2007-03-01/2008-05-11',
@@ -269,7 +273,19 @@ class SearchTest extends \PHPUnit_Framework_TestCase {
 			'1172725200',
 			'1210564799',
 			array('word4', 'word5'),
-			'word6 word7',
+			array('word6', 'word7'),
+		    ),
+		    array(
+			'word6 intitle:word2 inurl:word3 pubdate:2007-03-01/2008-05-11 #word4 author:word1 #word5 "word7 word8" date:2007-03-01/2008-05-11',
+			'word1',
+			'1172725200',
+			'1210564799',
+			'word2',
+			'word3',
+			'1172725200',
+			'1210564799',
+			array('word4', 'word5'),
+			array('word7 word8', 'word6'),
 		    ),
 		);
 	}
