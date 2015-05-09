@@ -34,9 +34,9 @@ class FreshRSS_Search {
 		$input = $this->parsePubdateSearch($input);
 		$input = $this->parseDateSearch($input);
 		$input = $this->parseTagsSeach($input);
-		$this->search = $this->cleanSearch($input);
+		$this->parseSearch($input);
 	}
-	
+
 	public function __toString() {
 		return $this->getRawInput();
 	}
@@ -185,6 +185,34 @@ class FreshRSS_Search {
 			return str_replace($matches[0], '', $input);
 		}
 		return $input;
+	}
+
+	/**
+	 * Parse the search string to find search values.
+	 * Every word is a distinct search value, except when using a delimiter.
+	 * Supported delimiters are single quote (') and double quotes (").
+	 *
+	 * @param string $input
+	 * @return string
+	 */
+	private function parseSearch($input) {
+		$input = $this->cleanSearch($input);
+		if (strcmp($input, '') == 0) {
+			return;
+		}
+		if (preg_match_all('/(?P<delim>[\'"])(?P<search>.*)(?P=delim)/U', $input, $matches)) {
+			$this->search = $matches['search'];
+			$input = str_replace($matches[0], '', $input);
+		}
+		$input = $this->cleanSearch($input);
+		if (strcmp($input, '') == 0) {
+			return;
+		}
+		if (is_array($this->search)) {
+			$this->search = array_merge($this->search, explode(' ', $input));
+		} else {
+			$this->search = explode(' ', $input);
+		}
 	}
 
 	/**
