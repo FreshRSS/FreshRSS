@@ -343,7 +343,7 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 						} else {	//This entry already exists but has been updated
 							Minz_Log::debug('Entry with GUID `' . $entry->guid() . '` updated in feed ' . $feed->id() .
 								', old hash ' . $existingHash . ', new hash ' . $entry->hash());
-							$entry->_isRead($is_read);	//Reset is_read
+							$entry->_isRead(null);	//Change is_read according to policy. //TODO: Implement option
 							if (!$entryDAO->hasTransaction()) {
 								$entryDAO->beginTransaction();
 							}

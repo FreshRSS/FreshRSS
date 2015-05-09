@@ -91,11 +91,17 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 	private $updateEntryPrepared = null;
 
 	public function updateEntry($valuesTmp) {
+		if (!isset($valuesTmp['is_read'])) {
+			$valuesTmp['is_read'] = null;
+		}
+
 		if ($this->updateEntryPrepared === null) {
 			$sql = 'UPDATE `' . $this->prefix . 'entry` '
 			     . 'SET title=?, author=?, '
 			     . ($this->isCompressed() ? 'content_bin=COMPRESS(?)' : 'content=?')
-			     . ', link=?, date=?, lastSeen=?, hash=X?, is_read=?, tags=? '
+			     . ', link=?, date=?, lastSeen=?, hash=X?, '
+			     . ($valuesTmp['is_read'] === null ? '' : 'is_read=?, ')
+			     . 'tags=? '
 			     . 'WHERE id_feed=? AND guid=?';
 			$this->updateEntryPrepared = $this->bd->prepare($sql);
 		}
@@ -108,11 +114,15 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 			$valuesTmp['date'],
 			time(),
 			$valuesTmp['hash'],
-			$valuesTmp['is_read'] ? 1 : 0,
+		);
+		if ($valuesTmp['is_read'] !== null) {
+			$values[] = $valuesTmp['is_read'] ? 1 : 0;
+		}
+		$values = array_merge($values, array(
 			substr($valuesTmp['tags'], 0, 1023),
 			$valuesTmp['id_feed'],
 			substr($valuesTmp['guid'], 0, 760),
-		);
+		));
 
 		if ($this->updateEntryPrepared && $this->updateEntryPrepared->execute($values)) {
 			return $this->bd->lastInsertId();
