@@ -54,7 +54,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 			     . ', link, date, lastSeen, hash, is_read, is_favorite, id_feed, tags) '
 			     . 'VALUES(?, ?, ?, ?, '
 			     . ($this->isCompressed() ? 'COMPRESS(?)' : '?')
-			     . ', ?, ?, ?, X?, ?, ?, ?, ?)';
+			     . ', ?, ?, ?, ?, ?, ?, ?, ?)';
 			$this->addEntryPrepared = $this->bd->prepare($sql);
 		}
 
@@ -67,7 +67,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 			substr($valuesTmp['link'], 0, 1023),
 			$valuesTmp['date'],
 			time(),
-			$valuesTmp['hash'],
+			hex2bin($valuesTmp['hash']),	// X'09AF' hexadecimal literals do not work with SQLite/PDO
 			$valuesTmp['is_read'] ? 1 : 0,
 			$valuesTmp['is_favorite'] ? 1 : 0,
 			$valuesTmp['id_feed'],
@@ -77,7 +77,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 		if ($this->addEntryPrepared && $this->addEntryPrepared->execute($values)) {
 			return $this->bd->lastInsertId();
 		} else {
-			$info = $this->addEntryPrepared == null ? array(2 => 'syntax error') : $this->addEntryPrepared->errorInfo();
+			$info = $this->addEntryPrepared == null ? array(0 => '', 1 => '', 2 => 'syntax error') : $this->addEntryPrepared->errorInfo();
 			if ($this->autoAddColumn($info)) {
 				return $this->addEntry($valuesTmp);
 			} elseif ((int)($info[0] / 1000) !== 23) {	//Filter out "SQLSTATE Class code 23: Constraint Violation" because of expected duplicate entries
@@ -99,7 +99,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 			$sql = 'UPDATE `' . $this->prefix . 'entry` '
 			     . 'SET title=?, author=?, '
 			     . ($this->isCompressed() ? 'content_bin=COMPRESS(?)' : 'content=?')
-			     . ', link=?, date=?, lastSeen=?, hash=X?, '
+			     . ', link=?, date=?, lastSeen=?, hash=?, '
 			     . ($valuesTmp['is_read'] === null ? '' : 'is_read=?, ')
 			     . 'tags=? '
 			     . 'WHERE id_feed=? AND guid=?';
@@ -113,7 +113,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 			substr($valuesTmp['link'], 0, 1023),
 			$valuesTmp['date'],
 			time(),
-			$valuesTmp['hash'],
+			hex2bin($valuesTmp['hash']),
 		);
 		if ($valuesTmp['is_read'] !== null) {
 			$values[] = $valuesTmp['is_read'] ? 1 : 0;
@@ -127,7 +127,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 		if ($this->updateEntryPrepared && $this->updateEntryPrepared->execute($values)) {
 			return $this->bd->lastInsertId();
 		} else {
-			$info = $this->updateEntryPrepared == null ? array(2 => 'syntax error') : $this->updateEntryPrepared->errorInfo();
+			$info = $this->updateEntryPrepared == null ? array(0 => '', 1 => '', 2 => 'syntax error') : $this->updateEntryPrepared->errorInfo();
 			if ($this->autoAddColumn($info)) {
 				return $this->updateEntry($valuesTmp);
 			}
@@ -598,7 +598,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 			return $result;
 		} else {
 			
-			$info = $stm == null ? array(2 => 'syntax error') : $stm->errorInfo();
+			$info = $stm == null ? array(0 => '', 1 => '', 2 => 'syntax error') : $stm->errorInfo();
 			if ($this->autoAddColumn($info)) {
 				return $this->listHashForFeedGuids($id_feed, $guids);
 			}
@@ -619,7 +619,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 		if ($stm && $stm->execute($values)) {
 			return $stm->rowCount();
 		} else {
-			$info = $stm == null ? array(2 => 'syntax error') : $stm->errorInfo();
+			$info = $stm == null ? array(0 => '', 1 => '', 2 => 'syntax error') : $stm->errorInfo();
 			if ($this->autoAddColumn($info)) {
 				return $this->updateLastSeen($id_feed, $guids);
 			}
