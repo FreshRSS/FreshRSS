@@ -63,10 +63,11 @@ class FreshRSS extends Minz_FrontController {
 			// Basic protection against XSRF attacks
 			FreshRSS_Auth::removeAccess();
 			$http_referer = empty($_SERVER['HTTP_REFERER']) ? '' : $_SERVER['HTTP_REFERER'];
+			Minz_Translate::init('en');	//TODO: Better choice of fallback language
 			Minz_Error::error(
 				403,
 				array('error' => array(
-					_t('access_denied'),
+					_t('feedback.access.denied'),
 					' [HTTP_REFERER=' . htmlspecialchars($http_referer) . ']'
 				))
 			);
