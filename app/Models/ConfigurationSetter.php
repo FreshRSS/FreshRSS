@@ -189,6 +189,10 @@ class FreshRSS_ConfigurationSetter {
 		$data['auto_remove_article'] = $this->handleBool($value);
 	}
 
+	private function _mark_updated_article_unread(&$data, $value) {
+		$data['mark_updated_article_unread'] = $this->handleBool($value);
+	}
+
 	private function _display_categories(&$data, $value) {
 		$data['display_categories'] = $this->handleBool($value);
 	}
