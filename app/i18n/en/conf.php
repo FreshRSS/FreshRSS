@@ -84,6 +84,7 @@ return array(
 		'articles_per_page' => 'Number of articles per page',
 		'auto_load_more' => 'Load next articles at the page bottom',
 		'auto_remove_article' => 'Hide articles after reading',
+		'mark_updated_article_unread' => 'Mark updated articles as unread',
 		'confirm_enabled' => 'Display a confirmation dialog on “mark all as read” actions',
 		'display_articles_unfolded' => 'Show articles unfolded by default',
 		'display_categories_unfolded' => 'Show categories folded by default',

@@ -343,7 +343,7 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 							Minz_Log::debug('Entry with GUID `' . $entry->guid() . '` updated in feed ' . $feed->id() .
 								', old hash ' . $existingHash . ', new hash ' . $entry->hash());
 							//TODO: Make an updated/is_read policy by feed, in addition to the global one.
-							$entry->_isRead(FreshRSS_Context::$system_conf->mark_updated_article_unread ? false : null);	//Change is_read according to policy.
+							$entry->_isRead(FreshRSS_Context::$user_conf->mark_updated_article_unread ? false : null);	//Change is_read according to policy.
 							if (!$entryDAO->hasTransaction()) {
 								$entryDAO->beginTransaction();
 							}

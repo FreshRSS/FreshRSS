@@ -55,10 +55,6 @@ return array(
 	#	SimplePie, which is retrieving RSS feeds via HTTP requests.
 	'simplepie_syslog_enabled' => true,
 
-	# In the case an article has changed (e.g. updated content):
-	#	Set to `true` to mark it unread, or `false` to leave it as-is.
-	'mark_updated_article_unread' => false,
-
 	'limits' => array(
 
 		# Duration in seconds of the SimplePie cache,

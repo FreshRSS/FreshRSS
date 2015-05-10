@@ -126,6 +126,15 @@
 		</div>
 
 		<div class="form-group">
+			<div class="group-controls">
+				<label class="checkbox" for="mark_updated_article_unread">
+					<input type="checkbox" name="mark_updated_article_unread" id="mark_updated_article_unread" value="1"<?php echo FreshRSS_Context::$user_conf->mark_updated_article_unread ? ' checked="checked"' : ''; ?> data-leave-validation="<?php echo FreshRSS_Context::$user_conf->mark_updated_article_unread; ?>"/>
+					<?php echo _t('conf.reading.mark_updated_article_unread'); ?>
+				</label>
+			</div>
+		</div>
+
+		<div class="form-group">
 			<label class="group-name"><?php echo _t('conf.reading.read.when'); ?></label>
 			<div class="group-controls">
 				<label class="checkbox" for="check_open_article">
