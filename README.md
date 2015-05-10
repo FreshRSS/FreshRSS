@@ -46,6 +46,7 @@ The best way is to open issues on GitHub
 3. Add write access on `./data/` folder to the webserver user
 4. Access FreshRSS with your browser and follow the installation process
 5. Every thing should be working :) If you encounter any problem, feel free to contact me.
+6. Advanced configuration settings can be seen in [config.php](./data/config.default.php).
 
 # Access control
 It is needed for the multi-user mode to limit access to FreshRSS. You can:
