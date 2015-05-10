@@ -46,6 +46,7 @@ Privilégiez pour cela des demandes sur GitHub
 3. Le serveur Web doit avoir les droits d’écriture dans le répertoire `./data/`
 4. Accédez à FreshRSS à travers votre navigateur Web et suivez les instructions d’installation
 5. Tout devrait fonctionner :) En cas de problème, n’hésitez pas à me contacter.
+6. Des paramètres de configuration avancée peuvent être accédés depuis [config.php](./data/config.default.php).
 
 # Contrôle d’accès
 Il est requis pour le mode multi-utilisateur, et recommandé dans tous les cas, de limiter l’accès à votre FreshRSS. Au choix :
