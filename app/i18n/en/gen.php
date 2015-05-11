@@ -104,6 +104,7 @@ return array(
 		'should_be_activated' => 'JavaScript must be enabled',
 	),
 	'lang' => array(
+		'cz' => 'Čeština',
 		'de' => 'Deutsch',
 		'en' => 'English',
 		'fr' => 'Français',
