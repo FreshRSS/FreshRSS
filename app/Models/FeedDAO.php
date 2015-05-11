@@ -330,11 +330,12 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 		     . 'AND id NOT IN (SELECT id FROM (SELECT e2.id FROM `' . $this->prefix . 'entry` e2 WHERE e2.id_feed=:id_feed ORDER BY id DESC LIMIT :keep) keep)';	//Double select: MySQL doesn't support 'LIMIT & IN/ALL/ANY/SOME subquery'
 		$stm = $this->bd->prepare($sql);
 
-		$id_max = intval($date_min) . '000000';
-
-		$stm->bindParam(':id_feed', $id, PDO::PARAM_INT);
-		$stm->bindParam(':id_max', $id_max, PDO::PARAM_STR);
-		$stm->bindParam(':keep', $keep, PDO::PARAM_INT);
+		if ($stm) {
+			$id_max = intval($date_min) . '000000';
+			$stm->bindParam(':id_feed', $id, PDO::PARAM_INT);
+			$stm->bindParam(':id_max', $id_max, PDO::PARAM_STR);
+			$stm->bindParam(':keep', $keep, PDO::PARAM_INT);
+		}
 
 		if ($stm && $stm->execute()) {
 			return $stm->rowCount();

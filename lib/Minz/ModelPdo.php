@@ -134,4 +134,9 @@ class MinzPDO extends PDO {
 		MinzPDO::check($statement);
 		return parent::exec($statement);
 	}
+
+	public function query($statement) {
+		MinzPDO::check($statement);
+		return parent::query($statement);
+	}
 }
