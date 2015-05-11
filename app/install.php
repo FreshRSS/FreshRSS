@@ -168,8 +168,10 @@ function saveStep3() {
 			$_SESSION['bd_prefix_user'] = $_SESSION['bd_prefix'] .(empty($_SESSION['default_user']) ? '' :($_SESSION['default_user'] . '_'));
 		}
 
+		//TODO: load `config.default.php` as default
 		$config_array = array(
 			'environment' => 'production',
+			'simplepie_syslog_enabled' => true,
 			'salt' => $_SESSION['salt'],
 			'title' => $_SESSION['title'],
 			'default_user' => $_SESSION['default_user'],

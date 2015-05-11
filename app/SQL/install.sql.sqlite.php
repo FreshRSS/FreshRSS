@@ -39,7 +39,7 @@ $SQL_CREATE_TABLES = array(
 	`content` text,
 	`link` varchar(1023) NOT NULL,
 	`date` int(11),	-- Until year 2038
-	`lastSeen` INT(11) NOT NULL,	-- v1.2, Until year 2038
+	`lastSeen` INT(11) DEFAULT 0,	-- v1.2, Until year 2038
 	`hash` BINARY(16),	-- v1.2
 	`is_read` boolean NOT NULL DEFAULT 0,
 	`is_favorite` boolean NOT NULL DEFAULT 0,
