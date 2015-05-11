@@ -11,7 +11,7 @@ return array(
 	'auth' => array(
 		'form' => array(
 			'not_set' => 'Nastal problém s konfigurací přihlašovacího systému. Zkuste to prosím později.',
-			'set' => 'Webové formulář je nyní výchozí přihlašovací systém.',
+			'set' => 'Webový formulář je nyní výchozí přihlašovací systém.',
 		),
 		'login' => array(
 			'invalid' => 'Login není platný',

@@ -21,7 +21,7 @@ return array(
 		'css_help' => 'Stáhne zkrácenou verzi RSS kanálů (pozor, náročnější na čas!)',
 		'css_path' => 'Původní CSS soubor článku z webových stránek',
 		'description' => 'Popis',
-		'empty' => 'Kanál je prazdný. Ověřte prosím zda je ještě autorem udržován.',
+		'empty' => 'Kanál je prázdný. Ověřte prosím zda je ještě autorem udržován.',
 		'error' => 'Vyskytl se problém s kanálem. Ověřte že je vždy dostupný, prosím, a poté jej aktualizujte.',
 		'in_main_stream' => 'Zobrazit ve “Všechny kanály”',
 		'informations' => 'Informace',
