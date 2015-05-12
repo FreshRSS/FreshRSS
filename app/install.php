@@ -743,6 +743,13 @@ function printStep3() {
 		<script>
 			function mySqlShowHide() {
 				document.getElementById('mysql').style.display = document.getElementById('type').value === 'mysql' ? 'block' : 'none';
+				if (document.getElementById('type').value !== 'mysql') {
+					document.getElementById('host').value = '';
+					document.getElementById('user').value = '';
+					document.getElementById('pass').value = '';
+					document.getElementById('base').value = '';
+					document.getElementById('prefix').value = '';
+				}
 			}
 			mySqlShowHide();
 		</script>
