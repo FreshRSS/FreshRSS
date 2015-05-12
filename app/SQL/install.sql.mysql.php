@@ -41,7 +41,7 @@ CREATE TABLE IF NOT EXISTS `%1$sentry` (
 	`content_bin` blob,	-- v0.7
 	`link` varchar(1023) CHARACTER SET latin1 NOT NULL,
 	`date` int(11),	-- Until year 2038
-	`lastSeen` INT(11) NOT NULL,	-- v1.2, Until year 2038
+	`lastSeen` INT(11) DEFAULT 0,	-- v1.2, Until year 2038
 	`hash` BINARY(16),	-- v1.2
 	`is_read` boolean NOT NULL DEFAULT 0,
 	`is_favorite` boolean NOT NULL DEFAULT 0,
