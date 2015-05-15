@@ -12,40 +12,41 @@ function logMe($text) {
 
 $ORIGINAL_INPUT = file_get_contents('php://input', false, null, -1, MAX_PAYLOAD);
 
-logMe(print_r(array('_GET' => $_GET, '_POST' => $_POST, 'INPUT' => $ORIGINAL_INPUT), true));
+logMe(print_r(array('_SERVER' => $_SERVER, '_GET' => $_GET, '_POST' => $_POST, 'INPUT' => $ORIGINAL_INPUT), true));
 
-$secret = isset($_GET['s']) ? substr($_GET['s'], 0, 128) : '';
-if (!ctype_xdigit($secret)) {
+$key = isset($_GET['k']) ? substr($_GET['k'], 0, 128) : '';
+if (!ctype_xdigit($key)) {
 	header('HTTP/1.1 422 Unprocessable Entity');
-	die('Invalid feed secret format!');
+	die('Invalid feed key format!');
 }
 chdir(PSHB_PATH);
-$canonical64 = @file_get_contents('secrets/' . $secret . '.txt');
+$canonical64 = @file_get_contents('keys/' . $key . '.txt');
 if ($canonical64 === false) {
 	header('HTTP/1.1 404 Not Found');
-	logMe('Feed secret not found!: ' . $secret);
-	die('Feed secret not found!');
+	logMe('Feed key not found!: ' . $key);
+	die('Feed key not found!');
 }
 $canonical64 = trim($canonical64);
 if (!preg_match('/^[A-Za-z0-9_-]+$/D', $canonical64)) {
 	header('HTTP/1.1 500 Internal Server Error');
-	logMe('Invalid secret reference!: ' . $canonical64);
-	die('Invalid secret reference!');
+	logMe('Invalid key reference!: ' . $canonical64);
+	die('Invalid key reference!');
 }
-$secret2 = @file_get_contents('feeds/' . $canonical64 . '/secret.txt');
-if ($secret2 === false) {
+$hubFile = @file_get_contents('feeds/' . $canonical64 . '/!hub.json');
+if ($hubFile === false) {
 	header('HTTP/1.1 404 Not Found');
-	//@unlink('secrets/' . $secret . '.txt');
-	logMe('Feed reverse secret not found!: ' . $canonical64);
-	die('Feed reverse secret not found!');
+	//@unlink('keys/' . $key . '.txt');
+	logMe('Feed info not found!: ' . $canonical64);
+	die('Feed info not found!');
 }
-if ($secret !== $secret2) {
+$hubJson = json_decode($hubFile, true);
+if (!$hubJson || empty($hubJson['key']) || $hubJson['key'] !== $key) {
 	header('HTTP/1.1 500 Internal Server Error');
-	logMe('Invalid secret cross-check!: ' . $secret);
-	die('Invalid secret cross-check!');
+	logMe('Invalid key cross-check!: ' . $key);
+	die('Invalid key cross-check!');
 }
 chdir('feeds/' . $canonical64);
-$users = glob('*/*.txt', GLOB_NOSORT);
+$users = glob('*.txt', GLOB_NOSORT);
 if (empty($users)) {
 	header('HTTP/1.1 410 Gone');
 	logMe('Nobody is subscribed to this feed anymore!: ' . $canonical64);
@@ -53,8 +54,17 @@ if (empty($users)) {
 }
 
 if (!empty($_REQUEST['hub_mode']) && $_REQUEST['hub_mode'] === 'subscribe') {
-	//TODO: hub_lease_seconds
+	$leaseSeconds = empty($_REQUEST['hub_lease_seconds']) ? 0 : intval($_REQUEST['hub_lease_seconds']);
+	if ($leaseSeconds > 60) {
+		$hubJson['lease_end'] = time() + $leaseSeconds;
+		file_put_contents('./!hub.json', json_encode($hubJson));
+	}
 	exit(isset($_REQUEST['hub_challenge']) ? $_REQUEST['hub_challenge'] : '');
+}
+
+if ($ORIGINAL_INPUT == '') {
+	header('HTTP/1.1 422 Unprocessable Entity');
+	die('Missing XML payload!');
 }
 
 Minz_Configuration::register('system', DATA_PATH . '/config.php', DATA_PATH . '/config.default.php');
@@ -80,11 +90,8 @@ if ($self !== base64url_decode($canonical64)) {
 Minz_Request::_param('url', $self);
 
 $nb = 0;
-foreach ($users as $userLine) {
-	$userLine = strtr($userLine, '\\', '/');
-	$userInfos = explode('/', $userLine);
-	$feedUrl = isset($userInfos[0]) ? base64url_decode($userInfos[0]) : '';
-	$username = isset($userInfos[1]) ? basename($userInfos[1], '.txt') : '';
+foreach ($users as $userFilename) {
+	$username = basename($userFilename, '.txt');
 	if (!file_exists(USERS_PATH . '/' . $username . '/config.php')) {
 		break;
 	}

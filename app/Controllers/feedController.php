@@ -304,6 +304,7 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 				continue;
 			}
 
+			$url = $feed->url();	//For detection of HTTP 301
 			try {
 				if ($simplePie) {
 					$feed->loadEntries($simplePie);	//Used by PubSubHubbub
@@ -317,7 +318,6 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 				continue;
 			}
 
-			$url = $feed->url();
 			$feed_history = $feed->keepHistory();
 			if ($feed_history == -2) {
 				// TODO: -2 must be a constant!
@@ -404,19 +404,34 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 				$entryDAO->commit();
 			}
 
-			if ($feed->url() !== $url) {
-				// HTTP 301 Moved Permanently
+			if ($feed->hubUrl() && $feed->selfUrl()) {	//selfUrl has priority for PubSubHubbub
+				if ($feed->selfUrl() !== $url) {	//https://code.google.com/p/pubsubhubbub/wiki/MovingFeedsOrChangingHubs
+					$selfUrl = checkUrl($feed->selfUrl());
+					if ($selfUrl) {
+						Minz_Log::debug('PubSubHubbub unsubscribe ' . $feed->url());
+						if (!$feed->pubSubHubbubSubscribe(false)) {	//Unsubscribe
+							Minz_Log::warning('Error while PubSubHubbub unsubscribing from ' . $feed->url());
+						}
+						$feed->_url($selfUrl, false);
+						Minz_Log::notice('Feed ' . $url . ' canonical address moved to ' . $feed->url());
+						$feedDAO->updateFeed($feed->id(), array('url' => $feed->url()));
+					}
+				}
+			}
+			elseif ($feed->url() !== $url) {	// HTTP 301 Moved Permanently
 				Minz_Log::notice('Feed ' . $url . ' moved permanently to ' . $feed->url());
 				$feedDAO->updateFeed($feed->id(), array('url' => $feed->url()));
 			}
 
 			if ($simplePie === null) {
 				$feed->faviconPrepare();
-				if ($feed->url() === 'http://push-pub.appspot.com/feed') {
-					$secret = $feed->pubSubHubbubPrepare();
-					if ($secret != '') {
-						Minz_Log::debug('PubSubHubbub subscribe ' . $feed->url());
-						$feed->pubSubHubbubSubscribe(true, $secret);
+				if (in_array($feed->url(), array('http://push-pub.appspot.com/feed'))) {	//TODO: Remove white-list after testing
+					Minz_Log::debug('PubSubHubbub match ' . $feed->url());
+					if ($feed->pubSubHubbubPrepare()) {
+						Minz_Log::notice('PubSubHubbub subscribe ' . $feed->url());
+						if (!$feed->pubSubHubbubSubscribe(true)) {	//Subscribe
+							Minz_Log::warning('Error while PubSubHubbub subscribing to ' . $feed->url());
+						}
 					}
 				}
 			}
