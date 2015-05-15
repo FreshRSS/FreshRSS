@@ -373,7 +373,7 @@ class FreshRSS_Feed extends Minz_Model {
 				file_put_contents($path . '/!hub.json', json_encode($hubJson));
 				@mkdir(PSHB_PATH . '/keys/');
 				file_put_contents(PSHB_PATH . '/keys/' . $key . '.txt', base64url_encode($this->selfUrl));
-				Minz_Log::notice('PubSubHubbub prepared for ' . $this->url);
+				Minz_Log::debug('PubSubHubbub prepared for ' . $this->url);
 				file_put_contents(USERS_PATH . '/_/log_pshb.txt', date('c') . "\t" .
 					'PubSubHubbub prepared for ' . $this->url . "\n", FILE_APPEND);
 			}

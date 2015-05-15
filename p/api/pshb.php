@@ -12,7 +12,7 @@ function logMe($text) {
 
 $ORIGINAL_INPUT = file_get_contents('php://input', false, null, -1, MAX_PAYLOAD);
 
-logMe(print_r(array('_SERVER' => $_SERVER, '_GET' => $_GET, '_POST' => $_POST, 'INPUT' => $ORIGINAL_INPUT), true));
+//logMe(print_r(array('_SERVER' => $_SERVER, '_GET' => $_GET, '_POST' => $_POST, 'INPUT' => $ORIGINAL_INPUT), true));
 
 $key = isset($_GET['k']) ? substr($_GET['k'], 0, 128) : '';
 if (!ctype_xdigit($key)) {
@@ -23,33 +23,33 @@ chdir(PSHB_PATH);
 $canonical64 = @file_get_contents('keys/' . $key . '.txt');
 if ($canonical64 === false) {
 	header('HTTP/1.1 404 Not Found');
-	logMe('Feed key not found!: ' . $key);
+	logMe('Error: Feed key not found!: ' . $key);
 	die('Feed key not found!');
 }
 $canonical64 = trim($canonical64);
 if (!preg_match('/^[A-Za-z0-9_-]+$/D', $canonical64)) {
 	header('HTTP/1.1 500 Internal Server Error');
-	logMe('Invalid key reference!: ' . $canonical64);
+	logMe('Error: Invalid key reference!: ' . $canonical64);
 	die('Invalid key reference!');
 }
 $hubFile = @file_get_contents('feeds/' . $canonical64 . '/!hub.json');
 if ($hubFile === false) {
 	header('HTTP/1.1 404 Not Found');
 	//@unlink('keys/' . $key . '.txt');
-	logMe('Feed info not found!: ' . $canonical64);
+	logMe('Error: Feed info not found!: ' . $canonical64);
 	die('Feed info not found!');
 }
 $hubJson = json_decode($hubFile, true);
 if (!$hubJson || empty($hubJson['key']) || $hubJson['key'] !== $key) {
 	header('HTTP/1.1 500 Internal Server Error');
-	logMe('Invalid key cross-check!: ' . $key);
+	logMe('Error: Invalid key cross-check!: ' . $key);
 	die('Invalid key cross-check!');
 }
 chdir('feeds/' . $canonical64);
 $users = glob('*.txt', GLOB_NOSORT);
 if (empty($users)) {
 	header('HTTP/1.1 410 Gone');
-	logMe('Nobody is subscribed to this feed anymore!: ' . $canonical64);
+	logMe('Error: Nobody is subscribed to this feed anymore!: ' . $canonical64);
 	die('Nobody is subscribed to this feed anymore!');
 }
 
@@ -83,9 +83,10 @@ $links = $simplePie->get_links('self');
 $self = isset($links[0]) ? $links[0] : null;
 
 if ($self !== base64url_decode($canonical64)) {
-	header('HTTP/1.1 422 Unprocessable Entity');
-	logMe('Self URL does not match registered canonical URL!: ' . $self);
-	die('Self URL does not match registered canonical URL!');
+	//header('HTTP/1.1 422 Unprocessable Entity');
+	logMe('Warning: Self URL ' . $self . ' does not match registered canonical URL!: ' . base64url_decode($canonical64));
+	//die('Self URL does not match registered canonical URL!');
+	$self = base64url_decode($canonical64);
 }
 Minz_Request::_param('url', $self);
 
@@ -106,7 +107,7 @@ foreach ($users as $userFilename) {
 			$nb++;
 		}
 	} catch (Exception $e) {
-		logMe($e->getMessage());
+		logMe('Error: ' . $e->getMessage());
 	}
 }
 
@@ -115,7 +116,7 @@ unset($simplePie);
 
 if ($nb === 0) {
 	header('HTTP/1.1 410 Gone');
-	logMe('Nobody is subscribed to this feed anymore after all!: ' . $self);
+	logMe('Error: Nobody is subscribed to this feed anymore after all!: ' . $self);
 	die('Nobody is subscribed to this feed anymore after all!');
 }
 
