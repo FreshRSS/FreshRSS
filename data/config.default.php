@@ -11,9 +11,11 @@ return array(
 	# Used to make crypto more unique. Generated during install.
 	'salt' => '',
 
-	# Leave empty for most cases.
-	# Ability to override the address of the FreshRSS instance,
-	# used when building absolute URLs.
+	# Specify address of the FreshRSS instance,
+	# used when building absolute URLs, e.g. for PubSubHubbub.
+	# Examples:
+	# https://example.net/FreshRSS/p/
+	# https://freshrss.example.net/
 	'base_url' => '',
 
 	# Natural language of the user interface, e.g. `en`, `fr`.

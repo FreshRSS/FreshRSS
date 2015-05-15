@@ -19,6 +19,8 @@ class FreshRSS_Feed extends Minz_Model {
 	private $ttl = -2;
 	private $hash = null;
 	private $lockPath = '';
+	private $hubUrl = '';
+	private $selfUrl = '';
 
 	public function __construct($url, $validate=true) {
 		if ($validate) {
@@ -226,6 +228,11 @@ class FreshRSS_Feed extends Minz_Model {
 					throw new FreshRSS_Feed_Exception(($errorMessage == '' ? 'Feed error' : $errorMessage) . ' [' . $url . ']');
 				}
 
+				$links = $feed->get_links('self');
+				$this->selfUrl = isset($links[0]) ? $links[0] : null;
+				$links = $feed->get_links('hub');
+				$this->hubUrl = isset($links[0]) ? $links[0] : null;
+
 				if ($loadDetails) {
 					// si on a utilisé l'auto-discover, notre url va avoir changé
 					$subscribe_url = $feed->subscribe_url(false);
@@ -259,7 +266,7 @@ class FreshRSS_Feed extends Minz_Model {
 		}
 	}
 
-	private function loadEntries($feed) {
+	public function loadEntries($feed) {
 		$entries = array();
 
 		foreach ($feed->get_items() as $item) {
@@ -333,4 +340,64 @@ class FreshRSS_Feed extends Minz_Model {
 	function unlock() {
 		@unlink($this->lockPath);
 	}
+
+	//<PubSubHubbub>
+
+	function pubSubHubbubPrepare() {
+		$secret = '';
+		if (FreshRSS_Context::$system_conf->base_url && $this->hubUrl && $this->selfUrl) {
+			$path = PSHB_PATH . '/feeds/' . base64url_encode($this->selfUrl);
+			if (!file_exists($path . '/hub.txt')) {
+				@mkdir($path, 0777, true);
+				file_put_contents($path . '/hub.txt', $this->hubUrl);
+				$secret = sha1(FreshRSS_Context::$system_conf->salt . uniqid(mt_rand(), true));
+				file_put_contents($path . '/secret.txt', $secret);
+				@mkdir(PSHB_PATH . '/secrets/');
+				file_put_contents(PSHB_PATH . '/secrets/' . $secret . '.txt', base64url_encode($this->selfUrl));
+				Minz_Log::notice('PubSubHubbub prepared for ' . $this->url);
+				file_put_contents(USERS_PATH . '/_/log_pshb.txt', date('c') . "\t" .
+					'PubSubHubbub prepared for ' . $this->url . "\n", FILE_APPEND);
+			}
+			$path .= '/' . base64url_encode($this->url);
+			$currentUser = Minz_Session::param('currentUser');
+			if (ctype_alnum($currentUser) && !file_exists($path . '/' . $currentUser . '.txt')) {
+				@mkdir($path, 0777, true);
+				touch($path . '/' . $currentUser . '.txt');
+			}
+		}
+		return $secret;
+	}
+
+	//Parameter true to subscribe, false to unsubscribe.
+	function pubSubHubbubSubscribe($state, $secret = '') {
+		if (FreshRSS_Context::$system_conf->base_url && $this->hubUrl && $this->selfUrl) {
+			$callbackUrl = checkUrl(FreshRSS_Context::$system_conf->base_url . 'api/pshb.php?s=' . $secret);
+			if ($callbackUrl == '') {
+				return false;
+			}
+
+			$ch = curl_init();
+			curl_setopt_array($ch, array(
+				CURLOPT_URL => $this->hubUrl,
+				CURLOPT_FOLLOWLOCATION => true,
+				CURLOPT_RETURNTRANSFER => true,
+				CURLOPT_USERAGENT => _t('gen.freshrss') . '/' . FRESHRSS_VERSION . ' (' . PHP_OS . '; ' . FRESHRSS_WEBSITE . ')',
+				CURLOPT_POSTFIELDS => 'hub.verify=sync'
+					. '&hub.mode=' . ($state ? 'subscribe' : 'unsubscribe')
+					. '&hub.topic=' . urlencode($this->selfUrl)
+					. '&hub.callback=' . urlencode($callbackUrl)
+				)
+			);
+			$response = curl_exec($ch);
+			$info = curl_getinfo($ch);
+
+			file_put_contents(USERS_PATH . '/_/log_pshb.txt', date('c') . "\t" .
+				'PubSubHubbub ' . ($state ? 'subscribe' : 'unsubscribe') . ' to ' . $this->selfUrl .
+				' with callback ' . $callbackUrl . ': ' . $info['http_code'] . ' ' . $response . "\n", FILE_APPEND);
+			return substr($info['http_code'], 0, 1) == '2';
+		}
+		return false;
+	}
+
+	//</PubSubHubbub>
 }
