@@ -168,7 +168,7 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 			// Ok, feed has been added in database. Now we have to refresh entries.
 			$feed->_id($id);
 			$feed->faviconPrepare();
-			$feed->pubSubHubbubPrepare();
+			//$feed->pubSubHubbubPrepare();	//TODO: prepare PubSubHubbub already when adding the feed
 
 			$is_read = FreshRSS_Context::$user_conf->mark_when['reception'] ? 1 : 0;
 
