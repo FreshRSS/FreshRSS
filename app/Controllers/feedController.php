@@ -301,6 +301,7 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 				continue;
 			}
 
+			$url = $feed->url();	//For detection of HTTP 301
 			try {
 				// Load entries
 				$feed->load(false);
@@ -311,7 +312,6 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 				continue;
 			}
 
-			$url = $feed->url();
 			$feed_history = $feed->keepHistory();
 			if ($feed_history == -2) {
 				// TODO: -2 must be a constant!
