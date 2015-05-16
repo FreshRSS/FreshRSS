@@ -300,8 +300,13 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 		$updated_feeds = 0;
 		$is_read = FreshRSS_Context::$user_conf->mark_when['reception'] ? 1 : 0;
 		foreach ($feeds as $feed) {
+			$url = $feed->url();	//For detection of HTTP 301
+
 			$pubSubHubbubEnabled = $feed->pubSubHubbubEnabled();
-			if ((!$simplePiePush) && (!$id) && (!$force) && $pubSubHubbubEnabled && ($feed->lastUpdate() > $pshbMinAge)) {
+			if ((!$simplePiePush) && (!$id) && $pubSubHubbubEnabled && ($feed->lastUpdate() > $pshbMinAge)) {
+				$text = 'Skip pull of feed using PubSubHubbub: ' . $url;
+				Minz_Log::debug($text);
+				file_put_contents(USERS_PATH . '/_/log_pshb.txt', date('c') . "\t" . $text . "\n", FILE_APPEND);
 				continue;	//When PubSubHubbub is used, do not pull refresh so often
 			}
 
@@ -310,7 +315,6 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 				continue;
 			}
 
-			$url = $feed->url();	//For detection of HTTP 301
 			try {
 				if ($simplePiePush) {
 					$feed->loadEntries($simplePiePush);	//Used by PubSubHubbub
