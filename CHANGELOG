@@ -1,5 +1,11 @@
 # Changelog
 
+## 2015-xx-xx FreshRSS 1.1.2 (beta)
+
+* Features
+	* Support for PubSubHubbub for instant notifications from compatible Web sites.
+
+
 ## 2015-xx-xx FreshRSS 1.1.1 (beta)
 
 * Features
