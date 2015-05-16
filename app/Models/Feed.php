@@ -104,6 +104,16 @@ class FreshRSS_Feed extends Minz_Model {
 	public function ttl() {
 		return $this->ttl;
 	}
+	// public function ttlExpire() {
+		// $ttl = $this->ttl;
+		// if ($ttl == -2) {	//Default
+			// $ttl = FreshRSS_Context::$user_conf->ttl_default;
+		// }
+		// if ($ttl == -1) {	//Never
+			// $ttl = 64000000;	//~2 years. Good enough for PubSubHubbub logic
+		// }
+		// return $this->lastUpdate + $ttl;
+	// }
 	public function nbEntries() {
 		if ($this->nbEntries < 0) {
 			$feedDAO = FreshRSS_Factory::createFeedDao();
@@ -349,18 +359,42 @@ class FreshRSS_Feed extends Minz_Model {
 
 	//<PubSubHubbub>
 
+	function pubSubHubbubEnabled($keep = true) {
+		$url = $this->selfUrl ? $this->selfUrl : $this->url;
+		$hubFilename = PSHB_PATH . '/feeds/' . base64url_encode($url) . '/!hub.json';
+		if ($hubFile = @file_get_contents($hubFilename)) {
+			$hubJson = json_decode($hubFile, true);
+			if (!$keep) {
+				$hubJson['lease_end'] = time() - 60;
+				file_put_contents($hubFilename, json_encode($hubJson));
+				file_put_contents(USERS_PATH . '/_/log_pshb.txt', date('c') . "\t"
+					. 'Force expire lease for ' . $url . "\n", FILE_APPEND);
+			} elseif ($hubJson && (empty($hubJson['lease_end']) || $hubJson['lease_end'] > time())) {
+				return true;
+			}
+		}
+		return false;
+	}
+
 	function pubSubHubbubPrepare() {
 		$key = '';
 		if (FreshRSS_Context::$system_conf->base_url && $this->hubUrl && $this->selfUrl) {
 			$path = PSHB_PATH . '/feeds/' . base64url_encode($this->selfUrl);
-			if ($hubFile = @file_get_contents($path . '/!hub.json')) {
+			$hubFilename = $path . '/!hub.json';
+			if ($hubFile = @file_get_contents($hubFilename)) {
 				$hubJson = json_decode($hubFile, true);
 				if (!$hubJson || empty($hubJson['key']) || !ctype_xdigit($hubJson['key'])) {
-					Minz_Log::warning('Invalid JSON for PubSubHubbub: ' . $this->url);
+					$text = 'Invalid JSON for PubSubHubbub: ' . $this->url;
+					Minz_Log::warning($text);
+					file_put_contents(USERS_PATH . '/_/log_pshb.txt', date('c') . "\t" . $text . "\n", FILE_APPEND);
 					return false;
 				}
-				if (empty($hubJson['lease_end']) || $hubJson['lease_end'] <= time()) {
-					Minz_Log::warning('PubSubHubbub lease expired: ' . $this->url);
+				if (empty($hubJson['lease_end']) || ($hubJson['lease_end'] <= (time() + (3600 * 24)))) {	//TODO: Make a better policy
+					$text = 'PubSubHubbub lease ends at '
+						. date('c', empty($hubJson['lease_end']) ? time() : $hubJson['lease_end'])
+						. ' and needs renewal: ' . $this->url;
+					Minz_Log::warning($text);
+					file_put_contents(USERS_PATH . '/_/log_pshb.txt', date('c') . "\t" . $text . "\n", FILE_APPEND);
 					$key = $hubJson['key'];	//To renew our lease
 				}
 			} else {
@@ -370,12 +404,12 @@ class FreshRSS_Feed extends Minz_Model {
 					'hub' => $this->hubUrl,
 					'key' => $key,
 				);
-				file_put_contents($path . '/!hub.json', json_encode($hubJson));
+				file_put_contents($hubFilename, json_encode($hubJson));
 				@mkdir(PSHB_PATH . '/keys/');
 				file_put_contents(PSHB_PATH . '/keys/' . $key . '.txt', base64url_encode($this->selfUrl));
-				Minz_Log::debug('PubSubHubbub prepared for ' . $this->url);
-				file_put_contents(USERS_PATH . '/_/log_pshb.txt', date('c') . "\t" .
-					'PubSubHubbub prepared for ' . $this->url . "\n", FILE_APPEND);
+				$text = 'PubSubHubbub prepared for ' . $this->url;
+				Minz_Log::debug($text);
+				file_put_contents(USERS_PATH . '/_/log_pshb.txt', date('c') . "\t" . $text . "\n", FILE_APPEND);
 			}
 			$currentUser = Minz_Session::param('currentUser');
 			if (ctype_alnum($currentUser) && !file_exists($path . '/' . $currentUser . '.txt')) {
@@ -388,7 +422,8 @@ class FreshRSS_Feed extends Minz_Model {
 	//Parameter true to subscribe, false to unsubscribe.
 	function pubSubHubbubSubscribe($state) {
 		if (FreshRSS_Context::$system_conf->base_url && $this->hubUrl && $this->selfUrl) {
-			$hubFile = @file_get_contents(PSHB_PATH . '/feeds/' . base64url_encode($this->selfUrl) . '/!hub.json');
+			$hubFilename = PSHB_PATH . '/feeds/' . base64url_encode($this->selfUrl) . '/!hub.json';
+			$hubFile = @file_get_contents($hubFilename);
 			if ($hubFile === false) {
 				Minz_Log::warning('JSON not found for PubSubHubbub: ' . $this->url);
 				return false;
@@ -421,6 +456,12 @@ class FreshRSS_Feed extends Minz_Model {
 			file_put_contents(USERS_PATH . '/_/log_pshb.txt', date('c') . "\t" .
 				'PubSubHubbub ' . ($state ? 'subscribe' : 'unsubscribe') . ' to ' . $this->selfUrl .
 				' with callback ' . $callbackUrl . ': ' . $info['http_code'] . ' ' . $response . "\n", FILE_APPEND);
+
+			if (!$state) {	//unsubscribe
+				$hubJson['lease_end'] = time() - 60;
+				file_put_contents($hubFilename, json_encode($hubJson));
+			}
+
 			return substr($info['http_code'], 0, 1) == '2';
 		}
 		return false;

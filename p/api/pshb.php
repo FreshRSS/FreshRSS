@@ -57,8 +57,10 @@ if (!empty($_REQUEST['hub_mode']) && $_REQUEST['hub_mode'] === 'subscribe') {
 	$leaseSeconds = empty($_REQUEST['hub_lease_seconds']) ? 0 : intval($_REQUEST['hub_lease_seconds']);
 	if ($leaseSeconds > 60) {
 		$hubJson['lease_end'] = time() + $leaseSeconds;
-		file_put_contents('./!hub.json', json_encode($hubJson));
+	} else {
+		unset($hubJson['lease_end']);
 	}
+	file_put_contents('./!hub.json', json_encode($hubJson));
 	exit(isset($_REQUEST['hub_challenge']) ? $_REQUEST['hub_challenge'] : '');
 }
 
@@ -84,7 +86,7 @@ $self = isset($links[0]) ? $links[0] : null;
 
 if ($self !== base64url_decode($canonical64)) {
 	//header('HTTP/1.1 422 Unprocessable Entity');
-	logMe('Warning: Self URL ' . $self . ' does not match registered canonical URL!: ' . base64url_decode($canonical64));
+	logMe('Warning: Self URL [' . $self . '] does not match registered canonical URL!: ' . base64url_decode($canonical64));
 	//die('Self URL does not match registered canonical URL!');
 	$self = base64url_decode($canonical64);
 }
@@ -120,5 +122,5 @@ if ($nb === 0) {
 	die('Nobody is subscribed to this feed anymore after all!');
 }
 
-logMe($self . ' done: ' . $nb);
+logMe('PubSubHubbub ' . $self . ' done: ' . $nb);
 exit('Done: ' . $nb . "\n");

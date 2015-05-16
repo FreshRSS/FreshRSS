@@ -268,7 +268,7 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 	 * If id and url are not specified, all the feeds are actualized. But if force is
 	 * false, process stops at 10 feeds to avoid time execution problem.
 	 */
-	public function actualizeAction($simplePie = null) {
+	public function actualizeAction($simplePiePush = null) {
 		@set_time_limit(300);
 
 		$feedDAO = FreshRSS_Factory::createFeedDao();
@@ -295,10 +295,16 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 		// Calculate date of oldest entries we accept in DB.
 		$nb_month_old = max(FreshRSS_Context::$user_conf->old_entries, 1);
 		$date_min = time() - (3600 * 24 * 30 * $nb_month_old);
+		$pshbMinAge = time() - (3600 * 24);	//TODO: Make a configuration.
 
 		$updated_feeds = 0;
 		$is_read = FreshRSS_Context::$user_conf->mark_when['reception'] ? 1 : 0;
 		foreach ($feeds as $feed) {
+			$pubSubHubbubEnabled = $feed->pubSubHubbubEnabled();
+			if ((!$simplePiePush) && (!$id) && (!$force) && $pubSubHubbubEnabled && ($feed->lastUpdate() > $pshbMinAge)) {
+				continue;	//When PubSubHubbub is used, do not pull refresh so often
+			}
+
 			if (!$feed->lock()) {
 				Minz_Log::notice('Feed already being actualized: ' . $feed->url());
 				continue;
@@ -306,8 +312,8 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 
 			$url = $feed->url();	//For detection of HTTP 301
 			try {
-				if ($simplePie) {
-					$feed->loadEntries($simplePie);	//Used by PubSubHubbub
+				if ($simplePiePush) {
+					$feed->loadEntries($simplePiePush);	//Used by PubSubHubbub
 				} else {
 					$feed->load(false);
 				}
@@ -374,6 +380,14 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 							continue;
 						}
 
+						if ($pubSubHubbubEnabled && !$simplePiePush) {	//We use push, but have discovered an article by pull!
+							$text = 'An article was discovered by pull although we use PubSubHubbub!: Feed ' . $url . ' GUID ' . $entry->guid();
+							file_put_contents(USERS_PATH . '/_/log_pshb.txt', date('c') . "\t" . $text . "\n", FILE_APPEND);
+							Minz_Log::warning($text);
+							$pubSubHubbubEnabled = false;
+							$feed->pubSubHubbubEnabled(false);	//To force the renewal of our lease
+						}
+
 						if (!$entryDAO->hasTransaction()) {
 							$entryDAO->beginTransaction();
 						}
@@ -423,15 +437,13 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 				$feedDAO->updateFeed($feed->id(), array('url' => $feed->url()));
 			}
 
-			if ($simplePie === null) {
-				$feed->faviconPrepare();
-				if (in_array($feed->url(), array('http://push-pub.appspot.com/feed'))) {	//TODO: Remove white-list after testing
-					Minz_Log::debug('PubSubHubbub match ' . $feed->url());
-					if ($feed->pubSubHubbubPrepare()) {
-						Minz_Log::notice('PubSubHubbub subscribe ' . $feed->url());
-						if (!$feed->pubSubHubbubSubscribe(true)) {	//Subscribe
-							Minz_Log::warning('Error while PubSubHubbub subscribing to ' . $feed->url());
-						}
+			$feed->faviconPrepare();
+			if (in_array($feed->url(), array('http://push-pub.appspot.com/feed'))) {	//TODO: Remove white-list after testing
+				Minz_Log::debug('PubSubHubbub match ' . $feed->url());
+				if ($feed->pubSubHubbubPrepare()) {
+					Minz_Log::notice('PubSubHubbub subscribe ' . $feed->url());
+					if (!$feed->pubSubHubbubSubscribe(true)) {	//Subscribe
+						Minz_Log::warning('Error while PubSubHubbub subscribing to ' . $feed->url());
 					}
 				}
 			}
