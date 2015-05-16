@@ -10,7 +10,7 @@ return array(
 		'empty' => 'Empty',
 		'enable' => 'Enable',
 		'export' => 'Export',
-		'filter' => 'Filtrer',
+		'filter' => 'Filter',
 		'import' => 'Import',
 		'manage' => 'Manage',
 		'mark_read' => 'Mark as read',
