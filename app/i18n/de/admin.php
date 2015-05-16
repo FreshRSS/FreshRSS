@@ -127,11 +127,11 @@ return array(
 		'entry_repartition' => 'Einträge-Verteilung',
 		'feed' => 'Feed',
 		'feed_per_category' => 'Feeds pro Kategorie',
-		'idle' => 'Inkative Feeds',
+		'idle' => 'Inaktive Feeds',
 		'main' => 'Haupt-Statistiken',
 		'main_stream' => 'Haupt-Feeds',
 		'menu' => array(
-			'idle' => 'Inkative Feeds',
+			'idle' => 'Inaktive Feeds',
 			'main' => 'Haupt-Statistiken',
 			'repartition' => 'Artikel-Verteilung',
 		),
