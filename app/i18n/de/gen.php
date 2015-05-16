@@ -49,7 +49,7 @@ return array(
 		'april' => 'April',
 		'aug' => 'Aug',
 		'august' => 'August',
-		'before_yesterday' => 'Vor gestern',
+		'before_yesterday' => 'Vor vorgestern',
 		'dec' => 'Dez',
 		'december' => 'Dezember',
 		'feb' => 'Feb',
@@ -93,7 +93,7 @@ return array(
 	),
 	'js' => array(
 		'category_empty' => 'Kategorie leeren',
-		'confirm_action' => 'Sind Sie sicher, dass Sie diese Aktion durchführen wollen? Dies kann nicht abgebrochen werden!',
+		'confirm_action' => 'Sind Sie sicher, dass Sie diese Aktion durchführen wollen? Diese Aktion kann nicht abgebrochen werden!',
 		'confirm_action_feed_cat' => 'Sind Sie sicher, dass Sie diese Aktion durchführen wollen? Sie werden zugehörige Favoriten und Benutzerabfragen verlieren. Dies kann nicht abgebrochen werden!',
 		'feedback' => array(
 			'body_new_articles' => 'Es gibt \\d neue Artikel zum Lesen auf FreshRSS.',

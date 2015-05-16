@@ -17,7 +17,7 @@ return array(
 	),
 	'feed' => array(
 		'add' => 'Sie können Feeds hinzufügen.',
-		'empty' => 'Es gibt keinen Artikel zum Zeigen.',
+		'empty' => 'Es gibt keinen Artikel zum Anzeigen.',
 		'rss_of' => 'RSS-Feed von %s',
 		'title' => 'Ihre RSS-Feeds',
 		'title_global' => 'Globale Ansicht',
