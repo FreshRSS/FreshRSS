@@ -2,6 +2,14 @@
 
 ## 2015-xx-xx FreshRSS 1.1.1 (beta)
 
+* Features
+	* New option to detect and mark updated articles as unread.
+	* Support for internationalized domain name (IDN).
+* Misc.
+	* Improved logic for automatic deletion of old articles.
+	* Attempt to better handle encoded titles.
+
+
 ## 2015-01-31 FreshRSS 1.0.0 / 1.1.0 (beta)
 
 * UI
