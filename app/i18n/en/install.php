@@ -3,11 +3,11 @@
 return array(
 	'action' => array(
 		'finish' => 'Complete installation',
-		'fix_errors_before' => 'Fix errors before skip to the next step.',
+		'fix_errors_before' => 'Please fix errors before skipping to the next step.',
 		'next_step' => 'Go to the next step',
 	),
 	'auth' => array(
-		'email_persona' => 'Login mail address<br /><small>(for <a href="https://persona.org/" rel="external">Mozilla Persona</a>)</small>',
+		'email_persona' => 'Login email address<br /><small>(for <a href="https://persona.org/" rel="external">Mozilla Persona</a>)</small>',
 		'form' => 'Web form (traditional, requires JavaScript)',
 		'http' => 'HTTP (for advanced users with HTTPS)',
 		'none' => 'None (dangerous)',
@@ -91,7 +91,7 @@ return array(
 	'congratulations' => 'Congratulations!',
 	'default_user' => 'Username of the default user <small>(maximum 16 alphanumeric characters)</small>',
 	'delete_articles_after' => 'Remove articles after',
-	'fix_errors_before' => 'Fix errors before skip to the next step.',
+	'fix_errors_before' => 'Please fix errors before skipping to the next step.',
 	'javascript_is_better' => 'FreshRSS is more pleasant with JavaScript enabled',
 	'language' => array(
 		'_' => 'Language',
