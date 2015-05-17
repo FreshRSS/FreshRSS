@@ -12,7 +12,7 @@ return array(
 		'title' => 'Authentication',
 		'title_reset' => 'Authentication reset',
 		'token' => 'Authentication token',
-		'token_help' => 'Allows to access RSS output of the default user without authentication:',
+		'token_help' => 'Allows access to RSS output of the default user without authentication:',
 		'type' => 'Authentication method',
 		'unsafe_autologin' => 'Allow unsafe automatic login using the format: ',
 	),
