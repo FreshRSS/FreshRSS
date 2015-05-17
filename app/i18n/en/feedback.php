@@ -2,7 +2,7 @@
 
 return array(
 	'admin' => array(
-		'optimization_complete' => 'Optimization complete',
+		'optimization_complete' => 'Optimisation complete',
 	),
 	'access' => array(
 		'denied' => 'You don’t have permission to access this page',
@@ -52,7 +52,7 @@ return array(
 		'zip_error' => 'An error occured during Zip import.',
 	),
 	'sub' => array(
-		'actualize' => 'Actualize',
+		'actualize' => 'Actualise',
 		'category' => array(
 			'created' => 'Category %s has been created.',
 			'deleted' => 'Category has been deleted.',
@@ -86,7 +86,7 @@ return array(
 		'purge_completed' => 'Purge completed (%d articles deleted)',
 	),
 	'update' => array(
-		'can_apply' => 'FreshRSS will be now updated to the <strong>version %s</strong>.',
+		'can_apply' => 'FreshRSS will now be updated to the <strong>version %s</strong>.',
 		'error' => 'The update process has encountered an error: %s',
 		'file_is_nok' => 'Check permissions on <em>%s</em> directory. HTTP server must have rights to write into',
 		'finished' => 'Update completed!',
