@@ -305,7 +305,7 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 			$pubSubHubbubEnabled = $feed->pubSubHubbubEnabled();
 			if ((!$simplePiePush) && (!$id) && $pubSubHubbubEnabled && ($feed->lastUpdate() > $pshbMinAge)) {
 				$text = 'Skip pull of feed using PubSubHubbub: ' . $url;
-				Minz_Log::debug($text);
+				//Minz_Log::debug($text);
 				file_put_contents(USERS_PATH . '/_/log_pshb.txt', date('c') . "\t" . $text . "\n", FILE_APPEND);
 				continue;	//When PubSubHubbub is used, do not pull refresh so often
 			}
@@ -389,7 +389,7 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 							file_put_contents(USERS_PATH . '/_/log_pshb.txt', date('c') . "\t" . $text . "\n", FILE_APPEND);
 							Minz_Log::warning($text);
 							$pubSubHubbubEnabled = false;
-							$feed->pubSubHubbubEnabled(false);	//To force the renewal of our lease
+							$feed->pubSubHubbubError(true);
 						}
 
 						if (!$entryDAO->hasTransaction()) {

@@ -359,19 +359,29 @@ class FreshRSS_Feed extends Minz_Model {
 
 	//<PubSubHubbub>
 
-	function pubSubHubbubEnabled($keep = true) {
+	function pubSubHubbubEnabled() {
 		$url = $this->selfUrl ? $this->selfUrl : $this->url;
 		$hubFilename = PSHB_PATH . '/feeds/' . base64url_encode($url) . '/!hub.json';
 		if ($hubFile = @file_get_contents($hubFilename)) {
 			$hubJson = json_decode($hubFile, true);
-			if (!$keep) {
-				$hubJson['lease_end'] = time() - 60;
-				file_put_contents($hubFilename, json_encode($hubJson));
-				file_put_contents(USERS_PATH . '/_/log_pshb.txt', date('c') . "\t"
-					. 'Force expire lease for ' . $url . "\n", FILE_APPEND);
-			} elseif ($hubJson && (empty($hubJson['lease_end']) || $hubJson['lease_end'] > time())) {
+			if ($hubJson && empty($hubJson['error']) &&
+				(empty($hubJson['lease_end']) || $hubJson['lease_end'] > time())) {
 				return true;
 			}
+		}
+		return false;
+	}
+
+	function pubSubHubbubError($error = true) {
+		$url = $this->selfUrl ? $this->selfUrl : $this->url;
+		$hubFilename = PSHB_PATH . '/feeds/' . base64url_encode($url) . '/!hub.json';
+		$hubFile = @file_get_contents($hubFilename);
+		$hubJson = $hubFile ? json_decode($hubFile, true) : array();
+		if (!isset($hubJson['error']) || $hubJson['error'] !== (bool)$error) {
+			$hubJson['error'] = (bool)$error;
+			file_put_contents($hubFilename, json_encode($hubJson));
+			file_put_contents(USERS_PATH . '/_/log_pshb.txt', date('c') . "\t"
+				. 'Set error to ' . ($error ? 1 : 0) . ' for ' . $url . "\n", FILE_APPEND);
 		}
 		return false;
 	}
@@ -389,17 +399,20 @@ class FreshRSS_Feed extends Minz_Model {
 					file_put_contents(USERS_PATH . '/_/log_pshb.txt', date('c') . "\t" . $text . "\n", FILE_APPEND);
 					return false;
 				}
-				if (empty($hubJson['lease_end']) || ($hubJson['lease_end'] <= (time() + (3600 * 24)))) {	//TODO: Make a better policy
+				if ((!empty($hubJson['lease_end'])) && ($hubJson['lease_end'] < (time() + (3600 * 23)))) {	//TODO: Make a better policy
 					$text = 'PubSubHubbub lease ends at '
 						. date('c', empty($hubJson['lease_end']) ? time() : $hubJson['lease_end'])
 						. ' and needs renewal: ' . $this->url;
 					Minz_Log::warning($text);
 					file_put_contents(USERS_PATH . '/_/log_pshb.txt', date('c') . "\t" . $text . "\n", FILE_APPEND);
 					$key = $hubJson['key'];	//To renew our lease
+				} elseif (((!empty($hubJson['error'])) || empty($hubJson['lease_end'])) &&
+					(empty($hubJson['lease_start']) || $hubJson['lease_start'] < time() - (3600 * 23))) {	//Do not renew too often
+					$key = $hubJson['key'];	//To renew our lease
 				}
 			} else {
 				@mkdir($path, 0777, true);
-				$key = sha1(FreshRSS_Context::$system_conf->salt . uniqid(mt_rand(), true));
+				$key = sha1($path . FreshRSS_Context::$system_conf->salt . uniqid(mt_rand(), true));
 				$hubJson = array(
 					'hub' => $this->hubUrl,
 					'key' => $key,

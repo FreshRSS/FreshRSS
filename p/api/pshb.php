@@ -60,6 +60,10 @@ if (!empty($_REQUEST['hub_mode']) && $_REQUEST['hub_mode'] === 'subscribe') {
 	} else {
 		unset($hubJson['lease_end']);
 	}
+	$hubJson['lease_start'] = time();
+	if (!isset($hubJson['error'])) {
+		$hubJson['error'] = true;	//Do not assume that PubSubHubbub works until the first successul push
+	}
 	file_put_contents('./!hub.json', json_encode($hubJson));
 	exit(isset($_REQUEST['hub_challenge']) ? $_REQUEST['hub_challenge'] : '');
 }
@@ -120,6 +124,9 @@ if ($nb === 0) {
 	header('HTTP/1.1 410 Gone');
 	logMe('Error: Nobody is subscribed to this feed anymore after all!: ' . $self);
 	die('Nobody is subscribed to this feed anymore after all!');
+} elseif (!empty($hubJson['error'])) {
+	$hubJson['error'] = false;
+	file_put_contents('./!hub.json', json_encode($hubJson));
 }
 
 logMe('PubSubHubbub ' . $self . ' done: ' . $nb);
