@@ -150,7 +150,7 @@ return array(
 		'wallabag' => 'wallabag',
 	),
 	'short' => array(
-		'attention' => 'Attention!',
+		'attention' => 'Warning!',
 		'blank_to_disable' => 'Leave blank to disable',
 		'by_author' => 'By <em>%s</em>',
 		'by_default' => 'By default',
