@@ -5,6 +5,11 @@
 * Features
 	* New option to detect and mark updated articles as unread.
 	* Support for internationalized domain name (IDN).
+* API
+	* Work-around for News+ bug when there is no unread article on the server.
+* Bug fixing
+	* Corrected bug introduced in previous beta about handling of HTTP 301 (feed that have changed address) 
+	* Corrected bug in FreshRSS RSS feeds.
 * Misc.
 	* Improved logic for automatic deletion of old articles.
 	* Attempt to better handle encoded titles.
