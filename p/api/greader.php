@@ -467,6 +467,9 @@ function streamContentsItemsIds($streamId, $start_time, $count, $order, $exclude
 	$entryDAO = FreshRSS_Factory::createEntryDao();
 	$ids = $entryDAO->listIdsWhere($type, $id, $state, $order === 'o' ? 'ASC' : 'DESC', $count, '', new FreshRSS_Search(''), $start_time);
 
+	if (empty($ids)) {	//For News+ bug https://github.com/noinnion/newsplus/issues/84#issuecomment-57834632
+		$ids[] = 0;
+	}
 	$itemRefs = array();
 	foreach ($ids as $id) {
 		$itemRefs[] = array(
