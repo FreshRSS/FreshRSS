@@ -388,7 +388,7 @@ class FreshRSS_Feed extends Minz_Model {
 
 	function pubSubHubbubPrepare() {
 		$key = '';
-		if (FreshRSS_Context::$system_conf->base_url && $this->hubUrl && $this->selfUrl) {
+		if (FreshRSS_Context::$system_conf->base_url && $this->hubUrl && $this->selfUrl && @is_dir(PSHB_PATH)) {
 			$path = PSHB_PATH . '/feeds/' . base64url_encode($this->selfUrl);
 			$hubFilename = $path . '/!hub.json';
 			if ($hubFile = @file_get_contents($hubFilename)) {

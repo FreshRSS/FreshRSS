@@ -442,13 +442,10 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 			}
 
 			$feed->faviconPrepare();
-			if (in_array($feed->url(), array('http://push-pub.appspot.com/feed'))) {	//TODO: Remove white-list after testing
-				Minz_Log::debug('PubSubHubbub match ' . $feed->url());
-				if ($feed->pubSubHubbubPrepare()) {
-					Minz_Log::notice('PubSubHubbub subscribe ' . $feed->url());
-					if (!$feed->pubSubHubbubSubscribe(true)) {	//Subscribe
-						Minz_Log::warning('Error while PubSubHubbub subscribing to ' . $feed->url());
-					}
+			if ($feed->pubSubHubbubPrepare()) {
+				Minz_Log::notice('PubSubHubbub subscribe ' . $feed->url());
+				if (!$feed->pubSubHubbubSubscribe(true)) {	//Subscribe
+					Minz_Log::warning('Error while PubSubHubbub subscribing to ' . $feed->url());
 				}
 			}
 			$feed->unlock();
