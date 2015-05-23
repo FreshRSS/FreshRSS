@@ -8,7 +8,7 @@
 * API
 	* Work-around for News+ bug when there is no unread article on the server.
 * Bug fixing
-	* Corrected bug introduced in previous beta about handling of HTTP 301 (feed that have changed address) 
+	* Corrected bug introduced in previous beta about handling of HTTP 301 (feeds that have changed address) 
 	* Corrected bug in FreshRSS RSS feeds.
 * Misc.
 	* Improved logic for automatic deletion of old articles.
@@ -73,7 +73,7 @@
 * Misc.
 	* Add option to remove articles after reading them
 	* Add comments
-	* Refactor i18n system to not load unnecessary strings
+	* Refactor i18n system to avoid loading unnecessary strings
 	* Fix security issue in Minz_Error::error() method
 	* Fix redirection after refreshing a given feed
 
@@ -96,7 +96,7 @@
 * I18n
 	* Introduce a new system for i18n keys (not finished yet)
 * Misc.
-	* Fix global view (didn't work anymore)
+	* Fix global view (did not work anymore)
 	* Add do_post_update for update system
 	* Introduce ```checkInstallAction``` to test if FreshRSS installation is ok
 
@@ -106,7 +106,7 @@
 * UI
 	* Add a space after tag icon
 * Statistics
-	* Add an average per day on the 30 day period graph
+	* Add an average per day on the 30-day period graph
 	* Add percent of total on top 10 feed
 * Bug fixes
 	* Fix "mark as read" in global view
@@ -155,7 +155,7 @@
 	* Changed lazyload implementation
 	* Support of HTML5 notifications for new upcoming articles
 	* Add option to stay logged in
-* Bux fixes in export function, add/remove users, keyboard shortcuts, etc.
+* Bug fixes in export function, add/remove users, keyboard shortcuts, etc.
 
 
 ## 2014-07-21 FreshRSS 0.7.3
