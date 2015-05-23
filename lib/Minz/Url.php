@@ -10,7 +10,6 @@ class Minz_Url {
 	 *                    $url['c'] = controller
 	 *                    $url['a'] = action
 	 *                    $url['params'] = tableau des paramètres supplémentaires
-	 *                    $url['protocol'] = protocole à utiliser (http par défaut)
 	 *             ou comme une chaîne de caractère
 	 * @param $encodage pour indiquer comment encoder les & (& ou &amp; pour html)
 	 * @return l'url formatée
@@ -25,14 +24,7 @@ class Minz_Url {
 		$url_string = '';
 
 		if ($absolute) {
-			if ($isArray && isset ($url['protocol'])) {
-				$protocol = $url['protocol'];
-			} elseif (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on') {
-				$protocol = 'https:';
-			} else {
-				$protocol = 'http:';
-			}
-			$url_string = $protocol . '//' . Minz_Request::getDomainName () . Minz_Request::getBaseUrl ();
+			$url_string = Minz_Request::getBaseUrl(PUBLIC_TO_INDEX_PATH);
 		} else {
 			$url_string = $isArray ? '.' : PUBLIC_RELATIVE;
 		}

@@ -85,44 +85,26 @@ class Minz_Request {
 	}
 
 	/**
-	 * Retourn le nom de domaine du site
-	 */
-	public static function getDomainName() {
-		return $_SERVER['HTTP_HOST'];
-	}
-
-	/**
 	 * Détermine la base de l'url
 	 * @return la base de l'url
 	 */
-	public static function getBaseUrl() {
+	public static function getBaseUrl($baseUrlSuffix = '') {
 		$conf = Minz_Configuration::get('system');
-		$defaultBaseUrl = $conf->base_url;
-		if (!empty($defaultBaseUrl)) {
-			return $defaultBaseUrl;
-		} elseif (isset($_SERVER['REQUEST_URI'])) {
-			return dirname($_SERVER['REQUEST_URI']) . '/';
+		$url = $conf->base_url;
+		if ($url == '' || !preg_match('%^https?://%i', $url)) {
+			$url = 'http';
+			$host = empty($_SERVER['HTTP_HOST']) ? $_SERVER['SERVER_NAME'] : $_SERVER['HTTP_HOST'];
+			$port = empty($_SERVER['SERVER_PORT']) ? 80 : $_SERVER['SERVER_PORT'];
+			if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on') {
+				$url .= 's://' . $host . ($port == 443 ? '' : ':' . $port);
+			} else {
+				$url .= '://' . $host . ($port == 80 ? '' : ':' . $port);
+			}
+			$url .= isset($_SERVER['REQUEST_URI']) ? dirname($_SERVER['REQUEST_URI']) : '';
 		} else {
-			return '/';
+			$url = rtrim($url, '/\\') . $baseUrlSuffix;
 		}
-	}
-
-	/**
-	 * Récupère l'URI de la requête
-	 * @return l'URI
-	 */
-	public static function getURI() {
-		if (isset($_SERVER['REQUEST_URI'])) {
-			$base_url = self::getBaseUrl();
-			$uri = $_SERVER['REQUEST_URI'];
-
-			$len_base_url = strlen($base_url);
-			$real_uri = substr($uri, $len_base_url);
-		} else {
-			$real_uri = '';
-		}
-
-		return $real_uri;
+		return filter_var($url . '/', FILTER_SANITIZE_URL);
 	}
 
 	/**
