@@ -7,6 +7,8 @@
 	* Support for internationalized domain name (IDN).
 * API
 	* Work-around for News+ bug when there is no unread article on the server.
+* UI
+	* New confirmation message when leaving a configuration page without saving the changes.
 * Bug fixing
 	* Corrected bug introduced in previous beta about handling of HTTP 301 (feeds that have changed address) 
 	* Corrected bug in FreshRSS RSS feeds.
