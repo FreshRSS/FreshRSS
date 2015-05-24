@@ -511,7 +511,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 			$where .= 'AND e1.id >= ' . $date_min . '000000 ';
 		}
 		$search = '';
-		if ($filter !== null) {
+		if ($filter) {
 			if ($filter->getIntitle()) {
 				$search .= 'AND e1.title LIKE ? ';
 				$values[] = "%{$filter->getIntitle()}%";
