@@ -14,7 +14,10 @@ It supports [PubSubHubbub](https://code.google.com/p/pubsubhubbub/) for instant 
 
 ![FreshRSS logo](http://marienfressinaud.fr/data/images/freshrss/freshrss_title.png)
 
-# Note on branches
+# Releases
+See the [list of releases](../../releases).
+
+## Note on branches
 **This application is under continuous development!** Please use the branch that suits your needs:
 
 * Use [the master branch](https://github.com/FreshRSS/FreshRSS/tree/master/) if you need a stable version.
@@ -24,6 +27,7 @@ It supports [PubSubHubbub](https://code.google.com/p/pubsubhubbub/) for instant 
 # Disclaimer
 This application was developed to fulfil personal needs primarily, and comes with absolutely no warranty.
 Feature requests, bug reports, and other contributions are welcome. The best way is to [open issues on GitHub](https://github.com/FreshRSS/FreshRSS/issues).
+We are a friendly community.
 
 # Requirements
 * Light server running Linux or Windows

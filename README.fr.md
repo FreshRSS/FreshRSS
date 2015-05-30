@@ -14,16 +14,20 @@ Il supporte [PubSubHubbub](https://code.google.com/p/pubsubhubbub/) pour des not
 
 ![Logo de FreshRSS](http://marienfressinaud.fr/data/images/freshrss/freshrss_title.png)
 
-# Note sur les branches
+# Téléchargement
+Voir la [liste des versions](../../releases).
+
+## Note sur les branches
 **Ce logiciel est en développement permanent !** Veuillez vous assurer d'utiliser la branche qui vous correspond :
 
 * Utilisez [la branche master](https://github.com/FreshRSS/FreshRSS/tree/master/) si vous visez la stabilité.
 * [La branche beta](https://github.com/FreshRSS/FreshRSS/tree/beta) est celle par défaut : les nouveautés y sont ajoutées environ tous les mois.
 * Pour les développeurs et ceux qui veulent aider à tester les toutes dernières fonctionnalités, [la branche dev](https://github.com/FreshRSS/FreshRSS/tree/dev) vous ouvre les bras !
 
-# Disclaimer
+# Avertissements
 Cette application a été développée pour s’adapter principalement à des besoins personnels, et aucune garantie n'est fournie.
 Les demandes de fonctionnalités, rapports de bugs, et autres contributions sont les bienvenues. Privilégiez pour cela des [demandes sur GitHub](https://github.com/FreshRSS/FreshRSS/issues).
+Nous sommes une communauté amicale.
 
 # Prérequis
 * Serveur modeste, par exemple sous Linux ou Windows
