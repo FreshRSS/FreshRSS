@@ -6,11 +6,12 @@
 	* Support for PubSubHubbub for instant notifications from compatible Web sites.
 
 
-## 2015-xx-xx FreshRSS 1.1.1 (beta)
+## 2015-05-31 FreshRSS 1.1.1 (beta)
 
 * Features
 	* New option to detect and mark updated articles as unread.
 	* Support for internationalized domain name (IDN).
+	* Improved logic for automatic deletion of old articles.
 * API
 	* Work-around for News+ bug when there is no unread article on the server.
 * UI
@@ -18,9 +19,10 @@
 * Bug fixing
 	* Corrected bug introduced in previous beta about handling of HTTP 301 (feeds that have changed address) 
 	* Corrected bug in FreshRSS RSS feeds.
+* Security
+	* Sanitize HTTP request header `Host`.
 * Misc.
-	* Improved logic for automatic deletion of old articles.
-	* Attempt to better handle encoded titles.
+	* Attempt to better handle encoded article titles.
 
 
 ## 2015-01-31 FreshRSS 1.0.0 / 1.1.0 (beta)
