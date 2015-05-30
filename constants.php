@@ -11,7 +11,8 @@ define('PHP_COMPRESSION', false);
 define('FRESHRSS_PATH', dirname(__FILE__));
 
 	define('PUBLIC_PATH', FRESHRSS_PATH . '/p');
-		define('INDEX_PATH', PUBLIC_PATH . '/i');
+		define('PUBLIC_TO_INDEX_PATH', '/i');
+		define('INDEX_PATH', PUBLIC_PATH . PUBLIC_TO_INDEX_PATH);
 		define('PUBLIC_RELATIVE', '..');
 
 	define('DATA_PATH', FRESHRSS_PATH . '/data');
