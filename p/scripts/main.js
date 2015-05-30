@@ -1230,13 +1230,11 @@ function init_slider_observers() {
 }
 
 function init_configuration_alert() {
-	$(window).on('beforeunload', function(e){
-		if (e.originalEvent.explicitOriginalTarget.type === 'submit') {
-			// we don't want an alert when submitting the form with the submit button
-			return;
-		}
-		if ($(e.originalEvent.explicitOriginalTarget).attr('data-leave-validation') !== undefined) {
-			// we don't want an alert when submitting the form by pressing the enter key
+	$(window).on('submit', function(e) {
+		window.hasSubmit = true;
+	});
+	$(window).on('beforeunload', function(e) {
+		if (window.hasSubmit) {
 			return;
 		}
 		var fields = $("[data-leave-validation]");
