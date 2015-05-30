@@ -18,7 +18,7 @@ class Minz_Url {
 		$isArray = is_array($url);
 
 		if ($isArray) {
-			$url = self::checkUrl ($url);
+			$url = self::checkUrl($url);
 		}
 
 		$url_string = '';
@@ -30,9 +30,9 @@ class Minz_Url {
 		}
 
 		if ($isArray) {
-			$url_string .= self::printUri ($url, $encodage);
+			$url_string .= self::printUri($url, $encodage);
 		} else {
-			$url_string .= $url;
+			$url_string = Minz_Helper::htmlspecialchars_utf8($url_string . $url);
 		}
 
 		return $url_string;
