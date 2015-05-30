@@ -371,7 +371,7 @@ function streamContents($path, $include_target, $start_time, $count, $order, $ex
 	}
 
 	$entryDAO = FreshRSS_Factory::createEntryDao();
-	$entries = $entryDAO->listWhere($type, $include_target, $state, $order === 'o' ? 'ASC' : 'DESC', $count, $continuation, '', $start_time);
+	$entries = $entryDAO->listWhere($type, $include_target, $state, $order === 'o' ? 'ASC' : 'DESC', $count, $continuation, new FreshRSS_Search(''), $start_time);
 
 	$items = array();
 	foreach ($entries as $entry) {
@@ -465,8 +465,11 @@ function streamContentsItemsIds($streamId, $start_time, $count, $order, $exclude
 	}
 
 	$entryDAO = FreshRSS_Factory::createEntryDao();
-	$ids = $entryDAO->listIdsWhere($type, $id, $state, $order === 'o' ? 'ASC' : 'DESC', $count, '', '', $start_time);
+	$ids = $entryDAO->listIdsWhere($type, $id, $state, $order === 'o' ? 'ASC' : 'DESC', $count, '', new FreshRSS_Search(''), $start_time);
 
+	if (empty($ids)) {	//For News+ bug https://github.com/noinnion/newsplus/issues/84#issuecomment-57834632
+		$ids[] = 0;
+	}
 	$itemRefs = array();
 	foreach ($ids as $id) {
 		$itemRefs[] = array(

@@ -14,7 +14,8 @@ class FreshRSS_Entry extends Minz_Model {
 	private $content;
 	private $link;
 	private $date;
-	private $is_read;
+	private $hash = null;
+	private $is_read;	//Nullable boolean
 	private $is_favorite;
 	private $feed;
 	private $tags;
@@ -88,6 +89,14 @@ class FreshRSS_Entry extends Minz_Model {
 		}
 	}
 
+	public function hash() {
+		if ($this->hash === null) {
+			//Do not include $this->date because it may be automatically generated when lacking
+			$this->hash = md5($this->link . $this->title . $this->author . $this->content . $this->tags(true));
+		}
+		return $this->hash;
+	}
+
 	public function _id($value) {
 		$this->id = $value;
 	}
@@ -95,23 +104,28 @@ class FreshRSS_Entry extends Minz_Model {
 		$this->guid = $value;
 	}
 	public function _title($value) {
+		$this->hash = null;
 		$this->title = $value;
 	}
 	public function _author($value) {
+		$this->hash = null;
 		$this->author = $value;
 	}
 	public function _content($value) {
+		$this->hash = null;
 		$this->content = $value;
 	}
 	public function _link($value) {
+		$this->hash = null;
 		$this->link = $value;
 	}
 	public function _date($value) {
+		$this->hash = null;
 		$value = intval($value);
 		$this->date = $value > 1 ? $value : time();
 	}
 	public function _isRead($value) {
-		$this->is_read = $value;
+		$this->is_read = $value === null ? null : (bool)$value;
 	}
 	public function _isFavorite($value) {
 		$this->is_favorite = $value;
@@ -120,6 +134,7 @@ class FreshRSS_Entry extends Minz_Model {
 		$this->feed = $value;
 	}
 	public function _tags($value) {
+		$this->hash = null;
 		if (!is_array($value)) {
 			$value = array($value);
 		}
@@ -182,6 +197,7 @@ class FreshRSS_Entry extends Minz_Model {
 			'content' => $this->content(),
 			'link' => $this->link(),
 			'date' => $this->date(true),
+			'hash' => $this->hash(),
 			'is_read' => $this->isRead(),
 			'is_favorite' => $this->isFavorite(),
 			'id_feed' => $this->feed(),

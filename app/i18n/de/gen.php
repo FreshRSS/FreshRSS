@@ -104,6 +104,7 @@ return array(
 		'should_be_activated' => 'JavaScript muss aktiviert sein',
 	),
 	'lang' => array(
+		'cz' => 'Čeština',
 		'de' => 'Deutsch',
 		'en' => 'English',
 		'fr' => 'Français',
@@ -156,6 +157,7 @@ return array(
 		'damn' => 'Verdammt!',
 		'default_category' => 'Unkategorisiert',
 		'no' => 'Nein',
+		'not_applicable' => 'Nicht verfügbar',
 		'ok' => 'OK!',
 		'or' => 'oder',
 		'yes' => 'Ja',

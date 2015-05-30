@@ -23,28 +23,28 @@
 		<div class="form-group">
 			<label class="group-name" for="next_entry"><?php echo _t('conf.shortcut.next_article'); ?></label>
 			<div class="group-controls">
-				<input type="text" id="next_entry" name="shortcuts[next_entry]" list="keys" value="<?php echo $s['next_entry']; ?>" />
+				<input type="text" id="next_entry" name="shortcuts[next_entry]" list="keys" value="<?php echo $s['next_entry']; ?>" data-leave-validation="<?php echo $s['next_entry']; ?>"/>
 			</div>
 		</div>
 
 		<div class="form-group">
 			<label class="group-name" for="prev_entry"><?php echo _t('conf.shortcut.previous_article'); ?></label>
 			<div class="group-controls">
-				<input type="text" id="prev_entry" name="shortcuts[prev_entry]" list="keys" value="<?php echo $s['prev_entry']; ?>" />
+				<input type="text" id="prev_entry" name="shortcuts[prev_entry]" list="keys" value="<?php echo $s['prev_entry']; ?>" data-leave-validation="<?php echo $s['prev_entry']; ?>"/>
 			</div>
 		</div>
 
 		<div class="form-group">
 			<label class="group-name" for="first_entry"><?php echo _t('conf.shortcut.first_article'); ?></label>
 			<div class="group-controls">
-				<input type="text" id="first_entry" name="shortcuts[first_entry]" list="keys" value="<?php echo $s['first_entry']; ?>" />
+				<input type="text" id="first_entry" name="shortcuts[first_entry]" list="keys" value="<?php echo $s['first_entry']; ?>" data-leave-validation="<?php echo $s['first_entry']; ?>"/>
 			</div>
 		</div>
 
 		<div class="form-group">
 			<label class="group-name" for="last_entry"><?php echo _t('conf.shortcut.last_article'); ?></label>
 			<div class="group-controls">
-				<input type="text" id="last_entry" name="shortcuts[last_entry]" list="keys" value="<?php echo $s['last_entry']; ?>" />
+				<input type="text" id="last_entry" name="shortcuts[last_entry]" list="keys" value="<?php echo $s['last_entry']; ?>" data-leave-validation="<?php echo $s['last_entry']; ?>"/>
 			</div>
 		</div>
 
@@ -53,7 +53,7 @@
 		<div class="form-group">
 			<label class="group-name" for="mark_read"><?php echo _t('conf.shortcut.mark_read'); ?></label>
 			<div class="group-controls">
-				<input type="text" id="mark_read" name="shortcuts[mark_read]" list="keys" value="<?php echo $s['mark_read']; ?>" />
+				<input type="text" id="mark_read" name="shortcuts[mark_read]" list="keys" value="<?php echo $s['mark_read']; ?>" data-leave-validation="<?php echo $s['mark_read']; ?>"/>
 				<?php echo _t('conf.shortcut.shift_for_all_read'); ?>
 			</div>
 		</div>
@@ -61,21 +61,21 @@
 		<div class="form-group">
 			<label class="group-name" for="mark_favorite"><?php echo _t('conf.shortcut.mark_favorite'); ?></label>
 			<div class="group-controls">
-				<input type="text" id="mark_favorite" name="shortcuts[mark_favorite]" list="keys" value="<?php echo $s['mark_favorite']; ?>" />
+				<input type="text" id="mark_favorite" name="shortcuts[mark_favorite]" list="keys" value="<?php echo $s['mark_favorite']; ?>" data-leave-validation="<?php echo $s['mark_favorite']; ?>"/>
 			</div>
 		</div>
 
 		<div class="form-group">
 			<label class="group-name" for="go_website"><?php echo _t('conf.shortcut.see_on_website'); ?></label>
 			<div class="group-controls">
-				<input type="text" id="go_website" name="shortcuts[go_website]" list="keys" value="<?php echo $s['go_website']; ?>" />
+				<input type="text" id="go_website" name="shortcuts[go_website]" list="keys" value="<?php echo $s['go_website']; ?>" data-leave-validation="<?php echo $s['go_website']; ?>"/>
 			</div>
 		</div>
 
 		<div class="form-group">
 			<label class="group-name" for="auto_share_shortcut"><?php echo _t('conf.shortcut.auto_share'); ?></label>
 			<div class="group-controls">
-				<input type="text" id="auto_share_shortcut" name="shortcuts[auto_share]" list="keys" value="<?php echo $s['auto_share']; ?>" />
+				<input type="text" id="auto_share_shortcut" name="shortcuts[auto_share]" list="keys" value="<?php echo $s['auto_share']; ?>" data-leave-validation="<?php echo $s['auto_share']; ?>"/>
 				<?php echo _t('conf.shortcut.auto_share_help'); ?>
 			</div>
 		</div>
@@ -83,7 +83,7 @@
 		<div class="form-group">
 			<label class="group-name" for="collapse_entry"><?php echo _t('conf.shortcut.collapse_article'); ?></label>
 			<div class="group-controls">
-				<input type="text" id="collapse_entry" name="shortcuts[collapse_entry]" list="keys" value="<?php echo $s['collapse_entry']; ?>" />
+				<input type="text" id="collapse_entry" name="shortcuts[collapse_entry]" list="keys" value="<?php echo $s['collapse_entry']; ?>" data-leave-validation="<?php echo $s['collapse_entry']; ?>"/>
 			</div>
 		</div>
 
@@ -92,21 +92,21 @@
 		<div class="form-group">
 			<label class="group-name" for="load_more_shortcut"><?php echo _t('conf.shortcut.load_more'); ?></label>
 			<div class="group-controls">
-				<input type="text" id="load_more_shortcut" name="shortcuts[load_more]" list="keys" value="<?php echo $s['load_more']; ?>" />
+				<input type="text" id="load_more_shortcut" name="shortcuts[load_more]" list="keys" value="<?php echo $s['load_more']; ?>" data-leave-validation="<?php echo $s['load_more']; ?>"/>
 			</div>
 		</div>
 
 		<div class="form-group">
 			<label class="group-name" for="focus_search_shortcut"><?php echo _t('conf.shortcut.focus_search'); ?></label>
 			<div class="group-controls">
-				<input type="text" id="focus_search_shortcut" name="shortcuts[focus_search]" list="keys" value="<?php echo $s['focus_search']; ?>" />
+				<input type="text" id="focus_search_shortcut" name="shortcuts[focus_search]" list="keys" value="<?php echo $s['focus_search']; ?>" data-leave-validation="<?php echo $s['focus_search']; ?>"/>
 			</div>
 		</div>
 
 		<div class="form-group">
 			<label class="group-name" for="user_filter_shortcut"><?php echo _t('conf.shortcut.user_filter'); ?></label>
 			<div class="group-controls">
-				<input type="text" id="user_filter_shortcut" name="shortcuts[user_filter]" list="keys" value="<?php echo $s['user_filter']; ?>" />
+				<input type="text" id="user_filter_shortcut" name="shortcuts[user_filter]" list="keys" value="<?php echo $s['user_filter']; ?>" data-leave-validation="<?php echo $s['user_filter']; ?>"/>
 				<?php echo _t('conf.shortcut.user_filter_help'); ?>
 			</div>
 		</div>
@@ -114,14 +114,14 @@
 		<div class="form-group">
 			<label class="group-name" for="close_dropdown_shortcut"><?php echo _t('conf.shortcut.close_dropdown'); ?></label>
 			<div class="group-controls">
-				<input type="text" id="close_dropdown" name="shortcuts[close_dropdown]" list="keys" value="<?php echo $s['close_dropdown']; ?>" />
+				<input type="text" id="close_dropdown" name="shortcuts[close_dropdown]" list="keys" value="<?php echo $s['close_dropdown']; ?>" data-leave-validation="<?php echo $s['close_dropdown']; ?>"/>
 			</div>
 		</div>
 
 		<div class="form-group">
 			<label class="group-name" for="help_shortcut"><?php echo _t('conf.shortcut.help'); ?></label>
 			<div class="group-controls">
-				<input type="text" id="help_shortcut" name="shortcuts[help]" list="keys" value="<?php echo $s['help']; ?>" />
+				<input type="text" id="help_shortcut" name="shortcuts[help]" list="keys" value="<?php echo $s['help']; ?>" data-leave-validation="<?php echo $s['help']; ?>"/>
 			</div>
 		</div>
 

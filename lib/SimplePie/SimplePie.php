@@ -75,6 +75,12 @@ define('SIMPLEPIE_USERAGENT', SIMPLEPIE_NAME . '/' . SIMPLEPIE_VERSION . ' (Feed
 define('SIMPLEPIE_LINKBACK', '<a href="' . SIMPLEPIE_URL . '" title="' . SIMPLEPIE_NAME . ' ' . SIMPLEPIE_VERSION . '">' . SIMPLEPIE_NAME . '</a>');
 
 /**
+ * Use syslog to report HTTP requests done by SimplePie.
+ * @see SimplePie::set_syslog()
+ */
+define('SIMPLEPIE_SYSLOG', true);	//FreshRSS
+
+/**
  * No Autodiscovery
  * @see SimplePie::set_autodiscovery_level()
  */
@@ -623,6 +629,12 @@ class SimplePie
 	public $strip_htmltags = array('base', 'blink', 'body', 'doctype', 'embed', 'font', 'form', 'frame', 'frameset', 'html', 'iframe', 'input', 'marquee', 'meta', 'noscript', 'object', 'param', 'script', 'style');
 
 	/**
+	 * Use syslog to report HTTP requests done by SimplePie.
+	 * @see SimplePie::set_syslog()
+	 */
+	public $syslog_enabled = SIMPLEPIE_SYSLOG;
+
+	/**
 	 * The SimplePie class contains feed level data and options
 	 *
 	 * To use SimplePie, create the SimplePie object with no parameters. You can
@@ -1136,13 +1148,21 @@ class SimplePie
 		$this->sanitize->strip_attributes($attribs);
 	}
 
-	public function add_attributes($attribs = '')
+	public function add_attributes($attribs = '')	//FreshRSS
 	{
 		if ($attribs === '')
 		{
 			$attribs = $this->add_attributes;
 		}
 		$this->sanitize->add_attributes($attribs);
+	}
+
+	/**
+	 * Use syslog to report HTTP requests done by SimplePie.
+	 */
+	public function set_syslog($value = SIMPLEPIE_SYSLOG)	//FreshRSS
+	{
+		$this->syslog_enabled = $value == true;
 	}
 
 	/**
@@ -1231,7 +1251,8 @@ class SimplePie
 		$this->enable_exceptions = $enable;
 	}
 
-	function cleanMd5($rss) {	//FreshRSS
+	function cleanMd5($rss)	//FreshRSS
+	{
 		return md5(preg_replace(array('#<(lastBuildDate|pubDate|updated|feedDate|dc:date|slash:comments)>[^<]+</\\1>#', '#<!--.+?-->#s'), '', $rss));
 	}
 
@@ -1329,7 +1350,8 @@ class SimplePie
 
 			list($headers, $sniffed) = $fetched;
 
-			if (isset($this->data['md5'])) {	//FreshRSS
+			if (isset($this->data['md5']))	//FreshRSS
+			{
 				$md5 = $this->data['md5'];
 			}
 		}
@@ -1455,7 +1477,8 @@ class SimplePie
 		{
 			// Load the Cache
 			$this->data = $cache->load();
-			if ($cache->mtime() + $this->cache_duration > time()) {	//FreshRSS
+			if ($cache->mtime() + $this->cache_duration > time())	//FreshRSS
+			{
 				$this->raw_data = false;
 				return true;	// If the cache is still valid, just return true
 			}
@@ -1529,11 +1552,17 @@ class SimplePie
 					{	//FreshRSS
 						$md5 = $this->cleanMd5($file->body);
 						if ($this->data['md5'] === $md5) {
-							// syslog(LOG_DEBUG, 'SimplePie MD5 cache match for ' . $this->feed_url);
+							if ($this->syslog_enabled)
+							{
+								syslog(LOG_DEBUG, 'SimplePie MD5 cache match for ' . SimplePie_Misc::url_remove_credentials($this->feed_url));
+							}
 							$cache->touch();
 							return true;	//Content unchanged even though server did not send a 304
 						} else {
-							// syslog(LOG_DEBUG, 'SimplePie MD5 cache no match for ' . $this->feed_url);
+							if ($this->syslog_enabled)
+							{
+								syslog(LOG_DEBUG, 'SimplePie MD5 cache no match for ' . SimplePie_Misc::url_remove_credentials($this->feed_url));
+							}
 							$this->data['md5'] = $md5;
 						}
 					}

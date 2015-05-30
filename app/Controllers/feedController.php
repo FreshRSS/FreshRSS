@@ -145,8 +145,8 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 			// Call the extension hook
 			$name = $feed->name();
 			$feed = Minz_ExtensionManager::callHook('feed_before_insert', $feed);
-			if (is_null($feed)) {
-				Minz_Request::bad(_t('feed_not_added', $name), $url_redirect);
+			if ($feed === null) {
+				Minz_Request::bad(_t('feedback.sub.feed.not_added', $name), $url_redirect);
 			}
 
 			$values = array(
@@ -181,7 +181,6 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 
 			// Use a shared statement and a transaction to improve a LOT the
 			// performances.
-			$prepared_statement = $entryDAO->addEntryPrepare();
 			$feedDAO->beginTransaction();
 			foreach ($entries as $entry) {
 				// Entries are added without any verification.
@@ -190,13 +189,13 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 				$entry->_isRead($is_read);
 
 				$entry = Minz_ExtensionManager::callHook('entry_before_insert', $entry);
-				if (is_null($entry)) {
+				if ($entry === null) {
 					// An extension has returned a null value, there is nothing to insert.
 					continue;
 				}
 
 				$values = $entry->toArray();
-				$entryDAO->addEntry($values, $prepared_statement);
+				$entryDAO->addEntry($values);
 			}
 			$feedDAO->updateLastUpdate($feed->id());
 			$feedDAO->commit();
@@ -302,17 +301,17 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 				continue;
 			}
 
+			$url = $feed->url();	//For detection of HTTP 301
 			try {
 				// Load entries
 				$feed->load(false);
 			} catch (FreshRSS_Feed_Exception $e) {
 				Minz_Log::notice($e->getMessage());
-				$feedDAO->updateLastUpdate($feed->id(), 1);
+				$feedDAO->updateLastUpdate($feed->id(), true);
 				$feed->unlock();
 				continue;
 			}
 
-			$url = $feed->url();
 			$feed_history = $feed->keepHistory();
 			if ($feed_history == -2) {
 				// TODO: -2 must be a constant!
@@ -323,49 +322,66 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 			// We want chronological order and SimplePie uses reverse order.
 			$entries = array_reverse($feed->entries());
 			if (count($entries) > 0) {
-				// For this feed, check last n entry GUIDs already in database.
-				$existing_guids = array_fill_keys($entryDAO->listLastGuidsByFeed(
-					$feed->id(), count($entries) + 10
-				), 1);
-				$use_declared_date = empty($existing_guids);
+				$newGuids = array();
+				foreach ($entries as $entry) {
+					$newGuids[] = $entry->guid();
+				}
+				// For this feed, check existing GUIDs already in database.
+				$existingHashForGuids = $entryDAO->listHashForFeedGuids($feed->id(), $newGuids);
+				unset($newGuids);
 
+				$oldGuids = array();
 				// Add entries in database if possible.
-				$prepared_statement = $entryDAO->addEntryPrepare();
-				$feedDAO->beginTransaction();
 				foreach ($entries as $entry) {
 					$entry_date = $entry->date(true);
-					if (isset($existing_guids[$entry->guid()]) ||
-							($feed_history == 0 && $entry_date < $date_min)) {
-						// This entry already exists in DB or should not be added
-						// considering configuration and date.
-						continue;
+					if (isset($existingHashForGuids[$entry->guid()])) {
+						$existingHash = $existingHashForGuids[$entry->guid()];
+						if (strcasecmp($existingHash, $entry->hash()) === 0 || $existingHash === '00000000000000000000000000000000') {
+							//This entry already exists and is unchanged. TODO: Remove the test with the zero'ed hash in FreshRSS v1.3
+							$oldGuids[] = $entry->guid();
+						} else {	//This entry already exists but has been updated
+							Minz_Log::debug('Entry with GUID `' . $entry->guid() . '` updated in feed ' . $feed->id() .
+								', old hash ' . $existingHash . ', new hash ' . $entry->hash());
+							//TODO: Make an updated/is_read policy by feed, in addition to the global one.
+							$entry->_isRead(FreshRSS_Context::$user_conf->mark_updated_article_unread ? false : null);	//Change is_read according to policy.
+							if (!$entryDAO->hasTransaction()) {
+								$entryDAO->beginTransaction();
+							}
+							$entryDAO->updateEntry($entry->toArray());
+						}
+					} elseif ($feed_history == 0 && $entry_date < $date_min) {
+						// This entry should not be added considering configuration and date.
+						$oldGuids[] = $entry->guid();
+					} else {
+						if ($entry_date < $date_min) {
+							$id = min(time(), $entry_date) . uSecString();
+							$entry->_isRead(true);	//Old article that was not in database. Probably an error, so mark as read
+						} else {
+							$id = uTimeString();
+							$entry->_isRead($is_read);
+						}
+						$entry->_id($id);
+
+						$entry = Minz_ExtensionManager::callHook('entry_before_insert', $entry);
+						if ($entry === null) {
+							// An extension has returned a null value, there is nothing to insert.
+							continue;
+						}
+
+						if (!$entryDAO->hasTransaction()) {
+							$entryDAO->beginTransaction();
+						}
+						$entryDAO->addEntry($entry->toArray());
 					}
-
-					$id = uTimeString();
-					if ($use_declared_date || $entry_date < $date_min) {
-						// Use declared date at first import.
-						$id = min(time(), $entry_date) . uSecString();
-					}
-
-					$entry->_id($id);
-					$entry->_isRead($is_read);
-
-					$entry = Minz_ExtensionManager::callHook('entry_before_insert', $entry);
-					if (is_null($entry)) {
-						// An extension has returned a null value, there is nothing to insert.
-						continue;
-					}
-
-					$values = $entry->toArray();
-					$entryDAO->addEntry($values, $prepared_statement);
 				}
+				$entryDAO->updateLastSeen($feed->id(), $oldGuids);
 			}
 
 			if ($feed_history >= 0 && rand(0, 30) === 1) {
 				// TODO: move this function in web cron when available (see entry::purge)
 				// Remove old entries once in 30.
-				if (!$feedDAO->hasTransaction()) {
-					$feedDAO->beginTransaction();
+				if (!$entryDAO->hasTransaction()) {
+					$entryDAO->beginTransaction();
 				}
 
 				$nb = $feedDAO->cleanOldEntries($feed->id(),
@@ -377,9 +393,9 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 				}
 			}
 
-			$feedDAO->updateLastUpdate($feed->id(), 0, $feedDAO->hasTransaction());
-			if ($feedDAO->hasTransaction()) {
-				$feedDAO->commit();
+			$feedDAO->updateLastUpdate($feed->id(), 0, $entryDAO->hasTransaction());
+			if ($entryDAO->hasTransaction()) {
+				$entryDAO->commit();
 			}
 
 			if ($feed->url() !== $url) {

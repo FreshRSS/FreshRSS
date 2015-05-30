@@ -361,7 +361,6 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 		}
 
 		// Then, articles are imported.
-		$prepared_statement = $this->entryDAO->addEntryPrepare();
 		$this->entryDAO->beginTransaction();
 		foreach ($article_object['items'] as $item) {
 			if (!isset($article_to_feed[$item['id']])) {
@@ -396,7 +395,7 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 			}
 
 			$values = $entry->toArray();
-			$id = $this->entryDAO->addEntry($values, $prepared_statement);
+			$id = $this->entryDAO->addEntry($values);
 
 			if (!$error && ($id === false)) {
 				$error = true;

@@ -168,8 +168,10 @@ function saveStep3() {
 			$_SESSION['bd_prefix_user'] = $_SESSION['bd_prefix'] .(empty($_SESSION['default_user']) ? '' :($_SESSION['default_user'] . '_'));
 		}
 
+		//TODO: load `config.default.php` as default
 		$config_array = array(
 			'environment' => 'production',
+			'simplepie_syslog_enabled' => true,
 			'salt' => $_SESSION['salt'],
 			'title' => $_SESSION['title'],
 			'default_user' => $_SESSION['default_user'],
@@ -741,6 +743,13 @@ function printStep3() {
 		<script>
 			function mySqlShowHide() {
 				document.getElementById('mysql').style.display = document.getElementById('type').value === 'mysql' ? 'block' : 'none';
+				if (document.getElementById('type').value !== 'mysql') {
+					document.getElementById('host').value = '';
+					document.getElementById('user').value = '';
+					document.getElementById('pass').value = '';
+					document.getElementById('base').value = '';
+					document.getElementById('prefix').value = '';
+				}
 			}
 			mySqlShowHide();
 		</script>

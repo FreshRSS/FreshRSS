@@ -1,5 +1,5 @@
 <?php
-define('FRESHRSS_VERSION', '1.1.0');
+define('FRESHRSS_VERSION', '1.1.1-beta');
 define('FRESHRSS_WEBSITE', 'http://freshrss.org');
 define('FRESHRSS_UPDATE_WEBSITE', 'https://update.freshrss.org?v=' . FRESHRSS_VERSION);
 define('FRESHRSS_WIKI', 'http://doc.freshrss.org');
@@ -11,7 +11,8 @@ define('PHP_COMPRESSION', false);
 define('FRESHRSS_PATH', dirname(__FILE__));
 
 	define('PUBLIC_PATH', FRESHRSS_PATH . '/p');
-		define('INDEX_PATH', PUBLIC_PATH . '/i');
+		define('PUBLIC_TO_INDEX_PATH', '/i');
+		define('INDEX_PATH', PUBLIC_PATH . PUBLIC_TO_INDEX_PATH);
 		define('PUBLIC_RELATIVE', '..');
 
 	define('DATA_PATH', FRESHRSS_PATH . '/data');

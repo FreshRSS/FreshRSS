@@ -104,6 +104,7 @@ return array(
 		'should_be_activated' => 'Le JavaScript doit être activé.',
 	),
 	'lang' => array(
+		'cz' => 'Čeština',
 		'de' => 'Deutsch',
 		'en' => 'English',
 		'fr' => 'Français',
@@ -156,6 +157,7 @@ return array(
 		'damn' => 'Arf !',
 		'default_category' => 'Sans catégorie',
 		'no' => 'Non',
+		'not_applicable' => 'Non disponible',
 		'ok' => 'Ok !',
 		'or' => 'ou',
 		'yes' => 'Oui',

@@ -117,12 +117,9 @@ class FreshRSS_ConfigurationSetter {
 	private function _queries(&$data, $values) {
 		$data['queries'] = array();
 		foreach ($values as $value) {
-			$value = array_filter($value);
-			$params = $value;
-			unset($params['name']);
-			unset($params['url']);
-			$value['url'] = Minz_Url::display(array('params' => $params));
-			$data['queries'][] = $value;
+			if ($value instanceof FreshRSS_UserQuery) {
+				$data['queries'][] = $value->toArray();
+			}
 		}
 	}
 
@@ -190,6 +187,10 @@ class FreshRSS_ConfigurationSetter {
 
 	private function _auto_remove_article(&$data, $value) {
 		$data['auto_remove_article'] = $this->handleBool($value);
+	}
+
+	private function _mark_updated_article_unread(&$data, $value) {
+		$data['mark_updated_article_unread'] = $this->handleBool($value);
 	}
 
 	private function _display_categories(&$data, $value) {
