@@ -41,8 +41,8 @@ CREATE TABLE IF NOT EXISTS `%1$sentry` (
 	`content_bin` blob,	-- v0.7
 	`link` varchar(1023) CHARACTER SET latin1 NOT NULL,
 	`date` int(11),	-- Until year 2038
-	`lastSeen` INT(11) DEFAULT 0,	-- v1.2, Until year 2038
-	`hash` BINARY(16),	-- v1.2
+	`lastSeen` INT(11) DEFAULT 0,	-- v1.1.1, Until year 2038
+	`hash` BINARY(16),	-- v1.1.1
 	`is_read` boolean NOT NULL DEFAULT 0,
 	`is_favorite` boolean NOT NULL DEFAULT 0,
 	`id_feed` SMALLINT,	-- v0.7
@@ -51,8 +51,8 @@ CREATE TABLE IF NOT EXISTS `%1$sentry` (
 	FOREIGN KEY (`id_feed`) REFERENCES `%1$sfeed`(`id`) ON DELETE CASCADE ON UPDATE CASCADE,
 	UNIQUE KEY (`id_feed`,`guid`),	-- v0.7
 	INDEX (`is_favorite`),	-- v0.7
-	INDEX (`is_read`)	-- v0.7
-	INDEX entry_lastSeen_index (`lastSeen`)	-- v1.2
+	INDEX (`is_read`),	-- v0.7
+	INDEX `entry_lastSeen_index` (`lastSeen`)	-- v1.1.1
 ) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci
 ENGINE = INNODB;
 
