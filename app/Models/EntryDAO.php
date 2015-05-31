@@ -11,7 +11,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 		$hasTransaction = false;
 		try {
 			$stm = null;
-			if ($name === 'lastSeen') {	//v1.2
+			if ($name === 'lastSeen') {	//v1.1.1
 				if (!$this->bd->inTransaction()) {
 					$this->bd->beginTransaction();
 					$hasTransaction = true;
@@ -29,7 +29,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 				if ($hasTransaction) {
 					$this->bd->rollBack();
 				}
-			} elseif ($name === 'hash') {	//v1.2
+			} elseif ($name === 'hash') {	//v1.1.1
 				$stm = $this->bd->prepare('ALTER TABLE `' . $this->prefix . 'entry` ADD COLUMN hash BINARY(16)');
 				return $stm && $stm->execute();
 			}
