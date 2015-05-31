@@ -60,6 +60,7 @@ sudo apt-get install mysql-server mysql-client php5-mysql
 sudo apt-get install git php5 php5-curl php5-gd php5-intl php5-json php5-gmp php5-sqlite
 # Restart Web server
 sudo service apache2 restart
+
 # For FreshRSS itself
 cd /usr/share/
 sudo git clone https://github.com/FreshRSS/FreshRSS.git
