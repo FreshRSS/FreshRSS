@@ -14,7 +14,10 @@ It supports [PubSubHubbub](https://code.google.com/p/pubsubhubbub/) for instant 
 
 ![FreshRSS logo](http://marienfressinaud.fr/data/images/freshrss/freshrss_title.png)
 
-# Note on branches
+# Releases
+See the [list of releases](../../releases).
+
+## Note on branches
 **This application is under continuous development!** Please use the branch that suits your needs:
 
 * Use [the master branch](https://github.com/FreshRSS/FreshRSS/tree/master/) if you need a stable version.
@@ -24,6 +27,7 @@ It supports [PubSubHubbub](https://code.google.com/p/pubsubhubbub/) for instant 
 # Disclaimer
 This application was developed to fulfil personal needs primarily, and comes with absolutely no warranty.
 Feature requests, bug reports, and other contributions are welcome. The best way is to [open issues on GitHub](https://github.com/FreshRSS/FreshRSS/issues).
+We are a friendly community.
 
 # Requirements
 * Light server running Linux or Windows
@@ -45,6 +49,38 @@ Feature requests, bug reports, and other contributions are welcome. The best way
 4. Access FreshRSS with your browser and follow the installation process
 5. Everything should be working :) If you encounter any problem, feel free to contact me.
 6. Advanced configuration settings can be seen in [config.php](./data/config.default.php).
+
+## Example of full installation on Linux Debian/Ubuntu
+```sh
+# If you use an Apache Web server (otherwise you need another Web server)
+sudo apt-get install apache2
+sudo a2enmod headers expires rewrite ssl
+# (Optional) If you want a MySQL database server
+sudo apt-get install mysql-server mysql-client php5-mysql
+# Main components (git is optional if you manually download the installation files)
+sudo apt-get install git php5 php5-curl php5-gd php5-intl php5-json php5-gmp php5-sqlite
+# Restart Web server
+sudo service apache2 restart
+
+# For FreshRSS itself
+cd /usr/share/
+sudo git clone https://github.com/FreshRSS/FreshRSS.git
+# Set the rights so that your Web browser can access the files
+cd FreshRSS
+sudo chown -R :www-data .
+sudo chmod -R g+w ./data/
+# Publish FreshRSS in your public HTML directory
+sudo ln -s /usr/share/FreshRSS/p /var/www/html/FreshRSS
+# Navigate to http://example.net/FreshRSS to complete the installation.
+# (If you do it from localhost, you may have to adjust the setting of your public address later)
+
+# Update to a newer version of FreshRSS
+cd /usr/share/FreshRSS
+sudo git reset --hard
+sudo git pull
+sudo chown -R :www-data .
+sudo chmod -R g+w ./data/
+```
 
 # Access control
 It is needed for the multi-user mode to limit access to FreshRSS. You can:
