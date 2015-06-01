@@ -6,6 +6,7 @@ FreshRSS est un agrégateur de flux RSS à auto-héberger à l’image de [Leed]
 Il se veut léger et facile à prendre en main tout en étant un outil puissant et paramétrable.
 
 Il permet de gérer plusieurs utilisateurs, et dispose d’un mode de lecture anonyme.
+Il supporte [PubSubHubbub](https://code.google.com/p/pubsubhubbub/) pour des notifications instantanées depuis les sites compatibles.
 
 * Site officiel : http://freshrss.org
 * Démo : http://demo.freshrss.org/

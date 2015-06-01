@@ -37,6 +37,7 @@ return array(
 		'url' => 'URL du flux',
 		'validator' => 'Vérifier la valididé du flux',
 		'website' => 'URL du site',
+		'pubsubhubbub' => 'Notification instantanée par PubSubHubbub',
 	),
 	'import_export' => array(
 		'export' => 'Exporter',

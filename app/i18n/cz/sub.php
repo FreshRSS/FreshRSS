@@ -37,6 +37,7 @@ return array(
 		'url' => 'URL kanálu',
 		'validator' => 'Zkontrolovat platnost kanálu',
 		'website' => 'URL webové stránky',
+		'pubsubhubbub' => 'Okamžité oznámení s PubSubHubbub',
 	),
 	'import_export' => array(
 		'export' => 'Export',

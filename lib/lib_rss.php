@@ -446,3 +446,12 @@ function array_push_unique(&$array, $value) {
 function array_remove(&$array, $value) {
 	$array = array_diff($array, array($value));
 }
+
+//RFC 4648
+function base64url_encode($data) {
+	return strtr(rtrim(base64_encode($data), '='), '+/', '-_');
+}
+//RFC 4648
+function base64url_decode($data) {
+	return base64_decode(strtr($data, '-_', '+/'));
+}

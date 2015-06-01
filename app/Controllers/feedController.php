@@ -168,6 +168,7 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 			// Ok, feed has been added in database. Now we have to refresh entries.
 			$feed->_id($id);
 			$feed->faviconPrepare();
+			//$feed->pubSubHubbubPrepare();	//TODO: prepare PubSubHubbub already when adding the feed
 
 			$is_read = FreshRSS_Context::$user_conf->mark_when['reception'] ? 1 : 0;
 
@@ -261,12 +262,13 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 	 * This action actualizes entries from one or several feeds.
 	 *
 	 * Parameters are:
-	 *   - id (default: false)
+	 *   - id (default: false): Feed ID
+	 *   - url (default: false): Feed URL
 	 *   - force (default: false)
-	 * If id is not specified, all the feeds are actualized. But if force is
+	 * If id and url are not specified, all the feeds are actualized. But if force is
 	 * false, process stops at 10 feeds to avoid time execution problem.
 	 */
-	public function actualizeAction() {
+	public function actualizeAction($simplePiePush = null) {
 		@set_time_limit(300);
 
 		$feedDAO = FreshRSS_Factory::createFeedDao();
@@ -274,14 +276,15 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 
 		Minz_Session::_param('actualize_feeds', false);
 		$id = Minz_Request::param('id');
+		$url = Minz_Request::param('url');
 		$force = Minz_Request::param('force');
 
 		// Create a list of feeds to actualize.
 		// If id is set and valid, corresponding feed is added to the list but
 		// alone in order to automatize further process.
 		$feeds = array();
-		if ($id) {
-			$feed = $feedDAO->searchById($id);
+		if ($id || $url) {
+			$feed = $id ? $feedDAO->searchById($id) : $feedDAO->searchByUrl($url);
 			if ($feed) {
 				$feeds[] = $feed;
 			}
@@ -292,19 +295,32 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 		// Calculate date of oldest entries we accept in DB.
 		$nb_month_old = max(FreshRSS_Context::$user_conf->old_entries, 1);
 		$date_min = time() - (3600 * 24 * 30 * $nb_month_old);
+		$pshbMinAge = time() - (3600 * 24);	//TODO: Make a configuration.
 
 		$updated_feeds = 0;
 		$is_read = FreshRSS_Context::$user_conf->mark_when['reception'] ? 1 : 0;
 		foreach ($feeds as $feed) {
+			$url = $feed->url();	//For detection of HTTP 301
+
+			$pubSubHubbubEnabled = $feed->pubSubHubbubEnabled();
+			if ((!$simplePiePush) && (!$id) && $pubSubHubbubEnabled && ($feed->lastUpdate() > $pshbMinAge)) {
+				$text = 'Skip pull of feed using PubSubHubbub: ' . $url;
+				//Minz_Log::debug($text);
+				file_put_contents(USERS_PATH . '/_/log_pshb.txt', date('c') . "\t" . $text . "\n", FILE_APPEND);
+				continue;	//When PubSubHubbub is used, do not pull refresh so often
+			}
+
 			if (!$feed->lock()) {
 				Minz_Log::notice('Feed already being actualized: ' . $feed->url());
 				continue;
 			}
 
-			$url = $feed->url();	//For detection of HTTP 301
 			try {
-				// Load entries
-				$feed->load(false);
+				if ($simplePiePush) {
+					$feed->loadEntries($simplePiePush);	//Used by PubSubHubbub
+				} else {
+					$feed->load(false);
+				}
 			} catch (FreshRSS_Feed_Exception $e) {
 				Minz_Log::notice($e->getMessage());
 				$feedDAO->updateLastUpdate($feed->id(), true);
@@ -368,6 +384,14 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 							continue;
 						}
 
+						if ($pubSubHubbubEnabled && !$simplePiePush) {	//We use push, but have discovered an article by pull!
+							$text = 'An article was discovered by pull although we use PubSubHubbub!: Feed ' . $url . ' GUID ' . $entry->guid();
+							file_put_contents(USERS_PATH . '/_/log_pshb.txt', date('c') . "\t" . $text . "\n", FILE_APPEND);
+							Minz_Log::warning($text);
+							$pubSubHubbubEnabled = false;
+							$feed->pubSubHubbubError(true);
+						}
+
 						if (!$entryDAO->hasTransaction()) {
 							$entryDAO->beginTransaction();
 						}
@@ -398,13 +422,32 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 				$entryDAO->commit();
 			}
 
-			if ($feed->url() !== $url) {
-				// HTTP 301 Moved Permanently
+			if ($feed->hubUrl() && $feed->selfUrl()) {	//selfUrl has priority for PubSubHubbub
+				if ($feed->selfUrl() !== $url) {	//https://code.google.com/p/pubsubhubbub/wiki/MovingFeedsOrChangingHubs
+					$selfUrl = checkUrl($feed->selfUrl());
+					if ($selfUrl) {
+						Minz_Log::debug('PubSubHubbub unsubscribe ' . $feed->url());
+						if (!$feed->pubSubHubbubSubscribe(false)) {	//Unsubscribe
+							Minz_Log::warning('Error while PubSubHubbub unsubscribing from ' . $feed->url());
+						}
+						$feed->_url($selfUrl, false);
+						Minz_Log::notice('Feed ' . $url . ' canonical address moved to ' . $feed->url());
+						$feedDAO->updateFeed($feed->id(), array('url' => $feed->url()));
+					}
+				}
+			}
+			elseif ($feed->url() !== $url) {	// HTTP 301 Moved Permanently
 				Minz_Log::notice('Feed ' . $url . ' moved permanently to ' . $feed->url());
 				$feedDAO->updateFeed($feed->id(), array('url' => $feed->url()));
 			}
 
 			$feed->faviconPrepare();
+			if ($feed->pubSubHubbubPrepare()) {
+				Minz_Log::notice('PubSubHubbub subscribe ' . $feed->url());
+				if (!$feed->pubSubHubbubSubscribe(true)) {	//Subscribe
+					Minz_Log::warning('Error while PubSubHubbub subscribing to ' . $feed->url());
+				}
+			}
 			$feed->unlock();
 			$updated_feeds++;
 			unset($feed);
@@ -427,20 +470,20 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 			Minz_Session::_param('notification', $notif);
 			// No layout in ajax request.
 			$this->view->_useLayout(false);
-			return;
-		}
-
-		// Redirect to the main page with correct notification.
-		if ($updated_feeds === 1) {
-			$feed = reset($feeds);
-			Minz_Request::good(_t('feedback.sub.feed.actualized', $feed->name()), array(
-				'params' => array('get' => 'f_' . $feed->id())
-			));
-		} elseif ($updated_feeds > 1) {
-			Minz_Request::good(_t('feedback.sub.feed.n_actualized', $updated_feeds), array());
 		} else {
-			Minz_Request::good(_t('feedback.sub.feed.no_refresh'), array());
+			// Redirect to the main page with correct notification.
+			if ($updated_feeds === 1) {
+				$feed = reset($feeds);
+				Minz_Request::good(_t('feedback.sub.feed.actualized', $feed->name()), array(
+					'params' => array('get' => 'f_' . $feed->id())
+				));
+			} elseif ($updated_feeds > 1) {
+				Minz_Request::good(_t('feedback.sub.feed.n_actualized', $updated_feeds), array());
+			} else {
+				Minz_Request::good(_t('feedback.sub.feed.no_refresh'), array());
+			}
 		}
+		return $updated_feeds;
 	}
 
 	/**

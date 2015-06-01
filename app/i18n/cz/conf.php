@@ -84,6 +84,7 @@ return array(
 		'articles_per_page' => 'Počet článků na stranu',
 		'auto_load_more' => 'Načítat další články dole na stránce',
 		'auto_remove_article' => 'Po přečtení články schovat',
+		'mark_updated_article_unread' => 'Označte aktualizované položky jako nepřečtené',
 		'confirm_enabled' => 'Vyžadovat potvrzení pro akci “označit vše jako přečtené”',
 		'display_articles_unfolded' => 'Ve výchozím stavu zobrazovat články otevřené',
 		'display_categories_unfolded' => 'Ve výchozím stavu zobrazovat kategorie zavřené',

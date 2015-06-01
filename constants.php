@@ -19,6 +19,7 @@ define('FRESHRSS_PATH', dirname(__FILE__));
 		define('UPDATE_FILENAME', DATA_PATH . '/update.php');
 		define('USERS_PATH', DATA_PATH . '/users');
 		define('CACHE_PATH', DATA_PATH . '/cache');
+		define('PSHB_PATH', DATA_PATH . '/PubSubHubbub');
 
 	define('LIB_PATH', FRESHRSS_PATH . '/lib');
 	define('APP_PATH', FRESHRSS_PATH . '/app');

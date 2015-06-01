@@ -6,6 +6,7 @@ FreshRSS is a self-hosted RSS feed aggregator such as [Leed](http://projet.idlem
 It is at the same time lightweight, easy to work with, powerful and customizable.
 
 It is a multi-user application with an anonymous reading mode.
+It supports [PubSubHubbub](https://code.google.com/p/pubsubhubbub/) for instant notifications from compatible Web sites.
 
 * Official website: http://freshrss.org
 * Demo: http://demo.freshrss.org/
