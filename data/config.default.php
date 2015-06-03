@@ -99,6 +99,9 @@ return array(
 		# MySQL table prefix.
 		'prefix' => '',
 
+		'pdo_options' => array(
+		),
+
 	),
 
 	# List of enabled FreshRSS extensions.
