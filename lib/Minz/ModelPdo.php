@@ -53,7 +53,7 @@ class Minz_ModelPdo {
 		$this->current_user = $currentUser;
 		self::$sharedCurrentUser = $currentUser;
 
-		$driver_options = is_array($conf->db['pdo_options']) ? $conf->db['pdo_options'] : array();
+		$driver_options = isset($conf->db['pdo_options']) && is_array($conf->db['pdo_options']) ? $conf->db['pdo_options'] : array();
 
 		try {
 			$type = $db['type'];
