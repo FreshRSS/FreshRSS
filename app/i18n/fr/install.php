@@ -103,5 +103,4 @@ return array(
 	'step' => 'étape %d',
 	'steps' => 'Étapes',
 	'title' => 'Installation · FreshRSS',
-	'this_is_the_end' => 'C’est terminé!',
 );

@@ -103,5 +103,4 @@ return array(
 	'step' => 'krok %d',
 	'steps' => 'Kroky',
 	'title' => 'Instalace · FreshRSS',
-	'this_is_the_end' => 'Konec',
 );
