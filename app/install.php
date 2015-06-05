@@ -165,7 +165,7 @@ function saveStep3() {
 			$_SESSION['bd_user'] = $_POST['user'];
 			$_SESSION['bd_password'] = $_POST['pass'];
 			$_SESSION['bd_prefix'] = substr($_POST['prefix'], 0, 16);
-			$_SESSION['bd_prefix_user'] = $_SESSION['bd_prefix'] .(empty($_SESSION['default_user']) ? '' :($_SESSION['default_user'] . '_'));
+			$_SESSION['bd_prefix_user'] = $_SESSION['bd_prefix'] . (empty($_SESSION['default_user']) ? '' : ($_SESSION['default_user'] . '_'));
 		}
 
 		//TODO: load `config.default.php` as default
@@ -183,6 +183,7 @@ function saveStep3() {
 				'password' => $_SESSION['bd_password'],
 				'base' => $_SESSION['bd_base'],
 				'prefix' => $_SESSION['bd_prefix'],
+				'pdo_options' => array(),
 			),
 		);
 
