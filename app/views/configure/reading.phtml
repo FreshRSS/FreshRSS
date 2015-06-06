@@ -9,7 +9,7 @@
 		<div class="form-group">
 			<label class="group-name" for="posts_per_page"><?php echo _t('conf.reading.articles_per_page'); ?></label>
 			<div class="group-controls">
-				<input type="number" id="posts_per_page" name="posts_per_page" value="<?php echo FreshRSS_Context::$user_conf->posts_per_page; ?>" min="5" max="50" data-leave-validation="<?php echo FreshRSS_Context::$user_conf->posts_per_page; ?>"/>
+				<input type="number" id="posts_per_page" name="posts_per_page" value="<?php echo FreshRSS_Context::$user_conf->posts_per_page; ?>" min="5" max="500" data-leave-validation="<?php echo FreshRSS_Context::$user_conf->posts_per_page; ?>"/>
 				<?php echo _i('help'); ?> <?php echo _t('conf.reading.number_divided_when_reader'); ?>
 			</div>
 		</div>
