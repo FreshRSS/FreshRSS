@@ -427,7 +427,7 @@ function printStep0() {
 		<div class="form-group">
 			<label class="group-name" for="language"><?php echo _t('install.language'); ?></label>
 			<div class="group-controls">
-				<select name="language" id="language">
+				<select name="language" id="language" tabindex="1" >
 				<?php foreach ($languages as $lang) { ?>
 				<option value="<?php echo $lang; ?>"<?php echo $actual == $lang ? ' selected="selected"' : ''; ?>>
 					<?php echo _t('gen.lang.' . $lang); ?>
@@ -439,10 +439,10 @@ function printStep0() {
 
 		<div class="form-group form-actions">
 			<div class="group-controls">
-				<button type="submit" class="btn btn-important"><?php echo _t('gen.action.submit'); ?></button>
-				<button type="reset" class="btn"><?php echo _t('gen.action.cancel'); ?></button>
+				<button type="submit" class="btn btn-important" tabindex="2" ><?php echo _t('gen.action.submit'); ?></button>
+				<button type="reset" class="btn" tabindex="3" ><?php echo _t('gen.action.cancel'); ?></button>
 				<?php if ($s0['all'] == 'ok') { ?>
-				<a class="btn btn-important next-step" href="?step=1"><?php echo _t('install.action.next_step'); ?></a>
+				<a class="btn btn-important next-step" href="?step=1" tabindex="4" ><?php echo _t('install.action.next_step'); ?></a>
 				<?php } ?>
 			</div>
 		</div>
@@ -536,7 +536,7 @@ function printStep1() {
 	<?php } ?>
 
 	<?php if ($res['all'] == 'ok') { ?>
-	<a class="btn btn-important next-step" href="?step=2"><?php echo _t('install.action.next_step'); ?></a>
+	<a class="btn btn-important next-step" href="?step=2" tabindex="1" ><?php echo _t('install.action.next_step'); ?></a>
 	<?php } else { ?>
 	<p class="alert alert-error"><?php echo _t('install.action.fix_errors_before'); ?></p>
 	<?php } ?>
@@ -557,28 +557,28 @@ function printStep2() {
 		<div class="form-group">
 			<label class="group-name" for="title"><?php echo _t('install.title'); ?></label>
 			<div class="group-controls">
-				<input type="text" id="title" name="title" value="<?php echo isset($_SESSION['title']) ? $_SESSION['title'] : _t('gen.freshrss'); ?>" />
+				<input type="text" id="title" name="title" value="<?php echo isset($_SESSION['title']) ? $_SESSION['title'] : _t('gen.freshrss'); ?>" tabindex="1" />
 			</div>
 		</div>
 
 		<div class="form-group">
 			<label class="group-name" for="old_entries"><?php echo _t('install.delete_articles_after'); ?></label>
 			<div class="group-controls">
-				<input type="number" id="old_entries" name="old_entries" required="required" min="1" max="1200" value="<?php echo isset($_SESSION['old_entries']) ? $_SESSION['old_entries'] : '3'; ?>" /> <?php echo _t('gen.date.month'); ?>
+				<input type="number" id="old_entries" name="old_entries" required="required" min="1" max="1200" value="<?php echo isset($_SESSION['old_entries']) ? $_SESSION['old_entries'] : '3'; ?>" tabindex="2" /> <?php echo _t('gen.date.month'); ?>
 			</div>
 		</div>
 
 		<div class="form-group">
 			<label class="group-name" for="default_user"><?php echo _t('install.default_user'); ?></label>
 			<div class="group-controls">
-				<input type="text" id="default_user" name="default_user" required="required" size="16" maxlength="16" pattern="[0-9a-zA-Z]{1,16}" value="<?php echo isset($_SESSION['default_user']) ? $_SESSION['default_user'] : ''; ?>" placeholder="<?php echo httpAuthUser() == '' ? 'alice' : httpAuthUser(); ?>" />
+				<input type="text" id="default_user" name="default_user" required="required" size="16" maxlength="16" pattern="[0-9a-zA-Z]{1,16}" value="<?php echo isset($_SESSION['default_user']) ? $_SESSION['default_user'] : ''; ?>" placeholder="<?php echo httpAuthUser() == '' ? 'alice' : httpAuthUser(); ?>" tabindex="3" />
 			</div>
 		</div>
 
 		<div class="form-group">
 			<label class="group-name" for="auth_type"><?php echo _t('install.auth.type'); ?></label>
 			<div class="group-controls">
-				<select id="auth_type" name="auth_type" required="required" onchange="auth_type_change(true)">
+				<select id="auth_type" name="auth_type" required="required" onchange="auth_type_change(true)" tabindex="4">
 					<?php
 						function no_auth($auth_type) {
 							return !in_array($auth_type, array('form', 'persona', 'http_auth', 'none'));
@@ -597,7 +597,7 @@ function printStep2() {
 			<label class="group-name" for="passwordPlain"><?php echo _t('install.auth.password_form'); ?></label>
 			<div class="group-controls">
 				<div class="stick">
-					<input type="password" id="passwordPlain" name="passwordPlain" pattern=".{7,}" autocomplete="off" <?php echo $auth_type === 'form' ? ' required="required"' : ''; ?> />
+					<input type="password" id="passwordPlain" name="passwordPlain" pattern=".{7,}" autocomplete="off" <?php echo $auth_type === 'form' ? ' required="required"' : ''; ?> tabindex="5" />
 					<a class="btn toggle-password" data-toggle="passwordPlain"><?php echo FreshRSS_Themes::icon('key'); ?></a>
 				</div>
 				<?php echo _i('help'); ?> <?php echo _t('install.auth.password_format'); ?>
@@ -608,7 +608,7 @@ function printStep2() {
 		<div class="form-group">
 			<label class="group-name" for="mail_login"><?php echo _t('install.auth.email_persona'); ?></label>
 			<div class="group-controls">
-				<input type="email" id="mail_login" name="mail_login" value="<?php echo isset($_SESSION['mail_login']) ? $_SESSION['mail_login'] : ''; ?>" placeholder="alice@example.net" <?php echo $auth_type === 'persona' ? ' required="required"' : ''; ?> />
+				<input type="email" id="mail_login" name="mail_login" value="<?php echo isset($_SESSION['mail_login']) ? $_SESSION['mail_login'] : ''; ?>" placeholder="alice@example.net" <?php echo $auth_type === 'persona' ? ' required="required"' : ''; ?> tabindex="6"/>
 				<noscript><b><?php echo _t('gen.js.should_be_activated'); ?></b></noscript>
 			</div>
 		</div>
@@ -657,10 +657,10 @@ function printStep2() {
 
 		<div class="form-group form-actions">
 			<div class="group-controls">
-				<button type="submit" class="btn btn-important"><?php echo _t('gen.action.submit'); ?></button>
-				<button type="reset" class="btn"><?php echo _t('gen.action.cancel'); ?></button>
+				<button type="submit" class="btn btn-important" tabindex="7" ><?php echo _t('gen.action.submit'); ?></button>
+				<button type="reset" class="btn" tabindex="8" ><?php echo _t('gen.action.cancel'); ?></button>
 				<?php if ($s2['all'] == 'ok') { ?>
-				<a class="btn btn-important next-step" href="?step=3"><?php echo _t('install.action.next_step'); ?></a>
+				<a class="btn btn-important next-step" href="?step=3" tabindex="9" ><?php echo _t('install.action.next_step'); ?></a>
 				<?php } ?>
 			</div>
 		</div>
@@ -681,7 +681,7 @@ function printStep3() {
 		<div class="form-group">
 			<label class="group-name" for="type"><?php echo _t('install.bdd.type'); ?></label>
 			<div class="group-controls">
-				<select name="type" id="type" onchange="mySqlShowHide()">
+				<select name="type" id="type" onchange="mySqlShowHide()" tabindex="1" >
 				<?php if (extension_loaded('pdo_mysql')) {?>
 				<option value="mysql"
 					<?php echo(isset($_SESSION['bd_type']) && $_SESSION['bd_type'] === 'mysql') ? 'selected="selected"' : ''; ?>>
@@ -702,35 +702,35 @@ function printStep3() {
 		<div class="form-group">
 			<label class="group-name" for="host"><?php echo _t('install.bdd.host'); ?></label>
 			<div class="group-controls">
-				<input type="text" id="host" name="host" pattern="[0-9A-Za-z_.-]{1,64}" value="<?php echo isset($_SESSION['bd_host']) ? $_SESSION['bd_host'] : 'localhost'; ?>" />
+				<input type="text" id="host" name="host" pattern="[0-9A-Za-z_.-]{1,64}" value="<?php echo isset($_SESSION['bd_host']) ? $_SESSION['bd_host'] : 'localhost'; ?>" tabindex="2" />
 			</div>
 		</div>
 
 		<div class="form-group">
 			<label class="group-name" for="user"><?php echo _t('install.bdd.username'); ?></label>
 			<div class="group-controls">
-				<input type="text" id="user" name="user" maxlength="16" pattern="[0-9A-Za-z_.-]{1,16}" value="<?php echo isset($_SESSION['bd_user']) ? $_SESSION['bd_user'] : ''; ?>" />
+				<input type="text" id="user" name="user" maxlength="16" pattern="[0-9A-Za-z_.-]{1,16}" value="<?php echo isset($_SESSION['bd_user']) ? $_SESSION['bd_user'] : ''; ?>" tabindex="3" />
 			</div>
 		</div>
 
 		<div class="form-group">
 			<label class="group-name" for="pass"><?php echo _t('install.bdd.password'); ?></label>
 			<div class="group-controls">
-				<input type="password" id="pass" name="pass" value="<?php echo isset($_SESSION['bd_password']) ? $_SESSION['bd_password'] : ''; ?>" />
+				<input type="password" id="pass" name="pass" value="<?php echo isset($_SESSION['bd_password']) ? $_SESSION['bd_password'] : ''; ?>" tabindex="4" />
 			</div>
 		</div>
 
 		<div class="form-group">
 			<label class="group-name" for="base"><?php echo _t('install.bdd'); ?></label>
 			<div class="group-controls">
-				<input type="text" id="base" name="base" maxlength="64" pattern="[0-9A-Za-z_]{1,64}" value="<?php echo isset($_SESSION['bd_base']) ? $_SESSION['bd_base'] : ''; ?>" />
+				<input type="text" id="base" name="base" maxlength="64" pattern="[0-9A-Za-z_]{1,64}" value="<?php echo isset($_SESSION['bd_base']) ? $_SESSION['bd_base'] : ''; ?>" tabindex="5" />
 			</div>
 		</div>
 
 		<div class="form-group">
 			<label class="group-name" for="prefix"><?php echo _t('install.bdd.prefix'); ?></label>
 			<div class="group-controls">
-				<input type="text" id="prefix" name="prefix" maxlength="16" pattern="[0-9A-Za-z_]{1,16}" value="<?php echo isset($_SESSION['bd_prefix']) ? $_SESSION['bd_prefix'] : 'freshrss_'; ?>" />
+				<input type="text" id="prefix" name="prefix" maxlength="16" pattern="[0-9A-Za-z_]{1,16}" value="<?php echo isset($_SESSION['bd_prefix']) ? $_SESSION['bd_prefix'] : 'freshrss_'; ?>" tabindex="6" />
 			</div>
 		</div>
 		</div>
@@ -750,10 +750,10 @@ function printStep3() {
 
 		<div class="form-group form-actions">
 			<div class="group-controls">
-				<button type="submit" class="btn btn-important"><?php echo _t('gen.action.submit'); ?></button>
-				<button type="reset" class="btn"><?php echo _t('gen.action.cancel'); ?></button>
+				<button type="submit" class="btn btn-important" tabindex="7" ><?php echo _t('gen.action.submit'); ?></button>
+				<button type="reset" class="btn" tabindex="8" ><?php echo _t('gen.action.cancel'); ?></button>
 				<?php if ($s3['all'] == 'ok') { ?>
-				<a class="btn btn-important next-step" href="?step=4"><?php echo _t('install.action.next_step'); ?></a>
+				<a class="btn btn-important next-step" href="?step=4" tabindex="9" ><?php echo _t('install.action.next_step'); ?></a>
 				<?php } ?>
 			</div>
 		</div>
@@ -764,7 +764,7 @@ function printStep3() {
 function printStep4() {
 ?>
 	<p class="alert alert-success"><span class="alert-head"><?php echo _t('install.congratulations'); ?></span> <?php echo _t('install.ok'); ?></p>
-	<a class="btn btn-important next-step" href="?step=5"><?php echo _t('install.action.finish'); ?></a>
+	<a class="btn btn-important next-step" href="?step=5" tabindex="1"><?php echo _t('install.action.finish'); ?></a>
 <?php
 }
 
