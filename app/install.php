@@ -636,7 +636,7 @@ function printStep2() {
 				toggles[i].addEventListener('mouseup', hide_password);
 			}
 
-			function auth_type_change(focus) {
+			function auth_type_change() {
 				var auth_value = document.getElementById('auth_type').value,
 				    password_input = document.getElementById('passwordPlain'),
 				    mail_input = document.getElementById('mail_login');
@@ -644,21 +644,15 @@ function printStep2() {
 				if (auth_value === 'form') {
 					password_input.required = true;
 					mail_input.required = false;
-					if (focus) {
-						password_input.focus();
-					}
 				} else if (auth_value === 'persona') {
 					password_input.required = false;
 					mail_input.required = true;
-					if (focus) {
-						mail_input.focus();
-					}
 				} else {
 					password_input.required = false;
 					mail_input.required = false;
 				}
 			}
-			auth_type_change(false);
+			auth_type_change();
 		</script>
 
 		<div class="form-group form-actions">
