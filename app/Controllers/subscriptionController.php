@@ -77,11 +77,11 @@ class FreshRSS_subscription_Controller extends Minz_ActionController {
 		Minz_View::prependTitle(_t('sub.title.feed_management') . ' · ' . $this->view->feed->name() . ' · ');
 
 		if (Minz_Request::isPost()) {
-			$user = Minz_Request::param('http_user', '');
-			$pass = Minz_Request::param('http_pass', '');
+			$user = trim(Minz_Request::param('http_user_feed' . $id, ''));
+			$pass = Minz_Request::param('http_pass_feed' . $id, '');
 
 			$httpAuth = '';
-			if ($user != '' || $pass != '') {
+			if ($user != '' && $pass != '') {	//TODO: Sanitize
 				$httpAuth = $user . ':' . $pass;
 			}
 
