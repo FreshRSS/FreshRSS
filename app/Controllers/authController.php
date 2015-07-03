@@ -253,7 +253,7 @@ class FreshRSS_auth_Controller extends Minz_ActionController {
 				FreshRSS_Auth::giveAccess();
 				invalidateHttpCache();
 			} else {
-				Minz_Log::error($reason);
+				Minz_Log::warning($reason);
 
 				$res = array();
 				$res['status'] = 'failure';
