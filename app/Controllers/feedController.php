@@ -322,7 +322,7 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 					$feed->load(false);
 				}
 			} catch (FreshRSS_Feed_Exception $e) {
-				Minz_Log::notice($e->getMessage());
+				Minz_Log::warning($e->getMessage());
 				$feedDAO->updateLastUpdate($feed->id(), true);
 				$feed->unlock();
 				continue;
