@@ -99,6 +99,12 @@ return array(
 		# MySQL table prefix.
 		'prefix' => '',
 
+		'pdo_options' => array(
+			//PDO::MYSQL_ATTR_SSL_KEY	=> '/path/to/client-key.pem',
+			//PDO::MYSQL_ATTR_SSL_CERT	=> '/path/to/client-cert.pem',
+			//PDO::MYSQL_ATTR_SSL_CA	=> '/path/to/ca-cert.pem',
+		),
+
 	),
 
 	# List of enabled FreshRSS extensions.
