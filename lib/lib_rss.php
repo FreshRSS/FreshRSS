@@ -195,17 +195,27 @@ function sanitizeHTML($data, $base = '') {
 
 /* permet de récupérer le contenu d'un article pour un flux qui n'est pas complet */
 function get_content_by_parsing ($url, $path) {
-	require_once (LIB_PATH . '/lib_phpQuery.php');
+	require_once(LIB_PATH . '/lib_phpQuery.php');
 
 	Minz_Log::notice('FreshRSS GET ' . SimplePie_Misc::url_remove_credentials($url));
-	$html = file_get_contents ($url);
+	$html = file_get_contents($url);
 
 	if ($html) {
-		$doc = phpQuery::newDocument ($html);
-		$content = $doc->find ($path);
+		$doc = phpQuery::newDocument($html);
+		$content = $doc->find($path);
+
+		foreach (pq('img[data-src]') as $img) {
+			$imgP = pq($img);
+			$dataSrc = $imgP->attr('data-src');
+			if (strlen($dataSrc) > 4) {
+				$imgP->attr('src', $dataSrc);
+				$imgP->removeAttr('data-src');
+			}
+		}
+
 		return sanitizeHTML($content->__toString(), $url);
 	} else {
-		throw new Exception ();
+		throw new Exception();
 	}
 }
 
