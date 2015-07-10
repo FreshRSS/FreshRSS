@@ -25,4 +25,4 @@ define('FRESHRSS_PATH', dirname(__FILE__));
 	define('APP_PATH', FRESHRSS_PATH . '/app');
 	define('EXTENSIONS_PATH', FRESHRSS_PATH . '/extensions');
 
-define('TMP_PATH', sys_get_temp_dir());
+define('TMP_PATH', sys_get_temp_dir());	//Requires PHP 5.2.1+
