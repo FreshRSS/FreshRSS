@@ -12,7 +12,7 @@
 	* Increased pagination limit to 500 articles. [#872](https://github.com/FreshRSS/FreshRSS/issues/872)
 	* Improved UI for installation. [#855](https://github.com/FreshRSS/FreshRSS/issues/855)
 * Misc.
-	* Restore support for PHP 5.2. [#214a5cc](https://github.com/Alkarex/FreshRSS/commit/214a5cc9a4c2b821961bc21f22b4b08e34b5be68)
+	* Restore support for PHP 5.2. [#214a5cc](https://github.com/Alkarex/FreshRSS/commit/214a5cc9a4c2b821961bc21f22b4b08e34b5be68) [#894](https://github.com/FreshRSS/FreshRSS/issues/894)
 	* Support for data-src for images of articles retrieved via the full-content module. [#877](https://github.com/FreshRSS/FreshRSS/issues/877)
 	* Add a couple of default feeds for fresh installations. [#886](https://github.com/FreshRSS/FreshRSS/issues/886)
 	* Changed some log visibilities. [#885](https://github.com/FreshRSS/FreshRSS/issues/885)
