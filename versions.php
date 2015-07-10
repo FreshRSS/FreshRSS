@@ -13,5 +13,6 @@ return array(
 	'1.1.1' => '1.1.2',  // doesn't exist (yet)
 	'0.8-dev' => 'dev',
 	'0.10-dev' => 'dev',
+	'1.1.2-dev' => 'dev',  // appeared after 1.1.1 release
 	'1.2-dev' => 'dev',
 );
