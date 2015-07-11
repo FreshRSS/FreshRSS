@@ -66,7 +66,7 @@ class SimplePie_File
 	var $method = SIMPLEPIE_FILE_SOURCE_NONE;
 	var $permanent_url;	//FreshRSS
 
-	public function __construct($url, $timeout = 10, $redirects = 5, $headers = null, $useragent = null, $force_fsockopen = false, $syslog_enabled = SIMPLEPIE_SYSLOG)
+	public function __construct($url, $timeout = 10, $redirects = 5, $headers = null, $useragent = null, $force_fsockopen = false, $curl_options = array(), $syslog_enabled = SIMPLEPIE_SYSLOG)
 	{
 		if (class_exists('idna_convert'))
 		{
@@ -75,7 +75,7 @@ class SimplePie_File
 			$url = SimplePie_Misc::compress_parse_url($parsed['scheme'], $idn->encode($parsed['authority']), $parsed['path'], $parsed['query'], $parsed['fragment']);
 		}
 		$this->url = $url;
-		$this->permanent_url = $url;	//FreshRSS
+		$this->permanent_url = $url;
 		$this->useragent = $useragent;
 		if (preg_match('/^http(s)?:\/\//i', $url))
 		{
@@ -119,6 +119,10 @@ class SimplePie_File
 					curl_setopt($fp, CURLOPT_FOLLOWLOCATION, 1);
 					curl_setopt($fp, CURLOPT_MAXREDIRS, $redirects);
 				}
+				foreach ($curl_options as $curl_param => $curl_value)
+				{
+					curl_setopt($fp, $curl_param, $curl_value);
+				}
 
 				$this->headers = curl_exec($fp);
 				if (curl_errno($fp) === 23 || curl_errno($fp) === 61)
@@ -149,7 +153,7 @@ class SimplePie_File
 							$location = SimplePie_Misc::absolutize_url($this->headers['location'], $url);
 							$previousStatusCode = $this->status_code;
 							$this->__construct($location, $timeout, $redirects, $headers, $useragent, $force_fsockopen);
-							$this->permanent_url = ($previousStatusCode == 301) ? $location : $url;	//FreshRSS
+							$this->permanent_url = ($previousStatusCode == 301) ? $location : $url;
 							return;
 						}
 					}
