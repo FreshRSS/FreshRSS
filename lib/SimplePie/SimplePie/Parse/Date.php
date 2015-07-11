@@ -173,7 +173,7 @@ class SimplePie_Parse_Date
 		'aug' => 8,
 		'august' => 8,
 		'sep' => 9,
-		'september' => 8,
+		'september' => 9,
 		'oct' => 10,
 		'october' => 10,
 		'nov' => 11,
@@ -331,8 +331,8 @@ class SimplePie_Parse_Date
 		'CCT' => 23400,
 		'CDT' => -18000,
 		'CEDT' => 7200,
-		'CEST' => 7200,	//FreshRSS
 		'CET' => 3600,
+		'CEST' => 7200,
 		'CGST' => -7200,
 		'CGT' => -10800,
 		'CHADT' => 49500,
@@ -721,7 +721,7 @@ class SimplePie_Parse_Date
 		{
 			$output .= substr($string, $position, $pos - $position);
 			$position = $pos + 1;
-			if ($string[$pos - 1] !== '\\')
+			if ($pos === 0 || $string[$pos - 1] !== '\\')
 			{
 				$depth++;
 				while ($depth && $position < $length)

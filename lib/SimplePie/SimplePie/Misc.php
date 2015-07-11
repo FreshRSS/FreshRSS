@@ -79,8 +79,8 @@ class SimplePie_Misc
 
 	public static function absolutize_url($relative, $base)
 	{
-		if (substr($relative, 0, 2) === '//')	//FreshRSS: disable absolutize_url for "//www.example.net" which will pick HTTP or HTTPS automatically
-		{
+		if (substr($relative, 0, 2) === '//')
+		{//Allow protocol-relative URLs "//www.example.net" which will pick HTTP or HTTPS automatically
 			return $relative;
 		}
 		$iri = SimplePie_IRI::absolutize(new SimplePie_IRI($base), $relative);
@@ -128,7 +128,7 @@ class SimplePie_Misc
 						{
 							$attribs[$j][2] = $attribs[$j][1];
 						}
-						$return[$i]['attribs'][strtolower($attribs[$j][1])]['data'] = SimplePie_Misc::entities_decode(end($attribs[$j]), 'UTF-8');	//FreshRSS
+						$return[$i]['attribs'][strtolower($attribs[$j][1])]['data'] = SimplePie_Misc::entities_decode(end($attribs[$j]), 'UTF-8');
 					}
 				}
 			}
@@ -142,7 +142,7 @@ class SimplePie_Misc
 		foreach ($element['attribs'] as $key => $value)
 		{
 			$key = strtolower($key);
-			$full .= " $key=\"" . htmlspecialchars($value['data'], ENT_COMPAT, 'UTF-8') . '"';	//FreshRSS
+			$full .= " $key=\"" . htmlspecialchars($value['data'], ENT_COMPAT, 'UTF-8') . '"';
 		}
 		if ($element['self_closing'])
 		{
