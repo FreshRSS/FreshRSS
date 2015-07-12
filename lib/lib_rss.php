@@ -143,6 +143,7 @@ function customSimplePie() {
 	$simplePie->set_cache_location(CACHE_PATH);
 	$simplePie->set_cache_duration($limits['cache_duration']);
 	$simplePie->set_timeout($limits['timeout']);
+	$simplePie->set_curl_options($system_conf->curl_options);
 	$simplePie->strip_htmltags(array(
 		'base', 'blink', 'body', 'doctype', 'embed',
 		'font', 'form', 'frame', 'frameset', 'html',
