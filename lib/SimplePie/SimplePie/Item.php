@@ -406,6 +406,30 @@ class SimplePie_Item
 			return null;
 		}
 	}
+	
+	/**
+	 * Get the media:thumbnail of the item
+	 *
+	 * Uses `<media:thumbnail>`
+	 *
+	 * 
+	 * @return array|null
+	 */
+	public function get_thumbnail()
+	{
+		if (!isset($this->data['thumbnail']))
+		{
+			if ($return = $this->get_item_tags(SIMPLEPIE_NAMESPACE_MEDIARSS, 'thumbnail'))
+			{
+				$this->data['thumbnail'] = $return[0]['attribs'][''];
+			}
+			else
+			{
+				$this->data['thumbnail'] = null;
+			}
+		}
+		return $this->data['thumbnail'];
+	}	
 
 	/**
 	 * Get a category for the item
@@ -738,6 +762,18 @@ class SimplePie_Item
 			{
 				$this->data['date']['raw'] = $return[0]['data'];
 			}
+			elseif ($return = $this->get_item_tags(SIMPLEPIE_NAMESPACE_RSS_20, 'pubDate'))
+			{
+				$this->data['date']['raw'] = $return[0]['data'];
+			}
+			elseif ($return = $this->get_item_tags(SIMPLEPIE_NAMESPACE_DC_11, 'date'))
+			{
+				$this->data['date']['raw'] = $return[0]['data'];
+			}
+			elseif ($return = $this->get_item_tags(SIMPLEPIE_NAMESPACE_DC_10, 'date'))
+			{
+				$this->data['date']['raw'] = $return[0]['data'];
+			}
 			elseif ($return = $this->get_item_tags(SIMPLEPIE_NAMESPACE_ATOM_10, 'updated'))
 			{
 				$this->data['date']['raw'] = $return[0]['data'];
@@ -751,18 +787,6 @@ class SimplePie_Item
 				$this->data['date']['raw'] = $return[0]['data'];
 			}
 			elseif ($return = $this->get_item_tags(SIMPLEPIE_NAMESPACE_ATOM_03, 'modified'))
-			{
-				$this->data['date']['raw'] = $return[0]['data'];
-			}
-			elseif ($return = $this->get_item_tags(SIMPLEPIE_NAMESPACE_RSS_20, 'pubDate'))
-			{
-				$this->data['date']['raw'] = $return[0]['data'];
-			}
-			elseif ($return = $this->get_item_tags(SIMPLEPIE_NAMESPACE_DC_11, 'date'))
-			{
-				$this->data['date']['raw'] = $return[0]['data'];
-			}
-			elseif ($return = $this->get_item_tags(SIMPLEPIE_NAMESPACE_DC_10, 'date'))
 			{
 				$this->data['date']['raw'] = $return[0]['data'];
 			}
@@ -2733,7 +2757,9 @@ class SimplePie_Item
 						{
 							foreach ($content['child'][SIMPLEPIE_NAMESPACE_MEDIARSS]['thumbnail'] as $thumbnail)
 							{
-								$thumbnails[] = $this->sanitize($thumbnail['attribs']['']['url'], SIMPLEPIE_CONSTRUCT_IRI);
+								if (isset($thumbnail['attribs']['']['url'])) {
+									$thumbnails[] = $this->sanitize($thumbnail['attribs']['']['url'], SIMPLEPIE_CONSTRUCT_IRI);
+								}
 							}
 							if (is_array($thumbnails))
 							{
