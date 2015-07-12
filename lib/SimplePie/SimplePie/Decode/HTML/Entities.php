@@ -169,7 +169,6 @@ class SimplePie_Decode_HTML_Entities
 			case "\x09":
 			case "\x0A":
 			case "\x0B":
-			case "\x0B":
 			case "\x0C":
 			case "\x20":
 			case "\x3C":
