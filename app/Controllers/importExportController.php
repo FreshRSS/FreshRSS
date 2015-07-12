@@ -47,7 +47,7 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 		$status_file = $file['error'];
 
 		if ($status_file !== 0) {
-			Minz_Log::error('File cannot be uploaded. Error code: ' . $status_file);
+			Minz_Log::warning('File cannot be uploaded. Error code: ' . $status_file);
 			Minz_Request::bad(_t('feedback.import_export.file_cannot_be_uploaded'),
 			                  array('c' => 'importExport', 'a' => 'index'));
 		}
@@ -69,7 +69,7 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 
 			if (!is_resource($zip)) {
 				// zip_open cannot open file: something is wrong
-				Minz_Log::error('Zip archive cannot be imported. Error code: ' . $zip);
+				Minz_Log::warning('Zip archive cannot be imported. Error code: ' . $zip);
 				Minz_Request::bad(_t('feedback.import_export.zip_error'),
 				                  array('c' => 'importExport', 'a' => 'index'));
 			}
@@ -77,7 +77,7 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 			while (($zipfile = zip_read($zip)) !== false) {
 				if (!is_resource($zipfile)) {
 					// zip_entry() can also return an error code!
-					Minz_Log::error('Zip file cannot be imported. Error code: ' . $zipfile);
+					Minz_Log::warning('Zip file cannot be imported. Error code: ' . $zipfile);
 				} else {
 					$type_zipfile = $this->guessFileType(zip_entry_name($zipfile));
 					if ($type_file !== 'unknown') {
