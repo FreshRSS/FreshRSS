@@ -1,7 +1,7 @@
 <?php
 
-# Do not modify this file, which is only a template.
-# See `config.php` after the install process is completed.
+# Do not modify this file, which defines default values,
+# but edit `config.php` instead, after the install process is completed.
 return array(
 
 	# Set to `development` to get additional error messages,
@@ -77,6 +77,21 @@ return array(
 		# Max number of categories for a user.
 		'max_categories' => 16384,
 
+	),
+
+	# Options used by cURL when making HTTP requests, e.g. when the SimplePie library retrieves feeds.
+	# http://php.net/manual/function.curl-setopt
+	'curl_options' => array(
+		# Options to disable SSL/TLS certificate check (e.g. for self-signed HTTPS)
+		//CURLOPT_SSL_VERIFYHOST => 0,
+		//CURLOPT_SSL_VERIFYPEER => false,
+
+		# Options to use a proxy for retrieving feeds.
+		//CURLOPT_PROXYTYPE = CURLPROXY_HTTP,
+		//CURLOPT_PROXYAUTH =  CURLAUTH_BASIC,
+		//CURLOPT_PROXY => '127.0.0.1',
+		//CURLOPT_PROXYPORT => 8080,
+		//CURLOPT_PROXYUSERPWD => 'user:password',
 	),
 
 	'db' => array(
