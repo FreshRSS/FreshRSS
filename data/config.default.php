@@ -87,10 +87,10 @@ return array(
 		//CURLOPT_SSL_VERIFYPEER => false,
 
 		# Options to use a proxy for retrieving feeds.
-		//CURLOPT_PROXYTYPE = CURLPROXY_HTTP,
-		//CURLOPT_PROXYAUTH =  CURLAUTH_BASIC,
+		//CURLOPT_PROXYTYPE => CURLPROXY_HTTP,
 		//CURLOPT_PROXY => '127.0.0.1',
 		//CURLOPT_PROXYPORT => 8080,
+		//CURLOPT_PROXYAUTH => CURLAUTH_BASIC,
 		//CURLOPT_PROXYUSERPWD => 'user:password',
 	),
 
