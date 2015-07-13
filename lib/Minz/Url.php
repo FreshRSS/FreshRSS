@@ -31,8 +31,10 @@ class Minz_Url {
 
 		if ($isArray) {
 			$url_string .= self::printUri($url, $encodage);
-		} else {
+		} elseif ($encodage === 'html') {
 			$url_string = Minz_Helper::htmlspecialchars_utf8($url_string . $url);
+		} else {
+			$url_string .= $url;
 		}
 
 		return $url_string;
