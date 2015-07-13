@@ -33,7 +33,7 @@ We are a friendly community.
 * Light server running Linux or Windows
 	* It even works on Raspberry Pi with response time under a second (tested with 150 feeds, 22k articles, or 32Mo of compressed data)
 * A web server: Apache2 (recommended), nginx, lighttpd (not tested on others)
-* PHP 5.2.1+ (PHP 5.3.7+ recommended)
+* PHP 5.2.1+ (PHP 5.3.7+ recommended, and PHP 5.5+ for performance) (beta support for PHP 7 with even higher performance)
 	* Required extensions: [PDO_MySQL](http://php.net/pdo-mysql) or [PDO_SQLite](http://php.net/pdo-sqlite), [cURL](http://php.net/curl), [GMP](http://php.net/gmp) (for API access on platforms < 64 bits), [IDN](http://php.net/intl.idn) (for Internationalized Domain Names)
 	* Recommended extensions: [JSON](http://php.net/json), [mbstring](http://php.net/mbstring), [zlib](http://php.net/zlib), [Zip](http://php.net/zip)
 * MySQL 5.0.3+ (recommended) or SQLite 3.7.4+
