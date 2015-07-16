@@ -19,6 +19,7 @@
 	* Support for data-src for images of articles retrieved via the full-content module. [#877](https://github.com/FreshRSS/FreshRSS/issues/877)
 	* Add a couple of default feeds for fresh installations. [#886](https://github.com/FreshRSS/FreshRSS/issues/886)
 	* Changed some log visibilities. [#885](https://github.com/FreshRSS/FreshRSS/issues/885)
+	* Fix broken links for extension script / style files. [#862](https://github.com/FreshRSS/FreshRSS/issues/862)
 
 
 ## 2015-05-31 FreshRSS 1.1.1 (beta)
