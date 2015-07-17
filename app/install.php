@@ -9,6 +9,9 @@ session_name('FreshRSS');
 session_set_cookie_params(0, dirname(empty($_SERVER['REQUEST_URI']) ? '/' : dirname($_SERVER['REQUEST_URI'])), null, false, true);
 session_start();
 
+Minz_Configuration::register('system', DATA_PATH . '/config.default.php');
+Minz_Configuration::register('user', USERS_PATH . '/_/config.default.php');
+
 if (isset($_GET['step'])) {
 	define('STEP',(int)$_GET['step']);
 } else {
@@ -77,9 +80,10 @@ function saveLanguage() {
 }
 
 function saveStep2() {
+	$user_default_config = Minz_Configuration::get('user');
 	if (!empty($_POST)) {
 		$_SESSION['title'] = substr(trim(param('title', _t('gen.freshrss'))), 0, 25);
-		$_SESSION['old_entries'] = param('old_entries', 3);
+		$_SESSION['old_entries'] = param('old_entries', $user_default_config->old_entries);
 		$_SESSION['auth_type'] = param('auth_type', 'form');
 		$_SESSION['default_user'] = substr(preg_replace('/[^a-zA-Z0-9]/', '', param('default_user', '')), 0, 16);
 		$_SESSION['mail_login'] = filter_var(param('mail_login', ''), FILTER_VALIDATE_EMAIL);
@@ -108,7 +112,7 @@ function saveStep2() {
 
 		$_SESSION['salt'] = sha1(uniqid(mt_rand(), true).implode('', stat(__FILE__)));
 		if ((!ctype_digit($_SESSION['old_entries'])) ||($_SESSION['old_entries'] < 1)) {
-			$_SESSION['old_entries'] = 3;
+			$_SESSION['old_entries'] = $user_default_config->old_entries;
 		}
 
 		$token = '';
@@ -118,7 +122,7 @@ function saveStep2() {
 
 		$config_array = array(
 			'language' => $_SESSION['language'],
-			'theme' => 'Origine',
+			'theme' => $user_default_config->theme,
 			'old_entries' => $_SESSION['old_entries'],
 			'mail_login' => $_SESSION['mail_login'],
 			'passwordHash' => $_SESSION['passwordHash'],
@@ -542,6 +546,7 @@ function printStep1() {
 }
 
 function printStep2() {
+	$user_default_config = Minz_Configuration::get('user');
 ?>
 	<?php $s2 = checkStep2(); if ($s2['all'] == 'ok') { ?>
 	<p class="alert alert-success"><span class="alert-head"><?php echo _t('gen.short.ok'); ?></span> <?php echo _t('install.conf.ok'); ?></p>
@@ -562,7 +567,7 @@ function printStep2() {
 		<div class="form-group">
 			<label class="group-name" for="old_entries"><?php echo _t('install.delete_articles_after'); ?></label>
 			<div class="group-controls">
-				<input type="number" id="old_entries" name="old_entries" required="required" min="1" max="1200" value="<?php echo isset($_SESSION['old_entries']) ? $_SESSION['old_entries'] : '3'; ?>" tabindex="2" /> <?php echo _t('gen.date.month'); ?>
+				<input type="number" id="old_entries" name="old_entries" required="required" min="1" max="1200" value="<?php echo isset($_SESSION['old_entries']) ? $_SESSION['old_entries'] : $user_default_config->old_entries; ?>" tabindex="2" /> <?php echo _t('gen.date.month'); ?>
 			</div>
 		</div>
 
@@ -667,6 +672,7 @@ function printStep2() {
 }
 
 function printStep3() {
+	$system_default_config = Minz_Configuration::get('system');
 ?>
 	<?php $s3 = checkStep3(); if ($s3['all'] == 'ok') { ?>
 	<p class="alert alert-success"><span class="alert-head"><?php echo _t('gen.short.ok'); ?></span> <?php echo _t('install.bdd.conf.ok'); ?></p>
@@ -700,7 +706,7 @@ function printStep3() {
 		<div class="form-group">
 			<label class="group-name" for="host"><?php echo _t('install.bdd.host'); ?></label>
 			<div class="group-controls">
-				<input type="text" id="host" name="host" pattern="[0-9A-Za-z_.-]{1,64}" value="<?php echo isset($_SESSION['bd_host']) ? $_SESSION['bd_host'] : 'localhost'; ?>" tabindex="2" />
+				<input type="text" id="host" name="host" pattern="[0-9A-Za-z_.-]{1,64}" value="<?php echo isset($_SESSION['bd_host']) ? $_SESSION['bd_host'] : $system_default_config->db['host']; ?>" tabindex="2" />
 			</div>
 		</div>
 
@@ -728,7 +734,7 @@ function printStep3() {
 		<div class="form-group">
 			<label class="group-name" for="prefix"><?php echo _t('install.bdd.prefix'); ?></label>
 			<div class="group-controls">
-				<input type="text" id="prefix" name="prefix" maxlength="16" pattern="[0-9A-Za-z_]{1,16}" value="<?php echo isset($_SESSION['bd_prefix']) ? $_SESSION['bd_prefix'] : 'freshrss_'; ?>" tabindex="6" />
+				<input type="text" id="prefix" name="prefix" maxlength="16" pattern="[0-9A-Za-z_]{1,16}" value="<?php echo isset($_SESSION['bd_prefix']) ? $_SESSION['bd_prefix'] :  $system_default_config->db['prefix']; ?>" tabindex="6" />
 			</div>
 		</div>
 		</div>
