@@ -100,7 +100,7 @@ return array(
 		'type' => 'sqlite',
 
 		# MySQL host.
-		'host' => '',
+		'host' => 'localhost',
 
 		# MySQL user.
 		'user' => '',
@@ -112,7 +112,7 @@ return array(
 		'base' => '',
 
 		# MySQL table prefix.
-		'prefix' => '',
+		'prefix' => 'freshrss_',
 
 		'pdo_options' => array(
 			//PDO::MYSQL_ATTR_SSL_KEY	=> '/path/to/client-key.pem',
