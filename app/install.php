@@ -609,9 +609,31 @@ function printStep1() {
 
 	<form action="index.php?step=1" method="post">
 		<input type="hidden" name="freshrss-keep-install" value="1" />
-		<button type="submit" class="btn btn-important" tabindex="1" ><?php echo _t('install.action.keep_install'); ?></button>
-		<a class="btn btn-attention next-step" href="?step=2" tabindex="2" ><?php echo _t('install.action.reinstall'); ?></a>
+		<button type="submit" class="btn btn-important next-step" tabindex="1" ><?php echo _t('install.action.keep_install'); ?></button>
+		<a class="btn btn-attention next-step confirm" data-str-confirm="<?php echo _t('install.js.confirm_reinstall'); ?>" href="?step=2" tabindex="2" ><?php echo _t('install.action.reinstall'); ?></a>
 	</form>
+
+	<script>
+		function ask_confirmation(e) {
+			var str_confirmation = this.getAttribute('data-str-confirm');
+			if (!str_confirmation) {
+				str_confirmation = "<?php echo _t('gen.js.confirm_action'); ?>";
+			}
+
+			if (!confirm(str_confirmation)) {
+				e.preventDefault();
+			}
+		}
+
+		function init_confirm() {
+			confirms = document.getElementsByClassName('confirm');
+			for (var i = 0 ; i < confirms.length ; i++) {
+				confirms[i].addEventListener('click', ask_confirmation);
+			}
+		}
+
+		init_confirm();
+	</script>
 	<?php } elseif ($res['all'] == 'ok') { ?>
 	<a class="btn btn-important next-step" href="?step=2" tabindex="1" ><?php echo _t('install.action.next_step'); ?></a>
 	<?php } else { ?>
