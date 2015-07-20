@@ -9,8 +9,8 @@ session_name('FreshRSS');
 session_set_cookie_params(0, dirname(empty($_SERVER['REQUEST_URI']) ? '/' : dirname($_SERVER['REQUEST_URI'])), null, false, true);
 session_start();
 
-Minz_Configuration::register('system', DATA_PATH . '/config.default.php');
-Minz_Configuration::register('user', USERS_PATH . '/_/config.default.php');
+Minz_Configuration::register('default_system', DATA_PATH . '/config.default.php');
+Minz_Configuration::register('default_user', USERS_PATH . '/_/config.default.php');
 
 if (isset($_GET['step'])) {
 	define('STEP',(int)$_GET['step']);
@@ -86,18 +86,31 @@ function saveStep1() {
 		// so we need to make next steps valid by setting $_SESSION vars
 		// with values from the previous installation
 
-		// TODO: set $_SESSION vars
-		$_SESSION['title'] = '';
-		$_SESSION['old_entries'] = '';
-		$_SESSION['mail_login'] = '';
-		$_SESSION['default_user'] =  '';
+		// First, we try to get previous configurations
+		Minz_Configuration::register('system',
+		                             DATA_PATH . '/config.php',
+		                             DATA_PATH . '/config.default.php');
+		$system_conf = Minz_Configuration::get('system');
 
-		$_SESSION['bd_type'] = '';
-		$_SESSION['bd_host'] = '';
-		$_SESSION['bd_user'] = '';
-		$_SESSION['bd_password'] = '';
-		$_SESSION['bd_base'] = '';
-		$_SESSION['bd_prefix'] = '';
+		$current_user = $system_conf->default_user;
+		Minz_Configuration::register('user',
+		                             USERS_PATH . '/' . $current_user . '/config.php',
+		                             USERS_PATH . '/_/config.default.php');
+		$user_conf = Minz_Configuration::get('user');
+
+		// Then, we set $_SESSION vars
+		$_SESSION['title'] = $system_conf->title;
+		$_SESSION['old_entries'] = $user_conf->old_entries;
+		$_SESSION['mail_login'] = $user_conf->mail_login;
+		$_SESSION['default_user'] = $current_user;
+
+		$db = $system_conf->db;
+		$_SESSION['bd_type'] = $db['type'];
+		$_SESSION['bd_host'] = $db['host'];
+		$_SESSION['bd_user'] = $db['user'];
+		$_SESSION['bd_password'] = $db['password'];
+		$_SESSION['bd_base'] = $db['base'];
+		$_SESSION['bd_prefix'] = $db['prefix'];
 		$_SESSION['bd_error'] = '';
 
 		header('Location: index.php?step=4');
@@ -105,7 +118,7 @@ function saveStep1() {
 }
 
 function saveStep2() {
-	$user_default_config = Minz_Configuration::get('user');
+	$user_default_config = Minz_Configuration::get('default_user');
 	if (!empty($_POST)) {
 		$_SESSION['title'] = substr(trim(param('title', _t('gen.freshrss'))), 0, 25);
 		$_SESSION['old_entries'] = param('old_entries', $user_default_config->old_entries);
@@ -583,7 +596,7 @@ function printStep1() {
 }
 
 function printStep2() {
-	$user_default_config = Minz_Configuration::get('user');
+	$user_default_config = Minz_Configuration::get('default_user');
 ?>
 	<?php $s2 = checkStep2(); if ($s2['all'] == 'ok') { ?>
 	<p class="alert alert-success"><span class="alert-head"><?php echo _t('gen.short.ok'); ?></span> <?php echo _t('install.conf.ok'); ?></p>
@@ -709,7 +722,7 @@ function printStep2() {
 }
 
 function printStep3() {
-	$system_default_config = Minz_Configuration::get('system');
+	$system_default_config = Minz_Configuration::get('default_system');
 ?>
 	<?php $s3 = checkStep3(); if ($s3['all'] == 'ok') { ?>
 	<p class="alert alert-success"><span class="alert-head"><?php echo _t('gen.short.ok'); ?></span> <?php echo _t('install.bdd.conf.ok'); ?></p>
