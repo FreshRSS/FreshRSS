@@ -79,6 +79,31 @@ function saveLanguage() {
 	}
 }
 
+function saveStep1() {
+	if (isset($_POST['freshrss-keep-reinstall']) &&
+			$_POST['freshrss-keep-reinstall'] === '1') {
+		// We want to keep our previous installation of FreshRSS
+		// so we need to make next steps valid by setting $_SESSION vars
+		// with values from the previous installation
+
+		// TODO: set $_SESSION vars
+		$_SESSION['title'] = '';
+		$_SESSION['old_entries'] = '';
+		$_SESSION['mail_login'] = '';
+		$_SESSION['default_user'] =  '';
+
+		$_SESSION['bd_type'] = '';
+		$_SESSION['bd_host'] = '';
+		$_SESSION['bd_user'] = '';
+		$_SESSION['bd_password'] = '';
+		$_SESSION['bd_base'] = '';
+		$_SESSION['bd_prefix'] = '';
+		$_SESSION['bd_error'] = '';
+
+		header('Location: index.php?step=4');
+	}
+}
+
 function saveStep2() {
 	$user_default_config = Minz_Configuration::get('user');
 	if (!empty($_POST)) {
@@ -300,6 +325,10 @@ function checkStep1() {
 		         $data && $cache && $users && $favicons && $persona && $http_referer ?
 		         'ok' : 'ko'
 	);
+}
+
+function freshrss_already_installed() {
+	return false;
 }
 
 function checkStep2() {
@@ -537,7 +566,15 @@ function printStep1() {
 	<p class="alert alert-error"><span class="alert-head"><?php echo _t('gen.short.damn'); ?></span> <?php echo _t('install.check.http_referer.nok'); ?></p>
 	<?php } ?>
 
-	<?php if ($res['all'] == 'ok') { ?>
+	<?php if (freshrss_already_installed() && $res['all'] == 'ok') { ?>
+	<p class="alert alert-warn"><span class="alert-head"><?php echo _t('gen.short.attention'); ?></span> <?php echo _t('install.check.freshrss_alreadyy_installed'); ?></p>
+
+	<form action="index.php?step=1" method="post">
+		<input type="hidden" name="freshrss-keep-reinstall" value="1" />
+		<button type="submit" class="btn btn-important" tabindex="1" ><?php echo _t('install.action.keep_install'); ?></button>
+		<a class="btn btn-attention next-step" href="?step=2" tabindex="2" ><?php echo _t('install.action.reinstall'); ?></a>
+	</form>
+	<?php } elseif ($res['all'] == 'ok') { ?>
 	<a class="btn btn-important next-step" href="?step=2" tabindex="1" ><?php echo _t('install.action.next_step'); ?></a>
 	<?php } else { ?>
 	<p class="alert alert-error"><?php echo _t('install.action.fix_errors_before'); ?></p>
@@ -788,6 +825,7 @@ default:
 	saveLanguage();
 	break;
 case 1:
+	saveStep1();
 	break;
 case 2:
 	saveStep2();
