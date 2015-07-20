@@ -9,8 +9,8 @@ session_name('FreshRSS');
 session_set_cookie_params(0, dirname(empty($_SERVER['REQUEST_URI']) ? '/' : dirname($_SERVER['REQUEST_URI'])), null, false, true);
 session_start();
 
-Minz_Configuration::register('system', DATA_PATH . '/config.default.php');
-Minz_Configuration::register('user', USERS_PATH . '/_/config.default.php');
+Minz_Configuration::register('default_system', join_path(DATA_PATH, 'config.default.php'));
+Minz_Configuration::register('default_user', join_path(USERS_PATH, '_', 'config.default.php'));
 
 if (isset($_GET['step'])) {
 	define('STEP',(int)$_GET['step']);
@@ -79,8 +79,48 @@ function saveLanguage() {
 	}
 }
 
+function saveStep1() {
+	if (isset($_POST['freshrss-keep-install']) &&
+			$_POST['freshrss-keep-install'] === '1') {
+		// We want to keep our previous installation of FreshRSS
+		// so we need to make next steps valid by setting $_SESSION vars
+		// with values from the previous installation
+
+		// First, we try to get previous configurations
+		Minz_Configuration::register('system',
+		                             join_path(DATA_PATH, 'config.php'),
+		                             join_path(DATA_PATH, 'config.default.php'));
+		$system_conf = Minz_Configuration::get('system');
+
+		$current_user = $system_conf->default_user;
+		Minz_Configuration::register('user',
+		                             join_path(USERS_PATH, $current_user, 'config.php'),
+		                             join_path(USERS_PATH, '_', 'config.default.php'));
+		$user_conf = Minz_Configuration::get('user');
+
+		// Then, we set $_SESSION vars
+		$_SESSION['title'] = $system_conf->title;
+		$_SESSION['auth_type'] = $system_conf->auth_type;
+		$_SESSION['old_entries'] = $user_conf->old_entries;
+		$_SESSION['mail_login'] = $user_conf->mail_login;
+		$_SESSION['default_user'] = $current_user;
+		$_SESSION['passwordHash'] = $user_conf->passwordHash;
+
+		$db = $system_conf->db;
+		$_SESSION['bd_type'] = $db['type'];
+		$_SESSION['bd_host'] = $db['host'];
+		$_SESSION['bd_user'] = $db['user'];
+		$_SESSION['bd_password'] = $db['password'];
+		$_SESSION['bd_base'] = $db['base'];
+		$_SESSION['bd_prefix'] = $db['prefix'];
+		$_SESSION['bd_error'] = '';
+
+		header('Location: index.php?step=4');
+	}
+}
+
 function saveStep2() {
-	$user_default_config = Minz_Configuration::get('user');
+	$user_default_config = Minz_Configuration::get('default_user');
 	if (!empty($_POST)) {
 		$_SESSION['title'] = substr(trim(param('title', _t('gen.freshrss'))), 0, 25);
 		$_SESSION['old_entries'] = param('old_entries', $user_default_config->old_entries);
@@ -300,6 +340,33 @@ function checkStep1() {
 		         $data && $cache && $users && $favicons && $persona && $http_referer ?
 		         'ok' : 'ko'
 	);
+}
+
+function freshrss_already_installed() {
+	$conf_path = join_path(DATA_PATH, 'config.php');
+	if (!file_exists($conf_path)) {
+		return false;
+	}
+
+	// A configuration file already exists, we try to load it.
+	$system_conf = null;
+	try {
+		Minz_Configuration::register('system', $conf_path);
+		$system_conf = Minz_Configuration::get('system');
+	} catch (Minz_FileNotExistException $e) {
+		return false;
+	}
+
+	// ok, the global conf exists... but what about default user conf?
+	$current_user = $system_conf->default_user;
+	try {
+		Minz_Configuration::register('user', join_path(USERS_PATH, $current_user, 'config.php'));
+	} catch (Minz_FileNotExistException $e) {
+		return false;
+	}
+
+	// ok, ok, default user exists too!
+	return true;
 }
 
 function checkStep2() {
@@ -537,7 +604,37 @@ function printStep1() {
 	<p class="alert alert-error"><span class="alert-head"><?php echo _t('gen.short.damn'); ?></span> <?php echo _t('install.check.http_referer.nok'); ?></p>
 	<?php } ?>
 
-	<?php if ($res['all'] == 'ok') { ?>
+	<?php if (freshrss_already_installed() && $res['all'] == 'ok') { ?>
+	<p class="alert alert-warn"><span class="alert-head"><?php echo _t('gen.short.attention'); ?></span> <?php echo _t('install.check.already_installed'); ?></p>
+
+	<form action="index.php?step=1" method="post">
+		<input type="hidden" name="freshrss-keep-install" value="1" />
+		<button type="submit" class="btn btn-important next-step" tabindex="1" ><?php echo _t('install.action.keep_install'); ?></button>
+		<a class="btn btn-attention next-step confirm" data-str-confirm="<?php echo _t('install.js.confirm_reinstall'); ?>" href="?step=2" tabindex="2" ><?php echo _t('install.action.reinstall'); ?></a>
+	</form>
+
+	<script>
+		function ask_confirmation(e) {
+			var str_confirmation = this.getAttribute('data-str-confirm');
+			if (!str_confirmation) {
+				str_confirmation = "<?php echo _t('gen.js.confirm_action'); ?>";
+			}
+
+			if (!confirm(str_confirmation)) {
+				e.preventDefault();
+			}
+		}
+
+		function init_confirm() {
+			confirms = document.getElementsByClassName('confirm');
+			for (var i = 0 ; i < confirms.length ; i++) {
+				confirms[i].addEventListener('click', ask_confirmation);
+			}
+		}
+
+		init_confirm();
+	</script>
+	<?php } elseif ($res['all'] == 'ok') { ?>
 	<a class="btn btn-important next-step" href="?step=2" tabindex="1" ><?php echo _t('install.action.next_step'); ?></a>
 	<?php } else { ?>
 	<p class="alert alert-error"><?php echo _t('install.action.fix_errors_before'); ?></p>
@@ -546,7 +643,7 @@ function printStep1() {
 }
 
 function printStep2() {
-	$user_default_config = Minz_Configuration::get('user');
+	$user_default_config = Minz_Configuration::get('default_user');
 ?>
 	<?php $s2 = checkStep2(); if ($s2['all'] == 'ok') { ?>
 	<p class="alert alert-success"><span class="alert-head"><?php echo _t('gen.short.ok'); ?></span> <?php echo _t('install.conf.ok'); ?></p>
@@ -672,7 +769,7 @@ function printStep2() {
 }
 
 function printStep3() {
-	$system_default_config = Minz_Configuration::get('system');
+	$system_default_config = Minz_Configuration::get('default_system');
 ?>
 	<?php $s3 = checkStep3(); if ($s3['all'] == 'ok') { ?>
 	<p class="alert alert-success"><span class="alert-head"><?php echo _t('gen.short.ok'); ?></span> <?php echo _t('install.bdd.conf.ok'); ?></p>
@@ -788,6 +885,7 @@ default:
 	saveLanguage();
 	break;
 case 1:
+	saveStep1();
 	break;
 case 2:
 	saveStep2();
