@@ -9,6 +9,7 @@ session_name('FreshRSS');
 session_set_cookie_params(0, dirname(empty($_SERVER['REQUEST_URI']) ? '/' : dirname($_SERVER['REQUEST_URI'])), null, false, true);
 session_start();
 
+// TODO: use join_path() instead
 Minz_Configuration::register('default_system', DATA_PATH . '/config.default.php');
 Minz_Configuration::register('default_user', USERS_PATH . '/_/config.default.php');
 
@@ -80,6 +81,7 @@ function saveLanguage() {
 }
 
 function saveStep1() {
+	// TODO: rename reinstall in install
 	if (isset($_POST['freshrss-keep-reinstall']) &&
 			$_POST['freshrss-keep-reinstall'] === '1') {
 		// We want to keep our previous installation of FreshRSS
@@ -87,6 +89,7 @@ function saveStep1() {
 		// with values from the previous installation
 
 		// First, we try to get previous configurations
+		// TODO: use join_path() instead
 		Minz_Configuration::register('system',
 		                             DATA_PATH . '/config.php',
 		                             DATA_PATH . '/config.default.php');
@@ -100,9 +103,11 @@ function saveStep1() {
 
 		// Then, we set $_SESSION vars
 		$_SESSION['title'] = $system_conf->title;
+		$_SESSION['auth_type'] = $system_conf->auth_type;
 		$_SESSION['old_entries'] = $user_conf->old_entries;
 		$_SESSION['mail_login'] = $user_conf->mail_login;
 		$_SESSION['default_user'] = $current_user;
+		$_SESSION['passwordHash'] = $user_conf->passwordHash;
 
 		$db = $system_conf->db;
 		$_SESSION['bd_type'] = $db['type'];
@@ -341,7 +346,30 @@ function checkStep1() {
 }
 
 function freshrss_already_installed() {
-	return false;
+	$conf_path = join_path(DATA_PATH, 'config.php');
+	if (!file_exists($conf_path)) {
+		return false;
+	}
+
+	// A configuration file already exists, we try to load it.
+	$system_conf = null;
+	try {
+		Minz_Configuration::register('system', $conf_path);
+		$system_conf = Minz_Configuration::get('system');
+	} catch (Minz_FileNotExistException $e) {
+		return false;
+	}
+
+	// ok, the global conf exists... but what about default user conf?
+	$current_user = $system_conf->default_user;
+	try {
+		Minz_Configuration::register('user', join_path(USERS_PATH, $current_user, 'config.php'));
+	} catch (Minz_FileNotExistException $e) {
+		return false;
+	}
+
+	// ok, ok, default user exists too!
+	return true;
 }
 
 function checkStep2() {
