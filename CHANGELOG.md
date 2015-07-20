@@ -20,6 +20,7 @@
 	* Add a couple of default feeds for fresh installations. [#886](https://github.com/FreshRSS/FreshRSS/issues/886)
 	* Changed some log visibilities. [#885](https://github.com/FreshRSS/FreshRSS/issues/885)
 	* Fix broken links for extension script / style files. [#862](https://github.com/FreshRSS/FreshRSS/issues/862)
+	* Load default configuration during installation to avoid hard-coded values. [#890](https://github.com/FreshRSS/FreshRSS/issues/890)
 
 
 ## 2015-05-31 FreshRSS 1.1.1 (beta)
