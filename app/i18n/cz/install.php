@@ -96,6 +96,9 @@ return array(
 	'delete_articles_after' => 'Smazat články starší než',
 	'fix_errors_before' => 'Chyby prosím před přechodem na další krok opravte.',
 	'javascript_is_better' => 'Práce s FreshRSS je příjemnější se zapnutým JavaScriptem',
+	'js' => array(
+		'confirm_reinstall' => 'You will lose your previous configuration by reinstalling FreshRSS. Are you sure you want to continue?',  // TODO: translate
+	),
 	'language' => array(
 		'_' => 'Jazyk',
 		'choose' => 'Vyberte jazyk FreshRSS',

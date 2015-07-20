@@ -96,6 +96,9 @@ return array(
 	'delete_articles_after' => 'Supprimer les articles après',
 	'fix_errors_before' => 'Veuillez corriger les erreurs avant de passer à l’étape suivante.',
 	'javascript_is_better' => 'FreshRSS est plus agréable à utiliser avec JavaScript activé',
+	'js' => array(
+		'confirm_reinstall' => 'Réinstaller FreshRSS vous fera perdre la configuration précédente. Êtes-vous sûr de vouloir continuer ?',
+	),
 	'language' => array(
 		'_' => 'Langue',
 		'choose' => 'Choisissez la langue pour FreshRSS',
