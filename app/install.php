@@ -9,9 +9,8 @@ session_name('FreshRSS');
 session_set_cookie_params(0, dirname(empty($_SERVER['REQUEST_URI']) ? '/' : dirname($_SERVER['REQUEST_URI'])), null, false, true);
 session_start();
 
-// TODO: use join_path() instead
-Minz_Configuration::register('default_system', DATA_PATH . '/config.default.php');
-Minz_Configuration::register('default_user', USERS_PATH . '/_/config.default.php');
+Minz_Configuration::register('default_system', join_path(DATA_PATH, 'config.default.php'));
+Minz_Configuration::register('default_user', join_path(USERS_PATH, '_', 'config.default.php'));
 
 if (isset($_GET['step'])) {
 	define('STEP',(int)$_GET['step']);
@@ -81,24 +80,22 @@ function saveLanguage() {
 }
 
 function saveStep1() {
-	// TODO: rename reinstall in install
-	if (isset($_POST['freshrss-keep-reinstall']) &&
-			$_POST['freshrss-keep-reinstall'] === '1') {
+	if (isset($_POST['freshrss-keep-install']) &&
+			$_POST['freshrss-keep-install'] === '1') {
 		// We want to keep our previous installation of FreshRSS
 		// so we need to make next steps valid by setting $_SESSION vars
 		// with values from the previous installation
 
 		// First, we try to get previous configurations
-		// TODO: use join_path() instead
 		Minz_Configuration::register('system',
-		                             DATA_PATH . '/config.php',
-		                             DATA_PATH . '/config.default.php');
+		                             join_path(DATA_PATH, 'config.php'),
+		                             join_path(DATA_PATH, 'config.default.php'));
 		$system_conf = Minz_Configuration::get('system');
 
 		$current_user = $system_conf->default_user;
 		Minz_Configuration::register('user',
-		                             USERS_PATH . '/' . $current_user . '/config.php',
-		                             USERS_PATH . '/_/config.default.php');
+		                             join_path(USERS_PATH, $current_user, 'config.php'),
+		                             join_path(USERS_PATH, '_', 'config.default.php'));
 		$user_conf = Minz_Configuration::get('user');
 
 		// Then, we set $_SESSION vars
@@ -611,7 +608,7 @@ function printStep1() {
 	<p class="alert alert-warn"><span class="alert-head"><?php echo _t('gen.short.attention'); ?></span> <?php echo _t('install.check.freshrss_alreadyy_installed'); ?></p>
 
 	<form action="index.php?step=1" method="post">
-		<input type="hidden" name="freshrss-keep-reinstall" value="1" />
+		<input type="hidden" name="freshrss-keep-install" value="1" />
 		<button type="submit" class="btn btn-important" tabindex="1" ><?php echo _t('install.action.keep_install'); ?></button>
 		<a class="btn btn-attention next-step" href="?step=2" tabindex="2" ><?php echo _t('install.action.reinstall'); ?></a>
 	</form>
