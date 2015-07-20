@@ -4,7 +4,9 @@ return array(
 	'action' => array(
 		'finish' => 'Terminer l’installation',
 		'fix_errors_before' => 'Veuillez corriger les erreurs avant de passer à l’étape suivante.',
+		'keep_install' => 'Garder l’ancienne configuration',
 		'next_step' => 'Passer à l’étape suivante',
+		'reinstall' => 'Réinstaller FreshRSS',
 	),
 	'auth' => array(
 		'email_persona' => 'Adresse courriel de connexion<br /><small>(pour <a href="https://persona.org/" rel="external">Mozilla Persona</a>)</small>',
@@ -31,6 +33,7 @@ return array(
 	),
 	'check' => array(
 		'_' => 'Vérifications',
+		'already_installed' => 'FreshRSS semble avoir déjà été installé !',
 		'cache' => array(
 			'nok' => 'Veuillez vérifier les droits sur le répertoire <em>./data/cache</em>. Le serveur HTTP doit être capable d’écrire dedans',
 			'ok' => 'Les droits sur le répertoire de cache sont bons.',

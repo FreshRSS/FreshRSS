@@ -4,7 +4,9 @@ return array(
 	'action' => array(
 		'finish' => 'Dokončit instalaci',
 		'fix_errors_before' => 'Chyby prosím před přechodem na další krok opravte.',
+		'keep_install' => 'Keep previous installation',  // TODO: translate
 		'next_step' => 'Přejít na další krok',
+		'reinstall' => 'Reinstall FreshRSS',  // TODO: translate
 	),
 	'auth' => array(
 		'email_persona' => 'Email pro přihlášení<br /><small>(pro <a href="https://persona.org/" rel="external">Mozilla Persona</a>)</small>',
@@ -31,6 +33,7 @@ return array(
 	),
 	'check' => array(
 		'_' => 'Kontrola',
+		'already_installed' => 'We have detected that FreshRSS is already installed!',  // TODO: translate
 		'cache' => array(
 			'nok' => 'Zkontrolujte oprávnění adresáře <em>./data/cache</em>. HTTP server musí mít do tohoto adresáře práva zápisu',
 			'ok' => 'Oprávnění adresáře cache jsou v pořádku.',

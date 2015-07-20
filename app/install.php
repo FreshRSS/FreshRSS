@@ -605,7 +605,7 @@ function printStep1() {
 	<?php } ?>
 
 	<?php if (freshrss_already_installed() && $res['all'] == 'ok') { ?>
-	<p class="alert alert-warn"><span class="alert-head"><?php echo _t('gen.short.attention'); ?></span> <?php echo _t('install.check.freshrss_alreadyy_installed'); ?></p>
+	<p class="alert alert-warn"><span class="alert-head"><?php echo _t('gen.short.attention'); ?></span> <?php echo _t('install.check.already_installed'); ?></p>
 
 	<form action="index.php?step=1" method="post">
 		<input type="hidden" name="freshrss-keep-install" value="1" />
