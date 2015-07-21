@@ -925,7 +925,7 @@ case 5:
 		<li class="item<?php echo STEP == 1 ? ' active' : ''; ?>"><a href="?step=1"><?php echo _t('install.check'); ?></a></li>
 		<li class="item<?php echo STEP == 2 ? ' active' : ''; ?>"><a href="?step=2"><?php echo _t('install.conf'); ?></a></li>
 		<li class="item<?php echo STEP == 3 ? ' active' : ''; ?>"><a href="?step=3"><?php echo _t('install.bdd.conf'); ?></a></li>
-		<li class="item<?php echo STEP == 4 ? ' active' : ''; ?>"><a href="?step=5"><?php echo _t('install.this_is_the_end'); ?></a></li>
+		<li class="item<?php echo STEP == 4 ? ' active' : ''; ?>"><a href="?step=4"><?php echo _t('install.this_is_the_end'); ?></a></li>
 	</ul>
 
 	<div class="post">
