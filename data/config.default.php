@@ -77,6 +77,10 @@ return array(
 		# Max number of categories for a user.
 		'max_categories' => 16384,
 
+		# Max number of accounts that anonymous users can create
+		#   0 for an unlimited number of accounts
+		#   1 is to not allow user registrations (1 is corresponding to the admin account)
+		'max_registrations' => 1,
 	),
 
 	# Options used by cURL when making HTTP requests, e.g. when the SimplePie library retrieves feeds.

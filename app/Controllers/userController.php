@@ -211,4 +211,28 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 
 		Minz_Request::forward(array('c' => 'user', 'a' => 'manage'), true);
 	}
+
+	/**
+	 * This action updates the max number of registrations.
+	 *
+	 * Request parameter is:
+	 *   - max-registrations (int >= 0)
+	 */
+	public function setRegistrationAction() {
+		if (Minz_Request::isPost() && FreshRSS_Auth::hasAccess('admin')) {
+			$limits = FreshRSS_Context::$system_conf->limits;
+			$limits['max_registrations'] = Minz_Request::param('max-registrations', 1);
+			FreshRSS_Context::$system_conf->limits = $limits;
+			FreshRSS_Context::$system_conf->save();
+
+			invalidateHttpCache();
+
+			Minz_Session::_param('notification', array(
+				'type' => 'good',
+				'content' => _t('feedback.user.set_registration')
+			));
+		}
+
+		Minz_Request::forward(array('c' => 'user', 'a' => 'manage'), true);
+	}
 }

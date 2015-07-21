@@ -3,6 +3,25 @@
 <div class="post">
 	<a href="<?php echo _url('index', 'index'); ?>"><?php echo _t('gen.action.back_to_rss_feeds'); ?></a>
 
+	<form method="post" action="<?php echo _url('user', 'setRegistration'); ?>">
+		<legend><?php echo _t('admin.user.registration.allow'); ?></legend>
+
+		<div class="form-group">
+			<label class="group-name" for="max-registrations"><?php echo _t('admin.user.registration.number'); ?></label>
+			<div class="group-controls">
+				<input type="number" id="max-registrations" name="max-registrations" value="<?php echo FreshRSS_Context::$system_conf->limits['max_registrations']; ?>" min="0" data-leave-validation="<?php echo FreshRSS_Context::$system_conf->limits['max_registrations']; ?>"/>
+				<?php echo _i('help'); ?> <?php echo _t('admin.user.registration.help'); ?>
+			</div>
+		</div>
+
+		<div class="form-group form-actions">
+			<div class="group-controls">
+				<button type="submit" class="btn btn-important"><?php echo _t('gen.action.submit'); ?></button>
+				<button type="reset" class="btn"><?php echo _t('gen.action.cancel'); ?></button>
+			</div>
+		</div>
+	</form>
+
 	<form method="post" action="<?php echo _url('user', 'create'); ?>">
 		<legend><?php echo _t('admin.user.create'); ?></legend>
 

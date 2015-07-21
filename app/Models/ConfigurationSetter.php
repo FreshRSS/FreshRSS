@@ -352,6 +352,9 @@ class FreshRSS_ConfigurationSetter {
 				'min' => 0,
 				'max' => $max_small_int,
 			),
+			'max_registrations' => array(
+				'min' => 0,
+			),
 		);
 
 		foreach ($values as $key => $value) {
