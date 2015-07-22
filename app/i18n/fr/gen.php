@@ -34,6 +34,7 @@ return array(
 		'registration' => array(
 			'_' => 'Nouveau compte',
 			'ask' => 'Créer un compte ?',
+			'title' => 'Création de compte',
 		),
 		'reset' => 'Réinitialisation de l’authentification',
 		'username' => array(

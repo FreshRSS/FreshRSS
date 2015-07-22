@@ -354,5 +354,7 @@ class FreshRSS_auth_Controller extends Minz_ActionController {
 		if (max_registrations_reached()) {
 			Minz_Error::error(403);
 		}
+
+		Minz_View::prependTitle(_t('gen.auth.registration.title') . ' · ');
 	}
 }

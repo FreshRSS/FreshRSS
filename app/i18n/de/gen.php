@@ -34,6 +34,7 @@ return array(
 		'registration' => array(
 			'_' => 'New account',  // TODO: translate
 			'ask' => 'Create an account?',  // TODO: translate
+			'title' => 'Account creation',  // TODO: translate
 		),
 		'reset' => 'Zurücksetzen der Authentifizierung',
 		'username' => array(
