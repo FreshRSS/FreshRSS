@@ -21,12 +21,17 @@ return array(
 		'truncate' => 'Delete all articles',
 	),
 	'auth' => array(
+		'email' => 'Email address',
 		'keep_logged_in' => 'Keep me logged in <small>(1 month)</small>',
 		'login' => 'Login',
 		'login_persona' => 'Login with Persona',
 		'login_persona_problem' => 'Connection problem with Persona?',
 		'logout' => 'Logout',
 		'password' => 'Password',
+		'registration' => array(
+			'_' => 'New account',
+			'ask' => 'Create an account?',
+		),
 		'reset' => 'Authentication reset',
 		'username' => 'Username',
 		'username_admin' => 'Administrator username',

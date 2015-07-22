@@ -72,6 +72,10 @@ return array(
 	),
 	'profile' => array(
 		'_' => 'Profil-Verwaltung',
+		'delete' => array(
+			'_' => 'Account deletion',  // TODO: translate
+			'warn' => 'Your account and all the related data will be deleted.',  // TODO: translate
+		),
 		'email_persona' => 'Anmelde-E-Mail-Adresse<br /><small>(für <a href="https://persona.org/" rel="external">Mozilla Persona</a>)</small>',
 		'password_api' => 'Passwort-API<br /><small>(z. B. für mobile Anwendungen)</small>',
 		'password_form' => 'Passwort<br /><small>(für die Anmeldemethode per Webformular)</small>',

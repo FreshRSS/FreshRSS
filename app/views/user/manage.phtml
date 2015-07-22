@@ -16,7 +16,10 @@
 
 		<div class="form-group">
 			<div class="group-controls">
-				<?php echo _t('admin.user.number', count(listUsers())); ?>
+				<?php
+					$number = count(listUsers());
+					echo _t($number > 1 ? 'admin.user.numbers' : 'admin.user.number', $number);
+				?>
 			</div>
 		</div>
 

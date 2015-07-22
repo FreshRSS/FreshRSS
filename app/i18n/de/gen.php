@@ -21,12 +21,17 @@ return array(
 		'truncate' => 'Alle Artikel löschen',
 	),
 	'auth' => array(
+		'email' => 'E-Mail-Adresse',
 		'keep_logged_in' => 'Eingeloggt bleiben <small>(1 Monat)</small>',
 		'login' => 'Anmelden',
 		'login_persona' => 'Anmelden mit Persona',
 		'login_persona_problem' => 'Verbindungsproblem mit Persona?',
 		'logout' => 'Abmelden',
 		'password' => 'Passwort',
+		'registration' => array(
+			'_' => 'New account',  // TODO: translate
+			'ask' => 'Create an account?',  // TODO: translate
+		),
 		'reset' => 'Zurücksetzen der Authentifizierung',
 		'username' => 'Nutzername',
 		'username_admin' => 'Administrator-Nutzername',

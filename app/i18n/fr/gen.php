@@ -21,12 +21,17 @@ return array(
 		'truncate' => 'Supprimer tous les articles',
 	),
 	'auth' => array(
+		'email' => 'Adresse courriel',
 		'keep_logged_in' => 'Rester connecté <small>(1 mois)</small>',
 		'login' => 'Connexion',
 		'login_persona' => 'Connexion avec Persona',
 		'login_persona_problem' => 'Problème de connexion à Persona ?',
 		'logout' => 'Déconnexion',
 		'password' => 'Mot de passe',
+		'registration' => array(
+			'_' => 'Nouveau compte',
+			'ask' => 'Créer un compte ?',
+		),
 		'reset' => 'Réinitialisation de l’authentification',
 		'username' => 'Nom d’utilisateur',
 		'username_admin' => 'Nom d’utilisateur administrateur',

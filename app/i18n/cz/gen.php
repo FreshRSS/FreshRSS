@@ -21,12 +21,17 @@ return array(
 		'truncate' => 'Smazat všechny články',
 	),
 	'auth' => array(
+		'email' => 'Email',
 		'keep_logged_in' => 'Zapamatovat přihlášení <small>(1 měsíc)</small>',
 		'login' => 'Login',
 		'login_persona' => 'Přihlášení pomocí Persona',
 		'login_persona_problem' => 'Problém s připojením k Persona?',
 		'logout' => 'Odhlášení',
 		'password' => 'Heslo',
+		'registration' => array(
+			'_' => 'New account',  // TODO: translate
+			'ask' => 'Create an account?',  // TODO: translate
+		),
 		'reset' => 'Reset přihlášení',
 		'username' => 'Uživatel',
 		'username_admin' => 'Název administrátorského účtu',
