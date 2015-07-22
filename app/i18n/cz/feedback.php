@@ -102,6 +102,7 @@ return array(
 			'_' => 'Uživatel %s byl smazán',
 			'error' => 'Uživatele %s nelze smazat',
 		),
+		'set_registration' => 'The maximum amount of accounts has been updated.',  // TODO: translate
 	),
 	'profile' => array(
 		'error' => 'Váš profil nelze změnit',
