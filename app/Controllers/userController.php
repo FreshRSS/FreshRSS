@@ -212,11 +212,15 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 	 * @todo clean up this method. Idea: create a User->clean() method.
 	 */
 	public function deleteAction() {
-		if (Minz_Request::isPost() && FreshRSS_Auth::hasAccess('admin')) {
+		$username = Minz_Request::param('username');
+
+		if (Minz_Request::isPost() && (
+				FreshRSS_Auth::hasAccess('admin') ||
+				Minz_Session::param('currentUser', '_') === $username
+		)) {
 			$db = FreshRSS_Context::$system_conf->db;
 			require_once(APP_PATH . '/SQL/install.sql.' . $db['type'] . '.php');
 
-			$username = Minz_Request::param('username');
 			$ok = ctype_alnum($username);
 			$user_data = join_path(DATA_PATH, 'users', $username);
 
@@ -234,6 +238,9 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 				//TODO: delete Persona file
 			}
 			invalidateHttpCache();
+			if (Minz_Session::param('currentUser', '_') === $username) {
+				FreshRSS_Auth::removeAccess();
+			}
 
 			$notif = array(
 				'type' => $ok ? 'good' : 'bad',
@@ -242,7 +249,11 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 			Minz_Session::_param('notification', $notif);
 		}
 
-		Minz_Request::forward(array('c' => 'user', 'a' => 'manage'), true);
+		$redirect_url = urldecode(Minz_Request::param('r', false, true));
+		if (!$redirect_url) {
+			$redirect_url = array('c' => 'user', 'a' => 'manage');
+		}
+		Minz_Request::forward($redirect_url, true);
 	}
 
 	/**

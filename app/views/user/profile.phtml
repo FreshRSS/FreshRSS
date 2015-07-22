@@ -57,4 +57,26 @@
 			</div>
 		</div>
 	</form>
+
+	<?php if (!FreshRSS_Auth::hasAccess('admin')) { ?>
+	<form method="post" action="<?php echo _url('user', 'delete'); ?>">
+		<legend><?php echo _t('conf.profile.delete'); ?></legend>
+
+		<p class="alert alert-warn"><span class="alert-head"><?php echo _t('gen.short.attention'); ?></span> <?php echo _t('conf.profile.delete.warn'); ?></p>
+
+		<div class="form-group form-actions">
+			<div class="group-controls">
+				<?php
+					$redirect_url = urlencode(Minz_Url::display(
+						array('c' => 'index', 'a' => 'index'),
+						'php', true
+					));
+				?>
+				<input type="hidden" name="r" value="<?php echo $redirect_url; ?>" />
+				<input type="hidden" name="username" value="<?php echo Minz_Session::param('currentUser', '_'); ?>" />
+				<button type="submit" class="btn btn-attention confirm"><?php echo _t('gen.action.remove'); ?></button>
+			</div>
+		</div>
+	</form>
+	<?php } ?>
 </div>
