@@ -29,6 +29,13 @@
         </div>
 
         <div>
+            <?php
+                $redirect_url = urlencode(Minz_Url::display(
+                    array('c' => 'index', 'a' => 'index'),
+                    'php', true
+                ));
+            ?>
+            <input type="hidden" name="r" value="<?php echo $redirect_url; ?>" />
             <button type="submit" class="btn btn-important"><?php echo _t('gen.action.create'); ?></button>
             <a class="btn" href="<?php echo _url('index', 'index'); ?>"><?php echo _t('gen.action.cancel'); ?></a>
         </div>
