@@ -103,6 +103,17 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 		$this->view->size_user = $entryDAO->size();
 	}
 
+	/**
+	 * This action creates a new user.
+	 *
+	 * Request parameters are:
+	 *   - new_user_language
+	 *   - new_user_name
+	 *   - new_user_passwordPlain
+	 *   - new_user_email
+	 *
+	 * @todo clean up this method. Idea: write a method to init a user with basic information.
+	 */
 	public function createAction() {
 		if (Minz_Request::isPost() && FreshRSS_Auth::hasAccess('admin')) {
 			$db = FreshRSS_Context::$system_conf->db;
@@ -178,6 +189,14 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 		Minz_Request::forward(array('c' => 'user', 'a' => 'manage'), true);
 	}
 
+	/**
+	 * This action delete an existing user.
+	 *
+	 * Request parameter is:
+	 *   - username
+	 *
+	 * @todo clean up this method. Idea: create a User->clean() method.
+	 */
 	public function deleteAction() {
 		if (Minz_Request::isPost() && FreshRSS_Auth::hasAccess('admin')) {
 			$db = FreshRSS_Context::$system_conf->db;
