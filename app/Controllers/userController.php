@@ -30,13 +30,17 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 	public function profileAction() {
 		Minz_View::prependTitle(_t('conf.profile.title') . ' · ');
 
+		Minz_View::appendScript(Minz_Url::display(
+			'/scripts/bcrypt.min.js?' . @filemtime(PUBLIC_PATH . '/scripts/bcrypt.min.js')
+		));
+
 		if (Minz_Request::isPost()) {
 			$ok = true;
 
-			$passwordPlain = Minz_Request::param('passwordPlain', '', true);
+			$passwordPlain = Minz_Request::param('newPasswordPlain', '', true);
 			if ($passwordPlain != '') {
-				Minz_Request::_param('passwordPlain');	//Discard plain-text password ASAP
-				$_POST['passwordPlain'] = '';
+				Minz_Request::_param('newPasswordPlain');	//Discard plain-text password ASAP
+				$_POST['newPasswordPlain'] = '';
 				if (!function_exists('password_hash')) {
 					include_once(LIB_PATH . '/password_compat.php');
 				}
@@ -213,10 +217,16 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 	 */
 	public function deleteAction() {
 		$username = Minz_Request::param('username');
+		$redirect_url = urldecode(Minz_Request::param('r', false, true));
+		if (!$redirect_url) {
+			$redirect_url = array('c' => 'user', 'a' => 'manage');
+		}
+
+		$self_deletion = Minz_Session::param('currentUser', '_') === $username;
 
 		if (Minz_Request::isPost() && (
 				FreshRSS_Auth::hasAccess('admin') ||
-				Minz_Session::param('currentUser', '_') === $username
+				$self_deletion
 		)) {
 			$db = FreshRSS_Context::$system_conf->db;
 			require_once(APP_PATH . '/SQL/install.sql.' . $db['type'] . '.php');
@@ -228,6 +238,16 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 				$default_user = FreshRSS_Context::$system_conf->default_user;
 				$ok &= (strcasecmp($username, $default_user) !== 0);	//It is forbidden to delete the default user
 			}
+			if ($ok && $self_deletion) {
+				// We check the password if it's a self-destruction
+				$nonce = Minz_Session::param('nonce');
+				$challenge = Minz_Request::param('challenge', '');
+
+				$ok &= FreshRSS_FormAuth::checkCredentials(
+					$username, FreshRSS_Context::$user_conf->passwordHash,
+					$nonce, $challenge
+				);
+			}
 			if ($ok) {
 				$ok &= is_dir($user_data);
 			}
@@ -237,10 +257,11 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 				$ok &= recursive_unlink($user_data);
 				//TODO: delete Persona file
 			}
-			invalidateHttpCache();
-			if (Minz_Session::param('currentUser', '_') === $username) {
+			if ($ok && $self_deletion) {
 				FreshRSS_Auth::removeAccess();
+				$redirect_url = array('c' => 'index', 'a' => 'index');
 			}
+			invalidateHttpCache();
 
 			$notif = array(
 				'type' => $ok ? 'good' : 'bad',
@@ -249,10 +270,6 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 			Minz_Session::_param('notification', $notif);
 		}
 
-		$redirect_url = urldecode(Minz_Request::param('r', false, true));
-		if (!$redirect_url) {
-			$redirect_url = array('c' => 'user', 'a' => 'manage');
-		}
 		Minz_Request::forward($redirect_url, true);
 	}
 
