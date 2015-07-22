@@ -364,8 +364,8 @@ class FreshRSS_ConfigurationSetter {
 
 			$limits = $limits_keys[$key];
 			if (
-				(!isset($limits['min']) || $value > $limits['min']) &&
-				(!isset($limits['max']) || $value < $limits['max'])
+				(!isset($limits['min']) || $value >= $limits['min']) &&
+				(!isset($limits['max']) || $value <= $limits['max'])
 			) {
 				$data['limits'][$key] = $value;
 			}
