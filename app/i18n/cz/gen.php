@@ -27,14 +27,20 @@ return array(
 		'login_persona' => 'Přihlášení pomocí Persona',
 		'login_persona_problem' => 'Problém s připojením k Persona?',
 		'logout' => 'Odhlášení',
-		'password' => 'Heslo',
+		'password' =>  array(
+			'_' => 'Heslo',
+			'format' => '<small>Alespoň 7 znaků</small>',
+		),
 		'registration' => array(
 			'_' => 'New account',  // TODO: translate
 			'ask' => 'Create an account?',  // TODO: translate
 		),
 		'reset' => 'Reset přihlášení',
-		'username' => 'Uživatel',
-		'username_admin' => 'Název administrátorského účtu',
+		'username' => array(
+			'_' => 'Uživatel',
+			'admin' => 'Název administrátorského účtu',
+			'format' => '<small>maximálně 16 alfanumerických znaků</small>',
+		),
 		'will_reset' => 'Přihlašovací systém bude vyresetován: místo sytému Persona bude použito přihlášení formulářem.',
 	),
 	'date' => array(

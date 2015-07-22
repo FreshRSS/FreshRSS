@@ -27,14 +27,20 @@ return array(
 		'login_persona' => 'Connexion avec Persona',
 		'login_persona_problem' => 'Problème de connexion à Persona ?',
 		'logout' => 'Déconnexion',
-		'password' => 'Mot de passe',
+		'password' => array(
+			'_' => 'Mot de passe',
+			'format' => '<small>7 caractères minimum</small>',
+		),
 		'registration' => array(
 			'_' => 'Nouveau compte',
 			'ask' => 'Créer un compte ?',
 		),
 		'reset' => 'Réinitialisation de l’authentification',
-		'username' => 'Nom d’utilisateur',
-		'username_admin' => 'Nom d’utilisateur administrateur',
+		'username' => array(
+			'_' => 'Nom d’utilisateur',
+			'admin' => 'Nom d’utilisateur administrateur',
+			'format' => '<small>16 caractères alphanumériques maximum</small>',
+		),
 		'will_reset' => 'Le système d’authentification va être réinitialisé : un formulaire sera utilisé à la place de Persona.',
 	),
 	'date' => array(

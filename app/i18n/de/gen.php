@@ -27,14 +27,20 @@ return array(
 		'login_persona' => 'Anmelden mit Persona',
 		'login_persona_problem' => 'Verbindungsproblem mit Persona?',
 		'logout' => 'Abmelden',
-		'password' => 'Passwort',
+		'password' => array(
+			'_' => 'Passwort',
+			'format' => '<small>mindestens 7 Zeichen</small>',
+		),
 		'registration' => array(
 			'_' => 'New account',  // TODO: translate
 			'ask' => 'Create an account?',  // TODO: translate
 		),
 		'reset' => 'Zurücksetzen der Authentifizierung',
-		'username' => 'Nutzername',
-		'username_admin' => 'Administrator-Nutzername',
+		'username' => array(
+			'_' => 'Nutzername',
+			'admin' => 'Administrator-Nutzername',
+			'format' => '<small>maximal 16 alphanumerische Zeichen</small>',
+		),
 		'will_reset' => 'Authentifikationssystem wird zurückgesetzt: ein Formular wird anstelle von Persona benutzt.',
 	),
 	'date' => array(

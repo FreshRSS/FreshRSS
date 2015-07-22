@@ -27,14 +27,20 @@ return array(
 		'login_persona' => 'Login with Persona',
 		'login_persona_problem' => 'Connection problem with Persona?',
 		'logout' => 'Logout',
-		'password' => 'Password',
+		'password' => array(
+			'_' => 'Password',
+			'format' => '<small>At least 7 characters</small>',
+		),
 		'registration' => array(
 			'_' => 'New account',
 			'ask' => 'Create an account?',
 		),
 		'reset' => 'Authentication reset',
-		'username' => 'Username',
-		'username_admin' => 'Administrator username',
+		'username' => array(
+			'_' => 'Username',
+			'admin' => 'Administrator username',
+			'format' => '<small>maximum 16 alphanumeric characters</small>',
+		),
 		'will_reset' => 'Authentication system will be reset: a form will be used instead of Persona.',
 	),
 	'date' => array(
