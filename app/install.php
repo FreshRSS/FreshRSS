@@ -229,6 +229,7 @@ function saveStep3() {
 				'prefix' => $_SESSION['bd_prefix'],
 				'pdo_options' => array(),
 			),
+			'enable_pubsubhubbub' => server_is_public($base_url),
 		);
 
 		@unlink(join_path(DATA_PATH, 'config.php'));	//To avoid access-rights problems
