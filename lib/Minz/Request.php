@@ -100,7 +100,10 @@ class Minz_Request {
 			} else {
 				$url .= '://' . $host . ($port == 80 ? '' : ':' . $port);
 			}
-			$url .= isset($_SERVER['REQUEST_URI']) ? dirname($_SERVER['REQUEST_URI']) : '';
+			if (isset($_SERVER['REQUEST_URI'])) {
+				$path = $_SERVER['REQUEST_URI'];
+				$url .= substr($path, -1) === '/' ? substr($path, 0, -1) : dirname($path);
+			}
 		} else {
 			$url = rtrim($url, '/\\') . $baseUrlSuffix;
 		}
