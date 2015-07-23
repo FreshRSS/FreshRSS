@@ -57,6 +57,10 @@ return array(
 	#	SimplePie, which is retrieving RSS feeds via HTTP requests.
 	'simplepie_syslog_enabled' => true,
 
+	# Enable or not support of PubSubHubbub.
+	# /!\ It should NOT be enabled if base_url is not reachable by an external server.
+	'pubsubhubbub_enabled' => false,
+
 	'limits' => array(
 
 		# Duration in seconds of the SimplePie cache,

@@ -295,14 +295,17 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 		// Calculate date of oldest entries we accept in DB.
 		$nb_month_old = max(FreshRSS_Context::$user_conf->old_entries, 1);
 		$date_min = time() - (3600 * 24 * 30 * $nb_month_old);
-		$pshbMinAge = time() - (3600 * 24);	//TODO: Make a configuration.
+
+		// PubSubHubbub support
+		$pubsubhubbubEnabledGeneral = FreshRSS_Context::$system_conf->pubsubhubbub_enabled;
+		$pshbMinAge = time() - (3600 * 24);  //TODO: Make a configuration.
 
 		$updated_feeds = 0;
 		$is_read = FreshRSS_Context::$user_conf->mark_when['reception'] ? 1 : 0;
 		foreach ($feeds as $feed) {
 			$url = $feed->url();	//For detection of HTTP 301
 
-			$pubSubHubbubEnabled = $feed->pubSubHubbubEnabled();
+			$pubSubHubbubEnabled = $pubsubhubbubEnabledGeneral && $feed->pubSubHubbubEnabled();
 			if ((!$simplePiePush) && (!$id) && $pubSubHubbubEnabled && ($feed->lastUpdate() > $pshbMinAge)) {
 				$text = 'Skip pull of feed using PubSubHubbub: ' . $url;
 				//Minz_Log::debug($text);
@@ -442,7 +445,7 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 			}
 
 			$feed->faviconPrepare();
-			if ($feed->pubSubHubbubPrepare()) {
+			if ($pubsubhubbubEnabledGeneral && $feed->pubSubHubbubPrepare()) {
 				Minz_Log::notice('PubSubHubbub subscribe ' . $feed->url());
 				if (!$feed->pubSubHubbubSubscribe(true)) {	//Subscribe
 					Minz_Log::warning('Error while PubSubHubbub subscribing to ' . $feed->url());

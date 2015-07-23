@@ -83,6 +83,33 @@ function checkUrl($url) {
 	}
 }
 
+
+/**
+ * Test if a given server address is publicly accessible.
+ *
+ * Note: for the moment it tests only if address is corresponding to a
+ * localhost address.
+ *
+ * @param $address the address to test, can be an IP or a URL.
+ * @return true if server is accessible, false else.
+ * @todo improve test with a more valid technique (e.g. test with an external server?)
+ */
+function server_is_public($address) {
+	$host = parse_url($address, PHP_URL_HOST);
+
+	$is_public = !in_array($host, array(
+		'127.0.0.1',
+		'localhost',
+		'localhost.localdomain',
+		'[::1]',
+		'localhost6',
+		'localhost6.localdomain6',
+	));
+
+	return $is_public;
+}
+
+
 function format_number($n, $precision = 0) {
 	// number_format does not seem to be Unicode-compatible
 	return str_replace(' ', ' ',  //Espace fine insécable
