@@ -103,7 +103,7 @@ class Minz_Request {
 			$url .= substr($path, -1) === '/' ? substr($path, 0, -1) : dirname($path);
 		}
 
-		return $url;
+		return filter_var($url, FILTER_SANITIZE_URL);
 	}
 
 	/**
