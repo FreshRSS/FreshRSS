@@ -102,6 +102,7 @@ return array(
 			'_' => 'User %s has been deleted',
 			'error' => 'User %s cannot be deleted',
 		),
+		'set_registration' => 'The maximum amount of accounts has been updated.',
 	),
 	'profile' => array(
 		'error' => 'Your profile cannot be modified',

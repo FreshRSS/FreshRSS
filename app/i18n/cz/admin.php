@@ -160,8 +160,15 @@ return array(
 		'create' => 'Vytvořit nového uživatele',
 		'email_persona' => 'Email pro přihlášení<br /><small>(pro <a href="https://persona.org/" rel="external">Mozilla Persona</a>)</small>',
 		'language' => 'Jazyk',
+		'number' => 'There is %d account created yet',  // TODO: translate
+		'numbers' => 'There are %d accounts created yet',  // TODO: translate
 		'password_form' => 'Heslo<br /><small>(pro přihlášení webovým formulářem)</small>',
 		'password_format' => 'Alespoň 7 znaků',
+		'registration' => array(
+			'allow' => 'Allow account creation',  // TODO: translate
+			'help' => '0 means that there is no account limit',  // TODO: translate
+			'number' => 'Max number of accounts',  // TODO: translate
+		),
 		'title' => 'Správa uživatelů',
 		'user_list' => 'Seznam uživatelů',
 		'username' => 'Přihlašovací jméno',

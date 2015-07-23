@@ -346,4 +346,15 @@ class FreshRSS_auth_Controller extends Minz_ActionController {
 			}
 		}
 	}
+
+	/**
+	 * This action gives possibility to a user to create an account.
+	 */
+	public function registerAction() {
+		if (max_registrations_reached()) {
+			Minz_Error::error(403);
+		}
+
+		Minz_View::prependTitle(_t('gen.auth.registration.title') . ' · ');
+	}
 }

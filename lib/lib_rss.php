@@ -267,6 +267,22 @@ function listUsers() {
 
 
 /**
+ * Return if the maximum number of registrations has been reached.
+ *
+ * Note a max_regstrations of 0 means there is no limit.
+ *
+ * @return true if number of users >= max registrations, false else.
+ */
+function max_registrations_reached() {
+	$system_conf = Minz_Configuration::get('system');
+	$limit_registrations = $system_conf->limits['max_registrations'];
+	$number_accounts = count(listUsers());
+
+	return $limit_registrations > 0 && $number_accounts >= $limit_registrations;
+}
+
+
+/**
  * Register and return the configuration for a given user.
  *
  * Note this function has been created to generate temporary configuration

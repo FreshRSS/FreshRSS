@@ -1,6 +1,10 @@
 <div class="prompt">
 	<h1><?php echo _t('gen.auth.login'); ?></h1>
 
+	<?php if (!max_registrations_reached()) { ?>
+		<a href="<?php echo _url('auth', 'register'); ?>"><?php echo _t('gen.auth.registration.ask'); ?></a>
+	<?php } ?>
+
 	<form id="crypto-form" method="post" action="<?php echo _url('auth', 'login'); ?>">
 		<div>
 			<label for="username"><?php echo _t('gen.auth.username'); ?></label>
