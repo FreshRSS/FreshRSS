@@ -22,6 +22,7 @@
 	* Changed some log visibilities. [#885](https://github.com/FreshRSS/FreshRSS/issues/885)
 	* Fix broken links for extension script / style files. [#862](https://github.com/FreshRSS/FreshRSS/issues/862)
 	* Load default configuration during installation to avoid hard-coded values. [#890](https://github.com/FreshRSS/FreshRSS/issues/890)
+	* Fix non-consistent behaviour in Minz_Request::getBaseUrl() and introduce Minz_Request::guessBaseUrl(). [#906](https://github.com/FreshRSS/FreshRSS/issues/906)
 
 
 ## 2015-05-31 FreshRSS 1.1.1 (beta)
