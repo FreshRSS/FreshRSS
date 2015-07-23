@@ -33,7 +33,7 @@ Nous sommes une communauté amicale.
 * Serveur modeste, par exemple sous Linux ou Windows
 	* Fonctionne même sur un Raspberry Pi avec des temps de réponse < 1s (testé sur 150 flux, 22k articles, soit 32Mo de données partiellement compressées)
 * Serveur Web Apache2 (recommandé), ou nginx, lighttpd (non testé sur les autres)
-* PHP 5.2.1+ (PHP 5.3.7+ recommandé)
+* PHP 5.2.1+ (PHP 5.3.7+ recommandé, et PHP 5.5+ pour les performances) (support bêta de PHP 7 avec encore meilleures performances)
 	* Requis : [PDO_MySQL](http://php.net/pdo-mysql) ou [PDO_SQLite](http://php.net/pdo-sqlite), [cURL](http://php.net/curl), [GMP](http://php.net/gmp) (pour accès API sur plateformes < 64 bits), [IDN](http://php.net/intl.idn) (pour les noms de domaines internationalisés)
 	* Recommandés : [JSON](http://php.net/json), [mbstring](http://php.net/mbstring), [zlib](http://php.net/zlib), [Zip](http://php.net/zip)
 * MySQL 5.0.3+ (recommandé) ou SQLite 3.7.4+

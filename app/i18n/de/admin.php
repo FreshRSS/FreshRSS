@@ -160,8 +160,15 @@ return array(
 		'create' => 'Neuen Benutzer erstellen',
 		'email_persona' => 'Anmelde-E-Mail-Adresse<br /><small>(für <a href="https://persona.org/" rel="external">Mozilla Persona</a>)</small>',
 		'language' => 'Sprache',
+		'number' => 'There is %d account created yet',  // TODO: translate
+		'numbers' => 'There are %d accounts created yet',  // TODO: translate
 		'password_form' => 'Passwort<br /><small>(für die Anmeldemethode per Webformular)</small>',
 		'password_format' => 'mindestens 7 Zeichen',
+		'registration' => array(
+			'allow' => 'Allow account creation',  // TODO: translate
+			'help' => '0 means that there is no account limit',  // TODO: translate
+			'number' => 'Max number of accounts',  // TODO: translate
+		),
 		'title' => 'Benutzer verwalten',
 		'user_list' => 'Liste der Benutzer',
 		'username' => 'Nutzername',

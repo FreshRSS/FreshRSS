@@ -98,10 +98,10 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 
 			// HTTP information are useful if feed is protected behind a
 			// HTTP authentication
-			$user = Minz_Request::param('http_user');
-			$pass = Minz_Request::param('http_pass');
+			$user = trim(Minz_Request::param('http_user', ''));
+			$pass = Minz_Request::param('http_pass', '');
 			$http_auth = '';
-			if ($user != '' || $pass != '') {
+			if ($user != '' && $pass != '') {	//TODO: Sanitize
 				$http_auth = $user . ':' . $pass;
 			}
 
@@ -322,7 +322,7 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 					$feed->load(false);
 				}
 			} catch (FreshRSS_Feed_Exception $e) {
-				Minz_Log::notice($e->getMessage());
+				Minz_Log::warning($e->getMessage());
 				$feedDAO->updateLastUpdate($feed->id(), true);
 				$feed->unlock();
 				continue;

@@ -1,7 +1,7 @@
 <?php
 
-# Do not modify this file, which is only a template.
-# See `config.php` after the install process is completed.
+# Do not modify this file, which defines default values,
+# but edit `config.php` instead, after the install process is completed.
 return array(
 
 	# Set to `development` to get additional error messages,
@@ -77,6 +77,25 @@ return array(
 		# Max number of categories for a user.
 		'max_categories' => 16384,
 
+		# Max number of accounts that anonymous users can create
+		#   0 for an unlimited number of accounts
+		#   1 is to not allow user registrations (1 is corresponding to the admin account)
+		'max_registrations' => 1,
+	),
+
+	# Options used by cURL when making HTTP requests, e.g. when the SimplePie library retrieves feeds.
+	# http://php.net/manual/function.curl-setopt
+	'curl_options' => array(
+		# Options to disable SSL/TLS certificate check (e.g. for self-signed HTTPS)
+		//CURLOPT_SSL_VERIFYHOST => 0,
+		//CURLOPT_SSL_VERIFYPEER => false,
+
+		# Options to use a proxy for retrieving feeds.
+		//CURLOPT_PROXYTYPE => CURLPROXY_HTTP,
+		//CURLOPT_PROXY => '127.0.0.1',
+		//CURLOPT_PROXYPORT => 8080,
+		//CURLOPT_PROXYAUTH => CURLAUTH_BASIC,
+		//CURLOPT_PROXYUSERPWD => 'user:password',
 	),
 
 	'db' => array(
@@ -85,7 +104,7 @@ return array(
 		'type' => 'sqlite',
 
 		# MySQL host.
-		'host' => '',
+		'host' => 'localhost',
 
 		# MySQL user.
 		'user' => '',
@@ -97,7 +116,7 @@ return array(
 		'base' => '',
 
 		# MySQL table prefix.
-		'prefix' => '',
+		'prefix' => 'freshrss_',
 
 		'pdo_options' => array(
 			//PDO::MYSQL_ATTR_SSL_KEY	=> '/path/to/client-key.pem',
