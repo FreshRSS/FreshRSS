@@ -85,29 +85,37 @@ class Minz_Request {
 	}
 
 	/**
-	 * Détermine la base de l'url
-	 * @return la base de l'url
+	 * Try to guess the base URL from $_SERVER information
+	 *
+	 * @return the base url (e.g. http://example.com/)
 	 */
-	public static function getBaseUrl($baseUrlSuffix = '') {
-		$conf = Minz_Configuration::get('system');
-		$url = $conf->base_url;
-		if ($url == '' || !preg_match('%^https?://%i', $url)) {
-			$url = 'http';
-			$host = empty($_SERVER['HTTP_HOST']) ? $_SERVER['SERVER_NAME'] : $_SERVER['HTTP_HOST'];
-			$port = empty($_SERVER['SERVER_PORT']) ? 80 : $_SERVER['SERVER_PORT'];
-			if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on') {
-				$url .= 's://' . $host . ($port == 443 ? '' : ':' . $port);
-			} else {
-				$url .= '://' . $host . ($port == 80 ? '' : ':' . $port);
-			}
-			if (isset($_SERVER['REQUEST_URI'])) {
-				$path = $_SERVER['REQUEST_URI'];
-				$url .= substr($path, -1) === '/' ? substr($path, 0, -1) : dirname($path);
-			}
+	public static function guessBaseUrl() {
+		$url = 'http';
+		$host = empty($_SERVER['HTTP_HOST']) ? $_SERVER['SERVER_NAME'] : $_SERVER['HTTP_HOST'];
+		$port = empty($_SERVER['SERVER_PORT']) ? 80 : $_SERVER['SERVER_PORT'];
+		if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on') {
+			$url .= 's://' . $host . ($port == 443 ? '' : ':' . $port);
 		} else {
-			$url = rtrim($url, '/\\') . $baseUrlSuffix;
+			$url .= '://' . $host . ($port == 80 ? '' : ':' . $port);
 		}
-		return filter_var($url . '/', FILTER_SANITIZE_URL);
+		if (isset($_SERVER['REQUEST_URI'])) {
+			$path = $_SERVER['REQUEST_URI'];
+			$url .= substr($path, -1) === '/' ? substr($path, 0, -1) : dirname($path);
+		}
+
+		return $url;
+	}
+
+	/**
+	 * Return the base_url from configuration and add a suffix if given.
+	 *
+	 * @param $base_url_suffix a string to add at base_url (default: empty string)
+	 * @return the base_url with a suffix.
+	 */
+	public static function getBaseUrl($base_url_suffix = '') {
+		$conf = Minz_Configuration::get('system');
+		$url = rtrim($conf->base_url, '/\\') . $base_url_suffix;
+		return filter_var($url, FILTER_SANITIZE_URL);
 	}
 
 	/**
