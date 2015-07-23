@@ -212,8 +212,11 @@ function saveStep3() {
 			$_SESSION['bd_prefix_user'] = $_SESSION['bd_prefix'] . (empty($_SESSION['default_user']) ? '' : ($_SESSION['default_user'] . '_'));
 		}
 
+		// We use dirname to remove the /i part
+		$base_url = dirname(Minz_Request::guessBaseUrl());
 		$config_array = array(
 			'salt' => $_SESSION['salt'],
+			'base_url' => $base_url,
 			'title' => $_SESSION['title'],
 			'default_user' => $_SESSION['default_user'],
 			'auth_type' => $_SESSION['auth_type'],
