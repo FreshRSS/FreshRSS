@@ -75,7 +75,29 @@ function ask_info_update() {
 
 }
 
+/**
+ * Executes a post update function at the end of the update.
+ *
+ * Version 1.1.2-beta introduces two required fields:
+ *   - base_url (string): address of FreshRSS instance
+ *   - pubsubhubbub_enabled (boolean): true if base_url is reachable, false else
+ *
+ * @return true if everything goes fine, false else.
+ */
 function do_post_update() {
+    $system_conf = Minz_Configuration::get('system');
+
     $ok = true;
+    if ($system_conf->base_url === '') {
+        // Updates due to version 1.1.2
+        $base_url = Minz_Request::guessBaseUrl();
+        $system_conf->base_url = $base_url;
+        if (server_is_public($base_url)) {
+            $system_conf->pubsubhubbub_enabled = true;
+        }
+
+        $ok = $system_conf->save();
+    }
+
     return $ok;
 }
