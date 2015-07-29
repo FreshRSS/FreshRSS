@@ -73,8 +73,8 @@ return array(
 	'profile' => array(
 		'_' => 'Správa profilu',
 		'delete' => array(
-			'_' => 'Account deletion',  // TODO: translate
-			'warn' => 'Your account and all the related data will be deleted.',  // TODO: translate
+			'_' => 'Smazání účtu',
+			'warn' => 'Váš účet bude smazán spolu se všemi souvisejícími daty',
 		),
 		'email_persona' => 'Email pro přihlášení<br /><small>(pro <a href="https://persona.org/" rel="external">Mozilla Persona</a>)</small>',
 		'password_api' => 'Password API<br /><small>(tzn. pro mobilní aplikace)</small>',
