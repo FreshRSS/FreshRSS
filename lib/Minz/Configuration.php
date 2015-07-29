@@ -39,7 +39,7 @@ class Minz_Configuration {
 			throw new Minz_FileNotExistException($filename);
 		}
 
-		$data = @include($filename);
+		$data = include($filename);
 		if (is_array($data)) {
 			return $data;
 		} else {

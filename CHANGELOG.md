@@ -26,6 +26,7 @@
 	* Generate `base_url` during the installation and add a `pubsubhubbub_enabled` configuration key. [#865](https://github.com/FreshRSS/FreshRSS/issues/865)
 	* Load configuration by recursion to overwrite array values. [#923](https://github.com/FreshRSS/FreshRSS/issues/923)
 	* Cast `$limits` configuration values in integer. [#925](https://github.com/FreshRSS/FreshRSS/issues/925)
+	* Don't hide errors in configuration. [#920](https://github.com/FreshRSS/FreshRSS/issues/920)
 
 
 ## 2015-05-31 FreshRSS 1.1.1 (beta)
