@@ -4,9 +4,9 @@ return array(
 	'action' => array(
 		'finish' => 'Installation fertigstellen',
 		'fix_errors_before' => 'Bitte Fehler korrigieren, bevor zum nächsten Schritt gesprungen wird.',
-		'keep_install' => 'Keep previous installation',  // TODO: translate
+		'keep_install' => 'Vorherige Installation beibehalten (Daten)',
 		'next_step' => 'Zum nächsten Schritt springen',
-		'reinstall' => 'Reinstall FreshRSS',  // TODO: translate
+		'reinstall' => 'Neuinstallation von FreshRSS',
 	),
 	'auth' => array(
 		'email_persona' => 'Anmelde-E-Mail-Adresse<br /><small>(für <a href="https://persona.org/" rel="external">Mozilla Persona</a>)</small>',
@@ -33,7 +33,7 @@ return array(
 	),
 	'check' => array(
 		'_' => 'Überprüfungen',
-		'already_installed' => 'We have detected that FreshRSS is already installed!',  // TODO: translate
+		'already_installed' => 'Wir haben festgestellt, dass FreshRSS bereits installiert wurde!',
 		'cache' => array(
 			'nok' => 'Überprüfen Sie die Berechtigungen des Verzeichnisses <em>./data/cache</em>. Der HTTP-Server muss Schreibrechte besitzen.',
 			'ok' => 'Die Berechtigungen des Verzeichnisses <em>./data/cache</em> sind in Ordnung.',
@@ -97,7 +97,7 @@ return array(
 	'fix_errors_before' => 'Bitte den Fehler korrigieren, bevor zum nächsten Schritt gesprungen wird.',
 	'javascript_is_better' => 'FreshRSS ist ansprechender mit aktiviertem JavaScript',
 	'js' => array(
-		'confirm_reinstall' => 'You will lose your previous configuration by reinstalling FreshRSS. Are you sure you want to continue?',  // TODO: translate
+		'confirm_reinstall' => 'Du wirst deine vorherige Konfiguration (Daten) verlieren FreshRSS. Bist du sicher, dass du fortfahren willst?',
 	),
 	'language' => array(
 		'_' => 'Sprache',

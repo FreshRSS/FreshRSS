@@ -1,6 +1,11 @@
 # Changelog
 
-## 2015-07-xx FreshRSS 1.1.2 (beta)
+## 2015-08-31 FreshRSS 1.1.3-beta
+
+Nothing for the moment.
+
+
+## 2015-07-30 FreshRSS 1.1.2-beta
 
 * Features
 	* Support for PubSubHubbub for instant notifications from compatible Web sites. [#312](https://github.com/FreshRSS/FreshRSS/issues/312)
@@ -23,6 +28,10 @@
 	* Fix broken links for extension script / style files. [#862](https://github.com/FreshRSS/FreshRSS/issues/862)
 	* Load default configuration during installation to avoid hard-coded values. [#890](https://github.com/FreshRSS/FreshRSS/issues/890)
 	* Fix non-consistent behaviour in Minz_Request::getBaseUrl() and introduce Minz_Request::guessBaseUrl(). [#906](https://github.com/FreshRSS/FreshRSS/issues/906)
+	* Generate `base_url` during the installation and add a `pubsubhubbub_enabled` configuration key. [#865](https://github.com/FreshRSS/FreshRSS/issues/865)
+	* Load configuration by recursion to overwrite array values. [#923](https://github.com/FreshRSS/FreshRSS/issues/923)
+	* Cast `$limits` configuration values in integer. [#925](https://github.com/FreshRSS/FreshRSS/issues/925)
+	* Don't hide errors in configuration. [#920](https://github.com/FreshRSS/FreshRSS/issues/920)
 
 
 ## 2015-05-31 FreshRSS 1.1.1 (beta)

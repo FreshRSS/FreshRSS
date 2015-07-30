@@ -32,9 +32,9 @@ return array(
 			'format' => '<small>mindestens 7 Zeichen</small>',
 		),
 		'registration' => array(
-			'_' => 'New account',  // TODO: translate
-			'ask' => 'Create an account?',  // TODO: translate
-			'title' => 'Account creation',  // TODO: translate
+			'_' => 'Neuer Account',
+			'ask' => 'Erstelle einen Account?',
+			'title' => 'Accounterstellung',
 		),
 		'reset' => 'Zurücksetzen der Authentifizierung',
 		'username' => array(
