@@ -83,6 +83,33 @@ function checkUrl($url) {
 	}
 }
 
+
+/**
+ * Test if a given server address is publicly accessible.
+ *
+ * Note: for the moment it tests only if address is corresponding to a
+ * localhost address.
+ *
+ * @param $address the address to test, can be an IP or a URL.
+ * @return true if server is accessible, false else.
+ * @todo improve test with a more valid technique (e.g. test with an external server?)
+ */
+function server_is_public($address) {
+	$host = parse_url($address, PHP_URL_HOST);
+
+	$is_public = !in_array($host, array(
+		'127.0.0.1',
+		'localhost',
+		'localhost.localdomain',
+		'[::1]',
+		'localhost6',
+		'localhost6.localdomain6',
+	));
+
+	return $is_public;
+}
+
+
 function format_number($n, $precision = 0) {
 	// number_format does not seem to be Unicode-compatible
 	return str_replace(' ', ' ',  //Espace fine insécable
@@ -143,6 +170,7 @@ function customSimplePie() {
 	$simplePie->set_cache_location(CACHE_PATH);
 	$simplePie->set_cache_duration($limits['cache_duration']);
 	$simplePie->set_timeout($limits['timeout']);
+	$simplePie->set_curl_options($system_conf->curl_options);
 	$simplePie->strip_htmltags(array(
 		'base', 'blink', 'body', 'doctype', 'embed',
 		'font', 'form', 'frame', 'frameset', 'html',
@@ -195,17 +223,27 @@ function sanitizeHTML($data, $base = '') {
 
 /* permet de récupérer le contenu d'un article pour un flux qui n'est pas complet */
 function get_content_by_parsing ($url, $path) {
-	require_once (LIB_PATH . '/lib_phpQuery.php');
+	require_once(LIB_PATH . '/lib_phpQuery.php');
 
 	Minz_Log::notice('FreshRSS GET ' . SimplePie_Misc::url_remove_credentials($url));
-	$html = file_get_contents ($url);
+	$html = file_get_contents($url);
 
 	if ($html) {
-		$doc = phpQuery::newDocument ($html);
-		$content = $doc->find ($path);
+		$doc = phpQuery::newDocument($html);
+		$content = $doc->find($path);
+
+		foreach (pq('img[data-src]') as $img) {
+			$imgP = pq($img);
+			$dataSrc = $imgP->attr('data-src');
+			if (strlen($dataSrc) > 4) {
+				$imgP->attr('src', $dataSrc);
+				$imgP->removeAttr('data-src');
+			}
+		}
+
 		return sanitizeHTML($content->__toString(), $url);
 	} else {
-		throw new Exception ();
+		throw new Exception();
 	}
 }
 
@@ -252,6 +290,22 @@ function listUsers() {
 	}
 
 	return $final_list;
+}
+
+
+/**
+ * Return if the maximum number of registrations has been reached.
+ *
+ * Note a max_regstrations of 0 means there is no limit.
+ *
+ * @return true if number of users >= max registrations, false else.
+ */
+function max_registrations_reached() {
+	$system_conf = Minz_Configuration::get('system');
+	$limit_registrations = $system_conf->limits['max_registrations'];
+	$number_accounts = count(listUsers());
+
+	return $limit_registrations > 0 && $number_accounts >= $limit_registrations;
 }
 
 
@@ -445,4 +499,13 @@ function array_push_unique(&$array, $value) {
  */
 function array_remove(&$array, $value) {
 	$array = array_diff($array, array($value));
+}
+
+//RFC 4648
+function base64url_encode($data) {
+	return strtr(rtrim(base64_encode($data), '='), '+/', '-_');
+}
+//RFC 4648
+function base64url_decode($data) {
+	return base64_decode(strtr($data, '-_', '+/'));
 }

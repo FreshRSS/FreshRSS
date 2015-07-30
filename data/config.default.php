@@ -1,7 +1,7 @@
 <?php
 
-# Do not modify this file, which is only a template.
-# See `config.php` after the install process is completed.
+# Do not modify this file, which defines default values,
+# but edit `config.php` instead, after the install process is completed.
 return array(
 
 	# Set to `development` to get additional error messages,
@@ -11,9 +11,11 @@ return array(
 	# Used to make crypto more unique. Generated during install.
 	'salt' => '',
 
-	# Leave empty for most cases.
-	# Ability to override the address of the FreshRSS instance,
-	# used when building absolute URLs.
+	# Specify address of the FreshRSS instance,
+	# used when building absolute URLs, e.g. for PubSubHubbub.
+	# Examples:
+	# https://example.net/FreshRSS/p/
+	# https://freshrss.example.net/
 	'base_url' => '',
 
 	# Natural language of the user interface, e.g. `en`, `fr`.
@@ -55,6 +57,10 @@ return array(
 	#	SimplePie, which is retrieving RSS feeds via HTTP requests.
 	'simplepie_syslog_enabled' => true,
 
+	# Enable or not support of PubSubHubbub.
+	# /!\ It should NOT be enabled if base_url is not reachable by an external server.
+	'pubsubhubbub_enabled' => false,
+
 	'limits' => array(
 
 		# Duration in seconds of the SimplePie cache,
@@ -75,6 +81,25 @@ return array(
 		# Max number of categories for a user.
 		'max_categories' => 16384,
 
+		# Max number of accounts that anonymous users can create
+		#   0 for an unlimited number of accounts
+		#   1 is to not allow user registrations (1 is corresponding to the admin account)
+		'max_registrations' => 1,
+	),
+
+	# Options used by cURL when making HTTP requests, e.g. when the SimplePie library retrieves feeds.
+	# http://php.net/manual/function.curl-setopt
+	'curl_options' => array(
+		# Options to disable SSL/TLS certificate check (e.g. for self-signed HTTPS)
+		//CURLOPT_SSL_VERIFYHOST => 0,
+		//CURLOPT_SSL_VERIFYPEER => false,
+
+		# Options to use a proxy for retrieving feeds.
+		//CURLOPT_PROXYTYPE => CURLPROXY_HTTP,
+		//CURLOPT_PROXY => '127.0.0.1',
+		//CURLOPT_PROXYPORT => 8080,
+		//CURLOPT_PROXYAUTH => CURLAUTH_BASIC,
+		//CURLOPT_PROXYUSERPWD => 'user:password',
 	),
 
 	'db' => array(
@@ -83,7 +108,7 @@ return array(
 		'type' => 'sqlite',
 
 		# MySQL host.
-		'host' => '',
+		'host' => 'localhost',
 
 		# MySQL user.
 		'user' => '',
@@ -95,7 +120,13 @@ return array(
 		'base' => '',
 
 		# MySQL table prefix.
-		'prefix' => '',
+		'prefix' => 'freshrss_',
+
+		'pdo_options' => array(
+			//PDO::MYSQL_ATTR_SSL_KEY	=> '/path/to/client-key.pem',
+			//PDO::MYSQL_ATTR_SSL_CERT	=> '/path/to/client-cert.pem',
+			//PDO::MYSQL_ATTR_SSL_CA	=> '/path/to/ca-cert.pem',
+		),
 
 	),
 

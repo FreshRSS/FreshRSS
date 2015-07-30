@@ -113,7 +113,7 @@ class SimplePie_Registry
 	 */
 	public function register($type, $class, $legacy = false)
 	{
-		if (!is_subclass_of($class, $this->default[$type]))
+		if (!@is_subclass_of($class, $this->default[$type]))
 		{
 			return false;
 		}

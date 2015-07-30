@@ -91,6 +91,7 @@ class Minz_View {
 	 * Construit le layout
 	 */
 	public function buildLayout () {
+		header('Content-Type: text/html; charset=UTF-8');
 		$this->includeFile(self::LAYOUT_PATH_NAME . self::LAYOUT_FILENAME);
 	}
 

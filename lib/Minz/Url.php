@@ -25,14 +25,19 @@ class Minz_Url {
 
 		if ($absolute) {
 			$url_string = Minz_Request::getBaseUrl(PUBLIC_TO_INDEX_PATH);
+			if ($url_string === PUBLIC_TO_INDEX_PATH) {
+				$url_string = Minz_Request::guessBaseUrl();
+			}
 		} else {
 			$url_string = $isArray ? '.' : PUBLIC_RELATIVE;
 		}
 
 		if ($isArray) {
 			$url_string .= self::printUri($url, $encodage);
-		} else {
+		} elseif ($encodage === 'html') {
 			$url_string = Minz_Helper::htmlspecialchars_utf8($url_string . $url);
+		} else {
+			$url_string .= $url;
 		}
 
 		return $url_string;

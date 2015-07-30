@@ -37,6 +37,7 @@ return array(
 		'url' => 'Feed URL',
 		'validator' => 'Check the validity of the feed',
 		'website' => 'Website URL',
+		'pubsubhubbub' => 'Instant notification with PubSubHubbub',
 	),
 	'import_export' => array(
 		'export' => 'Export',

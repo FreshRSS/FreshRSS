@@ -63,7 +63,7 @@ class FreshRSS_update_Controller extends Minz_ActionController {
 		curl_close($c);
 
 		if ($c_status !== 200) {
-			Minz_Log::error(
+			Minz_Log::warning(
 				'Error during update (HTTP code ' . $c_status . '): ' . $c_error
 			);
 

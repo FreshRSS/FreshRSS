@@ -253,7 +253,7 @@ class FreshRSS_auth_Controller extends Minz_ActionController {
 				FreshRSS_Auth::giveAccess();
 				invalidateHttpCache();
 			} else {
-				Minz_Log::error($reason);
+				Minz_Log::warning($reason);
 
 				$res = array();
 				$res['status'] = 'failure';
@@ -345,5 +345,16 @@ class FreshRSS_auth_Controller extends Minz_ActionController {
 				                  array('c' => 'auth', 'a' => 'reset'));
 			}
 		}
+	}
+
+	/**
+	 * This action gives possibility to a user to create an account.
+	 */
+	public function registerAction() {
+		if (max_registrations_reached()) {
+			Minz_Error::error(403);
+		}
+
+		Minz_View::prependTitle(_t('gen.auth.registration.title') . ' · ');
 	}
 }

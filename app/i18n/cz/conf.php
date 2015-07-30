@@ -72,6 +72,10 @@ return array(
 	),
 	'profile' => array(
 		'_' => 'Správa profilu',
+		'delete' => array(
+			'_' => 'Smazání účtu',
+			'warn' => 'Váš účet bude smazán spolu se všemi souvisejícími daty',
+		),
 		'email_persona' => 'Email pro přihlášení<br /><small>(pro <a href="https://persona.org/" rel="external">Mozilla Persona</a>)</small>',
 		'password_api' => 'Password API<br /><small>(tzn. pro mobilní aplikace)</small>',
 		'password_form' => 'Heslo<br /><small>(pro přihlášení webovým formulářem)</small>',
@@ -84,6 +88,7 @@ return array(
 		'articles_per_page' => 'Počet článků na stranu',
 		'auto_load_more' => 'Načítat další články dole na stránce',
 		'auto_remove_article' => 'Po přečtení články schovat',
+		'mark_updated_article_unread' => 'Označte aktualizované položky jako nepřečtené',
 		'confirm_enabled' => 'Vyžadovat potvrzení pro akci “označit vše jako přečtené”',
 		'display_articles_unfolded' => 'Ve výchozím stavu zobrazovat články otevřené',
 		'display_categories_unfolded' => 'Ve výchozím stavu zobrazovat kategorie zavřené',

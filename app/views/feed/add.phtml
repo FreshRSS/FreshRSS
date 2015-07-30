@@ -67,7 +67,7 @@
 		<div class="form-group">
 			<label class="group-name" for="http_user"><?php echo _t('sub.feed.auth.username'); ?></label>
 			<div class="group-controls">
-				<input type="text" name="http_user" id="http_user" class="extend" value="<?php echo $auth['username']; ?>" autocomplete="off" />
+				<input type="text" name="http_user" id="http_user" class="extend" value="<?php echo empty($auth['username']) ? ' ' : $auth['username']; ?>" autocomplete="off" />
 			</div>
 
 			<label class="group-name" for="http_pass"><?php echo _t('sub.feed.auth.password'); ?></label>

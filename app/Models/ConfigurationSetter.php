@@ -352,6 +352,9 @@ class FreshRSS_ConfigurationSetter {
 				'min' => 0,
 				'max' => $max_small_int,
 			),
+			'max_registrations' => array(
+				'min' => 0,
+			),
 		);
 
 		foreach ($values as $key => $value) {
@@ -359,10 +362,11 @@ class FreshRSS_ConfigurationSetter {
 				continue;
 			}
 
+			$value = intval($value);
 			$limits = $limits_keys[$key];
 			if (
-				(!isset($limits['min']) || $value > $limits['min']) &&
-				(!isset($limits['max']) || $value < $limits['max'])
+				(!isset($limits['min']) || $value >= $limits['min']) &&
+				(!isset($limits['max']) || $value <= $limits['max'])
 			) {
 				$data['limits'][$key] = $value;
 			}

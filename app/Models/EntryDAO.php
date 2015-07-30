@@ -6,6 +6,10 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 		return parent::$sharedDbType !== 'sqlite';
 	}
 
+	public function hasNativeHex() {
+		return parent::$sharedDbType !== 'sqlite';
+	}
+
 	protected function addColumn($name) {
 		Minz_Log::debug('FreshRSS_EntryDAO::autoAddColumn: ' . $name);
 		$hasTransaction = false;
@@ -64,7 +68,9 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 			     . ', link, date, lastSeen, hash, is_read, is_favorite, id_feed, tags) '
 			     . 'VALUES(?, ?, ?, ?, '
 			     . ($this->isCompressed() ? 'COMPRESS(?)' : '?')
-			     . ', ?, ?, ?, ?, ?, ?, ?, ?)';
+			     . ', ?, ?, ?, '
+			     . ($this->hasNativeHex() ? 'X?' : '?')
+			     . ', ?, ?, ?, ?)';
 			$this->addEntryPrepared = $this->bd->prepare($sql);
 		}
 
@@ -77,7 +83,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 			substr($valuesTmp['link'], 0, 1023),
 			$valuesTmp['date'],
 			time(),
-			hex2bin($valuesTmp['hash']),	// X'09AF' hexadecimal literals do not work with SQLite/PDO
+			$this->hasNativeHex() ? $valuesTmp['hash'] : pack('H*', $valuesTmp['hash']),	// X'09AF' hexadecimal literals do not work with SQLite/PDO	//hex2bin() is PHP5.4+
 			$valuesTmp['is_read'] ? 1 : 0,
 			$valuesTmp['is_favorite'] ? 1 : 0,
 			$valuesTmp['id_feed'],
@@ -109,8 +115,9 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 			$sql = 'UPDATE `' . $this->prefix . 'entry` '
 			     . 'SET title=?, author=?, '
 			     . ($this->isCompressed() ? 'content_bin=COMPRESS(?)' : 'content=?')
-			     . ', link=?, date=?, lastSeen=?, hash=?, '
-			     . ($valuesTmp['is_read'] === null ? '' : 'is_read=?, ')
+			     . ', link=?, date=?, lastSeen=?, hash='
+			     . ($this->hasNativeHex() ? 'X?' : '?')
+			     . ', ' . ($valuesTmp['is_read'] === null ? '' : 'is_read=?, ')
 			     . 'tags=? '
 			     . 'WHERE id_feed=? AND guid=?';
 			$this->updateEntryPrepared = $this->bd->prepare($sql);
@@ -123,7 +130,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 			substr($valuesTmp['link'], 0, 1023),
 			$valuesTmp['date'],
 			time(),
-			hex2bin($valuesTmp['hash']),
+			$this->hasNativeHex() ? $valuesTmp['hash'] : pack('H*', $valuesTmp['hash']),
 		);
 		if ($valuesTmp['is_read'] !== null) {
 			$values[] = $valuesTmp['is_read'] ? 1 : 0;
