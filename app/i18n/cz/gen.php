@@ -32,9 +32,9 @@ return array(
 			'format' => '<small>Alespoň 7 znaků</small>',
 		),
 		'registration' => array(
-			'_' => 'New account',  // TODO: translate
-			'ask' => 'Create an account?',  // TODO: translate
-			'title' => 'Account creation',  // TODO: translate
+			'_' => 'Nový účet',
+			'ask' => 'Vytvořit účet?',
+			'title' => 'Vytvoření účtu',
 		),
 		'reset' => 'Reset přihlášení',
 		'username' => array(

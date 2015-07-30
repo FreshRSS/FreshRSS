@@ -102,7 +102,7 @@ return array(
 			'_' => 'Der Benutzer %s ist gelöscht worden',
 			'error' => 'Der Benutzer %s kann nicht gelöscht werden',
 		),
-		'set_registration' => 'The maximum amount of accounts has been updated.',  // TODO: translate
+		'set_registration' => 'Die maximale Anzahl von Accounts wurde aktualisiert.',
 	),
 	'profile' => array(
 		'error' => 'Ihr Profil kann nicht geändert werden',
