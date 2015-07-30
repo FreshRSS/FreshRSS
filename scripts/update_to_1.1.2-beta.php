@@ -90,7 +90,7 @@ function do_post_update() {
     $ok = true;
     if ($system_conf->base_url === '') {
         // Updates due to version 1.1.2
-        $base_url = Minz_Request::guessBaseUrl();
+        $base_url = dirname(Minz_Request::guessBaseUrl());
         $system_conf->base_url = $base_url;
         if (server_is_public($base_url)) {
             $system_conf->pubsubhubbub_enabled = true;
