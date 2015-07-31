@@ -70,7 +70,7 @@ class Minz_Session {
 		if (substr($cookie_dir, -1) !== '/') {
 			$cookie_dir = dirname($cookie_dir) . '/';
 		}
-		session_set_cookie_params($l, $cookie_dir, '', false, false);
+		session_set_cookie_params($l, $cookie_dir, '', false, true);
 	}
 
 
