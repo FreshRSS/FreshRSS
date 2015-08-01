@@ -66,8 +66,10 @@ class Minz_Session {
 	 */
 	public static function keepCookie($l) {
 		// Get the script_name (e.g. /p/i/index.php) and keep only the path.
-		$cookie_dir = empty($_SERVER['SCRIPT_NAME']) ? '' : $_SERVER['SCRIPT_NAME'];
-		$cookie_dir = dirname($cookie_dir);
+		$cookie_dir = empty($_SERVER['REQUEST_URI']) ? '/' : $_SERVER['REQUEST_URI'];
+		if (substr($cookie_dir, -1) !== '/') {
+			$cookie_dir = dirname($cookie_dir) . '/';
+		}
 		session_set_cookie_params($l, $cookie_dir, '', false, true);
 	}
 
