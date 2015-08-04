@@ -475,7 +475,14 @@ class FreshRSS_Feed extends Minz_Model {
 				file_put_contents($hubFilename, json_encode($hubJson));
 			}
 
-			return substr($info['http_code'], 0, 1) == '2';
+			if (substr($info['http_code'], 0, 1) == '2') {
+				return true;
+			} else {
+				$hubJson['lease_start'] = time();	//Prevent trying again too soon
+				$hubJson['error'] = true;
+				file_put_contents($hubFilename, json_encode($hubJson));
+				return false;
+			}
 		}
 		return false;
 	}
