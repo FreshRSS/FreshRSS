@@ -31,7 +31,7 @@ return array(
 		'theme' => 'Thema',
 		'title' => 'Opmaak',
 		'width' => array(
-			'content' => 'Content width',
+			'content' => 'Inhoud breedte',
 			'large' => 'Breed',
 			'medium' => 'Normaal',
 			'no_limit' => 'Geen limiet',
