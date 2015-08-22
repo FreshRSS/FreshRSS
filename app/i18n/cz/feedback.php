@@ -102,7 +102,6 @@ return array(
 			'_' => 'Uživatel %s byl smazán',
 			'error' => 'Uživatele %s nelze smazat',
 		),
-		'set_registration' => 'Maximální počet účtů byl změněn',
 	),
 	'profile' => array(
 		'error' => 'Váš profil nelze změnit',

@@ -146,6 +146,15 @@ return array(
 		'title' => 'Statistics',
 		'top_feed' => 'Top ten feeds',
 	),
+	'system' => array(
+		'_' => 'System configuration',
+		'max-categories' => 'Categories per user limit',
+		'max-feeds' => 'Feeds per user limit',
+		'registration' => array(
+			'help' => '0 means that there is no account limit',
+			'number' => 'Max number of accounts',
+		),
+	),
 	'update' => array(
 		'_' => 'Update system',
 		'apply' => 'Apply',
@@ -164,11 +173,6 @@ return array(
 		'numbers' => 'There are %d accounts created yet',
 		'password_form' => 'Password<br /><small>(for the Web-form login method)</small>',
 		'password_format' => 'At least 7 characters',
-		'registration' => array(
-			'allow' => 'Allow account creation',
-			'help' => '0 means that there is no account limit',
-			'number' => 'Max number of accounts',
-		),
 		'title' => 'Manage users',
 		'user_list' => 'List of users',
 		'username' => 'Username',

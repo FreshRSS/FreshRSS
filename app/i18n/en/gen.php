@@ -137,6 +137,7 @@ return array(
 		'sharing' => 'Sharing',
 		'shortcuts' => 'Shortcuts',
 		'stats' => 'Statistics',
+		'system' => 'System configuration',
 		'update' => 'Update',
 		'user_management' => 'Manage users',
 		'user_profile' => 'Profile',

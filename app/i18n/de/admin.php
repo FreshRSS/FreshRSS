@@ -146,6 +146,15 @@ return array(
 		'title' => 'Statistiken',
 		'top_feed' => 'Top 10-Feeds',
 	),
+	'system' => array(
+		'_' => 'System configuration',
+		'max-categories' => 'Categories per user limit',
+		'max-feeds' => 'Feeds per user limit',
+		'registration' => array(
+			'help' => '0 meint, dass es kein Account Limit gibt',
+			'number' => 'Maximale Anzahl von Accounts',
+		),
+	),
 	'update' => array(
 		'_' => 'System aktualisieren',
 		'apply' => 'Anwenden',
@@ -164,11 +173,6 @@ return array(
 		'numbers' => 'Es wurden bis jetzt %d Accounts erstellt',
 		'password_form' => 'Passwort<br /><small>(für die Anmeldemethode per Webformular)</small>',
 		'password_format' => 'mindestens 7 Zeichen',
-		'registration' => array(
-			'allow' => 'Erlaube die Accounterstellung',
-			'help' => '0 meint, dass es kein Account Limit gibt',
-			'number' => 'Maximale Anzahl von Accounts',
-		),
 		'title' => 'Benutzer verwalten',
 		'user_list' => 'Liste der Benutzer',
 		'username' => 'Nutzername',

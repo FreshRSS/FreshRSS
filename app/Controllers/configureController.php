@@ -293,4 +293,37 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 		Minz_Request::good(_t('feedback.conf.query_created', $query['name']),
 		                   array('c' => 'configure', 'a' => 'queries'));
 	}
+
+	/**
+	 * This action handles the system configuration page.
+	 *
+	 * It displays the system configuration page.
+	 * If this action is reach through a POST request, it stores all new
+	 * configuration values then sends a notification to the user.
+	 *
+	 * The options available on the page are:
+	 *   - user limit (default: 1)
+	 *   - user category limit (default: 16384)
+	 *   - user feed limit (default: 16384)
+	 */
+	public function systemAction() {
+		if (!FreshRSS_Auth::hasAccess('admin')) {
+			Minz_Error::error(403);
+		}
+		if (Minz_Request::isPost()) {
+			$limits = FreshRSS_Context::$system_conf->limits;
+			$limits['max_registrations'] = Minz_Request::param('max-registrations', 1);
+			$limits['max_feeds'] = Minz_Request::param('max-feeds', 16384);
+			$limits['max_categories'] = Minz_Request::param('max-categories', 16384);
+			FreshRSS_Context::$system_conf->limits = $limits;
+			FreshRSS_Context::$system_conf->save();
+
+			invalidateHttpCache();
+
+			Minz_Session::_param('notification', array(
+				'type' => 'good',
+				'content' => _t('feedback.conf.updated')
+			));
+		}
+	}
 }

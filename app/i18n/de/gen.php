@@ -137,6 +137,7 @@ return array(
 		'sharing' => 'Teilen',
 		'shortcuts' => 'Tastaturkürzel',
 		'stats' => 'Statistiken',
+		'system' => 'System configuration',
 		'update' => 'Aktualisieren',
 		'user_management' => 'Benutzer verwalten',
 		'user_profile' => 'Profil',
