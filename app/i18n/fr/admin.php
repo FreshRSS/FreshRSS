@@ -148,6 +148,7 @@ return array(
 	),
 	'system' => array(
 		'_' => 'Configuration du système',
+		'instance-name' => 'Nom de l’instance',
 		'max-categories' => 'Limite de catégories par utilisateur',
 		'max-feeds' => 'Limite de flux par utilisateur',
 		'registration' => array(

@@ -7,6 +7,13 @@
 		<legend><?php echo _t('admin.system'); ?></legend>
 
 		<div class="form-group">
+			<label class="group-name" for="instance-name"><?php echo _t('admin.system.instance-name'); ?></label>
+			<div class="group-controls">
+			    <input type="text" id="max-feeds" name="instance-name" value="<?php echo FreshRSS_Context::$system_conf->title; ?>" min="1" data-leave-validation="<?php echo FreshRSS_Context::$system_conf->title; ?>"/>
+			</div>
+		</div>
+
+		<div class="form-group">
 			<label class="group-name" for="max-registrations"><?php echo _t('admin.system.registration.number'); ?></label>
 			<div class="group-controls">
 				<input type="number" id="max-registrations" name="max-registrations" value="<?php echo FreshRSS_Context::$system_conf->limits['max_registrations']; ?>" min="0" data-leave-validation="<?php echo FreshRSS_Context::$system_conf->limits['max_registrations']; ?>"/>
