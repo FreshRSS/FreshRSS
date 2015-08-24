@@ -137,7 +137,7 @@ return array(
 		'sharing' => 'Sdílení',
 		'shortcuts' => 'Zkratky',
 		'stats' => 'Statistika',
-		'system' => 'System configuration',
+		'system' => 'System configuration',// @todo translate
 		'update' => 'Aktualizace',
 		'user_management' => 'Správa uživatelů',
 		'user_profile' => 'Profil',

@@ -147,9 +147,9 @@ return array(
 		'top_feed' => 'Top ten kanálů',
 	),
 	'system' => array(
-		'_' => 'System configuration',
-		'max-categories' => 'Categories per user limit',
-		'max-feeds' => 'Feeds per user limit',
+		'_' => 'System configuration', // @todo translate
+		'max-categories' => 'Categories per user limit', // @todo translate
+		'max-feeds' => 'Feeds per user limit', // @todo translate
 		'registration' => array(
 			'help' => '0 znamená žádná omezení účtu',
 			'number' => 'Maximální počet účtů',
