@@ -7,7 +7,7 @@
 	* Add feed ID in articles to ease styling [#953](https://github.com/FreshRSS/FreshRSS/issues/953)
 * I18n
 	* Dutch [#949](https://github.com/FreshRSS/FreshRSS/issues/949)
-# Bug fixing
+* Bug fixing
 	* Session cookie bug [#924](https://github.com/FreshRSS/FreshRSS/issues/924)
 
 
