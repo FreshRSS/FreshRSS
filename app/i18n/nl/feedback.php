@@ -102,6 +102,7 @@ return array(
 			'_' => 'Gebruiker %s is verwijderd',
 			'error' => 'Gebruiker %s kan niet worden verwijderd',
 		),
+		'set_registration' => 'Het maximale aantal accounts is vernieuwd.',
 	),
 	'profile' => array(
 		'error' => 'Uw profiel kan niet worden aangepast',

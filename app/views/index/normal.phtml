@@ -56,7 +56,11 @@ if (!empty($this->entries)) {
 			?></div><?php
 			$display_others = false;
 		}
-	?><div class="flux<?php echo !$this->entry->isRead() ? ' not_read' : ''; ?><?php echo $this->entry->isFavorite() ? ' favorite' : ''; ?>" id="flux_<?php echo $this->entry->id(); ?>"><?php
+	?><div class="flux<?php echo !$this->entry->isRead() ? ' not_read' : '';
+		?><?php echo $this->entry->isFavorite() ? ' favorite' : '';
+		?>" id="flux_<?php echo $this->entry->id();
+		?>" data-feed="<?php echo $this->feed->id();
+		?>"><?php
 
 			$this->renderHelper('index/normal/entry_header');
 

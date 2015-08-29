@@ -21,15 +21,27 @@ return array(
 		'truncate' => 'Verwijder alle artikelen',
 	),
 	'auth' => array(
+		'email' => 'Email adres',
 		'keep_logged_in' => 'Ingelogd blijven voor <small>(1 maand)</small>',
 		'login' => 'Log in',
 		'login_persona' => 'Login met Persona',
-		'login_persona_problem' => 'Connectiviteits problemen met Persona?',
+		'login_persona_problem' => 'Connectiviteits problemen met Persona',
 		'logout' => 'Log uit',
-		'password' => 'Wachtwoord',
+		'password' => array(
+			'_' => 'Wachtwoord',
+			'format' => '<small>Ten minste 7 tekens</small>',
+		),
+		'registration' => array(
+			'_' => 'Nieuw account',
+			'ask' => 'Maak een account?',
+			'title' => 'Account maken',
+		),
 		'reset' => 'Authenticatie reset',
-		'username' => 'Gebruikersnaam',
-		'username_admin' => 'Administrator gebruikersnaam',
+		'username' => array(
+			'_' => 'Gebruikersnaam',
+			'admin' => 'Administrator gebruikersnaam',
+			'format' => '<small>maximaal 16 alphanumerieke tekens</small>',
+		),
 		'will_reset' => 'Het authenticatie system zal worden gereset: een formulier zal worden gebruikt in plaats van Persona.',
 	),
 	'date' => array(
@@ -54,10 +66,8 @@ return array(
 		'december' => 'Dec',
 		'feb' => 'feb',
 		'february' => 'Feb',
-//		'format_date' => '%s j\\<\\s\\u\\p\\>S\\<\\/\\s\\u\\p\\> Y',
-		'format_date' => 'j %s Y', // European date format
-//		'format_date_hour' => '%s j\\<\\s\\u\\p\\>S\\<\\/\\s\\u\\p\\> Y \\a\\t H\\:i',
-		'format_date_hour' => 'j %s Y \\o\\m H\\:i', // European date format
+		'format_date' => 'j %s Y', //<-- European date format // 'format_date' => '%s j\\<\\s\\u\\p\\>S\\<\\/\\s\\u\\p\\> Y',
+		'format_date_hour' => 'j %s Y \\o\\m H\\:i', //<-- European date format // 'format_date_hour' => '%s j\\<\\s\\u\\p\\>S\\<\\/\\s\\u\\p\\> Y \\a\\t H\\:i',
 		'fri' => 'Vr',
 		'jan' => 'jan',
 		'january' => 'Jan',
@@ -106,6 +116,7 @@ return array(
 		'should_be_activated' => 'JavaScript moet aan staan',
 	),
 	'lang' => array(
+		'cz' => 'Čeština',
 		'de' => 'Deutsch',
 		'en' => 'English',
 		'fr' => 'Français',
@@ -159,6 +170,7 @@ return array(
 		'damn' => 'Potverdorie!',
 		'default_category' => 'Niet ingedeeld',
 		'no' => 'Nee',
+		'not_applicable' => 'Niet aanwezig',
 		'ok' => 'Ok!',
 		'or' => 'of',
 		'yes' => 'Ja',
