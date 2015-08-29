@@ -1,8 +1,14 @@
 # Changelog
 
-## 2015-08-31 FreshRSS 1.1.3-beta
+## 2015-xx-xx FreshRSS 1.1.3-beta
 
-Nothing for the moment.
+* UI
+	* Configuration page for global settings such as limits [#958](https://github.com/FreshRSS/FreshRSS/pull/958)
+	* Add feed ID in articles to ease styling [#953](https://github.com/FreshRSS/FreshRSS/issues/953)
+* I18n
+	* Dutch [#949](https://github.com/FreshRSS/FreshRSS/issues/949)
+# Bug fixing
+	* Session cookie bug [#924](https://github.com/FreshRSS/FreshRSS/issues/924)
 
 
 ## 2015-07-30 FreshRSS 1.1.2-beta
