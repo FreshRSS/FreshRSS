@@ -27,6 +27,9 @@
 	</li>
 	<?php if (FreshRSS_Auth::hasAccess('admin')) { ?>
 	<li class="nav-header"><?php echo _t('gen.menu.admin'); ?></li>
+	<li class="item<?php echo Minz_Request::actionName() === 'system' ? ' active' : ''; ?>">
+		<a href="<?php echo _url('configure', 'system')?>"><?php echo _t('gen.menu.system'); ?></a>
+	</li>
 	<li class="item<?php echo Minz_Request::controllerName() === 'user' &&
 	                          Minz_Request::actionName() === 'manage' ? ' active' : ''; ?>">
 		<a href="<?php echo _url('user', 'manage'); ?>"><?php echo _t('gen.menu.user_management'); ?></a>
