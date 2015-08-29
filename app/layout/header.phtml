@@ -67,6 +67,7 @@ if (FreshRSS_Auth::accessNeedsAction()) {
 				<?php if (FreshRSS_Auth::hasAccess('admin')) { ?>
 				<li class="separator"></li>
 				<li class="dropdown-header"><?php echo _t('gen.menu.admin'); ?></li>
+				<li class="item"><a href="<?php echo _url('configure', 'system'); ?>"><?php echo _t('gen.menu.system'); ?></a></li>
 				<li class="item"><a href="<?php echo _url('user', 'manage'); ?>"><?php echo _t('gen.menu.user_management'); ?></a></li>
 				<li class="item"><a href="<?php echo _url('auth', 'index'); ?>"><?php echo _t('gen.menu.authentication'); ?></a></li>
 				<li class="item"><a href="<?php echo _url('update', 'checkInstall'); ?>"><?php echo _t('gen.menu.check_install'); ?></a></li>
