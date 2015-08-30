@@ -43,6 +43,7 @@ Nous sommes une communauté amicale.
 ![Capture d’écran de FreshRSS](http://marienfressinaud.fr/data/images/freshrss/freshrss_default-design.png)
 
 # Installation
+## Classique
 1. Récupérez l’application FreshRSS via la commande git ou [en téléchargeant l’archive](../releases)
 2. Placez l’application sur votre serveur (la partie à exposer au Web est le répertoire `./p/`)
 3. Le serveur Web doit avoir les droits d’écriture dans le répertoire `./data/`
@@ -80,6 +81,32 @@ sudo git reset --hard
 sudo git pull
 sudo chown -R :www-data .
 sudo chmod -R g+w ./data/
+```
+
+## En utilisant Docker
+### En utilisant l'image existante
+#### Avec MySQL
+
+```
+# Lance la BDD MySQL
+sudo docker run -d --name mysql -e MYSQL_ROOT_PASSWORD=motdepasse mysql
+# Lance un conteneur FreshRSS
+sudo docker run -d --name freshrss --link mysql:db -p 8080:80 kokaz/freshrss:latest
+```
+Pendant l'installation vous devez mettre les valeurs pour la configuration MySQL :
+* Hôte : `db`
+* Nom d'utilisateur : `root`
+* Mot de passe : `motdepasse`
+
+#### Sans MySQL
+```
+# Lance un conteneur FreshRSS
+sudo docker run -d --name freshrss -p 8080:80 kokaz/freshrss:latest
+```
+
+### Construire soi-même l'image docker
+```
+sudo docker build -t kokaz/freshrss .
 ```
 
 # Contrôle d’accès

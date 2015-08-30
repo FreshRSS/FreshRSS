@@ -43,6 +43,7 @@ We are a friendly community.
 ![FreshRSS screenshot](http://marienfressinaud.fr/data/images/freshrss/freshrss_default-design.png)
 
 # Installation
+## Classical
 1. Get FreshRSS with git or [by downloading the archive](https://github.com/FreshRSS/FreshRSS/archive/master.zip)
 2. Dump the application on your server (expose only the `./p/` folder)
 3. Add write access on `./data/` folder to the webserver user
@@ -50,7 +51,7 @@ We are a friendly community.
 5. Everything should be working :) If you encounter any problem, feel free to contact me.
 6. Advanced configuration settings can be seen in [config.php](./data/config.default.php).
 
-## Example of full installation on Linux Debian/Ubuntu
+### Example of full installation on Linux Debian/Ubuntu
 ```sh
 # If you use an Apache Web server (otherwise you need another Web server)
 sudo apt-get install apache2
@@ -80,6 +81,34 @@ sudo git reset --hard
 sudo git pull
 sudo chown -R :www-data .
 sudo chmod -R g+w ./data/
+```
+
+## Using Docker
+### Using the existing image
+#### With MySQL
+
+```
+# Launch the MySQL DB
+sudo docker run -d --name mysql -e MYSQL_ROOT_PASSWORD=password mysql
+# Launch the FreshRSS container
+sudo docker run -d --name freshrss --link mysql:db -p 8080:80 kokaz/freshrss:latest
+```
+During the installation phase in the MySQL configuration put that:
+* Host: `db`
+* Username: `root`
+* Password: `password`
+
+#### Without MySQL
+
+```
+# Launch the FreshRSS container
+sudo docker run -d --name freshrss -p 8080:80 kokaz/freshrss:latest
+```
+
+### Building the docker image
+
+```
+sudo docker build -t kokaz/freshrss .
 ```
 
 # Access control
