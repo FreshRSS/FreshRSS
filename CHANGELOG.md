@@ -9,6 +9,7 @@
 	* Dutch [#949](https://github.com/FreshRSS/FreshRSS/issues/949)
 * Bug fixing
 	* Session cookie bug [#924](https://github.com/FreshRSS/FreshRSS/issues/924)
+	* Better error handling for PubSubHubbub [#939](https://github.com/FreshRSS/FreshRSS/issues/939)
 
 
 ## 2015-07-30 FreshRSS 1.1.2-beta
