@@ -10,6 +10,7 @@
 * Bug fixing
 	* Session cookie bug [#924](https://github.com/FreshRSS/FreshRSS/issues/924)
 	* Better error handling for PubSubHubbub [#939](https://github.com/FreshRSS/FreshRSS/issues/939)
+	* Fix tag search link from articles [#970](https://github.com/FreshRSS/FreshRSS/issues/970)
 
 
 ## 2015-07-30 FreshRSS 1.1.2-beta
