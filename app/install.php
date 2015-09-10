@@ -727,7 +727,7 @@ function printStep3() {
 		<div class="form-group">
 			<label class="group-name" for="base"><?php echo _t('install.bdd'); ?></label>
 			<div class="group-controls">
-				<input type="text" id="base" name="base" maxlength="64" pattern="[0-9A-Za-z_]{1,64}" value="<?php echo isset($_SESSION['bd_base']) ? $_SESSION['bd_base'] : ''; ?>" />
+				<input type="text" id="base" name="base" maxlength="64" value="<?php echo isset($_SESSION['bd_base']) ? $_SESSION['bd_base'] : ''; ?>" />
 			</div>
 		</div>
 
