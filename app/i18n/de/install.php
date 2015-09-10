@@ -27,9 +27,9 @@ return array(
 		),
 		'host' => 'Host',
 		'prefix' => 'Tabellen-Präfix',
-		'password' => 'HTTP-Password',
+		'password' => 'SQL-Password',
 		'type' => 'Datenbank-Typ',
-		'username' => 'HTTP-Nutzername',
+		'username' => 'SQL-Nutzername',
 	),
 	'check' => array(
 		'_' => 'Überprüfungen',
