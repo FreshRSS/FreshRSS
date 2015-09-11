@@ -119,6 +119,8 @@ class FreshRSS_ConfigurationSetter {
 		foreach ($values as $value) {
 			if ($value instanceof FreshRSS_UserQuery) {
 				$data['queries'][] = $value->toArray();
+			} elseif (is_array($value)) {
+				$data['queries'][] = $value;
 			}
 		}
 	}
