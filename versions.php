@@ -13,10 +13,9 @@ return array(
 	'0.9.4' => '1.1.0',
 	'1.1.0' => '1.1.2-beta',
 	'1.1.1-beta' => '1.1.2-beta',
-	'1.1.2-beta' => '1.1.3-beta',  // doesn't exist (yet)
+	'1.1.2-beta' => '1.1.3-beta',
+	'1.1.3-beta' => '1.1.4-beta',  // doesn't exist (yet)
 	// DEV
-	'0.8-dev' => 'dev',  // TO REMOVE
-	'0.10-dev' => 'dev',  // TO REMOVE
 	'1.1.2-dev' => 'dev',
 	'1.1.3-dev' => 'dev',
 	'1.2-dev' => 'dev',
