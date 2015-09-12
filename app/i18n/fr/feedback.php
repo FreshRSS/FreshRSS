@@ -102,7 +102,6 @@ return array(
 			'_' => 'L’utilisateur %s a été supprimé.',
 			'error' => 'L’utilisateur %s ne peut pas être supprimé.',
 		),
-		'set_registration' => 'Le nombre maximal de comptes a été mis à jour.',
 	),
 	'profile' => array(
 		'error' => 'Votre profil n’a pas pu être mis à jour',

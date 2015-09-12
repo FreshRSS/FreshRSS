@@ -120,6 +120,7 @@ return array(
 		'de' => 'Deutsch',
 		'en' => 'English',
 		'fr' => 'Français',
+		'nl' => 'Nederlands',
 	),
 	'menu' => array(
 		'about' => 'À propos',
@@ -137,6 +138,7 @@ return array(
 		'sharing' => 'Partage',
 		'shortcuts' => 'Raccourcis',
 		'stats' => 'Statistiques',
+		'system' => 'Configuration du système',
 		'update' => 'Mise à jour',
 		'user_management' => 'Gestion des utilisateurs',
 		'user_profile' => 'Profil',

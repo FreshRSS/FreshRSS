@@ -146,6 +146,16 @@ return array(
 		'title' => 'Statistika',
 		'top_feed' => 'Top ten kanálů',
 	),
+	'system' => array(
+		'_' => 'System configuration', // @todo translate
+		'instance-name' => 'Instance name', // @todo translate
+		'max-categories' => 'Categories per user limit', // @todo translate
+		'max-feeds' => 'Feeds per user limit', // @todo translate
+		'registration' => array(
+			'help' => '0 znamená žádná omezení účtu',
+			'number' => 'Maximální počet účtů',
+		),
+	),
 	'update' => array(
 		'_' => 'Aktualizace systému',
 		'apply' => 'Použít',
@@ -164,11 +174,6 @@ return array(
 		'numbers' => 'Zatím je vytvořeno %d účtů',
 		'password_form' => 'Heslo<br /><small>(pro přihlášení webovým formulářem)</small>',
 		'password_format' => 'Alespoň 7 znaků',
-		'registration' => array(
-			'allow' => 'Povolit vytváření účtů',
-			'help' => '0 znamená žádná omezení účtu',
-			'number' => 'Maximální počet účtů',
-		),
 		'title' => 'Správa uživatelů',
 		'user_list' => 'Seznam uživatelů',
 		'username' => 'Přihlašovací jméno',

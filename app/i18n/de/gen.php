@@ -120,6 +120,7 @@ return array(
 		'de' => 'Deutsch',
 		'en' => 'English',
 		'fr' => 'Français',
+		'nl' => 'Nederlands',
 	),
 	'menu' => array(
 		'about' => 'Über',
@@ -137,6 +138,7 @@ return array(
 		'sharing' => 'Teilen',
 		'shortcuts' => 'Tastaturkürzel',
 		'stats' => 'Statistiken',
+		'system' => 'System configuration',// @todo translate
 		'update' => 'Aktualisieren',
 		'user_management' => 'Benutzer verwalten',
 		'user_profile' => 'Profil',

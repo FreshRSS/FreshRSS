@@ -1,5 +1,19 @@
 # Changelog
 
+## 2015-09-12 FreshRSS 1.1.3-beta
+
+* UI
+	* Configuration page for global settings such as limits [#958](https://github.com/FreshRSS/FreshRSS/pull/958)
+	* Add feed ID in articles to ease styling [#953](https://github.com/FreshRSS/FreshRSS/issues/953)
+* I18n
+	* Dutch [#949](https://github.com/FreshRSS/FreshRSS/issues/949)
+* Bug fixing
+	* Session cookie bug [#924](https://github.com/FreshRSS/FreshRSS/issues/924)
+	* Better error handling for PubSubHubbub [#939](https://github.com/FreshRSS/FreshRSS/issues/939)
+	* Fix tag search link from articles [#970](https://github.com/FreshRSS/FreshRSS/issues/970)
+	* Fix all quieries deleted when deleting a feed or category [#982](https://github.com/FreshRSS/FreshRSS/pull/982)
+
+
 ## 2015-07-30 FreshRSS 1.1.2-beta
 
 * Features
@@ -40,7 +54,7 @@
 * UI
 	* New confirmation message when leaving a configuration page without saving the changes.
 * Bug fixing
-	* Corrected bug introduced in previous beta about handling of HTTP 301 (feeds that have changed address) 
+	* Corrected bug introduced in previous beta about handling of HTTP 301 (feeds that have changed address)
 	* Corrected bug in FreshRSS RSS feeds.
 * Security
 	* Sanitize HTTP request header `Host`.
@@ -304,7 +318,7 @@
 		* Amélioration des performances
 		* Tolère un beaucoup plus grand nombre d’articles
 		* Compression des données côté MySQL plutôt que côté PHP
-		* Incompatible avec la version 0.6 (nécessite une mise à jour grâce à l’installateur) 
+		* Incompatible avec la version 0.6 (nécessite une mise à jour grâce à l’installateur)
 	* Affichage de la taille de la base de données dans FreshRSS
 	* Correction problème de marquage de tous les favoris comme lus
 * HTML5 :

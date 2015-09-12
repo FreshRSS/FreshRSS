@@ -116,10 +116,11 @@ return array(
 		'should_be_activated' => 'JavaScript musí být povolen',
 	),
 	'lang' => array(
+		'cz' => 'Čeština',
 		'de' => 'Deutsch',
 		'en' => 'English',
 		'fr' => 'Français',
-		'cz' => 'Čeština',
+		'nl' => 'Nederlands',
 	),
 	'menu' => array(
 		'about' => 'O aplikaci',
@@ -137,6 +138,7 @@ return array(
 		'sharing' => 'Sdílení',
 		'shortcuts' => 'Zkratky',
 		'stats' => 'Statistika',
+		'system' => 'System configuration',// @todo translate
 		'update' => 'Aktualizace',
 		'user_management' => 'Správa uživatelů',
 		'user_profile' => 'Profil',
