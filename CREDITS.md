@@ -12,8 +12,12 @@ People are sorted by name so please keep this order.
 * [Amaury Carrade](https://github.com/AmauryCarrade): [contributions](https://github.com/FreshRSS/FreshRSS/commits?author=AmauryCarrade)
 * [ealdraed](https://github.com/ealdraed): [contributions](https://github.com/FreshRSS/FreshRSS/commits?author=ealdraed)
 * [Luc Didry](https://github.com/ldidry): [contributions](https://github.com/FreshRSS/FreshRSS/commits?author=ldidry)
-* [Marien Fressinaud](https://github.com/marienfressinaud): [contributions](https://github.com/FreshRSS/FreshRSS/commits?author=marienfressinaud), [Web](http://marienfressinaud.fr/), [Email](mailto:dev@marienfressinaud.fr)
+* [Marien Fressinaud](https://github.com/marienfressinaud): [contributions](https://github.com/FreshRSS/FreshRSS/commits?author=marienfressinaud), [Web](http://marienfressinaud.fr/)
 * [Melvyn Laïly](https://github.com/yaurthek): [contributions](https://github.com/FreshRSS/FreshRSS/commits?author=yaurthek)
 * [Nicolas Elie](https://github.com/nicolaselie): [contributions](https://github.com/FreshRSS/FreshRSS/commits?author=nicolaselie)
 * [plopoyop](https://github.com/plopoyop): [contributions](https://github.com/FreshRSS/FreshRSS/commits?author=plopoyop)
+* [Tets42](https://github.com/Tets42):
+[contributions](https://github.com/FreshRSS/FreshRSS/commits?author=Tets42)
+* [thomasE1993](https://github.com/thomasE1993):
+[contributions](https://github.com/FreshRSS/FreshRSS/commits?author=thomasE1993)
 * [tomgue](https://github.com/tomgue): [contributions](https://github.com/FreshRSS/FreshRSS/commits?author=tomgue)
