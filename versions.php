@@ -18,5 +18,6 @@ return array(
 	// DEV
 	'1.1.2-dev' => 'dev',
 	'1.1.3-dev' => 'dev',
+	'1.1.4-dev' => 'dev',
 	'1.2-dev' => 'dev',
 );
