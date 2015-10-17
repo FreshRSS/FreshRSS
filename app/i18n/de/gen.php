@@ -158,6 +158,7 @@ return array(
 		'email' => 'E-Mail',
 		'facebook' => 'Facebook',
 		'g+' => 'Google+',
+		'movim' => 'Movim',
 		'print' => 'Drucken',
 		'shaarli' => 'Shaarli',
 		'twitter' => 'Twitter',
