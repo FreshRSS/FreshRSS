@@ -2,6 +2,13 @@
 
 ## 2015-xx-xx FreshRSS 1.1.4-beta
 
+* Features
+	* Share with Movim [#992](https://github.com/FreshRSS/FreshRSS/issues/992)
+* UI
+	* Visual alert on categories containing feeds in error [#984](https://github.com/FreshRSS/FreshRSS/pull/984)
+* I18n
+	* Italian [#1003](https://github.com/FreshRSS/FreshRSS/issues/1003)
+
 
 ## 2015-09-12 FreshRSS 1.1.3-beta
 
