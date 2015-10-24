@@ -21,5 +21,10 @@ class FreshRSS_LogDAO {
 
 	public static function truncate() {
 		file_put_contents(join_path(DATA_PATH, 'users', Minz_Session::param('currentUser', '_'), 'log.txt'), '');
+		if (FreshRSS_Auth::hasAccess('admin')) {
+			file_put_contents(join_path(DATA_PATH, 'users', '_', 'log.txt'), '');
+			file_put_contents(join_path(DATA_PATH, 'users', '_', 'log_api.txt'), '');
+			file_put_contents(join_path(DATA_PATH, 'users', '_', 'log_pshb.txt'), '');
+		}
 	}
 }
