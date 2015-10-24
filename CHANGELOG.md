@@ -1,5 +1,8 @@
 # Changelog
 
+## 2015-xx-xx FreshRSS 1.1.4-beta
+
+
 ## 2015-09-12 FreshRSS 1.1.3-beta
 
 * UI

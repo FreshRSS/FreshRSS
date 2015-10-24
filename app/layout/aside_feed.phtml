@@ -45,7 +45,7 @@
 		<li class="tree-folder category<?php echo $c_active ? ' active' : ''; ?>" data-unread="<?php echo $cat->nbNotRead(); ?>">
 			<div class="tree-folder-title">
 				<a class="dropdown-toggle" href="#"><?php echo _i($c_show ? 'up' : 'down'); ?></a>
-				<a class="title" data-unread="<?php echo format_number($cat->nbNotRead()); ?>" href="<?php echo _url('index', 'index', 'get', 'c_' . $cat->id()); ?>"><?php echo $cat->name(); ?></a>
+				<a class="title<?php echo $cat->hasFeedsWithError() ? ' error' : ''; ?>" data-unread="<?php echo format_number($cat->nbNotRead()); ?>" href="<?php echo _url('index', 'index', 'get', 'c_' . $cat->id()); ?>"><?php echo $cat->name(); ?></a>
 			</div>
 
 			<ul class="tree-folder-items<?php echo $c_show ? ' active' : ''; ?>">
