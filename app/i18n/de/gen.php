@@ -120,7 +120,7 @@ return array(
 		'de' => 'Deutsch',
 		'en' => 'English',
 		'fr' => 'Français',
-		'it' => 'Italian',
+		'it' => 'Italiano',
 		'nl' => 'Nederlands',
 	),
 	'menu' => array(
