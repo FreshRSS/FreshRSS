@@ -776,6 +776,9 @@ input:checked + .slide-container .properties {
 .category .title:not([data-unread="0"])::after {
 	content: attr(data-unread);
 }
+.category .title.error::before {
+	content: "⚠";
+}
 .feed .item-title:not([data-unread="0"])::before {
 	content: "(" attr(data-unread) ") ";
 }
