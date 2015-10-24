@@ -61,6 +61,9 @@ return array(
 	# /!\ It should NOT be enabled if base_url is not reachable by an external server.
 	'pubsubhubbub_enabled' => false,
 
+	# Allow or not Web robots (e.g. search engines) in HTML headers.
+	'allow_robots' => false,
+
 	'limits' => array(
 
 		# Duration in seconds of the SimplePie cache,
