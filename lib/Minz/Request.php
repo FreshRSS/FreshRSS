@@ -91,9 +91,30 @@ class Minz_Request {
 	 */
 	public static function guessBaseUrl() {
 		$url = 'http';
-		$host = empty($_SERVER['HTTP_HOST']) ? $_SERVER['SERVER_NAME'] : $_SERVER['HTTP_HOST'];
-		$port = empty($_SERVER['SERVER_PORT']) ? 80 : $_SERVER['SERVER_PORT'];
-		if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on') {
+
+		if (isset($_SERVER['HTTP_X_FORWARDED_PROTO'])) {
+			$https = strtolower($_SERVER['HTTP_X_FORWARDED_PROTO']) === 'https';
+		} else {
+			$https = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on';
+		}
+
+		if (!empty($_SERVER['HTTP_HOST'])) {
+			$host = $_SERVER['HTTP_HOST'];
+		} elseif (!empty($_SERVER['SERVER_NAME'])) {
+			$host = $_SERVER['SERVER_NAME'];
+		} else {
+			$host = 'localhost';
+		}
+		
+		if (!empty($_SERVER['HTTP_X_FORWARDED_PORT'])) {
+			$port = intval($_SERVER['HTTP_X_FORWARDED_PORT']);
+		} elseif (!empty($_SERVER['SERVER_PORT'])) {
+			$port = intval($_SERVER['SERVER_PORT']);
+		} else {
+			$port = $https ? 443 : 80;
+		}
+
+		if ($https) {
 			$url .= 's://' . $host . ($port == 443 ? '' : ':' . $port);
 		} else {
 			$url .= '://' . $host . ($port == 80 ? '' : ':' . $port);
