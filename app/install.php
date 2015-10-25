@@ -122,7 +122,6 @@ function saveStep1() {
 function saveStep2() {
 	$user_default_config = Minz_Configuration::get('default_user');
 	if (!empty($_POST)) {
-		$_SESSION['title'] = substr(trim(param('title', _t('gen.freshrss'))), 0, 25);
 		$_SESSION['old_entries'] = param('old_entries', $user_default_config->old_entries);
 		$_SESSION['auth_type'] = param('auth_type', 'form');
 		$_SESSION['default_user'] = substr(preg_replace('/[^a-zA-Z0-9]/', '', param('default_user', '')), 0, 16);
@@ -657,13 +656,6 @@ function printStep2() {
 
 	<form action="index.php?step=2" method="post">
 		<legend><?php echo _t('install.conf'); ?></legend>
-
-		<div class="form-group">
-			<label class="group-name" for="title"><?php echo _t('install.title'); ?></label>
-			<div class="group-controls">
-				<input type="text" id="title" name="title" value="<?php echo isset($_SESSION['title']) ? $_SESSION['title'] : _t('gen.freshrss'); ?>" tabindex="1" />
-			</div>
-		</div>
 
 		<div class="form-group">
 			<label class="group-name" for="old_entries"><?php echo _t('install.delete_articles_after'); ?></label>
