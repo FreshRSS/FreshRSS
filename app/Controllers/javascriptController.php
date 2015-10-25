@@ -43,7 +43,11 @@ class FreshRSS_javascript_Controller extends Minz_ActionController {
 		} else {
 			Minz_Log::notice('Nonce failure due to invalid username!');
 		}
-		$this->view->nonce = '';	//Failure
-		$this->view->salt1 = '';
+		//Failure: Return random data.
+		$this->view->salt1 = sprintf('$2a$%02d$', FreshRSS_user_Controller::BCRYPT_COST);
+		for ($i = 22; $i > 0; $i--) {
+			$this->view->salt1 .= './ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'[rand(0, 63)];
+		}
+		$this->view->nonce = sha1(rand());
 	}
 }
