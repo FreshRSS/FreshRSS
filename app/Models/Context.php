@@ -95,7 +95,7 @@ class FreshRSS_Context {
 	}
 
 	/**
-	 * Return true iif the current requests target a feed and not a category or all articles.
+	 * Return true if the current request targets a feed (and not a category or all articles), false otherwise.
 	 */
 	public static function isFeed() {
 		return self::$current_get['feed'] != false;
