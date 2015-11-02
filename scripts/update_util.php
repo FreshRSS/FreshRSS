@@ -26,20 +26,20 @@ function del_tree($dir) {
 
 // Do a recursive copy (from http://fr2.php.net/manual/en/function.copy.php#91010)
 function recurse_copy($src, $dst) {
-    $dir = opendir($src);
-    @mkdir($dst);
-    while (false !== ($file = readdir($dir))) {
-        if (($file != '.') && ($file != '..')) {
-            if (is_dir($src . '/' . $file)) {
-                recurse_copy($src . '/' . $file,$dst . '/' . $file);
-            } else {
-                copy($src . '/' . $file,$dst . '/' . $file);
-            }
-        }
-    }
-    closedir($dir);
+	$dir = opendir($src);
+	@mkdir($dst);
+	while (false !== ($file = readdir($dir))) {
+		if (($file != '.') && ($file != '..')) {
+			if (is_dir($src . '/' . $file)) {
+				recurse_copy($src . '/' . $file,$dst . '/' . $file);
+			} else {
+				copy($src . '/' . $file,$dst . '/' . $file);
+			}
+		}
+	}
+	closedir($dir);
 
-    return true;
+	return true;
 }
 
 
@@ -134,11 +134,29 @@ function save_package($url) {
 }
 
 
+// Move custom themes to not delete them
+function save_custom_themes($destination) {
+	$themes_base_dir = PUBLIC_PATH . '/themes';
+	$themes_dirs = array_diff(scandir($themes_base_dir), array('.', '..'));
+	foreach ($themes_dirs as $theme_dir) {
+		if (!preg_match('/^xTheme-/i', $theme_dir)) {
+			continue;
+		}
+
+		$old_theme_path = $themes_base_dir . '/' . $theme_dir;
+        $new_theme_path = $destination . '/' . $theme_dir;
+		recurse_copy($old_theme_path, $new_theme_path);
+	}
+}
+
+
 // Deploy FreshRSS package by replacing old version by the new one.
 function deploy_package() {
 	$base_pathname = array_pop(array_diff(scandir(PACKAGE_PATHNAME),
 	                                      array('.', '..')));
 	$base_pathname = PACKAGE_PATHNAME . '/' . $base_pathname;
+
+	save_custom_themes($base_pathname . '/p/themes');
 
 	// Remove old version.
 	del_tree(APP_PATH);
