@@ -139,6 +139,7 @@ return array(
 		'sharing' => 'Delen',
 		'shortcuts' => 'Snelle toegang',
 		'stats' => 'Statistieken',
+		'system' => 'System configuration', // @todo translate
 		'update' => 'Versie controle',
 		'user_management' => 'Beheer gebruikers',
 		'user_profile' => 'Profiel',

@@ -148,6 +148,7 @@ return array(
 	),
 	'system' => array(
 		'_' => 'System configuration', // @todo translate
+		'auto-update-url' => 'Auto-update server URL', // @todo translate
 		'instance-name' => 'Instance name', // @todo translate
 		'max-categories' => 'Categories per user limit', // @todo translate
 		'max-feeds' => 'Feeds per user limit', // @todo translate
