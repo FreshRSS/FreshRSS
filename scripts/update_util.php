@@ -3,29 +3,14 @@
 define('PACKAGE_PATHNAME', DATA_PATH . '/update_package');
 
 
-// Return true if a string matches one pattern from a given list.
-function match_array_pattern($str, $patterns) {
-	foreach ($patterns as $pattern) {
-		if (preg_match($pattern, $str)) {
-			return true;
-		}
-	}
-	return false;
-}
-
-
 // Delete a file tree (from http://php.net/rmdir#110489)
-function del_tree($dir, $ignore_files = array()) {
+function del_tree($dir) {
 	if (!is_dir($dir)) {
 		return true;
 	}
 
 	$files = array_diff(scandir($dir), array('.', '..'));
 	foreach ($files as $filename) {
-		if (match_array_pattern($filename, $ignore_files)) {
-			continue;
-		}
-
 		$filename = $dir . '/' . $filename;
 		if (is_dir($filename)) {
 			@chmod($filename, 0777);
@@ -41,20 +26,20 @@ function del_tree($dir, $ignore_files = array()) {
 
 // Do a recursive copy (from http://fr2.php.net/manual/en/function.copy.php#91010)
 function recurse_copy($src, $dst) {
-	$dir = opendir($src);
-	@mkdir($dst);
-	while (false !== ($file = readdir($dir))) {
-		if (($file != '.') && ($file != '..')) {
-			if (is_dir($src . '/' . $file)) {
-				recurse_copy($src . '/' . $file,$dst . '/' . $file);
-			} else {
-				copy($src . '/' . $file,$dst . '/' . $file);
-			}
-		}
-	}
-	closedir($dir);
+    $dir = opendir($src);
+    @mkdir($dst);
+    while (false !== ($file = readdir($dir))) {
+        if (($file != '.') && ($file != '..')) {
+            if (is_dir($src . '/' . $file)) {
+                recurse_copy($src . '/' . $file,$dst . '/' . $file);
+            } else {
+                copy($src . '/' . $file,$dst . '/' . $file);
+            }
+        }
+    }
+    closedir($dir);
 
-	return true;
+    return true;
 }
 
 
@@ -158,7 +143,7 @@ function deploy_package() {
 	// Remove old version.
 	del_tree(APP_PATH);
 	del_tree(LIB_PATH);
-	del_tree(PUBLIC_PATH, array('/^xTheme-/i'));
+	del_tree(PUBLIC_PATH);
 	unlink(FRESHRSS_PATH . '/constants.php');
 
 	// Copy FRSS package at the good place.
