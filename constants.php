@@ -1,7 +1,6 @@
 <?php
 define('FRESHRSS_VERSION', '1.1.4-dev');
 define('FRESHRSS_WEBSITE', 'http://freshrss.org');
-define('FRESHRSS_UPDATE_WEBSITE', 'https://update.freshrss.org?v=' . FRESHRSS_VERSION);
 define('FRESHRSS_WIKI', 'http://doc.freshrss.org');
 
 // PHP text output compression http://php.net/ob_gzhandler (better to do it at Web server level)
