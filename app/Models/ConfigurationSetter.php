@@ -378,4 +378,12 @@ class FreshRSS_ConfigurationSetter {
 	private function _unsafe_autologin_enabled(&$data, $value) {
 		$data['unsafe_autologin_enabled'] = $this->handleBool($value);
 	}
+
+	private function _auto_update_url(&$data, $value) {
+		if (!$value) {
+			return;
+		}
+
+		$data['auto_update_url'] = $value;
+	}
 }

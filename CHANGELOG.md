@@ -11,6 +11,8 @@
 	* Visual alert on categories containing feeds in error [#984](https://github.com/FreshRSS/FreshRSS/pull/984)
 * I18n
 	* Italian [#1003](https://github.com/FreshRSS/FreshRSS/issues/1003)
+* Misc.
+    * Make auto-update server URL alterable [#1019](https://github.com/FreshRSS/FreshRSS/issues/1019)
 
 
 ## 2015-09-12 FreshRSS 1.1.3-beta

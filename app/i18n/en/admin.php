@@ -148,6 +148,7 @@ return array(
 	),
 	'system' => array(
 		'_' => 'System configuration',
+		'auto-update-url' => 'Auto-update server URL',
 		'instance-name' => 'Instance name',
 		'max-categories' => 'Categories per user limit',
 		'max-feeds' => 'Feeds per user limit',
