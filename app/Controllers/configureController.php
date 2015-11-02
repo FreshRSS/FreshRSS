@@ -317,6 +317,7 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 			$limits['max_categories'] = Minz_Request::param('max-categories', 16384);
 			FreshRSS_Context::$system_conf->limits = $limits;
 			FreshRSS_Context::$system_conf->title = Minz_Request::param('instance-name', 'FreshRSS');
+			FreshRSS_Context::$system_conf->auto_update_url = Minz_Request::param('auto-update-url', false);
 			FreshRSS_Context::$system_conf->save();
 
 			invalidateHttpCache();
