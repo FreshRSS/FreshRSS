@@ -122,6 +122,8 @@ function saveStep1() {
 function saveStep2() {
 	$user_default_config = Minz_Configuration::get('default_user');
 	if (!empty($_POST)) {
+		$system_default_config = Minz_Configuration::get('default_system');
+		$_SESSION['title'] = $system_default_config->title;
 		$_SESSION['old_entries'] = param('old_entries', $user_default_config->old_entries);
 		$_SESSION['auth_type'] = param('auth_type', 'form');
 		$_SESSION['default_user'] = substr(preg_replace('/[^a-zA-Z0-9]/', '', param('default_user', '')), 0, 16);
@@ -137,8 +139,7 @@ function saveStep2() {
 			$_SESSION['passwordHash'] = $passwordHash;
 		}
 
-		if (empty($_SESSION['title']) ||
-		    empty($_SESSION['old_entries']) ||
+		if (empty($_SESSION['old_entries']) ||
 		    empty($_SESSION['auth_type']) ||
 		    empty($_SESSION['default_user'])) {
 			return false;
@@ -373,8 +374,7 @@ function freshrss_already_installed() {
 }
 
 function checkStep2() {
-	$conf = !empty($_SESSION['title']) &&
-	        !empty($_SESSION['old_entries']) &&
+	$conf = !empty($_SESSION['old_entries']) &&
 	        isset($_SESSION['mail_login']) &&
 	        !empty($_SESSION['default_user']);
 
