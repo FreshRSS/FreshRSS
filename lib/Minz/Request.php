@@ -105,7 +105,7 @@ class Minz_Request {
 		} else {
 			$host = 'localhost';
 		}
-		
+
 		if (!empty($_SERVER['HTTP_X_FORWARDED_PORT'])) {
 			$port = intval($_SERVER['HTTP_X_FORWARDED_PORT']);
 		} elseif (!empty($_SERVER['SERVER_PORT'])) {
