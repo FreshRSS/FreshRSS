@@ -163,12 +163,14 @@ function deploy_package() {
 	del_tree(LIB_PATH);
 	del_tree(PUBLIC_PATH);
 	unlink(FRESHRSS_PATH . '/constants.php');
+	unlink(DATA_PATH . '/shares.php');
 
 	// Copy FRSS package at the good place.
 	recurse_copy($base_pathname . '/app', APP_PATH);
 	recurse_copy($base_pathname . '/lib', LIB_PATH);
 	recurse_copy($base_pathname . '/p', PUBLIC_PATH);
 	copy($base_pathname . '/constants.php', FRESHRSS_PATH . '/constants.php');
+	copy($base_pathname . '/data/shares.php', DATA_PATH . '/shares.php');
 	// These functions can fail because config.default.php has been introduced
 	// in the 0.9.4 version.
 	@copy($base_pathname . '/data/config.default.php',
