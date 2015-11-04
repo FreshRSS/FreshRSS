@@ -85,44 +85,58 @@ class Minz_Request {
 	}
 
 	/**
-	 * Retourn le nom de domaine du site
+	 * Try to guess the base URL from $_SERVER information
+	 *
+	 * @return the base url (e.g. http://example.com/)
 	 */
-	public static function getDomainName() {
-		return $_SERVER['HTTP_HOST'];
-	}
+	public static function guessBaseUrl() {
+		$url = 'http';
 
-	/**
-	 * Détermine la base de l'url
-	 * @return la base de l'url
-	 */
-	public static function getBaseUrl() {
-		$conf = Minz_Configuration::get('system');
-		$defaultBaseUrl = $conf->base_url;
-		if (!empty($defaultBaseUrl)) {
-			return $defaultBaseUrl;
-		} elseif (isset($_SERVER['REQUEST_URI'])) {
-			return dirname($_SERVER['REQUEST_URI']) . '/';
+		if (isset($_SERVER['HTTP_X_FORWARDED_PROTO'])) {
+			$https = strtolower($_SERVER['HTTP_X_FORWARDED_PROTO']) === 'https';
 		} else {
-			return '/';
+			$https = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on';
 		}
-	}
 
-	/**
-	 * Récupère l'URI de la requête
-	 * @return l'URI
-	 */
-	public static function getURI() {
+		if (!empty($_SERVER['HTTP_HOST'])) {
+			$host = $_SERVER['HTTP_HOST'];
+		} elseif (!empty($_SERVER['SERVER_NAME'])) {
+			$host = $_SERVER['SERVER_NAME'];
+		} else {
+			$host = 'localhost';
+		}
+
+		if (!empty($_SERVER['HTTP_X_FORWARDED_PORT'])) {
+			$port = intval($_SERVER['HTTP_X_FORWARDED_PORT']);
+		} elseif (!empty($_SERVER['SERVER_PORT'])) {
+			$port = intval($_SERVER['SERVER_PORT']);
+		} else {
+			$port = $https ? 443 : 80;
+		}
+
+		if ($https) {
+			$url .= 's://' . $host . ($port == 443 ? '' : ':' . $port);
+		} else {
+			$url .= '://' . $host . ($port == 80 ? '' : ':' . $port);
+		}
 		if (isset($_SERVER['REQUEST_URI'])) {
-			$base_url = self::getBaseUrl();
-			$uri = $_SERVER['REQUEST_URI'];
-
-			$len_base_url = strlen($base_url);
-			$real_uri = substr($uri, $len_base_url);
-		} else {
-			$real_uri = '';
+			$path = $_SERVER['REQUEST_URI'];
+			$url .= substr($path, -1) === '/' ? substr($path, 0, -1) : dirname($path);
 		}
 
-		return $real_uri;
+		return filter_var($url, FILTER_SANITIZE_URL);
+	}
+
+	/**
+	 * Return the base_url from configuration and add a suffix if given.
+	 *
+	 * @param $base_url_suffix a string to add at base_url (default: empty string)
+	 * @return the base_url with a suffix.
+	 */
+	public static function getBaseUrl($base_url_suffix = '') {
+		$conf = Minz_Configuration::get('system');
+		$url = rtrim($conf->base_url, '/\\') . $base_url_suffix;
+		return filter_var($url, FILTER_SANITIZE_URL);
 	}
 
 	/**

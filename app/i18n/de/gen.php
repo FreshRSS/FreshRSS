@@ -21,15 +21,27 @@ return array(
 		'truncate' => 'Alle Artikel löschen',
 	),
 	'auth' => array(
+		'email' => 'E-Mail-Adresse',
 		'keep_logged_in' => 'Eingeloggt bleiben <small>(1 Monat)</small>',
 		'login' => 'Anmelden',
 		'login_persona' => 'Anmelden mit Persona',
 		'login_persona_problem' => 'Verbindungsproblem mit Persona?',
 		'logout' => 'Abmelden',
-		'password' => 'Passwort',
+		'password' => array(
+			'_' => 'Passwort',
+			'format' => '<small>mindestens 7 Zeichen</small>',
+		),
+		'registration' => array(
+			'_' => 'Neuer Account',
+			'ask' => 'Erstelle einen Account?',
+			'title' => 'Accounterstellung',
+		),
 		'reset' => 'Zurücksetzen der Authentifizierung',
-		'username' => 'Nutzername',
-		'username_admin' => 'Administrator-Nutzername',
+		'username' => array(
+			'_' => 'Nutzername',
+			'admin' => 'Administrator-Nutzername',
+			'format' => '<small>maximal 16 alphanumerische Zeichen</small>',
+		),
 		'will_reset' => 'Authentifikationssystem wird zurückgesetzt: ein Formular wird anstelle von Persona benutzt.',
 	),
 	'date' => array(
@@ -49,7 +61,7 @@ return array(
 		'april' => 'April',
 		'aug' => 'Aug',
 		'august' => 'August',
-		'before_yesterday' => 'Vor gestern',
+		'before_yesterday' => 'Vor vorgestern',
 		'dec' => 'Dez',
 		'december' => 'Dezember',
 		'feb' => 'Feb',
@@ -93,7 +105,7 @@ return array(
 	),
 	'js' => array(
 		'category_empty' => 'Kategorie leeren',
-		'confirm_action' => 'Sind Sie sicher, dass Sie diese Aktion durchführen wollen? Dies kann nicht abgebrochen werden!',
+		'confirm_action' => 'Sind Sie sicher, dass Sie diese Aktion durchführen wollen? Diese Aktion kann nicht abgebrochen werden!',
 		'confirm_action_feed_cat' => 'Sind Sie sicher, dass Sie diese Aktion durchführen wollen? Sie werden zugehörige Favoriten und Benutzerabfragen verlieren. Dies kann nicht abgebrochen werden!',
 		'feedback' => array(
 			'body_new_articles' => 'Es gibt \\d neue Artikel zum Lesen auf FreshRSS.',
@@ -104,9 +116,12 @@ return array(
 		'should_be_activated' => 'JavaScript muss aktiviert sein',
 	),
 	'lang' => array(
+		'cz' => 'Čeština',
 		'de' => 'Deutsch',
 		'en' => 'English',
 		'fr' => 'Français',
+		'it' => 'Italiano',
+		'nl' => 'Nederlands',
 	),
 	'menu' => array(
 		'about' => 'Über',
@@ -124,6 +139,7 @@ return array(
 		'sharing' => 'Teilen',
 		'shortcuts' => 'Tastaturkürzel',
 		'stats' => 'Statistiken',
+		'system' => 'System configuration',// @todo translate
 		'update' => 'Aktualisieren',
 		'user_management' => 'Benutzer verwalten',
 		'user_profile' => 'Profil',
@@ -143,6 +159,7 @@ return array(
 		'email' => 'E-Mail',
 		'facebook' => 'Facebook',
 		'g+' => 'Google+',
+		'movim' => 'Movim',
 		'print' => 'Drucken',
 		'shaarli' => 'Shaarli',
 		'twitter' => 'Twitter',
@@ -156,6 +173,7 @@ return array(
 		'damn' => 'Verdammt!',
 		'default_category' => 'Unkategorisiert',
 		'no' => 'Nein',
+		'not_applicable' => 'Nicht verfügbar',
 		'ok' => 'OK!',
 		'or' => 'oder',
 		'yes' => 'Ja',

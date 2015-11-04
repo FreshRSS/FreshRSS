@@ -3,8 +3,10 @@
 return array(
 	'action' => array(
 		'finish' => 'Installation fertigstellen',
-		'fix_errors_before' => 'Fehler korrigieren, bevor zum nächsten Schritt gesprungen wird.',
-		'next_step' => 'Zum nächsten Schritt gehen',
+		'fix_errors_before' => 'Bitte Fehler korrigieren, bevor zum nächsten Schritt gesprungen wird.',
+		'keep_install' => 'Vorherige Installation beibehalten (Daten)',
+		'next_step' => 'Zum nächsten Schritt springen',
+		'reinstall' => 'Neuinstallation von FreshRSS',
 	),
 	'auth' => array(
 		'email_persona' => 'Anmelde-E-Mail-Adresse<br /><small>(für <a href="https://persona.org/" rel="external">Mozilla Persona</a>)</small>',
@@ -25,15 +27,16 @@ return array(
 		),
 		'host' => 'Host',
 		'prefix' => 'Tabellen-Präfix',
-		'password' => 'HTTP-Password',
+		'password' => 'SQL-Password',
 		'type' => 'Datenbank-Typ',
-		'username' => 'HTTP-Nutzername',
+		'username' => 'SQL-Nutzername',
 	),
 	'check' => array(
 		'_' => 'Überprüfungen',
+		'already_installed' => 'Wir haben festgestellt, dass FreshRSS bereits installiert wurde!',
 		'cache' => array(
 			'nok' => 'Überprüfen Sie die Berechtigungen des Verzeichnisses <em>./data/cache</em>. Der HTTP-Server muss Schreibrechte besitzen.',
-			'ok' => 'Berechtigungen des Verzeichnisses <em>./data/cache</em> sind in Ordnung.',
+			'ok' => 'Die Berechtigungen des Verzeichnisses <em>./data/cache</em> sind in Ordnung.',
 		),
 		'ctype' => array(
 			'nok' => 'Ihnen fehlt eine benötigte Bibliothek für die Überprüfung von Zeichentypen (php-ctype).',
@@ -45,7 +48,7 @@ return array(
 		),
 		'data' => array(
 			'nok' => 'Überprüfen Sie die Berechtigungen des Verzeichnisses <em>./data</em>. Der HTTP-Server muss Schreibrechte besitzen.',
-			'ok' => 'Berechtigungen des Verzeichnisses <em>./data</em> sind in Ordnung.',
+			'ok' => 'Die Berechtigungen des Verzeichnisses <em>./data</em> sind in Ordnung.',
 		),
 		'dom' => array(
 			'nok' => 'Ihnen fehlt eine benötigte Bibliothek um DOM zu durchstöbern (Paket php-xml).',
@@ -53,7 +56,7 @@ return array(
 		),
 		'favicons' => array(
 			'nok' => 'Überprüfen Sie die Berechtigungen des Verzeichnisses <em>./data/favicons</em>. Der HTTP-Server muss Schreibrechte besitzen.',
-			'ok' => 'Berechtigungen des Verzeichnisses <em>./data/favicons</em> sind in Ordnung.',
+			'ok' => 'Die Berechtigungen des Verzeichnisses <em>./data/favicons</em> sind in Ordnung.',
 		),
 		'http_referer' => array(
 			'nok' => 'Bitte stellen Sie sicher, dass Sie Ihren HTTP REFERER nicht abändern.',
@@ -73,7 +76,7 @@ return array(
 		),
 		'persona' => array(
 			'nok' => 'Überprüfen Sie die Berechtigungen des Verzeichnisses <em>./data/persona</em>. Der HTTP-Server muss Schreibrechte besitzen.',
-			'ok' => 'Berechtigungen des Verzeichnisses <em>./data/persona</em> sind in Ordnung.',
+			'ok' => 'Die Berechtigungen des Verzeichnisses <em>./data/persona</em> sind in Ordnung.',
 		),
 		'php' => array(
 			'nok' => 'Ihre PHP-Version ist %s aber FreshRSS benötigt mindestens Version %s.',
@@ -81,22 +84,25 @@ return array(
 		),
 		'users' => array(
 			'nok' => 'Überprüfen Sie die Berechtigungen des Verzeichnisses <em>./data/users</em>. Der HTTP-Server muss Schreibrechte besitzen.',
-			'ok' => 'Berechtigungen des Verzeichnisses <em>./data/users</em> sind in Ordnung.',
+			'ok' => 'Die Berechtigungen des Verzeichnisses <em>./data/users</em> sind in Ordnung.',
 		),
 	),
 	'conf' => array(
 		'_' => 'Allgemeine Konfiguration',
-		'ok' => 'Allgemeine Konfiguration ist gespeichert worden.',
+		'ok' => 'Die allgemeine Konfiguration ist gespeichert worden.',
 	),
 	'congratulations' => 'Glückwunsch!',
 	'default_user' => 'Nutzername des Standardbenutzers <small>(maximal 16 alphanumerische Zeichen)</small>',
 	'delete_articles_after' => 'Entferne Artikel nach',
-	'fix_errors_before' => 'Fehler korrigieren, bevor zum nächsten Schritt gesprungen wird.',
+	'fix_errors_before' => 'Bitte den Fehler korrigieren, bevor zum nächsten Schritt gesprungen wird.',
 	'javascript_is_better' => 'FreshRSS ist ansprechender mit aktiviertem JavaScript',
+	'js' => array(
+		'confirm_reinstall' => 'Du wirst deine vorherige Konfiguration (Daten) verlieren FreshRSS. Bist du sicher, dass du fortfahren willst?',
+	),
 	'language' => array(
 		'_' => 'Sprache',
 		'choose' => 'Wählen Sie eine Sprache für FreshRSS',
-		'defined' => 'Sprache ist festgelegt worden.',
+		'defined' => 'Die Sprache ist festgelegt worden.',
 	),
 	'not_deleted' => 'Etwas ist schiefgelaufen; Sie müssen die Datei <em>%s</em> manuell löschen.',
 	'ok' => 'Der Installationsvorgang war erfolgreich.',

@@ -92,7 +92,7 @@ input.extend:focus {
 /*=== COMPONENTS */
 /*===============*/
 /*=== Forms */
-.form-group:after {
+.form-group::after {
 	content: "";
 	display: block;
 	clear: both;
@@ -184,7 +184,7 @@ a.btn {
 .dropdown-menu > .item > span {
 	display: block;
 }
-.dropdown-menu > .item[aria-checked="true"] > a:before {
+.dropdown-menu > .item[aria-checked="true"] > a::before {
 	content: '✓';
 }
 .dropdown-menu .input {
@@ -315,7 +315,7 @@ a.btn {
 	white-space: nowrap;
 	text-overflow: ellipsis;
 }
-.category .btn:not([data-unread="0"]):after {
+.category .btn:not([data-unread="0"])::after {
 	content: attr(data-unread);
 }
 
@@ -334,7 +334,7 @@ a.btn {
 	text-overflow: ellipsis;
 	vertical-align: middle;
 }
-.categories .feeds .feed:not([data-unread="0"]):before {
+.categories .feeds .feed:not([data-unread="0"])::before {
 	content: "(" attr(data-unread) ") ";
 }
 .categories .feeds .dropdown-menu {
@@ -688,7 +688,7 @@ a.btn {
 	.flux_content .content a {
 		color: #000;
 	}
-	.flux_content .content a:after {
+	.flux_content .content a::after {
 		content: " [" attr(href) "] ";
 		font-style: italic;
 	}

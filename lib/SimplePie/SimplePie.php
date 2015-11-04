@@ -75,6 +75,12 @@ define('SIMPLEPIE_USERAGENT', SIMPLEPIE_NAME . '/' . SIMPLEPIE_VERSION . ' (Feed
 define('SIMPLEPIE_LINKBACK', '<a href="' . SIMPLEPIE_URL . '" title="' . SIMPLEPIE_NAME . ' ' . SIMPLEPIE_VERSION . '">' . SIMPLEPIE_NAME . '</a>');
 
 /**
+ * Use syslog to report HTTP requests done by SimplePie.
+ * @see SimplePie::set_syslog()
+ */
+define('SIMPLEPIE_SYSLOG', true);	//FreshRSS
+
+/**
  * No Autodiscovery
  * @see SimplePie::set_autodiscovery_level()
  */
@@ -450,7 +456,7 @@ class SimplePie
 	 * @see SimplePie::subscribe_url()
 	 * @access private
 	 */
-	public $permanent_url = null;	//FreshRSS
+	public $permanent_url = null;
 
 	/**
 	 * @var object Instance of SimplePie_File to use as a feed
@@ -472,6 +478,13 @@ class SimplePie
 	 * @access private
 	 */
 	public $timeout = 10;
+
+	/**
+	 * @var array Custom curl options
+	 * @see SimplePie::set_curl_options()
+	 * @access private
+	 */
+	public $curl_options = array();
 
 	/**
 	 * @var bool Forces fsockopen() to be used for remote files instead
@@ -623,6 +636,12 @@ class SimplePie
 	public $strip_htmltags = array('base', 'blink', 'body', 'doctype', 'embed', 'font', 'form', 'frame', 'frameset', 'html', 'iframe', 'input', 'marquee', 'meta', 'noscript', 'object', 'param', 'script', 'style');
 
 	/**
+	 * Use syslog to report HTTP requests done by SimplePie.
+	 * @see SimplePie::set_syslog()
+	 */
+	public $syslog_enabled = SIMPLEPIE_SYSLOG;
+
+	/**
 	 * The SimplePie class contains feed level data and options
 	 *
 	 * To use SimplePie, create the SimplePie object with no parameters. You can
@@ -742,7 +761,7 @@ class SimplePie
 		else
 		{
 			$this->feed_url = $this->registry->call('Misc', 'fix_protocol', array($url, 1));
-			$this->permanent_url = $this->feed_url;	//FreshRSS
+			$this->permanent_url = $this->feed_url;
 		}
 	}
 
@@ -757,7 +776,7 @@ class SimplePie
 		if ($file instanceof SimplePie_File)
 		{
 			$this->feed_url = $file->url;
-			$this->permanent_url = $this->feed_url;	//FreshRSS
+			$this->permanent_url = $this->feed_url;
 			$this->file =& $file;
 			return true;
 		}
@@ -794,6 +813,19 @@ class SimplePie
 	public function set_timeout($timeout = 10)
 	{
 		$this->timeout = (int) $timeout;
+	}
+    
+	/**
+	 * Set custom curl options
+	 *
+	 * This allows you to change default curl options
+	 *
+	 * @since 1.0 Beta 3
+	 * @param array $curl_options Curl options to add to default settings
+	 */
+	public function set_curl_options(array $curl_options = array())
+	{
+		$this->curl_options = $curl_options;
 	}
 
 	/**
@@ -1136,13 +1168,21 @@ class SimplePie
 		$this->sanitize->strip_attributes($attribs);
 	}
 
-	public function add_attributes($attribs = '')
+	public function add_attributes($attribs = '')	//FreshRSS
 	{
 		if ($attribs === '')
 		{
 			$attribs = $this->add_attributes;
 		}
 		$this->sanitize->add_attributes($attribs);
+	}
+
+	/**
+	 * Use syslog to report HTTP requests done by SimplePie.
+	 */
+	public function set_syslog($value = SIMPLEPIE_SYSLOG)	//FreshRSS
+	{
+		$this->syslog_enabled = $value == true;
 	}
 
 	/**
@@ -1231,7 +1271,8 @@ class SimplePie
 		$this->enable_exceptions = $enable;
 	}
 
-	function cleanMd5($rss) {	//FreshRSS
+	function cleanMd5($rss)
+	{
 		return md5(preg_replace(array('#<(lastBuildDate|pubDate|updated|feedDate|dc:date|slash:comments)>[^<]+</\\1>#', '#<!--.+?-->#s'), '', $rss));
 	}
 
@@ -1276,7 +1317,7 @@ class SimplePie
 		// Pass whatever was set with config options over to the sanitizer.
 		// Pass the classes in for legacy support; new classes should use the registry instead
 		$this->sanitize->pass_cache_data($this->cache, $this->cache_location, $this->cache_name_function, $this->registry->get_class('Cache'));
-		$this->sanitize->pass_file_data($this->registry->get_class('File'), $this->timeout, $this->useragent, $this->force_fsockopen);
+		$this->sanitize->pass_file_data($this->registry->get_class('File'), $this->timeout, $this->useragent, $this->force_fsockopen, $this->curl_options);
 
 		if (!empty($this->multifeed_url))
 		{
@@ -1321,7 +1362,7 @@ class SimplePie
 			// Fetch the data via SimplePie_File into $this->raw_data
 			if (($fetched = $this->fetch_data($cache)) === true)
 			{
-				return $this->data['mtime'];	//FreshRSS
+				return $this->data['mtime'];
 			}
 			elseif ($fetched === false) {
 				return false;
@@ -1329,7 +1370,8 @@ class SimplePie
 
 			list($headers, $sniffed) = $fetched;
 
-			if (isset($this->data['md5'])) {	//FreshRSS
+			if (isset($this->data['md5']))
+			{
 				$md5 = $this->data['md5'];
 			}
 		}
@@ -1413,8 +1455,8 @@ class SimplePie
 						$this->data['headers'] = $headers;
 					}
 					$this->data['build'] = SIMPLEPIE_BUILD;
-					$this->data['mtime'] = time();	//FreshRSS
-					$this->data['md5'] = empty($md5) ? $this->cleanMd5($this->raw_data) : $md5;	//FreshRSS
+					$this->data['mtime'] = time();
+					$this->data['md5'] = empty($md5) ? $this->cleanMd5($this->raw_data) : $md5;
 
 					// Cache the file if caching is enabled
 					if ($cache && !$cache->save($this))
@@ -1429,7 +1471,7 @@ class SimplePie
 		if (isset($parser))
 		{
 			// We have an error, just set SimplePie_Misc::error to it and quit
-			$this->error = sprintf('This XML document is invalid, likely due to invalid characters. XML error: %s at line %d, column %d', $parser->get_error_string(), $parser->get_current_line(), $parser->get_current_column());
+			$this->error = sprintf('This XML document is invalid, likely due to invalid characters. XML error: %s at line %d, column %d, encoding %s, URL: %s', $parser->get_error_string(), $parser->get_current_line(), $parser->get_current_column(), $encoding, $this->feed_url);
 		}
 		else
 		{
@@ -1455,7 +1497,8 @@ class SimplePie
 		{
 			// Load the Cache
 			$this->data = $cache->load();
-			if ($cache->mtime() + $this->cache_duration > time()) {	//FreshRSS
+			if ($cache->mtime() + $this->cache_duration > time())
+			{
 				$this->raw_data = false;
 				return true;	// If the cache is still valid, just return true
 			}
@@ -1491,65 +1534,58 @@ class SimplePie
 					}
 				}
 				// Check if the cache has been updated
-				else //if ($cache->mtime() + $this->cache_duration < time())	//FreshRSS removed
+				else
 				{
-					// If we have last-modified and/or etag set
-					//if (isset($this->data['headers']['last-modified']) || isset($this->data['headers']['etag']))	//FreshRSS removed
+					$headers = array(
+						'Accept' => 'application/atom+xml, application/rss+xml, application/rdf+xml;q=0.9, application/xml;q=0.8, text/xml;q=0.8, text/html;q=0.7, unknown/unknown;q=0.1, application/unknown;q=0.1, */*;q=0.1',
+					);
+					if (isset($this->data['headers']['last-modified']))
 					{
-						$headers = array(
-							'Accept' => 'application/atom+xml, application/rss+xml, application/rdf+xml;q=0.9, application/xml;q=0.8, text/xml;q=0.8, text/html;q=0.7, unknown/unknown;q=0.1, application/unknown;q=0.1, */*;q=0.1',
-						);
-						if (isset($this->data['headers']['last-modified']))
-						{
-							$headers['if-modified-since'] = $this->data['headers']['last-modified'];
-						}
-						if (isset($this->data['headers']['etag']))
-						{
-							$headers['if-none-match'] = $this->data['headers']['etag'];
-						}
+						$headers['if-modified-since'] = $this->data['headers']['last-modified'];
+					}
+					if (isset($this->data['headers']['etag']))
+					{
+						$headers['if-none-match'] = $this->data['headers']['etag'];
+					}
 
-						$file = $this->registry->create('File', array($this->feed_url, $this->timeout, 5, $headers, $this->useragent, $this->force_fsockopen));	//FreshRSS
+					$file = $this->registry->create('File', array($this->feed_url, $this->timeout, 5, $headers, $this->useragent, $this->force_fsockopen, $this->curl_options));
 
-						if ($file->success)
+					if ($file->success)
+					{
+						if ($file->status_code === 304)
 						{
-							if ($file->status_code === 304)
-							{
-								$cache->touch();
-								return true;
-							}
-						}
-						else
-						{
-							$cache->touch();	//FreshRSS
-							$this->error = $file->error;	//FreshRSS
-							return !empty($this->data);	//FreshRSS
-							//unset($file);	//FreshRSS removed
+							$cache->touch();
+							return true;
 						}
 					}
-					{	//FreshRSS
-						$md5 = $this->cleanMd5($file->body);
-						if ($this->data['md5'] === $md5) {
-							// syslog(LOG_DEBUG, 'SimplePie MD5 cache match for ' . $this->feed_url);
-							$cache->touch();
-							return true;	//Content unchanged even though server did not send a 304
-						} else {
-							// syslog(LOG_DEBUG, 'SimplePie MD5 cache no match for ' . $this->feed_url);
-							$this->data['md5'] = $md5;
+					else
+					{
+						$cache->touch();
+						$this->error = $file->error;
+						return !empty($this->data);
+					}
+
+					$md5 = $this->cleanMd5($file->body);
+					if ($this->data['md5'] === $md5) {
+						if ($this->syslog_enabled)
+						{
+							syslog(LOG_DEBUG, 'SimplePie MD5 cache match for ' . SimplePie_Misc::url_remove_credentials($this->feed_url));
 						}
+						$cache->touch();
+						return true;	//Content unchanged even though server did not send a 304
+					} else {
+						if ($this->syslog_enabled)
+						{
+							syslog(LOG_DEBUG, 'SimplePie MD5 cache no match for ' . SimplePie_Misc::url_remove_credentials($this->feed_url));
+						}
+						$this->data['md5'] = $md5;
 					}
 				}
-				//// If the cache is still valid, just return true
-				//else	//FreshRSS removed
-				//{
-				//	$this->raw_data = false;
-				//	return true;
-				//}
 			}
-			// If the cache is empty, delete it
+			// If the cache is empty
 			else
 			{
-				//$cache->unlink();	//FreshRSS removed
-				$cache->touch();	//FreshRSS
+				$cache->touch();	//To keep the date/time of the last tentative update
 				$this->data = array();
 			}
 		}
@@ -1565,7 +1601,7 @@ class SimplePie
 				$headers = array(
 					'Accept' => 'application/atom+xml, application/rss+xml, application/rdf+xml;q=0.9, application/xml;q=0.8, text/xml;q=0.8, text/html;q=0.7, unknown/unknown;q=0.1, application/unknown;q=0.1, */*;q=0.1',
 				);
-				$file = $this->registry->create('File', array($this->feed_url, $this->timeout, 5, $headers, $this->useragent, $this->force_fsockopen));
+				$file = $this->registry->create('File', array($this->feed_url, $this->timeout, 5, $headers, $this->useragent, $this->force_fsockopen, $this->curl_options));
 			}
 		}
 		// If the file connection has an error, set SimplePie::error to that and quit
@@ -1582,15 +1618,15 @@ class SimplePie
 
 			if (!$locate->is_feed($file))
 			{
-				$copyStatusCode = $file->status_code;	//FreshRSS
-				$copyContentType = $file->headers['content-type'];	//FreshRSS
+				$copyStatusCode = $file->status_code;
+				$copyContentType = $file->headers['content-type'];
 				// We need to unset this so that if SimplePie::set_file() has been called that object is untouched
 				unset($file);
 				try
 				{
 					if (!($file = $locate->find($this->autodiscovery, $this->all_discovered_feeds)))
 					{
-						$this->error = "A feed could not be found at `$this->feed_url`; the status code is `$copyStatusCode` and content-type is `$copyContentType`";	//FreshRSS
+						$this->error = "A feed could not be found at `$this->feed_url`; the status code is `$copyStatusCode` and content-type is `$copyContentType`";
 						$this->registry->call('Misc', 'error', array($this->error, E_USER_NOTICE, __FILE__, __LINE__));
 						return false;
 					}
@@ -1605,8 +1641,8 @@ class SimplePie
 				if ($cache)
 				{
 					$this->data = array('url' => $this->feed_url, 'feed_url' => $file->url, 'build' => SIMPLEPIE_BUILD);
-					$this->data['mtime'] = time();	//FreshRSS
-					$this->data['md5'] = empty($md5) ? $this->cleanMd5($file->body) : $md5;	//FreshRSS
+					$this->data['mtime'] = time();
+					$this->data['md5'] = empty($md5) ? $this->cleanMd5($file->body) : $md5;
 					if (!$cache->save($this))
 					{
 						trigger_error("$this->cache_location is not writeable. Make sure you've set the correct relative or absolute path, and that the location is server-writable.", E_USER_WARNING);
@@ -1619,7 +1655,7 @@ class SimplePie
 		}
 
 		$this->raw_data = $file->body;
-		$this->permanent_url = $file->permanent_url;	//FreshRSS
+		$this->permanent_url = $file->permanent_url;
 		$headers = $file->headers;
 		$sniffer = $this->registry->create('Content_Type_Sniffer', array(&$file));
 		$sniffed = $sniffer->get_type();
@@ -1823,7 +1859,7 @@ class SimplePie
 	 */
 	public function subscribe_url($permanent = false)
 	{
-		if ($permanent)	//FreshRSS
+		if ($permanent)
 		{
 			if ($this->permanent_url !== null)
 			{

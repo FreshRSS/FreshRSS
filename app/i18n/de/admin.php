@@ -19,15 +19,15 @@ return array(
 	'check_install' => array(
 		'cache' => array(
 			'nok' => 'Überprüfen Sie die Berechtigungen des Verzeichnisses <em>./data/cache</em>. Der HTTP-Server muss Schreibrechte besitzen.',
-			'ok' => 'Berechtigungen des Verzeichnisses <em>./data/cache</em> sind in Ordnung.',
+			'ok' => 'Die Berechtigungen des Verzeichnisses <em>./data/cache</em> sind in Ordnung.',
 		),
 		'categories' => array(
 			'nok' => 'Die Tabelle <em>category</em> ist schlecht konfiguriert.',
-			'ok' => 'Die Tabelle <em>category</em> ist in Ordnung.',
+			'ok' => 'Die Tabelle <em>category</em> ist korrekt konfiguriert.',
 		),
 		'connection' => array(
 			'nok' => 'Verbindung zur Datenbank kann nicht aufgebaut werden.',
-			'ok' => 'Verbindung zur Datenbank ist in Ordnung.',
+			'ok' => 'Verbindung zur Datenbank konnte aufgebaut werden.',
 		),
 		'ctype' => array(
 			'nok' => 'Ihnen fehlt eine benötigte Bibliothek für die Überprüfung von Zeichentypen (php-ctype).',
@@ -39,7 +39,7 @@ return array(
 		),
 		'data' => array(
 			'nok' => 'Überprüfen Sie die Berechtigungen des Verzeichnisses <em>./data</em>. Der HTTP-Server muss Schreibrechte besitzen.',
-			'ok' => 'Berechtigungen des Verzeichnisses <em>./data</em> sind in Ordnung.',
+			'ok' => 'Die Berechtigungen des Verzeichnisses <em>./data</em> sind in Ordnung.',
 		),
 		'database' => 'Datenbank-Installation',
 		'dom' => array(
@@ -48,19 +48,19 @@ return array(
 		),
 		'entries' => array(
 			'nok' => 'Die Tabelle <em>entry</em> ist schlecht konfiguriert.',
-			'ok' => 'Die Tabelle <em>entry</em> ist in Ordnung.',
+			'ok' => 'Die Tabelle <em>entry</em> ist korrekt konfiguriert.',
 		),
 		'favicons' => array(
 			'nok' => 'Überprüfen Sie die Berechtigungen des Verzeichnisses <em>./data/favicons</em>. Der HTTP-Server muss Schreibrechte besitzen.',
-			'ok' => 'Berechtigungen des Verzeichnisses <em>./data/favicons</em> sind in Ordnung.',
+			'ok' => 'Die Berechtigungen des Verzeichnisses <em>./data/favicons</em> sind in Ordnung.',
 		),
 		'feeds' => array(
 			'nok' => 'Die Tabelle <em>feed</em> ist schlecht konfiguriert.',
-			'ok' => 'Die Tabelle <em>feed</em> ist in Ordnung.',
+			'ok' => 'Die Tabelle <em>feed</em> ist korrekt konfiguriert.',
 		),
 		'files' => 'Datei-Installation',
 		'json' => array(
-			'nok' => 'Ihnen fehlt JSON (Paket php5-json).',
+			'nok' => 'Ihnen fehlt die JSON-Erweiterung (Paket php5-json).',
 			'ok' => 'Sie haben die JSON-Erweiterung.',
 		),
 		'minz' => array(
@@ -77,7 +77,7 @@ return array(
 		),
 		'persona' => array(
 			'nok' => 'Überprüfen Sie die Berechtigungen des Verzeichnisses <em>./data/persona</em>. Der HTTP-Server muss Schreibrechte besitzen.',
-			'ok' => 'Berechtigungen des Verzeichnisses <em>./data/persona</em> sind in Ordnung.',
+			'ok' => 'Die Berechtigungen des Verzeichnisses <em>./data/persona</em> sind in Ordnung.',
 		),
 		'php' => array(
 			'_' => 'PHP-Installation',
@@ -91,11 +91,11 @@ return array(
 		'title' => 'Installationsüberprüfung',
 		'tokens' => array(
 			'nok' => 'Überprüfen Sie die Berechtigungen des Verzeichnisses <em>./data/tokens</em>. Der HTTP-Server muss Schreibrechte besitzen.',
-			'ok' => 'Berechtigungen des Verzeichnisses <em>./data/tokens</em> sind in Ordnung.',
+			'ok' => 'Die Berechtigungen des Verzeichnisses <em>./data/tokens</em> sind in Ordnung.',
 		),
 		'users' => array(
 			'nok' => 'Überprüfen Sie die Berechtigungen des Verzeichnisses <em>./data/users</em>. Der HTTP-Server muss Schreibrechte besitzen.',
-			'ok' => 'Berechtigungen des Verzeichnisses <em>./data/users</em> sind in Ordnung.',
+			'ok' => 'Die Berechtigungen des Verzeichnisses <em>./data/users</em> sind in Ordnung.',
 		),
 		'zip' => array(
 			'nok' => 'Ihnen fehlt die ZIP-Erweiterung (Paket php5-zip).',
@@ -120,22 +120,22 @@ return array(
 		'category' => 'Kategorie',
 		'entry_count' => 'Anzahl der Einträge',
 		'entry_per_category' => 'Einträge pro Kategorie',
-		'entry_per_day' => 'Einträge pro Tag (letzte 30 Tage)',
+		'entry_per_day' => 'Einträge pro Tag (letzten 30 Tage)',
 		'entry_per_day_of_week' => 'Pro Wochentag (Durchschnitt: %.2f Nachrichten)',
 		'entry_per_hour' => 'Pro Stunde (Durchschnitt: %.2f Nachrichten)',
 		'entry_per_month' => 'Pro Monat (Durchschnitt: %.2f Nachrichten)',
 		'entry_repartition' => 'Einträge-Verteilung',
 		'feed' => 'Feed',
 		'feed_per_category' => 'Feeds pro Kategorie',
-		'idle' => 'Untätige Feeds',
+		'idle' => 'Inaktive Feeds',
 		'main' => 'Haupt-Statistiken',
 		'main_stream' => 'Haupt-Feeds',
 		'menu' => array(
-			'idle' => 'Untätige Feeds',
+			'idle' => 'Inaktive Feeds',
 			'main' => 'Haupt-Statistiken',
 			'repartition' => 'Artikel-Verteilung',
 		),
-		'no_idle' => 'Es gibt keinen untätigen Feed!',
+		'no_idle' => 'Es gibt keinen inaktiven Feed!',
 		'number_entries' => '%d Artikel',
 		'percent_of_total' => '%% Gesamt',
 		'repartition' => 'Artikel-Verteilung',
@@ -146,13 +146,24 @@ return array(
 		'title' => 'Statistiken',
 		'top_feed' => 'Top 10-Feeds',
 	),
+	'system' => array(
+		'_' => 'System configuration', // @todo translate
+		'auto-update-url' => 'Auto-update server URL', // @todo translate
+		'instance-name' => 'Instance name', // @todo translate
+		'max-categories' => 'Categories per user limit', // @todo translate
+		'max-feeds' => 'Feeds per user limit', // @todo translate
+		'registration' => array(
+			'help' => '0 meint, dass es kein Account Limit gibt',
+			'number' => 'Maximale Anzahl von Accounts',
+		),
+	),
 	'update' => array(
 		'_' => 'System aktualisieren',
 		'apply' => 'Anwenden',
 		'check' => 'Auf neue Aktualisierungen prüfen',
 		'current_version' => 'Ihre aktuelle Version von FreshRSS ist %s.',
 		'last' => 'Letzte Überprüfung: %s',
-		'none' => 'Keine Aktualisierung zum Anwenden',
+		'none' => 'Keine ausstehende Aktualisierung',
 		'title' => 'System aktualisieren',
 	),
 	'user' => array(
@@ -160,6 +171,8 @@ return array(
 		'create' => 'Neuen Benutzer erstellen',
 		'email_persona' => 'Anmelde-E-Mail-Adresse<br /><small>(für <a href="https://persona.org/" rel="external">Mozilla Persona</a>)</small>',
 		'language' => 'Sprache',
+		'number' => 'Es wurde bis jetzt %d Account erstellt',
+		'numbers' => 'Es wurden bis jetzt %d Accounts erstellt',
 		'password_form' => 'Passwort<br /><small>(für die Anmeldemethode per Webformular)</small>',
 		'password_format' => 'mindestens 7 Zeichen',
 		'title' => 'Benutzer verwalten',

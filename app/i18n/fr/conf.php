@@ -72,6 +72,10 @@ return array(
 	),
 	'profile' => array(
 		'_' => 'Gestion du profil',
+		'delete' => array(
+			'_' => 'Suppression du compte',
+			'warn' => 'Le compte et toutes les données associées vont être supprimées.',
+		),
 		'email_persona' => 'Adresse courriel de connexion<br /><small>(pour <a href="https://persona.org/" rel="external">Mozilla Persona</a>)</small>',
 		'password_api' => 'Mot de passe API<br /><small>(ex. : pour applis mobiles)</small>',
 		'password_form' => 'Mot de passe<br /><small>(pour connexion par formulaire)</small>',
@@ -84,6 +88,7 @@ return array(
 		'articles_per_page' => 'Nombre d’articles par page',
 		'auto_load_more' => 'Charger les articles suivants en bas de page',
 		'auto_remove_article' => 'Cacher les articles après lecture',
+		'mark_updated_article_unread' => 'Marquer les articles mis à jour comme non-lus',
 		'confirm_enabled' => 'Afficher une confirmation lors des actions “marquer tout comme lu”',
 		'display_articles_unfolded' => 'Afficher les articles dépliés par défaut',
 		'display_categories_unfolded' => 'Afficher les catégories pliées par défaut',

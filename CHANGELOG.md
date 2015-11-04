@@ -1,5 +1,84 @@
 # Changelog
 
+## 2015-11-03 FreshRSS 1.2.0 / 1.3.0-beta
+
+* Features
+	* Share with Movim [#992](https://github.com/FreshRSS/FreshRSS/issues/992)
+	* New option to allow robots / search engines [#938](https://github.com/FreshRSS/FreshRSS/issues/938)
+* Security
+	* Invalid logins now return HTTP 403, to be easier to catch (e.g. fail2ban) [#1015](https://github.com/FreshRSS/FreshRSS/issues/1015)
+* UI
+    * Remove "title" field during installation [#858](https://github.com/FreshRSS/FreshRSS/issues/858)
+	* Visual alert on categories containing feeds in error [#984](https://github.com/FreshRSS/FreshRSS/pull/984)
+* I18n
+	* Italian [#1003](https://github.com/FreshRSS/FreshRSS/issues/1003)
+* Misc.
+    * Support reverse proxy [#975](https://github.com/FreshRSS/FreshRSS/issues/975)
+    * Make auto-update server URL alterable [#1019](https://github.com/FreshRSS/FreshRSS/issues/1019)
+
+
+## 2015-09-12 FreshRSS 1.1.3-beta
+
+* UI
+	* Configuration page for global settings such as limits [#958](https://github.com/FreshRSS/FreshRSS/pull/958)
+	* Add feed ID in articles to ease styling [#953](https://github.com/FreshRSS/FreshRSS/issues/953)
+* I18n
+	* Dutch [#949](https://github.com/FreshRSS/FreshRSS/issues/949)
+* Bug fixing
+	* Session cookie bug [#924](https://github.com/FreshRSS/FreshRSS/issues/924)
+	* Better error handling for PubSubHubbub [#939](https://github.com/FreshRSS/FreshRSS/issues/939)
+	* Fix tag search link from articles [#970](https://github.com/FreshRSS/FreshRSS/issues/970)
+	* Fix all quieries deleted when deleting a feed or category [#982](https://github.com/FreshRSS/FreshRSS/pull/982)
+
+
+## 2015-07-30 FreshRSS 1.1.2-beta
+
+* Features
+	* Support for PubSubHubbub for instant notifications from compatible Web sites. [#312](https://github.com/FreshRSS/FreshRSS/issues/312)
+	* cURL options to use a proxy for retrieving feeds. [#897](https://github.com/FreshRSS/FreshRSS/issues/897) [#675](https://github.com/FreshRSS/FreshRSS/issues/675)
+	* Allow anonymous users to create an account. [#679](https://github.com/FreshRSS/FreshRSS/issues/679)
+* Security
+	* cURL options to verify or not SSL/TLS certificates (now enabled by default). [#897](https://github.com/FreshRSS/FreshRSS/issues/897) [#502](https://github.com/FreshRSS/FreshRSS/issues/502)
+	* Support for SSL connection to MySQL. [#868](https://github.com/FreshRSS/FreshRSS/issues/868)
+	* Workaround for browsers that have disabled support for `<form autocomplete="off">`. [#880](https://github.com/FreshRSS/FreshRSS/issues/880)
+* UI
+	* Force UTF-8 for responses. [#870](https://github.com/FreshRSS/FreshRSS/issues/870)
+	* Increased pagination limit to 500 articles. [#872](https://github.com/FreshRSS/FreshRSS/issues/872)
+	* Improved UI for installation. [#855](https://github.com/FreshRSS/FreshRSS/issues/855)
+* Misc.
+	* PHP 7 officially supported (~70% speed improvements on early tests). [#889](https://github.com/FreshRSS/FreshRSS/issues/889)
+	* Restore support for PHP 5.2.1+. [#214a5cc](https://github.com/Alkarex/FreshRSS/commit/214a5cc9a4c2b821961bc21f22b4b08e34b5be68) [#894](https://github.com/FreshRSS/FreshRSS/issues/894)
+	* Support for data-src for images of articles retrieved via the full-content module. [#877](https://github.com/FreshRSS/FreshRSS/issues/877)
+	* Add a couple of default feeds for fresh installations. [#886](https://github.com/FreshRSS/FreshRSS/issues/886)
+	* Changed some log visibilities. [#885](https://github.com/FreshRSS/FreshRSS/issues/885)
+	* Fix broken links for extension script / style files. [#862](https://github.com/FreshRSS/FreshRSS/issues/862)
+	* Load default configuration during installation to avoid hard-coded values. [#890](https://github.com/FreshRSS/FreshRSS/issues/890)
+	* Fix non-consistent behaviour in Minz_Request::getBaseUrl() and introduce Minz_Request::guessBaseUrl(). [#906](https://github.com/FreshRSS/FreshRSS/issues/906)
+	* Generate `base_url` during the installation and add a `pubsubhubbub_enabled` configuration key. [#865](https://github.com/FreshRSS/FreshRSS/issues/865)
+	* Load configuration by recursion to overwrite array values. [#923](https://github.com/FreshRSS/FreshRSS/issues/923)
+	* Cast `$limits` configuration values in integer. [#925](https://github.com/FreshRSS/FreshRSS/issues/925)
+	* Don't hide errors in configuration. [#920](https://github.com/FreshRSS/FreshRSS/issues/920)
+
+
+## 2015-05-31 FreshRSS 1.1.1 (beta)
+
+* Features
+	* New option to detect and mark updated articles as unread.
+	* Support for internationalized domain name (IDN).
+	* Improved logic for automatic deletion of old articles.
+* API
+	* Work-around for News+ bug when there is no unread article on the server.
+* UI
+	* New confirmation message when leaving a configuration page without saving the changes.
+* Bug fixing
+	* Corrected bug introduced in previous beta about handling of HTTP 301 (feeds that have changed address)
+	* Corrected bug in FreshRSS RSS feeds.
+* Security
+	* Sanitize HTTP request header `Host`.
+* Misc.
+	* Attempt to better handle encoded article titles.
+
+
 ## 2015-01-31 FreshRSS 1.0.0 / 1.1.0 (beta)
 
 * UI
@@ -58,7 +137,7 @@
 * Misc.
 	* Add option to remove articles after reading them
 	* Add comments
-	* Refactor i18n system to not load unnecessary strings
+	* Refactor i18n system to avoid loading unnecessary strings
 	* Fix security issue in Minz_Error::error() method
 	* Fix redirection after refreshing a given feed
 
@@ -81,7 +160,7 @@
 * I18n
 	* Introduce a new system for i18n keys (not finished yet)
 * Misc.
-	* Fix global view (didn't work anymore)
+	* Fix global view (did not work anymore)
 	* Add do_post_update for update system
 	* Introduce ```checkInstallAction``` to test if FreshRSS installation is ok
 
@@ -91,7 +170,7 @@
 * UI
 	* Add a space after tag icon
 * Statistics
-	* Add an average per day on the 30 day period graph
+	* Add an average per day on the 30-day period graph
 	* Add percent of total on top 10 feed
 * Bug fixes
 	* Fix "mark as read" in global view
@@ -140,7 +219,7 @@
 	* Changed lazyload implementation
 	* Support of HTML5 notifications for new upcoming articles
 	* Add option to stay logged in
-* Bux fixes in export function, add/remove users, keyboard shortcuts, etc.
+* Bug fixes in export function, add/remove users, keyboard shortcuts, etc.
 
 
 ## 2014-07-21 FreshRSS 0.7.3
@@ -256,7 +335,7 @@
 		* Amélioration des performances
 		* Tolère un beaucoup plus grand nombre d’articles
 		* Compression des données côté MySQL plutôt que côté PHP
-		* Incompatible avec la version 0.6 (nécessite une mise à jour grâce à l’installateur) 
+		* Incompatible avec la version 0.6 (nécessite une mise à jour grâce à l’installateur)
 	* Affichage de la taille de la base de données dans FreshRSS
 	* Correction problème de marquage de tous les favoris comme lus
 * HTML5 :

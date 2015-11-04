@@ -3,11 +3,13 @@
 return array(
 	'action' => array(
 		'finish' => 'Complete installation',
-		'fix_errors_before' => 'Fix errors before skip to the next step.',
+		'fix_errors_before' => 'Please fix errors before skipping to the next step.',
+		'keep_install' => 'Keep previous installation',
 		'next_step' => 'Go to the next step',
+		'reinstall' => 'Reinstall FreshRSS',
 	),
 	'auth' => array(
-		'email_persona' => 'Login mail address<br /><small>(for <a href="https://persona.org/" rel="external">Mozilla Persona</a>)</small>',
+		'email_persona' => 'Login email address<br /><small>(for <a href="https://persona.org/" rel="external">Mozilla Persona</a>)</small>',
 		'form' => 'Web form (traditional, requires JavaScript)',
 		'http' => 'HTTP (for advanced users with HTTPS)',
 		'none' => 'None (dangerous)',
@@ -31,6 +33,7 @@ return array(
 	),
 	'check' => array(
 		'_' => 'Checks',
+		'already_installed' => 'We have detected that FreshRSS is already installed!',
 		'cache' => array(
 			'nok' => 'Check permissions on <em>./data/cache</em> directory. HTTP server must have rights to write into',
 			'ok' => 'Permissions on cache directory are good.',
@@ -91,8 +94,11 @@ return array(
 	'congratulations' => 'Congratulations!',
 	'default_user' => 'Username of the default user <small>(maximum 16 alphanumeric characters)</small>',
 	'delete_articles_after' => 'Remove articles after',
-	'fix_errors_before' => 'Fix errors before skip to the next step.',
+	'fix_errors_before' => 'Please fix errors before skipping to the next step.',
 	'javascript_is_better' => 'FreshRSS is more pleasant with JavaScript enabled',
+	'js' => array(
+		'confirm_reinstall' => 'You will lose your previous configuration by reinstalling FreshRSS. Are you sure you want to continue?',
+	),
 	'language' => array(
 		'_' => 'Language',
 		'choose' => 'Choose a language for FreshRSS',

@@ -6,6 +6,7 @@ class FreshRSS_Category extends Minz_Model {
 	private $nbFeed = -1;
 	private $nbNotRead = -1;
 	private $feeds = null;
+	private $hasFeedsWithError = false;
 
 	public function __construct($name = '', $feeds = null) {
 		$this->_name($name);
@@ -16,6 +17,7 @@ class FreshRSS_Category extends Minz_Model {
 			foreach ($feeds as $feed) {
 				$this->nbFeed++;
 				$this->nbNotRead += $feed->nbNotRead();
+				$this->hasFeedsWithError |= $feed->inError();
 			}
 		}
 	}
@@ -51,10 +53,15 @@ class FreshRSS_Category extends Minz_Model {
 			foreach ($this->feeds as $feed) {
 				$this->nbFeed++;
 				$this->nbNotRead += $feed->nbNotRead();
+				$this->hasFeedsWithError |= $feed->inError();
 			}
 		}
 
 		return $this->feeds;
+	}
+
+	public function hasFeedsWithError() {
+		return $this->hasFeedsWithError;
 	}
 
 	public function _id($value) {

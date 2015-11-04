@@ -9,6 +9,9 @@ session_name('FreshRSS');
 session_set_cookie_params(0, dirname(empty($_SERVER['REQUEST_URI']) ? '/' : dirname($_SERVER['REQUEST_URI'])), null, false, true);
 session_start();
 
+Minz_Configuration::register('default_system', join_path(DATA_PATH, 'config.default.php'));
+Minz_Configuration::register('default_user', join_path(USERS_PATH, '_', 'config.default.php'));
+
 if (isset($_GET['step'])) {
 	define('STEP',(int)$_GET['step']);
 } else {
@@ -76,10 +79,52 @@ function saveLanguage() {
 	}
 }
 
+function saveStep1() {
+	if (isset($_POST['freshrss-keep-install']) &&
+			$_POST['freshrss-keep-install'] === '1') {
+		// We want to keep our previous installation of FreshRSS
+		// so we need to make next steps valid by setting $_SESSION vars
+		// with values from the previous installation
+
+		// First, we try to get previous configurations
+		Minz_Configuration::register('system',
+		                             join_path(DATA_PATH, 'config.php'),
+		                             join_path(DATA_PATH, 'config.default.php'));
+		$system_conf = Minz_Configuration::get('system');
+
+		$current_user = $system_conf->default_user;
+		Minz_Configuration::register('user',
+		                             join_path(USERS_PATH, $current_user, 'config.php'),
+		                             join_path(USERS_PATH, '_', 'config.default.php'));
+		$user_conf = Minz_Configuration::get('user');
+
+		// Then, we set $_SESSION vars
+		$_SESSION['title'] = $system_conf->title;
+		$_SESSION['auth_type'] = $system_conf->auth_type;
+		$_SESSION['old_entries'] = $user_conf->old_entries;
+		$_SESSION['mail_login'] = $user_conf->mail_login;
+		$_SESSION['default_user'] = $current_user;
+		$_SESSION['passwordHash'] = $user_conf->passwordHash;
+
+		$db = $system_conf->db;
+		$_SESSION['bd_type'] = $db['type'];
+		$_SESSION['bd_host'] = $db['host'];
+		$_SESSION['bd_user'] = $db['user'];
+		$_SESSION['bd_password'] = $db['password'];
+		$_SESSION['bd_base'] = $db['base'];
+		$_SESSION['bd_prefix'] = $db['prefix'];
+		$_SESSION['bd_error'] = '';
+
+		header('Location: index.php?step=4');
+	}
+}
+
 function saveStep2() {
+	$user_default_config = Minz_Configuration::get('default_user');
 	if (!empty($_POST)) {
-		$_SESSION['title'] = substr(trim(param('title', _t('gen.freshrss'))), 0, 25);
-		$_SESSION['old_entries'] = param('old_entries', 3);
+		$system_default_config = Minz_Configuration::get('default_system');
+		$_SESSION['title'] = $system_default_config->title;
+		$_SESSION['old_entries'] = param('old_entries', $user_default_config->old_entries);
 		$_SESSION['auth_type'] = param('auth_type', 'form');
 		$_SESSION['default_user'] = substr(preg_replace('/[^a-zA-Z0-9]/', '', param('default_user', '')), 0, 16);
 		$_SESSION['mail_login'] = filter_var(param('mail_login', ''), FILTER_VALIDATE_EMAIL);
@@ -94,8 +139,7 @@ function saveStep2() {
 			$_SESSION['passwordHash'] = $passwordHash;
 		}
 
-		if (empty($_SESSION['title']) ||
-		    empty($_SESSION['old_entries']) ||
+		if (empty($_SESSION['old_entries']) ||
 		    empty($_SESSION['auth_type']) ||
 		    empty($_SESSION['default_user'])) {
 			return false;
@@ -108,7 +152,7 @@ function saveStep2() {
 
 		$_SESSION['salt'] = sha1(uniqid(mt_rand(), true).implode('', stat(__FILE__)));
 		if ((!ctype_digit($_SESSION['old_entries'])) ||($_SESSION['old_entries'] < 1)) {
-			$_SESSION['old_entries'] = 3;
+			$_SESSION['old_entries'] = $user_default_config->old_entries;
 		}
 
 		$token = '';
@@ -118,7 +162,7 @@ function saveStep2() {
 
 		$config_array = array(
 			'language' => $_SESSION['language'],
-			'theme' => 'Origine',
+			'theme' => $user_default_config->theme,
 			'old_entries' => $_SESSION['old_entries'],
 			'mail_login' => $_SESSION['mail_login'],
 			'passwordHash' => $_SESSION['passwordHash'],
@@ -165,12 +209,14 @@ function saveStep3() {
 			$_SESSION['bd_user'] = $_POST['user'];
 			$_SESSION['bd_password'] = $_POST['pass'];
 			$_SESSION['bd_prefix'] = substr($_POST['prefix'], 0, 16);
-			$_SESSION['bd_prefix_user'] = $_SESSION['bd_prefix'] .(empty($_SESSION['default_user']) ? '' :($_SESSION['default_user'] . '_'));
+			$_SESSION['bd_prefix_user'] = $_SESSION['bd_prefix'] . (empty($_SESSION['default_user']) ? '' : ($_SESSION['default_user'] . '_'));
 		}
 
+		// We use dirname to remove the /i part
+		$base_url = dirname(Minz_Request::guessBaseUrl());
 		$config_array = array(
-			'environment' => 'production',
 			'salt' => $_SESSION['salt'],
+			'base_url' => $base_url,
 			'title' => $_SESSION['title'],
 			'default_user' => $_SESSION['default_user'],
 			'auth_type' => $_SESSION['auth_type'],
@@ -181,7 +227,9 @@ function saveStep3() {
 				'password' => $_SESSION['bd_password'],
 				'base' => $_SESSION['bd_base'],
 				'prefix' => $_SESSION['bd_prefix'],
+				'pdo_options' => array(),
 			),
+			'pubsubhubbub_enabled' => server_is_public($base_url),
 		);
 
 		@unlink(join_path(DATA_PATH, 'config.php'));	//To avoid access-rights problems
@@ -298,9 +346,35 @@ function checkStep1() {
 	);
 }
 
+function freshrss_already_installed() {
+	$conf_path = join_path(DATA_PATH, 'config.php');
+	if (!file_exists($conf_path)) {
+		return false;
+	}
+
+	// A configuration file already exists, we try to load it.
+	$system_conf = null;
+	try {
+		Minz_Configuration::register('system', $conf_path);
+		$system_conf = Minz_Configuration::get('system');
+	} catch (Minz_FileNotExistException $e) {
+		return false;
+	}
+
+	// ok, the global conf exists... but what about default user conf?
+	$current_user = $system_conf->default_user;
+	try {
+		Minz_Configuration::register('user', join_path(USERS_PATH, $current_user, 'config.php'));
+	} catch (Minz_FileNotExistException $e) {
+		return false;
+	}
+
+	// ok, ok, default user exists too!
+	return true;
+}
+
 function checkStep2() {
-	$conf = !empty($_SESSION['title']) &&
-	        !empty($_SESSION['old_entries']) &&
+	$conf = !empty($_SESSION['old_entries']) &&
 	        isset($_SESSION['mail_login']) &&
 	        !empty($_SESSION['default_user']);
 
@@ -425,7 +499,7 @@ function printStep0() {
 		<div class="form-group">
 			<label class="group-name" for="language"><?php echo _t('install.language'); ?></label>
 			<div class="group-controls">
-				<select name="language" id="language">
+				<select name="language" id="language" tabindex="1" >
 				<?php foreach ($languages as $lang) { ?>
 				<option value="<?php echo $lang; ?>"<?php echo $actual == $lang ? ' selected="selected"' : ''; ?>>
 					<?php echo _t('gen.lang.' . $lang); ?>
@@ -437,10 +511,10 @@ function printStep0() {
 
 		<div class="form-group form-actions">
 			<div class="group-controls">
-				<button type="submit" class="btn btn-important"><?php echo _t('gen.action.submit'); ?></button>
-				<button type="reset" class="btn"><?php echo _t('gen.action.cancel'); ?></button>
+				<button type="submit" class="btn btn-important" tabindex="2" ><?php echo _t('gen.action.submit'); ?></button>
+				<button type="reset" class="btn" tabindex="3" ><?php echo _t('gen.action.cancel'); ?></button>
 				<?php if ($s0['all'] == 'ok') { ?>
-				<a class="btn btn-important next-step" href="?step=1"><?php echo _t('install.action.next_step'); ?></a>
+				<a class="btn btn-important next-step" href="?step=1" tabindex="4" ><?php echo _t('install.action.next_step'); ?></a>
 				<?php } ?>
 			</div>
 		</div>
@@ -533,8 +607,38 @@ function printStep1() {
 	<p class="alert alert-error"><span class="alert-head"><?php echo _t('gen.short.damn'); ?></span> <?php echo _t('install.check.http_referer.nok'); ?></p>
 	<?php } ?>
 
-	<?php if ($res['all'] == 'ok') { ?>
-	<a class="btn btn-important next-step" href="?step=2"><?php echo _t('install.action.next_step'); ?></a>
+	<?php if (freshrss_already_installed() && $res['all'] == 'ok') { ?>
+	<p class="alert alert-warn"><span class="alert-head"><?php echo _t('gen.short.attention'); ?></span> <?php echo _t('install.check.already_installed'); ?></p>
+
+	<form action="index.php?step=1" method="post">
+		<input type="hidden" name="freshrss-keep-install" value="1" />
+		<button type="submit" class="btn btn-important next-step" tabindex="1" ><?php echo _t('install.action.keep_install'); ?></button>
+		<a class="btn btn-attention next-step confirm" data-str-confirm="<?php echo _t('install.js.confirm_reinstall'); ?>" href="?step=2" tabindex="2" ><?php echo _t('install.action.reinstall'); ?></a>
+	</form>
+
+	<script>
+		function ask_confirmation(e) {
+			var str_confirmation = this.getAttribute('data-str-confirm');
+			if (!str_confirmation) {
+				str_confirmation = "<?php echo _t('gen.js.confirm_action'); ?>";
+			}
+
+			if (!confirm(str_confirmation)) {
+				e.preventDefault();
+			}
+		}
+
+		function init_confirm() {
+			confirms = document.getElementsByClassName('confirm');
+			for (var i = 0 ; i < confirms.length ; i++) {
+				confirms[i].addEventListener('click', ask_confirmation);
+			}
+		}
+
+		init_confirm();
+	</script>
+	<?php } elseif ($res['all'] == 'ok') { ?>
+	<a class="btn btn-important next-step" href="?step=2" tabindex="1" ><?php echo _t('install.action.next_step'); ?></a>
 	<?php } else { ?>
 	<p class="alert alert-error"><?php echo _t('install.action.fix_errors_before'); ?></p>
 	<?php } ?>
@@ -542,6 +646,7 @@ function printStep1() {
 }
 
 function printStep2() {
+	$user_default_config = Minz_Configuration::get('default_user');
 ?>
 	<?php $s2 = checkStep2(); if ($s2['all'] == 'ok') { ?>
 	<p class="alert alert-success"><span class="alert-head"><?php echo _t('gen.short.ok'); ?></span> <?php echo _t('install.conf.ok'); ?></p>
@@ -553,30 +658,23 @@ function printStep2() {
 		<legend><?php echo _t('install.conf'); ?></legend>
 
 		<div class="form-group">
-			<label class="group-name" for="title"><?php echo _t('install.title'); ?></label>
-			<div class="group-controls">
-				<input type="text" id="title" name="title" value="<?php echo isset($_SESSION['title']) ? $_SESSION['title'] : _t('gen.freshrss'); ?>" />
-			</div>
-		</div>
-
-		<div class="form-group">
 			<label class="group-name" for="old_entries"><?php echo _t('install.delete_articles_after'); ?></label>
 			<div class="group-controls">
-				<input type="number" id="old_entries" name="old_entries" required="required" min="1" max="1200" value="<?php echo isset($_SESSION['old_entries']) ? $_SESSION['old_entries'] : '3'; ?>" /> <?php echo _t('gen.date.month'); ?>
+				<input type="number" id="old_entries" name="old_entries" required="required" min="1" max="1200" value="<?php echo isset($_SESSION['old_entries']) ? $_SESSION['old_entries'] : $user_default_config->old_entries; ?>" tabindex="2" /> <?php echo _t('gen.date.month'); ?>
 			</div>
 		</div>
 
 		<div class="form-group">
 			<label class="group-name" for="default_user"><?php echo _t('install.default_user'); ?></label>
 			<div class="group-controls">
-				<input type="text" id="default_user" name="default_user" required="required" size="16" maxlength="16" pattern="[0-9a-zA-Z]{1,16}" value="<?php echo isset($_SESSION['default_user']) ? $_SESSION['default_user'] : ''; ?>" placeholder="<?php echo httpAuthUser() == '' ? 'alice' : httpAuthUser(); ?>" />
+				<input type="text" id="default_user" name="default_user" required="required" size="16" maxlength="16" pattern="[0-9a-zA-Z]{1,16}" value="<?php echo isset($_SESSION['default_user']) ? $_SESSION['default_user'] : ''; ?>" placeholder="<?php echo httpAuthUser() == '' ? 'alice' : httpAuthUser(); ?>" tabindex="3" />
 			</div>
 		</div>
 
 		<div class="form-group">
 			<label class="group-name" for="auth_type"><?php echo _t('install.auth.type'); ?></label>
 			<div class="group-controls">
-				<select id="auth_type" name="auth_type" required="required" onchange="auth_type_change(true)">
+				<select id="auth_type" name="auth_type" required="required" onchange="auth_type_change(true)" tabindex="4">
 					<?php
 						function no_auth($auth_type) {
 							return !in_array($auth_type, array('form', 'persona', 'http_auth', 'none'));
@@ -595,7 +693,7 @@ function printStep2() {
 			<label class="group-name" for="passwordPlain"><?php echo _t('install.auth.password_form'); ?></label>
 			<div class="group-controls">
 				<div class="stick">
-					<input type="password" id="passwordPlain" name="passwordPlain" pattern=".{7,}" autocomplete="off" <?php echo $auth_type === 'form' ? ' required="required"' : ''; ?> />
+					<input type="password" id="passwordPlain" name="passwordPlain" pattern=".{7,}" autocomplete="off" <?php echo $auth_type === 'form' ? ' required="required"' : ''; ?> tabindex="5" />
 					<a class="btn toggle-password" data-toggle="passwordPlain"><?php echo FreshRSS_Themes::icon('key'); ?></a>
 				</div>
 				<?php echo _i('help'); ?> <?php echo _t('install.auth.password_format'); ?>
@@ -606,7 +704,7 @@ function printStep2() {
 		<div class="form-group">
 			<label class="group-name" for="mail_login"><?php echo _t('install.auth.email_persona'); ?></label>
 			<div class="group-controls">
-				<input type="email" id="mail_login" name="mail_login" value="<?php echo isset($_SESSION['mail_login']) ? $_SESSION['mail_login'] : ''; ?>" placeholder="alice@example.net" <?php echo $auth_type === 'persona' ? ' required="required"' : ''; ?> />
+				<input type="email" id="mail_login" name="mail_login" value="<?php echo isset($_SESSION['mail_login']) ? $_SESSION['mail_login'] : ''; ?>" placeholder="alice@example.net" <?php echo $auth_type === 'persona' ? ' required="required"' : ''; ?> tabindex="6"/>
 				<noscript><b><?php echo _t('gen.js.should_be_activated'); ?></b></noscript>
 			</div>
 		</div>
@@ -634,7 +732,7 @@ function printStep2() {
 				toggles[i].addEventListener('mouseup', hide_password);
 			}
 
-			function auth_type_change(focus) {
+			function auth_type_change() {
 				var auth_value = document.getElementById('auth_type').value,
 				    password_input = document.getElementById('passwordPlain'),
 				    mail_input = document.getElementById('mail_login');
@@ -642,29 +740,23 @@ function printStep2() {
 				if (auth_value === 'form') {
 					password_input.required = true;
 					mail_input.required = false;
-					if (focus) {
-						password_input.focus();
-					}
 				} else if (auth_value === 'persona') {
 					password_input.required = false;
 					mail_input.required = true;
-					if (focus) {
-						mail_input.focus();
-					}
 				} else {
 					password_input.required = false;
 					mail_input.required = false;
 				}
 			}
-			auth_type_change(false);
+			auth_type_change();
 		</script>
 
 		<div class="form-group form-actions">
 			<div class="group-controls">
-				<button type="submit" class="btn btn-important"><?php echo _t('gen.action.submit'); ?></button>
-				<button type="reset" class="btn"><?php echo _t('gen.action.cancel'); ?></button>
+				<button type="submit" class="btn btn-important" tabindex="7" ><?php echo _t('gen.action.submit'); ?></button>
+				<button type="reset" class="btn" tabindex="8" ><?php echo _t('gen.action.cancel'); ?></button>
 				<?php if ($s2['all'] == 'ok') { ?>
-				<a class="btn btn-important next-step" href="?step=3"><?php echo _t('install.action.next_step'); ?></a>
+				<a class="btn btn-important next-step" href="?step=3" tabindex="9" ><?php echo _t('install.action.next_step'); ?></a>
 				<?php } ?>
 			</div>
 		</div>
@@ -673,6 +765,7 @@ function printStep2() {
 }
 
 function printStep3() {
+	$system_default_config = Minz_Configuration::get('default_system');
 ?>
 	<?php $s3 = checkStep3(); if ($s3['all'] == 'ok') { ?>
 	<p class="alert alert-success"><span class="alert-head"><?php echo _t('gen.short.ok'); ?></span> <?php echo _t('install.bdd.conf.ok'); ?></p>
@@ -685,7 +778,7 @@ function printStep3() {
 		<div class="form-group">
 			<label class="group-name" for="type"><?php echo _t('install.bdd.type'); ?></label>
 			<div class="group-controls">
-				<select name="type" id="type" onchange="mySqlShowHide()">
+				<select name="type" id="type" onchange="mySqlShowHide()" tabindex="1" >
 				<?php if (extension_loaded('pdo_mysql')) {?>
 				<option value="mysql"
 					<?php echo(isset($_SESSION['bd_type']) && $_SESSION['bd_type'] === 'mysql') ? 'selected="selected"' : ''; ?>>
@@ -706,51 +799,58 @@ function printStep3() {
 		<div class="form-group">
 			<label class="group-name" for="host"><?php echo _t('install.bdd.host'); ?></label>
 			<div class="group-controls">
-				<input type="text" id="host" name="host" pattern="[0-9A-Za-z_.-]{1,64}" value="<?php echo isset($_SESSION['bd_host']) ? $_SESSION['bd_host'] : 'localhost'; ?>" />
+				<input type="text" id="host" name="host" pattern="[0-9A-Za-z_.-]{1,64}" value="<?php echo isset($_SESSION['bd_host']) ? $_SESSION['bd_host'] : $system_default_config->db['host']; ?>" tabindex="2" />
 			</div>
 		</div>
 
 		<div class="form-group">
 			<label class="group-name" for="user"><?php echo _t('install.bdd.username'); ?></label>
 			<div class="group-controls">
-				<input type="text" id="user" name="user" maxlength="16" pattern="[0-9A-Za-z_.-]{1,16}" value="<?php echo isset($_SESSION['bd_user']) ? $_SESSION['bd_user'] : ''; ?>" />
+				<input type="text" id="user" name="user" maxlength="16" pattern="[0-9A-Za-z_.-]{1,16}" value="<?php echo isset($_SESSION['bd_user']) ? $_SESSION['bd_user'] : ''; ?>" tabindex="3" />
 			</div>
 		</div>
 
 		<div class="form-group">
 			<label class="group-name" for="pass"><?php echo _t('install.bdd.password'); ?></label>
 			<div class="group-controls">
-				<input type="password" id="pass" name="pass" value="<?php echo isset($_SESSION['bd_password']) ? $_SESSION['bd_password'] : ''; ?>" />
+				<input type="password" id="pass" name="pass" value="<?php echo isset($_SESSION['bd_password']) ? $_SESSION['bd_password'] : ''; ?>" tabindex="4" />
 			</div>
 		</div>
 
 		<div class="form-group">
 			<label class="group-name" for="base"><?php echo _t('install.bdd'); ?></label>
 			<div class="group-controls">
-				<input type="text" id="base" name="base" maxlength="64" pattern="[0-9A-Za-z_]{1,64}" value="<?php echo isset($_SESSION['bd_base']) ? $_SESSION['bd_base'] : ''; ?>" />
+				<input type="text" id="base" name="base" maxlength="64" pattern="[0-9A-Za-z_]{1,64}" value="<?php echo isset($_SESSION['bd_base']) ? $_SESSION['bd_base'] : ''; ?>" tabindex="5" />
 			</div>
 		</div>
 
 		<div class="form-group">
 			<label class="group-name" for="prefix"><?php echo _t('install.bdd.prefix'); ?></label>
 			<div class="group-controls">
-				<input type="text" id="prefix" name="prefix" maxlength="16" pattern="[0-9A-Za-z_]{1,16}" value="<?php echo isset($_SESSION['bd_prefix']) ? $_SESSION['bd_prefix'] : 'freshrss_'; ?>" />
+				<input type="text" id="prefix" name="prefix" maxlength="16" pattern="[0-9A-Za-z_]{1,16}" value="<?php echo isset($_SESSION['bd_prefix']) ? $_SESSION['bd_prefix'] :  $system_default_config->db['prefix']; ?>" tabindex="6" />
 			</div>
 		</div>
 		</div>
 		<script>
 			function mySqlShowHide() {
 				document.getElementById('mysql').style.display = document.getElementById('type').value === 'mysql' ? 'block' : 'none';
+				if (document.getElementById('type').value !== 'mysql') {
+					document.getElementById('host').value = '';
+					document.getElementById('user').value = '';
+					document.getElementById('pass').value = '';
+					document.getElementById('base').value = '';
+					document.getElementById('prefix').value = '';
+				}
 			}
 			mySqlShowHide();
 		</script>
 
 		<div class="form-group form-actions">
 			<div class="group-controls">
-				<button type="submit" class="btn btn-important"><?php echo _t('gen.action.submit'); ?></button>
-				<button type="reset" class="btn"><?php echo _t('gen.action.cancel'); ?></button>
+				<button type="submit" class="btn btn-important" tabindex="7" ><?php echo _t('gen.action.submit'); ?></button>
+				<button type="reset" class="btn" tabindex="8" ><?php echo _t('gen.action.cancel'); ?></button>
 				<?php if ($s3['all'] == 'ok') { ?>
-				<a class="btn btn-important next-step" href="?step=4"><?php echo _t('install.action.next_step'); ?></a>
+				<a class="btn btn-important next-step" href="?step=4" tabindex="9" ><?php echo _t('install.action.next_step'); ?></a>
 				<?php } ?>
 			</div>
 		</div>
@@ -761,7 +861,7 @@ function printStep3() {
 function printStep4() {
 ?>
 	<p class="alert alert-success"><span class="alert-head"><?php echo _t('install.congratulations'); ?></span> <?php echo _t('install.ok'); ?></p>
-	<a class="btn btn-important next-step" href="?step=5"><?php echo _t('install.action.finish'); ?></a>
+	<a class="btn btn-important next-step" href="?step=5" tabindex="1"><?php echo _t('install.action.finish'); ?></a>
 <?php
 }
 
@@ -781,6 +881,7 @@ default:
 	saveLanguage();
 	break;
 case 1:
+	saveStep1();
 	break;
 case 2:
 	saveStep2();
@@ -820,7 +921,7 @@ case 5:
 		<li class="item<?php echo STEP == 1 ? ' active' : ''; ?>"><a href="?step=1"><?php echo _t('install.check'); ?></a></li>
 		<li class="item<?php echo STEP == 2 ? ' active' : ''; ?>"><a href="?step=2"><?php echo _t('install.conf'); ?></a></li>
 		<li class="item<?php echo STEP == 3 ? ' active' : ''; ?>"><a href="?step=3"><?php echo _t('install.bdd.conf'); ?></a></li>
-		<li class="item<?php echo STEP == 4 ? ' active' : ''; ?>"><a href="?step=5"><?php echo _t('install.this_is_the_end'); ?></a></li>
+		<li class="item<?php echo STEP == 4 ? ' active' : ''; ?>"><a href="?step=4"><?php echo _t('install.this_is_the_end'); ?></a></li>
 	</ul>
 
 	<div class="post">

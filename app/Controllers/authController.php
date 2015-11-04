@@ -123,8 +123,8 @@ class FreshRSS_auth_Controller extends Minz_ActionController {
 
 			$conf = get_user_configuration($username);
 			if (is_null($conf)) {
-				Minz_Request::bad(_t('feedback.auth.login.invalid'),
-				                  array('c' => 'auth', 'a' => 'login'));
+				Minz_Error::error(403, array(_t('feedback.auth.login.invalid')), false);
+				return;
 			}
 
 			$ok = FreshRSS_FormAuth::checkCredentials(
@@ -151,8 +151,7 @@ class FreshRSS_auth_Controller extends Minz_ActionController {
 				                  ' user=' . $username .
 				                  ', nonce=' . $nonce .
 				                  ', c=' . $challenge);
-				Minz_Request::bad(_t('feedback.auth.login.invalid'),
-				                  array('c' => 'auth', 'a' => 'login'));
+				Minz_Error::error(403, array(_t('feedback.auth.login.invalid')), false);
 			}
 		} elseif (FreshRSS_Context::$system_conf->unsafe_autologin_enabled) {
 			$username = Minz_Request::param('u', '');
@@ -184,8 +183,7 @@ class FreshRSS_auth_Controller extends Minz_ActionController {
 				                   array('c' => 'index', 'a' => 'index'));
 			} else {
 				Minz_Log::warning('Unsafe password mismatch for user ' . $username);
-				Minz_Request::bad(_t('feedback.auth.login.invalid'),
-				                  array('c' => 'auth', 'a' => 'login'));
+				Minz_Error::error(403, array(_t('feedback.auth.login.invalid')), false);
 			}
 		}
 	}
@@ -253,7 +251,7 @@ class FreshRSS_auth_Controller extends Minz_ActionController {
 				FreshRSS_Auth::giveAccess();
 				invalidateHttpCache();
 			} else {
-				Minz_Log::error($reason);
+				Minz_Log::warning($reason);
 
 				$res = array();
 				$res['status'] = 'failure';
@@ -345,5 +343,16 @@ class FreshRSS_auth_Controller extends Minz_ActionController {
 				                  array('c' => 'auth', 'a' => 'reset'));
 			}
 		}
+	}
+
+	/**
+	 * This action gives possibility to a user to create an account.
+	 */
+	public function registerAction() {
+		if (max_registrations_reached()) {
+			Minz_Error::error(403);
+		}
+
+		Minz_View::prependTitle(_t('gen.auth.registration.title') . ' · ');
 	}
 }

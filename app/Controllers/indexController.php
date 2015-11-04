@@ -137,6 +137,7 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 		}
 
 		// No layout for RSS output.
+		$this->view->url = empty($_SERVER['QUERY_STRING']) ? '' : '?' . $_SERVER['QUERY_STRING'];
 		$this->view->rss_title = FreshRSS_Context::$name . ' | ' . Minz_View::title();
 		$this->view->_useLayout(false);
 		header('Content-Type: application/rss+xml; charset=utf-8');
@@ -161,6 +162,7 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 		);
 
 		FreshRSS_Context::_get(Minz_Request::param('get', 'a'));
+
 		FreshRSS_Context::$state = Minz_Request::param(
 			'state', FreshRSS_Context::$user_conf->default_state
 		);
@@ -172,7 +174,7 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 			FreshRSS_Context::$state |= FreshRSS_Entry::STATE_READ;
 		}
 
-		FreshRSS_Context::$search = Minz_Request::param('search', '');
+		FreshRSS_Context::$search = new FreshRSS_Search(Minz_Request::param('search', ''));
 		FreshRSS_Context::$order = Minz_Request::param(
 			'order', FreshRSS_Context::$user_conf->sort_order
 		);

@@ -1,6 +1,6 @@
 <?php
 
-class FreshRSS_CategoryDAO extends Minz_ModelPdo {
+class FreshRSS_CategoryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 	public function addCategory($valuesTmp) {
 		$sql = 'INSERT INTO `' . $this->prefix . 'category`(name) VALUES(?)';
 		$stm = $this->bd->prepare($sql);
@@ -13,7 +13,7 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo {
 			return $this->bd->lastInsertId();
 		} else {
 			$info = $stm == null ? array(2 => 'syntax error') : $stm->errorInfo();
-			Minz_Log::error('SQL error addCategory: ' . $info[2]	);
+			Minz_Log::error('SQL error addCategory: ' . $info[2]);
 			return false;
 		}
 	}

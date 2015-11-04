@@ -35,8 +35,9 @@ return array(
 		'title_add' => 'Ajouter un flux RSS',
 		'ttl' => 'Ne pas automatiquement rafraîchir plus souvent que',
 		'url' => 'URL du flux',
-		'validator' => 'Vérifier la valididé du flux',
+		'validator' => 'Vérifier la validité du flux',
 		'website' => 'URL du site',
+		'pubsubhubbub' => 'Notification instantanée par PubSubHubbub',
 	),
 	'import_export' => array(
 		'export' => 'Exporter',

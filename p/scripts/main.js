@@ -238,12 +238,7 @@ function toggleContent(new_active, old_active) {
 		old_active.removeClass("active current");
 		new_active.addClass("current");
 		if (context['auto_remove_article'] && !old_active.hasClass('not_read')) {
-			var p = old_active.prev();
-			var n = old_active.next();
-			if (p.hasClass('day') && n.hasClass('day')) {
-				p.remove();
-			}
-			old_active.remove();
+			auto_remove(old_active);
 		}
 	} else {
 		new_active.toggleClass('active');
@@ -258,7 +253,7 @@ function toggleContent(new_active, old_active) {
 
 	if (context['sticky_post']) {
 		var prev_article = new_active.prevAll('.flux'),
-		    new_pos = new_active.position().top,
+			new_pos = new_active.position().top,
 			old_scroll = $(box_to_move).scrollTop();
 
 		if (prev_article.length > 0 && new_pos - prev_article.position().top <= 150) {
@@ -287,6 +282,16 @@ function toggleContent(new_active, old_active) {
 	if (context['auto_mark_article'] && new_active.hasClass('active')) {
 		mark_read(new_active, true);
 	}
+}
+
+function auto_remove(element) {
+	var p = element.prev();
+	var n = element.next();
+	if (p.hasClass('day') && n.hasClass('day')) {
+		p.remove();
+	}
+	element.remove();
+	$('#stream > .flux:not(.not_read):not(.active)').remove();
 }
 
 function prev_entry() {
@@ -683,7 +688,7 @@ function init_stream(divStream) {
 		}
 		var old_active = $(".flux.current"),
 			new_active = $(this).parent();
-			isCollapsed = true;
+		isCollapsed = true;
 		if (e.target.tagName.toUpperCase() === 'A') {	//Leave real links alone
 			if (context['auto_mark_article']) {
 				mark_read(new_active, true);
@@ -696,12 +701,7 @@ function init_stream(divStream) {
 	divStream.on('click', '.flux a.read', function () {
 		var active = $(this).parents(".flux");
 		if (context['auto_remove_article'] && active.hasClass('not_read')) {
-			var p = active.prev();
-			var n = active.next();
-			if (p.hasClass('day') && n.hasClass('day')) {
-				p.remove();
-			}
-			active.remove();
+			auto_remove(active);
 		}
 		mark_read(active, false);
 		return false;
@@ -882,8 +882,8 @@ function notifs_html5_show(nb) {
 
 	if (context['html5_notif_timeout'] !== 0){
 		setTimeout(function() {
-					notification.close();
-				}, context['html5_notif_timeout'] * 1000);
+			notification.close();
+		}, context['html5_notif_timeout'] * 1000);
 	}
 }
 
@@ -899,7 +899,7 @@ function init_notifs_html5() {
 function refreshUnreads() {
 	$.getJSON('./?c=javascript&a=nbUnreadsPerFeed').done(function (data) {
 		var isAll = $('.category.all.active').length > 0,
-		    new_articles = false;
+			new_articles = false;
 
 		$.each(data, function(feed_id, nbUnreads) {
 			feed_id = 'f_' + feed_id;
@@ -1097,7 +1097,7 @@ function init_share_observers() {
 	$('.share.add').on('click', function(e) {
 		var opt = $(this).siblings('select').find(':selected');
 		var row = $(this).parents('form').data(opt.data('form'));
-		row = row.replace('##label##', opt.html(), 'g');
+		row = row.replace('##label##', opt.html().trim(), 'g');
 		row = row.replace('##type##', opt.val(), 'g');
 		row = row.replace('##help##', opt.data('help'), 'g');
 		row = row.replace('##key##', shares, 'g');
@@ -1195,7 +1195,7 @@ function faviconNbUnread(n) {
 
 function init_slider_observers() {
 	var slider = $('#slider'),
-	    closer = $('#close-slider');
+		closer = $('#close-slider');
 	if (slider.length < 1) {
 		return;
 	}
@@ -1226,6 +1226,31 @@ function init_slider_observers() {
 		closer.removeClass('active');
 		slider.removeClass('active');
 		return false;
+	});
+}
+
+function init_configuration_alert() {
+	$(window).on('submit', function(e) {
+		window.hasSubmit = true;
+	});
+	$(window).on('beforeunload', function(e) {
+		if (window.hasSubmit) {
+			return;
+		}
+		var fields = $("[data-leave-validation]");
+		for (var i = 0; i < fields.length; i++) {
+			if ($(fields[i]).attr('type') === 'checkbox' || $(fields[i]).attr('type') === 'radio') {
+				// The use of != is done on purpose to check boolean against integer
+				if ($(fields[i]).is(':checked') != $(fields[i]).attr('data-leave-validation')) {
+					return false;
+				}
+			} else {
+				if ($(fields[i]).attr('data-leave-validation') !== $(fields[i]).val()) {
+					return false;
+				}
+			}
+		}
+		return;
 	});
 }
 
@@ -1260,6 +1285,7 @@ function init_all() {
 		init_password_observers();
 		init_stats_observers();
 		init_slider_observers();
+		init_configuration_alert();
 	}
 
 	if (window.console) {

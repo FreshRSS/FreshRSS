@@ -112,6 +112,7 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 			FreshRSS_Context::$user_conf->sticky_post = Minz_Request::param('sticky_post', false);
 			FreshRSS_Context::$user_conf->reading_confirm = Minz_Request::param('reading_confirm', false);
 			FreshRSS_Context::$user_conf->auto_remove_article = Minz_Request::param('auto_remove_article', false);
+			FreshRSS_Context::$user_conf->mark_updated_article_unread = Minz_Request::param('mark_updated_article_unread', false);
 			FreshRSS_Context::$user_conf->sort_order = Minz_Request::param('sort_order', 'DESC');
 			FreshRSS_Context::$user_conf->mark_when = array(
 				'article' => Minz_Request::param('mark_open_article', false),
@@ -241,13 +242,16 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 	 * checking if categories and feeds are still in use.
 	 */
 	public function queriesAction() {
+		$category_dao = new FreshRSS_CategoryDAO();
+		$feed_dao = FreshRSS_Factory::createFeedDao();
 		if (Minz_Request::isPost()) {
-			$queries = Minz_Request::param('queries', array());
+			$params = Minz_Request::param('queries', array());
 
-			foreach ($queries as $key => $query) {
+			foreach ($params as $key => $query) {
 				if (!$query['name']) {
 					$query['name'] = _t('conf.query.number', $key + 1);
 				}
+				$queries[] = new FreshRSS_UserQuery($query, $feed_dao, $category_dao);
 			}
 			FreshRSS_Context::$user_conf->queries = $queries;
 			FreshRSS_Context::$user_conf->save();
@@ -255,62 +259,9 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 			Minz_Request::good(_t('feedback.conf.updated'),
 			                   array('c' => 'configure', 'a' => 'queries'));
 		} else {
-			$this->view->query_get = array();
-			$cat_dao = new FreshRSS_CategoryDAO();
-			$feed_dao = FreshRSS_Factory::createFeedDao();
+			$this->view->queries = array();
 			foreach (FreshRSS_Context::$user_conf->queries as $key => $query) {
-				if (!isset($query['get'])) {
-					continue;
-				}
-
-				switch ($query['get'][0]) {
-				case 'c':
-					$category = $cat_dao->searchById(substr($query['get'], 2));
-
-					$deprecated = true;
-					$cat_name = '';
-					if ($category) {
-						$cat_name = $category->name();
-						$deprecated = false;
-					}
-
-					$this->view->query_get[$key] = array(
-						'type' => 'category',
-						'name' => $cat_name,
-						'deprecated' => $deprecated,
-					);
-					break;
-				case 'f':
-					$feed = $feed_dao->searchById(substr($query['get'], 2));
-
-					$deprecated = true;
-					$feed_name = '';
-					if ($feed) {
-						$feed_name = $feed->name();
-						$deprecated = false;
-					}
-
-					$this->view->query_get[$key] = array(
-						'type' => 'feed',
-						'name' => $feed_name,
-						'deprecated' => $deprecated,
-					);
-					break;
-				case 's':
-					$this->view->query_get[$key] = array(
-						'type' => 'favorite',
-						'name' => 'favorite',
-						'deprecated' => false,
-					);
-					break;
-				case 'a':
-					$this->view->query_get[$key] = array(
-						'type' => 'all',
-						'name' => 'all',
-						'deprecated' => false,
-					);
-					break;
-				}
+				$this->view->queries[$key] = new FreshRSS_UserQuery($query, $feed_dao, $category_dao);
 			}
 		}
 
@@ -325,20 +276,56 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 	 * lean data.
 	 */
 	public function addQueryAction() {
-		$whitelist = array('get', 'order', 'name', 'search', 'state');
-		$queries = FreshRSS_Context::$user_conf->queries;
-		$query = Minz_Request::params();
-		$query['name'] = _t('conf.query.number', count($queries) + 1);
-		foreach ($query as $key => $value) {
-			if (!in_array($key, $whitelist)) {
-				unset($query[$key]);
-			}
+		$category_dao = new FreshRSS_CategoryDAO();
+		$feed_dao = FreshRSS_Factory::createFeedDao();
+		$queries = array();
+		foreach (FreshRSS_Context::$user_conf->queries as $key => $query) {
+			$queries[$key] = new FreshRSS_UserQuery($query, $feed_dao, $category_dao);
 		}
-		$queries[] = $query;
+		$params = Minz_Request::params();
+		$params['url'] = Minz_Url::display(array('params' => $params));
+		$params['name'] = _t('conf.query.number', count($queries) + 1);
+		$queries[] = new FreshRSS_UserQuery($params, $feed_dao, $category_dao);
+
 		FreshRSS_Context::$user_conf->queries = $queries;
 		FreshRSS_Context::$user_conf->save();
 
 		Minz_Request::good(_t('feedback.conf.query_created', $query['name']),
 		                   array('c' => 'configure', 'a' => 'queries'));
+	}
+
+	/**
+	 * This action handles the system configuration page.
+	 *
+	 * It displays the system configuration page.
+	 * If this action is reach through a POST request, it stores all new
+	 * configuration values then sends a notification to the user.
+	 *
+	 * The options available on the page are:
+	 *   - user limit (default: 1)
+	 *   - user category limit (default: 16384)
+	 *   - user feed limit (default: 16384)
+	 */
+	public function systemAction() {
+		if (!FreshRSS_Auth::hasAccess('admin')) {
+			Minz_Error::error(403);
+		}
+		if (Minz_Request::isPost()) {
+			$limits = FreshRSS_Context::$system_conf->limits;
+			$limits['max_registrations'] = Minz_Request::param('max-registrations', 1);
+			$limits['max_feeds'] = Minz_Request::param('max-feeds', 16384);
+			$limits['max_categories'] = Minz_Request::param('max-categories', 16384);
+			FreshRSS_Context::$system_conf->limits = $limits;
+			FreshRSS_Context::$system_conf->title = Minz_Request::param('instance-name', 'FreshRSS');
+			FreshRSS_Context::$system_conf->auto_update_url = Minz_Request::param('auto-update-url', false);
+			FreshRSS_Context::$system_conf->save();
+
+			invalidateHttpCache();
+
+			Minz_Session::_param('notification', array(
+				'type' => 'good',
+				'content' => _t('feedback.conf.updated')
+			));
+		}
 	}
 }

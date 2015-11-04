@@ -126,6 +126,14 @@
 				?></select>
 			</div>
 		</div>
+		<div class="form-group">
+			<label class="group-name" for="pubsubhubbub"><?php echo _t('sub.feed.pubsubhubbub'); ?></label>
+			<div class="group-controls">
+				<label class="checkbox" for="pubsubhubbub">
+					<input type="checkbox" name="pubsubhubbub" id="pubsubhubbub" disabled="disabled" value="1"<?php echo $this->feed->pubSubHubbubEnabled() ? ' checked="checked"' : ''; ?> />
+				</label>
+			</div>
+		</div>
 		<div class="form-group form-actions">
 			<div class="group-controls">
 				<button class="btn btn-important"><?php echo _t('gen.action.submit'); ?></button>
@@ -136,15 +144,15 @@
 		<legend><?php echo _t('sub.feed.auth.configuration'); ?></legend>
 		<?php $auth = $this->feed->httpAuth(false); ?>
 		<div class="form-group">
-			<label class="group-name" for="http_user"><?php echo _t('sub.feed.auth.username'); ?></label>
+			<label class="group-name" for="http_user_feed<?php echo $this->feed->id(); ?>"><?php echo _t('sub.feed.auth.username'); ?></label>
 			<div class="group-controls">
-				<input type="text" name="http_user" id="http_user" class="extend" value="<?php echo $auth['username']; ?>" autocomplete="off" />
+				<input type="text" name="http_user_feed<?php echo $this->feed->id(); ?>" id="http_user_feed<?php echo $this->feed->id(); ?>" class="extend" value="<?php echo empty($auth['username']) ? ' ' : $auth['username']; ?>" autocomplete="off" />
 				<?php echo _i('help'); ?> <?php echo _t('sub.feed.auth.help'); ?>
 			</div>
 
-			<label class="group-name" for="http_pass"><?php echo _t('sub.feed.auth.password'); ?></label>
+			<label class="group-name" for="http_pass_feed<?php echo $this->feed->id(); ?>"><?php echo _t('sub.feed.auth.password'); ?></label>
 			<div class="group-controls">
-				<input type="password" name="http_pass" id="http_pass" class="extend" value="<?php echo $auth['password']; ?>" autocomplete="off" />
+				<input type="password" name="http_pass_feed<?php echo $this->feed->id(); ?>" id="http_pass_feed<?php echo $this->feed->id(); ?>" class="extend" value="<?php echo $auth['password']; ?>" autocomplete="off" />
 			</div>
 		</div>
 

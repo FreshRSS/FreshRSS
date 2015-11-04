@@ -66,7 +66,7 @@ class SimplePie_File
 	var $method = SIMPLEPIE_FILE_SOURCE_NONE;
 	var $permanent_url;	//FreshRSS
 
-	public function __construct($url, $timeout = 10, $redirects = 5, $headers = null, $useragent = null, $force_fsockopen = false)
+	public function __construct($url, $timeout = 10, $redirects = 5, $headers = null, $useragent = null, $force_fsockopen = false, $curl_options = array(), $syslog_enabled = SIMPLEPIE_SYSLOG)
 	{
 		if (class_exists('idna_convert'))
 		{
@@ -75,11 +75,14 @@ class SimplePie_File
 			$url = SimplePie_Misc::compress_parse_url($parsed['scheme'], $idn->encode($parsed['authority']), $parsed['path'], $parsed['query'], $parsed['fragment']);
 		}
 		$this->url = $url;
-		$this->permanent_url = $url;	//FreshRSS
+		$this->permanent_url = $url;
 		$this->useragent = $useragent;
 		if (preg_match('/^http(s)?:\/\//i', $url))
 		{
-			// syslog(LOG_INFO, 'SimplePie GET ' . $url);	//FreshRSS
+			if ($syslog_enabled)
+			{
+				syslog(LOG_INFO, 'SimplePie GET ' . SimplePie_Misc::url_remove_credentials($url));	//FreshRSS
+			}
 			if ($useragent === null)
 			{
 				$useragent = ini_get('user_agent');
@@ -110,11 +113,14 @@ class SimplePie_File
 				curl_setopt($fp, CURLOPT_REFERER, $url);
 				curl_setopt($fp, CURLOPT_USERAGENT, $useragent);
 				curl_setopt($fp, CURLOPT_HTTPHEADER, $headers2);
-				curl_setopt($fp, CURLOPT_SSL_VERIFYPEER, false);	//FreshRSS
 				if (!ini_get('open_basedir') && !ini_get('safe_mode') && version_compare(SimplePie_Misc::get_curl_version(), '7.15.2', '>='))
 				{
 					curl_setopt($fp, CURLOPT_FOLLOWLOCATION, 1);
 					curl_setopt($fp, CURLOPT_MAXREDIRS, $redirects);
+				}
+				foreach ($curl_options as $curl_param => $curl_value)
+				{
+					curl_setopt($fp, $curl_param, $curl_value);
 				}
 
 				$this->headers = curl_exec($fp);
@@ -146,7 +152,7 @@ class SimplePie_File
 							$location = SimplePie_Misc::absolutize_url($this->headers['location'], $url);
 							$previousStatusCode = $this->status_code;
 							$this->__construct($location, $timeout, $redirects, $headers, $useragent, $force_fsockopen);
-							$this->permanent_url = ($previousStatusCode == 301) ? $location : $url;	//FreshRSS
+							$this->permanent_url = ($previousStatusCode == 301) ? $location : $url;
 							return;
 						}
 					}

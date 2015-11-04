@@ -53,21 +53,19 @@ class Minz_ModelPdo {
 		$this->current_user = $currentUser;
 		self::$sharedCurrentUser = $currentUser;
 
+		$driver_options = isset($conf->db['pdo_options']) && is_array($conf->db['pdo_options']) ? $conf->db['pdo_options'] : array();
+
 		try {
 			$type = $db['type'];
 			if ($type === 'mysql') {
 				$string = 'mysql:host=' . $db['host']
 				        . ';dbname=' . $db['base']
 				        . ';charset=utf8';
-				$driver_options = array(
-					PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8',
-				);
+				$driver_options[PDO::MYSQL_ATTR_INIT_COMMAND] = 'SET NAMES utf8';
 				$this->prefix = $db['prefix'] . $currentUser . '_';
 			} elseif ($type === 'sqlite') {
 				$string = 'sqlite:' . join_path(DATA_PATH, 'users', $currentUser, 'db.sqlite');
-				$driver_options = array(
-					//PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-				);
+				//$driver_options[PDO::ATTR_ERRMODE] = PDO::ERRMODE_EXCEPTION;
 				$this->prefix = '';
 			} else {
 				throw new Minz_PDOConnectionException(
@@ -133,5 +131,10 @@ class MinzPDO extends PDO {
 	public function exec($statement) {
 		MinzPDO::check($statement);
 		return parent::exec($statement);
+	}
+
+	public function query($statement) {
+		MinzPDO::check($statement);
+		return parent::query($statement);
 	}
 }

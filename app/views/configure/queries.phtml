@@ -6,27 +6,29 @@
 	<form method="post" action="<?php echo _url('configure', 'queries'); ?>">
 		<legend><?php echo _t('conf.query'); ?></legend>
 
-		<?php foreach (FreshRSS_Context::$user_conf->queries as $key => $query) { ?>
+		<?php foreach ($this->queries as $key => $query) { ?>
 		<div class="form-group" id="query-group-<?php echo $key; ?>">
 			<label class="group-name" for="queries_<?php echo $key; ?>_name">
 				<?php echo _t('conf.query.number', $key + 1); ?>
 			</label>
 
 			<div class="group-controls">
-				<input type="hidden" id="queries_<?php echo $key; ?>_search" name="queries[<?php echo $key; ?>][search]" value="<?php echo isset($query['search']) ? $query['search'] : ""; ?>"/>
-				<input type="hidden" id="queries_<?php echo $key; ?>_state" name="queries[<?php echo $key; ?>][state]" value="<?php echo isset($query['state']) ? $query['state'] : ""; ?>"/>
-				<input type="hidden" id="queries_<?php echo $key; ?>_order" name="queries[<?php echo $key; ?>][order]" value="<?php echo isset($query['order']) ? $query['order'] : ""; ?>"/>
-				<input type="hidden" id="queries_<?php echo $key; ?>_get" name="queries[<?php echo $key; ?>][get]" value="<?php echo isset($query['get']) ? $query['get'] : ""; ?>"/>
+				<input type="hidden" id="queries_<?php echo $key; ?>_search" name="queries[<?php echo $key; ?>][url]" value="<?php echo $query->getUrl(); ?>"/>
+				<input type="hidden" id="queries_<?php echo $key; ?>_search" name="queries[<?php echo $key; ?>][search]" value="<?php echo $query->getSearch(); ?>"/>
+				<input type="hidden" id="queries_<?php echo $key; ?>_state" name="queries[<?php echo $key; ?>][state]" value="<?php echo $query->getState(); ?>"/>
+				<input type="hidden" id="queries_<?php echo $key; ?>_order" name="queries[<?php echo $key; ?>][order]" value="<?php echo $query->getOrder(); ?>"/>
+				<input type="hidden" id="queries_<?php echo $key; ?>_get" name="queries[<?php echo $key; ?>][get]" value="<?php echo $query->getGet(); ?>"/>
 
 				<div class="stick">
 					<input class="extend"
 					       type="text"
 					       id="queries_<?php echo $key; ?>_name"
 					       name="queries[<?php echo $key; ?>][name]"
-					       value="<?php echo $query['name']; ?>"
+					       value="<?php echo $query->getName(); ?>"
+					       data-leave-validation="<?php echo $query->getName(); ?>"
 					/>
 
-					<a class="btn" href="<?php echo $query['url']; ?>">
+					<a class="btn" href="<?php echo $query->getUrl(); ?>">
 						<?php echo _i('link'); ?>
 					</a>
 
@@ -35,23 +37,11 @@
 					</a>
 				</div>
 
-				<?php
-					$exist = (isset($query['search']) ? 1 : 0)
-						   + (isset($query['state']) ? 1 : 0)
-						   + (isset($query['order']) ? 1 : 0)
-						   + (isset($query['get']) ? 1 : 0);
-					// If the only filter is "all" articles, we consider there is no filter
-					$exist = ($exist === 1 && isset($query['get']) && $query['get'] === 'a') ? 0 : $exist;
-
-					$deprecated = (isset($this->query_get[$key]) &&
-					               $this->query_get[$key]['deprecated']);
-				?>
-
-				<?php if ($exist === 0) { ?>
+				<?php if (!$query->hasParameters()) { ?>
 				<div class="alert alert-warn">
 					<div class="alert-head"><?php echo _t('conf.query.no_filter'); ?></div>
 				</div>
-				<?php } elseif ($deprecated) { ?>
+				<?php } elseif ($query->isDeprecated()) { ?>
 				<div class="alert alert-error">
 					<div class="alert-head"><?php echo _t('conf.query.deprecated'); ?></div>
 				</div>
@@ -60,20 +50,20 @@
 					<div class="alert-head"><?php echo _t('conf.query.filter'); ?></div>
 
 					<ul>
-						<?php if (isset($query['search'])) { ?>
-						<li class="item"><?php echo _t('conf.query.search', $query['search']); ?></li>
+						<?php if ($query->hasSearch()) { ?>
+						<li class="item"><?php echo _t('conf.query.search', $query->getSearch()->getRawInput()); ?></li>
 						<?php } ?>
 
-						<?php if (isset($query['state'])) { ?>
-						<li class="item"><?php echo _t('conf.query.state_' . $query['state']); ?></li>
+						<?php if ($query->getState()) { ?>
+						<li class="item"><?php echo _t('conf.query.state_' . $query->getState()); ?></li>
 						<?php } ?>
 
-						<?php if (isset($query['order'])) { ?>
-						<li class="item"><?php echo _t('conf.query.order_' . strtolower($query['order'])); ?></li>
+						<?php if ($query->getOrder()) { ?>
+						<li class="item"><?php echo _t('conf.query.order_' . strtolower($query->getOrder())); ?></li>
 						<?php } ?>
 
-						<?php if (isset($query['get'])) { ?>
-						<li class="item"><?php echo _t('conf.query.get_' . $this->query_get[$key]['type'], $this->query_get[$key]['name']); ?></li>
+						<?php if ($query->getGet()) { ?>
+						<li class="item"><?php echo _t('conf.query.get_' . $query->getGetType(), $query->getGetName()); ?></li>
 						<?php } ?>
 					</ul>
 				</div>

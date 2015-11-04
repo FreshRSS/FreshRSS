@@ -117,12 +117,11 @@ class FreshRSS_ConfigurationSetter {
 	private function _queries(&$data, $values) {
 		$data['queries'] = array();
 		foreach ($values as $value) {
-			$value = array_filter($value);
-			$params = $value;
-			unset($params['name']);
-			unset($params['url']);
-			$value['url'] = Minz_Url::display(array('params' => $params));
-			$data['queries'][] = $value;
+			if ($value instanceof FreshRSS_UserQuery) {
+				$data['queries'][] = $value->toArray();
+			} elseif (is_array($value)) {
+				$data['queries'][] = $value;
+			}
 		}
 	}
 
@@ -190,6 +189,10 @@ class FreshRSS_ConfigurationSetter {
 
 	private function _auto_remove_article(&$data, $value) {
 		$data['auto_remove_article'] = $this->handleBool($value);
+	}
+
+	private function _mark_updated_article_unread(&$data, $value) {
+		$data['mark_updated_article_unread'] = $this->handleBool($value);
 	}
 
 	private function _display_categories(&$data, $value) {
@@ -351,6 +354,9 @@ class FreshRSS_ConfigurationSetter {
 				'min' => 0,
 				'max' => $max_small_int,
 			),
+			'max_registrations' => array(
+				'min' => 0,
+			),
 		);
 
 		foreach ($values as $key => $value) {
@@ -358,10 +364,11 @@ class FreshRSS_ConfigurationSetter {
 				continue;
 			}
 
+			$value = intval($value);
 			$limits = $limits_keys[$key];
 			if (
-				(!isset($limits['min']) || $value > $limits['min']) &&
-				(!isset($limits['max']) || $value < $limits['max'])
+				(!isset($limits['min']) || $value >= $limits['min']) &&
+				(!isset($limits['max']) || $value <= $limits['max'])
 			) {
 				$data['limits'][$key] = $value;
 			}
@@ -370,5 +377,13 @@ class FreshRSS_ConfigurationSetter {
 
 	private function _unsafe_autologin_enabled(&$data, $value) {
 		$data['unsafe_autologin_enabled'] = $this->handleBool($value);
+	}
+
+	private function _auto_update_url(&$data, $value) {
+		if (!$value) {
+			return;
+		}
+
+		$data['auto_update_url'] = $value;
 	}
 }

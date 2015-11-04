@@ -146,6 +146,17 @@ return array(
 		'title' => 'Statistiques',
 		'top_feed' => 'Les dix plus gros flux',
 	),
+	'system' => array(
+		'_' => 'Configuration du système',
+		'auto-update-url' => 'URL du service de mise à jour',
+		'instance-name' => 'Nom de l’instance',
+		'max-categories' => 'Limite de catégories par utilisateur',
+		'max-feeds' => 'Limite de flux par utilisateur',
+		'registration' => array(
+			'help' => 'Un chiffre de 0 signifie que l’on peut créer un nombre infini de comptes',
+			'number' => 'Nombre max de comptes',
+		),
+	),
 	'update' => array(
 		'_' => 'Système de mise à jour',
 		'apply' => 'Appliquer la mise à jour',
@@ -160,6 +171,8 @@ return array(
 		'create' => 'Créer un nouvel utilisateur',
 		'email_persona' => 'Adresse courriel de connexion<br /><small>(pour <a href="https://persona.org/" rel="external">Mozilla Persona</a>)</small>',
 		'language' => 'Langue',
+		'number' => '%d compte a déjà été créé',
+		'numbers' => '%d comptes ont déjà été créés',
 		'password_form' => 'Mot de passe<br /><small>(pour connexion par formulaire)</small>',
 		'password_format' => '7 caractères minimum',
 		'title' => 'Gestion des utilisateurs',

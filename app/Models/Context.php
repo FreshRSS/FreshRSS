@@ -10,6 +10,7 @@ class FreshRSS_Context {
 	public static $categories = array();
 
 	public static $name = '';
+	public static $description = '';
 
 	public static $total_unread = 0;
 	public static $total_starred = array(
@@ -30,7 +31,7 @@ class FreshRSS_Context {
 	public static $state = 0;
 	public static $order = 'DESC';
 	public static $number = 0;
-	public static $search = '';
+	public static $search;
 	public static $first_id = '';
 	public static $next_id = '';
 	public static $id_max = '';
@@ -94,6 +95,13 @@ class FreshRSS_Context {
 	}
 
 	/**
+	 * Return true if the current request targets a feed (and not a category or all articles), false otherwise.
+	 */
+	public static function isFeed() {
+		return self::$current_get['feed'] != false;
+	}
+
+	/**
 	 * Return true if $get parameter correspond to the $current_get attribute.
 	 */
 	public static function isCurrentGet($get) {
@@ -146,8 +154,8 @@ class FreshRSS_Context {
 			self::$state = self::$state | FreshRSS_Entry::STATE_FAVORITE;
 			break;
 		case 'f':
-			// We try to find the corresponding feed.
-			$feed = FreshRSS_CategoryDAO::findFeed(self::$categories, $id);
+			// We try to find the corresponding feed. When allowing robots, always retrieve the full feed including description
+			$feed = FreshRSS_Context::$system_conf->allow_robots ? null : FreshRSS_CategoryDAO::findFeed(self::$categories, $id);
 			if ($feed === null) {
 				$feedDAO = FreshRSS_Factory::createFeedDao();
 				$feed = $feedDAO->searchById($id);
@@ -160,6 +168,7 @@ class FreshRSS_Context {
 			self::$current_get['feed'] = $id;
 			self::$current_get['category'] = $feed->category();
 			self::$name = $feed->name();
+			self::$description = $feed->description();
 			self::$get_unread = $feed->nbNotRead();
 			break;
 		case 'c':
@@ -301,4 +310,5 @@ class FreshRSS_Context {
 		}
 		return false;
 	}
+
 }

@@ -10,14 +10,14 @@
 		<div class="form-group">
 			<label class="group-name" for="old_entries"><?php echo _t('conf.archiving.delete_after'); ?></label>
 			<div class="group-controls">
-				<input type="number" id="old_entries" name="old_entries" min="1" max="1200" value="<?php echo FreshRSS_Context::$user_conf->old_entries; ?>" /> <?php echo _t('gen.date.month'); ?>
+				<input type="number" id="old_entries" name="old_entries" min="1" max="1200" value="<?php echo FreshRSS_Context::$user_conf->old_entries; ?>" data-leave-validation="<?php echo FreshRSS_Context::$user_conf->old_entries; ?>"/> <?php echo _t('gen.date.month'); ?>
 				  <a class="btn confirm" href="<?php echo _url('entry', 'purge'); ?>"><?php echo _t('conf.archiving.purge_now'); ?></a>
 			</div>
 		</div>
 		<div class="form-group">
 			<label class="group-name" for="keep_history_default"><?php echo _t('conf.archiving.keep_history_by_feed'); ?></label>
 			<div class="group-controls">
-				<select class="number" name="keep_history_default" id="keep_history_default" required="required"><?php
+				<select class="number" name="keep_history_default" id="keep_history_default" required="required" data-leave-validation="<?php echo FreshRSS_Context::$user_conf->keep_history_default; ?>"><?php
 					foreach (array('' => '', 0 => '0', 10 => '10', 50 => '50', 100 => '100', 500 => '500', 1000 => '1 000', 5000 => '5 000', 10000 => '10 000', -1 => '∞') as $v => $t) {
 						echo '<option value="' . $v . (FreshRSS_Context::$user_conf->keep_history_default == $v ? '" selected="selected' : '') . '">' . $t . ' </option>';
 					}
@@ -27,7 +27,7 @@
 		<div class="form-group">
 			<label class="group-name" for="ttl_default"><?php echo _t('conf.archiving.ttl'); ?></label>
 			<div class="group-controls">
-				<select class="number" name="ttl_default" id="ttl_default" required="required"><?php
+				<select class="number" name="ttl_default" id="ttl_default" required="required" data-leave-validation="<?php echo FreshRSS_Context::$user_conf->ttl_default; ?>"><?php
 					$found = false;
 					foreach (array(1200 => '20min', 1500 => '25min', 1800 => '30min', 2700 => '45min',
 					                3600 => '1h', 5400 => '1.5h', 7200 => '2h', 10800 => '3h', 14400 => '4h', 18800 => '5h', 21600 => '6h', 25200 => '7h', 28800 => '8h',

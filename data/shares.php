@@ -44,6 +44,12 @@ return array(
 		'help' => 'https://diasporafoundation.org/',
 		'form' => 'advanced',
 	),
+	'movim' => array(
+		'url' => '~URL~/index.php/share/~LINK~',
+		'transform' => array('rawurlencode', 'urlencode'),
+		'help' => 'https://github.com/edhelas/movim',
+		'form' => 'advanced',
+	),
 	'twitter' => array(
 		'url' => 'https://twitter.com/share?url=~LINK~&amp;text=~TITLE~',
 		'transform' => array('rawurlencode'),

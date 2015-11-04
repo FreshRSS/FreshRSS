@@ -77,7 +77,7 @@ class MyPDO extends Minz_ModelPdo {
 }
 
 function logMe($text) {
-	file_put_contents(join_path(USERS_PATH, '_', 'log_api.txt'), $text, FILE_APPEND);
+	file_put_contents(join_path(USERS_PATH, '_', 'log_api.txt'), date('c') . "\t" . $text . "\n", FILE_APPEND);
 }
 
 function debugInfo() {
@@ -96,7 +96,7 @@ function debugInfo() {
 }
 
 function badRequest() {
-	logMe("badRequest()\n");
+	logMe("badRequest()");
 	logMe(debugInfo());
 	header('HTTP/1.1 400 Bad Request');
 	header('Content-Type: text/plain; charset=UTF-8');
@@ -104,7 +104,7 @@ function badRequest() {
 }
 
 function unauthorized() {
-	logMe("unauthorized()\n");
+	logMe("unauthorized()");
 	logMe(debugInfo());
 	header('HTTP/1.1 401 Unauthorized');
 	header('Content-Type: text/plain; charset=UTF-8');
@@ -113,7 +113,7 @@ function unauthorized() {
 }
 
 function notImplemented() {
-	logMe("notImplemented()\n");
+	logMe("notImplemented()");
 	logMe(debugInfo());
 	header('HTTP/1.1 501 Not Implemented');
 	header('Content-Type: text/plain; charset=UTF-8');
@@ -121,14 +121,14 @@ function notImplemented() {
 }
 
 function serviceUnavailable() {
-	logMe("serviceUnavailable()\n");
+	logMe("serviceUnavailable()");
 	header('HTTP/1.1 503 Service Unavailable');
 	header('Content-Type: text/plain; charset=UTF-8');
 	die('Service Unavailable!');
 }
 
 function checkCompatibility() {
-	logMe("checkCompatibility()\n");
+	logMe("checkCompatibility()");
 	header('Content-Type: text/plain; charset=UTF-8');
 	if (PHP_INT_SIZE < 8 && !function_exists('gmp_init')) {
 		die('FAIL 64-bit or GMP extension!');
@@ -159,7 +159,7 @@ function authorizationToUser() {
 				if ($headerAuthX[1] === sha1($system_conf->salt . $user . $conf->apiPasswordHash)) {
 					return $user;
 				} else {
-					logMe('Invalid API authorisation for user ' . $user . ': ' . $headerAuthX[1] . "\n");
+					logMe('Invalid API authorisation for user ' . $user . ': ' . $headerAuthX[1]);
 					Minz_Log::warning('Invalid API authorisation for user ' . $user . ': ' . $headerAuthX[1]);
 					unauthorized();
 				}
@@ -172,7 +172,7 @@ function authorizationToUser() {
 }
 
 function clientLogin($email, $pass) {	//http://web.archive.org/web/20130604091042/http://undoc.in/clientLogin.html
-	logMe('clientLogin(' . $email . ")\n");
+	//logMe('clientLogin(' . $email . ")");
 	if (ctype_alnum($email)) {
 		if (!function_exists('password_verify')) {
 			include_once(LIB_PATH . '/password_compat.php');
@@ -205,7 +205,7 @@ function token($conf) {
 //http://blog.martindoms.com/2009/08/15/using-the-google-reader-api-part-1/
 //https://github.com/ericmann/gReader-Library/blob/master/greader.class.php
 	$user = Minz_Session::param('currentUser', '_');
-	logMe('token('. $user . ")\n");	//TODO: Implement real token that expires
+	//logMe('token('. $user . ")");	//TODO: Implement real token that expires
 	$system_conf = Minz_Configuration::get('system');
 	$token = str_pad(sha1($system_conf->salt . $user . $conf->apiPasswordHash), 57, 'Z');	//Must have 57 characters
 	echo $token, "\n";
@@ -215,7 +215,7 @@ function token($conf) {
 function checkToken($conf, $token) {
 //http://code.google.com/p/google-reader-api/wiki/ActionToken
 	$user = Minz_Session::param('currentUser', '_');
-	logMe('checkToken(' . $token . ")\n");
+	//logMe('checkToken(' . $token . ")");
 	$system_conf = Minz_Configuration::get('system');
 	if ($token === str_pad(sha1($system_conf->salt . $user . $conf->apiPasswordHash), 57, 'Z')) {
 		return true;
@@ -224,7 +224,7 @@ function checkToken($conf, $token) {
 }
 
 function tagList() {
-	logMe("tagList()\n");
+	//logMe("tagList()");
 	header('Content-Type: application/json; charset=UTF-8');
 
 	$pdo = new MyPDO();
@@ -249,7 +249,7 @@ function tagList() {
 }
 
 function subscriptionList() {
-	logMe("subscriptionList()\n");
+	//logMe("subscriptionList()");
 	header('Content-Type: application/json; charset=UTF-8');
 
 	$pdo = new MyPDO();
@@ -283,7 +283,7 @@ function subscriptionList() {
 }
 
 function unreadCount() {	//http://blog.martindoms.com/2009/10/16/using-the-google-reader-api-part-2/#unread-count
-	logMe("unreadCount()\n");
+	//logMe("unreadCount()");
 	header('Content-Type: application/json; charset=UTF-8');
 
 	$totalUnreads = 0;
@@ -330,7 +330,7 @@ function unreadCount() {	//http://blog.martindoms.com/2009/10/16/using-the-googl
 function streamContents($path, $include_target, $start_time, $count, $order, $exclude_target, $continuation) {
 //http://code.google.com/p/pyrfeed/wiki/GoogleReaderAPI
 //http://blog.martindoms.com/2009/10/16/using-the-google-reader-api-part-2/#feed
-	logMe("streamContents($path, $include_target, $start_time, $count, $order, $exclude_target, $continuation)\n");
+	//logMe("streamContents($path, $include_target, $start_time, $count, $order, $exclude_target, $continuation)");
 	header('Content-Type: application/json; charset=UTF-8');
 
 	$feedDAO = FreshRSS_Factory::createFeedDao();
@@ -371,7 +371,7 @@ function streamContents($path, $include_target, $start_time, $count, $order, $ex
 	}
 
 	$entryDAO = FreshRSS_Factory::createEntryDao();
-	$entries = $entryDAO->listWhere($type, $include_target, $state, $order === 'o' ? 'ASC' : 'DESC', $count, $continuation, '', $start_time);
+	$entries = $entryDAO->listWhere($type, $include_target, $state, $order === 'o' ? 'ASC' : 'DESC', $count, $continuation, new FreshRSS_Search(''), $start_time);
 
 	$items = array();
 	foreach ($entries as $entry) {
@@ -436,7 +436,7 @@ function streamContentsItemsIds($streamId, $start_time, $count, $order, $exclude
 //http://code.google.com/p/google-reader-api/wiki/ApiStreamItemsIds
 //http://code.google.com/p/pyrfeed/wiki/GoogleReaderAPI
 //http://blog.martindoms.com/2009/10/16/using-the-google-reader-api-part-2/#feed
-	logMe("streamContentsItemsIds($streamId, $start_time, $count, $order, $exclude_target)\n");
+	//logMe("streamContentsItemsIds($streamId, $start_time, $count, $order, $exclude_target)");
 
 	$type = 'A';
 	$id = '';
@@ -465,8 +465,11 @@ function streamContentsItemsIds($streamId, $start_time, $count, $order, $exclude
 	}
 
 	$entryDAO = FreshRSS_Factory::createEntryDao();
-	$ids = $entryDAO->listIdsWhere($type, $id, $state, $order === 'o' ? 'ASC' : 'DESC', $count, '', '', $start_time);
+	$ids = $entryDAO->listIdsWhere($type, $id, $state, $order === 'o' ? 'ASC' : 'DESC', $count, '', new FreshRSS_Search(''), $start_time);
 
+	if (empty($ids)) {	//For News+ bug https://github.com/noinnion/newsplus/issues/84#issuecomment-57834632
+		$ids[] = 0;
+	}
 	$itemRefs = array();
 	foreach ($ids as $id) {
 		$itemRefs[] = array(
@@ -481,7 +484,7 @@ function streamContentsItemsIds($streamId, $start_time, $count, $order, $exclude
 }
 
 function editTag($e_ids, $a, $r) {
-	logMe("editTag()\n");
+	//logMe("editTag()");
 
 	foreach ($e_ids as $i => $e_id) {
 		$e_ids[$i] = hex2dec(basename($e_id));	//Strip prefix 'tag:google.com,2005:reader/item/'
@@ -517,7 +520,7 @@ function editTag($e_ids, $a, $r) {
 }
 
 function markAllAsRead($streamId, $olderThanId) {
-	logMe("markAllAsRead($streamId, $olderThanId)\n");
+	//logMe("markAllAsRead($streamId, $olderThanId)");
 	$entryDAO = FreshRSS_Factory::createEntryDao();
 	if (strpos($streamId, 'feed/') === 0) {
 		$f_id = basename($streamId);
@@ -535,7 +538,7 @@ function markAllAsRead($streamId, $olderThanId) {
 	exit();
 }
 
-logMe('----------------------------------------------------------------'."\n");
+//logMe('----------------------------------------------------------------');
 //logMe(debugInfo());
 
 $pathInfo = empty($_SERVER['PATH_INFO']) ? '/Error' : urldecode($_SERVER['PATH_INFO']);
@@ -557,7 +560,7 @@ if ($user !== '') {
 	$conf = get_user_configuration($user);
 }
 
-logMe('User => ' . $user . "\n");
+//logMe('User => ' . $user);
 
 Minz_Session::_param('currentUser', $user);
 

@@ -22,6 +22,11 @@ return array (
 	'sticky_post' => true,
 	'reading_confirm' => false,
 	'auto_remove_article' => false,
+
+	# In the case an article has changed (e.g. updated content):
+	#	Set to `true` to mark it unread, or `false` to leave it as-is.
+	'mark_updated_article_unread' => false, //TODO: -1 => ignore, 0 => update, 1 => update and mark as unread
+
 	'sort_order' => 'DESC',
 	'anon_access' => false,
 	'mark_when' => array (

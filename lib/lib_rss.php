@@ -38,7 +38,7 @@ function classAutoloader($class) {
 				include(APP_PATH . '/Models/' . $components[1] . '.php');
 				return;
 			case 3:	//Controllers, Exceptions
-				@include(APP_PATH . '/' . $components[2] . 's/' . $components[1] . $components[2] . '.php');
+				include(APP_PATH . '/' . $components[2] . 's/' . $components[1] . $components[2] . '.php');
 				return;
 		}
 	} elseif (strpos($class, 'Minz') === 0) {
@@ -51,6 +51,21 @@ function classAutoloader($class) {
 spl_autoload_register('classAutoloader');
 //</Auto-loading>
 
+function idn_to_puny($url) {
+	if (function_exists('idn_to_ascii')) {
+		$parts = parse_url($url);
+		if (!empty($parts['host'])) {
+			$idn = $parts['host'];
+			$puny = idn_to_ascii($idn);
+			$pos = strpos($url, $idn);
+			if ($pos !== false) {
+				return substr_replace($url, $puny, $pos, strlen($idn));
+			}
+		}
+	}
+	return $url;
+}
+
 function checkUrl($url) {
 	if (empty ($url)) {
 		return '';
@@ -58,6 +73,7 @@ function checkUrl($url) {
 	if (!preg_match ('#^https?://#i', $url)) {
 		$url = 'http://' . $url;
 	}
+	$url = idn_to_puny($url);	//PHP bug #53474 IDN
 	if (filter_var($url, FILTER_VALIDATE_URL) ||
 		(version_compare(PHP_VERSION, '5.3.3', '<') && (strpos($url, '-') > 0) &&	//PHP bug #51192
 		 ($url === filter_var($url, FILTER_SANITIZE_URL)))) {
@@ -66,6 +82,33 @@ function checkUrl($url) {
 		return false;
 	}
 }
+
+
+/**
+ * Test if a given server address is publicly accessible.
+ *
+ * Note: for the moment it tests only if address is corresponding to a
+ * localhost address.
+ *
+ * @param $address the address to test, can be an IP or a URL.
+ * @return true if server is accessible, false else.
+ * @todo improve test with a more valid technique (e.g. test with an external server?)
+ */
+function server_is_public($address) {
+	$host = parse_url($address, PHP_URL_HOST);
+
+	$is_public = !in_array($host, array(
+		'127.0.0.1',
+		'localhost',
+		'localhost.localdomain',
+		'[::1]',
+		'localhost6',
+		'localhost6.localdomain6',
+	));
+
+	return $is_public;
+}
+
 
 function format_number($n, $precision = 0) {
 	// number_format does not seem to be Unicode-compatible
@@ -123,9 +166,11 @@ function customSimplePie() {
 	$limits = $system_conf->limits;
 	$simplePie = new SimplePie();
 	$simplePie->set_useragent(_t('gen.freshrss') . '/' . FRESHRSS_VERSION . ' (' . PHP_OS . '; ' . FRESHRSS_WEBSITE . ') ' . SIMPLEPIE_NAME . '/' . SIMPLEPIE_VERSION);
+	$simplePie->set_syslog($system_conf->simplepie_syslog_enabled);
 	$simplePie->set_cache_location(CACHE_PATH);
 	$simplePie->set_cache_duration($limits['cache_duration']);
 	$simplePie->set_timeout($limits['timeout']);
+	$simplePie->set_curl_options($system_conf->curl_options);
 	$simplePie->strip_htmltags(array(
 		'base', 'blink', 'body', 'doctype', 'embed',
 		'font', 'form', 'frame', 'frameset', 'html',
@@ -178,17 +223,27 @@ function sanitizeHTML($data, $base = '') {
 
 /* permet de récupérer le contenu d'un article pour un flux qui n'est pas complet */
 function get_content_by_parsing ($url, $path) {
-	require_once (LIB_PATH . '/lib_phpQuery.php');
+	require_once(LIB_PATH . '/lib_phpQuery.php');
 
-	Minz_Log::notice('FreshRSS GET ' . url_remove_credentials($url));
-	$html = file_get_contents ($url);
+	Minz_Log::notice('FreshRSS GET ' . SimplePie_Misc::url_remove_credentials($url));
+	$html = file_get_contents($url);
 
 	if ($html) {
-		$doc = phpQuery::newDocument ($html);
-		$content = $doc->find ($path);
+		$doc = phpQuery::newDocument($html);
+		$content = $doc->find($path);
+
+		foreach (pq('img[data-src]') as $img) {
+			$imgP = pq($img);
+			$dataSrc = $imgP->attr('data-src');
+			if (strlen($dataSrc) > 4) {
+				$imgP->attr('src', $dataSrc);
+				$imgP->removeAttr('data-src');
+			}
+		}
+
 		return sanitizeHTML($content->__toString(), $url);
 	} else {
-		throw new Exception ();
+		throw new Exception();
 	}
 }
 
@@ -235,6 +290,22 @@ function listUsers() {
 	}
 
 	return $final_list;
+}
+
+
+/**
+ * Return if the maximum number of registrations has been reached.
+ *
+ * Note a max_regstrations of 0 means there is no limit.
+ *
+ * @return true if number of users >= max registrations, false else.
+ */
+function max_registrations_reached() {
+	$system_conf = Minz_Configuration::get('system');
+	$limit_registrations = $system_conf->limits['max_registrations'];
+	$number_accounts = count(listUsers());
+
+	return $limit_registrations > 0 && $number_accounts >= $limit_registrations;
 }
 
 
@@ -430,12 +501,11 @@ function array_remove(&$array, $value) {
 	$array = array_diff($array, array($value));
 }
 
-
-/**
- * Sanitize a URL by removing HTTP credentials.
- * @param $url the URL to sanitize.
- * @return the same URL without HTTP credentials.
- */
-function url_remove_credentials($url) {
-	return preg_replace('/[^\/]*:[^:]*@/', '', $url);
+//RFC 4648
+function base64url_encode($data) {
+	return strtr(rtrim(base64_encode($data), '='), '+/', '-_');
+}
+//RFC 4648
+function base64url_decode($data) {
+	return base64_decode(strtr($data, '-_', '+/'));
 }

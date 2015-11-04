@@ -6,6 +6,7 @@ FreshRSS est un agrégateur de flux RSS à auto-héberger à l’image de [Leed]
 Il se veut léger et facile à prendre en main tout en étant un outil puissant et paramétrable.
 
 Il permet de gérer plusieurs utilisateurs, et dispose d’un mode de lecture anonyme.
+Il supporte [PubSubHubbub](https://code.google.com/p/pubsubhubbub/) pour des notifications instantanées depuis les sites compatibles.
 
 * Site officiel : http://freshrss.org
 * Démo : http://demo.freshrss.org/
@@ -13,39 +14,73 @@ Il permet de gérer plusieurs utilisateurs, et dispose d’un mode de lecture an
 
 ![Logo de FreshRSS](http://marienfressinaud.fr/data/images/freshrss/freshrss_title.png)
 
-# Note sur les branches
-**Ce logiciel est encore en développement !** Veuillez vous assurer d'utiliser la branche qui vous correspond :
+# Téléchargement
+Voir la [liste des versions](../../releases).
+
+## Note sur les branches
+**Ce logiciel est en développement permanent !** Veuillez vous assurer d'utiliser la branche qui vous correspond :
 
 * Utilisez [la branche master](https://github.com/FreshRSS/FreshRSS/tree/master/) si vous visez la stabilité.
 * [La branche beta](https://github.com/FreshRSS/FreshRSS/tree/beta) est celle par défaut : les nouveautés y sont ajoutées environ tous les mois.
-* Pour les développeurs et ceux qui savent ce qu'ils font, [la branche dev](https://github.com/FreshRSS/FreshRSS/tree/dev) vous ouvre les bras !
+* Pour les développeurs et ceux qui veulent aider à tester les toutes dernières fonctionnalités, [la branche dev](https://github.com/FreshRSS/FreshRSS/tree/dev) vous ouvre les bras !
 
-# Disclaimer
-Cette application a été développée pour s’adapter à des besoins personnels et non professionnels.
-Je ne garantis en aucun cas la sécurité de celle-ci, ni son bon fonctionnement.
-Je m’engage néanmoins à répondre dans la mesure du possible aux demandes d’évolution si celles-ci me semblent justifiées.
-Privilégiez pour cela des demandes sur GitHub
-(https://github.com/FreshRSS/FreshRSS/issues).
+# Avertissements
+Cette application a été développée pour s’adapter principalement à des besoins personnels, et aucune garantie n'est fournie.
+Les demandes de fonctionnalités, rapports de bugs, et autres contributions sont les bienvenues. Privilégiez pour cela des [demandes sur GitHub](https://github.com/FreshRSS/FreshRSS/issues).
+Nous sommes une communauté amicale.
 
-# Pré-requis
+# Prérequis
 * Serveur modeste, par exemple sous Linux ou Windows
 	* Fonctionne même sur un Raspberry Pi avec des temps de réponse < 1s (testé sur 150 flux, 22k articles, soit 32Mo de données partiellement compressées)
 * Serveur Web Apache2 (recommandé), ou nginx, lighttpd (non testé sur les autres)
-* PHP 5.2.1+ (PHP 5.3.7+ recommandé)
-	* Requis : [PDO_MySQL](http://php.net/pdo-mysql) ou [PDO_SQLite](http://php.net/pdo-sqlite), [cURL](http://php.net/curl), [GMP](http://php.net/gmp) (seulement pour accès API sur platformes < 64 bits)
+* PHP 5.2.1+ (PHP 5.3.7+ recommandé, et PHP 5.5+ pour les performances) (support bêta de PHP 7 avec encore meilleures performances)
+	* Requis : [PDO_MySQL](http://php.net/pdo-mysql) ou [PDO_SQLite](http://php.net/pdo-sqlite), [cURL](http://php.net/curl), [GMP](http://php.net/gmp) (pour accès API sur plateformes < 64 bits), [IDN](http://php.net/intl.idn) (pour les noms de domaines internationalisés)
 	* Recommandés : [JSON](http://php.net/json), [mbstring](http://php.net/mbstring), [zlib](http://php.net/zlib), [Zip](http://php.net/zip)
 * MySQL 5.0.3+ (recommandé) ou SQLite 3.7.4+
-* Un navigateur Web récent tel Firefox 4+, Chrome, Opera, Safari, Internet Explorer 9+
+* Un navigateur Web récent tel Firefox, Chrome, Opera, Safari. [Internet Explorer ne fonctionne plus, mais ce sera corrigé](https://github.com/FreshRSS/FreshRSS/issues/772).
 	* Fonctionne aussi sur mobile
 
 ![Capture d’écran de FreshRSS](http://marienfressinaud.fr/data/images/freshrss/freshrss_default-design.png)
 
 # Installation
-1. Récupérez l’application FreshRSS via la commande git ou [en téléchargeant l’archive](https://github.com/FreshRSS/FreshRSS/archive/master.zip)
+1. Récupérez l’application FreshRSS via la commande git ou [en téléchargeant l’archive](../releases)
 2. Placez l’application sur votre serveur (la partie à exposer au Web est le répertoire `./p/`)
 3. Le serveur Web doit avoir les droits d’écriture dans le répertoire `./data/`
 4. Accédez à FreshRSS à travers votre navigateur Web et suivez les instructions d’installation
 5. Tout devrait fonctionner :) En cas de problème, n’hésitez pas à me contacter.
+6. Des paramètres de configuration avancée peuvent être accédés depuis [config.php](./data/config.default.php).
+
+## Exemple d’installation complète sur Linux Debian/Ubuntu
+```sh
+# Si vous utilisez le serveur Web Apache (sinon il faut un autre serveur Web)
+sudo apt-get install apache2
+sudo a2enmod headers expires rewrite ssl
+# (optionnel) Si vous voulez un serveur de base de données MySQL
+sudo apt-get install mysql-server mysql-client php5-mysql
+# Composants principaux (git est optionnel si vous déployez manuellement les fichiers d’installation)
+sudo apt-get install git php5 php5-curl php5-gd php5-intl php5-json php5-gmp php5-sqlite
+# Redémarrage du serveur Web
+sudo service apache2 restart
+
+# Pour FreshRSS lui-même
+cd /usr/share/
+sudo git clone https://github.com/FreshRSS/FreshRSS.git
+# Mettre les droits d’accès pour le serveur Web
+cd FreshRSS
+sudo chown -R :www-data .
+sudo chmod -R g+w ./data/
+# Publier FreshRSS dans votre répertoire HTML public
+sudo ln -s /usr/share/FreshRSS/p /var/www/html/FreshRSS
+# Naviguez vers http://example.net/FreshRSS pour terminer l’installation.
+# (Si vous le faite depuis localhost, vous pourrez avoir à ajuster le réglage de votre adresse publique)
+
+# Mettre à jour FreshRSS vers une nouvelle version
+cd /usr/share/FreshRSS
+sudo git reset --hard
+sudo git pull
+sudo chown -R :www-data .
+sudo chmod -R g+w ./data/
+```
 
 # Contrôle d’accès
 Il est requis pour le mode multi-utilisateur, et recommandé dans tous les cas, de limiter l’accès à votre FreshRSS. Au choix :
@@ -62,7 +97,7 @@ C’est une bonne idée d’utiliser le même utilisateur que votre serveur Web 
 Par exemple, pour exécuter le script toutes les heures :
 
 ```
-7 * * * * php /chemin/vers/FreshRSS/app/actualize_script.php > /tmp/FreshRSS.log 2>&1
+7 * * * * php /votre-chemin/FreshRSS/app/actualize_script.php > /tmp/FreshRSS.log 2>&1
 ```
 
 # Conseils
@@ -74,7 +109,7 @@ Par exemple, pour exécuter le script toutes les heures :
 # Sauvegarde
 * Il faut conserver vos fichiers `./data/config.php` ainsi que `./data/*_user.php` et éventuellement `./data/persona/`
 * Vous pouvez exporter votre liste de flux depuis FreshRSS au format OPML
-* Pour sauvegarder les articles eux-même, vous pouvez utiliser [phpMyAdmin](http://www.phpmyadmin.net) ou les outils de MySQL :
+* Pour sauvegarder les articles eux-mêmes, vous pouvez utiliser [phpMyAdmin](http://www.phpmyadmin.net) ou les outils de MySQL :
 
 ```bash
 mysqldump -u utilisateur -p --databases freshrss > freshrss.sql
