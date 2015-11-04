@@ -1,5 +1,22 @@
 # Changelog
 
+## 2015-11-03 FreshRSS 1.2.0 / 1.3.0-beta
+
+* Features
+	* Share with Movim [#992](https://github.com/FreshRSS/FreshRSS/issues/992)
+	* New option to allow robots / search engines [#938](https://github.com/FreshRSS/FreshRSS/issues/938)
+* Security
+	* Invalid logins now return HTTP 403, to be easier to catch (e.g. fail2ban) [#1015](https://github.com/FreshRSS/FreshRSS/issues/1015)
+* UI
+    * Remove "title" field during installation [#858](https://github.com/FreshRSS/FreshRSS/issues/858)
+	* Visual alert on categories containing feeds in error [#984](https://github.com/FreshRSS/FreshRSS/pull/984)
+* I18n
+	* Italian [#1003](https://github.com/FreshRSS/FreshRSS/issues/1003)
+* Misc.
+    * Support reverse proxy [#975](https://github.com/FreshRSS/FreshRSS/issues/975)
+    * Make auto-update server URL alterable [#1019](https://github.com/FreshRSS/FreshRSS/issues/1019)
+
+
 ## 2015-09-12 FreshRSS 1.1.3-beta
 
 * UI

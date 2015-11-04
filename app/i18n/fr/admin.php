@@ -148,6 +148,7 @@ return array(
 	),
 	'system' => array(
 		'_' => 'Configuration du système',
+		'auto-update-url' => 'URL du service de mise à jour',
 		'instance-name' => 'Nom de l’instance',
 		'max-categories' => 'Limite de catégories par utilisateur',
 		'max-feeds' => 'Limite de flux par utilisateur',

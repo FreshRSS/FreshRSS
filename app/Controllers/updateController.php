@@ -53,7 +53,8 @@ class FreshRSS_update_Controller extends Minz_ActionController {
 			return;
 		}
 
-		$c = curl_init(FRESHRSS_UPDATE_WEBSITE);
+		$auto_update_url = FreshRSS_Context::$system_conf->auto_update_url . '?v=' . FRESHRSS_VERSION;
+		$c = curl_init($auto_update_url);
 		curl_setopt($c, CURLOPT_RETURNTRANSFER, true);
 		curl_setopt($c, CURLOPT_SSL_VERIFYPEER, true);
 		curl_setopt($c, CURLOPT_SSL_VERIFYHOST, 2);
@@ -70,7 +71,7 @@ class FreshRSS_update_Controller extends Minz_ActionController {
 			$this->view->message = array(
 				'status' => 'bad',
 				'title' => _t('gen.short.damn'),
-				'body' => _t('feedback.update.server_not_found', FRESHRSS_UPDATE_WEBSITE)
+				'body' => _t('feedback.update.server_not_found', $auto_update_url)
 			);
 			return;
 		}

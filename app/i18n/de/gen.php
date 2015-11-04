@@ -120,6 +120,7 @@ return array(
 		'de' => 'Deutsch',
 		'en' => 'English',
 		'fr' => 'Français',
+		'it' => 'Italiano',
 		'nl' => 'Nederlands',
 	),
 	'menu' => array(
@@ -158,6 +159,7 @@ return array(
 		'email' => 'E-Mail',
 		'facebook' => 'Facebook',
 		'g+' => 'Google+',
+		'movim' => 'Movim',
 		'print' => 'Drucken',
 		'shaarli' => 'Shaarli',
 		'twitter' => 'Twitter',

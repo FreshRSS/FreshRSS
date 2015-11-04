@@ -18,6 +18,9 @@ return array(
 	# https://freshrss.example.net/
 	'base_url' => '',
 
+	# Specify address of the FreshRSS auto-update server.
+	'auto_update_url' => 'https://update.freshrss.org',
+
 	# Natural language of the user interface, e.g. `en`, `fr`.
 	'language' => 'en',
 
@@ -60,6 +63,9 @@ return array(
 	# Enable or not support of PubSubHubbub.
 	# /!\ It should NOT be enabled if base_url is not reachable by an external server.
 	'pubsubhubbub_enabled' => false,
+
+	# Allow or not Web robots (e.g. search engines) in HTML headers.
+	'allow_robots' => false,
 
 	'limits' => array(
 

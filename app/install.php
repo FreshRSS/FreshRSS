@@ -122,7 +122,8 @@ function saveStep1() {
 function saveStep2() {
 	$user_default_config = Minz_Configuration::get('default_user');
 	if (!empty($_POST)) {
-		$_SESSION['title'] = substr(trim(param('title', _t('gen.freshrss'))), 0, 25);
+		$system_default_config = Minz_Configuration::get('default_system');
+		$_SESSION['title'] = $system_default_config->title;
 		$_SESSION['old_entries'] = param('old_entries', $user_default_config->old_entries);
 		$_SESSION['auth_type'] = param('auth_type', 'form');
 		$_SESSION['default_user'] = substr(preg_replace('/[^a-zA-Z0-9]/', '', param('default_user', '')), 0, 16);
@@ -138,8 +139,7 @@ function saveStep2() {
 			$_SESSION['passwordHash'] = $passwordHash;
 		}
 
-		if (empty($_SESSION['title']) ||
-		    empty($_SESSION['old_entries']) ||
+		if (empty($_SESSION['old_entries']) ||
 		    empty($_SESSION['auth_type']) ||
 		    empty($_SESSION['default_user'])) {
 			return false;
@@ -374,8 +374,7 @@ function freshrss_already_installed() {
 }
 
 function checkStep2() {
-	$conf = !empty($_SESSION['title']) &&
-	        !empty($_SESSION['old_entries']) &&
+	$conf = !empty($_SESSION['old_entries']) &&
 	        isset($_SESSION['mail_login']) &&
 	        !empty($_SESSION['default_user']);
 
@@ -657,13 +656,6 @@ function printStep2() {
 
 	<form action="index.php?step=2" method="post">
 		<legend><?php echo _t('install.conf'); ?></legend>
-
-		<div class="form-group">
-			<label class="group-name" for="title"><?php echo _t('install.title'); ?></label>
-			<div class="group-controls">
-				<input type="text" id="title" name="title" value="<?php echo isset($_SESSION['title']) ? $_SESSION['title'] : _t('gen.freshrss'); ?>" tabindex="1" />
-			</div>
-		</div>
 
 		<div class="form-group">
 			<label class="group-name" for="old_entries"><?php echo _t('install.delete_articles_after'); ?></label>

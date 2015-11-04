@@ -120,6 +120,7 @@ return array(
 		'de' => 'Deutsch',
 		'en' => 'English',
 		'fr' => 'Français',
+		'it' => 'Italiano',
 		'nl' => 'Nederlands',
 	),
 	'menu' => array(
@@ -138,6 +139,7 @@ return array(
 		'sharing' => 'Delen',
 		'shortcuts' => 'Snelle toegang',
 		'stats' => 'Statistieken',
+		'system' => 'System configuration', // @todo translate
 		'update' => 'Versie controle',
 		'user_management' => 'Beheer gebruikers',
 		'user_profile' => 'Profiel',
@@ -157,6 +159,7 @@ return array(
 		'email' => 'Email',
 		'facebook' => 'Facebook',
 		'g+' => 'Google+',
+		'movim' => 'Movim',
 		'print' => 'Print',
 		'shaarli' => 'Shaarli',
 		'twitter' => 'Twitter',

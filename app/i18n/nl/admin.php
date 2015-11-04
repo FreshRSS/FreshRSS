@@ -146,6 +146,17 @@ return array(
 		'title' => 'Statistieken',
 		'top_feed' => 'Top tien feeds',
 	),
+	'system' => array(
+		'_' => 'System configuration', // @todo translate
+		'auto-update-url' => 'Auto-update server URL', // @todo translate
+		'instance-name' => 'Instance name', // @todo translate
+		'max-categories' => 'Categories per user limit', // @todo translate
+		'max-feeds' => 'Feeds per user limit', // @todo translate
+		'registration' => array(
+			'help' => '0 means that there is no account limit', // @todo translate
+			'number' => 'Max number of accounts', // @todo translate
+		),
+	),
 	'update' => array(
 		'_' => 'Versie controle',
 		'apply' => 'Toepassen',

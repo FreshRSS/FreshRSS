@@ -36,7 +36,11 @@
 		<meta name="apple-mobile-web-app-status-bar-style" content="black" />
 		<meta name="apple-mobile-web-app-title" content="<?php echo FreshRSS_Context::$system_conf->title; ?>">
 		<meta name="msapplication-TileColor" content="#FFF" />
+<?php if (FreshRSS_Context::$system_conf->allow_robots) { ?>
+		<meta name="description" content="<?php echo htmlspecialchars(FreshRSS_Context::$name . ' | ' . FreshRSS_Context::$description, ENT_COMPAT, 'UTF-8'); ?>" />
+<?php } else { ?>
 		<meta name="robots" content="noindex,nofollow" />
+<?php } ?>
 	</head>
 	<body class="<?php echo Minz_Request::param('output', 'normal'); ?>">
 <?php $this->partial('header'); ?>

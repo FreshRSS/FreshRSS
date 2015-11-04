@@ -231,7 +231,7 @@ a.btn {
 	font-size: 0.8rem;
 	text-align: left;
 }
-.dropdown-menu:after {
+.dropdown-menu::after {
 	content: "";
 	position: absolute;
 	top: -6px;
@@ -262,7 +262,7 @@ a.btn {
 }
 .dropdown-menu > .item:hover {
 }
-.dropdown-menu > .item[aria-checked="true"] > a:before {
+.dropdown-menu > .item[aria-checked="true"] > a::before {
 	font-weight: bold;
 	margin: 0 0 0 -14px;
 }
@@ -431,7 +431,7 @@ a.btn {
 }
 
 /*=== Aside main page (categories) */
-.aside_feed .tree-folder-title > .title:not([data-unread="0"]):after {
+.aside_feed .tree-folder-title > .title:not([data-unread="0"])::after {
 	position: absolute;
 	right: 0;
 	margin: 10px 0;
@@ -456,7 +456,7 @@ a.btn {
 .feed.item.empty.active > a,
 .feed.item.error.active > a {
 }
-.aside_feed .tree-folder-items .dropdown-menu:after {
+.aside_feed .tree-folder-items .dropdown-menu::after {
 	left: 2px;
 }
 .aside_feed .tree-folder-items .item .dropdown-target:target ~ .dropdown-toggle > .icon,
@@ -675,7 +675,7 @@ a.btn {
 .box.category:not([data-unread="0"]) .box-title .title {
 	font-weight: bold;
 }
-.box.category .title:not([data-unread="0"]):after {
+.box.category .title:not([data-unread="0"])::after {
 	position: absolute;
 	top: 5px; right: 10px;
 	border: 0;
@@ -698,7 +698,7 @@ a.btn {
 .aside.aside_feed .nav-form .dropdown .dropdown-menu {
 	right: -20px;
 }
-.aside.aside_feed .nav-form .dropdown .dropdown-menu:after {
+.aside.aside_feed .nav-form .dropdown .dropdown-menu::after {
 	right: 33px;
 }
 

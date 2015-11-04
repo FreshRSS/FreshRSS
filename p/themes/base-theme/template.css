@@ -111,7 +111,7 @@ td.numeric {
 /*=== COMPONENTS */
 /*===============*/
 /*=== Forms */
-.form-group:after {
+.form-group::after {
 	content: "";
 	display: block;
 	clear: both;
@@ -206,7 +206,7 @@ a.btn {
 	display: block;
 	min-width: 200px;
 }
-.dropdown-menu > .item[aria-checked="true"] > a:before {
+.dropdown-menu > .item[aria-checked="true"] > a::before {
 	content: '✓';
 }
 .dropdown-menu .input {
@@ -773,10 +773,14 @@ input:checked + .slide-container .properties {
 
 /*=== DIVERS */
 /*===========*/
-.category .title:not([data-unread="0"]):after {
+.category .title:not([data-unread="0"])::after {
 	content: attr(data-unread);
 }
-.feed .item-title:not([data-unread="0"]):before {
+.category .title.error::before {
+	content: "⚠ ";
+	color: #bd362f;
+}
+.feed .item-title:not([data-unread="0"])::before {
 	content: "(" attr(data-unread) ") ";
 }
 .feed .item-title:not([data-unread="0"]) {
@@ -889,7 +893,7 @@ input:checked + .slide-container .properties {
 	.flux_content .content a {
 		color: #000;
 	}
-	.flux_content .content a:after {
+	.flux_content .content a::after {
 		content: " [" attr(href) "] ";
 		font-style: italic;
 	}
