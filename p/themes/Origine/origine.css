@@ -1,10 +1,8 @@
 @charset "UTF-8";
 
 /*=== FONTS */
-@font-face {
-	font-family: "OpenSans";
-	src: url("../fonts/openSans.woff") format("woff");
-}
+@import url(https://fonts.googleapis.com/css?family=Open+Sans&subset=latin,cyrillic-ext,cyrillic,latin-ext,greek-ext,greek);
+font-family: 'Open Sans', sans-serif;
 
 /*=== GENERAL */
 /*============*/
