@@ -45,7 +45,7 @@ return array(
 		'form' => 'advanced',
 	),
 	'movim' => array(
-		'url' => '~URL~/?share/~LINK~',
+		'url' => '~URL~/index.php/share/~LINK~',
 		'transform' => array('rawurlencode', 'urlencode'),
 		'help' => 'https://github.com/edhelas/movim',
 		'form' => 'advanced',
