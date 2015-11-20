@@ -2,16 +2,13 @@
 
 /*=== FONTS */
 @font-face {
-  font-family: 'Open Sans';
-  font-style: normal;
-  font-weight: 400;
-  src: url('../fonts/opensans.eot'); /* IE9 Compat Modes */
-  src: local('Open Sans'), local('OpenSans'),
-       url('../fonts/opensans.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
-       url('../fonts/opensans.woff2') format('woff2'), /* Super Modern Browsers */
-       url('../fonts/opensans.woff') format('woff'), /* Modern Browsers */
-       url('../fonts/opensans.ttf') format('truetype'), /* Safari, Android, iOS */
-       url('../fonts/opensans.svg#OpenSans') format('svg'); /* Legacy iOS */
+	font-family: 'Open Sans';
+	font-style: normal;
+	font-weight: 400;
+	src: local('Open Sans'), local('OpenSans'),
+	url('../fonts/opensans.woff2') format('woff2'), /* Super Modern Browsers */
+	url('../fonts/opensans.woff') format('woff'), /* Modern Browsers */
+	url('../fonts/opensans.ttf') format('truetype'), /* Safari, Android, iOS */
 }
 
 
@@ -19,7 +16,7 @@
 /*============*/
 html, body {
 	height: 100%;
-	font-family: "OpenSans", "Cantarell", "Helvetica", "Arial", sans-serif;
+	font-family: "Open Sans", "Cantarell", "Helvetica", "Arial", sans-serif;
 	background: #fafafa;
 }
 
