@@ -1,5 +1,9 @@
 # Changelog
 
+## 2015-xx-xx FreshRSS 1.3.1-beta
+
+* Nothing for the moment.
+
 ## 2015-11-03 FreshRSS 1.2.0 / 1.3.0-beta
 
 * Features

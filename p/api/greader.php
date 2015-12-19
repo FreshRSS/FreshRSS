@@ -361,6 +361,9 @@ function streamContents($path, $include_target, $start_time, $count, $order, $ex
 		case 'user/-/state/com.google/read':
 			$state = FreshRSS_Entry::STATE_NOT_READ;
 			break;
+		case 'user/-/state/com.google/unread':
+			$state = FreshRSS_Entry::STATE_READ;
+			break;
 		default:
 			$state = FreshRSS_Entry::STATE_ALL;
 			break;
