@@ -77,7 +77,7 @@ return array(
 			'warn' => 'Your account and all the related data will be deleted.',
 		),
 		'email_persona' => 'Login email address<br /><small>(for <a href="https://persona.org/" rel="external">Mozilla Persona</a>)</small>',
-		'password_api' => 'Password API<br /><small>(e.g., for mobile apps)</small>',
+		'password_api' => 'API password<br /><small>(e.g., for mobile apps)</small>',
 		'password_form' => 'Password<br /><small>(for the Web-form login method)</small>',
 		'password_format' => 'At least 7 characters',
 		'title' => 'Profile',
