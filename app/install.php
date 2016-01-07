@@ -32,6 +32,9 @@ if (isset($_SESSION['bd_type'])) {
 	case 'sqlite':
 		include(APP_PATH . '/SQL/install.sql.sqlite.php');
 		break;
+	case 'pgsql':
+		include(APP_PATH . '/SQL/install.sql.pgsql.php');
+		break;
 	}
 }
 
@@ -255,6 +258,12 @@ function newPdo() {
 			PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8',
 		);
 		break;
+	case 'pgsql':
+		$str = 'pgsql:host=' . $_SESSION['bd_host'] . ';dbname=' . $_SESSION['bd_base'];
+		$driver_options = array(
+			PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+		);
+		break;
 	case 'sqlite':
 		$str = 'sqlite:' . join_path(USERS_PATH, $_SESSION['default_user'], 'db.sqlite');
 		$driver_options = array(
@@ -311,9 +320,10 @@ function checkStep1() {
 	$php = version_compare(PHP_VERSION, '5.2.1') >= 0;
 	$minz = file_exists(join_path(LIB_PATH, 'Minz'));
 	$curl = extension_loaded('curl');
+	$pdo_pgsql = extension_loaded('pdo_pgsql');
 	$pdo_mysql = extension_loaded('pdo_mysql');
 	$pdo_sqlite = extension_loaded('pdo_sqlite');
-	$pdo = $pdo_mysql || $pdo_sqlite;
+	$pdo = $pdo_mysql || $pdo_sqlite || $pdo_pgsql;
 	$pcre = extension_loaded('pcre');
 	$ctype = extension_loaded('ctype');
 	$dom = class_exists('DOMDocument');
@@ -329,6 +339,7 @@ function checkStep1() {
 		'minz' => $minz ? 'ok' : 'ko',
 		'curl' => $curl ? 'ok' : 'ko',
 		'pdo-mysql' => $pdo_mysql ? 'ok' : 'ko',
+		'pdo-pgsql' => $pdo_pgsql ? 'ok' : 'ko',
 		'pdo-sqlite' => $pdo_sqlite ? 'ok' : 'ko',
 		'pdo' => $pdo ? 'ok' : 'ko',
 		'pcre' => $pcre ? 'ok' : 'ko',
@@ -785,6 +796,12 @@ function printStep3() {
 					MySQL
 				</option>
 				<?php }?>
+				<?php if (extension_loaded('pdo_pgsql')) {?>
+				<option value="pgsql"
+					<?php echo(isset($_SESSION['bd_type']) && $_SESSION['bd_type'] === 'pgsql') ? 'selected="selected"' : ''; ?>>
+					PostgreSQL
+				</option>
+				<?php }?>
 				<?php if (extension_loaded('pdo_sqlite')) {?>
 				<option value="sqlite"
 					<?php echo(isset($_SESSION['bd_type']) && $_SESSION['bd_type'] === 'sqlite') ? 'selected="selected"' : ''; ?>>
@@ -833,8 +850,8 @@ function printStep3() {
 		</div>
 		<script>
 			function mySqlShowHide() {
-				document.getElementById('mysql').style.display = document.getElementById('type').value === 'mysql' ? 'block' : 'none';
-				if (document.getElementById('type').value !== 'mysql') {
+				document.getElementById('mysql').style.display = (document.getElementById('type').value === 'mysql' || document.getElementById('type').value === 'pgsql') ? 'block' : 'none';
+				if (document.getElementById('type').value !== 'mysql' && document.getElementById('type').value !== 'pgsql') {
 					document.getElementById('host').value = '';
 					document.getElementById('user').value = '';
 					document.getElementById('pass').value = '';
