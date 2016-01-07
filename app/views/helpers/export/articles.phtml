@@ -10,7 +10,8 @@
 
     foreach ($this->entries as $entry) {
         if (!isset($this->feed)) {
-            $feed = FreshRSS_CategoryDAO::findFeed($this->categories, $entry->feed ());
+            $catDao = FreshRSS_Factory::createCategoryDAO();
+            $feed = $catDao->findFeed($this->categories, $entry->feed ());
         } else {
             $feed = $this->feed;
         }

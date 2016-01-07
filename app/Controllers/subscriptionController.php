@@ -14,7 +14,7 @@ class FreshRSS_subscription_Controller extends Minz_ActionController {
 			Minz_Error::error(403);
 		}
 
-		$catDAO = new FreshRSS_CategoryDAO();
+		$catDAO = FreshRSS_Factory::createCategoryDAO();
 
 		$catDAO->checkDefault();
 		$this->view->categories = $catDAO->listCategories(false);
