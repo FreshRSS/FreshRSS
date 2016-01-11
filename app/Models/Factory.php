@@ -2,39 +2,71 @@
 
 class FreshRSS_Factory {
 
-	public static function createFeedDao($username = null) {
+	public static function createCategoryDao($username = null) {
 		$conf = Minz_Configuration::get('system');
-		if ($conf->db['type'] === 'sqlite') {
-			return new FreshRSS_FeedDAOSQLite($username);
-		} else {
-			return new FreshRSS_FeedDAO($username);
+		switch ($conf->db['type']) {
+			case 'pgsql':
+				return new FreshRSS_CategoryDAOpgSQL($username);
+				break;
+			default:
+				return new FreshRSS_CategoryDAO($username);
 		}
 	}
 
+	public static function createFeedDao($username = null) {
+		$conf = Minz_Configuration::get('system');
+		switch ($conf->db['type']) {
+			case 'sqlite':
+				return new FreshRSS_FeedDAOSQLite($username);
+				break;
+			case 'pgsql':
+				return new FreshRSS_FeedDAOpgSQL($username);
+				break;
+			default:
+				return new FreshRSS_FeedDAO($username);
+		}
+	}
+
+
 	public static function createEntryDao($username = null) {
 		$conf = Minz_Configuration::get('system');
-		if ($conf->db['type'] === 'sqlite') {
-			return new FreshRSS_EntryDAOSQLite($username);
-		} else {
-			return new FreshRSS_EntryDAO($username);
+		switch ($conf->db['type']) {
+			case 'sqlite':
+				return new FreshRSS_EntryDAOSQLite($username);
+				break;
+			case 'pgsql':
+				return new FreshRSS_EntryDAOpgSQL($username);
+				break;
+			default:
+				return new FreshRSS_EntryDAO($username);
 		}
 	}
 
 	public static function createStatsDAO($username = null) {
 		$conf = Minz_Configuration::get('system');
-		if ($conf->db['type'] === 'sqlite') {
-			return new FreshRSS_StatsDAOSQLite($username);
-		} else {
-			return new FreshRSS_StatsDAO($username);
+		switch ($conf->db['type']) {
+			case 'sqlite':
+				return new FreshRSS_StatsDAOSQLite($username);
+				break;
+			case 'pgsql':
+				return new FreshRSS_StatsDAOpgSQL($username);
+				break;
+			default:
+				return new FreshRSS_StatsDAO($username);
 		}
 	}
 
 	public static function createDatabaseDAO($username = null) {
 		$conf = Minz_Configuration::get('system');
-		if ($conf->db['type'] === 'sqlite') {
-			return new FreshRSS_DatabaseDAOSQLite($username);
-		} else {
-			return new FreshRSS_DatabaseDAO($username);
+		switch ($conf->db['type'] === 'sqlite') {
+			case 'sqlite':
+				return new FreshRSS_DatabaseDAOSQLite($username);
+				break;
+			case 'pgsql':
+				return new FreshRSS_DatabaseDAOpgSQL($username);
+				break;
+			default:
+				return new FreshRSS_DatabaseDAO($username);
 		}
 	}
 

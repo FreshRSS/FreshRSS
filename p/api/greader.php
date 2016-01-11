@@ -289,7 +289,7 @@ function unreadCount() {	//http://blog.martindoms.com/2009/10/16/using-the-googl
 	$totalUnreads = 0;
 	$totalLastUpdate = 0;
 
-	$categoryDAO = new FreshRSS_CategoryDAO();
+	$categoryDAO = FreshRSS_Factory::createCategoryDAO();
 	foreach ($categoryDAO->listCategories(true, true) as $cat) {
 		$catLastUpdate = 0;
 		foreach ($cat->feeds() as $feed) {
@@ -348,7 +348,7 @@ function streamContents($path, $include_target, $start_time, $count, $order, $ex
 			break;
 		case 'label':
 			$type = 'c';
-			$categoryDAO = new FreshRSS_CategoryDAO();
+			$categoryDAO = FreshRSS_Factory::createCategoryDAO();
 			$cat = $categoryDAO->searchByName($include_target);
 			$include_target = $cat == null ? -1 : $cat->id();
 			break;
@@ -453,7 +453,7 @@ function streamContentsItemsIds($streamId, $start_time, $count, $order, $exclude
 	} elseif (strpos($streamId, 'user/-/label/') === 0) {
 		$type = 'c';
 		$c_name = basename($streamId);
-		$categoryDAO = new FreshRSS_CategoryDAO();
+		$categoryDAO = FreshRSS_Factory::createCategoryDAO();
 		$cat = $categoryDAO->searchByName($c_name);
 		$id = $cat == null ? -1 : $cat->id();
 	}
@@ -530,7 +530,7 @@ function markAllAsRead($streamId, $olderThanId) {
 		$entryDAO->markReadFeed($f_id, $olderThanId);
 	} elseif (strpos($streamId, 'user/-/label/') === 0) {
 		$c_name = basename($streamId);
-		$categoryDAO = new FreshRSS_CategoryDAO();
+		$categoryDAO = FreshRSS_Factory::createCategoryDAO();
 		$cat = $categoryDAO->searchByName($c_name);
 		$entryDAO->markReadCat($cat === null ? -1 : $cat->id(), $olderThanId);
 	} elseif ($streamId === 'user/-/state/com.google/reading-list') {
