@@ -75,4 +75,10 @@ return array(
 		'transform' => array(),
 		'form' => 'simple',
 	),
+	'jdh' => array(
+                'url' => 'https://www.journalduhacker.net/stories/new?url=~LINK~&title=~TITLE~',
+                'transform' => array('rawurlencode'),
+                'form' => 'simple',
+        ),
+
 );
