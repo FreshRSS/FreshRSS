@@ -1,8 +1,11 @@
 # Changelog
 
-## 2015-xx-xx FreshRSS 1.3.1-beta
+## 2016-xx-xx FreshRSS 1.3.1-beta
 
-* Nothing for the moment.
+* UI
+	* Fixed several small bugs in global and reader view [#1050](https://github.com/FreshRSS/FreshRSS/pull/1050)
+	* Updated to jQuery 2.2 and changed code for auto-load on scroll [#1050](https://github.com/FreshRSS/FreshRSS/pull/1050)
+
 
 ## 2015-11-03 FreshRSS 1.2.0 / 1.3.0-beta
 
@@ -12,13 +15,13 @@
 * Security
 	* Invalid logins now return HTTP 403, to be easier to catch (e.g. fail2ban) [#1015](https://github.com/FreshRSS/FreshRSS/issues/1015)
 * UI
-    * Remove "title" field during installation [#858](https://github.com/FreshRSS/FreshRSS/issues/858)
+	* Remove "title" field during installation [#858](https://github.com/FreshRSS/FreshRSS/issues/858)
 	* Visual alert on categories containing feeds in error [#984](https://github.com/FreshRSS/FreshRSS/pull/984)
 * I18n
 	* Italian [#1003](https://github.com/FreshRSS/FreshRSS/issues/1003)
 * Misc.
-    * Support reverse proxy [#975](https://github.com/FreshRSS/FreshRSS/issues/975)
-    * Make auto-update server URL alterable [#1019](https://github.com/FreshRSS/FreshRSS/issues/1019)
+	* Support reverse proxy [#975](https://github.com/FreshRSS/FreshRSS/issues/975)
+	* Make auto-update server URL alterable [#1019](https://github.com/FreshRSS/FreshRSS/issues/1019)
 
 
 ## 2015-09-12 FreshRSS 1.1.3-beta
