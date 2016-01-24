@@ -246,18 +246,18 @@ function toggleContent(new_active, old_active) {
 
 	var box_to_move = "html,body",
 		relative_move = false;
-	if (context['current_view'] == 'global') {
+	if (context['current_view'] === 'global') {
 		box_to_move = "#panel";
 		relative_move = true;
 	}
 
 	if (context['sticky_post']) {
 		var prev_article = new_active.prevAll('.flux'),
-			new_pos = new_active.position().top,
+			new_pos = new_active.offset().top,
 			old_scroll = $(box_to_move).scrollTop();
 
-		if (prev_article.length > 0 && new_pos - prev_article.position().top <= 150) {
-			new_pos = prev_article.position().top;
+		if (prev_article.length > 0 && new_pos - prev_article.offset().top <= 150) {
+			new_pos = prev_article.offset().top;
 		}
 
 		if (context['hide_posts']) {
@@ -451,11 +451,8 @@ function auto_share(key) {
 	}
 }
 
-function inMarkViewport(flux, box_to_follow, relative_follow) {
-	var top = flux.position().top;
-	if (relative_follow) {
-		top += box_to_follow.scrollTop();
-	}
+function inMarkViewport(flux, box_to_follow) {
+	var top = flux.offset().top;
 	var height = flux.height(),
 		begin = top + 3 * height / 4,
 		bot = Math.min(begin + 75, top + height),
@@ -466,17 +463,15 @@ function inMarkViewport(flux, box_to_follow, relative_follow) {
 }
 
 function init_posts() {
-	var box_to_follow = $(window),
-		relative_follow = false;
-	if (context['current_view'] == 'global') {
+	var box_to_follow = $(window);
+	if (context['current_view'] === 'global') {
 		box_to_follow = $("#panel");
-		relative_follow = true;
 	}
 
 	if (context['auto_mark_scroll']) {
 		box_to_follow.scroll(function () {
 			$('.not_read:visible').each(function () {
-				if ($(this).children(".flux_content").is(':visible') && inMarkViewport($(this), box_to_follow, relative_follow)) {
+				if ($(this).children(".flux_content").is(':visible') && inMarkViewport($(this), box_to_follow)) {
 					mark_read($(this), true);
 				}
 			});
@@ -490,10 +485,7 @@ function init_posts() {
 				return;
 			}
 			var boxBot = box_to_follow.scrollTop() + box_to_follow.height(),
-				load_more_top = load_more.position().top;
-			if (relative_follow) {
-				load_more_top += box_to_follow.scrollTop();
-			}
+				load_more_top = load_more.offset().top;
 			if (boxBot >= load_more_top) {
 				load_more_posts();
 			}
@@ -765,7 +757,7 @@ function init_nav_entries() {
 	$nav_entries.find('.up').click(function () {
 		var active_item = $(".flux.current"),
 			windowTop = $(window).scrollTop(),
-			item_top = active_item.position().top;
+			item_top = active_item.offset().top;
 
 		if (windowTop > item_top) {
 			$("html,body").scrollTop(item_top);

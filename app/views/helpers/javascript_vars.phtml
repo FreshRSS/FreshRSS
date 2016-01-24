@@ -4,8 +4,7 @@
 $mark = FreshRSS_Context::$user_conf->mark_when;
 $mail = Minz_Session::param('mail', false);
 $auto_actualize = Minz_Session::param('actualize_feeds', false);
-$hide_posts = (FreshRSS_Context::$user_conf->display_posts ||
-               Minz_Request::param('output') === 'reader');
+$hide_posts = !(FreshRSS_Context::$user_conf->display_posts || Minz_Request::actionName() === 'reader');
 $s = FreshRSS_Context::$user_conf->shortcuts;
 
 $url_login = Minz_Url::display(array(
@@ -19,7 +18,7 @@ $url_logout = Minz_Url::display(array(
 
 echo 'var context={',
 	'auto_remove_article:', FreshRSS_Context::isAutoRemoveAvailable() ? 'true' : 'false', ',',
-	'hide_posts:', $hide_posts ? 'false' : 'true', ',',
+	'hide_posts:', $hide_posts ? 'true' : 'false', ',',
 	'display_order:"', Minz_Request::param('order', FreshRSS_Context::$user_conf->sort_order), '",',
 	'auto_mark_article:', $mark['article'] ? 'true' : 'false', ',',
 	'auto_mark_site:', $mark['site'] ? 'true' : 'false', ',',
@@ -31,7 +30,7 @@ echo 'var context={',
 	'html5_notif_timeout:', FreshRSS_Context::$user_conf->html5_notif_timeout, ',',
 	'auth_type:"', FreshRSS_Context::$system_conf->auth_type, '",',
 	'current_user_mail:', $mail ? ('"' . $mail . '"') : 'null', ',',
-	'current_view:"', Minz_Request::param('output', 'normal'), '"',
+	'current_view:"', Minz_Request::actionName(), '"',
 "},\n";
 
 echo 'shortcuts={',
