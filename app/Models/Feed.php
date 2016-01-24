@@ -451,6 +451,10 @@ class FreshRSS_Feed extends Minz_Model {
 				Minz_Log::warning('Invalid callback for PubSubHubbub: ' . $this->url);
 				return false;
 			}
+			if (!$state) {	//unsubscribe
+				$hubJson['lease_end'] = time() - 60;
+				file_put_contents($hubFilename, json_encode($hubJson));
+			}
 			$ch = curl_init();
 			curl_setopt_array($ch, array(
 				CURLOPT_URL => $this->hubUrl,
@@ -469,11 +473,6 @@ class FreshRSS_Feed extends Minz_Model {
 			file_put_contents(USERS_PATH . '/_/log_pshb.txt', date('c') . "\t" .
 				'PubSubHubbub ' . ($state ? 'subscribe' : 'unsubscribe') . ' to ' . $this->selfUrl .
 				' with callback ' . $callbackUrl . ': ' . $info['http_code'] . ' ' . $response . "\n", FILE_APPEND);
-
-			if (!$state) {	//unsubscribe
-				$hubJson['lease_end'] = time() - 60;
-				file_put_contents($hubFilename, json_encode($hubJson));
-			}
 
 			if (substr($info['http_code'], 0, 1) == '2') {
 				return true;
