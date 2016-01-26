@@ -244,20 +244,19 @@ function toggleContent(new_active, old_active) {
 		new_active.toggleClass('active');
 	}
 
-	var box_to_move = "html,body",
-		relative_move = false;
-	if (context['current_view'] === 'global') {
-		box_to_move = "#panel";
-		relative_move = true;
-	}
+	var relative_move = context['current_view'] === 'global',
+		box_to_move = $(relative_move ? "#panel" : "html,body");
 
 	if (context['sticky_post']) {
 		var prev_article = new_active.prevAll('.flux'),
 			new_pos = new_active.offset().top,
-			old_scroll = $(box_to_move).scrollTop();
+			old_scroll = box_to_move.scrollTop();
 
 		if (prev_article.length > 0 && new_pos - prev_article.offset().top <= 150) {
 			new_pos = prev_article.offset().top;
+			if (relative_move) {
+				new_pos -= box_to_move.offset().top;
+			}
 		}
 
 		if (context['hide_posts']) {
@@ -267,7 +266,7 @@ function toggleContent(new_active, old_active) {
 
 			if (old_active[0] !== new_active[0]) {
 				new_active.children(".flux_content").first().each(function () {
-					$(box_to_move).scrollTop(new_pos).scrollTop();
+					box_to_move.scrollTop(new_pos).scrollTop();
 				});
 			}
 		} else {
@@ -275,7 +274,7 @@ function toggleContent(new_active, old_active) {
 				new_pos += old_scroll;
 			}
 
-			$(box_to_move).scrollTop(new_pos).scrollTop();
+			box_to_move.scrollTop(new_pos).scrollTop();
 		}
 	}
 
