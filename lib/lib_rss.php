@@ -15,7 +15,7 @@ if (!function_exists('json_encode')) {
 	}
 }
 
-if (!function_exists('array_replace_recursive')) {
+if (!function_exists('array_replace_recursive')) {	//PHP 5.2
 	function arr_recurse($array, $array1) {
 		foreach ($array1 as $key => $value) {
 			if (!isset($array[$key]) || (isset($array[$key]) && !is_array($array[$key]))) {
