@@ -59,7 +59,7 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 		}
 
 		$feedDAO = FreshRSS_Factory::createFeedDao();
-		$this->catDAO = FreshRSS_Factory::createCategoryDAO();
+		$this->catDAO = new FreshRSS_CategoryDAO();
 		$url_redirect = array(
 			'c' => 'subscription',
 			'a' => 'index',
@@ -511,7 +511,7 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 
 		if ($cat_id === false) {
 			// If category was not given get the default one.
-			$catDAO = FreshRSS_Factory::createCategoryDAO();
+			$catDAO = new FreshRSS_CategoryDAO();
 			$catDAO->checkDefault();
 			$def_cat = $catDAO->getDefault();
 			$cat_id = $def_cat->id();

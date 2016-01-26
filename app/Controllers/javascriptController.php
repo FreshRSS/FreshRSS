@@ -13,7 +13,7 @@ class FreshRSS_javascript_Controller extends Minz_ActionController {
 
 	public function nbUnreadsPerFeedAction() {
 		header('Content-Type: application/json; charset=UTF-8');
-		$catDAO = FreshRSS_Factory::createCategoryDAO();
+		$catDAO = new FreshRSS_CategoryDAO();
 		$this->view->categories = $catDAO->listCategories(true, false);
 	}
 

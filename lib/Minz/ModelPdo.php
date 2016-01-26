@@ -88,6 +88,8 @@ class Minz_ModelPdo {
 			);
 			if ($type === 'sqlite') {
 				$this->bd->exec('PRAGMA foreign_keys = ON;');
+			} esleif ($type === 'mysql') {
+				$this->bd->exec("SET SESSION sql_mode = 'ANSI_QUOTES';");
 			}
 			self::$sharedBd = $this->bd;
 		} catch (Exception $e) {

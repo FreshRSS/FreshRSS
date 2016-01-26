@@ -46,7 +46,7 @@ class FreshRSS_Context {
 		self::$system_conf = Minz_Configuration::get('system');
 		self::$user_conf = Minz_Configuration::get('user');
 
-		$catDAO = FreshRSS_Factory::createCategoryDAO();
+		$catDAO = new FreshRSS_CategoryDAO();
 		self::$categories = $catDAO->listCategories();
 	}
 
@@ -155,8 +155,7 @@ class FreshRSS_Context {
 			break;
 		case 'f':
 			// We try to find the corresponding feed. When allowing robots, always retrieve the full feed including description
-			$catDAO = FreshRSS_Factory::createCategoryDAO();
-			$feed = FreshRSS_Context::$system_conf->allow_robots ? null : $catDAO->findFeed(self::$categories, $id);
+			$feed = FreshRSS_Context::$system_conf->allow_robots ? null : FreshRSS_CategoryDAO::findFeed(self::$categories, $id);
 			if ($feed === null) {
 				$feedDAO = FreshRSS_Factory::createFeedDao();
 				$feed = $feedDAO->searchById($id);
@@ -176,7 +175,7 @@ class FreshRSS_Context {
 			// We try to find the corresponding category.
 			self::$current_get['category'] = $id;
 			if (!isset(self::$categories[$id])) {
-				$catDAO = FreshRSS_Factory::createCategoryDAO();
+				$catDAO = new FreshRSS_CategoryDAO();
 				$cat = $catDAO->searchById($id);
 
 				if (!$cat) {

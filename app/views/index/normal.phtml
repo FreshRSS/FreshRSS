@@ -25,8 +25,7 @@ if (!empty($this->entries)) {
 		}
 
 		// We most likely already have the feed object in cache
-		$catDao = FreshRSS_Factory::createCategoryDAO();
-		$this->feed = $catDao->findFeed($this->categories, $this->entry->feed());
+		$this->feed = FreshRSS_CategoryDAO::findFeed($this->categories, $this->entry->feed());
 		if ($this->feed == null) {
 			$this->feed = $this->entry->feed(true);
 			if ($this->feed == null) {

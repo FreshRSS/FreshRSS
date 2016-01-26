@@ -3,7 +3,7 @@
 /**
  * This class is used to test database is well-constructed.
  */
-class FreshRSS_DatabaseDAOpgSQL extends Minz_ModelPdo {
+class FreshRSS_DatabaseDAOpgSQL extends FreshRSS_DatabaseDAO {
 	public function tablesAreCorrect() {
 		$db = FreshRSS_Context::$system_conf->db;
 		$dbowner = $db['user'];
@@ -32,38 +32,6 @@ class FreshRSS_DatabaseDAOpgSQL extends Minz_ModelPdo {
 		return $this->listDaoToSchema($stm->fetchAll(PDO::FETCH_ASSOC));
 	}
 
-	public function checkTable($table, $schema) {
-		$columns = $this->getSchema($table);
-
-		$ok = (count($columns) == count($schema));
-		foreach ($columns as $c) {
-			$ok &= in_array($c['name'], $schema);
-		}
-
-		return $ok;
-	}
-
-	public function categoryIsCorrect() {
-		return $this->checkTable('category', array(
-			'id', 'name'
-		));
-	}
-
-	public function feedIsCorrect() {
-		return $this->checkTable('feed', array(
-			'id', 'url', 'category', 'name', 'website', 'description', 'lastUpdate',
-			'priority', 'pathEntries', 'httpAuth', 'error', 'keep_history', 'ttl',
-			'cache_nbEntries', 'cache_nbUnreads'
-		));
-	}
-
-	public function entryIsCorrect() {
-		return $this->checkTable('entry', array(
-			'id', 'guid', 'title', 'author', 'content_bin', 'link', 'date', 'is_read',
-			'is_favorite', 'id_feed', 'tags'
-		));
-	}
-
 	public function daoToSchema($dao) {
 		return array(
 			'name' => $dao['field'],
@@ -71,15 +39,5 @@ class FreshRSS_DatabaseDAOpgSQL extends Minz_ModelPdo {
 			'notnull' => (bool)$dao['null'],
 			'default' => $dao['default'],
 		);
-	}
-
-	public function listDaoToSchema($listDAO) {
-		$list = array();
-
-		foreach ($listDAO as $dao) {
-			$list[] = $this->daoToSchema($dao);
-		}
-
-		return $list;
 	}
 }

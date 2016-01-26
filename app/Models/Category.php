@@ -30,7 +30,7 @@ class FreshRSS_Category extends Minz_Model {
 	}
 	public function nbFeed() {
 		if ($this->nbFeed < 0) {
-			$catDAO = FreshRSS_Factory::createCategoryDAO();
+			$catDAO = new FreshRSS_CategoryDAO();
 			$this->nbFeed = $catDAO->countFeed($this->id());
 		}
 
@@ -38,7 +38,7 @@ class FreshRSS_Category extends Minz_Model {
 	}
 	public function nbNotRead() {
 		if ($this->nbNotRead < 0) {
-			$catDAO = FreshRSS_Factory::createCategoryDAO();
+			$catDAO = new FreshRSS_CategoryDAO();
 			$this->nbNotRead = $catDAO->countNotRead($this->id());
 		}
 

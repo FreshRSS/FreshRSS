@@ -2,7 +2,7 @@
 
 class FreshRSS_CategoryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 	public function addCategory($valuesTmp) {
-		$sql = 'INSERT INTO `' . $this->prefix . 'category`(name) VALUES(?)';
+		$sql = 'INSERT INTO "' . $this->prefix . 'category(name)" VALUES(?)';
 		$stm = $this->bd->prepare($sql);
 
 		$values = array(
@@ -10,7 +10,13 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo implements FreshRSS_Searchable 
 		);
 
 		if ($stm && $stm->execute($values)) {
-			return $this->bd->lastInsertId();
+		switch ($this->bd->getAttribute(PDO::ATTR_DRIVER_NAME)) {
+			case 'pgsql':
+				return $this->bd->lastInsertId('"'.$this->prefix.'category_id_seq"');
+				break;
+			default:
+				return $this->bd->lastInsertId();
+			}
 		} else {
 			$info = $stm == null ? array(2 => 'syntax error') : $stm->errorInfo();
 			Minz_Log::error('SQL error addCategory: ' . $info[2]);
@@ -32,7 +38,7 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo implements FreshRSS_Searchable 
 	}
 
 	public function updateCategory($id, $valuesTmp) {
-		$sql = 'UPDATE `' . $this->prefix . 'category` SET name=? WHERE id=?';
+		$sql = 'UPDATE "' . $this->prefix . 'category" SET name=? WHERE id=?';
 		$stm = $this->bd->prepare($sql);
 
 		$values = array(
@@ -50,7 +56,7 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo implements FreshRSS_Searchable 
 	}
 
 	public function deleteCategory($id) {
-		$sql = 'DELETE FROM `' . $this->prefix . 'category` WHERE id=?';
+		$sql = 'DELETE FROM "' . $this->prefix . 'category" WHERE id=?';
 		$stm = $this->bd->prepare($sql);
 
 		$values = array($id);
@@ -65,7 +71,7 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo implements FreshRSS_Searchable 
 	}
 
 	public function searchById($id) {
-		$sql = 'SELECT * FROM `' . $this->prefix . 'category` WHERE id=?';
+		$sql = 'SELECT * FROM "' . $this->prefix . 'category" WHERE id=?';
 		$stm = $this->bd->prepare($sql);
 
 		$values = array($id);
@@ -81,7 +87,7 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo implements FreshRSS_Searchable 
 		}
 	}
 	public function searchByName($name) {
-		$sql = 'SELECT * FROM `' . $this->prefix . 'category` WHERE name=?';
+		$sql = 'SELECT * FROM "' . $this->prefix . 'category" WHERE name=?';
 		$stm = $this->bd->prepare($sql);
 
 		$values = array($name);
@@ -100,16 +106,16 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo implements FreshRSS_Searchable 
 	public function listCategories($prePopulateFeeds = true, $details = false) {
 		if ($prePopulateFeeds) {
 			$sql = 'SELECT c.id AS c_id, c.name AS c_name, '
-			     . ($details ? 'f.* ' : 'f.id, f.name, f.url, f.website, f.priority, f.error, f.cache_nbEntries, f.cache_nbUnreads ')
-			     . 'FROM `' . $this->prefix . 'category` c '
-			     . 'LEFT OUTER JOIN `' . $this->prefix . 'feed` f ON f.category=c.id '
-			     . 'GROUP BY f.id '
+			     . ($details ? 'f.* ' : 'f.id, f.name, f.url, f.website, f.priority, f.error, f.cache_nbentries, f.cache_nbunreads ')
+			     . 'FROM "' . $this->prefix . 'category" c '
+			     . 'LEFT OUTER JOIN "' . $this->prefix . 'feed" f ON f.category=c.id '
+			     . 'GROUP BY f.id, c.id '
 			     . 'ORDER BY c.name, f.name';
 			$stm = $this->bd->prepare($sql);
 			$stm->execute();
 			return self::daoToCategoryPrepopulated($stm->fetchAll(PDO::FETCH_ASSOC));
 		} else {
-			$sql = 'SELECT * FROM `' . $this->prefix . 'category` ORDER BY name';
+			$sql = 'SELECT * FROM "' . $this->prefix . 'category" ORDER BY name';
 			$stm = $this->bd->prepare($sql);
 			$stm->execute();
 			return self::daoToCategory($stm->fetchAll(PDO::FETCH_ASSOC));
@@ -117,7 +123,7 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo implements FreshRSS_Searchable 
 	}
 
 	public function getDefault() {
-		$sql = 'SELECT * FROM `' . $this->prefix . 'category` WHERE id=1';
+		$sql = 'SELECT * FROM "' . $this->prefix . 'category" WHERE id=1';
 		$stm = $this->bd->prepare($sql);
 
 		$stm->execute();
@@ -147,7 +153,7 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo implements FreshRSS_Searchable 
 	}
 
 	public function count() {
-		$sql = 'SELECT COUNT(*) AS count FROM `' . $this->prefix . 'category`';
+		$sql = 'SELECT COUNT(*) AS count FROM "' . $this->prefix . 'category"';
 		$stm = $this->bd->prepare($sql);
 		$stm->execute();
 		$res = $stm->fetchAll(PDO::FETCH_ASSOC);
@@ -156,7 +162,7 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo implements FreshRSS_Searchable 
 	}
 
 	public function countFeed($id) {
-		$sql = 'SELECT COUNT(*) AS count FROM `' . $this->prefix . 'feed` WHERE category=?';
+		$sql = 'SELECT COUNT(*) AS count FROM "' . $this->prefix . 'feed" WHERE category=?';
 		$stm = $this->bd->prepare($sql);
 		$values = array($id);
 		$stm->execute($values);
@@ -166,7 +172,7 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo implements FreshRSS_Searchable 
 	}
 
 	public function countNotRead($id) {
-		$sql = 'SELECT COUNT(*) AS count FROM `' . $this->prefix . 'entry` e INNER JOIN `' . $this->prefix . 'feed` f ON e.id_feed=f.id WHERE category=? AND e.is_read=0';
+		$sql = 'SELECT COUNT(*) AS count FROM "' . $this->prefix . 'entry" e INNER JOIN "' . $this->prefix . 'feed" f ON e.id_feed=f.idWHERE category=? AND not e.is_read';
 		$stm = $this->bd->prepare($sql);
 		$values = array($id);
 		$stm->execute($values);
