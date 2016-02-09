@@ -15,6 +15,35 @@ if (!function_exists('json_encode')) {
 	}
 }
 
+if (!function_exists('array_replace_recursive')) {	//PHP 5.2
+	function arr_recurse($array, $array1) {
+		foreach ($array1 as $key => $value) {
+			if (!isset($array[$key]) || (isset($array[$key]) && !is_array($array[$key]))) {
+				$array[$key] = array();	//create new key in $array, if it is empty or not an array
+			}
+			if (is_array($value)) {
+				$value = arr_recurse($array[$key], $value);	// overwrite the value in the base array
+			}
+			$array[$key] = $value;
+		}
+		return $array;
+	}
+	function array_replace_recursive($array, $array1) {	//http://php.net/manual/function.array-replace-recursive.php#92574
+		// handle the arguments, merge one by one
+		$args = func_get_args();
+		$array = $args[0];
+		if (!is_array($array)) {
+			return $array;
+		}
+		for ($i = 1; $i < count($args); $i++) {
+			if (is_array($args[$i])) {
+				$array = arr_recurse($array, $args[$i]);
+			}
+		}
+		return $array;
+	}
+}
+
 /**
  * Build a directory path by concatenating a list of directory names.
  *
