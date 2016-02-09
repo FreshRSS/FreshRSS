@@ -122,6 +122,7 @@ return array(
 		'fr' => 'Français',
 		'it' => 'Italiano',
 		'nl' => 'Nederlands',
+		'tr' => 'Türkçe',
 	),
 	'menu' => array(
 		'about' => 'About',
