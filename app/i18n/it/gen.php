@@ -122,6 +122,7 @@ return array(
 		'fr' => 'Français',
 		'it' => 'Italiano',
 		'nl' => 'Nederlands',
+		'tr' => 'Türkçe',
 	),
 	'menu' => array(
 		'about' => 'Informazioni',
@@ -163,6 +164,7 @@ return array(
 		'shaarli' => 'Shaarli',
 		'twitter' => 'Twitter',
 		'wallabag' => 'wallabag',
+		'jdh' => 'Journal du hacker',
 	),
 	'short' => array(
 		'attention' => 'Attenzione!',
