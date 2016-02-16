@@ -1245,8 +1245,19 @@ function init_configuration_alert() {
 	});
 }
 
+function parseJavaScriptCookie() {
+	var json = JSON.parse(decodeURIComponent(document.cookie.replace(/(?:(?:^|.*;\s*)FreshRSS-vars\s*\=\s*([^;]*).*$)|^.*$/, "$1"))) || {};
+	document.cookie = 'FreshRSS-vars=; expires=Thu, 01 Jan 1970 00:00:00 GMT';
+	window.context = json.context;
+	window.shortcuts = json.shortcuts;
+	window.url = json.url;
+	window.i18n = json.i18n;
+	window.icons = json.icons;
+}
+
 function init_all() {
-	if (!(window.$ && window.context)) {
+	parseJavaScriptCookie();
+	if (!window.$) {
 		if (window.console) {
 			console.log('FreshRSS waiting for JS…');
 		}

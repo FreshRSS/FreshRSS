@@ -1,7 +1,7 @@
 "use strict";
 
 function init_persona() {
-	if (!(navigator.id && window.$)) {
+	if (!(navigator.id && window.$ && window.url)) {
 		if (window.console) {
 			console.log('FreshRSS (Persona) waiting for JS…');
 		}
