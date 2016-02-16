@@ -5,10 +5,10 @@
 		<meta name="viewport" content="initial-scale=1.0" />
 		<?php echo self::headTitle(); ?>
 		<?php echo self::headStyle(); ?>
-		<?php echo self::headScript(); ?>
 		<script>//<![CDATA[
 <?php $this->renderHelper('javascript_vars'); ?>
 		//]]></script>
+		<?php echo self::headScript(); ?>
 <?php
 	$url_base = Minz_Request::currentRequest();
 	if (FreshRSS_Context::$next_id !== '') {
@@ -42,7 +42,7 @@
 		<meta name="robots" content="noindex,nofollow" />
 <?php } ?>
 	</head>
-	<body class="<?php echo Minz_Request::param('output', 'normal'); ?>">
+	<body class="<?php echo Minz_Request::actionName(); ?>">
 <?php $this->partial('header'); ?>
 
 <div id="global">
