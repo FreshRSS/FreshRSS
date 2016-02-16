@@ -5,6 +5,8 @@
 * UI
 	* Fixed several small bugs in global and reader view [#1050](https://github.com/FreshRSS/FreshRSS/pull/1050)
 	* Updated to jQuery 2.2 and changed code for auto-load on scroll [#1050](https://github.com/FreshRSS/FreshRSS/pull/1050)
+* I18n
+	* Turkish [#1073](https://github.com/FreshRSS/FreshRSS/issues/1073)
 
 
 ## 2015-11-03 FreshRSS 1.2.0 / 1.3.0-beta
