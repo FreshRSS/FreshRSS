@@ -2,16 +2,16 @@
 
 return array(
 	'archiving' => array(
-		'_' => 'Archiving',
-		'advanced' => 'Advanced',
-		'delete_after' => 'Remove articles after',
-		'help' => 'More options are available in the individual feed settings',
+		'_' => 'Архивация',
+		'advanced' => 'Продвинутые настройки',
+		'delete_after' => 'Удалять статьи после',
+		'help' => 'Каждую подписку можно настроить более гибко',
 		'keep_history_by_feed' => 'Minimum number of articles to keep by feed',
-		'optimize' => 'Optimise database',
+		'optimize' => 'Оптимизировать базу данных',
 		'optimize_help' => 'To do occasionally to reduce the size of the database',
-		'purge_now' => 'Purge now',
-		'title' => 'Archiving',
-		'ttl' => 'Do not automatically refresh more often than',
+		'purge_now' => 'Очистить сейчас',
+		'title' => 'Архивация',
+		'ttl' => 'Не обновлять чаще чем',
 	),
 	'display' => array(
 		'_' => 'Display',
@@ -23,12 +23,12 @@ return array(
 			'sharing' => 'Sharing',
 			'top_line' => 'Top line',
 		),
-		'language' => 'Language',
+		'language' => 'Язык',
 		'notif_html5' => array(
 			'seconds' => 'seconds (0 means no timeout)',
 			'timeout' => 'HTML5 notification timeout',
 		),
-		'theme' => 'Theme',
+		'theme' => 'Тема',
 		'title' => 'Display',
 		'width' => array(
 			'content' => 'Content width',
