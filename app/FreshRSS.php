@@ -168,7 +168,7 @@ class FreshRSS extends Minz_FrontController {
 	}
 
 	public static function preLayout() {
-		header("Content-Security-Policy: default-src 'self'; img-src * data:; media-src *; style-src 'self' 'unsafe-inline'");
+		header("Content-Security-Policy: default-src 'self'; child-src *; img-src * data:; media-src *; style-src 'self' 'unsafe-inline'");
 		self::setJavascriptCookie();
 	}
 
