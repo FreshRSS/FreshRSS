@@ -108,7 +108,7 @@ return array(
 		'confirm_action' => 'Jste si jist, že chcete provést tuto akci? Změny nelze vrátit zpět!',
 		'confirm_action_feed_cat' => 'Jste si jist, že chcete provést tuto akci? Přijdete o související oblíbené položky a uživatelské dotazy. Změny nelze vrátit zpět!',
 		'feedback' => array(
-			'body_new_articles' => 'Je \\d nových článků k přečtení v FreshRSS.',
+			'body_new_articles' => 'Je %d nových článků k přečtení v FreshRSS.',
 			'request_failed' => 'Požadavek selhal, což může být způsobeno problémy s připojení k internetu.',
 			'title_new_articles' => 'FreshRSS: nové články!',
 		),
