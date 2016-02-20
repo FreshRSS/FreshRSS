@@ -863,7 +863,7 @@ function notifs_html5_show(nb) {
 
 	var notification = new window.Notification(i18n['notif_title_articles'], {
 		icon: "../themes/icons/favicon-256.png",
-		body: i18n['notif_body_articles'].replace("\d", nb),
+		body: i18n['notif_body_articles'].replace('%d', nb),
 		tag: "freshRssNewArticles"
 	});
 
