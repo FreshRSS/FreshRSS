@@ -2,6 +2,7 @@
 if (function_exists('opcache_reset')) {
 	opcache_reset();
 }
+header("Content-Security-Policy: default-src 'self'");
 
 define('BCRYPT_COST', 9);
 
