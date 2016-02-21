@@ -871,7 +871,7 @@ function notifs_html5_show(nb) {
 		window.location.reload();
 	}
 
-	if (context['html5_notif_timeout'] !== 0){
+	if (context['html5_notif_timeout'] !== 0) {
 		setTimeout(function() {
 			notification.close();
 		}, context['html5_notif_timeout'] * 1000);
@@ -1246,8 +1246,9 @@ function init_configuration_alert() {
 }
 
 function parseJavaScriptCookie() {
-	var json = JSON.parse(decodeURIComponent(document.cookie.replace(/(?:(?:^|.*;\s*)FreshRSS-vars\s*\=\s*([^;]*).*$)|^.*$/, "$1"))) || {};
+	var vars = decodeURIComponent(document.cookie.replace(/(?:(?:^|.*;\s*)FreshRSS-vars\s*\=\s*([^;]*).*$)|^.*$/, "$1"));
 	document.cookie = 'FreshRSS-vars=; expires=Thu, 01 Jan 1970 00:00:00 GMT';
+	var json = JSON.parse(vars);
 	window.context = json.context;
 	window.shortcuts = json.shortcuts;
 	window.url = json.url;
@@ -1256,7 +1257,6 @@ function parseJavaScriptCookie() {
 }
 
 function init_all() {
-	parseJavaScriptCookie();
 	if (!window.$) {
 		if (window.console) {
 			console.log('FreshRSS waiting for JS…');
@@ -1264,6 +1264,7 @@ function init_all() {
 		window.setTimeout(init_all, 50);
 		return;
 	}
+	parseJavaScriptCookie();
 	init_notifications();
 	init_confirm_action();
 	$stream = $('#stream');
