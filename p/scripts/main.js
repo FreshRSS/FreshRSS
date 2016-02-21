@@ -899,7 +899,7 @@ function refreshUnreads() {
 
 			if ((incUnreadsFeed(null, feed_id, nbUnreads - feed_unreads) || isAll) &&	//Update of current view?
 				(nbUnreads - feed_unreads > 0)) {
-				$('#new-article').show();
+				$('#new-article').attr('aria-hidden', 'false').show();
 				new_articles = true;
 			};
 		});
@@ -1122,10 +1122,10 @@ function init_feed_observers() {
 	$('select[id="category"]').on('change', function() {
 		var detail = $('#new_category_name').parent();
 		if ($(this).val() === 'nc') {
-			detail.show();
+			detail.attr('aria-hidden', 'false').show();
 			detail.find('input').focus();
 		} else {
-			detail.hide();
+			detail.attr('aria-hidden', 'true').hide();
 		}
 	});
 }

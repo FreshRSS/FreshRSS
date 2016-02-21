@@ -2,6 +2,8 @@
 
 ## 2016-xx-xx FreshRSS 1.3.1-beta
 
+* Security
+	* Added CSP `Content-Security-Policy: default-src 'self'; child-src *; img-src * data:; media-src *` [#1075](https://github.com/FreshRSS/FreshRSS/pull/1075)
 * UI
 	* Fixed several small bugs in global and reader view [#1050](https://github.com/FreshRSS/FreshRSS/pull/1050)
 	* Updated to jQuery 2.2 and changed code for auto-load on scroll [#1050](https://github.com/FreshRSS/FreshRSS/pull/1050)

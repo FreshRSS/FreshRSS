@@ -19,7 +19,7 @@
 	<a href="<?php echo _url('index', 'about'); ?>"><?php echo _t('index.menu.about'); ?></a>
 	<?php } ?>
 
-	<form id="mark-read-aside" method="post" style="display: none"></form>
+	<form id="mark-read-aside" method="post" aria-hidden="true"></form>
 
 	<ul class="tree">
 		<li class="tree-folder category all<?php echo FreshRSS_Context::isCurrentGet('a') ? ' active' : ''; ?>">
