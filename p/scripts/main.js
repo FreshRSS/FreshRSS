@@ -1245,10 +1245,10 @@ function init_configuration_alert() {
 	});
 }
 
-function parseJavaScriptCookie() {
-	var vars = decodeURIComponent(document.cookie.replace(/(?:(?:^|.*;\s*)FreshRSS-vars\s*\=\s*([^;]*).*$)|^.*$/, "$1"));
-	document.cookie = 'FreshRSS-vars=; expires=Thu, 01 Jan 1970 00:00:00 GMT';
-	var json = JSON.parse(vars);
+function parseJsonVars() {
+	var jsonVars = document.getElementById('jsonVars'),
+		json = JSON.parse(jsonVars.innerHTML);
+	jsonVars.outerHTML = '';
 	window.context = json.context;
 	window.shortcuts = json.shortcuts;
 	window.url = json.url;
@@ -1264,7 +1264,7 @@ function init_all() {
 		window.setTimeout(init_all, 50);
 		return;
 	}
-	parseJavaScriptCookie();
+	parseJsonVars();
 	init_notifications();
 	init_confirm_action();
 	$stream = $('#stream');
