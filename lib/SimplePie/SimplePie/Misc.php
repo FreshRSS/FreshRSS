@@ -97,7 +97,7 @@ class SimplePie_Misc
 		{
 			return false;
 		}
-		return https_url($iri->get_uri());
+		return SimplePie_Misc::https_url($iri->get_uri());
 	}
 
 	/**
