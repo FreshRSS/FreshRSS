@@ -77,6 +77,15 @@ class SimplePie_Misc
 		return $time;
 	}
 
+	/**
+	 * Force HTTPS for selected Web sites
+	 * FreshRSS
+	 */
+	public static https_url($url)
+	{
+		return preg_replace('%^http://((?:[^/]*?\.)?(?:youtube|dailymotion|tumblr)\.com/)%i', '//$1', $url);
+	}
+
 	public static function absolutize_url($relative, $base)
 	{
 		if (substr($relative, 0, 2) === '//')
@@ -88,7 +97,7 @@ class SimplePie_Misc
 		{
 			return false;
 		}
-		return $iri->get_uri();
+		return https_url($iri->get_uri());
 	}
 
 	/**
