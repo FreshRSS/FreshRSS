@@ -81,7 +81,7 @@ class SimplePie_Misc
 	 * Force HTTPS for selected Web sites
 	 * FreshRSS
 	 */
-	public static https_url($url)
+	public static function https_url($url)
 	{
 		return preg_replace('%^http://((?:[^/]*?\.)?(?:youtube|dailymotion|tumblr)\.com/)%i', '//$1', $url);
 	}
