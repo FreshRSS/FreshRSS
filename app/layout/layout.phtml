@@ -8,6 +8,9 @@
 		<meta name="viewport" content="initial-scale=1.0" />
 		<?php echo self::headTitle(); ?>
 		<?php echo self::headStyle(); ?>
+		<script id="jsonVars" type="application/json">
+<?php $this->renderHelper('javascript_vars'); ?>
+		</script>
 		<?php echo self::headScript(); ?>
 <?php
 	$url_base = Minz_Request::currentRequest();
