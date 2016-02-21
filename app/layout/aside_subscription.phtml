@@ -10,7 +10,7 @@
 	</li>
 
 	<li class="item">
-		<a onclick="return false;" href="javascript:(function(){var%20url%20=%20location.href;window.open('<?php echo Minz_Url::display(array('c' => 'feed', 'a' => 'add'), 'html', true); ?>&amp;url_rss='+encodeURIComponent(url), '_blank');})();">
+		<a class="bookmarkClick" href="javascript:(function(){var%20url%20=%20location.href;window.open('<?php echo Minz_Url::display(array('c' => 'feed', 'a' => 'add'), 'html', true); ?>&amp;url_rss='+encodeURIComponent(url), '_blank');})();">
 			<?php echo _t('sub.menu.bookmark'); ?>
 		</a>
 	</li>

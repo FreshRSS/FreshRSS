@@ -1245,6 +1245,12 @@ function init_configuration_alert() {
 	});
 }
 
+function init_subscription() {
+	$('body').on('click', '.bookmarkClick', function (e) {
+		return false;
+	});
+}
+
 function parseJsonVars() {
 	var jsonVars = document.getElementById('jsonVars'),
 		json = JSON.parse(jsonVars.innerHTML);
@@ -1281,6 +1287,7 @@ function init_all() {
 		init_notifs_html5();
 		window.setInterval(refreshUnreads, 120000);
 	} else {
+		init_subscription();
 		init_crypto_form();
 		init_share_observers();
 		init_remove_observers();
