@@ -451,7 +451,8 @@ class SimplePie_Sanitize
 					if ($element->hasAttribute($attribute))
 					{
 						$value = $this->registry->call('Misc', 'absolutize_url', array($element->getAttribute($attribute), $this->base));
-						if ($value !== false)
+						$value = SimplePie_Misc::https_url($value);	//FreshRSS
+						if ($value)
 						{
 							$element->setAttribute($attribute, $value);
 						}
