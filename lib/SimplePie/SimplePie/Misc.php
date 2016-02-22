@@ -83,14 +83,14 @@ class SimplePie_Misc
 	 */
 	public static function https_url($url)
 	{
-		return preg_replace('%^http://((?:[^/]*?\.)?(?:youtube|dailymotion|tumblr)\.com/)%i', '//$1', $url);
+		return preg_replace('%^http://((?:[^/]*?\.)?(?:youtube|dailymotion|tumblr)\.com/)%i', 'https://$1', $url);
 	}
 
 	public static function absolutize_url($relative, $base)
 	{
 		if (substr($relative, 0, 2) === '//')
-		{//Allow protocol-relative URLs "//www.example.net" which will pick HTTP or HTTPS automatically
-			return $relative;
+		{//Protocol-relative URLs "//www.example.net"
+			return 'https:' . $relative;
 		}
 		$iri = SimplePie_IRI::absolutize(new SimplePie_IRI($base), $relative);
 		if ($iri === false)
