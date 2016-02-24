@@ -1,9 +1,9 @@
 <?php
 if (!function_exists('json_decode')) {
 	require_once('JSON.php');
-	function json_decode($var, $assoc) {
+	function json_decode($var, $assoc = false) {
 		$JSON = new Services_JSON($assoc ? SERVICES_JSON_LOOSE_TYPE : 0);
-		return $JSON->decode($var, $assoc);
+		return $JSON->decode($var);
 	}
 }
 
