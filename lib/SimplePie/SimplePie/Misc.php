@@ -83,7 +83,13 @@ class SimplePie_Misc
 	 */
 	public static function https_url($url)
 	{
-		return preg_replace('%^http://((?:[^/]*?\.)?(?:youtube|dailymotion|tumblr)\.com/)%i', 'https://$1', $url);
+		if (strtolower(substr($url, 0, 7)) === 'http://')
+		{
+			$domain = parse_url($url, PHP_URL_HOST);
+			return preg_replace('%^http://((?:[^/]*?\.)?(?:youtube|dailymotion|tumblr)\.com/)%i', 'https://$1', $url);
+			return substr_replace($url, 's', 4, 0);	//Add the 's' to HTTPS
+		}
+		return $url;
 	}
 
 	public static function absolutize_url($relative, $base)
