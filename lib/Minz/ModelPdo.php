@@ -63,6 +63,10 @@ class Minz_ModelPdo {
 				        . ';charset=utf8';
 				$driver_options[PDO::MYSQL_ATTR_INIT_COMMAND] = 'SET NAMES utf8';
 				$this->prefix = $db['prefix'] . $currentUser . '_';
+			} elseif ($type === 'pgsql') {
+				$string = 'pgsql:host=' . $db['host']
+				        . ';dbname=' . $db['base'];
+				$this->prefix = $db['prefix'] . $currentUser . '_';
 			} elseif ($type === 'sqlite') {
 				$string = 'sqlite:' . join_path(DATA_PATH, 'users', $currentUser, 'db.sqlite');
 				//$driver_options[PDO::ATTR_ERRMODE] = PDO::ERRMODE_EXCEPTION;
@@ -84,6 +88,8 @@ class Minz_ModelPdo {
 			);
 			if ($type === 'sqlite') {
 				$this->bd->exec('PRAGMA foreign_keys = ON;');
+			} esleif ($type === 'mysql') {
+				$this->bd->exec("SET SESSION sql_mode = 'ANSI_QUOTES';");
 			}
 			self::$sharedBd = $this->bd;
 		} catch (Exception $e) {

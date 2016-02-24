@@ -7,7 +7,7 @@ class FreshRSS_EntryDAOSQLite extends FreshRSS_EntryDAO {
 			if ($tableInfo = $this->bd->query("SELECT sql FROM sqlite_master where name='entry'")) {
 				$showCreate = $tableInfo->fetchColumn();
 				Minz_Log::debug('FreshRSS_EntryDAOSQLite::autoAddColumn: ' . $showCreate);
-				foreach (array('lastSeen', 'hash') as $column) {
+				foreach (array('lastseen', 'hash') as $column) {
 					if (stripos($showCreate, $column) === false) {
 						return $this->addColumn($column);
 					}
@@ -22,10 +22,10 @@ class FreshRSS_EntryDAOSQLite extends FreshRSS_EntryDAO {
 	}
 
 	protected function updateCacheUnreads($catId = false, $feedId = false) {
-		$sql = 'UPDATE `' . $this->prefix . 'feed` '
-		 . 'SET cache_nbUnreads=('
-		 .	'SELECT COUNT(*) AS nbUnreads FROM `' . $this->prefix . 'entry` e '
-		 .	'WHERE e.id_feed=`' . $this->prefix . 'feed`.id AND e.is_read=0) '
+		$sql = 'UPDATE "' . $this->prefix . 'feed" '
+		 . 'SET cache_nbunreads=('
+		 .	'SELECT COUNT(*) AS nbUnreads FROM "' . $this->prefix . 'entry" e '
+		 .	'WHERE e.id_feed="' . $this->prefix . 'feed".id AND NOT e.is_read) '
 		 . 'WHERE 1';
 		$values = array();
 		if ($feedId !== false) {
@@ -70,7 +70,7 @@ class FreshRSS_EntryDAOSQLite extends FreshRSS_EntryDAO {
 			}
 		} else {
 			$this->bd->beginTransaction();
-			$sql = 'UPDATE `' . $this->prefix . 'entry` SET is_read=? WHERE id=? AND is_read=?';
+			$sql = 'UPDATE "' . $this->prefix . 'entry" SET is_read=? WHERE id=? AND is_read=?';
 			$values = array($is_read ? 1 : 0, $ids, $is_read ? 0 : 1);
 			$stm = $this->bd->prepare($sql);
 			if (!($stm && $stm->execute($values))) {
@@ -81,8 +81,8 @@ class FreshRSS_EntryDAOSQLite extends FreshRSS_EntryDAO {
 			}
 			$affected = $stm->rowCount();
 			if ($affected > 0) {
-				$sql = 'UPDATE `' . $this->prefix . 'feed` SET cache_nbUnreads=cache_nbUnreads' . ($is_read ? '-' : '+') . '1 '
-				 . 'WHERE id=(SELECT e.id_feed FROM `' . $this->prefix . 'entry` e WHERE e.id=?)';
+				$sql = 'UPDATE "' . $this->prefix . 'feed" SET cache_nbunreads=cache_nbunreads' . ($is_read ? '-' : '+') . '1 '
+				 . 'WHERE id=(SELECT e.id_feed FROM "' . $this->prefix . 'entry" e WHERE e.id=?)';
 				$values = array($ids);
 				$stm = $this->bd->prepare($sql);
 				if (!($stm && $stm->execute($values))) {
@@ -124,11 +124,11 @@ class FreshRSS_EntryDAOSQLite extends FreshRSS_EntryDAO {
 			Minz_Log::debug('Calling markReadEntries(0) is deprecated!');
 		}
 
-		$sql = 'UPDATE `' . $this->prefix . 'entry` SET is_read=1 WHERE is_read=0 AND id <= ?';
+		$sql = 'UPDATE "' . $this->prefix . 'entry" SET is_read=1 WHERE is_read=0 AND id <= ?';
 		if ($onlyFavorites) {
 			$sql .= ' AND is_favorite=1';
 		} elseif ($priorityMin >= 0) {
-			$sql .= ' AND id_feed IN (SELECT f.id FROM `' . $this->prefix . 'feed` f WHERE f.priority > ' . intval($priorityMin) . ')';
+			$sql .= ' AND id_feed IN (SELECT f.id FROM "' . $this->prefix . 'feed" f WHERE f.priority > ' . intval($priorityMin) . ')';
 		}
 		$values = array($idMax);
 		$stm = $this->bd->prepare($sql);
@@ -161,10 +161,10 @@ class FreshRSS_EntryDAOSQLite extends FreshRSS_EntryDAO {
 			Minz_Log::debug('Calling markReadCat(0) is deprecated!');
 		}
 
-		$sql = 'UPDATE `' . $this->prefix . 'entry` '
+		$sql = 'UPDATE "' . $this->prefix . 'entry" '
 			 . 'SET is_read=1 '
 			 . 'WHERE is_read=0 AND id <= ? AND '
-			 . 'id_feed IN (SELECT f.id FROM `' . $this->prefix . 'feed` f WHERE f.category=?)';
+			 . 'id_feed IN (SELECT f.id FROM "' . $this->prefix . 'feed" f WHERE f.category=?)';
 		$values = array($idMax, $id);
 		$stm = $this->bd->prepare($sql);
 		if (!($stm && $stm->execute($values))) {

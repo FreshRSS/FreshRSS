@@ -1,6 +1,6 @@
 <?php
 
-class FreshRSS_StatsDAO extends Minz_ModelPdo {
+class FreshRSS_StatsDAOpgSQL extends Minz_ModelPdo {
 
 	const ENTRY_COUNT_PERIOD = 30;
 
@@ -38,9 +38,9 @@ class FreshRSS_StatsDAO extends Minz_ModelPdo {
 		}
 		$sql = <<<SQL
 SELECT COUNT(1) AS total,
-COUNT(1) - SUM(e.is_read) AS unread,
-SUM(e.is_read) AS read,
-SUM(e.is_favorite) AS favorite
+COUNT(1) - SUM(case when e.is_read then 1 else 0 end) AS unread,
+SUM(case when e.is_read then 1 else 0 end) AS read,
+SUM(case when e.is_favorite then 1 else 0 end) AS favorite
 FROM "{$this->prefix}entry" AS e
 , "{$this->prefix}feed" AS f
 WHERE e.id_feed = f.id
@@ -65,10 +65,10 @@ SQL;
 
 		// Get stats per day for the last 30 days
 		$sql = <<<SQL
-SELECT DATEDIFF(FROM_UNIXTIME(e.date), NOW()) AS day,
+SELECT to_timestamp(e.date) - NOW() AS day,
 COUNT(1) AS count
 FROM "{$this->prefix}entry" AS e
-WHERE FROM_UNIXTIME(e.date, '%Y%m%d') BETWEEN DATE_FORMAT(DATE_ADD(NOW(), INTERVAL -{$period} DAY), '%Y%m%d') AND DATE_FORMAT(DATE_ADD(NOW(), INTERVAL -1 DAY), '%Y%m%d')
+WHERE to_timestamp(e.date) BETWEEN NOW() - INTERVAL '{$period} DAYS' AND NOW() - INTERVAL '1 DAY'
 GROUP BY day
 ORDER BY day ASC
 SQL;
@@ -95,7 +95,7 @@ SQL;
 		$sql = <<<SQL
 SELECT COUNT(1) / {$period} AS average
 FROM "{$this->prefix}entry" AS e
-WHERE FROM_UNIXTIME(e.date, '%Y%m%d') BETWEEN DATE_FORMAT(DATE_ADD(NOW(), INTERVAL -{$period} DAY), '%Y%m%d') AND DATE_FORMAT(DATE_ADD(NOW(), INTERVAL -1 DAY), '%Y%m%d')
+WHERE to_timestamp(e.date) BETWEEN NOW() - INTERVAL '{$period} DAYS' AND NOW() - INTERVAL '1 DAY'
 SQL;
 		$stm = $this->bd->prepare($sql);
 		$stm->execute();
@@ -120,7 +120,7 @@ SQL;
 	 * @return string
 	 */
 	public function calculateEntryRepartitionPerFeedPerHour($feed = null) {
-		return $this->calculateEntryRepartitionPerFeedPerPeriod('%H', $feed);
+		return $this->calculateEntryRepartitionPerFeedPerPeriod('hour', $feed);
 	}
 
 	/**
@@ -130,7 +130,7 @@ SQL;
 	 * @return string
 	 */
 	public function calculateEntryRepartitionPerFeedPerDayOfWeek($feed = null) {
-		return $this->calculateEntryRepartitionPerFeedPerPeriod('%w', $feed);
+		return $this->calculateEntryRepartitionPerFeedPerPeriod('day', $feed);
 	}
 
 	/**
@@ -140,7 +140,7 @@ SQL;
 	 * @return string
 	 */
 	public function calculateEntryRepartitionPerFeedPerMonth($feed = null) {
-		return $this->calculateEntryRepartitionPerFeedPerPeriod('%m', $feed);
+		return $this->calculateEntryRepartitionPerFeedPerPeriod('month', $feed);
 	}
 
 	/**
@@ -156,7 +156,7 @@ SQL;
 			$restrict = "WHERE e.id_feed = {$feed}";
 		}
 		$sql = <<<SQL
-SELECT DATE_FORMAT(FROM_UNIXTIME(e.date), '{$period}') AS period
+SELECT extract( {$period} from to_timestamp(e.date)) AS period
 , COUNT(1) AS count
 FROM "{$this->prefix}entry" AS e
 {$restrict}
