@@ -1,16 +1,16 @@
 <?php
 if (!function_exists('json_decode')) {
 	require_once('JSON.php');
-	function json_decode($var) {
-		$JSON = new Services_JSON;
-		return (array)($JSON->decode($var));
+	function json_decode($var, $assoc) {
+		$JSON = new Services_JSON($assoc ? SERVICES_JSON_LOOSE_TYPE : 0);
+		return $JSON->decode($var, $assoc);
 	}
 }
 
 if (!function_exists('json_encode')) {
 	require_once('JSON.php');
 	function json_encode($var) {
-		$JSON = new Services_JSON;
+		$JSON = new Services_JSON();
 		return $JSON->encodeUnsafe($var);
 	}
 }
