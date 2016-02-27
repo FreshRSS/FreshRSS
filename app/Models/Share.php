@@ -119,11 +119,9 @@ class FreshRSS_Share {
 		);
 
 		foreach ($options as $key => $value) {
-			if (!isset($available_options[$key])) {
-				continue;
+			if (isset($available_options[$key])) {
+				$this->{$available_options[$key]} = $value;
 			}
-
-			$this->$available_options[$key] = $value;
 		}
 	}
 
