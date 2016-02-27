@@ -829,7 +829,6 @@ case 5:
 		<title><?php echo _t('install.title'); ?></title>
 		<link rel="stylesheet" href="../themes/base-theme/template.css?<?php echo @filemtime(PUBLIC_PATH . '/themes/base-theme/template.css'); ?>" />
 		<link rel="stylesheet" href="../themes/Origine/origine.css?<?php echo @filemtime(PUBLIC_PATH . '/themes/Origine/origine.css'); ?>" />
-		<script src="../scripts/install.js?<?php echo @filemtime(PUBLIC_PATH . '/scripts/install.js'); ?>"></script>
 		<meta name="robots" content="noindex,nofollow" />
 	</head>
 	<body>
@@ -877,5 +876,6 @@ case 5:
 		?>
 	</div>
 </div>
+	<script src="../scripts/install.js?<?php echo @filemtime(PUBLIC_PATH . '/scripts/install.js'); ?>"></script>
 	</body>
 </html>
