@@ -815,7 +815,9 @@ function init_actualize() {
 			}
 			//Progress bar
 			var feeds_count = data.feeds.length;
-			$('body').after('<div id="actualizeProgress" class="notification good">' + data.feedback_actualize + '<br /><span class="title">/</span><br /><span class="progress">0 / ' + feeds_count + '</span></div>');
+			$('body').after('<div id="actualizeProgress" class="notification good">' + data.feedback_actualize +
+				'<br /><span class="title">/</span><br /><span class="progress">0 / ' + feeds_count +
+				'</span></div>');
 			for (var i = 10; i > 0; i--) {
 				updateFeed(data.feeds, feeds_count);
 			}
