@@ -767,6 +767,31 @@ function init_nav_entries() {
 	});
 }
 
+// <actualize>
+var feed_processed = 0;
+
+function updateFeed(feeds, feeds_count) {
+	var feed = feeds.pop();
+	if (feed == undefined) {
+		return;
+	}
+
+	$.ajax({
+		type: 'POST',
+		url: feed['url'],
+	}).complete(function (data) {
+		feed_processed++;
+		$("#actualizeProgress .progress").html(feed_processed + " / " + feeds_count);
+		$("#actualizeProgress .title").html(feed['title']);
+
+		if (feed_processed === feeds_count) {
+			window.location.reload();
+		} else {
+			updateFeed(feeds, feeds_count);
+		}
+	});
+}
+
 function init_actualize() {
 	var auto = false;
 
@@ -777,14 +802,23 @@ function init_actualize() {
 
 		ajax_loading = true;
 
-		$.getScript('./?c=javascript&a=actualize').done(function () {
-			if (auto && feed_count < 1) {
+		$.getJSON('./?c=javascript&a=actualize').done(function (data) {
+			if (auto && data.feeds.length < 1) {
 				auto = false;
 				ajax_loading = false;
 				return false;
 			}
-
-			updateFeeds();
+			if (data.feeds.length === 0) {
+				openNotification(data.feedback_no_refresh, "good");
+				ajax_loading = false;
+				return;
+			}
+			//Progress bar
+			var feeds_count = data.feeds.length;
+			$('body').after('<div id="actualizeProgress" class="notification good">' + data.feedback_actualize + '<br /><span class="title">/</span><br /><span class="progress">0 / ' + feeds_count + '</span></div>');
+			for (var i = 10; i > 0; i--) {
+				updateFeed(data.feeds, feeds_count);
+			}
 		});
 
 		return false;
@@ -795,7 +829,7 @@ function init_actualize() {
 		$("#actualize").click();
 	}
 }
-
+// </actualize>
 
 // <notification>
 var notification = null,
