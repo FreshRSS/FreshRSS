@@ -42,7 +42,7 @@ function auth_type_change() {
 var auth_type = document.getElementById('auth_type');
 if (auth_type) {
 	auth_type_change();
-	auth_type_change.addEventListener('change', auth_type_change);
+	auth_type.addEventListener('change', auth_type_change);
 }
 
 function mySqlShowHide() {
