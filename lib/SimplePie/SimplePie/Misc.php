@@ -77,21 +77,6 @@ class SimplePie_Misc
 		return $time;
 	}
 
-	/**
-	 * Force HTTPS for selected Web sites
-	 * FreshRSS
-	 */
-	public static function https_url($url)
-	{
-		if (strtolower(substr($url, 0, 7)) === 'http://')
-		{
-			$domain = parse_url($url, PHP_URL_HOST);
-			return preg_replace('%^http://((?:[^/]*?\.)?(?:youtube|dailymotion|tumblr)\.com/)%i', 'https://$1', $url);
-			return substr_replace($url, 's', 4, 0);	//Add the 's' to HTTPS
-		}
-		return $url;
-	}
-
 	public static function absolutize_url($relative, $base)
 	{
 		if (substr($relative, 0, 2) === '//')

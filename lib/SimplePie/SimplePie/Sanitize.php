@@ -73,6 +73,14 @@ class SimplePie_Sanitize
 	var $force_fsockopen = false;
 	var $replace_url_attributes = null;
 
+	/**
+	 * List of domains for which force HTTPS.
+	 * @see SimplePie_Misc::https_url()
+	 * Array is tree split at DNS levels. Example array('biz' => true, 'com' => array('example' => true), 'example' => array('test') => array('www' => true));
+	 * FreshRSS
+	 */
+	var $https_domains = array('com' => array('youtube' => true));
+
 	public function __construct()
 	{
 		// Set defaults
@@ -240,6 +248,81 @@ class SimplePie_Sanitize
 			);
 		}
 		$this->replace_url_attributes = (array) $element_attribute;
+	}
+
+	/**
+	 * Set the list of domains for which force HTTPS.
+	 * @see SimplePie_Misc::https_url()
+	 * Example array('biz', 'example.com', 'example.org', 'www.example.net');
+	 * FreshRSS
+	 */
+	public function set_https_domains($domains)
+	{
+		$this->https_domains = array();
+		foreach ($domains as $domain)
+		{
+			$domain = trim($domain, ". \t\n\r\0\x0B");
+			$segments = array_reverse(explode('.', $domain));
+			if (count($segments) > 0)
+			{
+				$node =& $this->https_domains;
+				foreach ($segments as $segment)
+				{//Build a tree
+					if ($node === true)
+					{
+						break;
+					}
+					if (!isset($node[$segment]))
+					{
+						$node[$segment] = array();
+					}
+					$node =& $node[$segment];
+				}
+				$node = true;
+			}
+		}
+	}
+
+	/**
+	 * Check if the domain is in the list of forced HTTPS
+	 * FreshRSS
+	 */
+	protected function is_https_domain($domain)
+	{
+		$domain = trim($domain, '. ');
+		$segments = array_reverse(explode('.', $domain));
+		if (count($segments) > 0)
+		{
+			$node =& $this->https_domains;
+			foreach ($segments as $segment)
+			{//Explore the tree
+				if ($node === true)
+				{
+					return true;
+				}
+				if (isset($node[$segment]))
+				{
+					$node =& $node[$segment];
+				}
+				else
+				{
+					break;
+				}
+			}
+		}
+		return false;
+	}
+
+	/**
+	 * Force HTTPS for selected Web sites
+	 * FreshRSS
+	 */
+	protected function https_url($url)
+	{
+		return (strtolower(substr($url, 0, 7)) === 'http://') &&
+			$this->is_https_domain(parse_url($url, PHP_URL_HOST)) ?
+			substr_replace($url, 's', 4, 0) :	//Add the 's' to HTTPS
+			$url;
 	}
 
 	public function sanitize($data, $type, $base = '')
@@ -451,7 +534,7 @@ class SimplePie_Sanitize
 					if ($element->hasAttribute($attribute))
 					{
 						$value = $this->registry->call('Misc', 'absolutize_url', array($element->getAttribute($attribute), $this->base));
-						$value = SimplePie_Misc::https_url($value);	//FreshRSS
+						$value = $this->https_url($value);	//FreshRSS
 						if ($value)
 						{
 							$element->setAttribute($attribute, $value);
