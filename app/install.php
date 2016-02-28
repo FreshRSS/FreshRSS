@@ -318,6 +318,8 @@ function checkStep1() {
 	$pcre = extension_loaded('pcre');
 	$ctype = extension_loaded('ctype');
 	$dom = class_exists('DOMDocument');
+	$xml = function_exists('xml_parser_create');
+	$json = function_exists('json_encode');
 	$data = DATA_PATH && is_writable(DATA_PATH);
 	$cache = CACHE_PATH && is_writable(CACHE_PATH);
 	$users = USERS_PATH && is_writable(USERS_PATH);
@@ -335,13 +337,15 @@ function checkStep1() {
 		'pcre' => $pcre ? 'ok' : 'ko',
 		'ctype' => $ctype ? 'ok' : 'ko',
 		'dom' => $dom ? 'ok' : 'ko',
+		'xml' => $xml ? 'ok' : 'ko',
+		'json' => $json ? 'ok' : 'ko',
 		'data' => $data ? 'ok' : 'ko',
 		'cache' => $cache ? 'ok' : 'ko',
 		'users' => $users ? 'ok' : 'ko',
 		'favicons' => $favicons ? 'ok' : 'ko',
 		'persona' => $persona ? 'ok' : 'ko',
 		'http_referer' => $http_referer ? 'ok' : 'ko',
-		'all' => $php && $minz && $curl && $pdo && $pcre && $ctype && $dom &&
+		'all' => $php && $minz && $curl && $pdo && $pcre && $ctype && $dom && $xml &&
 		         $data && $cache && $users && $favicons && $persona && $http_referer ?
 		         'ok' : 'ko'
 	);
@@ -554,6 +558,12 @@ function printStep1() {
 	<p class="alert alert-error"><span class="alert-head"><?php echo _t('gen.short.damn'); ?></span> <?php echo _t('install.check.curl.nok'); ?></p>
 	<?php } ?>
 
+	<?php if ($res['json'] == 'ok') { ?>
+	<p class="alert alert-success"><span class="alert-head"><?php echo _t('gen.short.ok'); ?></span> <?php echo _t('install.check.json.ok'); ?></p>
+	<?php } else { ?>
+	<p class="alert alert-warn"><span class="alert-head"><?php echo _t('gen.short.damn'); ?></span> <?php echo _t('install.check.json.nok'); ?></p>
+	<?php } ?>
+
 	<?php if ($res['pcre'] == 'ok') { ?>
 	<p class="alert alert-success"><span class="alert-head"><?php echo _t('gen.short.ok'); ?></span> <?php echo _t('install.check.pcre.ok'); ?></p>
 	<?php } else { ?>
@@ -570,6 +580,12 @@ function printStep1() {
 	<p class="alert alert-success"><span class="alert-head"><?php echo _t('gen.short.ok'); ?></span> <?php echo _t('install.check.dom.ok'); ?></p>
 	<?php } else { ?>
 	<p class="alert alert-error"><span class="alert-head"><?php echo _t('gen.short.damn'); ?></span> <?php echo _t('install.check.dom.nok'); ?></p>
+	<?php } ?>
+
+	<?php if ($res['xml'] == 'ok') { ?>
+	<p class="alert alert-success"><span class="alert-head"><?php echo _t('gen.short.ok'); ?></span> <?php echo _t('install.check.xml.ok'); ?></p>
+	<?php } else { ?>
+	<p class="alert alert-error"><span class="alert-head"><?php echo _t('gen.short.damn'); ?></span> <?php echo _t('install.check.xml.nok'); ?></p>
 	<?php } ?>
 
 	<?php if ($res['data'] == 'ok') { ?>
