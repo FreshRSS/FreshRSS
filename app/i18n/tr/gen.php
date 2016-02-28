@@ -108,7 +108,7 @@ return array(
 		'confirm_action' => 'Bunu yapmak istediğinize emin misiniz ? Daha sonra iptal edilemez!',
 		'confirm_action_feed_cat' => 'Bunu yapmak istediğinize emin misiniz ? Favorileriniz ve sorgularınız silinecek. Daha sonra iptal edilemez!',
 		'feedback' => array(
-			'body_new_articles' => 'FreshRSS de okunmaz üzere \\d yeni makale var.',
+			'body_new_articles' => 'FreshRSS de okunmaz üzere %%d yeni makale var.',
 			'request_failed' => 'Hata. İnternet bağlantınızı kontrol edin.',
 			'title_new_articles' => 'FreshRSS: yeni makaleler!',
 		),

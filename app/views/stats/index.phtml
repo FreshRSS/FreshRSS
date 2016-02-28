@@ -66,74 +66,28 @@
 
 	<div class="stat">
 		<h2><?php echo _t('admin.stats.entry_per_day'); ?></h2>
-		<div id="statsEntryPerDay" style="height: 300px"></div>
+		<div id="statsEntryPerDay" class="statGraph"></div>
 	</div>
 
 	<div class="stat half">
 		<h2><?php echo _t('admin.stats.feed_per_category'); ?></h2>
-		<div id="statsFeedPerCategory" style="height: 300px"></div>
+		<div id="statsFeedPerCategory" class="statGraph"></div>
 		<div id="statsFeedPerCategoryLegend"></div>
-	</div><!--
+	</div>
 
-	--><div class="stat half">
+	<div class="stat half">
 		<h2><?php echo _t('admin.stats.entry_per_category'); ?></h2>
-		<div id="statsEntryPerCategory" style="height: 300px"></div>
+		<div id="statsEntryPerCategory" class="statGraph"></div>
 		<div id="statsEntryPerCategoryLegend"></div>
 	</div>
 </div>
 
-<script>
-"use strict";
-function initStats() {
-	if (!window.Flotr) {
-		if (window.console) {
-			console.log('FreshRSS waiting for Flotr…');
-		}
-		window.setTimeout(initStats, 50);
-		return;
-	}
-	// Entry per day
-	var avg = [];
-	for (var i = -31; i <= 0; i++) {
-		avg.push([i, <?php echo $this->average?>]);
-	}
-	Flotr.draw(document.getElementById('statsEntryPerDay'),
-		[{
-			data: <?php echo $this->count ?>,
-			bars: {horizontal: false, show: true}
-		},{
-			data: avg,
-			lines: {show: true},
-			label: "<?php echo $this->average?>"
-		}],
-		{
-			grid: {verticalLines: false},
-			xaxis: {noTicks: 6, showLabels: false, tickDecimals: 0, min: -30.75, max: -0.25},
-			yaxis: {min: 0},
-			mouse: {relative: true, track: true, trackDecimals: 0, trackFormatter: function(obj) {return numberFormat(obj.y);}}
-		});
-	// Feed per category
-	Flotr.draw(document.getElementById('statsFeedPerCategory'),
-		<?php echo $this->feedByCategory ?>,
-		{
-			grid: {verticalLines: false, horizontalLines: false},
-			pie: {explode: 10, show: true, labelFormatter: function(){return '';}},
-			xaxis: {showLabels: false},
-			yaxis: {showLabels: false},
-			mouse: {relative: true, track: true, trackDecimals: 0, trackFormatter: function(obj) {return obj.series.label + ' - '+ numberFormat(obj.y) + ' ('+ (obj.fraction * 100).toFixed(1) + '%)';}},
-			legend: {container: document.getElementById('statsFeedPerCategoryLegend'), noColumns: 3}
-		});
-	// Entry per category
-	Flotr.draw(document.getElementById('statsEntryPerCategory'),
-		<?php echo $this->entryByCategory ?>,
-		{
-			grid: {verticalLines: false, horizontalLines: false},
-			pie: {explode: 10, show: true, labelFormatter: function(){return '';}},
-			xaxis: {showLabels: false},
-			yaxis: {showLabels: false},
-			mouse: {relative: true, track: true, trackDecimals: 0, trackFormatter: function(obj) {return obj.series.label + ' - '+ numberFormat(obj.y) + ' ('+ (obj.fraction * 100).toFixed(1) + '%)';}},
-			legend: {container: document.getElementById('statsEntryPerCategoryLegend'), noColumns: 3}
-		});
-}
-initStats();
-</script>
+<script id="jsonStats" type="application/json"><?php
+echo htmlspecialchars(json_encode(array(
+	'average' => $this->average,
+	'dataCount' => $this->count,
+	'feedByCategory' => $this->feedByCategory,
+	'entryByCategory' => $this->entryByCategory,
+), JSON_UNESCAPED_UNICODE), ENT_NOQUOTES);
+?></script>
+<script src="../scripts/stats.js?<?php echo @filemtime(PUBLIC_PATH . '/scripts/stats.js'); ?>"></script>

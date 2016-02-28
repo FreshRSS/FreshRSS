@@ -110,6 +110,11 @@ td.numeric {
 
 /*=== COMPONENTS */
 /*===============*/
+
+[aria-hidden="true"] {
+	display: none;
+}
+
 /*=== Forms */
 .form-group::after {
 	content: "";
@@ -619,6 +624,9 @@ br + br + br {
 }
 .stat > table {
 	width: 100%;
+}
+.statGraph {
+	height: 300px;
 }
 
 /*=== GLOBAL VIEW */
