@@ -51,7 +51,7 @@ return array(
 			'ok' => 'Veri klasörü yetkileri sorunsuz.',
 		),
 		'dom' => array(
-			'nok' => 'DOM kütüpbanesi eksik (php-xml package).',
+			'nok' => 'DOM kütüpbanesi eksik.',
 			'ok' => 'DOM kütüphanesi sorunsuz.',
 		),
 		'favicons' => array(
@@ -61,6 +61,10 @@ return array(
 		'http_referer' => array(
 			'nok' => 'Lütfen HTTP REFERER değiştirmediğinize emin olun.',
 			'ok' => 'HTTP REFERER ve sunucunuz arası iletişim sorunsuz.',
+		),
+		'json' => array(
+			'nok' => 'You lack a recommended library to parse JSON.',
+			'ok' => 'You have a recommended library to parse JSON.',
 		),
 		'minz' => array(
 			'nok' => 'Minz framework eksik.',
@@ -85,6 +89,10 @@ return array(
 		'users' => array(
 			'nok' => '<em>./data/users</em> klasör yetkisini kontrol edin. HTTP yazma yetkisi olmalı',
 			'ok' => 'Kullanıcılar klasörü yetkileri sorunsuz.',
+		),
+		'xml' => array(
+			'nok' => 'You lack the required library to parse XML.',
+			'ok' => 'You have the required library to parse XML.',
 		),
 	),
 	'conf' => array(
