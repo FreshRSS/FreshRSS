@@ -1,14 +1,26 @@
 # Changelog
 
-## 2016-xx-xx FreshRSS 1.3.1-beta
+## 2016-03-xx FreshRSS 1.3.1-beta
 
 * Security
 	* Added CSP `Content-Security-Policy: default-src 'self'; child-src *; img-src * data:; media-src *` [#1075](https://github.com/FreshRSS/FreshRSS/pull/1075)
+* Features
+	* Add sharing with "Journal du Hacker" [#1056](https://github.com/FreshRSS/FreshRSS/pull/1056)
 * UI
-	* Fixed several small bugs in global and reader view [#1050](https://github.com/FreshRSS/FreshRSS/pull/1050)
-	* Updated to jQuery 2.2 and changed code for auto-load on scroll [#1050](https://github.com/FreshRSS/FreshRSS/pull/1050)
+	* Updated to jQuery 2.2.1 and changed code for auto-load on scroll [#1050](https://github.com/FreshRSS/FreshRSS/pull/1050), [#1091](https://github.com/FreshRSS/FreshRSS/pull/1091)
 * I18n
 	* Turkish [#1073](https://github.com/FreshRSS/FreshRSS/issues/1073)
+* Bug fixing
+	* Fixed several small bugs in global and reader view [#1050](https://github.com/FreshRSS/FreshRSS/pull/1050)
+	* Fixed sharing bug with PHP7 [#1072](https://github.com/FreshRSS/FreshRSS/issues/1072)
+	* Fixed fall-back when php-json is not installed [#1092](https://github.com/FreshRSS/FreshRSS/issues/1092)
+* API
+	* Possibility to show only read items [#1035](https://github.com/FreshRSS/FreshRSS/pull/1035)
+* Misc.
+	* Filters `<img />` attributes `srcset` and `sizes` [#1077](https://github.com/FreshRSS/FreshRSS/issues/1077), [#1086](https://github.com/FreshRSS/FreshRSS/pull/1086)
+	* Implement PubSubHubbub unsubscribe responses [#1058](https://github.com/FreshRSS/FreshRSS/issues/1058)
+	* Restored some compatibility with PHP 5.2 [#1055](https://github.com/FreshRSS/FreshRSS/issues/1055)
+	* Updated the sharing with Movim [#1030](https://github.com/FreshRSS/FreshRSS/pull/1030)
 
 
 ## 2015-11-03 FreshRSS 1.2.0 / 1.3.0-beta
