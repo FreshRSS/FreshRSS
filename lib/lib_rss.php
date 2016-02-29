@@ -238,6 +238,16 @@ function customSimplePie() {
 			'src',
 		),
 	));
+	$https_domains = array();
+	$force = @file(DATA_PATH . '/force-https.default.txt', FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+	if (is_array($force)) {
+		$https_domains = array_merge($https_domains, $force);
+	}
+	$force = @file(DATA_PATH . '/force-https.txt', FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+	if (is_array($force)) {
+		$https_domains = array_merge($https_domains, $force);
+	}
+	$simplePie->set_https_domains($https_domains);
 	return $simplePie;
 }
 
