@@ -263,23 +263,20 @@ class SimplePie_Sanitize
 		{
 			$domain = trim($domain, ". \t\n\r\0\x0B");
 			$segments = array_reverse(explode('.', $domain));
-			if (count($segments) > 0)
-			{
-				$node =& $this->https_domains;
-				foreach ($segments as $segment)
-				{//Build a tree
-					if ($node === true)
-					{
-						break;
-					}
-					if (!isset($node[$segment]))
-					{
-						$node[$segment] = array();
-					}
-					$node =& $node[$segment];
+			$node =& $this->https_domains;
+			foreach ($segments as $segment)
+			{//Build a tree
+				if ($node === true)
+				{
+					break;
 				}
-				$node = true;
+				if (!isset($node[$segment]))
+				{
+					$node[$segment] = array();
+				}
+				$node =& $node[$segment];
 			}
+			$node = true;
 		}
 	}
 
@@ -291,23 +288,20 @@ class SimplePie_Sanitize
 	{
 		$domain = trim($domain, '. ');
 		$segments = array_reverse(explode('.', $domain));
-		if (count($segments) > 0)
-		{
-			$node =& $this->https_domains;
-			foreach ($segments as $segment)
-			{//Explore the tree
-				if ($node === true)
-				{
-					return true;
-				}
-				if (isset($node[$segment]))
-				{
-					$node =& $node[$segment];
-				}
-				else
-				{
-					break;
-				}
+		$node =& $this->https_domains;
+		foreach ($segments as $segment)
+		{//Explore the tree
+			if ($node === true)
+			{
+				return true;
+			}
+			if (isset($node[$segment]))
+			{
+				$node =& $node[$segment];
+			}
+			else
+			{
+				break;
 			}
 		}
 		return false;
