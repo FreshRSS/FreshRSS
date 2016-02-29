@@ -1,4 +1,6 @@
 dailymotion.com
 feedburner.com
+gstatic.com
 tumblr.com
+wordpress.com
 youtube.com
