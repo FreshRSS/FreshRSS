@@ -1,5 +1,6 @@
 dailymotion.com
 feedburner.com
+gravatar.com
 gstatic.com
 tumblr.com
 wordpress.com
