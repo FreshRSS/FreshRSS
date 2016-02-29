@@ -75,11 +75,12 @@ class SimplePie_Sanitize
 
 	/**
 	 * List of domains for which force HTTPS.
-	 * @see SimplePie_Misc::https_url()
-	 * Array is tree split at DNS levels. Example array('biz' => true, 'com' => array('example' => true), 'example' => array('test') => array('www' => true));
+	 * @see SimplePie_Sanitize::set_https_domains()
+	 * Array is tree split at DNS levels. Example:
+	 * array('biz' => true, 'com' => array('example' => true), 'net' => array('example') => array('www' => true))
 	 * FreshRSS
 	 */
-	var $https_domains = array('com' => array('youtube' => true));
+	var $https_domains = array('com' => array('dailymotion' => true, 'youtube' => true));
 
 	public function __construct()
 	{

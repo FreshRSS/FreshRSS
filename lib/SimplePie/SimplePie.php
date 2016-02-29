@@ -1236,7 +1236,7 @@ class SimplePie
 
 	/**
 	 * Set the list of domains for which force HTTPS.
-	 * @see SimplePie_Misc::https_url()
+	 * @see SimplePie_Sanitize::set_https_domains()
 	 * FreshRSS
 	 */
 	public function set_https_domains($domains = array())
