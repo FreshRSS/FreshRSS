@@ -312,7 +312,7 @@ class SimplePie_Sanitize
 	 * Force HTTPS for selected Web sites
 	 * FreshRSS
 	 */
-	protected function https_url($url)
+	public function https_url($url)
 	{
 		return (strtolower(substr($url, 0, 7)) === 'http://') &&
 			$this->is_https_domain(parse_url($url, PHP_URL_HOST)) ?
