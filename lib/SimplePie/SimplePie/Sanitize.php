@@ -292,10 +292,6 @@ class SimplePie_Sanitize
 		$node =& $this->https_domains;
 		foreach ($segments as $segment)
 		{//Explore the tree
-			if ($node === true)
-			{
-				return true;
-			}
 			if (isset($node[$segment]))
 			{
 				$node =& $node[$segment];
@@ -305,14 +301,14 @@ class SimplePie_Sanitize
 				break;
 			}
 		}
-		return false;
+		return $node === true;
 	}
 
 	/**
 	 * Force HTTPS for selected Web sites
 	 * FreshRSS
 	 */
-	protected function https_url($url)
+	public function https_url($url)
 	{
 		return (strtolower(substr($url, 0, 7)) === 'http://') &&
 			$this->is_https_domain(parse_url($url, PHP_URL_HOST)) ?
