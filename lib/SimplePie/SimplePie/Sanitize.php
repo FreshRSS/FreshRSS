@@ -292,10 +292,6 @@ class SimplePie_Sanitize
 		$node =& $this->https_domains;
 		foreach ($segments as $segment)
 		{//Explore the tree
-			if ($node === true)
-			{
-				return true;
-			}
 			if (isset($node[$segment]))
 			{
 				$node =& $node[$segment];
