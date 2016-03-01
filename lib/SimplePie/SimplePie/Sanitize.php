@@ -305,7 +305,7 @@ class SimplePie_Sanitize
 				break;
 			}
 		}
-		return false;
+		return $node === true;
 	}
 
 	/**
