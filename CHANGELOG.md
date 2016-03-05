@@ -3,7 +3,7 @@
 ## 2016-03-xx FreshRSS 1.3.1-beta
 
 * Security
-	* Added CSP `Content-Security-Policy: default-src 'self'; child-src *; img-src * data:; media-src *` [#1075](https://github.com/FreshRSS/FreshRSS/pull/1075)
+	* Added CSP `Content-Security-Policy: default-src 'self'; child-src *; frame-src *; img-src * data:; media-src *` [#1075](https://github.com/FreshRSS/FreshRSS/pull/1075)
 * Features
 	* New list of domains for which to force HTTPS (for images, videos, iframes…) defined in `./data/force-https.default.txt` and `./data/force-https.txt` [#1083](https://github.com/FreshRSS/FreshRSS/issues/1083)
 		* In particular useful for privacy and to avoid mixed content errors, e.g. to see YouTube videos when FreshRSS is in HTTPS
