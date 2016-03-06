@@ -63,8 +63,8 @@ return array(
 			'ok' => 'Uw HTTP REFERER is bekend en komt overeen met uw server.',
 		),
 		'json' => array(
-			'nok' => 'You lack a recommended library to parse JSON.',
-			'ok' => 'You have a recommended library to parse JSON.',
+			'nok' => 'U mist een benodigede bibliotheek om JSON te gebruiken.',
+			'ok' => 'U hebt de benodigde bibliotheek om JSON te gebruiken.',
 		),
 		'minz' => array(
 			'nok' => 'U mist het Minz framework.',
@@ -91,8 +91,8 @@ return array(
 			'ok' => 'Permissies van de users map zijn goed.',
 		),
 		'xml' => array(
-			'nok' => 'You lack the required library to parse XML.',
-			'ok' => 'You have the required library to parse XML.',
+			'nok' => 'U mist de benodigde bibliotheek om XML te gebruiken.',
+			'ok' => 'U hebt de benodigde bibliotheek om XML te gebruiken.',
 		),
 	),
 	'conf' => array(
