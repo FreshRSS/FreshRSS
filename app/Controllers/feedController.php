@@ -355,7 +355,7 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 					$entry_date = $entry->date(true);
 					if (isset($existingHashForGuids[$entry->guid()])) {
 						$existingHash = $existingHashForGuids[$entry->guid()];
-						if (strcasecmp($existingHash, $entry->hash()) === 0 || $existingHash === '00000000000000000000000000000000') {
+						if (strcasecmp($existingHash, $entry->hash()) === 0 || trim($existingHash, '0') == '') {
 							//This entry already exists and is unchanged. TODO: Remove the test with the zero'ed hash in FreshRSS v1.3
 							$oldGuids[] = $entry->guid();
 						} else {	//This entry already exists but has been updated
