@@ -6,10 +6,10 @@
 	<h1><?php echo _t('admin.stats.idle'); ?></h1>
 
 	<?php
-		$current_url = urlencode(Minz_Url::display(
+		$current_url = Minz_Url::display(
 			array('c' => 'stats', 'a' => 'idle'),
 			'php', true
-		));
+		);
 		$nothing = true;
 		foreach ($this->idleFeeds as $period => $feeds) {
 			if (!empty($feeds)) {
