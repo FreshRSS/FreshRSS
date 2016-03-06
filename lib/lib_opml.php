@@ -105,6 +105,10 @@ function libopml_parse_outline($outline_xml, $strict = true) {
 		);
 	}
 
+	if (empty($outline['text']) && isset($outline['title'])) {
+		$outline['text'] = $outline['title'];
+	}
+
 	foreach ($outline_xml->children() as $key => $value) {
 		// An outline may contain any number of outline children
 		if ($key === 'outline') {
