@@ -27,6 +27,8 @@ class Minz_Url {
 			$url_string = Minz_Request::getBaseUrl(PUBLIC_TO_INDEX_PATH);
 			if ($url_string === PUBLIC_TO_INDEX_PATH) {
 				$url_string = Minz_Request::guessBaseUrl();
+			} else {
+				$url_string .= '/';
 			}
 		} else {
 			$url_string = $isArray ? '.' : PUBLIC_RELATIVE;
