@@ -63,8 +63,8 @@ return array(
 			'ok' => 'Váš HTTP REFERER je znám a odpovídá Vašemu serveru.',
 		),
 		'json' => array(
-			'nok' => 'You lack a recommended library to parse JSON.',
-			'ok' => 'You have a recommended library to parse JSON.',
+			'nok' => 'Pro parsování JSON chybí doporučená knihovna.',
+			'ok' => 'Máte doporučenou knihovnu pro parsování JSON.',
 		),
 		'minz' => array(
 			'nok' => 'Nemáte framework Minz.',
@@ -91,8 +91,8 @@ return array(
 			'ok' => 'Oprávnění adresáře users jsou v pořádku.',
 		),
 		'xml' => array(
-			'nok' => 'You lack the required library to parse XML.',
-			'ok' => 'You have the required library to parse XML.',
+			'nok' => 'Pro parsování XML chybí požadovaná knihovna.',
+			'ok' => 'Máte požadovanou knihovnu pro parsování XML.',
 		),
 	),
 	'conf' => array(
