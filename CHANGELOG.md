@@ -14,7 +14,7 @@
 	* Turkish [#1073](https://github.com/FreshRSS/FreshRSS/issues/1073)
 * Bug fixing
 	* Fixed OPML import title bug [#1048](https://github.com/FreshRSS/FreshRSS/issues/1048)
-	* Fixed upgrade bug with SQLite when articles where marked as unread [#1049](https://github.com/FreshRSS/FreshRSS/issues/1049)
+	* Fixed upgrade bug with SQLite when articles were marked as unread [#1049](https://github.com/FreshRSS/FreshRSS/issues/1049)
 	* Fixed error when deleting feeds from statistics page [#1047](https://github.com/FreshRSS/FreshRSS/issues/1047)
 	* Fixed several small bugs in global and reader view [#1050](https://github.com/FreshRSS/FreshRSS/pull/1050)
 	* Fixed sharing bug with PHP7 [#1072](https://github.com/FreshRSS/FreshRSS/issues/1072)
