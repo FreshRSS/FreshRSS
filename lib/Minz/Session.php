@@ -73,7 +73,7 @@ class Minz_Session {
 	 * @param $l la durée de vie
 	 */
 	public static function keepCookie($l) {
-		session_set_cookie_params($l, self::getCookieDir(), '', false, true);
+		session_set_cookie_params($l, self::getCookieDir(), '', Minz_Request::isHttps(), true);
 	}
 
 
@@ -86,11 +86,11 @@ class Minz_Session {
 	}
 
 	public static function deleteLongTermCookie($name) {
-		setcookie($name, '', 1, '', '', false, true);
+		setcookie($name, '', 1, '', '', Minz_Request::isHttps(), true);
 	}
 
 	public static function setLongTermCookie($name, $value, $expire) {
-		setcookie($name, $value, $expire, '', '', false, true);
+		setcookie($name, $value, $expire, '', '', Minz_Request::isHttps(), true);
 	}
 
 	public static function getLongTermCookie($name) {
