@@ -1,0 +1,21 @@
+<IfModule mod_mime.c>
+	AddType application/font-woff .woff
+
+	AddCharset	UTF-8	.css
+	AddCharset	UTF-8	.svg
+</IfModule>
+
+<IfModule mod_expires.c>
+	ExpiresActive	on
+	ExpiresByType	application/font-woff	"access plus 1 month"
+	ExpiresByType	image/gif	"access plus 1 month"
+	ExpiresByType	image/png	"access plus 1 month"
+	ExpiresByType	image/svg+xml	"access plus 1 month"
+	ExpiresByType	text/css	"access plus 1 month"
+</IfModule>
+
+<IfModule mod_headers.c>
+	<FilesMatch "\.svg$">
+		Header	set Content-Security-Policy "default-src 'self'; style-src 'self' 'unsafe-inline'"
+	</FilesMatch>
+</IfModule>
