@@ -122,6 +122,7 @@ class FreshRSS extends Minz_FrontController {
 				header("Content-Security-Policy: default-src 'self'");
 				break;
 		}
+		header("X-Content-Type-Options: nosniff");
 	}
 
 	private function loadNotifications() {
