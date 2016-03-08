@@ -23,7 +23,7 @@ Server-side API compatible with Google Reader API layer 2
 require('../../constants.php');
 require(LIB_PATH . '/lib_rss.php');	//Includes class autoloader
 
-$ORIGINAL_INPUT = file_get_contents('php://input');
+$ORIGINAL_INPUT = file_get_contents('php://input', false, null, -1, 1048576);
 
 if (PHP_INT_SIZE < 8) {	//32-bit
 	function dec2hex($dec) {
