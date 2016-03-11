@@ -110,6 +110,21 @@ class FreshRSS extends Minz_FrontController {
 		}
 	}
 
+	public static function preLayout() {
+		switch (Minz_Request::controllerName()) {
+			case 'index':
+				header("Content-Security-Policy: default-src 'self'; child-src *; frame-src *; img-src * data:; media-src *");
+				break;
+			case 'stats':
+				header("Content-Security-Policy: default-src 'self'; style-src 'self' 'unsafe-inline'");
+				break;
+			default:
+				header("Content-Security-Policy: default-src 'self'");
+				break;
+		}
+		header("X-Content-Type-Options: nosniff");
+	}
+
 	private function loadNotifications() {
 		$notif = Minz_Session::param('notification');
 		if ($notif) {

@@ -51,7 +51,7 @@ return array(
 			'ok' => 'Die Berechtigungen des Verzeichnisses <em>./data</em> sind in Ordnung.',
 		),
 		'dom' => array(
-			'nok' => 'Ihnen fehlt eine benötigte Bibliothek um DOM zu durchstöbern (Paket php-xml).',
+			'nok' => 'Ihnen fehlt eine benötigte Bibliothek um DOM zu durchstöbern.',
 			'ok' => 'Sie haben die benötigte Bibliothek um DOM zu durchstöbern.',
 		),
 		'favicons' => array(
@@ -61,6 +61,10 @@ return array(
 		'http_referer' => array(
 			'nok' => 'Bitte stellen Sie sicher, dass Sie Ihren HTTP REFERER nicht abändern.',
 			'ok' => 'Ihr HTTP REFERER ist bekannt und entspricht Ihrem Server.',
+		),
+		'json' => array(
+			'nok' => 'Ihnen fehlt eine empfohlene Bibliothek um JSON zu parsen.',
+			'ok' => 'Sie haben eine empfohlene Bibliothek um JSON zu parsen.',
 		),
 		'minz' => array(
 			'nok' => 'Ihnen fehlt das Minz-Framework.',
@@ -85,6 +89,10 @@ return array(
 		'users' => array(
 			'nok' => 'Überprüfen Sie die Berechtigungen des Verzeichnisses <em>./data/users</em>. Der HTTP-Server muss Schreibrechte besitzen.',
 			'ok' => 'Die Berechtigungen des Verzeichnisses <em>./data/users</em> sind in Ordnung.',
+		),
+		'xml' => array(
+			'nok' => 'Ihnen fehlt die benötigte Bibliothek um XML zu parsen.',
+			'ok' => 'Sie haben die benötigte Bibliothek um XML zu parsen.',
 		),
 	),
 	'conf' => array(

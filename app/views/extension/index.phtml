@@ -5,7 +5,7 @@
 
 	<h1><?php echo _t('admin.extensions.title'); ?></h1>
 
-	<form id="form-extension" method="post" style="display: none"></form>
+	<form id="form-extension" method="post" aria-hidden="true"></form>
 	<?php if (!empty($this->extension_list['system'])) { ?>
 	<h2><?php echo _t('admin.extensions.system'); ?></h2>
 	<?php

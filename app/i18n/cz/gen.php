@@ -108,7 +108,7 @@ return array(
 		'confirm_action' => 'Jste si jist, že chcete provést tuto akci? Změny nelze vrátit zpět!',
 		'confirm_action_feed_cat' => 'Jste si jist, že chcete provést tuto akci? Přijdete o související oblíbené položky a uživatelské dotazy. Změny nelze vrátit zpět!',
 		'feedback' => array(
-			'body_new_articles' => 'Je \\d nových článků k přečtení v FreshRSS.',
+			'body_new_articles' => 'Je %%d nových článků k přečtení v FreshRSS.',
 			'request_failed' => 'Požadavek selhal, což může být způsobeno problémy s připojení k internetu.',
 			'title_new_articles' => 'FreshRSS: nové články!',
 		),
@@ -122,6 +122,7 @@ return array(
 		'fr' => 'Français',
 		'it' => 'Italiano',
 		'nl' => 'Nederlands',
+		'tr' => 'Türkçe',
 	),
 	'menu' => array(
 		'about' => 'O aplikaci',
@@ -164,6 +165,7 @@ return array(
 		'shaarli' => 'Shaarli',
 		'twitter' => 'Twitter',
 		'wallabag' => 'wallabag',
+		'jdh' => 'Journal du hacker',
 	),
 	'short' => array(
 		'attention' => 'Upozornění!',

@@ -4,9 +4,9 @@ class FreshRSS_StatsDAOSQLite extends FreshRSS_StatsDAO {
 
 	/**
 	 * Calculates entry count per day on a 30 days period.
-	 * Returns the result as a JSON string.
+	 * Returns the result as a JSON object.
 	 *
-	 * @return string
+	 * @return JSON object
 	 */
 	public function calculateEntryCount() {
 		$count = $this->initEntryCountArray();

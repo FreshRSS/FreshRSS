@@ -120,7 +120,7 @@ return array(
 		'category' => 'Categorie',
 		'entry_count' => 'Invoer aantallen',
 		'entry_per_category' => 'Aantallen per categorie',
-		'entry_per_day' => 'Aantallen per day (laatste 30 dagen)',
+		'entry_per_day' => 'Aantallen per dag (laatste 30 dagen)',
 		'entry_per_day_of_week' => 'Per dag of week (gemiddeld: %.2f berichten)',
 		'entry_per_hour' => 'Per uur (gemiddeld: %.2f berichten)',
 		'entry_per_month' => 'Per maand (gemiddeld: %.2f berichten)',
@@ -147,14 +147,14 @@ return array(
 		'top_feed' => 'Top tien feeds',
 	),
 	'system' => array(
-		'_' => 'System configuration', // @todo translate
-		'auto-update-url' => 'Auto-update server URL', // @todo translate
-		'instance-name' => 'Instance name', // @todo translate
-		'max-categories' => 'Categories per user limit', // @todo translate
-		'max-feeds' => 'Feeds per user limit', // @todo translate
+		'_' => 'Systeem configuratie',
+		'auto-update-url' => 'Automatische update server URL',
+		'instance-name' => 'Voorbeeld naam',
+		'max-categories' => 'Categoriën limiet per gebruiker',
+		'max-feeds' => 'Feed limiet per gebruiker',
 		'registration' => array(
-			'help' => '0 means that there is no account limit', // @todo translate
-			'number' => 'Max number of accounts', // @todo translate
+			'help' => '0 betekent geen account limiet',
+			'number' => 'Maximum aantal accounts',
 		),
 	),
 	'update' => array(
@@ -178,7 +178,7 @@ return array(
 		'registration' => array(
 			'allow' => 'Sta het maken van nieuwe accounts toe',
 			'help' => '0 betekent dat er geen account limiet is',
-			'number' => 'Max aantal van accounts',
+			'number' => 'Max aantal accounts',
 		),
 		'title' => 'Beheer gebruikers',
 		'user_list' => 'Lijst van gebruikers ',

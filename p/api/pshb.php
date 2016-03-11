@@ -68,6 +68,15 @@ if (!empty($_REQUEST['hub_mode']) && $_REQUEST['hub_mode'] === 'subscribe') {
 	exit(isset($_REQUEST['hub_challenge']) ? $_REQUEST['hub_challenge'] : '');
 }
 
+if (!empty($_REQUEST['hub_mode']) && $_REQUEST['hub_mode'] === 'unsubscribe') {
+	if (empty($hubJson['lease_end']) || $hubJson['lease_end'] < time()) {
+		exit(isset($_REQUEST['hub_challenge']) ? $_REQUEST['hub_challenge'] : '');
+	} else {
+		header('HTTP/1.1 422 Unprocessable Entity');
+		die('We did not ask to unsubscribe!');
+	}
+}
+
 if ($ORIGINAL_INPUT == '') {
 	header('HTTP/1.1 422 Unprocessable Entity');
 	die('Missing XML payload!');

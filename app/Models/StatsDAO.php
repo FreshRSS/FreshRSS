@@ -55,9 +55,9 @@ SQL;
 
 	/**
 	 * Calculates entry count per day on a 30 days period.
-	 * Returns the result as a JSON string.
+	 * Returns the result as a JSON object.
 	 *
-	 * @return string
+	 * @return JSON object
 	 */
 	public function calculateEntryCount() {
 		$count = $this->initEntryCountArray();
@@ -257,9 +257,9 @@ SQL;
 
 	/**
 	 * Calculates feed count per category.
-	 * Returns the result as a JSON string.
+	 * Returns the result as a JSON object.
 	 *
-	 * @return string
+	 * @return JSON object
 	 */
 	public function calculateFeedByCategory() {
 		$sql = <<<SQL
@@ -282,7 +282,7 @@ SQL;
 	 * Calculates entry count per category.
 	 * Returns the result as a JSON string.
 	 *
-	 * @return string
+	 * @return JSON object
 	 */
 	public function calculateEntryByCategory() {
 		$sql = <<<SQL
@@ -357,7 +357,7 @@ SQL;
 			$serie[] = array($key, $value);
 		}
 
-		return json_encode($serie);
+		return $serie;
 	}
 
 	protected function convertToPieSerie($data) {
@@ -368,7 +368,7 @@ SQL;
 			$serie[] = $value;
 		}
 
-		return json_encode($serie);
+		return $serie;
 	}
 
 	/**
@@ -411,17 +411,17 @@ SQL;
 	}
 
 	/**
-	 * Translates array content and encode it as JSON
+	 * Translates array content
 	 *
 	 * @param array $data
-	 * @return string
+	 * @return JSON object
 	 */
 	private function convertToTranslatedJson($data = array()) {
 		$translated = array_map(function($a) {
 			return _t('gen.date.' . $a);
 		}, $data);
 
-		return json_encode($translated);
+		return $translated;
 	}
 
 }

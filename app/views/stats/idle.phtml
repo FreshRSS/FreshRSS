@@ -6,10 +6,10 @@
 	<h1><?php echo _t('admin.stats.idle'); ?></h1>
 
 	<?php
-		$current_url = urlencode(Minz_Url::display(
+		$current_url = Minz_Url::display(
 			array('c' => 'stats', 'a' => 'idle'),
 			'php', true
-		));
+		);
 		$nothing = true;
 		foreach ($this->idleFeeds as $period => $feeds) {
 			if (!empty($feeds)) {
@@ -18,7 +18,7 @@
 		<div class="stat">
 			<h2><?php echo _t('gen.date.' . $period); ?></h2>
 
-			<form id="form-delete" method="post" style="display: none"></form>
+			<form id="form-delete" method="post" aria-hidden="true"></form>
 
 			<?php foreach ($feeds as $feed) { ?>
 			<ul class="horizontal-list">
