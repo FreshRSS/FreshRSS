@@ -1,6 +1,6 @@
 # Changelog
 
-## 2016-03-xx FreshRSS 1.3.1-beta
+## 2016-03-11 FreshRSS 1.3.1-beta
 
 * Security
 	* Added CSP `Content-Security-Policy: default-src 'self'; child-src *; frame-src *; img-src * data:; media-src *` [#1075](https://github.com/FreshRSS/FreshRSS/issues/1075), [#1114](https://github.com/FreshRSS/FreshRSS/issues/1114)
