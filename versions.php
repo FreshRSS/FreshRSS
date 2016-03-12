@@ -16,11 +16,13 @@ return array(
 	'1.1.1-beta' => '1.3.0-beta',
 	'1.1.2-beta' => '1.3.0-beta',
 	'1.1.3-beta' => '1.3.0-beta',
-	'1.3.0-beta' => '1.3.1-beta',  // doesn't exist (yet)
+	'1.3.0-beta' => '1.3.1-beta',
+	'1.3.1-beta' => '1.3.2-beta',  // doesn't exist (yet)
 	// DEV
 	'1.1.2-dev' => 'dev',
 	'1.1.3-dev' => 'dev',
 	'1.1.4-dev' => 'dev',
 	'1.2-dev' => 'dev',
 	'1.3.1-dev' => 'dev',
+	'1.3.2-dev' => 'dev',
 );
