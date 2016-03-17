@@ -1,5 +1,10 @@
 # Changelog
 
+## 2016-XX-YY FreshRSS 1.3.2-beta
+
+Nothing for the moment
+
+
 ## 2016-03-11 FreshRSS 1.3.1-beta
 
 * Security
