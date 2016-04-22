@@ -103,7 +103,7 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo implements FreshRSS_Searchable 
 			     . ($details ? 'f.* ' : 'f.id, f.name, f.url, f.website, f.priority, f.error, f.cache_nbEntries, f.cache_nbUnreads ')
 			     . 'FROM `' . $this->prefix . 'category` c '
 			     . 'LEFT OUTER JOIN `' . $this->prefix . 'feed` f ON f.category=c.id '
-			     . 'GROUP BY f.id '
+			     . 'GROUP BY f.id, c_id '
 			     . 'ORDER BY c.name, f.name';
 			$stm = $this->bd->prepare($sql);
 			$stm->execute();
