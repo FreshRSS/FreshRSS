@@ -116,7 +116,3 @@ class FreshRSS_Themes extends Minz_Model {
 			'<img class="icon" src="' . Minz_Url::display($url) . '" alt="' . $alts[$name] . '" />';
 	}
 }
-
-function _i($icon, $url_only = false) {
-	return FreshRSS_Themes::icon($icon, $url_only);
-}
