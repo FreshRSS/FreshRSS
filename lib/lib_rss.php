@@ -548,3 +548,7 @@ function base64url_encode($data) {
 function base64url_decode($data) {
 	return base64_decode(strtr($data, '-_', '+/'));
 }
+
+function _i($icon, $url_only = false) {
+	return FreshRSS_Themes::icon($icon, $url_only);
+}
