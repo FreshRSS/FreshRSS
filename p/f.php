@@ -44,14 +44,13 @@ function download_favicon($website, $dest) {
 }
 
 
-function show_default_favicon() {
+function show_default_favicon($cacheSeconds = 3600) {
 	global $default_favicon;
 
-	header('Content-Type: image/x-icon');
 	header('Content-Disposition: inline; filename="default_favicon.ico"');
 
 	$default_mtime = @filemtime($default_favicon);
-	if (!httpConditional($default_mtime, 2592000, 2)) {
+	if (!httpConditional($default_mtime, $cacheSeconds, 2)) {
 		readfile($default_favicon);
 	}
 }
@@ -68,10 +67,11 @@ $ico = $favicons_dir . $id . '.ico';
 $ico_mtime = @filemtime($ico);
 $txt_mtime = @filemtime($txt);
 
+header('Content-Type: image/x-icon');
 
 if ($ico_mtime == false || $txt_mtime > $ico_mtime) {
 	if ($txt_mtime == false) {
-		show_default_favicon();
+		show_default_favicon(1800);
 		return;
 	}
 
@@ -79,12 +79,11 @@ if ($ico_mtime == false || $txt_mtime > $ico_mtime) {
 	$url = file_get_contents($txt);
 	if (!download_favicon($url, $ico)) {
 		// Download failed, show the default favicon
-		show_default_favicon();
+		show_default_favicon(86400);
 		return;
 	}
 }
 
-header('Content-Type: image/x-icon');
 header('Content-Disposition: inline; filename="' . $id . '.ico"');
 
 if (!httpConditional($ico_mtime, 2592000, 2)) {
