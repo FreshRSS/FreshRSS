@@ -52,9 +52,7 @@ Nous sommes une communauté amicale.
 5. Tout devrait fonctionner :) En cas de problème, n’hésitez pas à me contacter.
 6. Des paramètres de configuration avancée peuvent être accédés depuis [config.php](./data/config.default.php).
 
-## Installation facile automatisée
-
-La manière la plus facile d'avoir un FreshRSS prêt à l'emploi sur votre serveur Linux
+## Installation automatisée
 
 [![DP deploy](https://raw.githubusercontent.com/j8r/DPlatform/gh-pages/img/deploy.png)](https://j8r.github.io/DPlatform/)
 
