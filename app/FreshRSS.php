@@ -47,6 +47,7 @@ class FreshRSS extends Minz_FrontController {
 		// Finish to initialize the other FreshRSS / Minz components.
 		FreshRSS_Context::init();
 		self::initI18n();
+		self::loadNotifications();
 		// Enable extensions for the current (logged) user.
 		if (FreshRSS_Auth::hasAccess()) {
 			$ext_list = FreshRSS_Context::$user_conf->extensions_enabled;
@@ -131,6 +132,5 @@ class FreshRSS extends Minz_FrontController {
 
 		FreshRSS_Share::load(join_path(DATA_PATH, 'shares.php'));
 		self::loadStylesAndScripts();
-		self::loadNotifications();
 	}
 }
