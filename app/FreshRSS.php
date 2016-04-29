@@ -77,7 +77,7 @@ class FreshRSS extends Minz_FrontController {
 		Minz_Translate::init(FreshRSS_Context::$user_conf->language);
 	}
 
-	private static function loadStylesAndScripts() {
+	public static function loadStylesAndScripts() {
 		$theme = FreshRSS_Themes::load(FreshRSS_Context::$user_conf->theme);
 		if ($theme) {
 			foreach($theme['files'] as $file) {
