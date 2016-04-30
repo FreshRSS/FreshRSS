@@ -1668,6 +1668,7 @@ class SimplePie
 			$locate = null;
 		}
 
+		$file->body = trim($file->body);
 		$this->raw_data = $file->body;
 		$this->permanent_url = $file->permanent_url;
 		$headers = $file->headers;
