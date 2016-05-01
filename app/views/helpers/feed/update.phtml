@@ -48,7 +48,7 @@
 					<a class="btn" target="_blank" href="<?php echo $this->feed->url(); ?>"><?php echo _i('link'); ?></a>
 				</div>
 
-				<a class="btn" target="_blank" href="http://validator.w3.org/feed/check.cgi?url=<?php echo $this->feed->url(); ?>"><?php echo _t('sub.feed.validator'); ?></a>
+				<a class="btn" target="_blank" href="http://validator.w3.org/feed/check.cgi?url=<?php echo rawurlencode(htmlspecialchars_decode($this->feed->url(), ENT_QUOTES)); ?>"><?php echo _t('sub.feed.validator'); ?></a>
 			</div>
 		</div>
 		<div class="form-group">
