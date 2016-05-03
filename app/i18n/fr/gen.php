@@ -164,7 +164,8 @@ return array(
 		'print' => 'Imprimer',
 		'shaarli' => 'Shaarli',
 		'twitter' => 'Twitter',
-		'wallabag' => 'wallabag',
+		'wallabag' => 'wallabag v1',
+		'wallabagv2' => 'wallabag v2',
 		'jdh' => 'Journal du hacker',
 	),
 	'short' => array(
