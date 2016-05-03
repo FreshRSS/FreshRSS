@@ -52,6 +52,9 @@ We are a friendly community.
 5. Everything should be working :) If you encounter any problem, feel free to contact me.
 6. Advanced configuration settings can be seen in [config.php](./data/config.default.php).
 
+## Automated install
+[![DP deploy](https://raw.githubusercontent.com/j8r/DPlatform/gh-pages/img/deploy.png)](https://j8r.github.io/DPlatform/)
+
 ## Example of full installation on Linux Debian/Ubuntu
 ```sh
 # If you use an Apache Web server (otherwise you need another Web server)
