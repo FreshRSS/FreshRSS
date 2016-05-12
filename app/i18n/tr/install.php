@@ -63,8 +63,8 @@ return array(
 			'ok' => 'HTTP REFERER ve sunucunuz arası iletişim sorunsuz.',
 		),
 		'json' => array(
-			'nok' => 'You lack a recommended library to parse JSON.',
-			'ok' => 'You have a recommended library to parse JSON.',
+			'nok' => 'Tavsiye edilen JSON çözümleme kütüphanesi eksik.',
+			'ok' => 'Tavsiye edilen JSON çözümleme kütüphanesi sorunsuz.',
 		),
 		'minz' => array(
 			'nok' => 'Minz framework eksik.',
