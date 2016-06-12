@@ -161,6 +161,7 @@ return array(
 		'email' => 'Email',
 		'facebook' => 'Facebook',
 		'g+' => 'Google+',
+		'movim' => 'Movim',
 		'print' => 'Stampa',
 		'shaarli' => 'Shaarli',
 		'twitter' => 'Twitter',
