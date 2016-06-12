@@ -137,12 +137,11 @@ class Minz_Request {
 	/**
 	 * Return the base_url from configuration and add a suffix if given.
 	 *
-	 * @param $base_url_suffix a string to add at base_url (default: empty string)
 	 * @return the base_url with a suffix.
 	 */
-	public static function getBaseUrl($base_url_suffix = '') {
+	public static function getBaseUrl() {
 		$conf = Minz_Configuration::get('system');
-		$url = rtrim($conf->base_url, '/\\') . $base_url_suffix;
+		$url = rtrim($conf->base_url, '/\\');
 		return filter_var($url, FILTER_SANITIZE_URL);
 	}
 

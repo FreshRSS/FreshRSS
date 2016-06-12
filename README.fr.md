@@ -33,7 +33,7 @@ Nous sommes une communauté amicale.
 * Serveur modeste, par exemple sous Linux ou Windows
 	* Fonctionne même sur un Raspberry Pi 1 avec des temps de réponse < 1s (testé sur 150 flux, 22k articles)
 * Serveur Web Apache2 (recommandé), ou nginx, lighttpd (non testé sur les autres)
-* PHP 5.2.1+ (PHP 5.3.7+ recommandé, et PHP 5.5+ pour les performances) (support bêta de PHP 7 avec encore meilleures performances)
+* PHP 5.3+ (PHP 5.3.7+ recommandé, et PHP 5.5+ pour les performances, et PHP 7+ pour d’encore meilleures performances)
 	* Requis : [PDO_MySQL](http://php.net/pdo-mysql) ou [PDO_SQLite](http://php.net/pdo-sqlite), [cURL](http://php.net/curl), [GMP](http://php.net/gmp) (pour accès API sur plateformes < 64 bits), [IDN](http://php.net/intl.idn) (pour les noms de domaines internationalisés)
 	* Recommandés : [iconv](http://php.net/iconv), [JSON](http://php.net/json), [mbstring](http://php.net/mbstring), [Zip](http://php.net/zip), [zlib](http://php.net/zlib)
 	* Inclus par défaut : [DOM](http://php.net/dom), [XML](http://php.net/xml)…
@@ -51,6 +51,9 @@ Nous sommes une communauté amicale.
 4. Accédez à FreshRSS à travers votre navigateur Web et suivez les instructions d’installation
 5. Tout devrait fonctionner :) En cas de problème, n’hésitez pas à me contacter.
 6. Des paramètres de configuration avancée peuvent être accédés depuis [config.php](./data/config.default.php).
+
+## Installation automatisée
+[![DP deploy](https://raw.githubusercontent.com/DFabric/DPlatform-ShellCore/gh-pages/img/deploy.png)](https://dfabric.github.io/DPlatform-ShellCore)
 
 ## Exemple d’installation complète sur Linux Debian/Ubuntu
 ```sh

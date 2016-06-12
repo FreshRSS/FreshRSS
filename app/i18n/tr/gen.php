@@ -122,6 +122,7 @@ return array(
 		'fr' => 'Français',
 		'it' => 'Italiano',
 		'nl' => 'Nederlands',
+		'ru' => 'Русский',
 		'tr' => 'Türkçe',
 	),
 	'menu' => array(
@@ -164,7 +165,8 @@ return array(
 		'print' => 'Print',
 		'shaarli' => 'Shaarli',
 		'twitter' => 'Twitter',
-		'wallabag' => 'wallabag',
+		'wallabag' => 'wallabag v1',
+		'wallabagv2' => 'wallabag v2',
 		'jdh' => 'Journal du hacker',
 	),
 	'short' => array(

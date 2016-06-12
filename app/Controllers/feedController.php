@@ -114,6 +114,8 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 				Minz_Request::bad(_t('feedback.sub.feed.invalid_url', $url), $url_redirect);
 			}
 
+			$feed->_httpAuth($http_auth);
+
 			try {
 				$feed->load(true);
 			} catch (FreshRSS_Feed_Exception $e) {
@@ -140,7 +142,6 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 			}
 
 			$feed->_category($cat);
-			$feed->_httpAuth($http_auth);
 
 			// Call the extension hook
 			$name = $feed->name();

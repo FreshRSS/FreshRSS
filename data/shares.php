@@ -38,6 +38,15 @@ return array(
 		'help' => 'http://www.wallabag.org/',
 		'form' => 'advanced',
 	),
+	'wallabagv2' => array(
+		'url' => '~URL~/bookmarklet?url=~LINK~',
+		'transform' => array(
+			'link' => array('rawurlencode'),
+			'title' => array(),
+		),
+		'help' => 'http://www.wallabag.org/',
+		'form' => 'advanced',
+	),
 	'diaspora' => array(
 		'url' => '~URL~/bookmarklet?url=~LINK~&amp;title=~TITLE~',
 		'transform' => array('rawurlencode'),
