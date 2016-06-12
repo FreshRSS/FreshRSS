@@ -1,6 +1,6 @@
 # Changelog
 
-## 2016-06-XX FreshRSS 1.3.2-beta
+## 2016-06-12 FreshRSS 1.3.2-beta
 
 * Compatibility
 	* Require at least PHP 5.3+ (drop PHP 5.2) [#1133](https://github.com/FreshRSS/FreshRSS/pull/1133)
