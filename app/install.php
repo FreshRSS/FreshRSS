@@ -309,7 +309,7 @@ function checkStep0() {
 }
 
 function checkStep1() {
-	$php = version_compare(PHP_VERSION, '5.2.1') >= 0;
+	$php = version_compare(PHP_VERSION, '5.3.0') >= 0;
 	$minz = file_exists(join_path(LIB_PATH, 'Minz'));
 	$curl = extension_loaded('curl');
 	$pdo_mysql = extension_loaded('pdo_mysql');
@@ -536,7 +536,7 @@ function printStep1() {
 	<?php if ($res['php'] == 'ok') { ?>
 	<p class="alert alert-success"><span class="alert-head"><?php echo _t('gen.short.ok'); ?></span> <?php echo _t('install.check.php.ok', PHP_VERSION); ?></p>
 	<?php } else { ?>
-	<p class="alert alert-error"><span class="alert-head"><?php echo _t('gen.short.damn'); ?></span> <?php echo _t('install.check.php.nok', PHP_VERSION, '5.2.1'); ?></p>
+	<p class="alert alert-error"><span class="alert-head"><?php echo _t('gen.short.damn'); ?></span> <?php echo _t('install.check.php.nok', PHP_VERSION, '5.3.0'); ?></p>
 	<?php } ?>
 
 	<?php if ($res['minz'] == 'ok') { ?>
