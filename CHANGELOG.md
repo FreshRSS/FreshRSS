@@ -1,9 +1,26 @@
 # Changelog
 
-## 2016-XX-YY FreshRSS 1.3.2-beta
+## 2016-06-XX FreshRSS 1.3.2-beta
 
+* Compatibility
+	* Require at least PHP 5.3+ (drop PHP 5.2) [#1133](https://github.com/FreshRSS/FreshRSS/pull/1133)
+* Features
+	* Support for MySQL 5.7+ (e.g. Ubuntu 16.04 LTS) [#1132](https://github.com/FreshRSS/FreshRSS/pull/1132)
+	* Speed optimization for HTTP/2 [#1133](https://github.com/FreshRSS/FreshRSS/pull/1133)
+	* API support for REDIRECT_* HTTP headers (fcgi) [#1128](https://github.com/FreshRSS/FreshRSS/issues/1128)
+* SimplePie
+	* Support for feeds with invalid whitespace [#1142](https://github.com/FreshRSS/FreshRSS/issues/1142)
+* Bug fixing
+	* Fix bug when adding feeds with passwords [#1137](https://github.com/FreshRSS/FreshRSS/pull/1137)
+	* Fix validator link [#1147](https://github.com/FreshRSS/FreshRSS/pull/1147)
+	* Fix Favicon small bugs [#1135](https://github.com/FreshRSS/FreshRSS/pull/1135)
+* Security
+	* CSP compatibility for homepage [#1120](https://github.com/FreshRSS/FreshRSS/pull/1120)
 * I18n
 	* Draft of Russian [#1085](https://github.com/FreshRSS/FreshRSS/pull/1085)
+* Misc.
+	* Change default feed timeout to 15 seconds [#1146](https://github.com/FreshRSS/FreshRSS/pull/1146)
+	* Updated Wallabag v2 [#1150](https://github.com/FreshRSS/FreshRSS/pull/1150)
 
 
 ## 2016-03-11 FreshRSS 1.3.1-beta
