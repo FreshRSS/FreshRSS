@@ -108,7 +108,7 @@ return array(
 		'confirm_action' => 'Are you sure you want to perform this action? It cannot be cancelled!',
 		'confirm_action_feed_cat' => 'Are you sure you want to perform this action? You will lose related favorites and user queries. It cannot be cancelled!',
 		'feedback' => array(
-			'body_new_articles' => 'There are \\d new articles to read on FreshRSS.',
+			'body_new_articles' => 'There are %%d new articles to read on FreshRSS.',
 			'request_failed' => 'A request has failed, it may have been caused by Internet connection problems.',
 			'title_new_articles' => 'FreshRSS: new articles!',
 		),
@@ -122,6 +122,8 @@ return array(
 		'fr' => 'Français',
 		'it' => 'Italiano',
 		'nl' => 'Nederlands',
+		'ru' => 'Русский',
+		'tr' => 'Türkçe',
 	),
 	'menu' => array(
 		'about' => 'About',
@@ -159,6 +161,7 @@ return array(
 		'email' => 'Email',
 		'facebook' => 'Facebook',
 		'g+' => 'Google+',
+		'jdh' => 'Journal du hacker',
 		'movim' => 'Movim',
 		'print' => 'Print',
 		'shaarli' => 'Shaarli',
