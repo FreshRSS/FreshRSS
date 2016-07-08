@@ -508,7 +508,7 @@ function init_column_categories() {
 				this.alt = '▽';
 			}
 		});
-		$(this).parent().next(".tree-folder-items").slideToggle();
+		$(this).parent().next(".tree-folder-items").slideToggle( 400 , function() {  $(document.body).trigger("sticky_kit:recalc"); } );
 		return false;
 	});
 	$('#aside_feed').on('click', '.tree-folder-items .item .dropdown-toggle', function () {
@@ -519,6 +519,9 @@ function init_column_categories() {
 			$(this).attr('href', '#dropdown-' + feed_id).prev('.dropdown-target').attr('id', 'dropdown-' + feed_id).parent().append(template);
 		}
 	});
+	if( $('.toggle_aside').css('display')=='none') {
+		$('#aside_feed .tree').stick_in_parent();
+	}
 }
 
 function init_shortcuts() {
