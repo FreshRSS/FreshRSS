@@ -95,7 +95,8 @@ class FreshRSS extends Minz_FrontController {
 			}
 		}
 
-		Minz_View::appendScript(Minz_Url::display('/scripts/jquery.min.js?' . @filemtime(PUBLIC_PATH . '/scripts/jquery.min.js')));
+		Minz_View::appendScript(Minz_Url::display('/scripts/jquery.min.js?' . @filemtime(PUBLIC_PATH . '/scripts/jquery.min.js')),false,false,false);
+		Minz_View::appendScript(Minz_Url::display('/scripts/jquery.sticky-kit.min.js?' . @filemtime(PUBLIC_PATH . '/scripts/jquery.sticky-kit.min.js')));
 		Minz_View::appendScript(Minz_Url::display('/scripts/shortcut.js?' . @filemtime(PUBLIC_PATH . '/scripts/shortcut.js')));
 		Minz_View::appendScript(Minz_Url::display('/scripts/main.js?' . @filemtime(PUBLIC_PATH . '/scripts/main.js')));
 
