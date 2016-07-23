@@ -5,7 +5,8 @@ return array(
 	'0.8.0' => '1.0.0',
 	'0.8.1' => '1.0.0',
 	'1.0.0' => '1.2.0',
-	'1.2.0' => '1.2.1',  // doesn't exist (yet)
+	'1.2.0' => '1.4.0',
+	'1.4.0' => '1.4.1',  // doesn't exist (yet)
 	//BETA
 	'0.9.0' => '1.1.0',
 	'0.9.1' => '1.1.0',
@@ -18,7 +19,7 @@ return array(
 	'1.1.3-beta' => '1.3.0-beta',
 	'1.3.0-beta' => '1.3.1-beta',
 	'1.3.1-beta' => '1.3.2-beta',
-	'1.3.2-beta' => '1.3.3-beta',  // doesn't exist (yet)
+	'1.3.2-beta' => '1.4.0',  // no more beta version \o/
 	// DEV
 	'1.1.2-dev' => 'dev',
 	'1.1.3-dev' => 'dev',
@@ -27,4 +28,5 @@ return array(
 	'1.3.1-dev' => 'dev',
 	'1.3.2-dev' => 'dev',
 	'1.3.3-dev' => 'dev',
+	'1.5.0-dev' => 'dev',
 );
