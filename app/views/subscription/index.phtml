@@ -28,7 +28,7 @@
 						</select>
 					</li>
 
-					<li class="input" style="display:none">
+					<li class="input" aria-hidden="true">
 						<input type="text" name="new_category[name]" id="new_category_name" autocomplete="off" placeholder="<?php echo _t('sub.category.new'); ?>" />
 					</li>
 
@@ -62,7 +62,7 @@
 		</ul>
 	</div>
 
-	<form id="controller-category" method="post" style="display: none;"></form>
+	<form id="controller-category" method="post" aria-hidden="true"></form>
 
 	<?php
 		foreach ($this->categories as $cat) {

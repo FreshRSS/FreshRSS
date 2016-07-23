@@ -30,108 +30,45 @@
 	<?php }?>
 
 	<div class="stat">
-	    <table>
+		<table>
 		<tr>
-		    <th><?php echo _t('admin.stats.status_total'); ?></th>
-		    <th><?php echo _t('admin.stats.status_read'); ?></th>
-		    <th><?php echo _t('admin.stats.status_unread'); ?></th>
-		    <th><?php echo _t('admin.stats.status_favorites'); ?></th>
+			<th><?php echo _t('admin.stats.status_total'); ?></th>
+			<th><?php echo _t('admin.stats.status_read'); ?></th>
+			<th><?php echo _t('admin.stats.status_unread'); ?></th>
+			<th><?php echo _t('admin.stats.status_favorites'); ?></th>
 		</tr>
 		<tr>
-		    <td class="numeric"><?php echo $this->repartition['total']; ?></td>
-		    <td class="numeric"><?php echo $this->repartition['read']; ?></td>
-		    <td class="numeric"><?php echo $this->repartition['unread']; ?></td>
-		    <td class="numeric"><?php echo $this->repartition['favorite']; ?></td>
+			<td class="numeric"><?php echo $this->repartition['total']; ?></td>
+			<td class="numeric"><?php echo $this->repartition['read']; ?></td>
+			<td class="numeric"><?php echo $this->repartition['unread']; ?></td>
+			<td class="numeric"><?php echo $this->repartition['favorite']; ?></td>
 		</tr>
-	    </table>
+		</table>
 	</div>
 
 	<div class="stat">
 		<h2><?php echo _t('admin.stats.entry_per_hour', $this->averageHour); ?></h2>
-		<div id="statsEntryPerHour" style="height: 300px"></div>
+		<div id="statsEntryPerHour" class="statGraph"></div>
 	</div>
 
 	<div class="stat half">
 		<h2><?php echo _t('admin.stats.entry_per_day_of_week', $this->averageDayOfWeek); ?></h2>
-		<div id="statsEntryPerDayOfWeek" style="height: 300px"></div>
-	</div><!--
+		<div id="statsEntryPerDayOfWeek" class="statGraph"></div>
+	</div>
 
-	--><div class="stat half">
+	<div class="stat half">
 		<h2><?php echo _t('admin.stats.entry_per_month', $this->averageMonth); ?></h2>
-		<div id="statsEntryPerMonth" style="height: 300px"></div>
+		<div id="statsEntryPerMonth" class="statGraph"></div>
 	</div>
 </div>
 
-<script>
-"use strict";
-function initStats() {
-	if (!window.Flotr) {
-		if (window.console) {
-			console.log('FreshRSS waiting for Flotr…');
-		}
-		window.setTimeout(initStats, 50);
-		return;
-	}
-	// Entry per hour
-	Flotr.draw(document.getElementById('statsEntryPerHour'),
-		[{
-			data: <?php echo $this->repartitionHour ?>,
-			bars: {horizontal: false, show: true}
-		}],
-		{
-			grid: {verticalLines: false},
-			xaxis: {noTicks: 23,
-				tickFormatter: function(x) {
-					var x = parseInt(x);
-					return x + 1;
-				},
-				min: -0.9,
-				max: 23.9,
-				tickDecimals: 0},
-			yaxis: {min: 0},
-			mouse: {relative: true, track: true, trackDecimals: 0, trackFormatter: function(obj) {return numberFormat(obj.y);}}
-		});
-	// Entry per day of week
-	Flotr.draw(document.getElementById('statsEntryPerDayOfWeek'),
-		[{
-			data: <?php echo $this->repartitionDayOfWeek ?>,
-			bars: {horizontal: false, show: true}
-		}],
-		{
-			grid: {verticalLines: false},
-			xaxis: {noTicks: 6,
-				tickFormatter: function(x) {
-					var x = parseInt(x),
-					    days = <?php echo $this->days?>;
-					return days[x];
-				},
-				min: -0.9,
-				max: 6.9,
-				tickDecimals: 0},
-			yaxis: {min: 0},
-			mouse: {relative: true, track: true, trackDecimals: 0, trackFormatter: function(obj) {return numberFormat(obj.y);}}
-		});
-	// Entry per month
-	Flotr.draw(document.getElementById('statsEntryPerMonth'),
-		[{
-			data: <?php echo $this->repartitionMonth ?>,
-			bars: {horizontal: false, show: true}
-		}],
-		{
-			grid: {verticalLines: false},
-			xaxis: {noTicks: 12,
-				tickFormatter: function(x) {
-					var x = parseInt(x),
-					    months = <?php echo $this->months?>;
-					return months[(x - 1)];
-				},
-				min: 0.1,
-				max: 12.9,
-				tickDecimals: 0},
-			yaxis: {min: 0},
-			mouse: {relative: true, track: true, trackDecimals: 0, trackFormatter: function(obj) {return numberFormat(obj.y);}}
-		});
-
-}
-initStats();
-</script>
+<script id="jsonRepartition" type="application/json"><?php
+echo htmlspecialchars(json_encode(array(
+	'repartitionHour' => $this->repartitionHour,
+	'repartitionDayOfWeek' => $this->repartitionDayOfWeek,
+	'days' => $this->days,
+	'repartitionMonth' => $this->repartitionMonth,
+	'months' => $this->months,
+), JSON_UNESCAPED_UNICODE), ENT_NOQUOTES);
+?></script>
+<script src="../scripts/repartition.js?<?php echo @filemtime(PUBLIC_PATH . '/scripts/repartition.js'); ?>"></script>

@@ -108,7 +108,7 @@ return array(
 		'confirm_action' => 'Weet u zeker dat u dit wilt doen? Het kan niet ongedaan worden gemaakt!',
 		'confirm_action_feed_cat' => 'Weet u zeker dat u dit wilt doen? U verliest alle gereleteerde favorieten en gebruikers informatie. Het kan niet ongedaan worden gemaakt!',
 		'feedback' => array(
-			'body_new_articles' => 'Er zijn \\d nieuwe artikelen om te lezen op FreshRSS.',
+			'body_new_articles' => 'Er zijn %%d nieuwe artikelen om te lezen op FreshRSS.',
 			'request_failed' => 'Een opdracht is mislukt, mogelijk door Internet verbindings problemen.',
 			'title_new_articles' => 'FreshRSS: nieuwe artikelen!',
 		),
@@ -122,6 +122,8 @@ return array(
 		'fr' => 'Français',
 		'it' => 'Italiano',
 		'nl' => 'Nederlands',
+		'ru' => 'Русский',
+		'tr' => 'Türkçe',
 	),
 	'menu' => array(
 		'about' => 'Over',
@@ -139,7 +141,7 @@ return array(
 		'sharing' => 'Delen',
 		'shortcuts' => 'Snelle toegang',
 		'stats' => 'Statistieken',
-		'system' => 'System configuration', // @todo translate
+		'system' => 'Systeem configuratie',
 		'update' => 'Versie controle',
 		'user_management' => 'Beheer gebruikers',
 		'user_profile' => 'Profiel',
@@ -163,7 +165,9 @@ return array(
 		'print' => 'Print',
 		'shaarli' => 'Shaarli',
 		'twitter' => 'Twitter',
-		'wallabag' => 'wallabag',
+		'wallabag' => 'wallabag v1',
+		'wallabagv2' => 'wallabag v2',             
+		'jdh' => 'Journal du hacker',
 	),
 	'short' => array(
 		'attention' => 'Attentie!',

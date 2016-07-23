@@ -38,6 +38,15 @@ return array(
 		'help' => 'http://www.wallabag.org/',
 		'form' => 'advanced',
 	),
+	'wallabagv2' => array(
+		'url' => '~URL~/bookmarklet?url=~LINK~',
+		'transform' => array(
+			'link' => array('rawurlencode'),
+			'title' => array(),
+		),
+		'help' => 'http://www.wallabag.org/',
+		'form' => 'advanced',
+	),
 	'diaspora' => array(
 		'url' => '~URL~/bookmarklet?url=~LINK~&amp;title=~TITLE~',
 		'transform' => array('rawurlencode'),
@@ -45,7 +54,7 @@ return array(
 		'form' => 'advanced',
 	),
 	'movim' => array(
-		'url' => '~URL~/index.php/share/~LINK~',
+		'url' => '~URL~/?share/~LINK~',
 		'transform' => array('rawurlencode', 'urlencode'),
 		'help' => 'https://github.com/edhelas/movim',
 		'form' => 'advanced',
@@ -75,4 +84,9 @@ return array(
 		'transform' => array(),
 		'form' => 'simple',
 	),
+	'jdh' => array(
+                'url' => 'https://www.journalduhacker.net/stories/new?url=~LINK~&title=~TITLE~',
+                'transform' => array('rawurlencode'),
+                'form' => 'simple',
+        ),
 );

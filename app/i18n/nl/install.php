@@ -51,7 +51,7 @@ return array(
 			'ok' => 'Permissies van de data map zijn goed.',
 		),
 		'dom' => array(
-			'nok' => 'U mist een benodigde bibliotheek om te bladeren in de DOM (php-xml package).',
+			'nok' => 'U mist een benodigde bibliotheek om te bladeren in de DOM.',
 			'ok' => 'U hebt de benodigde bibliotheek om te bladeren in de DOM.',
 		),
 		'favicons' => array(
@@ -61,6 +61,10 @@ return array(
 		'http_referer' => array(
 			'nok' => 'Controleer a.u.b. dat u niet uw HTTP REFERER wijzigd.',
 			'ok' => 'Uw HTTP REFERER is bekend en komt overeen met uw server.',
+		),
+		'json' => array(
+			'nok' => 'U mist een benodigede bibliotheek om JSON te gebruiken.',
+			'ok' => 'U hebt de benodigde bibliotheek om JSON te gebruiken.',
 		),
 		'minz' => array(
 			'nok' => 'U mist het Minz framework.',
@@ -85,6 +89,10 @@ return array(
 		'users' => array(
 			'nok' => 'Controleer permissies van de <em>./data/users</em> map. HTTP server moet rechten hebben om er in te kunnen schrijven',
 			'ok' => 'Permissies van de users map zijn goed.',
+		),
+		'xml' => array(
+			'nok' => 'U mist de benodigde bibliotheek om XML te gebruiken.',
+			'ok' => 'U hebt de benodigde bibliotheek om XML te gebruiken.',
 		),
 	),
 	'conf' => array(

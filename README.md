@@ -31,14 +31,16 @@ We are a friendly community.
 
 # Requirements
 * Light server running Linux or Windows
-	* It even works on Raspberry Pi with response time under a second (tested with 150 feeds, 22k articles, or 32Mo of compressed data)
+	* It even works on Raspberry Pi 1 with response time under a second (tested with 150 feeds, 22k articles)
 * A web server: Apache2 (recommended), nginx, lighttpd (not tested on others)
-* PHP 5.2.1+ (PHP 5.3.7+ recommended, and PHP 5.5+ for performance) (beta support for PHP 7 with even higher performance)
+* PHP 5.3+ (PHP 5.3.7+ recommended, and PHP 5.5+ for performance, and PHP 7 for even higher performance)
 	* Required extensions: [PDO_MySQL](http://php.net/pdo-mysql) or [PDO_SQLite](http://php.net/pdo-sqlite), [cURL](http://php.net/curl), [GMP](http://php.net/gmp) (for API access on platforms < 64 bits), [IDN](http://php.net/intl.idn) (for Internationalized Domain Names)
-	* Recommended extensions: [JSON](http://php.net/json), [mbstring](http://php.net/mbstring), [zlib](http://php.net/zlib), [Zip](http://php.net/zip)
+	* Recommended extensions: [iconv](http://php.net/iconv), [JSON](http://php.net/json), [mbstring](http://php.net/mbstring), [Zip](http://php.net/zip), [zlib](http://php.net/zlib)
+	* Enabled by default: [DOM](http://php.net/dom), [XML](http://php.net/xml)…
 * MySQL 5.0.3+ (recommended) or SQLite 3.7.4+
 * A recent browser like Firefox, Chrome, Opera, Safari. [Internet Explorer currently not supported, but support will come back](https://github.com/FreshRSS/FreshRSS/issues/772).
 	* Works on mobile
+* The browser HTTP `Referer` header must not be disabled when using the form login method
 
 ![FreshRSS screenshot](http://marienfressinaud.fr/data/images/freshrss/freshrss_default-design.png)
 
@@ -50,6 +52,9 @@ We are a friendly community.
 5. Everything should be working :) If you encounter any problem, feel free to contact me.
 6. Advanced configuration settings can be seen in [config.php](./data/config.default.php).
 
+## Automated install
+[![DP deploy](https://raw.githubusercontent.com/DFabric/DPlatform-ShellCore/gh-pages/img/deploy.png)](https://dfabric.github.io/DPlatform-ShellCore)
+
 ## Example of full installation on Linux Debian/Ubuntu
 ```sh
 # If you use an Apache Web server (otherwise you need another Web server)
@@ -58,7 +63,7 @@ sudo a2enmod headers expires rewrite ssl
 # (Optional) If you want a MySQL database server
 sudo apt-get install mysql-server mysql-client php5-mysql
 # Main components (git is optional if you manually download the installation files)
-sudo apt-get install git php5 php5-curl php5-gd php5-intl php5-json php5-gmp php5-sqlite
+sudo apt-get install git php5 php5-curl php5-gmp php5-intl php5-json php5-sqlite
 # Restart Web server
 sudo service apache2 restart
 

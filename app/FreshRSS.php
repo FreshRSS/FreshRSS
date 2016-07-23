@@ -34,7 +34,7 @@ class FreshRSS extends Minz_FrontController {
 
 		// Auth has to be initialized before using currentUser session parameter
 		// because it's this part which create this parameter.
-		$this->initAuth();
+		self::initAuth();
 
 		// Then, register the user configuration and use the configuration setter
 		// created above.
@@ -46,10 +46,8 @@ class FreshRSS extends Minz_FrontController {
 
 		// Finish to initialize the other FreshRSS / Minz components.
 		FreshRSS_Context::init();
-		$this->initI18n();
-		FreshRSS_Share::load(join_path(DATA_PATH, 'shares.php'));
-		$this->loadStylesAndScripts();
-		$this->loadNotifications();
+		self::initI18n();
+		self::loadNotifications();
 		// Enable extensions for the current (logged) user.
 		if (FreshRSS_Auth::hasAccess()) {
 			$ext_list = FreshRSS_Context::$user_conf->extensions_enabled;
@@ -57,7 +55,7 @@ class FreshRSS extends Minz_FrontController {
 		}
 	}
 
-	private function initAuth() {
+	private static function initAuth() {
 		FreshRSS_Auth::init();
 		if (Minz_Request::isPost() && !is_referer_from_same_domain()) {
 			// Basic protection against XSRF attacks
@@ -74,12 +72,12 @@ class FreshRSS extends Minz_FrontController {
 		}
 	}
 
-	private function initI18n() {
+	private static function initI18n() {
 		Minz_Session::_param('language', FreshRSS_Context::$user_conf->language);
 		Minz_Translate::init(FreshRSS_Context::$user_conf->language);
 	}
 
-	private function loadStylesAndScripts() {
+	public static function loadStylesAndScripts() {
 		$theme = FreshRSS_Themes::load(FreshRSS_Context::$user_conf->theme);
 		if ($theme) {
 			foreach($theme['files'] as $file) {
@@ -91,9 +89,9 @@ class FreshRSS extends Minz_FrontController {
 					$filename = $file;
 				}
 				$filetime = @filemtime(PUBLIC_PATH . '/themes/' . $theme_id . '/' . $filename);
-				Minz_View::appendStyle(Minz_Url::display(
-					'/themes/' . $theme_id . '/' . $filename . '?' . $filetime
-				));
+				$url = '/themes/' . $theme_id . '/' . $filename . '?' . $filetime;
+				header('Link: <' . Minz_Url::display($url, '', 'root') . '>;rel=preload', false);	//HTTP2
+				Minz_View::appendStyle(Minz_Url::display($url));
 			}
 		}
 
@@ -110,11 +108,29 @@ class FreshRSS extends Minz_FrontController {
 		}
 	}
 
-	private function loadNotifications() {
+	private static function loadNotifications() {
 		$notif = Minz_Session::param('notification');
 		if ($notif) {
 			Minz_View::_param('notification', $notif);
 			Minz_Session::_param('notification');
 		}
+	}
+
+	public static function preLayout() {
+		switch (Minz_Request::controllerName()) {
+			case 'index':
+				header("Content-Security-Policy: default-src 'self'; child-src *; frame-src *; img-src * data:; media-src *");
+				break;
+			case 'stats':
+				header("Content-Security-Policy: default-src 'self'; style-src 'self' 'unsafe-inline'");
+				break;
+			default:
+				header("Content-Security-Policy: default-src 'self'");
+				break;
+		}
+		header("X-Content-Type-Options: nosniff");
+
+		FreshRSS_Share::load(join_path(DATA_PATH, 'shares.php'));
+		self::loadStylesAndScripts();
 	}
 }

@@ -108,7 +108,7 @@ return array(
 		'confirm_action' => 'Sind Sie sicher, dass Sie diese Aktion durchführen wollen? Diese Aktion kann nicht abgebrochen werden!',
 		'confirm_action_feed_cat' => 'Sind Sie sicher, dass Sie diese Aktion durchführen wollen? Sie werden zugehörige Favoriten und Benutzerabfragen verlieren. Dies kann nicht abgebrochen werden!',
 		'feedback' => array(
-			'body_new_articles' => 'Es gibt \\d neue Artikel zum Lesen auf FreshRSS.',
+			'body_new_articles' => 'Es gibt %%d neue Artikel zum Lesen auf FreshRSS.',
 			'request_failed' => 'Eine Anfrage ist fehlgeschlagen, dies könnte durch Probleme mit der Internetverbindung verursacht worden sein.',
 			'title_new_articles' => 'FreshRSS: neue Artikel!',
 		),
@@ -122,6 +122,8 @@ return array(
 		'fr' => 'Français',
 		'it' => 'Italiano',
 		'nl' => 'Nederlands',
+		'ru' => 'Русский',
+		'tr' => 'Türkçe',
 	),
 	'menu' => array(
 		'about' => 'Über',
@@ -163,7 +165,9 @@ return array(
 		'print' => 'Drucken',
 		'shaarli' => 'Shaarli',
 		'twitter' => 'Twitter',
-		'wallabag' => 'wallabag',
+		'wallabag' => 'wallabag v1',
+		'wallabagv2' => 'wallabag v2',
+		'jdh' => 'Journal du hacker',
 	),
 	'short' => array(
 		'attention' => 'Achtung!',

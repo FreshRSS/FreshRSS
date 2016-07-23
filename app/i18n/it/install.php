@@ -51,7 +51,7 @@ return array(
 			'ok' => 'I permessi sulla cartella data sono corretti.',
 		),
 		'dom' => array(
-			'nok' => 'Manca una libreria richiesta per leggere DOM (pacchetto php-xml).',
+			'nok' => 'Manca una libreria richiesta per leggere DOM.',
 			'ok' => 'Libreria richiesta per leggere DOM presente.',
 		),
 		'favicons' => array(
@@ -61,6 +61,10 @@ return array(
 		'http_referer' => array(
 			'nok' => 'Per favore verifica che non stai alterando il tuo HTTP REFERER.',
 			'ok' => 'Il tuo HTTP REFERER riconosciuto corrisponde al tuo server.',
+		),
+		'json' => array(
+			'nok' => 'You lack a recommended library to parse JSON.',
+			'ok' => 'You have a recommended library to parse JSON.',
 		),
 		'minz' => array(
 			'nok' => 'Manca il framework Minz.',
@@ -86,6 +90,10 @@ return array(
 		'users' => array(
 			'nok' => 'Verifica i permessi sulla cartella <em>./data/users</em>. Il server HTTP deve avere i permessi per scriverci dentro',
 			'ok' => 'I permessi sulla cartella users sono corretti.',
+		),
+		'xml' => array(
+			'nok' => 'You lack the required library to parse XML.',
+			'ok' => 'You have the required library to parse XML.',
 		),
 	),
 	'conf' => array(

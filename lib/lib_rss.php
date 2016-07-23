@@ -1,17 +1,46 @@
 <?php
 if (!function_exists('json_decode')) {
 	require_once('JSON.php');
-	function json_decode($var) {
-		$JSON = new Services_JSON;
-		return (array)($JSON->decode($var));
+	function json_decode($var, $assoc = false) {
+		$JSON = new Services_JSON($assoc ? SERVICES_JSON_LOOSE_TYPE : 0);
+		return $JSON->decode($var);
 	}
 }
 
 if (!function_exists('json_encode')) {
 	require_once('JSON.php');
 	function json_encode($var) {
-		$JSON = new Services_JSON;
+		$JSON = new Services_JSON();
 		return $JSON->encodeUnsafe($var);
+	}
+}
+
+if (!function_exists('array_replace_recursive')) {	//PHP 5.2
+	function arr_recurse($array, $array1) {
+		foreach ($array1 as $key => $value) {
+			if (!isset($array[$key]) || (isset($array[$key]) && !is_array($array[$key]))) {
+				$array[$key] = array();	//create new key in $array, if it is empty or not an array
+			}
+			if (is_array($value)) {
+				$value = arr_recurse($array[$key], $value);	// overwrite the value in the base array
+			}
+			$array[$key] = $value;
+		}
+		return $array;
+	}
+	function array_replace_recursive($array, $array1) {	//http://php.net/manual/function.array-replace-recursive.php#92574
+		// handle the arguments, merge one by one
+		$args = func_get_args();
+		$array = $args[0];
+		if (!is_array($array)) {
+			return $array;
+		}
+		for ($i = 1; $i < count($args); $i++) {
+			if (is_array($args[$i])) {
+				$array = arr_recurse($array, $args[$i]);
+			}
+		}
+		return $array;
 	}
 }
 
@@ -180,7 +209,7 @@ function customSimplePie() {
 	$simplePie->strip_attributes(array_merge($simplePie->strip_attributes, array(
 		'autoplay', 'onload', 'onunload', 'onclick', 'ondblclick', 'onmousedown', 'onmouseup',
 		'onmouseover', 'onmousemove', 'onmouseout', 'onfocus', 'onblur',
-		'onkeypress', 'onkeydown', 'onkeyup', 'onselect', 'onchange', 'seamless')));
+		'onkeypress', 'onkeydown', 'onkeyup', 'onselect', 'onchange', 'seamless', 'sizes', 'srcset')));
 	$simplePie->add_attributes(array(
 		'img' => array('lazyload' => '', 'postpone' => ''),	//http://www.w3.org/TR/resource-priorities/
 		'audio' => array('lazyload' => '', 'postpone' => '', 'preload' => 'none'),
@@ -209,6 +238,16 @@ function customSimplePie() {
 			'src',
 		),
 	));
+	$https_domains = array();
+	$force = @file(DATA_PATH . '/force-https.default.txt', FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+	if (is_array($force)) {
+		$https_domains = array_merge($https_domains, $force);
+	}
+	$force = @file(DATA_PATH . '/force-https.txt', FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+	if (is_array($force)) {
+		$https_domains = array_merge($https_domains, $force);
+	}
+	$simplePie->set_https_domains($https_domains);
 	return $simplePie;
 }
 
@@ -508,4 +547,8 @@ function base64url_encode($data) {
 //RFC 4648
 function base64url_decode($data) {
 	return base64_decode(strtr($data, '-_', '+/'));
+}
+
+function _i($icon, $url_only = false) {
+	return FreshRSS_Themes::icon($icon, $url_only);
 }

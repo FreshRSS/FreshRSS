@@ -108,7 +108,7 @@ return array(
 		'confirm_action' => 'Sei sicuro di voler continuare?',
 		'confirm_action_feed_cat' => 'Sei sicuro di voler continuare? Verranno persi i preferiti e le ricerche utente correlate!',
 		'feedback' => array(
-			'body_new_articles' => 'Ci sono \\d nuovi articoli da leggere.',
+			'body_new_articles' => 'Ci sono %%d nuovi articoli da leggere.',
 			'request_failed' => 'Richiesta fallita, probabilmente a causa di problemi di connessione',
 			'title_new_articles' => 'Feed RSS Reader: nuovi articoli!',
 		),
@@ -122,6 +122,8 @@ return array(
 		'fr' => 'Français',
 		'it' => 'Italiano',
 		'nl' => 'Nederlands',
+		'ru' => 'Русский',
+		'tr' => 'Türkçe',
 	),
 	'menu' => array(
 		'about' => 'Informazioni',
@@ -159,10 +161,13 @@ return array(
 		'email' => 'Email',
 		'facebook' => 'Facebook',
 		'g+' => 'Google+',
+		'movim' => 'Movim',
 		'print' => 'Stampa',
 		'shaarli' => 'Shaarli',
 		'twitter' => 'Twitter',
-		'wallabag' => 'wallabag',
+		'wallabag' => 'wallabag v1',
+		'wallabagv2' => 'wallabag v2',
+		'jdh' => 'Journal du hacker',
 	),
 	'short' => array(
 		'attention' => 'Attenzione!',

@@ -24,9 +24,15 @@ class Minz_Url {
 		$url_string = '';
 
 		if ($absolute) {
-			$url_string = Minz_Request::getBaseUrl(PUBLIC_TO_INDEX_PATH);
-			if ($url_string === PUBLIC_TO_INDEX_PATH) {
+			$url_string = Minz_Request::getBaseUrl();
+			if ($url_string == '') {
 				$url_string = Minz_Request::guessBaseUrl();
+			}
+			if ($isArray) {
+				$url_string .= PUBLIC_TO_INDEX_PATH;
+			}
+			if ($absolute === 'root') {
+				$url_string = parse_url($url_string, PHP_URL_PATH);
 			}
 		} else {
 			$url_string = $isArray ? '.' : PUBLIC_RELATIVE;

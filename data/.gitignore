@@ -7,3 +7,4 @@ no-cache.txt
 *.lock.txt
 last_update.txt
 update.php
+force-https.txt

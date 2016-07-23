@@ -1123,6 +1123,7 @@ class SimplePie
 			$this->strip_attributes(false);
 			$this->add_attributes(false);
 			$this->set_image_handler(false);
+			$this->set_https_domains(array());
 		}
 	}
 
@@ -1231,6 +1232,19 @@ class SimplePie
 	public function set_url_replacements($element_attribute = null)
 	{
 		$this->sanitize->set_url_replacements($element_attribute);
+	}
+
+	/**
+	 * Set the list of domains for which force HTTPS.
+	 * @see SimplePie_Sanitize::set_https_domains()
+	 * FreshRSS
+	 */
+	public function set_https_domains($domains = array())
+	{
+		if (is_array($domains))
+		{
+			$this->sanitize->set_https_domains($domains);
+		}
 	}
 
 	/**
@@ -1654,6 +1668,7 @@ class SimplePie
 			$locate = null;
 		}
 
+		$file->body = trim($file->body);
 		$this->raw_data = $file->body;
 		$this->permanent_url = $file->permanent_url;
 		$headers = $file->headers;

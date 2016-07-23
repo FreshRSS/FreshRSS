@@ -1,5 +1,61 @@
 # Changelog
 
+## 2016-07-23 FreshRSS 1.4.0
+## 2016-06-12 FreshRSS 1.3.2-beta
+
+* Compatibility
+	* Require at least PHP 5.3+ (drop PHP 5.2) [#1133](https://github.com/FreshRSS/FreshRSS/pull/1133)
+* Features
+	* Support for MySQL 5.7+ (e.g. Ubuntu 16.04 LTS) [#1132](https://github.com/FreshRSS/FreshRSS/pull/1132)
+	* Speed optimization for HTTP/2 [#1133](https://github.com/FreshRSS/FreshRSS/pull/1133)
+	* API support for REDIRECT_* HTTP headers (fcgi) [#1128](https://github.com/FreshRSS/FreshRSS/issues/1128)
+* SimplePie
+	* Support for feeds with invalid whitespace [#1142](https://github.com/FreshRSS/FreshRSS/issues/1142)
+* Bug fixing
+	* Fix bug when adding feeds with passwords [#1137](https://github.com/FreshRSS/FreshRSS/pull/1137)
+	* Fix validator link [#1147](https://github.com/FreshRSS/FreshRSS/pull/1147)
+	* Fix Favicon small bugs [#1135](https://github.com/FreshRSS/FreshRSS/pull/1135)
+* Security
+	* CSP compatibility for homepage [#1120](https://github.com/FreshRSS/FreshRSS/pull/1120)
+* I18n
+	* Draft of Russian [#1085](https://github.com/FreshRSS/FreshRSS/pull/1085)
+* Misc.
+	* Change default feed timeout to 15 seconds [#1146](https://github.com/FreshRSS/FreshRSS/pull/1146)
+	* Updated Wallabag v2 [#1150](https://github.com/FreshRSS/FreshRSS/pull/1150)
+
+
+## 2016-03-11 FreshRSS 1.3.1-beta
+
+* Security
+	* Added CSP `Content-Security-Policy: default-src 'self'; child-src *; frame-src *; img-src * data:; media-src *` [#1075](https://github.com/FreshRSS/FreshRSS/issues/1075), [#1114](https://github.com/FreshRSS/FreshRSS/issues/1114)
+	* Added `X-Content-Type-Options: nosniff` [#1116](https://github.com/FreshRSS/FreshRSS/pull/1116)
+	* Cookie with `Secure` tag when used over HTTPS [#1117](https://github.com/FreshRSS/FreshRSS/pull/1117)
+	* Limit API post input to 1MB [#1118](https://github.com/FreshRSS/FreshRSS/pull/1118)
+* Features
+	* New list of domains for which to force HTTPS (for images, videos, iframes…) defined in `./data/force-https.default.txt` and `./data/force-https.txt` [#1083](https://github.com/FreshRSS/FreshRSS/issues/1083)
+		* In particular useful for privacy and to avoid mixed content errors, e.g. to see YouTube videos when FreshRSS is in HTTPS
+	* Add sharing with “Journal du Hacker” [#1056](https://github.com/FreshRSS/FreshRSS/pull/1056)
+* UI
+	* Updated to jQuery 2.2.1 and changed code for auto-load on scroll [#1050](https://github.com/FreshRSS/FreshRSS/pull/1050), [#1091](https://github.com/FreshRSS/FreshRSS/pull/1091)
+* I18n
+	* Turkish [#1073](https://github.com/FreshRSS/FreshRSS/issues/1073)
+* Bug fixing
+	* Fixed OPML import title bug [#1048](https://github.com/FreshRSS/FreshRSS/issues/1048)
+	* Fixed upgrade bug with SQLite when articles were marked as unread [#1049](https://github.com/FreshRSS/FreshRSS/issues/1049)
+	* Fixed error when deleting feeds from statistics page [#1047](https://github.com/FreshRSS/FreshRSS/issues/1047)
+	* Fixed several small bugs in global and reader view [#1050](https://github.com/FreshRSS/FreshRSS/pull/1050)
+	* Fixed sharing bug with PHP7 [#1072](https://github.com/FreshRSS/FreshRSS/issues/1072)
+	* Fixed fall-back when php-json is not installed [#1092](https://github.com/FreshRSS/FreshRSS/issues/1092)
+* API
+	* Possibility to show only read items [#1035](https://github.com/FreshRSS/FreshRSS/pull/1035)
+* Misc.
+	* Filters `<img />` attributes `srcset` and `sizes` [#1077](https://github.com/FreshRSS/FreshRSS/issues/1077), [#1086](https://github.com/FreshRSS/FreshRSS/pull/1086)
+	* Implement PubSubHubbub unsubscribe responses [#1058](https://github.com/FreshRSS/FreshRSS/issues/1058)
+	* Restored some compatibility with PHP 5.2 [#1055](https://github.com/FreshRSS/FreshRSS/issues/1055)
+	* Check for extension php-xml during install [#1094](https://github.com/FreshRSS/FreshRSS/issues/1094)
+	* Updated the sharing with Movim [#1030](https://github.com/FreshRSS/FreshRSS/pull/1030)
+
+
 ## 2015-11-03 FreshRSS 1.2.0 / 1.3.0-beta
 
 * Features
@@ -8,13 +64,13 @@
 * Security
 	* Invalid logins now return HTTP 403, to be easier to catch (e.g. fail2ban) [#1015](https://github.com/FreshRSS/FreshRSS/issues/1015)
 * UI
-    * Remove "title" field during installation [#858](https://github.com/FreshRSS/FreshRSS/issues/858)
+	* Remove "title" field during installation [#858](https://github.com/FreshRSS/FreshRSS/issues/858)
 	* Visual alert on categories containing feeds in error [#984](https://github.com/FreshRSS/FreshRSS/pull/984)
 * I18n
 	* Italian [#1003](https://github.com/FreshRSS/FreshRSS/issues/1003)
 * Misc.
-    * Support reverse proxy [#975](https://github.com/FreshRSS/FreshRSS/issues/975)
-    * Make auto-update server URL alterable [#1019](https://github.com/FreshRSS/FreshRSS/issues/1019)
+	* Support reverse proxy [#975](https://github.com/FreshRSS/FreshRSS/issues/975)
+	* Make auto-update server URL alterable [#1019](https://github.com/FreshRSS/FreshRSS/issues/1019)
 
 
 ## 2015-09-12 FreshRSS 1.1.3-beta

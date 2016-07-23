@@ -1,71 +1,54 @@
-"use strict";
 <?php
-
 $mark = FreshRSS_Context::$user_conf->mark_when;
 $mail = Minz_Session::param('mail', false);
-$auto_actualize = Minz_Session::param('actualize_feeds', false);
-$hide_posts = (FreshRSS_Context::$user_conf->display_posts ||
-               Minz_Request::param('output') === 'reader');
 $s = FreshRSS_Context::$user_conf->shortcuts;
-
-$url_login = Minz_Url::display(array(
-	'c' => 'auth',
-	'a' => 'login'
-), 'php');
-$url_logout = Minz_Url::display(array(
-	'c' => 'auth',
-	'a' => 'logout'
-), 'php');
-
-echo 'var context={',
-	'auto_remove_article:', FreshRSS_Context::isAutoRemoveAvailable() ? 'true' : 'false', ',',
-	'hide_posts:', $hide_posts ? 'false' : 'true', ',',
-	'display_order:"', Minz_Request::param('order', FreshRSS_Context::$user_conf->sort_order), '",',
-	'auto_mark_article:', $mark['article'] ? 'true' : 'false', ',',
-	'auto_mark_site:', $mark['site'] ? 'true' : 'false', ',',
-	'auto_mark_scroll:', $mark['scroll'] ? 'true' : 'false', ',',
-	'auto_load_more:', FreshRSS_Context::$user_conf->auto_load_more ? 'true' : 'false', ',',
-	'auto_actualize_feeds:', $auto_actualize ? 'true' : 'false', ',',
-	'does_lazyload:', FreshRSS_Context::$user_conf->lazyload ? 'true' : 'false', ',',
-	'sticky_post:', FreshRSS_Context::isStickyPostEnabled() ? 'true' : 'false', ',',
-	'html5_notif_timeout:', FreshRSS_Context::$user_conf->html5_notif_timeout, ',',
-	'auth_type:"', FreshRSS_Context::$system_conf->auth_type, '",',
-	'current_user_mail:', $mail ? ('"' . $mail . '"') : 'null', ',',
-	'current_view:"', Minz_Request::param('output', 'normal'), '"',
-"},\n";
-
-echo 'shortcuts={',
-	'mark_read:"', @$s['mark_read'], '",',
-	'mark_favorite:"', @$s['mark_favorite'], '",',
-	'go_website:"', @$s['go_website'], '",',
-	'prev_entry:"', @$s['prev_entry'], '",',
-	'next_entry:"', @$s['next_entry'], '",',
-	'first_entry:"', @$s['first_entry'], '",',
-	'last_entry:"', @$s['last_entry'], '",',
-	'collapse_entry:"', @$s['collapse_entry'], '",',
-	'load_more:"', @$s['load_more'], '",',
-	'auto_share:"', @$s['auto_share'], '",',
-	'focus_search:"', @$s['focus_search'], '",',
-	'user_filter:"', @$s['user_filter'], '",',
-	'help:"', @$s['help'], '",',
-	'close_dropdown:"', @$s['close_dropdown'], '"',
-"},\n";
-
-echo 'url={',
-	'index:"', _url('index', 'index'), '",',
-	'login:"', $url_login, '",',
-	'logout:"', $url_logout, '",',
-	'help:"', FRESHRSS_WIKI, '"',
-"},\n";
-
-echo 'i18n={',
-	'confirmation_default:"', _t('gen.js.confirm_action'), '",',
-	'notif_title_articles:"', _t('gen.js.feedback.title_new_articles'), '",',
-	'notif_body_articles:"', _t('gen.js.feedback.body_new_articles'), '",',
-	'notif_request_failed:"', _t('gen.js.feedback.request_failed'), '",',
-	'category_empty:"', _t('gen.js.category_empty'), '"',
-"},\n";
-
-echo 'icons={',
-	'close:\'', _i('close'), '\'',
-"}\n";
+echo htmlspecialchars(json_encode(array(
+	'context' => array(
+		'auto_remove_article' => !!FreshRSS_Context::isAutoRemoveAvailable(),
+		'hide_posts' => !(FreshRSS_Context::$user_conf->display_posts || Minz_Request::actionName() === 'reader'),
+		'display_order' => Minz_Request::param('order', FreshRSS_Context::$user_conf->sort_order),
+		'auto_mark_article' => !!$mark['article'],
+		'auto_mark_site' => !!$mark['site'],
+		'auto_mark_scroll' => !!$mark['scroll'],
+		'auto_load_more' => !!FreshRSS_Context::$user_conf->auto_load_more,
+		'auto_actualize_feeds' => !!Minz_Session::param('actualize_feeds', false),
+		'does_lazyload' => !!FreshRSS_Context::$user_conf->lazyload ,
+		'sticky_post' => !!FreshRSS_Context::isStickyPostEnabled(),
+		'html5_notif_timeout' => FreshRSS_Context::$user_conf->html5_notif_timeout,
+		'auth_type' => FreshRSS_Context::$system_conf->auth_type,
+		'current_user_mail' => $mail ? ('"' . $mail . '"') : null,
+		'current_view' => Minz_Request::actionName(),
+	),
+	'shortcuts' => array(
+		'mark_read' => @$s['mark_read'],
+		'mark_favorite' => @$s['mark_favorite'],
+		'go_website' => @$s['go_website'],
+		'prev_entry' => @$s['prev_entry'],
+		'next_entry' => @$s['next_entry'],
+		'first_entry' => @$s['first_entry'],
+		'last_entry' => @$s['last_entry'],
+		'collapse_entry' => @$s['collapse_entry'],
+		'load_more' => @$s['load_more'],
+		'auto_share' => @$s['auto_share'],
+		'focus_search' => @$s['focus_search'],
+		'user_filter' => @$s['user_filter'],
+		'help' => @$s['help'],
+		'close_dropdown' => @$s['close_dropdown'],
+	),
+	'url' => array(
+		'index' => _url('index', 'index'),
+		'login' => Minz_Url::display(array('c' => 'auth', 'a' => 'login'), 'php'),
+		'logout' => Minz_Url::display(array('c' => 'auth', 'a' => 'logout'), 'php'),
+		'help' => FRESHRSS_WIKI,
+	),
+	'i18n' => array(
+		'confirmation_default' => _t('gen.js.confirm_action'),
+		'notif_title_articles' => _t('gen.js.feedback.title_new_articles'),
+		'notif_body_articles' => _t('gen.js.feedback.body_new_articles'),
+		'notif_request_failed' => _t('gen.js.feedback.request_failed'),
+		'category_empty' => _t('gen.js.category_empty'),
+	),
+	'icons' => array(
+		'close' => _i('close'),
+	),
+), JSON_UNESCAPED_UNICODE), ENT_NOQUOTES);

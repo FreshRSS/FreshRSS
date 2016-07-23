@@ -51,7 +51,7 @@ return array(
 			'ok' => 'Oprávnění adresáře data jsou v pořádku.',
 		),
 		'dom' => array(
-			'nok' => 'Nemáte požadovanou knihovnu pro procházení DOM (balíček php-xml).',
+			'nok' => 'Nemáte požadovanou knihovnu pro procházení DOM.',
 			'ok' => 'Máte požadovanou knihovnu pro procházení DOM.',
 		),
 		'favicons' => array(
@@ -61,6 +61,10 @@ return array(
 		'http_referer' => array(
 			'nok' => 'Zkontrolujte prosím že neměníte HTTP REFERER.',
 			'ok' => 'Váš HTTP REFERER je znám a odpovídá Vašemu serveru.',
+		),
+		'json' => array(
+			'nok' => 'Pro parsování JSON chybí doporučená knihovna.',
+			'ok' => 'Máte doporučenou knihovnu pro parsování JSON.',
 		),
 		'minz' => array(
 			'nok' => 'Nemáte framework Minz.',
@@ -85,6 +89,10 @@ return array(
 		'users' => array(
 			'nok' => 'Zkontrolujte oprávnění adresáře <em>./data/users</em>. HTTP server musí mít do tohoto adresáře práva zápisu',
 			'ok' => 'Oprávnění adresáře users jsou v pořádku.',
+		),
+		'xml' => array(
+			'nok' => 'Pro parsování XML chybí požadovaná knihovna.',
+			'ok' => 'Máte požadovanou knihovnu pro parsování XML.',
 		),
 	),
 	'conf' => array(

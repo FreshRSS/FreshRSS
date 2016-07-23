@@ -59,18 +59,21 @@ class Minz_Session {
 		}
 	}
 
+	public static function getCookieDir() {
+		// Get the script_name (e.g. /p/i/index.php) and keep only the path.
+		$cookie_dir = empty($_SERVER['REQUEST_URI']) ? '/' : $_SERVER['REQUEST_URI'];
+		if (substr($cookie_dir, -1) !== '/') {
+			$cookie_dir = dirname($cookie_dir) . '/';
+		}
+		return $cookie_dir;
+	}
 
 	/**
 	 * Spécifie la durée de vie des cookies
 	 * @param $l la durée de vie
 	 */
 	public static function keepCookie($l) {
-		// Get the script_name (e.g. /p/i/index.php) and keep only the path.
-		$cookie_dir = empty($_SERVER['REQUEST_URI']) ? '/' : $_SERVER['REQUEST_URI'];
-		if (substr($cookie_dir, -1) !== '/') {
-			$cookie_dir = dirname($cookie_dir) . '/';
-		}
-		session_set_cookie_params($l, $cookie_dir, '', false, true);
+		session_set_cookie_params($l, self::getCookieDir(), '', Minz_Request::isHttps(), true);
 	}
 
 
@@ -83,11 +86,11 @@ class Minz_Session {
 	}
 
 	public static function deleteLongTermCookie($name) {
-		setcookie($name, '', 1, '', '', false, true);
+		setcookie($name, '', 1, '', '', Minz_Request::isHttps(), true);
 	}
 
 	public static function setLongTermCookie($name, $value, $expire) {
-		setcookie($name, $value, $expire, '', '', false, true);
+		setcookie($name, $value, $expire, '', '', Minz_Request::isHttps(), true);
 	}
 
 	public static function getLongTermCookie($name) {

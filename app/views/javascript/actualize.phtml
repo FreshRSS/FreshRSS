@@ -1,56 +1,13 @@
-"use strict";
-var feeds = [<?php foreach ($this->feeds as $feed) { ?>{<?php
-	?>url: "<?php echo Minz_Url::display(array('c' => 'feed', 'a' => 'actualize', 'params' => array('id' => $feed->id(), 'ajax' => '1')), 'php'); ?>",<?php
-	?>title: "<?php echo $feed->name(); ?>"<?php
-?>},<?php } ?>],
-	feed_processed = 0,
-	feed_count = feeds.length;
-
-function initProgressBar(init) {
-	if (init) {
-		$("body").after("\<div id=\"actualizeProgress\" class=\"notification good\">\
-			<?php echo _t('feedback.sub.actualize'); ?><br /><span class=\"title\">/</span><br />\
-			<span class=\"progress\">0 / " + feed_count + "</span>\
-		</div>");
-	} else {
-		window.location.reload();
-	}
+<?php
+$feeds = array();
+foreach ($this->feeds as $feed) {
+	$feeds[] = array(
+		'url' => Minz_Url::display(array('c' => 'feed', 'a' => 'actualize', 'params' => array('id' => $feed->id(), 'ajax' => '1')), 'php'),
+		'title' => $feed->name(),
+	);
 }
-function updateProgressBar(i, title_feed) {
-	$("#actualizeProgress .progress").html(i + " / " + feed_count);
-	$("#actualizeProgress .title").html(title_feed);
-}
-
-function updateFeeds() {
-	if (feed_count === 0) {
-		openNotification("<?php echo _t('feedback.sub.feed.no_refresh'); ?>", "good");
-		ajax_loading = false;
-		return;
-	}
-	initProgressBar(true);
-
-	for (var i = 0; i < 10; i++) {
-		updateFeed();
-	}
-}
-
-function updateFeed() {
-	var feed = feeds.pop();
-	if (feed == undefined) {
-		return;
-	}
-
-	$.ajax({
-		type: 'POST',
-		url: feed['url'],
-	}).complete(function (data) {
-		feed_processed++;
-		updateProgressBar(feed_processed, feed['title']);
-
-		if (feed_processed === feed_count) {
-			initProgressBar(false);
-		} else {
-			updateFeed();
-		}
-	});
-}
+echo json_encode(array(
+	'feeds' => $feeds,
+	'feedback_no_refresh' => _t('feedback.sub.feed.no_refresh'),
+	'feedback_actualize' => _t('feedback.sub.actualize'),
+));

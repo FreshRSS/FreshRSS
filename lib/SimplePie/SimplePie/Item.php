@@ -2877,6 +2877,7 @@ class SimplePie_Item
 					$width = null;
 
 					$url = $this->sanitize($enclosure[0]['attribs']['']['url'], SIMPLEPIE_CONSTRUCT_IRI, $this->get_base($enclosure[0]));
+					$url = $this->feed->sanitize->https_url($url);	//FreshRSS
 					if (isset($enclosure[0]['attribs']['']['type']))
 					{
 						$type = $this->sanitize($enclosure[0]['attribs']['']['type'], SIMPLEPIE_CONSTRUCT_TEXT);

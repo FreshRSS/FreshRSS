@@ -51,7 +51,7 @@ return array(
 			'ok' => 'Les droits sur le répertoire de data sont bons.',
 		),
 		'dom' => array(
-			'nok' => 'Il manque une librairie pour parcourir le DOM (paquet php-xml).',
+			'nok' => 'Il manque une librairie pour parcourir le DOM.',
 			'ok' => 'Vous disposez du nécessaire pour parcourir le DOM.',
 		),
 		'favicons' => array(
@@ -61,6 +61,10 @@ return array(
 		'http_referer' => array(
 			'nok' => 'Veuillez vérifier que vous ne modifiez pas votre HTTP REFERER.',
 			'ok' => 'Le HTTP REFERER est connu et semble correspondre à votre serveur.',
+		),
+		'json' => array(
+			'nok' => 'Il manque une librairie recommandée pour JSON.',
+			'ok' => 'Vouz disposez de la librairie recommandée pour JSON.',
 		),
 		'minz' => array(
 			'nok' => 'Vous ne disposez pas de la librairie Minz.',
@@ -85,6 +89,10 @@ return array(
 		'users' => array(
 			'nok' => 'Veuillez vérifier les droits sur le répertoire <em>./data/users</em>. Le serveur HTTP doit être capable d’écrire dedans',
 			'ok' => 'Les droits sur le répertoire des utilisateurs sont bons.',
+		),
+		'xml' => array(
+			'nok' => 'Il manque une librairie requise pour XML.',
+			'ok' => 'Vouz disposez de la librairie requise pour XML.',
 		),
 	),
 	'conf' => array(

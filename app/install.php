@@ -2,6 +2,7 @@
 if (function_exists('opcache_reset')) {
 	opcache_reset();
 }
+header("Content-Security-Policy: default-src 'self'");
 
 define('BCRYPT_COST', 9);
 
@@ -130,7 +131,7 @@ function saveStep2() {
 		$_SESSION['mail_login'] = filter_var(param('mail_login', ''), FILTER_VALIDATE_EMAIL);
 
 		$password_plain = param('passwordPlain', false);
-		if ($password_plain !== false) {
+		if ($password_plain !== false && cryptAvailable()) {
 			if (!function_exists('password_hash')) {
 				include_once(LIB_PATH . '/password_compat.php');
 			}
@@ -308,7 +309,7 @@ function checkStep0() {
 }
 
 function checkStep1() {
-	$php = version_compare(PHP_VERSION, '5.2.1') >= 0;
+	$php = version_compare(PHP_VERSION, '5.3.0') >= 0;
 	$minz = file_exists(join_path(LIB_PATH, 'Minz'));
 	$curl = extension_loaded('curl');
 	$pdo_mysql = extension_loaded('pdo_mysql');
@@ -317,6 +318,8 @@ function checkStep1() {
 	$pcre = extension_loaded('pcre');
 	$ctype = extension_loaded('ctype');
 	$dom = class_exists('DOMDocument');
+	$xml = function_exists('xml_parser_create');
+	$json = function_exists('json_encode');
 	$data = DATA_PATH && is_writable(DATA_PATH);
 	$cache = CACHE_PATH && is_writable(CACHE_PATH);
 	$users = USERS_PATH && is_writable(USERS_PATH);
@@ -334,13 +337,15 @@ function checkStep1() {
 		'pcre' => $pcre ? 'ok' : 'ko',
 		'ctype' => $ctype ? 'ok' : 'ko',
 		'dom' => $dom ? 'ok' : 'ko',
+		'xml' => $xml ? 'ok' : 'ko',
+		'json' => $json ? 'ok' : 'ko',
 		'data' => $data ? 'ok' : 'ko',
 		'cache' => $cache ? 'ok' : 'ko',
 		'users' => $users ? 'ok' : 'ko',
 		'favicons' => $favicons ? 'ok' : 'ko',
 		'persona' => $persona ? 'ok' : 'ko',
 		'http_referer' => $http_referer ? 'ok' : 'ko',
-		'all' => $php && $minz && $curl && $pdo && $pcre && $ctype && $dom &&
+		'all' => $php && $minz && $curl && $pdo && $pcre && $ctype && $dom && $xml &&
 		         $data && $cache && $users && $favicons && $persona && $http_referer ?
 		         'ok' : 'ko'
 	);
@@ -531,7 +536,7 @@ function printStep1() {
 	<?php if ($res['php'] == 'ok') { ?>
 	<p class="alert alert-success"><span class="alert-head"><?php echo _t('gen.short.ok'); ?></span> <?php echo _t('install.check.php.ok', PHP_VERSION); ?></p>
 	<?php } else { ?>
-	<p class="alert alert-error"><span class="alert-head"><?php echo _t('gen.short.damn'); ?></span> <?php echo _t('install.check.php.nok', PHP_VERSION, '5.2.1'); ?></p>
+	<p class="alert alert-error"><span class="alert-head"><?php echo _t('gen.short.damn'); ?></span> <?php echo _t('install.check.php.nok', PHP_VERSION, '5.3.0'); ?></p>
 	<?php } ?>
 
 	<?php if ($res['minz'] == 'ok') { ?>
@@ -553,6 +558,12 @@ function printStep1() {
 	<p class="alert alert-error"><span class="alert-head"><?php echo _t('gen.short.damn'); ?></span> <?php echo _t('install.check.curl.nok'); ?></p>
 	<?php } ?>
 
+	<?php if ($res['json'] == 'ok') { ?>
+	<p class="alert alert-success"><span class="alert-head"><?php echo _t('gen.short.ok'); ?></span> <?php echo _t('install.check.json.ok'); ?></p>
+	<?php } else { ?>
+	<p class="alert alert-warn"><span class="alert-head"><?php echo _t('gen.short.damn'); ?></span> <?php echo _t('install.check.json.nok'); ?></p>
+	<?php } ?>
+
 	<?php if ($res['pcre'] == 'ok') { ?>
 	<p class="alert alert-success"><span class="alert-head"><?php echo _t('gen.short.ok'); ?></span> <?php echo _t('install.check.pcre.ok'); ?></p>
 	<?php } else { ?>
@@ -569,6 +580,12 @@ function printStep1() {
 	<p class="alert alert-success"><span class="alert-head"><?php echo _t('gen.short.ok'); ?></span> <?php echo _t('install.check.dom.ok'); ?></p>
 	<?php } else { ?>
 	<p class="alert alert-error"><span class="alert-head"><?php echo _t('gen.short.damn'); ?></span> <?php echo _t('install.check.dom.nok'); ?></p>
+	<?php } ?>
+
+	<?php if ($res['xml'] == 'ok') { ?>
+	<p class="alert alert-success"><span class="alert-head"><?php echo _t('gen.short.ok'); ?></span> <?php echo _t('install.check.xml.ok'); ?></p>
+	<?php } else { ?>
+	<p class="alert alert-error"><span class="alert-head"><?php echo _t('gen.short.damn'); ?></span> <?php echo _t('install.check.xml.nok'); ?></p>
 	<?php } ?>
 
 	<?php if ($res['data'] == 'ok') { ?>
@@ -616,27 +633,6 @@ function printStep1() {
 		<a class="btn btn-attention next-step confirm" data-str-confirm="<?php echo _t('install.js.confirm_reinstall'); ?>" href="?step=2" tabindex="2" ><?php echo _t('install.action.reinstall'); ?></a>
 	</form>
 
-	<script>
-		function ask_confirmation(e) {
-			var str_confirmation = this.getAttribute('data-str-confirm');
-			if (!str_confirmation) {
-				str_confirmation = "<?php echo _t('gen.js.confirm_action'); ?>";
-			}
-
-			if (!confirm(str_confirmation)) {
-				e.preventDefault();
-			}
-		}
-
-		function init_confirm() {
-			confirms = document.getElementsByClassName('confirm');
-			for (var i = 0 ; i < confirms.length ; i++) {
-				confirms[i].addEventListener('click', ask_confirmation);
-			}
-		}
-
-		init_confirm();
-	</script>
 	<?php } elseif ($res['all'] == 'ok') { ?>
 	<a class="btn btn-important next-step" href="?step=2" tabindex="1" ><?php echo _t('install.action.next_step'); ?></a>
 	<?php } else { ?>
@@ -674,17 +670,17 @@ function printStep2() {
 		<div class="form-group">
 			<label class="group-name" for="auth_type"><?php echo _t('install.auth.type'); ?></label>
 			<div class="group-controls">
-				<select id="auth_type" name="auth_type" required="required" onchange="auth_type_change(true)" tabindex="4">
+				<select id="auth_type" name="auth_type" required="required" tabindex="4">
 					<?php
 						function no_auth($auth_type) {
 							return !in_array($auth_type, array('form', 'persona', 'http_auth', 'none'));
 						}
 						$auth_type = isset($_SESSION['auth_type']) ? $_SESSION['auth_type'] : '';
 					?>
-					<option value="form"<?php echo $auth_type === 'form' || no_auth($auth_type) ? ' selected="selected"' : '', cryptAvailable() ? '' : ' disabled="disabled"'; ?>><?php echo _t('install.auth.form'); ?></option>
+					<option value="form"<?php echo $auth_type === 'form' || (no_auth($auth_type) && cryptAvailable()) ? ' selected="selected"' : '', cryptAvailable() ? '' : ' disabled="disabled"'; ?>><?php echo _t('install.auth.form'); ?></option>
 					<option value="persona"<?php echo $auth_type === 'persona' ? ' selected="selected"' : ''; ?>><?php echo _t('install.auth.persona'); ?></option>
 					<option value="http_auth"<?php echo $auth_type === 'http_auth' ? ' selected="selected"' : '', httpAuthUser() == '' ? ' disabled="disabled"' : ''; ?>><?php echo _t('install.auth.http'); ?>(REMOTE_USER = '<?php echo httpAuthUser(); ?>')</option>
-					<option value="none"<?php echo $auth_type === 'none' ? ' selected="selected"' : ''; ?>><?php echo _t('install.auth.none'); ?></option>
+					<option value="none"<?php echo $auth_type === 'none' || (no_auth($auth_type) && !cryptAvailable()) ? ' selected="selected"' : ''; ?>><?php echo _t('install.auth.none'); ?></option>
 				</select>
 			</div>
 		</div>
@@ -708,48 +704,6 @@ function printStep2() {
 				<noscript><b><?php echo _t('gen.js.should_be_activated'); ?></b></noscript>
 			</div>
 		</div>
-
-		<script>
-			function show_password() {
-				var button = this;
-				var passwordField = document.getElementById(button.getAttribute('data-toggle'));
-				passwordField.setAttribute('type', 'text');
-				button.className += ' active';
-
-				return false;
-			}
-			function hide_password() {
-				var button = this;
-				var passwordField = document.getElementById(button.getAttribute('data-toggle'));
-				passwordField.setAttribute('type', 'password');
-				button.className = button.className.replace(/(?:^|\s)active(?!\S)/g , '');
-
-				return false;
-			}
-			toggles = document.getElementsByClassName('toggle-password');
-			for (var i = 0 ; i < toggles.length ; i++) {
-				toggles[i].addEventListener('mousedown', show_password);
-				toggles[i].addEventListener('mouseup', hide_password);
-			}
-
-			function auth_type_change() {
-				var auth_value = document.getElementById('auth_type').value,
-				    password_input = document.getElementById('passwordPlain'),
-				    mail_input = document.getElementById('mail_login');
-
-				if (auth_value === 'form') {
-					password_input.required = true;
-					mail_input.required = false;
-				} else if (auth_value === 'persona') {
-					password_input.required = false;
-					mail_input.required = true;
-				} else {
-					password_input.required = false;
-					mail_input.required = false;
-				}
-			}
-			auth_type_change();
-		</script>
 
 		<div class="form-group form-actions">
 			<div class="group-controls">
@@ -778,7 +732,7 @@ function printStep3() {
 		<div class="form-group">
 			<label class="group-name" for="type"><?php echo _t('install.bdd.type'); ?></label>
 			<div class="group-controls">
-				<select name="type" id="type" onchange="mySqlShowHide()" tabindex="1" >
+				<select name="type" id="type" tabindex="1">
 				<?php if (extension_loaded('pdo_mysql')) {?>
 				<option value="mysql"
 					<?php echo(isset($_SESSION['bd_type']) && $_SESSION['bd_type'] === 'mysql') ? 'selected="selected"' : ''; ?>>
@@ -831,19 +785,6 @@ function printStep3() {
 			</div>
 		</div>
 		</div>
-		<script>
-			function mySqlShowHide() {
-				document.getElementById('mysql').style.display = document.getElementById('type').value === 'mysql' ? 'block' : 'none';
-				if (document.getElementById('type').value !== 'mysql') {
-					document.getElementById('host').value = '';
-					document.getElementById('user').value = '';
-					document.getElementById('pass').value = '';
-					document.getElementById('base').value = '';
-					document.getElementById('prefix').value = '';
-				}
-			}
-			mySqlShowHide();
-		</script>
 
 		<div class="form-group form-actions">
 			<div class="group-controls">
@@ -897,13 +838,14 @@ case 5:
 }
 ?>
 <!DOCTYPE html>
-<html lang="fr">
+<html>
 	<head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="initial-scale=1.0">
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="initial-scale=1.0" />
 		<title><?php echo _t('install.title'); ?></title>
-		<link rel="stylesheet" type="text/css" media="all" href="../themes/base-theme/template.css" />
-		<link rel="stylesheet" type="text/css" media="all" href="../themes/Origine/origine.css" />
+		<link rel="stylesheet" href="../themes/base-theme/template.css?<?php echo @filemtime(PUBLIC_PATH . '/themes/base-theme/template.css'); ?>" />
+		<link rel="stylesheet" href="../themes/Origine/origine.css?<?php echo @filemtime(PUBLIC_PATH . '/themes/Origine/origine.css'); ?>" />
+		<meta name="robots" content="noindex,nofollow" />
 	</head>
 	<body>
 
@@ -950,5 +892,6 @@ case 5:
 		?>
 	</div>
 </div>
+	<script src="../scripts/install.js?<?php echo @filemtime(PUBLIC_PATH . '/scripts/install.js'); ?>"></script>
 	</body>
 </html>

@@ -46,6 +46,7 @@ class FreshRSS_entry_Controller extends Minz_ActionController {
 		if ($id === false) {
 			// id is false? It MUST be a POST request!
 			if (!Minz_Request::isPost()) {
+				Minz_Request::bad(_t('feedback.access.not_found'), array('c' => 'index', 'a' => 'index'));
 				return;
 			}
 

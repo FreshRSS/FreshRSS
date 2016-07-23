@@ -114,6 +114,8 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 				Minz_Request::bad(_t('feedback.sub.feed.invalid_url', $url), $url_redirect);
 			}
 
+			$feed->_httpAuth($http_auth);
+
 			try {
 				$feed->load(true);
 			} catch (FreshRSS_Feed_Exception $e) {
@@ -140,7 +142,6 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 			}
 
 			$feed->_category($cat);
-			$feed->_httpAuth($http_auth);
 
 			// Call the extension hook
 			$name = $feed->name();
@@ -355,12 +356,12 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 					$entry_date = $entry->date(true);
 					if (isset($existingHashForGuids[$entry->guid()])) {
 						$existingHash = $existingHashForGuids[$entry->guid()];
-						if (strcasecmp($existingHash, $entry->hash()) === 0 || $existingHash === '00000000000000000000000000000000') {
+						if (strcasecmp($existingHash, $entry->hash()) === 0 || trim($existingHash, '0') == '') {
 							//This entry already exists and is unchanged. TODO: Remove the test with the zero'ed hash in FreshRSS v1.3
 							$oldGuids[] = $entry->guid();
 						} else {	//This entry already exists but has been updated
-							Minz_Log::debug('Entry with GUID `' . $entry->guid() . '` updated in feed ' . $feed->id() .
-								', old hash ' . $existingHash . ', new hash ' . $entry->hash());
+							//Minz_Log::debug('Entry with GUID `' . $entry->guid() . '` updated in feed ' . $feed->id() .
+								//', old hash ' . $existingHash . ', new hash ' . $entry->hash());
 							//TODO: Make an updated/is_read policy by feed, in addition to the global one.
 							$entry->_isRead(FreshRSS_Context::$user_conf->mark_updated_article_unread ? false : null);	//Change is_read according to policy.
 							if (!$entryDAO->hasTransaction()) {

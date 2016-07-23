@@ -23,7 +23,7 @@ Server-side API compatible with Google Reader API layer 2
 require('../../constants.php');
 require(LIB_PATH . '/lib_rss.php');	//Includes class autoloader
 
-$ORIGINAL_INPUT = file_get_contents('php://input');
+$ORIGINAL_INPUT = file_get_contents('php://input', false, null, -1, 1048576);
 
 if (PHP_INT_SIZE < 8) {	//32-bit
 	function dec2hex($dec) {
@@ -46,6 +46,8 @@ function headerVariable($headerName, $varName) {
 	$upName = 'HTTP_' . strtoupper($headerName);
 	if (isset($_SERVER[$upName])) {
 		$header = $_SERVER[$upName];
+	} elseif (isset($_SERVER['REDIRECT_' . $upName])) {
+		$header = $_SERVER['REDIRECT_' . $upName];
 	} elseif (function_exists('getallheaders')) {
 		$ALL_HEADERS = getallheaders();
 		if (isset($ALL_HEADERS[$headerName])) {
@@ -134,6 +136,7 @@ function checkCompatibility() {
 		die('FAIL 64-bit or GMP extension!');
 	}
 	if ((!array_key_exists('HTTP_AUTHORIZATION', $_SERVER)) &&	//Apache mod_rewrite trick should be fine
+		(!array_key_exists('REDIRECT_HTTP_AUTHORIZATION', $_SERVER)) &&	//Apache mod_rewrite with FCGI
 		(empty($_SERVER['SERVER_SOFTWARE']) || (stripos($_SERVER['SERVER_SOFTWARE'], 'nginx') === false)) &&	//nginx should be fine
 		(empty($_SERVER['SERVER_SOFTWARE']) || (stripos($_SERVER['SERVER_SOFTWARE'], 'lighttpd') === false)) &&	//lighttpd should be fine
 		((!function_exists('getallheaders')) || (stripos(php_sapi_name(), 'cgi') !== false))) {	//Main problem is Apache/CGI mode
@@ -360,6 +363,9 @@ function streamContents($path, $include_target, $start_time, $count, $order, $ex
 	switch ($exclude_target) {
 		case 'user/-/state/com.google/read':
 			$state = FreshRSS_Entry::STATE_NOT_READ;
+			break;
+		case 'user/-/state/com.google/unread':
+			$state = FreshRSS_Entry::STATE_READ;
 			break;
 		default:
 			$state = FreshRSS_Entry::STATE_ALL;
