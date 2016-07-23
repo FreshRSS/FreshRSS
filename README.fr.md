@@ -21,7 +21,6 @@ Voir la [liste des versions](../../releases).
 **Ce logiciel est en développement permanent !** Veuillez vous assurer d'utiliser la branche qui vous correspond :
 
 * Utilisez [la branche master](https://github.com/FreshRSS/FreshRSS/tree/master/) si vous visez la stabilité.
-* [La branche beta](https://github.com/FreshRSS/FreshRSS/tree/beta) est celle par défaut : les nouveautés y sont ajoutées environ tous les mois.
 * Pour les développeurs et ceux qui veulent aider à tester les toutes dernières fonctionnalités, [la branche dev](https://github.com/FreshRSS/FreshRSS/tree/dev) vous ouvre les bras !
 
 # Avertissements

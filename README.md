@@ -21,7 +21,6 @@ See the [list of releases](../../releases).
 **This application is under continuous development!** Please use the branch that suits your needs:
 
 * Use [the master branch](https://github.com/FreshRSS/FreshRSS/tree/master/) if you need a stable version.
-* [The beta branch](https://github.com/FreshRSS/FreshRSS/tree/beta) is the default branch: new features are added on a monthly basis.
 * For developers and tech savvy persons willing to help testing the latest features, [the dev branch](https://github.com/FreshRSS/FreshRSS/tree/dev) is waiting for you!
 
 # Disclaimer
