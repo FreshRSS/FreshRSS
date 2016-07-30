@@ -2,17 +2,17 @@
 define('SQL_CREATE_TABLES', '
 CREATE TABLE IF NOT EXISTS `%1$scategory` (
 	`id` SMALLINT NOT NULL AUTO_INCREMENT,	-- v0.7
-	`name` varchar(255) NOT NULL,
+	`name` varchar(191) NOT NULL,
 	PRIMARY KEY (`id`),
 	UNIQUE KEY (`name`)	-- v0.7
-) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci
 ENGINE = INNODB;
 
 CREATE TABLE IF NOT EXISTS `%1$sfeed` (
 	`id` SMALLINT NOT NULL AUTO_INCREMENT,	-- v0.7
 	`url` varchar(511) CHARACTER SET latin1 NOT NULL,
 	`category` SMALLINT DEFAULT 0,	-- v0.7
-	`name` varchar(255) NOT NULL,
+	`name` varchar(191) NOT NULL,
 	`website` varchar(255) CHARACTER SET latin1,
 	`description` text,
 	`lastUpdate` int(11) DEFAULT 0,	-- Until year 2038
@@ -30,7 +30,7 @@ CREATE TABLE IF NOT EXISTS `%1$sfeed` (
 	INDEX (`name`),	-- v0.7
 	INDEX (`priority`),	-- v0.7
 	INDEX (`keep_history`)	-- v0.7
-) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci
 ENGINE = INNODB;
 
 CREATE TABLE IF NOT EXISTS `%1$sentry` (
@@ -53,7 +53,7 @@ CREATE TABLE IF NOT EXISTS `%1$sentry` (
 	INDEX (`is_favorite`),	-- v0.7
 	INDEX (`is_read`),	-- v0.7
 	INDEX `entry_lastSeen_index` (`lastSeen`)	-- v1.1.1
-) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci
 ENGINE = INNODB;
 
 INSERT IGNORE INTO `%1$scategory` (id, name) VALUES(1, "%2$s");
@@ -62,3 +62,24 @@ INSERT IGNORE INTO `%1$sfeed` (url, category, name, website, description, ttl) V
 ');
 
 define('SQL_DROP_TABLES', 'DROP TABLES %1$sentry, %1$sfeed, %1$scategory');
+
+define('SQL_UPDATE_UTF8MB4', '
+ALTER DATABASE `%2$s` CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+ALTER TABLE `%1$scategory` CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+UPDATE `%1$scategory` SET name=SUBSTRING(name,1,190) where LENGTH(name) > 191;
+ALTER TABLE `%1$scategory` MODIFY `name` VARCHAR(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL;
+OPTIMIZE TABLE `%1$scategory`;
+
+ALTER TABLE `%1$sfeed` CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+UPDATE `%1$sfeed` SET name=SUBSTRING(name,1,190) where LENGTH(name) > 191;
+ALTER TABLE `%1$sfeed` MODIFY `name` VARCHAR(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL;
+ALTER TABLE `%1$sfeed` MODIFY `description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+OPTIMIZE TABLE `%1$sfeed`;
+
+ALTER TABLE `%1$sentry` CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+ALTER TABLE `%1$sentry` MODIFY `title` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL;
+ALTER TABLE `%1$sentry` MODIFY `author` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+ALTER TABLE `%1$sentry` MODIFY `tags` VARCHAR(1023) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+OPTIMIZE TABLE `%1$sentry`;
+');
