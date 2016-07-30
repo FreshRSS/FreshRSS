@@ -37,6 +37,7 @@
 					<input type="password" id="apiPasswordPlain" name="apiPasswordPlain" autocomplete="off" pattern=".{7,}" <?php echo cryptAvailable() ? '' : 'disabled="disabled" '; ?>/>
 					<a class="btn toggle-password" data-toggle="apiPasswordPlain"><?php echo _i('key'); ?></a>
 				</div>
+				<?php echo _i('help'); ?> <kbd><a href="../api/"><?php echo Minz_Url::display('/api/greader.php', 'html', true); ?></a></kbd>
 			</div>
 		</div>
 		<?php } ?>
