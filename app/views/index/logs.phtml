@@ -10,7 +10,7 @@
 	<?php $items = $this->logsPaginator->items(); ?>
 
 	<?php if (!empty($items)) { ?>
-	<div class="logs">
+	<div class="loglist">
 		<?php $this->logsPaginator->render('logs_pagination.phtml', 'page'); ?>
 
 		<?php foreach ($items as $log) { ?>
