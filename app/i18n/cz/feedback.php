@@ -21,7 +21,6 @@ return array(
 			'success' => 'Jste odhlášen',
 		),
 		'no_password_set' => 'Heslo administrátora nebylo nastaveno. Tato funkce není k dispozici.',
-		'not_persona' => 'Resetovat lze pouze systém Persona.',
 	),
 	'conf' => array(
 		'error' => 'Během ukládání nastavení došlo k chybě',

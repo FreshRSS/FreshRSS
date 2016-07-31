@@ -89,7 +89,6 @@ sudo chmod -R g+w ./data/
 # Contrôle d’accès
 Il est requis pour le mode multi-utilisateur, et recommandé dans tous les cas, de limiter l’accès à votre FreshRSS. Au choix :
 * En utilisant l’identification par formulaire (requiert JavaScript, et PHP 5.3.7+ recommandé – fonctionne avec certaines versions de PHP 5.3.3+)
-* En utilisant l’identification par [Mozilla Persona](https://login.persona.org/about) incluse dans FreshRSS
 * En utilisant un contrôle d’accès HTTP défini par votre serveur Web
 	* Voir par exemple la [documentation d’Apache sur l’authentification](http://httpd.apache.org/docs/trunk/howto/auth.html)
 		* Créer dans ce cas un fichier `./p/i/.htaccess` avec un fichier `.htpasswd` correspondant.
@@ -111,7 +110,7 @@ Par exemple, pour exécuter le script toutes les heures :
 * En cas de problème, les logs peuvent être utile à lire, soit depuis l’interface de FreshRSS, soit manuellement depuis `./data/log/*.log`.
 
 # Sauvegarde
-* Il faut conserver vos fichiers `./data/config.php` ainsi que `./data/*_user.php` et éventuellement `./data/persona/`
+* Il faut conserver vos fichiers `./data/config.php` ainsi que `./data/*_user.php`
 * Vous pouvez exporter votre liste de flux depuis FreshRSS au format OPML
 * Pour sauvegarder les articles eux-mêmes, vous pouvez utiliser [phpMyAdmin](http://www.phpmyadmin.net) ou les outils de MySQL :
 

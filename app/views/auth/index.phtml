@@ -10,11 +10,10 @@
 			<label class="group-name" for="auth_type"><?php echo _t('admin.auth.type'); ?></label>
 			<div class="group-controls">
 				<select id="auth_type" name="auth_type" required="required" data-leave-validation="<?php echo FreshRSS_Context::$system_conf->auth_type; ?>">
-					<?php if (!in_array(FreshRSS_Context::$system_conf->auth_type, array('form', 'persona', 'http_auth', 'none'))) { ?>
+					<?php if (!in_array(FreshRSS_Context::$system_conf->auth_type, array('form', 'http_auth', 'none'))) { ?>
 						<option selected="selected"></option>
 					<?php } ?>
 					<option value="form"<?php echo FreshRSS_Context::$system_conf->auth_type === 'form' ? ' selected="selected"' : '', cryptAvailable() ? '' : ' disabled="disabled"'; ?>><?php echo _t('admin.auth.form'); ?></option>
-					<option value="persona"<?php echo FreshRSS_Context::$system_conf->auth_type === 'persona' ? ' selected="selected"' : '', FreshRSS_Context::$user_conf->mail_login == '' ? ' disabled="disabled"' : ''; ?>><?php echo _t('admin.auth.persona'); ?></option>
 					<option value="http_auth"<?php echo FreshRSS_Context::$system_conf->auth_type === 'http_auth' ? ' selected="selected"' : '', httpAuthUser() == '' ? ' disabled="disabled"' : ''; ?>><?php echo _t('admin.auth.http'); ?> (REMOTE_USER = '<?php echo httpAuthUser(); ?>')</option>
 					<option value="none"<?php echo FreshRSS_Context::$system_conf->auth_type === 'none' ? ' selected="selected"' : ''; ?>><?php echo _t('admin.auth.none'); ?></option>
 				</select>

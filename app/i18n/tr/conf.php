@@ -76,7 +76,6 @@ return array(
 			'_' => 'Hesap silme',
 			'warn' => 'Hesabınız ve tüm verileriniz silinecek.',
 		),
-		'email_persona' => 'Giriş email adresi<br /><small>(<a href="https://persona.org/" rel="external">Mozilla Persona</a> için)</small>',
 		'password_api' => 'API Şifresi<br /><small>(ör. mobil uygulamalar için)</small>',
 		'password_form' => 'Şifre<br /><small>(Tarayıcı girişi için)</small>',
 		'password_format' => 'En az 7 karakter',

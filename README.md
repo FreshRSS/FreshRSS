@@ -89,7 +89,6 @@ sudo chmod -R g+w ./data/
 # Access control
 It is needed for the multi-user mode to limit access to FreshRSS. You can:
 * use form authentication (need JavaScript and PHP 5.3.7+, works with some PHP 5.3.3+)
-* use [Mozilla Persona](https://login.persona.org/about) authentication included in FreshRSS
 * use HTTP authentication supported by your web server
 	* See [Apache documentation](http://httpd.apache.org/docs/trunk/howto/auth.html)
 		* In that case, create a `./p/i/.htaccess` file with a matching `.htpasswd` file.
@@ -111,7 +110,7 @@ For example, if you want to run the script every hour:
 * If you encounter any problem, logs are accessible from the interface or manually in `./data/log/*.log` files.
 
 # Backup
-* You need to keep `./data/config.php`, `./data/*_user.php` and `./data/persona/` files
+* You need to keep `./data/config.php`, and `./data/*_user.php` files
 * You can export your feed list in OPML format from FreshRSS
 * To save articles, you can use [phpMyAdmin](http://www.phpmyadmin.net) or MySQL tools:
 

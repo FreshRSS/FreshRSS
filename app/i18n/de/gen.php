@@ -24,8 +24,6 @@ return array(
 		'email' => 'E-Mail-Adresse',
 		'keep_logged_in' => 'Eingeloggt bleiben <small>(1 Monat)</small>',
 		'login' => 'Anmelden',
-		'login_persona' => 'Anmelden mit Persona',
-		'login_persona_problem' => 'Verbindungsproblem mit Persona?',
 		'logout' => 'Abmelden',
 		'password' => array(
 			'_' => 'Passwort',
@@ -42,7 +40,6 @@ return array(
 			'admin' => 'Administrator-Nutzername',
 			'format' => '<small>maximal 16 alphanumerische Zeichen</small>',
 		),
-		'will_reset' => 'Authentifikationssystem wird zurückgesetzt: ein Formular wird anstelle von Persona benutzt.',
 	),
 	'date' => array(
 		'Apr' => '\\A\\p\\r\\i\\l',

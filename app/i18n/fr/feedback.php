@@ -21,7 +21,6 @@ return array(
 			'success' => 'Vous avez été déconnecté',
 		),
 		'no_password_set' => 'Aucun mot de passe administrateur n’a été précisé. Cette fonctionnalité n’est pas disponible.',
-		'not_persona' => 'Seul le système d’authentification Persona peut être réinitialisé.',
 	),
 	'conf' => array(
 		'error' => 'Une erreur est survenue durant la sauvegarde de la configuration',

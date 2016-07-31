@@ -9,13 +9,11 @@ return array(
 		'reinstall' => 'Reinstalovat FreshRSS',
 	),
 	'auth' => array(
-		'email_persona' => 'Email pro přihlášení<br /><small>(pro <a href="https://persona.org/" rel="external">Mozilla Persona</a>)</small>',
 		'form' => 'Webový formulář (tradiční, vyžaduje JavaScript)',
 		'http' => 'HTTP (pro pokročilé uživatele s HTTPS)',
 		'none' => 'Žádný (nebezpečné)',
 		'password_form' => 'Heslo<br /><small>(pro přihlášení webovým formulářem)</small>',
 		'password_format' => 'Alespoň 7 znaků',
-		'persona' => 'Mozilla Persona (moderní, vyžaduje JavaScript)',
 		'type' => 'Způsob přihlášení',
 	),
 	'bdd' => array(
@@ -77,10 +75,6 @@ return array(
 		'pdo' => array(
 			'nok' => 'Nemáte PDO nebo některý z podporovaných ovladačů (pdo_mysql, pdo_sqlite).',
 			'ok' => 'Máte PDO a alespoň jeden z podporovaných ovladačů (pdo_mysql, pdo_sqlite).',
-		),
-		'persona' => array(
-			'nok' => 'Zkontrolujte oprávnění adresáře <em>./data/persona</em>. HTTP server musí mít do tohoto adresáře práva zápisu',
-			'ok' => 'Oprávnění adresáře Mozilla Persona jsou v pořádku.',
 		),
 		'php' => array(
 			'nok' => 'Vaše verze PHP je %s, ale FreshRSS vyžaduje alespoň verzi %s.',

@@ -24,8 +24,6 @@ return array(
 		'email' => 'Email adresleri',
 		'keep_logged_in' => '<small>(1 ay)</small> oturumu açık tut',
 		'login' => 'Giriş',
-		'login_persona' => 'Persona ile giriş yap',
-		'login_persona_problem' => 'Persona ile bağlantı sorununuz mu var ?',
 		'logout' => 'Çıkış',
 		'password' => array(
 			'_' => 'Şifre',
@@ -42,7 +40,6 @@ return array(
 			'admin' => 'Yönetici kullanıcı adı',
 			'format' => '<small>en fazla 16 alfanümerik karakter</small>',
 		),
-		'will_reset' => 'Kimlik doğrulama sistemi sıfırlanacak: Persone yerine bir form kullanılacak.',
 	),
 	'date' => array(
 		'Apr' => '\\N\\i\\s\\a\\n',

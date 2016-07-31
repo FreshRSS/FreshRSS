@@ -9,13 +9,11 @@ return array(
 		'reinstall' => 'Reinstall FreshRSS',
 	),
 	'auth' => array(
-		'email_persona' => 'Login email address<br /><small>(for <a href="https://persona.org/" rel="external">Mozilla Persona</a>)</small>',
 		'form' => 'Web form (traditional, requires JavaScript)',
 		'http' => 'HTTP (for advanced users with HTTPS)',
 		'none' => 'None (dangerous)',
 		'password_form' => 'Password<br /><small>(for the Web-form login method)</small>',
 		'password_format' => 'At least 7 characters',
-		'persona' => 'Mozilla Persona (modern, requires JavaScript)',
 		'type' => 'Authentication method',
 	),
 	'bdd' => array(
@@ -77,10 +75,6 @@ return array(
 		'pdo' => array(
 			'nok' => 'You lack PDO or one of the supported drivers (pdo_mysql, pdo_sqlite).',
 			'ok' => 'You have PDO and at least one of the supported drivers (pdo_mysql, pdo_sqlite).',
-		),
-		'persona' => array(
-			'nok' => 'Check permissions on <em>./data/persona</em> directory. HTTP server must have rights to write into',
-			'ok' => 'Permissions on Mozilla Persona directory are good.',
 		),
 		'php' => array(
 			'nok' => 'Your PHP version is %s but FreshRSS requires at least version %s.',
