@@ -79,9 +79,8 @@
 		);
 	?>
 
-	<form id="mark-read-menu" method="post" aria-hidden="true"></form>
-
 	<div class="stick" id="nav_menu_read_all">
+		<form id="mark-read-menu" method="post">
 		<?php $confirm = FreshRSS_Context::$user_conf->reading_confirm ? 'confirm' : ''; ?>
 		<button class="read_all btn <?php echo $confirm; ?>"
 		        form="mark-read-menu"
@@ -123,6 +122,7 @@
 				</li>
 			</ul>
 		</div>
+		</form>
 	</div>
 	<?php } ?>
 
