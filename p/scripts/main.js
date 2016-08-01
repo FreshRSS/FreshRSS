@@ -113,7 +113,7 @@ function incUnreadsFeed(article, feed_id, nb) {
 	return isCurrentView;
 }
 
-var pending_feeds = [];
+var pending_entries = {};
 function mark_read(active, only_not_read) {
 	if (active.length === 0 ||
 		(only_not_read === true && !active.hasClass("not_read"))) {
@@ -126,14 +126,12 @@ function mark_read(active, only_not_read) {
 	}
 
 	var feed_url = active.find(".website>a").attr("href"),
-		feed_id = feed_url.substr(feed_url.lastIndexOf('f_')),
-		index_pending = pending_feeds.indexOf(feed_id);
+		feed_id = feed_url.substr(feed_url.lastIndexOf('f_'));
 
-	if (index_pending !== -1) {
+	if (pending_entries[active.attr('id')]) {
 		return false;
 	}
-
-	pending_feeds.push(feed_id);
+	pending_entries[active.attr('id')] = true;
 
 	$.ajax({
 		type: 'POST',
@@ -154,10 +152,10 @@ function mark_read(active, only_not_read) {
 		incUnreadsFeed(active, feed_id, inc);
 		faviconNbUnread();
 
-		pending_feeds.splice(index_pending, 1);
+		delete pending_entries[active.attr('id')];
 	}).fail(function (data) {
 		openNotification(i18n.notif_request_failed, 'bad');
-		pending_feeds.splice(index_pending, 1);
+		delete pending_entries[active.attr('id')];
 	});
 }
 
@@ -172,14 +170,12 @@ function mark_favorite(active) {
 	}
 
 	var feed_url = active.find(".website>a").attr("href"),
-		feed_id = feed_url.substr(feed_url.lastIndexOf('f_')),
-		index_pending = pending_feeds.indexOf(feed_id);
+		feed_id = feed_url.substr(feed_url.lastIndexOf('f_'));
 
-	if (index_pending !== -1) {
+	if (pending_entries[active.attr('id')]) {
 		return false;
 	}
-
-	pending_feeds.push(feed_id);
+	pending_entries[active.attr('id')] = true;
 
 	$.ajax({
 		type: 'POST',
@@ -212,10 +208,10 @@ function mark_favorite(active) {
 			}
 		}
 
-		pending_feeds.splice(index_pending, 1);
+		delete pending_entries[active.attr('id')];
 	}).fail(function (data) {
 		openNotification(i18n.notif_request_failed, 'bad');
-		pending_feeds.splice(index_pending, 1);
+		delete pending_entries[active.attr('id')];
 	});
 }
 
