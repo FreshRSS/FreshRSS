@@ -125,9 +125,6 @@ function mark_read(active, only_not_read) {
 		return false;
 	}
 
-	var feed_url = active.find(".website>a").attr("href"),
-		feed_id = feed_url.substr(feed_url.lastIndexOf('f_'));
-
 	if (pending_entries[active.attr('id')]) {
 		return false;
 	}
@@ -149,6 +146,9 @@ function mark_read(active, only_not_read) {
 		}
 		$r.find('.icon').replaceWith(data.icon);
 
+		var feed_url = active.find(".website>a").attr("href"),
+			feed_id = feed_url.substr(feed_url.lastIndexOf('f_'));
+
 		incUnreadsFeed(active, feed_id, inc);
 		faviconNbUnread();
 
@@ -168,9 +168,6 @@ function mark_favorite(active) {
 	if (url === undefined) {
 		return false;
 	}
-
-	var feed_url = active.find(".website>a").attr("href"),
-		feed_id = feed_url.substr(feed_url.lastIndexOf('f_'));
 
 	if (pending_entries[active.attr('id')]) {
 		return false;
@@ -901,7 +898,7 @@ function notifs_html5_show(nb) {
 
 	notification.onclick = function() {
 		window.location.reload();
-	}
+	};
 
 	if (context['html5_notif_timeout'] !== 0) {
 		setTimeout(function() {
