@@ -37,7 +37,7 @@ We are a friendly community.
 	* Recommended extensions: [iconv](http://php.net/iconv), [JSON](http://php.net/json), [mbstring](http://php.net/mbstring), [Zip](http://php.net/zip), [zlib](http://php.net/zlib)
 	* Enabled by default: [DOM](http://php.net/dom), [XML](http://php.net/xml)…
 * MySQL 5.5.3+ (recommended) or SQLite 3.7.4+
-* A recent browser like Firefox, Chrome, Opera, Safari. [Internet Explorer currently not supported, but support will come back](https://github.com/FreshRSS/FreshRSS/issues/772).
+* A recent browser like Firefox, Internet Explorer 11 / Edge, Chrome, Opera, Safari.
 	* Works on mobile
 * The browser HTTP `Referer` header must not be disabled when using the form login method
 
