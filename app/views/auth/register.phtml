@@ -17,11 +17,6 @@
         </div>
 
         <div>
-            <label class="group-name" for="new_user_email"><?php echo _t('gen.auth.email'); ?></label>
-            <input type="email" id="new_user_email" name="new_user_email" class="extend" required="required" autocomplete="off" />
-        </div>
-
-        <div>
             <?php
                 $redirect_url = urlencode(Minz_Url::display(
                     array('c' => 'index', 'a' => 'index'),

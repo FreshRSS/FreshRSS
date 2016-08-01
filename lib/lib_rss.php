@@ -440,7 +440,6 @@ function check_install_files() {
 		'cache' => CACHE_PATH && is_writable(CACHE_PATH),
 		'users' => USERS_PATH && is_writable(USERS_PATH),
 		'favicons' => is_writable(DATA_PATH . '/favicons'),
-		'persona' => is_writable(DATA_PATH . '/persona'),
 		'tokens' => is_writable(DATA_PATH . '/tokens'),
 	);
 }

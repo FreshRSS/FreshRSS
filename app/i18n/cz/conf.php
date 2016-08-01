@@ -76,7 +76,6 @@ return array(
 			'_' => 'Smazání účtu',
 			'warn' => 'Váš účet bude smazán spolu se všemi souvisejícími daty',
 		),
-		'email_persona' => 'Email pro přihlášení<br /><small>(pro <a href="https://persona.org/" rel="external">Mozilla Persona</a>)</small>',
 		'password_api' => 'Password API<br /><small>(tzn. pro mobilní aplikace)</small>',
 		'password_form' => 'Heslo<br /><small>(pro přihlášení webovým formulářem)</small>',
 		'password_format' => 'Alespoň 7 znaků',
