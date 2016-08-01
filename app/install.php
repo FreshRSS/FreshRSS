@@ -19,7 +19,7 @@ if (isset($_GET['step'])) {
 	define('STEP', 0);
 }
 
-define('SQL_CREATE_DB', 'CREATE DATABASE IF NOT EXISTS %1$s DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;');
+define('SQL_CREATE_DB', 'CREATE DATABASE IF NOT EXISTS %1$s DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;');
 
 if (STEP === 3 && isset($_POST['type'])) {
 	$_SESSION['bd_type'] = $_POST['type'];
@@ -103,7 +103,6 @@ function saveStep1() {
 		$_SESSION['title'] = $system_conf->title;
 		$_SESSION['auth_type'] = $system_conf->auth_type;
 		$_SESSION['old_entries'] = $user_conf->old_entries;
-		$_SESSION['mail_login'] = $user_conf->mail_login;
 		$_SESSION['default_user'] = $current_user;
 		$_SESSION['passwordHash'] = $user_conf->passwordHash;
 
@@ -128,7 +127,6 @@ function saveStep2() {
 		$_SESSION['old_entries'] = param('old_entries', $user_default_config->old_entries);
 		$_SESSION['auth_type'] = param('auth_type', 'form');
 		$_SESSION['default_user'] = substr(preg_replace('/[^a-zA-Z0-9]/', '', param('default_user', '')), 0, 16);
-		$_SESSION['mail_login'] = filter_var(param('mail_login', ''), FILTER_VALIDATE_EMAIL);
 
 		$password_plain = param('passwordPlain', false);
 		if ($password_plain !== false && cryptAvailable()) {
@@ -146,8 +144,7 @@ function saveStep2() {
 			return false;
 		}
 
-		if (($_SESSION['auth_type'] === 'form' && empty($_SESSION['passwordHash'])) ||
-				($_SESSION['auth_type'] === 'persona' && empty($_SESSION['mail_login']))) {
+		if ($_SESSION['auth_type'] === 'form' && empty($_SESSION['passwordHash'])) {
 			return false;
 		}
 
@@ -157,15 +154,11 @@ function saveStep2() {
 		}
 
 		$token = '';
-		if ($_SESSION['mail_login']) {
-			$token = sha1($_SESSION['salt'] . $_SESSION['mail_login']);
-		}
 
 		$config_array = array(
 			'language' => $_SESSION['language'],
 			'theme' => $user_default_config->theme,
 			'old_entries' => $_SESSION['old_entries'],
-			'mail_login' => $_SESSION['mail_login'],
 			'passwordHash' => $_SESSION['passwordHash'],
 			'token' => $token,
 		);
@@ -178,12 +171,6 @@ function saveStep2() {
 		recursive_unlink($user_dir);
 		mkdir($user_dir);
 		file_put_contents($user_config_path, "<?php\n return " . var_export($config_array, true) . ';');
-
-		if ($_SESSION['mail_login'] != '') {
-			$personaFile = join_path(DATA_PATH, 'persona', $_SESSION['mail_login'] . '.txt');
-			@unlink($personaFile);
-			file_put_contents($personaFile, $_SESSION['default_user']);
-		}
 
 		header('Location: index.php?step=3');
 	}
@@ -253,7 +240,7 @@ function newPdo() {
 	case 'mysql':
 		$str = 'mysql:host=' . $_SESSION['bd_host'] . ';dbname=' . $_SESSION['bd_base'];
 		$driver_options = array(
-			PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8',
+			PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8mb4',
 		);
 		break;
 	case 'sqlite':
@@ -309,7 +296,7 @@ function checkStep0() {
 }
 
 function checkStep1() {
-	$php = version_compare(PHP_VERSION, '5.3.0') >= 0;
+	$php = version_compare(PHP_VERSION, '5.3.3') >= 0;
 	$minz = file_exists(join_path(LIB_PATH, 'Minz'));
 	$curl = extension_loaded('curl');
 	$pdo_mysql = extension_loaded('pdo_mysql');
@@ -324,7 +311,6 @@ function checkStep1() {
 	$cache = CACHE_PATH && is_writable(CACHE_PATH);
 	$users = USERS_PATH && is_writable(USERS_PATH);
 	$favicons = is_writable(join_path(DATA_PATH, 'favicons'));
-	$persona = is_writable(join_path(DATA_PATH, 'persona'));
 	$http_referer = is_referer_from_same_domain();
 
 	return array(
@@ -343,10 +329,9 @@ function checkStep1() {
 		'cache' => $cache ? 'ok' : 'ko',
 		'users' => $users ? 'ok' : 'ko',
 		'favicons' => $favicons ? 'ok' : 'ko',
-		'persona' => $persona ? 'ok' : 'ko',
 		'http_referer' => $http_referer ? 'ok' : 'ko',
 		'all' => $php && $minz && $curl && $pdo && $pcre && $ctype && $dom && $xml &&
-		         $data && $cache && $users && $favicons && $persona && $http_referer ?
+		         $data && $cache && $users && $favicons && $http_referer ?
 		         'ok' : 'ko'
 	);
 }
@@ -380,17 +365,11 @@ function freshrss_already_installed() {
 
 function checkStep2() {
 	$conf = !empty($_SESSION['old_entries']) &&
-	        isset($_SESSION['mail_login']) &&
 	        !empty($_SESSION['default_user']);
 
 	$form = (
 		isset($_SESSION['auth_type']) &&
 		($_SESSION['auth_type'] != 'form' || !empty($_SESSION['passwordHash']))
-	);
-
-	$persona = (
-		isset($_SESSION['auth_type']) &&
-		($_SESSION['auth_type'] != 'persona' || !empty($_SESSION['mail_login']))
 	);
 
 	$defaultUser = empty($_POST['default_user']) ? null : $_POST['default_user'];
@@ -402,9 +381,8 @@ function checkStep2() {
 	return array(
 		'conf' => $conf ? 'ok' : 'ko',
 		'form' => $form ? 'ok' : 'ko',
-		'persona' => $persona ? 'ok' : 'ko',
 		'data' => $data ? 'ok' : 'ko',
-		'all' => $conf && $form && $persona && $data ? 'ok' : 'ko'
+		'all' => $conf && $form && $data ? 'ok' : 'ko'
 	);
 }
 
@@ -437,7 +415,7 @@ function checkBD() {
 		switch ($_SESSION['bd_type']) {
 		case 'mysql':
 			$driver_options = array(
-				PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8'
+				PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8mb4'
 			);
 
 			try {	// on ouvre une connexion juste pour créer la base si elle n'existe pas
@@ -536,7 +514,7 @@ function printStep1() {
 	<?php if ($res['php'] == 'ok') { ?>
 	<p class="alert alert-success"><span class="alert-head"><?php echo _t('gen.short.ok'); ?></span> <?php echo _t('install.check.php.ok', PHP_VERSION); ?></p>
 	<?php } else { ?>
-	<p class="alert alert-error"><span class="alert-head"><?php echo _t('gen.short.damn'); ?></span> <?php echo _t('install.check.php.nok', PHP_VERSION, '5.3.0'); ?></p>
+	<p class="alert alert-error"><span class="alert-head"><?php echo _t('gen.short.damn'); ?></span> <?php echo _t('install.check.php.nok', PHP_VERSION, '5.3.3'); ?></p>
 	<?php } ?>
 
 	<?php if ($res['minz'] == 'ok') { ?>
@@ -612,12 +590,6 @@ function printStep1() {
 	<p class="alert alert-error"><span class="alert-head"><?php echo _t('gen.short.damn'); ?></span> <?php echo _t('install.check.favicons.nok', DATA_PATH . '/favicons'); ?></p>
 	<?php } ?>
 
-	<?php if ($res['persona'] == 'ok') { ?>
-	<p class="alert alert-success"><span class="alert-head"><?php echo _t('gen.short.ok'); ?></span> <?php echo _t('install.check.persona.ok'); ?></p>
-	<?php } else { ?>
-	<p class="alert alert-error"><span class="alert-head"><?php echo _t('gen.short.damn'); ?></span> <?php echo _t('install.check.persona.nok', DATA_PATH . '/persona'); ?></p>
-	<?php } ?>
-
 	<?php if ($res['http_referer'] == 'ok') { ?>
 	<p class="alert alert-success"><span class="alert-head"><?php echo _t('gen.short.ok'); ?></span> <?php echo _t('install.check.http_referer.ok'); ?></p>
 	<?php } else { ?>
@@ -673,12 +645,11 @@ function printStep2() {
 				<select id="auth_type" name="auth_type" required="required" tabindex="4">
 					<?php
 						function no_auth($auth_type) {
-							return !in_array($auth_type, array('form', 'persona', 'http_auth', 'none'));
+							return !in_array($auth_type, array('form', 'http_auth', 'none'));
 						}
 						$auth_type = isset($_SESSION['auth_type']) ? $_SESSION['auth_type'] : '';
 					?>
 					<option value="form"<?php echo $auth_type === 'form' || (no_auth($auth_type) && cryptAvailable()) ? ' selected="selected"' : '', cryptAvailable() ? '' : ' disabled="disabled"'; ?>><?php echo _t('install.auth.form'); ?></option>
-					<option value="persona"<?php echo $auth_type === 'persona' ? ' selected="selected"' : ''; ?>><?php echo _t('install.auth.persona'); ?></option>
 					<option value="http_auth"<?php echo $auth_type === 'http_auth' ? ' selected="selected"' : '', httpAuthUser() == '' ? ' disabled="disabled"' : ''; ?>><?php echo _t('install.auth.http'); ?>(REMOTE_USER = '<?php echo httpAuthUser(); ?>')</option>
 					<option value="none"<?php echo $auth_type === 'none' || (no_auth($auth_type) && !cryptAvailable()) ? ' selected="selected"' : ''; ?>><?php echo _t('install.auth.none'); ?></option>
 				</select>
@@ -693,14 +664,6 @@ function printStep2() {
 					<a class="btn toggle-password" data-toggle="passwordPlain"><?php echo FreshRSS_Themes::icon('key'); ?></a>
 				</div>
 				<?php echo _i('help'); ?> <?php echo _t('install.auth.password_format'); ?>
-				<noscript><b><?php echo _t('gen.js.should_be_activated'); ?></b></noscript>
-			</div>
-		</div>
-
-		<div class="form-group">
-			<label class="group-name" for="mail_login"><?php echo _t('install.auth.email_persona'); ?></label>
-			<div class="group-controls">
-				<input type="email" id="mail_login" name="mail_login" value="<?php echo isset($_SESSION['mail_login']) ? $_SESSION['mail_login'] : ''; ?>" placeholder="alice@example.net" <?php echo $auth_type === 'persona' ? ' required="required"' : ''; ?> tabindex="6"/>
 				<noscript><b><?php echo _t('gen.js.should_be_activated'); ?></b></noscript>
 			</div>
 		</div>

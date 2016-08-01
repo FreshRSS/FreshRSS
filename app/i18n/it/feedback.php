@@ -21,7 +21,6 @@ return array(
 			'success' => 'Disconnessione effettuata',
 		),
 		'no_password_set' => 'Password di amministrazione non impostata. Opzione non disponibile.',
-		'not_persona' => 'Solo il sistema Mozilla Persona può essere resettato.',
 	),
 	'conf' => array(
 		'error' => 'Si è verificato un errore durante il salvataggio della configurazione',

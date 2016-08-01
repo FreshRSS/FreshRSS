@@ -32,12 +32,12 @@ Nous sommes une communauté amicale.
 * Serveur modeste, par exemple sous Linux ou Windows
 	* Fonctionne même sur un Raspberry Pi 1 avec des temps de réponse < 1s (testé sur 150 flux, 22k articles)
 * Serveur Web Apache2 (recommandé), ou nginx, lighttpd (non testé sur les autres)
-* PHP 5.3+ (PHP 5.3.7+ recommandé, et PHP 5.5+ pour les performances, et PHP 7+ pour d’encore meilleures performances)
+* PHP 5.3.3+ (PHP 5.3.7+ recommandé, et PHP 5.5+ pour les performances, et PHP 7+ pour d’encore meilleures performances)
 	* Requis : [PDO_MySQL](http://php.net/pdo-mysql) ou [PDO_SQLite](http://php.net/pdo-sqlite), [cURL](http://php.net/curl), [GMP](http://php.net/gmp) (pour accès API sur plateformes < 64 bits), [IDN](http://php.net/intl.idn) (pour les noms de domaines internationalisés)
 	* Recommandés : [iconv](http://php.net/iconv), [JSON](http://php.net/json), [mbstring](http://php.net/mbstring), [Zip](http://php.net/zip), [zlib](http://php.net/zlib)
 	* Inclus par défaut : [DOM](http://php.net/dom), [XML](http://php.net/xml)…
-* MySQL 5.0.3+ (recommandé) ou SQLite 3.7.4+
-* Un navigateur Web récent tel Firefox, Internet Explorer 11 / Edge, Chrome, Opera, Safari.
+* MySQL 5.5.3+ (recommandé) ou SQLite 3.7.4+
+* Un navigateur Web récent tel Firefox, Chrome, Opera, Safari. [Internet Explorer ne fonctionne plus, mais ce sera corrigé](https://github.com/FreshRSS/FreshRSS/issues/772).
 	* Fonctionne aussi sur mobile
 * L’entête HTTP `Referer` ne doit pas être désactivé pour pouvoir utiliser le formulaire de connexion
 
@@ -89,7 +89,6 @@ sudo chmod -R g+w ./data/
 # Contrôle d’accès
 Il est requis pour le mode multi-utilisateur, et recommandé dans tous les cas, de limiter l’accès à votre FreshRSS. Au choix :
 * En utilisant l’identification par formulaire (requiert JavaScript, et PHP 5.3.7+ recommandé – fonctionne avec certaines versions de PHP 5.3.3+)
-* En utilisant l’identification par [Mozilla Persona](https://login.persona.org/about) incluse dans FreshRSS
 * En utilisant un contrôle d’accès HTTP défini par votre serveur Web
 	* Voir par exemple la [documentation d’Apache sur l’authentification](http://httpd.apache.org/docs/trunk/howto/auth.html)
 		* Créer dans ce cas un fichier `./p/i/.htaccess` avec un fichier `.htpasswd` correspondant.
@@ -111,7 +110,7 @@ Par exemple, pour exécuter le script toutes les heures :
 * En cas de problème, les logs peuvent être utile à lire, soit depuis l’interface de FreshRSS, soit manuellement depuis `./data/log/*.log`.
 
 # Sauvegarde
-* Il faut conserver vos fichiers `./data/config.php` ainsi que `./data/*_user.php` et éventuellement `./data/persona/`
+* Il faut conserver vos fichiers `./data/config.php` ainsi que `./data/*_user.php`
 * Vous pouvez exporter votre liste de flux depuis FreshRSS au format OPML
 * Pour sauvegarder les articles eux-mêmes, vous pouvez utiliser [phpMyAdmin](http://www.phpmyadmin.net) ou les outils de MySQL :
 

@@ -64,20 +64,7 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 				FreshRSS_Context::$user_conf->apiPasswordHash = $passwordHash;
 			}
 
-			// TODO: why do we need of hasAccess here?
-			if (FreshRSS_Auth::hasAccess('admin')) {
-				FreshRSS_Context::$user_conf->mail_login = Minz_Request::param('mail_login', '', true);
-			}
-			$email = FreshRSS_Context::$user_conf->mail_login;
-			Minz_Session::_param('mail', $email);
-
 			$ok &= FreshRSS_Context::$user_conf->save();
-
-			if ($email != '') {
-				$personaFile = DATA_PATH . '/persona/' . $email . '.txt';
-				@unlink($personaFile);
-				$ok &= (file_put_contents($personaFile, Minz_Session::param('currentUser', '_')) !== false);
-			}
 
 			if ($ok) {
 				Minz_Request::good(_t('feedback.profile.updated'),
@@ -119,7 +106,6 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 	 *   - new_user_language
 	 *   - new_user_name
 	 *   - new_user_passwordPlain
-	 *   - new_user_email
 	 *   - r (i.e. a redirection url, optional)
 	 *
 	 * @todo clean up this method. Idea: write a method to init a user with basic information.
@@ -168,22 +154,12 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 				if (empty($passwordHash)) {
 					$passwordHash = '';
 				}
-
-				$new_user_email = filter_var($_POST['new_user_email'], FILTER_VALIDATE_EMAIL);
-				if (empty($new_user_email)) {
-					$new_user_email = '';
-				} else {
-					$personaFile = join_path(DATA_PATH, 'persona', $new_user_email . '.txt');
-					@unlink($personaFile);
-					$ok &= (file_put_contents($personaFile, $new_user_name) !== false);
-				}
 			}
 			if ($ok) {
 				mkdir(join_path(DATA_PATH, 'users', $new_user_name));
 				$config_array = array(
 					'language' => $new_user_language,
 					'passwordHash' => $passwordHash,
-					'mail_login' => $new_user_email,
 				);
 				$ok &= (file_put_contents($configPath, "<?php\n return " . var_export($config_array, true) . ';') !== false);
 			}
@@ -255,7 +231,6 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 				$userDAO = new FreshRSS_UserDAO();
 				$ok &= $userDAO->deleteUser($username);
 				$ok &= recursive_unlink($user_data);
-				//TODO: delete Persona file
 			}
 			if ($ok && $self_deletion) {
 				FreshRSS_Auth::removeAccess();

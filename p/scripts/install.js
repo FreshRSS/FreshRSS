@@ -24,18 +24,12 @@ function auth_type_change() {
 	var auth_type = document.getElementById('auth_type');
 	if (auth_type) {
 		var auth_value = auth_type.value,
-			password_input = document.getElementById('passwordPlain'),
-			mail_input = document.getElementById('mail_login');
+			password_input = document.getElementById('passwordPlain');
 
 		if (auth_value === 'form') {
 			password_input.required = true;
-			mail_input.required = false;
-		} else if (auth_value === 'persona') {
-			password_input.required = false;
-			mail_input.required = true;
 		} else {
 			password_input.required = false;
-			mail_input.required = false;
 		}
 	}
 }

@@ -9,13 +9,11 @@ return array(
 		'reinstall' => 'Installeer FreshRSS opnieuw',
 	),
 	'auth' => array(
-		'email_persona' => 'Log in mail adres<br /><small>(voor <a href="https://persona.org/" rel="external">Mozilla Persona</a>)</small>',
 		'form' => 'Web formulier (traditioneel, benodigd JavaScript)',
 		'http' => 'HTTP (voor geavanceerde gebruikers met HTTPS)',
 		'none' => 'Geen (gevaarlijk)',
 		'password_form' => 'Wachtwoord<br /><small>(voor de Web-formulier log in methode)</small>',
 		'password_format' => 'Tenminste 7 tekens',
-		'persona' => 'Mozilla Persona (modern, benodigd JavaScript)',
 		'type' => 'Authenticatie methode',
 	),
 	'bdd' => array(
@@ -77,10 +75,6 @@ return array(
 		'pdo' => array(
 			'nok' => 'U mist PDO of één van de ondersteunde (pdo_mysql, pdo_sqlite).',
 			'ok' => 'U hebt PDO en ten minste één van de ondersteunde drivers (pdo_mysql, pdo_sqlite).',
-		),
-		'persona' => array(
-			'nok' => 'Controleer permissies van de <em>./data/persona</em> map. HTTP server moet rechten hebben om er in te kunnen schrijven',
-			'ok' => 'Permissies van de Mozilla Persona map zijn goed.',
 		),
 		'php' => array(
 			'nok' => 'Uw PHP versie is %s maar FreshRSS benodigd tenminste versie %s.',

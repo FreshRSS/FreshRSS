@@ -32,11 +32,12 @@ We are a friendly community.
 * Light server running Linux or Windows
 	* It even works on Raspberry Pi 1 with response time under a second (tested with 150 feeds, 22k articles)
 * A web server: Apache2 (recommended), nginx, lighttpd (not tested on others)
-* PHP 5.3+ (PHP 5.3.7+ recommended, and PHP 5.5+ for performance, and PHP 7 for even higher performance)
+* PHP 5.3.3+ (PHP 5.3.7+ recommended, and PHP 5.5+ for performance, and PHP 7 for even higher performance)
 	* Required extensions: [PDO_MySQL](http://php.net/pdo-mysql) or [PDO_SQLite](http://php.net/pdo-sqlite), [cURL](http://php.net/curl), [GMP](http://php.net/gmp) (for API access on platforms < 64 bits), [IDN](http://php.net/intl.idn) (for Internationalized Domain Names)
 	* Recommended extensions: [iconv](http://php.net/iconv), [JSON](http://php.net/json), [mbstring](http://php.net/mbstring), [Zip](http://php.net/zip), [zlib](http://php.net/zlib)
 	* Enabled by default: [DOM](http://php.net/dom), [XML](http://php.net/xml)…
-* MySQL 5.0.3+ (recommended) or SQLite 3.7.4+
+
+* MySQL 5.5.3+ (recommended) or SQLite 3.7.4+
 * A recent browser like Firefox, Internet Explorer 11 / Edge, Chrome, Opera, Safari.
 	* Works on mobile
 * The browser HTTP `Referer` header must not be disabled when using the form login method
@@ -89,7 +90,6 @@ sudo chmod -R g+w ./data/
 # Access control
 It is needed for the multi-user mode to limit access to FreshRSS. You can:
 * use form authentication (need JavaScript and PHP 5.3.7+, works with some PHP 5.3.3+)
-* use [Mozilla Persona](https://login.persona.org/about) authentication included in FreshRSS
 * use HTTP authentication supported by your web server
 	* See [Apache documentation](http://httpd.apache.org/docs/trunk/howto/auth.html)
 		* In that case, create a `./p/i/.htaccess` file with a matching `.htpasswd` file.
@@ -111,7 +111,7 @@ For example, if you want to run the script every hour:
 * If you encounter any problem, logs are accessible from the interface or manually in `./data/log/*.log` files.
 
 # Backup
-* You need to keep `./data/config.php`, `./data/*_user.php` and `./data/persona/` files
+* You need to keep `./data/config.php`, and `./data/*_user.php` files
 * You can export your feed list in OPML format from FreshRSS
 * To save articles, you can use [phpMyAdmin](http://www.phpmyadmin.net) or MySQL tools:
 
