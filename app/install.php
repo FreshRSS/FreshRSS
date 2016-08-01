@@ -19,7 +19,7 @@ if (isset($_GET['step'])) {
 	define('STEP', 0);
 }
 
-define('SQL_CREATE_DB', 'CREATE DATABASE IF NOT EXISTS %1$s DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;');
+define('SQL_CREATE_DB', 'CREATE DATABASE IF NOT EXISTS %1$s DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;');
 
 if (STEP === 3 && isset($_POST['type'])) {
 	$_SESSION['bd_type'] = $_POST['type'];
@@ -253,7 +253,7 @@ function newPdo() {
 	case 'mysql':
 		$str = 'mysql:host=' . $_SESSION['bd_host'] . ';dbname=' . $_SESSION['bd_base'];
 		$driver_options = array(
-			PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8',
+			PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8mb4',
 		);
 		break;
 	case 'sqlite':
@@ -309,7 +309,7 @@ function checkStep0() {
 }
 
 function checkStep1() {
-	$php = version_compare(PHP_VERSION, '5.3.0') >= 0;
+	$php = version_compare(PHP_VERSION, '5.3.3') >= 0;
 	$minz = file_exists(join_path(LIB_PATH, 'Minz'));
 	$curl = extension_loaded('curl');
 	$pdo_mysql = extension_loaded('pdo_mysql');
@@ -437,7 +437,7 @@ function checkBD() {
 		switch ($_SESSION['bd_type']) {
 		case 'mysql':
 			$driver_options = array(
-				PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8'
+				PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8mb4'
 			);
 
 			try {	// on ouvre une connexion juste pour créer la base si elle n'existe pas
@@ -536,7 +536,7 @@ function printStep1() {
 	<?php if ($res['php'] == 'ok') { ?>
 	<p class="alert alert-success"><span class="alert-head"><?php echo _t('gen.short.ok'); ?></span> <?php echo _t('install.check.php.ok', PHP_VERSION); ?></p>
 	<?php } else { ?>
-	<p class="alert alert-error"><span class="alert-head"><?php echo _t('gen.short.damn'); ?></span> <?php echo _t('install.check.php.nok', PHP_VERSION, '5.3.0'); ?></p>
+	<p class="alert alert-error"><span class="alert-head"><?php echo _t('gen.short.damn'); ?></span> <?php echo _t('install.check.php.nok', PHP_VERSION, '5.3.3'); ?></p>
 	<?php } ?>
 
 	<?php if ($res['minz'] == 'ok') { ?>

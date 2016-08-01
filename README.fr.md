@@ -32,11 +32,11 @@ Nous sommes une communauté amicale.
 * Serveur modeste, par exemple sous Linux ou Windows
 	* Fonctionne même sur un Raspberry Pi 1 avec des temps de réponse < 1s (testé sur 150 flux, 22k articles)
 * Serveur Web Apache2 (recommandé), ou nginx, lighttpd (non testé sur les autres)
-* PHP 5.3+ (PHP 5.3.7+ recommandé, et PHP 5.5+ pour les performances, et PHP 7+ pour d’encore meilleures performances)
+* PHP 5.3.3+ (PHP 5.3.7+ recommandé, et PHP 5.5+ pour les performances, et PHP 7+ pour d’encore meilleures performances)
 	* Requis : [PDO_MySQL](http://php.net/pdo-mysql) ou [PDO_SQLite](http://php.net/pdo-sqlite), [cURL](http://php.net/curl), [GMP](http://php.net/gmp) (pour accès API sur plateformes < 64 bits), [IDN](http://php.net/intl.idn) (pour les noms de domaines internationalisés)
 	* Recommandés : [iconv](http://php.net/iconv), [JSON](http://php.net/json), [mbstring](http://php.net/mbstring), [Zip](http://php.net/zip), [zlib](http://php.net/zlib)
 	* Inclus par défaut : [DOM](http://php.net/dom), [XML](http://php.net/xml)…
-* MySQL 5.0.3+ (recommandé) ou SQLite 3.7.4+
+* MySQL 5.5.3+ (recommandé) ou SQLite 3.7.4+
 * Un navigateur Web récent tel Firefox, Chrome, Opera, Safari. [Internet Explorer ne fonctionne plus, mais ce sera corrigé](https://github.com/FreshRSS/FreshRSS/issues/772).
 	* Fonctionne aussi sur mobile
 * L’entête HTTP `Referer` ne doit pas être désactivé pour pouvoir utiliser le formulaire de connexion

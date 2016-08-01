@@ -32,11 +32,11 @@ We are a friendly community.
 * Light server running Linux or Windows
 	* It even works on Raspberry Pi 1 with response time under a second (tested with 150 feeds, 22k articles)
 * A web server: Apache2 (recommended), nginx, lighttpd (not tested on others)
-* PHP 5.3+ (PHP 5.3.7+ recommended, and PHP 5.5+ for performance, and PHP 7 for even higher performance)
+* PHP 5.3.3+ (PHP 5.3.7+ recommended, and PHP 5.5+ for performance, and PHP 7 for even higher performance)
 	* Required extensions: [PDO_MySQL](http://php.net/pdo-mysql) or [PDO_SQLite](http://php.net/pdo-sqlite), [cURL](http://php.net/curl), [GMP](http://php.net/gmp) (for API access on platforms < 64 bits), [IDN](http://php.net/intl.idn) (for Internationalized Domain Names)
 	* Recommended extensions: [iconv](http://php.net/iconv), [JSON](http://php.net/json), [mbstring](http://php.net/mbstring), [Zip](http://php.net/zip), [zlib](http://php.net/zlib)
 	* Enabled by default: [DOM](http://php.net/dom), [XML](http://php.net/xml)…
-* MySQL 5.0.3+ (recommended) or SQLite 3.7.4+
+* MySQL 5.5.3+ (recommended) or SQLite 3.7.4+
 * A recent browser like Firefox, Chrome, Opera, Safari. [Internet Explorer currently not supported, but support will come back](https://github.com/FreshRSS/FreshRSS/issues/772).
 	* Works on mobile
 * The browser HTTP `Referer` header must not be disabled when using the form login method
