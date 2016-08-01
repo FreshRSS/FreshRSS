@@ -13,6 +13,7 @@
 	* Remove Mozilla Persona login (the service closes on 2016-11-30) [#1052](https://github.com/FreshRSS/FreshRSS/issues/1052)
 * Bug fixing
 	* Fixed scroll in log view [#1178](https://github.com/FreshRSS/FreshRSS/issues/1178)
+	* Fixed JavaScript bug when articles were not always marked as read [#1123](https://github.com/FreshRSS/FreshRSS/issues/1123)
 * API
 	* Add API link in FreshRSS profile settings to ease set-up [#1186](https://github.com/FreshRSS/FreshRSS/pull/1186)
 

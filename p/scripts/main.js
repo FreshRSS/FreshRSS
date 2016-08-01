@@ -113,7 +113,7 @@ function incUnreadsFeed(article, feed_id, nb) {
 	return isCurrentView;
 }
 
-var pending_feeds = [];
+var pending_entries = {};
 function mark_read(active, only_not_read) {
 	if (active.length === 0 ||
 		(only_not_read === true && !active.hasClass("not_read"))) {
@@ -125,15 +125,10 @@ function mark_read(active, only_not_read) {
 		return false;
 	}
 
-	var feed_url = active.find(".website>a").attr("href"),
-		feed_id = feed_url.substr(feed_url.lastIndexOf('f_')),
-		index_pending = pending_feeds.indexOf(feed_id);
-
-	if (index_pending !== -1) {
+	if (pending_entries[active.attr('id')]) {
 		return false;
 	}
-
-	pending_feeds.push(feed_id);
+	pending_entries[active.attr('id')] = true;
 
 	$.ajax({
 		type: 'POST',
@@ -151,13 +146,16 @@ function mark_read(active, only_not_read) {
 		}
 		$r.find('.icon').replaceWith(data.icon);
 
+		var feed_url = active.find(".website>a").attr("href"),
+			feed_id = feed_url.substr(feed_url.lastIndexOf('f_'));
+
 		incUnreadsFeed(active, feed_id, inc);
 		faviconNbUnread();
 
-		pending_feeds.splice(index_pending, 1);
+		delete pending_entries[active.attr('id')];
 	}).fail(function (data) {
 		openNotification(i18n.notif_request_failed, 'bad');
-		pending_feeds.splice(index_pending, 1);
+		delete pending_entries[active.attr('id')];
 	});
 }
 
@@ -171,15 +169,10 @@ function mark_favorite(active) {
 		return false;
 	}
 
-	var feed_url = active.find(".website>a").attr("href"),
-		feed_id = feed_url.substr(feed_url.lastIndexOf('f_')),
-		index_pending = pending_feeds.indexOf(feed_id);
-
-	if (index_pending !== -1) {
+	if (pending_entries[active.attr('id')]) {
 		return false;
 	}
-
-	pending_feeds.push(feed_id);
+	pending_entries[active.attr('id')] = true;
 
 	$.ajax({
 		type: 'POST',
@@ -212,10 +205,10 @@ function mark_favorite(active) {
 			}
 		}
 
-		pending_feeds.splice(index_pending, 1);
+		delete pending_entries[active.attr('id')];
 	}).fail(function (data) {
 		openNotification(i18n.notif_request_failed, 'bad');
-		pending_feeds.splice(index_pending, 1);
+		delete pending_entries[active.attr('id')];
 	});
 }
 
@@ -905,7 +898,7 @@ function notifs_html5_show(nb) {
 
 	notification.onclick = function() {
 		window.location.reload();
-	}
+	};
 
 	if (context['html5_notif_timeout'] !== 0) {
 		setTimeout(function() {
@@ -1298,27 +1291,46 @@ function parseJsonVars() {
 	window.icons = json.icons;
 }
 
-function init_all() {
+function init_beforeDOM() {
 	if (!window.$) {
 		if (window.console) {
-			console.log('FreshRSS waiting for JS…');
+			console.log('FreshRSS waiting for jQuery…');
 		}
-		window.setTimeout(init_all, 50);
+		window.setTimeout(init_beforeDOM, 50);
 		return;
 	}
-	parseJsonVars();
-	init_notifications();
 	init_confirm_action();
+	if (['normal', 'reader', 'global'].indexOf(context['current_view']) >= 0) {
+		$stream = $('#stream');
+		if ($stream.length < 1) {
+			if (window.console) {
+				console.log('FreshRSS waiting for content…');
+			}
+			window.setTimeout(init_beforeDOM, 50);
+			return;
+		}
+		init_column_categories();
+		init_stream($stream);
+		init_shortcuts();
+		init_actualize();
+		faviconNbUnread();
+	}
+}
+
+function init_afterDOM() {
+	if (!window.$) {
+		if (window.console) {
+			console.log('FreshRSS waiting again for jQuery…');
+		}
+		window.setTimeout(init_afterDOM, 50);
+		return;
+	}
+	init_notifications();
 	$stream = $('#stream');
 	if ($stream.length > 0) {
-		init_actualize();
-		init_column_categories();
 		init_load_more($stream);
 		init_posts();
-		init_stream($stream);
 		init_nav_entries();
-		init_shortcuts();
-		faviconNbUnread();
 		init_print_action();
 		init_notifs_html5();
 		window.setInterval(refreshUnreads, 120000);
@@ -1339,16 +1351,16 @@ function init_all() {
 	}
 }
 
+parseJsonVars();
+init_beforeDOM();	//Can be called before DOM is fully loaded
+
 if (document.readyState && document.readyState !== 'loading') {
-	if (window.console) {
-		console.log('FreshRSS immediate init…');
-	}
-	init_all();
+	init_afterDOM();
 } else if (document.addEventListener) {
 	document.addEventListener('DOMContentLoaded', function () {
 		if (window.console) {
 			console.log('FreshRSS waiting for DOMContentLoaded…');
 		}
-		init_all();
+		init_afterDOM();
 	}, false);
 }
