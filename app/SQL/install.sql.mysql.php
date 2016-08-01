@@ -67,12 +67,12 @@ define('SQL_UPDATE_UTF8MB4', '
 ALTER DATABASE `%2$s` CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 ALTER TABLE `%1$scategory` CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-UPDATE `%1$scategory` SET name=SUBSTRING(name,1,190) where LENGTH(name) > 191;
+UPDATE `%1$scategory` SET name=SUBSTRING(name,1,190) WHERE LENGTH(name) > 191;
 ALTER TABLE `%1$scategory` MODIFY `name` VARCHAR(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL;
 OPTIMIZE TABLE `%1$scategory`;
 
 ALTER TABLE `%1$sfeed` CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-UPDATE `%1$sfeed` SET name=SUBSTRING(name,1,190) where LENGTH(name) > 191;
+UPDATE `%1$sfeed` SET name=SUBSTRING(name,1,190) WHERE LENGTH(name) > 191;
 ALTER TABLE `%1$sfeed` MODIFY `name` VARCHAR(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL;
 ALTER TABLE `%1$sfeed` MODIFY `description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 OPTIMIZE TABLE `%1$sfeed`;
