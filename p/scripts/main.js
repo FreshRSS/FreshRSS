@@ -1294,27 +1294,46 @@ function parseJsonVars() {
 	window.icons = json.icons;
 }
 
-function init_all() {
+function init_beforeDOM() {
 	if (!window.$) {
 		if (window.console) {
-			console.log('FreshRSS waiting for JS…');
+			console.log('FreshRSS waiting for jQuery…');
 		}
-		window.setTimeout(init_all, 50);
+		window.setTimeout(init_beforeDOM, 50);
 		return;
 	}
-	parseJsonVars();
-	init_notifications();
 	init_confirm_action();
+	if (['normal', 'reader', 'global'].indexOf(context['current_view']) >= 0) {
+		$stream = $('#stream');
+		if ($stream.length < 1) {
+			if (window.console) {
+				console.log('FreshRSS waiting for content…');
+			}
+			window.setTimeout(init_beforeDOM, 50);
+			return;
+		}
+		init_column_categories();
+		init_stream($stream);
+		init_shortcuts();
+		init_actualize();
+		faviconNbUnread();
+	}
+}
+
+function init_afterDOM() {
+	if (!window.$) {
+		if (window.console) {
+			console.log('FreshRSS waiting again for jQuery…');
+		}
+		window.setTimeout(init_afterDOM, 50);
+		return;
+	}
+	init_notifications();
 	$stream = $('#stream');
 	if ($stream.length > 0) {
-		init_actualize();
-		init_column_categories();
 		init_load_more($stream);
 		init_posts();
-		init_stream($stream);
 		init_nav_entries();
-		init_shortcuts();
-		faviconNbUnread();
 		init_print_action();
 		init_notifs_html5();
 		window.setInterval(refreshUnreads, 120000);
@@ -1335,16 +1354,16 @@ function init_all() {
 	}
 }
 
+parseJsonVars();
+init_beforeDOM();	//Can be called before DOM is fully loaded
+
 if (document.readyState && document.readyState !== 'loading') {
-	if (window.console) {
-		console.log('FreshRSS immediate init…');
-	}
-	init_all();
+	init_afterDOM();
 } else if (document.addEventListener) {
 	document.addEventListener('DOMContentLoaded', function () {
 		if (window.console) {
 			console.log('FreshRSS waiting for DOMContentLoaded…');
 		}
-		init_all();
+		init_afterDOM();
 	}, false);
 }
