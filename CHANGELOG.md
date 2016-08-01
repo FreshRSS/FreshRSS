@@ -1,8 +1,20 @@
 # Changelog
 
-## XXXX-XX-XX FreshRSS 1.5.0
+## 2016-XX-XX FreshRSS 1.5.x-dev
 
-Nothing yet.
+* Compatibility
+	* Require at least MySQL 5.5.3+ [#1153](https://github.com/FreshRSS/FreshRSS/issues/1153)
+	* Require at least PHP 5.3.3+ [#1183](https://github.com/FreshRSS/FreshRSS/pull/1183)
+	* Restore compatibility with Microsoft Internet Explorer 11 / Edge [#772](https://github.com/FreshRSS/FreshRSS/issues/772)
+* Features
+	* Support for full Unicode such as emoji 💕 in MySQL with utf8mb4 [#1153](https://github.com/FreshRSS/FreshRSS/issues/1153)
+		* FreshRSS will automatically migrate MySQL tables to utf8mb4 the first time it is needed.
+* Security
+	* Remove Mozilla Persona login (the service closes on 2016-11-30) [#1052](https://github.com/FreshRSS/FreshRSS/issues/1052)
+* Bug fixing
+	* Fixed scroll in log view [#1178](https://github.com/FreshRSS/FreshRSS/issues/1178)
+* API
+	* Add API link in FreshRSS profile settings to ease set-up [#1186](https://github.com/FreshRSS/FreshRSS/pull/1186)
 
 
 ## 2016-07-23 FreshRSS 1.4.0
