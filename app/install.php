@@ -709,7 +709,7 @@ function printStep3() {
 	<p class="alert alert-error"><span class="alert-head"><?php echo _t('gen.short.damn'); ?></span> <?php echo _t('install.bdd.conf.ko'),(empty($_SESSION['bd_error']) ? '' : ' : ' . $_SESSION['bd_error']); ?></p>
 	<?php } ?>
 
-	<form action="index.php?step=3" method="post">
+	<form action="index.php?step=3" method="post" autocomplete="off">
 		<legend><?php echo _t('install.bdd.conf'); ?></legend>
 		<div class="form-group">
 			<label class="group-name" for="type"><?php echo _t('install.bdd.type'); ?></label>
@@ -728,7 +728,7 @@ function printStep3() {
 				</option>
 				<?php }?>
 				<?php if (extension_loaded('pdo_pgsql')) {?>
-				<option value="sqlite"
+				<option value="pgsql"
 					<?php echo(isset($_SESSION['bd_type']) && $_SESSION['bd_type'] === 'pgsql') ? 'selected="selected"' : ''; ?>>
 					PostgreSQL
 				</option>
@@ -755,7 +755,7 @@ function printStep3() {
 		<div class="form-group">
 			<label class="group-name" for="pass"><?php echo _t('install.bdd.password'); ?></label>
 			<div class="group-controls">
-				<input type="password" id="pass" name="pass" value="<?php echo isset($_SESSION['bd_password']) ? $_SESSION['bd_password'] : ''; ?>" tabindex="4" />
+				<input type="password" id="pass" name="pass" value="<?php echo isset($_SESSION['bd_password']) ? $_SESSION['bd_password'] : ''; ?>" tabindex="4" autocomplete="off" />
 			</div>
 		</div>
 
