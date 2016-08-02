@@ -42,13 +42,15 @@ if (auth_type) {
 function mySqlShowHide() {
 	var mysql = document.getElementById('mysql');
 	if (mysql) {
-		mysql.style.display = document.getElementById('type').value === 'mysql' ? 'block' : 'none';
-		if (document.getElementById('type').value !== 'mysql') {
+		if (document.getElementById('type').value === 'sqlite') {
 			document.getElementById('host').value = '';
 			document.getElementById('user').value = '';
 			document.getElementById('pass').value = '';
 			document.getElementById('base').value = '';
 			document.getElementById('prefix').value = '';
+			mysql.style.display = 'none';
+		} else {
+			mysql.style.display = 'block';
 		}
 	}
 }

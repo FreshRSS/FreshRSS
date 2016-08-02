@@ -37,10 +37,10 @@ class FreshRSS_StatsDAO extends Minz_ModelPdo {
 			$filter .= "AND e.id_feed = {$feed}";
 		}
 		$sql = <<<SQL
-SELECT COUNT(1) AS `total`,
-COUNT(1) - SUM(e.is_read) AS `unread`,
-SUM(e.is_read) AS `read`,
-SUM(e.is_favorite) AS `favorite`
+SELECT COUNT(1) AS total,
+COUNT(1) - SUM(e.is_read) AS unread,
+SUM(e.is_read) AS read,
+SUM(e.is_favorite) AS favorite
 FROM {$this->prefix}entry AS e
 , {$this->prefix}feed AS f
 WHERE e.id_feed = f.id

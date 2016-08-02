@@ -19,8 +19,6 @@ if (isset($_GET['step'])) {
 	define('STEP', 0);
 }
 
-define('SQL_CREATE_DB', 'CREATE DATABASE IF NOT EXISTS %1$s DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;');
-
 if (STEP === 3 && isset($_POST['type'])) {
 	$_SESSION['bd_type'] = $_POST['type'];
 }
@@ -32,6 +30,9 @@ if (isset($_SESSION['bd_type'])) {
 		break;
 	case 'sqlite':
 		include(APP_PATH . '/SQL/install.sql.sqlite.php');
+		break;
+	case 'pgsql':
+		include(APP_PATH . '/SQL/install.sql.pgsql.php');
 		break;
 	}
 }
@@ -301,7 +302,8 @@ function checkStep1() {
 	$curl = extension_loaded('curl');
 	$pdo_mysql = extension_loaded('pdo_mysql');
 	$pdo_sqlite = extension_loaded('pdo_sqlite');
-	$pdo = $pdo_mysql || $pdo_sqlite;
+	$pdo_pgsql = extension_loaded('pdo_pgsql');
+	$pdo = $pdo_mysql || $pdo_sqlite || $pdo_pgsql;
 	$pcre = extension_loaded('pcre');
 	$ctype = extension_loaded('ctype');
 	$dom = class_exists('DOMDocument');
@@ -319,6 +321,7 @@ function checkStep1() {
 		'curl' => $curl ? 'ok' : 'ko',
 		'pdo-mysql' => $pdo_mysql ? 'ok' : 'ko',
 		'pdo-sqlite' => $pdo_sqlite ? 'ok' : 'ko',
+		'pdo-pgsql' => $pdo_pgsql ? 'ok' : 'ko',
 		'pdo' => $pdo ? 'ok' : 'ko',
 		'pcre' => $pcre ? 'ok' : 'ko',
 		'ctype' => $ctype ? 'ok' : 'ko',
@@ -434,6 +437,22 @@ function checkBD() {
 			$driver_options = array(
 				PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
 			);
+			break;
+		case 'pgsql':
+			$driver_options = array(
+				PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+			);
+
+			try {	// on ouvre une connexion juste pour créer la base si elle n'existe pas
+				$str = 'pgsql:host=' . $_SESSION['bd_host'] . ';';
+				$c = new PDO($str, $_SESSION['bd_user'], $_SESSION['bd_password'], $driver_options);
+				$sql = sprintf(SQL_CREATE_DB, $_SESSION['bd_base']);
+				$res = $c->query($sql);
+			} catch (PDOException $e) {
+			}
+
+			// on écrase la précédente connexion en sélectionnant la nouvelle BDD
+			$str = 'pgsql:host=' . $_SESSION['bd_host'] . ';dbname=' . $_SESSION['bd_base'];
 			break;
 		default:
 			return false;
@@ -706,6 +725,12 @@ function printStep3() {
 				<option value="sqlite"
 					<?php echo(isset($_SESSION['bd_type']) && $_SESSION['bd_type'] === 'sqlite') ? 'selected="selected"' : ''; ?>>
 					SQLite
+				</option>
+				<?php }?>
+				<?php if (extension_loaded('pdo_pgsql')) {?>
+				<option value="sqlite"
+					<?php echo(isset($_SESSION['bd_type']) && $_SESSION['bd_type'] === 'pgsql') ? 'selected="selected"' : ''; ?>>
+					PostgreSQL
 				</option>
 				<?php }?>
 				</select>
