@@ -6,17 +6,19 @@ var loading = false,
 	dnd_successful = false;
 
 function dragend_process(t) {
-	t.style.display = 'none';
+	t.setAttribute('draggable', 'false');
 
 	if (loading) {
 		window.setTimeout(function() {
 			dragend_process(t);
 		}, 50);
+		return;
 	}
 
 	if (!dnd_successful) {
-		t.style.display = 'block';
-		t.style.opacity = 1.0;
+		t.style.display = '';
+		t.style.opacity = '';
+		t.setAttribute('draggable', 'true');
 	} else {
 		var parent = $(t.parentNode);
 		$(t).remove();
