@@ -40,10 +40,11 @@ function init_draggable() {
 	    dropzone = '[dropzone="move"]';
 
 	$('.drop-section').on('dragstart', draggable, function(e) {
+		var drag = $(e.target).closest('[draggable]')[0];
 		e.originalEvent.dataTransfer.effectAllowed = 'move';
-		e.originalEvent.dataTransfer.setData('text/html', e.target.outerHTML);
-		e.originalEvent.dataTransfer.setData('text', e.target.getAttribute('data-feed-id'));
-		e.target.style.opacity = 0.3;
+		e.originalEvent.dataTransfer.setData('text/html', drag.outerHTML);
+		e.originalEvent.dataTransfer.setData('text', drag.getAttribute('data-feed-id'));
+		drag.style.opacity = 0.3;
 
 		dnd_successful = false;
 	});
@@ -81,6 +82,7 @@ function init_draggable() {
 	});
 	$('.drop-section').on('drop', dropzone, function(e) {
 		var feed_id = e.originalEvent.dataTransfer.getData('text'),
+		    html = e.originalEvent.dataTransfer.getData('text/html'),
 		    cat_id = e.target.parentNode.getAttribute('data-cat-id');
 
 		loading = true;
@@ -93,7 +95,7 @@ function init_draggable() {
 				c_id: cat_id
 			}
 		}).done(function() {
-			$(e.target).after(e.originalEvent.dataTransfer.getData('text/html'));
+			$(e.target).after(html);
 			if ($(e.target).hasClass('disabled')) {
 				$(e.target).remove();
 			}
