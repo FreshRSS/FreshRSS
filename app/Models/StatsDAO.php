@@ -38,9 +38,9 @@ class FreshRSS_StatsDAO extends Minz_ModelPdo {
 		}
 		$sql = <<<SQL
 SELECT COUNT(1) AS total,
-COUNT(1) - SUM(e.is_read) AS unread,
-SUM(e.is_read) AS read,
-SUM(e.is_favorite) AS favorite
+COUNT(1) - SUM(e.is_read) AS count_unreads,
+SUM(e.is_read) AS count_reads,
+SUM(e.is_favorite) AS count_favorites
 FROM {$this->prefix}entry AS e
 , {$this->prefix}feed AS f
 WHERE e.id_feed = f.id
