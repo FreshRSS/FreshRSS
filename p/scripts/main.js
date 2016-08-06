@@ -772,7 +772,7 @@ function updateFeed(feeds, feeds_count) {
 	$.ajax({
 		type: 'POST',
 		url: feed['url'],
-	}).complete(function (data) {
+	}).always(function (data) {
 		feed_processed++;
 		$("#actualizeProgress .progress").html(feed_processed + " / " + feeds_count);
 		$("#actualizeProgress .title").html(feed['title']);
