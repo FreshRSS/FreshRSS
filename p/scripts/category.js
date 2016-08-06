@@ -1,4 +1,6 @@
 "use strict";
+/* globals i18n */
+/* jshint globalstrict: true */
 
 var loading = false,
 	dnd_successful = false;
@@ -20,7 +22,7 @@ function dragend_process(t) {
 		$(t).remove();
 
 		if (parent.children().length <= 0) {
-			parent.append('<li class="item disabled" dropzone="move">' + i18n['category_empty'] + '</li>');
+			parent.append('<li class="item disabled" dropzone="move">' + i18n.category_empty + '</li>');
 		}
 	}
 }
