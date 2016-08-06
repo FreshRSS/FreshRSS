@@ -1,4 +1,5 @@
 "use strict";
+/* jshint globalstrict: true */
 
 function show_password() {
 	var button = this;

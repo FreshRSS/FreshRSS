@@ -1,4 +1,7 @@
 "use strict";
+/* globals Flotr, numberFormat */
+/* jshint globalstrict: true */
+
 function initStats() {
 	if (!window.Flotr) {
 		if (window.console) {
