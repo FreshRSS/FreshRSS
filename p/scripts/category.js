@@ -27,6 +27,9 @@ function dragend_process(t) {
 	}
 }
 
+var dragFeedId = '',
+	dragHtml = '';
+
 function init_draggable() {
 	if (!(window.$ && window.i18n)) {
 		if (window.console) {
@@ -42,8 +45,9 @@ function init_draggable() {
 	$('.drop-section').on('dragstart', draggable, function(e) {
 		var drag = $(e.target).closest('[draggable]')[0];
 		e.originalEvent.dataTransfer.effectAllowed = 'move';
-		e.originalEvent.dataTransfer.setData('text/html', drag.outerHTML);
-		e.originalEvent.dataTransfer.setData('text', drag.getAttribute('data-feed-id'));
+		dragHtml = drag.outerHTML;
+		dragFeedId = drag.getAttribute('data-feed-id');
+		e.originalEvent.dataTransfer.setData('text', dragFeedId);
 		drag.style.opacity = 0.3;
 
 		dnd_successful = false;
@@ -81,27 +85,25 @@ function init_draggable() {
 		return false;
 	});
 	$('.drop-section').on('drop', dropzone, function(e) {
-		var feed_id = e.originalEvent.dataTransfer.getData('text'),
-		    html = e.originalEvent.dataTransfer.getData('text/html'),
-		    cat_id = e.target.parentNode.getAttribute('data-cat-id');
-
 		loading = true;
 
 		$.ajax({
 			type: 'POST',
 			url: './?c=feed&a=move',
 			data : {
-				f_id: feed_id,
-				c_id: cat_id
+				f_id: dragFeedId,
+				c_id: e.target.parentNode.getAttribute('data-cat-id'),
 			}
 		}).done(function() {
-			$(e.target).after(html);
+			$(e.target).after(dragHtml);
 			if ($(e.target).hasClass('disabled')) {
 				$(e.target).remove();
 			}
 			dnd_successful = true;
 		}).always(function() {
 			loading = false;
+			dragFeedId = '';
+			dragHtml = '';
 		});
 
 		$(this).removeClass('drag-hover');
