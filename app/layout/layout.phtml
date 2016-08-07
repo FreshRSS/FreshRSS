@@ -41,6 +41,8 @@
 		$url_rss['a'] = 'rss';
 ?>
 		<link rel="alternate" type="application/rss+xml" title="<?php echo $this->rss_title; ?>" href="<?php echo Minz_Url::display($url_rss); ?>" />
+<?php } if (!FreshRSS_Context::$system_conf->allow_referrer) { ?>
+		<meta name="referrer" content="origin" />
 <?php } if (FreshRSS_Context::$system_conf->allow_robots) { ?>
 		<meta name="description" content="<?php echo htmlspecialchars(FreshRSS_Context::$name . ' | ' . FreshRSS_Context::$description, ENT_COMPAT, 'UTF-8'); ?>" />
 <?php } else { ?>
