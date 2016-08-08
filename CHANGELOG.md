@@ -11,11 +11,17 @@
 		* FreshRSS will automatically migrate MySQL tables to utf8mb4 the first time it is needed.
 * Security
 	* Remove Mozilla Persona login (the service closes on 2016-11-30) [#1052](https://github.com/FreshRSS/FreshRSS/issues/1052)
+	* Use Referrer Policy `<meta name="referrer" content="origin" />` for limiting HTTP Referer [#1198](https://github.com/FreshRSS/FreshRSS/pull/1198)
 * Bug fixing
 	* Fixed scroll in log view [#1178](https://github.com/FreshRSS/FreshRSS/issues/1178)
 	* Fixed JavaScript bug when articles were not always marked as read [#1123](https://github.com/FreshRSS/FreshRSS/issues/1123)
+	* Fixed Apache Etag issue that prevented caching [#1199](https://github.com/FreshRSS/FreshRSS/pull/1199)
+* UI
+	* Updated to jQuery 3.1.0 and several JavaScript fixes (e.g. drag & drop) [#1197](https://github.com/FreshRSS/FreshRSS/pull/1197)
 * API
 	* Add API link in FreshRSS profile settings to ease set-up [#1186](https://github.com/FreshRSS/FreshRSS/pull/1186)
+* Mics.
+	* JSHint of JavaScript code and better initialisation [#1196](https://github.com/FreshRSS/FreshRSS/pull/1196)
 
 
 ## 2016-07-23 FreshRSS 1.4.0
