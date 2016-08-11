@@ -131,7 +131,7 @@ function preprocessing_categories($doc) {
 	$outline_categories = [];
 	$body = $doc->getElementsByTagName('body')->item(0);
 	$xpath = new DOMXpath($doc);
-	$outlines = $xpath->query("/opml/body/outline[@category]");
+	$outlines = $xpath->query('/opml/body/outline[@category]');
 	foreach ($outlines as $outline) {
 		$category = trim($outline->getAttribute('category'));
 		if ($category != '') {
