@@ -128,7 +128,7 @@ function libopml_parse_outline($outline_xml, $strict = true) {
  * the OPML 2.0 category attribute is used
  */
 function preprocessing_categories($doc) {
-	$outline_categories = [];
+	$outline_categories = array();
 	$body = $doc->getElementsByTagName('body')->item(0);
 	$xpath = new DOMXpath($doc);
 	$outlines = $xpath->query('/opml/body/outline[@category]');
