@@ -57,7 +57,7 @@ class FreshRSS extends Minz_FrontController {
 
 	private static function initAuth() {
 		FreshRSS_Auth::init();
-		if (Minz_Request::isPost() && !is_referer_from_same_domain()) {
+		if (Minz_Request::isPost() && !(is_referer_from_same_domain() && FreshRSS_Auth::isCsrfOk())) {
 			// Basic protection against XSRF attacks
 			FreshRSS_Auth::removeAccess();
 			$http_referer = empty($_SERVER['HTTP_REFERER']) ? '' : $_SERVER['HTTP_REFERER'];

@@ -124,6 +124,7 @@ class FreshRSS_Auth {
 		self::$login_ok = false;
 		$conf = Minz_Configuration::get('system');
 		Minz_Session::_param('currentUser', $conf->default_user);
+		Minz_Session::_param('csrf');
 
 		switch ($conf->auth_type) {
 		case 'form':
@@ -155,6 +156,26 @@ class FreshRSS_Auth {
 		$conf = Minz_Configuration::get('system');
 		$auth_type = $conf->auth_type;
 		return $auth_type === 'form';
+	}
+
+	public static function csrfToken() {
+		$csrf = Minz_Session::param('csrf');
+		if ($csrf == '') {
+			$salt = FreshRSS_Context::$system_conf->salt;
+			$csrf = sha1($salt . uniqid(mt_rand(), true));
+			Minz_Session::_param('csrf', $csrf);
+		}
+		return $csrf;
+	}
+	public static function isCsrfOk($token = null) {
+		$csrf = Minz_Session::param('csrf');
+		if ($csrf == '') {
+			return true;	//Not logged in yet
+		}
+		if ($token === null) {
+			$token = Minz_Request::param('_csrf');
+		}
+		return $token === $csrf;
 	}
 }
 

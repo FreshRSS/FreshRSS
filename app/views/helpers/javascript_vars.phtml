@@ -16,6 +16,7 @@ echo htmlspecialchars(json_encode(array(
 		'html5_notif_timeout' => FreshRSS_Context::$user_conf->html5_notif_timeout,
 		'auth_type' => FreshRSS_Context::$system_conf->auth_type,
 		'current_view' => Minz_Request::actionName(),
+		'csrf' => FreshRSS_Auth::csrfToken(),
 	),
 	'shortcuts' => array(
 		'mark_read' => @$s['mark_read'],
