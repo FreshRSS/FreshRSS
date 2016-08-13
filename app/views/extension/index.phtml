@@ -6,6 +6,7 @@
 	<h1><?php echo _t('admin.extensions.title'); ?></h1>
 
 	<form id="form-extension" method="post">
+	<input type="hidden" name="_csrf" value="<?php echo FreshRSS_Auth::csrfToken(); ?>" />
 	<?php if (!empty($this->extension_list['system'])) { ?>
 	<h2><?php echo _t('admin.extensions.system'); ?></h2>
 	<?php

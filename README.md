@@ -12,7 +12,7 @@ It supports [PubSubHubbub](https://code.google.com/p/pubsubhubbub/) for instant 
 * Demo: http://demo.freshrss.org/
 * License: [GNU AGPL 3](http://www.gnu.org/licenses/agpl-3.0.html)
 
-![FreshRSS logo](http://marienfressinaud.fr/data/images/freshrss/freshrss_title.png)
+![FreshRSS logo](./doc/FreshRSS-logo.png)
 
 # Releases
 See the [list of releases](../../releases).
@@ -41,7 +41,7 @@ We are a friendly community.
 	* Works on mobile
 * The browser HTTP `Referer` header must not be disabled when using the form login method
 
-![FreshRSS screenshot](http://marienfressinaud.fr/data/images/freshrss/freshrss_default-design.png)
+![FreshRSS screenshot](./doc/FreshRSS-screenshot.png)
 
 # Installation
 1. Get FreshRSS with git or [by downloading the archive](https://github.com/FreshRSS/FreshRSS/archive/master.zip)
@@ -124,6 +124,8 @@ mysqldump -u user -p --databases freshrss > freshrss.sql
 * [MINZ](https://github.com/marienfressinaud/MINZ)
 * [php-http-304](http://alexandre.alapetite.fr/doc-alex/php-http-304/)
 * [jQuery](http://jquery.com/)
+* [ArthurHoaro/favicon](https://github.com/ArthurHoaro/favicon)
+* [lib_opml](https://github.com/marienfressinaud/lib_opml)
 * [keyboard_shortcuts](http://www.openjs.com/scripts/events/keyboard_shortcuts/)
 * [flotr2](http://www.humblesoftware.com/flotr2)
 

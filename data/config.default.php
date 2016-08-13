@@ -66,6 +66,9 @@ return array(
 	# Allow or not Web robots (e.g. search engines) in HTML headers.
 	'allow_robots' => false,
 
+	# If true does nothing, if false restricts HTTP Referer via: meta referrer origin
+	'allow_referrer' => false,
+
 	'limits' => array(
 
 		# Duration in seconds of the SimplePie cache,

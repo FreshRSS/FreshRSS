@@ -14,7 +14,7 @@
 	$url_base = array(
 		'c' => 'index',
 		'a' => 'normal',
-		'params' => Minz_Request::params()
+		'params' => Minz_Request::fetchGET(),
 	);
 
 	foreach ($this->categories as $cat) {

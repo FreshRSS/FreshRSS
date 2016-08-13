@@ -19,6 +19,7 @@
 			<h2><?php echo _t('gen.date.' . $period); ?></h2>
 
 			<form id="form-delete" method="post">
+			<input type="hidden" name="_csrf" value="<?php echo FreshRSS_Auth::csrfToken(); ?>" />
 			<?php foreach ($feeds as $feed) { ?>
 			<ul class="horizontal-list">
 				<li class="item">

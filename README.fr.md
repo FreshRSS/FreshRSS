@@ -12,7 +12,7 @@ Il supporte [PubSubHubbub](https://code.google.com/p/pubsubhubbub/) pour des not
 * Démo : http://demo.freshrss.org/
 * Licence : [GNU AGPL 3](http://www.gnu.org/licenses/agpl-3.0.html)
 
-![Logo de FreshRSS](http://marienfressinaud.fr/data/images/freshrss/freshrss_title.png)
+![Logo de FreshRSS](./doc/FreshRSS-logo.png)
 
 # Téléchargement
 Voir la [liste des versions](../../releases).
@@ -41,7 +41,7 @@ Nous sommes une communauté amicale.
 	* Fonctionne aussi sur mobile
 * L’entête HTTP `Referer` ne doit pas être désactivé pour pouvoir utiliser le formulaire de connexion
 
-![Capture d’écran de FreshRSS](http://marienfressinaud.fr/data/images/freshrss/freshrss_default-design.png)
+![Capture d’écran de FreshRSS](./doc/FreshRSS-screenshot.png)
 
 # Installation
 1. Récupérez l’application FreshRSS via la commande git ou [en téléchargeant l’archive](../releases)
@@ -124,6 +124,8 @@ mysqldump -u utilisateur -p --databases freshrss > freshrss.sql
 * [MINZ](https://github.com/marienfressinaud/MINZ)
 * [php-http-304](http://alexandre.alapetite.fr/doc-alex/php-http-304/)
 * [jQuery](http://jquery.com/)
+* [ArthurHoaro/favicon](https://github.com/ArthurHoaro/favicon)
+* [lib_opml](https://github.com/marienfressinaud/lib_opml)
 * [keyboard_shortcuts](http://www.openjs.com/scripts/events/keyboard_shortcuts/)
 * [flotr2](http://www.humblesoftware.com/flotr2)
 

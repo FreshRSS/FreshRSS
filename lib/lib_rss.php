@@ -391,7 +391,7 @@ function cryptAvailable() {
 
 function is_referer_from_same_domain() {
 	if (empty($_SERVER['HTTP_REFERER'])) {
-		return false;
+		return true;	//Accept empty referer while waiting for good support of meta referrer same-origin policy in browsers
 	}
 	$host = parse_url(((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on') ? 'https://' : 'http://') .
 		(empty($_SERVER['HTTP_HOST']) ? $_SERVER['SERVER_NAME'] : $_SERVER['HTTP_HOST']));

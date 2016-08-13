@@ -12,7 +12,7 @@
  *
  * @author   Marien Fressinaud <dev@marienfressinaud.fr>
  * @link     https://github.com/marienfressinaud/lib_opml
- * @version  0.2
+ * @version  0.2-FreshRSS~1.5.1
  * @license  public domain
  *
  * Usages:
@@ -123,6 +123,32 @@ function libopml_parse_outline($outline_xml, $strict = true) {
 	return $outline;
 }
 
+/**
+ * Reformat the XML document as a hierarchy when
+ * the OPML 2.0 category attribute is used
+ */
+function preprocessing_categories($doc) {
+	$outline_categories = array();
+	$body = $doc->getElementsByTagName('body')->item(0);
+	$xpath = new DOMXpath($doc);
+	$outlines = $xpath->query('/opml/body/outline[@category]');
+	foreach ($outlines as $outline) {
+		$category = trim($outline->getAttribute('category'));
+		if ($category != '') {
+			$outline_categorie = null;
+			if (!isset($outline_categories[$category])) {
+				$outline_categorie = $doc->createElement('outline');
+				$outline_categorie->setAttribute('text', $category);
+				$body->insertBefore($outline_categorie, $body->firstChild);
+				$outline_categories[$category] = $outline_categorie;
+			} else {
+				$outline_categorie = $outline_categories[$category];
+			}
+			$outline->parentNode->removeChild($outline);
+			$outline_categorie->appendChild($outline);
+		}
+	}
+}
 
 /**
  * Parse a string as a XML one and returns the corresponding array
@@ -139,6 +165,9 @@ function libopml_parse_string($xml, $strict = true) {
 	$dom->strictErrorChecking = false;
 	$dom->loadXML($xml);
 	$dom->encoding = 'UTF-8';
+
+	//Partial compatibility with the category attribute of OPML 2.0
+	preprocessing_categories($dom);
 
 	$opml = simplexml_import_dom($dom);
 

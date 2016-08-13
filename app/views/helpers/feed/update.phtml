@@ -18,6 +18,7 @@
 	<?php } ?>
 
 	<form method="post" action="<?php echo _url('subscription', 'feed', 'id', $this->feed->id()); ?>" autocomplete="off">
+		<input type="hidden" name="_csrf" value="<?php echo FreshRSS_Auth::csrfToken(); ?>" />
 		<legend><?php echo _t('sub.feed.informations'); ?></legend>
 		<div class="form-group">
 			<label class="group-name" for="name"><?php echo _t('sub.feed.title'); ?></label>
