@@ -88,6 +88,7 @@
 		        type="submit"><?php echo _t('gen.action.mark_read'); ?></button>
 
 		<div class="dropdown">
+			<input type="hidden" name="_csrf" value="<?php echo FreshRSS_Auth::csrfToken(); ?>" />
 			<div id="dropdown-read" class="dropdown-target"></div>
 
 			<a class="dropdown-toggle btn" href="#dropdown-read"><?php echo _i('down'); ?></a>

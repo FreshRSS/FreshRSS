@@ -3,6 +3,7 @@
 
 	<h1><?php echo _t('index.log'); ?></h1>
 	<form method="post" action="<?php echo _url('index', 'logs'); ?>"><p>
+		<input type="hidden" name="_csrf" value="<?php echo FreshRSS_Auth::csrfToken(); ?>" />
 		<input type="hidden" name="clearLogs" />
 		<button type="submit" class="btn"><?php echo _t('index.log.clear'); ?></button>
 	</p></form>

@@ -4,6 +4,7 @@
 	<a href="<?php echo _url('index', 'index'); ?>"><?php echo _t('gen.action.back_to_rss_feeds'); ?></a>
 
 	<form method="post" action="<?php echo _url('user', 'create'); ?>">
+		<input type="hidden" name="_csrf" value="<?php echo FreshRSS_Auth::csrfToken(); ?>" />
 		<legend><?php echo _t('admin.user.create'); ?></legend>
 
 		<div class="form-group">
@@ -46,6 +47,7 @@
 	</form>
 
 	<form method="post" action="<?php echo _url('user', 'delete'); ?>">
+		<input type="hidden" name="_csrf" value="<?php echo FreshRSS_Auth::csrfToken(); ?>" />
 		<legend><?php echo _t('admin.user.users'); ?></legend>
 
 		<div class="form-group">

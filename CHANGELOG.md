@@ -12,7 +12,8 @@
 		* FreshRSS will automatically migrate MySQL tables to utf8mb4 the first time it is needed.
 * Security
 	* Remove Mozilla Persona login (the service closes on 2016-11-30) [#1052](https://github.com/FreshRSS/FreshRSS/issues/1052)
-	* Use Referrer Policy `<meta name="referrer" content="origin" />` for limiting HTTP Referer [#1198](https://github.com/FreshRSS/FreshRSS/pull/1198)
+	* Use Referrer Policy `<meta name="referrer" content="never" />` for stopping HTTP Referer [#955](https://github.com/FreshRSS/FreshRSS/issues/955)
+	* Implement CSRF tokens for POST security [#570](https://github.com/FreshRSS/FreshRSS/issues/570)
 * Bug fixing
 	* Fixed scroll in log view [#1178](https://github.com/FreshRSS/FreshRSS/issues/1178)
 	* Fixed JavaScript bug when articles were not always marked as read [#1123](https://github.com/FreshRSS/FreshRSS/issues/1123)

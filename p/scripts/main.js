@@ -134,7 +134,10 @@ function mark_read(active, only_not_read) {
 	$.ajax({
 		type: 'POST',
 		url: url,
-		data : { ajax: true }
+		data : {
+			ajax: true,
+			_csrf: context.csrf,
+		},
 	}).done(function (data) {
 		var $r = active.find("a.read").attr("href", data.url),
 			inc = 0;
@@ -178,7 +181,10 @@ function mark_favorite(active) {
 	$.ajax({
 		type: 'POST',
 		url: url,
-		data : { ajax: true }
+		data : {
+			ajax: true,
+			_csrf: context.csrf,
+		},
 	}).done(function (data) {
 		var $b = active.find("a.bookmark").attr("href", data.url),
 			inc = 0;
@@ -775,6 +781,9 @@ function updateFeed(feeds, feeds_count) {
 	$.ajax({
 		type: 'POST',
 		url: feed.url,
+		data : {
+			_csrf: context.csrf,
+		},
 	}).always(function (data) {
 		feed_processed++;
 		$("#actualizeProgress .progress").html(feed_processed + " / " + feeds_count);
