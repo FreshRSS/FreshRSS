@@ -189,7 +189,7 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 	/**
 	 * This method returns a list of entries based on the Context object.
 	 */
-	private static function listEntriesByContext() {
+	public static function listEntriesByContext() {
 		$entryDAO = FreshRSS_Factory::createEntryDao();
 
 		$get = FreshRSS_Context::currentGet(true);
