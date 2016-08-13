@@ -24,8 +24,6 @@ return array(
 		'email' => 'Email',
 		'keep_logged_in' => 'Zapamatovat přihlášení <small>(1 měsíc)</small>',
 		'login' => 'Login',
-		'login_persona' => 'Přihlášení pomocí Persona',
-		'login_persona_problem' => 'Problém s připojením k Persona?',
 		'logout' => 'Odhlášení',
 		'password' =>  array(
 			'_' => 'Heslo',
@@ -42,7 +40,6 @@ return array(
 			'admin' => 'Název administrátorského účtu',
 			'format' => '<small>maximálně 16 alfanumerických znaků</small>',
 		),
-		'will_reset' => 'Přihlašovací systém bude vyresetován: místo sytému Persona bude použito přihlášení formulářem.',
 	),
 	'date' => array(
 		'Apr' => '\\D\\u\\b\\e\\n',

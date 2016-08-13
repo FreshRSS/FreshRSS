@@ -1,5 +1,34 @@
-# Changelog
+﻿# Changelog
 
+## 2016-XX-XX FreshRSS 1.5.x-dev
+
+* Compatibility
+	* Require at least MySQL 5.5.3+ [#1153](https://github.com/FreshRSS/FreshRSS/issues/1153)
+	* Require at least PHP 5.3.3+ [#1183](https://github.com/FreshRSS/FreshRSS/pull/1183)
+		* Restore compatibility with PHP 5.3.3 [#1208](https://github.com/FreshRSS/FreshRSS/issues/1208)
+	* Restore compatibility with Microsoft Internet Explorer 11 / Edge [#772](https://github.com/FreshRSS/FreshRSS/issues/772)
+* Features
+	* Support for full Unicode such as emoji 💕 in MySQL with utf8mb4 [#1153](https://github.com/FreshRSS/FreshRSS/issues/1153)
+		* FreshRSS will automatically migrate MySQL tables to utf8mb4 the first time it is needed.
+* Security
+	* Remove Mozilla Persona login (the service closes on 2016-11-30) [#1052](https://github.com/FreshRSS/FreshRSS/issues/1052)
+	* Use Referrer Policy `<meta name="referrer" content="never" />` for anonymizing HTTP Referer [#955](https://github.com/FreshRSS/FreshRSS/issues/955)
+	* Implement CSRF tokens for POST security [#570](https://github.com/FreshRSS/FreshRSS/issues/570)
+* Bug fixing
+	* Fixed scroll in log view [#1178](https://github.com/FreshRSS/FreshRSS/issues/1178)
+	* Fixed JavaScript bug when articles were not always marked as read [#1123](https://github.com/FreshRSS/FreshRSS/issues/1123)
+	* Fixed Apache Etag issue that prevented caching [#1199](https://github.com/FreshRSS/FreshRSS/pull/1199)
+	* Fixed OPML import of categories [#1202](https://github.com/FreshRSS/FreshRSS/issues/1202)
+* UI
+	* Updated to jQuery 3.1.0 and several JavaScript fixes (e.g. drag & drop) [#1197](https://github.com/FreshRSS/FreshRSS/pull/1197)
+* API
+	* Add API link in FreshRSS profile settings to ease set-up [#1186](https://github.com/FreshRSS/FreshRSS/pull/1186)
+* Mics.
+	* JSHint of JavaScript code and better initialisation [#1196](https://github.com/FreshRSS/FreshRSS/pull/1196)
+	* Updated credits, and images in README [#1201](https://github.com/FreshRSS/FreshRSS/issues/1201)
+
+
+## 2016-07-23 FreshRSS 1.4.0
 ## 2016-06-12 FreshRSS 1.3.2-beta
 
 * Compatibility
@@ -83,7 +112,7 @@
 	* Session cookie bug [#924](https://github.com/FreshRSS/FreshRSS/issues/924)
 	* Better error handling for PubSubHubbub [#939](https://github.com/FreshRSS/FreshRSS/issues/939)
 	* Fix tag search link from articles [#970](https://github.com/FreshRSS/FreshRSS/issues/970)
-	* Fix all quieries deleted when deleting a feed or category [#982](https://github.com/FreshRSS/FreshRSS/pull/982)
+	* Fix all queries deleted when deleting a feed or category [#982](https://github.com/FreshRSS/FreshRSS/pull/982)
 
 
 ## 2015-07-30 FreshRSS 1.1.2-beta

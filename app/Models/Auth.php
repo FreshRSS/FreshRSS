@@ -60,16 +60,6 @@ class FreshRSS_Auth {
 				Minz_Session::_param('currentUser', $current_user);
 			}
 			return $login_ok;
-		case 'persona':
-			$email = filter_var(Minz_Session::param('mail'), FILTER_VALIDATE_EMAIL);
-			$persona_file = DATA_PATH . '/persona/' . $email . '.txt';
-			if (($current_user = @file_get_contents($persona_file)) !== false) {
-				$current_user = trim($current_user);
-				Minz_Session::_param('currentUser', $current_user);
-				Minz_Session::_param('mail', $email);
-				return true;
-			}
-			return false;
 		case 'none':
 			return true;
 		default:
@@ -92,9 +82,6 @@ class FreshRSS_Auth {
 			break;
 		case 'http_auth':
 			self::$login_ok = strcasecmp($current_user, httpAuthUser()) === 0;
-			break;
-		case 'persona':
-			self::$login_ok = strcasecmp(Minz_Session::param('mail'), $user_conf->mail_login) === 0;
 			break;
 		case 'none':
 			self::$login_ok = true;
@@ -137,14 +124,12 @@ class FreshRSS_Auth {
 		self::$login_ok = false;
 		$conf = Minz_Configuration::get('system');
 		Minz_Session::_param('currentUser', $conf->default_user);
+		Minz_Session::_param('csrf');
 
 		switch ($conf->auth_type) {
 		case 'form':
 			Minz_Session::_param('passwordHash');
 			FreshRSS_FormAuth::deleteCookie();
-			break;
-		case 'persona':
-			Minz_Session::_param('mail');
 			break;
 		case 'http_auth':
 		case 'none':
@@ -170,7 +155,27 @@ class FreshRSS_Auth {
 	public static function accessNeedsAction() {
 		$conf = Minz_Configuration::get('system');
 		$auth_type = $conf->auth_type;
-		return $auth_type === 'form' || $auth_type === 'persona';
+		return $auth_type === 'form';
+	}
+
+	public static function csrfToken() {
+		$csrf = Minz_Session::param('csrf');
+		if ($csrf == '') {
+			$salt = FreshRSS_Context::$system_conf->salt;
+			$csrf = sha1($salt . uniqid(mt_rand(), true));
+			Minz_Session::_param('csrf', $csrf);
+		}
+		return $csrf;
+	}
+	public static function isCsrfOk($token = null) {
+		$csrf = Minz_Session::param('csrf');
+		if ($csrf == '') {
+			return true;	//Not logged in yet
+		}
+		if ($token === null) {
+			$token = Minz_Request::fetchPOST('_csrf');
+		}
+		return $token === $csrf;
 	}
 }
 

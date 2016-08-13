@@ -200,7 +200,9 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 				$entryDAO->addEntry($values);
 			}
 			$feedDAO->updateLastUpdate($feed->id());
-			$feedDAO->commit();
+			if ($feedDAO->inTransaction()) {
+				$feedDAO->commit();
+			}
 
 			// Entries are in DB, we redirect to feed configuration page.
 			$url_redirect['params']['id'] = $feed->id();
@@ -364,7 +366,7 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 								//', old hash ' . $existingHash . ', new hash ' . $entry->hash());
 							//TODO: Make an updated/is_read policy by feed, in addition to the global one.
 							$entry->_isRead(FreshRSS_Context::$user_conf->mark_updated_article_unread ? false : null);	//Change is_read according to policy.
-							if (!$entryDAO->hasTransaction()) {
+							if (!$entryDAO->inTransaction()) {
 								$entryDAO->beginTransaction();
 							}
 							$entryDAO->updateEntry($entry->toArray());
@@ -396,7 +398,7 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 							$feed->pubSubHubbubError(true);
 						}
 
-						if (!$entryDAO->hasTransaction()) {
+						if (!$entryDAO->inTransaction()) {
 							$entryDAO->beginTransaction();
 						}
 						$entryDAO->addEntry($entry->toArray());
@@ -408,7 +410,7 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 			if ($feed_history >= 0 && rand(0, 30) === 1) {
 				// TODO: move this function in web cron when available (see entry::purge)
 				// Remove old entries once in 30.
-				if (!$entryDAO->hasTransaction()) {
+				if (!$entryDAO->inTransaction()) {
 					$entryDAO->beginTransaction();
 				}
 
@@ -421,8 +423,8 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 				}
 			}
 
-			$feedDAO->updateLastUpdate($feed->id(), 0, $entryDAO->hasTransaction());
-			if ($entryDAO->hasTransaction()) {
+			$feedDAO->updateLastUpdate($feed->id(), 0, $entryDAO->inTransaction());
+			if ($entryDAO->inTransaction()) {
 				$entryDAO->commit();
 			}
 

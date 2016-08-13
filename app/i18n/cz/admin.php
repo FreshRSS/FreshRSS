@@ -8,7 +8,6 @@ return array(
 		'form' => 'Webový formulář (tradiční, vyžaduje JavaScript)',
 		'http' => 'HTTP (pro pokročilé uživatele s HTTPS)',
 		'none' => 'Žádný (nebezpečné)',
-		'persona' => 'Mozilla Persona (moderní, vyžaduje JavaScript)',
 		'title' => 'Přihlášení',
 		'title_reset' => 'Reset přihlášení',
 		'token' => 'Authentizační token',
@@ -74,10 +73,6 @@ return array(
 		'pdo' => array(
 			'nok' => 'Nemáte PDO nebo některý z podporovaných ovladačů (pdo_mysql, pdo_sqlite).',
 			'ok' => 'Máte PDO a alespoň jeden z podporovaných ovladačů (pdo_mysql, pdo_sqlite).',
-		),
-		'persona' => array(
-			'nok' => 'Zkontrolujte oprávnění adresáře <em>./data/persona</em>. HTTP server musí mít do tohoto adresáře práva zápisu',
-			'ok' => 'Oprávnění adresáře Mozilla Persona jsou v pořádku.',
 		),
 		'php' => array(
 			'_' => 'PHP instalace',
@@ -169,7 +164,6 @@ return array(
 	'user' => array(
 		'articles_and_size' => '%s článků (%s)',
 		'create' => 'Vytvořit nového uživatele',
-		'email_persona' => 'Email pro přihlášení<br /><small>(pro <a href="https://persona.org/" rel="external">Mozilla Persona</a>)</small>',
 		'language' => 'Jazyk',
 		'number' => 'Zatím je vytvořen %d účet',
 		'numbers' => 'Zatím je vytvořeno %d účtů',

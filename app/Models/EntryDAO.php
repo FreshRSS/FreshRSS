@@ -11,7 +11,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 	}
 
 	protected function addColumn($name) {
-		Minz_Log::debug('FreshRSS_EntryDAO::autoAddColumn: ' . $name);
+		Minz_Log::warning('FreshRSS_EntryDAO::addColumn: ' . $name);
 		$hasTransaction = false;
 		try {
 			$stm = null;
@@ -38,7 +38,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 				return $stm && $stm->execute();
 			}
 		} catch (Exception $e) {
-			Minz_Log::debug('FreshRSS_EntryDAO::autoAddColumn error: ' . $e->getMessage());
+			Minz_Log::error('FreshRSS_EntryDAO::addColumn error: ' . $e->getMessage());
 			if ($hasTransaction) {
 				$this->bd->rollBack();
 			}
@@ -46,14 +46,54 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 		return false;
 	}
 
-	protected function autoAddColumn($errorInfo) {
+	private $triedUpdateToUtf8mb4 = false;
+
+	protected function updateToUtf8mb4() {
+		if ($this->triedUpdateToUtf8mb4) {
+			return false;
+		}
+		$this->triedUpdateToUtf8mb4 = true;
+		$db = FreshRSS_Context::$system_conf->db;
+		if ($db['type'] === 'mysql') {
+			include_once(APP_PATH . '/SQL/install.sql.mysql.php');
+			if (defined('SQL_UPDATE_UTF8MB4')) {
+				Minz_Log::warning('Updating MySQL to UTF8MB4...');
+				$hadTransaction = $this->bd->inTransaction();
+				if ($hadTransaction) {
+					$this->bd->commit();
+				}
+				$ok = false;
+				try {
+					$sql = sprintf(SQL_UPDATE_UTF8MB4, $this->prefix, $db['base']);
+					$stm = $this->bd->prepare($sql);
+					$ok = $stm->execute();
+				} catch (Exception $e) {
+					Minz_Log::error('FreshRSS_EntryDAO::updateToUtf8mb4 error: ' . $e->getMessage());
+				}
+				if ($hadTransaction) {
+					$this->bd->beginTransaction();
+					//NB: Transaction not starting. Why? (tested on PHP 7.0.8-0ubuntu and MySQL 5.7.13-0ubuntu)
+				}
+				return $ok;
+			}
+		}
+		return false;
+	}
+
+	protected function autoUpdateDb($errorInfo) {
 		if (isset($errorInfo[0])) {
-			if ($errorInfo[0] == '42S22') {	//ER_BAD_FIELD_ERROR
+			if ($errorInfo[0] === '42S22') {	//ER_BAD_FIELD_ERROR
+				//autoAddColumn
 				foreach (array('lastSeen', 'hash') as $column) {
 					if (stripos($errorInfo[2], $column) !== false) {
 						return $this->addColumn($column);
 					}
 				}
+			}
+		}
+		if (isset($errorInfo[1])) {
+			if ($errorInfo[1] == '1366') {	//ER_TRUNCATED_WRONG_VALUE_FOR_FIELD
+				return $this->updateToUtf8mb4();
 			}
 		}
 		return false;
@@ -94,7 +134,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 			return $this->bd->lastInsertId();
 		} else {
 			$info = $this->addEntryPrepared == null ? array(0 => '', 1 => '', 2 => 'syntax error') : $this->addEntryPrepared->errorInfo();
-			if ($this->autoAddColumn($info)) {
+			if ($this->autoUpdateDb($info)) {
 				return $this->addEntry($valuesTmp);
 			} elseif ((int)($info[0] / 1000) !== 23) {	//Filter out "SQLSTATE Class code 23: Constraint Violation" because of expected duplicate entries
 				Minz_Log::error('SQL error addEntry: ' . $info[0] . ': ' . $info[1] . ' ' . $info[2]
@@ -145,7 +185,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 			return $this->bd->lastInsertId();
 		} else {
 			$info = $this->updateEntryPrepared == null ? array(0 => '', 1 => '', 2 => 'syntax error') : $this->updateEntryPrepared->errorInfo();
-			if ($this->autoAddColumn($info)) {
+			if ($this->autoUpdateDb($info)) {
 				return $this->updateEntry($valuesTmp);
 			}
 			Minz_Log::error('SQL error updateEntry: ' . $info[0] . ': ' . $info[1] . ' ' . $info[2]
@@ -615,7 +655,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 			return $result;
 		} else {
 			$info = $stm == null ? array(0 => '', 1 => '', 2 => 'syntax error') : $stm->errorInfo();
-			if ($this->autoAddColumn($info)) {
+			if ($this->autoUpdateDb($info)) {
 				return $this->listHashForFeedGuids($id_feed, $guids);
 			}
 			Minz_Log::error('SQL error listHashForFeedGuids: ' . $info[0] . ': ' . $info[1] . ' ' . $info[2]
@@ -636,7 +676,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 			return $stm->rowCount();
 		} else {
 			$info = $stm == null ? array(0 => '', 1 => '', 2 => 'syntax error') : $stm->errorInfo();
-			if ($this->autoAddColumn($info)) {
+			if ($this->autoUpdateDb($info)) {
 				return $this->updateLastSeen($id_feed, $guids);
 			}
 			Minz_Log::error('SQL error updateLastSeen: ' . $info[0] . ': ' . $info[1] . ' ' . $info[2]
@@ -692,7 +732,9 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 	public function optimizeTable() {
 		$sql = 'OPTIMIZE TABLE `' . $this->prefix . 'entry`';	//MySQL
 		$stm = $this->bd->prepare($sql);
-		$stm->execute();
+		if ($stm) {
+			return $stm->execute();
+		}
 	}
 
 	public function size($all = false) {

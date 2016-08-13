@@ -8,7 +8,6 @@ return array(
 		'form' => 'Web form (traditional, requires JavaScript)',
 		'http' => 'HTTP (for advanced users with HTTPS)',
 		'none' => 'None (dangerous)',
-		'persona' => 'Mozilla Persona (modern, requires JavaScript)',
 		'title' => 'Authentication',
 		'title_reset' => 'Authentication reset',
 		'token' => 'Authentication token',
@@ -74,10 +73,6 @@ return array(
 		'pdo' => array(
 			'nok' => 'You lack PDO or one of the supported drivers (pdo_mysql, pdo_sqlite).',
 			'ok' => 'You have PDO and at least one of the supported drivers (pdo_mysql, pdo_sqlite).',
-		),
-		'persona' => array(
-			'nok' => 'Check permissions on <em>./data/persona</em> directory. HTTP server must have rights to write into',
-			'ok' => 'Permissions on Mozilla Persona directory are good.',
 		),
 		'php' => array(
 			'_' => 'PHP installation',
@@ -169,7 +164,6 @@ return array(
 	'user' => array(
 		'articles_and_size' => '%s articles (%s)',
 		'create' => 'Create new user',
-		'email_persona' => 'Login mail address<br /><small>(for <a href="https://persona.org/" rel="external">Mozilla Persona</a>)</small>',
 		'language' => 'Language',
 		'number' => 'There is %d account created yet',
 		'numbers' => 'There are %d accounts created yet',

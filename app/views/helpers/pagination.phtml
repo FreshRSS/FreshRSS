@@ -14,8 +14,8 @@
 	);
 ?>
 
-<form id="mark-read-pagination" method="post" aria-hidden="true"></form>
-
+<form id="mark-read-pagination" method="post">
+<input type="hidden" name="_csrf" value="<?php echo FreshRSS_Auth::csrfToken(); ?>" />
 <ul class="pagination">
 	<li class="item pager-next">
 	<?php if (FreshRSS_Context::$next_id) { ?>
@@ -39,3 +39,4 @@
 	<?php } ?>
 	</li>
 </ul>
+</form>

@@ -12,7 +12,7 @@ It supports [PubSubHubbub](https://code.google.com/p/pubsubhubbub/) for instant 
 * Demo: http://demo.freshrss.org/
 * License: [GNU AGPL 3](http://www.gnu.org/licenses/agpl-3.0.html)
 
-![FreshRSS logo](http://marienfressinaud.fr/data/images/freshrss/freshrss_title.png)
+![FreshRSS logo](./doc/FreshRSS-logo.png)
 
 # Releases
 See the [list of releases](../../releases).
@@ -21,7 +21,6 @@ See the [list of releases](../../releases).
 **This application is under continuous development!** Please use the branch that suits your needs:
 
 * Use [the master branch](https://github.com/FreshRSS/FreshRSS/tree/master/) if you need a stable version.
-* [The beta branch](https://github.com/FreshRSS/FreshRSS/tree/beta) is the default branch: new features are added on a monthly basis.
 * For developers and tech savvy persons willing to help testing the latest features, [the dev branch](https://github.com/FreshRSS/FreshRSS/tree/dev) is waiting for you!
 
 # Disclaimer
@@ -33,16 +32,16 @@ We are a friendly community.
 * Light server running Linux or Windows
 	* It even works on Raspberry Pi 1 with response time under a second (tested with 150 feeds, 22k articles)
 * A web server: Apache2 (recommended), nginx, lighttpd (not tested on others)
-* PHP 5.3+ (PHP 5.3.7+ recommended, and PHP 5.5+ for performance, and PHP 7 for even higher performance)
+* PHP 5.3.3+ (PHP 5.3.7+ recommended, and PHP 5.5+ for performance, and PHP 7 for even higher performance)
 	* Required extensions: [PDO_MySQL](http://php.net/pdo-mysql) or [PDO_SQLite](http://php.net/pdo-sqlite), [cURL](http://php.net/curl), [GMP](http://php.net/gmp) (for API access on platforms < 64 bits), [IDN](http://php.net/intl.idn) (for Internationalized Domain Names)
 	* Recommended extensions: [iconv](http://php.net/iconv), [JSON](http://php.net/json), [mbstring](http://php.net/mbstring), [Zip](http://php.net/zip), [zlib](http://php.net/zlib)
 	* Enabled by default: [DOM](http://php.net/dom), [XML](http://php.net/xml)…
-* MySQL 5.0.3+ (recommended) or SQLite 3.7.4+
-* A recent browser like Firefox, Chrome, Opera, Safari. [Internet Explorer currently not supported, but support will come back](https://github.com/FreshRSS/FreshRSS/issues/772).
+* MySQL 5.5.3+ (recommended) or SQLite 3.7.4+
+* A recent browser like Firefox, Internet Explorer 11 / Edge, Chrome, Opera, Safari.
 	* Works on mobile
 * The browser HTTP `Referer` header must not be disabled when using the form login method
 
-![FreshRSS screenshot](http://marienfressinaud.fr/data/images/freshrss/freshrss_default-design.png)
+![FreshRSS screenshot](./doc/FreshRSS-screenshot.png)
 
 # Installation
 1. Get FreshRSS with git or [by downloading the archive](https://github.com/FreshRSS/FreshRSS/archive/master.zip)
@@ -90,7 +89,6 @@ sudo chmod -R g+w ./data/
 # Access control
 It is needed for the multi-user mode to limit access to FreshRSS. You can:
 * use form authentication (need JavaScript and PHP 5.3.7+, works with some PHP 5.3.3+)
-* use [Mozilla Persona](https://login.persona.org/about) authentication included in FreshRSS
 * use HTTP authentication supported by your web server
 	* See [Apache documentation](http://httpd.apache.org/docs/trunk/howto/auth.html)
 		* In that case, create a `./p/i/.htaccess` file with a matching `.htpasswd` file.
@@ -112,7 +110,7 @@ For example, if you want to run the script every hour:
 * If you encounter any problem, logs are accessible from the interface or manually in `./data/log/*.log` files.
 
 # Backup
-* You need to keep `./data/config.php`, `./data/*_user.php` and `./data/persona/` files
+* You need to keep `./data/config.php`, and `./data/*_user.php` files
 * You can export your feed list in OPML format from FreshRSS
 * To save articles, you can use [phpMyAdmin](http://www.phpmyadmin.net) or MySQL tools:
 
@@ -126,6 +124,8 @@ mysqldump -u user -p --databases freshrss > freshrss.sql
 * [MINZ](https://github.com/marienfressinaud/MINZ)
 * [php-http-304](http://alexandre.alapetite.fr/doc-alex/php-http-304/)
 * [jQuery](http://jquery.com/)
+* [ArthurHoaro/favicon](https://github.com/ArthurHoaro/favicon)
+* [lib_opml](https://github.com/marienfressinaud/lib_opml)
 * [jQuery Plugin Sticky-Kit](http://leafo.net/sticky-kit/)
 * [keyboard_shortcuts](http://www.openjs.com/scripts/events/keyboard_shortcuts/)
 * [flotr2](http://www.humblesoftware.com/flotr2)

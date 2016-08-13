@@ -21,7 +21,6 @@ return array(
 			'success' => 'U bent uitgelogd',
 		),
 		'no_password_set' => 'Administrateur wachtwoord is niet ingesteld. Deze mogelijkheid is niet beschikbaar.',
-		'not_persona' => 'Alleen Persona systeem kan worden gereset.',
 	),
 	'conf' => array(
 		'error' => 'Er is een fout opgetreden tijdens het opslaan van de configuratie',

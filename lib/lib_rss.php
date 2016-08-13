@@ -391,7 +391,7 @@ function cryptAvailable() {
 
 function is_referer_from_same_domain() {
 	if (empty($_SERVER['HTTP_REFERER'])) {
-		return false;
+		return true;	//Accept empty referer while waiting for good support of meta referrer same-origin policy in browsers
 	}
 	$host = parse_url(((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on') ? 'https://' : 'http://') .
 		(empty($_SERVER['HTTP_HOST']) ? $_SERVER['SERVER_NAME'] : $_SERVER['HTTP_HOST']));
@@ -440,7 +440,6 @@ function check_install_files() {
 		'cache' => CACHE_PATH && is_writable(CACHE_PATH),
 		'users' => USERS_PATH && is_writable(USERS_PATH),
 		'favicons' => is_writable(DATA_PATH . '/favicons'),
-		'persona' => is_writable(DATA_PATH . '/persona'),
 		'tokens' => is_writable(DATA_PATH . '/tokens'),
 	);
 }

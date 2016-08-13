@@ -21,7 +21,6 @@ return array(
 			'success' => 'Bağlantı koptu',
 		),
 		'no_password_set' => 'Yönetici şifresi ayarlanmadı. Bu özellik kullanıma uygun değil.',
-		'not_persona' => 'Sadece Persona sistem sıfırlanabilir.',
 	),
 	'conf' => array(
 		'error' => 'Yapılandırma ayarları kaydedilirken hata oluştu',

@@ -76,7 +76,6 @@ return array(
 			'_' => 'Accountlöschung',
 			'warn' => 'Dein Account und alle damit bezogenen Daten werden gelöscht.',
 		),
-		'email_persona' => 'Anmelde-E-Mail-Adresse<br /><small>(für <a href="https://persona.org/" rel="external">Mozilla Persona</a>)</small>',
 		'password_api' => 'Passwort-API<br /><small>(z. B. für mobile Anwendungen)</small>',
 		'password_form' => 'Passwort<br /><small>(für die Anmeldemethode per Webformular)</small>',
 		'password_format' => 'mindestens 7 Zeichen',

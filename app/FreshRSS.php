@@ -57,7 +57,7 @@ class FreshRSS extends Minz_FrontController {
 
 	private static function initAuth() {
 		FreshRSS_Auth::init();
-		if (Minz_Request::isPost() && !is_referer_from_same_domain()) {
+		if (Minz_Request::isPost() && !(is_referer_from_same_domain() && FreshRSS_Auth::isCsrfOk())) {
 			// Basic protection against XSRF attacks
 			FreshRSS_Auth::removeAccess();
 			$http_referer = empty($_SERVER['HTTP_REFERER']) ? '' : $_SERVER['HTTP_REFERER'];
@@ -99,14 +99,6 @@ class FreshRSS extends Minz_FrontController {
 		Minz_View::appendScript(Minz_Url::display('/scripts/jquery.sticky-kit.min.js?' . @filemtime(PUBLIC_PATH . '/scripts/jquery.sticky-kit.min.js')));
 		Minz_View::appendScript(Minz_Url::display('/scripts/shortcut.js?' . @filemtime(PUBLIC_PATH . '/scripts/shortcut.js')));
 		Minz_View::appendScript(Minz_Url::display('/scripts/main.js?' . @filemtime(PUBLIC_PATH . '/scripts/main.js')));
-
-		if (FreshRSS_Context::$system_conf->auth_type === 'persona') {
-			// TODO move it in a plugin
-			// Needed for login AND logout with Persona.
-			Minz_View::appendScript('https://login.persona.org/include.js');
-			$file_mtime = @filemtime(PUBLIC_PATH . '/scripts/persona.js');
-			Minz_View::appendScript(Minz_Url::display('/scripts/persona.js?' . $file_mtime));
-		}
 	}
 
 	private static function loadNotifications() {
