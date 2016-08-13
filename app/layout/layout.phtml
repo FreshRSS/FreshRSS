@@ -23,7 +23,7 @@
 <?php
 	flush();
 	if (isset($this->callbackBeforeContent)) {
-		call_user_func($this->callbackBeforeContent);
+		call_user_func($this->callbackBeforeContent, $this);
 	}
 ?>
 		<?php echo self::headTitle(); ?>
