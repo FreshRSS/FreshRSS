@@ -1,4 +1,4 @@
-# Changelog
+﻿# Changelog
 
 ## 2016-XX-XX FreshRSS 1.5.x-dev
 
@@ -12,7 +12,7 @@
 		* FreshRSS will automatically migrate MySQL tables to utf8mb4 the first time it is needed.
 * Security
 	* Remove Mozilla Persona login (the service closes on 2016-11-30) [#1052](https://github.com/FreshRSS/FreshRSS/issues/1052)
-	* Use Referrer Policy `<meta name="referrer" content="never" />` for stopping HTTP Referer [#955](https://github.com/FreshRSS/FreshRSS/issues/955)
+	* Use Referrer Policy `<meta name="referrer" content="never" />` for anonymizing HTTP Referer [#955](https://github.com/FreshRSS/FreshRSS/issues/955)
 	* Implement CSRF tokens for POST security [#570](https://github.com/FreshRSS/FreshRSS/issues/570)
 * Bug fixing
 	* Fixed scroll in log view [#1178](https://github.com/FreshRSS/FreshRSS/issues/1178)
@@ -112,7 +112,7 @@
 	* Session cookie bug [#924](https://github.com/FreshRSS/FreshRSS/issues/924)
 	* Better error handling for PubSubHubbub [#939](https://github.com/FreshRSS/FreshRSS/issues/939)
 	* Fix tag search link from articles [#970](https://github.com/FreshRSS/FreshRSS/issues/970)
-	* Fix all quieries deleted when deleting a feed or category [#982](https://github.com/FreshRSS/FreshRSS/pull/982)
+	* Fix all queries deleted when deleting a feed or category [#982](https://github.com/FreshRSS/FreshRSS/pull/982)
 
 
 ## 2015-07-30 FreshRSS 1.1.2-beta
