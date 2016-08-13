@@ -61,9 +61,9 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 				Minz_Error::error(404);
 			}
 
-			$this->view->categories = FreshRSS_Context::$categories;
+			$view->categories = FreshRSS_Context::$categories;
 
-			$this->view->rss_title = FreshRSS_Context::$name . ' | ' . Minz_View::title();
+			$view->rss_title = FreshRSS_Context::$name . ' | ' . Minz_View::title();
 			$title = FreshRSS_Context::$name;
 			if (FreshRSS_Context::$get_unread > 0) {
 				$title = '(' . FreshRSS_Context::$get_unread . ') ' . $title;
