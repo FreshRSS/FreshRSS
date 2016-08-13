@@ -173,7 +173,7 @@ class FreshRSS_Auth {
 			return true;	//Not logged in yet
 		}
 		if ($token === null) {
-			$token = Minz_Request::param('_csrf');
+			$token = Minz_Request::fetchPOST('_csrf');
 		}
 		return $token === $csrf;
 	}
