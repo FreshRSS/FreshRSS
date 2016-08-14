@@ -86,6 +86,9 @@ sudo chown -R :www-data .
 sudo chmod -R g+w ./data/
 ```
 
+# Alternative installation with Docker
+See [the instructions on the Docker repository](https://registry.hub.docker.com/u/marienfressinaud/freshrss/).
+
 # Access control
 It is needed for the multi-user mode to limit access to FreshRSS. You can:
 * use form authentication (need JavaScript and PHP 5.3.7+, works with some PHP 5.3.3+)
