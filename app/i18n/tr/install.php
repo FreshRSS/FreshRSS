@@ -9,13 +9,11 @@ return array(
 		'reinstall' => 'FreshRSS i yeniden yükle',
 	),
 	'auth' => array(
-		'email_persona' => 'Giriş email adresi<br /><small>(<a href="https://persona.org/" rel="external">Mozilla Persona</a> için)</small>',
 		'form' => 'Web formu (geleneksel, JavaScript gerektirir)',
 		'http' => 'HTTP (ileri kullanıcılar için, HTTPS)',
 		'none' => 'Hiçbiri (tehlikeli)',
 		'password_form' => 'Şifre<br /><small>(Tarayıcı girişi için)</small>',
 		'password_format' => 'En az 7 karakter',
-		'persona' => 'Mozilla Persona (modern, JavaScript gerektirir)',
 		'type' => 'Kimlik doğrulama yöntemi',
 	),
 	'bdd' => array(
@@ -77,10 +75,6 @@ return array(
 		'pdo' => array(
 			'nok' => 'PDO veya PDO destekli bir sürücü eksik (pdo_mysql, pdo_sqlite).',
 			'ok' => 'PDO sorunsuz (pdo_mysql, pdo_sqlite).',
-		),
-		'persona' => array(
-			'nok' => '<em>./data/persona</em> klasör yetkisini kontrol edin. HTTP yazma yetkisi olmalı',
-			'ok' => 'Mozilla Persona klasörü yetkileri sorunsuz.',
 		),
 		'php' => array(
 			'nok' => 'PHP versiyonunuz %s fakat FreshRSS için gerekli olan en düşük sürüm %s.',

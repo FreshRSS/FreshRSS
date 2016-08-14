@@ -76,7 +76,6 @@ return array(
 			'_' => 'Account verwijderen',
 			'warn' => 'Uw account en alle gerelateerde gegvens worden verwijderd.',
 		),
-		'email_persona' => 'Log in mail adres<br /><small>(voor <a href="https://persona.org/" rel="external">Mozilla Persona</a>)</small>',
 		'password_api' => 'Wachtwoord API<br /><small>(e.g., voor mobiele apps)</small>',
 		'password_form' => 'Wachtwoord<br /><small>(voor de Web-formulier log in methode)</small>',
 		'password_format' => 'Ten minste 7 tekens',

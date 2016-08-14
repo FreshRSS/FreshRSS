@@ -1,6 +1,5 @@
 <?php
 $mark = FreshRSS_Context::$user_conf->mark_when;
-$mail = Minz_Session::param('mail', false);
 $s = FreshRSS_Context::$user_conf->shortcuts;
 echo htmlspecialchars(json_encode(array(
 	'context' => array(
@@ -16,8 +15,8 @@ echo htmlspecialchars(json_encode(array(
 		'sticky_post' => !!FreshRSS_Context::isStickyPostEnabled(),
 		'html5_notif_timeout' => FreshRSS_Context::$user_conf->html5_notif_timeout,
 		'auth_type' => FreshRSS_Context::$system_conf->auth_type,
-		'current_user_mail' => $mail ? ('"' . $mail . '"') : null,
 		'current_view' => Minz_Request::actionName(),
+		'csrf' => FreshRSS_Auth::csrfToken(),
 	),
 	'shortcuts' => array(
 		'mark_read' => @$s['mark_read'],

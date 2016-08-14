@@ -21,7 +21,6 @@ return array(
 			'success' => 'Sie sind abgemeldet',
 		),
 		'no_password_set' => 'Administrator-Passwort ist nicht gesetzt worden. Dieses Feature ist nicht verfügbar.',
-		'not_persona' => 'Nur das Persona-System kann zurückgesetzt werden.',
 	),
 	'conf' => array(
 		'error' => 'Während der Speicherung der Konfiguration trat ein Fehler auf',

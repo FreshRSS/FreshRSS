@@ -16,7 +16,6 @@ class Minz_ModelPdo {
 	public static $useSharedBd = true;
 	private static $sharedBd = null;
 	private static $sharedPrefix;
-	private static $has_transaction = false;
 	private static $sharedCurrentUser;
 	protected static $sharedDbType;
 
@@ -60,8 +59,8 @@ class Minz_ModelPdo {
 			if ($type === 'mysql') {
 				$string = 'mysql:host=' . $db['host']
 				        . ';dbname=' . $db['base']
-				        . ';charset=utf8';
-				$driver_options[PDO::MYSQL_ATTR_INIT_COMMAND] = 'SET NAMES utf8';
+				        . ';charset=utf8mb4';
+				$driver_options[PDO::MYSQL_ATTR_INIT_COMMAND] = 'SET NAMES utf8mb4';
 				$this->prefix = $db['prefix'] . $currentUser . '_';
 			} elseif ($type === 'sqlite') {
 				$string = 'sqlite:' . join_path(DATA_PATH, 'users', $currentUser, 'db.sqlite');
@@ -96,18 +95,15 @@ class Minz_ModelPdo {
 
 	public function beginTransaction() {
 		$this->bd->beginTransaction();
-		self::$has_transaction = true;
 	}
-	public function hasTransaction() {
-		return self::$has_transaction;
+	public function inTransaction() {
+		return $this->bd->inTransaction();	//requires PHP >= 5.3.3
 	}
 	public function commit() {
 		$this->bd->commit();
-		self::$has_transaction = false;
 	}
 	public function rollBack() {
 		$this->bd->rollBack();
-		self::$has_transaction = false;
 	}
 
 	public static function clean() {

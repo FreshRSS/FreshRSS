@@ -2,11 +2,12 @@
 
 class FreshRSS_EntryDAOSQLite extends FreshRSS_EntryDAO {
 
-	protected function autoAddColumn($errorInfo) {
+	protected function autoUpdateDb($errorInfo) {
 		if (empty($errorInfo[0]) || $errorInfo[0] == '42S22') {	//ER_BAD_FIELD_ERROR
+			//autoAddColumn
 			if ($tableInfo = $this->bd->query("SELECT sql FROM sqlite_master where name='entry'")) {
 				$showCreate = $tableInfo->fetchColumn();
-				Minz_Log::debug('FreshRSS_EntryDAOSQLite::autoAddColumn: ' . $showCreate);
+				Minz_Log::debug('FreshRSS_EntryDAOSQLite::autoUpdateDb: ' . $showCreate);
 				foreach (array('lastSeen', 'hash') as $column) {
 					if (stripos($showCreate, $column) === false) {
 						return $this->addColumn($column);

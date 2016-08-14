@@ -4,6 +4,7 @@
 	<a href="<?php echo _url('index', 'index'); ?>"><?php echo _t('gen.action.back_to_rss_feeds'); ?></a>
 
 	<form method="post" action="<?php echo _url('configure', 'archiving'); ?>">
+		<input type="hidden" name="_csrf" value="<?php echo FreshRSS_Auth::csrfToken(); ?>" />
 		<legend><?php echo _t('conf.archiving'); ?></legend>
 		<p><?php echo _i('help'); ?> <?php echo _t('conf.archiving.help'); ?></p>
 
@@ -55,6 +56,7 @@
 	</form>
 
 	<form method="post" action="<?php echo _url('entry', 'optimize'); ?>">
+		<input type="hidden" name="_csrf" value="<?php echo FreshRSS_Auth::csrfToken(); ?>" />
 		<legend><?php echo _t('conf.archiving.advanced'); ?></legend>
 
 		<div class="form-group">

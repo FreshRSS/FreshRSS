@@ -5,7 +5,6 @@ return array (
 	'old_entries' => 3,
 	'keep_history_default' => 0,
 	'ttl_default' => 3600,
-	'mail_login' => '',
 	'token' => '',
 	'passwordHash' => '',
 	'apiPasswordHash' => '',

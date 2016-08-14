@@ -11,8 +11,17 @@
 <h1>FreshRSS API</h1>
 
 <h2>Google Reader compatible API</h2>
+<dl>
+<dt>Your API address:</dt>
+<dd><?php
+require('../../constants.php');
+require(LIB_PATH . '/lib_rss.php');	//Includes class autoloader
+Minz_Configuration::register('system', DATA_PATH . '/config.php', DATA_PATH . '/config.default.php');
+echo Minz_Url::display('/api/greader.php', 'html', true);
+?></dd>
+</dl>
 <ul>
-<li><a href="greader.php/check%2Fcompatibility" rel="nofollow">Check full server configuration (with <code>%2F</code> support)</a></li>
+<li><a href="greader.php/check%2Fcompatibility" rel="nofollow">Check full server configuration</a></li>
 <li><a href="greader.php/check/compatibility" rel="nofollow">Check partial server configuration (without <code>%2F</code> support)</a></li>
 </ul>
 

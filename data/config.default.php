@@ -40,7 +40,6 @@ return array(
 	# Login method:
 	#	`none` is without password and shows only the default user;
 	#	`form` is a conventional Web login form;
-	#	`persona` is the email-based login by Mozilla;
 	#	`http_auth` is an access controled by the HTTP Web server (e.g. `/FreshRSS/p/i/.htaccess` for Apache)
 	#		if you use `http_auth`, remember to protect only `/FreshRSS/p/i/`,
 	#		and in particular not protect `/FreshRSS/p/api/` if you would like to use the API (different login system).
@@ -66,6 +65,9 @@ return array(
 
 	# Allow or not Web robots (e.g. search engines) in HTML headers.
 	'allow_robots' => false,
+
+	# If true does nothing, if false restricts HTTP Referer via: meta referrer origin
+	'allow_referrer' => false,
 
 	'limits' => array(
 

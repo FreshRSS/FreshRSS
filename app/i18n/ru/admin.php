@@ -8,7 +8,6 @@ return array(
 		'form' => 'На основе веб-формы (традиционный, необходим JavaScript)',
 		'http' => 'HTTP (для продвинутых пользователей - по HTTPS)',
 		'none' => 'Без аутентификации (небезопасный)',
-		'persona' => 'Mozilla Persona (новый, необходим JavaScript)',
 		'title' => 'Аутентификации',
 		'title_reset' => 'Сброс аутентицикации',
 		'token' => 'Токен аутентификации',
@@ -74,10 +73,6 @@ return array(
 		'pdo' => array(
 			'nok' => 'У вас не установлен PDO или один из необходимых драйверов (pdo_mysql, pdo_sqlite).',
 			'ok' => 'У вас установлен PDO и как минимум один из поддерживаемых драйверов (pdo_mysql, pdo_sqlite).',
-		),
-		'persona' => array(
-			'nok' => 'Проверьте права доступа к папке <em>./data/persona</em> . Сервер HTTP должен иметь права на запись в эту папку.',
-			'ok' => 'Права на папку Mozilla Persona в порядке.',
 		),
 		'php' => array(
 			'_' => 'PHP installation',
@@ -169,7 +164,6 @@ return array(
 	'user' => array(
 		'articles_and_size' => '%s статей (%s)',
 		'create' => 'Создать нового пользователя',
-		'email_persona' => 'Адрес электронной почты для входа<br /><small>(for <a href="https://persona.org/" rel="external">Mozilla Persona</a>)</small>',
 		'language' => 'Язык',
 		'number' => 'На данный момент создан %d аккаунт',
 		'numbers' => 'На данный момент аккаунтов создано:  %d',

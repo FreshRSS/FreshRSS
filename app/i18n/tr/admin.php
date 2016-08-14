@@ -8,7 +8,6 @@ return array(
 		'form' => 'Web formu (geleneksel, JavaScript gerektirir)',
 		'http' => 'HTTP (ileri kullanıcılar için, HTTPS)',
 		'none' => 'Hiçbiri (tehlikeli)',
-		'persona' => 'Mozilla Persona (modern, JavaScript gerektirir)',
 		'title' => 'Kimlik doğrulama',
 		'title_reset' => 'Kimlik doğrulama sıfırla',
 		'token' => 'Kimlik doğrulama işareti',
@@ -74,10 +73,6 @@ return array(
 		'pdo' => array(
 			'nok' => 'PDO veya PDO destekli bir sürücü eksik (pdo_mysql, pdo_sqlite).',
 			'ok' => 'PDO sorunsuz (pdo_mysql, pdo_sqlite).',
-		),
-		'persona' => array(
-			'nok' => '<em>./data/persona</em> klasör yetkisini kontrol edin. HTTP yazma yetkisi olmalı',
-			'ok' => 'Mozilla Persona klasörü yetkileri sorunsuz.',
 		),
 		'php' => array(
 			'_' => 'PHP kurulumu',
@@ -169,7 +164,6 @@ return array(
 	'user' => array(
 		'articles_and_size' => '%s makale (%s)',
 		'create' => 'Yeni kullanıcı oluştur',
-		'email_persona' => 'Giriş email adresi<br /><small>(<a href="https://persona.org/" rel="external">Mozilla Persona</a> için)</small>',
 		'language' => 'Dil',
 		'number' => 'Oluşturulmuş %d hesap var',
 		'numbers' => 'Oluşturulmuş %d hesap var',
