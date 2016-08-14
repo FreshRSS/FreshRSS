@@ -15,6 +15,8 @@ if (!function_exists('json_encode')) {
 	}
 }
 
+defined('JSON_UNESCAPED_UNICODE') or define('JSON_UNESCAPED_UNICODE', 256);	//PHP 5.3
+
 if (!function_exists('array_replace_recursive')) {	//PHP 5.2
 	function arr_recurse($array, $array1) {
 		foreach ($array1 as $key => $value) {
