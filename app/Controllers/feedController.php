@@ -341,10 +341,8 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 				$feed_history = FreshRSS_Context::$user_conf->keep_history_default;
 			}
 
-			if (!$simplePiePush) {
-				// We want chronological order and SimplePie uses reverse order.
-				$entries = array_reverse($feed->entries());
-			}
+			// We want chronological order and SimplePie uses reverse order.
+			$entries = array_reverse($feed->entries());
 			if (count($entries) > 0) {
 				$newGuids = array();
 				foreach ($entries as $entry) {
