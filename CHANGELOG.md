@@ -25,6 +25,7 @@
 * API
 	* Add API link in FreshRSS profile settings to ease set-up [#1186](https://github.com/FreshRSS/FreshRSS/pull/1186)
 * Mics.
+	* Work-around for SuperFeeder time-outs during PubSubHubbub registration [#1184](https://github.com/FreshRSS/FreshRSS/pull/1184)
 	* JSHint of JavaScript code and better initialisation [#1196](https://github.com/FreshRSS/FreshRSS/pull/1196)
 	* Updated credits, and images in README [#1201](https://github.com/FreshRSS/FreshRSS/issues/1201)
 
