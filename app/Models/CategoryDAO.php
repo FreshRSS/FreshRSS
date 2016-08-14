@@ -10,7 +10,7 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo implements FreshRSS_Searchable 
 		);
 
 		if ($stm && $stm->execute($values)) {
-			return $this->bd->lastInsertId('"' . parent::prefix . 'category_id_seq"');
+			return $this->bd->lastInsertId('"' . $this->prefix . 'category_id_seq"');
 		} else {
 			$info = $stm == null ? array(2 => 'syntax error') : $stm->errorInfo();
 			Minz_Log::error('SQL error addCategory: ' . $info[2]);
