@@ -4,6 +4,7 @@
 	<a href="<?php echo _url('index', 'index'); ?>"><?php echo _t('gen.action.back_to_rss_feeds'); ?></a>
 
 	<form method="post" action="<?php echo _url('user', 'create'); ?>">
+		<input type="hidden" name="_csrf" value="<?php echo FreshRSS_Auth::csrfToken(); ?>" />
 		<legend><?php echo _t('admin.user.create'); ?></legend>
 
 		<div class="form-group">
@@ -37,14 +38,6 @@
 			</div>
 		</div>
 
-		<div class="form-group">
-			<label class="group-name" for="new_user_email"><?php echo _t('admin.user.email_persona'); ?></label>
-			<?php $mail = FreshRSS_Context::$user_conf->mail_login; ?>
-			<div class="group-controls">
-				<input type="email" id="new_user_email" name="new_user_email" class="extend" autocomplete="off" placeholder="alice@example.net" />
-			</div>
-		</div>
-
 		<div class="form-group form-actions">
 			<div class="group-controls">
 				<button type="submit" class="btn btn-important"><?php echo _t('gen.action.create'); ?></button>
@@ -54,6 +47,7 @@
 	</form>
 
 	<form method="post" action="<?php echo _url('user', 'delete'); ?>">
+		<input type="hidden" name="_csrf" value="<?php echo FreshRSS_Auth::csrfToken(); ?>" />
 		<legend><?php echo _t('admin.user.users'); ?></legend>
 
 		<div class="form-group">

@@ -4,6 +4,7 @@
 	<a href="<?php echo _url('index', 'index'); ?>"><?php echo _t('gen.action.back_to_rss_feeds'); ?></a>
 
 	<form method="post" action="<?php echo _url('importExport', 'import'); ?>" enctype="multipart/form-data">
+		<input type="hidden" name="_csrf" value="<?php echo FreshRSS_Auth::csrfToken(); ?>" />
 		<legend><?php echo _t('sub.import_export.import'); ?></legend>
 		<div class="form-group">
 			<label class="group-name" for="file">
@@ -23,6 +24,7 @@
 
 	<?php if (count($this->feeds) > 0) { ?>
 	<form method="post" action="<?php echo _url('importExport', 'export'); ?>">
+		<input type="hidden" name="_csrf" value="<?php echo FreshRSS_Auth::csrfToken(); ?>" />
 		<legend><?php echo _t('sub.import_export.export'); ?></legend>
 		<div class="form-group">
 			<div class="group-controls">
