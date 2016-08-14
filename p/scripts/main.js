@@ -1013,6 +1013,7 @@ function load_more_posts() {
 
 		$('#load_more').removeClass('loading');
 		load_more = false;
+		$(document.body).trigger('sticky_kit:recalc');
 	});
 }
 
