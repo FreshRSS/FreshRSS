@@ -22,7 +22,7 @@ return array(
 		'css_path' => 'Articles CSS path on original website',
 		'description' => 'Description',
 		'empty' => 'This feed is empty. Please verify that it is still maintained.',
-		'error' => 'This feed has encountered a problem. Please verify that it is always reachable then actualize it.',
+		'error' => 'This feed has encountered a problem. Please verify that it is always reachable then actualise it.',
 		'in_main_stream' => 'Show in main stream',
 		'informations' => 'Information',
 		'keep_history' => 'Minimum number of articles to keep',
@@ -42,12 +42,12 @@ return array(
 	'import_export' => array(
 		'export' => 'Export',
 		'export_opml' => 'Export list of feeds (OPML)',
-		'export_starred' => 'Export your favourites',
+		'export_starred' => 'Export your favorites',
 		'feed_list' => 'List of %s articles',
 		'file_to_import' => 'File to import<br />(OPML, Json or Zip)',
 		'file_to_import_no_zip' => 'File to import<br />(OPML or Json)',
 		'import' => 'Import',
-		'starred_list' => 'List of favourite articles',
+		'starred_list' => 'List of favorite articles',
 		'title' => 'Import / export',
 	),
 	'menu' => array(
