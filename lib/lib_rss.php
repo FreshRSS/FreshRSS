@@ -15,6 +15,8 @@ if (!function_exists('json_encode')) {
 	}
 }
 
+defined('JSON_UNESCAPED_UNICODE') or define('JSON_UNESCAPED_UNICODE', 256);	//PHP 5.3
+
 /**
  * Build a directory path by concatenating a list of directory names.
  *
