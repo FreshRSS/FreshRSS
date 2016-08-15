@@ -993,12 +993,12 @@ function load_more_posts() {
 		box_load_more.children('.flux:last').after($('#stream', data).children('.flux, .day'));
 		$('.pagination').replaceWith($('.pagination', data));
 		if (context.display_order === 'ASC') {
-			$('#nav_menu_read_all > .read_all').attr(
+			$('#nav_menu_read_all .read_all').attr(
 				'formaction', $('#bigMarkAsRead').attr('formaction')
 			);
 		} else {
 			$('#bigMarkAsRead').attr(
-				'formaction', $('#nav_menu_read_all > .read_all').attr('formaction')
+				'formaction', $('#nav_menu_read_all .read_all').attr('formaction')
 			);
 		}
 
