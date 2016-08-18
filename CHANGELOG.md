@@ -8,6 +8,7 @@
 		* Restore compatibility with PHP 5.3.3 [#1208](https://github.com/FreshRSS/FreshRSS/issues/1208)
 	* Restore compatibility with Microsoft Internet Explorer 11 / Edge [#772](https://github.com/FreshRSS/FreshRSS/issues/772)
 * Features
+	* Mark a search as read [#608](https://github.com/FreshRSS/FreshRSS/issues/608)
 	* Support for full Unicode such as emoji 💕 in MySQL with utf8mb4 [#1153](https://github.com/FreshRSS/FreshRSS/issues/1153)
 		* FreshRSS will automatically migrate MySQL tables to utf8mb4 the first time it is needed.
 * Security
