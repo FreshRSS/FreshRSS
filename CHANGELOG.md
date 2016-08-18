@@ -1,6 +1,6 @@
 ﻿# Changelog
 
-## 2016-XX-XX FreshRSS 1.5.x-dev
+## 2016-08-XX FreshRSS 1.5.0-dev
 
 * Compatibility
 	* Require at least MySQL 5.5.3+ [#1153](https://github.com/FreshRSS/FreshRSS/issues/1153)
@@ -24,7 +24,7 @@
 	* Updated to jQuery 3.1.0 and several JavaScript fixes (e.g. drag & drop) [#1197](https://github.com/FreshRSS/FreshRSS/pull/1197)
 * API
 	* Add API link in FreshRSS profile settings to ease set-up [#1186](https://github.com/FreshRSS/FreshRSS/pull/1186)
-* Mics.
+* Misc.
 	* Work-around for SuperFeeder time-outs during PubSubHubbub registration [#1184](https://github.com/FreshRSS/FreshRSS/pull/1184)
 	* JSHint of JavaScript code and better initialisation [#1196](https://github.com/FreshRSS/FreshRSS/pull/1196)
 	* Updated credits, and images in README [#1201](https://github.com/FreshRSS/FreshRSS/issues/1201)
