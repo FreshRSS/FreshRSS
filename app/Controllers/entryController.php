@@ -40,6 +40,17 @@ class FreshRSS_entry_Controller extends Minz_ActionController {
 		$get = Minz_Request::param('get');
 		$next_get = Minz_Request::param('nextGet', $get);
 		$id_max = Minz_Request::param('idMax', 0);
+		FreshRSS_Context::$search = new FreshRSS_Search(Minz_Request::param('search', ''));
+
+		FreshRSS_Context::$state = Minz_Request::param('state', 0);
+		if (FreshRSS_Context::isStateEnabled(FreshRSS_Entry::STATE_FAVORITE)) {
+			FreshRSS_Context::$state = FreshRSS_Entry::STATE_FAVORITE;
+		} elseif (FreshRSS_Context::isStateEnabled(FreshRSS_Entry::STATE_NOT_FAVORITE)) {
+			FreshRSS_Context::$state = FreshRSS_Entry::STATE_NOT_FAVORITE;
+		} else {
+			FreshRSS_Context::$state = 0;
+		}
+
 		$params = array();
 
 		$entryDAO = FreshRSS_Factory::createEntryDao();
@@ -58,16 +69,16 @@ class FreshRSS_entry_Controller extends Minz_ActionController {
 				$get = substr($get, 2);
 				switch($type_get) {
 				case 'c':
-					$entryDAO->markReadCat($get, $id_max);
+					$entryDAO->markReadCat($get, $id_max, FreshRSS_Context::$search, FreshRSS_Context::$state);
 					break;
 				case 'f':
-					$entryDAO->markReadFeed($get, $id_max);
+					$entryDAO->markReadFeed($get, $id_max, FreshRSS_Context::$search, FreshRSS_Context::$state);
 					break;
 				case 's':
-					$entryDAO->markReadEntries($id_max, true);
+					$entryDAO->markReadEntries($id_max, true, 0, FreshRSS_Context::$search);
 					break;
 				case 'a':
-					$entryDAO->markReadEntries($id_max);
+					$entryDAO->markReadEntries($id_max, false, 0, FreshRSS_Context::$search, FreshRSS_Context::$state);
 					break;
 				}
 
