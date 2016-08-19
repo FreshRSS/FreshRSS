@@ -119,7 +119,7 @@ class FreshRSS_EntryDAOSQLite extends FreshRSS_EntryDAO {
 	 * @param integer $priorityMin
 	 * @return integer affected rows
 	 */
-	public function markReadEntries($idMax = 0, $onlyFavorites = false, $priorityMin = 0) {
+	public function markReadEntries($idMax = 0, $onlyFavorites = false, $priorityMin = 0, $filter = null, $state = 0) {
 		if ($idMax == 0) {
 			$idMax = time() . '000000';
 			Minz_Log::debug('Calling markReadEntries(0) is deprecated!');
@@ -132,8 +132,11 @@ class FreshRSS_EntryDAOSQLite extends FreshRSS_EntryDAO {
 			$sql .= ' AND id_feed IN (SELECT f.id FROM `' . $this->prefix . 'feed` f WHERE f.priority > ' . intval($priorityMin) . ')';
 		}
 		$values = array($idMax);
-		$stm = $this->bd->prepare($sql);
-		if (!($stm && $stm->execute($values))) {
+
+		list($searchValues, $search) = $this->sqlListEntriesWhere($filter, $state);
+
+		$stm = $this->bd->prepare($sql . $search);
+		if (!($stm && $stm->execute(array_merge($values, $searchValues)))) {
 			$info = $stm == null ? array(2 => 'syntax error') : $stm->errorInfo();
 			Minz_Log::error('SQL error markReadEntries: ' . $info[2]);
 			return false;
@@ -156,7 +159,7 @@ class FreshRSS_EntryDAOSQLite extends FreshRSS_EntryDAO {
 	 * @param integer $idMax fail safe article ID
 	 * @return integer affected rows
 	 */
-	public function markReadCat($id, $idMax = 0) {
+	public function markReadCat($id, $idMax = 0, $filter = null, $state = 0) {
 		if ($idMax == 0) {
 			$idMax = time() . '000000';
 			Minz_Log::debug('Calling markReadCat(0) is deprecated!');
@@ -166,9 +169,12 @@ class FreshRSS_EntryDAOSQLite extends FreshRSS_EntryDAO {
 			 . 'SET is_read=1 '
 			 . 'WHERE is_read=0 AND id <= ? AND '
 			 . 'id_feed IN (SELECT f.id FROM `' . $this->prefix . 'feed` f WHERE f.category=?)';
-		$values = array($idMax, $id);
-		$stm = $this->bd->prepare($sql);
-		if (!($stm && $stm->execute($values))) {
+		$values = array($id, $idMax);
+
+		list($searchValues, $search) = $this->sqlListEntriesWhere($filter, $state);
+
+		$stm = $this->bd->prepare($sql . $search);
+		if (!($stm && $stm->execute(array_merge($values, $searchValues)))) {
 			$info = $stm == null ? array(2 => 'syntax error') : $stm->errorInfo();
 			Minz_Log::error('SQL error markReadCat: ' . $info[2]);
 			return false;

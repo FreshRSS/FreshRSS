@@ -502,7 +502,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 		return 'CONCAT(' . $s1 . ',' . $s2 . ')';	//MySQL
 	}
 
-	private function sqlListEntriesWhere($filter = null, $state = FreshRSS_Entry::STATE_ALL, $order = 'DESC', $firstId = '', $date_min = 0) {
+	protected function sqlListEntriesWhere($filter = null, $state = FreshRSS_Entry::STATE_ALL, $order = 'DESC', $firstId = '', $date_min = 0) {
 		$search = ' ';
 		$values = array();
 		if ($state & FreshRSS_Entry::STATE_NOT_READ) {
