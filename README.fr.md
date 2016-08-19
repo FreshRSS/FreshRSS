@@ -61,13 +61,16 @@ sudo apt-get install apache2
 sudo a2enmod headers expires rewrite ssl
 # (optionnel) Si vous voulez un serveur de base de données MySQL
 sudo apt-get install mysql-server mysql-client php5-mysql
-# Composants principaux (git est optionnel si vous déployez manuellement les fichiers d’installation)
-sudo apt-get install git php5 php5-curl php5-gmp php5-intl php5-json php5-sqlite
+# Composants principaux (pour Ubuntu <= 15.10)
+sudo apt-get install php5 php5-curl php5-gmp php5-intl php5-json php5-sqlite
+# Composants principaux (pour Ubuntu >= 16.04)
+sudo apt install php libapache2-mod-php php-curl php-gmp php-intl php-sqlite3 php-xml
 # Redémarrage du serveur Web
 sudo service apache2 restart
 
-# Pour FreshRSS lui-même
+# Pour FreshRSS lui-même (git est optionnel si vous déployez manuellement les fichiers d’installation)
 cd /usr/share/
+sudo apt-get install git
 sudo git clone https://github.com/FreshRSS/FreshRSS.git
 # Mettre les droits d’accès pour le serveur Web
 cd FreshRSS
