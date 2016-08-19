@@ -33,13 +33,11 @@ Nous sommes une communauté amicale.
 	* Fonctionne même sur un Raspberry Pi 1 avec des temps de réponse < 1s (testé sur 150 flux, 22k articles)
 * Serveur Web Apache2 (recommandé), ou nginx, lighttpd (non testé sur les autres)
 * PHP 5.3.3+ (PHP 5.4+ recommandé, et PHP 5.5+ pour les performances, et PHP 7+ pour d’encore meilleures performances)
-	* Requis : [PDO_MySQL](http://php.net/pdo-mysql) ou [PDO_SQLite](http://php.net/pdo-sqlite), [cURL](http://php.net/curl), [GMP](http://php.net/gmp) (pour accès API sur plateformes < 64 bits), [IDN](http://php.net/intl.idn) (pour les noms de domaines internationalisés)
-	* Recommandés : [iconv](http://php.net/iconv), [JSON](http://php.net/json), [mbstring](http://php.net/mbstring), [Zip](http://php.net/zip), [zlib](http://php.net/zlib)
-	* Inclus par défaut : [DOM](http://php.net/dom), [XML](http://php.net/xml)…
+	* Requis : [DOM](http://php.net/dom), [XML](http://php.net/xml), [PDO_MySQL](http://php.net/pdo-mysql) ou [PDO_SQLite](http://php.net/pdo-sqlite), [cURL](http://php.net/curl)
+	* Recommandés : [JSON](http://php.net/json), [GMP](http://php.net/gmp) (pour accès API sur plateformes < 64 bits), [IDN](http://php.net/intl.idn) (pour les noms de domaines internationalisés), [mbstring](http://php.net/mbstring) et/ou [iconv](http://php.net/iconv) (pour conversion d’encodages), [Zip](http://php.net/zip) (pour import/export), [zlib](http://php.net/zlib) (pour les flux compressés)
 * MySQL 5.5.3+ (recommandé) ou SQLite 3.7.4+
 * Un navigateur Web récent tel Firefox, Internet Explorer 11 / Edge, Chrome, Opera, Safari.
 	* Fonctionne aussi sur mobile
-* L’entête HTTP `Referer` ne doit pas être désactivé pour pouvoir utiliser le formulaire de connexion
 
 ![Capture d’écran de FreshRSS](./doc/FreshRSS-screenshot.png)
 
@@ -61,10 +59,10 @@ sudo apt-get install apache2
 sudo a2enmod headers expires rewrite ssl
 # (optionnel) Si vous voulez un serveur de base de données MySQL
 sudo apt-get install mysql-server mysql-client php5-mysql
-# Composants principaux (pour Ubuntu <= 15.10)
+# Composants principaux (pour Ubuntu <= 15.10, Debian <= 8 Jessie)
 sudo apt-get install php5 php5-curl php5-gmp php5-intl php5-json php5-sqlite
-# Composants principaux (pour Ubuntu >= 16.04)
-sudo apt install php libapache2-mod-php php-curl php-gmp php-intl php-sqlite3 php-xml
+# Composants principaux (pour Ubuntu >= 16.04, Debian >= 9 Stretch)
+sudo apt install php libapache2-mod-php php-curl php-gmp php-intl php-mbstring php-sqlite3 php-xml php-zip
 # Redémarrage du serveur Web
 sudo service apache2 restart
 

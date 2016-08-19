@@ -33,13 +33,11 @@ We are a friendly community.
 	* It even works on Raspberry Pi 1 with response time under a second (tested with 150 feeds, 22k articles)
 * A web server: Apache2 (recommended), nginx, lighttpd (not tested on others)
 * PHP 5.3.3+ (PHP 5.4+ recommended, and PHP 5.5+ for performance, and PHP 7 for even higher performance)
-	* Required extensions: [PDO_MySQL](http://php.net/pdo-mysql) or [PDO_SQLite](http://php.net/pdo-sqlite), [cURL](http://php.net/curl), [GMP](http://php.net/gmp) (for API access on platforms < 64 bits), [IDN](http://php.net/intl.idn) (for Internationalized Domain Names)
-	* Recommended extensions: [iconv](http://php.net/iconv), [JSON](http://php.net/json), [mbstring](http://php.net/mbstring), [Zip](http://php.net/zip), [zlib](http://php.net/zlib)
-	* Enabled by default: [DOM](http://php.net/dom), [XML](http://php.net/xml)…
+	* Required extensions: [DOM](http://php.net/dom), [XML](http://php.net/xml), [PDO_MySQL](http://php.net/pdo-mysql) or [PDO_SQLite](http://php.net/pdo-sqlite), [cURL](http://php.net/curl)
+	* Recommended extensions: [JSON](http://php.net/json), [GMP](http://php.net/gmp) (for API access on platforms < 64 bits), [IDN](http://php.net/intl.idn) (for Internationalized Domain Names), [mbstring](http://php.net/mbstring) and/or [iconv](http://php.net/iconv) (for charset conversion), [Zip](http://php.net/zip) (for import/export), [zlib](http://php.net/zlib) (for compressed feeds)
 * MySQL 5.5.3+ (recommended) or SQLite 3.7.4+
 * A recent browser like Firefox, Internet Explorer 11 / Edge, Chrome, Opera, Safari.
 	* Works on mobile
-* The browser HTTP `Referer` header must not be disabled when using the form login method
 
 ![FreshRSS screenshot](./doc/FreshRSS-screenshot.png)
 
@@ -61,10 +59,10 @@ sudo apt-get install apache2
 sudo a2enmod headers expires rewrite ssl
 # (Optional) If you want a MySQL database server
 sudo apt-get install mysql-server mysql-client php5-mysql
-# Main components (for Ubuntu <= 15.10)
+# Main components (for Ubuntu <= 15.10, Debian <= 8 Jessie)
 sudo apt-get install php5 php5-curl php5-gmp php5-intl php5-json php5-sqlite
-# Main components (for Ubuntu >= 16.04)
-sudo apt install php libapache2-mod-php php-curl php-gmp php-intl php-sqlite3 php-xml
+# Main components (for Ubuntu >= 16.04, Debian >= 9 Stretch)
+sudo apt install php libapache2-mod-php php-curl php-gmp php-intl php-mbstring php-sqlite3 php-xml php-zip
 # Restart Web server
 sudo service apache2 restart
 
