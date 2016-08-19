@@ -133,7 +133,7 @@ class FreshRSS_EntryDAOSQLite extends FreshRSS_EntryDAO {
 		}
 		$values = array($idMax);
 
-		list($searchValues, $search) = $this->sqlListEntriesWhere($filter, $state);
+		list($searchValues, $search) = $this->sqlListEntriesWhere('', $filter, $state);
 
 		$stm = $this->bd->prepare($sql . $search);
 		if (!($stm && $stm->execute(array_merge($values, $searchValues)))) {
@@ -169,9 +169,9 @@ class FreshRSS_EntryDAOSQLite extends FreshRSS_EntryDAO {
 			 . 'SET is_read=1 '
 			 . 'WHERE is_read=0 AND id <= ? AND '
 			 . 'id_feed IN (SELECT f.id FROM `' . $this->prefix . 'feed` f WHERE f.category=?)';
-		$values = array($id, $idMax);
+		$values = array($idMax, $id);
 
-		list($searchValues, $search) = $this->sqlListEntriesWhere($filter, $state);
+		list($searchValues, $search) = $this->sqlListEntriesWhere('', $filter, $state);
 
 		$stm = $this->bd->prepare($sql . $search);
 		if (!($stm && $stm->execute(array_merge($values, $searchValues)))) {

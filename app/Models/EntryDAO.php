@@ -360,7 +360,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 		}
 		$values = array($idMax);
 
-		list($searchValues, $search) = $this->sqlListEntriesWhere($filter, $state);
+		list($searchValues, $search) = $this->sqlListEntriesWhere('e.', $filter, $state);
 
 		$stm = $this->bd->prepare($sql . $search);
 		if (!($stm && $stm->execute(array_merge($values, $searchValues)))) {
@@ -397,7 +397,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 			 . 'WHERE f.category=? AND e.is_read=0 AND e.id <= ?';
 		$values = array($id, $idMax);
 
-		list($searchValues, $search) = $this->sqlListEntriesWhere($filter, $state);
+		list($searchValues, $search) = $this->sqlListEntriesWhere('e.', $filter, $state);
 
 		$stm = $this->bd->prepare($sql . $search);
 		if (!($stm && $stm->execute(array_merge($values, $searchValues)))) {
@@ -435,7 +435,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 			 . 'WHERE e.id_feed=? AND e.is_read=0 AND e.id <= ?';
 		$values = array($id_feed, $idMax);
 
-		list($searchValues, $search) = $this->sqlListEntriesWhere($filter, $state);
+		list($searchValues, $search) = $this->sqlListEntriesWhere('e.', $filter, $state);
 
 		$stm = $this->bd->prepare($sql . $search);
 		if (!($stm && $stm->execute(array_merge($values, $searchValues)))) {
@@ -502,24 +502,24 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 		return 'CONCAT(' . $s1 . ',' . $s2 . ')';	//MySQL
 	}
 
-	protected function sqlListEntriesWhere($filter = null, $state = FreshRSS_Entry::STATE_ALL, $order = 'DESC', $firstId = '', $date_min = 0) {
+	protected function sqlListEntriesWhere($alias = '', $filter = null, $state = FreshRSS_Entry::STATE_ALL, $order = 'DESC', $firstId = '', $date_min = 0) {
 		$search = ' ';
 		$values = array();
 		if ($state & FreshRSS_Entry::STATE_NOT_READ) {
 			if (!($state & FreshRSS_Entry::STATE_READ)) {
-				$search .= 'AND e.is_read=0 ';
+				$search .= 'AND ' . $alias . 'is_read=0 ';
 			}
 		}
 		elseif ($state & FreshRSS_Entry::STATE_READ) {
-			$search .= 'AND e.is_read=1 ';
+			$search .= 'AND ' . $alias . 'is_read=1 ';
 		}
 		if ($state & FreshRSS_Entry::STATE_FAVORITE) {
 			if (!($state & FreshRSS_Entry::STATE_NOT_FAVORITE)) {
-				$search .= 'AND e.is_favorite=1 ';
+				$search .= 'AND ' . $alias . 'is_favorite=1 ';
 			}
 		}
 		elseif ($state & FreshRSS_Entry::STATE_NOT_FAVORITE) {
-			$search .= 'AND e.is_favorite=0 ';
+			$search .= 'AND ' . $alias . 'is_favorite=0 ';
 		}
 
 		switch ($order) {
@@ -533,51 +533,51 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 			$firstId = $order === 'DESC' ? '9000000000'. '000000' : '0';	//MySQL optimization. TODO: check if this is needed again, after the filtering for old articles has been removed in 0.9-dev
 		}*/
 		if ($firstId !== '') {
-			$search .= 'AND e.id ' . ($order === 'DESC' ? '<=' : '>=') . $firstId . ' ';
+			$search .= 'AND ' . $alias . 'id ' . ($order === 'DESC' ? '<=' : '>=') . $firstId . ' ';
 		}
 		if ($date_min > 0) {
-			$search .= 'AND e.id >= ' . $date_min . '000000 ';
+			$search .= 'AND ' . $alias . 'id >= ' . $date_min . '000000 ';
 		}
 		if ($filter) {
 			if ($filter->getIntitle()) {
-				$search .= 'AND e.title LIKE ? ';
+				$search .= 'AND ' . $alias . 'title LIKE ? ';
 				$values[] = "%{$filter->getIntitle()}%";
 			}
 			if ($filter->getInurl()) {
-				$search .= 'AND CONCAT(e.link, e.guid) LIKE ? ';
+				$search .= 'AND CONCAT(' . $alias . 'link, ' . $alias . 'guid) LIKE ? ';
 				$values[] = "%{$filter->getInurl()}%";
 			}
 			if ($filter->getAuthor()) {
-				$search .= 'AND e.author LIKE ? ';
+				$search .= 'AND ' . $alias . 'author LIKE ? ';
 				$values[] = "%{$filter->getAuthor()}%";
 			}
 			if ($filter->getMinDate()) {
-				$search .= 'AND e.id >= ? ';
+				$search .= 'AND ' . $alias . 'id >= ? ';
 				$values[] = "{$filter->getMinDate()}000000";
 			}
 			if ($filter->getMaxDate()) {
-				$search .= 'AND e.id <= ? ';
+				$search .= 'AND ' . $alias . 'id <= ? ';
 				$values[] = "{$filter->getMaxDate()}000000";
 			}
 			if ($filter->getMinPubdate()) {
-				$search .= 'AND e.date >= ? ';
+				$search .= 'AND ' . $alias . 'date >= ? ';
 				$values[] = $filter->getMinPubdate();
 			}
 			if ($filter->getMaxPubdate()) {
-				$search .= 'AND e.date <= ? ';
+				$search .= 'AND ' . $alias . 'date <= ? ';
 				$values[] = $filter->getMaxPubdate();
 			}
 			if ($filter->getTags()) {
 				$tags = $filter->getTags();
 				foreach ($tags as $tag) {
-					$search .= 'AND e.tags LIKE ? ';
+					$search .= 'AND ' . $alias . 'tags LIKE ? ';
 					$values[] = "%{$tag}%";
 				}
 			}
 			if ($filter->getSearch()) {
 				$search_values = $filter->getSearch();
 				foreach ($search_values as $search_value) {
-					$search .= 'AND ' . $this->sqlconcat('e.title', $this->isCompressed() ? 'UNCOMPRESS(content_bin)' : 'content') . ' LIKE ? ';
+					$search .= 'AND ' . $this->sqlconcat($alias . 'title', $this->isCompressed() ? 'UNCOMPRESS(' . $alias . 'content_bin)' : '' . $alias . 'content') . ' LIKE ? ';
 					$values[] = "%{$search_value}%";
 				}
 			}
@@ -616,7 +616,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 			throw new FreshRSS_EntriesGetter_Exception('Bad type in Entry->listByType: [' . $type . ']!');
 		}
 
-		list($searchValues, $search) = $this->sqlListEntriesWhere($filter, $state, $order, $firstId, $date_min);
+		list($searchValues, $search) = $this->sqlListEntriesWhere('e.', $filter, $state, $order, $firstId, $date_min);
 
 		return array(array_merge($values, $searchValues),
 			'SELECT e.id FROM `' . $this->prefix . 'entry` e '
