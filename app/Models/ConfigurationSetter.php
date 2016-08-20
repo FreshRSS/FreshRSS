@@ -129,12 +129,7 @@ class FreshRSS_ConfigurationSetter {
 
 			// Verify URL and add default value when needed
 			if (isset($value['url'])) {
-				$is_url = (
-					filter_var($value['url'], FILTER_VALIDATE_URL) ||
-					(version_compare(PHP_VERSION, '5.3.3', '<') &&
-						(strpos($value, '-') > 0) &&
-						($value === filter_var($value, FILTER_SANITIZE_URL)))
-				); //PHP bug #51192
+				$is_url = filter_var($value['url'], FILTER_VALIDATE_URL);
 				if (!$is_url) {
 					continue;
 				}

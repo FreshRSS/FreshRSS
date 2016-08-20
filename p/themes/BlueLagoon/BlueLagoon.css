@@ -753,7 +753,7 @@ a.btn {
 	border: 1px solid #CCC;
 	box-shadow: 0px 1px #FFF;
 }
-#panel > .nav_menu > #nav_menu_read_all > .dropdown > .btn.dropdown-toggle{
+#panel > .nav_menu > #nav_menu_read_all .dropdown > .btn.dropdown-toggle {
 	border-radius: 0 4px 4px 0;
 	border:none;
 	border-left: solid 1px #ccc;

@@ -1,6 +1,6 @@
 ﻿# Changelog
 
-## 2016-XX-XX FreshRSS 1.5.x-dev
+## 2016-08-XX FreshRSS 1.5.0-dev
 
 * Compatibility
 	* Require at least MySQL 5.5.3+ [#1153](https://github.com/FreshRSS/FreshRSS/issues/1153)
@@ -8,6 +8,7 @@
 		* Restore compatibility with PHP 5.3.3 [#1208](https://github.com/FreshRSS/FreshRSS/issues/1208)
 	* Restore compatibility with Microsoft Internet Explorer 11 / Edge [#772](https://github.com/FreshRSS/FreshRSS/issues/772)
 * Features
+	* Mark a search as read [#608](https://github.com/FreshRSS/FreshRSS/issues/608)
 	* Support for full Unicode such as emoji 💕 in MySQL with utf8mb4 [#1153](https://github.com/FreshRSS/FreshRSS/issues/1153)
 		* FreshRSS will automatically migrate MySQL tables to utf8mb4 the first time it is needed.
 * Security
@@ -20,10 +21,12 @@
 	* Fixed Apache Etag issue that prevented caching [#1199](https://github.com/FreshRSS/FreshRSS/pull/1199)
 	* Fixed OPML import of categories [#1202](https://github.com/FreshRSS/FreshRSS/issues/1202)
 * UI
+	* Use sticky category column [#1172](https://github.com/FreshRSS/FreshRSS/pull/1172)
 	* Updated to jQuery 3.1.0 and several JavaScript fixes (e.g. drag & drop) [#1197](https://github.com/FreshRSS/FreshRSS/pull/1197)
 * API
 	* Add API link in FreshRSS profile settings to ease set-up [#1186](https://github.com/FreshRSS/FreshRSS/pull/1186)
-* Mics.
+* Misc.
+	* Work-around for SuperFeeder time-outs during PubSubHubbub registration [#1184](https://github.com/FreshRSS/FreshRSS/pull/1184)
 	* JSHint of JavaScript code and better initialisation [#1196](https://github.com/FreshRSS/FreshRSS/pull/1196)
 	* Updated credits, and images in README [#1201](https://github.com/FreshRSS/FreshRSS/issues/1201)
 

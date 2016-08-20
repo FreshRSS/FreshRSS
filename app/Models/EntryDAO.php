@@ -344,7 +344,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 	 * @param integer $priorityMin
 	 * @return integer affected rows
 	 */
-	public function markReadEntries($idMax = 0, $onlyFavorites = false, $priorityMin = 0) {
+	public function markReadEntries($idMax = 0, $onlyFavorites = false, $priorityMin = 0, $filter = null, $state = 0) {
 		if ($idMax == 0) {
 			$idMax = time() . '000000';
 			Minz_Log::debug('Calling markReadEntries(0) is deprecated!');
@@ -359,8 +359,11 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 			$sql .= ' AND f.priority > ' . intval($priorityMin);
 		}
 		$values = array($idMax);
-		$stm = $this->bd->prepare($sql);
-		if (!($stm && $stm->execute($values))) {
+
+		list($searchValues, $search) = $this->sqlListEntriesWhere('e.', $filter, $state);
+
+		$stm = $this->bd->prepare($sql . $search);
+		if (!($stm && $stm->execute(array_merge($values, $searchValues)))) {
 			$info = $stm == null ? array(2 => 'syntax error') : $stm->errorInfo();
 			Minz_Log::error('SQL error markReadEntries: ' . $info[2]);
 			return false;
@@ -383,7 +386,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 	 * @param integer $idMax fail safe article ID
 	 * @return integer affected rows
 	 */
-	public function markReadCat($id, $idMax = 0) {
+	public function markReadCat($id, $idMax = 0, $filter = null, $state = 0) {
 		if ($idMax == 0) {
 			$idMax = time() . '000000';
 			Minz_Log::debug('Calling markReadCat(0) is deprecated!');
@@ -393,8 +396,11 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 			 . 'SET e.is_read=1 '
 			 . 'WHERE f.category=? AND e.is_read=0 AND e.id <= ?';
 		$values = array($id, $idMax);
-		$stm = $this->bd->prepare($sql);
-		if (!($stm && $stm->execute($values))) {
+
+		list($searchValues, $search) = $this->sqlListEntriesWhere('e.', $filter, $state);
+
+		$stm = $this->bd->prepare($sql . $search);
+		if (!($stm && $stm->execute(array_merge($values, $searchValues)))) {
 			$info = $stm == null ? array(2 => 'syntax error') : $stm->errorInfo();
 			Minz_Log::error('SQL error markReadCat: ' . $info[2]);
 			return false;
@@ -417,19 +423,22 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 	 * @param integer $idMax fail safe article ID
 	 * @return integer affected rows
 	 */
-	public function markReadFeed($id_feed, $idMax = 0) {
+	public function markReadFeed($id_feed, $idMax = 0, $filter = null, $state = 0) {
 		if ($idMax == 0) {
 			$idMax = time() . '000000';
 			Minz_Log::debug('Calling markReadFeed(0) is deprecated!');
 		}
 		$this->bd->beginTransaction();
 
-		$sql = 'UPDATE `' . $this->prefix . 'entry` '
-			 . 'SET is_read=1 '
-			 . 'WHERE id_feed=? AND is_read=0 AND id <= ?';
+		$sql = 'UPDATE `' . $this->prefix . 'entry` e '
+			 . 'SET e.is_read=1 '
+			 . 'WHERE e.id_feed=? AND e.is_read=0 AND e.id <= ?';
 		$values = array($id_feed, $idMax);
-		$stm = $this->bd->prepare($sql);
-		if (!($stm && $stm->execute($values))) {
+
+		list($searchValues, $search) = $this->sqlListEntriesWhere('e.', $filter, $state);
+
+		$stm = $this->bd->prepare($sql . $search);
+		if (!($stm && $stm->execute(array_merge($values, $searchValues)))) {
 			$info = $stm == null ? array(2 => 'syntax error') : $stm->errorInfo();
 			Minz_Log::error('SQL error markReadFeed: ' . $info[2]);
 			$this->bd->rollBack();
@@ -493,52 +502,24 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 		return 'CONCAT(' . $s1 . ',' . $s2 . ')';	//MySQL
 	}
 
-	private function sqlListWhere($type = 'a', $id = '', $state = FreshRSS_Entry::STATE_ALL, $order = 'DESC', $limit = 1, $firstId = '', $filter = '', $date_min = 0) {
-		if (!$state) {
-			$state = FreshRSS_Entry::STATE_ALL;
-		}
-		$where = '';
-		$joinFeed = false;
+	protected function sqlListEntriesWhere($alias = '', $filter = null, $state = FreshRSS_Entry::STATE_ALL, $order = 'DESC', $firstId = '', $date_min = 0) {
+		$search = ' ';
 		$values = array();
-		switch ($type) {
-		case 'a':
-			$where .= 'f.priority > 0 ';
-			$joinFeed = true;
-			break;
-		case 's':	//Deprecated: use $state instead
-			$where .= 'e1.is_favorite=1 ';
-			break;
-		case 'c':
-			$where .= 'f.category=? ';
-			$values[] = intval($id);
-			$joinFeed = true;
-			break;
-		case 'f':
-			$where .= 'e1.id_feed=? ';
-			$values[] = intval($id);
-			break;
-		case 'A':
-			$where .= '1 ';
-			break;
-		default:
-			throw new FreshRSS_EntriesGetter_Exception('Bad type in Entry->listByType: [' . $type . ']!');
-		}
-
 		if ($state & FreshRSS_Entry::STATE_NOT_READ) {
 			if (!($state & FreshRSS_Entry::STATE_READ)) {
-				$where .= 'AND e1.is_read=0 ';
+				$search .= 'AND ' . $alias . 'is_read=0 ';
 			}
 		}
 		elseif ($state & FreshRSS_Entry::STATE_READ) {
-			$where .= 'AND e1.is_read=1 ';
+			$search .= 'AND ' . $alias . 'is_read=1 ';
 		}
 		if ($state & FreshRSS_Entry::STATE_FAVORITE) {
 			if (!($state & FreshRSS_Entry::STATE_NOT_FAVORITE)) {
-				$where .= 'AND e1.is_favorite=1 ';
+				$search .= 'AND ' . $alias . 'is_favorite=1 ';
 			}
 		}
 		elseif ($state & FreshRSS_Entry::STATE_NOT_FAVORITE) {
-			$where .= 'AND e1.is_favorite=0 ';
+			$search .= 'AND ' . $alias . 'is_favorite=0 ';
 		}
 
 		switch ($order) {
@@ -552,76 +533,111 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 			$firstId = $order === 'DESC' ? '9000000000'. '000000' : '0';	//MySQL optimization. TODO: check if this is needed again, after the filtering for old articles has been removed in 0.9-dev
 		}*/
 		if ($firstId !== '') {
-			$where .= 'AND e1.id ' . ($order === 'DESC' ? '<=' : '>=') . $firstId . ' ';
+			$search .= 'AND ' . $alias . 'id ' . ($order === 'DESC' ? '<=' : '>=') . $firstId . ' ';
 		}
 		if ($date_min > 0) {
-			$where .= 'AND e1.id >= ' . $date_min . '000000 ';
+			$search .= 'AND ' . $alias . 'id >= ' . $date_min . '000000 ';
 		}
-		$search = '';
 		if ($filter) {
 			if ($filter->getIntitle()) {
-				$search .= 'AND e1.title LIKE ? ';
+				$search .= 'AND ' . $alias . 'title LIKE ? ';
 				$values[] = "%{$filter->getIntitle()}%";
 			}
 			if ($filter->getInurl()) {
-				$search .= 'AND CONCAT(e1.link, e1.guid) LIKE ? ';
+				$search .= 'AND CONCAT(' . $alias . 'link, ' . $alias . 'guid) LIKE ? ';
 				$values[] = "%{$filter->getInurl()}%";
 			}
 			if ($filter->getAuthor()) {
-				$search .= 'AND e1.author LIKE ? ';
+				$search .= 'AND ' . $alias . 'author LIKE ? ';
 				$values[] = "%{$filter->getAuthor()}%";
 			}
 			if ($filter->getMinDate()) {
-				$search .= 'AND e1.id >= ? ';
+				$search .= 'AND ' . $alias . 'id >= ? ';
 				$values[] = "{$filter->getMinDate()}000000";
 			}
 			if ($filter->getMaxDate()) {
-				$search .= 'AND e1.id <= ? ';
+				$search .= 'AND ' . $alias . 'id <= ? ';
 				$values[] = "{$filter->getMaxDate()}000000";
 			}
 			if ($filter->getMinPubdate()) {
-				$search .= 'AND e1.date >= ? ';
+				$search .= 'AND ' . $alias . 'date >= ? ';
 				$values[] = $filter->getMinPubdate();
 			}
 			if ($filter->getMaxPubdate()) {
-				$search .= 'AND e1.date <= ? ';
+				$search .= 'AND ' . $alias . 'date <= ? ';
 				$values[] = $filter->getMaxPubdate();
 			}
 			if ($filter->getTags()) {
 				$tags = $filter->getTags();
 				foreach ($tags as $tag) {
-					$search .= 'AND e1.tags LIKE ? ';
+					$search .= 'AND ' . $alias . 'tags LIKE ? ';
 					$values[] = "%{$tag}%";
 				}
 			}
 			if ($filter->getSearch()) {
 				$search_values = $filter->getSearch();
 				foreach ($search_values as $search_value) {
-					$search .= 'AND ' . $this->sqlconcat('e1.title', $this->isCompressed() ? 'UNCOMPRESS(content_bin)' : 'content') . ' LIKE ? ';
+					$search .= 'AND ' . $this->sqlconcat($alias . 'title', $this->isCompressed() ? 'UNCOMPRESS(' . $alias . 'content_bin)' : '' . $alias . 'content') . ' LIKE ? ';
 					$values[] = "%{$search_value}%";
 				}
 			}
 		}
-		return array($values,
-			'SELECT e1.id FROM `' . $this->prefix . 'entry` e1 '
-			. ($joinFeed ? 'INNER JOIN `' . $this->prefix . 'feed` f ON e1.id_feed=f.id ' : '')
+		return array($values, $search);
+	}
+
+	private function sqlListWhere($type = 'a', $id = '', $state = FreshRSS_Entry::STATE_ALL, $order = 'DESC', $limit = 1, $firstId = '', $filter = '', $date_min = 0) {
+		if (!$state) {
+			$state = FreshRSS_Entry::STATE_ALL;
+		}
+		$where = '';
+		$joinFeed = false;
+		$values = array();
+		switch ($type) {
+		case 'a':
+			$where .= 'f.priority > 0 ';
+			$joinFeed = true;
+			break;
+		case 's':	//Deprecated: use $state instead
+			$where .= 'e.is_favorite=1 ';
+			break;
+		case 'c':
+			$where .= 'f.category=? ';
+			$values[] = intval($id);
+			$joinFeed = true;
+			break;
+		case 'f':
+			$where .= 'e.id_feed=? ';
+			$values[] = intval($id);
+			break;
+		case 'A':
+			$where .= '1 ';
+			break;
+		default:
+			throw new FreshRSS_EntriesGetter_Exception('Bad type in Entry->listByType: [' . $type . ']!');
+		}
+
+		list($searchValues, $search) = $this->sqlListEntriesWhere('e.', $filter, $state, $order, $firstId, $date_min);
+
+		return array(array_merge($values, $searchValues),
+			'SELECT e.id FROM `' . $this->prefix . 'entry` e '
+			. ($joinFeed ? 'INNER JOIN `' . $this->prefix . 'feed` f ON e.id_feed=f.id ' : '')
 			. 'WHERE ' . $where
 			. $search
-			. 'ORDER BY e1.id ' . $order
+			. 'ORDER BY e.id ' . $order
 			. ($limit > 0 ? ' LIMIT ' . $limit : ''));	//TODO: See http://explainextended.com/2009/10/23/mysql-order-by-limit-performance-late-row-lookups/
 	}
 
 	public function listWhere($type = 'a', $id = '', $state = FreshRSS_Entry::STATE_ALL, $order = 'DESC', $limit = 1, $firstId = '', $filter = '', $date_min = 0) {
 		list($values, $sql) = $this->sqlListWhere($type, $id, $state, $order, $limit, $firstId, $filter, $date_min);
 
-		$sql = 'SELECT e.id, e.guid, e.title, e.author, '
+		$sql = 'SELECT e0.id, e0.guid, e0.title, e0.author, '
 		     . ($this->isCompressed() ? 'UNCOMPRESS(content_bin) AS content' : 'content')
-		     . ', e.link, e.date, e.is_read, e.is_favorite, e.id_feed, e.tags '
-		     . 'FROM `' . $this->prefix . 'entry` e '
+		     . ', e0.link, e0.date, e0.is_read, e0.is_favorite, e0.id_feed, e0.tags '
+		     . 'FROM `' . $this->prefix . 'entry` e0 '
 		     . 'INNER JOIN ('
 		     . $sql
-		     . ') e2 ON e2.id=e.id '
-		     . 'ORDER BY e.id ' . $order;
+		     . ') e2 ON e2.id=e0.id '
+		     . 'ORDER BY e0.id ' . $order;
 
 		$stm = $this->bd->prepare($sql);
 		$stm->execute($values);
