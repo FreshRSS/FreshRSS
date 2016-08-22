@@ -60,17 +60,17 @@ class Minz_ModelPdo {
 					$string = 'mysql:host=' . $db['host'] . ';dbname=' . $db['base'] . ';charset=utf8mb4';
 					$driver_options[PDO::MYSQL_ATTR_INIT_COMMAND] = 'SET NAMES utf8mb4';
 					$this->prefix = $db['prefix'] . $currentUser . '_';
-					$this->bd = new MinzPDO($string, $db['user'], $db['password'], $driver_options);
+					$this->bd = new MinzPDOMySql($string, $db['user'], $db['password'], $driver_options);
 					//TODO Consider: $this->bd->exec("SET SESSION sql_mode = 'ANSI_QUOTES';");
 					break;
 				case 'sqlite':
 					$string = 'sqlite:' . join_path(DATA_PATH, 'users', $currentUser, 'db.sqlite');
 					$this->prefix = '';
-					$this->bd = new MinzPDO($string, $db['user'], $db['password'], $driver_options);
+					$this->bd = new MinzPDOMSQLite($string, $db['user'], $db['password'], $driver_options);
 					$this->bd->exec('PRAGMA foreign_keys = ON;');
 					break;
 				case 'pgsql':
-					$string = 'pgsql:host=' . $db['host'] . ';dbname=' . $db['base'] . ';charset=utf8';
+					$string = 'pgsql:host=' . $db['host'] . ';dbname=' . $db['base'];
 					$this->prefix = $db['prefix'] . $currentUser . '_';
 					$this->bd = new MinzPDOPGSQL($string, $db['user'], $db['password'], $driver_options);
 					$this->bd->exec("SET NAMES 'UTF8';");
@@ -125,22 +125,30 @@ class MinzPDO extends PDO {
 
 	public function prepare($statement, $driver_options = array()) {
 		MinzPDO::check($statement);
-		$statement = MinzPDO::compatibility($statement);
+		$statement = $this->compatibility($statement);
 		return parent::prepare($statement, $driver_options);
 	}
 
 	public function exec($statement) {
 		MinzPDO::check($statement);
-		$statement = MinzPDO::compatibility($statement);
+		$statement = $this->compatibility($statement);
 		return parent::exec($statement);
 	}
 
 	public function query($statement) {
 		MinzPDO::check($statement);
-		$statement = MinzPDO::compatibility($statement);
+		$statement = $this->compatibility($statement);
 		return parent::query($statement);
 	}
+}
 
+class MinzPDOMySql extends PDO {
+	public function lastInsertId($name = null) {
+		return parent::lastInsertId();	//We discard the name, only used by PostgreSQL
+	}
+}
+
+class MinzPDOMSQLite extends PDO {
 	public function lastInsertId($name = null) {
 		return parent::lastInsertId();	//We discard the name, only used by PostgreSQL
 	}
@@ -148,10 +156,9 @@ class MinzPDO extends PDO {
 
 class MinzPDOPGSQL extends MinzPDO {
 	protected function compatibility($statement) {
-		return str_replace(array('`', " X'"), array('"', " E'\\x"), $statement);
-	}
-
-	public function lastInsertId($name = null) {
-		return parent::lastInsertId($name);
+		return str_replace(
+			array('`', 'lastUpdate', 'pathEntries', 'httpAuth', 'cache_nbEntries', 'cache_nbUnreads', 'lastSeen'),
+			array('"', '"lastUpdate"', '"pathEntries"', '"httpAuth"', '"cache_nbEntries"', '"cache_nbUnreads"', '"lastSeen"'),
+			$statement);
 	}
 }

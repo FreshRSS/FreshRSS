@@ -200,6 +200,9 @@ function saveStep3() {
 			$_SESSION['bd_prefix'] = substr($_POST['prefix'], 0, 16);
 			$_SESSION['bd_prefix_user'] = $_SESSION['bd_prefix'] . (empty($_SESSION['default_user']) ? '' : ($_SESSION['default_user'] . '_'));
 		}
+		if ($_SESSION['bd_type'] === 'pgsql') {
+			$_SESSION['bd_base'] = strtolower($_SESSION['bd_base']);
+		}
 
 		// We use dirname to remove the /i part
 		$base_url = dirname(Minz_Request::guessBaseUrl());
@@ -234,26 +237,6 @@ function saveStep3() {
 		}
 	}
 	invalidateHttpCache();
-}
-
-function newPdo() {
-	switch ($_SESSION['bd_type']) {
-	case 'mysql':
-		$str = 'mysql:host=' . $_SESSION['bd_host'] . ';dbname=' . $_SESSION['bd_base'];
-		$driver_options = array(
-			PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8mb4',
-		);
-		break;
-	case 'sqlite':
-		$str = 'sqlite:' . join_path(USERS_PATH, $_SESSION['default_user'], 'db.sqlite');
-		$driver_options = array(
-			PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-		);
-		break;
-	default:
-		return false;
-	}
-	return new PDO($str, $_SESSION['bd_user'], $_SESSION['bd_password'], $driver_options);
 }
 
 function deleteInstall() {
@@ -444,11 +427,12 @@ function checkBD() {
 			);
 
 			try {	// on ouvre une connexion juste pour créer la base si elle n'existe pas
-				$str = 'pgsql:host=' . $_SESSION['bd_host'] . ';';
+				$str = 'pgsql:host=' . $_SESSION['bd_host'] . ';dbname=postgres';
 				$c = new PDO($str, $_SESSION['bd_user'], $_SESSION['bd_password'], $driver_options);
 				$sql = sprintf(SQL_CREATE_DB, $_SESSION['bd_base']);
 				$res = $c->query($sql);
 			} catch (PDOException $e) {
+				syslog(LOG_DEBUG, 'pgsql ' . $e->getMessage());
 			}
 
 			// on écrase la précédente connexion en sélectionnant la nouvelle BDD

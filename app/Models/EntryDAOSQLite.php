@@ -2,6 +2,10 @@
 
 class FreshRSS_EntryDAOSQLite extends FreshRSS_EntryDAO {
 
+	public function sqlHexDecode($x) {
+		return $x;
+	}
+
 	protected function autoUpdateDb($errorInfo) {
 		if (empty($errorInfo[0]) || $errorInfo[0] == '42S22') {	//ER_BAD_FIELD_ERROR
 			//autoAddColumn

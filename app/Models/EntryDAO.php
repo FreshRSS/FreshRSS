@@ -10,6 +10,14 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 		return parent::$sharedDbType !== 'sqlite';
 	}
 
+	public function sqlHexDecode($x) {
+		return 'X' . $x;
+	}
+
+	public function sqlHexEncode($x) {
+		return 'hex(' . $x . ')';
+	}
+
 	protected function addColumn($name) {
 		Minz_Log::warning('FreshRSS_EntryDAO::addColumn: ' . $name);
 		$hasTransaction = false;
@@ -106,31 +114,42 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 			$sql = 'INSERT INTO `' . $this->prefix . 'entry` (id, guid, title, author, '
 			     . ($this->isCompressed() ? 'content_bin' : 'content')
 			     . ', link, date, lastSeen, hash, is_read, is_favorite, id_feed, tags) '
-			     . 'VALUES(?, ?, ?, ?, '
-			     . ($this->isCompressed() ? 'COMPRESS(?)' : '?')
-			     . ', ?, ?, ?, '
-			     . ($this->hasNativeHex() ? 'X?' : '?')
-			     . ', ?, ?, ?, ?)';
+			     . 'VALUES(:id, :guid, :title, :author, '
+			     . ($this->isCompressed() ? 'COMPRESS(:content)' : ':content')
+			     . ', :link, :date, :last_seen, '
+			     . $this->sqlHexDecode(':hash')
+			     . ', :is_read, :is_favorite, :id_feed, :tags)';
 			$this->addEntryPrepared = $this->bd->prepare($sql);
 		}
+		$this->addEntryPrepared->bindParam(':id', $valuesTmp['id']);
+		$valuesTmp['guid'] = substr($valuesTmp['guid'], 0, 760);
+		$this->addEntryPrepared->bindParam(':guid', $valuesTmp['guid']);
+		$valuesTmp['title'] = substr($valuesTmp['title'], 0, 255);
+		$this->addEntryPrepared->bindParam(':title', $valuesTmp['title']);
+		$valuesTmp['author'] = substr($valuesTmp['author'], 0, 255);
+		$this->addEntryPrepared->bindParam(':author', $valuesTmp['author']);
+		$this->addEntryPrepared->bindParam(':content', $valuesTmp['content']);
+		$valuesTmp['link'] = substr($valuesTmp['link'], 0, 1023);
+		$this->addEntryPrepared->bindParam(':link', $valuesTmp['link']);
+		$this->addEntryPrepared->bindParam(':date', $valuesTmp['date'], PDO::PARAM_INT);
+		$valuesTmp['lastSeen'] = time();
+		$this->addEntryPrepared->bindParam(':last_seen', $valuesTmp['lastSeen'], PDO::PARAM_INT);
+		$valuesTmp['is_read'] = $valuesTmp['is_read'] ? 1 : 0;
+		$this->addEntryPrepared->bindParam(':is_read', $valuesTmp['is_read'], PDO::PARAM_INT);
+		$valuesTmp['is_favorite'] = $valuesTmp['is_favorite'] ? 1 : 0;
+		$this->addEntryPrepared->bindParam(':is_favorite', $valuesTmp['is_favorite'], PDO::PARAM_INT);
+		$this->addEntryPrepared->bindParam(':id_feed', $valuesTmp['id_feed'], PDO::PARAM_INT);
+		$valuesTmp['tags'] = substr($valuesTmp['tags'], 0, 1023);
+		$this->addEntryPrepared->bindParam(':tags', $valuesTmp['tags']);
 
-		$values = array(
-			$valuesTmp['id'],
-			substr($valuesTmp['guid'], 0, 760),
-			substr($valuesTmp['title'], 0, 255),
-			substr($valuesTmp['author'], 0, 255),
-			$valuesTmp['content'],
-			substr($valuesTmp['link'], 0, 1023),
-			$valuesTmp['date'],
-			time(),
-			$this->hasNativeHex() ? $valuesTmp['hash'] : pack('H*', $valuesTmp['hash']),	// X'09AF' hexadecimal literals do not work with SQLite/PDO	//hex2bin() is PHP5.4+
-			$valuesTmp['is_read'] ? 1 : 0,
-			$valuesTmp['is_favorite'] ? 1 : 0,
-			$valuesTmp['id_feed'],
-			substr($valuesTmp['tags'], 0, 1023),
-		);
+		if ($this->hasNativeHex()) {
+			$this->addEntryPrepared->bindParam(':hash', $valuesTmp['hash']);
+		} else {
+			$valuesTmp['hashBin'] = pack('H*', $valuesTmp['hash']);
+			$this->addEntryPrepared->bindParam(':hash', $valuesTmp['hashBin']);	// X'09AF' hexadecimal literals do not work with SQLite/PDO	//hex2bin() is PHP5.4+
+		}
 
-		if ($this->addEntryPrepared && $this->addEntryPrepared->execute($values)) {
+		if ($this->addEntryPrepared && $this->addEntryPrepared->execute()) {
 			return $this->bd->lastInsertId();
 		} else {
 			$info = $this->addEntryPrepared == null ? array(0 => '', 1 => '', 2 => 'syntax error') : $this->addEntryPrepared->errorInfo();
@@ -156,7 +175,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 			     . 'SET title=?, author=?, '
 			     . ($this->isCompressed() ? 'content_bin=COMPRESS(?)' : 'content=?')
 			     . ', link=?, date=?, lastSeen=?, hash='
-			     . ($this->hasNativeHex() ? 'X?' : '?')
+			     . ($this->hasNativeHex() ? 'X?' : '?')	//TODO PostgreSQL
 			     . ', ' . ($valuesTmp['is_read'] === null ? '' : 'is_read=?, ')
 			     . 'tags=? '
 			     . 'WHERE id_feed=? AND guid=?';
@@ -430,12 +449,12 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 		}
 		$this->bd->beginTransaction();
 
-		$sql = 'UPDATE `' . $this->prefix . 'entry` e '
-			 . 'SET e.is_read=1 '
-			 . 'WHERE e.id_feed=? AND e.is_read=0 AND e.id <= ?';
+		$sql = 'UPDATE `' . $this->prefix . 'entry` '
+			 . 'SET is_read=1 '
+			 . 'WHERE id_feed=? AND is_read=0 AND id <= ?';
 		$values = array($id_feed, $idMax);
 
-		list($searchValues, $search) = $this->sqlListEntriesWhere('e.', $filter, $state);
+		list($searchValues, $search) = $this->sqlListEntriesWhere('', $filter, $state);
 
 		$stm = $this->bd->prepare($sql . $search);
 		if (!($stm && $stm->execute(array_merge($values, $searchValues)))) {
@@ -658,7 +677,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 		if (count($guids) < 1) {
 			return array();
 		}
-		$sql = 'SELECT guid, hex(hash) AS hexHash FROM `' . $this->prefix . 'entry` WHERE id_feed=? AND guid IN (' . str_repeat('?,', count($guids) - 1). '?)';
+		$sql = 'SELECT guid, ' . $this->sqlHexEncode('hash') . ' AS hexHash FROM `' . $this->prefix . 'entry` WHERE id_feed=? AND guid IN (' . str_repeat('?,', count($guids) - 1). '?)';
 		$stm = $this->bd->prepare($sql);
 		$values = array($id_feed);
 		$values = array_merge($values, $guids);
