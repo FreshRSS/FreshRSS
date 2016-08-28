@@ -446,7 +446,7 @@ class FreshRSS_Feed extends Minz_Model {
 				Minz_Log::warning('Invalid JSON for PubSubHubbub: ' . $this->url);
 				return false;
 			}
-			$callbackUrl = checkUrl(FreshRSS_Context::$system_conf->base_url . 'api/pshb.php?k=' . $hubJson['key']);
+			$callbackUrl = checkUrl(Minz_Request::getBaseUrl() . '/api/pshb.php?k=' . $hubJson['key']);
 			if ($callbackUrl == '') {
 				Minz_Log::warning('Invalid callback for PubSubHubbub: ' . $this->url);
 				return false;
