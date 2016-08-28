@@ -241,7 +241,7 @@ class FreshRSS_Feed extends Minz_Model {
 
 				if ((!$mtime) || $feed->error()) {
 					$errorMessage = $feed->error();
-					throw new FreshRSS_Feed_Exception(($errorMessage == '' ? 'Feed error' : $errorMessage) . ' [' . $url . ']');
+					throw new FreshRSS_Feed_Exception(($errorMessage == '' ? 'Unknown error for feed' : $errorMessage) . ' [' . $url . ']');
 				}
 
 				$links = $feed->get_links('self');
