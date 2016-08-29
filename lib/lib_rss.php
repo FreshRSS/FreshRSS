@@ -15,34 +15,7 @@ if (!function_exists('json_encode')) {
 	}
 }
 
-if (!function_exists('array_replace_recursive')) {	//PHP 5.2
-	function arr_recurse($array, $array1) {
-		foreach ($array1 as $key => $value) {
-			if (!isset($array[$key]) || (isset($array[$key]) && !is_array($array[$key]))) {
-				$array[$key] = array();	//create new key in $array, if it is empty or not an array
-			}
-			if (is_array($value)) {
-				$value = arr_recurse($array[$key], $value);	// overwrite the value in the base array
-			}
-			$array[$key] = $value;
-		}
-		return $array;
-	}
-	function array_replace_recursive($array, $array1) {	//http://php.net/manual/function.array-replace-recursive.php#92574
-		// handle the arguments, merge one by one
-		$args = func_get_args();
-		$array = $args[0];
-		if (!is_array($array)) {
-			return $array;
-		}
-		for ($i = 1; $i < count($args); $i++) {
-			if (is_array($args[$i])) {
-				$array = arr_recurse($array, $args[$i]);
-			}
-		}
-		return $array;
-	}
-}
+defined('JSON_UNESCAPED_UNICODE') or define('JSON_UNESCAPED_UNICODE', 256);	//PHP 5.3
 
 /**
  * Build a directory path by concatenating a list of directory names.
@@ -103,9 +76,7 @@ function checkUrl($url) {
 		$url = 'http://' . $url;
 	}
 	$url = idn_to_puny($url);	//PHP bug #53474 IDN
-	if (filter_var($url, FILTER_VALIDATE_URL) ||
-		(version_compare(PHP_VERSION, '5.3.3', '<') && (strpos($url, '-') > 0) &&	//PHP bug #51192
-		 ($url === filter_var($url, FILTER_SANITIZE_URL)))) {
+	if (filter_var($url, FILTER_VALIDATE_URL)) {
 		return $url;
 	} else {
 		return false;
@@ -379,19 +350,17 @@ function httpAuthUser() {
 }
 
 function cryptAvailable() {
-	if (version_compare(PHP_VERSION, '5.3.3', '>=')) {
-		try {
-			$hash = '$2y$04$usesomesillystringfore7hnbRJHxXVLeakoG8K30oukPsA.ztMG';
-			return $hash === @crypt('password', $hash);
-		} catch (Exception $e) {
-		}
+	try {
+		$hash = '$2y$04$usesomesillystringfore7hnbRJHxXVLeakoG8K30oukPsA.ztMG';
+		return $hash === @crypt('password', $hash);
+	} catch (Exception $e) {
 	}
 	return false;
 }
 
 function is_referer_from_same_domain() {
 	if (empty($_SERVER['HTTP_REFERER'])) {
-		return false;
+		return true;	//Accept empty referer while waiting for good support of meta referrer same-origin policy in browsers
 	}
 	$host = parse_url(((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on') ? 'https://' : 'http://') .
 		(empty($_SERVER['HTTP_HOST']) ? $_SERVER['SERVER_NAME'] : $_SERVER['HTTP_HOST']));
@@ -416,7 +385,7 @@ function check_install_php() {
 	$pdo_mysql = extension_loaded('pdo_mysql');
 	$pdo_sqlite = extension_loaded('pdo_sqlite');
 	return array(
-		'php' => version_compare(PHP_VERSION, '5.2.1') >= 0,
+		'php' => version_compare(PHP_VERSION, '5.3.3') >= 0,
 		'minz' => file_exists(LIB_PATH . '/Minz'),
 		'curl' => extension_loaded('curl'),
 		'pdo' => $pdo_mysql || $pdo_sqlite,
@@ -440,7 +409,6 @@ function check_install_files() {
 		'cache' => CACHE_PATH && is_writable(CACHE_PATH),
 		'users' => USERS_PATH && is_writable(USERS_PATH),
 		'favicons' => is_writable(DATA_PATH . '/favicons'),
-		'persona' => is_writable(DATA_PATH . '/persona'),
 		'tokens' => is_writable(DATA_PATH . '/tokens'),
 	);
 }

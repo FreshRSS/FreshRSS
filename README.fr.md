@@ -12,7 +12,7 @@ Il supporte [PubSubHubbub](https://code.google.com/p/pubsubhubbub/) pour des not
 * Démo : http://demo.freshrss.org/
 * Licence : [GNU AGPL 3](http://www.gnu.org/licenses/agpl-3.0.html)
 
-![Logo de FreshRSS](http://marienfressinaud.fr/data/images/freshrss/freshrss_title.png)
+![Logo de FreshRSS](./doc/FreshRSS-logo.png)
 
 # Téléchargement
 Voir la [liste des versions](../../releases).
@@ -21,7 +21,6 @@ Voir la [liste des versions](../../releases).
 **Ce logiciel est en développement permanent !** Veuillez vous assurer d'utiliser la branche qui vous correspond :
 
 * Utilisez [la branche master](https://github.com/FreshRSS/FreshRSS/tree/master/) si vous visez la stabilité.
-* [La branche beta](https://github.com/FreshRSS/FreshRSS/tree/beta) est celle par défaut : les nouveautés y sont ajoutées environ tous les mois.
 * Pour les développeurs et ceux qui veulent aider à tester les toutes dernières fonctionnalités, [la branche dev](https://github.com/FreshRSS/FreshRSS/tree/dev) vous ouvre les bras !
 
 # Avertissements
@@ -33,16 +32,14 @@ Nous sommes une communauté amicale.
 * Serveur modeste, par exemple sous Linux ou Windows
 	* Fonctionne même sur un Raspberry Pi 1 avec des temps de réponse < 1s (testé sur 150 flux, 22k articles)
 * Serveur Web Apache2 (recommandé), ou nginx, lighttpd (non testé sur les autres)
-* PHP 5.3+ (PHP 5.3.7+ recommandé, et PHP 5.5+ pour les performances, et PHP 7+ pour d’encore meilleures performances)
-	* Requis : [PDO_MySQL](http://php.net/pdo-mysql) ou [PDO_SQLite](http://php.net/pdo-sqlite), [cURL](http://php.net/curl), [GMP](http://php.net/gmp) (pour accès API sur plateformes < 64 bits), [IDN](http://php.net/intl.idn) (pour les noms de domaines internationalisés)
-	* Recommandés : [iconv](http://php.net/iconv), [JSON](http://php.net/json), [mbstring](http://php.net/mbstring), [Zip](http://php.net/zip), [zlib](http://php.net/zlib)
-	* Inclus par défaut : [DOM](http://php.net/dom), [XML](http://php.net/xml)…
-* MySQL 5.0.3+ (recommandé) ou SQLite 3.7.4+
-* Un navigateur Web récent tel Firefox, Chrome, Opera, Safari. [Internet Explorer ne fonctionne plus, mais ce sera corrigé](https://github.com/FreshRSS/FreshRSS/issues/772).
+* PHP 5.3.3+ (PHP 5.4+ recommandé, et PHP 5.5+ pour les performances, et PHP 7+ pour d’encore meilleures performances)
+	* Requis : [DOM](http://php.net/dom), [XML](http://php.net/xml), [PDO_MySQL](http://php.net/pdo-mysql) ou [PDO_SQLite](http://php.net/pdo-sqlite), [cURL](http://php.net/curl)
+	* Recommandés : [JSON](http://php.net/json), [GMP](http://php.net/gmp) (pour accès API sur plateformes < 64 bits), [IDN](http://php.net/intl.idn) (pour les noms de domaines internationalisés), [mbstring](http://php.net/mbstring) et/ou [iconv](http://php.net/iconv) (pour conversion d’encodages), [Zip](http://php.net/zip) (pour import/export), [zlib](http://php.net/zlib) (pour les flux compressés)
+* MySQL 5.5.3+ (recommandé) ou SQLite 3.7.4+
+* Un navigateur Web récent tel Firefox, Internet Explorer 11 / Edge, Chrome, Opera, Safari.
 	* Fonctionne aussi sur mobile
-* L’entête HTTP `Referer` ne doit pas être désactivé pour pouvoir utiliser le formulaire de connexion
 
-![Capture d’écran de FreshRSS](http://marienfressinaud.fr/data/images/freshrss/freshrss_default-design.png)
+![Capture d’écran de FreshRSS](./doc/FreshRSS-screenshot.png)
 
 # Installation
 1. Récupérez l’application FreshRSS via la commande git ou [en téléchargeant l’archive](../releases)
@@ -62,13 +59,16 @@ sudo apt-get install apache2
 sudo a2enmod headers expires rewrite ssl
 # (optionnel) Si vous voulez un serveur de base de données MySQL
 sudo apt-get install mysql-server mysql-client php5-mysql
-# Composants principaux (git est optionnel si vous déployez manuellement les fichiers d’installation)
-sudo apt-get install git php5 php5-curl php5-gmp php5-intl php5-json php5-sqlite
+# Composants principaux (pour Ubuntu <= 15.10, Debian <= 8 Jessie)
+sudo apt-get install php5 php5-curl php5-gmp php5-intl php5-json php5-sqlite
+# Composants principaux (pour Ubuntu >= 16.04, Debian >= 9 Stretch)
+sudo apt install php libapache2-mod-php php-curl php-gmp php-intl php-mbstring php-sqlite3 php-xml php-zip
 # Redémarrage du serveur Web
 sudo service apache2 restart
 
-# Pour FreshRSS lui-même
+# Pour FreshRSS lui-même (git est optionnel si vous déployez manuellement les fichiers d’installation)
 cd /usr/share/
+sudo apt-get install git
 sudo git clone https://github.com/FreshRSS/FreshRSS.git
 # Mettre les droits d’accès pour le serveur Web
 cd FreshRSS
@@ -90,7 +90,6 @@ sudo chmod -R g+w ./data/
 # Contrôle d’accès
 Il est requis pour le mode multi-utilisateur, et recommandé dans tous les cas, de limiter l’accès à votre FreshRSS. Au choix :
 * En utilisant l’identification par formulaire (requiert JavaScript, et PHP 5.3.7+ recommandé – fonctionne avec certaines versions de PHP 5.3.3+)
-* En utilisant l’identification par [Mozilla Persona](https://login.persona.org/about) incluse dans FreshRSS
 * En utilisant un contrôle d’accès HTTP défini par votre serveur Web
 	* Voir par exemple la [documentation d’Apache sur l’authentification](http://httpd.apache.org/docs/trunk/howto/auth.html)
 		* Créer dans ce cas un fichier `./p/i/.htaccess` avec un fichier `.htpasswd` correspondant.
@@ -112,7 +111,7 @@ Par exemple, pour exécuter le script toutes les heures :
 * En cas de problème, les logs peuvent être utile à lire, soit depuis l’interface de FreshRSS, soit manuellement depuis `./data/log/*.log`.
 
 # Sauvegarde
-* Il faut conserver vos fichiers `./data/config.php` ainsi que `./data/*_user.php` et éventuellement `./data/persona/`
+* Il faut conserver vos fichiers `./data/config.php` ainsi que `./data/*_user.php`
 * Vous pouvez exporter votre liste de flux depuis FreshRSS au format OPML
 * Pour sauvegarder les articles eux-mêmes, vous pouvez utiliser [phpMyAdmin](http://www.phpmyadmin.net) ou les outils de MySQL :
 
@@ -126,6 +125,9 @@ mysqldump -u utilisateur -p --databases freshrss > freshrss.sql
 * [MINZ](https://github.com/marienfressinaud/MINZ)
 * [php-http-304](http://alexandre.alapetite.fr/doc-alex/php-http-304/)
 * [jQuery](http://jquery.com/)
+* [ArthurHoaro/favicon](https://github.com/ArthurHoaro/favicon)
+* [lib_opml](https://github.com/marienfressinaud/lib_opml)
+* [jQuery Plugin Sticky-Kit](http://leafo.net/sticky-kit/)
 * [keyboard_shortcuts](http://www.openjs.com/scripts/events/keyboard_shortcuts/)
 * [flotr2](http://www.humblesoftware.com/flotr2)
 

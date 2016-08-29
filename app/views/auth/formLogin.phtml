@@ -6,6 +6,7 @@
 	<?php } ?>
 
 	<form id="crypto-form" method="post" action="<?php echo _url('auth', 'login'); ?>">
+		<input type="hidden" name="_csrf" value="<?php echo FreshRSS_Auth::csrfToken(); ?>" />
 		<div>
 			<label for="username"><?php echo _t('gen.auth.username'); ?></label>
 			<input type="text" id="username" name="username" size="16" required="required" maxlength="16" pattern="[0-9a-zA-Z]{1,16}" autofocus="autofocus" />

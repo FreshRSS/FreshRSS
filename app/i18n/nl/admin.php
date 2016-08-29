@@ -8,7 +8,6 @@ return array(
 		'form' => 'Web formulier (traditioneel, benodigd JavaScript)',
 		'http' => 'HTTP (voor geavanceerde gebruikers met HTTPS)',
 		'none' => 'Geen (gevaarlijk)',
-		'persona' => 'Mozilla Persona (modern, benodigd JavaScript)',
 		'title' => 'Authenticatie',
 		'title_reset' => 'Authenticatie terugzetten',
 		'token' => 'Authenticatie teken',
@@ -74,10 +73,6 @@ return array(
 		'pdo' => array(
 			'nok' => 'U mist PDO of een van de ondersteunde drivers (pdo_mysql, pdo_sqlite).',
 			'ok' => 'U hebt PDO en ten minste één van de ondersteunde drivers (pdo_mysql, pdo_sqlite).',
-		),
-		'persona' => array(
-			'nok' => 'Controleer de permissies op de <em>./data/persona</em> map. HTTP server moet rechten hebben om hierin te schrijven',
-			'ok' => 'Permissies op de Mozilla Persona map zijn goed.',
 		),
 		'php' => array(
 			'_' => 'PHP installatie',
@@ -169,7 +164,6 @@ return array(
 	'user' => array(
 		'articles_and_size' => '%s artikelen (%s)',
 		'create' => 'Creëer  nieuwe gebruiker',
-		'email_persona' => 'Log in mail adres<br /><small>(voor <a href="https://persona.org/" rel="external">Mozilla Persona</a>)</small>',
 		'language' => 'Taal',
 		'number' => 'Er is %d accounts gemaakt',
 		'numbers' => 'Er zijn %d accounts gemaakt',

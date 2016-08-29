@@ -1,7 +1,7 @@
 <?php
 	$c = Minz_Request::controllerName();
 	$a = Minz_Request::actionName();
-	$params = Minz_Request::params();
+	$params = Minz_Request::fetchGET();
 ?>
 
 <?php if ($this->nbPage > 1) { ?>

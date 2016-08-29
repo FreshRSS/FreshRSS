@@ -5,6 +5,7 @@ require(LIB_PATH . '/lib_rss.php');	//Includes class autoloader
 define('MAX_PAYLOAD', 3145728);
 
 header('Content-Type: text/plain; charset=UTF-8');
+header('X-Content-Type-Options: nosniff');
 
 function logMe($text) {
 	file_put_contents(USERS_PATH . '/_/log_pshb.txt', date('c') . "\t" . $text . "\n", FILE_APPEND);
@@ -65,11 +66,13 @@ if (!empty($_REQUEST['hub_mode']) && $_REQUEST['hub_mode'] === 'subscribe') {
 		$hubJson['error'] = true;	//Do not assume that PubSubHubbub works until the first successul push
 	}
 	file_put_contents('./!hub.json', json_encode($hubJson));
+	header('Connection: close');
 	exit(isset($_REQUEST['hub_challenge']) ? $_REQUEST['hub_challenge'] : '');
 }
 
 if (!empty($_REQUEST['hub_mode']) && $_REQUEST['hub_mode'] === 'unsubscribe') {
 	if (empty($hubJson['lease_end']) || $hubJson['lease_end'] < time()) {
+		header('Connection: close');
 		exit(isset($_REQUEST['hub_challenge']) ? $_REQUEST['hub_challenge'] : '');
 	} else {
 		header('HTTP/1.1 422 Unprocessable Entity');

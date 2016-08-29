@@ -21,7 +21,6 @@ return array(
 			'success' => 'You are disconnected',
 		),
 		'no_password_set' => 'Administrator password hasn’t been set. This feature isn’t available.',
-		'not_persona' => 'Only Persona system can be reset.',
 	),
 	'conf' => array(
 		'error' => 'An error occurred during configuration saving',

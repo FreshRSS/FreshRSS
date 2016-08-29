@@ -24,8 +24,6 @@ return array(
 		'email' => 'Email adres',
 		'keep_logged_in' => 'Ingelogd blijven voor <small>(1 maand)</small>',
 		'login' => 'Log in',
-		'login_persona' => 'Login met Persona',
-		'login_persona_problem' => 'Connectiviteits problemen met Persona',
 		'logout' => 'Log uit',
 		'password' => array(
 			'_' => 'Wachtwoord',
@@ -42,7 +40,6 @@ return array(
 			'admin' => 'Administrator gebruikersnaam',
 			'format' => '<small>maximaal 16 alphanumerieke tekens</small>',
 		),
-		'will_reset' => 'Het authenticatie system zal worden gereset: een formulier zal worden gebruikt in plaats van Persona.',
 	),
 	'date' => array(
 		'Apr' => '\\A\\p\\r\\i\\l',
