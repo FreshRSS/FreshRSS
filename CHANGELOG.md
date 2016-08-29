@@ -1,6 +1,6 @@
 ﻿# Changelog
 
-## 2016-08-XX FreshRSS 1.5.0-dev
+## 2016-08-29 FreshRSS 1.5.0
 
 * Compatibility
 	* Require at least MySQL 5.5.3+ [#1153](https://github.com/FreshRSS/FreshRSS/issues/1153)
