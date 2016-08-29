@@ -139,7 +139,7 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 	 */
 	public function sharingAction() {
 		if (Minz_Request::isPost()) {
-			$params = Minz_Request::params();
+			$params = Minz_Request::fetchGET();
 			FreshRSS_Context::$user_conf->sharing = $params['share'];
 			FreshRSS_Context::$user_conf->save();
 			invalidateHttpCache();
@@ -282,7 +282,7 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 		foreach (FreshRSS_Context::$user_conf->queries as $key => $query) {
 			$queries[$key] = new FreshRSS_UserQuery($query, $feed_dao, $category_dao);
 		}
-		$params = Minz_Request::params();
+		$params = Minz_Request::fetchGET();
 		$params['url'] = Minz_Url::display(array('params' => $params));
 		$params['name'] = _t('conf.query.number', count($queries) + 1);
 		$queries[] = new FreshRSS_UserQuery($params, $feed_dao, $category_dao);

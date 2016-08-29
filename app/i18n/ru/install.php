@@ -9,13 +9,11 @@ return array(
 		'reinstall' => 'Переустановить FreshRSS',
 	),
 	'auth' => array(
-		'email_persona' => 'Почта (логин) для <br /><small>(for <a href="https://persona.org/" rel="external">Mozilla Persona</a>)</small>',
 		'form' => 'Вэб-форма (традиционный, необходим JavaScript)',
 		'http' => 'HTTP (для продвинутых пользователей с HTTPS)',
 		'none' => 'Никакого (опасно)',
 		'password_form' => 'Пароль<br /><small>(для метода аутентификации на Вэб-формах)</small>',
 		'password_format' => 'Как минимум 7 букв',
-		'persona' => 'Mozilla Persona (современный, необходим JavaScript)',
 		'type' => 'Метод аутентификации',
 	),
 	'bdd' => array(
@@ -73,10 +71,6 @@ return array(
 		'pdo' => array(
 			'nok' => 'У вас не установлен PDO или один из необходимых драйверов (pdo_mysql, pdo_sqlite).',
 			'ok' => 'У вас установлен PDO и как минимум один из поддерживаемых драйверов (pdo_mysql, pdo_sqlite).',
-		),
-		'persona' => array(
-			'nok' => 'Проверьте права доступа к папке <em>./data/persona</em> . Сервер HTTP должен иметь права на запись в эту папку.',
-			'ok' => 'Права на папку Mozilla Persona в порядке.',
 		),
 		'php' => array(
 			'nok' => 'У вас установлен PHP версии %s, но FreshRSS необходима версия не ниже %s.',

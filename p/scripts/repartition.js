@@ -1,4 +1,7 @@
 "use strict";
+/* globals Flotr, numberFormat */
+/* jshint globalstrict: true */
+
 function initStats() {
 	if (!window.Flotr) {
 		if (window.console) {
@@ -19,9 +22,8 @@ function initStats() {
 		{
 			grid: {verticalLines: false},
 			xaxis: {noTicks: 23,
-				tickFormatter: function(x) {
-					var x = parseInt(x);
-					return x + 1;
+				tickFormatter: function(x1) {
+					return 1 + parseInt(x1);
 				},
 				min: -0.9,
 				max: 23.9,
@@ -38,9 +40,8 @@ function initStats() {
 		{
 			grid: {verticalLines: false},
 			xaxis: {noTicks: 6,
-				tickFormatter: function(x) {
-					var x = parseInt(x);
-					return stats.days[x];
+				tickFormatter: function(x2) {
+					return stats.days[parseInt(x2)];
 				},
 				min: -0.9,
 				max: 6.9,
@@ -57,9 +58,8 @@ function initStats() {
 		{
 			grid: {verticalLines: false},
 			xaxis: {noTicks: 12,
-				tickFormatter: function(x) {
-					var x = parseInt(x);
-					return stats.months[(x - 1)];
+				tickFormatter: function(x3) {
+					return stats.months[parseInt(x3) - 1];
 				},
 				min: 0.1,
 				max: 12.9,

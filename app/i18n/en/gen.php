@@ -24,8 +24,6 @@ return array(
 		'email' => 'Email address',
 		'keep_logged_in' => 'Keep me logged in <small>(1 month)</small>',
 		'login' => 'Login',
-		'login_persona' => 'Login with Persona',
-		'login_persona_problem' => 'Connection problem with Persona?',
 		'logout' => 'Logout',
 		'password' => array(
 			'_' => 'Password',
@@ -42,7 +40,6 @@ return array(
 			'admin' => 'Administrator username',
 			'format' => '<small>maximum 16 alphanumeric characters</small>',
 		),
-		'will_reset' => 'Authentication system will be reset: a form will be used instead of Persona.',
 	),
 	'date' => array(
 		'Apr' => '\\A\\p\\r\\i\\l',

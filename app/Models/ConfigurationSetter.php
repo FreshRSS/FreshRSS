@@ -95,11 +95,6 @@ class FreshRSS_ConfigurationSetter {
 		$data['language'] = $value;
 	}
 
-	private function _mail_login(&$data, $value) {
-		$value = filter_var($value, FILTER_VALIDATE_EMAIL);
-		$data['mail_login'] = $value ? $value : '';
-	}
-
 	private function _old_entries(&$data, $value) {
 		$value = intval($value);
 		$data['old_entries'] = $value > 0 ? $value : 3;
@@ -134,12 +129,7 @@ class FreshRSS_ConfigurationSetter {
 
 			// Verify URL and add default value when needed
 			if (isset($value['url'])) {
-				$is_url = (
-					filter_var($value['url'], FILTER_VALIDATE_URL) ||
-					(version_compare(PHP_VERSION, '5.3.3', '<') &&
-						(strpos($value, '-') > 0) &&
-						($value === filter_var($value, FILTER_SANITIZE_URL)))
-				); //PHP bug #51192
+				$is_url = filter_var($value['url'], FILTER_VALIDATE_URL);
 				if (!$is_url) {
 					continue;
 				}
@@ -278,7 +268,7 @@ class FreshRSS_ConfigurationSetter {
 
 	private function _auth_type(&$data, $value) {
 		$value = strtolower($value);
-		if (!in_array($value, array('form', 'http_auth', 'persona', 'none'))) {
+		if (!in_array($value, array('form', 'http_auth', 'none'))) {
 			$value = 'none';
 		}
 		$data['auth_type'] = $value;

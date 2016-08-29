@@ -2,11 +2,12 @@
 
 class FreshRSS_EntryDAOSQLite extends FreshRSS_EntryDAO {
 
-	protected function autoAddColumn($errorInfo) {
+	protected function autoUpdateDb($errorInfo) {
 		if (empty($errorInfo[0]) || $errorInfo[0] == '42S22') {	//ER_BAD_FIELD_ERROR
+			//autoAddColumn
 			if ($tableInfo = $this->bd->query("SELECT sql FROM sqlite_master where name='entry'")) {
 				$showCreate = $tableInfo->fetchColumn();
-				Minz_Log::debug('FreshRSS_EntryDAOSQLite::autoAddColumn: ' . $showCreate);
+				Minz_Log::debug('FreshRSS_EntryDAOSQLite::autoUpdateDb: ' . $showCreate);
 				foreach (array('lastSeen', 'hash') as $column) {
 					if (stripos($showCreate, $column) === false) {
 						return $this->addColumn($column);
@@ -118,7 +119,7 @@ class FreshRSS_EntryDAOSQLite extends FreshRSS_EntryDAO {
 	 * @param integer $priorityMin
 	 * @return integer affected rows
 	 */
-	public function markReadEntries($idMax = 0, $onlyFavorites = false, $priorityMin = 0) {
+	public function markReadEntries($idMax = 0, $onlyFavorites = false, $priorityMin = 0, $filter = null, $state = 0) {
 		if ($idMax == 0) {
 			$idMax = time() . '000000';
 			Minz_Log::debug('Calling markReadEntries(0) is deprecated!');
@@ -131,8 +132,11 @@ class FreshRSS_EntryDAOSQLite extends FreshRSS_EntryDAO {
 			$sql .= ' AND id_feed IN (SELECT f.id FROM `' . $this->prefix . 'feed` f WHERE f.priority > ' . intval($priorityMin) . ')';
 		}
 		$values = array($idMax);
-		$stm = $this->bd->prepare($sql);
-		if (!($stm && $stm->execute($values))) {
+
+		list($searchValues, $search) = $this->sqlListEntriesWhere('', $filter, $state);
+
+		$stm = $this->bd->prepare($sql . $search);
+		if (!($stm && $stm->execute(array_merge($values, $searchValues)))) {
 			$info = $stm == null ? array(2 => 'syntax error') : $stm->errorInfo();
 			Minz_Log::error('SQL error markReadEntries: ' . $info[2]);
 			return false;
@@ -155,7 +159,7 @@ class FreshRSS_EntryDAOSQLite extends FreshRSS_EntryDAO {
 	 * @param integer $idMax fail safe article ID
 	 * @return integer affected rows
 	 */
-	public function markReadCat($id, $idMax = 0) {
+	public function markReadCat($id, $idMax = 0, $filter = null, $state = 0) {
 		if ($idMax == 0) {
 			$idMax = time() . '000000';
 			Minz_Log::debug('Calling markReadCat(0) is deprecated!');
@@ -166,8 +170,11 @@ class FreshRSS_EntryDAOSQLite extends FreshRSS_EntryDAO {
 			 . 'WHERE is_read=0 AND id <= ? AND '
 			 . 'id_feed IN (SELECT f.id FROM `' . $this->prefix . 'feed` f WHERE f.category=?)';
 		$values = array($idMax, $id);
-		$stm = $this->bd->prepare($sql);
-		if (!($stm && $stm->execute($values))) {
+
+		list($searchValues, $search) = $this->sqlListEntriesWhere('', $filter, $state);
+
+		$stm = $this->bd->prepare($sql . $search);
+		if (!($stm && $stm->execute(array_merge($values, $searchValues)))) {
 			$info = $stm == null ? array(2 => 'syntax error') : $stm->errorInfo();
 			Minz_Log::error('SQL error markReadCat: ' . $info[2]);
 			return false;

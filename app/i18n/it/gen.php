@@ -24,8 +24,6 @@ return array(
 		'email' => 'Indirizzo email',
 		'keep_logged_in' => 'Ricorda i dati <small>(1 mese)</small>',
 		'login' => 'Accedi',
-		'login_persona' => 'Accedi con Mozilla Persona',
-		'login_persona_problem' => 'Problemi di connessione con Mozilla Persona?',
 		'logout' => 'Esci',
 		'password' => array(
 			'_' => 'Password',
@@ -42,7 +40,6 @@ return array(
 			'admin' => 'Username amministratore',
 			'format' => '<small>massimo 16 caratteri alfanumerici</small>',
 		),
-		'will_reset' => 'Il sistema di autenticazione verrà resettato: un form verrà usato per Mozilla Persona.',
 	),
 	'date' => array(
 		'Apr' => '\\A\\p\\r\\i\\l\\e',

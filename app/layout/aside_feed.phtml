@@ -19,8 +19,8 @@
 	<a href="<?php echo _url('index', 'about'); ?>"><?php echo _t('index.menu.about'); ?></a>
 	<?php } ?>
 
-	<form id="mark-read-aside" method="post" aria-hidden="true"></form>
-
+	<form id="mark-read-aside" method="post">
+	<input type="hidden" name="_csrf" value="<?php echo FreshRSS_Auth::csrfToken(); ?>" />
 	<ul class="tree">
 		<li class="tree-folder category all<?php echo FreshRSS_Context::isCurrentGet('a') ? ' active' : ''; ?>">
 			<div class="tree-folder-title">
@@ -69,6 +69,7 @@
 			}
 		?>
 	</ul>
+	</form>
 </div>
 
 <script id="feed_config_template" type="text/html">

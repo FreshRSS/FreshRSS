@@ -32,9 +32,9 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 			Minz_Error::error(404);
 		}
 
-		$this->view->callbackBeforeContent = function() {
+		$this->view->callbackBeforeContent = function($view) {
 			try {
-				$entries = $this->listEntriesByContext();
+				$entries = FreshRSS_index_Controller::listEntriesByContext();
 
 				$nb_entries = count($entries);
 				if ($nb_entries > FreshRSS_Context::$number) {
@@ -55,15 +55,15 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 					}
 				}
 
-				$this->view->entries = $entries;
+				$view->entries = $entries;
 			} catch (FreshRSS_EntriesGetter_Exception $e) {
 				Minz_Log::notice($e->getMessage());
 				Minz_Error::error(404);
 			}
 
-			$this->view->categories = FreshRSS_Context::$categories;
+			$view->categories = FreshRSS_Context::$categories;
 
-			$this->view->rss_title = FreshRSS_Context::$name . ' | ' . Minz_View::title();
+			$view->rss_title = FreshRSS_Context::$name . ' | ' . Minz_View::title();
 			$title = FreshRSS_Context::$name;
 			if (FreshRSS_Context::$get_unread > 0) {
 				$title = '(' . FreshRSS_Context::$get_unread . ') ' . $title;
@@ -132,7 +132,7 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 		}
 
 		try {
-			$this->view->entries = $this->listEntriesByContext();
+			$this->view->entries = FreshRSS_index_Controller::listEntriesByContext();
 		} catch (FreshRSS_EntriesGetter_Exception $e) {
 			Minz_Log::notice($e->getMessage());
 			Minz_Error::error(404);
@@ -189,7 +189,7 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 	/**
 	 * This method returns a list of entries based on the Context object.
 	 */
-	private function listEntriesByContext() {
+	public static function listEntriesByContext() {
 		$entryDAO = FreshRSS_Factory::createEntryDao();
 
 		$get = FreshRSS_Context::currentGet(true);

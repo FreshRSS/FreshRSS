@@ -15,6 +15,7 @@
 			<a href="#" class="remove btn btn-attention" data-remove="group-share-##key##"><?php echo _i('close'); ?></a></div>
 			<a target="_blank" class="btn" title="<?php echo _t('conf.sharing.more_information'); ?>" href="##help##"><?php echo _i('help'); ?></a>
 			</div></div>'>
+		<input type="hidden" name="_csrf" value="<?php echo FreshRSS_Auth::csrfToken(); ?>" />
 		<legend><?php echo _t('conf.sharing'); ?></legend>
 		<?php
 			foreach (FreshRSS_Context::$user_conf->sharing as $key => $share_options) {
