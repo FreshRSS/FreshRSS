@@ -5,6 +5,7 @@ require(LIB_PATH . '/lib_rss.php');	//Includes class autoloader
 define('MAX_PAYLOAD', 3145728);
 
 header('Content-Type: text/plain; charset=UTF-8');
+header('X-Content-Type-Options: nosniff');
 
 function logMe($text) {
 	file_put_contents(USERS_PATH . '/_/log_pshb.txt', date('c') . "\t" . $text . "\n", FILE_APPEND);
