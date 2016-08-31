@@ -1,5 +1,8 @@
 ﻿# Changelog
 
+## 2016-XX-XX FreshRSS 1.6.0-dev
+
+
 ## 2016-08-29 FreshRSS 1.5.0
 
 * Compatibility
