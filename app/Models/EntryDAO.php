@@ -28,7 +28,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 					$this->bd->beginTransaction();
 					$hasTransaction = true;
 				}
-				$stm = $this->bd->prepare('ALTER TABLE `' . $this->prefix . 'entry` ADD COLUMN lastSeen INT(11) DEFAULT 0');
+				$stm = $this->bd->prepare('ALTER TABLE `' . $this->prefix . 'entry` ADD COLUMN `lastSeen` INT(11) DEFAULT 0');
 				if ($stm && $stm->execute()) {
 					$stm = $this->bd->prepare('CREATE INDEX entry_lastSeen_index ON `' . $this->prefix . 'entry`(`lastSeen`);');	//"IF NOT EXISTS" does not exist in MySQL 5.7
 					if ($stm && $stm->execute()) {
@@ -113,7 +113,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 		if ($this->addEntryPrepared === null) {
 			$sql = 'INSERT INTO `' . $this->prefix . 'entry` (id, guid, title, author, '
 			     . ($this->isCompressed() ? 'content_bin' : 'content')
-			     . ', link, date, lastSeen, hash, is_read, is_favorite, id_feed, tags) '
+			     . ', link, date, `lastSeen`, hash, is_read, is_favorite, id_feed, tags) '
 			     . 'VALUES(:id, :guid, :title, :author, '
 			     . ($this->isCompressed() ? 'COMPRESS(:content)' : ':content')
 			     . ', :link, :date, :last_seen, '
@@ -174,7 +174,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 			$sql = 'UPDATE `' . $this->prefix . 'entry` '
 			     . 'SET title=?, author=?, '
 			     . ($this->isCompressed() ? 'content_bin=COMPRESS(?)' : 'content=?')
-			     . ', link=?, date=?, lastSeen=?, hash='
+			     . ', link=?, date=?, `lastSeen`=?, hash='
 			     . ($this->hasNativeHex() ? 'X?' : '?')	//TODO PostgreSQL
 			     . ', ' . ($valuesTmp['is_read'] === null ? '' : 'is_read=?, ')
 			     . 'tags=? '
@@ -265,7 +265,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 		 .	'WHERE e.is_read=0 '
 		 .	'GROUP BY e.id_feed'
 		 . ') x ON x.id_feed=f.id '
-		 . 'SET f.cache_nbUnreads=COALESCE(x.nbUnreads, 0) '
+		 . 'SET f.`cache_nbUnreads`=COALESCE(x.nbUnreads, 0) '
 		 . 'WHERE 1';
 		$values = array();
 		if ($feedId !== false) {
@@ -328,7 +328,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 		} else {
 			$sql = 'UPDATE `' . $this->prefix . 'entry` e INNER JOIN `' . $this->prefix . 'feed` f ON e.id_feed=f.id '
 				 . 'SET e.is_read=?,'
-				 . 'f.cache_nbUnreads=f.cache_nbUnreads' . ($is_read ? '-' : '+') . '1 '
+				 . 'f.`cache_nbUnreads`=f.`cache_nbUnreads`' . ($is_read ? '-' : '+') . '1 '
 				 . 'WHERE e.id=? AND e.is_read=?';
 			$values = array($is_read ? 1 : 0, $ids, $is_read ? 0 : 1);
 			$stm = $this->bd->prepare($sql);
@@ -467,7 +467,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 
 		if ($affected > 0) {
 			$sql = 'UPDATE `' . $this->prefix . 'feed` '
-				 . 'SET cache_nbUnreads=cache_nbUnreads-' . $affected
+				 . 'SET `cache_nbUnreads`=`cache_nbUnreads`-' . $affected
 				 . ' WHERE id=?';
 			$values = array($id_feed);
 			$stm = $this->bd->prepare($sql);
@@ -703,7 +703,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 		if (count($guids) < 1) {
 			return 0;
 		}
-		$sql = 'UPDATE `' . $this->prefix . 'entry` SET lastSeen=? WHERE id_feed=? AND guid IN (' . str_repeat('?,', count($guids) - 1). '?)';
+		$sql = 'UPDATE `' . $this->prefix . 'entry` SET `lastSeen`=? WHERE id_feed=? AND guid IN (' . str_repeat('?,', count($guids) - 1). '?)';
 		$stm = $this->bd->prepare($sql);
 		$values = array(time(), $id_feed);
 		$values = array_merge($values, $guids);

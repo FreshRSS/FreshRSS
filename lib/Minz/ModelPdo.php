@@ -156,9 +156,6 @@ class MinzPDOMSQLite extends MinzPDO {
 
 class MinzPDOPGSQL extends MinzPDO {
 	protected function compatibility($statement) {
-		return str_replace(
-			array('`', 'lastUpdate', 'pathEntries', 'httpAuth', 'cache_nbEntries', 'cache_nbUnreads', 'lastSeen'),
-			array('"', '"lastUpdate"', '"pathEntries"', '"httpAuth"', '"cache_nbEntries"', '"cache_nbUnreads"', '"lastSeen"'),
-			$statement);
+		return str_replace('`', '"', $statement);
 	}
 }
