@@ -142,13 +142,13 @@ class MinzPDO extends PDO {
 	}
 }
 
-class MinzPDOMySql extends PDO {
+class MinzPDOMySql extends MinzPDO {
 	public function lastInsertId($name = null) {
 		return parent::lastInsertId();	//We discard the name, only used by PostgreSQL
 	}
 }
 
-class MinzPDOMSQLite extends PDO {
+class MinzPDOMSQLite extends MinzPDO {
 	public function lastInsertId($name = null) {
 		return parent::lastInsertId();	//We discard the name, only used by PostgreSQL
 	}
