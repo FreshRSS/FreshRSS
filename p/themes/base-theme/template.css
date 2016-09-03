@@ -807,6 +807,10 @@ input:checked + .slide-container .properties {
 	display: none;
 }
 
+.download-enclosure {
+	font-size: xx-large;
+	margin-left: .8em;
+}
 
 /*=== MOBILE */
 /*===========*/

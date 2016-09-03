@@ -309,11 +309,11 @@ class FreshRSS_Feed extends Minz_Model {
 					$elinks[$elink] = '1';
 					$mime = strtolower($enclosure->get_type());
 					if (strpos($mime, 'image/') === 0) {
-						$content .= '<br /><img lazyload="" postpone="" src="' . $elink . '" alt="" />';
+						$content .= '<br /><img lazyload="" src="' . $elink . '" alt="" />';
 					} elseif (strpos($mime, 'audio/') === 0) {
-						$content .= '<br /><audio lazyload="" postpone="" preload="none" src="' . $elink . '" controls="controls" />';
+						$content .= '<br /><audio preload="none" src="' . $elink . '" controls="controls"></audio> <a class="download-enclosure" href="' . $elink . '">💾</a>';
 					} elseif (strpos($mime, 'video/') === 0) {
-						$content .= '<br /><video lazyload="" postpone="" preload="none" src="' . $elink . '" controls="controls" />';
+						$content .= '<br /><video preload="none" src="' . $elink . '" controls="controls"></video> <a class="download-enclosure" href="' . $elink . '">💾</a>';
 					} else {
 						unset($elinks[$elink]);
 					}
