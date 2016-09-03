@@ -33,9 +33,9 @@ Nous sommes une communauté amicale.
 	* Fonctionne même sur un Raspberry Pi 1 avec des temps de réponse < 1s (testé sur 150 flux, 22k articles)
 * Serveur Web Apache2 (recommandé), ou nginx, lighttpd (non testé sur les autres)
 * PHP 5.3.3+ (PHP 5.4+ recommandé, et PHP 5.5+ pour les performances, et PHP 7+ pour d’encore meilleures performances)
-	* Requis : [DOM](http://php.net/dom), [XML](http://php.net/xml), [PDO_MySQL](http://php.net/pdo-mysql) ou [PDO_SQLite](http://php.net/pdo-sqlite), [cURL](http://php.net/curl)
+	* Requis : [DOM](http://php.net/dom), [XML](http://php.net/xml), [PDO_MySQL](http://php.net/pdo-mysql) ou [PDO_SQLite](http://php.net/pdo-sqlite) ou [PDO_PGSQL](http://php.net/pdo-pgsql), [cURL](http://php.net/curl)
 	* Recommandés : [JSON](http://php.net/json), [GMP](http://php.net/gmp) (pour accès API sur plateformes < 64 bits), [IDN](http://php.net/intl.idn) (pour les noms de domaines internationalisés), [mbstring](http://php.net/mbstring) et/ou [iconv](http://php.net/iconv) (pour conversion d’encodages), [Zip](http://php.net/zip) (pour import/export), [zlib](http://php.net/zlib) (pour les flux compressés)
-* MySQL 5.5.3+ (recommandé) ou SQLite 3.7.4+
+* MySQL 5.5.3+ (recommandé), ou SQLite 3.7.4+, ou PostgreSQL
 * Un navigateur Web récent tel Firefox, Internet Explorer 11 / Edge, Chrome, Opera, Safari.
 	* Fonctionne aussi sur mobile
 
@@ -56,13 +56,20 @@ Nous sommes une communauté amicale.
 ```sh
 # Si vous utilisez le serveur Web Apache (sinon il faut un autre serveur Web)
 sudo apt-get install apache2
-sudo a2enmod headers expires rewrite ssl
-# (optionnel) Si vous voulez un serveur de base de données MySQL
-sudo apt-get install mysql-server mysql-client php5-mysql
-# Composants principaux (pour Ubuntu <= 15.10, Debian <= 8 Jessie)
+sudo a2enmod headers expires rewrite ssl	#Modules Apache
+
+# Pour Ubuntu <= 15.10, Debian <= 8 Jessie
 sudo apt-get install php5 php5-curl php5-gmp php5-intl php5-json php5-sqlite
-# Composants principaux (pour Ubuntu >= 16.04, Debian >= 9 Stretch)
-sudo apt install php libapache2-mod-php php-curl php-gmp php-intl php-mbstring php-sqlite3 php-xml php-zip
+sudo apt-get install libapache2-mod-php5	#Pour Apache
+sudo apt-get install mysql-server mysql-client php5-mysql	#Base de données MySQL optionnelle
+sudo apt-get install postgresql php5-pgsql	#Base de données PostgreSQL optionnelle
+
+# Pour Ubuntu >= 16.04, Debian >= 9 Stretch
+sudo apt install php php-curl php-gmp php-intl php-mbstring php-sqlite3 php-xml php-zip
+sudo apt install libapache2-mod-php	#Pour Apache
+sudo apt install mysql-server mysql-client php-mysql	#Base de données MySQL optionnelle
+sudo apt install postgresql php-pgsql	#Base de données PostgreSQL optionnelle
+
 # Redémarrage du serveur Web
 sudo service apache2 restart
 
