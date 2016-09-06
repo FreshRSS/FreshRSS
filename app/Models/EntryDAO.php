@@ -11,7 +11,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 	}
 
 	public function sqlHexDecode($x) {
-		return 'X' . $x;
+		return 'unhex(' . $x . ')';
 	}
 
 	public function sqlHexEncode($x) {
