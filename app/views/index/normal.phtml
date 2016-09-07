@@ -66,7 +66,7 @@ if (!empty($this->entries)) {
 
 		?><div class="flux_content">
 			<div class="content <?php echo $content_width; ?>">
-				<h1 class="title"><a target="_blank" href="<?php echo $this->entry->link(); ?>"><?php echo $this->entry->title(); ?></a></h1>
+				<h1 class="title"><a target="_blank" rel="noreferrer" href="<?php echo $this->entry->link(); ?>"><?php echo $this->entry->title(); ?></a></h1>
 				<?php
 					$author = $this->entry->author();
 					echo $author != '' ? '<div class="author">' . _t('gen.short.by_author', $author) . '</div>' : '',
