@@ -2,6 +2,8 @@
 
 ## 2016-XX-XX FreshRSS 1.6.0-dev
 
+* Security
+	* Prevent `<a target="_blank">` attacks with `window.opener` [#1245](https://github.com/FreshRSS/FreshRSS/issues/1245)
 * UI
 	* Download icon 💾 for podcasts [#1236](https://github.com/FreshRSS/FreshRSS/issues/1236)
 
