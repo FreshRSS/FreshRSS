@@ -53,13 +53,17 @@ class Minz_ModelPdo {
 		self::$sharedCurrentUser = $currentUser;
 
 		$driver_options = isset($conf->db['pdo_options']) && is_array($conf->db['pdo_options']) ? $conf->db['pdo_options'] : array();
+		$dbServer = parse_url('db://' . $db['host']);
 
 		try {
 			$type = $db['type'];
 			if ($type === 'mysql') {
-				$string = 'mysql:host=' . $db['host']
+				$string = 'mysql:host=' . $dbServer['host']
 				        . ';dbname=' . $db['base']
 				        . ';charset=utf8mb4';
+				if (!empty($dbServer['port'])) {
+					$string .= ';port=' . $dbServer['port'];
+				}
 				$driver_options[PDO::MYSQL_ATTR_INIT_COMMAND] = 'SET NAMES utf8mb4';
 				$this->prefix = $db['prefix'] . $currentUser . '_';
 			} elseif ($type === 'sqlite') {
