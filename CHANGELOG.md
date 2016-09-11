@@ -3,6 +3,10 @@
 ## 2016-XX-XX FreshRSS 1.6.0-dev
 
 * Features
+	* Better control of number of entries per page or RSS feed [#1249](https://github.com/FreshRSS/FreshRSS/issues/1249)
+		* Since X hours: `https://freshrss.example/i/?a=rss&hours=3`
+		* Explicit number: `https://freshrss.example/i/?a=rss&nb=10`
+		* Limited by `min_posts_per_rss` and `max_posts_per_rss` in user config
 	* Support custom ports `localhost:3306` for database servers [#1241](https://github.com/FreshRSS/FreshRSS/issues/1241)
 * Security
 	* Prevent `<a target="_blank">` attacks with `window.opener` [#1245](https://github.com/FreshRSS/FreshRSS/issues/1245)

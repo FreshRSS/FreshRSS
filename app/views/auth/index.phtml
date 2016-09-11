@@ -60,7 +60,7 @@
 				<input type="text" id="token" name="token" value="<?php echo $token; ?>" placeholder="<?php echo _t('gen.short.blank_to_disable'); ?>"<?php
 					echo FreshRSS_Auth::accessNeedsAction() ? '' : ' disabled="disabled"'; ?> data-leave-validation="<?php echo $token; ?>"/>
 				<?php echo _i('help'); ?> <?php echo _t('admin.auth.token_help'); ?>
-				<kbd><?php echo Minz_Url::display(array('params' => array('output' => 'rss', 'token' => $token)), 'html', true); ?></kbd>
+				<kbd><?php echo Minz_Url::display(array('params' => array('output' => 'rss', 'token' => $token, 'hours' => FreshRSS_Context::$user_conf->since_hours_posts_per_rss)), 'html', true); ?></kbd>
 			</div>
 		</div>
 		<?php } ?>
