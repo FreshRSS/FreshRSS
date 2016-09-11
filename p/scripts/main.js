@@ -752,7 +752,7 @@ function init_stream(divStream) {
 	});
 
 	divStream.on('click', '.flux .content a', function () {
-		$(this).attr('target', '_blank');
+		$(this).attr('target', '_blank').attr('rel', 'noreferrer');
 	});
 
 	if (context.auto_mark_site) {

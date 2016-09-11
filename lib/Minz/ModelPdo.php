@@ -53,15 +53,18 @@ class Minz_ModelPdo {
 		self::$sharedCurrentUser = $currentUser;
 
 		$driver_options = isset($conf->db['pdo_options']) && is_array($conf->db['pdo_options']) ? $conf->db['pdo_options'] : array();
+		$dbServer = parse_url('db://' . $db['host']);
 
 		try {
 			switch ($db['type']) {
 				case 'mysql':
-					$string = 'mysql:host=' . $db['host'] . ';dbname=' . $db['base'] . ';charset=utf8mb4';
+					$string = 'mysql:host=' . $dbServer['host'] . ';dbname=' . $db['base'] . ';charset=utf8mb4';
+					if (!empty($dbServer['port'])) {
+						$string .= ';port=' . $dbServer['port'];
+					}
 					$driver_options[PDO::MYSQL_ATTR_INIT_COMMAND] = 'SET NAMES utf8mb4';
 					$this->prefix = $db['prefix'] . $currentUser . '_';
 					$this->bd = new MinzPDOMySql($string, $db['user'], $db['password'], $driver_options);
-					//TODO Consider: $this->bd->exec("SET SESSION sql_mode = 'ANSI_QUOTES';");
 					break;
 				case 'sqlite':
 					$string = 'sqlite:' . join_path(DATA_PATH, 'users', $currentUser, 'db.sqlite');
@@ -70,7 +73,10 @@ class Minz_ModelPdo {
 					$this->bd->exec('PRAGMA foreign_keys = ON;');
 					break;
 				case 'pgsql':
-					$string = 'pgsql:host=' . $db['host'] . ';dbname=' . $db['base'];
+					$string = 'pgsql:host=' . $dbServer['host'] . ';dbname=' . $db['base'];
+					if (!empty($dbServer['port'])) {
+						$string .= ';port=' . $dbServer['port'];
+					}
 					$this->prefix = $db['prefix'] . $currentUser . '_';
 					$this->bd = new MinzPDOPGSQL($string, $db['user'], $db['password'], $driver_options);
 					$this->bd->exec("SET NAMES 'UTF8';");
