@@ -2,6 +2,8 @@
 
 ## 2016-XX-XX FreshRSS 1.6.0-dev
 
+* Features
+	* Support custom ports `localhost:3306` for database servers [#1241](https://github.com/FreshRSS/FreshRSS/issues/1241)
 * UI
 	* Download icon 💾 for podcasts [#1236](https://github.com/FreshRSS/FreshRSS/issues/1236)
 
