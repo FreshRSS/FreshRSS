@@ -42,6 +42,9 @@
 	} if (isset($this->rss_title)) {
 		$url_rss = $url_base;
 		$url_rss['a'] = 'rss';
+		if (FreshRSS_Context::$user_conf->since_hours_posts_per_rss) {
+			$url_rss['params']['hours'] = FreshRSS_Context::$user_conf->since_hours_posts_per_rss;
+		}
 ?>
 		<link rel="alternate" type="application/rss+xml" title="<?php echo $this->rss_title; ?>" href="<?php echo Minz_Url::display($url_rss); ?>" />
 <?php } if (FreshRSS_Context::$system_conf->allow_robots) { ?>
