@@ -35,6 +35,7 @@ class FreshRSS_Context {
 	public static $first_id = '';
 	public static $next_id = '';
 	public static $id_max = '';
+	public static $sinceHours = 0;
 
 	/**
 	 * Initialize the context.
