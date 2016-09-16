@@ -158,7 +158,7 @@ function authorizationToUser() {
 					Minz_Log::warning('Invalid API user ' . $user . ': configuration cannot be found.');
 					unauthorized();
 				}
-				$system_conf = Minz_Configuration::get('system');
+				global $system_conf;
 				if ($headerAuthX[1] === sha1($system_conf->salt . $user . $conf->apiPasswordHash)) {
 					return $user;
 				} else {
@@ -189,7 +189,7 @@ function clientLogin($email, $pass) {	//http://web.archive.org/web/2013060409104
 
 		if ($conf->apiPasswordHash != '' && password_verify($pass, $conf->apiPasswordHash)) {
 			header('Content-Type: text/plain; charset=UTF-8');
-			$system_conf = Minz_Configuration::get('system');
+			global $system_conf;
 			$auth = $email . '/' . sha1($system_conf->salt . $email . $conf->apiPasswordHash);
 			echo 'SID=', $auth, "\n",
 				'Auth=', $auth, "\n";
@@ -209,7 +209,7 @@ function token($conf) {
 //https://github.com/ericmann/gReader-Library/blob/master/greader.class.php
 	$user = Minz_Session::param('currentUser', '_');
 	//logMe('token('. $user . ")");	//TODO: Implement real token that expires
-	$system_conf = Minz_Configuration::get('system');
+	global $system_conf;
 	$token = str_pad(sha1($system_conf->salt . $user . $conf->apiPasswordHash), 57, 'Z');	//Must have 57 characters
 	echo $token, "\n";
 	exit();
@@ -219,7 +219,7 @@ function checkToken($conf, $token) {
 //http://code.google.com/p/google-reader-api/wiki/ActionToken
 	$user = Minz_Session::param('currentUser', '_');
 	//logMe('checkToken(' . $token . ")");
-	$system_conf = Minz_Configuration::get('system');
+	global $system_conf;
 	if ($token === str_pad(sha1($system_conf->salt . $user . $conf->apiPasswordHash), 57, 'Z')) {
 		return true;
 	}
@@ -261,6 +261,8 @@ function subscriptionList() {
 	$stm->execute();
 	$res = $stm->fetchAll(PDO::FETCH_ASSOC);
 
+	global $system_conf;
+	$salt = $system_conf->salt;
 	$subscriptions = array();
 
 	foreach ($res as $line) {
@@ -277,7 +279,7 @@ function subscriptionList() {
 			//'firstitemmsec' => 0,
 			'url' => $line['url'],
 			'htmlUrl' => $line['website'],
-			//'iconUrl' => '',
+			'iconUrl' => Minz_Url::display('/f.php?' . hash('crc32b', $salt . $line['url']), '', true),
 		);
 	}
 
