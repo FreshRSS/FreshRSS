@@ -287,6 +287,66 @@ function subscriptionList() {
 	exit();
 }
 
+function subscriptionEdit($streamNames, $titles, $action, $add = '', $remove = '') {
+	//https://github.com/mihaip/google-reader-api/blob/master/wiki/ApiSubscriptionEdit.wiki
+	switch ($action) {
+		case 'subscribe':
+		case 'unsubscribe':
+		case 'edit':
+		default:
+			badRequest();
+	}
+	$addCatId = 0;
+	$categoryDAO = null;
+	if ($add != '' || $remove != '') {
+		$categoryDAO = new FreshRSS_CategoryDAO();
+	}
+	if ($add != '' && strpos($add, 'user/-/label/') === 0) {	//user/-/label/Example
+		$c_name = basename($add);
+		$cat = $categoryDAO->searchByName($c_name);
+		$addCatId = $cat == null ? -1 : $cat->id();
+	} else if ($remove != '' && strpos($remove, 'user/-/label/') {
+		$addCatId = 1;	//Default category
+	}
+	$feedDAO = FreshRSS_Factory::createFeedDao();
+	for ($i = count($streamNames) - 1; $i >= 0; $i--) {
+		$streamName = $streamNames[$i];	//feed/http://example.net/sample.xml	;	feed/338
+		if (strpos($streamName, 'feed/') === 0) {
+			$streamName = basename($streamName);
+			$feedId = 0;
+			if (ctype_digit($streamName)) {
+				if ($action === 'subscribe') {
+					continue;
+				}
+				$feedId = $streamName;
+			} else {
+				$feed = $feedDAO->searchByUrl($streamName);
+				$feedId = $feed == null ? -1 : $feed->id();
+			}
+			$title = isset($titles[$i]) ? $titles[$i] : '';
+			switch ($action) {
+				case 'subscribe':
+					if ($feedId <= 0) {
+						//TODO
+					}
+					break;
+				case 'unsubscribe':
+					if ($feedId > 0) {
+						//TODO
+					}
+					break;
+				case 'edit':
+					if ($feedId > 0) {
+						//TODO
+					}
+					break;
+			}
+		}
+	}
+	notImplemented();
+	exit('OK');
+}
+
 function unreadCount() {	//http://blog.martindoms.com/2009/10/16/using-the-google-reader-api-part-2/#unread-count
 	//logMe("unreadCount()");
 	header('Content-Type: application/json; charset=UTF-8');
@@ -523,8 +583,7 @@ function editTag($e_ids, $a, $r) {
 			break;
 	}
 
-	echo 'OK';
-	exit();
+	exit('OK');
 }
 
 function markAllAsRead($streamId, $olderThanId) {
@@ -542,8 +601,7 @@ function markAllAsRead($streamId, $olderThanId) {
 		$entryDAO->markReadEntries($olderThanId, false, -1);
 	}
 
-	echo 'OK';
-	exit();
+	exit('OK');
 }
 
 //logMe('----------------------------------------------------------------');
@@ -625,14 +683,28 @@ elseif ($pathInfos[1] === 'reader' && $pathInfos[2] === 'api' && isset($pathInfo
 			if (isset($pathInfos[5]) && $pathInfos[5] === 'list') {
 				$output = isset($_GET['output']) ? $_GET['output'] : '';
 				if ($output !== 'json') notImplemented();
-				tagList($_GET['output']);
+				tagList($output);
 			}
 			break;
 		case 'subscription':
-			if (isset($pathInfos[5]) && $pathInfos[5] === 'list') {
-				$output = isset($_GET['output']) ? $_GET['output'] : '';
-				if ($output !== 'json') notImplemented();
-				subscriptionList($_GET['output']);
+			if (isset($pathInfos[5])) {
+				switch ($pathInfos[5]) {
+					case 'list':
+						$output = isset($_GET['output']) ? $_GET['output'] : '';
+						if ($output !== 'json') notImplemented();
+						subscriptionList($_GET['output']);
+						break;
+					case 'edit':
+						if (isset($_POST['s']) && isset($_POST['ac'])) {
+							$streamNames = multiplePosts('s');	//StreamId to operate on. The parameter may be repeated to edit multiple subscriptions at once
+							$titles = multiplePosts('t');	//Title to use for the subscription. For the `subscribe` action, if not specified then the feed's current title will be used. Can be used with the `edit` action to rename a subscription
+							$action = $_POST['ac'];	//Action to perform on the given StreamId. Possible values are `subscribe`, `unsubscribe` and `edit`
+							$add = isset($_POST['a']) ? $_POST['a'] : '';	//StreamId to add the subscription to (generally a user label)
+							$remove = isset($_POST['r']) ? $_POST['r'] : '';	//StreamId to remove the subscription from (generally a user label)
+							subscriptionEdit($streamNames, $titles $action, $add, $remove);
+						}
+						break;
+				}
 			}
 			break;
 		case 'unread-count':
