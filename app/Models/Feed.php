@@ -216,7 +216,7 @@ class FreshRSS_Feed extends Minz_Model {
 		$this->nbEntries = intval($value);
 	}
 
-	public function load($loadDetails = false) {
+	public function load($loadDetails = false, $noCache = false) {
 		if ($this->url !== null) {
 			if (CACHE_PATH === false) {
 				throw new Minz_FileNotExistException(
@@ -268,7 +268,7 @@ class FreshRSS_Feed extends Minz_Model {
 					$this->_url($clean_url);
 				}
 
-				if (($mtime === true) || ($mtime > $this->lastUpdate)) {
+				if (($mtime === true) || ($mtime > $this->lastUpdate) || $noCache) {
 					//Minz_Log::debug('FreshRSS no cache ' . $mtime . ' > ' . $this->lastUpdate . ' for ' . $clean_url);
 					$this->loadEntries($feed);	// et on charge les articles du flux
 				} else {
