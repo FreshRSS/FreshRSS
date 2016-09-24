@@ -460,7 +460,7 @@ class FreshRSS_Feed extends Minz_Model {
 				CURLOPT_URL => $this->hubUrl,
 				CURLOPT_FOLLOWLOCATION => true,
 				CURLOPT_RETURNTRANSFER => true,
-				CURLOPT_USERAGENT => _t('gen.freshrss') . '/' . FRESHRSS_VERSION . ' (' . PHP_OS . '; ' . FRESHRSS_WEBSITE . ')',
+				CURLOPT_USERAGENT => 'FreshRSS/' . FRESHRSS_VERSION . ' (' . PHP_OS . '; ' . FRESHRSS_WEBSITE . ')',
 				CURLOPT_POSTFIELDS => 'hub.verify=sync'
 					. '&hub.mode=' . ($state ? 'subscribe' : 'unsubscribe')
 					. '&hub.topic=' . urlencode($this->selfUrl)
