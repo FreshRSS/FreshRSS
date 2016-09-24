@@ -492,6 +492,14 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 		return $updated_feeds;
 	}
 
+	public static function renameFeed($feed_id, $feed_name) {
+		if ($feed_id <= 0 || $feed_name == '') {
+			return false;
+		}
+		$feedDAO = FreshRSS_Factory::createFeedDao();
+		return $feedDAO->updateFeed($feed_id, array('name' => $feed_name));
+	}
+
 	public static function moveFeed($feed_id, $cat_id) {
 		if ($feed_id <= 0) {
 			return false;
@@ -504,9 +512,7 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 			$cat_id = $def_cat->id();
 		}
 		$feedDAO = FreshRSS_Factory::createFeedDao();
-		$feed = $feedDAO->searchById($feed_id);
-		return $feed && ($feed->category() == $cat_id ||
-			$feedDAO->updateFeed($feed_id, array('category' => $cat_id)));
+		return $feedDAO->updateFeed($feed_id, array('category' => $cat_id));
 	}
 
 	/**

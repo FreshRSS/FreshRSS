@@ -325,27 +325,32 @@ function subscriptionEdit($streamNames, $titles, $action, $add = '', $remove = '
 				case 'subscribe':
 					if ($feedId <= 0) {
 						//TODO
+						notImplemented();
 					} else {
 						badRequest();
 					}
 					break;
 				case 'unsubscribe':
-					if ($feedId > 0 && FreshRSS_feed_Controller::deleteFeed($feedId)) {
-						exit('OK');
-					} else {
+					if (!($feedId > 0 && FreshRSS_feed_Controller::deleteFeed($feedId))) {
 						badRequest();
 					}
 					break;
 				case 'edit':
-					if ($feedId > 0 && FreshRSS_feed_Controller::moveFeed($feedId, $addCatId)) {
-						exit('OK');
+					if ($feedId > 0) {
+						if ($addCatId > 0) {
+							FreshRSS_feed_Controller::moveFeed($feedId, $addCatId);
+						}
+						if ($title != '') {
+							FreshRSS_feed_Controller::renameFeed($feedId, $title);
+						}
+					} else {
+						badRequest();
 					}
-					badRequest();
 					break;
 			}
 		}
 	}
-	notImplemented();
+	exit('OK');
 }
 
 function unreadCount() {	//http://blog.martindoms.com/2009/10/16/using-the-google-reader-api-part-2/#unread-count
