@@ -136,19 +136,6 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 		}
 	}
 
-	public function moveFeed($feed_id, $cat_id) {
-		if ($cat_id <= 0) {
-			// If category was not given get the default one.
-			$catDAO = new FreshRSS_CategoryDAO();
-			$catDAO->checkDefault();
-			$def_cat = $catDAO->getDefault();
-			$cat_id = $def_cat->id();
-		}
-		$feed = $this->searchById($feed_id);
-		return $feed && ($feed->category() == $cat_id ||
-			$this->updateFeed($feed_id, array('category' => $cat_id)));
-	}
-
 	public function deleteFeed($id) {
 		$sql = 'DELETE FROM `' . $this->prefix . 'feed` WHERE id=?';
 		$stm = $this->bd->prepare($sql);

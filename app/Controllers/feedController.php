@@ -492,6 +492,23 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 		return $updated_feeds;
 	}
 
+	public static function moveFeed($feed_id, $cat_id) {
+		if ($feed_id <= 0) {
+			return false;
+		}
+		if ($cat_id <= 0) {
+			// If category was not given get the default one.
+			$catDAO = new FreshRSS_CategoryDAO();
+			$catDAO->checkDefault();
+			$def_cat = $catDAO->getDefault();
+			$cat_id = $def_cat->id();
+		}
+		$feedDAO = FreshRSS_Factory::createFeedDao();
+		$feed = $feedDAO->searchById($feed_id);
+		return $feed && ($feed->category() == $cat_id ||
+			$feedDAO->updateFeed($feed_id, array('category' => $cat_id)));
+	}
+
 	/**
 	 * This action changes the category of a feed.
 	 *
@@ -511,15 +528,29 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 
 		$feed_id = Minz_Request::param('f_id');
 		$cat_id = Minz_Request::param('c_id');
-		$feedDAO = FreshRSS_Factory::createFeedDao();
 
-		if ($feedDAO->moveFeed($feed_id, $cat_id)) {
+		if (self::moveFeed($feed_id, $cat_id)) {
 			// TODO: return something useful
 		} else {
 			Minz_Log::warning('Cannot move feed `' . $feed_id . '` ' .
 			                  'in the category `' . $cat_id . '`');
 			Minz_Error::error(404);
 		}
+	}
+
+	public static function deleteFeed($feed_id) {
+		$feedDAO = FreshRSS_Factory::createFeedDao();
+		if ($feedDAO->deleteFeed($feed_id)) {
+			// TODO: Delete old favicon
+
+			// Remove related queries
+			FreshRSS_Context::$user_conf->queries = remove_query_by_get(
+				'f_' . $feed_id, FreshRSS_Context::$user_conf->queries);
+			FreshRSS_Context::$user_conf->save();
+
+			return true;
+		}
+		return false;
 	}
 
 	/**
@@ -540,21 +571,13 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 		if (!$redirect_url) {
 			$redirect_url = array('c' => 'subscription', 'a' => 'index');
 		}
-
 		if (!Minz_Request::isPost()) {
 			Minz_Request::forward($redirect_url, true);
 		}
 
 		$id = Minz_Request::param('id');
-		$feedDAO = FreshRSS_Factory::createFeedDao();
-		if ($feedDAO->deleteFeed($id)) {
-			// TODO: Delete old favicon
 
-			// Remove related queries
-			FreshRSS_Context::$user_conf->queries = remove_query_by_get(
-				'f_' . $id, FreshRSS_Context::$user_conf->queries);
-			FreshRSS_Context::$user_conf->save();
-
+		if (self::deleteFeed($id)) {
 			Minz_Request::good(_t('feedback.sub.feed.deleted'), $redirect_url);
 		} else {
 			Minz_Request::bad(_t('feedback.sub.feed.error'), $redirect_url);

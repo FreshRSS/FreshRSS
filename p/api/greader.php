@@ -153,13 +153,12 @@ function authorizationToUser() {
 		if (count($headerAuthX) === 2) {
 			$user = $headerAuthX[0];
 			if (ctype_alnum($user)) {
-				$conf = get_user_configuration($user);
-				if (is_null($conf)) {
+				FreshRSS_Context::$user_conf = get_user_configuration($user);
+				if (FreshRSS_Context::$user_conf == null) {
 					Minz_Log::warning('Invalid API user ' . $user . ': configuration cannot be found.');
 					unauthorized();
 				}
-				global $system_conf;
-				if ($headerAuthX[1] === sha1($system_conf->salt . $user . $conf->apiPasswordHash)) {
+				if ($headerAuthX[1] === sha1(FreshRSS_Context::$system_conf->salt . $user . FreshRSS_Context::$user_conf->apiPasswordHash)) {
 					return $user;
 				} else {
 					logMe('Invalid API authorisation for user ' . $user . ': ' . $headerAuthX[1]);
@@ -181,16 +180,15 @@ function clientLogin($email, $pass) {	//http://web.archive.org/web/2013060409104
 			include_once(LIB_PATH . '/password_compat.php');
 		}
 
-		$conf = get_user_configuration($email);
-		if (is_null($conf)) {
+		FreshRSS_Context::$user_conf = get_user_configuration($email);
+		if (FreshRSS_Context::$user_conf == null) {
 			Minz_Log::warning('Invalid API user ' . $email . ': configuration cannot be found.');
 			unauthorized();
 		}
 
-		if ($conf->apiPasswordHash != '' && password_verify($pass, $conf->apiPasswordHash)) {
+		if (FreshRSS_Context::$user_conf->apiPasswordHash != '' && password_verify($pass, FreshRSS_Context::$user_conf->apiPasswordHash)) {
 			header('Content-Type: text/plain; charset=UTF-8');
-			global $system_conf;
-			$auth = $email . '/' . sha1($system_conf->salt . $email . $conf->apiPasswordHash);
+			$auth = $email . '/' . sha1(FreshRSS_Context::$system_conf->salt . $email . FreshRSS_Context::$user_conf->apiPasswordHash);
 			echo 'SID=', $auth, "\n",
 				'Auth=', $auth, "\n";
 			exit();
@@ -209,8 +207,7 @@ function token($conf) {
 //https://github.com/ericmann/gReader-Library/blob/master/greader.class.php
 	$user = Minz_Session::param('currentUser', '_');
 	//logMe('token('. $user . ")");	//TODO: Implement real token that expires
-	global $system_conf;
-	$token = str_pad(sha1($system_conf->salt . $user . $conf->apiPasswordHash), 57, 'Z');	//Must have 57 characters
+	$token = str_pad(sha1(FreshRSS_Context::$system_conf->salt . $user . $conf->apiPasswordHash), 57, 'Z');	//Must have 57 characters
 	echo $token, "\n";
 	exit();
 }
@@ -219,8 +216,7 @@ function checkToken($conf, $token) {
 //http://code.google.com/p/google-reader-api/wiki/ActionToken
 	$user = Minz_Session::param('currentUser', '_');
 	//logMe('checkToken(' . $token . ")");
-	global $system_conf;
-	if ($token === str_pad(sha1($system_conf->salt . $user . $conf->apiPasswordHash), 57, 'Z')) {
+	if ($token === str_pad(sha1(FreshRSS_Context::$system_conf->salt . $user . $conf->apiPasswordHash), 57, 'Z')) {
 		return true;
 	}
 	unauthorized();
@@ -261,8 +257,7 @@ function subscriptionList() {
 	$stm->execute();
 	$res = $stm->fetchAll(PDO::FETCH_ASSOC);
 
-	global $system_conf;
-	$salt = $system_conf->salt;
+	$salt = FreshRSS_Context::$system_conf->salt;
 	$subscriptions = array();
 
 	foreach ($res as $line) {
@@ -296,7 +291,6 @@ function subscriptionEdit($streamNames, $titles, $action, $add = '', $remove = '
 		case 'edit':
 			break;
 		default:
-			logMe("Bad action: $action");
 			badRequest();
 	}
 	$addCatId = 0;
@@ -336,14 +330,14 @@ function subscriptionEdit($streamNames, $titles, $action, $add = '', $remove = '
 					}
 					break;
 				case 'unsubscribe':
-					if ($feedId > 0) {
-						//TODO
+					if ($feedId > 0 && FreshRSS_feed_Controller::deleteFeed($feedId)) {
+						exit('OK');
 					} else {
 						badRequest();
 					}
 					break;
 				case 'edit':
-					if ($feedId > 0 && $feedDAO->moveFeed($feedId, $addCatId)) {
+					if ($feedId > 0 && FreshRSS_feed_Controller::moveFeed($feedId, $addCatId)) {
 						exit('OK');
 					}
 					badRequest();
@@ -620,17 +614,17 @@ $pathInfos = explode('/', $pathInfo);
 Minz_Configuration::register('system',
                              DATA_PATH . '/config.php',
                              DATA_PATH . '/config.default.php');
-$system_conf = Minz_Configuration::get('system');
-if (!$system_conf->api_enabled) {
+FreshRSS_Context::$system_conf = Minz_Configuration::get('system');
+if (!FreshRSS_Context::$system_conf->api_enabled) {
 	serviceUnavailable();
 }
 
 Minz_Session::init('FreshRSS');
 
 $user = authorizationToUser();
-$conf = null;
+FreshRSS_Context::$user_conf = null;
 if ($user !== '') {
-	$conf = get_user_configuration($user);
+	FreshRSS_Context::$user_conf = get_user_configuration($user);
 }
 
 //logMe('User => ' . $user);
@@ -722,7 +716,7 @@ elseif ($pathInfos[1] === 'reader' && $pathInfos[2] === 'api' && isset($pathInfo
 			break;
 		case 'edit-tag':	//http://blog.martindoms.com/2010/01/20/using-the-google-reader-api-part-3/
 			$token = isset($_POST['T']) ? trim($_POST['T']) : '';
-			checkToken($conf, $token);
+			checkToken(FreshRSS_Context::$user_conf, $token);
 			$a = isset($_POST['a']) ? $_POST['a'] : '';	//Add:	user/-/state/com.google/read	user/-/state/com.google/starred
 			$r = isset($_POST['r']) ? $_POST['r'] : '';	//Remove:	user/-/state/com.google/read	user/-/state/com.google/starred
 			$e_ids = multiplePosts('i');	//item IDs
@@ -730,7 +724,7 @@ elseif ($pathInfos[1] === 'reader' && $pathInfos[2] === 'api' && isset($pathInfo
 			break;
 		case 'mark-all-as-read':
 			$token = isset($_POST['T']) ? trim($_POST['T']) : '';
-			checkToken($conf, $token);
+			checkToken(FreshRSS_Context::$user_conf, $token);
 			$streamId = $_POST['s'];	//StreamId
 			$ts = isset($_POST['ts']) ? $_POST['ts'] : '0';	//Older than timestamp in nanoseconds
 			if (!ctype_digit($ts)) {
@@ -739,7 +733,7 @@ elseif ($pathInfos[1] === 'reader' && $pathInfos[2] === 'api' && isset($pathInfo
 			markAllAsRead($streamId, $ts);
 			break;
 		case 'token':
-			token($conf);
+			token(FreshRSS_Context::$user_conf);
 			break;
 	}
 } elseif ($pathInfos[1] === 'check' && $pathInfos[2] === 'compatibility') {
