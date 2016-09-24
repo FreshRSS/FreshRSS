@@ -337,14 +337,17 @@ function subscriptionEdit($streamNames, $titles, $action, $add = '', $remove = '
 					break;
 				case 'edit':
 					if ($feedId > 0) {
-						//TODO
+						if ($feedDAO->moveFeed($feed_id, $cat_id)) {
+							exit('OK');
+						} else {
+							badRequest();
+						}
 					}
 					break;
 			}
 		}
 	}
 	notImplemented();
-	exit('OK');
 }
 
 function unreadCount() {	//http://blog.martindoms.com/2009/10/16/using-the-google-reader-api-part-2/#unread-count
