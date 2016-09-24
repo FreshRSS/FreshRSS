@@ -298,18 +298,22 @@ function subscriptionEdit($streamNames, $titles, $action, $add = '', $remove = '
 	if ($add != '' || $remove != '') {
 		$categoryDAO = new FreshRSS_CategoryDAO();
 	}
+	$c_name = '';
 	if ($add != '' && strpos($add, 'user/-/label/') === 0) {	//user/-/label/Example
-		$c_name = basename($add);
+		$c_name = substr($add, 13);
 		$cat = $categoryDAO->searchByName($c_name);
 		$addCatId = $cat == null ? -1 : $cat->id();
 	} else if ($remove != '' && strpos($remove, 'user/-/label/')) {
+		$addCatId = 1;	//Default category
+	}
+	if ($addCatId <= 0 && $c_name = '') {
 		$addCatId = 1;	//Default category
 	}
 	$feedDAO = FreshRSS_Factory::createFeedDao();
 	for ($i = count($streamNames) - 1; $i >= 0; $i--) {
 		$streamName = $streamNames[$i];	//feed/http://example.net/sample.xml	;	feed/338
 		if (strpos($streamName, 'feed/') === 0) {
-			$streamName = basename($streamName);
+			$streamName = substr($streamName, 5);
 			$feedId = 0;
 			if (ctype_digit($streamName)) {
 				if ($action === 'subscribe') {
@@ -324,11 +328,15 @@ function subscriptionEdit($streamNames, $titles, $action, $add = '', $remove = '
 			switch ($action) {
 				case 'subscribe':
 					if ($feedId <= 0) {
-						//TODO
-						notImplemented();
-					} else {
-						badRequest();
+						$http_auth = '';	//TODO
+						try {
+							$feed = FreshRSS_feed_Controller::addFeed($streamName, $title, $addCatId, $c_name, $http_auth);
+							continue;
+						} catch (Exception $e) {
+							logMe("subscriptionEdit error subscribe: " . $e->getMessage());
+						}
 					}
+					badRequest();
 					break;
 				case 'unsubscribe':
 					if (!($feedId > 0 && FreshRSS_feed_Controller::deleteFeed($feedId))) {

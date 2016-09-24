@@ -26,7 +26,7 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 		}
 	}
 
-	public static function addFeed($url, $cat_id = 0, $new_cat_name = '', $http_auth = '') {
+	public static function addFeed($url, $title = '', $cat_id = 0, $new_cat_name = '', $http_auth = '') {
 		@set_time_limit(300);
 
 		$catDAO = new FreshRSS_CategoryDAO();
@@ -40,9 +40,9 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 		}
 		if ($cat == null) {
 			$catDAO->checkDefault();
-			$def_cat = $catDAO->getDefault();
-			$cat = $def_cat->id();
+			$cat = $catDAO->getDefault();
 		}
+		$cat_id = $cat->id();
 
 		$feed = new FreshRSS_Feed($url);	//Throws FreshRSS_BadUrl_Exception
 		$feed->_httpAuth($http_auth);
@@ -63,7 +63,7 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 		$values = array(
 			'url' => $feed->url(),
 			'category' => $feed->category(),
-			'name' => $feed->name(),
+			'name' => $title != '' ? $title : $feed->name(),
 			'website' => $feed->website(),
 			'description' => $feed->description(),
 			'lastUpdate' => time(),
@@ -149,7 +149,7 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 			}
 
 			try {
-				$feed = self::addFeed($url, $cat, $new_cat_name, $http_auth);
+				$feed = self::addFeed($url, '', $cat, $new_cat_name, $http_auth);
 			} catch (FreshRSS_BadUrl_Exception $e) {
 				// Given url was not a valid url!
 				Minz_Log::warning($e->getMessage());
