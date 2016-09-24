@@ -616,6 +616,21 @@ function renameTag($s, $dest) {
 	badRequest();
 }
 
+function disableTag($s, $dest) {
+	//logMe("renameTag()");
+	if ($s != '' && strpos($s, 'user/-/label/') === 0) {
+		$s = substr($s, 13);
+		$categoryDAO = new FreshRSS_CategoryDAO();
+		$cat = $categoryDAO->searchByName($s);
+		if ($cat != null) {
+			$feedDAO = FreshRSS_Factory::createFeedDao();
+			$feedDAO->changeCategory($cat->id(), 0);
+			exit('OK');
+		}
+	}
+	badRequest();
+}
+
 function markAllAsRead($streamId, $olderThanId) {
 	//logMe("markAllAsRead($streamId, $olderThanId)");
 	$entryDAO = FreshRSS_Factory::createEntryDao();
@@ -757,6 +772,12 @@ elseif ($pathInfos[1] === 'reader' && $pathInfos[2] === 'api' && isset($pathInfo
 			$s = isset($_POST['s']) ? $_POST['s'] : '';	//user/-/label/Folder
 			$dest = isset($_POST['dest']) ? $_POST['dest'] : '';	//user/-/label/NewFolder
 			renameTag($s, $dest);
+			break;
+		case 'disable-tag':	//https://github.com/theoldreader/api
+			$token = isset($_POST['T']) ? trim($_POST['T']) : '';
+			checkToken(FreshRSS_Context::$user_conf, $token);
+			$s = isset($_POST['s']) ? $_POST['s'] : '';	//user/-/label/Folder
+			disableTag($s);
 			break;
 		case 'mark-all-as-read':
 			$token = isset($_POST['T']) ? trim($_POST['T']) : '';
