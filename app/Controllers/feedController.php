@@ -261,33 +261,18 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 		}
 	}
 
-	/**
-	 * This action actualizes entries from one or several feeds.
-	 *
-	 * Parameters are:
-	 *   - id (default: false): Feed ID
-	 *   - url (default: false): Feed URL
-	 *   - force (default: false)
-	 * If id and url are not specified, all the feeds are actualized. But if force is
-	 * false, process stops at 10 feeds to avoid time execution problem.
-	 */
-	public function actualizeAction($simplePiePush = null) {
+	public static function actualizeFeed($feed_id, $feed_url, $force, $simplePiePush = null) {
 		@set_time_limit(300);
 
 		$feedDAO = FreshRSS_Factory::createFeedDao();
 		$entryDAO = FreshRSS_Factory::createEntryDao();
 
-		Minz_Session::_param('actualize_feeds', false);
-		$id = Minz_Request::param('id');
-		$url = Minz_Request::param('url');
-		$force = Minz_Request::param('force');
-
 		// Create a list of feeds to actualize.
-		// If id is set and valid, corresponding feed is added to the list but
+		// If feed_id is set and valid, corresponding feed is added to the list but
 		// alone in order to automatize further process.
 		$feeds = array();
-		if ($id || $url) {
-			$feed = $id ? $feedDAO->searchById($id) : $feedDAO->searchByUrl($url);
+		if ($feed_id > 0 || $feed_url) {
+			$feed = $feed_id > 0 ? $feedDAO->searchById($feed_id) : $feedDAO->searchByUrl($feed_url);
 			if ($feed) {
 				$feeds[] = $feed;
 			}
@@ -309,7 +294,7 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 			$url = $feed->url();	//For detection of HTTP 301
 
 			$pubSubHubbubEnabled = $pubsubhubbubEnabledGeneral && $feed->pubSubHubbubEnabled();
-			if ((!$simplePiePush) && (!$id) && $pubSubHubbubEnabled && ($feed->lastUpdate() > $pshbMinAge)) {
+			if ((!$simplePiePush) && (!$feed_id) && $pubSubHubbubEnabled && ($feed->lastUpdate() > $pshbMinAge)) {
 				//$text = 'Skip pull of feed using PubSubHubbub: ' . $url;
 				//Minz_Log::debug($text);
 				//file_put_contents(USERS_PATH . '/_/log_pshb.txt', date('c') . "\t" . $text . "\n", FILE_APPEND);
@@ -464,6 +449,26 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 				break;
 			}
 		}
+		return array($updated_feeds, reset($feeds));
+	}
+
+	/**
+	 * This action actualizes entries from one or several feeds.
+	 *
+	 * Parameters are:
+	 *   - id (default: false): Feed ID
+	 *   - url (default: false): Feed URL
+	 *   - force (default: false)
+	 * If id and url are not specified, all the feeds are actualized. But if force is
+	 * false, process stops at 10 feeds to avoid time execution problem.
+	 */
+	public function actualizeAction() {
+		Minz_Session::_param('actualize_feeds', false);
+		$id = Minz_Request::param('id');
+		$url = Minz_Request::param('url');
+		$force = Minz_Request::param('force');
+
+		list($updated_feeds, $feed) = self::actualizeFeed($id, $url, $force);
 
 		if (Minz_Request::param('ajax')) {
 			// Most of the time, ajax request is for only one feed. But since
@@ -479,7 +484,6 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 		} else {
 			// Redirect to the main page with correct notification.
 			if ($updated_feeds === 1) {
-				$feed = reset($feeds);
 				Minz_Request::good(_t('feedback.sub.feed.actualized', $feed->name()), array(
 					'params' => array('get' => 'f_' . $feed->id())
 				));
