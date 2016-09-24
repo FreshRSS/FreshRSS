@@ -216,7 +216,7 @@ class FreshRSS_Feed extends Minz_Model {
 		$this->nbEntries = intval($value);
 	}
 
-	public function load($loadDetails = false) {
+	public function load($loadDetails = false, $noCache = false) {
 		if ($this->url !== null) {
 			if (CACHE_PATH === false) {
 				throw new Minz_FileNotExistException(
@@ -268,7 +268,7 @@ class FreshRSS_Feed extends Minz_Model {
 					$this->_url($clean_url);
 				}
 
-				if (($mtime === true) || ($mtime > $this->lastUpdate)) {
+				if (($mtime === true) || ($mtime > $this->lastUpdate) || $noCache) {
 					//Minz_Log::debug('FreshRSS no cache ' . $mtime . ' > ' . $this->lastUpdate . ' for ' . $clean_url);
 					$this->loadEntries($feed);	// et on charge les articles du flux
 				} else {
@@ -460,7 +460,7 @@ class FreshRSS_Feed extends Minz_Model {
 				CURLOPT_URL => $this->hubUrl,
 				CURLOPT_FOLLOWLOCATION => true,
 				CURLOPT_RETURNTRANSFER => true,
-				CURLOPT_USERAGENT => _t('gen.freshrss') . '/' . FRESHRSS_VERSION . ' (' . PHP_OS . '; ' . FRESHRSS_WEBSITE . ')',
+				CURLOPT_USERAGENT => 'FreshRSS/' . FRESHRSS_VERSION . ' (' . PHP_OS . '; ' . FRESHRSS_WEBSITE . ')',
 				CURLOPT_POSTFIELDS => 'hub.verify=sync'
 					. '&hub.mode=' . ($state ? 'subscribe' : 'unsubscribe')
 					. '&hub.topic=' . urlencode($this->selfUrl)
