@@ -600,6 +600,22 @@ function editTag($e_ids, $a, $r) {
 	exit('OK');
 }
 
+function renameTag($s, $dest) {
+	//logMe("renameTag()");
+	if ($s != '' && strpos($s, 'user/-/label/') === 0 &&
+		$dest != '' &&  strpos($dest, 'user/-/label/') === 0) {
+		$s = substr($s, 13);
+		$categoryDAO = new FreshRSS_CategoryDAO();
+		$cat = $categoryDAO->searchByName($s);
+		if ($cat != null) {
+			$dest = substr($dest, 13);
+			$categoryDAO->updateCategory($cat->id(), array('name' => $dest));
+			exit('OK');
+		}
+	}
+	badRequest();
+}
+
 function markAllAsRead($streamId, $olderThanId) {
 	//logMe("markAllAsRead($streamId, $olderThanId)");
 	$entryDAO = FreshRSS_Factory::createEntryDao();
@@ -734,6 +750,13 @@ elseif ($pathInfos[1] === 'reader' && $pathInfos[2] === 'api' && isset($pathInfo
 			$r = isset($_POST['r']) ? $_POST['r'] : '';	//Remove:	user/-/state/com.google/read	user/-/state/com.google/starred
 			$e_ids = multiplePosts('i');	//item IDs
 			editTag($e_ids, $a, $r);
+			break;
+		case 'rename-tag':	//https://github.com/theoldreader/api
+			$token = isset($_POST['T']) ? trim($_POST['T']) : '';
+			checkToken(FreshRSS_Context::$user_conf, $token);
+			$s = isset($_POST['s']) ? $_POST['s'] : '';	//user/-/label/Folder
+			$dest = isset($_POST['dest']) ? $_POST['dest'] : '';	//user/-/label/NewFolder
+			renameTag($s, $dest);
 			break;
 		case 'mark-all-as-read':
 			$token = isset($_POST['T']) ? trim($_POST['T']) : '';
