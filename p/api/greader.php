@@ -288,12 +288,15 @@ function subscriptionList() {
 }
 
 function subscriptionEdit($streamNames, $titles, $action, $add = '', $remove = '') {
+	//logMe("subscriptionEdit()");
 	//https://github.com/mihaip/google-reader-api/blob/master/wiki/ApiSubscriptionEdit.wiki
 	switch ($action) {
 		case 'subscribe':
 		case 'unsubscribe':
 		case 'edit':
+			break;
 		default:
+			logMe("Bad action: $action");
 			badRequest();
 	}
 	$addCatId = 0;
@@ -305,7 +308,7 @@ function subscriptionEdit($streamNames, $titles, $action, $add = '', $remove = '
 		$c_name = basename($add);
 		$cat = $categoryDAO->searchByName($c_name);
 		$addCatId = $cat == null ? -1 : $cat->id();
-	} else if ($remove != '' && strpos($remove, 'user/-/label/') {
+	} else if ($remove != '' && strpos($remove, 'user/-/label/')) {
 		$addCatId = 1;	//Default category
 	}
 	$feedDAO = FreshRSS_Factory::createFeedDao();
@@ -328,21 +331,22 @@ function subscriptionEdit($streamNames, $titles, $action, $add = '', $remove = '
 				case 'subscribe':
 					if ($feedId <= 0) {
 						//TODO
+					} else {
+						badRequest();
 					}
 					break;
 				case 'unsubscribe':
 					if ($feedId > 0) {
 						//TODO
+					} else {
+						badRequest();
 					}
 					break;
 				case 'edit':
-					if ($feedId > 0) {
-						if ($feedDAO->moveFeed($feed_id, $cat_id)) {
-							exit('OK');
-						} else {
-							badRequest();
-						}
+					if ($feedId > 0 && $feedDAO->moveFeed($feedId, $addCatId)) {
+						exit('OK');
 					}
+					badRequest();
 					break;
 			}
 		}
@@ -704,7 +708,7 @@ elseif ($pathInfos[1] === 'reader' && $pathInfos[2] === 'api' && isset($pathInfo
 							$action = $_POST['ac'];	//Action to perform on the given StreamId. Possible values are `subscribe`, `unsubscribe` and `edit`
 							$add = isset($_POST['a']) ? $_POST['a'] : '';	//StreamId to add the subscription to (generally a user label)
 							$remove = isset($_POST['r']) ? $_POST['r'] : '';	//StreamId to remove the subscription from (generally a user label)
-							subscriptionEdit($streamNames, $titles $action, $add, $remove);
+							subscriptionEdit($streamNames, $titles, $action, $add, $remove);
 						}
 						break;
 				}
