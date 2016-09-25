@@ -361,6 +361,23 @@ function subscriptionEdit($streamNames, $titles, $action, $add = '', $remove = '
 	exit('OK');
 }
 
+function quickadd($url) {
+	//logMe("quickadd($url)");
+	try {
+		$feed = FreshRSS_feed_Controller::addFeed($url);
+		exit(json_encode(array(
+				'numResults' => 1,
+				'streamId' => $feed->id(),
+			)));
+	} catch (Exception $e) {
+		logMe("subscriptionEdit error subscribe: " . $e->getMessage());
+		die(json_encode(array(
+				'numResults' => 0,
+				'error' => $e->getMessage(),
+			)));
+	}
+}
+
 function unreadCount() {	//http://blog.martindoms.com/2009/10/16/using-the-google-reader-api-part-2/#unread-count
 	//logMe("unreadCount()");
 	header('Content-Type: application/json; charset=UTF-8');
@@ -531,7 +548,7 @@ function streamContentsItemsIds($streamId, $start_time, $count, $order, $exclude
 		$id = basename($streamId);
 	} elseif (strpos($streamId, 'user/-/label/') === 0) {
 		$type = 'c';
-		$c_name = basename($streamId);
+		$c_name = substr($streamId, 13);
 		$categoryDAO = new FreshRSS_CategoryDAO();
 		$cat = $categoryDAO->searchByName($c_name);
 		$id = $cat == null ? -1 : $cat->id();
@@ -638,7 +655,7 @@ function markAllAsRead($streamId, $olderThanId) {
 		$f_id = basename($streamId);
 		$entryDAO->markReadFeed($f_id, $olderThanId);
 	} elseif (strpos($streamId, 'user/-/label/') === 0) {
-		$c_name = basename($streamId);
+		$c_name = substr($streamId, 13);
 		$categoryDAO = new FreshRSS_CategoryDAO();
 		$cat = $categoryDAO->searchByName($c_name);
 		$entryDAO->markReadCat($cat === null ? -1 : $cat->id(), $olderThanId);
@@ -747,6 +764,11 @@ elseif ($pathInfos[1] === 'reader' && $pathInfos[2] === 'api' && isset($pathInfo
 							$add = isset($_POST['a']) ? $_POST['a'] : '';	//StreamId to add the subscription to (generally a user label)
 							$remove = isset($_POST['r']) ? $_POST['r'] : '';	//StreamId to remove the subscription from (generally a user label)
 							subscriptionEdit($streamNames, $titles, $action, $add, $remove);
+						}
+						break;
+					case 'quickadd':	//https://github.com/theoldreader/api
+						if (isset($_GET['quickadd'])) {
+							quickadd($_GET['quickadd']);
 						}
 						break;
 				}
