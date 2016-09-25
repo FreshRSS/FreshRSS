@@ -3,7 +3,7 @@
 ## 2016-XX-XX FreshRSS 1.6.0-dev
 
 * API
-	* Support for editing feeds and categories from client applications [#1261](https://github.com/FreshRSS/FreshRSS/pull/1261)
+	* Support for editing feeds and categories from client applications [#1254](https://github.com/FreshRSS/FreshRSS/issues/1254)
 * Features
 	* Better control of number of entries per page or RSS feed [#1249](https://github.com/FreshRSS/FreshRSS/issues/1249)
 		* Since X hours: `https://freshrss.example/i/?a=rss&hours=3`
