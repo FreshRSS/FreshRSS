@@ -50,6 +50,9 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo implements FreshRSS_Searchable 
 	}
 
 	public function deleteCategory($id) {
+		if ($id <= 1) {
+			return false;
+		}
 		$sql = 'DELETE FROM `' . $this->prefix . 'category` WHERE id=?';
 		$stm = $this->bd->prepare($sql);
 
