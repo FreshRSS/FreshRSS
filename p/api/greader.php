@@ -222,6 +222,17 @@ function checkToken($conf, $token) {
 	unauthorized();
 }
 
+function userInfo() {	//https://github.com/theoldreader/api#user-info
+	//logMe("userInfo()");
+	$user = Minz_Session::param('currentUser', '_');
+	exit(json_encode(array(
+			'userId' => $user,
+			'userName' => $user,
+			'userProfileId' => $user,
+			'userEmail' => FreshRSS_Context::$user_conf->mail_login,
+		)));
+}
+
 function tagList() {
 	//logMe("tagList()");
 	header('Content-Type: application/json; charset=UTF-8');
@@ -299,14 +310,24 @@ function subscriptionEdit($streamNames, $titles, $action, $add = '', $remove = '
 		$categoryDAO = new FreshRSS_CategoryDAO();
 	}
 	$c_name = '';
-	if ($add != '' && strpos($add, 'user/-/label/') === 0) {	//user/-/label/Example
-		$c_name = substr($add, 13);
+	if ($add != '' && strpos($add, 'user/') === 0) {	//user/-/label/Example ; user/username/label/Example
+		if (strpos($add, 'user/-/label/') === 0) {
+			$c_name = substr($add, 13);
+		} else {
+			$user = Minz_Session::param('currentUser', '_');
+			$prefix = 'user/' . $user . '/label/';
+			if (strpos($add, $prefix) === 0) {
+				$c_name = substr($add, strlen($prefix));
+			} else {
+				$c_name = '';
+			}
+		}
 		$cat = $categoryDAO->searchByName($c_name);
 		$addCatId = $cat == null ? -1 : $cat->id();
 	} else if ($remove != '' && strpos($remove, 'user/-/label/')) {
 		$addCatId = 1;	//Default category
 	}
-	if ($addCatId <= 0 && $c_name = '') {
+	if ($addCatId <= 0 && $c_name == '') {
 		$addCatId = 1;	//Default category
 	}
 	$feedDAO = FreshRSS_Factory::createFeedDao();
@@ -345,9 +366,7 @@ function subscriptionEdit($streamNames, $titles, $action, $add = '', $remove = '
 					break;
 				case 'edit':
 					if ($feedId > 0) {
-						if ($addCatId > 0) {
-							FreshRSS_feed_Controller::moveFeed($feedId, $addCatId);
-						}
+						FreshRSS_feed_Controller::moveFeed($feedId, $addCatId, $c_name);
 						if ($title != '') {
 							FreshRSS_feed_Controller::renameFeed($feedId, $title);
 						}
@@ -633,8 +652,8 @@ function renameTag($s, $dest) {
 	badRequest();
 }
 
-function disableTag($s, $dest) {
-	//logMe("renameTag()");
+function disableTag($s) {
+	//logMe("disableTag($s)");
 	if ($s != '' && strpos($s, 'user/-/label/') === 0) {
 		$s = substr($s, 13);
 		$categoryDAO = new FreshRSS_CategoryDAO();
@@ -642,6 +661,9 @@ function disableTag($s, $dest) {
 		if ($cat != null) {
 			$feedDAO = FreshRSS_Factory::createFeedDao();
 			$feedDAO->changeCategory($cat->id(), 0);
+			if ($cat->id() > 1) {
+				$categoryDAO->deleteCategory($cat->id());
+			}
 			exit('OK');
 		}
 	}
@@ -798,8 +820,10 @@ elseif ($pathInfos[1] === 'reader' && $pathInfos[2] === 'api' && isset($pathInfo
 		case 'disable-tag':	//https://github.com/theoldreader/api
 			$token = isset($_POST['T']) ? trim($_POST['T']) : '';
 			checkToken(FreshRSS_Context::$user_conf, $token);
-			$s = isset($_POST['s']) ? $_POST['s'] : '';	//user/-/label/Folder
-			disableTag($s);
+			$s_s = multiplePosts('s');
+			foreach ($s_s as $s) {
+				disableTag($s);	//user/-/label/Folder
+			}
 			break;
 		case 'mark-all-as-read':
 			$token = isset($_POST['T']) ? trim($_POST['T']) : '';
@@ -813,6 +837,9 @@ elseif ($pathInfos[1] === 'reader' && $pathInfos[2] === 'api' && isset($pathInfo
 			break;
 		case 'token':
 			token(FreshRSS_Context::$user_conf);
+			break;
+		case 'user-info':
+			userInfo();
 			break;
 	}
 } elseif ($pathInfos[1] === 'check' && $pathInfos[2] === 'compatibility') {
