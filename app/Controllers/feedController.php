@@ -474,7 +474,7 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 	}
 
 	public static function moveFeed($feed_id, $cat_id, $new_cat_name = '') {
-		if ($feed_id <= 0) {
+		if ($feed_id <= 0 || ($cat_id <= 0 && $new_cat_name == '')) {
 			return false;
 		}
 

@@ -323,11 +323,8 @@ function subscriptionEdit($streamNames, $titles, $action, $add = '', $remove = '
 			}
 		}
 		$cat = $categoryDAO->searchByName($c_name);
-		$addCatId = $cat == null ? -1 : $cat->id();
+		$addCatId = $cat == null ? 0 : $cat->id();
 	} else if ($remove != '' && strpos($remove, 'user/-/label/')) {
-		$addCatId = 1;	//Default category
-	}
-	if ($addCatId <= 0 && $c_name == '') {
 		$addCatId = 1;	//Default category
 	}
 	$feedDAO = FreshRSS_Factory::createFeedDao();
@@ -366,7 +363,9 @@ function subscriptionEdit($streamNames, $titles, $action, $add = '', $remove = '
 					break;
 				case 'edit':
 					if ($feedId > 0) {
-						FreshRSS_feed_Controller::moveFeed($feedId, $addCatId, $c_name);
+						if ($addCatId > 0 || $c_name != '') {
+							FreshRSS_feed_Controller::moveFeed($feedId, $addCatId, $c_name);
+						}
 						if ($title != '') {
 							FreshRSS_feed_Controller::renameFeed($feedId, $title);
 						}
