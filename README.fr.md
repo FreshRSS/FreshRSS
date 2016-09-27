@@ -35,7 +35,7 @@ Nous sommes une communauté amicale.
 * PHP 5.3.3+ (PHP 5.4+ recommandé, et PHP 5.5+ pour les performances, et PHP 7+ pour d’encore meilleures performances)
 	* Requis : [DOM](http://php.net/dom), [XML](http://php.net/xml), [PDO_MySQL](http://php.net/pdo-mysql) ou [PDO_SQLite](http://php.net/pdo-sqlite) ou [PDO_PGSQL](http://php.net/pdo-pgsql), [cURL](http://php.net/curl)
 	* Recommandés : [JSON](http://php.net/json), [GMP](http://php.net/gmp) (pour accès API sur plateformes < 64 bits), [IDN](http://php.net/intl.idn) (pour les noms de domaines internationalisés), [mbstring](http://php.net/mbstring) et/ou [iconv](http://php.net/iconv) (pour conversion d’encodages), [Zip](http://php.net/zip) (pour import/export), [zlib](http://php.net/zlib) (pour les flux compressés)
-* MySQL 5.5.3+ (recommandé), ou SQLite 3.7.4+, ou PostgreSQL
+* MySQL 5.5.3+ (recommandé), ou SQLite 3.7.4+, ou PostgreSQL (experimental)
 * Un navigateur Web récent tel Firefox, Internet Explorer 11 / Edge, Chrome, Opera, Safari.
 	* Fonctionne aussi sur mobile
 

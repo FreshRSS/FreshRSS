@@ -11,7 +11,7 @@ class FreshRSS_StatsDAOSQLite extends FreshRSS_StatsDAO {
 		$sql = <<<SQL
 SELECT strftime('{$period}', e.date, 'unixepoch') AS period
 , COUNT(1) AS count
-FROM {$this->prefix}entry AS e
+FROM `{$this->prefix}entry` AS e
 {$restrict}
 GROUP BY period
 ORDER BY period ASC

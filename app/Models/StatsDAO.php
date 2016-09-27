@@ -41,8 +41,8 @@ SELECT COUNT(1) AS total,
 COUNT(1) - SUM(e.is_read) AS count_unreads,
 SUM(e.is_read) AS count_reads,
 SUM(e.is_favorite) AS count_favorites
-FROM {$this->prefix}entry AS e
-, {$this->prefix}feed AS f
+FROM `{$this->prefix}entry` AS e
+, `{$this->prefix}feed` AS f
 WHERE e.id_feed = f.id
 {$filter}
 SQL;
@@ -68,7 +68,7 @@ SQL;
 		$sql = <<<SQL
 SELECT FLOOR((date - {$midnight}) / 86400) AS day,
 COUNT(*) as count
-FROM {$this->prefix}entry
+FROM `{$this->prefix}entry`
 WHERE date >= {$oldest} AND date < {$midnight}
 GROUP BY day
 ORDER BY day ASC
@@ -138,7 +138,7 @@ SQL;
 		$sql = <<<SQL
 SELECT DATE_FORMAT(FROM_UNIXTIME(e.date), '{$period}') AS period
 , COUNT(1) AS count
-FROM {$this->prefix}entry AS e
+FROM `{$this->prefix}entry` AS e
 {$restrict}
 GROUP BY period
 ORDER BY period ASC
@@ -202,7 +202,7 @@ SQL;
 SELECT COUNT(1) AS count
 , MIN(date) AS date_min
 , MAX(date) AS date_max
-FROM {$this->prefix}entry AS e
+FROM `{$this->prefix}entry` AS e
 {$restrict}
 SQL;
 		$stm = $this->bd->prepare($sql);
@@ -246,8 +246,8 @@ SQL;
 		$sql = <<<SQL
 SELECT c.name AS label
 , COUNT(f.id) AS data
-FROM {$this->prefix}category AS c,
-{$this->prefix}feed AS f
+FROM `{$this->prefix}category` AS c,
+`{$this->prefix}feed` AS f
 WHERE c.id = f.category
 GROUP BY label
 ORDER BY data DESC
@@ -269,9 +269,9 @@ SQL;
 		$sql = <<<SQL
 SELECT c.name AS label
 , COUNT(e.id) AS data
-FROM {$this->prefix}category AS c,
-{$this->prefix}feed AS f,
-{$this->prefix}entry AS e
+FROM `{$this->prefix}category` AS c,
+`{$this->prefix}feed` AS f,
+`{$this->prefix}entry` AS e
 WHERE c.id = f.category
 AND f.id = e.id_feed
 GROUP BY label
@@ -295,9 +295,9 @@ SELECT f.id AS id
 , MAX(f.name) AS name
 , MAX(c.name) AS category
 , COUNT(e.id) AS count
-FROM {$this->prefix}category AS c,
-{$this->prefix}feed AS f,
-{$this->prefix}entry AS e
+FROM `{$this->prefix}category` AS c,
+`{$this->prefix}feed` AS f,
+`{$this->prefix}entry` AS e
 WHERE c.id = f.category
 AND f.id = e.id_feed
 GROUP BY f.id
@@ -320,8 +320,8 @@ SELECT MAX(f.id) as id
 , MAX(f.name) AS name
 , MAX(date) AS last_date
 , COUNT(*) AS nb_articles
-FROM {$this->prefix}feed AS f,
-{$this->prefix}entry AS e
+FROM `{$this->prefix}feed` AS f,
+`{$this->prefix}entry` AS e
 WHERE f.id = e.id_feed
 GROUP BY f.id
 ORDER BY name

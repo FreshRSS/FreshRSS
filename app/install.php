@@ -714,7 +714,7 @@ function printStep3() {
 				<?php if (extension_loaded('pdo_pgsql')) {?>
 				<option value="pgsql"
 					<?php echo(isset($_SESSION['bd_type']) && $_SESSION['bd_type'] === 'pgsql') ? 'selected="selected"' : ''; ?>>
-					PostgreSQL
+					PostgreSQL (⚠️ experimental)
 				</option>
 				<?php }?>
 				</select>
