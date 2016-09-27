@@ -3,7 +3,7 @@
 ## 2016-XX-XX FreshRSS 1.6.0-dev
 
 * API
-	* Support for editing feeds and categories from client applications [#1261](https://github.com/FreshRSS/FreshRSS/pull/1261)
+	* Support for editing feeds and categories from client applications [#1254](https://github.com/FreshRSS/FreshRSS/issues/1254)
 * Features
 	* Better control of number of entries per page or RSS feed [#1249](https://github.com/FreshRSS/FreshRSS/issues/1249)
 		* Since X hours: `https://freshrss.example/i/?a=rss&hours=3`
@@ -12,6 +12,8 @@
 	* Support custom ports `localhost:3306` for database servers [#1241](https://github.com/FreshRSS/FreshRSS/issues/1241)
 * Bug fixing
 	* Correction of bugs related CSRF tokens introduced in version 1.5.0 [#1253](https://github.com/FreshRSS/FreshRSS/issues/1253), [44f22ab](https://github.com/FreshRSS/FreshRSS/pull/1261/commits/d9bf9b2c6f0b2cc9dec3b638841b7e3040dcf46f)
+* SimplePie
+	* Fix auto-discovery of RSS feeds in Web pages served as `text/xml` [#1264](https://github.com/FreshRSS/FreshRSS/issues/1264)
 * Security
 	* Prevent `<a target="_blank">` attacks with `window.opener` [#1245](https://github.com/FreshRSS/FreshRSS/issues/1245)
 * UI

@@ -473,17 +473,25 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 		return $feedDAO->updateFeed($feed_id, array('name' => $feed_name));
 	}
 
-	public static function moveFeed($feed_id, $cat_id) {
-		if ($feed_id <= 0) {
+	public static function moveFeed($feed_id, $cat_id, $new_cat_name = '') {
+		if ($feed_id <= 0 || ($cat_id <= 0 && $new_cat_name == '')) {
 			return false;
 		}
-		if ($cat_id <= 0) {
-			// If category was not given get the default one.
-			$catDAO = new FreshRSS_CategoryDAO();
-			$catDAO->checkDefault();
-			$def_cat = $catDAO->getDefault();
-			$cat_id = $def_cat->id();
+
+		$catDAO = new FreshRSS_CategoryDAO();
+		if ($cat_id > 0) {
+			$cat = $catDAO->searchById($cat_id);
+			$cat_id = $cat == null ? 0 : $cat->id();
 		}
+		if ($cat_id <= 1 && $new_cat_name != '') {
+			$cat_id = $catDAO->addCategory(array('name' => $new_cat_name));
+		}
+		if ($cat_id <= 1) {
+			$catDAO->checkDefault();
+			$cat = $catDAO->getDefault();
+			$cat_id = $cat->id();
+		}
+
 		$feedDAO = FreshRSS_Factory::createFeedDao();
 		return $feedDAO->updateFeed($feed_id, array('category' => $cat_id));
 	}
