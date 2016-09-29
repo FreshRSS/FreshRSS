@@ -4,6 +4,10 @@ class FreshRSS_StatsDAO extends Minz_ModelPdo {
 
 	const ENTRY_COUNT_PERIOD = 30;
 
+	protected function sqlFloor($s) {
+		return "FLOOR($s)";
+	}
+
 	/**
 	 * Calculates entry repartition for all feeds and for main stream.
 	 *
@@ -65,8 +69,9 @@ SQL;
 		$oldest = $midnight - (self::ENTRY_COUNT_PERIOD * 86400);
 
 		// Get stats per day for the last 30 days
+		$sqlDay = $this->sqlFloor("(date - $midnight) / 86400");
 		$sql = <<<SQL
-SELECT FLOOR((date - {$midnight}) / 86400) AS day,
+SELECT {$sqlDay} AS day,
 COUNT(*) as count
 FROM `{$this->prefix}entry`
 WHERE date >= {$oldest} AND date < {$midnight}

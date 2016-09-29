@@ -2,6 +2,10 @@
 
 class FreshRSS_StatsDAOSQLite extends FreshRSS_StatsDAO {
 
+	protected function sqlFloor($s) {
+		return "CAST(($s) AS INT)";
+	}
+
 	protected function calculateEntryRepartitionPerFeedPerPeriod($period, $feed = null) {
 		if ($feed) {
 			$restrict = "WHERE e.id_feed = {$feed}";
@@ -26,7 +30,7 @@ SQL;
 			$repartition[(int) $value['period']] = (int) $value['count'];
 		}
 
-		return $this->convertToSerie($repartition);
+		return $repartition;
 	}
 
 }
