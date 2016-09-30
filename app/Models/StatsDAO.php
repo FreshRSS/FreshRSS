@@ -61,14 +61,15 @@ SQL;
 	 */
 	public function calculateEntryCount() {
 		$count = $this->initEntryCountArray();
-		$period = self::ENTRY_COUNT_PERIOD;
+		$midnight = mktime(0, 0, 0);
+		$oldest = $midnight - (self::ENTRY_COUNT_PERIOD * 86400);
 
 		// Get stats per day for the last 30 days
 		$sql = <<<SQL
-SELECT DATEDIFF(FROM_UNIXTIME(e.date), NOW()) AS day,
-COUNT(1) AS count
-FROM {$this->prefix}entry AS e
-WHERE FROM_UNIXTIME(e.date, '%Y%m%d') BETWEEN DATE_FORMAT(DATE_ADD(NOW(), INTERVAL -{$period} DAY), '%Y%m%d') AND DATE_FORMAT(DATE_ADD(NOW(), INTERVAL -1 DAY), '%Y%m%d')
+SELECT FLOOR((date - {$midnight}) / 86400) AS day,
+COUNT(*) as count
+FROM {$this->prefix}entry
+WHERE date >= {$oldest} AND date < {$midnight}
 GROUP BY day
 ORDER BY day ASC
 SQL;
@@ -80,28 +81,7 @@ SQL;
 			$count[$value['day']] = (int) $value['count'];
 		}
 
-		return $this->convertToSerie($count);
-	}
-
-	/**
-	 * Calculates entry average per day on a 30 days period.
-	 *
-	 * @return integer
-	 */
-	public function calculateEntryAverage() {
-		$period = self::ENTRY_COUNT_PERIOD;
-
-		// Get stats per day for the last 30 days
-		$sql = <<<SQL
-SELECT COUNT(1) / {$period} AS average
-FROM {$this->prefix}entry AS e
-WHERE FROM_UNIXTIME(e.date, '%Y%m%d') BETWEEN DATE_FORMAT(DATE_ADD(NOW(), INTERVAL -{$period} DAY), '%Y%m%d') AND DATE_FORMAT(DATE_ADD(NOW(), INTERVAL -1 DAY), '%Y%m%d')
-SQL;
-		$stm = $this->bd->prepare($sql);
-		$stm->execute();
-		$res = $stm->fetch(PDO::FETCH_NAMED);
-
-		return round($res['average'], 2);
+		return $count;
 	}
 
 	/**
@@ -173,7 +153,7 @@ SQL;
 			$repartition[(int) $value['period']] = (int) $value['count'];
 		}
 
-		return $this->convertToSerie($repartition);
+		return $repartition;
 	}
 
 	/**
@@ -276,7 +256,7 @@ SQL;
 		$stm->execute();
 		$res = $stm->fetchAll(PDO::FETCH_ASSOC);
 
-		return $this->convertToPieSerie($res);
+		return $res;
 	}
 
 	/**
@@ -301,7 +281,7 @@ SQL;
 		$stm->execute();
 		$res = $stm->fetchAll(PDO::FETCH_ASSOC);
 
-		return $this->convertToPieSerie($res);
+		return $res;
 	}
 
 	/**
@@ -349,27 +329,6 @@ SQL;
 		$stm = $this->bd->prepare($sql);
 		$stm->execute();
 		return $stm->fetchAll(PDO::FETCH_ASSOC);
-	}
-
-	protected function convertToSerie($data) {
-		$serie = array();
-
-		foreach ($data as $key => $value) {
-			$serie[] = array($key, $value);
-		}
-
-		return $serie;
-	}
-
-	protected function convertToPieSerie($data) {
-		$serie = array();
-
-		foreach ($data as $value) {
-			$value['data'] = array(array(0, (int) $value['data']));
-			$serie[] = $value;
-		}
-
-		return $serie;
 	}
 
 	/**

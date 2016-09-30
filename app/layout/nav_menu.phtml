@@ -151,8 +151,11 @@
 			if (FreshRSS_Context::$user_conf->token) {
 				$url_output['params']['token'] = FreshRSS_Context::$user_conf->token;
 			}
+			if (FreshRSS_Context::$user_conf->since_hours_posts_per_rss) {
+				$url_output['params']['hours'] = FreshRSS_Context::$user_conf->since_hours_posts_per_rss;
+			}
 		?>
-		<a class="view_rss btn" target="_blank" title="<?php echo _t('index.menu.rss_view'); ?>" href="<?php echo Minz_Url::display($url_output); ?>">
+		<a class="view_rss btn" target="_blank" rel="noreferrer" title="<?php echo _t('index.menu.rss_view'); ?>" href="<?php echo Minz_Url::display($url_output); ?>">
 			<?php echo _i('rss'); ?>
 		</a>
 	</div>
