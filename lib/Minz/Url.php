@@ -78,6 +78,8 @@ class Minz_Url {
 		}
 
 		if (isset($url['params'])) {
+			unset($url['params']['c']);
+			unset($url['params']['a']);
 			foreach ($url['params'] as $key => $param) {
 				$uri .= $separator . urlencode($key) . '=' . urlencode($param);
 				$separator = $and;
