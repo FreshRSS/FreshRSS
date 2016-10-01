@@ -61,7 +61,7 @@ SQL;
 			$repartition[(int) $value['period']] = (int) $value['count'];
 		}
 
-		return $this->convertToSerie($repartition);
+		return $repartition;
 	}
 
 }

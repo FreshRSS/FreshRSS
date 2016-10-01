@@ -24,7 +24,7 @@ $SQL_CREATE_TABLES = array(
 	"ttl" INT NOT NULL DEFAULT -2,
 	"cache_nbEntries" int DEFAULT 0,
 	"cache_nbUnreads" int DEFAULT 0,
-	FOREIGN KEY (category) REFERENCES "%1$scategory" ("id") ON DELETE SET NULL ON UPDATE CASCADE
+	FOREIGN KEY ("category") REFERENCES "%1$scategory" ("id") ON DELETE SET NULL ON UPDATE CASCADE
 );',
 'CREATE INDEX name_index ON "%1$sfeed" ("name");',
 'CREATE INDEX priority_index ON "%1$sfeed" ("priority");',
@@ -44,18 +44,12 @@ $SQL_CREATE_TABLES = array(
 	"is_favorite" smallint NOT NULL DEFAULT 0,
 	"id_feed" SMALLINT,
 	"tags" varchar(1023),
-	FOREIGN KEY (id_feed) REFERENCES "%1$sfeed" (id) ON DELETE CASCADE ON UPDATE CASCADE
+	FOREIGN KEY ("id_feed") REFERENCES "%1$sfeed" ("id") ON DELETE CASCADE ON UPDATE CASCADE,
+	UNIQUE ("id_feed","guid")
 );',
 'CREATE INDEX is_favorite_index ON "%1$sentry" ("is_favorite");',
 'CREATE INDEX is_read_index ON "%1$sentry" ("is_read");',
 'CREATE INDEX entry_lastSeen_index ON "%1$sentry" ("lastSeen");',
-
-
-'CREATE OR REPLACE RULE check_constraints_on_entry AS ON INSERT TO "%1$sentry" WHERE EXISTS(SELECT 1 FROM "%1$sentry" WHERE guid=NEW.guid) DO INSTEAD NOTHING;',
-'CREATE OR REPLACE RULE check_constraints_on_feed AS ON INSERT TO "%1$sfeed" WHERE EXISTS(SELECT 1 FROM "%1$sfeed" WHERE url=NEW.url) DO INSTEAD NOTHING;',
-'CREATE OR REPLACE RULE check_constraints_on_category AS ON INSERT TO "%1$scategory" WHERE EXISTS(SELECT 1 FROM "%1$scategory" WHERE name=NEW.name) DO INSTEAD NOTHING;',
-'CREATE OR REPLACE RULE check_constraints_on_category as on update to "%1$scategory" WHERE EXISTS(SELECT 1 FROM "%1$scategory" WHERE name=NEW.name) DO INSTEAD NOTHING;',
-
 
 'INSERT INTO "%1$scategory" (id, name) VALUES(1, \'%2$s\');',
 'INSERT INTO "%1$sfeed" (url, category, name, website, description, ttl) VALUES(\'http://freshrss.org/feeds/all.atom.xml\', 1, \'FreshRSS.org\', \'http://freshrss.org/\', \'FreshRSS, a free, self-hostable aggregator…\', 86400);',
