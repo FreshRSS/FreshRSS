@@ -5,25 +5,25 @@ global $SQL_CREATE_TABLES;
 $SQL_CREATE_TABLES = array(
 'CREATE TABLE IF NOT EXISTS "%1$scategory" (
 	"id" SERIAL PRIMARY KEY,
-	"name" varchar(255) UNIQUE NOT NULL
+	"name" VARCHAR(255) UNIQUE NOT NULL
 );',
 
 'CREATE TABLE IF NOT EXISTS "%1$sfeed" (
 	"id" SERIAL PRIMARY KEY,
 	"url" varchar(511) UNIQUE NOT NULL,
 	"category" SMALLINT DEFAULT 0,
-	"name" varchar(255) NOT NULL,
-	"website" varchar(255),
+	"name" VARCHAR(255) NOT NULL,
+	"website" VARCHAR(255),
 	"description" text,
-	"lastUpdate" int DEFAULT 0,
-	"priority" smallint NOT NULL DEFAULT 10,
-	"pathEntries" varchar(511) DEFAULT NULL,
-	"httpAuth" varchar(511) DEFAULT NULL,
+	"lastUpdate" INT DEFAULT 0,
+	"priority" SMALLINT NOT NULL DEFAULT 10,
+	"pathEntries" VARCHAR(511) DEFAULT NULL,
+	"httpAuth" VARCHAR(511) DEFAULT NULL,
 	"error" smallint DEFAULT 0,
 	"keep_history" INT NOT NULL DEFAULT -2,
 	"ttl" INT NOT NULL DEFAULT -2,
-	"cache_nbEntries" int DEFAULT 0,
-	"cache_nbUnreads" int DEFAULT 0,
+	"cache_nbEntries" INT DEFAULT 0,
+	"cache_nbUnreads" INT DEFAULT 0,
 	FOREIGN KEY ("category") REFERENCES "%1$scategory" ("id") ON DELETE SET NULL ON UPDATE CASCADE
 );',
 'CREATE INDEX name_index ON "%1$sfeed" ("name");',
@@ -31,19 +31,19 @@ $SQL_CREATE_TABLES = array(
 'CREATE INDEX keep_history_index ON "%1$sfeed" ("keep_history");',
 
 'CREATE TABLE IF NOT EXISTS "%1$sentry" (
-	"id" bigint NOT NULL PRIMARY KEY,
-	"guid" varchar(760) UNIQUE NOT NULL,
-	"title" varchar(255) NOT NULL,
-	"author" varchar(255),
-	"content" text,
-	"link" varchar(1023) NOT NULL,
+	"id" BIGINT NOT NULL PRIMARY KEY,
+	"guid" VARCHAR(760) UNIQUE NOT NULL,
+	"title" VARCHAR(255) NOT NULL,
+	"author" VARCHAR(255),
+	"content" TEXT,
+	"link" VARCHAR(1023) NOT NULL,
 	"date" INT,
 	"lastSeen" INT DEFAULT 0,
 	"hash" BYTEA,
-	"is_read" smallint NOT NULL DEFAULT 0,
-	"is_favorite" smallint NOT NULL DEFAULT 0,
+	"is_read" SMALLINT NOT NULL DEFAULT 0,
+	"is_favorite" SMALLINT NOT NULL DEFAULT 0,
 	"id_feed" SMALLINT,
-	"tags" varchar(1023),
+	"tags" VARCHAR(1023),
 	FOREIGN KEY ("id_feed") REFERENCES "%1$sfeed" ("id") ON DELETE CASCADE ON UPDATE CASCADE,
 	UNIQUE ("id_feed","guid")
 );',
