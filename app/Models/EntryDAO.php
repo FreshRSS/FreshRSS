@@ -685,7 +685,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 		if (count($guids) < 1) {
 			return array();
 		}
-		$sql = 'SELECT guid, ' . $this->sqlHexEncode('hash') . ' AS hexHash FROM `' . $this->prefix . 'entry` WHERE id_feed=? AND guid IN (' . str_repeat('?,', count($guids) - 1). '?)';
+		$sql = 'SELECT guid, ' . $this->sqlHexEncode('hash') . ' AS hex_hash FROM `' . $this->prefix . 'entry` WHERE id_feed=? AND guid IN (' . str_repeat('?,', count($guids) - 1). '?)';
 		$stm = $this->bd->prepare($sql);
 		$values = array($id_feed);
 		$values = array_merge($values, $guids);
@@ -693,7 +693,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 			$result = array();
 			$rows = $stm->fetchAll(PDO::FETCH_ASSOC);
 			foreach ($rows as $row) {
-				$result[$row['guid']] = $row['hexHash'];
+				$result[$row['guid']] = $row['hex_hash'];
 			}
 			return $result;
 		} else {
