@@ -183,29 +183,29 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 		}
 
 		$valuesTmp['guid'] = substr($valuesTmp['guid'], 0, 760);
-		$this->addEntryPrepared->bindParam(':guid', $valuesTmp['guid']);
+		$this->updateEntryPrepared->bindParam(':guid', $valuesTmp['guid']);
 		$valuesTmp['title'] = substr($valuesTmp['title'], 0, 255);
-		$this->addEntryPrepared->bindParam(':title', $valuesTmp['title']);
+		$this->updateEntryPrepared->bindParam(':title', $valuesTmp['title']);
 		$valuesTmp['author'] = substr($valuesTmp['author'], 0, 255);
-		$this->addEntryPrepared->bindParam(':author', $valuesTmp['author']);
-		$this->addEntryPrepared->bindParam(':content', $valuesTmp['content']);
+		$this->updateEntryPrepared->bindParam(':author', $valuesTmp['author']);
+		$this->updateEntryPrepared->bindParam(':content', $valuesTmp['content']);
 		$valuesTmp['link'] = substr($valuesTmp['link'], 0, 1023);
-		$this->addEntryPrepared->bindParam(':link', $valuesTmp['link']);
-		$this->addEntryPrepared->bindParam(':date', $valuesTmp['date'], PDO::PARAM_INT);
+		$this->updateEntryPrepared->bindParam(':link', $valuesTmp['link']);
+		$this->updateEntryPrepared->bindParam(':date', $valuesTmp['date'], PDO::PARAM_INT);
 		$valuesTmp['lastSeen'] = time();
-		$this->addEntryPrepared->bindParam(':last_seen', $valuesTmp['lastSeen'], PDO::PARAM_INT);
+		$this->updateEntryPrepared->bindParam(':last_seen', $valuesTmp['lastSeen'], PDO::PARAM_INT);
 		if ($valuesTmp['is_read'] !== null) {
-			$this->addEntryPrepared->bindParam(':is_read', $valuesTmp['is_read'] ? 1 : 0, PDO::PARAM_INT);
+			$this->updateEntryPrepared->bindParam(':is_read', $valuesTmp['is_read'] ? 1 : 0, PDO::PARAM_INT);
 		}
-		$this->addEntryPrepared->bindParam(':id_feed', $valuesTmp['id_feed'], PDO::PARAM_INT);
+		$this->updateEntryPrepared->bindParam(':id_feed', $valuesTmp['id_feed'], PDO::PARAM_INT);
 		$valuesTmp['tags'] = substr($valuesTmp['tags'], 0, 1023);
-		$this->addEntryPrepared->bindParam(':tags', $valuesTmp['tags']);
+		$this->updateEntryPrepared->bindParam(':tags', $valuesTmp['tags']);
 
 		if ($this->hasNativeHex()) {
-			$this->addEntryPrepared->bindParam(':hash', $valuesTmp['hash']);
+			$this->updateEntryPrepared->bindParam(':hash', $valuesTmp['hash']);
 		} else {
 			$valuesTmp['hashBin'] = pack('H*', $valuesTmp['hash']);	//hex2bin() is PHP5.4+
-			$this->addEntryPrepared->bindParam(':hash', $valuesTmp['hashBin']);
+			$this->updateEntryPrepared->bindParam(':hash', $valuesTmp['hashBin']);
 		}
 
 		if ($this->updateEntryPrepared && $this->updateEntryPrepared->execute($values)) {
