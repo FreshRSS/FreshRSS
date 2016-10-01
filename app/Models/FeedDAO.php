@@ -2,7 +2,7 @@
 
 class FreshRSS_FeedDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 	public function addFeed($valuesTmp) {
-		$sql = 'INSERT INTO `' . $this->prefix . 'feed` (url, category, name, website, description, lastUpdate, priority, httpAuth, error, keep_history, ttl) VALUES(?, ?, ?, ?, ?, ?, 10, ?, 0, -2, -2)';
+		$sql = 'INSERT INTO `' . $this->prefix . 'feed` (url, category, name, website, description, `lastUpdate`, priority, `httpAuth`, error, keep_history, ttl) VALUES(?, ?, ?, ?, ?, ?, 10, ?, 0, -2, -2)';
 		$stm = $this->bd->prepare($sql);
 
 		$values = array(
@@ -16,7 +16,7 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 		);
 
 		if ($stm && $stm->execute($values)) {
-			return $this->bd->lastInsertId();
+			return $this->bd->lastInsertId('"' . $this->prefix . 'feed_id_seq"');
 		} else {
 			$info = $stm == null ? array(2 => 'syntax error') : $stm->errorInfo();
 			Minz_Log::error('SQL error addFeed: ' . $info[2]);
@@ -85,13 +85,13 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 	public function updateLastUpdate($id, $inError = 0, $updateCache = true) {
 		if ($updateCache) {
 			$sql = 'UPDATE `' . $this->prefix . 'feed` '	//2 sub-requests with FOREIGN KEY(e.id_feed), INDEX(e.is_read) faster than 1 request with GROUP BY or CASE
-			     . 'SET cache_nbEntries=(SELECT COUNT(e1.id) FROM `' . $this->prefix . 'entry` e1 WHERE e1.id_feed=`' . $this->prefix . 'feed`.id),'
-			     . 'cache_nbUnreads=(SELECT COUNT(e2.id) FROM `' . $this->prefix . 'entry` e2 WHERE e2.id_feed=`' . $this->prefix . 'feed`.id AND e2.is_read=0),'
-			     . 'lastUpdate=?, error=? '
+			     . 'SET `cache_nbEntries`=(SELECT COUNT(e1.id) FROM `' . $this->prefix . 'entry` e1 WHERE e1.id_feed=`' . $this->prefix . 'feed`.id),'
+			     . '`cache_nbUnreads`=(SELECT COUNT(e2.id) FROM `' . $this->prefix . 'entry` e2 WHERE e2.id_feed=`' . $this->prefix . 'feed`.id AND e2.is_read=0),'
+			     . '`lastUpdate`=?, error=? '
 			     . 'WHERE id=?';
 		} else {
 			$sql = 'UPDATE `' . $this->prefix . 'feed` '
-			     . 'SET lastUpdate=?, error=? '
+			     . 'SET `lastUpdate`=?, error=? '
 			     . 'WHERE id=?';
 		}
 
@@ -226,10 +226,10 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 		if ($defaultCacheDuration < 0) {
 			$defaultCacheDuration = 2147483647;
 		}
-		$sql = 'SELECT id, url, name, website, lastUpdate, pathEntries, httpAuth, keep_history, ttl '
+		$sql = 'SELECT id, url, name, website, `lastUpdate`, `pathEntries`, `httpAuth`, keep_history, ttl '
 		     . 'FROM `' . $this->prefix . 'feed` '
-		     . 'WHERE ttl <> -1 AND lastUpdate < (' . (time() + 60) . '-(CASE WHEN ttl=-2 THEN ' . intval($defaultCacheDuration) . ' ELSE ttl END)) '
-		     . 'ORDER BY lastUpdate';
+		     . 'WHERE ttl <> -1 AND `lastUpdate` < (' . (time() + 60) . '-(CASE WHEN ttl=-2 THEN ' . intval($defaultCacheDuration) . ' ELSE ttl END)) '
+		     . 'ORDER BY `lastUpdate`';
 		$stm = $this->bd->prepare($sql);
 		if (!($stm && $stm->execute())) {
 			$sql2 = 'ALTER TABLE `' . $this->prefix . 'feed` ADD COLUMN ttl INT NOT NULL DEFAULT -2';	//v0.7.3
@@ -282,7 +282,7 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 		     .	'FROM `' . $this->prefix . 'entry` e '
 		     .	'GROUP BY e.id_feed'
 		     . ') x ON x.id_feed=f.id '
-		     . 'SET f.cache_nbEntries=x.nbEntries, f.cache_nbUnreads=x.nbUnreads';
+		     . 'SET f.`cache_nbEntries`=x.nbEntries, f.`cache_nbUnreads`=x.nbUnreads';
 		$stm = $this->bd->prepare($sql);
 
 		if ($stm && $stm->execute()) {
@@ -308,7 +308,7 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 		$affected = $stm->rowCount();
 
 		$sql = 'UPDATE `' . $this->prefix . 'feed` '
-			 . 'SET cache_nbEntries=0, cache_nbUnreads=0 WHERE id=?';
+			 . 'SET `cache_nbEntries`=0, `cache_nbUnreads`=0 WHERE id=?';
 		$values = array($id);
 		$stm = $this->bd->prepare($sql);
 		if (!($stm && $stm->execute($values))) {
@@ -326,7 +326,7 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 		$sql = 'DELETE FROM `' . $this->prefix . 'entry` '
 		     . 'WHERE id_feed=:id_feed AND id<=:id_max '
 		     . 'AND is_favorite=0 '	//Do not remove favourites
-		     . 'AND lastSeen < (SELECT maxLastSeen FROM (SELECT (MAX(e3.lastSeen)-99) AS maxLastSeen FROM `' . $this->prefix . 'entry` e3 WHERE e3.id_feed=:id_feed) recent) '	//Do not remove the most newly seen articles, plus a few seconds of tolerance
+		     . 'AND `lastSeen` < (SELECT maxLastSeen FROM (SELECT (MAX(e3.`lastSeen`)-99) AS maxLastSeen FROM `' . $this->prefix . 'entry` e3 WHERE e3.id_feed=:id_feed) recent) '	//Do not remove the most newly seen articles, plus a few seconds of tolerance
 		     . 'AND id NOT IN (SELECT id FROM (SELECT e2.id FROM `' . $this->prefix . 'entry` e2 WHERE e2.id_feed=:id_feed ORDER BY id DESC LIMIT :keep) keep)';	//Double select: MySQL doesn't support 'LIMIT & IN/ALL/ANY/SOME subquery'
 		$stm = $this->bd->prepare($sql);
 

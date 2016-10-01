@@ -282,6 +282,7 @@ class FreshRSS_ConfigurationSetter {
 
 		switch ($value['type']) {
 		case 'mysql':
+		case 'pgsql':
 			if (empty($value['host']) ||
 					empty($value['user']) ||
 					empty($value['base']) ||

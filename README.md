@@ -33,9 +33,9 @@ We are a friendly community.
 	* It even works on Raspberry Pi 1 with response time under a second (tested with 150 feeds, 22k articles)
 * A web server: Apache2 (recommended), nginx, lighttpd (not tested on others)
 * PHP 5.3.3+ (PHP 5.4+ recommended, and PHP 5.5+ for performance, and PHP 7 for even higher performance)
-	* Required extensions: [DOM](http://php.net/dom), [XML](http://php.net/xml), [PDO_MySQL](http://php.net/pdo-mysql) or [PDO_SQLite](http://php.net/pdo-sqlite), [cURL](http://php.net/curl)
+	* Required extensions: [DOM](http://php.net/dom), [XML](http://php.net/xml), [PDO_MySQL](http://php.net/pdo-mysql) or [PDO_SQLite](http://php.net/pdo-sqlite) or [PDO_PGSQL](http://php.net/pdo-pgsql), [cURL](http://php.net/curl)
 	* Recommended extensions: [JSON](http://php.net/json), [GMP](http://php.net/gmp) (for API access on platforms < 64 bits), [IDN](http://php.net/intl.idn) (for Internationalized Domain Names), [mbstring](http://php.net/mbstring) and/or [iconv](http://php.net/iconv) (for charset conversion), [Zip](http://php.net/zip) (for import/export), [zlib](http://php.net/zlib) (for compressed feeds)
-* MySQL 5.5.3+ (recommended) or SQLite 3.7.4+
+* MySQL 5.5.3+ (recommended), or SQLite 3.7.4+, or PostgreSQL (experimental)
 * A recent browser like Firefox, Internet Explorer 11 / Edge, Chrome, Opera, Safari.
 	* Works on mobile
 
@@ -56,13 +56,20 @@ We are a friendly community.
 ```sh
 # If you use an Apache Web server (otherwise you need another Web server)
 sudo apt-get install apache2
-sudo a2enmod headers expires rewrite ssl
-# (Optional) If you want a MySQL database server
-sudo apt-get install mysql-server mysql-client php5-mysql
-# Main components (for Ubuntu <= 15.10, Debian <= 8 Jessie)
+sudo a2enmod headers expires rewrite ssl	#Apache modules
+
+# For Ubuntu <= 15.10, Debian <= 8 Jessie
 sudo apt-get install php5 php5-curl php5-gmp php5-intl php5-json php5-sqlite
-# Main components (for Ubuntu >= 16.04, Debian >= 9 Stretch)
-sudo apt install php libapache2-mod-php php-curl php-gmp php-intl php-mbstring php-sqlite3 php-xml php-zip
+sudo apt-get install libapache2-mod-php5	#For Apache
+sudo apt-get install mysql-server mysql-client php5-mysql	#Optional MySQL database
+sudo apt-get install postgresql php5-pgsql	#Optional PostgreSQL database
+
+# For Ubuntu >= 16.04, Debian >= 9 Stretch
+sudo apt install php php-curl php-gmp php-intl php-mbstring php-sqlite3 php-xml php-zip
+sudo apt install libapache2-mod-php	#For Apache
+sudo apt install mysql-server mysql-client php-mysql	#Optional MySQL database
+sudo apt install postgresql php-pgsql	#Optional PostgreSQL database
+
 # Restart Web server
 sudo service apache2 restart
 

@@ -73,8 +73,8 @@ return array(
 			'ok' => 'You have the required library for regular expressions (PCRE).',
 		),
 		'pdo' => array(
-			'nok' => 'You lack PDO or one of the supported drivers (pdo_mysql, pdo_sqlite).',
-			'ok' => 'You have PDO and at least one of the supported drivers (pdo_mysql, pdo_sqlite).',
+			'nok' => 'You lack PDO or one of the supported drivers (pdo_mysql, pdo_sqlite, pdo_pgsql).',
+			'ok' => 'You have PDO and at least one of the supported drivers (pdo_mysql, pdo_sqlite, pdo_pgsql).',
 		),
 		'php' => array(
 			'nok' => 'Your PHP version is %s but FreshRSS requires at least version %s.',

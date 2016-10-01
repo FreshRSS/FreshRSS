@@ -12,7 +12,7 @@
 		if (!empty($feeds)) {
 			echo '<optgroup label="', $category->name(), '">';
 			foreach ($feeds as $feed) {
-				if ($this->feed && $feed->id() == $this->feed->id()){
+				if ($this->feed && $feed->id() == $this->feed->id()) {
 					echo '<option value="', $feed->id(), '" selected="selected" data-url="', _url('stats', 'repartition', 'id', $feed->id()), '">', $feed->name(), '</option>';
 				} else {
 					echo '<option value="', $feed->id(), '" data-url="', _url('stats', 'repartition', 'id', $feed->id()), '">', $feed->name(), '</option>';
@@ -39,9 +39,9 @@
 		</tr>
 		<tr>
 			<td class="numeric"><?php echo $this->repartition['total']; ?></td>
-			<td class="numeric"><?php echo $this->repartition['read']; ?></td>
-			<td class="numeric"><?php echo $this->repartition['unread']; ?></td>
-			<td class="numeric"><?php echo $this->repartition['favorite']; ?></td>
+			<td class="numeric"><?php echo $this->repartition['count_reads']; ?></td>
+			<td class="numeric"><?php echo $this->repartition['count_unreads']; ?></td>
+			<td class="numeric"><?php echo $this->repartition['count_favorites']; ?></td>
 		</tr>
 		</table>
 	</div>

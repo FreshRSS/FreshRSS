@@ -10,7 +10,7 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo implements FreshRSS_Searchable 
 		);
 
 		if ($stm && $stm->execute($values)) {
-			return $this->bd->lastInsertId();
+			return $this->bd->lastInsertId('"' . $this->prefix . 'category_id_seq"');
 		} else {
 			$info = $stm == null ? array(2 => 'syntax error') : $stm->errorInfo();
 			Minz_Log::error('SQL error addCategory: ' . $info[2]);
@@ -103,7 +103,7 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo implements FreshRSS_Searchable 
 	public function listCategories($prePopulateFeeds = true, $details = false) {
 		if ($prePopulateFeeds) {
 			$sql = 'SELECT c.id AS c_id, c.name AS c_name, '
-			     . ($details ? 'f.* ' : 'f.id, f.name, f.url, f.website, f.priority, f.error, f.cache_nbEntries, f.cache_nbUnreads ')
+			     . ($details ? 'f.* ' : 'f.id, f.name, f.url, f.website, f.priority, f.error, f.`cache_nbEntries`, f.`cache_nbUnreads` ')
 			     . 'FROM `' . $this->prefix . 'category` c '
 			     . 'LEFT OUTER JOIN `' . $this->prefix . 'feed` f ON f.category=c.id '
 			     . 'GROUP BY f.id, c_id '
@@ -210,12 +210,13 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo implements FreshRSS_Searchable 
 
 		$previousLine = null;
 		$feedsDao = array();
+		$feedDao = FreshRSS_Factory::createFeedDAO();
 		foreach ($listDAO as $line) {
 			if ($previousLine['c_id'] != null && $line['c_id'] !== $previousLine['c_id']) {
 				// End of the current category, we add it to the $list
 				$cat = new FreshRSS_Category(
 					$previousLine['c_name'],
-					FreshRSS_FeedDAO::daoToFeed($feedsDao, $previousLine['c_id'])
+					$feedDao->daoToFeed($feedsDao, $previousLine['c_id'])
 				);
 				$cat->_id($previousLine['c_id']);
 				$list[$previousLine['c_id']] = $cat;
@@ -231,7 +232,7 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo implements FreshRSS_Searchable 
 		if ($previousLine != null) {
 			$cat = new FreshRSS_Category(
 				$previousLine['c_name'],
-				FreshRSS_FeedDAO::daoToFeed($feedsDao, $previousLine['c_id'])
+				$feedDao->daoToFeed($feedsDao, $previousLine['c_id'])
 			);
 			$cat->_id($previousLine['c_id']);
 			$list[$previousLine['c_id']] = $cat;

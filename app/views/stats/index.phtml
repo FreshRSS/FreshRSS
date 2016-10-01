@@ -23,18 +23,18 @@
 				</tr>
 				<tr>
 					<th><?php echo _t('admin.stats.status_read'); ?></th>
-					<td class="numeric"><?php echo format_number($this->repartition['main_stream']['read']); ?></td>
-					<td class="numeric"><?php echo format_number($this->repartition['all_feeds']['read']); ?></td>
+					<td class="numeric"><?php echo format_number($this->repartition['main_stream']['count_reads']); ?></td>
+					<td class="numeric"><?php echo format_number($this->repartition['all_feeds']['count_reads']); ?></td>
 				</tr>
 				<tr>
 					<th><?php echo _t('admin.stats.status_unread'); ?></th>
-					<td class="numeric"><?php echo format_number($this->repartition['main_stream']['unread']); ?></td>
-					<td class="numeric"><?php echo format_number($this->repartition['all_feeds']['unread']); ?></td>
+					<td class="numeric"><?php echo format_number($this->repartition['main_stream']['count_unreads']); ?></td>
+					<td class="numeric"><?php echo format_number($this->repartition['all_feeds']['count_unreads']); ?></td>
 				</tr>
 				<tr>
 					<th><?php echo _t('admin.stats.status_favorites'); ?></th>
-					<td class="numeric"><?php echo format_number($this->repartition['main_stream']['favorite']); ?></td>
-					<td class="numeric"><?php echo format_number($this->repartition['all_feeds']['favorite']); ?></td>
+					<td class="numeric"><?php echo format_number($this->repartition['main_stream']['count_favorites']); ?></td>
+					<td class="numeric"><?php echo format_number($this->repartition['all_feeds']['count_favorites']); ?></td>
 				</tr>
 			</tbody>
 		</table>

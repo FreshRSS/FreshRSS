@@ -71,8 +71,8 @@ return array(
 			'ok' => 'Düzenli ifadeler kütüphanesi sorunsuz (PCRE).',
 		),
 		'pdo' => array(
-			'nok' => 'PDO veya PDO destekli bir sürücü eksik (pdo_mysql, pdo_sqlite).',
-			'ok' => 'PDO sorunsuz (pdo_mysql, pdo_sqlite).',
+			'nok' => 'PDO veya PDO destekli bir sürücü eksik (pdo_mysql, pdo_sqlite, pdo_pgsql).',
+			'ok' => 'PDO sorunsuz (pdo_mysql, pdo_sqlite, pdo_pgsql).',
 		),
 		'php' => array(
 			'_' => 'PHP kurulumu',
