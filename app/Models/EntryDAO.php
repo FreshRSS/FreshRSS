@@ -197,7 +197,6 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 		if ($valuesTmp['is_read'] !== null) {
 			$this->addEntryPrepared->bindParam(':is_read', $valuesTmp['is_read'] ? 1 : 0, PDO::PARAM_INT);
 		}
-		$this->addEntryPrepared->bindParam(':is_read', $valuesTmp['is_read'], PDO::PARAM_INT);
 		$this->addEntryPrepared->bindParam(':id_feed', $valuesTmp['id_feed'], PDO::PARAM_INT);
 		$valuesTmp['tags'] = substr($valuesTmp['tags'], 0, 1023);
 		$this->addEntryPrepared->bindParam(':tags', $valuesTmp['tags']);
