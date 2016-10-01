@@ -8,8 +8,9 @@ class FreshRSS_UserDAO extends Minz_ModelPdo {
 		$userPDO = new Minz_ModelPdo($username);
 
 		$ok = false;
+		$bd_prefix_user = $db['prefix'] . $username . '_';
 		if (defined('SQL_CREATE_TABLES')) {	//E.g. MySQL
-			$sql = sprintf(SQL_CREATE_TABLES, $db['prefix'] . $username . '_', _t('gen.short.default_category'));
+			$sql = sprintf(SQL_CREATE_TABLES, $bd_prefix_user, _t('gen.short.default_category'));
 			$stm = $userPDO->bd->prepare($sql);
 			$ok = $stm && $stm->execute();
 		} else {	//E.g. SQLite
@@ -17,7 +18,7 @@ class FreshRSS_UserDAO extends Minz_ModelPdo {
 			if (is_array($SQL_CREATE_TABLES)) {
 				$ok = true;
 				foreach ($SQL_CREATE_TABLES as $instruction) {
-					$sql = sprintf($instruction, '', _t('gen.short.default_category'));
+					$sql = sprintf($instruction, $bd_prefix_user, _t('gen.short.default_category'));
 					$stm = $userPDO->bd->prepare($sql);
 					$ok &= ($stm && $stm->execute());
 				}

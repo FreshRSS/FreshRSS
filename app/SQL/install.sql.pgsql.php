@@ -26,9 +26,9 @@ $SQL_CREATE_TABLES = array(
 	"cache_nbUnreads" INT DEFAULT 0,
 	FOREIGN KEY ("category") REFERENCES "%1$scategory" ("id") ON DELETE SET NULL ON UPDATE CASCADE
 );',
-'CREATE INDEX name_index ON "%1$sfeed" ("name");',
-'CREATE INDEX priority_index ON "%1$sfeed" ("priority");',
-'CREATE INDEX keep_history_index ON "%1$sfeed" ("keep_history");',
+'CREATE INDEX %1$sname_index ON "%1$sfeed" ("name");',
+'CREATE INDEX %1$spriority_index ON "%1$sfeed" ("priority");',
+'CREATE INDEX %1$skeep_history_index ON "%1$sfeed" ("keep_history");',
 
 'CREATE TABLE IF NOT EXISTS "%1$sentry" (
 	"id" BIGINT NOT NULL PRIMARY KEY,
@@ -47,9 +47,9 @@ $SQL_CREATE_TABLES = array(
 	FOREIGN KEY ("id_feed") REFERENCES "%1$sfeed" ("id") ON DELETE CASCADE ON UPDATE CASCADE,
 	UNIQUE ("id_feed","guid")
 );',
-'CREATE INDEX is_favorite_index ON "%1$sentry" ("is_favorite");',
-'CREATE INDEX is_read_index ON "%1$sentry" ("is_read");',
-'CREATE INDEX entry_lastSeen_index ON "%1$sentry" ("lastSeen");',
+'CREATE INDEX %1$sis_favorite_index ON "%1$sentry" ("is_favorite");',
+'CREATE INDEX %1$sis_read_index ON "%1$sentry" ("is_read");',
+'CREATE INDEX %1$sentry_lastSeen_index ON "%1$sentry" ("lastSeen");',
 
 'INSERT INTO "%1$scategory" (id, name) VALUES(1, \'%2$s\');',
 'INSERT INTO "%1$sfeed" (url, category, name, website, description, ttl) VALUES(\'http://freshrss.org/feeds/all.atom.xml\', 1, \'FreshRSS.org\', \'http://freshrss.org/\', \'FreshRSS, a free, self-hostable aggregator…\', 86400);',
