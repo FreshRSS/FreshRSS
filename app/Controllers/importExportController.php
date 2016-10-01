@@ -469,20 +469,21 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 		$export_opml = Minz_Request::param('export_opml', false);
 		$export_starred = Minz_Request::param('export_starred', false);
 		$export_feeds = Minz_Request::param('export_feeds', array());
+		$day = date('Y-m-d');
 
 		$export_files = array();
 		if ($export_opml) {
-			$export_files['feeds.opml'] = $this->generateOpml();
+			$export_files["feeds_${day}.opml.xml"] = $this->generateOpml();
 		}
 
 		if ($export_starred) {
-			$export_files['starred.json'] = $this->generateEntries('starred');
+			$export_files["starred_${day}.json"] = $this->generateEntries('starred');
 		}
 
 		foreach ($export_feeds as $feed_id) {
 			$feed = $this->feedDAO->searchById($feed_id);
 			if ($feed) {
-				$filename = 'feed_' . $feed->category() . '_'
+				$filename = "feed_${day}_" . $feed->category() . '_'
 				          . $feed->id() . '.json';
 				$export_files[$filename] = $this->generateEntries('feed', $feed);
 			}
@@ -579,7 +580,8 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 		$zip->close();
 		header('Content-Type: application/zip');
 		header('Content-Length: ' . filesize($zip_file));
-		header('Content-Disposition: attachment; filename="freshrss_export.zip"');
+		$day = date('Y-m-d');
+		header('Content-Disposition: attachment; filename="freshrss_' . $day . '_export.zip"');
 		readfile($zip_file);
 		unlink($zip_file);
 	}
@@ -599,9 +601,9 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 
 		$content_type = '';
 		if ($type === 'opml') {
-			$content_type = "text/opml";
+			$content_type = 'application/xml';
 		} elseif ($type === 'json_feed' || $type === 'json_starred') {
-			$content_type = "text/json";
+			$content_type = 'application/json';
 		}
 
 		header('Content-Type: ' . $content_type . '; charset=utf-8');
