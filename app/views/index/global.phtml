@@ -11,10 +11,13 @@
 
 <div id="stream" class="global<?php echo $class; ?>">
 <?php
+	$params = Minz_Request::fetchGET();
+	unset($params['c']);
+	unset($params['a']);
 	$url_base = array(
 		'c' => 'index',
 		'a' => 'normal',
-		'params' => Minz_Request::fetchGET(),
+		'params' => $params,
 	);
 
 	foreach ($this->categories as $cat) {
