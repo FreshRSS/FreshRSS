@@ -145,8 +145,8 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 		if ($this->hasNativeHex()) {
 			$this->addEntryPrepared->bindParam(':hash', $valuesTmp['hash']);
 		} else {
-			$valuesTmp['hashBin'] = pack('H*', $valuesTmp['hash']);
-			$this->addEntryPrepared->bindParam(':hash', $valuesTmp['hashBin']);	// X'09AF' hexadecimal literals do not work with SQLite/PDO	//hex2bin() is PHP5.4+
+			$valuesTmp['hashBin'] = pack('H*', $valuesTmp['hash']);	//hex2bin() is PHP5.4+
+			$this->addEntryPrepared->bindParam(':hash', $valuesTmp['hashBin']);
 		}
 
 		if ($this->addEntryPrepared && $this->addEntryPrepared->execute()) {
@@ -172,33 +172,42 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 
 		if ($this->updateEntryPrepared === null) {
 			$sql = 'UPDATE `' . $this->prefix . 'entry` '
-			     . 'SET title=?, author=?, '
-			     . ($this->isCompressed() ? 'content_bin=COMPRESS(?)' : 'content=?')
-			     . ', link=?, date=?, `lastSeen`=?, hash='
-			     . ($this->hasNativeHex() ? 'X?' : '?')	//TODO PostgreSQL
-			     . ', ' . ($valuesTmp['is_read'] === null ? '' : 'is_read=?, ')
-			     . 'tags=? '
-			     . 'WHERE id_feed=? AND guid=?';
+			     . 'SET title=:title, author=:author, '
+			     . ($this->isCompressed() ? 'content_bin=COMPRESS(:content)' : 'content=:content')
+			     . ', link=:link, date=:date, `lastSeen`=:last_seen, '
+			     . 'hash=' . $this->sqlHexDecode(':hash')
+			     . ', ' . ($valuesTmp['is_read'] === null ? '' : 'is_read=:is_read, ')
+			     . 'tags=:tags '
+			     . 'WHERE id_feed=:id_feed AND guid=:guid';
 			$this->updateEntryPrepared = $this->bd->prepare($sql);
 		}
 
-		$values = array(
-			substr($valuesTmp['title'], 0, 255),
-			substr($valuesTmp['author'], 0, 255),
-			$valuesTmp['content'],
-			substr($valuesTmp['link'], 0, 1023),
-			$valuesTmp['date'],
-			time(),
-			$this->hasNativeHex() ? $valuesTmp['hash'] : pack('H*', $valuesTmp['hash']),
-		);
+		$valuesTmp['guid'] = substr($valuesTmp['guid'], 0, 760);
+		$this->addEntryPrepared->bindParam(':guid', $valuesTmp['guid']);
+		$valuesTmp['title'] = substr($valuesTmp['title'], 0, 255);
+		$this->addEntryPrepared->bindParam(':title', $valuesTmp['title']);
+		$valuesTmp['author'] = substr($valuesTmp['author'], 0, 255);
+		$this->addEntryPrepared->bindParam(':author', $valuesTmp['author']);
+		$this->addEntryPrepared->bindParam(':content', $valuesTmp['content']);
+		$valuesTmp['link'] = substr($valuesTmp['link'], 0, 1023);
+		$this->addEntryPrepared->bindParam(':link', $valuesTmp['link']);
+		$this->addEntryPrepared->bindParam(':date', $valuesTmp['date'], PDO::PARAM_INT);
+		$valuesTmp['lastSeen'] = time();
+		$this->addEntryPrepared->bindParam(':last_seen', $valuesTmp['lastSeen'], PDO::PARAM_INT);
 		if ($valuesTmp['is_read'] !== null) {
-			$values[] = $valuesTmp['is_read'] ? 1 : 0;
+			$this->addEntryPrepared->bindParam(':is_read', $valuesTmp['is_read'] ? 1 : 0, PDO::PARAM_INT);
 		}
-		$values = array_merge($values, array(
-			substr($valuesTmp['tags'], 0, 1023),
-			$valuesTmp['id_feed'],
-			substr($valuesTmp['guid'], 0, 760),
-		));
+		$this->addEntryPrepared->bindParam(':is_read', $valuesTmp['is_read'], PDO::PARAM_INT);
+		$this->addEntryPrepared->bindParam(':id_feed', $valuesTmp['id_feed'], PDO::PARAM_INT);
+		$valuesTmp['tags'] = substr($valuesTmp['tags'], 0, 1023);
+		$this->addEntryPrepared->bindParam(':tags', $valuesTmp['tags']);
+
+		if ($this->hasNativeHex()) {
+			$this->addEntryPrepared->bindParam(':hash', $valuesTmp['hash']);
+		} else {
+			$valuesTmp['hashBin'] = pack('H*', $valuesTmp['hash']);	//hex2bin() is PHP5.4+
+			$this->addEntryPrepared->bindParam(':hash', $valuesTmp['hashBin']);
+		}
 
 		if ($this->updateEntryPrepared && $this->updateEntryPrepared->execute($values)) {
 			return $this->bd->lastInsertId();
