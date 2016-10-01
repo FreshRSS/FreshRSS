@@ -162,6 +162,6 @@ class MinzPDOMSQLite extends MinzPDO {
 
 class MinzPDOPGSQL extends MinzPDO {
 	protected function compatibility($statement) {
-		return str_replace('`', '"', $statement);
+		return str_replace(array('`', ' LIKE '), array('"', ' ILIKE '), $statement);
 	}
 }
