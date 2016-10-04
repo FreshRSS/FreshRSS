@@ -3,7 +3,7 @@
 <div class="post">
 	<a href="<?php echo _url('index', 'index'); ?>"><?php echo _t('gen.action.back_to_rss_feeds'); ?></a>
 
-	<form method="post" action="<?php echo _url('user', 'create'); ?>">
+	<form method="post" action="<?php echo _url('user', 'create'); ?>" autocomplete="off">
 		<input type="hidden" name="_csrf" value="<?php echo FreshRSS_Auth::csrfToken(); ?>" />
 		<legend><?php echo _t('admin.user.create'); ?></legend>
 
@@ -30,7 +30,7 @@
 			<label class="group-name" for="new_user_passwordPlain"><?php echo _t('admin.user.password_form'); ?></label>
 			<div class="group-controls">
 				<div class="stick">
-					<input type="password" id="new_user_passwordPlain" name="new_user_passwordPlain" autocomplete="off" pattern=".{7,}" />
+					<input type="password" id="new_user_passwordPlain" name="new_user_passwordPlain" autocomplete="new-password" pattern=".{7,}" />
 					<a class="btn toggle-password" data-toggle="new_user_passwordPlain"><?php echo _i('key'); ?></a>
 				</div>
 				<?php echo _i('help'); ?> <?php echo _t('admin.user.password_format'); ?>
