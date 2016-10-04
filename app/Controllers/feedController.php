@@ -242,7 +242,7 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 				$feeds[] = $feed;
 			}
 		} else {
-			$feeds = $feedDAO->listFeedsOrderUpdate(FreshRSS_Context::$user_conf->ttl_default);
+			$feeds = $feedDAO->listFeedsOrderUpdate(-1);
 		}
 
 		// Calculate date of oldest entries we accept in DB.
@@ -264,6 +264,20 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 				//Minz_Log::debug($text);
 				//file_put_contents(USERS_PATH . '/_/log_pshb.txt', date('c') . "\t" . $text . "\n", FILE_APPEND);
 				continue;	//When PubSubHubbub is used, do not pull refresh so often
+			}
+
+			$mtime = 0;
+			$ttl = $feed->ttl();
+			if ($ttl == -1) {
+				continue;	//Feed refresh is disabled
+			}
+			if (feed->lastUpdate() < time() - ($ttl == -2 ? FreshRSS_Context::$user_conf->ttl_default : $ttl)) {
+				//Too early to refresh from source, but check if the feed was already updated by another user
+				$mtime = feed->cacheModifiedTime();
+				if (feed->lastUpdate() >= $mtime + 10) {
+					continue;	//Nothing newer from other users
+				}
+				Minz_Log::debug($feed->url() . ' was recently updated by another user');
 			}
 
 			if (!$feed->lock()) {
@@ -358,7 +372,7 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 						$entryDAO->addEntry($entry->toArray());
 					}
 				}
-				$entryDAO->updateLastSeen($feed->id(), $oldGuids);
+				$entryDAO->updateLastSeen($feed->id(), $oldGuids, $mtime);
 			}
 
 			if ($feed_history >= 0 && rand(0, 30) === 1) {

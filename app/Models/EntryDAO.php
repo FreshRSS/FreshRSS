@@ -707,13 +707,16 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 		}
 	}
 
-	public function updateLastSeen($id_feed, $guids) {
+	public function updateLastSeen($id_feed, $guids, $mtime = 0) {
 		if (count($guids) < 1) {
 			return 0;
 		}
 		$sql = 'UPDATE `' . $this->prefix . 'entry` SET `lastSeen`=? WHERE id_feed=? AND guid IN (' . str_repeat('?,', count($guids) - 1). '?)';
 		$stm = $this->bd->prepare($sql);
-		$values = array(time(), $id_feed);
+		if ($mtime <= 0) {
+			$mtime = time();
+		}
+		$values = array($mtime, $id_feed);
 		$values = array_merge($values, $guids);
 		if ($stm && $stm->execute($values)) {
 			return $stm->rowCount();
