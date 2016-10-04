@@ -271,10 +271,10 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 			if ($ttl == -1) {
 				continue;	//Feed refresh is disabled
 			}
-			if (feed->lastUpdate() < time() - ($ttl == -2 ? FreshRSS_Context::$user_conf->ttl_default : $ttl)) {
-				//Too early to refresh from source, but check if the feed was already updated by another user
-				$mtime = feed->cacheModifiedTime();
-				if (feed->lastUpdate() >= $mtime + 10) {
+			if ($feed->lastUpdate() < time() + 60 - ($ttl == -2 ? FreshRSS_Context::$user_conf->ttl_default : $ttl)) {
+				//Too early to refresh from source, but check whether the feed was updated by another user
+				$mtime = $feed->cacheModifiedTime();
+				if ($feed->lastUpdate() >= $mtime + 10) {
 					continue;	//Nothing newer from other users
 				}
 				Minz_Log::debug($feed->url() . ' was recently updated by another user');
