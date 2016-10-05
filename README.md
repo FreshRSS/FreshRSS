@@ -154,7 +154,7 @@ mysqldump -u user -p --databases freshrss > freshrss.sql
 Any client supporting a Google Reader-like API. Selection:
 
 * Android
-	* (Closed source) [News+](https://play.google.com/store/apps/details?id=com.noinnion.android.newsplus) + [News+ Google Reader extension](https://play.google.com/store/apps/details?id=com.noinnion.android.newsplus.extension.google_reader)
-	* (Open source, F-Droid) [EasyRSS](https://github.com/Alkarex/EasyRSS)
+	* [News+](https://play.google.com/store/apps/details?id=com.noinnion.android.newsplus) + [News+ Google Reader extension](https://play.google.com/store/apps/details?id=com.noinnion.android.newsplus.extension.google_reader) (Closed source)
+	* [EasyRSS](https://github.com/Alkarex/EasyRSS) (Open source, F-Droid)
 * Linux
-	* (Open source) [FeedReader](https://jangernert.github.io/FeedReader/)
+	* [FeedReader](https://jangernert.github.io/FeedReader/) (Open source)
