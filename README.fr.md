@@ -50,7 +50,8 @@ Nous sommes une communauté amicale.
 6. Des paramètres de configuration avancée peuvent être accédés depuis [config.php](./data/config.default.php).
 
 ## Installation automatisée
-[![DP deploy](https://raw.githubusercontent.com/DFabric/DPlatform-ShellCore/gh-pages/img/deploy.png)](https://dfabric.github.io/DPlatform-ShellCore)
+* [![DP deploy](https://raw.githubusercontent.com/DFabric/DPlatform-ShellCore/gh-pages/img/deploy.png)](https://dfabric.github.io/DPlatform-ShellCore)
+* [YunoHost](https://github.com/YunoHost-Apps/freshrss_ynh)
 
 ## Exemple d’installation complète sur Linux Debian/Ubuntu
 ```sh
@@ -70,7 +71,7 @@ sudo apt install libapache2-mod-php	#Pour Apache
 sudo apt install mysql-server mysql-client php-mysql	#Base de données MySQL optionnelle
 sudo apt install postgresql php-pgsql	#Base de données PostgreSQL optionnelle
 
-# Redémarrage du serveur Web
+## Redémarrage du serveur Web
 sudo service apache2 restart
 
 # Pour FreshRSS lui-même (git est optionnel si vous déployez manuellement les fichiers d’installation)
@@ -94,7 +95,7 @@ sudo chown -R :www-data .
 sudo chmod -R g+w ./data/
 ```
 
-# Contrôle d’accès
+## Contrôle d’accès
 Il est requis pour le mode multi-utilisateur, et recommandé dans tous les cas, de limiter l’accès à votre FreshRSS. Au choix :
 * En utilisant l’identification par formulaire (requiert JavaScript, et PHP 5.3.7+ recommandé – fonctionne avec certaines versions de PHP 5.3.3+)
 * En utilisant un contrôle d’accès HTTP défini par votre serveur Web
@@ -111,11 +112,13 @@ Par exemple, pour exécuter le script toutes les heures :
 7 * * * * php /votre-chemin/FreshRSS/app/actualize_script.php > /tmp/FreshRSS.log 2>&1
 ```
 
+
 # Conseils
 * Pour une meilleure sécurité, faites en sorte que seul le répertoire `./p/` soit accessible depuis le Web, par exemple en faisant pointer un sous-domaine sur le répertoire `./p/`.
 	* En particulier, les données personnelles se trouvent dans le répertoire `./data/`.
 * Le fichier `./constants.php` définit les chemins d’accès aux répertoires clés de l’application. Si vous les bougez, tout se passe ici.
 * En cas de problème, les logs peuvent être utile à lire, soit depuis l’interface de FreshRSS, soit manuellement depuis `./data/log/*.log`.
+
 
 # Sauvegarde
 * Il faut conserver vos fichiers `./data/config.php` ainsi que `./data/*_user.php`
@@ -145,3 +148,13 @@ mysqldump -u utilisateur -p --databases freshrss > freshrss.sql
 ## Si les fonctions natives ne sont pas disponibles
 * [Services_JSON](http://pear.php.net/pepr/pepr-proposal-show.php?id=198)
 * [password_compat](https://github.com/ircmaxell/password_compat)
+
+
+# Clients compatibles
+Tout client supportant une API de type Google Reader. Sélection :
+
+* Android
+	* (Propriétaire) [News+](https://play.google.com/store/apps/details?id=com.noinnion.android.newsplus) + [News+ Google Reader extension](https://play.google.com/store/apps/details?id=com.noinnion.android.newsplus.extension.google_reader)
+	* (Libre, F-Droid) [EasyRSS](https://github.com/Alkarex/EasyRSS)
+* Linux
+	* (Libre) [FeedReader](https://jangernert.github.io/FeedReader/)

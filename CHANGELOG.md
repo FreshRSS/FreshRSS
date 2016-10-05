@@ -6,6 +6,7 @@
 	* Support for editing feeds and categories from client applications [#1254](https://github.com/FreshRSS/FreshRSS/issues/1254)
 * Compatibility:
 	* Experimental support for PostgreSQL [#1195](https://github.com/FreshRSS/FreshRSS/pull/1195)
+	* New client supporting FreshRSS on Linux: FeedReader [#1252](https://github.com/FreshRSS/FreshRSS/issues/1252)
 * Features
 	* Better control of number of entries per page or RSS feed [#1249](https://github.com/FreshRSS/FreshRSS/issues/1249)
 		* Since X hours: `https://freshrss.example/i/?a=rss&hours=3`
