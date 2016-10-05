@@ -340,6 +340,10 @@ class FreshRSS_Feed extends Minz_Model {
 		$this->entries = $entries;
 	}
 
+	function cacheModifiedTime() {
+		return @filemtime(CACHE_PATH . '/' . md5($this->url) . '.spc');
+	}
+
 	function lock() {
 		$this->lockPath = TMP_PATH . '/' . $this->hash() . '.freshrss.lock';
 		if (file_exists($this->lockPath) && ((time() - @filemtime($this->lockPath)) > 3600)) {

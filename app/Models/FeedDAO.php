@@ -82,7 +82,7 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 		}
 	}
 
-	public function updateLastUpdate($id, $inError = 0, $updateCache = true) {
+	public function updateLastUpdate($id, $inError = false, $updateCache = true, $mtime = 0) {
 		if ($updateCache) {
 			$sql = 'UPDATE `' . $this->prefix . 'feed` '	//2 sub-requests with FOREIGN KEY(e.id_feed), INDEX(e.is_read) faster than 1 request with GROUP BY or CASE
 			     . 'SET `cache_nbEntries`=(SELECT COUNT(e1.id) FROM `' . $this->prefix . 'entry` e1 WHERE e1.id_feed=`' . $this->prefix . 'feed`.id),'
@@ -95,9 +95,13 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 			     . 'WHERE id=?';
 		}
 
+		if ($mtime <= 0) {
+			$mtime = time();
+		}
+
 		$values = array(
-			time(),
-			$inError,
+			$mtime,
+			$inError ? 1 : 0,
 			$id,
 		);
 
@@ -222,13 +226,13 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 		return $feedCategoryNames;
 	}
 
+	/**
+	 * Use $defaultCacheDuration == -1 to return all feeds, without filtering them by TTL.
+	 */
 	public function listFeedsOrderUpdate($defaultCacheDuration = 3600) {
-		if ($defaultCacheDuration < 0) {
-			$defaultCacheDuration = 2147483647;
-		}
 		$sql = 'SELECT id, url, name, website, `lastUpdate`, `pathEntries`, `httpAuth`, keep_history, ttl '
 		     . 'FROM `' . $this->prefix . 'feed` '
-		     . 'WHERE ttl <> -1 AND `lastUpdate` < (' . (time() + 60) . '-(CASE WHEN ttl=-2 THEN ' . intval($defaultCacheDuration) . ' ELSE ttl END)) '
+		     . ($defaultCacheDuration < 0 ? '' : 'WHERE ttl <> -1 AND `lastUpdate` < (' . (time() + 60) . '-(CASE WHEN ttl=-2 THEN ' . intval($defaultCacheDuration) . ' ELSE ttl END)) ')
 		     . 'ORDER BY `lastUpdate`';
 		$stm = $this->bd->prepare($sql);
 		if (!($stm && $stm->execute())) {
