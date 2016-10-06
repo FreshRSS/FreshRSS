@@ -1021,6 +1021,9 @@ function focus_search() {
 	$('#search').focus();
 }
 
+var freshrssLoadMoreEvent = document.createEvent('Event');
+freshrssLoadMoreEvent.initEvent('freshrss:load-more', true, true);
+
 function init_load_more(box) {
 	box_load_more = box;
 
@@ -1029,6 +1032,8 @@ function init_load_more(box) {
 			this.removeAttribute('postpone');
 		});
 	}
+
+	document.body.dispatchEvent(freshrssLoadMoreEvent);
 
 	var $next_link = $("#load_more");
 	if (!$next_link.length) {
