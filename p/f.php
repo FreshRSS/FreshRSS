@@ -15,6 +15,7 @@ $default_favicon = PUBLIC_PATH . '/themes/icons/default_favicon.ico';
 function download_favicon($website, $dest) {
 	global $favicons_dir, $default_favicon;
 
+	syslog(LOG_DEBUG, 'FreshRSS Favicon discovery GET ' . $website);
 	$favicon_getter = new \Favicon\Favicon();
 	$favicon_getter->setCacheDir($favicons_dir);
 	$favicon_url = $favicon_getter->get($website);
@@ -23,6 +24,7 @@ function download_favicon($website, $dest) {
 		return @copy($default_favicon, $dest);
 	}
 
+	syslog(LOG_DEBUG, 'FreshRSS Favicon GET ' . $favicon_url);
 	$c = curl_init($favicon_url);
 	curl_setopt($c, CURLOPT_HEADER, false);
 	curl_setopt($c, CURLOPT_RETURNTRANSFER, true);
@@ -69,18 +71,22 @@ $txt_mtime = @filemtime($txt);
 
 header('Content-Type: image/x-icon');
 
-if ($ico_mtime == false || $txt_mtime > $ico_mtime) {
+if ($ico_mtime == false || $txt_mtime > $ico_mtime || ($ico_mtime < time() - 15 * 86400)) {
 	if ($txt_mtime == false) {
 		show_default_favicon(1800);
-		return;
+		exit();
 	}
 
 	// no ico file or we should download a new one.
 	$url = file_get_contents($txt);
 	if (!download_favicon($url, $ico)) {
-		// Download failed, show the default favicon
-		show_default_favicon(86400);
-		return;
+		// Download failed
+		if ($ico_mtime == false) {
+			show_default_favicon(86400);
+			exit();
+		} else {
+			touch($ico);
+		}
 	}
 }
 

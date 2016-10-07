@@ -16,7 +16,7 @@ class DataAccess {
 	public function retrieveHeader($url) {
 	    $this->set_context();
 		$headers = @get_headers($url, 1);
-		return array_change_key_case($headers);
+		return $headers ? array_change_key_case($headers) : array();
 	}
 	
     public function saveCache($file, $data) {
