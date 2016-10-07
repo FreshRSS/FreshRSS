@@ -33,7 +33,7 @@ return array(
 			'ok' => 'Máte požadovanou knihovnu pro ověřování znaků (ctype).',
 		),
 		'curl' => array(
-			'nok' => 'Nemáte cURL (balíček php5-curl).',
+			'nok' => 'Nemáte cURL (balíček php-curl).',
 			'ok' => 'Máte rozšíření cURL.',
 		),
 		'data' => array(
@@ -93,7 +93,7 @@ return array(
 			'ok' => 'Oprávnění adresáře users jsou v pořádku.',
 		),
 		'zip' => array(
-			'nok' => 'Nemáte rozšíření ZIP (balíček php5-zip).',
+			'nok' => 'Nemáte rozšíření ZIP (balíček php-zip).',
 			'ok' => 'Máte rozšíření ZIP.',
 		),
 	),

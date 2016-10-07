@@ -41,7 +41,7 @@ return array(
 			'ok' => 'Karakter yazım kontrolü için kütüphane sorunsuz (ctype).',
 		),
 		'curl' => array(
-			'nok' => 'cURL eksik (php5-curl package).',
+			'nok' => 'cURL eksik (php-curl package).',
 			'ok' => 'cURL eklentisi sorunsuz.',
 		),
 		'data' => array(
