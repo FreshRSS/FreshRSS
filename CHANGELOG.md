@@ -26,6 +26,7 @@
 * UI
 	* Download icon 💾 for podcasts [#1236](https://github.com/FreshRSS/FreshRSS/issues/1236)
 * Extensions
+	* Allow extensions for default accout in anonymous mode [#1288](https://github.com/FreshRSS/FreshRSS/pull/1288)
 	* Trigger a `freshrss:load-more` JavaScript event to help extensions [#1278](https://github.com/FreshRSS/FreshRSS/issues/1278)
 
 
