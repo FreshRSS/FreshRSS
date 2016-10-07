@@ -33,7 +33,7 @@ return array(
 			'ok' => 'Sie haben die benötigte Bibliothek für die Überprüfung von Zeichentypen (ctype).',
 		),
 		'curl' => array(
-			'nok' => 'Ihnen fehlt cURL (Paket php5-curl).',
+			'nok' => 'Ihnen fehlt cURL (Paket php-curl).',
 			'ok' => 'Sie haben die cURL-Erweiterung.',
 		),
 		'data' => array(
@@ -93,7 +93,7 @@ return array(
 			'ok' => 'Die Berechtigungen des Verzeichnisses <em>./data/users</em> sind in Ordnung.',
 		),
 		'zip' => array(
-			'nok' => 'Ihnen fehlt die ZIP-Erweiterung (Paket php5-zip).',
+			'nok' => 'Ihnen fehlt die ZIP-Erweiterung (Paket php-zip).',
 			'ok' => 'Sie haben die ZIP-Erweiterung.',
 		),
 	),

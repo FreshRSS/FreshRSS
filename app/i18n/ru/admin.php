@@ -33,7 +33,7 @@ return array(
 			'ok' => 'У вас не установлена библиотека для проверки типов символов (ctype).',
 		),
 		'curl' => array(
-			'nok' => 'У вас не установлено расширение cURL (пакет php5-curl).',
+			'nok' => 'У вас не установлено расширение cURL (пакет php-curl).',
 			'ok' => 'У вас установлено расширение cURL.',
 		),
 		'data' => array(
@@ -93,7 +93,7 @@ return array(
 			'ok' => 'Права на папку users  в порядке.',
 		),
 		'zip' => array(
-			'nok' => 'You lack ZIP extension (php5-zip package).',
+			'nok' => 'You lack ZIP extension (php-zip package).',
 			'ok' => 'You have ZIP extension.',
 		),
 	),

@@ -41,7 +41,7 @@ return array(
 			'ok' => 'U hebt de benodigde bibliotheek voor character type checking (ctype).',
 		),
 		'curl' => array(
-			'nok' => 'U mist cURL (php5-curl package).',
+			'nok' => 'U mist cURL (php-curl package).',
 			'ok' => 'U hebt de cURL uitbreiding.',
 		),
 		'data' => array(

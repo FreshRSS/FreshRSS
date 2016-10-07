@@ -33,7 +33,7 @@ return array(
 			'ok' => 'U hebt de benodigde bibliotheek voor character type checking (ctype).',
 		),
 		'curl' => array(
-			'nok' => 'U mist de cURL (php5-curl package).',
+			'nok' => 'U mist de cURL (php-curl package).',
 			'ok' => 'U hebt de cURL uitbreiding.',
 		),
 		'data' => array(
@@ -93,7 +93,7 @@ return array(
 			'ok' => 'Permissies op de users map zijn goed.',
 		),
 		'zip' => array(
-			'nok' => 'U mist ZIP uitbreiding (php5-zip package).',
+			'nok' => 'U mist ZIP uitbreiding (php-zip package).',
 			'ok' => 'U hebt ZIP uitbreiding.',
 		),
 	),

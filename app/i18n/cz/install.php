@@ -41,7 +41,7 @@ return array(
 			'ok' => 'Je nainstalována požadovaná knihovna pro ověřování znaků (ctype).',
 		),
 		'curl' => array(
-			'nok' => 'Nemáte cURL (balíček php5-curl).',
+			'nok' => 'Nemáte cURL (balíček php-curl).',
 			'ok' => 'Máte rozšíření cURL.',
 		),
 		'data' => array(

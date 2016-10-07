@@ -29,12 +29,12 @@ return array(
 			'ok' => 'La connexion à la base de données est bonne.',
 		),
 		'ctype' => array(
-			'nok' => 'Il manque une librairie pour la vérification des types de caractères (php-ctype).',
-			'ok' => 'Vous disposez du nécessaire pour la vérification des types de caractères (ctype).',
+			'nok' => 'Impossible de trouver une librairie pour la vérification des types de caractères (php-ctype).',
+			'ok' => 'Vous disposez de la librairie pour la vérification des types de caractères (ctype).',
 		),
 		'curl' => array(
-			'nok' => 'Vous ne disposez pas de cURL (paquet php5-curl).',
-			'ok' => 'Vous disposez de cURL.',
+			'nok' => 'Impossible de trouver la librairie cURL (paquet php-curl).',
+			'ok' => 'Vous disposez de la librairie cURL.',
 		),
 		'data' => array(
 			'nok' => 'Veuillez vérifier les droits sur le répertoire <em>./data</em>. Le serveur HTTP doit être capable d’écrire dedans',
@@ -42,8 +42,8 @@ return array(
 		),
 		'database' => 'Installation de la base de données',
 		'dom' => array(
-			'nok' => 'Il manque une librairie pour parcourir le DOM (paquet php-xml).',
-			'ok' => 'Vous disposez du nécessaire pour parcourir le DOM.',
+			'nok' => 'Impossible de trouver une librairie pour parcourir le DOM (paquet php-xml).',
+			'ok' => 'Vous disposez de la librairie pour parcourir le DOM.',
 		),
 		'entries' => array(
 			'nok' => 'La table entry est mal configurée.',
@@ -60,15 +60,15 @@ return array(
 		'files' => 'Installation des fichiers',
 		'json' => array(
 			'nok' => 'Vous ne disposez pas de JSON (paquet php5-json).',
-			'ok' => 'Vous disposez de l\'extension JSON.',
+			'ok' => 'Vous disposez de l’extension JSON.',
 		),
 		'minz' => array(
 			'nok' => 'Vous ne disposez pas de la librairie Minz.',
 			'ok' => 'Vous disposez du framework Minz',
 		),
 		'pcre' => array(
-			'nok' => 'Il manque une librairie pour les expressions régulières (php-pcre).',
-			'ok' => 'Vous disposez du nécessaire pour les expressions régulières (PCRE).',
+			'nok' => 'Impossible de trouver une librairie pour les expressions régulières (php-pcre).',
+			'ok' => 'Vous disposez de la librairie pour les expressions régulières (PCRE).',
 		),
 		'pdo' => array(
 			'nok' => 'Vous ne disposez pas de PDO ou d’un des drivers supportés (pdo_mysql, pdo_sqlite, pdo_pgsql).',
@@ -80,7 +80,7 @@ return array(
 			'ok' => 'Votre version de PHP est la %s, qui est compatible avec FreshRSS.',
 		),
 		'tables' => array(
-			'nok' => 'Il manque une ou plusieurs tables en base de données.',
+			'nok' => 'Impossible de trouver une ou plusieurs tables en base de données.',
 			'ok' => 'Les tables sont bien présentes en base de données.',
 		),
 		'title' => 'Vérification de l’installation',
@@ -93,8 +93,8 @@ return array(
 			'ok' => 'Les droits sur le répertoire des utilisateurs sont bons.',
 		),
 		'zip' => array(
-			'nok' => 'Vous ne disposez pas de l\'extension ZIP (paquet php5-zip).',
-			'ok' => 'Vous disposez de l\'extension ZIP.',
+			'nok' => 'Vous ne disposez pas de l’extension ZIP (paquet php-zip).',
+			'ok' => 'Vous disposez de l’extension ZIP.',
 		),
 	),
 	'extensions' => array(

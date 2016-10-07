@@ -33,7 +33,7 @@ return array(
 			'ok' => 'Karakter yazım kontrolü için kütüphane sorunsuz (ctype).',
 		),
 		'curl' => array(
-			'nok' => 'cURL eksik (php5-curl package).',
+			'nok' => 'cURL eksik (php-curl package).',
 			'ok' => 'cURL eklentisi sorunsuz.',
 		),
 		'data' => array(
@@ -93,7 +93,7 @@ return array(
 			'ok' => 'Kullanıcılar klasörü yetkileri sorunsuz.',
 		),
 		'zip' => array(
-			'nok' => 'ZIP eklentisi eksik (php5-zip package).',
+			'nok' => 'ZIP eklentisi eksik (php-zip package).',
 			'ok' => 'ZIP eklentisi sorunsuz.',
 		),
 	),
