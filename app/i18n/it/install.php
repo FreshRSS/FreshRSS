@@ -4,7 +4,7 @@ return array(
 	'action' => array(
 		'finish' => 'Installazione completata',
 		'fix_errors_before' => 'Per favore correggi gli errori prima di passare al passaggio successivo.',
-		'keep_install' => 'Mantieni installazione precedente',
+		'keep_install' => 'Mantieni configurazione precedente',
 		'next_step' => 'Vai al prossimo passaggio',
 		'reinstall' => 'Reinstalla FreshRSS',
 	),
