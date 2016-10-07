@@ -50,7 +50,8 @@ We are a friendly community.
 6. Advanced configuration settings can be seen in [config.php](./data/config.default.php).
 
 ## Automated install
-[![DP deploy](https://raw.githubusercontent.com/DFabric/DPlatform-ShellCore/gh-pages/img/deploy.png)](https://dfabric.github.io/DPlatform-ShellCore)
+* [![DP deploy](https://raw.githubusercontent.com/DFabric/DPlatform-ShellCore/gh-pages/img/deploy.png)](https://dfabric.github.io/DPlatform-ShellCore)
+* [YunoHost](https://github.com/YunoHost-Apps/freshrss_ynh)
 
 ## Example of full installation on Linux Debian/Ubuntu
 ```sh
@@ -94,14 +95,14 @@ sudo chown -R :www-data .
 sudo chmod -R g+w ./data/
 ```
 
-# Access control
+## Access control
 It is needed for the multi-user mode to limit access to FreshRSS. You can:
 * use form authentication (need JavaScript and PHP 5.3.7+, works with some PHP 5.3.3+)
 * use HTTP authentication supported by your web server
 	* See [Apache documentation](http://httpd.apache.org/docs/trunk/howto/auth.html)
 		* In that case, create a `./p/i/.htaccess` file with a matching `.htpasswd` file.
 
-# Automatic feed update
+## Automatic feed update
 * You can add a Cron job to launch the update script.
 Check the Cron documentation related to your distribution ([Debian/Ubuntu](https://help.ubuntu.com/community/CronHowto), [Red Hat/Fedora](https://fedoraproject.org/wiki/Administration_Guide_Draft/Cron), [Slackware](http://docs.slackware.com/fr:slackbook:process_control?#cron), [Gentoo](https://wiki.gentoo.org/wiki/Cron), [Arch Linux](https://wiki.archlinux.org/index.php/Cron)…).
 It’s a good idea to use the Web server user.
@@ -111,11 +112,13 @@ For example, if you want to run the script every hour:
 7 * * * * php /your-path/FreshRSS/app/actualize_script.php > /tmp/FreshRSS.log 2>&1
 ```
 
+
 # Advices
 * For a better security, expose only the `./p/` folder on the web.
 	* Be aware that the `./data/` folder contains all personal data, so it is a bad idea to expose it.
 * The `./constants.php` file defines access to application folder. If you want to customize your installation, every thing happens here.
 * If you encounter any problem, logs are accessible from the interface or manually in `./data/log/*.log` files.
+
 
 # Backup
 * You need to keep `./data/config.php`, and `./data/*_user.php` files
@@ -145,3 +148,13 @@ mysqldump -u user -p --databases freshrss > freshrss.sql
 ## If native functions are not available
 * [Services_JSON](http://pear.php.net/pepr/pepr-proposal-show.php?id=198)
 * [password_compat](https://github.com/ircmaxell/password_compat)
+
+
+# Compatible clients
+Any client supporting a Google Reader-like API. Selection:
+
+* Android
+	* [News+](https://play.google.com/store/apps/details?id=com.noinnion.android.newsplus) + [News+ Google Reader extension](https://play.google.com/store/apps/details?id=com.noinnion.android.newsplus.extension.google_reader) (Closed source)
+	* [EasyRSS](https://github.com/Alkarex/EasyRSS) (Open source, F-Droid)
+* Linux
+	* [FeedReader 2.0+](https://jangernert.github.io/FeedReader/) (Open source)
