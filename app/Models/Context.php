@@ -144,11 +144,13 @@ class FreshRSS_Context {
 		case 'a':
 			self::$current_get['all'] = true;
 			self::$name = _t('index.feed.title');
+			self::$description = self::$system_conf->meta_description;
 			self::$get_unread = self::$total_unread;
 			break;
 		case 's':
 			self::$current_get['starred'] = true;
 			self::$name = _t('index.feed.title_fav');
+			self::$description = self::$system_conf->meta_description;
 			self::$get_unread = self::$total_starred['unread'];
 
 			// Update state if favorite is not yet enabled.
