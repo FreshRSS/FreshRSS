@@ -27,6 +27,9 @@ return array(
 	# Title of this FreshRSS instance in the Web user interface.
 	'title' => 'FreshRSS',
 
+	# Meta description used when `allow_robots` is true.
+	'meta_description' => '',
+
 	# Name of the user that has administration rights.
 	'default_user' => '_',
 
