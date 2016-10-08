@@ -1027,12 +1027,6 @@ freshrssLoadMoreEvent.initEvent('freshrss:load-more', true, true);
 function init_load_more(box) {
 	box_load_more = box;
 
-	if (!context.does_lazyload) {
-		$('img[postpone], audio[postpone], iframe[postpone], video[postpone]').each(function () {
-			this.removeAttribute('postpone');
-		});
-	}
-
 	document.body.dispatchEvent(freshrssLoadMoreEvent);
 
 	var $next_link = $("#load_more");
