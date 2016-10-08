@@ -30,6 +30,8 @@
 * Extensions
 	* Allow extensions for default accout in anonymous mode [#1288](https://github.com/FreshRSS/FreshRSS/pull/1288)
 	* Trigger a `freshrss:load-more` JavaScript event to help extensions [#1278](https://github.com/FreshRSS/FreshRSS/issues/1278)
+* Mics.
+	* Removed *resource-priorities* attributes (`defer`, `lazyload`), deprecated by W3C [#1222](https://github.com/FreshRSS/FreshRSS/pull/1222)
 
 
 ## 2016-08-29 FreshRSS 1.5.0
