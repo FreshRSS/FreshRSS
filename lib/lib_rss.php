@@ -182,10 +182,9 @@ function customSimplePie() {
 		'onmouseover', 'onmousemove', 'onmouseout', 'onfocus', 'onblur',
 		'onkeypress', 'onkeydown', 'onkeyup', 'onselect', 'onchange', 'seamless', 'sizes', 'srcset')));
 	$simplePie->add_attributes(array(
-		'img' => array('lazyload' => '', 'postpone' => ''),	//http://www.w3.org/TR/resource-priorities/
-		'audio' => array('lazyload' => '', 'postpone' => '', 'preload' => 'none'),
-		'iframe' => array('lazyload' => '', 'postpone' => '', 'sandbox' => 'allow-scripts allow-same-origin'),
-		'video' => array('lazyload' => '', 'postpone' => '', 'preload' => 'none'),
+		'audio' => array('preload' => 'none'),
+		'iframe' => array('sandbox' => 'allow-scripts allow-same-origin'),
+		'video' => array('preload' => 'none'),
 	));
 	$simplePie->set_url_replacements(array(
 		'a' => 'href',
