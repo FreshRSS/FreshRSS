@@ -109,7 +109,7 @@ C’est une bonne idée d’utiliser le même utilisateur que votre serveur Web 
 Par exemple, pour exécuter le script toutes les heures :
 
 ```
-8 * * * * php /votre-chemin/FreshRSS/app/actualize_script.php > /tmp/FreshRSS.log 2>&1
+8 * * * * php /usr/share/FreshRSS/app/actualize_script.php > /tmp/FreshRSS.log 2>&1
 ```
 
 ### Exemple pour Debian / Ubuntu
