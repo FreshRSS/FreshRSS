@@ -109,7 +109,14 @@ It’s a good idea to use the Web server user.
 For example, if you want to run the script every hour:
 
 ```
-7 * * * * php /your-path/FreshRSS/app/actualize_script.php > /tmp/FreshRSS.log 2>&1
+9 * * * * php /usr/share/FreshRSS/app/actualize_script.php > /tmp/FreshRSS.log 2>&1
+```
+
+### Example on Debian / Ubuntu
+Create `/etc/cron.d/FreshRSS` with:
+
+```
+6,36 * * * * www-data php -f /usr/share/FreshRSS/app/actualize_script.php > /tmp/FreshRSS.log 2>&1
 ```
 
 
