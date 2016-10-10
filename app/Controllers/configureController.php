@@ -139,7 +139,7 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 	 */
 	public function sharingAction() {
 		if (Minz_Request::isPost()) {
-			$params = Minz_Request::fetchGET();
+			$params = Minz_Request::fetchPOST();
 			FreshRSS_Context::$user_conf->sharing = $params['share'];
 			FreshRSS_Context::$user_conf->save();
 			invalidateHttpCache();

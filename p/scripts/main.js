@@ -1153,10 +1153,10 @@ function init_share_observers() {
 	$('.share.add').on('click', function(e) {
 		var opt = $(this).siblings('select').find(':selected');
 		var row = $(this).parents('form').data(opt.data('form'));
-		row = row.replace('##label##', opt.html().trim(), 'g');
-		row = row.replace('##type##', opt.val(), 'g');
-		row = row.replace('##help##', opt.data('help'), 'g');
-		row = row.replace('##key##', shares, 'g');
+		row = row.replace(/##label##/g, opt.html().trim());
+		row = row.replace(/##type##/g, opt.val());
+		row = row.replace(/##help##/g, opt.data('help'));
+		row = row.replace(/##key##/g, shares);
 		$(this).parents('.form-group').before(row);
 		shares++;
 
