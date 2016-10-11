@@ -467,7 +467,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 		$stm = $this->bd->prepare($sql . $search);
 		if (!($stm && $stm->execute(array_merge($values, $searchValues)))) {
 			$info = $stm == null ? array(2 => 'syntax error') : $stm->errorInfo();
-			Minz_Log::error('SQL error markReadFeed: ' . $info[2]);
+			Minz_Log::error('SQL error markReadFeed: ' . $info[2] . ' with SQL: ' . $sql . $search);
 			$this->bd->rollBack();
 			return false;
 		}
@@ -481,7 +481,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 			$stm = $this->bd->prepare($sql);
 			if (!($stm && $stm->execute($values))) {
 				$info = $stm == null ? array(2 => 'syntax error') : $stm->errorInfo();
-				Minz_Log::error('SQL error markReadFeed: ' . $info[2]);
+				Minz_Log::error('SQL error markReadFeed cache: ' . $info[2]);
 				$this->bd->rollBack();
 				return false;
 			}
