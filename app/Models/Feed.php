@@ -131,13 +131,26 @@ class FreshRSS_Feed extends Minz_Model {
 		return $this->nbNotRead;
 	}
 	public function faviconPrepare() {
-		$file = DATA_PATH . '/favicons/' . $this->hash() . '.txt';
-		if (!file_exists($file)) {
-			$t = $this->website;
-			if ($t == '') {
-				$t = $this->url;
+		global $favicons_dir;
+		require_once(LIB_PATH . '/favicons.php');
+		$url = $this->website;
+		if ($url == '') {
+			$url = $this->url;
+		}
+		$txt = $favicons_dir . $this->hash() . '.txt';
+		if (!file_exists($txt)) {
+			file_put_contents($txt, $url);
+		}
+		if (FreshRSS_Context::$isCron) {
+			$ico = $favicons_dir . $this->hash() . '.ico';
+			$ico_mtime = @filemtime($ico);
+			$txt_mtime = @filemtime($txt);
+			if ($txt_mtime != false &&
+				($ico_mtime == false || $ico_mtime < $txt_mtime || ($ico_mtime < time() - (14 * 86400)))) {
+				// no ico file or we should download a new one.
+				$url = file_get_contents($txt);
+				download_favicon($url, $ico) || touch($ico);
 			}
-			file_put_contents($file, $t);
 		}
 	}
 	public static function faviconDelete($hash) {
