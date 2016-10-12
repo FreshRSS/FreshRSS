@@ -28,6 +28,7 @@ $app = new FreshRSS();
 
 $system_conf = Minz_Configuration::get('system');
 $system_conf->auth_type = 'none';  // avoid necessity to be logged in (not saved!)
+FreshRSS_Context::$isCron = true;
 
 // Create the list of users to actualize.
 // Users are processed in a random order but always start with admin
