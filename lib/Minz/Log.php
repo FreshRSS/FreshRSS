@@ -42,7 +42,11 @@ class Minz_Log {
 		       || ($env === 'production'
 		       && ($level >= Minz_Log::NOTICE)))) {
 			if ($file_name === null) {
-				$file_name = join_path(USERS_PATH, Minz_Session::param('currentUser', '_'), 'log.txt');
+				$username = Minz_Session::param('currentUser', '');
+				if ($username == '') {
+					$username = '_';
+				}
+				$file_name = join_path(USERS_PATH, $username, 'log.txt');
 			}
 
 			switch ($level) {
