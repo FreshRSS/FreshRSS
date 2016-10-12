@@ -131,6 +131,7 @@ class FreshRSS_Feed extends Minz_Model {
 		return $this->nbNotRead;
 	}
 	public function faviconPrepare() {
+		global $favicons_dir;
 		require_once(LIB_PATH . '/favicons.php');
 		$url = $this->website;
 		if ($url == '') {
@@ -145,7 +146,7 @@ class FreshRSS_Feed extends Minz_Model {
 			$ico_mtime = @filemtime($ico);
 			$txt_mtime = @filemtime($txt);
 			if ($txt_mtime != false &&
-				($ico_mtime == false || $ico_mtime < $txt_mtime || ($ico_mtime < 14 * 86400))) {
+				($ico_mtime == false || $ico_mtime < $txt_mtime || ($ico_mtime < time() - (14 * 86400)))) {
 				// no ico file or we should download a new one.
 				$url = file_get_contents($txt);
 				download_favicon($url, $ico) || touch($ico);
