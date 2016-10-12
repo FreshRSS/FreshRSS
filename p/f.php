@@ -71,7 +71,7 @@ $txt_mtime = @filemtime($txt);
 
 header('Content-Type: image/x-icon');
 
-if ($ico_mtime == false || $txt_mtime > $ico_mtime || ($ico_mtime < time() - 15 * 86400)) {
+if ($ico_mtime == false || $txt_mtime > $ico_mtime || ($ico_mtime < time() - (rand(15, 20) * 86400))) {
 	if ($txt_mtime == false) {
 		show_default_favicon(1800);
 		exit();
@@ -92,6 +92,6 @@ if ($ico_mtime == false || $txt_mtime > $ico_mtime || ($ico_mtime < time() - 15 
 
 header('Content-Disposition: inline; filename="' . $id . '.ico"');
 
-if (!httpConditional($ico_mtime, 2592000, 2)) {
+if (!httpConditional($ico_mtime, rand(14, 21) * 86400, 2)) {
 	readfile($ico);
 }
