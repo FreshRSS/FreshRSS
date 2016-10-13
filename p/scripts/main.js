@@ -463,8 +463,9 @@ function init_posts() {
 	if (context.auto_mark_scroll) {
 		box_to_follow.scroll(function () {
 			$('.not_read:visible').each(function () {
-				if (inMarkViewport($(this), box_to_follow)) {
-					mark_read($(this), true);
+				var $this = $(this);
+				if (inMarkViewport($this, box_to_follow)) {
+					mark_read($this, true);
 				}
 			});
 		});
