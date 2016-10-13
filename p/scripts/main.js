@@ -116,13 +116,8 @@ function incUnreadsFeed(article, feed_id, nb) {
 
 var pending_entries = {};
 function mark_read(active, only_not_read) {
-	if (active.length === 0 ||
+	if (active.length === 0 || active.attr('id') == '' ||
 		(only_not_read === true && !active.hasClass("not_read"))) {
-		return false;
-	}
-
-	var url = active.find("a.read").attr("href");
-	if (url === undefined) {
 		return false;
 	}
 
@@ -130,6 +125,8 @@ function mark_read(active, only_not_read) {
 		return false;
 	}
 	pending_entries[active.attr('id')] = true;
+
+	var url = '.?c=entry&a=read&id=' + active.attr('id').replace(/^flux_/, '');
 
 	$.ajax({
 		type: 'POST',
@@ -150,10 +147,11 @@ function mark_read(active, only_not_read) {
 		}
 		$r.find('.icon').replaceWith(data.icon);
 
-		var feed_url = active.find(".website>a").attr("href"),
-			feed_id = feed_url.substr(feed_url.lastIndexOf('f_'));
-
-		incUnreadsFeed(active, feed_id, inc);
+		var feed_url = active.find(".website>a").attr("href");
+		if (feed_url) {
+			var feed_id = feed_url.substr(feed_url.lastIndexOf('f_'));
+			incUnreadsFeed(active, feed_id, inc);
+		}
 		faviconNbUnread();
 
 		delete pending_entries[active.attr('id')];
@@ -451,14 +449,9 @@ function auto_share(key) {
 }
 
 function inMarkViewport(flux, box_to_follow) {
-	var top = flux.offset().top;
-	var height = flux.height(),
-		begin = top + 3 * height / 4,
-		bot = Math.min(begin + 75, top + height),
-		windowTop = box_to_follow.scrollTop(),
-		windowBot = windowTop + box_to_follow.height() / 2;
-
-	return (windowBot >= begin && bot >= windowBot);
+	var bottom = flux.offset().top + flux.height(),
+		windowTop = box_to_follow.scrollTop();
+	return bottom < windowTop + 40;
 }
 
 function init_posts() {
@@ -470,7 +463,7 @@ function init_posts() {
 	if (context.auto_mark_scroll) {
 		box_to_follow.scroll(function () {
 			$('.not_read:visible').each(function () {
-				if ($(this).children(".flux_content").is(':visible') && inMarkViewport($(this), box_to_follow)) {
+				if (inMarkViewport($(this), box_to_follow)) {
 					mark_read($(this), true);
 				}
 			});
