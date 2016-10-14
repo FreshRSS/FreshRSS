@@ -126,7 +126,8 @@ function mark_read(active, only_not_read) {
 	}
 	pending_entries[active.attr('id')] = true;
 
-	var url = '.?c=entry&a=read&id=' + active.attr('id').replace(/^flux_/, '');
+	var url = '.?c=entry&a=read&id=' + active.attr('id').replace(/^flux_/, '') +
+		(active.hasClass('not_read') ? '' : '&is_read=0');
 
 	$.ajax({
 		type: 'POST',
