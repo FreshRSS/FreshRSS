@@ -273,15 +273,19 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 		 .	'WHERE e.is_read=0 '
 		 .	'GROUP BY e.id_feed'
 		 . ') x ON x.id_feed=f.id '
-		 . 'SET f.`cache_nbUnreads`=COALESCE(x.nbUnreads, 0) '
-		 . 'WHERE 1';
+		 . 'SET f.`cache_nbUnreads`=COALESCE(x.nbUnreads, 0)';
+		$hasWhere = false;
 		$values = array();
 		if ($feedId !== false) {
-			$sql .= ' AND f.id=?';
+			$sql .= $hasWhere ? ' AND' : ' WHERE';
+			$hasWhere = true;
+			$sql .= ' f.id=?';
 			$values[] = $id;
 		}
 		if ($catId !== false) {
-			$sql .= ' AND f.category=?';
+			$sql .= $hasWhere ? ' AND' : ' WHERE';
+			$hasWhere = true;
+			$sql .= ' f.category=?';
 			$values[] = $catId;
 		}
 		$stm = $this->bd->prepare($sql);
