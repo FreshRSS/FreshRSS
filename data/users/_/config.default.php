@@ -35,7 +35,7 @@ return array (
 	'mark_when' => array (
 		'article' => true,
 		'site' => true,
-		'scroll' => false,
+		'scroll' => true,
 		'reception' => false,
 	),
 	'theme' => 'Origine',

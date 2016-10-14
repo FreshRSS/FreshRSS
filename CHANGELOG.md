@@ -8,6 +8,7 @@
 	* Experimental support for PostgreSQL [#1195](https://github.com/FreshRSS/FreshRSS/pull/1195)
 	* New client supporting FreshRSS on Linux: FeedReader 2.0+ [#1252](https://github.com/FreshRSS/FreshRSS/issues/1252)
 * Features
+	* Rework the “mark as read during scroll” option, now enabled by default [#1258](https://github.com/FreshRSS/FreshRSS/issues/1258), [#1309](https://github.com/FreshRSS/FreshRSS/pull/1309)
 	* Better control of number of entries per page or RSS feed [#1249](https://github.com/FreshRSS/FreshRSS/issues/1249)
 		* Since X hours: `https://freshrss.example/i/?a=rss&hours=3`
 		* Explicit number: `https://freshrss.example/i/?a=rss&nb=10`
