@@ -1,4 +1,5 @@
-db.sqlite
-config.php
-log*.txt
-
+*/
+*/config.php
+*/db.sqlite
+!_/
+*/log*.txt
