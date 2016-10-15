@@ -51,9 +51,9 @@ $SQL_CREATE_TABLES = array(
 'CREATE INDEX %1$sis_read_index ON "%1$sentry" ("is_read");',
 'CREATE INDEX %1$sentry_lastSeen_index ON "%1$sentry" ("lastSeen");',
 
-'INSERT INTO "%1$scategory" (id, name) SELECT 1, \'%2$s\' WHERE NOT EXISTS (SELECT id FROM "%1$scategory" WHERE id = 1);',
+'INSERT INTO "%1$scategory" (name) SELECT \'%2$s\' WHERE NOT EXISTS (SELECT id FROM "%1$scategory" WHERE id = 1);',
 'INSERT INTO "%1$sfeed" (url, category, name, website, description, ttl) SELECT \'http://freshrss.org/feeds/all.atom.xml\', 1, \'FreshRSS.org\', \'http://freshrss.org/\', \'FreshRSS, a free, self-hostable aggregator…\', 86400 WHERE NOT EXISTS (SELECT id FROM "%1$sfeed" WHERE url = \'http://freshrss.org/feeds/all.atom.xml\');',
 'INSERT INTO "%1$sfeed" (url, category, name, website, description, ttl) SELECT \'https://github.com/FreshRSS/FreshRSS/releases.atom\', 1, \'FreshRSS @ GitHub\', \'https://github.com/FreshRSS/FreshRSS/\', \'FreshRSS releases @ GitHub\', 86400 WHERE NOT EXISTS (SELECT id FROM "%1$sfeed" WHERE url = \'https://github.com/FreshRSS/FreshRSS/releases.atom\');',
 );
 
-define('SQL_DROP_TABLES', 'DROP TABLES "%1$sentry", "%1$sfeed", "%1$scategory"');
+define('SQL_DROP_TABLES', 'DROP TABLE IF EXISTS "%1$sentry", "%1$sfeed", "%1$scategory"');

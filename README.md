@@ -78,7 +78,7 @@ sudo service apache2 restart
 cd /usr/share/
 sudo apt-get install git
 sudo git clone https://github.com/FreshRSS/FreshRSS.git
-# Set the rights so that your Web browser can access the files
+# Set the rights so that your Web server can access the files
 cd FreshRSS
 sudo chown -R :www-data .
 sudo chmod -R g+w ./data/
