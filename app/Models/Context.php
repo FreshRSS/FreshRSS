@@ -48,9 +48,6 @@ class FreshRSS_Context {
 		// Init configuration.
 		self::$system_conf = Minz_Configuration::get('system');
 		self::$user_conf = Minz_Configuration::get('user');
-
-		$catDAO = new FreshRSS_CategoryDAO();
-		self::$categories = $catDAO->listCategories();
 	}
 
 	/**
@@ -142,6 +139,11 @@ class FreshRSS_Context {
 		$id = substr($get, 2);
 		$nb_unread = 0;
 
+		if (empty(self::$categories)) {
+			$catDAO = new FreshRSS_CategoryDAO();
+			self::$categories = $catDAO->listCategories();
+		}
+
 		switch($type) {
 		case 'a':
 			self::$current_get['all'] = true;
@@ -203,10 +205,15 @@ class FreshRSS_Context {
 	/**
 	 * Set the value of $next_get attribute.
 	 */
-	public static function _nextGet() {
+	private static function _nextGet() {
 		$get = self::currentGet();
 		// By default, $next_get == $get
 		self::$next_get = $get;
+
+		if (empty(self::$categories)) {
+			$catDAO = new FreshRSS_CategoryDAO();
+			self::$categories = $catDAO->listCategories();
+		}
 
 		if (self::$user_conf->onread_jump_next && strlen($get) > 2) {
 			$another_unread_id = '';
