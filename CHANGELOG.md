@@ -1,6 +1,6 @@
 ﻿# Changelog
 
-## 2016-XX-XX FreshRSS 1.6.0-dev
+## 2016-10-XX FreshRSS 1.6.0-dev
 
 * API
 	* Support for editing feeds and categories from client applications [#1254](https://github.com/FreshRSS/FreshRSS/issues/1254)
