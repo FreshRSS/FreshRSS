@@ -26,19 +26,19 @@
 	* Fix bug during import of favourites [#1315](https://github.com/FreshRSS/FreshRSS/pull/1315), [#1312](https://github.com/FreshRSS/FreshRSS/issues/1312)
 	* Fix bug not respecting language option for new users [#1273](https://github.com/FreshRSS/FreshRSS/issues/1273)
 	* Bug in example of URL for FreshRS RSS output with token [#1274](https://github.com/FreshRSS/FreshRSS/issues/1274)
-* SimplePie
-	* Fix auto-discovery of RSS feeds in Web pages served as `text/xml` [#1264](https://github.com/FreshRSS/FreshRSS/issues/1264)
 * Security
 	* Prevent `<a target="_blank">` attacks with `window.opener` [#1245](https://github.com/FreshRSS/FreshRSS/issues/1245)
 	* Updated gitignore rules to keep user directories during a `git clean -f -d` [#1307](https://github.com/FreshRSS/FreshRSS/pull/1307)
-* UI
-	* Download icon 💾 for podcasts [#1236](https://github.com/FreshRSS/FreshRSS/issues/1236)
 * Extensions
 	* Allow extensions for default account in anonymous mode [#1288](https://github.com/FreshRSS/FreshRSS/pull/1288)
 	* Trigger a `freshrss:load-more` JavaScript event to help extensions [#1278](https://github.com/FreshRSS/FreshRSS/issues/1278)
 * SQL
 	* Slightly modified several SQL requests (MySQL, SQLite) to simplify support of PostgreSQL [#1195](https://github.com/FreshRSS/FreshRSS/pull/1195)
 	* Increase performances by removing a superfluous category request [#1316](https://github.com/FreshRSS/FreshRSS/pull/1316)
+* UI
+	* Download icon 💾 for podcasts [#1236](https://github.com/FreshRSS/FreshRSS/issues/1236)
+* SimplePie
+	* Fix auto-discovery of RSS feeds in Web pages served as `text/xml` [#1264](https://github.com/FreshRSS/FreshRSS/issues/1264)
 * Mics.
 	* Removed *resource-priorities* attributes (`defer`, `lazyload`), deprecated by W3C [#1222](https://github.com/FreshRSS/FreshRSS/pull/1222)
 
