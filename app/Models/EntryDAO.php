@@ -208,7 +208,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 			$this->updateEntryPrepared->bindParam(':hash', $valuesTmp['hashBin']);
 		}
 
-		if ($this->updateEntryPrepared && $this->updateEntryPrepared->execute($values)) {
+		if ($this->updateEntryPrepared && $this->updateEntryPrepared->execute()) {
 			return $this->bd->lastInsertId();
 		} else {
 			$info = $this->updateEntryPrepared == null ? array(0 => '', 1 => '', 2 => 'syntax error') : $this->updateEntryPrepared->errorInfo();
