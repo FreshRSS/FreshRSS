@@ -449,26 +449,22 @@ function auto_share(key) {
 	}
 }
 
-function inMarkViewport(flux, box_to_follow) {
-	var bottom = flux.offset().top + flux.height(),
-		windowTop = box_to_follow.scrollTop();
-	return bottom < windowTop + 40;
-}
-
 function init_posts() {
-	var box_to_follow = $(window);
-	if (context.current_view === 'global') {
-		box_to_follow = $("#panel");
-	}
+	var box_to_follow = context.current_view === 'global' ? $("#panel") : $(window);
 
 	if (context.auto_mark_scroll) {
+		var lastScroll = 0;	//Throttle
 		box_to_follow.scroll(function () {
-			$('.not_read:visible').each(function () {
-				var $this = $(this);
-				if (inMarkViewport($this, box_to_follow)) {
-					mark_read($this, true);
-				}
-			});
+			if (lastScroll + 500 < Date.now()) {
+				lastScroll = Date.now();
+				$('.not_read:visible').each(function () {
+					var $this = $(this),
+						minTop = (context.current_view === 'global') ? box_to_follow.offset().top : box_to_follow.scrollTop();
+					if ($this.offset().top + $this.height() < minTop + 40) {
+						mark_read($this, true);
+					}
+				});
+			}
 		});
 	}
 
