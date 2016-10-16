@@ -25,7 +25,7 @@
 	* Fix bug in auto-load more articles after marking an article as un-read [#1318](https://github.com/FreshRSS/FreshRSS/issues/1318)
 	* Fix bug during import of favourites [#1315](https://github.com/FreshRSS/FreshRSS/pull/1315), [#1312](https://github.com/FreshRSS/FreshRSS/issues/1312)
 	* Fix bug not respecting language option for new users [#1273](https://github.com/FreshRSS/FreshRSS/issues/1273)
-	* Bug in example of URL for FreshRS RSS output with token [#1274](https://github.com/FreshRSS/FreshRSS/issues/1274)
+	* Bug in example of URL for FreshRSS RSS output with token [#1274](https://github.com/FreshRSS/FreshRSS/issues/1274)
 * Security
 	* Prevent `<a target="_blank">` attacks with `window.opener` [#1245](https://github.com/FreshRSS/FreshRSS/issues/1245)
 	* Updated gitignore rules to keep user directories during a `git clean -f -d` [#1307](https://github.com/FreshRSS/FreshRSS/pull/1307)
