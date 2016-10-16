@@ -116,8 +116,8 @@ function incUnreadsFeed(article, feed_id, nb) {
 
 var pending_entries = {};
 function mark_read(active, only_not_read) {
-	if (active.length === 0 || active.attr('id') == '' ||
-		(only_not_read === true && !active.hasClass("not_read"))) {
+	if ((active.length === 0) || (!active.attr('id')) ||
+		(only_not_read && !active.hasClass("not_read"))) {
 		return false;
 	}
 
@@ -142,8 +142,9 @@ function mark_read(active, only_not_read) {
 		if (active.hasClass("not_read")) {
 			active.removeClass("not_read");
 			inc--;
-		} else if (only_not_read !== true || active.hasClass("not_read")) {
+		} else {
 			active.addClass("not_read");
+			active.addClass("keep_unread");
 			inc++;
 		}
 		$r.find('.icon').replaceWith(data.icon);
@@ -451,7 +452,7 @@ function auto_share(key) {
 
 function scrollAsRead(box_to_follow) {
 	var minTop = 40 + (context.current_view === 'global' ? box_to_follow.offset().top : box_to_follow.scrollTop());
-	$('.not_read:visible').each(function () {
+	$('.not_read:not(.keep_unread):visible').each(function () {
 			var $this = $(this);
 			if ($this.offset().top + $this.height() < minTop) {
 				mark_read($this, true);
