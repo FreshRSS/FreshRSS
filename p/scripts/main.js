@@ -116,8 +116,8 @@ function incUnreadsFeed(article, feed_id, nb) {
 
 var pending_entries = {};
 function mark_read(active, only_not_read) {
-	if (active.length === 0 || active.attr('id') == '' ||
-		(only_not_read === true && !active.hasClass("not_read"))) {
+	if ((active.length === 0) || (!active.attr('id')) ||
+		(only_not_read && !active.hasClass("not_read"))) {
 		return false;
 	}
 
@@ -142,7 +142,7 @@ function mark_read(active, only_not_read) {
 		if (active.hasClass("not_read")) {
 			active.removeClass("not_read");
 			inc--;
-		} else if (only_not_read !== true || active.hasClass("not_read")) {
+		} else {
 			active.addClass("not_read");
 			active.addClass("keep_unread");
 			inc++;
