@@ -449,26 +449,32 @@ function auto_share(key) {
 	}
 }
 
-function inMarkViewport(flux, box_to_follow) {
-	var bottom = flux.offset().top + flux.height(),
-		windowTop = box_to_follow.scrollTop();
-	return bottom < windowTop + 40;
+function scrollAsRead(box_to_follow) {
+	var minTop = 40 + (context.current_view === 'global' ? box_to_follow.offset().top : box_to_follow.scrollTop());
+	$('.not_read:visible').each(function () {
+			var $this = $(this);
+			if ($this.offset().top + $this.height() < minTop) {
+				mark_read($this, true);
+			}
+		});
 }
 
 function init_posts() {
-	var box_to_follow = $(window);
-	if (context.current_view === 'global') {
-		box_to_follow = $("#panel");
-	}
+	var box_to_follow = context.current_view === 'global' ? $("#panel") : $(window);
 
 	if (context.auto_mark_scroll) {
+		var lastScroll = 0,	//Throttle
+			timerId = 0;
 		box_to_follow.scroll(function () {
-			$('.not_read:visible').each(function () {
-				var $this = $(this);
-				if (inMarkViewport($this, box_to_follow)) {
-					mark_read($this, true);
-				}
-			});
+			window.clearTimeout(timerId);
+			if (lastScroll + 500 < Date.now()) {
+				lastScroll = Date.now();
+				scrollAsRead(box_to_follow);
+			} else {
+				timerId = window.setTimeout(function() {
+						scrollAsRead(box_to_follow);
+					}, 500);
+			}
 		});
 	}
 
