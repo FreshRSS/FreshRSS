@@ -81,6 +81,7 @@ sudo git clone https://github.com/FreshRSS/FreshRSS.git
 # Set the rights so that your Web server can access the files
 cd FreshRSS
 sudo chown -R :www-data .
+sudo chmod -R g+r .
 sudo chmod -R g+w ./data/
 # Publish FreshRSS in your public HTML directory
 sudo ln -s /usr/share/FreshRSS/p /var/www/html/FreshRSS
@@ -92,6 +93,7 @@ cd /usr/share/FreshRSS
 sudo git reset --hard
 sudo git pull
 sudo chown -R :www-data .
+sudo chmod -R g+r .
 sudo chmod -R g+w ./data/
 ```
 
