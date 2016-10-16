@@ -449,21 +449,31 @@ function auto_share(key) {
 	}
 }
 
+function scrollAsRead(box_to_follow) {
+	var minTop = 40 + (context.current_view === 'global' ? box_to_follow.offset().top : box_to_follow.scrollTop());
+	$('.not_read:visible').each(function () {
+			var $this = $(this);
+			if ($this.offset().top + $this.height() < minTop) {
+				mark_read($this, true);
+			}
+		});
+}
+
 function init_posts() {
 	var box_to_follow = context.current_view === 'global' ? $("#panel") : $(window);
 
 	if (context.auto_mark_scroll) {
-		var lastScroll = 0;	//Throttle
+		var lastScroll = 0,	//Throttle
+			timerId = 0;
 		box_to_follow.scroll(function () {
+			window.clearTimeout(timerId);
 			if (lastScroll + 500 < Date.now()) {
 				lastScroll = Date.now();
-				$('.not_read:visible').each(function () {
-					var $this = $(this),
-						minTop = (context.current_view === 'global') ? box_to_follow.offset().top : box_to_follow.scrollTop();
-					if ($this.offset().top + $this.height() < minTop + 40) {
-						mark_read($this, true);
-					}
-				});
+				scrollAsRead(box_to_follow);
+			} else {
+				timerId = window.setTimeout(function() {
+						scrollAsRead(box_to_follow);
+					}, 500);
 			}
 		});
 	}
