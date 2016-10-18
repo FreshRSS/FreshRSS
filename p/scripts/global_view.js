@@ -26,6 +26,7 @@ function load_panel(link) {
 		// Sans ça, si l'on scroll en lisant une catégorie par exemple,
 		// en en ouvrant une autre ensuite, on se retrouve au même point de scroll
 		$("#panel").scrollTop(0);
+		$(window).scrollTop(0);
 
 		$('#panel').on('click', '#nav_menu_read_all button, #bigMarkAsRead', function () {
 			console.log($(this).attr("formaction"));

@@ -29,12 +29,12 @@ return array(
 			'ok' => 'Connection to the database is ok.',
 		),
 		'ctype' => array(
-			'nok' => 'You lack a required library for character type checking (php-ctype).',
+			'nok' => 'Cannot find a required library for character type checking (php-ctype).',
 			'ok' => 'You have the required library for character type checking (ctype).',
 		),
 		'curl' => array(
-			'nok' => 'You lack cURL (php5-curl package).',
-			'ok' => 'You have cURL extension.',
+			'nok' => 'Cannot find the cURL library (php-curl package).',
+			'ok' => 'You have the cURL library.',
 		),
 		'data' => array(
 			'nok' => 'Check permissions on <em>./data</em> directory. HTTP server must have rights to write into',
@@ -42,7 +42,7 @@ return array(
 		),
 		'database' => 'Database installation',
 		'dom' => array(
-			'nok' => 'You lack a required library to browse the DOM (php-xml package).',
+			'nok' => 'Cannot find a required library to browse the DOM (php-xml package).',
 			'ok' => 'You have the required library to browse the DOM.',
 		),
 		'entries' => array(
@@ -59,20 +59,20 @@ return array(
 		),
 		'files' => 'File installation',
 		'json' => array(
-			'nok' => 'You lack JSON (php5-json package).',
+			'nok' => 'Cannot find JSON (php5-json package).',
 			'ok' => 'You have JSON extension.',
 		),
 		'minz' => array(
-			'nok' => 'You lack the Minz framework.',
+			'nok' => 'Cannot find the Minz framework.',
 			'ok' => 'You have the Minz framework.',
 		),
 		'pcre' => array(
-			'nok' => 'You lack a required library for regular expressions (php-pcre).',
+			'nok' => 'Cannot find a required library for regular expressions (php-pcre).',
 			'ok' => 'You have the required library for regular expressions (PCRE).',
 		),
 		'pdo' => array(
-			'nok' => 'You lack PDO or one of the supported drivers (pdo_mysql, pdo_sqlite).',
-			'ok' => 'You have PDO and at least one of the supported drivers (pdo_mysql, pdo_sqlite).',
+			'nok' => 'Cannot find PDO or one of the supported drivers (pdo_mysql, pdo_sqlite, pdo_pgsql).',
+			'ok' => 'You have PDO and at least one of the supported drivers (pdo_mysql, pdo_sqlite, pdo_pgsql).',
 		),
 		'php' => array(
 			'_' => 'PHP installation',
@@ -93,7 +93,7 @@ return array(
 			'ok' => 'Permissions on users directory are good.',
 		),
 		'zip' => array(
-			'nok' => 'You lack ZIP extension (php5-zip package).',
+			'nok' => 'Cannot find ZIP extension (php-zip package).',
 			'ok' => 'You have ZIP extension.',
 		),
 	),

@@ -41,7 +41,7 @@ return array(
 			'ok' => 'Je nainstalována požadovaná knihovna pro ověřování znaků (ctype).',
 		),
 		'curl' => array(
-			'nok' => 'Nemáte cURL (balíček php5-curl).',
+			'nok' => 'Nemáte cURL (balíček php-curl).',
 			'ok' => 'Máte rozšíření cURL.',
 		),
 		'data' => array(
@@ -73,8 +73,8 @@ return array(
 			'ok' => 'Máte požadovanou knihovnu pro regulární výrazy (PCRE).',
 		),
 		'pdo' => array(
-			'nok' => 'Nemáte PDO nebo některý z podporovaných ovladačů (pdo_mysql, pdo_sqlite).',
-			'ok' => 'Máte PDO a alespoň jeden z podporovaných ovladačů (pdo_mysql, pdo_sqlite).',
+			'nok' => 'Nemáte PDO nebo některý z podporovaných ovladačů (pdo_mysql, pdo_sqlite, pdo_pgsql).',
+			'ok' => 'Máte PDO a alespoň jeden z podporovaných ovladačů (pdo_mysql, pdo_sqlite, pdo_pgsql).',
 		),
 		'php' => array(
 			'nok' => 'Vaše verze PHP je %s, ale FreshRSS vyžaduje alespoň verzi %s.',

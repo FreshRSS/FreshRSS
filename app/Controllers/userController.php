@@ -121,7 +121,7 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 
 			$new_user_language = Minz_Request::param('new_user_language', FreshRSS_Context::$user_conf->language);
 			$languages = Minz_Translate::availableLanguages();
-			if (!isset($languages[$new_user_language])) {
+			if (!in_array($new_user_language, $languages)) {
 				$new_user_language = FreshRSS_Context::$user_conf->language;
 			}
 
@@ -165,7 +165,7 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 			}
 			if ($ok) {
 				$userDAO = new FreshRSS_UserDAO();
-				$ok &= $userDAO->createUser($new_user_name);
+				$ok &= $userDAO->createUser($new_user_name, $new_user_language);
 			}
 			invalidateHttpCache();
 

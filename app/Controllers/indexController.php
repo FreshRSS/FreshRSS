@@ -34,7 +34,9 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 
 		$this->view->callbackBeforeContent = function($view) {
 			try {
+				FreshRSS_Context::$number++;	//+1 for pagination
 				$entries = FreshRSS_index_Controller::listEntriesByContext();
+				FreshRSS_Context::$number--;
 
 				$nb_entries = count($entries);
 				if ($nb_entries > FreshRSS_Context::$number) {
@@ -154,8 +156,14 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 	 *   - order (default: conf->sort_order)
 	 *   - nb (default: conf->posts_per_page)
 	 *   - next (default: empty string)
+	 *   - hours (default: 0)
 	 */
 	private function updateContext() {
+		if (empty(FreshRSS_Context::$categories)) {
+			$catDAO = new FreshRSS_CategoryDAO();
+			FreshRSS_Context::$categories = $catDAO->listCategories();
+		}
+
 		// Update number of read / unread variables.
 		$entryDAO = FreshRSS_Factory::createEntryDao();
 		FreshRSS_Context::$total_starred = $entryDAO->countUnreadReadFavorites();
@@ -180,10 +188,14 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 		FreshRSS_Context::$order = Minz_Request::param(
 			'order', FreshRSS_Context::$user_conf->sort_order
 		);
-		FreshRSS_Context::$number = Minz_Request::param(
-			'nb', FreshRSS_Context::$user_conf->posts_per_page
-		);
+		FreshRSS_Context::$number = intval(Minz_Request::param('nb', FreshRSS_Context::$user_conf->posts_per_page));
+		if (FreshRSS_Context::$number > FreshRSS_Context::$user_conf->max_posts_per_rss) {
+			FreshRSS_Context::$number = max(
+				FreshRSS_Context::$user_conf->max_posts_per_rss,
+				FreshRSS_Context::$user_conf->posts_per_page);
+		}
 		FreshRSS_Context::$first_id = Minz_Request::param('next', '');
+		FreshRSS_Context::$sinceHours = intval(Minz_Request::param('hours', 0));
 	}
 
 	/**
@@ -201,11 +213,31 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 			$id = '';
 		}
 
-		return $entryDAO->listWhere(
+		$limit = FreshRSS_Context::$number;
+
+		$date_min = 0;
+		if (FreshRSS_Context::$sinceHours) {
+			$date_min = time() - (FreshRSS_Context::$sinceHours * 3600);
+			$limit = FreshRSS_Context::$user_conf->max_posts_per_rss;
+		}
+
+		$entries = $entryDAO->listWhere(
 			$type, $id, FreshRSS_Context::$state, FreshRSS_Context::$order,
-			FreshRSS_Context::$number + 1, FreshRSS_Context::$first_id,
-			FreshRSS_Context::$search
+			$limit, FreshRSS_Context::$first_id,
+			FreshRSS_Context::$search, $date_min
 		);
+
+		if (FreshRSS_Context::$sinceHours && (count($entries) < FreshRSS_Context::$user_conf->min_posts_per_rss)) {
+			$date_min = 0;
+			$limit = FreshRSS_Context::$user_conf->min_posts_per_rss;
+			$entries = $entryDAO->listWhere(
+				$type, $id, FreshRSS_Context::$state, FreshRSS_Context::$order,
+				$limit, FreshRSS_Context::$first_id,
+				FreshRSS_Context::$search, $date_min
+			);
+		}
+
+		return $entries;
 	}
 
 	/**

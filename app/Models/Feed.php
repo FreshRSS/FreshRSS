@@ -131,13 +131,26 @@ class FreshRSS_Feed extends Minz_Model {
 		return $this->nbNotRead;
 	}
 	public function faviconPrepare() {
-		$file = DATA_PATH . '/favicons/' . $this->hash() . '.txt';
-		if (!file_exists($file)) {
-			$t = $this->website;
-			if ($t == '') {
-				$t = $this->url;
+		global $favicons_dir;
+		require_once(LIB_PATH . '/favicons.php');
+		$url = $this->website;
+		if ($url == '') {
+			$url = $this->url;
+		}
+		$txt = $favicons_dir . $this->hash() . '.txt';
+		if (!file_exists($txt)) {
+			file_put_contents($txt, $url);
+		}
+		if (FreshRSS_Context::$isCron) {
+			$ico = $favicons_dir . $this->hash() . '.ico';
+			$ico_mtime = @filemtime($ico);
+			$txt_mtime = @filemtime($txt);
+			if ($txt_mtime != false &&
+				($ico_mtime == false || $ico_mtime < $txt_mtime || ($ico_mtime < time() - (14 * 86400)))) {
+				// no ico file or we should download a new one.
+				$url = file_get_contents($txt);
+				download_favicon($url, $ico) || touch($ico);
 			}
-			file_put_contents($file, $t);
 		}
 	}
 	public static function faviconDelete($hash) {
@@ -216,7 +229,7 @@ class FreshRSS_Feed extends Minz_Model {
 		$this->nbEntries = intval($value);
 	}
 
-	public function load($loadDetails = false) {
+	public function load($loadDetails = false, $noCache = false) {
 		if ($this->url !== null) {
 			if (CACHE_PATH === false) {
 				throw new Minz_FileNotExistException(
@@ -268,7 +281,7 @@ class FreshRSS_Feed extends Minz_Model {
 					$this->_url($clean_url);
 				}
 
-				if (($mtime === true) || ($mtime > $this->lastUpdate)) {
+				if (($mtime === true) || ($mtime > $this->lastUpdate) || $noCache) {
 					//Minz_Log::debug('FreshRSS no cache ' . $mtime . ' > ' . $this->lastUpdate . ' for ' . $clean_url);
 					$this->loadEntries($feed);	// et on charge les articles du flux
 				} else {
@@ -309,11 +322,11 @@ class FreshRSS_Feed extends Minz_Model {
 					$elinks[$elink] = '1';
 					$mime = strtolower($enclosure->get_type());
 					if (strpos($mime, 'image/') === 0) {
-						$content .= '<br /><img lazyload="" postpone="" src="' . $elink . '" alt="" />';
+						$content .= '<p class="enclosure"><img src="' . $elink . '" alt="" /></p>';
 					} elseif (strpos($mime, 'audio/') === 0) {
-						$content .= '<br /><audio lazyload="" postpone="" preload="none" src="' . $elink . '" controls="controls" />';
+						$content .= '<p class="enclosure"><audio preload="none" src="' . $elink . '" controls="controls"></audio> <a download="" href="' . $elink . '">💾</a></p>';
 					} elseif (strpos($mime, 'video/') === 0) {
-						$content .= '<br /><video lazyload="" postpone="" preload="none" src="' . $elink . '" controls="controls" />';
+						$content .= '<p class="enclosure"><video preload="none" src="' . $elink . '" controls="controls"></video> <a download="" href="' . $elink . '">💾</a></p>';
 					} else {
 						unset($elinks[$elink]);
 					}
@@ -338,6 +351,10 @@ class FreshRSS_Feed extends Minz_Model {
 		}
 
 		$this->entries = $entries;
+	}
+
+	function cacheModifiedTime() {
+		return @filemtime(CACHE_PATH . '/' . md5($this->url) . '.spc');
 	}
 
 	function lock() {
@@ -460,7 +477,7 @@ class FreshRSS_Feed extends Minz_Model {
 				CURLOPT_URL => $this->hubUrl,
 				CURLOPT_FOLLOWLOCATION => true,
 				CURLOPT_RETURNTRANSFER => true,
-				CURLOPT_USERAGENT => _t('gen.freshrss') . '/' . FRESHRSS_VERSION . ' (' . PHP_OS . '; ' . FRESHRSS_WEBSITE . ')',
+				CURLOPT_USERAGENT => 'FreshRSS/' . FRESHRSS_VERSION . ' (' . PHP_OS . '; ' . FRESHRSS_WEBSITE . ')',
 				CURLOPT_POSTFIELDS => 'hub.verify=sync'
 					. '&hub.mode=' . ($state ? 'subscribe' : 'unsubscribe')
 					. '&hub.topic=' . urlencode($this->selfUrl)

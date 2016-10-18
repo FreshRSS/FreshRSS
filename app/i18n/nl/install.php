@@ -41,7 +41,7 @@ return array(
 			'ok' => 'U hebt de benodigde bibliotheek voor character type checking (ctype).',
 		),
 		'curl' => array(
-			'nok' => 'U mist cURL (php5-curl package).',
+			'nok' => 'U mist cURL (php-curl package).',
 			'ok' => 'U hebt de cURL uitbreiding.',
 		),
 		'data' => array(
@@ -73,8 +73,8 @@ return array(
 			'ok' => 'U hebt de benodigde bibliotheek voor regular expressions (PCRE).',
 		),
 		'pdo' => array(
-			'nok' => 'U mist PDO of één van de ondersteunde (pdo_mysql, pdo_sqlite).',
-			'ok' => 'U hebt PDO en ten minste één van de ondersteunde drivers (pdo_mysql, pdo_sqlite).',
+			'nok' => 'U mist PDO of één van de ondersteunde (pdo_mysql, pdo_sqlite, pdo_pgsql).',
+			'ok' => 'U hebt PDO en ten minste één van de ondersteunde drivers (pdo_mysql, pdo_sqlite, pdo_pgsql).',
 		),
 		'php' => array(
 			'nok' => 'Uw PHP versie is %s maar FreshRSS benodigd tenminste versie %s.',

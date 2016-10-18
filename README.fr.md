@@ -33,9 +33,9 @@ Nous sommes une communauté amicale.
 	* Fonctionne même sur un Raspberry Pi 1 avec des temps de réponse < 1s (testé sur 150 flux, 22k articles)
 * Serveur Web Apache2 (recommandé), ou nginx, lighttpd (non testé sur les autres)
 * PHP 5.3.3+ (PHP 5.4+ recommandé, et PHP 5.5+ pour les performances, et PHP 7+ pour d’encore meilleures performances)
-	* Requis : [DOM](http://php.net/dom), [XML](http://php.net/xml), [PDO_MySQL](http://php.net/pdo-mysql) ou [PDO_SQLite](http://php.net/pdo-sqlite), [cURL](http://php.net/curl)
+	* Requis : [DOM](http://php.net/dom), [XML](http://php.net/xml), [PDO_MySQL](http://php.net/pdo-mysql) ou [PDO_SQLite](http://php.net/pdo-sqlite) ou [PDO_PGSQL](http://php.net/pdo-pgsql), [cURL](http://php.net/curl)
 	* Recommandés : [JSON](http://php.net/json), [GMP](http://php.net/gmp) (pour accès API sur plateformes < 64 bits), [IDN](http://php.net/intl.idn) (pour les noms de domaines internationalisés), [mbstring](http://php.net/mbstring) et/ou [iconv](http://php.net/iconv) (pour conversion d’encodages), [Zip](http://php.net/zip) (pour import/export), [zlib](http://php.net/zlib) (pour les flux compressés)
-* MySQL 5.5.3+ (recommandé) ou SQLite 3.7.4+
+* MySQL 5.5.3+ (recommandé), ou SQLite 3.7.4+, ou PostgreSQL (experimental)
 * Un navigateur Web récent tel Firefox, Internet Explorer 11 / Edge, Chrome, Opera, Safari.
 	* Fonctionne aussi sur mobile
 
@@ -50,20 +50,28 @@ Nous sommes une communauté amicale.
 6. Des paramètres de configuration avancée peuvent être accédés depuis [config.php](./data/config.default.php).
 
 ## Installation automatisée
-[![DP deploy](https://raw.githubusercontent.com/DFabric/DPlatform-ShellCore/gh-pages/img/deploy.png)](https://dfabric.github.io/DPlatform-ShellCore)
+* [![DP deploy](https://raw.githubusercontent.com/DFabric/DPlatform-ShellCore/gh-pages/img/deploy.png)](https://dfabric.github.io/DPlatform-ShellCore)
+* [YunoHost](https://github.com/YunoHost-Apps/freshrss_ynh)
 
 ## Exemple d’installation complète sur Linux Debian/Ubuntu
 ```sh
 # Si vous utilisez le serveur Web Apache (sinon il faut un autre serveur Web)
 sudo apt-get install apache2
-sudo a2enmod headers expires rewrite ssl
-# (optionnel) Si vous voulez un serveur de base de données MySQL
-sudo apt-get install mysql-server mysql-client php5-mysql
-# Composants principaux (pour Ubuntu <= 15.10, Debian <= 8 Jessie)
+sudo a2enmod headers expires rewrite ssl	#Modules Apache
+
+# Pour Ubuntu <= 15.10, Debian <= 8 Jessie
 sudo apt-get install php5 php5-curl php5-gmp php5-intl php5-json php5-sqlite
-# Composants principaux (pour Ubuntu >= 16.04, Debian >= 9 Stretch)
-sudo apt install php libapache2-mod-php php-curl php-gmp php-intl php-mbstring php-sqlite3 php-xml php-zip
-# Redémarrage du serveur Web
+sudo apt-get install libapache2-mod-php5	#Pour Apache
+sudo apt-get install mysql-server mysql-client php5-mysql	#Base de données MySQL optionnelle
+sudo apt-get install postgresql php5-pgsql	#Base de données PostgreSQL optionnelle
+
+# Pour Ubuntu >= 16.04, Debian >= 9 Stretch
+sudo apt install php php-curl php-gmp php-intl php-mbstring php-sqlite3 php-xml php-zip
+sudo apt install libapache2-mod-php	#Pour Apache
+sudo apt install mysql-server mysql-client php-mysql	#Base de données MySQL optionnelle
+sudo apt install postgresql php-pgsql	#Base de données PostgreSQL optionnelle
+
+## Redémarrage du serveur Web
 sudo service apache2 restart
 
 # Pour FreshRSS lui-même (git est optionnel si vous déployez manuellement les fichiers d’installation)
@@ -73,6 +81,7 @@ sudo git clone https://github.com/FreshRSS/FreshRSS.git
 # Mettre les droits d’accès pour le serveur Web
 cd FreshRSS
 sudo chown -R :www-data .
+sudo chmod -R g+r .
 sudo chmod -R g+w ./data/
 # Publier FreshRSS dans votre répertoire HTML public
 sudo ln -s /usr/share/FreshRSS/p /var/www/html/FreshRSS
@@ -84,10 +93,11 @@ cd /usr/share/FreshRSS
 sudo git reset --hard
 sudo git pull
 sudo chown -R :www-data .
+sudo chmod -R g+r .
 sudo chmod -R g+w ./data/
 ```
 
-# Contrôle d’accès
+## Contrôle d’accès
 Il est requis pour le mode multi-utilisateur, et recommandé dans tous les cas, de limiter l’accès à votre FreshRSS. Au choix :
 * En utilisant l’identification par formulaire (requiert JavaScript, et PHP 5.3.7+ recommandé – fonctionne avec certaines versions de PHP 5.3.3+)
 * En utilisant un contrôle d’accès HTTP défini par votre serveur Web
@@ -101,14 +111,23 @@ C’est une bonne idée d’utiliser le même utilisateur que votre serveur Web 
 Par exemple, pour exécuter le script toutes les heures :
 
 ```
-7 * * * * php /votre-chemin/FreshRSS/app/actualize_script.php > /tmp/FreshRSS.log 2>&1
+8 * * * * php /usr/share/FreshRSS/app/actualize_script.php > /tmp/FreshRSS.log 2>&1
 ```
+
+### Exemple pour Debian / Ubuntu
+Créer `/etc/cron.d/FreshRSS` avec :
+
+```
+7,37 * * * * www-data php -f /usr/share/FreshRSS/app/actualize_script.php > /tmp/FreshRSS.log 2>&1
+```
+
 
 # Conseils
 * Pour une meilleure sécurité, faites en sorte que seul le répertoire `./p/` soit accessible depuis le Web, par exemple en faisant pointer un sous-domaine sur le répertoire `./p/`.
 	* En particulier, les données personnelles se trouvent dans le répertoire `./data/`.
 * Le fichier `./constants.php` définit les chemins d’accès aux répertoires clés de l’application. Si vous les bougez, tout se passe ici.
 * En cas de problème, les logs peuvent être utile à lire, soit depuis l’interface de FreshRSS, soit manuellement depuis `./data/log/*.log`.
+
 
 # Sauvegarde
 * Il faut conserver vos fichiers `./data/config.php` ainsi que `./data/*_user.php`
@@ -138,3 +157,13 @@ mysqldump -u utilisateur -p --databases freshrss > freshrss.sql
 ## Si les fonctions natives ne sont pas disponibles
 * [Services_JSON](http://pear.php.net/pepr/pepr-proposal-show.php?id=198)
 * [password_compat](https://github.com/ircmaxell/password_compat)
+
+
+# Clients compatibles
+Tout client supportant une API de type Google Reader. Sélection :
+
+* Android
+	* [News+](https://play.google.com/store/apps/details?id=com.noinnion.android.newsplus) avec [News+ Google Reader extension](https://play.google.com/store/apps/details?id=com.noinnion.android.newsplus.extension.google_reader) (Propriétaire)
+	* [EasyRSS](https://github.com/Alkarex/EasyRSS) (Libre, F-Droid)
+* Linux
+	* [FeedReader 2.0+](https://jangernert.github.io/FeedReader/) (Libre)

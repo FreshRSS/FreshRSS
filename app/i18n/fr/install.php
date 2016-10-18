@@ -37,11 +37,11 @@ return array(
 			'ok' => 'Les droits sur le répertoire de cache sont bons.',
 		),
 		'ctype' => array(
-			'nok' => 'Il manque une librairie pour la vérification des types de caractères (php-ctype).',
-			'ok' => 'Vous disposez du nécessaire pour la vérification des types de caractères (ctype).',
+			'nok' => 'Impossible de trouver une librairie pour la vérification des types de caractères (php-ctype).',
+			'ok' => 'Vous disposez de la librairie pour la vérification des types de caractères (ctype).',
 		),
 		'curl' => array(
-			'nok' => 'Vous ne disposez pas de cURL (paquet php5-curl).',
+			'nok' => 'Vous ne disposez pas de cURL (paquet php-curl).',
 			'ok' => 'Vous disposez de cURL.',
 		),
 		'data' => array(
@@ -49,8 +49,8 @@ return array(
 			'ok' => 'Les droits sur le répertoire de data sont bons.',
 		),
 		'dom' => array(
-			'nok' => 'Il manque une librairie pour parcourir le DOM.',
-			'ok' => 'Vous disposez du nécessaire pour parcourir le DOM.',
+			'nok' => 'Impossible de trouver une librairie pour parcourir le DOM.',
+			'ok' => 'Vous disposez de la librairie pour parcourir le DOM.',
 		),
 		'favicons' => array(
 			'nok' => 'Veuillez vérifier les droits sur le répertoire <em>./data/favicons</em>. Le serveur HTTP doit être capable d’écrire dedans',
@@ -61,7 +61,7 @@ return array(
 			'ok' => 'Le HTTP REFERER est connu et semble correspondre à votre serveur.',
 		),
 		'json' => array(
-			'nok' => 'Il manque une librairie recommandée pour JSON.',
+			'nok' => 'Impossible de trouver une librairie recommandée pour JSON.',
 			'ok' => 'Vouz disposez de la librairie recommandée pour JSON.',
 		),
 		'minz' => array(
@@ -69,12 +69,12 @@ return array(
 			'ok' => 'Vous disposez du framework Minz',
 		),
 		'pcre' => array(
-			'nok' => 'Il manque une librairie pour les expressions régulières (php-pcre).',
-			'ok' => 'Vous disposez du nécessaire pour les expressions régulières (PCRE).',
+			'nok' => 'Impossible de trouver une librairie pour les expressions régulières (php-pcre).',
+			'ok' => 'Vous disposez de la librairie pour les expressions régulières (PCRE).',
 		),
 		'pdo' => array(
-			'nok' => 'Vous ne disposez pas de PDO ou d’un des drivers supportés (pdo_mysql, pdo_sqlite).',
-			'ok' => 'Vous disposez de PDO et d’au moins un des drivers supportés (pdo_mysql, pdo_sqlite).',
+			'nok' => 'Vous ne disposez pas de PDO ou d’un des drivers supportés (pdo_mysql, pdo_sqlite, pdo_pgsql).',
+			'ok' => 'Vous disposez de PDO et d’au moins un des drivers supportés (pdo_mysql, pdo_sqlite, pdo_pgsql).',
 		),
 		'php' => array(
 			'nok' => 'Votre version de PHP est la %s mais FreshRSS requiert au moins la version %s.',
@@ -85,7 +85,7 @@ return array(
 			'ok' => 'Les droits sur le répertoire des utilisateurs sont bons.',
 		),
 		'xml' => array(
-			'nok' => 'Il manque une librairie requise pour XML.',
+			'nok' => 'Impossible de trouver une librairie requise pour XML.',
 			'ok' => 'Vouz disposez de la librairie requise pour XML.',
 		),
 	),

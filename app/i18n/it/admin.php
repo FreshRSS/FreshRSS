@@ -33,7 +33,7 @@ return array(
 			'ok' => 'Libreria richiesta per il controllo dei caratteri presente (ctype).',
 		),
 		'curl' => array(
-			'nok' => 'Manca il supporto per cURL (pacchetto php5-curl).',
+			'nok' => 'Manca il supporto per cURL (pacchetto php-curl).',
 			'ok' => 'Estensione cURL presente.',
 		),
 		'data' => array(
@@ -71,8 +71,8 @@ return array(
 			'ok' => 'Libreria richiesta per le regular expressions presente (PCRE).',
 		),
 		'pdo' => array(
-			'nok' => 'Manca PDO o uno degli altri driver supportati (pdo_mysql, pdo_sqlite).',
-			'ok' => 'PDO e altri driver supportati (pdo_mysql, pdo_sqlite).',
+			'nok' => 'Manca PDO o uno degli altri driver supportati (pdo_mysql, pdo_sqlite, pdo_pgsql).',
+			'ok' => 'PDO e altri driver supportati (pdo_mysql, pdo_sqlite, pdo_pgsql).',
 		),
 		'php' => array(
 			'_' => 'Installazione PHP',
@@ -93,7 +93,7 @@ return array(
 			'ok' => 'I permessi sulla cartella users sono corretti.',
 		),
 		'zip' => array(
-			'nok' => 'Manca estensione ZIP (pacchetto php5-zip).',
+			'nok' => 'Manca estensione ZIP (pacchetto php-zip).',
 			'ok' => 'Estensione ZIP presente.',
 		),
 	),

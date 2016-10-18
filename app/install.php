@@ -19,8 +19,6 @@ if (isset($_GET['step'])) {
 	define('STEP', 0);
 }
 
-define('SQL_CREATE_DB', 'CREATE DATABASE IF NOT EXISTS %1$s DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;');
-
 if (STEP === 3 && isset($_POST['type'])) {
 	$_SESSION['bd_type'] = $_POST['type'];
 }
@@ -32,6 +30,9 @@ if (isset($_SESSION['bd_type'])) {
 		break;
 	case 'sqlite':
 		include(APP_PATH . '/SQL/install.sql.sqlite.php');
+		break;
+	case 'pgsql':
+		include(APP_PATH . '/SQL/install.sql.pgsql.php');
 		break;
 	}
 }
@@ -199,6 +200,9 @@ function saveStep3() {
 			$_SESSION['bd_prefix'] = substr($_POST['prefix'], 0, 16);
 			$_SESSION['bd_prefix_user'] = $_SESSION['bd_prefix'] . (empty($_SESSION['default_user']) ? '' : ($_SESSION['default_user'] . '_'));
 		}
+		if ($_SESSION['bd_type'] === 'pgsql') {
+			$_SESSION['bd_base'] = strtolower($_SESSION['bd_base']);
+		}
 
 		// We use dirname to remove the /i part
 		$base_url = dirname(Minz_Request::guessBaseUrl());
@@ -233,26 +237,6 @@ function saveStep3() {
 		}
 	}
 	invalidateHttpCache();
-}
-
-function newPdo() {
-	switch ($_SESSION['bd_type']) {
-	case 'mysql':
-		$str = 'mysql:host=' . $_SESSION['bd_host'] . ';dbname=' . $_SESSION['bd_base'];
-		$driver_options = array(
-			PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8mb4',
-		);
-		break;
-	case 'sqlite':
-		$str = 'sqlite:' . join_path(USERS_PATH, $_SESSION['default_user'], 'db.sqlite');
-		$driver_options = array(
-			PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-		);
-		break;
-	default:
-		return false;
-	}
-	return new PDO($str, $_SESSION['bd_user'], $_SESSION['bd_password'], $driver_options);
 }
 
 function deleteInstall() {
@@ -301,7 +285,8 @@ function checkStep1() {
 	$curl = extension_loaded('curl');
 	$pdo_mysql = extension_loaded('pdo_mysql');
 	$pdo_sqlite = extension_loaded('pdo_sqlite');
-	$pdo = $pdo_mysql || $pdo_sqlite;
+	$pdo_pgsql = extension_loaded('pdo_pgsql');
+	$pdo = $pdo_mysql || $pdo_sqlite || $pdo_pgsql;
 	$pcre = extension_loaded('pcre');
 	$ctype = extension_loaded('ctype');
 	$dom = class_exists('DOMDocument');
@@ -319,6 +304,7 @@ function checkStep1() {
 		'curl' => $curl ? 'ok' : 'ko',
 		'pdo-mysql' => $pdo_mysql ? 'ok' : 'ko',
 		'pdo-sqlite' => $pdo_sqlite ? 'ok' : 'ko',
+		'pdo-pgsql' => $pdo_pgsql ? 'ok' : 'ko',
 		'pdo' => $pdo ? 'ok' : 'ko',
 		'pcre' => $pcre ? 'ok' : 'ko',
 		'ctype' => $ctype ? 'ok' : 'ko',
@@ -434,6 +420,23 @@ function checkBD() {
 			$driver_options = array(
 				PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
 			);
+			break;
+		case 'pgsql':
+			$driver_options = array(
+				PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+			);
+
+			try {	// on ouvre une connexion juste pour créer la base si elle n'existe pas
+				$str = 'pgsql:host=' . $_SESSION['bd_host'] . ';dbname=postgres';
+				$c = new PDO($str, $_SESSION['bd_user'], $_SESSION['bd_password'], $driver_options);
+				$sql = sprintf(SQL_CREATE_DB, $_SESSION['bd_base']);
+				$res = $c->query($sql);
+			} catch (PDOException $e) {
+				syslog(LOG_DEBUG, 'pgsql ' . $e->getMessage());
+			}
+
+			// on écrase la précédente connexion en sélectionnant la nouvelle BDD
+			$str = 'pgsql:host=' . $_SESSION['bd_host'] . ';dbname=' . $_SESSION['bd_base'];
 			break;
 		default:
 			return false;
@@ -690,7 +693,7 @@ function printStep3() {
 	<p class="alert alert-error"><span class="alert-head"><?php echo _t('gen.short.damn'); ?></span> <?php echo _t('install.bdd.conf.ko'),(empty($_SESSION['bd_error']) ? '' : ' : ' . $_SESSION['bd_error']); ?></p>
 	<?php } ?>
 
-	<form action="index.php?step=3" method="post">
+	<form action="index.php?step=3" method="post" autocomplete="off">
 		<legend><?php echo _t('install.bdd.conf'); ?></legend>
 		<div class="form-group">
 			<label class="group-name" for="type"><?php echo _t('install.bdd.type'); ?></label>
@@ -708,6 +711,12 @@ function printStep3() {
 					SQLite
 				</option>
 				<?php }?>
+				<?php if (extension_loaded('pdo_pgsql')) {?>
+				<option value="pgsql"
+					<?php echo(isset($_SESSION['bd_type']) && $_SESSION['bd_type'] === 'pgsql') ? 'selected="selected"' : ''; ?>>
+					PostgreSQL (⚠️ experimental)
+				</option>
+				<?php }?>
 				</select>
 			</div>
 		</div>
@@ -716,7 +725,7 @@ function printStep3() {
 		<div class="form-group">
 			<label class="group-name" for="host"><?php echo _t('install.bdd.host'); ?></label>
 			<div class="group-controls">
-				<input type="text" id="host" name="host" pattern="[0-9A-Za-z_.-]{1,64}" value="<?php echo isset($_SESSION['bd_host']) ? $_SESSION['bd_host'] : $system_default_config->db['host']; ?>" tabindex="2" />
+				<input type="text" id="host" name="host" pattern="[0-9A-Za-z_.-]{1,64}(:[0-9]{2,5})?" value="<?php echo isset($_SESSION['bd_host']) ? $_SESSION['bd_host'] : $system_default_config->db['host']; ?>" tabindex="2" />
 			</div>
 		</div>
 
@@ -730,7 +739,7 @@ function printStep3() {
 		<div class="form-group">
 			<label class="group-name" for="pass"><?php echo _t('install.bdd.password'); ?></label>
 			<div class="group-controls">
-				<input type="password" id="pass" name="pass" value="<?php echo isset($_SESSION['bd_password']) ? $_SESSION['bd_password'] : ''; ?>" tabindex="4" />
+				<input type="password" id="pass" name="pass" value="<?php echo isset($_SESSION['bd_password']) ? $_SESSION['bd_password'] : ''; ?>" tabindex="4" autocomplete="off" />
 			</div>
 		</div>
 

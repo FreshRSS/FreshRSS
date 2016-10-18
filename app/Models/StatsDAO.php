@@ -4,6 +4,10 @@ class FreshRSS_StatsDAO extends Minz_ModelPdo {
 
 	const ENTRY_COUNT_PERIOD = 30;
 
+	protected function sqlFloor($s) {
+		return "FLOOR($s)";
+	}
+
 	/**
 	 * Calculates entry repartition for all feeds and for main stream.
 	 *
@@ -37,12 +41,12 @@ class FreshRSS_StatsDAO extends Minz_ModelPdo {
 			$filter .= "AND e.id_feed = {$feed}";
 		}
 		$sql = <<<SQL
-SELECT COUNT(1) AS `total`,
-COUNT(1) - SUM(e.is_read) AS `unread`,
-SUM(e.is_read) AS `read`,
-SUM(e.is_favorite) AS `favorite`
-FROM {$this->prefix}entry AS e
-, {$this->prefix}feed AS f
+SELECT COUNT(1) AS total,
+COUNT(1) - SUM(e.is_read) AS count_unreads,
+SUM(e.is_read) AS count_reads,
+SUM(e.is_favorite) AS count_favorites
+FROM `{$this->prefix}entry` AS e
+, `{$this->prefix}feed` AS f
 WHERE e.id_feed = f.id
 {$filter}
 SQL;
@@ -61,14 +65,16 @@ SQL;
 	 */
 	public function calculateEntryCount() {
 		$count = $this->initEntryCountArray();
-		$period = self::ENTRY_COUNT_PERIOD;
+		$midnight = mktime(0, 0, 0);
+		$oldest = $midnight - (self::ENTRY_COUNT_PERIOD * 86400);
 
 		// Get stats per day for the last 30 days
+		$sqlDay = $this->sqlFloor("(date - $midnight) / 86400");
 		$sql = <<<SQL
-SELECT DATEDIFF(FROM_UNIXTIME(e.date), NOW()) AS day,
-COUNT(1) AS count
-FROM {$this->prefix}entry AS e
-WHERE FROM_UNIXTIME(e.date, '%Y%m%d') BETWEEN DATE_FORMAT(DATE_ADD(NOW(), INTERVAL -{$period} DAY), '%Y%m%d') AND DATE_FORMAT(DATE_ADD(NOW(), INTERVAL -1 DAY), '%Y%m%d')
+SELECT {$sqlDay} AS day,
+COUNT(*) as count
+FROM `{$this->prefix}entry`
+WHERE date >= {$oldest} AND date < {$midnight}
 GROUP BY day
 ORDER BY day ASC
 SQL;
@@ -80,28 +86,7 @@ SQL;
 			$count[$value['day']] = (int) $value['count'];
 		}
 
-		return $this->convertToSerie($count);
-	}
-
-	/**
-	 * Calculates entry average per day on a 30 days period.
-	 *
-	 * @return integer
-	 */
-	public function calculateEntryAverage() {
-		$period = self::ENTRY_COUNT_PERIOD;
-
-		// Get stats per day for the last 30 days
-		$sql = <<<SQL
-SELECT COUNT(1) / {$period} AS average
-FROM {$this->prefix}entry AS e
-WHERE FROM_UNIXTIME(e.date, '%Y%m%d') BETWEEN DATE_FORMAT(DATE_ADD(NOW(), INTERVAL -{$period} DAY), '%Y%m%d') AND DATE_FORMAT(DATE_ADD(NOW(), INTERVAL -1 DAY), '%Y%m%d')
-SQL;
-		$stm = $this->bd->prepare($sql);
-		$stm->execute();
-		$res = $stm->fetch(PDO::FETCH_NAMED);
-
-		return round($res['average'], 2);
+		return $count;
 	}
 
 	/**
@@ -158,7 +143,7 @@ SQL;
 		$sql = <<<SQL
 SELECT DATE_FORMAT(FROM_UNIXTIME(e.date), '{$period}') AS period
 , COUNT(1) AS count
-FROM {$this->prefix}entry AS e
+FROM `{$this->prefix}entry` AS e
 {$restrict}
 GROUP BY period
 ORDER BY period ASC
@@ -173,7 +158,7 @@ SQL;
 			$repartition[(int) $value['period']] = (int) $value['count'];
 		}
 
-		return $this->convertToSerie($repartition);
+		return $repartition;
 	}
 
 	/**
@@ -222,7 +207,7 @@ SQL;
 SELECT COUNT(1) AS count
 , MIN(date) AS date_min
 , MAX(date) AS date_max
-FROM {$this->prefix}entry AS e
+FROM `{$this->prefix}entry` AS e
 {$restrict}
 SQL;
 		$stm = $this->bd->prepare($sql);
@@ -266,8 +251,8 @@ SQL;
 		$sql = <<<SQL
 SELECT c.name AS label
 , COUNT(f.id) AS data
-FROM {$this->prefix}category AS c,
-{$this->prefix}feed AS f
+FROM `{$this->prefix}category` AS c,
+`{$this->prefix}feed` AS f
 WHERE c.id = f.category
 GROUP BY label
 ORDER BY data DESC
@@ -276,7 +261,7 @@ SQL;
 		$stm->execute();
 		$res = $stm->fetchAll(PDO::FETCH_ASSOC);
 
-		return $this->convertToPieSerie($res);
+		return $res;
 	}
 
 	/**
@@ -289,9 +274,9 @@ SQL;
 		$sql = <<<SQL
 SELECT c.name AS label
 , COUNT(e.id) AS data
-FROM {$this->prefix}category AS c,
-{$this->prefix}feed AS f,
-{$this->prefix}entry AS e
+FROM `{$this->prefix}category` AS c,
+`{$this->prefix}feed` AS f,
+`{$this->prefix}entry` AS e
 WHERE c.id = f.category
 AND f.id = e.id_feed
 GROUP BY label
@@ -301,7 +286,7 @@ SQL;
 		$stm->execute();
 		$res = $stm->fetchAll(PDO::FETCH_ASSOC);
 
-		return $this->convertToPieSerie($res);
+		return $res;
 	}
 
 	/**
@@ -315,9 +300,9 @@ SELECT f.id AS id
 , MAX(f.name) AS name
 , MAX(c.name) AS category
 , COUNT(e.id) AS count
-FROM {$this->prefix}category AS c,
-{$this->prefix}feed AS f,
-{$this->prefix}entry AS e
+FROM `{$this->prefix}category` AS c,
+`{$this->prefix}feed` AS f,
+`{$this->prefix}entry` AS e
 WHERE c.id = f.category
 AND f.id = e.id_feed
 GROUP BY f.id
@@ -340,8 +325,8 @@ SELECT MAX(f.id) as id
 , MAX(f.name) AS name
 , MAX(date) AS last_date
 , COUNT(*) AS nb_articles
-FROM {$this->prefix}feed AS f,
-{$this->prefix}entry AS e
+FROM `{$this->prefix}feed` AS f,
+`{$this->prefix}entry` AS e
 WHERE f.id = e.id_feed
 GROUP BY f.id
 ORDER BY name
@@ -349,27 +334,6 @@ SQL;
 		$stm = $this->bd->prepare($sql);
 		$stm->execute();
 		return $stm->fetchAll(PDO::FETCH_ASSOC);
-	}
-
-	protected function convertToSerie($data) {
-		$serie = array();
-
-		foreach ($data as $key => $value) {
-			$serie[] = array($key, $value);
-		}
-
-		return $serie;
-	}
-
-	protected function convertToPieSerie($data) {
-		$serie = array();
-
-		foreach ($data as $value) {
-			$value['data'] = array(array(0, (int) $value['data']));
-			$serie[] = $value;
-		}
-
-		return $serie;
 	}
 
 	/**

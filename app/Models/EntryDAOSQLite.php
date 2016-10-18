@@ -2,6 +2,10 @@
 
 class FreshRSS_EntryDAOSQLite extends FreshRSS_EntryDAO {
 
+	public function sqlHexDecode($x) {
+		return $x;
+	}
+
 	protected function autoUpdateDb($errorInfo) {
 		if (empty($errorInfo[0]) || $errorInfo[0] == '42S22') {	//ER_BAD_FIELD_ERROR
 			//autoAddColumn
@@ -24,17 +28,21 @@ class FreshRSS_EntryDAOSQLite extends FreshRSS_EntryDAO {
 
 	protected function updateCacheUnreads($catId = false, $feedId = false) {
 		$sql = 'UPDATE `' . $this->prefix . 'feed` '
-		 . 'SET cache_nbUnreads=('
+		 . 'SET `cache_nbUnreads`=('
 		 .	'SELECT COUNT(*) AS nbUnreads FROM `' . $this->prefix . 'entry` e '
-		 .	'WHERE e.id_feed=`' . $this->prefix . 'feed`.id AND e.is_read=0) '
-		 . 'WHERE 1';
+		 .	'WHERE e.id_feed=`' . $this->prefix . 'feed`.id AND e.is_read=0)';
+		$hasWhere = false;
 		$values = array();
 		if ($feedId !== false) {
-			$sql .= ' AND id=?';
+			$sql .= $hasWhere ? ' AND' : ' WHERE';
+			$hasWhere = true;
+			$sql .= ' id=?';
 			$values[] = $feedId;
 		}
 		if ($catId !== false) {
-			$sql .= ' AND category=?';
+			$sql .= $hasWhere ? ' AND' : ' WHERE';
+			$hasWhere = true;
+			$sql .= ' category=?';
 			$values[] = $catId;
 		}
 		$stm = $this->bd->prepare($sql);
@@ -82,7 +90,7 @@ class FreshRSS_EntryDAOSQLite extends FreshRSS_EntryDAO {
 			}
 			$affected = $stm->rowCount();
 			if ($affected > 0) {
-				$sql = 'UPDATE `' . $this->prefix . 'feed` SET cache_nbUnreads=cache_nbUnreads' . ($is_read ? '-' : '+') . '1 '
+				$sql = 'UPDATE `' . $this->prefix . 'feed` SET `cache_nbUnreads`=`cache_nbUnreads`' . ($is_read ? '-' : '+') . '1 '
 				 . 'WHERE id=(SELECT e.id_feed FROM `' . $this->prefix . 'entry` e WHERE e.id=?)';
 				$values = array($ids);
 				$stm = $this->bd->prepare($sql);

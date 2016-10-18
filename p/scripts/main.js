@@ -116,13 +116,8 @@ function incUnreadsFeed(article, feed_id, nb) {
 
 var pending_entries = {};
 function mark_read(active, only_not_read) {
-	if (active.length === 0 ||
-		(only_not_read === true && !active.hasClass("not_read"))) {
-		return false;
-	}
-
-	var url = active.find("a.read").attr("href");
-	if (url === undefined) {
+	if ((active.length === 0) || (!active.attr('id')) ||
+		(only_not_read && !active.hasClass("not_read"))) {
 		return false;
 	}
 
@@ -130,6 +125,9 @@ function mark_read(active, only_not_read) {
 		return false;
 	}
 	pending_entries[active.attr('id')] = true;
+
+	var url = '.?c=entry&a=read&id=' + active.attr('id').replace(/^flux_/, '') +
+		(active.hasClass('not_read') ? '' : '&is_read=0');
 
 	$.ajax({
 		type: 'POST',
@@ -144,16 +142,18 @@ function mark_read(active, only_not_read) {
 		if (active.hasClass("not_read")) {
 			active.removeClass("not_read");
 			inc--;
-		} else if (only_not_read !== true || active.hasClass("not_read")) {
+		} else {
 			active.addClass("not_read");
+			active.addClass("keep_unread");
 			inc++;
 		}
 		$r.find('.icon').replaceWith(data.icon);
 
-		var feed_url = active.find(".website>a").attr("href"),
-			feed_id = feed_url.substr(feed_url.lastIndexOf('f_'));
-
-		incUnreadsFeed(active, feed_id, inc);
+		var feed_url = active.find(".website>a").attr("href");
+		if (feed_url) {
+			var feed_id = feed_url.substr(feed_url.lastIndexOf('f_'));
+			incUnreadsFeed(active, feed_id, inc);
+		}
 		faviconNbUnread();
 
 		delete pending_entries[active.attr('id')];
@@ -450,30 +450,32 @@ function auto_share(key) {
 	}
 }
 
-function inMarkViewport(flux, box_to_follow) {
-	var top = flux.offset().top;
-	var height = flux.height(),
-		begin = top + 3 * height / 4,
-		bot = Math.min(begin + 75, top + height),
-		windowTop = box_to_follow.scrollTop(),
-		windowBot = windowTop + box_to_follow.height() / 2;
-
-	return (windowBot >= begin && bot >= windowBot);
+function scrollAsRead(box_to_follow) {
+	var minTop = 40 + (context.current_view === 'global' ? box_to_follow.offset().top : box_to_follow.scrollTop());
+	$('.not_read:not(.keep_unread):visible').each(function () {
+			var $this = $(this);
+			if ($this.offset().top + $this.height() < minTop) {
+				mark_read($this, true);
+			}
+		});
 }
 
 function init_posts() {
-	var box_to_follow = $(window);
-	if (context.current_view === 'global') {
-		box_to_follow = $("#panel");
-	}
+	var box_to_follow = context.current_view === 'global' ? $("#panel") : $(window);
 
 	if (context.auto_mark_scroll) {
+		var lastScroll = 0,	//Throttle
+			timerId = 0;
 		box_to_follow.scroll(function () {
-			$('.not_read:visible').each(function () {
-				if ($(this).children(".flux_content").is(':visible') && inMarkViewport($(this), box_to_follow)) {
-					mark_read($(this), true);
-				}
-			});
+			window.clearTimeout(timerId);
+			if (lastScroll + 500 < Date.now()) {
+				lastScroll = Date.now();
+				scrollAsRead(box_to_follow);
+			} else {
+				timerId = window.setTimeout(function() {
+						scrollAsRead(box_to_follow);
+					}, 500);
+			}
 		});
 	}
 
@@ -752,7 +754,7 @@ function init_stream(divStream) {
 	});
 
 	divStream.on('click', '.flux .content a', function () {
-		$(this).attr('target', '_blank');
+		$(this).attr('target', '_blank').attr('rel', 'noreferrer');
 	});
 
 	if (context.auto_mark_site) {
@@ -1021,14 +1023,13 @@ function focus_search() {
 	$('#search').focus();
 }
 
+var freshrssLoadMoreEvent = document.createEvent('Event');
+freshrssLoadMoreEvent.initEvent('freshrss:load-more', true, true);
+
 function init_load_more(box) {
 	box_load_more = box;
 
-	if (!context.does_lazyload) {
-		$('img[postpone], audio[postpone], iframe[postpone], video[postpone]').each(function () {
-			this.removeAttribute('postpone');
-		});
-	}
+	document.body.dispatchEvent(freshrssLoadMoreEvent);
 
 	var $next_link = $("#load_more");
 	if (!$next_link.length) {
@@ -1154,10 +1155,10 @@ function init_share_observers() {
 	$('.share.add').on('click', function(e) {
 		var opt = $(this).siblings('select').find(':selected');
 		var row = $(this).parents('form').data(opt.data('form'));
-		row = row.replace('##label##', opt.html().trim(), 'g');
-		row = row.replace('##type##', opt.val(), 'g');
-		row = row.replace('##help##', opt.data('help'), 'g');
-		row = row.replace('##key##', shares, 'g');
+		row = row.replace(/##label##/g, opt.html().trim());
+		row = row.replace(/##type##/g, opt.val());
+		row = row.replace(/##help##/g, opt.data('help'));
+		row = row.replace(/##key##/g, shares);
 		$(this).parents('.form-group').before(row);
 		shares++;
 
