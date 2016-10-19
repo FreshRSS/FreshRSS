@@ -314,7 +314,9 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 			if (count($entries) > 0) {
 				$newGuids = array();
 				foreach ($entries as $entry) {
-					$newGuids[] = $entry->guid();
+					$guid = $entry->guid();
+					$guid = filter_var($guid, FILTER_DEFAULT, FILTER_FLAG_STRIP_LOW | FILTER_FLAG_STRIP_HIGH);
+					$newGuids[] = $guid;
 				}
 				// For this feed, check existing GUIDs already in database.
 				$existingHashForGuids = $entryDAO->listHashForFeedGuids($feed->id(), $newGuids);

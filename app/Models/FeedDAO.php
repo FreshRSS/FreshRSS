@@ -5,6 +5,9 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 		$sql = 'INSERT INTO `' . $this->prefix . 'feed` (url, category, name, website, description, `lastUpdate`, priority, `httpAuth`, error, keep_history, ttl) VALUES(?, ?, ?, ?, ?, ?, 10, ?, 0, -2, -2)';
 		$stm = $this->bd->prepare($sql);
 
+		$valuesTmp['url'] = filter_var($valuesTmp['url'], FILTER_DEFAULT, FILTER_FLAG_STRIP_LOW | FILTER_FLAG_STRIP_HIGH);
+		$valuesTmp['website'] = filter_var($valuesTmp['website'], FILTER_DEFAULT, FILTER_FLAG_STRIP_LOW | FILTER_FLAG_STRIP_HIGH);
+
 		$values = array(
 			substr($valuesTmp['url'], 0, 511),
 			$valuesTmp['category'],
@@ -55,6 +58,13 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 	}
 
 	public function updateFeed($id, $valuesTmp) {
+		if (isset($valuesTmp['url'])) {
+			$valuesTmp['url'] = filter_var($valuesTmp['url'], FILTER_DEFAULT, FILTER_FLAG_STRIP_LOW | FILTER_FLAG_STRIP_HIGH);
+		}
+		if (isset($valuesTmp['website'])) {
+			$valuesTmp['website'] = filter_var($valuesTmp['website'], FILTER_DEFAULT, FILTER_FLAG_STRIP_LOW | FILTER_FLAG_STRIP_HIGH);
+		}
+
 		$set = '';
 		foreach ($valuesTmp as $key => $v) {
 			$set .= $key . '=?, ';
