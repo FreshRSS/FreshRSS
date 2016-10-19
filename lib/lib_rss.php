@@ -83,6 +83,9 @@ function checkUrl($url) {
 	}
 }
 
+function safe_ascii($text) {
+	return filter_var($text, FILTER_DEFAULT, FILTER_FLAG_STRIP_LOW | FILTER_FLAG_STRIP_HIGH);
+}
 
 /**
  * Test if a given server address is publicly accessible.

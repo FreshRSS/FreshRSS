@@ -362,9 +362,7 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 
 		$newGuids = array();
 		foreach ($article_object['items'] as $item) {
-			$guid = $item['id'];
-			$guid = filter_var($guid, FILTER_DEFAULT, FILTER_FLAG_STRIP_LOW | FILTER_FLAG_STRIP_HIGH);
-			$newGuids[] = $guid;
+			$newGuids[] = safe_ascii($item['id']);
 		}
 		// For this feed, check existing GUIDs already in database.
 		$existingHashForGuids = $this->entryDAO->listHashForFeedGuids($feed->id(), $newGuids);
