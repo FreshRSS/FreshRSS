@@ -39,6 +39,7 @@
 * I18n
 	* Fix some messages during installation [#1339](https://github.com/FreshRSS/FreshRSS/pull/1339)
 * UI
+	* Fix CSS line-height bug with `<sup>` in dates (English, Russian, Turkish) [#1340](https://github.com/FreshRSS/FreshRSS/pull/1340)
 	* Download icon 💾 for podcasts [#1236](https://github.com/FreshRSS/FreshRSS/issues/1236)
 * SimplePie
 	* Fix auto-discovery of RSS feeds in Web pages served as `text/xml` [#1264](https://github.com/FreshRSS/FreshRSS/issues/1264)
