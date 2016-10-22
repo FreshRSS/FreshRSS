@@ -186,6 +186,27 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 		Minz_Request::forward($redirect_url, true);
 	}
 
+	public static function deleteUser($username) {
+		$db = FreshRSS_Context::$system_conf->db;
+		require_once(APP_PATH . '/SQL/install.sql.' . $db['type'] . '.php');
+
+		$ok = ctype_alnum($username);
+		if ($ok) {
+			$default_user = FreshRSS_Context::$system_conf->default_user;
+			$ok &= (strcasecmp($username, $default_user) !== 0);	//It is forbidden to delete the default user
+		}
+		$user_data = join_path(DATA_PATH, 'users', $username);
+		if ($ok) {
+			$ok &= is_dir($user_data);
+		}
+		if ($ok) {
+			$userDAO = new FreshRSS_UserDAO();
+			$ok &= $userDAO->deleteUser($username);
+			$ok &= recursive_unlink($user_data);
+		}
+		return $ok;
+	}
+
 	/**
 	 * This action delete an existing user.
 	 *
@@ -207,16 +228,7 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 				FreshRSS_Auth::hasAccess('admin') ||
 				$self_deletion
 		)) {
-			$db = FreshRSS_Context::$system_conf->db;
-			require_once(APP_PATH . '/SQL/install.sql.' . $db['type'] . '.php');
-
-			$ok = ctype_alnum($username);
-			$user_data = join_path(DATA_PATH, 'users', $username);
-
-			if ($ok) {
-				$default_user = FreshRSS_Context::$system_conf->default_user;
-				$ok &= (strcasecmp($username, $default_user) !== 0);	//It is forbidden to delete the default user
-			}
+			$ok = true;
 			if ($ok && $self_deletion) {
 				// We check the password if it's a self-destruction
 				$nonce = Minz_Session::param('nonce');
@@ -228,12 +240,7 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 				);
 			}
 			if ($ok) {
-				$ok &= is_dir($user_data);
-			}
-			if ($ok) {
-				$userDAO = new FreshRSS_UserDAO();
-				$ok &= $userDAO->deleteUser($username);
-				$ok &= recursive_unlink($user_data);
+				$ok &= self::deleteUser($username);
 			}
 			if ($ok && $self_deletion) {
 				FreshRSS_Auth::removeAccess();
