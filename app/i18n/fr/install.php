@@ -24,10 +24,10 @@ return array(
 			'ok' => 'La configuration de la base de données a été enregistrée.',
 		),
 		'host' => 'Hôte',
-		'password' => 'Mot de passe',
+		'password' => 'Mot de passe pour base de données',
 		'prefix' => 'Préfixe des tables',
 		'type' => 'Type de base de données',
-		'username' => 'Nom d’utilisateur',
+		'username' => 'Nom d’utilisateur pour base de données',
 	),
 	'check' => array(
 		'_' => 'Vérifications',

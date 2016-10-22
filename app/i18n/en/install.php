@@ -25,9 +25,9 @@ return array(
 		),
 		'host' => 'Host',
 		'prefix' => 'Table prefix',
-		'password' => 'HTTP password',
+		'password' => 'Database password',
 		'type' => 'Type of database',
-		'username' => 'HTTP username',
+		'username' => 'Database username',
 	),
 	'check' => array(
 		'_' => 'Checks',

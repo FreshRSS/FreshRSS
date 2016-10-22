@@ -36,6 +36,8 @@
 * SQL
 	* Slightly modified several SQL requests (MySQL, SQLite) to simplify support of PostgreSQL [#1195](https://github.com/FreshRSS/FreshRSS/pull/1195)
 	* Increase performances by removing a superfluous category request [#1316](https://github.com/FreshRSS/FreshRSS/pull/1316)
+* I18n
+	* Fix some messages during installation [#1339](https://github.com/FreshRSS/FreshRSS/pull/1339)
 * UI
 	* Download icon 💾 for podcasts [#1236](https://github.com/FreshRSS/FreshRSS/issues/1236)
 * SimplePie
