@@ -43,12 +43,12 @@ return array(
 		'not_found' => '%s bestaat niet',
 	),
 	'import_export' => array(
-		'export_no_zip_extension' => 'Zip uitbreiding is niet aanwezig op uw server. Exporteer a.u.b. uw bestanden één voor één.',
+		'export_no_zip_extension' => 'ZIP uitbreiding is niet aanwezig op uw server. Exporteer a.u.b. uw bestanden één voor één.',
 		'feeds_imported' => 'Uw feeds zijn geimporteerd en worden nu vernieuwd',
 		'feeds_imported_with_errors' => 'Uw feeds zijn geimporteerd maar er zijn enige fouten opgetreden',
 		'file_cannot_be_uploaded' => 'Bestand kan niet worden verzonden!',
-		'no_zip_extension' => 'Zip uitbreiding is niet aanwezig op uw server.',
-		'zip_error' => 'Er is een fout opgetreden tijdens het imporeren van het Zip bestand.',
+		'no_zip_extension' => 'ZIP uitbreiding is niet aanwezig op uw server.',
+		'zip_error' => 'Er is een fout opgetreden tijdens het imporeren van het ZIP bestand.',
 	),
 	'sub' => array(
 		'actualize' => 'Actualiseren',

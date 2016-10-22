@@ -29,5 +29,4 @@ $ok = FreshRSS_user_Controller::deleteUser($username);
 
 invalidateHttpCache(FreshRSS_Context::$system_conf->default_user);
 
-echo 'Result: ', ($ok ? 'success' : 'fail'), ".\n";
-exit($ok ? 0 : 1);
+done($ok);

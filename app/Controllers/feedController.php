@@ -40,9 +40,8 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 		}
 		if ($cat == null) {
 			$catDAO->checkDefault();
-			$cat = $catDAO->getDefault();
 		}
-		$cat_id = $cat->id();
+		$cat_id = $cat == null ? FreshRSS_CategoryDAO::defaultCategoryId : $cat->id();
 
 		$feed = new FreshRSS_Feed($url);	//Throws FreshRSS_BadUrl_Exception
 		$feed->_httpAuth($http_auth);
@@ -504,8 +503,7 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 		}
 		if ($cat_id <= 1) {
 			$catDAO->checkDefault();
-			$cat = $catDAO->getDefault();
-			$cat_id = $cat->id();
+			$cat_id = FreshRSS_CategoryDAO::defaultCategoryId;
 		}
 
 		$feedDAO = FreshRSS_Factory::createFeedDao();

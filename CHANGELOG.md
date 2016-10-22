@@ -390,7 +390,7 @@
 	* Possibility to combine search filters, e.g. `date:2014-05 intitle:FreshRSS intitle:Open great reader #Internet`
 * Change nav menu with more buttons instead of dropdown menus and add some filters
 * New system of import / export
-	* Support OPML, Json (like Google Reader) and Zip archives
+	* Support OPML, Json (like Google Reader) and ZIP archives
 	* Can export and import articles (specific option for favorites)
 * Refactor "Origine" theme
 	* Some improvements

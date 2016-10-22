@@ -15,19 +15,19 @@ if (empty($options['user'])) {
 	fail('Usage: ' . basename(__FILE__) . " --user=username --password='password' --api-password='api_password'" .
 		" --language=en --email=user@example.net --token='longRandomString'");
 }
-$new_user_name = $options['user'];
-if (!ctype_alnum($new_user_name)) {
-	fail('FreshRSS error: invalid username “' . $new_user_name . '”');
+$username = $options['user'];
+if (!ctype_alnum($username)) {
+	fail('FreshRSS error: invalid username “' . $username . '”');
 }
 
 $usernames = listUsers();
-if (preg_grep("/^$new_user_name$/i", $usernames)) {
-	fail('FreshRSS error: username already taken “' . $new_user_name . '”');
+if (preg_grep("/^$username$/i", $usernames)) {
+	fail('FreshRSS error: username already taken “' . $username . '”');
 }
 
-echo 'FreshRSS creating user “', $new_user_name, "”…\n";
+echo 'FreshRSS creating user “', $username, "”…\n";
 
-$ok = FreshRSS_user_Controller::createUser($new_user_name,
+$ok = FreshRSS_user_Controller::createUser($username,
 	empty($options['password']) ? '' : $options['password'],
 	empty($options['api-password']) ? '' : $options['api-password'],
 	array(
@@ -37,5 +37,4 @@ $ok = FreshRSS_user_Controller::createUser($new_user_name,
 
 invalidateHttpCache(FreshRSS_Context::$system_conf->default_user);
 
-echo 'Result: ', ($ok ? 'success' : 'fail'), ".\n";
-exit($ok ? 0 : 1);
+done($ok);

@@ -37,3 +37,8 @@ function cliInitUser($username) {
 
 	return $username;
 }
+
+function done($ok) {
+	echo 'Result: ', ($ok ? 'success' : 'fail'), ".\n";
+	exit($ok ? 0 : 1);
+}
