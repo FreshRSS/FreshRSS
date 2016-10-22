@@ -25,9 +25,9 @@ return array(
 		),
 		'host' => 'Host',
 		'prefix' => 'Tabel voorvoegsel',
-		'password' => 'HTTP wachtwoord',
+		'password' => 'Database wachtwoord',
 		'type' => 'Type database',
-		'username' => 'HTTP gebruikersnaam',
+		'username' => 'Database gebruikersnaam',
 	),
 	'check' => array(
 		'_' => 'Controles',

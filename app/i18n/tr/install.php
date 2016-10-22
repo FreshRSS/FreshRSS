@@ -25,9 +25,9 @@ return array(
 		),
 		'host' => 'Sunucu',
 		'prefix' => 'Tablo ön eki',
-		'password' => 'HTTP şifre',
+		'password' => 'Veritabanı şifresi',
 		'type' => 'Veritabanı türü',
-		'username' => 'HTTP kullanıcı adı',
+		'username' => 'Veritabanı kullanıcı adı',
 	),
 	'check' => array(
 		'_' => 'Kontroller',
