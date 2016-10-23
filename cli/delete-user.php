@@ -7,7 +7,7 @@ $options = getopt('', array(
 	));
 
 if (empty($options['user'])) {
-	fail('Usage: ' . basename(__FILE__) . " --user=username");
+	fail('Usage: ' . basename(__FILE__) . " --user username");
 }
 $username = $options['user'];
 if (!ctype_alnum($username)) {

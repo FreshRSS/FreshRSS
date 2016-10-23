@@ -48,9 +48,6 @@ input, select, textarea {
 	vertical-align: middle;
 }
 
-select{
-	height:29px;
-}
 option {
 	padding: 0 .5em;
 }

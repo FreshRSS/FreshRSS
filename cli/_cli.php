@@ -10,7 +10,7 @@ Minz_Configuration::register('system',
 	DATA_PATH . '/config.php',
 	DATA_PATH . '/config.default.php');
 FreshRSS_Context::$system_conf = Minz_Configuration::get('system');
-Minz_Translate::init();
+Minz_Translate::init('en');
 
 FreshRSS_Context::$isCli = true;
 
@@ -39,6 +39,6 @@ function cliInitUser($username) {
 }
 
 function done($ok) {
-	echo 'Result: ', ($ok ? 'success' : 'fail'), ".\n";
+	fwrite(STDERR, 'Result: ' . ($ok ? 'success' : 'fail') . "\n");
 	exit($ok ? 0 : 1);
 }

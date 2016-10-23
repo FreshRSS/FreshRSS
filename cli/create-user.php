@@ -4,16 +4,16 @@ require('_cli.php');
 
 $options = getopt('', array(
 		'user:',
-		'password::',
-		'api-password::',
-		'language::',
-		'email::',
-		'token::',
+		'password:',
+		'api-password:',
+		'language:',
+		'email:',
+		'token:',
 	));
 
 if (empty($options['user'])) {
-	fail('Usage: ' . basename(__FILE__) . " --user=username --password='password' --api-password='api_password'" .
-		" --language=en --email=user@example.net --token='longRandomString'");
+	fail('Usage: ' . basename(__FILE__) . " --user username --password 'password' --api-password 'api_password'" .
+		" --language en --email user@example.net --token 'longRandomString'");
 }
 $username = $options['user'];
 if (!ctype_alnum($username)) {

@@ -522,26 +522,21 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 		return $return;
 	}
 
-	/**
-	 * This action handles export action.
-	 *
-	 * This action must be reached by a POST request.
-	 *
-	 * Parameters are:
-	 *   - export_opml (default: false)
-	 *   - export_starred (default: false)
-	 *   - export_feeds (default: array()) a list of feed ids
-	 */
-	public function exportAction() {
-		if (!Minz_Request::isPost()) {
-			Minz_Request::forward(array('c' => 'importExport', 'a' => 'index'), true);
+	public function exportFile($export_opml = true, $export_starred = false, $export_feeds = array(), $maxFeedEntries = 50, $username = null) {
+		require_once(LIB_PATH . '/lib_opml.php');
+
+		$this->catDAO = new FreshRSS_CategoryDAO($username);
+		$this->entryDAO = FreshRSS_Factory::createEntryDao($username);
+		$this->feedDAO = FreshRSS_Factory::createFeedDao($username);
+
+		if ($export_feeds === true) {
+			//All feeds
+			$export_feeds = $this->feedDAO->listFeedsIds();
+		}
+		if (!is_array($export_feeds)) {
+			$export_feeds = array();
 		}
 
-		$this->view->_useLayout(false);
-
-		$export_opml = Minz_Request::param('export_opml', false);
-		$export_starred = Minz_Request::param('export_starred', false);
-		$export_feeds = Minz_Request::param('export_feeds', array());
 		$day = date('Y-m-d');
 
 		$export_files = array();
@@ -558,7 +553,7 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 			if ($feed) {
 				$filename = "feed_${day}_" . $feed->category() . '_'
 				          . $feed->id() . '.json';
-				$export_files[$filename] = $this->generateEntries('feed', $feed);
+				$export_files[$filename] = $this->generateEntries('feed', $feed, $maxFeedEntries);
 			}
 		}
 
@@ -566,18 +561,49 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 		if ($nb_files > 1) {
 			// If there are more than 1 file to export, we need a ZIP archive.
 			try {
-				$this->exportZip($export_files);
+				$this->sendZip($export_files);
 			} catch (Exception $e) {
-				# Oops, there is no ZIP extension!
-				Minz_Request::bad(_t('feedback.import_export.export_no_zip_extension'),
-				                  array('c' => 'importExport', 'a' => 'index'));
+				throw new FreshRSS_ZipMissing_Exception($e);
 			}
 		} elseif ($nb_files === 1) {
 			// Only one file? Guess its type and export it.
 			$filename = key($export_files);
 			$type = self::guessFileType($filename);
-			$this->exportFile('freshrss_' . $filename, $export_files[$filename], $type);
-		} else {
+			$this->sendFile('freshrss_' . $filename, $export_files[$filename], $type);
+		}
+		return $nb_files;
+	}
+
+	/**
+	 * This action handles export action.
+	 *
+	 * This action must be reached by a POST request.
+	 *
+	 * Parameters are:
+	 *   - export_opml (default: false)
+	 *   - export_starred (default: false)
+	 *   - export_feeds (default: array()) a list of feed ids
+	 */
+	public function exportAction() {
+		if (!Minz_Request::isPost()) {
+			Minz_Request::forward(array('c' => 'importExport', 'a' => 'index'), true);
+		}
+		$this->view->_useLayout(false);
+
+		$nb_files = 0;
+		try {
+			$nb_files = $this->exportFile(
+					Minz_Request::param('export_opml', false),
+					Minz_Request::param('export_starred', false),
+					Minz_Request::param('export_feeds', array())
+				);
+		} catch (FreshRSS_ZipMissing_Exception $zme) {
+			# Oops, there is no ZIP extension!
+			Minz_Request::bad(_t('feedback.import_export.export_no_zip_extension'),
+			                  array('c' => 'importExport', 'a' => 'index'));
+		}
+
+		if ($nb_files < 1) {
 			// Nothing to do...
 			Minz_Request::forward(array('c' => 'importExport', 'a' => 'index'), true);
 		}
@@ -606,7 +632,7 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 	 * @param FreshRSS_Feed $feed feed of which we want to get entries.
 	 * @return string the JSON file content.
 	 */
-	private function generateEntries($type, $feed = NULL) {
+	private function generateEntries($type, $feed = NULL, $maxFeedEntries = 50) {
 		$this->view->categories = $this->catDAO->listCategories();
 
 		if ($type == 'starred') {
@@ -621,7 +647,7 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 			$this->view->type = 'feed/' . $feed->id();
 			$this->view->entries = $this->entryDAO->listWhere(
 				'f', $feed->id(), FreshRSS_Entry::STATE_ALL, 'ASC',
-				FreshRSS_Context::$user_conf->posts_per_page
+				$maxFeedEntries
 			);
 			$this->view->feed = $feed;
 		}
@@ -635,7 +661,7 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 	 * @param array $files list of files where key is filename and value the content.
 	 * @throws Exception if Zip extension is not loaded.
 	 */
-	private function exportZip($files) {
+	private function sendZip($files) {
 		if (!extension_loaded('zip')) {
 			throw new Exception();
 		}
@@ -667,7 +693,7 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 	 * @param string $type the file type (opml, json_feed or json_starred).
 	 *                     If equals to unknown, nothing happens.
 	 */
-	private function exportFile($filename, $content, $type) {
+	private function sendFile($filename, $content, $type) {
 		if ($type === 'unknown') {
 			return;
 		}

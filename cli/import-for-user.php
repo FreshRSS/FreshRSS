@@ -5,11 +5,10 @@ require('_cli.php');
 $options = getopt('', array(
 		'user:',
 		'filename:',
-		'clear-existing',
 	));
 
 if (empty($options['user']) || empty($options['filename'])) {
-	fail('Usage: ' . basename(__FILE__) . " --user=username --filename='/path/to/file.ext' --clear-existing");
+	fail('Usage: ' . basename(__FILE__) . " --user username --filename /path/to/file.ext");
 }
 
 $username = cliInitUser($options['user']);
