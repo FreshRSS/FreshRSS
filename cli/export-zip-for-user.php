@@ -8,7 +8,7 @@ $options = getopt('', array(
 	));
 
 if (empty($options['user'])) {
-	fail('Usage: ' . basename(__FILE__) . " --user username --max-feed-entries 100 > /path/to/file.zip'");
+	fail('Usage: ' . basename(__FILE__) . " --user username --max-feed-entries 100 > /path/to/file.zip");
 }
 
 $username = cliInitUser($options['user']);
