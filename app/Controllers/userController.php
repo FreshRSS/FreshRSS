@@ -24,7 +24,7 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 		}
 	}
 
-	private static function hashPassword($passwordPlain) {
+	public static function hashPassword($passwordPlain) {
 		if (!function_exists('password_hash')) {
 			include_once(LIB_PATH . '/password_compat.php');
 		}
@@ -111,9 +111,6 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 			if (empty($userConfig['language']) || !in_array($userConfig['language'], $languages)) {
 				$userConfig['language'] = 'en';
 			}
-
-			$default_user = FreshRSS_Context::$system_conf->default_user;
-			$ok &= (strcasecmp($new_user_name, $default_user) !== 0);	//It is forbidden to alter the default user
 
 			$ok &= !in_array(strtoupper($new_user_name), array_map('strtoupper', listUsers()));	//Not an existing user, case-insensitive
 

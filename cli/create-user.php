@@ -12,8 +12,8 @@ $options = getopt('', array(
 	));
 
 if (empty($options['user'])) {
-	fail('Usage: ' . basename(__FILE__) . " --user username --password 'password' --api-password 'api_password'" .
-		" --language en --email user@example.net --token 'longRandomString'");
+	fail('Usage: ' . basename(__FILE__) . " --user username ( --password 'password' --api-password 'api_password'" .
+		" --language en --email user@example.net --token 'longRandomString' )");
 }
 $username = $options['user'];
 if (!ctype_alnum($username)) {
@@ -35,6 +35,12 @@ $ok = FreshRSS_user_Controller::createUser($username,
 		'token' => empty($options['token']) ? '' : $options['token'],
 	));
 
+if (!$ok) {
+	fail('FreshRSS could not create user!');
+}
+
 invalidateHttpCache(FreshRSS_Context::$system_conf->default_user);
+
+accessRights();
 
 done($ok);

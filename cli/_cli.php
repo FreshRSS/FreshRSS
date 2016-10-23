@@ -38,7 +38,12 @@ function cliInitUser($username) {
 	return $username;
 }
 
-function done($ok) {
+function accessRights() {
+	echo '• Remember to re-apply the appropriate access rights, such as:' , "\n",
+		"\t", 'sudo chown -R :www-data . && sudo chmod -R g+r . && sudo chmod -R g+w ./data/', "\n";
+}
+
+function done($ok = true) {
 	fwrite(STDERR, 'Result: ' . ($ok ? 'success' : 'fail') . "\n");
 	exit($ok ? 0 : 1);
 }

@@ -4,14 +4,11 @@ if (function_exists('opcache_reset')) {
 }
 header("Content-Security-Policy: default-src 'self'");
 
-define('BCRYPT_COST', 9);
+require(LIB_PATH . '/lib_install.php');
 
 session_name('FreshRSS');
 session_set_cookie_params(0, dirname(empty($_SERVER['REQUEST_URI']) ? '/' : dirname($_SERVER['REQUEST_URI'])), null, false, true);
 session_start();
-
-Minz_Configuration::register('default_system', join_path(DATA_PATH, 'config.default.php'));
-Minz_Configuration::register('default_user', join_path(USERS_PATH, '_', 'config.default.php'));
 
 if (isset($_GET['step'])) {
 	define('STEP',(int)$_GET['step']);
@@ -26,13 +23,13 @@ if (STEP === 3 && isset($_POST['type'])) {
 if (isset($_SESSION['bd_type'])) {
 	switch ($_SESSION['bd_type']) {
 	case 'mysql':
-		include(APP_PATH . '/SQL/install.sql.mysql.php');
+		include_once(APP_PATH . '/SQL/install.sql.mysql.php');
 		break;
 	case 'sqlite':
-		include(APP_PATH . '/SQL/install.sql.sqlite.php');
+		include_once(APP_PATH . '/SQL/install.sql.sqlite.php');
 		break;
 	case 'pgsql':
-		include(APP_PATH . '/SQL/install.sql.pgsql.php');
+		include_once(APP_PATH . '/SQL/install.sql.pgsql.php');
 		break;
 	}
 }
@@ -131,12 +128,7 @@ function saveStep2() {
 
 		$password_plain = param('passwordPlain', false);
 		if ($password_plain !== false && cryptAvailable()) {
-			if (!function_exists('password_hash')) {
-				include_once(LIB_PATH . '/password_compat.php');
-			}
-			$passwordHash = password_hash($password_plain, PASSWORD_BCRYPT, array('cost' => BCRYPT_COST));
-			$passwordHash = preg_replace('/^\$2[xy]\$/', '\$2a\$', $passwordHash);	//Compatibility with bcrypt.js
-			$_SESSION['passwordHash'] = $passwordHash;
+			$_SESSION['passwordHash'] = FreshRSS_user_Controller::hashPassword($password_plain);
 		}
 
 		if (empty($_SESSION['old_entries']) ||
@@ -149,7 +141,7 @@ function saveStep2() {
 			return false;
 		}
 
-		$_SESSION['salt'] = sha1(uniqid(mt_rand(), true).implode('', stat(__FILE__)));
+		$_SESSION['salt'] = generateSalt();
 		if ((!ctype_digit($_SESSION['old_entries'])) ||($_SESSION['old_entries'] < 1)) {
 			$_SESSION['old_entries'] = $user_default_config->old_entries;
 		}
@@ -171,7 +163,7 @@ function saveStep2() {
 
 		recursive_unlink($user_dir);
 		mkdir($user_dir);
-		file_put_contents($user_config_path, "<?php\n return " . var_export($config_array, true) . ';');
+		file_put_contents($user_config_path, "<?php\n return " . var_export($config_array, true) . ";\n");
 
 		header('Location: index.php?step=3');
 	}
@@ -225,35 +217,29 @@ function saveStep3() {
 		);
 
 		@unlink(join_path(DATA_PATH, 'config.php'));	//To avoid access-rights problems
-		file_put_contents(join_path(DATA_PATH, 'config.php'), "<?php\n return " . var_export($config_array, true) . ';');
+		file_put_contents(join_path(DATA_PATH, 'config.php'), "<?php\n return " . var_export($config_array, true) . ";\n");
 
-		$res = checkBD();
+		$config_array['db']['default_user'] = $config_array['default_user'];
+		$ok = checkDb($config_array['db']) && checkDbUser($config_array['db']);
+		if (!$ok) {
+			@unlink(join_path(DATA_PATH, 'config.php'));
+		}
 
-		if ($res) {
+		if ($ok) {
 			$_SESSION['bd_error'] = '';
 			header('Location: index.php?step=4');
-		} elseif (empty($_SESSION['bd_error'])) {
-			$_SESSION['bd_error'] = 'Unknown error!';
+		} else {
+			$_SESSION['bd_error'] = empty(config_array['db']['bd_error']) ? 'Unknown error!' : config_array['db']['bd_error'];
 		}
 	}
 	invalidateHttpCache();
-}
-
-function deleteInstall() {
-	$res = unlink(join_path(DATA_PATH, 'do-install.txt'));
-
-	if (!$res) {
-		return false;
-	}
-
-	header('Location: index.php');
 }
 
 
 /*** VÉRIFICATIONS ***/
 function checkStep() {
 	$s0 = checkStep0();
-	$s1 = checkStep1();
+	$s1 = checkRequirements();
 	$s2 = checkStep2();
 	$s3 = checkStep3();
 	if (STEP > 0 && $s0['all'] != 'ok') {
@@ -276,49 +262,6 @@ function checkStep0() {
 	return array(
 		'language' => $language ? 'ok' : 'ko',
 		'all' => $language ? 'ok' : 'ko'
-	);
-}
-
-function checkStep1() {
-	$php = version_compare(PHP_VERSION, '5.3.3') >= 0;
-	$minz = file_exists(join_path(LIB_PATH, 'Minz'));
-	$curl = extension_loaded('curl');
-	$pdo_mysql = extension_loaded('pdo_mysql');
-	$pdo_sqlite = extension_loaded('pdo_sqlite');
-	$pdo_pgsql = extension_loaded('pdo_pgsql');
-	$pdo = $pdo_mysql || $pdo_sqlite || $pdo_pgsql;
-	$pcre = extension_loaded('pcre');
-	$ctype = extension_loaded('ctype');
-	$dom = class_exists('DOMDocument');
-	$xml = function_exists('xml_parser_create');
-	$json = function_exists('json_encode');
-	$data = DATA_PATH && is_writable(DATA_PATH);
-	$cache = CACHE_PATH && is_writable(CACHE_PATH);
-	$users = USERS_PATH && is_writable(USERS_PATH);
-	$favicons = is_writable(join_path(DATA_PATH, 'favicons'));
-	$http_referer = is_referer_from_same_domain();
-
-	return array(
-		'php' => $php ? 'ok' : 'ko',
-		'minz' => $minz ? 'ok' : 'ko',
-		'curl' => $curl ? 'ok' : 'ko',
-		'pdo-mysql' => $pdo_mysql ? 'ok' : 'ko',
-		'pdo-sqlite' => $pdo_sqlite ? 'ok' : 'ko',
-		'pdo-pgsql' => $pdo_pgsql ? 'ok' : 'ko',
-		'pdo' => $pdo ? 'ok' : 'ko',
-		'pcre' => $pcre ? 'ok' : 'ko',
-		'ctype' => $ctype ? 'ok' : 'ko',
-		'dom' => $dom ? 'ok' : 'ko',
-		'xml' => $xml ? 'ok' : 'ko',
-		'json' => $json ? 'ok' : 'ko',
-		'data' => $data ? 'ok' : 'ko',
-		'cache' => $cache ? 'ok' : 'ko',
-		'users' => $users ? 'ok' : 'ko',
-		'favicons' => $favicons ? 'ok' : 'ko',
-		'http_referer' => $http_referer ? 'ok' : 'ko',
-		'all' => $php && $minz && $curl && $pdo && $pcre && $ctype && $dom && $xml &&
-		         $data && $cache && $users && $favicons && $http_referer ?
-		         'ok' : 'ko'
 	);
 }
 
@@ -392,60 +335,15 @@ function checkStep3() {
 	);
 }
 
-function checkBD() {
+function checkDbUser(&$dbOptions) {
 	$ok = false;
-
+	$str = $dbOptions['bd_dsn'];
+	$driver_options = $dbOptions['bd_options'];
 	try {
-		$str = '';
-		$driver_options = null;
-		switch ($_SESSION['bd_type']) {
-		case 'mysql':
-			$driver_options = array(
-				PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8mb4'
-			);
-
-			try {	// on ouvre une connexion juste pour créer la base si elle n'existe pas
-				$str = 'mysql:host=' . $_SESSION['bd_host'] . ';';
-				$c = new PDO($str, $_SESSION['bd_user'], $_SESSION['bd_password'], $driver_options);
-				$sql = sprintf(SQL_CREATE_DB, $_SESSION['bd_base']);
-				$res = $c->query($sql);
-			} catch (PDOException $e) {
-			}
-
-			// on écrase la précédente connexion en sélectionnant la nouvelle BDD
-			$str = 'mysql:host=' . $_SESSION['bd_host'] . ';dbname=' . $_SESSION['bd_base'];
-			break;
-		case 'sqlite':
-			$str = 'sqlite:' . join_path(USERS_PATH, $_SESSION['default_user'], 'db.sqlite');
-			$driver_options = array(
-				PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-			);
-			break;
-		case 'pgsql':
-			$driver_options = array(
-				PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-			);
-
-			try {	// on ouvre une connexion juste pour créer la base si elle n'existe pas
-				$str = 'pgsql:host=' . $_SESSION['bd_host'] . ';dbname=postgres';
-				$c = new PDO($str, $_SESSION['bd_user'], $_SESSION['bd_password'], $driver_options);
-				$sql = sprintf(SQL_CREATE_DB, $_SESSION['bd_base']);
-				$res = $c->query($sql);
-			} catch (PDOException $e) {
-				syslog(LOG_DEBUG, 'pgsql ' . $e->getMessage());
-			}
-
-			// on écrase la précédente connexion en sélectionnant la nouvelle BDD
-			$str = 'pgsql:host=' . $_SESSION['bd_host'] . ';dbname=' . $_SESSION['bd_base'];
-			break;
-		default:
-			return false;
-		}
-
-		$c = new PDO($str, $_SESSION['bd_user'], $_SESSION['bd_password'], $driver_options);
+		$c = new PDO($str, $dbOptions['bd_user'], $dbOptions['bd_password'], $driver_options);
 
 		if (defined('SQL_CREATE_TABLES')) {
-			$sql = sprintf(SQL_CREATE_TABLES, $_SESSION['bd_prefix_user'], _t('gen.short.default_category'));
+			$sql = sprintf(SQL_CREATE_TABLES, $dbOptions['bd_prefix_user'], _t('gen.short.default_category'));
 			$stm = $c->prepare($sql);
 			$ok = $stm->execute();
 		} else {
@@ -453,7 +351,7 @@ function checkBD() {
 			if (is_array($SQL_CREATE_TABLES)) {
 				$ok = true;
 				foreach ($SQL_CREATE_TABLES as $instruction) {
-					$sql = sprintf($instruction, $_SESSION['bd_prefix_user'], _t('gen.short.default_category'));
+					$sql = sprintf($instruction, $dbOptions['bd_prefix_user'], _t('gen.short.default_category'));
 					$stm = $c->prepare($sql);
 					$ok &= $stm->execute();
 				}
@@ -461,13 +359,8 @@ function checkBD() {
 		}
 	} catch (PDOException $e) {
 		$ok = false;
-		$_SESSION['bd_error'] = $e->getMessage();
+		$dbOptions['bd_error'] = $e->getMessage();
 	}
-
-	if (!$ok) {
-		@unlink(join_path(DATA_PATH, 'config.php'));
-	}
-
 	return $ok;
 }
 
@@ -510,7 +403,7 @@ function printStep0() {
 
 // @todo refactor this view with the check_install action
 function printStep1() {
-	$res = checkStep1();
+	$res = checkRequirements();
 ?>
 	<noscript><p class="alert alert-warn"><span class="alert-head"><?php echo _t('gen.short.attention'); ?></span> <?php echo _t('install.javascript_is_better'); ?></p></noscript>
 
@@ -805,7 +698,9 @@ case 3:
 case 4:
 	break;
 case 5:
-	deleteInstall();
+	if (deleteInstall()) {
+		header('Location: index.php');
+	}
 	break;
 }
 ?>
