@@ -357,6 +357,21 @@ function checkDbUser(&$dbOptions) {
 				}
 			}
 		}
+
+		if (defined('SQL_INSERT_FEEDS')) {
+			$sql = sprintf(SQL_INSERT_FEEDS, $dbOptions['bd_prefix_user']);
+			$stm = $c->prepare($sql);
+			$ok &= $stm->execute();
+		} else {
+			global $SQL_INSERT_FEEDS;
+			if (is_array($SQL_INSERT_FEEDS)) {
+				foreach ($SQL_INSERT_FEEDS as $instruction) {
+					$sql = sprintf($instruction, $dbOptions['bd_prefix_user']);
+					$stm = $c->prepare($sql);
+					$ok &= $stm->execute();
+				}
+			}
+		}
 	} catch (PDOException $e) {
 		$ok = false;
 		$dbOptions['bd_error'] = $e->getMessage();

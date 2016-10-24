@@ -99,7 +99,7 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 		$this->view->size_user = $entryDAO->size();
 	}
 
-	public static function createUser($new_user_name, $passwordPlain, $apiPasswordPlain, $userConfig = array()) {
+	public static function createUser($new_user_name, $passwordPlain, $apiPasswordPlain, $userConfig = array(), $insertDefaultFeeds = true) {
 		if (!is_array($userConfig)) {
 			$userConfig = array();
 		}
@@ -138,7 +138,7 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 		}
 		if ($ok) {
 			$userDAO = new FreshRSS_UserDAO();
-			$ok &= $userDAO->createUser($new_user_name, $userConfig['language']);
+			$ok &= $userDAO->createUser($new_user_name, $userConfig['language'], $insertDefaultFeeds);
 		}
 		return $ok;
 	}

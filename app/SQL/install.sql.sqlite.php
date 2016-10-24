@@ -55,6 +55,10 @@ $SQL_CREATE_TABLES = array(
 'CREATE INDEX IF NOT EXISTS entry_lastSeen_index ON `entry`(`lastSeen`);',	//v1.1.1
 
 'INSERT OR IGNORE INTO `category` (id, name) VALUES(1, "%2$s");',
+);
+
+global $SQL_INSERT_FEEDS;
+$SQL_INSERT_FEEDS = array(
 'INSERT OR IGNORE INTO `feed` (url, category, name, website, description, ttl) VALUES("http://freshrss.org/feeds/all.atom.xml", 1, "FreshRSS.org", "http://freshrss.org/", "FreshRSS, a free, self-hostable aggregator…", 86400);',
 'INSERT OR IGNORE INTO `feed` (url, category, name, website, description, ttl) VALUES("https://github.com/FreshRSS/FreshRSS/releases.atom", 1, "FreshRSS releases", "https://github.com/FreshRSS/FreshRSS/", "FreshRSS releases @ GitHub", 86400);',
 );
