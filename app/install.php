@@ -341,7 +341,7 @@ function checkDbUser(&$dbOptions) {
 	$str = $dbOptions['dsn'];
 	$driver_options = $dbOptions['options'];
 	try {
-		$c = new PDO($str, $dbOptions['bd_user'], $dbOptions['bd_password'], $driver_options);
+		$c = new PDO($str, $dbOptions['user'], $dbOptions['password'], $driver_options);
 
 		if (defined('SQL_CREATE_TABLES')) {
 			$sql = sprintf(SQL_CREATE_TABLES, $dbOptions['prefix_user'], _t('gen.short.default_category'));
