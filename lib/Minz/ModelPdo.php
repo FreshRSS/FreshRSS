@@ -37,9 +37,10 @@ class Minz_ModelPdo {
 	 */
 	public function __construct($currentUser = null) {
 		if ($currentUser === null) {
-			$currentUser = Minz_Session::param('currentUser', '_');
+			$currentUser = Minz_Session::param('currentUser');
 		}
-		if (self::$useSharedBd && self::$sharedBd != null && $currentUser === self::$sharedCurrentUser) {
+		if (self::$useSharedBd && self::$sharedBd != null && 
+			($currentUser == null || $currentUser === self::$sharedCurrentUser)) {
 			$this->bd = self::$sharedBd;
 			$this->prefix = self::$sharedPrefix;
 			$this->current_user = self::$sharedCurrentUser;
