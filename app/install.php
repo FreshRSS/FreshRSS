@@ -220,6 +220,7 @@ function saveStep3() {
 		file_put_contents(join_path(DATA_PATH, 'config.php'), "<?php\n return " . var_export($config_array, true) . ";\n");
 
 		$config_array['db']['default_user'] = $config_array['default_user'];
+		$config_array['db']['prefix_user'] = $_SESSION['bd_prefix_user'];
 		$ok = checkDb($config_array['db']) && checkDbUser($config_array['db']);
 		if (!$ok) {
 			@unlink(join_path(DATA_PATH, 'config.php'));
@@ -229,7 +230,7 @@ function saveStep3() {
 			$_SESSION['bd_error'] = '';
 			header('Location: index.php?step=4');
 		} else {
-			$_SESSION['bd_error'] = empty(config_array['db']['bd_error']) ? 'Unknown error!' : config_array['db']['bd_error'];
+			$_SESSION['bd_error'] = empty($config_array['db']['bd_error']) ? 'Unknown error!' : $config_array['db']['bd_error'];
 		}
 	}
 	invalidateHttpCache();
@@ -337,13 +338,13 @@ function checkStep3() {
 
 function checkDbUser(&$dbOptions) {
 	$ok = false;
-	$str = $dbOptions['bd_dsn'];
-	$driver_options = $dbOptions['bd_options'];
+	$str = $dbOptions['dsn'];
+	$driver_options = $dbOptions['options'];
 	try {
 		$c = new PDO($str, $dbOptions['bd_user'], $dbOptions['bd_password'], $driver_options);
 
 		if (defined('SQL_CREATE_TABLES')) {
-			$sql = sprintf(SQL_CREATE_TABLES, $dbOptions['bd_prefix_user'], _t('gen.short.default_category'));
+			$sql = sprintf(SQL_CREATE_TABLES, $dbOptions['prefix_user'], _t('gen.short.default_category'));
 			$stm = $c->prepare($sql);
 			$ok = $stm->execute();
 		} else {
@@ -351,7 +352,7 @@ function checkDbUser(&$dbOptions) {
 			if (is_array($SQL_CREATE_TABLES)) {
 				$ok = true;
 				foreach ($SQL_CREATE_TABLES as $instruction) {
-					$sql = sprintf($instruction, $dbOptions['bd_prefix_user'], _t('gen.short.default_category'));
+					$sql = sprintf($instruction, $dbOptions['prefix_user'], _t('gen.short.default_category'));
 					$stm = $c->prepare($sql);
 					$ok &= $stm->execute();
 				}
@@ -359,14 +360,14 @@ function checkDbUser(&$dbOptions) {
 		}
 
 		if (defined('SQL_INSERT_FEEDS')) {
-			$sql = sprintf(SQL_INSERT_FEEDS, $dbOptions['bd_prefix_user']);
+			$sql = sprintf(SQL_INSERT_FEEDS, $dbOptions['prefix_user']);
 			$stm = $c->prepare($sql);
 			$ok &= $stm->execute();
 		} else {
 			global $SQL_INSERT_FEEDS;
 			if (is_array($SQL_INSERT_FEEDS)) {
 				foreach ($SQL_INSERT_FEEDS as $instruction) {
-					$sql = sprintf($instruction, $dbOptions['bd_prefix_user']);
+					$sql = sprintf($instruction, $dbOptions['prefix_user']);
 					$stm = $c->prepare($sql);
 					$ok &= $stm->execute();
 				}
