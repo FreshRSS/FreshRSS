@@ -87,6 +87,7 @@ sudo chmod -R g+w ./data/
 sudo ln -s /usr/share/FreshRSS/p /var/www/html/FreshRSS
 # Navigate to http://example.net/FreshRSS to complete the installation.
 # (If you do it from localhost, you may have to adjust the setting of your public address later)
+# or use the [Command-Line Interface](./cli/README.md)
 
 # Update to a newer version of FreshRSS
 cd /usr/share/FreshRSS
@@ -107,8 +108,8 @@ It is needed for the multi-user mode to limit access to FreshRSS. You can:
 ## Automatic feed update
 * You can add a Cron job to launch the update script.
 Check the Cron documentation related to your distribution ([Debian/Ubuntu](https://help.ubuntu.com/community/CronHowto), [Red Hat/Fedora](https://fedoraproject.org/wiki/Administration_Guide_Draft/Cron), [Slackware](http://docs.slackware.com/fr:slackbook:process_control?#cron), [Gentoo](https://wiki.gentoo.org/wiki/Cron), [Arch Linux](https://wiki.archlinux.org/index.php/Cron)…).
-It’s a good idea to use the Web server user.
-For example, if you want to run the script every hour:
+It is a good idea to use the Web server user.
+For instance, if you want to run the script every hour:
 
 ```
 9 * * * * php /usr/share/FreshRSS/app/actualize_script.php > /tmp/FreshRSS.log 2>&1
@@ -132,6 +133,7 @@ Create `/etc/cron.d/FreshRSS` with:
 # Backup
 * You need to keep `./data/config.php`, and `./data/*_user.php` files
 * You can export your feed list in OPML format from FreshRSS
+	* either from the Web interface, or from the [Command-Line Interface](./cli/README.md)
 * To save articles, you can use [phpMyAdmin](http://www.phpmyadmin.net) or MySQL tools:
 
 ```bash

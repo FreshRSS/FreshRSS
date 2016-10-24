@@ -3,6 +3,8 @@
 ## 2016-10-XX FreshRSS 1.6.0-dev
 
 * API
+	* New Command-Line Interface (CLI) [#1095](https://github.com/FreshRSS/FreshRSS/issues/1095)
+		* Install, add/delete users, actualize, import/export. See [CLI documentation](./cli/README.md).
 	* Support for editing feeds and categories from client applications [#1254](https://github.com/FreshRSS/FreshRSS/issues/1254)
 * Compatibility:
 	* Support for PostgreSQL [#416](https://github.com/FreshRSS/FreshRSS/issues/416)

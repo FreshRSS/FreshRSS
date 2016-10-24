@@ -87,6 +87,7 @@ sudo chmod -R g+w ./data/
 sudo ln -s /usr/share/FreshRSS/p /var/www/html/FreshRSS
 # Naviguez vers http://example.net/FreshRSS pour terminer l’installation.
 # (Si vous le faite depuis localhost, vous pourrez avoir à ajuster le réglage de votre adresse publique)
+# ou utilisez [l’interface en ligne de commande](./cli/README.md)
 
 # Mettre à jour FreshRSS vers une nouvelle version
 cd /usr/share/FreshRSS
@@ -132,6 +133,7 @@ Créer `/etc/cron.d/FreshRSS` avec :
 # Sauvegarde
 * Il faut conserver vos fichiers `./data/config.php` ainsi que `./data/*_user.php`
 * Vous pouvez exporter votre liste de flux depuis FreshRSS au format OPML
+	* soit depuis l’interface Web, soit [en ligne de commande](./cli/README.md)
 * Pour sauvegarder les articles eux-mêmes, vous pouvez utiliser [phpMyAdmin](http://www.phpmyadmin.net) ou les outils de MySQL :
 
 ```bash
