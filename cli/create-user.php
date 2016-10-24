@@ -35,8 +35,7 @@ $ok = FreshRSS_user_Controller::createUser($username,
 		'language' => empty($options['language']) ? '' : $options['language'],
 		'token' => empty($options['token']) ? '' : $options['token'],
 	),
-	!isset($options['no-default-feeds'])
-	);
+	!isset($options['no-default-feeds']));
 
 if (!$ok) {
 	fail('FreshRSS could not create user!');
