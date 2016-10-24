@@ -46,7 +46,7 @@ Nous sommes une communauté amicale.
 2. Placez l’application sur votre serveur (la partie à exposer au Web est le répertoire `./p/`)
 3. Le serveur Web doit avoir les droits d’écriture dans le répertoire `./data/`
 4. Accédez à FreshRSS à travers votre navigateur Web et suivez les instructions d’installation
-	* ou utilisez l’interface en ligne de commande](./cli/README.md)
+	* ou utilisez [l’interface en ligne de commande](./cli/README.md)
 5. Tout devrait fonctionner :) En cas de problème, n’hésitez pas à [nous contacter](https://github.com/FreshRSS/FreshRSS/issues).
 6. Des paramètres de configuration avancée peuvent être accédés depuis [config.php](./data/config.default.php).
 
