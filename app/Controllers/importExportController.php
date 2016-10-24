@@ -84,6 +84,8 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 				$ok = false;
 				if (FreshRSS_Context::$isCli) {
 					fwrite(STDERR, 'FreshRSS error during OPML import' . "\n");
+				} else {
+					Minz_Log::warning('Error during OPML import');
 				}
 			}
 		}
@@ -92,6 +94,8 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 				$ok = false;
 				if (FreshRSS_Context::$isCli) {
 					fwrite(STDERR, 'FreshRSS error during JSON stars import' . "\n");
+				} else {
+					Minz_Log::warning('Error during JSON stars import');
 				}
 			}
 		}
@@ -100,6 +104,8 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 				$ok = false;
 				if (FreshRSS_Context::$isCli) {
 					fwrite(STDERR, 'FreshRSS error during JSON feeds import' . "\n");
+				} else {
+					Minz_Log::warning('Error during JSON feeds import');
 				}
 			}
 		}
@@ -214,13 +220,11 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 		foreach ($opml_elements as $elt) {
 			if (isset($elt['xmlUrl'])) {
 				// If xmlUrl exists, it means it is a feed
-				if (!FreshRSS_Context::$isCli) {
-					if ($nb_feeds >= $limits['max_feeds']) {
-						Minz_Log::warning(_t('feedback.sub.feed.over_max',
-										  $limits['max_feeds']));
-						$ok = false;
-						continue;
-					}
+				if (FreshRSS_Context::$isCli && $nb_feeds >= $limits['max_feeds']) {
+					Minz_Log::warning(_t('feedback.sub.feed.over_max',
+									  $limits['max_feeds']));
+					$ok = false;
+					continue;
 				}
 
 				if ($this->addFeedOpml($elt, $parent_cat)) {
@@ -231,11 +235,9 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 			} else {
 				// No xmlUrl? It should be a category!
 				$limit_reached = ($nb_cats >= $limits['max_categories']);
-				if (!FreshRSS_Context::$isCli) {
-					if ($limit_reached) {
-						Minz_Log::warning(_t('feedback.sub.category.over_max',
-										  $limits['max_categories']));
-					}
+				if (!FreshRSS_Context::$isCli && $limit_reached) {
+					Minz_Log::warning(_t('feedback.sub.category.over_max',
+									  $limits['max_categories']));
 					$ok = false;
 					continue;
 				}
