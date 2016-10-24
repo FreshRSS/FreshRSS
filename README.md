@@ -46,7 +46,8 @@ We are a friendly community.
 2. Dump the application on your server (expose only the `./p/` folder)
 3. Add write access on `./data/` folder to the webserver user
 4. Access FreshRSS with your browser and follow the installation process
-5. Everything should be working :) If you encounter any problem, feel free to contact me.
+	* or use the [Command-Line Interface](./cli/README.md)
+5. Everything should be working :) If you encounter any problem, feel free [contact us](https://github.com/FreshRSS/FreshRSS/issues).
 6. Advanced configuration settings can be seen in [config.php](./data/config.default.php).
 
 ## Automated install
@@ -87,7 +88,7 @@ sudo chmod -R g+w ./data/
 sudo ln -s /usr/share/FreshRSS/p /var/www/html/FreshRSS
 # Navigate to http://example.net/FreshRSS to complete the installation.
 # (If you do it from localhost, you may have to adjust the setting of your public address later)
-# or use the [Command-Line Interface](./cli/README.md)
+# or use the Command-Line Interface
 
 # Update to a newer version of FreshRSS
 cd /usr/share/FreshRSS
