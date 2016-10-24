@@ -43,12 +43,12 @@ return array(
 		'not_found' => '%s neexistuje',
 	),
 	'import_export' => array(
-		'export_no_zip_extension' => 'Na serveru není naistalována podpora zip. Zkuste prosím exportovat soubory jeden po druhém.',
+		'export_no_zip_extension' => 'Na serveru není naistalována podpora ZIP. Zkuste prosím exportovat soubory jeden po druhém.',
 		'feeds_imported' => 'Vaše kanály byly naimportovány a nyní budou aktualizovány',
 		'feeds_imported_with_errors' => 'Vaše kanály byly naimportovány, došlo ale k nějakým chybám',
 		'file_cannot_be_uploaded' => 'Soubor nelze nahrát!',
-		'no_zip_extension' => 'Na serveru není naistalována podpora zip.',
-		'zip_error' => 'Během importu zip souboru došlo k chybě.',
+		'no_zip_extension' => 'Na serveru není naistalována podpora ZIP.',
+		'zip_error' => 'Během importu ZIP souboru došlo k chybě.',
 	),
 	'sub' => array(
 		'actualize' => 'Aktualizovat',

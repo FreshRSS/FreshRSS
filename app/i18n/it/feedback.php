@@ -43,12 +43,12 @@ return array(
 		'not_found' => '%s non disponibile',
 	),
 	'import_export' => array(
-		'export_no_zip_extension' => 'Estensione Zip non presente sul server. Per favore esporta i files singolarmente.',
+		'export_no_zip_extension' => 'Estensione ZIP non presente sul server. Per favore esporta i files singolarmente.',
 		'feeds_imported' => 'I tuoi feed sono stati importati e saranno aggiornati',
 		'feeds_imported_with_errors' => 'I tuoi feeds sono stati importati ma si sono verificati alcuni errori',
 		'file_cannot_be_uploaded' => 'Il file non può essere caricato!',
-		'no_zip_extension' => 'Estensione Zip non presente sul server.',
-		'zip_error' => 'Si è verificato un errore importando il file Zip',
+		'no_zip_extension' => 'Estensione ZIP non presente sul server.',
+		'zip_error' => 'Si è verificato un errore importando il file ZIP',
 	),
 	'sub' => array(
 		'actualize' => 'Aggiorna',

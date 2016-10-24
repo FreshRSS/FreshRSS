@@ -34,7 +34,7 @@ Nous sommes une communauté amicale.
 * Serveur Web Apache2 (recommandé), ou nginx, lighttpd (non testé sur les autres)
 * PHP 5.3.3+ (PHP 5.4+ recommandé, et PHP 5.5+ pour les performances, et PHP 7+ pour d’encore meilleures performances)
 	* Requis : [DOM](http://php.net/dom), [XML](http://php.net/xml), [PDO_MySQL](http://php.net/pdo-mysql) ou [PDO_SQLite](http://php.net/pdo-sqlite) ou [PDO_PGSQL](http://php.net/pdo-pgsql), [cURL](http://php.net/curl)
-	* Recommandés : [JSON](http://php.net/json), [GMP](http://php.net/gmp) (pour accès API sur plateformes < 64 bits), [IDN](http://php.net/intl.idn) (pour les noms de domaines internationalisés), [mbstring](http://php.net/mbstring) et/ou [iconv](http://php.net/iconv) (pour conversion d’encodages), [Zip](http://php.net/zip) (pour import/export), [zlib](http://php.net/zlib) (pour les flux compressés)
+	* Recommandés : [JSON](http://php.net/json), [GMP](http://php.net/gmp) (pour accès API sur plateformes < 64 bits), [IDN](http://php.net/intl.idn) (pour les noms de domaines internationalisés), [mbstring](http://php.net/mbstring) et/ou [iconv](http://php.net/iconv) (pour conversion d’encodages), [ZIP](http://php.net/zip) (pour import/export), [zlib](http://php.net/zlib) (pour les flux compressés)
 * MySQL 5.5.3+ (recommandé), ou SQLite 3.7.4+, ou PostgreSQL (experimental)
 * Un navigateur Web récent tel Firefox, Internet Explorer 11 / Edge, Chrome, Opera, Safari.
 	* Fonctionne aussi sur mobile
@@ -46,7 +46,8 @@ Nous sommes une communauté amicale.
 2. Placez l’application sur votre serveur (la partie à exposer au Web est le répertoire `./p/`)
 3. Le serveur Web doit avoir les droits d’écriture dans le répertoire `./data/`
 4. Accédez à FreshRSS à travers votre navigateur Web et suivez les instructions d’installation
-5. Tout devrait fonctionner :) En cas de problème, n’hésitez pas à me contacter.
+	* ou utilisez [l’interface en ligne de commande](./cli/README.md)
+5. Tout devrait fonctionner :) En cas de problème, n’hésitez pas à [nous contacter](https://github.com/FreshRSS/FreshRSS/issues).
 6. Des paramètres de configuration avancée peuvent être accédés depuis [config.php](./data/config.default.php).
 
 ## Installation automatisée
@@ -87,6 +88,7 @@ sudo chmod -R g+w ./data/
 sudo ln -s /usr/share/FreshRSS/p /var/www/html/FreshRSS
 # Naviguez vers http://example.net/FreshRSS pour terminer l’installation.
 # (Si vous le faite depuis localhost, vous pourrez avoir à ajuster le réglage de votre adresse publique)
+# ou utilisez l’interface en ligne de commande
 
 # Mettre à jour FreshRSS vers une nouvelle version
 cd /usr/share/FreshRSS
@@ -132,6 +134,7 @@ Créer `/etc/cron.d/FreshRSS` avec :
 # Sauvegarde
 * Il faut conserver vos fichiers `./data/config.php` ainsi que `./data/*_user.php`
 * Vous pouvez exporter votre liste de flux depuis FreshRSS au format OPML
+	* soit depuis l’interface Web, soit [en ligne de commande](./cli/README.md)
 * Pour sauvegarder les articles eux-mêmes, vous pouvez utiliser [phpMyAdmin](http://www.phpmyadmin.net) ou les outils de MySQL :
 
 ```bash

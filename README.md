@@ -34,7 +34,7 @@ We are a friendly community.
 * A web server: Apache2 (recommended), nginx, lighttpd (not tested on others)
 * PHP 5.3.3+ (PHP 5.4+ recommended, and PHP 5.5+ for performance, and PHP 7 for even higher performance)
 	* Required extensions: [DOM](http://php.net/dom), [XML](http://php.net/xml), [PDO_MySQL](http://php.net/pdo-mysql) or [PDO_SQLite](http://php.net/pdo-sqlite) or [PDO_PGSQL](http://php.net/pdo-pgsql), [cURL](http://php.net/curl)
-	* Recommended extensions: [JSON](http://php.net/json), [GMP](http://php.net/gmp) (for API access on platforms < 64 bits), [IDN](http://php.net/intl.idn) (for Internationalized Domain Names), [mbstring](http://php.net/mbstring) and/or [iconv](http://php.net/iconv) (for charset conversion), [Zip](http://php.net/zip) (for import/export), [zlib](http://php.net/zlib) (for compressed feeds)
+	* Recommended extensions: [JSON](http://php.net/json), [GMP](http://php.net/gmp) (for API access on platforms < 64 bits), [IDN](http://php.net/intl.idn) (for Internationalized Domain Names), [mbstring](http://php.net/mbstring) and/or [iconv](http://php.net/iconv) (for charset conversion), [ZIP](http://php.net/zip) (for import/export), [zlib](http://php.net/zlib) (for compressed feeds)
 * MySQL 5.5.3+ (recommended), or SQLite 3.7.4+, or PostgreSQL (experimental)
 * A recent browser like Firefox, Internet Explorer 11 / Edge, Chrome, Opera, Safari.
 	* Works on mobile
@@ -46,7 +46,8 @@ We are a friendly community.
 2. Dump the application on your server (expose only the `./p/` folder)
 3. Add write access on `./data/` folder to the webserver user
 4. Access FreshRSS with your browser and follow the installation process
-5. Everything should be working :) If you encounter any problem, feel free to contact me.
+	* or use the [Command-Line Interface](./cli/README.md)
+5. Everything should be working :) If you encounter any problem, feel free [contact us](https://github.com/FreshRSS/FreshRSS/issues).
 6. Advanced configuration settings can be seen in [config.php](./data/config.default.php).
 
 ## Automated install
@@ -87,6 +88,7 @@ sudo chmod -R g+w ./data/
 sudo ln -s /usr/share/FreshRSS/p /var/www/html/FreshRSS
 # Navigate to http://example.net/FreshRSS to complete the installation.
 # (If you do it from localhost, you may have to adjust the setting of your public address later)
+# or use the Command-Line Interface
 
 # Update to a newer version of FreshRSS
 cd /usr/share/FreshRSS
@@ -107,8 +109,8 @@ It is needed for the multi-user mode to limit access to FreshRSS. You can:
 ## Automatic feed update
 * You can add a Cron job to launch the update script.
 Check the Cron documentation related to your distribution ([Debian/Ubuntu](https://help.ubuntu.com/community/CronHowto), [Red Hat/Fedora](https://fedoraproject.org/wiki/Administration_Guide_Draft/Cron), [Slackware](http://docs.slackware.com/fr:slackbook:process_control?#cron), [Gentoo](https://wiki.gentoo.org/wiki/Cron), [Arch Linux](https://wiki.archlinux.org/index.php/Cron)…).
-It’s a good idea to use the Web server user.
-For example, if you want to run the script every hour:
+It is a good idea to use the Web server user.
+For instance, if you want to run the script every hour:
 
 ```
 9 * * * * php /usr/share/FreshRSS/app/actualize_script.php > /tmp/FreshRSS.log 2>&1
@@ -132,6 +134,7 @@ Create `/etc/cron.d/FreshRSS` with:
 # Backup
 * You need to keep `./data/config.php`, and `./data/*_user.php` files
 * You can export your feed list in OPML format from FreshRSS
+	* either from the Web interface, or from the [Command-Line Interface](./cli/README.md)
 * To save articles, you can use [phpMyAdmin](http://www.phpmyadmin.net) or MySQL tools:
 
 ```bash

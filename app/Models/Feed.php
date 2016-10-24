@@ -141,7 +141,7 @@ class FreshRSS_Feed extends Minz_Model {
 		if (!file_exists($txt)) {
 			file_put_contents($txt, $url);
 		}
-		if (FreshRSS_Context::$isCron) {
+		if (FreshRSS_Context::$isCli) {
 			$ico = $favicons_dir . $this->hash() . '.ico';
 			$ico_mtime = @filemtime($ico);
 			$txt_mtime = @filemtime($txt);

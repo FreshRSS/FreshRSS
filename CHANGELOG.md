@@ -3,6 +3,8 @@
 ## 2016-10-XX FreshRSS 1.6.0-dev
 
 * API
+	* New Command-Line Interface (CLI) [#1095](https://github.com/FreshRSS/FreshRSS/issues/1095)
+		* Install, add/delete users, actualize, import/export. See [CLI documentation](./cli/README.md).
 	* Support for editing feeds and categories from client applications [#1254](https://github.com/FreshRSS/FreshRSS/issues/1254)
 * Compatibility:
 	* Support for PostgreSQL [#416](https://github.com/FreshRSS/FreshRSS/issues/416)
@@ -390,7 +392,7 @@
 	* Possibility to combine search filters, e.g. `date:2014-05 intitle:FreshRSS intitle:Open great reader #Internet`
 * Change nav menu with more buttons instead of dropdown menus and add some filters
 * New system of import / export
-	* Support OPML, Json (like Google Reader) and Zip archives
+	* Support OPML, Json (like Google Reader) and ZIP archives
 	* Can export and import articles (specific option for favorites)
 * Refactor "Origine" theme
 	* Some improvements

@@ -44,7 +44,7 @@
 						$select_args = ' size="' . min(10, count($this->feeds)) .'" multiple="multiple"';
 					}
 				?>
-				<select name="export_feeds[]"<?php echo $select_args; ?>>
+				<select name="export_feeds[]"<?php echo $select_args; ?> size="10">
 					<?php echo extension_loaded('zip') ? '' : '<option></option>'; ?>
 					<?php foreach ($this->feeds as $feed) { ?>
 					<option value="<?php echo $feed->id(); ?>"><?php echo $feed->name(); ?></option>

@@ -36,21 +36,21 @@ class Minz_ModelPdo {
 	 * HOST, BASE, USER et PASS définies dans le fichier de configuration
 	 */
 	public function __construct($currentUser = null) {
-		if (self::$useSharedBd && self::$sharedBd != null && $currentUser === null) {
+		if ($currentUser === null) {
+			$currentUser = Minz_Session::param('currentUser');
+		}
+		if (self::$useSharedBd && self::$sharedBd != null && 
+			($currentUser == null || $currentUser === self::$sharedCurrentUser)) {
 			$this->bd = self::$sharedBd;
 			$this->prefix = self::$sharedPrefix;
 			$this->current_user = self::$sharedCurrentUser;
 			return;
 		}
+		$this->current_user = $currentUser;
+		self::$sharedCurrentUser = $currentUser;
 
 		$conf = Minz_Configuration::get('system');
 		$db = $conf->db;
-
-		if ($currentUser === null) {
-			$currentUser = Minz_Session::param('currentUser', '_');
-		}
-		$this->current_user = $currentUser;
-		self::$sharedCurrentUser = $currentUser;
 
 		$driver_options = isset($conf->db['pdo_options']) && is_array($conf->db['pdo_options']) ? $conf->db['pdo_options'] : array();
 		$dbServer = parse_url('db://' . $db['host']);

@@ -43,12 +43,12 @@ return array(
 		'not_found' => '%s does not exist',
 	),
 	'import_export' => array(
-		'export_no_zip_extension' => 'Zip extension is not present on your server. Please try to export files one by one.',
+		'export_no_zip_extension' => 'ZIP extension is not present on your server. Please try to export files one by one.',
 		'feeds_imported' => 'Your feeds have been imported and will now be updated',
 		'feeds_imported_with_errors' => 'Your feeds have been imported but some errors occurred',
 		'file_cannot_be_uploaded' => 'File cannot be uploaded!',
-		'no_zip_extension' => 'Zip extension is not present on your server.',
-		'zip_error' => 'An error occured during Zip import.',
+		'no_zip_extension' => 'ZIP extension is not present on your server.',
+		'zip_error' => 'An error occured during ZIP import.',
 	),
 	'sub' => array(
 		'actualize' => 'Actualise',
