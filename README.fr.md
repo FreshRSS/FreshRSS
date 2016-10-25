@@ -79,11 +79,13 @@ sudo service apache2 restart
 cd /usr/share/
 sudo apt-get install git
 sudo git clone https://github.com/FreshRSS/FreshRSS.git
-# Mettre les droits d’accès pour le serveur Web
 cd FreshRSS
-sudo chown -R :www-data .
-sudo chmod -R g+r .
-sudo chmod -R g+w ./data/
+
+# Si vous souhaitez utiliser la branche développement de FreshRSS
+sudo git checkout -b dev origin/dev
+
+# Mettre les droits d’accès pour le serveur Web
+sudo chown -R :www-data . && sudo chmod -R g+r . && sudo chmod -R g+w ./data/
 # Publier FreshRSS dans votre répertoire HTML public
 sudo ln -s /usr/share/FreshRSS/p /var/www/html/FreshRSS
 # Naviguez vers http://example.net/FreshRSS pour terminer l’installation.
@@ -94,9 +96,7 @@ sudo ln -s /usr/share/FreshRSS/p /var/www/html/FreshRSS
 cd /usr/share/FreshRSS
 sudo git reset --hard
 sudo git pull
-sudo chown -R :www-data .
-sudo chmod -R g+r .
-sudo chmod -R g+w ./data/
+sudo chown -R :www-data . && sudo chmod -R g+r . && sudo chmod -R g+w ./data/
 ```
 
 ## Contrôle d’accès
