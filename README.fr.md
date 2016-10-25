@@ -7,6 +7,7 @@ Il se veut léger et facile à prendre en main tout en étant un outil puissant 
 
 Il permet de gérer plusieurs utilisateurs, et dispose d’un mode de lecture anonyme.
 Il supporte [PubSubHubbub](https://code.google.com/p/pubsubhubbub/) pour des notifications instantanées depuis les sites compatibles.
+Il y a une API pour les clients (mobiles), ainsi qu’une [interface en ligne de commande](./cli/README.md).
 
 * Site officiel : http://freshrss.org
 * Démo : http://demo.freshrss.org/
@@ -17,11 +18,9 @@ Il supporte [PubSubHubbub](https://code.google.com/p/pubsubhubbub/) pour des not
 # Téléchargement
 Voir la [liste des versions](../../releases).
 
-## Note sur les branches
-**Ce logiciel est en développement permanent !** Veuillez vous assurer d'utiliser la branche qui vous correspond :
-
+## À propos des branches
 * Utilisez [la branche master](https://github.com/FreshRSS/FreshRSS/tree/master/) si vous visez la stabilité.
-* Pour les développeurs et ceux qui veulent aider à tester les toutes dernières fonctionnalités, [la branche dev](https://github.com/FreshRSS/FreshRSS/tree/dev) vous ouvre les bras !
+* Pour ceux qui veulent bien aider à tester ou déveloper les dernières fonctionnalités, [la branche dev](https://github.com/FreshRSS/FreshRSS/tree/dev) vous ouvre les bras !
 
 # Avertissements
 Cette application a été développée pour s’adapter principalement à des besoins personnels, et aucune garantie n'est fournie.
@@ -88,13 +87,12 @@ sudo git checkout -b dev origin/dev
 sudo chown -R :www-data . && sudo chmod -R g+r . && sudo chmod -R g+w ./data/
 # Publier FreshRSS dans votre répertoire HTML public
 sudo ln -s /usr/share/FreshRSS/p /var/www/html/FreshRSS
-# Naviguez vers http://example.net/FreshRSS pour terminer l’installation.
+# Naviguez vers http://example.net/FreshRSS pour terminer l’installation
 # (Si vous le faite depuis localhost, vous pourrez avoir à ajuster le réglage de votre adresse publique)
 # ou utilisez l’interface en ligne de commande
 
 # Mettre à jour FreshRSS vers une nouvelle version
 cd /usr/share/FreshRSS
-sudo git reset --hard
 sudo git pull
 sudo chown -R :www-data . && sudo chmod -R g+r . && sudo chmod -R g+w ./data/
 ```

@@ -7,6 +7,7 @@ It is at the same time lightweight, easy to work with, powerful and customizable
 
 It is a multi-user application with an anonymous reading mode.
 It supports [PubSubHubbub](https://code.google.com/p/pubsubhubbub/) for instant notifications from compatible Web sites.
+There is an API for (mobile) clients, and a [Command-Line Interface](./cli/README.md).
 
 * Official website: http://freshrss.org
 * Demo: http://demo.freshrss.org/
@@ -17,15 +18,13 @@ It supports [PubSubHubbub](https://code.google.com/p/pubsubhubbub/) for instant 
 # Releases
 See the [list of releases](../../releases).
 
-## Note on branches
-**This application is under continuous development!** Please use the branch that suits your needs:
-
+## About branches
 * Use [the master branch](https://github.com/FreshRSS/FreshRSS/tree/master/) if you need a stable version.
-* For developers and tech savvy persons willing to help testing the latest features, [the dev branch](https://github.com/FreshRSS/FreshRSS/tree/dev) is waiting for you!
+* For those willing to help testing or developing the latest features, [the dev branch](https://github.com/FreshRSS/FreshRSS/tree/dev) is waiting for you!
 
 # Disclaimer
 This application was developed to fulfil personal needs primarily, and comes with absolutely no warranty.
-Feature requests, bug reports, and other contributions are welcome. The best way is to [open issues on GitHub](https://github.com/FreshRSS/FreshRSS/issues).
+Feature requests, bug reports, and other contributions are welcome. The best way is to [open an issue on GitHub](https://github.com/FreshRSS/FreshRSS/issues).
 We are a friendly community.
 
 # Requirements
@@ -88,13 +87,12 @@ sudo git checkout -b dev origin/dev
 sudo chown -R :www-data . && sudo chmod -R g+r . && sudo chmod -R g+w ./data/
 # Publish FreshRSS in your public HTML directory
 sudo ln -s /usr/share/FreshRSS/p /var/www/html/FreshRSS
-# Navigate to http://example.net/FreshRSS to complete the installation.
+# Navigate to http://example.net/FreshRSS to complete the installation
 # (If you do it from localhost, you may have to adjust the setting of your public address later)
 # or use the Command-Line Interface
 
 # Update to a newer version of FreshRSS
 cd /usr/share/FreshRSS
-sudo git reset --hard
 sudo git pull
 sudo chown -R :www-data . && sudo chmod -R g+r . && sudo chmod -R g+w ./data/
 ```
