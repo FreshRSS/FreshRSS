@@ -46,6 +46,7 @@ cd /usr/share/FreshRSS
 ./cli/actualize-user.php --user username
 
 ./cli/import-for-user.php --user username --filename /path/to/file.ext
+# The extension of the file { .json, .opml, .xml, .zip } is used to detect the type of import
 
 ./cli/export-opml-for-user.php --user username > /path/to/file.opml.xml
 
