@@ -32,11 +32,15 @@ Options in parenthesis are optional.
 ```sh
 cd /usr/share/FreshRSS
 
-./cli/do-install.php --default_user admin --auth_type form  ( --environment production --base_url https://rss.example.net/ --language en --title FreshRSS --allow_anonymous --api_enabled --db-type mysql --db-host localhost:3306 --db-user freshrss --db-password dbPassword123 --db-base freshrss --db-prefix freshrss )
-# The default database is SQLite
-# Does not create the default user. Do that with ./cli/create-user.php
+./cli/do-install.php --default_user admin --auth_type form  ( --environment production --base_url https://rss.example.net/ --title FreshRSS --allow_anonymous --api_enabled --db-type mysql --db-host localhost:3306 --db-user freshrss --db-password dbPassword123 --db-base freshrss --db-prefix freshrss )
+# --auth_type can be: 'form' (recommended), 'http_auth' (using the Web server access control), 'none' (dangerous)
+# --db-type can be: 'sqlite' (default), 'mysql' (MySQL or MariaDB), 'pgsql' (PostgreSQL)
+# --environment can be: 'production' (default), 'development' (for additional log messages)
+# --db-prefix is an optional prefix in front of the names of the tables
+# This command does not create the default user. Do that with ./cli/create-user.php
 
 ./cli/create-user.php --user username ( --password 'password' --api-password 'api_password' --language en --email user@example.net --token 'longRandomString' --no-default-feeds )
+# --language can be: 'en' (default), 'fr', or one of the [supported languages](../app/i18n/)
 
 ./cli/delete-user.php --user username
 
@@ -51,5 +55,4 @@ cd /usr/share/FreshRSS
 ./cli/export-opml-for-user.php --user username > /path/to/file.opml.xml
 
 ./cli/export-zip-for-user.php --user username ( --max-feed-entries 100 ) > /path/to/file.zip
-
 ```
