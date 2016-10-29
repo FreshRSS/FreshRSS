@@ -83,7 +83,7 @@
 
 	<div class="stick" id="nav_menu_read_all">
 		<form id="mark-read-menu" method="post">
-		<?php $confirm = FreshRSS_Context::$user_conf->reading_confirm ? 'confirm' : ''; ?>
+		<?php $confirm = FreshRSS_Context::$user_conf->reading_confirm ? 'confirm" disabled="disabled' : ''; ?>
 		<button class="read_all btn <?php echo $confirm; ?>"
 		        form="mark-read-menu"
 		        formaction="<?php echo Minz_Url::display($mark_read_url); ?>"
