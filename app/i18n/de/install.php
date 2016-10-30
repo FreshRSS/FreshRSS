@@ -4,7 +4,7 @@ return array(
 	'action' => array(
 		'finish' => 'Installation fertigstellen',
 		'fix_errors_before' => 'Bitte Fehler korrigieren, bevor zum nächsten Schritt gesprungen wird.',
-		'keep_install' => 'Vorherige Installation beibehalten (Daten)',
+		'keep_install' => 'Vorherige Konfiguration beibehalten',
 		'next_step' => 'Zum nächsten Schritt springen',
 		'reinstall' => 'Neuinstallation von FreshRSS',
 	),
@@ -41,7 +41,7 @@ return array(
 			'ok' => 'Sie haben die benötigte Bibliothek für die Überprüfung von Zeichentypen (ctype).',
 		),
 		'curl' => array(
-			'nok' => 'Ihnen fehlt cURL (Paket php5-curl).',
+			'nok' => 'Ihnen fehlt cURL (Paket php-curl).',
 			'ok' => 'Sie haben die cURL-Erweiterung.',
 		),
 		'data' => array(
@@ -73,8 +73,8 @@ return array(
 			'ok' => 'Sie haben die benötigte Bibliothek für reguläre Ausdrücke (PCRE).',
 		),
 		'pdo' => array(
-			'nok' => 'Ihnen fehlt PDO oder einer der unterstützten Treiber (pdo_mysql, pdo_sqlite).',
-			'ok' => 'Sie haben PDO und mindestens einen der unterstützten Treiber (pdo_mysql, pdo_sqlite).',
+			'nok' => 'Ihnen fehlt PDO oder einer der unterstützten Treiber (pdo_mysql, pdo_sqlite, pdo_pgsql).',
+			'ok' => 'Sie haben PDO und mindestens einen der unterstützten Treiber (pdo_mysql, pdo_sqlite, pdo_pgsql).',
 		),
 		'php' => array(
 			'nok' => 'Ihre PHP-Version ist %s aber FreshRSS benötigt mindestens Version %s.',

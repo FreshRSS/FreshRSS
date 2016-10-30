@@ -83,6 +83,9 @@ function checkUrl($url) {
 	}
 }
 
+function safe_ascii($text) {
+	return filter_var($text, FILTER_DEFAULT, FILTER_FLAG_STRIP_LOW | FILTER_FLAG_STRIP_HIGH);
+}
 
 /**
  * Test if a given server address is publicly accessible.
@@ -165,7 +168,7 @@ function customSimplePie() {
 	$system_conf = Minz_Configuration::get('system');
 	$limits = $system_conf->limits;
 	$simplePie = new SimplePie();
-	$simplePie->set_useragent(_t('gen.freshrss') . '/' . FRESHRSS_VERSION . ' (' . PHP_OS . '; ' . FRESHRSS_WEBSITE . ') ' . SIMPLEPIE_NAME . '/' . SIMPLEPIE_VERSION);
+	$simplePie->set_useragent('FreshRSS/' . FRESHRSS_VERSION . ' (' . PHP_OS . '; ' . FRESHRSS_WEBSITE . ') ' . SIMPLEPIE_NAME . '/' . SIMPLEPIE_VERSION);
 	$simplePie->set_syslog($system_conf->simplepie_syslog_enabled);
 	$simplePie->set_cache_location(CACHE_PATH);
 	$simplePie->set_cache_duration($limits['cache_duration']);
@@ -182,10 +185,9 @@ function customSimplePie() {
 		'onmouseover', 'onmousemove', 'onmouseout', 'onfocus', 'onblur',
 		'onkeypress', 'onkeydown', 'onkeyup', 'onselect', 'onchange', 'seamless', 'sizes', 'srcset')));
 	$simplePie->add_attributes(array(
-		'img' => array('lazyload' => '', 'postpone' => ''),	//http://www.w3.org/TR/resource-priorities/
-		'audio' => array('lazyload' => '', 'postpone' => '', 'preload' => 'none'),
-		'iframe' => array('lazyload' => '', 'postpone' => '', 'sandbox' => 'allow-scripts allow-same-origin'),
-		'video' => array('lazyload' => '', 'postpone' => '', 'preload' => 'none'),
+		'audio' => array('preload' => 'none'),
+		'iframe' => array('sandbox' => 'allow-scripts allow-same-origin'),
+		'video' => array('preload' => 'none'),
 	));
 	$simplePie->set_url_replacements(array(
 		'a' => 'href',
@@ -280,9 +282,12 @@ function uSecString() {
 	return str_pad($t['usec'], 6, '0');
 }
 
-function invalidateHttpCache() {
-	Minz_Session::_param('touch', uTimeString());
-	return touch(join_path(DATA_PATH, 'users', Minz_Session::param('currentUser', '_'), 'log.txt'));
+function invalidateHttpCache($username = '') {
+	if (($username == '') || (!ctype_alnum($username))) {
+		Minz_Session::_param('touch', uTimeString());
+		$username = Minz_Session::param('currentUser', '_');
+	}
+	return touch(join_path(DATA_PATH, 'users', $username, 'log.txt'));
 }
 
 function listUsers() {

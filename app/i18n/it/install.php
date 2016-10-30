@@ -4,7 +4,7 @@ return array(
 	'action' => array(
 		'finish' => 'Installazione completata',
 		'fix_errors_before' => 'Per favore correggi gli errori prima di passare al passaggio successivo.',
-		'keep_install' => 'Mantieni installazione precedente',
+		'keep_install' => 'Mantieni configurazione precedente',
 		'next_step' => 'Vai al prossimo passaggio',
 		'reinstall' => 'Reinstalla FreshRSS',
 	),
@@ -25,9 +25,9 @@ return array(
 		),
 		'host' => 'Host',
 		'prefix' => 'Prefisso tabella',
-		'password' => 'HTTP password',
+		'password' => 'Password del database',
 		'type' => 'Tipo di database',
-		'username' => 'HTTP username',
+		'username' => 'Nome utente del database',
 	),
 	'check' => array(
 		'_' => 'Controlli',
@@ -41,7 +41,7 @@ return array(
 			'ok' => 'Libreria richiesta per il controllo dei caratteri presente (ctype).',
 		),
 		'curl' => array(
-			'nok' => 'Manca il supporto per cURL (pacchetto php5-curl).',
+			'nok' => 'Manca il supporto per cURL (pacchetto php-curl).',
 			'ok' => 'Estensione cURL presente.',
 		),
 		'data' => array(
@@ -73,8 +73,8 @@ return array(
 			'ok' => 'Libreria richiesta per le regular expressions presente (PCRE).',
 		),
 		'pdo' => array(
-			'nok' => 'Manca PDO o uno degli altri driver supportati (pdo_mysql, pdo_sqlite).',
-			'ok' => 'PDO e altri driver supportati (pdo_mysql, pdo_sqlite).',
+			'nok' => 'Manca PDO o uno degli altri driver supportati (pdo_mysql, pdo_sqlite, pdo_pgsql).',
+			'ok' => 'PDO e altri driver supportati (pdo_mysql, pdo_sqlite, pdo_pgsql).',
 		),
 		'php' => array(
 			'_' => 'Installazione PHP',

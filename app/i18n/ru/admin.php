@@ -33,7 +33,7 @@ return array(
 			'ok' => 'У вас не установлена библиотека для проверки типов символов (ctype).',
 		),
 		'curl' => array(
-			'nok' => 'У вас не установлено расширение cURL (пакет php5-curl).',
+			'nok' => 'У вас не установлено расширение cURL (пакет php-curl).',
 			'ok' => 'У вас установлено расширение cURL.',
 		),
 		'data' => array(
@@ -71,8 +71,8 @@ return array(
 			'ok' => 'У вас установлена необходимая библиотека для работы с регулярными выражениями (PCRE).',
 		),
 		'pdo' => array(
-			'nok' => 'У вас не установлен PDO или один из необходимых драйверов (pdo_mysql, pdo_sqlite).',
-			'ok' => 'У вас установлен PDO и как минимум один из поддерживаемых драйверов (pdo_mysql, pdo_sqlite).',
+			'nok' => 'У вас не установлен PDO или один из необходимых драйверов (pdo_mysql, pdo_sqlite, pdo_pgsql).',
+			'ok' => 'У вас установлен PDO и как минимум один из поддерживаемых драйверов (pdo_mysql, pdo_sqlite, pdo_pgsql).',
 		),
 		'php' => array(
 			'_' => 'PHP installation',
@@ -93,7 +93,7 @@ return array(
 			'ok' => 'Права на папку users  в порядке.',
 		),
 		'zip' => array(
-			'nok' => 'You lack ZIP extension (php5-zip package).',
+			'nok' => 'You lack ZIP extension (php-zip package).',
 			'ok' => 'You have ZIP extension.',
 		),
 	),

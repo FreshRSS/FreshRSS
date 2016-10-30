@@ -79,13 +79,13 @@
 		<?php if (FreshRSS_Auth::hasAccess()) { ?>
 		<li class="item"><a href="<?php echo _url('stats', 'repartition', 'id', '------'); ?>"><?php echo _t('index.menu.stats'); ?></a></li>
 		<?php } ?>
-		<li class="item"><a target="_blank" href="http://example.net/"><?php echo _t('gen.action.see_website'); ?></a></li>
+		<li class="item"><a target="_blank" rel="noreferrer" href="http://example.net/"><?php echo _t('gen.action.see_website'); ?></a></li>
 		<?php if (FreshRSS_Auth::hasAccess()) { ?>
 		<li class="separator"></li>
 		<li class="item"><a href="<?php echo _url('subscription', 'index', 'id', '------'); ?>"><?php echo _t('gen.action.manage'); ?></a></li>
 		<li class="item"><a href="<?php echo _url('feed', 'actualize', 'id', '------'); ?>"><?php echo _t('gen.action.actualize'); ?></a></li>
 		<li class="item">
-			<?php $confirm = FreshRSS_Context::$user_conf->reading_confirm ? 'confirm' : ''; ?>
+			<?php $confirm = FreshRSS_Context::$user_conf->reading_confirm ? 'confirm" disabled="disabled' : ''; ?>
 			<button class="read_all as-link <?php echo $confirm; ?>"
 			        form="mark-read-aside"
 			        formaction="<?php echo _url('entry', 'read', 'get', 'f_------'); ?>"

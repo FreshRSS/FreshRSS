@@ -88,9 +88,6 @@ if ($ORIGINAL_INPUT == '') {
 Minz_Configuration::register('system', DATA_PATH . '/config.php', DATA_PATH . '/config.default.php');
 $system_conf = Minz_Configuration::get('system');
 $system_conf->auth_type = 'none';	// avoid necessity to be logged in (not saved!)
-Minz_Translate::init('en');
-Minz_Request::_param('ajax', true);
-$feedController = new FreshRSS_feed_Controller();
 
 $simplePie = customSimplePie();
 $simplePie->set_raw_data($ORIGINAL_INPUT);
@@ -106,7 +103,6 @@ if ($self !== base64url_decode($canonical64)) {
 	//die('Self URL does not match registered canonical URL!');
 	$self = base64url_decode($canonical64);
 }
-Minz_Request::_param('url', $self);
 
 $nb = 0;
 foreach ($users as $userFilename) {
@@ -120,8 +116,10 @@ foreach ($users as $userFilename) {
 		Minz_Configuration::register('user',
 		                             join_path(USERS_PATH, $username, 'config.php'),
 		                             join_path(USERS_PATH, '_', 'config.default.php'));
+		new Minz_ModelPdo($username);	//TODO: FIXME: Quick-fix while waiting for a better FreshRSS() constructor/init
 		FreshRSS_Context::init();
-		if ($feedController->actualizeAction($simplePie) > 0) {
+		list($updated_feeds, $feed) = FreshRSS_feed_Controller::actualizeFeed(0, $self, false, $simplePie);
+		if ($updated_feeds > 0) {
 			$nb++;
 		}
 	} catch (Exception $e) {

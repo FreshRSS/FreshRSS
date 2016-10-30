@@ -1,6 +1,7 @@
 <?php
 	$url_next = Minz_Request::currentRequest();
 	$url_next['params']['next'] = FreshRSS_Context::$next_id;
+	$url_next['params']['state'] = FreshRSS_Context::$state;
 	$url_next['params']['ajax'] = 1;
 
 	$url_mark_read = array(
@@ -26,7 +27,7 @@
 		</a>
 	<?php } elseif ($url_mark_read) { ?>
 		<button id="bigMarkAsRead"
-		        class="as-link <?php echo FreshRSS_Context::$user_conf->reading_confirm ? 'confirm' : ''; ?>"
+		        class="as-link <?php echo FreshRSS_Context::$user_conf->reading_confirm ? 'confirm" disabled="disabled' : ''; ?>"
 		        form="mark-read-pagination"
 		        formaction="<?php echo Minz_Url::display($url_mark_read); ?>"
 		        type="submit">

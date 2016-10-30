@@ -1,4 +1,6 @@
 <?php
+define('SQL_CREATE_DB', 'CREATE DATABASE IF NOT EXISTS %1$s DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;');
+
 define('SQL_CREATE_TABLES', '
 CREATE TABLE IF NOT EXISTS `%1$scategory` (
 	`id` SMALLINT NOT NULL AUTO_INCREMENT,	-- v0.7
@@ -57,11 +59,14 @@ CREATE TABLE IF NOT EXISTS `%1$sentry` (
 ENGINE = INNODB;
 
 INSERT IGNORE INTO `%1$scategory` (id, name) VALUES(1, "%2$s");
+');
+
+define('SQL_INSERT_FEEDS', '
 INSERT IGNORE INTO `%1$sfeed` (url, category, name, website, description, ttl) VALUES("http://freshrss.org/feeds/all.atom.xml", 1, "FreshRSS.org", "http://freshrss.org/", "FreshRSS, a free, self-hostable aggregator…", 86400);
 INSERT IGNORE INTO `%1$sfeed` (url, category, name, website, description, ttl) VALUES("https://github.com/FreshRSS/FreshRSS/releases.atom", 1, "FreshRSS @ GitHub", "https://github.com/FreshRSS/FreshRSS/", "FreshRSS releases @ GitHub", 86400);
 ');
 
-define('SQL_DROP_TABLES', 'DROP TABLES %1$sentry, %1$sfeed, %1$scategory');
+define('SQL_DROP_TABLES', 'DROP TABLE IF EXISTS `%1$sentry`, `%1$sfeed`, `%1$scategory`');
 
 define('SQL_UPDATE_UTF8MB4', '
 ALTER DATABASE `%2$s` CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;

@@ -1,34 +1,60 @@
 <?php
 
 class FreshRSS_UserDAO extends Minz_ModelPdo {
-	public function createUser($username) {
+	public function createUser($username, $new_user_language, $insertDefaultFeeds = true) {
 		$db = FreshRSS_Context::$system_conf->db;
 		require_once(APP_PATH . '/SQL/install.sql.' . $db['type'] . '.php');
 
 		$userPDO = new Minz_ModelPdo($username);
 
-		$ok = false;
-		if (defined('SQL_CREATE_TABLES')) {	//E.g. MySQL
-			$sql = sprintf(SQL_CREATE_TABLES, $db['prefix'] . $username . '_', _t('gen.short.default_category'));
-			$stm = $userPDO->bd->prepare($sql);
-			$ok = $stm && $stm->execute();
-		} else {	//E.g. SQLite
-			global $SQL_CREATE_TABLES;
-			if (is_array($SQL_CREATE_TABLES)) {
-				$ok = true;
-				foreach ($SQL_CREATE_TABLES as $instruction) {
-					$sql = sprintf($instruction, '', _t('gen.short.default_category'));
-					$stm = $userPDO->bd->prepare($sql);
-					$ok &= ($stm && $stm->execute());
+		$currentLanguage = Minz_Translate::language();
+
+		try {
+			Minz_Translate::reset($new_user_language);
+			$ok = false;
+			$bd_prefix_user = $db['prefix'] . $username . '_';
+			if (defined('SQL_CREATE_TABLES')) {	//E.g. MySQL
+				$sql = sprintf(SQL_CREATE_TABLES, $bd_prefix_user, _t('gen.short.default_category'));
+				$stm = $userPDO->bd->prepare($sql);
+				$ok = $stm && $stm->execute();
+			} else {	//E.g. SQLite
+				global $SQL_CREATE_TABLES;
+				if (is_array($SQL_CREATE_TABLES)) {
+					$ok = true;
+					foreach ($SQL_CREATE_TABLES as $instruction) {
+						$sql = sprintf($instruction, $bd_prefix_user, _t('gen.short.default_category'));
+						$stm = $userPDO->bd->prepare($sql);
+						$ok &= ($stm && $stm->execute());
+					}
 				}
 			}
+			if ($insertDefaultFeeds) {
+				if (defined('SQL_INSERT_FEEDS')) {	//E.g. MySQL
+					$sql = sprintf(SQL_INSERT_FEEDS, $bd_prefix_user);
+					$stm = $userPDO->bd->prepare($sql);
+					$ok &= $stm && $stm->execute();
+				} else {	//E.g. SQLite
+					global $SQL_INSERT_FEEDS;
+					if (is_array($SQL_INSERT_FEEDS)) {
+						foreach ($SQL_INSERT_FEEDS as $instruction) {
+							$sql = sprintf($instruction, $bd_prefix_user);
+							$stm = $userPDO->bd->prepare($sql);
+							$ok &= ($stm && $stm->execute());
+						}
+					}
+				}
+			}
+		} catch (Exception $e) {
+			Minz_Log::error('Error while creating user: ' . $e->getMessage());
 		}
+
+		Minz_Translate::reset($currentLanguage);
 
 		if ($ok) {
 			return true;
 		} else {
 			$info = empty($stm) ? array(2 => 'syntax error') : $stm->errorInfo();
-			Minz_Log::error('SQL error : ' . $info[2]);
+			Minz_Log::error('SQL error: ' . $info[2]);
 			return false;
 		}
 	}

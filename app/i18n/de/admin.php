@@ -33,7 +33,7 @@ return array(
 			'ok' => 'Sie haben die benötigte Bibliothek für die Überprüfung von Zeichentypen (ctype).',
 		),
 		'curl' => array(
-			'nok' => 'Ihnen fehlt cURL (Paket php5-curl).',
+			'nok' => 'Ihnen fehlt cURL (Paket php-curl).',
 			'ok' => 'Sie haben die cURL-Erweiterung.',
 		),
 		'data' => array(
@@ -71,8 +71,8 @@ return array(
 			'ok' => 'Sie haben die benötigte Bibliothek für reguläre Ausdrücke (PCRE).',
 		),
 		'pdo' => array(
-			'nok' => 'Ihnen fehlt PDO oder einer der unterstützten Treiber (pdo_mysql, pdo_sqlite).',
-			'ok' => 'Sie haben PDO und mindestens einen der unterstützten Treiber (pdo_mysql, pdo_sqlite).',
+			'nok' => 'Ihnen fehlt PDO oder einer der unterstützten Treiber (pdo_mysql, pdo_sqlite, pdo_pgsql).',
+			'ok' => 'Sie haben PDO und mindestens einen der unterstützten Treiber (pdo_mysql, pdo_sqlite, pdo_pgsql).',
 		),
 		'php' => array(
 			'_' => 'PHP-Installation',
@@ -93,7 +93,7 @@ return array(
 			'ok' => 'Die Berechtigungen des Verzeichnisses <em>./data/users</em> sind in Ordnung.',
 		),
 		'zip' => array(
-			'nok' => 'Ihnen fehlt die ZIP-Erweiterung (Paket php5-zip).',
+			'nok' => 'Ihnen fehlt die ZIP-Erweiterung (Paket php-zip).',
 			'ok' => 'Sie haben die ZIP-Erweiterung.',
 		),
 	),

@@ -95,6 +95,7 @@ function init_draggable() {
 			data : {
 				f_id: dragFeedId,
 				c_id: e.target.parentNode.getAttribute('data-cat-id'),
+				_csrf: context.csrf,
 			}
 		}).done(function() {
 			$(e.target).after(dragHtml);
