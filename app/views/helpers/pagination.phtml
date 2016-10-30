@@ -27,7 +27,7 @@
 		</a>
 	<?php } elseif ($url_mark_read) { ?>
 		<button id="bigMarkAsRead"
-		        class="as-link <?php echo FreshRSS_Context::$user_conf->reading_confirm ? 'confirm' : ''; ?>"
+		        class="as-link <?php echo FreshRSS_Context::$user_conf->reading_confirm ? 'confirm" disabled="disabled' : ''; ?>"
 		        form="mark-read-pagination"
 		        formaction="<?php echo Minz_Url::display($url_mark_read); ?>"
 		        type="submit">

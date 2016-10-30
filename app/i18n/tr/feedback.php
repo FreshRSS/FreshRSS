@@ -43,12 +43,12 @@ return array(
 		'not_found' => '%s bulunmamaktadır',
 	),
 	'import_export' => array(
-		'export_no_zip_extension' => 'Zip eklentisi mevcut sunucunuzda yer almıyor. Lütfen başka dosya formatında dışarı aktarmayı deneyin.',
+		'export_no_zip_extension' => 'ZIP eklentisi mevcut sunucunuzda yer almıyor. Lütfen başka dosya formatında dışarı aktarmayı deneyin.',
 		'feeds_imported' => 'Akışlarınız içe aktarıldı ve şimdi güncellenecek',
 		'feeds_imported_with_errors' => 'Akışlarınız içeri aktarıldı ama bazı hatalar meydana geldi',
 		'file_cannot_be_uploaded' => 'Dosya yüklenemedi!',
-		'no_zip_extension' => 'Zip eklentisi mevcut sunucunuzda yer almıyor.',
-		'zip_error' => 'Zip içe aktarımı sırasında hata meydana geldi.',
+		'no_zip_extension' => 'ZIP eklentisi mevcut sunucunuzda yer almıyor.',
+		'zip_error' => 'ZIP içe aktarımı sırasında hata meydana geldi.',
 	),
 	'sub' => array(
 		'actualize' => 'Güncelleme',

@@ -83,6 +83,9 @@ function checkUrl($url) {
 	}
 }
 
+function safe_ascii($text) {
+	return filter_var($text, FILTER_DEFAULT, FILTER_FLAG_STRIP_LOW | FILTER_FLAG_STRIP_HIGH);
+}
 
 /**
  * Test if a given server address is publicly accessible.
@@ -279,9 +282,12 @@ function uSecString() {
 	return str_pad($t['usec'], 6, '0');
 }
 
-function invalidateHttpCache() {
-	Minz_Session::_param('touch', uTimeString());
-	return touch(join_path(DATA_PATH, 'users', Minz_Session::param('currentUser', '_'), 'log.txt'));
+function invalidateHttpCache($username = '') {
+	if (($username == '') || (!ctype_alnum($username))) {
+		Minz_Session::_param('touch', uTimeString());
+		$username = Minz_Session::param('currentUser', '_');
+	}
+	return touch(join_path(DATA_PATH, 'users', $username, 'log.txt'));
 }
 
 function listUsers() {

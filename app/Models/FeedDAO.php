@@ -5,6 +5,9 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 		$sql = 'INSERT INTO `' . $this->prefix . 'feed` (url, category, name, website, description, `lastUpdate`, priority, `httpAuth`, error, keep_history, ttl) VALUES(?, ?, ?, ?, ?, ?, 10, ?, 0, -2, -2)';
 		$stm = $this->bd->prepare($sql);
 
+		$valuesTmp['url'] = safe_ascii($valuesTmp['url']);
+		$valuesTmp['website'] = safe_ascii($valuesTmp['website']);
+
 		$values = array(
 			substr($valuesTmp['url'], 0, 511),
 			$valuesTmp['category'],
@@ -55,6 +58,13 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 	}
 
 	public function updateFeed($id, $valuesTmp) {
+		if (isset($valuesTmp['url'])) {
+			$valuesTmp['url'] = safe_ascii($valuesTmp['url']);
+		}
+		if (isset($valuesTmp['website'])) {
+			$valuesTmp['website'] = safe_ascii($valuesTmp['website']);
+		}
+
 		$set = '';
 		foreach ($valuesTmp as $key => $v) {
 			$set .= $key . '=?, ';
@@ -200,6 +210,13 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 		} else {
 			return null;
 		}
+	}
+
+	public function listFeedsIds() {
+		$sql = 'SELECT id FROM `' . $this->prefix . 'feed`';
+		$stm = $this->bd->prepare($sql);
+		$stm->execute();
+		return $stm->fetchAll(PDO::FETCH_COLUMN, 0);
 	}
 
 	public function listFeeds() {

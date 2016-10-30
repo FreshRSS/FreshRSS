@@ -117,7 +117,6 @@ class FreshRSS_category_Controller extends Minz_ActionController {
 	public function deleteAction() {
 		$feedDAO = FreshRSS_Factory::createFeedDao();
 		$catDAO = new FreshRSS_CategoryDAO();
-		$default_category = $catDAO->getDefault();
 		$url_redirect = array('c' => 'subscription', 'a' => 'index');
 
 		if (Minz_Request::isPost()) {
@@ -128,11 +127,11 @@ class FreshRSS_category_Controller extends Minz_ActionController {
 				Minz_Request::bad(_t('feedback.sub.category.no_id'), $url_redirect);
 			}
 
-			if ($id === $default_category->id()) {
+			if ($id === FreshRSS_CategoryDAO::defaultCategoryId) {
 				Minz_Request::bad(_t('feedback.sub.category.not_delete_default'), $url_redirect);
 			}
 
-			if ($feedDAO->changeCategory($id, $default_category->id()) === false) {
+			if ($feedDAO->changeCategory($id, FreshRSS_CategoryDAO::defaultCategoryId) === false) {
 				Minz_Request::bad(_t('feedback.sub.category.error'), $url_redirect);
 			}
 

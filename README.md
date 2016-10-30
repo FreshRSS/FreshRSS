@@ -7,6 +7,7 @@ It is at the same time lightweight, easy to work with, powerful and customizable
 
 It is a multi-user application with an anonymous reading mode.
 It supports [PubSubHubbub](https://code.google.com/p/pubsubhubbub/) for instant notifications from compatible Web sites.
+There is an API for (mobile) clients, and a [Command-Line Interface](./cli/README.md).
 
 * Official website: http://freshrss.org
 * Demo: http://demo.freshrss.org/
@@ -17,15 +18,13 @@ It supports [PubSubHubbub](https://code.google.com/p/pubsubhubbub/) for instant 
 # Releases
 See the [list of releases](../../releases).
 
-## Note on branches
-**This application is under continuous development!** Please use the branch that suits your needs:
-
+## About branches
 * Use [the master branch](https://github.com/FreshRSS/FreshRSS/tree/master/) if you need a stable version.
-* For developers and tech savvy persons willing to help testing the latest features, [the dev branch](https://github.com/FreshRSS/FreshRSS/tree/dev) is waiting for you!
+* For those willing to help testing or developing the latest features, [the dev branch](https://github.com/FreshRSS/FreshRSS/tree/dev) is waiting for you!
 
 # Disclaimer
 This application was developed to fulfil personal needs primarily, and comes with absolutely no warranty.
-Feature requests, bug reports, and other contributions are welcome. The best way is to [open issues on GitHub](https://github.com/FreshRSS/FreshRSS/issues).
+Feature requests, bug reports, and other contributions are welcome. The best way is to [open an issue on GitHub](https://github.com/FreshRSS/FreshRSS/issues).
 We are a friendly community.
 
 # Requirements
@@ -33,8 +32,8 @@ We are a friendly community.
 	* It even works on Raspberry Pi 1 with response time under a second (tested with 150 feeds, 22k articles)
 * A web server: Apache2 (recommended), nginx, lighttpd (not tested on others)
 * PHP 5.3.3+ (PHP 5.4+ recommended, and PHP 5.5+ for performance, and PHP 7 for even higher performance)
-	* Required extensions: [DOM](http://php.net/dom), [XML](http://php.net/xml), [PDO_MySQL](http://php.net/pdo-mysql) or [PDO_SQLite](http://php.net/pdo-sqlite) or [PDO_PGSQL](http://php.net/pdo-pgsql), [cURL](http://php.net/curl)
-	* Recommended extensions: [JSON](http://php.net/json), [GMP](http://php.net/gmp) (for API access on platforms < 64 bits), [IDN](http://php.net/intl.idn) (for Internationalized Domain Names), [mbstring](http://php.net/mbstring) and/or [iconv](http://php.net/iconv) (for charset conversion), [Zip](http://php.net/zip) (for import/export), [zlib](http://php.net/zlib) (for compressed feeds)
+	* Required extensions: [cURL](http://php.net/curl), [DOM](http://php.net/dom), [XML](http://php.net/xml), and [PDO_MySQL](http://php.net/pdo-mysql) or [PDO_SQLite](http://php.net/pdo-sqlite) or [PDO_PGSQL](http://php.net/pdo-pgsql)
+	* Recommended extensions: [JSON](http://php.net/json), [GMP](http://php.net/gmp) (for API access on platforms < 64 bits), [IDN](http://php.net/intl.idn) (for Internationalized Domain Names), [mbstring](http://php.net/mbstring) and/or [iconv](http://php.net/iconv) (for charset conversion), [ZIP](http://php.net/zip) (for import/export), [zlib](http://php.net/zlib) (for compressed feeds)
 * MySQL 5.5.3+ (recommended), or SQLite 3.7.4+, or PostgreSQL (experimental)
 * A recent browser like Firefox, Internet Explorer 11 / Edge, Chrome, Opera, Safari.
 	* Works on mobile
@@ -46,7 +45,8 @@ We are a friendly community.
 2. Dump the application on your server (expose only the `./p/` folder)
 3. Add write access on `./data/` folder to the webserver user
 4. Access FreshRSS with your browser and follow the installation process
-5. Everything should be working :) If you encounter any problem, feel free to contact me.
+	* or use the [Command-Line Interface](./cli/README.md)
+5. Everything should be working :) If you encounter any problem, feel free [contact us](https://github.com/FreshRSS/FreshRSS/issues).
 6. Advanced configuration settings can be seen in [config.php](./data/config.default.php).
 
 ## Automated install
@@ -78,23 +78,23 @@ sudo service apache2 restart
 cd /usr/share/
 sudo apt-get install git
 sudo git clone https://github.com/FreshRSS/FreshRSS.git
-# Set the rights so that your Web server can access the files
 cd FreshRSS
-sudo chown -R :www-data .
-sudo chmod -R g+r .
-sudo chmod -R g+w ./data/
+
+# If you want to use the development version of FreshRSS
+sudo git checkout -b dev origin/dev
+
+# Set the rights so that your Web server can access the files
+sudo chown -R :www-data . && sudo chmod -R g+r . && sudo chmod -R g+w ./data/
 # Publish FreshRSS in your public HTML directory
 sudo ln -s /usr/share/FreshRSS/p /var/www/html/FreshRSS
-# Navigate to http://example.net/FreshRSS to complete the installation.
+# Navigate to http://example.net/FreshRSS to complete the installation
 # (If you do it from localhost, you may have to adjust the setting of your public address later)
+# or use the Command-Line Interface
 
 # Update to a newer version of FreshRSS
 cd /usr/share/FreshRSS
-sudo git reset --hard
 sudo git pull
-sudo chown -R :www-data .
-sudo chmod -R g+r .
-sudo chmod -R g+w ./data/
+sudo chown -R :www-data . && sudo chmod -R g+r . && sudo chmod -R g+w ./data/
 ```
 
 ## Access control
@@ -107,8 +107,8 @@ It is needed for the multi-user mode to limit access to FreshRSS. You can:
 ## Automatic feed update
 * You can add a Cron job to launch the update script.
 Check the Cron documentation related to your distribution ([Debian/Ubuntu](https://help.ubuntu.com/community/CronHowto), [Red Hat/Fedora](https://fedoraproject.org/wiki/Administration_Guide_Draft/Cron), [Slackware](http://docs.slackware.com/fr:slackbook:process_control?#cron), [Gentoo](https://wiki.gentoo.org/wiki/Cron), [Arch Linux](https://wiki.archlinux.org/index.php/Cron)…).
-It’s a good idea to use the Web server user.
-For example, if you want to run the script every hour:
+It is a good idea to use the Web server user.
+For instance, if you want to run the script every hour:
 
 ```
 9 * * * * php /usr/share/FreshRSS/app/actualize_script.php > /tmp/FreshRSS.log 2>&1
@@ -132,6 +132,7 @@ Create `/etc/cron.d/FreshRSS` with:
 # Backup
 * You need to keep `./data/config.php`, and `./data/*_user.php` files
 * You can export your feed list in OPML format from FreshRSS
+	* either from the Web interface, or from the [Command-Line Interface](./cli/README.md)
 * To save articles, you can use [phpMyAdmin](http://www.phpmyadmin.net) or MySQL tools:
 
 ```bash

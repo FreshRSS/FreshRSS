@@ -7,6 +7,7 @@ Il se veut léger et facile à prendre en main tout en étant un outil puissant 
 
 Il permet de gérer plusieurs utilisateurs, et dispose d’un mode de lecture anonyme.
 Il supporte [PubSubHubbub](https://code.google.com/p/pubsubhubbub/) pour des notifications instantanées depuis les sites compatibles.
+Il y a une API pour les clients (mobiles), ainsi qu’une [interface en ligne de commande](./cli/README.md).
 
 * Site officiel : http://freshrss.org
 * Démo : http://demo.freshrss.org/
@@ -17,11 +18,9 @@ Il supporte [PubSubHubbub](https://code.google.com/p/pubsubhubbub/) pour des not
 # Téléchargement
 Voir la [liste des versions](../../releases).
 
-## Note sur les branches
-**Ce logiciel est en développement permanent !** Veuillez vous assurer d'utiliser la branche qui vous correspond :
-
+## À propos des branches
 * Utilisez [la branche master](https://github.com/FreshRSS/FreshRSS/tree/master/) si vous visez la stabilité.
-* Pour les développeurs et ceux qui veulent aider à tester les toutes dernières fonctionnalités, [la branche dev](https://github.com/FreshRSS/FreshRSS/tree/dev) vous ouvre les bras !
+* Pour ceux qui veulent bien aider à tester ou déveloper les dernières fonctionnalités, [la branche dev](https://github.com/FreshRSS/FreshRSS/tree/dev) vous ouvre les bras !
 
 # Avertissements
 Cette application a été développée pour s’adapter principalement à des besoins personnels, et aucune garantie n'est fournie.
@@ -33,8 +32,8 @@ Nous sommes une communauté amicale.
 	* Fonctionne même sur un Raspberry Pi 1 avec des temps de réponse < 1s (testé sur 150 flux, 22k articles)
 * Serveur Web Apache2 (recommandé), ou nginx, lighttpd (non testé sur les autres)
 * PHP 5.3.3+ (PHP 5.4+ recommandé, et PHP 5.5+ pour les performances, et PHP 7+ pour d’encore meilleures performances)
-	* Requis : [DOM](http://php.net/dom), [XML](http://php.net/xml), [PDO_MySQL](http://php.net/pdo-mysql) ou [PDO_SQLite](http://php.net/pdo-sqlite) ou [PDO_PGSQL](http://php.net/pdo-pgsql), [cURL](http://php.net/curl)
-	* Recommandés : [JSON](http://php.net/json), [GMP](http://php.net/gmp) (pour accès API sur plateformes < 64 bits), [IDN](http://php.net/intl.idn) (pour les noms de domaines internationalisés), [mbstring](http://php.net/mbstring) et/ou [iconv](http://php.net/iconv) (pour conversion d’encodages), [Zip](http://php.net/zip) (pour import/export), [zlib](http://php.net/zlib) (pour les flux compressés)
+	* Requis : [cURL](http://php.net/curl), [DOM](http://php.net/dom), [XML](http://php.net/xml), et [PDO_MySQL](http://php.net/pdo-mysql) ou [PDO_SQLite](http://php.net/pdo-sqlite) ou [PDO_PGSQL](http://php.net/pdo-pgsql)
+	* Recommandés : [JSON](http://php.net/json), [GMP](http://php.net/gmp) (pour accès API sur plateformes < 64 bits), [IDN](http://php.net/intl.idn) (pour les noms de domaines internationalisés), [mbstring](http://php.net/mbstring) et/ou [iconv](http://php.net/iconv) (pour conversion d’encodages), [ZIP](http://php.net/zip) (pour import/export), [zlib](http://php.net/zlib) (pour les flux compressés)
 * MySQL 5.5.3+ (recommandé), ou SQLite 3.7.4+, ou PostgreSQL (experimental)
 * Un navigateur Web récent tel Firefox, Internet Explorer 11 / Edge, Chrome, Opera, Safari.
 	* Fonctionne aussi sur mobile
@@ -46,7 +45,8 @@ Nous sommes une communauté amicale.
 2. Placez l’application sur votre serveur (la partie à exposer au Web est le répertoire `./p/`)
 3. Le serveur Web doit avoir les droits d’écriture dans le répertoire `./data/`
 4. Accédez à FreshRSS à travers votre navigateur Web et suivez les instructions d’installation
-5. Tout devrait fonctionner :) En cas de problème, n’hésitez pas à me contacter.
+	* ou utilisez [l’interface en ligne de commande](./cli/README.md)
+5. Tout devrait fonctionner :) En cas de problème, n’hésitez pas à [nous contacter](https://github.com/FreshRSS/FreshRSS/issues).
 6. Des paramètres de configuration avancée peuvent être accédés depuis [config.php](./data/config.default.php).
 
 ## Installation automatisée
@@ -78,23 +78,23 @@ sudo service apache2 restart
 cd /usr/share/
 sudo apt-get install git
 sudo git clone https://github.com/FreshRSS/FreshRSS.git
-# Mettre les droits d’accès pour le serveur Web
 cd FreshRSS
-sudo chown -R :www-data .
-sudo chmod -R g+r .
-sudo chmod -R g+w ./data/
+
+# Si vous souhaitez utiliser la branche développement de FreshRSS
+sudo git checkout -b dev origin/dev
+
+# Mettre les droits d’accès pour le serveur Web
+sudo chown -R :www-data . && sudo chmod -R g+r . && sudo chmod -R g+w ./data/
 # Publier FreshRSS dans votre répertoire HTML public
 sudo ln -s /usr/share/FreshRSS/p /var/www/html/FreshRSS
-# Naviguez vers http://example.net/FreshRSS pour terminer l’installation.
+# Naviguez vers http://example.net/FreshRSS pour terminer l’installation
 # (Si vous le faite depuis localhost, vous pourrez avoir à ajuster le réglage de votre adresse publique)
+# ou utilisez l’interface en ligne de commande
 
 # Mettre à jour FreshRSS vers une nouvelle version
 cd /usr/share/FreshRSS
-sudo git reset --hard
 sudo git pull
-sudo chown -R :www-data .
-sudo chmod -R g+r .
-sudo chmod -R g+w ./data/
+sudo chown -R :www-data . && sudo chmod -R g+r . && sudo chmod -R g+w ./data/
 ```
 
 ## Contrôle d’accès
@@ -132,6 +132,7 @@ Créer `/etc/cron.d/FreshRSS` avec :
 # Sauvegarde
 * Il faut conserver vos fichiers `./data/config.php` ainsi que `./data/*_user.php`
 * Vous pouvez exporter votre liste de flux depuis FreshRSS au format OPML
+	* soit depuis l’interface Web, soit [en ligne de commande](./cli/README.md)
 * Pour sauvegarder les articles eux-mêmes, vous pouvez utiliser [phpMyAdmin](http://www.phpmyadmin.net) ou les outils de MySQL :
 
 ```bash

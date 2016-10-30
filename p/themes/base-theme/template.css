@@ -44,6 +44,12 @@ p {
 	margin: 1em 0 0.5em;
 	font-size: 1em;
 }
+sup {
+	line-height: 25px;
+	position: relative;
+	top: -0.8em;
+	vertical-align: baseline;
+}
 
 /*=== Images */
 img {

@@ -2,6 +2,9 @@
 
 ## 2016-10-XX FreshRSS 1.6.0-dev
 
+* CLI
+	* New Command-Line Interface (CLI) [#1095](https://github.com/FreshRSS/FreshRSS/issues/1095)
+		* Install, add/delete users, actualize, import/export. See [CLI documentation](./cli/README.md).
 * API
 	* Support for editing feeds and categories from client applications [#1254](https://github.com/FreshRSS/FreshRSS/issues/1254)
 * Compatibility:
@@ -36,7 +39,11 @@
 * SQL
 	* Slightly modified several SQL requests (MySQL, SQLite) to simplify support of PostgreSQL [#1195](https://github.com/FreshRSS/FreshRSS/pull/1195)
 	* Increase performances by removing a superfluous category request [#1316](https://github.com/FreshRSS/FreshRSS/pull/1316)
+* I18n
+	* Fix some messages during installation [#1339](https://github.com/FreshRSS/FreshRSS/pull/1339)
 * UI
+	* Fix CSS line-height bug with `<sup>` in dates (English, Russian, Turkish) [#1340](https://github.com/FreshRSS/FreshRSS/pull/1340)
+	* Disable *Mark all as read* before confirmation script is loaded [#1342](https://github.com/FreshRSS/FreshRSS/issues/1342)
 	* Download icon 💾 for podcasts [#1236](https://github.com/FreshRSS/FreshRSS/issues/1236)
 * SimplePie
 	* Fix auto-discovery of RSS feeds in Web pages served as `text/xml` [#1264](https://github.com/FreshRSS/FreshRSS/issues/1264)
@@ -387,7 +394,7 @@
 	* Possibility to combine search filters, e.g. `date:2014-05 intitle:FreshRSS intitle:Open great reader #Internet`
 * Change nav menu with more buttons instead of dropdown menus and add some filters
 * New system of import / export
-	* Support OPML, Json (like Google Reader) and Zip archives
+	* Support OPML, Json (like Google Reader) and ZIP archives
 	* Can export and import articles (specific option for favorites)
 * Refactor "Origine" theme
 	* Some improvements

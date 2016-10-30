@@ -1126,6 +1126,7 @@ function init_confirm_action() {
 
 		return confirm(str_confirmation);
 	});
+	$('button.confirm').removeAttr('disabled');
 }
 
 function init_print_action() {

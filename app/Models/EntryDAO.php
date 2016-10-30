@@ -123,6 +123,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 		}
 		$this->addEntryPrepared->bindParam(':id', $valuesTmp['id']);
 		$valuesTmp['guid'] = substr($valuesTmp['guid'], 0, 760);
+		$valuesTmp['guid'] = safe_ascii($valuesTmp['guid']);
 		$this->addEntryPrepared->bindParam(':guid', $valuesTmp['guid']);
 		$valuesTmp['title'] = substr($valuesTmp['title'], 0, 255);
 		$this->addEntryPrepared->bindParam(':title', $valuesTmp['title']);
@@ -130,6 +131,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 		$this->addEntryPrepared->bindParam(':author', $valuesTmp['author']);
 		$this->addEntryPrepared->bindParam(':content', $valuesTmp['content']);
 		$valuesTmp['link'] = substr($valuesTmp['link'], 0, 1023);
+		$valuesTmp['link'] = safe_ascii($valuesTmp['link']);
 		$this->addEntryPrepared->bindParam(':link', $valuesTmp['link']);
 		$this->addEntryPrepared->bindParam(':date', $valuesTmp['date'], PDO::PARAM_INT);
 		$valuesTmp['lastSeen'] = time();
@@ -190,6 +192,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 		$this->updateEntryPrepared->bindParam(':author', $valuesTmp['author']);
 		$this->updateEntryPrepared->bindParam(':content', $valuesTmp['content']);
 		$valuesTmp['link'] = substr($valuesTmp['link'], 0, 1023);
+		$valuesTmp['link'] = safe_ascii($valuesTmp['link']);
 		$this->updateEntryPrepared->bindParam(':link', $valuesTmp['link']);
 		$this->updateEntryPrepared->bindParam(':date', $valuesTmp['date'], PDO::PARAM_INT);
 		$valuesTmp['lastSeen'] = time();
@@ -689,6 +692,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 		if (count($guids) < 1) {
 			return array();
 		}
+		$guids = array_unique($guids);
 		$sql = 'SELECT guid, ' . $this->sqlHexEncode('hash') . ' AS hex_hash FROM `' . $this->prefix . 'entry` WHERE id_feed=? AND guid IN (' . str_repeat('?,', count($guids) - 1). '?)';
 		$stm = $this->bd->prepare($sql);
 		$values = array($id_feed);
