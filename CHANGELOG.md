@@ -1,6 +1,6 @@
 ﻿# Changelog
 
-## 2016-10-XX FreshRSS 1.6.0-dev
+## 2016-10-30 FreshRSS 1.6.0
 
 * CLI
 	* New Command-Line Interface (CLI) [#1095](https://github.com/FreshRSS/FreshRSS/issues/1095)
