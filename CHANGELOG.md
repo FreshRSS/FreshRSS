@@ -1,5 +1,11 @@
 ﻿# Changelog
 
+## 2016-11-02 FreshRSS 1.6.1
+
+* Bug fixing
+	* Fix regression introduced in 1.6.0 when refreshing articles with *Mark updated articles as unread* [#1349](https://github.com/FreshRSS/FreshRSS/issues/1349)
+
+
 ## 2016-10-30 FreshRSS 1.6.0
 
 * CLI
