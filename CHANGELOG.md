@@ -2,6 +2,10 @@
 
 ## 2016-xx-xx FreshRSS 1.7.0-dev
 
+* CLI
+	* New command `./cli/user-info.php` to get some user information [#1345](https://github.com/FreshRSS/FreshRSS/issues/1345)
+* Bug fixing
+	* Fix bug in estimating last user activity [#1358](https://github.com/FreshRSS/FreshRSS/issues/1358)
 
 
 ## 2016-11-02 FreshRSS 1.6.1

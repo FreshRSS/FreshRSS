@@ -27,6 +27,7 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 	}
 
 	public static function addFeed($url, $title = '', $cat_id = 0, $new_cat_name = '', $http_auth = '') {
+		FreshRSS_UserDAO::touch();
 		@set_time_limit(300);
 
 		$catDAO = new FreshRSS_CategoryDAO();
@@ -484,6 +485,7 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 		if ($feed_id <= 0 || $feed_name == '') {
 			return false;
 		}
+		FreshRSS_UserDAO::touch();
 		$feedDAO = FreshRSS_Factory::createFeedDao();
 		return $feedDAO->updateFeed($feed_id, array('name' => $feed_name));
 	}
@@ -492,6 +494,7 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 		if ($feed_id <= 0 || ($cat_id <= 0 && $new_cat_name == '')) {
 			return false;
 		}
+		FreshRSS_UserDAO::touch();
 
 		$catDAO = new FreshRSS_CategoryDAO();
 		if ($cat_id > 0) {
@@ -540,6 +543,7 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 	}
 
 	public static function deleteFeed($feed_id) {
+		FreshRSS_UserDAO::touch();
 		$feedDAO = FreshRSS_Factory::createFeedDao();
 		if ($feedDAO->deleteFeed($feed_id)) {
 			// TODO: Delete old favicon
