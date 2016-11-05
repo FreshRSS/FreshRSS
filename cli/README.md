@@ -72,3 +72,9 @@ Example showing user information for all users which username starts with 'a':
 ```sh
 ./cli/list-users.php | grep '^a' | xargs -n1 ./cli/user-info.php -h --user
 ```
+
+Example showing all users ranked by date of last activity:
+
+```sh
+./cli/user-info.php -h --user '*' | sort -k2 -r
+```
