@@ -85,13 +85,16 @@ sudo git checkout -b dev origin/dev
 
 # Mettre les droits d’accès pour le serveur Web
 sudo chown -R :www-data . && sudo chmod -R g+r . && sudo chmod -R g+w ./data/
+# Si vous souhaitez permettre les mises à jour par l'interface Web (inutile pour les mises à jour par git)
+sudo chmod -R g+w .
+
 # Publier FreshRSS dans votre répertoire HTML public
 sudo ln -s /usr/share/FreshRSS/p /var/www/html/FreshRSS
 # Naviguez vers http://example.net/FreshRSS pour terminer l’installation
 # (Si vous le faite depuis localhost, vous pourrez avoir à ajuster le réglage de votre adresse publique)
 # ou utilisez l’interface en ligne de commande
 
-# Mettre à jour FreshRSS vers une nouvelle version
+# Mettre à jour FreshRSS vers une nouvelle version par git
 cd /usr/share/FreshRSS
 sudo git pull
 sudo chown -R :www-data . && sudo chmod -R g+r . && sudo chmod -R g+w ./data/
