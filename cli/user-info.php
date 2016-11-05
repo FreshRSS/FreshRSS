@@ -2,14 +2,6 @@
 <?php
 require('_cli.php');
 
-function formatSize($bytes)
-{//http://www.php.net/manual/function.disk-free-space.php#103382
-	$si_prefix = array('', 'k', 'M', 'G', 'T', 'P');
-	$i = min((int)log($bytes, 1024), count($si_prefix) - 1);
-	return ($i <= 0) ? $bytes.'B' :
-		round($bytes / pow(1024, $i), 2).' '.$si_prefix[$i].'B';
-}
-
 $options = getopt('h', array(
 		'user:',
 	));
@@ -31,7 +23,7 @@ foreach ($users as $username) {
 		echo
 			$username, "\t",
 			date('c', FreshRSS_UserDAO::mtime($username)), "\t",
-			formatSize($entryDAO->size()), "\t",
+			format_bytes($entryDAO->size()), "\t",
 			"\n";
 	} else {
 		echo

@@ -127,6 +127,8 @@ function format_bytes($bytes, $precision = 2, $system = 'IEC') {
 	} elseif ($system === 'SI') {
 		$base = 1000;
 		$units = array('B', 'KB', 'MB', 'GB', 'TB');
+	} else {
+		return format_number($bytes, $precision);
 	}
 	$bytes = max(intval($bytes), 0);
 	$pow = $bytes === 0 ? 0 : floor(log($bytes) / log($base));
