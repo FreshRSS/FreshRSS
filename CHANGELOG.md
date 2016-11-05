@@ -2,6 +2,9 @@
 
 ## 2016-xx-xx FreshRSS 1.7.0-dev
 
+* Features
+	* Add git compatibility in Web update system [#1357](https://github.com/FreshRSS/FreshRSS/issues/1357)
+		* Requires that the initial installation is done with git
 
 
 ## 2016-11-02 FreshRSS 1.6.1

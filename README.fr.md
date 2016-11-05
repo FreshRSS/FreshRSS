@@ -23,7 +23,7 @@ Voir la [liste des versions](../../releases).
 * Pour ceux qui veulent bien aider à tester ou déveloper les dernières fonctionnalités, [la branche dev](https://github.com/FreshRSS/FreshRSS/tree/dev) vous ouvre les bras !
 
 # Avertissements
-Cette application a été développée pour s’adapter principalement à des besoins personnels, et aucune garantie n'est fournie.
+Cette application a été développée pour s’adapter principalement à des besoins personnels, et aucune garantie n’est fournie.
 Les demandes de fonctionnalités, rapports de bugs, et autres contributions sont les bienvenues. Privilégiez pour cela des [demandes sur GitHub](https://github.com/FreshRSS/FreshRSS/issues).
 Nous sommes une communauté amicale.
 
@@ -85,7 +85,7 @@ sudo git checkout -b dev origin/dev
 
 # Mettre les droits d’accès pour le serveur Web
 sudo chown -R :www-data . && sudo chmod -R g+r . && sudo chmod -R g+w ./data/
-# Si vous souhaitez permettre les mises à jour par l'interface Web (inutile pour les mises à jour par git)
+# Si vous souhaitez permettre les mises à jour par l’interface Web
 sudo chmod -R g+w .
 
 # Publier FreshRSS dans votre répertoire HTML public

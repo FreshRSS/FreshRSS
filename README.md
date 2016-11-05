@@ -85,7 +85,7 @@ sudo git checkout -b dev origin/dev
 
 # Set the rights so that your Web server can access the files
 sudo chown -R :www-data . && sudo chmod -R g+r . && sudo chmod -R g+w ./data/
-# If you would like to allow Web updates (not needed for updates with git)
+# If you would like to allow updates from the Web interface
 sudo chmod -R g+w .
 
 # Publish FreshRSS in your public HTML directory
