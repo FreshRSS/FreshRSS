@@ -241,6 +241,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 		if (count($ids) < 1) {
 			return 0;
 		}
+		FreshRSS_UserDAO::touch();
 		$sql = 'UPDATE `' . $this->prefix . 'entry` '
 		     . 'SET is_favorite=? '
 		     . 'WHERE id IN (' . str_repeat('?,', count($ids) - 1). '?)';
@@ -315,6 +316,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 	 * @return integer affected rows
 	 */
 	public function markRead($ids, $is_read = true) {
+		FreshRSS_UserDAO::touch();
 		if (is_array($ids)) {	//Many IDs at once (used by API)
 			if (count($ids) < 6) {	//Speed heuristics
 				$affected = 0;
@@ -379,6 +381,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 	 * @return integer affected rows
 	 */
 	public function markReadEntries($idMax = 0, $onlyFavorites = false, $priorityMin = 0, $filter = null, $state = 0) {
+		FreshRSS_UserDAO::touch();
 		if ($idMax == 0) {
 			$idMax = time() . '000000';
 			Minz_Log::debug('Calling markReadEntries(0) is deprecated!');
@@ -421,6 +424,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 	 * @return integer affected rows
 	 */
 	public function markReadCat($id, $idMax = 0, $filter = null, $state = 0) {
+		FreshRSS_UserDAO::touch();
 		if ($idMax == 0) {
 			$idMax = time() . '000000';
 			Minz_Log::debug('Calling markReadCat(0) is deprecated!');
@@ -458,6 +462,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 	 * @return integer affected rows
 	 */
 	public function markReadFeed($id_feed, $idMax = 0, $filter = null, $state = 0) {
+		FreshRSS_UserDAO::touch();
 		if ($idMax == 0) {
 			$idMax = time() . '000000';
 			Minz_Log::debug('Calling markReadFeed(0) is deprecated!');
