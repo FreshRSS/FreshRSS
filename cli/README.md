@@ -55,4 +55,20 @@ cd /usr/share/FreshRSS
 ./cli/export-opml-for-user.php --user username > /path/to/file.opml.xml
 
 ./cli/export-zip-for-user.php --user username ( --max-feed-entries 100 ) > /path/to/file.zip
+
+./cli/user-info.php -h --user username
+# -h is to use a human-readable format
+# --user can be a username, or '*' to loop on all users
+# Returns a * if the user is admin, the name of the user, the date/time of last action, and the size occupied
+```
+
+
+## Unix piping
+
+It is possible to invoke a command multiple times, e.g. with different usernames, thanks to the `xargs -n1` command.
+
+Example showing user information for all users which username starts with 'a':
+
+```sh
+./cli/list-users.php | grep '^a' | xargs -n1 ./cli/user-info.php -h --user
 ```

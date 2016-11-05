@@ -25,7 +25,7 @@ class FreshRSS_Auth {
 			self::giveAccess();
 		} elseif (self::accessControl()) {
 			self::giveAccess();
-			FreshRSS_UserDAO::touch($current_user);
+			FreshRSS_UserDAO::touch();
 		} else {
 			// Be sure all accesses are removed!
 			self::removeAccess();
