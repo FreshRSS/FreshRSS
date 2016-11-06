@@ -46,7 +46,7 @@ return array(
 	#	`http_auth` is an access controled by the HTTP Web server (e.g. `/FreshRSS/p/i/.htaccess` for Apache)
 	#		if you use `http_auth`, remember to protect only `/FreshRSS/p/i/`,
 	#		and in particular not protect `/FreshRSS/p/api/` if you would like to use the API (different login system).
-	'auth_type' => 'none',
+	'auth_type' => 'form',
 
 	# Allow or not the use of the API, used for mobile apps.
 	#	End-point is http://example.net/FreshRSS/p/api/greader.php

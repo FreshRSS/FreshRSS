@@ -54,8 +54,8 @@ function generateSalt() {
 
 function checkDb(&$dbOptions) {
 	$dsn = '';
+	$driver_options = null;
 	try {
-		$driver_options = null;
 		switch ($dbOptions['type']) {
 		case 'mysql':
 			include_once(APP_PATH . '/SQL/install.sql.mysql.php');
@@ -99,8 +99,12 @@ function checkDb(&$dbOptions) {
 		default:
 			return false;
 		}
+
+		$c = new PDO($dsn, $dbOptions['user'], $dbOptions['password'], $driver_options);
+		$res = $c->query('SELECT 1');
 	} catch (PDOException $e) {
 		$dsn = '';
+		syslog(LOG_DEBUG, 'FreshRSS SQL warning: ' . $e->getMessage());
 		$dbOptions['error'] = $e->getMessage();
 	}
 	$dbOptions['dsn'] = $dsn;
