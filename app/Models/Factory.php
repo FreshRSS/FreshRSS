@@ -6,6 +6,7 @@ class FreshRSS_Factory {
 		$conf = Minz_Configuration::get('system');
 		switch ($conf->db['type']) {
 			case 'sqlite':
+			case 'pgsql':
 				return new FreshRSS_FeedDAOSQLite($username);
 			default:
 				return new FreshRSS_FeedDAO($username);

@@ -230,7 +230,7 @@ function saveStep3() {
 			$_SESSION['bd_error'] = '';
 			header('Location: index.php?step=4');
 		} else {
-			$_SESSION['bd_error'] = empty($config_array['db']['bd_error']) ? 'Unknown error!' : $config_array['db']['bd_error'];
+			$_SESSION['bd_error'] = empty($config_array['db']['error']) ? 'Unknown error!' : $config_array['db']['error'];
 		}
 	}
 	invalidateHttpCache();
@@ -375,7 +375,7 @@ function checkDbUser(&$dbOptions) {
 		}
 	} catch (PDOException $e) {
 		$ok = false;
-		$dbOptions['bd_error'] = $e->getMessage();
+		$dbOptions['error'] = $e->getMessage();
 	}
 	return $ok;
 }

@@ -9,6 +9,8 @@
 	* New command `./cli/user-info.php` to get some user information [#1345](https://github.com/FreshRSS/FreshRSS/issues/1345)
 * Bug fixing
 	* Fix bug in estimating last user activity [#1358](https://github.com/FreshRSS/FreshRSS/issues/1358)
+	* PostgreSQL: fix bug when updating cached values [#1360](https://github.com/FreshRSS/FreshRSS/issues/1360)
+	* Fix small bugs in installer [#1363](https://github.com/FreshRSS/FreshRSS/pull/1363)
 
 
 ## 2016-11-02 FreshRSS 1.6.1
