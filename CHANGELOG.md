@@ -2,6 +2,9 @@
 
 ## 2016-xx-xx FreshRSS 1.7.0-dev
 
+* Features
+	* Add git compatibility in Web update system [#1357](https://github.com/FreshRSS/FreshRSS/issues/1357)
+		* Requires that the initial installation is done with git
 * CLI
 	* New command `./cli/user-info.php` to get some user information [#1345](https://github.com/FreshRSS/FreshRSS/issues/1345)
 * Bug fixing
