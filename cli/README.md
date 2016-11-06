@@ -36,7 +36,7 @@ cd /usr/share/FreshRSS
 # --auth_type can be: 'form' (default), 'http_auth' (using the Web server access control), 'none' (dangerous)
 # --db-type can be: 'sqlite' (default), 'mysql' (MySQL or MariaDB), 'pgsql' (PostgreSQL)
 # --environment can be: 'production' (default), 'development' (for additional log messages)
-# --db-prefix is an optional prefix in front of the names of the tables
+# --db-prefix is an optional prefix in front of the names of the tables. We suggest using 'freshrss_'
 # This command does not create the default user. Do that with ./cli/create-user.php
 
 ./cli/create-user.php --user username ( --password 'password' --api-password 'api_password' --language en --email user@example.net --token 'longRandomString' --no-default-feeds )
