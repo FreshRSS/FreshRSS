@@ -32,8 +32,8 @@ Options in parenthesis are optional.
 ```sh
 cd /usr/share/FreshRSS
 
-./cli/do-install.php --default_user admin --auth_type form  ( --environment production --base_url https://rss.example.net/ --title FreshRSS --allow_anonymous --api_enabled --db-type mysql --db-host localhost:3306 --db-user freshrss --db-password dbPassword123 --db-base freshrss --db-prefix freshrss )
-# --auth_type can be: 'form' (recommended), 'http_auth' (using the Web server access control), 'none' (dangerous)
+./cli/do-install.php --default_user admin ( --auth_type form --environment production --base_url https://rss.example.net/ --title FreshRSS --allow_anonymous --api_enabled --db-type mysql --db-host localhost:3306 --db-user freshrss --db-password dbPassword123 --db-base freshrss --db-prefix freshrss )
+# --auth_type can be: 'form' (default), 'http_auth' (using the Web server access control), 'none' (dangerous)
 # --db-type can be: 'sqlite' (default), 'mysql' (MySQL or MariaDB), 'pgsql' (PostgreSQL)
 # --environment can be: 'production' (default), 'development' (for additional log messages)
 # --db-prefix is an optional prefix in front of the names of the tables
