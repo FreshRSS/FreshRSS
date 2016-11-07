@@ -634,7 +634,7 @@ function printStep3() {
 		<div class="form-group">
 			<label class="group-name" for="host"><?php echo _t('install.bdd.host'); ?></label>
 			<div class="group-controls">
-				<input type="text" id="host" name="host" pattern="[0-9A-Za-z_.-]{1,64}(:[0-9]{2,5})?" value="<?php echo isset($_SESSION['bd_host']) ? $_SESSION['bd_host'] : $system_default_config->db['host']; ?>" tabindex="2" />
+				<input type="text" id="host" name="host" pattern="[0-9A-Z/a-z_.-]{1,64}(:[0-9]{2,5})?" value="<?php echo isset($_SESSION['bd_host']) ? $_SESSION['bd_host'] : $system_default_config->db['host']; ?>" tabindex="2" />
 			</div>
 		</div>
 
