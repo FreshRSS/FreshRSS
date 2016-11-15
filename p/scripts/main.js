@@ -1354,7 +1354,6 @@ function init_beforeDOM() {
 		window.setTimeout(init_beforeDOM, 100);
 		return;
 	}
-	init_confirm_action();
 	if (['normal', 'reader', 'global'].indexOf(context.current_view) >= 0) {
 		inject_script('jquery.sticky-kit.min.js');
 		init_normal();
@@ -1372,6 +1371,7 @@ function init_afterDOM() {
 	init_notifications();
 	$stream = $('#stream');
 	if ($stream.length > 0) {
+		init_confirm_action();
 		init_load_more($stream);
 		init_posts();
 		init_nav_entries();
