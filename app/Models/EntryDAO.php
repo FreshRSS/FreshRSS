@@ -518,7 +518,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 
 		$stm->execute($values);
 		$res = $stm->fetchAll(PDO::FETCH_ASSOC);
-		$entries = self::daoToEntry($res);
+		$entries = self::daoToEntries($res);
 		return isset($entries[0]) ? $entries[0] : null;
 	}
 
@@ -533,7 +533,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 
 		$stm->execute($values);
 		$res = $stm->fetchAll(PDO::FETCH_ASSOC);
-		$entries = self::daoToEntry($res);
+		$entries = self::daoToEntries($res);
 		return isset($entries[0]) ? $entries[0] : null;
 	}
 
@@ -666,7 +666,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 			. ($limit > 0 ? ' LIMIT ' . $limit : ''));	//TODO: See http://explainextended.com/2009/10/23/mysql-order-by-limit-performance-late-row-lookups/
 	}
 
-	public function listWhere($type = 'a', $id = '', $state = FreshRSS_Entry::STATE_ALL, $order = 'DESC', $limit = 1, $firstId = '', $filter = '', $date_min = 0) {
+	public function listWhereRaw($type = 'a', $id = '', $state = FreshRSS_Entry::STATE_ALL, $order = 'DESC', $limit = 1, $firstId = '', $filter = '', $date_min = 0) {
 		list($values, $sql) = $this->sqlListWhere($type, $id, $state, $order, $limit, $firstId, $filter, $date_min);
 
 		$sql = 'SELECT e0.id, e0.guid, e0.title, e0.author, '
@@ -680,8 +680,12 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 
 		$stm = $this->bd->prepare($sql);
 		$stm->execute($values);
+		return $stm;
+	}
 
-		return self::daoToEntry($stm->fetchAll(PDO::FETCH_ASSOC));
+	public function listWhere($type = 'a', $id = '', $state = FreshRSS_Entry::STATE_ALL, $order = 'DESC', $limit = 1, $firstId = '', $filter = '', $date_min = 0) {
+		$stm = $this->listWhereRaw($type, $id, $state, $order, $limit, $firstId, $filter, $date_min);
+		return self::daoToEntries($stm->fetchAll(PDO::FETCH_ASSOC));
 	}
 
 	public function listIdsWhere($type = 'a', $id = '', $state = FreshRSS_Entry::STATE_ALL, $order = 'DESC', $limit = 1, $firstId = '', $filter = '', $date_min = 0) {	//For API
@@ -810,15 +814,8 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 		return $res[0];
 	}
 
-	public static function daoToEntry($listDAO) {
-		$list = array();
-
-		if (!is_array($listDAO)) {
-			$listDAO = array($listDAO);
-		}
-
-		foreach ($listDAO as $key => $dao) {
-			$entry = new FreshRSS_Entry(
+	public static function daoToEntry($dao) {
+		$entry = new FreshRSS_Entry(
 				$dao['id_feed'],
 				$dao['guid'],
 				$dao['title'],
@@ -830,10 +827,21 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 				$dao['is_favorite'],
 				$dao['tags']
 			);
-			if (isset($dao['id'])) {
-				$entry->_id($dao['id']);
-			}
-			$list[] = $entry;
+		if (isset($dao['id'])) {
+			$entry->_id($dao['id']);
+		}
+		return $entry;
+	}
+
+	private static function daoToEntries($listDAO) {
+		$list = array();
+
+		if (!is_array($listDAO)) {
+			$listDAO = array($listDAO);
+		}
+
+		foreach ($listDAO as $key => $dao) {
+			$list[] = self::daoToEntry($dao);
 		}
 
 		unset($listDAO);
