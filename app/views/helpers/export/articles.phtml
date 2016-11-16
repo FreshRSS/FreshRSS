@@ -17,9 +17,15 @@ echo rtrim(json_encode($articles, $options), " ]}\n\r\t"), "\n";
 $first = true;
 
 foreach ($this->entriesRaw as $entryRaw) {
+	if (empty($entryRaw)) {
+		continue;
+	}
 	$entry = FreshRSS_EntryDAO::daoToEntry($entryRaw);
 	if (!isset($this->feed)) {
 		$feed = FreshRSS_CategoryDAO::findFeed($this->categories, $entry->feed());
+		if ($feed == null) {
+			$feed = $entry->feed(true);
+		}
 	} else {
 		$feed = $this->feed;
 	}
@@ -39,19 +45,22 @@ foreach ($this->entriesRaw as $entryRaw) {
 			'content' => $entry->content(),
 		),
 		'origin' => array(
-			'streamId' => $feed->id(),
-			'title' => $feed->name(),
-			'htmlUrl' => $feed->website(),
-			'feedUrl' => $feed->url(),
+			'streamId' => $feed == null ? '' : $feed->id(),
+			'title' => $feed == null ? '' : $feed->name(),
+			'htmlUrl' => $feed == null ? '' : $feed->website(),
+			'feedUrl' => $feed == null ? '' : $feed->url(),
 		)
 	);
 
-	if ($first) {
-		$first = false;
-	} else {
-		echo ",\n";
+	$line = json_encode($article, $options);
+	if ($line != '') {
+		if ($first) {
+			$first = false;
+		} else {
+			echo ",\n";
+		}
+		echo $line;
 	}
-	echo json_encode($article, $options);
 }
 
 echo "\n]}\n";
