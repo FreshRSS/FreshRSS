@@ -10,6 +10,7 @@
 * Bug fixing
 	* Fix bug in estimating last user activity [#1358](https://github.com/FreshRSS/FreshRSS/issues/1358)
 	* PostgreSQL: fix bug when updating cached values [#1360](https://github.com/FreshRSS/FreshRSS/issues/1360)
+	* Fix bug in confirmation before marking as read [#1348](https://github.com/FreshRSS/FreshRSS/issues/1348)
 	* Fix small bugs in installer [#1363](https://github.com/FreshRSS/FreshRSS/pull/1363)
 
 
