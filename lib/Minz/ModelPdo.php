@@ -116,6 +116,12 @@ class Minz_ModelPdo {
 		self::$sharedBd = null;
 		self::$sharedPrefix = '';
 	}
+
+	public function disableBuffering() {
+		if ((self::$sharedDbType === 'mysql') && defined('PDO::MYSQL_ATTR_USE_BUFFERED_QUERY')) {
+			$this->bd->setAttribute(PDO::MYSQL_ATTR_USE_BUFFERED_QUERY, false);
+		}
+	}
 }
 
 class MinzPDO extends PDO {
