@@ -57,6 +57,10 @@ return array(
 			'nok' => 'La tabella Feed ha una configurazione errata.',
 			'ok' => 'Tabella Feed OK.',
 		),
+		'fileinfo' => array(
+			'nok' => 'Manca il supporto per PHP fileinfo (pacchetto fileinfo).',
+			'ok' => 'Estensione fileinfo presente.',
+		),
 		'files' => 'Installazione files',
 		'json' => array(
 			'nok' => 'Manca il supoorto a JSON (pacchetto php5-json).',

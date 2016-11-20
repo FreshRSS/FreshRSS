@@ -57,6 +57,10 @@ return array(
 			'nok' => 'Akış tablosu kötü yapılandırılmış.',
 			'ok' => 'Akış tablosu sorunsuz.',
 		),
+		'fileinfo' => array(
+			'nok' => 'PHP fileinfo eksik (fileinfo package).',
+			'ok' => 'fileinfo eklentisi sorunsuz.',
+		),
 		'files' => 'Dosya kurulumu',
 		'json' => array(
 			'nok' => 'JSON eklentisi eksik (php5-json package).',

@@ -57,6 +57,10 @@ return array(
 			'nok' => 'Die Tabelle <em>feed</em> ist schlecht konfiguriert.',
 			'ok' => 'Die Tabelle <em>feed</em> ist korrekt konfiguriert.',
 		),
+		'fileinfo' => array(
+			'nok' => 'Ihnen fehlt PHP fileinfo (Paket fileinfo).',
+			'ok' => 'Sie haben die fileinfo-Erweiterung.',
+		),
 		'files' => 'Datei-Installation',
 		'json' => array(
 			'nok' => 'Ihnen fehlt die JSON-Erweiterung (Paket php5-json).',

@@ -56,6 +56,10 @@ return array(
 			'nok' => 'Check permissions on <em>./data/favicons</em> directory. HTTP server must have rights to write into',
 			'ok' => 'Permissions on favicons directory are good.',
 		),
+		'fileinfo' => array(
+			'nok' => 'Cannot find the PHP fileinfo library (fileinfo package).',
+			'ok' => 'You have the fileinfo library.',
+		),
 		'http_referer' => array(
 			'nok' => 'Please check that you are not altering your HTTP REFERER.',
 			'ok' => 'Your HTTP REFERER is known and corresponds to your server.',

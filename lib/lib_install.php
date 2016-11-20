@@ -15,6 +15,7 @@ function checkRequirements() {
 	$pdo = $pdo_mysql || $pdo_sqlite || $pdo_pgsql;
 	$pcre = extension_loaded('pcre');
 	$ctype = extension_loaded('ctype');
+	$fileinfo = extension_loaded('fileinfo');
 	$dom = class_exists('DOMDocument');
 	$xml = function_exists('xml_parser_create');
 	$json = function_exists('json_encode');
@@ -34,6 +35,7 @@ function checkRequirements() {
 		'pdo' => $pdo ? 'ok' : 'ko',
 		'pcre' => $pcre ? 'ok' : 'ko',
 		'ctype' => $ctype ? 'ok' : 'ko',
+		'fileinfo' => $fileinfo ? 'ok' : 'ko',
 		'dom' => $dom ? 'ok' : 'ko',
 		'xml' => $xml ? 'ok' : 'ko',
 		'json' => $json ? 'ok' : 'ko',
@@ -42,7 +44,7 @@ function checkRequirements() {
 		'users' => $users ? 'ok' : 'ko',
 		'favicons' => $favicons ? 'ok' : 'ko',
 		'http_referer' => $http_referer ? 'ok' : 'ko',
-		'all' => $php && $minz && $curl && $pdo && $pcre && $ctype && $dom && $xml &&
+		'all' => $php && $minz && $curl && $pdo && $pcre && $ctype && $fileinfo && $dom && $xml &&
 		         $data && $cache && $users && $favicons && $http_referer ?
 		         'ok' : 'ko'
 	);

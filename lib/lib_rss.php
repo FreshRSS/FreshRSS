@@ -398,6 +398,7 @@ function check_install_php() {
 		'pdo' => $pdo_mysql || $pdo_sqlite,
 		'pcre' => extension_loaded('pcre'),
 		'ctype' => extension_loaded('ctype'),
+		'fileinfo' => extension_loaded('fileinfo'),
 		'dom' => class_exists('DOMDocument'),
 		'json' => extension_loaded('json'),
 		'zip' => extension_loaded('zip'),
