@@ -57,6 +57,10 @@ return array(
 			'nok' => 'Feed tabel is slecht geconfigureerd.',
 			'ok' => 'Feed tabel is ok.',
 		),
+		'fileinfo' => array(
+			'nok' => 'U mist de PHP fileinfo (fileinfo package).',
+			'ok' => 'U hebt de fileinfo uitbreiding.',
+		),
 		'files' => 'Bestanden installatie',
 		'json' => array(
 			'nok' => 'U mist JSON (php5-json package).',
