@@ -3,7 +3,7 @@
 # FreshRSS
 FreshRSS is a self-hosted RSS feed aggregator such as [Leed](http://projet.idleman.fr/leed/) or [Kriss Feed](http://tontof.net/kriss/feed/).
 
-It is at the same time lightweight, easy to work with, powerful and customizable.
+It is at the same time lightweight, easy to work with, powerful, customizable and supports [extensions](#extensions).
 
 It is a multi-user application with an anonymous reading mode.
 It supports [PubSubHubbub](https://code.google.com/p/pubsubhubbub/) for instant notifications from compatible Web sites.
@@ -21,6 +21,10 @@ See the [list of releases](../../releases).
 ## About branches
 * Use [the master branch](https://github.com/FreshRSS/FreshRSS/tree/master/) if you need a stable version.
 * For those willing to help testing or developing the latest features, [the dev branch](https://github.com/FreshRSS/FreshRSS/tree/dev) is waiting for you!
+
+# Extensions 
+FreshRSS supports further customizations by adding extensions on top of its core functionality.
+There is a repository dedicated to those extensions [here on GitHub](https://github.com/FreshRSS/Extensions). 
 
 # Disclaimer
 This application was developed to fulfil personal needs primarily, and comes with absolutely no warranty.
