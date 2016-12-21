@@ -8,6 +8,7 @@ Il se veut léger et facile à prendre en main tout en étant un outil puissant 
 Il permet de gérer plusieurs utilisateurs, et dispose d’un mode de lecture anonyme.
 Il supporte [PubSubHubbub](https://code.google.com/p/pubsubhubbub/) pour des notifications instantanées depuis les sites compatibles.
 Il y a une API pour les clients (mobiles), ainsi qu’une [interface en ligne de commande](./cli/README.md).
+Enfin, il permet l’ajout d’[extensions](#extensions) pour encore plus de personnalisation.
 
 * Site officiel : http://freshrss.org
 * Démo : http://demo.freshrss.org/
@@ -141,6 +142,11 @@ Créer `/etc/cron.d/FreshRSS` avec :
 ```bash
 mysqldump -u utilisateur -p --databases freshrss > freshrss.sql
 ```
+
+
+# Extensions 
+FreshRSS permet l’ajout d’extensions en plus des fonctionnalités natives.
+Voir le [dépôt dédié à ces extensions](https://github.com/FreshRSS/Extensions).
 
 
 # Bibliothèques incluses
