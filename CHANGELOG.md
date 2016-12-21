@@ -1,6 +1,6 @@
 ﻿# Changelog
 
-## 2016-xx-xx FreshRSS 1.7.0-dev
+## 2016-12-xx FreshRSS 1.6.2-dev
 
 * Features
 	* Add git compatibility in Web update system [#1357](https://github.com/FreshRSS/FreshRSS/issues/1357)
@@ -12,8 +12,10 @@
 	* PostgreSQL: fix bug when updating cached values [#1360](https://github.com/FreshRSS/FreshRSS/issues/1360)
 	* Fix bug in confirmation before marking as read [#1348](https://github.com/FreshRSS/FreshRSS/issues/1348)
 	* Fix small bugs in installer [#1363](https://github.com/FreshRSS/FreshRSS/pull/1363)
+	* Allow slash in database hostname, when using sockets [#1364](https://github.com/FreshRSS/FreshRSS/issues/1364)
 * Misc.
 	* More robust export function in the case of large datasets [#1372](https://github.com/FreshRSS/FreshRSS/issues/1372)
+	* Add a check for PHP extension fileinfo [#1375](https://github.com/FreshRSS/FreshRSS/issues/1375)
 
 
 ## 2016-11-02 FreshRSS 1.6.1
