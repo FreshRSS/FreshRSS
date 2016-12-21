@@ -5,6 +5,8 @@
 * Features
 	* Add git compatibility in Web update system [#1357](https://github.com/FreshRSS/FreshRSS/issues/1357)
 		* Requires that the initial installation is done with git
+* SQL
+	* More robust export function in the case of large datasets [#1372](https://github.com/FreshRSS/FreshRSS/issues/1372)
 * CLI
 	* New command `./cli/user-info.php` to get some user information [#1345](https://github.com/FreshRSS/FreshRSS/issues/1345)
 * Bug fixing
@@ -13,8 +15,7 @@
 	* Fix bug in confirmation before marking as read [#1348](https://github.com/FreshRSS/FreshRSS/issues/1348)
 	* Fix small bugs in installer [#1363](https://github.com/FreshRSS/FreshRSS/pull/1363)
 	* Allow slash in database hostname, when using sockets [#1364](https://github.com/FreshRSS/FreshRSS/issues/1364)
-* Misc.
-	* More robust export function in the case of large datasets [#1372](https://github.com/FreshRSS/FreshRSS/issues/1372)
+	* Add curl user-agent to retrieve favicons [#1380](https://github.com/FreshRSS/FreshRSS/issues/1380)
 	* Add a check for PHP extension fileinfo [#1375](https://github.com/FreshRSS/FreshRSS/issues/1375)
 
 
