@@ -3,11 +3,12 @@
 # FreshRSS
 FreshRSS is a self-hosted RSS feed aggregator such as [Leed](http://projet.idleman.fr/leed/) or [Kriss Feed](http://tontof.net/kriss/feed/).
 
-It is at the same time lightweight, easy to work with, powerful, customizable and supports [extensions](#extensions).
+It is at the same time lightweight, easy to work with, powerful and customizable.
 
 It is a multi-user application with an anonymous reading mode.
 It supports [PubSubHubbub](https://code.google.com/p/pubsubhubbub/) for instant notifications from compatible Web sites.
 There is an API for (mobile) clients, and a [Command-Line Interface](./cli/README.md).
+Finally, it supports [extensions](#extensions) for further tuning.
 
 * Official website: http://freshrss.org
 * Demo: http://demo.freshrss.org/
@@ -21,10 +22,6 @@ See the [list of releases](../../releases).
 ## About branches
 * Use [the master branch](https://github.com/FreshRSS/FreshRSS/tree/master/) if you need a stable version.
 * For those willing to help testing or developing the latest features, [the dev branch](https://github.com/FreshRSS/FreshRSS/tree/dev) is waiting for you!
-
-# Extensions 
-FreshRSS supports further customizations by adding extensions on top of its core functionality.
-There is a repository dedicated to those extensions [here on GitHub](https://github.com/FreshRSS/Extensions). 
 
 # Disclaimer
 This application was developed to fulfil personal needs primarily, and comes with absolutely no warranty.
@@ -145,6 +142,11 @@ Create `/etc/cron.d/FreshRSS` with:
 ```bash
 mysqldump -u user -p --databases freshrss > freshrss.sql
 ```
+
+
+# Extensions 
+FreshRSS supports further customizations by adding extensions on top of its core functionality.
+See the [repository dedicated to those extensions](https://github.com/FreshRSS/Extensions). 
 
 
 # Included libraries
