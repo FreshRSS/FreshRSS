@@ -19,6 +19,7 @@ People are sorted by name so please keep this order.
 * [hckweb](https://github.com/hckweb): [contributions](https://github.com/FreshRSS/FreshRSS/commits?author=hckweb)
 * [Jaussoin Timothée](https://github.com/edhelas): [contributions](https://github.com/FreshRSS/FreshRSS/commits?author=edhelas), [Web](http://edhelas.movim.eu/)
 * [Julien Reichardt](https://github.com/j8r): [contributions](https://github.com/FreshRSS/FreshRSS/commits?author=j8r), [Web](https://blog.jrei.ch/)
+* [Kevin Papst](https://github.com/kevinpapst): [contributions](https://github.com/FreshRSS/FreshRSS/commits?author=kevinpapst), [Web](http://www.kevinpapst.de/)
 * [Luc Didry](https://github.com/ldidry): [contributions](https://github.com/FreshRSS/FreshRSS/commits?author=ldidry), [Web](https://www.fiat-tux.fr/)
 * [marcomrc](https://github.com/marcomrc): [contributions](https://github.com/FreshRSS/FreshRSS/commits?author=marcomrc)
 * [Marcus Rohrmoser](https://github.com/mro): [contributions](https://github.com/FreshRSS/FreshRSS/commits?author=mro), [Web](http://mro.name/~me)
