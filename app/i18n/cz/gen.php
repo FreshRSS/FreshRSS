@@ -22,7 +22,7 @@ return array(
 	),
 	'auth' => array(
 		'email' => 'Email',
-		'keep_logged_in' => 'Zapamatovat přihlášení <small>(1 měsíc)</small>',
+		'keep_logged_in' => 'Zapamatovat přihlášení <small>(%s dny)</small>',
 		'login' => 'Login',
 		'logout' => 'Odhlášení',
 		'password' =>  array(

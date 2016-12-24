@@ -20,7 +20,7 @@
 		<div>
 			<label class="checkbox" for="keep_logged_in">
 				<input type="checkbox" name="keep_logged_in" id="keep_logged_in" value="1" />
-				<?php echo _t('gen.auth.keep_logged_in'); ?>
+				<?php echo _t('gen.auth.keep_logged_in', $this->cookie_days); ?>
 			</label>
 			<br />
 		</div>
