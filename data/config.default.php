@@ -74,6 +74,9 @@ return array(
 
 	'limits' => array(
 
+		# Duration in seconds of the login cookie.
+		'cookie_duration' => 2592000,
+
 		# Duration in seconds of the SimplePie cache,
 		#	during which a query to the RSS feed will return the local cached version.
 		# Especially important for multi-user setups.

@@ -219,8 +219,8 @@ class FreshRSS_FormAuth {
 	}
 
 	public static function makeCookie($username, $password_hash) {
+		$conf = Minz_Configuration::get('system');
 		do {
-			$conf = Minz_Configuration::get('system');
 			$token = sha1($conf->salt . $username . uniqid(mt_rand(), true));
 			$token_file = DATA_PATH . '/tokens/' . $token . '.txt';
 		} while (file_exists($token_file));
@@ -229,7 +229,9 @@ class FreshRSS_FormAuth {
 			return false;
 		}
 
-		$expire = time() + 2629744;	//1 month	//TODO: Use a configuration instead
+		$limits = $conf->limits;
+		$cookie_duration = empty($limits['cookie_duration']) ? 2629744 : $limits['cookie_duration'];
+		$expire = time() + $cookie_duration;
 		Minz_Session::setLongTermCookie('FreshRSS_login', $token, $expire);
 		return $token;
 	}
@@ -247,7 +249,10 @@ class FreshRSS_FormAuth {
 	}
 
 	public static function purgeTokens() {
-		$oldest = time() - 2629744;	// 1 month	// TODO: Use a configuration instead
+		$conf = Minz_Configuration::get('system');
+		$limits = $conf->limits;
+		$cookie_duration = empty($limits['cookie_duration']) ? 2629744 : $limits['cookie_duration'];
+		$oldest = time() - $cookie_duration;
 		foreach (new DirectoryIterator(DATA_PATH . '/tokens/') as $file_info) {
 			// $extension = $file_info->getExtension(); doesn't work in PHP < 5.3.7
 			$extension = pathinfo($file_info->getFilename(), PATHINFO_EXTENSION);
