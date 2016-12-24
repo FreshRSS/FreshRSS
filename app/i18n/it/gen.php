@@ -22,7 +22,7 @@ return array(
 	),
 	'auth' => array(
 		'email' => 'Indirizzo email',
-		'keep_logged_in' => 'Ricorda i dati <small>(%s giorni)</small>',
+		'keep_logged_in' => 'Ricorda i dati <small>(%s giorni)</small>',
 		'login' => 'Accedi',
 		'logout' => 'Esci',
 		'password' => array(

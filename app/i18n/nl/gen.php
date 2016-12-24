@@ -22,7 +22,7 @@ return array(
 	),
 	'auth' => array(
 		'email' => 'Email adres',
-		'keep_logged_in' => 'Ingelogd blijven voor <small>(%s dagen)</small>',
+		'keep_logged_in' => 'Ingelogd blijven voor <small>(%s dagen)</small>',
 		'login' => 'Log in',
 		'logout' => 'Log uit',
 		'password' => array(
