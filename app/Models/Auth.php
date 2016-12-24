@@ -236,8 +236,8 @@ class FreshRSS_FormAuth {
 
 	public static function deleteCookie() {
 		$token = Minz_Session::getLongTermCookie('FreshRSS_login');
-		Minz_Session::deleteLongTermCookie('FreshRSS_login');
 		if (ctype_alnum($token)) {
+			Minz_Session::deleteLongTermCookie('FreshRSS_login');
 			@unlink(DATA_PATH . '/tokens/' . $token . '.txt');
 		}
 
