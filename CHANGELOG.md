@@ -1,6 +1,6 @@
 ﻿# Changelog
 
-## 2016-12-xx FreshRSS 1.6.2-dev
+## 2016-12-26 FreshRSS 1.6.2
 
 * Features
 	* Add git compatibility in Web update system [#1357](https://github.com/FreshRSS/FreshRSS/issues/1357)
