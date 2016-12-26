@@ -56,6 +56,10 @@ return array(
 			'nok' => 'Überprüfen Sie die Berechtigungen des Verzeichnisses <em>./data/favicons</em>. Der HTTP-Server muss Schreibrechte besitzen.',
 			'ok' => 'Die Berechtigungen des Verzeichnisses <em>./data/favicons</em> sind in Ordnung.',
 		),
+		'fileinfo' => array(
+			'nok' => 'Ihnen fehlt PHP fileinfo (Paket fileinfo).',
+			'ok' => 'Sie haben die fileinfo-Erweiterung.',
+		),
 		'http_referer' => array(
 			'nok' => 'Bitte stellen Sie sicher, dass Sie Ihren HTTP REFERER nicht abändern.',
 			'ok' => 'Ihr HTTP REFERER ist bekannt und entspricht Ihrem Server.',

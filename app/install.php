@@ -230,7 +230,7 @@ function saveStep3() {
 			$_SESSION['bd_error'] = '';
 			header('Location: index.php?step=4');
 		} else {
-			$_SESSION['bd_error'] = empty($config_array['db']['bd_error']) ? 'Unknown error!' : $config_array['db']['bd_error'];
+			$_SESSION['bd_error'] = empty($config_array['db']['error']) ? 'Unknown error!' : $config_array['db']['error'];
 		}
 	}
 	invalidateHttpCache();
@@ -375,7 +375,7 @@ function checkDbUser(&$dbOptions) {
 		}
 	} catch (PDOException $e) {
 		$ok = false;
-		$dbOptions['bd_error'] = $e->getMessage();
+		$dbOptions['error'] = $e->getMessage();
 	}
 	return $ok;
 }
@@ -476,6 +476,12 @@ function printStep1() {
 	<p class="alert alert-success"><span class="alert-head"><?php echo _t('gen.short.ok'); ?></span> <?php echo _t('install.check.xml.ok'); ?></p>
 	<?php } else { ?>
 	<p class="alert alert-error"><span class="alert-head"><?php echo _t('gen.short.damn'); ?></span> <?php echo _t('install.check.xml.nok'); ?></p>
+	<?php } ?>
+
+	<?php if ($res['fileinfo'] == 'ok') { ?>
+	<p class="alert alert-success"><span class="alert-head"><?php echo _t('gen.short.ok'); ?></span> <?php echo _t('install.check.fileinfo.ok'); ?></p>
+	<?php } else { ?>
+	<p class="alert alert-error"><span class="alert-head"><?php echo _t('gen.short.damn'); ?></span> <?php echo _t('install.check.fileinfo.nok'); ?></p>
 	<?php } ?>
 
 	<?php if ($res['data'] == 'ok') { ?>
@@ -634,7 +640,7 @@ function printStep3() {
 		<div class="form-group">
 			<label class="group-name" for="host"><?php echo _t('install.bdd.host'); ?></label>
 			<div class="group-controls">
-				<input type="text" id="host" name="host" pattern="[0-9A-Za-z_.-]{1,64}(:[0-9]{2,5})?" value="<?php echo isset($_SESSION['bd_host']) ? $_SESSION['bd_host'] : $system_default_config->db['host']; ?>" tabindex="2" />
+				<input type="text" id="host" name="host" pattern="[0-9A-Z/a-z_.-]{1,64}(:[0-9]{2,5})?" value="<?php echo isset($_SESSION['bd_host']) ? $_SESSION['bd_host'] : $system_default_config->db['host']; ?>" tabindex="2" />
 			</div>
 		</div>
 

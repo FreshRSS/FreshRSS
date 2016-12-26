@@ -57,6 +57,10 @@ return array(
 			'nok' => 'Feed table is bad configured.',
 			'ok' => 'Feed table is ok.',
 		),
+		'fileinfo' => array(
+			'nok' => 'Cannot find the PHP fileinfo library (fileinfo package).',
+			'ok' => 'You have the fileinfo library.',
+		),
 		'files' => 'File installation',
 		'json' => array(
 			'nok' => 'Cannot find JSON (php5-json package).',

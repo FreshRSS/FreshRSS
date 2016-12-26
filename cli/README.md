@@ -32,11 +32,11 @@ Options in parenthesis are optional.
 ```sh
 cd /usr/share/FreshRSS
 
-./cli/do-install.php --default_user admin --auth_type form  ( --environment production --base_url https://rss.example.net/ --title FreshRSS --allow_anonymous --api_enabled --db-type mysql --db-host localhost:3306 --db-user freshrss --db-password dbPassword123 --db-base freshrss --db-prefix freshrss )
-# --auth_type can be: 'form' (recommended), 'http_auth' (using the Web server access control), 'none' (dangerous)
+./cli/do-install.php --default_user admin ( --auth_type form --environment production --base_url https://rss.example.net/ --title FreshRSS --allow_anonymous --api_enabled --db-type mysql --db-host localhost:3306 --db-user freshrss --db-password dbPassword123 --db-base freshrss --db-prefix freshrss )
+# --auth_type can be: 'form' (default), 'http_auth' (using the Web server access control), 'none' (dangerous)
 # --db-type can be: 'sqlite' (default), 'mysql' (MySQL or MariaDB), 'pgsql' (PostgreSQL)
 # --environment can be: 'production' (default), 'development' (for additional log messages)
-# --db-prefix is an optional prefix in front of the names of the tables
+# --db-prefix is an optional prefix in front of the names of the tables. We suggest using 'freshrss_'
 # This command does not create the default user. Do that with ./cli/create-user.php
 
 ./cli/create-user.php --user username ( --password 'password' --api-password 'api_password' --language en --email user@example.net --token 'longRandomString' --no-default-feeds )
@@ -55,4 +55,26 @@ cd /usr/share/FreshRSS
 ./cli/export-opml-for-user.php --user username > /path/to/file.opml.xml
 
 ./cli/export-zip-for-user.php --user username ( --max-feed-entries 100 ) > /path/to/file.zip
+
+./cli/user-info.php -h --user username
+# -h is to use a human-readable format
+# --user can be a username, or '*' to loop on all users
+# Returns a * if the user is admin, the name of the user, the date/time of last action, and the size occupied
+```
+
+
+## Unix piping
+
+It is possible to invoke a command multiple times, e.g. with different usernames, thanks to the `xargs -n1` command.
+
+Example showing user information for all users which username starts with 'a':
+
+```sh
+./cli/list-users.php | grep '^a' | xargs -n1 ./cli/user-info.php -h --user
+```
+
+Example showing all users ranked by date of last activity:
+
+```sh
+./cli/user-info.php -h --user '*' | sort -k2 -r
 ```

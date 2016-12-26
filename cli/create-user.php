@@ -43,6 +43,9 @@ if (!$ok) {
 
 invalidateHttpCache(FreshRSS_Context::$system_conf->default_user);
 
+echo '• Remember to refresh the feeds of the user: ', $username , "\n",
+	"\t", './cli/actualize-user.php --user ', $username, "\n";
+
 accessRights();
 
 done($ok);

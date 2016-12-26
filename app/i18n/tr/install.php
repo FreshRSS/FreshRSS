@@ -56,6 +56,10 @@ return array(
 			'nok' => '<em>./data/favicons</em> klasör yetkisini kontrol edin. HTTP yazma yetkisi olmalı',
 			'ok' => 'Site ikonu klasörü yetkileri sorunsuz.',
 		),
+		'fileinfo' => array(
+			'nok' => 'PHP fileinfo eksik (fileinfo package).',
+			'ok' => 'fileinfo eklentisi sorunsuz.',
+		),
 		'http_referer' => array(
 			'nok' => 'Lütfen HTTP REFERER değiştirmediğinize emin olun.',
 			'ok' => 'HTTP REFERER ve sunucunuz arası iletişim sorunsuz.',

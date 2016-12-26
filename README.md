@@ -8,6 +8,7 @@ It is at the same time lightweight, easy to work with, powerful and customizable
 It is a multi-user application with an anonymous reading mode.
 It supports [PubSubHubbub](https://code.google.com/p/pubsubhubbub/) for instant notifications from compatible Web sites.
 There is an API for (mobile) clients, and a [Command-Line Interface](./cli/README.md).
+Finally, it supports [extensions](#extensions) for further tuning.
 
 * Official website: http://freshrss.org
 * Demo: http://demo.freshrss.org/
@@ -85,13 +86,16 @@ sudo git checkout -b dev origin/dev
 
 # Set the rights so that your Web server can access the files
 sudo chown -R :www-data . && sudo chmod -R g+r . && sudo chmod -R g+w ./data/
+# If you would like to allow updates from the Web interface
+sudo chmod -R g+w .
+
 # Publish FreshRSS in your public HTML directory
 sudo ln -s /usr/share/FreshRSS/p /var/www/html/FreshRSS
 # Navigate to http://example.net/FreshRSS to complete the installation
 # (If you do it from localhost, you may have to adjust the setting of your public address later)
 # or use the Command-Line Interface
 
-# Update to a newer version of FreshRSS
+# Update to a newer version of FreshRSS with git
 cd /usr/share/FreshRSS
 sudo git pull
 sudo chown -R :www-data . && sudo chmod -R g+r . && sudo chmod -R g+w ./data/
@@ -138,6 +142,11 @@ Create `/etc/cron.d/FreshRSS` with:
 ```bash
 mysqldump -u user -p --databases freshrss > freshrss.sql
 ```
+
+
+# Extensions 
+FreshRSS supports further customizations by adding extensions on top of its core functionality.
+See the [repository dedicated to those extensions](https://github.com/FreshRSS/Extensions). 
 
 
 # Included libraries

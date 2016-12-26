@@ -22,7 +22,7 @@ return array(
 	),
 	'auth' => array(
 		'email' => 'Adresse courriel',
-		'keep_logged_in' => 'Rester connecté <small>(1 mois)</small>',
+		'keep_logged_in' => 'Rester connecté <small>(%s jours)</small>',
 		'login' => 'Connexion',
 		'logout' => 'Déconnexion',
 		'password' => array(
