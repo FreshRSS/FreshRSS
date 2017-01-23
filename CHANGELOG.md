@@ -2,6 +2,8 @@
 
 ## 2017-xx-xx FreshRSS 1.7.0-dev
 
+* UI
+	* Chrome parity with Firefox: auto-focus tab when clicking on notification [#1409](https://github.com/FreshRSS/FreshRSS/pull/1409)
 
 
 ## 2016-12-26 FreshRSS 1.6.2
