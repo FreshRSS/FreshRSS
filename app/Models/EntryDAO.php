@@ -649,7 +649,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 			$values[] = intval($id);
 			break;
 		case 'A':
-			$where .= '1 ';
+			$where .= '1=1 ';
 			break;
 		default:
 			throw new FreshRSS_EntriesGetter_Exception('Bad type in Entry->listByType: [' . $type . ']!');
