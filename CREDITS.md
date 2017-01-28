@@ -11,7 +11,8 @@ People are sorted by name so please keep this order.
 * [Alwaysin](https://github.com/Alwaysin): [contributions](https://github.com/FreshRSS/FreshRSS/commits?author=Alwaysin)
 * [Amaury Carrade](https://github.com/AmauryCarrade): [contributions](https://github.com/FreshRSS/FreshRSS/commits?author=AmauryCarrade), [Web](https://amaury.carrade.eu/)
 * [ASMfreaK](https://github.com/ASMfreaK): [contributions](https://github.com/FreshRSS/FreshRSS/commits?author=ASMfreaK)
-* [Damstre](https://github.com/Damstre): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:Damstre),
+* [Crupuk](https://github.com/Crupuk): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:Crupuk)
+* [Damstre](https://github.com/Damstre): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:Damstre)
 * [danc](https://github.com/danc): [contributions](https://github.com/FreshRSS/FreshRSS/commits?author=danc), [Web](http://tintouli.free.fr/)
 * [ealdraed](https://github.com/ealdraed): [contributions](https://github.com/FreshRSS/FreshRSS/commits?author=ealdraed)
 * [Frans de Jonge](https://github.com/Frenzie): [contributions](https://github.com/FreshRSS/FreshRSS/commits?author=Frenzie), [Web](http://fransdejonge.com/)
