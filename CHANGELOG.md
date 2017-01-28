@@ -4,6 +4,8 @@
 
 * UI
 	* Chrome parity with Firefox: auto-focus tab when clicking on notification [#1409](https://github.com/FreshRSS/FreshRSS/pull/1409)
+* Bug fixing
+	* Fix PostgreSQL bugs with API and feed modifications [#1417](https://github.com/FreshRSS/FreshRSS/pull/1417)
 
 
 ## 2016-12-26 FreshRSS 1.6.2

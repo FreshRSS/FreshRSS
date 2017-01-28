@@ -34,5 +34,6 @@ People are sorted by name so please keep this order.
 * [romibi](https://github.com/romibi): [contributions](https://github.com/FreshRSS/FreshRSS/commits/dev?author=romibi)
 * [subic](https://github.com/subic): [contributions](https://github.com/FreshRSS/documentation/commits?author=subic)
 * [Tets42](https://github.com/Tets42): [contributions](https://github.com/FreshRSS/FreshRSS/commits?author=Tets42)
+* [Thomas Citharel](https://github.com/tcitworld): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:tomgue), [Web](https://www.tcit.fr/)
 * [tomgue](https://github.com/tomgue): [contributions](https://github.com/FreshRSS/FreshRSS/commits?author=tomgue)
 * [Wanabo](https://github.com/Wanabo): [contributions](https://github.com/FreshRSS/FreshRSS/commits?author=Wanabo)
