@@ -165,6 +165,7 @@ return array(
 		'twitter' => 'Twitter',
 		'wallabag' => 'wallabag v1',
 		'wallabagv2' => 'wallabag v2',
+		'Known' => 'Known based sites',
 	),
 	'short' => array(
 		'attention' => 'Warning!',
