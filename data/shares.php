@@ -89,4 +89,10 @@ return array(
                 'transform' => array('rawurlencode'),
                 'form' => 'simple',
         ),
+	'Known' => array(
+		'url' => '~URL~/share?share_url=~LINK~&share_title=~TITLE~',
+		'transform' => array('rawurlencode'),
+		'help' => 'https://withknown.com/',
+		'form' => 'advanced',
+	),
 );

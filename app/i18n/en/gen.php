@@ -165,6 +165,7 @@ return array(
 		'wallabag' => 'wallabag v1',
 		'wallabagv2' => 'wallabag v2',
 		'jdh' => 'Journal du hacker',
+		'Known' => 'Known based sites',
 	),
 	'short' => array(
 		'attention' => 'Warning!',
