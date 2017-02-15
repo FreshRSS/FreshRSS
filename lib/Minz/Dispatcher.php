@@ -14,25 +14,19 @@ class Minz_Dispatcher {
 
 	/* singleton */
 	private static $instance = null;
+	private static $needsReset;
+	private static $registrations = array();
 
-	private $router;
 	private $controller;
 
 	/**
 	 * Récupère l'instance du Dispatcher
 	 */
-	public static function getInstance ($router) {
+	public static function getInstance () {
 		if (self::$instance === null) {
-			self::$instance = new Minz_Dispatcher ($router);
+			self::$instance = new Minz_Dispatcher ();
 		}
 		return self::$instance;
-	}
-
-	/**
-	 * Constructeur
-	 */
-	private function __construct ($router) {
-		$this->router = $router;
 	}
 
 	/**
@@ -40,71 +34,52 @@ class Minz_Dispatcher {
 	 * Remplit le body de Response à partir de la Vue
 	 * @exception Minz_Exception
 	 */
-	public function run ($ob = true) {
-		$cache = new Minz_Cache();
-		// Le ob_start est dupliqué : sans ça il y a un bug sous Firefox
-		// ici on l'appelle avec 'ob_gzhandler', après sans.
-		// Vraisemblablement la compression fonctionne mais c'est sale
-		// J'ignore les effets de bord :(
-		if ($ob) {
-			ob_start ('ob_gzhandler');
-		}
+	public function run () {
+		do {
+			self::$needsReset = false;
 
-		if (Minz_Cache::isEnabled () && !$cache->expired ()) {
-			if ($ob) {
-				ob_start ();
-			}
-			$cache->render ();
-			if ($ob) {
-				$text = ob_get_clean();
-			}
-		} else {
-			$text = '';	//TODO: Clean this code
-			while (Minz_Request::$reseted) {
-				Minz_Request::$reseted = false;
-
-				try {
-					$this->createController ('FreshRSS_' . Minz_Request::controllerName () . '_Controller');
-					$this->controller->init ();
-					$this->controller->firstAction ();
+			try {
+				$this->createController (Minz_Request::controllerName ());
+				$this->controller->init ();
+				$this->controller->firstAction ();
+				if (!self::$needsReset) {
 					$this->launchAction (
 						Minz_Request::actionName ()
 						. 'Action'
 					);
-					$this->controller->lastAction ();
-
-					if (!Minz_Request::$reseted) {
-						if ($ob) {
-							ob_start ();
-						}
-						$this->controller->view ()->build ();
-						if ($ob) {
-							$text = ob_get_clean();
-						}
-					}
-				} catch (Minz_Exception $e) {
-					throw $e;
 				}
-			}
+				$this->controller->lastAction ();
 
-			if (Minz_Cache::isEnabled ()) {
-				$cache->cache ($text);
+				if (!self::$needsReset) {
+					$this->controller->view ()->build ();
+				}
+			} catch (Minz_Exception $e) {
+				throw $e;
 			}
-		}
+		} while (self::$needsReset);
+	}
 
-		Minz_Response::setBody ($text);
+	/**
+	 * Informe le contrôleur qu'il doit recommancer car la requête a été modifiée
+	 */
+	public static function reset() {
+		self::$needsReset = true;
 	}
 
 	/**
 	 * Instancie le Controller
-	 * @param $controller_name le nom du controller à instancier
+	 * @param $base_name le nom du controller à instancier
 	 * @exception ControllerNotExistException le controller n'existe pas
 	 * @exception ControllerNotActionControllerException controller n'est
 	 *          > pas une instance de ActionController
 	 */
-	private function createController ($controller_name) {
-		$filename = APP_PATH . self::CONTROLLERS_PATH_NAME . '/'
-		          . $controller_name . '.php';
+	private function createController ($base_name) {
+		if (self::isRegistered($base_name)) {
+			self::loadController($base_name);
+			$controller_name = 'FreshExtension_' . $base_name . '_Controller';
+		} else {
+			$controller_name = 'FreshRSS_' . $base_name . '_Controller';
+		}
 
 		if (!class_exists ($controller_name)) {
 			throw new Minz_ControllerNotExistException (
@@ -112,7 +87,7 @@ class Minz_Dispatcher {
 				Minz_Exception::ERROR
 			);
 		}
-		$this->controller = new $controller_name ($this->router);
+		$this->controller = new $controller_name ();
 
 		if (! ($this->controller instanceof Minz_ActionController)) {
 			throw new Minz_ControllerNotActionControllerException (
@@ -129,21 +104,57 @@ class Minz_Dispatcher {
 	 *  le controller
 	 */
 	private function launchAction ($action_name) {
-		if (!Minz_Request::$reseted) {
-			if (!is_callable (array (
-				$this->controller,
-				$action_name
-			))) {
-				throw new Minz_ActionException (
-					get_class ($this->controller),
-					$action_name,
-					Minz_Exception::ERROR
-				);
-			}
-			call_user_func (array (
-				$this->controller,
-				$action_name
-			));
+		if (!is_callable (array (
+			$this->controller,
+			$action_name
+		))) {
+			throw new Minz_ActionException (
+				get_class ($this->controller),
+				$action_name,
+				Minz_Exception::ERROR
+			);
 		}
+		call_user_func (array (
+			$this->controller,
+			$action_name
+		));
+	}
+
+	/**
+	 * Register a controller file.
+	 *
+	 * @param $base_name the base name of the controller (i.e. ./?c=<base_name>)
+	 * @param $base_path the base path where we should look into to find info.
+	 */
+	public static function registerController($base_name, $base_path) {
+		if (!self::isRegistered($base_name)) {
+			self::$registrations[$base_name] = $base_path;
+		}
+	}
+
+	/**
+	 * Return if a controller is registered.
+	 *
+	 * @param $base_name the base name of the controller.
+	 * @return true if the controller has been registered, false else.
+	 */
+	public static function isRegistered($base_name) {
+		return isset(self::$registrations[$base_name]);
+	}
+
+	/**
+	 * Load a controller file (include).
+	 *
+	 * @param $base_name the base name of the controller.
+	 */
+	private static function loadController($base_name) {
+		$base_path = self::$registrations[$base_name];
+		$controller_filename = $base_path . '/controllers/' . $base_name . 'Controller.php';
+		include_once $controller_filename;
+	}
+
+	private static function setViewPath($controller, $base_name) {
+		$base_path = self::$registrations[$base_name];
+		$controller->view()->setBasePathname($base_path);
 	}
 }

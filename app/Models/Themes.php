@@ -31,7 +31,10 @@ class FreshRSS_Themes extends Minz_Model {
 			if (file_exists($json_filename)) {
 				$content = file_get_contents($json_filename);
 				$res = json_decode($content, true);
-				if ($res && isset($res['files']) && is_array($res['files'])) {
+				if ($res &&
+						!empty($res['name']) &&
+						isset($res['files']) &&
+						is_array($res['files'])) {
 					$res['id'] = $theme_id;
 					return $res;
 				}
@@ -70,6 +73,7 @@ class FreshRSS_Themes extends Minz_Model {
 			'add' => '✚',
 			'all' => '☰',
 			'bookmark' => '★',
+			'bookmark-add' => '✚',
 			'category' => '☷',
 			'category-white' => '☷',
 			'close' => '❌',
@@ -77,6 +81,9 @@ class FreshRSS_Themes extends Minz_Model {
 			'down' => '▽',
 			'favorite' => '★',
 			'help' => 'ⓘ',
+			'icon' => '⊚',
+			'import' => '⤓',
+			'key' => '⚿',
 			'link' => '↗',
 			'login' => '🔒',
 			'logout' => '🔓',
@@ -84,13 +91,18 @@ class FreshRSS_Themes extends Minz_Model {
 			'non-starred' => '☆',
 			'prev' => '⏪',
 			'read' => '☑',
+			'rss' => '☄',
 			'unread' => '☐',
 			'refresh' => '🔃',	//↻
 			'search' => '🔍',
 			'share' => '♺',
 			'starred' => '★',
+			'stats' => '%',
 			'tag' => '⚐',
 			'up' => '△',
+			'view-normal' => '☰',
+			'view-global' => '☷',
+			'view-reader' => '☕',
 		);
 		if (!isset($alts[$name])) {
 			return '';

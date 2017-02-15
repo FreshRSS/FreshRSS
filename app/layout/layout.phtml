@@ -1,53 +1,78 @@
+<?php FreshRSS::preLayout(); ?>
 <!DOCTYPE html>
-<html lang="<?php echo $this->conf->language; ?>" xml:lang="<?php echo $this->conf->language; ?>">
+<html lang="<?php echo FreshRSS_Context::$user_conf->language; ?>" xml:lang="<?php echo FreshRSS_Context::$user_conf->language; ?>">
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="initial-scale=1.0" />
-		<?php echo self::headTitle (); ?>
-		<?php echo self::headStyle (); ?>
-		<?php echo self::headScript (); ?>
-		<script>//<![CDATA[
-<?php $this->renderHelper ('javascript_vars'); ?>
-		//]]></script>
-<?php
-	if (!empty($this->nextId)) {
-		$params = Minz_Request::params ();
-		$params['next'] = $this->nextId;
-?>
-		<link id="prefetch" rel="next prefetch" href="<?php echo Minz_Url::display (array ('c' => Minz_Request::controllerName (), 'a' => Minz_Request::actionName (), 'params' => $params)); ?>" />
-<?php } ?>
-		<link rel="shortcut icon" type="image/x-icon" sizes="16x16 64x64" href="<?php echo Minz_Url::display('/favicon.ico'); ?>" />
+		<?php echo self::headStyle(); ?>
+		<script id="jsonVars" type="application/json">
+<?php $this->renderHelper('javascript_vars'); ?>
+		</script>
+		<?php echo self::headScript(); ?>
+		<link rel="shortcut icon" id="favicon" type="image/x-icon" sizes="16x16 64x64" href="<?php echo Minz_Url::display('/favicon.ico'); ?>" />
 		<link rel="icon msapplication-TileImage apple-touch-icon" type="image/png" sizes="256x256" href="<?php echo Minz_Url::display('/themes/icons/favicon-256.png'); ?>" />
-<?php if (isset ($this->rss_url)) { ?>
-		<link rel="alternate" type="application/rss+xml" title="<?php echo $this->rss_title; ?>" href="<?php echo Minz_Url::display ($this->rss_url); ?>" />
-<?php } ?>
-		<link rel="prefetch" href="<?php echo FreshRSS_Themes::icon('starred', true); ?>">
-		<link rel="prefetch" href="<?php echo FreshRSS_Themes::icon('non-starred', true); ?>">
-		<link rel="prefetch" href="<?php echo FreshRSS_Themes::icon('read', true); ?>">
-		<link rel="prefetch" href="<?php echo FreshRSS_Themes::icon('unread', true); ?>">
+		<link rel="prefetch" href="<?php echo FreshRSS_Themes::icon('starred', true); ?>" />
+		<link rel="prefetch" href="<?php echo FreshRSS_Themes::icon('non-starred', true); ?>" />
+		<link rel="prefetch" href="<?php echo FreshRSS_Themes::icon('read', true); ?>" />
+		<link rel="prefetch" href="<?php echo FreshRSS_Themes::icon('unread', true); ?>" />
+		<link rel="apple-touch-icon" href="<?php echo Minz_Url::display('/themes/icons/apple-touch-icon.png'); ?>" />
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+		<meta name="apple-mobile-web-app-title" content="<?php echo FreshRSS_Context::$system_conf->title; ?>">
 		<meta name="msapplication-TileColor" content="#FFF" />
+<?php if (!FreshRSS_Context::$system_conf->allow_referrer) { ?>
+		<meta name="referrer" content="never" />
+<?php
+	}
+	flush();
+	if (isset($this->callbackBeforeContent)) {
+		call_user_func($this->callbackBeforeContent, $this);
+	}
+?>
+		<?php echo self::headTitle(); ?>
+<?php
+	$url_base = Minz_Request::currentRequest();
+	if (FreshRSS_Context::$next_id !== '') {
+		$url_next = $url_base;
+		$url_next['params']['next'] = FreshRSS_Context::$next_id;
+		$url_next['params']['ajax'] = 1;
+?>
+		<link id="prefetch" rel="next prefetch" href="<?php echo Minz_Url::display($url_next); ?>" />
+<?php
+	} if (isset($this->rss_title)) {
+		$url_rss = $url_base;
+		$url_rss['a'] = 'rss';
+		if (FreshRSS_Context::$user_conf->since_hours_posts_per_rss) {
+			$url_rss['params']['hours'] = FreshRSS_Context::$user_conf->since_hours_posts_per_rss;
+		}
+?>
+		<link rel="alternate" type="application/rss+xml" title="<?php echo $this->rss_title; ?>" href="<?php echo Minz_Url::display($url_rss); ?>" />
+<?php } if (FreshRSS_Context::$system_conf->allow_robots) { ?>
+		<meta name="description" content="<?php echo htmlspecialchars(FreshRSS_Context::$name . ' | ' . FreshRSS_Context::$description, ENT_COMPAT, 'UTF-8'); ?>" />
+<?php } else { ?>
 		<meta name="robots" content="noindex,nofollow" />
+<?php } ?>
 	</head>
-	<body class="<?php echo Minz_Request::param('output', 'normal'); ?>">
-<?php $this->partial ('header'); ?>
+	<body class="<?php echo Minz_Request::actionName(); ?>">
+<?php $this->partial('header'); ?>
 
 <div id="global">
-	<?php $this->render (); ?>
+	<?php $this->render(); ?>
 </div>
 
 <?php
 	$msg = '';
 	$status = 'closed';
-	if (isset ($this->notification)) {
+	if (isset($this->notification)) {
 		$msg = $this->notification['content'];
 		$status = $this->notification['type'];
 
 		invalidateHttpCache();
 	}
 ?>
-<div id="notification" class="<?php echo $status; ?>">
+<div id="notification" class="notification <?php echo $status; ?>">
 	<span class="msg"><?php echo $msg; ?></span>
-	<a class="close" href=""><?php echo FreshRSS_Themes::icon('close'); ?></a>
+	<a class="close" href=""><?php echo _i('close'); ?></a>
 </div>
 	</body>
 </html>

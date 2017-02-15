@@ -5,13 +5,11 @@
  */
 class Minz_Url {
 	/**
-	 * Affiche une Url formatée selon que l'on utilise l'url_rewriting ou non
-	 * si oui, on cherche dans la table de routage la correspondance pour formater
+	 * Affiche une Url formatée
 	 * @param $url l'url à formater définie comme un tableau :
 	 *                    $url['c'] = controller
 	 *                    $url['a'] = action
 	 *                    $url['params'] = tableau des paramètres supplémentaires
-	 *                    $url['protocol'] = protocole à utiliser (http par défaut)
 	 *             ou comme une chaîne de caractère
 	 * @param $encodage pour indiquer comment encoder les & (& ou &amp; pour html)
 	 * @return l'url formatée
@@ -20,77 +18,77 @@ class Minz_Url {
 		$isArray = is_array($url);
 
 		if ($isArray) {
-			$url = self::checkUrl ($url);
+			$url = self::checkUrl($url);
 		}
 
 		$url_string = '';
 
 		if ($absolute) {
-			if ($isArray && isset ($url['protocol'])) {
-				$protocol = $url['protocol'];
-			} elseif (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on') {
-				$protocol = 'https:';
-			} else {
-				$protocol = 'http:';
+			$url_string = Minz_Request::getBaseUrl();
+			if ($url_string == '') {
+				$url_string = Minz_Request::guessBaseUrl();
 			}
-			$url_string = $protocol . '//' . Minz_Request::getDomainName () . Minz_Request::getBaseUrl ();
+			if ($isArray) {
+				$url_string .= PUBLIC_TO_INDEX_PATH;
+			}
+			if ($absolute === 'root') {
+				$url_string = parse_url($url_string, PHP_URL_PATH);
+			}
 		} else {
 			$url_string = $isArray ? '.' : PUBLIC_RELATIVE;
 		}
 
 		if ($isArray) {
-			$router = new Minz_Router ();
-
-			if (Minz_Configuration::useUrlRewriting ()) {
-				$url_string .= $router->printUriRewrited ($url);
-			} else {
-				$url_string .= self::printUri ($url, $encodage);
-			}
+			$url_string .= self::printUri($url, $encodage);
+		} elseif ($encodage === 'html') {
+			$url_string = Minz_Helper::htmlspecialchars_utf8($url_string . $url);
 		} else {
 			$url_string .= $url;
 		}
 
 		return $url_string;
 	}
-	
+
 	/**
-	 * Construit l'URI d'une URL sans url rewriting
+	 * Construit l'URI d'une URL
 	 * @param l'url sous forme de tableau
 	 * @param $encodage pour indiquer comment encoder les & (& ou &amp; pour html)
 	 * @return l'uri sous la forme ?key=value&key2=value2
 	 */
-	private static function printUri ($url, $encodage) {
+	private static function printUri($url, $encodage) {
 		$uri = '';
-		$separator = '/?';
-		
-		if($encodage == 'html') {
+		$separator = '?';
+
+		if ($encodage === 'html') {
 			$and = '&amp;';
 		} else {
 			$and = '&';
 		}
-		
-		if (isset ($url['c'])
-		 && $url['c'] != Minz_Request::defaultControllerName ()) {
+
+		if (isset($url['c'])
+		 && $url['c'] != Minz_Request::defaultControllerName()) {
 			$uri .= $separator . 'c=' . $url['c'];
 			$separator = $and;
 		}
-		
-		if (isset ($url['a'])
-		 && $url['a'] != Minz_Request::defaultActionName ()) {
+
+		if (isset($url['a'])
+		 && $url['a'] != Minz_Request::defaultActionName()) {
 			$uri .= $separator . 'a=' . $url['a'];
 			$separator = $and;
 		}
-		
-		if (isset ($url['params'])) {
+
+		if (isset($url['params'])) {
+			unset($url['params']['c']);
+			unset($url['params']['a']);
 			foreach ($url['params'] as $key => $param) {
-				$uri .= $separator . $key . '=' . $param;
+				$uri .= $separator . urlencode($key) . '=' . urlencode($param);
 				$separator = $and;
 			}
 		}
-		
+
 		return $uri;
 	}
-	
+
 	/**
 	 * Vérifie que les éléments du tableau représentant une url soit ok
 	 * @param l'url sous forme de tableau (sinon renverra directement $url)
@@ -98,7 +96,7 @@ class Minz_Url {
 	 */
 	public static function checkUrl ($url) {
 		$url_checked = $url;
-		
+
 		if (is_array ($url)) {
 			if (!isset ($url['c'])) {
 				$url_checked['c'] = Minz_Request::defaultControllerName ();
@@ -110,7 +108,7 @@ class Minz_Url {
 				$url_checked['params'] = array ();
 			}
 		}
-		
+
 		return $url_checked;
 	}
 }

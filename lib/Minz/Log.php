@@ -28,16 +28,25 @@ class Minz_Log {
 	 * 	- level = NOTICE et environment = PRODUCTION
 	 * @param $information message d'erreur / information à enregistrer
 	 * @param $level niveau d'erreur
-	 * @param $file_name fichier de log, par défaut LOG_PATH/application.log
+	 * @param $file_name fichier de log
 	 */
 	public static function record ($information, $level, $file_name = null) {
-		$env = Minz_Configuration::environment ();
+		try {
+			$conf = Minz_Configuration::get('system');
+			$env = $conf->environment;
+		} catch (Minz_ConfigurationException $e) {
+			$env = 'production';
+		}
 
-		if (! ($env === Minz_Configuration::SILENT
-		       || ($env === Minz_Configuration::PRODUCTION
+		if (! ($env === 'silent'
+		       || ($env === 'production'
 		       && ($level >= Minz_Log::NOTICE)))) {
 			if ($file_name === null) {
-				$file_name = LOG_PATH . '/' . Minz_Session::param('currentUser', '_') . '.log';
+				$username = Minz_Session::param('currentUser', '');
+				if ($username == '') {
+					$username = '_';
+				}
+				$file_name = join_path(USERS_PATH, $username, 'log.txt');
 			}
 
 			switch ($level) {
@@ -71,7 +80,7 @@ class Minz_Log {
 	 * Automatise le log des variables globales $_GET et $_POST
 	 * Fait appel à la fonction record(...)
 	 * Ne fonctionne qu'en environnement "development"
-	 * @param $file_name fichier de log, par défaut LOG_PATH/application.log
+	 * @param $file_name fichier de log
 	 */
 	public static function recordRequest($file_name = null) {
 		$msg_get = str_replace("\n", '', '$_GET content : ' . print_r($_GET, true));
@@ -79,5 +88,22 @@ class Minz_Log {
 
 		self::record($msg_get, Minz_Log::DEBUG, $file_name);
 		self::record($msg_post, Minz_Log::DEBUG, $file_name);
+	}
+
+	/**
+	 * Some helpers to Minz_Log::record() method
+	 * Parameters are the same of those of the record() method.
+	 */
+	public static function debug($msg, $file_name = null) {
+		self::record($msg, Minz_Log::DEBUG, $file_name);
+	}
+	public static function notice($msg, $file_name = null) {
+		self::record($msg, Minz_Log::NOTICE, $file_name);
+	}
+	public static function warning($msg, $file_name = null) {
+		self::record($msg, Minz_Log::WARNING, $file_name);
+	}
+	public static function error($msg, $file_name = null) {
+		self::record($msg, Minz_Log::ERROR, $file_name);
 	}
 }

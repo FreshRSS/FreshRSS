@@ -19,41 +19,28 @@ class Minz_Error {
 	*      > $logs['notice']
 	* @param $redirect indique s'il faut forcer la redirection (les logs ne seront pas transmis)
 	*/
-	public static function error ($code = 404, $logs = array (), $redirect = false) {
+	public static function error ($code = 404, $logs = array (), $redirect = true) {
 		$logs = self::processLogs ($logs);
 		$error_filename = APP_PATH . '/Controllers/errorController.php';
 
 		if (file_exists ($error_filename)) {
-			$params = array (
-				'code' => $code,
-				'logs' => $logs
-			);
+			Minz_Session::_param('error_code', $code);
+			Minz_Session::_param('error_logs', $logs);
 
-			Minz_Response::setHeader ($code);
-			if ($redirect) {
-				Minz_Request::forward (array (
-					'c' => 'error'
-				), true);
-			} else {
-				Minz_Request::forward (array (
-					'c' => 'error',
-					'params' => $params
-				), false);
-			}
+			Minz_Request::forward (array (
+				'c' => 'error'
+			), $redirect);
 		} else {
-			$text = '<h1>An error occured</h1>'."\n";
+			echo '<h1>An error occured</h1>' . "\n";
 
 			if (!empty ($logs)) {
-				$text .= '<ul>'."\n";
+				echo '<ul>' . "\n";
 				foreach ($logs as $log) {
-					$text .= '<li>' . $log . '</li>'."\n";
+					echo '<li>' . $log . '</li>' . "\n";
 				}
-				$text .= '</ul>'."\n";
+				echo '</ul>' . "\n";
 			}
 
-			Minz_Response::setHeader ($code);
-			Minz_Response::setBody ($text);
-			Minz_Response::send ();
 			exit ();
 		}
 	}
@@ -66,7 +53,8 @@ class Minz_Error {
 	 *       > en fonction de l'environment
 	 */
 	private static function processLogs ($logs) {
-		$env = Minz_Configuration::environment ();
+		$conf = Minz_Configuration::get('system');
+		$env = $conf->environment;
 		$logs_ok = array ();
 		$error = array ();
 		$warning = array ();
@@ -82,10 +70,10 @@ class Minz_Error {
 			$notice = $logs['notice'];
 		}
 
-		if ($env == Minz_Configuration::PRODUCTION) {
+		if ($env == 'production') {
 			$logs_ok = $error;
 		}
-		if ($env == Minz_Configuration::DEVELOPMENT) {
+		if ($env == 'development') {
 			$logs_ok = array_merge ($error, $warning, $notice);
 		}
 
