@@ -16,8 +16,9 @@ if (empty($options['user'])) {
 	fail('Usage: ' . basename(__FILE__) . " --user username ( --password 'password' --api-password 'api_password'" .
 		" --language en --email user@example.net --token 'longRandomString --no-default-feeds' )");
 }
+$aValid = array('-', '_', '.');
 $username = $options['user'];
-if (!ctype_alnum($username)) {
+if (!ctype_alnum(str_replace($aValid, '', $username))) {
 	fail('FreshRSS error: invalid username “' . $username . '”');
 }
 
