@@ -136,11 +136,7 @@ class SimplePie_Cache_File implements SimplePie_Cache_Base
 	 */
 	public function mtime()
 	{
-		if (file_exists($this->name))
-		{
-			return filemtime($this->name);
-		}
-		return false;
+		return @filemtime($this->name);
 	}
 
 	/**
@@ -150,11 +146,7 @@ class SimplePie_Cache_File implements SimplePie_Cache_Base
 	 */
 	public function touch()
 	{
-		if (file_exists($this->name))
-		{
-			return touch($this->name);
-		}
-		return false;
+		return @touch($this->name);
 	}
 
 	/**

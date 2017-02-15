@@ -1,7 +1,7 @@
 Screwdriver 
 =======
 
-**C'est un cocktail! C'est chaud mais "fresh" à la fois. C'est... c'est... un thème pour l'agrégateur de flux RSS<a href="https://github.com/marienfressinaud/FreshRSS/" target="blank">FreshRSS</a>!!**
+**C'est un cocktail! C'est chaud mais "fresh" à la fois. C'est... c'est... un thème pour l'agrégateur de flux RSS<a href="https://github.com/FreshRSS/FreshRSS/" target="blank">FreshRSS</a>!!**
 En toute modestie, ce thème tue du chaton.
 
 ![screenshot](https://github.com/misterair/Screwdriver/blob/master/screenshot.png)

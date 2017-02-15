@@ -1,7 +1,7 @@
 <?php $this->partial('aside_configure'); ?>
 
 <div class="post">
-	<a href="<?php echo _url('index', 'index'); ?>"><?php echo _t('back_to_rss_feeds'); ?></a>
+	<a href="<?php echo _url('index', 'index'); ?>"><?php echo _t('gen.action.back_to_rss_feeds'); ?></a>
 
 	<h2><?php echo _t('admin.check_install.php'); ?></h2>
 
@@ -9,7 +9,7 @@
 	<p class="alert <?php echo $status ? 'alert-success' : 'alert-error'; ?>">
 		<?php
 			if ($key === 'php') {
-				echo _t('admin.check_install.' . $key . '.' . ($status ? 'ok' : 'nok'), PHP_VERSION, '5.2.1');
+				echo _t('admin.check_install.' . $key . '.' . ($status ? 'ok' : 'nok'), PHP_VERSION, '5.3.3');
 			} else {
 				echo _t('admin.check_install.' . $key . '.' . ($status ? 'ok' : 'nok'));
 			}
@@ -25,6 +25,7 @@
 	</p>
 	<?php } ?>
 
+	<?php /*
 	<h2><?php echo _t('admin.check_install.database'); ?></h2>
 
 	<?php foreach ($this->status_database as $key => $status) { ?>
@@ -32,5 +33,6 @@
 		<?php echo _t('admin.check_install.' . $key . '.' . ($status ? 'ok' : 'nok')); ?>
 	</p>
 	<?php } ?>
+	*/ ?>
 
 </div>

@@ -1,36 +1,22 @@
 <?php
+
 require('../constants.php');
-$favicons_dir = DATA_PATH . '/favicons/';
+require(LIB_PATH . '/favicons.php');
+require(LIB_PATH . '/http-conditional.php');
 
-/* Télécharge le favicon d'un site et le place sur le serveur */
-function download_favicon ($website, $dest) {
-	$ok = false;
-	$url = 'http://g.etfv.co/' . $website;
+function show_default_favicon($cacheSeconds = 3600) {
+	global $default_favicon;
 
-	$c = curl_init ($url);
-	curl_setopt ($c, CURLOPT_HEADER, false);
-	curl_setopt ($c, CURLOPT_RETURNTRANSFER, true);
-	curl_setopt ($c, CURLOPT_BINARYTRANSFER, true);
-	$imgRaw = curl_exec ($c);
+	header('Content-Disposition: inline; filename="default_favicon.ico"');
 
-	if (curl_getinfo ($c, CURLINFO_HTTP_CODE) == 200) {
-		$file = fopen ($dest, 'w');
-		if ($file !== false) {
-			fwrite ($file, $imgRaw);
-			fclose ($file);
-			$ok = true;
-		}
+	$default_mtime = @filemtime($default_favicon);
+	if (!httpConditional($default_mtime, $cacheSeconds, 2)) {
+		readfile($default_favicon);
 	}
-	curl_close ($c);
-	if (!$ok) {
-		header('Location: ' . $url);
-		return false;
-	}
-	return true;
 }
 
-$id = isset($_SERVER['QUERY_STRING']) ? $_SERVER['QUERY_STRING'] : '0';
 
+$id = isset($_SERVER['QUERY_STRING']) ? $_SERVER['QUERY_STRING'] : '0';
 if (!ctype_xdigit($id)) {
 	$id = '0';
 }
@@ -38,27 +24,32 @@ if (!ctype_xdigit($id)) {
 $txt = $favicons_dir . $id . '.txt';
 $ico = $favicons_dir . $id . '.ico';
 
-$icoMTime = @filemtime($ico);
-$txtMTime = @filemtime($txt);
+$ico_mtime = @filemtime($ico);
+$txt_mtime = @filemtime($txt);
 
-if (($icoMTime == false) || ($txtMTime > $icoMTime)) {
-	if ($txtMTime == false) {
-		header('HTTP/1.1 404 Not Found');
-		header('Content-Type: image/gif');
-		readfile(PUBLIC_PATH . '/themes/icons/grey.gif');	//TODO: Better 404 favicon
-		die();
+header('Content-Type: image/x-icon');
+
+if ($ico_mtime == false || $ico_mtime < $txt_mtime || ($ico_mtime < time() - (rand(15, 20) * 86400))) {
+	if ($txt_mtime == false) {
+		show_default_favicon(1800);
+		exit();
 	}
+
+	// no ico file or we should download a new one.
 	$url = file_get_contents($txt);
 	if (!download_favicon($url, $ico)) {
-		die();
+		// Download failed
+		if ($ico_mtime == false) {
+			show_default_favicon(86400);
+			exit();
+		} else {
+			touch($ico);
+		}
 	}
 }
 
-require(LIB_PATH . '/http-conditional.php');
-
-header('Content-Type: image/x-icon');
 header('Content-Disposition: inline; filename="' . $id . '.ico"');
 
-if (!httpConditional($icoMTime, 2592000, 2)) {
+if (!httpConditional($ico_mtime, rand(14, 21) * 86400, 2)) {
 	readfile($ico);
 }

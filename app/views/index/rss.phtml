@@ -1,0 +1,29 @@
+<?php echo '<?xml version="1.0" encoding="UTF-8" ?>'; ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/">
+	<channel>
+		<title><?php echo $this->rss_title; ?></title>
+		<link><?php echo Minz_Url::display(null, 'html', true); ?></link>
+		<description><?php echo _t('index.feed.rss_of', $this->rss_title); ?></description>
+		<pubDate><?php echo date('D, d M Y H:i:s O'); ?></pubDate>
+		<lastBuildDate><?php echo gmdate('D, d M Y H:i:s'); ?> GMT</lastBuildDate>
+		<atom:link href="<?php echo Minz_Url::display($this->url, 'html', true); ?>" rel="self" type="application/rss+xml" />
+<?php
+foreach ($this->entries as $item) {
+?>
+		<item>
+			<title><?php echo $item->title(); ?></title>
+			<link><?php echo $item->link(); ?></link>
+			<?php $author = $item->author(); ?>
+			<?php if ($author != '') { ?>
+			<dc:creator><?php echo $author; ?></dc:creator>
+			<?php } ?>
+			<description><![CDATA[<?php
+	echo $item->content();
+?>]]></description>
+			<pubDate><?php echo date('D, d M Y H:i:s O', $item->date(true)); ?></pubDate>
+			<guid isPermaLink="false"><?php echo $item->id(); ?></guid>
+		</item>
+<?php } ?>
+
+	</channel>
+</rss>

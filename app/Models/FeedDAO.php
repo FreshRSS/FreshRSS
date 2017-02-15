@@ -1,9 +1,12 @@
 <?php
 
-class FreshRSS_FeedDAO extends Minz_ModelPdo {
+class FreshRSS_FeedDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 	public function addFeed($valuesTmp) {
-		$sql = 'INSERT INTO `' . $this->prefix . 'feed` (url, category, name, website, description, lastUpdate, priority, httpAuth, error, keep_history, ttl) VALUES(?, ?, ?, ?, ?, ?, 10, ?, 0, -2, -2)';
+		$sql = 'INSERT INTO `' . $this->prefix . 'feed` (url, category, name, website, description, `lastUpdate`, priority, `httpAuth`, error, keep_history, ttl) VALUES(?, ?, ?, ?, ?, ?, 10, ?, 0, -2, -2)';
 		$stm = $this->bd->prepare($sql);
+
+		$valuesTmp['url'] = safe_ascii($valuesTmp['url']);
+		$valuesTmp['website'] = safe_ascii($valuesTmp['website']);
 
 		$values = array(
 			substr($valuesTmp['url'], 0, 511),
@@ -16,7 +19,7 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo {
 		);
 
 		if ($stm && $stm->execute($values)) {
-			return $this->bd->lastInsertId();
+			return $this->bd->lastInsertId('"' . $this->prefix . 'feed_id_seq"');
 		} else {
 			$info = $stm == null ? array(2 => 'syntax error') : $stm->errorInfo();
 			Minz_Log::error('SQL error addFeed: ' . $info[2]);
@@ -55,6 +58,13 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo {
 	}
 
 	public function updateFeed($id, $valuesTmp) {
+		if (isset($valuesTmp['url'])) {
+			$valuesTmp['url'] = safe_ascii($valuesTmp['url']);
+		}
+		if (isset($valuesTmp['website'])) {
+			$valuesTmp['website'] = safe_ascii($valuesTmp['website']);
+		}
+
 		$set = '';
 		foreach ($valuesTmp as $key => $v) {
 			$set .= $key . '=?, ';
@@ -82,22 +92,26 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo {
 		}
 	}
 
-	public function updateLastUpdate($id, $inError = 0, $updateCache = true) {
+	public function updateLastUpdate($id, $inError = false, $updateCache = true, $mtime = 0) {
 		if ($updateCache) {
 			$sql = 'UPDATE `' . $this->prefix . 'feed` '	//2 sub-requests with FOREIGN KEY(e.id_feed), INDEX(e.is_read) faster than 1 request with GROUP BY or CASE
-			     . 'SET cache_nbEntries=(SELECT COUNT(e1.id) FROM `' . $this->prefix . 'entry` e1 WHERE e1.id_feed=`' . $this->prefix . 'feed`.id),'
-			     . 'cache_nbUnreads=(SELECT COUNT(e2.id) FROM `' . $this->prefix . 'entry` e2 WHERE e2.id_feed=`' . $this->prefix . 'feed`.id AND e2.is_read=0),'
-			     . 'lastUpdate=?, error=? '
+			     . 'SET `cache_nbEntries`=(SELECT COUNT(e1.id) FROM `' . $this->prefix . 'entry` e1 WHERE e1.id_feed=`' . $this->prefix . 'feed`.id),'
+			     . '`cache_nbUnreads`=(SELECT COUNT(e2.id) FROM `' . $this->prefix . 'entry` e2 WHERE e2.id_feed=`' . $this->prefix . 'feed`.id AND e2.is_read=0),'
+			     . '`lastUpdate`=?, error=? '
 			     . 'WHERE id=?';
 		} else {
 			$sql = 'UPDATE `' . $this->prefix . 'feed` '
-			     . 'SET lastUpdate=?, error=? '
+			     . 'SET `lastUpdate`=?, error=? '
 			     . 'WHERE id=?';
 		}
 
+		if ($mtime <= 0) {
+			$mtime = time();
+		}
+
 		$values = array(
-			time(),
-			$inError,
+			$mtime,
+			$inError ? 1 : 0,
 			$id,
 		);
 
@@ -191,11 +205,18 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo {
 		$res = $stm->fetchAll(PDO::FETCH_ASSOC);
 		$feed = current(self::daoToFeed($res));
 
-		if (isset($feed)) {
+		if (isset($feed) && $feed !== false) {
 			return $feed;
 		} else {
 			return null;
 		}
+	}
+
+	public function listFeedsIds() {
+		$sql = 'SELECT id FROM `' . $this->prefix . 'feed`';
+		$stm = $this->bd->prepare($sql);
+		$stm->execute();
+		return $stm->fetchAll(PDO::FETCH_COLUMN, 0);
 	}
 
 	public function listFeeds() {
@@ -222,14 +243,14 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo {
 		return $feedCategoryNames;
 	}
 
+	/**
+	 * Use $defaultCacheDuration == -1 to return all feeds, without filtering them by TTL.
+	 */
 	public function listFeedsOrderUpdate($defaultCacheDuration = 3600) {
-		if ($defaultCacheDuration < 0) {
-			$defaultCacheDuration = 2147483647;
-		}
-		$sql = 'SELECT id, url, name, website, lastUpdate, pathEntries, httpAuth, keep_history, ttl '
+		$sql = 'SELECT id, url, name, website, `lastUpdate`, `pathEntries`, `httpAuth`, keep_history, ttl '
 		     . 'FROM `' . $this->prefix . 'feed` '
-		     . 'WHERE ttl <> -1 AND lastUpdate < (' . (time() + 60) . '-(CASE WHEN ttl=-2 THEN ' . intval($defaultCacheDuration) . ' ELSE ttl END)) '
-		     . 'ORDER BY lastUpdate';
+		     . ($defaultCacheDuration < 0 ? '' : 'WHERE ttl <> -1 AND `lastUpdate` < (' . (time() + 60) . '-(CASE WHEN ttl=-2 THEN ' . intval($defaultCacheDuration) . ' ELSE ttl END)) ')
+		     . 'ORDER BY `lastUpdate`';
 		$stm = $this->bd->prepare($sql);
 		if (!($stm && $stm->execute())) {
 			$sql2 = 'ALTER TABLE `' . $this->prefix . 'feed` ADD COLUMN ttl INT NOT NULL DEFAULT -2';	//v0.7.3
@@ -282,7 +303,7 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo {
 		     .	'FROM `' . $this->prefix . 'entry` e '
 		     .	'GROUP BY e.id_feed'
 		     . ') x ON x.id_feed=f.id '
-		     . 'SET f.cache_nbEntries=x.nbEntries, f.cache_nbUnreads=x.nbUnreads';
+		     . 'SET f.`cache_nbEntries`=x.nbEntries, f.`cache_nbUnreads`=x.nbUnreads';
 		$stm = $this->bd->prepare($sql);
 
 		if ($stm && $stm->execute()) {
@@ -308,7 +329,7 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo {
 		$affected = $stm->rowCount();
 
 		$sql = 'UPDATE `' . $this->prefix . 'feed` '
-			 . 'SET cache_nbEntries=0, cache_nbUnreads=0 WHERE id=?';
+			 . 'SET `cache_nbEntries`=0, `cache_nbUnreads`=0 WHERE id=?';
 		$values = array($id);
 		$stm = $this->bd->prepare($sql);
 		if (!($stm && $stm->execute($values))) {
@@ -322,17 +343,20 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo {
 		return $affected;
 	}
 
-	public function cleanOldEntries($id, $date_min, $keep = 15) {	//Remember to call updateLastUpdate($id) just after
+	public function cleanOldEntries($id, $date_min, $keep = 15) {	//Remember to call updateLastUpdate($id) or updateCachedValues() just after
 		$sql = 'DELETE FROM `' . $this->prefix . 'entry` '
-		     . 'WHERE id_feed = :id_feed AND id <= :id_max AND is_favorite=0 AND id NOT IN '
-		     . '(SELECT id FROM (SELECT e2.id FROM `' . $this->prefix . 'entry` e2 WHERE e2.id_feed = :id_feed ORDER BY id DESC LIMIT :keep) keep)';	//Double select MySQL doesn't yet support 'LIMIT & IN/ALL/ANY/SOME subquery'
+		     . 'WHERE id_feed=:id_feed AND id<=:id_max '
+		     . 'AND is_favorite=0 '	//Do not remove favourites
+		     . 'AND `lastSeen` < (SELECT maxLastSeen FROM (SELECT (MAX(e3.`lastSeen`)-99) AS maxLastSeen FROM `' . $this->prefix . 'entry` e3 WHERE e3.id_feed=:id_feed) recent) '	//Do not remove the most newly seen articles, plus a few seconds of tolerance
+		     . 'AND id NOT IN (SELECT id FROM (SELECT e2.id FROM `' . $this->prefix . 'entry` e2 WHERE e2.id_feed=:id_feed ORDER BY id DESC LIMIT :keep) keep)';	//Double select: MySQL doesn't support 'LIMIT & IN/ALL/ANY/SOME subquery'
 		$stm = $this->bd->prepare($sql);
 
-		$id_max = intval($date_min) . '000000';
-
-		$stm->bindParam(':id_feed', $id, PDO::PARAM_INT);
-		$stm->bindParam(':id_max', $id_max, PDO::PARAM_STR);
-		$stm->bindParam(':keep', $keep, PDO::PARAM_INT);
+		if ($stm) {
+			$id_max = intval($date_min) . '000000';
+			$stm->bindParam(':id_feed', $id, PDO::PARAM_INT);
+			$stm->bindParam(':id_max', $id_max, PDO::PARAM_STR);
+			$stm->bindParam(':keep', $keep, PDO::PARAM_INT);
+		}
 
 		if ($stm && $stm->execute()) {
 			return $stm->rowCount();

@@ -109,9 +109,7 @@ class SimplePie_Content_Type_Sniffer
 			{
 				return $this->unknown();
 			}
-			elseif (substr($official, -4) === '+xml'
-				|| $official === 'text/xml'
-				|| $official === 'application/xml')
+			elseif (substr($official, -4) === '+xml')
 			{
 				return $official;
 			}
@@ -126,7 +124,9 @@ class SimplePie_Content_Type_Sniffer
 					return $official;
 				}
 			}
-			elseif ($official === 'text/html')
+			elseif ($official === 'text/html'
+				|| $official === 'text/xml'
+				|| $official === 'application/xml')
 			{
 				return $this->feed_or_html();
 			}
@@ -256,7 +256,12 @@ class SimplePie_Content_Type_Sniffer
 	public function feed_or_html()
 	{
 		$len = strlen($this->file->body);
-		$pos = strspn($this->file->body, "\x09\x0A\x0D\x20");
+		$pos = 0;
+		if (isset($this->file->body[2]) && $this->file->body[0] === "\xEF" &&
+			$this->file->body[1] === "\xBB" && $this->file->body[2] === "\xBF") {
+			$pos += 3;	//UTF-8 BOM
+		}
+		$pos += strspn($this->file->body, "\x09\x0A\x0D\x20", $pos);
 
 		while ($pos < $len)
 		{

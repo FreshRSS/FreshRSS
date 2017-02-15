@@ -1,4 +1,7 @@
 "use strict";
+/* globals init_load_more, init_posts, init_stream */
+/* jshint globalstrict: true */
+
 var panel_loading = false;
 
 function load_panel(link) {
@@ -9,7 +12,7 @@ function load_panel(link) {
 	panel_loading = true;
 
 	$.get(link, function (data) {
-		$("#panel").append($(".nav_menu, #stream .day, #stream .flux, #stream .pagination", data));
+		$("#panel").append($(".nav_menu, #stream .day, #stream .flux, #stream .pagination, #stream.prompt", data));
 
 		$("#panel .nav_menu").children().not("#nav_menu_read_all").remove();
 
@@ -23,13 +26,15 @@ function load_panel(link) {
 		// Sans ça, si l'on scroll en lisant une catégorie par exemple,
 		// en en ouvrant une autre ensuite, on se retrouve au même point de scroll
 		$("#panel").scrollTop(0);
+		$(window).scrollTop(0);
 
-		$('#panel').on('click', '#nav_menu_read_all > a, #nav_menu_read_all .item > a, #bigMarkAsRead', function () {
+		$('#panel').on('click', '#nav_menu_read_all button, #bigMarkAsRead', function () {
+			console.log($(this).attr("formaction"));
 			$.ajax({
-				url: $(this).attr("href"),
+				type: "POST",
+				url: $(this).attr("formaction"),
 				async: false
 			});
-			//$("#panel .close").first().click();
 			window.location.reload(false);
 			return false;
 		});
@@ -39,9 +44,8 @@ function load_panel(link) {
 }
 
 function init_close_panel() {
-	$("#panel .close").click(function () {
-		$("#panel").html('<a class="close" href="#">' + icons['close'] + '</a>');
-		init_close_panel();
+	$("#overlay .close").click(function () {
+		$("#panel").html('');
 		$("#panel").slideToggle();
 		$("#overlay").fadeOut();
 
@@ -50,7 +54,8 @@ function init_close_panel() {
 }
 
 function init_global_view() {
-	$("#stream .box-category a").click(function () {
+	// TODO: should be based on generic classes.
+	$(".box a").click(function () {
 		var link = $(this).attr("href");
 
 		load_panel(link);

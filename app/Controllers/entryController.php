@@ -11,18 +11,7 @@ class FreshRSS_entry_Controller extends Minz_ActionController {
 	 */
 	public function firstAction() {
 		if (!FreshRSS_Auth::hasAccess()) {
-			Minz_Error::error(
-				403,
-				array('error' => array(_t('access_denied')))
-			);
-		}
-
-		// Keep parameter information (output) to do a correct redirection at
-		// the end.
-		$this->params = array();
-		$output = Minz_Request::param('output', '');
-		if ($output != '' && FreshRSS_Context::$conf->view_mode !== $output) {
-			$this->params['output'] = $output;
+			Minz_Error::error(403);
 		}
 
 		// If ajax request, we do not print layout
@@ -45,19 +34,30 @@ class FreshRSS_entry_Controller extends Minz_ActionController {
 	 *   - nextGet (default: $get)
 	 *   - idMax (default: 0)
 	 *   - is_read (default: true)
-	 *
-	 * @todo nextGet system should not be present here... or should be?
 	 */
 	public function readAction() {
 		$id = Minz_Request::param('id');
 		$get = Minz_Request::param('get');
 		$next_get = Minz_Request::param('nextGet', $get);
 		$id_max = Minz_Request::param('idMax', 0);
+		FreshRSS_Context::$search = new FreshRSS_Search(Minz_Request::param('search', ''));
+
+		FreshRSS_Context::$state = Minz_Request::param('state', 0);
+		if (FreshRSS_Context::isStateEnabled(FreshRSS_Entry::STATE_FAVORITE)) {
+			FreshRSS_Context::$state = FreshRSS_Entry::STATE_FAVORITE;
+		} elseif (FreshRSS_Context::isStateEnabled(FreshRSS_Entry::STATE_NOT_FAVORITE)) {
+			FreshRSS_Context::$state = FreshRSS_Entry::STATE_NOT_FAVORITE;
+		} else {
+			FreshRSS_Context::$state = 0;
+		}
+
+		$params = array();
 
 		$entryDAO = FreshRSS_Factory::createEntryDao();
 		if ($id === false) {
 			// id is false? It MUST be a POST request!
 			if (!Minz_Request::isPost()) {
+				Minz_Request::bad(_t('feedback.access.not_found'), array('c' => 'index', 'a' => 'index'));
 				return;
 			}
 
@@ -69,16 +69,16 @@ class FreshRSS_entry_Controller extends Minz_ActionController {
 				$get = substr($get, 2);
 				switch($type_get) {
 				case 'c':
-					$entryDAO->markReadCat($get, $id_max);
+					$entryDAO->markReadCat($get, $id_max, FreshRSS_Context::$search, FreshRSS_Context::$state);
 					break;
 				case 'f':
-					$entryDAO->markReadFeed($get, $id_max);
+					$entryDAO->markReadFeed($get, $id_max, FreshRSS_Context::$search, FreshRSS_Context::$state);
 					break;
 				case 's':
-					$entryDAO->markReadEntries($id_max, true);
+					$entryDAO->markReadEntries($id_max, true, 0, FreshRSS_Context::$search);
 					break;
 				case 'a':
-					$entryDAO->markReadEntries($id_max);
+					$entryDAO->markReadEntries($id_max, false, 0, FreshRSS_Context::$search, FreshRSS_Context::$state);
 					break;
 				}
 
@@ -86,7 +86,7 @@ class FreshRSS_entry_Controller extends Minz_ActionController {
 					// Redirect to the correct page (category, feed or starred)
 					// Not "a" because it is the default value if nothing is
 					// given.
-					$this->params['get'] = $next_get;
+					$params['get'] = $next_get;
 				}
 			}
 		} else {
@@ -95,10 +95,10 @@ class FreshRSS_entry_Controller extends Minz_ActionController {
 		}
 
 		if (!$this->ajax) {
-			Minz_Request::good(_t('feeds_marked_read'), array(
+			Minz_Request::good(_t('feedback.sub.feed.marked_read'), array(
 				'c' => 'index',
 				'a' => 'index',
-				'params' => $this->params,
+				'params' => $params,
 			), true);
 		}
 	}
@@ -123,7 +123,6 @@ class FreshRSS_entry_Controller extends Minz_ActionController {
 			Minz_Request::forward(array(
 				'c' => 'index',
 				'a' => 'index',
-				'params' => $this->params,
 			), true);
 		}
 	}
@@ -155,7 +154,7 @@ class FreshRSS_entry_Controller extends Minz_ActionController {
 		$feedDAO->updateCachedValues();
 
 		invalidateHttpCache();
-		Minz_Request::good(_t('optimization_complete'), $url_redirect);
+		Minz_Request::good(_t('feedback.admin.optimization_complete'), $url_redirect);
 	}
 
 	/**
@@ -167,7 +166,7 @@ class FreshRSS_entry_Controller extends Minz_ActionController {
 	public function purgeAction() {
 		@set_time_limit(300);
 
-		$nb_month_old = max(FreshRSS_Context::$conf->old_entries, 1);
+		$nb_month_old = max(FreshRSS_Context::$user_conf->old_entries, 1);
 		$date_min = time() - (3600 * 24 * 30 * $nb_month_old);
 
 		$feedDAO = FreshRSS_Factory::createFeedDao();
@@ -181,7 +180,7 @@ class FreshRSS_entry_Controller extends Minz_ActionController {
 			if ($feed_history == -2) {
 				// TODO: -2 must be a constant!
 				// -2 means we take the default value from configuration
-				$feed_history = FreshRSS_Context::$conf->keep_history_default;
+				$feed_history = FreshRSS_Context::$user_conf->keep_history_default;
 			}
 
 			if ($feed_history >= 0) {
@@ -196,7 +195,7 @@ class FreshRSS_entry_Controller extends Minz_ActionController {
 		$feedDAO->updateCachedValues();
 
 		invalidateHttpCache();
-		Minz_Request::good(_t('purge_completed', $nb_total), array(
+		Minz_Request::good(_t('feedback.sub.purge_completed', $nb_total), array(
 			'c' => 'configure',
 			'a' => 'archiving'
 		));

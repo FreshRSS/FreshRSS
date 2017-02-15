@@ -16,7 +16,7 @@ class Minz_ModelPdo {
 	public static $useSharedBd = true;
 	private static $sharedBd = null;
 	private static $sharedPrefix;
-	private static $has_transaction = false;
+	private static $sharedCurrentUser;
 	protected static $sharedDbType;
 
 	/**
@@ -36,54 +36,61 @@ class Minz_ModelPdo {
 	 * HOST, BASE, USER et PASS définies dans le fichier de configuration
 	 */
 	public function __construct($currentUser = null) {
-		if (self::$useSharedBd && self::$sharedBd != null && $currentUser === null) {
+		if ($currentUser === null) {
+			$currentUser = Minz_Session::param('currentUser');
+		}
+		if (self::$useSharedBd && self::$sharedBd != null && 
+			($currentUser == null || $currentUser === self::$sharedCurrentUser)) {
 			$this->bd = self::$sharedBd;
 			$this->prefix = self::$sharedPrefix;
+			$this->current_user = self::$sharedCurrentUser;
 			return;
 		}
-
-		$db = Minz_Configuration::dataBase();
-
-		if ($currentUser === null) {
-			$currentUser = Minz_Session::param('currentUser', '_');
-		}
 		$this->current_user = $currentUser;
+		self::$sharedCurrentUser = $currentUser;
+
+		$conf = Minz_Configuration::get('system');
+		$db = $conf->db;
+
+		$driver_options = isset($conf->db['pdo_options']) && is_array($conf->db['pdo_options']) ? $conf->db['pdo_options'] : array();
+		$dbServer = parse_url('db://' . $db['host']);
 
 		try {
-			$type = $db['type'];
-			if ($type === 'mysql') {
-				$string = 'mysql:host=' . $db['host']
-				        . ';dbname=' . $db['base']
-				        . ';charset=utf8';
-				$driver_options = array(
-					PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8',
-				);
-				$this->prefix = $db['prefix'] . $currentUser . '_';
-			} elseif ($type === 'sqlite') {
-				$string = 'sqlite:' . DATA_PATH . '/' . $currentUser . '.sqlite';
-				$driver_options = array(
-					//PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-				);
-				$this->prefix = '';
-			} else {
-				throw new Minz_PDOConnectionException(
-					'Invalid database type!',
-					$db['user'], Minz_Exception::ERROR
-				);
-			}
-			self::$sharedDbType = $type;
-			self::$sharedPrefix = $this->prefix;
-
-			$this->bd = new MinzPDO(
-				$string,
-				$db['user'],
-				$db['password'],
-				$driver_options
-			);
-			if ($type === 'sqlite') {
-				$this->bd->exec('PRAGMA foreign_keys = ON;');
+			switch ($db['type']) {
+				case 'mysql':
+					$string = 'mysql:host=' . $dbServer['host'] . ';dbname=' . $db['base'] . ';charset=utf8mb4';
+					if (!empty($dbServer['port'])) {
+						$string .= ';port=' . $dbServer['port'];
+					}
+					$driver_options[PDO::MYSQL_ATTR_INIT_COMMAND] = 'SET NAMES utf8mb4';
+					$this->prefix = $db['prefix'] . $currentUser . '_';
+					$this->bd = new MinzPDOMySql($string, $db['user'], $db['password'], $driver_options);
+					break;
+				case 'sqlite':
+					$string = 'sqlite:' . join_path(DATA_PATH, 'users', $currentUser, 'db.sqlite');
+					$this->prefix = '';
+					$this->bd = new MinzPDOMSQLite($string, $db['user'], $db['password'], $driver_options);
+					$this->bd->exec('PRAGMA foreign_keys = ON;');
+					break;
+				case 'pgsql':
+					$string = 'pgsql:host=' . $dbServer['host'] . ';dbname=' . $db['base'];
+					if (!empty($dbServer['port'])) {
+						$string .= ';port=' . $dbServer['port'];
+					}
+					$this->prefix = $db['prefix'] . $currentUser . '_';
+					$this->bd = new MinzPDOPGSQL($string, $db['user'], $db['password'], $driver_options);
+					$this->bd->exec("SET NAMES 'UTF8';");
+					break;
+				default:
+					throw new Minz_PDOConnectionException(
+						'Invalid database type!',
+						$db['user'], Minz_Exception::ERROR
+					);
+					break;
 			}
 			self::$sharedBd = $this->bd;
+			self::$sharedDbType = $db['type'];
+			self::$sharedPrefix = $this->prefix;
 		} catch (Exception $e) {
 			throw new Minz_PDOConnectionException(
 				$string,
@@ -94,23 +101,26 @@ class Minz_ModelPdo {
 
 	public function beginTransaction() {
 		$this->bd->beginTransaction();
-		self::$has_transaction = true;
 	}
-	public function hasTransaction() {
-		return self::$has_transaction;
+	public function inTransaction() {
+		return $this->bd->inTransaction();	//requires PHP >= 5.3.3
 	}
 	public function commit() {
 		$this->bd->commit();
-		self::$has_transaction = false;
 	}
 	public function rollBack() {
 		$this->bd->rollBack();
-		self::$has_transaction = false;
 	}
 
 	public static function clean() {
 		self::$sharedBd = null;
 		self::$sharedPrefix = '';
+	}
+
+	public function disableBuffering() {
+		if ((self::$sharedDbType === 'mysql') && defined('PDO::MYSQL_ATTR_USE_BUFFERED_QUERY')) {
+			$this->bd->setAttribute(PDO::MYSQL_ATTR_USE_BUFFERED_QUERY, false);
+		}
 	}
 }
 
@@ -121,13 +131,43 @@ class MinzPDO extends PDO {
 		}
 	}
 
+	protected function compatibility($statement) {
+		return $statement;
+	}
+
 	public function prepare($statement, $driver_options = array()) {
 		MinzPDO::check($statement);
+		$statement = $this->compatibility($statement);
 		return parent::prepare($statement, $driver_options);
 	}
 
 	public function exec($statement) {
 		MinzPDO::check($statement);
+		$statement = $this->compatibility($statement);
 		return parent::exec($statement);
+	}
+
+	public function query($statement) {
+		MinzPDO::check($statement);
+		$statement = $this->compatibility($statement);
+		return parent::query($statement);
+	}
+}
+
+class MinzPDOMySql extends MinzPDO {
+	public function lastInsertId($name = null) {
+		return parent::lastInsertId();	//We discard the name, only used by PostgreSQL
+	}
+}
+
+class MinzPDOMSQLite extends MinzPDO {
+	public function lastInsertId($name = null) {
+		return parent::lastInsertId();	//We discard the name, only used by PostgreSQL
+	}
+}
+
+class MinzPDOPGSQL extends MinzPDO {
+	protected function compatibility($statement) {
+		return str_replace(array('`', ' LIKE '), array('"', ' ILIKE '), $statement);
 	}
 }

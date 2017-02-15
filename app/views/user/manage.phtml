@@ -1,62 +1,57 @@
 <?php $this->partial('aside_configure'); ?>
 
 <div class="post">
-	<a href="<?php echo _url('index', 'index'); ?>"><?php echo _t('back_to_rss_feeds'); ?></a>
+	<a href="<?php echo _url('index', 'index'); ?>"><?php echo _t('gen.action.back_to_rss_feeds'); ?></a>
 
-	<form method="post" action="<?php echo _url('user', 'create'); ?>">
-		<legend><?php echo _t('create_user'); ?></legend>
+	<form method="post" action="<?php echo _url('user', 'create'); ?>" autocomplete="off">
+		<input type="hidden" name="_csrf" value="<?php echo FreshRSS_Auth::csrfToken(); ?>" />
+		<legend><?php echo _t('admin.user.create'); ?></legend>
 
 		<div class="form-group">
-			<label class="group-name" for="new_user_language"><?php echo _t('language'); ?></label>
+			<label class="group-name" for="new_user_language"><?php echo _t('admin.user.language'); ?></label>
 			<div class="group-controls">
 				<select name="new_user_language" id="new_user_language">
-				<?php $languages = FreshRSS_Context::$conf->availableLanguages(); ?>
-				<?php foreach ($languages as $short => $lib) { ?>
-				<option value="<?php echo $short; ?>"<?php echo FreshRSS_Context::$conf->language === $short ? ' selected="selected"' : ''; ?>><?php echo $lib; ?></option>
+				<?php $languages = Minz_Translate::availableLanguages(); ?>
+				<?php foreach ($languages as $lang) { ?>
+				<option value="<?php echo $lang; ?>"<?php echo FreshRSS_Context::$user_conf->language === $lang ? ' selected="selected"' : ''; ?>><?php echo _t('gen.lang.' . $lang); ?></option>
 				<?php } ?>
 				</select>
 			</div>
 		</div>
 
 		<div class="form-group">
-			<label class="group-name" for="new_user_name"><?php echo _t('username'); ?></label>
+			<label class="group-name" for="new_user_name"><?php echo _t('admin.user.username'); ?></label>
 			<div class="group-controls">
 				<input id="new_user_name" name="new_user_name" type="text" size="16" required="required" maxlength="16" autocomplete="off" pattern="[0-9a-zA-Z]{1,16}" placeholder="demo" />
 			</div>
 		</div>
 
 		<div class="form-group">
-			<label class="group-name" for="new_user_passwordPlain"><?php echo _t('password_form'); ?></label>
+			<label class="group-name" for="new_user_passwordPlain"><?php echo _t('admin.user.password_form'); ?></label>
 			<div class="group-controls">
 				<div class="stick">
-					<input type="password" id="new_user_passwordPlain" name="new_user_passwordPlain" autocomplete="off" pattern=".{7,}" />
-					<a class="btn toggle-password"><?php echo _i('key'); ?></a>
+					<input type="password" id="new_user_passwordPlain" name="new_user_passwordPlain" autocomplete="new-password" pattern=".{7,}" />
+					<a class="btn toggle-password" data-toggle="new_user_passwordPlain"><?php echo _i('key'); ?></a>
 				</div>
-				<noscript><b><?php echo _t('javascript_should_be_activated'); ?></b></noscript>
-			</div>
-		</div>
-
-		<div class="form-group">
-			<label class="group-name" for="new_user_email"><?php echo _t('persona_connection_email'); ?></label>
-			<?php $mail = FreshRSS_Context::$conf->mail_login; ?>
-			<div class="group-controls">
-				<input type="email" id="new_user_email" name="new_user_email" class="extend" autocomplete="off" placeholder="alice@example.net" />
+				<?php echo _i('help'); ?> <?php echo _t('admin.user.password_format'); ?>
+				<noscript><b><?php echo _t('gen.js.should_be_activated'); ?></b></noscript>
 			</div>
 		</div>
 
 		<div class="form-group form-actions">
 			<div class="group-controls">
-				<button type="submit" class="btn btn-important"><?php echo _t('create'); ?></button>
-				<button type="reset" class="btn"><?php echo _t('cancel'); ?></button>
+				<button type="submit" class="btn btn-important"><?php echo _t('gen.action.create'); ?></button>
+				<button type="reset" class="btn"><?php echo _t('gen.action.cancel'); ?></button>
 			</div>
 		</div>
 	</form>
 
 	<form method="post" action="<?php echo _url('user', 'delete'); ?>">
-		<legend><?php echo _t('users'); ?></legend>
+		<input type="hidden" name="_csrf" value="<?php echo FreshRSS_Auth::csrfToken(); ?>" />
+		<legend><?php echo _t('admin.user.users'); ?></legend>
 
 		<div class="form-group">
-			<label class="group-name" for="user-list"><?php echo _t('users_list'); ?></label>
+			<label class="group-name" for="user-list"><?php echo _t('admin.user.user_list'); ?></label>
 			<div class="group-controls">
 				<select id="user-list" class="select-change" name="username">
 					<?php foreach (listUsers() as $username) { ?>
@@ -64,15 +59,15 @@
 					<?php } ?>
 				</select>
 
-				<p><?php echo _t('admin.users.articles_and_size',
-				                 formatNumber($this->nb_articles),
-				                 formatBytes($this->size_user)); ?></p>
+				<p><?php echo _t('admin.user.articles_and_size',
+				                 format_number($this->nb_articles),
+				                 format_bytes($this->size_user)); ?></p>
 			</div>
 		</div>
 
 		<div class="form-group form-actions">
 			<div class="group-controls">
-				<button type="submit" class="btn btn-attention confirm"><?php echo _t('delete'); ?></button>
+				<button type="submit" class="btn btn-attention confirm"><?php echo _t('gen.action.remove'); ?></button>
 			</div>
 		</div>
 	</form>

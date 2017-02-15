@@ -11,10 +11,7 @@ class FreshRSS_subscription_Controller extends Minz_ActionController {
 	 */
 	public function firstAction() {
 		if (!FreshRSS_Auth::hasAccess()) {
-			Minz_Error::error(
-				403,
-				array('error' => array(_t('access_denied')))
-			);
+			Minz_Error::error(403);
 		}
 
 		$catDAO = new FreshRSS_CategoryDAO();
@@ -32,7 +29,7 @@ class FreshRSS_subscription_Controller extends Minz_ActionController {
 	public function indexAction() {
 		Minz_View::appendScript(Minz_Url::display('/scripts/category.js?' .
 		                        @filemtime(PUBLIC_PATH . '/scripts/category.js')));
-		Minz_View::prependTitle(_t('subscription_management') . ' · ');
+		Minz_View::prependTitle(_t('sub.title') . ' · ');
 
 		$id = Minz_Request::param('id');
 		if ($id !== false) {
@@ -71,23 +68,20 @@ class FreshRSS_subscription_Controller extends Minz_ActionController {
 
 		$id = Minz_Request::param('id');
 		if ($id === false || !isset($this->view->feeds[$id])) {
-			Minz_Error::error(
-				404,
-				array('error' => array(_t('page_not_found')))
-			);
+			Minz_Error::error(404);
 			return;
 		}
 
 		$this->view->feed = $this->view->feeds[$id];
 
-		Minz_View::prependTitle(_t('rss_feed_management') . ' · ' . $this->view->feed->name() . ' · ');
+		Minz_View::prependTitle(_t('sub.title.feed_management') . ' · ' . $this->view->feed->name() . ' · ');
 
 		if (Minz_Request::isPost()) {
-			$user = Minz_Request::param('http_user', '');
-			$pass = Minz_Request::param('http_pass', '');
+			$user = trim(Minz_Request::param('http_user_feed' . $id, ''));
+			$pass = Minz_Request::param('http_pass_feed' . $id, '');
 
 			$httpAuth = '';
-			if ($user != '' || $pass != '') {
+			if ($user != '' && $pass != '') {	//TODO: Sanitize
 				$httpAuth = $user . ':' . $pass;
 			}
 
@@ -108,13 +102,14 @@ class FreshRSS_subscription_Controller extends Minz_ActionController {
 
 			invalidateHttpCache();
 
-			if ($feedDAO->updateFeed($id, $values)) {
+			$url_redirect = array('c' => 'subscription', 'params' => array('id' => $id));
+			if ($feedDAO->updateFeed($id, $values) !== false) {
 				$this->view->feed->_category($cat);
 				$this->view->feed->faviconPrepare();
 
-				Minz_Request::good(_t('feed_updated'), array('c' => 'subscription', 'params' => array('id' => $id)));
+				Minz_Request::good(_t('feedback.sub.feed.updated'), $url_redirect);
 			} else {
-				Minz_Request::bad(_t('error_occurred_update'), array('c' => 'subscription'));
+				Minz_Request::bad(_t('feedback.sub.feed.error'), $url_redirect);
 			}
 		}
 	}

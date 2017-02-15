@@ -15,6 +15,7 @@ class Minz_Dispatcher {
 	/* singleton */
 	private static $instance = null;
 	private static $needsReset;
+	private static $registrations = array();
 
 	private $controller;
 
@@ -38,7 +39,7 @@ class Minz_Dispatcher {
 			self::$needsReset = false;
 
 			try {
-				$this->createController ('FreshRSS_' . Minz_Request::controllerName () . '_Controller');
+				$this->createController (Minz_Request::controllerName ());
 				$this->controller->init ();
 				$this->controller->firstAction ();
 				if (!self::$needsReset) {
@@ -67,14 +68,18 @@ class Minz_Dispatcher {
 
 	/**
 	 * Instancie le Controller
-	 * @param $controller_name le nom du controller à instancier
+	 * @param $base_name le nom du controller à instancier
 	 * @exception ControllerNotExistException le controller n'existe pas
 	 * @exception ControllerNotActionControllerException controller n'est
 	 *          > pas une instance de ActionController
 	 */
-	private function createController ($controller_name) {
-		$filename = APP_PATH . self::CONTROLLERS_PATH_NAME . '/'
-		          . $controller_name . '.php';
+	private function createController ($base_name) {
+		if (self::isRegistered($base_name)) {
+			self::loadController($base_name);
+			$controller_name = 'FreshExtension_' . $base_name . '_Controller';
+		} else {
+			$controller_name = 'FreshRSS_' . $base_name . '_Controller';
+		}
 
 		if (!class_exists ($controller_name)) {
 			throw new Minz_ControllerNotExistException (
@@ -113,5 +118,43 @@ class Minz_Dispatcher {
 			$this->controller,
 			$action_name
 		));
+	}
+
+	/**
+	 * Register a controller file.
+	 *
+	 * @param $base_name the base name of the controller (i.e. ./?c=<base_name>)
+	 * @param $base_path the base path where we should look into to find info.
+	 */
+	public static function registerController($base_name, $base_path) {
+		if (!self::isRegistered($base_name)) {
+			self::$registrations[$base_name] = $base_path;
+		}
+	}
+
+	/**
+	 * Return if a controller is registered.
+	 *
+	 * @param $base_name the base name of the controller.
+	 * @return true if the controller has been registered, false else.
+	 */
+	public static function isRegistered($base_name) {
+		return isset(self::$registrations[$base_name]);
+	}
+
+	/**
+	 * Load a controller file (include).
+	 *
+	 * @param $base_name the base name of the controller.
+	 */
+	private static function loadController($base_name) {
+		$base_path = self::$registrations[$base_name];
+		$controller_filename = $base_path . '/controllers/' . $base_name . 'Controller.php';
+		include_once $controller_filename;
+	}
+
+	private static function setViewPath($controller, $base_name) {
+		$base_path = self::$registrations[$base_name];
+		$controller->view()->setBasePathname($base_path);
 	}
 }

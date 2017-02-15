@@ -19,7 +19,7 @@
 return array(
 	'shaarli' => array(
 		'url' => '~URL~?post=~LINK~&amp;title=~TITLE~&amp;source=FreshRSS',
-		'transform' => array('urlencode'),
+		'transform' => array('rawurlencode'),
 		'help' => 'http://sebsauvage.net/wiki/doku.php?id=php:shaarli',
 		'form' => 'advanced',
 	),
@@ -38,33 +38,45 @@ return array(
 		'help' => 'http://www.wallabag.org/',
 		'form' => 'advanced',
 	),
+	'wallabagv2' => array(
+		'url' => '~URL~/bookmarklet?url=~LINK~',
+		'transform' => array(
+			'link' => array('rawurlencode'),
+			'title' => array(),
+		),
+		'help' => 'http://www.wallabag.org/',
+		'form' => 'advanced',
+	),
 	'diaspora' => array(
 		'url' => '~URL~/bookmarklet?url=~LINK~&amp;title=~TITLE~',
-		'transform' => array('urlencode'),
+		'transform' => array('rawurlencode'),
 		'help' => 'https://diasporafoundation.org/',
+		'form' => 'advanced',
+	),
+	'movim' => array(
+		'url' => '~URL~/?share/~LINK~',
+		'transform' => array('rawurlencode', 'urlencode'),
+		'help' => 'https://github.com/edhelas/movim',
 		'form' => 'advanced',
 	),
 	'twitter' => array(
 		'url' => 'https://twitter.com/share?url=~LINK~&amp;text=~TITLE~',
-		'transform' => array('urlencode'),
+		'transform' => array('rawurlencode'),
 		'form' => 'simple',
 	),
 	'g+' => array(
 		'url' => 'https://plus.google.com/share?url=~LINK~',
-		'transform' => array('urlencode'),
+		'transform' => array('rawurlencode'),
 		'form' => 'simple',
 	),
 	'facebook' => array(
 		'url' => 'https://www.facebook.com/sharer.php?u=~LINK~&amp;t=~TITLE~',
-		'transform' => array('urlencode'),
+		'transform' => array('rawurlencode'),
 		'form' => 'simple',
 	),
 	'email' => array(
 		'url' => 'mailto:?subject=~TITLE~&amp;body=~LINK~',
-		'transform' => array(
-			'link' => array('urlencode'),
-			'title' => array(),
-		),
+		'transform' => array('rawurlencode'),
 		'form' => 'simple',
 	),
 	'print' => array(
@@ -72,4 +84,9 @@ return array(
 		'transform' => array(),
 		'form' => 'simple',
 	),
+	'jdh' => array(
+                'url' => 'https://www.journalduhacker.net/stories/new?url=~LINK~&title=~TITLE~',
+                'transform' => array('rawurlencode'),
+                'form' => 'simple',
+        ),
 );

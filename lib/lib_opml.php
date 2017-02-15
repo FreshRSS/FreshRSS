@@ -1,11 +1,19 @@
 <?php
 
-/* *
+/**
  * lib_opml is a free library to manage OPML format in PHP.
- * It takes in consideration only version 2.0 (http://dev.opml.org/spec2.html).
- * Basically it means "text" attribute for outline elements is required.
  *
- * lib_opml requires SimpleXML (http://php.net/manual/en/book.simplexml.php)
+ * By default, it takes in consideration version 2.0 but can be compatible with
+ * OPML 1.0. More information on http://dev.opml.org.
+ * Difference is "text" attribute is optional in version 1.0. It is highly
+ * recommended to use this attribute.
+ *
+ * lib_opml requires SimpleXML (php.net/simplexml) and DOMDocument (php.net/domdocument)
+ *
+ * @author   Marien Fressinaud <dev@marienfressinaud.fr>
+ * @link     https://github.com/marienfressinaud/lib_opml
+ * @version  0.2-FreshRSS~1.5.1
+ * @license  public domain
  *
  * Usages:
  * > include('lib_opml.php');
@@ -23,21 +31,44 @@
  * > echo $opml_string;
  * > print_r($opml_object);
  *
+ * You can set $strict argument to false if you want to bypass "text" attribute
+ * requirement.
+ *
  * If parsing fails for any reason (e.g. not an XML string, does not match with
  * the specifications), a LibOPML_Exception is raised.
  *
- * Author: Marien Fressinaud <dev@marienfressinaud.fr>
- * Url: https://github.com/marienfressinaud/lib_opml
- * Version: 0.1
- * Date: 2014-03-29
- * License: public domain
+ * lib_opml array format is described here:
+ * $array = array(
+ *     'head' => array(       // 'head' element is optional (but recommended)
+ *         'key' => 'value',  // key must be a part of available OPML head elements
+ *     ),
+ *     'body' => array(              // body is required
+ *         array(                    // this array represents an outline (at least one)
+ *             'text' => 'value',    // 'text' element is required if $strict is true
+ *             'key' => 'value',     // key and value are what you want (optional)
+ *             '@outlines' = array(  // @outlines is a special value and represents sub-outlines
+ *                 array(
+ *                     [...]         // where [...] is a valid outline definition
+ *                 ),
+ *             ),
+ *         ),
+ *         array(                    // other outline definitions
+ *             [...]
+ *         ),
+ *         [...],
+ *     )
+ * )
  *
- * */
+ */
 
+/**
+ * A simple Exception class which represents any kind of OPML problem.
+ * Message should precise the current problem.
+ */
 class LibOPML_Exception extends Exception {}
 
 
-// These elements are optional
+// Define the list of available head attributes. All of them are optional.
 define('HEAD_ELEMENTS', serialize(array(
 	'title', 'dateCreated', 'dateModified', 'ownerName', 'ownerEmail',
 	'ownerId', 'docs', 'expansionState', 'vertScrollState', 'windowTop',
@@ -45,7 +76,16 @@ define('HEAD_ELEMENTS', serialize(array(
 )));
 
 
-function libopml_parse_outline($outline_xml) {
+/**
+ * Parse an XML object as an outline object and return corresponding array
+ *
+ * @param SimpleXMLElement $outline_xml the XML object we want to parse
+ * @param bool $strict true if "text" attribute is required, false else
+ * @return array corresponding to an outline and following format described above
+ * @throws LibOPML_Exception
+ * @access private
+ */
+function libopml_parse_outline($outline_xml, $strict = true) {
 	$outline = array();
 
 	// An outline may contain any kind of attributes but "text" attribute is
@@ -59,16 +99,20 @@ function libopml_parse_outline($outline_xml) {
 		}
 	}
 
-	if (!$text_is_present) {
+	if (!$text_is_present && $strict) {
 		throw new LibOPML_Exception(
 			'Outline does not contain any text attribute'
 		);
 	}
 
+	if (empty($outline['text']) && isset($outline['title'])) {
+		$outline['text'] = $outline['title'];
+	}
+
 	foreach ($outline_xml->children() as $key => $value) {
 		// An outline may contain any number of outline children
 		if ($key === 'outline') {
-			$outline['@outlines'][] = libopml_parse_outline($value);
+			$outline['@outlines'][] = libopml_parse_outline($value, $strict);
 		} else {
 			throw new LibOPML_Exception(
 				'Body can contain only outline elements'
@@ -79,13 +123,51 @@ function libopml_parse_outline($outline_xml) {
 	return $outline;
 }
 
+/**
+ * Reformat the XML document as a hierarchy when
+ * the OPML 2.0 category attribute is used
+ */
+function preprocessing_categories($doc) {
+	$outline_categories = array();
+	$body = $doc->getElementsByTagName('body')->item(0);
+	$xpath = new DOMXpath($doc);
+	$outlines = $xpath->query('/opml/body/outline[@category]');
+	foreach ($outlines as $outline) {
+		$category = trim($outline->getAttribute('category'));
+		if ($category != '') {
+			$outline_categorie = null;
+			if (!isset($outline_categories[$category])) {
+				$outline_categorie = $doc->createElement('outline');
+				$outline_categorie->setAttribute('text', $category);
+				$body->insertBefore($outline_categorie, $body->firstChild);
+				$outline_categories[$category] = $outline_categorie;
+			} else {
+				$outline_categorie = $outline_categories[$category];
+			}
+			$outline->parentNode->removeChild($outline);
+			$outline_categorie->appendChild($outline);
+		}
+	}
+}
 
-function libopml_parse_string($xml) {
+/**
+ * Parse a string as a XML one and returns the corresponding array
+ *
+ * @param string $xml is the string we want to parse
+ * @param bool $strict true if "text" attribute is required, false else
+ * @return array corresponding to the XML string and following format described above
+ * @throws LibOPML_Exception
+ * @access public
+ */
+function libopml_parse_string($xml, $strict = true) {
 	$dom = new DOMDocument();
 	$dom->recover = true;
 	$dom->strictErrorChecking = false;
 	$dom->loadXML($xml);
 	$dom->encoding = 'UTF-8';
+
+	//Partial compatibility with the category attribute of OPML 2.0
+	preprocessing_categories($dom);
 
 	$opml = simplexml_import_dom($dom);
 
@@ -101,7 +183,6 @@ function libopml_parse_string($xml) {
 
 	// First, we get all "head" elements. Head is required but its sub-elements
 	// are optional.
-	// TODO: test head exists!
 	foreach ($opml->head->children() as $key => $value) {
 		if (in_array($key, unserialize(HEAD_ELEMENTS), true)) {
 			$array['head'][$key] = (string)$value;
@@ -115,11 +196,10 @@ function libopml_parse_string($xml) {
 	// Then, we get body oulines. Body must contain at least one outline
 	// element.
 	$at_least_one_outline = false;
-	// TODO: test body exists!
 	foreach ($opml->body->children() as $key => $value) {
 		if ($key === 'outline') {
 			$at_least_one_outline = true;
-			$array['body'][] = libopml_parse_outline($value);
+			$array['body'][] = libopml_parse_outline($value, $strict);
 		} else {
 			throw new LibOPML_Exception(
 				'Body can contain only outline elements'
@@ -137,7 +217,16 @@ function libopml_parse_string($xml) {
 }
 
 
-function libopml_parse_file($filename) {
+/**
+ * Parse a string contained into a file as a XML string and returns the corresponding array
+ *
+ * @param string $filename should indicates a valid XML file
+ * @param bool $strict true if "text" attribute is required, false else
+ * @return array corresponding to the file content and following format described above
+ * @throws LibOPML_Exception
+ * @access public
+ */
+function libopml_parse_file($filename, $strict = true) {
 	$file_content = file_get_contents($filename);
 
 	if ($file_content === false) {
@@ -146,11 +235,20 @@ function libopml_parse_file($filename) {
 		);
 	}
 
-	return libopml_parse_string($file_content);
+	return libopml_parse_string($file_content, $strict);
 }
 
 
-function libopml_render_outline($parent_elt, $outline) {
+/**
+ * Create a XML outline object in a parent object.
+ *
+ * @param SimpleXMLElement $parent_elt is the parent object of current outline
+ * @param array $outline array representing an outline object
+ * @param bool $strict true if "text" attribute is required, false else
+ * @throws LibOPML_Exception
+ * @access private
+ */
+function libopml_render_outline($parent_elt, $outline, $strict) {
 	// Outline MUST be an array!
 	if (!is_array($outline)) {
 		throw new LibOPML_Exception(
@@ -165,7 +263,7 @@ function libopml_render_outline($parent_elt, $outline) {
 		// outline elements.
 		if ($key === '@outlines' && is_array($value)) {
 			foreach ($value as $outline_child) {
-				libopml_render_outline($outline_elt, $outline_child);
+				libopml_render_outline($outline_elt, $outline_child, $strict);
 			}
 		} elseif (is_array($value)) {
 			throw new LibOPML_Exception(
@@ -181,7 +279,7 @@ function libopml_render_outline($parent_elt, $outline) {
 		}
 	}
 
-	if (!$text_is_present) {
+	if (!$text_is_present && $strict) {
 		throw new LibOPML_Exception(
 			'You must define at least a text element for all outlines'
 		);
@@ -189,8 +287,19 @@ function libopml_render_outline($parent_elt, $outline) {
 }
 
 
-function libopml_render($array, $as_xml_object = false) {
-	$opml = new SimpleXMLElement('<opml version="2.0"></opml>');
+/**
+ * Render an array as an OPML string or a XML object.
+ *
+ * @param array $array is the array we want to render and must follow structure defined above
+ * @param bool $as_xml_object false if function must return a string, true for a XML object
+ * @param bool $strict true if "text" attribute is required, false else
+ * @return string|SimpleXMLElement XML string corresponding to $array or XML object
+ * @throws LibOPML_Exception
+ * @access public
+ */
+function libopml_render($array, $as_xml_object = false, $strict = true) {
+	$opml = new SimpleXMLElement('<opml></opml>');
+	$opml->addAttribute('version', $strict ? '2.0' : '1.0');
 
 	// Create head element. $array['head'] is optional but head element will
 	// exist in the final XML object.
@@ -218,7 +327,7 @@ function libopml_render($array, $as_xml_object = false) {
 	// Create outline elements
 	$body = $opml->addChild('body');
 	foreach ($array['body'] as $outline) {
-		libopml_render_outline($body, $outline);
+		libopml_render_outline($body, $outline, $strict);
 	}
 
 	// And return the final result
