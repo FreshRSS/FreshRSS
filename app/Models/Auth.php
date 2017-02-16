@@ -182,8 +182,7 @@ class FreshRSS_Auth {
 
 class FreshRSS_FormAuth {
 	public static function checkCredentials($username, $hash, $nonce, $challenge) {
-		$aValid = array('-', '_', '.');
-		if (!ctype_alnum(str_replace($aValid, '', $username)) ||
+		if (!FreshRSS_user_Controller::checkUsername($username) ||
 				!ctype_graph($challenge) ||
 				!ctype_alnum($nonce)) {
 			Minz_Log::debug('Invalid credential parameters:' .

@@ -34,6 +34,11 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 		return $passwordHash == '' ? '' : $passwordHash;
 	}
 
+	public static function checkUsername($username) {
+		$match = '/^[a-zA-Z_]{1,38}$/';
+		return preg_match($match, $username) === 1;
+	}
+
 	/**
 	 * This action displays the user profile page.
 	 */
@@ -103,9 +108,8 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 		if (!is_array($userConfig)) {
 			$userConfig = array();
 		}
-        $aValid = array('-', '_', '.');
 
-		$ok = ($new_user_name != '') && ctype_alnum(str_replace($aValid, '', $new_user_name));
+		$ok = self::checkUsername($new_user_name);
 
 		if ($ok) {
 			$languages = Minz_Translate::availableLanguages();
@@ -188,8 +192,7 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 		$db = FreshRSS_Context::$system_conf->db;
 		require_once(APP_PATH . '/SQL/install.sql.' . $db['type'] . '.php');
 
-        $aValid = array('-', '_', '.');
-		$ok = ctype_alnum(str_replace($aValid, '', $username));
+		$ok = self::checkUsername($username);
 		if ($ok) {
 			$default_user = FreshRSS_Context::$system_conf->default_user;
 			$ok &= (strcasecmp($username, $default_user) !== 0);	//It is forbidden to delete the default user
