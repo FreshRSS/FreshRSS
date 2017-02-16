@@ -553,7 +553,7 @@ function printStep2() {
 		<div class="form-group">
 			<label class="group-name" for="default_user"><?php echo _t('install.default_user'); ?></label>
 			<div class="group-controls">
-				<input type="text" id="default_user" name="default_user" required="required" size="16" maxlength="16" pattern="[0-9a-zA-Z]{1,16}" value="<?php echo isset($_SESSION['default_user']) ? $_SESSION['default_user'] : ''; ?>" placeholder="<?php echo httpAuthUser() == '' ? 'alice' : httpAuthUser(); ?>" tabindex="3" />
+				<input type="text" id="default_user" name="default_user" required="required" size="16" maxlength="16" pattern="[0-9a-zA-Z.\-_]{1,16}" value="<?php echo isset($_SESSION['default_user']) ? $_SESSION['default_user'] : ''; ?>" placeholder="<?php echo httpAuthUser() == '' ? 'alice' : httpAuthUser(); ?>" tabindex="3" />
 			</div>
 		</div>
 

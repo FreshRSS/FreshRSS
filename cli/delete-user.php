@@ -9,8 +9,9 @@ $options = getopt('', array(
 if (empty($options['user'])) {
 	fail('Usage: ' . basename(__FILE__) . " --user username");
 }
+$aValid = array('-', '_', '.');
 $username = $options['user'];
-if (!ctype_alnum($username)) {
+if (!ctype_alnum(str_replace($aValid, '', $username))) {
 	fail('FreshRSS error: invalid username “' . $username . '”');
 }
 

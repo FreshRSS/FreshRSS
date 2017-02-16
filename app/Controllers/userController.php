@@ -103,8 +103,9 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 		if (!is_array($userConfig)) {
 			$userConfig = array();
 		}
+        $aValid = array('-', '_', '.');
 
-		$ok = ($new_user_name != '') && ctype_alnum($new_user_name);
+		$ok = ($new_user_name != '') && ctype_alnum(str_replace($aValid, '', $new_user_name));
 
 		if ($ok) {
 			$languages = Minz_Translate::availableLanguages();
@@ -187,7 +188,8 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 		$db = FreshRSS_Context::$system_conf->db;
 		require_once(APP_PATH . '/SQL/install.sql.' . $db['type'] . '.php');
 
-		$ok = ctype_alnum($username);
+        $aValid = array('-', '_', '.');
+		$ok = ctype_alnum(str_replace($aValid, '', $username));
 		if ($ok) {
 			$default_user = FreshRSS_Context::$system_conf->default_user;
 			$ok &= (strcasecmp($username, $default_user) !== 0);	//It is forbidden to delete the default user

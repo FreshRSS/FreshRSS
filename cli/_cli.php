@@ -20,7 +20,9 @@ function fail($message) {
 }
 
 function cliInitUser($username) {
-	if (!ctype_alnum($username)) {
+    $aValid = array('-', '_', '.');
+    
+	if (!ctype_alnum(str_replace($aValid, '', $username))) {
 		fail('FreshRSS error: invalid username: ' . $username . "\n");
 	}
 

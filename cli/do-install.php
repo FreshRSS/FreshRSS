@@ -47,7 +47,8 @@ if ($requirements['all'] !== 'ok') {
 	fail($message);
 }
 
-if (!ctype_alnum($options['default_user'])) {
+$aValid = array('-', '_', '.');
+if (!ctype_alnum(str_replace($aValid, '', $options['default_user']))) {
 	fail('FreshRSS invalid default username (must be ASCII alphanumeric): ' . $options['default_user']);
 }
 
