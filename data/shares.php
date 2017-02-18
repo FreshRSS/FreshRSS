@@ -95,4 +95,10 @@ return array(
 		'help' => 'https://withknown.com/',
 		'form' => 'advanced',
 	),
+	'gnusocial' => array(
+		'url' => '~URL~/notice/new?content=~TITLE~%20~LINK~',
+		'transform' => array('urlencode'),
+		'help' => 'https://gnu.io/social/',
+		'form' => 'advanced',
+	),
 );
