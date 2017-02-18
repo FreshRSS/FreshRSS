@@ -17,6 +17,7 @@ People are sorted by name so please keep this order.
 * [ealdraed](https://github.com/ealdraed): [contributions](https://github.com/FreshRSS/FreshRSS/commits?author=ealdraed)
 * [Frans de Jonge](https://github.com/Frenzie): [contributions](https://github.com/FreshRSS/FreshRSS/commits?author=Frenzie), [Web](http://fransdejonge.com/)
 * [Guillaume Fillon](https://github.com/kokaz): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:kokaz), [Web](http://www.guillaume-fillon.com/)
+* [Guillaume Hayot](https://github.com/postblue): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:postblue), [Web](https://postblue.info/)
 * [hckweb](https://github.com/hckweb): [contributions](https://github.com/FreshRSS/FreshRSS/commits?author=hckweb)
 * [Jaussoin Timothée](https://github.com/edhelas): [contributions](https://github.com/FreshRSS/FreshRSS/commits?author=edhelas), [Web](http://edhelas.movim.eu/)
 * [Julien Reichardt](https://github.com/j8r): [contributions](https://github.com/FreshRSS/FreshRSS/commits?author=j8r), [Web](https://blog.jrei.ch/)

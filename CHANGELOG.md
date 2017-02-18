@@ -2,10 +2,15 @@
 
 ## 2017-xx-xx FreshRSS 1.7.0-dev
 
+* Features
+	* Share with Ⓚnown [#1420](https://github.com/FreshRSS/FreshRSS/pull/1420)
+	* Share with GNU social [#1422](https://github.com/FreshRSS/FreshRSS/issues/1422)
 * UI
 	* Chrome parity with Firefox: auto-focus tab when clicking on notification [#1409](https://github.com/FreshRSS/FreshRSS/pull/1409)
 * Bug fixing
 	* Fix PostgreSQL bugs with API and feed modifications [#1417](https://github.com/FreshRSS/FreshRSS/pull/1417)
+* Security
+	* No version number for anonymous users [#1404](https://github.com/FreshRSS/FreshRSS/issues/1404)
 
 
 ## 2016-12-26 FreshRSS 1.6.2
