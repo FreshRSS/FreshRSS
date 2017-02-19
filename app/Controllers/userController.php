@@ -35,7 +35,7 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 	}
 
 	public static function checkUsername($username) {
-		$match = '/^[a-zA-Z_]{1,38}$/';
+		$match = '/^[0-9a-zA-Z_]{1,38}$/';
 		return preg_match($match, $username) === 1;
 	}
 
