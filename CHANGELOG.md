@@ -1,6 +1,6 @@
 ﻿# Changelog
 
-## 2017-xx-xx FreshRSS 1.7.0-dev
+## 2017-03-xx FreshRSS 1.6.3-dev
 
 * Features
 	* Share with Ⓚnown [#1420](https://github.com/FreshRSS/FreshRSS/pull/1420)
