@@ -9,6 +9,7 @@
 	* Chrome parity with Firefox: auto-focus tab when clicking on notification [#1409](https://github.com/FreshRSS/FreshRSS/pull/1409)
 * Bug fixing
 	* Fix PostgreSQL bugs with API and feed modifications [#1417](https://github.com/FreshRSS/FreshRSS/pull/1417)
+	* Allow empty strings in CLI do-install [#1435](https://github.com/FreshRSS/FreshRSS/pull/1435)
 * Security
 	* No version number for anonymous users [#1404](https://github.com/FreshRSS/FreshRSS/issues/1404)
 
