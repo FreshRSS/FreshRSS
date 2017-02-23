@@ -1,5 +1,5 @@
 <?php
-define('FRESHRSS_VERSION', '1.7.0-dev');
+define('FRESHRSS_VERSION', '1.6.3-dev');
 define('FRESHRSS_WEBSITE', 'http://freshrss.org');
 define('FRESHRSS_WIKI', 'http://doc.freshrss.org');
 
