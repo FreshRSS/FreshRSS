@@ -73,7 +73,7 @@ if ((!empty($config['base_url'])) && server_is_public($config['base_url'])) {
 
 foreach ($dBparams as $dBparam) {
 	$dBparam = rtrim($dBparam, ':');
-	if (!empty($options[$dBparam])) {
+	if (isset($options[$dBparam])) {
 		$param = substr($dBparam, strlen('db-'));
 		$config['db'][$param] = $options[$dBparam];
 	}
