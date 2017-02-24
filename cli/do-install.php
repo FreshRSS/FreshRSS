@@ -13,6 +13,7 @@ $params = array(
 		'auth_type:',
 		'api_enabled',
 		'allow_robots',
+		'disable_update',
 	);
 
 $dBparams = array(
@@ -31,7 +32,7 @@ if (empty($options['default_user'])) {
 		" --environment production --base_url https://rss.example.net/" .
 		" --title FreshRSS --allow_anonymous --api_enabled" .
 		" --db-type mysql --db-host localhost:3306 --db-user freshrss --db-password dbPassword123" .
-		" --db-base freshrss --db-prefix freshrss_ )");
+		" --db-base freshrss --db-prefix freshrss_ --disable_update )");
 }
 
 fwrite(STDERR, 'FreshRSS install…' . "\n");

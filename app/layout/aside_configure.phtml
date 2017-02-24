@@ -41,9 +41,11 @@
 	                          Minz_Request::actionName() === 'checkInstall' ? ' active' : ''; ?>">
 		<a href="<?php echo _url('update', 'checkInstall'); ?>"><?php echo _t('gen.menu.check_install'); ?></a>
 	</li>
+	<?php if (!Minz_Configuration::get('system')->disable_update) { ?>
 	<li class="item<?php echo Minz_Request::controllerName() === 'update' &&
 	                          Minz_Request::actionName() === 'index' ? ' active' : ''; ?>">
 		<a href="<?php echo _url('update', 'index'); ?>"><?php echo _t('gen.menu.update'); ?></a>
 	</li>
+	<?php } ?>
 	<?php } ?>
 </ul>
