@@ -5,7 +5,7 @@
 		<input type="hidden" name="_csrf" value="<?php echo FreshRSS_Auth::csrfToken(); ?>" />
 		<div>
 			<label class="group-name" for="new_user_name"><?php echo _t('gen.auth.username'), '<br />', _i('help'), ' ', _t('gen.auth.username.format'); ?></label>
-			<input id="new_user_name" name="new_user_name" type="text" size="16" required="required" maxlength="16" autocomplete="off" pattern="[0-9a-zA-Z_]{1,16}" />
+			<input id="new_user_name" name="new_user_name" type="text" size="16" required="required" maxlength="16" autocomplete="off" pattern="<?php echo FreshRSS_user_Controller::USERNAME_PATTERN; ?>" />
 		</div>
 
 		<div>

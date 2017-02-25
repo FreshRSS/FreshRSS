@@ -34,9 +34,14 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 		return $passwordHash == '' ? '' : $passwordHash;
 	}
 
+	/**
+	 * The username is also used as folder name, and part of SQL table name.
+	 * '_' is a reserved internal username.
+	 */
+	const USERNAME_PATTERN = '[0-9a-zA-Z]|[0-9a-zA-Z_]{2,38}';
+
 	public static function checkUsername($username) {
-		$match = '/^[0-9a-zA-Z_]{1,38}$/';
-		return preg_match($match, $username) === 1;
+		return preg_match('/^' . self::USERNAME_PATTERN . '$/', $username) === 1;
 	}
 
 	/**

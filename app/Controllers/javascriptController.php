@@ -26,7 +26,7 @@ class FreshRSS_javascript_Controller extends Minz_ActionController {
 		header('Pragma: no-cache');
 
 		$user = isset($_GET['user']) ? $_GET['user'] : '';
-		if (ctype_alnum($user)) {
+		if (FreshRSS_user_Controller::checkUsername($user)) {
 			try {
 				$salt = FreshRSS_Context::$system_conf->salt;
 				$conf = get_user_configuration($user);

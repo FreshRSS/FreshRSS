@@ -45,7 +45,7 @@ foreach ($dBparams as $dBparam) {
 }
 $config->db = $db;
 
-if (!ctype_alnum($config->default_user)) {
+if (!FreshRSS_user_Controller::checkUsername($config->default_user)) {
 	fail('FreshRSS invalid default username (must be ASCII alphanumeric): ' . $config->default_user);
 }
 
