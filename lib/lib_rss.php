@@ -69,10 +69,10 @@ function idn_to_puny($url) {
 }
 
 function checkUrl($url) {
-	if (empty ($url)) {
+	if ($url == '') {
 		return '';
 	}
-	if (!preg_match ('#^https?://#i', $url)) {
+	if (!preg_match('#^https?://#i', $url)) {
 		$url = 'http://' . $url;
 	}
 	$url = idn_to_puny($url);	//PHP bug #53474 IDN
