@@ -67,7 +67,7 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 
 		$set = '';
 		foreach ($valuesTmp as $key => $v) {
-			$set .= $key . '=?, ';
+			$set .= '`' . $key . '`=?, ';
 
 			if ($key == 'httpAuth') {
 				$valuesTmp[$key] = base64_encode($v);

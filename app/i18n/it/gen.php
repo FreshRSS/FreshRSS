@@ -165,6 +165,8 @@ return array(
 		'wallabag' => 'wallabag v1',
 		'wallabagv2' => 'wallabag v2',
 		'jdh' => 'Journal du hacker',
+		'Known' => 'Siti basati su Known',
+		'gnusocial' => 'GNU social',
 	),
 	'short' => array(
 		'attention' => 'Attenzione!',

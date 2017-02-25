@@ -39,6 +39,9 @@ cd /usr/share/FreshRSS
 # --db-prefix is an optional prefix in front of the names of the tables. We suggest using 'freshrss_'
 # This command does not create the default user. Do that with ./cli/create-user.php
 
+./cli/reconfigure.php
+# Same parameters as for do-install.php. Used to update an existing installation.
+
 ./cli/create-user.php --user username ( --password 'password' --api-password 'api_password' --language en --email user@example.net --token 'longRandomString' --no-default-feeds )
 # --language can be: 'en' (default), 'fr', or one of the [supported languages](../app/i18n/)
 
