@@ -1016,6 +1016,7 @@ function load_more_posts() {
 		init_load_more(box_load_more);
 
 		$('#load_more').removeClass('loading');
+		$('#bigMarkAsRead').removeAttr('disabled');
 		load_more = false;
 		$(document.body).trigger('sticky_kit:recalc');
 	});
