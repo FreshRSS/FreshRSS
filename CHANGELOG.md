@@ -16,7 +16,7 @@
 * Security
 	* No version number for anonymous users [#1404](https://github.com/FreshRSS/FreshRSS/issues/1404)
 * Misc.
-	* Relaxed requirements for username to `/^[0-9a-zA-Z]|[0-9a-zA-Z_]{2,38}/$` [#1423](https://github.com/FreshRSS/FreshRSS/pull/1423)
+	* Relaxed requirements for username to `/^[0-9a-zA-Z]|[0-9a-zA-Z_]{2,38}$/` [#1423](https://github.com/FreshRSS/FreshRSS/pull/1423)
 
 
 ## 2016-12-26 FreshRSS 1.6.2
