@@ -48,7 +48,7 @@ if ($requirements['all'] !== 'ok') {
 	fail($message);
 }
 
-if (!ctype_alnum($options['default_user'])) {
+if (!FreshRSS_user_Controller::checkUsername($options['default_user'])) {
 	fail('FreshRSS invalid default username (must be ASCII alphanumeric): ' . $options['default_user']);
 }
 

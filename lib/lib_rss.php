@@ -285,7 +285,7 @@ function uSecString() {
 }
 
 function invalidateHttpCache($username = '') {
-	if (($username == '') || (!ctype_alnum($username))) {
+	if (!FreshRSS_user_Controller::checkUsername($username)) {
 		Minz_Session::_param('touch', uTimeString());
 		$username = Minz_Session::param('currentUser', '_');
 	}

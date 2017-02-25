@@ -17,7 +17,7 @@ if (empty($options['user'])) {
 		" --language en --email user@example.net --token 'longRandomString --no-default-feeds' )");
 }
 $username = $options['user'];
-if (!ctype_alnum($username)) {
+if (!FreshRSS_user_Controller::checkUsername($username)) {
 	fail('FreshRSS error: invalid username “' . $username . '”');
 }
 

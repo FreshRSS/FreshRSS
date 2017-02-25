@@ -85,7 +85,7 @@ class FreshRSS_UserDAO extends Minz_ModelPdo {
 	}
 
 	public static function touch($username = '') {
-		if (($username == '') || (!ctype_alnum($username))) {
+		if (!FreshRSS_user_Controller::checkUsername($username)) {
 			$username = Minz_Session::param('currentUser', '_');
 		}
 		return touch(join_path(DATA_PATH , 'users', $username, 'config.php'));

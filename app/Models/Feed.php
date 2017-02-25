@@ -442,7 +442,7 @@ class FreshRSS_Feed extends Minz_Model {
 				file_put_contents(USERS_PATH . '/_/log_pshb.txt', date('c') . "\t" . $text . "\n", FILE_APPEND);
 			}
 			$currentUser = Minz_Session::param('currentUser');
-			if (ctype_alnum($currentUser) && !file_exists($path . '/' . $currentUser . '.txt')) {
+			if (FreshRSS_user_Controller::checkUsername($currentUser) && !file_exists($path . '/' . $currentUser . '.txt')) {
 				touch($path . '/' . $currentUser . '.txt');
 			}
 		}
