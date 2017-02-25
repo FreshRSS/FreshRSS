@@ -35,7 +35,7 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 	}
 
 	/**
-	 * The username is also used as folder name, and part of SQL table name.
+	 * The username is also used as folder name, file name, and part of SQL table name.
 	 * '_' is a reserved internal username.
 	 */
 	const USERNAME_PATTERN = '[0-9a-zA-Z]|[0-9a-zA-Z_]{2,38}';
