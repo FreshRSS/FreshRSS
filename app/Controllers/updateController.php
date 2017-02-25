@@ -162,7 +162,7 @@ class FreshRSS_update_Controller extends Minz_ActionController {
 	}
 
 	public function applyAction() {
-		if (!file_exists(UPDATE_FILENAME) || !is_writable(FRESHRSS_PATH)) {
+		if (!file_exists(UPDATE_FILENAME) || !is_writable(FRESHRSS_PATH) || Minz_Configuration::get('system')->disable_update) {
 			Minz_Request::forward(array('c' => 'update'), true);
 		}
 

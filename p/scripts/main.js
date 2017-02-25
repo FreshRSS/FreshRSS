@@ -935,6 +935,8 @@ function notifs_html5_show(nb) {
 
 	notification.onclick = function() {
 		window.location.reload();
+		window.focus();
+		notification.close();
 	};
 
 	if (context.html5_notif_timeout !== 0) {

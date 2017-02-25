@@ -163,8 +163,10 @@ return array(
 		'shaarli' => 'Shaarli',
 		'twitter' => 'Twitter',
 		'wallabag' => 'wallabag v1',
-		'wallabagv2' => 'wallabag v2',             
+		'wallabagv2' => 'wallabag v2',
 		'jdh' => 'Journal du hacker',
+		'Known' => 'Known based sites',
+		'gnusocial' => 'GNU social',
 	),
 	'short' => array(
 		'attention' => 'Attentie!',

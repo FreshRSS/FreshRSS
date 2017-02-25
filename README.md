@@ -51,6 +51,7 @@ We are a friendly community.
 6. Advanced configuration settings can be seen in [config.php](./data/config.default.php).
 
 ## Automated install
+* [![Install on Cloudron](https://cloudron.io/img/button.svg)](https://cloudron.io/button.html?app=org.freshrss.cloudronapp)
 * [![DP deploy](https://raw.githubusercontent.com/DFabric/DPlatform-ShellCore/gh-pages/img/deploy.png)](https://dfabric.github.io/DPlatform-ShellCore)
 * [YunoHost](https://github.com/YunoHost-Apps/freshrss_ynh)
 
