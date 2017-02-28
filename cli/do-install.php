@@ -37,25 +37,6 @@ if (empty($options['default_user'])) {
 
 fwrite(STDERR, 'FreshRSS install…' . "\n");
 
-$requirements = checkRequirements();
-if ($requirements['all'] !== 'ok') {
-	$message = 'FreshRSS install failed requirements:' . "\n";
-	foreach ($requirements as $requirement => $check) {
-		if ($check !== 'ok' && $requirement !== 'all') {
-			$message .= '• ' . $requirement . "\n";
-		}
-	}
-	fail($message);
-}
-
-if (!FreshRSS_user_Controller::checkUsername($options['default_user'])) {
-	fail('FreshRSS invalid default username (must be ASCII alphanumeric): ' . $options['default_user']);
-}
-
-if (isset($options['auth_type']) && !in_array($options['auth_type'], array('form', 'http_auth', 'none'))) {
-	fail('FreshRSS invalid authentication method (auth_type must be one of { form, http_auth, none }: ' . $options['auth_type']);
-}
-
 $config = array(
 		'salt' => generateSalt(),
 		'db' => FreshRSS_Context::$system_conf->db,
@@ -78,6 +59,28 @@ foreach ($dBparams as $dBparam) {
 		$param = substr($dBparam, strlen('db-'));
 		$config['db'][$param] = $options[$dBparam];
 	}
+}
+
+$requirements = checkRequirements($config['db']['type']);
+if ($requirements['all'] !== 'ok') {
+	$message = 'FreshRSS install failed requirements:' . "\n";
+	foreach ($requirements as $requirement => $check) {
+		if ($check !== 'ok' && !in_array($requirement, array('all', 'pdo', 'message'))) {
+			$message .= '• ' . $requirement . "\n";
+		}
+	}
+	if (!empty($requirements['message'])) {
+		$message .= '• ' . $requirements['message'] . "\n";
+	}
+	fail($message);
+}
+
+if (!FreshRSS_user_Controller::checkUsername($options['default_user'])) {
+	fail('FreshRSS invalid default username (must be ASCII alphanumeric): ' . $options['default_user']);
+}
+
+if (isset($options['auth_type']) && !in_array($options['auth_type'], array('form', 'http_auth', 'none'))) {
+	fail('FreshRSS invalid authentication method (auth_type must be one of { form, http_auth, none }: ' . $options['auth_type']);
 }
 
 if (file_put_contents(join_path(DATA_PATH, 'config.php'), "<?php\n return " . var_export($config, true) . ";\n") === false) {
