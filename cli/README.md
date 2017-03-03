@@ -63,7 +63,8 @@ cd /usr/share/FreshRSS
 ./cli/user-info.php -h --user username
 # -h is to use a human-readable format
 # --user can be a username, or '*' to loop on all users
-# Returns a * if the user is admin, the name of the user, the date/time of last action, and the size occupied
+# Returns a * if the user is admin, the name of the user, the date/time of last action, the size occupied,
+#  and the number of: feeds, read articles, unread articles, and favourites
 ```
 
 
