@@ -3,9 +3,14 @@
 require('_cli.php');
 require(LIB_PATH . '/lib_install.php');
 
+if (!file_exists(DATA_PATH . '/do-install.txt')) {
+	fail('FreshRSS looks to be already installed! Please use `./cli/reconfigure.php` instead.');
+}
+
 $params = array(
 		'environment:',
 		'base_url:',
+		'language:',
 		'title:',
 		'default_user:',
 		'allow_anonymous',
@@ -30,7 +35,7 @@ $options = getopt('', array_merge($params, $dBparams));
 if (empty($options['default_user'])) {
 	fail('Usage: ' . basename(__FILE__) . " --default_user admin ( --auth_type form" .
 		" --environment production --base_url https://rss.example.net/" .
-		" --title FreshRSS --allow_anonymous --api_enabled" .
+		" --language en --title FreshRSS --allow_anonymous --api_enabled" .
 		" --db-type mysql --db-host localhost:3306 --db-user freshrss --db-password dbPassword123" .
 		" --db-base freshrss --db-prefix freshrss_ --disable_update )");
 }

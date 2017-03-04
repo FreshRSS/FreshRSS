@@ -115,6 +115,7 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 		}
 
 		$ok = self::checkUsername($new_user_name);
+		$homeDir = join_path(DATA_PATH, 'users', $new_user_name);
 
 		if ($ok) {
 			$languages = Minz_Translate::availableLanguages();
@@ -124,7 +125,7 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 
 			$ok &= !in_array(strtoupper($new_user_name), array_map('strtoupper', listUsers()));	//Not an existing user, case-insensitive
 
-			$configPath = join_path(DATA_PATH, 'users', $new_user_name, 'config.php');
+			$configPath = join_path($homeDir, 'config.php');
 			$ok &= !file_exists($configPath);
 		}
 		if ($ok) {
@@ -141,7 +142,9 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 			}
 		}
 		if ($ok) {
-			mkdir(join_path(DATA_PATH, 'users', $new_user_name));
+			if (!is_dir($homeDir)) {
+				mkdir($homeDir);
+			}
 			$userConfig['passwordHash'] = $passwordHash;
 			$userConfig['apiPasswordHash'] = $apiPasswordHash;
 			$ok &= (file_put_contents($configPath, "<?php\n return " . var_export($userConfig, true) . ';') !== false);

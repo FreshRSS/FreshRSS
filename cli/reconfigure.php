@@ -5,6 +5,7 @@ require('_cli.php');
 $params = array(
 		'environment:',
 		'base_url:',
+		'language:',
 		'title:',
 		'default_user:',
 		'allow_anonymous',
