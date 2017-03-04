@@ -295,7 +295,10 @@ function invalidateHttpCache($username = '') {
 function listUsers() {
 	$final_list = array();
 	$base_path = join_path(DATA_PATH, 'users');
-	$dir_list = scandir($base_path);
+	$dir_list = array_values(array_diff(
+		scandir($base_path),
+		array('..', '.', '_')
+	));
 	foreach ($dir_list as $file) {
 		if ($file[0] !== '.' && is_dir(join_path($base_path, $file)) && file_exists(join_path($base_path, $file, 'config.php'))) {
 			$final_list[] = $file;
