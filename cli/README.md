@@ -63,15 +63,15 @@ cd /usr/share/FreshRSS
 ./cli/user-info.php -h --user username
 # -h is to use a human-readable format
 # --user can be a username, or '*' to loop on all users
-# Returns a * if the user is admin, the name of the user, the date/time of last action, the size occupied,
-#  and the number of: feeds, read articles, unread articles, and favourites
+# Returns: 1) a * iff the user is admin, 2) the name of the user,
+#  3) the date/time of last user action, 4) the size occupied,
+#  and the number of: 5) categories, 6) feeds, 7) read articles, 8) unread articles, and 9) favourites
 ```
 
 
 ## Unix piping
 
 It is possible to invoke a command multiple times, e.g. with different usernames, thanks to the `xargs -n1` command.
-
 Example showing user information for all users which username starts with 'a':
 
 ```sh
@@ -82,4 +82,10 @@ Example showing all users ranked by date of last activity:
 
 ```sh
 ./cli/user-info.php -h --user '*' | sort -k2 -r
+```
+
+Example to get the number of feeds of a given user:
+
+```sh
+./cli/user-info.php --user alex | cut -f6
 ```
