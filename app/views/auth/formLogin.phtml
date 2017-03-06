@@ -9,7 +9,7 @@
 		<input type="hidden" name="_csrf" value="<?php echo FreshRSS_Auth::csrfToken(); ?>" />
 		<div>
 			<label for="username"><?php echo _t('gen.auth.username'); ?></label>
-			<input type="text" id="username" name="username" size="16" required="required" maxlength="16" pattern="[0-9a-zA-Z]{1,16}" autofocus="autofocus" />
+			<input type="text" id="username" name="username" size="16" required="required" pattern="<?php echo FreshRSS_user_Controller::USERNAME_PATTERN; ?>" autofocus="autofocus" />
 		</div>
 		<div>
 			<label for="passwordPlain"><?php echo _t('gen.auth.password'); ?></label>
@@ -20,7 +20,7 @@
 		<div>
 			<label class="checkbox" for="keep_logged_in">
 				<input type="checkbox" name="keep_logged_in" id="keep_logged_in" value="1" />
-				<?php echo _t('gen.auth.keep_logged_in'); ?>
+				<?php echo _t('gen.auth.keep_logged_in', $this->cookie_days); ?>
 			</label>
 			<br />
 		</div>

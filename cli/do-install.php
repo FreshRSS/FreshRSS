@@ -3,9 +3,14 @@
 require('_cli.php');
 require(LIB_PATH . '/lib_install.php');
 
+if (!file_exists(DATA_PATH . '/do-install.txt')) {
+	fail('FreshRSS looks to be already installed! Please use `./cli/reconfigure.php` instead.');
+}
+
 $params = array(
 		'environment:',
 		'base_url:',
+		'language:',
 		'title:',
 		'default_user:',
 		'allow_anonymous',
@@ -13,6 +18,7 @@ $params = array(
 		'auth_type:',
 		'api_enabled',
 		'allow_robots',
+		'disable_update',
 	);
 
 $dBparams = array(
@@ -26,34 +32,15 @@ $dBparams = array(
 
 $options = getopt('', array_merge($params, $dBparams));
 
-if (empty($options['default_user']) || empty($options['auth_type'])) {
-	fail('Usage: ' . basename(__FILE__) . " --default_user admin --auth_type form" .
-		" ( --environment production --base_url https://rss.example.net/" .
-		" --title FreshRSS --allow_anonymous --api_enabled" .
+if (empty($options['default_user'])) {
+	fail('Usage: ' . basename(__FILE__) . " --default_user admin ( --auth_type form" .
+		" --environment production --base_url https://rss.example.net/" .
+		" --language en --title FreshRSS --allow_anonymous --api_enabled" .
 		" --db-type mysql --db-host localhost:3306 --db-user freshrss --db-password dbPassword123" .
-		" --db-base freshrss --db-prefix freshrss )");
+		" --db-base freshrss --db-prefix freshrss_ --disable_update )");
 }
 
 fwrite(STDERR, 'FreshRSS install…' . "\n");
-
-$requirements = checkRequirements();
-if ($requirements['all'] !== 'ok') {
-	$message = 'FreshRSS install failed requirements:' . "\n";
-	foreach ($requirements as $requirement => $check) {
-		if ($check !== 'ok' && $requirement !== 'all') {
-			$message .= '• ' . $requirement . "\n";
-		}
-	}
-	fail($message);
-}
-
-if (!ctype_alnum($options['default_user'])) {
-	fail('FreshRSS invalid default username (must be ASCII alphanumeric): ' . $options['default_user']);
-}
-
-if (!in_array($options['auth_type'], array('form', 'http_auth', 'none'))) {
-	fail('FreshRSS invalid authentication method (auth_type must be one of { form, http_auth, none }: ' . $options['auth_type']);
-}
 
 $config = array(
 		'salt' => generateSalt(),
@@ -73,10 +60,32 @@ if ((!empty($config['base_url'])) && server_is_public($config['base_url'])) {
 
 foreach ($dBparams as $dBparam) {
 	$dBparam = rtrim($dBparam, ':');
-	if (!empty($options[$dBparam])) {
+	if (isset($options[$dBparam])) {
 		$param = substr($dBparam, strlen('db-'));
 		$config['db'][$param] = $options[$dBparam];
 	}
+}
+
+$requirements = checkRequirements($config['db']['type']);
+if ($requirements['all'] !== 'ok') {
+	$message = 'FreshRSS install failed requirements:' . "\n";
+	foreach ($requirements as $requirement => $check) {
+		if ($check !== 'ok' && !in_array($requirement, array('all', 'pdo', 'message'))) {
+			$message .= '• ' . $requirement . "\n";
+		}
+	}
+	if (!empty($requirements['message'])) {
+		$message .= '• ' . $requirements['message'] . "\n";
+	}
+	fail($message);
+}
+
+if (!FreshRSS_user_Controller::checkUsername($options['default_user'])) {
+	fail('FreshRSS invalid default username (must be ASCII alphanumeric): ' . $options['default_user']);
+}
+
+if (isset($options['auth_type']) && !in_array($options['auth_type'], array('form', 'http_auth', 'none'))) {
+	fail('FreshRSS invalid authentication method (auth_type must be one of { form, http_auth, none }: ' . $options['auth_type']);
 }
 
 if (file_put_contents(join_path(DATA_PATH, 'config.php'), "<?php\n return " . var_export($config, true) . ";\n") === false) {
@@ -86,11 +95,11 @@ if (file_put_contents(join_path(DATA_PATH, 'config.php'), "<?php\n return " . va
 $config['db']['default_user'] = $config['default_user'];
 if (!checkDb($config['db'])) {
 	@unlink(join_path(DATA_PATH, 'config.php'));
-	fail('FreshRSS database error: ' . (empty($config['db']['bd_error']) ? 'Unknown error' : $config['db']['bd_error']));
+	fail('FreshRSS database error: ' . (empty($config['db']['error']) ? 'Unknown error' : $config['db']['error']));
 }
 
 echo '• Remember to create the default user: ', $config['default_user'] , "\n",
-	"\t", './cli/create-user.php --user ', $config['default_user'] , " --password 'password' --more-options\n";
+	"\t", './cli/create-user.php --user ', $config['default_user'], " --password 'password' --more-options\n";
 
 accessRights();
 

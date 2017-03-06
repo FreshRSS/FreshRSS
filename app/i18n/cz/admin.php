@@ -57,6 +57,10 @@ return array(
 			'nok' => 'Tabulka kanálů je nastavena špatně.',
 			'ok' => 'Tabulka kanálů je v pořádku.',
 		),
+		'fileinfo' => array(
+			'nok' => 'Nemáte PHP fileinfo (balíček fileinfo).',
+			'ok' => 'Máte rozšíření fileinfo.',
+		),
 		'files' => 'Instalace souborů',
 		'json' => array(
 			'nok' => 'Nemáte JSON (balíček php5-json).',

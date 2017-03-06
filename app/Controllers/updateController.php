@@ -2,6 +2,45 @@
 
 class FreshRSS_update_Controller extends Minz_ActionController {
 
+	public static function isGit() {
+		return is_dir(FRESHRSS_PATH . '/.git/');
+	}
+
+	public static function hasGitUpdate() {
+		$cwd = getcwd();
+		chdir(FRESHRSS_PATH);
+		$output = array();
+		try {
+			exec('git fetch', $output, $return);
+			if ($return == 0) {
+				exec('git status -sb --porcelain remote', $output, $return);
+			} else {
+				$line = is_array($output) ? implode('; ', $output) : '' . $output;
+				Minz_Log::warning('git fetch warning:' . $line);
+			}
+		} catch (Exception $e) {
+			Minz_Log::warning('git fetch error:' . $e->getMessage());
+		}
+		chdir($cwd);
+		$line = is_array($output) ? implode('; ', $output) : '' . $output;
+		return strpos($line, '[behind') !== false;
+	}
+
+	public static function gitPull() {
+		$cwd = getcwd();
+		chdir(FRESHRSS_PATH);
+		$output = array();
+		$return = 1;
+		try {
+			exec('git pull --ff-only', $output, $return);
+		} catch (Exception $e) {
+			Minz_Log::warning('git pull error:' . $e->getMessage());
+		}
+		chdir($cwd);
+		$line = is_array($output) ? implode('; ', $output) : '' . $output;
+		return $return == 0 ? true : 'Git error: ' . $line;
+	}
+
 	public function firstAction() {
 		if (!FreshRSS_Auth::hasAccess('admin')) {
 			Minz_Error::error(403);
@@ -20,7 +59,7 @@ class FreshRSS_update_Controller extends Minz_ActionController {
 	public function indexAction() {
 		Minz_View::prependTitle(_t('admin.update.title') . ' · ');
 
-		if (file_exists(UPDATE_FILENAME) && !is_writable(FRESHRSS_PATH)) {
+		if (!is_writable(FRESHRSS_PATH)) {
 			$this->view->message = array(
 				'status' => 'bad',
 				'title' => _t('gen.short.damn'),
@@ -53,49 +92,65 @@ class FreshRSS_update_Controller extends Minz_ActionController {
 			return;
 		}
 
-		$auto_update_url = FreshRSS_Context::$system_conf->auto_update_url . '?v=' . FRESHRSS_VERSION;
-		$c = curl_init($auto_update_url);
-		curl_setopt($c, CURLOPT_RETURNTRANSFER, true);
-		curl_setopt($c, CURLOPT_SSL_VERIFYPEER, true);
-		curl_setopt($c, CURLOPT_SSL_VERIFYHOST, 2);
-		$result = curl_exec($c);
-		$c_status = curl_getinfo($c, CURLINFO_HTTP_CODE);
-		$c_error = curl_error($c);
-		curl_close($c);
+		$script = '';
+		$version = '';
 
-		if ($c_status !== 200) {
-			Minz_Log::warning(
-				'Error during update (HTTP code ' . $c_status . '): ' . $c_error
-			);
+		if (self::isGit()) {
+			if (self::hasGitUpdate()) {
+				$version = 'git';
+			} else {
+				$this->view->message = array(
+					'status' => 'bad',
+					'title' => _t('gen.short.damn'),
+					'body' => _t('feedback.update.none')
+				);
+				@touch(join_path(DATA_PATH, 'last_update.txt'));
+				return;
+			}
+		} else {
+			$auto_update_url = FreshRSS_Context::$system_conf->auto_update_url . '?v=' . FRESHRSS_VERSION;
+			Minz_Log::debug('HTTP GET ' . $auto_update_url);
+			$c = curl_init($auto_update_url);
+			curl_setopt($c, CURLOPT_RETURNTRANSFER, true);
+			curl_setopt($c, CURLOPT_SSL_VERIFYPEER, true);
+			curl_setopt($c, CURLOPT_SSL_VERIFYHOST, 2);
+			$result = curl_exec($c);
+			$c_status = curl_getinfo($c, CURLINFO_HTTP_CODE);
+			$c_error = curl_error($c);
+			curl_close($c);
 
-			$this->view->message = array(
-				'status' => 'bad',
-				'title' => _t('gen.short.damn'),
-				'body' => _t('feedback.update.server_not_found', $auto_update_url)
-			);
-			return;
-		}
+			if ($c_status !== 200) {
+				Minz_Log::warning(
+					'Error during update (HTTP code ' . $c_status . '): ' . $c_error
+				);
 
-		$res_array = explode("\n", $result, 2);
-		$status = $res_array[0];
-		if (strpos($status, 'UPDATE') !== 0) {
-			$this->view->message = array(
-				'status' => 'bad',
-				'title' => _t('gen.short.damn'),
-				'body' => _t('feedback.update.none')
-			);
+				$this->view->message = array(
+					'status' => 'bad',
+					'title' => _t('gen.short.damn'),
+					'body' => _t('feedback.update.server_not_found', $auto_update_url)
+				);
+				return;
+			}
 
-			@touch(join_path(DATA_PATH, 'last_update.txt'));
+			$res_array = explode("\n", $result, 2);
+			$status = $res_array[0];
+			if (strpos($status, 'UPDATE') !== 0) {
+				$this->view->message = array(
+					'status' => 'bad',
+					'title' => _t('gen.short.damn'),
+					'body' => _t('feedback.update.none')
+				);
+				@touch(join_path(DATA_PATH, 'last_update.txt'));
+				return;
+			}
 
-			return;
-		}
-
-		$script = $res_array[1];
-		if (file_put_contents(UPDATE_FILENAME, $script) !== false) {
+			$script = $res_array[1];
 			$version = explode(' ', $status, 2);
 			$version = $version[1];
-			@file_put_contents(join_path(DATA_PATH, 'last_update.txt'), $version);
+		}
 
+		if (file_put_contents(UPDATE_FILENAME, $script) !== false) {
+			@file_put_contents(join_path(DATA_PATH, 'last_update.txt'), $version);
 			Minz_Request::forward(array('c' => 'update'), true);
 		} else {
 			$this->view->message = array(
@@ -107,14 +162,17 @@ class FreshRSS_update_Controller extends Minz_ActionController {
 	}
 
 	public function applyAction() {
-		if (!file_exists(UPDATE_FILENAME) || !is_writable(FRESHRSS_PATH)) {
+		if (!file_exists(UPDATE_FILENAME) || !is_writable(FRESHRSS_PATH) || Minz_Configuration::get('system')->disable_update) {
 			Minz_Request::forward(array('c' => 'update'), true);
 		}
 
-		require(UPDATE_FILENAME);
-
 		if (Minz_Request::param('post_conf', false)) {
-			$res = do_post_update();
+			if (self::isGit()) {
+				$res = !self::hasGitUpdate();
+			} else {
+				require(UPDATE_FILENAME);
+				$res = do_post_update();
+			}
 
 			Minz_ExtensionManager::callHook('post_update');
 
@@ -126,14 +184,21 @@ class FreshRSS_update_Controller extends Minz_ActionController {
 				Minz_Request::bad(_t('feedback.update.error', $res),
 				                  array('c' => 'update', 'a' => 'index'));
 			}
-		}
+		} else {
+			$res = false;
 
-		if (Minz_Request::isPost()) {
-			save_info_update();
-		}
-
-		if (!need_info_update()) {
-			$res = apply_update();
+			if (self::isGit()) {
+				$res = self::gitPull();
+			} else {
+				if (Minz_Request::isPost()) {
+					save_info_update();
+				}
+				if (!need_info_update()) {
+					$res = apply_update();
+				} else {
+					return;
+				}
+			}
 
 			if ($res === true) {
 				Minz_Request::forward(array(

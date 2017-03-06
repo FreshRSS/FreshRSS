@@ -56,6 +56,10 @@ return array(
 			'nok' => 'Zkontrolujte oprávnění adresáře <em>./data/favicons</em>. HTTP server musí mít do tohoto adresáře práva zápisu',
 			'ok' => 'Oprávnění adresáře favicons jsou v pořádku.',
 		),
+		'fileinfo' => array(
+			'nok' => 'Nemáte PHP fileinfo (balíček fileinfo).',
+			'ok' => 'Máte rozšíření fileinfo.',
+		),
 		'http_referer' => array(
 			'nok' => 'Zkontrolujte prosím že neměníte HTTP REFERER.',
 			'ok' => 'Váš HTTP REFERER je znám a odpovídá Vašemu serveru.',

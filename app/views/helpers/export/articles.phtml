@@ -1,47 +1,66 @@
 <?php
-    $username = Minz_Session::param('currentUser', '_');
+$username = Minz_Session::param('currentUser', '_');
 
-    $articles = array(
-        'id' => 'user/' . str_replace('/', '', $username) . '/state/org.freshrss/' . $this->type,
-        'title' => $this->list_title,
-        'author' => $username,
-        'items' => array()
-    );
+$options = 0;
+if (version_compare(PHP_VERSION, '5.4.0') >= 0) {
+	$options = JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE;
+}
 
-    foreach ($this->entries as $entry) {
-        if (!isset($this->feed)) {
-            $feed = FreshRSS_CategoryDAO::findFeed($this->categories, $entry->feed ());
-        } else {
-            $feed = $this->feed;
-        }
+$articles = array(
+	'id' => 'user/' . str_replace('/', '', $username) . '/state/org.freshrss/' . $this->type,
+	'title' => $this->list_title,
+	'author' => $username,
+	'items' => array(),
+);
 
-        $articles['items'][] = array(
-            'id' => $entry->guid(),
-            'categories' => array_values($entry->tags()),
-            'title' => $entry->title(),
-            'author' => $entry->author(),
-            'published' => $entry->date(true),
-            'updated' => $entry->date(true),
-            'alternate' => array(array(
-                'href' => $entry->link(),
-                'type' => 'text/html'
-            )),
-            'content' => array(
-                'content' => $entry->content()
-            ),
-            'origin' => array(
-                'streamId' => $feed->id(),
-                'title' => $feed->name(),
-                'htmlUrl' => $feed->website(),
-                'feedUrl' => $feed->url()
-            )
-        );
-    }
+echo rtrim(json_encode($articles, $options), " ]}\n\r\t"), "\n";
+$first = true;
 
-    $options = 0;
-    if (version_compare(PHP_VERSION, '5.4.0') >= 0) {
-        $options = JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE;
-    }
+foreach ($this->entriesRaw as $entryRaw) {
+	if (empty($entryRaw)) {
+		continue;
+	}
+	$entry = FreshRSS_EntryDAO::daoToEntry($entryRaw);
+	if (!isset($this->feed)) {
+		$feed = FreshRSS_CategoryDAO::findFeed($this->categories, $entry->feed());
+		if ($feed == null) {
+			$feed = $entry->feed(true);
+		}
+	} else {
+		$feed = $this->feed;
+	}
 
-    echo json_encode($articles, $options);
-?>
+	$article = array(
+		'id' => $entry->guid(),
+		'categories' => array_values($entry->tags()),
+		'title' => $entry->title(),
+		'author' => $entry->author(),
+		'published' => $entry->date(true),
+		'updated' => $entry->date(true),
+		'alternate' => array(array(
+			'href' => $entry->link(),
+			'type' => 'text/html',
+		)),
+		'content' => array(
+			'content' => $entry->content(),
+		),
+		'origin' => array(
+			'streamId' => $feed == null ? '' : $feed->id(),
+			'title' => $feed == null ? '' : $feed->name(),
+			'htmlUrl' => $feed == null ? '' : $feed->website(),
+			'feedUrl' => $feed == null ? '' : $feed->url(),
+		)
+	);
+
+	$line = json_encode($article, $options);
+	if ($line != '') {
+		if ($first) {
+			$first = false;
+		} else {
+			echo ",\n";
+		}
+		echo $line;
+	}
+}
+
+echo "\n]}\n";

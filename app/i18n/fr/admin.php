@@ -57,6 +57,10 @@ return array(
 			'nok' => 'La table feed est mal configurée.',
 			'ok' => 'La table feed est bien configurée.',
 		),
+		'fileinfo' => array(
+			'nok' => 'Impossible de trouver la librairie PHP fileinfo (paquet fileinfo).',
+			'ok' => 'Vous disposez de la librairie fileinfo.',
+		),
 		'files' => 'Installation des fichiers',
 		'json' => array(
 			'nok' => 'Vous ne disposez pas de JSON (paquet php5-json).',

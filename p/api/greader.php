@@ -152,7 +152,7 @@ function authorizationToUser() {
 		$headerAuthX = explode('/', $headerAuth, 2);
 		if (count($headerAuthX) === 2) {
 			$user = $headerAuthX[0];
-			if (ctype_alnum($user)) {
+			if (FreshRSS_user_Controller::checkUsername($user)) {
 				FreshRSS_Context::$user_conf = get_user_configuration($user);
 				if (FreshRSS_Context::$user_conf == null) {
 					Minz_Log::warning('Invalid API user ' . $user . ': configuration cannot be found.');

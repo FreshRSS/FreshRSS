@@ -56,6 +56,10 @@ return array(
 			'nok' => 'Controleer permissies van de <em>./data/favicons</em> map. HTTP server moet rechten hebben om er in te kunnen schrijven',
 			'ok' => 'Permissies van de favicons map zijn goed.',
 		),
+		'fileinfo' => array(
+			'nok' => 'U mist PHP fileinfo (fileinfo package).',
+			'ok' => 'U hebt de fileinfo uitbreiding.',
+		),
 		'http_referer' => array(
 			'nok' => 'Controleer a.u.b. dat u niet uw HTTP REFERER wijzigd.',
 			'ok' => 'Uw HTTP REFERER is bekend en komt overeen met uw server.',

@@ -56,6 +56,10 @@ return array(
 			'nok' => 'Verifica i permessi sulla cartella <em>./data/favicons</em>. Il server HTTP deve avere i permessi per scriverci dentro',
 			'ok' => 'I permessi sulla cartella favicons sono corretti.',
 		),
+		'fileinfo' => array(
+			'nok' => 'Manca il supporto per PHP fileinfo (pacchetto fileinfo).',
+			'ok' => 'Estensione fileinfo presente.',
+		),
 		'http_referer' => array(
 			'nok' => 'Per favore verifica che non stai alterando il tuo HTTP REFERER.',
 			'ok' => 'Il tuo HTTP REFERER riconosciuto corrisponde al tuo server.',

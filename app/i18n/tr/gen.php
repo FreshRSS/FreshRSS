@@ -22,7 +22,7 @@ return array(
 	),
 	'auth' => array(
 		'email' => 'Email adresleri',
-		'keep_logged_in' => '<small>(1 ay)</small> oturumu açık tut',
+		'keep_logged_in' => '<small>(%s günler)</small> oturumu açık tut',
 		'login' => 'Giriş',
 		'logout' => 'Çıkış',
 		'password' => array(
@@ -165,6 +165,8 @@ return array(
 		'wallabag' => 'wallabag v1',
 		'wallabagv2' => 'wallabag v2',
 		'jdh' => 'Journal du hacker',
+		'Known' => 'Known based sites',
+		'gnusocial' => 'GNU social',
 	),
 	'short' => array(
 		'attention' => 'Tehlike!',

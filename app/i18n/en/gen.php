@@ -22,7 +22,7 @@ return array(
 	),
 	'auth' => array(
 		'email' => 'Email address',
-		'keep_logged_in' => 'Keep me logged in <small>(1 month)</small>',
+		'keep_logged_in' => 'Keep me logged in <small>(%s days)</small>',
 		'login' => 'Login',
 		'logout' => 'Logout',
 		'password' => array(
@@ -165,6 +165,8 @@ return array(
 		'wallabag' => 'wallabag v1',
 		'wallabagv2' => 'wallabag v2',
 		'jdh' => 'Journal du hacker',
+		'Known' => 'Known based sites',
+		'gnusocial' => 'GNU social',
 	),
 	'short' => array(
 		'attention' => 'Warning!',

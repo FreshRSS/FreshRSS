@@ -22,7 +22,7 @@ return array(
 	),
 	'auth' => array(
 		'email' => 'Email',
-		'keep_logged_in' => 'Zapamatovat přihlášení <small>(1 měsíc)</small>',
+		'keep_logged_in' => 'Zapamatovat přihlášení <small>(%s dny)</small>',
 		'login' => 'Login',
 		'logout' => 'Odhlášení',
 		'password' =>  array(
@@ -165,6 +165,8 @@ return array(
 		'wallabag' => 'wallabag v1',
 		'wallabagv2' => 'wallabag v2',
 		'jdh' => 'Journal du hacker',
+		'Known' => 'Known based sites',
+		'gnusocial' => 'GNU social',
 	),
 	'short' => array(
 		'attention' => 'Upozornění!',
