@@ -20,7 +20,7 @@
 		* Allow empty strings in CLI do-install [#1435](https://github.com/FreshRSS/FreshRSS/pull/1435)
 	* Fix PostgreSQL bugs with API and feed modifications [#1417](https://github.com/FreshRSS/FreshRSS/pull/1417)
 	* Do not mark as read in anonymous mode [#1431](https://github.com/FreshRSS/FreshRSS/issues/1431)
-	* Fix Favicons warning [#59dfc64](https://github.com/FreshRSS/FreshRSS/pull/1447/commits/59dfc64512372eaba7609d84500d943bb7274399)
+	* Fix Favicons warnings [#59dfc64](https://github.com/FreshRSS/FreshRSS/commit/59dfc64512372eaba7609d84500d943bb7274399), [#1452](https://github.com/FreshRSS/FreshRSS/pull/1452)
 * Security
 	* Sanitize feed Web site URL [#1434](https://github.com/FreshRSS/FreshRSS/issues/1434)
 	* No version number for anonymous users [#1404](https://github.com/FreshRSS/FreshRSS/issues/1404)

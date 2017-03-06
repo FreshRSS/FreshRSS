@@ -89,6 +89,9 @@ class Favicon
         $loop = TRUE;
         while ($loop && $max_loop-- > 0) {
             $headers = $this->dataAccess->retrieveHeader($url);
+            if (empty($headers)) {
+                return false;
+            }
             $exploded = explode(' ', $headers[0]);
             
             if( !isset($exploded[1]) ) { 
