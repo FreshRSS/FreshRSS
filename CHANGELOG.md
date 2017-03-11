@@ -1,6 +1,6 @@
 ﻿# Changelog
 
-## 2017-03-xx FreshRSS 1.6.3-dev
+## 2017-03-11 FreshRSS 1.6.3
 
 * Features
 	* New option `disable_update` (also from CLI) to hide the system to update to new FreshRSS versions [#1436](https://github.com/FreshRSS/FreshRSS/pull/1436)
