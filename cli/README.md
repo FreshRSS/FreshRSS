@@ -32,12 +32,16 @@ Options in parenthesis are optional.
 ```sh
 cd /usr/share/FreshRSS
 
-./cli/do-install.php --default_user admin ( --auth_type form --environment production --base_url https://rss.example.net/ --title FreshRSS --allow_anonymous --api_enabled --db-type mysql --db-host localhost:3306 --db-user freshrss --db-password dbPassword123 --db-base freshrss --db-prefix freshrss )
+./cli/do-install.php --default_user admin ( --auth_type form --environment production --base_url https://rss.example.net/ --language en --title FreshRSS --allow_anonymous --api_enabled --db-type mysql --db-host localhost:3306 --db-user freshrss --db-password dbPassword123 --db-base freshrss --db-prefix freshrss )
 # --auth_type can be: 'form' (default), 'http_auth' (using the Web server access control), 'none' (dangerous)
 # --db-type can be: 'sqlite' (default), 'mysql' (MySQL or MariaDB), 'pgsql' (PostgreSQL)
 # --environment can be: 'production' (default), 'development' (for additional log messages)
+# --language can be: 'en' (default), 'fr', or one of the [supported languages](../app/i18n/)
 # --db-prefix is an optional prefix in front of the names of the tables. We suggest using 'freshrss_'
 # This command does not create the default user. Do that with ./cli/create-user.php
+
+./cli/reconfigure.php
+# Same parameters as for do-install.php. Used to update an existing installation.
 
 ./cli/create-user.php --user username ( --password 'password' --api-password 'api_password' --language en --email user@example.net --token 'longRandomString' --no-default-feeds )
 # --language can be: 'en' (default), 'fr', or one of the [supported languages](../app/i18n/)
@@ -59,14 +63,15 @@ cd /usr/share/FreshRSS
 ./cli/user-info.php -h --user username
 # -h is to use a human-readable format
 # --user can be a username, or '*' to loop on all users
-# Returns a * if the user is admin, the name of the user, the date/time of last action, and the size occupied
+# Returns: 1) a * iff the user is admin, 2) the name of the user,
+#  3) the date/time of last user action, 4) the size occupied,
+#  and the number of: 5) categories, 6) feeds, 7) read articles, 8) unread articles, and 9) favourites
 ```
 
 
 ## Unix piping
 
 It is possible to invoke a command multiple times, e.g. with different usernames, thanks to the `xargs -n1` command.
-
 Example showing user information for all users which username starts with 'a':
 
 ```sh
@@ -77,4 +82,10 @@ Example showing all users ranked by date of last activity:
 
 ```sh
 ./cli/user-info.php -h --user '*' | sort -k2 -r
+```
+
+Example to get the number of feeds of a given user:
+
+```sh
+./cli/user-info.php --user alex | cut -f6
 ```

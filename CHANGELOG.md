@@ -1,5 +1,33 @@
 ﻿# Changelog
 
+## 2017-03-11 FreshRSS 1.6.3
+
+* Features
+	* New option `disable_update` (also from CLI) to hide the system to update to new FreshRSS versions [#1436](https://github.com/FreshRSS/FreshRSS/pull/1436)
+	* Share with Ⓚnown [#1420](https://github.com/FreshRSS/FreshRSS/pull/1420)
+	* Share with GNU social [#1422](https://github.com/FreshRSS/FreshRSS/issues/1422)
+* UI
+	* New theme *Origine-compact* [#1388](https://github.com/FreshRSS/FreshRSS/pull/1388)
+	* Chrome parity with Firefox: auto-focus tab when clicking on notification [#1409](https://github.com/FreshRSS/FreshRSS/pull/1409)
+* CLI
+	* New command `./cli/reconfigure.php` to update an existing installation [#1439](https://github.com/FreshRSS/FreshRSS/pull/1439)
+	* Many CLI improvements [#1447](https://github.com/FreshRSS/FreshRSS/pull/1447)
+		* More information (number of feeds, articles, etc.) in `./cli/user-info.php`
+		* Better idempotency of `./cli/do-install.php` and language parameter [#1449](https://github.com/FreshRSS/FreshRSS/issues/1449) 
+* Bug fixing
+	* Fix several CLI issues [#1445](https://github.com/FreshRSS/FreshRSS/issues/1445)
+		* Fix CLI install bugs with SQLite [#1443](https://github.com/FreshRSS/FreshRSS/issues/1443), [#1448](https://github.com/FreshRSS/FreshRSS/issues/1448)
+		* Allow empty strings in CLI do-install [#1435](https://github.com/FreshRSS/FreshRSS/pull/1435)
+	* Fix PostgreSQL bugs with API and feed modifications [#1417](https://github.com/FreshRSS/FreshRSS/pull/1417)
+	* Do not mark as read in anonymous mode [#1431](https://github.com/FreshRSS/FreshRSS/issues/1431)
+	* Fix Favicons warnings [#59dfc64](https://github.com/FreshRSS/FreshRSS/commit/59dfc64512372eaba7609d84500d943bb7274399), [#1452](https://github.com/FreshRSS/FreshRSS/pull/1452)
+* Security
+	* Sanitize feed Web site URL [#1434](https://github.com/FreshRSS/FreshRSS/issues/1434)
+	* No version number for anonymous users [#1404](https://github.com/FreshRSS/FreshRSS/issues/1404)
+* Misc.
+	* Relaxed requirements for username to `/^[0-9a-zA-Z]|[0-9a-zA-Z_]{2,38}$/` [#1423](https://github.com/FreshRSS/FreshRSS/pull/1423)
+
+
 ## 2016-12-26 FreshRSS 1.6.2
 
 * Features

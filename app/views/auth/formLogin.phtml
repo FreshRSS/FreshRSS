@@ -9,7 +9,7 @@
 		<input type="hidden" name="_csrf" value="<?php echo FreshRSS_Auth::csrfToken(); ?>" />
 		<div>
 			<label for="username"><?php echo _t('gen.auth.username'); ?></label>
-			<input type="text" id="username" name="username" size="16" required="required" maxlength="16" pattern="[0-9a-zA-Z]{1,16}" autofocus="autofocus" />
+			<input type="text" id="username" name="username" size="16" required="required" pattern="<?php echo FreshRSS_user_Controller::USERNAME_PATTERN; ?>" autofocus="autofocus" />
 		</div>
 		<div>
 			<label for="passwordPlain"><?php echo _t('gen.auth.password'); ?></label>

@@ -35,6 +35,16 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 	}
 
 	/**
+	 * The username is also used as folder name, file name, and part of SQL table name.
+	 * '_' is a reserved internal username.
+	 */
+	const USERNAME_PATTERN = '[0-9a-zA-Z]|[0-9a-zA-Z_]{2,38}';
+
+	public static function checkUsername($username) {
+		return preg_match('/^' . self::USERNAME_PATTERN . '$/', $username) === 1;
+	}
+
+	/**
 	 * This action displays the user profile page.
 	 */
 	public function profileAction() {
@@ -104,7 +114,8 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 			$userConfig = array();
 		}
 
-		$ok = ($new_user_name != '') && ctype_alnum($new_user_name);
+		$ok = self::checkUsername($new_user_name);
+		$homeDir = join_path(DATA_PATH, 'users', $new_user_name);
 
 		if ($ok) {
 			$languages = Minz_Translate::availableLanguages();
@@ -114,7 +125,7 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 
 			$ok &= !in_array(strtoupper($new_user_name), array_map('strtoupper', listUsers()));	//Not an existing user, case-insensitive
 
-			$configPath = join_path(DATA_PATH, 'users', $new_user_name, 'config.php');
+			$configPath = join_path($homeDir, 'config.php');
 			$ok &= !file_exists($configPath);
 		}
 		if ($ok) {
@@ -131,7 +142,9 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 			}
 		}
 		if ($ok) {
-			mkdir(join_path(DATA_PATH, 'users', $new_user_name));
+			if (!is_dir($homeDir)) {
+				mkdir($homeDir);
+			}
 			$userConfig['passwordHash'] = $passwordHash;
 			$userConfig['apiPasswordHash'] = $apiPasswordHash;
 			$ok &= (file_put_contents($configPath, "<?php\n return " . var_export($userConfig, true) . ';') !== false);
@@ -187,7 +200,7 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 		$db = FreshRSS_Context::$system_conf->db;
 		require_once(APP_PATH . '/SQL/install.sql.' . $db['type'] . '.php');
 
-		$ok = ctype_alnum($username);
+		$ok = self::checkUsername($username);
 		if ($ok) {
 			$default_user = FreshRSS_Context::$system_conf->default_user;
 			$ok &= (strcasecmp($username, $default_user) !== 0);	//It is forbidden to delete the default user

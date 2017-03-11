@@ -10,7 +10,7 @@ if (empty($options['user'])) {
 	fail('Usage: ' . basename(__FILE__) . " --user username");
 }
 $username = $options['user'];
-if (!ctype_alnum($username)) {
+if (!FreshRSS_user_Controller::checkUsername($username)) {
 	fail('FreshRSS error: invalid username “' . $username . '”');
 }
 

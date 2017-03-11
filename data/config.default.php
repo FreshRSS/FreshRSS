@@ -146,4 +146,7 @@ return array(
 
 	# List of enabled FreshRSS extensions.
 	'extensions_enabled' => array(),
+
+	# Disable self-update,
+	'disable_update' => false,
 );

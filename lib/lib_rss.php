@@ -69,10 +69,10 @@ function idn_to_puny($url) {
 }
 
 function checkUrl($url) {
-	if (empty ($url)) {
+	if ($url == '') {
 		return '';
 	}
-	if (!preg_match ('#^https?://#i', $url)) {
+	if (!preg_match('#^https?://#i', $url)) {
 		$url = 'http://' . $url;
 	}
 	$url = idn_to_puny($url);	//PHP bug #53474 IDN
@@ -285,7 +285,7 @@ function uSecString() {
 }
 
 function invalidateHttpCache($username = '') {
-	if (($username == '') || (!ctype_alnum($username))) {
+	if (!FreshRSS_user_Controller::checkUsername($username)) {
 		Minz_Session::_param('touch', uTimeString());
 		$username = Minz_Session::param('currentUser', '_');
 	}
@@ -299,13 +299,11 @@ function listUsers() {
 		scandir($base_path),
 		array('..', '.', '_')
 	));
-
 	foreach ($dir_list as $file) {
-		if (is_dir(join_path($base_path, $file))) {
+		if ($file[0] !== '.' && is_dir(join_path($base_path, $file)) && file_exists(join_path($base_path, $file, 'config.php'))) {
 			$final_list[] = $file;
 		}
 	}
-
 	return $final_list;
 }
 

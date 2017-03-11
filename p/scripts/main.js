@@ -117,6 +117,7 @@ function incUnreadsFeed(article, feed_id, nb) {
 var pending_entries = {};
 function mark_read(active, only_not_read) {
 	if ((active.length === 0) || (!active.attr('id')) ||
+		context.anonymous ||
 		(only_not_read && !active.hasClass("not_read"))) {
 		return false;
 	}
@@ -935,6 +936,8 @@ function notifs_html5_show(nb) {
 
 	notification.onclick = function() {
 		window.location.reload();
+		window.focus();
+		notification.close();
 	};
 
 	if (context.html5_notif_timeout !== 0) {
@@ -1014,6 +1017,7 @@ function load_more_posts() {
 		init_load_more(box_load_more);
 
 		$('#load_more').removeClass('loading');
+		$('#bigMarkAsRead').removeAttr('disabled');
 		load_more = false;
 		$(document.body).trigger('sticky_kit:recalc');
 	});
