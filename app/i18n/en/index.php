@@ -21,7 +21,7 @@ return array(
 		'rss_of' => 'RSS feed of %s',
 		'title' => 'Your RSS feeds',
 		'title_global' => 'Global view',
-		'title_fav' => 'Your favourites',
+		'title_fav' => 'Your favorites',
 	),
 	'log' => array(
 		'_' => 'Logs',
