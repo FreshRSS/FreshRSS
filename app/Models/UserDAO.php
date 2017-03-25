@@ -14,21 +14,23 @@ class FreshRSS_UserDAO extends Minz_ModelPdo {
 			$ok = false;
 			$bd_prefix_user = $db['prefix'] . $username . '_';
 			if (defined('SQL_CREATE_TABLES')) {	//E.g. MySQL
-				$sql = sprintf(SQL_CREATE_TABLES, $bd_prefix_user, _t('gen.short.default_category'));
+				$sql = sprintf(SQL_CREATE_TABLES . SQL_CREATE_TABLE_ENTRYTMP, $bd_prefix_user, _t('gen.short.default_category'));
 				$stm = $userPDO->bd->prepare($sql);
 				$ok = $stm && $stm->execute();
 			} else {	//E.g. SQLite
 				global $SQL_CREATE_TABLES;
+				global $SQL_CREATE_TABLE_ENTRYTMP;
 				if (is_array($SQL_CREATE_TABLES)) {
-					$ok = true;
-					foreach ($SQL_CREATE_TABLES as $instruction) {
+					$instructions = array_merge($SQL_CREATE_TABLES, $SQL_CREATE_TABLE_ENTRYTMP);
+					$ok = !empty($instructions);
+					foreach ($instructions as $instruction) {
 						$sql = sprintf($instruction, $bd_prefix_user, _t('gen.short.default_category'));
 						$stm = $userPDO->bd->prepare($sql);
 						$ok &= ($stm && $stm->execute());
 					}
 				}
 			}
-			if ($insertDefaultFeeds) {
+			if ($ok && $insertDefaultFeeds) {
 				if (defined('SQL_INSERT_FEEDS')) {	//E.g. MySQL
 					$sql = sprintf(SQL_INSERT_FEEDS, $bd_prefix_user);
 					$stm = $userPDO->bd->prepare($sql);

@@ -809,6 +809,7 @@ function updateFeed(feeds, feeds_count) {
 		url: feed.url,
 		data : {
 			_csrf: context.csrf,
+			isLastFeed: feeds.length <= 0 ? 1 : 0,
 		},
 	}).always(function (data) {
 		feed_processed++;

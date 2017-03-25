@@ -57,6 +57,30 @@ $SQL_CREATE_TABLES = array(
 'INSERT OR IGNORE INTO `category` (id, name) VALUES(1, "%2$s");',
 );
 
+global $SQL_CREATE_TABLE_ENTRYTMP;
+$SQL_CREATE_TABLE_ENTRYTMP = array(
+'CREATE TABLE IF NOT EXISTS `entrytmp` (	-- v1.7
+	`id` bigint NOT NULL,
+	`guid` varchar(760) NOT NULL,
+	`title` varchar(255) NOT NULL,
+	`author` varchar(255),
+	`content` text,
+	`link` varchar(1023) NOT NULL,
+	`date` int(11),
+	`lastSeen` INT(11) DEFAULT 0,
+	`hash` BINARY(16),
+	`is_read` boolean NOT NULL DEFAULT 0,
+	`is_favorite` boolean NOT NULL DEFAULT 0,
+	`id_feed` SMALLINT,
+	`tags` varchar(1023),
+	PRIMARY KEY (`id`),
+	FOREIGN KEY (`id_feed`) REFERENCES `feed`(`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+	UNIQUE (`id_feed`,`guid`)
+);',
+
+'CREATE INDEX IF NOT EXISTS entrytmp_date_index ON `entrytmp`(`date`);',
+);
+
 global $SQL_INSERT_FEEDS;
 $SQL_INSERT_FEEDS = array(
 'INSERT OR IGNORE INTO `feed` (url, category, name, website, description, ttl) VALUES("http://freshrss.org/feeds/all.atom.xml", 1, "FreshRSS.org", "http://freshrss.org/", "FreshRSS, a free, self-hostable aggregator…", 86400);',

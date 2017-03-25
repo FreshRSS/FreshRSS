@@ -226,7 +226,7 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 		}
 	}
 
-	public static function actualizeFeed($feed_id, $feed_url, $force, $simplePiePush = null, $isNewFeed = false) {
+	public static function actualizeFeed($feed_id, $feed_url, $force, $simplePiePush = null, $isNewFeed = false, $noCommit = false) {
 		@set_time_limit(300);
 
 		$feedDAO = FreshRSS_Factory::createFeedDao();
@@ -434,6 +434,9 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 				break;
 			}
 		}
+		if (!$noCommit) {
+			$entryDAO->commitNewEntries();
+		}
 		return array($updated_feeds, reset($feeds));
 	}
 
@@ -452,8 +455,9 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 		$id = Minz_Request::param('id');
 		$url = Minz_Request::param('url');
 		$force = Minz_Request::param('force');
+		$noCommit = Minz_Session::param('isLastFeed', 1) != 1;
 
-		list($updated_feeds, $feed) = self::actualizeFeed($id, $url, $force);
+		list($updated_feeds, $feed) = self::actualizeFeed($id, $url, $force, null, false, $noCommit);
 
 		if (Minz_Request::param('ajax')) {
 			// Most of the time, ajax request is for only one feed. But since

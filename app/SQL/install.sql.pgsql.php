@@ -32,7 +32,7 @@ $SQL_CREATE_TABLES = array(
 
 'CREATE TABLE IF NOT EXISTS "%1$sentry" (
 	"id" BIGINT NOT NULL PRIMARY KEY,
-	"guid" VARCHAR(760) UNIQUE NOT NULL,
+	"guid" VARCHAR(760) NOT NULL,
 	"title" VARCHAR(255) NOT NULL,
 	"author" VARCHAR(255),
 	"content" TEXT,
@@ -52,6 +52,28 @@ $SQL_CREATE_TABLES = array(
 'CREATE INDEX %1$sentry_lastSeen_index ON "%1$sentry" ("lastSeen");',
 
 'INSERT INTO "%1$scategory" (name) SELECT \'%2$s\' WHERE NOT EXISTS (SELECT id FROM "%1$scategory" WHERE id = 1);',
+);
+
+global $SQL_CREATE_TABLE_ENTRYTMP;
+$SQL_CREATE_TABLE_ENTRYTMP = array(
+'CREATE TABLE IF NOT EXISTS "%1$sentrytmp" (	-- v1.7
+	"id" BIGINT NOT NULL PRIMARY KEY,
+	"guid" VARCHAR(760) NOT NULL,
+	"title" VARCHAR(255) NOT NULL,
+	"author" VARCHAR(255),
+	"content" TEXT,
+	"link" VARCHAR(1023) NOT NULL,
+	"date" INT,
+	"lastSeen" INT DEFAULT 0,
+	"hash" BYTEA,
+	"is_read" SMALLINT NOT NULL DEFAULT 0,
+	"is_favorite" SMALLINT NOT NULL DEFAULT 0,
+	"id_feed" SMALLINT,
+	"tags" VARCHAR(1023),
+	FOREIGN KEY ("id_feed") REFERENCES "%1$sfeed" ("id") ON DELETE CASCADE ON UPDATE CASCADE,
+	UNIQUE ("id_feed","guid")
+);',
+'CREATE INDEX %1$sentrytmp_date_index ON "%1$sentrytmp" ("date");',
 );
 
 global $SQL_INSERT_FEEDS;

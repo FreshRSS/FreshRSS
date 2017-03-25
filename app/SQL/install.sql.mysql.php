@@ -61,6 +61,29 @@ ENGINE = INNODB;
 INSERT IGNORE INTO `%1$scategory` (id, name) VALUES(1, "%2$s");
 ');
 
+define('SQL_CREATE_TABLE_ENTRYTMP', '
+CREATE TABLE IF NOT EXISTS `%1$sentrytmp` (	-- v1.7
+	`id` bigint NOT NULL,
+	`guid` varchar(760) CHARACTER SET latin1 NOT NULL,
+	`title` varchar(255) NOT NULL,
+	`author` varchar(255),
+	`content_bin` blob,
+	`link` varchar(1023) CHARACTER SET latin1 NOT NULL,
+	`date` int(11),
+	`lastSeen` INT(11) DEFAULT 0,
+	`hash` BINARY(16),
+	`is_read` boolean NOT NULL DEFAULT 0,
+	`is_favorite` boolean NOT NULL DEFAULT 0,
+	`id_feed` SMALLINT,
+	`tags` varchar(1023),
+	PRIMARY KEY (`id`),
+	FOREIGN KEY (`id_feed`) REFERENCES `%1$sfeed`(`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+	UNIQUE KEY (`id_feed`,`guid`),
+	INDEX (`date`),
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci
+ENGINE = INNODB;
+');
+
 define('SQL_INSERT_FEEDS', '
 INSERT IGNORE INTO `%1$sfeed` (url, category, name, website, description, ttl) VALUES("http://freshrss.org/feeds/all.atom.xml", 1, "FreshRSS.org", "http://freshrss.org/", "FreshRSS, a free, self-hostable aggregator…", 86400);
 INSERT IGNORE INTO `%1$sfeed` (url, category, name, website, description, ttl) VALUES("https://github.com/FreshRSS/FreshRSS/releases.atom", 1, "FreshRSS @ GitHub", "https://github.com/FreshRSS/FreshRSS/", "FreshRSS releases @ GitHub", 86400);

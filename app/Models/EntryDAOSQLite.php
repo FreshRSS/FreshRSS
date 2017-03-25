@@ -7,19 +7,40 @@ class FreshRSS_EntryDAOSQLite extends FreshRSS_EntryDAO {
 	}
 
 	protected function autoUpdateDb($errorInfo) {
-		if (empty($errorInfo[0]) || $errorInfo[0] == '42S22') {	//ER_BAD_FIELD_ERROR
-			//autoAddColumn
-			if ($tableInfo = $this->bd->query("SELECT sql FROM sqlite_master where name='entry'")) {
-				$showCreate = $tableInfo->fetchColumn();
-				Minz_Log::debug('FreshRSS_EntryDAOSQLite::autoUpdateDb: ' . $showCreate);
-				foreach (array('lastSeen', 'hash') as $column) {
-					if (stripos($showCreate, $column) === false) {
-						return $this->addColumn($column);
-					}
+		Minz_Log::error('FreshRSS_EntryDAO::autoUpdateDb error: ' . print_r($errorInfo, true));
+		if ($tableInfo = $this->bd->query("SELECT sql FROM sqlite_master where name='entrytmp'")) {
+			$showCreate = $tableInfo->fetchColumn();
+			if (stripos($showCreate, 'entrytmp') === false) {
+				return $this->createEntryTempTable();
+			}
+		}
+		if ($tableInfo = $this->bd->query("SELECT sql FROM sqlite_master where name='entry'")) {
+			$showCreate = $tableInfo->fetchColumn();
+			foreach (array('lastSeen', 'hash') as $column) {
+				if (stripos($showCreate, $column) === false) {
+					return $this->addColumn($column);
 				}
 			}
 		}
 		return false;
+	}
+
+	public function commitNewEntries() {
+		$sql = '
+CREATE TEMP TABLE `tmp` AS SELECT id, guid, title, author, content, link, date, `lastSeen`, hash, is_read, is_favorite, id_feed, tags FROM `' . $this->prefix . 'entrytmp` ORDER BY date;
+INSERT OR IGNORE INTO `' . $this->prefix . 'entry` (id, guid, title, author, content, link, date, `lastSeen`, hash, is_read, is_favorite, id_feed, tags)
+	SELECT rowid + (SELECT MAX(id) - COUNT(*) FROM `tmp`) AS id, guid, title, author, content, link, date, `lastSeen`, hash, is_read, is_favorite, id_feed, tags FROM `tmp` ORDER BY date;
+DELETE FROM `' . $this->prefix . 'entrytmp` WHERE id <= (SELECT MAX(id) FROM `tmp`);
+DROP TABLE `tmp`;';
+		$hadTransaction = $this->bd->inTransaction();
+		if (!$hadTransaction) {
+			$this->bd->beginTransaction();
+		}
+		$result = $this->bd->exec($sql) !== false;
+		if (!$hadTransaction) {
+			$this->bd->commit();
+		}
+		return $result;
 	}
 
 	protected function sqlConcat($s1, $s2) {
