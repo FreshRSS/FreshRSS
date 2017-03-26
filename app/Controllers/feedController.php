@@ -393,7 +393,7 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 				}
 			}
 
-			$feedDAO->updateLastUpdate($feed->id(), false, $entryDAO->inTransaction(), $mtime);
+			$feedDAO->updateLastUpdate($feed->id(), false, $mtime);
 			if ($entryDAO->inTransaction()) {
 				$entryDAO->commit();
 			}
@@ -435,8 +435,14 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 			}
 		}
 		if (!$noCommit) {
+			if (!$entryDAO->inTransaction()) {
+				$entryDAO->beginTransaction();
+			}
 			$entryDAO->commitNewEntries();
 			$feedDAO->updateCachedValues();	//TODO: Optimize
+			if ($entryDAO->inTransaction()) {
+				$entryDAO->commit();
+			}
 		}
 		return array($updated_feeds, reset($feeds));
 	}

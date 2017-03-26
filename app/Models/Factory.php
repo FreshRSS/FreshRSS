@@ -3,14 +3,7 @@
 class FreshRSS_Factory {
 
 	public static function createFeedDao($username = null) {
-		$conf = Minz_Configuration::get('system');
-		switch ($conf->db['type']) {
-			case 'sqlite':
-			case 'pgsql':
-				return new FreshRSS_FeedDAOSQLite($username);
-			default:
-				return new FreshRSS_FeedDAO($username);
-		}
+		return new FreshRSS_FeedDAO($username);
 	}
 
 	public static function createEntryDao($username = null) {

@@ -53,6 +53,7 @@ $SQL_CREATE_TABLES = array(
 'CREATE INDEX IF NOT EXISTS entry_is_favorite_index ON `entry`(`is_favorite`);',
 'CREATE INDEX IF NOT EXISTS entry_is_read_index ON `entry`(`is_read`);',
 'CREATE INDEX IF NOT EXISTS entry_lastSeen_index ON `entry`(`lastSeen`);',	//v1.1.1
+'CREATE INDEX IF NOT EXISTS entry_feed_read_index ON `entry`(`id_feed`,`is_read`);',	//v1.7	//TODO: Auto add this index to existing version
 
 'INSERT OR IGNORE INTO `category` (id, name) VALUES(1, "%2$s");',
 );

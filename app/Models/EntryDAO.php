@@ -121,7 +121,6 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 	}
 
 	protected function autoUpdateDb($errorInfo) {
-		Minz_Log::warning('FreshRSS_EntryDAO::autoUpdateDb: ' . print_r($errorInfo, true));
 		if (isset($errorInfo[0])) {
 			if ($errorInfo[0] === '42S22') {	//ER_BAD_FIELD_ERROR
 				//autoAddColumn

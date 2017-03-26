@@ -55,6 +55,7 @@ CREATE TABLE IF NOT EXISTS `%1$sentry` (
 	INDEX (`is_favorite`),	-- v0.7
 	INDEX (`is_read`),	-- v0.7
 	INDEX `entry_lastSeen_index` (`lastSeen`)	-- v1.1.1
+	INDEX `entry_feed_read_index` (`id_feed`,`is_read`)	-- v1.7	//TODO: Auto add this index to existing version
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci
 ENGINE = INNODB;
 
