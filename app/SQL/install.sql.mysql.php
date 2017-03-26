@@ -79,7 +79,7 @@ CREATE TABLE IF NOT EXISTS `%1$sentrytmp` (	-- v1.7
 	PRIMARY KEY (`id`),
 	FOREIGN KEY (`id_feed`) REFERENCES `%1$sfeed`(`id`) ON DELETE CASCADE ON UPDATE CASCADE,
 	UNIQUE KEY (`id_feed`,`guid`),
-	INDEX (`date`),
+	INDEX (`date`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci
 ENGINE = INNODB;
 ');

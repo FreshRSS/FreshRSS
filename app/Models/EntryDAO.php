@@ -121,6 +121,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 	}
 
 	protected function autoUpdateDb($errorInfo) {
+		Minz_Log::warning('FreshRSS_EntryDAO::autoUpdateDb: ' . print_r($errorInfo, true));
 		if (isset($errorInfo[0])) {
 			if ($errorInfo[0] === '42S22') {	//ER_BAD_FIELD_ERROR
 				//autoAddColumn
@@ -202,16 +203,15 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 	}
 
 	public function commitNewEntries() {
-		$sql = 'SET @rank=SELECT MAX(id) - COUNT(*) FROM `' . $this->prefix . 'entrytmp`; ' .	//MySQL-specific
+		$sql = 'SET @rank=(SELECT MAX(id) - COUNT(*) FROM `' . $this->prefix . 'entrytmp`); ' .	//MySQL-specific
 			'INSERT IGNORE INTO `' . $this->prefix . 'entry` (id, guid, title, author, content_bin, link, date, `lastSeen`, hash, is_read, is_favorite, id_feed, tags) ' .
 				'SELECT @rank:=@rank+1 AS id, guid, title, author, content_bin, link, date, `lastSeen`, hash, is_read, is_favorite, id_feed, tags FROM `' . $this->prefix . 'entrytmp` ORDER BY date; ' .
 			'DELETE FROM `' . $this->prefix . 'entrytmp` WHERE id <= @rank;';
-		$stm = $this->bd->prepare($sql);
 		$hadTransaction = $this->bd->inTransaction();
 		if (!$hadTransaction) {
 			$this->bd->beginTransaction();
 		}
-		$result = $stm ? $stm->execute() : false;
+		$result = $this->bd->exec($sql) !== false;
 		if (!$hadTransaction) {
 			$this->bd->commit();
 		}

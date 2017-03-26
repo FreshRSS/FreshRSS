@@ -436,6 +436,7 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 		}
 		if (!$noCommit) {
 			$entryDAO->commitNewEntries();
+			$feedDAO->updateCachedValues();	//TODO: Optimize
 		}
 		return array($updated_feeds, reset($feeds));
 	}
