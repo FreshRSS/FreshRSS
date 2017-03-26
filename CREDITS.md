@@ -21,6 +21,7 @@ People are sorted by name so please keep this order.
 * [Guillaume Hayot](https://github.com/postblue): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:postblue), [Web](https://postblue.info/)
 * [hckweb](https://github.com/hckweb): [contributions](https://github.com/FreshRSS/FreshRSS/commits?author=hckweb)
 * [Jaussoin Timothée](https://github.com/edhelas): [contributions](https://github.com/FreshRSS/FreshRSS/commits?author=edhelas), [Web](http://edhelas.movim.eu/)
+* [jlefler](https://github.com/jlefler): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:jlefler)
 * [Julien Reichardt](https://github.com/j8r): [contributions](https://github.com/FreshRSS/FreshRSS/commits?author=j8r), [Web](https://blog.jrei.ch/)
 * [Kevin Papst](https://github.com/kevinpapst): [contributions](https://github.com/FreshRSS/FreshRSS/commits?author=kevinpapst), [Web](http://www.kevinpapst.de/)
 * [Luc Didry](https://github.com/ldidry): [contributions](https://github.com/FreshRSS/FreshRSS/commits?author=ldidry), [Web](https://www.fiat-tux.fr/)
