@@ -5,7 +5,7 @@
  * A PHP-Based RSS and Atom Feed Framework.
  * Takes the hard work out of managing a complete RSS/Atom solution.
  *
- * Copyright (c) 2004-2012, Ryan Parman, Geoffrey Sneddon, Ryan McCue, and contributors
+ * Copyright (c) 2004-2016, Ryan Parman, Geoffrey Sneddon, Ryan McCue, and contributors
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification, are
@@ -34,7 +34,7 @@
  *
  * @package SimplePie
  * @version 1.4-dev-FreshRSS
- * @copyright 2004-2012 Ryan Parman, Geoffrey Sneddon, Ryan McCue
+ * @copyright 2004-2016 Ryan Parman, Geoffrey Sneddon, Ryan McCue
  * @author Ryan Parman
  * @author Geoffrey Sneddon
  * @author Ryan McCue
@@ -615,6 +615,12 @@ class SimplePie
 	public $item_limit = 0;
 
 	/**
+	 * @var bool Stores if last-modified and/or etag headers were sent with the
+	 * request when checking a feed.
+	 */
+	public $check_modified = false;
+
+	/**
 	 * @var array Stores the default attributes to be stripped by strip_attributes().
 	 * @see SimplePie::strip_attributes()
 	 * @access private
@@ -626,7 +632,7 @@ class SimplePie
 	 * @see SimplePie::add_attributes()
 	 * @access private
 	 */
-	public $add_attributes = array('audio' => array('preload' => 'none'), 'iframe' => array('sandbox' => 'allow-scripts allow-same-origin'), 'video' => array('preload' => 'none'));	//FreshRSS
+	public $add_attributes = array('audio' => array('preload' => 'none'), 'iframe' => array('sandbox' => 'allow-scripts allow-same-origin'), 'video' => array('preload' => 'none'));
 
 	/**
 	 * @var array Stores the default tags to be stripped by strip_htmltags().
@@ -657,9 +663,9 @@ class SimplePie
 	 */
 	public function __construct()
 	{
-		if (version_compare(PHP_VERSION, '5.2', '<'))
+		if (version_compare(PHP_VERSION, '5.3', '<'))
 		{
-			trigger_error('PHP 4.x, 5.0 and 5.1 are no longer supported. Please upgrade to PHP 5.2 or newer.');
+			trigger_error('Please upgrade to PHP 5.3 or newer.');
 			die();
 		}
 
@@ -814,7 +820,7 @@ class SimplePie
 	{
 		$this->timeout = (int) $timeout;
 	}
-    
+
 	/**
 	 * Set custom curl options
 	 *
@@ -1169,7 +1175,7 @@ class SimplePie
 		$this->sanitize->strip_attributes($attribs);
 	}
 
-	public function add_attributes($attribs = '')	//FreshRSS
+	public function add_attributes($attribs = '')
 	{
 		if ($attribs === '')
 		{
@@ -1191,11 +1197,11 @@ class SimplePie
 	 *
 	 * Allows you to override SimplePie's output to match that of your webpage.
 	 * This is useful for times when your webpages are not being served as
-	 * UTF-8.  This setting will be obeyed by {@see handle_content_type()}, and
+	 * UTF-8. This setting will be obeyed by {@see handle_content_type()}, and
 	 * is similar to {@see set_input_encoding()}.
 	 *
 	 * It should be noted, however, that not all character encodings can support
-	 * all characters.  If your page is being served as ISO-8859-1 and you try
+	 * all characters. If your page is being served as ISO-8859-1 and you try
 	 * to display a Japanese feed, you'll likely see garbled characters.
 	 * Because of this, it is highly recommended to ensure that your webpages
 	 * are served as UTF-8.
@@ -1293,7 +1299,7 @@ class SimplePie
 	/**
 	 * Initialize the feed object
 	 *
-	 * This is what makes everything happen.  Period.  This is where all of the
+	 * This is what makes everything happen. Period. This is where all of the
 	 * configuration options get processed, feeds are fetched, cached, and
 	 * parsed, and all of that other good stuff.
 	 *
@@ -1361,6 +1367,7 @@ class SimplePie
 
 		$this->error = null;
 		$this->data = array();
+		$this->check_modified = false;
 		$this->multifeed_objects = array();
 		$cache = false;
 
@@ -1380,6 +1387,7 @@ class SimplePie
 				return $this->data['mtime'];
 			}
 			elseif ($fetched === false) {
+				$this->registry->call('Misc', 'error', array($this->error, E_USER_NOTICE, __FILE__, __LINE__));
 				return false;
 			}
 
@@ -1486,11 +1494,19 @@ class SimplePie
 		if (isset($parser))
 		{
 			// We have an error, just set SimplePie_Misc::error to it and quit
-			$this->error = sprintf('This XML document is invalid, likely due to invalid characters. XML error: %s at line %d, column %d, encoding %s, URL: %s', $parser->get_error_string(), $parser->get_current_line(), $parser->get_current_column(), $encoding, $this->feed_url);
+			$this->error = $this->feed_url;
+			$this->error .= sprintf(' is invalid XML, likely due to invalid characters. XML error: %s at line %d, column %d', $parser->get_error_string(), $parser->get_current_line(), $parser->get_current_column());
 		}
 		else
 		{
-			$this->error = 'The data could not be converted to UTF-8. You MUST have either the iconv or mbstring extension installed. Upgrading to PHP 5.x (which includes iconv) is highly recommended.';
+			$this->error = 'The data could not be converted to UTF-8.';
+			if (!extension_loaded('mbstring') && !extension_loaded('iconv')) {
+				$this->error .= ' You MUST have either the iconv or mbstring extension installed.';
+			} elseif (!extension_loaded('mbstring')) {
+				$this->error .= ' Try installing the mbstring extension.';
+			} elseif (!extension_loaded('iconv')) {
+				$this->error .= ' Try installing the iconv extension.';
+			}
 		}
 
 		$this->registry->call('Misc', 'error', array($this->error, E_USER_NOTICE, __FILE__, __LINE__));
@@ -1575,6 +1591,7 @@ class SimplePie
 					}
 					else
 					{
+						$this->check_modified = false;
 						$cache->touch();
 						$this->error = $file->error;
 						return !empty($this->data);
@@ -1669,7 +1686,7 @@ class SimplePie
 			$locate = null;
 		}
 
-		$file->body = trim($file->body);
+		$file->body = trim($file->body);	//FreshRSS
 		$this->raw_data = $file->body;
 		$this->permanent_url = $file->permanent_url;
 		$headers = $file->headers;
@@ -1870,7 +1887,7 @@ class SimplePie
 	 * @todo Support <itunes:new-feed-url>
 	 * @todo Also, |atom:link|@rel=self
 	 * @param bool $permanent Permanent mode to return only the original URL or the first redirection
-	 *  iff it is a 301 redirection
+	 * iff it is a 301 redirection
 	 * @return string|null
 	 */
 	public function subscribe_url($permanent = false)
@@ -2169,7 +2186,7 @@ class SimplePie
 	 * Get a category for the feed
 	 *
 	 * @since Unknown
-	 * @param int $key The category that you want to return.  Remember that arrays begin with 0, not 1
+	 * @param int $key The category that you want to return. Remember that arrays begin with 0, not 1
 	 * @return SimplePie_Category|null
 	 */
 	public function get_category($key = 0)
@@ -2254,7 +2271,7 @@ class SimplePie
 	 * Get an author for the feed
 	 *
 	 * @since 1.1
-	 * @param int $key The author that you want to return.  Remember that arrays begin with 0, not 1
+	 * @param int $key The author that you want to return. Remember that arrays begin with 0, not 1
 	 * @return SimplePie_Author|null
 	 */
 	public function get_author($key = 0)
@@ -2352,7 +2369,7 @@ class SimplePie
 	 * Get a contributor for the feed
 	 *
 	 * @since 1.1
-	 * @param int $key The contrbutor that you want to return.  Remember that arrays begin with 0, not 1
+	 * @param int $key The contrbutor that you want to return. Remember that arrays begin with 0, not 1
 	 * @return SimplePie_Author|null
 	 */
 	public function get_contributor($key = 0)
@@ -2438,7 +2455,7 @@ class SimplePie
 	 * Get a single link for the feed
 	 *
 	 * @since 1.0 (previously called `get_feed_link` since Preview Release, `get_feed_permalink()` since 0.8)
-	 * @param int $key The link that you want to return.  Remember that arrays begin with 0, not 1
+	 * @param int $key The link that you want to return. Remember that arrays begin with 0, not 1
 	 * @param string $rel The relationship of the link to return
 	 * @return string|null Link URL
 	 */
@@ -2949,7 +2966,7 @@ class SimplePie
 	 *
 	 * @see get_item_quantity()
 	 * @since Beta 2
-	 * @param int $key The item that you want to return.  Remember that arrays begin with 0, not 1
+	 * @param int $key The item that you want to return. Remember that arrays begin with 0, not 1
 	 * @return SimplePie_Item|null
 	 */
 	public function get_item($key = 0)
@@ -2976,7 +2993,7 @@ class SimplePie
 	 * @since Beta 2
 	 * @param int $start Index to start at
 	 * @param int $end Number of items to return. 0 for all items after `$start`
-	 * @return array|null List of {@see SimplePie_Item} objects
+	 * @return SimplePie_Item[]|null List of {@see SimplePie_Item} objects
 	 */
 	public function get_items($start = 0, $end = 0)
 	{
@@ -3147,7 +3164,19 @@ class SimplePie
 	 */
 	public static function sort_items($a, $b)
 	{
-		return $a->get_date('U') <= $b->get_date('U');
+		$a_date = $a->get_date('U');
+		$b_date = $b->get_date('U');
+		if ($a_date && $b_date) {
+			return $a_date > $b_date ? -1 : 1;
+		}
+		// Sort items without dates to the top.
+		if ($a_date) {
+			return 1;
+		}
+		if ($b_date) {
+			return -1;
+		}
+		return 0;
 	}
 
 	/**
@@ -3180,20 +3209,7 @@ class SimplePie
 				}
 			}
 
-			$do_sort = true;
-			foreach ($items as $item)
-			{
-				if (!$item->get_date('U'))
-				{
-					$do_sort = false;
-					break;
-				}
-			}
-			$item = null;
-			if ($do_sort)
-			{
-				usort($items, array(get_class($urls[0]), 'sort_items'));
-			}
+			usort($items, array(get_class($urls[0]), 'sort_items'));
 
 			if ($end === 0)
 			{
