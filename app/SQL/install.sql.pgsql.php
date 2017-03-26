@@ -50,7 +50,6 @@ $SQL_CREATE_TABLES = array(
 'CREATE INDEX %1$sis_favorite_index ON "%1$sentry" ("is_favorite");',
 'CREATE INDEX %1$sis_read_index ON "%1$sentry" ("is_read");',
 'CREATE INDEX %1$sentry_lastSeen_index ON "%1$sentry" ("lastSeen");',
-'CREATE INDEX %1$sentry_feed_read_index ON "%1$sentry" ("id_feed","is_read");',	//v1.7	//TODO: Auto add this index to existing version
 
 'INSERT INTO "%1$scategory" (name) SELECT \'%2$s\' WHERE NOT EXISTS (SELECT id FROM "%1$scategory" WHERE id = 1);',
 );
@@ -75,6 +74,8 @@ $SQL_CREATE_TABLE_ENTRYTMP = array(
 	UNIQUE ("id_feed","guid")
 );',
 'CREATE INDEX %1$sentrytmp_date_index ON "%1$sentrytmp" ("date");',
+
+'CREATE INDEX %1$sentry_feed_read_index ON "%1$sentry" ("id_feed","is_read");',	//v1.7
 );
 
 global $SQL_INSERT_FEEDS;
