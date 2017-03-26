@@ -138,7 +138,7 @@ return array(
 		'number_entries' => '%d articles',
 		'percent_of_total' => '%% of total',
 		'repartition' => 'Articles repartition',
-		'status_favorites' => 'Favorites',
+		'status_favorites' => 'Favourites',
 		'status_read' => 'Read',
 		'status_total' => 'Total',
 		'status_unread' => 'Unread',

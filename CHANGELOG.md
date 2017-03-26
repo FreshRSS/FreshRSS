@@ -3,6 +3,8 @@
 ## 2017-xx-xx FreshRSS 1.7.0-dev
 * Compatibility:
 	* Add support for PHP 7.1 [#1471](https://github.com/FreshRSS/FreshRSS/issues/1471)
+* I18n
+	* Improve English [#1465](https://github.com/FreshRSS/FreshRSS/pull/1465)
 
 
 ## 2017-03-11 FreshRSS 1.6.3
