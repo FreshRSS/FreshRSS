@@ -47,7 +47,7 @@ return array(
 		'file_to_import' => 'File to import<br />(OPML, JSON or ZIP)',
 		'file_to_import_no_zip' => 'File to import<br />(OPML or JSON)',
 		'import' => 'Import',
-		'starred_list' => 'List of favorite articles',
+		'starred_list' => 'List of favourite articles',
 		'title' => 'Import / export',
 	),
 	'menu' => array(
