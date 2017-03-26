@@ -152,7 +152,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 		}
 
 		if ($this->addEntryPrepared && $this->addEntryPrepared->execute()) {
-			return $this->bd->lastInsertId();
+			return true;
 		} else {
 			$info = $this->addEntryPrepared == null ? array(0 => '', 1 => '', 2 => 'syntax error') : $this->addEntryPrepared->errorInfo();
 			if ($this->autoUpdateDb($info)) {
@@ -212,7 +212,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 		}
 
 		if ($this->updateEntryPrepared && $this->updateEntryPrepared->execute()) {
-			return $this->bd->lastInsertId();
+			return true;
 		} else {
 			$info = $this->updateEntryPrepared == null ? array(0 => '', 1 => '', 2 => 'syntax error') : $this->updateEntryPrepared->errorInfo();
 			if ($this->autoUpdateDb($info)) {
