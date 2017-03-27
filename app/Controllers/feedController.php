@@ -308,6 +308,7 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 				// -2 means we take the default value from configuration
 				$feed_history = FreshRSS_Context::$user_conf->keep_history_default;
 			}
+			$needFeedCacheRefresh = false;
 
 			// We want chronological order and SimplePie uses reverse order.
 			$entries = array_reverse($feed->entries());
@@ -321,7 +322,6 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 				unset($newGuids);
 
 				$oldGuids = array();
-				$needFeedCacheRefresh = false;
 				// Add entries in database if possible.
 				foreach ($entries as $entry) {
 					$entry_date = $entry->date(true);
