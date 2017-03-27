@@ -321,6 +321,7 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 				unset($newGuids);
 
 				$oldGuids = array();
+				$needFeedCacheRefresh = false;
 				// Add entries in database if possible.
 				foreach ($entries as $entry) {
 					$entry_date = $entry->date(true);
@@ -333,11 +334,12 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 							//Minz_Log::debug('Entry with GUID `' . $entry->guid() . '` updated in feed ' . $feed->id() .
 								//', old hash ' . $existingHash . ', new hash ' . $entry->hash());
 							//TODO: Make an updated/is_read policy by feed, in addition to the global one.
+							$needFeedCacheRefresh = FreshRSS_Context::$user_conf->mark_updated_article_unread;
 							$entry->_isRead(FreshRSS_Context::$user_conf->mark_updated_article_unread ? false : null);	//Change is_read according to policy.
 							if (!$entryDAO->inTransaction()) {
 								$entryDAO->beginTransaction();
 							}
-							$entryDAO->updateEntry($entry->toArray());
+							$entryDAO->updateEntry($entry->toArray());	//TODO: Need to refresh cache
 						}
 					} elseif ($feed_history == 0 && $entry_date < $date_min) {
 						// This entry should not be added considering configuration and date.
@@ -388,12 +390,16 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 				                                $date_min,
 				                                max($feed_history, count($entries) + 10));
 				if ($nb > 0) {
+					$needFeedCacheRefresh = true;
 					Minz_Log::debug($nb . ' old entries cleaned in feed [' .
 					                $feed->url() . ']');
 				}
 			}
 
 			$feedDAO->updateLastUpdate($feed->id(), false, $mtime);
+			if ($needFeedCacheRefresh) {
+				$feedDAO->updateCachedValue($feed->id());
+			}
 			if ($entryDAO->inTransaction()) {
 				$entryDAO->commit();
 			}
@@ -439,7 +445,7 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 				$entryDAO->beginTransaction();
 			}
 			$entryDAO->commitNewEntries();
-			$feedDAO->updateCachedValues();	//TODO: Optimize
+			$feedDAO->updateCachedValues();
 			if ($entryDAO->inTransaction()) {
 				$entryDAO->commit();
 			}
