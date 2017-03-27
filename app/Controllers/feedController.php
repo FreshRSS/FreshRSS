@@ -339,7 +339,7 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 							if (!$entryDAO->inTransaction()) {
 								$entryDAO->beginTransaction();
 							}
-							$entryDAO->updateEntry($entry->toArray());	//TODO: Need to refresh cache
+							$entryDAO->updateEntry($entry->toArray());
 						}
 					} elseif ($feed_history == 0 && $entry_date < $date_min) {
 						// This entry should not be added considering configuration and date.
