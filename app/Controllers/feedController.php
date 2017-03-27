@@ -468,7 +468,7 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 		$id = Minz_Request::param('id');
 		$url = Minz_Request::param('url');
 		$force = Minz_Request::param('force');
-		$noCommit = Minz_Session::param('isLastFeed', 1) != 1;
+		$noCommit = Minz_Request::fetchPOST('isLastFeed', 1) != 1;
 
 		list($updated_feeds, $feed) = self::actualizeFeed($id, $url, $force, null, false, $noCommit);
 
