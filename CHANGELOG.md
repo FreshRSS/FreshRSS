@@ -1,6 +1,8 @@
 ﻿# Changelog
 
 ## 2017-xx-xx FreshRSS 1.7.0-dev
+* Features:
+	* Deferred insertion of new articles, for better chronological order [#530](https://github.com/FreshRSS/FreshRSS/issues/530)
 * Compatibility:
 	* Add support for PHP 7.1 [#1471](https://github.com/FreshRSS/FreshRSS/issues/1471)
 * I18n
