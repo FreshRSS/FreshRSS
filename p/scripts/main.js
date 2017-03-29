@@ -803,13 +803,12 @@ function updateFeed(feeds, feeds_count) {
 	if (!feed) {
 		return;
 	}
-
 	$.ajax({
 		type: 'POST',
 		url: feed.url,
 		data : {
 			_csrf: context.csrf,
-			isLastFeed: feeds.length <= 0 ? 1 : 0,
+			noCommit: feeds.length > 0 ? 1 : 0,
 		},
 	}).always(function (data) {
 		feed_processed++;
@@ -831,7 +830,6 @@ function init_actualize() {
 		if (ajax_loading) {
 			return false;
 		}
-
 		ajax_loading = true;
 
 		$.getJSON('./?c=javascript&a=actualize').done(function (data) {
@@ -842,7 +840,16 @@ function init_actualize() {
 			}
 			if (data.feeds.length === 0) {
 				openNotification(data.feedback_no_refresh, "good");
-				ajax_loading = false;
+				$.ajax({	//Empty request to force refresh server database cache
+					type: 'POST',
+					url: './?c=feed&a=actualize&id=-1',
+					data : {
+						_csrf: context.csrf,
+						noCommit: 0,
+					},
+				}).always(function (data) {
+					ajax_loading = false;
+				});
 				return;
 			}
 			//Progress bar

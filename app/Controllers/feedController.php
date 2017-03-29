@@ -460,6 +460,7 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 	 *   - id (default: false): Feed ID
 	 *   - url (default: false): Feed URL
 	 *   - force (default: false)
+	 *   - noCommit (default: 0): Set to 1 to prevent committing the new articles to the main database
 	 * If id and url are not specified, all the feeds are actualized. But if force is
 	 * false, process stops at 10 feeds to avoid time execution problem.
 	 */
@@ -468,9 +469,19 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 		$id = Minz_Request::param('id');
 		$url = Minz_Request::param('url');
 		$force = Minz_Request::param('force');
-		$noCommit = Minz_Request::fetchPOST('isLastFeed', 1) != 1;
+		$noCommit = Minz_Request::fetchPOST('noCommit', 0) == 1;
 
-		list($updated_feeds, $feed) = self::actualizeFeed($id, $url, $force, null, false, $noCommit);
+		if ($id == -1 && !$noCommit) {	//Special request only to commit & refresh DB cache
+			$updated_feeds = 0;
+			$entryDAO = FreshRSS_Factory::createEntryDao();
+			$feedDAO = FreshRSS_Factory::createFeedDao();
+			$entryDAO->beginTransaction();
+			$entryDAO->commitNewEntries();
+			$feedDAO->updateCachedValues();
+			$entryDAO->commit();
+		} else {
+			list($updated_feeds, $feed) = self::actualizeFeed($id, $url, $force, null, false, $noCommit);
+		}
 
 		if (Minz_Request::param('ajax')) {
 			// Most of the time, ajax request is for only one feed. But since
