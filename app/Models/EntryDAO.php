@@ -631,16 +631,22 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 		}
 		if ($filter) {
 			if ($filter->getIntitle()) {
-				$search .= 'AND ' . $alias . 'title LIKE ? ';
-				$values[] = "%{$filter->getIntitle()}%";
+				foreach ($filter->getIntitle() as $title) {
+					$search .= 'AND ' . $alias . 'title LIKE ? ';
+					$values[] = "%{$title}%";
+				}
 			}
 			if ($filter->getInurl()) {
-				$search .= 'AND CONCAT(' . $alias . 'link, ' . $alias . 'guid) LIKE ? ';
-				$values[] = "%{$filter->getInurl()}%";
+				foreach ($filter->getInurl() as $url) {
+					$search .= 'AND CONCAT(' . $alias . 'link, ' . $alias . 'guid) LIKE ? ';
+					$values[] = "%{$url}%";
+				}
 			}
 			if ($filter->getAuthor()) {
-				$search .= 'AND ' . $alias . 'author LIKE ? ';
-				$values[] = "%{$filter->getAuthor()}%";
+				foreach ($filter->getAuthor() as $author) {
+					$search .= 'AND ' . $alias . 'author LIKE ? ';
+					$values[] = "%{$author}%";
+				}
 			}
 			if ($filter->getMinDate()) {
 				$search .= 'AND ' . $alias . 'id >= ? ';
@@ -659,8 +665,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 				$values[] = $filter->getMaxPubdate();
 			}
 			if ($filter->getTags()) {
-				$tags = $filter->getTags();
-				foreach ($tags as $tag) {
+				foreach ($filter->getTags() as $tag) {
 					$search .= 'AND ' . $alias . 'tags LIKE ? ';
 					$values[] = "%{$tag}%";
 				}

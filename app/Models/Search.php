@@ -81,6 +81,10 @@ class FreshRSS_Search {
 		return $this->search;
 	}
 
+	private static function removeEmptyValues($anArray) {
+		return is_array($anArray) ? array_filter($anArray, function($value) { return $value !== ''; }) : array();
+	}
+
 	/**
 	 * Parse the search string to find intitle keyword and the search related
 	 * to it.
@@ -90,14 +94,15 @@ class FreshRSS_Search {
 	 * @return string
 	 */
 	private function parseIntitleSearch($input) {
-		if (preg_match('/intitle:(?P<delim>[\'"])(?P<search>.*)(?P=delim)/U', $input, $matches)) {
+		if (preg_match_all('/intitle:(?P<delim>[\'"])(?P<search>.*)(?P=delim)/U', $input, $matches)) {
 			$this->intitle = $matches['search'];
-			return str_replace($matches[0], '', $input);
+			$input = str_replace($matches[0], '', $input);
 		}
-		if (preg_match('/intitle:(?P<search>\w*)/', $input, $matches)) {
-			$this->intitle = $matches['search'];
-			return str_replace($matches[0], '', $input);
+		if (preg_match_all('/intitle:(?P<search>\w*)/', $input, $matches)) {
+			$this->intitle = array_merge($this->intitle ? $this->intitle : array(), $matches['search']);
+			$input = str_replace($matches[0], '', $input);
 		}
+		$this->intitle = self::removeEmptyValues($this->intitle);
 		return $input;
 	}
 
@@ -112,30 +117,32 @@ class FreshRSS_Search {
 	 * @return string
 	 */
 	private function parseAuthorSearch($input) {
-		if (preg_match('/author:(?P<delim>[\'"])(?P<search>.*)(?P=delim)/U', $input, $matches)) {
+		if (preg_match_all('/author:(?P<delim>[\'"])(?P<search>.*)(?P=delim)/U', $input, $matches)) {
 			$this->author = $matches['search'];
-			return str_replace($matches[0], '', $input);
+			$input = str_replace($matches[0], '', $input);
 		}
-		if (preg_match('/author:(?P<search>\w*)/', $input, $matches)) {
-			$this->author = $matches['search'];
-			return str_replace($matches[0], '', $input);
+		if (preg_match_all('/author:(?P<search>\w*)/', $input, $matches)) {
+			$this->author = array_merge($this->author ? $this->author : array(), $matches['search']);
+			$input = str_replace($matches[0], '', $input);
 		}
+		$this->author = self::removeEmptyValues($this->author);
 		return $input;
 	}
 
 	/**
 	 * Parse the search string to find inurl keyword and the search related
 	 * to it.
-	 * The search is the first word following the keyword except.
+	 * The search is the first word following the keyword.
 	 *
 	 * @param string $input
 	 * @return string
 	 */
 	private function parseInurlSearch($input) {
-		if (preg_match('/inurl:(?P<search>[^\s]*)/', $input, $matches)) {
+		if (preg_match_all('/inurl:(?P<search>[^\s]*)/', $input, $matches)) {
 			$this->inurl = $matches['search'];
-			return str_replace($matches[0], '', $input);
+			$input = str_replace($matches[0], '', $input);
 		}
+		$this->inurl = self::removeEmptyValues($this->inurl);
 		return $input;
 	}
 
@@ -148,9 +155,12 @@ class FreshRSS_Search {
 	 * @return string
 	 */
 	private function parseDateSearch($input) {
-		if (preg_match('/date:(?P<search>[^\s]*)/', $input, $matches)) {
-			list($this->min_date, $this->max_date) = parseDateInterval($matches['search']);
-			return str_replace($matches[0], '', $input);
+		if (preg_match_all('/date:(?P<search>[^\s]*)/', $input, $matches)) {
+			$input = str_replace($matches[0], '', $input);
+			$dates = self::removeEmptyValues($matches['search']);
+			if (!empty($dates[0])) {
+				list($this->min_date, $this->max_date) = parseDateInterval($dates[0]);
+			}
 		}
 		return $input;
 	}
@@ -164,9 +174,12 @@ class FreshRSS_Search {
 	 * @return string
 	 */
 	private function parsePubdateSearch($input) {
-		if (preg_match('/pubdate:(?P<search>[^\s]*)/', $input, $matches)) {
-			list($this->min_pubdate, $this->max_pubdate) = parseDateInterval($matches['search']);
-			return str_replace($matches[0], '', $input);
+		if (preg_match_all('/pubdate:(?P<search>[^\s]*)/', $input, $matches)) {
+			$input = str_replace($matches[0], '', $input);
+			$dates = self::removeEmptyValues($matches['search']);
+			if (!empty($dates[0])) {
+				list($this->min_pubdate, $this->max_pubdate) = parseDateInterval($dates[0]);
+			}
 		}
 		return $input;
 	}
@@ -182,8 +195,9 @@ class FreshRSS_Search {
 	private function parseTagsSeach($input) {
 		if (preg_match_all('/#(?P<search>[^\s]+)/', $input, $matches)) {
 			$this->tags = $matches['search'];
-			return str_replace($matches[0], '', $input);
+			$input = str_replace($matches[0], '', $input);
 		}
+		$this->tags = self::removeEmptyValues($this->tags);
 		return $input;
 	}
 
@@ -196,7 +210,7 @@ class FreshRSS_Search {
 	 * @return string
 	 */
 	private function parseSearch($input) {
-		$input = $this->cleanSearch($input);
+		$input = self::cleanSearch($input);
 		if (strcmp($input, '') == 0) {
 			return;
 		}
@@ -204,7 +218,7 @@ class FreshRSS_Search {
 			$this->search = $matches['search'];
 			$input = str_replace($matches[0], '', $input);
 		}
-		$input = $this->cleanSearch($input);
+		$input = self::cleanSearch($input);
 		if (strcmp($input, '') == 0) {
 			return;
 		}
@@ -221,7 +235,7 @@ class FreshRSS_Search {
 	 * @param string $input
 	 * @return string
 	 */
-	private function cleanSearch($input) {
+	private static function cleanSearch($input) {
 		$input = preg_replace('/\s+/', ' ', $input);
 		return trim($input);
 	}
