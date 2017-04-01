@@ -3,6 +3,10 @@
 ## 2017-xx-xx FreshRSS 1.7.0-dev
 * Compatibility:
 	* Add support for PHP 7.1 [#1471](https://github.com/FreshRSS/FreshRSS/issues/1471)
+	* PostgreSQL is not experimental anymore [#1476](https://github.com/FreshRSS/FreshRSS/pull/1476)
+* Bug fixing
+	* Fix SQL uniqueness bug with PostgreSQL [#1476](https://github.com/FreshRSS/FreshRSS/pull/1476)
+		* (Require manual update for existing installations)
 * I18n
 	* Improve English [#1465](https://github.com/FreshRSS/FreshRSS/pull/1465)
 
