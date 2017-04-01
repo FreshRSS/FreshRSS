@@ -475,6 +475,11 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 		}
 		$this->entryDAO->commit();
 
+		$this->entryDAO->beginTransaction();
+		$this->entryDAO->commitNewEntries();
+		$this->feedDAO->updateCachedValues();
+		$this->entryDAO->commit();
+
 		return !$error;
 	}
 

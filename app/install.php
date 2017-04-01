@@ -342,35 +342,19 @@ function checkDbUser(&$dbOptions) {
 	$driver_options = $dbOptions['options'];
 	try {
 		$c = new PDO($str, $dbOptions['user'], $dbOptions['password'], $driver_options);
-
 		if (defined('SQL_CREATE_TABLES')) {
-			$sql = sprintf(SQL_CREATE_TABLES, $dbOptions['prefix_user'], _t('gen.short.default_category'));
+			$sql = sprintf(SQL_CREATE_TABLES . SQL_CREATE_TABLE_ENTRYTMP . SQL_INSERT_FEEDS,
+				$dbOptions['prefix_user'], _t('gen.short.default_category'));
 			$stm = $c->prepare($sql);
-			$ok = $stm->execute();
+			$ok = $stm && $stm->execute();
 		} else {
-			global $SQL_CREATE_TABLES;
-			if (is_array($SQL_CREATE_TABLES)) {
-				$ok = true;
-				foreach ($SQL_CREATE_TABLES as $instruction) {
-					$sql = sprintf($instruction, $dbOptions['prefix_user'], _t('gen.short.default_category'));
-					$stm = $c->prepare($sql);
-					$ok &= $stm->execute();
-				}
-			}
-		}
-
-		if (defined('SQL_INSERT_FEEDS')) {
-			$sql = sprintf(SQL_INSERT_FEEDS, $dbOptions['prefix_user']);
-			$stm = $c->prepare($sql);
-			$ok &= $stm->execute();
-		} else {
-			global $SQL_INSERT_FEEDS;
-			if (is_array($SQL_INSERT_FEEDS)) {
-				foreach ($SQL_INSERT_FEEDS as $instruction) {
-					$sql = sprintf($instruction, $dbOptions['prefix_user']);
-					$stm = $c->prepare($sql);
-					$ok &= $stm->execute();
-				}
+			global $SQL_CREATE_TABLES, $SQL_CREATE_TABLE_ENTRYTMP, $SQL_INSERT_FEEDS;
+			$instructions = array_merge($SQL_CREATE_TABLES, $SQL_CREATE_TABLE_ENTRYTMP, $SQL_INSERT_FEEDS);
+			$ok = !empty($instructions);
+			foreach ($instructions as $instruction) {
+				$sql = sprintf($instruction, $dbOptions['prefix_user'], _t('gen.short.default_category'));
+				$stm = $c->prepare($sql);
+				$ok &= $stm && $stm->execute();
 			}
 		}
 	} catch (PDOException $e) {

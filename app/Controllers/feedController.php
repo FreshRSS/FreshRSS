@@ -226,7 +226,7 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 		}
 	}
 
-	public static function actualizeFeed($feed_id, $feed_url, $force, $simplePiePush = null, $isNewFeed = false) {
+	public static function actualizeFeed($feed_id, $feed_url, $force, $simplePiePush = null, $isNewFeed = false, $noCommit = false) {
 		@set_time_limit(300);
 
 		$feedDAO = FreshRSS_Factory::createFeedDao();
@@ -308,6 +308,7 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 				// -2 means we take the default value from configuration
 				$feed_history = FreshRSS_Context::$user_conf->keep_history_default;
 			}
+			$needFeedCacheRefresh = false;
 
 			// We want chronological order and SimplePie uses reverse order.
 			$entries = array_reverse($feed->entries());
@@ -333,6 +334,7 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 							//Minz_Log::debug('Entry with GUID `' . $entry->guid() . '` updated in feed ' . $feed->id() .
 								//', old hash ' . $existingHash . ', new hash ' . $entry->hash());
 							//TODO: Make an updated/is_read policy by feed, in addition to the global one.
+							$needFeedCacheRefresh = FreshRSS_Context::$user_conf->mark_updated_article_unread;
 							$entry->_isRead(FreshRSS_Context::$user_conf->mark_updated_article_unread ? false : null);	//Change is_read according to policy.
 							if (!$entryDAO->inTransaction()) {
 								$entryDAO->beginTransaction();
@@ -388,12 +390,16 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 				                                $date_min,
 				                                max($feed_history, count($entries) + 10));
 				if ($nb > 0) {
+					$needFeedCacheRefresh = true;
 					Minz_Log::debug($nb . ' old entries cleaned in feed [' .
 					                $feed->url() . ']');
 				}
 			}
 
-			$feedDAO->updateLastUpdate($feed->id(), false, $entryDAO->inTransaction(), $mtime);
+			$feedDAO->updateLastUpdate($feed->id(), false, $mtime);
+			if ($needFeedCacheRefresh) {
+				$feedDAO->updateCachedValue($feed->id());
+			}
 			if ($entryDAO->inTransaction()) {
 				$entryDAO->commit();
 			}
@@ -434,6 +440,16 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 				break;
 			}
 		}
+		if (!$noCommit) {
+			if (!$entryDAO->inTransaction()) {
+				$entryDAO->beginTransaction();
+			}
+			$entryDAO->commitNewEntries();
+			$feedDAO->updateCachedValues();
+			if ($entryDAO->inTransaction()) {
+				$entryDAO->commit();
+			}
+		}
 		return array($updated_feeds, reset($feeds));
 	}
 
@@ -444,6 +460,7 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 	 *   - id (default: false): Feed ID
 	 *   - url (default: false): Feed URL
 	 *   - force (default: false)
+	 *   - noCommit (default: 0): Set to 1 to prevent committing the new articles to the main database
 	 * If id and url are not specified, all the feeds are actualized. But if force is
 	 * false, process stops at 10 feeds to avoid time execution problem.
 	 */
@@ -452,8 +469,19 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 		$id = Minz_Request::param('id');
 		$url = Minz_Request::param('url');
 		$force = Minz_Request::param('force');
+		$noCommit = Minz_Request::fetchPOST('noCommit', 0) == 1;
 
-		list($updated_feeds, $feed) = self::actualizeFeed($id, $url, $force);
+		if ($id == -1 && !$noCommit) {	//Special request only to commit & refresh DB cache
+			$updated_feeds = 0;
+			$entryDAO = FreshRSS_Factory::createEntryDao();
+			$feedDAO = FreshRSS_Factory::createFeedDao();
+			$entryDAO->beginTransaction();
+			$entryDAO->commitNewEntries();
+			$feedDAO->updateCachedValues();
+			$entryDAO->commit();
+		} else {
+			list($updated_feeds, $feed) = self::actualizeFeed($id, $url, $force, null, false, $noCommit);
+		}
 
 		if (Minz_Request::param('ajax')) {
 			// Most of the time, ajax request is for only one feed. But since

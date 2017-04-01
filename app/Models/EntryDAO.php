@@ -88,6 +88,38 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 		return false;
 	}
 
+	protected function createEntryTempTable() {
+		$ok = false;
+		$hadTransaction = $this->bd->inTransaction();
+		if ($hadTransaction) {
+			$this->bd->commit();
+		}
+		try {
+			$db = FreshRSS_Context::$system_conf->db;
+			require_once(APP_PATH . '/SQL/install.sql.' . $db['type'] . '.php');
+			Minz_Log::warning('SQL CREATE TABLE entrytmp...');
+			if (defined('SQL_CREATE_TABLE_ENTRYTMP')) {
+				$sql = sprintf(SQL_CREATE_TABLE_ENTRYTMP, $this->prefix);
+				$stm = $this->bd->prepare($sql);
+				$ok = $stm && $stm->execute();
+			} else {
+				global $SQL_CREATE_TABLE_ENTRYTMP;
+				$ok = !empty($SQL_CREATE_TABLE_ENTRYTMP);
+				foreach ($SQL_CREATE_TABLE_ENTRYTMP as $instruction) {
+					$sql = sprintf($instruction, $this->prefix);
+					$stm = $this->bd->prepare($sql);
+					$ok &= $stm && $stm->execute();
+				}
+			}
+		} catch (Exception $e) {
+			Minz_Log::error('FreshRSS_EntryDAO::createEntryTempTable error: ' . $e->getMessage());
+		}
+		if ($hadTransaction) {
+			$this->bd->beginTransaction();
+		}
+		return $ok;
+	}
+
 	protected function autoUpdateDb($errorInfo) {
 		if (isset($errorInfo[0])) {
 			if ($errorInfo[0] === '42S22') {	//ER_BAD_FIELD_ERROR
@@ -97,6 +129,8 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 						return $this->addColumn($column);
 					}
 				}
+			} elseif ($errorInfo[0] === '42S02' && stripos($errorInfo[2], 'entrytmp') !== false) {	//ER_BAD_TABLE_ERROR
+				return $this->createEntryTempTable();	//v1.7
 			}
 		}
 		if (isset($errorInfo[1])) {
@@ -110,8 +144,8 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 	private $addEntryPrepared = null;
 
 	public function addEntry($valuesTmp) {
-		if ($this->addEntryPrepared === null) {
-			$sql = 'INSERT INTO `' . $this->prefix . 'entry` (id, guid, title, author, '
+		if ($this->addEntryPrepared == null) {
+			$sql = 'INSERT INTO `' . $this->prefix . 'entrytmp` (id, guid, title, author, '
 			     . ($this->isCompressed() ? 'content_bin' : 'content')
 			     . ', link, date, `lastSeen`, hash, is_read, is_favorite, id_feed, tags) '
 			     . 'VALUES(:id, :guid, :title, :author, '
@@ -121,41 +155,43 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 			     . ', :is_read, :is_favorite, :id_feed, :tags)';
 			$this->addEntryPrepared = $this->bd->prepare($sql);
 		}
-		$this->addEntryPrepared->bindParam(':id', $valuesTmp['id']);
-		$valuesTmp['guid'] = substr($valuesTmp['guid'], 0, 760);
-		$valuesTmp['guid'] = safe_ascii($valuesTmp['guid']);
-		$this->addEntryPrepared->bindParam(':guid', $valuesTmp['guid']);
-		$valuesTmp['title'] = substr($valuesTmp['title'], 0, 255);
-		$this->addEntryPrepared->bindParam(':title', $valuesTmp['title']);
-		$valuesTmp['author'] = substr($valuesTmp['author'], 0, 255);
-		$this->addEntryPrepared->bindParam(':author', $valuesTmp['author']);
-		$this->addEntryPrepared->bindParam(':content', $valuesTmp['content']);
-		$valuesTmp['link'] = substr($valuesTmp['link'], 0, 1023);
-		$valuesTmp['link'] = safe_ascii($valuesTmp['link']);
-		$this->addEntryPrepared->bindParam(':link', $valuesTmp['link']);
-		$this->addEntryPrepared->bindParam(':date', $valuesTmp['date'], PDO::PARAM_INT);
-		$valuesTmp['lastSeen'] = time();
-		$this->addEntryPrepared->bindParam(':last_seen', $valuesTmp['lastSeen'], PDO::PARAM_INT);
-		$valuesTmp['is_read'] = $valuesTmp['is_read'] ? 1 : 0;
-		$this->addEntryPrepared->bindParam(':is_read', $valuesTmp['is_read'], PDO::PARAM_INT);
-		$valuesTmp['is_favorite'] = $valuesTmp['is_favorite'] ? 1 : 0;
-		$this->addEntryPrepared->bindParam(':is_favorite', $valuesTmp['is_favorite'], PDO::PARAM_INT);
-		$this->addEntryPrepared->bindParam(':id_feed', $valuesTmp['id_feed'], PDO::PARAM_INT);
-		$valuesTmp['tags'] = substr($valuesTmp['tags'], 0, 1023);
-		$this->addEntryPrepared->bindParam(':tags', $valuesTmp['tags']);
+		if ($this->addEntryPrepared) {
+			$this->addEntryPrepared->bindParam(':id', $valuesTmp['id']);
+			$valuesTmp['guid'] = substr($valuesTmp['guid'], 0, 760);
+			$valuesTmp['guid'] = safe_ascii($valuesTmp['guid']);
+			$this->addEntryPrepared->bindParam(':guid', $valuesTmp['guid']);
+			$valuesTmp['title'] = substr($valuesTmp['title'], 0, 255);
+			$this->addEntryPrepared->bindParam(':title', $valuesTmp['title']);
+			$valuesTmp['author'] = substr($valuesTmp['author'], 0, 255);
+			$this->addEntryPrepared->bindParam(':author', $valuesTmp['author']);
+			$this->addEntryPrepared->bindParam(':content', $valuesTmp['content']);
+			$valuesTmp['link'] = substr($valuesTmp['link'], 0, 1023);
+			$valuesTmp['link'] = safe_ascii($valuesTmp['link']);
+			$this->addEntryPrepared->bindParam(':link', $valuesTmp['link']);
+			$this->addEntryPrepared->bindParam(':date', $valuesTmp['date'], PDO::PARAM_INT);
+			$valuesTmp['lastSeen'] = time();
+			$this->addEntryPrepared->bindParam(':last_seen', $valuesTmp['lastSeen'], PDO::PARAM_INT);
+			$valuesTmp['is_read'] = $valuesTmp['is_read'] ? 1 : 0;
+			$this->addEntryPrepared->bindParam(':is_read', $valuesTmp['is_read'], PDO::PARAM_INT);
+			$valuesTmp['is_favorite'] = $valuesTmp['is_favorite'] ? 1 : 0;
+			$this->addEntryPrepared->bindParam(':is_favorite', $valuesTmp['is_favorite'], PDO::PARAM_INT);
+			$this->addEntryPrepared->bindParam(':id_feed', $valuesTmp['id_feed'], PDO::PARAM_INT);
+			$valuesTmp['tags'] = substr($valuesTmp['tags'], 0, 1023);
+			$this->addEntryPrepared->bindParam(':tags', $valuesTmp['tags']);
 
-		if ($this->hasNativeHex()) {
-			$this->addEntryPrepared->bindParam(':hash', $valuesTmp['hash']);
-		} else {
-			$valuesTmp['hashBin'] = pack('H*', $valuesTmp['hash']);	//hex2bin() is PHP5.4+
-			$this->addEntryPrepared->bindParam(':hash', $valuesTmp['hashBin']);
+			if ($this->hasNativeHex()) {
+				$this->addEntryPrepared->bindParam(':hash', $valuesTmp['hash']);
+			} else {
+				$valuesTmp['hashBin'] = pack('H*', $valuesTmp['hash']);	//hex2bin() is PHP5.4+
+				$this->addEntryPrepared->bindParam(':hash', $valuesTmp['hashBin']);
+			}
 		}
-
 		if ($this->addEntryPrepared && $this->addEntryPrepared->execute()) {
 			return true;
 		} else {
 			$info = $this->addEntryPrepared == null ? array(0 => '', 1 => '', 2 => 'syntax error') : $this->addEntryPrepared->errorInfo();
 			if ($this->autoUpdateDb($info)) {
+				$this->addEntryPrepared = null;
 				return $this->addEntry($valuesTmp);
 			} elseif ((int)((int)$info[0] / 1000) !== 23) {	//Filter out "SQLSTATE Class code 23: Constraint Violation" because of expected duplicate entries
 				Minz_Log::error('SQL error addEntry: ' . $info[0] . ': ' . $info[1] . ' ' . $info[2]
@@ -163,6 +199,22 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 			}
 			return false;
 		}
+	}
+
+	public function commitNewEntries() {
+		$sql = 'SET @rank=(SELECT MAX(id) - COUNT(*) FROM `' . $this->prefix . 'entrytmp`); ' .	//MySQL-specific
+			'INSERT IGNORE INTO `' . $this->prefix . 'entry` (id, guid, title, author, content_bin, link, date, `lastSeen`, hash, is_read, is_favorite, id_feed, tags) ' .
+				'SELECT @rank:=@rank+1 AS id, guid, title, author, content_bin, link, date, `lastSeen`, hash, is_read, is_favorite, id_feed, tags FROM `' . $this->prefix . 'entrytmp` ORDER BY date; ' .
+			'DELETE FROM `' . $this->prefix . 'entrytmp` WHERE id <= @rank;';
+		$hadTransaction = $this->bd->inTransaction();
+		if (!$hadTransaction) {
+			$this->bd->beginTransaction();
+		}
+		$result = $this->bd->exec($sql) !== false;
+		if (!$hadTransaction) {
+			$this->bd->commit();
+		}
+		return $result;
 	}
 
 	private $updateEntryPrepared = null;

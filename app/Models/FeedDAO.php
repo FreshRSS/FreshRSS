@@ -92,29 +92,15 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 		}
 	}
 
-	public function updateLastUpdate($id, $inError = false, $updateCache = true, $mtime = 0) {
-		if ($updateCache) {
-			$sql = 'UPDATE `' . $this->prefix . 'feed` '	//2 sub-requests with FOREIGN KEY(e.id_feed), INDEX(e.is_read) faster than 1 request with GROUP BY or CASE
-			     . 'SET `cache_nbEntries`=(SELECT COUNT(e1.id) FROM `' . $this->prefix . 'entry` e1 WHERE e1.id_feed=`' . $this->prefix . 'feed`.id),'
-			     . '`cache_nbUnreads`=(SELECT COUNT(e2.id) FROM `' . $this->prefix . 'entry` e2 WHERE e2.id_feed=`' . $this->prefix . 'feed`.id AND e2.is_read=0),'
-			     . '`lastUpdate`=?, error=? '
-			     . 'WHERE id=?';
-		} else {
-			$sql = 'UPDATE `' . $this->prefix . 'feed` '
-			     . 'SET `lastUpdate`=?, error=? '
-			     . 'WHERE id=?';
-		}
-
-		if ($mtime <= 0) {
-			$mtime = time();
-		}
-
+	public function updateLastUpdate($id, $inError = false, $mtime = 0) {	//See also updateCachedValue()
+		$sql = 'UPDATE `' . $this->prefix . 'feed` '
+		     . 'SET `lastUpdate`=?, error=? '
+		     . 'WHERE id=?';
 		$values = array(
-			$mtime,
+			$mtime <= 0 ? time() : $mtime,
 			$inError ? 1 : 0,
 			$id,
 		);
-
 		$stm = $this->bd->prepare($sql);
 
 		if ($stm && $stm->execute($values)) {
@@ -294,18 +280,28 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 		return $res[0]['count'];
 	}
 
-	public function updateCachedValues() {	//For one single feed, call updateLastUpdate($id)
-		$sql = 'UPDATE `' . $this->prefix . 'feed` f '
-		     . 'INNER JOIN ('
-		     .	'SELECT e.id_feed, '
-		     .	'COUNT(CASE WHEN e.is_read = 0 THEN 1 END) AS nbUnreads, '
-		     .	'COUNT(e.id) AS nbEntries '
-		     .	'FROM `' . $this->prefix . 'entry` e '
-		     .	'GROUP BY e.id_feed'
-		     . ') x ON x.id_feed=f.id '
-		     . 'SET f.`cache_nbEntries`=x.nbEntries, f.`cache_nbUnreads`=x.nbUnreads';
+	public function updateCachedValue($id) {	//For multiple feeds, call updateCachedValues()
+		$sql = 'UPDATE `' . $this->prefix . 'feed` '	//2 sub-requests with FOREIGN KEY(e.id_feed), INDEX(e.is_read) faster than 1 request with GROUP BY or CASE
+		     . 'SET `cache_nbEntries`=(SELECT COUNT(e1.id) FROM `' . $this->prefix . 'entry` e1 WHERE e1.id_feed=`' . $this->prefix . 'feed`.id),'
+		     . '`cache_nbUnreads`=(SELECT COUNT(e2.id) FROM `' . $this->prefix . 'entry` e2 WHERE e2.id_feed=`' . $this->prefix . 'feed`.id AND e2.is_read=0) '
+		     . 'WHERE id=?';
+		$values = array($id);
 		$stm = $this->bd->prepare($sql);
 
+		if ($stm && $stm->execute($values)) {
+			return $stm->rowCount();
+		} else {
+			$info = $stm == null ? array(2 => 'syntax error') : $stm->errorInfo();
+			Minz_Log::error('SQL error updateCachedValue: ' . $info[2]);
+			return false;
+		}
+	}
+
+	public function updateCachedValues() {	//For one single feed, call updateCachedValue($id)
+		$sql = 'UPDATE `' . $this->prefix . 'feed` '
+		     . 'SET `cache_nbEntries`=(SELECT COUNT(e1.id) FROM `' . $this->prefix . 'entry` e1 WHERE e1.id_feed=`' . $this->prefix . 'feed`.id),'
+		     . '`cache_nbUnreads`=(SELECT COUNT(e2.id) FROM `' . $this->prefix . 'entry` e2 WHERE e2.id_feed=`' . $this->prefix . 'feed`.id AND e2.is_read=0)';
+		$stm = $this->bd->prepare($sql);
 		if ($stm && $stm->execute()) {
 			return $stm->rowCount();
 		} else {
@@ -343,7 +339,7 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 		return $affected;
 	}
 
-	public function cleanOldEntries($id, $date_min, $keep = 15) {	//Remember to call updateLastUpdate($id) or updateCachedValues() just after
+	public function cleanOldEntries($id, $date_min, $keep = 15) {	//Remember to call updateCachedValue($id) or updateCachedValues() just after
 		$sql = 'DELETE FROM `' . $this->prefix . 'entry` '
 		     . 'WHERE id_feed=:id_feed AND id<=:id_max '
 		     . 'AND is_favorite=0 '	//Do not remove favourites
