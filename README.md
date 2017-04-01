@@ -128,10 +128,11 @@ Create `/etc/cron.d/FreshRSS` with:
 
 
 # Advices
-* For a better security, expose only the `./p/` folder on the web.
+* For a better security, expose only the `./p/` folder on the Web.
 	* Be aware that the `./data/` folder contains all personal data, so it is a bad idea to expose it.
 * The `./constants.php` file defines access to application folder. If you want to customize your installation, every thing happens here.
-* If you encounter any problem, logs are accessible from the interface or manually in `./data/log/*.log` files.
+* If you encounter any problem, logs are accessible from the interface or manually in `./data/users/*/log*.txt` files.
+	* The special folder `./data/users/_/` contains the part of the logs that are shared by all users.
 
 
 # Backup

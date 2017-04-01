@@ -130,7 +130,8 @@ Créer `/etc/cron.d/FreshRSS` avec :
 * Pour une meilleure sécurité, faites en sorte que seul le répertoire `./p/` soit accessible depuis le Web, par exemple en faisant pointer un sous-domaine sur le répertoire `./p/`.
 	* En particulier, les données personnelles se trouvent dans le répertoire `./data/`.
 * Le fichier `./constants.php` définit les chemins d’accès aux répertoires clés de l’application. Si vous les bougez, tout se passe ici.
-* En cas de problème, les logs peuvent être utile à lire, soit depuis l’interface de FreshRSS, soit manuellement depuis `./data/log/*.log`.
+* En cas de problème, les logs peuvent être utile à lire, soit depuis l’interface de FreshRSS, soit manuellement depuis `./data/users/*/log*.txt`.
+	* Le répertoire spécial `./data/users/_/` contient la partie des logs partagés par tous les utilisateurs.
 
 
 # Sauvegarde
