@@ -35,6 +35,8 @@ class FreshRSS_Search {
 		}
 		$this->raw_input = $input;
 
+		$input = preg_replace('/:&quot;(.*?)&quot;/', ':"\1"', $input);
+
 		$input = $this->parseNotIntitleSearch($input);
 		$input = $this->parseNotAuthorSearch($input);
 		$input = $this->parseNotInurlSearch($input);
