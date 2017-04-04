@@ -41,6 +41,10 @@ We are a friendly community.
 
 ![FreshRSS screenshot](./doc/FreshRSS-screenshot.png)
 
+# Documentation
+* http://doc.freshrss.org/en/
+* https://github.com/FreshRSS/documentation
+
 # Installation
 1. Get FreshRSS with git or [by downloading the archive](https://github.com/FreshRSS/FreshRSS/archive/master.zip)
 2. Dump the application on your server (expose only the `./p/` folder)

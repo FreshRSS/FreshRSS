@@ -41,6 +41,10 @@ Nous sommes une communauté amicale.
 
 ![Capture d’écran de FreshRSS](./doc/FreshRSS-screenshot.png)
 
+# Documentation
+* http://doc.freshrss.org/fr/
+* https://github.com/FreshRSS/documentation
+
 # Installation
 1. Récupérez l’application FreshRSS via la commande git ou [en téléchargeant l’archive](../releases)
 2. Placez l’application sur votre serveur (la partie à exposer au Web est le répertoire `./p/`)
