@@ -22,7 +22,6 @@ class FreshRSS_Entry extends Minz_Model {
 
 	public function __construct($feed = '', $guid = '', $title = '', $author = '', $content = '',
 	                            $link = '', $pubdate = 0, $is_read = false, $is_favorite = false, $tags = '') {
-		$this->_guid($guid);
 		$this->_title($title);
 		$this->_author($author);
 		$this->_content($content);
@@ -32,6 +31,7 @@ class FreshRSS_Entry extends Minz_Model {
 		$this->_isFavorite($is_favorite);
 		$this->_feed($feed);
 		$this->_tags(preg_split('/[\s#]/', $tags));
+		$this->_guid($guid);
 	}
 
 	public function id() {
@@ -101,6 +101,12 @@ class FreshRSS_Entry extends Minz_Model {
 		$this->id = $value;
 	}
 	public function _guid($value) {
+		if ($value == '') {
+			$value = $this->link;
+			if ($value == '') {
+				$value = $this->hash();
+			}
+		}
 		$this->guid = $value;
 	}
 	public function _title($value) {
