@@ -16,6 +16,8 @@
 		* (Require manual update for existing installations)
 * I18n
 	* Improve English [#1465](https://github.com/FreshRSS/FreshRSS/pull/1465)
+* Misc.
+	* Fall back to article URL when the article GUID is empty [#1482](https://github.com/FreshRSS/FreshRSS/issues/1482)
 
 
 ## 2017-03-11 FreshRSS 1.6.3
