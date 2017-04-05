@@ -102,7 +102,7 @@ class FreshRSS_Entry extends Minz_Model {
 	}
 	public function _guid($value) {
 		if ($value == '') {
-			$value = $this->title;
+			$value = $this->link;
 			if ($value == '') {
 				$value = $this->hash();
 			}
