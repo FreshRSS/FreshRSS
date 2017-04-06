@@ -14,7 +14,7 @@ define('FRESHRSS_PATH', dirname(__FILE__));
 		define('INDEX_PATH', PUBLIC_PATH . PUBLIC_TO_INDEX_PATH);
 		define('PUBLIC_RELATIVE', '..');
 
-	define('DATA_PATH', FRESHRSS_PATH . '/data');
+	define('DATA_PATH', '/var/data');
 		define('UPDATE_FILENAME', DATA_PATH . '/update.php');
 		define('USERS_PATH', DATA_PATH . '/users');
 		define('CACHE_PATH', DATA_PATH . '/cache');

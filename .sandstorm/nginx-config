@@ -1,0 +1,29 @@
+server {
+    listen 8000 default_server;
+    listen [::]:8000 default_server ipv6only=on;
+
+    # Allow arbitrarily large bodies - Sandstorm can handle them, and requests
+    # are authenticated already, so there's no reason for apps to add additional
+    # limits by default.
+    client_max_body_size 0;
+
+    # Prevent nginx from adding compression; this interacts badly with Sandstorm
+    # WebSession due to https://github.com/sandstorm-io/sandstorm/issues/289
+    gzip off;
+
+    root /opt/app;
+
+    index index.php index.html index.htm;
+
+    server_name localhost;
+
+    location ~ ^.+?\.php(/.*)?$ {
+     fastcgi_pass unix:/var/run/php5-fpm.sock;
+     fastcgi_split_path_info ^(.+\.php)(/.*)$;
+
+     fastcgi_param REMOTE_USER $http_x_sandstorm_user_id;
+     fastcgi_param PATH_INFO $fastcgi_path_info;
+     include fastcgi_params;
+     fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+    }
+}
