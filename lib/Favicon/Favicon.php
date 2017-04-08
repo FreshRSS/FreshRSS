@@ -229,10 +229,14 @@ class Favicon
         $fileContent = $this->dataAccess->retrieveUrl($url);
         $this->dataAccess->saveCache($tmpFile, $fileContent);
         
-        $finfo = finfo_open(FILEINFO_MIME_TYPE);
-        $isImage = strpos(finfo_file($finfo, $tmpFile), 'image') !== false;
-        finfo_close($finfo);
-        
+        $isImage = true;
+        try {
+            $finfo = finfo_open(FILEINFO_MIME_TYPE);
+            $isImage = strpos(finfo_file($finfo, $tmpFile), 'image') !== false;
+            finfo_close($finfo);
+        } catch (Exception $e) {
+        }
+
         unlink($tmpFile);
         
         return $isImage;
