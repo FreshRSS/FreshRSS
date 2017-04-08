@@ -2,7 +2,7 @@
 
 return array(
 	'action' => array(
-		'actualize' => 'Updating',
+		'actualize' => 'Actualize',
 		'back_to_rss_feeds' => '← Go back to your RSS feeds',
 		'cancel' => 'Cancel',
 		'create' => 'Create',
