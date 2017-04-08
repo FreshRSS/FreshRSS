@@ -8,6 +8,7 @@
 		* Negative searches with `!` or `-` [#1381](https://github.com/FreshRSS/FreshRSS/issues/1381)
 			* Examples: `!intitle:unwanted`, `-intitle:unwanted`, `-inurl:unwanted`, `-author:unwanted`, `-#unwanted`, `-unwanted`
 		* Allow double-quotes, such as `author:"some name"`, in addition to single-quotes such as `author:'some name'` [#1478](https://github.com/FreshRSS/FreshRSS/pull/1478)
+	* Multi-user tokens (to access RSS outputs of any user) [#1390](https://github.com/FreshRSS/FreshRSS/issues/1390)
 * Compatibility:
 	* Add support for PHP 7.1 [#1471](https://github.com/FreshRSS/FreshRSS/issues/1471)
 	* PostgreSQL is not experimental anymore [#1476](https://github.com/FreshRSS/FreshRSS/pull/1476)
