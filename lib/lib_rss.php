@@ -334,6 +334,9 @@ function max_registrations_reached() {
  * @return a Minz_Configuration object, null if the configuration cannot be loaded.
  */
 function get_user_configuration($username) {
+	if (!FreshRSS_user_Controller::checkUsername($username)) {
+		return null;
+	}
 	$namespace = 'user_' . $username;
 	try {
 		Minz_Configuration::register($namespace,
