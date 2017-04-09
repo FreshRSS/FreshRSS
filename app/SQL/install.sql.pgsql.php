@@ -84,4 +84,4 @@ $SQL_INSERT_FEEDS = array(
 'INSERT INTO "%1$sfeed" (url, category, name, website, description, ttl) SELECT \'https://github.com/FreshRSS/FreshRSS/releases.atom\', 1, \'FreshRSS @ GitHub\', \'https://github.com/FreshRSS/FreshRSS/\', \'FreshRSS releases @ GitHub\', 86400 WHERE NOT EXISTS (SELECT id FROM "%1$sfeed" WHERE url = \'https://github.com/FreshRSS/FreshRSS/releases.atom\');',
 );
 
-define('SQL_DROP_TABLES', 'DROP TABLE IF EXISTS "%1$sentry", "%1$sfeed", "%1$scategory"');
+define('SQL_DROP_TABLES', 'DROP TABLE IF EXISTS "%1$sentrytmp", "%1$sentry", "%1$sfeed", "%1$scategory"');
