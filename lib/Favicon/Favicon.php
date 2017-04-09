@@ -179,7 +179,7 @@ class Favicon
         // Sometimes people lie, so check the status.
         // And sometimes, it's not even an image. Sneaky bastards!
         // If cacheDir isn't writable, that's not our problem
-        if ($favicon && is_writable($this->cacheDir) && !$this->checkImageMType($favicon)) {
+        if ($favicon && is_writable($this->cacheDir) && extension_loaded('fileinfo') && !$this->checkImageMType($favicon)) {
             $favicon = false;
         }
 
@@ -229,10 +229,14 @@ class Favicon
         $fileContent = $this->dataAccess->retrieveUrl($url);
         $this->dataAccess->saveCache($tmpFile, $fileContent);
         
-        $finfo = finfo_open(FILEINFO_MIME_TYPE);
-        $isImage = strpos(finfo_file($finfo, $tmpFile), 'image') !== false;
-        finfo_close($finfo);
-        
+        $isImage = true;
+        try {
+            $finfo = finfo_open(FILEINFO_MIME_TYPE);
+            $isImage = strpos(finfo_file($finfo, $tmpFile), 'image') !== false;
+            finfo_close($finfo);
+        } catch (Exception $e) {
+        }
+
         unlink($tmpFile);
         
         return $isImage;
