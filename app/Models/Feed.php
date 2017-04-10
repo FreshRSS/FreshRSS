@@ -429,7 +429,7 @@ class FreshRSS_Feed extends Minz_Model {
 				}
 			} else {
 				@mkdir($path, 0777, true);
-				$key = sha1($path . FreshRSS_Context::$system_conf->salt . uniqid(mt_rand(), true));
+				$key = sha1($path . FreshRSS_Context::$system_conf->salt);
 				$hubJson = array(
 					'hub' => $this->hubUrl,
 					'key' => $key,
@@ -451,15 +451,16 @@ class FreshRSS_Feed extends Minz_Model {
 
 	//Parameter true to subscribe, false to unsubscribe.
 	function pubSubHubbubSubscribe($state) {
-		if (FreshRSS_Context::$system_conf->base_url && $this->hubUrl && $this->selfUrl) {
-			$hubFilename = PSHB_PATH . '/feeds/' . base64url_encode($this->selfUrl) . '/!hub.json';
+		$url = $this->selfUrl ? $this->selfUrl : $this->url;
+		if (FreshRSS_Context::$system_conf->base_url && $url) {
+			$hubFilename = PSHB_PATH . '/feeds/' . base64url_encode($url) . '/!hub.json';
 			$hubFile = @file_get_contents($hubFilename);
 			if ($hubFile === false) {
 				Minz_Log::warning('JSON not found for PubSubHubbub: ' . $this->url);
 				return false;
 			}
 			$hubJson = json_decode($hubFile, true);
-			if (!$hubJson || empty($hubJson['key']) || !ctype_xdigit($hubJson['key'])) {
+			if (!$hubJson || empty($hubJson['key']) || !ctype_xdigit($hubJson['key']) || empty($hubJson['hub'])) {
 				Minz_Log::warning('Invalid JSON for PubSubHubbub: ' . $this->url);
 				return false;
 			}
@@ -474,13 +475,13 @@ class FreshRSS_Feed extends Minz_Model {
 			}
 			$ch = curl_init();
 			curl_setopt_array($ch, array(
-				CURLOPT_URL => $this->hubUrl,
+				CURLOPT_URL => $hubJson['hub'],
 				CURLOPT_FOLLOWLOCATION => true,
 				CURLOPT_RETURNTRANSFER => true,
 				CURLOPT_USERAGENT => 'FreshRSS/' . FRESHRSS_VERSION . ' (' . PHP_OS . '; ' . FRESHRSS_WEBSITE . ')',
 				CURLOPT_POSTFIELDS => 'hub.verify=sync'
 					. '&hub.mode=' . ($state ? 'subscribe' : 'unsubscribe')
-					. '&hub.topic=' . urlencode($this->selfUrl)
+					. '&hub.topic=' . urlencode($url)
 					. '&hub.callback=' . urlencode($callbackUrl)
 				)
 			);
@@ -488,7 +489,7 @@ class FreshRSS_Feed extends Minz_Model {
 			$info = curl_getinfo($ch);
 
 			file_put_contents(USERS_PATH . '/_/log_pshb.txt', date('c') . "\t" .
-				'PubSubHubbub ' . ($state ? 'subscribe' : 'unsubscribe') . ' to ' . $this->selfUrl .
+				'PubSubHubbub ' . ($state ? 'subscribe' : 'unsubscribe') . ' to ' . $url .
 				' with callback ' . $callbackUrl . ': ' . $info['http_code'] . ' ' . $response . "\n", FILE_APPEND);
 
 			if (substr($info['http_code'], 0, 1) == '2') {
