@@ -86,4 +86,4 @@ $SQL_INSERT_FEEDS = array(
 'INSERT OR IGNORE INTO `feed` (url, category, name, website, description, ttl) VALUES("https://github.com/FreshRSS/FreshRSS/releases.atom", 1, "FreshRSS releases", "https://github.com/FreshRSS/FreshRSS/", "FreshRSS releases @ GitHub", 86400);',
 );
 
-define('SQL_DROP_TABLES', 'DROP TABLE IF EXISTS entry, feed, category');
+define('SQL_DROP_TABLES', 'DROP TABLE IF EXISTS `entrytmp`, `entry`, `feed`, `category`');

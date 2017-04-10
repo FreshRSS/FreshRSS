@@ -92,7 +92,7 @@ INSERT IGNORE INTO `%1$sfeed` (url, category, name, website, description, ttl) V
 INSERT IGNORE INTO `%1$sfeed` (url, category, name, website, description, ttl) VALUES("https://github.com/FreshRSS/FreshRSS/releases.atom", 1, "FreshRSS @ GitHub", "https://github.com/FreshRSS/FreshRSS/", "FreshRSS releases @ GitHub", 86400);
 ');
 
-define('SQL_DROP_TABLES', 'DROP TABLE IF EXISTS `%1$sentry`, `%1$sfeed`, `%1$scategory`');
+define('SQL_DROP_TABLES', 'DROP TABLE IF EXISTS `%1$sentrytmp`, `%1$sentry`, `%1$sfeed`, `%1$scategory`');
 
 define('SQL_UPDATE_UTF8MB4', '
 ALTER DATABASE `%2$s` CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;

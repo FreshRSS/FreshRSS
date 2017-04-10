@@ -217,6 +217,7 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 			$userDAO = new FreshRSS_UserDAO();
 			$ok &= $userDAO->deleteUser($username);
 			$ok &= recursive_unlink($user_data);
+			array_map('unlink', glob(PSHB_PATH . '/feeds/*/' . $username . '.txt'));
 		}
 		return $ok;
 	}
