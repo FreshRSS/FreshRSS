@@ -23,8 +23,13 @@ if (!ctype_xdigit($key)) {
 chdir(PSHB_PATH);
 $canonical64 = @file_get_contents('keys/' . $key . '.txt');
 if ($canonical64 === false) {
+	if (!empty($_REQUEST['hub_mode']) && $_REQUEST['hub_mode'] === 'unsubscribe') {
+		logMe('Warning: Accept unknown unsubscribe');
+		header('Connection: close');
+		exit(isset($_REQUEST['hub_challenge']) ? $_REQUEST['hub_challenge'] : '');
+	}
 	header('HTTP/1.1 404 Not Found');
-	logMe('Error: Feed key not found!: ' . $key);
+	logMe('Warning: Feed key not found!: ' . $key);
 	die('Feed key not found!');
 }
 $canonical64 = trim($canonical64);
@@ -36,7 +41,7 @@ if (!preg_match('/^[A-Za-z0-9_-]+$/D', $canonical64)) {
 $hubFile = @file_get_contents('feeds/' . $canonical64 . '/!hub.json');
 if ($hubFile === false) {
 	header('HTTP/1.1 404 Not Found');
-	//@unlink('keys/' . $key . '.txt');
+	unlink('keys/' . $key . '.txt');
 	logMe('Error: Feed info not found!: ' . $canonical64);
 	die('Feed info not found!');
 }
@@ -50,8 +55,19 @@ chdir('feeds/' . $canonical64);
 $users = glob('*.txt', GLOB_NOSORT);
 if (empty($users)) {
 	header('HTTP/1.1 410 Gone');
-	logMe('Error: Nobody is subscribed to this feed anymore!: ' . $canonical64);
-	die('Nobody is subscribed to this feed anymore!');
+	$url = base64url_decode($canonical64);
+	logMe('Warning: Nobody subscribes to this feed anymore!: ' . $url);
+	unlink('../../keys/' . $key . '.txt');
+	Minz_Configuration::register('system',
+		DATA_PATH . '/config.php',
+		DATA_PATH . '/config.default.php');
+	FreshRSS_Context::$system_conf = Minz_Configuration::get('system');
+	$feed = new FreshRSS_Feed($url);
+	$feed->pubSubHubbubSubscribe(false);
+	unlink('!hub.json');
+	chdir('..');
+	recursive_unlink($canonical64);
+	die('Nobody subscribes to this feed anymore!');
 }
 
 if (!empty($_REQUEST['hub_mode']) && $_REQUEST['hub_mode'] === 'subscribe') {
@@ -108,7 +124,9 @@ $nb = 0;
 foreach ($users as $userFilename) {
 	$username = basename($userFilename, '.txt');
 	if (!file_exists(USERS_PATH . '/' . $username . '/config.php')) {
-		break;
+		logMe('Warning: Removing broken user link: ' . $username . ' for ' . $self);
+		unlink($userFilename);
+		continue;
 	}
 
 	try {
@@ -119,11 +137,14 @@ foreach ($users as $userFilename) {
 		new Minz_ModelPdo($username);	//TODO: FIXME: Quick-fix while waiting for a better FreshRSS() constructor/init
 		FreshRSS_Context::init();
 		list($updated_feeds, $feed) = FreshRSS_feed_Controller::actualizeFeed(0, $self, false, $simplePie);
-		if ($updated_feeds > 0) {
+		if ($updated_feeds > 0 || $feed != false) {
 			$nb++;
+		} else {
+			logMe('Warning: User ' . $username . ' does not subscribe anymore to ' . $self);
+			unlink($userFilename);
 		}
 	} catch (Exception $e) {
-		logMe('Error: ' . $e->getMessage());
+		logMe('Error: ' . $e->getMessage() . ' for user ' . $username . ' and feed ' . $self);
 	}
 }
 
@@ -132,8 +153,8 @@ unset($simplePie);
 
 if ($nb === 0) {
 	header('HTTP/1.1 410 Gone');
-	logMe('Error: Nobody is subscribed to this feed anymore after all!: ' . $self);
-	die('Nobody is subscribed to this feed anymore after all!');
+	logMe('Warning: Nobody subscribes to this feed anymore after all!: ' . $self);
+	die('Nobody subscribes to this feed anymore after all!');
 } elseif (!empty($hubJson['error'])) {
 	$hubJson['error'] = false;
 	file_put_contents('./!hub.json', json_encode($hubJson));
