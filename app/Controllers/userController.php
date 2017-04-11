@@ -74,6 +74,10 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 				FreshRSS_Context::$user_conf->apiPasswordHash = $passwordHash;
 			}
 
+			$current_token = FreshRSS_Context::$user_conf->token;
+			$token = Minz_Request::param('token', $current_token);
+			FreshRSS_Context::$user_conf->token = $token;
+
 			$ok &= FreshRSS_Context::$user_conf->save();
 
 			if ($ok) {

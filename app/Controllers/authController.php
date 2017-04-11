@@ -27,11 +27,6 @@ class FreshRSS_auth_Controller extends Minz_ActionController {
 		if (Minz_Request::isPost()) {
 			$ok = true;
 
-			$current_token = FreshRSS_Context::$user_conf->token;
-			$token = Minz_Request::param('token', $current_token);
-			FreshRSS_Context::$user_conf->token = $token;
-			$ok &= FreshRSS_Context::$user_conf->save();
-
 			$anon = Minz_Request::param('anon_access', false);
 			$anon = ((bool)$anon) && ($anon !== 'no');
 			$anon_refresh = Minz_Request::param('anon_refresh', false);
@@ -123,7 +118,7 @@ class FreshRSS_auth_Controller extends Minz_ActionController {
 			$challenge = Minz_Request::param('challenge', '');
 
 			$conf = get_user_configuration($username);
-			if (is_null($conf)) {
+			if ($conf == null) {
 				Minz_Error::error(403, array(_t('feedback.auth.login.invalid')), false);
 				return;
 			}
@@ -164,7 +159,7 @@ class FreshRSS_auth_Controller extends Minz_ActionController {
 			}
 
 			$conf = get_user_configuration($username);
-			if (is_null($conf)) {
+			if ($conf == null) {
 				return;
 			}
 
