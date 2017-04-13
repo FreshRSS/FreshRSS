@@ -190,6 +190,7 @@ class FreshRSS_update_Controller extends Minz_ActionController {
 			if (self::isGit()) {
 				$res = self::gitPull();
 			} else {
+				require(UPDATE_FILENAME);
 				if (Minz_Request::isPost()) {
 					save_info_update();
 				}
