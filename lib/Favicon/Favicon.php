@@ -97,6 +97,9 @@ class Favicon
         $loop = TRUE;
         while ($loop && $max_loop-- > 0) {
             $headers = $this->dataAccess->retrieveHeader($url);
+            if (empty($headers)) {
+                return false;
+            }
             $exploded = explode(' ', $headers[0]);
             
             if( !isset($exploded[1]) ) { 
@@ -107,7 +110,7 @@ class Favicon
             switch ($status) {
                 case '301':
                 case '302':
-                    $url = $headers['Location'];
+                    $url = isset($headers['location']) ? $headers['location'] : '';
                     break;
                 default:
                     $loop = FALSE;
@@ -196,7 +199,7 @@ class Favicon
         // Sometimes people lie, so check the status.
         // And sometimes, it's not even an image. Sneaky bastards!
         // If cacheDir isn't writable, that's not our problem
-        if ($favicon && is_writable($this->cacheDir) && !$this->checkImageMType($favicon)) {
+        if ($favicon && is_writable($this->cacheDir) && extension_loaded('fileinfo') && !$this->checkImageMType($favicon)) {
             $favicon = false;
         }
 
@@ -311,9 +314,13 @@ class Favicon
     private function checkImageMTypeContent($content) {
         if(empty($content)) return false;
 
-        $fInfo = finfo_open(FILEINFO_MIME_TYPE);
-        $isImage = strpos(finfo_buffer($fInfo, $content), 'image') !== false;
-        finfo_close($fInfo);
+        $isImage = true;
+        try {
+            $fInfo = finfo_open(FILEINFO_MIME_TYPE);
+            $isImage = strpos(finfo_buffer($fInfo, $content), 'image') !== false;
+            finfo_close($fInfo);
+        } catch (Exception $e) {
+        }
 
         return $isImage;
     }
