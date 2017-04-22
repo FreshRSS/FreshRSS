@@ -111,6 +111,9 @@ class Favicon
                 case '301':
                 case '302':
                     $url = isset($headers['location']) ? $headers['location'] : '';
+                    if (is_array($url)) {
+                        $url = end($url);
+                    }
                     break;
                 default:
                     $loop = FALSE;
