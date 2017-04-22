@@ -12,10 +12,10 @@ function download_favicon($website, $dest) {
 
 	syslog(LOG_INFO, 'FreshRSS Favicon discovery GET ' . $website);
 	$favicon_getter = new \Favicon\Favicon();
-	$tmpPath = realpath(TMP_PATH) . '/';
+	$tmpPath = realpath(TMP_PATH);
 	$favicon_getter->setCacheDir($tmpPath);
 	$favicon_path = $favicon_getter->get($website, \Favicon\FaviconDLType::DL_FILE_PATH);
 
-	return ($favicon_path != false && @rename($tmpPath . $favicon_path, $dest)) ||
+	return ($favicon_path != false && @rename($tmpPath . '/' . $favicon_path, $dest)) ||
 		@copy($default_favicon, $dest);
 }

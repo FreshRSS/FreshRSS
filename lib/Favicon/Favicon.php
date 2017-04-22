@@ -188,7 +188,10 @@ class Favicon
 
         // See if it's specified in a link tag in domain url.
         if (!$favicon) {
-            $favicon = $this->getInPage($url);
+            $favicon = trim($this->getInPage($url));
+        }
+        if (substr($favicon, 0, 2) === '//') {
+            $favicon = 'https:' . $favicon;
         }
         
         // Make sure the favicon is an absolute URL.
@@ -264,9 +267,15 @@ class Favicon
             foreach ($links as $link) {
                 if ($link->hasAttribute('rel') && strtolower($link->getAttribute('rel')) == 'shortcut icon') {
                     return $link->getAttribute('href');
-                } elseif ($link->hasAttribute('rel') && strtolower($link->getAttribute('rel')) == 'icon') {
+                }
+            }
+            foreach ($links as $link) {
+                if ($link->hasAttribute('rel') && strtolower($link->getAttribute('rel')) == 'icon') {
                     return $link->getAttribute('href');
-                } elseif ($link->hasAttribute('href') && strpos($link->getAttribute('href'), 'favicon') !== FALSE) {
+                }
+            }
+            foreach ($links as $link) {
+                if ($link->hasAttribute('href') && strpos($link->getAttribute('href'), 'favicon') !== FALSE) {
                     return $link->getAttribute('href');
                 }
             }
@@ -319,7 +328,8 @@ class Favicon
             $fInfo = finfo_open(FILEINFO_MIME_TYPE);
             $isImage = strpos(finfo_buffer($fInfo, $content), 'image') !== false;
             finfo_close($fInfo);
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
+            error_log('Favicon checkImageMTypeContent error: ' . $e->getMessage());
         }
 
         return $isImage;
