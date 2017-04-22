@@ -14,7 +14,7 @@ Finally, it supports [extensions](#extensions) for further tuning.
 * Demo: http://demo.freshrss.org/
 * License: [GNU AGPL 3](http://www.gnu.org/licenses/agpl-3.0.html)
 
-![FreshRSS logo](./doc/FreshRSS-logo.png)
+![FreshRSS logo](./docs/img/FreshRSS-logo.png)
 
 # Releases
 See the [list of releases](../../releases).
@@ -39,7 +39,7 @@ We are a friendly community.
 * A recent browser like Firefox, Internet Explorer 11 / Edge, Chrome, Opera, Safari.
 	* Works on mobile
 
-![FreshRSS screenshot](./doc/FreshRSS-screenshot.png)
+![FreshRSS screenshot](./docs/img/FreshRSS-screenshot.png)
 
 # Documentation
 * http://doc.freshrss.org/en/
