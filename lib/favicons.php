@@ -61,7 +61,12 @@ function searchFavicon(&$url) {
 					strtolower(trim($link->getAttribute('rel'))) === $rel) {
 					$href = trim($link->getAttribute('href'));
 					if (substr($href, 0, 2) === '//') {
-						$href = 'https:' . $href;
+						// Case of protocol-relative URLs
+						if (preg_match('%^(https?:)//%i', $url, $matches)) {
+							$href = $matches[1] . $href;
+						} else {
+							$href = 'https:' . $href;
+						}
 					}
 					if (filter_var($href, FILTER_VALIDATE_URL) === false) {
 						$href = SimplePie_IRI::absolutize($url, $href);
