@@ -23,7 +23,7 @@
 	* Improve English [#1465](https://github.com/FreshRSS/FreshRSS/pull/1465)
 * Misc.
 	* Fall back to article URL when the article GUID is empty [#1482](https://github.com/FreshRSS/FreshRSS/issues/1482)
-	* Rewriten Favicon library using cURL [#1504](https://github.com/FreshRSS/FreshRSS/pull/1504)
+	* Rewritten Favicon library using cURL [#1504](https://github.com/FreshRSS/FreshRSS/pull/1504)
 
 
 ## 2017-03-11 FreshRSS 1.6.3
