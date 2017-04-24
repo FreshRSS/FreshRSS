@@ -2,7 +2,7 @@
 
 return array(
 	'action' => array(
-		'actualize' => 'Actualize',
+		'actualize' => 'Actualise',
 		'back_to_rss_feeds' => '← Go back to your RSS feeds',
 		'cancel' => 'Cancel',
 		'create' => 'Create',
@@ -14,7 +14,7 @@ return array(
 		'import' => 'Import',
 		'manage' => 'Manage',
 		'mark_read' => 'Mark as read',
-		'mark_favorite' => 'Mark as favourite',
+		'mark_favorite' => 'Mark as favorite',
 		'remove' => 'Remove',
 		'see_website' => 'See website',
 		'submit' => 'Submit',
@@ -174,7 +174,7 @@ return array(
 		'by_author' => 'By <em>%s</em>',
 		'by_default' => 'By default',
 		'damn' => 'Damn!',
-		'default_category' => 'Uncategorized',
+		'default_category' => 'Uncategorised',
 		'no' => 'No',
 		'not_applicable' => 'Not available',
 		'ok' => 'Ok!',
