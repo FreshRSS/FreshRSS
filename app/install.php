@@ -74,7 +74,11 @@ function saveLanguage() {
 
 		$_SESSION['language'] = $_POST['language'];
 
-		header('Location: index.php?step=1');
+		if ($_POST['submit']) {
+			header('Location: index.php?step=1');
+		} else {
+			header('Location: index.php?step=0');
+		}
 	}
 }
 
@@ -398,6 +402,12 @@ function printStep0() {
 			</div>
 		</div>
 	</form>
+
+	<script>
+		document.getElementById('language').addEventListener('change', function() {
+			document.getElementsByTagName('form')[0].submit();
+		});
+	</script>
 <?php
 }
 
