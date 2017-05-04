@@ -1,6 +1,6 @@
 <?php
-
 require('../constants.php');
+require(LIB_PATH . '/lib_rss.php');	//Includes class autoloader
 require(LIB_PATH . '/favicons.php');
 require(LIB_PATH . '/http-conditional.php');
 
@@ -14,7 +14,6 @@ function show_default_favicon($cacheSeconds = 3600) {
 		readfile($default_favicon);
 	}
 }
-
 
 $id = isset($_SERVER['QUERY_STRING']) ? $_SERVER['QUERY_STRING'] : '0';
 if (!ctype_xdigit($id)) {

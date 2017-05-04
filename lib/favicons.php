@@ -1,43 +1,109 @@
 <?php
-
-include(LIB_PATH . '/Favicon/Favicon.php');
-include(LIB_PATH . '/Favicon/DataAccess.php');
-
 $favicons_dir = DATA_PATH . '/favicons/';
 $default_favicon = PUBLIC_PATH . '/themes/icons/default_favicon.ico';
 
-function download_favicon($website, $dest) {
-	global $favicons_dir, $default_favicon;
-
-	syslog(LOG_INFO, 'FreshRSS Favicon discovery GET ' . $website);
-	$favicon_getter = new \Favicon\Favicon();
-	$favicon_getter->setCacheDir($favicons_dir);
-	$favicon_url = $favicon_getter->get($website);
-
-	if ($favicon_url === false) {
-		return @copy($default_favicon, $dest);
+function isImgMime($content) {
+	//Based on https://github.com/ArthurHoaro/favicon/blob/3a4f93da9bb24915b21771eb7873a21bde26f5d1/src/Favicon/Favicon.php#L311-L319
+	if ($content == '') {
+		return false;
 	}
+	if (!extension_loaded('fileinfo')) {
+		return true;
+	}
+	$isImage = true;
+	try {
+		$fInfo = finfo_open(FILEINFO_MIME_TYPE);
+		$isImage = strpos(finfo_buffer($fInfo, $content), 'image') !== false;
+		finfo_close($fInfo);
+	} catch (Exception $e) {
+	}
+	return $isImage;
+}
 
-	syslog(LOG_INFO, 'FreshRSS Favicon GET ' . $favicon_url);
-	$c = curl_init($favicon_url);
-	curl_setopt($c, CURLOPT_HEADER, false);
-	curl_setopt($c, CURLOPT_RETURNTRANSFER, true);
-	curl_setopt($c, CURLOPT_BINARYTRANSFER, true);
-	curl_setopt($c, CURLOPT_USERAGENT, 'FreshRSS/' . FRESHRSS_VERSION . ' (' . PHP_OS . '; ' . FRESHRSS_WEBSITE . ')');
-	$img_raw = curl_exec($c);
-	$status_code = curl_getinfo($c, CURLINFO_HTTP_CODE);
-	curl_close($c);
+function downloadHttp(&$url, $curlOptions = array()) {
+	syslog(LOG_INFO, 'FreshRSS Favicon GET ' . $url);
+	if (substr($url, 0, 2) === '//') {
+		$url = 'https:' . $favicon;
+	}
+	if ($url == '' || filter_var($url, FILTER_VALIDATE_URL) === false) {
+		return '';
+	}
+	$ch = curl_init($url);
+	curl_setopt_array($ch, array(
+			CURLOPT_FOLLOWLOCATION => true,
+			CURLOPT_MAXREDIRS => 10,
+			CURLOPT_RETURNTRANSFER => true,
+			CURLOPT_TIMEOUT => 15,
+			CURLOPT_USERAGENT => 'FreshRSS/' . FRESHRSS_VERSION . ' (' . PHP_OS . '; ' . FRESHRSS_WEBSITE . ')',
+		));
+	if (defined('CURLOPT_ENCODING')) {
+		curl_setopt($ch, CURLOPT_ENCODING, '');	//Enable all encodings
+	}
+	curl_setopt_array($ch, $curlOptions);
+	$response = curl_exec($ch);
+	$info = curl_getinfo($ch);
+	curl_close($ch);
+	if (!empty($info['url']) && (filter_var($info['url'], FILTER_VALIDATE_URL) !== false)) {
+		$url = $info['url'];	//Possible redirect
+	}
+	return $info['http_code'] == 200 ? $response : '';
+}
 
-	if ($status_code === 200) {
-		$file = fopen($dest, 'w');
-		if ($file !== false) {
-			fwrite($file, $img_raw);
-			fclose($file);
-			return true;
+function searchFavicon(&$url) {
+	$dom = new DOMDocument();
+	$html = downloadHttp($url);
+	if ($html != '' && @$dom->loadHTML($html, LIBXML_NONET | LIBXML_NOERROR | LIBXML_NOWARNING)) {
+		$rels = array('shortcut icon', 'icon');
+		$links = $dom->getElementsByTagName('link');
+		foreach ($rels as $rel) {
+			foreach ($links as $link) {
+				if ($link->hasAttribute('rel') && $link->hasAttribute('href') &&
+					strtolower(trim($link->getAttribute('rel'))) === $rel) {
+					$href = trim($link->getAttribute('href'));
+					if (substr($href, 0, 2) === '//') {
+						// Case of protocol-relative URLs
+						if (preg_match('%^(https?:)//%i', $url, $matches)) {
+							$href = $matches[1] . $href;
+						} else {
+							$href = 'https:' . $href;
+						}
+					}
+					if (filter_var($href, FILTER_VALIDATE_URL) === false) {
+						$href = SimplePie_IRI::absolutize($url, $href);
+					}
+					$favicon = downloadHttp($href, array(
+							CURLOPT_REFERER => $url,
+						));
+					if (isImgMime($favicon)) {
+						return $favicon;
+					}
+				}
+			}
 		}
-	} else {
-		syslog(LOG_WARNING, 'FreshRSS Favicon GET ' . $favicon_url . ' error ' . $status_code);
 	}
+	return '';
+}
 
-	return false;
+function download_favicon($url, $dest) {
+	global $default_favicon;
+	$url = trim($url);
+	$favicon = searchFavicon($url);
+	if ($favicon == '') {
+		$rootUrl = preg_replace('%^(https?://[^/]+).*$%i', '$1/', $url);
+		if ($rootUrl != $url) {
+			$url = $rootUrl;
+			$favicon = searchFavicon($url);
+		}
+		if ($favicon == '') {
+			$link = $rootUrl . 'favicon.ico';
+			$favicon = downloadHttp($link, array(
+					CURLOPT_REFERER => $url,
+				));
+			if (!isImgMime($favicon)) {
+				$favicon = '';
+			}
+		}
+	}
+	return ($favicon != '' && file_put_contents($dest, $favicon)) ||
+		@copy($default_favicon, $dest);
 }

@@ -5,7 +5,7 @@
  * A PHP-Based RSS and Atom Feed Framework.
  * Takes the hard work out of managing a complete RSS/Atom solution.
  *
- * Copyright (c) 2004-2012, Ryan Parman, Geoffrey Sneddon, Ryan McCue, and contributors
+ * Copyright (c) 2004-2016, Ryan Parman, Geoffrey Sneddon, Ryan McCue, and contributors
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification, are
@@ -33,8 +33,7 @@
  * POSSIBILITY OF SUCH DAMAGE.
  *
  * @package SimplePie
- * @version 1.4-dev
- * @copyright 2004-2012 Ryan Parman, Geoffrey Sneddon, Ryan McCue
+ * @copyright 2004-2016 Ryan Parman, Geoffrey Sneddon, Ryan McCue
  * @author Ryan Parman
  * @author Geoffrey Sneddon
  * @author Ryan McCue
@@ -64,7 +63,7 @@ class SimplePie_File
 	var $redirects = 0;
 	var $error;
 	var $method = SIMPLEPIE_FILE_SOURCE_NONE;
-	var $permanent_url;	//FreshRSS
+	var $permanent_url;
 
 	public function __construct($url, $timeout = 10, $redirects = 5, $headers = null, $useragent = null, $force_fsockopen = false, $curl_options = array(), $syslog_enabled = SIMPLEPIE_SYSLOG)
 	{
@@ -108,6 +107,7 @@ class SimplePie_File
 				curl_setopt($fp, CURLOPT_URL, $url);
 				curl_setopt($fp, CURLOPT_HEADER, 1);
 				curl_setopt($fp, CURLOPT_RETURNTRANSFER, 1);
+				curl_setopt($fp, CURLOPT_FAILONERROR, 1);
 				curl_setopt($fp, CURLOPT_TIMEOUT, $timeout);
 				curl_setopt($fp, CURLOPT_CONNECTTIMEOUT, $timeout);
 				curl_setopt($fp, CURLOPT_REFERER, $url);
@@ -144,7 +144,7 @@ class SimplePie_File
 					if ($parser->parse())
 					{
 						$this->headers = $parser->headers;
-						$this->body = $parser->body;
+						$this->body = trim($parser->body);
 						$this->status_code = $parser->status_code;
 						if ((in_array($this->status_code, array(300, 301, 302, 303, 307)) || $this->status_code > 307 && $this->status_code < 400) && isset($this->headers['location']) && $this->redirects < $redirects)
 						{
@@ -237,7 +237,7 @@ class SimplePie_File
 								$location = SimplePie_Misc::absolutize_url($this->headers['location'], $url);
 								$previousStatusCode = $this->status_code;
 								$this->__construct($location, $timeout, $redirects, $headers, $useragent, $force_fsockopen);
-								$this->permanent_url = ($previousStatusCode == 301) ? $location : $url;	//FreshRSS
+								$this->permanent_url = ($previousStatusCode == 301) ? $location : $url;
 								return;
 							}
 							if (isset($this->headers['content-encoding']))
@@ -255,7 +255,7 @@ class SimplePie_File
 										}
 										else
 										{
-											$this->body = $decoder->data;
+											$this->body = trim($decoder->data);
 										}
 										break;
 
@@ -298,7 +298,7 @@ class SimplePie_File
 		else
 		{
 			$this->method = SIMPLEPIE_FILE_SOURCE_LOCAL | SIMPLEPIE_FILE_SOURCE_FILE_GET_CONTENTS;
-			if (empty($url) || !($this->body = file_get_contents($url)))
+			if (empty($url) || !($this->body = trim(file_get_contents($url))))
 			{
 				$this->error = 'file_get_contents could not read the file';
 				$this->success = false;

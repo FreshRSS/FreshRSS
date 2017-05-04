@@ -21,11 +21,11 @@ return array(
 			'ok' => 'Permissions on cache directory are good.',
 		),
 		'categories' => array(
-			'nok' => 'Category table is bad configured.',
+			'nok' => 'Category table is improperly configured.',
 			'ok' => 'Category table is ok.',
 		),
 		'connection' => array(
-			'nok' => 'Connection to the database cannot being established.',
+			'nok' => 'Connection to the database cannot be established.',
 			'ok' => 'Connection to the database is ok.',
 		),
 		'ctype' => array(
@@ -46,7 +46,7 @@ return array(
 			'ok' => 'You have the required library to browse the DOM.',
 		),
 		'entries' => array(
-			'nok' => 'Entry table is bad configured.',
+			'nok' => 'Entry table is improperly configured.',
 			'ok' => 'Entry table is ok.',
 		),
 		'favicons' => array(
@@ -54,7 +54,7 @@ return array(
 			'ok' => 'Permissions on favicons directory are good.',
 		),
 		'feeds' => array(
-			'nok' => 'Feed table is bad configured.',
+			'nok' => 'Feed table is improperly configured.',
 			'ok' => 'Feed table is ok.',
 		),
 		'fileinfo' => array(
@@ -84,8 +84,8 @@ return array(
 			'ok' => 'Your PHP version is %s, which is compatible with FreshRSS.',
 		),
 		'tables' => array(
-			'nok' => 'There is one or more lacking tables in the database.',
-			'ok' => 'Tables are existing in the database.',
+			'nok' => 'There are one or more missing tables in the database.',
+			'ok' => 'The appropriate tables exist in the database.',
 		),
 		'title' => 'Installation checking',
 		'tokens' => array(
@@ -103,7 +103,7 @@ return array(
 	),
 	'extensions' => array(
 		'disabled' => 'Disabled',
-		'empty_list' => 'There is no installed extension',
+		'empty_list' => 'There are no installed extensions',
 		'enabled' => 'Enabled',
 		'no_configure_view' => 'This extension cannot be configured.',
 		'system' => array(
@@ -160,7 +160,7 @@ return array(
 		'_' => 'Update system',
 		'apply' => 'Apply',
 		'check' => 'Check for new updates',
-		'current_version' => 'Your current version of FreshRSS is the %s.',
+		'current_version' => 'Your current version of FreshRSS is %s.',
 		'last' => 'Last verification: %s',
 		'none' => 'No update to apply',
 		'title' => 'Update system',
@@ -169,8 +169,8 @@ return array(
 		'articles_and_size' => '%s articles (%s)',
 		'create' => 'Create new user',
 		'language' => 'Language',
-		'number' => 'There is %d account created yet',
-		'numbers' => 'There are %d accounts created yet',
+		'number' => 'There is %d account created',
+		'numbers' => 'There are %d accounts created',
 		'password_form' => 'Password<br /><small>(for the Web-form login method)</small>',
 		'password_format' => 'At least 7 characters',
 		'title' => 'Manage users',

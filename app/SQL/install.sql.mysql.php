@@ -55,10 +55,36 @@ CREATE TABLE IF NOT EXISTS `%1$sentry` (
 	INDEX (`is_favorite`),	-- v0.7
 	INDEX (`is_read`),	-- v0.7
 	INDEX `entry_lastSeen_index` (`lastSeen`)	-- v1.1.1
+	-- INDEX `entry_feed_read_index` (`id_feed`,`is_read`)	-- v1.7 Located futher down
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci
 ENGINE = INNODB;
 
 INSERT IGNORE INTO `%1$scategory` (id, name) VALUES(1, "%2$s");
+');
+
+define('SQL_CREATE_TABLE_ENTRYTMP', '
+CREATE TABLE IF NOT EXISTS `%1$sentrytmp` (	-- v1.7
+	`id` bigint NOT NULL,
+	`guid` varchar(760) CHARACTER SET latin1 NOT NULL,
+	`title` varchar(255) NOT NULL,
+	`author` varchar(255),
+	`content_bin` blob,
+	`link` varchar(1023) CHARACTER SET latin1 NOT NULL,
+	`date` int(11),
+	`lastSeen` INT(11) DEFAULT 0,
+	`hash` BINARY(16),
+	`is_read` boolean NOT NULL DEFAULT 0,
+	`is_favorite` boolean NOT NULL DEFAULT 0,
+	`id_feed` SMALLINT,
+	`tags` varchar(1023),
+	PRIMARY KEY (`id`),
+	FOREIGN KEY (`id_feed`) REFERENCES `%1$sfeed`(`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+	UNIQUE KEY (`id_feed`,`guid`),
+	INDEX (`date`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci
+ENGINE = INNODB;
+
+CREATE INDEX `entry_feed_read_index` ON `%1$sentry`(`id_feed`,`is_read`);	-- v1.7 Located here to be auto-added
 ');
 
 define('SQL_INSERT_FEEDS', '
@@ -66,7 +92,7 @@ INSERT IGNORE INTO `%1$sfeed` (url, category, name, website, description, ttl) V
 INSERT IGNORE INTO `%1$sfeed` (url, category, name, website, description, ttl) VALUES("https://github.com/FreshRSS/FreshRSS/releases.atom", 1, "FreshRSS @ GitHub", "https://github.com/FreshRSS/FreshRSS/", "FreshRSS releases @ GitHub", 86400);
 ');
 
-define('SQL_DROP_TABLES', 'DROP TABLE IF EXISTS `%1$sentry`, `%1$sfeed`, `%1$scategory`');
+define('SQL_DROP_TABLES', 'DROP TABLE IF EXISTS `%1$sentrytmp`, `%1$sentry`, `%1$sfeed`, `%1$scategory`');
 
 define('SQL_UPDATE_UTF8MB4', '
 ALTER DATABASE `%2$s` CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;

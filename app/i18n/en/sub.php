@@ -10,10 +10,10 @@ return array(
 	'feed' => array(
 		'add' => 'Add a RSS feed',
 		'advanced' => 'Advanced',
-		'archiving' => 'Archivage',
+		'archiving' => 'Archiving',
 		'auth' => array(
 			'configuration' => 'Login',
-			'help' => 'Connection allows to access HTTP protected RSS feeds',
+			'help' => 'Allows access to HTTP protected RSS feeds',
 			'http' => 'HTTP Authentication',
 			'password' => 'HTTP password',
 			'username' => 'HTTP username',
@@ -22,7 +22,7 @@ return array(
 		'css_path' => 'Articles CSS path on original website',
 		'description' => 'Description',
 		'empty' => 'This feed is empty. Please verify that it is still maintained.',
-		'error' => 'This feed has encountered a problem. Please verify that it is always reachable then actualize it.',
+		'error' => 'This feed has encountered a problem. Please verify that it is always reachable then update it.',
 		'in_main_stream' => 'Show in main stream',
 		'informations' => 'Information',
 		'keep_history' => 'Minimum number of articles to keep',

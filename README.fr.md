@@ -35,11 +35,15 @@ Nous sommes une communauté amicale.
 * PHP 5.3.3+ (PHP 5.4+ recommandé, et PHP 5.5+ pour les performances, et PHP 7+ pour d’encore meilleures performances)
 	* Requis : [cURL](http://php.net/curl), [DOM](http://php.net/dom), [XML](http://php.net/xml), et [PDO_MySQL](http://php.net/pdo-mysql) ou [PDO_SQLite](http://php.net/pdo-sqlite) ou [PDO_PGSQL](http://php.net/pdo-pgsql)
 	* Recommandés : [JSON](http://php.net/json), [GMP](http://php.net/gmp) (pour accès API sur plateformes < 64 bits), [IDN](http://php.net/intl.idn) (pour les noms de domaines internationalisés), [mbstring](http://php.net/mbstring) et/ou [iconv](http://php.net/iconv) (pour conversion d’encodages), [ZIP](http://php.net/zip) (pour import/export), [zlib](http://php.net/zlib) (pour les flux compressés)
-* MySQL 5.5.3+ (recommandé), ou SQLite 3.7.4+, ou PostgreSQL (experimental)
+* MySQL 5.5.3+ (recommandé), ou SQLite 3.7.4+, ou PostgreSQL 9.2+
 * Un navigateur Web récent tel Firefox, Internet Explorer 11 / Edge, Chrome, Opera, Safari.
 	* Fonctionne aussi sur mobile
 
 ![Capture d’écran de FreshRSS](./doc/FreshRSS-screenshot.png)
+
+# Documentation
+* http://doc.freshrss.org/fr/
+* https://github.com/FreshRSS/documentation
 
 # Installation
 1. Récupérez l’application FreshRSS via la commande git ou [en téléchargeant l’archive](../releases)
@@ -130,7 +134,8 @@ Créer `/etc/cron.d/FreshRSS` avec :
 * Pour une meilleure sécurité, faites en sorte que seul le répertoire `./p/` soit accessible depuis le Web, par exemple en faisant pointer un sous-domaine sur le répertoire `./p/`.
 	* En particulier, les données personnelles se trouvent dans le répertoire `./data/`.
 * Le fichier `./constants.php` définit les chemins d’accès aux répertoires clés de l’application. Si vous les bougez, tout se passe ici.
-* En cas de problème, les logs peuvent être utile à lire, soit depuis l’interface de FreshRSS, soit manuellement depuis `./data/log/*.log`.
+* En cas de problème, les logs peuvent être utile à lire, soit depuis l’interface de FreshRSS, soit manuellement depuis `./data/users/*/log*.txt`.
+	* Le répertoire spécial `./data/users/_/` contient la partie des logs partagés par tous les utilisateurs.
 
 
 # Sauvegarde
@@ -154,7 +159,6 @@ Voir le [dépôt dédié à ces extensions](https://github.com/FreshRSS/Extensio
 * [MINZ](https://github.com/marienfressinaud/MINZ)
 * [php-http-304](http://alexandre.alapetite.fr/doc-alex/php-http-304/)
 * [jQuery](http://jquery.com/)
-* [ArthurHoaro/favicon](https://github.com/ArthurHoaro/favicon)
 * [lib_opml](https://github.com/marienfressinaud/lib_opml)
 * [jQuery Plugin Sticky-Kit](http://leafo.net/sticky-kit/)
 * [keyboard_shortcuts](http://www.openjs.com/scripts/events/keyboard_shortcuts/)

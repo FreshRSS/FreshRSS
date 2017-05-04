@@ -74,6 +74,10 @@ class FreshRSS_Auth {
 	public static function giveAccess() {
 		$current_user = Minz_Session::param('currentUser');
 		$user_conf = get_user_configuration($current_user);
+		if ($user_conf == null) {
+			self::$login_ok = false;
+			return;
+		}
 		$system_conf = Minz_Configuration::get('system');
 
 		switch ($system_conf->auth_type) {
@@ -120,13 +124,28 @@ class FreshRSS_Auth {
 	 * Removes all accesses for the current user.
 	 */
 	public static function removeAccess() {
-		Minz_Session::_param('loginOk');
 		self::$login_ok = false;
-		$conf = Minz_Configuration::get('system');
-		Minz_Session::_param('currentUser', $conf->default_user);
+		Minz_Session::_param('loginOk');
 		Minz_Session::_param('csrf');
+		$system_conf = Minz_Configuration::get('system');
 
-		switch ($conf->auth_type) {
+		$username = '';
+		$token_param = Minz_Request::param('token', '');
+		if ($token_param != '') {
+			$username = trim(Minz_Request::param('user', ''));
+			if ($username != '') {
+				$conf = get_user_configuration($username);
+				if ($conf == null) {
+					$username = '';
+				}
+			}
+		}
+		if ($username == '') {
+			$username = $system_conf->default_user;
+		}
+		Minz_Session::_param('currentUser', $username);
+
+		switch ($system_conf->auth_type) {
 		case 'form':
 			Minz_Session::_param('passwordHash');
 			FreshRSS_FormAuth::deleteCookie();

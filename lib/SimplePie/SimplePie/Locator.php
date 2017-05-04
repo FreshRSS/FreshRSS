@@ -5,7 +5,7 @@
  * A PHP-Based RSS and Atom Feed Framework.
  * Takes the hard work out of managing a complete RSS/Atom solution.
  *
- * Copyright (c) 2004-2012, Ryan Parman, Geoffrey Sneddon, Ryan McCue, and contributors
+ * Copyright (c) 2004-2016, Ryan Parman, Geoffrey Sneddon, Ryan McCue, and contributors
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification, are
@@ -33,8 +33,7 @@
  * POSSIBILITY OF SUCH DAMAGE.
  *
  * @package SimplePie
- * @version 1.4-dev
- * @copyright 2004-2012 Ryan Parman, Geoffrey Sneddon, Ryan McCue
+ * @copyright 2004-2016 Ryan Parman, Geoffrey Sneddon, Ryan McCue
  * @author Ryan Parman
  * @author Geoffrey Sneddon
  * @author Ryan McCue
@@ -226,7 +225,7 @@ class SimplePie_Locator
 			}
 			if ($link->hasAttribute('href') && $link->hasAttribute('rel'))
 			{
-				$rel = array_unique($this->registry->call('Misc', 'space_seperated_tokens', array(strtolower($link->getAttribute('rel')))));
+				$rel = array_unique($this->registry->call('Misc', 'space_separated_tokens', array(strtolower($link->getAttribute('rel')))));
 				$line = method_exists($link, 'getLineNo') ? $link->getLineNo() : 1;
 
 				if ($this->base_location < $line)
@@ -275,7 +274,7 @@ class SimplePie_Locator
 			{
 				$href = trim($link->getAttribute('href'));
 				$parsed = $this->registry->call('Misc', 'parse_url', array($href));
-				if ($parsed['scheme'] === '' || preg_match('/^(http(s)|feed)?$/i', $parsed['scheme']))
+				if ($parsed['scheme'] === '' || preg_match('/^(https?|feed)?$/i', $parsed['scheme']))
 				{
 					if (method_exists($link, 'getLineNo') && $this->base_location < $link->getLineNo())
 					{
@@ -308,6 +307,57 @@ class SimplePie_Locator
 		if (!empty($this->local) || !empty($this->elsewhere))
 		{
 			return true;
+		}
+		return null;
+	}
+
+	public function get_rel_link($rel)
+	{
+		if ($this->dom === null)
+		{
+			throw new SimplePie_Exception('DOMDocument not found, unable to use '.
+			                              'locator');
+		}
+		if (!class_exists('DOMXpath'))
+		{
+			throw new SimplePie_Exception('DOMXpath not found, unable to use '.
+			                              'get_rel_link');
+		}
+
+		$xpath = new DOMXpath($this->dom);
+		$query = '//a[@rel and @href] | //link[@rel and @href]';
+		foreach ($xpath->query($query) as $link)
+		{
+			$href = trim($link->getAttribute('href'));
+			$parsed = $this->registry->call('Misc', 'parse_url', array($href));
+			if ($parsed['scheme'] === '' ||
+			    preg_match('/^https?$/i', $parsed['scheme']))
+			{
+				if (method_exists($link, 'getLineNo') &&
+				    $this->base_location < $link->getLineNo())
+				{
+					$href =
+						$this->registry->call('Misc', 'absolutize_url',
+						                      array(trim($link->getAttribute('href')),
+						                            $this->base));
+				}
+				else
+				{
+					$href =
+						$this->registry->call('Misc', 'absolutize_url',
+						                      array(trim($link->getAttribute('href')),
+						                            $this->http_base));
+				}
+				if ($href === false)
+				{
+					return null;
+				}
+				$rel_values = explode(' ', strtolower($link->getAttribute('rel')));
+				if (in_array($rel, $rel_values))
+				{
+					return $href;
+				}
+			}
 		}
 		return null;
 	}
