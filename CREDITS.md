@@ -17,7 +17,7 @@ People are sorted by name so please keep this order.
 * [dswd](https://github.com/dswd): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:dswd)
 * [ealdraed](https://github.com/ealdraed): [contributions](https://github.com/FreshRSS/FreshRSS/commits?author=ealdraed)
 * [Frans de Jonge](https://github.com/Frenzie): [contributions](https://github.com/FreshRSS/FreshRSS/commits?author=Frenzie), [Web](http://fransdejonge.com/)
-* [gsongsong](https://github.com/gsongsong): [contribuitions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:gsongsong)
+* [gsongsong](https://github.com/gsongsong): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:gsongsong)
 * [Guillaume Fillon](https://github.com/kokaz): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:kokaz), [Web](http://www.guillaume-fillon.com/)
 * [Guillaume Hayot](https://github.com/postblue): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:postblue), [Web](https://postblue.info/)
 * [hckweb](https://github.com/hckweb): [contributions](https://github.com/FreshRSS/FreshRSS/commits?author=hckweb)
