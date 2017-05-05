@@ -136,7 +136,7 @@ foreach ($users as $userFilename) {
 		                             join_path(USERS_PATH, '_', 'config.default.php'));
 		new Minz_ModelPdo($username);	//TODO: FIXME: Quick-fix while waiting for a better FreshRSS() constructor/init
 		FreshRSS_Context::init();
-		list($updated_feeds, $feed) = FreshRSS_feed_Controller::actualizeFeed(0, $self, false, $simplePie);
+		list($updated_feeds, $feed, $nb_new_articles) = FreshRSS_feed_Controller::actualizeFeed(0, $self, false, $simplePie);
 		if ($updated_feeds > 0 || $feed != false) {
 			$nb++;
 		} else {

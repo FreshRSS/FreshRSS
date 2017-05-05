@@ -482,7 +482,7 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 			$feedDAO->updateCachedValues();
 			$entryDAO->commit();
 		} else {
-			list($updated_feeds, $feed) = self::actualizeFeed($id, $url, $force, null, false, $noCommit);
+			list($updated_feeds, $feed, $nb_new_articles) = self::actualizeFeed($id, $url, $force, null, false, $noCommit);
 		}
 
 		if (Minz_Request::param('ajax')) {
