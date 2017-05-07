@@ -254,6 +254,7 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 		$pshbMinAge = time() - (3600 * 24);  //TODO: Make a configuration.
 
 		$updated_feeds = 0;
+		$nb_new_articles = 0;
 		$is_read = FreshRSS_Context::$user_conf->mark_when['reception'] ? 1 : 0;
 		foreach ($feeds as $feed) {
 			$url = $feed->url();	//For detection of HTTP 301
@@ -374,6 +375,7 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 							$entryDAO->beginTransaction();
 						}
 						$entryDAO->addEntry($entry->toArray());
+						$nb_new_articles++;
 					}
 				}
 				$entryDAO->updateLastSeen($feed->id(), $oldGuids, $mtime);
@@ -450,7 +452,7 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 				$entryDAO->commit();
 			}
 		}
-		return array($updated_feeds, reset($feeds));
+		return array($updated_feeds, reset($feeds), $nb_new_articles);
 	}
 
 	/**
@@ -480,7 +482,7 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 			$feedDAO->updateCachedValues();
 			$entryDAO->commit();
 		} else {
-			list($updated_feeds, $feed) = self::actualizeFeed($id, $url, $force, null, false, $noCommit);
+			list($updated_feeds, $feed, $nb_new_articles) = self::actualizeFeed($id, $url, $force, null, false, $noCommit);
 		}
 
 		if (Minz_Request::param('ajax')) {
