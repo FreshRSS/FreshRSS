@@ -328,7 +328,7 @@ class FreshRSS_Feed extends Minz_Model {
 					} elseif (strpos($mime, 'video/') === 0) {
 						$content .= '<p class="enclosure"><video preload="none" src="' . $elink . '" controls="controls"></video> <a download="" href="' . $elink . '">💾</a></p>';
 					} else {
-						unset($elinks[$elink]);
+						$content .= '<p class="enclosure"><a download="" href="' . $elink . '">💾</a></p>';
 					}
 				}
 			}
