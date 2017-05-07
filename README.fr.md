@@ -14,7 +14,7 @@ Enfin, il permet l’ajout d’[extensions](#extensions) pour encore plus de per
 * Démo : http://demo.freshrss.org/
 * Licence : [GNU AGPL 3](http://www.gnu.org/licenses/agpl-3.0.html)
 
-![Logo de FreshRSS](./doc/FreshRSS-logo.png)
+![Logo de FreshRSS](./docs/img/FreshRSS-logo.png)
 
 # Téléchargement
 Voir la [liste des versions](../../releases).
@@ -39,7 +39,7 @@ Nous sommes une communauté amicale.
 * Un navigateur Web récent tel Firefox, Internet Explorer 11 / Edge, Chrome, Opera, Safari.
 	* Fonctionne aussi sur mobile
 
-![Capture d’écran de FreshRSS](./doc/FreshRSS-screenshot.png)
+![Capture d’écran de FreshRSS](./docs/img/FreshRSS-screenshot.png)
 
 # Documentation
 * http://doc.freshrss.org/fr/
