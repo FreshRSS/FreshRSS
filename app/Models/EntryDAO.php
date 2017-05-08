@@ -858,9 +858,11 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 		return $res[0];
 	}
 	public function countNotRead($minPriority = null) {
-		$sql = 'SELECT COUNT(e.id) AS count FROM `' . $this->prefix . 'entry` e INNER JOIN `' . $this->prefix . 'feed` f ON e.id_feed=f.id WHERE is_read=0';
+		$sql = 'SELECT COUNT(e.id) AS count FROM `' . $this->prefix . 'entry` e ';
 		if ($minPriority !== null) {
-			$sql = ' AND priority > ' . intval($minPriority);
+			$sql .= 'INNER JOIN `' . $this->prefix . 'feed` f ON e.id_feed=f.id WHERE is_read=0 AND f.priority > ' . intval($minPriority);
+		} else {
+			$sql .= 'WHERE is_read=0';
 		}
 		$stm = $this->bd->prepare($sql);
 		$stm->execute();

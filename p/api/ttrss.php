@@ -490,7 +490,10 @@ class FreshAPI_TTRSS {
 	}
 
 	public function getUnread() {
-		Minz_Log::warning('TTRSS API: getUnread() not implemented');
+		$entryDAO = FreshRSS_Factory::createEntryDao();
+		$this->good(array(
+				'unread' => $entryDAO->countNotRead(),
+			));
 	}
 	public function getArticle() {
 		Minz_Log::warning('TTRSS API: getArticle() not implemented');
