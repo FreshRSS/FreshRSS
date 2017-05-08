@@ -318,7 +318,7 @@ class FreshRSS_Feed extends Minz_Model {
 			$elinks = array();
 			foreach ($item->get_enclosures() as $enclosure) {
 				$elink = $enclosure->get_link();
-				if (empty($elinks[$elink])) {
+				if ($elink != '' && empty($elinks[$elink])) {
 					$elinks[$elink] = '1';
 					$mime = strtolower($enclosure->get_type());
 					if (strpos($mime, 'image/') === 0) {
@@ -327,8 +327,10 @@ class FreshRSS_Feed extends Minz_Model {
 						$content .= '<p class="enclosure"><audio preload="none" src="' . $elink . '" controls="controls"></audio> <a download="" href="' . $elink . '">💾</a></p>';
 					} elseif (strpos($mime, 'video/') === 0) {
 						$content .= '<p class="enclosure"><video preload="none" src="' . $elink . '" controls="controls"></video> <a download="" href="' . $elink . '">💾</a></p>';
-					} else {
+					} elseif (strpos($mime, 'application/') === 0 || strpos($mime, 'text/') === 0) {
 						$content .= '<p class="enclosure"><a download="" href="' . $elink . '">💾</a></p>';
+					} else {
+						unset($elinks[$elink]);
 					}
 				}
 			}
