@@ -1579,7 +1579,7 @@ class SimplePie
 						$headers['if-none-match'] = $this->data['headers']['etag'];
 					}
 
-					$file = $this->registry->create('File', array($this->feed_url, $this->timeout, 5, $headers, $this->useragent, $this->force_fsockopen, $this->curl_options));
+					$file = $this->registry->create('File', array($this->feed_url, $this->timeout, 5, $headers, $this->useragent, $this->force_fsockopen, $this->curl_options, $this->syslog_enabled));
 
 					if ($file->success)
 					{
