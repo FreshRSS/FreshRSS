@@ -81,6 +81,7 @@ class FreshAPI_TTRSS {
 		}
 
 		if (is_callable(array($this, $this->method))) {
+			//Minz_Log::debug('TTRSS API: ' . $this->method . '()');
 			call_user_func(array($this, $this->method));
 		} else {
 			Minz_Log::warning('TTRSS API: ' . $this->method . '() method does not exist');
@@ -155,31 +156,23 @@ class FreshAPI_TTRSS {
 		$include_empty = $this->param('include_empty', true);
 		// $enable_nested = $this->param('enable_nested', true);  // not supported
 
-		$pdo = new MyPDO();
-		$sql = 'SELECT DISTINCT c.id, c.name, COUNT(f.id) AS nb_feeds,'
-		     . ' (SELECT COUNT(e.id) FROM %_entry e WHERE e.id_feed = f.id AND e.is_read=0) AS unread'
-		     . ' FROM `%_category` c'
-		     . ' LEFT JOIN `%_feed` f ON c.id = f.category'
-		     . ' GROUP BY c.id, c.name';
-		$stm = $pdo->prepare($sql);
-		$stm->execute();
-		$res = $stm->fetchAll(PDO::FETCH_ASSOC);
+		$catDAO = new FreshRSS_CategoryDAO();
+		$categories = $catDAO->listCategories(true, false);
 
-		$caterogies = array();
-		foreach ($res as $cat) {
-			if ($unread_only && $cat['unread'] <= 0 ||
-					!$include_empty && $cat['nb_feeds'] <= 0) {
+		$response = array();
+		foreach ($categories as $cat) {
+			if ($unread_only && $cat->nbNotRead() <= 0 ||
+					!$include_empty && $cat->nbFeed() <= 0) {
 				continue;
 			}
-
-			$caterogies[] = array(
-				'id' => $cat['id'],
-				'title' => $cat['name'],
-				'unread' => $cat['unread'],
+			$response[] = array(
+				'id' => $cat->id(),
+				'title' => $cat->name(),
+				'unread' => $cat->nbNotRead(),
 			);
 		}
 
-		$this->good($caterogies);
+		$this->good($response);
 	}
 
 	public function getFeeds() {
@@ -310,29 +303,36 @@ class FreshAPI_TTRSS {
 		// the value of offset.
 		$limit += $offset;
 
+		$feedDAO = FreshRSS_Factory::createFeedDao();
+		$feeds = $feedDAO->listFeeds();
+
 		$entryDAO = FreshRSS_Factory::createEntryDao();
 		$entries = $entryDAO->listWhere($type, $id, $state, $order, $limit, $since_id, $search, $since_id);
 
 		$headlines = array();
 		$nb_items = 0;
-		foreach ($entries as $item) {
+		foreach ($entries as $entry) {
 			if ($nb_items < $offset) {
 				$nb_items++;
 				continue;
 			}
 
-			$feed = $item->feed(true);
+			$f_id = $entry->feed();
+			$feed = isset($feeds[$f_id]) ? $feeds[$f_id] : null;
+			if ($feed == null) {
+				continue;
+			}
 			$line = array(
-				'id' => $item->id(),
-				'unread' => !$item->isRead(),
-				'marked' => $item->isFavorite(),
+				'id' => $entry->id(),
+				'unread' => !$entry->isRead(),
+				'marked' => !!$entry->isFavorite(),
 				'published' => true,
-				'updated' => $item->date(true),
+				'updated' => $entry->date(true),
 				'is_updated' => false,
-				'title' => $item->title(),
-				'link' => $item->link(),
-				'tags' => $item->tags(),
-				'author' => $item->author(),
+				'title' => $entry->title(),
+				'link' => $entry->link(),
+				'tags' => $entry->tags(),
+				'author' => $entry->author(),
 				'feed_id' => $feed->id(),
 				'feed_title' => $feed->name(),
 			);
@@ -340,11 +340,11 @@ class FreshAPI_TTRSS {
 			if ($show_excerpt) {
 				// @todo add a facultative max char in content method to get
 				// an exerpt.
-				$line['excerpt'] = $item->content();
+				$line['excerpt'] = $entry->content();
 			}
 
 			if ($show_content) {
-				$line['content'] = $item->content();
+				$line['content'] = $entry->content();
 			}
 
 			$headlines[] = $line;
