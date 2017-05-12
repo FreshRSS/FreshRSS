@@ -8,7 +8,7 @@ require(LIB_PATH . '/lib_rss.php');
 
 Minz_Configuration::register('system',
 	DATA_PATH . '/config.php',
-	DATA_PATH . '/config.default.php');
+	FRESHRSS_PATH . '/config.default.php');
 FreshRSS_Context::$system_conf = Minz_Configuration::get('system');
 Minz_Translate::init('en');
 

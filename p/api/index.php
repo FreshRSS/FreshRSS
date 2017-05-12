@@ -16,7 +16,7 @@
 <dd><?php
 require('../../constants.php');
 require(LIB_PATH . '/lib_rss.php');	//Includes class autoloader
-Minz_Configuration::register('system', DATA_PATH . '/config.php', DATA_PATH . '/config.default.php');
+Minz_Configuration::register('system', DATA_PATH . '/config.php', FRESHRSS_PATH . '/config.default.php');
 echo Minz_Url::display('/api/greader.php', 'html', true);
 ?></dd>
 </dl>

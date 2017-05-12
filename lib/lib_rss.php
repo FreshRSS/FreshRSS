@@ -341,7 +341,7 @@ function get_user_configuration($username) {
 	try {
 		Minz_Configuration::register($namespace,
 		                             join_path(USERS_PATH, $username, 'config.php'),
-		                             join_path(USERS_PATH, '_', 'config.default.php'));
+		                             join_path(FRESHRSS_PATH, 'config-user.default.php'));
 	} catch (Minz_ConfigurationNamespaceException $e) {
 		// namespace already exists, do nothing.
 	} catch (Minz_FileNotExistException $e) {
