@@ -25,6 +25,9 @@
 * I18n
 	* Improve English [#1465](https://github.com/FreshRSS/FreshRSS/pull/1465)
 * Misc.
+	* Moved `./data/force-https.default.txt` to `./force-https.default.txt`,
+		`./data/config.default.php` to `./config.default.php`,
+		and `./data/users/_/config.default.php` to `./config-user.default.php` [#1531](https://github.com/FreshRSS/FreshRSS/issues/1531)
 	* Fall back to article URL when the article GUID is empty [#1482](https://github.com/FreshRSS/FreshRSS/issues/1482)
 	* Rewritten Favicon library using cURL [#1504](https://github.com/FreshRSS/FreshRSS/pull/1504)
 	* Fix SimplePie option to disable syslog [#1528](https://github.com/FreshRSS/FreshRSS/pull/1528)
@@ -200,7 +203,7 @@
 	* Cookie with `Secure` tag when used over HTTPS [#1117](https://github.com/FreshRSS/FreshRSS/pull/1117)
 	* Limit API post input to 1MB [#1118](https://github.com/FreshRSS/FreshRSS/pull/1118)
 * Features
-	* New list of domains for which to force HTTPS (for images, videos, iframes…) defined in `./force-https.default.txt` and `./data/force-https.txt` [#1083](https://github.com/FreshRSS/FreshRSS/issues/1083)
+	* New list of domains for which to force HTTPS (for images, videos, iframes…) defined in `./data/force-https.default.txt` and `./data/force-https.txt` [#1083](https://github.com/FreshRSS/FreshRSS/issues/1083)
 		* In particular useful for privacy and to avoid mixed content errors, e.g. to see YouTube videos when FreshRSS is in HTTPS
 	* Add sharing with “Journal du Hacker” [#1056](https://github.com/FreshRSS/FreshRSS/pull/1056)
 * UI
