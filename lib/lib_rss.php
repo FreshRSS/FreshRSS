@@ -214,7 +214,7 @@ function customSimplePie() {
 		),
 	));
 	$https_domains = array();
-	$force = @file(DATA_PATH . '/force-https.default.txt', FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+	$force = @file(FRESHRSS_PATH . '/force-https.default.txt', FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
 	if (is_array($force)) {
 		$https_domains = array_merge($https_domains, $force);
 	}
