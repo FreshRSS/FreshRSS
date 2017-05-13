@@ -88,13 +88,13 @@ function saveStep1() {
 		// First, we try to get previous configurations
 		Minz_Configuration::register('system',
 		                             join_path(DATA_PATH, 'config.php'),
-		                             join_path(DATA_PATH, 'config.default.php'));
+		                             join_path(FRESHRSS_PATH, 'config.default.php'));
 		$system_conf = Minz_Configuration::get('system');
 
 		$current_user = $system_conf->default_user;
 		Minz_Configuration::register('user',
 		                             join_path(USERS_PATH, $current_user, 'config.php'),
-		                             join_path(USERS_PATH, '_', 'config.default.php'));
+		                             join_path(FRESHRSS_PATH, 'config-user.default.php'));
 		$user_conf = Minz_Configuration::get('user');
 
 		// Then, we set $_SESSION vars

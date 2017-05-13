@@ -25,6 +25,9 @@
 * I18n
 	* Improve English [#1465](https://github.com/FreshRSS/FreshRSS/pull/1465)
 * Misc.
+	* Moved `./data/force-https.default.txt` to `./force-https.default.txt`,
+		`./data/config.default.php` to `./config.default.php`,
+		and `./data/users/_/config.default.php` to `./config-user.default.php` [#1531](https://github.com/FreshRSS/FreshRSS/issues/1531)
 	* Fall back to article URL when the article GUID is empty [#1482](https://github.com/FreshRSS/FreshRSS/issues/1482)
 	* Rewritten Favicon library using cURL [#1504](https://github.com/FreshRSS/FreshRSS/pull/1504)
 	* Fix SimplePie option to disable syslog [#1528](https://github.com/FreshRSS/FreshRSS/pull/1528)
