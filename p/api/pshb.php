@@ -60,7 +60,7 @@ if (empty($users)) {
 	unlink('../../keys/' . $key . '.txt');
 	Minz_Configuration::register('system',
 		DATA_PATH . '/config.php',
-		DATA_PATH . '/config.default.php');
+		FRESHRSS_PATH . '/config.default.php');
 	FreshRSS_Context::$system_conf = Minz_Configuration::get('system');
 	$feed = new FreshRSS_Feed($url);
 	$feed->pubSubHubbubSubscribe(false);
@@ -101,7 +101,7 @@ if ($ORIGINAL_INPUT == '') {
 	die('Missing XML payload!');
 }
 
-Minz_Configuration::register('system', DATA_PATH . '/config.php', DATA_PATH . '/config.default.php');
+Minz_Configuration::register('system', DATA_PATH . '/config.php', FRESHRSS_PATH . '/config.default.php');
 $system_conf = Minz_Configuration::get('system');
 $system_conf->auth_type = 'none';	// avoid necessity to be logged in (not saved!)
 
@@ -133,7 +133,7 @@ foreach ($users as $userFilename) {
 		Minz_Session::_param('currentUser', $username);
 		Minz_Configuration::register('user',
 		                             join_path(USERS_PATH, $username, 'config.php'),
-		                             join_path(USERS_PATH, '_', 'config.default.php'));
+		                             join_path(FRESHRSS_PATH, 'config-user.default.php'));
 		new Minz_ModelPdo($username);	//TODO: FIXME: Quick-fix while waiting for a better FreshRSS() constructor/init
 		FreshRSS_Context::init();
 		list($updated_feeds, $feed, $nb_new_articles) = FreshRSS_feed_Controller::actualizeFeed(0, $self, false, $simplePie);

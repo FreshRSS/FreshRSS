@@ -695,7 +695,7 @@ $pathInfos = explode('/', $pathInfo);
 
 Minz_Configuration::register('system',
                              DATA_PATH . '/config.php',
-                             DATA_PATH . '/config.default.php');
+                             FRESHRSS_PATH . '/config.default.php');
 FreshRSS_Context::$system_conf = Minz_Configuration::get('system');
 if (!FreshRSS_Context::$system_conf->api_enabled) {
 	serviceUnavailable();

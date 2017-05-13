@@ -41,7 +41,7 @@ class FreshRSS extends Minz_FrontController {
 		$current_user = Minz_Session::param('currentUser', '_');
 		Minz_Configuration::register('user',
 		                             join_path(USERS_PATH, $current_user, 'config.php'),
-		                             join_path(USERS_PATH, '_', 'config.default.php'),
+		                             join_path(FRESHRSS_PATH, 'config-user.default.php'),
 		                             $configuration_setter);
 
 		// Finish to initialize the other FreshRSS / Minz components.

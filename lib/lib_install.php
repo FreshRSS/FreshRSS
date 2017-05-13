@@ -2,8 +2,8 @@
 
 define('BCRYPT_COST', 9);
 
-Minz_Configuration::register('default_system', join_path(DATA_PATH, 'config.default.php'));
-Minz_Configuration::register('default_user', join_path(USERS_PATH, '_', 'config.default.php'));
+Minz_Configuration::register('default_system', join_path(FRESHRSS_PATH, 'config.default.php'));
+Minz_Configuration::register('default_user', join_path(FRESHRSS_PATH, 'config-user.default.php'));
 
 function checkRequirements($dbType = '') {
 	$php = version_compare(PHP_VERSION, '5.3.3') >= 0;

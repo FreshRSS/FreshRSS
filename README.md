@@ -52,7 +52,7 @@ We are a friendly community.
 4. Access FreshRSS with your browser and follow the installation process
 	* or use the [Command-Line Interface](./cli/README.md)
 5. Everything should be working :) If you encounter any problem, feel free [contact us](https://github.com/FreshRSS/FreshRSS/issues).
-6. Advanced configuration settings can be seen in [config.php](./data/config.default.php).
+6. Advanced configuration settings can be seen in [config.default.php](./config.default.php) and modified in `data/config.php`.
 
 ## Automated install
 * [![Install on Cloudron](https://cloudron.io/img/button.svg)](https://cloudron.io/button.html?app=org.freshrss.cloudronapp)
