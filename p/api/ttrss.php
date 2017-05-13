@@ -527,7 +527,7 @@ class FreshAPI_TTRSS {
 
 Minz_Configuration::register('system',
                              DATA_PATH . '/config.php',
-                             DATA_PATH . '/config.default.php');
+                             FRESHRSS_PATH . '/config.default.php');
 
 $input = file_get_contents("php://input");
 // Minz_Log::debug($input);
