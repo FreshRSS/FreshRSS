@@ -109,6 +109,7 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 			FreshRSS_Context::$user_conf->hide_read_feeds = Minz_Request::param('hide_read_feeds', false);
 			FreshRSS_Context::$user_conf->onread_jump_next = Minz_Request::param('onread_jump_next', false);
 			FreshRSS_Context::$user_conf->lazyload = Minz_Request::param('lazyload', false);
+			FreshRSS_Context::$user_conf->sides_close_article = Minz_Request::param('sides_close_article', false);
 			FreshRSS_Context::$user_conf->sticky_post = Minz_Request::param('sticky_post', false);
 			FreshRSS_Context::$user_conf->reading_confirm = Minz_Request::param('reading_confirm', false);
 			FreshRSS_Context::$user_conf->auto_remove_article = Minz_Request::param('auto_remove_article', false);

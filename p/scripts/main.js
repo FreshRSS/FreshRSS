@@ -705,6 +705,13 @@ function init_stream(divStream) {
 		if ($(e.target).closest('.content, .item.website, .item.link').length > 0) {
 			return;
 		}
+
+		// setting for not-closing after clicking outside article area
+		if (context.sides_close_article &&
+			e.target.tagName.toUpperCase() === 'DIV' &&
+			$.inArray("flux_content", e.target.attributes)) {
+			return;
+		}
 		var old_active = $(".flux.current"),
 			new_active = $(this).parent();
 		isCollapsed = true;
@@ -714,6 +721,7 @@ function init_stream(divStream) {
 			}
 			return true;
 		}
+
 		toggleContent(new_active, old_active);
 	});
 
