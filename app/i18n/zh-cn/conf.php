@@ -93,6 +93,7 @@ return array(
 		'display_categories_unfolded' => '默认展开分类',
 		'hide_read_feeds' => '隐藏没有未读文章的分类或 RSS 源 (启用“显示所有文章”时不生效))',
 		'img_with_lazyload' => '使用 "lazy load" 模式加载图片',
+		'sides_close_article' => '点击文章外区域以关闭文章',
 		'jump_next' => '跳转到下一未读项 (RSS 源或分类)',
 		'number_divided_when_reader' => '阅读视图除以 2',
 		'read' => array(
