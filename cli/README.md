@@ -89,3 +89,49 @@ Example to get the number of feeds of a given user:
 ```sh
 ./cli/user-info.php --user alex | cut -f6
 ```
+
+
+# Install and updates
+
+## Using git
+
+If you manage FreshRSS via command line, then installing and updating FreshRSS can be done via git:
+
+```sh
+# Install FreshRSS
+cd /usr/share/
+sudo git clone https://github.com/FreshRSS/FreshRSS.git
+
+# Use the development version of FreshRSS
+cd /usr/share/FreshRSS
+sudo git checkout -b dev origin/dev
+
+# Check out a specific version of FreshRSS
+# See release names on https://github.com/FreshRSS/FreshRSS/releases
+cd /usr/share/FreshRSS
+sudo git checkout 1.7.0
+
+# Check whether there is a new version of FreshRSS
+cd /usr/share/FreshRSS
+sudo git fetch
+sudo git status
+
+# Discard manual changes (do a backup before)
+cd /usr/share/FreshRSS
+sudo git reset --hard
+# Then re-delete the file forcing the setup wizard
+sudo rm data/do-install.txt
+
+# Delete manual additions (do a backup before)
+cd /usr/share/FreshRSS
+sudo git clean -f -d
+
+# Update to a newer version of FreshRSS
+cd /usr/share/FreshRSS
+sudo git pull
+
+# Set the rights so that your Web server can access the files
+# (Example for Debian / Ubuntu)
+cd /usr/share/FreshRSS
+sudo chown -R :www-data . && sudo chmod -R g+r . && sudo chmod -R g+w ./data/
+```
