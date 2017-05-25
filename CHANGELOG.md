@@ -24,6 +24,8 @@
 	* Download icon 💾 for other MIME types (e.g. `application/*`) [#1522](https://github.com/FreshRSS/FreshRSS/pull/1522)
 * I18n
 	* Improve English [#1465](https://github.com/FreshRSS/FreshRSS/pull/1465)
+* Security
+	* Do not require write access to check availability of new versions [#1450](https://github.com/FreshRSS/FreshRSS/issues/1450)
 * Misc.
 	* Moved `./data/force-https.default.txt` to `./force-https.default.txt`,
 		`./data/config.default.php` to `./config.default.php`,
