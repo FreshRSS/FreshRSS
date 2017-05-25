@@ -87,7 +87,7 @@ return array(
 	'update' => array(
 		'can_apply' => 'FreshRSS bude nyní upgradováno na <strong>verzi %s</strong>.',
 		'error' => 'Během upgrade došlo k chybě: %s',
-		'file_is_nok' => 'Zkontrolujte oprávnění adresáře <em>%s</em>. HTTP server musí mít do tohoto adresáře práva zápisu',
+		'file_is_nok' => '<strong>Verzi %s</strong>. Zkontrolujte oprávnění adresáře <em>%s</em>. HTTP server musí mít do tohoto adresáře práva zápisu',
 		'finished' => 'Upgrade hotov!',
 		'none' => 'Novější verze není k dispozici',
 		'server_not_found' => 'Nelze nalézt server s instalačním souborem. [%s]',

@@ -87,7 +87,7 @@ return array(
 	'update' => array(
 		'can_apply' => 'FreshRSS verrà aggiornato alla <strong>versione %s</strong>.',
 		'error' => 'Il processo di aggiornamento ha riscontrato il seguente errore: %s',
-		'file_is_nok' => 'Verifica i permessi della cartella <em>%s</em>. Il server HTTP deve avere i permessi per la scrittura ',
+		'file_is_nok' => 'Nuova <strong>versione %s</strong>, ma verifica i permessi della cartella <em>%s</em>. Il server HTTP deve avere i permessi per la scrittura ',
 		'finished' => 'Aggiornamento completato con successo!',
 		'none' => 'Nessun aggiornamento disponibile',
 		'server_not_found' => 'Server per aggiornamento non disponibile. [%s]',

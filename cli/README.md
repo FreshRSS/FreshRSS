@@ -109,7 +109,7 @@ sudo git checkout -b dev origin/dev
 # Check out a specific version of FreshRSS
 # See release names on https://github.com/FreshRSS/FreshRSS/releases
 # You will then need to manually change version
-# or checkout master or dev to get new versions
+# or checkout master or dev branch to get new versions
 cd /usr/share/FreshRSS
 sudo git checkout 1.7.0
 
