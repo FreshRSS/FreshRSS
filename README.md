@@ -105,6 +105,7 @@ cd /usr/share/FreshRSS
 sudo git pull
 sudo chown -R :www-data . && sudo chmod -R g+r . && sudo chmod -R g+w ./data/
 ```
+See more commands and git commands in the [Command-Line Interface documentation](./cli/README.md).
 
 ## Access control
 It is needed for the multi-user mode to limit access to FreshRSS. You can:

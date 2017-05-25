@@ -108,12 +108,19 @@ sudo git checkout -b dev origin/dev
 
 # Check out a specific version of FreshRSS
 # See release names on https://github.com/FreshRSS/FreshRSS/releases
+# You will then need to manually change version
+# or checkout master or dev to get new versions
 cd /usr/share/FreshRSS
 sudo git checkout 1.7.0
 
-# Check whether there is a new version of FreshRSS
+# Verify what branch is used
 cd /usr/share/FreshRSS
-sudo git fetch
+sudo git branch
+
+# Check whether there is a new version of FreshRSS,
+# assuming you are on the /master or /dev branch
+cd /usr/share/FreshRSS
+sudo git fetch --all
 sudo git status
 
 # Discard manual changes (do a backup before)
@@ -126,7 +133,8 @@ sudo rm data/do-install.txt
 cd /usr/share/FreshRSS
 sudo git clean -f -d
 
-# Update to a newer version of FreshRSS
+# Update to a newer version of FreshRSS,
+# assuming you are on the /master or /dev branch
 cd /usr/share/FreshRSS
 sudo git pull
 
