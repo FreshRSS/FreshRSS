@@ -93,6 +93,8 @@ return array(
 		'display_categories_unfolded' => 'Ve výchozím stavu zobrazovat kategorie zavřené',
 		'hide_read_feeds' => 'Schovat kategorie a kanály s nulovým počtem nepřečtených článků (nefunguje s nastavením “Zobrazit všechny články”)',
 		'img_with_lazyload' => 'Použít "lazy load" mód pro načítaní obrázků',
+		// TODO: needs to be translated
+		'sides_close_article' => 'Clicking outside of article text area closes the article',
 		'jump_next' => 'skočit na další nepřečtený (kanál nebo kategorii)',
 		'number_divided_when_reader' => 'V režimu “Čtení” děleno dvěma.',
 		'read' => array(
