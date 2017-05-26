@@ -98,48 +98,46 @@ Example to get the number of feeds of a given user:
 If you manage FreshRSS via command line, then installing and updating FreshRSS can be done via git:
 
 ```sh
+# If your local user does not have write access, prefix all commands by sudo:
+sudo ...
+
 # Install FreshRSS
 cd /usr/share/
-sudo git clone https://github.com/FreshRSS/FreshRSS.git
+git clone https://github.com/FreshRSS/FreshRSS.git
+
+# Perform all commands below in your FreshRSS directory:
+cd /usr/share/FreshRSS
 
 # Use the development version of FreshRSS
-cd /usr/share/FreshRSS
-sudo git checkout -b dev origin/dev
+git checkout -b dev origin/dev
 
 # Check out a specific version of FreshRSS
 # See release names on https://github.com/FreshRSS/FreshRSS/releases
 # You will then need to manually change version
 # or checkout master or dev branch to get new versions
-cd /usr/share/FreshRSS
-sudo git checkout 1.7.0
+git checkout 1.7.0
 
 # Verify what branch is used
-cd /usr/share/FreshRSS
-sudo git branch
+git branch
 
 # Check whether there is a new version of FreshRSS,
 # assuming you are on the /master or /dev branch
-cd /usr/share/FreshRSS
-sudo git fetch --all
-sudo git status
+git fetch --all
+git status
 
 # Discard manual changes (do a backup before)
-cd /usr/share/FreshRSS
-sudo git reset --hard
+git reset --hard
 # Then re-delete the file forcing the setup wizard
-sudo rm data/do-install.txt
+rm data/do-install.txt
 
 # Delete manual additions (do a backup before)
-cd /usr/share/FreshRSS
-sudo git clean -f -d
+git clean -f -d
 
 # Update to a newer version of FreshRSS,
 # assuming you are on the /master or /dev branch
-cd /usr/share/FreshRSS
-sudo git pull
+git pull
 
 # Set the rights so that your Web server can access the files
 # (Example for Debian / Ubuntu)
-cd /usr/share/FreshRSS
-sudo chown -R :www-data . && sudo chmod -R g+r . && sudo chmod -R g+w ./data/
+chown -R :www-data . && chmod -R g+r . && chmod -R g+w ./data/
 ```
