@@ -88,7 +88,7 @@ input.extend:focus {
 input, select, textarea {
 	display: inline-block;
 	max-width: 100%;
-	font-size: inital;
+	font-size: initial;
 }
 input[type="radio"],
 input[type="checkbox"] {
