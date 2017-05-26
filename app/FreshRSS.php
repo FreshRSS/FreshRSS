@@ -80,7 +80,7 @@ class FreshRSS extends Minz_FrontController {
 	public static function loadStylesAndScripts() {
 		$theme = FreshRSS_Themes::load(FreshRSS_Context::$user_conf->theme);
 		if ($theme) {
-			foreach($theme['files'] as $file) {
+			foreach(array_reverse($theme['files']) as $file) {
 				if ($file[0] === '_') {
 					$theme_id = 'base-theme';
 					$filename = substr($file, 1);
@@ -91,13 +91,13 @@ class FreshRSS extends Minz_FrontController {
 				$filetime = @filemtime(PUBLIC_PATH . '/themes/' . $theme_id . '/' . $filename);
 				$url = '/themes/' . $theme_id . '/' . $filename . '?' . $filetime;
 				header('Link: <' . Minz_Url::display($url, '', 'root') . '>;rel=preload', false);	//HTTP2
-				Minz_View::appendStyle(Minz_Url::display($url));
+				Minz_View::prependStyle(Minz_Url::display($url));
 			}
 		}
-
-		Minz_View::appendScript(Minz_Url::display('/scripts/jquery.min.js?' . @filemtime(PUBLIC_PATH . '/scripts/jquery.min.js')));
-		Minz_View::appendScript(Minz_Url::display('/scripts/shortcut.js?' . @filemtime(PUBLIC_PATH . '/scripts/shortcut.js')));
-		Minz_View::appendScript(Minz_Url::display('/scripts/main.js?' . @filemtime(PUBLIC_PATH . '/scripts/main.js')));
+		//Use prepend to insert before extensions. Added in reverse order.
+		Minz_View::prependScript(Minz_Url::display('/scripts/main.js?' . @filemtime(PUBLIC_PATH . '/scripts/main.js')));
+		Minz_View::prependScript(Minz_Url::display('/scripts/shortcut.js?' . @filemtime(PUBLIC_PATH . '/scripts/shortcut.js')));
+		Minz_View::prependScript(Minz_Url::display('/scripts/jquery.min.js?' . @filemtime(PUBLIC_PATH . '/scripts/jquery.min.js')));
 	}
 
 	private static function loadNotifications() {
