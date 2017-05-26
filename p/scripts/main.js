@@ -705,11 +705,8 @@ function init_stream(divStream) {
 		if ($(e.target).closest('.content, .item.website, .item.link').length > 0) {
 			return;
 		}
-
-		// setting for not-closing after clicking outside article area
-		if (context.sides_close_article &&
-			e.target.tagName.toUpperCase() === 'DIV' &&
-			$.inArray("flux_content", e.target.attributes)) {
+		if (!context.sides_close_article && $(e.target).is('div.flux_content')) {
+			// setting for not-closing after clicking outside article area
 			return;
 		}
 		var old_active = $(".flux.current"),
@@ -721,7 +718,6 @@ function init_stream(divStream) {
 			}
 			return true;
 		}
-
 		toggleContent(new_active, old_active);
 	});
 
