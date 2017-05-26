@@ -88,6 +88,7 @@ input.extend:focus {
 input, select, textarea {
 	display: inline-block;
 	max-width: 100%;
+	font-size: inital;
 }
 input[type="radio"],
 input[type="checkbox"] {
@@ -345,7 +346,7 @@ a.btn {
 /*=== Tree */
 .tree {
 	margin: 0;
-	padding: 0 0 15em 0;
+	padding: 0;
 	list-style: none;
 	text-align: left;
 }
