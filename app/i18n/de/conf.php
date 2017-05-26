@@ -93,6 +93,7 @@ return array(
 		'display_categories_unfolded' => 'Kategorien standardmäßig eingeklappt zeigen',
 		'hide_read_feeds' => 'Kategorien & Feeds ohne ungelesene Artikel verstecken (funktioniert nicht mit der Einstellung „Alle Artikel zeigen“)',
 		'img_with_lazyload' => 'Verwende die "träges Laden"-Methode zum Laden von Bildern',
+		'sides_close_article' => 'Clicking outside of article text area closes the article',	//TODO
 		'jump_next' => 'springe zum nächsten ungelesenen Geschwisterelement (Feed oder Kategorie)',
 		'number_divided_when_reader' => 'Geteilt durch 2 in der Lese-Ansicht.',
 		'read' => array(

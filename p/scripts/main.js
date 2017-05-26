@@ -705,6 +705,10 @@ function init_stream(divStream) {
 		if ($(e.target).closest('.content, .item.website, .item.link').length > 0) {
 			return;
 		}
+		if (!context.sides_close_article && $(e.target).is('div.flux_content')) {
+			// setting for not-closing after clicking outside article area
+			return;
+		}
 		var old_active = $(".flux.current"),
 			new_active = $(this).parent();
 		isCollapsed = true;
