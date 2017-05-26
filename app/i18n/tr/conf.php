@@ -93,8 +93,7 @@ return array(
 		'display_categories_unfolded' => 'Show categories folded by default',
 		'hide_read_feeds' => 'Okunmamış makalesi olmayan kategori veya akışı gizle ("Tüm makaleleri göster" komutunda çalışmaz)',
 		'img_with_lazyload' => 'Resimleri yüklemek için "tembel modu" kullan',
-		// TODO: needs to be translated
-		'sides_close_article' => 'Clicking outside of article text area closes the article',
+		'sides_close_article' => 'Clicking outside of article text area closes the article',	//TODO
 		'jump_next' => 'Bir sonraki benzer okunmamışa geç (akış veya kategori)',
 		'number_divided_when_reader' => 'Okuma modunda ikiye bölünecek.',
 		'read' => array(

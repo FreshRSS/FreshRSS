@@ -93,8 +93,7 @@ return array(
 		'display_categories_unfolded' => 'Mostra categorie aperte di predefinito',
 		'hide_read_feeds' => 'Nascondi categorie e feeds con articoli già letti (non funziona se “Mostra tutti gli articoli” è selezionato)',
 		'img_with_lazyload' => 'Usa la modalità "caricamento ritardato" per le immagini',
-		// TODO: needs to be translated
-		'sides_close_article' => 'Clicking outside of article text area closes the article',
+		'sides_close_article' => 'Clicking outside of article text area closes the article',	//TODO
 		'jump_next' => 'Salta al successivo feed o categoria non letto',
 		'number_divided_when_reader' => 'Diviso 2 nella modalità di lettura.',
 		'read' => array(
