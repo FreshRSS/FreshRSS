@@ -93,7 +93,7 @@ return array(
 		'display_categories_unfolded' => 'Afficher les catégories pliées par défaut',
 		'hide_read_feeds' => 'Cacher les catégories & flux sans article non-lu (ne fonctionne pas avec la configuration “Afficher tous les articles”)',
 		'img_with_lazyload' => 'Utiliser le mode “chargement différé” pour les images',
-		'sides_close_article' => 'Clicking outside of article text area closes the article',	//TODO
+		'sides_close_article' => 'Cliquer hors de la zone de texte ferme l’article',
 		'jump_next' => 'sauter au prochain voisin non lu (flux ou catégorie)',
 		'number_divided_when_reader' => 'Divisé par 2 dans la vue de lecture.',
 		'read' => array(
