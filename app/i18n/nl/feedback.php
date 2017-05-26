@@ -87,7 +87,7 @@ return array(
 	'update' => array(
 		'can_apply' => 'FreshRSS word nu vernieud naar <strong>versie %s</strong>.',
 		'error' => 'Het vernieuwingsproces kwam een fout tegen: %s',
-		'file_is_nok' => 'Controleer permissies op <em>%s</em> map. HTTP server moet rechten hebben om er in te schrijven',
+		'file_is_nok' => '<strong>Versie %s</strong>. Controleer permissies op <em>%s</em> map. HTTP server moet rechten hebben om er in te schrijven',
 		'finished' => 'Vernieuwing compleet!',
 		'none' => 'Geen vernieuwing om toe te passen',
 		'server_not_found' => 'Vernieuwings server kan niet worden gevonden. [%s]',
