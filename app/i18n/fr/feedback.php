@@ -87,7 +87,7 @@ return array(
 	'update' => array(
 		'can_apply' => 'FreshRSS va maintenant être mis à jour vers la <strong>version %s</strong>.',
 		'error' => 'La mise à jour a rencontré un problème : %s',
-		'file_is_nok' => 'Veuillez vérifier les droits sur le répertoire <em>%s</em>. Le serveur HTTP doit être capable d’écrire dedans',
+		'file_is_nok' => 'Nouvelle <strong>version %s</strong> disponible, mais veuillez vérifier les droits sur le répertoire <em>%s</em>. Le serveur HTTP doit être capable d’écrire dedans',
 		'finished' => 'La mise à jour est terminée !',
 		'none' => 'Aucune mise à jour à appliquer',
 		'server_not_found' => 'Le serveur de mise à jour n’a pas été trouvé. [%s]',
