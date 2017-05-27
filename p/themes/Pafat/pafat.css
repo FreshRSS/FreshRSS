@@ -146,8 +146,8 @@ form th {
 .stick .dropdown + .dropdown > .btn {
 	border-left: none;
 
-}	
-	
+}
+
 .stick .btn + .dropdown > .btn {
 	border-left: none;
 	border-radius: 0 3px 3px 0;
@@ -338,20 +338,13 @@ a.btn {
 	font-weight: bold;
 	text-align: left;
 }
-.dropdown-menu > .item {
-}
 
-.dropdown-menu > .item > a {
-	padding: 0 22px;
-	line-height: 2.5em;
-	color: #666;
-	font-size: 0.8rem;
-}
-
+.dropdown-menu > .item > a,
 .dropdown-menu > .item > span,
 .dropdown-menu > .item > .as-link {
 	padding: 0 22px;
-	line-height: 2em;
+	line-height: 2.5em;
+	color: #666;
 	font-size: 0.8rem;
 }
 
@@ -550,7 +543,7 @@ a.btn {
 	text-decoration: none;
 	color : #C5C6CA;
 }
- 
+
 .header > .item.search input {
 	width: 230px;
 	height : 29px;
@@ -861,7 +854,7 @@ a.btn {
 /*=== "Load more" part */
 #bigMarkAsRead {
 	text-align: center;
-	text-decoration: none;	
+	text-decoration: none;
 	color: #666;
 	background: #fafafa;
 }

@@ -251,14 +251,11 @@ a.btn {
 }
 .dropdown-menu > .item {
 }
-.dropdown-menu > .item > a {
-	padding: 0 25px;
-	line-height: 2.5em;
-}
+.dropdown-menu > .item > a,
 .dropdown-menu > .item > span,
 .dropdown-menu > .item > .as-link {
 	padding: 0 22px;
-	line-height: 2em;
+	line-height: 2.5em;
 }
 .dropdown-menu > .item:hover {
 }
