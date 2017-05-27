@@ -54,6 +54,7 @@ return array(
 		'stats' => 'Statistiques',
 		'subscription' => 'Gestion des abonnements',
 		'tags' => 'Mes étiquettes',
+		'toggle_collapse' => 'Toggle collapse',
 		'unread' => 'Afficher les non-lus',
 	),
 	'share' => 'Partager',

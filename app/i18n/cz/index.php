@@ -54,6 +54,7 @@ return array(
 		'stats' => 'Statistika',
 		'subscription' => 'Správa subskripcí',
 		'tags' => 'My labels',	// TODO - Translation
+		'toggle_collapse' => 'Toggle collapse',
 		'unread' => 'Zobrazovat nepřečtené',
 	),
 	'share' => 'Sdílet',

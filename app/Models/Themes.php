@@ -104,6 +104,8 @@ class FreshRSS_Themes extends Minz_Model {
 			'view-normal' => '☰',
 			'view-global' => '☷',
 			'view-reader' => '☕',
+			'out' => '↕',
+			'in' => '✖',
 		);
 		return isset($name) ? $alts[$name] : '';
 	}

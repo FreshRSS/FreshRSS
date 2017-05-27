@@ -54,6 +54,7 @@ return array(
 		'stats' => 'Statistiken',
 		'subscription' => 'Abonnementverwaltung',
 		'tags' => 'Meine Tags',
+		'toggle_collapse' => 'Artikel auf/zu-klappen',
 		'unread' => 'Nur ungelesene zeigen',
 	),
 	'share' => 'Teilen',

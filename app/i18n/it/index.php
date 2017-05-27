@@ -54,6 +54,7 @@ return array(
 		'stats' => 'Statistiche',
 		'subscription' => 'Gestione sottoscrizioni',
 		'tags' => 'My labels',	// TODO - Translation
+		'toggle_collapse' => 'Toggle collapse',
 		'unread' => 'Mostra solo non letti',
 	),
 	'share' => 'Condividi',

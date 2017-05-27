@@ -54,6 +54,7 @@ return array(
 		'stats' => 'İstatistikler',
 		'subscription' => 'Abonelik yönetimi',
 		'tags' => 'My labels',	// TODO - Translation
+		'toggle_collapse' => 'Toggle collapse',
 		'unread' => 'Okunmamışları göster',
 	),
 	'share' => 'Share',	// TODO - Translation

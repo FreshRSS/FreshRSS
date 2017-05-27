@@ -1072,6 +1072,22 @@ function loadDynamicTags(div) {
 	req.send();
 }
 
+function init_menu() {
+	var $menu_elements = $('.nav_menu');
+	$menu_elements.find('#toggle-collapse').click(function () {
+		var $wascollapsed = $('#stream').hasClass('hide_posts');
+		$('#stream').toggleClass('hide_posts');
+		$('#toggle-collapse').toggleClass('collapsed');
+
+		if (context.does_lazyload && $wascollapsed) {
+			$('#stream').find('img[data-original], iframe[data-original]').each(function () {
+				this.setAttribute('src', this.getAttribute('data-original'));
+				this.removeAttribute('data-original');
+			});
+		}
+	});
+}
+
 // <actualize>
 var feed_processed = 0;
 
@@ -1489,6 +1505,7 @@ function init_afterDOM() {
 		init_load_more(stream);
 		init_posts();
 		init_nav_entries();
+		init_menu();
 		init_notifs_html5();
 		setTimeout(faviconNbUnread, 1000);
 		setInterval(refreshUnreads, 120000);

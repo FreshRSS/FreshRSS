@@ -54,6 +54,7 @@ return array(
 		'stats' => 'Statistics',
 		'subscription' => 'Subscriptions management',
 		'tags' => 'My labels',
+		'toggle_collapse' => 'Toggle collapse',
 		'unread' => 'Show unread',
 	),
 	'share' => 'Share',

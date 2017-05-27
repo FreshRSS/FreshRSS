@@ -202,22 +202,31 @@
 		</form>
 	</div>
 	
-	<?php
-		if (FreshRSS_Context::$order === 'DESC') {
-			$order = 'ASC';
-			$icon = 'up';
-			$title = _t('index.menu.older_first');
-		} else {
-			$order = 'DESC';
-			$icon = 'down';
-			$title = _t('index.menu.newer_first');
-		}
-		$url_order = Minz_Request::currentRequest();
-		$url_order['params']['order'] = $order;
-	?>
-	<a id="toggle-order" class="btn" href="<?= Minz_Url::display($url_order) ?>" title="<?= $title ?>">
-		<?= _i($icon) ?>
-	</a>
+	<div class="stick" id="nav_menu_viewsettings">
+		<?php
+			if (FreshRSS_Context::$order === 'DESC') {
+				$order = 'ASC';
+				$icon = 'up';
+				$title = _t('index.menu.older_first');
+			} else {
+				$order = 'DESC';
+				$icon = 'down';
+				$title = _t('index.menu.newer_first');
+			}
+			$url_order = Minz_Request::currentRequest();
+			$url_order['params']['order'] = $order;
+		?>
+		<a id="toggle-order" class="btn" href="<?= Minz_Url::display($url_order) ?>" title="<?= $title ?>">
+			<?= _i($icon) ?>
+		</a>
+		<?php
+			$hidePosts = !FreshRSS_Context::$user_conf->display_posts;
+		?>
+			<a id="toggle-collapse" class="btn<?= $hidePosts ? ' collapsed' : '' ?>" href="#" title="<?= _t('index.menu.toggle_collapse') ?>">
+				<img class="icon uncollapse" src="<?= _i('out', true) ?>" />
+				<img class="icon collapse" src="<?= _i('in', true) ?>" />
+			</a>
+	</div>
 	
 	<?php if (FreshRSS_Auth::hasAccess() || FreshRSS_Context::$system_conf->allow_anonymous_refresh) { ?>
 	<a id="actualize" class="btn" href="<?= _url('feed', 'actualize') ?>" title="<?= _t('gen.action.actualize') ?>"><?= _i('refresh') ?></a>

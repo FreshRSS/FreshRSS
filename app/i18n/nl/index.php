@@ -54,6 +54,7 @@ return array(
 		'stats' => 'Statistieken',
 		'subscription' => 'Abonnementen beheer',
 		'tags' => 'Mijn labels',
+		'toggle_collapse' => 'Toggle collapse',
 		'unread' => 'Laat alleen ongelezen zien',
 	),
 	'share' => 'Delen',
