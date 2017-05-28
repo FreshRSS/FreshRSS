@@ -118,8 +118,7 @@ class SimplePie_File
 					curl_setopt($fp, CURLOPT_FOLLOWLOCATION, 1);
 					curl_setopt($fp, CURLOPT_MAXREDIRS, $redirects);
 				}
-				foreach ($curl_options as $curl_param => $curl_value)
-				{
+				foreach ($curl_options as $curl_param => $curl_value) {
 					curl_setopt($fp, $curl_param, $curl_value);
 				}
 
@@ -136,10 +135,12 @@ class SimplePie_File
 				}
 				else
 				{
-					$info = curl_getinfo($fp);
+					// Use the updated url provided by curl_getinfo after any redirects.
+					if ($info = curl_getinfo($fp)) {
+						$this->url = $info['url'];
+					}
 					curl_close($fp);
-					$this->headers = explode("\r\n\r\n", $this->headers, $info['redirect_count'] + 1);
-					$this->headers = array_pop($this->headers);
+					$this->headers = SimplePie_HTTP_Parser::prepareHeaders($this->headers, $info['redirect_count'] + 1);
 					$parser = new SimplePie_HTTP_Parser($this->headers);
 					if ($parser->parse())
 					{
