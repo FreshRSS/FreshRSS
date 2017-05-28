@@ -334,14 +334,12 @@ a.btn {
 	text-align: left;
 	color: #34495e;
 }
-.dropdown-menu > .item > a {
-	padding: 0 25px;
-	line-height: 2.5em;
-}
+.dropdown-menu > .item > a,
 .dropdown-menu > .item > span,
 .dropdown-menu > .item > .as-link {
 	padding: 0 22px;
-	line-height: 2em;
+	line-height: 2.5em;
+	font-size: 0.8rem;
 }
 .dropdown-menu > .item:hover {
 	background: #2980b9;
