@@ -44,3 +44,4 @@ People are sorted by name so please keep this order.
 * [Thomas Citharel](https://github.com/tcitworld): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:tomgue), [Web](https://www.tcit.fr/)
 * [tomgue](https://github.com/tomgue): [contributions](https://github.com/FreshRSS/FreshRSS/commits?author=tomgue)
 * [Wanabo](https://github.com/Wanabo): [contributions](https://github.com/FreshRSS/FreshRSS/commits?author=Wanabo)
+* [mszkb](https://github.com/mszkb): [contributions](https://github.com/FreshRSS/FreshRSS/commits?author=mszkb)
