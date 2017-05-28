@@ -337,7 +337,7 @@ class FreshRSS_Feed extends Minz_Model {
 
 			$entry = new FreshRSS_Entry(
 				$this->id(),
-				$item->get_id(),
+				$item->get_id(false, false),
 				$title === null ? '' : $title,
 				$author === null ? '' : html_only_entity_decode($author->name),
 				$content === null ? '' : $content,
