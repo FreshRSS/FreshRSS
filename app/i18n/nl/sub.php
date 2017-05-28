@@ -53,10 +53,10 @@ return array(
 	'menu' => array(
 		'bookmark' => 'Abonneer (FreshRSS bladwijzer)',
 		'import_export' => 'Importeer / exporteer',
-		'subscription_management' => 'Abonnementen beheer',
+		'subscription_management' => 'Abonnementenbeheer',
 	),
 	'title' => array(
-		'_' => 'Abonnementen beheer',
-		'feed_management' => 'RSS feed beheer',
+		'_' => 'Abonnementenbeheer',
+		'feed_management' => 'RSS-feedbeheer',
 	),
 );
