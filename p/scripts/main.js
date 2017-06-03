@@ -555,39 +555,42 @@ function init_shortcuts() {
 		window.setTimeout(init_shortcuts, 200);
 		return;
 	}
-	// Touches de manipulation
+	// Manipulation shortcuts
 	shortcut.add(shortcuts.mark_read, function () {
-		// on marque comme lu ou non lu
+		// Toggle the read state
 		var active = $(".flux.current");
 		mark_read(active, false);
 	}, {
 		'disable_in_input': true
 	});
 	shortcut.add("shift+" + shortcuts.mark_read, function () {
-		// on marque tout comme lu
+		// Mark everything as read
 		$(".nav_menu .read_all").click();
 	}, {
 		'disable_in_input': true
 	});
 	shortcut.add(shortcuts.mark_favorite, function () {
-		// on marque comme favori ou non favori
+		// Toggle the favorite state
 		var active = $(".flux.current");
 		mark_favorite(active);
 	}, {
 		'disable_in_input': true
 	});
 	shortcut.add(shortcuts.collapse_entry, function () {
+		// Toggle the collapse state
 		collapse_entry();
 	}, {
 		'disable_in_input': true
 	});
 	shortcut.add(shortcuts.auto_share, function () {
+		// Display the share options
 		auto_share();
 	}, {
 		'disable_in_input': true
 	});
 
 	shortcut.add(shortcuts.user_filter, function () {
+		// Display the user filters
 		user_filter();
 	}, {
 		'disable_in_input': true
@@ -606,7 +609,7 @@ function init_shortcuts() {
 		});
 	}
 
-	// Touches de navigation pour les articles
+	// Entry navigation shortcuts
 	shortcut.add(shortcuts.prev_entry, prev_entry, {
 		'disable_in_input': true
 	});
@@ -633,7 +636,7 @@ function init_shortcuts() {
 	}, {
 		'disable_in_input': true
 	});
-	// Touches de navigation pour les flux
+	// Feed navigation shortcuts
 	shortcut.add("shift+" + shortcuts.prev_entry, prev_feed, {
 		'disable_in_input': true
 	});
@@ -646,7 +649,7 @@ function init_shortcuts() {
 	shortcut.add("shift+" + shortcuts.last_entry, last_feed, {
 		'disable_in_input': true
 	});
-	// Touches de navigation pour les categories
+	// Category navigation shortcuts
 	shortcut.add("alt+" + shortcuts.prev_entry, prev_category, {
 		'disable_in_input': true
 	});
