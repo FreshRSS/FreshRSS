@@ -5,7 +5,7 @@
  * A PHP-Based RSS and Atom Feed Framework.
  * Takes the hard work out of managing a complete RSS/Atom solution.
  *
- * Copyright (c) 2004-2012, Ryan Parman, Geoffrey Sneddon, Ryan McCue, and contributors
+ * Copyright (c) 2004-2016, Ryan Parman, Geoffrey Sneddon, Ryan McCue, and contributors
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification, are
@@ -33,8 +33,7 @@
  * POSSIBILITY OF SUCH DAMAGE.
  *
  * @package SimplePie
- * @version 1.4-dev
- * @copyright 2004-2012 Ryan Parman, Geoffrey Sneddon, Ryan McCue
+ * @copyright 2004-2016 Ryan Parman, Geoffrey Sneddon, Ryan McCue
  * @author Ryan Parman
  * @author Geoffrey Sneddon
  * @author Ryan McCue
@@ -61,8 +60,8 @@ class SimplePie_Sanitize
 	var $image_handler = '';
 	var $strip_htmltags = array('base', 'blink', 'body', 'doctype', 'embed', 'font', 'form', 'frame', 'frameset', 'html', 'iframe', 'input', 'marquee', 'meta', 'noscript', 'object', 'param', 'script', 'style');
 	var $encode_instead_of_strip = false;
-	var $strip_attributes = array('bgsound', 'class', 'expr', 'id', 'style', 'onclick', 'onerror', 'onfinish', 'onmouseover', 'onmouseout', 'onfocus', 'onblur', 'lowsrc', 'dynsrc');
-	var $add_attributes = array('audio' => array('preload' => 'none'), 'iframe' => array('sandbox' => 'allow-scripts allow-same-origin'), 'video' => array('preload' => 'none'));	//FreshRSS
+	var $strip_attributes = array('bgsound', 'expr', 'id', 'style', 'onclick', 'onerror', 'onfinish', 'onmouseover', 'onmouseout', 'onfocus', 'onblur', 'lowsrc', 'dynsrc');
+	var $add_attributes = array('audio' => array('preload' => 'none'), 'iframe' => array('sandbox' => 'allow-scripts allow-same-origin'), 'video' => array('preload' => 'none'));
 	var $strip_comments = false;
 	var $output_encoding = 'UTF-8';
 	var $enable_cache = true;
@@ -170,7 +169,7 @@ class SimplePie_Sanitize
 		$this->encode_instead_of_strip = (bool) $encode;
 	}
 
-	public function strip_attributes($attribs = array('bgsound', 'class', 'expr', 'id', 'style', 'onclick', 'onerror', 'onfinish', 'onmouseover', 'onmouseout', 'onfocus', 'onblur', 'lowsrc', 'dynsrc'))
+	public function strip_attributes($attribs = array('bgsound', 'expr', 'id', 'style', 'onclick', 'onerror', 'onfinish', 'onmouseover', 'onmouseout', 'onfocus', 'onblur', 'lowsrc', 'dynsrc'))
 	{
 		if ($attribs)
 		{
@@ -323,7 +322,7 @@ class SimplePie_Sanitize
 		{
 			if ($type & SIMPLEPIE_CONSTRUCT_MAYBE_HTML)
 			{
-				$data = htmlspecialchars_decode($data, ENT_QUOTES);
+				$data = htmlspecialchars_decode($data, ENT_QUOTES);	//FreshRSS
 				if (preg_match('/(&(#(x[0-9a-fA-F]+|[0-9]+)|[a-zA-Z0-9]+)|<\/[A-Za-z][^\x09\x0A\x0B\x0C\x0D\x20\x2F\x3E]*' . SIMPLEPIE_PCRE_HTML_ATTRIBUTE . '>)/', $data))
 				{
 					$type |= SIMPLEPIE_CONSTRUCT_HTML;
@@ -348,6 +347,7 @@ class SimplePie_Sanitize
 				}
 				$document = new DOMDocument();
 				$document->encoding = 'UTF-8';
+
 				$data = $this->preprocess($data, $type);
 
 				set_error_handler(array('SimplePie_Misc', 'silence_errors'));
@@ -437,19 +437,17 @@ class SimplePie_Sanitize
 					}
 				}
 
-				// Remove the DOCTYPE
-				// Seems to cause segfaulting if we don't do this
-				if ($document->firstChild instanceof DOMDocumentType)
-				{
-					$document->removeChild($document->firstChild);
-				}
-
-				// Move everything from the body to the root
-				$real_body = $document->getElementsByTagName('body')->item(0)->childNodes->item(0);
-				$document->replaceChild($real_body, $document->firstChild);
-
+				// Get content node
+				$div = $document->getElementsByTagName('body')->item(0)->firstChild;
 				// Finally, convert to a HTML string
-				$data = trim($document->saveHTML());
+				if (version_compare(PHP_VERSION, '5.3.6', '>='))
+				{
+					$data = trim($document->saveHTML($div));
+				}
+				else
+				{
+					$data = trim($document->saveXML($div));
+				}
 
 				if ($this->remove_div)
 				{

@@ -88,13 +88,13 @@ function saveStep1() {
 		// First, we try to get previous configurations
 		Minz_Configuration::register('system',
 		                             join_path(DATA_PATH, 'config.php'),
-		                             join_path(DATA_PATH, 'config.default.php'));
+		                             join_path(FRESHRSS_PATH, 'config.default.php'));
 		$system_conf = Minz_Configuration::get('system');
 
 		$current_user = $system_conf->default_user;
 		Minz_Configuration::register('user',
 		                             join_path(USERS_PATH, $current_user, 'config.php'),
-		                             join_path(USERS_PATH, '_', 'config.default.php'));
+		                             join_path(FRESHRSS_PATH, 'config-user.default.php'));
 		$user_conf = Minz_Configuration::get('user');
 
 		// Then, we set $_SESSION vars
@@ -342,35 +342,19 @@ function checkDbUser(&$dbOptions) {
 	$driver_options = $dbOptions['options'];
 	try {
 		$c = new PDO($str, $dbOptions['user'], $dbOptions['password'], $driver_options);
-
 		if (defined('SQL_CREATE_TABLES')) {
-			$sql = sprintf(SQL_CREATE_TABLES, $dbOptions['prefix_user'], _t('gen.short.default_category'));
+			$sql = sprintf(SQL_CREATE_TABLES . SQL_CREATE_TABLE_ENTRYTMP . SQL_INSERT_FEEDS,
+				$dbOptions['prefix_user'], _t('gen.short.default_category'));
 			$stm = $c->prepare($sql);
-			$ok = $stm->execute();
+			$ok = $stm && $stm->execute();
 		} else {
-			global $SQL_CREATE_TABLES;
-			if (is_array($SQL_CREATE_TABLES)) {
-				$ok = true;
-				foreach ($SQL_CREATE_TABLES as $instruction) {
-					$sql = sprintf($instruction, $dbOptions['prefix_user'], _t('gen.short.default_category'));
-					$stm = $c->prepare($sql);
-					$ok &= $stm->execute();
-				}
-			}
-		}
-
-		if (defined('SQL_INSERT_FEEDS')) {
-			$sql = sprintf(SQL_INSERT_FEEDS, $dbOptions['prefix_user']);
-			$stm = $c->prepare($sql);
-			$ok &= $stm->execute();
-		} else {
-			global $SQL_INSERT_FEEDS;
-			if (is_array($SQL_INSERT_FEEDS)) {
-				foreach ($SQL_INSERT_FEEDS as $instruction) {
-					$sql = sprintf($instruction, $dbOptions['prefix_user']);
-					$stm = $c->prepare($sql);
-					$ok &= $stm->execute();
-				}
+			global $SQL_CREATE_TABLES, $SQL_CREATE_TABLE_ENTRYTMP, $SQL_INSERT_FEEDS;
+			$instructions = array_merge($SQL_CREATE_TABLES, $SQL_CREATE_TABLE_ENTRYTMP, $SQL_INSERT_FEEDS);
+			$ok = !empty($instructions);
+			foreach ($instructions as $instruction) {
+				$sql = sprintf($instruction, $dbOptions['prefix_user'], _t('gen.short.default_category'));
+				$stm = $c->prepare($sql);
+				$ok &= $stm && $stm->execute();
 			}
 		}
 	} catch (PDOException $e) {
@@ -481,7 +465,7 @@ function printStep1() {
 	<?php if ($res['fileinfo'] == 'ok') { ?>
 	<p class="alert alert-success"><span class="alert-head"><?php echo _t('gen.short.ok'); ?></span> <?php echo _t('install.check.fileinfo.ok'); ?></p>
 	<?php } else { ?>
-	<p class="alert alert-error"><span class="alert-head"><?php echo _t('gen.short.damn'); ?></span> <?php echo _t('install.check.fileinfo.nok'); ?></p>
+	<p class="alert alert-warn"><span class="alert-head"><?php echo _t('gen.short.damn'); ?></span> <?php echo _t('install.check.fileinfo.nok'); ?></p>
 	<?php } ?>
 
 	<?php if ($res['data'] == 'ok') { ?>
@@ -629,7 +613,7 @@ function printStep3() {
 				<?php if (extension_loaded('pdo_pgsql')) {?>
 				<option value="pgsql"
 					<?php echo(isset($_SESSION['bd_type']) && $_SESSION['bd_type'] === 'pgsql') ? 'selected="selected"' : ''; ?>>
-					PostgreSQL (⚠️ experimental)
+					PostgreSQL
 				</option>
 				<?php }?>
 				</select>

@@ -5,7 +5,7 @@
  * A PHP-Based RSS and Atom Feed Framework.
  * Takes the hard work out of managing a complete RSS/Atom solution.
  *
- * Copyright (c) 2004-2012, Ryan Parman, Geoffrey Sneddon, Ryan McCue, and contributors
+ * Copyright (c) 2004-2016, Ryan Parman, Geoffrey Sneddon, Ryan McCue, and contributors
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification, are
@@ -33,8 +33,7 @@
  * POSSIBILITY OF SUCH DAMAGE.
  *
  * @package SimplePie
- * @version 1.4-dev
- * @copyright 2004-2012 Ryan Parman, Geoffrey Sneddon, Ryan McCue
+ * @copyright 2004-2016 Ryan Parman, Geoffrey Sneddon, Ryan McCue
  * @author Ryan Parman
  * @author Geoffrey Sneddon
  * @author Ryan McCue
@@ -125,8 +124,8 @@ class SimplePie_Content_Type_Sniffer
 				}
 			}
 			elseif ($official === 'text/html'
-				|| $official === 'text/xml'
-				|| $official === 'application/xml')
+				|| $official === 'text/xml'	//FreshRSS
+				|| $official === 'application/xml')	//FreshRSS
 			{
 				return $this->feed_or_html();
 			}
@@ -256,12 +255,7 @@ class SimplePie_Content_Type_Sniffer
 	public function feed_or_html()
 	{
 		$len = strlen($this->file->body);
-		$pos = 0;
-		if (isset($this->file->body[2]) && $this->file->body[0] === "\xEF" &&
-			$this->file->body[1] === "\xBB" && $this->file->body[2] === "\xBF") {
-			$pos += 3;	//UTF-8 BOM
-		}
-		$pos += strspn($this->file->body, "\x09\x0A\x0D\x20", $pos);
+		$pos = strspn($this->file->body, "\x09\x0A\x0D\x20\xEF\xBB\xBF");
 
 		while ($pos < $len)
 		{

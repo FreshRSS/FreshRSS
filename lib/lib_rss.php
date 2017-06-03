@@ -183,7 +183,7 @@ function customSimplePie() {
 		'object', 'param', 'plaintext', 'script', 'style',
 	));
 	$simplePie->strip_attributes(array_merge($simplePie->strip_attributes, array(
-		'autoplay', 'onload', 'onunload', 'onclick', 'ondblclick', 'onmousedown', 'onmouseup',
+		'autoplay', 'class', 'onload', 'onunload', 'onclick', 'ondblclick', 'onmousedown', 'onmouseup',
 		'onmouseover', 'onmousemove', 'onmouseout', 'onfocus', 'onblur',
 		'onkeypress', 'onkeydown', 'onkeyup', 'onselect', 'onchange', 'seamless', 'sizes', 'srcset')));
 	$simplePie->add_attributes(array(
@@ -214,7 +214,7 @@ function customSimplePie() {
 		),
 	));
 	$https_domains = array();
-	$force = @file(DATA_PATH . '/force-https.default.txt', FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+	$force = @file(FRESHRSS_PATH . '/force-https.default.txt', FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
 	if (is_array($force)) {
 		$https_domains = array_merge($https_domains, $force);
 	}
@@ -334,11 +334,14 @@ function max_registrations_reached() {
  * @return a Minz_Configuration object, null if the configuration cannot be loaded.
  */
 function get_user_configuration($username) {
+	if (!FreshRSS_user_Controller::checkUsername($username)) {
+		return null;
+	}
 	$namespace = 'user_' . $username;
 	try {
 		Minz_Configuration::register($namespace,
 		                             join_path(USERS_PATH, $username, 'config.php'),
-		                             join_path(USERS_PATH, '_', 'config.default.php'));
+		                             join_path(FRESHRSS_PATH, 'config-user.default.php'));
 	} catch (Minz_ConfigurationNamespaceException $e) {
 		// namespace already exists, do nothing.
 	} catch (Minz_FileNotExistException $e) {

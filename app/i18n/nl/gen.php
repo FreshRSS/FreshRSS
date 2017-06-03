@@ -37,8 +37,8 @@ return array(
 		'reset' => 'Authenticatie reset',
 		'username' => array(
 			'_' => 'Gebruikersnaam',
-			'admin' => 'Administrator gebruikersnaam',
-			'format' => '<small>maximaal 16 alphanumerieke tekens</small>',
+			'admin' => 'Beheerdersgebruikersnaam',
+			'format' => '<small>maximaal 16 alfanumerieke tekens</small>',
 		),
 	),
 	'date' => array(
@@ -109,8 +109,8 @@ return array(
 			'request_failed' => 'Een opdracht is mislukt, mogelijk door Internet verbindings problemen.',
 			'title_new_articles' => 'FreshRSS: nieuwe artikelen!',
 		),
-		'new_article' => 'Er zijn nieuwe artikelen beschikbaar, klik om de pagina te vernieuwen.',
-		'should_be_activated' => 'JavaScript moet aan staan',
+		'new_article' => 'Er zijn nieuwe artikelen beschikbaar. Klik om de pagina te vernieuwen.',
+		'should_be_activated' => 'JavaScript moet aanstaan',
 	),
 	'lang' => array(
 		'cz' => 'Čeština',
@@ -127,7 +127,7 @@ return array(
 		'admin' => 'Administratie',
 		'archiving' => 'Archiveren',
 		'authentication' => 'Authenticatie',
-		'check_install' => 'Installatie controle',
+		'check_install' => 'Installatiecontrole',
 		'configuration' => 'Configuratie',
 		'display' => 'Opmaak',
 		'extensions' => 'Uitbreidingen',
@@ -138,9 +138,9 @@ return array(
 		'sharing' => 'Delen',
 		'shortcuts' => 'Snelle toegang',
 		'stats' => 'Statistieken',
-		'system' => 'Systeem configuratie',
-		'update' => 'Versie controle',
-		'user_management' => 'Beheer gebruikers',
+		'system' => 'Systeemconfiguratie',
+		'update' => 'Versiecontrole',
+		'user_management' => 'Gebruikersbeheer',
 		'user_profile' => 'Profiel',
 	),
 	'pagination' => array(

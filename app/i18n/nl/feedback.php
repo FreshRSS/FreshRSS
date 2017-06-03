@@ -10,17 +10,17 @@ return array(
 	),
 	'auth' => array(
 		'form' => array(
-			'not_set' => 'Een probleem is opgetreden tijdens de controle van de systeem configuratie. Probeer het later nog eens.',
+			'not_set' => 'Er is een probleem opgetreden tijdens de controle van de systeemconfiguratie. Probeer het later nog eens.',
 			'set' => 'Formulier is nu uw standaard authenticatie systeem.',
 		),
 		'login' => array(
-			'invalid' => 'Log in is ongeldig',
+			'invalid' => 'Login is ongeldig',
 			'success' => 'U bent ingelogd',
 		),
 		'logout' => array(
 			'success' => 'U bent uitgelogd',
 		),
-		'no_password_set' => 'Administrateur wachtwoord is niet ingesteld. Deze mogelijkheid is niet beschikbaar.',
+		'no_password_set' => 'Beheerderswachtwoord is niet ingesteld. Deze mogelijkheid is niet beschikbaar.',
 	),
 	'conf' => array(
 		'error' => 'Er is een fout opgetreden tijdens het opslaan van de configuratie',
@@ -87,7 +87,7 @@ return array(
 	'update' => array(
 		'can_apply' => 'FreshRSS word nu vernieud naar <strong>versie %s</strong>.',
 		'error' => 'Het vernieuwingsproces kwam een fout tegen: %s',
-		'file_is_nok' => 'Controleer permissies op <em>%s</em> map. HTTP server moet rechten hebben om er in te schrijven',
+		'file_is_nok' => '<strong>Versie %s</strong>. Controleer permissies op <em>%s</em> map. HTTP server moet rechten hebben om er in te schrijven',
 		'finished' => 'Vernieuwing compleet!',
 		'none' => 'Geen vernieuwing om toe te passen',
 		'server_not_found' => 'Vernieuwings server kan niet worden gevonden. [%s]',

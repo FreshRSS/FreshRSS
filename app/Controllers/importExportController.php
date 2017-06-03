@@ -464,16 +464,20 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 			}
 
 			$values = $entry->toArray();
+			$ok = false;
 			if (isset($existingHashForGuids[$entry->guid()])) {
-				$id = $this->entryDAO->updateEntry($values);
+				$ok = $this->entryDAO->updateEntry($values);
 			} else {
-				$id = $this->entryDAO->addEntry($values);
+				$ok = $this->entryDAO->addEntry($values);
 			}
+			$error |= ($ok === false);
 
-			if (!$error && ($id === false)) {
-				$error = true;
-			}
 		}
+		$this->entryDAO->commit();
+
+		$this->entryDAO->beginTransaction();
+		$this->entryDAO->commitNewEntries();
+		$this->feedDAO->updateCachedValues();
 		$this->entryDAO->commit();
 
 		return !$error;

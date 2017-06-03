@@ -32,8 +32,8 @@ return array(
 	'menu' => array(
 		'about' => 'Over FreshRSS',
 		'add_query' => 'Voeg een query toe',
-		'before_one_day' => 'Ouder als een dag',
-		'before_one_week' => 'Ouder als een week',
+		'before_one_day' => 'Ouder dan een dag',
+		'before_one_week' => 'Ouder dan een week',
 		'favorites' => 'Favorieten (%s)',
 		'global_view' => 'Globale weergave',
 		'main_stream' => 'Overzicht',

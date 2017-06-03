@@ -3,7 +3,7 @@
 /**
  * Description of UserQueryTest
  */
-class UserQueryTest extends \PHPUnit_Framework_TestCase {
+class UserQueryTest extends PHPUnit\Framework\TestCase {
 
 	public function test__construct_whenAllQuery_storesAllParameters() {
 		$query = array('get' => 'a');

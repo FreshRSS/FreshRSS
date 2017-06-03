@@ -14,7 +14,7 @@ Finally, it supports [extensions](#extensions) for further tuning.
 * Demo: http://demo.freshrss.org/
 * License: [GNU AGPL 3](http://www.gnu.org/licenses/agpl-3.0.html)
 
-![FreshRSS logo](./doc/FreshRSS-logo.png)
+![FreshRSS logo](./docs/img/FreshRSS-logo.png)
 
 # Releases
 See the [list of releases](../../releases).
@@ -35,11 +35,15 @@ We are a friendly community.
 * PHP 5.3.3+ (PHP 5.4+ recommended, and PHP 5.5+ for performance, and PHP 7 for even higher performance)
 	* Required extensions: [cURL](http://php.net/curl), [DOM](http://php.net/dom), [XML](http://php.net/xml), and [PDO_MySQL](http://php.net/pdo-mysql) or [PDO_SQLite](http://php.net/pdo-sqlite) or [PDO_PGSQL](http://php.net/pdo-pgsql)
 	* Recommended extensions: [JSON](http://php.net/json), [GMP](http://php.net/gmp) (for API access on platforms < 64 bits), [IDN](http://php.net/intl.idn) (for Internationalized Domain Names), [mbstring](http://php.net/mbstring) and/or [iconv](http://php.net/iconv) (for charset conversion), [ZIP](http://php.net/zip) (for import/export), [zlib](http://php.net/zlib) (for compressed feeds)
-* MySQL 5.5.3+ (recommended), or SQLite 3.7.4+, or PostgreSQL (experimental)
+* MySQL 5.5.3+ (recommended), or SQLite 3.7.4+, or PostgreSQL 9.2+
 * A recent browser like Firefox, Internet Explorer 11 / Edge, Chrome, Opera, Safari.
 	* Works on mobile
 
-![FreshRSS screenshot](./doc/FreshRSS-screenshot.png)
+![FreshRSS screenshot](./docs/img/FreshRSS-screenshot.png)
+
+# Documentation
+* http://doc.freshrss.org/en/
+* https://github.com/FreshRSS/documentation
 
 # Installation
 1. Get FreshRSS with git or [by downloading the archive](https://github.com/FreshRSS/FreshRSS/archive/master.zip)
@@ -48,7 +52,7 @@ We are a friendly community.
 4. Access FreshRSS with your browser and follow the installation process
 	* or use the [Command-Line Interface](./cli/README.md)
 5. Everything should be working :) If you encounter any problem, feel free [contact us](https://github.com/FreshRSS/FreshRSS/issues).
-6. Advanced configuration settings can be seen in [config.php](./data/config.default.php).
+6. Advanced configuration settings can be seen in [config.default.php](./config.default.php) and modified in `data/config.php`.
 
 ## Automated install
 * [![Install on Cloudron](https://cloudron.io/img/button.svg)](https://cloudron.io/button.html?app=org.freshrss.cloudronapp)
@@ -101,6 +105,7 @@ cd /usr/share/FreshRSS
 sudo git pull
 sudo chown -R :www-data . && sudo chmod -R g+r . && sudo chmod -R g+w ./data/
 ```
+See more commands and git commands in the [Command-Line Interface documentation](./cli/README.md).
 
 ## Access control
 It is needed for the multi-user mode to limit access to FreshRSS. You can:
@@ -128,10 +133,11 @@ Create `/etc/cron.d/FreshRSS` with:
 
 
 # Advices
-* For a better security, expose only the `./p/` folder on the web.
+* For a better security, expose only the `./p/` folder on the Web.
 	* Be aware that the `./data/` folder contains all personal data, so it is a bad idea to expose it.
 * The `./constants.php` file defines access to application folder. If you want to customize your installation, every thing happens here.
-* If you encounter any problem, logs are accessible from the interface or manually in `./data/log/*.log` files.
+* If you encounter any problem, logs are accessible from the interface or manually in `./data/users/*/log*.txt` files.
+	* The special folder `./data/users/_/` contains the part of the logs that are shared by all users.
 
 
 # Backup
@@ -155,7 +161,6 @@ See the [repository dedicated to those extensions](https://github.com/FreshRSS/E
 * [MINZ](https://github.com/marienfressinaud/MINZ)
 * [php-http-304](http://alexandre.alapetite.fr/doc-alex/php-http-304/)
 * [jQuery](http://jquery.com/)
-* [ArthurHoaro/favicon](https://github.com/ArthurHoaro/favicon)
 * [lib_opml](https://github.com/marienfressinaud/lib_opml)
 * [jQuery Plugin Sticky-Kit](http://leafo.net/sticky-kit/)
 * [keyboard_shortcuts](http://www.openjs.com/scripts/events/keyboard_shortcuts/)

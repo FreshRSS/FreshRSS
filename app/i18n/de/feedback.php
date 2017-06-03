@@ -87,7 +87,7 @@ return array(
 	'update' => array(
 		'can_apply' => 'FreshRSS wird nun auf die <strong>Version %s</strong> aktualisiert.',
 		'error' => 'Der Aktualisierungsvorgang stieß auf einen Fehler: %s',
-		'file_is_nok' => 'Überprüfen Sie die Berechtigungen des Verzeichnisses <em>%s</em>. Der HTTP-Server muss Schreibrechte besitzen',
+		'file_is_nok' => '<strong>Version %s</strong>. Überprüfen Sie die Berechtigungen des Verzeichnisses <em>%s</em>. Der HTTP-Server muss Schreibrechte besitzen',
 		'finished' => 'Aktualisierung abgeschlossen!',
 		'none' => 'Keine Aktualisierung zum Anwenden',
 		'server_not_found' => 'Der Aktualisierungs-Server kann nicht gefunden werden. [%s]',

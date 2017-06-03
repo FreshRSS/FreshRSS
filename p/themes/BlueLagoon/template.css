@@ -2,7 +2,7 @@
 
 /*=== GENERAL */
 /*============*/
-html, body { 
+html, body {
 	margin: 0;
 	padding: 0;
 	font-size: 92%;
@@ -79,6 +79,7 @@ textarea {
 input, select, textarea {
 	display: inline-block;
 	max-width: 100%;
+	font-size: 0.8rem;
 }
 input[type="radio"],
 input[type="checkbox"] {

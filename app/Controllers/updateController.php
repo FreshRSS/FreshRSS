@@ -59,24 +59,26 @@ class FreshRSS_update_Controller extends Minz_ActionController {
 	public function indexAction() {
 		Minz_View::prependTitle(_t('admin.update.title') . ' · ');
 
-		if (!is_writable(FRESHRSS_PATH)) {
-			$this->view->message = array(
-				'status' => 'bad',
-				'title' => _t('gen.short.damn'),
-				'body' => _t('feedback.update.file_is_nok', FRESHRSS_PATH)
-			);
-		} elseif (file_exists(UPDATE_FILENAME)) {
+		if (file_exists(UPDATE_FILENAME)) {
 			// There is an update file to apply!
 			$version = @file_get_contents(join_path(DATA_PATH, 'last_update.txt'));
-			if (empty($version)) {
+			if ($version == '') {
 				$version = 'unknown';
 			}
-			$this->view->update_to_apply = true;
-			$this->view->message = array(
-				'status' => 'good',
-				'title' => _t('gen.short.ok'),
-				'body' => _t('feedback.update.can_apply', $version)
-			);
+			if (is_writable(FRESHRSS_PATH)) {
+				$this->view->update_to_apply = true;
+				$this->view->message = array(
+					'status' => 'good',
+					'title' => _t('gen.short.ok'),
+					'body' => _t('feedback.update.can_apply', $version),
+				);
+			} else {
+				$this->view->message = array(
+					'status' => 'bad',
+					'title' => _t('gen.short.damn'),
+					'body' => _t('feedback.update.file_is_nok', $version, FRESHRSS_PATH),
+				);
+			}
 		}
 	}
 
@@ -190,6 +192,7 @@ class FreshRSS_update_Controller extends Minz_ActionController {
 			if (self::isGit()) {
 				$res = self::gitPull();
 			} else {
+				require(UPDATE_FILENAME);
 				if (Minz_Request::isPost()) {
 					save_info_update();
 				}

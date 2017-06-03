@@ -38,7 +38,7 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 	 * The username is also used as folder name, file name, and part of SQL table name.
 	 * '_' is a reserved internal username.
 	 */
-	const USERNAME_PATTERN = '[0-9a-zA-Z]|[0-9a-zA-Z_]{2,38}';
+	const USERNAME_PATTERN = '[0-9a-zA-Z_]{2,38}|[0-9a-zA-Z]';
 
 	public static function checkUsername($username) {
 		return preg_match('/^' . self::USERNAME_PATTERN . '$/', $username) === 1;
@@ -73,6 +73,10 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 				$ok &= ($passwordHash != '');
 				FreshRSS_Context::$user_conf->apiPasswordHash = $passwordHash;
 			}
+
+			$current_token = FreshRSS_Context::$user_conf->token;
+			$token = Minz_Request::param('token', $current_token);
+			FreshRSS_Context::$user_conf->token = $token;
 
 			$ok &= FreshRSS_Context::$user_conf->save();
 
@@ -213,6 +217,7 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 			$userDAO = new FreshRSS_UserDAO();
 			$ok &= $userDAO->deleteUser($username);
 			$ok &= recursive_unlink($user_data);
+			array_map('unlink', glob(PSHB_PATH . '/feeds/*/' . $username . '.txt'));
 		}
 		return $ok;
 	}

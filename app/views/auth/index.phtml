@@ -52,19 +52,6 @@
 			</div>
 		</div>
 
-		<?php if (FreshRSS_Auth::accessNeedsAction()) { ?>
-		<div class="form-group">
-			<label class="group-name" for="token"><?php echo _t('admin.auth.token'); ?></label>
-			<?php $token = FreshRSS_Context::$user_conf->token; ?>
-			<div class="group-controls">
-				<input type="text" id="token" name="token" value="<?php echo $token; ?>" placeholder="<?php echo _t('gen.short.blank_to_disable'); ?>"<?php
-					echo FreshRSS_Auth::accessNeedsAction() ? '' : ' disabled="disabled"'; ?> data-leave-validation="<?php echo $token; ?>"/>
-				<?php echo _i('help'); ?> <?php echo _t('admin.auth.token_help'); ?>
-				<kbd><?php echo Minz_Url::display(array('a' => 'rss', 'params' => array('token' => $token, 'hours' => FreshRSS_Context::$user_conf->since_hours_posts_per_rss)), 'html', true); ?></kbd>
-			</div>
-		</div>
-		<?php } ?>
-
 		<div class="form-group">
 			<div class="group-controls">
 				<label class="checkbox" for="api_enabled">

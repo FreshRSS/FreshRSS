@@ -103,7 +103,7 @@ return array(
 	'js' => array(
 		'category_empty' => 'Empty category',
 		'confirm_action' => 'Are you sure you want to perform this action? It cannot be cancelled!',
-		'confirm_action_feed_cat' => 'Are you sure you want to perform this action? You will lose related favorites and user queries. It cannot be cancelled!',
+		'confirm_action_feed_cat' => 'Are you sure you want to perform this action? You will lose related favourites and user queries. It cannot be cancelled!',
 		'feedback' => array(
 			'body_new_articles' => 'There are %%d new articles to read on FreshRSS.',
 			'request_failed' => 'A request has failed, it may have been caused by Internet connection problems.',
@@ -121,6 +121,7 @@ return array(
 		'nl' => 'Nederlands',
 		'ru' => 'Русский',
 		'tr' => 'Türkçe',
+		'zh-cn' => '简体中文'
 	),
 	'menu' => array(
 		'about' => 'About',
@@ -173,7 +174,7 @@ return array(
 		'blank_to_disable' => 'Leave blank to disable',
 		'by_author' => 'By <em>%s</em>',
 		'by_default' => 'By default',
-		'damn' => 'Damn!',
+		'damn' => 'Blast!',
 		'default_category' => 'Uncategorized',
 		'no' => 'No',
 		'not_applicable' => 'Not available',

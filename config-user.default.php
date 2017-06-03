@@ -22,6 +22,7 @@ return array (
 	'hide_read_feeds' => true,
 	'onread_jump_next' => true,
 	'lazyload' => true,
+	'sides_close_article' => true,
 	'sticky_post' => true,
 	'reading_confirm' => false,
 	'auto_remove_article' => false,
