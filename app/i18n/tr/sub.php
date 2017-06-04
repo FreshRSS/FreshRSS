@@ -2,9 +2,9 @@
 
 return array(
 	'bookmarklet' => array(
-		'documentation' => 'Drag this button to your bookmarks toolbar or right-click it and choose "Bookmark This Link". Then click "Subscribe" button in any page you want to subscribe to.',
-		'label' => 'Subscribe',
-		'title' => 'Bookmarklet',
+		'documentation' => 'Drag this button to your bookmarks toolbar or right-click it and choose "Bookmark This Link". Then click "Subscribe" button in any page you want to subscribe to.',// TODO
+		'label' => 'Subscribe',// TODO
+		'title' => 'Bookmarklet',// TODO
 	),
 	'category' => array(
 		'_' => 'Kategori',
@@ -45,8 +45,8 @@ return array(
 		'pubsubhubbub' => 'PubSubHubbub ile anlık bildirim',
 	),
 	'firefox' => array(
-		'documentation' => 'Follow the steps described <a href="https://developer.mozilla.org/en-US/Firefox/Releases/2/Adding_feed_readers_to_Firefox#Adding_a_new_feed_reader_manually">here</a> to add FreshRSS to Firefox feed reader list.',
-		'title' => 'Firefox feed reader',
+		'documentation' => 'Follow the steps described <a href="https://developer.mozilla.org/en-US/Firefox/Releases/2/Adding_feed_readers_to_Firefox#Adding_a_new_feed_reader_manually">here</a> to add FreshRSS to Firefox feed reader list.',// TODO
+		'title' => 'Firefox feed reader',// TODO
 	),
 	'import_export' => array(
 		'export' => 'Dışa aktar',
@@ -63,11 +63,11 @@ return array(
 		'bookmark' => 'Abonelik (FreshRSS yer imleri)',
 		'import_export' => 'İçe / dışa aktar',
 		'subscription_management' => 'Abonelik yönetimi',
-		'subscription_tools' => 'Subscription tools',
+		'subscription_tools' => 'Subscription tools',// TODO
 	),
 	'title' => array(
 		'_' => 'Abonelik yönetimi',
 		'feed_management' => 'RSS  akış yönetimi',
-		'subscription_tools' => 'Subscription tools',
+		'subscription_tools' => 'Subscription tools',// TODO
 	),
 );
