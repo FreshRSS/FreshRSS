@@ -1,6 +1,11 @@
 <?php
 
 return array(
+	'bookmarklet' => array(
+		'documentation' => 'Drag this button to your bookmarks toolbar or right-click it and choose "Bookmark This Link". Then click "Subscribe" button in any page you want to subscribe to.',
+		'label' => 'Subscribe',
+		'title' => 'Bookmarklet',
+	),
 	'category' => array(
 		'_' => 'Kategori',
 		'add' => 'Kategori ekle',
@@ -39,6 +44,10 @@ return array(
 		'website' => 'Site URL',
 		'pubsubhubbub' => 'PubSubHubbub ile anlık bildirim',
 	),
+	'firefox' => array(
+		'documentation' => 'Follow the steps described <a href="https://developer.mozilla.org/en-US/Firefox/Releases/2/Adding_feed_readers_to_Firefox#Adding_a_new_feed_reader_manually">here</a> to add FreshRSS to Firefox feed reader list.',
+		'title' => 'Firefox feed reader',
+	),
 	'import_export' => array(
 		'export' => 'Dışa aktar',
 		'export_opml' => 'Akış listesini dışarı aktar (OPML)',
@@ -54,9 +63,11 @@ return array(
 		'bookmark' => 'Abonelik (FreshRSS yer imleri)',
 		'import_export' => 'İçe / dışa aktar',
 		'subscription_management' => 'Abonelik yönetimi',
+		'subscription_tools' => 'Subscription tools',
 	),
 	'title' => array(
 		'_' => 'Abonelik yönetimi',
 		'feed_management' => 'RSS  akış yönetimi',
+		'subscription_tools' => 'Subscription tools',
 	),
 );
