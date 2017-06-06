@@ -141,13 +141,12 @@ Create `/etc/cron.d/FreshRSS` with:
 
 
 # Backup
-* You need to keep `./data/config.php`, and `./data/*_user.php` files
-* You can export your feed list in OPML format from FreshRSS
-	* either from the Web interface, or from the [Command-Line Interface](./cli/README.md)
+* You need to keep `./data/config.php`, and `./data/users/*/config.php` files
+* You can export your feed list in OPML format either from the Web interface, or from the [Command-Line Interface](./cli/README.md)
 * To save articles, you can use [phpMyAdmin](http://www.phpmyadmin.net) or MySQL tools:
 
 ```bash
-mysqldump -u user -p --databases freshrss > freshrss.sql
+mysqldump --skip-comments --disable-keys --user=<db_user> --password --host <db_host> --result-file=freshrss.dump.sql --databases <freshrss_db>
 ```
 
 
