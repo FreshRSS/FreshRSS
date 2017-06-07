@@ -121,6 +121,7 @@ return array(
 		'nl' => 'Nederlands',
 		'ru' => 'Русский',
 		'tr' => 'Türkçe',
+		'kr' => '한국어',
 	),
 	'menu' => array(
 		'about' => 'À propos',
