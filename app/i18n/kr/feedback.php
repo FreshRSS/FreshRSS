@@ -2,11 +2,11 @@
 
 return array(
 	'admin' => array(
-		'optimization_complete' => 'Optimization complete',
+		'optimization_complete' => '최적화과 완료되었습니다',
 	),
 	'access' => array(
-		'denied' => 'You don’t have permission to access this page',
-		'not_found' => 'You are looking for a page which doesn’t exist',
+		'denied' => '이 페이지에 접근할 수 있는 권한이 없습니다',
+		'not_found' => '이 페이지는 존재하지 않습니다',
 	),
 	'auth' => array(
 		'form' => array(
@@ -14,18 +14,18 @@ return array(
 			'set' => 'Form is now your default authentication system.',
 		),
 		'login' => array(
-			'invalid' => 'Login is invalid',
-			'success' => 'You are connected',
+			'invalid' => '유효하지 않은 로그인입니다',
+			'success' => '접속되었습니다',
 		),
 		'logout' => array(
-			'success' => 'You are disconnected',
+			'success' => '접속이 해제되었습니다',
 		),
-		'no_password_set' => 'Administrator password hasn’t been set. This feature isn’t available.',
+		'no_password_set' => '관리자 암호가 설정되지 않았습니다. 이 기능은 사용할 수 없습니다.',
 	),
 	'conf' => array(
-		'error' => 'An error occurred during configuration saving',
-		'query_created' => 'Query "%s" has been created.',
-		'shortcuts_updated' => 'Shortcuts have been updated',
+		'error' => '설정을 저장하는 동안 문제가 발생했습니다',
+		'query_created' => '쿼리 "%s" 가 생성되었습니다.',
+		'shortcuts_updated' => '단축키가 갱신되었습니다',
 		'updated' => '설정이 저장되었습니다',
 	),
 	'extensions' => array(
@@ -43,12 +43,12 @@ return array(
 		'not_found' => '%s does not exist',
 	),
 	'import_export' => array(
-		'export_no_zip_extension' => 'ZIP extension is not present on your server. Please try to export files one by one.',
-		'feeds_imported' => 'Your feeds have been imported and will now be updated',
-		'feeds_imported_with_errors' => 'Your feeds have been imported, but some errors occurred',
-		'file_cannot_be_uploaded' => 'File cannot be uploaded!',
-		'no_zip_extension' => 'ZIP extension is not present on your server.',
-		'zip_error' => 'An error occured during ZIP import.',
+		'export_no_zip_extension' => 'ZIP 확장 기능을 서버에서 찾을 수 없습니다. 파일을 하나씩 내보내세요.',
+		'feeds_imported' => '피드를 성공적으로 불러왔습니다',
+		'feeds_imported_with_errors' => '피드를 불러왔지만, 문제가 발생했습니다',
+		'file_cannot_be_uploaded' => '파일을 업로드할 수 없습니다!',
+		'no_zip_extension' => 'ZIP 확장 기능을 서버에서 찾을 수 없습니다.',
+		'zip_error' => 'ZIP 파일을 불러오는 동안 문제가 발생했습니다.',
 	),
 	'sub' => array(
 		'actualize' => 'Updating',
@@ -68,7 +68,7 @@ return array(
 		'feed' => array(
 			'actualized' => '<em>%s</em> has been updated',
 			'actualizeds' => 'RSS feeds have been updated',
-			'added' => 'RSS feed <em>%s</em> has been added',
+			'added' => 'RSS 피드 <em>%s</em> 가 추가되었습니다',
 			'already_subscribed' => 'You have already subscribed to <em>%s</em>',
 			'deleted' => 'Feed has been deleted',
 			'error' => 'Feed cannot be updated',
@@ -94,8 +94,8 @@ return array(
 	),
 	'user' => array(
 		'created' => array(
-			'_' => 'User %s has been created',
-			'error' => 'User %s cannot be created',
+			'_' => '사용자 %s 가 생성되었습니다',
+			'error' => '사용자 %s 를 생성할 수 없습니다',
 		),
 		'deleted' => array(
 			'_' => 'User %s has been deleted',
