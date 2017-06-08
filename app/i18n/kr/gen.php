@@ -2,7 +2,7 @@
 
 return array(
 	'action' => array(
-		'actualize' => 'Actualize',
+		'actualize' => '새 글 가져오기',
 		'back_to_rss_feeds' => '← RSS 피드로 돌아가기',
 		'cancel' => '취소',
 		'create' => '생성',
@@ -16,9 +16,9 @@ return array(
 		'mark_read' => '읽음으로 표시',
 		'mark_favorite' => 'Mark as favourite',
 		'remove' => '삭제',
-		'see_website' => 'See website',
+		'see_website' => '웹사이트 열기',
 		'submit' => '설정 저장',
-		'truncate' => 'Delete all articles',
+		'truncate' => '모든 글 삭제',
 	),
 	'auth' => array(
 		'email' => 'Email address',
@@ -148,10 +148,10 @@ return array(
 	'pagination' => array(
 		'first' => 'First',
 		'last' => 'Last',
-		'load_more' => 'Load more articles',
-		'mark_all_read' => 'Mark all as read',
+		'load_more' => '글 더 불러오기',
+		'mark_all_read' => '모두 읽음으로 표시',
 		'next' => 'Next',
-		'nothing_to_load' => 'There are no more articles',
+		'nothing_to_load' => '더 이상 글이 없습니다',
 		'previous' => 'Previous',
 	),
 	'share' => array(
