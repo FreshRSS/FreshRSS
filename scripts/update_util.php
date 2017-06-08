@@ -177,6 +177,12 @@ function deploy_package() {
 	      DATA_PATH . '/config.default.php');
 	@copy($base_pathname . '/data/users/_/config.default.php',
 	      DATA_PATH . '/users/_/config.default.php');
+	// These functions can fail because files have been moved in the 1.7.0
+	// version.
+	@copy($base_pathname . '/config.default.php',
+	      FRESHRSS_PATH . '/config.default.php');
+	@copy($base_pathname . '/config-user.default.php',
+	      FRESHRSS_PATH . '/config-user.default.php');
 
 	return true;
 }
