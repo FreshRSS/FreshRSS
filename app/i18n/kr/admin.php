@@ -18,7 +18,7 @@ return array(
 	'check_install' => array(
 		'cache' => array(
 			'nok' => '<em>./data/cache</em> 디렉토리의 권한을 확인하세요. HTTP 서버가 쓰기 권한을 가지고 있어야 합니다',
-			'ok' => '캐시 디렉토리의 권한이 올바르게 설정되었습니다.',
+			'ok' => 'cache 디렉토리의 권한이 올바르게 설정되었습니다.',
 		),
 		'categories' => array(
 			'nok' => 'category 테이블 설정이 잘못되었습니다.',
@@ -38,7 +38,7 @@ return array(
 		),
 		'data' => array(
 			'nok' => '<em>./data</em> 디렉토리의 권한을 확인하세요. HTTP 서버가 쓰기 권한을 가지고 있어야 합니다',
-			'ok' => '데이터 디렉토리의 권한이 올바르게 설정되었습니다.',
+			'ok' => 'data 디렉토리의 권한이 올바르게 설정되었습니다.',
 		),
 		'database' => '데이터베이스 설치 요구사항',
 		'dom' => array(
@@ -51,7 +51,7 @@ return array(
 		),
 		'favicons' => array(
 			'nok' => '<em>./data/favicons</em> 디렉토리의 권한을 확인하세요. HTTP 서버가 쓰기 권한을 가지고 있어야 합니다',
-			'ok' => 'favicon 디렉토리의 권한이 올바르게 설정되어 있습니다.',
+			'ok' => 'favicons 디렉토리의 권한이 올바르게 설정되어 있습니다.',
 		),
 		'feeds' => array(
 			'nok' => 'feed 테이블 설정이 잘못되었습니다.',
@@ -90,11 +90,11 @@ return array(
 		'title' => '설치 요구사항 확인',
 		'tokens' => array(
 			'nok' => '<em>./data/tokens</em> 디렉토리의 권한을 확인하세요. HTTP 서버가 쓰기 권한을 가지고 있어야 합니다',
-			'ok' => '토큰 디렉토리의 권한이 올바르게 설정되어 있습니다',
+			'ok' => 'tokens 디렉토리의 권한이 올바르게 설정되어 있습니다',
 		),
 		'users' => array(
 			'nok' => '<em>./data/users</em> 디렉토리의 권한을 확인하세요. HTTP 서버가 쓰기 권한을 가지고 있어야 합니다',
-			'ok' => '사용자 디렉토리의 권한이 올바르게 설정되어 있습니다.',
+			'ok' => 'users 디렉토리의 권한이 올바르게 설정되어 있습니다.',
 		),
 		'zip' => array(
 			'nok' => 'ZIP 확장 기능을 찾을 수 없습니다 (php-zip 패키지).',
