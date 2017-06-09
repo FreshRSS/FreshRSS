@@ -106,14 +106,14 @@ return array(
 		'confirm_reinstall' => 'You will lose your previous configuration by reinstalling FreshRSS. Are you sure you want to continue?',
 	),
 	'language' => array(
-		'_' => 'Language',
-		'choose' => 'Choose a language for FreshRSS',
-		'defined' => 'Language has been defined.',
+		'_' => '언어',
+		'choose' => 'FreshRSS에서 사용할 언어를 고르세요',
+		'defined' => '언어가 설정되었습니다.',
 	),
 	'not_deleted' => 'Something went wrong; you must delete the file <em>%s</em> manually.',
 	'ok' => 'The installation process was successful.',
 	'step' => 'step %d',
 	'steps' => 'Steps',
-	'title' => 'Installation · FreshRSS',
+	'title' => '설치 · FreshRSS',
 	'this_is_the_end' => 'This is the end',
 );

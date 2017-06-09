@@ -28,7 +28,7 @@ return array(
 		'keep_history' => '최소 유지 글 개수',
 		'moved_category_deleted' => '카테고리를 삭제하면, 해당 카테고리 아래에 있던 피드들은 자동적으로 <em>%s</em> 아래로 분류됩니다.',
 		'no_selected' => 'No feed selected.',
-		'number_entries' => '%d articles',
+		'number_entries' => '%d 개의 글',
 		'stats' => '통계',
 		'think_to_add' => 'You may add some feeds.',
 		'title' => '제목',
