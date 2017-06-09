@@ -9,7 +9,7 @@ return array(
 		'http' => 'HTTP (HTTPS를 사용하는 고급 사용자용)',
 		'none' => '사용하지 않음 (위험)',
 		'title' => '인증',
-		'title_reset' => 'Authentication reset',
+		'title_reset' => '인증 초기화',
 		'token' => '인증 토큰',
 		'token_help' => '기본 사용자의 RSS에 인증 없이 접근할 수 있도록 합니다:',
 		'type' => '인증',
@@ -33,7 +33,7 @@ return array(
 			'ok' => '문자열 타입 검사에 필요한 라이브러리가 설치되어 있습니다 (ctype).',
 		),
 		'curl' => array(
-			'nok' => 'cURL 라이브러리를 찾을 수 없습니다 (php-curl package).',
+			'nok' => 'cURL 라이브러리를 찾을 수 없습니다 (php-curl 패키지).',
 			'ok' => 'cURL 라이브러리가 설치되어 있습니다.',
 		),
 		'data' => array(
@@ -42,12 +42,12 @@ return array(
 		),
 		'database' => '데이터베이스 설치 요구사항',
 		'dom' => array(
-			'nok' => 'DOM을 다룰 수 있는 라이브러리를 찾을 수 없습니다 (php-xml package).',
+			'nok' => 'DOM을 다룰 수 있는 라이브러리를 찾을 수 없습니다 (php-xml 패키지).',
 			'ok' => 'DOM을 다룰 수 있는 라이브러리가 설치되어 있습니다.',
 		),
 		'entries' => array(
 			'nok' => 'entry 테이블 설정이 잘못되었습니다.',
-			'ok' => 'entry 테이블이 올바르게 설정되었습니다Entry table is ok.',
+			'ok' => 'entry 테이블이 올바르게 설정되었습니다.',
 		),
 		'favicons' => array(
 			'nok' => '<em>./data/favicons</em> 디렉토리의 권한을 확인하세요. HTTP 서버가 쓰기 권한을 가지고 있어야 합니다',
@@ -58,12 +58,12 @@ return array(
 			'ok' => 'feed 테이블이 올바르게 설정되었습니다',
 		),
 		'fileinfo' => array(
-			'nok' => 'fileinfo 라이브러리를 찾을 수 없습니다 (fileinfo package).',
+			'nok' => 'fileinfo 라이브러리를 찾을 수 없습니다 (fileinfo 패키지).',
 			'ok' => 'fileinfo 라이브러리가 설치되어 있습니다.',
 		),
 		'files' => '파일 시스템 설치 요구사항',
 		'json' => array(
-			'nok' => 'JSON 확장 기능을 찾을 수 없습니다 (php5-json package).',
+			'nok' => 'JSON 확장 기능을 찾을 수 없습니다 (php5-json 패키지).',
 			'ok' => 'JSON  확장 기능이 설치되어 있습니다.',
 		),
 		'minz' => array(
@@ -81,7 +81,7 @@ return array(
 		'php' => array(
 			'_' => 'PHP 설치 요구사항',
 			'nok' => 'PHP 버전은 %s 이지만, FreshRSS에는 최소 %s의 버전이 필요합니다.',
-			'ok' => 'PHP 버전은 %s 이고, FreshRSS와 호환가능 합니다..',
+			'ok' => 'PHP 버전은 %s 이고, FreshRSS와 호환가능 합니다.',
 		),
 		'tables' => array(
 			'nok' => '하나 이상의 테이블을 데이터베이스에서 찾을 수 없습니다.',
@@ -97,7 +97,7 @@ return array(
 			'ok' => '사용자 디렉토리의 권한이 올바르게 설정되어 있습니다.',
 		),
 		'zip' => array(
-			'nok' => 'ZIP 확장 기능을 찾을 수 없습니다 (php-zip package).',
+			'nok' => 'ZIP 확장 기능을 찾을 수 없습니다 (php-zip 패키지).',
 			'ok' => 'ZIP 확장 기능이 설치되어 있습니다.',
 		),
 	),
