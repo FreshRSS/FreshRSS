@@ -2,8 +2,8 @@
 
 return array(
 	'bookmarklet' => array(
-		'documentation' => 'Glisser ce bouton dans la barre des favoris ou cliquer droit dessus et choisir "Enregistrer ce lien". Ensuite, cliquer sur le bouton "S\'abonner" sur les pages auxquelles vous voulez vous abonner.',
-		'label' => 'S\'abonner',
+		'documentation' => 'Glisser ce bouton dans la barre des favoris ou cliquer droit dessus et choisir "Enregistrer ce lien". Ensuite, cliquer sur le bouton "S’abonner" sur les pages auxquelles vous voulez vous abonner.',
+		'label' => 'S’abonner',
 		'title' => 'Bookmarklet',
 	),
 	'category' => array(
@@ -45,7 +45,7 @@ return array(
 		'pubsubhubbub' => 'Notification instantanée par PubSubHubbub',
 	),
 	'firefox' => array(
-		'documentation' => 'Suivre les étapes décritent <a href="https://developer.mozilla.org/en-US/Firefox/Releases/2/Adding_feed_readers_to_Firefox#Adding_a_new_feed_reader_manually">ici</a> pour ajouter FreshRSS à la liste des lecteurs de flux dans Firefox.',
+		'documentation' => 'Suivre les étapes décrites <a href="https://developer.mozilla.org/en-US/Firefox/Releases/2/Adding_feed_readers_to_Firefox#Adding_a_new_feed_reader_manually">ici</a> pour ajouter FreshRSS à la liste des lecteurs de flux dans Firefox.',
 		'title' => 'Lecteur de flux dans Firefox',
 	),
 	'import_export' => array(
@@ -63,11 +63,11 @@ return array(
 		'bookmark' => 'S’abonner (bookmark FreshRSS)',
 		'import_export' => 'Importer / exporter',
 		'subscription_management' => 'Gestion des abonnements',
-		'subscription_tools' => 'Outils d\'abonnement',
+		'subscription_tools' => 'Outils d’abonnement',
 	),
 	'title' => array(
 		'_' => 'Gestion des abonnements',
 		'feed_management' => 'Gestion des flux RSS',
-		'subscription_tools' => 'Outils d\'abonnement',
+		'subscription_tools' => 'Outils d’abonnement',
 	),
 );
