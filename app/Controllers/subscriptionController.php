@@ -113,4 +113,11 @@ class FreshRSS_subscription_Controller extends Minz_ActionController {
 			}
 		}
 	}
+
+	/**
+	 * This action displays the bookmarklet page.
+	 */
+	public function bookmarkletAction() {
+		Minz_View::prependTitle(_t('sub.title.subscription_tools') . ' . ');
+	}
 }
