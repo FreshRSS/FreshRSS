@@ -118,10 +118,11 @@ return array(
 		'en' => 'English1',
 		'fr' => 'Français',
 		'it' => 'Italiano1',
+		'kr' => '한국어',
 		'nl' => 'Nederlands',
 		'ru' => 'Русский',
 		'tr' => 'Türkçe',
-		'zh-cn' => '简体中文'
+		'zh-cn' => '简体中文',
 	),
 	'menu' => array(
 		'about' => '关于',

@@ -118,6 +118,7 @@ return array(
 		'en' => 'English',
 		'fr' => 'Français',
 		'it' => 'Italiano',
+		'kr' => '한국어',
 		'nl' => 'Nederlands',
 		'ru' => 'Русский',
 		'tr' => 'Türkçe',
