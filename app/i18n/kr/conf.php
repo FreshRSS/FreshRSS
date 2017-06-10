@@ -91,6 +91,7 @@ return array(
 		'confirm_enabled' => '“모두 읽음으로 표시” 실행시 확인 창 표시',
 		'display_articles_unfolded' => '글을 펼쳐진 상태로 보여주기',
 		'display_categories_unfolded' => '카테고리를 접힌 상태로 보여주기',
+		'full_title' => '펼쳐진 글의 제목을 모두 표시 <small>(제목이 두껍게 표시될 수 있습니다)</small>',
 		'hide_read_feeds' => '읽지 않은 글이 없는 카테고리와 피드 감추기 (“모든 글 표시”가 설정된 경우 동작하지 않습니다)',
 		'img_with_lazyload' => '그림을 불러오는 데에 "lazy load" 모드 사용하기',
 		'sides_close_article' => '글 영역 바깥을 클릭하면 글 접기',
