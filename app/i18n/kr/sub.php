@@ -1,6 +1,11 @@
 <?php
 
 return array(
+	'bookmarklet' => array(
+		'documentation' => '이 버튼을 즐겨찾기 막대로 끌어다 놓거나 마우스 오른쪽 클릭으로 나타나는 메뉴에서 "이 링크를 즐겨찾기에 추가"를 선택하세요. 그리고 피드를 구독하길 원하는 페이지에서 "구독하기" 버튼을 클릭하세요.',
+		'label' => '구독하기',
+		'title' => '북마클릿',
+	),
 	'category' => array(
 		'_' => '카테고리',
 		'add' => '카테고리 추가',
@@ -39,6 +44,10 @@ return array(
 		'website' => '웹사이트 URL',
 		'pubsubhubbub' => 'PubSubHubbub을 사용한 즉시 알림',
 	),
+	'firefox' => array(
+		'documentation' => 'FreshRSS를 Firefox 피드 리더에 추가하기 위해서는 <a href="https://developer.mozilla.org/en-US/Firefox/Releases/2/Adding_feed_readers_to_Firefox#Adding_a_new_feed_reader_manually">여기</a>의 설명을 따르세요.',
+		'title' => 'Firefox 피드 리더',
+	),
 	'import_export' => array(
 		'export' => '내보내기',
 		'export_opml' => '피드 목록 내보내기 (OPML)',
@@ -54,9 +63,11 @@ return array(
 		'bookmark' => '구독하기 (FreshRSS 북마클릿)',
 		'import_export' => '불러오기 / 내보내기',
 		'subscription_management' => '구독 관리',
+		'subscription_tools' => '구독 도구',
 	),
 	'title' => array(
 		'_' => '구독 관리',
 		'feed_management' => 'RSS 피드 관리',
+		'subscription_tools' => '구독 도구',
 	),
 );
