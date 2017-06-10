@@ -88,6 +88,16 @@
 
 		<div class="form-group">
 			<div class="group-controls">
+				<label class="checkbox" for="full_title">
+					<input type="checkbox" name="full_title" id="full_title" value="1"<?php echo FreshRSS_Context::$user_conf->full_title ? ' checked="checked"' : ''; ?> data-leave-validation="<?php echo FreshRSS_Context::$user_conf->full_title; ?>"/>
+					<?php echo _t('conf.reading.full_title'); ?>
+					<!--<noscript> — <strong><?php echo _t('gen.js.should_be_activated'); ?></strong></noscript>-->
+				</label>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<div class="group-controls">
 				<label class="checkbox" for="auto_load_more">
 					<input type="checkbox" name="auto_load_more" id="auto_load_more" value="1"<?php echo FreshRSS_Context::$user_conf->auto_load_more ? ' checked="checked"' : ''; ?> data-leave-validation="<?php echo FreshRSS_Context::$user_conf->auto_load_more; ?>"/>
 					<?php echo _t('conf.reading.auto_load_more'); ?>

@@ -512,6 +512,10 @@ a.btn {
 	text-overflow: ellipsis;
 	overflow: hidden;
 }
+.flux.active .item.title.full > a {
+	white-space: normal;
+	overflow: visible;
+}
 .flux .item.share > a,
 .item.query > a {
 	display: list-item;

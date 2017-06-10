@@ -111,6 +111,7 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 			FreshRSS_Context::$user_conf->lazyload = Minz_Request::param('lazyload', false);
 			FreshRSS_Context::$user_conf->sides_close_article = Minz_Request::param('sides_close_article', false);
 			FreshRSS_Context::$user_conf->sticky_post = Minz_Request::param('sticky_post', false);
+			FreshRSS_Context::$user_conf->full_title = Minz_Request::param('full_title', false);
 			FreshRSS_Context::$user_conf->reading_confirm = Minz_Request::param('reading_confirm', false);
 			FreshRSS_Context::$user_conf->auto_remove_article = Minz_Request::param('auto_remove_article', false);
 			FreshRSS_Context::$user_conf->mark_updated_article_unread = Minz_Request::param('mark_updated_article_unread', false);

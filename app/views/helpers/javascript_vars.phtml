@@ -15,6 +15,7 @@ echo htmlspecialchars(json_encode(array(
 		'does_lazyload' => !!FreshRSS_Context::$user_conf->lazyload ,
 		'sides_close_article' => !!FreshRSS_Context::$user_conf->sides_close_article,
 		'sticky_post' => !!FreshRSS_Context::isStickyPostEnabled(),
+		'full_title' => !!FreshRSS_Context::isFullTitleEnabled(),
 		'html5_notif_timeout' => FreshRSS_Context::$user_conf->html5_notif_timeout,
 		'auth_type' => FreshRSS_Context::$system_conf->auth_type,
 		'current_view' => Minz_Request::actionName(),

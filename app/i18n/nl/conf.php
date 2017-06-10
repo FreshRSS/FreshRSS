@@ -90,6 +90,7 @@ return array(
 		'confirm_enabled' => 'Toon een bevestigings dialoog op “markeer alles als gelezen” acties',
 		'display_articles_unfolded' => 'Toon artikelen uitgeklapt als standaard',
 		'display_categories_unfolded' => 'Toon categoriën ingeklapt als standaard',
+		'full_title' => 'Show the full title of the article when opened <small>(Title bar might be thicker)</small>',
 		'hide_read_feeds' => 'Verberg categoriën en feeds zonder ongelezen artikelen (werkt niet met “Toon alle artikelen” configuratie)',
 		'img_with_lazyload' => 'Gebruik "lazy load" methode om afbeeldingen te laden',
 		'sides_close_article' => 'Sluit het artikel door buiten de artikeltekst te klikken',

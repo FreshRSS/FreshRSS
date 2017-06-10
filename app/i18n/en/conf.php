@@ -91,6 +91,7 @@ return array(
 		'confirm_enabled' => 'Display a confirmation dialog on “mark all as read” actions',
 		'display_articles_unfolded' => 'Show articles unfolded by default',
 		'display_categories_unfolded' => 'Show categories folded by default',
+		'full_title' => 'Show the full title of the article when opened <small>(Title bar might look thicker)</small>',
 		'hide_read_feeds' => 'Hide categories & feeds with no unread articles (does not work with “Show all articles” configuration)',
 		'img_with_lazyload' => 'Use "lazy load" mode to load pictures',
 		'sides_close_article' => 'Clicking outside of article text area closes the article',

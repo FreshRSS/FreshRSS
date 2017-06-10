@@ -223,6 +223,10 @@ class FreshRSS_ConfigurationSetter {
 		$data['sticky_post'] = $this->handleBool($value);
 	}
 
+	private function _full_title(&$data, $value) {
+		$data['full_title'] = $this->handleBool($value);
+	}
+
 	private function _bottomline_date(&$data, $value) {
 		$data['bottomline_date'] = $this->handleBool($value);
 	}

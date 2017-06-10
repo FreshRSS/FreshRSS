@@ -323,4 +323,14 @@ class FreshRSS_Context {
 		return false;
 	}
 
+	/**
+	 * Determine if the 'full title of active article" option is enabled.
+	 */
+	public static function isFullTitleEnabled() {
+		if (self::$user_conf->full_title) {
+			return true;
+		}
+		return false;
+	}
+
 }

@@ -91,6 +91,7 @@ return array(
 		'confirm_enabled' => 'Bei der Aktion „Alle als gelesen markieren“ einen Bestätigungsdialog anzeigen',
 		'display_articles_unfolded' => 'Artikel standardmäßig ausgeklappt zeigen',
 		'display_categories_unfolded' => 'Kategorien standardmäßig eingeklappt zeigen',
+		'full_title' => 'Show the full title of the article when opened <small>(Title bar might look thicker)</small>',
 		'hide_read_feeds' => 'Kategorien & Feeds ohne ungelesene Artikel verstecken (funktioniert nicht mit der Einstellung „Alle Artikel zeigen“)',
 		'img_with_lazyload' => 'Verwende die "träges Laden"-Methode zum Laden von Bildern',
 		'sides_close_article' => 'Clicking outside of article text area closes the article',	//TODO

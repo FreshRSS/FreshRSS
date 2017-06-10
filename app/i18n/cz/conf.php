@@ -91,6 +91,7 @@ return array(
 		'confirm_enabled' => 'Vyžadovat potvrzení pro akci “označit vše jako přečtené”',
 		'display_articles_unfolded' => 'Ve výchozím stavu zobrazovat články otevřené',
 		'display_categories_unfolded' => 'Ve výchozím stavu zobrazovat kategorie zavřené',
+		'full_title' => 'Show the full title of the article when opened <small>(Title bar might look thicker)</small>',
 		'hide_read_feeds' => 'Schovat kategorie a kanály s nulovým počtem nepřečtených článků (nefunguje s nastavením “Zobrazit všechny články”)',
 		'img_with_lazyload' => 'Použít "lazy load" mód pro načítaní obrázků',
 		'sides_close_article' => 'Clicking outside of article text area closes the article',	//TODO
