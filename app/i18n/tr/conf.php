@@ -91,7 +91,7 @@ return array(
 		'confirm_enabled' => '"Hepsini okundu say" eylemi için onay iste',
 		'display_articles_unfolded' => 'Show articles unfolded by default',
 		'display_categories_unfolded' => 'Show categories folded by default',
-		'full_title' => 'Show the full title of the article when opened <small>(Title bar might be thicker)</small>',
+		'full_title' => 'Show the full title of the article when opened <small>(Title bar might be thicker)</small>',// TODO
 		'hide_read_feeds' => 'Okunmamış makalesi olmayan kategori veya akışı gizle ("Tüm makaleleri göster" komutunda çalışmaz)',
 		'img_with_lazyload' => 'Resimleri yüklemek için "tembel modu" kullan',
 		'sides_close_article' => 'Clicking outside of article text area closes the article',	//TODO

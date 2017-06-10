@@ -91,7 +91,7 @@ return array(
 		'confirm_enabled' => 'Afficher une confirmation lors des actions “marquer tout comme lu”',
 		'display_articles_unfolded' => 'Afficher les articles dépliés par défaut',
 		'display_categories_unfolded' => 'Afficher les catégories pliées par défaut',
-		'full_title' => 'Show the full title of the article when opened <small>(Title bar might be thicker)</small>',
+		'full_title' => 'Show the full title of the article when opened <small>(Title bar might be thicker)</small>',// TODO
 		'hide_read_feeds' => 'Cacher les catégories & flux sans article non-lu (ne fonctionne pas avec la configuration “Afficher tous les articles”)',
 		'img_with_lazyload' => 'Utiliser le mode “chargement différé” pour les images',
 		'sides_close_article' => 'Cliquer hors de la zone de texte ferme l’article',

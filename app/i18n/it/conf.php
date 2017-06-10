@@ -91,7 +91,7 @@ return array(
 		'confirm_enabled' => 'Mostra una conferma per “segna tutto come letto”',
 		'display_articles_unfolded' => 'Mostra articoli aperti di predefinito',
 		'display_categories_unfolded' => 'Mostra categorie aperte di predefinito',
-		'full_title' => 'Show the full title of the article when opened <small>(Title bar might be thicker)</small>',
+		'full_title' => 'Show the full title of the article when opened <small>(Title bar might be thicker)</small>',// TODO
 		'hide_read_feeds' => 'Nascondi categorie e feeds con articoli già letti (non funziona se “Mostra tutti gli articoli” è selezionato)',
 		'img_with_lazyload' => 'Usa la modalità "caricamento ritardato" per le immagini',
 		'sides_close_article' => 'Clicking outside of article text area closes the article',	//TODO

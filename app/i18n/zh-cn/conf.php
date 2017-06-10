@@ -91,7 +91,7 @@ return array(
 		'confirm_enabled' => '“全部设为已读”时显示确认对话框',
 		'display_articles_unfolded' => '默认展开文章',
 		'display_categories_unfolded' => '默认展开分类',
-		'full_title' => 'Show the full title of the article when opened <small>(Title bar might be thicker)</small>',
+		'full_title' => 'Show the full title of the article when opened <small>(Title bar might be thicker)</small>',// TODO
 		'hide_read_feeds' => '隐藏没有未读文章的分类或 RSS 源 (启用“显示所有文章”时不生效))',
 		'img_with_lazyload' => '使用 "lazy load" 模式加载图片',
 		'sides_close_article' => '点击文章外区域以关闭文章',
