@@ -541,7 +541,16 @@ function init_column_categories() {
 				feed_web = $(this).data('fweb'),
 				template = $('#feed_config_template').html().replace(/------/g, feed_id).replace('http://example.net/', feed_web);
 			$(this).attr('href', '#dropdown-' + feed_id).prev('.dropdown-target').attr('id', 'dropdown-' + feed_id).parent().append(template);
+			$('.tree-folder-items .dropdown-close a').click(function(){
+				$('.tree').removeClass('treepadding');
+				$(document.body).trigger("sticky_kit:recalc");
+			});
 		}
+	});
+
+	$('.tree-folder-items .dropdown-toggle').click(function(){
+		$('.tree').addClass('treepadding');
+		$(document.body).trigger("sticky_kit:recalc");
 	});
 
 	init_sticky_column();
