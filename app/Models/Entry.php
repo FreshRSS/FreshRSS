@@ -43,8 +43,63 @@ class FreshRSS_Entry extends Minz_Model {
 	public function title() {
 		return $this->title;
 	}
+	private function _classify_tag($string, $regex, $label) {
+		preg_match_all($regex, $string, $regex_result, PREG_OFFSET_CAPTURE);
+		$tags = $regex_result['tag'];
+		$keywords = $regex_result['keyword'];
+		foreach ($tags as $key => $value) {
+			$tags[$key][2] = $keywords[$key][0];
+			$tags[$key][3] = $label;
+		}
+		return $tags;
+	}
+	private function _sort_by_pos($a, $b) {
+		if ($a[1] == $b[1]) {
+			return 0;
+		}
+		return ($a[1] < $b[1]) ? -1 : 1;
+	}
+	private function _validate_html($string) {
+		/*
+		 * NOTE: named group requries PHP >= 5.2.2
+		 * libxml and other things are not used
+		 * because they misbehave (IN THIS CASE)
+		 * TODO: looks ugly and inefficient
+		 */
+		$tags_open = $this->_classify_tag($string, '/(?<tag>\<(?<keyword>\w)+.*?\>)/', 'open');
+		$tags_close = $this->_classify_tag($string, '/(?<tag>\<\/(?<keyword>\w)+.*?\>)/', 'close');
+		$tags_self = $this->_classify_tag($string, '/(?<tag>\<(?<keyword>\w)+.*?\/\>)/', 'selfclosing');
+		$tags = array_merge($tags_open, $tags_close, $tags_self);
+		usort($tags, '_sort_by_pos');
+		$stack = array();
+		foreach ($tags as $key => $value) {
+			if ($value[3] == 'open') {
+				array_push($stack, $value[2]);
+				$string = str_replace($value[0], '', $string);
+				continue;
+			}
+			if ($value[3] == 'close') {
+				if (end($stack) == $value[2]) {
+					array_pop($stack);
+					$string = str_replace($value[0], '', $string);
+					continue;
+				}
+			}
+			if ($value[3] == 'selfclosing') {
+				$string = str_replace($value[0], '', $string);
+				continue;
+			}
+		}
+		return empty($stack) && !strpos($string, '<') && !strpos($string, '>');
+	}
 	public function author() {
-		return $this->author === null ? '' : $this->author;
+		$author = $this->author === null ? '' : $this->author;
+		/*
+		 * NOTE: Validate HTML
+		 * because author field is limited to 255 bytes
+		 */
+		$author = $this->_validate_html($author) ? $author : '(Parse error)';
+		return $author;
 	}
 	public function content() {
 		return $this->content;
