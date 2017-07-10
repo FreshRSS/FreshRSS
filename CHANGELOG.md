@@ -2,8 +2,16 @@
 
 ## 2017-XX-XX FreshRSS 1.7.1-dev
 
+* UI
+	* New page for subscription tools [#1534](https://github.com/FreshRSS/FreshRSS/issues/1354)
+* I18n
+	* Korean [#1578](https://github.com/FreshRSS/FreshRSS/pull/1578)
+* Bug fixing
+	* PHP 7.1 compatibility for the API [#1584](https://github.com/FreshRSS/FreshRSS/issues/1584)
+
 
 ## 2017-06-03 FreshRSS 1.7.0
+
 * Features:
 	* Deferred insertion of new articles, for better chronological order [#530](https://github.com/FreshRSS/FreshRSS/issues/530)
 	* Better search:
