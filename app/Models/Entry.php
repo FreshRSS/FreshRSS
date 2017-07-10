@@ -44,6 +44,13 @@ class FreshRSS_Entry extends Minz_Model {
 		return $this->title;
 	}
 	private function _classify_tag($string, $regex, $label) {
+		/*
+		 * NOTE: $tags array structure
+		 * $tags[i] = {[0] = <full tag>,
+		 *             [1] = position,
+		 *             [2] = <tag keyword>,
+		 *             [3] = <label>}
+		 */
 		preg_match_all($regex, $string, $regex_result, PREG_OFFSET_CAPTURE);
 		$tags = $regex_result['tag'];
 		$keywords = $regex_result['keyword'];
@@ -54,6 +61,9 @@ class FreshRSS_Entry extends Minz_Model {
 		return $tags;
 	}
 	private function _sort_by_pos($a, $b) {
+		/*
+		 * Sort $tags by its position
+		 */
 		if ($a[1] == $b[1]) {
 			return 0;
 		}
@@ -63,7 +73,7 @@ class FreshRSS_Entry extends Minz_Model {
 		/*
 		 * NOTE: named group requries PHP >= 5.2.2
 		 * libxml and other things are not used
-		 * because they misbehave (IN THIS CASE)
+		 * because they misbehave (IN THIS SPECIFIC CASE)
 		 * TODO: looks ugly and inefficient
 		 */
 		$tags_open = $this->_classify_tag($string, '/(?<tag>\<(?<keyword>\w)+.*?\>)/', 'open');
