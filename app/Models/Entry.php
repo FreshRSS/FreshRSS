@@ -80,7 +80,7 @@ class FreshRSS_Entry extends Minz_Model {
 		$tags_close = $this->_classify_tag($string, '/(?<tag>\<\/(?<keyword>\w)+.*?\>)/', 'close');
 		$tags_self = $this->_classify_tag($string, '/(?<tag>\<(?<keyword>\w)+.*?\/\>)/', 'selfclosing');
 		$tags = array_merge($tags_open, $tags_close, $tags_self);
-		usort($tags, '_sort_by_pos');
+		usort($tags, array('FreshRss_Entry', '_sort_by_pos'));
 		$stack = array();
 		foreach ($tags as $key => $value) {
 			if ($value[3] == 'open') {
@@ -107,8 +107,11 @@ class FreshRSS_Entry extends Minz_Model {
 		/*
 		 * NOTE: Validate HTML
 		 * because author field is limited to 255 bytes
+		 * TODO: is it safe to hard-code 255?
 		 */
-		$author = $this->_validate_html($author) ? $author : '(Parse error)';
+		if (strlen($author) >= 255) {
+			$author = $this->_validate_html($author) ? $author : '(Parse error)';
+		}
 		return $author;
 	}
 	public function content() {
