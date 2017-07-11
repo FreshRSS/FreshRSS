@@ -183,4 +183,7 @@ return array(
 		'or' => '或',
 		'yes' => '是',
 	),
+	'error' => array(
+		'author' => 'Cannot parse author information properly.', // TODO
+	),
 );

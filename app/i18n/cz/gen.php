@@ -181,4 +181,7 @@ return array(
 		'or' => 'nebo',
 		'yes' => 'Ano',
 	),
+	'error' => array(
+		'author' => 'Cannot parse author information properly.', // TODO
+	),
 );

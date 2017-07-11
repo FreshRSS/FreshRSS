@@ -110,7 +110,7 @@ class FreshRSS_Entry extends Minz_Model {
 		 * TODO: is it safe to hard-code 255?
 		 */
 		if (strlen($author) >= 255) {
-			$author = $this->_validate_html($author) ? $author : '(Parse error)';
+			$author = $this->_validate_html($author) ? $author : _t('gen.error.author');
 		}
 		return $author;
 	}
