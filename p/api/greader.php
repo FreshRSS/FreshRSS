@@ -86,7 +86,7 @@ function debugInfo() {
 	if (function_exists('getallheaders')) {
 		$ALL_HEADERS = getallheaders();
 	} else {	//nginx	http://php.net/getallheaders#84262
-		$ALL_HEADERS = '';
+		$ALL_HEADERS = array();
 		foreach ($_SERVER as $name => $value) {
 			if (substr($name, 0, 5) === 'HTTP_') {
 				$ALL_HEADERS[str_replace(' ', '-', ucwords(strtolower(str_replace('_', ' ', substr($name, 5)))))] = $value;
