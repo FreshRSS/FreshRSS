@@ -46,6 +46,8 @@ cd /usr/share/FreshRSS
 ./cli/create-user.php --user username ( --password 'password' --api-password 'api_password' --language en --email user@example.net --token 'longRandomString' --no-default-feeds )
 # --language can be: 'en' (default), 'fr', or one of the [supported languages](../app/i18n/)
 
+./cli/update-user.php --user username ( --password 'password' --api-password 'api_password' --language en --email user@example.net --token 'longRandomString' --purge_after_months 3 --feed_min_articles_default 50 --feed_ttl_default 3600 --since_hours_posts_per_rss 168 --min_posts_per_rss 2 --max_posts_per_rss 400 )
+
 ./cli/delete-user.php --user username
 
 ./cli/list-users.php

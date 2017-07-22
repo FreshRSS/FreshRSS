@@ -33,6 +33,7 @@ $ok = FreshRSS_user_Controller::createUser($username,
 	empty($options['api-password']) ? '' : $options['api-password'],
 	array(
 		'language' => empty($options['language']) ? '' : $options['language'],
+		'mail_login' => empty($options['email']) ? '' : $options['email'],
 		'token' => empty($options['token']) ? '' : $options['token'],
 	),
 	!isset($options['no-default-feeds']));
