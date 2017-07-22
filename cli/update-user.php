@@ -30,7 +30,7 @@ function intParam($name) {
 	return isset($options[$name]) && ctype_digit($options[$name]) ? intval($options[$name]) : null;
 }
 
-$ok = FreshRSS_user_Controller::updateContextUser($username,
+$ok = FreshRSS_user_Controller::updateContextUser(
 	empty($options['password']) ? '' : $options['password'],
 	empty($options['api-password']) ? '' : $options['api-password'],
 	array(
