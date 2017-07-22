@@ -19,7 +19,8 @@ $options = getopt('', array(
 
 if (empty($options['user'])) {
 	fail('Usage: ' . basename(__FILE__) . " --user username ( --password 'password' --api-password 'api_password'" .
-		" --language en --email user@example.net --token 'longRandomString' )");
+		" --language en --email user@example.net --token 'longRandomString' --purge_after_months 3 " .
+		" --feed_min_articles_default 50 --feed_ttl_default 3600 --since_hours_posts_per_rss 168 --min_posts_per_rss 2 --max_posts_per_rss 400 )");
 }
 
 $username = cliInitUser($options['user']);
@@ -50,5 +51,7 @@ if (!$ok) {
 }
 
 invalidateHttpCache($username);
+
+accessRights();
 
 done($ok);
