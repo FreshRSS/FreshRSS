@@ -10,6 +10,7 @@ People are sorted by name so please keep this order.
 * [Alexis Degrugillier](https://github.com/aledeg): [contributions](https://github.com/FreshRSS/FreshRSS/commits?author=aledeg)
 * [Alwaysin](https://github.com/Alwaysin): [contributions](https://github.com/FreshRSS/FreshRSS/commits?author=Alwaysin)
 * [Amaury Carrade](https://github.com/AmauryCarrade): [contributions](https://github.com/FreshRSS/FreshRSS/commits?author=AmauryCarrade), [Web](https://amaury.carrade.eu/)
+* [Anton Smirnov](https://github.com/sandfoxme): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:sandfoxme), [Web](http://sandfox.me/)
 * [ASMfreaK](https://github.com/ASMfreaK): [contributions](https://github.com/FreshRSS/FreshRSS/commits?author=ASMfreaK)
 * [Crupuk](https://github.com/Crupuk): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:Crupuk)
 * [Damstre](https://github.com/Damstre): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:Damstre)
