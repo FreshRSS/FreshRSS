@@ -93,6 +93,7 @@ return array(
 		'display_categories_unfolded' => 'Show categories folded by default',
 		'hide_read_feeds' => 'Hide categories & feeds with no unread article (does not work with “Show all articles” configuration)',
 		'img_with_lazyload' => 'Use "lazy load" mode to load pictures',
+		'sides_close_article' => 'Clicking outside of article text area closes the article',	//TODO
 		'jump_next' => 'jump to next unread sibling (feed or category)',
 		'number_divided_when_reader' => 'Divided by 2 in the reading view.',
 		'read' => array(

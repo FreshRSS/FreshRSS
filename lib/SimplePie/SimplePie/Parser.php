@@ -434,4 +434,231 @@ class SimplePie_Parser
 		}
 		return $cache[$string];
 	}
+
+	private function parse_hcard($data, $category = false) {
+		$name = '';
+		$link = '';
+		// Check if h-card is set and pass that information on in the link.
+		if (isset($data['type']) && in_array('h-card', $data['type'])) {
+			if (isset($data['properties']['name'][0])) {
+				$name = $data['properties']['name'][0];
+			}
+			if (isset($data['properties']['url'][0])) {
+				$link = $data['properties']['url'][0];
+				if ($name === '') {
+					$name = $link;
+				}
+				else {
+					// can't have commas in categories.
+					$name = str_replace(',', '', $name);
+				}
+				$person_tag = $category ? '<span class="person-tag"></span>' : '';
+				return '<a class="h-card" href="'.$link.'">'.$person_tag.$name.'</a>';
+			}
+		}
+		return isset($data['value']) ? $data['value'] : '';
+	}
+
+	private function parse_microformats(&$data, $url) {
+		$feed_title = '';
+		$feed_author = NULL;
+		$author_cache = array();
+		$items = array();
+		$entries = array();
+		$mf = Mf2\parse($data, $url);
+		// First look for an h-feed.
+		$h_feed = array();
+		foreach ($mf['items'] as $mf_item) {
+			if (in_array('h-feed', $mf_item['type'])) {
+				$h_feed = $mf_item;
+				break;
+			}
+			// Also look for an h-feed in the children of each top level item.
+			if (!isset($mf_item['children'][0]['type'])) continue;
+			if (in_array('h-feed', $mf_item['children'][0]['type'])) {
+				$h_feed = $mf_item['children'][0];
+				// In this case the parent of the h-feed may be an h-card, so use it as
+				// the feed_author.
+				if (in_array('h-card', $mf_item['type'])) $feed_author = $mf_item;
+				break;
+			}
+		}
+		if (isset($h_feed['children'])) {
+			$entries = $h_feed['children'];
+			// Also set the feed title and store author from the h-feed if available.
+			if (isset($mf['items'][0]['properties']['name'][0])) {
+				$feed_title = $mf['items'][0]['properties']['name'][0];
+			}
+			if (isset($mf['items'][0]['properties']['author'][0])) {
+				$feed_author = $mf['items'][0]['properties']['author'][0];
+			}
+		}
+		else {
+			$entries = $mf['items'];
+		}
+		for ($i = 0; $i < count($entries); $i++) {
+			$entry = $entries[$i];
+			if (in_array('h-entry', $entry['type'])) {
+				$item = array();
+				$title = '';
+				$description = '';
+				if (isset($entry['properties']['url'][0])) {
+					$link = $entry['properties']['url'][0];
+					if (isset($link['value'])) $link = $link['value'];
+					$item['link'] = array(array('data' => $link));
+				}
+				if (isset($entry['properties']['uid'][0])) {
+					$guid = $entry['properties']['uid'][0];
+					if (isset($guid['value'])) $guid = $guid['value'];
+					$item['guid'] = array(array('data' => $guid));
+				}
+				if (isset($entry['properties']['name'][0])) {
+					$title = $entry['properties']['name'][0];
+					if (isset($title['value'])) $title = $title['value'];
+					$item['title'] = array(array('data' => $title));
+				}
+				if (isset($entry['properties']['author'][0]) || isset($feed_author)) {
+					// author is a special case, it can be plain text or an h-card array.
+					// If it's plain text it can also be a url that should be followed to
+					// get the actual h-card.
+					$author = isset($entry['properties']['author'][0]) ?
+						$entry['properties']['author'][0] : $feed_author;
+					if (!is_string($author)) {
+						$author = $this->parse_hcard($author);
+					}
+					else if (strpos($author, 'http') === 0) {
+						if (isset($author_cache[$author])) {
+							$author = $author_cache[$author];
+						}
+						else {
+							$mf = Mf2\fetch($author);
+							foreach ($mf['items'] as $hcard) {
+								// Only interested in an h-card by itself in this case.
+								if (!in_array('h-card', $hcard['type'])) {
+									continue;
+								}
+								// It must have a url property matching what we fetched.
+								if (!isset($hcard['properties']['url']) ||
+										!(in_array($author, $hcard['properties']['url']))) {
+									continue;
+								}
+								// Save parse_hcard the trouble of finding the correct url.
+								$hcard['properties']['url'][0] = $author;
+								// Cache this h-card for the next h-entry to check.
+								$author_cache[$author] = $this->parse_hcard($hcard);
+								$author = $author_cache[$author];
+								break;
+							}
+						}
+					}
+					$item['author'] = array(array('data' => $author));
+				}
+				if (isset($entry['properties']['photo'][0])) {
+					// If a photo is also in content, don't need to add it again here.
+					$content = '';
+					if (isset($entry['properties']['content'][0]['html'])) {
+						$content = $entry['properties']['content'][0]['html'];
+					}
+					$photo_list = array();
+					for ($j = 0; $j < count($entry['properties']['photo']); $j++) {
+						$photo = $entry['properties']['photo'][$j];
+						if (strpos($content, $photo) === false) {
+							$photo_list[] = $photo;
+						}
+					}
+					// When there's more than one photo show the first and use a lightbox.
+					$count = count($photo_list);
+					if ($count > 1) {
+						$description = '<p>';
+						for ($j = 0; $j < $count; $j++) {
+							$hidden = $j === 0 ? '' : 'class="hidden" ';
+							$description .= '<a href="'.$photo_list[$j].'" '.$hidden.
+								'data-lightbox="image-set-'.$i.'">'.
+								'<img src="'.$photo_list[$j].'"></a>';
+						}
+						$description .= '<br><b>'.$count.' photos</b></p>';
+					}
+					else if ($count == 1) {
+						$description = '<p><img src="'.$photo_list[0].'"></p>';
+					}
+				}
+				if (isset($entry['properties']['content'][0]['html'])) {
+					// e-content['value'] is the same as p-name when they are on the same
+					// element. Use this to replace title with a strip_tags version so
+					// that alt text from images is not included in the title.
+					if ($entry['properties']['content'][0]['value'] === $title) {
+						$title = strip_tags($entry['properties']['content'][0]['html']);
+						$item['title'] = array(array('data' => $title));
+					}
+					$description .= $entry['properties']['content'][0]['html'];
+					if (isset($entry['properties']['in-reply-to'][0]['value'])) {
+						$in_reply_to = $entry['properties']['in-reply-to'][0]['value'];
+						$description .= '<p><span class="in-reply-to"></span> '.
+							'<a href="'.$in_reply_to.'">'.$in_reply_to.'</a><p>';
+					}
+					$item['description'] = array(array('data' => $description));
+				}
+				if (isset($entry['properties']['category'])) {
+					$category_csv = '';
+					// Categories can also contain h-cards.
+					foreach ($entry['properties']['category'] as $category) {
+						if ($category_csv !== '') $category_csv .= ', ';
+						if (is_string($category)) {
+							// Can't have commas in categories.
+							$category_csv .= str_replace(',', '', $category);
+						}
+						else {
+							$category_csv .= $this->parse_hcard($category, true);
+						}
+					}
+					$item['category'] = array(array('data' => $category_csv));
+				}
+				if (isset($entry['properties']['published'][0])) {
+					$timestamp = strtotime($entry['properties']['published'][0]);
+					$pub_date = date('F j Y g:ia', $timestamp).' GMT';
+					$item['pubDate'] = array(array('data' => $pub_date));
+				}
+				// The title and description are set to the empty string to represent
+				// a deleted item (which also makes it an invalid rss item).
+				if (isset($entry['properties']['deleted'][0])) {
+					$item['title'] = array(array('data' => ''));
+					$item['description'] = array(array('data' => ''));
+				}
+				$items[] = array('child' => array('' => $item));
+			}
+		}
+		// Mimic RSS data format when storing microformats.
+		$link = array(array('data' => $url));
+		$image = '';
+		if (!is_string($feed_author) &&
+				isset($feed_author['properties']['photo'][0])) {
+			$image = array(array('child' => array('' => array('url' =>
+				array(array('data' => $feed_author['properties']['photo'][0]))))));
+		}
+		// Use the a name given for the h-feed, or get the title from the html.
+		if ($feed_title !== '') {
+			$feed_title = array(array('data' => htmlspecialchars($feed_title)));
+		}
+		else if ($position = strpos($data, '<title>')) {
+			$start = $position < 200 ? 0 : $position - 200;
+			$check = substr($data, $start, 400);
+			$matches = array();
+			if (preg_match('/<title>(.+)<\/title>/', $check, $matches)) {
+				$feed_title = array(array('data' => htmlspecialchars($matches[1])));
+			}
+		}
+		$channel = array('channel' => array(array('child' => array('' =>
+			array('link' => $link, 'image' => $image, 'title' => $feed_title,
+			      'item' => $items)))));
+		$rss = array(array('attribs' => array('' => array('version' => '2.0')),
+		                   'child' => array('' => $channel)));
+		$this->data = array('child' => array('' => array('rss' => $rss)));
+		return true;
+	}
+
+	private function declare_html_entities() {
+		// This is required because the RSS specification says that entity-encoded
+		// html is allowed, but the xml specification says they must be declared.
+		return '<!DOCTYPE html [ <!ENTITY nbsp "&#x00A0;"> <!ENTITY iexcl "&#x00A1;"> <!ENTITY cent "&#x00A2;"> <!ENTITY pound "&#x00A3;"> <!ENTITY curren "&#x00A4;"> <!ENTITY yen "&#x00A5;"> <!ENTITY brvbar "&#x00A6;"> <!ENTITY sect "&#x00A7;"> <!ENTITY uml "&#x00A8;"> <!ENTITY copy "&#x00A9;"> <!ENTITY ordf "&#x00AA;"> <!ENTITY laquo "&#x00AB;"> <!ENTITY not "&#x00AC;"> <!ENTITY shy "&#x00AD;"> <!ENTITY reg "&#x00AE;"> <!ENTITY macr "&#x00AF;"> <!ENTITY deg "&#x00B0;"> <!ENTITY plusmn "&#x00B1;"> <!ENTITY sup2 "&#x00B2;"> <!ENTITY sup3 "&#x00B3;"> <!ENTITY acute "&#x00B4;"> <!ENTITY micro "&#x00B5;"> <!ENTITY para "&#x00B6;"> <!ENTITY middot "&#x00B7;"> <!ENTITY cedil "&#x00B8;"> <!ENTITY sup1 "&#x00B9;"> <!ENTITY ordm "&#x00BA;"> <!ENTITY raquo "&#x00BB;"> <!ENTITY frac14 "&#x00BC;"> <!ENTITY frac12 "&#x00BD;"> <!ENTITY frac34 "&#x00BE;"> <!ENTITY iquest "&#x00BF;"> <!ENTITY Agrave "&#x00C0;"> <!ENTITY Aacute "&#x00C1;"> <!ENTITY Acirc "&#x00C2;"> <!ENTITY Atilde "&#x00C3;"> <!ENTITY Auml "&#x00C4;"> <!ENTITY Aring "&#x00C5;"> <!ENTITY AElig "&#x00C6;"> <!ENTITY Ccedil "&#x00C7;"> <!ENTITY Egrave "&#x00C8;"> <!ENTITY Eacute "&#x00C9;"> <!ENTITY Ecirc "&#x00CA;"> <!ENTITY Euml "&#x00CB;"> <!ENTITY Igrave "&#x00CC;"> <!ENTITY Iacute "&#x00CD;"> <!ENTITY Icirc "&#x00CE;"> <!ENTITY Iuml "&#x00CF;"> <!ENTITY ETH "&#x00D0;"> <!ENTITY Ntilde "&#x00D1;"> <!ENTITY Ograve "&#x00D2;"> <!ENTITY Oacute "&#x00D3;"> <!ENTITY Ocirc "&#x00D4;"> <!ENTITY Otilde "&#x00D5;"> <!ENTITY Ouml "&#x00D6;"> <!ENTITY times "&#x00D7;"> <!ENTITY Oslash "&#x00D8;"> <!ENTITY Ugrave "&#x00D9;"> <!ENTITY Uacute "&#x00DA;"> <!ENTITY Ucirc "&#x00DB;"> <!ENTITY Uuml "&#x00DC;"> <!ENTITY Yacute "&#x00DD;"> <!ENTITY THORN "&#x00DE;"> <!ENTITY szlig "&#x00DF;"> <!ENTITY agrave "&#x00E0;"> <!ENTITY aacute "&#x00E1;"> <!ENTITY acirc "&#x00E2;"> <!ENTITY atilde "&#x00E3;"> <!ENTITY auml "&#x00E4;"> <!ENTITY aring "&#x00E5;"> <!ENTITY aelig "&#x00E6;"> <!ENTITY ccedil "&#x00E7;"> <!ENTITY egrave "&#x00E8;"> <!ENTITY eacute "&#x00E9;"> <!ENTITY ecirc "&#x00EA;"> <!ENTITY euml "&#x00EB;"> <!ENTITY igrave "&#x00EC;"> <!ENTITY iacute "&#x00ED;"> <!ENTITY icirc "&#x00EE;"> <!ENTITY iuml "&#x00EF;"> <!ENTITY eth "&#x00F0;"> <!ENTITY ntilde "&#x00F1;"> <!ENTITY ograve "&#x00F2;"> <!ENTITY oacute "&#x00F3;"> <!ENTITY ocirc "&#x00F4;"> <!ENTITY otilde "&#x00F5;"> <!ENTITY ouml "&#x00F6;"> <!ENTITY divide "&#x00F7;"> <!ENTITY oslash "&#x00F8;"> <!ENTITY ugrave "&#x00F9;"> <!ENTITY uacute "&#x00FA;"> <!ENTITY ucirc "&#x00FB;"> <!ENTITY uuml "&#x00FC;"> <!ENTITY yacute "&#x00FD;"> <!ENTITY thorn "&#x00FE;"> <!ENTITY yuml "&#x00FF;"> <!ENTITY OElig "&#x0152;"> <!ENTITY oelig "&#x0153;"> <!ENTITY Scaron "&#x0160;"> <!ENTITY scaron "&#x0161;"> <!ENTITY Yuml "&#x0178;"> <!ENTITY fnof "&#x0192;"> <!ENTITY circ "&#x02C6;"> <!ENTITY tilde "&#x02DC;"> <!ENTITY Alpha "&#x0391;"> <!ENTITY Beta "&#x0392;"> <!ENTITY Gamma "&#x0393;"> <!ENTITY Epsilon "&#x0395;"> <!ENTITY Zeta "&#x0396;"> <!ENTITY Eta "&#x0397;"> <!ENTITY Theta "&#x0398;"> <!ENTITY Iota "&#x0399;"> <!ENTITY Kappa "&#x039A;"> <!ENTITY Lambda "&#x039B;"> <!ENTITY Mu "&#x039C;"> <!ENTITY Nu "&#x039D;"> <!ENTITY Xi "&#x039E;"> <!ENTITY Omicron "&#x039F;"> <!ENTITY Pi "&#x03A0;"> <!ENTITY Rho "&#x03A1;"> <!ENTITY Sigma "&#x03A3;"> <!ENTITY Tau "&#x03A4;"> <!ENTITY Upsilon "&#x03A5;"> <!ENTITY Phi "&#x03A6;"> <!ENTITY Chi "&#x03A7;"> <!ENTITY Psi "&#x03A8;"> <!ENTITY Omega "&#x03A9;"> <!ENTITY alpha "&#x03B1;"> <!ENTITY beta "&#x03B2;"> <!ENTITY gamma "&#x03B3;"> <!ENTITY delta "&#x03B4;"> <!ENTITY epsilon "&#x03B5;"> <!ENTITY zeta "&#x03B6;"> <!ENTITY eta "&#x03B7;"> <!ENTITY theta "&#x03B8;"> <!ENTITY iota "&#x03B9;"> <!ENTITY kappa "&#x03BA;"> <!ENTITY lambda "&#x03BB;"> <!ENTITY mu "&#x03BC;"> <!ENTITY nu "&#x03BD;"> <!ENTITY xi "&#x03BE;"> <!ENTITY omicron "&#x03BF;"> <!ENTITY pi "&#x03C0;"> <!ENTITY rho "&#x03C1;"> <!ENTITY sigmaf "&#x03C2;"> <!ENTITY sigma "&#x03C3;"> <!ENTITY tau "&#x03C4;"> <!ENTITY upsilon "&#x03C5;"> <!ENTITY phi "&#x03C6;"> <!ENTITY chi "&#x03C7;"> <!ENTITY psi "&#x03C8;"> <!ENTITY omega "&#x03C9;"> <!ENTITY thetasym "&#x03D1;"> <!ENTITY upsih "&#x03D2;"> <!ENTITY piv "&#x03D6;"> <!ENTITY ensp "&#x2002;"> <!ENTITY emsp "&#x2003;"> <!ENTITY thinsp "&#x2009;"> <!ENTITY zwnj "&#x200C;"> <!ENTITY zwj "&#x200D;"> <!ENTITY lrm "&#x200E;"> <!ENTITY rlm "&#x200F;"> <!ENTITY ndash "&#x2013;"> <!ENTITY mdash "&#x2014;"> <!ENTITY lsquo "&#x2018;"> <!ENTITY rsquo "&#x2019;"> <!ENTITY sbquo "&#x201A;"> <!ENTITY ldquo "&#x201C;"> <!ENTITY rdquo "&#x201D;"> <!ENTITY bdquo "&#x201E;"> <!ENTITY dagger "&#x2020;"> <!ENTITY Dagger "&#x2021;"> <!ENTITY bull "&#x2022;"> <!ENTITY hellip "&#x2026;"> <!ENTITY permil "&#x2030;"> <!ENTITY prime "&#x2032;"> <!ENTITY Prime "&#x2033;"> <!ENTITY lsaquo "&#x2039;"> <!ENTITY rsaquo "&#x203A;"> <!ENTITY oline "&#x203E;"> <!ENTITY frasl "&#x2044;"> <!ENTITY euro "&#x20AC;"> <!ENTITY image "&#x2111;"> <!ENTITY weierp "&#x2118;"> <!ENTITY real "&#x211C;"> <!ENTITY trade "&#x2122;"> <!ENTITY alefsym "&#x2135;"> <!ENTITY larr "&#x2190;"> <!ENTITY uarr "&#x2191;"> <!ENTITY rarr "&#x2192;"> <!ENTITY darr "&#x2193;"> <!ENTITY harr "&#x2194;"> <!ENTITY crarr "&#x21B5;"> <!ENTITY lArr "&#x21D0;"> <!ENTITY uArr "&#x21D1;"> <!ENTITY rArr "&#x21D2;"> <!ENTITY dArr "&#x21D3;"> <!ENTITY hArr "&#x21D4;"> <!ENTITY forall "&#x2200;"> <!ENTITY part "&#x2202;"> <!ENTITY exist "&#x2203;"> <!ENTITY empty "&#x2205;"> <!ENTITY nabla "&#x2207;"> <!ENTITY isin "&#x2208;"> <!ENTITY notin "&#x2209;"> <!ENTITY ni "&#x220B;"> <!ENTITY prod "&#x220F;"> <!ENTITY sum "&#x2211;"> <!ENTITY minus "&#x2212;"> <!ENTITY lowast "&#x2217;"> <!ENTITY radic "&#x221A;"> <!ENTITY prop "&#x221D;"> <!ENTITY infin "&#x221E;"> <!ENTITY ang "&#x2220;"> <!ENTITY and "&#x2227;"> <!ENTITY or "&#x2228;"> <!ENTITY cap "&#x2229;"> <!ENTITY cup "&#x222A;"> <!ENTITY int "&#x222B;"> <!ENTITY there4 "&#x2234;"> <!ENTITY sim "&#x223C;"> <!ENTITY cong "&#x2245;"> <!ENTITY asymp "&#x2248;"> <!ENTITY ne "&#x2260;"> <!ENTITY equiv "&#x2261;"> <!ENTITY le "&#x2264;"> <!ENTITY ge "&#x2265;"> <!ENTITY sub "&#x2282;"> <!ENTITY sup "&#x2283;"> <!ENTITY nsub "&#x2284;"> <!ENTITY sube "&#x2286;"> <!ENTITY supe "&#x2287;"> <!ENTITY oplus "&#x2295;"> <!ENTITY otimes "&#x2297;"> <!ENTITY perp "&#x22A5;"> <!ENTITY sdot "&#x22C5;"> <!ENTITY lceil "&#x2308;"> <!ENTITY rceil "&#x2309;"> <!ENTITY lfloor "&#x230A;"> <!ENTITY rfloor "&#x230B;"> <!ENTITY lang "&#x2329;"> <!ENTITY rang "&#x232A;"> <!ENTITY loz "&#x25CA;"> <!ENTITY spades "&#x2660;"> <!ENTITY clubs "&#x2663;"> <!ENTITY hearts "&#x2665;"> <!ENTITY diams "&#x2666;"> ]>';
+	}
 }

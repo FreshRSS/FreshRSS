@@ -87,7 +87,7 @@ return array(
 	'update' => array(
 		'can_apply' => 'FreshRSS will now be updated to the <strong>version %s</strong>.',
 		'error' => 'The update process has encountered an error: %s',
-		'file_is_nok' => 'Check permissions on <em>%s</em> directory. HTTP server must have rights to write into',
+		'file_is_nok' => 'New <strong>version %s</strong> available, but check permissions on <em>%s</em> directory. HTTP server must have rights to write into',
 		'finished' => 'Update completed!',
 		'none' => 'No update to apply',
 		'server_not_found' => 'Update server cannot be found. [%s]',

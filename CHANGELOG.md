@@ -1,6 +1,19 @@
 ﻿# Changelog
 
-## 2017-xx-xx FreshRSS 1.7.0-dev
+## 2017-XX-XX FreshRSS 1.7.1-dev
+
+* UI
+	* New page for subscription tools [#1534](https://github.com/FreshRSS/FreshRSS/issues/1354)
+* I18n
+	* Korean [#1578](https://github.com/FreshRSS/FreshRSS/pull/1578)
+* Bug fixing
+	* PHP 7.1 compatibility for the API [#1584](https://github.com/FreshRSS/FreshRSS/issues/1584), [#1594](https://github.com/FreshRSS/FreshRSS/pull/1594)
+* Misc.
+	* Allow longer database usernames [#1597](https://github.com/FreshRSS/FreshRSS/issues/1597)
+
+
+## 2017-06-03 FreshRSS 1.7.0
+
 * Features:
 	* Deferred insertion of new articles, for better chronological order [#530](https://github.com/FreshRSS/FreshRSS/issues/530)
 	* Better search:
@@ -20,11 +33,20 @@
 	* Fix UI lowest subscription popup hidden [#1479](https://github.com/FreshRSS/FreshRSS/issues/1479)
 	* Fix update system via ZIP archive [#1498](https://github.com/FreshRSS/FreshRSS/pull/1498)
 	* Work around for IE / Edge bug in username pattern in version 1.6.3 [#1511](https://github.com/FreshRSS/FreshRSS/issues/1511)
+	* Fix *mark as read* articles when adding a new feed [#1535](https://github.com/FreshRSS/FreshRSS/issues/1535)
+	* Change load order of CSS and JS to help CustomCSS and CustomJS extensions [Extensions#13](https://github.com/FreshRSS/Extensions/issues/13), [#1547](https://github.com/FreshRSS/FreshRSS/pull/1547)
 * UI
+	* New option for not closing the article when clicking outside its area [#1539](https://github.com/FreshRSS/FreshRSS/pull/1539)
+	* Add shortcut in reader view to open the original page [#1564](https://github.com/FreshRSS/FreshRSS/pull/1564)
 	* Download icon 💾 for other MIME types (e.g. `application/*`) [#1522](https://github.com/FreshRSS/FreshRSS/pull/1522)
 * I18n
+	* Simplified Chinese [#1541](https://github.com/FreshRSS/FreshRSS/pull/1541)
 	* Improve English [#1465](https://github.com/FreshRSS/FreshRSS/pull/1465)
+	* Improve Dutch [#1559](https://github.com/FreshRSS/FreshRSS/pull/1559)
+* Security
+	* Do not require write access to check availability of new versions [#1450](https://github.com/FreshRSS/FreshRSS/issues/1450)
 * Misc.
+	* Move [documentation](./docs/) into FreshRSS code [#1510](https://github.com/FreshRSS/FreshRSS/pull/1510)
 	* Moved `./data/force-https.default.txt` to `./force-https.default.txt`,
 		`./data/config.default.php` to `./config.default.php`,
 		and `./data/users/_/config.default.php` to `./config-user.default.php` [#1531](https://github.com/FreshRSS/FreshRSS/issues/1531)

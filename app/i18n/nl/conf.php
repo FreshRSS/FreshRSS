@@ -92,6 +92,7 @@ return array(
 		'display_categories_unfolded' => 'Toon categoriën ingeklapt als standaard',
 		'hide_read_feeds' => 'Verberg categoriën en feeds zonder ongelezen artikelen (werkt niet met “Toon alle artikelen” configuratie)',
 		'img_with_lazyload' => 'Gebruik "lazy load" methode om afbeeldingen te laden',
+		'sides_close_article' => 'Sluit het artikel door buiten de artikeltekst te klikken',
 		'jump_next' => 'Ga naar volgende ongelezen (feed of categorie)',
 		'mark_updated_article_unread' => 'Markeer vernieuwd artikel als ongelezen',
 		'number_divided_when_reader' => 'Gedeeld door 2 in de lees modus.',
@@ -167,7 +168,7 @@ return array(
 	'user' => array(
 		'articles_and_size' => '%s artikelen (%s)',
 		'current' => 'Huidige gebruiker',
-		'is_admin' => 'is administrateur',
+		'is_admin' => 'is beheerder',
 		'users' => 'Gebruikers',
 	),
 );

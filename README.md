@@ -33,7 +33,7 @@ We are a friendly community.
 	* It even works on Raspberry Pi 1 with response time under a second (tested with 150 feeds, 22k articles)
 * A web server: Apache2 (recommended), nginx, lighttpd (not tested on others)
 * PHP 5.3.3+ (PHP 5.4+ recommended, and PHP 5.5+ for performance, and PHP 7 for even higher performance)
-	* Required extensions: [cURL](http://php.net/curl), [DOM](http://php.net/dom), [XML](http://php.net/xml), and [PDO_MySQL](http://php.net/pdo-mysql) or [PDO_SQLite](http://php.net/pdo-sqlite) or [PDO_PGSQL](http://php.net/pdo-pgsql)
+	* Required extensions: [cURL](http://php.net/curl), [DOM](http://php.net/dom), [XML](http://php.net/xml), [session](http://php.net/session), [ctype](http://php.net/ctype), and [PDO_MySQL](http://php.net/pdo-mysql) or [PDO_SQLite](http://php.net/pdo-sqlite) or [PDO_PGSQL](http://php.net/pdo-pgsql)
 	* Recommended extensions: [JSON](http://php.net/json), [GMP](http://php.net/gmp) (for API access on platforms < 64 bits), [IDN](http://php.net/intl.idn) (for Internationalized Domain Names), [mbstring](http://php.net/mbstring) and/or [iconv](http://php.net/iconv) (for charset conversion), [ZIP](http://php.net/zip) (for import/export), [zlib](http://php.net/zlib) (for compressed feeds)
 * MySQL 5.5.3+ (recommended), or SQLite 3.7.4+, or PostgreSQL 9.2+
 * A recent browser like Firefox, Internet Explorer 11 / Edge, Chrome, Opera, Safari.
@@ -105,6 +105,7 @@ cd /usr/share/FreshRSS
 sudo git pull
 sudo chown -R :www-data . && sudo chmod -R g+r . && sudo chmod -R g+w ./data/
 ```
+See more commands and git commands in the [Command-Line Interface documentation](./cli/README.md).
 
 ## Access control
 It is needed for the multi-user mode to limit access to FreshRSS. You can:
@@ -140,13 +141,12 @@ Create `/etc/cron.d/FreshRSS` with:
 
 
 # Backup
-* You need to keep `./data/config.php`, and `./data/*_user.php` files
-* You can export your feed list in OPML format from FreshRSS
-	* either from the Web interface, or from the [Command-Line Interface](./cli/README.md)
+* You need to keep `./data/config.php`, and `./data/users/*/config.php` files
+* You can export your feed list in OPML format either from the Web interface, or from the [Command-Line Interface](./cli/README.md)
 * To save articles, you can use [phpMyAdmin](http://www.phpmyadmin.net) or MySQL tools:
 
 ```bash
-mysqldump -u user -p --databases freshrss > freshrss.sql
+mysqldump --skip-comments --disable-keys --user=<db_user> --password --host <db_host> --result-file=freshrss.dump.sql --databases <freshrss_db>
 ```
 
 

@@ -87,7 +87,7 @@ return array(
 	'update' => array(
 		'can_apply' => 'FreshRSS <strong>%s versiyonuna</strong> güncellenecek.',
 		'error' => 'Güncelleme işlemi sırasında hata: %s',
-		'file_is_nok' => '<em>%s</em> klasör yetkisini kontrol edin. HTTP yazma yetkisi olmalı',
+		'file_is_nok' => '<strong>%s versiyonuna</strong>. <em>%s</em> klasör yetkisini kontrol edin. HTTP yazma yetkisi olmalı',
 		'finished' => 'Güncelleme tamamlandı!',
 		'none' => 'Güncelleme yok',
 		'server_not_found' => 'Güncelleme sunucusu bulunamadı. [%s]',

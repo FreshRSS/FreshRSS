@@ -197,6 +197,10 @@ class FreshRSS_ConfigurationSetter {
 		$data['hide_read_feeds'] = $this->handleBool($value);
 	}
 
+	private function _sides_close_article(&$data, $value) {
+		$data['sides_close_article'] = $this->handleBool($value);
+	}
+
 	private function _lazyload(&$data, $value) {
 		$data['lazyload'] = $this->handleBool($value);
 	}

@@ -120,34 +120,41 @@ class SimplePie_Locator
 		{
 			if ($type & SIMPLEPIE_LOCATOR_LOCAL_EXTENSION && $working = $this->extension($this->local))
 			{
-				return $working;
+				return $working[0];
 			}
 
 			if ($type & SIMPLEPIE_LOCATOR_LOCAL_BODY && $working = $this->body($this->local))
 			{
-				return $working;
+				return $working[0];
 			}
 
 			if ($type & SIMPLEPIE_LOCATOR_REMOTE_EXTENSION && $working = $this->extension($this->elsewhere))
 			{
-				return $working;
+				return $working[0];
 			}
 
 			if ($type & SIMPLEPIE_LOCATOR_REMOTE_BODY && $working = $this->body($this->elsewhere))
 			{
-				return $working;
+				return $working[0];
 			}
 		}
 		return null;
 	}
 
-	public function is_feed($file)
+	public function is_feed($file, $check_html = false)
 	{
 		if ($file->method & SIMPLEPIE_FILE_SOURCE_REMOTE)
 		{
 			$sniffer = $this->registry->create('Content_Type_Sniffer', array($file));
 			$sniffed = $sniffer->get_type();
-			if (in_array($sniffed, array('application/rss+xml', 'application/rdf+xml', 'text/rdf', 'application/atom+xml', 'text/xml', 'application/xml', 'application/x-rss+xml')))
+			$mime_types = array('application/rss+xml', 'application/rdf+xml',
+			                    'text/rdf', 'application/atom+xml', 'text/xml',
+			                    'application/xml', 'application/x-rss+xml');
+			if ($check_html)
+			{
+				$mime_types[] = 'text/html';
+			}
+			if (in_array($sniffed, $mime_types))
 			{
 				return true;
 			}
@@ -241,14 +248,14 @@ class SimplePie_Locator
 					continue;
 				}
 
-				if (!in_array($href, $done) && in_array('feed', $rel) || (in_array('alternate', $rel) && !in_array('stylesheet', $rel) && $link->hasAttribute('type') && in_array(strtolower($this->registry->call('Misc', 'parse_mime', array($link->getAttribute('type')))), array('application/rss+xml', 'application/atom+xml'))) && !isset($feeds[$href]))
+				if (!in_array($href, $done) && in_array('feed', $rel) || (in_array('alternate', $rel) && !in_array('stylesheet', $rel) && $link->hasAttribute('type') && in_array(strtolower($this->registry->call('Misc', 'parse_mime', array($link->getAttribute('type')))), array('text/html', 'application/rss+xml', 'application/atom+xml'))) && !isset($feeds[$href]))
 				{
 					$this->checked_feeds++;
 					$headers = array(
 						'Accept' => 'application/atom+xml, application/rss+xml, application/rdf+xml;q=0.9, application/xml;q=0.8, text/xml;q=0.8, text/html;q=0.7, unknown/unknown;q=0.1, application/unknown;q=0.1, */*;q=0.1',
 					);
 					$feed = $this->registry->create('File', array($href, $this->timeout, 5, $headers, $this->useragent));
-					if ($feed->success && ($feed->method & SIMPLEPIE_FILE_SOURCE_REMOTE === 0 || ($feed->status_code === 200 || $feed->status_code > 206 && $feed->status_code < 300)) && $this->is_feed($feed))
+					if ($feed->success && ($feed->method & SIMPLEPIE_FILE_SOURCE_REMOTE === 0 || ($feed->status_code === 200 || $feed->status_code > 206 && $feed->status_code < 300)) && $this->is_feed($feed, true))
 					{
 						$feeds[$href] = $feed;
 					}
@@ -380,7 +387,7 @@ class SimplePie_Locator
 				$feed = $this->registry->create('File', array($value, $this->timeout, 5, $headers, $this->useragent));
 				if ($feed->success && ($feed->method & SIMPLEPIE_FILE_SOURCE_REMOTE === 0 || ($feed->status_code === 200 || $feed->status_code > 206 && $feed->status_code < 300)) && $this->is_feed($feed))
 				{
-					return $feed;
+					return array($feed);
 				}
 				else
 				{
@@ -408,7 +415,7 @@ class SimplePie_Locator
 				$feed = $this->registry->create('File', array($value, $this->timeout, 5, null, $this->useragent));
 				if ($feed->success && ($feed->method & SIMPLEPIE_FILE_SOURCE_REMOTE === 0 || ($feed->status_code === 200 || $feed->status_code > 206 && $feed->status_code < 300)) && $this->is_feed($feed))
 				{
-					return $feed;
+					return array($feed);
 				}
 				else
 				{

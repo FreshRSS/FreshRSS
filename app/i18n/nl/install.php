@@ -14,7 +14,7 @@ return array(
 		'none' => 'Geen (gevaarlijk)',
 		'password_form' => 'Wachtwoord<br /><small>(voor de Web-formulier log in methode)</small>',
 		'password_format' => 'Tenminste 7 tekens',
-		'type' => 'Authenticatie methode',
+		'type' => 'Authenticatiemethode',
 	),
 	'bdd' => array(
 		'_' => 'Database',
@@ -98,12 +98,12 @@ return array(
 		'ok' => 'Algemene configuratie is opgeslagen.',
 	),
 	'congratulations' => 'Gefeliciteerd!',
-	'default_user' => 'Gebruikersnaam van de standaard gebruiker <small>(maximaal 16 alphanumerieke tekens)</small>',
+	'default_user' => 'Gebruikersnaam van de standaardgebruiker <small>(maximaal 16 alfanumerieke tekens)</small>',
 	'delete_articles_after' => 'Verwijder artikelen na',
 	'fix_errors_before' => 'Repareer fouten alvorens U naar de volgende stap gaat.',
 	'javascript_is_better' => 'FreshRSS werkt beter JavaScript ingeschakeld',
 	'js' => array(
-		'confirm_reinstall' => 'U verliest uw vorige configuratie door FreshRSS opnieuw te installeren. Weet u zeker dat u verder wilt gaan?',
+		'confirm_reinstall' => 'U zal uw vorige configuratie kwijtraken door FreshRSS opnieuw te installeren. Weet u zeker dat u verder wilt gaan?',
 	),
 	'language' => array(
 		'_' => 'Taal',
@@ -111,7 +111,7 @@ return array(
 		'defined' => 'Taal is bepaald.',
 	),
 	'not_deleted' => 'Er ging iets fout! U moet het bestand <em>%s</em> handmatig verwijderen.',
-	'ok' => 'De installatie procedure is geslaagd.',
+	'ok' => 'De installatieprocedure is geslaagd.',
 	'step' => 'stap %d',
 	'steps' => 'Stappen',
 	'title' => 'Installatie · FreshRSS',

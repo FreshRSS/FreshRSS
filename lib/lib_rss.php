@@ -183,7 +183,7 @@ function customSimplePie() {
 		'object', 'param', 'plaintext', 'script', 'style',
 	));
 	$simplePie->strip_attributes(array_merge($simplePie->strip_attributes, array(
-		'autoplay', 'onload', 'onunload', 'onclick', 'ondblclick', 'onmousedown', 'onmouseup',
+		'autoplay', 'class', 'onload', 'onunload', 'onclick', 'ondblclick', 'onmousedown', 'onmouseup',
 		'onmouseover', 'onmousemove', 'onmouseout', 'onfocus', 'onblur',
 		'onkeypress', 'onkeydown', 'onkeyup', 'onselect', 'onchange', 'seamless', 'sizes', 'srcset')));
 	$simplePie->add_attributes(array(
