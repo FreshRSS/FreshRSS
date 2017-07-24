@@ -503,7 +503,7 @@ function streamContents($path, $include_target, $start_time, $count, $order, $ex
 		$item = array(
 			'id' => /*'tag:google.com,2005:reader/item/' .*/ dec2hex($entry->id()),	//64-bit hexa http://code.google.com/p/google-reader-api/wiki/ItemId
 			'crawlTimeMsec' => substr($entry->id(), 0, -3),
-			'timestampUsec' => $entry->id(),	//EasyRSS
+			'timestampUsec' => '' . $entry->id(),	//EasyRSS
 			'published' => $entry->date(true),
 			'title' => $entry->title(),
 			'summary' => array('content' => $entry->content()),
