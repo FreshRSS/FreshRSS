@@ -29,6 +29,7 @@ DECLARE
 maxrank bigint := (SELECT MAX(id) FROM `' . $this->prefix . 'entrytmp`);
 rank bigint := (SELECT maxrank - COUNT(*) FROM `' . $this->prefix . 'entrytmp`);
 BEGIN
+	DELETE FROM `' . $this->prefix . 'entrytmp` AS entrytmp WHERE EXISTS (SELECT 1 FROM `' . $this->prefix . 'entry` AS entry WHERE entrytmp.id_feed = entry.id_feed AND entrytmp.guid = entry.guid);
 	INSERT INTO `' . $this->prefix . 'entry` (id, guid, title, author, content, link, date, `lastSeen`, hash, is_read, is_favorite, id_feed, tags)
 		(SELECT rank + row_number() OVER(ORDER BY date) AS id, guid, title, author, content, link, date, `lastSeen`, hash, is_read, is_favorite, id_feed, tags FROM `' . $this->prefix . 'entrytmp` ORDER BY date);
 	DELETE FROM `' . $this->prefix . 'entrytmp` WHERE id <= maxrank;
