@@ -31,8 +31,8 @@ rank bigint := (SELECT maxrank - COUNT(*) FROM `' . $this->prefix . 'entrytmp`);
 BEGIN
 	INSERT INTO `' . $this->prefix . 'entry` (id, guid, title, author, content, link, date, `lastSeen`, hash, is_read, is_favorite, id_feed, tags)
 		(SELECT rank + row_number() OVER(ORDER BY date) AS id, guid, title, author, content, link, date, `lastSeen`, hash, is_read, is_favorite, id_feed, tags
-			FROM `' . $this->prefix . 'entrytmp` AS entrytmp
-			WHERE NOT EXISTS (SELECT 1 FROM `' . $this->prefix . 'entry` AS entry WHERE entrytmp.id_feed = entry.id_feed AND entrytmp.guid = entry.guid)
+			FROM `' . $this->prefix . 'entrytmp` AS etmp
+			WHERE NOT EXISTS (SELECT 1 FROM `' . $this->prefix . 'entry` AS ereal WHERE etmp.id_feed = ereal.id_feed AND etmp.guid = ereal.guid)
 			ORDER BY date);
 	DELETE FROM `' . $this->prefix . 'entrytmp` WHERE id <= maxrank;
 END $$;';
