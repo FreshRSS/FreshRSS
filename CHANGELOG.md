@@ -9,6 +9,7 @@
 * Bug fixing
 	* PHP 7.1 compatibility for the API [#1584](https://github.com/FreshRSS/FreshRSS/issues/1584), [#1594](https://github.com/FreshRSS/FreshRSS/pull/1594)
 	* Fix API compatibility bug between PostgreSQL and EasyRSS [#1603](https://github.com/FreshRSS/FreshRSS/pull/1603)
+	* Fix PostgreSQL error when adding new entries [#1610](https://github.com/FreshRSS/FreshRSS/issues/1610), [#1613](https://github.com/FreshRSS/FreshRSS/pull/1613)
 * Misc.
 	* Allow longer database usernames [#1597](https://github.com/FreshRSS/FreshRSS/issues/1597)
 
