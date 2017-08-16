@@ -182,4 +182,7 @@ return array(
 		'or' => 'of',
 		'yes' => 'Ja',
 	),
+	'error' => array(
+		'author' => 'Cannot parse author information properly.', // TODO
+	),
 );

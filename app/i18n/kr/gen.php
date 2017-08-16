@@ -183,4 +183,7 @@ return array(
 		'or' => '또는',
 		'yes' => '네',
 	),
+	'error' => array(
+		'author' => '저자 정보를 올바르게 해석할 수 없습니다.',
+	),
 );
