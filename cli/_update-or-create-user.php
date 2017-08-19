@@ -31,10 +31,12 @@ if (empty($options['user'])) {
 }
 
 function strParam($name) {
+	global $options;
 	return isset($options[$name]) ? strval($options[$name]) : null;
 }
 
 function intParam($name) {
+	global $options;
 	return isset($options[$name]) && ctype_digit($options[$name]) ? intval($options[$name]) : null;
 }
 
@@ -49,3 +51,5 @@ $values = array(
 		'min_posts_per_rss' => intParam('min_posts_per_rss'),
 		'max_posts_per_rss' => intParam('max_posts_per_rss'),
 	);
+
+$values = array_filter($values);
