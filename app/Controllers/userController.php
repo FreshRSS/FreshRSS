@@ -44,6 +44,29 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 		return preg_match('/^' . self::USERNAME_PATTERN . '$/', $username) === 1;
 	}
 
+	public static function updateContextUser($passwordPlain, $apiPasswordPlain, $userConfigUpdated = array()) {
+		if ($passwordPlain != '') {
+			$passwordHash = self::hashPassword($passwordPlain);
+			FreshRSS_Context::$user_conf->passwordHash = $passwordHash;
+		}
+
+		if ($apiPasswordPlain != '') {
+			$apiPasswordHash = self::hashPassword($apiPasswordPlain);
+			FreshRSS_Context::$user_conf->apiPasswordHash = $apiPasswordHash;
+		}
+
+		if (is_array($userConfigUpdated)) {
+			foreach ($userConfigUpdated as $configName => $configValue) {
+				if ($configValue !== null) {
+					FreshRSS_Context::$user_conf->_param($configName, $configValue);
+				}
+			}
+		}
+
+		$ok = FreshRSS_Context::$user_conf->save();
+		return $ok;
+	}
+
 	/**
 	 * This action displays the user profile page.
 	 */
@@ -55,30 +78,17 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 		));
 
 		if (Minz_Request::isPost()) {
-			$ok = true;
-
 			$passwordPlain = Minz_Request::param('newPasswordPlain', '', true);
-			if ($passwordPlain != '') {
-				Minz_Request::_param('newPasswordPlain');	//Discard plain-text password ASAP
-				$_POST['newPasswordPlain'] = '';
-				$passwordHash = self::hashPassword($passwordPlain);
-				$ok &= ($passwordHash != '');
-				FreshRSS_Context::$user_conf->passwordHash = $passwordHash;
-			}
+			Minz_Request::_param('newPasswordPlain');	//Discard plain-text password ASAP
+			$_POST['newPasswordPlain'] = '';
+
+			$apiPasswordPlain = Minz_Request::param('apiPasswordPlain', '', true);
+
+			$ok = self::updateContextUser($passwordPlain, $apiPasswordPlain, array(
+					'token' => Minz_Request::param('token', null),
+				));
+
 			Minz_Session::_param('passwordHash', FreshRSS_Context::$user_conf->passwordHash);
-
-			$passwordPlain = Minz_Request::param('apiPasswordPlain', '', true);
-			if ($passwordPlain != '') {
-				$passwordHash = self::hashPassword($passwordPlain);
-				$ok &= ($passwordHash != '');
-				FreshRSS_Context::$user_conf->apiPasswordHash = $passwordHash;
-			}
-
-			$current_token = FreshRSS_Context::$user_conf->token;
-			$token = Minz_Request::param('token', $current_token);
-			FreshRSS_Context::$user_conf->token = $token;
-
-			$ok &= FreshRSS_Context::$user_conf->save();
 
 			if ($ok) {
 				Minz_Request::good(_t('feedback.profile.updated'),
