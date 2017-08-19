@@ -4,6 +4,7 @@
 
 * UI
 	* New page for subscription tools [#1534](https://github.com/FreshRSS/FreshRSS/issues/1354)
+	* Adjustments to the padding of the tree of categories and feeds [1589](https://github.com/FreshRSS/FreshRSS/pull/1589)
 * CLI
 	* New command `./cli/update-user` to update user settings [#1600](https://github.com/FreshRSS/FreshRSS/issues/1600)
 * I18n
