@@ -346,10 +346,15 @@ a.btn {
 /*=== Tree */
 .tree {
 	margin: 0;
-	padding: 0 0 15em 0;
+	padding: 0 0 2em 0;
 	list-style: none;
 	text-align: left;
 }
+
+.treepadding {
+	padding: 0 0 15em 0;
+}
+
 .tree-folder-items {
 	padding: 0;
 	list-style: none;
