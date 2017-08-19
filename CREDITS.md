@@ -6,6 +6,7 @@ People are sorted by name so please keep this order.
 
 ---
 
+* [Adrien Dorsaz](https://github.com/Trim): [contributions](https://github.com/FreshRSS/FreshRSS/commits?author=Trim), [Web](https://adorsaz.ch/)
 * [Alexandre Alapetite](https://github.com/Alkarex): [contributions](https://github.com/FreshRSS/FreshRSS/commits?author=Alkarex), [Web](http://alexandre.alapetite.fr/)
 * [Alexis Degrugillier](https://github.com/aledeg): [contributions](https://github.com/FreshRSS/FreshRSS/commits?author=aledeg)
 * [Alwaysin](https://github.com/Alwaysin): [contributions](https://github.com/FreshRSS/FreshRSS/commits?author=Alwaysin)
