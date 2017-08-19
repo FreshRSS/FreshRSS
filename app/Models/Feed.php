@@ -339,7 +339,7 @@ class FreshRSS_Feed extends Minz_Model {
 				$this->id(),
 				$item->get_id(false, false),
 				$title === null ? '' : $title,
-				$author === null ? '' : html_only_entity_decode($author->name),
+				$author === null ? '' : html_only_entity_decode(strip_tags($author->name)),
 				$content === null ? '' : $content,
 				$link === null ? '' : $link,
 				$date ? $date : time()
