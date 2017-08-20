@@ -1,6 +1,6 @@
 "use strict";
-/* globals context, i18n, shortcut, shortcuts, url */
-/* jshint globalstrict: true */
+/* globals $, jQuery, context, i18n, shortcut, shortcuts, url */
+/* jshint strict:global */
 
 var $stream = null,
 	isCollapsed = true,
