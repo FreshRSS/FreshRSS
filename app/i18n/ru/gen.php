@@ -79,6 +79,7 @@ return array(
 		'last_year' => 'Last year',
 		'mar' => 'mar',
 		'march' => 'Mar',
+		'may.' => 'May',
 		'may' => 'May',
 		'mon' => 'Mon',
 		'month' => 'months',
