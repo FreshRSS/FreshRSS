@@ -79,7 +79,7 @@ return array(
 		'last_year' => 'Ultimo anno',
 		'mar' => 'mar.',
 		'march' => 'marzo',
-		'may.' => 'May',
+		'may_' => 'May',
 		'may' => 'maggio',
 		'mon' => 'Mon',
 		'month' => 'mesi',

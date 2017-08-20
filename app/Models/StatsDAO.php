@@ -364,7 +364,7 @@ SQL;
 			'feb',
 			'mar',
 			'apr',
-			'may.',
+			'may_',
 			'jun',
 			'jul',
 			'aug',

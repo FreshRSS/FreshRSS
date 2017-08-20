@@ -79,7 +79,7 @@ return array(
 		'last_year' => 'Vorig jaar',
 		'mar' => 'mar',
 		'march' => 'Mar',
-		'may.' => 'Mei',
+		'may_' => 'Mei',
 		'may' => 'Mei',
 		'mon' => 'Ma',
 		'month' => 'maanden',

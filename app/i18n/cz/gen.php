@@ -79,7 +79,7 @@ return array(
 		'last_year' => 'Minulý rok',
 		'mar' => 'bře',
 		'march' => 'Bře',
-		'may.' => 'Kvě',
+		'may_' => 'Kvě',
 		'may' => 'Květen',
 		'mon' => 'Po',
 		'month' => 'měsíce',

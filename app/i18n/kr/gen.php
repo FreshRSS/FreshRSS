@@ -79,7 +79,7 @@ return array(
 		'last_year' => '최근 일 년',
 		'mar' => '3월',
 		'march' => '3월',
-		'may.' => '5월',
+		'may_' => '5월',
 		'may' => '5월',
 		'mon' => '월',
 		'month' => '개월',

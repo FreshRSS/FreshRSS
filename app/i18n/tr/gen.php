@@ -79,7 +79,7 @@ return array(
 		'last_year' => 'Geçen yıl',
 		'mar' => 'mar',
 		'march' => 'Mar',
-		'may.' => 'May',
+		'may_' => 'May',
 		'may' => 'Mayıs',
 		'mon' => 'Pzt',
 		'month' => 'ay',
