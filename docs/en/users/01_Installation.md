@@ -7,18 +7,15 @@ You need to verify that your server can run FreshRSS before installing it. If yo
 | Software    | Recommended      | Works also with               |
 | ----------- | ---------------- | ----------------------------- |
 | Web server  | **Apache 2**     | Nginx                         |
-| PHP         | **PHP 5.3.7+**   | PHP 5.2+                      |
+| PHP         | **PHP 5.5+**     | PHP 5.3.8+                    |
 | PHP modules | Required: libxml, cURL, PDO_MySQL, PCRE and ctype. \\ Required (32-bit only): GMP \\Recommanded: JSON, Zlib, mbstring, iconv, ZipArchive | |
 | Database    | **MySQL 5.0.3+** | SQLite 3.7.4+                 |
 | Browser     | **Firefox**      | Chrome, Opera, Safari or IE9+ |
 
 ## Important notice
 
-FreshRSS **CAN** work with PHP 5.3.3. To do so, we are using specific functions available in the ''password_compat'' library for the form authentication. This library is compatible with PHP >= 5.3.7 but some older version include the patch.
-It all depends on the distribution:
+FreshRSS **CAN** work with PHP 5.3.8+. To do so, we are using specific functions available in the [''password_compat'' library](https://github.com/ircmaxell/password_compat#requirements) for the form authentication.
 
-* CentOS and RHEL 6.5 are supported.
-* On the other hand, **Debian with PHP 5.3.3 is not**! ([For more information](https://github.com/ircmaxell/password_compat#requirements))
 
 # Getting the appropriate version of FreshRSS
 

@@ -2,6 +2,8 @@
 
 ## 2017-XX-XX FreshRSS 1.7.1-dev
 
+* Compatibility:
+	* Minimal PHP version increased to PHP 5.3.8+ to fix sanitize bug [#1604](https://github.com/FreshRSS/FreshRSS/issues/1604)
 * UI
 	* New page for subscription tools [#1534](https://github.com/FreshRSS/FreshRSS/issues/1354)
 	* Adjustments to the padding of the tree of categories and feeds [1589](https://github.com/FreshRSS/FreshRSS/pull/1589)

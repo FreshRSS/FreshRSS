@@ -1,4 +1,8 @@
 <?php
+if (version_compare(PHP_VERSION, '5.3.8', '<')) {
+	die('FreshRSS error: FreshRSS requires PHP 5.3.8+!');
+}
+
 if (!function_exists('json_decode')) {
 	require_once('JSON.php');
 	function json_decode($var, $assoc = false) {
@@ -393,7 +397,7 @@ function check_install_php() {
 	$pdo_mysql = extension_loaded('pdo_mysql');
 	$pdo_sqlite = extension_loaded('pdo_sqlite');
 	return array(
-		'php' => version_compare(PHP_VERSION, '5.3.3') >= 0,
+		'php' => version_compare(PHP_VERSION, '5.3.8') >= 0,
 		'minz' => file_exists(LIB_PATH . '/Minz'),
 		'curl' => extension_loaded('curl'),
 		'pdo' => $pdo_mysql || $pdo_sqlite,

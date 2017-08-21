@@ -32,7 +32,7 @@ We are a friendly community.
 * Light server running Linux or Windows
 	* It even works on Raspberry Pi 1 with response time under a second (tested with 150 feeds, 22k articles)
 * A web server: Apache2 (recommended), nginx, lighttpd (not tested on others)
-* PHP 5.3.3+ (PHP 5.4+ recommended, and PHP 5.5+ for performance, and PHP 7 for even higher performance)
+* PHP 5.3.8+ (PHP 5.4+ recommended, and PHP 5.5+ for performance, and PHP 7 for even higher performance)
 	* Required extensions: [cURL](http://php.net/curl), [DOM](http://php.net/dom), [XML](http://php.net/xml), [session](http://php.net/session), [ctype](http://php.net/ctype), and [PDO_MySQL](http://php.net/pdo-mysql) or [PDO_SQLite](http://php.net/pdo-sqlite) or [PDO_PGSQL](http://php.net/pdo-pgsql)
 	* Recommended extensions: [JSON](http://php.net/json), [GMP](http://php.net/gmp) (for API access on platforms < 64 bits), [IDN](http://php.net/intl.idn) (for Internationalized Domain Names), [mbstring](http://php.net/mbstring) and/or [iconv](http://php.net/iconv) (for charset conversion), [ZIP](http://php.net/zip) (for import/export), [zlib](http://php.net/zlib) (for compressed feeds)
 * MySQL 5.5.3+ (recommended), or SQLite 3.7.4+, or PostgreSQL 9.2+
@@ -109,7 +109,7 @@ See more commands and git commands in the [Command-Line Interface documentation]
 
 ## Access control
 It is needed for the multi-user mode to limit access to FreshRSS. You can:
-* use form authentication (need JavaScript and PHP 5.3.7+, works with some PHP 5.3.3+)
+* use form authentication (needs JavaScript, and PHP 5.5+ recommended)
 * use HTTP authentication supported by your web server
 	* See [Apache documentation](http://httpd.apache.org/docs/trunk/howto/auth.html)
 		* In that case, create a `./p/i/.htaccess` file with a matching `.htpasswd` file.
