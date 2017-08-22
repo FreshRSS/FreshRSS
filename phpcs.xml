@@ -21,7 +21,10 @@
 	<!-- One line should not have more than 80 characters -->
 	<!-- One line must never exceed 120 characters -->
 	<rule ref="Generic.Files.LineLength">
+		<!-- For language strings maximum line lengths make little sense. -->
 		<exclude-pattern>./app/i18n/</exclude-pattern>
+		<!-- @todo remove test exclusion -->
+		<exclude-pattern>./tests/app/</exclude-pattern>
 		<properties>
 			<property name="lineLimit" value="80"/>
 			<property name="absoluteLineLimit" value="120"/>
