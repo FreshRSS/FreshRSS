@@ -326,7 +326,7 @@ class FreshRSS_Feed extends Minz_Model {
 					if (strpos($mime, 'image/') === 0) {
 						$content .= '<p class="enclosure"><img src="' . $elink . '" alt="" /></p>';
 					} elseif (strpos($mime, 'audio/') === 0) {
-						$content .= '<p class="enclosure"><audio preload="none" src="' . $elink . '" controls="controls"></audio> <a download="" href="' . $elink . '">💾</a></p>';
+						$content .= '<p class="enclosure"><audio preload="none" src="' . $elink. '" controls="controls"></audio> <a download="" href="' . $elink . '">💾</a></p>';
 					} elseif (strpos($mime, 'video/') === 0) {
 						$content .= '<p class="enclosure"><video preload="none" src="' . $elink . '" controls="controls"></video> <a download="" href="' . $elink . '">💾</a></p>';
 					} elseif (strpos($mime, 'application/') === 0 || strpos($mime, 'text/') === 0) {
@@ -483,10 +483,12 @@ class FreshRSS_Feed extends Minz_Model {
 				CURLOPT_FOLLOWLOCATION => true,
 				CURLOPT_RETURNTRANSFER => true,
 				CURLOPT_USERAGENT => 'FreshRSS/' . FRESHRSS_VERSION . ' (' . PHP_OS . '; ' . FRESHRSS_WEBSITE . ')',
-				CURLOPT_POSTFIELDS => 'hub.verify=sync'
-					. '&hub.mode=' . ($state ? 'subscribe' : 'unsubscribe')
-					. '&hub.topic=' . urlencode($url)
-					. '&hub.callback=' . urlencode($callbackUrl)
+				CURLOPT_POSTFIELDS => http_build_query(
+					'hub.verify' => 'sync',
+					'hub.mode' => ($state ? 'subscribe' : 'unsubscribe'),
+					'hub.topic' => urlencode($url),
+					'hub.callback' => urlencode($callbackUrl),
+					)
 				)
 			);
 			$response = curl_exec($ch);
