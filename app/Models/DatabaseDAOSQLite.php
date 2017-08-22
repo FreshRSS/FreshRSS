@@ -9,7 +9,7 @@ class FreshRSS_DatabaseDAOSQLite extends FreshRSS_DatabaseDAO {
 		$stm = $this->bd->prepare($sql);
 		$stm->execute();
 		$res = $stm->fetchAll(PDO::FETCH_ASSOC);
-		
+
 		$tables = array(
 			'category' => false,
 			'feed' => false,

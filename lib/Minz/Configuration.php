@@ -104,7 +104,7 @@ class Minz_Configuration {
 
 	/**
 	 * Create a new Minz_Configuration object.
-	 * 
+	 *
 	 * @param $namespace the name of the current configuration.
 	 * @param $config_filename the file containing configuration values.
 	 * @param $default_filename the file containing default values, null by default.
@@ -145,7 +145,7 @@ class Minz_Configuration {
 
 	/**
 	 * Return the value of the given param.
-	 * 
+	 *
 	 * @param $key the name of the param.
 	 * @param $default default value to return if key does not exist.
 	 * @return the value corresponding to the key.
