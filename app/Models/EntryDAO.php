@@ -146,13 +146,13 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 	public function addEntry($valuesTmp) {
 		if ($this->addEntryPrepared == null) {
 			$sql = 'INSERT INTO `' . $this->prefix . 'entrytmp` (id, guid, title, author, '
-			     . ($this->isCompressed() ? 'content_bin' : 'content')
-			     . ', link, date, `lastSeen`, hash, is_read, is_favorite, id_feed, tags) '
-			     . 'VALUES(:id, :guid, :title, :author, '
-			     . ($this->isCompressed() ? 'COMPRESS(:content)' : ':content')
-			     . ', :link, :date, :last_seen, '
-			     . $this->sqlHexDecode(':hash')
-			     . ', :is_read, :is_favorite, :id_feed, :tags)';
+				. ($this->isCompressed() ? 'content_bin' : 'content')
+				. ', link, date, `lastSeen`, hash, is_read, is_favorite, id_feed, tags) '
+				. 'VALUES(:id, :guid, :title, :author, '
+				. ($this->isCompressed() ? 'COMPRESS(:content)' : ':content')
+				. ', :link, :date, :last_seen, '
+				. $this->sqlHexDecode(':hash')
+				. ', :is_read, :is_favorite, :id_feed, :tags)';
 			$this->addEntryPrepared = $this->bd->prepare($sql);
 		}
 		if ($this->addEntryPrepared) {
@@ -189,7 +189,8 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 		if ($this->addEntryPrepared && $this->addEntryPrepared->execute()) {
 			return true;
 		} else {
-			$info = $this->addEntryPrepared == null ? array(0 => '', 1 => '', 2 => 'syntax error') : $this->addEntryPrepared->errorInfo();
+			$info = $this->addEntryPrepared == null ? array(0 => '', 1 => '', 2 => 'syntax error') :
+				$this->addEntryPrepared->errorInfo();
 			if ($this->autoUpdateDb($info)) {
 				$this->addEntryPrepared = null;
 				return $this->addEntry($valuesTmp);
@@ -226,13 +227,13 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 
 		if ($this->updateEntryPrepared === null) {
 			$sql = 'UPDATE `' . $this->prefix . 'entry` '
-			     . 'SET title=:title, author=:author, '
-			     . ($this->isCompressed() ? 'content_bin=COMPRESS(:content)' : 'content=:content')
-			     . ', link=:link, date=:date, `lastSeen`=:last_seen, '
-			     . 'hash=' . $this->sqlHexDecode(':hash')
-			     . ', ' . ($valuesTmp['is_read'] === null ? '' : 'is_read=:is_read, ')
-			     . 'tags=:tags '
-			     . 'WHERE id_feed=:id_feed AND guid=:guid';
+				. 'SET title=:title, author=:author, '
+				. ($this->isCompressed() ? 'content_bin=COMPRESS(:content)' : 'content=:content')
+				. ', link=:link, date=:date, `lastSeen`=:last_seen, '
+				. 'hash=' . $this->sqlHexDecode(':hash')
+				. ', ' . ($valuesTmp['is_read'] === null ? '' : 'is_read=:is_read, ')
+				. 'tags=:tags '
+				. 'WHERE id_feed=:id_feed AND guid=:guid';
 			$this->updateEntryPrepared = $this->bd->prepare($sql);
 		}
 
@@ -295,8 +296,8 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 		}
 		FreshRSS_UserDAO::touch();
 		$sql = 'UPDATE `' . $this->prefix . 'entry` '
-		     . 'SET is_favorite=? '
-		     . 'WHERE id IN (' . str_repeat('?,', count($ids) - 1). '?)';
+			. 'SET is_favorite=? '
+			. 'WHERE id IN (' . str_repeat('?,', count($ids) - 1). '?)';
 		$values = array($is_favorite ? 1 : 0);
 		$values = array_merge($values, $ids);
 		$stm = $this->bd->prepare($sql);
@@ -322,14 +323,14 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 	 */
 	protected function updateCacheUnreads($catId = false, $feedId = false) {
 		$sql = 'UPDATE `' . $this->prefix . 'feed` f '
-		 . 'LEFT OUTER JOIN ('
-		 .	'SELECT e.id_feed, '
-		 .	'COUNT(*) AS nbUnreads '
-		 .	'FROM `' . $this->prefix . 'entry` e '
-		 .	'WHERE e.is_read=0 '
-		 .	'GROUP BY e.id_feed'
-		 . ') x ON x.id_feed=f.id '
-		 . 'SET f.`cache_nbUnreads`=COALESCE(x.nbUnreads, 0)';
+			. 'LEFT OUTER JOIN ('
+			.	'SELECT e.id_feed, '
+			.	'COUNT(*) AS nbUnreads '
+			.	'FROM `' . $this->prefix . 'entry` e '
+			.	'WHERE e.is_read=0 '
+			.	'GROUP BY e.id_feed'
+			. ') x ON x.id_feed=f.id '
+			. 'SET f.`cache_nbUnreads`=COALESCE(x.nbUnreads, 0)';
 		$hasWhere = false;
 		$values = array();
 		if ($feedId !== false) {
@@ -558,9 +559,9 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 	public function searchByGuid($id_feed, $guid) {
 		// un guid est unique pour un flux donné
 		$sql = 'SELECT id, guid, title, author, '
-		     . ($this->isCompressed() ? 'UNCOMPRESS(content_bin) AS content' : 'content')
-		     . ', link, date, is_read, is_favorite, id_feed, tags '
-		     . 'FROM `' . $this->prefix . 'entry` WHERE id_feed=? AND guid=?';
+			. ($this->isCompressed() ? 'UNCOMPRESS(content_bin) AS content' : 'content')
+			. ', link, date, is_read, is_favorite, id_feed, tags '
+			. 'FROM `' . $this->prefix . 'entry` WHERE id_feed=? AND guid=?';
 		$stm = $this->bd->prepare($sql);
 
 		$values = array(
@@ -576,9 +577,9 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 
 	public function searchById($id) {
 		$sql = 'SELECT id, guid, title, author, '
-		     . ($this->isCompressed() ? 'UNCOMPRESS(content_bin) AS content' : 'content')
-		     . ', link, date, is_read, is_favorite, id_feed, tags '
-		     . 'FROM `' . $this->prefix . 'entry` WHERE id=?';
+			. ($this->isCompressed() ? 'UNCOMPRESS(content_bin) AS content' : 'content')
+			. ', link, date, is_read, is_favorite, id_feed, tags '
+			. 'FROM `' . $this->prefix . 'entry` WHERE id=?';
 		$stm = $this->bd->prepare($sql);
 
 		$values = array($id);
@@ -759,13 +760,13 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 		list($values, $sql) = $this->sqlListWhere($type, $id, $state, $order, $limit, $firstId, $filter, $date_min);
 
 		$sql = 'SELECT e0.id, e0.guid, e0.title, e0.author, '
-		     . ($this->isCompressed() ? 'UNCOMPRESS(content_bin) AS content' : 'content')
-		     . ', e0.link, e0.date, e0.is_read, e0.is_favorite, e0.id_feed, e0.tags '
-		     . 'FROM `' . $this->prefix . 'entry` e0 '
-		     . 'INNER JOIN ('
-		     . $sql
-		     . ') e2 ON e2.id=e0.id '
-		     . 'ORDER BY e0.id ' . $order;
+			. ($this->isCompressed() ? 'UNCOMPRESS(content_bin) AS content' : 'content')
+			. ', e0.link, e0.date, e0.is_read, e0.is_favorite, e0.id_feed, e0.tags '
+			. 'FROM `' . $this->prefix . 'entry` e0 '
+			. 'INNER JOIN ('
+			. $sql
+			. ') e2 ON e2.id=e0.id '
+			. 'ORDER BY e0.id ' . $order;
 
 		$stm = $this->bd->prepare($sql);
 		$stm->execute($values);
@@ -839,7 +840,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 
 	public function countUnreadRead() {
 		$sql = 'SELECT COUNT(e.id) AS count FROM `' . $this->prefix . 'entry` e INNER JOIN `' . $this->prefix . 'feed` f ON e.id_feed=f.id WHERE priority > 0'
-		     . ' UNION SELECT COUNT(e.id) AS count FROM `' . $this->prefix . 'entry` e INNER JOIN `' . $this->prefix . 'feed` f ON e.id_feed=f.id WHERE priority > 0 AND is_read=0';
+			. ' UNION SELECT COUNT(e.id) AS count FROM `' . $this->prefix . 'entry` e INNER JOIN `' . $this->prefix . 'feed` f ON e.id_feed=f.id WHERE priority > 0 AND is_read=0';
 		$stm = $this->bd->prepare($sql);
 		$stm->execute();
 		$res = $stm->fetchAll(PDO::FETCH_COLUMN, 0);
@@ -870,9 +871,9 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 
 	public function countUnreadReadFavorites() {
 		$sql = 'SELECT c FROM ('
-		     .	'SELECT COUNT(id) AS c, 1 as o FROM `' . $this->prefix . 'entry` WHERE is_favorite=1 '
-		     .	'UNION SELECT COUNT(id) AS c, 2 AS o FROM `' . $this->prefix . 'entry` WHERE is_favorite=1 AND is_read=0'
-		     .	') u ORDER BY o';
+			.	'SELECT COUNT(id) AS c, 1 as o FROM `' . $this->prefix . 'entry` WHERE is_favorite=1 '
+			.	'UNION SELECT COUNT(id) AS c, 2 AS o FROM `' . $this->prefix . 'entry` WHERE is_favorite=1 AND is_read=0'
+			.	') u ORDER BY o';
 		$stm = $this->bd->prepare($sql);
 		$stm->execute();
 		$res = $stm->fetchAll(PDO::FETCH_COLUMN, 0);
