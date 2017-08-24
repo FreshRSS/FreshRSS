@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ruleset name="FreshRSS Ruleset">
 	<description>Created with the PHP Coding Standard Generator. http://edorian.github.com/php-coding-standard-generator/</description>
+	<!-- to circumvent https://github.com/squizlabs/PHP_CodeSniffer/pull/1404 -->
+	<arg name="tab-width" value="8"/>
 	<exclude-pattern>./static</exclude-pattern>
 	<exclude-pattern>./vendor</exclude-pattern>
 	<exclude-pattern>./lib/SimplePie/</exclude-pattern>
