@@ -348,6 +348,7 @@ function get_user_configuration($username) {
 		                             join_path(FRESHRSS_PATH, 'config-user.default.php'));
 	} catch (Minz_ConfigurationNamespaceException $e) {
 		// namespace already exists, do nothing.
+		Minz_Log::warning($e->getMessage());
 	} catch (Minz_FileNotExistException $e) {
 		Minz_Log::warning($e->getMessage());
 		return null;
@@ -366,6 +367,7 @@ function cryptAvailable() {
 		$hash = '$2y$04$usesomesillystringfore7hnbRJHxXVLeakoG8K30oukPsA.ztMG';
 		return $hash === @crypt('password', $hash);
 	} catch (Exception $e) {
+		Minz_Log::warning($e->getMessage());
 	}
 	return false;
 }
