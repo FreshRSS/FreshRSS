@@ -41,8 +41,13 @@
 	<rule ref="Generic.NamingConventions.UpperCaseConstantName"/>
 	<!-- Use lowercase for 'true', 'false' and 'null' -->
 	<rule ref="Generic.PHP.LowerCaseConstant"/>
-	<!-- Use a single string instead of concating -->
-	<rule ref="Generic.Strings.UnnecessaryStringConcat"/>
+	<!-- Use a single string instead of concatenating -->
+	<rule ref="Generic.Strings.UnnecessaryStringConcat">
+		<properties>
+			<!-- Allow string concatenating across multiple lines -->
+			<property name="allowMultiline" value="true"/>
+		</properties>
+	</rule>
 	<!-- Use tabs for indentation -->
 	<rule ref="Generic.WhiteSpace.DisallowSpaceIndent"/>
 	<!-- Parameters with default values must appear last in functions -->
