@@ -32,7 +32,7 @@ Nous sommes une communauté amicale.
 * Serveur modeste, par exemple sous Linux ou Windows
 	* Fonctionne même sur un Raspberry Pi 1 avec des temps de réponse < 1s (testé sur 150 flux, 22k articles)
 * Serveur Web Apache2 (recommandé), ou nginx, lighttpd (non testé sur les autres)
-* PHP 5.3.3+ (PHP 5.4+ recommandé, et PHP 5.5+ pour les performances, et PHP 7+ pour d’encore meilleures performances)
+* PHP 5.3.8+ (PHP 5.4+ recommandé, et PHP 5.5+ pour les performances, et PHP 7+ pour d’encore meilleures performances)
 	* Requis : [cURL](http://php.net/curl), [DOM](http://php.net/dom), [XML](http://php.net/xml), [session](http://php.net/session),  [ctype](http://php.net/ctype), et [PDO_MySQL](http://php.net/pdo-mysql) ou [PDO_SQLite](http://php.net/pdo-sqlite) ou [PDO_PGSQL](http://php.net/pdo-pgsql)
 	* Recommandés : [JSON](http://php.net/json), [GMP](http://php.net/gmp) (pour accès API sur plateformes < 64 bits), [IDN](http://php.net/intl.idn) (pour les noms de domaines internationalisés), [mbstring](http://php.net/mbstring) et/ou [iconv](http://php.net/iconv) (pour conversion d’encodages), [ZIP](http://php.net/zip) (pour import/export), [zlib](http://php.net/zlib) (pour les flux compressés)
 * MySQL 5.5.3+ (recommandé), ou SQLite 3.7.4+, ou PostgreSQL 9.2+
@@ -107,7 +107,7 @@ sudo chown -R :www-data . && sudo chmod -R g+r . && sudo chmod -R g+w ./data/
 
 ## Contrôle d’accès
 Il est requis pour le mode multi-utilisateur, et recommandé dans tous les cas, de limiter l’accès à votre FreshRSS. Au choix :
-* En utilisant l’identification par formulaire (requiert JavaScript, et PHP 5.3.7+ recommandé – fonctionne avec certaines versions de PHP 5.3.3+)
+* En utilisant l’identification par formulaire (requiert JavaScript, et PHP 5.5+ recommandé)
 * En utilisant un contrôle d’accès HTTP défini par votre serveur Web
 	* Voir par exemple la [documentation d’Apache sur l’authentification](http://httpd.apache.org/docs/trunk/howto/auth.html)
 		* Créer dans ce cas un fichier `./p/i/.htaccess` avec un fichier `.htpasswd` correspondant.

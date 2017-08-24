@@ -2,6 +2,9 @@
 
 ## 2017-XX-XX FreshRSS 1.7.1-dev
 
+* Compatibility:
+	* Minimal PHP version increased to PHP 5.3.8+ to fix sanitize bug [#1604](https://github.com/FreshRSS/FreshRSS/issues/1604)
+	* Add support for PHP 7.1 in the API [#1584](https://github.com/FreshRSS/FreshRSS/issues/1584), [#1594](https://github.com/FreshRSS/FreshRSS/pull/1594)
 * UI
 	* New page for subscription tools [#1534](https://github.com/FreshRSS/FreshRSS/issues/1354)
 	* Adjustments to the padding of the tree of categories and feeds [1589](https://github.com/FreshRSS/FreshRSS/pull/1589)
@@ -11,7 +14,6 @@
 	* Korean [#1578](https://github.com/FreshRSS/FreshRSS/pull/1578)
 	* Fix month abbreviations [#1560](https://github.com/FreshRSS/FreshRSS/issues/1560)
 * Bug fixing
-	* PHP 7.1 compatibility for the API [#1584](https://github.com/FreshRSS/FreshRSS/issues/1584), [#1594](https://github.com/FreshRSS/FreshRSS/pull/1594)
 	* Fix API compatibility bug between PostgreSQL and EasyRSS [#1603](https://github.com/FreshRSS/FreshRSS/pull/1603)
 	* Fix PostgreSQL error when adding entries with duplicated GUID [#1610](https://github.com/FreshRSS/FreshRSS/issues/1610)
 	* Fix for RSS feeds containing HTML in author field [#1590](https://github.com/FreshRSS/FreshRSS/issues/1590)
