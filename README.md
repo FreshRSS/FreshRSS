@@ -1,3 +1,5 @@
+[![Build Status][travis-badge]][travis-link]
+
 * [Version française](README.fr.md)
 
 # FreshRSS
@@ -182,3 +184,6 @@ Any client supporting a Google Reader-like API. Selection:
 	* [EasyRSS](https://github.com/Alkarex/EasyRSS) (Open source, F-Droid)
 * Linux
 	* [FeedReader 2.0+](https://jangernert.github.io/FeedReader/) (Open source)
+
+[travis-badge]:https://travis-ci.org/FreshRSS/FreshRSS.svg?branch=master
+[travis-link]:https://travis-ci.org/FreshRSS/FreshRSS
