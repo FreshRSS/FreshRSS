@@ -227,6 +227,7 @@ function toggleContent(new_active, old_active) {
 
 	if (context.does_lazyload) {
 		new_active.find('img[data-original], iframe[data-original]').each(function () {
+			this.onload = function () { $(document.body).trigger("sticky_kit:recalc"); };
 			this.setAttribute('src', this.getAttribute('data-original'));
 			this.removeAttribute('data-original');
 		});
