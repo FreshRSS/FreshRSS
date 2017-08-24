@@ -25,7 +25,7 @@ class FreshRSS_Themes extends Minz_Model {
 	}
 
 	public static function get_infos($theme_id) {
-		$theme_dir = PUBLIC_PATH . self::$themesUrl . $theme_id ;
+		$theme_dir = PUBLIC_PATH . self::$themesUrl . $theme_id;
 		if (is_dir($theme_dir)) {
 			$json_filename = $theme_dir . '/metadata.json';
 			if (file_exists($json_filename)) {

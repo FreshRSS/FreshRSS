@@ -380,7 +380,7 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 			if ($catID === null) {
 				$category = isset($dao['category']) ? $dao['category'] : 0;
 			} else {
-				$category = $catID ;
+				$category = $catID;
 			}
 
 			$myFeed = new FreshRSS_Feed(isset($dao['url']) ? $dao['url'] : '', false);
