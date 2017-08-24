@@ -79,6 +79,7 @@ return array(
 		'last_year' => '去年',
 		'mar' => '三月',
 		'march' => '三月',
+		'may_' => '五月',
 		'may' => '五月',
 		'mon' => '周一',
 		'month' => '个月',
