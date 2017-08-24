@@ -5,7 +5,8 @@ require('_update-or-create-user.php');
 
 $username = $options['user'];
 if (!FreshRSS_user_Controller::checkUsername($username)) {
-	fail('FreshRSS error: invalid username “' . $username . '”! Must be matching ' . FreshRSS_user_Controller::USERNAME_PATTERN);
+	fail('FreshRSS error: invalid username “' . $username .
+		'”! Must be matching ' . FreshRSS_user_Controller::USERNAME_PATTERN);
 }
 
 $usernames = listUsers();
