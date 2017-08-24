@@ -82,16 +82,16 @@ if ($requirements['all'] !== 'ok') {
 
 if (!FreshRSS_user_Controller::checkUsername($options['default_user'])) {
 	fail('FreshRSS error: invalid default username “' . $options['default_user']
-	     . '”! Must be matching ' . FreshRSS_user_Controller::USERNAME_PATTERN);
+		. '”! Must be matching ' . FreshRSS_user_Controller::USERNAME_PATTERN);
 }
 
 if (isset($options['auth_type']) && !in_array($options['auth_type'], array('form', 'http_auth', 'none'))) {
 	fail('FreshRSS invalid authentication method (auth_type must be one of { form, http_auth, none }): '
-	     . $options['auth_type']);
+		. $options['auth_type']);
 }
 
 if (file_put_contents(join_path(DATA_PATH, 'config.php'),
-    "<?php\n return " . var_export($config, true) . ";\n") === false) {
+	"<?php\n return " . var_export($config, true) . ";\n") === false) {
 	fail('FreshRSS could not write configuration file!: ' . join_path(DATA_PATH, 'config.php'));
 }
 
