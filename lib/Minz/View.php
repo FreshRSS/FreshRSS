@@ -262,5 +262,3 @@ class Minz_View {
 		}
 	}
 }
-
-

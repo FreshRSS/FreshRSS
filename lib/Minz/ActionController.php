@@ -34,5 +34,3 @@ class Minz_ActionController {
 	public function firstAction () { }
 	public function lastAction () { }
 }
-
-
