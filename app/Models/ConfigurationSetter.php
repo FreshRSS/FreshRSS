@@ -163,7 +163,7 @@ class FreshRSS_ConfigurationSetter {
 		if (!in_array($value, array('global', 'normal', 'reader'))) {
 			$value = 'normal';
 		}
-		$data['view_mode'] =  $value;
+		$data['view_mode'] = $value;
 	}
 
 	/**
@@ -326,7 +326,7 @@ class FreshRSS_ConfigurationSetter {
 		if (!in_array($value, array('silent', 'development', 'production'))) {
 			$value = 'production';
 		}
-		$data['environment'] =  $value;
+		$data['environment'] = $value;
 	}
 
 	private function _limits(&$data, $values) {
