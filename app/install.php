@@ -11,7 +11,7 @@ session_set_cookie_params(0, dirname(empty($_SERVER['REQUEST_URI']) ? '/' : dirn
 session_start();
 
 if (isset($_GET['step'])) {
-	define('STEP',(int)$_GET['step']);
+	define('STEP', (int)$_GET['step']);
 } else {
 	define('STEP', 0);
 }
@@ -652,7 +652,7 @@ function printStep3() {
 		<div class="form-group">
 			<label class="group-name" for="prefix"><?php echo _t('install.bdd.prefix'); ?></label>
 			<div class="group-controls">
-				<input type="text" id="prefix" name="prefix" maxlength="16" pattern="[0-9A-Za-z_]{1,16}" value="<?php echo isset($_SESSION['bd_prefix']) ? $_SESSION['bd_prefix'] :  $system_default_config->db['prefix']; ?>" tabindex="6" />
+				<input type="text" id="prefix" name="prefix" maxlength="16" pattern="[0-9A-Za-z_]{1,16}" value="<?php echo isset($_SESSION['bd_prefix']) ? $_SESSION['bd_prefix'] : $system_default_config->db['prefix']; ?>" tabindex="6" />
 			</div>
 		</div>
 		</div>
