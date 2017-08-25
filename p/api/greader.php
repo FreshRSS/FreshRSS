@@ -724,13 +724,11 @@ Minz_Session::_param('currentUser', $user);
 
 if (count($pathInfos) < 3) {
 	badRequest();
-}
-elseif ($pathInfos[1] === 'accounts') {
+} elseif ($pathInfos[1] === 'accounts') {
 	if (($pathInfos[2] === 'ClientLogin') && isset($_REQUEST['Email']) && isset($_REQUEST['Passwd'])) {
 		clientLogin($_REQUEST['Email'], $_REQUEST['Passwd']);
 	}
-}
-elseif ($pathInfos[1] === 'reader' && $pathInfos[2] === 'api' && isset($pathInfos[3]) && $pathInfos[3] === '0' && isset($pathInfos[4])) {
+} elseif ($pathInfos[1] === 'reader' && $pathInfos[2] === 'api' && isset($pathInfos[3]) && $pathInfos[3] === '0' && isset($pathInfos[4])) {
 	if ($user == '') {
 		unauthorized();
 	}
