@@ -22,7 +22,7 @@ class FreshRSS_Feed extends Minz_Model {
 	private $hubUrl = '';
 	private $selfUrl = '';
 
-	public function __construct($url, $validate=true) {
+	public function __construct($url, $validate = true) {
 		if ($validate) {
 			$this->_url($url);
 		} else {
@@ -165,7 +165,7 @@ class FreshRSS_Feed extends Minz_Model {
 	public function _id($value) {
 		$this->id = $value;
 	}
-	public function _url($value, $validate=true) {
+	public function _url($value, $validate = true) {
 		$this->hash = null;
 		if ($validate) {
 			$value = checkUrl($value);
@@ -182,7 +182,7 @@ class FreshRSS_Feed extends Minz_Model {
 	public function _name($value) {
 		$this->name = $value === null ? '' : $value;
 	}
-	public function _website($value, $validate=true) {
+	public function _website($value, $validate = true) {
 		if ($validate) {
 			$value = checkUrl($value);
 		}
