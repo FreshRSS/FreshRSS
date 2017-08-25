@@ -104,7 +104,7 @@ return array(
 			'when' => 'Segna articoli come letti…',
 		),
 		'show' => array(
-			'_' => 	'Articoli da visualizzare',
+			'_' => 'Articoli da visualizzare',
 			'adaptive' => 'Adatta visualizzazione',
 			'all_articles' => 'Mostra tutti gli articoli',
 			'unread' => 'Mostra solo non letti',

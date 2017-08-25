@@ -104,7 +104,7 @@ return array(
 			'when' => 'Markeer artikel als gelezen…',
 		),
 		'show' => array(
-			'_' => 	'Artikelen om te tonen',
+			'_' => 'Artikelen om te tonen',
 			'adaptive' => 'Pas weergave aan',
 			'all_articles' => 'Bekijk alle artikelen',
 			'unread' => 'Bekijk alleen ongelezen',
