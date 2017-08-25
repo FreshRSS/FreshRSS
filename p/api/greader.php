@@ -94,7 +94,16 @@ function debugInfo() {
 		}
 	}
 	global $ORIGINAL_INPUT;
-	return print_r(array('date' => date('c'), 'headers' => $ALL_HEADERS, '_SERVER' => $_SERVER, '_GET' => $_GET, '_POST' => $_POST, '_COOKIE' => $_COOKIE, 'INPUT' => $ORIGINAL_INPUT), true);
+	return print_r(
+		array(
+			'date' => date('c'),
+			'headers' => $ALL_HEADERS,
+			'_SERVER' => $_SERVER,
+			'_GET' => $_GET,
+			'_POST' => $_POST,
+			'_COOKIE' => $_COOKIE,
+			'INPUT' => $ORIGINAL_INPUT
+		), true);
 }
 
 function badRequest() {
