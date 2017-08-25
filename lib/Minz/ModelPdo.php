@@ -52,7 +52,8 @@ class Minz_ModelPdo {
 		$conf = Minz_Configuration::get('system');
 		$db = $conf->db;
 
-		$driver_options = isset($conf->db['pdo_options']) && is_array($conf->db['pdo_options']) ? $conf->db['pdo_options'] : array();
+		$driver_options = isset($conf->db['pdo_options']) && is_array($conf->db['pdo_options']) ?
+			$conf->db['pdo_options'] : array();
 		$dbServer = parse_url('db://' . $db['host']);
 
 		try {
