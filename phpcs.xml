@@ -25,6 +25,8 @@
 	<rule ref="Generic.Files.LineLength">
 		<!-- For language strings maximum line lengths make little sense. -->
 		<exclude-pattern>./app/i18n/</exclude-pattern>
+		<!-- Not convinced it actually includes legibility to enforce line length on all of the HTML -->
+		<exclude-pattern>./app/install.php</exclude-pattern>
 		<!-- @todo remove test exclusion -->
 		<exclude-pattern>./tests/app/</exclude-pattern>
 		<properties>
