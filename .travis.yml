@@ -23,5 +23,6 @@ matrix:
       dist: precise
   fast_finish: true
   allow_failures:
+    - php: 5.3
     - php: hhvm
     - php: nightly
