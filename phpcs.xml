@@ -25,13 +25,13 @@
 	<rule ref="Generic.Files.LineLength">
 		<!-- For language strings maximum line lengths make little sense. -->
 		<exclude-pattern>./app/i18n/</exclude-pattern>
-		<!-- Not convinced it actually includes legibility to enforce line length on all of the HTML -->
+		<!-- Don't enforce line length on the HTML; the point is to improve legibility, not reduce it -->
 		<exclude-pattern>./app/install.php</exclude-pattern>
 		<!-- @todo remove test exclusion -->
 		<exclude-pattern>./tests/app/</exclude-pattern>
 		<properties>
 			<property name="lineLimit" value="80"/>
-			<property name="absoluteLineLimit" value="120"/>
+			<property name="absoluteLineLimit" value="150"/>
 		</properties>
 	</rule>
 	<!-- When calling a function: -->
@@ -41,6 +41,8 @@
 	<!-- Do not add a space before a comma -->
 	<!-- Add a space after a comma -->
 	<rule ref="Generic.Functions.FunctionCallArgumentSpacing"/>
+	<rule ref="Generic.PHP.DisallowShortOpenTag" />
+	<rule ref="Generic.PHP.DeprecatedFunctions" />
 	<!-- Use UPPERCARE for constants -->
 	<rule ref="Generic.NamingConventions.UpperCaseConstantName"/>
 	<!-- Use lowercase for 'true', 'false' and 'null' -->
@@ -64,6 +66,12 @@
 	<rule ref="PSR2.ControlStructures.ControlStructureSpacing"/>
 	<!-- Add a new line at the end of a file -->
 	<rule ref="PSR2.Files.EndFileNewline"/>
+	<!-- Use Unix newlines -->
+	<rule ref="Generic.Files.LineEndings">
+		<properties>
+			<property name="eolChar" value="\n" />
+		</properties>
+	</rule>
 	<!-- Add space after closing parenthesis -->
 	<!-- Add body into new line -->
 	<!-- Close body in new line -->
