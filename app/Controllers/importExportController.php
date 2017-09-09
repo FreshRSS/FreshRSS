@@ -501,7 +501,7 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 		try {
 			// Create a Feed object and add it in database.
 			$feed = new FreshRSS_Feed($url);
-			$feed->_category(FreshRSS_CategoryDAO::defaultCategoryId);
+			$feed->_category(FreshRSS_CategoryDAO::DEFAULTCATEGORYID);
 			$feed->_name($name);
 			$feed->_website($website);
 
