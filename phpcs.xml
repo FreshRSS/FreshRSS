@@ -48,8 +48,8 @@
 	<rule ref="Generic.PHP.DeprecatedFunctions" />
 	<!-- Use UPPERCARE for constants -->
 	<rule ref="Generic.NamingConventions.UpperCaseConstantName"/>
-	<!-- Use uppercase for 'TRUE', 'FALSE' and 'NULL' -->
-	<rule ref="Generic.PHP.UpperCaseConstant"/>
+	<!-- Use lowercase for 'true', 'false' and 'null' -->
+	<rule ref="Generic.PHP.LowerCaseConstant"/>
 	<!-- Use a single string instead of concatenating -->
 	<rule ref="Generic.Strings.UnnecessaryStringConcat">
 		<properties>
