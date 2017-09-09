@@ -703,8 +703,8 @@ $pathInfo = empty($_SERVER['PATH_INFO']) ? '/Error' : urldecode($_SERVER['PATH_I
 $pathInfos = explode('/', $pathInfo);
 
 Minz_Configuration::register('system',
-                             DATA_PATH . '/config.php',
-                             FRESHRSS_PATH . '/config.default.php');
+	DATA_PATH . '/config.php',
+	FRESHRSS_PATH . '/config.default.php');
 FreshRSS_Context::$system_conf = Minz_Configuration::get('system');
 if (!FreshRSS_Context::$system_conf->api_enabled) {
 	serviceUnavailable();

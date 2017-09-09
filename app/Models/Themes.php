@@ -109,10 +109,8 @@ class FreshRSS_Themes extends Minz_Model {
 		}
 
 		$url = $name . '.svg';
-		$url = isset(self::$themeIcons[$url]) ? (self::$themeIconsUrl . $url) :
-			(self::$defaultIconsUrl . $url);
+		$url = isset(self::$themeIcons[$url]) ? (self::$themeIconsUrl . $url) : (self::$defaultIconsUrl . $url);
 
-		return $urlOnly ? Minz_Url::display($url) :
-			'<img class="icon" src="' . Minz_Url::display($url) . '" alt="' . $alts[$name] . '" />';
+		return $urlOnly ? Minz_Url::display($url) : '<img class="icon" src="' . Minz_Url::display($url) . '" alt="' . $alts[$name] . '" />';
 	}
 }

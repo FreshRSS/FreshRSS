@@ -189,8 +189,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 		if ($this->addEntryPrepared && $this->addEntryPrepared->execute()) {
 			return true;
 		} else {
-			$info = $this->addEntryPrepared == null ? array(0 => '', 1 => '', 2 => 'syntax error') :
-				$this->addEntryPrepared->errorInfo();
+			$info = $this->addEntryPrepared == null ? array(0 => '', 1 => '', 2 => 'syntax error') : $this->addEntryPrepared->errorInfo();
 			if ($this->autoUpdateDb($info)) {
 				$this->addEntryPrepared = null;
 				return $this->addEntry($valuesTmp);
@@ -606,16 +605,14 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 			if (!($state & FreshRSS_Entry::STATE_READ)) {
 				$search .= 'AND ' . $alias . 'is_read=0 ';
 			}
-		}
-		elseif ($state & FreshRSS_Entry::STATE_READ) {
+		} elseif ($state & FreshRSS_Entry::STATE_READ) {
 			$search .= 'AND ' . $alias . 'is_read=1 ';
 		}
 		if ($state & FreshRSS_Entry::STATE_FAVORITE) {
 			if (!($state & FreshRSS_Entry::STATE_NOT_FAVORITE)) {
 				$search .= 'AND ' . $alias . 'is_favorite=1 ';
 			}
-		}
-		elseif ($state & FreshRSS_Entry::STATE_NOT_FAVORITE) {
+		} elseif ($state & FreshRSS_Entry::STATE_NOT_FAVORITE) {
 			$search .= 'AND ' . $alias . 'is_favorite=0 ';
 		}
 

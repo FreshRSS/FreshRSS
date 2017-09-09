@@ -152,8 +152,7 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 
 		// And finally, we get import status and redirect to the home page
 		Minz_Session::_param('actualize_feeds', true);
-		$content_notif = $error === true ? _t('feedback.import_export.feeds_imported_with_errors') :
-		                                   _t('feedback.import_export.feeds_imported');
+		$content_notif = $error === true ? _t('feedback.import_export.feeds_imported_with_errors') : _t('feedback.import_export.feeds_imported');
 		Minz_Request::good($content_notif);
 	}
 
@@ -439,8 +438,7 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 
 			$feed_id = $article_to_feed[$item['id']];
 			$author = isset($item['author']) ? $item['author'] : '';
-			$key_content = ($google_compliant && !isset($item['content'])) ?
-			               'summary' : 'content';
+			$key_content = ($google_compliant && !isset($item['content'])) ? 'summary' : 'content';
 			$tags = $item['categories'];
 			if ($google_compliant) {
 				// Remove tags containing "/state/com.google" which are useless.

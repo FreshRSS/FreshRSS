@@ -250,9 +250,7 @@ class FreshRSS_Context {
 				}
 
 				// If no feed have been found, next_get is the current category.
-				self::$next_get = empty($another_unread_id) ?
-				                  'c_' . self::$current_get['category'] :
-				                  'f_' . $another_unread_id;
+				self::$next_get = empty($another_unread_id) ? 'c_' . self::$current_get['category'] : 'f_' . $another_unread_id;
 				break;
 			case 'c':
 				// We search the next category with at least one unread article.
@@ -275,9 +273,7 @@ class FreshRSS_Context {
 				}
 
 				// No unread category? The main stream will be our destination!
-				self::$next_get = empty($another_unread_id) ?
-				                  'a' :
-				                  'c_' . $another_unread_id;
+				self::$next_get = empty($another_unread_id) ? 'a' : 'c_' . $another_unread_id;
 				break;
 			}
 		}
