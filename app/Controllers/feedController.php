@@ -420,8 +420,7 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 						$feedDAO->updateFeed($feed->id(), array('url' => $feed->url()));
 					}
 				}
-			}
-			elseif ($feed->url() !== $url) {	// HTTP 301 Moved Permanently
+			} elseif ($feed->url() !== $url) {	// HTTP 301 Moved Permanently
 				Minz_Log::notice('Feed ' . $url . ' moved permanently to ' . $feed->url());
 				$feedDAO->updateFeed($feed->id(), array('url' => $feed->url()));
 			}
@@ -566,6 +565,9 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 
 		if (self::moveFeed($feed_id, $cat_id)) {
 			// TODO: return something useful
+			// Log a notice to prevent "Empty IF statement" warning in PHP_CodeSniffer
+			Minz_Log::notice('Moved feed `' . $feed_id . '` ' .
+			                 'in the category `' . $cat_id . '`');;
 		} else {
 			Minz_Log::warning('Cannot move feed `' . $feed_id . '` ' .
 			                  'in the category `' . $cat_id . '`');
