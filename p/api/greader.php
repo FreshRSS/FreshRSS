@@ -735,11 +735,23 @@ if (count($pathInfos) < 3) {
 	$timestamp = isset($_GET['ck']) ? intval($_GET['ck']) : 0;	//ck=[unix timestamp] : Use the current Unix time here, helps Google with caching.
 	switch ($pathInfos[4]) {
 		case 'stream':
-			$exclude_target = isset($_GET['xt']) ? $_GET['xt'] : '';	//xt=[exclude target] : Used to exclude certain items from the feed. For example, using xt=user/-/state/com.google/read will exclude items that the current user has marked as read, or xt=feed/[feedurl] will exclude items from a particular feed (obviously not useful in this request, but xt appears in other listing requests).
+			/* xt=[exclude target] : Used to exclude certain items from the feed.
+			 * For example, using xt=user/-/state/com.google/read will exclude items
+			 * that the current user has marked as read, or xt=feed/[feedurl] will
+			 * exclude items from a particular feed (obviously not useful in this
+			 * request, but xt appears in other listing requests). */
+			$exclude_target = isset($_GET['xt']) ? $_GET['xt'] : '';
 			$count = isset($_GET['n']) ? intval($_GET['n']) : 20;	//n=[integer] : The maximum number of results to return.
 			$order = isset($_GET['r']) ? $_GET['r'] : 'd';	//r=[d|n|o] : Sort order of item results. d or n gives items in descending date order, o in ascending order.
-			$start_time = isset($_GET['ot']) ? intval($_GET['ot']) : 0;	//ot=[unix timestamp] : The time from which you want to retrieve items. Only items that have been crawled by Google Reader after this time will be returned.
-			$continuation = isset($_GET['c']) ? $_GET['c'] : '';	//Continuation token. If a StreamContents response does not represent all items in a timestamp range, it will have a continuation attribute. The same request can be re-issued with the value of that attribute put in this parameter to get more items
+			/* ot=[unix timestamp] : The time from which you want to retrieve
+			 * items. Only items that have been crawled by Google Reader after
+			 * this time will be returned. */
+			$start_time = isset($_GET['ot']) ? intval($_GET['ot']) : 0;
+			/* Continuation token. If a StreamContents response does not represent
+			 * all items in a timestamp range, it will have a continuation attribute.
+			 * The same request can be re-issued with the value of that attribute put
+			 * in this parameter to get more items */
+			$continuation = isset($_GET['c']) ? $_GET['c'] : '';
 			if (isset($pathInfos[5]) && $pathInfos[5] === 'contents' && isset($pathInfos[6])) {
 				if (isset($pathInfos[7])) {
 					if ($pathInfos[6] === 'feed') {
@@ -764,7 +776,10 @@ if (count($pathInfos) < 3) {
 				}
 			} elseif ($pathInfos[5] === 'items') {
 				if ($pathInfos[6] === 'ids' && isset($_GET['s'])) {
-					$streamId = $_GET['s'];	//StreamId for which to fetch the item IDs. The parameter may be repeated to fetch the item IDs from multiple streams at once (more efficient from a backend perspective than multiple requests).
+					/* StreamId for which to fetch the item IDs. The parameter may
+					 * be repeated to fetch the item IDs from multiple streams at once
+					 * (more efficient from a backend perspective than multiple requests). */
+					$streamId = $_GET['s'];
 					streamContentsItemsIds($streamId, $start_time, $count, $order, $exclude_target);
 				}
 			}
@@ -786,8 +801,12 @@ if (count($pathInfos) < 3) {
 						break;
 					case 'edit':
 						if (isset($_POST['s']) && isset($_POST['ac'])) {
-							$streamNames = multiplePosts('s');	//StreamId to operate on. The parameter may be repeated to edit multiple subscriptions at once
-							$titles = multiplePosts('t');	//Title to use for the subscription. For the `subscribe` action, if not specified then the feed's current title will be used. Can be used with the `edit` action to rename a subscription
+							//StreamId to operate on. The parameter may be repeated to edit multiple subscriptions at once
+							$streamNames = multiplePosts('s');
+							/* Title to use for the subscription. For the `subscribe` action,
+							 * if not specified then the feed's current title will be used. Can
+							 * be used with the `edit` action to rename a subscription */
+							$titles = multiplePosts('t');
 							$action = $_POST['ac'];	//Action to perform on the given StreamId. Possible values are `subscribe`, `unsubscribe` and `edit`
 							$add = isset($_POST['a']) ? $_POST['a'] : '';	//StreamId to add the subscription to (generally a user label)
 							$remove = isset($_POST['r']) ? $_POST['r'] : '';	//StreamId to remove the subscription from (generally a user label)
