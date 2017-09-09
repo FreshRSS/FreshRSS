@@ -61,8 +61,6 @@
 	<rule ref="Generic.WhiteSpace.DisallowSpaceIndent"/>
 	<!-- Parameters with default values must appear last in functions -->
 	<rule ref="PEAR.Functions.ValidDefaultValue"/>
-	<!-- Use PascalCase for class names -->
-	<rule ref="PEAR.NamingConventions.ValidClassName"/>
 	<!-- Use 'elseif' instead of 'else if' -->
 	<rule ref="PSR2.ControlStructures.ElseIfDeclaration"/>
 	<!-- Do not add spaces after opening or before closing bracket -->
