@@ -34,7 +34,7 @@
 		<exclude-pattern>./app/SQL/install.sql.pgsql.php</exclude-pattern>
 		<properties>
 			<property name="lineLimit" value="80"/>
-			<property name="absoluteLineLimit" value="150"/>
+			<property name="absoluteLineLimit" value="180"/>
 		</properties>
 	</rule>
 	<!-- When calling a function: -->
