@@ -29,6 +29,9 @@
 		<exclude-pattern>./app/install.php</exclude-pattern>
 		<!-- @todo remove test exclusion -->
 		<exclude-pattern>./tests/app/</exclude-pattern>
+		<!-- @todo remove SQL exclusion -->
+		<exclude-pattern>./app/SQL/install.sql.mysql.php</exclude-pattern>
+		<exclude-pattern>./app/SQL/install.sql.pgsql.php</exclude-pattern>
 		<properties>
 			<property name="lineLimit" value="80"/>
 			<property name="absoluteLineLimit" value="150"/>
