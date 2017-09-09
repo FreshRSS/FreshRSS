@@ -204,8 +204,13 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 
 	public function commitNewEntries() {
 		$sql = 'SET @rank=(SELECT MAX(id) - COUNT(*) FROM `' . $this->prefix . 'entrytmp`); ' .	//MySQL-specific
-			'INSERT IGNORE INTO `' . $this->prefix . 'entry` (id, guid, title, author, content_bin, link, date, `lastSeen`, hash, is_read, is_favorite, id_feed, tags) ' .
-				'SELECT @rank:=@rank+1 AS id, guid, title, author, content_bin, link, date, `lastSeen`, hash, is_read, is_favorite, id_feed, tags FROM `' . $this->prefix . 'entrytmp` ORDER BY date; ' .
+			'INSERT IGNORE INTO `' . $this->prefix . 'entry`
+				(
+					id, guid, title, author, content_bin, link, date, `lastSeen`, hash, is_read, is_favorite, id_feed, tags
+				) ' .
+				'SELECT @rank:=@rank+1 AS id, guid, title, author, content_bin, link, date, `lastSeen`, hash, is_read, is_favorite, id_feed, tags
+					FROM `' . $this->prefix . 'entrytmp`
+					ORDER BY date; ' .
 			'DELETE FROM `' . $this->prefix . 'entrytmp` WHERE id <= @rank;';
 		$hadTransaction = $this->bd->inTransaction();
 		if (!$hadTransaction) {
@@ -622,7 +627,8 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 				throw new FreshRSS_EntriesGetter_Exception('Bad order in Entry->listByType: [' . $order . ']!');
 		}
 		/*if ($firstId === '' && parent::$sharedDbType === 'mysql') {
-			$firstId = $order === 'DESC' ? '9000000000'. '000000' : '0';	//MySQL optimization. TODO: check if this is needed again, after the filtering for old articles has been removed in 0.9-dev
+			//MySQL optimization. TODO: check if this is needed again, after the filtering for old articles has been removed in 0.9-dev
+			$firstId = $order === 'DESC' ? '9000000000'. '000000' : '0';
 		}*/
 		if ($firstId !== '') {
 			$search .= 'AND ' . $alias . 'id ' . ($order === 'DESC' ? '<=' : '>=') . $firstId . ' ';
