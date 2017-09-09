@@ -640,7 +640,7 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 	 * @param FreshRSS_Feed $feed feed of which we want to get entries.
 	 * @return string the JSON file content.
 	 */
-	private function generateEntries($type, $feed = NULL, $maxFeedEntries = 50) {
+	private function generateEntries($type, $feed = null, $maxFeedEntries = 50) {
 		$this->view->categories = $this->catDAO->listCategories();
 
 		if ($type == 'starred') {
