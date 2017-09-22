@@ -117,6 +117,7 @@ return array(
 		'cz' => 'Čeština',
 		'de' => 'Deutsch',
 		'en' => 'English',
+		'es' => 'Español',
 		'fr' => 'Français',
 		'it' => 'Italiano',
 		'kr' => '한국어',

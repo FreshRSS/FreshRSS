@@ -116,9 +116,10 @@ return array(
 	'lang' => array(
 		'cz' => 'Čeština',
 		'de' => 'Deutsch',
-		'en' => 'English1',
+		'en' => 'English',
+		'es' => 'Español',
 		'fr' => 'Français',
-		'it' => 'Italiano1',
+		'it' => 'Italiano',
 		'kr' => '한국어',
 		'nl' => 'Nederlands',
 		'ru' => 'Русский',
