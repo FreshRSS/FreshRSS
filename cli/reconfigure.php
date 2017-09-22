@@ -51,7 +51,8 @@ if (!FreshRSS_user_Controller::checkUsername($config->default_user)) {
 }
 
 if (isset($config->auth_type) && !in_array($config->auth_type, array('form', 'http_auth', 'none'))) {
-	fail('FreshRSS invalid authentication method (auth_type must be one of { form, http_auth, none }: ' . $config->auth_type);
+	fail('FreshRSS invalid authentication method (auth_type must be one of { form, http_auth, none }: '
+		. $config->auth_type);
 }
 
 $config->save();

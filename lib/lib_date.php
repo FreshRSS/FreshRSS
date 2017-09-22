@@ -63,8 +63,7 @@ function _dateCeiling($isoDate) {
 }
 
 function _noDelimit($isoDate) {
-	return $isoDate === null || $isoDate === '' ? null :
-		str_replace(array('-', ':'), '', $isoDate);	//FIXME: Bug with negative time zone
+	return $isoDate === null || $isoDate === '' ? null : str_replace(array('-', ':'), '', $isoDate);	//FIXME: Bug with negative time zone
 }
 
 function _dateRelative($d1, $d2) {

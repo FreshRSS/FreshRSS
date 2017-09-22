@@ -2,7 +2,7 @@
 
 class FreshRSS_CategoryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 
-	const defaultCategoryId = 1;
+	const DEFAULTCATEGORYID = 1;
 
 	public function addCategory($valuesTmp) {
 		$sql = 'INSERT INTO `' . $this->prefix . 'category`(name) VALUES(?)';
@@ -53,7 +53,7 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo implements FreshRSS_Searchable 
 	}
 
 	public function deleteCategory($id) {
-		if ($id <= self::defaultCategoryId) {
+		if ($id <= self::DEFAULTCATEGORYID) {
 			return false;
 		}
 		$sql = 'DELETE FROM `' . $this->prefix . 'category` WHERE id=?';
@@ -123,7 +123,7 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo implements FreshRSS_Searchable 
 	}
 
 	public function getDefault() {
-		$sql = 'SELECT * FROM `' . $this->prefix . 'category` WHERE id=' . self::defaultCategoryId;
+		$sql = 'SELECT * FROM `' . $this->prefix . 'category` WHERE id=' . self::DEFAULTCATEGORYID;
 		$stm = $this->bd->prepare($sql);
 
 		$stm->execute();
@@ -137,11 +137,11 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo implements FreshRSS_Searchable 
 		}
 	}
 	public function checkDefault() {
-		$def_cat = $this->searchById(self::defaultCategoryId);
+		$def_cat = $this->searchById(self::DEFAULTCATEGORYID);
 
 		if ($def_cat == null) {
 			$cat = new FreshRSS_Category(_t('gen.short.default_category'));
-			$cat->_id(self::defaultCategoryId);
+			$cat->_id(self::DEFAULTCATEGORYID);
 
 			$values = array(
 				'id' => $cat->id(),

@@ -104,7 +104,7 @@ return array(
 			'when' => '将文章设为已读…',
 		),
 		'show' => array(
-			'_' => 	'文章显示',
+			'_' => '文章显示',
 			'adaptive' => '智能显示',
 			'all_articles' => '显示所有文章',
 			'unread' => '只显示未读',

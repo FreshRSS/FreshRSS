@@ -33,14 +33,14 @@ class UserQueryTest extends PHPUnit\Framework\TestCase {
 		$category_name = 'some category name';
 		$cat = $this->getMock('FreshRSS_Category');
 		$cat->expects($this->atLeastOnce())
-		    ->method('name')
-		    ->withAnyParameters()
-		    ->willReturn($category_name);
+			->method('name')
+			->withAnyParameters()
+			->willReturn($category_name);
 		$cat_dao = $this->getMock('FreshRSS_Searchable');
 		$cat_dao->expects($this->atLeastOnce())
-		    ->method('searchById')
-		    ->withAnyParameters()
-		    ->willReturn($cat);
+			->method('searchById')
+			->withAnyParameters()
+			->willReturn($cat);
 		$query = array('get' => 'c_1');
 		$user_query = new FreshRSS_UserQuery($query, null, $cat_dao);
 		$this->assertEquals($category_name, $user_query->getGetName());
@@ -61,14 +61,14 @@ class UserQueryTest extends PHPUnit\Framework\TestCase {
 		$feed_name = 'some feed name';
 		$feed = $this->getMock('FreshRSS_Feed', array(), array('', false));
 		$feed->expects($this->atLeastOnce())
-		    ->method('name')
-		    ->withAnyParameters()
-		    ->willReturn($feed_name);
+			->method('name')
+			->withAnyParameters()
+			->willReturn($feed_name);
 		$feed_dao = $this->getMock('FreshRSS_Searchable');
 		$feed_dao->expects($this->atLeastOnce())
-		    ->method('searchById')
-		    ->withAnyParameters()
-		    ->willReturn($feed);
+			->method('searchById')
+			->withAnyParameters()
+			->willReturn($feed);
 		$query = array('get' => 'f_1');
 		$user_query = new FreshRSS_UserQuery($query, $feed_dao, null);
 		$this->assertEquals($feed_name, $user_query->getGetName());
@@ -118,12 +118,12 @@ class UserQueryTest extends PHPUnit\Framework\TestCase {
 
 	public function testToArray_whenData_returnsArray() {
 		$query = array(
-		    'get' => 's',
-		    'name' => 'some name',
-		    'order' => 'some order',
-		    'search' => 'some search',
-		    'state' => 'some state',
-		    'url' => 'some url',
+			'get' => 's',
+			'name' => 'some name',
+			'order' => 'some order',
+			'search' => 'some search',
+			'state' => 'some state',
+			'url' => 'some url',
 		);
 		$user_query = new FreshRSS_UserQuery($query);
 		$this->assertInternalType('array', $user_query->toArray());
@@ -133,7 +133,7 @@ class UserQueryTest extends PHPUnit\Framework\TestCase {
 
 	public function testHasSearch_whenSearch_returnsTrue() {
 		$query = array(
-		    'search' => 'some search',
+			'search' => 'some search',
 		);
 		$user_query = new FreshRSS_UserQuery($query);
 		$this->assertTrue($user_query->hasSearch());
@@ -166,9 +166,9 @@ class UserQueryTest extends PHPUnit\Framework\TestCase {
 		$cat = $this->getMock('FreshRSS_Category');
 		$cat_dao = $this->getMock('FreshRSS_Searchable');
 		$cat_dao->expects($this->atLeastOnce())
-		    ->method('searchById')
-		    ->withAnyParameters()
-		    ->willReturn($cat);
+			->method('searchById')
+			->withAnyParameters()
+			->willReturn($cat);
 		$query = array('get' => 'c_1');
 		$user_query = new FreshRSS_UserQuery($query, null, $cat_dao);
 		$this->assertFalse($user_query->isDeprecated());
@@ -177,9 +177,9 @@ class UserQueryTest extends PHPUnit\Framework\TestCase {
 	public function testIsDeprecated_whenCategoryDoesNotExist_returnTrue() {
 		$cat_dao = $this->getMock('FreshRSS_Searchable');
 		$cat_dao->expects($this->atLeastOnce())
-		    ->method('searchById')
-		    ->withAnyParameters()
-		    ->willReturn(null);
+			->method('searchById')
+			->withAnyParameters()
+			->willReturn(null);
 		$query = array('get' => 'c_1');
 		$user_query = new FreshRSS_UserQuery($query, null, $cat_dao);
 		$this->assertTrue($user_query->isDeprecated());
@@ -189,9 +189,9 @@ class UserQueryTest extends PHPUnit\Framework\TestCase {
 		$feed = $this->getMock('FreshRSS_Feed', array(), array('', false));
 		$feed_dao = $this->getMock('FreshRSS_Searchable');
 		$feed_dao->expects($this->atLeastOnce())
-		    ->method('searchById')
-		    ->withAnyParameters()
-		    ->willReturn($feed);
+			->method('searchById')
+			->withAnyParameters()
+			->willReturn($feed);
 		$query = array('get' => 'f_1');
 		$user_query = new FreshRSS_UserQuery($query, $feed_dao, null);
 		$this->assertFalse($user_query->isDeprecated());
@@ -200,9 +200,9 @@ class UserQueryTest extends PHPUnit\Framework\TestCase {
 	public function testIsDeprecated_whenFeedDoesNotExist_returnTrue() {
 		$feed_dao = $this->getMock('FreshRSS_Searchable');
 		$feed_dao->expects($this->atLeastOnce())
-		    ->method('searchById')
-		    ->withAnyParameters()
-		    ->willReturn(null);
+			->method('searchById')
+			->withAnyParameters()
+			->willReturn(null);
 		$query = array('get' => 'f_1');
 		$user_query = new FreshRSS_UserQuery($query, $feed_dao, null);
 		$this->assertTrue($user_query->isDeprecated());

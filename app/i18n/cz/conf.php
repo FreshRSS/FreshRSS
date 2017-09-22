@@ -104,7 +104,7 @@ return array(
 			'when' => 'Označit článek jako přečtený…',
 		),
 		'show' => array(
-			'_' => 	'Počet zobrazených článků',
+			'_' => 'Počet zobrazených článků',
 			'adaptive' => 'Vyberte zobrazení',
 			'all_articles' => 'Zobrazit všechny články',
 			'unread' => 'Zobrazit jen nepřečtené',

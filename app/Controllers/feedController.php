@@ -42,7 +42,7 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 		if ($cat == null) {
 			$catDAO->checkDefault();
 		}
-		$cat_id = $cat == null ? FreshRSS_CategoryDAO::defaultCategoryId : $cat->id();
+		$cat_id = $cat == null ? FreshRSS_CategoryDAO::DEFAULTCATEGORYID : $cat->id();
 
 		$feed = new FreshRSS_Feed($url);	//Throws FreshRSS_BadUrl_Exception
 		$feed->_httpAuth($http_auth);
@@ -420,8 +420,7 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 						$feedDAO->updateFeed($feed->id(), array('url' => $feed->url()));
 					}
 				}
-			}
-			elseif ($feed->url() !== $url) {	// HTTP 301 Moved Permanently
+			} elseif ($feed->url() !== $url) {	// HTTP 301 Moved Permanently
 				Minz_Log::notice('Feed ' . $url . ' moved permanently to ' . $feed->url());
 				$feedDAO->updateFeed($feed->id(), array('url' => $feed->url()));
 			}
@@ -537,7 +536,7 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 		}
 		if ($cat_id <= 1) {
 			$catDAO->checkDefault();
-			$cat_id = FreshRSS_CategoryDAO::defaultCategoryId;
+			$cat_id = FreshRSS_CategoryDAO::DEFAULTCATEGORYID;
 		}
 
 		$feedDAO = FreshRSS_Factory::createFeedDao();
@@ -566,6 +565,9 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 
 		if (self::moveFeed($feed_id, $cat_id)) {
 			// TODO: return something useful
+			// Log a notice to prevent "Empty IF statement" warning in PHP_CodeSniffer
+			Minz_Log::notice('Moved feed `' . $feed_id . '` ' .
+			                 'in the category `' . $cat_id . '`');;
 		} else {
 			Minz_Log::warning('Cannot move feed `' . $feed_id . '` ' .
 			                  'in the category `' . $cat_id . '`');

@@ -9,7 +9,7 @@ class FreshRSS_DatabaseDAO extends Minz_ModelPdo {
 		$stm = $this->bd->prepare($sql);
 		$stm->execute();
 		$res = $stm->fetchAll(PDO::FETCH_ASSOC);
-		
+
 		$tables = array(
 			$this->prefix . 'category' => false,
 			$this->prefix . 'feed' => false,

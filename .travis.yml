@@ -1,0 +1,34 @@
+language: php
+php:
+  - '5.4'
+  - '5.5'
+  - '5.6'
+  - '7.0'
+  - '7.1'
+  - hhvm
+  - nightly
+
+install:
+  # newest version without https://github.com/squizlabs/PHP_CodeSniffer/pull/1404
+  - pear install PHP_CodeSniffer-3.0.0RC4
+
+script:
+  - phpenv rehash
+  - phpcs . --standard=phpcs.xml --warning-severity=0 --extensions=php -p
+
+env: # important! otherwise no job will be allowed to fail
+matrix:
+  # PHP 5.3 only runs on Ubuntu 12.04 (precise), not 14.04 (trusty)
+  include:
+    - php: "5.3"
+      dist: precise
+  fast_finish: true
+  allow_failures:
+    - php: "5.3"
+      dist: precise
+    - php: "5.4"
+    - php: "5.5"
+    - php: "5.6"
+    - php: "7.0"
+    - php: hhvm
+    - php: nightly

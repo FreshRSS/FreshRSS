@@ -25,7 +25,7 @@ return array(
 		'keep_logged_in' => 'Zapamatovat přihlášení <small>(%s dny)</small>',
 		'login' => 'Login',
 		'logout' => 'Odhlášení',
-		'password' =>  array(
+		'password' => array(
 			'_' => 'Heslo',
 			'format' => '<small>Alespoň 7 znaků</small>',
 		),
