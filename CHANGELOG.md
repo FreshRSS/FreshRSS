@@ -54,6 +54,7 @@
 	* Simplified Chinese [#1541](https://github.com/FreshRSS/FreshRSS/pull/1541)
 	* Improve English [#1465](https://github.com/FreshRSS/FreshRSS/pull/1465)
 	* Improve Dutch [#1559](https://github.com/FreshRSS/FreshRSS/pull/1559)
+	* Added Spanish language [#1631] (https://github.com/FreshRSS/FreshRSS/pull/1631/) 
 * Security
 	* Do not require write access to check availability of new versions [#1450](https://github.com/FreshRSS/FreshRSS/issues/1450)
 * Misc.
