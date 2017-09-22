@@ -8,6 +8,7 @@
 * UI
 	* New page for subscription tools [#1534](https://github.com/FreshRSS/FreshRSS/issues/1354)
 	* Adjustments to the padding of the tree of categories and feeds [1589](https://github.com/FreshRSS/FreshRSS/pull/1589)
+	* Fix feed column position after lazy-loading images [#1616](https://github.com/FreshRSS/FreshRSS/pull/1616)
 * CLI
 	* New command `./cli/update-user` to update user settings [#1600](https://github.com/FreshRSS/FreshRSS/issues/1600)
 * I18n
@@ -18,6 +19,7 @@
 	* Fix PostgreSQL error when adding entries with duplicated GUID [#1610](https://github.com/FreshRSS/FreshRSS/issues/1610)
 	* Fix for RSS feeds containing HTML in author field [#1590](https://github.com/FreshRSS/FreshRSS/issues/1590)
 * Misc.
+	* Travis continuous integration [#1619](https://github.com/FreshRSS/FreshRSS/pull/1619)
 	* Allow longer database usernames [#1597](https://github.com/FreshRSS/FreshRSS/issues/1597)
 
 
