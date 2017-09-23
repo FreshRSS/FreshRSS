@@ -18,6 +18,7 @@
 	* Fix API compatibility bug between PostgreSQL and EasyRSS [#1603](https://github.com/FreshRSS/FreshRSS/pull/1603)
 	* Fix PostgreSQL error when adding entries with duplicated GUID [#1610](https://github.com/FreshRSS/FreshRSS/issues/1610)
 	* Fix for RSS feeds containing HTML in author field [#1590](https://github.com/FreshRSS/FreshRSS/issues/1590)
+	* Fix logout issue in global view due to CSRF [#1591](https://github.com/FreshRSS/FreshRSS/issues/1591)
 * Misc.
 	* Travis continuous integration [#1619](https://github.com/FreshRSS/FreshRSS/pull/1619)
 	* Allow longer database usernames [#1597](https://github.com/FreshRSS/FreshRSS/issues/1597)

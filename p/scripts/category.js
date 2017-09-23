@@ -92,7 +92,7 @@ function init_draggable() {
 		$.ajax({
 			type: 'POST',
 			url: './?c=feed&a=move',
-			data : {
+			data: {
 				f_id: dragFeedId,
 				c_id: e.target.parentNode.getAttribute('data-cat-id'),
 				_csrf: context.csrf,
