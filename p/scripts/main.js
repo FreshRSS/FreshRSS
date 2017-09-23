@@ -133,7 +133,7 @@ function mark_read(active, only_not_read) {
 	$.ajax({
 		type: 'POST',
 		url: url,
-		data : {
+		data: {
 			ajax: true,
 			_csrf: context.csrf,
 		},
@@ -182,7 +182,7 @@ function mark_favorite(active) {
 	$.ajax({
 		type: 'POST',
 		url: url,
-		data : {
+		data: {
 			ajax: true,
 			_csrf: context.csrf,
 		},
@@ -823,7 +823,7 @@ function updateFeed(feeds, feeds_count) {
 	$.ajax({
 		type: 'POST',
 		url: feed.url,
-		data : {
+		data: {
 			_csrf: context.csrf,
 			noCommit: feeds.length > 0 ? 1 : 0,
 		},
@@ -860,7 +860,7 @@ function init_actualize() {
 				$.ajax({	//Empty request to force refresh server database cache
 					type: 'POST',
 					url: './?c=feed&a=actualize&id=-1',
-					data : {
+					data: {
 						_csrf: context.csrf,
 						noCommit: 0,
 					},
@@ -1299,7 +1299,7 @@ function init_slider_observers() {
 		$.ajax({
 			type: 'GET',
 			url: url_slide,
-			data : { ajax: true }
+			data: { ajax: true }
 		}).done(function (data) {
 			slider.html(data);
 			closer.addClass('active');

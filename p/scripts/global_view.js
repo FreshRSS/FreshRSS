@@ -33,7 +33,7 @@ function load_panel(link) {
 			$.ajax({
 				type: "POST",
 				url: $(this).attr("formaction"),
-				data : {
+				data: {
 					_csrf: context.csrf,
 				},
 				async: false
