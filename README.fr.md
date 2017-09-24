@@ -10,7 +10,7 @@ Il supporte [PubSubHubbub](https://code.google.com/p/pubsubhubbub/) pour des not
 Il y a une API pour les clients (mobiles), ainsi qu’une [interface en ligne de commande](./cli/README.md).
 Enfin, il permet l’ajout d’[extensions](#extensions) pour encore plus de personnalisation.
 
-* Site officiel : http://freshrss.org
+* Site officiel : https://freshrss.org
 * Démo : http://demo.freshrss.org/
 * Licence : [GNU AGPL 3](http://www.gnu.org/licenses/agpl-3.0.html)
 
@@ -42,8 +42,7 @@ Nous sommes une communauté amicale.
 ![Capture d’écran de FreshRSS](./docs/img/FreshRSS-screenshot.png)
 
 # Documentation
-* http://doc.freshrss.org/fr/
-* https://github.com/FreshRSS/documentation
+* https://freshrss.github.io/FreshRSS/fr/
 
 # Installation
 1. Récupérez l’application FreshRSS via la commande git ou [en téléchargeant l’archive](../releases)
@@ -156,7 +155,7 @@ Voir le [dépôt dédié à ces extensions](https://github.com/FreshRSS/Extensio
 # Bibliothèques incluses
 * [SimplePie](http://simplepie.org/)
 * [MINZ](https://github.com/marienfressinaud/MINZ)
-* [php-http-304](http://alexandre.alapetite.fr/doc-alex/php-http-304/)
+* [php-http-304](https://alexandre.alapetite.fr/doc-alex/php-http-304/)
 * [jQuery](http://jquery.com/)
 * [lib_opml](https://github.com/marienfressinaud/lib_opml)
 * [jQuery Plugin Sticky-Kit](http://leafo.net/sticky-kit/)

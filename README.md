@@ -44,8 +44,7 @@ We are a friendly community.
 ![FreshRSS screenshot](./docs/img/FreshRSS-screenshot.png)
 
 # Documentation
-* http://doc.freshrss.org/en/
-* https://github.com/FreshRSS/documentation
+* https://freshrss.github.io/FreshRSS/en/
 
 # Installation
 1. Get FreshRSS with git or [by downloading the archive](https://github.com/FreshRSS/FreshRSS/archive/master.zip)
@@ -160,7 +159,7 @@ See the [repository dedicated to those extensions](https://github.com/FreshRSS/E
 # Included libraries
 * [SimplePie](http://simplepie.org/)
 * [MINZ](https://github.com/marienfressinaud/MINZ)
-* [php-http-304](http://alexandre.alapetite.fr/doc-alex/php-http-304/)
+* [php-http-304](https://alexandre.alapetite.fr/doc-alex/php-http-304/)
 * [jQuery](http://jquery.com/)
 * [lib_opml](https://github.com/marienfressinaud/lib_opml)
 * [jQuery Plugin Sticky-Kit](http://leafo.net/sticky-kit/)
