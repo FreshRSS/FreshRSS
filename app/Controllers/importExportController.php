@@ -426,7 +426,7 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 		}
 		// For this feed, check existing GUIDs already in database.
 		$existingHashForGuids = $this->entryDAO->listHashForFeedGuids($feed->id(), $newGuids);
-		unset($newGuids);
+		$newGuids = array();
 
 		// Then, articles are imported.
 		$this->entryDAO->beginTransaction();
@@ -454,6 +454,11 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 			);
 			$entry->_id(min(time(), $entry->date(true)) . uSecString());
 			$entry->_tags($tags);
+
+			if (isset($newGuids[$entry->guid()])) {
+				continue;	//Skip subsequent articles with same GUID
+			}
+			$newGuids[$entry->guid()] = true;
 
 			$entry = Minz_ExtensionManager::callHook('entry_before_insert', $entry);
 			if ($entry == null) {

@@ -320,11 +320,16 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 				}
 				// For this feed, check existing GUIDs already in database.
 				$existingHashForGuids = $entryDAO->listHashForFeedGuids($feed->id(), $newGuids);
-				unset($newGuids);
+				$newGuids = array();
 
 				$oldGuids = array();
 				// Add entries in database if possible.
 				foreach ($entries as $entry) {
+					if (isset($newGuids[$entry->guid()])) {
+						continue;	//Skip subsequent articles with same GUID
+					}
+					$newGuids[$entry->guid()] = true;
+
 					$entry_date = $entry->date(true);
 					if (isset($existingHashForGuids[$entry->guid()])) {
 						$existingHash = $existingHashForGuids[$entry->guid()];
