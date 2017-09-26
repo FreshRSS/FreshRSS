@@ -1,6 +1,6 @@
 <?php
 /**
- * Author: Alexandre Alapetite http://alexandre.alapetite.fr
+ * Author: Alexandre Alapetite https://alexandre.alapetite.fr
  * 2014-06-01
  * License: GNU AGPLv3 http://www.gnu.org/licenses/agpl-3.0.html
  *

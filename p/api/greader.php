@@ -2,10 +2,10 @@
 /**
 == Description ==
 Server-side API compatible with Google Reader API layer 2
-	for the FreshRSS project http://freshrss.org
+	for the FreshRSS project https://freshrss.org
 
 == Credits ==
-* 2014-03: Released by Alexandre Alapetite http://alexandre.alapetite.fr
+* 2014-03: Released by Alexandre Alapetite https://alexandre.alapetite.fr
 	under GNU AGPL 3 license http://www.gnu.org/licenses/agpl-3.0.html
 
 == Documentation ==
