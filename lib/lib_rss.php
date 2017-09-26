@@ -191,9 +191,9 @@ function customSimplePie() {
 		'onmouseover', 'onmousemove', 'onmouseout', 'onfocus', 'onblur',
 		'onkeypress', 'onkeydown', 'onkeyup', 'onselect', 'onchange', 'seamless', 'sizes', 'srcset')));
 	$simplePie->add_attributes(array(
-		'audio' => array('preload' => 'none'),
+		'audio' => array('controls' => 'controls', 'preload' => 'none'),
 		'iframe' => array('sandbox' => 'allow-scripts allow-same-origin'),
-		'video' => array('preload' => 'none'),
+		'video' => array('controls' => 'controls', 'preload' => 'none'),
 	));
 	$simplePie->set_url_replacements(array(
 		'a' => 'href',
