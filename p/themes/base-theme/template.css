@@ -835,6 +835,15 @@ input:checked + .slide-container .properties {
 	.no-mobile {
 		display: none;
 	}
+	.dropdown-menu {
+		border-radius: 0 !important;
+		bottom: 0;
+		position: fixed;
+		width: 100%;
+	}
+	.dropdown-menu::after {
+		display: none;
+	}
 	.aside .toggle_aside,
 	.nav-login {
 		display: block;
