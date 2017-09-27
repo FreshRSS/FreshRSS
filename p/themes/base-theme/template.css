@@ -835,8 +835,8 @@ input:checked + .slide-container .properties {
 	.no-mobile {
 		display: none;
 	}
-	.dropdown-menu {
-		border-radius: 0 !important;
+	.dropdown .dropdown-menu {
+		border-radius: 0;
 		bottom: 0;
 		position: fixed;
 		width: 100%;
