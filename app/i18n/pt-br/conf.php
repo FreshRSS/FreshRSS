@@ -104,7 +104,7 @@ return array(
 			'when' => 'Marcar artigo como lido…',
 		),
 		'show' => array(
-			'_' => 	'Artigos para exibir',
+			'_' => 'Artigos para exibir',
 			'adaptive' => 'Ajustar visualização',
 			'all_articles' => 'Exibir todos os artigos',
 			'unread' => 'Exibir apenas não lido',
