@@ -107,7 +107,7 @@ return array(
 			'_' => 	'Artigos para exibir',
 			'adaptive' => 'Ajustar visualização',
 			'all_articles' => 'Exibir todos os artigos',
-			'unread' => "Exibir apenas não lido',
+			'unread' => 'Exibir apenas não lido',
 		),
 		'sort' => array(
 			'_' => 'Ordem de visualização',
