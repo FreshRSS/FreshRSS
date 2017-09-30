@@ -30,7 +30,7 @@ return array(
 		),
 		'ctype' => array(
 			'nok' => 'Não foi possível encontrar uma biblioteca necessária para verificação do tipo de caractere (php-ctype).',
-			'ok' => 'Você tem a biblioteca necessária para  verificação do tipo de caractere (ctype).',
+			'ok' => 'Você tem a biblioteca necessária para verificação do tipo de caractere (ctype).',
 		),
 		'curl' => array(
 			'nok' => 'Não foi possível encontrar a biblioteca cURL (php-curl).',

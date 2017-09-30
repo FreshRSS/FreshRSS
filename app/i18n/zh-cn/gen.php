@@ -122,7 +122,7 @@ return array(
 		'it' => 'Italiano',
 		'kr' => '한국어',
 		'nl' => 'Nederlands',
-        	'pt-br' => 'Português (Brasil)',
+		'pt-br' => 'Português (Brasil)',
 		'ru' => 'Русский',
 		'tr' => 'Türkçe',
 		'zh-cn' => '简体中文',

@@ -103,7 +103,7 @@ return array(
 	'js' => array(
 		'category_empty' => 'Categoria vazia',
 		'confirm_action' => 'Você tem certeza que deseja efetuar esta ação? Ela não poderá ser cancelada!',
-            'confirm_action_feed_cat' => 'Você tem certeza que deseja efetuar esta ação ? Você irá perder favoritos e queries de usuários. Não poderá ser cancelado!',
+		'confirm_action_feed_cat' => 'Você tem certeza que deseja efetuar esta ação ? Você irá perder favoritos e queries de usuários. Não poderá ser cancelado!',
 		'feedback' => array(
 			'body_new_articles' => 'Há %%d novos artigos para ler no FreshRSS.',
 			'request_failed' => 'Uma solicitação falhou, isto pode ter sido causado por problemas de conexão com a internet.',
@@ -119,7 +119,7 @@ return array(
 		'fr' => 'Français',
 		'it' => 'Italiano',
 		'nl' => 'Nederlands',
-        	'pt-br' => 'Português (Brasil)',
+		'pt-br' => 'Português (Brasil)',
 		'ru' => 'Русский',
 		'tr' => 'Türkçe',
 		'zh-cn' => '简体中文'
@@ -141,7 +141,7 @@ return array(
 		'shortcuts' => 'Atalhos',
 		'stats' => 'Estatísticas',
 		'system' => 'Configuração do sistema',
-        'update' => 'Atualização',
+		'update' => 'Atualização',
 		'user_management' => 'Gerenciamento de usuários',
 		'user_profile' => 'Perfil',
 	),
