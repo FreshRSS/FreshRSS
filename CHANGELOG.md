@@ -11,6 +11,7 @@
 	* Fix feed column position after lazy-loading images [#1616](https://github.com/FreshRSS/FreshRSS/pull/1616)
 	* Force UI controls for HTML5 video and audio [#1642](https://github.com/FreshRSS/FreshRSS/pull/1642)
 	* Fix share menu on small screens [#1645](https://github.com/FreshRSS/FreshRSS/pull/1645)
+	* Go back to previous view when collapsing article [#1177](https://github.com/FreshRSS/FreshRSS/issues/1177)
 * CLI
 	* New command `./cli/update-user` to update user settings [#1600](https://github.com/FreshRSS/FreshRSS/issues/1600)
 * I18n
