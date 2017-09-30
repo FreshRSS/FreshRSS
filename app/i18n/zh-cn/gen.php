@@ -79,6 +79,7 @@ return array(
 		'last_year' => '去年',
 		'mar' => '三月',
 		'march' => '三月',
+		'may_' => '五月',
 		'may' => '五月',
 		'mon' => '周一',
 		'month' => '个月',
@@ -115,14 +116,16 @@ return array(
 	'lang' => array(
 		'cz' => 'Čeština',
 		'de' => 'Deutsch',
-		'en' => 'English1',
+		'en' => 'English',
+		'es' => 'Español',
 		'fr' => 'Français',
-		'it' => 'Italiano1',
+		'it' => 'Italiano',
+		'kr' => '한국어',
 		'nl' => 'Nederlands',
         	'pt-br' => 'Português (Brasil)',
 		'ru' => 'Русский',
 		'tr' => 'Türkçe',
-		'zh-cn' => '简体中文'
+		'zh-cn' => '简体中文',
 	),
 	'menu' => array(
 		'about' => '关于',

@@ -1,4 +1,8 @@
 <?php
+if (version_compare(PHP_VERSION, '5.3.8', '<')) {
+	die('FreshRSS error: FreshRSS requires PHP 5.3.8+!');
+}
+
 if (!function_exists('json_decode')) {
 	require_once('JSON.php');
 	function json_decode($var, $assoc = false) {
@@ -187,9 +191,9 @@ function customSimplePie() {
 		'onmouseover', 'onmousemove', 'onmouseout', 'onfocus', 'onblur',
 		'onkeypress', 'onkeydown', 'onkeyup', 'onselect', 'onchange', 'seamless', 'sizes', 'srcset')));
 	$simplePie->add_attributes(array(
-		'audio' => array('preload' => 'none'),
+		'audio' => array('controls' => 'controls', 'preload' => 'none'),
 		'iframe' => array('sandbox' => 'allow-scripts allow-same-origin'),
-		'video' => array('preload' => 'none'),
+		'video' => array('controls' => 'controls', 'preload' => 'none'),
 	));
 	$simplePie->set_url_replacements(array(
 		'a' => 'href',
@@ -344,6 +348,7 @@ function get_user_configuration($username) {
 		                             join_path(FRESHRSS_PATH, 'config-user.default.php'));
 	} catch (Minz_ConfigurationNamespaceException $e) {
 		// namespace already exists, do nothing.
+		Minz_Log::warning($e->getMessage());
 	} catch (Minz_FileNotExistException $e) {
 		Minz_Log::warning($e->getMessage());
 		return null;
@@ -362,6 +367,7 @@ function cryptAvailable() {
 		$hash = '$2y$04$usesomesillystringfore7hnbRJHxXVLeakoG8K30oukPsA.ztMG';
 		return $hash === @crypt('password', $hash);
 	} catch (Exception $e) {
+		Minz_Log::warning($e->getMessage());
 	}
 	return false;
 }
@@ -393,7 +399,7 @@ function check_install_php() {
 	$pdo_mysql = extension_loaded('pdo_mysql');
 	$pdo_sqlite = extension_loaded('pdo_sqlite');
 	return array(
-		'php' => version_compare(PHP_VERSION, '5.3.3') >= 0,
+		'php' => version_compare(PHP_VERSION, '5.3.8') >= 0,
 		'minz' => file_exists(LIB_PATH . '/Minz'),
 		'curl' => extension_loaded('curl'),
 		'pdo' => $pdo_mysql || $pdo_sqlite,

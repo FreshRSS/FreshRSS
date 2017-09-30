@@ -22,7 +22,7 @@ class FreshRSS_Feed extends Minz_Model {
 	private $hubUrl = '';
 	private $selfUrl = '';
 
-	public function __construct($url, $validate=true) {
+	public function __construct($url, $validate = true) {
 		if ($validate) {
 			$this->_url($url);
 		} else {
@@ -165,7 +165,7 @@ class FreshRSS_Feed extends Minz_Model {
 	public function _id($value) {
 		$this->id = $value;
 	}
-	public function _url($value, $validate=true) {
+	public function _url($value, $validate = true) {
 		$this->hash = null;
 		if ($validate) {
 			$value = checkUrl($value);
@@ -182,7 +182,7 @@ class FreshRSS_Feed extends Minz_Model {
 	public function _name($value) {
 		$this->name = $value === null ? '' : $value;
 	}
-	public function _website($value, $validate=true) {
+	public function _website($value, $validate = true) {
 		if ($validate) {
 			$value = checkUrl($value);
 		}
@@ -254,7 +254,9 @@ class FreshRSS_Feed extends Minz_Model {
 
 				if ((!$mtime) || $feed->error()) {
 					$errorMessage = $feed->error();
-					throw new FreshRSS_Feed_Exception(($errorMessage == '' ? 'Unknown error for feed' : $errorMessage) . ' [' . $url . ']');
+					throw new FreshRSS_Feed_Exception(
+						($errorMessage == '' ? 'Unknown error for feed' : $errorMessage) . ' [' . $url . ']'
+					);
 				}
 
 				$links = $feed->get_links('self');
@@ -324,9 +326,11 @@ class FreshRSS_Feed extends Minz_Model {
 					if (strpos($mime, 'image/') === 0) {
 						$content .= '<p class="enclosure"><img src="' . $elink . '" alt="" /></p>';
 					} elseif (strpos($mime, 'audio/') === 0) {
-						$content .= '<p class="enclosure"><audio preload="none" src="' . $elink . '" controls="controls"></audio> <a download="" href="' . $elink . '">💾</a></p>';
+						$content .= '<p class="enclosure"><audio preload="none" src="' . $elink
+							. '" controls="controls"></audio> <a download="" href="' . $elink . '">💾</a></p>';
 					} elseif (strpos($mime, 'video/') === 0) {
-						$content .= '<p class="enclosure"><video preload="none" src="' . $elink . '" controls="controls"></video> <a download="" href="' . $elink . '">💾</a></p>';
+						$content .= '<p class="enclosure"><video preload="none" src="' . $elink
+							. '" controls="controls"></video> <a download="" href="' . $elink . '">💾</a></p>';
 					} elseif (strpos($mime, 'application/') === 0 || strpos($mime, 'text/') === 0) {
 						$content .= '<p class="enclosure"><a download="" href="' . $elink . '">💾</a></p>';
 					} else {
@@ -339,7 +343,7 @@ class FreshRSS_Feed extends Minz_Model {
 				$this->id(),
 				$item->get_id(false, false),
 				$title === null ? '' : $title,
-				$author === null ? '' : html_only_entity_decode($author->name),
+				$author === null ? '' : html_only_entity_decode(strip_tags($author->name)),
 				$content === null ? '' : $content,
 				$link === null ? '' : $link,
 				$date ? $date : time()
@@ -481,10 +485,12 @@ class FreshRSS_Feed extends Minz_Model {
 				CURLOPT_FOLLOWLOCATION => true,
 				CURLOPT_RETURNTRANSFER => true,
 				CURLOPT_USERAGENT => 'FreshRSS/' . FRESHRSS_VERSION . ' (' . PHP_OS . '; ' . FRESHRSS_WEBSITE . ')',
-				CURLOPT_POSTFIELDS => 'hub.verify=sync'
-					. '&hub.mode=' . ($state ? 'subscribe' : 'unsubscribe')
-					. '&hub.topic=' . urlencode($url)
-					. '&hub.callback=' . urlencode($callbackUrl)
+				CURLOPT_POSTFIELDS => http_build_query(array(
+					'hub.verify' => 'sync',
+					'hub.mode' => $state ? 'subscribe' : 'unsubscribe',
+					'hub.topic' => $url,
+					'hub.callback' => $callbackUrl,
+					))
 				)
 			);
 			$response = curl_exec($ch);

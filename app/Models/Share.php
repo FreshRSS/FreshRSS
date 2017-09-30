@@ -87,7 +87,7 @@ class FreshRSS_Share {
 	 *        decentralized ones.
 	 * @param $help_url is an optional url to give help on this option.
 	 */
-	private function __construct($type, $url_transform, $transform = array(),
+	private function __construct($type, $url_transform, $transform,
 	                             $form_type, $help_url = '') {
 		$this->type = $type;
 		$this->name = _t('gen.share.' . $type);

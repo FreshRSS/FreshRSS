@@ -119,12 +119,12 @@ class Minz_FrontController {
 		switch($conf->environment) {
 		case 'production':
 			error_reporting(E_ALL);
-			ini_set('display_errors','Off');
+			ini_set('display_errors', 'Off');
 			ini_set('log_errors', 'On');
 			break;
 		case 'development':
 			error_reporting(E_ALL);
-			ini_set('display_errors','On');
+			ini_set('display_errors', 'On');
 			ini_set('log_errors', 'On');
 			break;
 		case 'silent':

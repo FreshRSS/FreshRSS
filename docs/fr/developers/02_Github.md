@@ -18,7 +18,7 @@ GitHub est la plate-forme à privilégier pour vos demandes. En effet, cela nous
 
 Tout le monde n'aime pas ou n'utilise pas GitHub pour des raisons aussi diverses que légitimes. C'est pourquoi vous pouvez aussi nous contacter de façon plus informelle.
 
-* Sur [les listes de diffusion](http://freshrss.org/announce-of-the-mailing-lists.html)
+* Sur [les listes de diffusion](https://freshrss.org/announce-of-the-mailing-lists.html)
 * À des évènements / rencontres autour du Logiciel Libre
 * Autour d'une bière dans un bar
 * Etc.

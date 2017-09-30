@@ -11,7 +11,7 @@ function logMe($text) {
 	file_put_contents(USERS_PATH . '/_/log_pshb.txt', date('c') . "\t" . $text . "\n", FILE_APPEND);
 }
 
-$ORIGINAL_INPUT = file_get_contents('php://input', false, null, -1, MAX_PAYLOAD);
+$ORIGINAL_INPUT = file_get_contents('php://input', false, null, 0, MAX_PAYLOAD);
 
 //logMe(print_r(array('_SERVER' => $_SERVER, '_GET' => $_GET, '_POST' => $_POST, 'INPUT' => $ORIGINAL_INPUT), true));
 

@@ -56,8 +56,7 @@ class FreshRSS_ConfigurationSetter {
 		switch ($value) {
 		case 'all':
 			$data['default_view'] = $value;
-			$data['default_state'] = (FreshRSS_Entry::STATE_READ +
-			                          FreshRSS_Entry::STATE_NOT_READ);
+			$data['default_state'] = (FreshRSS_Entry::STATE_READ + FreshRSS_Entry::STATE_NOT_READ);
 			break;
 		case 'adaptive':
 		case 'unread':
@@ -163,7 +162,7 @@ class FreshRSS_ConfigurationSetter {
 		if (!in_array($value, array('global', 'normal', 'reader'))) {
 			$value = 'normal';
 		}
-		$data['view_mode'] =  $value;
+		$data['view_mode'] = $value;
 	}
 
 	/**
@@ -326,7 +325,7 @@ class FreshRSS_ConfigurationSetter {
 		if (!in_array($value, array('silent', 'development', 'production'))) {
 			$value = 'production';
 		}
-		$data['environment'] =  $value;
+		$data['environment'] = $value;
 	}
 
 	private function _limits(&$data, $values) {
@@ -361,8 +360,7 @@ class FreshRSS_ConfigurationSetter {
 
 			$value = intval($value);
 			$limits = $limits_keys[$key];
-			if (
-				(!isset($limits['min']) || $value >= $limits['min']) &&
+			if ((!isset($limits['min']) || $value >= $limits['min']) &&
 				(!isset($limits['max']) || $value <= $limits['max'])
 			) {
 				$data['limits'][$key] = $value;

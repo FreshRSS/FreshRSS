@@ -1,3 +1,5 @@
+[![Build Status][travis-badge]][travis-link]
+
 * [Version française](README.fr.md)
 
 # FreshRSS
@@ -32,8 +34,8 @@ We are a friendly community.
 * Light server running Linux or Windows
 	* It even works on Raspberry Pi 1 with response time under a second (tested with 150 feeds, 22k articles)
 * A web server: Apache2 (recommended), nginx, lighttpd (not tested on others)
-* PHP 5.3.3+ (PHP 5.4+ recommended, and PHP 5.5+ for performance, and PHP 7 for even higher performance)
-	* Required extensions: [cURL](http://php.net/curl), [DOM](http://php.net/dom), [XML](http://php.net/xml), and [PDO_MySQL](http://php.net/pdo-mysql) or [PDO_SQLite](http://php.net/pdo-sqlite) or [PDO_PGSQL](http://php.net/pdo-pgsql)
+* PHP 5.3.8+ (PHP 5.4+ recommended, and PHP 5.5+ for performance, and PHP 7 for even higher performance)
+	* Required extensions: [cURL](http://php.net/curl), [DOM](http://php.net/dom), [XML](http://php.net/xml), [session](http://php.net/session), [ctype](http://php.net/ctype), and [PDO_MySQL](http://php.net/pdo-mysql) or [PDO_SQLite](http://php.net/pdo-sqlite) or [PDO_PGSQL](http://php.net/pdo-pgsql)
 	* Recommended extensions: [JSON](http://php.net/json), [GMP](http://php.net/gmp) (for API access on platforms < 64 bits), [IDN](http://php.net/intl.idn) (for Internationalized Domain Names), [mbstring](http://php.net/mbstring) and/or [iconv](http://php.net/iconv) (for charset conversion), [ZIP](http://php.net/zip) (for import/export), [zlib](http://php.net/zlib) (for compressed feeds)
 * MySQL 5.5.3+ (recommended), or SQLite 3.7.4+, or PostgreSQL 9.2+
 * A recent browser like Firefox, Internet Explorer 11 / Edge, Chrome, Opera, Safari.
@@ -42,8 +44,7 @@ We are a friendly community.
 ![FreshRSS screenshot](./docs/img/FreshRSS-screenshot.png)
 
 # Documentation
-* http://doc.freshrss.org/en/
-* https://github.com/FreshRSS/documentation
+* https://freshrss.github.io/FreshRSS/en/
 
 # Installation
 1. Get FreshRSS with git or [by downloading the archive](https://github.com/FreshRSS/FreshRSS/archive/master.zip)
@@ -109,7 +110,7 @@ See more commands and git commands in the [Command-Line Interface documentation]
 
 ## Access control
 It is needed for the multi-user mode to limit access to FreshRSS. You can:
-* use form authentication (need JavaScript and PHP 5.3.7+, works with some PHP 5.3.3+)
+* use form authentication (needs JavaScript, and PHP 5.5+ recommended)
 * use HTTP authentication supported by your web server
 	* See [Apache documentation](http://httpd.apache.org/docs/trunk/howto/auth.html)
 		* In that case, create a `./p/i/.htaccess` file with a matching `.htpasswd` file.
@@ -141,13 +142,12 @@ Create `/etc/cron.d/FreshRSS` with:
 
 
 # Backup
-* You need to keep `./data/config.php`, and `./data/*_user.php` files
-* You can export your feed list in OPML format from FreshRSS
-	* either from the Web interface, or from the [Command-Line Interface](./cli/README.md)
+* You need to keep `./data/config.php`, and `./data/users/*/config.php` files
+* You can export your feed list in OPML format either from the Web interface, or from the [Command-Line Interface](./cli/README.md)
 * To save articles, you can use [phpMyAdmin](http://www.phpmyadmin.net) or MySQL tools:
 
 ```bash
-mysqldump -u user -p --databases freshrss > freshrss.sql
+mysqldump --skip-comments --disable-keys --user=<db_user> --password --host <db_host> --result-file=freshrss.dump.sql --databases <freshrss_db>
 ```
 
 
@@ -159,7 +159,7 @@ See the [repository dedicated to those extensions](https://github.com/FreshRSS/E
 # Included libraries
 * [SimplePie](http://simplepie.org/)
 * [MINZ](https://github.com/marienfressinaud/MINZ)
-* [php-http-304](http://alexandre.alapetite.fr/doc-alex/php-http-304/)
+* [php-http-304](https://alexandre.alapetite.fr/doc-alex/php-http-304/)
 * [jQuery](http://jquery.com/)
 * [lib_opml](https://github.com/marienfressinaud/lib_opml)
 * [jQuery Plugin Sticky-Kit](http://leafo.net/sticky-kit/)
@@ -183,3 +183,6 @@ Any client supporting a Google Reader-like API. Selection:
 	* [EasyRSS](https://github.com/Alkarex/EasyRSS) (Open source, F-Droid)
 * Linux
 	* [FeedReader 2.0+](https://jangernert.github.io/FeedReader/) (Open source)
+
+[travis-badge]:https://travis-ci.org/FreshRSS/FreshRSS.svg?branch=master
+[travis-link]:https://travis-ci.org/FreshRSS/FreshRSS

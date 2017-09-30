@@ -104,7 +104,7 @@ return array(
 			'when' => 'Artikel als gelesen markieren…',
 		),
 		'show' => array(
-			'_' => 	'Artikel zum Anzeigen',
+			'_' => 'Artikel zum Anzeigen',
 			'adaptive' => 'Anzeige anpassen',
 			'all_articles' => 'Alle Artikel zeigen',
 			'unread' => 'Nur ungelesene zeigen',

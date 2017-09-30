@@ -10,7 +10,7 @@ Il supporte [PubSubHubbub](https://code.google.com/p/pubsubhubbub/) pour des not
 Il y a une API pour les clients (mobiles), ainsi qu’une [interface en ligne de commande](./cli/README.md).
 Enfin, il permet l’ajout d’[extensions](#extensions) pour encore plus de personnalisation.
 
-* Site officiel : http://freshrss.org
+* Site officiel : https://freshrss.org
 * Démo : http://demo.freshrss.org/
 * Licence : [GNU AGPL 3](http://www.gnu.org/licenses/agpl-3.0.html)
 
@@ -32,8 +32,8 @@ Nous sommes une communauté amicale.
 * Serveur modeste, par exemple sous Linux ou Windows
 	* Fonctionne même sur un Raspberry Pi 1 avec des temps de réponse < 1s (testé sur 150 flux, 22k articles)
 * Serveur Web Apache2 (recommandé), ou nginx, lighttpd (non testé sur les autres)
-* PHP 5.3.3+ (PHP 5.4+ recommandé, et PHP 5.5+ pour les performances, et PHP 7+ pour d’encore meilleures performances)
-	* Requis : [cURL](http://php.net/curl), [DOM](http://php.net/dom), [XML](http://php.net/xml), et [PDO_MySQL](http://php.net/pdo-mysql) ou [PDO_SQLite](http://php.net/pdo-sqlite) ou [PDO_PGSQL](http://php.net/pdo-pgsql)
+* PHP 5.3.8+ (PHP 5.4+ recommandé, et PHP 5.5+ pour les performances, et PHP 7+ pour d’encore meilleures performances)
+	* Requis : [cURL](http://php.net/curl), [DOM](http://php.net/dom), [XML](http://php.net/xml), [session](http://php.net/session),  [ctype](http://php.net/ctype), et [PDO_MySQL](http://php.net/pdo-mysql) ou [PDO_SQLite](http://php.net/pdo-sqlite) ou [PDO_PGSQL](http://php.net/pdo-pgsql)
 	* Recommandés : [JSON](http://php.net/json), [GMP](http://php.net/gmp) (pour accès API sur plateformes < 64 bits), [IDN](http://php.net/intl.idn) (pour les noms de domaines internationalisés), [mbstring](http://php.net/mbstring) et/ou [iconv](http://php.net/iconv) (pour conversion d’encodages), [ZIP](http://php.net/zip) (pour import/export), [zlib](http://php.net/zlib) (pour les flux compressés)
 * MySQL 5.5.3+ (recommandé), ou SQLite 3.7.4+, ou PostgreSQL 9.2+
 * Un navigateur Web récent tel Firefox, Internet Explorer 11 / Edge, Chrome, Opera, Safari.
@@ -42,8 +42,7 @@ Nous sommes une communauté amicale.
 ![Capture d’écran de FreshRSS](./docs/img/FreshRSS-screenshot.png)
 
 # Documentation
-* http://doc.freshrss.org/fr/
-* https://github.com/FreshRSS/documentation
+* https://freshrss.github.io/FreshRSS/fr/
 
 # Installation
 1. Récupérez l’application FreshRSS via la commande git ou [en téléchargeant l’archive](../releases)
@@ -107,7 +106,7 @@ sudo chown -R :www-data . && sudo chmod -R g+r . && sudo chmod -R g+w ./data/
 
 ## Contrôle d’accès
 Il est requis pour le mode multi-utilisateur, et recommandé dans tous les cas, de limiter l’accès à votre FreshRSS. Au choix :
-* En utilisant l’identification par formulaire (requiert JavaScript, et PHP 5.3.7+ recommandé – fonctionne avec certaines versions de PHP 5.3.3+)
+* En utilisant l’identification par formulaire (requiert JavaScript, et PHP 5.5+ recommandé)
 * En utilisant un contrôle d’accès HTTP défini par votre serveur Web
 	* Voir par exemple la [documentation d’Apache sur l’authentification](http://httpd.apache.org/docs/trunk/howto/auth.html)
 		* Créer dans ce cas un fichier `./p/i/.htaccess` avec un fichier `.htpasswd` correspondant.
@@ -139,13 +138,12 @@ Créer `/etc/cron.d/FreshRSS` avec :
 
 
 # Sauvegarde
-* Il faut conserver vos fichiers `./data/config.php` ainsi que `./data/*_user.php`
-* Vous pouvez exporter votre liste de flux depuis FreshRSS au format OPML
-	* soit depuis l’interface Web, soit [en ligne de commande](./cli/README.md)
+* Il faut conserver vos fichiers `./data/config.php` ainsi que `./data/users/*/config.php`
+* Vous pouvez exporter votre liste de flux au format OPML soit depuis l’interface Web, soit [en ligne de commande](./cli/README.md)
 * Pour sauvegarder les articles eux-mêmes, vous pouvez utiliser [phpMyAdmin](http://www.phpmyadmin.net) ou les outils de MySQL :
 
 ```bash
-mysqldump -u utilisateur -p --databases freshrss > freshrss.sql
+mysqldump --skip-comments --disable-keys --user=<db_user> --password --host <db_host> --result-file=freshrss.dump.sql --databases <freshrss_db>
 ```
 
 
@@ -157,7 +155,7 @@ Voir le [dépôt dédié à ces extensions](https://github.com/FreshRSS/Extensio
 # Bibliothèques incluses
 * [SimplePie](http://simplepie.org/)
 * [MINZ](https://github.com/marienfressinaud/MINZ)
-* [php-http-304](http://alexandre.alapetite.fr/doc-alex/php-http-304/)
+* [php-http-304](https://alexandre.alapetite.fr/doc-alex/php-http-304/)
 * [jQuery](http://jquery.com/)
 * [lib_opml](https://github.com/marienfressinaud/lib_opml)
 * [jQuery Plugin Sticky-Kit](http://leafo.net/sticky-kit/)

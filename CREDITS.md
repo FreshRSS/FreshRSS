@@ -6,10 +6,12 @@ People are sorted by name so please keep this order.
 
 ---
 
-* [Alexandre Alapetite](https://github.com/Alkarex): [contributions](https://github.com/FreshRSS/FreshRSS/commits?author=Alkarex), [Web](http://alexandre.alapetite.fr/)
+* [Adrien Dorsaz](https://github.com/Trim): [contributions](https://github.com/FreshRSS/FreshRSS/commits?author=Trim), [Web](https://adorsaz.ch/)
+* [Alexandre Alapetite](https://github.com/Alkarex): [contributions](https://github.com/FreshRSS/FreshRSS/commits?author=Alkarex), [Web](https://alexandre.alapetite.fr/)
 * [Alexis Degrugillier](https://github.com/aledeg): [contributions](https://github.com/FreshRSS/FreshRSS/commits?author=aledeg)
 * [Alwaysin](https://github.com/Alwaysin): [contributions](https://github.com/FreshRSS/FreshRSS/commits?author=Alwaysin)
 * [Amaury Carrade](https://github.com/AmauryCarrade): [contributions](https://github.com/FreshRSS/FreshRSS/commits?author=AmauryCarrade), [Web](https://amaury.carrade.eu/)
+* [Anton Smirnov](https://github.com/sandfoxme): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:sandfoxme), [Web](http://sandfox.me/)
 * [ASMfreaK](https://github.com/ASMfreaK): [contributions](https://github.com/FreshRSS/FreshRSS/commits?author=ASMfreaK)
 * [Crupuk](https://github.com/Crupuk): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:Crupuk)
 * [Damstre](https://github.com/Damstre): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:Damstre)
@@ -30,7 +32,7 @@ People are sorted by name so please keep this order.
 * [Luc Didry](https://github.com/ldidry): [contributions](https://github.com/FreshRSS/FreshRSS/commits?author=ldidry), [Web](https://www.fiat-tux.fr/)
 * [marcomrc](https://github.com/marcomrc): [contributions](https://github.com/FreshRSS/FreshRSS/commits?author=marcomrc)
 * [Marcus Rohrmoser](https://github.com/mro): [contributions](https://github.com/FreshRSS/FreshRSS/commits?author=mro), [Web](http://mro.name/~me)
-* [Marien Fressinaud](https://github.com/marienfressinaud): [contributions](https://github.com/FreshRSS/FreshRSS/commits?author=marienfressinaud), [Web](http://marienfressinaud.fr/)
+* [Marien Fressinaud](https://github.com/marienfressinaud): [contributions](https://github.com/FreshRSS/FreshRSS/commits?author=marienfressinaud), [Web](https://marienfressinaud.fr/)
 * [Melvyn Laïly](https://github.com/yaurthek): [contributions](https://github.com/FreshRSS/FreshRSS/commits?author=yaurthek), [Web](http://x2a.yt/)
 * [Nicolas Elie](https://github.com/nicolaselie): [contributions](https://github.com/FreshRSS/FreshRSS/commits?author=nicolaselie)
 * [Nicolas Lœuillet](https://github.com/nicosomb): [contributions](https://github.com/FreshRSS/documentation/commits?author=nicosomb), [Web](http://www.loeuillet.org/)
@@ -38,6 +40,7 @@ People are sorted by name so please keep this order.
 * [Paulius Šukys](https://github.com/psukys): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:psukys), [Web](http://sukys.eu)
 * [purexo](https://github.com/purexo): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:purexo), [Web](https://purexo.mom/)
 * [Quentin Dufour](https://github.com/superboum): [contributions](https://github.com/FreshRSS/documentation/commits?author=superboum), [Web](http://quentin.dufour.io/)
+* [Ramón Cutanda](https://github.com/rcutanda): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:rcutanda)
 * [romibi](https://github.com/romibi): [contributions](https://github.com/FreshRSS/FreshRSS/commits/dev?author=romibi)
 * [subic](https://github.com/subic): [contributions](https://github.com/FreshRSS/documentation/commits?author=subic)
 * [Tets42](https://github.com/Tets42): [contributions](https://github.com/FreshRSS/FreshRSS/commits?author=Tets42)
