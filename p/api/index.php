@@ -22,7 +22,8 @@ echo Minz_Url::display('/api/greader.php', 'html', true);
 </dl>
 <ul>
 <li><a href="greader.php/check%2Fcompatibility" rel="nofollow">Check full server configuration</a></li>
-<li><a href="greader.php/check/compatibility" rel="nofollow">Check partial server configuration (without <code>%2F</code> support)</a></li>
+<li><a href="greader.php/check/compatibility" rel="nofollow">Check partial server
+configuration (without <code>%2F</code> support)</a></li>
 </ul>
 
 </body>

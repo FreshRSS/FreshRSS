@@ -12,7 +12,7 @@ class FreshRSS_DatabaseDAOPGSQL extends FreshRSS_DatabaseDAO {
 		$values = array($dbowner);
 		$stm->execute($values);
 		$res = $stm->fetchAll(PDO::FETCH_ASSOC);
-		
+
 		$tables = array(
 			$this->prefix . 'category' => false,
 			$this->prefix . 'feed' => false,

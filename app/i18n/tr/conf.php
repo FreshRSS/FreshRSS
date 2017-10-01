@@ -104,7 +104,7 @@ return array(
 			'when' => 'Makaleyi okundu olarak işaretle…',
 		),
 		'show' => array(
-			'_' => 	'Gösterilecek makaleler',
+			'_' => 'Gösterilecek makaleler',
 			'adaptive' => 'Ayarlanmış gösterim',
 			'all_articles' => 'Tüm makaleleri göster',
 			'unread' => 'Sadece okunmamış makaleleri göster',

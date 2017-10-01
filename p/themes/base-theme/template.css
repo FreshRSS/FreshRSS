@@ -346,10 +346,15 @@ a.btn {
 /*=== Tree */
 .tree {
 	margin: 0;
-	padding: 0 0 15em 0;
+	padding: 0 0 2em 0;
 	list-style: none;
 	text-align: left;
 }
+
+.treepadding {
+	padding: 0 0 15em 0;
+}
+
 .tree-folder-items {
 	padding: 0;
 	list-style: none;
@@ -828,6 +833,15 @@ input:checked + .slide-container .properties {
 	.item.date, .day .date,
 	.dropdown-menu > .no-mobile,
 	.no-mobile {
+		display: none;
+	}
+	.dropdown .dropdown-menu {
+		border-radius: 0;
+		bottom: 0;
+		position: fixed;
+		width: 100%;
+	}
+	.dropdown-menu::after {
 		display: none;
 	}
 	.aside .toggle_aside,

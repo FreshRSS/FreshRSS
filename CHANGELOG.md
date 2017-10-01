@@ -1,6 +1,35 @@
 ﻿# Changelog
 
+## 2017-10-01 FreshRSS 1.8.0
+
+* Compatibility:
+	* Minimal PHP version increased to PHP 5.3.8+ to fix sanitize bug [#1604](https://github.com/FreshRSS/FreshRSS/issues/1604)
+	* Add support for PHP 7.1 in the API [#1584](https://github.com/FreshRSS/FreshRSS/issues/1584), [#1594](https://github.com/FreshRSS/FreshRSS/pull/1594)
+* UI
+	* New page for subscription tools [#1534](https://github.com/FreshRSS/FreshRSS/issues/1354)
+	* Adjustments to the padding of the tree of categories and feeds [1589](https://github.com/FreshRSS/FreshRSS/pull/1589)
+	* Fix feed column position after lazy-loading images [#1616](https://github.com/FreshRSS/FreshRSS/pull/1616)
+	* Force UI controls for HTML5 video and audio [#1642](https://github.com/FreshRSS/FreshRSS/pull/1642)
+	* Fix share menu on small screens [#1645](https://github.com/FreshRSS/FreshRSS/pull/1645)
+	* Go back to previous view when collapsing article [#1177](https://github.com/FreshRSS/FreshRSS/issues/1177)
+* CLI
+	* New command `./cli/update-user` to update user settings [#1600](https://github.com/FreshRSS/FreshRSS/issues/1600)
+* I18n
+	* Korean [#1578](https://github.com/FreshRSS/FreshRSS/pull/1578)
+	* Portuguese (Brazilian) [#1648](https://github.com/FreshRSS/FreshRSS/pull/1648)
+	* Fix month abbreviations [#1560](https://github.com/FreshRSS/FreshRSS/issues/1560)
+* Bug fixing
+	* Fix API compatibility bug between PostgreSQL and EasyRSS [#1603](https://github.com/FreshRSS/FreshRSS/pull/1603)
+	* Fix PostgreSQL error when adding entries with duplicated GUID [#1610](https://github.com/FreshRSS/FreshRSS/issues/1610), [#1614](https://github.com/FreshRSS/FreshRSS/issues/1614)
+	* Fix for RSS feeds containing HTML in author field [#1590](https://github.com/FreshRSS/FreshRSS/issues/1590)
+	* Fix logout issue in global view due to CSRF [#1591](https://github.com/FreshRSS/FreshRSS/issues/1591)
+* Misc.
+	* Travis continuous integration [#1619](https://github.com/FreshRSS/FreshRSS/pull/1619)
+	* Allow longer database usernames [#1597](https://github.com/FreshRSS/FreshRSS/issues/1597)
+
+
 ## 2017-06-03 FreshRSS 1.7.0
+
 * Features:
 	* Deferred insertion of new articles, for better chronological order [#530](https://github.com/FreshRSS/FreshRSS/issues/530)
 	* Better search:
@@ -30,6 +59,7 @@
 	* Simplified Chinese [#1541](https://github.com/FreshRSS/FreshRSS/pull/1541)
 	* Improve English [#1465](https://github.com/FreshRSS/FreshRSS/pull/1465)
 	* Improve Dutch [#1559](https://github.com/FreshRSS/FreshRSS/pull/1559)
+	* Added Spanish language [#1631] (https://github.com/FreshRSS/FreshRSS/pull/1631/) 
 * Security
 	* Do not require write access to check availability of new versions [#1450](https://github.com/FreshRSS/FreshRSS/issues/1450)
 * Misc.

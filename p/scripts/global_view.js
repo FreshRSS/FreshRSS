@@ -33,6 +33,9 @@ function load_panel(link) {
 			$.ajax({
 				type: "POST",
 				url: $(this).attr("formaction"),
+				data: {
+					_csrf: context.csrf,
+				},
 				async: false
 			});
 			window.location.reload(false);

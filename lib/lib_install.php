@@ -6,7 +6,7 @@ Minz_Configuration::register('default_system', join_path(FRESHRSS_PATH, 'config.
 Minz_Configuration::register('default_user', join_path(FRESHRSS_PATH, 'config-user.default.php'));
 
 function checkRequirements($dbType = '') {
-	$php = version_compare(PHP_VERSION, '5.3.3') >= 0;
+	$php = version_compare(PHP_VERSION, '5.3.8') >= 0;
 	$minz = file_exists(join_path(LIB_PATH, 'Minz'));
 	$curl = extension_loaded('curl');
 	$pdo_mysql = extension_loaded('pdo_mysql');
@@ -68,8 +68,7 @@ function checkRequirements($dbType = '') {
 		'http_referer' => $http_referer ? 'ok' : 'ko',
 		'message' => $message ?: 'ok',
 		'all' => $php && $minz && $curl && $pdo && $pcre && $ctype && $dom && $xml &&
-		         $data && $cache && $users && $favicons && $http_referer && $message == '' ?
-		         'ok' : 'ko'
+		         $data && $cache && $users && $favicons && $http_referer && $message == '' ? 'ok' : 'ko'
 	);
 }
 

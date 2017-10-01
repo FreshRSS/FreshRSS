@@ -1,6 +1,6 @@
 "use strict";
-/* globals context, i18n, shortcut, shortcuts, url */
-/* jshint globalstrict: true */
+/* globals $, jQuery, context, i18n, shortcut, shortcuts, url */
+/* jshint strict:global */
 
 var $stream = null,
 	isCollapsed = true,
@@ -133,7 +133,7 @@ function mark_read(active, only_not_read) {
 	$.ajax({
 		type: 'POST',
 		url: url,
-		data : {
+		data: {
 			ajax: true,
 			_csrf: context.csrf,
 		},
@@ -182,7 +182,7 @@ function mark_favorite(active) {
 	$.ajax({
 		type: 'POST',
 		url: url,
-		data : {
+		data: {
 			ajax: true,
 			_csrf: context.csrf,
 		},
@@ -227,6 +227,7 @@ function toggleContent(new_active, old_active) {
 
 	if (context.does_lazyload) {
 		new_active.find('img[data-original], iframe[data-original]').each(function () {
+			this.onload = function () { $(document.body).trigger("sticky_kit:recalc"); };
 			this.setAttribute('src', this.getAttribute('data-original'));
 			this.removeAttribute('data-original');
 		});
@@ -265,11 +266,9 @@ function toggleContent(new_active, old_active) {
 				new_pos += old_scroll;
 			}
 
-			if (old_active[0] !== new_active[0]) {
-				new_active.children(".flux_content").first().each(function () {
-					box_to_move.scrollTop(new_pos).scrollTop();
-				});
-			}
+			new_active.children(".flux_content").first().each(function () {
+				box_to_move.scrollTop(new_pos).scrollTop();
+			});
 		} else {
 			if (relative_move) {
 				new_pos += old_scroll;
@@ -385,13 +384,8 @@ function last_category() {
 }
 
 function collapse_entry() {
-	isCollapsed = !isCollapsed;
-
 	var flux_current = $(".flux.current");
-	flux_current.toggleClass("active");
-	if (isCollapsed && context.auto_mark_article) {
-		mark_read(flux_current, true);
-	}
+	toggleContent(flux_current, flux_current);
 }
 
 function user_filter(key) {
@@ -541,7 +535,16 @@ function init_column_categories() {
 				feed_web = $(this).data('fweb'),
 				template = $('#feed_config_template').html().replace(/------/g, feed_id).replace('http://example.net/', feed_web);
 			$(this).attr('href', '#dropdown-' + feed_id).prev('.dropdown-target').attr('id', 'dropdown-' + feed_id).parent().append(template);
+			$('.tree-folder-items .dropdown-close a').click(function(){
+				$('.tree').removeClass('treepadding');
+				$(document.body).trigger("sticky_kit:recalc");
+			});
 		}
+	});
+
+	$('.tree-folder-items .dropdown-toggle').click(function(){
+		$('.tree').addClass('treepadding');
+		$(document.body).trigger("sticky_kit:recalc");
 	});
 
 	init_sticky_column();
@@ -813,7 +816,7 @@ function updateFeed(feeds, feeds_count) {
 	$.ajax({
 		type: 'POST',
 		url: feed.url,
-		data : {
+		data: {
 			_csrf: context.csrf,
 			noCommit: feeds.length > 0 ? 1 : 0,
 		},
@@ -850,7 +853,7 @@ function init_actualize() {
 				$.ajax({	//Empty request to force refresh server database cache
 					type: 'POST',
 					url: './?c=feed&a=actualize&id=-1',
-					data : {
+					data: {
 						_csrf: context.csrf,
 						noCommit: 0,
 					},
@@ -1289,7 +1292,7 @@ function init_slider_observers() {
 		$.ajax({
 			type: 'GET',
 			url: url_slide,
-			data : { ajax: true }
+			data: { ajax: true }
 		}).done(function (data) {
 			slider.html(data);
 			closer.addClass('active');

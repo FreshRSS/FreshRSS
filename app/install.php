@@ -11,7 +11,7 @@ session_set_cookie_params(0, dirname(empty($_SERVER['REQUEST_URI']) ? '/' : dirn
 session_start();
 
 if (isset($_GET['step'])) {
-	define('STEP',(int)$_GET['step']);
+	define('STEP', (int)$_GET['step']);
 } else {
 	define('STEP', 0);
 }
@@ -124,7 +124,7 @@ function saveStep2() {
 		$_SESSION['title'] = $system_default_config->title;
 		$_SESSION['old_entries'] = param('old_entries', $user_default_config->old_entries);
 		$_SESSION['auth_type'] = param('auth_type', 'form');
-		$_SESSION['default_user'] = substr(preg_replace('/[^a-zA-Z0-9]/', '', param('default_user', '')), 0, 16);
+		$_SESSION['default_user'] = substr(preg_replace('/[^0-9a-zA-Z_]/', '', param('default_user', '')), 0, 38);
 
 		$password_plain = param('passwordPlain', false);
 		if ($password_plain !== false && cryptAvailable()) {
@@ -410,7 +410,7 @@ function printStep1() {
 	<?php if ($res['php'] == 'ok') { ?>
 	<p class="alert alert-success"><span class="alert-head"><?php echo _t('gen.short.ok'); ?></span> <?php echo _t('install.check.php.ok', PHP_VERSION); ?></p>
 	<?php } else { ?>
-	<p class="alert alert-error"><span class="alert-head"><?php echo _t('gen.short.damn'); ?></span> <?php echo _t('install.check.php.nok', PHP_VERSION, '5.3.3'); ?></p>
+	<p class="alert alert-error"><span class="alert-head"><?php echo _t('gen.short.damn'); ?></span> <?php echo _t('install.check.php.nok', PHP_VERSION, '5.3.8'); ?></p>
 	<?php } ?>
 
 	<?php if ($res['minz'] == 'ok') { ?>
@@ -631,7 +631,7 @@ function printStep3() {
 		<div class="form-group">
 			<label class="group-name" for="user"><?php echo _t('install.bdd.username'); ?></label>
 			<div class="group-controls">
-				<input type="text" id="user" name="user" maxlength="16" pattern="[0-9A-Za-z_.-]{1,16}" value="<?php echo isset($_SESSION['bd_user']) ? $_SESSION['bd_user'] : ''; ?>" tabindex="3" />
+				<input type="text" id="user" name="user" maxlength="64" pattern="[0-9A-Za-z_.-]{1,64}" value="<?php echo isset($_SESSION['bd_user']) ? $_SESSION['bd_user'] : ''; ?>" tabindex="3" />
 			</div>
 		</div>
 
@@ -652,7 +652,7 @@ function printStep3() {
 		<div class="form-group">
 			<label class="group-name" for="prefix"><?php echo _t('install.bdd.prefix'); ?></label>
 			<div class="group-controls">
-				<input type="text" id="prefix" name="prefix" maxlength="16" pattern="[0-9A-Za-z_]{1,16}" value="<?php echo isset($_SESSION['bd_prefix']) ? $_SESSION['bd_prefix'] :  $system_default_config->db['prefix']; ?>" tabindex="6" />
+				<input type="text" id="prefix" name="prefix" maxlength="16" pattern="[0-9A-Za-z_]{1,16}" value="<?php echo isset($_SESSION['bd_prefix']) ? $_SESSION['bd_prefix'] : $system_default_config->db['prefix']; ?>" tabindex="6" />
 			</div>
 		</div>
 		</div>

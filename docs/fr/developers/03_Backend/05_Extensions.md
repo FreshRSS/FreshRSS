@@ -2,7 +2,7 @@
 
 ## Présentation de FreshRSS
 
-FreshRSS est un agrégateur de flux RSS / Atom écrit en PHP depuis octobre 2012. Le site officiel est situé à l'adresse [freshrss.org](http://freshrss.org) et son dépot Git est hébergé par Github : [github.com/FreshRSS/FreshRSS](https://github.com/FreshRSS/FreshRSS).
+FreshRSS est un agrégateur de flux RSS / Atom écrit en PHP depuis octobre 2012. Le site officiel est situé à l'adresse [freshrss.org](https://freshrss.org) et son dépot Git est hébergé par Github : [github.com/FreshRSS/FreshRSS](https://github.com/FreshRSS/FreshRSS).
 
 ## Problème à résoudre
 

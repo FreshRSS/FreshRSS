@@ -1,5 +1,5 @@
 <?php
-/** 
+/**
  * MINZ - Copyright 2011 Marien Fressinaud
  * Sous licence AGPL3 <http://www.gnu.org/licenses/>
 */
@@ -24,7 +24,7 @@ class Minz_ActionController {
 	public function view () {
 		return $this->view;
 	}
-	
+
 	/**
 	 * Méthodes à redéfinir (ou non) par héritage
 	 * firstAction est la première méthode exécutée par le Dispatcher
@@ -34,5 +34,3 @@ class Minz_ActionController {
 	public function firstAction () { }
 	public function lastAction () { }
 }
-
-

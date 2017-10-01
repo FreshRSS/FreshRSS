@@ -1,5 +1,5 @@
 <?php
-/** 
+/**
  * MINZ - Copyright 2011 Marien Fressinaud
  * Sous licence AGPL3 <http://www.gnu.org/licenses/>
 */
@@ -51,7 +51,7 @@ class Minz_Paginator {
 	 */
 	public function render ($view, $getteur) {
 		$view = APP_PATH . '/views/helpers/'.$view;
-		
+
 		if (file_exists ($view)) {
 			include ($view);
 		}
@@ -129,7 +129,7 @@ class Minz_Paginator {
 			$begin = ($this->currentPage - 1) * $this->nbItemsPerPage;
 			$counter = 0;
 			$i = 0;
-			
+
 			foreach ($this->items as $key => $item) {
 				if ($i >= $begin) {
 					$array[$key] = $item;
@@ -164,7 +164,7 @@ class Minz_Paginator {
 		if (is_array ($items)) {
 			$this->items = $items;
 		}
-		
+
 		$this->_nbPage ();
 	}
 	public function _nbItemsPerPage ($nbItemsPerPage) {

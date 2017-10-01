@@ -46,9 +46,7 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 				}
 
 				$first_entry = $nb_entries > 0 ? $entries[0] : null;
-				FreshRSS_Context::$id_max = $first_entry === null ?
-											(time() - 1) . '000000' :
-											$first_entry->id();
+				FreshRSS_Context::$id_max = $first_entry === null ? (time() - 1) . '000000' : $first_entry->id();
 				if (FreshRSS_Context::$order === 'ASC') {
 					// In this case we do not know but we guess id_max
 					$id_max = (time() - 1) . '000000';

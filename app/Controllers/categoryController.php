@@ -127,11 +127,11 @@ class FreshRSS_category_Controller extends Minz_ActionController {
 				Minz_Request::bad(_t('feedback.sub.category.no_id'), $url_redirect);
 			}
 
-			if ($id === FreshRSS_CategoryDAO::defaultCategoryId) {
+			if ($id === FreshRSS_CategoryDAO::DEFAULTCATEGORYID) {
 				Minz_Request::bad(_t('feedback.sub.category.not_delete_default'), $url_redirect);
 			}
 
-			if ($feedDAO->changeCategory($id, FreshRSS_CategoryDAO::defaultCategoryId) === false) {
+			if ($feedDAO->changeCategory($id, FreshRSS_CategoryDAO::DEFAULTCATEGORYID) === false) {
 				Minz_Request::bad(_t('feedback.sub.category.error'), $url_redirect);
 			}
 

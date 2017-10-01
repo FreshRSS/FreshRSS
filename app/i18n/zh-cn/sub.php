@@ -1,6 +1,11 @@
 <?php
 
 return array(
+	'bookmarklet' => array(
+		'documentation' => 'Drag this button to your bookmarks toolbar or right-click it and choose "Bookmark This Link". Then click "Subscribe" button in any page you want to subscribe to.',// TODO
+		'label' => 'Subscribe',// TODO
+		'title' => 'Bookmarklet',// TODO
+	),
 	'category' => array(
 		'_' => '分类',
 		'add' => '添加分类',
@@ -39,6 +44,10 @@ return array(
 		'website' => '网站 URL',
 		'pubsubhubbub' => 'PubSubHubbub 即时通知',
 	),
+	'firefox' => array(
+		'documentation' => 'Follow the steps described <a href="https://developer.mozilla.org/en-US/Firefox/Releases/2/Adding_feed_readers_to_Firefox#Adding_a_new_feed_reader_manually">here</a> to add FreshRSS to Firefox feed reader list.',// TODO
+		'title' => 'Firefox feed reader',// TODO
+	),
 	'import_export' => array(
 		'export' => '导出',
 		'export_opml' => '导出 RSS 源列表 (OPML)',
@@ -54,9 +63,11 @@ return array(
 		'bookmark' => '订阅 (FreshRSS 书签)',
 		'import_export' => '导入/导出',
 		'subscription_management' => '订阅管理',
+		'subscription_tools' => 'Subscription tools',// TODO
 	),
 	'title' => array(
 		'_' => '订阅管理',
 		'feed_management' => 'RSS 源管理',
+		'subscription_tools' => 'Subscription tools',// TODO
 	),
 );

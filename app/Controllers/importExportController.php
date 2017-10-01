@@ -152,8 +152,7 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 
 		// And finally, we get import status and redirect to the home page
 		Minz_Session::_param('actualize_feeds', true);
-		$content_notif = $error === true ? _t('feedback.import_export.feeds_imported_with_errors') :
-		                                   _t('feedback.import_export.feeds_imported');
+		$content_notif = $error === true ? _t('feedback.import_export.feeds_imported_with_errors') : _t('feedback.import_export.feeds_imported');
 		Minz_Request::good($content_notif);
 	}
 
@@ -427,7 +426,7 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 		}
 		// For this feed, check existing GUIDs already in database.
 		$existingHashForGuids = $this->entryDAO->listHashForFeedGuids($feed->id(), $newGuids);
-		unset($newGuids);
+		$newGuids = array();
 
 		// Then, articles are imported.
 		$this->entryDAO->beginTransaction();
@@ -439,8 +438,7 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 
 			$feed_id = $article_to_feed[$item['id']];
 			$author = isset($item['author']) ? $item['author'] : '';
-			$key_content = ($google_compliant && !isset($item['content'])) ?
-			               'summary' : 'content';
+			$key_content = ($google_compliant && !isset($item['content'])) ? 'summary' : 'content';
 			$tags = $item['categories'];
 			if ($google_compliant) {
 				// Remove tags containing "/state/com.google" which are useless.
@@ -456,6 +454,11 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 			);
 			$entry->_id(min(time(), $entry->date(true)) . uSecString());
 			$entry->_tags($tags);
+
+			if (isset($newGuids[$entry->guid()])) {
+				continue;	//Skip subsequent articles with same GUID
+			}
+			$newGuids[$entry->guid()] = true;
 
 			$entry = Minz_ExtensionManager::callHook('entry_before_insert', $entry);
 			if ($entry == null) {
@@ -501,7 +504,7 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 		try {
 			// Create a Feed object and add it in database.
 			$feed = new FreshRSS_Feed($url);
-			$feed->_category(FreshRSS_CategoryDAO::defaultCategoryId);
+			$feed->_category(FreshRSS_CategoryDAO::DEFAULTCATEGORYID);
 			$feed->_name($name);
 			$feed->_website($website);
 
@@ -640,7 +643,7 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 	 * @param FreshRSS_Feed $feed feed of which we want to get entries.
 	 * @return string the JSON file content.
 	 */
-	private function generateEntries($type, $feed = NULL, $maxFeedEntries = 50) {
+	private function generateEntries($type, $feed = null, $maxFeedEntries = 50) {
 		$this->view->categories = $this->catDAO->listCategories();
 
 		if ($type == 'starred') {

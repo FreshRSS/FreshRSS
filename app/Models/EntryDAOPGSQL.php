@@ -11,7 +11,7 @@ class FreshRSS_EntryDAOPGSQL extends FreshRSS_EntryDAOSQLite {
 	}
 
 	protected function autoUpdateDb($errorInfo) {
-		if (isset($errorInfo[0])) { 
+		if (isset($errorInfo[0])) {
 			if ($errorInfo[0] === '42P01' && stripos($errorInfo[2], 'entrytmp') !== false) {	//undefined_table
 				return $this->createEntryTempTable();
 			}
@@ -30,7 +30,10 @@ maxrank bigint := (SELECT MAX(id) FROM `' . $this->prefix . 'entrytmp`);
 rank bigint := (SELECT maxrank - COUNT(*) FROM `' . $this->prefix . 'entrytmp`);
 BEGIN
 	INSERT INTO `' . $this->prefix . 'entry` (id, guid, title, author, content, link, date, `lastSeen`, hash, is_read, is_favorite, id_feed, tags)
-		(SELECT rank + row_number() OVER(ORDER BY date) AS id, guid, title, author, content, link, date, `lastSeen`, hash, is_read, is_favorite, id_feed, tags FROM `' . $this->prefix . 'entrytmp` ORDER BY date);
+		(SELECT rank + row_number() OVER(ORDER BY date) AS id, guid, title, author, content, link, date, `lastSeen`, hash, is_read, is_favorite, id_feed, tags
+			FROM `' . $this->prefix . 'entrytmp` AS etmp
+			WHERE NOT EXISTS (SELECT 1 FROM `' . $this->prefix . 'entry` AS ereal WHERE etmp.id_feed = ereal.id_feed AND etmp.guid = ereal.guid)
+			ORDER BY date);
 	DELETE FROM `' . $this->prefix . 'entrytmp` WHERE id <= maxrank;
 END $$;';
 		$hadTransaction = $this->bd->inTransaction();

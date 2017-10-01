@@ -16,6 +16,7 @@ function isImgMime($content) {
 		$isImage = strpos(finfo_buffer($fInfo, $content), 'image') !== false;
 		finfo_close($fInfo);
 	} catch (Exception $e) {
+		echo 'Caught exception: ',  $e->getMessage(), "\n";
 	}
 	return $isImage;
 }
