@@ -1,6 +1,6 @@
 ﻿# Changelog
 
-## 2017-XX-XX FreshRSS 1.7.1-dev
+## 2017-10-01 FreshRSS 1.8.0
 
 * Compatibility:
 	* Minimal PHP version increased to PHP 5.3.8+ to fix sanitize bug [#1604](https://github.com/FreshRSS/FreshRSS/issues/1604)
