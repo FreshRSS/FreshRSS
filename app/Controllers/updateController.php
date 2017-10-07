@@ -1,9 +1,18 @@
 <?php
 
+define('UPDATE_FILE', DATA_PATH . '/last_update.txt');
+
 class FreshRSS_update_Controller extends Minz_ActionController {
 
 	public static function isGit() {
 		return is_dir(FRESHRSS_PATH . '/.git/');
+	}
+
+	public static function isUpdateNeeded($newVersion) {
+		if (substr_compare(FRESHRSS_VERSION, '-dev', -4) === 0) {
+			return true;
+		}
+		return version_compare(FRESHRSS_VERSION, $newVersion, '<');
 	}
 
 	public static function hasGitUpdate() {
@@ -49,22 +58,14 @@ class FreshRSS_update_Controller extends Minz_ActionController {
 		invalidateHttpCache();
 
 		$this->view->update_to_apply = false;
-		$this->view->last_update_time = 'unknown';
-		$timestamp = @filemtime(join_path(DATA_PATH, 'last_update.txt'));
-		if ($timestamp !== false) {
-			$this->view->last_update_time = timestamptodate($timestamp);
-		}
+		$timestamp = @filemtime(UPDATE_FILE);
+		$this->view->last_update_time = $timestamp ? timestamptodate($timestamp) : 'unknown';
 	}
 
 	public function indexAction() {
 		Minz_View::prependTitle(_t('admin.update.title') . ' · ');
-
-		if (file_exists(UPDATE_FILENAME)) {
-			// There is an update file to apply!
-			$version = @file_get_contents(join_path(DATA_PATH, 'last_update.txt'));
-			if ($version == '') {
-				$version = 'unknown';
-			}
+		$version = @file_get_contents(UPDATE_FILE);
+		if ($version != '' && self::isUpdateNeeded($version)) {
 			if (is_writable(FRESHRSS_PATH)) {
 				$this->view->update_to_apply = true;
 				$this->view->message = array(
@@ -84,17 +85,6 @@ class FreshRSS_update_Controller extends Minz_ActionController {
 
 	public function checkAction() {
 		$this->view->change_view('update', 'index');
-
-		if (file_exists(UPDATE_FILENAME)) {
-			// There is already an update file to apply: we don't need to check
-			// the webserver!
-			// Or if already check during the last hour, do nothing.
-			Minz_Request::forward(array('c' => 'update'), true);
-
-			return;
-		}
-
-		$script = '';
 		$version = '';
 
 		if (self::isGit()) {
@@ -106,65 +96,65 @@ class FreshRSS_update_Controller extends Minz_ActionController {
 					'title' => _t('gen.short.damn'),
 					'body' => _t('feedback.update.none')
 				);
-				@touch(join_path(DATA_PATH, 'last_update.txt'));
+				@touch(UPDATE_FILE);
 				return;
 			}
 		} else {
-			$auto_update_url = FreshRSS_Context::$system_conf->auto_update_url . '?v=' . FRESHRSS_VERSION;
-			Minz_Log::debug('HTTP GET ' . $auto_update_url);
-			$c = curl_init($auto_update_url);
-			curl_setopt($c, CURLOPT_RETURNTRANSFER, true);
-			curl_setopt($c, CURLOPT_SSL_VERIFYPEER, true);
-			curl_setopt($c, CURLOPT_SSL_VERIFYHOST, 2);
-			$result = curl_exec($c);
-			$c_status = curl_getinfo($c, CURLINFO_HTTP_CODE);
-			$c_error = curl_error($c);
-			curl_close($c);
+			$check_release_url = 'https://api.github.com/repos/FreshRSS/FreshRSS/releases/latest';
+			Minz_Log::debug('HTTP GET ' . $check_release_url);
+			$ch = curl_init();
+			curl_setopt_array($ch, array(
+				CURLOPT_URL => $check_release_url,
+				CURLOPT_RETURNTRANSFER => true,
+				CURLOPT_FOLLOWLOCATION => true,
+				CURLOPT_HTTPHEADER => array('Accept: application/json'),
+				CURLOPT_USERAGENT => FRESHRSS_USERAGENT,
+			));
+			$result = curl_exec($ch);
+			$c_status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+			$c_error = curl_error($ch);
+			curl_close($ch);
 
 			if ($c_status !== 200) {
-				Minz_Log::warning(
-					'Error during update (HTTP code ' . $c_status . '): ' . $c_error
-				);
-
+				Minz_Log::warning('Error during update (HTTP code ' . $c_status . '): ' . $c_error);
 				$this->view->message = array(
 					'status' => 'bad',
 					'title' => _t('gen.short.damn'),
-					'body' => _t('feedback.update.server_not_found', $auto_update_url)
+					'body' => _t('feedback.update.server_not_found', $check_release_url)
 				);
 				return;
 			}
 
-			$res_array = explode("\n", $result, 2);
-			$status = $res_array[0];
-			if (strpos($status, 'UPDATE') !== 0) {
+			$json = json_decode($result, true);
+			if ($json == null || empty($json['tag_name'])) {
+				Minz_Log::warning('GitHub API error while retrieving the latest release');
+				$this->view->message = array(
+					'status' => 'bad',
+					'title' => _t('gen.short.damn'),
+					'body' => _t('feedback.update.server_not_found', $check_release_url)
+				);
+				return;
+			}
+			$version = $json['tag_name'];
+
+			if (!self::isUpdateNeeded($version)) {
 				$this->view->message = array(
 					'status' => 'bad',
 					'title' => _t('gen.short.damn'),
 					'body' => _t('feedback.update.none')
 				);
-				@touch(join_path(DATA_PATH, 'last_update.txt'));
+				@touch(UPDATE_FILE);
 				return;
 			}
-
-			$script = $res_array[1];
-			$version = explode(' ', $status, 2);
-			$version = $version[1];
 		}
 
-		if (file_put_contents(UPDATE_FILENAME, $script) !== false) {
-			@file_put_contents(join_path(DATA_PATH, 'last_update.txt'), $version);
+		if (file_put_contents(UPDATE_FILE, $version)) {
 			Minz_Request::forward(array('c' => 'update'), true);
-		} else {
-			$this->view->message = array(
-				'status' => 'bad',
-				'title' => _t('gen.short.damn'),
-				'body' => _t('feedback.update.error', 'Cannot save the update script')
-			);
 		}
 	}
 
 	public function applyAction() {
-		if (!file_exists(UPDATE_FILENAME) || !is_writable(FRESHRSS_PATH) || Minz_Configuration::get('system')->disable_update) {
+		if (!is_writable(FRESHRSS_PATH) || Minz_Configuration::get('system')->disable_update) {
 			Minz_Request::forward(array('c' => 'update'), true);
 		}
 
@@ -179,8 +169,7 @@ class FreshRSS_update_Controller extends Minz_ActionController {
 			Minz_ExtensionManager::callHook('post_update');
 
 			if ($res === true) {
-				@unlink(UPDATE_FILENAME);
-				@file_put_contents(join_path(DATA_PATH, 'last_update.txt'), '');
+				@file_put_contents(UPDATE_FILE, '');
 				Minz_Request::good(_t('feedback.update.finished'));
 			} else {
 				Minz_Request::bad(_t('feedback.update.error', $res),

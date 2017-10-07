@@ -490,7 +490,7 @@ class FreshRSS_Feed extends Minz_Model {
 					'hub.mode' => $state ? 'subscribe' : 'unsubscribe',
 					'hub.topic' => $url,
 					'hub.callback' => $callbackUrl,
-					))
+					)),
 				)
 			);
 			$response = curl_exec($ch);
