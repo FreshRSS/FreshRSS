@@ -19,7 +19,7 @@
 	* Fix share menu on small screens [#1645](https://github.com/FreshRSS/FreshRSS/pull/1645)
 	* Go back to previous view when collapsing article [#1177](https://github.com/FreshRSS/FreshRSS/issues/1177)
 * CLI
-	* New command `./cli/update-user` to update user settings [#1600](https://github.com/FreshRSS/FreshRSS/issues/1600)
+	* New command `./cli/update-user.php` to update user settings [#1600](https://github.com/FreshRSS/FreshRSS/issues/1600)
 * I18n
 	* Korean [#1578](https://github.com/FreshRSS/FreshRSS/pull/1578)
 	* Portuguese (Brazilian) [#1648](https://github.com/FreshRSS/FreshRSS/pull/1648)
