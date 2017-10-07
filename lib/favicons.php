@@ -35,7 +35,7 @@ function downloadHttp(&$url, $curlOptions = array()) {
 			CURLOPT_MAXREDIRS => 10,
 			CURLOPT_RETURNTRANSFER => true,
 			CURLOPT_TIMEOUT => 15,
-			CURLOPT_USERAGENT => 'FreshRSS/' . FRESHRSS_VERSION . ' (' . PHP_OS . '; ' . FRESHRSS_WEBSITE . ')',
+			CURLOPT_USERAGENT => FRESHRSS_USERAGENT,
 		));
 	if (defined('CURLOPT_ENCODING')) {
 		curl_setopt($ch, CURLOPT_ENCODING, '');	//Enable all encodings
