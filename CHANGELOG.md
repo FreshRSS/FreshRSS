@@ -4,6 +4,8 @@
 
 * SimplePie
 	* Remove "SimplePie" name from HTTP User-Agent string [#1656](https://github.com/FreshRSS/FreshRSS/pull/1656)
+* Bug fixing
+	* Work-around for `CURLOPT_FOLLOWLOCATION` `open_basedir` bug in favicons and PubSubHubbub [#1655](https://github.com/FreshRSS/FreshRSS/issues/1655)
 * Misc.
 	* Travis translation validation tool [#1653](https://github.com/FreshRSS/FreshRSS/pull/1653)
 
