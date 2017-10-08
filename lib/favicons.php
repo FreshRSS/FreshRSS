@@ -31,12 +31,12 @@ function downloadHttp(&$url, $curlOptions = array()) {
 	}
 	$ch = curl_init($url);
 	curl_setopt_array($ch, array(
-			CURLOPT_FOLLOWLOCATION => true,
-			CURLOPT_MAXREDIRS => 10,
 			CURLOPT_RETURNTRANSFER => true,
 			CURLOPT_TIMEOUT => 15,
 			CURLOPT_USERAGENT => FRESHRSS_USERAGENT,
+			CURLOPT_MAXREDIRS => 10,
 		));
+	curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);	//Keep option separated for open_basedir bug
 	if (defined('CURLOPT_ENCODING')) {
 		curl_setopt($ch, CURLOPT_ENCODING, '');	//Enable all encodings
 	}
