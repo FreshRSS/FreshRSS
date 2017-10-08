@@ -481,18 +481,21 @@ class FreshRSS_Feed extends Minz_Model {
 			}
 			$ch = curl_init();
 			curl_setopt_array($ch, array(
-				CURLOPT_URL => $hubJson['hub'],
-				CURLOPT_FOLLOWLOCATION => true,
-				CURLOPT_RETURNTRANSFER => true,
-				CURLOPT_USERAGENT => FRESHRSS_USERAGENT,
-				CURLOPT_POSTFIELDS => http_build_query(array(
-					'hub.verify' => 'sync',
-					'hub.mode' => $state ? 'subscribe' : 'unsubscribe',
-					'hub.topic' => $url,
-					'hub.callback' => $callbackUrl,
-					))
-				)
-			);
+					CURLOPT_URL => $hubJson['hub'],
+					CURLOPT_RETURNTRANSFER => true,
+					CURLOPT_POSTFIELDS => http_build_query(array(
+						'hub.verify' => 'sync',
+						'hub.mode' => $state ? 'subscribe' : 'unsubscribe',
+						'hub.topic' => $url,
+						'hub.callback' => $callbackUrl,
+						)),
+					CURLOPT_USERAGENT => FRESHRSS_USERAGENT,
+					CURLOPT_MAXREDIRS => 10,
+				));
+			curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);	//Keep option separated for open_basedir bug
+			if (defined('CURLOPT_ENCODING')) {
+				curl_setopt($ch, CURLOPT_ENCODING, '');	//Enable all encodings
+			}
 			$response = curl_exec($ch);
 			$info = curl_getinfo($ch);
 
