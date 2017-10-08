@@ -35,6 +35,7 @@ function downloadHttp(&$url, $curlOptions = array()) {
 			CURLOPT_TIMEOUT => 15,
 			CURLOPT_USERAGENT => FRESHRSS_USERAGENT,
 			CURLOPT_MAXREDIRS => 10,
+			CURLOPT_REDIR_PROTOCOLS => CURLPROTO_HTTP | CURLPROTO_HTTPS,
 		));
 	curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);	//Keep option separated for open_basedir bug
 	if (defined('CURLOPT_ENCODING')) {

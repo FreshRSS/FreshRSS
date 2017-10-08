@@ -491,6 +491,7 @@ class FreshRSS_Feed extends Minz_Model {
 						)),
 					CURLOPT_USERAGENT => FRESHRSS_USERAGENT,
 					CURLOPT_MAXREDIRS => 10,
+					CURLOPT_REDIR_PROTOCOLS => CURLPROTO_HTTP | CURLPROTO_HTTPS,
 				));
 			curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);	//Keep option separated for open_basedir bug
 			if (defined('CURLOPT_ENCODING')) {
