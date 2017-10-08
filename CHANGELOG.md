@@ -3,7 +3,8 @@
 ## 2017-1X-XX FreshRSS 1.8.1-dev
 
 * Misc.
-	* Travis translation validation tool [#1653](https://github.com/FreshRSS/FreshRSS/pull/1653)
+	* Translation validation tool [#1653](https://github.com/FreshRSS/FreshRSS/pull/1653)
+	* Translation manipulation tool [#1658](https://github.com/FreshRSS/FreshRSS/pull/1658)
 
 
 ## 2017-10-01 FreshRSS 1.8.0
