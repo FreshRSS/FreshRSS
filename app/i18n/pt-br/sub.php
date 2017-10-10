@@ -1,6 +1,15 @@
 <?php
 
 return array(
+	'api' => array(
+		'documentation' => 'Copy the following URL to use it within an external tool.',// TODO
+		'title' => 'API',// TODO
+	),
+	'bookmarklet' => array(
+		'documentation' => 'Drag this button to your bookmarks toolbar or right-click it and choose "Bookmark This Link". Then click "Subscribe" button in any page you want to subscribe to.',// TODO
+		'label' => 'Subscribe',// TODO
+		'title' => 'Bookmarklet',// TODO
+	),
 	'category' => array(
 		'_' => 'Categoria',
 		'add' => 'Adicionar uma categoria',

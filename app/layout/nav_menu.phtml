@@ -186,16 +186,16 @@
 		if (FreshRSS_Context::$order === 'DESC') {
 			$order = 'ASC';
 			$icon = 'up';
-			$title = 'index.menu.older_first';
+			$title = _t('index.menu.older_first');
 		} else {
 			$order = 'DESC';
 			$icon = 'down';
-			$title = 'index.menu.newer_first';
+			$title = _t('index.menu.newer_first');
 		}
 		$url_order = Minz_Request::currentRequest();
 		$url_order['params']['order'] = $order;
 	?>
-	<a id="toggle-order" class="btn" href="<?php echo Minz_Url::display($url_order); ?>" title="<?php echo _t($title); ?>">
+	<a id="toggle-order" class="btn" href="<?php echo Minz_Url::display($url_order); ?>" title="<?php echo $title; ?>">
 		<?php echo _i($icon); ?>
 	</a>
 	

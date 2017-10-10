@@ -1,104 +1,83 @@
 <?php
 
-$options = getopt("dhl:r");
+require_once __DIR__ . '/I18nFile.php';
+require_once __DIR__ . '/I18nCompletionValidator.php';
+require_once __DIR__ . '/I18nUsageValidator.php';
 
-$ignore = include __DIR__ . '/translation.ignore.php';
+$i18nFile = new I18nFile();
+$i18nData = $i18nFile->load();
+
+$options = getopt("dhl:r");
 
 if (array_key_exists('h', $options)) {
 	help();
 }
 if (array_key_exists('l', $options)) {
-	$langPattern = sprintf('/%s/', $options['l']);
+	$languages = array($options['l']);
 } else {
-	$langPattern = '/*/';
+	$languages = $i18nData->getAvailableLanguages();
 }
-$displayErrors = array_key_exists('d', $options);
+$displayResults = array_key_exists('d', $options);
 $displayReport = array_key_exists('r', $options);
 
-$i18nPath = __DIR__ . '/../app/i18n/';
-$errors = array();
+$isValidated = true;
+$result = array();
 $report = array();
 
-foreach (glob($i18nPath . 'en/*.php') as $i18nFileReference) {
-	$en = flatten(include $i18nFileReference);
-	foreach (glob(str_replace('/en/', $langPattern, $i18nFileReference)) as $i18nFile) {
-		preg_match('#(?P<lang>[^/]+)/(?P<file>[^/]*.php)#', $i18nFile, $matches);
-		$lang = $matches['lang'];
-		$file = $matches['file'];
-		if ('en' === $lang) {
-			continue;
-		}
-		if (!array_key_exists($lang, $report)) {
-			$report[$lang]['total'] = 0;
-			$report[$lang]['errors'] = 0;
-		}
-		$i18n = flatten(include $i18nFile);
-		foreach ($en as $key => $value) {
-			$report[$lang]['total'] ++;
-			if (array_key_exists($lang, $ignore) && array_key_exists($file, $ignore[$lang]) && in_array($key, $ignore[$lang][$file])) {
-				continue;
-			}
-			if (!array_key_exists($key, $i18n)) {
-				$errors[$lang][$file][] = sprintf('Missing key %s', $key);
-				$report[$lang]['errors'] ++;
-				continue;
-			}
-			if ($i18n[$key] === $value) {
-				$errors[$lang][$file][] = sprintf('Untranslated key %s - %s', $key, $value);
-				$report[$lang]['errors'] ++;
-				continue;
-			}
+foreach ($languages as $language) {
+	if ($language === $i18nData::REFERENCE_LANGUAGE) {
+		$i18nValidator = new I18nUsageValidator($i18nData->getReferenceLanguage(), findUsedTranslations());
+		$isValidated = $i18nValidator->validate(include __DIR__ . '/ignore/' . $language . '.php') && $isValidated;
+	} else {
+		$i18nValidator = new I18nCompletionValidator($i18nData->getReferenceLanguage(), $i18nData->getLanguage($language));
+		if (file_exists(__DIR__ . '/ignore/' . $language . '.php')) {
+			$isValidated = $i18nValidator->validate(include __DIR__ . '/ignore/' . $language . '.php') && $isValidated;
+		} else {
+			$isValidated = $i18nValidator->validate(null) && $isValidated;
 		}
 	}
+
+	$report[$language] = sprintf('%-5s - %s', $language, $i18nValidator->displayReport());
+	$result[$language] = $i18nValidator->displayResult();
 }
 
-if ($displayErrors) {
-	foreach ($errors as $lang => $value) {
+if ($displayResults) {
+	foreach ($result as $lang => $value) {
 		echo 'Language: ', $lang, PHP_EOL;
-		foreach ($value as $file => $messages) {
-			echo '    - File: ', $file, PHP_EOL;
-			foreach ($messages as $message) {
-				echo '        - ', $message, PHP_EOL;
-			}
-		}
+		print_r($value);
 		echo PHP_EOL;
 	}
 }
 
 if ($displayReport) {
-	foreach ($report as $lang => $value) {
-		$completion = ($value['total'] - $value['errors']) / $value['total'] * 100;
-		echo sprintf('Translation for %-5s is %5.1f%% complete.', $lang, $completion), PHP_EOL;
+	foreach ($report as $value) {
+		echo $value;
 	}
 }
 
-if (!empty($errors)) {
+if (!$isValidated) {
 	exit(1);
 }
 
 /**
- * Flatten an array of translation
+ * Find used translation keys in the project
  *
- * @param array $translation
- * @param string $prependKey
+ * Iterates through all php and phtml files in the whole project and extracts all
+ * translation keys used.
+ *
  * @return array
  */
-function flatten($translation, $prependKey = '') {
-	$a = array();
-
-	if ('' !== $prependKey) {
-		$prependKey .= '.';
+function findUsedTranslations() {
+	$directory = new RecursiveDirectoryIterator(__DIR__ . '/..');
+	$iterator = new RecursiveIteratorIterator($directory);
+	$regex = new RegexIterator($iterator, '/^.+\.(php|phtml)$/i', RecursiveRegexIterator::GET_MATCH);
+	$usedI18n = array();
+	foreach (array_keys(iterator_to_array($regex)) as $file) {
+		$fileContent = file_get_contents($file);
+		preg_match_all('/_t\([\'"](?P<strings>[^\'"]+)[\'"]/', $fileContent, $matches);
+		$usedI18n = array_merge($usedI18n, $matches['strings']);
 	}
-
-	foreach ($translation as $key => $value) {
-		if (is_array($value)) {
-			$a += flatten($value, $prependKey . $key);
-		} else {
-			$a[$prependKey . $key] = $value;
-		}
-	}
-
-	return $a;
+	return $usedI18n;
 }
 
 /**
