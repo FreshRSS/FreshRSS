@@ -33,7 +33,7 @@
 			<div class="group-controls">
 				<?php
 					$number = count(listUsers());
-					echo _t($number > 1 ? 'admin.user.numbers' : 'admin.user.number', $number);
+					echo ($number > 1 ? _t('admin.user.numbers', $number) : _t('admin.user.number', $number));
 				?>
 			</div>
 		</div>
