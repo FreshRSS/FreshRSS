@@ -1,6 +1,10 @@
 <?php
 
 return array(
+	'api' => array(
+		'documentation' => 'Copy the following URL to use it within an external tool.',// TODO
+		'title' => 'API',// TODO
+	),
 	'category' => array(
 		'_' => 'Categoría',
 		'add' => 'Añadir a la categoría',

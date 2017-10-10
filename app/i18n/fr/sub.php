@@ -1,6 +1,10 @@
 <?php
 
 return array(
+	'api' => array(
+		'documentation' => 'Copier l’URL suivante dans l’outil qui utilisera l’API.',
+		'title' => 'API',
+	),
 	'bookmarklet' => array(
 		'documentation' => 'Glisser ce bouton dans la barre des favoris ou cliquer droit dessus et choisir "Enregistrer ce lien". Ensuite, cliquer sur le bouton "S’abonner" sur les pages auxquelles vous voulez vous abonner.',
 		'label' => 'S’abonner',

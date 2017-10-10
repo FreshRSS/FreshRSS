@@ -1,6 +1,10 @@
 <?php
 
 return array(
+	'api' => array(
+		'documentation' => 'Copy the following URL to use it within an external tool.',// TODO
+		'title' => 'API',// TODO
+	),
 	'bookmarklet' => array(
 		'documentation' => '이 버튼을 즐겨찾기 막대로 끌어다 놓거나 마우스 오른쪽 클릭으로 나타나는 메뉴에서 "이 링크를 즐겨찾기에 추가"를 선택하세요. 그리고 피드를 구독하길 원하는 페이지에서 "구독하기" 버튼을 클릭하세요.',
 		'label' => '구독하기',
