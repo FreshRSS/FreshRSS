@@ -2,6 +2,8 @@
 
 ## 2017-1X-XX FreshRSS 1.8.1-dev
 
+* UI
+	Show API subscription URL [#1247](https://github.com/FreshRSS/FreshRSS/issues/1247)
 * SimplePie
 	* Remove "SimplePie" name from HTTP User-Agent string [#1656](https://github.com/FreshRSS/FreshRSS/pull/1656)
 * Bug fixing
