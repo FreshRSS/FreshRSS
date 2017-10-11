@@ -56,5 +56,6 @@ class FreshRSS_DatabaseDAOSQLite extends FreshRSS_DatabaseDAO {
 		if ($stm) {
 			return $stm->execute();
 		}
+		return false;
 	}
 }

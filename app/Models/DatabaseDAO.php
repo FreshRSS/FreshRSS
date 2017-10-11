@@ -100,21 +100,21 @@ class FreshRSS_DatabaseDAO extends Minz_ModelPdo {
 
 		$sql = 'OPTIMIZE TABLE `' . $this->prefix . 'entry`';	//MySQL
 		$stm = $this->bd->prepare($sql);
-		$ok &= $stm;
+		$ok &= $stm != false;
 		if ($stm) {
 			$ok &= $stm->execute();
 		}
 
 		$sql = 'OPTIMIZE TABLE `' . $this->prefix . 'feed`';	//MySQL
 		$stm = $this->bd->prepare($sql);
-		$ok &= $stm;
+		$ok &= $stm != false;
 		if ($stm) {
 			$ok &= $stm->execute();
 		}
 
 		$sql = 'OPTIMIZE TABLE `' . $this->prefix . 'category`';	//MySQL
 		$stm = $this->bd->prepare($sql);
-		$ok &= $stm;
+		$ok &= $stm != false;
 		if ($stm) {
 			$ok &= $stm->execute();
 		}
