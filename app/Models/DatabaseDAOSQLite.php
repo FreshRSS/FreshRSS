@@ -45,4 +45,16 @@ class FreshRSS_DatabaseDAOSQLite extends FreshRSS_DatabaseDAO {
 			'default' => $dao['dflt_value'],
 		);
 	}
+
+	public function size($all = false) {
+		return @filesize(join_path(DATA_PATH, 'users', $this->current_user, 'db.sqlite'));
+	}
+
+	public function optimize() {
+		$sql = 'VACUUM';
+		$stm = $this->bd->prepare($sql);
+		if ($stm) {
+			return $stm->execute();
+		}
+	}
 }

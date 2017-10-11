@@ -225,10 +225,12 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 
 		$entryDAO = FreshRSS_Factory::createEntryDao();
 		$this->view->nb_total = $entryDAO->count();
-		$this->view->size_user = $entryDAO->size();
+
+		$databaseDAO = FreshRSS_Factory::createDatabaseDAO();
+		$this->view->size_user = $databaseDAO->size();
 
 		if (FreshRSS_Auth::hasAccess('admin')) {
-			$this->view->size_total = $entryDAO->size(true);
+			$this->view->size_total = $databaseDAO->size(true);
 		}
 	}
 

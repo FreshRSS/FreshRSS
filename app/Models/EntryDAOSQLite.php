@@ -261,12 +261,4 @@ class FreshRSS_EntryDAOSQLite extends FreshRSS_EntryDAO {
 		}
 		return $affected;
 	}
-
-	public function optimizeTable() {
-		//TODO: Search for an equivalent in SQLite
-	}
-
-	public function size($all = false) {
-		return @filesize(join_path(DATA_PATH, 'users', $this->current_user, 'db.sqlite'));
-	}
 }
