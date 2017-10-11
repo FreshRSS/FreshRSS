@@ -2,13 +2,13 @@
 /* Dutch translation by Wanabo. http://www.nieuwskop.be */
 return array(
 	'api' => array(
-		'documentation' => 'Copy the following URL to use it within an external tool.',// TODO
-		'title' => 'API',// TODO
+		'documentation' => 'Kopieer de volgende URL om hem in een externe toepassing te gebruiken.'
+		'title' => 'API',
 	),
 	'bookmarklet' => array(
-		'documentation' => 'Drag this button to your bookmarks toolbar or right-click it and choose "Bookmark This Link". Then click "Subscribe" button in any page you want to subscribe to.',// TODO
-		'label' => 'Subscribe',// TODO
-		'title' => 'Bookmarklet',// TODO
+		'documentation' => 'Sleep deze knop naar je bladwijzerwerkbalk of klik erop met de rechtermuisknop en kies "Deze link aan bladwijzers toevoegen."',
+		'label' => 'Abonneren',
+		'title' => 'Bookmarklet',
 	),
 	'category' => array(
 		'_' => 'Categorie',
@@ -49,8 +49,8 @@ return array(
 		'website' => 'Website URL',
 	),
 	'firefox' => array(
-		'documentation' => 'Follow the steps described <a href="https://developer.mozilla.org/en-US/Firefox/Releases/2/Adding_feed_readers_to_Firefox#Adding_a_new_feed_reader_manually">here</a> to add FreshRSS to Firefox feed reader list.',// TODO
-		'title' => 'Firefox feed reader',// TODO
+		'documentation' => 'Volg de stappen die <a href="https://developer.mozilla.org/en-US/Firefox/Releases/2/Adding_feed_readers_to_Firefox#Adding_a_new_feed_reader_manually">hier</a> beschreven wordem om FreshRSS aan de Firefox-nieuwslezerlijst toe te voegen.',
+		'title' => 'Firefox-nieuwslezer',
 	),
 	'import_export' => array(
 		'export' => 'Exporteer',
