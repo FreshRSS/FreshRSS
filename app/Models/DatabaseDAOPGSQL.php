@@ -52,7 +52,29 @@ class FreshRSS_DatabaseDAOPGSQL extends FreshRSS_DatabaseDAO {
 	}
 
 	public function optimize() {
-		//TODO: Find an equivalent in PostgreSQL
-		return false;
+		$ok = true;
+
+		$sql = 'VACUUM `' . $this->prefix . 'entry`';
+		$stm = $this->bd->prepare($sql);
+		$ok &= $stm != false;
+		if ($stm) {
+			$ok &= $stm->execute();
+		}
+
+		$sql = 'VACUUM `' . $this->prefix . 'feed`';
+		$stm = $this->bd->prepare($sql);
+		$ok &= $stm != false;
+		if ($stm) {
+			$ok &= $stm->execute();
+		}
+
+		$sql = 'VACUUM `' . $this->prefix . 'category`';
+		$stm = $this->bd->prepare($sql);
+		$ok &= $stm != false;
+		if ($stm) {
+			$ok &= $stm->execute();
+		}
+
+		return $ok;
 	}
 }
