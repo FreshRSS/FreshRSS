@@ -44,7 +44,7 @@ Nous sommes une communauté amicale.
 # Documentation
 * https://freshrss.github.io/FreshRSS/fr/
 
-# Installation
+# [Installation](https://freshrss.github.io/FreshRSS/fr/users/01_Installation.html)
 1. Récupérez l’application FreshRSS via la commande git ou [en téléchargeant l’archive](../releases)
 2. Placez l’application sur votre serveur (la partie à exposer au Web est le répertoire `./p/`)
 3. Le serveur Web doit avoir les droits d’écriture dans le répertoire `./data/`
@@ -52,6 +52,7 @@ Nous sommes une communauté amicale.
 	* ou utilisez [l’interface en ligne de commande](./cli/README.md)
 5. Tout devrait fonctionner :) En cas de problème, n’hésitez pas à [nous contacter](https://github.com/FreshRSS/FreshRSS/issues).
 6. Des paramètres de configuration avancée peuvent être vues dans [config.default.php](./config.default.php) et modifiées dans `data/config.php`.
+7. Avec Apache, activer [`AllowEncodedSlashes`](http://httpd.apache.org/docs/trunk/mod/core.html#allowencodedslashes) pour une meilleure compatibilité avec les clients mobiles.
 
 ## Installation automatisée
 * [![DP deploy](https://raw.githubusercontent.com/DFabric/DPlatform-ShellCore/gh-pages/img/deploy.png)](https://dfabric.github.io/DPlatform-ShellCore)
@@ -171,7 +172,7 @@ Voir le [dépôt dédié à ces extensions](https://github.com/FreshRSS/Extensio
 * [password_compat](https://github.com/ircmaxell/password_compat)
 
 
-# Clients compatibles
+# [Clients compatibles](https://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html)
 Tout client supportant une API de type Google Reader. Sélection :
 
 * Android

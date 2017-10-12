@@ -10,7 +10,7 @@ You need to verify that your server can run FreshRSS before installing it. If yo
 | PHP         | **PHP 5.5+**     | PHP 5.3.8+                    |
 | PHP modules | Required: libxml, cURL, PDO_MySQL, PCRE and ctype. \\ Required (32-bit only): GMP \\Recommanded: JSON, Zlib, mbstring, iconv, ZipArchive | |
 | Database    | **MySQL 5.0.3+** | SQLite 3.7.4+                 |
-| Browser     | **Firefox**      | Chrome, Opera, Safari or IE9+ |
+| Browser     | **Firefox**      | Chrome, Opera, Safari, or IE11+ |
 
 ## Important notice
 
@@ -39,31 +39,44 @@ This is an example Apache virtual hosts configuration file. It covers http and h
 
 ```
 <VirtualHost *:80>
-    ServerName example.com
-    DocumentRoot /path/to/FreshRSS
+	DocumentRoot /var/www/html/
 
-    ErrorLog ${APACHE_LOG_DIR}/freshrss_error.log
-    CustomLog ${APACHE_LOG_DIR}/freshrss_access.log combined
+	#Default site...
 
-    RewriteEngine on
-    RewriteCond %{SERVER_NAME} = example.com
-    RewriteRule ^ https://%{SERVER_NAME}%{REQUEST_URI} [END,QSA,R=permanent]
+	ErrorLog ${APACHE_LOG_DIR}/error.default.log
+	CustomLog ${APACHE_LOG_DIR}/access.default.log vhost_combined
+</VirtualHost>
+
+<VirtualHost *:80>
+	ServerName rss.example.net
+	DocumentRoot /path/to/FreshRSS/p/
+
+	ErrorLog ${APACHE_LOG_DIR}/freshrss_error.log
+	CustomLog ${APACHE_LOG_DIR}/freshrss_access.log combined
+
+	AllowEncodedSlashes On
 </VirtualHost>
 
 <IfModule mod_ssl.c>
-<VirtualHost *:443>
-    ServerName example.com
-    DocumentRoot /path/to/FreshRSS
+	<VirtualHost *:443>
+		ServerName rss.example.net
+		DocumentRoot /path/to/FreshRSS/p/
 
-    ErrorLog ${APACHE_LOG_DIR}/freshrss_error.log
-    CustomLog ${APACHE_LOG_DIR}/freshrss_access.log combined
+		ErrorLog ${APACHE_LOG_DIR}/freshrss_error.log
+		CustomLog ${APACHE_LOG_DIR}/freshrss_access.log combined
 
-    SSLCertificateFile /path/to/server.crt
-    SSLCertificateKeyFile /path/to/server.key
+		<IfModule mod_http2.c>
+			Protocols h2 http/1.1
+		</IfModule>
 
-    # Optional letsencrypt config (uncomment) line below
-    #Include /etc/letsencrypt/options-ssl-apache.conf
-</VirtualHost>
+		AllowEncodedSlashes On
+
+		SSLEngine on
+		SSLCompression off
+		SSLCertificateFile /path/to/server.crt
+		SSLCertificateKeyFile /path/to/server.key
+		# Additional SSL configuration, e.g. with LetsEncrypt
+	</VirtualHost>
 </IfModule>
 ```
 
@@ -75,41 +88,41 @@ _You can find simpler config file but they may be incompatible with FreshRSS API
 
 ```
 server {
-  listen 80; # http on port 80
-  listen 443 ssl; # https on port 443
+	listen 80;
+	listen 443 ssl;
 
-  # https configuration
-  ssl on;
-  ssl_certificate      /etc/nginx/server.crt;
-  ssl_certificate_key  /etc/nginx/server.key;
+	# https configuration
+	ssl on;
+	ssl_certificate /etc/nginx/server.crt;
+	ssl_certificate_key /etc/nginx/server.key;
 
-  # your server's url(s)
-  server_name example.com rss.example.com;
+	# your server's url(s)
+	server_name rss.example.net;
 
-  # the folder p of your FreshRSS installation
-  root /srv/FreshRSS/p/;
+	# the folder p of your FreshRSS installation
+	root /srv/FreshRSS/p/;
 
-  index index.php index.html index.htm;
+	index index.php index.html index.htm;
 
-  # nginx log files
-  access_log /var/log/nginx/rss.access.log;
-  error_log /var/log/nginx/rss.error.log;
+	# nginx log files
+	access_log /var/log/nginx/rss.access.log;
+	error_log /var/log/nginx/rss.error.log;
 
-  # php files handling
-  # this regex is mandatory because of the API
-  location ~ ^.+?\.php(/.*)?$ {
-    fastcgi_pass unix:/var/run/php5-fpm.sock;
-    fastcgi_split_path_info ^(.+\.php)(/.*)$;
-    # By default, the variable PATH_INFO is not set under PHP-FPM
-    # But FreshRSS API greader.php need it. If you have a "Bad Request" error, double check this var !
-    fastcgi_param PATH_INFO $fastcgi_path_info;
-    include fastcgi_params;
-    fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
-  }
+	# php files handling
+	# this regex is mandatory because of the API
+	location ~ ^.+?\.php(/.*)?$ {
+		fastcgi_pass unix:/var/run/php5-fpm.sock;
+		fastcgi_split_path_info ^(.+\.php)(/.*)$;
+		# By default, the variable PATH_INFO is not set under PHP-FPM
+		# But FreshRSS API greader.php need it. If you have a "Bad Request" error, double check this var !
+		fastcgi_param PATH_INFO $fastcgi_path_info;
+		include fastcgi_params;
+		fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+	}
 
-  location / {
-    try_files $uri $uri/ index.php;
-  }
+	location / {
+		try_files $uri $uri/ index.php;
+	}
 }
 ```
 
