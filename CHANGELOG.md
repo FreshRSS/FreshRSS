@@ -8,6 +8,10 @@
 	* Remove "SimplePie" name from HTTP User-Agent string [#1656](https://github.com/FreshRSS/FreshRSS/pull/1656)
 * Bug fixing
 	* Work-around for `CURLOPT_FOLLOWLOCATION` `open_basedir` bug in favicons and PubSubHubbub [#1655](https://github.com/FreshRSS/FreshRSS/issues/1655)
+* CLI
+	* New command `./cli/db-optimize.php` for database optimisation [#1583](https://github.com/FreshRSS/FreshRSS/issues/1583)
+* SQL
+	* Perform `VACUUM` on SQLite and PostgreSQL databases when optimisation is requested [#918](https://github.com/FreshRSS/FreshRSS/issues/918)
 * Misc.
 	* Translation validation tool [#1653](https://github.com/FreshRSS/FreshRSS/pull/1653)
 	* Translation manipulation tool [#1658](https://github.com/FreshRSS/FreshRSS/pull/1658)

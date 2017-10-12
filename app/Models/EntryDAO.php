@@ -885,28 +885,6 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 		return array('all' => $all, 'unread' => $unread, 'read' => $all - $unread);
 	}
 
-	public function optimizeTable() {
-		$sql = 'OPTIMIZE TABLE `' . $this->prefix . 'entry`';	//MySQL
-		$stm = $this->bd->prepare($sql);
-		if ($stm) {
-			return $stm->execute();
-		}
-	}
-
-	public function size($all = false) {
-		$db = FreshRSS_Context::$system_conf->db;
-		$sql = 'SELECT SUM(data_length + index_length) FROM information_schema.TABLES WHERE table_schema=?';	//MySQL
-		$values = array($db['base']);
-		if (!$all) {
-			$sql .= ' AND table_name LIKE ?';
-			$values[] = $this->prefix . '%';
-		}
-		$stm = $this->bd->prepare($sql);
-		$stm->execute($values);
-		$res = $stm->fetchAll(PDO::FETCH_COLUMN, 0);
-		return $res[0];
-	}
-
 	public static function daoToEntry($dao) {
 		$entry = new FreshRSS_Entry(
 				$dao['id_feed'],

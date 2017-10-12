@@ -40,4 +40,41 @@ class FreshRSS_DatabaseDAOPGSQL extends FreshRSS_DatabaseDAO {
 			'default' => $dao['default'],
 		);
 	}
+
+	public function size($all = true) {
+		$db = FreshRSS_Context::$system_conf->db;
+		$sql = 'SELECT pg_size_pretty(pg_database_size(?))';
+		$values = array($db['base']);
+		$stm = $this->bd->prepare($sql);
+		$stm->execute($values);
+		$res = $stm->fetchAll(PDO::FETCH_COLUMN, 0);
+		return $res[0];
+	}
+
+	public function optimize() {
+		$ok = true;
+
+		$sql = 'VACUUM `' . $this->prefix . 'entry`';
+		$stm = $this->bd->prepare($sql);
+		$ok &= $stm != false;
+		if ($stm) {
+			$ok &= $stm->execute();
+		}
+
+		$sql = 'VACUUM `' . $this->prefix . 'feed`';
+		$stm = $this->bd->prepare($sql);
+		$ok &= $stm != false;
+		if ($stm) {
+			$ok &= $stm->execute();
+		}
+
+		$sql = 'VACUUM `' . $this->prefix . 'category`';
+		$stm = $this->bd->prepare($sql);
+		$ok &= $stm != false;
+		if ($stm) {
+			$ok &= $stm->execute();
+		}
+
+		return $ok;
+	}
 }
