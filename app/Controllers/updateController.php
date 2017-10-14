@@ -158,11 +158,12 @@ class FreshRSS_update_Controller extends Minz_ActionController {
 			Minz_Request::forward(array('c' => 'update'), true);
 		}
 
+		require_once(APP_PATH . '/update/update_util.php');
+
 		if (Minz_Request::param('post_conf', false)) {
 			if (self::isGit()) {
 				$res = !self::hasGitUpdate();
 			} else {
-				require(UPDATE_FILENAME);
 				$res = do_post_update();
 			}
 
@@ -181,7 +182,6 @@ class FreshRSS_update_Controller extends Minz_ActionController {
 			if (self::isGit()) {
 				$res = self::gitPull();
 			} else {
-				require(UPDATE_FILENAME);
 				if (Minz_Request::isPost()) {
 					save_info_update();
 				}

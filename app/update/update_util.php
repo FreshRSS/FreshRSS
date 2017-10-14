@@ -31,9 +31,9 @@ function recurse_copy($src, $dst) {
 	while (false !== ($file = readdir($dir))) {
 		if (($file != '.') && ($file != '..')) {
 			if (is_dir($src . '/' . $file)) {
-				recurse_copy($src . '/' . $file,$dst . '/' . $file);
+				recurse_copy($src . '/' . $file, $dst . '/' . $file);
 			} else {
-				copy($src . '/' . $file,$dst . '/' . $file);
+				copy($src . '/' . $file, $dst . '/' . $file);
 			}
 		}
 	}
@@ -144,7 +144,7 @@ function save_custom_themes($destination) {
 		}
 
 		$old_theme_path = $themes_base_dir . '/' . $theme_dir;
-        $new_theme_path = $destination . '/' . $theme_dir;
+		$new_theme_path = $destination . '/' . $theme_dir;
 		recurse_copy($old_theme_path, $new_theme_path);
 	}
 }
@@ -192,7 +192,3 @@ function deploy_package() {
 function clean_package() {
 	return del_tree(PACKAGE_PATHNAME);
 }
-
-
-// NOTE: don't remove this close tag!
-?>
