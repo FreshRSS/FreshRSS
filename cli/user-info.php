@@ -19,6 +19,7 @@ foreach ($users as $username) {
 	$catDAO = new FreshRSS_CategoryDAO();
 	$feedDAO = FreshRSS_Factory::createFeedDao($username);
 	$entryDAO = FreshRSS_Factory::createEntryDao($username);
+	$databaseDAO = FreshRSS_Factory::createDatabaseDAO($username);
 
 	$nbEntries = $entryDAO->countUnreadRead();
 	$nbFavorites = $entryDAO->countUnreadReadFavorites();
@@ -27,7 +28,7 @@ foreach ($users as $username) {
 		echo
 			$username, "\t",
 			date('c', FreshRSS_UserDAO::mtime($username)), "\t",
-			format_bytes($entryDAO->size()), "\t",
+			format_bytes($databaseDAO->size()), "\t",
 			$catDAO->count(), " categories\t",
 			count($feedDAO->listFeedsIds()), " feeds\t",
 			$nbEntries['read'], " reads\t",
@@ -38,7 +39,7 @@ foreach ($users as $username) {
 		echo
 			$username, "\t",
 			FreshRSS_UserDAO::mtime($username), "\t",
-			$entryDAO->size(), "\t",
+			$databaseDAO->size(), "\t",
 			$catDAO->count(), "\t",
 			count($feedDAO->listFeedsIds()), "\t",
 			$nbEntries['read'], "\t",

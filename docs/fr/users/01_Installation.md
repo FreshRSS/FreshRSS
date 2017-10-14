@@ -10,7 +10,7 @@ Il est toutefois de votre responsabilité de vérifier que votre hébergement pe
  | PHP              | **PHP 5.5+**                                                                                                   | PHP 5.3.8+                     |
  | Modules PHP      | Requis : libxml, cURL, PDO_MySQL, PCRE et ctype \\ Requis (32 bits seulement) : GMP \\ Recommandé : JSON, Zlib, mbstring et iconv, ZipArchive |                                |
  | Base de données  | **MySQL 5.0.3+**                                                                                               | SQLite 3.7.4+                  |
- | Navigateur       | **Firefox**                                                                                                    | Chrome, Opera, Safari or IE 9+ |
+ | Navigateur       | **Firefox**                                                                                                    | Chrome, Opera, Safari, or IE 11+ |
 
 ## Note importante
 
@@ -30,13 +30,52 @@ Cette version sort lorsqu'on considère qu'on a répondu à nos objectifs en ter
 
 [Téléchargement](https://github.com/FreshRSS/FreshRSS/archive/dev.zip)
 
-Comme son nom l'indique, il s'agit de la version sur laquelle les développeurs travaillent. **Elle est donc totalement instable !** Si vous souhaitez recevoir les améliorations au jour le jour, vous pouvez l'utiliser, mais attention à bien suivre les évolutions sur Github (via [le flux RSS de la branche](https://github.com/FreshRSS/FreshRSS/commits/dev.atom) par exemple). On raconte que les développeurs principaux l'utilisent quotidiennement sans avoir de soucis. Sans doute savent-ils ce qu'ils font…
+Comme son nom l'indique, il s'agit de la version sur laquelle les développeurs travaillent. **Elle est donc instable !** Si vous souhaitez recevoir les améliorations au jour le jour, vous pouvez l'utiliser, mais attention à bien suivre les évolutions sur Github (via [le flux RSS de la branche](https://github.com/FreshRSS/FreshRSS/commits/dev.atom) par exemple). On raconte que les développeurs principaux l'utilisent quotidiennement sans avoir de soucis. Sans doute savent-ils ce qu'ils font…
 
 # Installation sur Apache
 
-**TODO**
+```
+<VirtualHost *:80>
+	DocumentRoot /var/www/html/
 
-Cette partie n'a pas encore été écrite. Néanmoins, comme il s'agit d'une bête application PHP, cela ne pose généralement pas de soucis à installer :)
+	#Site par défaut...
+
+	ErrorLog ${APACHE_LOG_DIR}/error.default.log
+	CustomLog ${APACHE_LOG_DIR}/access.default.log vhost_combined
+</VirtualHost>
+
+<VirtualHost *:80>
+	ServerName rss.example.net
+	DocumentRoot /path/to/FreshRSS/p/
+
+	ErrorLog ${APACHE_LOG_DIR}/freshrss_error.log
+	CustomLog ${APACHE_LOG_DIR}/freshrss_access.log combined
+
+	AllowEncodedSlashes On
+</VirtualHost>
+
+<IfModule mod_ssl.c>
+	<VirtualHost *:443>
+		ServerName rss.example.net
+		DocumentRoot /path/to/FreshRSS/p/
+
+		ErrorLog ${APACHE_LOG_DIR}/freshrss_error.log
+		CustomLog ${APACHE_LOG_DIR}/freshrss_access.log combined
+
+		<IfModule mod_http2.c>
+			Protocols h2 http/1.1
+		</IfModule>
+
+		AllowEncodedSlashes On
+
+		SSLEngine on
+		SSLCompression off
+		SSLCertificateFile /path/to/server.crt
+		SSLCertificateKeyFile /path/to/server.key
+		# Additional SSL configuration, e.g. with LetsEncrypt
+	</VirtualHost>
+</IfModule>
+```
 
 # Installation sur Nginx
 
@@ -46,41 +85,41 @@ _Vous pourrez trouver d'autres fichiers de configuration plus simples mais ces d
 
 ```
 server {
-  listen 80; # http sur le port 80
-  listen 443 ssl; # https sur le port 443
+	listen 80;
+	listen 443 ssl;
 
-  # configuration https 
-  ssl on;
-  ssl_certificate      /etc/nginx/server.crt;
-  ssl_certificate_key  /etc/nginx/server.key;
+	# configuration https
+	ssl on;
+	ssl_certificate /etc/nginx/server.crt;
+	ssl_certificate_key /etc/nginx/server.key;
 
-  # l'url ou les urls de votre serveur
-  server_name example.com rss.example.com;
+	# l'url ou les urls de votre serveur
+	server_name rss.example.net;
 
-  # le répertoire où se trouve le dossier p de FreshRSS
-  root /srv/FreshRSS/p/;
+	# le répertoire où se trouve le dossier p de FreshRSS
+	root /srv/FreshRSS/p/;
 
-  index index.php index.html index.htm;
+	index index.php index.html index.htm;
 
-  # les fichiers de log nginx
-  access_log /var/log/nginx/rss.access.log;
-  error_log /var/log/nginx/rss.error.log;
+	# les fichiers de log nginx
+	access_log /var/log/nginx/rss.access.log;
+	error_log /var/log/nginx/rss.error.log;
 
-  # gestion des fichiers php
-  # il est nécessaire d'utiliser cette expression régulière pour le bon fonctionnement de l'API 
-  location ~ ^.+?\.php(/.*)?$ {
-    fastcgi_pass unix:/var/run/php5-fpm.sock;
-    fastcgi_split_path_info ^(.+\.php)(/.*)$;
-    # Par défaut la variable PATH_INFO n'est pas définie sous PHP-FPM
-    # or l'API FreshRSS greader.php en a besoin. Si vous avez un "Bad Request", vérifiez bien cette dernière !
-    fastcgi_param PATH_INFO $fastcgi_path_info;
-    include fastcgi_params;
-    fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
-  }
-  
-  location / {
-    try_files $uri $uri/ index.php;
-  }
+	# gestion des fichiers php
+	# il est nécessaire d'utiliser cette expression régulière pour le bon fonctionnement de l'API
+	location ~ ^.+?\.php(/.*)?$ {
+		fastcgi_pass unix:/var/run/php5-fpm.sock;
+		fastcgi_split_path_info ^(.+\.php)(/.*)$;
+		# Par défaut la variable PATH_INFO n'est pas définie sous PHP-FPM
+		# or l'API FreshRSS greader.php en a besoin. Si vous avez un "Bad Request", vérifiez bien cette dernière !
+		fastcgi_param PATH_INFO $fastcgi_path_info;
+		include fastcgi_params;
+		fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+	}
+
+	location / {
+		try_files $uri $uri/ index.php;
+	}
 }
 ```
 

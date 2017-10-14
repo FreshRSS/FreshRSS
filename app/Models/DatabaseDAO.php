@@ -80,4 +80,45 @@ class FreshRSS_DatabaseDAO extends Minz_ModelPdo {
 
 		return $list;
 	}
+
+	public function size($all = false) {
+		$db = FreshRSS_Context::$system_conf->db;
+		$sql = 'SELECT SUM(data_length + index_length) FROM information_schema.TABLES WHERE table_schema=?';	//MySQL
+		$values = array($db['base']);
+		if (!$all) {
+			$sql .= ' AND table_name LIKE ?';
+			$values[] = $this->prefix . '%';
+		}
+		$stm = $this->bd->prepare($sql);
+		$stm->execute($values);
+		$res = $stm->fetchAll(PDO::FETCH_COLUMN, 0);
+		return $res[0];
+	}
+
+	public function optimize() {
+		$ok = true;
+
+		$sql = 'OPTIMIZE TABLE `' . $this->prefix . 'entry`';	//MySQL
+		$stm = $this->bd->prepare($sql);
+		$ok &= $stm != false;
+		if ($stm) {
+			$ok &= $stm->execute();
+		}
+
+		$sql = 'OPTIMIZE TABLE `' . $this->prefix . 'feed`';	//MySQL
+		$stm = $this->bd->prepare($sql);
+		$ok &= $stm != false;
+		if ($stm) {
+			$ok &= $stm->execute();
+		}
+
+		$sql = 'OPTIMIZE TABLE `' . $this->prefix . 'category`';	//MySQL
+		$stm = $this->bd->prepare($sql);
+		$ok &= $stm != false;
+		if ($stm) {
+			$ok &= $stm->execute();
+		}
+
+		return $ok;
+	}
 }
