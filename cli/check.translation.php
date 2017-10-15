@@ -1,8 +1,8 @@
 <?php
 
-require_once __DIR__ . '/I18nFile.php';
-require_once __DIR__ . '/I18nCompletionValidator.php';
-require_once __DIR__ . '/I18nUsageValidator.php';
+require_once __DIR__ . '/i18n/I18nFile.php';
+require_once __DIR__ . '/i18n/I18nCompletionValidator.php';
+require_once __DIR__ . '/i18n/I18nUsageValidator.php';
 
 $i18nFile = new I18nFile();
 $i18nData = $i18nFile->load();
@@ -27,11 +27,11 @@ $report = array();
 foreach ($languages as $language) {
 	if ($language === $i18nData::REFERENCE_LANGUAGE) {
 		$i18nValidator = new I18nUsageValidator($i18nData->getReferenceLanguage(), findUsedTranslations());
-		$isValidated = $i18nValidator->validate(include __DIR__ . '/ignore/' . $language . '.php') && $isValidated;
+		$isValidated = $i18nValidator->validate(include __DIR__ . '/i18n/ignore/' . $language . '.php') && $isValidated;
 	} else {
 		$i18nValidator = new I18nCompletionValidator($i18nData->getReferenceLanguage(), $i18nData->getLanguage($language));
-		if (file_exists(__DIR__ . '/ignore/' . $language . '.php')) {
-			$isValidated = $i18nValidator->validate(include __DIR__ . '/ignore/' . $language . '.php') && $isValidated;
+		if (file_exists(__DIR__ . '/i18n/ignore/' . $language . '.php')) {
+			$isValidated = $i18nValidator->validate(include __DIR__ . '/i18n/ignore/' . $language . '.php') && $isValidated;
 		} else {
 			$isValidated = $i18nValidator->validate(null) && $isValidated;
 		}
