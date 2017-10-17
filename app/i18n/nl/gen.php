@@ -1,5 +1,5 @@
 <?php
-/* Dutch translation by Wanabo. http://www.nieuwskop.be */
+
 return array(
 	'action' => array(
 		'actualize' => 'Actualiseren',
@@ -13,8 +13,8 @@ return array(
 		'filter' => 'Filteren',
 		'import' => 'Importeren',
 		'manage' => 'Beheren',
-		'mark_read' => 'Markeer als gelezen',
 		'mark_favorite' => 'Markeer als favoriet',
+		'mark_read' => 'Markeer als gelezen',
 		'remove' => 'Verwijder',
 		'see_website' => 'Bekijk website',
 		'submit' => 'Opslaan',
@@ -63,8 +63,8 @@ return array(
 		'december' => 'Dec',
 		'feb' => 'feb',
 		'february' => 'Feb',
-		'format_date' => 'j %s Y', //<-- European date format // 'format_date' => '%s j\\<\\s\\u\\p\\>S\\<\\/\\s\\u\\p\\> Y',
-		'format_date_hour' => 'j %s Y \\o\\m H\\:i', //<-- European date format // 'format_date_hour' => '%s j\\<\\s\\u\\p\\>S\\<\\/\\s\\u\\p\\> Y \\a\\t H\\:i',
+		'format_date' => 'j %s Y',
+		'format_date_hour' => 'j %s Y \\o\\m H\\:i',
 		'fri' => 'Vr',
 		'jan' => 'jan',
 		'january' => 'Jan',
@@ -79,8 +79,8 @@ return array(
 		'last_year' => 'Vorig jaar',
 		'mar' => 'mrt',
 		'march' => 'Mrt',
-		'may_' => 'Mei',
 		'may' => 'Mei',
+		'may_' => 'Mei',
 		'mon' => 'Ma',
 		'month' => 'maanden',
 		'nov' => 'nov',
@@ -158,20 +158,21 @@ return array(
 		'previous' => 'Vorige',
 	),
 	'share' => array(
+		'Known' => 'Known based sites',
 		'blogotext' => 'Blogotext',
 		'diaspora' => 'Diaspora*',
 		'email' => 'Email',
 		'facebook' => 'Facebook',
 		'g+' => 'Google+',
+		'gnusocial' => 'GNU social',
+		'jdh' => 'Journal du hacker',
+		'mastodon' => 'Mastodon',
 		'movim' => 'Movim',
 		'print' => 'Print',
 		'shaarli' => 'Shaarli',
 		'twitter' => 'Twitter',
 		'wallabag' => 'wallabag v1',
 		'wallabagv2' => 'wallabag v2',
-		'jdh' => 'Journal du hacker',
-		'Known' => 'Known based sites',
-		'gnusocial' => 'GNU social',
 	),
 	'short' => array(
 		'attention' => 'Attentie!',
