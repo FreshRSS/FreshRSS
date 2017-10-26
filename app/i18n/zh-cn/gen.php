@@ -34,7 +34,7 @@ return array(
 			'ask' => '创建新账户？',
 			'title' => '账户创建',
 		),
-		'reset' => '认证重置',
+		'reset' => '密码重置',
 		'username' => array(
 			'_' => '用户名',
 			'admin' => '管理员用户名',
@@ -176,7 +176,7 @@ return array(
 	'short' => array(
 		'attention' => '警告!',
 		'blank_to_disable' => '留空以禁用',
-		'by_author' => 'By <em>%s</em>',
+		'by_author' => '作者 <em>%s</em>',
 		'by_default' => '默认',
 		'damn' => '错误！',
 		'default_category' => '未分类',

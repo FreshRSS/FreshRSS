@@ -38,11 +38,11 @@ return array(
 		),
 		'ctype' => array(
 			'nok' => '找不到字符类型检测库 (php-ctype) 。',
-			'ok' => '你已有字符类型检测库 (ctype) 。',
+			'ok' => '已找到字符类型检测库 (ctype) 。',
 		),
 		'curl' => array(
 			'nok' => '找不到 cURL 库 (php-curl package) 。',
-			'ok' => '你已有 cURL 库。',
+			'ok' => '已找到 cURL 库。',
 		),
 		'data' => array(
 			'nok' => '请检查 <em>./data</em> 目录权限。HTTP 服务器必须有其写入权限。',
@@ -50,7 +50,7 @@ return array(
 		),
 		'dom' => array(
 			'nok' => '找不到用于浏览 DOM 的库 (php-xml) 。',
-			'ok' => '你已有用于浏览 DOM 的库。',
+			'ok' => '已找到用于浏览 DOM 的库。',
 		),
 		'favicons' => array(
 			'nok' => '请检查 <em>./data/favicons</em> 目录权限。HTTP 服务器必须有其写入权限。',
@@ -58,7 +58,7 @@ return array(
 		),
 		'fileinfo' => array(
 			'nok' => '找不到 PHP fileinfo 库 (fileinfo) 。',
-			'ok' => '你已有 fileinfo 库。',
+			'ok' => '已找到 fileinfo 库。',
 		),
 		'http_referer' => array(
 			'nok' => '请检查你是否修改了 HTTP REFERER。',
@@ -66,19 +66,19 @@ return array(
 		),
 		'json' => array(
 			'nok' => '找不到推荐的 JSON 解析库。',
-			'ok' => '你已有推荐的 JSON 解析库。',
+			'ok' => '已找到推荐的 JSON 解析库。',
 		),
 		'minz' => array(
 			'nok' => '找不到 Minz 框架。',
-			'ok' => '你已有 Minz 框架。',
+			'ok' => '已找到 Minz 框架。',
 		),
 		'pcre' => array(
 			'nok' => '找不到正则表达式解析库 (php-pcre) 。',
-			'ok' => '你已有正则表达式解析库 (PCRE) 。',
+			'ok' => '已找到正则表达式解析库 (PCRE) 。',
 		),
 		'pdo' => array(
 			'nok' => '找不到 PDO 或支持的驱动 (pdo_mysql, pdo_sqlite, pdo_pgsql) 。',
-			'ok' => '你已有 PDO 和支持的至少一种驱动 (pdo_mysql, pdo_sqlite, pdo_pgsql) 。',
+			'ok' => '已找到 PDO 和支持的至少一种驱动 (pdo_mysql, pdo_sqlite, pdo_pgsql) 。',
 		),
 		'php' => array(
 			'nok' => '你的 PHP 版本为 %s，但 FreshRSS 最低需要 %s。',
@@ -90,7 +90,7 @@ return array(
 		),
 		'xml' => array(
 			'nok' => '找不到用于 XML 解析库。',
-			'ok' => '你已有 XML 解析库。',
+			'ok' => '已找到 XML 解析库。',
 		),
 	),
 	'conf' => array(
