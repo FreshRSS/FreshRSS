@@ -15,10 +15,10 @@ return array(
 		),
 		'login' => array(
 			'invalid' => '用户名或密码无效',
-			'success' => '你已成功登录',
+			'success' => '登录成功',
 		),
 		'logout' => array(
-			'success' => '你已登出',
+			'success' => '登出成功',
 		),
 		'no_password_set' => '管理员密码尚未设置。此特性不可用。',
 	),
@@ -43,7 +43,7 @@ return array(
 		'not_found' => '%s 不存在',
 	),
 	'import_export' => array(
-		'export_no_zip_extension' => '服务器未启用 ZIP 扩展。请尝试一个一个导出文件。',
+		'export_no_zip_extension' => '服务器未启用 ZIP 扩展。请尝试逐个导出文件。',
 		'feeds_imported' => '你的 RSS 源已导入，即将更新',
 		'feeds_imported_with_errors' => '你的 RSS 源已导入，但发生错误',
 		'file_cannot_be_uploaded' => '文件未能上传！',
