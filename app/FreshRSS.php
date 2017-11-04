@@ -111,8 +111,8 @@ class FreshRSS extends Minz_FrontController {
 	public static function preLayout() {
 		switch (Minz_Request::controllerName()) {
 			case 'index':
-				$urlToAuthorize = array_filter(array_map(function($a) {
-					if ('POST' === $a['method']) {
+				$urlToAuthorize = array_filter(array_map(function ($a) {
+					if (isset($a['method']) && $a['method'] === 'POST') {
 						return $a['url'];
 					}
 				}, FreshRSS_Context::$user_conf->sharing));
