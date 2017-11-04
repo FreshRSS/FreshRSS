@@ -22,11 +22,11 @@ function apply_update() {
 	// First, do a backup.
 	$res = remove_data_backup();
 	if (!$res) {
-		return 'can\'t remove backup of ' . DATA_PATH;
+		return 'Cannot remove backup of ' . DATA_PATH;
 	}
 	$res = data_backup();
 	if (!$res) {
-		return 'can\'t do a backup of ' . DATA_PATH;
+		return 'Cannot do a backup of ' . DATA_PATH;
 	}
 
 	// For each directory, we check it exists, dir/index.html exists and we can
@@ -41,19 +41,19 @@ function apply_update() {
 	// Get the FRSS package.
 	$res = save_package(PACKAGE_URL);
 	if (!$res) {
-		return 'can\'t save package ' . PACKAGE_URL;
+		return 'Cannot save package ' . PACKAGE_URL;
 	}
 
 	// Deploy it on the server.
 	$res = deploy_package();
 	if (!$res) {
-		return 'can\'t deploy update package';
+		return 'Cannotdeploy update package';
 	}
 
 	// And clean package files.
 	$res = clean_package();
 	if (!$res) {
-		return 'can\'t clean update package';
+		return 'Cannot clean update package';
 	}
 
 	return true;
