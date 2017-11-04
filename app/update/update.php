@@ -1,10 +1,7 @@
 <?php
 
-define('PACKAGE_URL', 'https://codeload.github.com/FreshRSS/FreshRSS/zip/1.8.0');
-
-
 // Apply the update by replacing old version of FreshRSS by the new one.
-function apply_update() {
+function apply_update($zipUrl) {
 	$dirs_to_check = array(
 		DATA_PATH,
 		DATA_PATH . '/cache',
@@ -39,15 +36,15 @@ function apply_update() {
 	}
 
 	// Get the FRSS package.
-	$res = save_package(PACKAGE_URL);
+	$res = save_package($zipUrl);
 	if (!$res) {
-		return 'Cannot save package ' . PACKAGE_URL;
+		return 'Cannot save package ' . $zipUrl;
 	}
 
 	// Deploy it on the server.
 	$res = deploy_package();
 	if (!$res) {
-		return 'Cannotdeploy update package';
+		return 'Cannot deploy update package';
 	}
 
 	// And clean package files.
@@ -72,9 +69,4 @@ function save_info_update() {
 
 function ask_info_update() {
 
-}
-
-function do_post_update() {
-	$ok = true;
-	return $ok;
 }

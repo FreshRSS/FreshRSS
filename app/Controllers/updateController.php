@@ -65,7 +65,7 @@ class FreshRSS_update_Controller extends Minz_ActionController {
 	public function indexAction() {
 		Minz_View::prependTitle(_t('admin.update.title') . ' · ');
 		$updateInfo = @file_get_contents(UPDATE_FILE);
-		if ($updateInfo != '')
+		if ($updateInfo != '') {
 			$json = json_decode($updateInfo, true);
 			$version = empty($json['tag_name']) ? '0' : $json['tag_name'];
 			if (self::isUpdateNeeded($version)) {
@@ -162,9 +162,27 @@ class FreshRSS_update_Controller extends Minz_ActionController {
 			Minz_Request::forward(array('c' => 'update'), true);
 		}
 
+		if (function_exists('opcache_reset')) {
+			opcache_reset();
+		}
 		require_once(APP_PATH . '/update/update_util.php');
+		require_once(APP_PATH . '/update/update.php');
+
+		$updateInfo = @file_get_contents(UPDATE_FILE);
+		if ($updateInfo != '') {
+			$json = json_decode($updateInfo, true);
+			$zipUrl = empty($json['zipball_url']) ? '0' : $json['zipball_url'];
+		}
+		if ($zipUrl == '') {
+			unlink(UPDATE_FILE);
+			Minz_Request::bad(_t('feedback.update.error', $res), array('c' => 'update', 'a' => 'index'));
+			return;
+		}
 
 		if (Minz_Request::param('post_conf', false)) {
+			//File from the new version
+			require_once(APP_PATH . '/update/post-update.php');
+
 			if (self::isGit()) {
 				$res = !self::hasGitUpdate();
 			} else {
@@ -190,7 +208,7 @@ class FreshRSS_update_Controller extends Minz_ActionController {
 					save_info_update();
 				}
 				if (!need_info_update()) {
-					$res = apply_update();
+					$res = apply_update($zipUrl);
 				} else {
 					return;
 				}
