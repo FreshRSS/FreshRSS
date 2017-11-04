@@ -27,6 +27,8 @@ $ git push && git push --tags
 
 # Mise à jour de update.freshrss.org
 
+//TODO: Update
+
 Il est important de mettre à jour update.freshrss.org puisqu'il s'agit du service par défaut gérant les mises à jour automatiques de FreshRSS.
 
 Le dépot gérant le code se trouve sur GitHub : [FreshRSS/update.freshrss.org](https://github.com/FreshRSS/update.freshrss.org/).
