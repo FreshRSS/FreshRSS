@@ -7,7 +7,7 @@ class i18nFile {
 	private $i18nPath;
 
 	public function __construct() {
-		$this->i18nPath = __DIR__ . '/../app/i18n';
+		$this->i18nPath = __DIR__ . '/../../app/i18n';
 	}
 
 	public function load() {

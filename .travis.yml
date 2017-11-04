@@ -20,7 +20,7 @@ script:
     fi
   - |
     if [[ $CHECK_TRANSLATION == yes ]]; then
-      php tools/check.translation.php -r
+      php cli/check.translation.php -r
     fi
 
 env:
