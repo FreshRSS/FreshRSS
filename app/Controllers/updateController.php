@@ -1,6 +1,6 @@
 <?php
 
-define('UPDATE_FILE', DATA_PATH . '/last_update.txt');
+define('UPDATE_FILE', DATA_PATH . '/latest-release.json');
 
 class FreshRSS_update_Controller extends Minz_ActionController {
 
@@ -64,25 +64,28 @@ class FreshRSS_update_Controller extends Minz_ActionController {
 
 	public function indexAction() {
 		Minz_View::prependTitle(_t('admin.update.title') . ' · ');
-		$updateInfo = @file_get_contents(UPDATE_FILE);
-		if ($updateInfo != '') {
+		if (self::isGit()) {
+			$version = 'git';
+		} else {
+			$updateInfo = @file_get_contents(UPDATE_FILE);
 			$json = json_decode($updateInfo, true);
 			$version = empty($json['tag_name']) ? '0' : $json['tag_name'];
-			if (self::isUpdateNeeded($version)) {
-				if (is_writable(FRESHRSS_PATH)) {
-					$this->view->update_to_apply = true;
-					$this->view->message = array(
-						'status' => 'good',
-						'title' => _t('gen.short.ok'),
-						'body' => _t('feedback.update.can_apply', $version),
-					);
-				} else {
-					$this->view->message = array(
-						'status' => 'bad',
-						'title' => _t('gen.short.damn'),
-						'body' => _t('feedback.update.file_is_nok', $version, FRESHRSS_PATH),
-					);
-				}
+		}
+		if (($version === 'git' && self::hasGitUpdate()) ||
+			($version !== 'git' && self::isUpdateNeeded($version))) {
+			if (is_writable(FRESHRSS_PATH)) {
+				$this->view->update_to_apply = true;
+				$this->view->message = array(
+					'status' => 'good',
+					'title' => _t('gen.short.ok'),
+					'body' => _t('feedback.update.can_apply', $version),
+				);
+			} else {
+				$this->view->message = array(
+					'status' => 'bad',
+					'title' => _t('gen.short.damn'),
+					'body' => _t('feedback.update.file_is_nok', $version, FRESHRSS_PATH),
+				);
 			}
 		}
 	}
