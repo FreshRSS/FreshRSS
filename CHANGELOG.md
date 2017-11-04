@@ -2,8 +2,10 @@
 
 ## 2017-1X-XX FreshRSS 1.8.1-dev
 
+* Features
+	* Share with Mastodon [#1521](https://github.com/FreshRSS/FreshRSS/issues/1521)
 * UI
-	Show URL to add subscriptions from third-party tools [#1247](https://github.com/FreshRSS/FreshRSS/issues/1247)
+	* Show URL to add subscriptions from third-party tools [#1247](https://github.com/FreshRSS/FreshRSS/issues/1247)
 * SimplePie
 	* Remove "SimplePie" name from HTTP User-Agent string [#1656](https://github.com/FreshRSS/FreshRSS/pull/1656)
 * Bug fixing

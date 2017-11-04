@@ -2,7 +2,7 @@
 /* Dutch translation by Wanabo. http://www.nieuwskop.be */
 return array(
 	'api' => array(
-		'documentation' => 'Kopieer de volgende URL om hem in een externe toepassing te gebruiken.'
+		'documentation' => 'Kopieer de volgende URL om hem in een externe toepassing te gebruiken.',
 		'title' => 'API',
 	),
 	'bookmarklet' => array(
