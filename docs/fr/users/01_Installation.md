@@ -48,6 +48,11 @@ Comme son nom l’indique, il s’agit de la version sur laquelle les développe
 	ServerName rss.example.net
 	DocumentRoot /path/to/FreshRSS/p/
 
+	<Directory /path/to/FreshRSS/p>
+		AllowOverride AuthConfig FileInfo Indexes Limit
+		Require all granted
+	</Directory>
+
 	ErrorLog ${APACHE_LOG_DIR}/freshrss_error.log
 	CustomLog ${APACHE_LOG_DIR}/freshrss_access.log combined
 
@@ -58,6 +63,11 @@ Comme son nom l’indique, il s’agit de la version sur laquelle les développe
 	<VirtualHost *:443>
 		ServerName rss.example.net
 		DocumentRoot /path/to/FreshRSS/p/
+
+		<Directory /path/to/FreshRSS/p>
+			AllowOverride AuthConfig FileInfo Indexes Limit
+			Require all granted
+		</Directory>
 
 		ErrorLog ${APACHE_LOG_DIR}/freshrss_error.log
 		CustomLog ${APACHE_LOG_DIR}/freshrss_access.log combined
