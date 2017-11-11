@@ -517,7 +517,7 @@ function streamContents($path, $include_target, $start_time, $count, $order, $ex
 			'title' => $entry->title(),
 			'summary' => array('content' => $entry->content()),
 			'alternate' => array(
-				array('href' => $entry->link()),
+				array('href' => htmlspecialchars_decode($entry->link(), ENT_QUOTES)),
 			),
 			'categories' => array(
 				'user/-/state/com.google/reading-list',
