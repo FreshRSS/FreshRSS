@@ -1,6 +1,6 @@
 # Les pré-requis sur le serveur
 
-FreshRSS est un logiciel développé en PHP reposant sur le modèle client - serveur. C'est-à-dire qu'il vous faudra un serveur web pour en profiter. Ensuite, FreshRSS ne demande pas une configuration très fournie et peut donc, en théorie, tourner sur la plupart des serveurs mutualisés.
+FreshRSS est un logiciel développé en PHP reposant sur le modèle client - serveur. C’est-à-dire qu’il vous faudra un serveur web pour en profiter. Ensuite, FreshRSS ne demande pas une configuration très fournie et peut donc, en théorie, tourner sur la plupart des serveurs mutualisés.
 
 Il est toutefois de votre responsabilité de vérifier que votre hébergement permettra de faire tourner FreshRSS avant de nous taper dessus. Dans le cas où les informations listées ci-dessous ne seraient pas à jour, vous pourrez.
 
@@ -24,13 +24,13 @@ FreshRSS possède trois versions différentes (nous parlons de branches) qui sor
 
 [Téléchargement](https://github.com/FreshRSS/FreshRSS/archive/master.zip)
 
-Cette version sort lorsqu'on considère qu'on a répondu à nos objectifs en terme de nouvelles fonctionnalités. Deux versions peuvent ainsi sortir de façon très rapprochée si les développeurs travaillent bien. En pratique, comme nous nous fixons de nombreux objectifs et que nous travaillons sur notre temps libre, les versions sont souvent assez espacées (plusieurs mois). Son avantage est que le code est particulièrement stable et vous ne devriez pas faire face à de méchants bugs.
+Cette version sort lorsqu’on considère qu’on a répondu à nos objectifs en terme de nouvelles fonctionnalités. Deux versions peuvent ainsi sortir de façon très rapprochée si les développeurs travaillent bien. En pratique, comme nous nous fixons de nombreux objectifs et que nous travaillons sur notre temps libre, les versions sont souvent assez espacées (plusieurs mois). Son avantage est que le code est particulièrement stable et vous ne devriez pas faire face à de méchants bugs.
 
 ## La version de développement
 
 [Téléchargement](https://github.com/FreshRSS/FreshRSS/archive/dev.zip)
 
-Comme son nom l'indique, il s'agit de la version sur laquelle les développeurs travaillent. **Elle est donc instable !** Si vous souhaitez recevoir les améliorations au jour le jour, vous pouvez l'utiliser, mais attention à bien suivre les évolutions sur Github (via [le flux RSS de la branche](https://github.com/FreshRSS/FreshRSS/commits/dev.atom) par exemple). On raconte que les développeurs principaux l'utilisent quotidiennement sans avoir de soucis. Sans doute savent-ils ce qu'ils font…
+Comme son nom l’indique, il s’agit de la version sur laquelle les développeurs travaillent. **Elle est donc instable !** Si vous souhaitez recevoir les améliorations au jour le jour, vous pouvez l’utiliser, mais attention à bien suivre les évolutions sur Github (via [le flux RSS de la branche](https://github.com/FreshRSS/FreshRSS/commits/dev.atom) par exemple). On raconte que les développeurs principaux l’utilisent quotidiennement sans avoir de soucis. Sans doute savent-ils ce qu’ils font…
 
 # Installation sur Apache
 
@@ -66,6 +66,7 @@ Comme son nom l'indique, il s'agit de la version sur laquelle les développeurs 
 			Protocols h2 http/1.1
 		</IfModule>
 
+		# Pour l’API
 		AllowEncodedSlashes On
 
 		SSLEngine on
@@ -79,9 +80,9 @@ Comme son nom l'indique, il s'agit de la version sur laquelle les développeurs 
 
 # Installation sur Nginx
 
-Voici un fichier de configuration pour nginx. Il couvre la configuration pour http, https et php.
+Voici un fichier de configuration pour nginx. Il couvre la configuration pour HTTP, HTTPS, et PHP.
 
-_Vous pourrez trouver d'autres fichiers de configuration plus simples mais ces derniers ne seront peut-être pas compatibles avec l'API FreshRSS._
+_Vous pourrez trouver d’autres fichiers de configuration plus simples mais ces derniers ne seront peut-être pas compatibles avec l’API FreshRSS._
 
 ```
 server {
@@ -93,7 +94,7 @@ server {
 	ssl_certificate /etc/nginx/server.crt;
 	ssl_certificate_key /etc/nginx/server.key;
 
-	# l'url ou les urls de votre serveur
+	# l’URL ou les URLs de votre serveur
 	server_name rss.example.net;
 
 	# le répertoire où se trouve le dossier p de FreshRSS
@@ -106,12 +107,12 @@ server {
 	error_log /var/log/nginx/rss.error.log;
 
 	# gestion des fichiers php
-	# il est nécessaire d'utiliser cette expression régulière pour le bon fonctionnement de l'API
+	# il est nécessaire d’utiliser cette expression régulière pour le bon fonctionnement de l’API
 	location ~ ^.+?\.php(/.*)?$ {
 		fastcgi_pass unix:/var/run/php5-fpm.sock;
 		fastcgi_split_path_info ^(.+\.php)(/.*)$;
-		# Par défaut la variable PATH_INFO n'est pas définie sous PHP-FPM
-		# or l'API FreshRSS greader.php en a besoin. Si vous avez un "Bad Request", vérifiez bien cette dernière !
+		# Par défaut la variable PATH_INFO n’est pas définie sous PHP-FPM
+		# or l’API FreshRSS greader.php en a besoin. Si vous avez un “Bad Request”, vérifiez bien cette dernière !
 		fastcgi_param PATH_INFO $fastcgi_path_info;
 		include fastcgi_params;
 		fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
