@@ -51,6 +51,11 @@ This is an example Apache virtual hosts configuration file. It covers HTTP and H
 	ServerName rss.example.net
 	DocumentRoot /path/to/FreshRSS/p/
 
+	<Directory /path/to/FreshRSS/p>
+		AllowOverride AuthConfig FileInfo Indexes Limit
+		Require all granted
+	</Directory>
+
 	ErrorLog ${APACHE_LOG_DIR}/freshrss_error.log
 	CustomLog ${APACHE_LOG_DIR}/freshrss_access.log combined
 
@@ -61,6 +66,11 @@ This is an example Apache virtual hosts configuration file. It covers HTTP and H
 	<VirtualHost *:443>
 		ServerName rss.example.net
 		DocumentRoot /path/to/FreshRSS/p/
+
+		<Directory /path/to/FreshRSS/p>
+			AllowOverride AuthConfig FileInfo Indexes Limit
+			Require all granted
+		</Directory>
 
 		ErrorLog ${APACHE_LOG_DIR}/freshrss_error.log
 		CustomLog ${APACHE_LOG_DIR}/freshrss_access.log combined
