@@ -4,8 +4,8 @@ Cette page suppose que vous avez fini [l’installation du serveur](01_Installat
 
 1. Dans la section “Authentification”, cocher l’option “Autoriser l’accès par API (nécessaire pour les applis mobiles)”.
 2. Dans la section “Profil”, remplir le champ “Mot de passe API (ex. : pour applis mobiles)”.
-	a. Chaque utilisateur doit choisir son mot de passe API.
-	b. La raison d’être d’un mot de passe API différent du mot de passe principal est que le mot de passe API est potentiellement utilisé de manière moins sûre, mais il permet aussi moins de choses.
+	* Chaque utilisateur doit choisir son mot de passe API.
+	* La raison d’être d’un mot de passe API différent du mot de passe principal est que le mot de passe API est potentiellement utilisé de manière moins sûre, mais il permet aussi moins de choses.
 
 
 # Tester
@@ -24,13 +24,13 @@ Cette page suppose que vous avez fini [l’installation du serveur](01_Installat
 		* Avec Apache, vérifiez la directive [`AllowEncodedSlashes On`](http://httpd.apache.org/docs/trunk/mod/core.html#allowencodedslashes)
 		* Ou utilisez un client qui n’encode pas les slashs (comme EasyRSS), auquel cas passer à l’étape 6.
 	* Si vous obtenez *Service Unavailable!*, retourner à l’étape 6.
-	* Avec _Apache_:
+	* Avec __Apache__:
 		* Si vous obtenez *FAIL getallheaders!*, alors la combinaison de votre version de PHP et de votre serveur Web ne permet pas l’accès à [`getallheaders`](http://php.net/getallheaders)
 			* Utilisez au moins PHP 5.4+, ou utilisez PHP en tant que module plutôt que CGI. Sinon, activer Apache `mod_rewrite` :
-				* Autoriser [`FileInfo` dans `.htaccess`](http://httpd.apache.org/docs/trunk/mod/core.html#allowoverride) : revoir [l’installation du serveur].
+				* Autoriser [`FileInfo` dans `.htaccess`](http://httpd.apache.org/docs/trunk/mod/core.html#allowoverride) : revoir [l’installation du serveur](01_Installation.md).
 				* Activer [`mod_rewrite`](http://httpd.apache.org/docs/trunk/mod/mod_rewrite.html) :
 					* Sur Debian / Ubuntu : `sudo a2enmod rewrite`
-	* Avec _nginx_:
+	* Avec __nginx__:
 		* Si vous obtenez *Bad Request!*, vérifier la configuration `PATH_INFO` de votre serveur.
 		* Si vous obtenez *File not found!*, vérifier la configuration `fastcgi_split_path_info` de votre serveur.
 	* Si vous obtenez *FAIL 64-bit or GMP extension!*, alors votre installation PHP soit n’est pas en 64 bit, soit n’a pas l’extension PHP [GMP](http://php.net/gmp) activée.
