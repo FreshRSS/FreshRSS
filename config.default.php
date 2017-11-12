@@ -49,7 +49,7 @@ return array(
 	'auth_type' => 'form',
 
 	# Allow or not the use of the API, used for mobile apps.
-	#	End-point is http://example.net/FreshRSS/p/api/greader.php
+	#	End-point is https://freshrss.example.net/api/greader.php
 	#	You need to set the user's API password.
 	'api_enabled' => false,
 
