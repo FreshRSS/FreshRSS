@@ -2,6 +2,8 @@
 
 ## 2017-1X-XX FreshRSS 1.8.1-dev
 
+* API
+	* Breaking change / compatibility fix (EasyRSS): Provide `link` to articles without HTML-encoding [#1683](https://github.com/FreshRSS/FreshRSS/issues/1683)
 * Features
 	* Share with Mastodon [#1521](https://github.com/FreshRSS/FreshRSS/issues/1521)
 * UI
