@@ -398,11 +398,12 @@ function is_referer_from_same_domain() {
 function check_install_php() {
 	$pdo_mysql = extension_loaded('pdo_mysql');
 	$pdo_sqlite = extension_loaded('pdo_sqlite');
+	$pdo_pgsql = extension_loaded('pdo_pgsql');
 	return array(
 		'php' => version_compare(PHP_VERSION, '5.3.8') >= 0,
 		'minz' => file_exists(LIB_PATH . '/Minz'),
 		'curl' => extension_loaded('curl'),
-		'pdo' => $pdo_mysql || $pdo_sqlite,
+		'pdo' => $pdo_mysql || $pdo_sqlite || $pdo_pgsql,
 		'pcre' => extension_loaded('pcre'),
 		'ctype' => extension_loaded('ctype'),
 		'fileinfo' => extension_loaded('fileinfo'),
