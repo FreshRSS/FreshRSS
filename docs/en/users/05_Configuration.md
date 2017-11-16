@@ -70,7 +70,7 @@ The duration of this notification can be set. By default, the value is 0.
 ### HTTP Authentication (Apache)
 
  1. User control is based on the `.htaccess` file.
- 2. It is best practice to place the `.htaccess` file in the `./i/` subdirecotry so the API and other third party services can work.
+ 2. It is best practice to place the `.htaccess` file in the `./i/` subdirectory so the API and other third party services can work.
  3. If you want to limit all access to registered users only, place the file in the FreshRSS directory itself or in a parent directory. Note that PubsubHubbub and API will not work!
  4. Example `.htaccess` file for a user "marie":
 
