@@ -20,7 +20,7 @@ In matters of taste and color, there can be no disputes. This is why FreshRSS of
 
 If none of these are suitable for you, it is always possible to create your own.
 
-To select a theme, simply scroll through the themes and select a theme that appears. After confirmation, the theme will be applied to the interface.
+To select a theme, simply scroll through the themes and select one that strikes your fancy. After confirmation, the theme will be applied to the interface.
 
 ## Content width
 
@@ -69,10 +69,10 @@ The duration of this notification can be set. By default, the value is 0.
 
 ### HTTP Authentication (Apache)
 
- 1. User control is based on the .htaccess file
- 2. It is best practice to place the .htaccess file in ./i/ subdirecotry so API and other third party services can work.
- 3. If you want to limit all access to registered users only, place the file in the directory of FreshRSS or in a parent directory. Note that PubsubHubbub and API will not work!
- 4. Example .htaccess file for a user "marie":
+ 1. User control is based on the `.htaccess` file.
+ 2. It is best practice to place the `.htaccess` file in the `./i/` subdirecotry so the API and other third party services can work.
+ 3. If you want to limit all access to registered users only, place the file in the FreshRSS directory itself or in a parent directory. Note that PubsubHubbub and API will not work!
+ 4. Example `.htaccess` file for a user "marie":
 
 ```
 AuthUserFile /home/marie/repertoire/.htpasswd
@@ -82,7 +82,7 @@ AuthType Basic
 Require user marie
 ```
 
-More information can be found in [Apache documentation](http://httpd.apache.org/docs/trunk/howto/auth.html#gettingitworking).
+More information can be found in the [Apache documentation](http://httpd.apache.org/docs/trunk/howto/auth.html#gettingitworking).
 
 # Subscription management
 
@@ -104,7 +104,7 @@ More information can be found in [Apache documentation](http://httpd.apache.org/
 
 The question comes up regularly, so we will try to clarify here how one can retrieve a truncated RSS feed with FreshRSS. Please note that the process is absolutely not "user friendly", but it works :)
 
-Also know that this way you are generating much more traffic to the originating sites and that they can block you accordingly. The performance of FreshRSS is also imapcted because you have to fetch the contents of the articles one by one. So it's a feature to use sparingly!
+Also know that this way you are generating much more traffic to the originating sites and that they might block you accordingly. The performance of FreshRSS is also negatively affected because you have to fetch the full article content one by one. So it's a feature to use sparingly!
 
 What is meant by "CSS path of articles on the original site" actually corresponds to the "path" consisting of IDs and classes (which in html, matches the id and class attributes) to retrieve only the interesting part that corresponds to the article. Ideally, this path starts with an id (which is unique to the page).
 
