@@ -38,6 +38,7 @@ People are sorted by name so please keep this order.
 * [MSZ](https://github.com/mszkb): [contributions](https://github.com/FreshRSS/FreshRSS/commits?author=mszkb)
 * [Nicolas Elie](https://github.com/nicolaselie): [contributions](https://github.com/FreshRSS/FreshRSS/commits?author=nicolaselie)
 * [Nicolas Lœuillet](https://github.com/nicosomb): [contributions](https://github.com/FreshRSS/documentation/commits?author=nicosomb), [Web](http://www.loeuillet.org/)
+* [Olivier Dossmann](https://github.com/blankoworld): [contributions](https://github.com/FreshRSS/FreshRSS/commits?author=blankoworld), [Web](https://olivier.dossmann.net)
 * [plopoyop](https://github.com/plopoyop): [contributions](https://github.com/FreshRSS/FreshRSS/commits?author=plopoyop)
 * [Paulius Šukys](https://github.com/psukys): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:psukys), [Web](http://sukys.eu)
 * [purexo](https://github.com/purexo): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:purexo), [Web](https://purexo.mom/)
