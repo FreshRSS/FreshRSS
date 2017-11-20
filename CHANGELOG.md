@@ -12,6 +12,7 @@
 	* Remove "SimplePie" name from HTTP User-Agent string [#1656](https://github.com/FreshRSS/FreshRSS/pull/1656)
 * Bug fixing
 	* Work-around for `CURLOPT_FOLLOWLOCATION` `open_basedir` bug in favicons and PubSubHubbub [#1655](https://github.com/FreshRSS/FreshRSS/issues/1655)
+	* Fix PDO PostgreSQL detection [#1690](https://github.com/FreshRSS/FreshRSS/issues/1690)
 * CLI
 	* New command `./cli/db-optimize.php` for database optimisation [#1583](https://github.com/FreshRSS/FreshRSS/issues/1583)
 * SQL
