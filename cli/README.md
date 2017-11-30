@@ -99,51 +99,6 @@ Example to get the number of feeds of a given user:
 
 # Install and updates
 
-## Using git
+For installation using git checkout out the [README](https://freshrss.github.io/FreshRSS/en/users/05_Configuration.html#).
 
-If you manage FreshRSS via command line, then installing and updating FreshRSS can be done via git:
-
-```sh
-# If your local user does not have write access, prefix all commands by sudo:
-sudo ...
-
-# Install FreshRSS
-cd /usr/share/
-git clone https://github.com/FreshRSS/FreshRSS.git
-
-# Perform all commands below in your FreshRSS directory:
-cd /usr/share/FreshRSS
-
-# Use the development version of FreshRSS
-git checkout -b dev origin/dev
-
-# Check out a specific version of FreshRSS
-# See release names on https://github.com/FreshRSS/FreshRSS/releases
-# You will then need to manually change version
-# or checkout master or dev branch to get new versions
-git checkout 1.7.0
-
-# Verify what branch is used
-git branch
-
-# Check whether there is a new version of FreshRSS,
-# assuming you are on the /master or /dev branch
-git fetch --all
-git status
-
-# Discard manual changes (do a backup before)
-git reset --hard
-# Then re-delete the file forcing the setup wizard
-rm data/do-install.txt
-
-# Delete manual additions (do a backup before)
-git clean -f -d
-
-# Update to a newer version of FreshRSS,
-# assuming you are on the /master or /dev branch
-git pull
-
-# Set the rights so that your Web server can access the files
-# (Example for Debian / Ubuntu)
-chown -R :www-data . && chmod -R g+r . && chmod -R g+w ./data/
-```
+And for updates using git you can refer to [our documentation](https://freshrss.github.io/FreshRSS/en/users/08_Updating.html). 

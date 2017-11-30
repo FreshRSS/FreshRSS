@@ -141,4 +141,6 @@ A step-by-step tutorial is available [in French](http://www.pihomeserver.fr/2013
 
 # Security
 
+Make sure to expose only the `./p/` folder on the web, the other directories contain personal and sensitive data. 
+
 **TODO**

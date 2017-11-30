@@ -32,7 +32,7 @@ Did you want to fix a bug? To keep a great coordination between collaborators, y
 3. [Create a new branch](https://help.github.com/articles/creating-and-deleting-branches-within-your-repository/). The name of the branch must be explicit and being prefixed by the related ticket id. For instance, `783-contributing-file` to fix [ticket #783](https://github.com/FreshRSS/FreshRSS/issues/783).
 4. Make your changes to your fork and [send a pull request](https://help.github.com/articles/using-pull-requests/) on the **dev branch**.
 
-If you have to write code, please follow [our coding style recommendations](http://doc2.freshrss.org/en/Developer_documentation/First_steps/Coding_style).
+If you have to write code, please follow [our coding style recommendations](developers/01_First_steps.md).
 
 **Tip:** if you are searching for bugs easy to fix, have a look at the « [New comers](https://github.com/FreshRSS/FreshRSS/labels/New%20comers) » ticket label.
 
@@ -52,4 +52,5 @@ We are working on a better way to handle internationalization but don't hesitate
 
 ## Contribute to documentation
 
-The documentation needs a lot of improvements in order to be more useful to new contributors and we are working on it. If you want to give some help, meet us on [the dedicated repository](https://github.com/FreshRSS/documentation)!
+The documentation needs a lot of improvements in order to be more useful to new contributors and we are working on it. 
+If you want to give some help, meet us in the main repositories [docs directory](https://github.com/FreshRSS/FreshRSS/tree/master/docs)!
