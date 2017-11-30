@@ -1,5 +1,4 @@
 The update process depends on your installation type. 
-If you installes FreshRSS using git, then please refer to our [cli documentation](https://github.com/FreshRSS/FreshRSS/tree/dev/cli).
 
 # Using the web admin panel
 
@@ -7,11 +6,12 @@ If you installes FreshRSS using git, then please refer to our [cli documentation
 
 # Using git
 
-See [cli documentation](https://github.com/FreshRSS/FreshRSS/tree/dev/cli#install-and-updates).
+If you installed FreshRSS using git, then please refer to our [cli documentation](https://github.com/FreshRSS/FreshRSS/tree/master/cli#install-and-updates).
 
-# Using shell
+# Using the zip archive
 
 If you installed FreshRSS with the ZIP archive you have to perform a couple more steps:
+
 ```
 # Perform all commands below in your FreshRSS directory:
 cd /usr/share/FreshRSS
@@ -22,7 +22,7 @@ wget https://github.com/FreshRSS/FreshRSS/archive/master.zip
 # And unzip it
 unzip master.zip
 
-# Now overwrite all your existig files with the new ones
+# Now overwrite all your existing files with the new ones
 cp -R FreshRSS-master/* .
 
 # And cleanup
