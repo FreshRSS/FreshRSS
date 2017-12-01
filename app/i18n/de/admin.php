@@ -146,11 +146,11 @@ return array(
 		'top_feed' => 'Top 10-Feeds',
 	),
 	'system' => array(
-		'_' => 'System Einstellungen',
+		'_' => 'Systemeinstellungen',
 		'auto-update-url' => 'Auto-update URL',
 		'instance-name' => 'Dein Reader Name',
-		'max-categories' => 'Maximale Anzahl von Kategorien pro Benutzer',
-		'max-feeds' => 'Maximale Anzahl von Feeds pro Benutzer',
+		'max-categories' => 'Anzahl erlaubter Kategorien pro Benutzer',
+		'max-feeds' => 'Anzahl erlaubter Feeds pro Benutzer',
 		'registration' => array(
 			'help' => '0 meint, dass es kein Account Limit gibt',
 			'number' => 'Maximale Anzahl von Accounts',
