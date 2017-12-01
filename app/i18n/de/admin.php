@@ -146,11 +146,11 @@ return array(
 		'top_feed' => 'Top 10-Feeds',
 	),
 	'system' => array(
-		'_' => 'System configuration', // @todo translate
-		'auto-update-url' => 'Auto-update server URL', // @todo translate
-		'instance-name' => 'Instance name', // @todo translate
-		'max-categories' => 'Categories per user limit', // @todo translate
-		'max-feeds' => 'Feeds per user limit', // @todo translate
+		'_' => 'System Einstellungen',
+		'auto-update-url' => 'Auto-update URL',
+		'instance-name' => 'Dein Reader Name',
+		'max-categories' => 'Maximale Anzahl von Kategorien pro Benutzer',
+		'max-feeds' => 'Maximale Anzahl von Feeds pro Benutzer',
 		'registration' => array(
 			'help' => '0 meint, dass es kein Account Limit gibt',
 			'number' => 'Maximale Anzahl von Accounts',
