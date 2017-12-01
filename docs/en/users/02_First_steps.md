@@ -24,3 +24,6 @@ Now that you know the basic usages, it is time to configure FreshRSS to improve 
 * [Filter articles](03_Main_view.md#filtering-articles) for a fast access to a selection
 * [Search an article](03_Main_view.md#searching-articles) published some time ago
 * [Access your feeds on a mobile device](06_Mobile_access.md)
+* [Add some extensions](https://github.com/FreshRSS/Extensions)
+* [Frequently asked questions](07_Frequently_Asked_Questions.md)
+* [Update your installation](08_Updating.md)
