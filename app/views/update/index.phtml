@@ -14,7 +14,21 @@
 	</p>
 
 	<?php if (!empty($this->message)) { ?>
-	<p class="alert <?php echo $this->message['status'] === 'bad' ? 'alert-error' : 'alert-warn'; ?>">
+    <?php
+        $class = 'alert-warn';
+        switch ($this->message['status']) {
+            case 'bad':
+                $class = 'alert-error';
+                break;
+            case 'latest':
+                $class = 'alert-success';
+                break;
+            default:
+                $class = 'alert-warn';
+                break;
+        }
+    ?>
+	<p class="alert <?php echo $class; ?>">
 		<span class="alert-head"><?php echo $this->message['title']; ?></span>
 		<?php echo $this->message['body']; ?>
 	</p>
