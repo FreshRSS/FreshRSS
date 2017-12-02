@@ -143,7 +143,7 @@ return array(
 		'sharing' => 'Teilen',
 		'shortcuts' => 'Tastaturkürzel',
 		'stats' => 'Statistiken',
-		'system' => 'System configuration',// @todo translate
+		'system' => 'Systemeinstellungen',
 		'update' => 'Aktualisieren',
 		'user_management' => 'Benutzer verwalten',
 		'user_profile' => 'Profil',

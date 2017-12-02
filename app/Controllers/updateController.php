@@ -106,7 +106,7 @@ class FreshRSS_update_Controller extends Minz_ActionController {
 				Minz_Request::forward(array('c' => 'update'), true);
 			} else {
 				$this->view->message = array(
-					'status' => 'bad',
+					'status' => 'latest',
 					'title' => _t('gen.short.damn'),
 					'body' => _t('feedback.update.none')
 				);
@@ -153,7 +153,7 @@ class FreshRSS_update_Controller extends Minz_ActionController {
 
 			if (!self::isUpdateNeeded($version)) {
 				$this->view->message = array(
-					'status' => 'bad',
+					'status' => 'latest',
 					'title' => _t('gen.short.damn'),
 					'body' => _t('feedback.update.none')
 				);

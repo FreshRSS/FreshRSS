@@ -2,7 +2,7 @@ Learning how to handle a new application is not always easy. We build FreshRSS t
 
 This section guides you to the pages you need as a new comer.
 
-[After you installed the application](01_Installation.md), the first step is to add one or more feeds. You have few options:
+[After installing the application](../admins/02_Installation.md), the first step is to add some feeds. You have a few options:
 
 1. [Add a feed manually](04_Subscriptions.md#adding-a-feed)
 2. [Import an OPML or JSON file](04_Subscriptions.md#import-and-export)
@@ -24,3 +24,5 @@ Now that you know the basic usages, it is time to configure FreshRSS to improve 
 * [Filter articles](03_Main_view.md#filtering-articles) for a fast access to a selection
 * [Search an article](03_Main_view.md#searching-articles) published some time ago
 * [Access your feeds on a mobile device](06_Mobile_access.md)
+* [Add some extensions](https://github.com/FreshRSS/Extensions)
+* [Frequently asked questions](07_Frequently_Asked_Questions.md)
