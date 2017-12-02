@@ -15,7 +15,8 @@ class FreshRSS_update_Controller extends Minz_ActionController {
 		return version_compare(FRESHRSS_VERSION, $newVersion, '<');
 	}
 
-	public static function hasGitUpdate() {
+	public static function hasGitUpdate(&$isGitOk) {
+		$isGitOk = false;
 		$cwd = getcwd();
 		chdir(FRESHRSS_PATH);
 		$output = array();
@@ -23,6 +24,9 @@ class FreshRSS_update_Controller extends Minz_ActionController {
 			exec('git fetch', $output, $return);
 			if ($return == 0) {
 				exec('git status -sb --porcelain remote', $output, $return);
+				if ($return == 0) {
+					$isGitOk = true;
+				}
 			} else {
 				$line = is_array($output) ? implode('; ', $output) : '' . $output;
 				Minz_Log::warning('git fetch warning:' . $line);
@@ -71,9 +75,10 @@ class FreshRSS_update_Controller extends Minz_ActionController {
 			$json = json_decode($updateInfo, true);
 			$version = empty($json['tag_name']) ? '0' : $json['tag_name'];
 		}
-		if (($version === 'git' && self::hasGitUpdate()) ||
+		$isGitOk = false;
+		if (($version === 'git' && self::hasGitUpdate($isGitOk)) ||
 			($version !== 'git' && self::isUpdateNeeded($version))) {
-			if (is_writable(FRESHRSS_PATH)) {
+			if (($version !== 'git' || $isGitOk) && is_writable(FRESHRSS_PATH)) {
 				$this->view->update_to_apply = true;
 				$this->view->message = array(
 					'status' => 'good',
@@ -95,8 +100,10 @@ class FreshRSS_update_Controller extends Minz_ActionController {
 		$version = '';
 
 		if (self::isGit()) {
-			if (self::hasGitUpdate()) {
+			$isGitOk = false;
+			if (self::hasGitUpdate($isGitOk) && $isGitOk) {
 				$version = 'git';
+				Minz_Request::forward(array('c' => 'update'), true);
 			} else {
 				$this->view->message = array(
 					'status' => 'bad',
@@ -153,10 +160,10 @@ class FreshRSS_update_Controller extends Minz_ActionController {
 				@touch(UPDATE_FILE);
 				return;
 			}
-		}
 
-		if (file_put_contents(UPDATE_FILE, $result)) {
-			Minz_Request::forward(array('c' => 'update'), true);
+			if (file_put_contents(UPDATE_FILE, $result)) {
+				Minz_Request::forward(array('c' => 'update'), true);
+			}
 		}
 	}
 
