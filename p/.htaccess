@@ -9,7 +9,6 @@ AddDefaultCharset	UTF-8
 	AddType application/json .map
 	AddType application/font-woff .woff
 	AddType application/font-woff2 .woff2
-	AddType application/x-font-ttf .ttf
 
 	AddCharset	UTF-8	.css
 	AddCharset	UTF-8	.html
@@ -24,7 +23,6 @@ AddDefaultCharset	UTF-8
 	ExpiresActive	on
 	ExpiresByType	application/font-woff	"access plus 1 month"
 	ExpiresByType	application/font-woff2	"access plus 1 month"
-	ExpiresByType	application/x-font-ttf	"access plus 1 month"
 	ExpiresByType	application/javascript	"access plus 1 month"
 	ExpiresByType	application/xhtml+xml	"access plus 1 month"
 	ExpiresByType	image/x-icon	"access plus 1 month"
@@ -36,7 +34,7 @@ AddDefaultCharset	UTF-8
 </IfModule>
 
 <IfModule mod_headers.c>
-	<FilesMatch "\.(css|gif|html|ico|js|png|svg|ttf|woff|woff2)$">
+	<FilesMatch "\.(css|gif|html|ico|js|png|svg|woff|woff2)$">
 		Header	merge Cache-Control "public"
 	</FilesMatch>
 </IfModule>
