@@ -68,7 +68,6 @@ function idn_to_puny($url) {
 			} else {
 				$puny = idn_to_ascii($idn);
 			}
-			$puny = idn_to_ascii($idn);
 			$pos = strpos($url, $idn);
 			if ($pos !== false) {
 				return substr_replace($url, $puny, $pos, strlen($idn));
