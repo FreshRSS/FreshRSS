@@ -42,7 +42,7 @@ AddDefaultCharset	UTF-8
 </IfModule>
 
 <IfModule mod_headers.c>
-	<FilesMatch "\.(css|html|js|ico|gif|png|svg|ttf|woff|woff2)$">
+	<FilesMatch "\.(css|gif|html|ico|js|png|svg|ttf|woff|woff2)$">
 		Header	merge Cache-Control "public"
 	</FilesMatch>
 </IfModule>
