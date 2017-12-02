@@ -1,4 +1,4 @@
-This page assumes you have completed the [server setup](01_Installation.md).
+This page assumes you have completed the [server setup](../admins/02_Installation.md).
 
 # Enable the API in FreshRSS
 
@@ -27,7 +27,7 @@ This page assumes you have completed the [server setup](01_Installation.md).
 	* With __Apache__:
 		* If you get *FAIL getallheaders!*, the combination of your PHP version and your Web server does not provide access to [`getallheaders`](http://php.net/getallheaders)
 			* Update to PHP 5.4+, or use PHP as module instead of CGI. Otherwise turn on Apache `mod_rewrite`:
-				* Allow [`FileInfo` in `.htaccess`](http://httpd.apache.org/docs/trunk/mod/core.html#allowoverride): see the [server setup](01_Installation.md) again.
+				* Allow [`FileInfo` in `.htaccess`](http://httpd.apache.org/docs/trunk/mod/core.html#allowoverride): see the [server setup](../admins/02_Installation.md) again.
 				* Enable [`mod_rewrite`](http://httpd.apache.org/docs/trunk/mod/mod_rewrite.html):
 					* With Debian / Ubuntu: `sudo a2enmod rewrite`
 	* With __nginx__:
