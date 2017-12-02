@@ -34,7 +34,7 @@ Did you want to fix a bug? To keep a great coordination between collaborators, y
 
 If you have to write code, please follow [our coding style recommendations](developers/01_First_steps.md).
 
-**Tip:** if you are searching for easy-to-fix bugs, have a look at the « [New comers](https://github.com/FreshRSS/FreshRSS/labels/New%20comers) » ticket label.
+**Tip:** if you are searching for easy-to-fix bugs, have a look at the « [Newcomers](https://github.com/FreshRSS/FreshRSS/issues?q=is%3Aopen+is%3Aissue+label%3A%22good+first+issue%22) » ticket label.
 
 ## Submit an idea
 

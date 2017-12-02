@@ -66,44 +66,25 @@ chown -R :www-data . && chmod -R g+r . && chmod -R g+w ./data/
 
 ## Using the zip archive
 
-If you installed FreshRSS with the ZIP archive, you could perform the following steps:
-
-If your local user does not have write access, prefix all commands by sudo:
-```sh
-sudo ...
-```
-
-Perform all commands below in your FreshRSS directory:
+Perform all commands in your FreshRSS directory:
 ```sh
 cd /usr/share/FreshRSS
 ```
 
-Download the latest version:
+Commands intended to be executed in order (you can c/p the whole block if desired):
+                            
 ```sh
 wget https://github.com/FreshRSS/FreshRSS/archive/master.zip
-```
-
-And unzip it:
-```sh
 unzip master.zip
-```
-
-Now overwrite all your existing files with the new ones:
-```sh
 cp -R FreshRSS-master/* .
-```
-
-Delete the file forcing the setup wizard:
-```sh
-rm data/do-install.txt
-```
-
-Fix possible permission issues:
-```sh
 chown -R :www-data . && chmod -R g+r . && chmod -R g+w ./data/
-```
-
-And finally cleanup:
-```sh
+rm -f master.zip
+rm -f data/do-install.txt
 rm -rf FreshRSS-master/
 ```
+
+Short explanation of the commands above:
+* Download the latest version and unzip it
+* Overwrite all your existing files with the new ones
+* Fix possible permission issues
+* Cleanup by deleting the downloaded zip, the file forcing the setup wizard and the temporary directory
