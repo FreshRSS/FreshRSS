@@ -48,7 +48,20 @@
 				<td><a href="<?php echo $ext['url']; ?>" target="_blank"><?php echo $ext['name']; ?></a></td>
 				<td><?php echo $ext['version']; ?></td>
 				<td><?php echo $ext['author']; ?></td>
-				<td><?php echo $ext['description']; ?></td>
+				<td>
+					<?php echo $ext['description']; ?>
+                    <?php if (isset($this->extensions_installed[$ext['name']])) { ?>
+                        <?php if ($this->extensions_installed[$ext['name']] == $ext['version']) { ?>
+							<span class="alert alert-success">
+								<?php echo _t('admin.extensions.latest'); ?>
+							</span>
+                        <?php } else if ($this->extensions_installed[$ext['name']] != $ext['version']) { ?>
+							<span class="alert alert-warn">
+								<?php echo _t('admin.extensions.update'); ?>
+							</span>
+						<?php } ?>
+                    <?php } ?>
+				</td>
 			</tr>
         	<?php } ?>
 		</table>

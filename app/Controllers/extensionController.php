@@ -25,13 +25,17 @@ class FreshRSS_extension_Controller extends Minz_ActionController {
 			'user' => array(),
 		);
 
+		$this->view->extensions_installed = array();
+
 		$extensions = Minz_ExtensionManager::listExtensions();
 		foreach ($extensions as $ext) {
 			$this->view->extension_list[$ext->getType()][] = $ext;
+            $this->view->extensions_installed[$ext->getEntrypoint()] = $ext->getVersion();
 		}
 
         $availableExtensions = $this->getAvailableExtensionList();
         $this->view->available_extensions = $availableExtensions;
+
     }
 
     /**
@@ -44,7 +48,7 @@ class FreshRSS_extension_Controller extends Minz_ActionController {
         $list = json_decode($json, true);
 
         if (empty($list)) {
-            return [];
+            return array();
         }
 
         // we could use that for comparing and caching later
