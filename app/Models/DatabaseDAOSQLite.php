@@ -9,7 +9,7 @@ class FreshRSS_DatabaseDAOSQLite extends FreshRSS_DatabaseDAO {
 		$stm = $this->bd->prepare($sql);
 		$stm->execute();
 		$res = $stm->fetchAll(PDO::FETCH_ASSOC);
-		
+
 		$tables = array(
 			'category' => false,
 			'feed' => false,
@@ -44,5 +44,18 @@ class FreshRSS_DatabaseDAOSQLite extends FreshRSS_DatabaseDAO {
 			'notnull' => $dao['notnull'] === '1' ? true : false,
 			'default' => $dao['dflt_value'],
 		);
+	}
+
+	public function size($all = false) {
+		return @filesize(join_path(DATA_PATH, 'users', $this->current_user, 'db.sqlite'));
+	}
+
+	public function optimize() {
+		$sql = 'VACUUM';
+		$stm = $this->bd->prepare($sql);
+		if ($stm) {
+			return $stm->execute();
+		}
+		return false;
 	}
 }

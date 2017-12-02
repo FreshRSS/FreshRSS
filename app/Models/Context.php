@@ -35,6 +35,9 @@ class FreshRSS_Context {
 	public static $first_id = '';
 	public static $next_id = '';
 	public static $id_max = '';
+	public static $sinceHours = 0;
+
+	public static $isCli = false;
 
 	/**
 	 * Initialize the context.
@@ -45,9 +48,6 @@ class FreshRSS_Context {
 		// Init configuration.
 		self::$system_conf = Minz_Configuration::get('system');
 		self::$user_conf = Minz_Configuration::get('user');
-
-		$catDAO = new FreshRSS_CategoryDAO();
-		self::$categories = $catDAO->listCategories();
 	}
 
 	/**
@@ -139,15 +139,22 @@ class FreshRSS_Context {
 		$id = substr($get, 2);
 		$nb_unread = 0;
 
+		if (empty(self::$categories)) {
+			$catDAO = new FreshRSS_CategoryDAO();
+			self::$categories = $catDAO->listCategories();
+		}
+
 		switch($type) {
 		case 'a':
 			self::$current_get['all'] = true;
 			self::$name = _t('index.feed.title');
+			self::$description = self::$system_conf->meta_description;
 			self::$get_unread = self::$total_unread;
 			break;
 		case 's':
 			self::$current_get['starred'] = true;
 			self::$name = _t('index.feed.title_fav');
+			self::$description = self::$system_conf->meta_description;
 			self::$get_unread = self::$total_starred['unread'];
 
 			// Update state if favorite is not yet enabled.
@@ -198,10 +205,15 @@ class FreshRSS_Context {
 	/**
 	 * Set the value of $next_get attribute.
 	 */
-	public static function _nextGet() {
+	private static function _nextGet() {
 		$get = self::currentGet();
 		// By default, $next_get == $get
 		self::$next_get = $get;
+
+		if (empty(self::$categories)) {
+			$catDAO = new FreshRSS_CategoryDAO();
+			self::$categories = $catDAO->listCategories();
+		}
 
 		if (self::$user_conf->onread_jump_next && strlen($get) > 2) {
 			$another_unread_id = '';
@@ -238,9 +250,7 @@ class FreshRSS_Context {
 				}
 
 				// If no feed have been found, next_get is the current category.
-				self::$next_get = empty($another_unread_id) ?
-				                  'c_' . self::$current_get['category'] :
-				                  'f_' . $another_unread_id;
+				self::$next_get = empty($another_unread_id) ? 'c_' . self::$current_get['category'] : 'f_' . $another_unread_id;
 				break;
 			case 'c':
 				// We search the next category with at least one unread article.
@@ -263,9 +273,7 @@ class FreshRSS_Context {
 				}
 
 				// No unread category? The main stream will be our destination!
-				self::$next_get = empty($another_unread_id) ?
-				                  'a' :
-				                  'c_' . $another_unread_id;
+				self::$next_get = empty($another_unread_id) ? 'a' : 'c_' . $another_unread_id;
 				break;
 			}
 		}

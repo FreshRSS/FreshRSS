@@ -24,6 +24,49 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 		}
 	}
 
+	public static function hashPassword($passwordPlain) {
+		if (!function_exists('password_hash')) {
+			include_once(LIB_PATH . '/password_compat.php');
+		}
+		$passwordHash = password_hash($passwordPlain, PASSWORD_BCRYPT, array('cost' => self::BCRYPT_COST));
+		$passwordPlain = '';
+		$passwordHash = preg_replace('/^\$2[xy]\$/', '\$2a\$', $passwordHash);	//Compatibility with bcrypt.js
+		return $passwordHash == '' ? '' : $passwordHash;
+	}
+
+	/**
+	 * The username is also used as folder name, file name, and part of SQL table name.
+	 * '_' is a reserved internal username.
+	 */
+	const USERNAME_PATTERN = '[0-9a-zA-Z_]{2,38}|[0-9a-zA-Z]';
+
+	public static function checkUsername($username) {
+		return preg_match('/^' . self::USERNAME_PATTERN . '$/', $username) === 1;
+	}
+
+	public static function updateContextUser($passwordPlain, $apiPasswordPlain, $userConfigUpdated = array()) {
+		if ($passwordPlain != '') {
+			$passwordHash = self::hashPassword($passwordPlain);
+			FreshRSS_Context::$user_conf->passwordHash = $passwordHash;
+		}
+
+		if ($apiPasswordPlain != '') {
+			$apiPasswordHash = self::hashPassword($apiPasswordPlain);
+			FreshRSS_Context::$user_conf->apiPasswordHash = $apiPasswordHash;
+		}
+
+		if (is_array($userConfigUpdated)) {
+			foreach ($userConfigUpdated as $configName => $configValue) {
+				if ($configValue !== null) {
+					FreshRSS_Context::$user_conf->_param($configName, $configValue);
+				}
+			}
+		}
+
+		$ok = FreshRSS_Context::$user_conf->save();
+		return $ok;
+	}
+
 	/**
 	 * This action displays the user profile page.
 	 */
@@ -35,49 +78,17 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 		));
 
 		if (Minz_Request::isPost()) {
-			$ok = true;
-
 			$passwordPlain = Minz_Request::param('newPasswordPlain', '', true);
-			if ($passwordPlain != '') {
-				Minz_Request::_param('newPasswordPlain');	//Discard plain-text password ASAP
-				$_POST['newPasswordPlain'] = '';
-				if (!function_exists('password_hash')) {
-					include_once(LIB_PATH . '/password_compat.php');
-				}
-				$passwordHash = password_hash($passwordPlain, PASSWORD_BCRYPT, array('cost' => self::BCRYPT_COST));
-				$passwordPlain = '';
-				$passwordHash = preg_replace('/^\$2[xy]\$/', '\$2a\$', $passwordHash);	//Compatibility with bcrypt.js
-				$ok &= ($passwordHash != '');
-				FreshRSS_Context::$user_conf->passwordHash = $passwordHash;
-			}
+			Minz_Request::_param('newPasswordPlain');	//Discard plain-text password ASAP
+			$_POST['newPasswordPlain'] = '';
+
+			$apiPasswordPlain = Minz_Request::param('apiPasswordPlain', '', true);
+
+			$ok = self::updateContextUser($passwordPlain, $apiPasswordPlain, array(
+					'token' => Minz_Request::param('token', null),
+				));
+
 			Minz_Session::_param('passwordHash', FreshRSS_Context::$user_conf->passwordHash);
-
-			$passwordPlain = Minz_Request::param('apiPasswordPlain', '', true);
-			if ($passwordPlain != '') {
-				if (!function_exists('password_hash')) {
-					include_once(LIB_PATH . '/password_compat.php');
-				}
-				$passwordHash = password_hash($passwordPlain, PASSWORD_BCRYPT, array('cost' => self::BCRYPT_COST));
-				$passwordPlain = '';
-				$passwordHash = preg_replace('/^\$2[xy]\$/', '\$2a\$', $passwordHash);	//Compatibility with bcrypt.js
-				$ok &= ($passwordHash != '');
-				FreshRSS_Context::$user_conf->apiPasswordHash = $passwordHash;
-			}
-
-			// TODO: why do we need of hasAccess here?
-			if (FreshRSS_Auth::hasAccess('admin')) {
-				FreshRSS_Context::$user_conf->mail_login = Minz_Request::param('mail_login', '', true);
-			}
-			$email = FreshRSS_Context::$user_conf->mail_login;
-			Minz_Session::_param('mail', $email);
-
-			$ok &= FreshRSS_Context::$user_conf->save();
-
-			if ($email != '') {
-				$personaFile = DATA_PATH . '/persona/' . $email . '.txt';
-				@unlink($personaFile);
-				$ok &= (file_put_contents($personaFile, Minz_Session::param('currentUser', '_')) !== false);
-			}
 
 			if ($ok) {
 				Minz_Request::good(_t('feedback.profile.updated'),
@@ -109,7 +120,56 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 		// Get information about the current user.
 		$entryDAO = FreshRSS_Factory::createEntryDao($this->view->current_user);
 		$this->view->nb_articles = $entryDAO->count();
-		$this->view->size_user = $entryDAO->size();
+
+		$databaseDAO = FreshRSS_Factory::createDatabaseDAO();
+		$this->view->size_user = $databaseDAO->size();
+	}
+
+	public static function createUser($new_user_name, $passwordPlain, $apiPasswordPlain, $userConfig = array(), $insertDefaultFeeds = true) {
+		if (!is_array($userConfig)) {
+			$userConfig = array();
+		}
+
+		$ok = self::checkUsername($new_user_name);
+		$homeDir = join_path(DATA_PATH, 'users', $new_user_name);
+
+		if ($ok) {
+			$languages = Minz_Translate::availableLanguages();
+			if (empty($userConfig['language']) || !in_array($userConfig['language'], $languages)) {
+				$userConfig['language'] = 'en';
+			}
+
+			$ok &= !in_array(strtoupper($new_user_name), array_map('strtoupper', listUsers()));	//Not an existing user, case-insensitive
+
+			$configPath = join_path($homeDir, 'config.php');
+			$ok &= !file_exists($configPath);
+		}
+		if ($ok) {
+			$passwordHash = '';
+			if ($passwordPlain != '') {
+				$passwordHash = self::hashPassword($passwordPlain);
+				$ok &= ($passwordHash != '');
+			}
+
+			$apiPasswordHash = '';
+			if ($apiPasswordPlain != '') {
+				$apiPasswordHash = self::hashPassword($apiPasswordPlain);
+				$ok &= ($apiPasswordHash != '');
+			}
+		}
+		if ($ok) {
+			if (!is_dir($homeDir)) {
+				mkdir($homeDir);
+			}
+			$userConfig['passwordHash'] = $passwordHash;
+			$userConfig['apiPasswordHash'] = $apiPasswordHash;
+			$ok &= (file_put_contents($configPath, "<?php\n return " . var_export($userConfig, true) . ';') !== false);
+		}
+		if ($ok) {
+			$userDAO = new FreshRSS_UserDAO();
+			$ok &= $userDAO->createUser($new_user_name, $userConfig['language'], $insertDefaultFeeds);
+		}
+		return $ok;
 	}
 
 	/**
@@ -119,7 +179,6 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 	 *   - new_user_language
 	 *   - new_user_name
 	 *   - new_user_passwordPlain
-	 *   - new_user_email
 	 *   - r (i.e. a redirection url, optional)
 	 *
 	 * @todo clean up this method. Idea: write a method to init a user with basic information.
@@ -130,67 +189,13 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 				FreshRSS_Auth::hasAccess('admin') ||
 				!max_registrations_reached()
 		)) {
-			$db = FreshRSS_Context::$system_conf->db;
-			require_once(APP_PATH . '/SQL/install.sql.' . $db['type'] . '.php');
-
-			$new_user_language = Minz_Request::param('new_user_language', FreshRSS_Context::$user_conf->language);
-			$languages = Minz_Translate::availableLanguages();
-			if (!isset($languages[$new_user_language])) {
-				$new_user_language = FreshRSS_Context::$user_conf->language;
-			}
-
 			$new_user_name = Minz_Request::param('new_user_name');
-			$ok = ($new_user_name != '') && ctype_alnum($new_user_name);
+			$passwordPlain = Minz_Request::param('new_user_passwordPlain', '', true);
+			$new_user_language = Minz_Request::param('new_user_language', FreshRSS_Context::$user_conf->language);
 
-			if ($ok) {
-				$default_user = FreshRSS_Context::$system_conf->default_user;
-				$ok &= (strcasecmp($new_user_name, $default_user) !== 0);	//It is forbidden to alter the default user
-
-				$ok &= !in_array(strtoupper($new_user_name), array_map('strtoupper', listUsers()));	//Not an existing user, case-insensitive
-
-				$configPath = join_path(DATA_PATH, 'users', $new_user_name, 'config.php');
-				$ok &= !file_exists($configPath);
-			}
-			if ($ok) {
-				$passwordPlain = Minz_Request::param('new_user_passwordPlain', '', true);
-				$passwordHash = '';
-				if ($passwordPlain != '') {
-					Minz_Request::_param('new_user_passwordPlain');	//Discard plain-text password ASAP
-					$_POST['new_user_passwordPlain'] = '';
-					if (!function_exists('password_hash')) {
-						include_once(LIB_PATH . '/password_compat.php');
-					}
-					$passwordHash = password_hash($passwordPlain, PASSWORD_BCRYPT, array('cost' => self::BCRYPT_COST));
-					$passwordPlain = '';
-					$passwordHash = preg_replace('/^\$2[xy]\$/', '\$2a\$', $passwordHash);	//Compatibility with bcrypt.js
-					$ok &= ($passwordHash != '');
-				}
-				if (empty($passwordHash)) {
-					$passwordHash = '';
-				}
-
-				$new_user_email = filter_var($_POST['new_user_email'], FILTER_VALIDATE_EMAIL);
-				if (empty($new_user_email)) {
-					$new_user_email = '';
-				} else {
-					$personaFile = join_path(DATA_PATH, 'persona', $new_user_email . '.txt');
-					@unlink($personaFile);
-					$ok &= (file_put_contents($personaFile, $new_user_name) !== false);
-				}
-			}
-			if ($ok) {
-				mkdir(join_path(DATA_PATH, 'users', $new_user_name));
-				$config_array = array(
-					'language' => $new_user_language,
-					'passwordHash' => $passwordHash,
-					'mail_login' => $new_user_email,
-				);
-				$ok &= (file_put_contents($configPath, "<?php\n return " . var_export($config_array, true) . ';') !== false);
-			}
-			if ($ok) {
-				$userDAO = new FreshRSS_UserDAO();
-				$ok &= $userDAO->createUser($new_user_name);
-			}
+			$ok = self::createUser($new_user_name, $passwordPlain, '', array('language' => $new_user_language));
+			Minz_Request::_param('new_user_passwordPlain');	//Discard plain-text password ASAP
+			$_POST['new_user_passwordPlain'] = '';
 			invalidateHttpCache();
 
 			$notif = array(
@@ -205,6 +210,28 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 			$redirect_url = array('c' => 'user', 'a' => 'manage');
 		}
 		Minz_Request::forward($redirect_url, true);
+	}
+
+	public static function deleteUser($username) {
+		$db = FreshRSS_Context::$system_conf->db;
+		require_once(APP_PATH . '/SQL/install.sql.' . $db['type'] . '.php');
+
+		$ok = self::checkUsername($username);
+		if ($ok) {
+			$default_user = FreshRSS_Context::$system_conf->default_user;
+			$ok &= (strcasecmp($username, $default_user) !== 0);	//It is forbidden to delete the default user
+		}
+		$user_data = join_path(DATA_PATH, 'users', $username);
+		if ($ok) {
+			$ok &= is_dir($user_data);
+		}
+		if ($ok) {
+			$userDAO = new FreshRSS_UserDAO();
+			$ok &= $userDAO->deleteUser($username);
+			$ok &= recursive_unlink($user_data);
+			array_map('unlink', glob(PSHB_PATH . '/feeds/*/' . $username . '.txt'));
+		}
+		return $ok;
 	}
 
 	/**
@@ -228,16 +255,7 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 				FreshRSS_Auth::hasAccess('admin') ||
 				$self_deletion
 		)) {
-			$db = FreshRSS_Context::$system_conf->db;
-			require_once(APP_PATH . '/SQL/install.sql.' . $db['type'] . '.php');
-
-			$ok = ctype_alnum($username);
-			$user_data = join_path(DATA_PATH, 'users', $username);
-
-			if ($ok) {
-				$default_user = FreshRSS_Context::$system_conf->default_user;
-				$ok &= (strcasecmp($username, $default_user) !== 0);	//It is forbidden to delete the default user
-			}
+			$ok = true;
 			if ($ok && $self_deletion) {
 				// We check the password if it's a self-destruction
 				$nonce = Minz_Session::param('nonce');
@@ -249,13 +267,7 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 				);
 			}
 			if ($ok) {
-				$ok &= is_dir($user_data);
-			}
-			if ($ok) {
-				$userDAO = new FreshRSS_UserDAO();
-				$ok &= $userDAO->deleteUser($username);
-				$ok &= recursive_unlink($user_data);
-				//TODO: delete Persona file
+				$ok &= self::deleteUser($username);
 			}
 			if ($ok && $self_deletion) {
 				FreshRSS_Auth::removeAccess();

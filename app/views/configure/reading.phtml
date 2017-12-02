@@ -4,6 +4,7 @@
 	<a href="<?php echo _url('index', 'index'); ?>"><?php echo _t('gen.action.back_to_rss_feeds'); ?></a>
 
 	<form method="post" action="<?php echo _url('configure', 'reading'); ?>">
+		<input type="hidden" name="_csrf" value="<?php echo FreshRSS_Auth::csrfToken(); ?>" />
 		<legend><?php echo _t('conf.reading'); ?></legend>
 
 		<div class="form-group">
@@ -100,6 +101,16 @@
 				<label class="checkbox" for="lazyload">
 					<input type="checkbox" name="lazyload" id="lazyload" value="1"<?php echo FreshRSS_Context::$user_conf->lazyload ? ' checked="checked"' : ''; ?>  data-leave-validation="<?php echo FreshRSS_Context::$user_conf->lazyload; ?>"/>
 					<?php echo _t('conf.reading.img_with_lazyload'); ?>
+					<noscript> — <strong><?php echo _t('gen.js.should_be_activated'); ?></strong></noscript>
+				</label>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<div class="group-controls">
+				<label class="checkbox" for="sides_close_article">
+					<input type="checkbox" name="sides_close_article" id="sides_close_article" value="1"<?php echo FreshRSS_Context::$user_conf->sides_close_article ? ' checked="checked"' : ''; ?>  data-leave-validation="<?php echo FreshRSS_Context::$user_conf->sides_close_article; ?>"/>
+					<?php echo _t('conf.reading.sides_close_article'); ?>
 					<noscript> — <strong><?php echo _t('gen.js.should_be_activated'); ?></strong></noscript>
 				</label>
 			</div>

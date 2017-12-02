@@ -21,9 +21,11 @@ class FreshRSS_Share {
 		}
 
 		$help_url = isset($share_options['help']) ? $share_options['help'] : '';
+		$field = isset($share_options['field']) ? $share_options['field'] : null;
 		self::$list_sharing[$type] = new FreshRSS_Share(
 			$type, $share_options['url'], $share_options['transform'],
-			$share_options['form'], $help_url
+			$share_options['form'], $help_url, $share_options['method'],
+			$field
 		);
 	}
 
@@ -76,6 +78,8 @@ class FreshRSS_Share {
 	private $base_url = null;
 	private $title = null;
 	private $link = null;
+	private $method = 'GET';
+	private $field;
 
 	/**
 	 * Create a FreshRSS_Share object.
@@ -86,9 +90,10 @@ class FreshRSS_Share {
 	 *        is typically for a centralized service while "advanced" is for
 	 *        decentralized ones.
 	 * @param $help_url is an optional url to give help on this option.
+	 * @param $method defines the sharing method (GET or POST)
 	 */
-	private function __construct($type, $url_transform, $transform = array(),
-	                             $form_type, $help_url = '') {
+	private function __construct($type, $url_transform, $transform,
+	                             $form_type, $help_url, $method, $field) {
 		$this->type = $type;
 		$this->name = _t('gen.share.' . $type);
 		$this->url_transform = $url_transform;
@@ -103,6 +108,11 @@ class FreshRSS_Share {
 			$form_type = 'simple';
 		}
 		$this->form_type = $form_type;
+		if (!in_array($method, array('GET', 'POST'))) {
+			$method = 'GET';
+		}
+		$this->method = $method;
+		$this->field = $field;
 	}
 
 	/**
@@ -116,14 +126,14 @@ class FreshRSS_Share {
 			'url' => 'base_url',
 			'title' => 'title',
 			'link' => 'link',
+			'method' => 'method',
+			'field' => 'field',
 		);
 
 		foreach ($options as $key => $value) {
-			if (!isset($available_options[$key])) {
-				continue;
+			if (isset($available_options[$key])) {
+				$this->{$available_options[$key]} = $value;
 			}
-
-			$this->$available_options[$key] = $value;
 		}
 	}
 
@@ -132,6 +142,21 @@ class FreshRSS_Share {
 	 */
 	public function type() {
 		return $this->type;
+	}
+
+	/**
+	 * Return the current method of the share option.
+	 */
+	public function method() {
+		return $this->method;
+	}
+
+	/**
+	 * Return the current field of the share option. It's null for shares
+	 * using the GET method.
+	 */
+	public function field() {
+		return $this->field;
 	}
 
 	/**

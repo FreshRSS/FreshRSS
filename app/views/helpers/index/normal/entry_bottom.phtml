@@ -52,7 +52,14 @@
 						$share_options['title'] = $title;
 						$share->update($share_options);
 				?><li class="item share">
-					<a target="_blank" href="<?php echo $share->url(); ?>"><?php echo $share->name(); ?></a>
+					<?php if ('GET' === $share->method()) {?>
+						<a target="_blank" rel="noreferrer" href="<?php echo $share->url(); ?>"><?php echo $share->name(); ?></a>
+					<?php } else {?>
+						<a href="POST"><?php echo $share->name(); ?></a>
+						<form method="POST" data-url="<?php echo $share->url(); ?>">
+							<input type="hidden" value="<?php echo $link; ?>" name="<?php echo $share->field(); ?>"/>
+						</form>
+					<?php } ?>
 				</li><?php
 					}
 			?></ul>
@@ -81,6 +88,6 @@
 		?><li class="item date"><?php echo $this->entry->date(); ?></li><?php
 	}
 	if ($bottomline_link) {
-		?><li class="item link"><a target="_blank" href="<?php echo $this->entry->link(); ?>"><?php echo _i('link'); ?></a></li><?php
+		?><li class="item link"><a target="_blank" rel="noreferrer" href="<?php echo $this->entry->link(); ?>"><?php echo _i('link'); ?></a></li><?php
 	} ?>
 </ul>

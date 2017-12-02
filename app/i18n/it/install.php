@@ -4,18 +4,16 @@ return array(
 	'action' => array(
 		'finish' => 'Installazione completata',
 		'fix_errors_before' => 'Per favore correggi gli errori prima di passare al passaggio successivo.',
-		'keep_install' => 'Mantieni installazione precedente',
+		'keep_install' => 'Mantieni configurazione precedente',
 		'next_step' => 'Vai al prossimo passaggio',
 		'reinstall' => 'Reinstalla FreshRSS',
 	),
 	'auth' => array(
-		'email_persona' => 'Indirizzo mail<br /><small>(per <a href="https://persona.org/" rel="external">Mozilla Persona</a>)</small>',
 		'form' => 'Web form (tradizionale, richiede JavaScript)',
 		'http' => 'HTTP (per gli utenti avanzati con HTTPS)',
 		'none' => 'Nessuno (pericoloso)',
 		'password_form' => 'Password<br /><small>(per il login tramite Web-form tradizionale)</small>',
 		'password_format' => 'Almeno 7 caratteri',
-		'persona' => 'Mozilla Persona (moderno, richiede JavaScript)',
 		'type' => 'Metodo di autenticazione',
 	),
 	'bdd' => array(
@@ -27,9 +25,9 @@ return array(
 		),
 		'host' => 'Host',
 		'prefix' => 'Prefisso tabella',
-		'password' => 'HTTP password',
+		'password' => 'Password del database',
 		'type' => 'Tipo di database',
-		'username' => 'HTTP username',
+		'username' => 'Nome utente del database',
 	),
 	'check' => array(
 		'_' => 'Controlli',
@@ -43,7 +41,7 @@ return array(
 			'ok' => 'Libreria richiesta per il controllo dei caratteri presente (ctype).',
 		),
 		'curl' => array(
-			'nok' => 'Manca il supporto per cURL (pacchetto php5-curl).',
+			'nok' => 'Manca il supporto per cURL (pacchetto php-curl).',
 			'ok' => 'Estensione cURL presente.',
 		),
 		'data' => array(
@@ -51,16 +49,24 @@ return array(
 			'ok' => 'I permessi sulla cartella data sono corretti.',
 		),
 		'dom' => array(
-			'nok' => 'Manca una libreria richiesta per leggere DOM (pacchetto php-xml).',
+			'nok' => 'Manca una libreria richiesta per leggere DOM.',
 			'ok' => 'Libreria richiesta per leggere DOM presente.',
 		),
 		'favicons' => array(
 			'nok' => 'Verifica i permessi sulla cartella <em>./data/favicons</em>. Il server HTTP deve avere i permessi per scriverci dentro',
 			'ok' => 'I permessi sulla cartella favicons sono corretti.',
 		),
+		'fileinfo' => array(
+			'nok' => 'Manca il supporto per PHP fileinfo (pacchetto fileinfo).',
+			'ok' => 'Estensione fileinfo presente.',
+		),
 		'http_referer' => array(
 			'nok' => 'Per favore verifica che non stai alterando il tuo HTTP REFERER.',
 			'ok' => 'Il tuo HTTP REFERER riconosciuto corrisponde al tuo server.',
+		),
+		'json' => array(
+			'nok' => 'You lack a recommended library to parse JSON.',
+			'ok' => 'You have a recommended library to parse JSON.',
 		),
 		'minz' => array(
 			'nok' => 'Manca il framework Minz.',
@@ -71,12 +77,8 @@ return array(
 			'ok' => 'Libreria richiesta per le regular expressions presente (PCRE).',
 		),
 		'pdo' => array(
-			'nok' => 'Manca PDO o uno degli altri driver supportati (pdo_mysql, pdo_sqlite).',
-			'ok' => 'PDO e altri driver supportati (pdo_mysql, pdo_sqlite).',
-		),
-		'persona' => array(
-			'nok' => 'Verifica i permessi sulla cartella <em>./data/persona</em>. Il server HTTP deve avere i permessi per scriverci dentro',
-			'ok' => 'I permessi sulla cartella Mozilla Persona sono corretti.',
+			'nok' => 'Manca PDO o uno degli altri driver supportati (pdo_mysql, pdo_sqlite, pdo_pgsql).',
+			'ok' => 'PDO e altri driver supportati (pdo_mysql, pdo_sqlite, pdo_pgsql).',
 		),
 		'php' => array(
 			'_' => 'Installazione PHP',
@@ -86,6 +88,10 @@ return array(
 		'users' => array(
 			'nok' => 'Verifica i permessi sulla cartella <em>./data/users</em>. Il server HTTP deve avere i permessi per scriverci dentro',
 			'ok' => 'I permessi sulla cartella users sono corretti.',
+		),
+		'xml' => array(
+			'nok' => 'You lack the required library to parse XML.',
+			'ok' => 'You have the required library to parse XML.',
 		),
 	),
 	'conf' => array(

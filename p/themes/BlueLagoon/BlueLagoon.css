@@ -4,7 +4,7 @@
 /*============*/
 html, body {
 	height: 100%;
-	font-family: "OpenSans", "Cantarell", "Helvetica", "Arial", sans-serif;
+	font-family: "OpenSans", "Cantarell", "Helvetica", "Arial", "PingFang SC", "Microsoft YaHei", sans-serif;
 	background: #fafafa;
 	font-size: 92%;
 }
@@ -362,16 +362,13 @@ a.btn {
 .dropdown-header {
 	display:none;
 }
-.dropdown-menu > .item > a {
-	padding: 0 25px;
-	line-height: 2.5em;
-	color: #ccc;
-}
+.dropdown-menu > .item > a,
 .dropdown-menu > .item > span,
 .dropdown-menu > .item > .as-link {
 	padding: 0 22px;
-	line-height: 2em;
+	line-height: 2.5em;
 	color: #ccc;
+	font-size: 0.8rem;
 }
 .dropdown-menu > .item:hover {
 	background: linear-gradient(180deg,  #0090FF 0%, #0062BE 100%) #E4992C;
@@ -747,7 +744,7 @@ a.btn {
 	border: 1px solid #CCC;
 	box-shadow: 0px 1px #FFF;
 }
-#panel > .nav_menu > #nav_menu_read_all > .dropdown > .btn.dropdown-toggle{
+#panel > .nav_menu > #nav_menu_read_all .dropdown > .btn.dropdown-toggle {
 	border-radius: 0 4px 4px 0;
 	border:none;
 	border-left: solid 1px #ccc;
@@ -1048,7 +1045,7 @@ opacity: 1;
 
 /*=== LOGS */
 /*=========*/
-.logs {
+.loglist {
 	border: 1px solid #aaa;
 	border-radius: 5px;
 	overflow: hidden;

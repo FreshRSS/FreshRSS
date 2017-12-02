@@ -18,6 +18,7 @@
 	<?php } ?>
 
 	<form method="post" action="<?php echo _url('subscription', 'feed', 'id', $this->feed->id()); ?>" autocomplete="off">
+		<input type="hidden" name="_csrf" value="<?php echo FreshRSS_Auth::csrfToken(); ?>" />
 		<legend><?php echo _t('sub.feed.informations'); ?></legend>
 		<div class="form-group">
 			<label class="group-name" for="name"><?php echo _t('sub.feed.title'); ?></label>
@@ -36,7 +37,7 @@
 			<div class="group-controls">
 				<div class="stick">
 					<input type="text" name="website" id="website" class="extend" value="<?php echo $this->feed->website(); ?>" />
-					<a class="btn" target="_blank" href="<?php echo $this->feed->website(); ?>"><?php echo _i('link'); ?></a>
+					<a class="btn" target="_blank" rel="noreferrer" href="<?php echo $this->feed->website(); ?>"><?php echo _i('link'); ?></a>
 				</div>
 			</div>
 		</div>
@@ -45,10 +46,10 @@
 			<div class="group-controls">
 				<div class="stick">
 					<input type="text" name="url" id="url" class="extend" value="<?php echo $this->feed->url(); ?>" />
-					<a class="btn" target="_blank" href="<?php echo $this->feed->url(); ?>"><?php echo _i('link'); ?></a>
+					<a class="btn" target="_blank" rel="noreferrer" href="<?php echo $this->feed->url(); ?>"><?php echo _i('link'); ?></a>
 				</div>
 
-				<a class="btn" target="_blank" href="http://validator.w3.org/feed/check.cgi?url=<?php echo $this->feed->url(); ?>"><?php echo _t('sub.feed.validator'); ?></a>
+				<a class="btn" target="_blank" rel="noreferrer" href="http://validator.w3.org/feed/check.cgi?url=<?php echo rawurlencode(htmlspecialchars_decode($this->feed->url(), ENT_QUOTES)); ?>"><?php echo _t('sub.feed.validator'); ?></a>
 			</div>
 		</div>
 		<div class="form-group">

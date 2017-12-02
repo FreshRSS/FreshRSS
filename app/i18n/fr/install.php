@@ -9,13 +9,11 @@ return array(
 		'reinstall' => 'Réinstaller FreshRSS',
 	),
 	'auth' => array(
-		'email_persona' => 'Adresse courriel de connexion<br /><small>(pour <a href="https://persona.org/" rel="external">Mozilla Persona</a>)</small>',
 		'form' => 'Formulaire (traditionnel, requiert JavaScript)',
 		'http' => 'HTTP (pour utilisateurs avancés avec HTTPS)',
 		'none' => 'Aucune (dangereux)',
 		'password_form' => 'Mot de passe<br /><small>(pour connexion par formulaire)</small>',
 		'password_format' => '7 caractères minimum',
-		'persona' => 'Mozilla Persona (moderne, requiert JavaScript)',
 		'type' => 'Méthode d’authentification',
 	),
 	'bdd' => array(
@@ -26,10 +24,10 @@ return array(
 			'ok' => 'La configuration de la base de données a été enregistrée.',
 		),
 		'host' => 'Hôte',
-		'password' => 'Mot de passe',
+		'password' => 'Mot de passe pour base de données',
 		'prefix' => 'Préfixe des tables',
 		'type' => 'Type de base de données',
-		'username' => 'Nom d’utilisateur',
+		'username' => 'Nom d’utilisateur pour base de données',
 	),
 	'check' => array(
 		'_' => 'Vérifications',
@@ -39,11 +37,11 @@ return array(
 			'ok' => 'Les droits sur le répertoire de cache sont bons.',
 		),
 		'ctype' => array(
-			'nok' => 'Il manque une librairie pour la vérification des types de caractères (php-ctype).',
-			'ok' => 'Vous disposez du nécessaire pour la vérification des types de caractères (ctype).',
+			'nok' => 'Impossible de trouver une librairie pour la vérification des types de caractères (php-ctype).',
+			'ok' => 'Vous disposez de la librairie pour la vérification des types de caractères (ctype).',
 		),
 		'curl' => array(
-			'nok' => 'Vous ne disposez pas de cURL (paquet php5-curl).',
+			'nok' => 'Vous ne disposez pas de cURL (paquet php-curl).',
 			'ok' => 'Vous disposez de cURL.',
 		),
 		'data' => array(
@@ -51,32 +49,36 @@ return array(
 			'ok' => 'Les droits sur le répertoire de data sont bons.',
 		),
 		'dom' => array(
-			'nok' => 'Il manque une librairie pour parcourir le DOM (paquet php-xml).',
-			'ok' => 'Vous disposez du nécessaire pour parcourir le DOM.',
+			'nok' => 'Impossible de trouver une librairie pour parcourir le DOM.',
+			'ok' => 'Vous disposez de la librairie pour parcourir le DOM.',
 		),
 		'favicons' => array(
 			'nok' => 'Veuillez vérifier les droits sur le répertoire <em>./data/favicons</em>. Le serveur HTTP doit être capable d’écrire dedans',
 			'ok' => 'Les droits sur le répertoire des favicons sont bons.',
 		),
+		'fileinfo' => array(
+			'nok' => 'Vous ne disposez pas de PHP fileinfo (paquet fileinfo).',
+			'ok' => 'Vous disposez de fileinfo.',
+		),
 		'http_referer' => array(
 			'nok' => 'Veuillez vérifier que vous ne modifiez pas votre HTTP REFERER.',
 			'ok' => 'Le HTTP REFERER est connu et semble correspondre à votre serveur.',
+		),
+		'json' => array(
+			'nok' => 'Impossible de trouver une librairie recommandée pour JSON.',
+			'ok' => 'Vouz disposez de la librairie recommandée pour JSON.',
 		),
 		'minz' => array(
 			'nok' => 'Vous ne disposez pas de la librairie Minz.',
 			'ok' => 'Vous disposez du framework Minz',
 		),
 		'pcre' => array(
-			'nok' => 'Il manque une librairie pour les expressions régulières (php-pcre).',
-			'ok' => 'Vous disposez du nécessaire pour les expressions régulières (PCRE).',
+			'nok' => 'Impossible de trouver une librairie pour les expressions régulières (php-pcre).',
+			'ok' => 'Vous disposez de la librairie pour les expressions régulières (PCRE).',
 		),
 		'pdo' => array(
-			'nok' => 'Vous ne disposez pas de PDO ou d’un des drivers supportés (pdo_mysql, pdo_sqlite).',
-			'ok' => 'Vous disposez de PDO et d’au moins un des drivers supportés (pdo_mysql, pdo_sqlite).',
-		),
-		'persona' => array(
-			'nok' => 'Veuillez vérifier les droits sur le répertoire <em>./data/persona</em>. Le serveur HTTP doit être capable d’écrire dedans',
-			'ok' => 'Les droits sur le répertoire de Mozilla Persona sont bons.',
+			'nok' => 'Vous ne disposez pas de PDO ou d’un des drivers supportés (pdo_mysql, pdo_sqlite, pdo_pgsql).',
+			'ok' => 'Vous disposez de PDO et d’au moins un des drivers supportés (pdo_mysql, pdo_sqlite, pdo_pgsql).',
 		),
 		'php' => array(
 			'nok' => 'Votre version de PHP est la %s mais FreshRSS requiert au moins la version %s.',
@@ -85,6 +87,10 @@ return array(
 		'users' => array(
 			'nok' => 'Veuillez vérifier les droits sur le répertoire <em>./data/users</em>. Le serveur HTTP doit être capable d’écrire dedans',
 			'ok' => 'Les droits sur le répertoire des utilisateurs sont bons.',
+		),
+		'xml' => array(
+			'nok' => 'Impossible de trouver une librairie requise pour XML.',
+			'ok' => 'Vouz disposez de la librairie requise pour XML.',
 		),
 	),
 	'conf' => array(

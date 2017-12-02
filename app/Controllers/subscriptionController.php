@@ -90,8 +90,8 @@ class FreshRSS_subscription_Controller extends Minz_ActionController {
 			$values = array(
 				'name' => Minz_Request::param('name', ''),
 				'description' => sanitizeHTML(Minz_Request::param('description', '', true)),
-				'website' => Minz_Request::param('website', ''),
-				'url' => Minz_Request::param('url', ''),
+				'website' => checkUrl(Minz_Request::param('website', '')),
+				'url' => checkUrl(Minz_Request::param('url', '')),
 				'category' => $cat,
 				'pathEntries' => Minz_Request::param('path_entries', ''),
 				'priority' => intval(Minz_Request::param('priority', 0)),
@@ -112,5 +112,12 @@ class FreshRSS_subscription_Controller extends Minz_ActionController {
 				Minz_Request::bad(_t('feedback.sub.feed.error'), $url_redirect);
 			}
 		}
+	}
+
+	/**
+	 * This action displays the bookmarklet page.
+	 */
+	public function bookmarkletAction() {
+		Minz_View::prependTitle(_t('sub.title.subscription_tools') . ' . ');
 	}
 }

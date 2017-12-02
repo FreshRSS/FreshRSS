@@ -5,10 +5,9 @@ return array(
 		'allow_anonymous' => 'Sta bezoekers toe om artikelen te lezen van de standaard gebruiker (%s)',
 		'allow_anonymous_refresh' => 'Sta bezoekers toe om de artikelen te vernieuwen',
 		'api_enabled' => 'Sta <abbr>API</abbr> toegang toe <small>(nodig voor mobiele apps)</small>',
-		'form' => 'Web formulier (traditioneel, benodigd JavaScript)',
-		'http' => 'HTTP (voor geavanceerde gebruikers met HTTPS)',
+		'form' => 'Web formulier (traditioneel, JavaScript vereist)',
+		'http' => 'HTTP (voor gevorderde gebruikers met HTTPS)',
 		'none' => 'Geen (gevaarlijk)',
-		'persona' => 'Mozilla Persona (modern, benodigd JavaScript)',
 		'title' => 'Authenticatie',
 		'title_reset' => 'Authenticatie terugzetten',
 		'token' => 'Authenticatie teken',
@@ -34,12 +33,12 @@ return array(
 			'ok' => 'U hebt de benodigde bibliotheek voor character type checking (ctype).',
 		),
 		'curl' => array(
-			'nok' => 'U mist de cURL (php5-curl package).',
+			'nok' => 'U mist de cURL (php-curl package).',
 			'ok' => 'U hebt de cURL uitbreiding.',
 		),
 		'data' => array(
-			'nok' => 'Controleer de permissies op de <em>./data</em> map. HTTP server moet rechten hebben om hierin te schrijven',
-			'ok' => 'Permissies op de data map zijn goed.',
+			'nok' => 'Controleer de permissies op de <em>./data</em> map. De HTTP server moet rechten hebben om hierin te schrijven',
+			'ok' => 'Permissies op de data map zijn in orde.',
 		),
 		'database' => 'Database installatie',
 		'dom' => array(
@@ -47,16 +46,20 @@ return array(
 			'ok' => 'U hebt de benodigde bibliotheek voor het bladeren van DOM.',
 		),
 		'entries' => array(
-			'nok' => 'Invoer tabel is slecht geconfigureerd.',
-			'ok' => 'Invoer tabel is ok.',
+			'nok' => 'Invoertabel is slecht geconfigureerd.',
+			'ok' => 'Invoertabel is ok.',
 		),
 		'favicons' => array(
 			'nok' => 'Controleer de permissies op de <em>./data/favicons</em> map. HTTP server moet rechten hebben om hierin te schrijven',
 			'ok' => 'Permissies op de favicons map zijn goed.',
 		),
 		'feeds' => array(
-			'nok' => 'Feed tabel is slecht geconfigureerd.',
-			'ok' => 'Feed tabel is ok.',
+			'nok' => 'Feedtabel is slecht geconfigureerd.',
+			'ok' => 'Feedtabel is ok.',
+		),
+		'fileinfo' => array(
+			'nok' => 'U mist de PHP fileinfo (fileinfo package).',
+			'ok' => 'U hebt de fileinfo uitbreiding.',
 		),
 		'files' => 'Bestanden installatie',
 		'json' => array(
@@ -72,12 +75,8 @@ return array(
 			'ok' => 'U hebt de benodigde bibliotheek voor regular expressions (PCRE).',
 		),
 		'pdo' => array(
-			'nok' => 'U mist PDO of een van de ondersteunde drivers (pdo_mysql, pdo_sqlite).',
-			'ok' => 'U hebt PDO en ten minste één van de ondersteunde drivers (pdo_mysql, pdo_sqlite).',
-		),
-		'persona' => array(
-			'nok' => 'Controleer de permissies op de <em>./data/persona</em> map. HTTP server moet rechten hebben om hierin te schrijven',
-			'ok' => 'Permissies op de Mozilla Persona map zijn goed.',
+			'nok' => 'U mist PDO of een van de ondersteunde drivers (pdo_mysql, pdo_sqlite, pdo_pgsql).',
+			'ok' => 'U hebt PDO en ten minste één van de ondersteunde drivers (pdo_mysql, pdo_sqlite, pdo_pgsql).',
 		),
 		'php' => array(
 			'_' => 'PHP installatie',
@@ -98,7 +97,7 @@ return array(
 			'ok' => 'Permissies op de users map zijn goed.',
 		),
 		'zip' => array(
-			'nok' => 'U mist ZIP uitbreiding (php5-zip package).',
+			'nok' => 'U mist ZIP uitbreiding (php-zip package).',
 			'ok' => 'U hebt ZIP uitbreiding.',
 		),
 	),
@@ -108,11 +107,11 @@ return array(
 		'enabled' => 'Ingeschakeld',
 		'no_configure_view' => 'Deze uitbreiding kan niet worden geconfigureerd.',
 		'system' => array(
-			'_' => 'Systeem uitbreidingen',
-			'no_rights' => 'Systeem uitbreidingen (U hebt hier geen rechten op)',
+			'_' => 'Systeemuitbreidingen',
+			'no_rights' => 'Systeemuitbreidingen (U hebt hier geen rechten op)',
 		),
 		'title' => 'Uitbreidingen',
-		'user' => 'Gebruikers uitbreidingen',
+		'user' => 'Gebruikersuitbreidingen',
 	),
 	'stats' => array(
 		'_' => 'Statistieken',
@@ -120,7 +119,7 @@ return array(
 		'category' => 'Categorie',
 		'entry_count' => 'Invoer aantallen',
 		'entry_per_category' => 'Aantallen per categorie',
-		'entry_per_day' => 'Aantallen per day (laatste 30 dagen)',
+		'entry_per_day' => 'Aantallen per dag (laatste 30 dagen)',
 		'entry_per_day_of_week' => 'Per dag of week (gemiddeld: %.2f berichten)',
 		'entry_per_hour' => 'Per uur (gemiddeld: %.2f berichten)',
 		'entry_per_month' => 'Per maand (gemiddeld: %.2f berichten)',
@@ -138,7 +137,7 @@ return array(
 		'no_idle' => 'Er is geen gepauzeerde feed!',
 		'number_entries' => '%d artikelen',
 		'percent_of_total' => '%% van totaal',
-		'repartition' => 'Artikelen verdeling',
+		'repartition' => 'Artikelverdeling',
 		'status_favorites' => 'Favorieten',
 		'status_read' => 'Gelezen',
 		'status_total' => 'Totaal',
@@ -147,14 +146,14 @@ return array(
 		'top_feed' => 'Top tien feeds',
 	),
 	'system' => array(
-		'_' => 'System configuration', // @todo translate
-		'auto-update-url' => 'Auto-update server URL', // @todo translate
-		'instance-name' => 'Instance name', // @todo translate
-		'max-categories' => 'Categories per user limit', // @todo translate
-		'max-feeds' => 'Feeds per user limit', // @todo translate
+		'_' => 'Systeem configuratie',
+		'auto-update-url' => 'Automatische update server URL',
+		'instance-name' => 'Voorbeeld naam',
+		'max-categories' => 'Categoriën limiet per gebruiker',
+		'max-feeds' => 'Feed limiet per gebruiker',
 		'registration' => array(
-			'help' => '0 means that there is no account limit', // @todo translate
-			'number' => 'Max number of accounts', // @todo translate
+			'help' => '0 betekent geen account limiet',
+			'number' => 'Maximum aantal accounts',
 		),
 	),
 	'update' => array(
@@ -168,21 +167,20 @@ return array(
 	),
 	'user' => array(
 		'articles_and_size' => '%s artikelen (%s)',
-		'create' => 'Creëer  nieuwe gebruiker',
-		'email_persona' => 'Log in mail adres<br /><small>(voor <a href="https://persona.org/" rel="external">Mozilla Persona</a>)</small>',
+		'create' => 'Creëer nieuwe gebruiker',
 		'language' => 'Taal',
 		'number' => 'Er is %d accounts gemaakt',
 		'numbers' => 'Er zijn %d accounts gemaakt',
-		'password_form' => 'Wachtwoord<br /><small>(voor de Web-formulier log in methode)</small>',
+		'password_form' => 'Wachtwoord<br /><small>(voor de Web-formulier loginmethode)</small>',
 		'password_format' => 'Ten minste 7 tekens',
 		'registration' => array(
 			'allow' => 'Sta het maken van nieuwe accounts toe',
-			'help' => '0 betekent dat er geen account limiet is',
-			'number' => 'Max aantal van accounts',
+			'help' => '0 betekent dat er geen accountlimiet is',
+			'number' => 'Max aantal accounts',
 		),
 		'title' => 'Beheer gebruikers',
 		'user_list' => 'Lijst van gebruikers ',
-		'username' => 'Gebruikers naam',
+		'username' => 'Gebruikersnaam',
 		'users' => 'Gebruikers',
 	),
 );

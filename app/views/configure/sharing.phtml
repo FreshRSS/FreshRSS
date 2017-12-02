@@ -9,12 +9,15 @@
 			<input type="hidden" id="share_##key##_type" name="share[##key##][type]" value="##type##" /></div></div>'
 		data-advanced='<div class="form-group" id="group-share-##key##"><label class="group-name">##label##</label><div class="group-controls">
 			<input type="hidden" id="share_##key##_type" name="share[##key##][type]" value="##type##" />
+			<input type="hidden" id="share_##key##_method" name="share[##key##][method]" value="##method##" />
+			<input type="hidden" id="share_##key##_field" name="share[##key##][field]" value="##field##" />
 			<div class="stick">
 			<input type="text" id="share_##key##_name" name="share[##key##][name]" class="extend" value="" placeholder="<?php echo _t('conf.sharing.share_name'); ?>" size="64" />
 			<input type="url" id="share_##key##_url" name="share[##key##][url]" class="extend" value="" placeholder="<?php echo _t('conf.sharing.share_url'); ?>" size="64" />
 			<a href="#" class="remove btn btn-attention" data-remove="group-share-##key##"><?php echo _i('close'); ?></a></div>
-			<a target="_blank" class="btn" title="<?php echo _t('conf.sharing.more_information'); ?>" href="##help##"><?php echo _i('help'); ?></a>
+			<a target="_blank" rel="noreferrer" class="btn" title="<?php echo _t('conf.sharing.more_information'); ?>" href="##help##"><?php echo _i('help'); ?></a>
 			</div></div>'>
+		<input type="hidden" name="_csrf" value="<?php echo FreshRSS_Auth::csrfToken(); ?>" />
 		<legend><?php echo _t('conf.sharing'); ?></legend>
 		<?php
 			foreach (FreshRSS_Context::$user_conf->sharing as $key => $share_options) {
@@ -27,6 +30,8 @@
 				</label>
 				<div class="group-controls">
 					<input type='hidden' id='share_<?php echo $key; ?>_type' name="share[<?php echo $key; ?>][type]" value='<?php echo $share->type(); ?>' />
+					<input type='hidden' id='share_<?php echo $key; ?>_method' name="share[<?php echo $key; ?>][method]" value='<?php echo $share->method(); ?>' />
+					<input type='hidden' id='share_<?php echo $key; ?>_field' name="share[<?php echo $key; ?>][field]" value='<?php echo $share->field(); ?>' />
 					<div class="stick">
 						<input type="text" id="share_<?php echo $key; ?>_name" name="share[<?php echo $key; ?>][name]" class="extend" value="<?php echo $share->name(); ?>" placeholder="<?php echo _t('conf.sharing.share_name'); ?>" size="64" data-leave-validation="<?php echo $share->name(); ?>"/>
 					<?php if ($share->formType() === 'advanced') { ?>
@@ -37,7 +42,7 @@
 						<a href='#' class='remove btn btn-attention' data-remove="group-share-<?php echo $key; ?>"><?php echo _i('close'); ?></a>
 					</div>
 					<?php if ($share->formType() === 'advanced') { ?>
-						<a target="_blank" class="btn" title="<?php echo _t('conf.sharing.more_information'); ?>" href="<?php echo $share->help(); ?>"><?php echo _i('help'); ?></a>
+						<a target="_blank" rel="noreferrer" class="btn" title="<?php echo _t('conf.sharing.more_information'); ?>" href="<?php echo $share->help(); ?>"><?php echo _i('help'); ?></a>
 					<?php } ?>
 				</div>
 			</div>
@@ -47,7 +52,7 @@
 			<div class="group-controls">
 				<select>
 					<?php foreach (FreshRSS_Share::enum() as $share) { ?>
-					<option value='<?php echo $share->type(); ?>' data-form='<?php echo $share->formType(); ?>' data-help='<?php echo $share->help(); ?>'>
+					<option value='<?php echo $share->type(); ?>' data-form='<?php echo $share->formType(); ?>' data-help='<?php echo $share->help(); ?>' data-method='<?php echo $share->method(); ?>' data-field='<?php echo $share->field(); ?>'>
 						<?php echo $share->name(true); ?>
 					</option>
 					<?php } ?>

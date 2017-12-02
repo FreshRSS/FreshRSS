@@ -4,6 +4,7 @@
 	<a href="<?php echo _url('index', 'index'); ?>"><?php echo _t('gen.action.back_to_rss_feeds'); ?></a>
 
 	<form method="post" action="<?php echo _url('configure', 'system'); ?>">
+		<input type="hidden" name="_csrf" value="<?php echo FreshRSS_Auth::csrfToken(); ?>" />
 		<legend><?php echo _t('admin.system'); ?></legend>
 
 		<div class="form-group">
@@ -32,7 +33,7 @@
 			<div class="group-controls">
 				<?php
 					$number = count(listUsers());
-					echo _t($number > 1 ? 'admin.user.numbers' : 'admin.user.number', $number);
+					echo ($number > 1 ? _t('admin.user.numbers', $number) : _t('admin.user.number', $number));
 				?>
 			</div>
 		</div>

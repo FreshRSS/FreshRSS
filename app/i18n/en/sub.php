@@ -1,6 +1,15 @@
 <?php
 
 return array(
+	'api' => array(
+		'documentation' => 'Copy the following URL to use it within an external tool.',
+		'title' => 'API',
+	),
+	'bookmarklet' => array(
+		'documentation' => 'Drag this button to your bookmarks toolbar or right-click it and choose "Bookmark This Link". Then click "Subscribe" button in any page you want to subscribe to.',
+		'label' => 'Subscribe',
+		'title' => 'Bookmarklet',
+	),
 	'category' => array(
 		'_' => 'Category',
 		'add' => 'Add a category',
@@ -10,10 +19,10 @@ return array(
 	'feed' => array(
 		'add' => 'Add a RSS feed',
 		'advanced' => 'Advanced',
-		'archiving' => 'Archivage',
+		'archiving' => 'Archiving',
 		'auth' => array(
 			'configuration' => 'Login',
-			'help' => 'Connection allows to access HTTP protected RSS feeds',
+			'help' => 'Allows access to HTTP protected RSS feeds',
 			'http' => 'HTTP Authentication',
 			'password' => 'HTTP password',
 			'username' => 'HTTP username',
@@ -22,7 +31,7 @@ return array(
 		'css_path' => 'Articles CSS path on original website',
 		'description' => 'Description',
 		'empty' => 'This feed is empty. Please verify that it is still maintained.',
-		'error' => 'This feed has encountered a problem. Please verify that it is always reachable then actualize it.',
+		'error' => 'This feed has encountered a problem. Please verify that it is always reachable then update it.',
 		'in_main_stream' => 'Show in main stream',
 		'informations' => 'Information',
 		'keep_history' => 'Minimum number of articles to keep',
@@ -39,13 +48,17 @@ return array(
 		'website' => 'Website URL',
 		'pubsubhubbub' => 'Instant notification with PubSubHubbub',
 	),
+	'firefox' => array(
+		'documentation' => 'Follow the steps described <a href="https://developer.mozilla.org/en-US/Firefox/Releases/2/Adding_feed_readers_to_Firefox#Adding_a_new_feed_reader_manually">here</a> to add FreshRSS to Firefox feed reader list.',
+		'title' => 'Firefox feed reader',
+	),
 	'import_export' => array(
 		'export' => 'Export',
 		'export_opml' => 'Export list of feeds (OPML)',
 		'export_starred' => 'Export your favourites',
 		'feed_list' => 'List of %s articles',
-		'file_to_import' => 'File to import<br />(OPML, Json or Zip)',
-		'file_to_import_no_zip' => 'File to import<br />(OPML or Json)',
+		'file_to_import' => 'File to import<br />(OPML, JSON or ZIP)',
+		'file_to_import_no_zip' => 'File to import<br />(OPML or JSON)',
 		'import' => 'Import',
 		'starred_list' => 'List of favourite articles',
 		'title' => 'Import / export',
@@ -54,9 +67,11 @@ return array(
 		'bookmark' => 'Subscribe (FreshRSS bookmark)',
 		'import_export' => 'Import / export',
 		'subscription_management' => 'Subscriptions management',
+		'subscription_tools' => 'Subscription tools',
 	),
 	'title' => array(
 		'_' => 'Subscriptions management',
 		'feed_management' => 'RSS feeds management',
+		'subscription_tools' => 'Subscription tools',
 	),
 );

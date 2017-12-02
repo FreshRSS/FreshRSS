@@ -1,9 +1,6 @@
-application.ini
 config.php
-*.sqlite
-touch.txt
-no-cache.txt
-*.bak.php
-*.lock.txt
+config.php.bak.php
+force-https.txt
 last_update.txt
+no-cache.txt
 update.php

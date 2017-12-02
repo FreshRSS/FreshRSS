@@ -109,6 +109,7 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 			FreshRSS_Context::$user_conf->hide_read_feeds = Minz_Request::param('hide_read_feeds', false);
 			FreshRSS_Context::$user_conf->onread_jump_next = Minz_Request::param('onread_jump_next', false);
 			FreshRSS_Context::$user_conf->lazyload = Minz_Request::param('lazyload', false);
+			FreshRSS_Context::$user_conf->sides_close_article = Minz_Request::param('sides_close_article', false);
 			FreshRSS_Context::$user_conf->sticky_post = Minz_Request::param('sticky_post', false);
 			FreshRSS_Context::$user_conf->reading_confirm = Minz_Request::param('reading_confirm', false);
 			FreshRSS_Context::$user_conf->auto_remove_article = Minz_Request::param('auto_remove_article', false);
@@ -139,7 +140,7 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 	 */
 	public function sharingAction() {
 		if (Minz_Request::isPost()) {
-			$params = Minz_Request::params();
+			$params = Minz_Request::fetchPOST();
 			FreshRSS_Context::$user_conf->sharing = $params['share'];
 			FreshRSS_Context::$user_conf->save();
 			invalidateHttpCache();
@@ -224,10 +225,12 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 
 		$entryDAO = FreshRSS_Factory::createEntryDao();
 		$this->view->nb_total = $entryDAO->count();
-		$this->view->size_user = $entryDAO->size();
+
+		$databaseDAO = FreshRSS_Factory::createDatabaseDAO();
+		$this->view->size_user = $databaseDAO->size();
 
 		if (FreshRSS_Auth::hasAccess('admin')) {
-			$this->view->size_total = $entryDAO->size(true);
+			$this->view->size_total = $databaseDAO->size(true);
 		}
 	}
 
@@ -282,7 +285,7 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 		foreach (FreshRSS_Context::$user_conf->queries as $key => $query) {
 			$queries[$key] = new FreshRSS_UserQuery($query, $feed_dao, $category_dao);
 		}
-		$params = Minz_Request::params();
+		$params = Minz_Request::fetchGET();
 		$params['url'] = Minz_Url::display(array('params' => $params));
 		$params['name'] = _t('conf.query.number', count($queries) + 1);
 		$queries[] = new FreshRSS_UserQuery($params, $feed_dao, $category_dao);

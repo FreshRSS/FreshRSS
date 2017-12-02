@@ -9,13 +9,11 @@ return array(
 		'reinstall' => 'Reinstalovat FreshRSS',
 	),
 	'auth' => array(
-		'email_persona' => 'Email pro přihlášení<br /><small>(pro <a href="https://persona.org/" rel="external">Mozilla Persona</a>)</small>',
 		'form' => 'Webový formulář (tradiční, vyžaduje JavaScript)',
 		'http' => 'HTTP (pro pokročilé uživatele s HTTPS)',
 		'none' => 'Žádný (nebezpečné)',
 		'password_form' => 'Heslo<br /><small>(pro přihlášení webovým formulářem)</small>',
 		'password_format' => 'Alespoň 7 znaků',
-		'persona' => 'Mozilla Persona (moderní, vyžaduje JavaScript)',
 		'type' => 'Způsob přihlášení',
 	),
 	'bdd' => array(
@@ -43,7 +41,7 @@ return array(
 			'ok' => 'Je nainstalována požadovaná knihovna pro ověřování znaků (ctype).',
 		),
 		'curl' => array(
-			'nok' => 'Nemáte cURL (balíček php5-curl).',
+			'nok' => 'Nemáte cURL (balíček php-curl).',
 			'ok' => 'Máte rozšíření cURL.',
 		),
 		'data' => array(
@@ -51,16 +49,24 @@ return array(
 			'ok' => 'Oprávnění adresáře data jsou v pořádku.',
 		),
 		'dom' => array(
-			'nok' => 'Nemáte požadovanou knihovnu pro procházení DOM (balíček php-xml).',
+			'nok' => 'Nemáte požadovanou knihovnu pro procházení DOM.',
 			'ok' => 'Máte požadovanou knihovnu pro procházení DOM.',
 		),
 		'favicons' => array(
 			'nok' => 'Zkontrolujte oprávnění adresáře <em>./data/favicons</em>. HTTP server musí mít do tohoto adresáře práva zápisu',
 			'ok' => 'Oprávnění adresáře favicons jsou v pořádku.',
 		),
+		'fileinfo' => array(
+			'nok' => 'Nemáte PHP fileinfo (balíček fileinfo).',
+			'ok' => 'Máte rozšíření fileinfo.',
+		),
 		'http_referer' => array(
 			'nok' => 'Zkontrolujte prosím že neměníte HTTP REFERER.',
 			'ok' => 'Váš HTTP REFERER je znám a odpovídá Vašemu serveru.',
+		),
+		'json' => array(
+			'nok' => 'Pro parsování JSON chybí doporučená knihovna.',
+			'ok' => 'Máte doporučenou knihovnu pro parsování JSON.',
 		),
 		'minz' => array(
 			'nok' => 'Nemáte framework Minz.',
@@ -71,12 +77,8 @@ return array(
 			'ok' => 'Máte požadovanou knihovnu pro regulární výrazy (PCRE).',
 		),
 		'pdo' => array(
-			'nok' => 'Nemáte PDO nebo některý z podporovaných ovladačů (pdo_mysql, pdo_sqlite).',
-			'ok' => 'Máte PDO a alespoň jeden z podporovaných ovladačů (pdo_mysql, pdo_sqlite).',
-		),
-		'persona' => array(
-			'nok' => 'Zkontrolujte oprávnění adresáře <em>./data/persona</em>. HTTP server musí mít do tohoto adresáře práva zápisu',
-			'ok' => 'Oprávnění adresáře Mozilla Persona jsou v pořádku.',
+			'nok' => 'Nemáte PDO nebo některý z podporovaných ovladačů (pdo_mysql, pdo_sqlite, pdo_pgsql).',
+			'ok' => 'Máte PDO a alespoň jeden z podporovaných ovladačů (pdo_mysql, pdo_sqlite, pdo_pgsql).',
 		),
 		'php' => array(
 			'nok' => 'Vaše verze PHP je %s, ale FreshRSS vyžaduje alespoň verzi %s.',
@@ -85,6 +87,10 @@ return array(
 		'users' => array(
 			'nok' => 'Zkontrolujte oprávnění adresáře <em>./data/users</em>. HTTP server musí mít do tohoto adresáře práva zápisu',
 			'ok' => 'Oprávnění adresáře users jsou v pořádku.',
+		),
+		'xml' => array(
+			'nok' => 'Pro parsování XML chybí požadovaná knihovna.',
+			'ok' => 'Máte požadovanou knihovnu pro parsování XML.',
 		),
 	),
 	'conf' => array(

@@ -4,17 +4,17 @@
 	<a href="<?php echo _url('index', 'index'); ?>"><?php echo _t('gen.action.back_to_rss_feeds'); ?></a>
 
 	<form method="post" action="<?php echo _url('auth', 'index'); ?>">
+		<input type="hidden" name="_csrf" value="<?php echo FreshRSS_Auth::csrfToken(); ?>" />
 		<legend><?php echo _t('admin.auth.type'); ?></legend>
 
 		<div class="form-group">
 			<label class="group-name" for="auth_type"><?php echo _t('admin.auth.type'); ?></label>
 			<div class="group-controls">
 				<select id="auth_type" name="auth_type" required="required" data-leave-validation="<?php echo FreshRSS_Context::$system_conf->auth_type; ?>">
-					<?php if (!in_array(FreshRSS_Context::$system_conf->auth_type, array('form', 'persona', 'http_auth', 'none'))) { ?>
+					<?php if (!in_array(FreshRSS_Context::$system_conf->auth_type, array('form', 'http_auth', 'none'))) { ?>
 						<option selected="selected"></option>
 					<?php } ?>
 					<option value="form"<?php echo FreshRSS_Context::$system_conf->auth_type === 'form' ? ' selected="selected"' : '', cryptAvailable() ? '' : ' disabled="disabled"'; ?>><?php echo _t('admin.auth.form'); ?></option>
-					<option value="persona"<?php echo FreshRSS_Context::$system_conf->auth_type === 'persona' ? ' selected="selected"' : '', FreshRSS_Context::$user_conf->mail_login == '' ? ' disabled="disabled"' : ''; ?>><?php echo _t('admin.auth.persona'); ?></option>
 					<option value="http_auth"<?php echo FreshRSS_Context::$system_conf->auth_type === 'http_auth' ? ' selected="selected"' : '', httpAuthUser() == '' ? ' disabled="disabled"' : ''; ?>><?php echo _t('admin.auth.http'); ?> (REMOTE_USER = '<?php echo httpAuthUser(); ?>')</option>
 					<option value="none"<?php echo FreshRSS_Context::$system_conf->auth_type === 'none' ? ' selected="selected"' : ''; ?>><?php echo _t('admin.auth.none'); ?></option>
 				</select>
@@ -51,19 +51,6 @@
 				</label>
 			</div>
 		</div>
-
-		<?php if (FreshRSS_Auth::accessNeedsAction()) { ?>
-		<div class="form-group">
-			<label class="group-name" for="token"><?php echo _t('admin.auth.token'); ?></label>
-			<?php $token = FreshRSS_Context::$user_conf->token; ?>
-			<div class="group-controls">
-				<input type="text" id="token" name="token" value="<?php echo $token; ?>" placeholder="<?php echo _t('gen.short.blank_to_disable'); ?>"<?php
-					echo FreshRSS_Auth::accessNeedsAction() ? '' : ' disabled="disabled"'; ?> data-leave-validation="<?php echo $token; ?>"/>
-				<?php echo _i('help'); ?> <?php echo _t('admin.auth.token_help'); ?>
-				<kbd><?php echo Minz_Url::display(array('params' => array('output' => 'rss', 'token' => $token)), 'html', true); ?></kbd>
-			</div>
-		</div>
-		<?php } ?>
 
 		<div class="form-group">
 			<div class="group-controls">

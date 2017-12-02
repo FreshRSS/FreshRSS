@@ -76,7 +76,6 @@ return array(
 			'_' => 'Accountlöschung',
 			'warn' => 'Dein Account und alle damit bezogenen Daten werden gelöscht.',
 		),
-		'email_persona' => 'Anmelde-E-Mail-Adresse<br /><small>(für <a href="https://persona.org/" rel="external">Mozilla Persona</a>)</small>',
 		'password_api' => 'Passwort-API<br /><small>(z. B. für mobile Anwendungen)</small>',
 		'password_form' => 'Passwort<br /><small>(für die Anmeldemethode per Webformular)</small>',
 		'password_format' => 'mindestens 7 Zeichen',
@@ -94,6 +93,7 @@ return array(
 		'display_categories_unfolded' => 'Kategorien standardmäßig eingeklappt zeigen',
 		'hide_read_feeds' => 'Kategorien & Feeds ohne ungelesene Artikel verstecken (funktioniert nicht mit der Einstellung „Alle Artikel zeigen“)',
 		'img_with_lazyload' => 'Verwende die "träges Laden"-Methode zum Laden von Bildern',
+		'sides_close_article' => 'Clicking outside of article text area closes the article',	//TODO
 		'jump_next' => 'springe zum nächsten ungelesenen Geschwisterelement (Feed oder Kategorie)',
 		'number_divided_when_reader' => 'Geteilt durch 2 in der Lese-Ansicht.',
 		'read' => array(
@@ -104,7 +104,7 @@ return array(
 			'when' => 'Artikel als gelesen markieren…',
 		),
 		'show' => array(
-			'_' => 	'Artikel zum Anzeigen',
+			'_' => 'Artikel zum Anzeigen',
 			'adaptive' => 'Anzeige anpassen',
 			'all_articles' => 'Alle Artikel zeigen',
 			'unread' => 'Nur ungelesene zeigen',

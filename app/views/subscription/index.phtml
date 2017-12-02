@@ -6,6 +6,7 @@
 	<h2><?php echo _t('sub.title'); ?></h2>
 
 	<form id="add_rss" method="post" action="<?php echo _url('feed', 'add'); ?>" autocomplete="off">
+		<input type="hidden" name="_csrf" value="<?php echo FreshRSS_Auth::csrfToken(); ?>" />
 		<div class="stick">
 			<input type="url" name="url_rss" class="long" placeholder="<?php echo _t('sub.feed.add'); ?>" />
 			<div class="dropdown">
@@ -28,7 +29,7 @@
 						</select>
 					</li>
 
-					<li class="input" style="display:none">
+					<li class="input" aria-hidden="true">
 						<input type="text" name="new_category[name]" id="new_category_name" autocomplete="off" placeholder="<?php echo _t('sub.category.new'); ?>" />
 					</li>
 
@@ -56,13 +57,16 @@
 
 		<ul class="box-content box-content-centered">
 			<form action="<?php echo _url('category', 'create'); ?>" method="post">
+				<input type="hidden" name="_csrf" value="<?php echo FreshRSS_Auth::csrfToken(); ?>" />
 				<li class="item"><input type="text" id="new-category" name="new-category" placeholder="<?php echo _t('sub.category.new'); ?>" /></li>
 				<li class="item"><button class="btn btn-important" type="submit"><?php echo _t('gen.action.submit'); ?></button></li>
 			</form>
 		</ul>
 	</div>
 
-	<form id="controller-category" method="post" style="display: none;"></form>
+	<form id="controller-category" method="post" aria-hidden="true">
+		<input type="hidden" name="_csrf" value="<?php echo FreshRSS_Auth::csrfToken(); ?>" />
+	</form>
 
 	<?php
 		foreach ($this->categories as $cat) {
@@ -71,6 +75,7 @@
 	<div class="box">
 		<div class="box-title">
 			<form action="<?php echo _url('category', 'update', 'id', $cat->id()); ?>" method="post">
+				<input type="hidden" name="_csrf" value="<?php echo FreshRSS_Auth::csrfToken(); ?>" />
 				<input type="text" name="name" value="<?php echo $cat->name(); ?>" />
 
 				<div class="dropdown">

@@ -5,7 +5,7 @@
  * A PHP-Based RSS and Atom Feed Framework.
  * Takes the hard work out of managing a complete RSS/Atom solution.
  *
- * Copyright (c) 2004-2012, Ryan Parman, Geoffrey Sneddon, Ryan McCue, and contributors
+ * Copyright (c) 2004-2017, Ryan Parman, Geoffrey Sneddon, Ryan McCue, and contributors
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification, are
@@ -33,8 +33,8 @@
  * POSSIBILITY OF SUCH DAMAGE.
  *
  * @package SimplePie
- * @version 1.4-dev-FreshRSS
- * @copyright 2004-2012 Ryan Parman, Geoffrey Sneddon, Ryan McCue
+ * @version 1.5
+ * @copyright 2004-2017 Ryan Parman, Geoffrey Sneddon, Ryan McCue
  * @author Ryan Parman
  * @author Geoffrey Sneddon
  * @author Ryan McCue
@@ -50,7 +50,7 @@ define('SIMPLEPIE_NAME', 'SimplePie');
 /**
  * SimplePie Version
  */
-define('SIMPLEPIE_VERSION', '1.4-dev-FreshRSS');
+define('SIMPLEPIE_VERSION', '1.5');
 
 /**
  * SimplePie Build
@@ -510,6 +510,14 @@ class SimplePie
 	public $cache = true;
 
 	/**
+	 * @var bool Force SimplePie to fallback to expired cache, if enabled,
+	 * when feed is unavailable.
+	 * @see SimplePie::force_cache_fallback()
+	 * @access private
+	 */
+	public $force_cache_fallback = false;
+
+	/**
 	 * @var int Cache duration (in seconds)
 	 * @see SimplePie::set_cache_duration()
 	 * @access private
@@ -615,6 +623,12 @@ class SimplePie
 	public $item_limit = 0;
 
 	/**
+	 * @var bool Stores if last-modified and/or etag headers were sent with the
+	 * request when checking a feed.
+	 */
+	public $check_modified = false;
+
+	/**
 	 * @var array Stores the default attributes to be stripped by strip_attributes().
 	 * @see SimplePie::strip_attributes()
 	 * @access private
@@ -626,7 +640,7 @@ class SimplePie
 	 * @see SimplePie::add_attributes()
 	 * @access private
 	 */
-	public $add_attributes = array('audio' => array('preload' => 'none'), 'iframe' => array('sandbox' => 'allow-scripts allow-same-origin'), 'video' => array('preload' => 'none'));	//FreshRSS
+	public $add_attributes = array('audio' => array('preload' => 'none'), 'iframe' => array('sandbox' => 'allow-scripts allow-same-origin'), 'video' => array('preload' => 'none'));
 
 	/**
 	 * @var array Stores the default tags to be stripped by strip_htmltags().
@@ -635,6 +649,12 @@ class SimplePie
 	 */
 	public $strip_htmltags = array('base', 'blink', 'body', 'doctype', 'embed', 'font', 'form', 'frame', 'frameset', 'html', 'iframe', 'input', 'marquee', 'meta', 'noscript', 'object', 'param', 'script', 'style');
 
+	/**
+	 * @var bool Should we throw exceptions, or use the old-style error property?
+	 * @access private
+	 */
+	public $enable_exceptions = false;
+	
 	/**
 	 * Use syslog to report HTTP requests done by SimplePie.
 	 * @see SimplePie::set_syslog()
@@ -657,9 +677,9 @@ class SimplePie
 	 */
 	public function __construct()
 	{
-		if (version_compare(PHP_VERSION, '5.2', '<'))
+		if (version_compare(PHP_VERSION, '5.3', '<'))
 		{
-			trigger_error('PHP 4.x, 5.0 and 5.1 are no longer supported. Please upgrade to PHP 5.2 or newer.');
+			trigger_error('Please upgrade to PHP 5.3 or newer.');
 			die();
 		}
 
@@ -814,7 +834,7 @@ class SimplePie
 	{
 		$this->timeout = (int) $timeout;
 	}
-    
+
 	/**
 	 * Set custom curl options
 	 *
@@ -851,6 +871,21 @@ class SimplePie
 	public function enable_cache($enable = true)
 	{
 		$this->cache = (bool) $enable;
+	}
+
+	/**
+	 * SimplePie to continue to fall back to expired cache, if enabled, when
+	 * feed is unavailable.
+	 *
+	 * This tells SimplePie to ignore any file errors and fall back to cache
+	 * instead. This only works if caching is enabled and cached content
+	 * still exists.
+
+	 * @param bool $enable Force use of cache on fail.
+	 */
+	public function force_cache_fallback($enable = false)
+	{
+		$this->force_cache_fallback= (bool) $enable;
 	}
 
 	/**
@@ -1123,6 +1158,7 @@ class SimplePie
 			$this->strip_attributes(false);
 			$this->add_attributes(false);
 			$this->set_image_handler(false);
+			$this->set_https_domains(array());
 		}
 	}
 
@@ -1168,7 +1204,7 @@ class SimplePie
 		$this->sanitize->strip_attributes($attribs);
 	}
 
-	public function add_attributes($attribs = '')	//FreshRSS
+	public function add_attributes($attribs = '')
 	{
 		if ($attribs === '')
 		{
@@ -1190,11 +1226,11 @@ class SimplePie
 	 *
 	 * Allows you to override SimplePie's output to match that of your webpage.
 	 * This is useful for times when your webpages are not being served as
-	 * UTF-8.  This setting will be obeyed by {@see handle_content_type()}, and
+	 * UTF-8. This setting will be obeyed by {@see handle_content_type()}, and
 	 * is similar to {@see set_input_encoding()}.
 	 *
 	 * It should be noted, however, that not all character encodings can support
-	 * all characters.  If your page is being served as ISO-8859-1 and you try
+	 * all characters. If your page is being served as ISO-8859-1 and you try
 	 * to display a Japanese feed, you'll likely see garbled characters.
 	 * Because of this, it is highly recommended to ensure that your webpages
 	 * are served as UTF-8.
@@ -1231,6 +1267,19 @@ class SimplePie
 	public function set_url_replacements($element_attribute = null)
 	{
 		$this->sanitize->set_url_replacements($element_attribute);
+	}
+
+	/**
+	 * Set the list of domains for which force HTTPS.
+	 * @see SimplePie_Sanitize::set_https_domains()
+	 * FreshRSS
+	 */
+	public function set_https_domains($domains = array())
+	{
+		if (is_array($domains))
+		{
+			$this->sanitize->set_https_domains($domains);
+		}
 	}
 
 	/**
@@ -1279,7 +1328,7 @@ class SimplePie
 	/**
 	 * Initialize the feed object
 	 *
-	 * This is what makes everything happen.  Period.  This is where all of the
+	 * This is what makes everything happen. Period. This is where all of the
 	 * configuration options get processed, feeds are fetched, cached, and
 	 * parsed, and all of that other good stuff.
 	 *
@@ -1290,6 +1339,7 @@ class SimplePie
 		// Check absolute bare minimum requirements.
 		if (!extension_loaded('xml') || !extension_loaded('pcre'))
 		{
+			$this->error = 'XML or PCRE extensions not loaded!';
 			return false;
 		}
 		// Then check the xml extension is sane (i.e., libxml 2.7.x issue on PHP < 5.2.9 and libxml 2.7.0 to 2.7.2 on any version) if we don't have xmlreader.
@@ -1346,6 +1396,7 @@ class SimplePie
 
 		$this->error = null;
 		$this->data = array();
+		$this->check_modified = false;
 		$this->multifeed_objects = array();
 		$cache = false;
 
@@ -1374,6 +1425,13 @@ class SimplePie
 			{
 				$md5 = $this->data['md5'];
 			}
+		}
+		
+		// Empty response check
+		if(empty($this->raw_data)){
+			$this->error = "A feed could not be found at `$this->feed_url`. Empty body.";
+			$this->registry->call('Misc', 'error', array($this->error, E_USER_NOTICE, __FILE__, __LINE__));
+			return false;
 		}
 
 		// Set up array of possible encodings
@@ -1417,7 +1475,7 @@ class SimplePie
 			// Text MIME-type default
 			elseif (substr($sniffed, 0, 5) === 'text/')
 			{
-				$encodings[] = 'US-ASCII';
+				$encodings[] = 'UTF-8';
 			}
 		}
 
@@ -1471,11 +1529,27 @@ class SimplePie
 		if (isset($parser))
 		{
 			// We have an error, just set SimplePie_Misc::error to it and quit
-			$this->error = sprintf('This XML document is invalid, likely due to invalid characters. XML error: %s at line %d, column %d, encoding %s, URL: %s', $parser->get_error_string(), $parser->get_current_line(), $parser->get_current_column(), $encoding, $this->feed_url);
+			$this->error = $this->feed_url;
+			$this->error .= sprintf(' is invalid XML, likely due to invalid characters. XML error: %s at line %d, column %d', $parser->get_error_string(), $parser->get_current_line(), $parser->get_current_column());
 		}
 		else
 		{
-			$this->error = 'The data could not be converted to UTF-8. You MUST have either the iconv or mbstring extension installed. Upgrading to PHP 5.x (which includes iconv) is highly recommended.';
+			$this->error = 'The data could not be converted to UTF-8.';
+			if (!extension_loaded('mbstring') && !extension_loaded('iconv') && !class_exists('\UConverter')) {
+				$this->error .= ' You MUST have either the iconv, mbstring or intl (PHP 5.5+) extension installed and enabled.';
+			} else {
+				$missingExtensions = array();
+				if (!extension_loaded('iconv')) {
+					$missingExtensions[] = 'iconv';
+				}
+				if (!extension_loaded('mbstring')) {
+					$missingExtensions[] = 'mbstring';
+				}
+				if (!class_exists('\UConverter')) {
+					$missingExtensions[] = 'intl (PHP 5.5+)';
+				}
+				$this->error .= ' Try installing/enabling the ' . implode(' or ', $missingExtensions) . ' extension.';
+			}
 		}
 
 		$this->registry->call('Misc', 'error', array($this->error, E_USER_NOTICE, __FILE__, __LINE__));
@@ -1548,7 +1622,7 @@ class SimplePie
 						$headers['if-none-match'] = $this->data['headers']['etag'];
 					}
 
-					$file = $this->registry->create('File', array($this->feed_url, $this->timeout, 5, $headers, $this->useragent, $this->force_fsockopen, $this->curl_options));
+					$file = $this->registry->create('File', array($this->feed_url, $this->timeout, 5, $headers, $this->useragent, $this->force_fsockopen, $this->curl_options, $this->syslog_enabled));
 
 					if ($file->success)
 					{
@@ -1560,6 +1634,7 @@ class SimplePie
 					}
 					else
 					{
+						$this->check_modified = false;
 						$cache->touch();
 						$this->error = $file->error;
 						return !empty($this->data);
@@ -1601,7 +1676,7 @@ class SimplePie
 				$headers = array(
 					'Accept' => 'application/atom+xml, application/rss+xml, application/rdf+xml;q=0.9, application/xml;q=0.8, text/xml;q=0.8, text/html;q=0.7, unknown/unknown;q=0.1, application/unknown;q=0.1, */*;q=0.1',
 				);
-				$file = $this->registry->create('File', array($this->feed_url, $this->timeout, 5, $headers, $this->useragent, $this->force_fsockopen, $this->curl_options));
+				$file = $this->registry->create('File', array($this->feed_url, $this->timeout, 5, $headers, $this->useragent, $this->force_fsockopen, $this->curl_options, $this->syslog_enabled));
 			}
 		}
 		// If the file connection has an error, set SimplePie::error to that and quit
@@ -1654,6 +1729,7 @@ class SimplePie
 			$locate = null;
 		}
 
+		$file->body = trim($file->body);	//FreshRSS
 		$this->raw_data = $file->body;
 		$this->permanent_url = $file->permanent_url;
 		$headers = $file->headers;
@@ -1854,7 +1930,7 @@ class SimplePie
 	 * @todo Support <itunes:new-feed-url>
 	 * @todo Also, |atom:link|@rel=self
 	 * @param bool $permanent Permanent mode to return only the original URL or the first redirection
-	 *  iff it is a 301 redirection
+	 * iff it is a 301 redirection
 	 * @return string|null
 	 */
 	public function subscribe_url($permanent = false)
@@ -1863,14 +1939,19 @@ class SimplePie
 		{
 			if ($this->permanent_url !== null)
 			{
-				return $this->sanitize($this->permanent_url, SIMPLEPIE_CONSTRUCT_IRI);
+				// sanitize encodes ampersands which are required when used in a url.
+				return str_replace('&amp;', '&',
+				                   $this->sanitize($this->permanent_url,
+				                                   SIMPLEPIE_CONSTRUCT_IRI));
 			}
 		}
 		else
 		{
 			if ($this->feed_url !== null)
 			{
-				return $this->sanitize($this->feed_url, SIMPLEPIE_CONSTRUCT_IRI);
+				return str_replace('&amp;', '&',
+				                   $this->sanitize($this->feed_url,
+				                                   SIMPLEPIE_CONSTRUCT_IRI));
 			}
 		}
 		return null;
@@ -2153,7 +2234,7 @@ class SimplePie
 	 * Get a category for the feed
 	 *
 	 * @since Unknown
-	 * @param int $key The category that you want to return.  Remember that arrays begin with 0, not 1
+	 * @param int $key The category that you want to return. Remember that arrays begin with 0, not 1
 	 * @return SimplePie_Category|null
 	 */
 	public function get_category($key = 0)
@@ -2238,7 +2319,7 @@ class SimplePie
 	 * Get an author for the feed
 	 *
 	 * @since 1.1
-	 * @param int $key The author that you want to return.  Remember that arrays begin with 0, not 1
+	 * @param int $key The author that you want to return. Remember that arrays begin with 0, not 1
 	 * @return SimplePie_Author|null
 	 */
 	public function get_author($key = 0)
@@ -2336,7 +2417,7 @@ class SimplePie
 	 * Get a contributor for the feed
 	 *
 	 * @since 1.1
-	 * @param int $key The contrbutor that you want to return.  Remember that arrays begin with 0, not 1
+	 * @param int $key The contrbutor that you want to return. Remember that arrays begin with 0, not 1
 	 * @return SimplePie_Author|null
 	 */
 	public function get_contributor($key = 0)
@@ -2422,7 +2503,7 @@ class SimplePie
 	 * Get a single link for the feed
 	 *
 	 * @since 1.0 (previously called `get_feed_link` since Preview Release, `get_feed_permalink()` since 0.8)
-	 * @param int $key The link that you want to return.  Remember that arrays begin with 0, not 1
+	 * @param int $key The link that you want to return. Remember that arrays begin with 0, not 1
 	 * @param string $rel The relationship of the link to return
 	 * @return string|null Link URL
 	 */
@@ -2531,6 +2612,12 @@ class SimplePie
 		if (isset($this->data['links'][$rel]))
 		{
 			return $this->data['links'][$rel];
+		}
+		else if (isset($this->data['headers']['link']) &&
+		         preg_match('/<([^>]+)>; rel='.preg_quote($rel).'/',
+		                    $this->data['headers']['link'], $match))
+		{
+			return array($match[1]);
 		}
 		else
 		{
@@ -2933,7 +3020,7 @@ class SimplePie
 	 *
 	 * @see get_item_quantity()
 	 * @since Beta 2
-	 * @param int $key The item that you want to return.  Remember that arrays begin with 0, not 1
+	 * @param int $key The item that you want to return. Remember that arrays begin with 0, not 1
 	 * @return SimplePie_Item|null
 	 */
 	public function get_item($key = 0)
@@ -2960,7 +3047,7 @@ class SimplePie
 	 * @since Beta 2
 	 * @param int $start Index to start at
 	 * @param int $end Number of items to return. 0 for all items after `$start`
-	 * @return array|null List of {@see SimplePie_Item} objects
+	 * @return SimplePie_Item[]|null List of {@see SimplePie_Item} objects
 	 */
 	public function get_items($start = 0, $end = 0)
 	{
@@ -2969,96 +3056,81 @@ class SimplePie
 			if (!empty($this->multifeed_objects))
 			{
 				$this->data['items'] = SimplePie::merge_items($this->multifeed_objects, $start, $end, $this->item_limit);
+				if (empty($this->data['items']))
+				{
+					return array();
+				}
+				return $this->data['items'];
 			}
-			else
+			$this->data['items'] = array();
+			if ($items = $this->get_feed_tags(SIMPLEPIE_NAMESPACE_ATOM_10, 'entry'))
 			{
-				$this->data['items'] = array();
-				if ($items = $this->get_feed_tags(SIMPLEPIE_NAMESPACE_ATOM_10, 'entry'))
+				$keys = array_keys($items);
+				foreach ($keys as $key)
 				{
-					$keys = array_keys($items);
-					foreach ($keys as $key)
-					{
-						$this->data['items'][] = $this->registry->create('Item', array($this, $items[$key]));
-					}
+					$this->data['items'][] = $this->registry->create('Item', array($this, $items[$key]));
 				}
-				if ($items = $this->get_feed_tags(SIMPLEPIE_NAMESPACE_ATOM_03, 'entry'))
+			}
+			if ($items = $this->get_feed_tags(SIMPLEPIE_NAMESPACE_ATOM_03, 'entry'))
+			{
+				$keys = array_keys($items);
+				foreach ($keys as $key)
 				{
-					$keys = array_keys($items);
-					foreach ($keys as $key)
-					{
-						$this->data['items'][] = $this->registry->create('Item', array($this, $items[$key]));
-					}
+					$this->data['items'][] = $this->registry->create('Item', array($this, $items[$key]));
 				}
-				if ($items = $this->get_feed_tags(SIMPLEPIE_NAMESPACE_RSS_10, 'item'))
+			}
+			if ($items = $this->get_feed_tags(SIMPLEPIE_NAMESPACE_RSS_10, 'item'))
+			{
+				$keys = array_keys($items);
+				foreach ($keys as $key)
 				{
-					$keys = array_keys($items);
-					foreach ($keys as $key)
-					{
-						$this->data['items'][] = $this->registry->create('Item', array($this, $items[$key]));
-					}
+					$this->data['items'][] = $this->registry->create('Item', array($this, $items[$key]));
 				}
-				if ($items = $this->get_feed_tags(SIMPLEPIE_NAMESPACE_RSS_090, 'item'))
+			}
+			if ($items = $this->get_feed_tags(SIMPLEPIE_NAMESPACE_RSS_090, 'item'))
+			{
+				$keys = array_keys($items);
+				foreach ($keys as $key)
 				{
-					$keys = array_keys($items);
-					foreach ($keys as $key)
-					{
-						$this->data['items'][] = $this->registry->create('Item', array($this, $items[$key]));
-					}
+					$this->data['items'][] = $this->registry->create('Item', array($this, $items[$key]));
 				}
-				if ($items = $this->get_channel_tags(SIMPLEPIE_NAMESPACE_RSS_20, 'item'))
+			}
+			if ($items = $this->get_channel_tags(SIMPLEPIE_NAMESPACE_RSS_20, 'item'))
+			{
+				$keys = array_keys($items);
+				foreach ($keys as $key)
 				{
-					$keys = array_keys($items);
-					foreach ($keys as $key)
-					{
-						$this->data['items'][] = $this->registry->create('Item', array($this, $items[$key]));
-					}
+					$this->data['items'][] = $this->registry->create('Item', array($this, $items[$key]));
 				}
 			}
 		}
 
-		if (!empty($this->data['items']))
+		if (empty($this->data['items']))
 		{
-			// If we want to order it by date, check if all items have a date, and then sort it
-			if ($this->order_by_date && empty($this->multifeed_objects))
-			{
-				if (!isset($this->data['ordered_items']))
-				{
-					$do_sort = true;
-					foreach ($this->data['items'] as $item)
-					{
-						if (!$item->get_date('U'))
-						{
-							$do_sort = false;
-							break;
-						}
-					}
-					$item = null;
-					$this->data['ordered_items'] = $this->data['items'];
-					if ($do_sort)
-					{
-						usort($this->data['ordered_items'], array(get_class($this), 'sort_items'));
-					}
-				}
-				$items = $this->data['ordered_items'];
-			}
-			else
-			{
-				$items = $this->data['items'];
-			}
+			return array();
+		}
 
-			// Slice the data as desired
-			if ($end === 0)
+		if ($this->order_by_date)
+		{
+			if (!isset($this->data['ordered_items']))
 			{
-				return array_slice($items, $start);
-			}
-			else
-			{
-				return array_slice($items, $start, $end);
-			}
+				$this->data['ordered_items'] = $this->data['items'];
+				usort($this->data['ordered_items'], array(get_class($this), 'sort_items'));
+		 	}
+			$items = $this->data['ordered_items'];
 		}
 		else
 		{
-			return array();
+			$items = $this->data['items'];
+		}
+		// Slice the data as desired
+		if ($end === 0)
+		{
+			return array_slice($items, $start);
+		}
+		else
+		{
+			return array_slice($items, $start, $end);
 		}
 	}
 
@@ -3131,7 +3203,19 @@ class SimplePie
 	 */
 	public static function sort_items($a, $b)
 	{
-		return $a->get_date('U') <= $b->get_date('U');
+		$a_date = $a->get_date('U');
+		$b_date = $b->get_date('U');
+		if ($a_date && $b_date) {
+			return $a_date > $b_date ? -1 : 1;
+		}
+		// Sort items without dates to the top.
+		if ($a_date) {
+			return 1;
+		}
+		if ($b_date) {
+			return -1;
+		}
+		return 0;
 	}
 
 	/**
@@ -3164,20 +3248,7 @@ class SimplePie
 				}
 			}
 
-			$do_sort = true;
-			foreach ($items as $item)
-			{
-				if (!$item->get_date('U'))
-				{
-					$do_sort = false;
-					break;
-				}
-			}
-			$item = null;
-			if ($do_sort)
-			{
-				usort($items, array(get_class($urls[0]), 'sort_items'));
-			}
+			usort($items, array(get_class($urls[0]), 'sort_items'));
 
 			if ($end === 0)
 			{
@@ -3192,6 +3263,44 @@ class SimplePie
 		{
 			trigger_error('Cannot merge zero SimplePie objects', E_USER_WARNING);
 			return array();
+		}
+	}
+
+	/**
+	 * Store PubSubHubbub links as headers
+	 *
+	 * There is no way to find PuSH links in the body of a microformats feed,
+	 * so they are added to the headers when found, to be used later by get_links.
+	 * @param SimplePie_File $file
+	 * @param string $hub
+	 * @param string $self
+	 */
+	private function store_links(&$file, $hub, $self) {
+		if (isset($file->headers['link']['hub']) ||
+			  (isset($file->headers['link']) &&
+			   preg_match('/rel=hub/', $file->headers['link'])))
+		{
+			return;
+		}
+
+		if ($hub)
+		{
+			if (isset($file->headers['link']))
+			{
+				if ($file->headers['link'] !== '')
+				{
+					$file->headers['link'] = ', ';
+				}
+			}
+			else
+			{
+				$file->headers['link'] = '';
+			}
+			$file->headers['link'] .= '<'.$hub.'>; rel=hub';
+			if ($self)
+			{
+				$file->headers['link'] .= ', <'.$self.'>; rel=self';
+			}
 		}
 	}
 }

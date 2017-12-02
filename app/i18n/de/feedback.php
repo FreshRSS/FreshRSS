@@ -21,7 +21,6 @@ return array(
 			'success' => 'Sie sind abgemeldet',
 		),
 		'no_password_set' => 'Administrator-Passwort ist nicht gesetzt worden. Dieses Feature ist nicht verfügbar.',
-		'not_persona' => 'Nur das Persona-System kann zurückgesetzt werden.',
 	),
 	'conf' => array(
 		'error' => 'Während der Speicherung der Konfiguration trat ein Fehler auf',
@@ -44,12 +43,12 @@ return array(
 		'not_found' => '%s existiert nicht',
 	),
 	'import_export' => array(
-		'export_no_zip_extension' => 'Die Zip-Erweiterung fehlt auf Ihrem Server. Bitte versuchen Sie die Dateien eine nach der anderen zu exportieren.',
+		'export_no_zip_extension' => 'Die ZIP-Erweiterung fehlt auf Ihrem Server. Bitte versuchen Sie die Dateien eine nach der anderen zu exportieren.',
 		'feeds_imported' => 'Ihre Feeds sind importiert worden und werden jetzt aktualisiert',
 		'feeds_imported_with_errors' => 'Ihre Feeds sind importiert worden, aber es traten einige Fehler auf',
 		'file_cannot_be_uploaded' => 'Die Datei kann nicht hochgeladen werden!',
-		'no_zip_extension' => 'Die Zip-Erweiterung ist auf Ihrem Server nicht vorhanden.',
-		'zip_error' => 'Ein Fehler trat während des Zip-Imports auf.',
+		'no_zip_extension' => 'Die ZIP-Erweiterung ist auf Ihrem Server nicht vorhanden.',
+		'zip_error' => 'Ein Fehler trat während des ZIP-Imports auf.',
 	),
 	'sub' => array(
 		'actualize' => 'Aktualisieren',
@@ -88,7 +87,7 @@ return array(
 	'update' => array(
 		'can_apply' => 'FreshRSS wird nun auf die <strong>Version %s</strong> aktualisiert.',
 		'error' => 'Der Aktualisierungsvorgang stieß auf einen Fehler: %s',
-		'file_is_nok' => 'Überprüfen Sie die Berechtigungen des Verzeichnisses <em>%s</em>. Der HTTP-Server muss Schreibrechte besitzen',
+		'file_is_nok' => '<strong>Version %s</strong>. Überprüfen Sie die Berechtigungen des Verzeichnisses <em>%s</em>. Der HTTP-Server muss Schreibrechte besitzen',
 		'finished' => 'Aktualisierung abgeschlossen!',
 		'none' => 'Keine Aktualisierung zum Anwenden',
 		'server_not_found' => 'Der Aktualisierungs-Server kann nicht gefunden werden. [%s]',

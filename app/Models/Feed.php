@@ -22,7 +22,7 @@ class FreshRSS_Feed extends Minz_Model {
 	private $hubUrl = '';
 	private $selfUrl = '';
 
-	public function __construct($url, $validate=true) {
+	public function __construct($url, $validate = true) {
 		if ($validate) {
 			$this->_url($url);
 		} else {
@@ -131,13 +131,26 @@ class FreshRSS_Feed extends Minz_Model {
 		return $this->nbNotRead;
 	}
 	public function faviconPrepare() {
-		$file = DATA_PATH . '/favicons/' . $this->hash() . '.txt';
-		if (!file_exists($file)) {
-			$t = $this->website;
-			if ($t == '') {
-				$t = $this->url;
+		global $favicons_dir;
+		require_once(LIB_PATH . '/favicons.php');
+		$url = $this->website;
+		if ($url == '') {
+			$url = $this->url;
+		}
+		$txt = $favicons_dir . $this->hash() . '.txt';
+		if (!file_exists($txt)) {
+			file_put_contents($txt, $url);
+		}
+		if (FreshRSS_Context::$isCli) {
+			$ico = $favicons_dir . $this->hash() . '.ico';
+			$ico_mtime = @filemtime($ico);
+			$txt_mtime = @filemtime($txt);
+			if ($txt_mtime != false &&
+				($ico_mtime == false || $ico_mtime < $txt_mtime || ($ico_mtime < time() - (14 * 86400)))) {
+				// no ico file or we should download a new one.
+				$url = file_get_contents($txt);
+				download_favicon($url, $ico) || touch($ico);
 			}
-			file_put_contents($file, $t);
 		}
 	}
 	public static function faviconDelete($hash) {
@@ -152,7 +165,7 @@ class FreshRSS_Feed extends Minz_Model {
 	public function _id($value) {
 		$this->id = $value;
 	}
-	public function _url($value, $validate=true) {
+	public function _url($value, $validate = true) {
 		$this->hash = null;
 		if ($validate) {
 			$value = checkUrl($value);
@@ -169,7 +182,7 @@ class FreshRSS_Feed extends Minz_Model {
 	public function _name($value) {
 		$this->name = $value === null ? '' : $value;
 	}
-	public function _website($value, $validate=true) {
+	public function _website($value, $validate = true) {
 		if ($validate) {
 			$value = checkUrl($value);
 		}
@@ -216,7 +229,7 @@ class FreshRSS_Feed extends Minz_Model {
 		$this->nbEntries = intval($value);
 	}
 
-	public function load($loadDetails = false) {
+	public function load($loadDetails = false, $noCache = false) {
 		if ($this->url !== null) {
 			if (CACHE_PATH === false) {
 				throw new Minz_FileNotExistException(
@@ -241,7 +254,9 @@ class FreshRSS_Feed extends Minz_Model {
 
 				if ((!$mtime) || $feed->error()) {
 					$errorMessage = $feed->error();
-					throw new FreshRSS_Feed_Exception(($errorMessage == '' ? 'Feed error' : $errorMessage) . ' [' . $url . ']');
+					throw new FreshRSS_Feed_Exception(
+						($errorMessage == '' ? 'Unknown error for feed' : $errorMessage) . ' [' . $url . ']'
+					);
 				}
 
 				$links = $feed->get_links('self');
@@ -268,7 +283,7 @@ class FreshRSS_Feed extends Minz_Model {
 					$this->_url($clean_url);
 				}
 
-				if (($mtime === true) || ($mtime > $this->lastUpdate)) {
+				if (($mtime === true) || ($mtime > $this->lastUpdate) || $noCache) {
 					//Minz_Log::debug('FreshRSS no cache ' . $mtime . ' > ' . $this->lastUpdate . ' for ' . $clean_url);
 					$this->loadEntries($feed);	// et on charge les articles du flux
 				} else {
@@ -305,15 +320,19 @@ class FreshRSS_Feed extends Minz_Model {
 			$elinks = array();
 			foreach ($item->get_enclosures() as $enclosure) {
 				$elink = $enclosure->get_link();
-				if (empty($elinks[$elink])) {
+				if ($elink != '' && empty($elinks[$elink])) {
 					$elinks[$elink] = '1';
 					$mime = strtolower($enclosure->get_type());
 					if (strpos($mime, 'image/') === 0) {
-						$content .= '<br /><img lazyload="" postpone="" src="' . $elink . '" alt="" />';
+						$content .= '<p class="enclosure"><img src="' . $elink . '" alt="" /></p>';
 					} elseif (strpos($mime, 'audio/') === 0) {
-						$content .= '<br /><audio lazyload="" postpone="" preload="none" src="' . $elink . '" controls="controls" />';
+						$content .= '<p class="enclosure"><audio preload="none" src="' . $elink
+							. '" controls="controls"></audio> <a download="" href="' . $elink . '">💾</a></p>';
 					} elseif (strpos($mime, 'video/') === 0) {
-						$content .= '<br /><video lazyload="" postpone="" preload="none" src="' . $elink . '" controls="controls" />';
+						$content .= '<p class="enclosure"><video preload="none" src="' . $elink
+							. '" controls="controls"></video> <a download="" href="' . $elink . '">💾</a></p>';
+					} elseif (strpos($mime, 'application/') === 0 || strpos($mime, 'text/') === 0) {
+						$content .= '<p class="enclosure"><a download="" href="' . $elink . '">💾</a></p>';
 					} else {
 						unset($elinks[$elink]);
 					}
@@ -322,9 +341,9 @@ class FreshRSS_Feed extends Minz_Model {
 
 			$entry = new FreshRSS_Entry(
 				$this->id(),
-				$item->get_id(),
+				$item->get_id(false, false),
 				$title === null ? '' : $title,
-				$author === null ? '' : html_only_entity_decode($author->name),
+				$author === null ? '' : html_only_entity_decode(strip_tags($author->name)),
 				$content === null ? '' : $content,
 				$link === null ? '' : $link,
 				$date ? $date : time()
@@ -338,6 +357,10 @@ class FreshRSS_Feed extends Minz_Model {
 		}
 
 		$this->entries = $entries;
+	}
+
+	function cacheModifiedTime() {
+		return @filemtime(CACHE_PATH . '/' . md5($this->url) . '.spc');
 	}
 
 	function lock() {
@@ -412,7 +435,7 @@ class FreshRSS_Feed extends Minz_Model {
 				}
 			} else {
 				@mkdir($path, 0777, true);
-				$key = sha1($path . FreshRSS_Context::$system_conf->salt . uniqid(mt_rand(), true));
+				$key = sha1($path . FreshRSS_Context::$system_conf->salt);
 				$hubJson = array(
 					'hub' => $this->hubUrl,
 					'key' => $key,
@@ -425,7 +448,7 @@ class FreshRSS_Feed extends Minz_Model {
 				file_put_contents(USERS_PATH . '/_/log_pshb.txt', date('c') . "\t" . $text . "\n", FILE_APPEND);
 			}
 			$currentUser = Minz_Session::param('currentUser');
-			if (ctype_alnum($currentUser) && !file_exists($path . '/' . $currentUser . '.txt')) {
+			if (FreshRSS_user_Controller::checkUsername($currentUser) && !file_exists($path . '/' . $currentUser . '.txt')) {
 				touch($path . '/' . $currentUser . '.txt');
 			}
 		}
@@ -434,46 +457,51 @@ class FreshRSS_Feed extends Minz_Model {
 
 	//Parameter true to subscribe, false to unsubscribe.
 	function pubSubHubbubSubscribe($state) {
-		if (FreshRSS_Context::$system_conf->base_url && $this->hubUrl && $this->selfUrl) {
-			$hubFilename = PSHB_PATH . '/feeds/' . base64url_encode($this->selfUrl) . '/!hub.json';
+		$url = $this->selfUrl ? $this->selfUrl : $this->url;
+		if (FreshRSS_Context::$system_conf->base_url && $url) {
+			$hubFilename = PSHB_PATH . '/feeds/' . base64url_encode($url) . '/!hub.json';
 			$hubFile = @file_get_contents($hubFilename);
 			if ($hubFile === false) {
 				Minz_Log::warning('JSON not found for PubSubHubbub: ' . $this->url);
 				return false;
 			}
 			$hubJson = json_decode($hubFile, true);
-			if (!$hubJson || empty($hubJson['key']) || !ctype_xdigit($hubJson['key'])) {
+			if (!$hubJson || empty($hubJson['key']) || !ctype_xdigit($hubJson['key']) || empty($hubJson['hub'])) {
 				Minz_Log::warning('Invalid JSON for PubSubHubbub: ' . $this->url);
 				return false;
 			}
-			$callbackUrl = checkUrl(FreshRSS_Context::$system_conf->base_url . 'api/pshb.php?k=' . $hubJson['key']);
+			$callbackUrl = checkUrl(Minz_Request::getBaseUrl() . '/api/pshb.php?k=' . $hubJson['key']);
 			if ($callbackUrl == '') {
 				Minz_Log::warning('Invalid callback for PubSubHubbub: ' . $this->url);
 				return false;
 			}
-			$ch = curl_init();
-			curl_setopt_array($ch, array(
-				CURLOPT_URL => $this->hubUrl,
-				CURLOPT_FOLLOWLOCATION => true,
-				CURLOPT_RETURNTRANSFER => true,
-				CURLOPT_USERAGENT => _t('gen.freshrss') . '/' . FRESHRSS_VERSION . ' (' . PHP_OS . '; ' . FRESHRSS_WEBSITE . ')',
-				CURLOPT_POSTFIELDS => 'hub.verify=sync'
-					. '&hub.mode=' . ($state ? 'subscribe' : 'unsubscribe')
-					. '&hub.topic=' . urlencode($this->selfUrl)
-					. '&hub.callback=' . urlencode($callbackUrl)
-				)
-			);
-			$response = curl_exec($ch);
-			$info = curl_getinfo($ch);
-
-			file_put_contents(USERS_PATH . '/_/log_pshb.txt', date('c') . "\t" .
-				'PubSubHubbub ' . ($state ? 'subscribe' : 'unsubscribe') . ' to ' . $this->selfUrl .
-				' with callback ' . $callbackUrl . ': ' . $info['http_code'] . ' ' . $response . "\n", FILE_APPEND);
-
 			if (!$state) {	//unsubscribe
 				$hubJson['lease_end'] = time() - 60;
 				file_put_contents($hubFilename, json_encode($hubJson));
 			}
+			$ch = curl_init();
+			curl_setopt_array($ch, array(
+					CURLOPT_URL => $hubJson['hub'],
+					CURLOPT_RETURNTRANSFER => true,
+					CURLOPT_POSTFIELDS => http_build_query(array(
+						'hub.verify' => 'sync',
+						'hub.mode' => $state ? 'subscribe' : 'unsubscribe',
+						'hub.topic' => $url,
+						'hub.callback' => $callbackUrl,
+						)),
+					CURLOPT_USERAGENT => FRESHRSS_USERAGENT,
+					CURLOPT_MAXREDIRS => 10,
+				));
+			curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);	//Keep option separated for open_basedir bug
+			if (defined('CURLOPT_ENCODING')) {
+				curl_setopt($ch, CURLOPT_ENCODING, '');	//Enable all encodings
+			}
+			$response = curl_exec($ch);
+			$info = curl_getinfo($ch);
+
+			file_put_contents(USERS_PATH . '/_/log_pshb.txt', date('c') . "\t" .
+				'PubSubHubbub ' . ($state ? 'subscribe' : 'unsubscribe') . ' to ' . $url .
+				' with callback ' . $callbackUrl . ': ' . $info['http_code'] . ' ' . $response . "\n", FILE_APPEND);
 
 			if (substr($info['http_code'], 0, 1) == '2') {
 				return true;

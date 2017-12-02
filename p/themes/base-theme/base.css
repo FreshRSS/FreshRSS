@@ -4,7 +4,7 @@
 /*============*/
 html, body {
 	height: 100%;
-	font-family: "OpenSans", "Cantarell", "Helvetica", "Arial", sans-serif;
+	font-family: "OpenSans", "Cantarell", "Helvetica", "Arial", "PingFang SC", "Microsoft YaHei", sans-serif;
 }
 
 /*=== Links */
@@ -245,14 +245,11 @@ a.btn {
 }
 .dropdown-menu > .item {
 }
-.dropdown-menu > .item > a {
-	padding: 0 25px;
-	line-height: 2.5em;
-}
+.dropdown-menu > .item > a,
 .dropdown-menu > .item > span,
 .dropdown-menu > .item > .as-link {
 	padding: 0 22px;
-	line-height: 2em;
+	line-height: 2.5em;
 }
 .dropdown-menu > .item:hover {
 }
@@ -725,7 +722,7 @@ a.btn {
 
 /*=== LOGS */
 /*=========*/
-.logs {
+.loglist {
 	overflow: hidden;
 }
 .log {

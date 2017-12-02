@@ -1,6 +1,15 @@
 <?php
 /* Dutch translation by Wanabo. http://www.nieuwskop.be */
 return array(
+	'api' => array(
+		'documentation' => 'Kopieer de volgende URL om hem in een externe toepassing te gebruiken.',
+		'title' => 'API',
+	),
+	'bookmarklet' => array(
+		'documentation' => 'Sleep deze knop naar je bladwijzerwerkbalk of klik erop met de rechtermuisknop en kies "Deze link aan bladwijzers toevoegen."',
+		'label' => 'Abonneren',
+		'title' => 'Bookmarklet',
+	),
 	'category' => array(
 		'_' => 'Categorie',
 		'add' => 'Voeg categorie toe',
@@ -39,13 +48,17 @@ return array(
 		'validator' => 'Controleer de geldigheid van de feed',
 		'website' => 'Website URL',
 	),
+	'firefox' => array(
+		'documentation' => 'Volg de stappen die <a href="https://developer.mozilla.org/en-US/Firefox/Releases/2/Adding_feed_readers_to_Firefox#Adding_a_new_feed_reader_manually">hier</a> beschreven wordem om FreshRSS aan de Firefox-nieuwslezerlijst toe te voegen.',
+		'title' => 'Firefox-nieuwslezer',
+	),
 	'import_export' => array(
 		'export' => 'Exporteer',
 		'export_opml' => 'Exporteer lijst van feeds (OPML)',
 		'export_starred' => 'Exporteer je fovorieten',
 		'feed_list' => 'Lijst van %s artikelen',
-		'file_to_import' => 'Bestand om te importeren<br />(OPML, Json of Zip)',
-		'file_to_import_no_zip' => 'Bestand om te importeren<br />(OPML of Json)',
+		'file_to_import' => 'Bestand om te importeren<br />(OPML, JSON of ZIP)',
+		'file_to_import_no_zip' => 'Bestand om te importeren<br />(OPML of JSON)',
 		'import' => 'Importeer',
 		'starred_list' => 'Lijst van favoriete artikelen',
 		'title' => 'Importeren / exporteren',
@@ -53,10 +66,12 @@ return array(
 	'menu' => array(
 		'bookmark' => 'Abonneer (FreshRSS bladwijzer)',
 		'import_export' => 'Importeer / exporteer',
-		'subscription_management' => 'Abonnementen beheer',
+		'subscription_management' => 'Abonnementenbeheer',
+		'subscription_tools' => 'Subscription tools',// TODO
 	),
 	'title' => array(
-		'_' => 'Abonnementen beheer',
-		'feed_management' => 'RSS feed beheer',
+		'_' => 'Abonnementenbeheer',
+		'feed_management' => 'RSS-feedbeheer',
+		'subscription_tools' => 'Subscription tools',// TODO
 	),
 );

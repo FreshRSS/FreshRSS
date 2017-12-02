@@ -4,18 +4,16 @@ return array(
 	'action' => array(
 		'finish' => 'Complete installation',
 		'fix_errors_before' => 'Please fix errors before skipping to the next step.',
-		'keep_install' => 'Keep previous installation',
+		'keep_install' => 'Keep previous configuration',
 		'next_step' => 'Go to the next step',
 		'reinstall' => 'Reinstall FreshRSS',
 	),
 	'auth' => array(
-		'email_persona' => 'Login email address<br /><small>(for <a href="https://persona.org/" rel="external">Mozilla Persona</a>)</small>',
 		'form' => 'Web form (traditional, requires JavaScript)',
 		'http' => 'HTTP (for advanced users with HTTPS)',
 		'none' => 'None (dangerous)',
 		'password_form' => 'Password<br /><small>(for the Web-form login method)</small>',
 		'password_format' => 'At least 7 characters',
-		'persona' => 'Mozilla Persona (modern, requires JavaScript)',
 		'type' => 'Authentication method',
 	),
 	'bdd' => array(
@@ -27,9 +25,9 @@ return array(
 		),
 		'host' => 'Host',
 		'prefix' => 'Table prefix',
-		'password' => 'HTTP password',
+		'password' => 'Database password',
 		'type' => 'Type of database',
-		'username' => 'HTTP username',
+		'username' => 'Database username',
 	),
 	'check' => array(
 		'_' => 'Checks',
@@ -39,44 +37,48 @@ return array(
 			'ok' => 'Permissions on cache directory are good.',
 		),
 		'ctype' => array(
-			'nok' => 'You lack a required library for character type checking (php-ctype).',
+			'nok' => 'Cannot find a required library for character type checking (php-ctype).',
 			'ok' => 'You have the required library for character type checking (ctype).',
 		),
 		'curl' => array(
-			'nok' => 'You lack cURL (php5-curl package).',
-			'ok' => 'You have cURL extension.',
+			'nok' => 'Cannot find the cURL library (php-curl package).',
+			'ok' => 'You have the cURL library.',
 		),
 		'data' => array(
 			'nok' => 'Check permissions on <em>./data</em> directory. HTTP server must have rights to write into',
 			'ok' => 'Permissions on data directory are good.',
 		),
 		'dom' => array(
-			'nok' => 'You lack a required library to browse the DOM (php-xml package).',
+			'nok' => 'Cannot find a required library to browse the DOM.',
 			'ok' => 'You have the required library to browse the DOM.',
 		),
 		'favicons' => array(
 			'nok' => 'Check permissions on <em>./data/favicons</em> directory. HTTP server must have rights to write into',
 			'ok' => 'Permissions on favicons directory are good.',
 		),
+		'fileinfo' => array(
+			'nok' => 'Cannot find the PHP fileinfo library (fileinfo package).',
+			'ok' => 'You have the fileinfo library.',
+		),
 		'http_referer' => array(
 			'nok' => 'Please check that you are not altering your HTTP REFERER.',
 			'ok' => 'Your HTTP REFERER is known and corresponds to your server.',
 		),
+		'json' => array(
+			'nok' => 'Cannot find a recommended library to parse JSON.',
+			'ok' => 'You have a recommended library to parse JSON.',
+		),
 		'minz' => array(
-			'nok' => 'You lack the Minz framework.',
+			'nok' => 'Cannot find the Minz framework.',
 			'ok' => 'You have the Minz framework.',
 		),
 		'pcre' => array(
-			'nok' => 'You lack a required library for regular expressions (php-pcre).',
+			'nok' => 'Cannot find a required library for regular expressions (php-pcre).',
 			'ok' => 'You have the required library for regular expressions (PCRE).',
 		),
 		'pdo' => array(
-			'nok' => 'You lack PDO or one of the supported drivers (pdo_mysql, pdo_sqlite).',
-			'ok' => 'You have PDO and at least one of the supported drivers (pdo_mysql, pdo_sqlite).',
-		),
-		'persona' => array(
-			'nok' => 'Check permissions on <em>./data/persona</em> directory. HTTP server must have rights to write into',
-			'ok' => 'Permissions on Mozilla Persona directory are good.',
+			'nok' => 'Cannot find PDO or one of the supported drivers (pdo_mysql, pdo_sqlite, pdo_pgsql).',
+			'ok' => 'You have PDO and at least one of the supported drivers (pdo_mysql, pdo_sqlite, pdo_pgsql).',
 		),
 		'php' => array(
 			'nok' => 'Your PHP version is %s but FreshRSS requires at least version %s.',
@@ -85,6 +87,10 @@ return array(
 		'users' => array(
 			'nok' => 'Check permissions on <em>./data/users</em> directory. HTTP server must have rights to write into',
 			'ok' => 'Permissions on users directory are good.',
+		),
+		'xml' => array(
+			'nok' => 'Cannot find the required library to parse XML.',
+			'ok' => 'You have the required library to parse XML.',
 		),
 	),
 	'conf' => array(

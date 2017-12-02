@@ -25,7 +25,7 @@ class FreshRSS_Themes extends Minz_Model {
 	}
 
 	public static function get_infos($theme_id) {
-		$theme_dir = PUBLIC_PATH . self::$themesUrl . $theme_id ;
+		$theme_dir = PUBLIC_PATH . self::$themesUrl . $theme_id;
 		if (is_dir($theme_dir)) {
 			$json_filename = $theme_dir . '/metadata.json';
 			if (file_exists($json_filename)) {
@@ -109,14 +109,8 @@ class FreshRSS_Themes extends Minz_Model {
 		}
 
 		$url = $name . '.svg';
-		$url = isset(self::$themeIcons[$url]) ? (self::$themeIconsUrl . $url) :
-			(self::$defaultIconsUrl . $url);
+		$url = isset(self::$themeIcons[$url]) ? (self::$themeIconsUrl . $url) : (self::$defaultIconsUrl . $url);
 
-		return $urlOnly ? Minz_Url::display($url) :
-			'<img class="icon" src="' . Minz_Url::display($url) . '" alt="' . $alts[$name] . '" />';
+		return $urlOnly ? Minz_Url::display($url) : '<img class="icon" src="' . Minz_Url::display($url) . '" alt="' . $alts[$name] . '" />';
 	}
-}
-
-function _i($icon, $url_only = false) {
-	return FreshRSS_Themes::icon($icon, $url_only);
 }

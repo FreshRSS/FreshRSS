@@ -85,6 +85,17 @@ class Minz_Request {
 	}
 
 	/**
+	 * Return true if the request is over HTTPS, false otherwise (HTTP)
+	 */
+	public static function isHttps() {
+		if (isset($_SERVER['HTTP_X_FORWARDED_PROTO'])) {
+			return strtolower($_SERVER['HTTP_X_FORWARDED_PROTO']) === 'https';
+		} else {
+			return isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on';
+		}
+	}
+
+	/**
 	 * Try to guess the base URL from $_SERVER information
 	 *
 	 * @return the base url (e.g. http://example.com/)
@@ -92,11 +103,7 @@ class Minz_Request {
 	public static function guessBaseUrl() {
 		$url = 'http';
 
-		if (isset($_SERVER['HTTP_X_FORWARDED_PROTO'])) {
-			$https = strtolower($_SERVER['HTTP_X_FORWARDED_PROTO']) === 'https';
-		} else {
-			$https = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on';
-		}
+		$https = self::isHttps();
 
 		if (!empty($_SERVER['HTTP_HOST'])) {
 			$host = $_SERVER['HTTP_HOST'];
@@ -130,12 +137,11 @@ class Minz_Request {
 	/**
 	 * Return the base_url from configuration and add a suffix if given.
 	 *
-	 * @param $base_url_suffix a string to add at base_url (default: empty string)
 	 * @return the base_url with a suffix.
 	 */
-	public static function getBaseUrl($base_url_suffix = '') {
+	public static function getBaseUrl() {
 		$conf = Minz_Configuration::get('system');
-		$url = rtrim($conf->base_url, '/\\') . $base_url_suffix;
+		$url = rtrim($conf->base_url, '/\\');
 		return filter_var($url, FILTER_SANITIZE_URL);
 	}
 

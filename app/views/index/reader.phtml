@@ -19,7 +19,7 @@ if (!empty($this->entries)) {
 					$feed = FreshRSS_CategoryDAO::findFeed($this->categories, $item->feed());	//We most likely already have the feed object in cache
 					if (empty($feed)) $feed = $item->feed(true);
 				?>
-				<a href="<?php echo $item->link(); ?>">
+				<a target="_blank" rel="noreferrer" class="go_website" href="<?php echo $item->link(); ?>">
 					<img class="favicon" src="<?php echo $feed->favicon(); ?>" alt="✇" /> <span><?php echo $feed->name(); ?></span>
 				</a>
 				<h1 class="title"><?php echo $item->title(); ?></h1>

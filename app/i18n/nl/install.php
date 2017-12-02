@@ -9,14 +9,12 @@ return array(
 		'reinstall' => 'Installeer FreshRSS opnieuw',
 	),
 	'auth' => array(
-		'email_persona' => 'Log in mail adres<br /><small>(voor <a href="https://persona.org/" rel="external">Mozilla Persona</a>)</small>',
 		'form' => 'Web formulier (traditioneel, benodigd JavaScript)',
 		'http' => 'HTTP (voor geavanceerde gebruikers met HTTPS)',
 		'none' => 'Geen (gevaarlijk)',
 		'password_form' => 'Wachtwoord<br /><small>(voor de Web-formulier log in methode)</small>',
 		'password_format' => 'Tenminste 7 tekens',
-		'persona' => 'Mozilla Persona (modern, benodigd JavaScript)',
-		'type' => 'Authenticatie methode',
+		'type' => 'Authenticatiemethode',
 	),
 	'bdd' => array(
 		'_' => 'Database',
@@ -27,9 +25,9 @@ return array(
 		),
 		'host' => 'Host',
 		'prefix' => 'Tabel voorvoegsel',
-		'password' => 'HTTP wachtwoord',
+		'password' => 'Database wachtwoord',
 		'type' => 'Type database',
-		'username' => 'HTTP gebruikersnaam',
+		'username' => 'Database gebruikersnaam',
 	),
 	'check' => array(
 		'_' => 'Controles',
@@ -43,7 +41,7 @@ return array(
 			'ok' => 'U hebt de benodigde bibliotheek voor character type checking (ctype).',
 		),
 		'curl' => array(
-			'nok' => 'U mist cURL (php5-curl package).',
+			'nok' => 'U mist cURL (php-curl package).',
 			'ok' => 'U hebt de cURL uitbreiding.',
 		),
 		'data' => array(
@@ -51,16 +49,24 @@ return array(
 			'ok' => 'Permissies van de data map zijn goed.',
 		),
 		'dom' => array(
-			'nok' => 'U mist een benodigde bibliotheek om te bladeren in de DOM (php-xml package).',
+			'nok' => 'U mist een benodigde bibliotheek om te bladeren in de DOM.',
 			'ok' => 'U hebt de benodigde bibliotheek om te bladeren in de DOM.',
 		),
 		'favicons' => array(
 			'nok' => 'Controleer permissies van de <em>./data/favicons</em> map. HTTP server moet rechten hebben om er in te kunnen schrijven',
 			'ok' => 'Permissies van de favicons map zijn goed.',
 		),
+		'fileinfo' => array(
+			'nok' => 'U mist PHP fileinfo (fileinfo package).',
+			'ok' => 'U hebt de fileinfo uitbreiding.',
+		),
 		'http_referer' => array(
 			'nok' => 'Controleer a.u.b. dat u niet uw HTTP REFERER wijzigd.',
 			'ok' => 'Uw HTTP REFERER is bekend en komt overeen met uw server.',
+		),
+		'json' => array(
+			'nok' => 'U mist een benodigede bibliotheek om JSON te gebruiken.',
+			'ok' => 'U hebt de benodigde bibliotheek om JSON te gebruiken.',
 		),
 		'minz' => array(
 			'nok' => 'U mist het Minz framework.',
@@ -71,12 +77,8 @@ return array(
 			'ok' => 'U hebt de benodigde bibliotheek voor regular expressions (PCRE).',
 		),
 		'pdo' => array(
-			'nok' => 'U mist PDO of één van de ondersteunde (pdo_mysql, pdo_sqlite).',
-			'ok' => 'U hebt PDO en ten minste één van de ondersteunde drivers (pdo_mysql, pdo_sqlite).',
-		),
-		'persona' => array(
-			'nok' => 'Controleer permissies van de <em>./data/persona</em> map. HTTP server moet rechten hebben om er in te kunnen schrijven',
-			'ok' => 'Permissies van de Mozilla Persona map zijn goed.',
+			'nok' => 'U mist PDO of één van de ondersteunde (pdo_mysql, pdo_sqlite, pdo_pgsql).',
+			'ok' => 'U hebt PDO en ten minste één van de ondersteunde drivers (pdo_mysql, pdo_sqlite, pdo_pgsql).',
 		),
 		'php' => array(
 			'nok' => 'Uw PHP versie is %s maar FreshRSS benodigd tenminste versie %s.',
@@ -86,18 +88,22 @@ return array(
 			'nok' => 'Controleer permissies van de <em>./data/users</em> map. HTTP server moet rechten hebben om er in te kunnen schrijven',
 			'ok' => 'Permissies van de users map zijn goed.',
 		),
+		'xml' => array(
+			'nok' => 'U mist de benodigde bibliotheek om XML te gebruiken.',
+			'ok' => 'U hebt de benodigde bibliotheek om XML te gebruiken.',
+		),
 	),
 	'conf' => array(
 		'_' => 'Algemene configuratie',
 		'ok' => 'Algemene configuratie is opgeslagen.',
 	),
 	'congratulations' => 'Gefeliciteerd!',
-	'default_user' => 'Gebruikersnaam van de standaard gebruiker <small>(maximaal 16 alphanumerieke tekens)</small>',
+	'default_user' => 'Gebruikersnaam van de standaardgebruiker <small>(maximaal 16 alfanumerieke tekens)</small>',
 	'delete_articles_after' => 'Verwijder artikelen na',
 	'fix_errors_before' => 'Repareer fouten alvorens U naar de volgende stap gaat.',
 	'javascript_is_better' => 'FreshRSS werkt beter JavaScript ingeschakeld',
 	'js' => array(
-		'confirm_reinstall' => 'U verliest uw vorige configuratie door FreshRSS opnieuw te installeren. Weet u zeker dat u verder wilt gaan?',
+		'confirm_reinstall' => 'U zal uw vorige configuratie kwijtraken door FreshRSS opnieuw te installeren. Weet u zeker dat u verder wilt gaan?',
 	),
 	'language' => array(
 		'_' => 'Taal',
@@ -105,7 +111,7 @@ return array(
 		'defined' => 'Taal is bepaald.',
 	),
 	'not_deleted' => 'Er ging iets fout! U moet het bestand <em>%s</em> handmatig verwijderen.',
-	'ok' => 'De installatie procedure is geslaagd.',
+	'ok' => 'De installatieprocedure is geslaagd.',
 	'step' => 'stap %d',
 	'steps' => 'Stappen',
 	'title' => 'Installatie · FreshRSS',

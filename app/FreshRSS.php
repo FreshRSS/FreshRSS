@@ -34,32 +34,30 @@ class FreshRSS extends Minz_FrontController {
 
 		// Auth has to be initialized before using currentUser session parameter
 		// because it's this part which create this parameter.
-		$this->initAuth();
+		self::initAuth();
 
 		// Then, register the user configuration and use the configuration setter
 		// created above.
 		$current_user = Minz_Session::param('currentUser', '_');
 		Minz_Configuration::register('user',
 		                             join_path(USERS_PATH, $current_user, 'config.php'),
-		                             join_path(USERS_PATH, '_', 'config.default.php'),
+		                             join_path(FRESHRSS_PATH, 'config-user.default.php'),
 		                             $configuration_setter);
 
 		// Finish to initialize the other FreshRSS / Minz components.
 		FreshRSS_Context::init();
-		$this->initI18n();
-		FreshRSS_Share::load(join_path(DATA_PATH, 'shares.php'));
-		$this->loadStylesAndScripts();
-		$this->loadNotifications();
+		self::initI18n();
+		self::loadNotifications();
 		// Enable extensions for the current (logged) user.
-		if (FreshRSS_Auth::hasAccess()) {
+		if (FreshRSS_Auth::hasAccess() || $system_conf->allow_anonymous) {
 			$ext_list = FreshRSS_Context::$user_conf->extensions_enabled;
 			Minz_ExtensionManager::enableByList($ext_list);
 		}
 	}
 
-	private function initAuth() {
+	private static function initAuth() {
 		FreshRSS_Auth::init();
-		if (Minz_Request::isPost() && !is_referer_from_same_domain()) {
+		if (Minz_Request::isPost() && !(is_referer_from_same_domain() && FreshRSS_Auth::isCsrfOk())) {
 			// Basic protection against XSRF attacks
 			FreshRSS_Auth::removeAccess();
 			$http_referer = empty($_SERVER['HTTP_REFERER']) ? '' : $_SERVER['HTTP_REFERER'];
@@ -74,15 +72,15 @@ class FreshRSS extends Minz_FrontController {
 		}
 	}
 
-	private function initI18n() {
+	private static function initI18n() {
 		Minz_Session::_param('language', FreshRSS_Context::$user_conf->language);
 		Minz_Translate::init(FreshRSS_Context::$user_conf->language);
 	}
 
-	private function loadStylesAndScripts() {
+	public static function loadStylesAndScripts() {
 		$theme = FreshRSS_Themes::load(FreshRSS_Context::$user_conf->theme);
 		if ($theme) {
-			foreach($theme['files'] as $file) {
+			foreach(array_reverse($theme['files']) as $file) {
 				if ($file[0] === '_') {
 					$theme_id = 'base-theme';
 					$filename = substr($file, 1);
@@ -91,30 +89,46 @@ class FreshRSS extends Minz_FrontController {
 					$filename = $file;
 				}
 				$filetime = @filemtime(PUBLIC_PATH . '/themes/' . $theme_id . '/' . $filename);
-				Minz_View::appendStyle(Minz_Url::display(
-					'/themes/' . $theme_id . '/' . $filename . '?' . $filetime
-				));
+				$url = '/themes/' . $theme_id . '/' . $filename . '?' . $filetime;
+				header('Link: <' . Minz_Url::display($url, '', 'root') . '>;rel=preload', false);	//HTTP2
+				Minz_View::prependStyle(Minz_Url::display($url));
 			}
 		}
-
-		Minz_View::appendScript(Minz_Url::display('/scripts/jquery.min.js?' . @filemtime(PUBLIC_PATH . '/scripts/jquery.min.js')));
-		Minz_View::appendScript(Minz_Url::display('/scripts/shortcut.js?' . @filemtime(PUBLIC_PATH . '/scripts/shortcut.js')));
-		Minz_View::appendScript(Minz_Url::display('/scripts/main.js?' . @filemtime(PUBLIC_PATH . '/scripts/main.js')));
-
-		if (FreshRSS_Context::$system_conf->auth_type === 'persona') {
-			// TODO move it in a plugin
-			// Needed for login AND logout with Persona.
-			Minz_View::appendScript('https://login.persona.org/include.js');
-			$file_mtime = @filemtime(PUBLIC_PATH . '/scripts/persona.js');
-			Minz_View::appendScript(Minz_Url::display('/scripts/persona.js?' . $file_mtime));
-		}
+		//Use prepend to insert before extensions. Added in reverse order.
+		Minz_View::prependScript(Minz_Url::display('/scripts/main.js?' . @filemtime(PUBLIC_PATH . '/scripts/main.js')));
+		Minz_View::prependScript(Minz_Url::display('/scripts/shortcut.js?' . @filemtime(PUBLIC_PATH . '/scripts/shortcut.js')));
+		Minz_View::prependScript(Minz_Url::display('/scripts/jquery.min.js?' . @filemtime(PUBLIC_PATH . '/scripts/jquery.min.js')));
 	}
 
-	private function loadNotifications() {
+	private static function loadNotifications() {
 		$notif = Minz_Session::param('notification');
 		if ($notif) {
 			Minz_View::_param('notification', $notif);
 			Minz_Session::_param('notification');
 		}
+	}
+
+	public static function preLayout() {
+		switch (Minz_Request::controllerName()) {
+			case 'index':
+				$urlToAuthorize = array_filter(array_map(function ($a) {
+					if (isset($a['method']) && $a['method'] === 'POST') {
+						return $a['url'];
+					}
+				}, FreshRSS_Context::$user_conf->sharing));
+				$connectSrc = count($urlToAuthorize) ? sprintf("; connect-src 'self' %s", implode(' ', $urlToAuthorize)) : '';
+				header(sprintf("Content-Security-Policy: default-src 'self'; child-src *; frame-src *; img-src * data:; media-src *%s", $connectSrc));
+				break;
+			case 'stats':
+				header("Content-Security-Policy: default-src 'self'; style-src 'self' 'unsafe-inline'");
+				break;
+			default:
+				header("Content-Security-Policy: default-src 'self'");
+				break;
+		}
+		header("X-Content-Type-Options: nosniff");
+
+		FreshRSS_Share::load(join_path(DATA_PATH, 'shares.php'));
+		self::loadStylesAndScripts();
 	}
 }

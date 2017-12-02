@@ -21,7 +21,6 @@ return array(
 			'success' => 'Jste odhlášen',
 		),
 		'no_password_set' => 'Heslo administrátora nebylo nastaveno. Tato funkce není k dispozici.',
-		'not_persona' => 'Resetovat lze pouze systém Persona.',
 	),
 	'conf' => array(
 		'error' => 'Během ukládání nastavení došlo k chybě',
@@ -44,12 +43,12 @@ return array(
 		'not_found' => '%s neexistuje',
 	),
 	'import_export' => array(
-		'export_no_zip_extension' => 'Na serveru není naistalována podpora zip. Zkuste prosím exportovat soubory jeden po druhém.',
+		'export_no_zip_extension' => 'Na serveru není naistalována podpora ZIP. Zkuste prosím exportovat soubory jeden po druhém.',
 		'feeds_imported' => 'Vaše kanály byly naimportovány a nyní budou aktualizovány',
 		'feeds_imported_with_errors' => 'Vaše kanály byly naimportovány, došlo ale k nějakým chybám',
 		'file_cannot_be_uploaded' => 'Soubor nelze nahrát!',
-		'no_zip_extension' => 'Na serveru není naistalována podpora zip.',
-		'zip_error' => 'Během importu zip souboru došlo k chybě.',
+		'no_zip_extension' => 'Na serveru není naistalována podpora ZIP.',
+		'zip_error' => 'Během importu ZIP souboru došlo k chybě.',
 	),
 	'sub' => array(
 		'actualize' => 'Aktualizovat',
@@ -88,7 +87,7 @@ return array(
 	'update' => array(
 		'can_apply' => 'FreshRSS bude nyní upgradováno na <strong>verzi %s</strong>.',
 		'error' => 'Během upgrade došlo k chybě: %s',
-		'file_is_nok' => 'Zkontrolujte oprávnění adresáře <em>%s</em>. HTTP server musí mít do tohoto adresáře práva zápisu',
+		'file_is_nok' => '<strong>Verzi %s</strong>. Zkontrolujte oprávnění adresáře <em>%s</em>. HTTP server musí mít do tohoto adresáře práva zápisu',
 		'finished' => 'Upgrade hotov!',
 		'none' => 'Novější verze není k dispozici',
 		'server_not_found' => 'Nelze nalézt server s instalačním souborem. [%s]',

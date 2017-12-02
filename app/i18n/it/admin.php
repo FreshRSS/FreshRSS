@@ -8,7 +8,6 @@ return array(
 		'form' => 'Web form (tradizionale, richiede JavaScript)',
 		'http' => 'HTTP (per gli utenti avanzati con HTTPS)',
 		'none' => 'Nessuno (pericoloso)',
-		'persona' => 'Mozilla Persona (moderno, richiede JavaScript)',
 		'title' => 'Autenticazione',
 		'title_reset' => 'Reset autenticazione',
 		'token' => 'Token di autenticazione',
@@ -34,7 +33,7 @@ return array(
 			'ok' => 'Libreria richiesta per il controllo dei caratteri presente (ctype).',
 		),
 		'curl' => array(
-			'nok' => 'Manca il supporto per cURL (pacchetto php5-curl).',
+			'nok' => 'Manca il supporto per cURL (pacchetto php-curl).',
 			'ok' => 'Estensione cURL presente.',
 		),
 		'data' => array(
@@ -58,6 +57,10 @@ return array(
 			'nok' => 'La tabella Feed ha una configurazione errata.',
 			'ok' => 'Tabella Feed OK.',
 		),
+		'fileinfo' => array(
+			'nok' => 'Manca il supporto per PHP fileinfo (pacchetto fileinfo).',
+			'ok' => 'Estensione fileinfo presente.',
+		),
 		'files' => 'Installazione files',
 		'json' => array(
 			'nok' => 'Manca il supoorto a JSON (pacchetto php5-json).',
@@ -72,12 +75,8 @@ return array(
 			'ok' => 'Libreria richiesta per le regular expressions presente (PCRE).',
 		),
 		'pdo' => array(
-			'nok' => 'Manca PDO o uno degli altri driver supportati (pdo_mysql, pdo_sqlite).',
-			'ok' => 'PDO e altri driver supportati (pdo_mysql, pdo_sqlite).',
-		),
-		'persona' => array(
-			'nok' => 'Verifica i permessi sulla cartella <em>./data/persona</em>. Il server HTTP deve avere i permessi per scriverci dentro',
-			'ok' => 'I permessi sulla cartella Mozilla Persona sono corretti.',
+			'nok' => 'Manca PDO o uno degli altri driver supportati (pdo_mysql, pdo_sqlite, pdo_pgsql).',
+			'ok' => 'PDO e altri driver supportati (pdo_mysql, pdo_sqlite, pdo_pgsql).',
 		),
 		'php' => array(
 			'_' => 'Installazione PHP',
@@ -98,7 +97,7 @@ return array(
 			'ok' => 'I permessi sulla cartella users sono corretti.',
 		),
 		'zip' => array(
-			'nok' => 'Manca estensione ZIP (pacchetto php5-zip).',
+			'nok' => 'Manca estensione ZIP (pacchetto php-zip).',
 			'ok' => 'Estensione ZIP presente.',
 		),
 	),
@@ -169,7 +168,6 @@ return array(
 	'user' => array(
 		'articles_and_size' => '%s articoli (%s)',
 		'create' => 'Crea nuovo utente',
-		'email_persona' => 'Indirizzo mail<br /><small>(Login <a href="https://persona.org/" rel="external">Mozilla Persona</a>)</small>',
 		'language' => 'Lingua',
 		'number' => ' %d profilo utente creato',
 		'numbers' => 'Sono presenti %d profili utente',

@@ -76,7 +76,6 @@ return array(
 			'_' => 'Account verwijderen',
 			'warn' => 'Uw account en alle gerelateerde gegvens worden verwijderd.',
 		),
-		'email_persona' => 'Log in mail adres<br /><small>(voor <a href="https://persona.org/" rel="external">Mozilla Persona</a>)</small>',
 		'password_api' => 'Wachtwoord API<br /><small>(e.g., voor mobiele apps)</small>',
 		'password_form' => 'Wachtwoord<br /><small>(voor de Web-formulier log in methode)</small>',
 		'password_format' => 'Ten minste 7 tekens',
@@ -93,6 +92,7 @@ return array(
 		'display_categories_unfolded' => 'Toon categoriën ingeklapt als standaard',
 		'hide_read_feeds' => 'Verberg categoriën en feeds zonder ongelezen artikelen (werkt niet met “Toon alle artikelen” configuratie)',
 		'img_with_lazyload' => 'Gebruik "lazy load" methode om afbeeldingen te laden',
+		'sides_close_article' => 'Sluit het artikel door buiten de artikeltekst te klikken',
 		'jump_next' => 'Ga naar volgende ongelezen (feed of categorie)',
 		'mark_updated_article_unread' => 'Markeer vernieuwd artikel als ongelezen',
 		'number_divided_when_reader' => 'Gedeeld door 2 in de lees modus.',
@@ -104,7 +104,7 @@ return array(
 			'when' => 'Markeer artikel als gelezen…',
 		),
 		'show' => array(
-			'_' => 	'Artikelen om te tonen',
+			'_' => 'Artikelen om te tonen',
 			'adaptive' => 'Pas weergave aan',
 			'all_articles' => 'Bekijk alle artikelen',
 			'unread' => 'Bekijk alleen ongelezen',
@@ -168,7 +168,7 @@ return array(
 	'user' => array(
 		'articles_and_size' => '%s artikelen (%s)',
 		'current' => 'Huidige gebruiker',
-		'is_admin' => 'is administrateur',
+		'is_admin' => 'is beheerder',
 		'users' => 'Gebruikers',
 	),
 );

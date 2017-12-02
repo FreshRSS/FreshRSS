@@ -76,7 +76,6 @@ return array(
 			'_' => 'Suppression du compte',
 			'warn' => 'Le compte et toutes les données associées vont être supprimées.',
 		),
-		'email_persona' => 'Adresse courriel de connexion<br /><small>(pour <a href="https://persona.org/" rel="external">Mozilla Persona</a>)</small>',
 		'password_api' => 'Mot de passe API<br /><small>(ex. : pour applis mobiles)</small>',
 		'password_form' => 'Mot de passe<br /><small>(pour connexion par formulaire)</small>',
 		'password_format' => '7 caractères minimum',
@@ -94,6 +93,7 @@ return array(
 		'display_categories_unfolded' => 'Afficher les catégories pliées par défaut',
 		'hide_read_feeds' => 'Cacher les catégories & flux sans article non-lu (ne fonctionne pas avec la configuration “Afficher tous les articles”)',
 		'img_with_lazyload' => 'Utiliser le mode “chargement différé” pour les images',
+		'sides_close_article' => 'Cliquer hors de la zone de texte ferme l’article',
 		'jump_next' => 'sauter au prochain voisin non lu (flux ou catégorie)',
 		'number_divided_when_reader' => 'Divisé par 2 dans la vue de lecture.',
 		'read' => array(

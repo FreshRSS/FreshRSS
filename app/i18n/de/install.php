@@ -4,18 +4,16 @@ return array(
 	'action' => array(
 		'finish' => 'Installation fertigstellen',
 		'fix_errors_before' => 'Bitte Fehler korrigieren, bevor zum nächsten Schritt gesprungen wird.',
-		'keep_install' => 'Vorherige Installation beibehalten (Daten)',
+		'keep_install' => 'Vorherige Konfiguration beibehalten',
 		'next_step' => 'Zum nächsten Schritt springen',
 		'reinstall' => 'Neuinstallation von FreshRSS',
 	),
 	'auth' => array(
-		'email_persona' => 'Anmelde-E-Mail-Adresse<br /><small>(für <a href="https://persona.org/" rel="external">Mozilla Persona</a>)</small>',
 		'form' => 'Webformular (traditionell, benötigt JavaScript)',
 		'http' => 'HTTP (HTTPS für erfahrene Benutzer)',
 		'none' => 'Keine (gefährlich)',
 		'password_form' => 'Passwort<br /><small>(für die Anmeldemethode per Webformular)</small>',
 		'password_format' => 'mindestens 7 Zeichen',
-		'persona' => 'Mozilla Persona (modern, benötigt JavaScript)',
 		'type' => 'Authentifizierungsmethode',
 	),
 	'bdd' => array(
@@ -43,7 +41,7 @@ return array(
 			'ok' => 'Sie haben die benötigte Bibliothek für die Überprüfung von Zeichentypen (ctype).',
 		),
 		'curl' => array(
-			'nok' => 'Ihnen fehlt cURL (Paket php5-curl).',
+			'nok' => 'Ihnen fehlt cURL (Paket php-curl).',
 			'ok' => 'Sie haben die cURL-Erweiterung.',
 		),
 		'data' => array(
@@ -51,16 +49,24 @@ return array(
 			'ok' => 'Die Berechtigungen des Verzeichnisses <em>./data</em> sind in Ordnung.',
 		),
 		'dom' => array(
-			'nok' => 'Ihnen fehlt eine benötigte Bibliothek um DOM zu durchstöbern (Paket php-xml).',
+			'nok' => 'Ihnen fehlt eine benötigte Bibliothek um DOM zu durchstöbern.',
 			'ok' => 'Sie haben die benötigte Bibliothek um DOM zu durchstöbern.',
 		),
 		'favicons' => array(
 			'nok' => 'Überprüfen Sie die Berechtigungen des Verzeichnisses <em>./data/favicons</em>. Der HTTP-Server muss Schreibrechte besitzen.',
 			'ok' => 'Die Berechtigungen des Verzeichnisses <em>./data/favicons</em> sind in Ordnung.',
 		),
+		'fileinfo' => array(
+			'nok' => 'Ihnen fehlt PHP fileinfo (Paket fileinfo).',
+			'ok' => 'Sie haben die fileinfo-Erweiterung.',
+		),
 		'http_referer' => array(
 			'nok' => 'Bitte stellen Sie sicher, dass Sie Ihren HTTP REFERER nicht abändern.',
 			'ok' => 'Ihr HTTP REFERER ist bekannt und entspricht Ihrem Server.',
+		),
+		'json' => array(
+			'nok' => 'Ihnen fehlt eine empfohlene Bibliothek um JSON zu parsen.',
+			'ok' => 'Sie haben eine empfohlene Bibliothek um JSON zu parsen.',
 		),
 		'minz' => array(
 			'nok' => 'Ihnen fehlt das Minz-Framework.',
@@ -71,12 +77,8 @@ return array(
 			'ok' => 'Sie haben die benötigte Bibliothek für reguläre Ausdrücke (PCRE).',
 		),
 		'pdo' => array(
-			'nok' => 'Ihnen fehlt PDO oder einer der unterstützten Treiber (pdo_mysql, pdo_sqlite).',
-			'ok' => 'Sie haben PDO und mindestens einen der unterstützten Treiber (pdo_mysql, pdo_sqlite).',
-		),
-		'persona' => array(
-			'nok' => 'Überprüfen Sie die Berechtigungen des Verzeichnisses <em>./data/persona</em>. Der HTTP-Server muss Schreibrechte besitzen.',
-			'ok' => 'Die Berechtigungen des Verzeichnisses <em>./data/persona</em> sind in Ordnung.',
+			'nok' => 'Ihnen fehlt PDO oder einer der unterstützten Treiber (pdo_mysql, pdo_sqlite, pdo_pgsql).',
+			'ok' => 'Sie haben PDO und mindestens einen der unterstützten Treiber (pdo_mysql, pdo_sqlite, pdo_pgsql).',
 		),
 		'php' => array(
 			'nok' => 'Ihre PHP-Version ist %s aber FreshRSS benötigt mindestens Version %s.',
@@ -85,6 +87,10 @@ return array(
 		'users' => array(
 			'nok' => 'Überprüfen Sie die Berechtigungen des Verzeichnisses <em>./data/users</em>. Der HTTP-Server muss Schreibrechte besitzen.',
 			'ok' => 'Die Berechtigungen des Verzeichnisses <em>./data/users</em> sind in Ordnung.',
+		),
+		'xml' => array(
+			'nok' => 'Ihnen fehlt die benötigte Bibliothek um XML zu parsen.',
+			'ok' => 'Sie haben die benötigte Bibliothek um XML zu parsen.',
 		),
 	),
 	'conf' => array(

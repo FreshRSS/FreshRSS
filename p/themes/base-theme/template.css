@@ -55,6 +55,12 @@ p {
 	margin: 1em 0 0.5em;
 	font-size: 1em;
 }
+sup {
+	line-height: 25px;
+	position: relative;
+	top: -0.8em;
+	vertical-align: baseline;
+}
 
 /*=== Images */
 img {
@@ -93,6 +99,7 @@ input.extend:focus {
 input, select, textarea {
 	display: inline-block;
 	max-width: 100%;
+	font-size: 0.8rem;
 }
 input[type="radio"],
 input[type="checkbox"] {
@@ -121,6 +128,11 @@ td.numeric {
 
 /*=== COMPONENTS */
 /*===============*/
+
+[aria-hidden="true"] {
+	display: none;
+}
+
 /*=== Forms */
 .form-group::after {
 	content: "";
@@ -345,10 +357,15 @@ a.btn {
 /*=== Tree */
 .tree {
 	margin: 0;
-	padding: 0;
+	padding: 0 0 2em 0;
 	list-style: none;
 	text-align: left;
 }
+
+.treepadding {
+	padding: 0 0 15em 0;
+}
+
 .tree-folder-items {
 	padding: 0;
 	list-style: none;
@@ -631,6 +648,9 @@ br + br + br {
 .stat > table {
 	width: 100%;
 }
+.statGraph {
+	height: 300px;
+}
 
 /*=== GLOBAL VIEW */
 /*================*/
@@ -810,6 +830,10 @@ input:checked + .slide-container .properties {
 	display: none;
 }
 
+.enclosure > [download] {
+	font-size: xx-large;
+	margin-left: .8em;
+}
 
 /*=== MOBILE */
 /*===========*/
@@ -820,6 +844,15 @@ input:checked + .slide-container .properties {
 	.item.date, .day .date,
 	.dropdown-menu > .no-mobile,
 	.no-mobile {
+		display: none;
+	}
+	.dropdown .dropdown-menu {
+		border-radius: 0;
+		bottom: 0;
+		position: fixed;
+		width: 100%;
+	}
+	.dropdown-menu::after {
 		display: none;
 	}
 	.aside .toggle_aside,

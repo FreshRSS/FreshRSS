@@ -8,7 +8,6 @@ return array(
 		'form' => 'Webový formulář (tradiční, vyžaduje JavaScript)',
 		'http' => 'HTTP (pro pokročilé uživatele s HTTPS)',
 		'none' => 'Žádný (nebezpečné)',
-		'persona' => 'Mozilla Persona (moderní, vyžaduje JavaScript)',
 		'title' => 'Přihlášení',
 		'title_reset' => 'Reset přihlášení',
 		'token' => 'Authentizační token',
@@ -34,7 +33,7 @@ return array(
 			'ok' => 'Máte požadovanou knihovnu pro ověřování znaků (ctype).',
 		),
 		'curl' => array(
-			'nok' => 'Nemáte cURL (balíček php5-curl).',
+			'nok' => 'Nemáte cURL (balíček php-curl).',
 			'ok' => 'Máte rozšíření cURL.',
 		),
 		'data' => array(
@@ -58,6 +57,10 @@ return array(
 			'nok' => 'Tabulka kanálů je nastavena špatně.',
 			'ok' => 'Tabulka kanálů je v pořádku.',
 		),
+		'fileinfo' => array(
+			'nok' => 'Nemáte PHP fileinfo (balíček fileinfo).',
+			'ok' => 'Máte rozšíření fileinfo.',
+		),
 		'files' => 'Instalace souborů',
 		'json' => array(
 			'nok' => 'Nemáte JSON (balíček php5-json).',
@@ -72,12 +75,8 @@ return array(
 			'ok' => 'Máte požadovanou knihovnu pro regulární výrazy (PCRE).',
 		),
 		'pdo' => array(
-			'nok' => 'Nemáte PDO nebo některý z podporovaných ovladačů (pdo_mysql, pdo_sqlite).',
-			'ok' => 'Máte PDO a alespoň jeden z podporovaných ovladačů (pdo_mysql, pdo_sqlite).',
-		),
-		'persona' => array(
-			'nok' => 'Zkontrolujte oprávnění adresáře <em>./data/persona</em>. HTTP server musí mít do tohoto adresáře práva zápisu',
-			'ok' => 'Oprávnění adresáře Mozilla Persona jsou v pořádku.',
+			'nok' => 'Nemáte PDO nebo některý z podporovaných ovladačů (pdo_mysql, pdo_sqlite, pdo_pgsql).',
+			'ok' => 'Máte PDO a alespoň jeden z podporovaných ovladačů (pdo_mysql, pdo_sqlite, pdo_pgsql).',
 		),
 		'php' => array(
 			'_' => 'PHP instalace',
@@ -98,7 +97,7 @@ return array(
 			'ok' => 'Oprávnění adresáře users jsou v pořádku.',
 		),
 		'zip' => array(
-			'nok' => 'Nemáte rozšíření ZIP (balíček php5-zip).',
+			'nok' => 'Nemáte rozšíření ZIP (balíček php-zip).',
 			'ok' => 'Máte rozšíření ZIP.',
 		),
 	),
@@ -169,7 +168,6 @@ return array(
 	'user' => array(
 		'articles_and_size' => '%s článků (%s)',
 		'create' => 'Vytvořit nového uživatele',
-		'email_persona' => 'Email pro přihlášení<br /><small>(pro <a href="https://persona.org/" rel="external">Mozilla Persona</a>)</small>',
 		'language' => 'Jazyk',
 		'number' => 'Zatím je vytvořen %d účet',
 		'numbers' => 'Zatím je vytvořeno %d účtů',

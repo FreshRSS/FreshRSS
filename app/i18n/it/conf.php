@@ -76,7 +76,6 @@ return array(
 			'_' => 'Cancellazione account',
 			'warn' => 'Il tuo account e tutti i dati associati saranno cancellati.',
 		),
-		'email_persona' => 'Indirizzo email<br /><small>(Login <a href="https://persona.org/" rel="external">Mozilla Persona</a>)</small>',
 		'password_api' => 'Password API<br /><small>(e.g., per applicazioni mobili)</small>',
 		'password_form' => 'Password<br /><small>(per il login classico)</small>',
 		'password_format' => 'Almeno 7 caratteri',
@@ -94,6 +93,7 @@ return array(
 		'display_categories_unfolded' => 'Mostra categorie aperte di predefinito',
 		'hide_read_feeds' => 'Nascondi categorie e feeds con articoli già letti (non funziona se “Mostra tutti gli articoli” è selezionato)',
 		'img_with_lazyload' => 'Usa la modalità "caricamento ritardato" per le immagini',
+		'sides_close_article' => 'Clicking outside of article text area closes the article',	//TODO
 		'jump_next' => 'Salta al successivo feed o categoria non letto',
 		'number_divided_when_reader' => 'Diviso 2 nella modalità di lettura.',
 		'read' => array(
@@ -104,7 +104,7 @@ return array(
 			'when' => 'Segna articoli come letti…',
 		),
 		'show' => array(
-			'_' => 	'Articoli da visualizzare',
+			'_' => 'Articoli da visualizzare',
 			'adaptive' => 'Adatta visualizzazione',
 			'all_articles' => 'Mostra tutti gli articoli',
 			'unread' => 'Mostra solo non letti',

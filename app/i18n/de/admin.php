@@ -8,7 +8,6 @@ return array(
 		'form' => 'Webformular (traditionell, benötigt JavaScript)',
 		'http' => 'HTTP (HTTPS für erfahrene Benutzer)',
 		'none' => 'Keine (gefährlich)',
-		'persona' => 'Mozilla Persona (modern, benötigt JavaScript)',
 		'title' => 'Authentifizierung',
 		'title_reset' => 'Zurücksetzen der Authentifizierung',
 		'token' => 'Authentifizierungs-Token',
@@ -34,7 +33,7 @@ return array(
 			'ok' => 'Sie haben die benötigte Bibliothek für die Überprüfung von Zeichentypen (ctype).',
 		),
 		'curl' => array(
-			'nok' => 'Ihnen fehlt cURL (Paket php5-curl).',
+			'nok' => 'Ihnen fehlt cURL (Paket php-curl).',
 			'ok' => 'Sie haben die cURL-Erweiterung.',
 		),
 		'data' => array(
@@ -58,6 +57,10 @@ return array(
 			'nok' => 'Die Tabelle <em>feed</em> ist schlecht konfiguriert.',
 			'ok' => 'Die Tabelle <em>feed</em> ist korrekt konfiguriert.',
 		),
+		'fileinfo' => array(
+			'nok' => 'Ihnen fehlt PHP fileinfo (Paket fileinfo).',
+			'ok' => 'Sie haben die fileinfo-Erweiterung.',
+		),
 		'files' => 'Datei-Installation',
 		'json' => array(
 			'nok' => 'Ihnen fehlt die JSON-Erweiterung (Paket php5-json).',
@@ -72,12 +75,8 @@ return array(
 			'ok' => 'Sie haben die benötigte Bibliothek für reguläre Ausdrücke (PCRE).',
 		),
 		'pdo' => array(
-			'nok' => 'Ihnen fehlt PDO oder einer der unterstützten Treiber (pdo_mysql, pdo_sqlite).',
-			'ok' => 'Sie haben PDO und mindestens einen der unterstützten Treiber (pdo_mysql, pdo_sqlite).',
-		),
-		'persona' => array(
-			'nok' => 'Überprüfen Sie die Berechtigungen des Verzeichnisses <em>./data/persona</em>. Der HTTP-Server muss Schreibrechte besitzen.',
-			'ok' => 'Die Berechtigungen des Verzeichnisses <em>./data/persona</em> sind in Ordnung.',
+			'nok' => 'Ihnen fehlt PDO oder einer der unterstützten Treiber (pdo_mysql, pdo_sqlite, pdo_pgsql).',
+			'ok' => 'Sie haben PDO und mindestens einen der unterstützten Treiber (pdo_mysql, pdo_sqlite, pdo_pgsql).',
 		),
 		'php' => array(
 			'_' => 'PHP-Installation',
@@ -98,7 +97,7 @@ return array(
 			'ok' => 'Die Berechtigungen des Verzeichnisses <em>./data/users</em> sind in Ordnung.',
 		),
 		'zip' => array(
-			'nok' => 'Ihnen fehlt die ZIP-Erweiterung (Paket php5-zip).',
+			'nok' => 'Ihnen fehlt die ZIP-Erweiterung (Paket php-zip).',
 			'ok' => 'Sie haben die ZIP-Erweiterung.',
 		),
 	),
@@ -147,11 +146,11 @@ return array(
 		'top_feed' => 'Top 10-Feeds',
 	),
 	'system' => array(
-		'_' => 'System configuration', // @todo translate
-		'auto-update-url' => 'Auto-update server URL', // @todo translate
-		'instance-name' => 'Instance name', // @todo translate
-		'max-categories' => 'Categories per user limit', // @todo translate
-		'max-feeds' => 'Feeds per user limit', // @todo translate
+		'_' => 'Systemeinstellungen',
+		'auto-update-url' => 'Auto-update URL',
+		'instance-name' => 'Dein Reader Name',
+		'max-categories' => 'Anzahl erlaubter Kategorien pro Benutzer',
+		'max-feeds' => 'Anzahl erlaubter Feeds pro Benutzer',
 		'registration' => array(
 			'help' => '0 meint, dass es kein Account Limit gibt',
 			'number' => 'Maximale Anzahl von Accounts',
@@ -169,7 +168,6 @@ return array(
 	'user' => array(
 		'articles_and_size' => '%s Artikel (%s)',
 		'create' => 'Neuen Benutzer erstellen',
-		'email_persona' => 'Anmelde-E-Mail-Adresse<br /><small>(für <a href="https://persona.org/" rel="external">Mozilla Persona</a>)</small>',
 		'language' => 'Sprache',
 		'number' => 'Es wurde bis jetzt %d Account erstellt',
 		'numbers' => 'Es wurden bis jetzt %d Accounts erstellt',

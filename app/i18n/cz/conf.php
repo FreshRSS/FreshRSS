@@ -76,7 +76,6 @@ return array(
 			'_' => 'Smazání účtu',
 			'warn' => 'Váš účet bude smazán spolu se všemi souvisejícími daty',
 		),
-		'email_persona' => 'Email pro přihlášení<br /><small>(pro <a href="https://persona.org/" rel="external">Mozilla Persona</a>)</small>',
 		'password_api' => 'Password API<br /><small>(tzn. pro mobilní aplikace)</small>',
 		'password_form' => 'Heslo<br /><small>(pro přihlášení webovým formulářem)</small>',
 		'password_format' => 'Alespoň 7 znaků',
@@ -94,6 +93,7 @@ return array(
 		'display_categories_unfolded' => 'Ve výchozím stavu zobrazovat kategorie zavřené',
 		'hide_read_feeds' => 'Schovat kategorie a kanály s nulovým počtem nepřečtených článků (nefunguje s nastavením “Zobrazit všechny články”)',
 		'img_with_lazyload' => 'Použít "lazy load" mód pro načítaní obrázků',
+		'sides_close_article' => 'Clicking outside of article text area closes the article',	//TODO
 		'jump_next' => 'skočit na další nepřečtený (kanál nebo kategorii)',
 		'number_divided_when_reader' => 'V režimu “Čtení” děleno dvěma.',
 		'read' => array(
@@ -104,7 +104,7 @@ return array(
 			'when' => 'Označit článek jako přečtený…',
 		),
 		'show' => array(
-			'_' => 	'Počet zobrazených článků',
+			'_' => 'Počet zobrazených článků',
 			'adaptive' => 'Vyberte zobrazení',
 			'all_articles' => 'Zobrazit všechny články',
 			'unread' => 'Zobrazit jen nepřečtené',
