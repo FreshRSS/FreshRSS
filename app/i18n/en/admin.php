@@ -112,6 +112,11 @@ return array(
 		),
 		'title' => 'Extensions',
 		'user' => 'User extensions',
+        'community' => 'Available community extensions for download',
+        'name' => 'Name',
+        'version' => 'Version',
+        'description' => 'Description',
+        'author' => 'Author',
 	),
 	'stats' => array(
 		'_' => 'Statistics',

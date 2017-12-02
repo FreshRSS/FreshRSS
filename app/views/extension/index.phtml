@@ -33,6 +33,26 @@
 	<p class="alert alert-warn"><?php echo _t('admin.extensions.empty_list'); ?></p>
 	<?php } ?>
 	</form>
+
+    <?php if (!empty($this->available_extensions)) { ?>
+		<h2><?php echo _t('admin.extensions.community'); ?></h2>
+		<table>
+			<tr>
+				<th><?php echo _t('admin.extensions.name'); ?></th>
+				<th><?php echo _t('admin.extensions.version'); ?></th>
+				<th><?php echo _t('admin.extensions.author'); ?></th>
+				<th><?php echo _t('admin.extensions.description'); ?></th>
+			</tr>
+        	<?php foreach ($this->available_extensions as $ext) { ?>
+			<tr>
+				<td><a href="<?php echo $ext['url']; ?>" target="_blank"><?php echo $ext['name']; ?></a></td>
+				<td><?php echo $ext['version']; ?></td>
+				<td><?php echo $ext['author']; ?></td>
+				<td><?php echo $ext['description']; ?></td>
+			</tr>
+        	<?php } ?>
+		</table>
+    <?php } ?>
 </div>
 
 <?php $class = isset($this->extension) ? ' class="active"' : ''; ?>

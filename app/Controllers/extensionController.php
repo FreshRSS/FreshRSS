@@ -29,7 +29,35 @@ class FreshRSS_extension_Controller extends Minz_ActionController {
 		foreach ($extensions as $ext) {
 			$this->view->extension_list[$ext->getType()][] = $ext;
 		}
-	}
+
+        $availableExtensions = $this->getAvailableExtensionList();
+        $this->view->available_extensions = $availableExtensions;
+    }
+
+    /**
+     * fetch extension list from GitHub
+     */
+    protected function getAvailableExtensionList()
+    {
+        $extensionListUrl = 'https://raw.githubusercontent.com/kevinpapst/Extensions/extension-list/extensions.json';
+        $json = file_get_contents($extensionListUrl);
+        $list = json_decode($json, true);
+
+        if (empty($list)) {
+            return [];
+        }
+
+        // we could use that for comparing and caching later
+        $version = $list['version'];
+
+        // By now, all the needed data is kept in the main extension file.
+        // In the future we could fetch detail information from the extensions metadata.json, but I tend to stick wit
+        // the current implementation for now, unless it becomes to much effort maintain the extension list manually
+        $extensions = $list['extensions'];
+
+        return $extensions;
+    }
+
 
 	/**
 	 * This action handles configuration of a given extension.
