@@ -8,7 +8,7 @@
 
 # Extensions
 
-If you want to create your own FreshRSS extension, either use the [incomplete english documentation](03_Backend/05_Extensions.md) or try the more complete [french version](../../fr/developers/03_Backend/05_Extensions.md).
+If you want to create your own FreshRSS extension, take a look at the [extension documentation](03_Backend/05_Extensions.md).  
 
 # Coding style
 

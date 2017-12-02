@@ -1,5 +1,3 @@
-
-
 # FreshRSS administration
 
 Learn how to install, update and backup FreshRSS and how to use the command line tools.
