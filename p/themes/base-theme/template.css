@@ -2,9 +2,20 @@
 
 /*=== GENERAL */
 /*============*/
+@font-face {
+	font-family: 'OpenSans';
+	font-style: normal;
+	font-weight: 400;
+	src: local('Open Sans'), local('OpenSans'),
+	url('../fonts/OpenSans.woff2') format('woff2'),
+	url('../fonts/OpenSans.woff') format('woff'),
+	url('../fonts/OpenSans.ttf') format('truetype'),
+}
+
 html, body {
 	margin: 0;
 	padding: 0;
+	font-family: "OpenSans", "Cantarell", "Helvetica", "Arial", sans-serif;
 	font-size: 100%;
 }
 
