@@ -99,5 +99,5 @@ Example to get the number of feeds of a given user:
 
 # Install and updates
 
-If you want to administrate FreshRSS using git, please read our [Installation docs](https://freshrss.github.io/FreshRSS/en/admins/02_Installation.html)
+If you want to administrate FreshRSS using git, please read our [installation docs](https://freshrss.github.io/FreshRSS/en/admins/02_Installation.html)
 and [update guidelines](https://freshrss.github.io/FreshRSS/en/users/08_Updating.html). 
