@@ -7,6 +7,7 @@
 * Features
 	* Share with Mastodon [#1521](https://github.com/FreshRSS/FreshRSS/issues/1521)
 * UI
+	* Add more Unicode glyphs in the Open Sans font [#1032](https://github.com/FreshRSS/FreshRSS/pull/1032)
 	* Show URL to add subscriptions from third-party tools [#1247](https://github.com/FreshRSS/FreshRSS/issues/1247)
 	* Improved message when checking for new versions [#1586](https://github.com/FreshRSS/FreshRSS/issues/1586)
 * SimplePie

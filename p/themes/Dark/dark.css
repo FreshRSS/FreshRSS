@@ -1,11 +1,5 @@
 @charset "UTF-8";
 
-/*=== FONTS */
-@font-face {
-	font-family: "OpenSans";
-	src: url("../fonts/openSans.woff") format("woff");
-}
-
 /*=== GENERAL */
 /*============*/
 html, body {
