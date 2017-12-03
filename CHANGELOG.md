@@ -22,6 +22,8 @@
 	* Perform `VACUUM` on SQLite and PostgreSQL databases when optimisation is requested [#918](https://github.com/FreshRSS/FreshRSS/issues/918)
 * I18n
 	* Improved German [#1698](https://github.com/FreshRSS/FreshRSS/pull/1698)
+* Extensions
+	* New function `$entry->_hash($hex)` for extensios that change the content of entries [#1707](https://github.com/FreshRSS/FreshRSS/pull/1707)
 * Misc.
 	* Translation validation tool [#1653](https://github.com/FreshRSS/FreshRSS/pull/1653)
 	* Translation manipulation tool [#1658](https://github.com/FreshRSS/FreshRSS/pull/1658)

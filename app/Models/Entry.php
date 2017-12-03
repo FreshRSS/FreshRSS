@@ -97,6 +97,14 @@ class FreshRSS_Entry extends Minz_Model {
 		return $this->hash;
 	}
 
+	public function _hash($value) {
+		$value = trim($value);
+		if (ctype_xdigit($value)) {
+			$this->hash = substr($value, 0, 32);
+		}
+		return $this->hash;
+	}
+
 	public function _id($value) {
 		$this->id = $value;
 	}
