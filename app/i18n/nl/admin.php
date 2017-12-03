@@ -112,6 +112,13 @@ return array(
 		),
 		'title' => 'Uitbreidingen',
 		'user' => 'Gebruikersuitbreidingen',
+		'community' => 'Available community extensions for download', // @todo translate
+		'name' => 'Name', // @todo translate
+		'version' => 'Version', // @todo translate
+		'description' => 'Description', // @todo translate
+		'author' => 'Author', // @todo translate
+		'latest' => 'Installed', // @todo translate
+		'update' => 'Update available', // @todo translate
 	),
 	'stats' => array(
 		'_' => 'Statistieken',
