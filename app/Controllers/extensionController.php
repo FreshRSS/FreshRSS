@@ -35,13 +35,12 @@ class FreshRSS_extension_Controller extends Minz_ActionController {
 
 		$availableExtensions = $this->getAvailableExtensionList();
 		$this->view->available_extensions = $availableExtensions;
-    }
+	}
 
 	/**
 	 * fetch extension list from GitHub
 	 */
-	protected function getAvailableExtensionList()
-	{
+	protected function getAvailableExtensionList() {
 		$extensionListUrl = 'https://raw.githubusercontent.com/kevinpapst/Extensions/extension-list/extensions.json';
 		$json = file_get_contents($extensionListUrl);
 
