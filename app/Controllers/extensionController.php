@@ -33,42 +33,41 @@ class FreshRSS_extension_Controller extends Minz_ActionController {
 			$this->view->extensions_installed[$ext->getEntrypoint()] = $ext->getVersion();
 		}
 
-        $availableExtensions = $this->getAvailableExtensionList();
-        $this->view->available_extensions = $availableExtensions;
+		$availableExtensions = $this->getAvailableExtensionList();
+		$this->view->available_extensions = $availableExtensions;
     }
 
-    /**
-     * fetch extension list from GitHub
-     */
-    protected function getAvailableExtensionList()
-    {
-        $extensionListUrl = 'https://raw.githubusercontent.com/kevinpapst/Extensions/extension-list/extensions.json';
-        $json = file_get_contents($extensionListUrl);
+	/**
+	 * fetch extension list from GitHub
+	 */
+	protected function getAvailableExtensionList()
+	{
+		$extensionListUrl = 'https://raw.githubusercontent.com/kevinpapst/Extensions/extension-list/extensions.json';
+		$json = file_get_contents($extensionListUrl);
 
-        // we ran into problems, simply ignore them
-        if ($json === false) {
+		// we ran into problems, simply ignore them
+		if ($json === false) {
 			Minz_Log::error('Could not fetch available extension from GitHub');
 			return array();
 		}
 
 		// fetch the list as an array
-        $list = json_decode($json, true);
-        if (empty($list)) {
+		$list = json_decode($json, true);
+		if (empty($list)) {
 			Minz_Log::warning('Failed to convert extension file list');
-            return array();
-        }
+			return array();
+		}
 
-        // we could use that for comparing and caching later
-        $version = $list['version'];
+		// we could use that for comparing and caching later
+		$version = $list['version'];
 
-        // By now, all the needed data is kept in the main extension file.
-        // In the future we could fetch detail information from the extensions metadata.json, but I tend to stick with
-        // the current implementation for now, unless it becomes too much effort maintain the extension list manually
-        $extensions = $list['extensions'];
+		// By now, all the needed data is kept in the main extension file.
+		// In the future we could fetch detail information from the extensions metadata.json, but I tend to stick with
+		// the current implementation for now, unless it becomes too much effort maintain the extension list manually
+		$extensions = $list['extensions'];
 
-        return $extensions;
-    }
-
+		return $extensions;
+	}
 
 	/**
 	 * This action handles configuration of a given extension.
