@@ -332,4 +332,4 @@ TODO :
 
 ### Écrire le fichier configure.phtml
 
-TODO
+Lorsque vous voulez ajouter de la configuration à votre extension ou afficher ses informations, vous devez créer le fichier `configure.phtml`.
