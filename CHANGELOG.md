@@ -7,6 +7,7 @@
 * Features
 	* Share with Mastodon [#1521](https://github.com/FreshRSS/FreshRSS/issues/1521)
 * UI
+	* Add more Unicode glyphs in the Open Sans font [#1032](https://github.com/FreshRSS/FreshRSS/pull/1032)
 	* Show URL to add subscriptions from third-party tools [#1247](https://github.com/FreshRSS/FreshRSS/issues/1247)
 	* Improved message when checking for new versions [#1586](https://github.com/FreshRSS/FreshRSS/issues/1586)
 * SimplePie
@@ -21,6 +22,8 @@
 	* Perform `VACUUM` on SQLite and PostgreSQL databases when optimisation is requested [#918](https://github.com/FreshRSS/FreshRSS/issues/918)
 * I18n
 	* Improved German [#1698](https://github.com/FreshRSS/FreshRSS/pull/1698)
+* Extensions
+	* New function `$entry->_hash($hex)` for extensios that change the content of entries [#1707](https://github.com/FreshRSS/FreshRSS/pull/1707)
 * Misc.
 	* Translation validation tool [#1653](https://github.com/FreshRSS/FreshRSS/pull/1653)
 	* Translation manipulation tool [#1658](https://github.com/FreshRSS/FreshRSS/pull/1658)
