@@ -51,7 +51,7 @@
 					<td>
 						<?php echo $ext['description']; ?>
 						<?php if (isset($this->extensions_installed[$ext['name']])) { ?>
-							<?php if ($this->extensions_installed[$ext['name']] == $ext['version']) { ?>
+							<?php if (version_compare($this->extensions_installed[$ext['name']], $ext['version']) >= 0) { ?>
 								<span class="alert alert-success">
 									<?php echo _t('admin.extensions.latest'); ?>
 								</span>
