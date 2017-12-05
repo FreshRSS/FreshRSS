@@ -41,7 +41,7 @@ class FreshRSS_extension_Controller extends Minz_ActionController {
 	 * fetch extension list from GitHub
 	 */
 	protected function getAvailableExtensionList() {
-		$extensionListUrl = 'https://raw.githubusercontent.com/kevinpapst/Extensions/extension-list/extensions.json';
+		$extensionListUrl = 'https://raw.githubusercontent.com/FreshRSS/Extensions/master/extensions.json';
 		$json = file_get_contents($extensionListUrl);
 
 		// we ran into problems, simply ignore them
