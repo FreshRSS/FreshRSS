@@ -112,7 +112,7 @@ return array(
 		),
 		'title' => 'Erweiterungen',
 		'user' => 'Benutzer-Erweiterungen',
-		'community' => 'Verfügbare Community Erweiterungen zum Download',
+		'community' => 'Verfügbare Community Erweiterungen',
 		'name' => 'Name',
 		'version' => 'Version',
 		'description' => 'Beschreibungen',

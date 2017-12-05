@@ -112,7 +112,7 @@ return array(
 		),
 		'title' => 'Extensions',
 		'user' => 'User extensions',
-		'community' => 'Available community extensions for download',
+		'community' => 'Available community extensions',
 		'name' => 'Name',
 		'version' => 'Version',
 		'description' => 'Description',
