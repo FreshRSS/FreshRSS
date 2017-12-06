@@ -112,6 +112,13 @@ return array(
 		),
 		'title' => 'Uitbreidingen',
 		'user' => 'Gebruikersuitbreidingen',
+		'community' => 'Gebruikersuitbreidingen beschikbaar',
+		'name' => 'Naam',
+		'version' => 'Versie',
+		'description' => 'Beschrijving',
+		'author' => 'Auteur',
+		'latest' => 'Geïnstalleerd',
+		'update' => 'Update beschikbaar',
 	),
 	'stats' => array(
 		'_' => 'Statistieken',

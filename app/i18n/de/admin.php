@@ -112,6 +112,13 @@ return array(
 		),
 		'title' => 'Erweiterungen',
 		'user' => 'Benutzer-Erweiterungen',
+		'community' => 'Verfügbare Community Erweiterungen',
+		'name' => 'Name',
+		'version' => 'Version',
+		'description' => 'Beschreibungen',
+		'author' => 'Autor',
+		'latest' => 'Installiert',
+		'update' => 'Update verfügbar',
 	),
 	'stats' => array(
 		'_' => 'Statistiken',
