@@ -112,7 +112,7 @@ return array(
 		),
 		'title' => 'Estensioni',
 		'user' => 'Estensioni utente',
-		'community' => 'Available community extensions for download', // @todo translate
+		'community' => 'Available community extensions', // @todo translate
 		'name' => 'Name', // @todo translate
 		'version' => 'Version', // @todo translate
 		'description' => 'Description', // @todo translate

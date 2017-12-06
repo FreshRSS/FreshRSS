@@ -112,8 +112,8 @@ return array(
 		),
 		'title' => 'Extensions',
 		'user' => 'Extensions utilisateur',
-		'community' => 'Available community extensions for download', // @todo translate
-		'name' => 'Name', // @todo translate
+		'community' => 'Extensions utilisateur disponibles', // @todo translate
+		'name' => 'Nom', // @todo translate
 		'version' => 'Version', // @todo translate
 		'description' => 'Description', // @todo translate
 		'author' => 'Author', // @todo translate

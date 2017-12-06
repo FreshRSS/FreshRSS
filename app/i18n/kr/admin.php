@@ -112,7 +112,7 @@ return array(
 		),
 		'title' => '확장 기능',
 		'user' => '사용자 확장 기능',
-		'community' => 'Available community extensions for download', // @todo translate
+		'community' => 'Available community extensions', // @todo translate
 		'name' => 'Name', // @todo translate
 		'version' => 'Version', // @todo translate
 		'description' => 'Description', // @todo translate

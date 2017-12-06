@@ -112,7 +112,7 @@ return array(
 		),
 		'title' => 'Uitbreidingen',
 		'user' => 'Gebruikersuitbreidingen',
-		'community' => 'Gebruikersuitbreidingen beschikbaar voor download',
+		'community' => 'Gebruikersuitbreidingen beschikbaar',
 		'name' => 'Naam',
 		'version' => 'Versie',
 		'description' => 'Beschrijving',
