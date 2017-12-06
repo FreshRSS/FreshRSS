@@ -103,22 +103,22 @@ return array(
 	),
 	'extensions' => array(
 		'disabled' => 'Désactivée',
-		'empty_list' => 'Il n’y a aucune extension installée.',
+		'empty_list' => 'Aucune extension installée',
 		'enabled' => 'Activée',
-		'no_configure_view' => 'Cette extension ne peut pas être configurée.',
+		'no_configure_view' => 'Cette extension n’a pas à être configurée',
 		'system' => array(
 			'_' => 'Extensions système',
-			'no_rights' => 'Extension système (vous n’avez aucun droit dessus)',
+			'no_rights' => 'Extensions système (contrôlées par l’administrateur)',
 		),
 		'title' => 'Extensions',
 		'user' => 'Extensions utilisateur',
-		'community' => 'Extensions utilisateur disponibles', // @todo translate
-		'name' => 'Nom', // @todo translate
-		'version' => 'Version', // @todo translate
-		'description' => 'Description', // @todo translate
-		'author' => 'Author', // @todo translate
-		'latest' => 'Installed', // @todo translate
-		'update' => 'Update available', // @todo translate
+		'community' => 'Extensions utilisateur disponibles',
+		'name' => 'Nom',
+		'version' => 'Version',
+		'description' => 'Description',
+		'author' => 'Auteur',
+		'latest' => 'Installée',
+		'update' => 'Mise à jour disponible',
 	),
 	'stats' => array(
 		'_' => 'Statistiques',
