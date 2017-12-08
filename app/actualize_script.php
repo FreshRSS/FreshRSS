@@ -32,9 +32,10 @@ FreshRSS_Context::$isCli = true;
 
 // make sure the PHP setup of the CLI environment is compatible with FreshRSS as well
 require(LIB_PATH . '/lib_install.php');
-$requirements =checkRequirements($system_conf->db['type']);
-if ($requirements['pdo'] === 'ko') {
-	die('There is a problem with your PDO setup, make sure the pdo extension for your database type is loaded');
+foreach (checkRequirements($system_conf->db['type']) as $key => $value) {
+	if ($value == 'ko') {
+		die('There is a problem with your PHP setup, the following requirement check failed: ' . $key);
+	}
 }
 
 // Create the list of users to actualize.
