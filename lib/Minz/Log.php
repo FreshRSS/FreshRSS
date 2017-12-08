@@ -73,7 +73,7 @@ class Minz_Log {
 			     . ' [' . $level_label . ']'
 			     . ' --- ' . $information . "\n";
 
-			self::checkForLogfileSize($file_name);
+			self::checkLogfileSize($file_name);
 
 			if (file_put_contents($file_name, $log, FILE_APPEND | LOCK_EX) === false) {
 				throw new Minz_PermissionDeniedException($file_name, Minz_Exception::ERROR);
@@ -90,7 +90,7 @@ class Minz_Log {
 	 * @param $file_name
 	 * @throws Minz_PermissionDeniedException
 	 */
-	protected static function checkForLogfileSize($file_name) {
+	protected static function checkLogfileSize($file_name) {
 		if (file_exists($file_name) && filesize($file_name) > self::MAX_LOG_SIZE) {
 			if (!unlink($file_name)) {
 				throw new Minz_PermissionDeniedException($file_name, Minz_Exception::ERROR);
