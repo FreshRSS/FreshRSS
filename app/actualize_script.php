@@ -1,5 +1,4 @@
 <?php
-
 require(dirname(__FILE__) . '/../constants.php');
 require(LIB_PATH . '/lib_rss.php');	//Includes class autoloader
 
