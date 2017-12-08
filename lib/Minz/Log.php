@@ -20,6 +20,8 @@ class Minz_Log {
 	const NOTICE = 8;
 	const DEBUG = 16;
 
+	const MAX_LOG_SIZE = 512000; // 500kB
+
 	/**
 	 * Enregistre un message dans un fichier de log spécifique
 	 * Message non loggué si
@@ -29,6 +31,7 @@ class Minz_Log {
 	 * @param $information message d'erreur / information à enregistrer
 	 * @param $level niveau d'erreur
 	 * @param $file_name fichier de log
+	 * @throws Minz_PermissionDeniedException
 	 */
 	public static function record ($information, $level, $file_name = null) {
 		try {
@@ -70,7 +73,26 @@ class Minz_Log {
 			     . ' [' . $level_label . ']'
 			     . ' --- ' . $information . "\n";
 
+			self::checkForLogfileSize($file_name);
+
 			if (file_put_contents($file_name, $log, FILE_APPEND | LOCK_EX) === false) {
+				throw new Minz_PermissionDeniedException($file_name, Minz_Exception::ERROR);
+			}
+		}
+	}
+
+	/**
+	 * Make sure we do not waste a huge amount of disk space with old log messages.
+	 *
+	 * This method can be called multiple times for one script execution, but its result will not change unless
+	 * you call clearstatcache() in between. We won't due do that for performance reasons.
+	 *
+	 * @param $file_name
+	 * @throws Minz_PermissionDeniedException
+	 */
+	protected static function checkForLogfileSize($file_name) {
+		if (file_exists($file_name) && filesize($file_name) > self::MAX_LOG_SIZE) {
+			if (!unlink($file_name)) {
 				throw new Minz_PermissionDeniedException($file_name, Minz_Exception::ERROR);
 			}
 		}
