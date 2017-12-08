@@ -1,4 +1,5 @@
 <?php
+
 require(dirname(__FILE__) . '/../constants.php');
 require(LIB_PATH . '/lib_rss.php');	//Includes class autoloader
 
@@ -29,6 +30,13 @@ $app = new FreshRSS();
 $system_conf = Minz_Configuration::get('system');
 $system_conf->auth_type = 'none';  // avoid necessity to be logged in (not saved!)
 FreshRSS_Context::$isCli = true;
+
+// make sure the PHP setup of the CLI environment is compatible with FreshRSS as well
+require(LIB_PATH . '/lib_install.php');
+$requirements =checkRequirements($system_conf->db['type']);
+if ($requirements['pdo'] === 'ko') {
+	die('There is a problem with your PDO setup, make sure the pdo extension for your database type is loaded');
+}
 
 // Create the list of users to actualize.
 // Users are processed in a random order but always start with admin
