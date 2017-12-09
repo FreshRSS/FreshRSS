@@ -66,19 +66,7 @@ foreach ($dBparams as $dBparam) {
 	}
 }
 
-$requirements = checkRequirements($config['db']['type']);
-if ($requirements['all'] !== 'ok') {
-	$message = 'FreshRSS install failed requirements:' . "\n";
-	foreach ($requirements as $requirement => $check) {
-		if ($check !== 'ok' && !in_array($requirement, array('all', 'pdo', 'message'))) {
-			$message .= '• ' . $requirement . "\n";
-		}
-	}
-	if (!empty($requirements['message'])) {
-		$message .= '• ' . $requirements['message'] . "\n";
-	}
-	fail($message);
-}
+performRequirementCheck($config['db']['type']);
 
 if (!FreshRSS_user_Controller::checkUsername($options['default_user'])) {
 	fail('FreshRSS error: invalid default username “' . $options['default_user']

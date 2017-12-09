@@ -47,3 +47,19 @@ function done($ok = true) {
 	fwrite(STDERR, 'Result: ' . ($ok ? 'success' : 'fail') . "\n");
 	exit($ok ? 0 : 1);
 }
+
+function performRequirementCheck($databaseType) {
+	$requirements = checkRequirements($databaseType);
+	if ($requirements['all'] !== 'ok') {
+		$message = 'FreshRSS install failed requirements:' . "\n";
+		foreach ($requirements as $requirement => $check) {
+			if ($check !== 'ok' && !in_array($requirement, array('all', 'pdo', 'message'))) {
+				$message .= '• ' . $requirement . "\n";
+			}
+		}
+		if (!empty($requirements['message'])) {
+			$message .= '• ' . $requirements['message'] . "\n";
+		}
+		fail($message);
+	}
+}
