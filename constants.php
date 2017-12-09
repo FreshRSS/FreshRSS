@@ -8,6 +8,9 @@ define('FRESHRSS_USERAGENT', 'FreshRSS/' . FRESHRSS_VERSION . ' (' . PHP_OS . ';
 // PHP text output compression http://php.net/ob_gzhandler (better to do it at Web server level)
 define('PHP_COMPRESSION', false);
 
+// maximum log file size, before it will be purged (defaults to 512000 = 500kB)
+define('MAX_LOG_SIZE', 512000);
+
 // Constantes de chemins
 define('FRESHRSS_PATH', dirname(__FILE__));
 

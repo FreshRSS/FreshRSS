@@ -20,8 +20,6 @@ class Minz_Log {
 	const NOTICE = 8;
 	const DEBUG = 16;
 
-	const MAX_LOG_SIZE = 512000; // 500kB
-
 	/**
 	 * Enregistre un message dans un fichier de log spécifique
 	 * Message non loggué si
@@ -91,8 +89,9 @@ class Minz_Log {
 	 * @throws Minz_PermissionDeniedException
 	 */
 	protected static function checkLogfileSize($file_name) {
-		if (file_exists($file_name) && filesize($file_name) > self::MAX_LOG_SIZE) {
-			if (!unlink($file_name)) {
+		$maxSize = defined('MAX_LOG_SIZE') ? MAX_LOG_SIZE : 512000;
+		if (@filesize($file_name) > $maxSize) {
+			if (file_put_contents($file_name, '') === false) {
 				throw new Minz_PermissionDeniedException($file_name, Minz_Exception::ERROR);
 			}
 		}
