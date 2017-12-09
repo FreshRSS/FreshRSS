@@ -1,7 +1,6 @@
 #!/usr/bin/php
 <?php
 require('_cli.php');
-require(LIB_PATH . '/lib_install.php');
 
 if (!file_exists(DATA_PATH . '/do-install.txt')) {
 	fail('FreshRSS looks to be already installed! Please use `./cli/reconfigure.php` instead.');
