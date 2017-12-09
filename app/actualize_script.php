@@ -1,5 +1,4 @@
 <?php
-require(__DIR__ . '/../constants.php');
 require(__DIR__ . '/../cli/_cli.php');
 
 session_cache_limiter('');
