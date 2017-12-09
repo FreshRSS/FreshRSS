@@ -2,8 +2,6 @@
 require(__DIR__ . '/../constants.php');
 require(__DIR__ . '/../cli/_cli.php');
 
-require(LIB_PATH . '/lib_rss.php');	//Includes class autoloader
-
 session_cache_limiter('');
 ob_implicit_flush(false);
 ob_start();
@@ -27,7 +25,6 @@ $app = new FreshRSS();
 
 $system_conf = Minz_Configuration::get('system');
 $system_conf->auth_type = 'none';  // avoid necessity to be logged in (not saved!)
-FreshRSS_Context::$isCli = true;
 
 // make sure the PHP setup of the CLI environment is compatible with FreshRSS as well
 performRequirementCheck($system_conf->db['type']);
