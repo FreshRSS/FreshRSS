@@ -10,7 +10,7 @@ if (1 === $argc || 4 < $argc) {
 	help();
 }
 
-require_once __DIR__ . '/i18n/I18nFile.php';
+require_once('./i18n/I18nFile.php');
 
 $i18nFile = new I18nFile();
 $i18nData = $i18nFile->load();

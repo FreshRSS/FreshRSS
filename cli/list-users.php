@@ -1,6 +1,6 @@
 #!/usr/bin/php
 <?php
-require('_cli.php');
+require('./_cli.php');
 
 $users = listUsers();
 sort($users);

@@ -1,5 +1,5 @@
 <?php
-require(__DIR__ . '/../cli/_cli.php');
+require('../cli/_cli.php');
 
 session_cache_limiter('');
 ob_implicit_flush(false);
