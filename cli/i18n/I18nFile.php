@@ -1,6 +1,6 @@
 <?php
 
-require_once __DIR__ . '/I18nData.php';
+require_once('./I18nData.php');
 
 class i18nFile {
 

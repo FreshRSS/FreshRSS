@@ -1,7 +1,7 @@
 #!/usr/bin/php
 <?php
 $isUpdate = true;
-require('_update-or-create-user.php');
+require('./_update-or-create-user.php');
 
 $username = cliInitUser($options['user']);
 

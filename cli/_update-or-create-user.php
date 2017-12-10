@@ -1,5 +1,5 @@
 <?php
-require('_cli.php');
+require('./_cli.php');
 
 $params = array(
 		'user:',
