@@ -31,6 +31,10 @@ class Minz_ExtensionManager {
 			'list' => array(),
 			'signature' => 'NoneToNone',
 		),
+		'nav_reading_modes' => array(  // function($readingModes = array) -> array | null
+			'list' => array(),
+			'signature' => 'OneToOne',
+		),
 	);
 	private static $ext_to_hooks = array();
 
