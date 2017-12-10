@@ -1,6 +1,5 @@
 <?php
-require(dirname(__FILE__) . '/../constants.php');
-require(LIB_PATH . '/lib_rss.php');	//Includes class autoloader
+require(__DIR__ . '/../cli/_cli.php');
 
 session_cache_limiter('');
 ob_implicit_flush(false);
@@ -12,7 +11,6 @@ if (defined('STDOUT')) {
 	fwrite(STDOUT, 'Starting feed actualization at ' . $begin_date->format('c') . "\n");	//Unbuffered
 }
 
-
 // Set the header params ($_GET) to call the FRSS application.
 $_GET['c'] = 'feed';
 $_GET['a'] = 'actualize';
@@ -20,15 +18,15 @@ $_GET['ajax'] = 1;
 $_GET['force'] = true;
 $_SERVER['HTTP_HOST'] = '';
 
-
 $log_file = join_path(USERS_PATH, '_', 'log.txt');
-
 
 $app = new FreshRSS();
 
 $system_conf = Minz_Configuration::get('system');
 $system_conf->auth_type = 'none';  // avoid necessity to be logged in (not saved!)
-FreshRSS_Context::$isCli = true;
+
+// make sure the PHP setup of the CLI environment is compatible with FreshRSS as well
+performRequirementCheck($system_conf->db['type']);
 
 // Create the list of users to actualize.
 // Users are processed in a random order but always start with admin
@@ -38,7 +36,6 @@ if ($system_conf->default_user !== '') {
 	array_unshift($users, $system_conf->default_user);
 	$users = array_unique($users);
 }
-
 
 $limits = $system_conf->limits;
 $min_last_activity = time() - $limits['max_inactivity'];
@@ -73,7 +70,6 @@ foreach ($users as $user) {
 		}
 	}
 }
-
 
 Minz_Log::notice('FreshRSS actualize done.', $log_file);
 if (defined('STDOUT')) {
