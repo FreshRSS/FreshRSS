@@ -71,7 +71,7 @@ class Minz_Log {
 			     . ' [' . $level_label . ']'
 			     . ' --- ' . $information . "\n";
 
-			self::checkLogfileSize($file_name);
+			self::ensureMaxLogSize($file_name);
 
 			if (file_put_contents($file_name, $log, FILE_APPEND | LOCK_EX) === false) {
 				throw new Minz_PermissionDeniedException($file_name, Minz_Exception::ERROR);
@@ -88,11 +88,23 @@ class Minz_Log {
 	 * @param $file_name
 	 * @throws Minz_PermissionDeniedException
 	 */
-	protected static function checkLogfileSize($file_name) {
-		$maxSize = defined('MAX_LOG_SIZE') ? MAX_LOG_SIZE : 512000;
-		if (@filesize($file_name) > $maxSize) {
-			if (file_put_contents($file_name, '') === false) {
+	protected static function ensureMaxLogSize($file_name) {
+		$maxSize = defined('MAX_LOG_SIZE') ? MAX_LOG_SIZE : 1048576;
+		if ($maxSize > 0 && @filesize($file_name) > $maxSize) {
+			$fp = fopen($file_name, 'c+');
+			if ($fp && flock($fp, LOCK_EX)) {
+				fseek($fp, -intval($maxSize / 2), SEEK_END);
+				$content = fread($fp, $maxSize);
+				rewind($fp);
+				ftruncate($fp, 0);
+				fwrite($fp, $content ? $content : '');
+				fflush($fp);
+				flock($fp, LOCK_UN);
+			} else {
 				throw new Minz_PermissionDeniedException($file_name, Minz_Exception::ERROR);
+			}
+			if ($fp) {
+				fclose($fp);
 			}
 		}
 	}

@@ -20,10 +20,6 @@ $_GET['ajax'] = 1;
 $_GET['force'] = true;
 $_SERVER['HTTP_HOST'] = '';
 
-
-$log_file = join_path(USERS_PATH, '_', 'log.txt');
-
-
 $app = new FreshRSS();
 
 $system_conf = Minz_Configuration::get('system');
@@ -45,13 +41,13 @@ $min_last_activity = time() - $limits['max_inactivity'];
 foreach ($users as $user) {
 	if (($user !== $system_conf->default_user) &&
 			(FreshRSS_UserDAO::mtime($user) < $min_last_activity)) {
-		Minz_Log::notice('FreshRSS skip inactive user ' . $user, $log_file);
+		Minz_Log::notice('FreshRSS skip inactive user ' . $user, ADMIN_LOG);
 		if (defined('STDOUT')) {
 			fwrite(STDOUT, 'FreshRSS skip inactive user ' . $user . "\n");	//Unbuffered
 		}
 		continue;
 	}
-	Minz_Log::notice('FreshRSS actualize ' . $user, $log_file);
+	Minz_Log::notice('FreshRSS actualize ' . $user, ADMIN_LOG);
 	if (defined('STDOUT')) {
 		fwrite(STDOUT, 'Actualize ' . $user . "...\n");	//Unbuffered
 	}
@@ -66,8 +62,7 @@ foreach ($users as $user) {
 
 
 	if (!invalidateHttpCache()) {
-		Minz_Log::notice('FreshRSS write access problem in ' . join_path(USERS_PATH, $user, 'log.txt'),
-		                 $log_file);
+		Minz_Log::warning('FreshRSS write access problem in ' . join_path(USERS_PATH, $user, 'log.txt'), ADMIN_LOG);
 		if (defined('STDERR')) {
 			fwrite(STDERR, 'Write access problem in ' . join_path(USERS_PATH, $user, 'log.txt') . "\n");
 		}
@@ -75,7 +70,7 @@ foreach ($users as $user) {
 }
 
 
-Minz_Log::notice('FreshRSS actualize done.', $log_file);
+Minz_Log::notice('FreshRSS actualize done.', ADMIN_LOG);
 if (defined('STDOUT')) {
 	fwrite(STDOUT, 'Done.' . "\n");
 	$end_date = date_create('now');

@@ -263,7 +263,7 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 			if ((!$simplePiePush) && (!$feed_id) && $pubSubHubbubEnabled && ($feed->lastUpdate() > $pshbMinAge)) {
 				//$text = 'Skip pull of feed using PubSubHubbub: ' . $url;
 				//Minz_Log::debug($text);
-				//file_put_contents(USERS_PATH . '/_/log_pshb.txt', date('c') . "\t" . $text . "\n", FILE_APPEND);
+				//Minz_Log::debug($text, PSHB_LOG);
 				continue;	//When PubSubHubbub is used, do not pull refresh so often
 			}
 
@@ -371,7 +371,7 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 
 						if ($pubSubHubbubEnabled && !$simplePiePush) {	//We use push, but have discovered an article by pull!
 							$text = 'An article was discovered by pull although we use PubSubHubbub!: Feed ' . $url . ' GUID ' . $entry->guid();
-							file_put_contents(USERS_PATH . '/_/log_pshb.txt', date('c') . "\t" . $text . "\n", FILE_APPEND);
+							Minz_Log::warning($text, PSHB_LOG);
 							Minz_Log::warning($text);
 							$pubSubHubbubEnabled = false;
 							$feed->pubSubHubbubError(true);
