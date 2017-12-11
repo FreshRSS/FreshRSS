@@ -27,6 +27,7 @@
 	* Show existing extensions in admin panel [#1708](https://github.com/FreshRSS/FreshRSS/pull/1708)
 	* New function `$entry->_hash($hex)` for extensions that change the content of entries [#1707](https://github.com/FreshRSS/FreshRSS/pull/1707)
 * Misc.
+	* Basic mechanism to limit the size of the logs [#1712](https://github.com/FreshRSS/FreshRSS/pull/1712)
 	* Translation validation tool [#1653](https://github.com/FreshRSS/FreshRSS/pull/1653)
 	* Translation manipulation tool [#1658](https://github.com/FreshRSS/FreshRSS/pull/1658)
 
