@@ -29,6 +29,7 @@ class Minz_Log {
 	 * @param $information message d'erreur / information à enregistrer
 	 * @param $level niveau d'erreur
 	 * @param $file_name fichier de log
+	 * @throws Minz_PermissionDeniedException
 	 */
 	public static function record ($information, $level, $file_name = null) {
 		try {
@@ -70,8 +71,40 @@ class Minz_Log {
 			     . ' [' . $level_label . ']'
 			     . ' --- ' . $information . "\n";
 
+			self::ensureMaxLogSize($file_name);
+
 			if (file_put_contents($file_name, $log, FILE_APPEND | LOCK_EX) === false) {
 				throw new Minz_PermissionDeniedException($file_name, Minz_Exception::ERROR);
+			}
+		}
+	}
+
+	/**
+	 * Make sure we do not waste a huge amount of disk space with old log messages.
+	 *
+	 * This method can be called multiple times for one script execution, but its result will not change unless
+	 * you call clearstatcache() in between. We won't due do that for performance reasons.
+	 *
+	 * @param $file_name
+	 * @throws Minz_PermissionDeniedException
+	 */
+	protected static function ensureMaxLogSize($file_name) {
+		$maxSize = defined('MAX_LOG_SIZE') ? MAX_LOG_SIZE : 1048576;
+		if ($maxSize > 0 && @filesize($file_name) > $maxSize) {
+			$fp = fopen($file_name, 'c+');
+			if ($fp && flock($fp, LOCK_EX)) {
+				fseek($fp, -intval($maxSize / 2), SEEK_END);
+				$content = fread($fp, $maxSize);
+				rewind($fp);
+				ftruncate($fp, 0);
+				fwrite($fp, $content ? $content : '');
+				fflush($fp);
+				flock($fp, LOCK_UN);
+			} else {
+				throw new Minz_PermissionDeniedException($file_name, Minz_Exception::ERROR);
+			}
+			if ($fp) {
+				fclose($fp);
 			}
 		}
 	}
