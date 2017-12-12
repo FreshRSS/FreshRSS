@@ -3,7 +3,7 @@ if (php_sapi_name() !== 'cli') {
 	die('FreshRSS error: This PHP script may only be invoked from command line!');
 }
 
-require(dirname(__FILE__) . '/../constants.php');
+require(__DIR__ . '/../constants.php');
 require(LIB_PATH . '/lib_rss.php');
 require(LIB_PATH . '/lib_install.php');
 

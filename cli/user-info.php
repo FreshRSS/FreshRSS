@@ -1,6 +1,6 @@
 #!/usr/bin/php
 <?php
-require('_cli.php');
+require(__DIR__ . '/_cli.php');
 
 $options = getopt('h', array(
 		'user:',

@@ -18,7 +18,7 @@
 #
 # ***** END LICENSE BLOCK *****
 
-require('../../constants.php');
+require(__DIR__ . '/../../constants.php');
 require(LIB_PATH . '/lib_rss.php');	//Includes class autoloader
 
 if (file_exists(DATA_PATH . '/do-install.txt')) {
