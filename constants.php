@@ -16,15 +16,15 @@ define('APP_PATH', FRESHRSS_PATH . '/app');
 define('EXTENSIONS_PATH', FRESHRSS_PATH . '/extensions');
 //</Not customisable>
 
+function safe_define($name, $value) {
+	if (!defined($name)) {
+		return define($name, $value);
+	}
+}
+
 if (file_exists(__DIR__ . '/constants.local.php')) {
 	//Include custom / local settings:
 	include(__DIR__ . '/constants.local.php');
-}
-
-function safe_define($name, $value) {
-	if (!defined($name) {
-		return define($name, $value);
-	}
 }
 
 safe_define('FRESHRSS_USERAGENT', 'FreshRSS/' . FRESHRSS_VERSION . ' (' . PHP_OS . '; ' . FRESHRSS_WEBSITE . ')');
@@ -44,7 +44,7 @@ safe_define('ADMIN_LOG', USERS_PATH . '/_/log.txt');
 safe_define('API_LOG', USERS_PATH . '/_/log_api.txt');
 safe_define('CACHE_PATH', DATA_PATH . '/cache');
 safe_define('PSHB_LOG', USERS_PATH . '/_/log_pshb.txt');
-safe_define'PSHB_PATH', DATA_PATH . '/PubSubHubbub');
+safe_define('PSHB_PATH', DATA_PATH . '/PubSubHubbub');
 
 //Directory used for feed mutex with *.freshrss.lock files. Must be writable.
 safe_define('TMP_PATH', sys_get_temp_dir());
