@@ -26,6 +26,7 @@
 * I18n
 	* Improved German [#1698](https://github.com/FreshRSS/FreshRSS/pull/1698)
 * Extensions
+	* Breaking change: uppercase `./Controllers/` directory [#1729](https://github.com/FreshRSS/FreshRSS/pull/1729)
 	* Show existing extensions in admin panel [#1708](https://github.com/FreshRSS/FreshRSS/pull/1708)
 	* New function `$entry->_hash($hex)` for extensions that change the content of entries [#1707](https://github.com/FreshRSS/FreshRSS/pull/1707)
 * Misc.
