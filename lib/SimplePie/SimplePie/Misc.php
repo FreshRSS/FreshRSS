@@ -5,7 +5,7 @@
  * A PHP-Based RSS and Atom Feed Framework.
  * Takes the hard work out of managing a complete RSS/Atom solution.
  *
- * Copyright (c) 2004-2012, Ryan Parman, Geoffrey Sneddon, Ryan McCue, and contributors
+ * Copyright (c) 2004-2016, Ryan Parman, Geoffrey Sneddon, Ryan McCue, and contributors
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification, are
@@ -33,8 +33,7 @@
  * POSSIBILITY OF SUCH DAMAGE.
  *
  * @package SimplePie
- * @version 1.4-dev
- * @copyright 2004-2012 Ryan Parman, Geoffrey Sneddon, Ryan McCue
+ * @copyright 2004-2016 Ryan Parman, Geoffrey Sneddon, Ryan McCue
  * @author Ryan Parman
  * @author Geoffrey Sneddon
  * @author Ryan McCue
@@ -79,9 +78,9 @@ class SimplePie_Misc
 
 	public static function absolutize_url($relative, $base)
 	{
-		if (substr($relative, 0, 2) === '//')	//FreshRSS: disable absolutize_url for "//www.example.net" which will pick HTTP or HTTPS automatically
-		{
-			return $relative;
+		if (substr($relative, 0, 2) === '//')
+		{//Protocol-relative URLs "//www.example.net"
+			return 'https:' . $relative;
 		}
 		$iri = SimplePie_IRI::absolutize(new SimplePie_IRI($base), $relative);
 		if ($iri === false)
@@ -128,7 +127,7 @@ class SimplePie_Misc
 						{
 							$attribs[$j][2] = $attribs[$j][1];
 						}
-						$return[$i]['attribs'][strtolower($attribs[$j][1])]['data'] = SimplePie_Misc::entities_decode(end($attribs[$j]), 'UTF-8');	//FreshRSS
+						$return[$i]['attribs'][strtolower($attribs[$j][1])]['data'] = SimplePie_Misc::entities_decode(end($attribs[$j]));
 					}
 				}
 			}
@@ -142,7 +141,7 @@ class SimplePie_Misc
 		foreach ($element['attribs'] as $key => $value)
 		{
 			$key = strtolower($key);
-			$full .= " $key=\"" . htmlspecialchars($value['data'], ENT_COMPAT, 'UTF-8') . '"';	//FreshRSS
+			$full .= " $key=\"" . htmlspecialchars($value['data'], ENT_COMPAT, 'UTF-8') . '"';
 		}
 		if ($element['self_closing'])
 		{
@@ -338,8 +337,13 @@ class SimplePie_Misc
 		{
 			return $return;
  		}
-		// This is last, as behaviour of this varies with OS userland and PHP version
+		// This is third, as behaviour of this varies with OS userland and PHP version
 		elseif (function_exists('iconv') && ($return = SimplePie_Misc::change_encoding_iconv($data, $input, $output)))
+		{
+			return $return;
+		}
+		// This is last, as behaviour of this varies with OS userland and PHP version
+		elseif (class_exists('\UConverter') && ($return = SimplePie_Misc::change_encoding_uconverter($data, $input, $output)))
 		{
 			return $return;
 		}
@@ -391,6 +395,17 @@ class SimplePie_Misc
 	protected static function change_encoding_iconv($data, $input, $output)
 	{
 		return @iconv($input, $output, $data);
+	}
+
+	/**
+	 * @param string $data
+	 * @param string $input
+	 * @param string $output
+	 * @return string|false
+	 */
+	protected static function change_encoding_uconverter($data, $input, $output)
+	{
+		return @\UConverter::transcode($data, $output, $input);
 	}
 
 	/**
@@ -1947,7 +1962,7 @@ class SimplePie_Misc
 		return (bool) preg_match('/^([A-Za-z0-9\-._~\x{A0}-\x{D7FF}\x{F900}-\x{FDCF}\x{FDF0}-\x{FFEF}\x{10000}-\x{1FFFD}\x{20000}-\x{2FFFD}\x{30000}-\x{3FFFD}\x{40000}-\x{4FFFD}\x{50000}-\x{5FFFD}\x{60000}-\x{6FFFD}\x{70000}-\x{7FFFD}\x{80000}-\x{8FFFD}\x{90000}-\x{9FFFD}\x{A0000}-\x{AFFFD}\x{B0000}-\x{BFFFD}\x{C0000}-\x{CFFFD}\x{D0000}-\x{DFFFD}\x{E1000}-\x{EFFFD}!$&\'()*+,;=@]|(%[0-9ABCDEF]{2}))+$/u', $string);
 	}
 
-	public static function space_seperated_tokens($string)
+	public static function space_separated_tokens($string)
 	{
 		$space_characters = "\x20\x09\x0A\x0B\x0C\x0D";
 		$string_length = strlen($string);
@@ -2178,7 +2193,8 @@ function embed_wmedia(width, height, link) {
 	/**
 	 * Get the SimplePie build timestamp
 	 *
-	 * Return SimplePie.php modification time.
+	 * Uses the git index if it exists, otherwise uses the modification time
+	 * of the newest file.
 	 */
 	public static function get_build()
 	{
@@ -2239,6 +2255,16 @@ function embed_wmedia(width, height, link) {
 	public static function silence_errors($num, $str)
 	{
 		// No-op
+	}
+
+	/**
+	 * Sanitize a URL by removing HTTP credentials.
+	 * @param $url the URL to sanitize.
+	 * @return the same URL without HTTP credentials.
+	 */
+	public static function url_remove_credentials($url)	//FreshRSS
+	{
+		return preg_replace('#^(https?://)[^/:@]+:[^/:@]+@#i', '$1', $url);
 	}
 }
 

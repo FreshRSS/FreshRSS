@@ -72,7 +72,10 @@ return array(
 	),
 	'profile' => array(
 		'_' => 'Gestion du profil',
-		'email_persona' => 'Adresse courriel de connexion<br /><small>(pour <a href="https://persona.org/" rel="external">Mozilla Persona</a>)</small>',
+		'delete' => array(
+			'_' => 'Suppression du compte',
+			'warn' => 'Le compte et toutes les données associées vont être supprimées.',
+		),
 		'password_api' => 'Mot de passe API<br /><small>(ex. : pour applis mobiles)</small>',
 		'password_form' => 'Mot de passe<br /><small>(pour connexion par formulaire)</small>',
 		'password_format' => '7 caractères minimum',
@@ -84,11 +87,13 @@ return array(
 		'articles_per_page' => 'Nombre d’articles par page',
 		'auto_load_more' => 'Charger les articles suivants en bas de page',
 		'auto_remove_article' => 'Cacher les articles après lecture',
+		'mark_updated_article_unread' => 'Marquer les articles mis à jour comme non-lus',
 		'confirm_enabled' => 'Afficher une confirmation lors des actions “marquer tout comme lu”',
 		'display_articles_unfolded' => 'Afficher les articles dépliés par défaut',
 		'display_categories_unfolded' => 'Afficher les catégories pliées par défaut',
 		'hide_read_feeds' => 'Cacher les catégories & flux sans article non-lu (ne fonctionne pas avec la configuration “Afficher tous les articles”)',
 		'img_with_lazyload' => 'Utiliser le mode “chargement différé” pour les images',
+		'sides_close_article' => 'Cliquer hors de la zone de texte ferme l’article',
 		'jump_next' => 'sauter au prochain voisin non lu (flux ou catégorie)',
 		'number_divided_when_reader' => 'Divisé par 2 dans la vue de lecture.',
 		'read' => array(

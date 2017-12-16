@@ -5,7 +5,7 @@ if (!isset($_GET['f']) ||
 	die();
 }
 
-require('../constants.php');
+require(__DIR__ . '/../constants.php');
 
 /**
  * Check if a file can be served by ext.php. A valid file is under a

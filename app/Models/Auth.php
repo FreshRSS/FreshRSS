@@ -25,7 +25,7 @@ class FreshRSS_Auth {
 			self::giveAccess();
 		} elseif (self::accessControl()) {
 			self::giveAccess();
-			FreshRSS_UserDAO::touch($current_user);
+			FreshRSS_UserDAO::touch();
 		} else {
 			// Be sure all accesses are removed!
 			self::removeAccess();
@@ -60,16 +60,6 @@ class FreshRSS_Auth {
 				Minz_Session::_param('currentUser', $current_user);
 			}
 			return $login_ok;
-		case 'persona':
-			$email = filter_var(Minz_Session::param('mail'), FILTER_VALIDATE_EMAIL);
-			$persona_file = DATA_PATH . '/persona/' . $email . '.txt';
-			if (($current_user = @file_get_contents($persona_file)) !== false) {
-				$current_user = trim($current_user);
-				Minz_Session::_param('currentUser', $current_user);
-				Minz_Session::_param('mail', $email);
-				return true;
-			}
-			return false;
 		case 'none':
 			return true;
 		default:
@@ -84,6 +74,10 @@ class FreshRSS_Auth {
 	public static function giveAccess() {
 		$current_user = Minz_Session::param('currentUser');
 		$user_conf = get_user_configuration($current_user);
+		if ($user_conf == null) {
+			self::$login_ok = false;
+			return;
+		}
 		$system_conf = Minz_Configuration::get('system');
 
 		switch ($system_conf->auth_type) {
@@ -92,9 +86,6 @@ class FreshRSS_Auth {
 			break;
 		case 'http_auth':
 			self::$login_ok = strcasecmp($current_user, httpAuthUser()) === 0;
-			break;
-		case 'persona':
-			self::$login_ok = strcasecmp(Minz_Session::param('mail'), $user_conf->mail_login) === 0;
 			break;
 		case 'none':
 			self::$login_ok = true;
@@ -133,18 +124,31 @@ class FreshRSS_Auth {
 	 * Removes all accesses for the current user.
 	 */
 	public static function removeAccess() {
-		Minz_Session::_param('loginOk');
 		self::$login_ok = false;
-		$conf = Minz_Configuration::get('system');
-		Minz_Session::_param('currentUser', $conf->default_user);
+		Minz_Session::_param('loginOk');
+		Minz_Session::_param('csrf');
+		$system_conf = Minz_Configuration::get('system');
 
-		switch ($conf->auth_type) {
+		$username = '';
+		$token_param = Minz_Request::param('token', '');
+		if ($token_param != '') {
+			$username = trim(Minz_Request::param('user', ''));
+			if ($username != '') {
+				$conf = get_user_configuration($username);
+				if ($conf == null) {
+					$username = '';
+				}
+			}
+		}
+		if ($username == '') {
+			$username = $system_conf->default_user;
+		}
+		Minz_Session::_param('currentUser', $username);
+
+		switch ($system_conf->auth_type) {
 		case 'form':
 			Minz_Session::_param('passwordHash');
 			FreshRSS_FormAuth::deleteCookie();
-			break;
-		case 'persona':
-			Minz_Session::_param('mail');
 			break;
 		case 'http_auth':
 		case 'none':
@@ -170,14 +174,34 @@ class FreshRSS_Auth {
 	public static function accessNeedsAction() {
 		$conf = Minz_Configuration::get('system');
 		$auth_type = $conf->auth_type;
-		return $auth_type === 'form' || $auth_type === 'persona';
+		return $auth_type === 'form';
+	}
+
+	public static function csrfToken() {
+		$csrf = Minz_Session::param('csrf');
+		if ($csrf == '') {
+			$salt = FreshRSS_Context::$system_conf->salt;
+			$csrf = sha1($salt . uniqid(mt_rand(), true));
+			Minz_Session::_param('csrf', $csrf);
+		}
+		return $csrf;
+	}
+	public static function isCsrfOk($token = null) {
+		$csrf = Minz_Session::param('csrf');
+		if ($csrf == '') {
+			return true;	//Not logged in yet
+		}
+		if ($token === null) {
+			$token = Minz_Request::fetchPOST('_csrf');
+		}
+		return $token === $csrf;
 	}
 }
 
 
 class FreshRSS_FormAuth {
 	public static function checkCredentials($username, $hash, $nonce, $challenge) {
-		if (!ctype_alnum($username) ||
+		if (!FreshRSS_user_Controller::checkUsername($username) ||
 				!ctype_graph($challenge) ||
 				!ctype_alnum($nonce)) {
 			Minz_Log::debug('Invalid credential parameters:' .
@@ -206,7 +230,7 @@ class FreshRSS_FormAuth {
 			// Token has expired (> 1 month) or does not exist.
 			// TODO: 1 month -> use a configuration instead
 			@unlink($token_file);
-			return array(); 	
+			return array();
 		}
 
 		$credentials = @file_get_contents($token_file);
@@ -214,8 +238,8 @@ class FreshRSS_FormAuth {
 	}
 
 	public static function makeCookie($username, $password_hash) {
+		$conf = Minz_Configuration::get('system');
 		do {
-			$conf = Minz_Configuration::get('system');
 			$token = sha1($conf->salt . $username . uniqid(mt_rand(), true));
 			$token_file = DATA_PATH . '/tokens/' . $token . '.txt';
 		} while (file_exists($token_file));
@@ -224,15 +248,17 @@ class FreshRSS_FormAuth {
 			return false;
 		}
 
-		$expire = time() + 2629744;	//1 month	//TODO: Use a configuration instead
+		$limits = $conf->limits;
+		$cookie_duration = empty($limits['cookie_duration']) ? 2629744 : $limits['cookie_duration'];
+		$expire = time() + $cookie_duration;
 		Minz_Session::setLongTermCookie('FreshRSS_login', $token, $expire);
 		return $token;
 	}
 
 	public static function deleteCookie() {
 		$token = Minz_Session::getLongTermCookie('FreshRSS_login');
-		Minz_Session::deleteLongTermCookie('FreshRSS_login');
 		if (ctype_alnum($token)) {
+			Minz_Session::deleteLongTermCookie('FreshRSS_login');
 			@unlink(DATA_PATH . '/tokens/' . $token . '.txt');
 		}
 
@@ -242,7 +268,10 @@ class FreshRSS_FormAuth {
 	}
 
 	public static function purgeTokens() {
-		$oldest = time() - 2629744;	// 1 month	// TODO: Use a configuration instead
+		$conf = Minz_Configuration::get('system');
+		$limits = $conf->limits;
+		$cookie_duration = empty($limits['cookie_duration']) ? 2629744 : $limits['cookie_duration'];
+		$oldest = time() - $cookie_duration;
 		foreach (new DirectoryIterator(DATA_PATH . '/tokens/') as $file_info) {
 			// $extension = $file_info->getExtension(); doesn't work in PHP < 5.3.7
 			$extension = pathinfo($file_info->getFilename(), PATHINFO_EXTENSION);

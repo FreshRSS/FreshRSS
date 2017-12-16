@@ -27,6 +27,9 @@
 	</li>
 	<?php if (FreshRSS_Auth::hasAccess('admin')) { ?>
 	<li class="nav-header"><?php echo _t('gen.menu.admin'); ?></li>
+	<li class="item<?php echo Minz_Request::actionName() === 'system' ? ' active' : ''; ?>">
+		<a href="<?php echo _url('configure', 'system')?>"><?php echo _t('gen.menu.system'); ?></a>
+	</li>
 	<li class="item<?php echo Minz_Request::controllerName() === 'user' &&
 	                          Minz_Request::actionName() === 'manage' ? ' active' : ''; ?>">
 		<a href="<?php echo _url('user', 'manage'); ?>"><?php echo _t('gen.menu.user_management'); ?></a>
@@ -38,9 +41,11 @@
 	                          Minz_Request::actionName() === 'checkInstall' ? ' active' : ''; ?>">
 		<a href="<?php echo _url('update', 'checkInstall'); ?>"><?php echo _t('gen.menu.check_install'); ?></a>
 	</li>
+	<?php if (!Minz_Configuration::get('system')->disable_update) { ?>
 	<li class="item<?php echo Minz_Request::controllerName() === 'update' &&
 	                          Minz_Request::actionName() === 'index' ? ' active' : ''; ?>">
 		<a href="<?php echo _url('update', 'index'); ?>"><?php echo _t('gen.menu.update'); ?></a>
 	</li>
+	<?php } ?>
 	<?php } ?>
 </ul>

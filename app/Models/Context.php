@@ -10,6 +10,7 @@ class FreshRSS_Context {
 	public static $categories = array();
 
 	public static $name = '';
+	public static $description = '';
 
 	public static $total_unread = 0;
 	public static $total_starred = array(
@@ -30,10 +31,13 @@ class FreshRSS_Context {
 	public static $state = 0;
 	public static $order = 'DESC';
 	public static $number = 0;
-	public static $search = '';
+	public static $search;
 	public static $first_id = '';
 	public static $next_id = '';
 	public static $id_max = '';
+	public static $sinceHours = 0;
+
+	public static $isCli = false;
 
 	/**
 	 * Initialize the context.
@@ -44,9 +48,6 @@ class FreshRSS_Context {
 		// Init configuration.
 		self::$system_conf = Minz_Configuration::get('system');
 		self::$user_conf = Minz_Configuration::get('user');
-
-		$catDAO = new FreshRSS_CategoryDAO();
-		self::$categories = $catDAO->listCategories();
 	}
 
 	/**
@@ -94,6 +95,13 @@ class FreshRSS_Context {
 	}
 
 	/**
+	 * Return true if the current request targets a feed (and not a category or all articles), false otherwise.
+	 */
+	public static function isFeed() {
+		return self::$current_get['feed'] != false;
+	}
+
+	/**
 	 * Return true if $get parameter correspond to the $current_get attribute.
 	 */
 	public static function isCurrentGet($get) {
@@ -131,23 +139,30 @@ class FreshRSS_Context {
 		$id = substr($get, 2);
 		$nb_unread = 0;
 
+		if (empty(self::$categories)) {
+			$catDAO = new FreshRSS_CategoryDAO();
+			self::$categories = $catDAO->listCategories();
+		}
+
 		switch($type) {
 		case 'a':
 			self::$current_get['all'] = true;
 			self::$name = _t('index.feed.title');
+			self::$description = self::$system_conf->meta_description;
 			self::$get_unread = self::$total_unread;
 			break;
 		case 's':
 			self::$current_get['starred'] = true;
 			self::$name = _t('index.feed.title_fav');
+			self::$description = self::$system_conf->meta_description;
 			self::$get_unread = self::$total_starred['unread'];
 
 			// Update state if favorite is not yet enabled.
 			self::$state = self::$state | FreshRSS_Entry::STATE_FAVORITE;
 			break;
 		case 'f':
-			// We try to find the corresponding feed.
-			$feed = FreshRSS_CategoryDAO::findFeed(self::$categories, $id);
+			// We try to find the corresponding feed. When allowing robots, always retrieve the full feed including description
+			$feed = FreshRSS_Context::$system_conf->allow_robots ? null : FreshRSS_CategoryDAO::findFeed(self::$categories, $id);
 			if ($feed === null) {
 				$feedDAO = FreshRSS_Factory::createFeedDao();
 				$feed = $feedDAO->searchById($id);
@@ -160,6 +175,7 @@ class FreshRSS_Context {
 			self::$current_get['feed'] = $id;
 			self::$current_get['category'] = $feed->category();
 			self::$name = $feed->name();
+			self::$description = $feed->description();
 			self::$get_unread = $feed->nbNotRead();
 			break;
 		case 'c':
@@ -189,10 +205,15 @@ class FreshRSS_Context {
 	/**
 	 * Set the value of $next_get attribute.
 	 */
-	public static function _nextGet() {
+	private static function _nextGet() {
 		$get = self::currentGet();
 		// By default, $next_get == $get
 		self::$next_get = $get;
+
+		if (empty(self::$categories)) {
+			$catDAO = new FreshRSS_CategoryDAO();
+			self::$categories = $catDAO->listCategories();
+		}
 
 		if (self::$user_conf->onread_jump_next && strlen($get) > 2) {
 			$another_unread_id = '';
@@ -229,9 +250,7 @@ class FreshRSS_Context {
 				}
 
 				// If no feed have been found, next_get is the current category.
-				self::$next_get = empty($another_unread_id) ?
-				                  'c_' . self::$current_get['category'] :
-				                  'f_' . $another_unread_id;
+				self::$next_get = empty($another_unread_id) ? 'c_' . self::$current_get['category'] : 'f_' . $another_unread_id;
 				break;
 			case 'c':
 				// We search the next category with at least one unread article.
@@ -254,9 +273,7 @@ class FreshRSS_Context {
 				}
 
 				// No unread category? The main stream will be our destination!
-				self::$next_get = empty($another_unread_id) ?
-				                  'a' :
-				                  'c_' . $another_unread_id;
+				self::$next_get = empty($another_unread_id) ? 'a' : 'c_' . $another_unread_id;
 				break;
 			}
 		}
@@ -300,154 +317,6 @@ class FreshRSS_Context {
 			return true;
 		}
 		return false;
-	}
-
-	/**
-	 * Parse search string to extract the different keywords.
-	 *
-	 * @return array
-	 */
-	public function parseSearch() {
-		$search = self::$search;
-		$intitle = $this->parseIntitleSearch($search);
-		$author = $this->parseAuthorSearch($intitle['string']);
-		$inurl = $this->parseInurlSearch($author['string']);
-		$pubdate = $this->parsePubdateSearch($inurl['string']);
-		$date = $this->parseDateSearch($pubdate['string']);
-
-		$remaining = array();
-		$remaining_search = trim($date['string']);
-		if (strcmp($remaining_search, '') != 0) {
-			$remaining['search'] = $remaining_search;
-		}
-
-		return array_merge($intitle['search'], $author['search'], $inurl['search'], $date['search'], $pubdate['search'], $remaining);
-	}
-
-	/**
-	 * Parse the search string to find intitle keyword and the search related
-	 * to it.
-	 * The search is the first word following the keyword.
-	 * It returns an array containing the matched string and the search.
-	 *
-	 * @param string $search
-	 * @return array
-	 */
-	private function parseIntitleSearch($search) {
-		if (preg_match('/intitle:(?P<delim>[\'"])(?P<search>.*)(?P=delim)/U', $search, $matches)) {
-			return array(
-			    'string' => str_replace($matches[0], '', $search),
-			    'search' => array('intitle' => $matches['search']),
-			);
-		}
-		if (preg_match('/intitle:(?P<search>\w*)/', $search, $matches)) {
-			return array(
-			    'string' => str_replace($matches[0], '', $search),
-			    'search' => array('intitle' => $matches['search']),
-			);
-		}
-		return array(
-		    'string' => $search,
-		    'search' => array(),
-		);
-	}
-
-	/**
-	 * Parse the search string to find author keyword and the search related
-	 * to it.
-	 * The search is the first word following the keyword except when using
-	 * a delimiter. Supported delimiters are single quote (') and double
-	 * quotes (").
-	 * It returns an array containing the matched string and the search.
-	 *
-	 * @param string $search
-	 * @return array
-	 */
-	private function parseAuthorSearch($search) {
-		if (preg_match('/author:(?P<delim>[\'"])(?P<search>.*)(?P=delim)/U', $search, $matches)) {
-			return array(
-			    'string' => str_replace($matches[0], '', $search),
-			    'search' => array('author' => $matches['search']),
-			);
-		}
-		if (preg_match('/author:(?P<search>\w*)/', $search, $matches)) {
-			return array(
-			    'string' => str_replace($matches[0], '', $search),
-			    'search' => array('author' => $matches['search']),
-			);
-		}
-		return array(
-		    'string' => $search,
-		    'search' => array(),
-		);
-	}
-
-	/**
-	 * Parse the search string to find inurl keyword and the search related
-	 * to it.
-	 * The search is the first word following the keyword except.
-	 * It returns an array containing the matched string and the search.
-	 *
-	 * @param string $search
-	 * @return array
-	 */
-	private function parseInurlSearch($search) {
-		if (preg_match('/inurl:(?P<search>[^\s]*)/', $search, $matches)) {
-			return array(
-			    'string' => str_replace($matches[0], '', $search),
-			    'search' => array('inurl' => $matches['search']),
-			);
-		}
-		return array(
-		    'string' => $search,
-		    'search' => array(),
-		);
-	}
-
-	/**
-	 * Parse the search string to find date keyword and the search related
-	 * to it.
-	 * The search is the first word following the keyword.
-	 * It returns an array containing the matched string and the search.
-	 *
-	 * @param string $search
-	 * @return array
-	 */
-	private function parseDateSearch($search) {
-		if (preg_match('/date:(?P<search>[^\s]*)/', $search, $matches)) {
-			list($min_date, $max_date) = parseDateInterval($matches['search']);
-			return array(
-			    'string' => str_replace($matches[0], '', $search),
-			    'search' => array('min_date' => $min_date, 'max_date' => $max_date),
-			);
-		}
-		return array(
-		    'string' => $search,
-		    'search' => array(),
-		);
-	}
-
-	/**
-	 * Parse the search string to find pubdate keyword and the search related
-	 * to it.
-	 * The search is the first word following the keyword.
-	 * It returns an array containing the matched string and the search.
-	 *
-	 * @param string $search
-	 * @return array
-	 */
-	private function parsePubdateSearch($search) {
-		if (preg_match('/pubdate:(?P<search>[^\s]*)/', $search, $matches)) {
-			list($min_date, $max_date) = parseDateInterval($matches['search']);
-			return array(
-			    'string' => str_replace($matches[0], '', $search),
-			    'search' => array('min_pubdate' => $min_date, 'max_pubdate' => $max_date),
-			);
-		}
-		return array(
-		    'string' => $search,
-		    'search' => array(),
-		);
 	}
 
 }

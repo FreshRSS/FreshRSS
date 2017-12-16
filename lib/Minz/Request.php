@@ -85,44 +85,64 @@ class Minz_Request {
 	}
 
 	/**
-	 * Retourn le nom de domaine du site
+	 * Return true if the request is over HTTPS, false otherwise (HTTP)
 	 */
-	public static function getDomainName() {
-		return $_SERVER['HTTP_HOST'];
+	public static function isHttps() {
+		if (isset($_SERVER['HTTP_X_FORWARDED_PROTO'])) {
+			return strtolower($_SERVER['HTTP_X_FORWARDED_PROTO']) === 'https';
+		} else {
+			return isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on';
+		}
 	}
 
 	/**
-	 * Détermine la base de l'url
-	 * @return la base de l'url
+	 * Try to guess the base URL from $_SERVER information
+	 *
+	 * @return the base url (e.g. http://example.com/)
+	 */
+	public static function guessBaseUrl() {
+		$url = 'http';
+
+		$https = self::isHttps();
+
+		if (!empty($_SERVER['HTTP_HOST'])) {
+			$host = $_SERVER['HTTP_HOST'];
+		} elseif (!empty($_SERVER['SERVER_NAME'])) {
+			$host = $_SERVER['SERVER_NAME'];
+		} else {
+			$host = 'localhost';
+		}
+
+		if (!empty($_SERVER['HTTP_X_FORWARDED_PORT'])) {
+			$port = intval($_SERVER['HTTP_X_FORWARDED_PORT']);
+		} elseif (!empty($_SERVER['SERVER_PORT'])) {
+			$port = intval($_SERVER['SERVER_PORT']);
+		} else {
+			$port = $https ? 443 : 80;
+		}
+
+		if ($https) {
+			$url .= 's://' . $host . ($port == 443 ? '' : ':' . $port);
+		} else {
+			$url .= '://' . $host . ($port == 80 ? '' : ':' . $port);
+		}
+		if (isset($_SERVER['REQUEST_URI'])) {
+			$path = $_SERVER['REQUEST_URI'];
+			$url .= substr($path, -1) === '/' ? substr($path, 0, -1) : dirname($path);
+		}
+
+		return filter_var($url, FILTER_SANITIZE_URL);
+	}
+
+	/**
+	 * Return the base_url from configuration and add a suffix if given.
+	 *
+	 * @return the base_url with a suffix.
 	 */
 	public static function getBaseUrl() {
 		$conf = Minz_Configuration::get('system');
-		$defaultBaseUrl = $conf->base_url;
-		if (!empty($defaultBaseUrl)) {
-			return $defaultBaseUrl;
-		} elseif (isset($_SERVER['REQUEST_URI'])) {
-			return dirname($_SERVER['REQUEST_URI']) . '/';
-		} else {
-			return '/';
-		}
-	}
-
-	/**
-	 * Récupère l'URI de la requête
-	 * @return l'URI
-	 */
-	public static function getURI() {
-		if (isset($_SERVER['REQUEST_URI'])) {
-			$base_url = self::getBaseUrl();
-			$uri = $_SERVER['REQUEST_URI'];
-
-			$len_base_url = strlen($base_url);
-			$real_uri = substr($uri, $len_base_url);
-		} else {
-			$real_uri = '';
-		}
-
-		return $real_uri;
+		$url = rtrim($conf->base_url, '/\\');
+		return filter_var($url, FILTER_SANITIZE_URL);
 	}
 
 	/**

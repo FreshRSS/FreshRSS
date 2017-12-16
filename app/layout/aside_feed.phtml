@@ -19,8 +19,8 @@
 	<a href="<?php echo _url('index', 'about'); ?>"><?php echo _t('index.menu.about'); ?></a>
 	<?php } ?>
 
-	<form id="mark-read-aside" method="post" style="display: none"></form>
-
+	<form id="mark-read-aside" method="post">
+	<input type="hidden" name="_csrf" value="<?php echo FreshRSS_Auth::csrfToken(); ?>" />
 	<ul class="tree">
 		<li class="tree-folder category all<?php echo FreshRSS_Context::isCurrentGet('a') ? ' active' : ''; ?>">
 			<div class="tree-folder-title">
@@ -45,7 +45,7 @@
 		<li class="tree-folder category<?php echo $c_active ? ' active' : ''; ?>" data-unread="<?php echo $cat->nbNotRead(); ?>">
 			<div class="tree-folder-title">
 				<a class="dropdown-toggle" href="#"><?php echo _i($c_show ? 'up' : 'down'); ?></a>
-				<a class="title" data-unread="<?php echo format_number($cat->nbNotRead()); ?>" href="<?php echo _url('index', 'index', 'get', 'c_' . $cat->id()); ?>"><?php echo $cat->name(); ?></a>
+				<a class="title<?php echo $cat->hasFeedsWithError() ? ' error' : ''; ?>" data-unread="<?php echo format_number($cat->nbNotRead()); ?>" href="<?php echo _url('index', 'index', 'get', 'c_' . $cat->id()); ?>"><?php echo $cat->name(); ?></a>
 			</div>
 
 			<ul class="tree-folder-items<?php echo $c_show ? ' active' : ''; ?>">
@@ -69,6 +69,7 @@
 			}
 		?>
 	</ul>
+	</form>
 </div>
 
 <script id="feed_config_template" type="text/html">
@@ -78,13 +79,13 @@
 		<?php if (FreshRSS_Auth::hasAccess()) { ?>
 		<li class="item"><a href="<?php echo _url('stats', 'repartition', 'id', '------'); ?>"><?php echo _t('index.menu.stats'); ?></a></li>
 		<?php } ?>
-		<li class="item"><a target="_blank" href="http://example.net/"><?php echo _t('gen.action.see_website'); ?></a></li>
+		<li class="item"><a target="_blank" rel="noreferrer" href="http://example.net/"><?php echo _t('gen.action.see_website'); ?></a></li>
 		<?php if (FreshRSS_Auth::hasAccess()) { ?>
 		<li class="separator"></li>
 		<li class="item"><a href="<?php echo _url('subscription', 'index', 'id', '------'); ?>"><?php echo _t('gen.action.manage'); ?></a></li>
 		<li class="item"><a href="<?php echo _url('feed', 'actualize', 'id', '------'); ?>"><?php echo _t('gen.action.actualize'); ?></a></li>
 		<li class="item">
-			<?php $confirm = FreshRSS_Context::$user_conf->reading_confirm ? 'confirm' : ''; ?>
+			<?php $confirm = FreshRSS_Context::$user_conf->reading_confirm ? 'confirm" disabled="disabled' : ''; ?>
 			<button class="read_all as-link <?php echo $confirm; ?>"
 			        form="mark-read-aside"
 			        formaction="<?php echo _url('entry', 'read', 'get', 'f_------'); ?>"

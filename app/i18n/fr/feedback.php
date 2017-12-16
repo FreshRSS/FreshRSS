@@ -21,7 +21,6 @@ return array(
 			'success' => 'Vous avez été déconnecté',
 		),
 		'no_password_set' => 'Aucun mot de passe administrateur n’a été précisé. Cette fonctionnalité n’est pas disponible.',
-		'not_persona' => 'Seul le système d’authentification Persona peut être réinitialisé.',
 	),
 	'conf' => array(
 		'error' => 'Une erreur est survenue durant la sauvegarde de la configuration',
@@ -44,12 +43,12 @@ return array(
 		'not_found' => '%s n’existe pas',
 	),
 	'import_export' => array(
-		'export_no_zip_extension' => 'L’extension Zip n’est pas présente sur votre serveur. Veuillez essayer d’exporter les fichiers un par un.',
+		'export_no_zip_extension' => 'L’extension ZIP n’est pas présente sur votre serveur. Veuillez essayer d’exporter les fichiers un par un.',
 		'feeds_imported' => 'Vos flux ont été importés et vont maintenant être actualisés.',
 		'feeds_imported_with_errors' => 'Vos flux ont été importés mais des erreurs sont survenues.',
 		'file_cannot_be_uploaded' => 'Le fichier ne peut pas être téléchargé !',
-		'no_zip_extension' => 'L’extension Zip n’est pas présente sur votre serveur.',
-		'zip_error' => 'Une erreur est survenue durant l’import du fichier Zip.',
+		'no_zip_extension' => 'L’extension ZIP n’est pas présente sur votre serveur.',
+		'zip_error' => 'Une erreur est survenue durant l’import du fichier ZIP.',
 	),
 	'sub' => array(
 		'actualize' => 'Actualiser',
@@ -88,7 +87,7 @@ return array(
 	'update' => array(
 		'can_apply' => 'FreshRSS va maintenant être mis à jour vers la <strong>version %s</strong>.',
 		'error' => 'La mise à jour a rencontré un problème : %s',
-		'file_is_nok' => 'Veuillez vérifier les droits sur le répertoire <em>%s</em>. Le serveur HTTP doit être capable d’écrire dedans',
+		'file_is_nok' => 'Nouvelle <strong>version %s</strong> disponible, mais veuillez vérifier les droits sur le répertoire <em>%s</em>. Le serveur HTTP doit être capable d’écrire dedans',
 		'finished' => 'La mise à jour est terminée !',
 		'none' => 'Aucune mise à jour à appliquer',
 		'server_not_found' => 'Le serveur de mise à jour n’a pas été trouvé. [%s]',

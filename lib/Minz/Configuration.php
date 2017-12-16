@@ -39,7 +39,7 @@ class Minz_Configuration {
 			throw new Minz_FileNotExistException($filename);
 		}
 
-		$data = @include($filename);
+		$data = include($filename);
 		if (is_array($data)) {
 			return $data;
 		} else {
@@ -85,11 +85,6 @@ class Minz_Configuration {
 	private $data = array();
 
 	/**
-	 * The default values, an empty array by default.
-	 */
-	private $data_default = array();
-
-	/**
 	 * An object which help to set good values in configuration.
 	 */
 	private $configuration_setter = null;
@@ -109,7 +104,7 @@ class Minz_Configuration {
 
 	/**
 	 * Create a new Minz_Configuration object.
-	 * 
+	 *
 	 * @param $namespace the name of the current configuration.
 	 * @param $config_filename the file containing configuration values.
 	 * @param $default_filename the file containing default values, null by default.
@@ -119,21 +114,22 @@ class Minz_Configuration {
 	                             $configuration_setter = null) {
 		$this->namespace = $namespace;
 		$this->config_filename = $config_filename;
+		$this->default_filename = $default_filename;
+		$this->_configurationSetter($configuration_setter);
+
+		if (!is_null($this->default_filename)) {
+			$this->data = self::load($this->default_filename);
+		}
 
 		try {
-			$this->data = self::load($this->config_filename);
+			$this->data = array_replace_recursive(
+				$this->data, self::load($this->config_filename)
+			);
 		} catch (Minz_FileNotExistException $e) {
-			if (is_null($default_filename)) {
+			if (is_null($this->default_filename)) {
 				throw $e;
 			}
 		}
-
-		$this->default_filename = $default_filename;
-		if (!is_null($this->default_filename)) {
-			$this->data_default = self::load($this->default_filename);
-		}
-
-		$this->_configurationSetter($configuration_setter);
 	}
 
 	/**
@@ -149,7 +145,7 @@ class Minz_Configuration {
 
 	/**
 	 * Return the value of the given param.
-	 * 
+	 *
 	 * @param $key the name of the param.
 	 * @param $default default value to return if key does not exist.
 	 * @return the value corresponding to the key.
@@ -160,8 +156,6 @@ class Minz_Configuration {
 			return $this->data[$key];
 		} elseif (!is_null($default)) {
 			return $default;
-		} elseif (isset($this->data_default[$key])) {
-			return $this->data_default[$key];
 		} else {
 			Minz_Log::warning($key . ' does not exist in configuration');
 			return null;

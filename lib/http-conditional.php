@@ -35,12 +35,12 @@
   ... //Rest of the script, just as you would do normally.
  ?>
 
- Version 1.7 beta, 2013-12-02, http://alexandre.alapetite.fr/doc-alex/php-http-304/
+ Version 1.8 beta, 2016-08-07, http://alexandre.alapetite.fr/doc-alex/php-http-304/
 
  ------------------------------------------------------------------
  Written by Alexandre Alapetite, http://alexandre.alapetite.fr/cv/
 
- Copyright 2004-2013, Licence: Creative Commons "Attribution-ShareAlike 2.0 France" BY-SA (FR),
+ Copyright 2004-2016, Licence: Creative Commons "Attribution-ShareAlike 2.0 France" BY-SA (FR),
  http://creativecommons.org/licenses/by-sa/2.0/fr/
  http://alexandre.alapetite.fr/divers/apropos/#by-sa
  - Attribution. You must give the original author credit
@@ -96,7 +96,8 @@ function httpConditional($UnixTimeStamp,$cacheSeconds=0,$cachePrivacy=0,$feedMod
 	if ((!$is412)&&isset($_SERVER['HTTP_IF_MATCH']))
 	{//rfc2616-sec14.html#sec14.24
 		$etagsClient=stripslashes($_SERVER['HTTP_IF_MATCH']);
-		$is412=(($etagClient!=='*')&&(strpos($etagsClient,$etagServer)===false));
+		$etagsClient=str_ireplace('-gzip','',$etagsClient);
+		$is412=(($etagsClient!=='*')&&(strpos($etagsClient,$etagServer)===false));
 	}
 	if ($is304&&isset($_SERVER['HTTP_IF_MODIFIED_SINCE']))
 	{//rfc2616-sec14.html#sec14.25 //rfc1945.txt
@@ -111,6 +112,7 @@ function httpConditional($UnixTimeStamp,$cacheSeconds=0,$cachePrivacy=0,$feedMod
 	{//rfc2616-sec14.html#sec14.26
 		$nbCond++;
 		$etagClient=stripslashes($_SERVER['HTTP_IF_NONE_MATCH']);
+		$etagClient=str_ireplace('-gzip','',$etagClient);
 		$is304=(($etagClient===$etagServer)||($etagClient==='*'));
 	}
 	if ((!$is412)&&isset($_SERVER['HTTP_IF_UNMODIFIED_SINCE']))

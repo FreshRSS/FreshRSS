@@ -56,8 +56,7 @@ class FreshRSS_ConfigurationSetter {
 		switch ($value) {
 		case 'all':
 			$data['default_view'] = $value;
-			$data['default_state'] = (FreshRSS_Entry::STATE_READ +
-			                          FreshRSS_Entry::STATE_NOT_READ);
+			$data['default_state'] = (FreshRSS_Entry::STATE_READ + FreshRSS_Entry::STATE_NOT_READ);
 			break;
 		case 'adaptive':
 		case 'unread':
@@ -95,11 +94,6 @@ class FreshRSS_ConfigurationSetter {
 		$data['language'] = $value;
 	}
 
-	private function _mail_login(&$data, $value) {
-		$value = filter_var($value, FILTER_VALIDATE_EMAIL);
-		$data['mail_login'] = $value ? $value : '';
-	}
-
 	private function _old_entries(&$data, $value) {
 		$value = intval($value);
 		$data['old_entries'] = $value > 0 ? $value : 3;
@@ -117,12 +111,11 @@ class FreshRSS_ConfigurationSetter {
 	private function _queries(&$data, $values) {
 		$data['queries'] = array();
 		foreach ($values as $value) {
-			$value = array_filter($value);
-			$params = $value;
-			unset($params['name']);
-			unset($params['url']);
-			$value['url'] = Minz_Url::display(array('params' => $params));
-			$data['queries'][] = $value;
+			if ($value instanceof FreshRSS_UserQuery) {
+				$data['queries'][] = $value->toArray();
+			} elseif (is_array($value)) {
+				$data['queries'][] = $value;
+			}
 		}
 	}
 
@@ -135,12 +128,7 @@ class FreshRSS_ConfigurationSetter {
 
 			// Verify URL and add default value when needed
 			if (isset($value['url'])) {
-				$is_url = (
-					filter_var($value['url'], FILTER_VALIDATE_URL) ||
-					(version_compare(PHP_VERSION, '5.3.3', '<') &&
-						(strpos($value, '-') > 0) &&
-						($value === filter_var($value, FILTER_SANITIZE_URL)))
-				); //PHP bug #51192
+				$is_url = filter_var($value['url'], FILTER_VALIDATE_URL);
 				if (!$is_url) {
 					continue;
 				}
@@ -174,7 +162,7 @@ class FreshRSS_ConfigurationSetter {
 		if (!in_array($value, array('global', 'normal', 'reader'))) {
 			$value = 'normal';
 		}
-		$data['view_mode'] =  $value;
+		$data['view_mode'] = $value;
 	}
 
 	/**
@@ -192,6 +180,10 @@ class FreshRSS_ConfigurationSetter {
 		$data['auto_remove_article'] = $this->handleBool($value);
 	}
 
+	private function _mark_updated_article_unread(&$data, $value) {
+		$data['mark_updated_article_unread'] = $this->handleBool($value);
+	}
+
 	private function _display_categories(&$data, $value) {
 		$data['display_categories'] = $this->handleBool($value);
 	}
@@ -202,6 +194,10 @@ class FreshRSS_ConfigurationSetter {
 
 	private function _hide_read_feeds(&$data, $value) {
 		$data['hide_read_feeds'] = $this->handleBool($value);
+	}
+
+	private function _sides_close_article(&$data, $value) {
+		$data['sides_close_article'] = $this->handleBool($value);
 	}
 
 	private function _lazyload(&$data, $value) {
@@ -275,7 +271,7 @@ class FreshRSS_ConfigurationSetter {
 
 	private function _auth_type(&$data, $value) {
 		$value = strtolower($value);
-		if (!in_array($value, array('form', 'http_auth', 'persona', 'none'))) {
+		if (!in_array($value, array('form', 'http_auth', 'none'))) {
 			$value = 'none';
 		}
 		$data['auth_type'] = $value;
@@ -289,6 +285,7 @@ class FreshRSS_ConfigurationSetter {
 
 		switch ($value['type']) {
 		case 'mysql':
+		case 'pgsql':
 			if (empty($value['host']) ||
 					empty($value['user']) ||
 					empty($value['base']) ||
@@ -328,7 +325,7 @@ class FreshRSS_ConfigurationSetter {
 		if (!in_array($value, array('silent', 'development', 'production'))) {
 			$value = 'production';
 		}
-		$data['environment'] =  $value;
+		$data['environment'] = $value;
 	}
 
 	private function _limits(&$data, $values) {
@@ -351,6 +348,9 @@ class FreshRSS_ConfigurationSetter {
 				'min' => 0,
 				'max' => $max_small_int,
 			),
+			'max_registrations' => array(
+				'min' => 0,
+			),
 		);
 
 		foreach ($values as $key => $value) {
@@ -358,10 +358,10 @@ class FreshRSS_ConfigurationSetter {
 				continue;
 			}
 
+			$value = intval($value);
 			$limits = $limits_keys[$key];
-			if (
-				(!isset($limits['min']) || $value > $limits['min']) &&
-				(!isset($limits['max']) || $value < $limits['max'])
+			if ((!isset($limits['min']) || $value >= $limits['min']) &&
+				(!isset($limits['max']) || $value <= $limits['max'])
 			) {
 				$data['limits'][$key] = $value;
 			}
@@ -370,5 +370,13 @@ class FreshRSS_ConfigurationSetter {
 
 	private function _unsafe_autologin_enabled(&$data, $value) {
 		$data['unsafe_autologin_enabled'] = $this->handleBool($value);
+	}
+
+	private function _auto_update_url(&$data, $value) {
+		if (!$value) {
+			return;
+		}
+
+		$data['auto_update_url'] = $value;
 	}
 }

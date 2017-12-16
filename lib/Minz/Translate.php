@@ -1,5 +1,5 @@
 <?php
-/** 
+/**
  * MINZ - Copyright 2011 Marien Fressinaud
  * Sous licence AGPL3 <http://www.gnu.org/licenses/>
  */
@@ -153,7 +153,7 @@ class Minz_Translate {
 	 * @param additional parameters for variable keys.
 	 * @return the value corresponding to the key.
 	 *         If no value is found, return the key itself.
-	 */ 
+	 */
 	public static function t($key) {
 		$group = explode('.', $key);
 

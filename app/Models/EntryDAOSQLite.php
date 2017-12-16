@@ -2,23 +2,115 @@
 
 class FreshRSS_EntryDAOSQLite extends FreshRSS_EntryDAO {
 
+	public function sqlHexDecode($x) {
+		return $x;
+	}
+
+	protected function autoUpdateDb($errorInfo) {
+		Minz_Log::error('FreshRSS_EntryDAO::autoUpdateDb error: ' . print_r($errorInfo, true));
+		if ($tableInfo = $this->bd->query("SELECT sql FROM sqlite_master where name='entrytmp'")) {
+			$showCreate = $tableInfo->fetchColumn();
+			if (stripos($showCreate, 'entrytmp') === false) {
+				return $this->createEntryTempTable();
+			}
+		}
+		if ($tableInfo = $this->bd->query("SELECT sql FROM sqlite_master where name='entry'")) {
+			$showCreate = $tableInfo->fetchColumn();
+			foreach (array('lastSeen', 'hash') as $column) {
+				if (stripos($showCreate, $column) === false) {
+					return $this->addColumn($column);
+				}
+			}
+		}
+		return false;
+	}
+
+	public function commitNewEntries() {
+		$sql = '
+			CREATE TEMP TABLE `tmp` AS
+				SELECT
+					id,
+					guid,
+					title,
+					author,
+					content,
+					link,
+					date,
+					`lastSeen`,
+					hash, is_read,
+					is_favorite,
+					id_feed,
+					tags
+				FROM `' . $this->prefix . 'entrytmp`
+				ORDER BY date;
+				INSERT OR IGNORE INTO `' . $this->prefix . 'entry`
+					(
+						id,
+						guid,
+						title,
+						author,
+						content,
+						link,
+						date,
+						`lastSeen`,
+						hash,
+						is_read,
+						is_favorite,
+						id_feed,
+						tags
+					)
+				SELECT rowid + (SELECT MAX(id) - COUNT(*) FROM `tmp`) AS
+					id,
+					guid,
+					title,
+					author,
+					content,
+					link,
+					date,
+					`lastSeen`,
+					hash,
+					is_read,
+					is_favorite,
+					id_feed,
+					tags
+				FROM `tmp`
+				ORDER BY date;
+			DELETE FROM `' . $this->prefix . 'entrytmp`
+			WHERE id <= (SELECT MAX(id)
+			FROM `tmp`);
+			DROP TABLE `tmp`;';
+		$hadTransaction = $this->bd->inTransaction();
+		if (!$hadTransaction) {
+			$this->bd->beginTransaction();
+		}
+		$result = $this->bd->exec($sql) !== false;
+		if (!$hadTransaction) {
+			$this->bd->commit();
+		}
+		return $result;
+	}
+
 	protected function sqlConcat($s1, $s2) {
 		return $s1 . '||' . $s2;
 	}
 
 	protected function updateCacheUnreads($catId = false, $feedId = false) {
 		$sql = 'UPDATE `' . $this->prefix . 'feed` '
-		 . 'SET cache_nbUnreads=('
+		 . 'SET `cache_nbUnreads`=('
 		 .	'SELECT COUNT(*) AS nbUnreads FROM `' . $this->prefix . 'entry` e '
-		 .	'WHERE e.id_feed=`' . $this->prefix . 'feed`.id AND e.is_read=0) '
-		 . 'WHERE 1';
+		 .	'WHERE e.id_feed=`' . $this->prefix . 'feed`.id AND e.is_read=0)';
+		$hasWhere = false;
 		$values = array();
 		if ($feedId !== false) {
-			$sql .= ' AND id=?';
+			$sql .= $hasWhere ? ' AND' : ' WHERE';
+			$hasWhere = true;
+			$sql .= ' id=?';
 			$values[] = $feedId;
 		}
 		if ($catId !== false) {
-			$sql .= ' AND category=?';
+			$sql .= $hasWhere ? ' AND' : ' WHERE';
+			$hasWhere = true;
+			$sql .= ' category=?';
 			$values[] = $catId;
 		}
 		$stm = $this->bd->prepare($sql);
@@ -66,7 +158,7 @@ class FreshRSS_EntryDAOSQLite extends FreshRSS_EntryDAO {
 			}
 			$affected = $stm->rowCount();
 			if ($affected > 0) {
-				$sql = 'UPDATE `' . $this->prefix . 'feed` SET cache_nbUnreads=cache_nbUnreads' . ($is_read ? '-' : '+') . '1 '
+				$sql = 'UPDATE `' . $this->prefix . 'feed` SET `cache_nbUnreads`=`cache_nbUnreads`' . ($is_read ? '-' : '+') . '1 '
 				 . 'WHERE id=(SELECT e.id_feed FROM `' . $this->prefix . 'entry` e WHERE e.id=?)';
 				$values = array($ids);
 				$stm = $this->bd->prepare($sql);
@@ -103,7 +195,7 @@ class FreshRSS_EntryDAOSQLite extends FreshRSS_EntryDAO {
 	 * @param integer $priorityMin
 	 * @return integer affected rows
 	 */
-	public function markReadEntries($idMax = 0, $onlyFavorites = false, $priorityMin = 0) {
+	public function markReadEntries($idMax = 0, $onlyFavorites = false, $priorityMin = 0, $filter = null, $state = 0) {
 		if ($idMax == 0) {
 			$idMax = time() . '000000';
 			Minz_Log::debug('Calling markReadEntries(0) is deprecated!');
@@ -116,8 +208,11 @@ class FreshRSS_EntryDAOSQLite extends FreshRSS_EntryDAO {
 			$sql .= ' AND id_feed IN (SELECT f.id FROM `' . $this->prefix . 'feed` f WHERE f.priority > ' . intval($priorityMin) . ')';
 		}
 		$values = array($idMax);
-		$stm = $this->bd->prepare($sql);
-		if (!($stm && $stm->execute($values))) {
+
+		list($searchValues, $search) = $this->sqlListEntriesWhere('', $filter, $state);
+
+		$stm = $this->bd->prepare($sql . $search);
+		if (!($stm && $stm->execute(array_merge($values, $searchValues)))) {
 			$info = $stm == null ? array(2 => 'syntax error') : $stm->errorInfo();
 			Minz_Log::error('SQL error markReadEntries: ' . $info[2]);
 			return false;
@@ -140,7 +235,7 @@ class FreshRSS_EntryDAOSQLite extends FreshRSS_EntryDAO {
 	 * @param integer $idMax fail safe article ID
 	 * @return integer affected rows
 	 */
-	public function markReadCat($id, $idMax = 0) {
+	public function markReadCat($id, $idMax = 0, $filter = null, $state = 0) {
 		if ($idMax == 0) {
 			$idMax = time() . '000000';
 			Minz_Log::debug('Calling markReadCat(0) is deprecated!');
@@ -151,8 +246,11 @@ class FreshRSS_EntryDAOSQLite extends FreshRSS_EntryDAO {
 			 . 'WHERE is_read=0 AND id <= ? AND '
 			 . 'id_feed IN (SELECT f.id FROM `' . $this->prefix . 'feed` f WHERE f.category=?)';
 		$values = array($idMax, $id);
-		$stm = $this->bd->prepare($sql);
-		if (!($stm && $stm->execute($values))) {
+
+		list($searchValues, $search) = $this->sqlListEntriesWhere('', $filter, $state);
+
+		$stm = $this->bd->prepare($sql . $search);
+		if (!($stm && $stm->execute(array_merge($values, $searchValues)))) {
 			$info = $stm == null ? array(2 => 'syntax error') : $stm->errorInfo();
 			Minz_Log::error('SQL error markReadCat: ' . $info[2]);
 			return false;
@@ -162,13 +260,5 @@ class FreshRSS_EntryDAOSQLite extends FreshRSS_EntryDAO {
 			return false;
 		}
 		return $affected;
-	}
-
-	public function optimizeTable() {
-		//TODO: Search for an equivalent in SQLite
-	}
-
-	public function size($all = false) {
-		return @filesize(join_path(DATA_PATH, 'users', $this->current_user, 'db.sqlite'));
 	}
 }

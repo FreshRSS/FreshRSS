@@ -6,7 +6,7 @@ class FreshRSS_javascript_Controller extends Minz_ActionController {
 	}
 
 	public function actualizeAction() {
-		header('Content-Type: text/javascript; charset=UTF-8');
+		header('Content-Type: application/json; charset=UTF-8');
 		$feedDAO = FreshRSS_Factory::createFeedDao();
 		$this->view->feeds = $feedDAO->listFeedsOrderUpdate(FreshRSS_Context::$user_conf->ttl_default);
 	}
@@ -26,7 +26,7 @@ class FreshRSS_javascript_Controller extends Minz_ActionController {
 		header('Pragma: no-cache');
 
 		$user = isset($_GET['user']) ? $_GET['user'] : '';
-		if (ctype_alnum($user)) {
+		if (FreshRSS_user_Controller::checkUsername($user)) {
 			try {
 				$salt = FreshRSS_Context::$system_conf->salt;
 				$conf = get_user_configuration($user);
@@ -43,7 +43,12 @@ class FreshRSS_javascript_Controller extends Minz_ActionController {
 		} else {
 			Minz_Log::notice('Nonce failure due to invalid username!');
 		}
-		$this->view->nonce = '';	//Failure
-		$this->view->salt1 = '';
+		//Failure: Return random data.
+		$this->view->salt1 = sprintf('$2a$%02d$', FreshRSS_user_Controller::BCRYPT_COST);
+		$alphabet = './ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+		for ($i = 22; $i > 0; $i--) {
+			$this->view->salt1 .= $alphabet[rand(0, 63)];
+		}
+		$this->view->nonce = sha1(rand());
 	}
 }

@@ -1,16 +1,10 @@
 @charset "UTF-8";
 
-/*=== FONTS */
-@font-face {
-	font-family: "OpenSans";
-	src: url("../fonts/openSans.woff") format("woff");
-}
-
 /*=== GENERAL */
 /*============*/
 html, body {
 	height: 100%;
-	font-family: "OpenSans", "Cantarell", "Helvetica", "Arial", sans-serif;
+	font-family: "OpenSans", "Cantarell", "Helvetica", "Arial", "PingFang SC", "Microsoft YaHei", sans-serif;
 	background: #fafafa;
 }
 
@@ -336,7 +330,7 @@ a.btn {
 	font-size: 0.8rem;
 	text-align: left;
 }
-.dropdown-menu:after {
+.dropdown-menu::after {
 	content: "";
 	position: absolute;
 	top: -6px;
@@ -358,22 +352,18 @@ a.btn {
 	font-weight: bold;
 	text-align: left;
 }
-.dropdown-menu > .item {
-}
-.dropdown-menu > .item > a {
-	padding: 0 25px;
-	line-height: 2.5em;
-}
+.dropdown-menu > .item > a,
 .dropdown-menu > .item > span,
 .dropdown-menu > .item > .as-link {
 	padding: 0 22px;
-	line-height: 2em;
+	line-height: 2.5em;
+	font-size: 0.8rem;
 }
 .dropdown-menu > .item:hover {
 	background: #0062BE;
 	color: #fff;
 }
-.dropdown-menu > .item[aria-checked="true"] > a:before {
+.dropdown-menu > .item[aria-checked="true"] > a::before {
 	font-weight: bold;
 	margin: 0 0 0 -14px;
 }
@@ -591,7 +581,7 @@ a.btn {
 }
 
 /*=== Aside main page (categories) */
-.aside_feed .category .title:not([data-unread="0"]):after {
+.aside_feed .category .title:not([data-unread="0"])::after {
 	position: absolute;
 	right: 0;
 	margin: 10px 0;
@@ -622,7 +612,7 @@ a.btn {
 .feed.item.error.active > a {
 	color: #fff;
 }
-.aside_feed .tree-folder-items .dropdown-menu:after {
+.aside_feed .tree-folder-items .dropdown-menu::after {
 	left: 2px;
 }
 .aside_feed .tree-folder-items .item .dropdown-target:target ~ .dropdown-toggle > .icon,
@@ -853,7 +843,7 @@ a.btn {
 /*=== "Load more" part */
 #bigMarkAsRead {
 	text-align: center;
-	text-decoration: none;	
+	text-decoration: none;
 	text-shadow: 0 -1px 0 #aaa;
 	color: #666;
 	background: #fafafa;
@@ -908,7 +898,7 @@ a.btn {
 	color: #fff;
 	font-weight: bold;
 }
-.box.category .title:not([data-unread="0"]):after {
+.box.category .title:not([data-unread="0"])::after {
 	position: absolute;
 	top: 5px; right: 10px;
 	border: 0;
@@ -932,7 +922,7 @@ a.btn {
 .aside.aside_feed .nav-form .dropdown .dropdown-menu {
 	right: -20px;
 }
-.aside.aside_feed .nav-form .dropdown .dropdown-menu:after {
+.aside.aside_feed .nav-form .dropdown .dropdown-menu::after {
 	right: 33px;
 }
 
@@ -966,7 +956,7 @@ a.btn {
 
 /*=== LOGS */
 /*=========*/
-.logs {
+.loglist {
 	border: 1px solid #aaa;
 	border-radius: 5px;
 	overflow: hidden;

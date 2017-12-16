@@ -18,6 +18,27 @@ class FreshRSS_stats_Controller extends Minz_ActionController {
 		Minz_View::prependTitle(_t('admin.stats.title') . ' · ');
 	}
 
+	private function convertToSerie($data) {
+		$serie = array();
+
+		foreach ($data as $key => $value) {
+			$serie[] = array($key, $value);
+		}
+
+		return $serie;
+	}
+
+	private function convertToPieSerie($data) {
+		$serie = array();
+
+		foreach ($data as $value) {
+			$value['data'] = array(array(0, (int) $value['data']));
+			$serie[] = $value;
+		}
+
+		return $serie;
+	}
+
 	/**
 	 * This action handles the statistic main page.
 	 *
@@ -33,10 +54,11 @@ class FreshRSS_stats_Controller extends Minz_ActionController {
 		$statsDAO = FreshRSS_Factory::createStatsDAO();
 		Minz_View::appendScript(Minz_Url::display('/scripts/flotr2.min.js?' . @filemtime(PUBLIC_PATH . '/scripts/flotr2.min.js')));
 		$this->view->repartition = $statsDAO->calculateEntryRepartition();
-		$this->view->count = $statsDAO->calculateEntryCount();
-		$this->view->average = $statsDAO->calculateEntryAverage();
-		$this->view->feedByCategory = $statsDAO->calculateFeedByCategory();
-		$this->view->entryByCategory = $statsDAO->calculateEntryByCategory();
+		$entryCount = $statsDAO->calculateEntryCount();
+		$this->view->count = $this->convertToSerie($entryCount);
+		$this->view->average = round(array_sum(array_values($entryCount)) / count($entryCount), 2);
+		$this->view->feedByCategory = $this->convertToPieSerie($statsDAO->calculateFeedByCategory());
+		$this->view->entryByCategory = $this->convertToPieSerie($statsDAO->calculateEntryByCategory());
 		$this->view->topFeed = $statsDAO->calculateTopFeed();
 	}
 
@@ -118,11 +140,11 @@ class FreshRSS_stats_Controller extends Minz_ActionController {
 		$this->view->days = $statsDAO->getDays();
 		$this->view->months = $statsDAO->getMonths();
 		$this->view->repartition = $statsDAO->calculateEntryRepartitionPerFeed($id);
-		$this->view->repartitionHour = $statsDAO->calculateEntryRepartitionPerFeedPerHour($id);
+		$this->view->repartitionHour = $this->convertToSerie($statsDAO->calculateEntryRepartitionPerFeedPerHour($id));
 		$this->view->averageHour = $statsDAO->calculateEntryAveragePerFeedPerHour($id);
-		$this->view->repartitionDayOfWeek = $statsDAO->calculateEntryRepartitionPerFeedPerDayOfWeek($id);
+		$this->view->repartitionDayOfWeek = $this->convertToSerie($statsDAO->calculateEntryRepartitionPerFeedPerDayOfWeek($id));
 		$this->view->averageDayOfWeek = $statsDAO->calculateEntryAveragePerFeedPerDayOfWeek($id);
-		$this->view->repartitionMonth = $statsDAO->calculateEntryRepartitionPerFeedPerMonth($id);
+		$this->view->repartitionMonth = $this->convertToSerie($statsDAO->calculateEntryRepartitionPerFeedPerMonth($id));
 		$this->view->averageMonth = $statsDAO->calculateEntryAveragePerFeedPerMonth($id);
 	}
 }

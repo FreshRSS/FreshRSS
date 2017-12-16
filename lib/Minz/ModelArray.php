@@ -25,8 +25,7 @@ class Minz_ModelArray {
 	protected function loadArray() {
 		if (!file_exists($this->filename)) {
 			throw new Minz_FileNotExistException($this->filename, Minz_Exception::WARNING);
-		}
-		elseif (($handle = $this->getLock()) === false) {
+		} elseif (($handle = $this->getLock()) === false) {
 			throw new Minz_PermissionDeniedException($this->filename);
 		} else {
 			$data = include($this->filename);

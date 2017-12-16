@@ -1,19 +1,25 @@
 <?php
+if (version_compare(PHP_VERSION, '5.3.8', '<')) {
+	die('FreshRSS error: FreshRSS requires PHP 5.3.8+!');
+}
+
 if (!function_exists('json_decode')) {
-	require_once('JSON.php');
-	function json_decode($var) {
-		$JSON = new Services_JSON;
-		return (array)($JSON->decode($var));
+	require_once(__DIR__ . '/JSON.php');
+	function json_decode($var, $assoc = false) {
+		$JSON = new Services_JSON($assoc ? SERVICES_JSON_LOOSE_TYPE : 0);
+		return $JSON->decode($var);
 	}
 }
 
 if (!function_exists('json_encode')) {
-	require_once('JSON.php');
+	require_once(__DIR__ . '/JSON.php');
 	function json_encode($var) {
-		$JSON = new Services_JSON;
+		$JSON = new Services_JSON();
 		return $JSON->encodeUnsafe($var);
 	}
 }
+
+defined('JSON_UNESCAPED_UNICODE') or define('JSON_UNESCAPED_UNICODE', 256);	//PHP 5.3
 
 /**
  * Build a directory path by concatenating a list of directory names.
@@ -38,7 +44,7 @@ function classAutoloader($class) {
 				include(APP_PATH . '/Models/' . $components[1] . '.php');
 				return;
 			case 3:	//Controllers, Exceptions
-				@include(APP_PATH . '/' . $components[2] . 's/' . $components[1] . $components[2] . '.php');
+				include(APP_PATH . '/' . $components[2] . 's/' . $components[1] . $components[2] . '.php');
 				return;
 		}
 	} elseif (strpos($class, 'Minz') === 0) {
@@ -51,21 +57,70 @@ function classAutoloader($class) {
 spl_autoload_register('classAutoloader');
 //</Auto-loading>
 
+function idn_to_puny($url) {
+	if (function_exists('idn_to_ascii')) {
+		$parts = parse_url($url);
+		if (!empty($parts['host'])) {
+			$idn = $parts['host'];
+			// INTL_IDNA_VARIANT_UTS46 is defined starting in PHP 5.4
+			if (defined('INTL_IDNA_VARIANT_UTS46')) {
+				$puny = idn_to_ascii($idn, 0, INTL_IDNA_VARIANT_UTS46);
+			} else {
+				$puny = idn_to_ascii($idn);
+			}
+			$pos = strpos($url, $idn);
+			if ($pos !== false) {
+				return substr_replace($url, $puny, $pos, strlen($idn));
+			}
+		}
+	}
+	return $url;
+}
+
 function checkUrl($url) {
-	if (empty ($url)) {
+	if ($url == '') {
 		return '';
 	}
-	if (!preg_match ('#^https?://#i', $url)) {
+	if (!preg_match('#^https?://#i', $url)) {
 		$url = 'http://' . $url;
 	}
-	if (filter_var($url, FILTER_VALIDATE_URL) ||
-		(version_compare(PHP_VERSION, '5.3.3', '<') && (strpos($url, '-') > 0) &&	//PHP bug #51192
-		 ($url === filter_var($url, FILTER_SANITIZE_URL)))) {
+	$url = idn_to_puny($url);	//PHP bug #53474 IDN
+	if (filter_var($url, FILTER_VALIDATE_URL)) {
 		return $url;
 	} else {
 		return false;
 	}
 }
+
+function safe_ascii($text) {
+	return filter_var($text, FILTER_DEFAULT, FILTER_FLAG_STRIP_LOW | FILTER_FLAG_STRIP_HIGH);
+}
+
+/**
+ * Test if a given server address is publicly accessible.
+ *
+ * Note: for the moment it tests only if address is corresponding to a
+ * localhost address.
+ *
+ * @param $address the address to test, can be an IP or a URL.
+ * @return true if server is accessible, false else.
+ * @todo improve test with a more valid technique (e.g. test with an external server?)
+ */
+function server_is_public($address) {
+	$host = parse_url($address, PHP_URL_HOST);
+
+	$is_public = !in_array($host, array(
+		'127.0.0.1',
+		'localhost',
+		'localhost.localdomain',
+		'[::1]',
+		'localhost6',
+		'localhost6.localdomain6',
+	));
+
+	return $is_public;
+}
+
 
 function format_number($n, $precision = 0) {
 	// number_format does not seem to be Unicode-compatible
@@ -81,6 +136,8 @@ function format_bytes($bytes, $precision = 2, $system = 'IEC') {
 	} elseif ($system === 'SI') {
 		$base = 1000;
 		$units = array('B', 'KB', 'MB', 'GB', 'TB');
+	} else {
+		return format_number($bytes, $precision);
 	}
 	$bytes = max(intval($bytes), 0);
 	$pow = $bytes === 0 ? 0 : floor(log($bytes) / log($base));
@@ -122,10 +179,12 @@ function customSimplePie() {
 	$system_conf = Minz_Configuration::get('system');
 	$limits = $system_conf->limits;
 	$simplePie = new SimplePie();
-	$simplePie->set_useragent(_t('gen.freshrss') . '/' . FRESHRSS_VERSION . ' (' . PHP_OS . '; ' . FRESHRSS_WEBSITE . ') ' . SIMPLEPIE_NAME . '/' . SIMPLEPIE_VERSION);
+	$simplePie->set_useragent(FRESHRSS_USERAGENT);
+	$simplePie->set_syslog($system_conf->simplepie_syslog_enabled);
 	$simplePie->set_cache_location(CACHE_PATH);
 	$simplePie->set_cache_duration($limits['cache_duration']);
 	$simplePie->set_timeout($limits['timeout']);
+	$simplePie->set_curl_options($system_conf->curl_options);
 	$simplePie->strip_htmltags(array(
 		'base', 'blink', 'body', 'doctype', 'embed',
 		'font', 'form', 'frame', 'frameset', 'html',
@@ -133,14 +192,13 @@ function customSimplePie() {
 		'object', 'param', 'plaintext', 'script', 'style',
 	));
 	$simplePie->strip_attributes(array_merge($simplePie->strip_attributes, array(
-		'autoplay', 'onload', 'onunload', 'onclick', 'ondblclick', 'onmousedown', 'onmouseup',
+		'autoplay', 'class', 'onload', 'onunload', 'onclick', 'ondblclick', 'onmousedown', 'onmouseup',
 		'onmouseover', 'onmousemove', 'onmouseout', 'onfocus', 'onblur',
-		'onkeypress', 'onkeydown', 'onkeyup', 'onselect', 'onchange', 'seamless')));
+		'onkeypress', 'onkeydown', 'onkeyup', 'onselect', 'onchange', 'seamless', 'sizes', 'srcset')));
 	$simplePie->add_attributes(array(
-		'img' => array('lazyload' => '', 'postpone' => ''),	//http://www.w3.org/TR/resource-priorities/
-		'audio' => array('lazyload' => '', 'postpone' => '', 'preload' => 'none'),
-		'iframe' => array('lazyload' => '', 'postpone' => '', 'sandbox' => 'allow-scripts allow-same-origin'),
-		'video' => array('lazyload' => '', 'postpone' => '', 'preload' => 'none'),
+		'audio' => array('controls' => 'controls', 'preload' => 'none'),
+		'iframe' => array('sandbox' => 'allow-scripts allow-same-origin'),
+		'video' => array('controls' => 'controls', 'preload' => 'none'),
 	));
 	$simplePie->set_url_replacements(array(
 		'a' => 'href',
@@ -164,6 +222,16 @@ function customSimplePie() {
 			'src',
 		),
 	));
+	$https_domains = array();
+	$force = @file(FRESHRSS_PATH . '/force-https.default.txt', FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+	if (is_array($force)) {
+		$https_domains = array_merge($https_domains, $force);
+	}
+	$force = @file(DATA_PATH . '/force-https.txt', FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+	if (is_array($force)) {
+		$https_domains = array_merge($https_domains, $force);
+	}
+	$simplePie->set_https_domains($https_domains);
 	return $simplePie;
 }
 
@@ -178,17 +246,27 @@ function sanitizeHTML($data, $base = '') {
 
 /* permet de récupérer le contenu d'un article pour un flux qui n'est pas complet */
 function get_content_by_parsing ($url, $path) {
-	require_once (LIB_PATH . '/lib_phpQuery.php');
+	require_once(LIB_PATH . '/lib_phpQuery.php');
 
-	Minz_Log::notice('FreshRSS GET ' . url_remove_credentials($url));
-	$html = file_get_contents ($url);
+	Minz_Log::notice('FreshRSS GET ' . SimplePie_Misc::url_remove_credentials($url));
+	$html = file_get_contents($url);
 
 	if ($html) {
-		$doc = phpQuery::newDocument ($html);
-		$content = $doc->find ($path);
+		$doc = phpQuery::newDocument($html);
+		$content = $doc->find($path);
+
+		foreach (pq('img[data-src]') as $img) {
+			$imgP = pq($img);
+			$dataSrc = $imgP->attr('data-src');
+			if (strlen($dataSrc) > 4) {
+				$imgP->attr('src', $dataSrc);
+				$imgP->removeAttr('data-src');
+			}
+		}
+
 		return sanitizeHTML($content->__toString(), $url);
 	} else {
-		throw new Exception ();
+		throw new Exception();
 	}
 }
 
@@ -215,9 +293,12 @@ function uSecString() {
 	return str_pad($t['usec'], 6, '0');
 }
 
-function invalidateHttpCache() {
-	Minz_Session::_param('touch', uTimeString());
-	return touch(join_path(DATA_PATH, 'users', Minz_Session::param('currentUser', '_'), 'log.txt'));
+function invalidateHttpCache($username = '') {
+	if (!FreshRSS_user_Controller::checkUsername($username)) {
+		Minz_Session::_param('touch', uTimeString());
+		$username = Minz_Session::param('currentUser', '_');
+	}
+	return touch(join_path(DATA_PATH, 'users', $username, 'log.txt'));
 }
 
 function listUsers() {
@@ -227,14 +308,28 @@ function listUsers() {
 		scandir($base_path),
 		array('..', '.', '_')
 	));
-
 	foreach ($dir_list as $file) {
-		if (is_dir(join_path($base_path, $file))) {
+		if ($file[0] !== '.' && is_dir(join_path($base_path, $file)) && file_exists(join_path($base_path, $file, 'config.php'))) {
 			$final_list[] = $file;
 		}
 	}
-
 	return $final_list;
+}
+
+
+/**
+ * Return if the maximum number of registrations has been reached.
+ *
+ * Note a max_regstrations of 0 means there is no limit.
+ *
+ * @return true if number of users >= max registrations, false else.
+ */
+function max_registrations_reached() {
+	$system_conf = Minz_Configuration::get('system');
+	$limit_registrations = $system_conf->limits['max_registrations'];
+	$number_accounts = count(listUsers());
+
+	return $limit_registrations > 0 && $number_accounts >= $limit_registrations;
 }
 
 
@@ -248,13 +343,17 @@ function listUsers() {
  * @return a Minz_Configuration object, null if the configuration cannot be loaded.
  */
 function get_user_configuration($username) {
+	if (!FreshRSS_user_Controller::checkUsername($username)) {
+		return null;
+	}
 	$namespace = 'user_' . $username;
 	try {
 		Minz_Configuration::register($namespace,
 		                             join_path(USERS_PATH, $username, 'config.php'),
-		                             join_path(USERS_PATH, '_', 'config.default.php'));
+		                             join_path(FRESHRSS_PATH, 'config-user.default.php'));
 	} catch (Minz_ConfigurationNamespaceException $e) {
 		// namespace already exists, do nothing.
+		Minz_Log::warning($e->getMessage());
 	} catch (Minz_FileNotExistException $e) {
 		Minz_Log::warning($e->getMessage());
 		return null;
@@ -269,19 +368,18 @@ function httpAuthUser() {
 }
 
 function cryptAvailable() {
-	if (version_compare(PHP_VERSION, '5.3.3', '>=')) {
-		try {
-			$hash = '$2y$04$usesomesillystringfore7hnbRJHxXVLeakoG8K30oukPsA.ztMG';
-			return $hash === @crypt('password', $hash);
-		} catch (Exception $e) {
-		}
+	try {
+		$hash = '$2y$04$usesomesillystringfore7hnbRJHxXVLeakoG8K30oukPsA.ztMG';
+		return $hash === @crypt('password', $hash);
+	} catch (Exception $e) {
+		Minz_Log::warning($e->getMessage());
 	}
 	return false;
 }
 
 function is_referer_from_same_domain() {
 	if (empty($_SERVER['HTTP_REFERER'])) {
-		return false;
+		return true;	//Accept empty referer while waiting for good support of meta referrer same-origin policy in browsers
 	}
 	$host = parse_url(((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on') ? 'https://' : 'http://') .
 		(empty($_SERVER['HTTP_HOST']) ? $_SERVER['SERVER_NAME'] : $_SERVER['HTTP_HOST']));
@@ -304,14 +402,16 @@ function is_referer_from_same_domain() {
  */
 function check_install_php() {
 	$pdo_mysql = extension_loaded('pdo_mysql');
+	$pdo_pgsql = extension_loaded('pdo_pgsql');
 	$pdo_sqlite = extension_loaded('pdo_sqlite');
 	return array(
-		'php' => version_compare(PHP_VERSION, '5.2.1') >= 0,
+		'php' => version_compare(PHP_VERSION, '5.3.8') >= 0,
 		'minz' => file_exists(LIB_PATH . '/Minz'),
 		'curl' => extension_loaded('curl'),
-		'pdo' => $pdo_mysql || $pdo_sqlite,
+		'pdo' => $pdo_mysql || $pdo_sqlite || $pdo_pgsql,
 		'pcre' => extension_loaded('pcre'),
 		'ctype' => extension_loaded('ctype'),
+		'fileinfo' => extension_loaded('fileinfo'),
 		'dom' => class_exists('DOMDocument'),
 		'json' => extension_loaded('json'),
 		'zip' => extension_loaded('zip'),
@@ -330,7 +430,6 @@ function check_install_files() {
 		'cache' => CACHE_PATH && is_writable(CACHE_PATH),
 		'users' => USERS_PATH && is_writable(USERS_PATH),
 		'favicons' => is_writable(DATA_PATH . '/favicons'),
-		'persona' => is_writable(DATA_PATH . '/persona'),
 		'tokens' => is_writable(DATA_PATH . '/tokens'),
 	);
 }
@@ -430,12 +529,15 @@ function array_remove(&$array, $value) {
 	$array = array_diff($array, array($value));
 }
 
+//RFC 4648
+function base64url_encode($data) {
+	return strtr(rtrim(base64_encode($data), '='), '+/', '-_');
+}
+//RFC 4648
+function base64url_decode($data) {
+	return base64_decode(strtr($data, '-_', '+/'));
+}
 
-/**
- * Sanitize a URL by removing HTTP credentials.
- * @param $url the URL to sanitize.
- * @return the same URL without HTTP credentials.
- */
-function url_remove_credentials($url) {
-	return preg_replace('/[^\/]*:[^:]*@/', '', $url);
+function _i($icon, $url_only = false) {
+	return FreshRSS_Themes::icon($icon, $url_only);
 }
