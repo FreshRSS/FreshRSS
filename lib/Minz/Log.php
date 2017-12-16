@@ -98,6 +98,7 @@ class Minz_Log {
 				rewind($fp);
 				ftruncate($fp, 0);
 				fwrite($fp, $content ? $content : '');
+				fwrite($fp, sprintf("[%s] [notice] --- Log rotate.\n", date('r')));
 				fflush($fp);
 				flock($fp, LOCK_UN);
 			} else {
