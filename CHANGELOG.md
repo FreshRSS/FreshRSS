@@ -10,7 +10,6 @@
 	* Add more Unicode glyphs in the Open Sans font [#1032](https://github.com/FreshRSS/FreshRSS/pull/1032)
 	* Show URL to add subscriptions from third-party tools [#1247](https://github.com/FreshRSS/FreshRSS/issues/1247)
 	* Improved message when checking for new versions [#1586](https://github.com/FreshRSS/FreshRSS/issues/1586)
-	* Hebrew [#1716](https://github.com/FreshRSS/FreshRSS/pull/1716)
 * SimplePie
 	* Remove "SimplePie" name from HTTP User-Agent string [#1656](https://github.com/FreshRSS/FreshRSS/pull/1656)
 * Bug fixing
@@ -24,6 +23,7 @@
 * SQL
 	* Perform `VACUUM` on SQLite and PostgreSQL databases when optimisation is requested [#918](https://github.com/FreshRSS/FreshRSS/issues/918)
 * I18n
+	* Hebrew [#1716](https://github.com/FreshRSS/FreshRSS/pull/1716)
 	* Improved German [#1698](https://github.com/FreshRSS/FreshRSS/pull/1698)
 * Extensions
 	* Show existing extensions in admin panel [#1708](https://github.com/FreshRSS/FreshRSS/pull/1708)
