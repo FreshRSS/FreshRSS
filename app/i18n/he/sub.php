@@ -66,9 +66,11 @@ return array(
 		'bookmark' => 'הרשמה (FreshRSS סימניית)',
 		'import_export' => 'יבוא / יצוא ',
 		'subscription_management' => 'ניהול הרשמות',
+		'subscription_tools' => 'Subscription tools', // @todo
 	),
 	'title' => array(
 		'_' => 'ניהול הרשמות',
 		'feed_management' => 'ניהול הזנות RSS',
+		'subscription_tools' => 'Subscription tools', // @todo
 	),
 );

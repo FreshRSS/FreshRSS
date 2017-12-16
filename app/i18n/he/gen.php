@@ -21,16 +21,25 @@ return array(
 		'truncate' => 'מחיקת כל המאמרים',
 	),
 	'auth' => array(
+		'email' => 'Email address', // @todo
 		'keep_logged_in' => 'השאר מחובר <small>חודש</small>',
 		'login' => 'כניסה לחשבון',
-		'login_persona' => 'התחברות באמצעות פרסונה',
-		'login_persona_problem' => 'בעיות התחברות עם פרסונה?',
 		'logout' => 'יציאה מהחשבון',
-		'password' => 'סיסמה',
+		'password' => array(
+			'_' => 'סיסמה',
+			'format' => '<small>At least 7 characters</small>',
+		),
+		'registration' => array(
+			'_' => 'New account', // @todo
+			'ask' => 'Create an account?', // @todo
+			'title' => 'Account creation', // @todo
+		),
 		'reset' => 'איפוס אימות',
-		'username' => 'שם משתמש',
-		'username_admin' => 'שם משתמש של המנהל',
-		'will_reset' => 'מערכת האימות אופסה: טופס ישמש לאימות במקום מוזילה פרסונה.',
+		'username' => array(
+			'_' => 'שם משתמש',
+			'admin' => 'שם משתמש של המנהל',
+			'format' => '<small>maximum 16 alphanumeric characters</small>', // @todo
+		),
 	),
 	'date' => array(
 		'Apr' => '\\A\\p\\r\\i\\l',
@@ -71,6 +80,7 @@ return array(
 		'mar' => 'mar',
 		'march' => 'Mar',
 		'may' => 'May',
+		'may_' => 'May',
 		'mon' => 'Mon',
 		'month' => 'חודשים',
 		'nov' => 'nov',
@@ -156,6 +166,7 @@ return array(
 		'g+' => 'Google+',
 		'gnusocial' => 'GNU social',
 		'jdh' => 'Journal du hacker',
+		'Known' => 'Known based sites',
 		'mastodon' => 'Mastodon',
 		'movim' => 'Movim',
 		'print' => 'הדפסה',
@@ -172,6 +183,7 @@ return array(
 		'damn' => 'הו לא!',
 		'default_category' => 'ללא קטגוריה',
 		'no' => 'לא',
+		'not_applicable' => 'Not available', // @todo
 		'ok' => 'כן!',
 		'or' => 'או',
 		'yes' => 'כן',

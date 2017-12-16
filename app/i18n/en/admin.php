@@ -118,7 +118,7 @@ return array(
 		'description' => 'Description',
 		'author' => 'Author',
 		'latest' => 'Installed',
-		'update' => 'Update available'
+		'update' => 'Update available',
 	),
 	'stats' => array(
 		'_' => 'Statistics',

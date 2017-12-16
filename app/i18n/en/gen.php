@@ -166,6 +166,7 @@ return array(
 		'g+' => 'Google+',
 		'gnusocial' => 'GNU social',
 		'jdh' => 'Journal du hacker',
+		'Known' => 'Known based sites',
 		'mastodon' => 'Mastodon',
 		'movim' => 'Movim',
 		'print' => 'Print',

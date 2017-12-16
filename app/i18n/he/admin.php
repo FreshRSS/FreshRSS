@@ -8,7 +8,6 @@ return array(
 		'form' => 'טופס אינטרנטי (מסורתי, דורש JavaScript)',
 		'http' => 'HTTP (למשתמשים מתקדמים עם HTTPS)',
 		'none' => 'ללא (מסוכן)',
-		'persona' => 'מוזילה פרסונה (מודרני, דורש JavaScript)',
 		'title' => 'Authentication', // @todo
 		'title_reset' => 'איפוס אימות',
 		'token' => 'מחרוזת אימות',
@@ -58,6 +57,10 @@ return array(
 			'nok' => 'Feed table is bad configured.', // @todo
 			'ok' => 'Feed table is ok.', // @todo
 		),
+		'fileinfo' => array(
+			'nok' => 'Cannot find the PHP fileinfo library (fileinfo package).', // @todo
+			'ok' => 'You have the fileinfo library.', // @todo
+		),
 		'files' => 'File installation', // @todo
 		'json' => array(
 			'nok' => 'You lack JSON (php5-json package).', // @todo
@@ -74,10 +77,6 @@ return array(
 		'pdo' => array(
 			'nok' => 'PDO אינו מותקן או שאחד ממנהלי ההתקנים שלו חסר (pdo_mysql, pdo_sqlite)',
 			'ok' => 'PDO מותקן ולפחות אחד ממנהלי ההתקן הנתמכים מותקן (pdo_mysql, pdo_sqlite)',
-		),
-		'persona' => array(
-			'nok' => 'Check permissions on <em>./data/persona</em> directory. HTTP server must have rights to write into', // @todo
-			'ok' => 'ההרשאות בתיקיית מוזילה פרסונה תקינות',
 		),
 		'php' => array(
 			'_' => 'PHP installation', // @todo
@@ -113,6 +112,13 @@ return array(
 		),
 		'title' => 'Extensions', // @todo
 		'user' => 'User extensions', // @todo
+		'community' => 'Available community extensions', // @todo
+		'name' => 'Name', // @todo
+		'version' => 'Version', // @todo
+		'description' => 'Description', // @todo
+		'author' => 'Author', // @todo
+		'latest' => 'Installed', // @todo
+		'update' => 'Update available', // @todo
 	),
 	'stats' => array(
 		'_' => 'סטטיסטיקות',
@@ -146,6 +152,17 @@ return array(
 		'title' => 'סטטיסטיקות',
 		'top_feed' => 'עשרת ההזנות המובילות',
 	),
+	'system' => array(
+		'_' => 'System configuration', // @todo
+		'auto-update-url' => 'Auto-update server URL', // @todo
+		'instance-name' => 'Instance name', // @todo
+		'max-categories' => 'Categories per user limit', // @todo
+		'max-feeds' => 'Feeds per user limit', // @todo
+		'registration' => array(
+			'help' => '0 means that there is no account limit', // @todo
+			'number' => 'Max number of accounts', // @todo
+		),
+	),
 	'update' => array(
 		'_' => 'מערכת העדכון',
 		'apply' => 'החלת העדכון',
@@ -158,8 +175,9 @@ return array(
 	'user' => array(
 		'articles_and_size' => '%s articles (%s)', // @todo
 		'create' => 'יצירת משתמש חדש',
-		'email_persona' => 'כתובת דואר אלקטרוני להרשמה<br /><small>(לצורך <a href="https://persona.org/" rel="external">מוזילה פרסונה</a>)</small>',
 		'language' => 'שפה',
+		'number' => 'There is %d account created', // @todo
+		'numbers' => 'There are %d accounts created', // @todo
 		'password_form' => 'סיסמה<br /><small>(לשימוש בטפוס ההרשמה)</small>',
 		'password_format' => 'At least 7 characters', // @todo
 		'title' => 'Manage users', // @todo

@@ -84,11 +84,13 @@ return array(
 		'articles_per_page' => 'מספר המאמרים בעמוד',
 		'auto_load_more' => 'טעינת המאמר הבא סוף העמוד',
 		'auto_remove_article' => 'Hide articles after reading', // @todo
+		'mark_updated_article_unread' => 'Mark updated articles as unread', // @todo
 		'confirm_enabled' => 'הצגת דו-שיח לאישור “סימון הכל כנקרא” ',
 		'display_articles_unfolded' => 'הצגת מאמרים בשלמותם כברירת מחדל',
 		'display_categories_unfolded' => 'הצגת קטגוריות מקופלות כברירת מחדל',
 		'hide_read_feeds' => 'הסתרת קטגוריות &amp; הזנות ללא מאמרים שלא נקראו (לא עובד יחד עם “הצגת כל המאמרים”)',
 		'img_with_lazyload' => 'שימוש ב "טעינה עצלה" על מנת לטעון תמונות',
+		'sides_close_article' => 'Clicking outside of article text area closes the article', // @todo
 		'jump_next' => 'קפיצה לפריט הבא שלא נקרא (הזנה או קטגוריה)',
 		'number_divided_when_reader' => 'חלוקה ב2 במצב קריאה.',
 		'read' => array(
