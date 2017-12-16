@@ -1,6 +1,15 @@
 <?php
 
 return array(
+	'api' => array(
+		'documentation' => 'Copy the following URL to use it within an external tool.', // @todo
+		'title' => 'API', // @todo
+	),
+	'bookmarklet' => array(
+		'documentation' => 'Drag this button to your bookmarks toolbar or right-click it and choose "Bookmark This Link". Then click "Subscribe" button in any page you want to subscribe to.', // @todo
+		'label' => 'Subscribe', // @todo
+		'title' => 'Bookmarklet', // @todo
+	),
 	'category' => array(
 		'_' => 'קטגוריה',
 		'add' => 'הוספת קטגוריה',
@@ -37,6 +46,10 @@ return array(
 		'url' => 'הזנה URL',
 		'validator' => 'בדיקות תקינות ההזנה',
 		'website' => 'אתר URL',
+	),
+	'firefox' => array(
+		'documentation' => 'Follow the steps described <a href="https://developer.mozilla.org/en-US/Firefox/Releases/2/Adding_feed_readers_to_Firefox#Adding_a_new_feed_reader_manually">here</a> to add FreshRSS to Firefox feed reader list.', // @todo
+		'title' => 'Firefox feed reader', // @todo
 	),
 	'import_export' => array(
 		'export' => 'ייצוא',

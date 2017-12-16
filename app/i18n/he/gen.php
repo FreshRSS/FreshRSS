@@ -104,10 +104,19 @@ return array(
 		'should_be_activated' => 'חובה להפעיל JavaScript',
 	),
 	'lang' => array(
+		'cz' => 'Čeština',
 		'de' => 'Deutsch',
 		'en' => 'English',
+		'es' => 'Español',
 		'fr' => 'Français',
 		'he' => 'עברית',
+		'it' => 'Italiano',
+		'kr' => '한국어',
+		'nl' => 'Nederlands',
+		'pt-br' => 'Português (Brasil)',
+		'ru' => 'Русский',
+		'tr' => 'Türkçe',
+		'zh-cn' => '简体中文',
 	),
 	'menu' => array(
 		'about' => 'אודות',
@@ -125,6 +134,7 @@ return array(
 		'sharing' => 'שיתוף',
 		'shortcuts' => 'קיצורי דרך',
 		'stats' => 'סטטיסטיקות',
+		'system' => 'System configuration', // @todo
 		'update' => 'עדכון',
 		'user_management' => 'Manage users', // @todo
 		'user_profile' => 'Profile', // @todo
@@ -144,10 +154,15 @@ return array(
 		'email' => 'דואר אלקטרוני',
 		'facebook' => 'Facebook',
 		'g+' => 'Google+',
+		'gnusocial' => 'GNU social',
+		'jdh' => 'Journal du hacker',
+		'mastodon' => 'Mastodon',
+		'movim' => 'Movim',
 		'print' => 'הדפסה',
 		'shaarli' => 'Shaarli',
 		'twitter' => 'Twitter',
-		'wallabag' => 'wallabag',
+		'wallabag' => 'wallabag v1',
+		'wallabagv2' => 'wallabag v2',
 	),
 	'short' => array(
 		'attention' => 'זהירות!',
