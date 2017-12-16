@@ -21,44 +21,30 @@ if (file_exists(__DIR__ . '/constants.local.php')) {
 	include(__DIR__ . '/constants.local.php');
 }
 
-if (!defined('FRESHRSS_USERAGENT')) {
-	define('FRESHRSS_USERAGENT', 'FreshRSS/' . FRESHRSS_VERSION . ' (' . PHP_OS . '; ' . FRESHRSS_WEBSITE . ')');
+function safe_define($name, $value) {
+	if (!defined($name) {
+		return define($name, $value);
+	}
 }
-if (!defined('PHP_COMPRESSION')) {
-	// PHP text output compression http://php.net/ob_gzhandler (better to do it at Web server level)
-	define('PHP_COMPRESSION', false);
-}
-if (!defined('MAX_LOG_SIZE')) {
-	// Maximum log file size in Bytes, before it will be divided by two
-	define('MAX_LOG_SIZE', 1048576);
-}
-if (!defined('DATA_PATH')) {
-	//This directory must be writable
-	define('DATA_PATH', FRESHRSS_PATH . '/data');
-}
-if (!defined('UPDATE_FILENAME')) {
-	define('UPDATE_FILENAME', DATA_PATH . '/update.php');
-}
-if (!defined('USERS_PATH')) {
-	define('USERS_PATH', DATA_PATH . '/users');
-}
-if (!defined('ADMIN_LOG')) {
-	define('ADMIN_LOG', USERS_PATH . '/_/log.txt');
-}
-if (!defined('API_LOG')) {
-	define('API_LOG', USERS_PATH . '/_/log_api.txt');
-}
-if (!defined('CACHE_PATH')) {
-	define('CACHE_PATH', DATA_PATH . '/cache');
-}
-if (!defined('PSHB_LOG')) {
-	define('PSHB_LOG', USERS_PATH . '/_/log_pshb.txt');
-}
-if (!defined('PSHB_PATH')) {
-	define('PSHB_PATH', DATA_PATH . '/PubSubHubbub');
-}
-if (!defined('TMP_PATH')) {
-	//This directory must be writable
-	//Used for feed mutex with *.freshrss.lock files
-	define('TMP_PATH', sys_get_temp_dir());
-}
+
+safe_define('FRESHRSS_USERAGENT', 'FreshRSS/' . FRESHRSS_VERSION . ' (' . PHP_OS . '; ' . FRESHRSS_WEBSITE . ')');
+
+// PHP text output compression http://php.net/ob_gzhandler (better to do it at Web server level)
+safe_define('PHP_COMPRESSION', false);
+
+// Maximum log file size in Bytes, before it will be divided by two
+safe_define('MAX_LOG_SIZE', 1048576);
+
+//This directory must be writable
+safe_define('DATA_PATH', FRESHRSS_PATH . '/data');
+
+safe_define('UPDATE_FILENAME', DATA_PATH . '/update.php');
+safe_define('USERS_PATH', DATA_PATH . '/users');
+safe_define('ADMIN_LOG', USERS_PATH . '/_/log.txt');
+safe_define('API_LOG', USERS_PATH . '/_/log_api.txt');
+safe_define('CACHE_PATH', DATA_PATH . '/cache');
+safe_define('PSHB_LOG', USERS_PATH . '/_/log_pshb.txt');
+safe_define'PSHB_PATH', DATA_PATH . '/PubSubHubbub');
+
+//Directory used for feed mutex with *.freshrss.lock files. Must be writable.
+safe_define('TMP_PATH', sys_get_temp_dir());
