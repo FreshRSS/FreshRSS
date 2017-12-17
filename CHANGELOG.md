@@ -1,9 +1,7 @@
 ﻿# FreshRSS changelog
 
-## 2017-12-17 FreshRSS 1.9.0-dev
+## 2017-12-17 FreshRSS 1.9.0
 
-* API
-	* Breaking change / compatibility fix (EasyRSS): Provide `link` to articles without HTML-encoding [#1683](https://github.com/FreshRSS/FreshRSS/issues/1683)
 * Features
 	* Share with Mastodon [#1521](https://github.com/FreshRSS/FreshRSS/issues/1521)
 * UI
@@ -13,7 +11,7 @@
 * SimplePie
 	* Remove "SimplePie" name from HTTP User-Agent string [#1656](https://github.com/FreshRSS/FreshRSS/pull/1656)
 * Bug fixing
-	* Work-around for `CURLOPT_FOLLOWLOCATION` `open_basedir` bug in favicons and PubSubHubbub [#1655](https://github.com/FreshRSS/FreshRSS/issues/1655)
+	* Work-around for PHP 5.6.0- `CURLOPT_FOLLOWLOCATION` `open_basedir` bug in favicons and PubSubHubbub [#1655](https://github.com/FreshRSS/FreshRSS/issues/1655)
 	* Fix PDO PostgreSQL detection [#1690](https://github.com/FreshRSS/FreshRSS/issues/1690)
 	* Fix punycode warning in PHP 7.2 [#1699](https://github.com/FreshRSS/FreshRSS/issues/1699)
 	* Fix crash when adding a new category while adding a new feed [#1731](https://github.com/FreshRSS/FreshRSS/pull/1731)
@@ -23,13 +21,15 @@
 	* Check PHP requirements before running `actualize_script.php` (cron for refreshing feeds) [#1711](https://github.com/FreshRSS/FreshRSS/pull/1711)
 * SQL
 	* Perform `VACUUM` on SQLite and PostgreSQL databases when optimisation is requested [#918](https://github.com/FreshRSS/FreshRSS/issues/918)
-* I18n
-	* Hebrew [#1716](https://github.com/FreshRSS/FreshRSS/pull/1716)
-	* Improved German [#1698](https://github.com/FreshRSS/FreshRSS/pull/1698)
+* API
+	* Breaking change / compatibility fix (EasyRSS): Provide `link` to articles without HTML-encoding [#1683](https://github.com/FreshRSS/FreshRSS/issues/1683)
 * Extensions
 	* Breaking change: uppercase `./Controllers/` directory [#1729](https://github.com/FreshRSS/FreshRSS/pull/1729)
 	* Show existing extensions in admin panel [#1708](https://github.com/FreshRSS/FreshRSS/pull/1708)
 	* New function `$entry->_hash($hex)` for extensions that change the content of entries [#1707](https://github.com/FreshRSS/FreshRSS/pull/1707)
+* I18n
+	* Hebrew [#1716](https://github.com/FreshRSS/FreshRSS/pull/1716)
+	* Improved German [#1698](https://github.com/FreshRSS/FreshRSS/pull/1698)
 * Misc.
 	* Customisable `constants.local.php` [#1725](https://github.com/FreshRSS/FreshRSS/pull/1725)
 	* Basic mechanism to limit the size of the logs [#1712](https://github.com/FreshRSS/FreshRSS/pull/1712)
