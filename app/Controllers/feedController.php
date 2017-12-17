@@ -149,7 +149,7 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 				// User want to create a new category, new_category parameter
 				// must exist
 				$new_cat = Minz_Request::param('new_category');
-				$new_cat_name = isset($new_cat['name']) && !empty(trim($new_cat['name'])) ? $new_cat['name'] : '';
+				$new_cat_name = isset($new_cat['name']) && !empty(trim($new_cat['name'])) ? trim($new_cat['name']) : '';
 			}
 
 			// HTTP information are useful if feed is protected behind a
