@@ -26,6 +26,18 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 		}
 	}
 
+	/**
+	 * @param $url
+	 * @param string $title
+	 * @param int $cat_id
+	 * @param string $new_cat_name
+	 * @param string $http_auth
+	 * @return FreshRSS_Feed|the
+	 * @throws FreshRSS_AlreadySubscribed_Exception
+	 * @throws FreshRSS_FeedNotAdded_Exception
+	 * @throws FreshRSS_Feed_Exception
+	 * @throws Minz_FileNotExistException
+	 */
 	public static function addFeed($url, $title = '', $cat_id = 0, $new_cat_name = '', $http_auth = '') {
 		FreshRSS_UserDAO::touch();
 		@set_time_limit(300);
@@ -33,23 +45,17 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 		$catDAO = new FreshRSS_CategoryDAO();
 
 		$cat = null;
+		if ($new_cat_name != '') {
+			$new_cat_id = $catDAO->addCategory(array('name' => $new_cat_name));
+			$cat_id = $new_cat_id > 0 ? $new_cat_id : $cat_id;
+		}
 		if ($cat_id > 0) {
 			$cat = $catDAO->searchById($cat_id);
-		}
-		if ($cat == null && $new_cat_name != '') {
-			$cat = $catDAO->addCategory(array('name' => $new_cat_name));
 		}
 		if ($cat == null) {
 			$catDAO->checkDefault();
 		}
-
-		if ($cat === null) {
-			$cat_id = FreshRSS_CategoryDAO::DEFAULTCATEGORYID;
-		} else if ($cat instanceof FreshRSS_Category) {
-			$cat_id = $cat->id();
-		} else {
-			$cat_id = $cat;
-		}
+		$cat_id = $cat == null ? FreshRSS_CategoryDAO::DEFAULTCATEGORYID : $cat->id();
 
 		$feed = new FreshRSS_Feed($url);	//Throws FreshRSS_BadUrl_Exception
 		$feed->_httpAuth($http_auth);
@@ -61,7 +67,7 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 			throw new FreshRSS_AlreadySubscribed_Exception($url, $feed->name());
 		}
 
-		// Call the extension hook
+		/** @var FreshRSS_Feed $feed */
 		$feed = Minz_ExtensionManager::callHook('feed_before_insert', $feed);
 		if ($feed === null) {
 			throw new FreshRSS_FeedNotAdded_Exception($url, $feed->name());
