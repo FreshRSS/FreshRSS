@@ -216,7 +216,7 @@ The solution is to use the `Minz_Translate` class, which allows dynamic translat
 - `gen.php` stores what is global to FreshRSS (gen for "general")
 - `index.php` for the main page that lists feeds and the About page
 - `install.php` contains strings related FreshRSS installation
-- `sub.php` for subscription management (sub for :subscription")
+- `sub.php` for subscription management (sub for "subscription")
 
 This organization makes it possible to avoid a single huge translation file.
 
