@@ -294,7 +294,7 @@ You may also need additional files or subdirectories depending on your needs:
 
 - `configure.phtml` is the file containing the form to parameterize your extension
 - A `static/` directory containing CSS and JavaScript files that you will need for your extension (note that if you need to write a lot of CSS it may be more interesting to write a complete theme)
-- A `controllers` directory containing additional controllers
+- A `Controllers` directory containing additional controllers
 - An `i18n` directory containing additional translations
 - `layout` and` views` directories to define new views or to overwrite the current views
 
@@ -336,7 +336,7 @@ In addition, you will have a number of methods directly inherited from `Minz_Ext
 
 - The "getters" first: most are explicit enough not to detail them here - `getName()`, `getEntrypoint()`, `getPath()` (allows you to retrieve the path to your extension), `getAuthor()`, `getDescription()`, `getVersion()`, `getType()`.
 - `getFileUrl($filename, $type)` will return the URL to a file in the `static` directory. The first parameter is the name of the file (without `static /`), the second is the type of file to be used (`css` or` js`).
-- `registerController($base_name)` will tell Minz to take into account the given controller in the routing system. The controller must be located in your `controllers` directory, the name of the file must be` <base_name>Controller.php` and the name of the `FreshExtension_<base_name>_Controller` class.
+- `registerController($base_name)` will tell Minz to take into account the given controller in the routing system. The controller must be located in your `Controllers` directory, the name of the file must be` <base_name>Controller.php` and the name of the `FreshExtension_<base_name>_Controller` class.
 
 **TODO**
 

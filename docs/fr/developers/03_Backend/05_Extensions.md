@@ -277,7 +277,7 @@ Il est possible aussi que vous ayez besoin de fichiers ou sous-répertoires addi
 
 - `configure.phtml` est le fichier contenant le formulaire permettant de paramétrer votre extension ;
 - Un répertoire `static/` contenant fichiers CSS et JavaScript dont vous aurez besoin pour votre extension. Notez que si vous devez écrire beaucoup de CSS il est peut-être plus intéressant d'écrire un thème complet (mais ce n'est pas le sujet de cette fiche technique) ;
-- Un répertoire `controllers` contenant des contrôleurs additionnels ;
+- Un répertoire `Controllers` contenant des contrôleurs additionnels ;
 - Un répertoire `i18n` contenant des traductions supplémentaires ;
 - Des répertoires `layout` et `views` permettant de définir de nouvelles vues ou d'écraser les vues actuelles.
 
