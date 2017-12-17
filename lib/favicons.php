@@ -37,8 +37,8 @@ function downloadHttp(&$url, $curlOptions = array()) {
 			CURLOPT_MAXREDIRS => 10,
 		));
 	if (!empty(ini_get('open_basedir'))) {
-        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);    //Keep option separated for open_basedir bug
-    }
+		curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+	}
 	if (defined('CURLOPT_ENCODING')) {
 		curl_setopt($ch, CURLOPT_ENCODING, '');	//Enable all encodings
 	}
