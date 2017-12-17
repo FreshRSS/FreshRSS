@@ -42,7 +42,14 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 		if ($cat == null) {
 			$catDAO->checkDefault();
 		}
-		$cat_id = $cat == null ? FreshRSS_CategoryDAO::DEFAULTCATEGORYID : $cat->id();
+
+		if ($cat === null) {
+			$cat_id = FreshRSS_CategoryDAO::DEFAULTCATEGORYID;
+		} else if ($cat instanceof FreshRSS_Category) {
+			$cat_id = $cat->id();
+		} else {
+			$cat_id = $cat;
+		}
 
 		$feed = new FreshRSS_Feed($url);	//Throws FreshRSS_BadUrl_Exception
 		$feed->_httpAuth($http_auth);
