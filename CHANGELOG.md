@@ -1,6 +1,6 @@
-﻿# Changelog
+﻿# FreshRSS changelog
 
-## 2017-1X-XX FreshRSS 1.8.1-dev
+## 2017-12-17 FreshRSS 1.9.0-dev
 
 * API
 	* Breaking change / compatibility fix (EasyRSS): Provide `link` to articles without HTML-encoding [#1683](https://github.com/FreshRSS/FreshRSS/issues/1683)
@@ -34,6 +34,8 @@
 	* Basic mechanism to limit the size of the logs [#1712](https://github.com/FreshRSS/FreshRSS/pull/1712)
 	* Translation validation tool [#1653](https://github.com/FreshRSS/FreshRSS/pull/1653)
 	* Translation manipulation tool [#1658](https://github.com/FreshRSS/FreshRSS/pull/1658)
+	* Improved documentation [#1697](https://github.com/FreshRSS/FreshRSS/pull/1697), [#1704](https://github.com/FreshRSS/FreshRSS/pull/1704)
+	* New `.editorconfig` file [#1732](https://github.com/FreshRSS/FreshRSS/pull/1732)
 
 
 ## 2017-10-01 FreshRSS 1.8.0
