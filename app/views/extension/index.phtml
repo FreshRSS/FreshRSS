@@ -26,13 +26,46 @@
 		}
 	?>
 	<?php
-		}
+	}
 
-		if (empty($this->extension_list['system']) && empty($this->extension_list['user'])) {
+	if (empty($this->extension_list['system']) && empty($this->extension_list['user'])) {
 	?>
 	<p class="alert alert-warn"><?php echo _t('admin.extensions.empty_list'); ?></p>
 	<?php } ?>
 	</form>
+
+	<?php if (!empty($this->available_extensions)) { ?>
+		<h2><?php echo _t('admin.extensions.community'); ?></h2>
+		<table>
+			<tr>
+				<th><?php echo _t('admin.extensions.name'); ?></th>
+				<th><?php echo _t('admin.extensions.version'); ?></th>
+				<th><?php echo _t('admin.extensions.author'); ?></th>
+				<th><?php echo _t('admin.extensions.description'); ?></th>
+			</tr>
+			<?php foreach ($this->available_extensions as $ext) { ?>
+				<tr>
+					<td><a href="<?php echo $ext['url']; ?>" target="_blank"><?php echo $ext['name']; ?></a></td>
+					<td><?php echo $ext['version']; ?></td>
+					<td><?php echo $ext['author']; ?></td>
+					<td>
+						<?php echo $ext['description']; ?>
+						<?php if (isset($this->extensions_installed[$ext['name']])) { ?>
+							<?php if (version_compare($this->extensions_installed[$ext['name']], $ext['version']) >= 0) { ?>
+								<span class="alert alert-success">
+									<?php echo _t('admin.extensions.latest'); ?>
+								</span>
+							<?php } else  if ($this->extensions_installed[$ext['name']] != $ext['version']) { ?>
+								<span class="alert alert-warn">
+									<?php echo _t('admin.extensions.update'); ?>
+								</span>
+							<?php } ?>
+						<?php } ?>
+					</td>
+				</tr>
+			<?php } ?>
+		</table>
+	<?php } ?>
 </div>
 
 <?php $class = isset($this->extension) ? ' class="active"' : ''; ?>

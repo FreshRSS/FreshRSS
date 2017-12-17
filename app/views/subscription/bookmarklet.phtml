@@ -10,4 +10,8 @@
 	<legend><?php echo _t('sub.firefox.title'); ?></legend>
 	<p><?php echo _t('sub.firefox.documentation'); ?></p>
 	<pre>browser.contentHandlers.types.number.uri → <?php echo Minz_Url::display(array('c' => 'feed', 'a' => 'add'), 'html', true); ?>&amp;url_rss=%s</pre>
+
+	<legend><?php echo _t('sub.api.title'); ?></legend>
+	<p><?php echo _t('sub.api.documentation'); ?></p>
+	<pre><?php echo Minz_Url::display(array('c' => 'feed', 'a' => 'add'), 'html', true); ?>&amp;url_rss=%s</pre>
 </div>

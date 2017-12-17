@@ -14,16 +14,27 @@ install:
 
 script:
   - phpenv rehash
-  - phpcs . --standard=phpcs.xml --warning-severity=0 --extensions=php -p
+  - |
+    if [[ $VALIDATE_STANDARD == yes ]]; then
+      phpcs . --standard=phpcs.xml --warning-severity=0 --extensions=php -p
+    fi
+  - |
+    if [[ $CHECK_TRANSLATION == yes ]]; then
+      php cli/check.translation.php -r
+    fi
 
-env: # important! otherwise no job will be allowed to fail
+env:
+  - CHECK_TRANSLATION=no VALIDATE_STANDARD=yes
+
 matrix:
-  # PHP 5.3 only runs on Ubuntu 12.04 (precise), not 14.04 (trusty)
+  fast_finish: true
   include:
     - php: "5.3"
       dist: precise
-  fast_finish: true
+    - php: "7.1"
+      env: CHECK_TRANSLATION=yes VALIDATE_STANDARD=no
   allow_failures:
+    # PHP 5.3 only runs on Ubuntu 12.04 (precise), not 14.04 (trusty)
     - php: "5.3"
       dist: precise
     - php: "5.4"
@@ -32,3 +43,4 @@ matrix:
     - php: "7.0"
     - php: hhvm
     - php: nightly
+    - env: CHECK_TRANSLATION=yes VALIDATE_STANDARD=no

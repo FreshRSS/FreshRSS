@@ -112,6 +112,13 @@ return array(
 		),
 		'title' => 'Estensioni',
 		'user' => 'Estensioni utente',
+		'community' => 'Available community extensions', // @todo translate
+		'name' => 'Name', // @todo translate
+		'version' => 'Version', // @todo translate
+		'description' => 'Description', // @todo translate
+		'author' => 'Author', // @todo translate
+		'latest' => 'Installed', // @todo translate
+		'update' => 'Update available', // @todo translate
 	),
 	'stats' => array(
 		'_' => 'Statistiche',

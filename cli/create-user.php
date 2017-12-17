@@ -1,7 +1,7 @@
 #!/usr/bin/php
 <?php
 $isUpdate = false;
-require('_update-or-create-user.php');
+require(__DIR__ . '/_update-or-create-user.php');
 
 $username = $options['user'];
 if (!FreshRSS_user_Controller::checkUsername($username)) {

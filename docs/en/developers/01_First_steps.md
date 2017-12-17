@@ -6,6 +6,10 @@
 
 **TODO**
 
+# Extensions
+
+If you want to create your own FreshRSS extension, take a look at the [extension documentation](03_Backend/05_Extensions.md).  
+
 # Coding style
 
 If you want to contribute to the source code, it is important to follow the project coding style. The actual code does not follow it throughout the project, but every time we have an opportunity, we should fix it.

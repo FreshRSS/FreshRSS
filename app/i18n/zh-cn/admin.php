@@ -9,9 +9,9 @@ return array(
 		'http' => 'HTTP (面向启用 HTTPS 的高级用户)',
 		'none' => '无 (危险)',
 		'title' => '认证',
-		'title_reset' => '认证重置',
+		'title_reset' => '密码重置',
 		'token' => '认证口令',
-		'token_help' => '允许不经认证访问默认用户的 RSS 输出：',
+		'token_help' => '用于不经认证访问默认用户的 RSS 输出：',
 		'type' => '认证方式',
 		'unsafe_autologin' => '允许不安全的自动登陆方式：',
 	),
@@ -21,8 +21,8 @@ return array(
 			'ok' => 'cache 目录权限正常。',
 		),
 		'categories' => array(
-			'nok' => '分类表配置错误。',
-			'ok' => '分类表正常。',
+			'nok' => 'Category 表配置错误。',
+			'ok' => 'Category 表正常。',
 		),
 		'connection' => array(
 			'nok' => '数据库连接失败。',
@@ -30,11 +30,11 @@ return array(
 		),
 		'ctype' => array(
 			'nok' => '找不到字符类型检测库 (php-ctype) 。',
-			'ok' => '你已有字符类型检测库 (ctype) 。',
+			'ok' => '已找到字符类型检测库 (ctype) 。',
 		),
 		'curl' => array(
 			'nok' => '找不到 cURL 库 (php-curl package) 。',
-			'ok' => '你已有 cURL 库。',
+			'ok' => '已找到 cURL 库。',
 		),
 		'data' => array(
 			'nok' => '请检查 <em>./data</em> 目录权限。HTTP 服务器必须有其写入权限。',
@@ -43,40 +43,40 @@ return array(
 		'database' => '数据库相关',
 		'dom' => array(
 			'nok' => '找不到用于浏览 DOM 的库 (php-xml) 。',
-			'ok' => '你已有用于浏览 DOM 的库。',
+			'ok' => '已找到用于浏览 DOM 的库。',
 		),
 		'entries' => array(
-			'nok' => '条目表配置错误。',
-			'ok' => '条目表正常。',
+			'nok' => 'Entry 表配置错误。',
+			'ok' => 'Entry 表正常。',
 		),
 		'favicons' => array(
 			'nok' => '请检查 <em>./data/favicons</em> 目录权限。HTTP 服务器必须有其写入权限。',
 			'ok' => 'favicons 目录权限正常。',
 		),
 		'feeds' => array(
-			'nok' => 'RSS 源表配置错误。',
-			'ok' => 'RSS 源表正常。',
+			'nok' => 'Feed 表配置错误。',
+			'ok' => 'Feed 表正常。',
 		),
 		'fileinfo' => array(
 			'nok' => '找不到 PHP fileinfo 库 (fileinfo) 。',
-			'ok' => '你已有 fileinfo 库。',
+			'ok' => '已找到 fileinfo 库。',
 		),
 		'files' => '文件相关',
 		'json' => array(
 			'nok' => '找不到 JSON 扩展 (php5-json ) 。',
-			'ok' => '你已有 JSON 扩展',
+			'ok' => '已找到 JSON 扩展',
 		),
 		'minz' => array(
 			'nok' => '找不到 Minz 框架。',
-			'ok' => '你已有 Minz 框架。',
+			'ok' => '已找到 Minz 框架。',
 		),
 		'pcre' => array(
 			'nok' => '找不到正则表达式解析库 (php-pcre) 。',
-			'ok' => '你已有正则表达式解析库 (PCRE) 。',
+			'ok' => '已找到正则表达式解析库 (PCRE) 。',
 		),
 		'pdo' => array(
 			'nok' => '找不到 PDO 或支持的驱动 (pdo_mysql, pdo_sqlite, pdo_pgsql) 。',
-			'ok' => '你已有 PDO 和支持的至少一种驱动 (pdo_mysql, pdo_sqlite, pdo_pgsql) 。',
+			'ok' => '已找到 PDO 和支持的至少一种驱动 (pdo_mysql, pdo_sqlite, pdo_pgsql) 。',
 		),
 		'php' => array(
 			'_' => 'PHP 相关',
@@ -98,7 +98,7 @@ return array(
 		),
 		'zip' => array(
 			'nok' => '找不到 ZIP 扩展 (php-zip) 。',
-			'ok' => '你已有 ZIP 扩展。',
+			'ok' => '已找到 ZIP 扩展。',
 		),
 	),
 	'extensions' => array(
@@ -112,6 +112,13 @@ return array(
 		),
 		'title' => '扩展',
 		'user' => '用户扩展',
+		'community' => 'Available community extensions', // @todo translate
+		'name' => 'Name', // @todo translate
+		'version' => 'Version', // @todo translate
+		'description' => 'Description', // @todo translate
+		'author' => 'Author', // @todo translate
+		'latest' => 'Installed', // @todo translate
+		'update' => 'Update available', // @todo translate
 	),
 	'stats' => array(
 		'_' => '统计',

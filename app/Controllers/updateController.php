@@ -102,7 +102,7 @@ class FreshRSS_update_Controller extends Minz_ActionController {
 				$version = 'git';
 			} else {
 				$this->view->message = array(
-					'status' => 'bad',
+					'status' => 'latest',
 					'title' => _t('gen.short.damn'),
 					'body' => _t('feedback.update.none')
 				);
@@ -138,7 +138,7 @@ class FreshRSS_update_Controller extends Minz_ActionController {
 			$status = $res_array[0];
 			if (strpos($status, 'UPDATE') !== 0) {
 				$this->view->message = array(
-					'status' => 'bad',
+					'status' => 'latest',
 					'title' => _t('gen.short.damn'),
 					'body' => _t('feedback.update.none')
 				);

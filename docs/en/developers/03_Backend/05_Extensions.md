@@ -6,21 +6,41 @@ FreshRSS is an RSS / Atom feeds aggregator written in PHP since October 2012. Th
 
 ## Problem to solve
 
-**TODO** translate from [french version](https://github.com/FreshRSS/documentation/blob/master/fr/docs/developers/03_Backend/05_Extensions.md)
+FreshRSS is limited in its technical possibilities by various factors:
+
+* The number of developers
+* The will to integrate certain changes
+* The level of "hacking" required to integrate marginal features
+
+While the first limitation can, in theory, be lifted by the participation of new contributors to the project, it depends on the willingness of contributors to take an interest in the source code of the entire project. In order to remove the other two limitations, most of the time it will be necessary to create a "fork".
+
+Another solution consists of an extension system. By allowing users to write their own extension without taking an interest in the core of the basic software, we allow for:
+
+1. Reducing the amount of source code a new contributor has to take in
+2. Unofficial integration of novelties
+3. No necessity of forking or main developer approvement.
+
+Note: it is quite conceivable that the functionalities of an extension can later be officially integrated into the FreshRSS code. Extensions make it easy to propose a proof of concept.
 
 ## Understanding basic mechanics (Minz and MVC)
 
 **TODO** : move to 02_Minz.md
 
-**TODO** translate from [french version](https://github.com/FreshRSS/documentation/blob/master/fr/docs/developers/03_Backend/05_Extensions.md)
+This data sheet should refer to the official FreshRSS and Minz documentation (the PHP framework on which FreshRSS is based). Unfortunately, this documentation does not yet exist. In a few words, here are the main things you should know. It is not necessary to read all the chapters in this section if you don't need to use a feature in your extension (if you don't need to translate your extension, no need to know more about the `Minz_Translate` module for example).
 
 ### MVC Architecture
 
-**TODO** translate from [french version](https://github.com/FreshRSS/documentation/blob/master/fr/docs/developers/03_Backend/05_Extensions.md)
+Minz relies on and imposes an MVC architecture for projects using it. This architecture consists of three main components:
+
+* The model: this is the base object that we will manipulate. In FreshRSS, categories, flows and articles are templates. The part of the code that makes it possible to manipulate them in a database is also part of the model but is separated from the base model: we speak of DAO (for "Data Access Object"). The templates are stored in a `Models` folder.
+* The view: this is what the user sees. The view is therefore simply HTML code mixed with PHP to display dynamic information. The views are stored in an `views` folder.
+* The controller: this is what makes it possible to link models and views. Typically, a controller will load templates from the database (like a list of items) to "pass" them to a view for display. Controllers are stored in a `Controllers` directory.
 
 ### Routing
 
-**TODO** translate from [french version](https://github.com/FreshRSS/documentation/blob/master/fr/docs/developers/03_Backend/05_Extensions.md)
+In order to link a URL to a controller, first you have to go through a "routing" phase. In FreshRSS, this is particularly simple because it suffices to specify the name of the controller to load into the URL using a `c` parameter. For example, the address http://exemple.com?c=hello will execute the code contained in the `hello` controller.
+
+One concept that has not yet been discussed is the "actions" system. An action is executed *on* a controller. Concretely, a controller is represented by a class and its actions by methods. To execute an action, it is necessary to specify an `a` parameter in the URL.
 
 Code example:
 
@@ -40,13 +60,17 @@ class FreshRSS_hello_Controller extends Minz_ActionController {
 ?>
 ```
 
-**TODO** translate from [french version](https://github.com/FreshRSS/documentation/blob/master/fr/docs/developers/03_Backend/05_Extensions.md)
+When loading the address http://exemple.com?c=hello&a=world, the `world` action is executed on the `hello` controller.
+
+Note: if `c` or `a` is not specified, the default value for each of these variables is `index`. So the address http://exemple.com?c=hello will execute the `index` action of the `hello` controller.
+
+Later, the `hello/world` convention will be used to refer to a controller/action pair.
 
 ### Views
 
-**TODO** translate from [french version](https://github.com/FreshRSS/documentation/blob/master/fr/docs/developers/03_Backend/05_Extensions.md)
+Each view is associated with a controller and an action. The view associated with `hello/world` will be stored in a very specific file: `views/hello/world. phtml`. This convention is imposed by Minz.
 
-Code example:
+As explained above, the views consist of HTML mixed with PHP. Code example:
 
 ```html
 <p>
@@ -54,12 +78,11 @@ Code example:
 </p>
 ```
 
-**TODO** translate from [french version](https://github.com/FreshRSS/documentation/blob/master/fr/docs/developers/03_Backend/05_Extensions.md)
+The variable `$this->a_variable` is passed by the controller (see previous example). The difference is that in the controller it is necessary to pass `$this->view`, while in the view `$this` suffices.
 
 ### Working with GET / POST
 
-**TODO** translate from [french version](https://github.com/FreshRSS/documentation/blob/master/fr/docs/developers/03_Backend/05_Extensions.md)
-
+It is often necessary to take advantage of parameters passed by GET or POST. In Minz, these parameters are accessible using the `Minz_Request` class.
 Code example:
 
 ```php
@@ -82,15 +105,17 @@ echo Minz_Request::param('bar');
 ?>
 ```
 
-**TODO** translate from [french version](https://github.com/FreshRSS/documentation/blob/master/fr/docs/developers/03_Backend/05_Extensions.md)
+The `Minz_Request::isPost()` method can be used to execute a piece of code only if it is a POST request.
+
+Note: it is preferable to use `Minz_Request` only in controllers. It is likely that you will encounter this method in FreshRSS views, or even in templates, but be aware that this is **not** good practice.
 
 ### Access session settings
 
-**TODO** translate from [french version](https://github.com/FreshRSS/documentation/blob/master/fr/docs/developers/03_Backend/05_Extensions.md)
+The access to session parameters is strangely similar to the GET / POST parameters but passes through the `Minz_Session` class this time! There is no example here because you can repeat the previous example by changing all `Minz_Request` to `Minz_Session`.
 
 ### Working with URLs
 
-**TODO** translate from [french version](https://github.com/FreshRSS/documentation/blob/master/fr/docs/developers/03_Backend/05_Extensions.md)
+To take full advantage of the Minz routing system, it is strongly discouraged to write hard URLs in your code. For example, the following view should be avoided:
 
 ```html
 <p>
@@ -98,7 +123,9 @@ echo Minz_Request::param('bar');
 </p>
 ```
 
-**TODO** translate from [french version](https://github.com/FreshRSS/documentation/blob/master/fr/docs/developers/03_Backend/05_Extensions.md)
+Should it be decided one day to use a "url rewriting" system to have addresses in a http://exemple.com/controller/action format, all previous addresses would become ineffective!
+
+So use the `Minz_Url` class and its `display()` method instead. `Minz_Url::display()` takes an array of the following form as its argument:
 
 ```php
 <?php
@@ -117,7 +144,7 @@ echo Minz_Url::display($url_array);
 ?>
 ```
 
-**TODO** translate from [french version](https://github.com/FreshRSS/documentation/blob/master/fr/docs/developers/03_Backend/05_Extensions.md)
+Since this can become a bit tedious to use in the long run, especially in views, it is preferable to use the `_url()' shortcut:
 
 ```php
 <?php
@@ -128,11 +155,11 @@ echo _url('hello', 'world', 'foo', 'bar');
 ?>
 ```
 
-**TODO** translate from [french version](https://github.com/FreshRSS/documentation/blob/master/fr/docs/developers/03_Backend/05_Extensions.md)
+Note: as a general rule, the shortened form (`_url()`) should be used in views, while the long form (`Minz_Url::display()`) should be used in controllers.
 
 ### Redirections
 
-**TODO** translate from [french version](https://github.com/FreshRSS/documentation/blob/master/fr/docs/developers/03_Backend/05_Extensions.md)
+It is often necessary to redirect a user to another page. To do so, the `Minz_Request` class offers another useful method: `forward()`. This method takes the same URL format as the one seen just before as its argument.
 
 Code example:
 
@@ -156,7 +183,7 @@ Minz_Request::forward($url_array, true);
 ?>
 ```
 
-**TODO** translate from [french version](https://github.com/FreshRSS/documentation/blob/master/fr/docs/developers/03_Backend/05_Extensions.md)
+It is very common to want display a message to the user while performing a redirect, to tell the user how the action was carried out (validation of a form for example). Such a message is passed through a `notification` session variable (note: we will talk about feedback from now on to avoid confusion with a notification that can occur at any time). To facilitate this kind of very frequent action, there are two shortcuts that both perform a 302 redirect by assigning a feedback message:
 
 ```php
 <?php
@@ -179,7 +206,21 @@ Minz_Request::bad($feedback_bad, $url_array);
 
 ### Translation Management
 
-**TODO** translate from [french version](https://github.com/FreshRSS/documentation/blob/master/fr/docs/developers/03_Backend/05_Extensions.md)
+It is common (and that's an understatement) to want to show some text to the user. In the previous example, for example, we display feedback to the user based on the result of form validation. The problem is that FreshRSS has users of different nationalities. It is therefore necessary to be able to manage different languages in order not to remain confined to English or French.
+
+The solution is to use the `Minz_Translate` class, which allows dynamic translation of FreshRSS (or any Minz-based application). Before using this module, it is necessary to know where to find the strings to be translated. Each language has its own subdirectory in a parent directory named `i18n`. For example, English language files are located in `i18n/fr/`. There are seven different files:
+
+- `admin.php` for anything related to FreshRSS administration
+- `conf.php` for configuration
+- `feedback.php` contains translations of feedback messages
+- `gen.php` stores what is global to FreshRSS (gen for "general")
+- `index.php` for the main page that lists feeds and the About page
+- `install.php` contains strings related FreshRSS installation
+- `sub.php` for subscription management (sub for :subscription")
+
+This organization makes it possible to avoid a single huge translation file.
+
+The translation files are quite simple: it is only a matter of returning a PHP table containing the translations. Extract from `app/i18n/en/gen.php`:
 
 ```php
 <?php
@@ -201,8 +242,7 @@ return array(
 ?>
 ```
 
-**TODO** translate from [french version](https://github.com/FreshRSS/documentation/blob/master/fr/docs/developers/03_Backend/05_Extensions.md)
-
+To access these translations, `Minz_Translate` will help us with its `Minz_Translate::t()` method. As this can be a bit long to type, a shortcut has been introduced that **must** be used in all circumstances: `_t()`.
 Code example:
 
 ```html
@@ -213,11 +253,11 @@ Code example:
 </p>
 ```
 
-**TODO** translate from [french version](https://github.com/FreshRSS/documentation/blob/master/fr/docs/developers/03_Backend/05_Extensions.md)
+The string to pass to the `_t()` function consists of a series of identifiers separated by dots. The first identifier indicates from which file to extract the translation (in this case, `gen.php`), while the following ones indicate table entries. Thus `action` is an entry of the main array and `back_to_rss_feeds` is an entry of the `action` array. This allows us to further organize our translation files.
+
+There is a small special case that sometimes makes life easier: the `_` identifier. This must necessarily be present at the end of the chain and gives a value to the higher-level identifier. It's pretty hard to explain but very simple to understand. In the example given above, a `_` is associated with the value `FreshRSS`: this means that there is no need to write `_t('gen.freshrss._')` but `_t('gen.freshrss')` suffices.
 
 ### Configuration management
-
-**TODO** translate from [french version](https://github.com/FreshRSS/documentation/blob/master/fr/docs/developers/03_Backend/05_Extensions.md)
 
 ## Write an extension for FreshRSS
 
@@ -254,7 +294,7 @@ You may also need additional files or subdirectories depending on your needs:
 
 - `configure.phtml` is the file containing the form to parameterize your extension
 - A `static/` directory containing CSS and JavaScript files that you will need for your extension (note that if you need to write a lot of CSS it may be more interesting to write a complete theme)
-- A `controllers` directory containing additional controllers
+- A `Controllers` directory containing additional controllers
 - An `i18n` directory containing additional translations
 - `layout` and` views` directories to define new views or to overwrite the current views
 
@@ -298,7 +338,7 @@ In addition, you will have a number of methods directly inherited from `Minz_Ext
 - `getFileUrl($filename, $type)` will return the URL to a file in the `static` directory. The first parameter is the name of the file (without `static /`), the second is the type of file to be used (`css` or` js`).
 - `registerController($base_name)` will tell Minz to take into account the given controller in the routing system. The controller must be located in your `Controllers` directory, the name of the file must be` <base_name>Controller.php` and the name of the `FreshExtension_<base_name>_Controller` class.
 
-**TODO** translate from [french version](https://github.com/FreshRSS/documentation/blob/master/fr/docs/developers/03_Backend/05_Extensions.md)
+**TODO**
 
 - `registerViews()`
 - `registerTranslates()`
@@ -331,4 +371,4 @@ The following events are available:
 
 When you want to support user configurations for your extension or simply display some information, you have to create the `configure.phtml` file. 
 
-**TODO** translate from [french version](https://github.com/FreshRSS/documentation/blob/master/fr/docs/developers/03_Backend/05_Extensions.md)
+**TODO**

@@ -1172,6 +1172,14 @@ function init_print_action() {
 	});
 }
 
+function init_post_action() {
+	$('.item.share > a[href="POST"]').click(function (event) {
+		event.preventDefault();
+		var form = $(this).next('form');
+		$.post(form.data('url'), form.serialize());
+	});
+}
+
 function init_share_observers() {
 	shares = $('.group-share').length;
 
@@ -1182,6 +1190,8 @@ function init_share_observers() {
 		row = row.replace(/##type##/g, opt.val());
 		row = row.replace(/##help##/g, opt.data('help'));
 		row = row.replace(/##key##/g, shares);
+		row = row.replace(/##method##/g, opt.data('method'));
+		row = row.replace(/##field##/g, opt.data('field'));
 		$(this).parents('.form-group').before(row);
 		shares++;
 
@@ -1398,6 +1408,7 @@ function init_afterDOM() {
 		init_posts();
 		init_nav_entries();
 		init_print_action();
+		init_post_action();
 		init_notifs_html5();
 		window.setInterval(refreshUnreads, 120000);
 	} else {

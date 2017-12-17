@@ -20,7 +20,7 @@ Server-side API compatible with Google Reader API layer 2
 * https://github.com/theoldreader/api
 */
 
-require('../../constants.php');
+require(__DIR__ . '/../../constants.php');
 require(LIB_PATH . '/lib_rss.php');	//Includes class autoloader
 
 $ORIGINAL_INPUT = file_get_contents('php://input', false, null, 0, 1048576);
@@ -78,10 +78,6 @@ class MyPDO extends Minz_ModelPdo {
 	}
 }
 
-function logMe($text) {
-	file_put_contents(join_path(USERS_PATH, '_', 'log_api.txt'), date('c') . "\t" . $text . "\n", FILE_APPEND);
-}
-
 function debugInfo() {
 	if (function_exists('getallheaders')) {
 		$ALL_HEADERS = getallheaders();
@@ -107,16 +103,14 @@ function debugInfo() {
 }
 
 function badRequest() {
-	logMe("badRequest()");
-	logMe(debugInfo());
+	Minz_Log::warning('badRequest() ' . debugInfo(), API_LOG);
 	header('HTTP/1.1 400 Bad Request');
 	header('Content-Type: text/plain; charset=UTF-8');
 	die('Bad Request!');
 }
 
 function unauthorized() {
-	logMe("unauthorized()");
-	logMe(debugInfo());
+	Minz_Log::warning('unauthorized() ' . debugInfo(), API_LOG);
 	header('HTTP/1.1 401 Unauthorized');
 	header('Content-Type: text/plain; charset=UTF-8');
 	header('Google-Bad-Token: true');
@@ -124,22 +118,21 @@ function unauthorized() {
 }
 
 function notImplemented() {
-	logMe("notImplemented()");
-	logMe(debugInfo());
+	Minz_Log::warning('notImplemented() ' . debugInfo(), API_LOG);
 	header('HTTP/1.1 501 Not Implemented');
 	header('Content-Type: text/plain; charset=UTF-8');
 	die('Not Implemented!');
 }
 
 function serviceUnavailable() {
-	logMe("serviceUnavailable()");
+	Minz_Log::warning('serviceUnavailable() ' . debugInfo(), API_LOG);
 	header('HTTP/1.1 503 Service Unavailable');
 	header('Content-Type: text/plain; charset=UTF-8');
 	die('Service Unavailable!');
 }
 
 function checkCompatibility() {
-	logMe("checkCompatibility()");
+	Minz_Log::warning('checkCompatibility() ' . debugInfo(), API_LOG);
 	header('Content-Type: text/plain; charset=UTF-8');
 	if (PHP_INT_SIZE < 8 && !function_exists('gmp_init')) {
 		die('FAIL 64-bit or GMP extension!');
@@ -170,7 +163,7 @@ function authorizationToUser() {
 				if ($headerAuthX[1] === sha1(FreshRSS_Context::$system_conf->salt . $user . FreshRSS_Context::$user_conf->apiPasswordHash)) {
 					return $user;
 				} else {
-					logMe('Invalid API authorisation for user ' . $user . ': ' . $headerAuthX[1]);
+					Minz_Log::warning('Invalid API authorisation for user ' . $user . ': ' . $headerAuthX[1], API_LOG);
 					Minz_Log::warning('Invalid API authorisation for user ' . $user . ': ' . $headerAuthX[1]);
 					unauthorized();
 				}
@@ -183,7 +176,6 @@ function authorizationToUser() {
 }
 
 function clientLogin($email, $pass) {	//http://web.archive.org/web/20130604091042/http://undoc.in/clientLogin.html
-	//logMe('clientLogin(' . $email . ")");
 	if (ctype_alnum($email)) {
 		if (!function_exists('password_verify')) {
 			include_once(LIB_PATH . '/password_compat.php');
@@ -215,7 +207,7 @@ function token($conf) {
 //http://blog.martindoms.com/2009/08/15/using-the-google-reader-api-part-1/
 //https://github.com/ericmann/gReader-Library/blob/master/greader.class.php
 	$user = Minz_Session::param('currentUser', '_');
-	//logMe('token('. $user . ")");	//TODO: Implement real token that expires
+	//Minz_Log::debug('token('. $user . ')', API_LOG);	//TODO: Implement real token that expires
 	$token = str_pad(sha1(FreshRSS_Context::$system_conf->salt . $user . $conf->apiPasswordHash), 57, 'Z');	//Must have 57 characters
 	echo $token, "\n";
 	exit();
@@ -224,7 +216,6 @@ function token($conf) {
 function checkToken($conf, $token) {
 //http://code.google.com/p/google-reader-api/wiki/ActionToken
 	$user = Minz_Session::param('currentUser', '_');
-	//logMe('checkToken(' . $token . ")");
 	if ($token === str_pad(sha1(FreshRSS_Context::$system_conf->salt . $user . $conf->apiPasswordHash), 57, 'Z')) {
 		return true;
 	}
@@ -232,7 +223,6 @@ function checkToken($conf, $token) {
 }
 
 function userInfo() {	//https://github.com/theoldreader/api#user-info
-	//logMe("userInfo()");
 	$user = Minz_Session::param('currentUser', '_');
 	exit(json_encode(array(
 			'userId' => $user,
@@ -243,7 +233,6 @@ function userInfo() {	//https://github.com/theoldreader/api#user-info
 }
 
 function tagList() {
-	//logMe("tagList()");
 	header('Content-Type: application/json; charset=UTF-8');
 
 	$pdo = new MyPDO();
@@ -268,7 +257,6 @@ function tagList() {
 }
 
 function subscriptionList() {
-	//logMe("subscriptionList()");
 	header('Content-Type: application/json; charset=UTF-8');
 
 	$pdo = new MyPDO();
@@ -303,7 +291,6 @@ function subscriptionList() {
 }
 
 function subscriptionEdit($streamNames, $titles, $action, $add = '', $remove = '') {
-	//logMe("subscriptionEdit()");
 	//https://github.com/mihaip/google-reader-api/blob/master/wiki/ApiSubscriptionEdit.wiki
 	switch ($action) {
 		case 'subscribe':
@@ -360,7 +347,7 @@ function subscriptionEdit($streamNames, $titles, $action, $add = '', $remove = '
 							$feed = FreshRSS_feed_Controller::addFeed($streamName, $title, $addCatId, $c_name, $http_auth);
 							continue;
 						} catch (Exception $e) {
-							logMe("subscriptionEdit error subscribe: " . $e->getMessage());
+							Minz_Log::error('subscriptionEdit error subscribe: ' . $e->getMessage(), API_LOG);
 						}
 					}
 					badRequest();
@@ -389,7 +376,6 @@ function subscriptionEdit($streamNames, $titles, $action, $add = '', $remove = '
 }
 
 function quickadd($url) {
-	//logMe("quickadd($url)");
 	try {
 		$feed = FreshRSS_feed_Controller::addFeed($url);
 		exit(json_encode(array(
@@ -397,7 +383,7 @@ function quickadd($url) {
 				'streamId' => $feed->id(),
 			)));
 	} catch (Exception $e) {
-		logMe("subscriptionEdit error subscribe: " . $e->getMessage());
+		Minz_Log::error('quickadd error: ' . $e->getMessage(), API_LOG);
 		die(json_encode(array(
 				'numResults' => 0,
 				'error' => $e->getMessage(),
@@ -406,7 +392,6 @@ function quickadd($url) {
 }
 
 function unreadCount() {	//http://blog.martindoms.com/2009/10/16/using-the-google-reader-api-part-2/#unread-count
-	//logMe("unreadCount()");
 	header('Content-Type: application/json; charset=UTF-8');
 
 	$totalUnreads = 0;
@@ -453,7 +438,6 @@ function unreadCount() {	//http://blog.martindoms.com/2009/10/16/using-the-googl
 function streamContents($path, $include_target, $start_time, $count, $order, $exclude_target, $continuation) {
 //http://code.google.com/p/pyrfeed/wiki/GoogleReaderAPI
 //http://blog.martindoms.com/2009/10/16/using-the-google-reader-api-part-2/#feed
-	//logMe("streamContents($path, $include_target, $start_time, $count, $order, $exclude_target, $continuation)");
 	header('Content-Type: application/json; charset=UTF-8');
 
 	$feedDAO = FreshRSS_Factory::createFeedDao();
@@ -517,7 +501,7 @@ function streamContents($path, $include_target, $start_time, $count, $order, $ex
 			'title' => $entry->title(),
 			'summary' => array('content' => $entry->content()),
 			'alternate' => array(
-				array('href' => $entry->link()),
+				array('href' => htmlspecialchars_decode($entry->link(), ENT_QUOTES)),
 			),
 			'categories' => array(
 				'user/-/state/com.google/reading-list',
@@ -562,8 +546,6 @@ function streamContentsItemsIds($streamId, $start_time, $count, $order, $exclude
 //http://code.google.com/p/google-reader-api/wiki/ApiStreamItemsIds
 //http://code.google.com/p/pyrfeed/wiki/GoogleReaderAPI
 //http://blog.martindoms.com/2009/10/16/using-the-google-reader-api-part-2/#feed
-	//logMe("streamContentsItemsIds($streamId, $start_time, $count, $order, $exclude_target)");
-
 	$type = 'A';
 	$id = '';
 	if ($streamId === 'user/-/state/com.google/reading-list') {
@@ -610,8 +592,6 @@ function streamContentsItemsIds($streamId, $start_time, $count, $order, $exclude
 }
 
 function editTag($e_ids, $a, $r) {
-	//logMe("editTag()");
-
 	foreach ($e_ids as $i => $e_id) {
 		$e_ids[$i] = hex2dec(basename($e_id));	//Strip prefix 'tag:google.com,2005:reader/item/'
 	}
@@ -645,7 +625,6 @@ function editTag($e_ids, $a, $r) {
 }
 
 function renameTag($s, $dest) {
-	//logMe("renameTag()");
 	if ($s != '' && strpos($s, 'user/-/label/') === 0 &&
 		$dest != '' &&  strpos($dest, 'user/-/label/') === 0) {
 		$s = substr($s, 13);
@@ -661,7 +640,6 @@ function renameTag($s, $dest) {
 }
 
 function disableTag($s) {
-	//logMe("disableTag($s)");
 	if ($s != '' && strpos($s, 'user/-/label/') === 0) {
 		$s = substr($s, 13);
 		$categoryDAO = new FreshRSS_CategoryDAO();
@@ -679,7 +657,6 @@ function disableTag($s) {
 }
 
 function markAllAsRead($streamId, $olderThanId) {
-	//logMe("markAllAsRead($streamId, $olderThanId)");
 	$entryDAO = FreshRSS_Factory::createEntryDao();
 	if (strpos($streamId, 'feed/') === 0) {
 		$f_id = basename($streamId);
@@ -696,8 +673,8 @@ function markAllAsRead($streamId, $olderThanId) {
 	exit('OK');
 }
 
-//logMe('----------------------------------------------------------------');
-//logMe(debugInfo());
+//Minz_Log::debug('----------------------------------------------------------------', API_LOG);
+//Minz_Log::debug(debugInfo(), API_LOG);
 
 $pathInfo = empty($_SERVER['PATH_INFO']) ? '/Error' : urldecode($_SERVER['PATH_INFO']);
 $pathInfos = explode('/', $pathInfo);
@@ -717,8 +694,6 @@ FreshRSS_Context::$user_conf = null;
 if ($user !== '') {
 	FreshRSS_Context::$user_conf = get_user_configuration($user);
 }
-
-//logMe('User => ' . $user);
 
 Minz_Session::_param('currentUser', $user);
 

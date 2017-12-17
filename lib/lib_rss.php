@@ -4,7 +4,7 @@ if (version_compare(PHP_VERSION, '5.3.8', '<')) {
 }
 
 if (!function_exists('json_decode')) {
-	require_once('JSON.php');
+	require_once(__DIR__ . '/JSON.php');
 	function json_decode($var, $assoc = false) {
 		$JSON = new Services_JSON($assoc ? SERVICES_JSON_LOOSE_TYPE : 0);
 		return $JSON->decode($var);
@@ -12,7 +12,7 @@ if (!function_exists('json_decode')) {
 }
 
 if (!function_exists('json_encode')) {
-	require_once('JSON.php');
+	require_once(__DIR__ . '/JSON.php');
 	function json_encode($var) {
 		$JSON = new Services_JSON();
 		return $JSON->encodeUnsafe($var);
@@ -62,7 +62,12 @@ function idn_to_puny($url) {
 		$parts = parse_url($url);
 		if (!empty($parts['host'])) {
 			$idn = $parts['host'];
-			$puny = idn_to_ascii($idn);
+			// INTL_IDNA_VARIANT_UTS46 is defined starting in PHP 5.4
+			if (defined('INTL_IDNA_VARIANT_UTS46')) {
+				$puny = idn_to_ascii($idn, 0, INTL_IDNA_VARIANT_UTS46);
+			} else {
+				$puny = idn_to_ascii($idn);
+			}
 			$pos = strpos($url, $idn);
 			if ($pos !== false) {
 				return substr_replace($url, $puny, $pos, strlen($idn));
@@ -174,7 +179,7 @@ function customSimplePie() {
 	$system_conf = Minz_Configuration::get('system');
 	$limits = $system_conf->limits;
 	$simplePie = new SimplePie();
-	$simplePie->set_useragent('FreshRSS/' . FRESHRSS_VERSION . ' (' . PHP_OS . '; ' . FRESHRSS_WEBSITE . ') ' . SIMPLEPIE_NAME . '/' . SIMPLEPIE_VERSION);
+	$simplePie->set_useragent(FRESHRSS_USERAGENT);
 	$simplePie->set_syslog($system_conf->simplepie_syslog_enabled);
 	$simplePie->set_cache_location(CACHE_PATH);
 	$simplePie->set_cache_duration($limits['cache_duration']);
@@ -397,12 +402,13 @@ function is_referer_from_same_domain() {
  */
 function check_install_php() {
 	$pdo_mysql = extension_loaded('pdo_mysql');
+	$pdo_pgsql = extension_loaded('pdo_pgsql');
 	$pdo_sqlite = extension_loaded('pdo_sqlite');
 	return array(
 		'php' => version_compare(PHP_VERSION, '5.3.8') >= 0,
 		'minz' => file_exists(LIB_PATH . '/Minz'),
 		'curl' => extension_loaded('curl'),
-		'pdo' => $pdo_mysql || $pdo_sqlite,
+		'pdo' => $pdo_mysql || $pdo_sqlite || $pdo_pgsql,
 		'pcre' => extension_loaded('pcre'),
 		'ctype' => extension_loaded('ctype'),
 		'fileinfo' => extension_loaded('fileinfo'),

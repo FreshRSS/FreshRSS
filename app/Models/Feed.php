@@ -403,8 +403,7 @@ class FreshRSS_Feed extends Minz_Model {
 		if (!isset($hubJson['error']) || $hubJson['error'] !== (bool)$error) {
 			$hubJson['error'] = (bool)$error;
 			file_put_contents($hubFilename, json_encode($hubJson));
-			file_put_contents(USERS_PATH . '/_/log_pshb.txt', date('c') . "\t"
-				. 'Set error to ' . ($error ? 1 : 0) . ' for ' . $url . "\n", FILE_APPEND);
+			Minz_Log::warning('Set error to ' . ($error ? 1 : 0) . ' for ' . $url, PSHB_LOG);
 		}
 		return false;
 	}
@@ -419,7 +418,7 @@ class FreshRSS_Feed extends Minz_Model {
 				if (!$hubJson || empty($hubJson['key']) || !ctype_xdigit($hubJson['key'])) {
 					$text = 'Invalid JSON for PubSubHubbub: ' . $this->url;
 					Minz_Log::warning($text);
-					file_put_contents(USERS_PATH . '/_/log_pshb.txt', date('c') . "\t" . $text . "\n", FILE_APPEND);
+					Minz_Log::warning($text, PSHB_LOG);
 					return false;
 				}
 				if ((!empty($hubJson['lease_end'])) && ($hubJson['lease_end'] < (time() + (3600 * 23)))) {	//TODO: Make a better policy
@@ -427,7 +426,7 @@ class FreshRSS_Feed extends Minz_Model {
 						. date('c', empty($hubJson['lease_end']) ? time() : $hubJson['lease_end'])
 						. ' and needs renewal: ' . $this->url;
 					Minz_Log::warning($text);
-					file_put_contents(USERS_PATH . '/_/log_pshb.txt', date('c') . "\t" . $text . "\n", FILE_APPEND);
+					Minz_Log::warning($text, PSHB_LOG);
 					$key = $hubJson['key'];	//To renew our lease
 				} elseif (((!empty($hubJson['error'])) || empty($hubJson['lease_end'])) &&
 					(empty($hubJson['lease_start']) || $hubJson['lease_start'] < time() - (3600 * 23))) {	//Do not renew too often
@@ -445,7 +444,7 @@ class FreshRSS_Feed extends Minz_Model {
 				file_put_contents(PSHB_PATH . '/keys/' . $key . '.txt', base64url_encode($this->selfUrl));
 				$text = 'PubSubHubbub prepared for ' . $this->url;
 				Minz_Log::debug($text);
-				file_put_contents(USERS_PATH . '/_/log_pshb.txt', date('c') . "\t" . $text . "\n", FILE_APPEND);
+				Minz_Log::debug($text, PSHB_LOG);
 			}
 			$currentUser = Minz_Session::param('currentUser');
 			if (FreshRSS_user_Controller::checkUsername($currentUser) && !file_exists($path . '/' . $currentUser . '.txt')) {
@@ -481,24 +480,28 @@ class FreshRSS_Feed extends Minz_Model {
 			}
 			$ch = curl_init();
 			curl_setopt_array($ch, array(
-				CURLOPT_URL => $hubJson['hub'],
-				CURLOPT_FOLLOWLOCATION => true,
-				CURLOPT_RETURNTRANSFER => true,
-				CURLOPT_USERAGENT => 'FreshRSS/' . FRESHRSS_VERSION . ' (' . PHP_OS . '; ' . FRESHRSS_WEBSITE . ')',
-				CURLOPT_POSTFIELDS => http_build_query(array(
-					'hub.verify' => 'sync',
-					'hub.mode' => $state ? 'subscribe' : 'unsubscribe',
-					'hub.topic' => $url,
-					'hub.callback' => $callbackUrl,
-					))
-				)
-			);
+					CURLOPT_URL => $hubJson['hub'],
+					CURLOPT_RETURNTRANSFER => true,
+					CURLOPT_POSTFIELDS => http_build_query(array(
+						'hub.verify' => 'sync',
+						'hub.mode' => $state ? 'subscribe' : 'unsubscribe',
+						'hub.topic' => $url,
+						'hub.callback' => $callbackUrl,
+						)),
+					CURLOPT_USERAGENT => FRESHRSS_USERAGENT,
+					CURLOPT_MAXREDIRS => 10,
+				));
+			if (version_compare(PHP_VERSION, '5.6.0') >= 0 || ini_get('open_basedir') == '') {
+				curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);	//Keep option separated for open_basedir PHP bug 65646
+			}
+			if (defined('CURLOPT_ENCODING')) {
+				curl_setopt($ch, CURLOPT_ENCODING, '');	//Enable all encodings
+			}
 			$response = curl_exec($ch);
 			$info = curl_getinfo($ch);
 
-			file_put_contents(USERS_PATH . '/_/log_pshb.txt', date('c') . "\t" .
-				'PubSubHubbub ' . ($state ? 'subscribe' : 'unsubscribe') . ' to ' . $url .
-				' with callback ' . $callbackUrl . ': ' . $info['http_code'] . ' ' . $response . "\n", FILE_APPEND);
+			Minz_Log::warning('PubSubHubbub ' . ($state ? 'subscribe' : 'unsubscribe') . ' to ' . $url .
+				' with callback ' . $callbackUrl . ': ' . $info['http_code'] . ' ' . $response, PSHB_LOG);
 
 			if (substr($info['http_code'], 0, 1) == '2') {
 				return true;
