@@ -36,7 +36,7 @@ function downloadHttp(&$url, $curlOptions = array()) {
 			CURLOPT_USERAGENT => FRESHRSS_USERAGENT,
 			CURLOPT_MAXREDIRS => 10,
 		));
-	if (!empty(ini_get('open_basedir'))) {
+	if (ini_get('open_basedir') == '') { // see PHP bug 65646
 		curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
 	}
 	if (defined('CURLOPT_ENCODING')) {
