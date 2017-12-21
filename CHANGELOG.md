@@ -708,12 +708,12 @@
 * Amélioration de la vue globale
 * Possibilité de personnaliser les icônes de lecture
 * Suppression de champs lors de l’installation (base_url et sel)
-* Correction bugs divers
+* Correction de bugs divers
 
 
 ## 2013-10-15 FreshRSS 0.5.1
 
-* Correction bug des catégories disparues
+* Correction du bug des catégories disparues
 * Correction traduction i18n/fr et i18n/en
 * Suppression de certains appels à la feuille de style fallback.css
 
@@ -795,9 +795,9 @@
 * Les flux peuvent être sortis du flux principal (système de priorité)
 * Amélioration ajout / import / export des flux
 * Amélioration actualisation (meilleure gestion des erreurs)
-* Améliorations CSS
+* Améliorations du CSS
 * Changements dans la base de données
-* Màj de la librairie SimplePie
+* MàJ de la librairie SimplePie
 * Flux sans auteurs gérés normalement
 * Correction bugs divers
 
