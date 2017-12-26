@@ -20,7 +20,7 @@ $SQL_CREATE_TABLES = array(
 	`httpAuth` varchar(511) DEFAULT NULL,
 	`error` boolean DEFAULT 0,
 	`keep_history` MEDIUMINT NOT NULL DEFAULT -2,
-	`ttl` INT NOT NULL DEFAULT -2,
+	`ttl` INT NOT NULL DEFAULT 0,
 	`cache_nbEntries` int DEFAULT 0,
 	`cache_nbUnreads` int DEFAULT 0,
 	FOREIGN KEY (`category`) REFERENCES `category`(`id`) ON DELETE SET NULL ON UPDATE CASCADE,

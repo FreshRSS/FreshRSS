@@ -32,12 +32,18 @@ return array(
 		'description' => 'Description',// TODO
 		'empty' => 'This feed is empty. Please verify that it is still maintained.',// TODO
 		'error' => 'This feed has encountered a problem. Please verify that it is always reachable then actualize it.',// TODO
-		'in_main_stream' => 'Show in main stream',// TODO
 		'informations' => 'Information',// TODO
 		'keep_history' => 'Minimum number of articles to keep',// TODO
 		'moved_category_deleted' => 'When you delete a category, its feeds are automatically classified under <em>%s</em>.',// TODO
+		'mute' => 'mute', // TODO
 		'no_selected' => 'No feed selected.',// TODO
 		'number_entries' => '%d articles',// TODO
+		'priority' => array(
+			'_' => 'Visibility', // TODO
+			'archived' => 'Do not show (archived)', // TODO
+			'main_stream' => 'Show in main stream', // TODO
+			'normal' => 'Show in its category', // TODO
+		),
 		'stats' => 'Statistics',// TODO
 		'think_to_add' => 'You may add some feeds.',// TODO
 		'title' => 'Title',// TODO

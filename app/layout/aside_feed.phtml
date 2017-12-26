@@ -53,7 +53,7 @@
 					foreach ($feeds as $feed) {
 						$f_active = FreshRSS_Context::isCurrentGet('f_' . $feed->id());
 				?>
-				<li id="f_<?php echo $feed->id(); ?>" class="item feed<?php echo $f_active ? ' active' : ''; ?><?php echo $feed->inError() ? ' error' : ''; ?><?php echo $feed->nbEntries() <= 0 ? ' empty' : ''; ?>" data-unread="<?php echo $feed->nbNotRead(); ?>" data-priority="<?php echo $feed->priority(); ?>">
+				<li id="f_<?php echo $feed->id(); ?>" class="item feed<?php echo $f_active ? ' active' : '', $feed->mute() ? ' mute' : ''; ?><?php echo $feed->inError() ? ' error' : ''; ?><?php echo $feed->nbEntries() <= 0 ? ' empty' : ''; ?>" data-unread="<?php echo $feed->nbNotRead(); ?>" data-priority="<?php echo $feed->priority(); ?>">
 					<div class="dropdown no-mobile">
 						<div class="dropdown-target"></div>
 						<a class="dropdown-toggle" data-fweb="<?php echo $feed->website(); ?>"><?php echo _i('configure'); ?></a>
