@@ -32,12 +32,18 @@ return array(
 		'description' => 'Descrição',
 		'empty' => 'Este feed está vazio. Por favor verifique ele ainda é mantido.',
 		'error' => 'Este feed encontra-se com problema. Por favor verifique se ele ainda está disponível e atualize-o.',
-		'in_main_stream' => 'Mostrar na tela principal',
 		'informations' => 'Informações',
 		'keep_history' => 'Número mínimo de artigos para manter',
 		'moved_category_deleted' => 'Quando você deleta uma categoria, seus feeds são automaticamente classificados como <em>%s</em>.',
+		'mute' => 'mute', // TODO
 		'no_selected' => 'Nenhum feed selecionado.',
 		'number_entries' => '%d artigos',
+		'priority' => array(
+			'_' => 'Visibility', // TODO
+			'archived' => 'Do not show (archived)', // TODO
+			'main_stream' => 'Mostrar na tela principal',
+			'normal' => 'Show in its category', // TODO
+		),
 		'stats' => 'Estatísticas',
 		'think_to_add' => 'Você deve adicionar alguns feeds.',
 		'title' => 'Título',

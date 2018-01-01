@@ -24,6 +24,7 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 				Minz_Error::error(403);
 			}
 		}
+		$this->updateTTL();
 	}
 
 	/**
@@ -282,11 +283,11 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 
 			$mtime = 0;
 			$ttl = $feed->ttl();
-			if ($ttl == -1) {
+			if ($ttl < FreshRSS_Feed::TTL_DEFAULT) {
 				continue;	//Feed refresh is disabled
 			}
 			if ((!$simplePiePush) && (!$feed_id) &&
-				($feed->lastUpdate() + 10 >= time() - ($ttl == -2 ? FreshRSS_Context::$user_conf->ttl_default : $ttl))) {
+				($feed->lastUpdate() + 10 >= time() - ($ttl == FreshRSS_Feed::TTL_DEFAULT ? FreshRSS_Context::$user_conf->ttl_default : $ttl))) {
 				//Too early to refresh from source, but check whether the feed was updated by another user
 				$mtime = $feed->cacheModifiedTime();
 				if ($feed->lastUpdate() + 10 >= $mtime) {
@@ -638,5 +639,15 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 		} else {
 			Minz_Request::bad(_t('feedback.sub.feed.error'), $redirect_url);
 		}
+	}
+
+	/**
+	 * This method update TTL values for feeds if needed.
+	 * It changes the old default value (-2) to the new default value (0).
+	 * It changes the old disabled value (-1) to the default disabled value.
+	 */
+	private function updateTTL() {
+		$feedDAO = FreshRSS_Factory::createFeedDao();
+		$feedDAO->updateTTL();
 	}
 }

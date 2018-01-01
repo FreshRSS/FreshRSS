@@ -125,7 +125,7 @@
 						$error = $feed->inError() ? ' error' : '';
 						$empty = $feed->nbEntries() == 0 ? ' empty' : '';
 			?>
-			<li class="item feed<?php echo $error, $empty; ?>"
+			<li class="item feed<?php echo $error, $empty, $feed->mute() ? ' mute': ''; ?>"
 			    draggable="true"
 			    data-feed-id="<?php echo $feed->id(); ?>"
 			    dropzone="move">

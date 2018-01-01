@@ -27,12 +27,18 @@ return array(
 		'description' => 'Descripción',
 		'empty' => 'La fuente está vacía. Por favor, verifica que siga activa.',
 		'error' => 'Hay un problema con esta fuente. Por favor, veritica que esté disponible y prueba de nuevo.',
-		'in_main_stream' => 'Mostrar en salida principal',
 		'informations' => 'Información',
 		'keep_history' => 'Número mínimo de artículos a conservar',
 		'moved_category_deleted' => 'Al borrar una categoría todas sus fuentes pasan automáticamente a la categoría <em>%s</em>.',
+		'mute' => 'mute', // TODO
 		'no_selected' => 'No hay funentes seleccionadas.',
 		'number_entries' => '%d artículos',
+		'priority' => array(
+			'_' => 'Visibility', // TODO
+			'archived' => 'Do not show (archived)', // TODO
+			'main_stream' => 'Mostrar en salida principal',
+			'normal' => 'Show in its category', // TODO
+		),
 		'stats' => 'Estadísticas',
 		'think_to_add' => 'Puedes añadir fuentes.',
 		'title' => 'Título',

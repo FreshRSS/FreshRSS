@@ -37,7 +37,7 @@
 					$empty = $feed->nbEntries() === 0 ? ' empty' : '';
 					$url_base['params']['get'] = 'f_' . $feed->id();
 			?>
-			<li id="f_<?php echo $feed->id(); ?>" class="item feed<?php echo $error, $empty; ?>" data-unread="<?php echo $feed->nbNotRead(); ?>" data-priority="<?php echo $feed->priority(); ?>">
+			<li id="f_<?php echo $feed->id(); ?>" class="item feed<?php echo $error, $empty, $feed->mute() ? ' mute' : ''; ?>" data-unread="<?php echo $feed->nbNotRead(); ?>" data-priority="<?php echo $feed->priority(); ?>">
 				<img class="favicon" src="<?php echo $feed->favicon(); ?>" alt="✇" />
 				<a class="item-title" data-unread="<?php echo format_number($feed->nbNotRead()); ?>" href="<?php echo Minz_Url::display($url_base); ?>"><?php echo $feed->name(); ?></a>
 			</li>

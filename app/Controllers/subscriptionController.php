@@ -15,8 +15,10 @@ class FreshRSS_subscription_Controller extends Minz_ActionController {
 		}
 
 		$catDAO = new FreshRSS_CategoryDAO();
+		$feedDAO = new FreshRSS_FeedDAO();
 
 		$catDAO->checkDefault();
+		$feedDAO->updateTTL();
 		$this->view->categories = $catDAO->listCategories(false);
 		$this->view->default_category = $catDAO->getDefault();
 	}
@@ -55,7 +57,7 @@ class FreshRSS_subscription_Controller extends Minz_ActionController {
 	 *   - display in main stream (default: 0)
 	 *   - HTTP authentication
 	 *   - number of article to retain (default: -2)
-	 *   - refresh frequency (default: -2)
+	 *   - refresh frequency (default: 0)
 	 * Default values are empty strings unless specified.
 	 */
 	public function feedAction() {
@@ -87,6 +89,12 @@ class FreshRSS_subscription_Controller extends Minz_ActionController {
 
 			$cat = intval(Minz_Request::param('category', 0));
 
+			$mute = Minz_Request::param('mute', false);
+			$ttl = intval(Minz_Request::param('ttl', FreshRSS_Feed::TTL_DEFAULT));
+			if ($mute && FreshRSS_Feed::TTL_DEFAULT === $ttl) {
+				$ttl = FreshRSS_Context::$user_conf->ttl_default;
+			}
+
 			$values = array(
 				'name' => Minz_Request::param('name', ''),
 				'description' => sanitizeHTML(Minz_Request::param('description', '', true)),
@@ -94,10 +102,10 @@ class FreshRSS_subscription_Controller extends Minz_ActionController {
 				'url' => checkUrl(Minz_Request::param('url', '')),
 				'category' => $cat,
 				'pathEntries' => Minz_Request::param('path_entries', ''),
-				'priority' => intval(Minz_Request::param('priority', 0)),
+				'priority' => intval(Minz_Request::param('priority', FreshRSS_Feed::PRIORITY_MAIN_STREAM)),
 				'httpAuth' => $httpAuth,
 				'keep_history' => intval(Minz_Request::param('keep_history', -2)),
-				'ttl' => intval(Minz_Request::param('ttl', -2)),
+				'ttl' => $ttl * ($mute ? -1 : 1),
 			);
 
 			invalidateHttpCache();

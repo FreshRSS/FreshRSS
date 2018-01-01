@@ -261,8 +261,8 @@ function subscriptionList() {
 
 	$pdo = new MyPDO();
 	$stm = $pdo->prepare('SELECT f.id, f.name, f.url, f.website, c.id as c_id, c.name as c_name FROM `%_feed` f
-		INNER JOIN `%_category` c ON c.id = f.category');
-	$stm->execute();
+		INNER JOIN `%_category` c ON c.id = f.category AND f.priority >= :priority_normal');
+	$stm->execute(array(':priority_normal' => FreshRSS_Feed::PRIORITY_NORMAL));
 	$res = $stm->fetchAll(PDO::FETCH_ASSOC);
 
 	$salt = FreshRSS_Context::$system_conf->salt;
