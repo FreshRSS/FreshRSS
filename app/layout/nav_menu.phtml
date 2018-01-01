@@ -136,7 +136,7 @@
 		$readingModes = Minz_ExtensionManager::callHook('nav_reading_modes', $readingModes);
 
 		/** @var FreshRSS_ReadingMode $mode */
-		foreach($readingModes as $mode) {
+		foreach ($readingModes as $mode) {
 			?>
 			<a class="view_normal btn <?php if ($mode->isActive()) { echo 'active'; } ?>" title="<?php echo $mode->getTitle(); ?>" href="<?php echo Minz_Url::display($mode->getUrlParams()); ?>">
 				<?php echo $mode->getName(); ?>

@@ -107,7 +107,7 @@ class FreshRSS_ReadingMode {
 	public static function getReadingModes() {
 		$actualView = Minz_Request::actionName();
 		$defaultCtrl = Minz_Request::defaultControllerName();
-		$isDefaultCtrl = Minz_Request::controllerName() == $defaultCtrl;
+		$isDefaultCtrl = Minz_Request::controllerName() === $defaultCtrl;
 		$urlOutput = Minz_Request::currentRequest();
 
 		$readingModes = array(
