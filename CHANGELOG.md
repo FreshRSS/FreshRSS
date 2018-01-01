@@ -7,6 +7,7 @@
 * UI
 	* Add shortcuts to switch views [#1755](https://github.com/FreshRSS/FreshRSS/pull/1755)
 * Bug fixing
+	* Fix login bug when HTTP `REMOTE_USER` changes (used by YunoHost) [#1756](https://github.com/FreshRSS/FreshRSS/pull/1756)
 	* Fix warning in PHP 7.2 [#1739](https://github.com/FreshRSS/FreshRSS/pull/1739)
 * Misc.
 	* More sites in `force-https.default.txt` [#1745](https://github.com/FreshRSS/FreshRSS/pull/1745)
