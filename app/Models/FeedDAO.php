@@ -18,7 +18,7 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 					ttl
 				)
 				VALUES
-				(?, ?, ?, ?, ?, ?, 10, ?, 0, -2, ?)';
+				(?, ?, ?, ?, ?, ?, 10, ?, 0, ?, ?)';
 		$stm = $this->bd->prepare($sql);
 
 		$valuesTmp['url'] = safe_ascii($valuesTmp['url']);
@@ -32,6 +32,7 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 			substr($valuesTmp['description'], 0, 1023),
 			$valuesTmp['lastUpdate'],
 			base64_encode($valuesTmp['httpAuth']),
+			FreshRSS_Feed::KEEP_HISTORY_DEFAULT,
 			FreshRSS_Feed::TTL_DEFAULT,
 		);
 
@@ -406,7 +407,7 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 			$myFeed->_pathEntries(isset($dao['pathEntries']) ? $dao['pathEntries'] : '');
 			$myFeed->_httpAuth(isset($dao['httpAuth']) ? base64_decode($dao['httpAuth']) : '');
 			$myFeed->_error(isset($dao['error']) ? $dao['error'] : 0);
-			$myFeed->_keepHistory(isset($dao['keep_history']) ? $dao['keep_history'] : -2);
+			$myFeed->_keepHistory(isset($dao['keep_history']) ? $dao['keep_history'] : FreshRSS_Feed::KEEP_HISTORY_DEFAULT);
 			$myFeed->_ttl(isset($dao['ttl']) ? $dao['ttl'] : FreshRSS_Feed::TTL_DEFAULT);
 			$myFeed->_nbNotRead(isset($dao['cache_nbUnreads']) ? $dao['cache_nbUnreads'] : 0);
 			$myFeed->_nbEntries(isset($dao['cache_nbEntries']) ? $dao['cache_nbEntries'] : 0);

@@ -101,7 +101,7 @@
 			<label class="group-name" for="keep_history"><?php echo _t('sub.feed.keep_history'); ?></label>
 			<div class="group-controls">
 				<select class="number" name="keep_history" id="keep_history" required="required"><?php
-					foreach (array('' => '', -2 => _t('gen.short.by_default'), 0 => '0', 10 => '10', 50 => '50', 100 => '100', 500 => '500', 1000 => '1 000', 5000 => '5 000', 10000 => '10 000', -1 => '∞') as $v => $t) {
+					foreach (array('' => '', FreshRSS_Feed::KEEP_HISTORY_DEFAULT => _t('gen.short.by_default'), 0 => '0', 10 => '10', 50 => '50', 100 => '100', 500 => '500', 1000 => '1 000', 5000 => '5 000', 10000 => '10 000', FreshRSS_Feed::KEEP_HISTORY_INFINITE => '∞') as $v => $t) {
 						echo '<option value="' . $v . ($this->feed->keepHistory() === $v ? '" selected="selected' : '') . '">' . $t . '</option>';
 					}
 				?></select>
