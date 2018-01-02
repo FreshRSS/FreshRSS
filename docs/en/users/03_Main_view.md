@@ -45,9 +45,9 @@ This is the most straightforward since you have a public instance; there is noth
 0 * * * * curl 'https://your.server.net/FreshRSS/p/i/?c=feed&a=actualize'
 ```
 
-### Form or Persona authentication
+### Form authentication
 
-In those cases, if you configure the application to allow anonymous reading, you can also allow anonymous user to update feeds (“Allow anonymous refresh of the articles”).
+If you configure the application to allow anonymous reading, you can also allow anonymous users to update feeds (“Allow anonymous refresh of the articles”).
 
 ![Anonymous access configuration](../img/users/anonymous_access.1.png)
 
@@ -96,14 +96,14 @@ This update occurs on the selected feed only. To trigger it, you need to click o
 
 While the number of articles stored by FreshRSS increase, it is important to have efficient filters to display only a subset of the articles. There is several methods with different criterion. Most of the time, those methods can be combined.
 
-##By category
+## By category
 
-It is the easiest method. The only thing to do is clicking on the category title in the side panel. There is two special categories on top of that panel:
+This is the easiest method. You only need to click on the category title in the side panel. There are two special categories on top of that panel:
 
   * *Main feed* which displays only articles from feeds marked as available in that category
   * *Favourites* which displays only articles marked as favourites
 
-##By feed
+## By feed
 
 There is several methods to filter articles by feed:
 
@@ -114,7 +114,7 @@ There is several methods to filter articles by feed:
 
 ![Feed filter](../img/users/feed.filter.1.png)
 
-##By status
+## By status
 
 Each article has two attributes, which can be combined. The first attribute indicates if the article was read or not. The second attribute indicates if the article was marked as favorite or not.
 
@@ -128,11 +128,11 @@ Starting with version 0.8, all attribute filters are visible as toggle icons. Th
 
 By default, this filter displays only unread articles
 
-##By content
+## By content
 
 It is possible to filter articles by their content by inputting a string in the search field.
 
-##With the search field
+## With the search field
 
 It is possible to use the search field to further refine results:
 

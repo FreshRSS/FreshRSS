@@ -106,13 +106,14 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo implements FreshRSS_Searchable 
 	public function listCategories($prePopulateFeeds = true, $details = false) {
 		if ($prePopulateFeeds) {
 			$sql = 'SELECT c.id AS c_id, c.name AS c_name, '
-			     . ($details ? 'f.* ' : 'f.id, f.name, f.url, f.website, f.priority, f.error, f.`cache_nbEntries`, f.`cache_nbUnreads` ')
+			     . ($details ? 'f.* ' : 'f.id, f.name, f.url, f.website, f.priority, f.error, f.`cache_nbEntries`, f.`cache_nbUnreads`, f.ttl ')
 			     . 'FROM `' . $this->prefix . 'category` c '
 			     . 'LEFT OUTER JOIN `' . $this->prefix . 'feed` f ON f.category=c.id '
+			     . 'WHERE f.priority >= :priority_normal '
 			     . 'GROUP BY f.id, c_id '
 			     . 'ORDER BY c.name, f.name';
 			$stm = $this->bd->prepare($sql);
-			$stm->execute();
+			$stm->execute(array(':priority_normal' => FreshRSS_Feed::PRIORITY_NORMAL));
 			return self::daoToCategoryPrepopulated($stm->fetchAll(PDO::FETCH_ASSOC));
 		} else {
 			$sql = 'SELECT * FROM `' . $this->prefix . 'category` ORDER BY name';

@@ -65,12 +65,13 @@
 			</div>
 		</div>
 		<div class="form-group">
-			<label class="group-name" for="priority"><?php echo _t('sub.feed.in_main_stream'); ?></label>
+			<label class="group-name" for="priority"><?php echo _t('sub.feed.priority'); ?></label>
 			<div class="group-controls">
-				<label class="checkbox" for="priority">
-					<input type="checkbox" name="priority" id="priority" value="10"<?php echo $this->feed->priority() > 0 ? ' checked="checked"' : ''; ?> />
-					<?php echo _t('gen.short.yes'); ?>
-				</label>
+				<select name="priority" id="priority">
+				    <option value='<?php echo FreshRSS_Feed::PRIORITY_MAIN_STREAM;?>' <?php if (FreshRSS_Feed::PRIORITY_MAIN_STREAM === $this->feed->priority()) {echo 'selected="selected"';}?>><?php echo _t('sub.feed.priority.main_stream'); ?></option>
+				    <option value='<?php echo FreshRSS_Feed::PRIORITY_NORMAL;?>' <?php if (FreshRSS_Feed::PRIORITY_NORMAL === $this->feed->priority()) {echo 'selected="selected"';}?>><?php echo _t('sub.feed.priority.normal'); ?></option>
+				    <option value='<?php echo FreshRSS_Feed::PRIORITY_ARCHIVED;?>' <?php if (FreshRSS_Feed::PRIORITY_ARCHIVED === $this->feed->priority()) {echo 'selected="selected"';}?>><?php echo _t('sub.feed.priority.archived'); ?></option>
+				</select>
 			</div>
 		</div>
 
@@ -111,11 +112,11 @@
 			<div class="group-controls">
 				<select class="number" name="ttl" id="ttl" required="required"><?php
 					$found = false;
-					foreach (array(-2 => _t('gen.short.by_default'), 900 => '15min', 1200 => '20min', 1500 => '25min', 1800 => '30min', 2700 => '45min',
+					foreach (array(FreshRSS_Feed::TTL_DEFAULT => _t('gen.short.by_default'), 900 => '15min', 1200 => '20min', 1500 => '25min', 1800 => '30min', 2700 => '45min',
 					                3600 => '1h', 5400 => '1.5h', 7200 => '2h', 10800 => '3h', 14400 => '4h', 18800 => '5h', 21600 => '6h', 25200 => '7h', 28800 => '8h',
 					                36000 => '10h', 43200 => '12h', 64800 => '18h',
 					                86400 => '1d', 129600 => '1.5d', 172800 => '2d', 259200 => '3d', 345600 => '4d', 432000 => '5d', 518400 => '6d',
-					                604800 => '1wk', 1209600 => '2wk', 1814400 => '3wk', 2419200 => '4wk', 2629744 => '1mo', -1 => '∞') as $v => $t) {
+					                604800 => '1wk', 1209600 => '2wk', 1814400 => '3wk', 2419200 => '4wk', 2629744 => '1mo') as $v => $t) {
 						echo '<option value="' . $v . ($this->feed->ttl() === $v ? '" selected="selected' : '') . '">' . $t . '</option>';
 						if ($this->feed->ttl() == $v) {
 							$found = true;
@@ -125,6 +126,10 @@
 						echo '<option value="' . intval($this->feed->ttl()) . '" selected="selected">' . intval($this->feed->ttl()) . 's</option>';
 					}
 				?></select>
+				<label for="mute">
+					<input type="checkbox" name="mute" id="mute" value="1"<?php echo $this->feed->mute() ? ' checked="checked"' : ''; ?> />
+					<?php echo _t('sub.feed.mute'); ?>
+				</label>
 			</div>
 		</div>
 		<div class="form-group">

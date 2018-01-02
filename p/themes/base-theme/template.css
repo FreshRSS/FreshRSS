@@ -71,6 +71,9 @@ img.favicon {
 	width: 16px;
 	vertical-align: middle;
 }
+.feed.mute::before {
+	content: '🔇';
+}
 
 /*=== Videos */
 iframe, embed, object, video {

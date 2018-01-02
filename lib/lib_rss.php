@@ -4,7 +4,7 @@ if (version_compare(PHP_VERSION, '5.3.8', '<')) {
 }
 
 if (!function_exists('json_decode')) {
-	require_once('JSON.php');
+	require_once(__DIR__ . '/JSON.php');
 	function json_decode($var, $assoc = false) {
 		$JSON = new Services_JSON($assoc ? SERVICES_JSON_LOOSE_TYPE : 0);
 		return $JSON->decode($var);
@@ -12,7 +12,7 @@ if (!function_exists('json_decode')) {
 }
 
 if (!function_exists('json_encode')) {
-	require_once('JSON.php');
+	require_once(__DIR__ . '/JSON.php');
 	function json_encode($var) {
 		$JSON = new Services_JSON();
 		return $JSON->encodeUnsafe($var);

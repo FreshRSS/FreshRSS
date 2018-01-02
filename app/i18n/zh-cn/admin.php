@@ -112,6 +112,13 @@ return array(
 		),
 		'title' => '扩展',
 		'user' => '用户扩展',
+		'community' => 'Available community extensions', // @todo translate
+		'name' => 'Name', // @todo translate
+		'version' => 'Version', // @todo translate
+		'description' => 'Description', // @todo translate
+		'author' => 'Author', // @todo translate
+		'latest' => 'Installed', // @todo translate
+		'update' => 'Update available', // @todo translate
 	),
 	'stats' => array(
 		'_' => '统计',

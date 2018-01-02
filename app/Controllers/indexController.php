@@ -203,7 +203,7 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 		$entryDAO = FreshRSS_Factory::createEntryDao();
 
 		$get = FreshRSS_Context::currentGet(true);
-		if (count($get) > 1) {
+		if (is_array($get)) {
 			$type = $get[0];
 			$id = $get[1];
 		} else {

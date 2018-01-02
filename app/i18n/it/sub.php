@@ -32,12 +32,18 @@ return array(
 		'description' => 'Descrizione',
 		'empty' => 'Questo feed non contiene articoli. Per favore verifica il sito direttamente.',
 		'error' => 'Questo feed ha generato un errore. Per favore verifica se ancora disponibile.',
-		'in_main_stream' => 'Mostra in homepage',
 		'informations' => 'Informazioni',
 		'keep_history' => 'Numero minimo di articoli da mantenere',
 		'moved_category_deleted' => 'Cancellando una categoria i feed al suo interno verranno classificati automaticamente come <em>%s</em>.',
+		'mute' => 'mute', // TODO
 		'no_selected' => 'Nessun feed selezionato.',
 		'number_entries' => '%d articoli',
+		'priority' => array(
+			'_' => 'Visibility', // TODO
+			'archived' => 'Do not show (archived)', // TODO
+			'main_stream' => 'Mostra in homepage', // TODO
+			'normal' => 'Show in its category', // TODO
+		),
 		'stats' => 'Statistiche',
 		'think_to_add' => 'Aggiungi feed.',
 		'title' => 'Titolo',

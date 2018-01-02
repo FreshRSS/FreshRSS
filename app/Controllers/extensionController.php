@@ -25,10 +25,47 @@ class FreshRSS_extension_Controller extends Minz_ActionController {
 			'user' => array(),
 		);
 
+		$this->view->extensions_installed = array();
+
 		$extensions = Minz_ExtensionManager::listExtensions();
 		foreach ($extensions as $ext) {
 			$this->view->extension_list[$ext->getType()][] = $ext;
+			$this->view->extensions_installed[$ext->getEntrypoint()] = $ext->getVersion();
 		}
+
+		$availableExtensions = $this->getAvailableExtensionList();
+		$this->view->available_extensions = $availableExtensions;
+	}
+
+	/**
+	 * fetch extension list from GitHub
+	 */
+	protected function getAvailableExtensionList() {
+		$extensionListUrl = 'https://raw.githubusercontent.com/FreshRSS/Extensions/master/extensions.json';
+		$json = file_get_contents($extensionListUrl);
+
+		// we ran into problems, simply ignore them
+		if ($json === false) {
+			Minz_Log::error('Could not fetch available extension from GitHub');
+			return array();
+		}
+
+		// fetch the list as an array
+		$list = json_decode($json, true);
+		if (empty($list)) {
+			Minz_Log::warning('Failed to convert extension file list');
+			return array();
+		}
+
+		// we could use that for comparing and caching later
+		$version = $list['version'];
+
+		// By now, all the needed data is kept in the main extension file.
+		// In the future we could fetch detail information from the extensions metadata.json, but I tend to stick with
+		// the current implementation for now, unless it becomes too much effort maintain the extension list manually
+		$extensions = $list['extensions'];
+
+		return $extensions;
 	}
 
 	/**

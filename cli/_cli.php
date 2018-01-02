@@ -3,8 +3,9 @@ if (php_sapi_name() !== 'cli') {
 	die('FreshRSS error: This PHP script may only be invoked from command line!');
 }
 
-require(dirname(__FILE__) . '/../constants.php');
+require(__DIR__ . '/../constants.php');
 require(LIB_PATH . '/lib_rss.php');
+require(LIB_PATH . '/lib_install.php');
 
 Minz_Configuration::register('system',
 	DATA_PATH . '/config.php',
@@ -46,4 +47,20 @@ function accessRights() {
 function done($ok = true) {
 	fwrite(STDERR, 'Result: ' . ($ok ? 'success' : 'fail') . "\n");
 	exit($ok ? 0 : 1);
+}
+
+function performRequirementCheck($databaseType) {
+	$requirements = checkRequirements($databaseType);
+	if ($requirements['all'] !== 'ok') {
+		$message = 'FreshRSS install failed requirements:' . "\n";
+		foreach ($requirements as $requirement => $check) {
+			if ($check !== 'ok' && !in_array($requirement, array('all', 'pdo', 'message'))) {
+				$message .= '• ' . $requirement . "\n";
+			}
+		}
+		if (!empty($requirements['message'])) {
+			$message .= '• ' . $requirements['message'] . "\n";
+		}
+		fail($message);
+	}
 }

@@ -1,20 +1,20 @@
 * [English version](README.md)
 
 # FreshRSS
-FreshRSS est un agrégateur de flux RSS à auto-héberger à l’image de [Leed](http://projet.idleman.fr/leed/) ou de [Kriss Feed](http://tontof.net/kriss/feed/).
+FreshRSS est un agrégateur de flux RSS à auto-héberger à l’image de [Leed](http://projet.idleman.fr/leed/) ou de [Kriss Feed](https://tontof.net/kriss/feed/).
 
 Il se veut léger et facile à prendre en main tout en étant un outil puissant et paramétrable.
 
 Il permet de gérer plusieurs utilisateurs, et dispose d’un mode de lecture anonyme.
-Il supporte [PubSubHubbub](https://code.google.com/p/pubsubhubbub/) pour des notifications instantanées depuis les sites compatibles.
-Il y a une API pour les clients (mobiles), ainsi qu’une [interface en ligne de commande](./cli/README.md).
+Il supporte [PubSubHubbub](https://github.com/pubsubhubbub/PubSubHubbub) pour des notifications instantanées depuis les sites compatibles.
+Il y a une API pour les clients (mobiles), ainsi qu’une [interface en ligne de commande](cli/README.md).
 Enfin, il permet l’ajout d’[extensions](#extensions) pour encore plus de personnalisation.
 
 * Site officiel : https://freshrss.org
 * Démo : http://demo.freshrss.org/
-* Licence : [GNU AGPL 3](http://www.gnu.org/licenses/agpl-3.0.html)
+* Licence : [GNU AGPL 3](https://www.gnu.org/licenses/agpl-3.0.fr.html)
 
-![Logo de FreshRSS](./docs/img/FreshRSS-logo.png)
+![Logo de FreshRSS](docs/img/FreshRSS-logo.png)
 
 # Téléchargement
 Voir la [liste des versions](../../releases).
@@ -33,13 +33,13 @@ Nous sommes une communauté amicale.
 	* Fonctionne même sur un Raspberry Pi 1 avec des temps de réponse < 1s (testé sur 150 flux, 22k articles)
 * Serveur Web Apache2 (recommandé), ou nginx, lighttpd (non testé sur les autres)
 * PHP 5.3.8+ (PHP 5.4+ recommandé, et PHP 5.5+ pour les performances, et PHP 7+ pour d’encore meilleures performances)
-	* Requis : [cURL](http://php.net/curl), [DOM](http://php.net/dom), [XML](http://php.net/xml), [session](http://php.net/session),  [ctype](http://php.net/ctype), et [PDO_MySQL](http://php.net/pdo-mysql) ou [PDO_SQLite](http://php.net/pdo-sqlite) ou [PDO_PGSQL](http://php.net/pdo-pgsql)
-	* Recommandés : [JSON](http://php.net/json), [GMP](http://php.net/gmp) (pour accès API sur plateformes < 64 bits), [IDN](http://php.net/intl.idn) (pour les noms de domaines internationalisés), [mbstring](http://php.net/mbstring) et/ou [iconv](http://php.net/iconv) (pour conversion d’encodages), [ZIP](http://php.net/zip) (pour import/export), [zlib](http://php.net/zlib) (pour les flux compressés)
+	* Requis : [cURL](https://secure.php.net/curl), [DOM](https://secure.php.net/dom), [XML](https://secure.php.net/xml), [session](https://secure.php.net/session), [ctype](https://secure.php.net/ctype), et [PDO_MySQL](https://secure.php.net/pdo-mysql) ou [PDO_SQLite](https://secure.php.net/pdo-sqlite) ou [PDO_PGSQL](https://secure.php.net/pdo-pgsql)
+	* Recommandés : [JSON](https://secure.php.net/json), [GMP](https://secure.php.net/gmp) (pour accès API sur plateformes < 64 bits), [IDN](https://secure.php.net/intl.idn) (pour les noms de domaines internationalisés), [mbstring](https://secure.php.net/mbstring) et/ou [iconv](https://secure.php.net/iconv) (pour conversion d’encodages), [ZIP](https://secure.php.net/zip) (pour import/export), [zlib](https://secure.php.net/zlib) (pour les flux compressés)
 * MySQL 5.5.3+ (recommandé), ou SQLite 3.7.4+, ou PostgreSQL 9.2+
-* Un navigateur Web récent tel Firefox, Internet Explorer 11 / Edge, Chrome, Opera, Safari.
+* Un navigateur Web récent tel que Firefox / IceCat, Internet Explorer 11 / Edge, Chromium / Chrome, Opera, Safari.
 	* Fonctionne aussi sur mobile
 
-![Capture d’écran de FreshRSS](./docs/img/FreshRSS-screenshot.png)
+![Capture d’écran de FreshRSS](docs/img/FreshRSS-screenshot.png)
 
 # Documentation
 * https://freshrss.github.io/FreshRSS/fr/
@@ -49,10 +49,10 @@ Nous sommes une communauté amicale.
 2. Placez l’application sur votre serveur (la partie à exposer au Web est le répertoire `./p/`)
 3. Le serveur Web doit avoir les droits d’écriture dans le répertoire `./data/`
 4. Accédez à FreshRSS à travers votre navigateur Web et suivez les instructions d’installation
-	* ou utilisez [l’interface en ligne de commande](./cli/README.md)
+	* ou utilisez [l’interface en ligne de commande](cli/README.md)
 5. Tout devrait fonctionner :) En cas de problème, n’hésitez pas à [nous contacter](https://github.com/FreshRSS/FreshRSS/issues).
-6. Des paramètres de configuration avancée peuvent être vues dans [config.default.php](./config.default.php) et modifiées dans `data/config.php`.
-7. Avec Apache, activer [`AllowEncodedSlashes`](http://httpd.apache.org/docs/trunk/mod/core.html#allowencodedslashes) pour une meilleure compatibilité avec les clients mobiles.
+6. Des paramètres de configuration avancée peuvent être vues dans [config.default.php](config.default.php) et modifiées dans `data/config.php`.
+7. Avec Apache, activer [`AllowEncodedSlashes`](https://httpd.apache.org/docs/trunk/mod/core.html#allowencodedslashes) pour une meilleure compatibilité avec les clients mobiles.
 
 ## Installation automatisée
 * [![DP deploy](https://raw.githubusercontent.com/DFabric/DPlatform-ShellCore/gh-pages/img/deploy.png)](https://dfabric.github.io/DPlatform-ShellCore)
@@ -109,12 +109,12 @@ sudo chown -R :www-data . && sudo chmod -R g+r . && sudo chmod -R g+w ./data/
 Il est requis pour le mode multi-utilisateur, et recommandé dans tous les cas, de limiter l’accès à votre FreshRSS. Au choix :
 * En utilisant l’identification par formulaire (requiert JavaScript, et PHP 5.5+ recommandé)
 * En utilisant un contrôle d’accès HTTP défini par votre serveur Web
-	* Voir par exemple la [documentation d’Apache sur l’authentification](http://httpd.apache.org/docs/trunk/howto/auth.html)
+	* Voir par exemple la [documentation d’Apache sur l’authentification](https://httpd.apache.org/docs/trunk/howto/auth.html)
 		* Créer dans ce cas un fichier `./p/i/.htaccess` avec un fichier `.htpasswd` correspondant.
 
 # Rafraîchissement automatique des flux
 * Vous pouvez ajouter une tâche Cron lançant régulièrement le script d’actualisation automatique des flux.
-Consultez la documentation de Cron de votre système d’exploitation ([Debian/Ubuntu](http://doc.ubuntu-fr.org/cron), [Red Hat/Fedora](http://doc.fedora-fr.org/wiki/CRON_:_Configuration_de_t%C3%A2ches_automatis%C3%A9es), [Slackware](http://docs.slackware.com/fr:slackbook:process_control?#cron), [Gentoo](http://wiki.gentoo.org/wiki/Cron/fr), [Arch Linux](http://wiki.archlinux.fr/Cron)…).
+Consultez la documentation de Cron de votre système d’exploitation ([Debian/Ubuntu](https://doc.ubuntu-fr.org/cron), [Red Hat/Fedora](https://doc.fedora-fr.org/wiki/CRON_:_Configuration_de_t%C3%A2ches_automatis%C3%A9es), [Slackware](https://docs.slackware.com/fr:slackbook:process_control?#cron), [Gentoo](https://wiki.gentoo.org/wiki/Cron/fr), [Arch Linux](https://wiki.archlinux.fr/Cron)…).
 C’est une bonne idée d’utiliser le même utilisateur que votre serveur Web (souvent “www-data”).
 Par exemple, pour exécuter le script toutes les heures :
 
@@ -140,8 +140,8 @@ Créer `/etc/cron.d/FreshRSS` avec :
 
 # Sauvegarde
 * Il faut conserver vos fichiers `./data/config.php` ainsi que `./data/users/*/config.php`
-* Vous pouvez exporter votre liste de flux au format OPML soit depuis l’interface Web, soit [en ligne de commande](./cli/README.md)
-* Pour sauvegarder les articles eux-mêmes, vous pouvez utiliser [phpMyAdmin](http://www.phpmyadmin.net) ou les outils de MySQL :
+* Vous pouvez exporter votre liste de flux au format OPML soit depuis l’interface Web, soit [en ligne de commande](cli/README.md)
+* Pour sauvegarder les articles eux-mêmes, vous pouvez utiliser [phpMyAdmin](https://www.phpmyadmin.net) ou les outils de MySQL :
 
 ```bash
 mysqldump --skip-comments --disable-keys --user=<db_user> --password --host <db_host> --result-file=freshrss.dump.sql --databases <freshrss_db>
@@ -154,21 +154,21 @@ Voir le [dépôt dédié à ces extensions](https://github.com/FreshRSS/Extensio
 
 
 # Bibliothèques incluses
-* [SimplePie](http://simplepie.org/)
+* [SimplePie](https://simplepie.org/)
 * [MINZ](https://github.com/marienfressinaud/MINZ)
 * [php-http-304](https://alexandre.alapetite.fr/doc-alex/php-http-304/)
-* [jQuery](http://jquery.com/)
+* [jQuery](https://jquery.com/)
 * [lib_opml](https://github.com/marienfressinaud/lib_opml)
-* [jQuery Plugin Sticky-Kit](http://leafo.net/sticky-kit/)
+* [jQuery Plugin Sticky-Kit](https://leafo.net/sticky-kit/)
 * [keyboard_shortcuts](http://www.openjs.com/scripts/events/keyboard_shortcuts/)
 * [flotr2](http://www.humblesoftware.com/flotr2)
 
 ## Uniquement pour certaines options
 * [bcrypt.js](https://github.com/dcodeIO/bcrypt.js)
-* [phpQuery](http://code.google.com/p/phpquery/)
+* [phpQuery](https://github.com/phpquery/phpquery)
 
 ## Si les fonctions natives ne sont pas disponibles
-* [Services_JSON](http://pear.php.net/pepr/pepr-proposal-show.php?id=198)
+* [Services_JSON](https://pear.php.net/pepr/pepr-proposal-show.php?id=198)
 * [password_compat](https://github.com/ircmaxell/password_compat)
 
 
@@ -177,6 +177,6 @@ Tout client supportant une API de type Google Reader. Sélection :
 
 * Android
 	* [News+](https://play.google.com/store/apps/details?id=com.noinnion.android.newsplus) avec [News+ Google Reader extension](https://play.google.com/store/apps/details?id=com.noinnion.android.newsplus.extension.google_reader) (Propriétaire)
-	* [EasyRSS](https://github.com/Alkarex/EasyRSS) (Libre, F-Droid)
-* Linux
+	* [EasyRSS](https://github.com/Alkarex/EasyRSS) (Libre, [F-Droid](https://f-droid.org/fr/packages/org.freshrss.easyrss/))
+* GNU/Linux
 	* [FeedReader 2.0+](https://jangernert.github.io/FeedReader/) (Libre)

@@ -32,12 +32,18 @@ return array(
 		'description' => 'Beschreibung',
 		'empty' => 'Dieser Feed ist leer. Bitte stellen Sie sicher, dass er noch gepflegt wird.',
 		'error' => 'Dieser Feed ist auf ein Problem gestoßen. Bitte stellen Sie sicher, dass er immer lesbar ist und aktualisieren Sie ihn dann.',
-		'in_main_stream' => 'In Haupt-Feeds zeigen',
 		'informations' => 'Information',
 		'keep_history' => 'Minimale Anzahl an Artikeln, die behalten wird',
 		'moved_category_deleted' => 'Wenn Sie eine Kategorie entfernen, werden deren Feeds automatisch in die Kategorie <em>%s</em> eingefügt.',
+		'mute' => 'mute', // TODO
 		'no_selected' => 'Kein Feed ausgewählt.',
 		'number_entries' => '%d Artikel',
+		'priority' => array(
+			'_' => 'Visibility', // TODO
+			'archived' => 'Do not show (archived)', // TODO
+			'main_stream' => 'In Haupt-Feeds zeigen',
+			'normal' => 'Show in its category', // TODO
+		),
 		'stats' => 'Statistiken',
 		'think_to_add' => 'Sie können Feeds hinzufügen.',
 		'title' => 'Titel',

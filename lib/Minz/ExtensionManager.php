@@ -31,6 +31,10 @@ class Minz_ExtensionManager {
 			'list' => array(),
 			'signature' => 'NoneToNone',
 		),
+		'nav_reading_modes' => array(  // function($readingModes = array) -> array | null
+			'list' => array(),
+			'signature' => 'OneToOne',
+		),
 	);
 	private static $ext_to_hooks = array();
 
@@ -94,8 +98,8 @@ class Minz_ExtensionManager {
 	 * If the extension class name is `TestExtension`, entry point will be `Test`.
 	 * `entry_point` must be composed of alphanumeric characters.
 	 *
-	 * @param $meta is an array of values.
-	 * @return true if the array is valid, false else.
+	 * @param array $meta is an array of values.
+	 * @return bool true if the array is valid, false else.
 	 */
 	public static function isValidMetadata($meta) {
 		$valid_chars = array('_');
@@ -107,8 +111,8 @@ class Minz_ExtensionManager {
 	/**
 	 * Load the extension source code based on info metadata.
 	 *
-	 * @param $info an array containing information about extension.
-	 * @return an extension inheriting from Minz_Extension.
+	 * @param array $info an array containing information about extension.
+	 * @return Minz_Extension|null an extension inheriting from Minz_Extension.
 	 */
 	public static function load($info) {
 		$entry_point_filename = $info['path'] . '/' . self::$ext_entry_point;
@@ -127,9 +131,9 @@ class Minz_ExtensionManager {
 		$extension = null;
 		try {
 			$extension = new $ext_class_name($info);
-		} catch (Minz_ExtensionException $e) {
+		} catch (Exception $e) {
 			// We cannot load the extension? Invalid!
-			Minz_Log::warning('In `' . $metadata_filename . '`: ' . $e->getMessage());
+			Minz_Log::warning('Invalid extension `' . $ext_class_name . '`: ' . $e->getMessage());
 			return null;
 		}
 
@@ -149,7 +153,7 @@ class Minz_ExtensionManager {
 	 * If the extension is present in $ext_auto_enabled and if its type is "system",
 	 * it will be enabled in the same time.
 	 *
-	 * @param $ext a valid extension.
+	 * @param Minz_Extension $ext a valid extension.
 	 */
 	public static function register($ext) {
 		$name = $ext->getName();
@@ -168,7 +172,7 @@ class Minz_ExtensionManager {
 	 *
 	 * The extension init() method will be called.
 	 *
-	 * @param $ext_name is the name of a valid extension present in $ext_list.
+	 * @param Minz_Extension $ext_name is the name of a valid extension present in $ext_list.
 	 */
 	public static function enable($ext_name) {
 		if (isset(self::$ext_list[$ext_name])) {
@@ -182,7 +186,7 @@ class Minz_ExtensionManager {
 	/**
 	 * Enable a list of extensions.
 	 *
-	 * @param $ext_list the names of extensions we want to load.
+	 * @param string[] $ext_list the names of extensions we want to load.
 	 */
 	public static function enableByList($ext_list) {
 		foreach ($ext_list as $ext_name) {
@@ -193,8 +197,8 @@ class Minz_ExtensionManager {
 	/**
 	 * Return a list of extensions.
 	 *
-	 * @param $only_enabled if true returns only the enabled extensions (false by default).
-	 * @return an array of extensions.
+	 * @param bool $only_enabled if true returns only the enabled extensions (false by default).
+	 * @return Minz_Extension[] an array of extensions.
 	 */
 	public static function listExtensions($only_enabled = false) {
 		if ($only_enabled) {
@@ -207,8 +211,8 @@ class Minz_ExtensionManager {
 	/**
 	 * Return an extension by its name.
 	 *
-	 * @param $ext_name the name of the extension.
-	 * @return the corresponding extension or null if it doesn't exist.
+	 * @param string $ext_name the name of the extension.
+	 * @return Minz_Extension|null the corresponding extension or null if it doesn't exist.
 	 */
 	public static function findExtension($ext_name) {
 		if (!isset(self::$ext_list[$ext_name])) {
@@ -224,9 +228,9 @@ class Minz_ExtensionManager {
 	 * The hook name must be a valid one. For the valid list, see self::$hook_list
 	 * array keys.
 	 *
-	 * @param $hook_name the hook name (must exist).
-	 * @param $hook_function the function name to call (must be callable).
-	 * @param $ext the extension which register the hook.
+	 * @param string $hook_name the hook name (must exist).
+	 * @param callable $hook_function the function name to call (must be callable).
+	 * @param Minz_Extension $ext the extension which register the hook.
 	 */
 	public static function addHook($hook_name, $hook_function, $ext) {
 		if (isset(self::$hook_list[$hook_name]) && is_callable($hook_function)) {
@@ -241,8 +245,8 @@ class Minz_ExtensionManager {
 	 * The hook name must be a valid one. For the valid list, see self::$hook_list
 	 * array keys.
 	 *
-	 * @param $hook_name the hook to call.
-	 * @param additionnal parameters (for signature, please see self::$hook_list).
+	 * @param string $hook_name the hook to call.
+	 * @param additional parameters (for signature, please see self::$hook_list).
 	 * @return the final result of the called hook.
 	 */
 	public static function callHook($hook_name) {

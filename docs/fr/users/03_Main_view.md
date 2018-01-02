@@ -45,7 +45,7 @@ C’est le cas le plus simple, puisque votre instance est publique, vous n’ave
 0 * * * * curl 'https://votre.serveur.net/FreshRSS/p/i/?c=feed&a=actualize'
 ```
 
-##### Authentification par formulaire ou Persona
+##### Authentification par formulaire
 
 Dans ces cas-là, si vous avez autorisé la lecture anonyme des articles, vous pouvez aussi permettre à n’importe qui de rafraîchir vos flux (« Autoriser le rafraîchissement anonyme des flux »).
 

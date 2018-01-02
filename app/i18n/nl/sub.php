@@ -32,12 +32,18 @@ return array(
 		'description' => 'Omschrijving',
 		'empty' => 'Deze feed is leeg. Controleer of deze nog actueel is.',
 		'error' => 'Deze feed heeft problemen. Verifieer a.u.b het doeladres en actualiseer het.',
-		'in_main_stream' => 'Zichtbaar in het overzicht',
 		'informations' => 'Informatie',
 		'keep_history' => 'Minimum aantal artikelen om te houden',
 		'moved_category_deleted' => 'Als u een categorie verwijderd, worden de feeds automatisch geclassificeerd onder <em>%s</em>.',
+		'mute' => 'mute', // TODO
 		'no_selected' => 'Geen feed geselecteerd.',
 		'number_entries' => '%d artikelen',
+		'priority' => array(
+			'_' => 'Visibility', // TODO
+			'archived' => 'Do not show (archived)', // TODO
+			'main_stream' => 'Zichtbaar in het overzicht',
+			'normal' => 'Show in its category', // TODO
+		),
 		'pubsubhubbub' => 'Directe notificaties met PubSubHubbub',
 		'stats' => 'Statistieken',
 		'think_to_add' => 'Voeg wat feeds toe.',

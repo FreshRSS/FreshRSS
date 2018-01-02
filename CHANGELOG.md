@@ -1,9 +1,20 @@
-﻿# Changelog
+﻿# FreshRSS changelog
 
-## 2017-1X-XX FreshRSS 1.8.1-dev
+## 2018-XX-XX FreshRSS 1.9.1-dev
 
-* API
-	* Breaking change / compatibility fix (EasyRSS): Provide `link` to articles without HTML-encoding [#1683](https://github.com/FreshRSS/FreshRSS/issues/1683)
+* Features
+	* Ability to pause feeds, and to hide them from categories [#1750](https://github.com/FreshRSS/FreshRSS/pull/1750)
+* UI
+	* Add shortcuts to switch views [#1755](https://github.com/FreshRSS/FreshRSS/pull/1755)
+* Bug fixing
+	* Fix login bug when HTTP `REMOTE_USER` changes (used by YunoHost) [#1756](https://github.com/FreshRSS/FreshRSS/pull/1756)
+	* Fix warning in PHP 7.2 [#1739](https://github.com/FreshRSS/FreshRSS/pull/1739)
+* Misc.
+	* More sites in `force-https.default.txt` [#1745](https://github.com/FreshRSS/FreshRSS/pull/1745)
+
+
+## 2017-12-17 FreshRSS 1.9.0
+
 * Features
 	* Share with Mastodon [#1521](https://github.com/FreshRSS/FreshRSS/issues/1521)
 * UI
@@ -13,20 +24,32 @@
 * SimplePie
 	* Remove "SimplePie" name from HTTP User-Agent string [#1656](https://github.com/FreshRSS/FreshRSS/pull/1656)
 * Bug fixing
-	* Work-around for `CURLOPT_FOLLOWLOCATION` `open_basedir` bug in favicons and PubSubHubbub [#1655](https://github.com/FreshRSS/FreshRSS/issues/1655)
+	* Work-around for PHP 5.6.0- `CURLOPT_FOLLOWLOCATION` `open_basedir` bug in favicons and PubSubHubbub [#1655](https://github.com/FreshRSS/FreshRSS/issues/1655)
 	* Fix PDO PostgreSQL detection [#1690](https://github.com/FreshRSS/FreshRSS/issues/1690)
 	* Fix punycode warning in PHP 7.2 [#1699](https://github.com/FreshRSS/FreshRSS/issues/1699)
+	* Fix crash when adding a new category while adding a new feed [#1731](https://github.com/FreshRSS/FreshRSS/pull/1731)
+	* Fix ExtensionManager exception handling [#1724](https://github.com/FreshRSS/FreshRSS/pull/1724)
 * CLI
 	* New command `./cli/db-optimize.php` for database optimisation [#1583](https://github.com/FreshRSS/FreshRSS/issues/1583)
+	* Check PHP requirements before running `actualize_script.php` (cron for refreshing feeds) [#1711](https://github.com/FreshRSS/FreshRSS/pull/1711)
 * SQL
 	* Perform `VACUUM` on SQLite and PostgreSQL databases when optimisation is requested [#918](https://github.com/FreshRSS/FreshRSS/issues/918)
-* I18n
-	* Improved German [#1698](https://github.com/FreshRSS/FreshRSS/pull/1698)
+* API
+	* Breaking change / compatibility fix (EasyRSS): Provide `link` to articles without HTML-encoding [#1683](https://github.com/FreshRSS/FreshRSS/issues/1683)
 * Extensions
-	* New function `$entry->_hash($hex)` for extensios that change the content of entries [#1707](https://github.com/FreshRSS/FreshRSS/pull/1707)
+	* Breaking change: uppercase `./Controllers/` directory [#1729](https://github.com/FreshRSS/FreshRSS/pull/1729)
+	* Show existing extensions in admin panel [#1708](https://github.com/FreshRSS/FreshRSS/pull/1708)
+	* New function `$entry->_hash($hex)` for extensions that change the content of entries [#1707](https://github.com/FreshRSS/FreshRSS/pull/1707)
+* I18n
+	* Hebrew [#1716](https://github.com/FreshRSS/FreshRSS/pull/1716)
+	* Improved German [#1698](https://github.com/FreshRSS/FreshRSS/pull/1698)
 * Misc.
+	* Customisable `constants.local.php` [#1725](https://github.com/FreshRSS/FreshRSS/pull/1725)
+	* Basic mechanism to limit the size of the logs [#1712](https://github.com/FreshRSS/FreshRSS/pull/1712)
 	* Translation validation tool [#1653](https://github.com/FreshRSS/FreshRSS/pull/1653)
 	* Translation manipulation tool [#1658](https://github.com/FreshRSS/FreshRSS/pull/1658)
+	* Improved documentation [#1697](https://github.com/FreshRSS/FreshRSS/pull/1697), [#1704](https://github.com/FreshRSS/FreshRSS/pull/1704)
+	* New `.editorconfig` file [#1732](https://github.com/FreshRSS/FreshRSS/pull/1732)
 
 
 ## 2017-10-01 FreshRSS 1.8.0
@@ -698,12 +721,12 @@
 * Amélioration de la vue globale
 * Possibilité de personnaliser les icônes de lecture
 * Suppression de champs lors de l’installation (base_url et sel)
-* Correction bugs divers
+* Correction de bugs divers
 
 
 ## 2013-10-15 FreshRSS 0.5.1
 
-* Correction bug des catégories disparues
+* Correction du bug des catégories disparues
 * Correction traduction i18n/fr et i18n/en
 * Suppression de certains appels à la feuille de style fallback.css
 
@@ -785,9 +808,9 @@
 * Les flux peuvent être sortis du flux principal (système de priorité)
 * Amélioration ajout / import / export des flux
 * Amélioration actualisation (meilleure gestion des erreurs)
-* Améliorations CSS
+* Améliorations du CSS
 * Changements dans la base de données
-* Màj de la librairie SimplePie
+* MàJ de la librairie SimplePie
 * Flux sans auteurs gérés normalement
 * Correction bugs divers
 

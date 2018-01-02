@@ -24,7 +24,7 @@ function isImgMime($content) {
 function downloadHttp(&$url, $curlOptions = array()) {
 	syslog(LOG_INFO, 'FreshRSS Favicon GET ' . $url);
 	if (substr($url, 0, 2) === '//') {
-		$url = 'https:' . $favicon;
+		$url = 'https:' . $url;
 	}
 	if ($url == '' || filter_var($url, FILTER_VALIDATE_URL) === false) {
 		return '';
@@ -36,7 +36,9 @@ function downloadHttp(&$url, $curlOptions = array()) {
 			CURLOPT_USERAGENT => FRESHRSS_USERAGENT,
 			CURLOPT_MAXREDIRS => 10,
 		));
-	curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);	//Keep option separated for open_basedir bug
+	if (version_compare(PHP_VERSION, '5.6.0') >= 0 || ini_get('open_basedir') == '') {
+		curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);	//Keep option separated for open_basedir PHP bug 65646
+	}
 	if (defined('CURLOPT_ENCODING')) {
 		curl_setopt($ch, CURLOPT_ENCODING, '');	//Enable all encodings
 	}
