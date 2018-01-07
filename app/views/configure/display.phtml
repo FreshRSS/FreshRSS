@@ -113,6 +113,16 @@
 				<input type="number" id="html5_notif_timeout" name="html5_notif_timeout" value="<?php echo FreshRSS_Context::$user_conf->html5_notif_timeout; ?>" data-leave-validation="<?php echo FreshRSS_Context::$user_conf->html5_notif_timeout; ?>"/> <?php echo _t('conf.display.notif_html5.seconds'); ?>
 			</div>
 		</div>
+		
+		
+		<div class="form-group">
+			<div class="group-controls">
+				<label class="checkbox" for="hide_nav_entries">
+					<input type="checkbox" name="hide_nav_entries" id="hide_nav_entries" value="1"<?php echo FreshRSS_Context::$user_conf->hide_nav_entries ? ' checked="checked"' : ''; ?> data-leave-validation="<?php echo FreshRSS_Context::$user_conf->hide_nav_entries; ?>"/>
+					<?php echo _t('conf.reading.hide_nav_entries'); ?>
+				</label>
+			</div>
+		</div>
 
 		<div class="form-group form-actions">
 			<div class="group-controls">
