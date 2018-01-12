@@ -101,6 +101,10 @@ return array(
 			'_' => '%s 사용자를 삭제했습니다',
 			'error' => '%s 사용자를 삭제할 수 없습니다',
 		),
+		'updated' => array(
+			'_' => 'User %s has been updated', // TODO
+			'error' => 'User %s has not been updated', // TODO
+		),
 	),
 	'profile' => array(
 		'error' => '프로필을 변경할 수 없습니다',

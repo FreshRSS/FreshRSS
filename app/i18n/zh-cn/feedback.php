@@ -101,6 +101,10 @@ return array(
 			'_' => '用户 %s 已删除',
 			'error' => '用户 %s 删除失败',
 		),
+		'updated' => array(
+			'_' => 'User %s has been updated', // TODO
+			'error' => 'User %s has not been updated', // TODO
+		),
 	),
 	'profile' => array(
 		'error' => '你的帐户修改失败',

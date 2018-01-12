@@ -19,6 +19,7 @@ return array(
 		'see_website' => 'ראו אתר',
 		'submit' => 'אישור',
 		'truncate' => 'מחיקת כל המאמרים',
+		'update' => 'Update', // TODO
 	),
 	'auth' => array(
 		'email' => 'Email address', // @todo

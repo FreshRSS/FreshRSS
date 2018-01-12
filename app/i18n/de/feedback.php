@@ -101,6 +101,10 @@ return array(
 			'_' => 'Der Benutzer %s ist gelöscht worden',
 			'error' => 'Der Benutzer %s kann nicht gelöscht werden',
 		),
+		'updated' => array(
+			'_' => 'User %s has been updated', // TODO
+			'error' => 'User %s has not been updated', // TODO
+		),
 	),
 	'profile' => array(
 		'error' => 'Ihr Profil kann nicht geändert werden',

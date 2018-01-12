@@ -175,12 +175,15 @@ return array(
 	'user' => array(
 		'articles_and_size' => '%s makale (%s)',
 		'create' => 'Yeni kullanıcı oluştur',
+		'delete_users' => 'Delete user', // TODO
 		'language' => 'Dil',
 		'number' => 'Oluşturulmuş %d hesap var',
 		'numbers' => 'Oluşturulmuş %d hesap var',
 		'password_form' => 'Şifre<br /><small>(Tarayıcı girişi için)</small>',
 		'password_format' => 'En az 7 karakter',
+		'selected' => 'Selected user', // TODO
 		'title' => 'Kullanıcıları yönet',
+		'update_users' => 'Update user', // TODO
 		'user_list' => 'Kullanıcı listesi',
 		'username' => 'Kullanıcı adı',
 		'users' => 'Kullanıcılar',

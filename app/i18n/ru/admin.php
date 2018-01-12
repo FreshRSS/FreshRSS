@@ -175,12 +175,15 @@ return array(
 	'user' => array(
 		'articles_and_size' => '%s статей (%s)',
 		'create' => 'Создать нового пользователя',
+		'delete_users' => 'Delete user', // TODO
 		'language' => 'Язык',
 		'number' => 'На данный момент создан %d аккаунт',
 		'numbers' => 'На данный момент аккаунтов создано:  %d',
 		'password_form' => 'Пароль<br /><small>(для входа через Веб-форму)</small>',
 		'password_format' => 'Минимум 7 символов',
+		'selected' => 'Selected user', // TODO
 		'title' => 'Управление пользователями',
+		'update_users' => 'Update user', // TODO
 		'user_list' => 'Список пользователей',
 		'username' => 'Имя пользователя',
 		'users' => 'Пользователи',

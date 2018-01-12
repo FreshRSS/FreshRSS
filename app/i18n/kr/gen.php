@@ -19,6 +19,7 @@ return array(
 		'see_website' => '웹사이트 열기',
 		'submit' => '설정 저장',
 		'truncate' => '모든 글 삭제',
+		'update' => 'Update', // TODO
 	),
 	'auth' => array(
 		'email' => '메일 주소',
