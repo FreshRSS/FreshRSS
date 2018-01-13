@@ -41,7 +41,7 @@ return array(
 		'mark_cat_read' => 'Marquer la catégorie comme lue',
 		'mark_feed_read' => 'Marquer le flux comme lu',
 		'newer_first' => 'Plus récents en premier',
-		'non-starred' => 'Afficher tout sauf les favoris',
+		'non-starred' => 'Afficher les non-favoris',
 		'normal_view' => 'Vue normale',
 		'older_first' => 'Plus anciens en premier',
 		'queries' => 'Filtres utilisateurs',
