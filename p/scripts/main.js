@@ -301,10 +301,26 @@ function auto_remove(element) {
 function prev_entry() {
 	var old_active = $(".flux.current"),
 		new_active = old_active.length === 0 ? $(".flux:last") : old_active.prevAll(".flux:first");
-	toggleContent(new_active, old_active, true);
+	toggleContent(new_active, old_active, false);
 }
 
 function next_entry() {
+	var old_active = $(".flux.current"),
+		new_active = old_active.length === 0 ? $(".flux:first") : old_active.nextAll(".flux:first");
+	toggleContent(new_active, old_active, false);
+
+	if (new_active.nextAll().length < 3) {
+		load_more_posts();
+	}
+}
+
+function skip_prev_entry() {
+	var old_active = $(".flux.current"),
+		new_active = old_active.length === 0 ? $(".flux:last") : old_active.prevAll(".flux:first");
+	toggleContent(new_active, old_active, true);
+}
+
+function skip_next_entry() {
 	var old_active = $(".flux.current"),
 		new_active = old_active.length === 0 ? $(".flux:first") : old_active.nextAll(".flux:first");
 	toggleContent(new_active, old_active, true);
@@ -621,6 +637,9 @@ function init_shortcuts() {
 	shortcut.add(shortcuts.prev_entry, prev_entry, {
 		'disable_in_input': true
 	});
+	shortcut.add(shortcuts.skip_prev_entry, skip_prev_entry, {
+		'disable_in_input': true
+	});
 	shortcut.add(shortcuts.first_entry, function () {
 		var old_active = $(".flux.current"),
 			first = $(".flux:first");
@@ -632,6 +651,9 @@ function init_shortcuts() {
 		'disable_in_input': true
 	});
 	shortcut.add(shortcuts.next_entry, next_entry, {
+		'disable_in_input': true
+	});
+	shortcut.add(shortcuts.skip_next_entry, skip_next_entry, {
 		'disable_in_input': true
 	});
 	shortcut.add(shortcuts.last_entry, function () {
