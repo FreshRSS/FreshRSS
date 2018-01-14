@@ -262,6 +262,10 @@ function toggleContent(new_active, old_active, skipping = false) {
 			}
 		}
 
+		if(skipping){
+			// when skipping, this feels more natural if it's not so near the top
+			new_pos -= $(window).height()/4
+		}
 		if (context.hide_posts) {
 			if (relative_move) {
 				new_pos += old_scroll;
@@ -297,13 +301,13 @@ function auto_remove(element) {
 function prev_entry() {
 	var old_active = $(".flux.current"),
 		new_active = old_active.length === 0 ? $(".flux:last") : old_active.prevAll(".flux:first");
-	toggleContent(new_active, old_active);
+	toggleContent(new_active, old_active, true);
 }
 
 function next_entry() {
 	var old_active = $(".flux.current"),
 		new_active = old_active.length === 0 ? $(".flux:first") : old_active.nextAll(".flux:first");
-	toggleContent(new_active, old_active);
+	toggleContent(new_active, old_active, true);
 
 	if (new_active.nextAll().length < 3) {
 		load_more_posts();
