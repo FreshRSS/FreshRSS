@@ -131,20 +131,19 @@
 
 	<?php $url_output = Minz_Request::currentRequest(); ?>
 	<div class="stick" id="nav_menu_views">
-		<?php $url_output['a'] = 'normal'; ?>
-		<a class="view_normal btn <?php echo $actual_view == 'normal'? 'active' : ''; ?>" title="<?php echo _t('index.menu.normal_view'); ?>" href="<?php echo Minz_Url::display($url_output); ?>">
-			<?php echo _i("view-normal"); ?>
-		</a>
+		<?php
+		$readingModes = FreshRSS_ReadingMode::getReadingModes();
+		$readingModes = Minz_ExtensionManager::callHook('nav_reading_modes', $readingModes);
 
-		<?php $url_output['a'] = 'global'; ?>
-		<a class="view_global btn <?php echo $actual_view == 'global'? 'active' : ''; ?>" title="<?php echo _t('index.menu.global_view'); ?>" href="<?php echo Minz_Url::display($url_output); ?>">
-			<?php echo _i("view-global"); ?>
-		</a>
-
-		<?php $url_output['a'] = 'reader'; ?>
-		<a class="view_reader btn <?php echo $actual_view == 'reader'? 'active' : ''; ?>" title="<?php echo _t('index.menu.reader_view'); ?>" href="<?php echo Minz_Url::display($url_output); ?>">
-			<?php echo _i("view-reader"); ?>
-		</a>
+		/** @var FreshRSS_ReadingMode $mode */
+		foreach ($readingModes as $mode) {
+			?>
+			<a class="view_normal btn <?php if ($mode->isActive()) { echo 'active'; } ?>" title="<?php echo $mode->getTitle(); ?>" href="<?php echo Minz_Url::display($mode->getUrlParams()); ?>">
+				<?php echo $mode->getName(); ?>
+			</a>
+			<?php
+		}
+		?>
 
 		<?php
 			$url_output['a'] = 'rss';

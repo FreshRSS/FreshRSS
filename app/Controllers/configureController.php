@@ -170,7 +170,7 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 		                   'm', 'n', 'o', 'p', 'page_down', 'page_up', 'q', 'r', 'return', 'right',
 		                   's', 'space', 't', 'tab', 'u', 'up', 'v', 'w', 'x', 'y',
 		                   'z', 'f1', 'f2', 'f3', 'f4', 'f5', 'f6', 'f7', 'f8', 'f9',
-		                   'f10', 'f11', 'f12');
+		                   'f10', 'f11', 'f12', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0');
 		$this->view->list_keys = $list_keys;
 
 		if (Minz_Request::isPost()) {
@@ -204,16 +204,13 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 	 * The options available on that page are:
 	 *   - duration to retain old article (default: 3)
 	 *   - number of article to retain per feed (default: 0)
-	 *   - refresh frequency (default: -2)
-	 *
-	 * @todo explain why the default value is -2 but this value does not
-	 *       exist in the drop-down list
+	 *   - refresh frequency (default: 0)
 	 */
 	public function archivingAction() {
 		if (Minz_Request::isPost()) {
 			FreshRSS_Context::$user_conf->old_entries = Minz_Request::param('old_entries', 3);
 			FreshRSS_Context::$user_conf->keep_history_default = Minz_Request::param('keep_history_default', 0);
-			FreshRSS_Context::$user_conf->ttl_default = Minz_Request::param('ttl_default', -2);
+			FreshRSS_Context::$user_conf->ttl_default = Minz_Request::param('ttl_default', FreshRSS_Feed::TTL_DEFAULT);
 			FreshRSS_Context::$user_conf->save();
 			invalidateHttpCache();
 

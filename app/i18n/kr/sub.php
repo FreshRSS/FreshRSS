@@ -32,12 +32,18 @@ return array(
 		'description' => '설명',
 		'empty' => '이 피드는 비어있습니다. 피드가 계속 운영되고 있는지 확인하세요.',
 		'error' => '이 피드에 문제가 발생했습니다. 이 피드에 접근 권한이 있는지 확인하세요.',
-		'in_main_stream' => '메인 스트림에 표시하기',
 		'informations' => '정보',
 		'keep_history' => '최소 유지 글 개수',
 		'moved_category_deleted' => '카테고리를 삭제하면, 해당 카테고리 아래에 있던 피드들은 자동적으로 <em>%s</em> 아래로 분류됩니다.',
+		'mute' => 'mute', // TODO
 		'no_selected' => '선택된 피드가 없습니다.',
 		'number_entries' => '%d 개의 글',
+		'priority' => array(
+			'_' => 'Visibility', // TODO
+			'archived' => 'Do not show (archived)', // TODO
+			'main_stream' => '메인 스트림에 표시하기', // TODO
+			'normal' => 'Show in its category', // TODO
+		),
 		'stats' => '통계',
 		'think_to_add' => '피드를 추가할 수 있습니다.',
 		'title' => '제목',

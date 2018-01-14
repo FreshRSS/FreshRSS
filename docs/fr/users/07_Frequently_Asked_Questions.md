@@ -4,7 +4,7 @@ Il est possible que nous n'ayons pas répondu à toutes vos questions dans les p
 
 Bien entendu, le ```/i``` n'est pas là pour faire joli ! Il s'agit d'une question de performances et de praticité :
 
-* Cela permet de servir les icônes, images, styles, scripts sans cookie. Sans cela, ces fichiers seraient souvent re-téléchargés, en particulier lorsque Persona ou le formulaire de connexion sont utilisés. De plus, les requêtes vers ces ressources seraient plus lourdes.
+* Cela permet de servir les icônes, images, styles, scripts sans cookie. Sans cela, ces fichiers seraient souvent re-téléchargés, en particulier lorsque le formulaire de connexion est utilisé. De plus, les requêtes vers ces ressources seraient plus lourdes.
 * La racine publique ```./p/``` peut être servie sans restriction d'accès HTTP (qui peut avantageusement être mise en place dans ```./p/i/```).
 * Cela permet d'éviter des problèmes pour des fichiers qui doivent être publics pour bien fonctionner, comme ```favicon.ico```, ```robots.txt```, etc.
 * Cela permet aussi d'avoir un logo FreshRSS plutôt qu'une page blanche pour accueillir l'utilisateur par exemple dans le cas de la restriction d'accès HTTP ou lors de l'attente du chargement plus lourd du reste de l'interface.

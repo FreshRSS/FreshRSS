@@ -148,6 +148,7 @@ return array(
 		'collapse_article' => 'Srolovat',
 		'first_article' => 'Skočit na první článek',
 		'focus_search' => 'Hledání',
+		'global_view' => 'Switch to global view', // TODO
 		'help' => 'Zobrazit documentaci',
 		'javascript' => 'Pro použití zkratek musí být povolen JavaScript',
 		'last_article' => 'Skočit na poslední článek',
@@ -157,13 +158,17 @@ return array(
 		'navigation' => 'Navigace',
 		'navigation_help' => 'Pomocí přepínače "Shift" fungují navigační zkratky v rámci kanálů.<br/>Pomocí přepínače "Alt" fungují v rámci kategorií.',
 		'next_article' => 'Skočit na další článek',
+		'normal_view' => 'Switch to normal view', // TODO
 		'other_action' => 'Ostatní akce',
 		'previous_article' => 'Skočit na předchozí článek',
+		'reading_view' => 'Switch to reading view', // TODO
+		'rss_view' => 'Open RSS view in a new tab', // TODO
 		'see_on_website' => 'Navštívit původní webovou stránku',
 		'shift_for_all_read' => '+ <code>shift</code> označí vše jako přečtené',
 		'title' => 'Zkratky',
 		'user_filter' => 'Aplikovat uživatelské filtry',
 		'user_filter_help' => 'Je-li nastaven pouze jeden filtr, bude použit. Další filtry jsou dostupné pomocí jejich čísla.',
+		'views' => 'Views', // TODO
 	),
 	'user' => array(
 		'articles_and_size' => '%s článků (%s)',

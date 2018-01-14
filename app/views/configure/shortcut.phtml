@@ -17,6 +17,36 @@
 
 		<noscript><p class="alert alert-error"><?php echo _t('conf.shortcut.javascript'); ?></p></noscript>
 
+		<legend><?php echo _t('conf.shortcut.views'); ?></legend>
+
+		<div class="form-group">
+			<label class="group-name" for="normal_view_shortcut"><?php echo _t('conf.shortcut.normal_view'); ?></label>
+			<div class="group-controls">
+			    <input type="text" id="normal_view_shortcut" name="shortcuts[normal_view]" list="keys" value="<?php echo $s['normal_view']; ?>" data-leave-validation="<?php echo $s['normal_view']; ?>"/>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="group-name" for="global_view_shortcut"><?php echo _t('conf.shortcut.global_view'); ?></label>
+			<div class="group-controls">
+			    <input type="text" id="global_view_shortcut" name="shortcuts[global_view]" list="keys" value="<?php echo $s['global_view']; ?>" data-leave-validation="<?php echo $s['global_view']; ?>"/>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="group-name" for="reading_view_shortcut"><?php echo _t('conf.shortcut.reading_view'); ?></label>
+			<div class="group-controls">
+			    <input type="text" id="reading_view_shortcut" name="shortcuts[reading_view]" list="keys" value="<?php echo $s['reading_view']; ?>" data-leave-validation="<?php echo $s['reading_view']; ?>"/>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="group-name" for="rss_view_shortcut"><?php echo _t('conf.shortcut.rss_view'); ?></label>
+			<div class="group-controls">
+			    <input type="text" id="rss_view_shortcut" name="shortcuts[rss_view]" list="keys" value="<?php echo $s['rss_view']; ?>" data-leave-validation="<?php echo $s['rss_view']; ?>"/>
+			</div>
+		</div>
+
 		<legend><?php echo _t('conf.shortcut.navigation'); ?></legend>
 
 		<p class="alert alert-warn"><?php echo _t('conf.shortcut.navigation_help');?></p>
