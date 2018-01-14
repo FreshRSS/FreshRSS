@@ -220,12 +220,13 @@ function mark_favorite(active) {
 	});
 }
 
-function toggleContent(new_active, old_active) {
+function toggleContent(new_active, old_active, skipping = false) {
+	// If skipping, move current without activating or marking as read
 	if (new_active.length === 0) {
 		return;
 	}
 
-	if (context.does_lazyload) {
+	if (context.does_lazyload && !skipping) {
 		new_active.find('img[data-original], iframe[data-original]').each(function () {
 			this.onload = function () { $(document.body).trigger("sticky_kit:recalc"); };
 			this.setAttribute('src', this.getAttribute('data-original'));
@@ -234,15 +235,15 @@ function toggleContent(new_active, old_active) {
 	}
 
 	if (old_active[0] !== new_active[0]) {
-		if (isCollapsed) {
+		if (isCollapsed && !skipping) { // BUG?: isCollapsed can only ever be true 
 			new_active.addClass("active");
 		}
 		old_active.removeClass("active current");
 		new_active.addClass("current");
-		if (context.auto_remove_article && !old_active.hasClass('not_read')) {
+		if (context.auto_remove_article && !old_active.hasClass('not_read') && !skipping) {
 			auto_remove(old_active);
 		}
-	} else {
+	} else { // collapse_entry calls toggleContent(flux_current, flux_current)
 		new_active.toggleClass('active');
 	}
 
@@ -278,7 +279,7 @@ function toggleContent(new_active, old_active) {
 		}
 	}
 
-	if (context.auto_mark_article && new_active.hasClass('active')) {
+	if (context.auto_mark_article && new_active.hasClass('active') && !skipping) {
 		mark_read(new_active, true);
 	}
 }
