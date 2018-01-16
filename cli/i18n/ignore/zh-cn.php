@@ -27,7 +27,7 @@ return array(
 	'gen.share.email',
 	'gen.share.facebook',
 	'gen.share.g+',
-	'gen.share.gnusocial',	
+	'gen.share.gnusocial',
 	'gen.share.jdh',
 	'gen.share.mastodon',
 	'gen.share.movim',

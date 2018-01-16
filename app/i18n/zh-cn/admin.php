@@ -112,7 +112,7 @@ return array(
 		),
 		'title' => '扩展',
 		'user' => '用户扩展',
-		'community' => '可用的社区扩展', 
+		'community' => '可用的社区扩展',
 		'name' => '名称',
 		'version' => '版本',
 		'description' => '描述',
