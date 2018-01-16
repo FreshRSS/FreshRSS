@@ -112,13 +112,13 @@ return array(
 		),
 		'title' => '扩展',
 		'user' => '用户扩展',
-		'community' => 'Available community extensions', // @todo translate
-		'name' => 'Name', // @todo translate
-		'version' => 'Version', // @todo translate
-		'description' => 'Description', // @todo translate
-		'author' => 'Author', // @todo translate
-		'latest' => 'Installed', // @todo translate
-		'update' => 'Update available', // @todo translate
+		'community' => '可用的社区扩展',
+		'name' => '名称',
+		'version' => '版本',
+		'description' => '描述',
+		'author' => '作者',
+		'latest' => '已安装',
+		'update' => '更新可用',
 	),
 	'stats' => array(
 		'_' => '统计',
