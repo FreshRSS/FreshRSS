@@ -435,6 +435,51 @@ function unreadCount() {	//http://blog.martindoms.com/2009/10/16/using-the-googl
 	exit();
 }
 
+function entriesToArray($entries) {
+	$items = array();
+	foreach ($entries as $entry) {
+		$f_id = $entry->feed();
+		if (isset($arrayFeedCategoryNames[$f_id])) {
+			$c_name = $arrayFeedCategoryNames[$f_id]['c_name'];
+			$f_name = $arrayFeedCategoryNames[$f_id]['name'];
+		} else {
+			$c_name = '_';
+			$f_name = '_';
+		}
+		$item = array(
+			'id' => /*'tag:google.com,2005:reader/item/' .*/ dec2hex($entry->id()),	//64-bit hexa http://code.google.com/p/google-reader-api/wiki/ItemId
+			'crawlTimeMsec' => substr($entry->id(), 0, -3),
+			'timestampUsec' => '' . $entry->id(),	//EasyRSS
+			'published' => $entry->date(true),
+			'title' => $entry->title(),
+			'summary' => array('content' => $entry->content()),
+			'alternate' => array(
+				array('href' => htmlspecialchars_decode($entry->link(), ENT_QUOTES)),
+			),
+			'categories' => array(
+				'user/-/state/com.google/reading-list',
+				'user/-/label/' . $c_name,
+			),
+			'origin' => array(
+				'streamId' => 'feed/' . $f_id,
+				'title' => $f_name,	//EasyRSS
+				//'htmlUrl' => $line['f_website'],
+			),
+		);
+		if ($entry->author() != '') {
+			$item['author'] = $entry->author();
+		}
+		if ($entry->isRead()) {
+			$item['categories'][] = 'user/-/state/com.google/read';
+		}
+		if ($entry->isFavorite()) {
+			$item['categories'][] = 'user/-/state/com.google/starred';
+		}
+		$items[] = $item;
+	}
+	return $items;
+}
+
 function streamContents($path, $include_target, $start_time, $count, $order, $exclude_target, $continuation) {
 //http://code.google.com/p/pyrfeed/wiki/GoogleReaderAPI
 //http://blog.martindoms.com/2009/10/16/using-the-google-reader-api-part-2/#feed
@@ -483,47 +528,7 @@ function streamContents($path, $include_target, $start_time, $count, $order, $ex
 	$entryDAO = FreshRSS_Factory::createEntryDao();
 	$entries = $entryDAO->listWhere($type, $include_target, $state, $order === 'o' ? 'ASC' : 'DESC', $count, $continuation, new FreshRSS_Search(''), $start_time);
 
-	$items = array();
-	foreach ($entries as $entry) {
-		$f_id = $entry->feed();
-		if (isset($arrayFeedCategoryNames[$f_id])) {
-			$c_name = $arrayFeedCategoryNames[$f_id]['c_name'];
-			$f_name = $arrayFeedCategoryNames[$f_id]['name'];
-		} else {
-			$c_name = '_';
-			$f_name = '_';
-		}
-		$item = array(
-			'id' => /*'tag:google.com,2005:reader/item/' .*/ dec2hex($entry->id()),	//64-bit hexa http://code.google.com/p/google-reader-api/wiki/ItemId
-			'crawlTimeMsec' => substr($entry->id(), 0, -3),
-			'timestampUsec' => '' . $entry->id(),	//EasyRSS
-			'published' => $entry->date(true),
-			'title' => $entry->title(),
-			'summary' => array('content' => $entry->content()),
-			'alternate' => array(
-				array('href' => htmlspecialchars_decode($entry->link(), ENT_QUOTES)),
-			),
-			'categories' => array(
-				'user/-/state/com.google/reading-list',
-				'user/-/label/' . $c_name,
-			),
-			'origin' => array(
-				'streamId' => 'feed/' . $f_id,
-				'title' => $f_name,	//EasyRSS
-				//'htmlUrl' => $line['f_website'],
-			),
-		);
-		if ($entry->author() != '') {
-			$item['author'] = $entry->author();
-		}
-		if ($entry->isRead()) {
-			$item['categories'][] = 'user/-/state/com.google/read';
-		}
-		if ($entry->isFavorite()) {
-			$item['categories'][] = 'user/-/state/com.google/starred';
-		}
-		$items[] = $item;
-	}
+	$items = entriesToArray($entries);
 
 	if (!empty($continuation)) {
 		array_shift($items);	//Discard first element that was already sent in the previous response
@@ -588,6 +593,28 @@ function streamContentsItemsIds($streamId, $start_time, $count, $order, $exclude
 	echo json_encode(array(
 		'itemRefs' => $itemRefs,
 	)), "\n";
+	exit();
+}
+
+function streamContentsItems($e_ids, $order) {
+	header('Content-Type: application/json; charset=UTF-8');
+
+	foreach ($e_ids as $i => $e_id) {
+		$e_ids[$i] = hex2dec(basename($e_id));	//Strip prefix 'tag:google.com,2005:reader/item/'
+	}
+
+	$entryDAO = FreshRSS_Factory::createEntryDao();
+	$entries = $entryDAO->listByIds($e_ids, $order === 'o' ? 'ASC' : 'DESC');
+
+	$items = entriesToArray($entries);
+
+	$response = array(
+		'id' => 'user/-/state/com.google/reading-list',
+		'updated' => time(),
+		'items' => $items,
+	);
+
+	echo json_encode($response), "\n";
 	exit();
 }
 
@@ -756,6 +783,9 @@ if (count($pathInfos) < 3) {
 					 * (more efficient from a backend perspective than multiple requests). */
 					$streamId = $_GET['s'];
 					streamContentsItemsIds($streamId, $start_time, $count, $order, $exclude_target);
+				} else if ($pathInfos[6] === 'contents' && isset($_POST['i'])) {	//FeedMe
+					$e_ids = multiplePosts('i');	//item IDs
+					streamContentsItems($e_ids, $order);
 				}
 			}
 			break;

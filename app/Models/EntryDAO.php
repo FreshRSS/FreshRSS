@@ -781,6 +781,23 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 		return self::daoToEntries($stm->fetchAll(PDO::FETCH_ASSOC));
 	}
 
+	public function listByIds($ids, $order = 'DESC') {
+		if (count($ids) < 1) {
+			return array();
+		}
+
+		$sql = 'SELECT id, guid, title, author, '
+			. ($this->isCompressed() ? 'UNCOMPRESS(content_bin) AS content' : 'content')
+			. ', link, date, is_read, is_favorite, id_feed, tags '
+			. 'FROM `' . $this->prefix . 'entry` '
+			. 'WHERE id IN (' . str_repeat('?,', count($ids) - 1). '?) '
+			. 'ORDER BY id ' . $order;
+
+		$stm = $this->bd->prepare($sql);
+		$stm->execute($ids);
+		return self::daoToEntries($stm->fetchAll(PDO::FETCH_ASSOC));
+	}
+
 	public function listIdsWhere($type = 'a', $id = '', $state = FreshRSS_Entry::STATE_ALL, $order = 'DESC', $limit = 1, $firstId = '', $filter = '', $date_min = 0) {	//For API
 		list($values, $sql) = $this->sqlListWhere($type, $id, $state, $order, $limit, $firstId, $filter, $date_min);
 
