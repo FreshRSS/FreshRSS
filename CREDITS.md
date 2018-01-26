@@ -37,6 +37,7 @@ People are sorted by name so please keep this order.
 * [Marien Fressinaud](https://github.com/marienfressinaud): [contributions](https://github.com/FreshRSS/FreshRSS/commits?author=marienfressinaud), [Web](https://marienfressinaud.fr/)
 * [Melvyn Laïly](https://github.com/yaurthek): [contributions](https://github.com/FreshRSS/FreshRSS/commits?author=yaurthek), [Web](http://x2a.yt/)
 * [MSZ](https://github.com/mszkb): [contributions](https://github.com/FreshRSS/FreshRSS/commits?author=mszkb)
+* [Nico B](https://github.com/youknow0): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:youknow0)
 * [Nicolas Elie](https://github.com/nicolaselie): [contributions](https://github.com/FreshRSS/FreshRSS/commits?author=nicolaselie)
 * [Nicolas Lœuillet](https://github.com/nicosomb): [contributions](https://github.com/FreshRSS/documentation/commits?author=nicosomb), [Web](http://www.loeuillet.org/)
 * [Nicola Spanti](https://github.com/RyDroid): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:RyDroid), [Web](http://www.nicola-spanti.info/)
