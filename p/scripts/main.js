@@ -705,25 +705,25 @@ function init_shortcuts() {
 	});
 
 	shortcut.add(shortcuts.normal_view, function () {
-		$('#nav_menu_views a').get(0).click();
+		$('#nav_menu_views .view-normal').get(0).click();
 	}, {
 		'disable_in_input': true
 	});
 
 	shortcut.add(shortcuts.global_view, function () {
-		$('#nav_menu_views a').get(1).click();
+		$('#nav_menu_views .view-global').get(0).click();
 	}, {
 		'disable_in_input': true
 	});
 
 	shortcut.add(shortcuts.reading_view, function () {
-		$('#nav_menu_views a').get(2).click();
+		$('#nav_menu_views .view-reader').get(0).click();
 	}, {
 		'disable_in_input': true
 	});
 
 	shortcut.add(shortcuts.rss_view, function () {
-		$('#nav_menu_views a').get(-1).click();
+		$('#nav_menu_views .view-rss').get(0).click();
 	}, {
 		'disable_in_input': true
 	});
