@@ -162,7 +162,7 @@ return array(
 		'other_action' => '다른 동작',
 		'previous_article' => '이전 글 보기',
 		'reading_view' => '읽기 모드로 전환',
-		'rss_view' => '새 탭에서 RSS 피드 열기', 
+		'rss_view' => '새 탭에서 RSS 피드 열기',
 		'see_on_website' => '글이 게재된 웹사이트에서 보기',
 		'shift_for_all_read' => '+ <code>shift</code>를 누른 상태에선 모두 읽음으로 표시',
 		'title' => '단축키',
