@@ -539,8 +539,11 @@ function streamContents($path, $include_target, $start_time, $count, $order, $ex
 		'updated' => time(),
 		'items' => $items,
 	);
-	if ((count($entries) >= $count) && (!empty($entry))) {
-		$response['continuation'] = $entry->id();
+	if (count($entries) >= $count) {
+		$entry = end($entries);
+		if ($entry != false) {
+			$response['continuation'] = $entry->id();
+		}
 	}
 
 	echo json_encode($response), "\n";
