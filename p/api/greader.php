@@ -521,7 +521,7 @@ function streamContents($path, $include_target, $start_time, $count, $order, $ex
 			break;
 	}
 
-	if (!empty($continuation)) {
+	if ($continuation != '') {
 		$count++;	//Shift by one element
 	}
 
@@ -530,7 +530,7 @@ function streamContents($path, $include_target, $start_time, $count, $order, $ex
 
 	$items = entriesToArray($entries);
 
-	if (!empty($continuation)) {
+	if ($continuation != '') {
 		array_shift($items);	//Discard first element that was already sent in the previous response
 	}
 
@@ -550,7 +550,7 @@ function streamContents($path, $include_target, $start_time, $count, $order, $ex
 	exit();
 }
 
-function streamContentsItemsIds($streamId, $start_time, $count, $order, $exclude_target) {
+function streamContentsItemsIds($streamId, $start_time, $count, $order, $exclude_target, $continuation) {
 //http://code.google.com/p/google-reader-api/wiki/ApiStreamItemsIds
 //http://code.google.com/p/pyrfeed/wiki/GoogleReaderAPI
 //http://blog.martindoms.com/2009/10/16/using-the-google-reader-api-part-2/#feed
@@ -580,8 +580,16 @@ function streamContentsItemsIds($streamId, $start_time, $count, $order, $exclude
 			break;
 	}
 
+	if ($continuation != '') {
+		$count++;	//Shift by one element
+	}
+
 	$entryDAO = FreshRSS_Factory::createEntryDao();
-	$ids = $entryDAO->listIdsWhere($type, $id, $state, $order === 'o' ? 'ASC' : 'DESC', $count, '', new FreshRSS_Search(''), $start_time);
+	$ids = $entryDAO->listIdsWhere($type, $id, $state, $order === 'o' ? 'ASC' : 'DESC', $count, $continuation, new FreshRSS_Search(''), $start_time);
+
+	if ($continuation != '') {
+		array_shift($ids);	//Discard first element that was already sent in the previous response
+	}
 
 	if (empty($ids)) {	//For News+ bug https://github.com/noinnion/newsplus/issues/84#issuecomment-57834632
 		$ids[] = 0;
@@ -593,9 +601,17 @@ function streamContentsItemsIds($streamId, $start_time, $count, $order, $exclude
 		);
 	}
 
-	echo json_encode(array(
+	$response = array(
 		'itemRefs' => $itemRefs,
-	)), "\n";
+	);
+	if (count($ids) >= $count) {
+		$id = end($ids);
+		if ($id != false) {
+			$response['continuation'] = $id;
+		}
+	}
+
+	echo json_encode($response), "\n";
 	exit();
 }
 
@@ -785,7 +801,7 @@ if (count($pathInfos) < 3) {
 					 * be repeated to fetch the item IDs from multiple streams at once
 					 * (more efficient from a backend perspective than multiple requests). */
 					$streamId = $_GET['s'];
-					streamContentsItemsIds($streamId, $start_time, $count, $order, $exclude_target);
+					streamContentsItemsIds($streamId, $start_time, $count, $order, $exclude_target, $continuation);
 				} else if ($pathInfos[6] === 'contents' && isset($_POST['i'])) {	//FeedMe
 					$e_ids = multiplePosts('i');	//item IDs
 					streamContentsItems($e_ids, $order);
