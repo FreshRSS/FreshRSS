@@ -219,6 +219,7 @@ function checkToken($conf, $token) {
 	if ($token === str_pad(sha1(FreshRSS_Context::$system_conf->salt . $user . $conf->apiPasswordHash), 57, 'Z')) {
 		return true;
 	}
+	Minz_Log::warning('Invalid POST token: ' . $token, API_LOG);
 	unauthorized();
 }
 
@@ -532,6 +533,7 @@ function streamContents($path, $include_target, $start_time, $count, $order, $ex
 
 	if ($continuation != '') {
 		array_shift($items);	//Discard first element that was already sent in the previous response
+		$count--;
 	}
 
 	$response = array(
@@ -589,6 +591,7 @@ function streamContentsItemsIds($streamId, $start_time, $count, $order, $exclude
 
 	if ($continuation != '') {
 		array_shift($ids);	//Discard first element that was already sent in the previous response
+		$count--;
 	}
 
 	if (empty($ids)) {	//For News+ bug https://github.com/noinnion/newsplus/issues/84#issuecomment-57834632
