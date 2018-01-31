@@ -2,8 +2,8 @@
 
 return array(
 	'api' => array(
-		'documentation' => 'Copy the following URL to use it within an external tool.',// TODO
-		'title' => 'API',// TODO
+		'documentation' => '외부 도구에서 API를 사용하기 위해서 아래 URL을 사용하세요.',
+		'title' => 'API',
 	),
 	'bookmarklet' => array(
 		'documentation' => '이 버튼을 즐겨찾기 막대로 끌어다 놓거나 마우스 오른쪽 클릭으로 나타나는 메뉴에서 "이 링크를 즐겨찾기에 추가"를 선택하세요. 그리고 피드를 구독하길 원하는 페이지에서 "구독하기" 버튼을 클릭하세요.',
@@ -35,14 +35,14 @@ return array(
 		'informations' => '정보',
 		'keep_history' => '최소 유지 글 개수',
 		'moved_category_deleted' => '카테고리를 삭제하면, 해당 카테고리 아래에 있던 피드들은 자동적으로 <em>%s</em> 아래로 분류됩니다.',
-		'mute' => 'mute', // TODO
+		'mute' => '무기한 새로고침 금지',
 		'no_selected' => '선택된 피드가 없습니다.',
 		'number_entries' => '%d 개의 글',
 		'priority' => array(
-			'_' => 'Visibility', // TODO
-			'archived' => 'Do not show (archived)', // TODO
-			'main_stream' => '메인 스트림에 표시하기', // TODO
-			'normal' => 'Show in its category', // TODO
+			'_' => '표시',
+			'archived' => '표시하지 않음 (보관됨)',
+			'main_stream' => '메인 스트림에 표시하기',
+			'normal' => '피드가 속한 카테고리에만 표시하기',
 		),
 		'stats' => '통계',
 		'think_to_add' => '피드를 추가할 수 있습니다.',
