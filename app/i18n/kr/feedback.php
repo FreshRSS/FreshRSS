@@ -51,7 +51,7 @@ return array(
 		'zip_error' => 'ZIP 파일을 불러오는 동안 문제가 발생했습니다.',
 	),
 	'sub' => array(
-		'actualize' => 'Updating',
+		'actualize' => '피드를 가져오는 중입니다',
 		'category' => array(
 			'created' => '%s 카테고리가 생성되었습니다.',
 			'deleted' => '카테고리가 삭제되었습니다.',
