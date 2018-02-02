@@ -25,7 +25,7 @@ return array(
 	'language' => 'en',
 
 	# Title of this FreshRSS instance in the Web user interface.
-	'title' => 'FreshRSS',
+	'title' => '',
 
 	# Meta description used when `allow_robots` is true.
 	'meta_description' => '',
