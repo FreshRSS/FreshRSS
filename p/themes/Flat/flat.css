@@ -6,11 +6,12 @@ html, body {
 	height: 100%;
 	font-family: "OpenSans", "Cantarell", "Helvetica", "Arial", "PingFang SC", "Microsoft YaHei", sans-serif;
 	background: #fafafa;
+	font-size: 0.8em;
 }
 
 /*=== Links */
 a, button.as-link {
-	color: #2980b9;
+	color: #444;
 	outline: none;
 }
 
@@ -20,10 +21,9 @@ legend {
 	width: auto;
 	margin: 20px 0 5px;
 	padding: 5px 20px;
-	font-size: 1.4em;
+	font-size: 1.2em;
 	clear: both;
 	background: #ecf0f1;
-	border-radius: 20px;
 }
 label {
 	min-height: 25px;
@@ -42,10 +42,8 @@ input, select, textarea {
 	vertical-align: middle;
 	background: #fff;
 	border: none;
-	border-bottom: 3px solid #ddd;
 	border-left-color: #ddd;
 	color: #666;
-	border-radius: 5px;
 }
 option {
 	padding: 0 .5em;
@@ -94,7 +92,6 @@ form th {
 .form-group {
 	padding: 5px;
 	border: 1px solid transparent;
-	border-radius: 3px;
 }
 .form-group::after {
 	content: "";
@@ -104,7 +101,6 @@ form th {
 .form-group:hover {
 	background: #fff;
 	border: 1px solid #eee;
-	border-radius: 3px;
 	border: 1px solid #eee;
 }
 .form-group.form-actions {
@@ -112,7 +108,6 @@ form th {
 	padding: 5px 0;
 	background: #ecf0f1;
 	border-top: 3px solid #bdc3c7;
-	border-radius: 5px 5px 0 0;
 }
 .form-group.form-actions .btn {
 	margin: 0 10px;
@@ -139,16 +134,13 @@ form th {
 }
 .stick input,
 .stick .btn {
-	border-radius: 0;
 }
 .stick .btn:first-child,
 .stick input:first-child {
-	border-radius: 5px 0 0 5px;
 }
 .stick .btn:last-child,
 .stick input:last-child,
 .stick .btn + .dropdown > .btn {
-	border-radius: 0 5px 5px 0;
 }
 .stick .btn + .btn,
 .stick .btn + input,
@@ -165,7 +157,7 @@ form th {
 
 .btn {
 	display: inline-block;
-	min-height: 38px;
+	min-height: 25px;
 	min-width: 15px;
 	margin: 0;
 	padding: 5px 10px;
@@ -174,15 +166,14 @@ form th {
 	cursor: pointer;
 	overflow: hidden;
 	background: #3498db;
-	border-radius: 5px;
 	border: none;
-	border-bottom: 3px solid #2980b9;
 	border-left-color: #2980b9;
 	color: #fff;
+	box-sizing: content-box;
 }
 a.btn {
 	min-height: 25px;
-	line-height: 25px;
+	line-height: 22px;
 }
 .btn:hover {
 	text-decoration: none;
@@ -198,7 +189,6 @@ a.btn {
 	font-weight: normal;
 	background: #e67e22;
 	color: #fff;
-	border-bottom: 3px solid #d35400;
 	border-left-color: #d35400;
 }
 .btn-important:hover,
@@ -209,7 +199,6 @@ a.btn {
 .btn-attention {
 	background: #e74c3c;
 	color: #fff;
-	border-bottom: 3px solid #c0392b;
 	border-left-color: #c0392b;
 }
 .btn-attention:hover,
@@ -304,7 +293,6 @@ a.btn {
 	font-size: 0.8rem;
 	text-align: left;
 	border: 1px solid #95a5a6;
-	border-radius: 3px;
 }
 .dropdown-menu::after {
 	content: "";
@@ -351,7 +339,6 @@ a.btn {
 .dropdown-menu .input input {
 	margin: 0 auto 5px;
 	padding: 2px 5px;
-	border-radius: 3px;
 }
 
 .separator {
@@ -368,7 +355,6 @@ a.btn {
 	border: 1px solid #ccc;
 	border-right: 1px solid #aaa;
 	border-bottom: 1px solid #aaa;
-	border-radius: 5px;
 	color: #aaa;
 	text-shadow: 0 0 1px #eee;
 }
@@ -433,7 +419,8 @@ a.btn {
 /*=== Boxes */
 .box {
 	border: 1px solid #ddd;
-	border-radius: 5px;
+	background: white;
+	width: 22rem;
 }
 .box .box-title {
 	margin: 0;
@@ -441,10 +428,15 @@ a.btn {
 	background: #ecf0f1;
 	color: #333;
 	border-bottom: 1px solid #ddd;
-	border-radius: 5px 5px 0 0;
 }
 .box .box-content {
 	max-height: 260px;
+	height: 15rem;
+	overflow: auto;
+}
+
+.box .box-content-centered {
+	padding:0;
 }
 
 .box .box-content .item {
@@ -459,11 +451,15 @@ a.btn {
 .box .box-content .item .configure .icon {
 	vertical-align: middle;
 	background-color: #95a5a6;
-	border-radius: 3px;
 }
 .box .box-content .item:hover .configure {
 	visibility: visible;
 }
+
+.box .box-content .item:hover .configure .icon {
+	background: transparent;
+}
+
 
 /*=== Tree */
 .tree {
@@ -508,7 +504,7 @@ a.btn {
 /*=== Header */
 .header {
 	height: 85px;
-	background: #ecf0f1;
+	background: #34495e;
 }
 .header > .item {
 	padding: 10px;
@@ -530,19 +526,25 @@ a.btn {
 .header .item.search input:focus {
 	width: 350px;
 }
+.header .btn, .header .btn:hover, .header .btn:focus, .header .btn:active {
+	background-color: transparent ! important;
+}
 
 /*=== Body */
 #global {
 	height: calc(100% - 85px);
+	background-color:#34495e;
 }
 .aside {
-	background: #ecf0f1;
+	background: #34495e;
+}
+.aside a {
+	color:white;
 }
 .aside.aside_feed {
 	padding: 10px 0;
 	text-align: center;
 	background: #34495e;
-	border-radius: 0 10px 0 0;
 }
 .aside.aside_feed .tree {
 	margin: 10px 0 50px;
@@ -586,19 +588,31 @@ a.btn {
 .aside_feed .tree-folder-items .item .dropdown-target:target ~ .dropdown-toggle > .icon,
 .aside_feed .tree-folder-items .item:hover .dropdown-toggle > .icon,
 .aside_feed .tree-folder-items .item.active .dropdown-toggle > .icon {
-	border-radius: 3px;
 }
 
 /*=== Configuration pages */
 .post {
 	padding: 10px 50px;
 	font-size: 0.9em;
+	background: white;
+	border-top-left-radius: 15px;
 }
 .post form {
 	margin: 10px 0;
 }
 .post.content {
 	max-width: 550px;
+}
+.post #add_rss {
+	padding:5px;
+	background: #ecf0f1;
+	max-width:30rem;
+}
+.post #add_rss .stick {
+	width:100%;
+}
+.post #add_rss .stick input {
+	width:78%;
 }
 
 /*=== Prompt (centered) */
@@ -644,6 +658,7 @@ a.btn {
 	font-weight: bold;
 	line-height: 3em;
 	border-left: 2px solid #ecf0f1;
+	background-color:white;
 }
 .day .name {
 	padding: 0 10px 0 0;
@@ -658,17 +673,19 @@ a.btn {
 .nav_menu {
 	text-align: center;
 	padding: 5px 0;
+	background: white;
+	border-top-left-radius: 15px;
 }
 
 #dropdown-query ~ .dropdown-menu .dropdown-header .icon {
 	vertical-align: middle;
 	background-color: #95a5a6;
-	border-radius: 3px;
 }
 
 /*=== Feed articles */
 .flux {
 	border-left: 2px solid #ecf0f1;
+	background-color: #fff;
 }
 .flux:hover {
 	background: #fff;
@@ -677,11 +694,11 @@ a.btn {
 	border-left-color: #3498db;
 }
 .flux.not_read {
-	background: #FFF3ED;
+	background: #ddd;
 	border-left-color: #FF5300;
 }
-.flux.not_read:not(.current):hover .item.title {
-	background: #FFF3ED;
+.flux.not_read:not(.current):hover .item.title, .flux.not_read:not(.current):hover {
+	background: #ccc;
 }
 .flux.favorite {
 	background: #FFF6DA;
@@ -739,14 +756,12 @@ a.btn {
 	background: #222;
 	color: #fff;
 	font-size: 0.9rem;
-	border-radius: 3px;
 }
 .content code {
 	padding: 2px 5px;
 	color: #dd1144;
 	background: #fafafa;
 	border: 1px solid #eee;
-	border-radius: 3px;
 }
 .content pre code {
 	background: transparent;
@@ -778,8 +793,8 @@ a.btn {
 	vertical-align: middle;
 	background: #ddd;
 	color: #666;
-	border-radius: 3px;
 	border: none;
+	border-radius: 50px;
 }
 .notification.good {
 	background: #1abc9c;
@@ -792,7 +807,6 @@ a.btn {
 .notification a.close {
 	padding: 0 15px;
 	line-height: 3em;
-	border-radius: 0 3px 3px 0;
 }
 .notification.good a.close:hover {
 	background: #16a085;
@@ -929,7 +943,6 @@ a.btn {
 .log > .date {
 	margin: 0 10px 0 0;
 	padding: 5px 10px;
-	border-radius: 20px;
 }
 .log.error > .date {
 	background: #e74c3c;
@@ -1000,7 +1013,6 @@ a.btn {
 	}
 
 	.notification {
-		border-radius: 0;
 	}
 	.notification a.close {
 		display: block;

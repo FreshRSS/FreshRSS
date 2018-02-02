@@ -19,7 +19,7 @@ return array(
 		'add' => 'You may add some feeds.',
 		'empty' => 'There is no article to show.',
 		'rss_of' => 'RSS feed of %s',
-		'title' => 'Your RSS feeds',
+		'title' => '',
 		'title_global' => 'Global view',
 		'title_fav' => 'Your favourites',
 	),
