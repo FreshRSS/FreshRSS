@@ -13,3 +13,4 @@ constants.local.php
 *.save
 *.autosav
 *.autosave
+*.log
