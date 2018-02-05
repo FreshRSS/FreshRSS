@@ -262,7 +262,7 @@ function toggleContent(new_active, old_active, skipping = false) {
 			}
 		}
 
-		if(skipping){
+		if (skipping){
 			// when skipping, this feels more natural if it's not so near the top
 			new_pos -= $(window).height()/4
 		}
