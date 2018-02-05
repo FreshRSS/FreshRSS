@@ -328,6 +328,9 @@ function subscriptionEdit($streamNames, $titles, $action, $add = '', $remove = '
 		$addCatId = 1;	//Default category
 	}
 	$feedDAO = FreshRSS_Factory::createFeedDao();
+	if (!is_array($streamNames) || count($streamNames) < 1) {
+		badRequest();
+	}
 	for ($i = count($streamNames) - 1; $i >= 0; $i--) {
 		$streamName = $streamNames[$i];	//feed/http://example.net/sample.xml	;	feed/338
 		if (strpos($streamName, 'feed/') === 0) {
@@ -830,16 +833,16 @@ if (count($pathInfos) < 3) {
 						subscriptionList($_GET['output']);
 						break;
 					case 'edit':
-						if (isset($_POST['s']) && isset($_POST['ac'])) {
+						if (isset($_REQUEST['s']) && isset($_REQUEST['ac'])) {
 							//StreamId to operate on. The parameter may be repeated to edit multiple subscriptions at once
-							$streamNames = multiplePosts('s');
+							$streamNames = empty($_POST['s']) && isset($_GET['s']) ? array($_GET['s']) : multiplePosts('s');
 							/* Title to use for the subscription. For the `subscribe` action,
 							 * if not specified then the feed's current title will be used. Can
 							 * be used with the `edit` action to rename a subscription */
-							$titles = multiplePosts('t');
-							$action = $_POST['ac'];	//Action to perform on the given StreamId. Possible values are `subscribe`, `unsubscribe` and `edit`
-							$add = isset($_POST['a']) ? $_POST['a'] : '';	//StreamId to add the subscription to (generally a user label)
-							$remove = isset($_POST['r']) ? $_POST['r'] : '';	//StreamId to remove the subscription from (generally a user label)
+							$titles = empty($_POST['t']) && isset($_GET['t']) ? array($_GET['t']) : multiplePosts('t');
+							$action = $_REQUEST['ac'];	//Action to perform on the given StreamId. Possible values are `subscribe`, `unsubscribe` and `edit`
+							$add = isset($_REQUEST['a']) ? $_REQUEST['a'] : '';	//StreamId to add the subscription to (generally a user label)
+							$remove = isset($_REQUEST['r']) ? $_REQUEST['r'] : '';	//StreamId to remove the subscription from (generally a user label)
 							subscriptionEdit($streamNames, $titles, $action, $add, $remove);
 						}
 						break;
