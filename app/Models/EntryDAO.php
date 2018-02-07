@@ -628,10 +628,12 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 			$firstId = $order === 'DESC' ? '9000000000'. '000000' : '0';
 		}*/
 		if ($firstId !== '') {
-			$search .= 'AND ' . $alias . 'id ' . ($order === 'DESC' ? '<=' : '>=') . $firstId . ' ';
+			$search .= 'AND ' . $alias . 'id ' . ($order === 'DESC' ? '<=' : '>=') . ' ? ';
+			$values[] = $firstId;
 		}
 		if ($date_min > 0) {
-			$search .= 'AND ' . $alias . 'id >= ' . $date_min . '000000 ';
+			$search .= 'AND ' . $alias . 'id >= ? ';
+			$values[] = $date_min . '000000';
 		}
 		if ($filter) {
 			if ($filter->getMinDate()) {

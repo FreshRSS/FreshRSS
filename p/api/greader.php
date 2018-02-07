@@ -781,7 +781,10 @@ if (count($pathInfos) < 3) {
 			 * all items in a timestamp range, it will have a continuation attribute.
 			 * The same request can be re-issued with the value of that attribute put
 			 * in this parameter to get more items */
-			$continuation = isset($_GET['c']) ? $_GET['c'] : '';
+			$continuation = isset($_GET['c']) ? trim($_GET['c']) : '';
+			if (!ctype_digit($continuation)) {
+				$continuation = '';
+			}
 			if (isset($pathInfos[5]) && $pathInfos[5] === 'contents' && isset($pathInfos[6])) {
 				if (isset($pathInfos[7])) {
 					if ($pathInfos[6] === 'feed') {
