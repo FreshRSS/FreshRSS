@@ -270,6 +270,8 @@ function subscriptionList() {
 	$res = $stm->fetchAll(PDO::FETCH_ASSOC);
 
 	$salt = FreshRSS_Context::$system_conf->salt;
+	$faviconsUrl = Minz_Url::display('/f.php?', '', true);
+	$faviconsUrl = str_replace('/api/greader.php/reader/api/0/subscription', '', $faviconsUrl);	//Security if base_url is not set properly
 	$subscriptions = array();
 
 	foreach ($res as $line) {
@@ -286,7 +288,7 @@ function subscriptionList() {
 			//'firstitemmsec' => 0,
 			'url' => $line['url'],
 			'htmlUrl' => $line['website'],
-			'iconUrl' => Minz_Url::display('/f.php?' . hash('crc32b', $salt . $line['url']), '', true),
+			'iconUrl' => $faviconsUrl . hash('crc32b', $salt . $line['url']),
 		);
 	}
 
