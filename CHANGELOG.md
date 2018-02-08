@@ -18,8 +18,10 @@
 	* Allow extensions to define their own reading view [#1714](https://github.com/FreshRSS/FreshRSS/pull/1714)
 * I18n
 	* Updated Chinese [#1769](https://github.com/FreshRSS/FreshRSS/pull/1769)
+	* Updated Korean [#1776](https://github.com/FreshRSS/FreshRSS/pull/1776)
 * Misc.
 	* More sites in `force-https.default.txt` [#1745](https://github.com/FreshRSS/FreshRSS/pull/1745)
+	* Trim URLs when adding new feeds [#1778](https://github.com/FreshRSS/FreshRSS/pull/1778)
 
 
 ## 2017-12-17 FreshRSS 1.9.0
