@@ -1,7 +1,9 @@
 ﻿# FreshRSS changelog
 
-## 2018-XX-XX FreshRSS 1.9.1-dev
+## 2018-02-XX FreshRSS 1.9.1-dev
 
+* API
+	* Add compatibility with FeedMe 3.5.3+ on Android [#1774](https://github.com/FreshRSS/FreshRSS/pull/1774)
 * Features
 	* Ability to pause feeds, and to hide them from categories [#1750](https://github.com/FreshRSS/FreshRSS/pull/1750)
 * UI
