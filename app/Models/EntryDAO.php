@@ -628,10 +628,12 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 			$firstId = $order === 'DESC' ? '9000000000'. '000000' : '0';
 		}*/
 		if ($firstId !== '') {
-			$search .= 'AND ' . $alias . 'id ' . ($order === 'DESC' ? '<=' : '>=') . $firstId . ' ';
+			$search .= 'AND ' . $alias . 'id ' . ($order === 'DESC' ? '<=' : '>=') . ' ? ';
+			$values[] = $firstId;
 		}
 		if ($date_min > 0) {
-			$search .= 'AND ' . $alias . 'id >= ' . $date_min . '000000 ';
+			$search .= 'AND ' . $alias . 'id >= ? ';
+			$values[] = $date_min . '000000';
 		}
 		if ($filter) {
 			if ($filter->getMinDate()) {
@@ -778,6 +780,23 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 
 	public function listWhere($type = 'a', $id = '', $state = FreshRSS_Entry::STATE_ALL, $order = 'DESC', $limit = 1, $firstId = '', $filter = '', $date_min = 0) {
 		$stm = $this->listWhereRaw($type, $id, $state, $order, $limit, $firstId, $filter, $date_min);
+		return self::daoToEntries($stm->fetchAll(PDO::FETCH_ASSOC));
+	}
+
+	public function listByIds($ids, $order = 'DESC') {
+		if (count($ids) < 1) {
+			return array();
+		}
+
+		$sql = 'SELECT id, guid, title, author, '
+			. ($this->isCompressed() ? 'UNCOMPRESS(content_bin) AS content' : 'content')
+			. ', link, date, is_read, is_favorite, id_feed, tags '
+			. 'FROM `' . $this->prefix . 'entry` '
+			. 'WHERE id IN (' . str_repeat('?,', count($ids) - 1). '?) '
+			. 'ORDER BY id ' . $order;
+
+		$stm = $this->bd->prepare($sql);
+		$stm->execute($ids);
 		return self::daoToEntries($stm->fetchAll(PDO::FETCH_ASSOC));
 	}
 
