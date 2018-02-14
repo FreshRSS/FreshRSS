@@ -6,6 +6,7 @@
 	* Add compatibility with FeedMe 3.5.3+ on Android [#1774](https://github.com/FreshRSS/FreshRSS/pull/1774)
 * Features
 	* Ability to pause feeds, and to hide them from categories [#1750](https://github.com/FreshRSS/FreshRSS/pull/1750)
+	* Ability for the admin to reset a user’s password [#960](https://github.com/FreshRSS/FreshRSS/issues/960)
 * Security
 	* Allow HTTP Auth login with `REDIRECT_REMOTE_USER` when using Apache internal redirect [#1772](https://github.com/FreshRSS/FreshRSS/pull/1772)
 * UI
