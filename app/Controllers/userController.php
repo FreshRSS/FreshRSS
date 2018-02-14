@@ -137,6 +137,8 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 
 		$this->view->current_user = Minz_Request::param('u');
 
+		$this->view->nb_articles = 0;
+		$this->view->size_user = 0;
 		if ($this->view->current_user) {
 			// Get information about the current user.
 			$entryDAO = FreshRSS_Factory::createEntryDao($this->view->current_user);
