@@ -101,6 +101,10 @@ return array(
 			'_' => 'Gebruiker %s is verwijderd',
 			'error' => 'Gebruiker %s kan niet worden verwijderd',
 		),
+		'updated' => array(
+			'_' => 'User %s has been updated', // TODO
+			'error' => 'User %s has not been updated', // TODO
+		),
 		'set_registration' => 'Het maximale aantal accounts is vernieuwd.',
 	),
 	'profile' => array(

@@ -175,12 +175,15 @@ return array(
 	'user' => array(
 		'articles_and_size' => '%s Artikel (%s)',
 		'create' => 'Neuen Benutzer erstellen',
+		'delete_users' => 'Delete user', // TODO
 		'language' => 'Sprache',
 		'number' => 'Es wurde bis jetzt %d Account erstellt',
 		'numbers' => 'Es wurden bis jetzt %d Accounts erstellt',
 		'password_form' => 'Passwort<br /><small>(für die Anmeldemethode per Webformular)</small>',
 		'password_format' => 'mindestens 7 Zeichen',
+		'selected' => 'Selected user', // TODO
 		'title' => 'Benutzer verwalten',
+		'update_users' => 'Update user', // TODO
 		'user_list' => 'Liste der Benutzer',
 		'username' => 'Nutzername',
 		'users' => 'Benutzer',

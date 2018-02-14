@@ -175,12 +175,15 @@ return array(
 	'user' => array(
 		'articles_and_size' => '%s articles (%s)', // @todo
 		'create' => 'יצירת משתמש חדש',
+		'delete_users' => 'Delete user', // TODO
 		'language' => 'שפה',
 		'number' => 'There is %d account created', // @todo
 		'numbers' => 'There are %d accounts created', // @todo
 		'password_form' => 'סיסמה<br /><small>(לשימוש בטפוס ההרשמה)</small>',
 		'password_format' => 'At least 7 characters', // @todo
+		'selected' => 'Selected user', // TODO
 		'title' => 'Manage users', // @todo
+		'update_users' => 'Update user', // TODO
 		'user_list' => 'רשימת משתמשים',
 		'username' => 'שם משתמש',
 		'users' => 'משתמשים',

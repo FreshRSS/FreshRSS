@@ -175,12 +175,15 @@ return array(
 	'user' => array(
 		'articles_and_size' => '%s 개의 글 (%s)',
 		'create' => '새 사용자 생성',
+		'delete_users' => 'Delete user', // TODO
 		'language' => '언어',
 		'number' => '%d 개의 계정이 생성되었습니다',
 		'numbers' => '%d 개의 계정이 생성되었습니다',
 		'password_form' => '암호<br /><small>(웹폼 로그인 방식 사용시)</small>',
 		'password_format' => '7 글자 이상이어야 합니다',
+		'selected' => 'Selected user', // TODO
 		'title' => '사용자 관리',
+		'update_users' => 'Update user', // TODO
 		'user_list' => '사용자 목록',
 		'username' => '사용자 이름',
 		'users' => '전체 사용자',

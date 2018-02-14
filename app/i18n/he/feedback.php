@@ -102,6 +102,10 @@ return array(
 			'_' => 'המשתמש %s נמחק',
 			'error' => 'User %s cannot be deleted', // @todo
 		),
+		'updated' => array(
+			'_' => 'User %s has been updated', // TODO
+			'error' => 'User %s has not been updated', // TODO
+		),
 	),
 	'profile' => array(
 		'error' => 'Your profile cannot be modified', // @todo

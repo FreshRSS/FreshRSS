@@ -46,14 +46,51 @@
 		</div>
 	</form>
 
-	<form method="post" action="<?php echo _url('user', 'delete'); ?>">
+	<form method="post" action="<?php echo _url('user', 'update'); ?>">
 		<input type="hidden" name="_csrf" value="<?php echo FreshRSS_Auth::csrfToken(); ?>" />
-		<legend><?php echo _t('admin.user.users'); ?></legend>
+		<legend><?php echo _t('admin.user.update_users'); ?></legend>
 
 		<div class="form-group">
-			<label class="group-name" for="user-list"><?php echo _t('admin.user.user_list'); ?></label>
+			<label class="group-name" for="current_user"><?php echo _t('admin.user.selected'); ?></label>
+			<div class="group-controls">
+				<select id="current_user" class="select-change" name="username">
+					<option selected="selected"> </option>
+					<?php foreach (listUsers() as $username) { ?>
+					<option value="<?php echo $username; ?>"><?php echo $username; ?></option>
+					<?php } ?>
+				</select>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="group-name" for="newPasswordPlain"><?php echo _t('admin.user.password_form'); ?></label>
+			<div class="group-controls">
+				<div class="stick">
+					<input type="password" id="newPasswordPlain" name="newPasswordPlain" autocomplete="off" pattern=".{7,}" <?php echo cryptAvailable() ? '' : 'disabled="disabled" '; ?>/>
+					<a class="btn toggle-password" data-toggle="newPasswordPlain"><?php echo _i('key'); ?></a>
+				</div>
+				<?php echo _i('help'); ?> <?php echo _t('conf.profile.password_format'); ?>
+				<noscript><b><?php echo _t('gen.js.should_be_activated'); ?></b></noscript>
+			</div>
+		</div>
+
+		<div class="form-group form-actions">
+			<div class="group-controls">
+				<button type="submit" class="btn btn-important"><?php echo _t('gen.action.update'); ?></button>
+				<button type="reset" class="btn"><?php echo _t('gen.action.cancel'); ?></button>
+			</div>
+		</div>
+	</form>
+
+	<form method="post" action="<?php echo _url('user', 'delete'); ?>">
+		<input type="hidden" name="_csrf" value="<?php echo FreshRSS_Auth::csrfToken(); ?>" />
+		<legend><?php echo _t('admin.user.delete_users'); ?></legend>
+
+		<div class="form-group">
+			<label class="group-name" for="user-list"><?php echo _t('admin.user.selected'); ?></label>
 			<div class="group-controls">
 				<select id="user-list" class="select-change" name="username">
+					<option selected="selected"> </option>
 					<?php foreach (listUsers() as $username) { ?>
 					<option data-url="<?php echo _url('user', 'manage', 'u', $username); ?>" <?php echo $this->current_user === $username ? 'selected="selected"' : ''; ?> value="<?php echo $username; ?>"><?php echo $username; ?></option>
 					<?php } ?>

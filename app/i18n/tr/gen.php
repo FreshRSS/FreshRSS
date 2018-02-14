@@ -19,6 +19,7 @@ return array(
 		'see_website' => 'Siteyi gör',
 		'submit' => 'Onayla',
 		'truncate' => 'Tüm makaleleri sil',
+		'update' => 'Update', // TODO
 	),
 	'auth' => array(
 		'email' => 'Email adresleri',

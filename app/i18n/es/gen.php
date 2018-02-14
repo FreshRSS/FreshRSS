@@ -19,6 +19,7 @@ return array(
 		'see_website' => 'Ver web',
 		'submit' => 'Enviar',
 		'truncate' => 'Borrar todos los artículos',
+		'update' => 'Update', // TODO
 	),
 	'auth' => array(
 		'email' => 'Correo electrónico',

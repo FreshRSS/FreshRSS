@@ -101,6 +101,10 @@ return array(
 			'_' => 'User %s has been deleted',
 			'error' => 'User %s cannot be deleted',
 		),
+		'updated' => array(
+			'_' => 'User %s has been updated',
+			'error' => 'User %s has not been updated',
+		),
 	),
 	'profile' => array(
 		'error' => 'Your profile cannot be modified',
