@@ -730,9 +730,6 @@ function markAllAsRead($streamId, $olderThanId) {
 	exit('OK');
 }
 
-//Minz_Log::debug('----------------------------------------------------------------', API_LOG);
-//Minz_Log::debug(debugInfo(), API_LOG);
-
 $pathInfo = empty($_SERVER['PATH_INFO']) ? '/Error' : urldecode($_SERVER['PATH_INFO']);
 $pathInfos = explode('/', $pathInfo);
 
@@ -740,6 +737,10 @@ Minz_Configuration::register('system',
 	DATA_PATH . '/config.php',
 	FRESHRSS_PATH . '/config.default.php');
 FreshRSS_Context::$system_conf = Minz_Configuration::get('system');
+
+//Minz_Log::debug('----------------------------------------------------------------', API_LOG);
+//Minz_Log::debug(debugInfo(), API_LOG);
+
 if (!FreshRSS_Context::$system_conf->api_enabled) {
 	serviceUnavailable();
 }
