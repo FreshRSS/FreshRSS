@@ -37,6 +37,7 @@ return array(
 			'no_limit' => 'ללא הגבלה',
 			'thin' => 'צר',
 		),
+		'show_nav_buttons' => 'Show the navigation buttons',	//TODO
 	),
 	'query' => array(
 		'_' => 'שאילתות',

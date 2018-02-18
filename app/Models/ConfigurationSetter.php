@@ -184,8 +184,8 @@ class FreshRSS_ConfigurationSetter {
 		$data['mark_updated_article_unread'] = $this->handleBool($value);
 	}
 
-	private function _hide_nav_entries(&$data, $value) {
-		$data['hide_nav_entries'] = $this->handleBool($value);
+	private function _show_nav_buttons(&$data, $value) {
+		$data['show_nav_buttons'] = $this->handleBool($value);
 	}
 
 	private function _display_categories(&$data, $value) {

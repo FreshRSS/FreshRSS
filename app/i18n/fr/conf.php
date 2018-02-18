@@ -37,6 +37,7 @@ return array(
 			'no_limit' => 'Pas de limite',
 			'thin' => 'Fine',
 		),
+		'show_nav_buttons' => 'Afficher les boutons de navigation',
 	),
 	'query' => array(
 		'_' => 'Filtres utilisateurs',
