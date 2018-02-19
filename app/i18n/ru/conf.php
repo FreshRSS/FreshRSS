@@ -37,6 +37,7 @@ return array(
 			'no_limit' => 'No limit',
 			'thin' => 'Thin',
 		),
+		'show_nav_buttons' => 'Show the navigation buttons',	//TODO
 	),
 	'query' => array(
 		'_' => 'User queries',

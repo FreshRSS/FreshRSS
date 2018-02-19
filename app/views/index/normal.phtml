@@ -83,7 +83,7 @@ if (!empty($this->entries)) {
 	$this->renderHelper('pagination');
 ?></div>
 
-<?php $this->partial('nav_entries'); ?>
+<?php if (FreshRSS_Context::$user_conf->show_nav_buttons) $this->partial('nav_entries'); ?>
 
 <?php } else { ?>
 <div id="stream" class="prompt alert alert-warn normal">

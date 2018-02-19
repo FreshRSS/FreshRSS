@@ -37,6 +37,7 @@ return array(
 			'no_limit' => 'Bez limitu',
 			'thin' => 'Tenká',
 		),
+		'show_nav_buttons' => 'Show the navigation buttons',	//TODO
 	),
 	'query' => array(
 		'_' => 'Uživatelské dotazy',

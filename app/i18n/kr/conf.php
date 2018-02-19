@@ -37,6 +37,7 @@ return array(
 			'no_limit' => '제한 없음',
 			'thin' => '얇음',
 		),
+		'show_nav_buttons' => 'Show the navigation buttons',	//TODO
 	),
 	'query' => array(
 		'_' => '사용자 쿼리',

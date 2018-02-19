@@ -37,6 +37,7 @@ return array(
 			'no_limit' => '无限制',
 			'thin' => '小',
 		),
+		'show_nav_buttons' => 'Show the navigation buttons',	//TODO
 	),
 	'query' => array(
 		'_' => '自定义查询',
