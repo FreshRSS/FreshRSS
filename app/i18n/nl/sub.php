@@ -2,7 +2,7 @@
 /* Dutch translation by Wanabo. http://www.nieuwskop.be */
 return array(
 	'api' => array(
-		'documentation' => 'Kopieer de volgende URL om hem in een externe toepassing te gebruiken.',
+		'documentation' => 'Kopieer de volgende URL om deze in een externe toepassing te gebruiken.',
 		'title' => 'API',
 	),
 	'bookmarklet' => array(
@@ -49,13 +49,13 @@ return array(
 		'website' => 'Website URL',
 	),
 	'firefox' => array(
-		'documentation' => 'Volg de stappen die <a href="https://developer.mozilla.org/en-US/Firefox/Releases/2/Adding_feed_readers_to_Firefox#Adding_a_new_feed_reader_manually">hier</a> beschreven wordem om FreshRSS aan de Firefox-nieuwslezerlijst toe te voegen.',
+		'documentation' => 'Volg de stappen die <a href="https://developer.mozilla.org/en-US/Firefox/Releases/2/Adding_feed_readers_to_Firefox#Adding_a_new_feed_reader_manually">hier</a> beschreven worden om FreshRSS aan de Firefox-nieuwslezerlijst toe te voegen.',
 		'title' => 'Firefox-nieuwslezer',
 	),
 	'import_export' => array(
 		'export' => 'Exporteer',
 		'export_opml' => 'Exporteer lijst van feeds (OPML)',
-		'export_starred' => 'Exporteer je fovorieten',
+		'export_starred' => 'Exporteer je favorieten',
 		'feed_list' => 'Lijst van %s artikelen',
 		'file_to_import' => 'Bestand om te importeren<br />(OPML, JSON of ZIP)',
 		'file_to_import_no_zip' => 'Bestand om te importeren<br />(OPML of JSON)',
