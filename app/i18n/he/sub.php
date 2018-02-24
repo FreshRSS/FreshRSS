@@ -32,12 +32,18 @@ return array(
 		'description' => 'תיאור',
 		'empty' => 'הזנה זו ריקה. אנא ודאו שהיא עדיין מתוחזקת.',
 		'error' => 'הזנה זו נתקלה בשגיאה, אנא ודאו שהיא תקינה ואז נסו שנית.',
-		'in_main_stream' => 'הצגה בזרם המרכזי',
 		'informations' => 'מידע',
 		'keep_history' => 'מסםר מינימלי של מאמרים לשמור',
 		'moved_category_deleted' => 'כאשר הקטגוריה נמחקת ההזנות שבתוכה אוטומטית מקוטלגות תחת  <em>%s</em>.',
+		'mute' => 'mute', // TODO
 		'no_selected' => 'אף הזנה לא נבחרה.',
 		'number_entries' => '%d מאמרים',
+		'priority' => array(
+			'_' => 'Visibility', // TODO
+			'archived' => 'Do not show (archived)', // TODO
+			'main_stream' => 'הצגה בזרם המרכזי',
+			'normal' => 'Show in its category', // TODO
+		),
 		'stats' => 'סטטיסטיקות',
 		'think_to_add' => 'ניתן להוסיף הזנות חדשות.',
 		'title' => 'כותרת',

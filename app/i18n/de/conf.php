@@ -37,6 +37,7 @@ return array(
 			'no_limit' => 'Keine Begrenzung',
 			'thin' => 'Klein',
 		),
+		'show_nav_buttons' => 'Show the navigation buttons',	//TODO
 	),
 	'query' => array(
 		'_' => 'Benutzerabfragen',
@@ -148,6 +149,7 @@ return array(
 		'collapse_article' => 'Einklappen',
 		'first_article' => 'Zum ersten Artikel springen',
 		'focus_search' => 'Auf das Suchfeld zugreifen',
+		'global_view' => 'Switch to global view', // TODO
 		'help' => 'Dokumentation anzeigen',
 		'javascript' => 'JavaScript muss aktiviert sein, um Tastaturkürzel benutzen zu können',
 		'last_article' => 'Zum letzten Artikel springen',
@@ -157,13 +159,17 @@ return array(
 		'navigation' => 'Navigation',
 		'navigation_help' => 'Mit der "Umschalttaste" finden die Tastenkombination auf Feeds Anwendung.<br/>Mit der "Alt-Taste" finden die Tastenkombination auf Kategorien Anwendung.',
 		'next_article' => 'Zum nächsten Artikel springen',
+		'normal_view' => 'Switch to normal view', // TODO
 		'other_action' => 'Andere Aktionen',
 		'previous_article' => 'Zum vorherigen Artikel springen',
+		'reading_view' => 'Switch to reading view', // TODO
+		'rss_view' => 'Open RSS view in a new tab', // TODO
 		'see_on_website' => 'Auf der Original-Webseite ansehen',
 		'shift_for_all_read' => '+ <code>Umschalttaste</code>, um alle Artikel als gelesen zu markieren.',
 		'title' => 'Tastenkombination',
 		'user_filter' => 'Auf Benutzerfilter zugreifen',
 		'user_filter_help' => 'Wenn es nur einen Benutzerfilter gibt, wird dieser verwendet. Ansonsten sind die Filter über ihre Nummer erreichbar.',
+		'views' => 'Views', // TODO
 	),
 	'user' => array(
 		'articles_and_size' => '%s Artikel (%s)',

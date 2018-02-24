@@ -37,6 +37,7 @@ return array(
 			'no_limit' => 'No limit',
 			'thin' => 'Thin',
 		),
+		'show_nav_buttons' => 'Show the navigation buttons',	//TODO
 	),
 	'query' => array(
 		'_' => 'User queries',
@@ -148,6 +149,7 @@ return array(
 		'collapse_article' => 'Collapse',
 		'first_article' => 'Skip to the first article',
 		'focus_search' => 'Access search box',
+		'global_view' => 'Switch to global view',  // TODO
 		'help' => 'Display documentation',
 		'javascript' => 'JavaScript must be enabled in order to use shortcuts',
 		'last_article' => 'Skip to the last article',
@@ -157,13 +159,17 @@ return array(
 		'navigation' => 'Navigation',
 		'navigation_help' => 'With the "Shift" modifier, navigation shortcuts apply on feeds.<br/>With the "Alt" modifier, navigation shortcuts apply on categories.',
 		'next_article' => 'Skip to the next article',
+		'normal_view' => 'Switch to normal view', // TODO
 		'other_action' => 'Other actions',
 		'previous_article' => 'Skip to the previous article',
+		'reading_view' => 'Switch to reading view', // TODO
+		'rss_view' => 'Open RSS view in a new tab', // TODO
 		'see_on_website' => 'See on original website',
 		'shift_for_all_read' => '+ <code>shift</code> to mark all articles as read',
 		'title' => 'Shortcuts',
 		'user_filter' => 'Access user filters',
 		'user_filter_help' => 'If there is only one user filter, it is used. Else filters are accessible by their number.',
+		'views' => 'Views', // TODO
 	),
 	'user' => array(
 		'articles_and_size' => '%s articles (%s)',

@@ -19,6 +19,7 @@ return array(
 		'see_website' => 'Navštívit WWW stránku',
 		'submit' => 'Odeslat',
 		'truncate' => 'Smazat všechny články',
+		'update' => 'Update', // TODO
 	),
 	'auth' => array(
 		'email' => 'Email',

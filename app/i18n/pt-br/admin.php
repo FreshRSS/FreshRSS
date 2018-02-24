@@ -175,12 +175,15 @@ return array(
 	'user' => array(
 		'articles_and_size' => '%s artigos (%s)',
 		'create' => 'Criar novo usuário',
+		'delete_users' => 'Delete user', // TODO
 		'language' => 'Idioma',
 		'number' => 'Há %d conta criada',
 		'numbers' => 'Há %d contas criadas',
 		'password_form' => 'Senha<br /><small>(para o login pelo método do formulário)</small>',
 		'password_format' => 'Ao menos 7 caracteres',
+		'selected' => 'Selected user', // TODO
 		'title' => 'Gerenciar usuários',
+		'update_users' => 'Update user', // TODO
 		'user_list' => 'Lista de usuários',
 		'username' => 'Usuário',
 		'users' => 'Usuários',

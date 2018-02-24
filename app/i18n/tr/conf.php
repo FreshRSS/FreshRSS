@@ -37,6 +37,7 @@ return array(
 			'no_limit' => 'Sınırsız',
 			'thin' => 'Zayıf',
 		),
+		'show_nav_buttons' => 'Show the navigation buttons',	//TODO
 	),
 	'query' => array(
 		'_' => 'Kullanıcı sorguları',
@@ -148,6 +149,7 @@ return array(
 		'collapse_article' => 'Kapat',
 		'first_article' => 'İlk makaleyi atla',
 		'focus_search' => 'Arama kutusuna eriş',
+		'global_view' => 'Switch to global view', // TODO
 		'help' => 'Dokümantasyonu göster',
 		'javascript' => 'Kısayolları kullanabilmek için JavaScript aktif olmalıdır',
 		'last_article' => 'Son makaleyi atla',
@@ -157,13 +159,17 @@ return array(
 		'navigation' => 'Genel eylemler',
 		'navigation_help' => '"Shift" tuşu ile kısayollar akışlar için geçerli olur.<br/>"Alt" tuşu ile kısayollar kategoriler için geçerli olur.',
 		'next_article' => 'Sonraki makaleye geç',
+		'normal_view' => 'Switch to normal view', // TODO
 		'other_action' => 'Diğer eylemler',
 		'previous_article' => 'Önceki makaleye geç',
+		'reading_view' => 'Switch to reading view', // TODO
+		'rss_view' => 'Open RSS view in a new tab', // TODO
 		'see_on_website' => 'Orijinal sitede göster',
 		'shift_for_all_read' => '+ <code>shift</code> tuşu ile tüm makaleler okundu olarak işaretlenir',
 		'title' => 'Kısayollar',
 		'user_filter' => 'Kullanıcı filtrelerine eriş',
 		'user_filter_help' => 'Eğer tek filtre varsa o kullanılır. Yoksa filtrelerin kendi numaralarıyla kullanılır.',
+		'views' => 'Views', // TODO
 	),
 	'user' => array(
 		'articles_and_size' => '%s makale (%s)',

@@ -177,9 +177,7 @@ class FreshRSS_entry_Controller extends Minz_ActionController {
 
 		foreach ($feeds as $feed) {
 			$feed_history = $feed->keepHistory();
-			if ($feed_history == -2) {
-				// TODO: -2 must be a constant!
-				// -2 means we take the default value from configuration
+			if (FreshRSS_Feed::KEEP_HISTORY_DEFAULT === $feed_history) {
 				$feed_history = FreshRSS_Context::$user_conf->keep_history_default;
 			}
 

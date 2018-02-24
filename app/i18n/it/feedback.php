@@ -101,6 +101,10 @@ return array(
 			'_' => 'Utente %s cancellato',
 			'error' => 'Utente %s non cancellato',
 		),
+		'updated' => array(
+			'_' => 'User %s has been updated', // TODO
+			'error' => 'User %s has not been updated', // TODO
+		),
 	),
 	'profile' => array(
 		'error' => 'Il tuo profilo non può essere modificato',

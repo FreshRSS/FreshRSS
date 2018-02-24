@@ -101,6 +101,10 @@ return array(
 			'_' => 'L’utilisateur %s a été supprimé.',
 			'error' => 'L’utilisateur %s ne peut pas être supprimé.',
 		),
+		'updated' => array(
+			'_' => 'L’utilisateur %s a été mis à jour',
+			'error' => 'L’utilisateur %s n’a pas été mis à jour',
+		),
 	),
 	'profile' => array(
 		'error' => 'Votre profil n’a pas pu être mis à jour',

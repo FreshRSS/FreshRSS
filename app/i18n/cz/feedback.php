@@ -101,6 +101,10 @@ return array(
 			'_' => 'Uživatel %s byl smazán',
 			'error' => 'Uživatele %s nelze smazat',
 		),
+		'updated' => array(
+			'_' => 'User %s has been updated', // TODO
+			'error' => 'User %s has not been updated', // TODO
+		),
 	),
 	'profile' => array(
 		'error' => 'Váš profil nelze změnit',

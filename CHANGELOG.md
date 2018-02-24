@@ -1,5 +1,31 @@
 ﻿# FreshRSS changelog
 
+## 2018-02-24 FreshRSS 1.10.0
+
+* API
+	* Add compatibility with FeedMe 3.5.3+ on Android [#1774](https://github.com/FreshRSS/FreshRSS/pull/1774)
+* Features
+	* Ability to pause feeds, and to hide them from categories [#1750](https://github.com/FreshRSS/FreshRSS/pull/1750)
+	* Ability for the admin to reset a user’s password [#960](https://github.com/FreshRSS/FreshRSS/issues/960)
+* Security
+	* Allow HTTP Auth login with `REDIRECT_REMOTE_USER` when using Apache internal redirect [#1772](https://github.com/FreshRSS/FreshRSS/pull/1772)
+* UI
+	* New icons for marking as favourite and marking as read in the Reading View [#603](https://github.com/FreshRSS/FreshRSS/issues/603)
+	* Add shortcuts to switch views [#1755](https://github.com/FreshRSS/FreshRSS/pull/1755)
+* Bug fixing
+	* Fix login bug when HTTP `REMOTE_USER` changes (used by YunoHost) [#1756](https://github.com/FreshRSS/FreshRSS/pull/1756)
+	* Fix warning in PHP 7.2 [#1739](https://github.com/FreshRSS/FreshRSS/pull/1739)
+* Extensions
+	* Allow extensions to define their own reading view [#1714](https://github.com/FreshRSS/FreshRSS/pull/1714)
+* I18n
+	* Updated Chinese [#1769](https://github.com/FreshRSS/FreshRSS/pull/1769)
+	* Updated Dutch [#1792](https://github.com/FreshRSS/FreshRSS/pull/1792)
+	* Updated Korean [#1776](https://github.com/FreshRSS/FreshRSS/pull/1776)
+* Misc.
+	* More sites in `force-https.default.txt` [#1745](https://github.com/FreshRSS/FreshRSS/pull/1745)
+	* Trim URLs when adding new feeds [#1778](https://github.com/FreshRSS/FreshRSS/pull/1778)
+
+
 ## 2017-12-17 FreshRSS 1.9.0
 
 * Features

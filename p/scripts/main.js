@@ -704,6 +704,29 @@ function init_shortcuts() {
 		'disable_in_input': true
 	});
 
+	shortcut.add(shortcuts.normal_view, function () {
+		$('#nav_menu_views .view-normal').get(0).click();
+	}, {
+		'disable_in_input': true
+	});
+
+	shortcut.add(shortcuts.global_view, function () {
+		$('#nav_menu_views .view-global').get(0).click();
+	}, {
+		'disable_in_input': true
+	});
+
+	shortcut.add(shortcuts.reading_view, function () {
+		$('#nav_menu_views .view-reader').get(0).click();
+	}, {
+		'disable_in_input': true
+	});
+
+	shortcut.add(shortcuts.rss_view, function () {
+		$('#nav_menu_views .view-rss').get(0).click();
+	}, {
+		'disable_in_input': true
+	});
 }
 
 function init_stream(divStream) {

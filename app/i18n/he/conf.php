@@ -37,6 +37,7 @@ return array(
 			'no_limit' => 'ללא הגבלה',
 			'thin' => 'צר',
 		),
+		'show_nav_buttons' => 'Show the navigation buttons',	//TODO
 	),
 	'query' => array(
 		'_' => 'שאילתות',
@@ -145,6 +146,7 @@ return array(
 		'collapse_article' => 'כיווץ',
 		'first_article' => 'דילוג למאמר הראשון',
 		'focus_search' => 'גישה לתיבת החיפוש',
+		'global_view' => 'Switch to global view', // TODO
 		'help' => 'הצגת התיעוד',
 		'javascript' => 'חובה להפעיל JavaScript על מנת לעשות שימוש בקיצורי דרך',
 		'last_article' => 'דילוג למאמר האחרון',
@@ -154,13 +156,17 @@ return array(
 		'navigation' => 'ניווט',
 		'navigation_help' => 'בעזרת מקש השיפט קיצורי דרך חלים על הזנות .<br/>עם מקש האלט הם חלים על קטגוריות.',
 		'next_article' => 'דילוג למאמר הבא',
+		'normal_view' => 'Switch to normal view', // TODO
 		'other_action' => 'פעולות אחרות',
 		'previous_article' => 'דילוג למאמר הקודם',
+		'reading_view' => 'Switch to reading view', // TODO
+		'rss_view' => 'Open RSS view in a new tab', // TODO
 		'see_on_website' => 'ראו את המקור באתר',
 		'shift_for_all_read' => '+ <code>shift</code> על מנת לסמן את כל המאמרים כנקראו',
 		'title' => 'קיצורי דרך',
 		'user_filter' => 'גישה למססנים',
 		'user_filter_help' => 'אם יש רק מזנן אחד הוא יהיה בשימוש. אחרת המסננים ישמשו על בסיס המספר שלהם.',
+		'views' => 'Views', // TODO
 	),
 	'user' => array(
 		'articles_and_size' => '%s articles (%s)', // @todo

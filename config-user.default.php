@@ -56,6 +56,10 @@ return array (
 		'user_filter' => 'u',
 		'help' => 'f1',
 		'close_dropdown' => 'escape',
+		'normal_view' => '1',
+		'global_view' => '2',
+		'reading_view' => '3',
+		'rss_view' => '4',
 	),
 	'topline_read' => true,
 	'topline_favorite' => true,
@@ -72,5 +76,6 @@ return array (
 	'queries' => array (
 	),
 	'html5_notif_timeout' => 0,
+	'show_nav_buttons' => true,
 	'extensions_enabled' => array(),
 );

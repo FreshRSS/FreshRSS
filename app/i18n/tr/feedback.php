@@ -101,6 +101,10 @@ return array(
 			'_' => '%s kullanıcısı silindi',
 			'error' => '%s kullanıcısı silinemedi',
 		),
+		'updated' => array(
+			'_' => 'User %s has been updated', // TODO
+			'error' => 'User %s has not been updated', // TODO
+		),
 	),
 	'profile' => array(
 		'error' => 'Profiliniz düzenlenemedi',

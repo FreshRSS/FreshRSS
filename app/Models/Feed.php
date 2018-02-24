@@ -1,6 +1,15 @@
 <?php
 
 class FreshRSS_Feed extends Minz_Model {
+	const PRIORITY_MAIN_STREAM = 10;
+	const PRIORITY_NORMAL = 0;
+	const PRIORITY_ARCHIVED = -10;
+
+	const TTL_DEFAULT = 0;
+
+	const KEEP_HISTORY_DEFAULT = -2;
+	const KEEP_HISTORY_INFINITE = -1;
+
 	private $id = 0;
 	private $url;
 	private $category = 1;
@@ -11,12 +20,13 @@ class FreshRSS_Feed extends Minz_Model {
 	private $website = '';
 	private $description = '';
 	private $lastUpdate = 0;
-	private $priority = 10;
+	private $priority = self::PRIORITY_MAIN_STREAM;
 	private $pathEntries = '';
 	private $httpAuth = '';
 	private $error = false;
-	private $keep_history = -2;
-	private $ttl = -2;
+	private $keep_history = self::KEEP_HISTORY_DEFAULT;
+	private $ttl = self::TTL_DEFAULT;
+	private $mute = false;
 	private $hash = null;
 	private $lockPath = '';
 	private $hubUrl = '';
@@ -104,9 +114,12 @@ class FreshRSS_Feed extends Minz_Model {
 	public function ttl() {
 		return $this->ttl;
 	}
+	public function mute() {
+		return $this->mute;
+	}
 	// public function ttlExpire() {
 		// $ttl = $this->ttl;
-		// if ($ttl == -2) {	//Default
+		// if ($ttl == self::TTL_DEFAULT) {	//Default
 			// $ttl = FreshRSS_Context::$user_conf->ttl_default;
 		// }
 		// if ($ttl == -1) {	//Never
@@ -198,8 +211,7 @@ class FreshRSS_Feed extends Minz_Model {
 		$this->lastUpdate = $value;
 	}
 	public function _priority($value) {
-		$value = intval($value);
-		$this->priority = $value >= 0 ? $value : 10;
+		$this->priority = intval($value);
 	}
 	public function _pathEntries($value) {
 		$this->pathEntries = $value;
@@ -213,14 +225,14 @@ class FreshRSS_Feed extends Minz_Model {
 	public function _keepHistory($value) {
 		$value = intval($value);
 		$value = min($value, 1000000);
-		$value = max($value, -2);
+		$value = max($value, self::KEEP_HISTORY_DEFAULT);
 		$this->keep_history = $value;
 	}
 	public function _ttl($value) {
 		$value = intval($value);
 		$value = min($value, 100000000);
-		$value = max($value, -2);
-		$this->ttl = $value;
+		$this->ttl = abs($value);
+		$this->mute = $value < self::TTL_DEFAULT;
 	}
 	public function _nbNotRead($value) {
 		$this->nbNotRead = intval($value);

@@ -628,10 +628,12 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 			$firstId = $order === 'DESC' ? '9000000000'. '000000' : '0';
 		}*/
 		if ($firstId !== '') {
-			$search .= 'AND ' . $alias . 'id ' . ($order === 'DESC' ? '<=' : '>=') . $firstId . ' ';
+			$search .= 'AND ' . $alias . 'id ' . ($order === 'DESC' ? '<=' : '>=') . ' ? ';
+			$values[] = $firstId;
 		}
 		if ($date_min > 0) {
-			$search .= 'AND ' . $alias . 'id >= ' . $date_min . '000000 ';
+			$search .= 'AND ' . $alias . 'id >= ? ';
+			$values[] = $date_min . '000000';
 		}
 		if ($filter) {
 			if ($filter->getMinDate()) {
@@ -726,23 +728,23 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 		$values = array();
 		switch ($type) {
 		case 'a':
-			$where .= 'f.priority > 0 ';
-			$joinFeed = true;
+			$where .= 'f.priority > ' . FreshRSS_Feed::PRIORITY_NORMAL . ' ';
 			break;
 		case 's':	//Deprecated: use $state instead
-			$where .= 'e.is_favorite=1 ';
+			$where .= 'f.priority >= ' . FreshRSS_Feed::PRIORITY_NORMAL . ' ';
+			$where .= 'AND e.is_favorite=1 ';
 			break;
 		case 'c':
-			$where .= 'f.category=? ';
+			$where .= 'f.priority >= ' . FreshRSS_Feed::PRIORITY_NORMAL . ' ';
+			$where .= 'AND f.category=? ';
 			$values[] = intval($id);
-			$joinFeed = true;
 			break;
 		case 'f':
 			$where .= 'e.id_feed=? ';
 			$values[] = intval($id);
 			break;
 		case 'A':
-			$where .= '1=1 ';
+			$where .= 'f.priority >= ' . FreshRSS_Feed::PRIORITY_NORMAL . ' ';
 			break;
 		default:
 			throw new FreshRSS_EntriesGetter_Exception('Bad type in Entry->listByType: [' . $type . ']!');
@@ -752,7 +754,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 
 		return array(array_merge($values, $searchValues),
 			'SELECT e.id FROM `' . $this->prefix . 'entry` e '
-			. ($joinFeed ? 'INNER JOIN `' . $this->prefix . 'feed` f ON e.id_feed=f.id ' : '')
+			. 'INNER JOIN `' . $this->prefix . 'feed` f ON e.id_feed = f.id '
 			. 'WHERE ' . $where
 			. $search
 			. 'ORDER BY e.id ' . $order
@@ -778,6 +780,23 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 
 	public function listWhere($type = 'a', $id = '', $state = FreshRSS_Entry::STATE_ALL, $order = 'DESC', $limit = 1, $firstId = '', $filter = '', $date_min = 0) {
 		$stm = $this->listWhereRaw($type, $id, $state, $order, $limit, $firstId, $filter, $date_min);
+		return self::daoToEntries($stm->fetchAll(PDO::FETCH_ASSOC));
+	}
+
+	public function listByIds($ids, $order = 'DESC') {
+		if (count($ids) < 1) {
+			return array();
+		}
+
+		$sql = 'SELECT id, guid, title, author, '
+			. ($this->isCompressed() ? 'UNCOMPRESS(content_bin) AS content' : 'content')
+			. ', link, date, is_read, is_favorite, id_feed, tags '
+			. 'FROM `' . $this->prefix . 'entry` '
+			. 'WHERE id IN (' . str_repeat('?,', count($ids) - 1). '?) '
+			. 'ORDER BY id ' . $order;
+
+		$stm = $this->bd->prepare($sql);
+		$stm->execute($ids);
 		return self::daoToEntries($stm->fetchAll(PDO::FETCH_ASSOC));
 	}
 
@@ -873,12 +892,28 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 	}
 
 	public function countUnreadReadFavorites() {
-		$sql = 'SELECT c FROM ('
-			.	'SELECT COUNT(id) AS c, 1 as o FROM `' . $this->prefix . 'entry` WHERE is_favorite=1 '
-			.	'UNION SELECT COUNT(id) AS c, 2 AS o FROM `' . $this->prefix . 'entry` WHERE is_favorite=1 AND is_read=0'
-			.	') u ORDER BY o';
+		$sql = <<<SQL
+  SELECT c
+    FROM (
+         SELECT COUNT(e1.id) AS c
+              , 1 AS o
+           FROM `{$this->prefix}entry` AS e1
+           JOIN `{$this->prefix}feed` AS f1 ON e1.id_feed = f1.id
+          WHERE e1.is_favorite = 1
+            AND f1.priority >= :priority_normal
+         UNION
+         SELECT COUNT(e2.id) AS c
+              , 2 AS o
+           FROM `{$this->prefix}entry` AS e2
+           JOIN `{$this->prefix}feed` AS f2 ON e2.id_feed = f2.id
+          WHERE e2.is_favorite = 1
+            AND e2.is_read = 0
+            AND f2.priority >= :priority_normal
+         ) u
+ORDER BY o
+SQL;
 		$stm = $this->bd->prepare($sql);
-		$stm->execute();
+		$stm->execute(array(':priority_normal' => FreshRSS_Feed::PRIORITY_NORMAL));
 		$res = $stm->fetchAll(PDO::FETCH_COLUMN, 0);
 		$all = empty($res[0]) ? 0 : $res[0];
 		$unread = empty($res[1]) ? 0 : $res[1];

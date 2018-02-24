@@ -37,6 +37,7 @@ return array(
 			'no_limit' => 'Geen limiet',
 			'thin' => 'Smal',
 		),
+		'show_nav_buttons' => 'Show the navigation buttons',	//TODO
 	),
 	'query' => array(
 		'_' => 'Gebruikers queries (informatie aanvragen)',
@@ -148,6 +149,7 @@ return array(
 		'collapse_article' => 'Inklappen',
 		'first_article' => 'Spring naar eerste artikel',
 		'focus_search' => 'Toegang zoek venster',
+		'global_view' => 'Switch to global view', // TODO
 		'help' => 'Toon documentatie',
 		'javascript' => 'JavaScript moet geactiveerd zijn om verwijzingen te gebruiken',
 		'last_article' => 'Spring naar laatste artikel',
@@ -157,13 +159,17 @@ return array(
 		'navigation' => 'Navigatie',
 		'navigation_help' => 'Met de "Shift" toets, kunt u navigatie verwijzingen voor feeds gebruiken.<br/>Met de "Alt" toets, kunt u navigatie verwijzingen voor categoriën gebruiken.',
 		'next_article' => 'Spring naar volgende artikel',
+		'normal_view' => 'Switch to normal view', // TODO
 		'other_action' => 'Andere acties',
 		'previous_article' => 'Spring naar vorige artikel',
+		'reading_view' => 'Switch to reading view', // TODO
+		'rss_view' => 'Open RSS view in a new tab', // TODO
 		'see_on_website' => 'Bekijk op originale website',
 		'shift_for_all_read' => '+ <code>shift</code> om alle artikelen als gelezen te markeren',
 		'title' => 'Verwijzingen',
 		'user_filter' => 'Toegang gebruikers filters',
 		'user_filter_help' => 'Als er slechts één gebruikers filter s, dan wordt deze gebruikt. Anders zijn ze toegankelijk met hun nummer.',
+		'views' => 'Views', // TODO
 	),
 	'user' => array(
 		'articles_and_size' => '%s artikelen (%s)',

@@ -13,6 +13,11 @@ class FreshRSS_Auth {
 	 * This method initializes authentication system.
 	 */
 	public static function init() {
+		if (Minz_Session::param('REMOTE_USER', '') !== httpAuthUser()) {
+			//HTTP REMOTE_USER has changed
+			self::removeAccess();
+		}
+
 		self::$login_ok = Minz_Session::param('loginOk', false);
 		$current_user = Minz_Session::param('currentUser', '');
 		if ($current_user === '') {
@@ -58,6 +63,7 @@ class FreshRSS_Auth {
 			$login_ok = $current_user != '';
 			if ($login_ok) {
 				Minz_Session::_param('currentUser', $current_user);
+				Minz_Session::_param('REMOTE_USER', $current_user);
 			}
 			return $login_ok;
 		case 'none':
