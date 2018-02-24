@@ -1,6 +1,6 @@
 ﻿# FreshRSS changelog
 
-## 2018-02-XX FreshRSS 1.9.1-dev
+## 2018-02-24 FreshRSS 1.10.0
 
 * API
 	* Add compatibility with FeedMe 3.5.3+ on Android [#1774](https://github.com/FreshRSS/FreshRSS/pull/1774)
