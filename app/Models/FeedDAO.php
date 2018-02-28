@@ -13,12 +13,13 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 					`lastUpdate`,
 					priority,
 					`httpAuth`,
+					`tolerateInvalidSSLCertificate`,
 					error,
 					keep_history,
 					ttl
 				)
 				VALUES
-				(?, ?, ?, ?, ?, ?, 10, ?, 0, ?, ?)';
+				(?, ?, ?, ?, ?, ?, 10, ?, ?, 0, ?, ?)';
 		$stm = $this->bd->prepare($sql);
 
 		$valuesTmp['url'] = safe_ascii($valuesTmp['url']);
@@ -32,6 +33,7 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 			substr($valuesTmp['description'], 0, 1023),
 			$valuesTmp['lastUpdate'],
 			base64_encode($valuesTmp['httpAuth']),
+                        $valuesTmp['tolerateInvalidSSLCertificate'],
 			FreshRSS_Feed::KEEP_HISTORY_DEFAULT,
 			FreshRSS_Feed::TTL_DEFAULT,
 		);
@@ -60,7 +62,8 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 				'website' => $feed->website(),
 				'description' => $feed->description(),
 				'lastUpdate' => 0,
-				'httpAuth' => $feed->httpAuth()
+				'httpAuth' => $feed->httpAuth(),
+				'tolerateInvalidSSLCertificate' => $feed->tolerateInvalidSSLCertificate()
 			);
 
 			$id = $this->addFeed($values);
@@ -406,6 +409,7 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 			$myFeed->_priority(isset($dao['priority']) ? $dao['priority'] : 10);
 			$myFeed->_pathEntries(isset($dao['pathEntries']) ? $dao['pathEntries'] : '');
 			$myFeed->_httpAuth(isset($dao['httpAuth']) ? base64_decode($dao['httpAuth']) : '');
+			$myFeed->_tolerateInvalidSSLCertificate(isset($dao['tolerateInvalidSSLCertificate']) ? $dao['tolerateInvalidSSLCertificate'] : false);
 			$myFeed->_error(isset($dao['error']) ? $dao['error'] : 0);
 			$myFeed->_keepHistory(isset($dao['keep_history']) ? $dao['keep_history'] : FreshRSS_Feed::KEEP_HISTORY_DEFAULT);
 			$myFeed->_ttl(isset($dao['ttl']) ? $dao['ttl'] : FreshRSS_Feed::TTL_DEFAULT);
