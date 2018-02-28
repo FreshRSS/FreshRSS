@@ -29,6 +29,8 @@ return array(
 		),
 		'css_help' => 'Retrieves truncated RSS feeds (caution, requires more time!)',
 		'css_path' => 'Articles CSS path on original website',
+		'tolerate_invalid_ssl_certificate' => 'Tolerate invalid SSL certificate',
+		'tolerate_invalid_ssl_certificate_help' => 'Ignore SSL errors when connecting to this feed.',
 		'description' => 'Description',
 		'empty' => 'This feed is empty. Please verify that it is still maintained.',
 		'error' => 'This feed has encountered a problem. Please verify that it is always reachable then update it.',
