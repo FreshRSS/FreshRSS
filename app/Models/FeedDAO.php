@@ -107,6 +107,12 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 		if ($stm && $stm->execute($values)) {
 			return $stm->rowCount();
 		} else {
+                        // XXX on the fly migration :(
+			$sql2 = 'ALTER TABLE `' . $this->prefix . 'feed` ADD COLUMN `tolerateInvalidSSLCertificate` INT NOT NULL DEFAULT 0'; // v1.1.0 ? XXX
+			$stm = $this->bd->prepare($sql2);
+			$stm->execute();
+                        // XXX this will fail the first time and user will have to retry
+
 			$info = $stm == null ? array(2 => 'syntax error') : $stm->errorInfo();
 			Minz_Log::error('SQL error updateFeed: ' . $info[2]);
 			return false;
