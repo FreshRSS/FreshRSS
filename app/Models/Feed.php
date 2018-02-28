@@ -260,7 +260,17 @@ class FreshRSS_Feed extends Minz_Model {
 				if ($this->httpAuth != '') {
 					$url = preg_replace('#((.+)://)(.+)#', '${1}' . $this->httpAuth . '@${3}', $url);
 				}
-				$feed = customSimplePie();
+                                
+                                $feed = customSimplePie();
+                                if ($this->tolerateInvalidSSLCertificate()) {
+                                        // TODO: merge with default curl options
+                                        $curl_options = array(
+                                            CURLOPT_SSL_VERIFYHOST => 0,
+                                            CURLOPT_SSL_VERIFYPEER => false,
+                                        );
+                                        $feed->set_curl_options($curl_options);
+                                }
+
 				if (substr($url, -11) === '#force_feed') {
 					$feed->force_feed(true);
 					$url = substr($url, 0, -11);
