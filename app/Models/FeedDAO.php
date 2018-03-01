@@ -372,7 +372,8 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 			return $stm->rowCount();
 		} else {
 			$info = $stm == null ? array(0 => '', 1 => '', 2 => 'syntax error') : $stm->errorInfo();
-			if ($this->autoUpdateDb($info)) {
+			$entryDAO = FreshRSS_Factory::createEntryDao();
+			if ($entryDAO->autoUpdateDb($info)) {
 				return $this->cleanOldEntries($id, $date_min, $keep);
 			}
 			Minz_Log::error('SQL error cleanOldEntries: ' . $info[2]);
