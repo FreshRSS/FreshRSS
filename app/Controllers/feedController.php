@@ -408,7 +408,7 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 					$entryDAO->beginTransaction();
 				}
 
-				$nb = $feedDAO->cleanOldEntries($feed->id(),
+				$nb = $entryDAO->cleanOldEntries($feed->id(),
 				                                $date_min,
 				                                max($feed_history, count($entries) + 10));
 				if ($nb > 0) {

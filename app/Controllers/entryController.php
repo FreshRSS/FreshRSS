@@ -169,6 +169,7 @@ class FreshRSS_entry_Controller extends Minz_ActionController {
 		$nb_month_old = max(FreshRSS_Context::$user_conf->old_entries, 1);
 		$date_min = time() - (3600 * 24 * 30 * $nb_month_old);
 
+		$entryDAO = FreshRSS_Factory::createEntryDao();
 		$feedDAO = FreshRSS_Factory::createFeedDao();
 		$feeds = $feedDAO->listFeeds();
 		$nb_total = 0;
@@ -182,7 +183,7 @@ class FreshRSS_entry_Controller extends Minz_ActionController {
 			}
 
 			if ($feed_history >= 0) {
-				$nb = $feedDAO->cleanOldEntries($feed->id(), $date_min, $feed_history);
+				$nb = $entryDAO->cleanOldEntries($feed->id(), $date_min, $feed_history);
 				if ($nb > 0) {
 					$nb_total += $nb;
 					Minz_Log::debug($nb . ' old entries cleaned in feed [' . $feed->url() . ']');
