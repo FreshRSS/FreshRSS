@@ -126,6 +126,7 @@ return array(
 	),
 	'sharing' => array(
 		'_' => '공유',
+		'add' => 'Add a sharing method', // TODO
 		'blogotext' => 'Blogotext',
 		'diaspora' => 'Diaspora*',
 		'email' => '메일',
@@ -133,6 +134,7 @@ return array(
 		'g+' => 'Google+',
 		'more_information' => '자세한 정보',
 		'print' => '인쇄',
+		'remove' => 'Remove sharing method', // TODO
 		'shaarli' => 'Shaarli',
 		'share_name' => '표시할 이름',
 		'share_url' => '사용할 공유 URL',
