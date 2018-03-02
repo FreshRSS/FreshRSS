@@ -123,6 +123,7 @@ return array(
 	),
 	'sharing' => array(
 		'_' => 'שיתוף',
+		'add' => 'Add a sharing method', // TODO
 		'blogotext' => 'Blogotext',
 		'diaspora' => 'Diaspora*',
 		'email' => 'דואר אלקטרוני',
@@ -130,6 +131,7 @@ return array(
 		'g+' => 'Google+',
 		'more_information' => 'מידע נוסף',
 		'print' => 'הדפסה',
+		'remove' => 'Remove sharing method', // TODO
 		'shaarli' => 'Shaarli',
 		'share_name' => 'שיתוף שם לתצוגה',
 		'share_url' => 'לשימוש שתפו URL',

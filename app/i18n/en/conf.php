@@ -126,6 +126,7 @@ return array(
 	),
 	'sharing' => array(
 		'_' => 'Sharing',
+		'add' => 'Add a sharing method',
 		'blogotext' => 'Blogotext',
 		'diaspora' => 'Diaspora*',
 		'email' => 'Email',
@@ -133,6 +134,7 @@ return array(
 		'g+' => 'Google+',
 		'more_information' => 'More information',
 		'print' => 'Print',
+		'remove' => 'Remove sharing method',
 		'shaarli' => 'Shaarli',
 		'share_name' => 'Share name to display',
 		'share_url' => 'Share URL to use',
