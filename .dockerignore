@@ -1,0 +1,10 @@
+*/.git
+*/docs
+*/data/config.php
+*/data/config.php.bak.php
+*/data/force-https.txt
+*/data/last_update.txt
+*/data/no-cache.txt
+*/data/update.php
+*.spc
+*.bak.php
