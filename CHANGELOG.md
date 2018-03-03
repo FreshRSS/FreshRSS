@@ -9,6 +9,7 @@
 * UI
 	* Add tooltips on share configuration buttons [#1805](https://github.com/FreshRSS/FreshRSS/pull/1805)
 * Misc.
+	* Move `./data/shares.php` to `./app/shares.php` to facilitate updates [#1812](https://github.com/FreshRSS/FreshRSS/pull/1812)
 	* Show article author email when there is no author name [#1801](https://github.com/FreshRSS/FreshRSS/pull/1801)
 	* Improve translation tools [#1808](https://github.com/FreshRSS/FreshRSS/pull/1808)
 
