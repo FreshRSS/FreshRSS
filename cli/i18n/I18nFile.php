@@ -36,8 +36,7 @@ class i18nFile {
 			}
 			foreach ($file as $name => $content) {
 				$filename = $dir . DIRECTORY_SEPARATOR . $name;
-				$fullContent = var_export($this->unflatten($content), true);
-				file_put_contents($filename, sprintf('<?php return %s;', $fullContent));
+				file_put_contents($filename, $this->format($content));
 			}
 		}
 	}
@@ -87,6 +86,34 @@ class i18nFile {
 		}
 
 		return $a;
+	}
+
+	/**
+	 * Format an array of translation
+	 *
+	 * It takes an array of translation and format it to be dumped in a
+	 * translation file. The array is first converted to a string then some
+	 * formatting regexes are applied to match the original content.
+	 *
+	 * @param array $translation
+	 * @return string
+	 */
+	private function format($translation) {
+		$translation = var_export($this->unflatten($translation), true);
+		$patterns = array(
+			'/array \(/',
+			'/=>\s*array/',
+			'/ {2}/',
+		);
+		$replacements = array(
+			'array(',
+			'=> array',
+			"\t", // Double quoting is mandatory to have a tab instead of the \t string
+		);
+		$translation = preg_replace($patterns, $replacements, $translation);
+
+		// Double quoting is mandatory to have new lines instead of \n strings
+		return sprintf("<?php\n\nreturn %s;", $translation);
 	}
 
 }
