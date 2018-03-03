@@ -172,7 +172,7 @@ Voir le [dépôt dédié à ces extensions](https://github.com/FreshRSS/Extensio
 * [password_compat](https://github.com/ircmaxell/password_compat)
 
 
-# [Clients compatibles](https://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html)
+# [Clients compatibles](https://freshrss.github.io/FreshRSS/fr/users/06_Mobile_access.html)
 Tout client supportant une API de type Google Reader. Sélection :
 
 * Android
