@@ -26,8 +26,11 @@ sudo docker build --tag freshrss/freshrss -f Docker/Dockerfile .
 Example exposing FreshRSS on port 8080. You may have to adapt the network parameters to fit your needs.
 
 ```sh
+# You can optionally run from the directory containing the FreshRSS source code:
 cd ./FreshRSS/
+
 # The data will be saved on the host in `./data/`
+mkdir -p ./data/
 
 sudo docker run -dit --restart unless-stopped --log-opt max-size=10m \
 	-v $(pwd)/data:/var/www/FreshRSS/data \
@@ -70,14 +73,18 @@ Create `/etc/cron.d/FreshRSS` with:
 ## Debugging
 
 ```sh
+# See FreshRSS data (it is on the host)
+cd ./data/
 # See Web server logs
 sudo docker logs -f freshrss
+
 # Enter inside FreshRSS docker container
 sudo docker exec -it freshrss sh
-# See FreshRSS user data
-ls /var/www/FreshRSS/data/users/
+## See FreshRSS root inside the container
+ls /var/www/FreshRSS/
 ```
 
 ## Deployment in production
 
-TODO: Reverse proxy (e.g. Træfik or nginx with HTTPS)
+Use a reverse proxy on your host server, such as [Træfik](https://traefik.io/) or [nginx](https://docs.nginx.com/nginx/admin-guide/web-server/reverse-proxy/),
+with HTTPS, for instance using [Let’s Encrypt](https://letsencrypt.org/).
