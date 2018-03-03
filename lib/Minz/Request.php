@@ -106,7 +106,8 @@ class Minz_Request {
 		$https = self::isHttps();
 
 		if (!empty($_SERVER['HTTP_HOST'])) {
-			$host = $_SERVER['HTTP_HOST'];
+			//Might contain a port number, and mind IPv6 addresses
+			$host = parse_url('http://' . $_SERVER['HTTP_HOST'], PHP_URL_HOST);
 		} elseif (!empty($_SERVER['SERVER_NAME'])) {
 			$host = $_SERVER['SERVER_NAME'];
 		} else {
