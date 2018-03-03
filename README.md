@@ -46,7 +46,7 @@ We are a friendly community.
 # Documentation
 * https://freshrss.github.io/FreshRSS/en/
 
-# [Installation](https://freshrss.github.io/FreshRSS/en/users/01_Installation.html)
+# [Installation](https://freshrss.github.io/FreshRSS/en/admins/02_Installation.html)
 1. Get FreshRSS with git or [by downloading the archive](https://github.com/FreshRSS/FreshRSS/archive/master.zip)
 2. Dump the application on your server (expose only the `./p/` folder)
 3. Add write access on `./data/` folder to the webserver user
