@@ -63,7 +63,6 @@ class FreshRSS_Auth {
 			$login_ok = $current_user != '';
 			if ($login_ok) {
 				Minz_Session::_param('currentUser', $current_user);
-				Minz_Session::_param('REMOTE_USER', $current_user);
 			}
 			return $login_ok;
 		case 'none':
@@ -102,6 +101,7 @@ class FreshRSS_Auth {
 		}
 
 		Minz_Session::_param('loginOk', self::$login_ok);
+		Minz_Session::_param('REMOTE_USER', httpAuthUser());
 	}
 
 	/**
@@ -133,6 +133,7 @@ class FreshRSS_Auth {
 		self::$login_ok = false;
 		Minz_Session::_param('loginOk');
 		Minz_Session::_param('csrf');
+		Minz_Session::_param('REMOTE_USER');
 		$system_conf = Minz_Configuration::get('system');
 
 		$username = '';
