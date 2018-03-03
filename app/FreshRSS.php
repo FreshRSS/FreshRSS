@@ -128,7 +128,7 @@ class FreshRSS extends Minz_FrontController {
 		}
 		header("X-Content-Type-Options: nosniff");
 
-		FreshRSS_Share::load(join_path(DATA_PATH, 'shares.php'));
+		FreshRSS_Share::load(join_path(APP_PATH, 'shares.php'));
 		self::loadStylesAndScripts();
 	}
 }
