@@ -1,6 +1,6 @@
 ﻿# FreshRSS changelog
 
-## 2018-03-0X FreshRSS 1.10.1-dev
+## 2018-03-04 FreshRSS 1.10.1
 
 * Deployment
 	* New Docker image, smaller (based on Alpine Linux) and newer (with PHP 7.1) [#1813](https://github.com/FreshRSS/FreshRSS/pull/1813)
