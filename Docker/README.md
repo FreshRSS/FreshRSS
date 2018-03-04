@@ -1,5 +1,5 @@
 # Deploy FreshRSS with Docker
-* See also https://hub.docker.com/r/freshrss/freshrss/
+* See also https://cloud.docker.com/app/freshrss/repository/docker/freshrss/freshrss
 
 ## Install Docker
 
@@ -9,7 +9,7 @@ sh get-docker.sh
 ```
 
 ## Optional: Build Docker image of FreshRSS
-Optional, as a *less recent* [online image](https://hub.docker.com/r/freshrss/freshrss/) can be automatically fetched during the next step (run),
+Optional, as a *less recent* [online image](https://cloud.docker.com/app/freshrss/repository/docker/freshrss/freshrss) can be automatically fetched during the next step (run),
 but online images are not available for as many platforms as if you build yourself.
 
 ```sh
@@ -46,11 +46,11 @@ sudo docker run -dit --restart unless-stopped --log-opt max-size=10m \
 sudo docker pull freshrss/freshrss
 # And then 
 sudo docker stop freshrss
-docker rename freshrss freshrss_old
+sudo docker rename freshrss freshrss_old
 # See the run section above for the full command
 sudo docker run ...
 # If everything is working, delete the old container
-docker rm freshrss_old
+sudo docker rm freshrss_old
 ```
 
 ## Command line
