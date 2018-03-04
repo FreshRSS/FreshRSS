@@ -560,6 +560,33 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 		return $affected;
 	}
 
+	public function cleanOldEntries($id_feed, $date_min, $keep = 15) {	//Remember to call updateCachedValue($id_feed) or updateCachedValues() just after
+		$sql = 'DELETE FROM `' . $this->prefix . 'entry` '
+		     . 'WHERE id_feed=:id_feed AND id<=:id_max '
+		     . 'AND is_favorite=0 '	//Do not remove favourites
+		     . 'AND `lastSeen` < (SELECT maxLastSeen FROM (SELECT (MAX(e3.`lastSeen`)-99) AS maxLastSeen FROM `' . $this->prefix . 'entry` e3 WHERE e3.id_feed=:id_feed) recent) '	//Do not remove the most newly seen articles, plus a few seconds of tolerance
+		     . 'AND id NOT IN (SELECT id FROM (SELECT e2.id FROM `' . $this->prefix . 'entry` e2 WHERE e2.id_feed=:id_feed ORDER BY id DESC LIMIT :keep) keep)';	//Double select: MySQL doesn't support 'LIMIT & IN/ALL/ANY/SOME subquery'
+		$stm = $this->bd->prepare($sql);
+
+		if ($stm) {
+			$id_max = intval($date_min) . '000000';
+			$stm->bindParam(':id_feed', $id_feed, PDO::PARAM_INT);
+			$stm->bindParam(':id_max', $id_max, PDO::PARAM_STR);
+			$stm->bindParam(':keep', $keep, PDO::PARAM_INT);
+		}
+
+		if ($stm && $stm->execute()) {
+			return $stm->rowCount();
+		} else {
+			$info = $stm == null ? array(0 => '', 1 => '', 2 => 'syntax error') : $stm->errorInfo();
+			if ($this->autoUpdateDb($info)) {
+				return $this->cleanOldEntries($id_feed, $date_min, $keep);
+			}
+			Minz_Log::error('SQL error cleanOldEntries: ' . $info[2]);
+			return false;
+		}
+	}
+
 	public function searchByGuid($id_feed, $guid) {
 		// un guid est unique pour un flux donné
 		$sql = 'SELECT id, guid, title, author, '

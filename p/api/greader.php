@@ -445,6 +445,9 @@ function unreadCount() {	//http://blog.martindoms.com/2009/10/16/using-the-googl
 }
 
 function entriesToArray($entries) {
+	$feedDAO = FreshRSS_Factory::createFeedDao();
+	$arrayFeedCategoryNames = $feedDAO->arrayFeedCategoryNames();
+
 	$items = array();
 	foreach ($entries as $entry) {
 		$f_id = $entry->feed();
@@ -493,9 +496,6 @@ function streamContents($path, $include_target, $start_time, $count, $order, $ex
 //http://code.google.com/p/pyrfeed/wiki/GoogleReaderAPI
 //http://blog.martindoms.com/2009/10/16/using-the-google-reader-api-part-2/#feed
 	header('Content-Type: application/json; charset=UTF-8');
-
-	$feedDAO = FreshRSS_Factory::createFeedDao();
-	$arrayFeedCategoryNames = $feedDAO->arrayFeedCategoryNames();
 
 	switch ($path) {
 		case 'reading-list':
