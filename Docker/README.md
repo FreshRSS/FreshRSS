@@ -1,5 +1,7 @@
 # Deploy FreshRSS with Docker
-* See also https://cloud.docker.com/app/freshrss/repository/docker/freshrss/freshrss
+* See also:
+	* https://hub.docker.com/r/freshrss/freshrss/
+	* https://cloud.docker.com/app/freshrss/repository/docker/freshrss/freshrss
 
 ## Install Docker
 
@@ -9,7 +11,7 @@ sh get-docker.sh
 ```
 
 ## Optional: Build Docker image of FreshRSS
-Optional, as a *less recent* [online image](https://cloud.docker.com/app/freshrss/repository/docker/freshrss/freshrss) can be automatically fetched during the next step (run),
+Optional, as a *less recent* online image can be automatically fetched during the next step (run),
 but online images are not available for as many platforms as if you build yourself.
 
 ```sh
