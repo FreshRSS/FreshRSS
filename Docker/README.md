@@ -26,7 +26,7 @@ sudo docker build --tag freshrss/freshrss -f Docker/Dockerfile .
 
 ## Run FreshRSS
 
-Example exposing FreshRSS on port 8080. You may have to adapt the network parameters to fit your needs.
+Example using SQLite, and exposing FreshRSS on port 8080. You may have to adapt the network parameters to fit your needs.
 
 ```sh
 # You can optionally run from the directory containing the FreshRSS source code:
@@ -38,6 +38,32 @@ mkdir -p ./data/
 sudo docker run -dit --restart unless-stopped --log-opt max-size=10m \
 	-v $(pwd)/data:/var/www/FreshRSS/data \
 	-p 8080:80 \
+	--name freshrss freshrss/freshrss
+```
+
+### Examples with external databases
+
+You may want to use other link methods such as Docker bridges, and use Docker volumes for the data, but here are some simple examples:
+
+#### MySQL
+See https://hub.docker.com/_/mysql/
+
+```sh
+sudo docker run -d -v /path/to/mysql-data:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=rootpass -e MYSQL_DATABASE=freshrss -e MYSQL_USER=freshrss -e MYSQL_PASSWORD=pass --name mysql mysql
+sudo docker run -dit --restart unless-stopped --log-opt max-size=10m \
+	-v $(pwd)/data:/var/www/FreshRSS/data \
+	--link mysql -p 8080:80 \
+	--name freshrss freshrss/freshrss
+```
+
+#### PostgreSQL
+See https://hub.docker.com/_/postgres/
+
+```sh
+sudo docker run -d -v /path/to/pgsql-data:/var/lib/postgresql/data -e POSTGRES_DB=freshrss -e POSTGRES_USER=freshrss -e POSTGRES_PASSWORD=pass --name postgres postgres
+sudo docker run -dit --restart unless-stopped --log-opt max-size=10m \
+	-v $(pwd)/data:/var/www/FreshRSS/data \
+	--link postgres -p 8080:80 \
 	--name freshrss freshrss/freshrss
 ```
 
