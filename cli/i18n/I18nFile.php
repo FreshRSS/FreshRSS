@@ -113,7 +113,7 @@ class i18nFile {
 		$translation = preg_replace($patterns, $replacements, $translation);
 
 		// Double quoting is mandatory to have new lines instead of \n strings
-		return sprintf("<?php\n\nreturn %s;", $translation);
+		return sprintf("<?php\n\nreturn %s;\n", $translation);
 	}
 
 }
