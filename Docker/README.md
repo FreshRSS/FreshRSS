@@ -84,7 +84,7 @@ sudo docker rm freshrss_old
 ## Command line
 
 ```sh
-sudo docker exec -it freshrss php ./cli/list-users.php
+sudo docker exec --user apache -it freshrss php ./cli/list-users.php
 ```
 
 See the [CLI documentation](../cli/) for all the other commands.
@@ -96,7 +96,7 @@ Set a cron job up on your host machine, calling the `actualize_script.php` insid
 Create `/etc/cron.d/FreshRSS` with:
 
 ```
-7,37 * * * * root docker exec -it freshrss php ./app/actualize_script.php > /tmp/FreshRSS.log 2>&1
+7,37 * * * * root docker exec --user apache -it freshrss php ./app/actualize_script.php > /tmp/FreshRSS.log 2>&1
 ```
 
 ## Debugging
