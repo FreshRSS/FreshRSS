@@ -42,6 +42,7 @@ return array(
 	'query' => array(
 		'_' => 'Benutzerabfragen',
 		'deprecated' => 'Diese Abfrage ist nicht länger gültig. Die referenzierte Kategorie oder der Feed ist gelöscht worden.',
+		'display' => 'Display user query results', // TODO
 		'filter' => 'Angewendeter Filter:',
 		'get_all' => 'Alle Artikel anzeigen',
 		'get_category' => 'Kategorie "%s" anzeigen',
@@ -52,6 +53,7 @@ return array(
 		'number' => 'Abfrage Nr. %d',
 		'order_asc' => 'Älteste Artikel zuerst anzeigen',
 		'order_desc' => 'Neueste Artikel zuerst anzeigen',
+		'remove' => 'Remove user query', // TODO
 		'search' => 'Suche nach "%s"',
 		'state_0' => 'Alle Artikel anzeigen',
 		'state_1' => 'Gelesene Artikel anzeigen',

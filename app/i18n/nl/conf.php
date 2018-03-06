@@ -42,6 +42,7 @@ return array(
 	'query' => array(
 		'_' => 'Gebruikers queries (informatie aanvragen)',
 		'deprecated' => 'Deze query (informatie aanvraag) is niet langer geldig. De bedoelde categorie of feed is al verwijderd.',
+		'display' => 'Display user query results', // TODO
 		'filter' => 'Filter toegepast:',
 		'get_all' => 'Toon alle artikelen',
 		'get_category' => 'Toon "%s" categorie',
@@ -52,6 +53,7 @@ return array(
 		'number' => 'Query n°%d',
 		'order_asc' => 'Toon oudste artikelen eerst',
 		'order_desc' => 'Toon nieuwste artikelen eerst',
+		'remove' => 'Remove user query', // TODO
 		'search' => 'Zoek naar "%s"',
 		'state_0' => 'Toon alle artikelen',
 		'state_1' => 'Toon gelezen artikelen',

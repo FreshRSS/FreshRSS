@@ -42,6 +42,7 @@ return array(
 	'query' => array(
 		'_' => 'Ricerche personali',
 		'deprecated' => 'Questa query non è più valida. La categoria o il feed di riferimento non stati cancellati.',
+		'display' => 'Display user query results', // TODO
 		'filter' => 'Filtro applicato:',
 		'get_all' => 'Mostra tutti gli articoli',
 		'get_category' => 'Mostra la categoria "%s" ',
@@ -52,6 +53,7 @@ return array(
 		'number' => 'Ricerca n°%d',
 		'order_asc' => 'Mostra prima gli articoli più vecchi',
 		'order_desc' => 'Mostra prima gli articoli più nuovi',
+		'remove' => 'Remove user query', // TODO
 		'search' => 'Cerca per "%s"',
 		'state_0' => 'Mostra tutti gli articoli',
 		'state_1' => 'Mostra gli articoli letti',

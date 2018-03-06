@@ -42,6 +42,7 @@ return array(
 	'query' => array(
 		'_' => 'Consultas de usuario',
 		'deprecated' => 'Esta consulta ya no es válida. La categoría referenciada o fuente ha sido eliminada.',
+		'display' => 'Display user query results', // TODO
 		'filter' => 'Filtro aplicado:',
 		'get_all' => 'Mostrar todos los artículos',
 		'get_category' => 'Mostrar la categoría "%s"',
@@ -52,6 +53,7 @@ return array(
 		'number' => 'Consulta n° %d',
 		'order_asc' => 'Mostrar primero los artículos más antiguos',
 		'order_desc' => 'Mostrar primero los artículos más recientes',
+		'remove' => 'Remove user query', // TODO
 		'search' => 'Buscar "%s"',
 		'state_0' => 'Mostrar todos los artículos',
 		'state_1' => 'Mostrar artículos leídos',

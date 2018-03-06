@@ -42,6 +42,7 @@ return array(
 	'query' => array(
 		'_' => 'שאילתות',
 		'deprecated' => 'שאילתה זו אינה בתוקף יותר, הפיד או הקטגוריה לייחוס נמחקו.',
+		'display' => 'Display user query results', // TODO
 		'filter' => 'מסננים בשימוש:',
 		'get_all' => 'הצגת כל המאמרים',
 		'get_category' => 'הצגת קטגוריה "%s"',
@@ -52,6 +53,7 @@ return array(
 		'number' => 'שאילתה מספר °%d',
 		'order_asc' => 'הצגת מאמרים ישנים בראש',
 		'order_desc' => 'הצגת מאמרים חדשים בראש',
+		'remove' => 'Remove user query', // TODO
 		'search' => 'חיפוש "%s"',
 		'state_0' => 'הצגת כל המאמרים',
 		'state_1' => 'הצגת מאמרים שנקראו',

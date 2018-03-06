@@ -29,11 +29,11 @@
 					       data-leave-validation="<?php echo $query->getName(); ?>"
 					/>
 
-					<a class="btn" href="<?php echo $query->getUrl(); ?>">
+					<a class="btn" href="<?php echo $query->getUrl(); ?>" title="<?php echo _t('conf.query.display'); ?>">
 						<?php echo _i('link'); ?>
 					</a>
 
-					<a class="btn btn-attention remove" href="#" data-remove="query-group-<?php echo $key; ?>">
+					<a class="btn btn-attention remove" href="#" data-remove="query-group-<?php echo $key; ?>" title="<?php echo _t('conf.query.remove'); ?>">
 						<?php echo _i('close'); ?>
 					</a>
 				</div>
