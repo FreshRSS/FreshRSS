@@ -171,8 +171,8 @@ return array(
 		'see_on_website' => 'See on original website',
 		'shift_for_all_read' => '+ <code>shift</code> to mark all articles as read',
 		'title' => 'Shortcuts',
-		'user_filter' => 'Access user filters',
-		'user_filter_help' => 'If there is only one user filter, it is used. Otherwise, filters are accessible by their number.',
+		'user_filter' => 'Access user queries',
+		'user_filter_help' => 'If there is only one user query, it is used. Otherwise, queries are accessible by their number.',
 		'views' => 'Views',
 	),
 	'user' => array(
