@@ -1,5 +1,9 @@
 ﻿# FreshRSS changelog
 
+## 2018-0X-XX FreshRSS 1.10.3-dev
+
+
+
 ## 2018-03-09 FreshRSS 1.10.2 (Docker only)
 
 * Bug fixing
