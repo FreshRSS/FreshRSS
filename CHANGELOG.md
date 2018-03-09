@@ -1,9 +1,11 @@
 ﻿# FreshRSS changelog
 
-## 2018-0X-XX FreshRSS 1.10.2-dev
+## 2018-03-09 FreshRSS 1.10.2 (Docker only)
 
 * Bug fixing
 	* Fix Docker image for OPML import [#1819](https://github.com/FreshRSS/FreshRSS/pull/1819)
+	* Fix Docker image for CSS selectors [#1821](https://github.com/FreshRSS/FreshRSS/issues/1821)
+	* Fix Docker other missing PHP extensions [#1822](https://github.com/FreshRSS/FreshRSS/pull/1822)
 
 
 ## 2018-03-04 FreshRSS 1.10.1
