@@ -40,7 +40,7 @@ class FreshRSS_entry_Controller extends Minz_ActionController {
 		$get = Minz_Request::param('get');
 		$next_get = Minz_Request::param('nextGet', $get);
 		$id_max = Minz_Request::param('idMax', 0);
-		FreshRSS_Context::$search = new FreshRSS_Search(Minz_Request::param('search', ''));
+		FreshRSS_Context::$search = new FreshRSS_BooleanSearch(Minz_Request::param('search', ''));
 
 		FreshRSS_Context::$state = Minz_Request::param('state', 0);
 		if (FreshRSS_Context::isStateEnabled(FreshRSS_Entry::STATE_FAVORITE)) {
