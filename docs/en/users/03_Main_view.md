@@ -181,3 +181,6 @@ Some operators can be used negatively, to exclude articles, with the same syntax
 `-author:name`, `-intitle:keyword`, `-inurl:keyword`, `-#tag`, `!keyword`.
 
 It is also possible to combine operators to have a very sharp filter, and it is allowed to have multiple instances of `author:`, `intitle:`, `inurl:`, `#`, and free-text.
+
+Combining several search criteria implies a logical *and*, but the keywoard ` OR ` can be used to combine several search critetia with a logical *or* instead:
+`author:Dupont OR author:Dupond`
