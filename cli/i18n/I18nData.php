@@ -49,7 +49,8 @@ class I18nData {
 	 * @throws Exception
 	 */
 	public function addKey($key, $value) {
-		if (array_key_exists($key, $this->data[static::REFERENCE_LANGUAGE][$this->getFilenamePrefix($key)])) {
+		if (array_key_exists($this->getFilenamePrefix($key), $this->data[static::REFERENCE_LANGUAGE]) &&
+		    array_key_exists($key, $this->data[static::REFERENCE_LANGUAGE][$this->getFilenamePrefix($key)])) {
 			throw new Exception('The selected key already exist.');
 		}
 		$this->data[static::REFERENCE_LANGUAGE][$this->getFilenamePrefix($key)][$key] = $value;
@@ -67,7 +68,8 @@ class I18nData {
 		if (!in_array($language, $this->getAvailableLanguages())) {
 			throw new Exception('The selected language does not exist.');
 		}
-		if (!array_key_exists($key, $this->data[static::REFERENCE_LANGUAGE][$this->getFilenamePrefix($key)])) {
+		if (!array_key_exists($this->getFilenamePrefix($key), $this->data[static::REFERENCE_LANGUAGE]) ||
+		    !array_key_exists($key, $this->data[static::REFERENCE_LANGUAGE][$this->getFilenamePrefix($key)])) {
 			throw new Exception('The selected key does not exist for the selected language.');
 		}
 		$this->data[$language][$this->getFilenamePrefix($key)][$key] = $value;
@@ -80,7 +82,8 @@ class I18nData {
 	 * @throws Exception
 	 */
 	public function duplicateKey($key) {
-		if (!array_key_exists($key, $this->data[static::REFERENCE_LANGUAGE][$this->getFilenamePrefix($key)])) {
+		if (!array_key_exists($this->getFilenamePrefix($key), $this->data[static::REFERENCE_LANGUAGE]) ||
+		    !array_key_exists($key, $this->data[static::REFERENCE_LANGUAGE][$this->getFilenamePrefix($key)])) {
 			throw new Exception('The selected key does not exist.');
 		}
 		$value = $this->data[static::REFERENCE_LANGUAGE][$this->getFilenamePrefix($key)][$key];
@@ -102,7 +105,8 @@ class I18nData {
 	 * @throws Exception
 	 */
 	public function removeKey($key) {
-		if (!array_key_exists($key, $this->data[static::REFERENCE_LANGUAGE][$this->getFilenamePrefix($key)])) {
+		if (!array_key_exists($this->getFilenamePrefix($key), $this->data[static::REFERENCE_LANGUAGE]) ||
+		    !array_key_exists($key, $this->data[static::REFERENCE_LANGUAGE][$this->getFilenamePrefix($key)])) {
 			throw new Exception('The selected key does not exist.');
 		}
 		foreach ($this->getAvailableLanguages() as $language) {
