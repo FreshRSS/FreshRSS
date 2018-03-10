@@ -182,5 +182,5 @@ Certains opérateurs peuvent être utilisé négativement, pour exclure des arti
 
 Il est également possible de combiner les mots-clefs pour faire un filtrage encore plus précis, et il est autorisé d’avoir plusieurs instances de : `author:`, `intitle:`, `inurl:`, `#`, et texte libre.
 
-Combiner plusieurs critères implique un *et* logique, mais le mot clef ` OR ` peut être utiliser pour combiner plusieurs critères avec un *ou* logique:
+Combiner plusieurs critères implique un *et* logique, mais le mot clef ` OR ` peut être utiliser pour combiner plusieurs critères avec un *ou* logique :
 `author:Dupont OR author:Dupond`
