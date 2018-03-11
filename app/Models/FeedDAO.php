@@ -105,7 +105,7 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 			return $stm->rowCount();
 		} else {
 			$info = $stm == null ? array(2 => 'syntax error') : $stm->errorInfo();
-			Minz_Log::error('SQL error updateFeed: ' . $info[2]);
+			Minz_Log::error('SQL error updateFeed: ' . $info[2] . ' for feed ' . $id);
 			return false;
 		}
 	}
