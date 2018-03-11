@@ -2,6 +2,10 @@
 
 ## 2018-0X-XX FreshRSS 1.10.3-dev
 
+* UI
+	* Add tooltips on user queries [#1823](https://github.com/FreshRSS/FreshRSS/pull/1823)
+* Misc.
+	* Add error log information when SQLite has not enough temp space [#1816](https://github.com/FreshRSS/FreshRSS/issues/1816)
 
 
 ## 2018-03-09 FreshRSS 1.10.2 (Docker only)
