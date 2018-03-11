@@ -42,6 +42,7 @@ return array(
 	'query' => array(
 		'_' => 'User queries',
 		'deprecated' => 'This query is no longer valid. The referenced category or feed has been deleted.',
+		'display' => 'Display user query results', // TODO
 		'filter' => 'Filter applied:',
 		'get_all' => 'Display all articles',
 		'get_category' => 'Display "%s" category',
@@ -52,6 +53,7 @@ return array(
 		'number' => 'Query n°%d',
 		'order_asc' => 'Display oldest articles first',
 		'order_desc' => 'Display newest articles first',
+		'remove' => 'Remove user query', // TODO
 		'search' => 'Search for "%s"',
 		'state_0' => 'Display all articles',
 		'state_1' => 'Display read articles',

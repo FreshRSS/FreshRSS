@@ -42,6 +42,7 @@ return array(
 	'query' => array(
 		'_' => '自定义查询',
 		'deprecated' => '此查询不再有效。相关的分类或 RSS 源已被删除。',
+		'display' => 'Display user query results', // TODO
 		'filter' => '生效的过滤器：',
 		'get_all' => '显示所有文章',
 		'get_category' => '显示分类 "%s"',
@@ -52,6 +53,7 @@ return array(
 		'number' => '查询 n°%d',
 		'order_asc' => '由旧到新显示文章',
 		'order_desc' => '由新到旧显示文章',
+		'remove' => 'Remove user query', // TODO
 		'search' => '搜索 "%s"',
 		'state_0' => '显示所有文章',
 		'state_1' => '显示已读文章',

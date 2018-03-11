@@ -42,6 +42,7 @@ return array(
 	'query' => array(
 		'_' => 'Queries do usuário',
 		'deprecated' => 'Esta não é mais válida. A categoria ou feed relacionado foi deletado.',
+		'display' => 'Display user query results', // TODO
 		'filter' => 'Filtro aplicado:',
 		'get_all' => 'Mostrar todos os artigos',
 		'get_category' => 'Visualizar "%s" categoria',
@@ -52,6 +53,7 @@ return array(
 		'number' => 'Query n°%d',
 		'order_asc' => 'Exibir artigos mais antigos primeiro',
 		'order_desc' => 'Exibir artigos mais novos primeiro',
+		'remove' => 'Remove user query', // TODO
 		'search' => 'Busca por "%s"',
 		'state_0' => 'Exibir todos os artigos',
 		'state_1' => 'Exibir artigos lidos',
