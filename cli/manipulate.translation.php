@@ -1,6 +1,6 @@
 <?php
 
-$options = getopt("a:hk:l:v:");
+$options = getopt("a:hk:l:rv:");
 
 if (array_key_exists('h', $options)) {
 	help();
@@ -10,9 +10,13 @@ if (!array_key_exists('a', $options)) {
 	error('You need to specify the action to perform.');
 }
 
-require_once __DIR__ . '/i18n/I18nFile.php';
-
-$i18nFile = new I18nFile();
+if ('ignore' === $options['a']) {
+	require_once __DIR__ . '/i18n/I18nIgnoreFile.php';
+	$i18nFile = new I18nIgnoreFile();
+} else {
+	require_once __DIR__ . '/i18n/I18nFile.php';
+	$i18nFile = new I18nFile();
+}
 $i18nData = $i18nFile->load();
 
 switch ($options['a']) {
@@ -43,6 +47,13 @@ switch ($options['a']) {
 		break;
 	case 'format' :
 		$i18nFile->dump($i18nData);
+		break;
+	case 'ignore' :
+		if (array_key_exists('l', $options) && array_key_exists('k', $options)) {
+			$i18nData->ignore($options['k'], $options['l'], array_key_exists('r', $options));
+		} else {
+			error('You need to specify a valid set of options.');
+		}
 		break;
 	default :
 		help();
@@ -80,7 +91,7 @@ DESCRIPTION
 
 	-a=ACTION
 		select the action to perform. Available actions are add, delete,
-		duplicate, and format. This option is mandatory.
+		duplicate, format, and ignore. This option is mandatory.
 	-k=KEY	select the key to work on.
 	-v=VAL	select the value to set.
 	-l=LANG	select the language to work on.
@@ -105,6 +116,11 @@ Exemple 5: duplicate a key. It duplicates the key from the referential in every 
 Exemple 6: format i18n files.
 	php %1\$s -a format
 
+Exemple 7: ignore a key. It adds the key in the ignore file to mark it as translated.
+	php %1\$s -a ignore -k my_key -l my_lang
+
+Exemple 8: revert ignore a key. It removes the key from the ignore file.
+	php %1\$s -a ignore -r -k my_key -l my_lang\n\n
 HELP;
 	$file = str_replace(__DIR__ . '/', '', __FILE__);
 	echo sprintf($help, $file);

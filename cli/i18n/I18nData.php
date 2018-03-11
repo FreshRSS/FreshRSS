@@ -117,6 +117,30 @@ class I18nData {
 	}
 
 	/**
+	 * WARNING! This is valid only for ignore files. It's not the best way to
+	 * handle that but as it's meant to be used only for the cli tool, there
+	 * is no point of spending time on making it better than that.
+	 *
+	 * Ignore a key from a language, or reverse it.
+	 *
+	 * @param string $key
+	 * @param string $language
+	 * @param boolean $reverse
+	 */
+	public function ignore($key, $language, $reverse = false) {
+		$index = array_search($key, $this->data[$language]);
+
+		if ($index && $reverse) {
+			unset($this->data[$language][$index]);
+			return;
+		}
+		if ($index && !$reverse) {
+			return;
+		}
+		$this->data[$language][] = $key;
+	}
+
+	/**
 	 * Check if the data has changed
 	 *
 	 * @return bool
