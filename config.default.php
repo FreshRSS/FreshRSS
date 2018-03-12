@@ -1,7 +1,7 @@
 <?php
 
 # Do not modify this file, which defines default values,
-# but edit `config.php` instead, after the install process is completed.
+# but edit `./data/config.php` instead, after the install process is completed.
 return array(
 
 	# Set to `development` to get additional error messages,
