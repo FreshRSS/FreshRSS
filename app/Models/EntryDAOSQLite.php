@@ -159,7 +159,7 @@ DROP TABLE IF EXISTS `tmp`;
 	 * @param integer $priorityMin
 	 * @return integer affected rows
 	 */
-	public function markReadEntries($idMax = 0, $onlyFavorites = false, $priorityMin = 0, $filter = null, $state = 0) {
+	public function markReadEntries($idMax = 0, $onlyFavorites = false, $priorityMin = 0, $filters = null, $state = 0) {
 		if ($idMax == 0) {
 			$idMax = time() . '000000';
 			Minz_Log::debug('Calling markReadEntries(0) is deprecated!');
@@ -173,7 +173,7 @@ DROP TABLE IF EXISTS `tmp`;
 		}
 		$values = array($idMax);
 
-		list($searchValues, $search) = $this->sqlListEntriesWhere('', $filter, $state);
+		list($searchValues, $search) = $this->sqlListEntriesWhere('', $filters, $state);
 
 		$stm = $this->bd->prepare($sql . $search);
 		if (!($stm && $stm->execute(array_merge($values, $searchValues)))) {
@@ -199,7 +199,7 @@ DROP TABLE IF EXISTS `tmp`;
 	 * @param integer $idMax fail safe article ID
 	 * @return integer affected rows
 	 */
-	public function markReadCat($id, $idMax = 0, $filter = null, $state = 0) {
+	public function markReadCat($id, $idMax = 0, $filters = null, $state = 0) {
 		if ($idMax == 0) {
 			$idMax = time() . '000000';
 			Minz_Log::debug('Calling markReadCat(0) is deprecated!');
@@ -211,7 +211,7 @@ DROP TABLE IF EXISTS `tmp`;
 			 . 'id_feed IN (SELECT f.id FROM `' . $this->prefix . 'feed` f WHERE f.category=?)';
 		$values = array($idMax, $id);
 
-		list($searchValues, $search) = $this->sqlListEntriesWhere('', $filter, $state);
+		list($searchValues, $search) = $this->sqlListEntriesWhere('', $filters, $state);
 
 		$stm = $this->bd->prepare($sql . $search);
 		if (!($stm && $stm->execute(array_merge($values, $searchValues)))) {
