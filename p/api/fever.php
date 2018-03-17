@@ -9,8 +9,6 @@
  * See https://github.com/dasmurphy/tinytinyrss-fever-plugin
  */
 
-file_put_contents(__DIR__ . '/fever.log', $_SERVER['HTTP_USER_AGENT'] . ': ' . json_encode($_REQUEST) . PHP_EOL, FILE_APPEND);
-
 // refresh is not allowed yet, probably we find a way to support it later
 if (isset($_REQUEST["refresh"])) {
 	exit;
@@ -22,7 +20,7 @@ require(__DIR__ . '/../../constants.php');
 require(LIB_PATH . '/lib_rss.php');    //Includes class autoloader
 Minz_Configuration::register('system', DATA_PATH . '/config.php', FRESHRSS_PATH . '/config.default.php');
 
-// check is API is enabled globally
+// check if API is enabled globally
 FreshRSS_Context::$system_conf = Minz_Configuration::get('system');
 if (!FreshRSS_Context::$system_conf->api_enabled) {
 	Minz_Log::warning('serviceUnavailable() ' . debugInfo(), API_LOG);
@@ -57,10 +55,6 @@ class FeverAPI_FeedDAO extends FreshRSS_FeedDAO
 
 		return current(self::daoToFeed($stm->fetchAll(PDO::FETCH_ASSOC)));
 	}
-}
-
-class FeverAPI_CategoryDAO extends FreshRSS_CategoryDAO
-{
 }
 
 class FeverAPI_EntryDAO extends FreshRSS_EntryDAO
@@ -137,8 +131,6 @@ class FeverAPI_EntryDAO extends FreshRSS_EntryDAO
 	{
 		$values = [];
 		$order = '';
-		$feverCounts = $this->countFever();
-		$limit = 50;
 
 		$sql = 'SELECT id, guid, title, author, '
 			. ($this->isCompressed() ? 'UNCOMPRESS(content_bin) AS content' : 'content')
@@ -179,7 +171,7 @@ class FeverAPI_EntryDAO extends FreshRSS_EntryDAO
 	}
 
 	/**
-	 * Must be overwritten by incompatible clients.
+	 * Can be overwritten to support clients that misbehave when using the API.
 	 *
 	 * @param $max_id
 	 * @param $since_id
@@ -192,7 +184,7 @@ class FeverAPI_EntryDAO extends FreshRSS_EntryDAO
 }
 
 /**
- * Class FeverAPI - does all the heavy lifting
+ * Class FeverAPI
  *
  * API Password must be the result of the md5 sum of your FreshRSS "username:your-api-password"
  *
@@ -212,12 +204,11 @@ class FeverAPI
 	private $xml = false;
 
 	/**
-	 * FeverAPI constructor does some basic initialization and logging.
+	 * FeverAPI constructor executes authentication and initialization.
 	 */
 	public function __construct()
 	{
-		// set the user from the db
-		$this->setUser();
+		$this->authenticate();
 
 		// are we xml or json?
 		if (isset($_REQUEST["api"]) && strtolower($_REQUEST['api']) === 'xml') {
@@ -226,9 +217,9 @@ class FeverAPI
 	}
 
 	/**
-	 * find the user in the db with a particular api key
+	 * Authenticate the user
 	 */
-	private function setUser()
+	private function authenticate()
 	{
 		if (!isset($_POST["api_key"]) || empty($_POST["api_key"])) {
 			FreshRSS_Context::$user_conf = null;
@@ -282,11 +273,11 @@ class FeverAPI
 	}
 
 	/**
-	 * @return FeverAPI_CategoryDAO
+	 * @return FreshRSS_CategoryDAO
 	 */
 	protected function getDaoForCategories()
 	{
-		return new FeverAPI_CategoryDAO();
+		return new FreshRSS_CategoryDAO();
 	}
 
 	/**
@@ -682,7 +673,6 @@ class FeverAPI
 				if ($text != $entry->wholeText) {
 					$cdoc = new DOMDocument();
 					$cdoc->loadHTML($charset_hack . $text);
-
 
 					foreach ($cdoc->childNodes as $cnode) {
 						$cnode = $doc->importNode($cnode, true);

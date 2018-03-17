@@ -9,8 +9,7 @@
 
 function createFeverApiInstance()
 {
-	if (!class_exists('FeverAPI_PressClient', false))
-	{
+	if (!class_exists('FeverAPI_PressClient', false)) {
 		class FeverAPI_PressClient extends FeverAPI
 		{
 			protected function getDaoForEntries()
@@ -48,7 +47,6 @@ function createFeverApiInstance()
 				return ' LIMIT '.intval($since_id).', 50';
 			}
 		}
-
 	}
 	return new FeverAPI_PressClient();
 }
