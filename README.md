@@ -161,6 +161,39 @@ FreshRSS supports further customizations by adding extensions on top of its core
 See the [repository dedicated to those extensions](https://github.com/FreshRSS/Extensions). 
 
 
+# APIs & native apps
+
+FreshRSS supports access via native apps for Linux, Android, iOS and OS X.
+
+## Google Reader-like API
+
+There is more information available about our Google Reader compatible API on the page [mobile access](https://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html).
+
+Supported clients are:
+
+* Android
+	* [News+](https://play.google.com/store/apps/details?id=com.noinnion.android.newsplus) with [News+ Google Reader extension](https://play.google.com/store/apps/details?id=com.noinnion.android.newsplus.extension.google_reader) (Closed source)
+	* [FeedMe 3.5.3+](https://play.google.com/store/apps/details?id=com.seazon.feedme) (Closed source)
+	* [EasyRSS](https://github.com/Alkarex/EasyRSS) (Open source, [F-Droid](https://f-droid.org/packages/org.freshrss.easyrss/))
+* GNU/Linux
+	* [FeedReader 2.0+](https://jangernert.github.io/FeedReader/) (Open source)
+
+## Fever API
+
+You can find more information about this API at our [Fever API documentation](https://freshrss.github.io/FreshRSS/en/users/06_Fever_API.html) page.
+
+Supported clients are:
+
+- iOS
+  - Fiery Feeds
+  - Unread
+
+- MacOS
+  - Readkit
+     
+- Android 
+  - Press
+
 # Included libraries
 * [SimplePie](https://simplepie.org/)
 * [MINZ](https://github.com/marienfressinaud/MINZ)
@@ -178,17 +211,6 @@ See the [repository dedicated to those extensions](https://github.com/FreshRSS/E
 ## If native functions are not available
 * [Services_JSON](https://pear.php.net/pepr/pepr-proposal-show.php?id=198)
 * [password_compat](https://github.com/ircmaxell/password_compat)
-
-
-# [Compatible clients](https://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html)
-Any client supporting a Google Reader-like API. Selection:
-
-* Android
-	* [News+](https://play.google.com/store/apps/details?id=com.noinnion.android.newsplus) with [News+ Google Reader extension](https://play.google.com/store/apps/details?id=com.noinnion.android.newsplus.extension.google_reader) (Closed source)
-	* [FeedMe 3.5.3+](https://play.google.com/store/apps/details?id=com.seazon.feedme) (Closed source)
-	* [EasyRSS](https://github.com/Alkarex/EasyRSS) (Open source, [F-Droid](https://f-droid.org/packages/org.freshrss.easyrss/))
-* GNU/Linux
-	* [FeedReader 2.0+](https://jangernert.github.io/FeedReader/) (Open source)
 
 [travis-badge]:https://travis-ci.org/FreshRSS/FreshRSS.svg?branch=master
 [travis-link]:https://travis-ci.org/FreshRSS/FreshRSS
