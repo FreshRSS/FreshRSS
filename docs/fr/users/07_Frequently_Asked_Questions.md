@@ -62,3 +62,4 @@ semanage fcontext -a -t httpd_sys_rw_content_t '/usr/share/FreshRSS/data/users'
 semanage fcontext -a -t httpd_sys_rw_content_t '/usr/share/FreshRSS/data/favicons'
 
 restorecon -Rv /usr/share/FreshRSS/data
+```
