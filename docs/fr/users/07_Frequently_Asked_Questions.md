@@ -56,10 +56,16 @@ Certaines distributions Linux comme Fedora ou RedHat Enterprise Linux (RHEL) act
 
 Il faut donc exécuter les commandes suivantes en tant que root :
 ```sh
-semanage fcontext -a -t httpd_sys_rw_content_t '/usr/share/FreshRSS/data
+semanage fcontext -a -t httpd_sys_rw_content_t '/usr/share/FreshRSS/data'
 semanage fcontext -a -t httpd_sys_rw_content_t '/usr/share/FreshRSS/data/cache'
 semanage fcontext -a -t httpd_sys_rw_content_t '/usr/share/FreshRSS/data/users'
 semanage fcontext -a -t httpd_sys_rw_content_t '/usr/share/FreshRSS/data/favicons'
 
+restorecon -Rv /usr/share/FreshRSS/data
+```
+
+Si les droits doivent s'appliquer à tous les sous-répertoires de data et data lui-même, exécuter les commandes suivantes:
+```sh
+semanage fcontext -a -t httpd_sys_rw_content_t '/usr/share/FreshRSS/data(/.*)?'
 restorecon -Rv /usr/share/FreshRSS/data
 ```

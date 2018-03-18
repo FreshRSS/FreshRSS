@@ -57,10 +57,17 @@ Some Linux distribution like Fedora or RedHat Enterprise Linux have SELinux syst
 The following commands should be executed as root :
 
 ```sh
-semanage fcontext -a -t httpd_sys_rw_content_t '/usr/share/FreshRSS/data
+semanage fcontext -a -t httpd_sys_rw_content_t '/usr/share/FreshRSS/data'
 semanage fcontext -a -t httpd_sys_rw_content_t '/usr/share/FreshRSS/data/cache'
 semanage fcontext -a -t httpd_sys_rw_content_t '/usr/share/FreshRSS/data/users'
 semanage fcontext -a -t httpd_sys_rw_content_t '/usr/share/FreshRSS/data/favicons'
 
+restorecon -Rv /usr/share/FreshRSS/data
+```
+
+If for some reasons right should be granted to the whole data directory (itself and sub-directories), execute the following commands:
+
+```sh
+semanage fcontext -a -t httpd_sys_rw_content_t '/usr/share/FreshRSS/data(/.*)?'
 restorecon -Rv /usr/share/FreshRSS/data
 ```
