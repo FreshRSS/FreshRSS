@@ -198,22 +198,11 @@ class FeverAPI
 	const STATUS_ERR = 0;
 
 	/**
-	 * whether the API was requested with XML as return value (true) or as JSON (false)
-	 * @var bool
-	 */
-	private $xml = false;
-
-	/**
 	 * FeverAPI constructor executes authentication and initialization.
 	 */
 	public function __construct()
 	{
 		$this->authenticate();
-
-		// are we xml or json?
-		if (isset($_REQUEST["api"]) && strtolower($_REQUEST['api']) === 'xml') {
-			$this->xml = true;
-		}
 	}
 
 	/**
@@ -242,14 +231,6 @@ class FeverAPI
 				return;
 			}
 		}
-	}
-
-	/**
-	 * @return bool
-	 */
-	public function isXmlRequested()
-	{
-		return $this->xml;
 	}
 
 	/**
@@ -366,8 +347,7 @@ class FeverAPI
 	}
 
 	/**
-	 * Returns either an JSON or XML string.
-	 * Always include api_version, status as 'auth'
+	 * Returns the complete JSON, with 'api_version' and status as 'auth'.
 	 *
 	 * @param int $status
 	 * @param array $reply
@@ -382,62 +362,7 @@ class FeverAPI
 			$arr = array_merge($arr, $reply);
 		}
 
-		if ($this->xml) {
-			return $this->array_to_xml($arr);
-		}
-
 		return json_encode($arr);
-	}
-
-	/**
-	 * FIXME
-	 * fever supports xml wrapped in <response> tags
-	 * @param $array
-	 * @param string $container
-	 * @param bool $is_root
-	 * @return mixed
-	 */
-	protected function array_to_xml($array, $container = 'response', $is_root = true)
-	{
-		if (!is_array($array)) {
-			$array = array($array);
-		}
-
-		$xml = '';
-
-		if ($is_root) {
-			$xml .= '<?xml version="1.0" encoding="utf-8"?>';
-			$xml .= "<{$container}>";
-		}
-
-		foreach ($array as $key => $value) {
-			// make sure key is a string
-			$elem = $key;
-
-			if (!is_string($key) && !empty($container)) {
-				$elem = $container;
-			}
-
-			$xml .= "<{$elem}>";
-
-			if (is_array($value)) {
-				if (array_keys($value) !== array_keys(array_keys($value))) {
-					$xml .= $this->array_to_xml($value, '', false);
-				} else {
-					$xml .= $this->array_to_xml($value, str_replace('/s$/', '', $elem), false);
-				}
-			} else {
-				$xml .= (htmlspecialchars($value, ENT_COMPAT, 'ISO-8859-1') != $value) ? "<![CDATA[{$value}]]>" : $value;
-			}
-
-			$xml .= "</{$elem}>";
-		}
-
-		if ($is_root) {
-			$xml .= "</{$container}>";
-		}
-
-		return preg_replace('/[\x00-\x1F\x7F]/', '', $xml);
 	}
 
 	/**
@@ -867,11 +792,7 @@ class FeverAPI
 // Start the Fever API handling
 $handler = createFeverApiInstance();
 
-if ($handler->isXmlRequested()) {
-	header("Content-Type: application/xml; charset=UTF-8");
-} else {
-	header("Content-Type: application/json; charset=UTF-8");
-}
+header("Content-Type: application/json; charset=UTF-8");
 
 if (!$handler->isAuthenticatedApiUser()) {
 	echo $handler->wrap(FeverAPI::STATUS_ERR, []);
