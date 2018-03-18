@@ -322,9 +322,6 @@ class FeverAPI
 					case 'feed':
 					case 'group':
 						$before = (isset($_REQUEST["before"])) ? $_REQUEST["before"] : null;
-						if ($before > pow(10, 10)) {
-							$before = round($before / 1000);
-						}
 						$this->{$method_name}($id, $before);
 						break;
 				}
