@@ -698,10 +698,9 @@ class FeverAPI
 	/**
 	 * TODO check this method for validity - is this required?
 	 * @param $str
-	 * @param bool $site_url
 	 * @return string
 	 */
-	protected function sanitizeContent($str, $site_url = false)
+	protected function sanitizeContent($str)
 	{
 		$res = trim($str);
 		if (!$res) return '';
@@ -728,19 +727,6 @@ class FeverAPI
 		$entries = $xpath->query('(//a[@href]|//img[@src])');
 
 		foreach ($entries as $entry) {
-
-			if ($site_url) {
-
-				if ($entry->hasAttribute('href'))
-					$entry->setAttribute('href',
-						rewrite_relative_url($site_url, $entry->getAttribute('href')));
-
-				if ($entry->hasAttribute('src')) {
-					$src = rewrite_relative_url($site_url, $entry->getAttribute('src'));
-					$entry->setAttribute('src', $src);
-				}
-			}
-
 			if (strtolower($entry->nodeName) == "a") {
 				$entry->setAttribute("target", "_blank");
 			}
@@ -882,9 +868,9 @@ class FeverAPI
 $handler = createFeverApiInstance();
 
 if ($handler->isXmlRequested()) {
-	header("Content-Type: text/xml");
+	header("Content-Type: application/xml; charset=UTF-8");
 } else {
-	header("Content-Type: application/json");
+	header("Content-Type: application/json; charset=UTF-8");
 }
 
 if (!$handler->isAuthenticatedApiUser()) {
