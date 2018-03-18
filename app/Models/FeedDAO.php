@@ -1,6 +1,38 @@
 <?php
 
 class FreshRSS_FeedDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
+
+	protected function addColumn($name) {
+		Minz_Log::warning('FreshRSS_FeedDAO::addColumn: ' . $name);
+		$hasTransaction = false;
+		try {
+			$stm = null;
+			if ($name === 'attribs') {	//v1.11.0
+				$stm = $this->bd->prepare('ALTER TABLE `' . $this->prefix . 'entry` ADD COLUMN attribs TEXT');
+				return $stm && $stm->execute();
+			}
+		} catch (Exception $e) {
+			Minz_Log::error('FreshRSS_FeedDAO::addColumn error: ' . $e->getMessage());
+			if ($hasTransaction) {
+				$this->bd->rollBack();
+			}
+		}
+		return false;
+	}
+
+	protected function autoUpdateDb($errorInfo) {
+		if (isset($errorInfo[0])) {
+			if ($errorInfo[0] === '42S22') {	//ER_BAD_FIELD_ERROR
+				foreach (array('attribs') as $column) {
+					if (stripos($errorInfo[2], $column) !== false) {
+						return $this->addColumn($column);
+					}
+				}
+			}
+		}
+		return false;
+	}
+
 	public function addFeed($valuesTmp) {
 		$sql = '
 			INSERT INTO `' . $this->prefix . 'feed`
@@ -15,7 +47,8 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 					`httpAuth`,
 					error,
 					keep_history,
-					ttl
+					ttl,
+					attribs
 				)
 				VALUES
 				(?, ?, ?, ?, ?, ?, 10, ?, 0, ?, ?)';
@@ -34,6 +67,7 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 			base64_encode($valuesTmp['httpAuth']),
 			FreshRSS_Feed::KEEP_HISTORY_DEFAULT,
 			FreshRSS_Feed::TTL_DEFAULT,
+			isset($valuesTmp['attribs']) ? json_encode($valuesTmp['attribs']) : '',
 		);
 
 		if ($stm && $stm->execute($values)) {
@@ -60,7 +94,8 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 				'website' => $feed->website(),
 				'description' => $feed->description(),
 				'lastUpdate' => 0,
-				'httpAuth' => $feed->httpAuth()
+				'httpAuth' => $feed->httpAuth(),
+				'attribs' => $feed->attribs(),
 			);
 
 			$id = $this->addFeed($values);
@@ -89,6 +124,8 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 
 			if ($key == 'httpAuth') {
 				$valuesTmp[$key] = base64_encode($v);
+			} elseif ($key == 'attribs') {
+				$valuesTmp[$key] = json_encode($v);
 			}
 		}
 		$set = substr($set, 0, -2);
@@ -252,7 +289,7 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 	 */
 	public function listFeedsOrderUpdate($defaultCacheDuration = 3600) {
 		$this->updateTTL();
-		$sql = 'SELECT id, url, name, website, `lastUpdate`, `pathEntries`, `httpAuth`, keep_history, ttl '
+		$sql = 'SELECT id, url, name, website, `lastUpdate`, `pathEntries`, `httpAuth`, keep_history, ttl, attribs '
 		     . 'FROM `' . $this->prefix . 'feed` '
 		     . ($defaultCacheDuration < 0 ? '' : 'WHERE ttl >= ' . FreshRSS_Feed::TTL_DEFAULT
 		     . ' AND `lastUpdate` < (' . (time() + 60) . '-(CASE WHEN ttl=' . FreshRSS_Feed::TTL_DEFAULT . ' THEN ' . intval($defaultCacheDuration) . ' ELSE ttl END)) ')
@@ -385,6 +422,7 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 			$myFeed->_error(isset($dao['error']) ? $dao['error'] : 0);
 			$myFeed->_keepHistory(isset($dao['keep_history']) ? $dao['keep_history'] : FreshRSS_Feed::KEEP_HISTORY_DEFAULT);
 			$myFeed->_ttl(isset($dao['ttl']) ? $dao['ttl'] : FreshRSS_Feed::TTL_DEFAULT);
+			$myFeed->_attribs(isset($dao['attribs']) ? $dao['attribs'] : '');
 			$myFeed->_nbNotRead(isset($dao['cache_nbUnreads']) ? $dao['cache_nbUnreads'] : 0);
 			$myFeed->_nbEntries(isset($dao['cache_nbEntries']) ? $dao['cache_nbEntries'] : 0);
 			if (isset($dao['id'])) {

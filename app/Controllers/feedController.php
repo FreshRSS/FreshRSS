@@ -84,6 +84,7 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 			'description' => $feed->description(),
 			'lastUpdate' => time(),
 			'httpAuth' => $feed->httpAuth(),
+			'attribs' => array(),
 		);
 
 		$id = $feedDAO->addFeed($values);
