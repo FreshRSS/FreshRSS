@@ -44,3 +44,23 @@ Since [1.8.0](https://github.com/FreshRSS/FreshRSS/releases/tag/1.8.0) release, 
 ./cli/update_user.php --user <username> --password <password>
 ```
 For more information on that matter, there is a [dedicated documentation](../../cli/README.md).
+
+## Permissions under SELinux
+
+Some Linux distribution like Fedora or RedHat Enterprise Linux have SELinux system enabled. This acts like a firewall application, so all applications cannot write/modify files under certain conditions. While installing FreshRSS, step 2 can fail if the httpd process cannot write to the following directories : 
+
+ - FreshRSS/data
+ - FreshRSS/data/cache
+ - FreshRSS/data/favicons
+ - FreshRSS/data/users
+
+The following commands should be executed as root :
+
+```sh
+semanage fcontext -a -t httpd_sys_rw_content_t '/usr/share/FreshRSS/data
+semanage fcontext -a -t httpd_sys_rw_content_t '/usr/share/FreshRSS/data/cache'
+semanage fcontext -a -t httpd_sys_rw_content_t '/usr/share/FreshRSS/data/users'
+semanage fcontext -a -t httpd_sys_rw_content_t '/usr/share/FreshRSS/data/favicons'
+
+restorecon -Rv /usr/share/FreshRSS/data
+```

@@ -44,3 +44,21 @@ Depuis la version [1.8.0](https://github.com/FreshRSS/FreshRSS/releases/tag/1.8.
 ./cli/update_user.php --user <username> --password <password>
 ```
 Pour plus d'information à ce sujet, il existe la [documentation dédiée](../../cli/README.md).
+
+## Gérer les permissions sous SELinux
+
+Certaines distributions Linux comme Fedora ou RedHat Enterprise Linux (RHEL) activent par défaut le système SELinux. Celui-ci permet de gérer des permissions au niveau des processus. Lors de l'installation de FreshRSS, l'étape 2 procède à la vérification des droits sur certains répertoires:
+
+ - FreshRSS/data
+ - FreshRSS/data/cache
+ - FreshRSS/data/favicons
+ - FreshRSS/data/users
+
+Il faut donc exécuter les commandes suivantes en tant que root :
+```sh
+semanage fcontext -a -t httpd_sys_rw_content_t '/usr/share/FreshRSS/data
+semanage fcontext -a -t httpd_sys_rw_content_t '/usr/share/FreshRSS/data/cache'
+semanage fcontext -a -t httpd_sys_rw_content_t '/usr/share/FreshRSS/data/users'
+semanage fcontext -a -t httpd_sys_rw_content_t '/usr/share/FreshRSS/data/favicons'
+
+restorecon -Rv /usr/share/FreshRSS/data
