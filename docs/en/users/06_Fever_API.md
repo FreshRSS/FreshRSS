@@ -34,14 +34,14 @@ In your favorite RSS reader you configure `fever.php`* as endpoint, **kevin** as
 Tested with:
 
 - iOS
-  - Fiery Feeds
-  - Unread
+  - [Fiery Feeds](https://itunes.apple.com/app/fiery-feeds-rss-reader/id1158763303)
+  - [Unread](https://itunes.apple.com/app/unread-rss-reader/id1252376153)
 
 MacOS:
-  - Readkit
+  - [Readkit](https://itunes.apple.com/app/readkit/id588726889?ls=1&mt=12)
      
 - Android 
-  - Press 1.5.4 (not available via Play Store any longer, but APK can be still downloaded)
+  - Press 1.5.4 (not available via PlayStore, but APK can still be found)
 
 ## Features
 

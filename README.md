@@ -185,14 +185,15 @@ You can find more information about this API at our [Fever API documentation](ht
 Supported clients are:
 
 - iOS
-  - Fiery Feeds
-  - Unread
+  - [Fiery Feeds](https://itunes.apple.com/app/fiery-feeds-rss-reader/id1158763303)
+  - [Unread](https://itunes.apple.com/app/unread-rss-reader/id1252376153)
 
-- MacOS
-  - Readkit
+MacOS:
+  - [Readkit](https://itunes.apple.com/app/readkit/id588726889?ls=1&mt=12)
      
 - Android 
-  - Press
+  - Press 1.5.4 (not available via PlayStore, but APK can still be found)
+
 
 # Included libraries
 * [SimplePie](https://simplepie.org/)
