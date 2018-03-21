@@ -250,13 +250,14 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 	/**
 	 * Use $defaultCacheDuration == -1 to return all feeds, without filtering them by TTL.
 	 */
-	public function listFeedsOrderUpdate($defaultCacheDuration = 3600) {
+	public function listFeedsOrderUpdate($defaultCacheDuration = 3600, $limit = 0) {
 		$this->updateTTL();
 		$sql = 'SELECT id, url, name, website, `lastUpdate`, `pathEntries`, `httpAuth`, keep_history, ttl '
 		     . 'FROM `' . $this->prefix . 'feed` '
 		     . ($defaultCacheDuration < 0 ? '' : 'WHERE ttl >= ' . FreshRSS_Feed::TTL_DEFAULT
 		     . ' AND `lastUpdate` < (' . (time() + 60) . '-(CASE WHEN ttl=' . FreshRSS_Feed::TTL_DEFAULT . ' THEN ' . intval($defaultCacheDuration) . ' ELSE ttl END)) ')
-		     . 'ORDER BY `lastUpdate`';
+		     . 'ORDER BY `lastUpdate` '
+		     . ($limit < 1 ? '' : 'LIMIT ' . intval($limit));
 		$stm = $this->bd->prepare($sql);
 		$stm->execute();
 
