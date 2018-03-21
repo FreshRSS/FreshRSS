@@ -197,6 +197,8 @@ class FeverAPI
 	const STATUS_OK = 1;
 	const STATUS_ERR = 0;
 
+	protected $sandboxed = false;
+
 	/**
 	 * FeverAPI constructor executes authentication and initialization.
 	 */
@@ -618,7 +620,6 @@ class FeverAPI
 	}
 
 	/**
-	 * TODO check this method for validity - is this required?
 	 * @param $str
 	 * @return string
 	 */
@@ -654,28 +655,30 @@ class FeverAPI
 			}
 		}
 
-		$entries = $xpath->query('//iframe');
-		foreach ($entries as $entry) {
-			$entry->setAttribute('sandbox', 'allow-scripts allow-same-origin');
-		}
+		if ($this->sandboxed) {
+			$entries = $xpath->query('//iframe');
+			foreach ($entries as $entry) {
+				$entry->setAttribute('sandbox', 'allow-scripts allow-same-origin');
+			}
 
-		$disallowed_attributes = array('id', 'style', 'class');
+			$disallowed_attributes = array('id', 'style', 'class');
 
-		$entries = $xpath->query('//*');
-		foreach ($entries as $entry) {
-			if ($entry->hasAttributes()) {
-				$attrs_to_remove = array();
-				foreach ($entry->attributes as $attr) {
-					if (strpos($attr->nodeName, 'on') === 0) { //remove onclick and other on* attributes
-						array_push($attrs_to_remove, $attr);
+			$entries = $xpath->query('//*');
+			foreach ($entries as $entry) {
+				if ($entry->hasAttributes()) {
+					$attrs_to_remove = array();
+					foreach ($entry->attributes as $attr) {
+						if (strpos($attr->nodeName, 'on') === 0) { //remove onclick and other on* attributes
+							array_push($attrs_to_remove, $attr);
+						}
+
+						if (in_array($attr->nodeName, $disallowed_attributes)) {
+							array_push($attrs_to_remove, $attr);
+						}
 					}
-
-					if (in_array($attr->nodeName, $disallowed_attributes)) {
-						array_push($attrs_to_remove, $attr);
+					foreach ($attrs_to_remove as $attr) {
+						$entry->removeAttributeNode($attr);
 					}
-				}
-				foreach ($attrs_to_remove as $attr) {
-					$entry->removeAttributeNode($attr);
 				}
 			}
 		}
@@ -736,7 +739,14 @@ class FeverAPI
 		$dao = $this->getDaoForEntries();
 		$entries = $dao->findEntries($feed_ids, $entry_ids, $max_id, $since_id);
 
-		foreach($entries as $entry) {
+		// Load list of extensions and enable the "system" ones.
+		Minz_ExtensionManager::init();
+
+		foreach($entries as $item) {
+			$entry = Minz_ExtensionManager::callHook('entry_before_display', $item);
+			if (is_null($entry)) {
+				continue;
+			}
 			$items[] = [
 				"id" => $entry->id(),
 				"feed_id" => $entry->feed(false),
