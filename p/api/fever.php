@@ -39,24 +39,6 @@ if (!function_exists('createFeverApiInstance')) {
 	}
 }
 
-/**
- * Class FeverAPI_FeedDAO for more feed functions than FreshRSS offers.
- */
-class FeverAPI_FeedDAO extends FreshRSS_FeedDAO
-{
-	/**
-	 * @return FreshRSS_Feed
-	 */
-	public function getLastUpdatedFeed() {
-		$sql = 'SELECT id, url, name, website, `lastUpdate`, `pathEntries`, `httpAuth`, keep_history, ttl '
-			. 'FROM `' . $this->prefix . 'feed` ORDER BY `lastUpdate` LIMIT 1';
-		$stm = $this->bd->prepare($sql);
-		$stm->execute();
-
-		return current(self::daoToFeed($stm->fetchAll(PDO::FETCH_ASSOC)));
-	}
-}
-
 class FeverAPI_EntryDAO extends FreshRSS_EntryDAO
 {
 	/**
@@ -248,11 +230,11 @@ class FeverAPI
 	}
 
 	/**
-	 * @return FeverAPI_FeedDAO
+	 * @return FreshRSS_FeedDAO
 	 */
 	protected function getDaoForFeeds()
 	{
-		return new FeverAPI_FeedDAO();
+		return new FreshRSS_FeedDAO();
 	}
 
 	/**
@@ -374,7 +356,8 @@ class FeverAPI
 		$lastUpdate = 0;
 
 		$dao = $this->getDaoForFeeds();
-		$feed = $dao->getLastUpdatedFeed();
+		$entries = $dao->listFeedsOrderUpdate(-1, 1);
+		$feed = current($entries);
 
 		if (!empty($feed)) {
 			$lastUpdate = $feed->lastUpdate();
