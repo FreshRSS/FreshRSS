@@ -767,14 +767,24 @@ class FeverAPI
 	{
 		$before = $this->convertBeforeToId($before);
 		$dao = $this->getDaoForEntries();
-		$dao->markReadFeed($id, $before);
+		return $dao->markReadFeed($id, $before);
 	}
 
 	protected function setGroupAsRead($id, $before)
 	{
-		$before = $this->convertBeforeToId($before);
 		$dao = $this->getDaoForEntries();
-		$dao->markReadCat($id, $before);
+
+		// special case to mark all items as read
+		if ($id === 0) {
+			$result = $dao->countFever();
+
+			if (!empty($result)) {
+				return $dao->markReadEntries($result['max']);
+			}
+		}
+
+		$before = $this->convertBeforeToId($before);
+		return $dao->markReadCat($id, $before);
 	}
 }
 
