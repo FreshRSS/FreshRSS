@@ -1,6 +1,6 @@
 <?php
 
-class FreshRSS_AlreadySubscribed_Exception extends Exception {
+class FreshRSS_AlreadySubscribed_Exception extends \Exception {
 	private $feedName = '';
 
 	public function __construct($url, $feedName) {
