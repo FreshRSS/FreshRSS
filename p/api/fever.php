@@ -64,32 +64,6 @@ class FeverAPI_EntryDAO extends FreshRSS_EntryDAO
 	}
 
 	/**
-	 * @return []
-	 */
-	public function getUnread()
-	{
-		$sql = 'SELECT id FROM `' . $this->prefix . 'entry` WHERE is_read=0';
-		$stm = $this->bd->prepare($sql);
-		$stm->execute();
-		$result = $stm->fetchAll(PDO::FETCH_COLUMN);
-
-		return $result;
-	}
-
-	/**
-	 * @return []
-	 */
-	public function getStarred()
-	{
-		$sql = 'SELECT id FROM `' . $this->prefix . 'entry` WHERE is_favorite=1';
-		$stm = $this->bd->prepare($sql);
-		$stm->execute();
-		$result = $stm->fetchAll(PDO::FETCH_COLUMN);
-
-		return $result;
-	}
-
-	/**
 	 * TODO this is ugly
 	 */
 	protected function bindParamArray($prefix, $values, &$bindArray)
@@ -496,16 +470,11 @@ class FeverAPI
 	}
 
 	/**
-	 * @param array $entries
+	 * @param array $ids
 	 * @return string
 	 */
-	protected function entriesToIdList($entries = array())
+	protected function entriesToIdList($ids = array())
 	{
-		$ids = [];
-		foreach ($entries as $id) {
-			$ids[] = (int) $id;
-		}
-
 		return implode(',', array_values($ids));
 	}
 
@@ -515,7 +484,7 @@ class FeverAPI
 	protected function getUnreadItemIds()
 	{
 		$dao = $this->getDaoForEntries();
-		$entries = $dao->getUnread();
+		$entries = $dao->listIdsWhere('a', '', FreshRSS_Entry::STATE_NOT_READ, 'ASC', PHP_INT_MAX);
 		return $this->entriesToIdList($entries);
 	}
 
@@ -525,7 +494,7 @@ class FeverAPI
 	protected function getSavedItemIds()
 	{
 		$dao = $this->getDaoForEntries();
-		$entries = $dao->getStarred();
+		$entries = $dao->listIdsWhere('a', '', FreshRSS_Entry::STATE_FAVORITE, 'ASC', PHP_INT_MAX);
 		return $this->entriesToIdList($entries);
 	}
 
