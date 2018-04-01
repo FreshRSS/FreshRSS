@@ -76,10 +76,14 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 
 			$apiPasswordPlain = Minz_Request::param('apiPasswordPlain', '', true);
 
+			$ok = false;
+
 			$username = Minz_Request::param('username');
-			$ok = self::updateUser($username, $passwordPlain, $apiPasswordPlain, array(
+			if (!empty($username)) {
+				$ok = self::updateUser($username, $passwordPlain, $apiPasswordPlain, array(
 					'token' => Minz_Request::param('token', null),
 				));
+			}
 
 			if ($ok) {
 				Minz_Request::good(_t('feedback.user.updated', $username),
