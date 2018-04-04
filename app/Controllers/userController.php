@@ -45,11 +45,11 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 	}
 
 	public static function updateUser($user, $passwordPlain, $apiPasswordPlain, $userConfigUpdated = array()) {
-		if (empty($user)) {
+		$userConfig = get_user_configuration($user);
+		if ($userConfig === null) {
 			return false;
 		}
 
-		$userConfig = get_user_configuration($user);
 		if ($passwordPlain != '') {
 			$passwordHash = self::hashPassword($passwordPlain);
 			$userConfig->passwordHash = $passwordHash;
