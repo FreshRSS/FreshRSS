@@ -1,15 +1,15 @@
 <ul class="nav nav-list aside">
 	<li class="nav-header"><?php echo _t('sub.menu.subscription_management'); ?></li>
 
-	<li class="item<?php echo Minz_Request::controllerName() == 'subscription' && Minz_Request::actionName() != 'bookmarklet' ? ' active' : ''; ?>">
+	<li class="item<?php echo Minz_Request::controllerName() === 'subscription' && Minz_Request::actionName() !== 'bookmarklet' ? ' active' : ''; ?>">
 		<a href="<?php echo _url('subscription', 'index'); ?>"><?php echo _t('sub.menu.subscription_management'); ?></a>
 	</li>
 
-	<li class="item<?php echo Minz_Request::controllerName() == 'importExport' ? ' active' : ''; ?>">
+	<li class="item<?php echo Minz_Request::controllerName() === 'importExport' ? ' active' : ''; ?>">
 		<a href="<?php echo _url('importExport', 'index'); ?>"><?php echo _t('sub.menu.import_export'); ?></a>
 	</li>
 
-	<li class="item<?php echo Minz_Request::controllerName() == 'subscription' && Minz_Request::actionName() == 'bookmarklet' ? ' active' : ''; ?>">
+	<li class="item<?php echo Minz_Request::controllerName() === 'subscription' && Minz_Request::actionName() === 'bookmarklet' ? ' active' : ''; ?>">
 		<a href="<?php echo _url('subscription', 'bookmarklet'); ?>"><?php echo _t('sub.menu.subscription_tools'); ?></a>
 	</li>
 </ul>
