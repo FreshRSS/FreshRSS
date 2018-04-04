@@ -26,7 +26,7 @@ class FreshRSS_Feed extends Minz_Model {
 	private $error = false;
 	private $keep_history = self::KEEP_HISTORY_DEFAULT;
 	private $ttl = self::TTL_DEFAULT;
-	private $attribs = array();
+	private $attributes = array();
 	private $mute = false;
 	private $hash = null;
 	private $lockPath = '';
@@ -115,11 +115,11 @@ class FreshRSS_Feed extends Minz_Model {
 	public function ttl() {
 		return $this->ttl;
 	}
-	public function attribs($key = '') {
+	public function attributes($key = '') {
 		if ($key == '') {
-			return $this->attribs;
+			return $this->attributes;
 		} else {
-			return isset($this->attribs[$key]) ? $this->attribs[$key] : null;
+			return isset($this->attributes[$key]) ? $this->attributes[$key] : null;
 		}
 	}
 	public function mute() {
@@ -242,14 +242,14 @@ class FreshRSS_Feed extends Minz_Model {
 		$this->ttl = abs($value);
 		$this->mute = $value < self::TTL_DEFAULT;
 	}
-	public function _attribs($value) {
+	public function _attributes($value) {
 		if (is_string($value)) {
 			$value = json_decode($value, true);
 		}
 		if (is_array($value)) {
-			$this->attribs = $value;
+			$this->attributes = $value;
 		} else {
-			$this->attribs = array();
+			$this->attributes = array();
 		}
 	}
 	public function _nbNotRead($value) {
