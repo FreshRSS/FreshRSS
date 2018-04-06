@@ -153,8 +153,6 @@ class FeverAPI
 	const STATUS_OK = 1;
 	const STATUS_ERR = 0;
 
-	protected $sandboxed = false;
-
 	/**
 	 * FeverAPI constructor executes authentication and initialization.
 	 */
@@ -523,124 +521,6 @@ class FeverAPI
 	}
 
 	/**
-	 * TODO check this method for validity - is this required?
-	 * @param $html
-	 * @return string
-	 */
-	protected function rewriteUrls($html)
-	{
-		libxml_use_internal_errors(true);
-
-		$charset_hack = '<head>
-			<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-		</head>';
-
-		$doc = new DOMDocument();
-		$doc->loadHTML($charset_hack . $html);
-		$xpath = new DOMXPath($doc);
-
-		$entries = $xpath->query('//*/text()');
-
-		foreach ($entries as $entry) {
-			if (strstr($entry->wholeText, "://") !== false) {
-				$text = preg_replace("/((?<!=.)((http|https|ftp)+):\/\/[^ ,!]+)/i",
-					"<a target=\"_blank\" href=\"\\1\">\\1</a>", $entry->wholeText);
-
-				if ($text != $entry->wholeText) {
-					$cdoc = new DOMDocument();
-					$cdoc->loadHTML($charset_hack . $text);
-
-					foreach ($cdoc->childNodes as $cnode) {
-						$cnode = $doc->importNode($cnode, true);
-
-						if ($cnode) {
-							$entry->parentNode->insertBefore($cnode);
-						}
-					}
-
-					$entry->parentNode->removeChild($entry);
-				}
-			}
-		}
-
-		$node = $doc->getElementsByTagName('body')->item(0);
-
-		if ($node) {
-			return $doc->saveXML($node);
-		}
-		return $html;
-	}
-
-	/**
-	 * @param $str
-	 * @return string
-	 */
-	protected function sanitizeContent($str)
-	{
-		$res = trim($str);
-		if (!$res) return '';
-
-		if (strpos($res, "href=") === false) {
-			$res = $this->rewriteUrls($res);
-		}
-
-		$charset_hack = '<head>
-			<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-		</head>';
-
-		$res = trim($res);
-		if (!$res) {
-			return '';
-		}
-
-		libxml_use_internal_errors(true);
-
-		$doc = new DOMDocument();
-		$doc->loadHTML($charset_hack . $res);
-		$xpath = new DOMXPath($doc);
-
-		$entries = $xpath->query('(//a[@href]|//img[@src])');
-
-		foreach ($entries as $entry) {
-			if (strtolower($entry->nodeName) == "a") {
-				$entry->setAttribute("target", "_blank");
-			}
-		}
-
-		if ($this->sandboxed) {
-			$entries = $xpath->query('//iframe');
-			foreach ($entries as $entry) {
-				$entry->setAttribute('sandbox', 'allow-scripts allow-same-origin');
-			}
-
-			$disallowed_attributes = array('id', 'style', 'class');
-
-			$entries = $xpath->query('//*');
-			foreach ($entries as $entry) {
-				if ($entry->hasAttributes()) {
-					$attrs_to_remove = array();
-					foreach ($entry->attributes as $attr) {
-						if (strpos($attr->nodeName, 'on') === 0) { //remove onclick and other on* attributes
-							array_push($attrs_to_remove, $attr);
-						}
-
-						if (in_array($attr->nodeName, $disallowed_attributes)) {
-							array_push($attrs_to_remove, $attr);
-						}
-					}
-					foreach ($attrs_to_remove as $attr) {
-						$entry->removeAttributeNode($attr);
-					}
-				}
-			}
-		}
-
-		$doc->removeChild($doc->firstChild); //remove doctype
-		$res = $doc->saveHTML();
-		return $res;
-	}
-
-	/**
 	 * @return array
 	 */
 	protected function getItems()
@@ -704,7 +584,7 @@ class FeverAPI
 				"feed_id" => $entry->feed(false),
 				"title" => $entry->title(),
 				"author" => $entry->author(),
-				"html" => $this->sanitizeContent($entry->content()),
+				"html" => $entry->content(),
 				"url" => $entry->link(),
 				"is_saved" => $entry->isFavorite() ? 1 : 0,
 				"is_read" => $entry->isRead() ? 1 : 0,
