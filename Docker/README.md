@@ -96,12 +96,12 @@ See the [CLI documentation](../cli/) for all the other commands.
 We recommend a refresh rate of about twice per hour (see *WebSub* / *PubSubHubbub* for real-time updates).
 There is no less than 3 options. Pick a single one.
 
-### 1) Cron inside the FreshRSS Docker image
+### Option 1) Cron inside the FreshRSS Docker image
 Easiest, built-in solution, also used in the examples above
 (but your Docker instance will have a second process in the background, without monitoring).
 Just pass the environment variable `CRON_MIN` to your `docker run` command,
 containing a valid cron minute definition such as `'13,43'` (recommended) or `'*/20'`.
-Not passing the `CRON_MIN` environment variable or setting it to empty string will disable the cron daemon.
+Not passing the `CRON_MIN` environment variable – or setting it to empty string – will disable the cron daemon.
 
 ```sh
 sudo docker run -dit --restart unless-stopped --log-opt max-size=10m \
@@ -111,9 +111,10 @@ sudo docker run -dit --restart unless-stopped --log-opt max-size=10m \
 	--name freshrss freshrss/freshrss
 ```
 
-### 2) Cron on the host machine
+### Option 2) Cron on the host machine
 Traditional solution.
 Set a cron job up on your host machine, calling the `actualize_script.php` inside the FreshRSS Docker instance.
+Remember not pass the `CRON_MIN` environment variable to your Docker run, to avoid running the built-in cron daemon of option 1.
 
 Example on Debian / Ubuntu: Create `/etc/cron.d/FreshRSS` with:
 
@@ -121,7 +122,7 @@ Example on Debian / Ubuntu: Create `/etc/cron.d/FreshRSS` with:
 7,37 * * * * root docker exec --user apache -it freshrss php ./app/actualize_script.php > /tmp/FreshRSS.log 2>&1
 ```
 
-### 3) Cron as another instance of the same FreshRSS Docker image
+### Option 3) Cron as another instance of the same FreshRSS Docker image
 For advanced users. Offers good logging and monitoring with auto-restart on failure.
 Watch out to use the same run parameters than in your main FreshRSS instance, for database, networking, and file system.
 See cron option 1 for customising the cron schedule.
@@ -130,7 +131,8 @@ See cron option 1 for customising the cron schedule.
 sudo docker run -dit --restart unless-stopped --log-opt max-size=10m \
 	-v $(pwd)/data:/var/www/FreshRSS/data \
 	-e 'CRON_MIN=17,37' \
-	--name freshrss_cron freshrss/freshrss crond -f -d 6
+	--name freshrss_cron freshrss/freshrss \
+	crond -f -d 6
 ```
 
 
