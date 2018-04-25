@@ -35,7 +35,7 @@ cd ./FreshRSS/
 # The data will be saved on the host in `./data/`
 mkdir -p ./data/
 
-sudo docker run -dit --restart unless-stopped --log-opt max-size=10m \
+sudo docker run -d --restart unless-stopped --log-opt max-size=10m \
 	-v $(pwd)/data:/var/www/FreshRSS/data \
 	-e 'CRON_MIN=5,35' \
 	-p 8080:80 \
@@ -51,7 +51,7 @@ See https://hub.docker.com/_/mysql/
 
 ```sh
 sudo docker run -d -v /path/to/mysql-data:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=rootpass -e MYSQL_DATABASE=freshrss -e MYSQL_USER=freshrss -e MYSQL_PASSWORD=pass --name mysql mysql
-sudo docker run -dit --restart unless-stopped --log-opt max-size=10m \
+sudo docker run -d --restart unless-stopped --log-opt max-size=10m \
 	-v $(pwd)/data:/var/www/FreshRSS/data \
 	-e 'CRON_MIN=17,47' \
 	--link mysql -p 8080:80 \
@@ -63,7 +63,7 @@ See https://hub.docker.com/_/postgres/
 
 ```sh
 sudo docker run -d -v /path/to/pgsql-data:/var/lib/postgresql/data -e POSTGRES_DB=freshrss -e POSTGRES_USER=freshrss -e POSTGRES_PASSWORD=pass --name postgres postgres
-sudo docker run -dit --restart unless-stopped --log-opt max-size=10m \
+sudo docker run -d --restart unless-stopped --log-opt max-size=10m \
 	-v $(pwd)/data:/var/www/FreshRSS/data \
 	-e 'CRON_MIN=23,53' \
 	--link postgres -p 8080:80 \
@@ -104,7 +104,7 @@ containing a valid cron minute definition such as `'13,43'` (recommended) or `'*
 Not passing the `CRON_MIN` environment variable – or setting it to empty string – will disable the cron daemon.
 
 ```sh
-sudo docker run -dit --restart unless-stopped --log-opt max-size=10m \
+sudo docker run -d --restart unless-stopped --log-opt max-size=10m \
 	-v $(pwd)/data:/var/www/FreshRSS/data \
 	-e 'CRON_MIN=13,43' \
 	-p 8080:80 \
@@ -128,7 +128,7 @@ Watch out to use the same run parameters than in your main FreshRSS instance, fo
 See cron option 1 for customising the cron schedule.
 
 ```sh
-sudo docker run -dit --restart unless-stopped --log-opt max-size=10m \
+sudo docker run -d --restart unless-stopped --log-opt max-size=10m \
 	-v $(pwd)/data:/var/www/FreshRSS/data \
 	-e 'CRON_MIN=17,37' \
 	--name freshrss_cron freshrss/freshrss \
