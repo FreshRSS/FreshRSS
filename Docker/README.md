@@ -130,7 +130,6 @@ See cron option 1 for customising the cron schedule.
 sudo docker run -dit --restart unless-stopped --log-opt max-size=10m \
 	-v $(pwd)/data:/var/www/FreshRSS/data \
 	-e 'CRON_MIN=17,37' \
-	-p 8080:80 \
 	--name freshrss_cron freshrss/freshrss crond -f -d 6
 ```
 
