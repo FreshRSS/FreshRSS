@@ -15,8 +15,9 @@ WORKDIR ${FRESHRSS_ROOT}
 COPY . ${FRESHRSS_ROOT}
 COPY ./Docker/*.Apache.conf /etc/apache2/conf.d/
 
-RUN echo "17,37 * * * * php ${FRESHRSS_ROOT}/app/actualize_script.php 2>&1 | tee /tmp/FreshRSS.log" >> \
-	/var/spool/cron/crontabs/root
+RUN sed -r -i "/^[ ]*(CustomLog|ErrorLog|Listen) /s/^/#/" /etc/apache2/httpd.conf && \
+	echo "17,37 * * * * php ${FRESHRSS_ROOT}/app/actualize_script.php 2>&1 | tee /tmp/FreshRSS.log" >> \
+		/var/spool/cron/crontabs/root
 
 ENV CRON_MIN ''
 ENTRYPOINT ["./Docker/entrypoint.sh"]
