@@ -2,8 +2,22 @@
 
 ## 2018-0X-XX FreshRSS 1.10.3-dev
 
+* Features
+	* Light Boolean search implementation [879](https://github.com/FreshRSS/FreshRSS/issues/879)
+		* All parts are implicitly `AND` (which must not be written), except if `OR` is stated.
+		* No use of parentheses. Support for quotes to disable the Boolean search, like `"This or that"`.
+		* Example: `Hello intitle:World OR date:P1D example OR author:Else intitle:"This or that"`
+* Deployment
+	* Includes an optional cron daemon in Docker to refresh feeds automatically [#1869](https://github.com/FreshRSS/FreshRSS/issues/1869)
+* Bug fixing
+	* Fix muted feeds that were not actually muted [#1844](https://github.com/FreshRSS/FreshRSS/issues/1844)
+	* Fix errors in case of empty/wrong username when updating user settings [#1857](https://github.com/FreshRSS/FreshRSS/pull/1857)
+	* Fixes in subscription menu [#1858](https://github.com/FreshRSS/FreshRSS/pull/1858)
 * UI
 	* Add tooltips on user queries [#1823](https://github.com/FreshRSS/FreshRSS/pull/1823)
+* I18n
+	* Improve i18n tools [#1829](https://github.com/FreshRSS/FreshRSS/pull/1829)
+	* Updated German [#1856](https://github.com/FreshRSS/FreshRSS/pull/1856)
 * Misc.
 	* Add error log information when SQLite has not enough temp space [#1816](https://github.com/FreshRSS/FreshRSS/issues/1816)
 
