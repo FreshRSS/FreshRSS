@@ -61,6 +61,7 @@ semanage fcontext -a -t httpd_sys_rw_content_t '/usr/share/FreshRSS/data'
 semanage fcontext -a -t httpd_sys_rw_content_t '/usr/share/FreshRSS/data/cache'
 semanage fcontext -a -t httpd_sys_rw_content_t '/usr/share/FreshRSS/data/users'
 semanage fcontext -a -t httpd_sys_rw_content_t '/usr/share/FreshRSS/data/favicons'
+semanage fcontext -a -t httpd_sys_rw_content_t '/usr/share/FreshRSS/data/PubSubHubbub'
 
 restorecon -Rv /usr/share/FreshRSS/data
 ```
