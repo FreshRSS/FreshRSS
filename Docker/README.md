@@ -36,10 +36,10 @@ cd ./FreshRSS/
 mkdir -p ./data/
 
 sudo docker run -d --restart unless-stopped --log-opt max-size=10m \
-	-v $(pwd)/data:/var/www/FreshRSS/data \
-	-e 'CRON_MIN=5,35' \
-	-p 8080:80 \
-	--name freshrss freshrss/freshrss
+  -v $(pwd)/data:/var/www/FreshRSS/data \
+  -e 'CRON_MIN=5,35' \
+  -p 8080:80 \
+  --name freshrss freshrss/freshrss
 ```
 
 ### Examples with external databases
@@ -52,10 +52,10 @@ See https://hub.docker.com/_/mysql/
 ```sh
 sudo docker run -d -v /path/to/mysql-data:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=rootpass -e MYSQL_DATABASE=freshrss -e MYSQL_USER=freshrss -e MYSQL_PASSWORD=pass --name mysql mysql
 sudo docker run -d --restart unless-stopped --log-opt max-size=10m \
-	-v $(pwd)/data:/var/www/FreshRSS/data \
-	-e 'CRON_MIN=17,47' \
-	--link mysql -p 8080:80 \
-	--name freshrss freshrss/freshrss
+  -v $(pwd)/data:/var/www/FreshRSS/data \
+  -e 'CRON_MIN=17,47' \
+  --link mysql -p 8080:80 \
+  --name freshrss freshrss/freshrss
 ```
 
 #### PostgreSQL
@@ -64,10 +64,10 @@ See https://hub.docker.com/_/postgres/
 ```sh
 sudo docker run -d -v /path/to/pgsql-data:/var/lib/postgresql/data -e POSTGRES_DB=freshrss -e POSTGRES_USER=freshrss -e POSTGRES_PASSWORD=pass --name postgres postgres
 sudo docker run -d --restart unless-stopped --log-opt max-size=10m \
-	-v $(pwd)/data:/var/www/FreshRSS/data \
-	-e 'CRON_MIN=23,53' \
-	--link postgres -p 8080:80 \
-	--name freshrss freshrss/freshrss
+  -v $(pwd)/data:/var/www/FreshRSS/data \
+  -e 'CRON_MIN=23,53' \
+  --link postgres -p 8080:80 \
+  --name freshrss freshrss/freshrss
 ```
 
 ## Update
@@ -105,10 +105,10 @@ Not passing the `CRON_MIN` environment variable – or setting it to empty strin
 
 ```sh
 sudo docker run -d --restart unless-stopped --log-opt max-size=10m \
-	-v $(pwd)/data:/var/www/FreshRSS/data \
-	-e 'CRON_MIN=13,43' \
-	-p 8080:80 \
-	--name freshrss freshrss/freshrss
+  -v $(pwd)/data:/var/www/FreshRSS/data \
+  -e 'CRON_MIN=13,43' \
+  -p 8080:80 \
+  --name freshrss freshrss/freshrss
 ```
 
 ### Option 2) Cron on the host machine
@@ -129,10 +129,10 @@ See cron option 1 for customising the cron schedule.
 
 ```sh
 sudo docker run -d --restart unless-stopped --log-opt max-size=10m \
-	-v $(pwd)/data:/var/www/FreshRSS/data \
-	-e 'CRON_MIN=17,37' \
-	--name freshrss_cron freshrss/freshrss \
-	crond -f -d 6
+  -v $(pwd)/data:/var/www/FreshRSS/data \
+  -e 'CRON_MIN=17,37' \
+  --name freshrss_cron freshrss/freshrss \
+  crond -f -d 6
 ```
 
 
