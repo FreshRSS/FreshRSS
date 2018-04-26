@@ -15,8 +15,12 @@ WORKDIR ${FRESHRSS_ROOT}
 COPY . ${FRESHRSS_ROOT}
 COPY ./Docker/*.Apache.conf /etc/apache2/conf.d/
 
+RUN echo "17,37 * * * * php ${FRESHRSS_ROOT}/app/actualize_script.php 2>&1 | tee /tmp/FreshRSS.log" >> \
+	/var/spool/cron/crontabs/root
+
+ENV CRON_MIN ''
+ENTRYPOINT ["./Docker/entrypoint.sh"]
+
 EXPOSE 80
-CMD php -f ./cli/prepare.php > /dev/null && \
-	chown -R :www-data ${FRESHRSS_ROOT} && \
-	chmod -R g+r ${FRESHRSS_ROOT} && chmod -R g+w ${FRESHRSS_ROOT}/data/ && \
+CMD ([ -z "$CRON_MIN" ] || crond -d 6) && \
 	exec httpd -D FOREGROUND
