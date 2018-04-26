@@ -371,11 +371,11 @@ class FreshRSS_Feed extends Minz_Model {
 		$this->entries = $entries;
 	}
 
-	function cacheModifiedTime() {
+	public function cacheModifiedTime() {
 		return @filemtime(CACHE_PATH . '/' . md5($this->url) . '.spc');
 	}
 
-	function lock() {
+	public function lock() {
 		$this->lockPath = TMP_PATH . '/' . $this->hash() . '.freshrss.lock';
 		if (file_exists($this->lockPath) && ((time() - @filemtime($this->lockPath)) > 3600)) {
 			@unlink($this->lockPath);
@@ -388,13 +388,13 @@ class FreshRSS_Feed extends Minz_Model {
 		return true;
 	}
 
-	function unlock() {
+	public function unlock() {
 		@unlink($this->lockPath);
 	}
 
 	//<PubSubHubbub>
 
-	function pubSubHubbubEnabled() {
+	public function pubSubHubbubEnabled() {
 		$url = $this->selfUrl ? $this->selfUrl : $this->url;
 		$hubFilename = PSHB_PATH . '/feeds/' . base64url_encode($url) . '/!hub.json';
 		if ($hubFile = @file_get_contents($hubFilename)) {
@@ -407,7 +407,7 @@ class FreshRSS_Feed extends Minz_Model {
 		return false;
 	}
 
-	function pubSubHubbubError($error = true) {
+	public function pubSubHubbubError($error = true) {
 		$url = $this->selfUrl ? $this->selfUrl : $this->url;
 		$hubFilename = PSHB_PATH . '/feeds/' . base64url_encode($url) . '/!hub.json';
 		$hubFile = @file_get_contents($hubFilename);
@@ -420,7 +420,7 @@ class FreshRSS_Feed extends Minz_Model {
 		return false;
 	}
 
-	function pubSubHubbubPrepare() {
+	public function pubSubHubbubPrepare() {
 		$key = '';
 		if (FreshRSS_Context::$system_conf->base_url && $this->hubUrl && $this->selfUrl && @is_dir(PSHB_PATH)) {
 			$path = PSHB_PATH . '/feeds/' . base64url_encode($this->selfUrl);
@@ -467,7 +467,7 @@ class FreshRSS_Feed extends Minz_Model {
 	}
 
 	//Parameter true to subscribe, false to unsubscribe.
-	function pubSubHubbubSubscribe($state) {
+	public function pubSubHubbubSubscribe($state) {
 		$url = $this->selfUrl ? $this->selfUrl : $this->url;
 		if (FreshRSS_Context::$system_conf->base_url && $url) {
 			$hubFilename = PSHB_PATH . '/feeds/' . base64url_encode($url) . '/!hub.json';
