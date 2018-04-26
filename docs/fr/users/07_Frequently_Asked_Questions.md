@@ -47,25 +47,7 @@ Pour plus d'information à ce sujet, il existe la [documentation dédiée](../..
 
 ## Gérer les permissions sous SELinux
 
-Certaines distributions Linux comme Fedora ou RedHat Enterprise Linux (RHEL) activent par défaut le système SELinux. Celui-ci permet de gérer des permissions au niveau des processus. Lors de l'installation de FreshRSS, l'étape 2 procède à la vérification des droits sur certains répertoires:
-
- - FreshRSS/data
- - FreshRSS/data/cache
- - FreshRSS/data/favicons
- - FreshRSS/data/users
-
-Il faut donc exécuter les commandes suivantes en tant que root :
-```sh
-semanage fcontext -a -t httpd_sys_rw_content_t '/usr/share/FreshRSS/data'
-semanage fcontext -a -t httpd_sys_rw_content_t '/usr/share/FreshRSS/data/cache'
-semanage fcontext -a -t httpd_sys_rw_content_t '/usr/share/FreshRSS/data/users'
-semanage fcontext -a -t httpd_sys_rw_content_t '/usr/share/FreshRSS/data/favicons'
-semanage fcontext -a -t httpd_sys_rw_content_t '/usr/share/FreshRSS/data/PubSubHubbub'
-
-restorecon -Rv /usr/share/FreshRSS/data
-```
-
-Si les droits doivent s'appliquer à tous les sous-répertoires de data et data lui-même, exécuter les commandes suivantes:
+Certaines distributions Linux comme Fedora ou RedHat Enterprise Linux (RHEL) activent par défaut le système SELinux. Celui-ci permet de gérer des permissions au niveau des processus. Lors de l'installation de FreshRSS, l'étape 2 procède à la vérification des droits sur certains répertoires, il faut donc exécuter la commande suivante en tant que root:
 ```sh
 semanage fcontext -a -t httpd_sys_rw_content_t '/usr/share/FreshRSS/data(/.*)?'
 restorecon -Rv /usr/share/FreshRSS/data
