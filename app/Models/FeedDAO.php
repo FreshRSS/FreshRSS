@@ -4,25 +4,20 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 
 	protected function addColumn($name) {
 		Minz_Log::warning('FreshRSS_FeedDAO::addColumn: ' . $name);
-		$hasTransaction = false;
 		try {
-			$stm = null;
 			if ($name === 'attributes') {	//v1.11.0
 				$stm = $this->bd->prepare('ALTER TABLE `' . $this->prefix . 'entry` ADD COLUMN attributes TEXT');
 				return $stm && $stm->execute();
 			}
 		} catch (Exception $e) {
 			Minz_Log::error('FreshRSS_FeedDAO::addColumn error: ' . $e->getMessage());
-			if ($hasTransaction) {
-				$this->bd->rollBack();
-			}
 		}
 		return false;
 	}
 
 	protected function autoUpdateDb($errorInfo) {
 		if (isset($errorInfo[0])) {
-			if ($errorInfo[0] === '42S22') {	//ER_BAD_FIELD_ERROR
+			if ($errorInfo[0] === '42S22' || $errorInfo[0] === '42703') {	//ER_BAD_FIELD_ERROR (Mysql), undefined_column (PostgreSQL)
 				foreach (array('attributes') as $column) {
 					if (stripos($errorInfo[2], $column) !== false) {
 						return $this->addColumn($column);
@@ -74,6 +69,9 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 			return $this->bd->lastInsertId('"' . $this->prefix . 'feed_id_seq"');
 		} else {
 			$info = $stm == null ? array(2 => 'syntax error') : $stm->errorInfo();
+			if ($this->autoUpdateDb($info)) {
+				return $this->addFeed($valuesTmp);
+			}
 			Minz_Log::error('SQL error addFeed: ' . $info[2]);
 			return false;
 		}
@@ -122,9 +120,9 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 		foreach ($valuesTmp as $key => $v) {
 			$set .= '`' . $key . '`=?, ';
 
-			if ($key == 'httpAuth') {
+			if ($key === 'httpAuth') {
 				$valuesTmp[$key] = base64_encode($v);
-			} elseif ($key == 'attributes') {
+			} elseif ($key === 'attributes') {
 				$valuesTmp[$key] = json_encode($v);
 			}
 		}
@@ -142,9 +140,23 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 			return $stm->rowCount();
 		} else {
 			$info = $stm == null ? array(2 => 'syntax error') : $stm->errorInfo();
+			if ($this->autoUpdateDb($info)) {
+				return $this->updateFeed($id, $valuesTmp);
+			}
 			Minz_Log::error('SQL error updateFeed: ' . $info[2] . ' for feed ' . $id);
 			return false;
 		}
+	}
+
+	public function updateFeedAttribute($feed, $key, $value) {
+		if ($feed instanceof FreshRSS_Feed) {
+			$feed->_attributes($key, $value);
+			return $this->updateFeed(
+					$feed->id(),
+					array('attributes' => $feed->attributes())
+				);
+		}
+		return false;
 	}
 
 	public function updateLastUpdate($id, $inError = false, $mtime = 0) {	//See also updateCachedValue()
@@ -295,9 +307,16 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 		     . ' AND `lastUpdate` < (' . (time() + 60) . '-(CASE WHEN ttl=' . FreshRSS_Feed::TTL_DEFAULT . ' THEN ' . intval($defaultCacheDuration) . ' ELSE ttl END)) ')
 		     . 'ORDER BY `lastUpdate`';
 		$stm = $this->bd->prepare($sql);
-		$stm->execute();
-
-		return self::daoToFeed($stm->fetchAll(PDO::FETCH_ASSOC));
+		if ($stm && $stm->execute()) {
+			return self::daoToFeed($stm->fetchAll(PDO::FETCH_ASSOC));
+		} else {
+			$info = $stm == null ? array(0 => '', 1 => '', 2 => 'syntax error') : $stm->errorInfo();
+			if ($this->autoUpdateDb($info)) {
+				return $this->listFeedsOrderUpdate($defaultCacheDuration);
+			}
+			Minz_Log::error('SQL error listFeedsOrderUpdate: ' . $info[2]);
+			return array();
+		}
 	}
 
 	public function listByCategory($cat) {
@@ -422,7 +441,7 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 			$myFeed->_error(isset($dao['error']) ? $dao['error'] : 0);
 			$myFeed->_keepHistory(isset($dao['keep_history']) ? $dao['keep_history'] : FreshRSS_Feed::KEEP_HISTORY_DEFAULT);
 			$myFeed->_ttl(isset($dao['ttl']) ? $dao['ttl'] : FreshRSS_Feed::TTL_DEFAULT);
-			$myFeed->_attributes(isset($dao['attributes']) ? $dao['attributes'] : '');
+			$myFeed->_attributes('', isset($dao['attributes']) ? $dao['attributes'] : '');
 			$myFeed->_nbNotRead(isset($dao['cache_nbUnreads']) ? $dao['cache_nbUnreads'] : 0);
 			$myFeed->_nbEntries(isset($dao['cache_nbEntries']) ? $dao['cache_nbEntries'] : 0);
 			if (isset($dao['id'])) {

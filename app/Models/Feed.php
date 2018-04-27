@@ -242,16 +242,22 @@ class FreshRSS_Feed extends Minz_Model {
 		$this->ttl = abs($value);
 		$this->mute = $value < self::TTL_DEFAULT;
 	}
-	public function _attributes($value) {
-		if (is_string($value)) {
-			$value = json_decode($value, true);
-		}
-		if (is_array($value)) {
-			$this->attributes = $value;
+
+	public function _attributes($key, $value) {
+		if ($key == '') {
+			if (is_string($value)) {
+				$value = json_decode($value, true);
+			}
+			if (is_array($value)) {
+				$this->attributes = $value;
+			}
+		} elseif ($value === null) {
+			unset($this->attributes[$key]);
 		} else {
-			$this->attributes = array();
+			$this->attributes[$key] = $value;
 		}
 	}
+
 	public function _nbNotRead($value) {
 		$this->nbNotRead = intval($value);
 	}
