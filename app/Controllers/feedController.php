@@ -285,10 +285,10 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 			}
 
 			$mtime = 0;
-			$ttl = $feed->ttl();
-			if ($ttl < FreshRSS_Feed::TTL_DEFAULT) {
+			if ($feed->mute()) {
 				continue;	//Feed refresh is disabled
 			}
+			$ttl = $feed->ttl();
 			if ((!$simplePiePush) && (!$feed_id) &&
 				($feed->lastUpdate() + 10 >= time() - ($ttl == FreshRSS_Feed::TTL_DEFAULT ? FreshRSS_Context::$user_conf->ttl_default : $ttl))) {
 				//Too early to refresh from source, but check whether the feed was updated by another user
