@@ -6,7 +6,7 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 		Minz_Log::warning('FreshRSS_FeedDAO::addColumn: ' . $name);
 		try {
 			if ($name === 'attributes') {	//v1.11.0
-				$stm = $this->bd->prepare('ALTER TABLE `' . $this->prefix . 'entry` ADD COLUMN attributes TEXT');
+				$stm = $this->bd->prepare('ALTER TABLE `' . $this->prefix . 'feed` ADD COLUMN attributes TEXT');
 				return $stm && $stm->execute();
 			}
 		} catch (Exception $e) {
