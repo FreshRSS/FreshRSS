@@ -44,8 +44,10 @@ return array(
 			'main_stream' => 'הצגה בזרם המרכזי',
 			'normal' => 'Show in its category', // TODO
 		),
+		'ssl_verify' => 'Verify SSL security',	//TODO
 		'stats' => 'סטטיסטיקות',
 		'think_to_add' => 'ניתן להוסיף הזנות חדשות.',
+		'timeout' => 'Timeout in seconds',	//TODO
 		'title' => 'כותרת',
 		'title_add' => 'הוספת הזנה',
 		'ttl' => 'אין לרענן אוטומטית יותר מ',

@@ -45,8 +45,10 @@ return array(
 			'normal' => 'Show in its category', // TODO
 		),
 		'pubsubhubbub' => 'Directe notificaties met PubSubHubbub',
+		'ssl_verify' => 'Verify SSL security',	//TODO
 		'stats' => 'Statistieken',
 		'think_to_add' => 'Voeg wat feeds toe.',
+		'timeout' => 'Timeout in seconds',	//TODO
 		'title' => 'Titel',
 		'title_add' => 'Voeg een RSS feed toe',
 		'ttl' => 'Vernieuw automatisch niet vaker dan',

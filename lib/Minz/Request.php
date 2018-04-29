@@ -39,6 +39,19 @@ class Minz_Request {
 			return $default;
 		}
 	}
+	public static function paramTernary($key) {
+		if (isset(self::$params[$key])) {
+			$p = self::$params[$key];
+			$tp = trim($p);
+			if ($p === null || $tp === '' || $tp === 'null') {
+				return null;
+			} elseif ($p == false || $tp == '0' || $tp === 'false' || $tp === 'no') {
+				return false;
+			}
+			return true;
+		}
+		return null;
+	}
 	public static function defaultControllerName() {
 		return self::$default_controller_name;
 	}

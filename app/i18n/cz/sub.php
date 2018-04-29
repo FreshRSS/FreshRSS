@@ -44,8 +44,10 @@ return array(
 			'main_stream' => 'Zobrazit ve “Všechny kanály”',
 			'normal' => 'Show in its category', // TODO
 		),
+		'ssl_verify' => 'Verify SSL security',	//TODO
 		'stats' => 'Statistika',
 		'think_to_add' => 'Můžete přidat kanály.',
+		'timeout' => 'Timeout in seconds',	//TODO
 		'title' => 'Název',
 		'title_add' => 'Přidat RSS kanál',
 		'ttl' => 'Neobnovovat častěji než',

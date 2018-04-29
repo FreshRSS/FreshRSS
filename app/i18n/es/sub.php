@@ -39,8 +39,10 @@ return array(
 			'main_stream' => 'Mostrar en salida principal',
 			'normal' => 'Show in its category', // TODO
 		),
+		'ssl_verify' => 'Verify SSL security',	//TODO
 		'stats' => 'Estadísticas',
 		'think_to_add' => 'Puedes añadir fuentes.',
+		'timeout' => 'Timeout in seconds',	//TODO
 		'title' => 'Título',
 		'title_add' => 'Añadir fuente RSS',
 		'ttl' => 'No actualizar de forma automática con una frecuencia mayor a',
