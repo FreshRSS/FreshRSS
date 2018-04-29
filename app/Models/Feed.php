@@ -23,6 +23,7 @@ class FreshRSS_Feed extends Minz_Model {
 	private $priority = self::PRIORITY_MAIN_STREAM;
 	private $pathEntries = '';
 	private $httpAuth = '';
+        private $tolerateInvalidSSLCertificate = false;
 	private $error = false;
 	private $keep_history = self::KEEP_HISTORY_DEFAULT;
 	private $ttl = self::TTL_DEFAULT;
@@ -105,6 +106,9 @@ class FreshRSS_Feed extends Minz_Model {
 			);
 		}
 	}
+        public function tolerateInvalidSSLCertificate() {
+                return $this->tolerateInvalidSSLCertificate;
+        }
 	public function inError() {
 		return $this->error;
 	}
@@ -219,6 +223,9 @@ class FreshRSS_Feed extends Minz_Model {
 	public function _httpAuth($value) {
 		$this->httpAuth = $value;
 	}
+        public function _tolerateInvalidSSLCertificate($value) {
+                $this->tolerateInvalidSSLCertificate = (bool)$value;
+        }
 	public function _error($value) {
 		$this->error = (bool)$value;
 	}
@@ -253,7 +260,17 @@ class FreshRSS_Feed extends Minz_Model {
 				if ($this->httpAuth != '') {
 					$url = preg_replace('#((.+)://)(.+)#', '${1}' . $this->httpAuth . '@${3}', $url);
 				}
-				$feed = customSimplePie();
+                                
+                                $feed = customSimplePie();
+                                if ($this->tolerateInvalidSSLCertificate()) {
+                                        // TODO: merge with default curl options
+                                        $curl_options = array(
+                                            CURLOPT_SSL_VERIFYHOST => 0,
+                                            CURLOPT_SSL_VERIFYPEER => false,
+                                        );
+                                        $feed->set_curl_options($curl_options);
+                                }
+
 				if (substr($url, -11) === '#force_feed') {
 					$feed->force_feed(true);
 					$url = substr($url, 0, -11);

@@ -21,6 +21,7 @@ CREATE TABLE IF NOT EXISTS `%1$sfeed` (
 	`priority` tinyint(2) NOT NULL DEFAULT 10,
 	`pathEntries` varchar(511) DEFAULT NULL,
 	`httpAuth` varchar(511) DEFAULT NULL,
+	`tolerateInvalidSSLCertificate` boolean DEFAULT 0,
 	`error` boolean DEFAULT 0,
 	`keep_history` MEDIUMINT NOT NULL DEFAULT -2,	-- v0.7
 	`ttl` INT NOT NULL DEFAULT 0,	-- v0.7.3

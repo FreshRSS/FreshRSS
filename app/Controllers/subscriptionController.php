@@ -56,6 +56,7 @@ class FreshRSS_subscription_Controller extends Minz_ActionController {
 	 *   - CSS path to article on website
 	 *   - display in main stream (default: 0)
 	 *   - HTTP authentication
+         *   - Tolerate invalid SSL certificate (default: false)
 	 *   - number of article to retain (default: -2)
 	 *   - refresh frequency (default: 0)
 	 * Default values are empty strings unless specified.
@@ -104,6 +105,7 @@ class FreshRSS_subscription_Controller extends Minz_ActionController {
 				'pathEntries' => Minz_Request::param('path_entries', ''),
 				'priority' => intval(Minz_Request::param('priority', FreshRSS_Feed::PRIORITY_MAIN_STREAM)),
 				'httpAuth' => $httpAuth,
+				'tolerateInvalidSSLCertificate' => Minz_Request::param('tolerate_invalid_ssl_certificate', 0),
 				'keep_history' => intval(Minz_Request::param('keep_history', FreshRSS_Feed::KEEP_HISTORY_DEFAULT)),
 				'ttl' => $ttl * ($mute ? -1 : 1),
 			);

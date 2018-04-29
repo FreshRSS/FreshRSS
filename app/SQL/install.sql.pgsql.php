@@ -19,6 +19,7 @@ $SQL_CREATE_TABLES = array(
 	"priority" SMALLINT NOT NULL DEFAULT 10,
 	"pathEntries" VARCHAR(511) DEFAULT NULL,
 	"httpAuth" VARCHAR(511) DEFAULT NULL,
+	"tolerateInvalidSSLCertificate" smallint DEFAULT 0,
 	"error" smallint DEFAULT 0,
 	"keep_history" INT NOT NULL DEFAULT -2,
 	"ttl" INT NOT NULL DEFAULT 0,
