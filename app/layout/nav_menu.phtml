@@ -138,7 +138,7 @@
 		/** @var FreshRSS_ReadingMode $mode */
 		foreach ($readingModes as $mode) {
 			?>
-			<a class="view_normal btn <?php if ($mode->isActive()) { echo 'active'; } ?>" title="<?php echo $mode->getTitle(); ?>" href="<?php echo Minz_Url::display($mode->getUrlParams()); ?>">
+			<a class="<?php echo $mode->getId(); ?> btn <?php if ($mode->isActive()) { echo 'active'; } ?>" title="<?php echo $mode->getTitle(); ?>" href="<?php echo Minz_Url::display($mode->getUrlParams()); ?>">
 				<?php echo $mode->getName(); ?>
 			</a>
 			<?php
@@ -155,7 +155,7 @@
 				$url_output['params']['hours'] = FreshRSS_Context::$user_conf->since_hours_posts_per_rss;
 			}
 		?>
-		<a class="view_rss btn" target="_blank" rel="noreferrer" title="<?php echo _t('index.menu.rss_view'); ?>" href="<?php echo Minz_Url::display($url_output); ?>">
+		<a class="view-rss btn" target="_blank" rel="noreferrer" title="<?php echo _t('index.menu.rss_view'); ?>" href="<?php echo Minz_Url::display($url_output); ?>">
 			<?php echo _i('rss'); ?>
 		</a>
 	</div>

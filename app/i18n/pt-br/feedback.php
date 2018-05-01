@@ -101,6 +101,10 @@ return array(
 			'_' => 'Usuário %s foi deletado',
 			'error' => 'Usuário %s não pode ser deletado',
 		),
+		'updated' => array(
+			'_' => 'User %s has been updated', // TODO
+			'error' => 'User %s has not been updated', // TODO
+		),
 	),
 	'profile' => array(
 		'error' => 'Your profile cannot be modified',

@@ -18,11 +18,25 @@ if (!empty($this->entries)) {
 				<?php
 					$feed = FreshRSS_CategoryDAO::findFeed($this->categories, $item->feed());	//We most likely already have the feed object in cache
 					if (empty($feed)) $feed = $item->feed(true);
+					$favoriteUrl = array('c' => 'entry', 'a' => 'bookmark', 'params' => array('id' => $item->id()));
+					if ($item->isFavorite()) {
+						$favoriteUrl['params']['is_favorite'] = 0;
+					}
+					$readUrl = array('c' => 'entry', 'a' => 'read', 'params' => array('id' => $item->id()));
+					if ($item->isRead()) {
+						$readUrl['params']['is_read'] = 0;
+					}
 				?>
-				<a target="_blank" rel="noreferrer" class="go_website" href="<?php echo $item->link(); ?>">
+				<a class="read" href="<?php echo Minz_Url::display($readUrl); ?>">
+					<?php echo _i($item->isRead() ? 'read' : 'unread'); ?>
+				</a>
+				<a class="bookmark" href="<?php echo Minz_Url::display($favoriteUrl); ?>">
+					<?php echo _i($item->isFavorite() ? 'starred' : 'non-starred'); ?>
+				</a>
+				<a href="<?php echo _url('index', 'reader', 'get', 'f_' . $feed->id()); ?>">
 					<img class="favicon" src="<?php echo $feed->favicon(); ?>" alt="✇" /> <span><?php echo $feed->name(); ?></span>
 				</a>
-				<h1 class="title"><?php echo $item->title(); ?></h1>
+				<h1 class="title"><a target="_blank" rel="noreferrer" class="go_website" href="<?php echo $item->link(); ?>"><?php echo $item->title(); ?></a></h1>
 
 				<div class="author"><?php
 					$author = $item->author();

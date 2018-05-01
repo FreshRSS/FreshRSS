@@ -37,10 +37,12 @@ return array(
 			'no_limit' => 'Geen limiet',
 			'thin' => 'Smal',
 		),
+		'show_nav_buttons' => 'Show the navigation buttons',	//TODO
 	),
 	'query' => array(
 		'_' => 'Gebruikers queries (informatie aanvragen)',
 		'deprecated' => 'Deze query (informatie aanvraag) is niet langer geldig. De bedoelde categorie of feed is al verwijderd.',
+		'display' => 'Display user query results', // TODO
 		'filter' => 'Filter toegepast:',
 		'get_all' => 'Toon alle artikelen',
 		'get_category' => 'Toon "%s" categorie',
@@ -51,6 +53,7 @@ return array(
 		'number' => 'Query n°%d',
 		'order_asc' => 'Toon oudste artikelen eerst',
 		'order_desc' => 'Toon nieuwste artikelen eerst',
+		'remove' => 'Remove user query', // TODO
 		'search' => 'Zoek naar "%s"',
 		'state_0' => 'Toon alle artikelen',
 		'state_1' => 'Toon gelezen artikelen',
@@ -125,6 +128,7 @@ return array(
 	),
 	'sharing' => array(
 		'_' => 'Delen',
+		'add' => 'Add a sharing method', // TODO
 		'blogotext' => 'Blogotext',
 		'diaspora' => 'Diaspora*',
 		'email' => 'Email',
@@ -132,6 +136,7 @@ return array(
 		'g+' => 'Google+',
 		'more_information' => 'Meer informatie',
 		'print' => 'Afdrukken',
+		'remove' => 'Remove sharing method', // TODO
 		'shaarli' => 'Shaarli',
 		'share_name' => 'Gedeelde naam om weer te geven',
 		'share_url' => 'Deel URL voor gebruik',

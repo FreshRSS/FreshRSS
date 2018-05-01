@@ -112,13 +112,13 @@ return array(
 		),
 		'title' => '扩展',
 		'user' => '用户扩展',
-		'community' => 'Available community extensions', // @todo translate
-		'name' => 'Name', // @todo translate
-		'version' => 'Version', // @todo translate
-		'description' => 'Description', // @todo translate
-		'author' => 'Author', // @todo translate
-		'latest' => 'Installed', // @todo translate
-		'update' => 'Update available', // @todo translate
+		'community' => '可用的社区扩展',
+		'name' => '名称',
+		'version' => '版本',
+		'description' => '描述',
+		'author' => '作者',
+		'latest' => '已安装',
+		'update' => '更新可用',
 	),
 	'stats' => array(
 		'_' => '统计',
@@ -175,12 +175,15 @@ return array(
 	'user' => array(
 		'articles_and_size' => '%s 篇文章 (%s)',
 		'create' => '创建新用户',
+		'delete_users' => 'Delete user', // TODO
 		'language' => '语言',
 		'number' => '已有 %d 个帐户',
 		'numbers' => '已有 %d 个帐户',
 		'password_form' => '密码<br /><small>(用于 Web-form 登录方式)</small>',
 		'password_format' => '至少 7 个字符',
+		'selected' => 'Selected user', // TODO
 		'title' => '用户管理',
+		'update_users' => 'Update user', // TODO
 		'user_list' => '用户列表',
 		'username' => '用户名',
 		'users' => '用户',

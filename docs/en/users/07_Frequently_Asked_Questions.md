@@ -33,3 +33,22 @@ Here is a list of feeds which don't work:
 * http://foulab.org/fr/rss/Foulab_News: is not a W3C valid feed (November 2014)
 * http://eu.battle.net/hearthstone/fr/feed/news: is not a W3C valid feed (Novembre 2014)
 * http://webseriesmag.blogs.liberation.fr/we/atom.xml: is not working for the user but succeed on all the described validations (November 2014)
+
+## How to change a forgotten password?
+
+Since [1.10.0](https://github.com/FreshRSS/FreshRSS/releases/tag/1.10.0) release, admins are able to change user passwords directly from the interface. This interface is available under  ```Administration → Manage users```.
+Select a user, enter a password, and validate.
+
+Since [1.8.0](https://github.com/FreshRSS/FreshRSS/releases/tag/1.8.0) release, admins are able to change user passwords using a terminal. It worth mentioning that it must have access to PHP CLI. Open a terminal, and type the following command:
+```sh
+./cli/update_user.php --user <username> --password <password>
+```
+For more information on that matter, there is a [dedicated documentation](../../cli/README.md).
+
+## Permissions under SELinux
+
+Some Linux distribution like Fedora or RedHat Enterprise Linux have SELinux system enabled. This acts like a firewall application, so all applications cannot write/modify files under certain conditions. While installing FreshRSS, step 2 can fail if the httpd process cannot write to some data sub-directories, the following command should be executed as root : 
+```sh
+semanage fcontext -a -t httpd_sys_rw_content_t '/usr/share/FreshRSS/data(/.*)?'
+restorecon -Rv /usr/share/FreshRSS/data
+```

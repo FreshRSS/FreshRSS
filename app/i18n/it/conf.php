@@ -37,10 +37,12 @@ return array(
 			'no_limit' => 'Nessun limite',
 			'thin' => 'Stretto',
 		),
+		'show_nav_buttons' => 'Show the navigation buttons',	//TODO
 	),
 	'query' => array(
 		'_' => 'Ricerche personali',
 		'deprecated' => 'Questa query non è più valida. La categoria o il feed di riferimento non stati cancellati.',
+		'display' => 'Display user query results', // TODO
 		'filter' => 'Filtro applicato:',
 		'get_all' => 'Mostra tutti gli articoli',
 		'get_category' => 'Mostra la categoria "%s" ',
@@ -51,6 +53,7 @@ return array(
 		'number' => 'Ricerca n°%d',
 		'order_asc' => 'Mostra prima gli articoli più vecchi',
 		'order_desc' => 'Mostra prima gli articoli più nuovi',
+		'remove' => 'Remove user query', // TODO
 		'search' => 'Cerca per "%s"',
 		'state_0' => 'Mostra tutti gli articoli',
 		'state_1' => 'Mostra gli articoli letti',
@@ -125,6 +128,7 @@ return array(
 	),
 	'sharing' => array(
 		'_' => 'Condivisione',
+		'add' => 'Add a sharing method', // TODO
 		'blogotext' => 'Blogotext',
 		'diaspora' => 'Diaspora*',
 		'email' => 'Email',
@@ -132,6 +136,7 @@ return array(
 		'g+' => 'Google+',
 		'more_information' => 'Ulteriori informazioni',
 		'print' => 'Stampa',
+		'remove' => 'Remove sharing method', // TODO
 		'shaarli' => 'Shaarli',
 		'share_name' => 'Nome condivisione',
 		'share_url' => 'URL condivisione',

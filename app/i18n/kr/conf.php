@@ -37,10 +37,12 @@ return array(
 			'no_limit' => '제한 없음',
 			'thin' => '얇음',
 		),
+		'show_nav_buttons' => 'Show the navigation buttons',	//TODO
 	),
 	'query' => array(
 		'_' => '사용자 쿼리',
 		'deprecated' => '이 쿼리는 더 이상 유효하지 않습니다. 해당하는 카테고리나 피드가 삭제되었습니다.',
+		'display' => 'Display user query results', // TODO
 		'filter' => '적용된 필터:',
 		'get_all' => '모든 글 표시',
 		'get_category' => '"%s" 카테고리 표시',
@@ -51,6 +53,7 @@ return array(
 		'number' => '쿼리 #%d',
 		'order_asc' => '오래된 글 먼저 표시',
 		'order_desc' => '최근 글 먼저 표시',
+		'remove' => 'Remove user query', // TODO
 		'search' => '"%s"의 검색 결과',
 		'state_0' => '모든 글 표시',
 		'state_1' => '읽은 글 표시',
@@ -125,6 +128,7 @@ return array(
 	),
 	'sharing' => array(
 		'_' => '공유',
+		'add' => 'Add a sharing method', // TODO
 		'blogotext' => 'Blogotext',
 		'diaspora' => 'Diaspora*',
 		'email' => '메일',
@@ -132,6 +136,7 @@ return array(
 		'g+' => 'Google+',
 		'more_information' => '자세한 정보',
 		'print' => '인쇄',
+		'remove' => 'Remove sharing method', // TODO
 		'shaarli' => 'Shaarli',
 		'share_name' => '표시할 이름',
 		'share_url' => '사용할 공유 URL',
@@ -148,7 +153,7 @@ return array(
 		'collapse_article' => '접기',
 		'first_article' => '첫 글 보기',
 		'focus_search' => '검색창 사용하기',
-		'global_view' => 'Switch to global view', // TODO
+		'global_view' => '전체 모드로 전환',
 		'help' => '도움말 보기',
 		'javascript' => '단축키를 사용하기 위해선 자바스크립트를 사용하도록 설정하여야 합니다',
 		'last_article' => '마지막 글 보기',
@@ -158,17 +163,17 @@ return array(
 		'navigation' => '탐색',
 		'navigation_help' => '"Shift" 키를 누른 상태에선 탐색 단축키가 피드에 적용됩니다.<br/>"Alt" 키를 누른 상태에선 탐색 단축키가 카테고리에 적용됩니다.',
 		'next_article' => '다음 글 보기',
-		'normal_view' => 'Switch to normal view', // TODO
+		'normal_view' => '일반 모드로 전환',
 		'other_action' => '다른 동작',
 		'previous_article' => '이전 글 보기',
-		'reading_view' => 'Switch to reading view', // TODO
-		'rss_view' => 'Open RSS view in a new tab', // TODO
+		'reading_view' => '읽기 모드로 전환',
+		'rss_view' => '새 탭에서 RSS 피드 열기',
 		'see_on_website' => '글이 게재된 웹사이트에서 보기',
 		'shift_for_all_read' => '+ <code>shift</code>를 누른 상태에선 모두 읽음으로 표시',
 		'title' => '단축키',
 		'user_filter' => '사용자 필터 사용하기',
 		'user_filter_help' => '사용자 필터가 하나만 설정되어 있다면 해당 필터를 사용하고, 그렇지 않다면 필터를 번호로 선택할 수 있습니다.',
-		'views' => 'Views', // TODO
+		'views' => '표시',
 	),
 	'user' => array(
 		'articles_and_size' => '%s 개의 글 (%s)',

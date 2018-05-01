@@ -51,7 +51,7 @@ return array(
 		'zip_error' => 'ZIP 파일을 불러오는 동안 문제가 발생했습니다.',
 	),
 	'sub' => array(
-		'actualize' => 'Updating',
+		'actualize' => '피드를 가져오는 중입니다',
 		'category' => array(
 			'created' => '%s 카테고리가 생성되었습니다.',
 			'deleted' => '카테고리가 삭제되었습니다.',
@@ -100,6 +100,10 @@ return array(
 		'deleted' => array(
 			'_' => '%s 사용자를 삭제했습니다',
 			'error' => '%s 사용자를 삭제할 수 없습니다',
+		),
+		'updated' => array(
+			'_' => 'User %s has been updated', // TODO
+			'error' => 'User %s has not been updated', // TODO
 		),
 	),
 	'profile' => array(

@@ -35,17 +35,19 @@ return array(
 		'informations' => '信息',
 		'keep_history' => '至少保存的文章数',
 		'moved_category_deleted' => '删除分类时，其中的 RSS 源会自动归类到 <em>%s</em>',
-		'mute' => 'mute', // TODO
+		'mute' => '暂停',
 		'no_selected' => '未选择 RSS 源。',
 		'number_entries' => '%d 篇文章',
 		'priority' => array(
-			'_' => 'Visibility', // TODO
-			'archived' => 'Do not show (archived)', // TODO
+			'_' => '可见性',
+			'archived' => '不显示 (存档)',
 			'main_stream' => '在首页中显示',
-			'normal' => 'Show in its category', // TODO
+			'normal' => '在分类中显示',
 		),
+		'ssl_verify' => 'Verify SSL security',	//TODO
 		'stats' => '统计',
 		'think_to_add' => '你可以添加一些 RSS 源。',
+		'timeout' => 'Timeout in seconds',	//TODO
 		'title' => '标题',
 		'title_add' => '添加 RSS 源',
 		'ttl' => '最小自动更新时间',

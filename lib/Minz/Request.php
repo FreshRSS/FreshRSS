@@ -39,6 +39,19 @@ class Minz_Request {
 			return $default;
 		}
 	}
+	public static function paramTernary($key) {
+		if (isset(self::$params[$key])) {
+			$p = self::$params[$key];
+			$tp = trim($p);
+			if ($p === null || $tp === '' || $tp === 'null') {
+				return null;
+			} elseif ($p == false || $tp == '0' || $tp === 'false' || $tp === 'no') {
+				return false;
+			}
+			return true;
+		}
+		return null;
+	}
 	public static function defaultControllerName() {
 		return self::$default_controller_name;
 	}
@@ -106,7 +119,8 @@ class Minz_Request {
 		$https = self::isHttps();
 
 		if (!empty($_SERVER['HTTP_HOST'])) {
-			$host = $_SERVER['HTTP_HOST'];
+			//Might contain a port number, and mind IPv6 addresses
+			$host = parse_url('http://' . $_SERVER['HTTP_HOST'], PHP_URL_HOST);
 		} elseif (!empty($_SERVER['SERVER_NAME'])) {
 			$host = $_SERVER['SERVER_NAME'];
 		} else {

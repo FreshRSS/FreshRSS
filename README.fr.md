@@ -55,6 +55,8 @@ Nous sommes une communauté amicale.
 7. Avec Apache, activer [`AllowEncodedSlashes`](https://httpd.apache.org/docs/trunk/mod/core.html#allowencodedslashes) pour une meilleure compatibilité avec les clients mobiles.
 
 ## Installation automatisée
+* [Docker](./Docker/)
+* [![Cloudron](https://cloudron.io/img/button.svg)](https://cloudron.io/button.html?app=org.freshrss.cloudronapp)
 * [![DP deploy](https://raw.githubusercontent.com/DFabric/DPlatform-ShellCore/gh-pages/img/deploy.png)](https://dfabric.github.io/DPlatform-ShellCore)
 * [YunoHost](https://github.com/YunoHost-Apps/freshrss_ynh)
 
@@ -172,11 +174,12 @@ Voir le [dépôt dédié à ces extensions](https://github.com/FreshRSS/Extensio
 * [password_compat](https://github.com/ircmaxell/password_compat)
 
 
-# [Clients compatibles](https://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html)
+# [Clients compatibles](https://freshrss.github.io/FreshRSS/fr/users/06_Mobile_access.html)
 Tout client supportant une API de type Google Reader. Sélection :
 
 * Android
 	* [News+](https://play.google.com/store/apps/details?id=com.noinnion.android.newsplus) avec [News+ Google Reader extension](https://play.google.com/store/apps/details?id=com.noinnion.android.newsplus.extension.google_reader) (Propriétaire)
+	* [FeedMe 3.5.3+](https://play.google.com/store/apps/details?id=com.seazon.feedme) (Propriétaire)
 	* [EasyRSS](https://github.com/Alkarex/EasyRSS) (Libre, [F-Droid](https://f-droid.org/fr/packages/org.freshrss.easyrss/))
 * GNU/Linux
 	* [FeedReader 2.0+](https://jangernert.github.io/FeedReader/) (Libre)

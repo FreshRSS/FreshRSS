@@ -33,3 +33,22 @@ Voici une liste des flux qui ne fonctionnent pas :
 * http://foulab.org/fr/rss/Foulab_News : ne passe pas la validation W3C (novembre 2014)
 * http://eu.battle.net/hearthstone/fr/feed/news : ne passe pas la validation W3C (novembre 2014)
 * http://webseriesmag.blogs.liberation.fr/we/atom.xml : ne fonctionne pas chez l'utilisateur mais passe l'ensemble des validations ci-dessus (novembre 2014)
+
+## Comment changer un mot de passe oublié ?
+
+Depuis la version [1.10.0](https://github.com/FreshRSS/FreshRSS/releases/tag/1.10.0), l'administrateur peut modifier le mot de passe d'un utilisateur depuis l'interface. Cette interface est disponible dans le menu ```Administration → Gestion des utilisateurs```.
+Il suffit de sélectionner l'utilisateur, de saisir un mot de passe et de valider.
+
+Depuis la version [1.8.0](https://github.com/FreshRSS/FreshRSS/releases/tag/1.8.0), l'administrateur peut modifier le mot de passe d'un utilisateur depuis un terminal. Il est bon de noter que celui-ci doit avoir un accès à PHP en ligne de commande. Pour cela, il suffit d'ouvrir son terminal et de saisir la commande suivante :
+```sh
+./cli/update_user.php --user <username> --password <password>
+```
+Pour plus d'information à ce sujet, il existe la [documentation dédiée](../../cli/README.md).
+
+## Gérer les permissions sous SELinux
+
+Certaines distributions Linux comme Fedora ou RedHat Enterprise Linux (RHEL) activent par défaut le système SELinux. Celui-ci permet de gérer des permissions au niveau des processus. Lors de l'installation de FreshRSS, l'étape 2 procède à la vérification des droits sur certains répertoires, il faut donc exécuter la commande suivante en tant que root:
+```sh
+semanage fcontext -a -t httpd_sys_rw_content_t '/usr/share/FreshRSS/data(/.*)?'
+restorecon -Rv /usr/share/FreshRSS/data
+```

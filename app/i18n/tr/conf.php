@@ -37,10 +37,12 @@ return array(
 			'no_limit' => 'Sınırsız',
 			'thin' => 'Zayıf',
 		),
+		'show_nav_buttons' => 'Show the navigation buttons',	//TODO
 	),
 	'query' => array(
 		'_' => 'Kullanıcı sorguları',
 		'deprecated' => 'Bu sorgu artık geçerli değil. İlgili akış veya kategori silinmiş.',
+		'display' => 'Display user query results', // TODO
 		'filter' => 'Filtre uygulandı:',
 		'get_all' => 'Tüm makaleleri göster',
 		'get_category' => '"%s" kategorisini göster',
@@ -51,6 +53,7 @@ return array(
 		'number' => 'Sorgu n°%d',
 		'order_asc' => 'Önce eski makaleleri göster',
 		'order_desc' => 'Önce yeni makaleleri göster',
+		'remove' => 'Remove user query', // TODO
 		'search' => '"%s" için arama',
 		'state_0' => 'Tüm makaleleri göster',
 		'state_1' => 'Okunmuş makaleleri göster',
@@ -125,6 +128,7 @@ return array(
 	),
 	'sharing' => array(
 		'_' => 'Paylaşım',
+		'add' => 'Add a sharing method', // TODO
 		'blogotext' => 'Blogotext',
 		'diaspora' => 'Diaspora*',
 		'email' => 'Email',
@@ -132,6 +136,7 @@ return array(
 		'g+' => 'Google+',
 		'more_information' => 'Daha fazla bilgi',
 		'print' => 'Yazdır',
+		'remove' => 'Remove sharing method', // TODO
 		'shaarli' => 'Shaarli',
 		'share_name' => 'Paylaşım ismi',
 		'share_url' => 'Paylaşım URL si',

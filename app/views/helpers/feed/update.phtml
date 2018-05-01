@@ -101,7 +101,7 @@
 			<label class="group-name" for="keep_history"><?php echo _t('sub.feed.keep_history'); ?></label>
 			<div class="group-controls">
 				<select class="number" name="keep_history" id="keep_history" required="required"><?php
-					foreach (array('' => '', -2 => _t('gen.short.by_default'), 0 => '0', 10 => '10', 50 => '50', 100 => '100', 500 => '500', 1000 => '1 000', 5000 => '5 000', 10000 => '10 000', -1 => '∞') as $v => $t) {
+					foreach (array('' => '', FreshRSS_Feed::KEEP_HISTORY_DEFAULT => _t('gen.short.by_default'), 0 => '0', 10 => '10', 50 => '50', 100 => '100', 500 => '500', 1000 => '1 000', 5000 => '5 000', 10000 => '10 000', FreshRSS_Feed::KEEP_HISTORY_INFINITE => '∞') as $v => $t) {
 						echo '<option value="' . $v . ($this->feed->keepHistory() === $v ? '" selected="selected' : '') . '">' . $t . '</option>';
 					}
 				?></select>
@@ -158,7 +158,7 @@
 
 			<label class="group-name" for="http_pass_feed<?php echo $this->feed->id(); ?>"><?php echo _t('sub.feed.auth.password'); ?></label>
 			<div class="group-controls">
-				<input type="password" name="http_pass_feed<?php echo $this->feed->id(); ?>" id="http_pass_feed<?php echo $this->feed->id(); ?>" class="extend" value="<?php echo $auth['password']; ?>" autocomplete="off" />
+				<input type="password" name="http_pass_feed<?php echo $this->feed->id(); ?>" id="http_pass_feed<?php echo $this->feed->id(); ?>" class="extend" value="<?php echo $auth['password']; ?>" autocomplete="new-password" />
 			</div>
 		</div>
 
@@ -175,6 +175,53 @@
 			<div class="group-controls">
 				<input type="text" name="path_entries" id="path_entries" class="extend" value="<?php echo $this->feed->pathEntries(); ?>" placeholder="<?php echo _t('gen.short.blank_to_disable'); ?>" />
 				<?php echo _i('help'); ?> <?php echo _t('sub.feed.css_help'); ?>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="group-name" for="mark_updated_article_unread"><?php echo _t('conf.reading.mark_updated_article_unread'); ?></label>
+			<div class="group-controls">
+				<label class="checkbox" for="mark_updated_article_unread">
+					<select name="mark_updated_article_unread" id="mark_updated_article_unread">
+						<option value=""<?php echo $this->feed->attributes('mark_updated_article_unread') === null ? ' selected="selected"' : ''; ?>><?php echo _t('gen.short.by_default'); ?></option>
+						<option value="0"<?php echo $this->feed->attributes('mark_updated_article_unread') === false ? ' selected="selected"' : ''; ?>><?php echo _t('gen.short.no'); ?></option>
+						<option value="1"<?php echo $this->feed->attributes('mark_updated_article_unread') === true ? ' selected="selected"' : ''; ?>><?php echo _t('gen.short.yes'); ?></option>
+					</select>
+				</label>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="group-name" for="read_upon_reception"><?php echo _t('conf.reading.read.when'); ?></label>
+			<div class="group-controls">
+				<label class="checkbox" for="read_upon_reception">
+					<select name="read_upon_reception" id="read_upon_reception">
+						<option value=""<?php echo $this->feed->attributes('read_upon_reception') === null ? ' selected="selected"' : ''; ?>><?php echo _t('gen.short.by_default'); ?></option>
+						<option value="0"<?php echo $this->feed->attributes('read_upon_reception') === false ? ' selected="selected"' : ''; ?>><?php echo _t('gen.short.no'); ?></option>
+						<option value="1"<?php echo $this->feed->attributes('read_upon_reception') === true ? ' selected="selected"' : ''; ?>><?php echo _t('gen.short.yes'); ?></option>
+					</select>
+					<?php echo _t('conf.reading.read.upon_reception'); ?>
+				</label>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="group-name" for="timeout"><?php echo _t('sub.feed.timeout'); ?></label>
+			<div class="group-controls">
+				<input type="number" name="timeout" id="timeout" min="3" max="120" value="<?php echo $this->feed->attributes('timeout'); ?>" placeholder="<?php echo _t('gen.short.by_default'); ?>" />
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="group-name" for="ssl_verify"><?php echo _t('sub.feed.ssl_verify'); ?></label>
+			<div class="group-controls">
+				<label class="checkbox" for="ssl_verify">
+					<select name="ssl_verify" id="ssl_verify">
+						<option value=""<?php echo $this->feed->attributes('ssl_verify') === null ? ' selected="selected"' : ''; ?>><?php echo _t('gen.short.by_default'); ?></option>
+						<option value="0"<?php echo $this->feed->attributes('ssl_verify') === false ? ' selected="selected"' : ''; ?>><?php echo _t('gen.short.no'); ?></option>
+						<option value="1"<?php echo $this->feed->attributes('ssl_verify') === true ? ' selected="selected"' : ''; ?>><?php echo _t('gen.short.yes'); ?></option>
+					</select>
+				</label>
 			</div>
 		</div>
 

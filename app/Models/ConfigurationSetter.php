@@ -81,7 +81,7 @@ class FreshRSS_ConfigurationSetter {
 
 	private function _keep_history_default(&$data, $value) {
 		$value = intval($value);
-		$data['keep_history_default'] = $value >= -1 ? $value : 0;
+		$data['keep_history_default'] = $value >= FreshRSS_Feed::KEEP_HISTORY_INFINITE ? $value : 0;
 	}
 
 	// It works for system config too!
@@ -154,7 +154,7 @@ class FreshRSS_ConfigurationSetter {
 
 	private function _ttl_default(&$data, $value) {
 		$value = intval($value);
-		$data['ttl_default'] = $value >= -1 ? $value : 3600;
+		$data['ttl_default'] = $value > FreshRSS_Feed::TTL_DEFAULT ? $value : 3600;
 	}
 
 	private function _view_mode(&$data, $value) {
@@ -182,6 +182,10 @@ class FreshRSS_ConfigurationSetter {
 
 	private function _mark_updated_article_unread(&$data, $value) {
 		$data['mark_updated_article_unread'] = $this->handleBool($value);
+	}
+
+	private function _show_nav_buttons(&$data, $value) {
+		$data['show_nav_buttons'] = $this->handleBool($value);
 	}
 
 	private function _display_categories(&$data, $value) {

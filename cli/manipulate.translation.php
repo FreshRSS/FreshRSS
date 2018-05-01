@@ -1,35 +1,59 @@
 <?php
 
-$options = getopt("h");
+$options = getopt("a:hk:l:rv:");
 
 if (array_key_exists('h', $options)) {
 	help();
 }
 
-if (1 === $argc || 4 < $argc) {
-	help();
+if (!array_key_exists('a', $options)) {
+	error('You need to specify the action to perform.');
 }
 
-require_once __DIR__ . '/i18n/I18nFile.php';
-
-$i18nFile = new I18nFile();
+if ('ignore' === $options['a']) {
+	require_once __DIR__ . '/i18n/I18nIgnoreFile.php';
+	$i18nFile = new I18nIgnoreFile();
+} else {
+	require_once __DIR__ . '/i18n/I18nFile.php';
+	$i18nFile = new I18nFile();
+}
 $i18nData = $i18nFile->load();
 
-switch ($argv[1]) {
-	case 'add_language' :
-		$i18nData->addLanguage($argv[2]);
-		break;
-	case 'add_key' :
-		if (3 === $argc) {
-			help();
+switch ($options['a']) {
+	case 'add' :
+		if (array_key_exists('k', $options) && array_key_exists('v', $options) && array_key_exists('l', $options)) {
+			$i18nData->addValue($options['k'], $options['v'], $options['l']);
+		} elseif (array_key_exists('k', $options) && array_key_exists('v', $options)) {
+			$i18nData->addKey($options['k'], $options['v']);
+		} elseif (array_key_exists('l', $options)) {
+			$i18nData->addLanguage($options['l']);
+		} else {
+			error('You need to specify a valid set of options.');
 		}
-		$i18nData->addKey($argv[2], $argv[3]);
 		break;
-	case 'duplicate_key' :
-		$i18nData->duplicateKey($argv[2]);
+	case 'delete' :
+		if (array_key_exists('k', $options)) {
+			$i18nData->removeKey($options['k']);
+		} else {
+			error('You need to specify the key to delete.');
+		}
 		break;
-	case 'delete_key' :
-		$i18nData->removeKey($argv[2]);
+	case 'duplicate' :
+		if (array_key_exists('k', $options)) {
+			$i18nData->duplicateKey($options['k']);
+		} else {
+			error('You need to specify the key to duplicate');
+		}
+		break;
+	case 'format' :
+		$i18nFile->dump($i18nData);
+		break;
+	case 'ignore' :
+		if (array_key_exists('l', $options) && array_key_exists('k', $options)) {
+			$i18nData->ignore($options['k'], $options['l'], array_key_exists('r', $options));
+		} else {
+			error('You need to specify a valid set of options.');
+		}
 		break;
 	default :
 		help();
@@ -40,40 +64,65 @@ if ($i18nData->hasChanged()) {
 }
 
 /**
+ * Output error message.
+ */
+function error($message) {
+	$error = <<<ERROR
+WARNING
+	%s\n\n
+ERROR;
+	echo sprintf($error, $message);
+	help();
+}
+
+/**
  * Output help message.
  */
 function help() {
 	$help = <<<HELP
 NAME
-	%s
+	%1\$s
 
 SYNOPSIS
-	php %s [OPTION] [OPERATION] [KEY] [VALUE]
+	php %1\$s [OPTIONS]
 
 DESCRIPTION
-	Manipulate translation files. Available operations are 
-	Check if translation files have missing keys or missing translations.
+	Manipulate translation files.
 
+	-a=ACTION
+		select the action to perform. Available actions are add, delete,
+		duplicate, format, and ignore. This option is mandatory.
+	-k=KEY	select the key to work on.
+	-v=VAL	select the value to set.
+	-l=LANG	select the language to work on.
 	-h	display this help and exit.
 
-OPERATION
-	add_language
-		add a new language by duplicating the referential. This operation
-		needs only a KEY.
+EXEMPLE
+Exemple 1: add a language. It adds a new language by duplicating the referential.
+	php %1\$s -a add -l my_lang
 
-	add_key	add a new key in the referential. This operation needs a KEY and
-		a VALUE.
+Exemple 2: add a new key. It adds the key in the referential.
+	php %1\$s -a add -k my_key -v my_value
 
-	duplicate_key
-		duplicate a referential key in other languages. This operation
-		needs only a KEY.
+Exemple 3: add a new value. It adds a new value for the selected key in the selected language.
+	php %1\$s -a add -k my_key -v my_value -l my_lang
 
-	delete_key
-		delete a referential key from all languages. This operation needs
-		only a KEY.
+Exemple 4: delete a key. It deletes the selected key in every languages.
+	php %1\$s -a delete -k my_key
 
+Exemple 5: duplicate a key. It duplicates the key from the referential in every languages.
+	php %1\$s -a duplicate -k my_key
+
+Exemple 6: format i18n files.
+	php %1\$s -a format
+
+Exemple 7: ignore a key. It adds the key in the ignore file to mark it as translated.
+	php %1\$s -a ignore -k my_key -l my_lang
+
+Exemple 8: revert ignore a key. It removes the key from the ignore file.
+	php %1\$s -a ignore -r -k my_key -l my_lang\n\n
 HELP;
 	$file = str_replace(__DIR__ . '/', '', __FILE__);
-	echo sprintf($help, $file, $file);
+	echo sprintf($help, $file);
 	exit;
 }

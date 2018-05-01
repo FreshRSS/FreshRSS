@@ -44,27 +44,56 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 		return preg_match('/^' . self::USERNAME_PATTERN . '$/', $username) === 1;
 	}
 
-	public static function updateContextUser($passwordPlain, $apiPasswordPlain, $userConfigUpdated = array()) {
+	public static function updateUser($user, $passwordPlain, $apiPasswordPlain, $userConfigUpdated = array()) {
+		$userConfig = get_user_configuration($user);
+		if ($userConfig === null) {
+			return false;
+		}
+
 		if ($passwordPlain != '') {
 			$passwordHash = self::hashPassword($passwordPlain);
-			FreshRSS_Context::$user_conf->passwordHash = $passwordHash;
+			$userConfig->passwordHash = $passwordHash;
 		}
 
 		if ($apiPasswordPlain != '') {
 			$apiPasswordHash = self::hashPassword($apiPasswordPlain);
-			FreshRSS_Context::$user_conf->apiPasswordHash = $apiPasswordHash;
+			$userConfig->apiPasswordHash = $apiPasswordHash;
 		}
 
 		if (is_array($userConfigUpdated)) {
 			foreach ($userConfigUpdated as $configName => $configValue) {
 				if ($configValue !== null) {
-					FreshRSS_Context::$user_conf->_param($configName, $configValue);
+					$userConfig->_param($configName, $configValue);
 				}
 			}
 		}
 
-		$ok = FreshRSS_Context::$user_conf->save();
+		$ok = $userConfig->save();
 		return $ok;
+	}
+
+	public function updateAction() {
+		if (Minz_Request::isPost()) {
+			$passwordPlain = Minz_Request::param('newPasswordPlain', '', true);
+			Minz_Request::_param('newPasswordPlain');	//Discard plain-text password ASAP
+			$_POST['newPasswordPlain'] = '';
+
+			$apiPasswordPlain = Minz_Request::param('apiPasswordPlain', '', true);
+
+			$username = Minz_Request::param('username');
+			$ok = self::updateUser($username, $passwordPlain, $apiPasswordPlain, array(
+				'token' => Minz_Request::param('token', null),
+			));
+
+			if ($ok) {
+				Minz_Request::good(_t('feedback.user.updated', $username),
+				                   array('c' => 'user', 'a' => 'manage'));
+			} else {
+				Minz_Request::bad(_t('feedback.user.updated.error', $username),
+				                  array('c' => 'user', 'a' => 'manage'));
+			}
+
+		}
 	}
 
 	/**
@@ -84,7 +113,7 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 
 			$apiPasswordPlain = Minz_Request::param('apiPasswordPlain', '', true);
 
-			$ok = self::updateContextUser($passwordPlain, $apiPasswordPlain, array(
+			$ok = self::updateUser(Minz_Session::param('currentUser'), $passwordPlain, $apiPasswordPlain, array(
 					'token' => Minz_Request::param('token', null),
 				));
 
@@ -110,19 +139,18 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 
 		Minz_View::prependTitle(_t('admin.user.title') . ' · ');
 
-		// Get the correct current user.
-		$username = Minz_Request::param('u', Minz_Session::param('currentUser'));
-		if (!FreshRSS_UserDAO::exist($username)) {
-			$username = Minz_Session::param('currentUser');
+		$this->view->current_user = Minz_Request::param('u');
+
+		$this->view->nb_articles = 0;
+		$this->view->size_user = 0;
+		if ($this->view->current_user) {
+			// Get information about the current user.
+			$entryDAO = FreshRSS_Factory::createEntryDao($this->view->current_user);
+			$this->view->nb_articles = $entryDAO->count();
+
+			$databaseDAO = FreshRSS_Factory::createDatabaseDAO();
+			$this->view->size_user = $databaseDAO->size();
 		}
-		$this->view->current_user = $username;
-
-		// Get information about the current user.
-		$entryDAO = FreshRSS_Factory::createEntryDao($this->view->current_user);
-		$this->view->nb_articles = $entryDAO->count();
-
-		$databaseDAO = FreshRSS_Factory::createDatabaseDAO();
-		$this->view->size_user = $databaseDAO->size();
 	}
 
 	public static function createUser($new_user_name, $passwordPlain, $apiPasswordPlain, $userConfig = array(), $insertDefaultFeeds = true) {

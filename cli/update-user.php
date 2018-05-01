@@ -7,7 +7,8 @@ $username = cliInitUser($options['user']);
 
 echo 'FreshRSS updating user “', $username, "”…\n";
 
-$ok = FreshRSS_user_Controller::updateContextUser(
+$ok = FreshRSS_user_Controller::updateUser(
+	$username,
 	empty($options['password']) ? '' : $options['password'],
 	empty($options['api_password']) ? '' : $options['api_password'],
 	$values);

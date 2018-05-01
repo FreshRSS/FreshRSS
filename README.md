@@ -1,5 +1,6 @@
 [![Build Status][travis-badge]][travis-link]
 
+* Read this document on [github.com/FreshRSS/FreshRSS/](https://github.com/FreshRSS/FreshRSS/blob/master/README.md) to get the correct links and pictures.
 * [Version française](README.fr.md)
 
 # FreshRSS
@@ -46,7 +47,7 @@ We are a friendly community.
 # Documentation
 * https://freshrss.github.io/FreshRSS/en/
 
-# [Installation](https://freshrss.github.io/FreshRSS/en/users/01_Installation.html)
+# [Installation](https://freshrss.github.io/FreshRSS/en/admins/02_Installation.html)
 1. Get FreshRSS with git or [by downloading the archive](https://github.com/FreshRSS/FreshRSS/archive/master.zip)
 2. Dump the application on your server (expose only the `./p/` folder)
 3. Add write access on `./data/` folder to the webserver user
@@ -59,7 +60,8 @@ We are a friendly community.
 More information about installation and server configuration can be found in [our documentation](https://freshrss.github.io/FreshRSS/en/admins/02_Installation.html). 
 
 ## Automated install
-* [![Install on Cloudron](https://cloudron.io/img/button.svg)](https://cloudron.io/button.html?app=org.freshrss.cloudronapp)
+* [Docker](./Docker/)
+* [![Cloudron](https://cloudron.io/img/button.svg)](https://cloudron.io/button.html?app=org.freshrss.cloudronapp)
 * [![DP deploy](https://raw.githubusercontent.com/DFabric/DPlatform-ShellCore/gh-pages/img/deploy.png)](https://dfabric.github.io/DPlatform-ShellCore)
 * [YunoHost](https://github.com/YunoHost-Apps/freshrss_ynh)
 
@@ -183,6 +185,7 @@ Any client supporting a Google Reader-like API. Selection:
 
 * Android
 	* [News+](https://play.google.com/store/apps/details?id=com.noinnion.android.newsplus) with [News+ Google Reader extension](https://play.google.com/store/apps/details?id=com.noinnion.android.newsplus.extension.google_reader) (Closed source)
+	* [FeedMe 3.5.3+](https://play.google.com/store/apps/details?id=com.seazon.feedme) (Closed source)
 	* [EasyRSS](https://github.com/Alkarex/EasyRSS) (Open source, [F-Droid](https://f-droid.org/packages/org.freshrss.easyrss/))
 * GNU/Linux
 	* [FeedReader 2.0+](https://jangernert.github.io/FeedReader/) (Open source)

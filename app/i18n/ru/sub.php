@@ -44,8 +44,10 @@ return array(
 			'main_stream' => 'Show in main stream', // TODO
 			'normal' => 'Show in its category', // TODO
 		),
+		'ssl_verify' => 'Verify SSL security',	//TODO
 		'stats' => 'Statistics',// TODO
 		'think_to_add' => 'You may add some feeds.',// TODO
+		'timeout' => 'Timeout in seconds',	//TODO
 		'title' => 'Title',// TODO
 		'title_add' => 'Add a RSS feed',// TODO
 		'ttl' => 'Do not automatically refresh more often than',// TODO

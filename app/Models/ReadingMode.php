@@ -8,6 +8,10 @@ class FreshRSS_ReadingMode {
 	/**
 	 * @var string
 	 */
+	protected $id;
+	/**
+	 * @var string
+	 */
 	protected $name;
 	/**
 	 * @var string
@@ -24,16 +28,24 @@ class FreshRSS_ReadingMode {
 
 	/**
 	 * ReadingMode constructor.
-	 * @param string $name
+	 * @param string $id
 	 * @param string $title
 	 * @param string[] $urlParams
 	 * @param bool $active
 	 */
-	public function __construct($name, $title, $urlParams, $active) {
-		$this->name = $name;
+	public function __construct($id, $title, $urlParams, $active) {
+		$this->id = $id;
+		$this->name = _i($id);
 		$this->title = $title;
 		$this->urlParams = $urlParams;
 		$this->isActive = $active;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getId() {
+		return $this->id;
 	}
 
 	/**
@@ -112,19 +124,19 @@ class FreshRSS_ReadingMode {
 
 		$readingModes = array(
 			new FreshRSS_ReadingMode(
-				_i("view-normal"),
+				"view-normal",
 				_t('index.menu.normal_view'),
 				array_merge($urlOutput, array('c' => $defaultCtrl, 'a' => 'normal')),
 				($isDefaultCtrl && $actualView === 'normal')
 			),
 			new FreshRSS_ReadingMode(
-				_i("view-global"),
+				"view-global",
 				_t('index.menu.global_view'),
 				array_merge($urlOutput, array('c' => $defaultCtrl, 'a' => 'global')),
 				($isDefaultCtrl && $actualView === 'global')
 			),
 			new FreshRSS_ReadingMode(
-				_i("view-reader"),
+				"view-reader",
 				_t('index.menu.reader_view'),
 				array_merge($urlOutput, array('c' => $defaultCtrl, 'a' => 'reader')),
 				($isDefaultCtrl && $actualView === 'reader')

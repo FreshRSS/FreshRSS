@@ -37,10 +37,12 @@ return array(
 			'no_limit' => 'ללא הגבלה',
 			'thin' => 'צר',
 		),
+		'show_nav_buttons' => 'Show the navigation buttons',	//TODO
 	),
 	'query' => array(
 		'_' => 'שאילתות',
 		'deprecated' => 'שאילתה זו אינה בתוקף יותר, הפיד או הקטגוריה לייחוס נמחקו.',
+		'display' => 'Display user query results', // TODO
 		'filter' => 'מסננים בשימוש:',
 		'get_all' => 'הצגת כל המאמרים',
 		'get_category' => 'הצגת קטגוריה "%s"',
@@ -51,6 +53,7 @@ return array(
 		'number' => 'שאילתה מספר °%d',
 		'order_asc' => 'הצגת מאמרים ישנים בראש',
 		'order_desc' => 'הצגת מאמרים חדשים בראש',
+		'remove' => 'Remove user query', // TODO
 		'search' => 'חיפוש "%s"',
 		'state_0' => 'הצגת כל המאמרים',
 		'state_1' => 'הצגת מאמרים שנקראו',
@@ -122,6 +125,7 @@ return array(
 	),
 	'sharing' => array(
 		'_' => 'שיתוף',
+		'add' => 'Add a sharing method', // TODO
 		'blogotext' => 'Blogotext',
 		'diaspora' => 'Diaspora*',
 		'email' => 'דואר אלקטרוני',
@@ -129,6 +133,7 @@ return array(
 		'g+' => 'Google+',
 		'more_information' => 'מידע נוסף',
 		'print' => 'הדפסה',
+		'remove' => 'Remove sharing method', // TODO
 		'shaarli' => 'Shaarli',
 		'share_name' => 'שיתוף שם לתצוגה',
 		'share_url' => 'לשימוש שתפו URL',

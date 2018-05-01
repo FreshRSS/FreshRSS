@@ -37,10 +37,12 @@ return array(
 			'no_limit' => '无限制',
 			'thin' => '小',
 		),
+		'show_nav_buttons' => 'Show the navigation buttons',	//TODO
 	),
 	'query' => array(
 		'_' => '自定义查询',
 		'deprecated' => '此查询不再有效。相关的分类或 RSS 源已被删除。',
+		'display' => 'Display user query results', // TODO
 		'filter' => '生效的过滤器：',
 		'get_all' => '显示所有文章',
 		'get_category' => '显示分类 "%s"',
@@ -51,6 +53,7 @@ return array(
 		'number' => '查询 n°%d',
 		'order_asc' => '由旧到新显示文章',
 		'order_desc' => '由新到旧显示文章',
+		'remove' => 'Remove user query', // TODO
 		'search' => '搜索 "%s"',
 		'state_0' => '显示所有文章',
 		'state_1' => '显示已读文章',
@@ -125,6 +128,7 @@ return array(
 	),
 	'sharing' => array(
 		'_' => '分享',
+		'add' => 'Add a sharing method', // TODO
 		'blogotext' => 'Blogotext',
 		'diaspora' => 'Diaspora*',
 		'email' => 'Email',
@@ -132,6 +136,7 @@ return array(
 		'g+' => 'Google+',
 		'more_information' => '更多信息',
 		'print' => '打印',
+		'remove' => 'Remove sharing method', // TODO
 		'shaarli' => 'Shaarli',
 		'share_name' => '名称',
 		'share_url' => '地址',
@@ -148,7 +153,7 @@ return array(
 		'collapse_article' => '收起文章',
 		'first_article' => '跳转到第一篇文章',
 		'focus_search' => '聚焦到搜索框',
-		'global_view' => 'Switch to global view', // TODO
+		'global_view' => '切换到全屏视图',
 		'help' => '显示帮助文档',
 		'javascript' => '若要使用快捷键，必须启用 JavaScript',
 		'last_article' => '跳转到最后一篇文章',
@@ -158,17 +163,17 @@ return array(
 		'navigation' => '浏览',
 		'navigation_help' => '搭配 "Shift" 键，浏览快捷键将生效于 RSS 源。<br/>搭配 "Alt" 键，浏览快捷键将生效于分类。',
 		'next_article' => '跳转到下一篇文章',
-		'normal_view' => 'Switch to normal view', // TODO
+		'normal_view' => '切换到普通视图',
 		'other_action' => '其他操作',
 		'previous_article' => '跳转到上一篇文章',
-		'reading_view' => 'Switch to reading view', // TODO
-		'rss_view' => 'Open RSS view in a new tab', // TODO
+		'reading_view' => '切换到阅读视图',
+		'rss_view' => '在新标签中打开 RSS 视图',
 		'see_on_website' => '在原网站上查看',
 		'shift_for_all_read' => '+ <code>shift</code> 可以将全部文章设为已读',
 		'title' => '快捷键',
 		'user_filter' => '显示自定义查询',
 		'user_filter_help' => '如果有多个自定义过滤器，则会按照它们的编号依次访问。',
-		'views' => 'Views', // TODO
+		'views' => '视图',
 	),
 	'user' => array(
 		'articles_and_size' => '%s 篇文章 (%s)',

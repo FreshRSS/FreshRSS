@@ -37,10 +37,12 @@ return array(
 			'no_limit' => 'Bez limitu',
 			'thin' => 'Tenká',
 		),
+		'show_nav_buttons' => 'Show the navigation buttons',	//TODO
 	),
 	'query' => array(
 		'_' => 'Uživatelské dotazy',
 		'deprecated' => 'Tento dotaz již není platný. Odkazovaná kategorie nebo kanál byly smazány.',
+		'display' => 'Display user query results', // TODO
 		'filter' => 'Filtr aplikován:',
 		'get_all' => 'Zobrazit všechny články',
 		'get_category' => 'Zobrazit "%s" kategorii',
@@ -51,6 +53,7 @@ return array(
 		'number' => 'Dotaz n°%d',
 		'order_asc' => 'Zobrazit nejdříve nejstarší články',
 		'order_desc' => 'Zobrazit nejdříve nejnovější články',
+		'remove' => 'Remove user query', // TODO
 		'search' => 'Hledat "%s"',
 		'state_0' => 'Zobrazit všechny články',
 		'state_1' => 'Zobrazit přečtené články',
@@ -125,6 +128,7 @@ return array(
 	),
 	'sharing' => array(
 		'_' => 'Sdílení',
+		'add' => 'Add a sharing method', // TODO
 		'blogotext' => 'Blogotext',
 		'diaspora' => 'Diaspora*',
 		'email' => 'Email',
@@ -132,6 +136,7 @@ return array(
 		'g+' => 'Google+',
 		'more_information' => 'Více informací',
 		'print' => 'Tisk',
+		'remove' => 'Remove sharing method', // TODO
 		'shaarli' => 'Shaarli',
 		'share_name' => 'Jméno pro zobrazení',
 		'share_url' => 'Jakou URL použít pro sdílení',

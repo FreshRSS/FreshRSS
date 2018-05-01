@@ -7,6 +7,9 @@ class FreshRSS_Feed extends Minz_Model {
 
 	const TTL_DEFAULT = 0;
 
+	const KEEP_HISTORY_DEFAULT = -2;
+	const KEEP_HISTORY_INFINITE = -1;
+
 	private $id = 0;
 	private $url;
 	private $category = 1;
@@ -21,8 +24,9 @@ class FreshRSS_Feed extends Minz_Model {
 	private $pathEntries = '';
 	private $httpAuth = '';
 	private $error = false;
-	private $keep_history = -2;
+	private $keep_history = self::KEEP_HISTORY_DEFAULT;
 	private $ttl = self::TTL_DEFAULT;
+	private $attributes = array();
 	private $mute = false;
 	private $hash = null;
 	private $lockPath = '';
@@ -110,6 +114,13 @@ class FreshRSS_Feed extends Minz_Model {
 	}
 	public function ttl() {
 		return $this->ttl;
+	}
+	public function attributes($key = '') {
+		if ($key == '') {
+			return $this->attributes;
+		} else {
+			return isset($this->attributes[$key]) ? $this->attributes[$key] : null;
+		}
 	}
 	public function mute() {
 		return $this->mute;
@@ -222,7 +233,7 @@ class FreshRSS_Feed extends Minz_Model {
 	public function _keepHistory($value) {
 		$value = intval($value);
 		$value = min($value, 1000000);
-		$value = max($value, -2);
+		$value = max($value, self::KEEP_HISTORY_DEFAULT);
 		$this->keep_history = $value;
 	}
 	public function _ttl($value) {
@@ -231,6 +242,22 @@ class FreshRSS_Feed extends Minz_Model {
 		$this->ttl = abs($value);
 		$this->mute = $value < self::TTL_DEFAULT;
 	}
+
+	public function _attributes($key, $value) {
+		if ($key == '') {
+			if (is_string($value)) {
+				$value = json_decode($value, true);
+			}
+			if (is_array($value)) {
+				$this->attributes = $value;
+			}
+		} elseif ($value === null) {
+			unset($this->attributes[$key]);
+		} else {
+			$this->attributes[$key] = $value;
+		}
+	}
+
 	public function _nbNotRead($value) {
 		$this->nbNotRead = intval($value);
 	}
@@ -250,7 +277,7 @@ class FreshRSS_Feed extends Minz_Model {
 				if ($this->httpAuth != '') {
 					$url = preg_replace('#((.+)://)(.+)#', '${1}' . $this->httpAuth . '@${3}', $url);
 				}
-				$feed = customSimplePie();
+				$feed = customSimplePie($this->attributes());
 				if (substr($url, -11) === '#force_feed') {
 					$feed->force_feed(true);
 					$url = substr($url, 0, -11);
@@ -352,7 +379,7 @@ class FreshRSS_Feed extends Minz_Model {
 				$this->id(),
 				$item->get_id(false, false),
 				$title === null ? '' : $title,
-				$author === null ? '' : html_only_entity_decode(strip_tags($author->name)),
+				$author === null ? '' : html_only_entity_decode(strip_tags($author->name == null ? $author->email : $author->name)),
 				$content === null ? '' : $content,
 				$link === null ? '' : $link,
 				$date ? $date : time()

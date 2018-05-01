@@ -37,10 +37,12 @@ return array(
 			'no_limit' => 'No limit',
 			'thin' => 'Thin',
 		),
+		'show_nav_buttons' => 'Show the navigation buttons',	//TODO
 	),
 	'query' => array(
 		'_' => 'User queries',
 		'deprecated' => 'This query is no longer valid. The referenced category or feed has been deleted.',
+		'display' => 'Display user query results', // TODO
 		'filter' => 'Filter applied:',
 		'get_all' => 'Display all articles',
 		'get_category' => 'Display "%s" category',
@@ -51,6 +53,7 @@ return array(
 		'number' => 'Query n°%d',
 		'order_asc' => 'Display oldest articles first',
 		'order_desc' => 'Display newest articles first',
+		'remove' => 'Remove user query', // TODO
 		'search' => 'Search for "%s"',
 		'state_0' => 'Display all articles',
 		'state_1' => 'Display read articles',
@@ -125,6 +128,7 @@ return array(
 	),
 	'sharing' => array(
 		'_' => 'Sharing',
+		'add' => 'Add a sharing method', // TODO
 		'blogotext' => 'Blogotext',
 		'diaspora' => 'Diaspora*',
 		'email' => 'Email',
@@ -132,6 +136,7 @@ return array(
 		'g+' => 'Google+',
 		'more_information' => 'More information',
 		'print' => 'Print',
+		'remove' => 'Remove sharing method', // TODO
 		'shaarli' => 'Shaarli',
 		'share_name' => 'Share name to display',
 		'share_url' => 'Share URL to use',

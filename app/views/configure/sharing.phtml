@@ -14,7 +14,7 @@
 			<div class="stick">
 			<input type="text" id="share_##key##_name" name="share[##key##][name]" class="extend" value="" placeholder="<?php echo _t('conf.sharing.share_name'); ?>" size="64" />
 			<input type="url" id="share_##key##_url" name="share[##key##][url]" class="extend" value="" placeholder="<?php echo _t('conf.sharing.share_url'); ?>" size="64" />
-			<a href="#" class="remove btn btn-attention" data-remove="group-share-##key##"><?php echo _i('close'); ?></a></div>
+			<a href="#" class="remove btn btn-attention" data-remove="group-share-##key##" title="<?php echo _t('conf.sharing.remove'); ?>"><?php echo _i('close'); ?></a></div>
 			<a target="_blank" rel="noreferrer" class="btn" title="<?php echo _t('conf.sharing.more_information'); ?>" href="##help##"><?php echo _i('help'); ?></a>
 			</div></div>'>
 		<input type="hidden" name="_csrf" value="<?php echo FreshRSS_Auth::csrfToken(); ?>" />
@@ -39,7 +39,7 @@
 					<?php } else { ?>
 						<input type="url" id="share_<?php echo $key; ?>_url" name="share[<?php echo $key; ?>][url]" class="extend" value="<?php echo $share->baseUrl(); ?>" placeholder="<?php echo _t('gen.short.not_applicable'); ?>" size="64" disabled/>
 					<?php } ?>
-						<a href='#' class='remove btn btn-attention' data-remove="group-share-<?php echo $key; ?>"><?php echo _i('close'); ?></a>
+						<a href='#' class='remove btn btn-attention' data-remove="group-share-<?php echo $key; ?>" title="<?php echo _t('conf.sharing.remove'); ?>"><?php echo _i('close'); ?></a>
 					</div>
 					<?php if ($share->formType() === 'advanced') { ?>
 						<a target="_blank" rel="noreferrer" class="btn" title="<?php echo _t('conf.sharing.more_information'); ?>" href="<?php echo $share->help(); ?>"><?php echo _i('help'); ?></a>
@@ -57,7 +57,7 @@
 					</option>
 					<?php } ?>
 				</select>
-				<a href='#' class='share add btn'><?php echo _i('add'); ?></a>
+				<a href='#' class='share add btn' title="<?php echo _t('conf.sharing.add'); ?>"><?php echo _i('add'); ?></a>
 			</div>
 		</div>
 

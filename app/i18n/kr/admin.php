@@ -112,13 +112,13 @@ return array(
 		),
 		'title' => '확장 기능',
 		'user' => '사용자 확장 기능',
-		'community' => 'Available community extensions', // @todo translate
-		'name' => 'Name', // @todo translate
-		'version' => 'Version', // @todo translate
-		'description' => 'Description', // @todo translate
-		'author' => 'Author', // @todo translate
-		'latest' => 'Installed', // @todo translate
-		'update' => 'Update available', // @todo translate
+		'community' => '사용 가능한 커뮤니티 확장 기능들',
+		'name' => '이름',
+		'version' => '버전',
+		'description' => '설명',
+		'author' => '제작자',
+		'latest' => '설치됨',
+		'update' => '업데이트 있음',
 	),
 	'stats' => array(
 		'_' => '통계',
@@ -175,12 +175,15 @@ return array(
 	'user' => array(
 		'articles_and_size' => '%s 개의 글 (%s)',
 		'create' => '새 사용자 생성',
+		'delete_users' => 'Delete user', // TODO
 		'language' => '언어',
 		'number' => '%d 개의 계정이 생성되었습니다',
 		'numbers' => '%d 개의 계정이 생성되었습니다',
 		'password_form' => '암호<br /><small>(웹폼 로그인 방식 사용시)</small>',
 		'password_format' => '7 글자 이상이어야 합니다',
+		'selected' => 'Selected user', // TODO
 		'title' => '사용자 관리',
+		'update_users' => 'Update user', // TODO
 		'user_list' => '사용자 목록',
 		'username' => '사용자 이름',
 		'users' => '전체 사용자',

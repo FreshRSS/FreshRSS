@@ -40,7 +40,7 @@ class FreshRSS_entry_Controller extends Minz_ActionController {
 		$get = Minz_Request::param('get');
 		$next_get = Minz_Request::param('nextGet', $get);
 		$id_max = Minz_Request::param('idMax', 0);
-		FreshRSS_Context::$search = new FreshRSS_Search(Minz_Request::param('search', ''));
+		FreshRSS_Context::$search = new FreshRSS_BooleanSearch(Minz_Request::param('search', ''));
 
 		FreshRSS_Context::$state = Minz_Request::param('state', 0);
 		if (FreshRSS_Context::isStateEnabled(FreshRSS_Entry::STATE_FAVORITE)) {
@@ -169,6 +169,7 @@ class FreshRSS_entry_Controller extends Minz_ActionController {
 		$nb_month_old = max(FreshRSS_Context::$user_conf->old_entries, 1);
 		$date_min = time() - (3600 * 24 * 30 * $nb_month_old);
 
+		$entryDAO = FreshRSS_Factory::createEntryDao();
 		$feedDAO = FreshRSS_Factory::createFeedDao();
 		$feeds = $feedDAO->listFeeds();
 		$nb_total = 0;
@@ -177,14 +178,12 @@ class FreshRSS_entry_Controller extends Minz_ActionController {
 
 		foreach ($feeds as $feed) {
 			$feed_history = $feed->keepHistory();
-			if ($feed_history == -2) {
-				// TODO: -2 must be a constant!
-				// -2 means we take the default value from configuration
+			if (FreshRSS_Feed::KEEP_HISTORY_DEFAULT === $feed_history) {
 				$feed_history = FreshRSS_Context::$user_conf->keep_history_default;
 			}
 
 			if ($feed_history >= 0) {
-				$nb = $feedDAO->cleanOldEntries($feed->id(), $date_min, $feed_history);
+				$nb = $entryDAO->cleanOldEntries($feed->id(), $date_min, $feed_history);
 				if ($nb > 0) {
 					$nb_total += $nb;
 					Minz_Log::debug($nb . ' old entries cleaned in feed [' . $feed->url() . ']');
