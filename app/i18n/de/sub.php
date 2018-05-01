@@ -44,8 +44,10 @@ return array(
 			'main_stream' => 'In Haupt-Feeds zeigen',
 			'normal' => 'Zeige in eigener Kategorie',
 		),
+		'ssl_verify' => 'Verify SSL security',	//TODO
 		'stats' => 'Statistiken',
 		'think_to_add' => 'Sie können Feeds hinzufügen.',
+		'timeout' => 'Timeout in seconds',	//TODO
 		'title' => 'Titel',
 		'title_add' => 'Einen RSS-Feed hinzufügen',
 		'ttl' => 'Aktualisiere automatisch nicht öfter als',

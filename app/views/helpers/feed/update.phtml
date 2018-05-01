@@ -178,6 +178,53 @@
 			</div>
 		</div>
 
+		<div class="form-group">
+			<label class="group-name" for="mark_updated_article_unread"><?php echo _t('conf.reading.mark_updated_article_unread'); ?></label>
+			<div class="group-controls">
+				<label class="checkbox" for="mark_updated_article_unread">
+					<select name="mark_updated_article_unread" id="mark_updated_article_unread">
+						<option value=""<?php echo $this->feed->attributes('mark_updated_article_unread') === null ? ' selected="selected"' : ''; ?>><?php echo _t('gen.short.by_default'); ?></option>
+						<option value="0"<?php echo $this->feed->attributes('mark_updated_article_unread') === false ? ' selected="selected"' : ''; ?>><?php echo _t('gen.short.no'); ?></option>
+						<option value="1"<?php echo $this->feed->attributes('mark_updated_article_unread') === true ? ' selected="selected"' : ''; ?>><?php echo _t('gen.short.yes'); ?></option>
+					</select>
+				</label>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="group-name" for="read_upon_reception"><?php echo _t('conf.reading.read.when'); ?></label>
+			<div class="group-controls">
+				<label class="checkbox" for="read_upon_reception">
+					<select name="read_upon_reception" id="read_upon_reception">
+						<option value=""<?php echo $this->feed->attributes('read_upon_reception') === null ? ' selected="selected"' : ''; ?>><?php echo _t('gen.short.by_default'); ?></option>
+						<option value="0"<?php echo $this->feed->attributes('read_upon_reception') === false ? ' selected="selected"' : ''; ?>><?php echo _t('gen.short.no'); ?></option>
+						<option value="1"<?php echo $this->feed->attributes('read_upon_reception') === true ? ' selected="selected"' : ''; ?>><?php echo _t('gen.short.yes'); ?></option>
+					</select>
+					<?php echo _t('conf.reading.read.upon_reception'); ?>
+				</label>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="group-name" for="timeout"><?php echo _t('sub.feed.timeout'); ?></label>
+			<div class="group-controls">
+				<input type="number" name="timeout" id="timeout" min="3" max="120" value="<?php echo $this->feed->attributes('timeout'); ?>" placeholder="<?php echo _t('gen.short.by_default'); ?>" />
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="group-name" for="ssl_verify"><?php echo _t('sub.feed.ssl_verify'); ?></label>
+			<div class="group-controls">
+				<label class="checkbox" for="ssl_verify">
+					<select name="ssl_verify" id="ssl_verify">
+						<option value=""<?php echo $this->feed->attributes('ssl_verify') === null ? ' selected="selected"' : ''; ?>><?php echo _t('gen.short.by_default'); ?></option>
+						<option value="0"<?php echo $this->feed->attributes('ssl_verify') === false ? ' selected="selected"' : ''; ?>><?php echo _t('gen.short.no'); ?></option>
+						<option value="1"<?php echo $this->feed->attributes('ssl_verify') === true ? ' selected="selected"' : ''; ?>><?php echo _t('gen.short.yes'); ?></option>
+					</select>
+				</label>
+			</div>
+		</div>
+
 		<div class="form-group form-actions">
 			<div class="group-controls">
 				<button type="submit" class="btn btn-important"><?php echo _t('gen.action.submit'); ?></button>
