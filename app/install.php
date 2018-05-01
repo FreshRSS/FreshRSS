@@ -537,7 +537,7 @@ function printStep2() {
 		<div class="form-group">
 			<label class="group-name" for="default_user"><?php echo _t('install.default_user'); ?></label>
 			<div class="group-controls">
-				<input type="text" id="default_user" name="default_user" required="required" size="16" pattern="<?php echo FreshRSS_user_Controller::USERNAME_PATTERN; ?>" value="<?php echo isset($_SESSION['default_user']) ? $_SESSION['default_user'] : ''; ?>" placeholder="<?php echo httpAuthUser() == '' ? 'alice' : httpAuthUser(); ?>" tabindex="3" />
+				<input type="text" id="default_user" name="default_user" autocomplete="username" required="required" size="16" pattern="<?php echo FreshRSS_user_Controller::USERNAME_PATTERN; ?>" value="<?php echo isset($_SESSION['default_user']) ? $_SESSION['default_user'] : ''; ?>" placeholder="<?php echo httpAuthUser() == '' ? 'alice' : httpAuthUser(); ?>" tabindex="3" />
 			</div>
 		</div>
 
