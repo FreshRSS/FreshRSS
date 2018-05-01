@@ -1,9 +1,14 @@
 ﻿# FreshRSS changelog
 
-## 2018-0X-XX FreshRSS 1.10.3-dev
+## 2018-05-XX FreshRSS 1.10.3-dev
 
 * Features
-	* Light Boolean search implementation [879](https://github.com/FreshRSS/FreshRSS/issues/879)
+	* Several per-feed options (implemented in JSON) [#1838](https://github.com/FreshRSS/FreshRSS/pull/1838)
+		* Mark updated articles as read [#891](https://github.com/FreshRSS/FreshRSS/issues/891)
+		* Mark as read upon reception [#1702](https://github.com/FreshRSS/FreshRSS/issues/1702)
+		* Feed cURL timeout
+		* Ignore SSL (unsafe) [#1811](https://github.com/FreshRSS/FreshRSS/issues/1811)
+	* Light Boolean search implementation [#879](https://github.com/FreshRSS/FreshRSS/issues/879)
 		* All parts are implicitly `AND` (which must not be written), except if `OR` is stated.
 		* No use of parentheses. Support for quotes to disable the Boolean search, like `"This or that"`.
 		* Example: `Hello intitle:World OR date:P1D example OR author:Else intitle:"This or that"`
