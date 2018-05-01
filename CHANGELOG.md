@@ -19,6 +19,8 @@
 	* Fix muted feeds that were not actually muted [#1844](https://github.com/FreshRSS/FreshRSS/issues/1844)
 	* Fix errors in case of empty/wrong username when updating user settings [#1857](https://github.com/FreshRSS/FreshRSS/pull/1857)
 	* Fixes in subscription menu [#1858](https://github.com/FreshRSS/FreshRSS/pull/1858)
+* Security
+	* Use `autocomplete="new-password"` to prevent form autocomplete in user management pages (fix bug with e.g. Firefox) [#1877](https://github.com/FreshRSS/FreshRSS/pull/1877)
 * UI
 	* Add tooltips on user queries [#1823](https://github.com/FreshRSS/FreshRSS/pull/1823)
 * I18n
