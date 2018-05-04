@@ -72,7 +72,7 @@ return array(
 			'already_subscribed' => '你已订阅 <em>%s</em>',
 			'deleted' => 'RSS 源已删除',
 			'error' => 'RSS 源更新失败',
-			'internal_problem' => 'RSS 源添加失败。<a href="%s">检查 FressRSS 日志</a> 查看详情。',
+			'internal_problem' => 'RSS 源添加失败。<a href="%s">检查 FressRSS 日志</a> 查看详情。', // @todo
 			'invalid_url' => 'URL <em>%s</em> 无效',
 			'marked_read' => 'RSS 源已被设为已读',
 			'n_actualized' => '%d 个 RSS 源已更新',

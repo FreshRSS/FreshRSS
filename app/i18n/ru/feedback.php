@@ -72,7 +72,7 @@ return array(
 			'already_subscribed' => 'You have already subscribed to <em>%s</em>',	//TODO
 			'deleted' => 'Feed has been deleted',	//TODO
 			'error' => 'Feed cannot be updated',	//TODO
-			'internal_problem' => 'The RSS feed could not be added. <a href="%s">Check FressRSS logs</a> for details.',	//TODO
+			'internal_problem' => 'The newsfeed could not be added. <a href="%s">Check FressRSS logs</a> for details. You can try force adding by appending <code>#force_feed</code> to the URL.',	//TODO
 			'invalid_url' => 'URL <em>%s</em> is invalid',	//TODO
 			'marked_read' => 'Feeds have been marked as read',	//TODO
 			'n_actualized' => '%d feeds have been updated',	//TODO

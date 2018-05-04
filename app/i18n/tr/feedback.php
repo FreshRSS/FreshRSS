@@ -72,7 +72,7 @@ return array(
 			'already_subscribed' => '<em>%s</em> için zaten aboneliğiniz bulunmakta',
 			'deleted' => 'Akış silindi',
 			'error' => 'Akış güncellenemiyor',
-			'internal_problem' => 'RSS akışı eklenemiyor. Detaylar için <a href="%s">FressRSS log kayıtlarını</a> kontrol edin.',
+			'internal_problem' => 'RSS akışı eklenemiyor. Detaylar için <a href="%s">FressRSS log kayıtlarını</a> kontrol edin.', // @todo
 			'invalid_url' => 'URL <em>%s</em> geçersiz',
 			'marked_read' => 'Akışlar okundu olarak işaretlendi',
 			'n_actualized' => '%d akışları güncellendi',

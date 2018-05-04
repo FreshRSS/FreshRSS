@@ -72,7 +72,7 @@ return array(
 			'already_subscribed' => 'Ya estás suscrito a <em>%s</em>',
 			'deleted' => 'Fuente eliminada',
 			'error' => 'No es posible actualizar la fuente',
-			'internal_problem' => 'No ha sido posible agregar la fuente RSS. <a href="%s">Revisa el registro de FressRSS </a> para más información.',
+			'internal_problem' => 'No ha sido posible agregar la fuente RSS. <a href="%s">Revisa el registro de FressRSS </a> para más información.', // @todo
 			'invalid_url' => 'La URL <em>%s</em> es inválida',
 			'marked_read' => 'Fuentes marcadas como leídas',
 			'n_actualized' => 'Se han actualiado %d fuentes',
