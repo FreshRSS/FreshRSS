@@ -70,22 +70,6 @@ sudo docker run -d --restart unless-stopped --log-opt max-size=10m \
   --name freshrss freshrss/freshrss
 ```
 
-### Example with [docker-compose](https://docs.docker.com/compose/)
-
-A `docker-compose.yml` file is given as an example, using PostgreSQL. In order to use it, you have to adapt:
-- In the `postgresql` service:
-	* the `volumes` section;
-	* the `POSTGRES_PASSWORD` in the `environment` section;
-- In the `freshrss` service:
-	* the `volumes` section;
-	* options under the `labels` section are specific to [Træfik](https://traefik.io/), a reverse proxy. If you are not using it, feel free to delete this section. If you are using it, adapt accordingly to your config, especially the `traefik.frontend.rule` option.
-
-You can then launch the stack (postgres + freshrss) with:
-```sh
-docker-compose up -d
-```
-
-
 ## Update
 
 ```sh
@@ -171,3 +155,18 @@ ls /var/www/FreshRSS/
 Use a reverse proxy on your host server, such as [Træfik](https://traefik.io/)
 or [nginx](https://docs.nginx.com/nginx/admin-guide/web-server/reverse-proxy/),
 with HTTPS, for instance using [Let’s Encrypt](https://letsencrypt.org/).
+
+### Example with [docker-compose](https://docs.docker.com/compose/)
+
+A `docker-compose.yml` file is given as an example, using PostgreSQL. In order to use it, you have to adapt:
+- In the `postgresql` service:
+	* the `volumes` section;
+	* the `POSTGRES_PASSWORD` in the `environment` section;
+- In the `freshrss` service:
+	* the `volumes` section;
+	* options under the `labels` section are specific to [Træfik](https://traefik.io/), a reverse proxy. If you are not using it, feel free to delete this section. If you are using it, adapt accordingly to your config, especially the `traefik.frontend.rule` option.
+
+You can then launch the stack (postgres + freshrss) with:
+```sh
+docker-compose up -d
+```
