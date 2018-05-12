@@ -46,11 +46,11 @@ class FeverAPI_EntryDAO extends FreshRSS_EntryDAO
 	 */
 	public function countFever()
 	{
-		$values = [
+		$values = array(
 			'total' => 0,
 			'min' => 0,
 			'max' => 0,
-		];
+		);
 		$sql = 'SELECT COUNT(id) as `total`, MIN(id) as `min`, MAX(id) as `max` FROM `' . $this->prefix . 'entry`';
 		$stm = $this->bd->prepare($sql);
 		$stm->execute();
@@ -85,7 +85,7 @@ class FeverAPI_EntryDAO extends FreshRSS_EntryDAO
 	 */
 	public function findEntries(array $feed_ids, array $entry_ids, $max_id, $since_id)
 	{
-		$values = [];
+		$values = array();
 		$order = '';
 
 		$sql = 'SELECT id, guid, title, author, '
@@ -118,7 +118,7 @@ class FeverAPI_EntryDAO extends FreshRSS_EntryDAO
 		$stm->execute($values);
 		$result = $stm->fetchAll(PDO::FETCH_ASSOC);
 
-		$entries = [];
+		$entries = array();
 		foreach ($result as $dao) {
 			$entries[] = self::daoToEntry($dao);
 		}
@@ -297,9 +297,9 @@ class FeverAPI
 	 * @param array $reply
 	 * @return string
 	 */
-	public function wrap($status, array $reply = [])
+	public function wrap($status, array $reply = array())
 	{
-		$arr = ['api_version' => self::API_LEVEL, 'auth' => $status];
+		$arr = array('api_version' => self::API_LEVEL, 'auth' => $status);
 
 		if ($status === self::STATUS_OK) {
 			$arr['last_refreshed_on_time'] = (string) $this->lastRefreshedOnTime();
@@ -334,14 +334,14 @@ class FeverAPI
 	 */
 	protected function getFeeds()
 	{
-		$feeds = [];
+		$feeds = array();
 
 		$dao = $this->getDaoForFeeds();
 		$myFeeds = $dao->listFeeds();
 
 		/** @var FreshRSS_Feed $feed */
 		foreach ($myFeeds as $feed) {
-			$feeds[] = [
+			$feeds[] = array(
 				"id" => $feed->id(),
 				"favicon_id" => $feed->id(),
 				"title" => $feed->name(),
@@ -349,7 +349,7 @@ class FeverAPI
 				"site_url" => $feed->website(),
 				"is_spark" => 0, // unsupported
 				"last_updated_on_time" => $feed->lastUpdate()
-			];
+			);
 		}
 
 		return $feeds;
@@ -367,10 +367,10 @@ class FeverAPI
 
 		/** @var FreshRSS_Category $category */
 		foreach ($categories as $category) {
-			$groups[] = [
+			$groups[] = array(
 				'id' => $category->id(),
 				'title' => $category->name()
-			];
+			);
 		}
 
 		return $groups;
@@ -397,10 +397,10 @@ class FeverAPI
 				continue;
 			}
 
-			$favicons[] = [
+			$favicons[] = array(
 				"id" => $feed->id(),
 				"data" => image_type_to_mime_type(exif_imagetype($filename)) . ";base64," . base64_encode(file_get_contents($filename))
-			];
+			);
 		}
 
 		return $favicons;
@@ -429,7 +429,7 @@ class FeverAPI
 	protected function getFeedsGroup()
 	{
 		$groups = array();
-		$ids = [];
+		$ids = array();
 
 		$dao = $this->getDaoForFeeds();
 		$myFeeds = $dao->listFeeds();
@@ -440,10 +440,10 @@ class FeverAPI
 		}
 
 		foreach($ids as $category => $feedIds) {
-			$groups[] = [
+			$groups[] = array(
 				'group_id' => $category,
 				'feed_ids' => implode(',', $feedIds)
-			];
+			);
 		}
 
 		return $groups;
@@ -455,7 +455,7 @@ class FeverAPI
 	 */
 	protected function getLinks()
 	{
-		return [];
+		return array();
 	}
 
 	/**
@@ -516,8 +516,8 @@ class FeverAPI
 	 */
 	protected function getItems()
 	{
-		$feed_ids = [];
-		$entry_ids = [];
+		$feed_ids = array();
+		$entry_ids = array();
 		$max_id = null;
 		$since_id = null;
 
@@ -557,7 +557,7 @@ class FeverAPI
 			$since_id = isset($_REQUEST["since_id"]) && is_numeric($_REQUEST["since_id"]) ? intval($_REQUEST["since_id"]) : 0;
 		}
 
-		$items = [];
+		$items = array();
 
 		$dao = $this->getDaoForEntries();
 		$entries = $dao->findEntries($feed_ids, $entry_ids, $max_id, $since_id);
@@ -570,7 +570,7 @@ class FeverAPI
 			if (is_null($entry)) {
 				continue;
 			}
-			$items[] = [
+			$items[] = array(
 				"id" => $entry->id(),
 				"feed_id" => $entry->feed(false),
 				"title" => $entry->title(),
@@ -580,7 +580,7 @@ class FeverAPI
 				"is_saved" => $entry->isFavorite() ? 1 : 0,
 				"is_read" => $entry->isRead() ? 1 : 0,
 				"created_on_time" => $entry->date(true)
-			];
+			);
 		}
 
 		return $items;
@@ -635,7 +635,7 @@ $handler = createFeverApiInstance();
 header("Content-Type: application/json; charset=UTF-8");
 
 if (!$handler->isAuthenticatedApiUser()) {
-	echo $handler->wrap(FeverAPI::STATUS_ERR, []);
+	echo $handler->wrap(FeverAPI::STATUS_ERR, array());
 } else {
 	echo $handler->wrap(FeverAPI::STATUS_OK, $handler->process());
 }
