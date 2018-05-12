@@ -169,6 +169,7 @@ class FeverAPI
 	private function authenticate()
 	{
 		FreshRSS_Context::$user_conf = null;
+		Minz_Session::_param('currentUser');
 		$feverKey = empty($_POST['api_key']) ? '' : substr(trim($_POST['api_key']), 0, 128);
 		if (ctype_xdigit($feverKey)) {
 			$feverKey = strtolower($feverKey);
@@ -177,6 +178,9 @@ class FeverAPI
 				$username = trim($username);
 				if (FreshRSS_user_Controller::checkUsername($username)) {
 					FreshRSS_Context::$user_conf = get_user_configuration($username);
+					if (FreshRSS_Context::$user_conf != null) {
+						Minz_Session::_param('currentUser', $username);
+					}
 				}
 			}
 		}
