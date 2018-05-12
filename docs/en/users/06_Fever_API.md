@@ -3,7 +3,7 @@
 ## RSS clients
 
 There are many RSS clients existing supporting Fever APIs but they seem to understand the Fever API a bit differently.
-If your favorite client doesn't work properly with this API, create an issue and we will have a look.
+If your favourite client does not work properly with this API, create an issue and we will have a look.
 But we can **only** do that for free clients.
 
 ### Usage & Authentication
@@ -11,7 +11,7 @@ But we can **only** do that for free clients.
 Before you can start to use this API, you have to enable and setup API access, which is [documented here](https://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html),
 and then re-set the user’s API password.
 
-Then point your mobile application to the URL of `fever.php` (e.g. `http://freshrss.example.net/api/fever.php`).
+Then point your mobile application to the URL of `fever.php` (e.g. `https://freshrss.example.net/api/fever.php`).
 
 Special client implementation:
 - The Press Android client needs (tested with 1.5.4) needs the additional file `fever-press.php` (use that file as endpoint in the Fever account setting)
@@ -50,38 +50,51 @@ Following features are implemented:
 
 ## Testing and error search
 
-If this API doesn't work as expected in your RSS reader, you can test it manually with a tool like [Postman](https://www.getpostman.com/).
+If this API does not work as expected in your RSS reader, you can test it manually with a tool like [Postman](https://www.getpostman.com/).
 
-Configure a POST request to the URL http://freshrss.example.net/api/fever.php?api which  should give you the result:
-```
+Configure a POST request to the URL https://freshrss.example.net/api/fever.php?api which  should give you the result:
+```json
 {
-    "api_version": 3,
-    "auth": 0
+	"api_version": 3,
+	"auth": 0
 }
 ```
 Great, the base setup seems to work!
 
-Now lets try an authenticated call, so add a body to your POST request encoded as `form-data` and one key named `api_key` with the value `your-password-hash`, that should give you:
+Now lets try an authenticated call. Fever uses an `api_key`, which is the MD5 hash of `"$username:$apiPassword"`.
+Assuming the user is `kevin` and the password `freshrss`, here is a command-line example to compute the resulting `api_key`
+
+```sh
+api_key=`echo -n "kevin:freshrss" | md5sum | cut -d' ' -f1`
 ```
+
+Add a body to your POST request encoded as `form-data` and one key named `api_key` with the value `your-password-hash`:
+
+```sh
+curl -s -F "api_key=$api_key" 'https://freshrss.example.net/api/fever.php?api'
+```
+
+This shoud give:
+```json
 {
-    "api_version": 3,
-    "auth": 1,                               <= 1 means you were successfully authenticated
-    "last_refreshed_on_time": "1520013061"   <= depends on your installation
+	"api_version": 3,
+	"auth": 1,                               <= 1 means you were successfully authenticated
+	"last_refreshed_on_time": "1520013061"   <= depends on your installation
 }
 ```
 Perfect, you are authenticated and can now start testing the more advanced features. Therefor change the URL and append the possible API actions to your request parameters. Check the [original Fever documentation](https://feedafever.com/api) for more infos.
 
 Some basic calls are:
 
-- http://freshrss.example.net/api/fever.php?api&items
-- http://freshrss.example.net/api/fever.php?api&feeds
-- http://freshrss.example.net/api/fever.php?api&groups
-- http://freshrss.example.net/api/fever.php?api&unread_item_ids
-- http://freshrss.example.net/api/fever.php?api&saved_item_ids
-- http://freshrss.example.net/api/fever.php?api&items&since_id=some_id
-- http://freshrss.example.net/api/fever.php?api&items&max_id=some_id
-- http://freshrss.example.net/api/fever.php?api&mark=item&as=read&id=some_id
-- http://freshrss.example.net/api/fever.php?api&mark=item&as=unread&id=some_id
+- https://freshrss.example.net/api/fever.php?api&items
+- https://freshrss.example.net/api/fever.php?api&feeds
+- https://freshrss.example.net/api/fever.php?api&groups
+- https://freshrss.example.net/api/fever.php?api&unread_item_ids
+- https://freshrss.example.net/api/fever.php?api&saved_item_ids
+- https://freshrss.example.net/api/fever.php?api&items&since_id=some_id
+- https://freshrss.example.net/api/fever.php?api&items&max_id=some_id
+- https://freshrss.example.net/api/fever.php?api&mark=item&as=read&id=some_id
+- https://freshrss.example.net/api/fever.php?api&mark=item&as=unread&id=some_id
 
 Replace `some_id` with a real ID from your `freshrss_username_entry` database.
 

@@ -174,7 +174,7 @@ class FeverAPI
 			if ($username != false) {
 				$username = trim($username);
 				if (FreshRSS_user_Controller::checkUsername($username)) {
-					$config = get_user_configuration($username);
+					FreshRSS_Context::$user_conf = get_user_configuration($username);
 				}
 			}
 		}
