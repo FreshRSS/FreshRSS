@@ -37,12 +37,12 @@ return array(
 			'no_limit' => 'Keine Begrenzung',
 			'thin' => 'Klein',
 		),
-		'show_nav_buttons' => 'Show the navigation buttons',	//TODO
+		'show_nav_buttons' => 'Zeige Navigations-Buttons',
 	),
 	'query' => array(
 		'_' => 'Benutzerabfragen',
 		'deprecated' => 'Diese Abfrage ist nicht länger gültig. Die referenzierte Kategorie oder der Feed ist gelöscht worden.',
-		'display' => 'Display user query results', // TODO
+		'display' => 'Zeige Abfrage Ergebnisse',
 		'filter' => 'Angewendeter Filter:',
 		'get_all' => 'Alle Artikel anzeigen',
 		'get_category' => 'Kategorie "%s" anzeigen',
@@ -53,7 +53,7 @@ return array(
 		'number' => 'Abfrage Nr. %d',
 		'order_asc' => 'Älteste Artikel zuerst anzeigen',
 		'order_desc' => 'Neueste Artikel zuerst anzeigen',
-		'remove' => 'Remove user query', // TODO
+		'remove' => 'Lösche Abfrage',
 		'search' => 'Suche nach "%s"',
 		'state_0' => 'Alle Artikel anzeigen',
 		'state_1' => 'Gelesene Artikel anzeigen',
@@ -96,7 +96,7 @@ return array(
 		'display_categories_unfolded' => 'Kategorien standardmäßig eingeklappt zeigen',
 		'hide_read_feeds' => 'Kategorien & Feeds ohne ungelesene Artikel verstecken (funktioniert nicht mit der Einstellung „Alle Artikel zeigen“)',
 		'img_with_lazyload' => 'Verwende die "träges Laden"-Methode zum Laden von Bildern',
-		'sides_close_article' => 'Clicking outside of article text area closes the article',	//TODO
+		'sides_close_article' => 'Klick außerhalb des Artikel-Textes schließt den Artikel',
 		'jump_next' => 'springe zum nächsten ungelesenen Geschwisterelement (Feed oder Kategorie)',
 		'number_divided_when_reader' => 'Geteilt durch 2 in der Lese-Ansicht.',
 		'read' => array(
@@ -128,7 +128,7 @@ return array(
 	),
 	'sharing' => array(
 		'_' => 'Teilen',
-		'add' => 'Add a sharing method', // TODO
+		'add' => 'Füge eine Teilen-Dienst hinzu',
 		'blogotext' => 'Blogotext',
 		'diaspora' => 'Diaspora*',
 		'email' => 'E-Mail',
@@ -136,7 +136,7 @@ return array(
 		'g+' => 'Google+',
 		'more_information' => 'Weitere Informationen',
 		'print' => 'Drucken',
-		'remove' => 'Remove sharing method', // TODO
+		'remove' => 'Entferne Teilen-Dienst',
 		'shaarli' => 'Shaarli',
 		'share_name' => 'Anzuzeigender Teilen-Name',
 		'share_url' => 'Zu verwendende Teilen-URL',
@@ -153,7 +153,7 @@ return array(
 		'collapse_article' => 'Einklappen',
 		'first_article' => 'Zum ersten Artikel springen',
 		'focus_search' => 'Auf das Suchfeld zugreifen',
-		'global_view' => 'Switch to global view', // TODO
+		'global_view' => 'Wechsle zur globalen Ansicht',
 		'help' => 'Dokumentation anzeigen',
 		'javascript' => 'JavaScript muss aktiviert sein, um Tastaturkürzel benutzen zu können',
 		'last_article' => 'Zum letzten Artikel springen',
@@ -163,17 +163,17 @@ return array(
 		'navigation' => 'Navigation',
 		'navigation_help' => 'Mit der "Umschalttaste" finden die Tastenkombination auf Feeds Anwendung.<br/>Mit der "Alt-Taste" finden die Tastenkombination auf Kategorien Anwendung.',
 		'next_article' => 'Zum nächsten Artikel springen',
-		'normal_view' => 'Switch to normal view', // TODO
+		'normal_view' => 'Wechsle zur normalen Ansicht',
 		'other_action' => 'Andere Aktionen',
 		'previous_article' => 'Zum vorherigen Artikel springen',
-		'reading_view' => 'Switch to reading view', // TODO
-		'rss_view' => 'Open RSS view in a new tab', // TODO
+		'reading_view' => 'Wechsle zur Lese-Ansicht',
+		'rss_view' => 'Öffne RSS Ansicht in neuem Tab',
 		'see_on_website' => 'Auf der Original-Webseite ansehen',
 		'shift_for_all_read' => '+ <code>Umschalttaste</code>, um alle Artikel als gelesen zu markieren.',
 		'title' => 'Tastenkombination',
 		'user_filter' => 'Auf Benutzerfilter zugreifen',
 		'user_filter_help' => 'Wenn es nur einen Benutzerfilter gibt, wird dieser verwendet. Ansonsten sind die Filter über ihre Nummer erreichbar.',
-		'views' => 'Views', // TODO
+		'views' => 'Ansichten',
 	),
 	'user' => array(
 		'articles_and_size' => '%s Artikel (%s)',

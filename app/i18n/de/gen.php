@@ -19,7 +19,7 @@ return array(
 		'see_website' => 'Webseite ansehen',
 		'submit' => 'Abschicken',
 		'truncate' => 'Alle Artikel löschen',
-		'update' => 'Update', // TODO
+		'update' => 'Aktualisieren',
 	),
 	'auth' => array(
 		'email' => 'E-Mail-Adresse',

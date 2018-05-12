@@ -2,13 +2,13 @@
 
 return array(
 	'api' => array(
-		'documentation' => 'Copy the following URL to use it within an external tool.',// TODO
-		'title' => 'API',// TODO
+		'documentation' => 'Kopieren Sie die folgende URL, um sie in einem externen Tool zu verwenden.',
+		'title' => 'API',
 	),
 	'bookmarklet' => array(
-		'documentation' => 'Drag this button to your bookmarks toolbar or right-click it and choose "Bookmark This Link". Then click "Subscribe" button in any page you want to subscribe to.',// TODO
-		'label' => 'Subscribe',// TODO
-		'title' => 'Bookmarklet',// TODO
+		'documentation' => 'Ziehen Sie diese Schaltfläche auf Ihre Lesezeichen-Symbolleiste oder klicken Sie mit der rechten Maustaste darauf und wählen Sie "Als Lesezeichen hinzufügen". Klicken Sie dann auf einer beliebigen Seite, die Sie abonnieren möchten, auf die Schaltfläche "Abonnieren".',
+		'label' => 'Abonnieren',
+		'title' => 'Bookmarklet',
 	),
 	'category' => array(
 		'_' => 'Kategorie',
@@ -35,17 +35,19 @@ return array(
 		'informations' => 'Information',
 		'keep_history' => 'Minimale Anzahl an Artikeln, die behalten wird',
 		'moved_category_deleted' => 'Wenn Sie eine Kategorie entfernen, werden deren Feeds automatisch in die Kategorie <em>%s</em> eingefügt.',
-		'mute' => 'mute', // TODO
+		'mute' => 'Stumm schalten',
 		'no_selected' => 'Kein Feed ausgewählt.',
 		'number_entries' => '%d Artikel',
 		'priority' => array(
-			'_' => 'Visibility', // TODO
-			'archived' => 'Do not show (archived)', // TODO
+			'_' => 'Sichtbarkeit',
+			'archived' => 'Nicht anzeigen (archiviert)',
 			'main_stream' => 'In Haupt-Feeds zeigen',
-			'normal' => 'Show in its category', // TODO
+			'normal' => 'Zeige in eigener Kategorie',
 		),
+		'ssl_verify' => 'Verify SSL security',	//TODO
 		'stats' => 'Statistiken',
 		'think_to_add' => 'Sie können Feeds hinzufügen.',
+		'timeout' => 'Timeout in seconds',	//TODO
 		'title' => 'Titel',
 		'title_add' => 'Einen RSS-Feed hinzufügen',
 		'ttl' => 'Aktualisiere automatisch nicht öfter als',
@@ -55,8 +57,8 @@ return array(
 		'pubsubhubbub' => 'Sofortbenachrichtigung mit PubSubHubbub',
 	),
 	'firefox' => array(
-		'documentation' => 'Follow the steps described <a href="https://developer.mozilla.org/en-US/Firefox/Releases/2/Adding_feed_readers_to_Firefox#Adding_a_new_feed_reader_manually">here</a> to add FreshRSS to Firefox feed reader list.',// TODO
-		'title' => 'Firefox feed reader',// TODO
+		'documentation' => 'Folge den <a href="https://developer.mozilla.org/en-US/Firefox/Releases/2/Adding_feed_readers_to_Firefox#Adding_a_new_feed_reader_manually">hier</a> beschriebenen Schritten um FreshRSS zu Deiner Firefox RSS-Reader Liste hinzuzufügen.',
+		'title' => 'Firefox RSS-Reader',
 	),
 	'import_export' => array(
 		'export' => 'Exportieren',
@@ -73,11 +75,11 @@ return array(
 		'bookmark' => 'Abonnieren (FreshRSS-Lesezeichen)',
 		'import_export' => 'Importieren / Exportieren',
 		'subscription_management' => 'Abonnementverwaltung',
-		'subscription_tools' => 'Subscription tools',// TODO
+		'subscription_tools' => 'Abonnement-Tools',
 	),
 	'title' => array(
 		'_' => 'Abonnementverwaltung',
 		'feed_management' => 'Verwaltung der RSS-Feeds',
-		'subscription_tools' => 'Subscription tools',// TODO
+		'subscription_tools' => 'Abonnement-Tools',
 	),
 );

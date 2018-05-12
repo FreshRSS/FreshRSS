@@ -44,8 +44,10 @@ return array(
 			'main_stream' => 'Mostrar na tela principal',
 			'normal' => 'Show in its category', // TODO
 		),
+		'ssl_verify' => 'Verify SSL security',	//TODO
 		'stats' => 'Estatísticas',
 		'think_to_add' => 'Você deve adicionar alguns feeds.',
+		'timeout' => 'Timeout in seconds',	//TODO
 		'title' => 'Título',
 		'title_add' => 'Adicionar o RSS feed',
 		'ttl' => 'Não atualize automáticamente mais que',

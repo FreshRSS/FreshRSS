@@ -175,7 +175,7 @@ function html_only_entity_decode($text) {
 	return strtr($text, $htmlEntitiesOnly);
 }
 
-function customSimplePie() {
+function customSimplePie($attributes = array()) {
 	$system_conf = Minz_Configuration::get('system');
 	$limits = $system_conf->limits;
 	$simplePie = new SimplePie();
@@ -183,8 +183,17 @@ function customSimplePie() {
 	$simplePie->set_syslog($system_conf->simplepie_syslog_enabled);
 	$simplePie->set_cache_location(CACHE_PATH);
 	$simplePie->set_cache_duration($limits['cache_duration']);
-	$simplePie->set_timeout($limits['timeout']);
-	$simplePie->set_curl_options($system_conf->curl_options);
+
+	$feed_timeout = empty($attributes['timeout']) ? 0 : intval($attributes['timeout']);
+	$simplePie->set_timeout($feed_timeout > 0 ? $feed_timeout : $limits['timeout']);
+
+	$curl_options = $system_conf->curl_options;
+	if (isset($attributes['ssl_verify'])) {
+		$curl_options[CURLOPT_SSL_VERIFYHOST] = $attributes['ssl_verify'] ? 2 : 0;
+		$curl_options[CURLOPT_SSL_VERIFYPEER] = $attributes['ssl_verify'] ? true : false;
+	}
+	$simplePie->set_curl_options($curl_options);
+
 	$simplePie->strip_htmltags(array(
 		'base', 'blink', 'body', 'doctype', 'embed',
 		'font', 'form', 'frame', 'frameset', 'html',
