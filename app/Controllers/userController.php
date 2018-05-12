@@ -58,6 +58,10 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 		if ($apiPasswordPlain != '') {
 			$apiPasswordHash = self::hashPassword($apiPasswordPlain);
 			$userConfig->apiPasswordHash = $apiPasswordHash;
+
+			@mkdir(DATA_PATH . '/fever/', 0770, true);
+			$feverKey = strtolower(md5($user . ':' . $apiPasswordPlain));
+			file_put_contents(DATA_PATH . '/fever/.' . sha1(FreshRSS_Context::$system_conf->salt) . '-' . $feverKey . '.txt', $user);
 		}
 
 		if (is_array($userConfigUpdated)) {

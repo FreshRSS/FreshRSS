@@ -166,25 +166,16 @@ class FeverAPI
 	 */
 	private function authenticate()
 	{
-		if (!isset($_POST["api_key"]) || empty($_POST["api_key"])) {
-			FreshRSS_Context::$user_conf = null;
-			return;
-		}
-
-		$apiKey = $_POST["api_key"];
-		$usersDir = join_path(DATA_PATH, 'users');
-
-		foreach (glob($usersDir . '/*', GLOB_ONLYDIR) as $username) {
-			$username = str_replace($usersDir . '/', '', $username);
-			if ($username == '_') {
-				continue;
-			}
-
-			$config = get_user_configuration($username);
-			if ($config->apiPasswordHash != '' && password_verify($apiKey, $config->apiPasswordHash)) {
-				Minz_Session::_param('currentUser', $username);
-				FreshRSS_Context::$user_conf = $config;
-				return;
+		FreshRSS_Context::$user_conf = null;
+		$feverKey = empty($_POST['api_key']) ? '' : substr(trim($_POST['api_key']), 0, 128);
+		if (ctype_xdigit($feverKey)) {
+			$feverKey = strtolower($feverKey);
+			$username = @file_get_contents(DATA_PATH . '/fever/.' . sha1(FreshRSS_Context::$system_conf->salt) . '-' . $feverKey . '.txt', false);
+			if ($username != false) {
+				$username = trim($username);
+				if (FreshRSS_user_Controller::checkUsername($username)) {
+					$config = get_user_configuration($username);
+				}
 			}
 		}
 	}
@@ -233,7 +224,7 @@ class FeverAPI
 		$response_arr = array();
 
 		if (!$this->isAuthenticatedApiUser()) {
-			throw new \Exception('No user given or user is not allowed to access API');
+			throw new Exception('No user given or user is not allowed to access API');
 		}
 
 		if (isset($_REQUEST["groups"])) {

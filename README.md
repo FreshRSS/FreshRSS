@@ -57,7 +57,7 @@ We are a friendly community.
 6. Advanced configuration settings can be seen in [config.default.php](config.default.php) and modified in `data/config.php`.
 7. When using Apache, enable [`AllowEncodedSlashes`](https://httpd.apache.org/docs/trunk/mod/core.html#allowencodedslashes) for better compatibility with mobile clients.
 
-More information about installation and server configuration can be found in [our documentation](https://freshrss.github.io/FreshRSS/en/admins/02_Installation.html). 
+More information about installation and server configuration can be found in [our documentation](https://freshrss.github.io/FreshRSS/en/admins/02_Installation.html).
 
 ## Automated install
 * [Docker](./Docker/)
@@ -156,9 +156,9 @@ mysqldump --skip-comments --disable-keys --user=<db_user> --password --host <db_
 ```
 
 
-# Extensions 
+# Extensions
 FreshRSS supports further customizations by adding extensions on top of its core functionality.
-See the [repository dedicated to those extensions](https://github.com/FreshRSS/Extensions). 
+See the [repository dedicated to those extensions](https://github.com/FreshRSS/Extensions).
 
 
 # APIs & native apps
@@ -184,15 +184,12 @@ You can find more information about this API at our [Fever API documentation](ht
 
 Supported clients are:
 
-- iOS
-  - [Fiery Feeds](https://itunes.apple.com/app/fiery-feeds-rss-reader/id1158763303)
-  - [Unread](https://itunes.apple.com/app/unread-rss-reader/id1252376153)
+* iOS
+	* [Fiery Feeds](https://itunes.apple.com/app/fiery-feeds-rss-reader/id1158763303)
+	* [Unread](https://itunes.apple.com/app/unread-rss-reader/id1252376153)
 
-MacOS:
-  - [Readkit](https://itunes.apple.com/app/readkit/id588726889?ls=1&mt=12)
-     
-- Android 
-  - Press 1.5.4 (not available via PlayStore, but APK can still be found)
+* MacOS:
+	* [Readkit](https://itunes.apple.com/app/readkit/id588726889?ls=1&mt=12)
 
 
 # Included libraries
