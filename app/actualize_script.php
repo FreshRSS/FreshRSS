@@ -1,4 +1,4 @@
-#!/usr/bin/env php
+#!/usr/bin/php
 <?php
 require(__DIR__ . '/../cli/_cli.php');
 
