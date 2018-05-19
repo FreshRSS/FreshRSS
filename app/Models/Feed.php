@@ -335,6 +335,8 @@ class FreshRSS_Feed extends Minz_Model {
 
 	public function loadEntries($feed) {
 		$entries = array();
+		$guids = array();
+		$hasUniqueGuids = true;
 
 		foreach ($feed->get_items() as $item) {
 			$title = html_only_entity_decode(strip_tags($item->get_title()));
@@ -375,9 +377,13 @@ class FreshRSS_Feed extends Minz_Model {
 				}
 			}
 
+			$guid = $item->get_id(false, false);
+			$hasUniqueGuids &= empty($guids['_' . $guid]);
+			$guids['_' . $guid] = true;
+
 			$entry = new FreshRSS_Entry(
 				$this->id(),
-				$item->get_id(false, false),
+				$guid,
 				$title === null ? '' : $title,
 				$author === null ? '' : html_only_entity_decode(strip_tags($author->name == null ? $author->email : $author->name)),
 				$content === null ? '' : $content,
@@ -390,6 +396,12 @@ class FreshRSS_Feed extends Minz_Model {
 
 			$entries[] = $entry;
 			unset($item);
+		}
+
+		if (!$hasUniqueGuids) {
+			foreach ($entries as $entry) {
+				$entry->_guid('');
+			}
 		}
 
 		$this->entries = $entries;
