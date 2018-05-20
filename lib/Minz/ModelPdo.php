@@ -58,7 +58,7 @@ class Minz_ModelPdo {
 		try {
 			switch ($db['type']) {
 				case 'mysql':
-					$string = 'mysql:host=' . $dbServer['host'] . ';dbname=' . $db['base'] . ';charset=utf8mb4';
+					$string = 'mysql:host=' . ((substr($db['host'], 0, 1) === '/') ? $db['host'] : $dbServer['host']) . ';dbname=' . $db['base'] . ';charset=utf8mb4';
 					if (!empty($dbServer['port'])) {
 						$string .= ';port=' . $dbServer['port'];
 					}
