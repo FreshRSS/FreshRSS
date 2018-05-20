@@ -11,6 +11,7 @@
 
 // refresh is not allowed yet, probably we find a way to support it later
 if (isset($_REQUEST["refresh"])) {
+	header('HTTP/1.1 405 Method Not Allowed', true, 405);
 	exit;
 }
 

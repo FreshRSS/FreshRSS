@@ -61,7 +61,11 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 
 			@mkdir(DATA_PATH . '/fever/', 0770, true);
 			$feverKey = strtolower(md5($user . ':' . $apiPasswordPlain));
-			file_put_contents(DATA_PATH . '/fever/.' . sha1(FreshRSS_Context::$system_conf->salt) . '-' . $feverKey . '.txt', $user);
+			$ok = (file_put_contents(DATA_PATH . '/fever/.' . sha1(FreshRSS_Context::$system_conf->salt) . '-' . $feverKey . '.txt', $user) !== false);
+			if (!$ok) {
+				Minz_Log::warning('Could not save API credentials for fever API', ADMIN_LOG);
+				return $ok;
+			}
 		}
 
 		if (is_array($userConfigUpdated)) {
