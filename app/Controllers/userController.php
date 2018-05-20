@@ -44,6 +44,17 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 		return preg_match('/^' . self::USERNAME_PATTERN . '$/', $username) === 1;
 	}
 
+	public static function deleteFeverKey($username) {
+		$userPath = DATA_PATH . '/fever/.user-' . sha1(FreshRSS_Context::$system_conf->salt) . '-' . $username . '.txt';
+		$oldKey = @file_get_contents($userPath, false);
+		$oldKey = $oldKey == false ? '' : trim($oldKey);
+		if (ctype_xdigit($oldKey)) {
+			$ok = @unlink(DATA_PATH . '/fever/.key-' . sha1(FreshRSS_Context::$system_conf->salt) . '-' . $oldKey . '.txt');
+			return @unlink($userPath) && $ok;
+		}
+		return false;
+	}
+
 	public static function updateUser($user, $passwordPlain, $apiPasswordPlain, $userConfigUpdated = array()) {
 		$userConfig = get_user_configuration($user);
 		if ($userConfig === null) {
@@ -60,8 +71,11 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 			$userConfig->apiPasswordHash = $apiPasswordHash;
 
 			@mkdir(DATA_PATH . '/fever/', 0770, true);
+			self::deleteFeverKey($user);
 			$feverKey = strtolower(md5($user . ':' . $apiPasswordPlain));
-			$ok = (file_put_contents(DATA_PATH . '/fever/.' . sha1(FreshRSS_Context::$system_conf->salt) . '-' . $feverKey . '.txt', $user) !== false);
+			$ok = file_put_contents(DATA_PATH . '/fever/.key-' . sha1(FreshRSS_Context::$system_conf->salt) . '-' . $feverKey . '.txt', $user) !== false;
+			$ok &= file_put_contents(DATA_PATH . '/fever/.user-' . sha1(FreshRSS_Context::$system_conf->salt) . '-' . $user . '.txt', $feverKey) !== false;
+
 			if (!$ok) {
 				Minz_Log::warning('Could not save API credentials for fever API', ADMIN_LOG);
 				return $ok;
@@ -266,6 +280,7 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 			$ok &= $userDAO->deleteUser($username);
 			$ok &= recursive_unlink($user_data);
 			array_map('unlink', glob(PSHB_PATH . '/feeds/*/' . $username . '.txt'));
+			self::deleteFeverKey();
 		}
 		return $ok;
 	}

@@ -172,10 +172,13 @@ class FeverAPI
 		$feverKey = empty($_POST['api_key']) ? '' : substr(trim($_POST['api_key']), 0, 128);
 		if (ctype_xdigit($feverKey)) {
 			$feverKey = strtolower($feverKey);
-			$username = @file_get_contents(DATA_PATH . '/fever/.' . sha1(FreshRSS_Context::$system_conf->salt) . '-' . $feverKey . '.txt', false);
+			$username = @file_get_contents(DATA_PATH . '/fever/.key-' . sha1(FreshRSS_Context::$system_conf->salt) . '-' . $feverKey . '.txt', false);
 			if ($username != false) {
 				$username = trim($username);
-				if (FreshRSS_user_Controller::checkUsername($username)) {
+				//Check that it is not an old forgotten key
+				$reverseKey = @file_get_contents(DATA_PATH . '/fever/.user-' . sha1(FreshRSS_Context::$system_conf->salt) . '-' . $username . '.txt', false);
+				$reverseKey = $reverseKey == false ? '' : trim($reverseKey);
+				if ($feverKey === $reverseKey && FreshRSS_user_Controller::checkUsername($username)) {
 					FreshRSS_Context::$user_conf = get_user_configuration($username);
 					if (FreshRSS_Context::$user_conf != null) {
 						Minz_Session::_param('currentUser', $username);
