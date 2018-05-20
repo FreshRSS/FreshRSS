@@ -144,11 +144,6 @@ class FeverAPI_EntryDAO extends FreshRSS_EntryDAO
 
 /**
  * Class FeverAPI
- *
- * API Password must be the result of the md5 sum of your FreshRSS "username:your-api-password"
- *
- * md5 -s "kevin:test-fever"
- * MD5 ("kevin:test-fever") = 7cd3293ae3c2f3d6648e76f9be65ca59
  */
 class FeverAPI
 {
@@ -166,6 +161,9 @@ class FeverAPI
 
 	/**
 	 * Authenticate the user
+	 *
+	 * API Password sent from client is the result of the md5 sum of
+	 * your FreshRSS "username:your-api-password" combination
 	 */
 	private function authenticate()
 	{
