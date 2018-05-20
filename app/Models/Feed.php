@@ -398,6 +398,17 @@ class FreshRSS_Feed extends Minz_Model {
 			unset($item);
 		}
 
+		$hasBadGuids = $this->attributes('hasBadGuids');
+		if ($hasBadGuids != !$hasUniqueGuids) {
+			$hasBadGuids = !$hasUniqueGuids;
+			if ($hasBadGuids) {
+				Minz_Log::warning('Feed has invalid GUIDs: ' . $this->url);
+			} else {
+				Minz_Log::warning('Feed has valid GUIDs again: ' . $this->url);
+			}
+			$feedDAO = FreshRSS_Factory::createFeedDao();
+			$feedDAO->updateFeedAttribute($this, 'hasBadGuids', $hasBadGuids);
+		}
 		if (!$hasUniqueGuids) {
 			foreach ($entries as $entry) {
 				$entry->_guid('');
