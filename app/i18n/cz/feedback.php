@@ -72,7 +72,7 @@ return array(
 			'already_subscribed' => 'Již jste přihlášen k odběru <em>%s</em>',
 			'deleted' => 'Kanál byl smazán',
 			'error' => 'Kanál nelze aktualizovat',
-			'internal_problem' => 'RSS kanál nelze přidat. Pro detaily <a href="%s">zkontrolujte logy FressRSS</a>.',
+			'internal_problem' => 'RSS kanál nelze přidat. Pro detaily <a href="%s">zkontrolujte logy FressRSS</a>.', // @todo
 			'invalid_url' => 'URL <em>%s</em> není platné',
 			'marked_read' => 'Kanály byly označeny jako přečtené',
 			'n_actualized' => '%d kanálů bylo aktualizováno',

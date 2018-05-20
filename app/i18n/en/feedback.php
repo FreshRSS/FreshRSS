@@ -72,7 +72,7 @@ return array(
 			'already_subscribed' => 'You have already subscribed to <em>%s</em>',
 			'deleted' => 'Feed has been deleted',
 			'error' => 'Feed cannot be updated',
-			'internal_problem' => 'The RSS feed could not be added. <a href="%s">Check FressRSS logs</a> for details.',
+			'internal_problem' => 'The newsfeed could not be added. <a href="%s">Check FressRSS logs</a> for details. You can try force adding by appending <code>#force_feed</code> to the URL.',
 			'invalid_url' => 'URL <em>%s</em> is invalid',
 			'marked_read' => 'Feeds have been marked as read',
 			'n_actualized' => '%d feeds have been updated',

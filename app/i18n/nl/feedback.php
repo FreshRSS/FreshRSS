@@ -72,7 +72,7 @@ return array(
 			'already_subscribed' => 'U bent al geabonneerd op <em>%s</em>',
 			'deleted' => 'Feed is verwijderd',
 			'error' => 'Feed kan niet worden vernieuwd',
-			'internal_problem' => 'De RSS feed kon niet worden toegevoegd. <a href="%s">Controleer FressRSS log bestanden</a> voor details.',
+			'internal_problem' => 'De feed kon niet worden toegevoegd. <a href="%s">Controleer de FressRSS-logbestanden</a> voor details. Toevoegen forceren kan worden geprobeerd door <code>#force_feed</code> aan de URL toe te voegen.',
 			'invalid_url' => 'URL <em>%s</em> is ongeldig',
 			'marked_read' => 'Feeds zijn gemarkeerd als gelezen',
 			'n_actualized' => '%d feeds zijn vernieuwd',
@@ -102,8 +102,8 @@ return array(
 			'error' => 'Gebruiker %s kan niet worden verwijderd',
 		),
 		'updated' => array(
-			'_' => 'User %s has been updated', // TODO
-			'error' => 'User %s has not been updated', // TODO
+			'_' => 'Gebruiker %s is bijgewerkt',
+			'error' => 'Gebruiker %s kan niet worden bijgewerkt',
 		),
 		'set_registration' => 'Het maximale aantal accounts is vernieuwd.',
 	),
