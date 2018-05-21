@@ -24,11 +24,12 @@ Tested with:
   - [Fiery Feeds](https://itunes.apple.com/app/fiery-feeds-rss-reader/id1158763303)
   - [Unread](https://itunes.apple.com/app/unread-rss-reader/id1252376153)
 
-MacOS:
+- MacOS
   - [Readkit](https://itunes.apple.com/app/readkit/id588726889?ls=1&mt=12)
 
 - Android
-  - Press 1.5.4 (not available via PlayStore, but APK can still be found)
+  -Until now, we don't know about compatible Android clients. Please leave your feedback, if you tested the Fever API with Android apps.
+  - Please note, that *Press* is NOT compatible: it was a popular RSS client with Fever support, but its development stopped a while ago. It uses the Fever API in a wrong way, which we don't support.
 
 ## Features
 
@@ -42,17 +43,16 @@ Following features are implemented:
 - setting starred marker for item(s)
 - setting read marker for feed
 - setting read marker for category
-- **hot** is not supported as there is nothing in FreshRSS that is similar
+- supports FreshRSS extensions, which use th `entry_before_display` hook
 
-### Limitations
-
-- Does currently not support FreshRSS extensions (if they load additional content before displaying it - like the Youtube extension)
+Following features are not supported:
+- **Hot Links** aka **hot** as there is nothing in FreshRSS yet that is similar or could be used to simulate it
 
 ## Testing and error search
 
 If this API does not work as expected in your RSS reader, you can test it manually with a tool like [Postman](https://www.getpostman.com/).
 
-Configure a POST request to the URL https://freshrss.example.net/api/fever.php?api which  should give you the result:
+Configure a POST request to the URL https://freshrss.example.net/api/fever.php?api which should give you the result:
 ```json
 {
 	"api_version": 3,
@@ -78,8 +78,8 @@ This shoud give:
 ```json
 {
 	"api_version": 3,
-	"auth": 1,                               <= 1 means you were successfully authenticated
-	"last_refreshed_on_time": "1520013061"   <= depends on your installation
+	"auth": 1,
+	"last_refreshed_on_time": "1520013061"
 }
 ```
 Perfect, you are authenticated and can now start testing the more advanced features. Therefor change the URL and append the possible API actions to your request parameters. Check the [original Fever documentation](https://feedafever.com/api) for more infos.

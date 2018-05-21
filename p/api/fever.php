@@ -9,12 +9,6 @@
  * See https://github.com/dasmurphy/tinytinyrss-fever-plugin
  */
 
-// refresh is not allowed yet, probably we find a way to support it later
-if (isset($_REQUEST["refresh"])) {
-	header('HTTP/1.1 405 Method Not Allowed', true, 405);
-	exit;
-}
-
 // ================================================================================================
 // BOOTSTRAP FreshRSS
 require(__DIR__ . '/../../constants.php');
@@ -35,17 +29,11 @@ register_shutdown_function('session_destroy');
 Minz_Session::init('FreshRSS');
 // ================================================================================================
 
-// this allows to overwrite the FeverAPI for special clients
-if (!function_exists('createFeverApiInstance')) {
-	function createFeverApiInstance() {
-		return new FeverAPI();
-	}
-}
 
 class FeverAPI_EntryDAO extends FreshRSS_EntryDAO
 {
 	/**
-	 * @return []
+	 * @return array
 	 */
 	public function countFever()
 	{
@@ -67,7 +55,10 @@ class FeverAPI_EntryDAO extends FreshRSS_EntryDAO
 	}
 
 	/**
-	 * TODO this is ugly
+	 * @param string $prefix
+	 * @param array $values
+	 * @param array $bindArray
+	 * @return string
 	 */
 	protected function bindParamArray($prefix, $values, &$bindArray)
 	{
@@ -115,7 +106,7 @@ class FeverAPI_EntryDAO extends FreshRSS_EntryDAO
 		}
 
 		$sql .= $order;
-		$sql .= $this->getSelectLimit($max_id, $since_id);
+		$sql .= ' LIMIT 50';
 
 		$stm = $this->bd->prepare($sql);
 		$stm->execute($values);
@@ -128,18 +119,6 @@ class FeverAPI_EntryDAO extends FreshRSS_EntryDAO
 
 		return $entries;
 	}
-
-	/**
-	 * Can be overwritten to support clients that misbehave when using the API.
-	 *
-	 * @param $max_id
-	 * @param $since_id
-	 * @return string
-	 */
-	protected function getSelectLimit($max_id, $since_id)
-	{
-		return ' LIMIT 50';
-	}
 }
 
 /**
@@ -150,14 +129,6 @@ class FeverAPI
 	const API_LEVEL = 3;
 	const STATUS_OK = 1;
 	const STATUS_ERR = 0;
-
-	/**
-	 * FeverAPI constructor executes authentication and initialization.
-	 */
-	public function __construct()
-	{
-		$this->authenticate();
-	}
 
 	/**
 	 * Authenticate the user
@@ -193,6 +164,8 @@ class FeverAPI
 	 */
 	public function isAuthenticatedApiUser()
 	{
+		$this->authenticate();
+
 		if (FreshRSS_Context::$user_conf !== null) {
 			return true;
 		}
@@ -202,7 +175,6 @@ class FeverAPI
 
 	/**
 	 * @return FreshRSS_FeedDAO
-	 * @throws Minz_PDOConnectionException
 	 */
 	protected function getDaoForFeeds()
 	{
@@ -211,7 +183,6 @@ class FeverAPI
 
 	/**
 	 * @return FreshRSS_CategoryDAO
-	 * @throws Minz_PDOConnectionException
 	 */
 	protected function getDaoForCategories()
 	{
@@ -220,7 +191,6 @@ class FeverAPI
 
 	/**
 	 * @return FeverAPI_EntryDAO
-	 * @throws Minz_PDOConnectionException
 	 */
 	protected function getDaoForEntries()
 	{
@@ -584,6 +554,7 @@ class FeverAPI
 		Minz_ExtensionManager::init();
 
 		foreach($entries as $item) {
+			/** @var FreshRSS_Entry $entry */
 			$entry = Minz_ExtensionManager::callHook('entry_before_display', $item);
 			if (is_null($entry)) {
 				continue;
@@ -647,8 +618,16 @@ class FeverAPI
 }
 
 // ================================================================================================
+// refresh is not allowed yet, probably we find a way to support it later
+if (isset($_REQUEST["refresh"])) {
+	Minz_Log::warning('Refresh items for fever API - notImplemented()', API_LOG);
+	header('HTTP/1.1 501 Not Implemented');
+	header('Content-Type: text/plain; charset=UTF-8');
+	die('Not Implemented!');
+}
+
 // Start the Fever API handling
-$handler = createFeverApiInstance();
+$handler = new FeverAPI();
 
 header("Content-Type: application/json; charset=UTF-8");
 
