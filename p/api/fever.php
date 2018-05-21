@@ -481,7 +481,7 @@ class FeverAPI
 	protected function getUnreadItemIds()
 	{
 		$dao = $this->getDaoForEntries();
-		$entries = $dao->listIdsWhere('a', '', FreshRSS_Entry::STATE_NOT_READ, 'ASC', PHP_INT_MAX);
+		$entries = $dao->listIdsWhere('a', '', FreshRSS_Entry::STATE_NOT_READ, 'ASC', 0);
 		return $this->entriesToIdList($entries);
 	}
 
@@ -491,7 +491,7 @@ class FeverAPI
 	protected function getSavedItemIds()
 	{
 		$dao = $this->getDaoForEntries();
-		$entries = $dao->listIdsWhere('a', '', FreshRSS_Entry::STATE_FAVORITE, 'ASC', PHP_INT_MAX);
+		$entries = $dao->listIdsWhere('a', '', FreshRSS_Entry::STATE_FAVORITE, 'ASC', 0);
 		return $this->entriesToIdList($entries);
 	}
 
