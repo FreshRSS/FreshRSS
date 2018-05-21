@@ -202,6 +202,7 @@ class FeverAPI
 
 	/**
 	 * @return FreshRSS_FeedDAO
+	 * @throws Minz_PDOConnectionException
 	 */
 	protected function getDaoForFeeds()
 	{
@@ -210,6 +211,7 @@ class FeverAPI
 
 	/**
 	 * @return FreshRSS_CategoryDAO
+	 * @throws Minz_PDOConnectionException
 	 */
 	protected function getDaoForCategories()
 	{
@@ -218,6 +220,7 @@ class FeverAPI
 
 	/**
 	 * @return FeverAPI_EntryDAO
+	 * @throws Minz_PDOConnectionException
 	 */
 	protected function getDaoForEntries()
 	{
@@ -225,7 +228,10 @@ class FeverAPI
 	}
 
 	/**
-	 * this does all the processing, since the fever api does not have a specific variable that specifies the operation
+	 * This does all the processing, since the fever api does not have a specific variable that specifies the operation
+	 *
+	 * @return array
+	 * @throws Exception
 	 */
 	public function process()
 	{
@@ -268,7 +274,11 @@ class FeverAPI
 
 		if (isset($_REQUEST["mark"], $_REQUEST["as"], $_REQUEST["id"]) && is_numeric($_REQUEST["id"])) {
 			$method_name = "set" . ucfirst($_REQUEST["mark"]) . "As" . ucfirst($_REQUEST["as"]);
-			if (method_exists($this, $method_name)) {
+			$allowedMethods = array(
+				'setFeedAsRead', 'setGroupAsRead', 'setItemAsRead',
+				'setItemAsSaved', 'setItemAsUnread', 'setItemAsUnsaved'
+			);
+			if (in_array($method_name, $allowedMethods)) {
 				$id = intval($_REQUEST["id"]);
 				switch (strtolower($_REQUEST["mark"])) {
 					case 'item':
