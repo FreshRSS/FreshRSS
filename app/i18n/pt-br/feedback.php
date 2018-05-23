@@ -72,7 +72,7 @@ return array(
 			'already_subscribed' => 'Você já está inscrito no <em>%s</em>',
 			'deleted' => 'o Feed foi deletado',
 			'error' => 'O feed não pode ser atualizado',
-			'internal_problem' => 'O RSS feed não pôde ser adicionado. <a href="%s">Verifique os FressRSS logs</a> para detalhes.',
+			'internal_problem' => 'O RSS feed não pôde ser adicionado. <a href="%s">Verifique os FressRSS logs</a> para detalhes.', // @todo
 			'invalid_url' => 'URL <em>%s</em> é inválida',
 			'marked_read' => 'Feeds foram marcados como lidos',
 			'n_actualized' => '%d feeds foram atualizados',

@@ -73,7 +73,7 @@ return array(
 			'already_subscribed' => 'אתה כבר רשום ל <em>%s</em>',
 			'deleted' => 'ההזנה נמחקה',
 			'error' => 'Feed cannot be updated', // @todo
-			'internal_problem' => 'אין אפשרות להוסיף את ההזנה. <a href="%s">בדקו את הלוגים</a> לפרטים.',
+			'internal_problem' => 'אין אפשרות להוסיף את ההזנה. <a href="%s">בדקו את הלוגים</a> לפרטים.', // @todo
 			'invalid_url' => 'URL <em>%s</em> אינו תקין',
 			'marked_read' => 'הזנות סומנו כנקראו',
 			'n_actualized' => '%d הזנות עודכנו',

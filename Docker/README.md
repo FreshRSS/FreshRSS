@@ -158,7 +158,7 @@ with HTTPS, for instance using [Let’s Encrypt](https://letsencrypt.org/).
 
 ### Example with [docker-compose](https://docs.docker.com/compose/)
 
-A `docker-compose.yml` file is given as an example, using PostgreSQL. In order to use it, you have to adapt:
+A [docker-compose.yml](docker-compose.yml) file is given as an example, using PostgreSQL. In order to use it, you have to adapt:
 - In the `postgresql` service:
 	* the `volumes` section;
 	* the `POSTGRES_PASSWORD` in the `environment` section;
