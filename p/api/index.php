@@ -30,11 +30,11 @@ configuration (without <code>%2F</code> support)</a></li>
 <dl>
 <dt>Your API address:</dt>
 <dd><?php
-echo Minz_Url::display('/api/fever.php?api', 'html', true);
+echo Minz_Url::display('/api/fever.php', 'html', true);
 ?></dd>
 </dl>
 <ul>
-<li><a href="fever.php" rel="nofollow">Test</a></li>
+<li><a href="fever.php?api" rel="nofollow">Test</a></li>
 </ul>
 
 </body>
