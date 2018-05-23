@@ -26,5 +26,16 @@ echo Minz_Url::display('/api/greader.php', 'html', true);
 configuration (without <code>%2F</code> support)</a></li>
 </ul>
 
+<h2>Fever compatible API</h2>
+<dl>
+<dt>Your API address:</dt>
+<dd><?php
+echo Minz_Url::display('/api/fever.php?api', 'html', true);
+?></dd>
+</dl>
+<ul>
+<li><a href="fever.php" rel="nofollow">Test</a></li>
+</ul>
+
 </body>
 </html>

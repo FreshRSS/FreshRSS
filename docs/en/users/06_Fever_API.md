@@ -13,9 +13,6 @@ and then re-set the user’s API password.
 
 Then point your mobile application to the URL of `fever.php` (e.g. `https://freshrss.example.net/api/fever.php`).
 
-Special client implementation:
-- The Press Android client needs (tested with 1.5.4) needs the additional file `fever-press.php` (use that file as endpoint in the Fever account setting)
-
 ## Compatibility
 
 Tested with:
@@ -25,7 +22,7 @@ Tested with:
   - [Unread](https://itunes.apple.com/app/unread-rss-reader/id1252376153)
 
 - MacOS
-  - [Readkit](https://itunes.apple.com/app/readkit/id588726889?ls=1&mt=12)
+  - [Readkit](https://itunes.apple.com/app/readkit/id588726889)
 
 - Android
   -Until now, we don't know about compatible Android clients. Please leave your feedback, if you tested the Fever API with Android apps.

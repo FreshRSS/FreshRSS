@@ -111,6 +111,7 @@ cd /usr/share/FreshRSS
 sudo git pull
 sudo chown -R :www-data . && sudo chmod -R g+r . && sudo chmod -R g+w ./data/
 ```
+
 See more commands and git commands in the [Command-Line Interface documentation](cli/README.md).
 
 ## Access control
@@ -163,7 +164,7 @@ See the [repository dedicated to those extensions](https://github.com/FreshRSS/E
 
 # APIs & native apps
 
-FreshRSS supports access via native apps for Linux, Android, iOS and OS X.
+FreshRSS supports access from native apps for Linux, Android, iOS, and OS X, via two distinct APIs.
 
 ## Google Reader-like API
 
@@ -180,7 +181,7 @@ Supported clients are:
 
 ## Fever API
 
-You can find more information about this API at our [Fever API documentation](https://freshrss.github.io/FreshRSS/en/users/06_Fever_API.html) page.
+See our [Fever API documentation](https://freshrss.github.io/FreshRSS/en/users/06_Fever_API.html) page.
 
 Supported clients are:
 
@@ -189,7 +190,7 @@ Supported clients are:
 	* [Unread](https://itunes.apple.com/app/unread-rss-reader/id1252376153)
 
 * MacOS:
-	* [Readkit](https://itunes.apple.com/app/readkit/id588726889?ls=1&mt=12)
+	* [Readkit](https://itunes.apple.com/app/readkit/id588726889)
 
 
 # Included libraries
