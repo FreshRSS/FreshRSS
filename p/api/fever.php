@@ -62,12 +62,12 @@ class FeverAPI_EntryDAO extends FreshRSS_EntryDAO
 	 */
 	protected function bindParamArray($prefix, $values, &$bindArray)
 	{
-		$str = "";
-		foreach ($values as $index => $value) {
-			$str .= ":".$prefix.$index.",";
-			$bindArray[$prefix.$index] = $value;
+		$str = '';
+		for ($i = 0; $i < count($values); $i++) {
+			$str .= ':' . $prefix . $i . ',';
+			$bindArray[$prefix . $i] = $values[$i];
 		}
-		return rtrim($str, ",");
+		return rtrim($str, ',');
 	}
 
 	/**
