@@ -188,8 +188,7 @@ Tout client supportant une API de type Fever ; Sélection :
 * iOS
 	* [Fiery Feeds](https://itunes.apple.com/app/fiery-feeds-rss-reader/id1158763303)
 	* [Unread](https://itunes.apple.com/app/unread-rss-reader/id1252376153)
-
-* MacOS:
+* MacOS
 	* [Readkit](https://itunes.apple.com/app/readkit/id588726889)
 
 
