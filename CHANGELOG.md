@@ -2,6 +2,10 @@
 
 ## 2018-05-XX FreshRSS 1.10.3-dev
 
+* API
+	* Add support for Fever compatible API, enabling more clients [#1406](https://github.com/FreshRSS/FreshRSS/pull/1406)
+		* iOS: [Fiery Feeds](https://itunes.apple.com/app/fiery-feeds-rss-reader/id1158763303), [Unread](https://itunes.apple.com/app/unread-rss-reader/id1252376153)
+		* MacOS: [Readkit](https://itunes.apple.com/app/readkit/id588726889)
 * Features
 	* Several per-feed options (implemented in JSON) [#1838](https://github.com/FreshRSS/FreshRSS/pull/1838)
 		* Mark updated articles as read [#891](https://github.com/FreshRSS/FreshRSS/issues/891)
@@ -66,7 +70,7 @@
 ## 2018-02-24 FreshRSS 1.10.0
 
 * API
-	* Add compatibility with FeedMe 3.5.3+ on Android [#1774](https://github.com/FreshRSS/FreshRSS/pull/1774)
+	* Add compatibility with [FeedMe](https://play.google.com/store/apps/details?id=com.seazon.feedme) 3.5.3+ on Android [#1774](https://github.com/FreshRSS/FreshRSS/pull/1774)
 * Features
 	* Ability to pause feeds, and to hide them from categories [#1750](https://github.com/FreshRSS/FreshRSS/pull/1750)
 	* Ability for the admin to reset a user’s password [#960](https://github.com/FreshRSS/FreshRSS/issues/960)
