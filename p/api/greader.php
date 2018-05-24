@@ -745,6 +745,8 @@ if (!FreshRSS_Context::$system_conf->api_enabled) {
 	serviceUnavailable();
 }
 
+ini_set('session.use_cookies', '0');
+register_shutdown_function('session_destroy');
 Minz_Session::init('FreshRSS');
 
 $user = authorizationToUser();
