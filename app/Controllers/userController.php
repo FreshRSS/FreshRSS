@@ -191,29 +191,15 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 			$ok &= !file_exists($configPath);
 		}
 		if ($ok) {
-			$passwordHash = '';
-			if ($passwordPlain != '') {
-				$passwordHash = self::hashPassword($passwordPlain);
-				$ok &= ($passwordHash != '');
-			}
-
-			$apiPasswordHash = '';
-			if ($apiPasswordPlain != '') {
-				$apiPasswordHash = self::hashPassword($apiPasswordPlain);
-				$ok &= ($apiPasswordHash != '');
-			}
-		}
-		if ($ok) {
 			if (!is_dir($homeDir)) {
 				mkdir($homeDir);
 			}
-			$userConfig['passwordHash'] = $passwordHash;
-			$userConfig['apiPasswordHash'] = $apiPasswordHash;
 			$ok &= (file_put_contents($configPath, "<?php\n return " . var_export($userConfig, true) . ';') !== false);
 		}
 		if ($ok) {
 			$userDAO = new FreshRSS_UserDAO();
 			$ok &= $userDAO->createUser($new_user_name, $userConfig['language'], $insertDefaultFeeds);
+			$ok &= self::updateUser($new_user_name, $passwordPlain, $apiPasswordPlain);
 		}
 		return $ok;
 	}
