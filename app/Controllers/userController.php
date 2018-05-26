@@ -191,29 +191,15 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 			$ok &= !file_exists($configPath);
 		}
 		if ($ok) {
-			$passwordHash = '';
-			if ($passwordPlain != '') {
-				$passwordHash = self::hashPassword($passwordPlain);
-				$ok &= ($passwordHash != '');
-			}
-
-			$apiPasswordHash = '';
-			if ($apiPasswordPlain != '') {
-				$apiPasswordHash = self::hashPassword($apiPasswordPlain);
-				$ok &= ($apiPasswordHash != '');
-			}
-		}
-		if ($ok) {
 			if (!is_dir($homeDir)) {
 				mkdir($homeDir);
 			}
-			$userConfig['passwordHash'] = $passwordHash;
-			$userConfig['apiPasswordHash'] = $apiPasswordHash;
 			$ok &= (file_put_contents($configPath, "<?php\n return " . var_export($userConfig, true) . ';') !== false);
 		}
 		if ($ok) {
 			$userDAO = new FreshRSS_UserDAO();
 			$ok &= $userDAO->createUser($new_user_name, $userConfig['language'], $insertDefaultFeeds);
+			$ok &= self::updateUser($new_user_name, $passwordPlain, $apiPasswordPlain);
 		}
 		return $ok;
 	}
@@ -268,15 +254,13 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 			$ok &= (strcasecmp($username, $default_user) !== 0);	//It is forbidden to delete the default user
 		}
 		$user_data = join_path(DATA_PATH, 'users', $username);
+		$ok &= is_dir($user_data);
 		if ($ok) {
-			$ok &= is_dir($user_data);
-		}
-		if ($ok) {
+			self::deleteFeverKey($username);
 			$userDAO = new FreshRSS_UserDAO();
 			$ok &= $userDAO->deleteUser($username);
 			$ok &= recursive_unlink($user_data);
 			array_map('unlink', glob(PSHB_PATH . '/feeds/*/' . $username . '.txt'));
-			self::deleteFeverKey();
 		}
 		return $ok;
 	}
