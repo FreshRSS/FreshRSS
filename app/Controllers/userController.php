@@ -254,15 +254,13 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 			$ok &= (strcasecmp($username, $default_user) !== 0);	//It is forbidden to delete the default user
 		}
 		$user_data = join_path(DATA_PATH, 'users', $username);
+		$ok &= is_dir($user_data);
 		if ($ok) {
-			$ok &= is_dir($user_data);
-		}
-		if ($ok) {
+			self::deleteFeverKey($username);
 			$userDAO = new FreshRSS_UserDAO();
 			$ok &= $userDAO->deleteUser($username);
 			$ok &= recursive_unlink($user_data);
 			array_map('unlink', glob(PSHB_PATH . '/feeds/*/' . $username . '.txt'));
-			self::deleteFeverKey();
 		}
 		return $ok;
 	}
