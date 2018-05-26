@@ -58,7 +58,7 @@ class Minz_ModelPdo {
 		try {
 			switch ($db['type']) {
 				case 'mysql':
-					$string = 'mysql:host=' . ((substr($db['host'], 0, 1) === '/') ? $db['host'] : $dbServer['host']) . ';dbname=' . $db['base'] . ';charset=utf8mb4';
+					$string = 'mysql:host=' . (empty($dbServer['host']) ? $db['host'] : $dbServer['host']) . ';dbname=' . $db['base'] . ';charset=utf8mb4';
 					if (!empty($dbServer['port'])) {
 						$string .= ';port=' . $dbServer['port'];
 					}
@@ -73,7 +73,7 @@ class Minz_ModelPdo {
 					$this->bd->exec('PRAGMA foreign_keys = ON;');
 					break;
 				case 'pgsql':
-					$string = 'pgsql:host=' . $dbServer['host'] . ';dbname=' . $db['base'];
+					$string = 'pgsql:host=' . (empty($dbServer['host']) ? $db['host'] : $dbServer['host']) . ';dbname=' . $db['base'];
 					if (!empty($dbServer['port'])) {
 						$string .= ';port=' . $dbServer['port'];
 					}
