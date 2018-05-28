@@ -169,6 +169,7 @@ return array(
 		'jdh' => 'Journal du hacker',
 		'mastodon' => 'Mastodon',
 		'movim' => 'Movim',
+		'pocket' => 'Pocket',
 		'print' => 'Imprimir',
 		'shaarli' => 'Shaarli',
 		'twitter' => 'Twitter',
