@@ -19,7 +19,7 @@ return array(
 		'see_website' => 'Bekijk website',
 		'submit' => 'Opslaan',
 		'truncate' => 'Verwijder alle artikelen',
-		'update' => 'Update', // TODO
+		'update' => 'Updaten',
 	),
 	'auth' => array(
 		'email' => 'Email adres',
