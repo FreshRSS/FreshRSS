@@ -48,6 +48,9 @@
 					$title = $this->entry->title() . ' · ' . $this->feed->name();
 					foreach (FreshRSS_Context::$user_conf->sharing as $share_options) {
 						$share = FreshRSS_Share::get($share_options['type']);
+						if ($share === null) {
+							continue;
+						}
 						$share_options['link'] = $link;
 						$share_options['title'] = $title;
 						$share->update($share_options);
