@@ -390,6 +390,7 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 		$article_to_feed = array();
 
 		$nb_feeds = count($this->feedDAO->listFeeds());
+		$newFeedGuids = array();
 		$limits = FreshRSS_Context::$system_conf->limits;
 
 		// First, we check feeds of articles are in DB (and add them if needed).
@@ -417,21 +418,25 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 
 			if ($feed != null) {
 				$article_to_feed[$item['id']] = $feed->id();
+				if (!isset($newFeedGuids['f_' . $feed->id()])) {
+					$newFeedGuids['f_' . $feed->id()] = array();
+				}
+				$newFeedGuids['f_' . $feed->id()][] = safe_ascii($item['id']);
 			}
 		}
 
-		$newGuids = array();
-		foreach ($article_object['items'] as $item) {
-			$newGuids[] = safe_ascii($item['id']);
+		// For each feed, check existing GUIDs already in database.
+		$existingHashForGuids = array();
+		foreach ($newFeedGuids as $feedId => $newGuids) {
+			$existingHashForGuids[$feedId] = $this->entryDAO->listHashForFeedGuids(substr($feedId, 2), $newGuids);
 		}
-		// For this feed, check existing GUIDs already in database.
-		$existingHashForGuids = $this->entryDAO->listHashForFeedGuids($feed->id(), $newGuids);
-		$newGuids = array();
+		unset($newFeedGuids);
 
 		// Then, articles are imported.
+		$newGuids = array();
 		$this->entryDAO->beginTransaction();
 		foreach ($article_object['items'] as $item) {
-			if (!isset($article_to_feed[$item['id']])) {
+			if (empty($article_to_feed[$item['id']])) {
 				// Related feed does not exist for this entry, do nothing.
 				continue;
 			}
@@ -468,7 +473,7 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 
 			$values = $entry->toArray();
 			$ok = false;
-			if (isset($existingHashForGuids[$entry->guid()])) {
+			if (isset($existingHashForGuids['f_' . $feed_id][$entry->guid()])) {
 				$ok = $this->entryDAO->updateEntry($values);
 			} else {
 				$ok = $this->entryDAO->addEntry($values);
