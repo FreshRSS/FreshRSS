@@ -126,4 +126,10 @@ return array(
 		'method' => 'POST',
 		'field' => 'status',
 	),
+	'pocket' => array(
+		'url' => 'https://getpocket.com/save?url=~LINK~&amp;title=~TITLE~',
+		'transform' => array('rawurlencode'),
+		'form' => 'simple',
+		'method' => 'GET',
+	),
 );
