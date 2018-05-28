@@ -16,6 +16,7 @@
 		* All parts are implicitly `AND` (which must not be written), except if `OR` is stated.
 		* No use of parentheses. Support for quotes to disable the Boolean search, like `"This or that"`.
 		* Example: `Hello intitle:World OR date:P1D example OR author:Else intitle:"This or that"`
+	* Share with Pocket [#1884](https://github.com/FreshRSS/FreshRSS/issues/1884)
 * Deployment
 	* Includes an optional cron daemon in Docker to refresh feeds automatically [#1869](https://github.com/FreshRSS/FreshRSS/issues/1869)
 	* Docker Compose example [#1882](https://github.com/FreshRSS/FreshRSS/pull/1882)
