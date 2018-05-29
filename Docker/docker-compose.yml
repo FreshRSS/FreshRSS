@@ -5,7 +5,7 @@ services:
     image: postgres:latest
     restart: unless-stopped
     volumes:
-    - '/path/to/pgsql-data:/var/lib/postgresql/data:Z'
+    - '/path/to/pgsql-data:/var/lib/postgresql/data'
     environment:
     - POSTGRES_USER=freshrss
     - POSTGRES_PASSWORD=password
@@ -20,7 +20,7 @@ services:
       - web
       - default
     volumes:
-      - '/your/local/directory/data:/var/www/FreshRSS/data:Z'
+      - '/your/local/directory/data:/var/www/FreshRSS/data'
     labels:
       - "traefik.backend=freshrss"
       - "traefik.docker.network=web"
@@ -29,6 +29,8 @@ services:
       - "traefik.default.protocol=http"
       - "traefik.frontend.entryPoints=http,https"
       - "traefik.port=80"
+    environment:
+      - CRON_MIN=*/20
 
 networks:
   web:
