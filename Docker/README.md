@@ -160,11 +160,12 @@ with HTTPS, for instance using [Let’s Encrypt](https://letsencrypt.org/).
 
 A [docker-compose.yml](docker-compose.yml) file is given as an example, using PostgreSQL. In order to use it, you have to adapt:
 - In the `postgresql` service:
-	* the `volumes` section;
+	* the `volumes` section. Be careful to keep the path `/var/lig/postgresql/data` for the container. If the path is wrong, you will not get any error but your db will be gone at the next run;
 	* the `POSTGRES_PASSWORD` in the `environment` section;
 - In the `freshrss` service:
 	* the `volumes` section;
 	* options under the `labels` section are specific to [Træfik](https://traefik.io/), a reverse proxy. If you are not using it, feel free to delete this section. If you are using it, adapt accordingly to your config, especially the `traefik.frontend.rule` option.
+	* the `environment` section to adapt the strategy to update feeds.
 
 You can then launch the stack (postgres + freshrss) with:
 ```sh
