@@ -134,7 +134,11 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo implements FreshRSS_Searchable 
 		if (isset($cat[0])) {
 			return $cat[0];
 		} else {
-			return false;
+			if (FreshRSS_Context::$isCli) {
+				fwrite(STDERR, 'FreshRSS database error: Default category not found!' . "\n");
+			}
+			Minz_Log::error('FreshRSS database error: Default category not found!');
+			return null;
 		}
 	}
 	public function checkDefault() {
@@ -144,13 +148,27 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo implements FreshRSS_Searchable 
 			$cat = new FreshRSS_Category(_t('gen.short.default_category'));
 			$cat->_id(self::DEFAULTCATEGORYID);
 
+			$sql = 'INSERT INTO `' . $this->prefix . 'category`(id, name) VALUES(?, ?)';
+			if (parent::$sharedDbType === 'pgsql') {
+				//Force call to nextval()
+				$sql .= " RETURNING nextval('" . $this->prefix . "category_id_seq');";
+			}
+			$stm = $this->bd->prepare($sql);
+
 			$values = array(
-				'id' => $cat->id(),
-				'name' => $cat->name(),
+				$cat->id(),
+				$cat->name(),
 			);
 
-			$this->addCategory($values);
+			if ($stm && $stm->execute($values)) {
+				return $this->bd->lastInsertId('"' . $this->prefix . 'category_id_seq"');
+			} else {
+				$info = $stm == null ? array(2 => 'syntax error') : $stm->errorInfo();
+				Minz_Log::error('SQL error check default category: ' . json_encode($info));
+				return false;
+			}
 		}
+		return true;
 	}
 
 	public function count() {

@@ -52,7 +52,7 @@ $SQL_CREATE_TABLES = array(
 'CREATE INDEX %1$sis_read_index ON "%1$sentry" ("is_read");',
 'CREATE INDEX %1$sentry_lastSeen_index ON "%1$sentry" ("lastSeen");',
 
-'INSERT INTO "%1$scategory" (name) SELECT \'%2$s\' WHERE NOT EXISTS (SELECT id FROM "%1$scategory" WHERE id = 1);',
+'INSERT INTO "%1$scategory" (id, name) SELECT 1, \'%2$s\' WHERE NOT EXISTS (SELECT id FROM "%1$scategory" WHERE id = 1) RETURNING nextval(\'%1$scategory_id_seq\');',
 );
 
 global $SQL_CREATE_TABLE_ENTRYTMP;
