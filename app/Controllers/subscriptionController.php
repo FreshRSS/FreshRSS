@@ -98,10 +98,15 @@ class FreshRSS_subscription_Controller extends Minz_ActionController {
 
 			$feed->_attributes('mark_updated_article_unread', Minz_Request::paramTernary('mark_updated_article_unread'));
 			$feed->_attributes('read_upon_reception', Minz_Request::paramTernary('read_upon_reception'));
-			$feed->_attributes('ssl_verify', Minz_Request::paramTernary('ssl_verify'));
 
-			$timeout = intval(Minz_Request::param('timeout', 0));
-			$feed->_attributes('timeout', $timeout > 0 ? $timeout : null);
+			if (FreshRSS_Auth::hasAccess('admin')) {
+				$feed->_attributes('ssl_verify', Minz_Request::paramTernary('ssl_verify'));
+				$timeout = intval(Minz_Request::param('timeout', 0));
+				$feed->_attributes('timeout', $timeout > 0 ? $timeout : null);
+			} else {
+				$feed->_attributes('ssl_verify', null);
+				$feed->_attributes('timeout', null);
+			}
 
 			$values = array(
 				'name' => Minz_Request::param('name', ''),
