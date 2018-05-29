@@ -160,7 +160,7 @@ with HTTPS, for instance using [Let’s Encrypt](https://letsencrypt.org/).
 
 A [docker-compose.yml](docker-compose.yml) file is given as an example, using PostgreSQL. In order to use it, you have to adapt:
 - In the `postgresql` service:
-	* the `volumes` section. Be careful to keep the path `/var/lig/postgresql/data` for the container. If the path is wrong, you will not get any error but your db will be gone at the next run;
+	* the `volumes` section. Be careful to keep the path `/var/lib/postgresql/data` for the container. If the path is wrong, you will not get any error but your db will be gone at the next run;
 	* the `POSTGRES_PASSWORD` in the `environment` section;
 - In the `freshrss` service:
 	* the `volumes` section;
