@@ -31,11 +31,11 @@ return array(
 	'extensions' => array(
 		'already_enabled' => '%s is already enabled',
 		'disable' => array(
-			'ko' => '%s cannot be disabled. <a href="%s">Check FressRSS logs</a> for details.',
+			'ko' => '%s cannot be disabled. <a href="%s">Check FreshRSS logs</a> for details.',
 			'ok' => '%s is now disabled',
 		),
 		'enable' => array(
-			'ko' => '%s cannot be enabled. <a href="%s">Check FressRSS logs</a> for details.',
+			'ko' => '%s cannot be enabled. <a href="%s">Check FreshRSS logs</a> for details.',
 			'ok' => '%s is now enabled',
 		),
 		'no_access' => 'You have no access on %s',
@@ -72,7 +72,7 @@ return array(
 			'already_subscribed' => 'You have already subscribed to <em>%s</em>',
 			'deleted' => 'Feed has been deleted',
 			'error' => 'Feed cannot be updated',
-			'internal_problem' => 'The newsfeed could not be added. <a href="%s">Check FressRSS logs</a> for details. You can try force adding by appending <code>#force_feed</code> to the URL.',
+			'internal_problem' => 'The newsfeed could not be added. <a href="%s">Check FreshRSS logs</a> for details. You can try force adding by appending <code>#force_feed</code> to the URL.',
 			'invalid_url' => 'URL <em>%s</em> is invalid',
 			'marked_read' => 'Feeds have been marked as read',
 			'n_actualized' => '%d feeds have been updated',

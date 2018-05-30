@@ -31,11 +31,11 @@ return array(
 	'extensions' => array(
 		'already_enabled' => '%s zaten aktif',
 		'disable' => array(
-			'ko' => '%s gösterilemiyor. Detaylar için <a href="%s">FressRSS log kayıtlarını</a> kontrol edin.',
+			'ko' => '%s gösterilemiyor. Detaylar için <a href="%s">FreshRSS log kayıtlarını</a> kontrol edin.',
 			'ok' => '%s pasif',
 		),
 		'enable' => array(
-			'ko' => '%s aktifleştirilemiyor. Detaylar için <a href="%s">FressRSS log kayıtlarını</a> kontrol edin.',
+			'ko' => '%s aktifleştirilemiyor. Detaylar için <a href="%s">FreshRSS log kayıtlarını</a> kontrol edin.',
 			'ok' => '%s aktif',
 		),
 		'no_access' => '%s de yetkiniz yok',
@@ -72,7 +72,7 @@ return array(
 			'already_subscribed' => '<em>%s</em> için zaten aboneliğiniz bulunmakta',
 			'deleted' => 'Akış silindi',
 			'error' => 'Akış güncellenemiyor',
-			'internal_problem' => 'RSS akışı eklenemiyor. Detaylar için <a href="%s">FressRSS log kayıtlarını</a> kontrol edin.', // @todo
+			'internal_problem' => 'RSS akışı eklenemiyor. Detaylar için <a href="%s">FreshRSS log kayıtlarını</a> kontrol edin.', // @todo
 			'invalid_url' => 'URL <em>%s</em> geçersiz',
 			'marked_read' => 'Akışlar okundu olarak işaretlendi',
 			'n_actualized' => '%d akışları güncellendi',
