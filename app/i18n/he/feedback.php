@@ -32,11 +32,11 @@ return array(
 	'extensions' => array(
 		'already_enabled' => '%s is already enabled', // @todo
 		'disable' => array(
-			'ko' => '%s cannot be disabled. <a href="%s">Check FressRSS logs</a> for details.', // @todo
+			'ko' => '%s cannot be disabled. <a href="%s">Check FreshRSS logs</a> for details.', // @todo
 			'ok' => '%s is now disabled', // @todo
 		),
 		'enable' => array(
-			'ko' => '%s cannot be enabled. <a href="%s">Check FressRSS logs</a> for details.', // @todo
+			'ko' => '%s cannot be enabled. <a href="%s">Check FreshRSS logs</a> for details.', // @todo
 			'ok' => '%s is now enabled', // @todo
 		),
 		'no_access' => 'You have no access on %s', // @todo

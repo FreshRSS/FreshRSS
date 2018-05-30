@@ -31,11 +31,11 @@ return array(
 	'extensions' => array(
 		'already_enabled' => '%s 已启用',
 		'disable' => array(
-			'ko' => '%s 禁用失败。<a href="%s">检查 FressRSS 日志</a> 查看详情。',
+			'ko' => '%s 禁用失败。<a href="%s">检查 FreshRSS 日志</a> 查看详情。',
 			'ok' => '%s 现已禁用',
 		),
 		'enable' => array(
-			'ko' => '%s 启用失败。<a href="%s">检查 FressRSS 日志</a> 查看详情。',
+			'ko' => '%s 启用失败。<a href="%s">检查 FreshRSS 日志</a> 查看详情。',
 			'ok' => '%s 现已禁用',
 		),
 		'no_access' => '你无权访问 %s',
@@ -72,7 +72,7 @@ return array(
 			'already_subscribed' => '你已订阅 <em>%s</em>',
 			'deleted' => 'RSS 源已删除',
 			'error' => 'RSS 源更新失败',
-			'internal_problem' => 'RSS 源添加失败。<a href="%s">检查 FressRSS 日志</a> 查看详情。', // @todo
+			'internal_problem' => 'RSS 源添加失败。<a href="%s">检查 FreshRSS 日志</a> 查看详情。', // @todo
 			'invalid_url' => 'URL <em>%s</em> 无效',
 			'marked_read' => 'RSS 源已被设为已读',
 			'n_actualized' => '%d 个 RSS 源已更新',

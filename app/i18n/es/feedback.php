@@ -31,11 +31,11 @@ return array(
 	'extensions' => array(
 		'already_enabled' => '%s ya está activado',
 		'disable' => array(
-			'ko' => '%s no se puede desactivar. <a href="%s">Revisa el registro de FressRSS</a> para más información.',
+			'ko' => '%s no se puede desactivar. <a href="%s">Revisa el registro de FreshRSS</a> para más información.',
 			'ok' => '%s ha quedado desactivado',
 		),
 		'enable' => array(
-			'ko' => '%s no se puede activar. <a href="%s">Revisa el registro de FressRSS</a> para más información.',
+			'ko' => '%s no se puede activar. <a href="%s">Revisa el registro de FreshRSS</a> para más información.',
 			'ok' => '%s ha quedado activado',
 		),
 		'no_access' => 'No tienes acceso a %s',
@@ -72,7 +72,7 @@ return array(
 			'already_subscribed' => 'Ya estás suscrito a <em>%s</em>',
 			'deleted' => 'Fuente eliminada',
 			'error' => 'No es posible actualizar la fuente',
-			'internal_problem' => 'No ha sido posible agregar la fuente RSS. <a href="%s">Revisa el registro de FressRSS </a> para más información.', // @todo
+			'internal_problem' => 'No ha sido posible agregar la fuente RSS. <a href="%s">Revisa el registro de FreshRSS </a> para más información.', // @todo
 			'invalid_url' => 'La URL <em>%s</em> es inválida',
 			'marked_read' => 'Fuentes marcadas como leídas',
 			'n_actualized' => 'Se han actualiado %d fuentes',

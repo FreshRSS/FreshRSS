@@ -31,11 +31,11 @@ return array(
 	'extensions' => array(
 		'already_enabled' => '%s 확장 기능은 이미 활성화되어 있습니다',
 		'disable' => array(
-			'ko' => '%s 확장 기능을 비활성화 할 수 없습니다. 자세한 내용은 <a href="%s">FressRSS 로그</a>를 참고하세요.',
+			'ko' => '%s 확장 기능을 비활성화 할 수 없습니다. 자세한 내용은 <a href="%s">FreshRSS 로그</a>를 참고하세요.',
 			'ok' => '%s 확장 기능이 비활성화되었습니다',
 		),
 		'enable' => array(
-			'ko' => '%s 확장 기능을 활성화 할 수 없습니다. 자세한 내용은 <a href="%s">FressRSS 로그</a>를 참고하세요.',
+			'ko' => '%s 확장 기능을 활성화 할 수 없습니다. 자세한 내용은 <a href="%s">FreshRSS 로그</a>를 참고하세요.',
 			'ok' => '%s 확장 기능이 활성화되었습니다',
 		),
 		'no_access' => '%s 확장 기능에 접근 권한이 없습니다',
@@ -72,7 +72,7 @@ return array(
 			'already_subscribed' => '이미 <em>%s</em> 피드를 구독 중입니다',
 			'deleted' => '피드가 삭제되었습니다',
 			'error' => '피드를 변경할 수 없습니다',
-			'internal_problem' => 'RSS 피드를 추가할 수 없습니다. 자세한 내용은 <a href="%s">FressRSS 로그</a>를 참고하세요.', // @todo
+			'internal_problem' => 'RSS 피드를 추가할 수 없습니다. 자세한 내용은 <a href="%s">FreshRSS 로그</a>를 참고하세요.', // @todo
 			'invalid_url' => 'URL (<em>%s</em>)이 유효하지 않습니다',
 			'marked_read' => '피드가 읽음으로 표시되었습니다',
 			'n_actualized' => '%d 개의 피드에서 새 글을 가져왔습니다',
