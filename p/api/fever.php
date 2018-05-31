@@ -18,7 +18,7 @@ Minz_Configuration::register('system', DATA_PATH . '/config.php', FRESHRSS_PATH 
 // check if API is enabled globally
 FreshRSS_Context::$system_conf = Minz_Configuration::get('system');
 if (!FreshRSS_Context::$system_conf->api_enabled) {
-	Minz_Log::warning('serviceUnavailable() ' . debugInfo(), API_LOG);
+	Minz_Log::warning('Fever API: serviceUnavailable() ' . debugInfo(), API_LOG);
 	header('HTTP/1.1 503 Service Unavailable');
 	header('Content-Type: text/plain; charset=UTF-8');
 	die('Service Unavailable!');
@@ -146,13 +146,19 @@ class FeverAPI
 			$username = @file_get_contents(DATA_PATH . '/fever/.key-' . sha1(FreshRSS_Context::$system_conf->salt) . '-' . $feverKey . '.txt', false);
 			if ($username != false) {
 				$username = trim($username);
+				Minz_Session::_param('currentUser', $username);
 				$user_conf = get_user_configuration($username);
 				if ($user_conf != null && $feverKey === $user_conf->feverKey) {
 					FreshRSS_Context::$user_conf = $user_conf;
-					Minz_Session::_param('currentUser', $username);
+					return true;
 				}
+				Minz_Log::error('Fever API: Reset API password for user: ' . $username, API_LOG);
+				Minz_Log::error('Fever API: Please reset your API password!');
+				Minz_Session::_param('currentUser');
 			}
+			Minz_Log::warning('Fever API: wrong credentials! ' . $feverKey, API_LOG);
 		}
+		return false;
 	}
 
 	/**
@@ -616,7 +622,7 @@ class FeverAPI
 // ================================================================================================
 // refresh is not allowed yet, probably we find a way to support it later
 if (isset($_REQUEST["refresh"])) {
-	Minz_Log::warning('Refresh items for fever API - notImplemented()', API_LOG);
+	Minz_Log::warning('Fever API: Refresh items - notImplemented()', API_LOG);
 	header('HTTP/1.1 501 Not Implemented');
 	header('Content-Type: text/plain; charset=UTF-8');
 	die('Not Implemented!');
