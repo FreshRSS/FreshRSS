@@ -1,6 +1,6 @@
 ﻿# FreshRSS changelog
 
-## 2018-05-XX FreshRSS 1.10.3-dev
+## 2018-06-0X FreshRSS 1.10.3-dev
 
 * API
 	* Add support for Fever compatible API, enabling more clients [#1406](https://github.com/FreshRSS/FreshRSS/pull/1406)
@@ -26,6 +26,7 @@
 	* Fix muted feeds that were not actually muted [#1844](https://github.com/FreshRSS/FreshRSS/issues/1844)
 	* Fix null exception in shares, showing only the first article [#1824](https://github.com/FreshRSS/FreshRSS/issues/1824)
 	* Fix error during import[#1890](https://github.com/FreshRSS/FreshRSS/issues/1890)
+		* Fix additional automatic sequence bug with PostgreSQL [#1907](https://github.com/FreshRSS/FreshRSS/pull/1907)
 	* Fix errors in case of empty/wrong username when updating user settings [#1857](https://github.com/FreshRSS/FreshRSS/pull/1857)
 	* Fixes in subscription menu [#1858](https://github.com/FreshRSS/FreshRSS/pull/1858)
 	* Fix allowing Unix sockets for MySQL and PostgreSQL [#1888](https://github.com/FreshRSS/FreshRSS/issues/1888)
@@ -33,6 +34,7 @@
 * SimplePie
 	* Work-around for feeds with invalid non-unique GUIDs [#1887](https://github.com/FreshRSS/FreshRSS/pull/1887)
 	* Fix for Atom feeds using a namespace for type [#1892](https://github.com/FreshRSS/FreshRSS/issues/1892)
+	* Remove some warnings during parsing attemps of some bad feeds [#1909](https://github.com/FreshRSS/FreshRSS/pull/1909)
 * Security
 	* Strip HTTP credentials from HTTP Referer in SimplePie [#1891](https://github.com/FreshRSS/FreshRSS/pull/1891)
 	* Use `autocomplete="new-password"` to prevent form autocomplete in user management pages (fix bug with e.g. Firefox) [#1877](https://github.com/FreshRSS/FreshRSS/pull/1877)
@@ -41,8 +43,10 @@
 * I18n
 	* Improve i18n tools [#1829](https://github.com/FreshRSS/FreshRSS/pull/1829)
 	* Updated German [#1856](https://github.com/FreshRSS/FreshRSS/pull/1856)
+	* Updated Dutch [#1903](https://github.com/FreshRSS/FreshRSS/pull/1903)
 * Misc.
 	* Add error log information when SQLite has not enough temp space [#1816](https://github.com/FreshRSS/FreshRSS/issues/1816)
+	* Allow extension dir to be a symlink [#1911](https://github.com/FreshRSS/FreshRSS/pull/1911)
 
 
 ## 2018-03-09 FreshRSS 1.10.2 (Docker only)
