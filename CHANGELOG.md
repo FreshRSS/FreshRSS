@@ -45,6 +45,7 @@
 	* Updated German [#1856](https://github.com/FreshRSS/FreshRSS/pull/1856)
 	* Updated Dutch [#1903](https://github.com/FreshRSS/FreshRSS/pull/1903)
 * Misc.
+	* Use cURL for fetching full articles content [#1870](https://github.com/FreshRSS/FreshRSS/issues/1870)
 	* Add error log information when SQLite has not enough temp space [#1816](https://github.com/FreshRSS/FreshRSS/issues/1816)
 	* Allow extension dir to be a symlink [#1911](https://github.com/FreshRSS/FreshRSS/pull/1911)
 

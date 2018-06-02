@@ -268,7 +268,7 @@ function get_content_by_parsing($url, $path, $attributes = array()) {
 	curl_setopt_array($ch, array(
 		CURLOPT_URL => $url,
 		CURLOPT_REFERER => SimplePie_Misc::url_remove_credentials($url),
-		CURLOPT_HTTPHEADER => array('Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'), 
+		CURLOPT_HTTPHEADER => array('Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'),
 		CURLOPT_USERAGENT => FRESHRSS_USERAGENT,
 		CURLOPT_CONNECTTIMEOUT => $feed_timeout > 0 ? $feed_timeout : $limits['timeout'],
 		CURLOPT_TIMEOUT => $feed_timeout > 0 ? $feed_timeout : $limits['timeout'],
