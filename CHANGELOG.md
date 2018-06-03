@@ -1,6 +1,6 @@
 ﻿# FreshRSS changelog
 
-## 2018-06-0X FreshRSS 1.10.3-dev
+## 2018-06-03 FreshRSS 1.11.0
 
 * API
 	* Add support for Fever compatible API, enabling more clients [#1406](https://github.com/FreshRSS/FreshRSS/pull/1406)
