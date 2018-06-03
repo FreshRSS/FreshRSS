@@ -1,5 +1,7 @@
 # FreshRSS - API compatible Fever
 
+Voir la page [sur notre API compatible Google Reader](06_Mobile_access.md) pour une autre possibilité
+et des généralités sur l’accès par API.
 
 ## Compatibilité
 
