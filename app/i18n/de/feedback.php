@@ -31,11 +31,11 @@ return array(
 	'extensions' => array(
 		'already_enabled' => '%s ist bereits aktiviert',
 		'disable' => array(
-			'ko' => '%s kann nicht deaktiviert werden. Für Details <a href="%s">prüfen Sie die FressRSS-Protokolle</a>.',
+			'ko' => '%s kann nicht deaktiviert werden. Für Details <a href="%s">prüfen Sie die FreshRSS-Protokolle</a>.',
 			'ok' => '%s ist jetzt deaktiviert',
 		),
 		'enable' => array(
-			'ko' => '%s kann nicht aktiviert werden. Für Details <a href="%s">prüfen Sie die FressRSS-Protokolle</a>.',
+			'ko' => '%s kann nicht aktiviert werden. Für Details <a href="%s">prüfen Sie die FreshRSS-Protokolle</a>.',
 			'ok' => '%s ist jetzt aktiviert',
 		),
 		'no_access' => 'Sie haben keinen Zugang zu %s',
@@ -72,7 +72,7 @@ return array(
 			'already_subscribed' => 'Sie haben <em>%s</em> bereits abonniert',
 			'deleted' => 'Der Feed ist gelöscht worden',
 			'error' => 'Der Feed kann nicht aktualisiert werden',
-			'internal_problem' => 'Der RSS-Feed konnte nicht hinzugefügt werden. Für Details <a href="%s">prüfen Sie die FressRSS-Protokolle</a>.',
+			'internal_problem' => 'Der RSS-Feed konnte nicht hinzugefügt werden. Für Details <a href="%s">prüfen Sie die FreshRSS-Protokolle</a>.', // @todo
 			'invalid_url' => 'Die URL <em>%s</em> ist ungültig',
 			'marked_read' => 'Die Feeds sind als gelesen markiert worden',
 			'n_actualized' => 'Die %d Feeds sind aktualisiert worden',
@@ -102,8 +102,8 @@ return array(
 			'error' => 'Der Benutzer %s kann nicht gelöscht werden',
 		),
 		'updated' => array(
-			'_' => 'User %s has been updated', // TODO
-			'error' => 'User %s has not been updated', // TODO
+			'_' => 'Benutzer %s wurde aktualisiert',
+			'error' => 'Benutzer %s wurde nicht aktualisiert',
 		),
 	),
 	'profile' => array(

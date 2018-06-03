@@ -22,6 +22,7 @@ $SQL_CREATE_TABLES = array(
 	"error" smallint DEFAULT 0,
 	"keep_history" INT NOT NULL DEFAULT -2,
 	"ttl" INT NOT NULL DEFAULT 0,
+	"attributes" TEXT,	-- v1.11.0
 	"cache_nbEntries" INT DEFAULT 0,
 	"cache_nbUnreads" INT DEFAULT 0,
 	FOREIGN KEY ("category") REFERENCES "%1$scategory" ("id") ON DELETE SET NULL ON UPDATE CASCADE
@@ -51,7 +52,7 @@ $SQL_CREATE_TABLES = array(
 'CREATE INDEX %1$sis_read_index ON "%1$sentry" ("is_read");',
 'CREATE INDEX %1$sentry_lastSeen_index ON "%1$sentry" ("lastSeen");',
 
-'INSERT INTO "%1$scategory" (name) SELECT \'%2$s\' WHERE NOT EXISTS (SELECT id FROM "%1$scategory" WHERE id = 1);',
+'INSERT INTO "%1$scategory" (id, name) SELECT 1, \'%2$s\' WHERE NOT EXISTS (SELECT id FROM "%1$scategory" WHERE id = 1) RETURNING nextval(\'%1$scategory_id_seq\');',
 );
 
 global $SQL_CREATE_TABLE_ENTRYTMP;

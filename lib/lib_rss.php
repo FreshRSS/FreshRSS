@@ -175,7 +175,7 @@ function html_only_entity_decode($text) {
 	return strtr($text, $htmlEntitiesOnly);
 }
 
-function customSimplePie() {
+function customSimplePie($attributes = array()) {
 	$system_conf = Minz_Configuration::get('system');
 	$limits = $system_conf->limits;
 	$simplePie = new SimplePie();
@@ -183,8 +183,17 @@ function customSimplePie() {
 	$simplePie->set_syslog($system_conf->simplepie_syslog_enabled);
 	$simplePie->set_cache_location(CACHE_PATH);
 	$simplePie->set_cache_duration($limits['cache_duration']);
-	$simplePie->set_timeout($limits['timeout']);
-	$simplePie->set_curl_options($system_conf->curl_options);
+
+	$feed_timeout = empty($attributes['timeout']) ? 0 : intval($attributes['timeout']);
+	$simplePie->set_timeout($feed_timeout > 0 ? $feed_timeout : $limits['timeout']);
+
+	$curl_options = $system_conf->curl_options;
+	if (isset($attributes['ssl_verify'])) {
+		$curl_options[CURLOPT_SSL_VERIFYHOST] = $attributes['ssl_verify'] ? 2 : 0;
+		$curl_options[CURLOPT_SSL_VERIFYPEER] = $attributes['ssl_verify'] ? true : false;
+	}
+	$simplePie->set_curl_options($curl_options);
+
 	$simplePie->strip_htmltags(array(
 		'base', 'blink', 'body', 'doctype', 'embed',
 		'font', 'form', 'frame', 'frameset', 'html',
@@ -245,11 +254,47 @@ function sanitizeHTML($data, $base = '') {
 }
 
 /* permet de récupérer le contenu d'un article pour un flux qui n'est pas complet */
-function get_content_by_parsing ($url, $path) {
+function get_content_by_parsing($url, $path, $attributes = array()) {
 	require_once(LIB_PATH . '/lib_phpQuery.php');
+	$system_conf = Minz_Configuration::get('system');
+	$limits = $system_conf->limits;
+	$feed_timeout = empty($attributes['timeout']) ? 0 : intval($attributes['timeout']);
 
-	Minz_Log::notice('FreshRSS GET ' . SimplePie_Misc::url_remove_credentials($url));
-	$html = file_get_contents($url);
+	if ($system_conf->simplepie_syslog_enabled) {
+		syslog(LOG_INFO, 'FreshRSS GET ' . SimplePie_Misc::url_remove_credentials($url));
+	}
+
+	$ch = curl_init();
+	curl_setopt_array($ch, array(
+		CURLOPT_URL => $url,
+		CURLOPT_REFERER => SimplePie_Misc::url_remove_credentials($url),
+		CURLOPT_HTTPHEADER => array('Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'),
+		CURLOPT_USERAGENT => FRESHRSS_USERAGENT,
+		CURLOPT_CONNECTTIMEOUT => $feed_timeout > 0 ? $feed_timeout : $limits['timeout'],
+		CURLOPT_TIMEOUT => $feed_timeout > 0 ? $feed_timeout : $limits['timeout'],
+		//CURLOPT_FAILONERROR => true;
+		CURLOPT_MAXREDIRS => 4,
+		CURLOPT_RETURNTRANSFER => true,
+	));
+	if (version_compare(PHP_VERSION, '5.6.0') >= 0 || ini_get('open_basedir') == '') {
+		curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);	//Keep option separated for open_basedir PHP bug 65646
+	}
+	if (defined('CURLOPT_ENCODING')) {
+		curl_setopt($ch, CURLOPT_ENCODING, '');	//Enable all encodings
+	}
+	curl_setopt_array($ch, $system_conf->curl_options);
+	if (isset($attributes['ssl_verify'])) {
+		curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, $attributes['ssl_verify'] ? 2 : 0);
+		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, $attributes['ssl_verify'] ? true : false);
+	}
+	$html = curl_exec($ch);
+	$c_status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+	$c_error = curl_error($ch);
+	curl_close($ch);
+
+	if ($c_status != 200 || $c_error != '') {
+		Minz_Log::warning('Error fetching content: HTTP code ' . $c_status . ': ' . $c_error . ' ' . $url);
+	}
 
 	if ($html) {
 		$doc = phpQuery::newDocument($html);

@@ -535,7 +535,7 @@ function streamContents($path, $include_target, $start_time, $count, $order, $ex
 	}
 
 	$entryDAO = FreshRSS_Factory::createEntryDao();
-	$entries = $entryDAO->listWhere($type, $include_target, $state, $order === 'o' ? 'ASC' : 'DESC', $count, $continuation, new FreshRSS_Search(''), $start_time);
+	$entries = $entryDAO->listWhere($type, $include_target, $state, $order === 'o' ? 'ASC' : 'DESC', $count, $continuation, new FreshRSS_BooleanSearch(''), $start_time);
 
 	$items = entriesToArray($entries);
 
@@ -595,7 +595,7 @@ function streamContentsItemsIds($streamId, $start_time, $count, $order, $exclude
 	}
 
 	$entryDAO = FreshRSS_Factory::createEntryDao();
-	$ids = $entryDAO->listIdsWhere($type, $id, $state, $order === 'o' ? 'ASC' : 'DESC', $count, $continuation, new FreshRSS_Search(''), $start_time);
+	$ids = $entryDAO->listIdsWhere($type, $id, $state, $order === 'o' ? 'ASC' : 'DESC', $count, $continuation, new FreshRSS_BooleanSearch(''), $start_time);
 
 	if ($continuation != '') {
 		array_shift($ids);	//Discard first element that was already sent in the previous response
@@ -745,6 +745,8 @@ if (!FreshRSS_Context::$system_conf->api_enabled) {
 	serviceUnavailable();
 }
 
+ini_set('session.use_cookies', '0');
+register_shutdown_function('session_destroy');
 Minz_Session::init('FreshRSS');
 
 $user = authorizationToUser();

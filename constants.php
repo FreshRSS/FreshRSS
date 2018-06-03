@@ -2,7 +2,7 @@
 //NB: Do not edit; use ./constants.local.php instead.
 
 //<Not customisable>
-define('FRESHRSS_VERSION', '1.10.2');
+define('FRESHRSS_VERSION', '1.11.0');
 define('FRESHRSS_WEBSITE', 'https://freshrss.org');
 define('FRESHRSS_WIKI', 'https://freshrss.github.io/FreshRSS/');
 

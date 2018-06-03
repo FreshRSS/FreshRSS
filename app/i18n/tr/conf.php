@@ -42,6 +42,7 @@ return array(
 	'query' => array(
 		'_' => 'Kullanıcı sorguları',
 		'deprecated' => 'Bu sorgu artık geçerli değil. İlgili akış veya kategori silinmiş.',
+		'display' => 'Display user query results', // TODO
 		'filter' => 'Filtre uygulandı:',
 		'get_all' => 'Tüm makaleleri göster',
 		'get_category' => '"%s" kategorisini göster',
@@ -52,6 +53,7 @@ return array(
 		'number' => 'Sorgu n°%d',
 		'order_asc' => 'Önce eski makaleleri göster',
 		'order_desc' => 'Önce yeni makaleleri göster',
+		'remove' => 'Remove user query', // TODO
 		'search' => '"%s" için arama',
 		'state_0' => 'Tüm makaleleri göster',
 		'state_1' => 'Okunmuş makaleleri göster',

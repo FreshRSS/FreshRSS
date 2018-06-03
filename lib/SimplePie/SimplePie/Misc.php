@@ -1928,9 +1928,18 @@ class SimplePie_Misc
 
 	public static function atom_10_content_construct_type($attribs)
 	{
+		$type = '';
 		if (isset($attribs['']['type']))
 		{
-			$type = strtolower(trim($attribs['']['type']));
+			$type = trim($attribs['']['type']);
+		}
+		elseif (isset($attribs[SIMPLEPIE_NAMESPACE_ATOM_10]['type']))
+		{//FreshRSS
+			$type = trim($attribs[SIMPLEPIE_NAMESPACE_ATOM_10]['type']);
+		}
+		if ($type != '')
+		{
+			$type = strtolower($type);
 			switch ($type)
 			{
 				case 'text':

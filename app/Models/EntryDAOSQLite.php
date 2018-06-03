@@ -7,7 +7,6 @@ class FreshRSS_EntryDAOSQLite extends FreshRSS_EntryDAO {
 	}
 
 	protected function autoUpdateDb($errorInfo) {
-		Minz_Log::error('FreshRSS_EntryDAO::autoUpdateDb error: ' . print_r($errorInfo, true));
 		if ($tableInfo = $this->bd->query("SELECT sql FROM sqlite_master where name='entrytmp'")) {
 			$showCreate = $tableInfo->fetchColumn();
 			if (stripos($showCreate, 'entrytmp') === false) {
@@ -27,63 +26,28 @@ class FreshRSS_EntryDAOSQLite extends FreshRSS_EntryDAO {
 
 	public function commitNewEntries() {
 		$sql = '
-			CREATE TEMP TABLE `tmp` AS
-				SELECT
-					id,
-					guid,
-					title,
-					author,
-					content,
-					link,
-					date,
-					`lastSeen`,
-					hash, is_read,
-					is_favorite,
-					id_feed,
-					tags
-				FROM `' . $this->prefix . 'entrytmp`
-				ORDER BY date;
-				INSERT OR IGNORE INTO `' . $this->prefix . 'entry`
-					(
-						id,
-						guid,
-						title,
-						author,
-						content,
-						link,
-						date,
-						`lastSeen`,
-						hash,
-						is_read,
-						is_favorite,
-						id_feed,
-						tags
-					)
-				SELECT rowid + (SELECT MAX(id) - COUNT(*) FROM `tmp`) AS
-					id,
-					guid,
-					title,
-					author,
-					content,
-					link,
-					date,
-					`lastSeen`,
-					hash,
-					is_read,
-					is_favorite,
-					id_feed,
-					tags
-				FROM `tmp`
-				ORDER BY date;
-			DELETE FROM `' . $this->prefix . 'entrytmp`
-			WHERE id <= (SELECT MAX(id)
-			FROM `tmp`);
-			DROP TABLE `tmp`;';
+DROP TABLE IF EXISTS `tmp`;
+CREATE TEMP TABLE `tmp` AS
+	SELECT id, guid, title, author, content, link, date, `lastSeen`, hash, is_read, is_favorite, id_feed, tags
+	FROM `' . $this->prefix . 'entrytmp`
+	ORDER BY date;
+INSERT OR IGNORE INTO `' . $this->prefix . 'entry`
+	(id, guid, title, author, content, link, date, `lastSeen`, hash, is_read, is_favorite, id_feed, tags)
+	SELECT rowid + (SELECT MAX(id) - COUNT(*) FROM `tmp`) AS id,
+	guid, title, author, content, link, date, `lastSeen`, hash, is_read, is_favorite, id_feed, tags
+	FROM `tmp`
+	ORDER BY date;
+DELETE FROM `' . $this->prefix . 'entrytmp` WHERE id <= (SELECT MAX(id) FROM `tmp`);
+DROP TABLE IF EXISTS `tmp`;
+';
 		$hadTransaction = $this->bd->inTransaction();
 		if (!$hadTransaction) {
 			$this->bd->beginTransaction();
 		}
 		$result = $this->bd->exec($sql) !== false;
+		if (!$result) {
+			Minz_Log::error('SQL error commitNewEntries: ' . json_encode($this->bd->errorInfo()));
+		}
 		if (!$hadTransaction) {
 			$this->bd->commit();
 		}
@@ -195,7 +159,7 @@ class FreshRSS_EntryDAOSQLite extends FreshRSS_EntryDAO {
 	 * @param integer $priorityMin
 	 * @return integer affected rows
 	 */
-	public function markReadEntries($idMax = 0, $onlyFavorites = false, $priorityMin = 0, $filter = null, $state = 0) {
+	public function markReadEntries($idMax = 0, $onlyFavorites = false, $priorityMin = 0, $filters = null, $state = 0) {
 		if ($idMax == 0) {
 			$idMax = time() . '000000';
 			Minz_Log::debug('Calling markReadEntries(0) is deprecated!');
@@ -209,7 +173,7 @@ class FreshRSS_EntryDAOSQLite extends FreshRSS_EntryDAO {
 		}
 		$values = array($idMax);
 
-		list($searchValues, $search) = $this->sqlListEntriesWhere('', $filter, $state);
+		list($searchValues, $search) = $this->sqlListEntriesWhere('', $filters, $state);
 
 		$stm = $this->bd->prepare($sql . $search);
 		if (!($stm && $stm->execute(array_merge($values, $searchValues)))) {
@@ -235,7 +199,7 @@ class FreshRSS_EntryDAOSQLite extends FreshRSS_EntryDAO {
 	 * @param integer $idMax fail safe article ID
 	 * @return integer affected rows
 	 */
-	public function markReadCat($id, $idMax = 0, $filter = null, $state = 0) {
+	public function markReadCat($id, $idMax = 0, $filters = null, $state = 0) {
 		if ($idMax == 0) {
 			$idMax = time() . '000000';
 			Minz_Log::debug('Calling markReadCat(0) is deprecated!');
@@ -247,7 +211,7 @@ class FreshRSS_EntryDAOSQLite extends FreshRSS_EntryDAO {
 			 . 'id_feed IN (SELECT f.id FROM `' . $this->prefix . 'feed` f WHERE f.category=?)';
 		$values = array($idMax, $id);
 
-		list($searchValues, $search) = $this->sqlListEntriesWhere('', $filter, $state);
+		list($searchValues, $search) = $this->sqlListEntriesWhere('', $filters, $state);
 
 		$stm = $this->bd->prepare($sql . $search);
 		if (!($stm && $stm->execute(array_merge($values, $searchValues)))) {

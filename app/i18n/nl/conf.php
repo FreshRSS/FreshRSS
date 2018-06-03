@@ -37,11 +37,12 @@ return array(
 			'no_limit' => 'Geen limiet',
 			'thin' => 'Smal',
 		),
-		'show_nav_buttons' => 'Show the navigation buttons',	//TODO
+		'show_nav_buttons' => 'Toon navigatieknoppen',
 	),
 	'query' => array(
-		'_' => 'Gebruikers queries (informatie aanvragen)',
+		'_' => 'Gebruikersquery\'s (informatie aanvragen)',
 		'deprecated' => 'Deze query (informatie aanvraag) is niet langer geldig. De bedoelde categorie of feed is al verwijderd.',
+		'display' => 'Queryresultaten weergeven',
 		'filter' => 'Filter toegepast:',
 		'get_all' => 'Toon alle artikelen',
 		'get_category' => 'Toon "%s" categorie',
@@ -52,6 +53,7 @@ return array(
 		'number' => 'Query n°%d',
 		'order_asc' => 'Toon oudste artikelen eerst',
 		'order_desc' => 'Toon nieuwste artikelen eerst',
+		'remove' => 'Gebruikersquery verwijderen',
 		'search' => 'Zoek naar "%s"',
 		'state_0' => 'Toon alle artikelen',
 		'state_1' => 'Toon gelezen artikelen',
@@ -69,7 +71,7 @@ return array(
 		'state_13' => 'Toon gelezen artikelen',
 		'state_14' => 'Toon ongelezen artikelen',
 		'state_15' => 'Toon alle artikelen',
-		'title' => 'Gebruikers queries',
+		'title' => 'Gebruikersquery\'s',
 	),
 	'profile' => array(
 		'_' => 'Profiel beheer',
@@ -126,7 +128,7 @@ return array(
 	),
 	'sharing' => array(
 		'_' => 'Delen',
-		'add' => 'Add a sharing method', // TODO
+		'add' => 'Deelmethode toevoegen',
 		'blogotext' => 'Blogotext',
 		'diaspora' => 'Diaspora*',
 		'email' => 'Email',
@@ -134,7 +136,7 @@ return array(
 		'g+' => 'Google+',
 		'more_information' => 'Meer informatie',
 		'print' => 'Afdrukken',
-		'remove' => 'Remove sharing method', // TODO
+		'remove' => 'Deelmethode verwijderen',
 		'shaarli' => 'Shaarli',
 		'share_name' => 'Gedeelde naam om weer te geven',
 		'share_url' => 'Deel URL voor gebruik',
@@ -146,12 +148,12 @@ return array(
 		'_' => 'Shortcuts',
 		'article_action' => 'Artikel acties',
 		'auto_share' => 'Delen',
-		'auto_share_help' => 'Als er slechts één deel methode i, dan wordt deze gebruikt. Anders zijn ze toegankelijk met hun nummer.',
+		'auto_share_help' => 'Als er slechts één deelmethode is, dan wordt die gebruikt. Anders zijn ze toegankelijk met hun nummer.',
 		'close_dropdown' => 'Sluit menu',
 		'collapse_article' => 'Inklappen',
 		'first_article' => 'Spring naar eerste artikel',
 		'focus_search' => 'Toegang zoek venster',
-		'global_view' => 'Switch to global view', // TODO
+		'global_view' => 'Schakel naar globaal aanzicht',
 		'help' => 'Toon documentatie',
 		'javascript' => 'JavaScript moet geactiveerd zijn om verwijzingen te gebruiken',
 		'last_article' => 'Spring naar laatste artikel',
@@ -161,17 +163,17 @@ return array(
 		'navigation' => 'Navigatie',
 		'navigation_help' => 'Met de "Shift" toets, kunt u navigatie verwijzingen voor feeds gebruiken.<br/>Met de "Alt" toets, kunt u navigatie verwijzingen voor categoriën gebruiken.',
 		'next_article' => 'Spring naar volgende artikel',
-		'normal_view' => 'Switch to normal view', // TODO
+		'normal_view' => 'Schakel naar gewoon aanzicht',
 		'other_action' => 'Andere acties',
 		'previous_article' => 'Spring naar vorige artikel',
-		'reading_view' => 'Switch to reading view', // TODO
-		'rss_view' => 'Open RSS view in a new tab', // TODO
+		'reading_view' => 'Schakel naar leesaanzicht',
+		'rss_view' => 'Open RSS-aanzicht in een nieuwe tab',
 		'see_on_website' => 'Bekijk op originale website',
 		'shift_for_all_read' => '+ <code>shift</code> om alle artikelen als gelezen te markeren',
 		'title' => 'Verwijzingen',
 		'user_filter' => 'Toegang gebruikers filters',
-		'user_filter_help' => 'Als er slechts één gebruikers filter s, dan wordt deze gebruikt. Anders zijn ze toegankelijk met hun nummer.',
-		'views' => 'Views', // TODO
+		'user_filter_help' => 'Als er slechts één gebruikersfilter is, dan wordt die gebruikt. Anders zijn ze toegankelijk met hun nummer.',
+		'views' => 'Aanzichten',
 	),
 	'user' => array(
 		'articles_and_size' => '%s artikelen (%s)',

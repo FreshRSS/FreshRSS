@@ -35,18 +35,20 @@ return array(
 		'informations' => 'Informatie',
 		'keep_history' => 'Minimum aantal artikelen om te houden',
 		'moved_category_deleted' => 'Als u een categorie verwijderd, worden de feeds automatisch geclassificeerd onder <em>%s</em>.',
-		'mute' => 'mute', // TODO
+		'mute' => 'demp',
 		'no_selected' => 'Geen feed geselecteerd.',
 		'number_entries' => '%d artikelen',
 		'priority' => array(
-			'_' => 'Visibility', // TODO
-			'archived' => 'Do not show (archived)', // TODO
+			'_' => 'Zichtbaarheid',
+			'archived' => 'Niet weergeven (gearchiveerd)',
 			'main_stream' => 'Zichtbaar in het overzicht',
-			'normal' => 'Show in its category', // TODO
+			'normal' => 'Toon in categorie',
 		),
 		'pubsubhubbub' => 'Directe notificaties met PubSubHubbub',
+		'ssl_verify' => 'SSL-veiligheid controleren',
 		'stats' => 'Statistieken',
 		'think_to_add' => 'Voeg wat feeds toe.',
+		'timeout' => 'Time-out in seconden',
 		'title' => 'Titel',
 		'title_add' => 'Voeg een RSS feed toe',
 		'ttl' => 'Vernieuw automatisch niet vaker dan',
@@ -73,11 +75,11 @@ return array(
 		'bookmark' => 'Abonneer (FreshRSS bladwijzer)',
 		'import_export' => 'Importeer / exporteer',
 		'subscription_management' => 'Abonnementenbeheer',
-		'subscription_tools' => 'Subscription tools',// TODO
+		'subscription_tools' => 'Hulpmiddelen voor abonnementen',
 	),
 	'title' => array(
 		'_' => 'Abonnementenbeheer',
 		'feed_management' => 'RSS-feedbeheer',
-		'subscription_tools' => 'Subscription tools',// TODO
+		'subscription_tools' => 'Hulpmiddelen voor abonnementen',
 	),
 );

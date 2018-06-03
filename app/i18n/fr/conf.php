@@ -42,6 +42,7 @@ return array(
 	'query' => array(
 		'_' => 'Filtres utilisateurs',
 		'deprecated' => 'Ce filtre n’est plus valide. La catégorie ou le flux concerné a été supprimé.',
+		'display' => 'Afficher les résultats du filtre',
 		'filter' => 'Filtres appliqués :',
 		'get_all' => 'Afficher tous les articles',
 		'get_category' => 'Afficher la catégorie "%s"',
@@ -52,6 +53,7 @@ return array(
 		'number' => 'Filtre n°%d',
 		'order_asc' => 'Afficher les articles les plus anciens en premier',
 		'order_desc' => 'Afficher les articles les plus récents en premier',
+		'remove' => 'Supprimer le filtre',
 		'search' => 'Recherche de "%s"',
 		'state_0' => 'Afficher tous les articles',
 		'state_1' => 'Afficher les articles lus',

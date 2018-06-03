@@ -42,6 +42,7 @@ return array(
 	'query' => array(
 		'_' => '사용자 쿼리',
 		'deprecated' => '이 쿼리는 더 이상 유효하지 않습니다. 해당하는 카테고리나 피드가 삭제되었습니다.',
+		'display' => 'Display user query results', // TODO
 		'filter' => '적용된 필터:',
 		'get_all' => '모든 글 표시',
 		'get_category' => '"%s" 카테고리 표시',
@@ -52,6 +53,7 @@ return array(
 		'number' => '쿼리 #%d',
 		'order_asc' => '오래된 글 먼저 표시',
 		'order_desc' => '최근 글 먼저 표시',
+		'remove' => 'Remove user query', // TODO
 		'search' => '"%s"의 검색 결과',
 		'state_0' => '모든 글 표시',
 		'state_1' => '읽은 글 표시',

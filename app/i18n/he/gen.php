@@ -170,6 +170,7 @@ return array(
 		'Known' => 'Known based sites',
 		'mastodon' => 'Mastodon',
 		'movim' => 'Movim',
+		'pocket' => 'Pocket',
 		'print' => 'הדפסה',
 		'shaarli' => 'Shaarli',
 		'twitter' => 'Twitter',

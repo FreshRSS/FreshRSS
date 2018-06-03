@@ -1,8 +1,9 @@
 <?php
 
 require_once __DIR__ . '/I18nData.php';
+require_once __DIR__ . '/I18nFileInterface.php';
 
-class i18nFile {
+class I18nFile implements I18nFileInterface{
 
 	private $i18nPath;
 
@@ -11,6 +12,7 @@ class i18nFile {
 	}
 
 	public function load() {
+		$i18n = array();
 		$dirs = new DirectoryIterator($this->i18nPath);
 		foreach ($dirs as $dir) {
 			if ($dir->isDot()) {

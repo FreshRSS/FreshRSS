@@ -44,8 +44,10 @@ return array(
 			'main_stream' => 'Mostra in homepage', // TODO
 			'normal' => 'Show in its category', // TODO
 		),
+		'ssl_verify' => 'Verify SSL security',	//TODO
 		'stats' => 'Statistiche',
 		'think_to_add' => 'Aggiungi feed.',
+		'timeout' => 'Timeout in seconds',	//TODO
 		'title' => 'Titolo',
 		'title_add' => 'Aggiungi RSS feed',
 		'ttl' => 'Non aggiornare automaticamente piu di',

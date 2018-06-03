@@ -42,6 +42,7 @@ return array(
 	'query' => array(
 		'_' => 'Uživatelské dotazy',
 		'deprecated' => 'Tento dotaz již není platný. Odkazovaná kategorie nebo kanál byly smazány.',
+		'display' => 'Display user query results', // TODO
 		'filter' => 'Filtr aplikován:',
 		'get_all' => 'Zobrazit všechny články',
 		'get_category' => 'Zobrazit "%s" kategorii',
@@ -52,6 +53,7 @@ return array(
 		'number' => 'Dotaz n°%d',
 		'order_asc' => 'Zobrazit nejdříve nejstarší články',
 		'order_desc' => 'Zobrazit nejdříve nejnovější články',
+		'remove' => 'Remove user query', // TODO
 		'search' => 'Hledat "%s"',
 		'state_0' => 'Zobrazit všechny články',
 		'state_1' => 'Zobrazit přečtené články',

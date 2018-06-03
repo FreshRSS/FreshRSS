@@ -31,11 +31,11 @@ return array(
 	'extensions' => array(
 		'already_enabled' => '%s je již zapnut',
 		'disable' => array(
-			'ko' => '%s nelze vypnout. Pro více detailů <a href="%s">zkontrolujte logy FressRSS</a>.',
+			'ko' => '%s nelze vypnout. Pro více detailů <a href="%s">zkontrolujte logy FreshRSS</a>.',
 			'ok' => '%s je nyní vypnut',
 		),
 		'enable' => array(
-			'ko' => '%s nelze zapnout. Pro více detailů <a href="%s">zkontrolujte logy FressRSS</a>.',
+			'ko' => '%s nelze zapnout. Pro více detailů <a href="%s">zkontrolujte logy FreshRSS</a>.',
 			'ok' => '%s je nyní zapnut',
 		),
 		'no_access' => 'Nemáte přístup k %s',
@@ -72,7 +72,7 @@ return array(
 			'already_subscribed' => 'Již jste přihlášen k odběru <em>%s</em>',
 			'deleted' => 'Kanál byl smazán',
 			'error' => 'Kanál nelze aktualizovat',
-			'internal_problem' => 'RSS kanál nelze přidat. Pro detaily <a href="%s">zkontrolujte logy FressRSS</a>.',
+			'internal_problem' => 'RSS kanál nelze přidat. Pro detaily <a href="%s">zkontrolujte logy FreshRSS</a>.', // @todo
 			'invalid_url' => 'URL <em>%s</em> není platné',
 			'marked_read' => 'Kanály byly označeny jako přečtené',
 			'n_actualized' => '%d kanálů bylo aktualizováno',

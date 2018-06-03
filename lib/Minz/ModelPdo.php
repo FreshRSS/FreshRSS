@@ -58,7 +58,7 @@ class Minz_ModelPdo {
 		try {
 			switch ($db['type']) {
 				case 'mysql':
-					$string = 'mysql:host=' . $dbServer['host'] . ';dbname=' . $db['base'] . ';charset=utf8mb4';
+					$string = 'mysql:host=' . (empty($dbServer['host']) ? $db['host'] : $dbServer['host']) . ';dbname=' . $db['base'] . ';charset=utf8mb4';
 					if (!empty($dbServer['port'])) {
 						$string .= ';port=' . $dbServer['port'];
 					}
@@ -69,11 +69,11 @@ class Minz_ModelPdo {
 				case 'sqlite':
 					$string = 'sqlite:' . join_path(DATA_PATH, 'users', $currentUser, 'db.sqlite');
 					$this->prefix = '';
-					$this->bd = new MinzPDOMSQLite($string, $db['user'], $db['password'], $driver_options);
+					$this->bd = new MinzPDOSQLite($string, $db['user'], $db['password'], $driver_options);
 					$this->bd->exec('PRAGMA foreign_keys = ON;');
 					break;
 				case 'pgsql':
-					$string = 'pgsql:host=' . $dbServer['host'] . ';dbname=' . $db['base'];
+					$string = 'pgsql:host=' . (empty($dbServer['host']) ? $db['host'] : $dbServer['host']) . ';dbname=' . $db['base'];
 					if (!empty($dbServer['port'])) {
 						$string .= ';port=' . $dbServer['port'];
 					}
@@ -160,7 +160,7 @@ class MinzPDOMySql extends MinzPDO {
 	}
 }
 
-class MinzPDOMSQLite extends MinzPDO {
+class MinzPDOSQLite extends MinzPDO {
 	public function lastInsertId($name = null) {
 		return parent::lastInsertId();	//We discard the name, only used by PostgreSQL
 	}

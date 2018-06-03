@@ -44,8 +44,10 @@ return array(
 			'main_stream' => 'Ana akışda göster',
 			'normal' => 'Show in its category', // TODO
 		),
+		'ssl_verify' => 'Verify SSL security',	//TODO
 		'stats' => 'İstatistikler',
 		'think_to_add' => 'Akış ekleyebilirsiniz.',
+		'timeout' => 'Timeout in seconds',	//TODO
 		'title' => 'Başlık',
 		'title_add' => 'RSS akışı ekle',
 		'ttl' => 'Şu kadar süreden fazla otomatik yenileme yapma',

@@ -1,3 +1,6 @@
+[![Build Status][travis-badge]][travis-link]
+
+* Lire ce document sur [github.com/FreshRSS/FreshRSS/](https://github.com/FreshRSS/FreshRSS/blob/master/README.md) pour avoir les images et liens corrects.
 * [English version](README.md)
 
 # FreshRSS
@@ -54,6 +57,8 @@ Nous sommes une communauté amicale.
 6. Des paramètres de configuration avancée peuvent être vues dans [config.default.php](config.default.php) et modifiées dans `data/config.php`.
 7. Avec Apache, activer [`AllowEncodedSlashes`](https://httpd.apache.org/docs/trunk/mod/core.html#allowencodedslashes) pour une meilleure compatibilité avec les clients mobiles.
 
+Plus d’informations sur l’installation et la configuration serveur peuvent être trouvées dans [notre documentation](https://freshrss.github.io/FreshRSS/fr/users/01_Installation.md).
+
 ## Installation automatisée
 * [Docker](./Docker/)
 * [![Cloudron](https://cloudron.io/img/button.svg)](https://cloudron.io/button.html?app=org.freshrss.cloudronapp)
@@ -107,6 +112,8 @@ sudo git pull
 sudo chown -R :www-data . && sudo chmod -R g+r . && sudo chmod -R g+w ./data/
 ```
 
+Voir la [documentation de la ligne de commande](cli/README.md) pour plus de détails.
+
 ## Contrôle d’accès
 Il est requis pour le mode multi-utilisateur, et recommandé dans tous les cas, de limiter l’accès à votre FreshRSS. Au choix :
 * En utilisant l’identification par formulaire (requiert JavaScript, et PHP 5.5+ recommandé)
@@ -150,9 +157,39 @@ mysqldump --skip-comments --disable-keys --user=<db_user> --password --host <db_
 ```
 
 
-# Extensions 
+# Extensions
 FreshRSS permet l’ajout d’extensions en plus des fonctionnalités natives.
 Voir le [dépôt dédié à ces extensions](https://github.com/FreshRSS/Extensions).
+
+
+# APIs et applications natives
+
+FreshRSS supporte l’accès depuis des applications native pour Linux, Android, iOS, et OS X, grâce à deux APIs distinctes.
+
+## Via l’API compatible Google Reader
+
+Voir notre [documentation sur l’accès mobile](https://freshrss.github.io/FreshRSS/fr/users/06_Mobile_access.html).
+
+Tout client supportant une API de type Google Reader ; Sélection :
+
+* Android
+	* [News+](https://play.google.com/store/apps/details?id=com.noinnion.android.newsplus) avec [News+ Google Reader extension](https://play.google.com/store/apps/details?id=com.noinnion.android.newsplus.extension.google_reader) (Propriétaire)
+	* [FeedMe 3.5.3+](https://play.google.com/store/apps/details?id=com.seazon.feedme) (Propriétaire)
+	* [EasyRSS](https://github.com/Alkarex/EasyRSS) (Libre, [F-Droid](https://f-droid.org/fr/packages/org.freshrss.easyrss/))
+* GNU/Linux
+	* [FeedReader 2.0+](https://jangernert.github.io/FeedReader/) (Libre)
+
+## Via l’API compatible Fever
+
+Voir notre [documentation sur l’API Fever](https://freshrss.github.io/FreshRSS/fr/users/06_Fever_API.html) page.
+
+Tout client supportant une API de type Fever ; Sélection :
+
+* iOS
+	* [Fiery Feeds](https://itunes.apple.com/app/fiery-feeds-rss-reader/id1158763303) (Propriétaire)
+	* [Unread](https://itunes.apple.com/app/unread-rss-reader/id1252376153) (Propriétaire)
+* MacOS
+	* [Readkit](https://itunes.apple.com/app/readkit/id588726889) (Propriétaire)
 
 
 # Bibliothèques incluses
@@ -174,12 +211,3 @@ Voir le [dépôt dédié à ces extensions](https://github.com/FreshRSS/Extensio
 * [password_compat](https://github.com/ircmaxell/password_compat)
 
 
-# [Clients compatibles](https://freshrss.github.io/FreshRSS/fr/users/06_Mobile_access.html)
-Tout client supportant une API de type Google Reader. Sélection :
-
-* Android
-	* [News+](https://play.google.com/store/apps/details?id=com.noinnion.android.newsplus) avec [News+ Google Reader extension](https://play.google.com/store/apps/details?id=com.noinnion.android.newsplus.extension.google_reader) (Propriétaire)
-	* [FeedMe 3.5.3+](https://play.google.com/store/apps/details?id=com.seazon.feedme) (Propriétaire)
-	* [EasyRSS](https://github.com/Alkarex/EasyRSS) (Libre, [F-Droid](https://f-droid.org/fr/packages/org.freshrss.easyrss/))
-* GNU/Linux
-	* [FeedReader 2.0+](https://jangernert.github.io/FeedReader/) (Libre)

@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 256"
+	xmlns:xlink="http://www.w3.org/1999/xlink">
+	<title>Logo FreshRSS</title>
+	<circle fill="#0062BE" cx="128" cy="128" r="33"/>
+	<g fill="none" stroke="#0062BE" stroke-width="24">
+		<g stroke-opacity="0.3">
+			<path d="M12,128 A116,116 0 1,1 128,244"/>
+			<path d="M54,128 A74,74 0 1,1 128,202"/>
+		</g>
+		<path d="M128,12 A116,116 0 0,1 244,128"/>
+		<path d="M128,54 A74,74 0 0,1 202,128"/>
+	</g>
+	<text x="309" y="206" fill="#0062bd" stroke-width="0"
+		font-family="'Open Sans'" font-weight="600" font-size="213">FreshRSS</text>
+</svg>
+

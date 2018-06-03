@@ -22,7 +22,7 @@
 			<label class="group-name" for="newPasswordPlain"><?php echo _t('conf.profile.password_form'); ?></label>
 			<div class="group-controls">
 				<div class="stick">
-					<input type="password" id="newPasswordPlain" name="newPasswordPlain" autocomplete="off" pattern=".{7,}" <?php echo cryptAvailable() ? '' : 'disabled="disabled" '; ?>/>
+					<input type="password" id="newPasswordPlain" name="newPasswordPlain" autocomplete="new-password" pattern=".{7,}" <?php echo cryptAvailable() ? '' : 'disabled="disabled" '; ?>/>
 					<a class="btn toggle-password" data-toggle="newPasswordPlain"><?php echo _i('key'); ?></a>
 				</div>
 				<?php echo _i('help'); ?> <?php echo _t('conf.profile.password_format'); ?>
@@ -35,7 +35,7 @@
 			<label class="group-name" for="apiPasswordPlain"><?php echo _t('conf.profile.password_api'); ?></label>
 			<div class="group-controls">
 				<div class="stick">
-					<input type="password" id="apiPasswordPlain" name="apiPasswordPlain" autocomplete="off" pattern=".{7,}" <?php echo cryptAvailable() ? '' : 'disabled="disabled" '; ?>/>
+					<input type="password" id="apiPasswordPlain" name="apiPasswordPlain" autocomplete="new-password" pattern=".{7,}" <?php echo cryptAvailable() ? '' : 'disabled="disabled" '; ?>/>
 					<a class="btn toggle-password" data-toggle="apiPasswordPlain"><?php echo _i('key'); ?></a>
 				</div>
 				<?php echo _i('help'); ?> <kbd><a href="../api/"><?php echo Minz_Url::display('/api/', 'html', true); ?></a></kbd>

@@ -26,6 +26,7 @@ class FreshRSS_Feed extends Minz_Model {
 	private $error = false;
 	private $keep_history = self::KEEP_HISTORY_DEFAULT;
 	private $ttl = self::TTL_DEFAULT;
+	private $attributes = array();
 	private $mute = false;
 	private $hash = null;
 	private $lockPath = '';
@@ -113,6 +114,13 @@ class FreshRSS_Feed extends Minz_Model {
 	}
 	public function ttl() {
 		return $this->ttl;
+	}
+	public function attributes($key = '') {
+		if ($key == '') {
+			return $this->attributes;
+		} else {
+			return isset($this->attributes[$key]) ? $this->attributes[$key] : null;
+		}
 	}
 	public function mute() {
 		return $this->mute;
@@ -234,6 +242,22 @@ class FreshRSS_Feed extends Minz_Model {
 		$this->ttl = abs($value);
 		$this->mute = $value < self::TTL_DEFAULT;
 	}
+
+	public function _attributes($key, $value) {
+		if ($key == '') {
+			if (is_string($value)) {
+				$value = json_decode($value, true);
+			}
+			if (is_array($value)) {
+				$this->attributes = $value;
+			}
+		} elseif ($value === null) {
+			unset($this->attributes[$key]);
+		} else {
+			$this->attributes[$key] = $value;
+		}
+	}
+
 	public function _nbNotRead($value) {
 		$this->nbNotRead = intval($value);
 	}
@@ -253,7 +277,7 @@ class FreshRSS_Feed extends Minz_Model {
 				if ($this->httpAuth != '') {
 					$url = preg_replace('#((.+)://)(.+)#', '${1}' . $this->httpAuth . '@${3}', $url);
 				}
-				$feed = customSimplePie();
+				$feed = customSimplePie($this->attributes());
 				if (substr($url, -11) === '#force_feed') {
 					$feed->force_feed(true);
 					$url = substr($url, 0, -11);
@@ -311,6 +335,8 @@ class FreshRSS_Feed extends Minz_Model {
 
 	public function loadEntries($feed) {
 		$entries = array();
+		$guids = array();
+		$hasUniqueGuids = true;
 
 		foreach ($feed->get_items() as $item) {
 			$title = html_only_entity_decode(strip_tags($item->get_title()));
@@ -351,9 +377,13 @@ class FreshRSS_Feed extends Minz_Model {
 				}
 			}
 
+			$guid = $item->get_id(false, false);
+			$hasUniqueGuids &= empty($guids['_' . $guid]);
+			$guids['_' . $guid] = true;
+
 			$entry = new FreshRSS_Entry(
 				$this->id(),
-				$item->get_id(false, false),
+				$guid,
 				$title === null ? '' : $title,
 				$author === null ? '' : html_only_entity_decode(strip_tags($author->name == null ? $author->email : $author->name)),
 				$content === null ? '' : $content,
@@ -368,14 +398,31 @@ class FreshRSS_Feed extends Minz_Model {
 			unset($item);
 		}
 
+		$hasBadGuids = $this->attributes('hasBadGuids');
+		if ($hasBadGuids != !$hasUniqueGuids) {
+			$hasBadGuids = !$hasUniqueGuids;
+			if ($hasBadGuids) {
+				Minz_Log::warning('Feed has invalid GUIDs: ' . $this->url);
+			} else {
+				Minz_Log::warning('Feed has valid GUIDs again: ' . $this->url);
+			}
+			$feedDAO = FreshRSS_Factory::createFeedDao();
+			$feedDAO->updateFeedAttribute($this, 'hasBadGuids', $hasBadGuids);
+		}
+		if (!$hasUniqueGuids) {
+			foreach ($entries as $entry) {
+				$entry->_guid('');
+			}
+		}
+
 		$this->entries = $entries;
 	}
 
-	function cacheModifiedTime() {
+	public function cacheModifiedTime() {
 		return @filemtime(CACHE_PATH . '/' . md5($this->url) . '.spc');
 	}
 
-	function lock() {
+	public function lock() {
 		$this->lockPath = TMP_PATH . '/' . $this->hash() . '.freshrss.lock';
 		if (file_exists($this->lockPath) && ((time() - @filemtime($this->lockPath)) > 3600)) {
 			@unlink($this->lockPath);
@@ -388,13 +435,13 @@ class FreshRSS_Feed extends Minz_Model {
 		return true;
 	}
 
-	function unlock() {
+	public function unlock() {
 		@unlink($this->lockPath);
 	}
 
 	//<PubSubHubbub>
 
-	function pubSubHubbubEnabled() {
+	public function pubSubHubbubEnabled() {
 		$url = $this->selfUrl ? $this->selfUrl : $this->url;
 		$hubFilename = PSHB_PATH . '/feeds/' . base64url_encode($url) . '/!hub.json';
 		if ($hubFile = @file_get_contents($hubFilename)) {
@@ -407,7 +454,7 @@ class FreshRSS_Feed extends Minz_Model {
 		return false;
 	}
 
-	function pubSubHubbubError($error = true) {
+	public function pubSubHubbubError($error = true) {
 		$url = $this->selfUrl ? $this->selfUrl : $this->url;
 		$hubFilename = PSHB_PATH . '/feeds/' . base64url_encode($url) . '/!hub.json';
 		$hubFile = @file_get_contents($hubFilename);
@@ -420,7 +467,7 @@ class FreshRSS_Feed extends Minz_Model {
 		return false;
 	}
 
-	function pubSubHubbubPrepare() {
+	public function pubSubHubbubPrepare() {
 		$key = '';
 		if (FreshRSS_Context::$system_conf->base_url && $this->hubUrl && $this->selfUrl && @is_dir(PSHB_PATH)) {
 			$path = PSHB_PATH . '/feeds/' . base64url_encode($this->selfUrl);
@@ -467,7 +514,7 @@ class FreshRSS_Feed extends Minz_Model {
 	}
 
 	//Parameter true to subscribe, false to unsubscribe.
-	function pubSubHubbubSubscribe($state) {
+	public function pubSubHubbubSubscribe($state) {
 		$url = $this->selfUrl ? $this->selfUrl : $this->url;
 		if (FreshRSS_Context::$system_conf->base_url && $url) {
 			$hubFilename = PSHB_PATH . '/feeds/' . base64url_encode($url) . '/!hub.json';
