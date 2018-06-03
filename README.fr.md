@@ -186,10 +186,10 @@ Voir notre [documentation sur l’API Fever](https://freshrss.github.io/FreshRSS
 Tout client supportant une API de type Fever ; Sélection :
 
 * iOS
-	* [Fiery Feeds](https://itunes.apple.com/app/fiery-feeds-rss-reader/id1158763303)
-	* [Unread](https://itunes.apple.com/app/unread-rss-reader/id1252376153)
+	* [Fiery Feeds](https://itunes.apple.com/app/fiery-feeds-rss-reader/id1158763303) (Propriétaire)
+	* [Unread](https://itunes.apple.com/app/unread-rss-reader/id1252376153) (Propriétaire)
 * MacOS
-	* [Readkit](https://itunes.apple.com/app/readkit/id588726889)
+	* [Readkit](https://itunes.apple.com/app/readkit/id588726889) (Propriétaire)
 
 
 # Bibliothèques incluses

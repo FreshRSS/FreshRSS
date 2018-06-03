@@ -25,7 +25,7 @@
 	* Fix Docker bug affecting Apache `CustomLog` (unwanted local copy of access logs), `ErrorLog`, `Listen` (IPv6 bug) [#1873](https://github.com/FreshRSS/FreshRSS/pull/1873)
 	* Fix muted feeds that were not actually muted [#1844](https://github.com/FreshRSS/FreshRSS/issues/1844)
 	* Fix null exception in shares, showing only the first article [#1824](https://github.com/FreshRSS/FreshRSS/issues/1824)
-	* Fix error during import[#1890](https://github.com/FreshRSS/FreshRSS/issues/1890)
+	* Fix error during import [#1890](https://github.com/FreshRSS/FreshRSS/issues/1890)
 		* Fix additional automatic sequence bug with PostgreSQL [#1907](https://github.com/FreshRSS/FreshRSS/pull/1907)
 	* Fix errors in case of empty/wrong username when updating user settings [#1857](https://github.com/FreshRSS/FreshRSS/pull/1857)
 	* Fixes in subscription menu [#1858](https://github.com/FreshRSS/FreshRSS/pull/1858)

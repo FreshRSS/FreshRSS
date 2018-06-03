@@ -1,5 +1,8 @@
 # FreshRSS - Fever API implementation
 
+See the [page about our Google Reader compatible API](06_Mobile_access.md) for another possibility
+and general aspects of API access.
+
 ## RSS clients
 
 There are many RSS clients existing supporting Fever APIs but they seem to understand the Fever API a bit differently.
