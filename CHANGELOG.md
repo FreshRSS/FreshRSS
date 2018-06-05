@@ -3,6 +3,7 @@
 ## 2018-0X-XX FreshRSS 1.11.1-dev
 
 * Bug fixing
+	* Fix regression in fetching full articles content [#1917](https://github.com/FreshRSS/FreshRSS/issues/1917)
 	* Updated sharing to Mastodon [#1904](https://github.com/FreshRSS/FreshRSS/issues/1904)
 
 
