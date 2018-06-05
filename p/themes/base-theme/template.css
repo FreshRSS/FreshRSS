@@ -832,7 +832,7 @@ input:checked + .slide-container .properties {
 	display: none;
 }
 
-.enclosure-content > [download] {
+.enclosure [download] {
 	font-size: xx-large;
 	margin-left: .8em;
 }
