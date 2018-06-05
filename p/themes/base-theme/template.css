@@ -832,9 +832,13 @@ input:checked + .slide-container .properties {
 	display: none;
 }
 
-.enclosure > [download] {
+.enclosure-content > [download] {
 	font-size: xx-large;
 	margin-left: .8em;
+}
+
+pre.enclosure-description {
+	white-space: pre-line;
 }
 
 /*=== MOBILE */
