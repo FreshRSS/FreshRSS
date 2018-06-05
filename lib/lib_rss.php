@@ -253,68 +253,6 @@ function sanitizeHTML($data, $base = '') {
 	return html_only_entity_decode($simplePie->sanitize->sanitize($data, SIMPLEPIE_CONSTRUCT_HTML, $base));
 }
 
-/* permet de récupérer le contenu d'un article pour un flux qui n'est pas complet */
-function get_content_by_parsing($url, $path, $attributes = array()) {
-	require_once(LIB_PATH . '/lib_phpQuery.php');
-	$system_conf = Minz_Configuration::get('system');
-	$limits = $system_conf->limits;
-	$feed_timeout = empty($attributes['timeout']) ? 0 : intval($attributes['timeout']);
-
-	if ($system_conf->simplepie_syslog_enabled) {
-		syslog(LOG_INFO, 'FreshRSS GET ' . SimplePie_Misc::url_remove_credentials($url));
-	}
-
-	$ch = curl_init();
-	curl_setopt_array($ch, array(
-		CURLOPT_URL => $url,
-		CURLOPT_REFERER => SimplePie_Misc::url_remove_credentials($url),
-		CURLOPT_HTTPHEADER => array('Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'),
-		CURLOPT_USERAGENT => FRESHRSS_USERAGENT,
-		CURLOPT_CONNECTTIMEOUT => $feed_timeout > 0 ? $feed_timeout : $limits['timeout'],
-		CURLOPT_TIMEOUT => $feed_timeout > 0 ? $feed_timeout : $limits['timeout'],
-		//CURLOPT_FAILONERROR => true;
-		CURLOPT_MAXREDIRS => 4,
-		CURLOPT_RETURNTRANSFER => true,
-	));
-	if (version_compare(PHP_VERSION, '5.6.0') >= 0 || ini_get('open_basedir') == '') {
-		curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);	//Keep option separated for open_basedir PHP bug 65646
-	}
-	if (defined('CURLOPT_ENCODING')) {
-		curl_setopt($ch, CURLOPT_ENCODING, '');	//Enable all encodings
-	}
-	curl_setopt_array($ch, $system_conf->curl_options);
-	if (isset($attributes['ssl_verify'])) {
-		curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, $attributes['ssl_verify'] ? 2 : 0);
-		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, $attributes['ssl_verify'] ? true : false);
-	}
-	$html = curl_exec($ch);
-	$c_status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-	$c_error = curl_error($ch);
-	curl_close($ch);
-
-	if ($c_status != 200 || $c_error != '') {
-		Minz_Log::warning('Error fetching content: HTTP code ' . $c_status . ': ' . $c_error . ' ' . $url);
-	}
-
-	if ($html) {
-		$doc = phpQuery::newDocument($html);
-		$content = $doc->find($path);
-
-		foreach (pq('img[data-src]') as $img) {
-			$imgP = pq($img);
-			$dataSrc = $imgP->attr('data-src');
-			if (strlen($dataSrc) > 4) {
-				$imgP->attr('src', $dataSrc);
-				$imgP->removeAttr('data-src');
-			}
-		}
-
-		return sanitizeHTML($content->__toString(), $url);
-	} else {
-		throw new Exception();
-	}
-}
-
 /**
  * Add support of image lazy loading
  * Move content from src attribute to data-original
