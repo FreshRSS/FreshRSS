@@ -2,6 +2,9 @@
 
 ## 2018-0X-XX FreshRSS 1.11.1-dev
 
+* Bug fixing
+	* Updated sharing to Mastodon [#1904](https://github.com/FreshRSS/FreshRSS/issues/1904)
+
 
 ## 2018-06-03 FreshRSS 1.11.0
 
