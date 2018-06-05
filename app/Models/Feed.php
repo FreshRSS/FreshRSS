@@ -391,8 +391,11 @@ class FreshRSS_Feed extends Minz_Model {
 				$date ? $date : time()
 			);
 			$entry->_tags($tags);
-			// permet de récupérer le contenu des flux tronqués
-			$entry->loadCompleteContent($this->pathEntries());
+			$entry->_feed($this);
+			if ($this->pathEntries != '') {
+				// Optionally load full content for truncated feeds
+				$entry->loadCompleteContent();
+			}
 
 			$entries[] = $entry;
 			unset($item);
