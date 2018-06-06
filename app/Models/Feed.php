@@ -359,21 +359,45 @@ class FreshRSS_Feed extends Minz_Model {
 			foreach ($item->get_enclosures() as $enclosure) {
 				$elink = $enclosure->get_link();
 				if ($elink != '' && empty($elinks[$elink])) {
-					$elinks[$elink] = '1';
+					$content .= '<div class="enclosure">';
+
+					if ($enclosure->get_title() != '') {
+						$content .= '<p class="enclosure-title">' . $enclosure->get_title() . '</p>';
+					}
+
+					$enclosureContent = '';
+					$elinks[$elink] = true;
 					$mime = strtolower($enclosure->get_type());
-					if (strpos($mime, 'image/') === 0) {
-						$content .= '<p class="enclosure"><img src="' . $elink . '" alt="" /></p>';
-					} elseif (strpos($mime, 'audio/') === 0) {
-						$content .= '<p class="enclosure"><audio preload="none" src="' . $elink
+					$medium = strtolower($enclosure->get_medium());
+					if ($medium === 'image' || strpos($mime, 'image/') === 0) {
+						$enclosureContent .= '<p class="enclosure-content"><img src="' . $elink . '" alt="" /></p>';
+					} elseif ($medium === 'audio' || strpos($mime, 'audio/') === 0) {
+						$enclosureContent .= '<p class="enclosure-content"><audio preload="none" src="' . $elink
 							. '" controls="controls"></audio> <a download="" href="' . $elink . '">💾</a></p>';
-					} elseif (strpos($mime, 'video/') === 0) {
-						$content .= '<p class="enclosure"><video preload="none" src="' . $elink
+					} elseif ($medium === 'video' || strpos($mime, 'video/') === 0) {
+						$enclosureContent .= '<p class="enclosure-content"><video preload="none" src="' . $elink
 							. '" controls="controls"></video> <a download="" href="' . $elink . '">💾</a></p>';
-					} elseif (strpos($mime, 'application/') === 0 || strpos($mime, 'text/') === 0) {
-						$content .= '<p class="enclosure"><a download="" href="' . $elink . '">💾</a></p>';
+					} elseif ($medium != '' || strpos($mime, 'application/') === 0 || strpos($mime, 'text/') === 0) {
+						$enclosureContent .= '<p class="enclosure-content"><a download="" href="' . $elink . '">💾</a></p>';
 					} else {
 						unset($elinks[$elink]);
 					}
+
+					$thumbnailContent = '';
+					foreach ($enclosure->get_thumbnails() as $thumbnail) {
+						if (empty($elinks[$thumbnail])) {
+							$elinks[$thumbnail] = true;
+							$thumbnailContent .= '<p><img class="enclosure-thumbnail" src="' . $thumbnail . '" alt="" /></p>';
+						}
+					}
+
+					$content .= $thumbnailContent;
+					$content .= $enclosureContent;
+
+					if ($enclosure->get_description() != '') {
+						$content .= '<pre class="enclosure-description">' . $enclosure->get_description() . '</pre>';
+					}
+					$content .= "</div>\n";
 				}
 			}
 
