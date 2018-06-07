@@ -164,7 +164,8 @@ class Minz_ExtensionManager {
 		self::$ext_list[$name] = $ext;
 
 		if ($ext->getType() === 'system' &&
-				in_array($name, self::$ext_auto_enabled)) {
+				(!empty(self::$ext_auto_enabled[$name]) ||
+				in_array($name, self::$ext_auto_enabled, true))) {	//Legacy format < FreshRSS 1.11.1
 			self::enable($ext->getName());
 		}
 
@@ -193,8 +194,12 @@ class Minz_ExtensionManager {
 	 * @param string[] $ext_list the names of extensions we want to load.
 	 */
 	public static function enableByList($ext_list) {
-		foreach ($ext_list as $ext_name) {
-			self::enable($ext_name);
+		foreach ($ext_list as $ext_name => $ext_status) {
+			if (is_int($ext_name)) {	//Legacy format int=>name
+				self::enable($ext_status);
+			} elseif ($ext_status) {	//New format name=>Boolean
+				self::enable($ext_name);
+			}
 		}
 	}
 
