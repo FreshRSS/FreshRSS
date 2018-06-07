@@ -35,6 +35,10 @@ class Minz_ExtensionManager {
 			'list' => array(),
 			'signature' => 'OneToOne',
 		),
+		'simplepie_before_init' => array(  // function($simplePie, $feed) -> none
+			'list' => array(),
+			'signature' => 'PassArguments',
+		),
 	);
 	private static $ext_to_hooks = array();
 
@@ -255,10 +259,15 @@ class Minz_ExtensionManager {
 		}
 
 		$signature = self::$hook_list[$hook_name]['signature'];
-		$signature = 'self::call' . $signature;
 		$args = func_get_args();
-
-		return call_user_func_array($signature, $args);
+		if ($signature === 'PassArguments') {
+			array_shift($args);
+			foreach (self::$hook_list[$hook_name]['list'] as $function) {
+				call_user_func_array($function, $args);
+			}
+		} else {
+			return call_user_func_array('self::call' . $signature, $args);
+		}
 	}
 
 	/**

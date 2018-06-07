@@ -366,6 +366,7 @@ The following events are available:
 - `entry_before_insert` (`function($entry) -> Entry | null`) : will be executed when a feed is refreshed and new entries will be imported into the database. The new entry (instance of FreshRSS_Entry) will be passed as parameter. 
 - `feed_before_insert` (`function($feed) -> Feed | null`) : will be executed when a new feed is imported into the database. The new feed (instance of FreshRSS_Feed) will be passed as parameter. 
 - `post_update` (`function(none) -> none`) : **TODO** add documentation
+- `simplepie_before_init` (`function($simplePie, $feed) -> none`) : **TODO** add documentation
 
 ### Writing your own configure.phtml
 

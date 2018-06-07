@@ -329,6 +329,7 @@ TODO :
 - `entry_before_insert` (`function($entry) -> Entry | null`)
 - `feed_before_insert` (`function($feed) -> Feed | null`)
 - `post_update` (`function(none) -> none`)
+- `simplepie_before_init` (`function($simplePie, $feed) -> none`)
 
 ### Écrire le fichier configure.phtml
 
