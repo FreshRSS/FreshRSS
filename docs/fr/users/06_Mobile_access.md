@@ -41,6 +41,22 @@ Voir la [page sur l’API compatible Fever](06_Fever_API.md) pour une autre poss
 	* Mettre à jour et retourner à l’étape 3.
 
 
+# Tests sur mobile:
+
+6. Vous pouvez maintenant tester sur une application mobile (FeedMe et EasyRSS sur Android 6.0 fonctionnent)
+	* en utilisant comme adresse 'http://votre.serveur.exemple/FreshRSS/p/api/greader.php'<br>
+	  /!\ attention aux majuscules et aux espaces en tapant l'adresse avec le clavier du mobile /!\ 
+	* avec votre nom d'utilisateur et le mot de passe enregistré au point 2 (mot de passe API).
+
+
+# En cas de problèmes
+
+ * Vous pouvez voir les logs API dans ./FreshRSS/data/users/_/log_api.txt
+ * Si vous avez une erreur 404 (fichier non trouvé) lors de l'étape de test, et que vous êtes sous Apache <br>
+ 	 Voir http://httpd.apache.org/docs/trunk/mod/core.html#allowencodedslashes pour utiliser News+ 
+(facultatif pour EasyRSS et FeedMe qui devraient fonctionner dès lors que vous obtenez un PASS au test Check partial server configuration).
+
+
 # Clients compatibles
 
 Tout client supportant une API de type Google Reader. Sélection :
