@@ -44,7 +44,7 @@ Voir la [page sur l’API compatible Fever](06_Fever_API.md) pour une autre poss
 # Tests sur mobile:
 
 6. Vous pouvez maintenant tester sur une application mobile (FeedMe et EasyRSS sur Android 6.0 fonctionnent)
-	* en utilisant comme adresse https://rss.example.net/api/greader.php et/ou http://example.net/FreshRSS/p/api/greader.php suivant la configuration de votre site web.<br>
+	* en utilisant comme adresse https://rss.example.net/api/greader.php ou http://example.net/FreshRSS/p/api/greader.php suivant la configuration de votre site Web.<br>
 	  /!\ attention aux majuscules et aux espaces en tapant l'adresse avec le clavier du mobile /!\ 
 	* avec votre nom d'utilisateur et le mot de passe enregistré au point 2 (mot de passe API).
 
