@@ -43,7 +43,7 @@ Following features are implemented:
 - setting starred marker for item(s)
 - setting read marker for feed
 - setting read marker for category
-- supports FreshRSS extensions, which use th `entry_before_display` hook
+- supports FreshRSS extensions, which use the `entry_before_display` hook
 
 Following features are not supported:
 - **Hot Links** aka **hot** as there is nothing in FreshRSS yet that is similar or could be used to simulate it

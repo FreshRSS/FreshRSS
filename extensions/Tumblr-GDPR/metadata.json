@@ -1,0 +1,8 @@
+{
+	"name": "Tumblr-GDPR",
+	"author": "Alkarex",
+	"description": "Bypass Tumblr’ GPDR check (implying consent) for the European Union",
+	"version": 1.0,
+	"entrypoint": "TumblrGdpr",
+	"type": "system"
+}

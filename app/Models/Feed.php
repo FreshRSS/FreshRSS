@@ -286,6 +286,7 @@ class FreshRSS_Feed extends Minz_Model {
 				if (!$loadDetails) {	//Only activates auto-discovery when adding a new feed
 					$feed->set_autodiscovery_level(SIMPLEPIE_LOCATOR_NONE);
 				}
+				Minz_ExtensionManager::callHook('simplepie_before_init', $feed, $this);
 				$mtime = $feed->init();
 
 				if ((!$mtime) || $feed->error()) {
