@@ -1067,4 +1067,18 @@ a.btn {
     .stick {
         max-width: calc(100% - 87px);
     }
+    .nav-head {
+        position: fixed;
+        width: 100%;
+        z-index: 2;
+    }
+    .nav_menu {
+        position: fixed;
+        z-index: 2;
+        top: 48px;
+    }
+    #stream,
+    .post {
+        margin-top: 48px;
+    }
 }
