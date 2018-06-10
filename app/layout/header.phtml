@@ -1,21 +1,18 @@
-<?php
-
-if (FreshRSS_Auth::accessNeedsAction()) {
-	?><ul class="nav nav-head nav-login">
-		<li class="item">
-		<a class="btn toggle_aside toggle_aside" href="#aside_feed"><?php echo _i('category'); ?></a>
-		</li>
-		<?php
+<ul class="nav nav-head nav-login">
+	<li class="item">
+	<a class="btn toggle_aside toggle_aside" href="#aside_feed"><?php echo _i('category'); ?></a>
+	</li>
+	<?php
+	if (FreshRSS_Auth::accessNeedsAction()) {
 		if (FreshRSS_Auth::hasAccess()) {
 			?><li class="item"><?php echo _i('logout'); ?> <a class="signout" href="<?php echo _url('auth', 'logout'); ?>"><?php echo _t('gen.auth.logout'); ?></a></li><?php
 		} else {
 			?><li class="item"><?php echo _i('login'); ?> <a class="signin" href="<?php echo _url('auth', 'login'); ?>"><?php echo _t('gen.auth.login'); ?></a></li><?php
 		}
-	?>
-		<li class="item" id="menubutton-item"><a id="menubutton" class="btn menu" title="menu"><?php echo _i('menu'); ?></a></li>
-	</ul><?php
-}
+	}
 ?>
+	<li class="item" id="menubutton-item"><a id="menubutton" class="btn menu" title="menu"><?php echo _i('menu'); ?></a></li>
+</ul>
 
 <div class="header">
 	<div class="item title">
