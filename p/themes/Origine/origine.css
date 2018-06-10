@@ -305,7 +305,7 @@ a.btn {
 	border-bottom: 1px solid #ddd;
 }
 #menubutton-item {
-	float:right;
+	float: right;
 }
 .nav-head .item {
 	padding: 5px 10px;
@@ -548,7 +548,7 @@ a.btn {
 	vertical-align: middle;
 	text-align: center;
 }
-.header > .item.title{
+.header > .item.title {
 	width: 230px;
 }
 .header > .item.title h1 {

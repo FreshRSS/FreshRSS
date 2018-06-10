@@ -123,7 +123,7 @@ form th {
 	border-radius: 3px 0 0 3px;
 }
 .stick .btn-important:first-child {
-	width:176px;
+	width: 176px;
 }
 .stick .btn:last-child,
 .stick input:last-child {
@@ -175,7 +175,7 @@ a.btn {
 }
 
 .read_all.btn {
-	height:29px;
+	height: 29px;
 }
 
 .btn:hover {
@@ -526,7 +526,7 @@ a.btn {
 	vertical-align: middle;
 	text-align: center;
 }
-.header > .item.title{
+.header > .item.title {
 	width: 230px;
 }
 .header > .item.title h1 {

@@ -554,7 +554,7 @@ a.btn {
 	vertical-align: middle;
 	text-align: center;
 }
-.header > .item.title{
+.header > .item.title {
 	width: 230px;
 }
 .header > .item.title h1 {
@@ -776,7 +776,7 @@ a.btn {
 	padding: 10px 10px;
 }
 #stream.normal .content > h1.title {
-	display:none;
+	display: none;
 }
 .content > h1.title > a {
 	color: #000;
