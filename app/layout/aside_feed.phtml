@@ -11,7 +11,7 @@
 	<a class="toggle_aside" href="#close"><?php echo _i('close'); ?></a>
 
 	<?php if (FreshRSS_Auth::hasAccess()) { ?>
-	<div class="stick configure-feeds no-mobile">
+	<div class="stick configure-feeds">
 		<a class="btn btn-important" href="<?php echo _url('subscription', 'index'); ?>"><?php echo _t('index.menu.subscription'); ?></a>
 		<a class="btn btn-important" href="<?php echo _url('importExport', 'index'); ?>"><?php echo _i('import'); ?></a>
 	</div>

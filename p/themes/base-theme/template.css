@@ -845,12 +845,14 @@ pre.enclosure-description {
 /*===========*/
 @media(max-width: 840px) {
 	.header,
-	.aside .btn-important,
 	.flux_header .item.website span,
 	.item.date, .day .date,
 	.dropdown-menu > .no-mobile,
 	.no-mobile {
 		display: none;
+	}
+	.aside .btn-important{
+		margin-top:10px;
 	}
 	.dropdown .dropdown-menu {
 		border-radius: 0;
