@@ -1398,7 +1398,7 @@ function init_normal() {
 	init_stream($stream);
 	init_shortcuts();
 	init_actualize();
-	$('#menubutton').on('click', function () {$(".nav_menu").slideToggle()});
+	$('#menubutton').on('click', function () { $('.nav_menu').slideToggle(); });
 	faviconNbUnread();
 }
 

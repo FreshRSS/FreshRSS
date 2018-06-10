@@ -304,7 +304,7 @@ a.btn {
 	background: -ms-linear-gradient(top, #fff 0%, #f0f0f0 100%);
 	border-bottom: 1px solid #ddd;
 }
-#menubutton-item{
+#menubutton-item {
 	float:right;
 }
 .nav-head .item {
@@ -1061,24 +1061,24 @@ a.btn {
 		display: none;
 	}
 	.post {
-        padding-left: 10px;
-        padding-right: 10px;
-    }
-    .stick {
-        max-width: calc(100% - 87px);
-    }
-    .nav-head {
-        position: fixed;
-        width: 100%;
-        z-index: 2;
-    }
-    .nav_menu {
-        position: fixed;
-        z-index: 2;
-        top: 48px;
-    }
-    #stream,
-    .post {
-        margin-top: 48px;
-    }
+		padding-left: 10px;
+		padding-right: 10px;
+	}
+	.stick {
+		max-width: calc(100% - 87px);
+	}
+	.nav-head {
+		position: fixed;
+		width: 100%;
+		z-index: 2;
+	}
+	.nav_menu {
+		position: fixed;
+		z-index: 2;
+		top: 48px;
+	}
+	#stream,
+	.post {
+		margin-top: 48px;
+	}
 }
