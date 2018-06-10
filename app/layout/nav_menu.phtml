@@ -1,9 +1,6 @@
 <?php $actual_view = Minz_Request::actionName(); ?>
 
 <div class="nav_menu">
-	<?php if ($actual_view === 'normal') { ?>
-	<a class="btn toggle_aside" href="#aside_feed"><?php echo _i('category'); ?></a>
-	<?php } ?>
 
 	<?php if (FreshRSS_Auth::hasAccess()) { ?>
 	<div id="nav_menu_actions" class="stick">
