@@ -304,6 +304,9 @@ a.btn {
 	background: -ms-linear-gradient(top, #fff 0%, #f0f0f0 100%);
 	border-bottom: 1px solid #ddd;
 }
+#menubutton-item{
+	float:right;
+}
 .nav-head .item {
 	padding: 5px 10px;
 	font-size: 0.9rem;
