@@ -1060,4 +1060,11 @@ a.btn {
 	.notification a.close .icon {
 		display: none;
 	}
+	.post {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+    .stick {
+        max-width: calc(100% - 87px);
+    }
 }
