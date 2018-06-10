@@ -112,11 +112,6 @@ class FeverAPI
 	private $entryDAO = null;
 	private $feedDAO = null;
 
-	public function __construct() {
-		$this->entryDAO = FreshRSS_Factory::createEntryDao();
-		$this->feedDAO = FreshRSS_Factory::createFeedDao();
-	}
-
 	/**
 	 * Authenticate the user
 	 *
@@ -137,6 +132,8 @@ class FeverAPI
 				$user_conf = get_user_configuration($username);
 				if ($user_conf != null && $feverKey === $user_conf->feverKey) {
 					FreshRSS_Context::$user_conf = $user_conf;
+					$this->entryDAO = FreshRSS_Factory::createEntryDao();
+					$this->feedDAO = FreshRSS_Factory::createFeedDao();
 					return true;
 				}
 				Minz_Log::error('Fever API: Reset API password for user: ' . $username, API_LOG);
