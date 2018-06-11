@@ -230,6 +230,17 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 			$_POST['new_user_passwordPlain'] = '';
 			invalidateHttpCache();
 
+			// If the user has admin access, it means he's already logged in
+			// and we don't want to login with the new account. Otherwise, the
+			// user just created its account himself so he probably wants to
+			// get started immediately.
+			if ($ok && !FreshRSS_Auth::hasAccess('admin')) {
+				$user_conf = get_user_configuration($new_user_name);
+				Minz_Session::_param('currentUser', $new_user_name);
+				Minz_Session::_param('passwordHash', $user_conf->passwordHash);
+				FreshRSS_Auth::giveAccess();
+			}
+
 			$notif = array(
 				'type' => $ok ? 'good' : 'bad',
 				'content' => _t('feedback.user.created' . (!$ok ? '.error' : ''), $new_user_name)
