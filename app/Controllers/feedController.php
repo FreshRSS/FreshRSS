@@ -351,13 +351,20 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 							//This entry already exists and is unchanged. TODO: Remove the test with the zero'ed hash in FreshRSS v1.3
 							$oldGuids[] = $entry->guid();
 						} else {	//This entry already exists but has been updated
-							//Minz_Log::debug('Entry with GUID `' . $entry->guid() . '` updated in feed ' . $feed->id() .
-								//', old hash ' . $existingHash . ', new hash ' . $entry->hash());
+							Minz_Log::debug('Entry with GUID `' . $entry->guid() . '` updated in feed ' . $feed->url() .
+								', old hash ' . $existingHash . ', new hash ' . $entry->hash());
 							$mark_updated_article_unread = $feed->attributes('mark_updated_article_unread') !== null ? (
 									$feed->attributes('mark_updated_article_unread')
 								) : FreshRSS_Context::$user_conf->mark_updated_article_unread;
 							$needFeedCacheRefresh = $mark_updated_article_unread;
 							$entry->_isRead(FreshRSS_Context::$user_conf->mark_updated_article_unread ? false : null);	//Change is_read according to policy.
+
+							$entry = Minz_ExtensionManager::callHook('entry_before_insert', $entry);
+							if ($entry === null) {
+								// An extension has returned a null value, there is nothing to insert.
+								continue;
+							}
+
 							if (!$entryDAO->inTransaction()) {
 								$entryDAO->beginTransaction();
 							}
