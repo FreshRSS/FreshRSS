@@ -10,6 +10,7 @@
 * Bug fixing
 	* Fix bug in case of bad i18n in extensions [#1797](https://github.com/FreshRSS/FreshRSS/issues/1797)
 	* Fix regression in fetching full articles content [#1917](https://github.com/FreshRSS/FreshRSS/issues/1917)
+	* Fix several bugs in the new Fever API [#1930](https://github.com/FreshRSS/FreshRSS/issues/1930)
 	* Updated sharing to Mastodon [#1904](https://github.com/FreshRSS/FreshRSS/issues/1904)
 
 
