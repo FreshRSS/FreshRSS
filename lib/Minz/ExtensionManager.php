@@ -194,6 +194,9 @@ class Minz_ExtensionManager {
 	 * @param string[] $ext_list the names of extensions we want to load.
 	 */
 	public static function enableByList($ext_list) {
+		if (!is_array($ext_list)) {
+			return;
+		}
 		foreach ($ext_list as $ext_name => $ext_status) {
 			if (is_int($ext_name)) {	//Legacy format int=>name
 				self::enable($ext_status);
