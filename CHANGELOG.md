@@ -1,5 +1,20 @@
 ﻿# FreshRSS changelog
 
+## 2018-06-16 FreshRSS 1.11.1
+
+* Features
+	* Better support of `media:` tags such as thumbnails and descriptions (e.g. for YouTube) [#944](https://github.com/FreshRSS/FreshRSS/issues/944)
+* Extensions
+	* New extension mechanism allowing changing HTTP headers and other SimplePie parameters [#1924](https://github.com/FreshRSS/FreshRSS/pull/1924)
+	* Built-in extension to fix Tumblr feeds from European Union due to GDPR [#1894](https://github.com/FreshRSS/FreshRSS/issues/1894)
+* Bug fixing
+	* Fix bug in case of bad i18n in extensions [#1797](https://github.com/FreshRSS/FreshRSS/issues/1797)
+	* Fix extension callback for updated articles and PubSubHubbub [#1926](https://github.com/FreshRSS/FreshRSS/issues/1926)
+	* Fix regression in fetching full articles content [#1917](https://github.com/FreshRSS/FreshRSS/issues/1917)
+	* Fix several bugs in the new Fever API [#1930](https://github.com/FreshRSS/FreshRSS/issues/1930)
+	* Updated sharing to Mastodon [#1904](https://github.com/FreshRSS/FreshRSS/issues/1904)
+
+
 ## 2018-06-03 FreshRSS 1.11.0
 
 * API

@@ -140,7 +140,7 @@ class FreshRSS_extension_Controller extends Minz_ActionController {
 
 			if ($res === true) {
 				$ext_list = $conf->extensions_enabled;
-				array_push_unique($ext_list, $ext_name);
+				$ext_list[$ext_name] = true;
 				$conf->extensions_enabled = $ext_list;
 				$conf->save();
 
@@ -196,7 +196,11 @@ class FreshRSS_extension_Controller extends Minz_ActionController {
 
 			if ($res === true) {
 				$ext_list = $conf->extensions_enabled;
-				array_remove($ext_list, $ext_name);
+				$legacyKey = array_search($ext_name, $ext_list, true);
+				if ($legacyKey !== false) {	//Legacy format FreshRSS < 1.11.1
+					unset($ext_list[$legacyKey]);
+				}
+				$ext_list[$ext_name] = false;
 				$conf->extensions_enabled = $ext_list;
 				$conf->save();
 

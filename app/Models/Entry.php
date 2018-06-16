@@ -17,10 +17,11 @@ class FreshRSS_Entry extends Minz_Model {
 	private $hash = null;
 	private $is_read;	//Nullable boolean
 	private $is_favorite;
+	private $feedId;
 	private $feed;
 	private $tags;
 
-	public function __construct($feed = '', $guid = '', $title = '', $author = '', $content = '',
+	public function __construct($feedId = '', $guid = '', $title = '', $author = '', $content = '',
 	                            $link = '', $pubdate = 0, $is_read = false, $is_favorite = false, $tags = '') {
 		$this->_title($title);
 		$this->_author($author);
@@ -29,7 +30,7 @@ class FreshRSS_Entry extends Minz_Model {
 		$this->_date($pubdate);
 		$this->_isRead($is_read);
 		$this->_isFavorite($is_favorite);
-		$this->_feed($feed);
+		$this->_feedId($feedId);
 		$this->_tags(preg_split('/[\s#]/', $tags));
 		$this->_guid($guid);
 	}
@@ -75,10 +76,13 @@ class FreshRSS_Entry extends Minz_Model {
 	}
 	public function feed($object = false) {
 		if ($object) {
-			$feedDAO = FreshRSS_Factory::createFeedDao();
-			return $feedDAO->searchById($this->feed);
-		} else {
+			if ($this->feed == null) {
+				$feedDAO = FreshRSS_Factory::createFeedDao();
+				$this->feed = $feedDAO->searchById($this->feedId);
+			}
 			return $this->feed;
+		} else {
+			return $this->feedId;
 		}
 	}
 	public function tags($inString = false) {
@@ -145,7 +149,14 @@ class FreshRSS_Entry extends Minz_Model {
 		$this->is_favorite = $value;
 	}
 	public function _feed($value) {
-		$this->feed = $value;
+		if ($value != null) {
+			$this->feed = $value;
+			$this->feedId = $this->feed->id();
+		}
+	}
+	private function _feedId($value) {
+		$this->feed = null;
+		$this->feedId = $value;
 	}
 	public function _tags($value) {
 		$this->hash = null;
@@ -179,12 +190,74 @@ class FreshRSS_Entry extends Minz_Model {
 		}
 	}
 
-	public function loadCompleteContent($pathEntries) {
+	private static function get_content_by_parsing($url, $path, $attributes = array()) {
+		require_once(LIB_PATH . '/lib_phpQuery.php');
+		$system_conf = Minz_Configuration::get('system');
+		$limits = $system_conf->limits;
+		$feed_timeout = empty($attributes['timeout']) ? 0 : intval($attributes['timeout']);
+
+		if ($system_conf->simplepie_syslog_enabled) {
+			syslog(LOG_INFO, 'FreshRSS GET ' . SimplePie_Misc::url_remove_credentials($url));
+		}
+
+		$ch = curl_init();
+		curl_setopt_array($ch, array(
+			CURLOPT_URL => $url,
+			CURLOPT_REFERER => SimplePie_Misc::url_remove_credentials($url),
+			CURLOPT_HTTPHEADER => array('Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'),
+			CURLOPT_USERAGENT => FRESHRSS_USERAGENT,
+			CURLOPT_CONNECTTIMEOUT => $feed_timeout > 0 ? $feed_timeout : $limits['timeout'],
+			CURLOPT_TIMEOUT => $feed_timeout > 0 ? $feed_timeout : $limits['timeout'],
+			//CURLOPT_FAILONERROR => true;
+			CURLOPT_MAXREDIRS => 4,
+			CURLOPT_RETURNTRANSFER => true,
+		));
+		if (version_compare(PHP_VERSION, '5.6.0') >= 0 || ini_get('open_basedir') == '') {
+			curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);	//Keep option separated for open_basedir PHP bug 65646
+		}
+		if (defined('CURLOPT_ENCODING')) {
+			curl_setopt($ch, CURLOPT_ENCODING, '');	//Enable all encodings
+		}
+		curl_setopt_array($ch, $system_conf->curl_options);
+		if (isset($attributes['ssl_verify'])) {
+			curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, $attributes['ssl_verify'] ? 2 : 0);
+			curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, $attributes['ssl_verify'] ? true : false);
+		}
+		$html = curl_exec($ch);
+		$c_status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+		$c_error = curl_error($ch);
+		curl_close($ch);
+
+		if ($c_status != 200 || $c_error != '') {
+			Minz_Log::warning('Error fetching content: HTTP code ' . $c_status . ': ' . $c_error . ' ' . $url);
+		}
+
+		if ($html) {
+			$doc = phpQuery::newDocument($html);
+			$content = $doc->find($path);
+
+			foreach (pq('img[data-src]') as $img) {
+				$imgP = pq($img);
+				$dataSrc = $imgP->attr('data-src');
+				if (strlen($dataSrc) > 4) {
+					$imgP->attr('src', $dataSrc);
+					$imgP->removeAttr('data-src');
+				}
+			}
+
+			return trim(sanitizeHTML($content->__toString(), $url));
+		} else {
+			throw new Exception();
+		}
+	}
+
+	public function loadCompleteContent() {
 		// Gestion du contenu
 		// On cherche à récupérer les articles en entier... même si le flux ne le propose pas
-		if ($pathEntries) {
+		$feed = $this->feed(true);
+		if ($feed != null && trim($feed->pathEntries()) != '') {
 			$entryDAO = FreshRSS_Factory::createEntryDao();
-			$entry = $entryDAO->searchByGuid($this->feed, $this->guid);
+			$entry = $entryDAO->searchByGuid($this->feedId, $this->guid);
 
 			if ($entry) {
 				// l'article existe déjà en BDD, en se contente de recharger ce contenu
@@ -192,10 +265,14 @@ class FreshRSS_Entry extends Minz_Model {
 			} else {
 				try {
 					// l'article n'est pas en BDD, on va le chercher sur le site
-					$this->content = get_content_by_parsing(
-						htmlspecialchars_decode($this->link(), ENT_QUOTES), $pathEntries,
-						$this->feed->attributes()
+					$fullContent = self::get_content_by_parsing(
+						htmlspecialchars_decode($this->link(), ENT_QUOTES),
+						$feed->pathEntries(),
+						$feed->attributes()
 					);
+					if ($fullContent != '') {
+						$this->content = $fullContent;
+					}
 				} catch (Exception $e) {
 					// rien à faire, on garde l'ancien contenu(requête a échoué)
 					Minz_Log::warning($e->getMessage());
