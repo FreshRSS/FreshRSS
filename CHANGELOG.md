@@ -1,6 +1,6 @@
 ﻿# FreshRSS changelog
 
-## 2018-06-1X FreshRSS 1.11.1-dev
+## 2018-06-16 FreshRSS 1.11.1
 
 * Features
 	* Better support of `media:` tags such as thumbnails and descriptions (e.g. for YouTube) [#944](https://github.com/FreshRSS/FreshRSS/issues/944)
