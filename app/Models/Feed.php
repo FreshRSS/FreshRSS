@@ -286,6 +286,7 @@ class FreshRSS_Feed extends Minz_Model {
 				if (!$loadDetails) {	//Only activates auto-discovery when adding a new feed
 					$feed->set_autodiscovery_level(SIMPLEPIE_LOCATOR_NONE);
 				}
+				Minz_ExtensionManager::callHook('simplepie_before_init', $feed, $this);
 				$mtime = $feed->init();
 
 				if ((!$mtime) || $feed->error()) {
@@ -335,6 +336,8 @@ class FreshRSS_Feed extends Minz_Model {
 
 	public function loadEntries($feed) {
 		$entries = array();
+		$guids = array();
+		$hasUniqueGuids = true;
 
 		foreach ($feed->get_items() as $item) {
 			$title = html_only_entity_decode(strip_tags($item->get_title()));
@@ -353,31 +356,63 @@ class FreshRSS_Feed extends Minz_Model {
 
 			$content = html_only_entity_decode($item->get_content());
 
-			$elinks = array();
-			foreach ($item->get_enclosures() as $enclosure) {
-				$elink = $enclosure->get_link();
-				if ($elink != '' && empty($elinks[$elink])) {
-					$elinks[$elink] = '1';
-					$mime = strtolower($enclosure->get_type());
-					if (strpos($mime, 'image/') === 0) {
-						$content .= '<p class="enclosure"><img src="' . $elink . '" alt="" /></p>';
-					} elseif (strpos($mime, 'audio/') === 0) {
-						$content .= '<p class="enclosure"><audio preload="none" src="' . $elink
-							. '" controls="controls"></audio> <a download="" href="' . $elink . '">💾</a></p>';
-					} elseif (strpos($mime, 'video/') === 0) {
-						$content .= '<p class="enclosure"><video preload="none" src="' . $elink
-							. '" controls="controls"></video> <a download="" href="' . $elink . '">💾</a></p>';
-					} elseif (strpos($mime, 'application/') === 0 || strpos($mime, 'text/') === 0) {
-						$content .= '<p class="enclosure"><a download="" href="' . $elink . '">💾</a></p>';
-					} else {
-						unset($elinks[$elink]);
+			if ($item->get_enclosures() != null) {
+				$elinks = array();
+				foreach ($item->get_enclosures() as $enclosure) {
+					$elink = $enclosure->get_link();
+					if ($elink != '' && empty($elinks[$elink])) {
+						$content .= '<div class="enclosure">';
+
+						if ($enclosure->get_title() != '') {
+							$content .= '<p class="enclosure-title">' . $enclosure->get_title() . '</p>';
+						}
+
+						$enclosureContent = '';
+						$elinks[$elink] = true;
+						$mime = strtolower($enclosure->get_type());
+						$medium = strtolower($enclosure->get_medium());
+						if ($medium === 'image' || strpos($mime, 'image/') === 0) {
+							$enclosureContent .= '<p class="enclosure-content"><img src="' . $elink . '" alt="" /></p>';
+						} elseif ($medium === 'audio' || strpos($mime, 'audio/') === 0) {
+							$enclosureContent .= '<p class="enclosure-content"><audio preload="none" src="' . $elink
+								. '" controls="controls"></audio> <a download="" href="' . $elink . '">💾</a></p>';
+						} elseif ($medium === 'video' || strpos($mime, 'video/') === 0) {
+							$enclosureContent .= '<p class="enclosure-content"><video preload="none" src="' . $elink
+								. '" controls="controls"></video> <a download="" href="' . $elink . '">💾</a></p>';
+						} elseif ($medium != '' || strpos($mime, 'application/') === 0 || strpos($mime, 'text/') === 0) {
+							$enclosureContent .= '<p class="enclosure-content"><a download="" href="' . $elink . '">💾</a></p>';
+						} else {
+							unset($elinks[$elink]);
+						}
+
+						$thumbnailContent = '';
+						if ($enclosure->get_thumbnails() != null) {
+							foreach ($enclosure->get_thumbnails() as $thumbnail) {
+								if (empty($elinks[$thumbnail])) {
+									$elinks[$thumbnail] = true;
+									$thumbnailContent .= '<p><img class="enclosure-thumbnail" src="' . $thumbnail . '" alt="" /></p>';
+								}
+							}
+						}
+
+						$content .= $thumbnailContent;
+						$content .= $enclosureContent;
+
+						if ($enclosure->get_description() != '') {
+							$content .= '<pre class="enclosure-description">' . $enclosure->get_description() . '</pre>';
+						}
+						$content .= "</div>\n";
 					}
 				}
 			}
 
+			$guid = $item->get_id(false, false);
+			$hasUniqueGuids &= empty($guids['_' . $guid]);
+			$guids['_' . $guid] = true;
+
 			$entry = new FreshRSS_Entry(
 				$this->id(),
-				$item->get_id(false, false),
+				$guid,
 				$title === null ? '' : $title,
 				$author === null ? '' : html_only_entity_decode(strip_tags($author->name == null ? $author->email : $author->name)),
 				$content === null ? '' : $content,
@@ -385,21 +420,41 @@ class FreshRSS_Feed extends Minz_Model {
 				$date ? $date : time()
 			);
 			$entry->_tags($tags);
-			// permet de récupérer le contenu des flux tronqués
-			$entry->loadCompleteContent($this->pathEntries());
+			$entry->_feed($this);
+			if ($this->pathEntries != '') {
+				// Optionally load full content for truncated feeds
+				$entry->loadCompleteContent();
+			}
 
 			$entries[] = $entry;
 			unset($item);
 		}
 
+		$hasBadGuids = $this->attributes('hasBadGuids');
+		if ($hasBadGuids != !$hasUniqueGuids) {
+			$hasBadGuids = !$hasUniqueGuids;
+			if ($hasBadGuids) {
+				Minz_Log::warning('Feed has invalid GUIDs: ' . $this->url);
+			} else {
+				Minz_Log::warning('Feed has valid GUIDs again: ' . $this->url);
+			}
+			$feedDAO = FreshRSS_Factory::createFeedDao();
+			$feedDAO->updateFeedAttribute($this, 'hasBadGuids', $hasBadGuids);
+		}
+		if (!$hasUniqueGuids) {
+			foreach ($entries as $entry) {
+				$entry->_guid('');
+			}
+		}
+
 		$this->entries = $entries;
 	}
 
-	function cacheModifiedTime() {
+	public function cacheModifiedTime() {
 		return @filemtime(CACHE_PATH . '/' . md5($this->url) . '.spc');
 	}
 
-	function lock() {
+	public function lock() {
 		$this->lockPath = TMP_PATH . '/' . $this->hash() . '.freshrss.lock';
 		if (file_exists($this->lockPath) && ((time() - @filemtime($this->lockPath)) > 3600)) {
 			@unlink($this->lockPath);
@@ -412,13 +467,13 @@ class FreshRSS_Feed extends Minz_Model {
 		return true;
 	}
 
-	function unlock() {
+	public function unlock() {
 		@unlink($this->lockPath);
 	}
 
 	//<PubSubHubbub>
 
-	function pubSubHubbubEnabled() {
+	public function pubSubHubbubEnabled() {
 		$url = $this->selfUrl ? $this->selfUrl : $this->url;
 		$hubFilename = PSHB_PATH . '/feeds/' . base64url_encode($url) . '/!hub.json';
 		if ($hubFile = @file_get_contents($hubFilename)) {
@@ -431,7 +486,7 @@ class FreshRSS_Feed extends Minz_Model {
 		return false;
 	}
 
-	function pubSubHubbubError($error = true) {
+	public function pubSubHubbubError($error = true) {
 		$url = $this->selfUrl ? $this->selfUrl : $this->url;
 		$hubFilename = PSHB_PATH . '/feeds/' . base64url_encode($url) . '/!hub.json';
 		$hubFile = @file_get_contents($hubFilename);
@@ -444,7 +499,7 @@ class FreshRSS_Feed extends Minz_Model {
 		return false;
 	}
 
-	function pubSubHubbubPrepare() {
+	public function pubSubHubbubPrepare() {
 		$key = '';
 		if (FreshRSS_Context::$system_conf->base_url && $this->hubUrl && $this->selfUrl && @is_dir(PSHB_PATH)) {
 			$path = PSHB_PATH . '/feeds/' . base64url_encode($this->selfUrl);
@@ -491,7 +546,7 @@ class FreshRSS_Feed extends Minz_Model {
 	}
 
 	//Parameter true to subscribe, false to unsubscribe.
-	function pubSubHubbubSubscribe($state) {
+	public function pubSubHubbubSubscribe($state) {
 		$url = $this->selfUrl ? $this->selfUrl : $this->url;
 		if (FreshRSS_Context::$system_conf->base_url && $url) {
 			$hubFilename = PSHB_PATH . '/feeds/' . base64url_encode($url) . '/!hub.json';

@@ -120,10 +120,15 @@ return array(
 		'method' => 'GET',
 	),
 	'mastodon' => array(
-		'url' => '~URL~/api/v1/statuses',
-		'transform' => array(),
+		'url' => '~URL~/share?title=~TITLE~&url=~LINK~',
+		'transform' => array('rawurlencode'),
 		'form' => 'advanced',
-		'method' => 'POST',
-		'field' => 'status',
+		'method' => 'GET',
+	),
+	'pocket' => array(
+		'url' => 'https://getpocket.com/save?url=~LINK~&amp;title=~TITLE~',
+		'transform' => array('rawurlencode'),
+		'form' => 'simple',
+		'method' => 'GET',
 	),
 );

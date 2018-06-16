@@ -32,11 +32,11 @@ return array(
 	'extensions' => array(
 		'already_enabled' => '%s is already enabled', // @todo
 		'disable' => array(
-			'ko' => '%s cannot be disabled. <a href="%s">Check FressRSS logs</a> for details.', // @todo
+			'ko' => '%s cannot be disabled. <a href="%s">Check FreshRSS logs</a> for details.', // @todo
 			'ok' => '%s is now disabled', // @todo
 		),
 		'enable' => array(
-			'ko' => '%s cannot be enabled. <a href="%s">Check FressRSS logs</a> for details.', // @todo
+			'ko' => '%s cannot be enabled. <a href="%s">Check FreshRSS logs</a> for details.', // @todo
 			'ok' => '%s is now enabled', // @todo
 		),
 		'no_access' => 'You have no access on %s', // @todo
@@ -73,7 +73,7 @@ return array(
 			'already_subscribed' => 'אתה כבר רשום ל <em>%s</em>',
 			'deleted' => 'ההזנה נמחקה',
 			'error' => 'Feed cannot be updated', // @todo
-			'internal_problem' => 'אין אפשרות להוסיף את ההזנה. <a href="%s">בדקו את הלוגים</a> לפרטים.',
+			'internal_problem' => 'אין אפשרות להוסיף את ההזנה. <a href="%s">בדקו את הלוגים</a> לפרטים.', // @todo
 			'invalid_url' => 'URL <em>%s</em> אינו תקין',
 			'marked_read' => 'הזנות סומנו כנקראו',
 			'n_actualized' => '%d הזנות עודכנו',

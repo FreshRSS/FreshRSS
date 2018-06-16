@@ -1322,7 +1322,12 @@ class SimplePie
 
 	function cleanMd5($rss)
 	{
-		return md5(preg_replace(array('#<(lastBuildDate|pubDate|updated|feedDate|dc:date|slash:comments)>[^<]+</\\1>#', '#<!--.+?-->#s'), '', $rss));
+		return md5(preg_replace(array(
+			'#<(lastBuildDate|pubDate|updated|feedDate|dc:date|slash:comments)>[^<]+</\\1>#',
+			'#<(media:starRating|media:statistics) [^/<>]+/>#',
+			'#<!--.+?-->#s',
+			), '', $rss));
+		
 	}
 
 	/**

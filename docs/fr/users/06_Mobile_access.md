@@ -7,6 +7,9 @@ Cette page suppose que vous avez fini [l’installation du serveur](01_Installat
 	* Chaque utilisateur doit choisir son mot de passe API.
 	* La raison d’être d’un mot de passe API différent du mot de passe principal est que le mot de passe API est potentiellement utilisé de manière moins sûre, mais il permet aussi moins de choses.
 
+Le reste de cette page concerne l’API compatible Google Reader.
+Voir la [page sur l’API compatible Fever](06_Fever_API.md) pour une autre possibilité.
+
 
 # Tester
 
@@ -17,7 +20,7 @@ Cette page suppose que vous avez fini [l’installation du serveur](01_Installat
 	* Si vous obtenez un autre message d’erreur, passer à l’étape 5.
 
 
-# Débogger la configuration du serveur
+# Déboguer la configuration du serveur
 
 5. Cliquer sur le second lien “Check partial server configuration (without `%2F` support)”:
 	* Si vous obtenez `PASS`, alors le problème est bien que votre serveur n’accepte pas les slashs `/` qui sont encodés `%2F`.
@@ -38,6 +41,22 @@ Cette page suppose que vous avez fini [l’installation du serveur](01_Installat
 	* Mettre à jour et retourner à l’étape 3.
 
 
+# Tests sur mobile
+
+6. Vous pouvez maintenant tester sur une application mobile (News+, FeedMe, ou EasyRSS sur Android)
+	* en utilisant comme adresse https://rss.example.net/api/greader.php ou http://example.net/FreshRSS/p/api/greader.php selon la configuration de votre site Web.
+	* ⚠️ attention aux majuscules et aux espaces en tapant l’adresse avec le clavier du mobile ⚠️ 
+	* avec votre nom d’utilisateur et le mot de passe enregistré au point 2 (mot de passe API).
+
+
+# En cas de problèmes
+
+ * Vous pouvez voir les logs API dans `./FreshRSS/data/users/_/log_api.txt`
+ * Si vous avez une erreur 404 (fichier non trouvé) lors de l’étape de test, et que vous êtes sous Apache,
+ voir http://httpd.apache.org/docs/trunk/mod/core.html#allowencodedslashes pour utiliser News+ 
+(facultatif pour EasyRSS et FeedMe qui devraient fonctionner dès lors que vous obtenez un PASS au test *Check partial server configuration*).
+
+
 # Clients compatibles
 
 Tout client supportant une API de type Google Reader. Sélection :
@@ -48,3 +67,34 @@ Tout client supportant une API de type Google Reader. Sélection :
 	* [EasyRSS](https://github.com/Alkarex/EasyRSS) (Libre, F-Droid)
 * Linux
 	* [FeedReader 2.0+](https://jangernert.github.io/FeedReader/) (Libre)
+
+
+# API compatible Google Reader
+
+Exemples de requêtes simples:
+
+```sh
+# Authentification utilisant le mot de passe API (Email et Passwd peuvent être passés en GET, ou POST - mieux)
+curl 'https://freshrss.example.net/api/greader.php/accounts/ClientLogin?Email=alice&Passwd=Abcdef123456'
+SID=alice/8e6845e089457af25303abc6f53356eb60bdb5f8
+Auth=alice/8e6845e089457af25303abc6f53356eb60bdb5f8
+
+# Exemples de requêtes en lecture
+curl -s -H "Authorization:GoogleLogin auth=alice/8e6845e089457af25303abc6f53356eb60bdb5f8" \
+  'https://freshrss.example.net/api/greader.php/reader/api/0/subscription/list?output=json'
+
+curl -s -H "Authorization:GoogleLogin auth=alice/8e6845e089457af25303abc6f53356eb60bdb5f8" \
+  'https://freshrss.example.net/api/greader.php/reader/api/0/unread-count?output=json'
+
+curl -s -H "Authorization:GoogleLogin auth=alice/8e6845e089457af25303abc6f53356eb60bdb5f8" \
+  'https://freshrss.example.net/api/greader.php/reader/api/0/tag/list?output=json'
+
+# Demande de jeton pour faire de requêtes de modification
+curl -H "Authorization:GoogleLogin auth=alice/8e6845e089457af25303abc6f53356eb60bdb5f8" \
+  'https://freshrss.example.net/api/greader.php/reader/api/0/token'
+8e6845e089457af25303abc6f53356eb60bdb5f8ZZZZZZZZZZZZZZZZZ
+
+# Récupère les articles, envoyés à jq pour une lecture JSON plus facile
+curl -s -H "Authorization:GoogleLogin auth=alice/8e6845e089457af25303abc6f53356eb60bdb5f8" \
+  'https://freshrss.example.net/api/greader.php/reader/api/0/stream/contents/reading-list' | jq .
+```

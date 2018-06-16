@@ -7,6 +7,7 @@ $dirs = array(
 	'/cache',
 	'/extensions-data',
 	'/favicons',
+	'/fever',
 	'/PubSubHubbub',
 	'/PubSubHubbub/feeds',
 	'/PubSubHubbub/keys',

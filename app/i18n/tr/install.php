@@ -103,7 +103,7 @@ return array(
 	'fix_errors_before' => 'Lütfen sonraki adıma geçmek için hataları düzeltin.',
 	'javascript_is_better' => 'FreshRSS JavaScript ile daha işlevseldir',
 	'js' => array(
-		'confirm_reinstall' => 'FressRSS i yeniden kurarak önceki yapılandırma ayarlarınızı kaybedeceksiniz. Devam etmek istiyor musunuz ?',
+		'confirm_reinstall' => 'FreshRSS i yeniden kurarak önceki yapılandırma ayarlarınızı kaybedeceksiniz. Devam etmek istiyor musunuz ?',
 	),
 	'language' => array(
 		'_' => 'Dil',

@@ -205,6 +205,7 @@
 			</div>
 		</div>
 
+		<?php if (FreshRSS_Auth::hasAccess('admin')) { ?>
 		<div class="form-group">
 			<label class="group-name" for="timeout"><?php echo _t('sub.feed.timeout'); ?></label>
 			<div class="group-controls">
@@ -224,6 +225,7 @@
 				</label>
 			</div>
 		</div>
+		<?php } ?>
 
 		<div class="form-group form-actions">
 			<div class="group-controls">

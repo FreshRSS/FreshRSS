@@ -35,6 +35,10 @@ class Minz_ExtensionManager {
 			'list' => array(),
 			'signature' => 'OneToOne',
 		),
+		'simplepie_before_init' => array(  // function($simplePie, $feed) -> none
+			'list' => array(),
+			'signature' => 'PassArguments',
+		),
 	);
 	private static $ext_to_hooks = array();
 
@@ -160,7 +164,8 @@ class Minz_ExtensionManager {
 		self::$ext_list[$name] = $ext;
 
 		if ($ext->getType() === 'system' &&
-				in_array($name, self::$ext_auto_enabled)) {
+				(!empty(self::$ext_auto_enabled[$name]) ||
+				in_array($name, self::$ext_auto_enabled, true))) {	//Legacy format < FreshRSS 1.11.1
 			self::enable($ext->getName());
 		}
 
@@ -189,8 +194,15 @@ class Minz_ExtensionManager {
 	 * @param string[] $ext_list the names of extensions we want to load.
 	 */
 	public static function enableByList($ext_list) {
-		foreach ($ext_list as $ext_name) {
-			self::enable($ext_name);
+		if (!is_array($ext_list)) {
+			return;
+		}
+		foreach ($ext_list as $ext_name => $ext_status) {
+			if (is_int($ext_name)) {	//Legacy format int=>name
+				self::enable($ext_status);
+			} elseif ($ext_status) {	//New format name=>Boolean
+				self::enable($ext_name);
+			}
 		}
 	}
 
@@ -255,10 +267,15 @@ class Minz_ExtensionManager {
 		}
 
 		$signature = self::$hook_list[$hook_name]['signature'];
-		$signature = 'self::call' . $signature;
 		$args = func_get_args();
-
-		return call_user_func_array($signature, $args);
+		if ($signature === 'PassArguments') {
+			array_shift($args);
+			foreach (self::$hook_list[$hook_name]['list'] as $function) {
+				call_user_func_array($function, $args);
+			}
+		} else {
+			return call_user_func_array('self::call' . $signature, $args);
+		}
 	}
 
 	/**

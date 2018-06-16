@@ -175,7 +175,7 @@ return array(
 	'user' => array(
 		'articles_and_size' => '%s artikelen (%s)',
 		'create' => 'Creëer nieuwe gebruiker',
-		'delete_users' => 'Delete user', // TODO
+		'delete_users' => 'Verwijder gebruiker',
 		'language' => 'Taal',
 		'number' => 'Er is %d accounts gemaakt',
 		'numbers' => 'Er zijn %d accounts gemaakt',
@@ -186,9 +186,9 @@ return array(
 			'help' => '0 betekent dat er geen accountlimiet is',
 			'number' => 'Max aantal accounts',
 		),
-		'selected' => 'Selected user', // TODO
+		'selected' => 'Geselecteerde gebruiker',
 		'title' => 'Beheer gebruikers',
-		'update_users' => 'Update user', // TODO
+		'update_users' => 'Gebruiker bijwerken',
 		'user_list' => 'Lijst van gebruikers ',
 		'username' => 'Gebruikersnaam',
 		'users' => 'Gebruikers',

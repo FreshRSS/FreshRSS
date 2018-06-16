@@ -253,32 +253,6 @@ function sanitizeHTML($data, $base = '') {
 	return html_only_entity_decode($simplePie->sanitize->sanitize($data, SIMPLEPIE_CONSTRUCT_HTML, $base));
 }
 
-/* permet de récupérer le contenu d'un article pour un flux qui n'est pas complet */
-function get_content_by_parsing ($url, $path) {
-	require_once(LIB_PATH . '/lib_phpQuery.php');
-
-	Minz_Log::notice('FreshRSS GET ' . SimplePie_Misc::url_remove_credentials($url));
-	$html = file_get_contents($url);
-
-	if ($html) {
-		$doc = phpQuery::newDocument($html);
-		$content = $doc->find($path);
-
-		foreach (pq('img[data-src]') as $img) {
-			$imgP = pq($img);
-			$dataSrc = $imgP->attr('data-src');
-			if (strlen($dataSrc) > 4) {
-				$imgP->attr('src', $dataSrc);
-				$imgP->removeAttr('data-src');
-			}
-		}
-
-		return sanitizeHTML($content->__toString(), $url);
-	} else {
-		throw new Exception();
-	}
-}
-
 /**
  * Add support of image lazy loading
  * Move content from src attribute to data-original
@@ -506,7 +480,6 @@ function recursive_unlink($dir) {
 	return rmdir($dir);
 }
 
-
 /**
  * Remove queries where $get is appearing.
  * @param $get the get attribute which should be removed.
@@ -521,29 +494,6 @@ function remove_query_by_get($get, $queries) {
 		}
 	}
 	return $final_queries;
-}
-
-
-/**
- * Add a value in an array and take care it is unique.
- * @param $array the array in which we add the value.
- * @param $value the value to add.
- */
-function array_push_unique(&$array, $value) {
-	$found = array_search($value, $array) !== false;
-	if (!$found) {
-		$array[] = $value;
-	}
-}
-
-
-/**
- * Remove a value from an array.
- * @param $array the array from wich value is removed.
- * @param $value the value to remove.
- */
-function array_remove(&$array, $value) {
-	$array = array_diff($array, array($value));
 }
 
 //RFC 4648

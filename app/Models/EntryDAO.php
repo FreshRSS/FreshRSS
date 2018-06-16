@@ -801,7 +801,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 			. 'WHERE ' . $where
 			. $search
 			. 'ORDER BY e.id ' . $order
-			. ($limit > 0 ? ' LIMIT ' . $limit : ''));	//TODO: See http://explainextended.com/2009/10/23/mysql-order-by-limit-performance-late-row-lookups/
+			. ($limit > 0 ? ' LIMIT ' . intval($limit) : ''));	//TODO: See http://explainextended.com/2009/10/23/mysql-order-by-limit-performance-late-row-lookups/
 	}
 
 	public function listWhereRaw($type = 'a', $id = '', $state = FreshRSS_Entry::STATE_ALL, $order = 'DESC', $limit = 1, $firstId = '', $filters = null, $date_min = 0) {
@@ -904,8 +904,8 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 	}
 
 	public function countUnreadRead() {
-		$sql = 'SELECT COUNT(e.id) AS count FROM `' . $this->prefix . 'entry` e INNER JOIN `' . $this->prefix . 'feed` f ON e.id_feed=f.id WHERE priority > 0'
-			. ' UNION SELECT COUNT(e.id) AS count FROM `' . $this->prefix . 'entry` e INNER JOIN `' . $this->prefix . 'feed` f ON e.id_feed=f.id WHERE priority > 0 AND is_read=0';
+		$sql = 'SELECT COUNT(e.id) AS count FROM `' . $this->prefix . 'entry` e INNER JOIN `' . $this->prefix . 'feed` f ON e.id_feed=f.id WHERE f.priority > 0'
+			. ' UNION SELECT COUNT(e.id) AS count FROM `' . $this->prefix . 'entry` e INNER JOIN `' . $this->prefix . 'feed` f ON e.id_feed=f.id WHERE f.priority > 0 AND e.is_read=0';
 		$stm = $this->bd->prepare($sql);
 		$stm->execute();
 		$res = $stm->fetchAll(PDO::FETCH_COLUMN, 0);
@@ -914,9 +914,10 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 		return array('all' => $all, 'unread' => $unread, 'read' => $all - $unread);
 	}
 	public function count($minPriority = null) {
-		$sql = 'SELECT COUNT(e.id) AS count FROM `' . $this->prefix . 'entry` e INNER JOIN `' . $this->prefix . 'feed` f ON e.id_feed=f.id';
+		$sql = 'SELECT COUNT(e.id) AS count FROM `' . $this->prefix . 'entry` e';
 		if ($minPriority !== null) {
-			$sql = ' WHERE priority > ' . intval($minPriority);
+			$sql .= ' INNER JOIN `' . $this->prefix . 'feed` f ON e.id_feed=f.id';
+			$sql .= ' WHERE f.priority > ' . intval($minPriority);
 		}
 		$stm = $this->bd->prepare($sql);
 		$stm->execute();
@@ -924,9 +925,13 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 		return $res[0];
 	}
 	public function countNotRead($minPriority = null) {
-		$sql = 'SELECT COUNT(e.id) AS count FROM `' . $this->prefix . 'entry` e INNER JOIN `' . $this->prefix . 'feed` f ON e.id_feed=f.id WHERE is_read=0';
+		$sql = 'SELECT COUNT(e.id) AS count FROM `' . $this->prefix . 'entry` e';
 		if ($minPriority !== null) {
-			$sql = ' AND priority > ' . intval($minPriority);
+			$sql .= ' INNER JOIN `' . $this->prefix . 'feed` f ON e.id_feed=f.id';
+		}
+		$sql .= ' WHERE e.is_read=0';
+		if ($minPriority !== null) {
+			$sql .= ' AND f.priority > ' . intval($minPriority);
 		}
 		$stm = $this->bd->prepare($sql);
 		$stm->execute();

@@ -57,7 +57,7 @@ We are a friendly community.
 6. Advanced configuration settings can be seen in [config.default.php](config.default.php) and modified in `data/config.php`.
 7. When using Apache, enable [`AllowEncodedSlashes`](https://httpd.apache.org/docs/trunk/mod/core.html#allowencodedslashes) for better compatibility with mobile clients.
 
-More information about installation and server configuration can be found in [our documentation](https://freshrss.github.io/FreshRSS/en/admins/02_Installation.html). 
+More information about installation and server configuration can be found in [our documentation](https://freshrss.github.io/FreshRSS/en/admins/02_Installation.html).
 
 ## Automated install
 * [Docker](./Docker/)
@@ -111,6 +111,7 @@ cd /usr/share/FreshRSS
 sudo git pull
 sudo chown -R :www-data . && sudo chmod -R g+r . && sudo chmod -R g+w ./data/
 ```
+
 See more commands and git commands in the [Command-Line Interface documentation](cli/README.md).
 
 ## Access control
@@ -156,9 +157,39 @@ mysqldump --skip-comments --disable-keys --user=<db_user> --password --host <db_
 ```
 
 
-# Extensions 
+# Extensions
 FreshRSS supports further customizations by adding extensions on top of its core functionality.
-See the [repository dedicated to those extensions](https://github.com/FreshRSS/Extensions). 
+See the [repository dedicated to those extensions](https://github.com/FreshRSS/Extensions).
+
+
+# APIs & native apps
+
+FreshRSS supports access from native apps for Linux, Android, iOS, and OS X, via two distinct APIs.
+
+## Google Reader-like API
+
+There is more information available about our Google Reader compatible API on the page [mobile access](https://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html).
+
+Supported clients are:
+
+* Android
+	* [News+](https://play.google.com/store/apps/details?id=com.noinnion.android.newsplus) with [News+ Google Reader extension](https://play.google.com/store/apps/details?id=com.noinnion.android.newsplus.extension.google_reader) (Closed source)
+	* [FeedMe 3.5.3+](https://play.google.com/store/apps/details?id=com.seazon.feedme) (Closed source)
+	* [EasyRSS](https://github.com/Alkarex/EasyRSS) (Open source, [F-Droid](https://f-droid.org/packages/org.freshrss.easyrss/))
+* GNU/Linux
+	* [FeedReader 2.0+](https://jangernert.github.io/FeedReader/) (Open source)
+
+## Fever API
+
+See our [Fever API documentation](https://freshrss.github.io/FreshRSS/en/users/06_Fever_API.html) page.
+
+Supported clients are:
+
+* iOS
+	* [Fiery Feeds](https://itunes.apple.com/app/fiery-feeds-rss-reader/id1158763303) (Closed source)
+	* [Unread](https://itunes.apple.com/app/unread-rss-reader/id1252376153) (Closed source)
+* MacOS
+	* [Readkit](https://itunes.apple.com/app/readkit/id588726889) (Closed source)
 
 
 # Included libraries
@@ -178,17 +209,6 @@ See the [repository dedicated to those extensions](https://github.com/FreshRSS/E
 ## If native functions are not available
 * [Services_JSON](https://pear.php.net/pepr/pepr-proposal-show.php?id=198)
 * [password_compat](https://github.com/ircmaxell/password_compat)
-
-
-# [Compatible clients](https://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html)
-Any client supporting a Google Reader-like API. Selection:
-
-* Android
-	* [News+](https://play.google.com/store/apps/details?id=com.noinnion.android.newsplus) with [News+ Google Reader extension](https://play.google.com/store/apps/details?id=com.noinnion.android.newsplus.extension.google_reader) (Closed source)
-	* [FeedMe 3.5.3+](https://play.google.com/store/apps/details?id=com.seazon.feedme) (Closed source)
-	* [EasyRSS](https://github.com/Alkarex/EasyRSS) (Open source, [F-Droid](https://f-droid.org/packages/org.freshrss.easyrss/))
-* GNU/Linux
-	* [FeedReader 2.0+](https://jangernert.github.io/FeedReader/) (Open source)
 
 [travis-badge]:https://travis-ci.org/FreshRSS/FreshRSS.svg?branch=master
 [travis-link]:https://travis-ci.org/FreshRSS/FreshRSS
