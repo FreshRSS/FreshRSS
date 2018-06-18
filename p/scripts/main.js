@@ -250,12 +250,13 @@ function toggleContent(new_active, old_active) {
 		box_to_move = $(relative_move ? "#panel" : "html,body");
 
 	if (context.sticky_post) {
+		var is_mobile = $(window).width() < 840;
+		var stream_margin_top = parseInt($("#stream").css("margin-top"))
 		var prev_article = new_active.prevAll('.flux'),
-			new_pos = new_active.offset().top,
+			new_pos = new_active.offset().top + (is_mobile?new_active.children(".flux_header").height():0) - stream_margin_top,
 			old_scroll = box_to_move.scrollTop();
-
-		if (prev_article.length > 0 && new_pos - prev_article.offset().top <= 150) {
-			new_pos = prev_article.offset().top-parseInt($("#stream").css("margin-top"));
+		if (prev_article.length > 0 && new_pos - prev_article.offset().top <= 150 && !is_mobile) {
+			new_pos = prev_article.offset().top - stream_margin_top;
 			if (relative_move) {
 				new_pos -= box_to_move.offset().top;
 			}
