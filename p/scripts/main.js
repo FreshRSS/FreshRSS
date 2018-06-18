@@ -255,7 +255,7 @@ function toggleContent(new_active, old_active) {
 			old_scroll = box_to_move.scrollTop();
 
 		if (prev_article.length > 0 && new_pos - prev_article.offset().top <= 150) {
-			new_pos = prev_article.offset().top;
+			new_pos = prev_article.offset().top-parseInt($("#stream").css("margin-top"));
 			if (relative_move) {
 				new_pos -= box_to_move.offset().top;
 			}
