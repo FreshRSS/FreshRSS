@@ -163,7 +163,7 @@
 	<div class="item search">
 		<form action="<?php echo _url('index', 'index'); ?>" method="get">
 			<input type="search" name="search" class="extend" value="<?php
-				echo htmlspecialchars(htmlspecialchars_decode(FreshRSS_Context::$search), ENT_COMPAT, 'UTF-8'); ?>" placeholder="<?php echo _t('index.menu.search_short'); ?>" />
+				echo htmlspecialchars(htmlspecialchars_decode(FreshRSS_Context::$search, ENT_QUOTES), ENT_COMPAT, 'UTF-8'); ?>" placeholder="<?php echo _t('index.menu.search_short'); ?>" />
 
 			<?php $get = Minz_Request::param('get', ''); ?>
 			<?php if($get != '') { ?>
