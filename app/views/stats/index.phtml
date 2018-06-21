@@ -88,6 +88,6 @@ echo htmlspecialchars(json_encode(array(
 	'dataCount' => $this->count,
 	'feedByCategory' => $this->feedByCategory,
 	'entryByCategory' => $this->entryByCategory,
-), JSON_UNESCAPED_UNICODE), ENT_NOQUOTES);
+), JSON_UNESCAPED_UNICODE), ENT_NOQUOTES, 'UTF-8');
 ?></script>
 <script src="../scripts/stats.js?<?php echo @filemtime(PUBLIC_PATH . '/scripts/stats.js'); ?>"></script>
