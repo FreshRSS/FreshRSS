@@ -69,6 +69,6 @@ echo htmlspecialchars(json_encode(array(
 	'days' => $this->days,
 	'repartitionMonth' => $this->repartitionMonth,
 	'months' => $this->months,
-), JSON_UNESCAPED_UNICODE), ENT_NOQUOTES);
+), JSON_UNESCAPED_UNICODE), ENT_NOQUOTES, 'UTF-8');
 ?></script>
 <script src="../scripts/repartition.js?<?php echo @filemtime(PUBLIC_PATH . '/scripts/repartition.js'); ?>"></script>
