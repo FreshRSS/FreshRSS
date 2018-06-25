@@ -59,8 +59,8 @@ class FreshRSS_Feed extends Minz_Model {
 		return $this->hash;
 	}
 
-	public function url() {
-		return $this->url;
+	public function url($includeCredentials = true) {
+		return $includeCredentials ? $this->url : SimplePie_Misc::url_remove_credentials($this->url);
 	}
 	public function selfUrl() {
 		return $this->selfUrl;
