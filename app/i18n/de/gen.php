@@ -59,7 +59,7 @@ return array(
 		'april' => 'April',
 		'aug' => 'Aug',
 		'august' => 'August',
-		'before_yesterday' => 'Vor vorgestern',
+		'before_yesterday' => 'älter',
 		'dec' => 'Dez',
 		'december' => 'Dezember',
 		'feb' => 'Feb',
