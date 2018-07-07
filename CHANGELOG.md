@@ -2,6 +2,8 @@
 
 ## 2018-XX-XX FreshRSS 1.11.2-dev
 
+* Deployment
+	* Update Docker image to Alpine 3.8 with PHP 7.2 [#1956](https://github.com/FreshRSS/FreshRSS/pull/1956)
 * Bug fixing
 	* Fix bugs when searching with special characters (e.g. preventing marking as read) [#1944](https://github.com/FreshRSS/FreshRSS/issues/1944)
 * Mics.
