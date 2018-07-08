@@ -176,7 +176,7 @@ function authorizationToUser() {
 }
 
 function clientLogin($email, $pass) {	//http://web.archive.org/web/20130604091042/http://undoc.in/clientLogin.html
-	if (ctype_alnum($email)) {
+	if (FreshRSS_user_Controller::checkUsername($email)) {
 		if (!function_exists('password_verify')) {
 			include_once(LIB_PATH . '/password_compat.php');
 		}
