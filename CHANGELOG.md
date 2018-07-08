@@ -7,6 +7,8 @@
 * Bug fixing
 	* Fix bugs when searching with special characters (e.g. preventing marking as read) [#1944](https://github.com/FreshRSS/FreshRSS/issues/1944)
 	* Fix username check in API to allow underscores [#1955](https://github.com/FreshRSS/FreshRSS/issues/1955)
+* Security
+	* Avoid feed credentials in logs [#1949](https://github.com/FreshRSS/FreshRSS/pull/1949)
 * Mics.
 	* Auto-login after self user creation [#1928](https://github.com/FreshRSS/FreshRSS/issues/1928)
 
