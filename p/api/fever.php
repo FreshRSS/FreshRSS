@@ -69,14 +69,16 @@ class FeverDAO extends Minz_ModelPdo
 		if (!empty($entry_ids)) {
 			$bindEntryIds = $this->bindParamArray('id', $entry_ids, $values);
 			$sql .= " id IN($bindEntryIds)";
-		} elseif ($max_id !== null) {
+		} elseif ($max_id != null) {
 			$sql .= ' id < :id';
 			$values[':id'] = $max_id;
 			$order = ' ORDER BY id DESC';
-		} elseif ($since_id !== null) {
+		} elseif ($since_id != null) {
 			$sql .= ' id > :id';
 			$values[':id'] = $since_id;
 			$order = ' ORDER BY id ASC';
+		} else {
+			$sql .= ' 1=1';
 		}
 
 		if (!empty($feed_ids)) {
@@ -472,7 +474,7 @@ class FeverAPI
 		if (isset($_REQUEST['max_id'])) {
 			// use the max_id argument to request the previous $item_limit items
 			$max_id = '' . $_REQUEST['max_id'];
-			if (!ctype_digit($max_id) || $max_id < 0) {
+			if (!ctype_digit($max_id)) {
 				$max_id = null;
 			}
 		} else if (isset($_REQUEST['with_ids'])) {
@@ -480,7 +482,7 @@ class FeverAPI
 		} else {
 			// use the since_id argument to request the next $item_limit items
 			$since_id = '' . $_REQUEST['since_id'];
-			if (!ctype_digit($since_id) || $since_id < 0) {
+			if (!ctype_digit($since_id)) {
 				$since_id = null;
 			}
 		}
