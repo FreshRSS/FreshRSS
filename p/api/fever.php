@@ -69,11 +69,11 @@ class FeverDAO extends Minz_ModelPdo
 		if (!empty($entry_ids)) {
 			$bindEntryIds = $this->bindParamArray('id', $entry_ids, $values);
 			$sql .= " id IN($bindEntryIds)";
-		} else if (!empty($max_id)) {
+		} elseif ($max_id !== null) {
 			$sql .= ' id < :id';
 			$values[':id'] = $max_id;
 			$order = ' ORDER BY id DESC';
-		} else {
+		} elseif ($since_id !== null) {
 			$sql .= ' id > :id';
 			$values[':id'] = $since_id;
 			$order = ' ORDER BY id ASC';
@@ -204,14 +204,14 @@ class FeverAPI
 			$response_arr['saved_item_ids'] = $this->getSavedItemIds();
 		}
 
-		if (isset($_REQUEST['mark'], $_REQUEST['as'], $_REQUEST['id']) && is_numeric($_REQUEST['id'])) {
+		$id = isset($_REQUEST['id']) ? '' . $_REQUEST['id'] : '';
+		if (isset($_REQUEST['mark'], $_REQUEST['as'], $_REQUEST['id']) && ctype_digit($id)) {
 			$method_name = 'set' . ucfirst($_REQUEST['mark']) . 'As' . ucfirst($_REQUEST['as']);
 			$allowedMethods = array(
 				'setFeedAsRead', 'setGroupAsRead', 'setItemAsRead',
 				'setItemAsSaved', 'setItemAsUnread', 'setItemAsUnsaved'
 			);
 			if (in_array($method_name, $allowedMethods)) {
-				$id = intval($_REQUEST['id']);
 				switch (strtolower($_REQUEST['mark'])) {
 					case 'item':
 						$this->{$method_name}($id);
@@ -471,17 +471,18 @@ class FeverAPI
 
 		if (isset($_REQUEST['max_id'])) {
 			// use the max_id argument to request the previous $item_limit items
-			if (is_numeric($_REQUEST['max_id'])) {
-				$max = $_REQUEST['max_id'] > 0 ? intval($_REQUEST['max_id']) : 0;
-				if ($max) {
-					$max_id = $max;
-				}
+			$max_id = '' . $_REQUEST['max_id'];
+			if (!ctype_digit($max_id) || $max_id < 0) {
+				$max_id = null;
 			}
 		} else if (isset($_REQUEST['with_ids'])) {
 			$entry_ids = explode(',', $_REQUEST['with_ids']);
 		} else {
 			// use the since_id argument to request the next $item_limit items
-			$since_id = isset($_REQUEST['since_id']) && is_numeric($_REQUEST['since_id']) ? intval($_REQUEST['since_id']) : 0;
+			$since_id = '' . $_REQUEST['since_id'];
+			if (!ctype_digit($since_id) || $since_id < 0) {
+				$since_id = null;
+			}
 		}
 
 		$items = array();
