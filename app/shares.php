@@ -131,4 +131,10 @@ return array(
 		'form' => 'simple',
 		'method' => 'GET',
 	),
+	'linkedin' => array(
+		'url' => 'https://www.linkedin.com/shareArticle?url=~LINK~&amp;title=~TITLE~&amp;source=FreshRSS',
+		'transform' => array('rawurlencode'),
+		'form' => 'simple',
+		'method' => 'GET',
+	),
 );
