@@ -2,11 +2,14 @@
 
 ## 2018-XX-XX FreshRSS 1.11.2-dev
 
+* Features
+	* Share with LinkedIn [#1960](https://github.com/FreshRSS/FreshRSS/pull/1960)
 * Deployment
 	* Update Docker image to Alpine 3.8 with PHP 7.2 [#1956](https://github.com/FreshRSS/FreshRSS/pull/1956)
 * Bug fixing
 	* Fix bugs when searching with special characters (e.g. preventing marking as read) [#1944](https://github.com/FreshRSS/FreshRSS/issues/1944)
 	* Fix username check in API to allow underscores [#1955](https://github.com/FreshRSS/FreshRSS/issues/1955)
+	* Fix Fever API to allow 32-bit architectures [#1962](https://github.com/FreshRSS/FreshRSS/issues/1962)
 * Security
 	* Avoid feed credentials in logs [#1949](https://github.com/FreshRSS/FreshRSS/pull/1949)
 * Mics.
