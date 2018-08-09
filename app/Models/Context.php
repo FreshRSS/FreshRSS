@@ -288,7 +288,7 @@ class FreshRSS_Context {
 	 *
 	 * @return boolean
 	 */
-	public static function isAutoRemoveAvailable() {
+	public static function isAutoRemoveAvailable(): bool {
 		if (!self::$user_conf->auto_remove_article) {
 			return false;
 		}
@@ -309,7 +309,7 @@ class FreshRSS_Context {
 	 *
 	 * @return boolean
 	 */
-	public static function isStickyPostEnabled() {
+	public static function isStickyPostEnabled(): bool {
 		if (self::$user_conf->sticky_post) {
 			return true;
 		}
