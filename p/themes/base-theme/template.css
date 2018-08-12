@@ -631,6 +631,7 @@ br + br + br {
 	display: block;
 	width: 100%;
 	padding: 1em 0 100% 0;
+	padding: 1em 0 100vh 0;
 	text-align: center;
 	font-size: 1.4em;
 }
