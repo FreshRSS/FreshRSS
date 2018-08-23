@@ -44,10 +44,10 @@ return array(
 			'main_stream' => '메인 스트림에 표시하기',
 			'normal' => '피드가 속한 카테고리에만 표시하기',
 		),
-		'ssl_verify' => 'Verify SSL security',	//TODO
+		'ssl_verify' => 'SSL 유효성 검사',
 		'stats' => '통계',
 		'think_to_add' => '피드를 추가할 수 있습니다.',
-		'timeout' => 'Timeout in seconds',	//TODO
+		'timeout' => '타임아웃 (초)',
 		'title' => '제목',
 		'title_add' => 'RSS 피드 추가',
 		'ttl' => '다음 시간이 지나기 전에 새로고침 금지',
