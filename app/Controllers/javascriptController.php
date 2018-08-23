@@ -47,8 +47,8 @@ class FreshRSS_javascript_Controller extends Minz_ActionController {
 		$this->view->salt1 = sprintf('$2a$%02d$', FreshRSS_user_Controller::BCRYPT_COST);
 		$alphabet = './ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
 		for ($i = 22; $i > 0; $i--) {
-			$this->view->salt1 .= $alphabet[rand(0, 63)];
+			$this->view->salt1 .= $alphabet[mt_rand(0, 63)];
 		}
-		$this->view->nonce = sha1(rand());
+		$this->view->nonce = sha1(mt_rand());
 	}
 }
