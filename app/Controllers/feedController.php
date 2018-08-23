@@ -413,7 +413,7 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 				$entryDAO->updateLastSeen($feed->id(), $oldGuids, $mtime);
 			}
 
-			if ($feed_history >= 0 && rand(0, 30) === 1) {
+			if ($feed_history >= 0 && mt_rand(0, 30) === 1) {
 				// TODO: move this function in web cron when available (see entry::purge)
 				// Remove old entries once in 30.
 				if (!$entryDAO->inTransaction()) {
