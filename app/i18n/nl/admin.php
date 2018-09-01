@@ -63,7 +63,7 @@ return array(
 		),
 		'files' => 'Bestanden installatie',
 		'json' => array(
-			'nok' => 'U mist JSON (php5-json package).',
+			'nok' => 'U mist JSON (php-json package).',
 			'ok' => 'U hebt JSON uitbreiding.',
 		),
 		'mbstring' => array(
