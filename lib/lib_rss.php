@@ -411,7 +411,7 @@ function check_install_php() {
 		'fileinfo' => extension_loaded('fileinfo'),
 		'dom' => class_exists('DOMDocument'),
 		'json' => extension_loaded('json'),
-		'mbstring' = extension_loaded('mbstring'),
+		'mbstring' => extension_loaded('mbstring'),
 		'zip' => extension_loaded('zip'),
 	);
 }
