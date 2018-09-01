@@ -52,6 +52,10 @@ return array(
 	),
 	'sub' => array(
 		'actualize' => 'Actualiser',
+		'articles' => array(
+			'marked_read' => 'Les articles ont été marqués comme lus.',
+			'marked_unread' => 'Les articles ont été marqués comme non-lus.',
+		),
 		'category' => array(
 			'created' => 'La catégorie %s a été créée.',
 			'deleted' => 'La catégorie a été supprimée.',
@@ -74,7 +78,6 @@ return array(
 			'error' => 'Une erreur est survenue',
 			'internal_problem' => 'Le flux ne peut pas être ajouté. <a href="%s">Consulter les logs de FreshRSS</a> pour plus de détails. Vous pouvez essayer de forcer l’ajout par addition de <code>#force_feed</code> à l’URL.',
 			'invalid_url' => 'L’url <em>%s</em> est invalide.',
-			'marked_read' => 'Les flux ont été marqués comme lus.',
 			'n_actualized' => '%d flux ont été mis à jour.',
 			'n_entries_deleted' => '%d articles ont été supprimés.',
 			'no_refresh' => 'Il n’y a aucun flux à actualiser…',

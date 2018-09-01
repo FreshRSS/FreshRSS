@@ -52,6 +52,10 @@ return array(
 	),
 	'sub' => array(
 		'actualize' => 'Aggiorna',
+		'articles' => array(
+			'marked_read' => 'The articles have been marked as read.',	//TODO
+			'marked_unread' => 'The articles have been marked as unread.',	//TODO
+		),
 		'category' => array(
 			'created' => 'Categoria %s creata.',
 			'deleted' => 'Categoria cancellata',
@@ -74,7 +78,6 @@ return array(
 			'error' => 'Feed non aggiornato',
 			'internal_problem' => 'RSS feed non aggiunto. <a href="%s">Verifica i logs</a> per dettagli.', // @todo
 			'invalid_url' => 'URL <em>%s</em> non valido',
-			'marked_read' => 'Feeds segnati come letti',
 			'n_actualized' => '%d feeds aggiornati',
 			'n_entries_deleted' => '%d articoli cancellati',
 			'no_refresh' => 'Nessun aggiornamento disponibile…',

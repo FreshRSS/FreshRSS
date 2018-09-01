@@ -437,7 +437,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 	 * @param integer $priorityMin
 	 * @return integer affected rows
 	 */
-	public function markReadEntries($idMax = 0, $onlyFavorites = false, $priorityMin = 0, $filters = null, $state = 0) {
+	public function markReadEntries($idMax = 0, $onlyFavorites = false, $priorityMin = 0, $filters = null, $state = 0, $is_read = true) {
 		FreshRSS_UserDAO::touch();
 		if ($idMax == 0) {
 			$idMax = time() . '000000';
@@ -445,14 +445,14 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 		}
 
 		$sql = 'UPDATE `' . $this->prefix . 'entry` e INNER JOIN `' . $this->prefix . 'feed` f ON e.id_feed=f.id '
-			 . 'SET e.is_read=1 '
-			 . 'WHERE e.is_read=0 AND e.id <= ?';
+			 . 'SET e.is_read=? '
+			 . 'WHERE e.is_read <> ? AND e.id <= ?';
 		if ($onlyFavorites) {
 			$sql .= ' AND e.is_favorite=1';
 		} elseif ($priorityMin >= 0) {
 			$sql .= ' AND f.priority > ' . intval($priorityMin);
 		}
-		$values = array($idMax);
+		$values = array($is_read ? 1 : 0, $is_read ? 1 : 0, $idMax);
 
 		list($searchValues, $search) = $this->sqlListEntriesWhere('e.', $filters, $state);
 
@@ -480,7 +480,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 	 * @param integer $idMax fail safe article ID
 	 * @return integer affected rows
 	 */
-	public function markReadCat($id, $idMax = 0, $filters = null, $state = 0) {
+	public function markReadCat($id, $idMax = 0, $filters = null, $state = 0, $is_read = true) {
 		FreshRSS_UserDAO::touch();
 		if ($idMax == 0) {
 			$idMax = time() . '000000';
@@ -488,9 +488,9 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 		}
 
 		$sql = 'UPDATE `' . $this->prefix . 'entry` e INNER JOIN `' . $this->prefix . 'feed` f ON e.id_feed=f.id '
-			 . 'SET e.is_read=1 '
-			 . 'WHERE f.category=? AND e.is_read=0 AND e.id <= ?';
-		$values = array($id, $idMax);
+			 . 'SET e.is_read=? '
+			 . 'WHERE f.category=? AND e.is_read <> ? AND e.id <= ?';
+		$values = array($is_read ? 1 : 0, $id, $is_read ? 1 : 0, $idMax);
 
 		list($searchValues, $search) = $this->sqlListEntriesWhere('e.', $filters, $state);
 
@@ -518,7 +518,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 	 * @param integer $idMax fail safe article ID
 	 * @return integer affected rows
 	 */
-	public function markReadFeed($id_feed, $idMax = 0, $filters = null, $state = 0) {
+	public function markReadFeed($id_feed, $idMax = 0, $filters = null, $state = 0, $is_read = true) {
 		FreshRSS_UserDAO::touch();
 		if ($idMax == 0) {
 			$idMax = time() . '000000';
@@ -527,9 +527,9 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 		$this->bd->beginTransaction();
 
 		$sql = 'UPDATE `' . $this->prefix . 'entry` '
-			 . 'SET is_read=1 '
-			 . 'WHERE id_feed=? AND is_read=0 AND id <= ?';
-		$values = array($id_feed, $idMax);
+			 . 'SET is_read=? '
+			 . 'WHERE id_feed=? AND is_read <> ? AND id <= ?';
+		$values = array($is_read ? 1 : 0, $id_feed, $is_read ? 1 : 0, $idMax);
 
 		list($searchValues, $search) = $this->sqlListEntriesWhere('', $filters, $state);
 

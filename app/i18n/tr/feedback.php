@@ -52,6 +52,10 @@ return array(
 	),
 	'sub' => array(
 		'actualize' => 'Güncelleme',
+		'articles' => array(
+			'marked_read' => 'The articles have been marked as read.',	//TODO
+			'marked_unread' => 'The articles have been marked as unread.',	//TODO
+		),
 		'category' => array(
 			'created' => 'Kategori %s oluşturuldu.',
 			'deleted' => 'Kategori silindi.',
@@ -74,7 +78,6 @@ return array(
 			'error' => 'Akış güncellenemiyor',
 			'internal_problem' => 'RSS akışı eklenemiyor. Detaylar için <a href="%s">FreshRSS log kayıtlarını</a> kontrol edin.', // @todo
 			'invalid_url' => 'URL <em>%s</em> geçersiz',
-			'marked_read' => 'Akışlar okundu olarak işaretlendi',
 			'n_actualized' => '%d akışları güncellendi',
 			'n_entries_deleted' => '%d makaleleri silindi',
 			'no_refresh' => 'Yenilenecek akış yok…',

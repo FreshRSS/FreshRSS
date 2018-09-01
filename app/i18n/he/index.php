@@ -40,6 +40,7 @@ return array(
 		'mark_all_read' => 'סימון הכל כנקרא',
 		'mark_cat_read' => 'סימון קטגוריה כנקראה',
 		'mark_feed_read' => 'סימון הזנה כנקראה',
+		'mark_selection_unread' => 'Mark selection as unread',	//TODO
 		'newer_first' => 'חדשים בראש',
 		'non-starred' => 'הצגת הכל פרט למועדפים',
 		'normal_view' => 'תצוגה רגילה',

@@ -52,6 +52,10 @@ return array(
 	),
 	'sub' => array(
 		'actualize' => 'Atualizando',
+		'articles' => array(
+			'marked_read' => 'The articles have been marked as read.',	//TODO
+			'marked_unread' => 'The articles have been marked as unread.',	//TODO
+		),
 		'category' => array(
 			'created' => 'Categoria %s foi criada.',
 			'deleted' => 'Categoria foi deletada.',
@@ -74,7 +78,6 @@ return array(
 			'error' => 'O feed não pode ser atualizado',
 			'internal_problem' => 'O RSS feed não pôde ser adicionado. <a href="%s">Verifique os FreshRSS logs</a> para detalhes.', // @todo
 			'invalid_url' => 'URL <em>%s</em> é inválida',
-			'marked_read' => 'Feeds foram marcados como lidos',
 			'n_actualized' => '%d feeds foram atualizados',
 			'n_entries_deleted' => '%d artigos foram deletados',
 			'no_refresh' => 'Não há feed para atualizar…',
