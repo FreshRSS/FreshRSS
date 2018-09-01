@@ -22,7 +22,7 @@ if (!function_exists('json_encode')) {
 defined('JSON_UNESCAPED_UNICODE') or define('JSON_UNESCAPED_UNICODE', 256);	//PHP 5.3
 
 if (!function_exists('mb_strcut')) {
-	function mb_strcut($str, $start, $length=null, $encoding='UTF-8') {
+	function mb_strcut($str, $start, $length = null, $encoding = 'UTF-8') {
 		return substr($str, $start, $length);
 	}
 }
