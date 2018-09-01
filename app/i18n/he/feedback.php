@@ -54,7 +54,7 @@ return array(
 	'sub' => array(
 		'actualize' => 'מימוש',
 		'articles' => array(
-			'marked_read' => 'The articles have been marked as read.',	//TODO
+			'marked_read' => 'The selected articles have been marked as read.',	//TODO
 			'marked_unread' => 'The articles have been marked as unread.',	//TODO
 		),
 		'category' => array(

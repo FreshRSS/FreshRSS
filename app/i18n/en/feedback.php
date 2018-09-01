@@ -53,7 +53,7 @@ return array(
 	'sub' => array(
 		'actualize' => 'Updating',
 		'articles' => array(
-			'marked_read' => 'The articles have been marked as read.',
+			'marked_read' => 'The selected articles have been marked as read.',
 			'marked_unread' => 'The articles have been marked as unread.',
 		),
 		'category' => array(
