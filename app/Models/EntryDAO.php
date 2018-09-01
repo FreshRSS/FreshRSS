@@ -243,9 +243,9 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 
 		$valuesTmp['guid'] = substr($valuesTmp['guid'], 0, 760);
 		$this->updateEntryPrepared->bindParam(':guid', $valuesTmp['guid']);
-		$valuesTmp['title'] = substr($valuesTmp['title'], 0, 255);
+		$valuesTmp['title'] = mb_strcut($valuesTmp['title'], 0, 255, 'UTF-8');
 		$this->updateEntryPrepared->bindParam(':title', $valuesTmp['title']);
-		$valuesTmp['author'] = substr($valuesTmp['author'], 0, 255);
+		$valuesTmp['author'] = mb_strcut($valuesTmp['author'], 0, 255, 'UTF-8');
 		$this->updateEntryPrepared->bindParam(':author', $valuesTmp['author']);
 		$this->updateEntryPrepared->bindParam(':content', $valuesTmp['content']);
 		$valuesTmp['link'] = substr($valuesTmp['link'], 0, 1023);
@@ -258,7 +258,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 			$this->updateEntryPrepared->bindValue(':is_read', $valuesTmp['is_read'] ? 1 : 0, PDO::PARAM_INT);
 		}
 		$this->updateEntryPrepared->bindParam(':id_feed', $valuesTmp['id_feed'], PDO::PARAM_INT);
-		$valuesTmp['tags'] = substr($valuesTmp['tags'], 0, 1023);
+		$valuesTmp['tags'] = mb_strcut($valuesTmp['tags'], 0, 1023, 'UTF-8');
 		$this->updateEntryPrepared->bindParam(':tags', $valuesTmp['tags']);
 
 		if ($this->hasNativeHex()) {
