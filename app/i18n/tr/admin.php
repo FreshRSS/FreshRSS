@@ -63,8 +63,12 @@ return array(
 		),
 		'files' => 'Dosya kurulumu',
 		'json' => array(
-			'nok' => 'JSON eklentisi eksik (php5-json package).',
+			'nok' => 'JSON eklentisi eksik (php-json package).',
 			'ok' => 'JSON eklentisi sorunsuz.',
+		),
+		'mbstring' => array(
+			'nok' => 'Cannot find the recommended library mbstring for Unicode.',	//TODO
+			'ok' => 'You have the recommended library mbstring for Unicode.',	//TODO
 		),
 		'minz' => array(
 			'nok' => 'Minz framework eksik.',

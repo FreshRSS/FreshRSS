@@ -68,6 +68,10 @@ return array(
 			'nok' => 'U mist een benodigede bibliotheek om JSON te gebruiken.',
 			'ok' => 'U hebt de benodigde bibliotheek om JSON te gebruiken.',
 		),
+		'mbstring' => array(
+			'nok' => 'Cannot find the recommended library mbstring for Unicode.',	//TODO
+			'ok' => 'You have the recommended library mbstring for Unicode.',	//TODO
+		),
 		'minz' => array(
 			'nok' => 'U mist het Minz framework.',
 			'ok' => 'U hebt het Minz framework.',

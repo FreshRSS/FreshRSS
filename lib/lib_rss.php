@@ -21,6 +21,12 @@ if (!function_exists('json_encode')) {
 
 defined('JSON_UNESCAPED_UNICODE') or define('JSON_UNESCAPED_UNICODE', 256);	//PHP 5.3
 
+if (!function_exists('mb_strcut')) {
+	function mb_strcut($str, $start, $length=null, $encoding='UTF-8') {
+		return substr($str, $start, $length);
+	}
+}
+
 /**
  * Build a directory path by concatenating a list of directory names.
  *
@@ -405,6 +411,7 @@ function check_install_php() {
 		'fileinfo' => extension_loaded('fileinfo'),
 		'dom' => class_exists('DOMDocument'),
 		'json' => extension_loaded('json'),
+		'mbstring' = extension_loaded('mbstring'),
 		'zip' => extension_loaded('zip'),
 	);
 }
