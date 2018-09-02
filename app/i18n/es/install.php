@@ -68,6 +68,10 @@ return array(
 			'nok' => 'No se ha podido localizar la librería para procesar JSON.',
 			'ok' => 'Dispones de la librería recomendada para procesar JSON.',
 		),
+		'mbstring' => array(
+			'nok' => 'Cannot find the recommended library mbstring for Unicode.',	//TODO
+			'ok' => 'You have the recommended library mbstring for Unicode.',	//TODO
+		),
 		'minz' => array(
 			'nok' => 'No se ha podido localizar el entorno Minz.',
 			'ok' => 'Dispones del entorno Minz.',

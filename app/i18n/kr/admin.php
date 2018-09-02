@@ -63,8 +63,12 @@ return array(
 		),
 		'files' => '파일 시스템 설치 요구사항',
 		'json' => array(
-			'nok' => 'JSON 확장 기능을 찾을 수 없습니다 (php5-json 패키지).',
+			'nok' => 'JSON 확장 기능을 찾을 수 없습니다 (php-json 패키지).',
 			'ok' => 'JSON  확장 기능이 설치되어 있습니다.',
+		),
+		'mbstring' => array(
+			'nok' => 'Cannot find the recommended library mbstring for Unicode.',	//TODO
+			'ok' => 'You have the recommended library mbstring for Unicode.',	//TODO
 		),
 		'minz' => array(
 			'nok' => 'Minz 프레임워크를 찾을 수 없습니다.',

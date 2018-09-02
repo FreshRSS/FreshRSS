@@ -37,7 +37,7 @@ Nous sommes une communauté amicale.
 * Serveur Web Apache2 (recommandé), ou nginx, lighttpd (non testé sur les autres)
 * PHP 5.3.8+ (PHP 5.4+ recommandé, et PHP 5.5+ pour les performances, et PHP 7+ pour d’encore meilleures performances)
 	* Requis : [cURL](https://secure.php.net/curl), [DOM](https://secure.php.net/dom), [XML](https://secure.php.net/xml), [session](https://secure.php.net/session), [ctype](https://secure.php.net/ctype), et [PDO_MySQL](https://secure.php.net/pdo-mysql) ou [PDO_SQLite](https://secure.php.net/pdo-sqlite) ou [PDO_PGSQL](https://secure.php.net/pdo-pgsql)
-	* Recommandés : [JSON](https://secure.php.net/json), [GMP](https://secure.php.net/gmp) (pour accès API sur plateformes < 64 bits), [IDN](https://secure.php.net/intl.idn) (pour les noms de domaines internationalisés), [mbstring](https://secure.php.net/mbstring) et/ou [iconv](https://secure.php.net/iconv) (pour conversion d’encodages), [ZIP](https://secure.php.net/zip) (pour import/export), [zlib](https://secure.php.net/zlib) (pour les flux compressés)
+	* Recommandés : [JSON](https://secure.php.net/json), [GMP](https://secure.php.net/gmp) (pour accès API sur plateformes < 64 bits), [IDN](https://secure.php.net/intl.idn) (pour les noms de domaines internationalisés), [mbstring](https://secure.php.net/mbstring) (pour le texte Unicode), [iconv](https://secure.php.net/iconv) (pour conversion d’encodages), [ZIP](https://secure.php.net/zip) (pour import/export), [zlib](https://secure.php.net/zlib) (pour les flux compressés)
 * MySQL 5.5.3+ (recommandé), ou SQLite 3.7.4+, ou PostgreSQL 9.2+
 * Un navigateur Web récent tel que Firefox / IceCat, Internet Explorer 11 / Edge, Chromium / Chrome, Opera, Safari.
 	* Fonctionne aussi sur mobile

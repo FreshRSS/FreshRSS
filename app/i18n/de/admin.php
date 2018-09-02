@@ -63,8 +63,12 @@ return array(
 		),
 		'files' => 'Datei-Installation',
 		'json' => array(
-			'nok' => 'Ihnen fehlt die JSON-Erweiterung (Paket php5-json).',
+			'nok' => 'Ihnen fehlt die JSON-Erweiterung (Paket php-json).',
 			'ok' => 'Sie haben die JSON-Erweiterung.',
+		),
+		'mbstring' => array(
+			'nok' => 'Cannot find the recommended library mbstring for Unicode.',	//TODO
+			'ok' => 'You have the recommended library mbstring for Unicode.',	//TODO
 		),
 		'minz' => array(
 			'nok' => 'Ihnen fehlt das Minz-Framework.',

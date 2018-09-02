@@ -68,6 +68,10 @@ return array(
 			'nok' => 'Tavsiye edilen JSON çözümleme kütüphanesi eksik.',
 			'ok' => 'Tavsiye edilen JSON çözümleme kütüphanesi sorunsuz.',
 		),
+		'mbstring' => array(
+			'nok' => 'Cannot find the recommended library mbstring for Unicode.',	//TODO
+			'ok' => 'You have the recommended library mbstring for Unicode.',	//TODO
+		),
 		'minz' => array(
 			'nok' => 'Minz framework eksik.',
 			'ok' => 'Minz framework sorunsuz.',

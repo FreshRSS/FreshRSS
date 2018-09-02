@@ -462,6 +462,12 @@ function printStep1() {
 	<p class="alert alert-error"><span class="alert-head"><?php echo _t('gen.short.damn'); ?></span> <?php echo _t('install.check.xml.nok'); ?></p>
 	<?php } ?>
 
+	<?php if ($res['mbstring'] == 'ok') { ?>
+	<p class="alert alert-success"><span class="alert-head"><?php echo _t('gen.short.ok'); ?></span> <?php echo _t('install.check.mbstring.ok'); ?></p>
+	<?php } else { ?>
+	<p class="alert alert-warn"><span class="alert-head"><?php echo _t('gen.short.damn'); ?></span> <?php echo _t('install.check.mbstring.nok'); ?></p>
+	<?php } ?>
+
 	<?php if ($res['fileinfo'] == 'ok') { ?>
 	<p class="alert alert-success"><span class="alert-head"><?php echo _t('gen.short.ok'); ?></span> <?php echo _t('install.check.fileinfo.ok'); ?></p>
 	<?php } else { ?>

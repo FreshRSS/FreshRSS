@@ -31,6 +31,7 @@ class FreshRSS_Entry extends Minz_Model {
 		$this->_isRead($is_read);
 		$this->_isFavorite($is_favorite);
 		$this->_feedId($feedId);
+		$tags = mb_strcut($tags, 0, 1023, 'UTF-8');
 		$this->_tags(preg_split('/[\s#]/', $tags));
 		$this->_guid($guid);
 	}
@@ -123,11 +124,11 @@ class FreshRSS_Entry extends Minz_Model {
 	}
 	public function _title($value) {
 		$this->hash = null;
-		$this->title = $value;
+		$this->title = mb_strcut($value, 0, 255, 'UTF-8');
 	}
 	public function _author($value) {
 		$this->hash = null;
-		$this->author = $value;
+		$this->author = mb_strcut($value, 0, 255, 'UTF-8');
 	}
 	public function _content($value) {
 		$this->hash = null;

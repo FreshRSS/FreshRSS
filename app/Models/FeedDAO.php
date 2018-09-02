@@ -55,9 +55,9 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 		$values = array(
 			substr($valuesTmp['url'], 0, 511),
 			$valuesTmp['category'],
-			substr($valuesTmp['name'], 0, 255),
+			mb_strcut($valuesTmp['name'], 0, 255, 'UTF-8'),
 			substr($valuesTmp['website'], 0, 255),
-			substr($valuesTmp['description'], 0, 1023),
+			mb_strcut($valuesTmp['description'], 0, 1023, 'UTF-8'),
 			$valuesTmp['lastUpdate'],
 			base64_encode($valuesTmp['httpAuth']),
 			FreshRSS_Feed::KEEP_HISTORY_DEFAULT,
