@@ -68,6 +68,10 @@ return array(
 			'nok' => 'You lack a recommended library to parse JSON.',
 			'ok' => 'You have a recommended library to parse JSON.',
 		),
+		'mbstring' => array(
+			'nok' => 'Cannot find the recommended library mbstring for Unicode.',	//TODO
+			'ok' => 'You have the recommended library mbstring for Unicode.',	//TODO
+		),
 		'minz' => array(
 			'nok' => 'Manca il framework Minz.',
 			'ok' => 'Framework Minz presente.',

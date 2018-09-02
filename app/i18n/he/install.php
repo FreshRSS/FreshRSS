@@ -40,7 +40,7 @@ return array(
 			'ok' => 'הספרייה הנדרשת ל character type checking (ctype) מותקנת',
 		),
 		'curl' => array(
-			'nok' => 'בURL לא מותקן (php5-curl package)',
+			'nok' => 'בURL לא מותקן (php-curl package)',
 			'ok' => 'יש לכם את גירסת %s של cURL',
 		),
 		'data' => array(
@@ -58,6 +58,14 @@ return array(
 		'http_referer' => array(
 			'nok' => 'נא לדבוק שאינך פוגעת ב HTTP REFERER שלך.',
 			'ok' => 'הHTTP REFERER ידוע ותאם לשרת שלך.',
+		),
+		'json' => array(
+			'nok' => 'Cannot find a recommended library to parse JSON.',	//TODO
+			'ok' => 'You have a recommended library to parse JSON.',	//TODO
+		),
+		'mbstring' => array(
+			'nok' => 'Cannot find the recommended library mbstring for Unicode.',	//TODO
+			'ok' => 'You have the recommended library mbstring for Unicode.',	//TODO
 		),
 		'minz' => array(
 			'nok' => 'You lack the Minz framework.', // @todo

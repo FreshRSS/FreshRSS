@@ -33,7 +33,7 @@ return array(
 			'ok' => 'הספרייה הנדרשת ל character type checking (ctype) מותקנת',
 		),
 		'curl' => array(
-			'nok' => 'בURL לא מותקן (php5-curl package)',
+			'nok' => 'בURL לא מותקן (php-curl package)',
 			'ok' => 'You have cURL extension.', // @todo
 		),
 		'data' => array(
@@ -63,8 +63,12 @@ return array(
 		),
 		'files' => 'File installation', // @todo
 		'json' => array(
-			'nok' => 'You lack JSON (php5-json package).', // @todo
+			'nok' => 'You lack JSON (php-json package).', // @todo
 			'ok' => 'You have JSON extension.', // @todo
+		),
+		'mbstring' => array(
+			'nok' => 'Cannot find the recommended library mbstring for Unicode.',	//TODO
+			'ok' => 'You have the recommended library mbstring for Unicode.',	//TODO
 		),
 		'minz' => array(
 			'nok' => 'You lack the Minz framework.', // @todo
@@ -97,7 +101,7 @@ return array(
 			'ok' => 'Permissions on users directory are good.', // @todo
 		),
 		'zip' => array(
-			'nok' => 'You lack ZIP extension (php5-zip package).', // @todo
+			'nok' => 'You lack ZIP extension (php-zip package).', // @todo
 			'ok' => 'You have ZIP extension.', // @todo
 		),
 	),

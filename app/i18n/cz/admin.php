@@ -63,8 +63,12 @@ return array(
 		),
 		'files' => 'Instalace souborů',
 		'json' => array(
-			'nok' => 'Nemáte JSON (balíček php5-json).',
+			'nok' => 'Nemáte JSON (balíček php-json).',
 			'ok' => 'Máte rozšíření JSON.',
+		),
+		'mbstring' => array(
+			'nok' => 'Cannot find the recommended library mbstring for Unicode.',	//TODO
+			'ok' => 'You have the recommended library mbstring for Unicode.',	//TODO
 		),
 		'minz' => array(
 			'nok' => 'Nemáte framework Minz.',

@@ -63,8 +63,12 @@ return array(
 		),
 		'files' => 'Bestanden installatie',
 		'json' => array(
-			'nok' => 'U mist JSON (php5-json package).',
+			'nok' => 'U mist JSON (php-json package).',
 			'ok' => 'U hebt JSON uitbreiding.',
+		),
+		'mbstring' => array(
+			'nok' => 'Cannot find the recommended library mbstring for Unicode.',	//TODO
+			'ok' => 'You have the recommended library mbstring for Unicode.',	//TODO
 		),
 		'minz' => array(
 			'nok' => 'U mist Minz framework.',
