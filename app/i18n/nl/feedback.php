@@ -53,8 +53,8 @@ return array(
 	'sub' => array(
 		'actualize' => 'Actualiseren',
 		'articles' => array(
-			'marked_read' => 'The selected articles have been marked as read.',	//TODO
-			'marked_unread' => 'The articles have been marked as unread.',	//TODO
+			'marked_read' => 'De geselecteerde artikelen zijn als gelezen gemarkeerd.',
+			'marked_unread' => 'De geselecteerde artikelen zijn als ongelezen gemarkeerd.',
 		),
 		'category' => array(
 			'created' => 'Categorie %s is gemaakt.',

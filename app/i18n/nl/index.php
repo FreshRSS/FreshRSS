@@ -40,7 +40,7 @@ return array(
 		'mark_all_read' => 'Markeer alles als gelezen',
 		'mark_cat_read' => 'Markeer categorie als gelezen',
 		'mark_feed_read' => 'Markeer feed als gelezen',
-		'mark_selection_unread' => 'Mark selection as unread',	//TODO
+		'mark_selection_unread' => 'Markeer selectie als ongelezen',
 		'newer_first' => 'Nieuwste eerst',
 		'non-starred' => 'Laat alles zien behalve favorieten',
 		'normal_view' => 'Normale weergave',
