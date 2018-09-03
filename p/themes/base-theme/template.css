@@ -118,6 +118,9 @@ button.as-link:active {
 	font-size: 1.1em;
 	text-align: left;
 }
+button.as-link[disabled] {
+	color:#DDD !important;
+}
 
 /*=== Tables */
 table {

@@ -115,6 +115,7 @@
 	$mark_before_today['params']['idMax'] = $today . '000000';
 	$mark_before_one_week = $mark_read_url;
 	$mark_before_one_week['params']['idMax'] = ($today - 604800) . '000000';
+	$mark_unread_enabled = FreshRSS_Context::isStateEnabled(FreshRSS_Entry::STATE_READ) or !FreshRSS_Context::isStateEnabled(FreshRSS_Entry::STATE_NOT_READ);
 ?>
 				<li class="item">
 					<button class="as-link <?php echo $confirm; ?>"
@@ -128,15 +129,13 @@
 					        formaction="<?php echo Minz_Url::display($mark_before_one_week); ?>"
 					        type="submit"><?php echo _t('index.menu.before_one_week'); ?></button>
 				</li>
-				<?php if (FreshRSS_Context::isStateEnabled(FreshRSS_Entry::STATE_READ) or !FreshRSS_Context::isStateEnabled(FreshRSS_Entry::STATE_NOT_READ)): ?>
 				<li class="separator"></li>
 				<li class="item">
-					<button class="as-link <?php echo $confirm; ?>"
+					<button class="as-link <?php echo $mark_unread_enabled ? $confirm : '" disabled="disabled'; ?>"
 					        form="mark-read-menu"
 					        formaction="<?php echo Minz_Url::display($mark_unread_url); ?>"
 					        type="submit"><?php echo $string_unmark; ?></button>
 				</li>
-				<?php endif; ?>
 			</ul>
 		</div>
 		</form>

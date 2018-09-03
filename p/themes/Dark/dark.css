@@ -113,6 +113,9 @@ form th {
 }
 
 /*=== Buttons */
+button.as-link[disabled] {
+	color:#445 !important;
+}
 .stick {
 	vertical-align: middle;
 	font-size: 0;
