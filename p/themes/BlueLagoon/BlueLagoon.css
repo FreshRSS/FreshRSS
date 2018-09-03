@@ -115,6 +115,9 @@ form th {
 }
 
 /*=== Buttons */
+button.as-link[disabled] {
+	color:#555 !important;
+}
 
 .dropdown-menu .input select, .dropdown-menu .input input {
     background:#444;

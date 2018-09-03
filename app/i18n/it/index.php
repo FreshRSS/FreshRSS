@@ -40,6 +40,7 @@ return array(
 		'mark_all_read' => 'Segna tutto come letto',
 		'mark_cat_read' => 'Segna la categoria come letta',
 		'mark_feed_read' => 'Segna il feed come letto',
+		'mark_selection_unread' => 'Mark selection as unread',	//TODO
 		'newer_first' => 'Mostra prima i recenti',
 		'non-starred' => 'Escludi preferiti',
 		'normal_view' => 'Vista elenco',

@@ -52,6 +52,10 @@ return array(
 	),
 	'sub' => array(
 		'actualize' => 'Actualiseren',
+		'articles' => array(
+			'marked_read' => 'The selected articles have been marked as read.',	//TODO
+			'marked_unread' => 'The articles have been marked as unread.',	//TODO
+		),
 		'category' => array(
 			'created' => 'Categorie %s is gemaakt.',
 			'deleted' => 'Categorie is verwijderd.',
@@ -74,7 +78,6 @@ return array(
 			'error' => 'Feed kan niet worden vernieuwd',
 			'internal_problem' => 'De feed kon niet worden toegevoegd. <a href="%s">Controleer de FreshRSS-logbestanden</a> voor details. Toevoegen forceren kan worden geprobeerd door <code>#force_feed</code> aan de URL toe te voegen.',
 			'invalid_url' => 'URL <em>%s</em> is ongeldig',
-			'marked_read' => 'Feeds zijn gemarkeerd als gelezen',
 			'n_actualized' => '%d feeds zijn vernieuwd',
 			'n_entries_deleted' => '%d artikelen zijn verwijderd',
 			'no_refresh' => 'Er is geen feed om te vernieuwen…',

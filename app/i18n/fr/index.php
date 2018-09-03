@@ -40,6 +40,7 @@ return array(
 		'mark_all_read' => 'Tout marquer comme lu',
 		'mark_cat_read' => 'Marquer la catégorie comme lue',
 		'mark_feed_read' => 'Marquer le flux comme lu',
+		'mark_selection_unread' => 'Marquer la sélection comme non-lue',
 		'newer_first' => 'Plus récents en premier',
 		'non-starred' => 'Afficher les non-favoris',
 		'normal_view' => 'Vue normale',
@@ -52,7 +53,7 @@ return array(
 		'starred' => 'Afficher les favoris',
 		'stats' => 'Statistiques',
 		'subscription' => 'Gestion des abonnements',
-		'unread' => 'Afficher les non lus',
+		'unread' => 'Afficher les non-lus',
 	),
 	'share' => 'Partager',
 	'tag' => array(
