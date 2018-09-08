@@ -196,8 +196,7 @@ function saveStep3() {
 			$_SESSION['bd_base'] = strtolower($_SESSION['bd_base']);
 		}
 
-		// We use dirname to remove the /i part
-		$base_url = dirname(Minz_Request::guessBaseUrl());
+		$base_url = Minz_Request::guessBaseUrl();
 		$config_array = array(
 			'salt' => $_SESSION['salt'],
 			'base_url' => $base_url,

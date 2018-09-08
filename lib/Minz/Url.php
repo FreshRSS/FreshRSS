@@ -27,6 +27,10 @@ class Minz_Url {
 			$url_string = Minz_Request::getBaseUrl();
 			if ($url_string == '') {
 				$url_string = Minz_Request::guessBaseUrl();
+				if (PUBLIC_RELATIVE === '..') {
+					//TODO: Implement proper resolver of relative parts such as /test/./../
+					$url_string = dirname($url_string);
+				}
 			}
 			if ($isArray) {
 				$url_string .= PUBLIC_TO_INDEX_PATH;
@@ -39,7 +43,7 @@ class Minz_Url {
 		}
 
 		if ($isArray) {
-			$url_string .= self::printUri($url, $encodage);
+			$url_string .= '/' . self::printUri($url, $encodage);
 		} elseif ($encodage === 'html') {
 			$url_string = Minz_Helper::htmlspecialchars_utf8($url_string . $url);
 		} else {
