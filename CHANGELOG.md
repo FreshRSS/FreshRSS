@@ -15,6 +15,7 @@
 	* Fix CSS font bug for *Origine-compact* theme [#1990](https://github.com/FreshRSS/FreshRSS/issues/1990)
 	* Fix last user activity for SQLite and PostgreSQL [#2008](https://github.com/FreshRSS/FreshRSS/pull/2008)
 	* Fix article counts with SQLite [#2009](https://github.com/FreshRSS/FreshRSS/pull/2009)
+	* Fix some automatic URL generation cases [#1946](https://github.com/FreshRSS/FreshRSS/issues/1946)
 * Security
 	* Avoid feed credentials in logs [#1949](https://github.com/FreshRSS/FreshRSS/pull/1949)
 * UI
@@ -24,6 +25,7 @@
 	* Updated Korean [#1985](https://github.com/FreshRSS/FreshRSS/pull/1985)
 * Mics.
 	* Auto-login after self user creation [#1928](https://github.com/FreshRSS/FreshRSS/issues/1928)
+	* Better test if server has public address [#2010](https://github.com/FreshRSS/FreshRSS/pull/2010)
 	* Allow `-` in database name at install time [#2005](https://github.com/FreshRSS/FreshRSS/pull/2005)
 
 
