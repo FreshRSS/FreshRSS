@@ -909,6 +909,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 		$stm = $this->bd->prepare($sql);
 		$stm->execute();
 		$res = $stm->fetchAll(PDO::FETCH_COLUMN, 0);
+		rsort($res);
 		$all = empty($res[0]) ? 0 : $res[0];
 		$unread = empty($res[1]) ? 0 : $res[1];
 		return array('all' => $all, 'unread' => $unread, 'read' => $all - $unread);
@@ -963,6 +964,7 @@ SQL;
 		$stm = $this->bd->prepare($sql);
 		$stm->execute(array(':priority_normal' => FreshRSS_Feed::PRIORITY_NORMAL));
 		$res = $stm->fetchAll(PDO::FETCH_COLUMN, 0);
+		rsort($res);
 		$all = empty($res[0]) ? 0 : $res[0];
 		$unread = empty($res[1]) ? 0 : $res[1];
 		return array('all' => $all, 'unread' => $unread, 'read' => $all - $unread);
