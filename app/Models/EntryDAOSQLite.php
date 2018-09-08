@@ -101,6 +101,7 @@ DROP TABLE IF EXISTS `tmp`;
 	 * @return integer affected rows
 	 */
 	public function markRead($ids, $is_read = true) {
+		FreshRSS_UserDAO::touch();
 		if (is_array($ids)) {	//Many IDs at once (used by API)
 			if (true) {	//Speed heuristics	//TODO: Not implemented yet for SQLite (so always call IDs one by one)
 				$affected = 0;
@@ -160,6 +161,7 @@ DROP TABLE IF EXISTS `tmp`;
 	 * @return integer affected rows
 	 */
 	public function markReadEntries($idMax = 0, $onlyFavorites = false, $priorityMin = 0, $filters = null, $state = 0, $is_read = true) {
+		FreshRSS_UserDAO::touch();
 		if ($idMax == 0) {
 			$idMax = time() . '000000';
 			Minz_Log::debug('Calling markReadEntries(0) is deprecated!');
@@ -200,6 +202,7 @@ DROP TABLE IF EXISTS `tmp`;
 	 * @return integer affected rows
 	 */
 	public function markReadCat($id, $idMax = 0, $filters = null, $state = 0, $is_read = true) {
+		FreshRSS_UserDAO::touch();
 		if ($idMax == 0) {
 			$idMax = time() . '000000';
 			Minz_Log::debug('Calling markReadCat(0) is deprecated!');
