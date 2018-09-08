@@ -196,7 +196,7 @@ function saveStep3() {
 			$_SESSION['bd_base'] = strtolower($_SESSION['bd_base']);
 		}
 
-		$base_url = Minz_Request::guessBaseUrl();
+		$base_url = Minz_Url::display('/', '', true);
 		$config_array = array(
 			'salt' => $_SESSION['salt'],
 			'base_url' => $base_url,
