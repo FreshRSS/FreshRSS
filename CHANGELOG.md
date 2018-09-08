@@ -1,9 +1,9 @@
 ﻿# FreshRSS changelog
 
-## 2018-XX-XX FreshRSS 1.11.2-dev
+## 2018-09-XX FreshRSS 1.11.2-dev
 
 * Features
-	* New menu to mark selected articles (view) as unread[#1966](https://github.com/FreshRSS/FreshRSS/issues/1966)
+	* New menu to mark selected articles (view) as unread [#1966](https://github.com/FreshRSS/FreshRSS/issues/1966)
 	* Share with LinkedIn [#1960](https://github.com/FreshRSS/FreshRSS/pull/1960)
 * Deployment
 	* Update Docker image to Alpine 3.8 with PHP 7.2 [#1956](https://github.com/FreshRSS/FreshRSS/pull/1956)
@@ -22,6 +22,7 @@
 	* Updated Korean [#1985](https://github.com/FreshRSS/FreshRSS/pull/1985)
 * Mics.
 	* Auto-login after self user creation [#1928](https://github.com/FreshRSS/FreshRSS/issues/1928)
+	* Allow `-` in database name at install time [#2005](https://github.com/FreshRSS/FreshRSS/pull/2005)
 
 
 ## 2018-06-16 FreshRSS 1.11.1
