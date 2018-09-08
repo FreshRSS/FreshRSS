@@ -33,7 +33,7 @@ $options = getopt('', array_merge($params, $dBparams));
 
 if (empty($options['default_user'])) {
 	fail('Usage: ' . basename(__FILE__) . " --default_user admin ( --auth_type form" .
-		" --environment production --base_url https://rss.example.net/" .
+		" --environment production --base_url https://rss.example.net" .
 		" --language en --title FreshRSS --allow_anonymous --api_enabled" .
 		" --db-type mysql --db-host localhost:3306 --db-user freshrss --db-password dbPassword123" .
 		" --db-base freshrss --db-prefix freshrss_ --disable_update )");
