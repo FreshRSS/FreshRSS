@@ -60,10 +60,9 @@ Nous sommes une communauté amicale.
 Plus d’informations sur l’installation et la configuration serveur peuvent être trouvées dans [notre documentation](https://freshrss.github.io/FreshRSS/fr/users/01_Installation.md).
 
 ## Installation automatisée
-* [Docker](./Docker/)
+* [![Docker](https://www.docker.com/sites/default/files/horizontal.png)](./Docker/)
+* [![YunoHost](https://install-app.yunohost.org/install-with-yunohost.png)](https://install-app.yunohost.org/?app=freshrss)
 * [![Cloudron](https://cloudron.io/img/button.svg)](https://cloudron.io/button.html?app=org.freshrss.cloudronapp)
-* [![DP deploy](https://raw.githubusercontent.com/DFabric/DPlatform-ShellCore/gh-pages/img/deploy.png)](https://dfabric.github.io/DPlatform-ShellCore)
-* [YunoHost](https://github.com/YunoHost-Apps/freshrss_ynh)
 
 ## Exemple d’installation complète sur Linux Debian/Ubuntu
 ```sh
