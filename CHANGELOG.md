@@ -1,6 +1,6 @@
 ﻿# FreshRSS changelog
 
-## 2018-09-XX FreshRSS 1.11.2-dev
+## 2018-09-09 FreshRSS 1.11.2
 
 * Features
 	* New menu to mark selected articles (view) as unread [#1966](https://github.com/FreshRSS/FreshRSS/issues/1966)

@@ -54,7 +54,7 @@ Nous sommes une communauté amicale.
 4. Accédez à FreshRSS à travers votre navigateur Web et suivez les instructions d’installation
 	* ou utilisez [l’interface en ligne de commande](cli/README.md)
 5. Tout devrait fonctionner :) En cas de problème, n’hésitez pas à [nous contacter](https://github.com/FreshRSS/FreshRSS/issues).
-6. Des paramètres de configuration avancée peuvent être vues dans [config.default.php](config.default.php) et modifiées dans `data/config.php`.
+6. Des paramètres de configuration avancés peuvent être vus dans [config.default.php](config.default.php) et modifiés dans `data/config.php`.
 7. Avec Apache, activer [`AllowEncodedSlashes`](https://httpd.apache.org/docs/trunk/mod/core.html#allowencodedslashes) pour une meilleure compatibilité avec les clients mobiles.
 
 Plus d’informations sur l’installation et la configuration serveur peuvent être trouvées dans [notre documentation](https://freshrss.github.io/FreshRSS/fr/users/01_Installation.md).
