@@ -65,8 +65,12 @@ return array(
 			'ok' => 'Le HTTP REFERER est connu et semble correspondre à votre serveur.',
 		),
 		'json' => array(
-			'nok' => 'Impossible de trouver une librairie recommandée pour JSON.',
-			'ok' => 'Vouz disposez de la librairie recommandée pour JSON.',
+			'nok' => 'Vous ne disposez pas de l’extension recommendée JSON (paquet php-json).',
+			'ok' => 'Vous disposez de l’extension recommendée JSON.',
+		),
+		'mbstring' => array(
+			'nok' => 'Impossible de trouver la librairie recommandée mbstring pour Unicode.',
+			'ok' => 'Vouz disposez de la librairie recommandée mbstring pour Unicode.',
 		),
 		'minz' => array(
 			'nok' => 'Vous ne disposez pas de la librairie Minz.',

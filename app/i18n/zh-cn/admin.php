@@ -63,8 +63,12 @@ return array(
 		),
 		'files' => '文件相关',
 		'json' => array(
-			'nok' => '找不到 JSON 扩展 (php5-json ) 。',
+			'nok' => '找不到 JSON 扩展 (php-json ) 。',
 			'ok' => '已找到 JSON 扩展',
+		),
+		'mbstring' => array(
+			'nok' => 'Cannot find the recommended library mbstring for Unicode.',	//TODO
+			'ok' => 'You have the recommended library mbstring for Unicode.',	//TODO
 		),
 		'minz' => array(
 			'nok' => '找不到 Minz 框架。',

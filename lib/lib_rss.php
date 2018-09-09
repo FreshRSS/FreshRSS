@@ -21,6 +21,12 @@ if (!function_exists('json_encode')) {
 
 defined('JSON_UNESCAPED_UNICODE') or define('JSON_UNESCAPED_UNICODE', 256);	//PHP 5.3
 
+if (!function_exists('mb_strcut')) {
+	function mb_strcut($str, $start, $length = null, $encoding = 'UTF-8') {
+		return substr($str, $start, $length);
+	}
+}
+
 /**
  * Build a directory path by concatenating a list of directory names.
  *
@@ -103,24 +109,29 @@ function safe_ascii($text) {
  * localhost address.
  *
  * @param $address the address to test, can be an IP or a URL.
- * @return true if server is accessible, false else.
+ * @return true if server is accessible, false otherwise.
  * @todo improve test with a more valid technique (e.g. test with an external server?)
  */
 function server_is_public($address) {
 	$host = parse_url($address, PHP_URL_HOST);
 
 	$is_public = !in_array($host, array(
-		'127.0.0.1',
 		'localhost',
 		'localhost.localdomain',
 		'[::1]',
+		'ip6-localhost',
 		'localhost6',
 		'localhost6.localdomain6',
 	));
 
-	return $is_public;
-}
+	if ($is_public) {
+		$ip = gethostbyname($host);
+		$is_public &= !preg_match('/^(10|127|172[.]16|192[.]168)[.]/', $ip);
+		$is_public &= !preg_match('/^(\[)?(::1$|fc00::|fe80::)/i', $ip);
+	}
 
+	return (bool)$is_public;
+}
 
 function format_number($n, $precision = 0) {
 	// number_format does not seem to be Unicode-compatible
@@ -405,6 +416,7 @@ function check_install_php() {
 		'fileinfo' => extension_loaded('fileinfo'),
 		'dom' => class_exists('DOMDocument'),
 		'json' => extension_loaded('json'),
+		'mbstring' => extension_loaded('mbstring'),
 		'zip' => extension_loaded('zip'),
 	);
 }

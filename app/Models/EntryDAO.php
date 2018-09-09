@@ -160,9 +160,9 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 			$valuesTmp['guid'] = substr($valuesTmp['guid'], 0, 760);
 			$valuesTmp['guid'] = safe_ascii($valuesTmp['guid']);
 			$this->addEntryPrepared->bindParam(':guid', $valuesTmp['guid']);
-			$valuesTmp['title'] = substr($valuesTmp['title'], 0, 255);
+			$valuesTmp['title'] = mb_strcut($valuesTmp['title'], 0, 255, 'UTF-8');
 			$this->addEntryPrepared->bindParam(':title', $valuesTmp['title']);
-			$valuesTmp['author'] = substr($valuesTmp['author'], 0, 255);
+			$valuesTmp['author'] = mb_strcut($valuesTmp['author'], 0, 255, 'UTF-8');
 			$this->addEntryPrepared->bindParam(':author', $valuesTmp['author']);
 			$this->addEntryPrepared->bindParam(':content', $valuesTmp['content']);
 			$valuesTmp['link'] = substr($valuesTmp['link'], 0, 1023);
@@ -176,7 +176,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 			$valuesTmp['is_favorite'] = $valuesTmp['is_favorite'] ? 1 : 0;
 			$this->addEntryPrepared->bindParam(':is_favorite', $valuesTmp['is_favorite'], PDO::PARAM_INT);
 			$this->addEntryPrepared->bindParam(':id_feed', $valuesTmp['id_feed'], PDO::PARAM_INT);
-			$valuesTmp['tags'] = substr($valuesTmp['tags'], 0, 1023);
+			$valuesTmp['tags'] = mb_strcut($valuesTmp['tags'], 0, 1023, 'UTF-8');
 			$this->addEntryPrepared->bindParam(':tags', $valuesTmp['tags']);
 
 			if ($this->hasNativeHex()) {
@@ -243,9 +243,9 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 
 		$valuesTmp['guid'] = substr($valuesTmp['guid'], 0, 760);
 		$this->updateEntryPrepared->bindParam(':guid', $valuesTmp['guid']);
-		$valuesTmp['title'] = substr($valuesTmp['title'], 0, 255);
+		$valuesTmp['title'] = mb_strcut($valuesTmp['title'], 0, 255, 'UTF-8');
 		$this->updateEntryPrepared->bindParam(':title', $valuesTmp['title']);
-		$valuesTmp['author'] = substr($valuesTmp['author'], 0, 255);
+		$valuesTmp['author'] = mb_strcut($valuesTmp['author'], 0, 255, 'UTF-8');
 		$this->updateEntryPrepared->bindParam(':author', $valuesTmp['author']);
 		$this->updateEntryPrepared->bindParam(':content', $valuesTmp['content']);
 		$valuesTmp['link'] = substr($valuesTmp['link'], 0, 1023);
@@ -258,7 +258,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 			$this->updateEntryPrepared->bindValue(':is_read', $valuesTmp['is_read'] ? 1 : 0, PDO::PARAM_INT);
 		}
 		$this->updateEntryPrepared->bindParam(':id_feed', $valuesTmp['id_feed'], PDO::PARAM_INT);
-		$valuesTmp['tags'] = substr($valuesTmp['tags'], 0, 1023);
+		$valuesTmp['tags'] = mb_strcut($valuesTmp['tags'], 0, 1023, 'UTF-8');
 		$this->updateEntryPrepared->bindParam(':tags', $valuesTmp['tags']);
 
 		if ($this->hasNativeHex()) {
@@ -437,7 +437,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 	 * @param integer $priorityMin
 	 * @return integer affected rows
 	 */
-	public function markReadEntries($idMax = 0, $onlyFavorites = false, $priorityMin = 0, $filters = null, $state = 0) {
+	public function markReadEntries($idMax = 0, $onlyFavorites = false, $priorityMin = 0, $filters = null, $state = 0, $is_read = true) {
 		FreshRSS_UserDAO::touch();
 		if ($idMax == 0) {
 			$idMax = time() . '000000';
@@ -445,14 +445,14 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 		}
 
 		$sql = 'UPDATE `' . $this->prefix . 'entry` e INNER JOIN `' . $this->prefix . 'feed` f ON e.id_feed=f.id '
-			 . 'SET e.is_read=1 '
-			 . 'WHERE e.is_read=0 AND e.id <= ?';
+			 . 'SET e.is_read=? '
+			 . 'WHERE e.is_read <> ? AND e.id <= ?';
 		if ($onlyFavorites) {
 			$sql .= ' AND e.is_favorite=1';
 		} elseif ($priorityMin >= 0) {
 			$sql .= ' AND f.priority > ' . intval($priorityMin);
 		}
-		$values = array($idMax);
+		$values = array($is_read ? 1 : 0, $is_read ? 1 : 0, $idMax);
 
 		list($searchValues, $search) = $this->sqlListEntriesWhere('e.', $filters, $state);
 
@@ -480,7 +480,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 	 * @param integer $idMax fail safe article ID
 	 * @return integer affected rows
 	 */
-	public function markReadCat($id, $idMax = 0, $filters = null, $state = 0) {
+	public function markReadCat($id, $idMax = 0, $filters = null, $state = 0, $is_read = true) {
 		FreshRSS_UserDAO::touch();
 		if ($idMax == 0) {
 			$idMax = time() . '000000';
@@ -488,9 +488,9 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 		}
 
 		$sql = 'UPDATE `' . $this->prefix . 'entry` e INNER JOIN `' . $this->prefix . 'feed` f ON e.id_feed=f.id '
-			 . 'SET e.is_read=1 '
-			 . 'WHERE f.category=? AND e.is_read=0 AND e.id <= ?';
-		$values = array($id, $idMax);
+			 . 'SET e.is_read=? '
+			 . 'WHERE f.category=? AND e.is_read <> ? AND e.id <= ?';
+		$values = array($is_read ? 1 : 0, $id, $is_read ? 1 : 0, $idMax);
 
 		list($searchValues, $search) = $this->sqlListEntriesWhere('e.', $filters, $state);
 
@@ -518,7 +518,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 	 * @param integer $idMax fail safe article ID
 	 * @return integer affected rows
 	 */
-	public function markReadFeed($id_feed, $idMax = 0, $filters = null, $state = 0) {
+	public function markReadFeed($id_feed, $idMax = 0, $filters = null, $state = 0, $is_read = true) {
 		FreshRSS_UserDAO::touch();
 		if ($idMax == 0) {
 			$idMax = time() . '000000';
@@ -527,9 +527,9 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 		$this->bd->beginTransaction();
 
 		$sql = 'UPDATE `' . $this->prefix . 'entry` '
-			 . 'SET is_read=1 '
-			 . 'WHERE id_feed=? AND is_read=0 AND id <= ?';
-		$values = array($id_feed, $idMax);
+			 . 'SET is_read=? '
+			 . 'WHERE id_feed=? AND is_read <> ? AND id <= ?';
+		$values = array($is_read ? 1 : 0, $id_feed, $is_read ? 1 : 0, $idMax);
 
 		list($searchValues, $search) = $this->sqlListEntriesWhere('', $filters, $state);
 
@@ -909,6 +909,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 		$stm = $this->bd->prepare($sql);
 		$stm->execute();
 		$res = $stm->fetchAll(PDO::FETCH_COLUMN, 0);
+		rsort($res);
 		$all = empty($res[0]) ? 0 : $res[0];
 		$unread = empty($res[1]) ? 0 : $res[1];
 		return array('all' => $all, 'unread' => $unread, 'read' => $all - $unread);
@@ -963,6 +964,7 @@ SQL;
 		$stm = $this->bd->prepare($sql);
 		$stm->execute(array(':priority_normal' => FreshRSS_Feed::PRIORITY_NORMAL));
 		$res = $stm->fetchAll(PDO::FETCH_COLUMN, 0);
+		rsort($res);
 		$all = empty($res[0]) ? 0 : $res[0];
 		$unread = empty($res[1]) ? 0 : $res[1];
 		return array('all' => $all, 'unread' => $unread, 'read' => $all - $unread);

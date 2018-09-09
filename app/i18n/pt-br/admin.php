@@ -63,8 +63,12 @@ return array(
 		),
 		'files' => 'Instalação de arquivos',
 		'json' => array(
-			'nok' => 'Não foi possível encontrar JSON (php5-json).',
+			'nok' => 'Não foi possível encontrar JSON (php-json).',
 			'ok' => 'Você tem a extensão JSON.',
+		),
+		'mbstring' => array(
+			'nok' => 'Cannot find the recommended library mbstring for Unicode.',	//TODO
+			'ok' => 'You have the recommended library mbstring for Unicode.',	//TODO
 		),
 		'minz' => array(
 			'nok' => 'Não foi possível encontrar o framework Minz.',

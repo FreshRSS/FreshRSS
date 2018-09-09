@@ -52,6 +52,10 @@ return array(
 	),
 	'sub' => array(
 		'actualize' => '피드를 가져오는 중입니다',
+		'articles' => array(
+			'marked_read' => 'The selected articles have been marked as read.',	//TODO
+			'marked_unread' => 'The articles have been marked as unread.',	//TODO
+		),
 		'category' => array(
 			'created' => '%s 카테고리가 생성되었습니다.',
 			'deleted' => '카테고리가 삭제되었습니다.',
@@ -72,9 +76,8 @@ return array(
 			'already_subscribed' => '이미 <em>%s</em> 피드를 구독 중입니다',
 			'deleted' => '피드가 삭제되었습니다',
 			'error' => '피드를 변경할 수 없습니다',
-			'internal_problem' => 'RSS 피드를 추가할 수 없습니다. 자세한 내용은 <a href="%s">FreshRSS 로그</a>를 참고하세요.', // @todo
+			'internal_problem' => 'RSS 피드를 추가할 수 없습니다. 자세한 내용은 <a href="%s">FreshRSS 로그</a>를 참고하세요.',
 			'invalid_url' => 'URL (<em>%s</em>)이 유효하지 않습니다',
-			'marked_read' => '피드가 읽음으로 표시되었습니다',
 			'n_actualized' => '%d 개의 피드에서 새 글을 가져왔습니다',
 			'n_entries_deleted' => '%d 개의 글을 삭제했습니다',
 			'no_refresh' => '새 글을 가져올 피드가 없습니다…',
@@ -102,8 +105,8 @@ return array(
 			'error' => '%s 사용자를 삭제할 수 없습니다',
 		),
 		'updated' => array(
-			'_' => 'User %s has been updated', // TODO
-			'error' => 'User %s has not been updated', // TODO
+			'_' => '사용자 %s의 정보가 변경되었습니다',
+			'error' => '사용자 %s의 정보가 변경되지 않았습니다',
 		),
 	),
 	'profile' => array(

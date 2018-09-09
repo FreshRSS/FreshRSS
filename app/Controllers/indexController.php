@@ -139,7 +139,7 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 		}
 
 		// No layout for RSS output.
-		$this->view->url = empty($_SERVER['QUERY_STRING']) ? '' : '?' . $_SERVER['QUERY_STRING'];
+		$this->view->url = PUBLIC_TO_INDEX_PATH . '/' . (empty($_SERVER['QUERY_STRING']) ? '' : '?' . $_SERVER['QUERY_STRING']);
 		$this->view->rss_title = FreshRSS_Context::$name . ' | ' . Minz_View::title();
 		$this->view->_useLayout(false);
 		header('Content-Type: application/rss+xml; charset=utf-8');

@@ -20,7 +20,7 @@ git clone https://github.com/FreshRSS/FreshRSS.git
 
 cd ./FreshRSS/
 git pull
-sudo docker pull alpine:3.7
+sudo docker pull alpine:3.8
 sudo docker build --tag freshrss/freshrss -f Docker/Dockerfile .
 ```
 

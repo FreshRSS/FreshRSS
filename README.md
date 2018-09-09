@@ -37,7 +37,7 @@ We are a friendly community.
 * A web server: Apache2 (recommended), nginx, lighttpd (not tested on others)
 * PHP 5.3.8+ (PHP 5.4+ recommended, and PHP 5.5+ for performance, and PHP 7 for even higher performance)
 	* Required extensions: [cURL](https://secure.php.net/curl), [DOM](https://secure.php.net/dom), [XML](https://secure.php.net/xml), [session](https://secure.php.net/session), [ctype](https://secure.php.net/ctype), and [PDO_MySQL](https://secure.php.net/pdo-mysql) or [PDO_SQLite](https://secure.php.net/pdo-sqlite) or [PDO_PGSQL](https://secure.php.net/pdo-pgsql)
-	* Recommended extensions: [JSON](https://secure.php.net/json), [GMP](https://secure.php.net/gmp) (for API access on platforms < 64 bits), [IDN](https://secure.php.net/intl.idn) (for Internationalized Domain Names), [mbstring](https://secure.php.net/mbstring) and/or [iconv](https://secure.php.net/iconv) (for charset conversion), [ZIP](https://secure.php.net/zip) (for import/export), [zlib](https://secure.php.net/zlib) (for compressed feeds)
+	* Recommended extensions: [JSON](https://secure.php.net/json), [GMP](https://secure.php.net/gmp) (for API access on platforms < 64 bits), [IDN](https://secure.php.net/intl.idn) (for Internationalized Domain Names), [mbstring](https://secure.php.net/mbstring) (for Unicode strings), [iconv](https://secure.php.net/iconv) (for charset conversion), [ZIP](https://secure.php.net/zip) (for import/export), [zlib](https://secure.php.net/zlib) (for compressed feeds)
 * MySQL 5.5.3+ (recommended), or SQLite 3.7.4+, or PostgreSQL 9.2+
 * A recent browser like Firefox / IceCat, Internet Explorer 11 / Edge, Chromium / Chrome, Opera, Safari.
 	* Works on mobile
@@ -59,11 +59,10 @@ We are a friendly community.
 
 More information about installation and server configuration can be found in [our documentation](https://freshrss.github.io/FreshRSS/en/admins/02_Installation.html).
 
-## Automated install
-* [Docker](./Docker/)
+## Automated install 
+* [![Docker](https://www.docker.com/sites/default/files/horizontal.png)](./Docker/)
+* [![YunoHost](https://install-app.yunohost.org/install-with-yunohost.png)](https://install-app.yunohost.org/?app=freshrss)
 * [![Cloudron](https://cloudron.io/img/button.svg)](https://cloudron.io/button.html?app=org.freshrss.cloudronapp)
-* [![DP deploy](https://raw.githubusercontent.com/DFabric/DPlatform-ShellCore/gh-pages/img/deploy.png)](https://dfabric.github.io/DPlatform-ShellCore)
-* [YunoHost](https://github.com/YunoHost-Apps/freshrss_ynh)
 
 ## Example of full installation on Linux Debian/Ubuntu
 ```sh

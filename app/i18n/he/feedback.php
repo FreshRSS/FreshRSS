@@ -53,6 +53,10 @@ return array(
 	),
 	'sub' => array(
 		'actualize' => 'מימוש',
+		'articles' => array(
+			'marked_read' => 'The selected articles have been marked as read.',	//TODO
+			'marked_unread' => 'The articles have been marked as unread.',	//TODO
+		),
 		'category' => array(
 			'created' => 'Category %s has been created.', // @todo
 			'deleted' => 'Category has been deleted.', // @todo
@@ -75,7 +79,6 @@ return array(
 			'error' => 'Feed cannot be updated', // @todo
 			'internal_problem' => 'אין אפשרות להוסיף את ההזנה. <a href="%s">בדקו את הלוגים</a> לפרטים.', // @todo
 			'invalid_url' => 'URL <em>%s</em> אינו תקין',
-			'marked_read' => 'הזנות סומנו כנקראו',
 			'n_actualized' => '%d הזנות עודכנו',
 			'n_entries_deleted' => '%d המאמרים נמחקו',
 			'no_refresh' => 'אין הזנה שניתן לרענן…',

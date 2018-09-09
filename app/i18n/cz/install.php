@@ -68,6 +68,10 @@ return array(
 			'nok' => 'Pro parsování JSON chybí doporučená knihovna.',
 			'ok' => 'Máte doporučenou knihovnu pro parsování JSON.',
 		),
+		'mbstring' => array(
+			'nok' => 'Cannot find the recommended library mbstring for Unicode.',	//TODO
+			'ok' => 'You have the recommended library mbstring for Unicode.',	//TODO
+		),
 		'minz' => array(
 			'nok' => 'Nemáte framework Minz.',
 			'ok' => 'Máte framework Minz.',

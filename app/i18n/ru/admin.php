@@ -63,8 +63,12 @@ return array(
 		),
 		'files' => 'Установка файлов',
 		'json' => array(
-			'nok' => 'У вас не установлена библиотека для работы с JSON (пакет php5-json).',
+			'nok' => 'У вас не установлена библиотека для работы с JSON (пакет php-json).',
 			'ok' => 'У вас установлена библиотека для работы с JSON.',
+		),
+		'mbstring' => array(
+			'nok' => 'Cannot find the recommended library mbstring for Unicode.',	//TODO
+			'ok' => 'You have the recommended library mbstring for Unicode.',	//TODO
 		),
 		'minz' => array(
 			'nok' => 'У вас не установлен фрейворк Minz.',

@@ -101,6 +101,7 @@ DROP TABLE IF EXISTS `tmp`;
 	 * @return integer affected rows
 	 */
 	public function markRead($ids, $is_read = true) {
+		FreshRSS_UserDAO::touch();
 		if (is_array($ids)) {	//Many IDs at once (used by API)
 			if (true) {	//Speed heuristics	//TODO: Not implemented yet for SQLite (so always call IDs one by one)
 				$affected = 0;
@@ -159,19 +160,20 @@ DROP TABLE IF EXISTS `tmp`;
 	 * @param integer $priorityMin
 	 * @return integer affected rows
 	 */
-	public function markReadEntries($idMax = 0, $onlyFavorites = false, $priorityMin = 0, $filters = null, $state = 0) {
+	public function markReadEntries($idMax = 0, $onlyFavorites = false, $priorityMin = 0, $filters = null, $state = 0, $is_read = true) {
+		FreshRSS_UserDAO::touch();
 		if ($idMax == 0) {
 			$idMax = time() . '000000';
 			Minz_Log::debug('Calling markReadEntries(0) is deprecated!');
 		}
 
-		$sql = 'UPDATE `' . $this->prefix . 'entry` SET is_read=1 WHERE is_read=0 AND id <= ?';
+		$sql = 'UPDATE `' . $this->prefix . 'entry` SET is_read = ? WHERE is_read <> ? AND id <= ?';
 		if ($onlyFavorites) {
 			$sql .= ' AND is_favorite=1';
 		} elseif ($priorityMin >= 0) {
 			$sql .= ' AND id_feed IN (SELECT f.id FROM `' . $this->prefix . 'feed` f WHERE f.priority > ' . intval($priorityMin) . ')';
 		}
-		$values = array($idMax);
+		$values = array($is_read ? 1 : 0, $is_read ? 1 : 0, $idMax);
 
 		list($searchValues, $search) = $this->sqlListEntriesWhere('', $filters, $state);
 
@@ -199,17 +201,18 @@ DROP TABLE IF EXISTS `tmp`;
 	 * @param integer $idMax fail safe article ID
 	 * @return integer affected rows
 	 */
-	public function markReadCat($id, $idMax = 0, $filters = null, $state = 0) {
+	public function markReadCat($id, $idMax = 0, $filters = null, $state = 0, $is_read = true) {
+		FreshRSS_UserDAO::touch();
 		if ($idMax == 0) {
 			$idMax = time() . '000000';
 			Minz_Log::debug('Calling markReadCat(0) is deprecated!');
 		}
 
 		$sql = 'UPDATE `' . $this->prefix . 'entry` '
-			 . 'SET is_read=1 '
-			 . 'WHERE is_read=0 AND id <= ? AND '
+			 . 'SET is_read = ? '
+			 . 'WHERE is_read <> ? AND id <= ? AND '
 			 . 'id_feed IN (SELECT f.id FROM `' . $this->prefix . 'feed` f WHERE f.category=?)';
-		$values = array($idMax, $id);
+		$values = array($is_read ? 1 : 0, $is_read ? 1 : 0, $idMax, $id);
 
 		list($searchValues, $search) = $this->sqlListEntriesWhere('', $filters, $state);
 

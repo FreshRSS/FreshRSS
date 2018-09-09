@@ -25,7 +25,8 @@ if (FreshRSS_Auth::accessNeedsAction()) {
 		<?php if (FreshRSS_Auth::hasAccess() || FreshRSS_Context::$system_conf->allow_anonymous) { ?>
 		<form action="<?php echo _url('index', 'index'); ?>" method="get">
 			<div class="stick">
-				<input type="search" name="search" id="search" class="extend" value="<?php echo FreshRSS_Context::$search; ?>" placeholder="<?php echo _t('gen.menu.search'); ?>" />
+				<input type="search" name="search" id="search" class="extend" value="<?php
+					echo htmlspecialchars(htmlspecialchars_decode(FreshRSS_Context::$search, ENT_QUOTES), ENT_COMPAT, 'UTF-8'); ?>" placeholder="<?php echo _t('gen.menu.search'); ?>" />
 
 				<?php $get = Minz_Request::param('get', ''); ?>
 				<?php if ($get != '') { ?>

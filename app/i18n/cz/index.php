@@ -40,6 +40,7 @@ return array(
 		'mark_all_read' => 'Označit vše jako přečtené',
 		'mark_cat_read' => 'Označit kategorii jako přečtenou',
 		'mark_feed_read' => 'Označit kanál jako přečtený',
+		'mark_selection_unread' => 'Mark selection as unread',	//TODO
 		'newer_first' => 'Nové nejdříve',
 		'non-starred' => 'Zobrazit vše vyjma oblíbených',
 		'normal_view' => 'Normální',

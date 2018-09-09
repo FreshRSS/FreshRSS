@@ -52,6 +52,10 @@ return array(
 	),
 	'sub' => array(
 		'actualize' => '获取',
+		'articles' => array(
+			'marked_read' => 'The selected articles have been marked as read.',	//TODO
+			'marked_unread' => 'The articles have been marked as unread.',	//TODO
+		),
 		'category' => array(
 			'created' => '分类 %s 已创建。',
 			'deleted' => '分类已删除。',
@@ -74,7 +78,6 @@ return array(
 			'error' => 'RSS 源更新失败',
 			'internal_problem' => 'RSS 源添加失败。<a href="%s">检查 FreshRSS 日志</a> 查看详情。', // @todo
 			'invalid_url' => 'URL <em>%s</em> 无效',
-			'marked_read' => 'RSS 源已被设为已读',
 			'n_actualized' => '%d 个 RSS 源已更新',
 			'n_entries_deleted' => '%d 篇文章已删除',
 			'no_refresh' => '没有可刷新的 RSS 源…',

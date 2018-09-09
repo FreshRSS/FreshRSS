@@ -168,6 +168,7 @@ return array(
 		'g+' => 'Google+',
 		'gnusocial' => 'GNU social',
 		'jdh' => 'Journal du hacker',
+		'linkedin' => 'LinkedIn',
 		'mastodon' => 'Mastodon',
 		'movim' => 'Movim',
 		'pocket' => 'Pocket',
