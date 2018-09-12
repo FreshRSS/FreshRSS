@@ -1,5 +1,9 @@
 ﻿# FreshRSS changelog
 
+## 2018-XX-XX FreshRSS 1.11.3
+
+
+
 ## 2018-09-09 FreshRSS 1.11.2
 
 * Features
