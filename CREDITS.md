@@ -53,6 +53,7 @@ People are sorted by name so please keep this order.
 * [Quentin Dufour](https://github.com/superboum): [contributions](https://github.com/FreshRSS/documentation/commits?author=superboum), [Web](http://quentin.dufour.io/)
 * [Ramón Cutanda](https://github.com/rcutanda): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:rcutanda)
 * [romibi](https://github.com/romibi): [contributions](https://github.com/FreshRSS/FreshRSS/commits/dev?author=romibi)
+* [sirideain](https://github.com/sirideain): [contributions](https://github.com/FreshRSS/FreshRSS/commits/dev?author=sirideain)
 * [subic](https://github.com/subic): [contributions](https://github.com/FreshRSS/documentation/commits?author=subic)
 * [Tets42](https://github.com/Tets42): [contributions](https://github.com/FreshRSS/FreshRSS/commits?author=Tets42)
 * [Thomas Citharel](https://github.com/tcitworld): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:tomgue), [Web](https://www.tcit.fr/)
