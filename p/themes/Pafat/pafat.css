@@ -151,6 +151,7 @@ form th {
 	display: inline-block;
 	min-height: 29px;
 	min-width: 15px;
+	line-height: 25px;
 	margin: 0;
 	padding: 1px 5px;
 	background: #fff;
@@ -162,12 +163,6 @@ form th {
 	cursor: pointer;
 	overflow: hidden;
 }
-
-a.btn {
-	min-height: 25px;
-	line-height: 25px;
-}
-
 
 a.btn {
 	min-height: 25px;

@@ -40,6 +40,7 @@ return array(
 		'mark_all_read' => 'Hepsini okundu olarak işaretle',
 		'mark_cat_read' => 'Kategoriyi okundu olarak işaretle',
 		'mark_feed_read' => 'Akışı okundu olarak işaretle',
+		'mark_selection_unread' => 'Mark selection as unread',	//TODO
 		'newer_first' => 'Önce yeniler',
 		'non-starred' => 'Favori dışındakileri göster',
 		'normal_view' => 'Normal görünüm',

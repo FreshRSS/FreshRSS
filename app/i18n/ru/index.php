@@ -40,6 +40,7 @@ return array(
 		'mark_all_read' => 'Mark all as read',
 		'mark_cat_read' => 'Mark category as read',
 		'mark_feed_read' => 'Mark feed as read',
+		'mark_selection_unread' => 'Mark selection as unread',	//TODO
 		'newer_first' => 'Newer first',
 		'non-starred' => 'Show all but favorites',
 		'normal_view' => 'Normal view',

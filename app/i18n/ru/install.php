@@ -64,6 +64,10 @@ return array(
 			'nok' => 'Убедитесь, что вы не изменяете ваш HTTP REFERER.',
 			'ok' => 'Ваш HTTP REFERER известен и соотвествует вашему серверу.',
 		),
+		'mbstring' => array(
+			'nok' => 'Cannot find the recommended library mbstring for Unicode.',	//TODO
+			'ok' => 'You have the recommended library mbstring for Unicode.',	//TODO
+		),
 		'minz' => array(
 			'nok' => 'У вас не установлен фрейворк Minz.',
 			'ok' => 'У вас установлен фрейворк Minz.',

@@ -59,8 +59,8 @@ class FreshRSS_Feed extends Minz_Model {
 		return $this->hash;
 	}
 
-	public function url() {
-		return $this->url;
+	public function url($includeCredentials = true) {
+		return $includeCredentials ? $this->url : SimplePie_Misc::url_remove_credentials($this->url);
 	}
 	public function selfUrl() {
 		return $this->selfUrl;
@@ -341,7 +341,7 @@ class FreshRSS_Feed extends Minz_Model {
 
 		foreach ($feed->get_items() as $item) {
 			$title = html_only_entity_decode(strip_tags($item->get_title()));
-			$author = $item->get_author();
+			$authors = $item->get_authors();
 			$link = $item->get_permalink();
 			$date = @strtotime($item->get_date());
 
@@ -409,12 +409,19 @@ class FreshRSS_Feed extends Minz_Model {
 			$guid = $item->get_id(false, false);
 			$hasUniqueGuids &= empty($guids['_' . $guid]);
 			$guids['_' . $guid] = true;
+			$author_names = '';
+			if (is_array($authors)) {
+				foreach ($authors as $author) {
+					$author_names .= html_only_entity_decode(strip_tags($author->name == '' ? $author->email : $author->name)) . ', ';
+				}
+			}
+			$author_names = substr($author_names, 0, -2);
 
 			$entry = new FreshRSS_Entry(
 				$this->id(),
 				$guid,
 				$title === null ? '' : $title,
-				$author === null ? '' : html_only_entity_decode(strip_tags($author->name == null ? $author->email : $author->name)),
+				$author_names,
 				$content === null ? '' : $content,
 				$link === null ? '' : $link,
 				$date ? $date : time()

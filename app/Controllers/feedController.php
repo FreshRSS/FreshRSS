@@ -295,12 +295,12 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 				if ($feed->lastUpdate() + 10 >= $mtime) {
 					continue;	//Nothing newer from other users
 				}
-				//Minz_Log::debug($feed->url() . ' was updated at ' . date('c', $mtime) . ' by another user');
+				//Minz_Log::debug($feed->url(false) . ' was updated at ' . date('c', $mtime) . ' by another user');
 				//Will take advantage of the newer cache
 			}
 
 			if (!$feed->lock()) {
-				Minz_Log::notice('Feed already being actualized: ' . $feed->url());
+				Minz_Log::notice('Feed already being actualized: ' . $feed->url(false));
 				continue;
 			}
 
@@ -351,7 +351,7 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 							//This entry already exists and is unchanged. TODO: Remove the test with the zero'ed hash in FreshRSS v1.3
 							$oldGuids[] = $entry->guid();
 						} else {	//This entry already exists but has been updated
-							//Minz_Log::debug('Entry with GUID `' . $entry->guid() . '` updated in feed ' . $feed->url() .
+							//Minz_Log::debug('Entry with GUID `' . $entry->guid() . '` updated in feed ' . $feed->url(false) .
 								//', old hash ' . $existingHash . ', new hash ' . $entry->hash());
 							$mark_updated_article_unread = $feed->attributes('mark_updated_article_unread') !== null ? (
 									$feed->attributes('mark_updated_article_unread')
@@ -413,7 +413,7 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 				$entryDAO->updateLastSeen($feed->id(), $oldGuids, $mtime);
 			}
 
-			if ($feed_history >= 0 && rand(0, 30) === 1) {
+			if ($feed_history >= 0 && mt_rand(0, 30) === 1) {
 				// TODO: move this function in web cron when available (see entry::purge)
 				// Remove old entries once in 30.
 				if (!$entryDAO->inTransaction()) {
@@ -425,8 +425,7 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 				                                max($feed_history, count($entries) + 10));
 				if ($nb > 0) {
 					$needFeedCacheRefresh = true;
-					Minz_Log::debug($nb . ' old entries cleaned in feed [' .
-					                $feed->url() . ']');
+					Minz_Log::debug($nb . ' old entries cleaned in feed [' . $feed->url(false) . ']');
 				}
 			}
 
@@ -442,25 +441,25 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 				if ($feed->selfUrl() !== $url) {	//https://code.google.com/p/pubsubhubbub/wiki/MovingFeedsOrChangingHubs
 					$selfUrl = checkUrl($feed->selfUrl());
 					if ($selfUrl) {
-						Minz_Log::debug('PubSubHubbub unsubscribe ' . $feed->url());
+						Minz_Log::debug('PubSubHubbub unsubscribe ' . $feed->url(false));
 						if (!$feed->pubSubHubbubSubscribe(false)) {	//Unsubscribe
-							Minz_Log::warning('Error while PubSubHubbub unsubscribing from ' . $feed->url());
+							Minz_Log::warning('Error while PubSubHubbub unsubscribing from ' . $feed->url(false));
 						}
 						$feed->_url($selfUrl, false);
-						Minz_Log::notice('Feed ' . $url . ' canonical address moved to ' . $feed->url());
+						Minz_Log::notice('Feed ' . $url . ' canonical address moved to ' . $feed->url(false));
 						$feedDAO->updateFeed($feed->id(), array('url' => $feed->url()));
 					}
 				}
 			} elseif ($feed->url() !== $url) {	// HTTP 301 Moved Permanently
-				Minz_Log::notice('Feed ' . $url . ' moved permanently to ' . $feed->url());
+				Minz_Log::notice('Feed ' . $url . ' moved permanently to ' . $feed->url(false));
 				$feedDAO->updateFeed($feed->id(), array('url' => $feed->url()));
 			}
 
 			$feed->faviconPrepare();
 			if ($pubsubhubbubEnabledGeneral && $feed->pubSubHubbubPrepare()) {
-				Minz_Log::notice('PubSubHubbub subscribe ' . $feed->url());
+				Minz_Log::notice('PubSubHubbub subscribe ' . $feed->url(false));
 				if (!$feed->pubSubHubbubSubscribe(true)) {	//Subscribe
-					Minz_Log::warning('Error while PubSubHubbub subscribing to ' . $feed->url());
+					Minz_Log::warning('Error while PubSubHubbub subscribing to ' . $feed->url(false));
 				}
 			}
 			$feed->unlock();

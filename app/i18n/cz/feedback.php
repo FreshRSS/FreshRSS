@@ -52,6 +52,10 @@ return array(
 	),
 	'sub' => array(
 		'actualize' => 'Aktualizovat',
+		'articles' => array(
+			'marked_read' => 'The selected articles have been marked as read.',	//TODO
+			'marked_unread' => 'The articles have been marked as unread.',	//TODO
+		),
 		'category' => array(
 			'created' => 'Kategorie %s byla vytvořena.',
 			'deleted' => 'Kategorie byla smazána.',
@@ -74,7 +78,6 @@ return array(
 			'error' => 'Kanál nelze aktualizovat',
 			'internal_problem' => 'RSS kanál nelze přidat. Pro detaily <a href="%s">zkontrolujte logy FreshRSS</a>.', // @todo
 			'invalid_url' => 'URL <em>%s</em> není platné',
-			'marked_read' => 'Kanály byly označeny jako přečtené',
 			'n_actualized' => '%d kanálů bylo aktualizováno',
 			'n_entries_deleted' => '%d článků bylo smazáno',
 			'no_refresh' => 'Nelze obnovit žádné kanály…',

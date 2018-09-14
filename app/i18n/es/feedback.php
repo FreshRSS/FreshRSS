@@ -52,6 +52,10 @@ return array(
 	),
 	'sub' => array(
 		'actualize' => 'Actualización',
+		'articles' => array(
+			'marked_read' => 'The selected articles have been marked as read.',	//TODO
+			'marked_unread' => 'The articles have been marked as unread.',	//TODO
+		),
 		'category' => array(
 			'created' => 'Se ha creado la categoría %s.',
 			'deleted' => 'Se ha eliminado la categoría.',
@@ -74,7 +78,6 @@ return array(
 			'error' => 'No es posible actualizar la fuente',
 			'internal_problem' => 'No ha sido posible agregar la fuente RSS. <a href="%s">Revisa el registro de FreshRSS </a> para más información.', // @todo
 			'invalid_url' => 'La URL <em>%s</em> es inválida',
-			'marked_read' => 'Fuentes marcadas como leídas',
 			'n_actualized' => 'Se han actualiado %d fuentes',
 			'n_entries_deleted' => 'Se han eliminado %d artículos',
 			'no_refresh' => 'No hay fuente a actualizar…',

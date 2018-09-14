@@ -63,8 +63,12 @@ return array(
 		),
 		'files' => '파일 시스템 설치 요구사항',
 		'json' => array(
-			'nok' => 'JSON 확장 기능을 찾을 수 없습니다 (php5-json 패키지).',
+			'nok' => 'JSON 확장 기능을 찾을 수 없습니다 (php-json 패키지).',
 			'ok' => 'JSON  확장 기능이 설치되어 있습니다.',
+		),
+		'mbstring' => array(
+			'nok' => 'Cannot find the recommended library mbstring for Unicode.',	//TODO
+			'ok' => 'You have the recommended library mbstring for Unicode.',	//TODO
 		),
 		'minz' => array(
 			'nok' => 'Minz 프레임워크를 찾을 수 없습니다.',
@@ -175,15 +179,15 @@ return array(
 	'user' => array(
 		'articles_and_size' => '%s 개의 글 (%s)',
 		'create' => '새 사용자 생성',
-		'delete_users' => 'Delete user', // TODO
+		'delete_users' => '사용자 삭제',
 		'language' => '언어',
 		'number' => '%d 개의 계정이 생성되었습니다',
 		'numbers' => '%d 개의 계정이 생성되었습니다',
 		'password_form' => '암호<br /><small>(웹폼 로그인 방식 사용시)</small>',
 		'password_format' => '7 글자 이상이어야 합니다',
-		'selected' => 'Selected user', // TODO
+		'selected' => '선택된 사용자',
 		'title' => '사용자 관리',
-		'update_users' => 'Update user', // TODO
+		'update_users' => '사용자 정보 변경',
 		'user_list' => '사용자 목록',
 		'username' => '사용자 이름',
 		'users' => '전체 사용자',

@@ -40,6 +40,7 @@ return array(
 		'mark_all_read' => '모두 읽음으로 표시',
 		'mark_cat_read' => '카테고리를 읽음으로 표시',
 		'mark_feed_read' => '피드를 읽음으로 표시',
+		'mark_selection_unread' => 'Mark selection as unread',	//TODO
 		'newer_first' => '최근 글 먼저',
 		'non-starred' => '즐겨찾기를 제외하고 표시',
 		'normal_view' => '일반 모드',

@@ -113,6 +113,9 @@ form th {
 }
 
 /*=== Buttons */
+button.as-link[disabled] {
+	color:#445 !important;
+}
 .stick {
 	vertical-align: middle;
 	font-size: 0;
@@ -158,6 +161,7 @@ form th {
 	display: inline-block;
 	min-height: 37px;
 	min-width: 15px;
+	line-height: 25px;
 	margin: 0;
 	padding: 5px 10px;
 	font-size: 0.9rem;

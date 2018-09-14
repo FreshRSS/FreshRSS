@@ -65,8 +65,12 @@ return array(
 			'ok' => 'HTTP REFERER가 서버와 일치하는 것을 확인했습니다.',
 		),
 		'json' => array(
-			'nok' => 'JSON 확장 기능을 찾을 수 없습니다 (php5-json 패키지).',
+			'nok' => 'JSON 확장 기능을 찾을 수 없습니다 (php-json 패키지).',
 			'ok' => 'JSON  확장 기능이 설치되어 있습니다.',
+		),
+		'mbstring' => array(
+			'nok' => 'Cannot find the recommended library mbstring for Unicode.',	//TODO
+			'ok' => 'You have the recommended library mbstring for Unicode.',	//TODO
 		),
 		'minz' => array(
 			'nok' => 'Minz 프레임워크를 찾을 수 없습니다.',

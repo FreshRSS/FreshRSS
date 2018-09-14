@@ -66,7 +66,7 @@ class FreshRSS extends Minz_FrontController {
 				403,
 				array('error' => array(
 					_t('feedback.access.denied'),
-					' [HTTP_REFERER=' . htmlspecialchars($http_referer) . ']'
+					' [HTTP_REFERER=' . htmlspecialchars($http_referer, ENT_NOQUOTES, 'UTF-8') . ']'
 				))
 			);
 		}

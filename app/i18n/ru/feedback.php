@@ -52,6 +52,10 @@ return array(
 	),
 	'sub' => array(
 		'actualize' => 'Actualise',	//TODO
+		'articles' => array(
+			'marked_read' => 'The selected articles have been marked as read.',	//TODO
+			'marked_unread' => 'The articles have been marked as unread.',	//TODO
+		),
 		'category' => array(
 			'created' => 'Category %s has been created.',	//TODO
 			'deleted' => 'Category has been deleted.',	//TODO
@@ -74,7 +78,6 @@ return array(
 			'error' => 'Feed cannot be updated',	//TODO
 			'internal_problem' => 'The newsfeed could not be added. <a href="%s">Check FreshRSS logs</a> for details. You can try force adding by appending <code>#force_feed</code> to the URL.',	//TODO
 			'invalid_url' => 'URL <em>%s</em> is invalid',	//TODO
-			'marked_read' => 'Feeds have been marked as read',	//TODO
 			'n_actualized' => '%d feeds have been updated',	//TODO
 			'n_entries_deleted' => '%d articles have been deleted',	//TODO
 			'no_refresh' => 'There is no feed to refresh…',	//TODO

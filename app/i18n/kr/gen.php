@@ -19,7 +19,7 @@ return array(
 		'see_website' => '웹사이트 열기',
 		'submit' => '설정 저장',
 		'truncate' => '모든 글 삭제',
-		'update' => 'Update', // TODO
+		'update' => '변경',
 	),
 	'auth' => array(
 		'email' => '메일 주소',
@@ -168,6 +168,7 @@ return array(
 		'g+' => 'Google+',
 		'gnusocial' => 'GNU social',
 		'jdh' => 'Journal du hacker',
+		'linkedin' => 'LinkedIn',
 		'mastodon' => 'Mastodon',
 		'movim' => 'Movim',
 		'pocket' => 'Pocket',
