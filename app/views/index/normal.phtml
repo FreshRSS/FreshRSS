@@ -76,7 +76,7 @@ if (!empty($this->entries)) {
 							$first = false;
 				?>
 <em><a href="<?php echo _url('index', 'index', 'search', 'author:' . str_replace(' ', '+', htmlspecialchars_decode($author, ENT_QUOTES))); ?>"><?php echo $author; ?></a></em>
-				<?php endforeach; ?>
+				<?php	endforeach; ?>
 				</div><?php
 					endif;
 					echo $lazyload && $hidePosts ? lazyimg($this->entry->content()) : $this->entry->content();
