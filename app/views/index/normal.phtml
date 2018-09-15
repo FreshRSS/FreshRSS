@@ -75,7 +75,7 @@ if (!empty($this->entries)) {
 							echo $first ? _t('gen.short.by_author') . ' ' : '· ';
 							$first = false;
 				?>
-<a href="<?php echo _url('index', 'index', 'search', 'author:' . str_replace(' ', '+', htmlspecialchars_decode($author, ENT_QUOTES))); ?>"><?php echo $author; ?></a>
+<em><a href="<?php echo _url('index', 'index', 'search', 'author:' . str_replace(' ', '+', htmlspecialchars_decode($author, ENT_QUOTES))); ?>"><?php echo $author; ?></a></em>
 				<?php endforeach; ?>
 				</div><?php
 					endif;
