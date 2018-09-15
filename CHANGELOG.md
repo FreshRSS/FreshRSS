@@ -2,6 +2,12 @@
 
 ## 2018-XX-XX FreshRSS 1.11.3
 
+* Features
+	* Handle tags containing spaces, as well as comma-separated tags [#2023](https://github.com/FreshRSS/FreshRSS/pull/2023)
+* UI
+	* Fix CSS for button alignments in older Chrome versions [#2020](https://github.com/FreshRSS/FreshRSS/pull/2020)
+	* Updated to jQuery 3.3.1 [#2021](https://github.com/FreshRSS/FreshRSS/pull/2021)
+	* Updated to bcrypt.js 2.4.4 [#2022](https://github.com/FreshRSS/FreshRSS/pull/2022)
 
 
 ## 2018-09-09 FreshRSS 1.11.2
