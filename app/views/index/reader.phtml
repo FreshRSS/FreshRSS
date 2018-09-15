@@ -39,15 +39,17 @@ if (!empty($this->entries)) {
 				<h1 class="title"><a target="_blank" rel="noreferrer" class="go_website" href="<?php echo $item->link(); ?>"><?php echo $item->title(); ?></a></h1>
 
 				<div class="author"><?php
-					$authors = $this->entry->authors();
+					$authors = $item->authors();
 					if (is_array($authors)):
-						echo _t('gen.short.by_author', $author);
+						$first = true;
 						foreach ($authors as $author):
+							echo $first ? _t('gen.short.by_author') . ' ' : '· ';
+							$first = false;
 				?>
-<a href="<?php echo _url('index', 'index', 'search', 'author:' . str_replace(' ', '+', htmlspecialchars_decode($author, ENT_QUOTES))); ?>"><?php echo $author; ?>
+<a href="<?php echo _url('index', 'index', 'search', 'author:' . str_replace(' ', '+', htmlspecialchars_decode($author, ENT_QUOTES))); ?>"><?php echo $author; ?></a>
 				<?php
 						endforeach;
-						echo ' — ',
+						echo ' — ';
 					endif;
 					echo $item->date();
 				?></div>

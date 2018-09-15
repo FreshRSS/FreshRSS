@@ -70,10 +70,12 @@ if (!empty($this->entries)) {
 				<div class="author"><?php
 					$authors = $this->entry->authors();
 					if (is_array($authors)):
-						echo _t('gen.short.by_author');
+						$first = true;
 						foreach ($authors as $author):
+							echo $first ? _t('gen.short.by_author') . ' ' : '· ';
+							$first = false;
 				?>
-<a href="<?php echo _url('index', 'index', 'search', 'authors:' . str_replace(' ', '+', htmlspecialchars_decode($author, ENT_QUOTES))); ?>"><?php echo $author; ?>
+<a href="<?php echo _url('index', 'index', 'search', 'author:' . str_replace(' ', '+', htmlspecialchars_decode($author, ENT_QUOTES))); ?>"><?php echo $author; ?></a>
 				<?php endforeach; ?>
 				</div><?php
 					endif;
