@@ -181,7 +181,7 @@ return array(
 	'short' => array(
 		'attention' => 'זהירות!',
 		'blank_to_disable' => 'יש להשאיר ריק על מנת לנטרל',
-		'by_author' => 'מאת <em>%s</em>',
+		'by_author' => 'מאת :',
 		'by_default' => 'ברירת מחדל',
 		'damn' => 'הו לא!',
 		'default_category' => 'ללא קטגוריה',

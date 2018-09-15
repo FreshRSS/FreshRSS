@@ -40,14 +40,15 @@ if (!empty($this->entries)) {
 
 				<div class="author"><?php
 					$authors = $this->entry->authors();
-					if (is_array($authors)) {
+					if (is_array($authors)):
+						echo _t('gen.short.by_author', $author);
 						foreach ($authors as $author):
 				?>
-<a href="<?php echo _url('index', 'index', 'search', '#' . str_replace(' ', '+', htmlspecialchars_decode($author, ENT_QUOTES))); ?>"><?php echo _t('gen.short.by_author', $author); ?>
+<a href="<?php echo _url('index', 'index', 'search', 'author:' . str_replace(' ', '+', htmlspecialchars_decode($author, ENT_QUOTES))); ?>"><?php echo $author; ?>
 				<?php
 						endforeach;
 						echo ' — ',
-					}
+					endif;
 					echo $item->date();
 				?></div>
 

@@ -5,7 +5,7 @@
 		                                         : _t('admin.extensions.disabled'); ?>
 	</h1>
 
-	<p class="alert alert-warn"><?php echo $this->extension->getDescription(); ?> — <?php echo _t('gen.short.by_author', $this->extension->getAuthor()); ?></p>
+	<p class="alert alert-warn"><?php echo $this->extension->getDescription(); ?> — <?php echo _t('gen.short.by_author'), ' ', $this->extension->getAuthor(); ?></p>
 
 	<h2><?php echo _t('gen.action.manage'); ?></h2>
 	<?php

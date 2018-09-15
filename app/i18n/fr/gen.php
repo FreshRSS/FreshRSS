@@ -181,7 +181,7 @@ return array(
 	'short' => array(
 		'attention' => 'Attention !',
 		'blank_to_disable' => 'Laissez vide pour désactiver',
-		'by_author' => 'Par <em>%s</em>',
+		'by_author' => 'Par :',
 		'by_default' => 'Par défaut',
 		'damn' => 'Arf !',
 		'default_category' => 'Sans catégorie',

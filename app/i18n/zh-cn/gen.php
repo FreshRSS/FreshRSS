@@ -181,7 +181,7 @@ return array(
 	'short' => array(
 		'attention' => '警告!',
 		'blank_to_disable' => '留空以禁用',
-		'by_author' => '作者 <em>%s</em>',
+		'by_author' => '作者',
 		'by_default' => '默认',
 		'damn' => '错误！',
 		'default_category' => '未分类',

@@ -181,7 +181,7 @@ return array(
 	'short' => array(
 		'attention' => 'Tehlike!',
 		'blank_to_disable' => 'Devredışı bırakmak için boş bırakın',
-		'by_author' => '<em>%s</em> tarafından',
+		'by_author' => 'Tarafından:',
 		'by_default' => 'Öntanımlı',
 		'damn' => 'Hay aksi!',
 		'default_category' => 'Kategorisiz',
