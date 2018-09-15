@@ -18,6 +18,7 @@ Server-side API compatible with Google Reader API layer 2
 * https://github.com/ericmann/gReader-Library/blob/master/greader.class.php
 * https://github.com/devongovett/reader
 * https://github.com/theoldreader/api
+* https://www.inoreader.com/developers/
 */
 
 require(__DIR__ . '/../../constants.php');
@@ -471,6 +472,7 @@ function entriesToArray($entries) {
 			'categories' => array(
 				'user/-/state/com.google/reading-list',
 				'user/-/label/' . $c_name,
+				//TODO: Add other tags
 			),
 			'origin' => array(
 				'streamId' => 'feed/' . $f_id,
@@ -478,8 +480,9 @@ function entriesToArray($entries) {
 				//'htmlUrl' => $line['f_website'],
 			),
 		);
-		if ($entry->author() != '') {
-			$item['author'] = $entry->author();
+		$author = $entry->authors(true);
+		if ($author != '') {
+			$item['author'] = $author;
 		}
 		if ($entry->isRead()) {
 			$item['categories'][] = 'user/-/state/com.google/read';

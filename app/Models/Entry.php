@@ -10,7 +10,7 @@ class FreshRSS_Entry extends Minz_Model {
 	private $id = 0;
 	private $guid;
 	private $title;
-	private $author;
+	private $authors;
 	private $content;
 	private $link;
 	private $date;
@@ -21,17 +21,16 @@ class FreshRSS_Entry extends Minz_Model {
 	private $feed;
 	private $tags;
 
-	public function __construct($feedId = '', $guid = '', $title = '', $author = '', $content = '',
+	public function __construct($feedId = '', $guid = '', $title = '', $authors = '', $content = '',
 	                            $link = '', $pubdate = 0, $is_read = false, $is_favorite = false, $tags = '') {
 		$this->_title($title);
-		$this->_author($author);
+		$this->_authors($authors);
 		$this->_content($content);
 		$this->_link($link);
 		$this->_date($pubdate);
 		$this->_isRead($is_read);
 		$this->_isFavorite($is_favorite);
 		$this->_feedId($feedId);
-		$tags = mb_strcut($tags, 0, 1023, 'UTF-8');
 		$this->_tags($tags);
 		$this->_guid($guid);
 	}
@@ -45,8 +44,12 @@ class FreshRSS_Entry extends Minz_Model {
 	public function title() {
 		return $this->title;
 	}
-	public function author() {
-		return $this->author === null ? '' : $this->author;
+	public function authors($asString = false) {
+		if ($asString) {
+			return $this->authors == null ? '' : ';' . implode('; ', $this->authors);
+		} else {
+			return $this->authors;
+		}
 	}
 	public function content() {
 		return $this->content;
@@ -88,7 +91,7 @@ class FreshRSS_Entry extends Minz_Model {
 	}
 	public function tags($asString = false) {
 		if ($asString) {
-			return $this->tags == '' ? '' : '#' . implode(' #', $this->tags);
+			return $this->tags == null ? '' : '#' . implode(' #', $this->tags);
 		} else {
 			return $this->tags;
 		}
@@ -97,7 +100,7 @@ class FreshRSS_Entry extends Minz_Model {
 	public function hash() {
 		if ($this->hash === null) {
 			//Do not include $this->date because it may be automatically generated when lacking
-			$this->hash = md5($this->link . $this->title . $this->author . $this->content . $this->tags(true));
+			$this->hash = md5($this->link . $this->title . $this->authors(true) . $this->content . $this->tags(true));
 		}
 		return $this->hash;
 	}
@@ -124,11 +127,18 @@ class FreshRSS_Entry extends Minz_Model {
 	}
 	public function _title($value) {
 		$this->hash = null;
-		$this->title = mb_strcut($value, 0, 255, 'UTF-8');
+		$this->title = $value;
 	}
-	public function _author($value) {
+	public function _authors($value) {
 		$this->hash = null;
-		$this->author = mb_strcut($value, 0, 255, 'UTF-8');
+		if (!is_array($value)) {
+			if (strpos($value, ';') !== false) {
+				$value = preg_split('/\s*[;]\s*/', $value, -1, PREG_SPLIT_NO_EMPTY);
+			} else {
+				$value = preg_split('/\s*[,]\s*/', $value, -1, PREG_SPLIT_NO_EMPTY);
+			}
+		}
+		$this->authors = $value;
 	}
 	public function _content($value) {
 		$this->hash = null;
@@ -280,7 +290,7 @@ class FreshRSS_Entry extends Minz_Model {
 			'id' => $this->id(),
 			'guid' => $this->guid(),
 			'title' => $this->title(),
-			'author' => $this->author(),
+			'author' => $this->authors(true),
 			'content' => $this->content(),
 			'link' => $this->link(),
 			'date' => $this->date(true),

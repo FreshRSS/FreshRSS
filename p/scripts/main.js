@@ -788,7 +788,9 @@ function init_stream(divStream) {
 	});
 
 	divStream.on('click', '.flux .content a', function () {
-		$(this).attr('target', '_blank').attr('rel', 'noreferrer');
+		if (!$(this).closest('div').hasClass('author')) {
+			$(this).attr('target', '_blank').attr('rel', 'noreferrer');
+		}
 	});
 
 	if (context.auto_mark_site) {
