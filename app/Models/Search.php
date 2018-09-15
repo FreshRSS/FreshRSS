@@ -141,7 +141,7 @@ class FreshRSS_Search {
 			$this->intitle = $matches['search'];
 			$input = str_replace($matches[0], '', $input);
 		}
-		if (preg_match_all('/\bintitle:(?P<search>[\w+]*)/', $input, $matches)) {
+		if (preg_match_all('/\bintitle:(?P<search>[^\s"]*)/', $input, $matches)) {
 			$this->intitle = array_merge($this->intitle ? $this->intitle : array(), $matches['search']);
 			$input = str_replace($matches[0], '', $input);
 		}
@@ -155,7 +155,7 @@ class FreshRSS_Search {
 			$this->not_intitle = $matches['search'];
 			$input = str_replace($matches[0], '', $input);
 		}
-		if (preg_match_all('/[!-]intitle:(?P<search>[\w+]*)/', $input, $matches)) {
+		if (preg_match_all('/[!-]intitle:(?P<search>[^\s"]*)/', $input, $matches)) {
 			$this->not_intitle = array_merge($this->not_intitle ? $this->not_intitle : array(), $matches['search']);
 			$input = str_replace($matches[0], '', $input);
 		}
@@ -179,7 +179,7 @@ class FreshRSS_Search {
 			$this->author = $matches['search'];
 			$input = str_replace($matches[0], '', $input);
 		}
-		if (preg_match_all('/\bauthor:(?P<search>[\w+]*)/', $input, $matches)) {
+		if (preg_match_all('/\bauthor:(?P<search>[^\s"]*)/', $input, $matches)) {
 			$this->author = array_merge($this->author ? $this->author : array(), $matches['search']);
 			$input = str_replace($matches[0], '', $input);
 		}
@@ -193,7 +193,7 @@ class FreshRSS_Search {
 			$this->not_author = $matches['search'];
 			$input = str_replace($matches[0], '', $input);
 		}
-		if (preg_match_all('/[!-]author:(?P<search>[\w+]*)/', $input, $matches)) {
+		if (preg_match_all('/[!-]author:(?P<search>[^\s"]*)/', $input, $matches)) {
 			$this->not_author = array_merge($this->not_author ? $this->not_author : array(), $matches['search']);
 			$input = str_replace($matches[0], '', $input);
 		}
