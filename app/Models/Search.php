@@ -40,7 +40,7 @@ class FreshRSS_Search {
 		$input = $this->parseNotIntitleSearch($input);
 		$input = $this->parseNotAuthorSearch($input);
 		$input = $this->parseNotInurlSearch($input);
-		$input = $this->parseNotTagsSeach($input);
+		$input = $this->parseNotTagsSearch($input);
 
 		$input = $this->parsePubdateSearch($input);
 		$input = $this->parseDateSearch($input);
@@ -48,7 +48,7 @@ class FreshRSS_Search {
 		$input = $this->parseIntitleSearch($input);
 		$input = $this->parseAuthorSearch($input);
 		$input = $this->parseInurlSearch($input);
-		$input = $this->parseTagsSeach($input);
+		$input = $this->parseTagsSearch($input);
 
 		$input = $this->parseNotSearch($input);
 		$input = $this->parseSearch($input);
@@ -117,6 +117,17 @@ class FreshRSS_Search {
 		return is_array($anArray) ? array_filter($anArray, function($value) { return $value !== ''; }) : array();
 	}
 
+	private static function decodeSpaces($value) {
+		if (is_array($value)) {
+			for ($i = count($value) - 1; $i >= 0; $i--) {
+				$value[$i] = self::decodeSpaces($value[$i]);
+			}
+		} else {
+			$value = trim(str_replace('+', ' ', $value));
+		}
+		return $value;
+	}
+
 	/**
 	 * Parse the search string to find intitle keyword and the search related
 	 * to it.
@@ -135,6 +146,7 @@ class FreshRSS_Search {
 			$input = str_replace($matches[0], '', $input);
 		}
 		$this->intitle = self::removeEmptyValues($this->intitle);
+		$this->intitle = self::decodeSpaces($this->intitle);
 		return $input;
 	}
 
@@ -148,6 +160,7 @@ class FreshRSS_Search {
 			$input = str_replace($matches[0], '', $input);
 		}
 		$this->not_intitle = self::removeEmptyValues($this->not_intitle);
+		$this->not_intitle = self::decodeSpaces($this->not_intitle);
 		return $input;
 	}
 
@@ -171,6 +184,7 @@ class FreshRSS_Search {
 			$input = str_replace($matches[0], '', $input);
 		}
 		$this->author = self::removeEmptyValues($this->author);
+		$this->author = self::decodeSpaces($this->author);
 		return $input;
 	}
 
@@ -184,6 +198,7 @@ class FreshRSS_Search {
 			$input = str_replace($matches[0], '', $input);
 		}
 		$this->not_author = self::removeEmptyValues($this->not_author);
+		$this->not_author = self::decodeSpaces($this->not_author);
 		return $input;
 	}
 
@@ -201,6 +216,7 @@ class FreshRSS_Search {
 			$input = str_replace($matches[0], '', $input);
 		}
 		$this->inurl = self::removeEmptyValues($this->inurl);
+		$this->inurl = self::decodeSpaces($this->inurl);
 		return $input;
 	}
 
@@ -210,6 +226,7 @@ class FreshRSS_Search {
 			$input = str_replace($matches[0], '', $input);
 		}
 		$this->not_inurl = self::removeEmptyValues($this->not_inurl);
+		$this->not_inurl = self::decodeSpaces($this->not_inurl);
 		return $input;
 	}
 
@@ -259,21 +276,23 @@ class FreshRSS_Search {
 	 * @param string $input
 	 * @return string
 	 */
-	private function parseTagsSeach($input) {
+	private function parseTagsSearch($input) {
 		if (preg_match_all('/#(?P<search>[^\s]+)/', $input, $matches)) {
 			$this->tags = $matches['search'];
 			$input = str_replace($matches[0], '', $input);
 		}
 		$this->tags = self::removeEmptyValues($this->tags);
+		$this->tags = self::decodeSpaces($this->tags);
 		return $input;
 	}
 
-	private function parseNotTagsSeach($input) {
+	private function parseNotTagsSearch($input) {
 		if (preg_match_all('/[!-]#(?P<search>[^\s]+)/', $input, $matches)) {
 			$this->not_tags = $matches['search'];
 			$input = str_replace($matches[0], '', $input);
 		}
 		$this->not_tags = self::removeEmptyValues($this->not_tags);
+		$this->not_tags = self::decodeSpaces($this->not_tags);
 		return $input;
 	}
 
@@ -303,6 +322,7 @@ class FreshRSS_Search {
 		} else {
 			$this->search = explode(' ', $input);
 		}
+		$this->search = self::decodeSpaces($this->search);
 	}
 
 	private function parseNotSearch($input) {
@@ -322,6 +342,7 @@ class FreshRSS_Search {
 			$input = str_replace($matches[0], '', $input);
 		}
 		$this->not_search = self::removeEmptyValues($this->not_search);
+		$this->not_search = self::decodeSpaces($this->not_search);
 		return $input;
 	}
 
