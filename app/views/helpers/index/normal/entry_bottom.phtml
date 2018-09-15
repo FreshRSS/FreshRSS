@@ -80,8 +80,8 @@
 			?></a>
 			<ul class="dropdown-menu">
 				<li class="dropdown-close"><a href="#close">❌</a></li><?php
-				foreach($tags as $tag) {
-					?><li class="item"><a href="<?php echo _url('index', 'index', 'search', '#' . htmlspecialchars_decode($tag, ENT_QUOTES)); ?>"><?php echo $tag; ?></a></li><?php
+				foreach ($tags as $tag) {
+					?><li class="item"><a href="<?php echo _url('index', 'index', 'search', '#' . str_replace(' ', '+', htmlspecialchars_decode($tag, ENT_QUOTES))); ?>"><?php echo $tag; ?></a></li><?php
 				} ?>
 			</ul>
 		</div>

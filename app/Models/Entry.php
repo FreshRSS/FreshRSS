@@ -32,7 +32,7 @@ class FreshRSS_Entry extends Minz_Model {
 		$this->_isFavorite($is_favorite);
 		$this->_feedId($feedId);
 		$tags = mb_strcut($tags, 0, 1023, 'UTF-8');
-		$this->_tags(preg_split('/[\s#]/', $tags));
+		$this->_tags($tags);
 		$this->_guid($guid);
 	}
 
@@ -86,9 +86,9 @@ class FreshRSS_Entry extends Minz_Model {
 			return $this->feedId;
 		}
 	}
-	public function tags($inString = false) {
-		if ($inString) {
-			return empty($this->tags) ? '' : '#' . implode(' #', $this->tags);
+	public function tags($asString = false) {
+		if ($asString) {
+			return $this->tags == '' ? '' : '#' . implode(' #', $this->tags);
 		} else {
 			return $this->tags;
 		}
@@ -162,15 +162,8 @@ class FreshRSS_Entry extends Minz_Model {
 	public function _tags($value) {
 		$this->hash = null;
 		if (!is_array($value)) {
-			$value = array($value);
+			$value = preg_split('/\s*[#,]\s*/', $value, -1, PREG_SPLIT_NO_EMPTY);
 		}
-
-		foreach ($value as $key => $t) {
-			if (!$t) {
-				unset($value[$key]);
-			}
-		}
-
 		$this->tags = $value;
 	}
 
