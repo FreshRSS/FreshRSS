@@ -81,44 +81,29 @@ $SQL_CREATE_TABLE_ENTRYTMP = array(
 'CREATE INDEX IF NOT EXISTS `entry_feed_read_index` ON `entry`(`id_feed`,`is_read`);',	//v1.7
 );
 
+global $SQL_CREATE_TABLE_TAGS;
+$SQL_CREATE_TABLE_TAGS = array(
+'CREATE TABLE IF NOT EXISTS `tag` (	-- v1.12
+	`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+	`name` VARCHAR(63) NOT NULL,
+	UNIQUE (`name`)
+);',
+'CREATE TABLE IF NOT EXISTS `entrytag` (
+	`id_tag` SMALLINT,
+	`id_entry` SMALLINT,
+	PRIMARY KEY (`id_tag`,`id_entry`),
+	FOREIGN KEY (`id_tag`) REFERENCES `tag` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+	FOREIGN KEY (`id_entry`) REFERENCES `entry` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+);',
+'CREATE INDEX entrytag_id_entry_index ON `entrytag` (`id_entry`);',
+);
+
 global $SQL_INSERT_FEEDS;
 $SQL_INSERT_FEEDS = array(
-'INSERT OR IGNORE INTO `feed`
-	(
-		url,
-		category,
-		name,
-		website,
-		description,
-		ttl
-	)
-	VALUES
-	(
-		"http://freshrss.org/feeds/all.atom.xml",
-		1,
-		"FreshRSS.org",
-		"http://freshrss.org/",
-		"FreshRSS, a free, self-hostable aggregator…",
-		86400
-	);',
-'INSERT OR IGNORE INTO `feed`
-	(
-		url,
-		category,
-		name,
-		website,
-		description,
-		ttl
-	)
-	VALUES
-	(
-		"https://github.com/FreshRSS/FreshRSS/releases.atom",
-		1,
-		"FreshRSS releases",
-		"https://github.com/FreshRSS/FreshRSS/",
-		"FreshRSS releases @ GitHub",
-		86400
-	);',
+'INSERT OR IGNORE INTO `feed` (url, category, name, website, description, ttl)
+	VALUES ("https://freshrss.org/feeds/all.atom.xml", 1, "FreshRSS.org", "https://freshrss.org/", "FreshRSS, a free, self-hostable aggregator…", 86400);',
+'INSERT OR IGNORE INTO `feed` (url, category, name, website, description, ttl)
+	VALUES ("https://github.com/FreshRSS/FreshRSS/releases.atom", 1, "FreshRSS releases", "https://github.com/FreshRSS/FreshRSS/", "FreshRSS releases @ GitHub", 86400);',
 );
 
 define('SQL_DROP_TABLES', 'DROP TABLE IF EXISTS `entrytmp`, `entry`, `feed`, `category`');

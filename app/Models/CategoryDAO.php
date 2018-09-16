@@ -40,7 +40,7 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo implements FreshRSS_Searchable 
 
 		$values = array(
 			$valuesTmp['name'],
-			$id
+			$id,
 		);
 
 		if ($stm && $stm->execute($values)) {

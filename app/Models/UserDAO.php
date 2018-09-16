@@ -14,14 +14,13 @@ class FreshRSS_UserDAO extends Minz_ModelPdo {
 			$ok = false;
 			$bd_prefix_user = $db['prefix'] . $username . '_';
 			if (defined('SQL_CREATE_TABLES')) {	//E.g. MySQL
-				$sql = sprintf(SQL_CREATE_TABLES . SQL_CREATE_TABLE_ENTRYTMP, $bd_prefix_user, _t('gen.short.default_category'));
+				$sql = sprintf(SQL_CREATE_TABLES . SQL_CREATE_TABLE_ENTRYTMP . SQL_CREATE_TABLE_TAGS, $bd_prefix_user, _t('gen.short.default_category'));
 				$stm = $userPDO->bd->prepare($sql);
 				$ok = $stm && $stm->execute();
 			} else {	//E.g. SQLite
-				global $SQL_CREATE_TABLES;
-				global $SQL_CREATE_TABLE_ENTRYTMP;
+				global $SQL_CREATE_TABLES, $SQL_CREATE_TABLE_ENTRYTMP, $SQL_CREATE_TABLE_TAGS;
 				if (is_array($SQL_CREATE_TABLES)) {
-					$instructions = array_merge($SQL_CREATE_TABLES, $SQL_CREATE_TABLE_ENTRYTMP);
+					$instructions = array_merge($SQL_CREATE_TABLES, $SQL_CREATE_TABLE_ENTRYTMP, $SQL_CREATE_TABLE_TAGS);
 					$ok = !empty($instructions);
 					foreach ($instructions as $instruction) {
 						$sql = sprintf($instruction, $bd_prefix_user, _t('gen.short.default_category'));

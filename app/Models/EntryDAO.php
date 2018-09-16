@@ -65,7 +65,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 		if ($db['type'] === 'mysql') {
 			include_once(APP_PATH . '/SQL/install.sql.mysql.php');
 			if (defined('SQL_UPDATE_UTF8MB4')) {
-				Minz_Log::warning('Updating MySQL to UTF8MB4...');
+				Minz_Log::warning('Updating MySQL to UTF8MB4...');	//v1.5.0
 				$hadTransaction = $this->bd->inTransaction();
 				if ($hadTransaction) {
 					$this->bd->commit();
@@ -129,13 +129,18 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 						return $this->addColumn($column);
 					}
 				}
-			} elseif ($errorInfo[0] === '42S02' && stripos($errorInfo[2], 'entrytmp') !== false) {	//ER_BAD_TABLE_ERROR
-				return $this->createEntryTempTable();	//v1.7
+			} elseif ($errorInfo[0] === '42S02') {	//ER_BAD_TABLE_ERROR
+				if (stripos($errorInfo[2], 'tag') !== false) {
+					$tagDAO = FreshRSS_Factory::createTagDao();
+					return $tagDAO->createTagTable();	//v1.12.0
+				} elseif (stripos($errorInfo[2], 'entrytmp') !== false) {
+					return $this->createEntryTempTable();	//v1.7.0
+				}
 			}
 		}
 		if (isset($errorInfo[1])) {
 			if ($errorInfo[1] == '1366') {	//ER_TRUNCATED_WRONG_VALUE_FOR_FIELD
-				return $this->updateToUtf8mb4();
+				return $this->updateToUtf8mb4();	//v1.5.0
 			}
 		}
 		return false;
@@ -786,6 +791,10 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 			$where .= 'e.id_feed=? ';
 			$values[] = intval($id);
 			break;
+		case 't':
+			$where .= 'et.id_tag=? ';
+			$values[] = intval($id);
+			break;
 		case 'A':
 			$where .= 'f.priority >= ' . FreshRSS_Feed::PRIORITY_NORMAL . ' ';
 			break;
@@ -798,6 +807,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 		return array(array_merge($values, $searchValues),
 			'SELECT e.id FROM `' . $this->prefix . 'entry` e '
 			. 'INNER JOIN `' . $this->prefix . 'feed` f ON e.id_feed = f.id '
+			. ($type === 't' ? 'INNER JOIN `' . $this->prefix . 'entrytag` et ON et.id_entry = e.id ' : '')
 			. 'WHERE ' . $where
 			. $search
 			. 'ORDER BY e.id ' . $order

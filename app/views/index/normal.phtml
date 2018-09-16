@@ -20,7 +20,7 @@ if (!empty($this->entries)) {
 	</div><?php
 	foreach ($this->entries as $item) {
 		$this->entry = Minz_ExtensionManager::callHook('entry_before_display', $item);
-		if (is_null($this->entry)) {
+		if ($this->entry == null) {
 			continue;
 		}
 

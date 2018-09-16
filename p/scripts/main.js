@@ -529,7 +529,18 @@ function init_column_categories() {
 		$(this).parent().next(".tree-folder-items").slideToggle(300 , function() { $(document.body).trigger("sticky_kit:recalc"); });
 		return false;
 	});
-	$('#aside_feed').on('click', '.tree-folder-items .item .dropdown-toggle', function () {
+	$('#aside_feed').on('click', '.tree-folder-items .tag .dropdown-toggle', function () {
+		if ($(this).nextAll('.dropdown-menu').length === 0) {
+			var tag_id = $(this).closest('.item').attr('id').substr(2),
+				template = $('#tag_config_template').html().replace(/------/g, tag_id);
+			$(this).attr('href', '#dropdown-' + tag_id).prev('.dropdown-target').attr('id', 'dropdown-' + tag_id).parent().append(template);
+			$('.tree-folder-items .dropdown-close a').click(function (){
+				$('.tree').removeClass('treepadding');
+				$(document.body).trigger("sticky_kit:recalc");
+			});
+		}
+	});
+	$('#aside_feed').on('click', '.tree-folder-items .feed .dropdown-toggle', function () {
 		if ($(this).nextAll('.dropdown-menu').length === 0) {
 			var feed_id = $(this).closest('.item').attr('id').substr(2),
 				feed_web = $(this).data('fweb'),

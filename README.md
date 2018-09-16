@@ -4,7 +4,7 @@
 * [Version française](README.fr.md)
 
 # FreshRSS
-FreshRSS is a self-hosted RSS feed aggregator such as [Leed](http://projet.idleman.fr/leed/) or [Kriss Feed](https://tontof.net/kriss/feed/).
+FreshRSS is a self-hosted RSS feed aggregator such as [Leed](http://leed.idleman.fr/) or [Kriss Feed](https://tontof.net/kriss/feed/).
 
 It is at the same time lightweight, easy to work with, powerful and customizable.
 

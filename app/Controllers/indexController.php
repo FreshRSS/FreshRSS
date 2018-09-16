@@ -32,8 +32,11 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 			Minz_Error::error(404);
 		}
 
-		$this->view->callbackBeforeContent = function($view) {
+		$this->view->callbackBeforeContent = function ($view) {
 			try {
+				$tagDAO = FreshRSS_Factory::createTagDao();
+				$view->tags = $tagDAO->listTags(true);
+
 				FreshRSS_Context::$number++;	//+1 for pagination
 				$entries = FreshRSS_index_Controller::listEntriesByContext();
 				FreshRSS_Context::$number--;

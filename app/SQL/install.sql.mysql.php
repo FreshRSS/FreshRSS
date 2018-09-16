@@ -88,15 +88,35 @@ ENGINE = INNODB;
 CREATE INDEX `entry_feed_read_index` ON `%1$sentry`(`id_feed`,`is_read`);	-- v1.7 Located here to be auto-added
 ');
 
+define('SQL_CREATE_TABLE_TAGS', '
+CREATE TABLE IF NOT EXISTS `%1$stag` (	-- v1.12
+	`id` SMALLINT NOT NULL AUTO_INCREMENT,
+	`name` varchar(63) NOT NULL,
+	PRIMARY KEY (`id`),
+	UNIQUE KEY (`name`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci
+ENGINE = INNODB;
+
+CREATE TABLE IF NOT EXISTS `%1$sentrytag` (	-- v1.12
+	`id_tag` SMALLINT,
+	`id_entry` SMALLINT,
+	PRIMARY KEY (`id_tag`,`id_entry`),
+	FOREIGN KEY (`id_tag`) REFERENCES `%1$stag`(`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+	FOREIGN KEY (`id_entry`) REFERENCES `%1$sentry`(`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+	INDEX (`id_entry`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci
+ENGINE = INNODB;
+');
+
 define('SQL_INSERT_FEEDS', '
-INSERT IGNORE INTO `%1$sfeed` (url, category, name, website, description, ttl) VALUES("http://freshrss.org/feeds/all.atom.xml", 1, "FreshRSS.org", "http://freshrss.org/", "FreshRSS, a free, self-hostable aggregator…", 86400);
+INSERT IGNORE INTO `%1$sfeed` (url, category, name, website, description, ttl) VALUES("https://freshrss.org/feeds/all.atom.xml", 1, "FreshRSS.org", "https://freshrss.org/", "FreshRSS, a free, self-hostable aggregator…", 86400);
 INSERT IGNORE INTO `%1$sfeed` (url, category, name, website, description, ttl) VALUES("https://github.com/FreshRSS/FreshRSS/releases.atom", 1, "FreshRSS @ GitHub", "https://github.com/FreshRSS/FreshRSS/", "FreshRSS releases @ GitHub", 86400);
 ');
 
-define('SQL_DROP_TABLES', 'DROP TABLE IF EXISTS `%1$sentrytmp`, `%1$sentry`, `%1$sfeed`, `%1$scategory`');
+define('SQL_DROP_TABLES', 'DROP TABLE IF EXISTS `%1$sentrytag`, `%1$stag`, `%1$sentrytmp`, `%1$sentry`, `%1$sfeed`, `%1$scategory`');
 
 define('SQL_UPDATE_UTF8MB4', '
-ALTER DATABASE `%2$s` CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+ALTER DATABASE `%2$s` CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;	-- v1.5.0
 
 ALTER TABLE `%1$scategory` CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 UPDATE `%1$scategory` SET name=SUBSTRING(name,1,190) WHERE LENGTH(name) > 191;
