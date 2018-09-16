@@ -34,7 +34,7 @@
 			</div>
 		</li>
 
-		<li class="tree-folder category<?php echo FreshRSS_Context::isCurrentGet('T') ? ' active' : ''; ?>">
+		<li class="tree-folder category tags<?php echo FreshRSS_Context::isCurrentGet('T') ? ' active' : ''; ?>">
 			<div class="tree-folder-title">
 				<a class="dropdown-toggle" href="#"><?php echo _i('down'); ?></a>
 				<?php echo _t('index.menu.tags'); ?>
@@ -43,7 +43,7 @@
 				<?php
 					foreach ($this->tags as $tag):
 				?>
-				<li id="t_<?php echo $tag->id(); ?>" class="item tag<?php echo FreshRSS_Context::isCurrentGet('t_' . $tag->id()) ? ' active' : ''; ?>" data-unread="<?php echo $tag->nbUnread(); ?>">
+				<li id="t_<?php echo $tag->id(); ?>" class="item feed<?php echo FreshRSS_Context::isCurrentGet('t_' . $tag->id()) ? ' active' : ''; ?>" data-unread="<?php echo $tag->nbUnread(); ?>">
 					<div class="dropdown no-mobile">
 						<div class="dropdown-target"></div>
 						<a class="dropdown-toggle"><?php echo _i('configure'); ?></a>
