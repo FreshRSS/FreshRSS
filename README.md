@@ -187,9 +187,9 @@ Supported clients are:
 * iOS
 	* [Fiery Feeds](https://itunes.apple.com/app/fiery-feeds-rss-reader/id1158763303) (Closed source)
 	* [Unread](https://itunes.apple.com/app/unread-rss-reader/id1252376153) (Closed source)
+	* [Reeder-3](https://itunes.apple.com/app/reeder-3/id697846300) (Closed source)
 * MacOS
 	* [Readkit](https://itunes.apple.com/app/readkit/id588726889) (Closed source)
-	* [Reeder-3](https://itunes.apple.com/app/reeder-3/id697846300) (Closed source)
 
 
 # Included libraries
