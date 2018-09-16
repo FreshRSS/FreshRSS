@@ -420,7 +420,7 @@ class FreshRSS_Feed extends Minz_Model {
 			$author_names = '';
 			if (is_array($authors)) {
 				foreach ($authors as $author) {
-					$author_names .= html_only_entity_decode(strip_tags($author->name == '' ? $author->email : $author->name)) . ', ';
+					$author_names .= html_only_entity_decode(strip_tags($author->name == '' ? $author->email : $author->name)) . '; ';
 				}
 			}
 			$author_names = substr($author_names, 0, -2);

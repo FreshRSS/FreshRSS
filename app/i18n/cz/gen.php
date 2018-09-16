@@ -181,7 +181,7 @@ return array(
 	'short' => array(
 		'attention' => 'Upozornění!',
 		'blank_to_disable' => 'Zakázat - ponechte prázdné',
-		'by_author' => 'Od <em>%s</em>',
+		'by_author' => 'Od:',
 		'by_default' => 'Výchozí',
 		'damn' => 'Sakra!',
 		'default_category' => 'Nezařazeno',

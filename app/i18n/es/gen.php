@@ -181,7 +181,7 @@ return array(
 	'short' => array(
 		'attention' => '¡Aviso!',
 		'blank_to_disable' => 'Deja en blanco para desactivar',
-		'by_author' => 'Por <em>%s</em>',
+		'by_author' => 'Por:',
 		'by_default' => 'Por defecto',
 		'damn' => '¡Córcholis!',
 		'default_category' => 'Sin categorizar',
