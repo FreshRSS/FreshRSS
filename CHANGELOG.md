@@ -4,7 +4,10 @@
 
 * Features
 	* Handle tags containing spaces, as well as comma-separated tags [#2023](https://github.com/FreshRSS/FreshRSS/pull/2023)
+	* Handle authors containing spaces, as well as comma or semi-colomn separated authors [#2025](https://github.com/FreshRSS/FreshRSS/pull/2025)
+	* Searches by tag, author, etc. accept Unicode characters [#2025](https://github.com/FreshRSS/FreshRSS/pull/2025)
 * UI
+	* Click on authors to initiate a search by author [#2025](https://github.com/FreshRSS/FreshRSS/pull/2025)
 	* Fix CSS for button alignments in older Chrome versions [#2020](https://github.com/FreshRSS/FreshRSS/pull/2020)
 	* Updated to jQuery 3.3.1 [#2021](https://github.com/FreshRSS/FreshRSS/pull/2021)
 	* Updated to bcrypt.js 2.4.4 [#2022](https://github.com/FreshRSS/FreshRSS/pull/2022)
