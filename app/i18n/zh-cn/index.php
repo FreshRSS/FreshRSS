@@ -58,6 +58,6 @@ return array(
 	),
 	'share' => '分享',
 	'tag' => array(
-		'related' => '相关标签',
+		'related' => '相关标签',	//TODO
 	),
 );

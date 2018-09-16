@@ -58,6 +58,6 @@ return array(
 	),
 	'share' => 'Teilen',
 	'tag' => array(
-		'related' => 'Verwandte Tags',
+		'related' => 'Verwandte Tags',	//TODO
 	),
 );

@@ -57,6 +57,6 @@ return array(
 	),
 	'share' => 'Compartilhar',
 	'tag' => array(
-		'related' => 'Tags relacionadas',
+		'related' => 'Tags relacionadas',	//TODO
 	),
 );

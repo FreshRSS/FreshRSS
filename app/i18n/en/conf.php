@@ -19,7 +19,7 @@ return array(
 			'bottom_line' => 'Bottom line',
 			'entry' => 'Article icons',
 			'publication_date' => 'Date of publication',
-			'related_tags' => 'Related tags',
+			'related_tags' => 'Article tags',
 			'sharing' => 'Sharing',
 			'top_line' => 'Top line',
 		),

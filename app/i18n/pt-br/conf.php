@@ -19,7 +19,7 @@ return array(
 			'bottom_line' => 'Linha inferior',
 			'entry' => 'Ícones de artigos',
 			'publication_date' => 'Data da publicação',
-			'related_tags' => 'Tags relacionadas',
+			'related_tags' => 'Tags relacionadas',	//TODO
 			'sharing' => 'Compartilhar',
 			'top_line' => 'Linha superior',
 		),

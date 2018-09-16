@@ -58,6 +58,6 @@ return array(
 	),
 	'share' => '공유',
 	'tag' => array(
-		'related' => '관련 태그',
+		'related' => '관련 태그',	//TODO
 	),
 );

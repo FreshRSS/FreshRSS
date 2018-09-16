@@ -58,6 +58,6 @@ return array(
 	),
 	'share' => 'Sdílet',
 	'tag' => array(
-		'related' => 'Související tagy',
+		'related' => 'Související tagy',	//TODO
 	),
 );

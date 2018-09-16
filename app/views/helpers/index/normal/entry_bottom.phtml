@@ -7,6 +7,7 @@
 	$bottomline_read = FreshRSS_Context::$user_conf->bottomline_read;
 	$bottomline_favorite = FreshRSS_Context::$user_conf->bottomline_favorite;
 	$bottomline_sharing = FreshRSS_Context::$user_conf->bottomline_sharing && (count($sharing) > 0);
+	$bottomline_labels = true;	//TODO
 	$bottomline_tags = FreshRSS_Context::$user_conf->bottomline_tags;
 	$bottomline_date = FreshRSS_Context::$user_conf->bottomline_date;
 	$bottomline_link = FreshRSS_Context::$user_conf->bottomline_link;
@@ -69,6 +70,25 @@
 		</div>
 		<?php } ?>
 	</li><?php
+	$labels = $bottomline_labels ? $this->tags : null;
+	if (!empty($labels)) {
+	?><li class="item">
+		<div class="dropdown">
+			<div id="dropdown-labels-<?php echo $this->entry->id();?>" class="dropdown-target"></div>
+			<?php echo _i('label'); ?>
+			<a class="dropdown-toggle" href="#dropdown-labels-<?php echo $this->entry->id();?>"><?php
+				echo _t('index.menu.tags');
+			?></a>
+			<ul class="dropdown-menu">
+				<li class="dropdown-close"><a href="#close">❌</a></li>
+				<!-- TODO -->
+				<li class="item"><label><input type="checkbox" name="t_1" checked="checked" /> Test</label></li>
+				<li class="item"><label><input type="checkbox" name="t_2" /> HMI</label></li>
+				<li class="item"><label><input type="checkbox" name="t_3" /> Robots</label></li>
+			</ul>
+		</div>
+	</li><?php
+	}
 	$tags = $bottomline_tags ? $this->entry->tags() : null;
 	if (!empty($tags)) {
 	?><li class="item">

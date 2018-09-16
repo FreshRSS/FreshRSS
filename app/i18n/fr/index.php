@@ -58,6 +58,6 @@ return array(
 	),
 	'share' => 'Partager',
 	'tag' => array(
-		'related' => 'Tags associés',
+		'related' => 'Tags de l’article',
 	),
 );

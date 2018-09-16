@@ -57,6 +57,6 @@ return array(
 	),
 	'share' => 'Delen',
 	'tag' => array(
-		'related' => 'Verwante labels',
+		'related' => 'Verwante labels',	//TODO
 	),
 );
