@@ -4,7 +4,7 @@ define('SQL_CREATE_DB', 'CREATE DATABASE IF NOT EXISTS %1$s DEFAULT CHARACTER SE
 define('SQL_CREATE_TABLES', '
 CREATE TABLE IF NOT EXISTS `%1$scategory` (
 	`id` SMALLINT NOT NULL AUTO_INCREMENT,	-- v0.7
-	`name` varchar(191) NOT NULL,
+	`name` VARCHAR(191) NOT NULL,
 	PRIMARY KEY (`id`),
 	UNIQUE KEY (`name`)	-- v0.7
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci
@@ -12,21 +12,21 @@ ENGINE = INNODB;
 
 CREATE TABLE IF NOT EXISTS `%1$sfeed` (
 	`id` SMALLINT NOT NULL AUTO_INCREMENT,	-- v0.7
-	`url` varchar(511) CHARACTER SET latin1 NOT NULL,
+	`url` VARCHAR(511) CHARACTER SET latin1 NOT NULL,
 	`category` SMALLINT DEFAULT 0,	-- v0.7
-	`name` varchar(191) NOT NULL,
-	`website` varchar(255) CHARACTER SET latin1,
-	`description` text,
-	`lastUpdate` int(11) DEFAULT 0,	-- Until year 2038
-	`priority` tinyint(2) NOT NULL DEFAULT 10,
-	`pathEntries` varchar(511) DEFAULT NULL,
-	`httpAuth` varchar(511) DEFAULT NULL,
-	`error` boolean DEFAULT 0,
+	`name` VARCHAR(191) NOT NULL,
+	`website` VARCHAR(255) CHARACTER SET latin1,
+	`description` TEXT,
+	`lastUpdate` INT(11) DEFAULT 0,	-- Until year 2038
+	`priority` TINYNT(2) NOT NULL DEFAULT 10,
+	`pathEntries` VARCHAR(511) DEFAULT NULL,
+	`httpAuth` VARCHAR(511) DEFAULT NULL,
+	`error` BOOLEAN DEFAULT 0,
 	`keep_history` MEDIUMINT NOT NULL DEFAULT -2,	-- v0.7
 	`ttl` INT NOT NULL DEFAULT 0,	-- v0.7.3
 	`attributes` TEXT,	-- v1.11.0
-	`cache_nbEntries` int DEFAULT 0,	-- v0.7
-	`cache_nbUnreads` int DEFAULT 0,	-- v0.7
+	`cache_nbEntries` INT DEFAULT 0,	-- v0.7
+	`cache_nbUnreads` INT DEFAULT 0,	-- v0.7
 	PRIMARY KEY (`id`),
 	FOREIGN KEY (`category`) REFERENCES `%1$scategory`(`id`) ON DELETE SET NULL ON UPDATE CASCADE,
 	UNIQUE KEY (`url`),	-- v0.7
@@ -37,19 +37,19 @@ CREATE TABLE IF NOT EXISTS `%1$sfeed` (
 ENGINE = INNODB;
 
 CREATE TABLE IF NOT EXISTS `%1$sentry` (
-	`id` bigint NOT NULL,	-- v0.7
-	`guid` varchar(760) CHARACTER SET latin1 NOT NULL,	-- Maximum for UNIQUE is 767B
-	`title` varchar(255) NOT NULL,
-	`author` varchar(255),
-	`content_bin` blob,	-- v0.7
-	`link` varchar(1023) CHARACTER SET latin1 NOT NULL,
-	`date` int(11),	-- Until year 2038
+	`id` BIGINT NOT NULL,	-- v0.7
+	`guid` VARCHAR(760) CHARACTER SET latin1 NOT NULL,	-- Maximum for UNIQUE is 767B
+	`title` VARCHAR(255) NOT NULL,
+	`author` VARCHAR(255),
+	`content_bin` BLOB,	-- v0.7
+	`link` VARCHAR(1023) CHARACTER SET latin1 NOT NULL,
+	`date` INT(11),	-- Until year 2038
 	`lastSeen` INT(11) DEFAULT 0,	-- v1.1.1, Until year 2038
 	`hash` BINARY(16),	-- v1.1.1
-	`is_read` boolean NOT NULL DEFAULT 0,
-	`is_favorite` boolean NOT NULL DEFAULT 0,
+	`is_read` BOOLEAN NOT NULL DEFAULT 0,
+	`is_favorite` BOOLEAN NOT NULL DEFAULT 0,
 	`id_feed` SMALLINT,	-- v0.7
-	`tags` varchar(1023),
+	`tags` VARCHAR(1023),
 	PRIMARY KEY (`id`),
 	FOREIGN KEY (`id_feed`) REFERENCES `%1$sfeed`(`id`) ON DELETE CASCADE ON UPDATE CASCADE,
 	UNIQUE KEY (`id_feed`,`guid`),	-- v0.7
@@ -65,19 +65,19 @@ INSERT IGNORE INTO `%1$scategory` (id, name) VALUES(1, "%2$s");
 
 define('SQL_CREATE_TABLE_ENTRYTMP', '
 CREATE TABLE IF NOT EXISTS `%1$sentrytmp` (	-- v1.7
-	`id` bigint NOT NULL,
-	`guid` varchar(760) CHARACTER SET latin1 NOT NULL,
-	`title` varchar(255) NOT NULL,
-	`author` varchar(255),
-	`content_bin` blob,
-	`link` varchar(1023) CHARACTER SET latin1 NOT NULL,
-	`date` int(11),
+	`id` BIGINT NOT NULL,
+	`guid` VARCHAR(760) CHARACTER SET latin1 NOT NULL,
+	`title` VARCHAR(255) NOT NULL,
+	`author` VARCHAR(255),
+	`content_bin` BLOB,
+	`link` VARCHAR(1023) CHARACTER SET latin1 NOT NULL,
+	`date` INT(11),
 	`lastSeen` INT(11) DEFAULT 0,
 	`hash` BINARY(16),
-	`is_read` boolean NOT NULL DEFAULT 0,
-	`is_favorite` boolean NOT NULL DEFAULT 0,
+	`is_read` BOOLEAN NOT NULL DEFAULT 0,
+	`is_favorite` BOOLEAN NOT NULL DEFAULT 0,
 	`id_feed` SMALLINT,
-	`tags` varchar(1023),
+	`tags` VARCHAR(1023),
 	PRIMARY KEY (`id`),
 	FOREIGN KEY (`id_feed`) REFERENCES `%1$sfeed`(`id`) ON DELETE CASCADE ON UPDATE CASCADE,
 	UNIQUE KEY (`id_feed`,`guid`),
@@ -91,7 +91,7 @@ CREATE INDEX `entry_feed_read_index` ON `%1$sentry`(`id_feed`,`is_read`);	-- v1.
 define('SQL_CREATE_TABLE_TAGS', '
 CREATE TABLE IF NOT EXISTS `%1$stag` (	-- v1.12
 	`id` SMALLINT NOT NULL AUTO_INCREMENT,
-	`name` varchar(63) NOT NULL,
+	`name` VARCHAR(63) NOT NULL,
 	PRIMARY KEY (`id`),
 	UNIQUE KEY (`name`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci
@@ -99,7 +99,7 @@ ENGINE = INNODB;
 
 CREATE TABLE IF NOT EXISTS `%1$sentrytag` (	-- v1.12
 	`id_tag` SMALLINT,
-	`id_entry` SMALLINT,
+	`id_entry` BIGINT,
 	PRIMARY KEY (`id_tag`,`id_entry`),
 	FOREIGN KEY (`id_tag`) REFERENCES `%1$stag`(`id`) ON DELETE CASCADE ON UPDATE CASCADE,
 	FOREIGN KEY (`id_entry`) REFERENCES `%1$sentry`(`id`) ON DELETE CASCADE ON UPDATE CASCADE,
@@ -126,7 +126,7 @@ OPTIMIZE TABLE `%1$scategory`;
 ALTER TABLE `%1$sfeed` CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 UPDATE `%1$sfeed` SET name=SUBSTRING(name,1,190) WHERE LENGTH(name) > 191;
 ALTER TABLE `%1$sfeed` MODIFY `name` VARCHAR(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL;
-ALTER TABLE `%1$sfeed` MODIFY `description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+ALTER TABLE `%1$sfeed` MODIFY `description` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 OPTIMIZE TABLE `%1$sfeed`;
 
 ALTER TABLE `%1$sentry` CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;

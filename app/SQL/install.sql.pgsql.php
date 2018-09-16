@@ -10,16 +10,16 @@ $SQL_CREATE_TABLES = array(
 
 'CREATE TABLE IF NOT EXISTS "%1$sfeed" (
 	"id" SERIAL PRIMARY KEY,
-	"url" varchar(511) UNIQUE NOT NULL,
+	"url" VARCHAR(511) UNIQUE NOT NULL,
 	"category" SMALLINT DEFAULT 0,
 	"name" VARCHAR(255) NOT NULL,
 	"website" VARCHAR(255),
-	"description" text,
+	"description" TEXT,
 	"lastUpdate" INT DEFAULT 0,
 	"priority" SMALLINT NOT NULL DEFAULT 10,
 	"pathEntries" VARCHAR(511) DEFAULT NULL,
 	"httpAuth" VARCHAR(511) DEFAULT NULL,
-	"error" smallint DEFAULT 0,
+	"error" SMALLINT DEFAULT 0,
 	"keep_history" INT NOT NULL DEFAULT -2,
 	"ttl" INT NOT NULL DEFAULT 0,
 	"attributes" TEXT,	-- v1.11.0
@@ -90,7 +90,7 @@ $SQL_CREATE_TABLE_TAGS = array(
 );',
 'CREATE TABLE IF NOT EXISTS "%1$sentrytag" (
 	"id_tag" SMALLINT,
-	"id_entry" SMALLINT,
+	"id_entry" BIGINT,
 	PRIMARY KEY ("id_tag","id_entry"),
 	FOREIGN KEY ("id_tag") REFERENCES "%1$stag" ("id") ON DELETE CASCADE ON UPDATE CASCADE,
 	FOREIGN KEY ("id_entry") REFERENCES "%1$sentry" ("id") ON DELETE CASCADE ON UPDATE CASCADE
