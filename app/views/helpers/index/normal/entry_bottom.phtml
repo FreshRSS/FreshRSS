@@ -33,43 +33,7 @@
 					echo _i($this->entry->isFavorite() ? 'starred' : 'non-starred'); ?></a><?php
 			?></li><?php
 		}
-	} ?>
-	<li class="item"><?php
-			if ($bottomline_sharing) {
-		?><div class="dropdown">
-			<div id="dropdown-share-<?php echo $this->entry->id();?>" class="dropdown-target"></div>
-			<a class="dropdown-toggle" href="#dropdown-share-<?php echo $this->entry->id();?>">
-				<?php echo _i('share'); ?>
-				<?php echo _t('index.share'); ?>
-			</a>
-
-			<ul class="dropdown-menu">
-				<li class="dropdown-close"><a href="#close">❌</a></li><?php
-					$link = $this->entry->link();
-					$title = $this->entry->title() . ' · ' . $this->feed->name();
-					foreach (FreshRSS_Context::$user_conf->sharing as $share_options) {
-						$share = FreshRSS_Share::get($share_options['type']);
-						if ($share === null) {
-							continue;
-						}
-						$share_options['link'] = $link;
-						$share_options['title'] = $title;
-						$share->update($share_options);
-				?><li class="item share">
-					<?php if ('GET' === $share->method()) {?>
-						<a target="_blank" rel="noreferrer" href="<?php echo $share->url(); ?>"><?php echo $share->name(); ?></a>
-					<?php } else {?>
-						<a href="POST"><?php echo $share->name(); ?></a>
-						<form method="POST" data-url="<?php echo $share->url(); ?>">
-							<input type="hidden" value="<?php echo $link; ?>" name="<?php echo $share->field(); ?>"/>
-						</form>
-					<?php } ?>
-				</li><?php
-					}
-			?></ul>
-		</div>
-		<?php } ?>
-	</li><?php
+	}
 	$labels = $bottomline_labels ? $this->tags : null;
 	if (!empty($labels)) {
 	?><li class="item">
@@ -107,6 +71,42 @@
 		</div>
 	</li><?php
 	}
+	?><li class="item"><?php
+			if ($bottomline_sharing) {
+		?><div class="dropdown">
+			<div id="dropdown-share-<?php echo $this->entry->id();?>" class="dropdown-target"></div>
+			<a class="dropdown-toggle" href="#dropdown-share-<?php echo $this->entry->id();?>">
+				<?php echo _i('share'); ?>
+				<?php echo _t('index.share'); ?>
+			</a>
+
+			<ul class="dropdown-menu">
+				<li class="dropdown-close"><a href="#close">❌</a></li><?php
+					$link = $this->entry->link();
+					$title = $this->entry->title() . ' · ' . $this->feed->name();
+					foreach (FreshRSS_Context::$user_conf->sharing as $share_options) {
+						$share = FreshRSS_Share::get($share_options['type']);
+						if ($share === null) {
+							continue;
+						}
+						$share_options['link'] = $link;
+						$share_options['title'] = $title;
+						$share->update($share_options);
+				?><li class="item share">
+					<?php if ('GET' === $share->method()) {?>
+						<a target="_blank" rel="noreferrer" href="<?php echo $share->url(); ?>"><?php echo $share->name(); ?></a>
+					<?php } else {?>
+						<a href="POST"><?php echo $share->name(); ?></a>
+						<form method="POST" data-url="<?php echo $share->url(); ?>">
+							<input type="hidden" value="<?php echo $link; ?>" name="<?php echo $share->field(); ?>"/>
+						</form>
+					<?php } ?>
+				</li><?php
+					}
+			?></ul>
+		</div>
+		<?php } ?>
+	</li><?php
 	if ($bottomline_date) {
 		?><li class="item date"><?php echo $this->entry->date(); ?></li><?php
 	}
