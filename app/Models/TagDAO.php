@@ -36,7 +36,7 @@ class FreshRSS_TagDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 
 	protected function autoUpdateDb($errorInfo) {
 		if (isset($errorInfo[0])) {
-			if ($errorInfo[0] === '42S02' || $errorInfo[0] === '42P01') {	//ER_BAD_TABLE_ERROR (MySQL) or undefined_table (PostgreSQL)
+			if ($errorInfo[0] === FreshRSS_DatabaseDAO::ER_BAD_TABLE_ERROR || $errorInfo[0] === FreshRSS_DatabaseDAOPGSQL::undefined_table) {
 				if (stripos($errorInfo[2], 'tag') !== false) {
 					return $this->createTagTable();	//v1.12.0
 				}

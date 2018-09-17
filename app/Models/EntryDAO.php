@@ -18,6 +18,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 		return 'hex(' . $x . ')';
 	}
 
+	//TODO: Move the database auto-updates to DatabaseDAO
 	protected function addColumn($name) {
 		Minz_Log::warning('FreshRSS_EntryDAO::addColumn: ' . $name);
 		$hasTransaction = false;
@@ -56,6 +57,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 
 	private $triedUpdateToUtf8mb4 = false;
 
+	//TODO: Move the database auto-updates to DatabaseDAO
 	protected function updateToUtf8mb4() {
 		if ($this->triedUpdateToUtf8mb4) {
 			return false;
@@ -88,6 +90,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 		return false;
 	}
 
+	//TODO: Move the database auto-updates to DatabaseDAO
 	protected function createEntryTempTable() {
 		$ok = false;
 		$hadTransaction = $this->bd->inTransaction();
@@ -120,16 +123,17 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 		return $ok;
 	}
 
+	//TODO: Move the database auto-updates to DatabaseDAO
 	protected function autoUpdateDb($errorInfo) {
 		if (isset($errorInfo[0])) {
-			if ($errorInfo[0] === '42S22') {	//ER_BAD_FIELD_ERROR
+			if ($errorInfo[0] === FreshRSS_DatabaseDAO::ER_BAD_FIELD_ERROR) {
 				//autoAddColumn
 				foreach (array('lastSeen', 'hash') as $column) {
 					if (stripos($errorInfo[2], $column) !== false) {
 						return $this->addColumn($column);
 					}
 				}
-			} elseif ($errorInfo[0] === '42S02') {	//ER_BAD_TABLE_ERROR
+			} elseif ($errorInfo[0] === FreshRSS_DatabaseDAO::ER_BAD_TABLE_ERROR) {
 				if (stripos($errorInfo[2], 'tag') !== false) {
 					$tagDAO = FreshRSS_Factory::createTagDao();
 					return $tagDAO->createTagTable();	//v1.12.0
@@ -139,7 +143,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 			}
 		}
 		if (isset($errorInfo[1])) {
-			if ($errorInfo[1] == '1366') {	//ER_TRUNCATED_WRONG_VALUE_FOR_FIELD
+			if ($errorInfo[1] == FreshRSS_DatabaseDAO::ER_TRUNCATED_WRONG_VALUE_FOR_FIELD) {
 				return $this->updateToUtf8mb4();	//v1.5.0
 			}
 		}
