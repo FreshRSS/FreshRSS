@@ -33,6 +33,8 @@ class FreshRSS_Factory {
 		switch ($conf->db['type']) {
 			case 'sqlite':
 				return new FreshRSS_TagDAOSQLite($username);
+			case 'pgsql':
+				return new FreshRSS_TagDAOPGSQL($username);
 			default:
 				return new FreshRSS_TagDAO($username);
 		}

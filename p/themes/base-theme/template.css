@@ -108,6 +108,10 @@ input[type="checkbox"] {
 	width: 15px !important;
 	min-height: 15px !important;
 }
+.dropdown-menu input {
+	with: 150px;
+	width: calc(99% - 3em);
+}
 button.as-link,
 button.as-link:hover,
 button.as-link:active {

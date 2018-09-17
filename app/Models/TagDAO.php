@@ -182,6 +182,49 @@ class FreshRSS_TagDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 		return $res[0]['count'];
 	}
 
+	public function tagEntry($id_tag, $id_entry, $checked = true) {
+		if ($checked) {
+			$sql = 'INSERT IGNORE INTO `' . $this->prefix . 'entrytag`(id_tag, id_entry) VALUES(?, ?)';
+		} else {
+			$sql = 'DELETE FROM `' . $this->prefix . 'entrytag` WHERE id_tag=? AND id_entry=?';
+		}
+		$stm = $this->bd->prepare($sql);
+		$values = array($id_tag, $id_entry);
+
+		if ($stm && $stm->execute($values)) {
+			return true;
+		} else {
+			$info = $stm == null ? array(2 => 'syntax error') : $stm->errorInfo();
+			Minz_Log::error('SQL error tagEntry: ' . $info[2]);
+			return false;
+		}
+	}
+
+	public function getTagsForEntry($id_entry) {
+		$sql = 'SELECT t.id, t.name, et.id_entry IS NOT NULL as checked '
+			 . 'FROM `' . $this->prefix . 'tag` t '
+			 . 'LEFT OUTER JOIN `' . $this->prefix . 'entrytag` et ON et.id_tag = t.id AND et.id_entry=? '
+			 . 'ORDER BY t.name';
+
+		$stm = $this->bd->prepare($sql);
+		$values = array($id_entry);
+
+		if ($stm && $stm->execute($values)) {
+			$lines = $stm->fetchAll(PDO::FETCH_ASSOC);
+			for ($i = count($lines) - 1; $i >= 0; $i--) {
+				$lines[$i]['checked'] = !empty($lines[$i]['checked']);
+			}
+			return $lines;
+		} else {
+			$info = $stm == null ? array(0 => '', 1 => '', 2 => 'syntax error') : $stm->errorInfo();
+			if ($this->autoUpdateDb($info)) {
+				return $this->getTagsForEntry($id_entry);
+			}
+			Minz_Log::error('SQL error getTagsForEntry: ' . $info[2]);
+			return false;
+		}
+	}
+
 	public static function daoToTag($listDAO) {
 		$list = array();
 		if (!is_array($listDAO)) {

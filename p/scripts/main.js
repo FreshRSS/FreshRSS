@@ -617,7 +617,7 @@ function init_shortcuts() {
 			auto_share(String.fromCharCode(evt.keyCode));
 		}
 	}
-	for(var i = 1; i < 10; i++) {
+	for (var i = 1; i < 10; i++) {
 		shortcut.add(i.toString(), addShortcut, {
 			'disable_in_input': true
 		});
@@ -838,6 +838,65 @@ function init_nav_entries() {
 			$("html,body").scrollTop(0);
 		}
 		return false;
+	});
+}
+
+function loadDynamicTags($div) {
+	$div.removeClass('dynamictags');
+	$div.find('li.item').remove();
+	var entryId = $div.closest('div.flux').attr('id').replace(/^flux_/, '');
+	$.getJSON('./?c=tag&a=getTagsForEntry&id_entry=' + entryId)
+		.done(function (data) {
+			var $ul = $div.find('.dropdown-menu');
+			$ul.append('<li class="item"><label><input class="checkboxTag" name="t_0" type="checkbox"> <input name="newTag" /></label></li>');
+			if (data && data.length) {
+				for (var i = 0; i < data.length; i++) {
+					var tag = data[i];
+					
+					$ul.append('<li class="item"><label><input class="checkboxTag" name="t_' + tag.id + '" type="checkbox"' +
+						(tag.checked ? ' checked="checked"' : '') + '> ' + tag.name + '</label></li>');
+				}
+			} else {
+				$div.addClass('dynamictags');
+			}
+		})
+		.fail(function () {
+			$div.addClass('dynamictags');
+		});
+}
+
+function init_dynamic_tags() {
+	$stream.on('click', '.dynamictags', function () {
+		loadDynamicTags($(this));
+	});
+
+	$stream.on('change', '.checkboxTag', function (ev) {
+		var $checkbox = $(this);
+		$checkbox.prop('disabled', true);
+		var isChecked = $checkbox.prop('checked');
+		var tagId = $checkbox.attr('name').replace(/^t_/, '');
+		var tagName = $checkbox.siblings('input[name]').val();
+		var entryId = $checkbox.closest('div.flux').attr('id').replace(/^flux_/, '');
+		$.ajax({
+				type: 'POST',
+				url: './?c=tag&a=tagEntry',
+				data: {
+					_csrf: context.csrf,
+					id_tag: tagId,
+					name_tag: tagId == 0 ? tagName : '',
+					id_entry: entryId,
+					checked: isChecked,
+				},
+			})
+			.fail(function () {
+				$checkbox.prop('checked', !isChecked);
+			})
+			.always(function () {
+				$checkbox.prop('disabled', false);
+				if (tagId == 0) {
+					loadDynamicTags($checkbox.closest('div.dropdown'));
+				}
+			});
 	});
 }
 
@@ -1443,6 +1502,7 @@ function init_afterDOM() {
 		init_load_more($stream);
 		init_posts();
 		init_nav_entries();
+		init_dynamic_tags();
 		init_print_action();
 		init_post_action();
 		init_notifs_html5();

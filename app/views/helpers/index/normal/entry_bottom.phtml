@@ -37,7 +37,7 @@
 	$labels = $bottomline_labels ? $this->tags : null;
 	if (!empty($labels)) {
 	?><li class="item">
-		<div class="dropdown">
+		<div class="dropdown dynamictags">
 			<div id="dropdown-labels-<?php echo $this->entry->id();?>" class="dropdown-target"></div>
 			<?php echo _i('label'); ?>
 			<a class="dropdown-toggle" href="#dropdown-labels-<?php echo $this->entry->id();?>"><?php
@@ -45,10 +45,7 @@
 			?></a>
 			<ul class="dropdown-menu">
 				<li class="dropdown-close"><a href="#close">❌</a></li>
-				<!-- TODO -->
-				<li class="item"><label><input type="checkbox" name="t_1" checked="checked" /> Test</label></li>
-				<li class="item"><label><input type="checkbox" name="t_2" /> HMI</label></li>
-				<li class="item"><label><input type="checkbox" name="t_3" /> Robots</label></li>
+				<!-- Ajax -->
 			</ul>
 		</div>
 	</li><?php

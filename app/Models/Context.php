@@ -207,7 +207,7 @@ class FreshRSS_Context {
 			// We try to find the corresponding tag.
 			self::$current_get['tag'] = $id;
 			if (!isset(self::$tags[$id])) {
-				$tagDAO = new FreshRSS_TagDAO();
+				$tagDAO = FreshRSS_Factory::createTagDao();
 				$tag = $tagDAO->searchById($id);
 				if (!$tag) {
 					throw new FreshRSS_Context_Exception('Invalid tag: ' . $id);
