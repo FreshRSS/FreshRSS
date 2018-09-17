@@ -6,8 +6,8 @@
 class FreshRSS_DatabaseDAOPGSQL extends FreshRSS_DatabaseDAOSQLite {
 
 	//PostgreSQL error codes
-	const undefined_column = '42703';
-	const undefined_table = '42P01';
+	const UNDEFINED_COLUMN = '42703';
+	const UNDEFINED_TABLE = '42P01';
 
 	public function tablesAreCorrect() {
 		$db = FreshRSS_Context::$system_conf->db;
