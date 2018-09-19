@@ -46,11 +46,12 @@ class FreshRSS_TagDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 	}
 
 	public function addTag($valuesTmp) {
-		$sql = 'INSERT INTO `' . $this->prefix . 'tag`(name) VALUES(?)';
+		$sql = 'INSERT INTO `' . $this->prefix . 'tag`(name, attributes) VALUES(?, ?)';
 		$stm = $this->bd->prepare($sql);
 
 		$values = array(
 			mb_strcut($valuesTmp['name'], 0, 63, 'UTF-8'),
+			isset($valuesTmp['attributes']) ? json_encode($valuesTmp['attributes']) : '',
 		);
 
 		if ($stm && $stm->execute($values)) {
@@ -67,6 +68,7 @@ class FreshRSS_TagDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 		if (!$tag) {
 			$values = array(
 				'name' => $tag->name(),
+				'attributes' => $tag->attributes(),
 			);
 			return $this->addTag($values);
 		}
@@ -74,11 +76,12 @@ class FreshRSS_TagDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 	}
 
 	public function updateTag($id, $valuesTmp) {
-		$sql = 'UPDATE `' . $this->prefix . 'tag` SET name=? WHERE id=?';
+		$sql = 'UPDATE `' . $this->prefix . 'tag` SET name=?, attributes=? WHERE id=?';
 		$stm = $this->bd->prepare($sql);
 
 		$values = array(
-			$valuesTmp['name'],
+			mb_strcut($valuesTmp['name'], 0, 63, 'UTF-8'),
+			isset($valuesTmp['attributes']) ? json_encode($valuesTmp['attributes']) : '',
 			$id,
 		);
 
@@ -89,6 +92,17 @@ class FreshRSS_TagDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 			Minz_Log::error('SQL error updateTag: ' . $info[2]);
 			return false;
 		}
+	}
+
+	public function updateTagAttribute($tag, $key, $value) {
+		if ($tag instanceof FreshRSS_Tag) {
+			$tag->_attributes($key, $value);
+			return $this->updateFeed(
+					$tag->id(),
+					array('attributes' => $feed->attributes())
+				);
+		}
+		return false;
 	}
 
 	public function deleteTag($id) {
@@ -235,6 +249,9 @@ class FreshRSS_TagDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 				$dao['name']
 			);
 			$tag->_id($dao['id']);
+			if (!empty($dao['attributes'])) {
+				$tag->_attributes('', $dao['attributes']);
+			}
 			if (isset($dao['unreads'])) {
 				$tag->_nbUnread($dao['unreads']);
 			}

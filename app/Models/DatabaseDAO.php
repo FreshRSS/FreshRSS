@@ -80,7 +80,7 @@ class FreshRSS_DatabaseDAO extends Minz_ModelPdo {
 
 	public function tagIsCorrect() {
 		return $this->checkTable('tag', array(
-			'id', 'name',
+			'id', 'name', 'attributes',
 		));
 	}
 

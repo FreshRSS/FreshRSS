@@ -86,7 +86,8 @@ global $SQL_CREATE_TABLE_TAGS;
 $SQL_CREATE_TABLE_TAGS = array(
 'CREATE TABLE IF NOT EXISTS "%1$stag" (	-- v1.12
 	"id" SERIAL PRIMARY KEY,
-	"name" VARCHAR(63) UNIQUE NOT NULL
+	"name" VARCHAR(63) UNIQUE NOT NULL,
+	"attributes" TEXT
 );',
 'CREATE TABLE IF NOT EXISTS "%1$sentrytag" (
 	"id_tag" SMALLINT,

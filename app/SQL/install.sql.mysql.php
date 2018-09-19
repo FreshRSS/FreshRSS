@@ -92,6 +92,7 @@ define('SQL_CREATE_TABLE_TAGS', '
 CREATE TABLE IF NOT EXISTS `%1$stag` (	-- v1.12
 	`id` SMALLINT NOT NULL AUTO_INCREMENT,
 	`name` VARCHAR(63) NOT NULL,
+	`attributes` TEXT,
 	PRIMARY KEY (`id`),
 	UNIQUE KEY (`name`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci
