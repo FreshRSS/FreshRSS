@@ -373,6 +373,9 @@ a.btn {
 	color: #ccc;
 	font-size: 0.8rem;
 }
+.dropdown-menu > .item > label {
+	color: #ccc;
+}
 .dropdown-menu > .item:hover {
 	background: linear-gradient(180deg,  #0090FF 0%, #0062BE 100%) #E4992C;
 	background: -webkit-linear-gradient(top,  #0090FF 0%, #0062BE 100%);

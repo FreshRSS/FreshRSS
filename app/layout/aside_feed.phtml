@@ -37,7 +37,7 @@
 		<li class="tree-folder category tags<?php echo FreshRSS_Context::isCurrentGet('T') ? ' active' : ''; ?>">
 			<div class="tree-folder-title">
 				<a class="dropdown-toggle" href="#"><?php echo _i('down'); ?></a>
-				<?php echo _t('index.menu.tags'); ?>
+				<span class="title" data-unread="0"><?php echo _t('index.menu.tags'); ?></a>
 			</div>
 			<ul class="tree-folder-items<?php echo FreshRSS_Context::$current_get['tag'] ? ' active' : ''; ?>">
 				<?php

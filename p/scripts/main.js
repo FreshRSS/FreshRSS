@@ -848,7 +848,7 @@ function loadDynamicTags($div) {
 	$.getJSON('./?c=tag&a=getTagsForEntry&id_entry=' + entryId)
 		.done(function (data) {
 			var $ul = $div.find('.dropdown-menu');
-			$ul.append('<li class="item"><label><input class="checkboxTag" name="t_0" type="checkbox"> <input name="newTag" /></label></li>');
+			$ul.append('<li class="item"><label><input class="checkboxTag" name="t_0" type="checkbox" /> <input type="text" name="newTag" /></label></li>');
 			if (data && data.length) {
 				for (var i = 0; i < data.length; i++) {
 					var tag = data[i];
