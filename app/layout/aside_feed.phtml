@@ -49,7 +49,7 @@
 						<a class="dropdown-toggle"><?php echo _i('configure'); ?></a>
 						<?php /* tag_config_template */ ?>
 					</div>
-					<?php echo _i('label'); ?> <a class="item-title" data-unread="<?php echo format_number($tag->nbUnread()); ?>" href="<?php echo _url('index', 'index', 'get', 't_' . $tag->id()); ?>"><?php echo $tag->name(); ?></a>
+					<?php echo FreshRSS_Themes::alt('label'); ?> <a class="item-title" data-unread="<?php echo format_number($tag->nbUnread()); ?>" href="<?php echo _url('index', 'index', 'get', 't_' . $tag->id()); ?>"><?php echo $tag->name(); ?></a>
 				</li>
 				<?php endforeach; ?>
 			</ul>
