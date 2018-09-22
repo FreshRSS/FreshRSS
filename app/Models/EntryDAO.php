@@ -803,6 +803,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 			$values[] = intval($id);
 			break;
 		case 'T':	//Any tag
+			$where .= '1=1 ';
 			break;
 		default:
 			throw new FreshRSS_EntriesGetter_Exception('Bad type in Entry->listByType: [' . $type . ']!');
@@ -814,7 +815,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 			'SELECT e.id FROM `' . $this->prefix . 'entry` e '
 			. 'INNER JOIN `' . $this->prefix . 'feed` f ON e.id_feed = f.id '
 			. ($type === 't' || $type === 'T' ? 'INNER JOIN `' . $this->prefix . 'entrytag` et ON et.id_entry = e.id ' : '')
-			. ($where ? 'WHERE ' . $where : '')
+			. 'WHERE ' . $where
 			. $search
 			. 'ORDER BY e.id ' . $order
 			. ($limit > 0 ? ' LIMIT ' . intval($limit) : ''));	//TODO: See http://explainextended.com/2009/10/23/mysql-order-by-limit-performance-late-row-lookups/
