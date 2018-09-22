@@ -243,7 +243,7 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 	 * checking if categories and feeds are still in use.
 	 */
 	public function queriesAction() {
-		$category_dao = new FreshRSS_CategoryDAO();
+		$category_dao = FreshRSS_Factory::createCategoryDao();
 		$feed_dao = FreshRSS_Factory::createFeedDao();
 		if (Minz_Request::isPost()) {
 			$params = Minz_Request::param('queries', array());
@@ -277,7 +277,7 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 	 * lean data.
 	 */
 	public function addQueryAction() {
-		$category_dao = new FreshRSS_CategoryDAO();
+		$category_dao = FreshRSS_Factory::createCategoryDao();
 		$feed_dao = FreshRSS_Factory::createFeedDao();
 		$queries = array();
 		foreach (FreshRSS_Context::$user_conf->queries as $key => $query) {

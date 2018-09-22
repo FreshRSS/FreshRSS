@@ -161,7 +161,7 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 	 */
 	private function updateContext() {
 		if (empty(FreshRSS_Context::$categories)) {
-			$catDAO = new FreshRSS_CategoryDAO();
+			$catDAO = FreshRSS_Factory::createCategoryDao();
 			FreshRSS_Context::$categories = $catDAO->listCategories();
 		}
 

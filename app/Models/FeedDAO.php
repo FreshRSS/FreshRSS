@@ -180,7 +180,7 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 	}
 
 	public function changeCategory($idOldCat, $idNewCat) {
-		$catDAO = new FreshRSS_CategoryDAO();
+		$catDAO = FreshRSS_Factory::createCategoryDao();
 		$newCat = $catDAO->searchById($idNewCat);
 		if (!$newCat) {
 			$newCat = $catDAO->getDefault();

@@ -16,7 +16,7 @@ foreach ($users as $username) {
 	$username = cliInitUser($username);
 	echo $username === FreshRSS_Context::$system_conf->default_user ? '*' : ' ', "\t";
 
-	$catDAO = new FreshRSS_CategoryDAO();
+	$catDAO = FreshRSS_Factory::createCategoryDao();
 	$feedDAO = FreshRSS_Factory::createFeedDao($username);
 	$entryDAO = FreshRSS_Factory::createEntryDao($username);
 	$databaseDAO = FreshRSS_Factory::createDatabaseDAO($username);

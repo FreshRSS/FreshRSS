@@ -16,7 +16,7 @@ class FreshRSS_category_Controller extends Minz_ActionController {
 			Minz_Error::error(403);
 		}
 
-		$catDAO = new FreshRSS_CategoryDAO();
+		$catDAO = FreshRSS_Factory::createCategoryDao();
 		$catDAO->checkDefault();
 	}
 
@@ -27,7 +27,7 @@ class FreshRSS_category_Controller extends Minz_ActionController {
 	 *   - new-category
 	 */
 	public function createAction() {
-		$catDAO = new FreshRSS_CategoryDAO();
+		$catDAO = FreshRSS_Factory::createCategoryDao();
 		$url_redirect = array('c' => 'subscription', 'a' => 'index');
 
 		$limits = FreshRSS_Context::$system_conf->limits;
@@ -75,7 +75,7 @@ class FreshRSS_category_Controller extends Minz_ActionController {
 	 *   - name
 	 */
 	public function updateAction() {
-		$catDAO = new FreshRSS_CategoryDAO();
+		$catDAO = FreshRSS_Factory::createCategoryDao();
 		$url_redirect = array('c' => 'subscription', 'a' => 'index');
 
 		if (Minz_Request::isPost()) {
@@ -116,7 +116,7 @@ class FreshRSS_category_Controller extends Minz_ActionController {
 	 */
 	public function deleteAction() {
 		$feedDAO = FreshRSS_Factory::createFeedDao();
-		$catDAO = new FreshRSS_CategoryDAO();
+		$catDAO = FreshRSS_Factory::createCategoryDao();
 		$url_redirect = array('c' => 'subscription', 'a' => 'index');
 
 		if (Minz_Request::isPost()) {
