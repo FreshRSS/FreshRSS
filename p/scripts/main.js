@@ -157,6 +157,21 @@ function mark_read(active, only_not_read) {
 		}
 		faviconNbUnread();
 
+		if (data.tags) {
+			for (var i = data.tags.length - 1; i >= 0; i--) {
+				var tag_id = data.tags[i];
+				var $t = $('#t_' + tag_id);
+				var unreads = str2int($t.attr('data-unread'));
+				$t.attr('data-unread', unreads + inc)
+					.children('.item-title').attr('data-unread', numberFormat(unreads + inc));
+
+				$t = $('.category.tags');
+				unreads = str2int($t.attr('data-unread'));
+				$t.attr('data-unread', unreads + inc)
+					.find('.title').attr('data-unread', numberFormat(unreads + inc));
+			}
+		}
+
 		delete pending_entries[active.attr('id')];
 	}).fail(function (data) {
 		openNotification(i18n.notif_request_failed, 'bad');
@@ -1074,7 +1089,7 @@ function refreshUnreads() {
 		var isAll = $('.category.all.active').length > 0,
 			new_articles = false;
 
-		$.each(data, function(feed_id, nbUnreads) {
+		$.each(data.feeds, function(feed_id, nbUnreads) {
 			feed_id = 'f_' + feed_id;
 			var elem = $('#' + feed_id).get(0),
 				feed_unreads = elem ? str2int(elem.getAttribute('data-unread')) : 0;
@@ -1085,6 +1100,17 @@ function refreshUnreads() {
 				new_articles = true;
 			}
 		});
+
+		var nbUnreadTags = 0;
+
+		$.each(data.tags, function(tag_id, nbUnreads) {
+			nbUnreadTags += nbUnreads;
+			$('#t_' + tag_id).attr('data-unread', nbUnreads)
+				.children('.item-title').attr('data-unread', numberFormat(nbUnreads));
+		});
+
+		$('.category.tags').attr('data-unread', nbUnreadTags)
+			.find('.title').attr('data-unread', numberFormat(nbUnreadTags));
 
 		var nb_unreads = str2int($('.category.all .title').attr('data-unread'));
 

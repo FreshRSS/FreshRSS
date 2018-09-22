@@ -36,6 +36,10 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 			try {
 				$tagDAO = FreshRSS_Factory::createTagDao();
 				$view->tags = $tagDAO->listTags(true);
+				$view->nbUnreadTags = 0;
+				foreach ($view->tags as $tag) {
+					$view->nbUnreadTags += $tag->nbUnread();
+				}
 
 				FreshRSS_Context::$number++;	//+1 for pagination
 				$entries = FreshRSS_index_Controller::listEntriesByContext();

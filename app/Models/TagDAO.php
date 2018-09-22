@@ -226,6 +226,7 @@ class FreshRSS_TagDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 		if ($stm && $stm->execute($values)) {
 			$lines = $stm->fetchAll(PDO::FETCH_ASSOC);
 			for ($i = count($lines) - 1; $i >= 0; $i--) {
+				$lines[$i]['id'] = intval($lines[$i]['id']);
 				$lines[$i]['checked'] = !empty($lines[$i]['checked']);
 			}
 			return $lines;

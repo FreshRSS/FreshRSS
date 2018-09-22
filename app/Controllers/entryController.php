@@ -53,6 +53,7 @@ class FreshRSS_entry_Controller extends Minz_ActionController {
 		}
 
 		$params = array();
+		$this->view->tags = array();
 
 		$entryDAO = FreshRSS_Factory::createEntryDao();
 		if ($id === false) {
@@ -97,6 +98,13 @@ class FreshRSS_entry_Controller extends Minz_ActionController {
 			}
 		} else {
 			$entryDAO->markRead($id, $is_read);
+
+			$tagDAO = FreshRSS_Factory::createTagDao();
+			foreach ($tagDAO->getTagsForEntry($id) as $tag) {
+				if (!empty($tag['checked'])) {
+					$this->view->tags[] = $tag['id'];
+				}
+			}
 		}
 
 		if (!$this->ajax) {

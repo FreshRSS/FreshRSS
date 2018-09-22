@@ -37,10 +37,10 @@
 		<?php
 			$t_active = FreshRSS_Context::isCurrentGet('T');
 		?>
-		<li class="tree-folder category tags<?php echo $t_active ? ' active' : ''; ?>">
+		<li class="tree-folder category tags<?php echo $t_active ? ' active' : ''; ?>" data-unread="<?php echo $this->nbUnreadTags; ?>">
 			<div class="tree-folder-title">
 				<a class="dropdown-toggle" href="#"><?php echo _i($t_active ? 'up' : 'down'); ?></a>
-				<a class="title" data-unread="0" href="<?php echo _url('index', 'index', 'get', 'T'); ?>"><?php echo _t('index.menu.tags'); ?></a>
+				<a class="title" data-unread="<?php echo format_number($this->nbUnreadTags); ?>" href="<?php echo _url('index', 'index', 'get', 'T'); ?>"><?php echo _t('index.menu.tags'); ?></a>
 			</div>
 			<ul class="tree-folder-items<?php echo $t_active ? ' active' : ''; ?>">
 				<?php
