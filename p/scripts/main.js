@@ -114,6 +114,18 @@ function incUnreadsFeed(article, feed_id, nb) {
 	return isCurrentView;
 }
 
+function incUnreadsTag(tag_id, nb) {
+	var $t = $('#t_' + tag_id);
+	var unreads = str2int($t.attr('data-unread'));
+	$t.attr('data-unread', unreads + nb)
+		.children('.item-title').attr('data-unread', numberFormat(unreads + nb));
+
+	$t = $('.category.tags');
+	unreads = str2int($t.attr('data-unread'));
+	$t.attr('data-unread', unreads + nb)
+		.find('.title').attr('data-unread', numberFormat(unreads + nb));
+}
+
 var pending_entries = {};
 function mark_read(active, only_not_read) {
 	if ((active.length === 0) || (!active.attr('id')) ||
@@ -159,16 +171,7 @@ function mark_read(active, only_not_read) {
 
 		if (data.tags) {
 			for (var i = data.tags.length - 1; i >= 0; i--) {
-				var tag_id = data.tags[i];
-				var $t = $('#t_' + tag_id);
-				var unreads = str2int($t.attr('data-unread'));
-				$t.attr('data-unread', unreads + inc)
-					.children('.item-title').attr('data-unread', numberFormat(unreads + inc));
-
-				$t = $('.category.tags');
-				unreads = str2int($t.attr('data-unread'));
-				$t.attr('data-unread', unreads + inc)
-					.find('.title').attr('data-unread', numberFormat(unreads + inc));
+				incUnreadsTag(data.tags[i], inc);
 			}
 		}
 
@@ -891,7 +894,8 @@ function init_dynamic_tags() {
 		var isChecked = $checkbox.prop('checked');
 		var tagId = $checkbox.attr('name').replace(/^t_/, '');
 		var tagName = $checkbox.siblings('input[name]').val();
-		var entryId = $checkbox.closest('div.flux').attr('id').replace(/^flux_/, '');
+		var $entry = $checkbox.closest('div.flux');
+		var entryId = $entry.attr('id').replace(/^flux_/, '');
 		$.ajax({
 				type: 'POST',
 				url: './?c=tag&a=tagEntry',
@@ -902,6 +906,11 @@ function init_dynamic_tags() {
 					id_entry: entryId,
 					checked: isChecked,
 				},
+			})
+			.done(function () {
+				if ($entry.hasClass('not_read')) {
+					incUnreadsTag(tagId, isChecked ? 1 : -1);
+				}
 			})
 			.fail(function () {
 				$checkbox.prop('checked', !isChecked);
