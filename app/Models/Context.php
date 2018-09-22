@@ -8,6 +8,7 @@ class FreshRSS_Context {
 	public static $user_conf = null;
 	public static $system_conf = null;
 	public static $categories = array();
+	public static $tags = array();
 
 	public static $name = '';
 	public static $description = '';
@@ -26,6 +27,7 @@ class FreshRSS_Context {
 		'feed' => false,
 		'category' => false,
 		'tag' => false,
+		'tags' => false,
 	);
 	public static $next_get = 'a';
 
@@ -98,6 +100,8 @@ class FreshRSS_Context {
 			} else {
 				return 't_' . self::$current_get['tag'];
 			}
+		} elseif (self::$current_get['tags']) {
+			return 'T';
 		}
 	}
 
@@ -127,7 +131,7 @@ class FreshRSS_Context {
 		case 't':
 			return self::$current_get['tag'] == $id;
 		case 'T':
-			return self::$current_get['tag'];
+			return self::$current_get['tags'] || self::$current_get['tag'];
 		default:
 			return false;
 		}
@@ -152,7 +156,7 @@ class FreshRSS_Context {
 		$nb_unread = 0;
 
 		if (empty(self::$categories)) {
-			$catDAO = new FreshRSS_CategoryDAO();
+			$catDAO = FreshRSS_Factory::createCategoryDao();
 			self::$categories = $catDAO->listCategories();
 		}
 
@@ -192,7 +196,7 @@ class FreshRSS_Context {
 			// We try to find the corresponding category.
 			self::$current_get['category'] = $id;
 			if (!isset(self::$categories[$id])) {
-				$catDAO = new FreshRSS_CategoryDAO();
+				$catDAO = FreshRSS_Factory::createCategoryDao();
 				$cat = $catDAO->searchById($id);
 				if (!$cat) {
 					throw new FreshRSS_Context_Exception('Invalid category: ' . $id);
@@ -218,6 +222,11 @@ class FreshRSS_Context {
 			self::$name = $tag->name();
 			self::$get_unread = $tag->nbUnread();
 			break;
+		case 'T':
+			self::$current_get['tags'] = true;
+			self::$name = _t('index.menu.tags');
+			self::$get_unread = 0;
+			break;
 		default:
 			throw new FreshRSS_Context_Exception('Invalid getter: ' . $get);
 		}
@@ -234,7 +243,7 @@ class FreshRSS_Context {
 		self::$next_get = $get;
 
 		if (empty(self::$categories)) {
-			$catDAO = new FreshRSS_CategoryDAO();
+			$catDAO = FreshRSS_Factory::createCategoryDao();
 			self::$categories = $catDAO->listCategories();
 		}
 

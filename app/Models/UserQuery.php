@@ -19,15 +19,17 @@ class FreshRSS_UserQuery {
 	private $url;
 	private $feed_dao;
 	private $category_dao;
+	private $tag_dao;
 
 	/**
 	 * @param array $query
 	 * @param FreshRSS_Searchable $feed_dao
 	 * @param FreshRSS_Searchable $category_dao
 	 */
-	public function __construct($query, FreshRSS_Searchable $feed_dao = null, FreshRSS_Searchable $category_dao = null) {
+	public function __construct($query, FreshRSS_Searchable $feed_dao = null, FreshRSS_Searchable $category_dao = null, FreshRSS_Searchable $tag_dao = null) {
 		$this->category_dao = $category_dao;
 		$this->feed_dao = $feed_dao;
+		$this->tag_dao = $tag_dao;
 		if (isset($query['get'])) {
 			$this->parseGet($query['get']);
 		}
@@ -88,6 +90,9 @@ class FreshRSS_UserQuery {
 				case 's':
 					$this->parseFavorite();
 					break;
+				case 't':
+					$this->parseTag($matches['id']);
+					break;
 			}
 		}
 	}
@@ -136,6 +141,25 @@ class FreshRSS_UserQuery {
 			$this->deprecated = true;
 		}
 		$this->get_type = 'feed';
+	}
+
+	/**
+	 * Parse the query string when it is a "tag" query
+	 *
+	 * @param integer $id
+	 * @throws FreshRSS_DAO_Exception
+	 */
+	private function parseTag($id) {
+		if ($this->tag_dao == null) {
+			throw new FreshRSS_DAO_Exception('Tag DAO is not loaded in UserQuery');
+		}
+		$category = $this->category_dao->searchById($id);
+		if ($tag) {
+			$this->get_name = $tag->name();
+		} else {
+			$this->deprecated = true;
+		}
+		$this->get_type = 'tag';
 	}
 
 	/**

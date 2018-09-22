@@ -779,28 +779,30 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 		$joinFeed = false;
 		$values = array();
 		switch ($type) {
-		case 'a':
+		case 'a':	//All PRIORITY_MAIN_STREAM
 			$where .= 'f.priority > ' . FreshRSS_Feed::PRIORITY_NORMAL . ' ';
 			break;
-		case 's':	//Deprecated: use $state instead
+		case 'A':	//All except PRIORITY_ARCHIVED
+			$where .= 'f.priority >= ' . FreshRSS_Feed::PRIORITY_NORMAL . ' ';
+			break;
+		case 's':	//Starred. Deprecated: use $state instead
 			$where .= 'f.priority >= ' . FreshRSS_Feed::PRIORITY_NORMAL . ' ';
 			$where .= 'AND e.is_favorite=1 ';
 			break;
-		case 'c':
+		case 'c':	//Category
 			$where .= 'f.priority >= ' . FreshRSS_Feed::PRIORITY_NORMAL . ' ';
 			$where .= 'AND f.category=? ';
 			$values[] = intval($id);
 			break;
-		case 'f':
+		case 'f':	//Feed
 			$where .= 'e.id_feed=? ';
 			$values[] = intval($id);
 			break;
-		case 't':
+		case 't':	//Tag
 			$where .= 'et.id_tag=? ';
 			$values[] = intval($id);
 			break;
-		case 'A':
-			$where .= 'f.priority >= ' . FreshRSS_Feed::PRIORITY_NORMAL . ' ';
+		case 'T':	//Any tag
 			break;
 		default:
 			throw new FreshRSS_EntriesGetter_Exception('Bad type in Entry->listByType: [' . $type . ']!');
@@ -811,8 +813,8 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 		return array(array_merge($values, $searchValues),
 			'SELECT e.id FROM `' . $this->prefix . 'entry` e '
 			. 'INNER JOIN `' . $this->prefix . 'feed` f ON e.id_feed = f.id '
-			. ($type === 't' ? 'INNER JOIN `' . $this->prefix . 'entrytag` et ON et.id_entry = e.id ' : '')
-			. 'WHERE ' . $where
+			. ($type === 't' || $type === 'T' ? 'INNER JOIN `' . $this->prefix . 'entrytag` et ON et.id_entry = e.id ' : '')
+			. ($where ? 'WHERE ' . $where : '')
 			. $search
 			. 'ORDER BY e.id ' . $order
 			. ($limit > 0 ? ' LIMIT ' . intval($limit) : ''));	//TODO: See http://explainextended.com/2009/10/23/mysql-order-by-limit-performance-late-row-lookups/
@@ -831,13 +833,22 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 			. 'ORDER BY e0.id ' . $order;
 
 		$stm = $this->bd->prepare($sql);
-		$stm->execute($values);
-		return $stm;
+		if ($stm && $stm->execute($values)) {
+			return $stm;
+		} else {
+			$info = $stm == null ? array(0 => '', 1 => '', 2 => 'syntax error') : $stm->errorInfo();
+			Minz_Log::error('SQL error listWhereRaw: ' . $info[2]);
+			return false;
+		}
 	}
 
 	public function listWhere($type = 'a', $id = '', $state = FreshRSS_Entry::STATE_ALL, $order = 'DESC', $limit = 1, $firstId = '', $filters = null, $date_min = 0) {
 		$stm = $this->listWhereRaw($type, $id, $state, $order, $limit, $firstId, $filters, $date_min);
-		return self::daoToEntries($stm->fetchAll(PDO::FETCH_ASSOC));
+		if ($stm) {
+			return self::daoToEntries($stm->fetchAll(PDO::FETCH_ASSOC));
+		} else {
+			return false;
+		}
 	}
 
 	public function listByIds($ids, $order = 'DESC') {
