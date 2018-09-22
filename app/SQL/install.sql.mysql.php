@@ -4,7 +4,7 @@ define('SQL_CREATE_DB', 'CREATE DATABASE IF NOT EXISTS %1$s DEFAULT CHARACTER SE
 define('SQL_CREATE_TABLES', '
 CREATE TABLE IF NOT EXISTS `%1$scategory` (
 	`id` SMALLINT NOT NULL AUTO_INCREMENT,	-- v0.7
-	`name` VARCHAR(191) NOT NULL,
+	`name` VARCHAR(' . FreshRSS_DatabaseDAO::LENGTH_INDEX_UNICODE . ') NOT NULL,	-- Max index length for Unicode is 191 characters (767 bytes)
 	PRIMARY KEY (`id`),
 	UNIQUE KEY (`name`)	-- v0.7
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci
@@ -14,7 +14,7 @@ CREATE TABLE IF NOT EXISTS `%1$sfeed` (
 	`id` SMALLINT NOT NULL AUTO_INCREMENT,	-- v0.7
 	`url` VARCHAR(511) CHARACTER SET latin1 NOT NULL,
 	`category` SMALLINT DEFAULT 0,	-- v0.7
-	`name` VARCHAR(191) NOT NULL,
+	`name` VARCHAR(' . FreshRSS_DatabaseDAO::LENGTH_INDEX_UNICODE . ') NOT NULL,
 	`website` VARCHAR(255) CHARACTER SET latin1,
 	`description` TEXT,
 	`lastUpdate` INT(11) DEFAULT 0,	-- Until year 2038
@@ -120,13 +120,13 @@ define('SQL_UPDATE_UTF8MB4', '
 ALTER DATABASE `%2$s` CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;	-- v1.5.0
 
 ALTER TABLE `%1$scategory` CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-UPDATE `%1$scategory` SET name=SUBSTRING(name,1,190) WHERE LENGTH(name) > 191;
-ALTER TABLE `%1$scategory` MODIFY `name` VARCHAR(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL;
+UPDATE `%1$scategory` SET name=SUBSTRING(name,1,' . FreshRSS_DatabaseDAO::LENGTH_INDEX_UNICODE . ') WHERE LENGTH(name) > ' . FreshRSS_DatabaseDAO::LENGTH_INDEX_UNICODE . ';
+ALTER TABLE `%1$scategory` MODIFY `name` VARCHAR(' . FreshRSS_DatabaseDAO::LENGTH_INDEX_UNICODE . ') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL;
 OPTIMIZE TABLE `%1$scategory`;
 
 ALTER TABLE `%1$sfeed` CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-UPDATE `%1$sfeed` SET name=SUBSTRING(name,1,190) WHERE LENGTH(name) > 191;
-ALTER TABLE `%1$sfeed` MODIFY `name` VARCHAR(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL;
+UPDATE `%1$sfeed` SET name=SUBSTRING(name,1,' . FreshRSS_DatabaseDAO::LENGTH_INDEX_UNICODE . ') WHERE LENGTH(name) > ' . FreshRSS_DatabaseDAO::LENGTH_INDEX_UNICODE . ';
+ALTER TABLE `%1$sfeed` MODIFY `name` VARCHAR(' . FreshRSS_DatabaseDAO::LENGTH_INDEX_UNICODE . ') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL;
 ALTER TABLE `%1$sfeed` MODIFY `description` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 OPTIMIZE TABLE `%1$sfeed`;
 

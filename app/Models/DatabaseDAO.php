@@ -10,6 +10,10 @@ class FreshRSS_DatabaseDAO extends Minz_ModelPdo {
 	const ER_BAD_TABLE_ERROR = '42S02';
 	const ER_TRUNCATED_WRONG_VALUE_FOR_FIELD = '1366';
 
+	//MySQL InnoDB maximum index length for UTF8MB4
+	//https://dev.mysql.com/doc/refman/8.0/en/innodb-restrictions.html
+	const LENGTH_INDEX_UNICODE = 191;
+
 	public function tablesAreCorrect() {
 		$sql = 'SHOW TABLES';
 		$stm = $this->bd->prepare($sql);
