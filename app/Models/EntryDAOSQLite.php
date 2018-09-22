@@ -235,4 +235,43 @@ DROP TABLE IF EXISTS `tmp`;
 		}
 		return $affected;
 	}
+
+	/**
+	 * Mark all the articles in a tag as read.
+	 * @param integer $id tag ID, or empty for targetting any tag
+	 * @param integer $idMax max article ID
+	 * @return integer affected rows
+	 */
+	public function markReadTag($id = '', $idMax = 0, $filters = null, $state = 0, $is_read = true) {
+		FreshRSS_UserDAO::touch();
+		if ($idMax == 0) {
+			$idMax = time() . '000000';
+			Minz_Log::debug('Calling markReadTag(0) is deprecated!');
+		}
+
+		$sql = 'UPDATE `' . $this->prefix . 'entry` e '
+			 . 'SET e.is_read = ? '
+			 . 'WHERE e.is_read <> ? AND e.id <= ? AND '
+			 . 'e.id IN (SELECT et.id_entry FROM `' . $this->prefix . 'entrytag` et '
+			 . ($id == '' ? '' : 'WHERE et.id = ?')
+			 . ')';
+		$values = array($is_read ? 1 : 0, $is_read ? 1 : 0, $idMax);
+		if ($id != '') {
+			$values[] = $id;
+		}
+
+		list($searchValues, $search) = $this->sqlListEntriesWhere('e.', $filters, $state);
+
+		$stm = $this->bd->prepare($sql . $search);
+		if (!($stm && $stm->execute(array_merge($values, $searchValues)))) {
+			$info = $stm == null ? array(2 => 'syntax error') : $stm->errorInfo();
+			Minz_Log::error('SQL error markReadTag: ' . $info[2]);
+			return false;
+		}
+		$affected = $stm->rowCount();
+		if (($affected > 0) && (!$this->updateCacheUnreads(false, false))) {
+			return false;
+		}
+		return $affected;
+	}
 }

@@ -81,6 +81,12 @@ class FreshRSS_entry_Controller extends Minz_ActionController {
 				case 'a':
 					$entryDAO->markReadEntries($id_max, false, 0, FreshRSS_Context::$search, FreshRSS_Context::$state, $is_read);
 					break;
+				case 't':
+					$entryDAO->markReadTag($get, $id_max, FreshRSS_Context::$search, FreshRSS_Context::$state, $is_read);
+					break;
+				case 'T':
+					$entryDAO->markReadTag('', $id_max, FreshRSS_Context::$search, FreshRSS_Context::$state, $is_read);
+					break;
 				}
 
 				if ($next_get !== 'a') {
