@@ -44,6 +44,10 @@ class FreshRSS_Entry extends Minz_Model {
 	public function title() {
 		return $this->title;
 	}
+	public function author() {
+		//Deprecated
+		return $this->authors(true);
+	}
 	public function authors($asString = false) {
 		if ($asString) {
 			return $this->authors == null ? '' : ';' . implode('; ', $this->authors);
@@ -128,6 +132,10 @@ class FreshRSS_Entry extends Minz_Model {
 	public function _title($value) {
 		$this->hash = null;
 		$this->title = $value;
+	}
+	public function _author($value) {
+		//Deprecated
+		$this->_authors($value);
 	}
 	public function _authors($value) {
 		$this->hash = null;
