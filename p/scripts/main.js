@@ -120,10 +120,9 @@ function incUnreadsTag(tag_id, nb) {
 	$t.attr('data-unread', unreads + nb)
 		.children('.item-title').attr('data-unread', numberFormat(unreads + nb));
 
-	$t = $('.category.tags');
+	$t = $('.category.tags').find('.title');
 	unreads = str2int($t.attr('data-unread'));
-	$t.attr('data-unread', unreads + nb)
-		.find('.title').attr('data-unread', numberFormat(unreads + nb));
+	$t.attr('data-unread', numberFormat(unreads + nb));
 }
 
 var pending_entries = {};
