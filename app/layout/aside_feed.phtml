@@ -99,7 +99,11 @@
 <script id="tag_config_template" type="text/html">
 	<ul class="dropdown-menu">
 		<li class="dropdown-close"><a href="#close">❌</a></li>
-		<!-- TODO -->
+		<li class="item">
+			<button class="as-link confirm" disabled="disabled"
+				form="mark-read-aside" formaction="<?php echo _url('tag', 'delete', 'id_tag', '------'); ?>"
+				type="submit"><?php echo _t('gen.action.remove'); ?></button>
+		</li>
 	</ul>
 </script>
 

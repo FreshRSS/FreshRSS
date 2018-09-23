@@ -547,23 +547,16 @@ function init_column_categories() {
 		$(this).parent().next(".tree-folder-items").slideToggle(300 , function() { $(document.body).trigger("sticky_kit:recalc"); });
 		return false;
 	});
-	$('#aside_feed').on('click', '.tree-folder-items .tag .dropdown-toggle', function () {
-		if ($(this).nextAll('.dropdown-menu').length === 0) {
-			var tag_id = $(this).closest('.item').attr('id').substr(2),
-				template = $('#tag_config_template').html().replace(/------/g, tag_id);
-			$(this).attr('href', '#dropdown-' + tag_id).prev('.dropdown-target').attr('id', 'dropdown-' + tag_id).parent().append(template);
-			$('.tree-folder-items .dropdown-close a').click(function (){
-				$('.tree').removeClass('treepadding');
-				$(document.body).trigger("sticky_kit:recalc");
-			});
-		}
-	});
 	$('#aside_feed').on('click', '.tree-folder-items .feed .dropdown-toggle', function () {
 		if ($(this).nextAll('.dropdown-menu').length === 0) {
-			var feed_id = $(this).closest('.item').attr('id').substr(2),
+			var itemId = $(this).closest('.item').attr('id'),
+				templateId = itemId.substring(0, 2) === 't_' ? 'tag_config_template' : 'feed_config_template',
+				id = itemId.substr(2),
 				feed_web = $(this).data('fweb'),
-				template = $('#feed_config_template').html().replace(/------/g, feed_id).replace('http://example.net/', feed_web);
-			$(this).attr('href', '#dropdown-' + feed_id).prev('.dropdown-target').attr('id', 'dropdown-' + feed_id).parent().append(template);
+				template = $('#' + templateId)
+					.html().replace(/------/g, id).replace('http://example.net/', feed_web);
+			$(this).attr('href', '#dropdown-' + id).prev('.dropdown-target').attr('id', 'dropdown-' + id).parent()
+				.append(template).find('button.confirm').removeAttr('disabled');
 			$('.tree-folder-items .dropdown-close a').click(function(){
 				$('.tree').removeClass('treepadding');
 				$(document.body).trigger("sticky_kit:recalc");

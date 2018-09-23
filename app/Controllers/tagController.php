@@ -51,6 +51,24 @@ class FreshRSS_tag_Controller extends Minz_ActionController {
 		}
 	}
 
+	public function deleteAction() {
+		if (Minz_Request::isPost()) {
+			$id_tag = Minz_Request::param('id_tag');
+			if ($id_tag != false) {
+				$tagDAO = FreshRSS_Factory::createTagDao();
+				$tagDAO->deleteTag($id_tag);
+			}
+		} else {
+			Minz_Error::error(405);
+		}
+		if (!$this->ajax) {
+			Minz_Request::forward(array(
+				'c' => 'index',
+				'a' => 'index',
+			), true);
+		}
+	}
+
 	public function getTagsForEntryAction() {
 		$this->view->_useLayout(false);
 		header('Content-Type: application/json; charset=UTF-8');

@@ -3,7 +3,8 @@
 ## 2018-XX-XX FreshRSS 1.11.3
 
 * Features
-	* Handle tags containing spaces, as well as comma-separated tags [#2023](https://github.com/FreshRSS/FreshRSS/pull/2023)
+	* Ability to add *labels* (custom tags) to articles [#928](https://github.com/FreshRSS/FreshRSS/issues/928)
+	* Handle article tags containing spaces, as well as comma-separated tags [#2023](https://github.com/FreshRSS/FreshRSS/pull/2023)
 	* Handle authors containing spaces, as well as comma or semi-colomn separated authors [#2025](https://github.com/FreshRSS/FreshRSS/pull/2025)
 	* Searches by tag, author, etc. accept Unicode characters [#2025](https://github.com/FreshRSS/FreshRSS/pull/2025)
 * UI
