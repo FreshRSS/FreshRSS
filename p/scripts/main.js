@@ -862,15 +862,13 @@ function loadDynamicTags($div) {
 			if (data && data.length) {
 				for (var i = 0; i < data.length; i++) {
 					var tag = data[i];
-					
 					$ul.append('<li class="item"><label><input class="checkboxTag" name="t_' + tag.id + '" type="checkbox"' +
 						(tag.checked ? ' checked="checked"' : '') + '> ' + tag.name + '</label></li>');
 				}
-			} else {
-				$div.addClass('dynamictags');
 			}
 		})
 		.fail(function () {
+			$div.find('li.item').remove();
 			$div.addClass('dynamictags');
 		});
 }

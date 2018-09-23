@@ -34,8 +34,7 @@
 			?></li><?php
 		}
 	}
-	$labels = $bottomline_labels ? $this->tags : null;
-	if (!empty($labels)) {
+	if ($bottomline_labels) {
 	?><li class="item">
 		<div class="dropdown dynamictags">
 			<div id="dropdown-labels-<?php echo $this->entry->id();?>" class="dropdown-target"></div>
