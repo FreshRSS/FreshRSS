@@ -42,6 +42,12 @@ if (PHP_INT_SIZE < 8) {	//32-bit
 	}
 }
 
+if (version_compare(PHP_VERSION, '5.4.0') >= 0) {
+	define('JSON_OPTIONS', JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
+} else {
+	define('JSON_OPTIONS', 0);
+}
+
 function headerVariable($headerName, $varName) {
 	$header = '';
 	$upName = 'HTTP_' . strtoupper($headerName);
@@ -234,7 +240,7 @@ function userInfo() {	//https://github.com/theoldreader/api#user-info
 			'userName' => $user,
 			'userProfileId' => $user,
 			'userEmail' => FreshRSS_Context::$user_conf->mail_login,
-		)));
+		), JSON_OPTIONS));
 }
 
 function tagList() {
@@ -254,10 +260,24 @@ function tagList() {
 		$tags[] = array(
 			'id' => 'user/-/label/' . $cName,
 			//'sortid' => $cName,
+			'type' => 'folder',	//Inoreader
 		);
 	}
 
-	echo json_encode(array('tags' => $tags)), "\n";
+	unset($res);
+
+	$tagDAO = FreshRSS_Factory::createTagDao();
+	$labels = $tagDAO->listTags(true);
+	foreach ($labels as $label) {
+		$tags[] = array(
+			'id' => 'user/-/label/' . $label->name(),
+			//'sortid' => $cName,
+			'type' => 'tag',	//Inoreader
+			'unread_count' => $label->nbUnread(),
+		);
+	}
+
+	echo json_encode(array('tags' => $tags), JSON_OPTIONS), "\n";
 	exit();
 }
 
@@ -293,7 +313,7 @@ function subscriptionList() {
 		);
 	}
 
-	echo json_encode(array('subscriptions' => $subscriptions)), "\n";
+	echo json_encode(array('subscriptions' => $subscriptions), JSON_OPTIONS), "\n";
 	exit();
 }
 
@@ -391,13 +411,13 @@ function quickadd($url) {
 		exit(json_encode(array(
 				'numResults' => 1,
 				'streamId' => $feed->id(),
-			)));
+			), JSON_OPTIONS));
 	} catch (Exception $e) {
 		Minz_Log::error('quickadd error: ' . $e->getMessage(), API_LOG);
 		die(json_encode(array(
 				'numResults' => 0,
 				'error' => $e->getMessage(),
-			)));
+			), JSON_OPTIONS));
 	}
 }
 
@@ -441,13 +461,21 @@ function unreadCount() {	//http://blog.martindoms.com/2009/10/16/using-the-googl
 	echo json_encode(array(
 		'max' => $totalUnreads,
 		'unreadcounts' => $unreadcounts,
-	)), "\n";
+	), JSON_OPTIONS), "\n";
 	exit();
 }
 
 function entriesToArray($entries) {
+	if (empty($entries)) {
+		return array();
+	}
 	$feedDAO = FreshRSS_Factory::createFeedDao();
 	$arrayFeedCategoryNames = $feedDAO->arrayFeedCategoryNames();
+	$tagDAO = FreshRSS_Factory::createTagDao();
+	$entryIdsTagNames = $tagDAO->getEntryIdsTagNames($entries);
+	if ($entryIdsTagNames == false) {
+		$entryIdsTagNames = array();
+	}
 
 	$items = array();
 	foreach ($entries as $entry) {
@@ -472,7 +500,6 @@ function entriesToArray($entries) {
 			'categories' => array(
 				'user/-/state/com.google/reading-list',
 				'user/-/label/' . $c_name,
-				//TODO: Add other tags
 			),
 			'origin' => array(
 				'streamId' => 'feed/' . $f_id,
@@ -489,6 +516,10 @@ function entriesToArray($entries) {
 		}
 		if ($entry->isFavorite()) {
 			$item['categories'][] = 'user/-/state/com.google/starred';
+		}
+		$tagNames = isset($entryIdsTagNames['e_' . $entry->id()]) ? $entryIdsTagNames['e_' . $entry->id()] : array();
+		foreach ($tagNames as $tagName) {
+			$item['categories'][] = 'user/-/label/' . $tagName;
 		}
 		$items[] = $item;
 	}
@@ -511,10 +542,22 @@ function streamContents($path, $include_target, $start_time, $count, $order, $ex
 			$type = 'f';
 			break;
 		case 'label':
-			$type = 'c';
 			$categoryDAO = FreshRSS_Factory::createCategoryDao();
 			$cat = $categoryDAO->searchByName($include_target);
-			$include_target = $cat == null ? -1 : $cat->id();
+			if ($cat != null) {
+				$type = 'c';
+				$include_target = $cat->id();
+			} else {
+				$tagDAO = FreshRSS_Factory::createTagDao();
+				$tag = $tagDAO->searchByName($include_target);
+				if ($tag != null) {
+					$type = 't';
+					$include_target = $tag->id();
+				} else {
+					$type = 'A';
+					$include_target = -1;
+				}
+			}
 			break;
 		default:
 			$type = 'A';
@@ -559,7 +602,7 @@ function streamContents($path, $include_target, $start_time, $count, $order, $ex
 		}
 	}
 
-	echo json_encode($response), "\n";
+	echo json_encode($response, JSON_OPTIONS), "\n";
 	exit();
 }
 
@@ -581,7 +624,20 @@ function streamContentsItemsIds($streamId, $start_time, $count, $order, $exclude
 		$c_name = substr($streamId, 13);
 		$categoryDAO = FreshRSS_Factory::createCategoryDao();
 		$cat = $categoryDAO->searchByName($c_name);
-		$id = $cat == null ? -1 : $cat->id();
+		if ($cat != null) {
+			$type = 'c';
+			$id = $cat->id();
+		} else {
+			$tagDAO = FreshRSS_Factory::createTagDao();
+			$tag = $tagDAO->searchByName($c_name);
+			if ($tag != null) {
+				$type = 't';
+				$id = $tag->id();
+			} else {
+				$type = 'A';
+				$id = -1;
+			}
+		}
 	}
 
 	switch ($exclude_target) {
@@ -625,7 +681,7 @@ function streamContentsItemsIds($streamId, $start_time, $count, $order, $exclude
 		}
 	}
 
-	echo json_encode($response), "\n";
+	echo json_encode($response, JSON_OPTIONS), "\n";
 	exit();
 }
 
@@ -647,7 +703,7 @@ function streamContentsItems($e_ids, $order) {
 		'items' => $items,
 	);
 
-	echo json_encode($response), "\n";
+	echo json_encode($response, JSON_OPTIONS), "\n";
 	exit();
 }
 
@@ -657,6 +713,7 @@ function editTag($e_ids, $a, $r) {
 	}
 
 	$entryDAO = FreshRSS_Factory::createEntryDao();
+	$tagDAO = FreshRSS_Factory::createTagDao();
 
 	switch ($a) {
 		case 'user/-/state/com.google/read':
@@ -671,6 +728,30 @@ function editTag($e_ids, $a, $r) {
 			break;
 		case 'user/-/state/com.google/broadcast':
 			break;*/
+		default:
+			$tagName = '';
+			if (strpos($a, 'user/-/label/') === 0) {
+				$tagName = substr($a, 13);
+			} else {
+				$user = Minz_Session::param('currentUser', '_');
+				$prefix = 'user/' . $user . '/label/';
+				if (strpos($a, $prefix) === 0) {
+					$tagName = substr($a, strlen($prefix));
+				}
+			}
+			if ($tagName != '') {
+				$tag = $tagDAO->searchByName($tagName);
+				if ($tag == null) {
+					$tagDAO->addTag(array('name' => $tagName));
+					$tag = $tagDAO->searchByName($tagName);
+				}
+				if ($tag != null) {
+					foreach ($e_ids as $e_id) {
+						$tagDAO->tagEntry($tag->id(), $e_id, true);
+					}
+				}
+			}
+			break;
 	}
 	switch ($r) {
 		case 'user/-/state/com.google/read':
@@ -678,6 +759,17 @@ function editTag($e_ids, $a, $r) {
 			break;
 		case 'user/-/state/com.google/starred':
 			$entryDAO->markFavorite($e_ids, false);
+			break;
+		default:
+			if (strpos($r, 'user/-/label/') === 0) {
+				$tagName = substr($r, 13);
+				$tag = $tagDAO->searchByName($tagName);
+				if ($tag != null) {
+					foreach ($e_ids as $e_id) {
+						$tagDAO->tagEntry($tag->id(), $e_id, false);
+					}
+				}
+			}
 			break;
 	}
 
@@ -688,12 +780,20 @@ function renameTag($s, $dest) {
 	if ($s != '' && strpos($s, 'user/-/label/') === 0 &&
 		$dest != '' &&  strpos($dest, 'user/-/label/') === 0) {
 		$s = substr($s, 13);
+		$dest = substr($dest, 13);
+		
 		$categoryDAO = FreshRSS_Factory::createCategoryDao();
 		$cat = $categoryDAO->searchByName($s);
 		if ($cat != null) {
-			$dest = substr($dest, 13);
 			$categoryDAO->updateCategory($cat->id(), array('name' => $dest));
 			exit('OK');
+		} else {
+			$tagDAO = FreshRSS_Factory::createTagDao();
+			$tag = $tagDAO->searchByName($s);
+			if ($tag != null) {
+				$tagDAO->updateTag($tag->id(), array('name' => $dest));
+				exit('OK');
+			}
 		}
 	}
 	badRequest();
@@ -711,6 +811,13 @@ function disableTag($s) {
 				$categoryDAO->deleteCategory($cat->id());
 			}
 			exit('OK');
+		} else {
+			$tagDAO = FreshRSS_Factory::createTagDao();
+			$tag = $tagDAO->searchByName($s);
+			if ($tag != null) {
+				$tagDAO->deleteTag($tag->id());
+				exit('OK');
+			}
 		}
 	}
 	badRequest();
@@ -725,7 +832,16 @@ function markAllAsRead($streamId, $olderThanId) {
 		$c_name = substr($streamId, 13);
 		$categoryDAO = FreshRSS_Factory::createCategoryDao();
 		$cat = $categoryDAO->searchByName($c_name);
-		$entryDAO->markReadCat($cat === null ? -1 : $cat->id(), $olderThanId);
+		if ($cat != null) {
+			$entryDAO->markReadCat($cat->id(), $olderThanId);
+		} else {
+			$tagDAO = FreshRSS_Factory::createTagDao();
+			$tag = $tagDAO->searchByName($c_name);
+			if ($tag != null) {
+				$entryDAO->markReadTag($tag->id(), $olderThanId);
+			}
+		}
+		
 	} elseif ($streamId === 'user/-/state/com.google/reading-list') {
 		$entryDAO->markReadEntries($olderThanId, false, -1);
 	}
