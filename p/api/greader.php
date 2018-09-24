@@ -781,7 +781,7 @@ function renameTag($s, $dest) {
 		$dest != '' &&  strpos($dest, 'user/-/label/') === 0) {
 		$s = substr($s, 13);
 		$dest = substr($dest, 13);
-		
+
 		$categoryDAO = FreshRSS_Factory::createCategoryDao();
 		$cat = $categoryDAO->searchByName($s);
 		if ($cat != null) {
@@ -841,7 +841,6 @@ function markAllAsRead($streamId, $olderThanId) {
 				$entryDAO->markReadTag($tag->id(), $olderThanId);
 			}
 		}
-		
 	} elseif ($streamId === 'user/-/state/com.google/reading-list') {
 		$entryDAO->markReadEntries($olderThanId, false, -1);
 	}
