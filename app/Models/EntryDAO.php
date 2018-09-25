@@ -853,7 +853,9 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 		list($searchValues, $search) = $this->sqlListEntriesWhere('e.', $filters, $state, $order, $firstId, $date_min);
 
 		return array(array_merge($values, $searchValues),
-			'SELECT e.id FROM `' . $this->prefix . 'entry` e '
+			'SELECT '
+			. ($type === 'T' ? 'DISTINCT ' : '')
+			. 'e.id FROM `' . $this->prefix . 'entry` e '
 			. 'INNER JOIN `' . $this->prefix . 'feed` f ON e.id_feed = f.id '
 			. ($type === 't' || $type === 'T' ? 'INNER JOIN `' . $this->prefix . 'entrytag` et ON et.id_entry = e.id ' : '')
 			. 'WHERE ' . $where
