@@ -102,7 +102,7 @@ return array(
 		'read' => array(
 			'article_open_on_website' => 'wenn der Artikel auf der Original-Webseite geöffnet wird',
 			'article_viewed' => 'wenn der Artikel angesehen wird',
-			'scroll' => 'beim Blättern',
+			'scroll' => 'beim Scrollen bzw. Überspringen',
 			'upon_reception' => 'beim Empfang des Artikels',
 			'when' => 'Artikel als gelesen markieren…',
 		),
