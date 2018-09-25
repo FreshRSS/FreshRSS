@@ -452,6 +452,14 @@ function unreadCount() {	//http://blog.martindoms.com/2009/10/16/using-the-googl
 		}
 	}
 
+	$tagDAO = FreshRSS_Factory::createTagDao();
+	foreach ($tagDAO->listTags(true) as $label) {
+		$unreadcounts[] = array(
+			'id' => 'user/-/label/' . $label->name(),
+			'count' => $label->nbUnread(),
+		);
+	}
+
 	$unreadcounts[] = array(
 		'id' => 'user/-/state/com.google/reading-list',
 		'count' => $totalUnreads,
