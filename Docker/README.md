@@ -100,7 +100,7 @@ There is no less than 3 options. Pick a single one.
 Easiest, built-in solution, also used in the examples above
 (but your Docker instance will have a second process in the background, without monitoring).
 Just pass the environment variable `CRON_MIN` to your `docker run` command,
-containing a valid cron minute definition such as `'13,43'` (recommended) or `'*/20'`.
+containing a valid cron minute definition such as `'13,43'` (recommended) or `'*\/20'`.
 Not passing the `CRON_MIN` environment variable – or setting it to empty string – will disable the cron daemon.
 
 ```sh
