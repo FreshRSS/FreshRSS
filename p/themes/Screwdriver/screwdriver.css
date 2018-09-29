@@ -373,6 +373,9 @@ a.btn {
 	color: #ccc;
 	font-size: 0.8rem;
 }
+.dropdown-menu > .item > label {
+	color: #ccc;
+}
 .dropdown-menu > .item:hover {
 	background: #171717;
 	color: #fff;

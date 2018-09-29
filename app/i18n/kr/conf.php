@@ -19,7 +19,7 @@ return array(
 			'bottom_line' => '하단',
 			'entry' => '문서 아이콘',
 			'publication_date' => '발행일',
-			'related_tags' => '관련 태그',
+			'related_tags' => '관련 태그',	//TODO
 			'sharing' => '공유',
 			'top_line' => '상단',
 		),

@@ -300,6 +300,7 @@ a.btn {
 
 /*=== Dropdown */
 .dropdown-menu {
+	background: #fafafa;
 	margin: 5px 0 0;
 	padding: 5px 0;
 	font-size: 0.8rem;

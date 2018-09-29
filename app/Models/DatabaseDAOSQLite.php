@@ -14,6 +14,9 @@ class FreshRSS_DatabaseDAOSQLite extends FreshRSS_DatabaseDAO {
 			'category' => false,
 			'feed' => false,
 			'entry' => false,
+			'entrytmp' => false,
+			'tag' => false,
+			'entrytag' => false,
 		);
 		foreach ($res as $value) {
 			$tables[$value['name']] = true;
@@ -32,8 +35,15 @@ class FreshRSS_DatabaseDAOSQLite extends FreshRSS_DatabaseDAO {
 
 	public function entryIsCorrect() {
 		return $this->checkTable('entry', array(
-			'id', 'guid', 'title', 'author', 'content', 'link', 'date', 'is_read',
-			'is_favorite', 'id_feed', 'tags'
+			'id', 'guid', 'title', 'author', 'content', 'link', 'date', 'lastSeen', 'hash', 'is_read',
+			'is_favorite', 'id_feed', 'tags',
+		));
+	}
+
+	public function entrytmpIsCorrect() {
+		return $this->checkTable('entrytmp', array(
+			'id', 'guid', 'title', 'author', 'content', 'link', 'date', 'lastSeen', 'hash', 'is_read',
+			'is_favorite', 'id_feed', 'tags',
 		));
 	}
 

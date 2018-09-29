@@ -32,8 +32,15 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 			Minz_Error::error(404);
 		}
 
-		$this->view->callbackBeforeContent = function($view) {
+		$this->view->callbackBeforeContent = function ($view) {
 			try {
+				$tagDAO = FreshRSS_Factory::createTagDao();
+				$view->tags = $tagDAO->listTags(true);
+				$view->nbUnreadTags = 0;
+				foreach ($view->tags as $tag) {
+					$view->nbUnreadTags += $tag->nbUnread();
+				}
+
 				FreshRSS_Context::$number++;	//+1 for pagination
 				$entries = FreshRSS_index_Controller::listEntriesByContext();
 				FreshRSS_Context::$number--;
@@ -158,7 +165,7 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 	 */
 	private function updateContext() {
 		if (empty(FreshRSS_Context::$categories)) {
-			$catDAO = new FreshRSS_CategoryDAO();
+			$catDAO = FreshRSS_Factory::createCategoryDao();
 			FreshRSS_Context::$categories = $catDAO->listCategories();
 		}
 

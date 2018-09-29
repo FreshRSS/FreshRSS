@@ -19,7 +19,7 @@ return array(
 			'bottom_line' => 'Barra in fondo',
 			'entry' => 'Icone degli articoli',
 			'publication_date' => 'Data di pubblicazione',
-			'related_tags' => 'Tags correlati',
+			'related_tags' => 'Tags correlati',	//TODO
 			'sharing' => 'Condivisione',
 			'top_line' => 'Barra in alto',
 		),

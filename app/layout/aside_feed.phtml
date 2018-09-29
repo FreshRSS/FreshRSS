@@ -35,6 +35,30 @@
 		</li>
 
 		<?php
+			$t_active = FreshRSS_Context::isCurrentGet('T');
+		?>
+		<li class="tree-folder category tags<?php echo $t_active ? ' active' : ''; ?>">
+			<div class="tree-folder-title">
+				<a class="dropdown-toggle" href="#"><?php echo _i($t_active ? 'up' : 'down'); ?></a>
+				<a class="title" data-unread="<?php echo format_number($this->nbUnreadTags); ?>" href="<?php echo _url('index', 'index', 'get', 'T'); ?>"><?php echo _t('index.menu.tags'); ?></a>
+			</div>
+			<ul class="tree-folder-items<?php echo $t_active ? ' active' : ''; ?>">
+				<?php
+					foreach ($this->tags as $tag):
+				?>
+				<li id="t_<?php echo $tag->id(); ?>" class="item feed<?php echo FreshRSS_Context::isCurrentGet('t_' . $tag->id()) ? ' active' : ''; ?>" data-unread="<?php echo $tag->nbUnread(); ?>">
+					<div class="dropdown no-mobile">
+						<div class="dropdown-target"></div>
+						<a class="dropdown-toggle"><?php echo _i('configure'); ?></a>
+						<?php /* tag_config_template */ ?>
+					</div>
+					<?php echo FreshRSS_Themes::alt('label'); ?> <a class="item-title" data-unread="<?php echo format_number($tag->nbUnread()); ?>" href="<?php echo _url('index', 'index', 'get', 't_' . $tag->id()); ?>"><?php echo $tag->name(); ?></a>
+				</li>
+				<?php endforeach; ?>
+			</ul>
+		</li>
+
+		<?php
 			foreach ($this->categories as $cat) {
 				$feeds = $cat->feeds();
 				if (!empty($feeds)) {
@@ -71,6 +95,17 @@
 	</ul>
 	</form>
 </div>
+
+<script id="tag_config_template" type="text/html">
+	<ul class="dropdown-menu">
+		<li class="dropdown-close"><a href="#close">❌</a></li>
+		<li class="item">
+			<button class="as-link confirm" disabled="disabled"
+				form="mark-read-aside" formaction="<?php echo _url('tag', 'delete', 'id_tag', '------'); ?>"
+				type="submit"><?php echo _t('gen.action.remove'); ?></button>
+		</li>
+	</ul>
+</script>
 
 <script id="feed_config_template" type="text/html">
 	<ul class="dropdown-menu">

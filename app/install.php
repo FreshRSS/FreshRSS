@@ -343,13 +343,13 @@ function checkDbUser(&$dbOptions) {
 	try {
 		$c = new PDO($str, $dbOptions['user'], $dbOptions['password'], $driver_options);
 		if (defined('SQL_CREATE_TABLES')) {
-			$sql = sprintf(SQL_CREATE_TABLES . SQL_CREATE_TABLE_ENTRYTMP . SQL_INSERT_FEEDS,
+			$sql = sprintf(SQL_CREATE_TABLES . SQL_CREATE_TABLE_ENTRYTMP . SQL_CREATE_TABLE_TAGS . SQL_INSERT_FEEDS,
 				$dbOptions['prefix_user'], _t('gen.short.default_category'));
 			$stm = $c->prepare($sql);
 			$ok = $stm && $stm->execute();
 		} else {
-			global $SQL_CREATE_TABLES, $SQL_CREATE_TABLE_ENTRYTMP, $SQL_INSERT_FEEDS;
-			$instructions = array_merge($SQL_CREATE_TABLES, $SQL_CREATE_TABLE_ENTRYTMP, $SQL_INSERT_FEEDS);
+			global $SQL_CREATE_TABLES, $SQL_CREATE_TABLE_ENTRYTMP, $SQL_CREATE_TABLE_TAGS, $SQL_INSERT_FEEDS;
+			$instructions = array_merge($SQL_CREATE_TABLES, $SQL_CREATE_TABLE_ENTRYTMP, $SQL_CREATE_TABLE_TAGS, $SQL_INSERT_FEEDS);
 			$ok = !empty($instructions);
 			foreach ($instructions as $instruction) {
 				$sql = sprintf($instruction, $dbOptions['prefix_user'], _t('gen.short.default_category'));

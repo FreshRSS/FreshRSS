@@ -450,6 +450,9 @@ function check_install_database() {
 		'categories' => false,
 		'feeds' => false,
 		'entries' => false,
+		'entrytmp' => false,
+		'tag' => false,
+		'entrytag' => false,
 	);
 
 	try {
@@ -459,6 +462,9 @@ function check_install_database() {
 		$status['categories'] = $dbDAO->categoryIsCorrect();
 		$status['feeds'] = $dbDAO->feedIsCorrect();
 		$status['entries'] = $dbDAO->entryIsCorrect();
+		$status['entrytmp'] = $dbDAO->entrytmpIsCorrect();
+		$status['tag'] = $dbDAO->tagIsCorrect();
+		$status['entrytag'] = $dbDAO->entrytagIsCorrect();
 	} catch(Minz_PDOConnectionException $e) {
 		$status['connection'] = false;
 	}
