@@ -1,4 +1,6 @@
 <?php
+// > Error: FreshRSS requires PHP, which does not seem to be installed or configured correctly! <!--
+
 # ***** BEGIN LICENSE BLOCK *****
 # MINZ - A free PHP framework
 # Copyright (C) 2011 Marien Fressinaud
