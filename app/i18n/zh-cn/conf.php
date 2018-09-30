@@ -19,7 +19,7 @@ return array(
 			'bottom_line' => '底栏',
 			'entry' => '文章图标',
 			'publication_date' => '更新日期',
-			'related_tags' => '相关标签',
+			'related_tags' => '相关标签',	//TODO
 			'sharing' => '分享',
 			'top_line' => '顶栏',
 		),

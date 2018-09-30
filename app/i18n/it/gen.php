@@ -181,7 +181,7 @@ return array(
 	'short' => array(
 		'attention' => 'Attenzione!',
 		'blank_to_disable' => 'Lascia vuoto per disabilitare',
-		'by_author' => 'di <em>%s</em>',
+		'by_author' => 'di:',
 		'by_default' => 'predefinito',
 		'damn' => 'Ops!',
 		'default_category' => 'Senza categoria',

@@ -3,7 +3,12 @@
 /**
  * This class is used to test database is well-constructed.
  */
-class FreshRSS_DatabaseDAOPGSQL extends FreshRSS_DatabaseDAO {
+class FreshRSS_DatabaseDAOPGSQL extends FreshRSS_DatabaseDAOSQLite {
+
+	//PostgreSQL error codes
+	const UNDEFINED_COLUMN = '42703';
+	const UNDEFINED_TABLE = '42P01';
+
 	public function tablesAreCorrect() {
 		$db = FreshRSS_Context::$system_conf->db;
 		$dbowner = $db['user'];
@@ -17,6 +22,9 @@ class FreshRSS_DatabaseDAOPGSQL extends FreshRSS_DatabaseDAO {
 			$this->prefix . 'category' => false,
 			$this->prefix . 'feed' => false,
 			$this->prefix . 'entry' => false,
+			$this->prefix . 'entrytmp' => false,
+			$this->prefix . 'tag' => false,
+			$this->prefix . 'entrytag' => false,
 		);
 		foreach ($res as $value) {
 			$tables[array_pop($value)] = true;
@@ -53,28 +61,16 @@ class FreshRSS_DatabaseDAOPGSQL extends FreshRSS_DatabaseDAO {
 
 	public function optimize() {
 		$ok = true;
+		$tables = array('category', 'feed', 'entry', 'entrytmp', 'tag', 'entrytag');
 
-		$sql = 'VACUUM `' . $this->prefix . 'entry`';
-		$stm = $this->bd->prepare($sql);
-		$ok &= $stm != false;
-		if ($stm) {
-			$ok &= $stm->execute();
+		foreach ($tables as $table) {
+			$sql = 'VACUUM `' . $this->prefix . $table . '`';
+			$stm = $this->bd->prepare($sql);
+			$ok &= $stm != false;
+			if ($stm) {
+				$ok &= $stm->execute();
+			}
 		}
-
-		$sql = 'VACUUM `' . $this->prefix . 'feed`';
-		$stm = $this->bd->prepare($sql);
-		$ok &= $stm != false;
-		if ($stm) {
-			$ok &= $stm->execute();
-		}
-
-		$sql = 'VACUUM `' . $this->prefix . 'category`';
-		$stm = $this->bd->prepare($sql);
-		$ok &= $stm != false;
-		if ($stm) {
-			$ok &= $stm->execute();
-		}
-
 		return $ok;
 	}
 }

@@ -4,7 +4,7 @@
 * [English version](README.md)
 
 # FreshRSS
-FreshRSS est un agrégateur de flux RSS à auto-héberger à l’image de [Leed](http://projet.idleman.fr/leed/) ou de [Kriss Feed](https://tontof.net/kriss/feed/).
+FreshRSS est un agrégateur de flux RSS à auto-héberger à l’image de [Leed](http://leed.idleman.fr/) ou de [Kriss Feed](https://tontof.net/kriss/feed/).
 
 Il se veut léger et facile à prendre en main tout en étant un outil puissant et paramétrable.
 
@@ -187,6 +187,7 @@ Tout client supportant une API de type Fever ; Sélection :
 * iOS
 	* [Fiery Feeds](https://itunes.apple.com/app/fiery-feeds-rss-reader/id1158763303) (Propriétaire)
 	* [Unread](https://itunes.apple.com/app/unread-rss-reader/id1252376153) (Propriétaire)
+	* [Reeder-3](https://itunes.apple.com/app/reeder-3/id697846300) (Propriétaire)
 * MacOS
 	* [Readkit](https://itunes.apple.com/app/readkit/id588726889) (Propriétaire)
 

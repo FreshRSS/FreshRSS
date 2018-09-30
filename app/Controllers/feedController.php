@@ -43,7 +43,7 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 		FreshRSS_UserDAO::touch();
 		@set_time_limit(300);
 
-		$catDAO = new FreshRSS_CategoryDAO();
+		$catDAO = FreshRSS_Factory::createCategoryDao();
 
 		$url = trim($url);
 
@@ -192,7 +192,7 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 			// GET request: we must ask confirmation to user before adding feed.
 			Minz_View::prependTitle(_t('sub.feed.title_add') . ' · ');
 
-			$this->catDAO = new FreshRSS_CategoryDAO();
+			$this->catDAO = FreshRSS_Factory::createCategoryDao();
 			$this->view->categories = $this->catDAO->listCategories(false);
 			$this->view->feed = new FreshRSS_Feed($url);
 			try {
@@ -556,7 +556,7 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 		}
 		FreshRSS_UserDAO::touch();
 
-		$catDAO = new FreshRSS_CategoryDAO();
+		$catDAO = FreshRSS_Factory::createCategoryDao();
 		if ($cat_id > 0) {
 			$cat = $catDAO->searchById($cat_id);
 			$cat_id = $cat == null ? 0 : $cat->id();

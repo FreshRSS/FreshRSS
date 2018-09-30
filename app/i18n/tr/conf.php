@@ -19,7 +19,7 @@ return array(
 			'bottom_line' => 'Alt çizgi',
 			'entry' => 'Makale ikonları',
 			'publication_date' => 'Yayınlama Tarihi',
-			'related_tags' => 'İlgili etiketler',
+			'related_tags' => 'İlgili etiketler',	//TODO
 			'sharing' => 'Paylaşım',
 			'top_line' => 'Üst çizgi',
 		),
