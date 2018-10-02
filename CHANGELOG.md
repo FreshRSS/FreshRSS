@@ -15,6 +15,8 @@
 * Deployment
 	* Fix Docker bug with some cron values [#2032](https://github.com/FreshRSS/FreshRSS/pull/2032)
 	* Perform `git clean -f -d -f` (removes unknown files and folders) before git auto-update method [#2036](https://github.com/FreshRSS/FreshRSS/pull/2036)
+* Misc.
+	* Better port detection behind a proxy [#2031](https://github.com/FreshRSS/FreshRSS/issues/2031)
 
 
 ## 2018-09-09 FreshRSS 1.11.2
