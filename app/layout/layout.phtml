@@ -32,14 +32,7 @@
 		<?php echo self::headTitle(); ?>
 <?php
 	$url_base = Minz_Request::currentRequest();
-	if (FreshRSS_Context::$next_id !== '') {
-		$url_next = $url_base;
-		$url_next['params']['next'] = FreshRSS_Context::$next_id;
-		$url_next['params']['ajax'] = 1;
-?>
-		<link id="prefetch" rel="next prefetch" href="<?php echo Minz_Url::display($url_next); ?>" />
-<?php
-	} if (isset($this->rss_title)) {
+	if (isset($this->rss_title)) {
 		$url_rss = $url_base;
 		$url_rss['a'] = 'rss';
 		if (FreshRSS_Context::$user_conf->since_hours_posts_per_rss) {
