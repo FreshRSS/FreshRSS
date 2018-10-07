@@ -1172,7 +1172,16 @@ function init_load_more(box) {
 	box_load_more = box;
 	document.body.dispatchEvent(freshrssLoadMoreEvent);
 
-	$("#load_more").click(function () {
+	var $next_link = $("#load_more");
+	if (!$next_link.length) {
+		// no more article to load
+		url_load_more = "";
+		return;
+	}
+
+	url_load_more = $next_link.attr("href");
+
+	$next_link.click(function () {
 		load_more_posts();
 		return false;
 	});
