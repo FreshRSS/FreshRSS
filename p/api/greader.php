@@ -273,7 +273,7 @@ function tagList() {
 			'id' => 'user/-/label/' . $label->name(),
 			//'sortid' => $cName,
 			'type' => 'tag',	//Inoreader
-			'unread_count' => $label->nbUnread(),
+			'unread_count' => $label->nbUnread(),	//Inoreader
 		);
 	}
 
