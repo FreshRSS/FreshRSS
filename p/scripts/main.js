@@ -1170,7 +1170,6 @@ freshrssLoadMoreEvent.initEvent('freshrss:load-more', true, true);
 
 function init_load_more(box) {
 	box_load_more = box;
-
 	document.body.dispatchEvent(freshrssLoadMoreEvent);
 
 	var $next_link = $("#load_more");
@@ -1181,12 +1180,6 @@ function init_load_more(box) {
 	}
 
 	url_load_more = $next_link.attr("href");
-	var $prefetch = $('#prefetch');
-	if ($prefetch.attr('href') !== url_load_more) {
-		$prefetch.attr('rel', 'next');	//Remove prefetch
-		$.ajax({url: url_load_more, ifModified: true });	//TODO: Try to find a less agressive solution
-		$prefetch.attr('href', url_load_more);
-	}
 
 	$next_link.click(function () {
 		load_more_posts();
