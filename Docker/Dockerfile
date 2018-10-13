@@ -14,6 +14,7 @@ WORKDIR ${FRESHRSS_ROOT}
 
 COPY . ${FRESHRSS_ROOT}
 COPY ./Docker/*.Apache.conf /etc/apache2/conf.d/
+COPY ./Docker/*.php.ini /etc/php7/conf.d/
 
 RUN sed -r -i "/^[ ]*(CustomLog|ErrorLog|Listen) /s/^/#/" /etc/apache2/httpd.conf && \
 	echo "17,37 * * * * php ${FRESHRSS_ROOT}/app/actualize_script.php 2>&1 | tee /tmp/FreshRSS.log" >> \
