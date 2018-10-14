@@ -992,7 +992,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 		$stm = $this->bd->prepare($sql);
 		$stm->execute();
 		$res = $stm->fetchAll(PDO::FETCH_COLUMN, 0);
-		return $res[0];
+		return isset($res[0]) ? $res[0] : 0;
 	}
 	public function countNotRead($minPriority = null) {
 		$sql = 'SELECT COUNT(e.id) AS count FROM `' . $this->prefix . 'entry` e';
