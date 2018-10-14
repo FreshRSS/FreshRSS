@@ -7,6 +7,7 @@ class FreshRSS_javascript_Controller extends Minz_ActionController {
 
 	public function actualizeAction() {
 		header('Content-Type: application/json; charset=UTF-8');
+		Minz_Session::_param('actualize_feeds', false);
 		$feedDAO = FreshRSS_Factory::createFeedDao();
 		$this->view->feeds = $feedDAO->listFeedsOrderUpdate(FreshRSS_Context::$user_conf->ttl_default);
 	}
