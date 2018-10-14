@@ -9,7 +9,7 @@ FreshRSS est un agrégateur de flux RSS à auto-héberger à l’image de [Leed]
 Il se veut léger et facile à prendre en main tout en étant un outil puissant et paramétrable.
 
 Il permet de gérer plusieurs utilisateurs, et dispose d’un mode de lecture anonyme.
-Il supporte [PubSubHubbub](https://github.com/pubsubhubbub/PubSubHubbub) pour des notifications instantanées depuis les sites compatibles.
+Il supporte les étiquettes personnalisées, et [PubSubHubbub](https://github.com/pubsubhubbub/PubSubHubbub) pour des notifications instantanées depuis les sites compatibles.
 Il y a une API pour les clients (mobiles), ainsi qu’une [interface en ligne de commande](cli/README.md).
 Enfin, il permet l’ajout d’[extensions](#extensions) pour encore plus de personnalisation.
 
@@ -70,13 +70,7 @@ Plus d’informations sur l’installation et la configuration serveur peuvent �
 sudo apt-get install apache2
 sudo a2enmod headers expires rewrite ssl	#Modules Apache
 
-# Pour Ubuntu <= 15.10, Debian <= 8 Jessie
-sudo apt-get install php5 php5-curl php5-gmp php5-intl php5-json php5-sqlite
-sudo apt-get install libapache2-mod-php5	#Pour Apache
-sudo apt-get install mysql-server mysql-client php5-mysql	#Base de données MySQL optionnelle
-sudo apt-get install postgresql php5-pgsql	#Base de données PostgreSQL optionnelle
-
-# Pour Ubuntu >= 16.04, Debian >= 9 Stretch
+# Exemple pour Ubuntu >= 16.04, Debian >= 9 Stretch
 sudo apt install php php-curl php-gmp php-intl php-mbstring php-sqlite3 php-xml php-zip
 sudo apt install libapache2-mod-php	#Pour Apache
 sudo apt install mysql-server mysql-client php-mysql	#Base de données MySQL optionnelle
