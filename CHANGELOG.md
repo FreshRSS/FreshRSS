@@ -4,8 +4,9 @@
 
 * Features
 	* Ability to add *labels* (custom tags) to articles [#928](https://github.com/FreshRSS/FreshRSS/issues/928)
+		* Also available through Google Reader API (full support in News+, partial in FeedMe, EasyRSS). No support in Fever API.
 	* Handle article tags containing spaces, as well as comma-separated tags [#2023](https://github.com/FreshRSS/FreshRSS/pull/2023)
-	* Handle authors containing spaces, as well as comma or semi-colomn separated authors [#2025](https://github.com/FreshRSS/FreshRSS/pull/2025)
+	* Handle authors containing spaces, as well as comma or semi-colon separated authors [#2025](https://github.com/FreshRSS/FreshRSS/pull/2025)
 	* Searches by tag, author, etc. accept Unicode characters [#2025](https://github.com/FreshRSS/FreshRSS/pull/2025)
 * UI
 	* Click on authors to initiate a search by author [#2025](https://github.com/FreshRSS/FreshRSS/pull/2025)
@@ -15,6 +16,14 @@
 * Deployment
 	* Fix Docker bug with some cron values [#2032](https://github.com/FreshRSS/FreshRSS/pull/2032)
 	* Perform `git clean -f -d -f` (removes unknown files and folders) before git auto-update method [#2036](https://github.com/FreshRSS/FreshRSS/pull/2036)
+* Performance
+	* Remove some counterproductive preload / prefetch rules [#2040](https://github.com/FreshRSS/FreshRSS/pull/2040)
+	* Improved fast flush (earlier transfer, fetching of resources, and rendering) [#2045](https://github.com/FreshRSS/FreshRSS/pull/2045)
+		* Only available for Apache running PHP as module (not for NGINX, or PHP as CGI / FPM) because we want to keep compression
+* Bug fixing
+	* Ask confirmation important configuration actions [#2048](https://github.com/FreshRSS/FreshRSS/pull/2048)
+	* Fix database size in the Web UI for users about to be deleted [#2047](https://github.com/FreshRSS/FreshRSS/pull/2047)
+	* Fix actualize bug after install [#2044](https://github.com/FreshRSS/FreshRSS/pull/2044)
 * Misc.
 	* Better port detection behind a proxy [#2031](https://github.com/FreshRSS/FreshRSS/issues/2031)
 
