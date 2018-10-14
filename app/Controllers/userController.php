@@ -166,7 +166,7 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 			$entryDAO = FreshRSS_Factory::createEntryDao($this->view->current_user);
 			$this->view->nb_articles = $entryDAO->count();
 
-			$databaseDAO = FreshRSS_Factory::createDatabaseDAO();
+			$databaseDAO = FreshRSS_Factory::createDatabaseDAO($this->view->current_user);
 			$this->view->size_user = $databaseDAO->size();
 		}
 	}

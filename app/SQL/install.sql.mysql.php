@@ -18,7 +18,7 @@ CREATE TABLE IF NOT EXISTS `%1$sfeed` (
 	`website` VARCHAR(255) CHARACTER SET latin1,
 	`description` TEXT,
 	`lastUpdate` INT(11) DEFAULT 0,	-- Until year 2038
-	`priority` TINYNT(2) NOT NULL DEFAULT 10,
+	`priority` TINYINT(2) NOT NULL DEFAULT 10,
 	`pathEntries` VARCHAR(511) DEFAULT NULL,
 	`httpAuth` VARCHAR(511) DEFAULT NULL,
 	`error` BOOLEAN DEFAULT 0,
