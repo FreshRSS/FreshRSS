@@ -1514,9 +1514,9 @@ function init_afterDOM() {
 		return;
 	}
 	init_notifications();
+	init_confirm_action();
 	$stream = $('#stream');
 	if ($stream.length > 0) {
-		init_confirm_action();
 		init_load_more($stream);
 		init_posts();
 		init_nav_entries();
