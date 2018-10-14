@@ -1,6 +1,11 @@
 <?php
 $this->partial('nav_menu');
 
+flush();
+if (isset($this->callbackBeforeEntries)) {
+	call_user_func($this->callbackBeforeEntries, $this);
+}
+
 if (!empty($this->entries)) {
 	$lazyload = FreshRSS_Context::$user_conf->lazyload;
 	$content_width = FreshRSS_Context::$user_conf->content_width;

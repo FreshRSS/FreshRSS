@@ -22,13 +22,7 @@
 		<meta name="msapplication-TileColor" content="#FFF" />
 <?php if (!FreshRSS_Context::$system_conf->allow_referrer) { ?>
 		<meta name="referrer" content="never" />
-<?php
-	}
-	flush();
-	if (isset($this->callbackBeforeContent)) {
-		call_user_func($this->callbackBeforeContent, $this);
-	}
-?>
+<?php } ?>
 		<?php echo self::headTitle(); ?>
 <?php
 	$url_base = Minz_Request::currentRequest();
@@ -54,10 +48,19 @@
 <?php } ?>
 	</head>
 	<body class="<?php echo Minz_Request::actionName(); ?>">
-<?php $this->partial('header'); ?>
+<?php
+	flush();
+	$this->partial('header');
+?>
 
 <div id="global">
-	<?php $this->render(); ?>
+	<?php
+		flush();
+		if (isset($this->callbackBeforeFeeds)) {
+			call_user_func($this->callbackBeforeFeeds, $this);
+		}
+		$this->render();
+	?>
 </div>
 
 <?php
