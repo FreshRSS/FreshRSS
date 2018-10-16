@@ -27,6 +27,7 @@ return array(
 			'password' => 'HTTP wachtwoord',
 			'username' => 'HTTP gebruikers naam',
 		),
+		'clear_cache' => 'Always clear cache',	//TODO
 		'css_help' => 'Haalt verstoorde RSS feeds op (attentie, heeft meer tijd nodig!)',
 		'css_path' => 'Artikelen CSS pad op originele website',
 		'description' => 'Omschrijving',

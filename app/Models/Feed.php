@@ -286,6 +286,10 @@ class FreshRSS_Feed extends Minz_Model {
 				if (!$loadDetails) {	//Only activates auto-discovery when adding a new feed
 					$feed->set_autodiscovery_level(SIMPLEPIE_LOCATOR_NONE);
 				}
+				if ($this->attributes('clear_cache')) {
+					// Do not use `$simplePie->enable_cache(false);` as it would prevent caching in multiuser context
+					$this->clearCache();
+				}
 				Minz_ExtensionManager::callHook('simplepie_before_init', $feed, $this);
 				$mtime = $feed->init();
 
@@ -465,8 +469,16 @@ class FreshRSS_Feed extends Minz_Model {
 		$this->entries = $entries;
 	}
 
+	protected function cacheFilename() {
+		return CACHE_PATH . '/' . md5($this->url) . '.spc';
+	}
+
+	public function clearCache() {
+		return @unlink($this->cacheFilename());
+	}
+
 	public function cacheModifiedTime() {
-		return @filemtime(CACHE_PATH . '/' . md5($this->url) . '.spc');
+		return @filemtime($this->cacheFilename());
 	}
 
 	public function lock() {

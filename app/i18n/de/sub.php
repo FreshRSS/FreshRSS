@@ -27,6 +27,7 @@ return array(
 			'password' => 'HTTP-Passwort',
 			'username' => 'HTTP-Nutzername',
 		),
+		'clear_cache' => 'Always clear cache',	//TODO
 		'css_help' => 'Ruft gekürzte RSS-Feeds ab (Achtung, benötigt mehr Zeit!)',
 		'css_path' => 'Pfad zur CSS-Datei des Artikels auf der Original-Webseite',
 		'description' => 'Beschreibung',

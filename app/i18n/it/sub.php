@@ -27,6 +27,7 @@ return array(
 			'password' => 'HTTP password',
 			'username' => 'HTTP username',
 		),
+		'clear_cache' => 'Always clear cache',	//TODO
 		'css_help' => 'In caso di RSS feeds troncati (attenzione, richiede molto tempo!)',
 		'css_path' => 'Percorso del foglio di stile CSS del sito di origine',
 		'description' => 'Descrizione',
