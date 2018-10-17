@@ -205,6 +205,13 @@
 			</div>
 		</div>
 
+		<div class="form-group">
+			<label class="group-name" for="clear_cache"><?php echo _t('sub.feed.clear_cache'); ?></label>
+			<div class="group-controls">
+				<input type="checkbox" name="clear_cache" id="clear_cache" value="1"<?php echo $this->feed->attributes('clear_cache') ? ' checked="checked"' : ''; ?> />
+			</div>
+		</div>
+
 		<?php if (FreshRSS_Auth::hasAccess('admin')) { ?>
 		<div class="form-group">
 			<label class="group-name" for="timeout"><?php echo _t('sub.feed.timeout'); ?></label>
