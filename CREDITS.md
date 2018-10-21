@@ -59,5 +59,6 @@ People are sorted by name so please keep this order.
 * [Tets42](https://github.com/Tets42): [contributions](https://github.com/FreshRSS/FreshRSS/commits?author=Tets42)
 * [Thomas Citharel](https://github.com/tcitworld): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:tomgue), [Web](https://www.tcit.fr/)
 * [tomgue](https://github.com/tomgue): [contributions](https://github.com/FreshRSS/FreshRSS/commits?author=tomgue)
+* [Twilek-de](https://github.com/Twilek-de): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:Twilek-de)
 * [Uncovery](https://github.com/uncovery): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:uncovery)
 * [Wanabo](https://github.com/Wanabo): [contributions](https://github.com/FreshRSS/FreshRSS/commits?author=Wanabo)
