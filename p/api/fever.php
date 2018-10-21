@@ -30,6 +30,36 @@ register_shutdown_function('session_destroy');
 Minz_Session::init('FreshRSS');
 // ================================================================================================
 
+// <Debug>
+$ORIGINAL_INPUT = file_get_contents('php://input', false, null, 0, 1048576);
+
+function debugInfo() {
+	if (function_exists('getallheaders')) {
+		$ALL_HEADERS = getallheaders();
+	} else {	//nginx	http://php.net/getallheaders#84262
+		$ALL_HEADERS = array();
+		foreach ($_SERVER as $name => $value) {
+			if (substr($name, 0, 5) === 'HTTP_') {
+				$ALL_HEADERS[str_replace(' ', '-', ucwords(strtolower(str_replace('_', ' ', substr($name, 5)))))] = $value;
+			}
+		}
+	}
+	global $ORIGINAL_INPUT;
+	return print_r(
+		array(
+			'date' => date('c'),
+			'headers' => $ALL_HEADERS,
+			'_SERVER' => $_SERVER,
+			'_GET' => $_GET,
+			'_POST' => $_POST,
+			'_COOKIE' => $_COOKIE,
+			'INPUT' => $ORIGINAL_INPUT
+		), true);
+}
+
+Minz_Log::debug('----------------------------------------------------------------', API_LOG);
+Minz_Log::debug(debugInfo(), API_LOG);
+// </Debug>
 
 class FeverDAO extends Minz_ModelPdo
 {
