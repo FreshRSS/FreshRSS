@@ -167,7 +167,7 @@ return array(
 		'g+' => 'Google+',
 		'gnusocial' => 'GNU social',
 		'jdh' => 'Journal du hacker',
-		'Known' => 'Known based sites',	//TODO
+		'Known' => 'Known-Seite (https://withknown.com)',
 		'linkedin' => 'LinkedIn',
 		'mastodon' => 'Mastodon',
 		'movim' => 'Movim',
