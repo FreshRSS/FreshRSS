@@ -45,6 +45,7 @@ People are sorted by name so please keep this order.
 * [Nicolas Lœuillet](https://github.com/nicosomb): [contributions](https://github.com/FreshRSS/documentation/commits?author=nicosomb), [Web](http://www.loeuillet.org/)
 * [Nicola Spanti](https://github.com/RyDroid): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:RyDroid), [Web](http://www.nicola-spanti.info/)
 * [Olivier Dossmann](https://github.com/blankoworld): [contributions](https://github.com/FreshRSS/FreshRSS/commits?author=blankoworld), [Web](https://olivier.dossmann.net)
+* [Patrick Crandol](https://github.com/pattems): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:pattems)
 * [perrinjerome](https://github.com/perrinjerome): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:perrinjerome)
 * [plopoyop](https://github.com/plopoyop): [contributions](https://github.com/FreshRSS/FreshRSS/commits?author=plopoyop)
 * [Paulius Šukys](https://github.com/psukys): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:psukys), [Web](http://sukys.eu)
