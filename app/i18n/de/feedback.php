@@ -53,8 +53,8 @@ return array(
 	'sub' => array(
 		'actualize' => 'Aktualisieren',
 		'articles' => array(
-			'marked_read' => 'Die ausgewählten Artikel wurden als gelesen markiert.',	
-			'marked_unread' => 'Die ausgewählten Artikel wurden als ungelesen markiert.',	
+			'marked_read' => 'Die ausgewählten Artikel wurden als gelesen markiert.',
+			'marked_unread' => 'Die ausgewählten Artikel wurden als ungelesen markiert.',
 		),
 		'category' => array(
 			'created' => 'Die Kategorie %s ist erstellt worden.',
