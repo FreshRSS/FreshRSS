@@ -12,10 +12,10 @@ ENGINE = INNODB;
 
 CREATE TABLE IF NOT EXISTS `%1$sfeed` (
 	`id` SMALLINT NOT NULL AUTO_INCREMENT,	-- v0.7
-	`url` VARCHAR(511) CHARACTER SET latin1 NOT NULL,
+	`url` VARCHAR(511) CHARACTER SET latin1_bin NOT NULL,
 	`category` SMALLINT DEFAULT 0,	-- v0.7
 	`name` VARCHAR(' . FreshRSS_DatabaseDAO::LENGTH_INDEX_UNICODE . ') NOT NULL,
-	`website` VARCHAR(255) CHARACTER SET latin1,
+	`website` VARCHAR(255) CHARACTER SET latin1_bin,
 	`description` TEXT,
 	`lastUpdate` INT(11) DEFAULT 0,	-- Until year 2038
 	`priority` TINYINT(2) NOT NULL DEFAULT 10,
@@ -38,11 +38,11 @@ ENGINE = INNODB;
 
 CREATE TABLE IF NOT EXISTS `%1$sentry` (
 	`id` BIGINT NOT NULL,	-- v0.7
-	`guid` VARCHAR(760) CHARACTER SET latin1 NOT NULL,	-- Maximum for UNIQUE is 767B
+	`guid` VARCHAR(760) CHARACTER SET latin1_bin NOT NULL,	-- Maximum for UNIQUE is 767B
 	`title` VARCHAR(255) NOT NULL,
 	`author` VARCHAR(255),
 	`content_bin` BLOB,	-- v0.7
-	`link` VARCHAR(1023) CHARACTER SET latin1 NOT NULL,
+	`link` VARCHAR(1023) CHARACTER SET latin1_bin NOT NULL,
 	`date` INT(11),	-- Until year 2038
 	`lastSeen` INT(11) DEFAULT 0,	-- v1.1.1, Until year 2038
 	`hash` BINARY(16),	-- v1.1.1
@@ -66,11 +66,11 @@ INSERT IGNORE INTO `%1$scategory` (id, name) VALUES(1, "%2$s");
 define('SQL_CREATE_TABLE_ENTRYTMP', '
 CREATE TABLE IF NOT EXISTS `%1$sentrytmp` (	-- v1.7
 	`id` BIGINT NOT NULL,
-	`guid` VARCHAR(760) CHARACTER SET latin1 NOT NULL,
+	`guid` VARCHAR(760) CHARACTER SET latin1_bin NOT NULL,
 	`title` VARCHAR(255) NOT NULL,
 	`author` VARCHAR(255),
 	`content_bin` BLOB,
-	`link` VARCHAR(1023) CHARACTER SET latin1 NOT NULL,
+	`link` VARCHAR(1023) CHARACTER SET latin1_bin NOT NULL,
 	`date` INT(11),
 	`lastSeen` INT(11) DEFAULT 0,
 	`hash` BINARY(16),
