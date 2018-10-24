@@ -107,4 +107,4 @@ $SQL_INSERT_FEEDS = array(
 	VALUES ("https://github.com/FreshRSS/FreshRSS/releases.atom", 1, "FreshRSS releases", "https://github.com/FreshRSS/FreshRSS/", "FreshRSS releases @ GitHub", 86400);',
 );
 
-define('SQL_DROP_TABLES', 'DROP TABLE IF EXISTS `entrytmp`, `entry`, `feed`, `category`');
+define('SQL_DROP_TABLES', 'DROP TABLE IF EXISTS `entrytag`, `tag`, `entrytmp`, `entry`, `feed`, `category`');
