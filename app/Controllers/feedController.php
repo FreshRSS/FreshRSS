@@ -248,6 +248,10 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 
 		$feedDAO = FreshRSS_Factory::createFeedDao();
 		$entryDAO = FreshRSS_Factory::createEntryDao();
+		$databaseDAO = FreshRSS_Factory::createDatabaseDAO();
+
+		//Minor DB updates:
+		$databaseDAO->ensureCaseInsensitiveGuids();
 
 		// Create a list of feeds to actualize.
 		// If feed_id is set and valid, corresponding feed is added to the list but
