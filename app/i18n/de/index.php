@@ -40,7 +40,7 @@ return array(
 		'mark_all_read' => 'Alle als gelesen markieren',
 		'mark_cat_read' => 'Kategorie als gelesen markieren',
 		'mark_feed_read' => 'Feed als gelesen markieren',
-		'mark_selection_unread' => 'Mark selection as unread',	//TODO
+		'mark_selection_unread' => 'Auswahl als ungelesen markieren',
 		'newer_first' => 'Neuere zuerst',
 		'non-starred' => 'Alle außer Favoriten zeigen',
 		'normal_view' => 'Normale Ansicht',
