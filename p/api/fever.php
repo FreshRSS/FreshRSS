@@ -57,8 +57,8 @@ function debugInfo() {
 		), true);
 }
 
-Minz_Log::debug('----------------------------------------------------------------', API_LOG);
-Minz_Log::debug(debugInfo(), API_LOG);
+//Minz_Log::debug('----------------------------------------------------------------', API_LOG);
+//Minz_Log::debug(debugInfo(), API_LOG);
 // </Debug>
 
 class FeverDAO extends Minz_ModelPdo
