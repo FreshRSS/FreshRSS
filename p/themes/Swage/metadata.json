@@ -1,0 +1,7 @@
+{
+  "name": "Swage",
+  "author": "Patrick Crandol",
+  "description": "A Fresh take on the interface, inspired by the Flat Theme.",
+  "version": 1.0,
+  "files": ["_template.css", "swage.css"]
+}
