@@ -94,9 +94,8 @@ legend {
 
 label {
 	min-height: 25px;
-	padding: 5px 0;
 	cursor: pointer;
-	color: darken ( $color_light, 40% );;
+	color: $color_light;
 }
 
 textarea {
@@ -321,11 +320,18 @@ form {
 	background-color: darken( $color_nav, 10%);
 	> {
 		.item {
+			@extend %dropdown;
+			padding: 0;
+			margin-left: 10px;
 			> a,
 			> span,
-			> as-link {
+			> as-link,
+			button {
 				@extend %dropdown;
 			}
+			> a {
+				min-width: initial;
+			} 
 			&:hover {
 				background: $color_nav;
 				color: $color_light;
@@ -693,7 +699,7 @@ form {
 	text-align: center;
 	font-size: 1em;
 	background: $color_nav;
-	position: absolute;
+	position: fixed;
 	bottom: 48px;
 	z-index: 900;
 	left: 0;
