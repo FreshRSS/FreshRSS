@@ -3,6 +3,11 @@
 $this->partial('aside_feed');
 $this->partial('nav_menu');
 
+flush();
+if (isset($this->callbackBeforeEntries)) {
+	call_user_func($this->callbackBeforeEntries, $this);
+}
+
 if (!empty($this->entries)) {
 	$display_today = true;
 	$display_yesterday = true;
@@ -20,7 +25,7 @@ if (!empty($this->entries)) {
 	</div><?php
 	foreach ($this->entries as $item) {
 		$this->entry = Minz_ExtensionManager::callHook('entry_before_display', $item);
-		if (is_null($this->entry)) {
+		if ($this->entry == null) {
 			continue;
 		}
 
@@ -67,10 +72,19 @@ if (!empty($this->entries)) {
 		?><div class="flux_content">
 			<div class="content <?php echo $content_width; ?>">
 				<h1 class="title"><a target="_blank" rel="noreferrer" class="go_website" href="<?php echo $this->entry->link(); ?>"><?php echo $this->entry->title(); ?></a></h1>
-				<?php
-					$author = $this->entry->author();
-					echo $author != '' ? '<div class="author">' . _t('gen.short.by_author', $author) . '</div>' : '',
-						$lazyload && $hidePosts ? lazyimg($this->entry->content()) : $this->entry->content();
+				<div class="author"><?php
+					$authors = $this->entry->authors();
+					if (is_array($authors)):
+						$first = true;
+						foreach ($authors as $author):
+							echo $first ? _t('gen.short.by_author') . ' ' : '· ';
+							$first = false;
+				?>
+<em><a href="<?php echo _url('index', 'index', 'search', 'author:' . str_replace(' ', '+', htmlspecialchars_decode($author, ENT_QUOTES))); ?>"><?php echo $author; ?></a></em>
+				<?php	endforeach; ?>
+				</div><?php
+					endif;
+					echo $lazyload && $hidePosts ? lazyimg($this->entry->content()) : $this->entry->content();
 				?>
 			</div><?php
 

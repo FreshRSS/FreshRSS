@@ -12,8 +12,13 @@ class FreshRSS_EntryDAOPGSQL extends FreshRSS_EntryDAOSQLite {
 
 	protected function autoUpdateDb($errorInfo) {
 		if (isset($errorInfo[0])) {
-			if ($errorInfo[0] === '42P01' && stripos($errorInfo[2], 'entrytmp') !== false) {	//undefined_table
-				return $this->createEntryTempTable();
+			if ($errorInfo[0] === FreshRSS_DatabaseDAOPGSQL::UNDEFINED_TABLE) {
+				if (stripos($errorInfo[2], 'tag') !== false) {
+					$tagDAO = FreshRSS_Factory::createTagDao();
+					return $tagDAO->createTagTable();	//v1.12.0
+				} elseif (stripos($errorInfo[2], 'entrytmp') !== false) {
+					return $this->createEntryTempTable();	//v1.7.0
+				}
 			}
 		}
 		return false;

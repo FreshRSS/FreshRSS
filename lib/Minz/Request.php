@@ -129,6 +129,8 @@ class Minz_Request {
 
 		if (!empty($_SERVER['HTTP_X_FORWARDED_PORT'])) {
 			$port = intval($_SERVER['HTTP_X_FORWARDED_PORT']);
+		} elseif (!empty($_SERVER['HTTP_X_FORWARDED_PROTO'])) {
+			$port = strtolower($_SERVER['HTTP_X_FORWARDED_PROTO']) === 'https' ? 443 : 80;
 		} elseif (!empty($_SERVER['SERVER_PORT'])) {
 			$port = intval($_SERVER['SERVER_PORT']);
 		} else {

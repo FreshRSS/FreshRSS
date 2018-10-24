@@ -19,7 +19,7 @@ return array(
 			'bottom_line' => 'Onderaan',
 			'entry' => 'Artikel pictogrammen',
 			'publication_date' => 'Publicatie datum',
-			'related_tags' => 'Gerelateerde labels',
+			'related_tags' => 'Gerelateerde labels',	//TODO
 			'sharing' => 'Delen',
 			'top_line' => 'Bovenaan',
 		),

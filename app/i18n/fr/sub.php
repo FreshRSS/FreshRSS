@@ -27,6 +27,7 @@ return array(
 			'password' => 'Mot de passe HTTP',
 			'username' => 'Identifiant HTTP',
 		),
+		'clear_cache' => 'Toujours vider le cache',
 		'css_help' => 'Permet de récupérer les flux tronqués (attention, demande plus de temps !)',
 		'css_path' => 'Sélecteur CSS des articles sur le site d’origine',
 		'description' => 'Description',

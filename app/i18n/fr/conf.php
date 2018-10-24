@@ -19,7 +19,7 @@ return array(
 			'bottom_line' => 'Ligne du bas',
 			'entry' => 'Icônes d’article',
 			'publication_date' => 'Date de publication',
-			'related_tags' => 'Tags associés',
+			'related_tags' => 'Tags de l’article',
 			'sharing' => 'Partage',
 			'top_line' => 'Ligne du haut',
 		),

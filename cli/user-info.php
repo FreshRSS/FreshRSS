@@ -16,9 +16,10 @@ foreach ($users as $username) {
 	$username = cliInitUser($username);
 	echo $username === FreshRSS_Context::$system_conf->default_user ? '*' : ' ', "\t";
 
-	$catDAO = new FreshRSS_CategoryDAO();
+	$catDAO = FreshRSS_Factory::createCategoryDao();
 	$feedDAO = FreshRSS_Factory::createFeedDao($username);
 	$entryDAO = FreshRSS_Factory::createEntryDao($username);
+	$tagDAO = FreshRSS_Factory::createTagDao($username);
 	$databaseDAO = FreshRSS_Factory::createDatabaseDAO($username);
 
 	$nbEntries = $entryDAO->countUnreadRead();
@@ -34,6 +35,7 @@ foreach ($users as $username) {
 			$nbEntries['read'], " reads\t",
 			$nbEntries['unread'], " unreads\t",
 			$nbFavorites['all'], " favourites\t",
+			$tagDAO->count(), " tags\t",
 			"\n";
 	} else {
 		echo
@@ -45,6 +47,7 @@ foreach ($users as $username) {
 			$nbEntries['read'], "\t",
 			$nbEntries['unread'], "\t",
 			$nbFavorites['all'], "\t",
+			$tagDAO->count(), "\t",
 			"\n";
 	}
 }

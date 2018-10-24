@@ -7,14 +7,17 @@ class FreshRSS_javascript_Controller extends Minz_ActionController {
 
 	public function actualizeAction() {
 		header('Content-Type: application/json; charset=UTF-8');
+		Minz_Session::_param('actualize_feeds', false);
 		$feedDAO = FreshRSS_Factory::createFeedDao();
 		$this->view->feeds = $feedDAO->listFeedsOrderUpdate(FreshRSS_Context::$user_conf->ttl_default);
 	}
 
 	public function nbUnreadsPerFeedAction() {
 		header('Content-Type: application/json; charset=UTF-8');
-		$catDAO = new FreshRSS_CategoryDAO();
+		$catDAO = FreshRSS_Factory::createCategoryDao();
 		$this->view->categories = $catDAO->listCategories(true, false);
+		$tagDAO = FreshRSS_Factory::createTagDao();
+		$this->view->tags = $tagDAO->listTags(true);
 	}
 
 	//For Web-form login

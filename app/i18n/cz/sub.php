@@ -27,6 +27,7 @@ return array(
 			'password' => 'Heslo',
 			'username' => 'Přihlašovací jméno',
 		),
+		'clear_cache' => 'Always clear cache',	//TODO
 		'css_help' => 'Stáhne zkrácenou verzi RSS kanálů (pozor, náročnější na čas!)',
 		'css_path' => 'Původní CSS soubor článku z webových stránek',
 		'description' => 'Popis',

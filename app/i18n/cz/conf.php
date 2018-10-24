@@ -19,7 +19,7 @@ return array(
 			'bottom_line' => 'Spodní řádek',
 			'entry' => 'Ikony článků',
 			'publication_date' => 'Datum vydání',
-			'related_tags' => 'Související tagy',
+			'related_tags' => 'Související tagy',	//TODO
 			'sharing' => 'Sdílení',
 			'top_line' => 'Horní řádek',
 		),

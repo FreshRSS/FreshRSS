@@ -108,6 +108,14 @@ input[type="checkbox"] {
 	width: 15px !important;
 	min-height: 15px !important;
 }
+.dropdown-menu label > input[type="text"] {
+	with: 150px;
+	width: calc(99% - 5em);
+}
+.dropdown-menu input[type="checkbox"] {
+	margin-left: 1em;
+	margin-right: .5em;
+}
 button.as-link,
 button.as-link:hover,
 button.as-link:active {

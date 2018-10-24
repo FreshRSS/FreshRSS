@@ -131,7 +131,7 @@ class FreshRSS_stats_Controller extends Minz_ActionController {
 	 */
 	public function repartitionAction() {
 		$statsDAO = FreshRSS_Factory::createStatsDAO();
-		$categoryDAO = new FreshRSS_CategoryDAO();
+		$categoryDAO = FreshRSS_Factory::createCategoryDao();
 		$feedDAO = FreshRSS_Factory::createFeedDao();
 		Minz_View::appendScript(Minz_Url::display('/scripts/flotr2.min.js?' . @filemtime(PUBLIC_PATH . '/scripts/flotr2.min.js')));
 		$id = Minz_Request::param('id', null);

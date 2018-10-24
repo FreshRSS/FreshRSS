@@ -181,7 +181,7 @@ return array(
 	'short' => array(
 		'attention' => 'Attentie!',
 		'blank_to_disable' => 'Laat leeg om uit te zetten',
-		'by_author' => 'Door <em>%s</em>',
+		'by_author' => 'Door:',
 		'by_default' => 'Door standaard',
 		'damn' => 'Potverdorie!',
 		'default_category' => 'Niet ingedeeld',

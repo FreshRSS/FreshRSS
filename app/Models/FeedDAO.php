@@ -17,7 +17,7 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 
 	protected function autoUpdateDb($errorInfo) {
 		if (isset($errorInfo[0])) {
-			if ($errorInfo[0] === '42S22' || $errorInfo[0] === '42703') {	//ER_BAD_FIELD_ERROR (Mysql), undefined_column (PostgreSQL)
+			if ($errorInfo[0] === FreshRSS_DatabaseDAO::ER_BAD_FIELD_ERROR || $errorInfo[0] === FreshRSS_DatabaseDAOPGSQL::UNDEFINED_COLUMN) {
 				foreach (array('attributes') as $column) {
 					if (stripos($errorInfo[2], $column) !== false) {
 						return $this->addColumn($column);
@@ -55,7 +55,7 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 		$values = array(
 			substr($valuesTmp['url'], 0, 511),
 			$valuesTmp['category'],
-			mb_strcut($valuesTmp['name'], 0, 255, 'UTF-8'),
+			mb_strcut(trim($valuesTmp['name']), 0, FreshRSS_DatabaseDAO::LENGTH_INDEX_UNICODE, 'UTF-8'),
 			substr($valuesTmp['website'], 0, 255),
 			mb_strcut($valuesTmp['description'], 0, 1023, 'UTF-8'),
 			$valuesTmp['lastUpdate'],
@@ -109,6 +109,9 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 	}
 
 	public function updateFeed($id, $valuesTmp) {
+		if (isset($valuesTmp['name'])) {
+			$valuesTmp['name'] = mb_strcut(trim($valuesTmp['name']), 0, FreshRSS_DatabaseDAO::LENGTH_INDEX_UNICODE, 'UTF-8');
+		}
 		if (isset($valuesTmp['url'])) {
 			$valuesTmp['url'] = safe_ascii($valuesTmp['url']);
 		}
@@ -180,7 +183,7 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 	}
 
 	public function changeCategory($idOldCat, $idNewCat) {
-		$catDAO = new FreshRSS_CategoryDAO();
+		$catDAO = FreshRSS_Factory::createCategoryDao();
 		$newCat = $catDAO->searchById($idNewCat);
 		if (!$newCat) {
 			$newCat = $catDAO->getDefault();

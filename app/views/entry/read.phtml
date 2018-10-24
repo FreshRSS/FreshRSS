@@ -12,5 +12,6 @@ $url['params']['is_read'] = Minz_Request::param('is_read', true) ? '0' : '1';
 FreshRSS::loadStylesAndScripts();
 echo json_encode(array(
 		'url' => str_ireplace('&amp;', '&', Minz_Url::display($url)),
-		'icon' => _i($url['params']['is_read'] === '1' ? 'unread' : 'read')
+		'icon' => _i($url['params']['is_read'] === '1' ? 'unread' : 'read'),
+		'tags' => $this->tags,
 	));

@@ -4,12 +4,12 @@
 * [Version française](README.fr.md)
 
 # FreshRSS
-FreshRSS is a self-hosted RSS feed aggregator such as [Leed](http://projet.idleman.fr/leed/) or [Kriss Feed](https://tontof.net/kriss/feed/).
+FreshRSS is a self-hosted RSS feed aggregator such as [Leed](http://leed.idleman.fr/) or [Kriss Feed](https://tontof.net/kriss/feed/).
 
 It is at the same time lightweight, easy to work with, powerful and customizable.
 
 It is a multi-user application with an anonymous reading mode.
-It supports [PubSubHubbub](https://github.com/pubsubhubbub/PubSubHubbub) for instant notifications from compatible Web sites.
+It supports custom tags, and [PubSubHubbub](https://github.com/pubsubhubbub/PubSubHubbub) for instant notifications from compatible Web sites.
 There is an API for (mobile) clients, and a [Command-Line Interface](cli/README.md).
 Finally, it supports [extensions](#extensions) for further tuning.
 
@@ -70,13 +70,7 @@ More information about installation and server configuration can be found in [ou
 sudo apt-get install apache2
 sudo a2enmod headers expires rewrite ssl	#Apache modules
 
-# For Ubuntu <= 15.10, Debian <= 8 Jessie
-sudo apt-get install php5 php5-curl php5-gmp php5-intl php5-json php5-sqlite
-sudo apt-get install libapache2-mod-php5	#For Apache
-sudo apt-get install mysql-server mysql-client php5-mysql	#Optional MySQL database
-sudo apt-get install postgresql php5-pgsql	#Optional PostgreSQL database
-
-# For Ubuntu >= 16.04, Debian >= 9 Stretch
+# Example for Ubuntu >= 16.04, Debian >= 9 Stretch
 sudo apt install php php-curl php-gmp php-intl php-mbstring php-sqlite3 php-xml php-zip
 sudo apt install libapache2-mod-php	#For Apache
 sudo apt install mysql-server mysql-client php-mysql	#Optional MySQL database
@@ -187,6 +181,7 @@ Supported clients are:
 * iOS
 	* [Fiery Feeds](https://itunes.apple.com/app/fiery-feeds-rss-reader/id1158763303) (Closed source)
 	* [Unread](https://itunes.apple.com/app/unread-rss-reader/id1252376153) (Closed source)
+	* [Reeder-3](https://itunes.apple.com/app/reeder-3/id697846300) (Closed source)
 * MacOS
 	* [Readkit](https://itunes.apple.com/app/readkit/id588726889) (Closed source)
 

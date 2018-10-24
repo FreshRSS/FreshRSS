@@ -18,6 +18,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 		return 'hex(' . $x . ')';
 	}
 
+	//TODO: Move the database auto-updates to DatabaseDAO
 	protected function addColumn($name) {
 		Minz_Log::warning('FreshRSS_EntryDAO::addColumn: ' . $name);
 		$hasTransaction = false;
@@ -56,6 +57,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 
 	private $triedUpdateToUtf8mb4 = false;
 
+	//TODO: Move the database auto-updates to DatabaseDAO
 	protected function updateToUtf8mb4() {
 		if ($this->triedUpdateToUtf8mb4) {
 			return false;
@@ -65,7 +67,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 		if ($db['type'] === 'mysql') {
 			include_once(APP_PATH . '/SQL/install.sql.mysql.php');
 			if (defined('SQL_UPDATE_UTF8MB4')) {
-				Minz_Log::warning('Updating MySQL to UTF8MB4...');
+				Minz_Log::warning('Updating MySQL to UTF8MB4...');	//v1.5.0
 				$hadTransaction = $this->bd->inTransaction();
 				if ($hadTransaction) {
 					$this->bd->commit();
@@ -88,6 +90,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 		return false;
 	}
 
+	//TODO: Move the database auto-updates to DatabaseDAO
 	protected function createEntryTempTable() {
 		$ok = false;
 		$hadTransaction = $this->bd->inTransaction();
@@ -120,22 +123,28 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 		return $ok;
 	}
 
+	//TODO: Move the database auto-updates to DatabaseDAO
 	protected function autoUpdateDb($errorInfo) {
 		if (isset($errorInfo[0])) {
-			if ($errorInfo[0] === '42S22') {	//ER_BAD_FIELD_ERROR
+			if ($errorInfo[0] === FreshRSS_DatabaseDAO::ER_BAD_FIELD_ERROR) {
 				//autoAddColumn
 				foreach (array('lastSeen', 'hash') as $column) {
 					if (stripos($errorInfo[2], $column) !== false) {
 						return $this->addColumn($column);
 					}
 				}
-			} elseif ($errorInfo[0] === '42S02' && stripos($errorInfo[2], 'entrytmp') !== false) {	//ER_BAD_TABLE_ERROR
-				return $this->createEntryTempTable();	//v1.7
+			} elseif ($errorInfo[0] === FreshRSS_DatabaseDAO::ER_BAD_TABLE_ERROR) {
+				if (stripos($errorInfo[2], 'tag') !== false) {
+					$tagDAO = FreshRSS_Factory::createTagDao();
+					return $tagDAO->createTagTable();	//v1.12.0
+				} elseif (stripos($errorInfo[2], 'entrytmp') !== false) {
+					return $this->createEntryTempTable();	//v1.7.0
+				}
 			}
 		}
 		if (isset($errorInfo[1])) {
-			if ($errorInfo[1] == '1366') {	//ER_TRUNCATED_WRONG_VALUE_FOR_FIELD
-				return $this->updateToUtf8mb4();
+			if ($errorInfo[1] == FreshRSS_DatabaseDAO::ER_TRUNCATED_WRONG_VALUE_FOR_FIELD) {
+				return $this->updateToUtf8mb4();	//v1.5.0
 			}
 		}
 		return false;
@@ -560,11 +569,52 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 		return $affected;
 	}
 
+	/**
+	 * Mark all the articles in a tag as read.
+	 * @param integer $id tag ID, or empty for targetting any tag
+	 * @param integer $idMax max article ID
+	 * @return integer affected rows
+	 */
+	public function markReadTag($id = '', $idMax = 0, $filters = null, $state = 0, $is_read = true) {
+		FreshRSS_UserDAO::touch();
+		if ($idMax == 0) {
+			$idMax = time() . '000000';
+			Minz_Log::debug('Calling markReadTag(0) is deprecated!');
+		}
+
+		$sql = 'UPDATE `' . $this->prefix . 'entry` e INNER JOIN `' . $this->prefix . 'entrytag` et ON et.id_entry = e.id '
+			 . 'SET e.is_read = ? '
+			 . 'WHERE '
+			 . ($id == '' ? '' : 'et.id_tag = ? AND ')
+			 . 'e.is_read <> ? AND e.id <= ?';
+		$values = array($is_read ? 1 : 0);
+		if ($id != '') {
+			$values[] = $id;
+		}
+		$values[] = $is_read ? 1 : 0;
+		$values[] = $idMax;
+
+		list($searchValues, $search) = $this->sqlListEntriesWhere('e.', $filters, $state);
+
+		$stm = $this->bd->prepare($sql . $search);
+		if (!($stm && $stm->execute(array_merge($values, $searchValues)))) {
+			$info = $stm == null ? array(2 => 'syntax error') : $stm->errorInfo();
+			Minz_Log::error('SQL error markReadTag: ' . $info[2]);
+			return false;
+		}
+		$affected = $stm->rowCount();
+		if (($affected > 0) && (!$this->updateCacheUnreads(false, false))) {
+			return false;
+		}
+		return $affected;
+	}
+
 	public function cleanOldEntries($id_feed, $date_min, $keep = 15) {	//Remember to call updateCachedValue($id_feed) or updateCachedValues() just after
 		$sql = 'DELETE FROM `' . $this->prefix . 'entry` '
 		     . 'WHERE id_feed=:id_feed AND id<=:id_max '
 		     . 'AND is_favorite=0 '	//Do not remove favourites
 		     . 'AND `lastSeen` < (SELECT maxLastSeen FROM (SELECT (MAX(e3.`lastSeen`)-99) AS maxLastSeen FROM `' . $this->prefix . 'entry` e3 WHERE e3.id_feed=:id_feed) recent) '	//Do not remove the most newly seen articles, plus a few seconds of tolerance
+		     . 'AND id NOT IN (SELECT id_entry FROM `' . $this->prefix . 'entrytag`) '	//Do not purge tagged entries
 		     . 'AND id NOT IN (SELECT id FROM (SELECT e2.id FROM `' . $this->prefix . 'entry` e2 WHERE e2.id_feed=:id_feed ORDER BY id DESC LIMIT :keep) keep)';	//Double select: MySQL doesn't support 'LIMIT & IN/ALL/ANY/SOME subquery'
 		$stm = $this->bd->prepare($sql);
 
@@ -770,24 +820,31 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 		$joinFeed = false;
 		$values = array();
 		switch ($type) {
-		case 'a':
+		case 'a':	//All PRIORITY_MAIN_STREAM
 			$where .= 'f.priority > ' . FreshRSS_Feed::PRIORITY_NORMAL . ' ';
 			break;
-		case 's':	//Deprecated: use $state instead
+		case 'A':	//All except PRIORITY_ARCHIVED
+			$where .= 'f.priority >= ' . FreshRSS_Feed::PRIORITY_NORMAL . ' ';
+			break;
+		case 's':	//Starred. Deprecated: use $state instead
 			$where .= 'f.priority >= ' . FreshRSS_Feed::PRIORITY_NORMAL . ' ';
 			$where .= 'AND e.is_favorite=1 ';
 			break;
-		case 'c':
+		case 'c':	//Category
 			$where .= 'f.priority >= ' . FreshRSS_Feed::PRIORITY_NORMAL . ' ';
 			$where .= 'AND f.category=? ';
 			$values[] = intval($id);
 			break;
-		case 'f':
+		case 'f':	//Feed
 			$where .= 'e.id_feed=? ';
 			$values[] = intval($id);
 			break;
-		case 'A':
-			$where .= 'f.priority >= ' . FreshRSS_Feed::PRIORITY_NORMAL . ' ';
+		case 't':	//Tag
+			$where .= 'et.id_tag=? ';
+			$values[] = intval($id);
+			break;
+		case 'T':	//Any tag
+			$where .= '1=1 ';
 			break;
 		default:
 			throw new FreshRSS_EntriesGetter_Exception('Bad type in Entry->listByType: [' . $type . ']!');
@@ -796,8 +853,11 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 		list($searchValues, $search) = $this->sqlListEntriesWhere('e.', $filters, $state, $order, $firstId, $date_min);
 
 		return array(array_merge($values, $searchValues),
-			'SELECT e.id FROM `' . $this->prefix . 'entry` e '
+			'SELECT '
+			. ($type === 'T' ? 'DISTINCT ' : '')
+			. 'e.id FROM `' . $this->prefix . 'entry` e '
 			. 'INNER JOIN `' . $this->prefix . 'feed` f ON e.id_feed = f.id '
+			. ($type === 't' || $type === 'T' ? 'INNER JOIN `' . $this->prefix . 'entrytag` et ON et.id_entry = e.id ' : '')
 			. 'WHERE ' . $where
 			. $search
 			. 'ORDER BY e.id ' . $order
@@ -817,13 +877,22 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 			. 'ORDER BY e0.id ' . $order;
 
 		$stm = $this->bd->prepare($sql);
-		$stm->execute($values);
-		return $stm;
+		if ($stm && $stm->execute($values)) {
+			return $stm;
+		} else {
+			$info = $stm == null ? array(0 => '', 1 => '', 2 => 'syntax error') : $stm->errorInfo();
+			Minz_Log::error('SQL error listWhereRaw: ' . $info[2]);
+			return false;
+		}
 	}
 
 	public function listWhere($type = 'a', $id = '', $state = FreshRSS_Entry::STATE_ALL, $order = 'DESC', $limit = 1, $firstId = '', $filters = null, $date_min = 0) {
 		$stm = $this->listWhereRaw($type, $id, $state, $order, $limit, $firstId, $filters, $date_min);
-		return self::daoToEntries($stm->fetchAll(PDO::FETCH_ASSOC));
+		if ($stm) {
+			return self::daoToEntries($stm->fetchAll(PDO::FETCH_ASSOC));
+		} else {
+			return false;
+		}
 	}
 
 	public function listByIds($ids, $order = 'DESC') {
@@ -923,7 +992,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 		$stm = $this->bd->prepare($sql);
 		$stm->execute();
 		$res = $stm->fetchAll(PDO::FETCH_COLUMN, 0);
-		return $res[0];
+		return isset($res[0]) ? $res[0] : 0;
 	}
 	public function countNotRead($minPriority = null) {
 		$sql = 'SELECT COUNT(e.id) AS count FROM `' . $this->prefix . 'entry` e';
