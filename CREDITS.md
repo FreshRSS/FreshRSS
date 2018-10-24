@@ -26,6 +26,7 @@ People are sorted by name so please keep this order.
 * [gsongsong](https://github.com/gsongsong): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:gsongsong)
 * [Guillaume Fillon](https://github.com/kokaz): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:kokaz), [Web](http://www.guillaume-fillon.com/)
 * [Guillaume Hayot](https://github.com/postblue): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:postblue), [Web](https://postblue.info/)
+* [Gregor Nathanael Meyer](https://github.com/spackmat): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:spackmat), [Web](https://der-meyer.de)
 * [hckweb](https://github.com/hckweb): [contributions](https://github.com/FreshRSS/FreshRSS/commits?author=hckweb)
 * [hoilc](https://github.com/hoilc): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:hoilc)
 * [Jan van den Berg](https://github.com/jan-vandenberg): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:jan-vandenberg), [Web](https://j11g.com/)
