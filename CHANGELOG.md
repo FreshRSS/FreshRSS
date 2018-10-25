@@ -17,6 +17,7 @@
 	* Updated to bcrypt.js 2.4.4 [#2022](https://github.com/FreshRSS/FreshRSS/pull/2022)
 * Security
 	* Improved flow for password change (avoid error 403) [#2056](https://github.com/FreshRSS/FreshRSS/issues/2056)
+	* Allow dot `.` in username (best to avoid, though) [#2061](https://github.com/FreshRSS/FreshRSS/issues/2061)
 * Performance
 	* Remove some counterproductive preload / prefetch rules [#2040](https://github.com/FreshRSS/FreshRSS/pull/2040)
 	* Improved fast flush (earlier transfer, fetching of resources, and rendering) [#2045](https://github.com/FreshRSS/FreshRSS/pull/2045)
@@ -24,14 +25,15 @@
 * Deployment
 	* Fix Docker bug with some cron values [#2032](https://github.com/FreshRSS/FreshRSS/pull/2032)
 	* Perform `git clean -f -d -f` (removes unknown files and folders) before git auto-update method [#2036](https://github.com/FreshRSS/FreshRSS/pull/2036)
-* I18n
-	* Fix missing German translations, e.g. for *Sharing with Known* [#2059](https://github.com/FreshRSS/FreshRSS/pull/2059)
 * Bug fixing
+	* Make article GUIDs case-sensitive also with MySQL [#2077](https://github.com/FreshRSS/FreshRSS/issues/2077)
 	* Ask confirmation for important configuration actions [#2048](https://github.com/FreshRSS/FreshRSS/pull/2048)
 	* Fix database size in the Web UI for users about to be deleted [#2047](https://github.com/FreshRSS/FreshRSS/pull/2047)
 	* Fix actualize bug after install [#2044](https://github.com/FreshRSS/FreshRSS/pull/2044)
 * Extensions
 	* Update built-in extension to again fix Tumblr feeds from European Union due to GDPR [#2053](https://github.com/FreshRSS/FreshRSS/pull/2053)
+* I18n
+	* Fix missing German translations, e.g. for *Sharing with Known* [#2059](https://github.com/FreshRSS/FreshRSS/pull/2059)
 * Misc.
 	* Better port detection behind a proxy [#2031](https://github.com/FreshRSS/FreshRSS/issues/2031)
 
