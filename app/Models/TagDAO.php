@@ -15,6 +15,11 @@ class FreshRSS_TagDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 		try {
 			$db = FreshRSS_Context::$system_conf->db;
 			require_once(APP_PATH . '/SQL/install.sql.' . $db['type'] . '.php');
+
+			Minz_Log::warning('SQL ALTER GUID case sensitivity...');
+			$databaseDAO = FreshRSS_Factory::createDatabaseDAO();
+			$databaseDAO->ensureCaseInsensitiveGuids();
+
 			Minz_Log::warning('SQL CREATE TABLE tag...');
 			if (defined('SQL_CREATE_TABLE_TAGS')) {
 				$sql = sprintf(SQL_CREATE_TABLE_TAGS, $this->prefix);
@@ -29,9 +34,6 @@ class FreshRSS_TagDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 					$ok &= $stm && $stm->execute();
 				}
 			}
-
-			$databaseDAO = FreshRSS_Factory::createDatabaseDAO();
-			$databaseDAO->ensureCaseInsensitiveGuids();
 		} catch (Exception $e) {
 			Minz_Log::error('FreshRSS_EntryDAO::createTagTable error: ' . $e->getMessage());
 		}
