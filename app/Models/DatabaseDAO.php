@@ -147,7 +147,7 @@ class FreshRSS_DatabaseDAO extends Minz_ModelPdo {
 		$db = FreshRSS_Context::$system_conf->db;
 		if ($db['type'] === 'mysql') {
 			include_once(APP_PATH . '/SQL/install.sql.mysql.php');
-			if (defined('SQL_UPDATE_GUID_LATIN1_BIN')) {
+			if (defined('SQL_UPDATE_GUID_LATIN1_BIN')) {	//FreshRSS 1.12
 				try {
 					$sql = sprintf(SQL_UPDATE_GUID_LATIN1_BIN, $this->prefix);
 					$stm = $this->bd->prepare($sql);

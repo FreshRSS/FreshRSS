@@ -162,7 +162,6 @@ class FreshRSS_entry_Controller extends Minz_ActionController {
 		@set_time_limit(300);
 
 		$databaseDAO = FreshRSS_Factory::createDatabaseDAO();
-		$databaseDAO->ensureCaseInsensitiveGuids();	//FreshRSS 1.12
 		$databaseDAO->optimize();
 
 		$feedDAO = FreshRSS_Factory::createFeedDao();
@@ -207,6 +206,10 @@ class FreshRSS_entry_Controller extends Minz_ActionController {
 		}
 
 		$feedDAO->updateCachedValues();
+
+		//Minor DB checks:
+		$databaseDAO = FreshRSS_Factory::createDatabaseDAO();
+		$databaseDAO->ensureCaseInsensitiveGuids();	//FreshRSS 1.12
 
 		invalidateHttpCache();
 		Minz_Request::good(_t('feedback.sub.purge_completed', $nb_total), array(
