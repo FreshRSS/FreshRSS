@@ -29,6 +29,9 @@ class FreshRSS_TagDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 					$ok &= $stm && $stm->execute();
 				}
 			}
+
+			$databaseDAO = FreshRSS_Factory::createDatabaseDAO();
+			$databaseDAO->ensureCaseInsensitiveGuids();
 		} catch (Exception $e) {
 			Minz_Log::error('FreshRSS_EntryDAO::createTagTable error: ' . $e->getMessage());
 		}

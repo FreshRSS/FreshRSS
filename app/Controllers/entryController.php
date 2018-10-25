@@ -162,6 +162,7 @@ class FreshRSS_entry_Controller extends Minz_ActionController {
 		@set_time_limit(300);
 
 		$databaseDAO = FreshRSS_Factory::createDatabaseDAO();
+		$databaseDAO->ensureCaseInsensitiveGuids();	//FreshRSS 1.12
 		$databaseDAO->optimize();
 
 		$feedDAO = FreshRSS_Factory::createFeedDao();

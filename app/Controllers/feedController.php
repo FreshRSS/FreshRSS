@@ -262,12 +262,6 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 			$feeds = $feedDAO->listFeedsOrderUpdate(-1);
 		}
 
-		if (count($feeds) > 0) {
-			//Minor DB updates:
-			$databaseDAO = FreshRSS_Factory::createDatabaseDAO();
-			$databaseDAO->ensureCaseInsensitiveGuids();
-		}
-
 		// Calculate date of oldest entries we accept in DB.
 		$nb_month_old = max(FreshRSS_Context::$user_conf->old_entries, 1);
 		$date_min = time() - (3600 * 24 * 30 * $nb_month_old);
