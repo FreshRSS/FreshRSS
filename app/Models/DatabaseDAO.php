@@ -160,4 +160,8 @@ class FreshRSS_DatabaseDAO extends Minz_ModelPdo {
 		}
 		return $ok;
 	}
+
+	public function minorDbMaintenance() {
+		$this->ensureCaseInsensitiveGuids();
+	}
 }
