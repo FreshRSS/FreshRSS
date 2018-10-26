@@ -481,6 +481,9 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 			if ($entryDAO->inTransaction()) {
 				$entryDAO->commit();
 			}
+
+			$databaseDAO = FreshRSS_Factory::createDatabaseDAO();
+			$databaseDAO->minorDbMaintenance();
 		}
 		return array($updated_feeds, reset($feeds), $nb_new_articles);
 	}
@@ -511,6 +514,9 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 			$entryDAO->commitNewEntries();
 			$feedDAO->updateCachedValues();
 			$entryDAO->commit();
+
+			$databaseDAO = FreshRSS_Factory::createDatabaseDAO();
+			$databaseDAO->minorDbMaintenance();
 		} else {
 			list($updated_feeds, $feed, $nb_new_articles) = self::actualizeFeed($id, $url, $force, null, false, $noCommit);
 		}

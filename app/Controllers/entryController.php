@@ -207,6 +207,9 @@ class FreshRSS_entry_Controller extends Minz_ActionController {
 
 		$feedDAO->updateCachedValues();
 
+		$databaseDAO = FreshRSS_Factory::createDatabaseDAO();
+		$databaseDAO->minorDbMaintenance();
+
 		invalidateHttpCache();
 		Minz_Request::good(_t('feedback.sub.purge_completed', $nb_total), array(
 			'c' => 'configure',
