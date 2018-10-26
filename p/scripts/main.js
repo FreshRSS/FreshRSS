@@ -927,7 +927,7 @@ function updateFeed(feeds, feeds_count) {
 		url: feed.url,
 		data: {
 			_csrf: context.csrf,
-			noCommit: feeds.length > 0 ? 1 : 0,
+			noCommit: 1,
 		},
 	}).always(function (data) {
 		feed_processed++;
@@ -935,7 +935,16 @@ function updateFeed(feeds, feeds_count) {
 		$("#actualizeProgress .title").html(feed.title);
 
 		if (feed_processed === feeds_count) {
-			window.location.reload();
+			$.ajax({	//Empty request to commit new articles
+					type: 'POST',
+					url: './?c=feed&a=actualize&id=-1&ajax=1',
+					data: {
+						_csrf: context.csrf,
+						noCommit: 0,
+					},
+				}).always(function (data) {
+					window.location.reload();
+				});
 		} else {
 			updateFeed(feeds, feeds_count);
 		}
@@ -961,7 +970,7 @@ function init_actualize() {
 				openNotification(data.feedback_no_refresh, "good");
 				$.ajax({	//Empty request to force refresh server database cache
 					type: 'POST',
-					url: './?c=feed&a=actualize&id=-1',
+					url: './?c=feed&a=actualize&id=-1&ajax=1',
 					data: {
 						_csrf: context.csrf,
 						noCommit: 0,
