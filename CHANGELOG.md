@@ -30,6 +30,7 @@
 	* Ask confirmation for important configuration actions [#2048](https://github.com/FreshRSS/FreshRSS/pull/2048)
 	* Fix database size in the Web UI for users about to be deleted [#2047](https://github.com/FreshRSS/FreshRSS/pull/2047)
 	* Fix actualize bug after install [#2044](https://github.com/FreshRSS/FreshRSS/pull/2044)
+	* Fix manual / Web actualize for which the final commit coud be done too early [#2081](https://github.com/FreshRSS/FreshRSS/pull/2081)
 * Extensions
 	* Update built-in extension to again fix Tumblr feeds from European Union due to GDPR [#2053](https://github.com/FreshRSS/FreshRSS/pull/2053)
 * I18n
