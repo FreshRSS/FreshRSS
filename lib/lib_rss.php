@@ -125,9 +125,8 @@ function server_is_public($address) {
 	));
 
 	if ($is_public) {
-		$ip = gethostbyname($host);
-		$is_public &= !preg_match('/^(10|127|172[.]16|192[.]168)[.]/', $ip);
-		$is_public &= !preg_match('/^(\[)?(::1$|fc00::|fe80::)/i', $ip);
+		$is_public &= !preg_match('/^(10|127|172[.]16|192[.]168)[.]/', $host);
+		$is_public &= !preg_match('/^(\[)?(::1$|fc00::|fe80::)/i', $host);
 	}
 
 	return (bool)$is_public;
