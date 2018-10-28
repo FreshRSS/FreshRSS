@@ -241,6 +241,7 @@ a.btn {
 .dropdown-menu > .item > span {
 	display: block;
 	min-width: 200px;
+	white-space: nowrap;
 }
 .dropdown-menu > .item[aria-checked="true"] > a::before {
 	content: '✓';

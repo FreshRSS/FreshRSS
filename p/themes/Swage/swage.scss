@@ -94,16 +94,14 @@ legend {
 
 label {
 	min-height: 25px;
-	cursor: pointer;
-	color: $color_light;
 }
 
 textarea {
 	width: 360px;
 	height: 100px;
 	@extend %input;
+	background: darken( $color_light, 10% );
 	&:focus {
-		color: darken ( $color_light, 40% );;
 		border-color: darken( $color_nav, 10%);
 	}
 }
@@ -112,7 +110,6 @@ input,
 select {
 	@extend %input;
 	&:focus {
-		color: darken ( $color_light, 40% );;
 		border-color: darken( $color_nav, 10%);
 	}
 	&:invalid {
@@ -121,6 +118,10 @@ select {
 	&:disabled {
 		background: $color_light;
 	}
+}
+
+select {
+	background: darken( $color_light, 10% );
 }
 
 input {
@@ -244,6 +245,7 @@ form {
 		font-weight: bold;
 		background: $color_aside;
 		color: $color_light;
+		cursor: default;
 	}
 	.item {
 		@extend %nav-list;
@@ -262,7 +264,7 @@ form {
 				background: $color_alert;
 			}
 			&.error a {
-				background: lighten( $color_bad, 10%);;
+				background: lighten( $color_bad, 10%);
 			}
 		}
 		> a {
@@ -272,13 +274,13 @@ form {
 			color: $color_alert;
 		}
 		&.error a {
-			color: lighten( $color_bad, 10%);;
+			color: lighten( $color_bad, 10%);
 		}
 	}
 	.disable {
 		text-align: center;
 		background: $color_light;
-		color: darken ( $color_light, 40% );;
+		color: darken( $color_light, 40% );
 	}
 	.nav-form {
 		padding: 3px;
@@ -318,6 +320,9 @@ form {
 	text-align: left;
 	border: none;
 	background-color: darken( $color_nav, 10%);
+	.dropdown-header {
+		cursor: default;
+	}
 	> {
 		.item {
 			@extend %dropdown;
@@ -331,6 +336,7 @@ form {
 			}
 			> a {
 				min-width: initial;
+				white-space: nowrap;
 			} 
 			&:hover {
 				background: $color_nav;
@@ -365,6 +371,7 @@ form {
 .separator {
 	margin: 5px 0;
 	border-bottom: 1px solid darken( $color_light, 10%);
+	cursor: default;
 }
 
 .alert {
@@ -373,7 +380,7 @@ form {
 	font-size: 0.9em;
 	background: $color_light;
 	border: none;
-	color: darken ( $color_light, 40% );;
+	color: darken( $color_light, 40% );
 	text-shadow: 0 0 1px $color_light;
 	> a {
 		text-decoration: underline;
@@ -476,7 +483,7 @@ form {
 		border-top: 1px solid darken( $color_light, 10%);
 		border-bottom: 1px solid darken( $color_light, 10%);
 		background: $color_light;
-		color: darken ( $color_light, 40% );;
+		color: darken( $color_light, 40% );
 		p {
 			margin: 0;
 		}
@@ -492,7 +499,7 @@ form {
 		margin: 0;
 		padding: 5px 10px;
 		background: darken( $color_light, 10%);
-		color: darken ( $color_light, 40% );;
+		color: darken( $color_light, 40% );
 		border-bottom: 1px solid darken( $color_light, 10%);
 	}
 	.box-content {
@@ -669,6 +676,9 @@ form {
 .post {
 	padding: 10px 50px;
 	font-size: 0.9em;
+	input {
+		background: darken( $color_light, 10% );
+	}
 	form {
 		margin: 10px 0;
 	}
@@ -778,7 +788,7 @@ form {
 	}
 	.date {
 		font-size: 0.7rem;
-		color: darken ( $color_light, 40% );;
+		color: darken( $color_light, 40% );
 	}
 	.bottom {
 		font-size: 0.8rem;
@@ -786,6 +796,10 @@ form {
 	}
 	.website .favicon {
 		padding: 5px;
+	}
+	label {
+		color: $color_light;
+		cursor: pointer;
 	}
 }
 
@@ -805,7 +819,7 @@ form {
 	z-index: 10;
 	vertical-align: middle;
 	background: darken( $color_light, 10%);
-	color: darken ( $color_light, 40% );;
+	color: darken( $color_light, 40% );
 	border: none;
 	position: fixed;
 	bottom: 48px;
@@ -824,9 +838,9 @@ form {
 		}
 	}
 	&.bad {
-		background: lighten( $color_bad, 10%);;
+		background: lighten( $color_bad, 10%);
 		a.close:hover {
-			background: lighten( $color_bad, 10%);;
+			background: lighten( $color_bad, 10%);
 		}
 	}
 	&#actualizeProgress {
@@ -885,29 +899,29 @@ form {
 
 .loglist {
 	overflow: hidden;
-	border: 1px solid darken ( $color_light, 40% );;
+	border: 1px solid darken( $color_light, 40% );
 }
 
 .log {
-	margin: 10px 0;
 	padding: 5px 2%;
 	overflow: auto;
 	font-size: 0.8rem;
 	background: $color_light;
-	color: darken ( $color_light, 40% );;
 	> .date {
 		margin: 0 10px 0 0;
 		padding: 5px 10px;
 	}
 	&.error > .date {
-		background: lighten( $color_bad, 10%);;
+		background: lighten( $color_bad, 10%);
 		color: $color_light;
 	}
 	&.warning > .date {
 		background: $color_alert;
+		color: $color_light;
 	}
 	&.notice > .date {
 		background: darken( $color_light, 10%);
+		color: $color_light;
 	}
 	&.debug > .date {
 		background: $color_text;
@@ -1096,16 +1110,16 @@ button.as-link {
 		}
 	}
 	&.error {
-		color: lighten( $color_bad, 10%);;
+		color: lighten( $color_bad, 10%);
 		&.active {
-			background: lighten( $color_bad, 10%);;
+			background: lighten( $color_bad, 10%);
 			color: $color_light;
 			> a {
 				color: $color_light;
 			}
 		}
 		> a {
-			color: lighten( $color_bad, 10%);;
+			color: lighten( $color_bad, 10%);
 		}
 	}
 }
@@ -1123,7 +1137,7 @@ button.as-link {
 	.author {
 		margin: 0 0 10px;
 		font-size: 90%;
-		color: darken ( $color_light, 40% );;
+		color: darken( $color_light, 40% );
 	}
 }
 
@@ -1131,4 +1145,16 @@ button.as-link {
 	ul.dropdown-menu {
     	left: 0px;
 	}
+}
+
+#slider {
+	label {
+		min-height: initial;
+	}
+	.form-group {
+		&:hover {
+			background: inital;
+		}
+	}
+	
 }
