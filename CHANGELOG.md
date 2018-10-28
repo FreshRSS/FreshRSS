@@ -1,6 +1,6 @@
 ﻿# FreshRSS changelog
 
-## 2018-10-XX FreshRSS 1.11.3-dev
+## 2018-10-28 FreshRSS 1.12.0
 
 * Features
 	* Ability to add *labels* (custom tags) to articles [#928](https://github.com/FreshRSS/FreshRSS/issues/928)
