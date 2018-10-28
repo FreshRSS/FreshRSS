@@ -19,7 +19,7 @@ return array(
 			'bottom_line' => 'שורה תחתונה',
 			'entry' => 'סמלילי מאמרים',
 			'publication_date' => 'תאריך הפרסום',
-			'related_tags' => 'תגיות קשורות',
+			'related_tags' => 'תגיות קשורות',	//TODO
 			'sharing' => 'שיתוף',
 			'top_line' => 'שורה עליונה',
 		),

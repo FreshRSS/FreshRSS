@@ -114,6 +114,17 @@ function incUnreadsFeed(article, feed_id, nb) {
 	return isCurrentView;
 }
 
+function incUnreadsTag(tag_id, nb) {
+	var $t = $('#t_' + tag_id);
+	var unreads = str2int($t.attr('data-unread'));
+	$t.attr('data-unread', unreads + nb)
+		.children('.item-title').attr('data-unread', numberFormat(unreads + nb));
+
+	$t = $('.category.tags').find('.title');
+	unreads = str2int($t.attr('data-unread'));
+	$t.attr('data-unread', numberFormat(unreads + nb));
+}
+
 var pending_entries = {};
 function mark_read(active, only_not_read) {
 	if ((active.length === 0) || (!active.attr('id')) ||
@@ -156,6 +167,12 @@ function mark_read(active, only_not_read) {
 			incUnreadsFeed(active, feed_id, inc);
 		}
 		faviconNbUnread();
+
+		if (data.tags) {
+			for (var i = data.tags.length - 1; i >= 0; i--) {
+				incUnreadsTag(data.tags[i], inc);
+			}
+		}
 
 		delete pending_entries[active.attr('id')];
 	}).fail(function (data) {
@@ -529,12 +546,16 @@ function init_column_categories() {
 		$(this).parent().next(".tree-folder-items").slideToggle(300 , function() { $(document.body).trigger("sticky_kit:recalc"); });
 		return false;
 	});
-	$('#aside_feed').on('click', '.tree-folder-items .item .dropdown-toggle', function () {
+	$('#aside_feed').on('click', '.tree-folder-items .feed .dropdown-toggle', function () {
 		if ($(this).nextAll('.dropdown-menu').length === 0) {
-			var feed_id = $(this).closest('.item').attr('id').substr(2),
+			var itemId = $(this).closest('.item').attr('id'),
+				templateId = itemId.substring(0, 2) === 't_' ? 'tag_config_template' : 'feed_config_template',
+				id = itemId.substr(2),
 				feed_web = $(this).data('fweb'),
-				template = $('#feed_config_template').html().replace(/------/g, feed_id).replace('http://example.net/', feed_web);
-			$(this).attr('href', '#dropdown-' + feed_id).prev('.dropdown-target').attr('id', 'dropdown-' + feed_id).parent().append(template);
+				template = $('#' + templateId)
+					.html().replace(/------/g, id).replace('http://example.net/', feed_web);
+			$(this).attr('href', '#dropdown-' + id).prev('.dropdown-target').attr('id', 'dropdown-' + id).parent()
+				.append(template).find('button.confirm').removeAttr('disabled');
 			$('.tree-folder-items .dropdown-close a').click(function(){
 				$('.tree').removeClass('treepadding');
 				$(document.body).trigger("sticky_kit:recalc");
@@ -606,7 +627,7 @@ function init_shortcuts() {
 			auto_share(String.fromCharCode(evt.keyCode));
 		}
 	}
-	for(var i = 1; i < 10; i++) {
+	for (var i = 1; i < 10; i++) {
 		shortcut.add(i.toString(), addShortcut, {
 			'disable_in_input': true
 		});
@@ -731,7 +752,7 @@ function init_shortcuts() {
 
 function init_stream(divStream) {
 	divStream.on('click', '.flux_header,.flux_content', function (e) {	//flux_toggle
-		if ($(e.target).closest('.content, .item.website, .item.link').length > 0) {
+		if ($(e.target).closest('.keep_unread, .content, .item.website, .item.link, .dropdown-menu').length > 0) {
 			return;
 		}
 		if (!context.sides_close_article && $(e.target).is('div.flux_content')) {
@@ -788,7 +809,9 @@ function init_stream(divStream) {
 	});
 
 	divStream.on('click', '.flux .content a', function () {
-		$(this).attr('target', '_blank').attr('rel', 'noreferrer');
+		if (!$(this).closest('div').hasClass('author')) {
+			$(this).attr('target', '_blank').attr('rel', 'noreferrer');
+		}
 	});
 
 	if (context.auto_mark_site) {
@@ -828,6 +851,69 @@ function init_nav_entries() {
 	});
 }
 
+function loadDynamicTags($div) {
+	$div.removeClass('dynamictags');
+	$div.find('li.item').remove();
+	var entryId = $div.closest('div.flux').attr('id').replace(/^flux_/, '');
+	$.getJSON('./?c=tag&a=getTagsForEntry&id_entry=' + entryId)
+		.done(function (data) {
+			var $ul = $div.find('.dropdown-menu');
+			$ul.append('<li class="item"><label><input class="checkboxTag" name="t_0" type="checkbox" /> <input type="text" name="newTag" /></label></li>');
+			if (data && data.length) {
+				for (var i = 0; i < data.length; i++) {
+					var tag = data[i];
+					$ul.append('<li class="item"><label><input class="checkboxTag" name="t_' + tag.id + '" type="checkbox"' +
+						(tag.checked ? ' checked="checked"' : '') + '> ' + tag.name + '</label></li>');
+				}
+			}
+		})
+		.fail(function () {
+			$div.find('li.item').remove();
+			$div.addClass('dynamictags');
+		});
+}
+
+function init_dynamic_tags() {
+	$stream.on('click', '.dynamictags', function () {
+		loadDynamicTags($(this));
+	});
+
+	$stream.on('change', '.checkboxTag', function (ev) {
+		var $checkbox = $(this);
+		$checkbox.prop('disabled', true);
+		var isChecked = $checkbox.prop('checked');
+		var tagId = $checkbox.attr('name').replace(/^t_/, '');
+		var tagName = $checkbox.siblings('input[name]').val();
+		var $entry = $checkbox.closest('div.flux');
+		var entryId = $entry.attr('id').replace(/^flux_/, '');
+		$.ajax({
+				type: 'POST',
+				url: './?c=tag&a=tagEntry',
+				data: {
+					_csrf: context.csrf,
+					id_tag: tagId,
+					name_tag: tagId == 0 ? tagName : '',
+					id_entry: entryId,
+					checked: isChecked,
+				},
+			})
+			.done(function () {
+				if ($entry.hasClass('not_read')) {
+					incUnreadsTag(tagId, isChecked ? 1 : -1);
+				}
+			})
+			.fail(function () {
+				$checkbox.prop('checked', !isChecked);
+			})
+			.always(function () {
+				$checkbox.prop('disabled', false);
+				if (tagId == 0) {
+					loadDynamicTags($checkbox.closest('div.dropdown'));
+				}
+			});
+	});
+}
+
 // <actualize>
 var feed_processed = 0;
 
@@ -841,7 +927,7 @@ function updateFeed(feeds, feeds_count) {
 		url: feed.url,
 		data: {
 			_csrf: context.csrf,
-			noCommit: feeds.length > 0 ? 1 : 0,
+			noCommit: 1,
 		},
 	}).always(function (data) {
 		feed_processed++;
@@ -849,7 +935,16 @@ function updateFeed(feeds, feeds_count) {
 		$("#actualizeProgress .title").html(feed.title);
 
 		if (feed_processed === feeds_count) {
-			window.location.reload();
+			$.ajax({	//Empty request to commit new articles
+					type: 'POST',
+					url: './?c=feed&a=actualize&id=-1&ajax=1',
+					data: {
+						_csrf: context.csrf,
+						noCommit: 0,
+					},
+				}).always(function (data) {
+					window.location.reload();
+				});
 		} else {
 			updateFeed(feeds, feeds_count);
 		}
@@ -875,7 +970,7 @@ function init_actualize() {
 				openNotification(data.feedback_no_refresh, "good");
 				$.ajax({	//Empty request to force refresh server database cache
 					type: 'POST',
-					url: './?c=feed&a=actualize&id=-1',
+					url: './?c=feed&a=actualize&id=-1&ajax=1',
 					data: {
 						_csrf: context.csrf,
 						noCommit: 0,
@@ -1002,7 +1097,7 @@ function refreshUnreads() {
 		var isAll = $('.category.all.active').length > 0,
 			new_articles = false;
 
-		$.each(data, function(feed_id, nbUnreads) {
+		$.each(data.feeds, function(feed_id, nbUnreads) {
 			feed_id = 'f_' + feed_id;
 			var elem = $('#' + feed_id).get(0),
 				feed_unreads = elem ? str2int(elem.getAttribute('data-unread')) : 0;
@@ -1013,6 +1108,17 @@ function refreshUnreads() {
 				new_articles = true;
 			}
 		});
+
+		var nbUnreadTags = 0;
+
+		$.each(data.tags, function(tag_id, nbUnreads) {
+			nbUnreadTags += nbUnreads;
+			$('#t_' + tag_id).attr('data-unread', nbUnreads)
+				.children('.item-title').attr('data-unread', numberFormat(nbUnreads));
+		});
+
+		$('.category.tags').attr('data-unread', nbUnreadTags)
+			.find('.title').attr('data-unread', numberFormat(nbUnreadTags));
 
 		var nb_unreads = str2int($('.category.all .title').attr('data-unread'));
 
@@ -1073,7 +1179,6 @@ freshrssLoadMoreEvent.initEvent('freshrss:load-more', true, true);
 
 function init_load_more(box) {
 	box_load_more = box;
-
 	document.body.dispatchEvent(freshrssLoadMoreEvent);
 
 	var $next_link = $("#load_more");
@@ -1084,12 +1189,6 @@ function init_load_more(box) {
 	}
 
 	url_load_more = $next_link.attr("href");
-	var $prefetch = $('#prefetch');
-	if ($prefetch.attr('href') !== url_load_more) {
-		$prefetch.attr('rel', 'next');	//Remove prefetch
-		$.ajax({url: url_load_more, ifModified: true });	//TODO: Try to find a less agressive solution
-		$prefetch.attr('href', url_load_more);
-	}
 
 	$next_link.click(function () {
 		load_more_posts();
@@ -1424,12 +1523,13 @@ function init_afterDOM() {
 		return;
 	}
 	init_notifications();
+	init_confirm_action();
 	$stream = $('#stream');
 	if ($stream.length > 0) {
-		init_confirm_action();
 		init_load_more($stream);
 		init_posts();
 		init_nav_entries();
+		init_dynamic_tags();
 		init_print_action();
 		init_post_action();
 		init_notifs_html5();

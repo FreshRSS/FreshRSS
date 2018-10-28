@@ -53,6 +53,7 @@ class FreshRSS_entry_Controller extends Minz_ActionController {
 		}
 
 		$params = array();
+		$this->view->tags = array();
 
 		$entryDAO = FreshRSS_Factory::createEntryDao();
 		if ($id === false) {
@@ -81,6 +82,12 @@ class FreshRSS_entry_Controller extends Minz_ActionController {
 				case 'a':
 					$entryDAO->markReadEntries($id_max, false, 0, FreshRSS_Context::$search, FreshRSS_Context::$state, $is_read);
 					break;
+				case 't':
+					$entryDAO->markReadTag($get, $id_max, FreshRSS_Context::$search, FreshRSS_Context::$state, $is_read);
+					break;
+				case 'T':
+					$entryDAO->markReadTag('', $id_max, FreshRSS_Context::$search, FreshRSS_Context::$state, $is_read);
+					break;
 				}
 
 				if ($next_get !== 'a') {
@@ -91,6 +98,13 @@ class FreshRSS_entry_Controller extends Minz_ActionController {
 			}
 		} else {
 			$entryDAO->markRead($id, $is_read);
+
+			$tagDAO = FreshRSS_Factory::createTagDao();
+			foreach ($tagDAO->getTagsForEntry($id) as $tag) {
+				if (!empty($tag['checked'])) {
+					$this->view->tags[] = $tag['id'];
+				}
+			}
 		}
 
 		if (!$this->ajax) {
@@ -192,6 +206,9 @@ class FreshRSS_entry_Controller extends Minz_ActionController {
 		}
 
 		$feedDAO->updateCachedValues();
+
+		$databaseDAO = FreshRSS_Factory::createDatabaseDAO();
+		$databaseDAO->minorDbMaintenance();
 
 		invalidateHttpCache();
 		Minz_Request::good(_t('feedback.sub.purge_completed', $nb_total), array(

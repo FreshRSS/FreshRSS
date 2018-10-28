@@ -72,7 +72,7 @@ cd /usr/share/FreshRSS
 # --user can be a username, or '*' to loop on all users
 # Returns: 1) a * iff the user is admin, 2) the name of the user,
 #  3) the date/time of last user action, 4) the size occupied,
-#  and the number of: 5) categories, 6) feeds, 7) read articles, 8) unread articles, and 9) favourites
+#  and the number of: 5) categories, 6) feeds, 7) read articles, 8) unread articles, 9) favourites, and 10) tags
 
 ./cli/db-optimize.php --user username
 # Optimize database (reduces the size) for a given user (perform `OPTIMIZE TABLE` in MySQL, `VACUUM` in SQLite)

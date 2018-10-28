@@ -19,7 +19,7 @@ return array(
 			'bottom_line' => 'Fußzeile',
 			'entry' => 'Artikel-Symbole',
 			'publication_date' => 'Datum der Veröffentlichung',
-			'related_tags' => 'Verwandte Tags',
+			'related_tags' => 'Verwandte Tags',	//TODO
 			'sharing' => 'Teilen',
 			'top_line' => 'Kopfzeile',
 		),
@@ -102,7 +102,7 @@ return array(
 		'read' => array(
 			'article_open_on_website' => 'wenn der Artikel auf der Original-Webseite geöffnet wird',
 			'article_viewed' => 'wenn der Artikel angesehen wird',
-			'scroll' => 'beim Blättern',
+			'scroll' => 'beim Scrollen bzw. Überspringen',
 			'upon_reception' => 'beim Empfang des Artikels',
 			'when' => 'Artikel als gelesen markieren…',
 		),

@@ -27,6 +27,7 @@ return array(
 			'password' => 'HTTP-Passwort',
 			'username' => 'HTTP-Nutzername',
 		),
+		'clear_cache' => 'Nicht cachen (für defekte Feeds)',
 		'css_help' => 'Ruft gekürzte RSS-Feeds ab (Achtung, benötigt mehr Zeit!)',
 		'css_path' => 'Pfad zur CSS-Datei des Artikels auf der Original-Webseite',
 		'description' => 'Beschreibung',
@@ -44,10 +45,10 @@ return array(
 			'main_stream' => 'In Haupt-Feeds zeigen',
 			'normal' => 'Zeige in eigener Kategorie',
 		),
-		'ssl_verify' => 'Verify SSL security',	//TODO
+		'ssl_verify' => 'Überprüfe SSL Sicherheit',
 		'stats' => 'Statistiken',
 		'think_to_add' => 'Sie können Feeds hinzufügen.',
-		'timeout' => 'Timeout in seconds',	//TODO
+		'timeout' => 'Zeitlimit in Sekunden',
 		'title' => 'Titel',
 		'title_add' => 'Einen RSS-Feed hinzufügen',
 		'ttl' => 'Aktualisiere automatisch nicht öfter als',

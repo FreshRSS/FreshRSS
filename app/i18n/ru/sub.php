@@ -27,6 +27,7 @@ return array(
 			'password' => 'HTTP password',// TODO
 			'username' => 'HTTP username',// TODO
 		),
+		'clear_cache' => 'Always clear cache',	//TODO
 		'css_help' => 'Retrieves truncated RSS feeds (caution, requires more time!)',// TODO
 		'css_path' => 'Articles CSS path on original website',// TODO
 		'description' => 'Description',// TODO

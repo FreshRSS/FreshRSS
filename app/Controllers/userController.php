@@ -38,7 +38,7 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 	 * The username is also used as folder name, file name, and part of SQL table name.
 	 * '_' is a reserved internal username.
 	 */
-	const USERNAME_PATTERN = '[0-9a-zA-Z_]{2,38}|[0-9a-zA-Z]';
+	const USERNAME_PATTERN = '[0-9a-zA-Z_][0-9a-zA-Z_.]{1,38}|[0-9a-zA-Z]';
 
 	public static function checkUsername($username) {
 		return preg_match('/^' . self::USERNAME_PATTERN . '$/', $username) === 1;
@@ -91,6 +91,10 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 	}
 
 	public function updateAction() {
+		if (!FreshRSS_Auth::hasAccess('admin')) {
+			Minz_Error::error(403);
+		}
+
 		if (Minz_Request::isPost()) {
 			$passwordPlain = Minz_Request::param('newPasswordPlain', '', true);
 			Minz_Request::_param('newPasswordPlain');	//Discard plain-text password ASAP
@@ -104,8 +108,12 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 			));
 
 			if ($ok) {
-				Minz_Request::good(_t('feedback.user.updated', $username),
-				                   array('c' => 'user', 'a' => 'manage'));
+				$isSelfUpdate = Minz_Session::param('currentUser', '_') === $username;
+				if ($passwordPlain == '' || !$isSelfUpdate) {
+					Minz_Request::good(_t('feedback.user.updated', $username), array('c' => 'user', 'a' => 'manage'));
+				} else {
+					Minz_Request::good(_t('feedback.profile.updated'), array('c' => 'index', 'a' => 'index'));
+				}
 			} else {
 				Minz_Request::bad(_t('feedback.user.updated.error', $username),
 				                  array('c' => 'user', 'a' => 'manage'));
@@ -138,8 +146,11 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 			Minz_Session::_param('passwordHash', FreshRSS_Context::$user_conf->passwordHash);
 
 			if ($ok) {
-				Minz_Request::good(_t('feedback.profile.updated'),
-				                   array('c' => 'user', 'a' => 'profile'));
+				if ($passwordPlain == '') {
+					Minz_Request::good(_t('feedback.profile.updated'), array('c' => 'user', 'a' => 'profile'));
+				} else {
+					Minz_Request::good(_t('feedback.profile.updated'), array('c' => 'index', 'a' => 'index'));
+				}
 			} else {
 				Minz_Request::bad(_t('feedback.profile.error'),
 				                  array('c' => 'user', 'a' => 'profile'));
@@ -166,7 +177,7 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 			$entryDAO = FreshRSS_Factory::createEntryDao($this->view->current_user);
 			$this->view->nb_articles = $entryDAO->count();
 
-			$databaseDAO = FreshRSS_Factory::createDatabaseDAO();
+			$databaseDAO = FreshRSS_Factory::createDatabaseDAO($this->view->current_user);
 			$this->view->size_user = $databaseDAO->size();
 		}
 	}

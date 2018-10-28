@@ -167,6 +167,7 @@ return array(
 		'g+' => 'Google+',
 		'gnusocial' => 'GNU social',
 		'jdh' => 'Journal du hacker',
+		'Known' => 'Known-Seite (https://withknown.com)',
 		'linkedin' => 'LinkedIn',
 		'mastodon' => 'Mastodon',
 		'movim' => 'Movim',
@@ -180,7 +181,7 @@ return array(
 	'short' => array(
 		'attention' => 'Achtung!',
 		'blank_to_disable' => 'Zum Deaktivieren frei lassen',
-		'by_author' => 'Von <em>%s</em>',
+		'by_author' => 'Von:',
 		'by_default' => 'standardmäßig',
 		'damn' => 'Verdammt!',
 		'default_category' => 'Unkategorisiert',

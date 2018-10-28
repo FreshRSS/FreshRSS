@@ -181,7 +181,7 @@ return array(
 	'short' => array(
 		'attention' => 'Warning!',
 		'blank_to_disable' => 'Leave blank to disable',
-		'by_author' => 'By <em>%s</em>',
+		'by_author' => 'By:',
 		'by_default' => 'By default',
 		'damn' => 'Damn!',
 		'default_category' => 'Uncategorized',

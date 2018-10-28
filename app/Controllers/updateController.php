@@ -32,7 +32,13 @@ class FreshRSS_update_Controller extends Minz_ActionController {
 		$output = array();
 		$return = 1;
 		try {
-			exec('git pull --ff-only', $output, $return);
+			exec('git clean -f -d -f', $output, $return);
+			if ($return == 0) {
+				exec('git pull --ff-only', $output, $return);
+			} else {
+				$line = is_array($output) ? implode('; ', $output) : '' . $output;
+				Minz_Log::warning('git clean warning:' . $line);
+			}
 		} catch (Exception $e) {
 			Minz_Log::warning('git pull error:' . $e->getMessage());
 		}

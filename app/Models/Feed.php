@@ -286,6 +286,10 @@ class FreshRSS_Feed extends Minz_Model {
 				if (!$loadDetails) {	//Only activates auto-discovery when adding a new feed
 					$feed->set_autodiscovery_level(SIMPLEPIE_LOCATOR_NONE);
 				}
+				if ($this->attributes('clear_cache')) {
+					// Do not use `$simplePie->enable_cache(false);` as it would prevent caching in multiuser context
+					$this->clearCache();
+				}
 				Minz_ExtensionManager::callHook('simplepie_before_init', $feed, $this);
 				$mtime = $feed->init();
 
@@ -345,13 +349,21 @@ class FreshRSS_Feed extends Minz_Model {
 			$link = $item->get_permalink();
 			$date = @strtotime($item->get_date());
 
-			// gestion des tags (catégorie == tag)
-			$tags_tmp = $item->get_categories();
+			//Tag processing (tag == category)
+			$categories = $item->get_categories();
 			$tags = array();
-			if ($tags_tmp !== null) {
-				foreach ($tags_tmp as $tag) {
-					$tags[] = html_only_entity_decode($tag->get_label());
+			if (is_array($categories)) {
+				foreach ($categories as $category) {
+					$text = html_only_entity_decode($category->get_label());
+					//Some feeds use a single category with comma-separated tags
+					$labels = explode(',', $text);
+					if (is_array($labels)) {
+						foreach ($labels as $label) {
+							$tags[] = trim($label);
+						}
+					}
 				}
+				$tags = array_unique($tags);
 			}
 
 			$content = html_only_entity_decode($item->get_content());
@@ -412,7 +424,7 @@ class FreshRSS_Feed extends Minz_Model {
 			$author_names = '';
 			if (is_array($authors)) {
 				foreach ($authors as $author) {
-					$author_names .= html_only_entity_decode(strip_tags($author->name == '' ? $author->email : $author->name)) . ', ';
+					$author_names .= html_only_entity_decode(strip_tags($author->name == '' ? $author->email : $author->name)) . '; ';
 				}
 			}
 			$author_names = substr($author_names, 0, -2);
@@ -457,8 +469,16 @@ class FreshRSS_Feed extends Minz_Model {
 		$this->entries = $entries;
 	}
 
+	protected function cacheFilename() {
+		return CACHE_PATH . '/' . md5($this->url) . '.spc';
+	}
+
+	public function clearCache() {
+		return @unlink($this->cacheFilename());
+	}
+
 	public function cacheModifiedTime() {
-		return @filemtime(CACHE_PATH . '/' . md5($this->url) . '.spc');
+		return @filemtime($this->cacheFilename());
 	}
 
 	public function lock() {

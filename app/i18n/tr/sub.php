@@ -27,6 +27,7 @@ return array(
 			'password' => 'HTTP şifre',
 			'username' => 'HTTP kullanıcı adı',
 		),
+		'clear_cache' => 'Always clear cache',	//TODO
 		'css_help' => 'Dikkat, daha çok zaman gerekir!',
 		'css_path' => 'Makaleleri kendi CSS görünümü ile göster',
 		'description' => 'Tanım',

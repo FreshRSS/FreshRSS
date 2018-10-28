@@ -125,9 +125,8 @@ function server_is_public($address) {
 	));
 
 	if ($is_public) {
-		$ip = gethostbyname($host);
-		$is_public &= !preg_match('/^(10|127|172[.]16|192[.]168)[.]/', $ip);
-		$is_public &= !preg_match('/^(\[)?(::1$|fc00::|fe80::)/i', $ip);
+		$is_public &= !preg_match('/^(10|127|172[.]16|192[.]168)[.]/', $host);
+		$is_public &= !preg_match('/^(\[)?(::1$|fc00::|fe80::)/i', $host);
 	}
 
 	return (bool)$is_public;
@@ -450,6 +449,9 @@ function check_install_database() {
 		'categories' => false,
 		'feeds' => false,
 		'entries' => false,
+		'entrytmp' => false,
+		'tag' => false,
+		'entrytag' => false,
 	);
 
 	try {
@@ -459,6 +461,9 @@ function check_install_database() {
 		$status['categories'] = $dbDAO->categoryIsCorrect();
 		$status['feeds'] = $dbDAO->feedIsCorrect();
 		$status['entries'] = $dbDAO->entryIsCorrect();
+		$status['entrytmp'] = $dbDAO->entrytmpIsCorrect();
+		$status['tag'] = $dbDAO->tagIsCorrect();
+		$status['entrytag'] = $dbDAO->entrytagIsCorrect();
 	} catch(Minz_PDOConnectionException $e) {
 		$status['connection'] = false;
 	}

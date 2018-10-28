@@ -167,6 +167,7 @@ form th {
 	display: inline-block;
 	min-height: 38px;
 	min-width: 15px;
+	line-height: 25px;
 	margin: 0;
 	padding: 5px 10px;
 	font-size: 0.9rem;
@@ -299,6 +300,7 @@ a.btn {
 
 /*=== Dropdown */
 .dropdown-menu {
+	background: #fafafa;
 	margin: 5px 0 0;
 	padding: 5px 0;
 	font-size: 0.8rem;

@@ -27,6 +27,7 @@ return array(
 			'password' => 'HTTP סיסמה',
 			'username' => 'HTTP שם משתמש',
 		),
+		'clear_cache' => 'Always clear cache',	//TODO
 		'css_help' => 'קבלת הזנות RSS קטומות  (זהירות, לוקח זמן רב יותר!)',
 		'css_path' => 'נתיב הCSS של המאמר באתר המקורי',
 		'description' => 'תיאור',
