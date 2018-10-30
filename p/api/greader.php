@@ -198,6 +198,7 @@ function clientLogin($email, $pass) {	//http://web.archive.org/web/2013060409104
 			header('Content-Type: text/plain; charset=UTF-8');
 			$auth = $email . '/' . sha1(FreshRSS_Context::$system_conf->salt . $email . FreshRSS_Context::$user_conf->apiPasswordHash);
 			echo 'SID=', $auth, "\n",
+				'LSID=null', "\n",	//Vienna RSS
 				'Auth=', $auth, "\n";
 			exit();
 		} else {
@@ -548,6 +549,11 @@ function streamContents($path, $include_target, $start_time, $count, $order, $ex
 			break;
 		case 'feed':
 			$type = 'f';
+			if ($include_target != '' && !ctype_digit($include_target)) {
+				$feedDAO = FreshRSS_Factory::createFeedDao();
+				$feed = $feedDAO->searchByUrl($include_target);
+				$include_target = $feed == null ? -1 : $feed->id();
+			}
 			break;
 		case 'label':
 			$categoryDAO = FreshRSS_Factory::createCategoryDao();
