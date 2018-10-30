@@ -256,7 +256,7 @@ a.btn {
 }
 .dropdown-target:target ~ .dropdown-menu {
 	display: block;
-	z-index: 10;
+	z-index: 1000;
 }
 .dropdown-close {
 	display: inline;
