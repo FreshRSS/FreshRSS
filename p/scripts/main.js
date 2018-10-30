@@ -752,7 +752,7 @@ function init_shortcuts() {
 
 function init_stream(divStream) {
 	divStream.on('click', '.flux_header,.flux_content', function (e) {	//flux_toggle
-		if ($(e.target).closest('.keep_unread, .content, .item.website, .item.link, .dropdown-menu').length > 0) {
+		if ($(e.target).closest('.content, .item.website, .item.link, .dropdown-menu').length > 0) {
 			return;
 		}
 		if (!context.sides_close_article && $(e.target).is('div.flux_content')) {
