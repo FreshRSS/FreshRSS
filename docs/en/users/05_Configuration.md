@@ -37,6 +37,7 @@ In matters of taste and color, there can be no disputes. This is why FreshRSS of
  * *Origine* by **Marien Fressinaud**
  * *Pafat* by **Plopoyop**
  * *Screwdriver* by **Mister aiR**
+ * *Swage* by **Patrick Crandol**
 
 If none of these are suitable for you, it is always possible to create your own.
 
@@ -194,3 +195,4 @@ We find here that the block that encompasses only the content of the article is 
 *  Rue89: ```#article .content```
 *  PCINpact: ```#actu_content```
 *  Lesnumériques: ```article#body div.text.clearfix```
+*  Phoronix: ```#main .content```
