@@ -37,7 +37,6 @@ In matters of taste and color, there can be no disputes. This is why FreshRSS of
  * *Origine* by **Marien Fressinaud**
  * *Pafat* by **Plopoyop**
  * *Screwdriver* by **Mister aiR**
- * *Swage* by **Patrick Crandol**
 
 If none of these are suitable for you, it is always possible to create your own.
 
@@ -176,7 +175,7 @@ More information can be found in the [Apache documentation](http://httpd.apache.
 
 ## Advanced
 
-### Retrieve a truncated stream
+### Retrieve a truncated stream from within FreshRSS
 
 The question comes up regularly, so we will try to clarify here how one can retrieve a truncated RSS feed with FreshRSS. Please note that the process is absolutely not "user friendly", but it works :)
 
@@ -184,7 +183,7 @@ Also know that this way you are generating much more traffic to the originating 
 
 What is meant by "CSS path of articles on the original site" actually corresponds to the "path" consisting of IDs and classes (which in html, matches the id and class attributes) to retrieve only the interesting part that corresponds to the article. Ideally, this path starts with an id (which is unique to the page).
 
-#### Example 1: Rue89
+#### Example: Rue89
 
 To find this path, you must go to the address of one of the truncated articles (for example http://www.rue89.com/2013/10/15/prof-maths-jai-atteint-lextase-dihn-pedagogie-inversee-246635). You must then look for the "block" of HTML corresponding to the content of the article (in the source code!).
 
@@ -195,4 +194,10 @@ We find here that the block that encompasses only the content of the article is 
 *  Rue89: ```#article .content```
 *  PCINpact: ```#actu_content```
 *  Lesnumériques: ```article#body div.text.clearfix```
-*  Phoronix: ```#main .content```
+
+### Retrieve a truncated stream with external tools
+
+Complimentary tools can be used to retrieve full article content, such as:
+
+* [RSS-Bridge](https://github.com/RSS-Bridge/rss-bridge)
+* [Full-Text RSS](https://bitbucket.org/fivefilters/full-text-rss)
