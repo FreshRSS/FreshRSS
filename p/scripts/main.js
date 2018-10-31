@@ -244,7 +244,6 @@ function toggleContent(new_active, old_active) {
 
 	if (context.does_lazyload) {
 		new_active.find('img[data-original], iframe[data-original]').each(function () {
-			this.onload = function () { $(document.body).trigger("sticky_kit:recalc"); };
 			this.setAttribute('src', this.getAttribute('data-original'));
 			this.removeAttribute('data-original');
 		});
@@ -515,12 +514,6 @@ function inject_script(name) {
 	document.head.appendChild(script);
 }
 
-function init_sticky_column() {
-	if ($('.toggle_aside').css('display') === 'none') {
-		$('#aside_feed .tree').stick_in_parent({parent:'#aside_feed'});
-	}
-}
-
 function init_column_categories() {
 	if (context.current_view !== 'normal') {
 		return;
@@ -536,7 +529,7 @@ function init_column_categories() {
 				this.alt = '▽';
 			}
 		});
-		$(this).parent().next(".tree-folder-items").slideToggle(300 , function() { $(document.body).trigger("sticky_kit:recalc"); });
+		$(this).parent().next(".tree-folder-items").slideToggle(300);
 		return false;
 	});
 	$('#aside_feed').on('click', '.tree-folder-items .feed .dropdown-toggle', function () {
@@ -551,17 +544,13 @@ function init_column_categories() {
 				.append(template).find('button.confirm').removeAttr('disabled');
 			$('.tree-folder-items .dropdown-close a').click(function(){
 				$('.tree').removeClass('treepadding');
-				$(document.body).trigger("sticky_kit:recalc");
 			});
 		}
 	});
 
 	$('.tree-folder-items .dropdown-toggle').click(function(){
 		$('.tree').addClass('treepadding');
-		$(document.body).trigger("sticky_kit:recalc");
 	});
-
-	init_sticky_column();
 }
 
 function init_shortcuts() {
@@ -1159,7 +1148,6 @@ function load_more_posts() {
 		$('#load_more').removeClass('loading');
 		$('#bigMarkAsRead').removeAttr('disabled');
 		load_more = false;
-		$(document.body).trigger('sticky_kit:recalc');
 	});
 }
 
@@ -1502,7 +1490,6 @@ function init_beforeDOM() {
 		return;
 	}
 	if (['normal', 'reader', 'global'].indexOf(context.current_view) >= 0) {
-		inject_script('jquery.sticky-kit.min.js');
 		init_normal();
 	}
 }
