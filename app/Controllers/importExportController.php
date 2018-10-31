@@ -395,7 +395,7 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 					'title' => isset($item['feed_title']) ? $item['feed_title'] : '',
 					'feedUrl' => isset($item['feed_url']) ? $item['feed_url'] : '',
 				);
-			$item['id'] = isset($item['guid']) ? $item['guid'] : (isset($item['guid']) ? $item['guid'] : $item['published']);
+			$item['id'] = isset($item['guid']) ? $item['guid'] : (isset($item['feed_url']) ? $item['feed_url'] : $item['published']);
 			$table['items'][$i] = $item;
 		}
 		return json_encode($table, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
