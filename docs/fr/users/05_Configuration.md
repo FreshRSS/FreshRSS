@@ -1,9 +1,27 @@
 # Personnaliser la vue
 
 ##Langue
-À l'heure actuelle, FreshRSS est disponible en français et en anglais. Après validation de ce choix, la totalité de l'interface sera affichée dans la langue choisie.
+À l'heure actuelle, FreshRSS est disponible en 13 langues. Après validation de ce choix, l'interface sera affichée dans la langue choisie, même si certaines parties de l'interface peuvent ne pas encore avoir été traduites. Si vous voulez aider à la traduction, regardez comment vous pouvez [contribuer au projet](../contributing.md#contribute-to-internationalization-i18n).
 
 Il y a des parties de FreshRSS qui ne sont pas traduites et qui n'ont pas vocation à l'être. Pour le moment, les logs visibles dans l'application ainsi que celle générées par le script de mise à jour automatique en font partie.
+
+Not all languages are equals regarding completion:
+
+| Langage  | Statut     |
+|----------|-----------:|
+| cz       | 87.4%      |
+| de       | 88.1%      |
+| en       | 100%       |
+| es       | 88.7%      |
+| fr       | 99.3%      |
+| he       | 69.6%      |
+| it       | 86.4%      |
+| kr       | 96.3%      |
+| nl       | 95.4%      |
+| pt-br    | 87.4%      |
+| ru       | 36.4%      |
+| tr       | 88.1%      |
+| zh-cn    | 99.0%      |
 
 ##Thème
 Les goûts et les couleurs, ça ne se discute pas. C'est pourquoi FreshRSS propose six thèmes officiels :
@@ -14,6 +32,7 @@ Les goûts et les couleurs, ça ne se discute pas. C'est pourquoi FreshRSS propo
  * *Origine* par **Marien Fressinaud**
  * *Pafat* par **Plopoyop**
  * *Screwdriver* par **Mister aiR**
+ * *Swage* par **Patrick Crandol**
 
 Si aucun de ceux proposés ne convient, il est toujours possible de créer son propre thème.
 
@@ -116,4 +135,4 @@ On trouve ici que le bloc qui englobe uniquement le contenu de l'article est ```
 *  Rue89 : ```#article .content```
 *  PCINpact : ```#actu_content```
 *  Lesnumériques : ```article#body div.text.clearfix```
-
+*  Phoronix : ```#main .content```
