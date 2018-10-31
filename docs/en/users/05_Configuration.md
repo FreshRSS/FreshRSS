@@ -194,6 +194,7 @@ We find here that the block that encompasses only the content of the article is 
 *  Rue89: ```#article .content```
 *  PCINpact: ```#actu_content```
 *  Lesnumériques: ```article#body div.text.clearfix```
+*  Phoronix : ```#main .content```
 
 ### Retrieve a truncated stream with external tools
 
