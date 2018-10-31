@@ -116,7 +116,7 @@ Plus d'informations dans [la documentation d'Apache.](http://httpd.apache.org/do
 
 ## Avancé
 
-### Récupérer un flux tronqué
+### Récupérer un flux tronqué à partir de FreshRSS
 
 La question revient régulièrement, je vais essayer de clarifier ici comment on peut récupérer un flux RSS tronqué avec FreshRSS. Sachez avant tout que la manière de s'y prendre n'est absolument pas "user friendly", mais elle fonctionne :)
 
@@ -136,3 +136,10 @@ On trouve ici que le bloc qui englobe uniquement le contenu de l'article est ```
 *  PCINpact : ```#actu_content```
 *  Lesnumériques : ```article#body div.text.clearfix```
 *  Phoronix : ```#main .content```
+
+### Récupérer un flux tronqué à l'aide d'outils externes
+
+Des outils complémentaires peuvent être utilisés pour récupérer le contenu complet d'un article, comme :
+
+* [RSS-Bridge](https://github.com/RSS-Bridge/rss-bridge)
+* [Full-Text RSS](https://bitbucket.org/fivefilters/full-text-rss)
