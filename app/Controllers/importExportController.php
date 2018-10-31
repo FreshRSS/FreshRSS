@@ -109,6 +109,17 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 				}
 			}
 		}
+		foreach ($list_files['ttrss_starred'] as $article_file) {
+			$json = $this->ttrssXmlToJson($article_file);
+			if (!$this->importJson($json, true)) {
+				$ok = false;
+				if (FreshRSS_Context::$isCli) {
+					fwrite(STDERR, 'FreshRSS error during TT-RSS articles import' . "\n");
+				} else {
+					Minz_Log::warning('Error during TT-RSS articles import');
+				}
+			}
+		}
 
 		return $ok;
 	}
@@ -165,17 +176,22 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 	private static function guessFileType($filename) {
 		if (substr_compare($filename, '.zip', -4) === 0) {
 			return 'zip';
-		} elseif (substr_compare($filename, '.opml', -5) === 0 ||
-		          substr_compare($filename, '.xml', -4) === 0) {
+		} elseif (substr_compare($filename, '.opml', -5) === 0) {
 			return 'opml';
-		} elseif (substr_compare($filename, '.json', -5) === 0 &&
-		          strpos($filename, 'starred') !== false) {
-			return 'json_starred';
 		} elseif (substr_compare($filename, '.json', -5) === 0) {
-			return 'json_feed';
-		} else {
-			return 'unknown';
+			if (strpos($filename, 'starred') !== false) {
+				return 'json_starred';
+			} else {
+				return 'json_feed';
+			}
+		} elseif (substr_compare($filename, '.xml', -4) === 0) {
+			if (preg_match('/Tiny|tt-?rss/i', $filename)) {
+				return 'ttrss_starred';
+			} else {
+				return 'opml';
+			}
 		}
+		return 'unknown';
 	}
 
 	/**
@@ -364,6 +380,27 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 		return !$error;
 	}
 
+	private function ttrssXmlToJson($xml) {
+		$table = (array)simplexml_load_string($xml, null, LIBXML_NOCDATA);
+		$table['items'] = isset($table['article']) ? $table['article'] : array();
+		unset($table['article']);
+		for ($i = count($table['items']) - 1; $i >= 0; $i--) {
+			$item = (array)($table['items'][$i]);
+			$item['updated'] = isset($item['updated']) ? strtotime($item['updated']) : '';
+			$item['published'] = $item['updated'];
+			$item['content'] = array('content' => isset($item['content']) ? $item['content'] : '');
+			$item['categories'] = isset($item['tag_cache']) ? array($item['tag_cache']) : '';
+			$item['alternate'][0]['href'] = isset($item['link']) ? $item['link'] : '';
+			$item['origin'] = array(
+					'title' => isset($item['feed_title']) ? $item['feed_title'] : '',
+					'feedUrl' => isset($item['feed_url']) ? $item['feed_url'] : '',
+				);
+			$item['id'] = isset($item['guid']) ? $item['guid'] : (isset($item['guid']) ? $item['guid'] : $item['published']);
+			$table['items'][$i] = $item;
+		}
+		return json_encode($table, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
+	}
+
 	/**
 	 * This method import a JSON-based file (Google Reader format).
 	 *
@@ -452,9 +489,13 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 				});
 			}
 
+			$url = $item['alternate'][0]['href'];
+			$content = $item[$key_content]['content'];
+			$content = sanitizeHTML($content, $url);
+
 			$entry = new FreshRSS_Entry(
 				$feed_id, $item['id'], $item['title'], $author,
-				$item[$key_content]['content'], $item['alternate'][0]['href'],
+				$content, $url,
 				$item['published'], $is_read, $starred
 			);
 			$entry->_id(min(time(), $entry->date(true)) . uSecString());
