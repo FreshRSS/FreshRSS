@@ -516,13 +516,6 @@ function inject_script(name) {
 }
 
 function init_sticky_column() {
-	if (!window.$ || !window.$.fn.stick_in_parent) {
-		if (window.console) {
-			console.log('FreshRSS waiting for Sticky-kit…');
-		}
-		window.setTimeout(init_sticky_column, 200);
-		return;
-	}
 	if ($('.toggle_aside').css('display') === 'none') {
 		$('#aside_feed .tree').stick_in_parent({parent:'#aside_feed'});
 	}
