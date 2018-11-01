@@ -19,6 +19,7 @@ Server-side API compatible with Google Reader API layer 2
 * https://github.com/devongovett/reader
 * https://github.com/theoldreader/api
 * https://www.inoreader.com/developers/
+* https://feedhq.readthedocs.io/en/latest/api/index.html
 */
 
 require(__DIR__ . '/../../constants.php');
@@ -628,7 +629,7 @@ function streamContentsItemsIds($streamId, $start_time, $count, $order, $exclude
 	$id = '';
 	if ($streamId === 'user/-/state/com.google/reading-list') {
 		$type = 'A';
-	} elseif ('user/-/state/com.google/starred') {
+	} elseif ($streamId === 'user/-/state/com.google/starred') {
 		$type = 's';
 	} elseif (strpos($streamId, 'feed/') === 0) {
 		$type = 'f';
@@ -930,6 +931,8 @@ if (count($pathInfos) < 3) {
 							$include_target = empty($_SERVER['REQUEST_URI']) ? '' : $_SERVER['REQUEST_URI'];
 							if (preg_match("#/reader/api/0/stream/contents/feed/([A-Za-z0-9'!*()%$_.~+-]+)#", $include_target, $matches) && isset($matches[1])) {
 								$include_target = urldecode($matches[1]);
+							} else {
+								$include_target = '';
 							}
 						}
 						StreamContents($pathInfos[6], $include_target, $start_time, $count, $order, $exclude_target, $continuation);
