@@ -926,6 +926,12 @@ if (count($pathInfos) < 3) {
 				if (isset($pathInfos[7])) {
 					if ($pathInfos[6] === 'feed') {
 						$include_target = $pathInfos[7];
+						if ($include_target != '' && !ctype_digit($include_target)) {
+							$include_target = empty($_SERVER['REQUEST_URI']) ? '' : $_SERVER['REQUEST_URI'];
+							if (preg_match("#/reader/api/0/stream/contents/feed/([A-Za-z0-9'!*()%$_.~+-]+)#", $include_target, $matches) && isset($matches[1])) {
+								$include_target = urldecode($matches[1]);
+							}
+						}
 						StreamContents($pathInfos[6], $include_target, $start_time, $count, $order, $exclude_target, $continuation);
 					} elseif ($pathInfos[6] === 'user' && isset($pathInfos[8]) && isset($pathInfos[9])) {
 						if ($pathInfos[8] === 'state') {
