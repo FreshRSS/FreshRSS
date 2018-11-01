@@ -633,7 +633,12 @@ function streamContentsItemsIds($streamId, $start_time, $count, $order, $exclude
 		$type = 's';
 	} elseif (strpos($streamId, 'feed/') === 0) {
 		$type = 'f';
-		$id = basename($streamId);
+		$id = substr($streamId, 5);
+		if ($id != '' && !ctype_digit($id)) {
+			$feedDAO = FreshRSS_Factory::createFeedDao();
+			$feed = $feedDAO->searchByUrl($id);
+			$id = $feed == null ? -1 : $feed->id();
+		}
 	} elseif (strpos($streamId, 'user/-/label/') === 0) {
 		$type = 'c';
 		$c_name = substr($streamId, 13);
