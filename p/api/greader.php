@@ -536,46 +536,32 @@ function entriesToArray($entries) {
 	return $items;
 }
 
-function streamContents($path, $include_target, $start_time, $count, $order, $filter_target, $exclude_target, $continuation) {
-//http://code.google.com/p/pyrfeed/wiki/GoogleReaderAPI
-//http://blog.martindoms.com/2009/10/16/using-the-google-reader-api-part-2/#feed
-	header('Content-Type: application/json; charset=UTF-8');
-
-	switch ($path) {
-		case 'reading-list':
-			$type = 'A';
-			break;
-		case 'starred':
-			$type = 's';
-			break;
-		case 'feed':
-			$type = 'f';
-			if ($include_target != '' && !ctype_digit($include_target)) {
+function streamContentsFilters($type, $streamId, $filter_target, $exclude_target, $start_time, $stop_time) {
+	switch ($type) {
+		case 'f':	//feed
+			if ($streamId != '' && !ctype_digit($streamId)) {
 				$feedDAO = FreshRSS_Factory::createFeedDao();
-				$feed = $feedDAO->searchByUrl($include_target);
-				$include_target = $feed == null ? -1 : $feed->id();
+				$feed = $feedDAO->searchByUrl($streamId);
+				$streamId = $feed == null ? -1 : $feed->id();
 			}
 			break;
-		case 'label':
+		case 'c':	//category or label
 			$categoryDAO = FreshRSS_Factory::createCategoryDao();
-			$cat = $categoryDAO->searchByName($include_target);
+			$cat = $categoryDAO->searchByName($streamId);
 			if ($cat != null) {
 				$type = 'c';
-				$include_target = $cat->id();
+				$streamId = $cat->id();
 			} else {
 				$tagDAO = FreshRSS_Factory::createTagDao();
-				$tag = $tagDAO->searchByName($include_target);
+				$tag = $tagDAO->searchByName($streamId);
 				if ($tag != null) {
 					$type = 't';
-					$include_target = $tag->id();
+					$streamId = $tag->id();
 				} else {
 					$type = 'A';
-					$include_target = -1;
+					$streamId = -1;
 				}
 			}
-			break;
-		default:
-			$type = 'A';
 			break;
 	}
 
@@ -606,12 +592,52 @@ function streamContents($path, $include_target, $start_time, $count, $order, $fi
 			break;
 	}
 
+	$searches = new FreshRSS_BooleanSearch('');
+	if ($start_time != '') {
+		$search = new FreshRSS_Search('');
+		$search->setMinDate($start_time);
+		$searches->add($search);
+	}
+	if ($stop_time != '') {
+		$search = new FreshRSS_Search('');
+		$search->setMaxDate($stop_time);
+		$searches->add($search);
+	}
+
+	return array($type, $streamId, $state, $searches);
+}
+
+function streamContents($path, $include_target, $start_time, $stop_time, $count, $order, $filter_target, $exclude_target, $continuation) {
+//http://code.google.com/p/pyrfeed/wiki/GoogleReaderAPI
+//http://blog.martindoms.com/2009/10/16/using-the-google-reader-api-part-2/#feed
+	header('Content-Type: application/json; charset=UTF-8');
+
+	switch ($path) {
+		case 'reading-list':
+			$type = 'A';
+			break;
+		case 'starred':
+			$type = 's';
+			break;
+		case 'feed':
+			$type = 'f';
+			break;
+		case 'label':
+			$type = 'c';
+			break;
+		default:
+			$type = 'A';
+			break;
+	}
+
+	list($type, $include_target, $state, $searches) = streamContentsFilters($type, $include_target, $filter_target, $exclude_target, $start_time, $stop_time);
+
 	if ($continuation != '') {
 		$count++;	//Shift by one element
 	}
 
 	$entryDAO = FreshRSS_Factory::createEntryDao();
-	$entries = $entryDAO->listWhere($type, $include_target, $state, $order === 'o' ? 'ASC' : 'DESC', $count, $continuation, new FreshRSS_BooleanSearch(''), $start_time);
+	$entries = $entryDAO->listWhere($type, $include_target, $state, $order === 'o' ? 'ASC' : 'DESC', $count, $continuation, $searches);
 
 	$items = entriesToArray($entries);
 
@@ -636,7 +662,7 @@ function streamContents($path, $include_target, $start_time, $count, $order, $fi
 	exit();
 }
 
-function streamContentsItemsIds($streamId, $start_time, $count, $order, $filter_target, $exclude_target, $continuation) {
+function streamContentsItemsIds($streamId, $start_time, $stop_time, $count, $order, $filter_target, $exclude_target, $continuation) {
 //http://code.google.com/p/google-reader-api/wiki/ApiStreamItemsIds
 //http://code.google.com/p/pyrfeed/wiki/GoogleReaderAPI
 //http://blog.martindoms.com/2009/10/16/using-the-google-reader-api-part-2/#feed
@@ -648,66 +674,20 @@ function streamContentsItemsIds($streamId, $start_time, $count, $order, $filter_
 		$type = 's';
 	} elseif (strpos($streamId, 'feed/') === 0) {
 		$type = 'f';
-		$id = substr($streamId, 5);
-		if ($id != '' && !ctype_digit($id)) {
-			$feedDAO = FreshRSS_Factory::createFeedDao();
-			$feed = $feedDAO->searchByUrl($id);
-			$id = $feed == null ? -1 : $feed->id();
-		}
+		$streamId = substr($streamId, 5);
 	} elseif (strpos($streamId, 'user/-/label/') === 0) {
 		$type = 'c';
-		$c_name = substr($streamId, 13);
-		$categoryDAO = FreshRSS_Factory::createCategoryDao();
-		$cat = $categoryDAO->searchByName($c_name);
-		if ($cat != null) {
-			$type = 'c';
-			$id = $cat->id();
-		} else {
-			$tagDAO = FreshRSS_Factory::createTagDao();
-			$tag = $tagDAO->searchByName($c_name);
-			if ($tag != null) {
-				$type = 't';
-				$id = $tag->id();
-			} else {
-				$type = 'A';
-				$id = -1;
-			}
-		}
+		$streamId = substr($streamId, 13);
 	}
 
-	switch ($filter_target) {
-		case 'user/-/state/com.google/read':
-			$state = FreshRSS_Entry::STATE_READ;
-			break;
-		case 'user/-/state/com.google/unread':
-			$state = FreshRSS_Entry::STATE_NOT_READ;
-			break;
-		case 'user/-/state/com.google/starred':
-			$state = FreshRSS_Entry::STATE_FAVORITE;
-			break;
-		default:
-			$state = FreshRSS_Entry::STATE_ALL;
-			break;
-	}
-
-	switch ($exclude_target) {
-		case 'user/-/state/com.google/read':
-			$state &= FreshRSS_Entry::STATE_NOT_READ;
-			break;
-		case 'user/-/state/com.google/unread':
-			$state &= FreshRSS_Entry::STATE_READ;
-			break;
-		case 'user/-/state/com.google/starred':
-			$state &= FreshRSS_Entry::STATE_NOT_FAVORITE;
-			break;
-	}
+	list($type, $id, $state, $searches) = streamContentsFilters($type, $streamId, $filter_target, $exclude_target, $start_time, $stop_time);
 
 	if ($continuation != '') {
 		$count++;	//Shift by one element
 	}
 
 	$entryDAO = FreshRSS_Factory::createEntryDao();
-	$ids = $entryDAO->listIdsWhere($type, $id, $state, $order === 'o' ? 'ASC' : 'DESC', $count, $continuation, new FreshRSS_BooleanSearch(''), $start_time);
+	$ids = $entryDAO->listIdsWhere($type, $id, $state, $order === 'o' ? 'ASC' : 'DESC', $count, $continuation, $searches);
 
 	if ($continuation != '') {
 		array_shift($ids);	//Discard first element that was already sent in the previous response
@@ -954,6 +934,7 @@ if (count($pathInfos) < 3) {
 			 * items. Only items that have been crawled by Google Reader after
 			 * this time will be returned. */
 			$start_time = isset($_GET['ot']) ? intval($_GET['ot']) : 0;
+			$stop_time = isset($_GET['nt']) ? intval($_GET['nt']) : 0;
 			/* Continuation token. If a StreamContents response does not represent
 			 * all items in a timestamp range, it will have a continuation attribute.
 			 * The same request can be re-issued with the value of that attribute put
@@ -974,23 +955,23 @@ if (count($pathInfos) < 3) {
 								$include_target = '';
 							}
 						}
-						StreamContents($pathInfos[6], $include_target, $start_time, $count, $order, $filter_target, $exclude_target, $continuation);
+						streamContents($pathInfos[6], $include_target, $start_time, $stop_time, $count, $order, $filter_target, $exclude_target, $continuation);
 					} elseif ($pathInfos[6] === 'user' && isset($pathInfos[8]) && isset($pathInfos[9])) {
 						if ($pathInfos[8] === 'state') {
 							if ($pathInfos[9] === 'com.google' && isset($pathInfos[10])) {
 								if ($pathInfos[10] === 'reading-list' || $pathInfos[10] === 'starred') {
 									$include_target = '';
-									streamContents($pathInfos[10], $include_target, $start_time, $count, $order, $filter_target, $exclude_target, $continuation);
+									streamContents($pathInfos[10], $include_target, $start_time, $stop_time, $count, $order, $filter_target, $exclude_target, $continuation);
 								}
 							}
 						} elseif ($pathInfos[8] === 'label') {
 							$include_target = $pathInfos[9];
-							streamContents($pathInfos[8], $include_target, $start_time, $count, $order, $filter_target, $exclude_target, $continuation);
+							streamContents($pathInfos[8], $include_target, $start_time, $stop_time, $count, $order, $filter_target, $exclude_target, $continuation);
 						}
 					}
 				} else {	//EasyRSS
 					$include_target = '';
-					streamContents('reading-list', $include_target, $start_time, $count, $order, $filter_target, $exclude_target, $continuation);
+					streamContents('reading-list', $include_target, $start_time, $stop_time, $count, $order, $filter_target, $exclude_target, $continuation);
 				}
 			} elseif ($pathInfos[5] === 'items') {
 				if ($pathInfos[6] === 'ids' && isset($_GET['s'])) {
@@ -998,7 +979,7 @@ if (count($pathInfos) < 3) {
 					 * be repeated to fetch the item IDs from multiple streams at once
 					 * (more efficient from a backend perspective than multiple requests). */
 					$streamId = $_GET['s'];
-					streamContentsItemsIds($streamId, $start_time, $count, $order, $filter_target, $exclude_target, $continuation);
+					streamContentsItemsIds($streamId, $start_time, $stop_time, $count, $order, $filter_target, $exclude_target, $continuation);
 				} else if ($pathInfos[6] === 'contents' && isset($_POST['i'])) {	//FeedMe
 					$e_ids = multiplePosts('i');	//item IDs
 					streamContentsItems($e_ids, $order);

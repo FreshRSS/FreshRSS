@@ -45,6 +45,14 @@ class FreshRSS_BooleanSearch {
 		return $this->searches;
 	}
 
+	public function add($search) {
+		if ($search instanceof FreshRSS_Search) {
+			$this->searches[] = $search;
+			return $search;
+		}
+		return null;
+	}
+
 	public function __toString() {
 		return $this->getRawInput();
 	}
