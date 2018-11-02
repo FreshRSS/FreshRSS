@@ -536,7 +536,7 @@ function entriesToArray($entries) {
 	return $items;
 }
 
-function streamContents($path, $include_target, $start_time, $count, $order, $exclude_target, $continuation) {
+function streamContents($path, $include_target, $start_time, $count, $order, $filter_target, $exclude_target, $continuation) {
 //http://code.google.com/p/pyrfeed/wiki/GoogleReaderAPI
 //http://blog.martindoms.com/2009/10/16/using-the-google-reader-api-part-2/#feed
 	header('Content-Type: application/json; charset=UTF-8');
@@ -579,15 +579,30 @@ function streamContents($path, $include_target, $start_time, $count, $order, $ex
 			break;
 	}
 
-	switch ($exclude_target) {
+	switch ($filter_target) {
 		case 'user/-/state/com.google/read':
-			$state = FreshRSS_Entry::STATE_NOT_READ;
+			$state = FreshRSS_Entry::STATE_READ;
 			break;
 		case 'user/-/state/com.google/unread':
-			$state = FreshRSS_Entry::STATE_READ;
+			$state = FreshRSS_Entry::STATE_NOT_READ;
+			break;
+		case 'user/-/state/com.google/starred':
+			$state = FreshRSS_Entry::STATE_FAVORITE;
 			break;
 		default:
 			$state = FreshRSS_Entry::STATE_ALL;
+			break;
+	}
+
+	switch ($exclude_target) {
+		case 'user/-/state/com.google/read':
+			$state &= FreshRSS_Entry::STATE_NOT_READ;
+			break;
+		case 'user/-/state/com.google/unread':
+			$state &= FreshRSS_Entry::STATE_READ;
+			break;
+		case 'user/-/state/com.google/starred':
+			$state &= FreshRSS_Entry::STATE_NOT_FAVORITE;
 			break;
 	}
 
@@ -621,7 +636,7 @@ function streamContents($path, $include_target, $start_time, $count, $order, $ex
 	exit();
 }
 
-function streamContentsItemsIds($streamId, $start_time, $count, $order, $exclude_target, $continuation) {
+function streamContentsItemsIds($streamId, $start_time, $count, $order, $filter_target, $exclude_target, $continuation) {
 //http://code.google.com/p/google-reader-api/wiki/ApiStreamItemsIds
 //http://code.google.com/p/pyrfeed/wiki/GoogleReaderAPI
 //http://blog.martindoms.com/2009/10/16/using-the-google-reader-api-part-2/#feed
@@ -660,12 +675,30 @@ function streamContentsItemsIds($streamId, $start_time, $count, $order, $exclude
 		}
 	}
 
-	switch ($exclude_target) {
+	switch ($filter_target) {
 		case 'user/-/state/com.google/read':
+			$state = FreshRSS_Entry::STATE_READ;
+			break;
+		case 'user/-/state/com.google/unread':
 			$state = FreshRSS_Entry::STATE_NOT_READ;
+			break;
+		case 'user/-/state/com.google/starred':
+			$state = FreshRSS_Entry::STATE_FAVORITE;
 			break;
 		default:
 			$state = FreshRSS_Entry::STATE_ALL;
+			break;
+	}
+
+	switch ($exclude_target) {
+		case 'user/-/state/com.google/read':
+			$state &= FreshRSS_Entry::STATE_NOT_READ;
+			break;
+		case 'user/-/state/com.google/unread':
+			$state &= FreshRSS_Entry::STATE_READ;
+			break;
+		case 'user/-/state/com.google/starred':
+			$state &= FreshRSS_Entry::STATE_NOT_FAVORITE;
 			break;
 	}
 
@@ -914,6 +947,7 @@ if (count($pathInfos) < 3) {
 			 * exclude items from a particular feed (obviously not useful in this
 			 * request, but xt appears in other listing requests). */
 			$exclude_target = isset($_GET['xt']) ? $_GET['xt'] : '';
+			$filter_target = isset($_GET['it']) ? $_GET['it'] : '';
 			$count = isset($_GET['n']) ? intval($_GET['n']) : 20;	//n=[integer] : The maximum number of results to return.
 			$order = isset($_GET['r']) ? $_GET['r'] : 'd';	//r=[d|n|o] : Sort order of item results. d or n gives items in descending date order, o in ascending order.
 			/* ot=[unix timestamp] : The time from which you want to retrieve
@@ -940,23 +974,23 @@ if (count($pathInfos) < 3) {
 								$include_target = '';
 							}
 						}
-						StreamContents($pathInfos[6], $include_target, $start_time, $count, $order, $exclude_target, $continuation);
+						StreamContents($pathInfos[6], $include_target, $start_time, $count, $order, $filter_target, $exclude_target, $continuation);
 					} elseif ($pathInfos[6] === 'user' && isset($pathInfos[8]) && isset($pathInfos[9])) {
 						if ($pathInfos[8] === 'state') {
 							if ($pathInfos[9] === 'com.google' && isset($pathInfos[10])) {
 								if ($pathInfos[10] === 'reading-list' || $pathInfos[10] === 'starred') {
 									$include_target = '';
-									streamContents($pathInfos[10], $include_target, $start_time, $count, $order, $exclude_target, $continuation);
+									streamContents($pathInfos[10], $include_target, $start_time, $count, $order, $filter_target, $exclude_target, $continuation);
 								}
 							}
 						} elseif ($pathInfos[8] === 'label') {
 							$include_target = $pathInfos[9];
-							streamContents($pathInfos[8], $include_target, $start_time, $count, $order, $exclude_target, $continuation);
+							streamContents($pathInfos[8], $include_target, $start_time, $count, $order, $filter_target, $exclude_target, $continuation);
 						}
 					}
 				} else {	//EasyRSS
 					$include_target = '';
-					streamContents('reading-list', $include_target, $start_time, $count, $order, $exclude_target, $continuation);
+					streamContents('reading-list', $include_target, $start_time, $count, $order, $filter_target, $exclude_target, $continuation);
 				}
 			} elseif ($pathInfos[5] === 'items') {
 				if ($pathInfos[6] === 'ids' && isset($_GET['s'])) {
@@ -964,7 +998,7 @@ if (count($pathInfos) < 3) {
 					 * be repeated to fetch the item IDs from multiple streams at once
 					 * (more efficient from a backend perspective than multiple requests). */
 					$streamId = $_GET['s'];
-					streamContentsItemsIds($streamId, $start_time, $count, $order, $exclude_target, $continuation);
+					streamContentsItemsIds($streamId, $start_time, $count, $order, $filter_target, $exclude_target, $continuation);
 				} else if ($pathInfos[6] === 'contents' && isset($_POST['i'])) {	//FeedMe
 					$e_ids = multiplePosts('i');	//item IDs
 					streamContentsItems($e_ids, $order);
