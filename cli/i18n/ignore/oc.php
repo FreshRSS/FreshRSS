@@ -24,7 +24,7 @@ return array(
 	'gen.lang.it',
 	'gen.lang.kr',
 	'gen.lang.nl',
-  'gen.lang.oc',
+  	'gen.lang.oc',
 	'gen.lang.pt-br',
 	'gen.lang.ru',
 	'gen.lang.tr',
