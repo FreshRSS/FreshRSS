@@ -374,6 +374,9 @@ a.btn {
 	padding: 0 0 2em 0;
 	list-style: none;
 	text-align: left;
+	position: fixed;
+	height: 84vh; /*Todo: resize to fit in JS */
+	overflow-y: scroll;
 }
 
 .treepadding {
