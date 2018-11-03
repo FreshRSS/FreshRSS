@@ -1,9 +1,9 @@
-window.onscroll = function() {myFunction()};
+window.onscroll = function() {addSticky()};
 
 var sidebar = document.getElementById("sidebar");
 var sticky = sidebar.offsetTop;
 
-function myFunction() {
+function addSticky() {
   if (window.pageYOffset >= sticky) {
     sidebar.classList.add("sticky")
   } else {
