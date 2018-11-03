@@ -518,6 +518,7 @@ function entriesToArray($entries) {
 			),
 		);
 		$author = $entry->authors(true);
+		$author = trim($author, '; ');
 		if ($author != '') {
 			$item['author'] = $author;
 		}
