@@ -374,9 +374,6 @@ a.btn {
 	padding: 0 0 2em 0;
 	list-style: none;
 	text-align: left;
-	position: fixed;
-	height: 84vh; /*Todo: resize to fit in JS */
-	overflow-y: scroll;
 }
 
 .treepadding {
@@ -410,6 +407,14 @@ a.btn {
 	white-space: nowrap;
 	text-overflow: ellipsis;
 }
+
+.sticky {
+	position: fixed;
+	height: 84vh; /*Todo: resize to fit in JS */
+	overflow-y: scroll;
+	width: 300px; /*Todo: resize to fit in JS */
+}
+
 
 /*=== STRUCTURE */
 /*===============*/
