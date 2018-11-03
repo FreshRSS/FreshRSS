@@ -556,7 +556,7 @@ function init_column_categories() {
 function init_shortcuts() {
 	if (!(window.shortcut && window.shortcuts)) {
 		if (window.console) {
-			console.log('FreshRSS waiting for sortcut.js…');
+			console.log('FreshRSS waiting for shortcut.js…');
 		}
 		window.setTimeout(init_shortcuts, 200);
 		return;
