@@ -5,36 +5,21 @@
 
 Il y a des parties de FreshRSS qui ne sont pas traduites et qui n'ont pas vocation à l'être. Pour le moment, les logs visibles dans l'application ainsi que celle générées par le script de mise à jour automatique en font partie.
 
-Not all languages are equals regarding completion:
-
-| Langage  | Statut     |
-|----------|-----------:|
-| cz       | 87.4%      |
-| de       | 88.1%      |
-| en       | 100%       |
-| es       | 88.7%      |
-| fr       | 99.3%      |
-| he       | 69.6%      |
-| it       | 86.4%      |
-| kr       | 96.3%      |
-| nl       | 95.4%      |
-| pt-br    | 87.4%      |
-| ru       | 36.4%      |
-| tr       | 88.1%      |
-| zh-cn    | 99.0%      |
+Les langues disponibles sont : cz, de, en, es, fr, he, it, kr, nl, oc, pt-br, ru, tr, zh-cn.
 
 ##Thème
-Les goûts et les couleurs, ça ne se discute pas. C'est pourquoi FreshRSS propose six thèmes officiels :
+Les goûts et les couleurs, ça ne se discute pas. C'est pourquoi FreshRSS propose huit thèmes officiels :
 
  * *Blue Lagoon* par **Mister aiR**
  * *Dark* par **AD**
  * *Flat design* par **Marien Fressinaud**
  * *Origine* par **Marien Fressinaud**
+ * *Origine-compact* par **Kevin Papst**
  * *Pafat* par **Plopoyop**
  * *Screwdriver* par **Mister aiR**
  * *Swage* par **Patrick Crandol**
 
-Si aucun de ceux proposés ne convient, il est toujours possible de créer son propre thème.
+Si aucun de ceux proposés ne convient, il est toujours possible de [créer son propre thème](../developers/04_Frontend/02_Design.md).
 
 Pour sélectionner un thème, il suffit de faire défiler les thèmes jusqu'à l'apparition du thème choisi. Après validation, le thème sera appliqué à l'interface.
 
