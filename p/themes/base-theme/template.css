@@ -375,9 +375,8 @@ a.btn {
 	list-style: none;
 	text-align: left;
 	position: absolute;
-	height: 90vh; /*Todo: resize to fit in JS */
-	width: 300px; /*Todo: resize to fit in JS */
 	overflow-y: auto;
+	width: 300px;
 }
 
 .treepadding {
@@ -938,6 +937,11 @@ pre.enclosure-description {
 		display: inline-block;
 		width: 30px;
 		height: 30px;
+	}
+	
+	.tree {
+		position: initial;
+		width: initial !important;
 	}
 }
 
