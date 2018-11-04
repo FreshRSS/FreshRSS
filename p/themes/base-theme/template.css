@@ -377,6 +377,7 @@ a.btn {
 	position: absolute;
 	overflow-y: auto;
 	width: 300px;
+	height: 90vh;
 }
 
 .treepadding {
