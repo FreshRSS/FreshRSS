@@ -560,6 +560,11 @@ a.btn {
 .tree-folder-items > .item.active > a {
 }
 
+/*=== Simple Scrollbar */
+.ss-scroll {
+  background: rgba(255, 255, 255, 0.1);
+}
+
 /*=== STRUCTURE */
 /*===============*/
 /*=== Header */

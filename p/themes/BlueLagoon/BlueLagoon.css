@@ -567,6 +567,11 @@ a.btn {
 	color: #0090FF
 }
 
+/*=== Simple Scrollbar */
+.ss-scroll {
+  background: rgba(255, 255, 255, 0.1);
+}
+
 /*=== STRUCTURE */
 /*===============*/
 /*=== Header */
