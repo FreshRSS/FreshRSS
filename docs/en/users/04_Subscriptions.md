@@ -16,7 +16,9 @@
 
 # Firefox subscription service
 
-You can manually add your FreshRSS app to the list of Firefox subscription services which will enable you to subscribe to sites which provide a feed link using the Firefox built-in "Subscribe" button. An in-depth process is described in the [official documentation](https://developer.mozilla.org/en-US/Firefox/Releases/2/Adding_feed_readers_to_Firefox) but you can use the following steps:
+NB: From version 63 and onwards Firefox has removed the ability to add your own subscription services that aren't standalone programs. This makes it impossible to add FreshRSS.
+
+If you're using a version pre-63 you can manually add your FreshRSS app to the list of Firefox subscription services, which enables you to subscribe to sites which provide a feed link using the Firefox built-in "Subscribe" button. An in-depth process is described in the [official documentation](https://developer.mozilla.org/en-US/Firefox/Releases/2/Adding_feed_readers_to_Firefox) but you can use the following steps:
 
   1. Open about:config in Firefox
 
