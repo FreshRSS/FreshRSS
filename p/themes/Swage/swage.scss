@@ -568,7 +568,8 @@ form {
 }
 
 .tree {
-	margin: 10px 0;
+	@extend %aside-width;
+	margin: 10px 0; 
 }
 
 .tree-folder-title {
