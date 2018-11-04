@@ -194,6 +194,7 @@ Tout client supportant une API de type Fever ; Sélection :
 * [lib_opml](https://github.com/marienfressinaud/lib_opml)
 * [keyboard_shortcuts](http://www.openjs.com/scripts/events/keyboard_shortcuts/)
 * [flotr2](http://www.humblesoftware.com/flotr2)
+* [simple-scrollbar](https://github.com/buzinas/simple-scrollbar)
 
 ## Uniquement pour certaines options
 * [bcrypt.js](https://github.com/dcodeIO/bcrypt.js)

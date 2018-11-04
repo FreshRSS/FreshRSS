@@ -1518,6 +1518,7 @@ function init_beforeDOM() {
 		return;
 	}
 	if (['normal', 'reader', 'global'].indexOf(context.current_view) >= 0) {
+		inject_script('simple-scrollbar.js');
 		init_normal();
 	}
 }
