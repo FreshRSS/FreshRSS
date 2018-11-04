@@ -465,9 +465,15 @@ UPDATE `{$this->prefix}feed`
 SQL;
 		$stm = $this->bd->prepare($sql);
 		if (!($stm && $stm->execute(array(':new_value' => FreshRSS_Feed::TTL_DEFAULT, ':old_value' => -2)))) {
+			$info = $stm == null ? array(2 => 'syntax error') : $stm->errorInfo();
+			Minz_Log::error('SQL warning updateTTL 1: ' . $info[2] . ' ' . $sql);
+
 			$sql2 = 'ALTER TABLE `' . $this->prefix . 'feed` ADD COLUMN ttl INT NOT NULL DEFAULT ' . FreshRSS_Feed::TTL_DEFAULT;	//v0.7.3
 			$stm = $this->bd->prepare($sql2);
-			$stm->execute();
+			if (!($stm && $stm->execute())) {
+				$info = $stm == null ? array(2 => 'syntax error') : $stm->errorInfo();
+				Minz_Log::error('SQL error updateTTL 2: ' . $info[2] . ' ' . $sql2);
+			}
 		} else {
 			$stm->execute(array(':new_value' => -3600, ':old_value' => -1));
 		}
