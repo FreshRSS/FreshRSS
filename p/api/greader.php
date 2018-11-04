@@ -498,7 +498,7 @@ function entriesToArray($entries) {
 			$f_name = '_';
 		}
 		$item = array(
-			'id' => /*'tag:google.com,2005:reader/item/' .*/ dec2hex($entry->id()),	//64-bit hexa http://code.google.com/p/google-reader-api/wiki/ItemId
+			'id' => 'tag:google.com,2005:reader/item/' . dec2hex($entry->id()),	//64-bit hexa http://code.google.com/p/google-reader-api/wiki/ItemId
 			'crawlTimeMsec' => substr($entry->id(), 0, -3),
 			'timestampUsec' => '' . $entry->id(),	//EasyRSS
 			'published' => $entry->date(true),
@@ -723,7 +723,10 @@ function streamContentsItems($e_ids, $order) {
 	header('Content-Type: application/json; charset=UTF-8');
 
 	foreach ($e_ids as $i => $e_id) {
-		$e_ids[$i] = hex2dec(basename($e_id));	//Strip prefix 'tag:google.com,2005:reader/item/'
+		if (strpos($e_id, '/') !== null) {
+			$e_id = hex2dec(basename($e_id));	//Strip prefix 'tag:google.com,2005:reader/item/'
+		}
+		$e_ids[$i] = $e_id;
 	}
 
 	$entryDAO = FreshRSS_Factory::createEntryDao();
@@ -743,7 +746,10 @@ function streamContentsItems($e_ids, $order) {
 
 function editTag($e_ids, $a, $r) {
 	foreach ($e_ids as $i => $e_id) {
-		$e_ids[$i] = hex2dec(basename($e_id));	//Strip prefix 'tag:google.com,2005:reader/item/'
+		if (strpos($e_id, '/') !== null) {
+			$e_id = hex2dec(basename($e_id));	//Strip prefix 'tag:google.com,2005:reader/item/'
+		}
+		$e_ids[$i] = $e_id;
 	}
 
 	$entryDAO = FreshRSS_Factory::createEntryDao();
