@@ -17,5 +17,5 @@ function addSticky() {
 
 function recalc() {
 	$('#sidebar').width($('#sidebar').parent().width());
-	$('#sidebar').height($(window).height() - $('#sidebar').getBoundingClientRect().top - $('#nav_entries').height());
+	$('#sidebar').height($(window).height() - $('#sidebar')[0].getBoundingClientRect().top - $('#nav_entries').height());
 }
