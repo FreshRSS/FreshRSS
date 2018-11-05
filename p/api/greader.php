@@ -695,8 +695,8 @@ function streamContentsItemsIds($streamId, $start_time, $stop_time, $count, $ord
 		$count--;
 	}
 
-	if (empty($ids)) {	//For News+ bug https://github.com/noinnion/newsplus/issues/84#issuecomment-57834632
-		$ids[] = 0;
+	if (empty($ids) && isset($_GET['client']) && $_GET['client'] === 'newsplus') {
+		$ids[] = 0;	//For News+ bug https://github.com/noinnion/newsplus/issues/84#issuecomment-57834632
 	}
 	$itemRefs = array();
 	foreach ($ids as $id) {
