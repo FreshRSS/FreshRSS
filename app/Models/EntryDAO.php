@@ -671,6 +671,15 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 		return isset($entries[0]) ? $entries[0] : null;
 	}
 
+	public function searchIdByGuid($id_feed, $guid) {
+		$sql = 'SELECT id FROM `' . $this->prefix . 'entry` WHERE id_feed=? AND guid=?';
+		$stm = $this->bd->prepare($sql);
+		$values = array($id_feed, $guid);
+		$stm->execute($values);
+		$res = $stm->fetchAll(PDO::FETCH_COLUMN, 0);
+		return isset($res[0]) ? $res[0] : null;
+	}
+
 	protected function sqlConcat($s1, $s2) {
 		return 'CONCAT(' . $s1 . ',' . $s2 . ')';	//MySQL
 	}
