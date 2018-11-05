@@ -109,7 +109,7 @@ input[type="checkbox"] {
 	min-height: 15px !important;
 }
 .dropdown-menu label > input[type="text"] {
-	with: 150px;
+	width: 150px;
 	width: calc(99% - 5em);
 }
 .dropdown-menu input[type="checkbox"] {
