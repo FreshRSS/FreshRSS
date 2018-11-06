@@ -957,7 +957,6 @@ pre.enclosure-description {
 	}
 	.aside:target {
 		width: 90%;
-		overflow: auto;
 	}
 
 	.flux_header .item.website {
