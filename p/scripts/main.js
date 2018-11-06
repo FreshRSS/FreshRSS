@@ -1238,22 +1238,25 @@ function init_crypto_form() {
 
 var $sidebar = null;
 var sidebar_initial_offset = null;
+var useNiceScrollbar = true;	//TODO: Change to test native vs. JavaScript scrollbars
 
 function sticky_recalc() {
 	if (!$sidebar) {
 		return;
 	}
-	if (window.pageYOffset >= sidebar_initial_offset) {
-		$sidebar.addClass('sticky');
-	} else {
-		$sidebar.removeClass('sticky');
-	}
+	$sidebar.toggleClass('sticky', window.pageYOffset >= sidebar_initial_offset);
 
-	$sidebar.width($sidebar.parent().width());
+	if (!useNiceScrollbar) {
+		return;
+	}
+	var h = 0;
 	if ($nav_entries && $nav_entries.length > 0){
-		$sidebar.height($(window).height() - $sidebar[0].getBoundingClientRect().top - $nav_entries.height());
+		h = $(window).height() - $sidebar.offset().top - $nav_entries.height();
 	} else {
-		$sidebar.height($(window).height() - $sidebar[0].getBoundingClientRect().top);
+		h = $(window).height() - $sidebar.offset().top;
+	}
+	if (h > 0) {
+		$sidebar.height(h);
 	}
 }
 
@@ -1271,7 +1274,9 @@ function init_simple_scrollbar() {
 function init_sticky_sidebar() {
 	$sidebar = $('#sidebar');
 	sidebar_initial_offset = $sidebar[0].offsetTop;
-	init_simple_scrollbar();
+	if (useNiceScrollbar) {
+		init_simple_scrollbar();
+	}
 	window.onscroll = sticky_recalc;
 	window.onresize = sticky_recalc;
 }
@@ -1510,7 +1515,6 @@ function init_normal() {
 	}
 	init_column_categories();
 	init_stream($stream);
-	init_sticky_sidebar();
 	init_shortcuts();
 	init_actualize();
 	faviconNbUnread();
@@ -1542,6 +1546,7 @@ function init_afterDOM() {
 	$stream = $('#stream');
 	if ($stream.length > 0) {
 		init_load_more($stream);
+		init_sticky_sidebar();
 		init_posts();
 		init_nav_entries();
 		init_dynamic_tags();
