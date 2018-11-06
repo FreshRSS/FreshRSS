@@ -1237,13 +1237,13 @@ function init_crypto_form() {
 //</crypto form (Web login)>
 
 var $sidebar = null;
-var $sidebar_initial_offset = null;
+var sidebar_initial_offset = null;
 
 function sticky_recalc() {
 	if (!$sidebar) {
 		return;
 	}
-	if (window.pageYOffset >= $sidebar_initial_offset) {
+	if (window.pageYOffset >= sidebar_initial_offset) {
 		$sidebar.addClass('sticky');
 	} else {
 		$sidebar.removeClass('sticky');
@@ -1270,7 +1270,7 @@ function init_simple_scrollbar() {
 
 function init_sticky_sidebar() {
 	$sidebar = $('#sidebar');
-	$sidebar_initial_offset = $sidebar[0].offsetTop;
+	sidebar_initial_offset = $sidebar[0].offsetTop;
 	init_simple_scrollbar();
 	window.onscroll = sticky_recalc;
 	window.onresize = sticky_recalc;
