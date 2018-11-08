@@ -427,7 +427,9 @@ a.btn {
 	padding: 0 0 2em 0;
 	list-style: none;
 	text-align: left;
-	position: absolute;
+	position: sticky;
+	position: -webkit-sticky;
+	top: 0;
 	overflow-y: auto;
 	width: 300px;
 	height: 90vh;

@@ -536,14 +536,12 @@ function init_column_categories() {
 				.append(template).find('button.confirm').removeAttr('disabled');
 			$('.tree-folder-items .dropdown-close a').click(function(){
 				$('.tree').removeClass('treepadding');
-				sticky_recalc();
 			});
 		}
 	});
 
 	$('.tree-folder-items .dropdown-toggle').click(function(){
 		$('.tree').addClass('treepadding');
-		sticky_recalc();
 	});
 }
 
@@ -1236,29 +1234,7 @@ function init_crypto_form() {
 }
 //</crypto form (Web login)>
 
-var $sidebar = null;
-var sidebar_initial_offset = null;
 var useNiceScrollbar = true;	//TODO: Change to test native vs. JavaScript scrollbars
-
-function sticky_recalc() {
-	if (!$sidebar) {
-		return;
-	}
-	$sidebar.toggleClass('sticky', window.pageYOffset >= sidebar_initial_offset);
-
-	if (!useNiceScrollbar) {
-		return;
-	}
-	var h = 0;
-	if ($nav_entries && $nav_entries.length > 0){
-		h = $(window).height() - $sidebar.offset().top - $nav_entries.height();
-	} else {
-		h = $(window).height() - $sidebar.offset().top;
-	}
-	if (h > 0) {
-		$sidebar.height(h);
-	}
-}
 
 function init_simple_scrollbar() {
 	if (!window.SimpleScrollbar) {
@@ -1269,16 +1245,6 @@ function init_simple_scrollbar() {
 	} else {
 		SimpleScrollbar.initEl($sidebar[0]);
 	}
-}
-
-function init_sticky_sidebar() {
-	$sidebar = $('#sidebar');
-	sidebar_initial_offset = $sidebar[0].offsetTop;
-	if (useNiceScrollbar) {
-		init_simple_scrollbar();
-	}
-	window.onscroll = sticky_recalc;
-	window.onresize = sticky_recalc;
 }
 
 function init_confirm_action() {
@@ -1546,14 +1512,12 @@ function init_afterDOM() {
 	$stream = $('#stream');
 	if ($stream.length > 0) {
 		init_load_more($stream);
-		init_sticky_sidebar();
 		init_posts();
 		init_nav_entries();
 		init_dynamic_tags();
 		init_print_action();
 		init_post_action();
 		init_notifs_html5();
-		sticky_recalc();
 		window.setInterval(refreshUnreads, 120000);
 	} else {
 		init_subscription();
