@@ -1242,6 +1242,8 @@ function init_crypto_form() {
 }
 //</crypto form (Web login)>
 
+var $sidebar = null;
+var sidebar_initial_offset = null;
 var useNiceScrollbar = true;	//TODO: Change to test native vs. JavaScript scrollbars
 
 function init_simple_scrollbar() {
