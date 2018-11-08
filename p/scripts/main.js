@@ -1255,6 +1255,16 @@ function init_simple_scrollbar() {
 	}
 }
 
+function init_sticky_sidebar(){
+	$sidebar = $('#sidebar');
+	sidebar_initial_offset = $sidebar[0].offsetTop;
+	if (useNiceScrollbar) {
+		init_simple_scrollbar();
+	}
+	//window.onscroll = sticky_recalc;
+	//window.onresize = sticky_recalc;
+}
+
 function init_confirm_action() {
 	$('body').on('click', '.confirm', function () {
 		var str_confirmation = $(this).attr('data-str-confirm');
@@ -1521,6 +1531,7 @@ function init_afterDOM() {
 	$stream = $('#stream');
 	if ($stream.length > 0) {
 		init_load_more($stream);
+		init_sticky_sidebar();
 		init_posts();
 		init_nav_entries();
 		init_dynamic_tags();
