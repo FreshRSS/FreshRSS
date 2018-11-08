@@ -167,6 +167,12 @@ td.numeric {
 .form-group .group-controls .control {
 	display: block;
 }
+#mark-read-aside {
+	/* TODO: put this in the right place*/
+	position: sticky;
+	position: -webkit-sticky;
+	top: 0;
+}
 
 /*=== Buttons */
 .stick {
@@ -427,9 +433,7 @@ a.btn {
 	padding: 0 0 2em 0;
 	list-style: none;
 	text-align: left;
-	position: sticky;
-	position: -webkit-sticky;
-	top: 0;
+	position: absolute;
 	overflow-y: auto;
 	width: 300px;
 	height: 90vh;
