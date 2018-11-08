@@ -506,6 +506,14 @@ function init_posts() {
 	}
 }
 
+function inject_script(name) {
+	var script = document.createElement('script');
+	script.async = 'async';
+	script.defer = 'defer';
+	script.src = '../scripts/' + name;
+	document.head.appendChild(script);
+}
+
 function init_column_categories() {
 	if (context.current_view !== 'normal') {
 		return;
@@ -1496,6 +1504,7 @@ function init_beforeDOM() {
 	}
 	if (['normal', 'reader', 'global'].indexOf(context.current_view) >= 0) {
 		init_normal();
+		inject_script('stickyfill.min.js');
 	}
 }
 
