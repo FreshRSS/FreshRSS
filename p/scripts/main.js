@@ -506,14 +506,6 @@ function init_posts() {
 	}
 }
 
-function inject_script(name) {
-	var script = document.createElement('script');
-	script.async = 'async';
-	script.defer = 'defer';
-	script.src = '../scripts/' + name;
-	document.head.appendChild(script);
-}
-
 function init_column_categories() {
 	if (context.current_view !== 'normal') {
 		return;
