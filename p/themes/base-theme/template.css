@@ -471,12 +471,6 @@ a.btn {
 	text-overflow: ellipsis;
 }
 
-.sticky {
-	position: fixed;
-	top: 0;
-	margin-top: 0 !important;
-}
-
 /*=== STRUCTURE */
 /*===============*/
 /*=== Header */

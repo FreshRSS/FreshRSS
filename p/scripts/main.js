@@ -1243,7 +1243,6 @@ function init_crypto_form() {
 //</crypto form (Web login)>
 
 var $sidebar = null;
-var sidebar_initial_offset = null;
 var useNiceScrollbar = true;	//TODO: Change to test native vs. JavaScript scrollbars
 
 function init_simple_scrollbar() {
@@ -1257,14 +1256,39 @@ function init_simple_scrollbar() {
 	}
 }
 
+var scrollTimeout;
 function init_sticky_sidebar(){
 	$sidebar = $('#sidebar');
-	sidebar_initial_offset = $sidebar[0].offsetTop;
 	if (useNiceScrollbar) {
 		init_simple_scrollbar();
 	}
-	//window.onscroll = sticky_recalc;
-	//window.onresize = sticky_recalc;
+	$(window).scroll(function () {
+				if (scrollTimeout) {
+					clearTimeout(scrollTimeout);
+					scrollTimeout = null;
+				}
+				scrollTimeout = setTimeout(sticky_recalc, 200);
+			});
+	window.onresize = sticky_recalc;
+}
+
+function sticky_recalc() {
+	if (!$sidebar) {
+		return;
+	}
+	
+	if (!useNiceScrollbar) {
+		return;
+	}
+	var h = 0;
+	if ($nav_entries && $nav_entries.length > 0){
+		h = $(window).height() - $sidebar[0].getBoundingClientRect().top - $nav_entries.height();
+	} else {
+		h = $(window).height() - $sidebar[0].getBoundingClientRect().top;
+	}
+	if (h > 0) {
+		$sidebar.height(h);
+	}
 }
 
 function init_confirm_action() {
