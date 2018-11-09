@@ -1540,7 +1540,6 @@ function init_beforeDOM() {
 	}
 	if (['normal', 'reader', 'global'].indexOf(context.current_view) >= 0) {
 		init_normal();
-		inject_script('stickyfill.min.js');
 	}
 }
 
