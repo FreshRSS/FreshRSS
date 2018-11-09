@@ -167,6 +167,12 @@ td.numeric {
 .form-group .group-controls .control {
 	display: block;
 }
+#mark-read-aside {
+	/* TODO: put this in the right place*/
+	position: sticky;
+	position: -webkit-sticky;
+	top: 0;
+}
 
 /*=== Buttons */
 .stick {
@@ -463,12 +469,6 @@ a.btn {
 	overflow: hidden;
 	white-space: nowrap;
 	text-overflow: ellipsis;
-}
-
-.sticky {
-	position: fixed;
-	top: 0;
-	margin-top: 0 !important;
 }
 
 /*=== STRUCTURE */

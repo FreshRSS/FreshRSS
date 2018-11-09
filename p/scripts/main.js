@@ -536,14 +536,12 @@ function init_column_categories() {
 				.append(template).find('button.confirm').removeAttr('disabled');
 			$('.tree-folder-items .dropdown-close a').click(function(){
 				$('.tree').removeClass('treepadding');
-				sticky_recalc();
 			});
 		}
 	});
 
 	$('.tree-folder-items .dropdown-toggle').click(function(){
 		$('.tree').addClass('treepadding');
-		sticky_recalc();
 	});
 }
 
@@ -1237,23 +1235,21 @@ function init_crypto_form() {
 //</crypto form (Web login)>
 
 var $sidebar = null;
-var sidebar_initial_offset = null;
 var useNiceScrollbar = true;	//TODO: Change to test native vs. JavaScript scrollbars
 
 function sticky_recalc() {
 	if (!$sidebar) {
 		return;
 	}
-	$sidebar.toggleClass('sticky', window.pageYOffset >= sidebar_initial_offset);
-
+	
 	if (!useNiceScrollbar) {
 		return;
 	}
 	var h = 0;
 	if ($nav_entries && $nav_entries.length > 0){
-		h = $(window).height() - $sidebar.offset().top - $nav_entries.height();
+		h = $(window).height() - $sidebar[0].getBoundingClientRect().top - $nav_entries.height();
 	} else {
-		h = $(window).height() - $sidebar.offset().top;
+		h = $(window).height() - $sidebar[0].getBoundingClientRect().top;
 	}
 	if (h > 0) {
 		$sidebar.height(h);
@@ -1271,13 +1267,19 @@ function init_simple_scrollbar() {
 	}
 }
 
-function init_sticky_sidebar() {
+var scrollTimeout;
+function init_sticky_sidebar(){
 	$sidebar = $('#sidebar');
-	sidebar_initial_offset = $sidebar[0].offsetTop;
 	if (useNiceScrollbar) {
 		init_simple_scrollbar();
 	}
-	window.onscroll = sticky_recalc;
+	$(window).scroll(function () {
+				if (scrollTimeout) {
+					clearTimeout(scrollTimeout);
+					scrollTimeout = null;
+				}
+				scrollTimeout = setTimeout(sticky_recalc, 200);
+			});
 	window.onresize = sticky_recalc;
 }
 
@@ -1553,7 +1555,6 @@ function init_afterDOM() {
 		init_print_action();
 		init_post_action();
 		init_notifs_html5();
-		sticky_recalc();
 		window.setInterval(refreshUnreads, 120000);
 	} else {
 		init_subscription();
