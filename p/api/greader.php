@@ -300,7 +300,7 @@ function subscriptionList() {
 	foreach ($res as $line) {
 		$subscriptions[] = array(
 			'id' => 'feed/' . $line['id'],
-			'title' => $line['name'],
+			'title' => escapeToUnicodeAlternative($line['name']),
 			'categories' => array(
 				array(
 					'id' => 'user/-/label/' . htmlspecialchars_decode($line['c_name'], ENT_QUOTES),
@@ -506,7 +506,7 @@ function entriesToArray($entries) {
 			'crawlTimeMsec' => substr($entry->id(), 0, -3),
 			'timestampUsec' => '' . $entry->id(),	//EasyRSS
 			'published' => $entry->date(true),
-			'title' => $entry->title(),
+			'title' => escapeToUnicodeAlternative($entry->title()),
 			'summary' => array('content' => $entry->content()),
 			'alternate' => array(
 				array('href' => htmlspecialchars_decode($entry->link(), ENT_QUOTES)),
@@ -517,14 +517,14 @@ function entriesToArray($entries) {
 			),
 			'origin' => array(
 				'streamId' => 'feed/' . $f_id,
-				'title' => $f_name,	//EasyRSS
+				'title' => escapeToUnicodeAlternative($f_name),	//EasyRSS
 				//'htmlUrl' => $line['f_website'],
 			),
 		);
 		$author = $entry->authors(true);
 		$author = trim($author, '; ');
 		if ($author != '') {
-			$item['author'] = $author;
+			$item['author'] = escapeToUnicodeAlternative($author);
 		}
 		if ($entry->isRead()) {
 			$item['categories'][] = 'user/-/state/com.google/read';
