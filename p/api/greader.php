@@ -260,7 +260,7 @@ function tagList() {
 
 	foreach ($res as $cName) {
 		$tags[] = array(
-			'id' => 'user/-/label/' . $cName,
+			'id' => 'user/-/label/' . htmlspecialchars_decode($cName, ENT_QUOTES),
 			//'sortid' => $cName,
 			'type' => 'folder',	//Inoreader
 		);
@@ -272,7 +272,7 @@ function tagList() {
 	$labels = $tagDAO->listTags(true);
 	foreach ($labels as $label) {
 		$tags[] = array(
-			'id' => 'user/-/label/' . $label->name(),
+			'id' => 'user/-/label/' . htmlspecialchars_decode($label->name(), ENT_QUOTES),
 			//'sortid' => $cName,
 			'type' => 'tag',	//Inoreader
 			'unread_count' => $label->nbUnread(),	//Inoreader
@@ -303,14 +303,14 @@ function subscriptionList() {
 			'title' => $line['name'],
 			'categories' => array(
 				array(
-					'id' => 'user/-/label/' . $line['c_name'],
-					'label' => $line['c_name'],
+					'id' => 'user/-/label/' . htmlspecialchars_decode($line['c_name'], ENT_QUOTES),
+					'label' => htmlspecialchars_decode($line['c_name'], ENT_QUOTES),
 				),
 			),
 			//'sortid' => $line['name'],
 			//'firstitemmsec' => 0,
-			'url' => $line['url'],
-			'htmlUrl' => $line['website'],
+			'url' => htmlspecialchars_decode($line['url'], ENT_QUOTES),
+			'htmlUrl' => htmlspecialchars_decode($line['website'], ENT_QUOTES),
 			'iconUrl' => $faviconsUrl . hash('crc32b', $salt . $line['url']),
 		);
 	}
@@ -347,6 +347,7 @@ function subscriptionEdit($streamNames, $titles, $action, $add = '', $remove = '
 				$c_name = '';
 			}
 		}
+		$c_name = htmlspecialchars($c_name, ENT_COMPAT, 'UTF-8');
 		$cat = $categoryDAO->searchByName($c_name);
 		$addCatId = $cat == null ? 0 : $cat->id();
 	} else if ($remove != '' && strpos($remove, 'user/-/label/')) {
@@ -357,26 +358,28 @@ function subscriptionEdit($streamNames, $titles, $action, $add = '', $remove = '
 		badRequest();
 	}
 	for ($i = count($streamNames) - 1; $i >= 0; $i--) {
-		$streamName = $streamNames[$i];	//feed/http://example.net/sample.xml	;	feed/338
-		if (strpos($streamName, 'feed/') === 0) {
-			$streamName = substr($streamName, 5);
+		$streamUrl = $streamNames[$i];	//feed/http://example.net/sample.xml	;	feed/338
+		if (strpos($streamUrl, 'feed/') === 0) {
+			$streamUrl = substr($streamUrl, 5);
 			$feedId = 0;
-			if (ctype_digit($streamName)) {
+			if (ctype_digit($streamUrl)) {
 				if ($action === 'subscribe') {
 					continue;
 				}
-				$feedId = $streamName;
+				$feedId = $streamUrl;
 			} else {
-				$feed = $feedDAO->searchByUrl($streamName);
+				$streamUrl = htmlspecialchars($streamUrl, ENT_COMPAT, 'UTF-8');
+				$feed = $feedDAO->searchByUrl($streamUrl);
 				$feedId = $feed == null ? -1 : $feed->id();
 			}
 			$title = isset($titles[$i]) ? $titles[$i] : '';
+			$title = htmlspecialchars($title, ENT_COMPAT, 'UTF-8');
 			switch ($action) {
 				case 'subscribe':
 					if ($feedId <= 0) {
-						$http_auth = '';	//TODO
+						$http_auth = '';
 						try {
-							$feed = FreshRSS_feed_Controller::addFeed($streamName, $title, $addCatId, $c_name, $http_auth);
+							$feed = FreshRSS_feed_Controller::addFeed($streamUrl, $title, $addCatId, $c_name, $http_auth);
 							continue;
 						} catch (Exception $e) {
 							Minz_Log::error('subscriptionEdit error subscribe: ' . $e->getMessage(), API_LOG);
@@ -409,6 +412,7 @@ function subscriptionEdit($streamNames, $titles, $action, $add = '', $remove = '
 
 function quickadd($url) {
 	try {
+		$url = htmlspecialchars($url, ENT_COMPAT, 'UTF-8');
 		$feed = FreshRSS_feed_Controller::addFeed($url);
 		exit(json_encode(array(
 				'numResults' => 1,
@@ -444,7 +448,7 @@ function unreadCount() {	//http://blog.martindoms.com/2009/10/16/using-the-googl
 			}
 		}
 		$unreadcounts[] = array(
-			'id' => 'user/-/label/' . $cat->name(),
+			'id' => 'user/-/label/' . htmlspecialchars_decode($cat->name(), ENT_QUOTES),
 			'count' => $cat->nbNotRead(),
 			'newestItemTimestampUsec' => $catLastUpdate . '000000',
 		);
@@ -457,7 +461,7 @@ function unreadCount() {	//http://blog.martindoms.com/2009/10/16/using-the-googl
 	$tagDAO = FreshRSS_Factory::createTagDao();
 	foreach ($tagDAO->listTags(true) as $label) {
 		$unreadcounts[] = array(
-			'id' => 'user/-/label/' . $label->name(),
+			'id' => 'user/-/label/' . htmlspecialchars_decode($label->name(), ENT_QUOTES),
 			'count' => $label->nbUnread(),
 		);
 	}
@@ -509,7 +513,7 @@ function entriesToArray($entries) {
 			),
 			'categories' => array(
 				'user/-/state/com.google/reading-list',
-				'user/-/label/' . $c_name,
+				'user/-/label/' . htmlspecialchars_decode($c_name, ENT_QUOTES),
 			),
 			'origin' => array(
 				'streamId' => 'feed/' . $f_id,
@@ -530,7 +534,7 @@ function entriesToArray($entries) {
 		}
 		$tagNames = isset($entryIdsTagNames['e_' . $entry->id()]) ? $entryIdsTagNames['e_' . $entry->id()] : array();
 		foreach ($tagNames as $tagName) {
-			$item['categories'][] = 'user/-/label/' . $tagName;
+			$item['categories'][] = 'user/-/label/' . htmlspecialchars_decode($tagName, ENT_QUOTES);
 		}
 		$items[] = $item;
 	}
@@ -542,12 +546,14 @@ function streamContentsFilters($type, $streamId, $filter_target, $exclude_target
 		case 'f':	//feed
 			if ($streamId != '' && !ctype_digit($streamId)) {
 				$feedDAO = FreshRSS_Factory::createFeedDao();
+				$streamId = htmlspecialchars($streamId, ENT_COMPAT, 'UTF-8');
 				$feed = $feedDAO->searchByUrl($streamId);
 				$streamId = $feed == null ? -1 : $feed->id();
 			}
 			break;
 		case 'c':	//category or label
 			$categoryDAO = FreshRSS_Factory::createCategoryDao();
+			$streamId = htmlspecialchars($streamId, ENT_COMPAT, 'UTF-8');
 			$cat = $categoryDAO->searchByName($streamId);
 			if ($cat != null) {
 				$type = 'c';
@@ -780,6 +786,7 @@ function editTag($e_ids, $a, $r) {
 				}
 			}
 			if ($tagName != '') {
+				$tagName = htmlspecialchars($tagName, ENT_COMPAT, 'UTF-8');
 				$tag = $tagDAO->searchByName($tagName);
 				if ($tag == null) {
 					$tagDAO->addTag(array('name' => $tagName));
@@ -803,6 +810,7 @@ function editTag($e_ids, $a, $r) {
 		default:
 			if (strpos($r, 'user/-/label/') === 0) {
 				$tagName = substr($r, 13);
+				$tagName = htmlspecialchars($tagName, ENT_COMPAT, 'UTF-8');
 				$tag = $tagDAO->searchByName($tagName);
 				if ($tag != null) {
 					foreach ($e_ids as $e_id) {
@@ -820,7 +828,9 @@ function renameTag($s, $dest) {
 	if ($s != '' && strpos($s, 'user/-/label/') === 0 &&
 		$dest != '' &&  strpos($dest, 'user/-/label/') === 0) {
 		$s = substr($s, 13);
+		$s = htmlspecialchars($s, ENT_COMPAT, 'UTF-8');
 		$dest = substr($dest, 13);
+		$dest = htmlspecialchars($dest, ENT_COMPAT, 'UTF-8');
 
 		$categoryDAO = FreshRSS_Factory::createCategoryDao();
 		$cat = $categoryDAO->searchByName($s);
@@ -842,6 +852,7 @@ function renameTag($s, $dest) {
 function disableTag($s) {
 	if ($s != '' && strpos($s, 'user/-/label/') === 0) {
 		$s = substr($s, 13);
+		$s = htmlspecialchars($s, ENT_COMPAT, 'UTF-8');
 		$categoryDAO = FreshRSS_Factory::createCategoryDao();
 		$cat = $categoryDAO->searchByName($s);
 		if ($cat != null) {
@@ -870,6 +881,7 @@ function markAllAsRead($streamId, $olderThanId) {
 		$entryDAO->markReadFeed($f_id, $olderThanId);
 	} elseif (strpos($streamId, 'user/-/label/') === 0) {
 		$c_name = substr($streamId, 13);
+		$c_name = htmlspecialchars($c_name, ENT_COMPAT, 'UTF-8');
 		$categoryDAO = FreshRSS_Factory::createCategoryDao();
 		$cat = $categoryDAO->searchByName($c_name);
 		if ($cat != null) {
