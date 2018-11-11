@@ -73,8 +73,16 @@ class FreshRSS_Search {
 		return $this->min_date;
 	}
 
+	public function setMinDate($value) {
+		return $this->min_date = $value;
+	}
+
 	public function getMaxDate() {
 		return $this->max_date;
+	}
+
+	public function setMaxDate($value) {
+		return $this->max_date = $value;
 	}
 
 	public function getMinPubdate() {

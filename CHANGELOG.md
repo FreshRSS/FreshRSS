@@ -2,6 +2,17 @@
 
 ## 2018-1X-XX FreshRSS 1.12.1-dev
 
+* API
+	* Improvements to the Google Reader API / Open Reader API [#2093](https://github.com/FreshRSS/FreshRSS/pull/2093)
+		* Support for Vienna RSS (client for Mac OS X) [#2091](https://github.com/FreshRSS/FreshRSS/issues/2091)
+* Features
+	* Ability to import XML files exported from Tiny-Tiny-RSS (#2079)[https://github.com/FreshRSS/FreshRSS/issues/2079]
+* UI
+	* Fix regression from 1.12.0 preventing from closing an article [#2085](https://github.com/FreshRSS/FreshRSS/issues/2085)
+	* Improvements of the Swage theme [#2088](https://github.com/FreshRSS/FreshRSS/pull/2088), [#2094](https://github.com/FreshRSS/FreshRSS/pull/2094)
+	* Style improvements [#2089](https://github.com/FreshRSS/FreshRSS/pull/2089)
+* I18n
+	* Occitan [#2110](https://github.com/FreshRSS/FreshRSS/pull/2110)
 
 
 ## 2018-10-28 FreshRSS 1.12.0

@@ -124,6 +124,7 @@ return array(
 		'it' => 'Italiano',
 		'kr' => '한국어',
 		'nl' => 'Nederlands',
+		'oc' => 'Occitan',
 		'pt-br' => 'Português (Brasil)',
 		'ru' => 'Русский',
 		'tr' => 'Türkçe',
