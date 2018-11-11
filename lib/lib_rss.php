@@ -102,6 +102,18 @@ function safe_ascii($text) {
 	return filter_var($text, FILTER_DEFAULT, FILTER_FLAG_STRIP_LOW | FILTER_FLAG_STRIP_HIGH);
 }
 
+function escapeToUnicodeAlternative($text) {
+	$text = htmlspecialchars_decode($text, ENT_QUOTES);
+	// https://raw.githubusercontent.com/mihaip/google-reader-api/master/wiki/StreamId.wiki
+	return trim(str_replace(
+			//Problematic characters
+			array("'", '"', '^', '<', '>', '?', '&', '\\', '/', ',', ';'),
+			//Use their fullwidth Unicode form instead:
+			array("’", '＂', '＾', '＜', '＞', '？', '＆', '＼', '／', '，', '；'),
+			$text
+		));
+}
+
 /**
  * Test if a given server address is publicly accessible.
  *
