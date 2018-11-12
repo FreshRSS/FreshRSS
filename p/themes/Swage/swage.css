@@ -813,6 +813,32 @@ text-overflow: ellipsis;
 width: 270px;
 }
 
+.formLogin .header {
+height: 55px;
+background: #0062be;
+}
+
+.formLogin .header > .item.configure {
+width: 200px;
+position: unset;
+}
+
+.formLogin a.signin {
+	color: #FCFCFC;
+	padding-left: 5px;
+}
+
+.formLogin .header > .item.title h1 {
+    display: unset;
+}
+
+.formLogin input {
+    border-left: 5px solid;
+    border-right: 1px solid #e3e3e3;
+    border-top: 1px solid #e3e3e3;
+    border-bottom: 1px solid #e3e3e3;
+}
+
 .loglist {
 overflow: hidden;
 border: 1px solid #969696;
