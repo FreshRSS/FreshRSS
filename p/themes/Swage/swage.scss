@@ -915,9 +915,13 @@ form {
 }
 
 .formLogin {
+	#global {
+		height: 0;
+	}
+	
 	.header {
 		height: 55px;
-		background: #0062be;
+		background: $color_aside;
 		> .item {
 			&.configure {
 				width: 200px;
@@ -974,6 +978,9 @@ form {
 }
 
 @media(max-width: 840px) {
+	.formLogin .header {
+		display: none;
+	}
 	.dropdown-header, .dropdown-menu > .item {
 		padding: 12px;
 	}

@@ -813,9 +813,13 @@ text-overflow: ellipsis;
 width: 270px;
 }
 
+.formLogin #global {
+height: 0;
+}
+
 .formLogin .header {
 height: 55px;
-background: #0062be;
+background: #22303d;
 }
 
 .formLogin .header > .item.configure {
@@ -872,6 +876,10 @@ color: #FCFCFC;
 }
 
 @media (max-width: 840px) {
+.formLogin .header {
+display: none;
+}
+
 .dropdown-header, .dropdown-menu > .item {
 padding: 12px;
 }
