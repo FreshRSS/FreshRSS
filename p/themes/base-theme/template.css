@@ -230,6 +230,11 @@ a.btn {
 	background: #fff;
 	border: 1px solid #aaa;
 }
+.dropdown-menu-scrollable {
+	max-height: 75vh;
+	overflow-x: hidden;
+	overflow-y: auto;
+}
 .dropdown-header {
 	display: block;
 }
