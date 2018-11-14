@@ -159,7 +159,7 @@ See the [repository dedicated to those extensions](https://github.com/FreshRSS/E
 
 FreshRSS supports access from native apps for Linux, Android, iOS, and OS X, via two distinct APIs.
 
-## Google Reader-like API
+## Google Reader-like API / [Open Reader API](http://rss-sync.github.io/Open-Reader-API/rssconsensus/)
 
 There is more information available about our Google Reader compatible API on the page [mobile access](https://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html).
 
@@ -171,6 +171,8 @@ Supported clients are:
 	* [EasyRSS](https://github.com/Alkarex/EasyRSS) (Open source, [F-Droid](https://f-droid.org/packages/org.freshrss.easyrss/))
 * GNU/Linux
 	* [FeedReader 2.0+](https://jangernert.github.io/FeedReader/) (Open source)
+* MacOS
+	* [Vienna RSS](http://www.vienna-rss.com/) (Open source)
 
 ## Fever API
 

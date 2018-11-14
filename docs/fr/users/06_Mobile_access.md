@@ -67,9 +67,10 @@ Tout client supportant une API de type Google Reader. Sélection :
 	* [EasyRSS](https://github.com/Alkarex/EasyRSS) (Libre, F-Droid)
 * Linux
 	* [FeedReader 2.0+](https://jangernert.github.io/FeedReader/) (Libre)
+* MacOS
+	* [Vienna RSS](http://www.vienna-rss.com/) (Libre)
 
-
-# API compatible Google Reader
+# API compatible Google Reader / [Open Reader API](http://rss-sync.github.io/Open-Reader-API/rssconsensus/)
 
 Exemples de requêtes simples:
 
