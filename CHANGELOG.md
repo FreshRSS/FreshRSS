@@ -10,7 +10,7 @@
 * UI
 	* Fix regression from 1.12.0 preventing from closing an article [#2085](https://github.com/FreshRSS/FreshRSS/issues/2085)
 	* Improvements of the Swage theme [#2088](https://github.com/FreshRSS/FreshRSS/pull/2088), [#2094](https://github.com/FreshRSS/FreshRSS/pull/2094)
-	* Style improvements [#2089](https://github.com/FreshRSS/FreshRSS/pull/2089)
+	* Style improvements [#1620](https://github.com/FreshRSS/FreshRSS/issues/1620), [#2089](https://github.com/FreshRSS/FreshRSS/pull/2089), [#2108](https://github.com/FreshRSS/FreshRSS/pull/2108)
 * I18n
 	* Occitan [#2110](https://github.com/FreshRSS/FreshRSS/pull/2110)
 
