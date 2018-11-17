@@ -797,7 +797,7 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 		}
 
 		// From https://stackoverflow.com/questions/1061710/php-zip-files-on-the-fly
-		$zip_file = tempnam('tmp', 'zip');
+		$zip_file = @tempnam('/tmp', 'zip');
 		$zip = new ZipArchive();
 		$zip->open($zip_file, ZipArchive::OVERWRITE);
 
