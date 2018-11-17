@@ -155,6 +155,10 @@ return array(
 		'instance-name' => 'Instance name', // @todo translate
 		'max-categories' => 'Categories per user limit', // @todo translate
 		'max-feeds' => 'Feeds per user limit', // @todo translate
+		'cookie-duration' => array(
+			'help' => 'in seconds', // @todo translate
+			'number' => 'Duration to keep logged in', // @todo translate
+		),		
 		'registration' => array(
 			'help' => '0 znamená žádná omezení účtu',
 			'number' => 'Maximální počet účtů',

@@ -162,6 +162,10 @@ return array(
 		'instance-name' => 'Nombre de la fuente',
 		'max-categories' => 'Límite de categorías por usuario',
 		'max-feeds' => 'Límite de fuentes por usuario',
+		'cookie-duration' => array(
+			'help' => 'in seconds', // @todo translate
+			'number' => 'Duration to keep logged in', // @todo translate
+		),		
 		'registration' => array(
 			'help' => '0 significa que no hay límite en la cuenta',
 			'number' => 'Número máximo de cuentas',

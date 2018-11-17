@@ -61,6 +61,10 @@ return array(
 		'auto-update-url' => 'URL del servici de mesa a jorn',
 		'max-categories' => 'Limita de categoria per utilizaire',
 		'max-feeds' => 'Limita de fluxes per utilizaire',
+		'cookie-duration' => array(
+			'help' => 'in seconds', // @todo translate
+			'number' => 'Duration to keep logged in', // @todo translate
+		),
 	),
 	'update' => array(
 		'apply' => 'Aplicar',
