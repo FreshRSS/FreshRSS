@@ -3,7 +3,8 @@
 if (FreshRSS_Auth::accessNeedsAction()) {
 	?><ul class="nav nav-head nav-login"><?php
 		if (FreshRSS_Auth::hasAccess()) {
-			?><li class="item"><?php echo _i('logout'); ?> <a class="signout" href="<?php echo _url('auth', 'logout'); ?>"><?php echo _t('gen.auth.logout'); ?></a></li><?php
+			?><li class="item"><?php echo _i('logout'); ?> <a class="signout" href="<?php echo _url('auth', 'logout'); ?>"><?php
+				echo _t('gen.auth.logout') . ' (' . htmlspecialchars(Minz_Session::param('currentUser', '_'), ENT_NOQUOTES, 'UTF-8') . ')'; ?></a></li><?php
 		} else {
 			?><li class="item"><?php echo _i('login'); ?> <a class="signin" href="<?php echo _url('auth', 'login'); ?>"><?php echo _t('gen.auth.login'); ?></a></li><?php
 		}
@@ -80,11 +81,13 @@ if (FreshRSS_Auth::accessNeedsAction()) {
 				<li class="item"><a href="<?php echo _url('stats', 'index'); ?>"><?php echo _t('gen.menu.stats'); ?></a></li>
 				<li class="item"><a href="<?php echo _url('index', 'logs'); ?>"><?php echo _t('gen.menu.logs'); ?></a></li>
 				<li class="item"><a href="<?php echo _url('index', 'about'); ?>"><?php echo _t('gen.menu.about'); ?></a></li>
-				<?php
-				if (FreshRSS_Auth::accessNeedsAction()) {
-					?><li class="separator"></li>
-				<li class="item"><a class="signout" href="<?php echo _url('auth', 'logout'); ?>"><?php echo _i('logout'), ' ', _t('gen.auth.logout'); ?></a></li><?php
-				} ?>
+				<li class="separator"></li>
+				<?php if (FreshRSS_Auth::accessNeedsAction()): ?>
+				<li class="item"><a class="signout" href="<?php echo _url('auth', 'logout'); ?>"><?php
+					echo _i('logout') . ' ' . _t('gen.auth.logout') . ' (' . htmlspecialchars(Minz_Session::param('currentUser', '_'), ENT_NOQUOTES, 'UTF-8') . ')'; ?></a></li>
+				<?php else: ?>
+				<li class="item"><span class="signout">(<?php echo htmlspecialchars(Minz_Session::param('currentUser', '_'), ENT_NOQUOTES, 'UTF-8'); ?>)</span></li>
+				<?php endif; ?>
 			</ul>
 		</div>
 	</div>
