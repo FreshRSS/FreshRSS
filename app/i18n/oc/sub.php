@@ -26,7 +26,7 @@ return array(
 			'password' => 'Senhal HTTP',
 			'username' => 'Identificant HTTP',
 		),
-		'clear_cache' => 'Always clear cache',	//TODO - Translation
+		'clear_cache' => 'Totjorn escafar lo cache',	//TODO - Translation
 		'css_help' => 'Permet de recuperar los fluxes troncats (atencion, demanda mai de temps !)',
 		'css_path' => 'Selector CSS dels articles sul site d’origina',
 		'description' => 'Descripcion',
