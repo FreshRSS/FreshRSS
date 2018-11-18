@@ -165,7 +165,7 @@ return array(
 		'cookie-duration' => array(
 			'help' => 'in seconds', // @todo translate
 			'number' => 'Duration to keep logged in', // @todo translate
-		),		
+		),
 		'registration' => array(
 			'help' => 'Un chiffre de 0 signifie que l’on peut créer un nombre infini de comptes',
 			'number' => 'Nombre max de comptes',

@@ -158,7 +158,7 @@ return array(
 		'cookie-duration' => array(
 			'help' => 'in seconds', // @todo translate
 			'number' => 'Duration to keep logged in', // @todo translate
-		),		
+		),
 		'registration' => array(
 			'help' => '0 znamená žádná omezení účtu',
 			'number' => 'Maximální počet účtů',

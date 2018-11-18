@@ -165,7 +165,7 @@ return array(
 		'cookie-duration' => array(
 			'help' => 'in seconds',
 			'number' => 'Duration to keep logged in',
-		),		
+		),
 		'registration' => array(
 			'help' => '0 means that there is no account limit',
 			'number' => 'Max number of accounts',

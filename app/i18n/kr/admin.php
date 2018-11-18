@@ -165,7 +165,7 @@ return array(
 		'cookie-duration' => array(
 			'help' => 'in seconds', // @todo translate
 			'number' => 'Duration to keep logged in', // @todo translate
-		),		
+		),
 		'registration' => array(
 			'help' => '0: 제한 없음',
 			'number' => '계정 최대 개수',

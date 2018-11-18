@@ -165,7 +165,7 @@ return array(
 		'cookie-duration' => array(
 			'help' => 'in seconds', // @todo translate
 			'number' => 'Duration to keep logged in', // @todo translate
-		),		
+		),
 		'registration' => array(
 			'help' => '0 means that there is no account limit', // @todo
 			'number' => 'Max number of accounts', // @todo

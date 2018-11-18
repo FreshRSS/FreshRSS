@@ -165,7 +165,7 @@ return array(
 		'cookie-duration' => array(
 			'help' => 'in seconds', // @todo translate
 			'number' => 'Duration to keep logged in', // @todo translate
-		),		
+		),
 		'registration' => array(
 			'help' => '0 significa che non esiste limite sui profili',
 			'number' => 'Numero massimo di profili',
