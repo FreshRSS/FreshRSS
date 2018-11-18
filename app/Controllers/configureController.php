@@ -308,7 +308,7 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 	 *   - user limit (default: 1)
 	 *   - user category limit (default: 16384)
 	 *   - user feed limit (default: 16384)
-	 *   - user login duration for form auth (defualt: 2592000)
+	 *   - user login duration for form auth (default: 2592000)
 	 */
 	public function systemAction() {
 		if (!FreshRSS_Auth::hasAccess('admin')) {
