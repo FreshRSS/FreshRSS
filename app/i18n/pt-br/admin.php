@@ -108,7 +108,7 @@ return array(
 	'extensions' => array(
 		'author' => 'Author',	//TODO - Translation
 		'community' => 'Available community extensions',	//TODO - Translation
-		'description' => 'Description',	//TODO - Translation	
+		'description' => 'Description',	//TODO - Translation
 		'disabled' => 'Desabilitado',
 		'empty_list' => 'Não há extensões instaladas',
 		'enabled' => 'Habilitada',

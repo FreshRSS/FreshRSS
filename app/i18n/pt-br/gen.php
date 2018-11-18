@@ -72,7 +72,7 @@ return array(
 		'last_6_month' => 'Últimos seis meses',
 		'last_month' => 'Últimos mês',
 		'last_week' => 'Última semana',
-		'last_year' => 'Último ano',	
+		'last_year' => 'Último ano',
 		'Mar' => '\\M\\a\\r\\ç\\o',
 		'mar' => 'mar',
 		'march' => 'Mar',
