@@ -53,6 +53,7 @@ return array(
 		'starred' => 'Laat alleen favorieten zien',
 		'stats' => 'Statistieken',
 		'subscription' => 'Abonnementen beheer',
+		'tags' => 'My labels',	//TODO
 		'unread' => 'Laat alleen ongelezen zien',
 	),
 	'share' => 'Delen',

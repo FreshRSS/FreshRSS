@@ -53,6 +53,7 @@ return array(
 		'starred' => 'Show only favorites',
 		'stats' => 'Statistics',
 		'subscription' => 'Subscriptions management',
+		'tags' => 'My labels',	//TODO - Translation
 		'unread' => 'Show only unread',
 	),
 	'share' => 'Share',
