@@ -164,7 +164,7 @@ return array(
 		'max-feeds' => 'Limite de flux par utilisateur',
 		'cookie-duration' => array(
 			'help' => 'en secondes',
-			'number' => 'Durée avant expiration de la session', // @todo translate
+			'number' => 'Durée avant expiration de la session',
 		),
 		'registration' => array(
 			'help' => 'Un chiffre de 0 signifie que l’on peut créer un nombre infini de comptes',
