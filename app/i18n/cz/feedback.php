@@ -50,6 +50,10 @@ return array(
 		'no_zip_extension' => 'Na serveru není naistalována podpora ZIP.',
 		'zip_error' => 'Během importu ZIP souboru došlo k chybě.',
 	),
+	'profile' => array(
+		'error' => 'Váš profil nelze změnit',
+		'updated' => 'Váš profil byl změněn',
+	),
 	'sub' => array(
 		'actualize' => 'Aktualizovat',
 		'articles' => array(
@@ -108,9 +112,5 @@ return array(
 			'_' => 'User %s has been updated', // TODO
 			'error' => 'User %s has not been updated', // TODO
 		),
-	),
-	'profile' => array(
-		'error' => 'Váš profil nelze změnit',
-		'updated' => 'Váš profil byl změněn',
 	),
 );

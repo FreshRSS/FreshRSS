@@ -50,6 +50,10 @@ return array(
 		'no_zip_extension' => 'extensão ZIP não está presente em seu servidor.',
 		'zip_error' => 'Um erro ocorreu durante a importação do arquivo ZIP.',
 	),
+	'profile' => array(
+		'error' => 'Your profile cannot be modified',
+		'updated' => 'Your profile has been modified',
+	),
 	'sub' => array(
 		'actualize' => 'Atualizando',
 		'articles' => array(
@@ -108,9 +112,5 @@ return array(
 			'_' => 'User %s has been updated', // TODO
 			'error' => 'User %s has not been updated', // TODO
 		),
-	),
-	'profile' => array(
-		'error' => 'Your profile cannot be modified',
-		'updated' => 'Your profile has been modified',
 	),
 );

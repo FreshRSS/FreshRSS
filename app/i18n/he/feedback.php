@@ -21,7 +21,6 @@ return array(
 			'success' => 'You are disconnected', // @todo
 		),
 		'no_password_set' => 'לא הוגדרה סיסמת מנהל. תכונה זו אינה זמינה.',
-		'not_persona' => 'ניתן לאפס את מערכת הפרסונה בלבד.',
 	),
 	'conf' => array(
 		'error' => 'An error occurred during configuration saving', // @todo
@@ -50,6 +49,10 @@ return array(
 		'file_cannot_be_uploaded' => 'אין אפשרות להעלות את הקובץ!',
 		'no_zip_extension' => 'הרחבת ZIP אינה מותקנת על השרת.',
 		'zip_error' => 'אירעה שגיאה במהלך ייבוא קובץ הZIP.',
+	),
+	'profile' => array(
+		'error' => 'Your profile cannot be modified', // @todo
+		'updated' => 'Your profile has been modified', // @todo
 	),
 	'sub' => array(
 		'actualize' => 'מימוש',
@@ -109,9 +112,5 @@ return array(
 			'_' => 'User %s has been updated', // TODO
 			'error' => 'User %s has not been updated', // TODO
 		),
-	),
-	'profile' => array(
-		'error' => 'Your profile cannot be modified', // @todo
-		'updated' => 'Your profile has been modified', // @todo
 	),
 );

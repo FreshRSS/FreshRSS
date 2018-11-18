@@ -50,6 +50,10 @@ return array(
 		'no_zip_extension' => '服务器未启用 ZIP 扩展。',
 		'zip_error' => '导入 ZIP 文件时出错',
 	),
+	'profile' => array(
+		'error' => '你的帐户修改失败',
+		'updated' => '你的帐户已修改',
+	),
 	'sub' => array(
 		'actualize' => '获取',
 		'articles' => array(
@@ -108,9 +112,5 @@ return array(
 			'_' => 'User %s has been updated', // TODO
 			'error' => 'User %s has not been updated', // TODO
 		),
-	),
-	'profile' => array(
-		'error' => '你的帐户修改失败',
-		'updated' => '你的帐户已修改',
 	),
 );

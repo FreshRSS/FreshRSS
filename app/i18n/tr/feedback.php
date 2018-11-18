@@ -50,6 +50,10 @@ return array(
 		'no_zip_extension' => 'ZIP eklentisi mevcut sunucunuzda yer almıyor.',
 		'zip_error' => 'ZIP içe aktarımı sırasında hata meydana geldi.',
 	),
+	'profile' => array(
+		'error' => 'Profiliniz düzenlenemedi',
+		'updated' => 'Profiliniz düzenlendi',
+	),
 	'sub' => array(
 		'actualize' => 'Güncelleme',
 		'articles' => array(
@@ -108,9 +112,5 @@ return array(
 			'_' => 'User %s has been updated', // TODO
 			'error' => 'User %s has not been updated', // TODO
 		),
-	),
-	'profile' => array(
-		'error' => 'Profiliniz düzenlenemedi',
-		'updated' => 'Profiliniz düzenlendi',
 	),
 );
