@@ -162,6 +162,10 @@ return array(
 		'instance-name' => 'Instance name',
 		'max-categories' => 'Categories per user limit',
 		'max-feeds' => 'Feeds per user limit',
+		'cookie-duration' => array(
+			'help' => 'in seconds',
+			'number' => 'Duration to keep logged in',
+		),
 		'registration' => array(
 			'help' => '0 means that there is no account limit',
 			'number' => 'Max number of accounts',

@@ -162,6 +162,10 @@ return array(
 		'instance-name' => '实例名称',
 		'max-categories' => '每用户分类限制',
 		'max-feeds' => '每用户 RSS 源限制',
+		'cookie-duration' => array(
+			'help' => 'in seconds', // @todo translate
+			'number' => 'Duration to keep logged in', // @todo translate
+		),
 		'registration' => array(
 			'help' => '0 表示无账户数限制',
 			'number' => '最大账户数',

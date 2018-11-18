@@ -162,6 +162,10 @@ return array(
 		'instance-name' => 'Dein Reader Name',
 		'max-categories' => 'Anzahl erlaubter Kategorien pro Benutzer',
 		'max-feeds' => 'Anzahl erlaubter Feeds pro Benutzer',
+		'cookie-duration' => array(
+			'help' => 'in Sekunden',
+			'number' => 'Duration to keep logged in', // @todo translate
+		),
 		'registration' => array(
 			'help' => '0 meint, dass es kein Account Limit gibt',
 			'number' => 'Maximale Anzahl von Accounts',

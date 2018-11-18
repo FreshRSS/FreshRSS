@@ -162,6 +162,10 @@ return array(
 		'instance-name' => 'Voorbeeld naam',
 		'max-categories' => 'Categoriën limiet per gebruiker',
 		'max-feeds' => 'Feed limiet per gebruiker',
+		'cookie-duration' => array(
+			'help' => 'in seconds', // @todo translate
+			'number' => 'Duration to keep logged in', // @todo translate
+		),
 		'registration' => array(
 			'help' => '0 betekent geen account limiet',
 			'number' => 'Maximum aantal accounts',

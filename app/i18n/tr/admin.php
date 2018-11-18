@@ -162,6 +162,10 @@ return array(
 		'instance-name' => 'Örnek isim',
 		'max-categories' => 'Kullanıcı başına kategori limiti',
 		'max-feeds' => 'Kullanıcı başına akış limiti',
+		'cookie-duration' => array(
+			'help' => 'in seconds', // @todo translate
+			'number' => 'Duration to keep logged in', // @todo translate
+		),
 		'registration' => array(
 			'help' => '0 sınır yok anlamındadır',
 			'number' => 'En fazla hesap sayısı',

@@ -162,6 +162,10 @@ return array(
 		'instance-name' => 'Название этого сервера',
 		'max-categories' => 'Количество категорий на пользователя',
 		'max-feeds' => 'Количество статей на пользователя',
+		'cookie-duration' => array(
+			'help' => 'in seconds', // @todo translate
+			'number' => 'Duration to keep logged in', // @todo translate
+		),
 		'registration' => array(
 			'help' => '0 означает неограниченное количество пользователей',
 			'number' => 'Максимальное количество пользователей',

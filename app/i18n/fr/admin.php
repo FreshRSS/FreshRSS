@@ -162,6 +162,10 @@ return array(
 		'instance-name' => 'Nom de l’instance',
 		'max-categories' => 'Limite de catégories par utilisateur',
 		'max-feeds' => 'Limite de flux par utilisateur',
+		'cookie-duration' => array(
+			'help' => 'en secondes',
+			'number' => 'Durée avant expiration de la session',
+		),
 		'registration' => array(
 			'help' => 'Un chiffre de 0 signifie que l’on peut créer un nombre infini de comptes',
 			'number' => 'Nombre max de comptes',

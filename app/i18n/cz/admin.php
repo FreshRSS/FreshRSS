@@ -157,11 +157,15 @@ return array(
 		'top_feed' => 'Top ten kanálů',
 	),
 	'system' => array(
-		'_' => 'System configuration',	//TODO - Translation
-		'auto-update-url' => 'Auto-update server URL',	//TODO - Translation
-		'instance-name' => 'Instance name',	//TODO - Translation
-		'max-categories' => 'Categories per user limit',	//TODO - Translation
-		'max-feeds' => 'Feeds per user limit',	//TODO - Translation
+		'_' => 'System configuration', //TODO - Translation
+		'auto-update-url' => 'Auto-update server URL', //TODO - Translation
+		'cookie-duration' => array(
+			'help' => 'in seconds', //TODO - Translation
+			'number' => 'Duration to keep logged in', //TODO - Translation
+		),
+		'instance-name' => 'Instance name', //TODO - Translation
+		'max-categories' => 'Categories per user limit', //TODO - Translation
+		'max-feeds' => 'Feeds per user limit', //TODO - Translation
 		'registration' => array(
 			'help' => '0 znamená žádná omezení účtu',
 			'number' => 'Maximální počet účtů',

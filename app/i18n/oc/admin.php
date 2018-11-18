@@ -159,6 +159,10 @@ return array(
 	'system' => array(
 		'_' => 'Configuracion sistèma',
 		'auto-update-url' => 'URL del servici de mesa a jorn',
+		'cookie-duration' => array(
+			'help' => 'in seconds', //TODO - Translation
+			'number' => 'Duration to keep logged in', //TODO - Translation
+		),
 		'instance-name' => 'Nom de l’instància',
 		'max-categories' => 'Limita de categoria per utilizaire',
 		'max-feeds' => 'Limita de fluxes per utilizaire',
