@@ -162,6 +162,7 @@ return array(
 		'mark_read' => '设为已读',
 		'navigation' => '浏览',
 		'navigation_help' => '搭配 "Shift" 键，浏览快捷键将生效于 RSS 源。<br/>搭配 "Alt" 键，浏览快捷键将生效于分类。',
+		'navigation_no_mod_help' => 'The following navigation shortcuts do not support modifiers.',	//TODO - Translation
 		'next_article' => '跳转到下一篇文章',
 		'normal_view' => '切换到普通视图',
 		'other_action' => '其他操作',

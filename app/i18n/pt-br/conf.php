@@ -162,6 +162,7 @@ return array(
 		'mark_read' => 'Marcar como lido',
 		'navigation' => 'Navegação',
 		'navigation_help' => 'Com o modificador "Shift", atalhos de navegação aplicam aos feeds.<br/>Com o "Alt" modificador, atalhos de navegação aplicam as categorias.',
+		'navigation_no_mod_help' => 'The following navigation shortcuts do not support modifiers.',	//TODO - Translation
 		'next_article' => 'Pule para o próximo artigo',
 		'normal_view' => 'Switch to normal view',	//TODO - Translation
 		'other_action' => 'Outras ações',

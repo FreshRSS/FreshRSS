@@ -162,6 +162,7 @@ return array(
 		'mark_favorite' => 'Mark as favourite',	//TODO - Translation
 		'navigation' => 'Navigation',	//TODO - Translation
 		'navigation_help' => 'With the "Shift" modifier, navigation shortcuts apply on feeds.<br/>With the "Alt" modifier, navigation shortcuts apply on categories.',	//TODO - Translation
+		'navigation_no_mod_help' => 'The following navigation shortcuts do not support modifiers.',	//TODO - Translation
 		'next_article' => 'Skip to the next article',	//TODO - Translation
 		'normal_view' => 'Switch to normal view',	//TODO - Translation
 		'other_action' => 'Other actions',	//TODO - Translation

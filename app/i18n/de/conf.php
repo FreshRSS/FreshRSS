@@ -162,6 +162,7 @@ return array(
 		'mark_read' => 'Als gelesen markieren',
 		'navigation' => 'Navigation',
 		'navigation_help' => 'Mit der "Umschalttaste" finden die Tastenkombination auf Feeds Anwendung.<br/>Mit der "Alt-Taste" finden die Tastenkombination auf Kategorien Anwendung.',
+		'navigation_no_mod_help' => 'The following navigation shortcuts do not support modifiers.',	//TODO - Translation
 		'next_article' => 'Zum nächsten Artikel springen',
 		'normal_view' => 'Wechsle zur normalen Ansicht',
 		'other_action' => 'Andere Aktionen',
