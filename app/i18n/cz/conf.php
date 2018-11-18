@@ -28,6 +28,7 @@ return array(
 			'seconds' => 'sekund (0 znamená žádný timeout)',
 			'timeout' => 'Timeout HTML5 notifikací',
 		),
+		'show_nav_buttons' => 'Show the navigation buttons',	//TODO
 		'theme' => 'Vzhled',
 		'title' => 'Zobrazení',
 		'width' => array(
@@ -37,7 +38,17 @@ return array(
 			'no_limit' => 'Bez limitu',
 			'thin' => 'Tenká',
 		),
-		'show_nav_buttons' => 'Show the navigation buttons',	//TODO
+	),
+	'profile' => array(
+		'_' => 'Správa profilu',
+		'delete' => array(
+			'_' => 'Smazání účtu',
+			'warn' => 'Váš účet bude smazán spolu se všemi souvisejícími daty',
+		),
+		'password_api' => 'Password API<br /><small>(tzn. pro mobilní aplikace)</small>',
+		'password_form' => 'Heslo<br /><small>(pro přihlášení webovým formulářem)</small>',
+		'password_format' => 'Alespoň 7 znaků',
+		'title' => 'Profil',
 	),
 	'query' => array(
 		'_' => 'Uživatelské dotazy',
@@ -73,31 +84,19 @@ return array(
 		'state_15' => 'Zobrazit všechny články',
 		'title' => 'Uživatelské dotazy',
 	),
-	'profile' => array(
-		'_' => 'Správa profilu',
-		'delete' => array(
-			'_' => 'Smazání účtu',
-			'warn' => 'Váš účet bude smazán spolu se všemi souvisejícími daty',
-		),
-		'password_api' => 'Password API<br /><small>(tzn. pro mobilní aplikace)</small>',
-		'password_form' => 'Heslo<br /><small>(pro přihlášení webovým formulářem)</small>',
-		'password_format' => 'Alespoň 7 znaků',
-		'title' => 'Profil',
-	),
 	'reading' => array(
 		'_' => 'Čtení',
 		'after_onread' => 'Po “označit vše jako přečtené”,',
 		'articles_per_page' => 'Počet článků na stranu',
 		'auto_load_more' => 'Načítat další články dole na stránce',
 		'auto_remove_article' => 'Po přečtení články schovat',
-		'mark_updated_article_unread' => 'Označte aktualizované položky jako nepřečtené',
 		'confirm_enabled' => 'Vyžadovat potvrzení pro akci “označit vše jako přečtené”',
 		'display_articles_unfolded' => 'Ve výchozím stavu zobrazovat články otevřené',
 		'display_categories_unfolded' => 'Ve výchozím stavu zobrazovat kategorie zavřené',
 		'hide_read_feeds' => 'Schovat kategorie a kanály s nulovým počtem nepřečtených článků (nefunguje s nastavením “Zobrazit všechny články”)',
 		'img_with_lazyload' => 'Použít "lazy load" mód pro načítaní obrázků',
-		'sides_close_article' => 'Clicking outside of article text area closes the article',	//TODO
 		'jump_next' => 'skočit na další nepřečtený (kanál nebo kategorii)',
+		'mark_updated_article_unread' => 'Označte aktualizované položky jako nepřečtené',
 		'number_divided_when_reader' => 'V režimu “Čtení” děleno dvěma.',
 		'read' => array(
 			'article_open_on_website' => 'když je otevřen původní web s článkem',
@@ -112,6 +111,7 @@ return array(
 			'all_articles' => 'Zobrazit všechny články',
 			'unread' => 'Zobrazit jen nepřečtené',
 		),
+		'sides_close_article' => 'Clicking outside of article text area closes the article',	//TODO
 		'sort' => array(
 			'_' => 'Řazení',
 			'newer_first' => 'Nejdříve nejnovější',
@@ -158,8 +158,8 @@ return array(
 		'javascript' => 'Pro použití zkratek musí být povolen JavaScript',
 		'last_article' => 'Skočit na poslední článek',
 		'load_more' => 'Načíst více článků',
-		'mark_read' => 'Označit jako přečtené',
 		'mark_favorite' => 'Označit jako oblíbené',
+		'mark_read' => 'Označit jako přečtené',
 		'navigation' => 'Navigace',
 		'navigation_help' => 'Pomocí přepínače "Shift" fungují navigační zkratky v rámci kanálů.<br/>Pomocí přepínače "Alt" fungují v rámci kategorií.',
 		'next_article' => 'Skočit na další článek',
