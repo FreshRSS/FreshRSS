@@ -106,23 +106,23 @@ return array(
 		),
 	),
 	'extensions' => array(
+		'author' => 'Author', // @todo translate
+		'community' => 'Available community extensions', // @todo translate
+		'description' => 'Description', // @todo translate
 		'disabled' => 'Pasif',
 		'empty_list' => 'Yüklenmiş eklenti bulunmamaktadır',
 		'enabled' => 'Aktif',
+		'latest' => 'Installed', // @todo translate
+		'name' => 'Name', // @todo translate
 		'no_configure_view' => 'Bu eklenti yapılandırılamaz.',
 		'system' => array(
 			'_' => 'Sistem eklentileri',
 			'no_rights' => 'Sistem eklentileri (düzenleme hakkınız yok)',
 		),
 		'title' => 'Eklentiler',
-		'user' => 'Kullanıcı eklentileri',
-		'community' => 'Available community extensions', // @todo translate
-		'name' => 'Name', // @todo translate
-		'version' => 'Version', // @todo translate
-		'description' => 'Description', // @todo translate
-		'author' => 'Author', // @todo translate
-		'latest' => 'Installed', // @todo translate
 		'update' => 'Update available', // @todo translate
+		'user' => 'Kullanıcı eklentileri',
+		'version' => 'Version', // @todo translate
 	),
 	'stats' => array(
 		'_' => 'İstatistikler',

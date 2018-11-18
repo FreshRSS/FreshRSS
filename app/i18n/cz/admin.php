@@ -106,23 +106,23 @@ return array(
 		),
 	),
 	'extensions' => array(
+		'author' => 'Author', // @todo translate
+		'community' => 'Available community extensions', // @todo translate
+		'description' => 'Description', // @todo translate
 		'disabled' => 'Vypnuto',
 		'empty_list' => 'Není naistalováno žádné rozšíření',
 		'enabled' => 'Zapnuto',
+		'latest' => 'Installed', // @todo translate
+		'name' => 'Name', // @todo translate
 		'no_configure_view' => 'Toto rozšíření nemá žádné možnosti nastavení.',
 		'system' => array(
 			'_' => 'Systémová rozšíření',
 			'no_rights' => 'Systémová rozšíření (na ně nemáte oprávnění)',
 		),
 		'title' => 'Rozšíření',
-		'user' => 'Uživatelská rozšíření',
-		'community' => 'Available community extensions', // @todo translate
-		'name' => 'Name', // @todo translate
-		'version' => 'Version', // @todo translate
-		'description' => 'Description', // @todo translate
-		'author' => 'Author', // @todo translate
-		'latest' => 'Installed', // @todo translate
 		'update' => 'Update available', // @todo translate
+		'user' => 'Uživatelská rozšíření',
+		'version' => 'Version', // @todo translate
 	),
 	'stats' => array(
 		'_' => 'Statistika',

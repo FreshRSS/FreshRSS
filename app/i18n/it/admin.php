@@ -106,23 +106,23 @@ return array(
 		),
 	),
 	'extensions' => array(
+		'author' => 'Author', // @todo translate
+		'community' => 'Available community extensions', // @todo translate
+		'description' => 'Description', // @todo translate
 		'disabled' => 'Disabilitata',
 		'empty_list' => 'Non ci sono estensioni installate',
 		'enabled' => 'Abilitata',
+		'latest' => 'Installed', // @todo translate
+		'name' => 'Name', // @todo translate
 		'no_configure_view' => 'Questa estensioni non può essere configurata.',
 		'system' => array(
 			'_' => 'Estensioni di sistema',
 			'no_rights' => 'Estensione di sistema (non hai i permessi su questo tipo)',
 		),
 		'title' => 'Estensioni',
-		'user' => 'Estensioni utente',
-		'community' => 'Available community extensions', // @todo translate
-		'name' => 'Name', // @todo translate
-		'version' => 'Version', // @todo translate
-		'description' => 'Description', // @todo translate
-		'author' => 'Author', // @todo translate
-		'latest' => 'Installed', // @todo translate
 		'update' => 'Update available', // @todo translate
+		'user' => 'Estensioni utente',
+		'version' => 'Version', // @todo translate
 	),
 	'stats' => array(
 		'_' => 'Statistiche',

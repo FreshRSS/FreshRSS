@@ -106,23 +106,23 @@ return array(
 		),
 	),
 	'extensions' => array(
+		'author' => 'Author', // @todo
+		'community' => 'Available community extensions', // @todo
+		'description' => 'Description', // @todo
 		'disabled' => 'Disabled', // @todo
 		'empty_list' => 'There is no installed extension', // @todo
 		'enabled' => 'Enabled', // @todo
+		'latest' => 'Installed', // @todo
+		'name' => 'Name', // @todo
 		'no_configure_view' => 'This extension cannot be configured.', // @todo
 		'system' => array(
 			'_' => 'System extensions', // @todo
 			'no_rights' => 'System extension (you have no rights on it)', // @todo
 		),
 		'title' => 'Extensions', // @todo
-		'user' => 'User extensions', // @todo
-		'community' => 'Available community extensions', // @todo
-		'name' => 'Name', // @todo
-		'version' => 'Version', // @todo
-		'description' => 'Description', // @todo
-		'author' => 'Author', // @todo
-		'latest' => 'Installed', // @todo
 		'update' => 'Update available', // @todo
+		'user' => 'User extensions', // @todo
+		'version' => 'Version', // @todo
 	),
 	'stats' => array(
 		'_' => 'סטטיסטיקות',

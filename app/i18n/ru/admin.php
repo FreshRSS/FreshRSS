@@ -106,23 +106,23 @@ return array(
 		),
 	),
 	'extensions' => array(
+		'author' => 'Author', // @todo translate
+		'community' => 'Available community extensions', // @todo translate
+		'description' => 'Description', // @todo translate
 		'disabled' => 'Отключены',
 		'empty_list' => 'Расширения не установлены',
 		'enabled' => 'Включены',
+		'latest' => 'Installed', // @todo translate
+		'name' => 'Name', // @todo translate
 		'no_configure_view' => 'Это расширение нельзя настроить.',
 		'system' => array(
 			'_' => 'Системные расширения',
 			'no_rights' => 'Системные расширения (у вас нет к ним доступа)',
 		),
 		'title' => 'Расширения',
-		'user' => 'Расширения пользователя',
-		'community' => 'Available community extensions', // @todo translate
-		'name' => 'Name', // @todo translate
-		'version' => 'Version', // @todo translate
-		'description' => 'Description', // @todo translate
-		'author' => 'Author', // @todo translate
-		'latest' => 'Installed', // @todo translate
 		'update' => 'Update available', // @todo translate
+		'user' => 'Расширения пользователя',
+		'version' => 'Version', // @todo translate
 	),
 	'stats' => array(
 		'_' => 'Статистика',
