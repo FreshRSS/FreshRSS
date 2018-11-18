@@ -6,23 +6,23 @@ return array(
 		'back_to_rss_feeds' => '← חזרה להזנות הRSS שלך',
 		'cancel' => 'ביטול',
 		'create' => 'יצירה',
-		'disable' => 'Disable', // @todo
-		'empty' => 'Empty', // @todo
-		'enable' => 'Enable', // @todo
+		'disable' => 'Disable',	//TODO - Translation
+		'empty' => 'Empty',	//TODO - Translation
+		'enable' => 'Enable',	//TODO - Translation
 		'export' => 'ייצוא',
 		'filter' => 'מסנן',
 		'import' => 'ייבוא',
 		'manage' => 'ניהול',
 		'mark_read' => 'סימון כנקרא',
 		'mark_favorite' => 'סימון כמועדף',
-		'remove' => 'Remove', // @todo
+		'remove' => 'Remove',	//TODO - Translation
 		'see_website' => 'ראו אתר',
 		'submit' => 'אישור',
 		'truncate' => 'מחיקת כל המאמרים',
-		'update' => 'Update', // TODO
+		'update' => 'Update',	//TODO - Translation
 	),
 	'auth' => array(
-		'email' => 'Email address', // @todo
+		'email' => 'Email address',	//TODO - Translation
 		'keep_logged_in' => 'השאר מחובר <small>חודש</small>',
 		'login' => 'כניסה לחשבון',
 		'logout' => 'יציאה מהחשבון',
@@ -31,15 +31,15 @@ return array(
 			'format' => '<small>At least 7 characters</small>',
 		),
 		'registration' => array(
-			'_' => 'New account', // @todo
-			'ask' => 'Create an account?', // @todo
-			'title' => 'Account creation', // @todo
+			'_' => 'New account',	//TODO - Translation
+			'ask' => 'Create an account?',	//TODO - Translation
+			'title' => 'Account creation',	//TODO - Translation
 		),
 		'reset' => 'איפוס אימות',
 		'username' => array(
 			'_' => 'שם משתמש',
 			'admin' => 'שם משתמש של המנהל',
-			'format' => '<small>maximum 16 alphanumeric characters</small>', // @todo
+			'format' => '<small>maximum 16 alphanumeric characters</small>',	//TODO - Translation
 		),
 	),
 	'date' => array(
@@ -103,12 +103,12 @@ return array(
 		'about' => 'אודות FreshRSS',
 	),
 	'js' => array(
-		'category_empty' => 'Empty category', // @todo
+		'category_empty' => 'Empty category',	//TODO - Translation
 		'confirm_action' => 'האם אתם בטוחים שברצונכם לבצע פעולה זו? אין אפשרות לבטל אותה!',
 		'confirm_action_feed_cat' => 'האם אתם בטוחים שברצוניכם לבצע פעולה זו? מועדפים ושאילתות עשויות לאבוד. אין אפשרות לבטל אותה!',
 		'feedback' => array(
 			'body_new_articles' => 'ישנם  \d מאמרים חדשים לקרוא ב FreshRSS.',
-			'request_failed' => 'A request has failed, it may have been caused by Internet connection problems.', // @todo
+			'request_failed' => 'A request has failed, it may have been caused by Internet connection problems.',	//TODO - Translation
 			'title_new_articles' => 'FreshRSS: מאמרים חדשים!',
 		),
 		'new_article' => 'מאמרים חדשים זמינים, לחצו לרענון העמוד.',
@@ -134,11 +134,11 @@ return array(
 		'about' => 'אודות',
 		'admin' => 'ניהול',
 		'archiving' => 'ארכוב',
-		'authentication' => 'Authentication', // @todo
-		'check_install' => 'Installation checking', // @todo
+		'authentication' => 'Authentication',	//TODO - Translation
+		'check_install' => 'Installation checking',	//TODO - Translation
 		'configuration' => 'הגדרות',
 		'display' => 'תצוגה',
-		'extensions' => 'Extensions', // @todo
+		'extensions' => 'Extensions',	//TODO - Translation
 		'logs' => 'לוגים',
 		'queries' => 'שאילתות',
 		'reading' => 'קריאה',
@@ -146,10 +146,10 @@ return array(
 		'sharing' => 'שיתוף',
 		'shortcuts' => 'קיצורי דרך',
 		'stats' => 'סטטיסטיקות',
-		'system' => 'System configuration', // @todo
+		'system' => 'System configuration',	//TODO - Translation
 		'update' => 'עדכון',
-		'user_management' => 'Manage users', // @todo
-		'user_profile' => 'Profile', // @todo
+		'user_management' => 'Manage users',	//TODO - Translation
+		'user_profile' => 'Profile',	//TODO - Translation
 	),
 	'pagination' => array(
 		'first' => 'הראשון',
@@ -187,7 +187,7 @@ return array(
 		'damn' => 'הו לא!',
 		'default_category' => 'ללא קטגוריה',
 		'no' => 'לא',
-		'not_applicable' => 'Not available', // @todo
+		'not_applicable' => 'Not available',	//TODO - Translation
 		'ok' => 'כן!',
 		'or' => 'או',
 		'yes' => 'כן',

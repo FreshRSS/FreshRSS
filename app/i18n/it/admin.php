@@ -67,8 +67,8 @@ return array(
 			'ok' => 'Estensione JSON presente.',
 		),
 		'mbstring' => array(
-			'nok' => 'Cannot find the recommended library mbstring for Unicode.',	//TODO
-			'ok' => 'You have the recommended library mbstring for Unicode.',	//TODO
+			'nok' => 'Cannot find the recommended library mbstring for Unicode.',	//TODO - Translation
+			'ok' => 'You have the recommended library mbstring for Unicode.',	//TODO - Translation
 		),
 		'minz' => array(
 			'nok' => 'Manca il framework Minz.',
@@ -106,23 +106,23 @@ return array(
 		),
 	),
 	'extensions' => array(
-		'author' => 'Author', // @todo translate
-		'community' => 'Available community extensions', // @todo translate
-		'description' => 'Description', // @todo translate
+		'author' => 'Author',	//TODO - Translation
+		'community' => 'Available community extensions',	//TODO - Translation
+		'description' => 'Description',	//TODO - Translation
 		'disabled' => 'Disabilitata',
 		'empty_list' => 'Non ci sono estensioni installate',
 		'enabled' => 'Abilitata',
-		'latest' => 'Installed', // @todo translate
-		'name' => 'Name', // @todo translate
+		'latest' => 'Installed',	//TODO - Translation
+		'name' => 'Name',	//TODO - Translation
 		'no_configure_view' => 'Questa estensioni non può essere configurata.',
 		'system' => array(
 			'_' => 'Estensioni di sistema',
 			'no_rights' => 'Estensione di sistema (non hai i permessi su questo tipo)',
 		),
 		'title' => 'Estensioni',
-		'update' => 'Update available', // @todo translate
+		'update' => 'Update available',	//TODO - Translation
 		'user' => 'Estensioni utente',
-		'version' => 'Version', // @todo translate
+		'version' => 'Version',	//TODO - Translation
 	),
 	'stats' => array(
 		'_' => 'Statistiche',
@@ -158,7 +158,7 @@ return array(
 	),
 	'system' => array(
 		'_' => 'Configurazione di sistema',
-		'auto-update-url' => 'Auto-update server URL', // @todo translate
+		'auto-update-url' => 'Auto-update server URL',	//TODO - Translation
 		'instance-name' => 'Nome istanza',
 		'max-categories' => 'Limite categorie per utente',
 		'max-feeds' => 'Limite feeds per utente',
@@ -179,15 +179,15 @@ return array(
 	'user' => array(
 		'articles_and_size' => '%s articoli (%s)',
 		'create' => 'Crea nuovo utente',
-		'delete_users' => 'Delete user', // TODO
+		'delete_users' => 'Delete user',	//TODO - Translation
 		'language' => 'Lingua',
 		'number' => ' %d profilo utente creato',
 		'numbers' => 'Sono presenti %d profili utente',
 		'password_form' => 'Password<br /><small>(per il login classico)</small>',
 		'password_format' => 'Almeno 7 caratteri',
-		'selected' => 'Selected user', // TODO
+		'selected' => 'Selected user',	//TODO - Translation
 		'title' => 'Gestione utenti',
-		'update_users' => 'Update user', // TODO
+		'update_users' => 'Update user',	//TODO - Translation
 		'user_list' => 'Lista utenti',
 		'username' => 'Nome utente',
 		'users' => 'Utenti',

@@ -19,7 +19,7 @@ return array(
 			'bottom_line' => 'Spodní řádek',
 			'entry' => 'Ikony článků',
 			'publication_date' => 'Datum vydání',
-			'related_tags' => 'Související tagy',	//TODO
+			'related_tags' => 'Související tagy',	//TODO - Translation
 			'sharing' => 'Sdílení',
 			'top_line' => 'Horní řádek',
 		),
@@ -28,7 +28,7 @@ return array(
 			'seconds' => 'sekund (0 znamená žádný timeout)',
 			'timeout' => 'Timeout HTML5 notifikací',
 		),
-		'show_nav_buttons' => 'Show the navigation buttons',	//TODO
+		'show_nav_buttons' => 'Show the navigation buttons',	//TODO - Translation
 		'theme' => 'Vzhled',
 		'title' => 'Zobrazení',
 		'width' => array(
@@ -53,7 +53,7 @@ return array(
 	'query' => array(
 		'_' => 'Uživatelské dotazy',
 		'deprecated' => 'Tento dotaz již není platný. Odkazovaná kategorie nebo kanál byly smazány.',
-		'display' => 'Display user query results', // TODO
+		'display' => 'Display user query results',	//TODO - Translation
 		'filter' => 'Filtr aplikován:',
 		'get_all' => 'Zobrazit všechny články',
 		'get_category' => 'Zobrazit "%s" kategorii',
@@ -64,7 +64,7 @@ return array(
 		'number' => 'Dotaz n°%d',
 		'order_asc' => 'Zobrazit nejdříve nejstarší články',
 		'order_desc' => 'Zobrazit nejdříve nejnovější články',
-		'remove' => 'Remove user query', // TODO
+		'remove' => 'Remove user query',	//TODO - Translation
 		'search' => 'Hledat "%s"',
 		'state_0' => 'Zobrazit všechny články',
 		'state_1' => 'Zobrazit přečtené články',
@@ -111,7 +111,7 @@ return array(
 			'all_articles' => 'Zobrazit všechny články',
 			'unread' => 'Zobrazit jen nepřečtené',
 		),
-		'sides_close_article' => 'Clicking outside of article text area closes the article',	//TODO
+		'sides_close_article' => 'Clicking outside of article text area closes the article',	//TODO - Translation
 		'sort' => array(
 			'_' => 'Řazení',
 			'newer_first' => 'Nejdříve nejnovější',
@@ -128,7 +128,7 @@ return array(
 	),
 	'sharing' => array(
 		'_' => 'Sdílení',
-		'add' => 'Add a sharing method', // TODO
+		'add' => 'Add a sharing method',	//TODO - Translation
 		'blogotext' => 'Blogotext',
 		'diaspora' => 'Diaspora*',
 		'email' => 'Email',
@@ -136,7 +136,7 @@ return array(
 		'g+' => 'Google+',
 		'more_information' => 'Více informací',
 		'print' => 'Tisk',
-		'remove' => 'Remove sharing method', // TODO
+		'remove' => 'Remove sharing method',	//TODO - Translation
 		'shaarli' => 'Shaarli',
 		'share_name' => 'Jméno pro zobrazení',
 		'share_url' => 'Jakou URL použít pro sdílení',
@@ -153,7 +153,7 @@ return array(
 		'collapse_article' => 'Srolovat',
 		'first_article' => 'Skočit na první článek',
 		'focus_search' => 'Hledání',
-		'global_view' => 'Switch to global view', // TODO
+		'global_view' => 'Switch to global view',	//TODO - Translation
 		'help' => 'Zobrazit documentaci',
 		'javascript' => 'Pro použití zkratek musí být povolen JavaScript',
 		'last_article' => 'Skočit na poslední článek',
@@ -163,17 +163,17 @@ return array(
 		'navigation' => 'Navigace',
 		'navigation_help' => 'Pomocí přepínače "Shift" fungují navigační zkratky v rámci kanálů.<br/>Pomocí přepínače "Alt" fungují v rámci kategorií.',
 		'next_article' => 'Skočit na další článek',
-		'normal_view' => 'Switch to normal view', // TODO
+		'normal_view' => 'Switch to normal view',	//TODO - Translation
 		'other_action' => 'Ostatní akce',
 		'previous_article' => 'Skočit na předchozí článek',
-		'reading_view' => 'Switch to reading view', // TODO
-		'rss_view' => 'Open RSS view in a new tab', // TODO
+		'reading_view' => 'Switch to reading view',	//TODO - Translation
+		'rss_view' => 'Open RSS view in a new tab',	//TODO - Translation
 		'see_on_website' => 'Navštívit původní webovou stránku',
 		'shift_for_all_read' => '+ <code>shift</code> označí vše jako přečtené',
 		'title' => 'Zkratky',
 		'user_filter' => 'Aplikovat uživatelské filtry',
 		'user_filter_help' => 'Je-li nastaven pouze jeden filtr, bude použit. Další filtry jsou dostupné pomocí jejich čísla.',
-		'views' => 'Views', // TODO
+		'views' => 'Views',	//TODO - Translation
 	),
 	'user' => array(
 		'articles_and_size' => '%s článků (%s)',

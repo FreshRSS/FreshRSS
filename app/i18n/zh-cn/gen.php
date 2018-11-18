@@ -19,7 +19,7 @@ return array(
 		'see_website' => '查看网站',
 		'submit' => '提交',
 		'truncate' => '删除所有文章',
-		'update' => 'Update', // TODO
+		'update' => 'Update',	//TODO - Translation
 	),
 	'auth' => array(
 		'email' => 'Email 地址',

@@ -27,7 +27,7 @@ return array(
 			'password' => 'HTTP 암호',
 			'username' => 'HTTP 사용자 이름',
 		),
-		'clear_cache' => 'Always clear cache',	//TODO
+		'clear_cache' => 'Always clear cache',	//TODO - Translation
 		'css_help' => '글의 일부가 포함된 RSS 피드를 가져옵니다 (주의, 시간이 좀 더 걸립니다!)',
 		'css_path' => '웹사이트 상의 글 본문에 해당하는 CSS 경로',
 		'description' => '설명',

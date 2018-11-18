@@ -19,7 +19,7 @@ return array(
 		'see_website' => 'Ver o site',
 		'submit' => 'Enviar',
 		'truncate' => 'Deletar todos os artigos',
-		'update' => 'Update', // TODO
+		'update' => 'Update',	//TODO - Translation
 	),
 	'auth' => array(
 		'email' => 'Endereço de e-mail',

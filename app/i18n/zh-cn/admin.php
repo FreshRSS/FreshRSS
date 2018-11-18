@@ -67,8 +67,8 @@ return array(
 			'ok' => '已找到 JSON 扩展',
 		),
 		'mbstring' => array(
-			'nok' => 'Cannot find the recommended library mbstring for Unicode.',	//TODO
-			'ok' => 'You have the recommended library mbstring for Unicode.',	//TODO
+			'nok' => 'Cannot find the recommended library mbstring for Unicode.',	//TODO - Translation
+			'ok' => 'You have the recommended library mbstring for Unicode.',	//TODO - Translation
 		),
 		'minz' => array(
 			'nok' => '找不到 Minz 框架。',
@@ -179,15 +179,15 @@ return array(
 	'user' => array(
 		'articles_and_size' => '%s 篇文章 (%s)',
 		'create' => '创建新用户',
-		'delete_users' => 'Delete user', // TODO
+		'delete_users' => 'Delete user',	//TODO - Translation
 		'language' => '语言',
 		'number' => '已有 %d 个帐户',
 		'numbers' => '已有 %d 个帐户',
 		'password_form' => '密码<br /><small>(用于 Web-form 登录方式)</small>',
 		'password_format' => '至少 7 个字符',
-		'selected' => 'Selected user', // TODO
+		'selected' => 'Selected user',	//TODO - Translation
 		'title' => '用户管理',
-		'update_users' => 'Update user', // TODO
+		'update_users' => 'Update user',	//TODO - Translation
 		'user_list' => '用户列表',
 		'username' => '用户名',
 		'users' => '用户',

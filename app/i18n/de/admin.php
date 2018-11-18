@@ -67,8 +67,8 @@ return array(
 			'ok' => 'Sie haben die JSON-Erweiterung.',
 		),
 		'mbstring' => array(
-			'nok' => 'Ihnen fehlt die mbstring-Bibliothek für Unicode.',	//TODO
-			'ok' => 'Sie haben die empfohlene mbstring-Bliothek für Unicode.',	//TODO
+			'nok' => 'Ihnen fehlt die mbstring-Bibliothek für Unicode.',
+			'ok' => 'Sie haben die empfohlene mbstring-Bliothek für Unicode.',
 		),
 		'minz' => array(
 			'nok' => 'Ihnen fehlt das Minz-Framework.',

@@ -19,7 +19,7 @@ return array(
 		'see_website' => 'Siteyi gör',
 		'submit' => 'Onayla',
 		'truncate' => 'Tüm makaleleri sil',
-		'update' => 'Update', // TODO
+		'update' => 'Update',	//TODO - Translation
 	),
 	'auth' => array(
 		'email' => 'Email adresleri',

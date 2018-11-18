@@ -19,7 +19,7 @@ return array(
 		'see_website' => 'Navštívit WWW stránku',
 		'submit' => 'Odeslat',
 		'truncate' => 'Smazat všechny články',
-		'update' => 'Update', // TODO
+		'update' => 'Update',	//TODO - Translation
 	),
 	'auth' => array(
 		'email' => 'Email',
@@ -146,7 +146,7 @@ return array(
 		'sharing' => 'Sdílení',
 		'shortcuts' => 'Zkratky',
 		'stats' => 'Statistika',
-		'system' => 'System configuration', // @todo translate
+		'system' => 'System configuration',	//TODO - Translation
 		'update' => 'Aktualizace',
 		'user_management' => 'Správa uživatelů',
 		'user_profile' => 'Profil',

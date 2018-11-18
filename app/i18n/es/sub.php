@@ -27,7 +27,7 @@ return array(
 			'password' => 'Contraseña HTTP',
 			'username' => 'Nombre de usuario HTTP',
 		),
-		'clear_cache' => 'Always clear cache',	//TODO
+		'clear_cache' => 'Always clear cache',	//TODO - Translation
 		'css_help' => 'Recibir fuentes RSS truncadas (aviso, ¡necesita más tiempo!)',
 		'css_path' => 'Ruta a la CSS de los artículos en la web original',
 		'description' => 'Descripción',
@@ -36,20 +36,20 @@ return array(
 		'informations' => 'Información',
 		'keep_history' => 'Número mínimo de artículos a conservar',
 		'moved_category_deleted' => 'Al borrar una categoría todas sus fuentes pasan automáticamente a la categoría <em>%s</em>.',
-		'mute' => 'mute', // TODO
+		'mute' => 'mute',	//TODO - Translation
 		'no_selected' => 'No hay funentes seleccionadas.',
 		'number_entries' => '%d artículos',
 		'priority' => array(
-			'_' => 'Visibility', // TODO
-			'archived' => 'Do not show (archived)', // TODO
+			'_' => 'Visibility',	//TODO - Translation
+			'archived' => 'Do not show (archived)',	//TODO - Translation
 			'main_stream' => 'Mostrar en salida principal',
-			'normal' => 'Show in its category', // TODO
+			'normal' => 'Show in its category',	//TODO - Translation
 		),
 		'pubsubhubbub' => 'Notificación inmedaiata con PubSubHubbub',
-		'ssl_verify' => 'Verify SSL security',	//TODO
+		'ssl_verify' => 'Verify SSL security',	//TODO - Translation
 		'stats' => 'Estadísticas',
 		'think_to_add' => 'Puedes añadir fuentes.',
-		'timeout' => 'Timeout in seconds',	//TODO
+		'timeout' => 'Timeout in seconds',	//TODO - Translation
 		'title' => 'Título',
 		'title_add' => 'Añadir fuente RSS',
 		'ttl' => 'No actualizar de forma automática con una frecuencia mayor a',

@@ -19,7 +19,7 @@ return array(
 			'bottom_line' => 'Fußzeile',
 			'entry' => 'Artikel-Symbole',
 			'publication_date' => 'Datum der Veröffentlichung',
-			'related_tags' => 'Verwandte Tags',	//TODO
+			'related_tags' => 'Verwandte Tags',
 			'sharing' => 'Teilen',
 			'top_line' => 'Kopfzeile',
 		),

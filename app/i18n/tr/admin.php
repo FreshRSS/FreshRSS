@@ -67,8 +67,8 @@ return array(
 			'ok' => 'JSON eklentisi sorunsuz.',
 		),
 		'mbstring' => array(
-			'nok' => 'Cannot find the recommended library mbstring for Unicode.',	//TODO
-			'ok' => 'You have the recommended library mbstring for Unicode.',	//TODO
+			'nok' => 'Cannot find the recommended library mbstring for Unicode.',	//TODO - Translation
+			'ok' => 'You have the recommended library mbstring for Unicode.',	//TODO - Translation
 		),
 		'minz' => array(
 			'nok' => 'Minz framework eksik.',
@@ -106,23 +106,23 @@ return array(
 		),
 	),
 	'extensions' => array(
-		'author' => 'Author', // @todo translate
-		'community' => 'Available community extensions', // @todo translate
-		'description' => 'Description', // @todo translate
+		'author' => 'Author',	//TODO - Translation
+		'community' => 'Available community extensions',	//TODO - Translation
+		'description' => 'Description',	//TODO - Translation
 		'disabled' => 'Pasif',
 		'empty_list' => 'Yüklenmiş eklenti bulunmamaktadır',
 		'enabled' => 'Aktif',
-		'latest' => 'Installed', // @todo translate
-		'name' => 'Name', // @todo translate
+		'latest' => 'Installed',	//TODO - Translation
+		'name' => 'Name',	//TODO - Translation
 		'no_configure_view' => 'Bu eklenti yapılandırılamaz.',
 		'system' => array(
 			'_' => 'Sistem eklentileri',
 			'no_rights' => 'Sistem eklentileri (düzenleme hakkınız yok)',
 		),
 		'title' => 'Eklentiler',
-		'update' => 'Update available', // @todo translate
+		'update' => 'Update available',	//TODO - Translation
 		'user' => 'Kullanıcı eklentileri',
-		'version' => 'Version', // @todo translate
+		'version' => 'Version',	//TODO - Translation
 	),
 	'stats' => array(
 		'_' => 'İstatistikler',
@@ -179,15 +179,15 @@ return array(
 	'user' => array(
 		'articles_and_size' => '%s makale (%s)',
 		'create' => 'Yeni kullanıcı oluştur',
-		'delete_users' => 'Delete user', // TODO
+		'delete_users' => 'Delete user',	//TODO - Translation
 		'language' => 'Dil',
 		'number' => 'Oluşturulmuş %d hesap var',
 		'numbers' => 'Oluşturulmuş %d hesap var',
 		'password_form' => 'Şifre<br /><small>(Tarayıcı girişi için)</small>',
 		'password_format' => 'En az 7 karakter',
-		'selected' => 'Selected user', // TODO
+		'selected' => 'Selected user',	//TODO - Translation
 		'title' => 'Kullanıcıları yönet',
-		'update_users' => 'Update user', // TODO
+		'update_users' => 'Update user',	//TODO - Translation
 		'user_list' => 'Kullanıcı listesi',
 		'username' => 'Kullanıcı adı',
 		'users' => 'Kullanıcılar',

@@ -57,8 +57,8 @@ return array(
 	'sub' => array(
 		'actualize' => '피드를 가져오는 중입니다',
 		'articles' => array(
-			'marked_read' => 'The selected articles have been marked as read.',	//TODO
-			'marked_unread' => 'The articles have been marked as unread.',	//TODO
+			'marked_read' => 'The selected articles have been marked as read.',	//TODO - Translation
+			'marked_unread' => 'The articles have been marked as unread.',	//TODO - Translation
 		),
 		'category' => array(
 			'created' => '%s 카테고리가 생성되었습니다.',

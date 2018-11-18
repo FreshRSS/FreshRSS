@@ -67,8 +67,8 @@ return array(
 			'ok' => 'У вас установлена библиотека для работы с JSON.',
 		),
 		'mbstring' => array(
-			'nok' => 'Cannot find the recommended library mbstring for Unicode.',	//TODO
-			'ok' => 'You have the recommended library mbstring for Unicode.',	//TODO
+			'nok' => 'Cannot find the recommended library mbstring for Unicode.',	//TODO - Translation
+			'ok' => 'You have the recommended library mbstring for Unicode.',	//TODO - Translation
 		),
 		'minz' => array(
 			'nok' => 'У вас не установлен фрейворк Minz.',
@@ -106,23 +106,23 @@ return array(
 		),
 	),
 	'extensions' => array(
-		'author' => 'Author', // @todo translate
-		'community' => 'Available community extensions', // @todo translate
-		'description' => 'Description', // @todo translate
+		'author' => 'Author',	//TODO - Translation
+		'community' => 'Available community extensions',	//TODO - Translation
+		'description' => 'Description',	//TODO - Translation
 		'disabled' => 'Отключены',
 		'empty_list' => 'Расширения не установлены',
 		'enabled' => 'Включены',
-		'latest' => 'Installed', // @todo translate
-		'name' => 'Name', // @todo translate
+		'latest' => 'Installed',	//TODO - Translation
+		'name' => 'Name',	//TODO - Translation
 		'no_configure_view' => 'Это расширение нельзя настроить.',
 		'system' => array(
 			'_' => 'Системные расширения',
 			'no_rights' => 'Системные расширения (у вас нет к ним доступа)',
 		),
 		'title' => 'Расширения',
-		'update' => 'Update available', // @todo translate
+		'update' => 'Update available',	//TODO - Translation
 		'user' => 'Расширения пользователя',
-		'version' => 'Version', // @todo translate
+		'version' => 'Version',	//TODO - Translation
 	),
 	'stats' => array(
 		'_' => 'Статистика',
@@ -179,15 +179,15 @@ return array(
 	'user' => array(
 		'articles_and_size' => '%s статей (%s)',
 		'create' => 'Создать нового пользователя',
-		'delete_users' => 'Delete user', // TODO
+		'delete_users' => 'Delete user',	//TODO - Translation
 		'language' => 'Язык',
 		'number' => 'На данный момент создан %d аккаунт',
 		'numbers' => 'На данный момент аккаунтов создано:  %d',
 		'password_form' => 'Пароль<br /><small>(для входа через Веб-форму)</small>',
 		'password_format' => 'Минимум 7 символов',
-		'selected' => 'Selected user', // TODO
+		'selected' => 'Selected user',	//TODO - Translation
 		'title' => 'Управление пользователями',
-		'update_users' => 'Update user', // TODO
+		'update_users' => 'Update user',	//TODO - Translation
 		'user_list' => 'Список пользователей',
 		'username' => 'Имя пользователя',
 		'users' => 'Пользователи',

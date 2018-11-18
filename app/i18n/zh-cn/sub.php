@@ -27,7 +27,7 @@ return array(
 			'password' => 'HTTP 密码',
 			'username' => 'HTTP 用户名',
 		),
-		'clear_cache' => 'Always clear cache',	//TODO
+		'clear_cache' => 'Always clear cache',	//TODO - Translation
 		'css_help' => '用于获取全文（注意，这将耗费更多时间！）',
 		'css_path' => '原文的 CSS 选择器',
 		'description' => '描述',
@@ -46,10 +46,10 @@ return array(
 			'normal' => '在分类中显示',
 		),
 		'pubsubhubbub' => 'PubSubHubbub 即时通知',
-		'ssl_verify' => 'Verify SSL security',	//TODO
+		'ssl_verify' => 'Verify SSL security',	//TODO - Translation
 		'stats' => '统计',
 		'think_to_add' => '你可以添加一些 RSS 源。',
-		'timeout' => 'Timeout in seconds',	//TODO
+		'timeout' => 'Timeout in seconds',	//TODO - Translation
 		'title' => '标题',
 		'title_add' => '添加 RSS 源',
 		'ttl' => '最小自动更新时间',

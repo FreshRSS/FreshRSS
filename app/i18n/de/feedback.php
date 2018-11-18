@@ -80,7 +80,7 @@ return array(
 			'already_subscribed' => 'Sie haben <em>%s</em> bereits abonniert',
 			'deleted' => 'Der Feed ist gelöscht worden',
 			'error' => 'Der Feed kann nicht aktualisiert werden',
-			'internal_problem' => 'Der RSS-Feed konnte nicht hinzugefügt werden. Für Details <a href="%s">prüfen Sie die FreshRSS-Protokolle</a>.', // @todo
+			'internal_problem' => 'Der RSS-Feed konnte nicht hinzugefügt werden. Für Details <a href="%s">prüfen Sie die FreshRSS-Protokolle</a>.',
 			'invalid_url' => 'Die URL <em>%s</em> ist ungültig',
 			'n_actualized' => 'Die %d Feeds sind aktualisiert worden',
 			'n_entries_deleted' => 'Die %d Artikel sind gelöscht worden',
