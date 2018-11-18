@@ -53,10 +53,11 @@ return array(
 		'starred' => 'Laat alleen favorieten zien',
 		'stats' => 'Statistieken',
 		'subscription' => 'Abonnementen beheer',
+		'tags' => 'My labels',	//TODO - Translation
 		'unread' => 'Laat alleen ongelezen zien',
 	),
 	'share' => 'Delen',
 	'tag' => array(
-		'related' => 'Verwante labels',	//TODO
+		'related' => 'Verwante labels',	//TODO - Translation
 	),
 );
