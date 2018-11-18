@@ -63,6 +63,11 @@ The scheduled task syntax to use will be the following:
 0 * * * * curl 'https://your.server.net/FreshRSS/p/i/?c=feed&a=actualize&token=my-token'
 ```
 
+You can also target a different user by adding their username to the query string, with `&user=insert-username`:
+
+```cron
+0 * * * * curl 'https://your.server.net/FreshRSS/p/i/?c=feed&a=actualize&user=someone&token=my-token'
+```
 
 ### HTTP authentication
 

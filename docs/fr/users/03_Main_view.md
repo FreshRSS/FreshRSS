@@ -45,6 +45,13 @@ C’est le cas le plus simple, puisque votre instance est publique, vous n’ave
 0 * * * * curl 'https://votre.serveur.net/FreshRSS/p/i/?c=feed&a=actualize'
 ```
 
+You can also target a different user by adding their username to the query string, with `&user=insert-username`:
+Vous pouvez également choisir un utilisateur différent par ajouter son nom d'utilisateur à la « query string », avec `&user=nom-dutilisateur` :
+
+```cron
+0 * * * * curl 'https://votre.serveur.net/FreshRSS/p/i/?c=feed&a=actualize&user=someone&token=my-token'
+```
+
 ##### Authentification par formulaire
 
 Dans ces cas-là, si vous avez autorisé la lecture anonyme des articles, vous pouvez aussi permettre à n’importe qui de rafraîchir vos flux (« Autoriser le rafraîchissement anonyme des flux »).
