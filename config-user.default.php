@@ -49,6 +49,8 @@ return array (
 		'go_website' => 'space',
 		'next_entry' => 'j',
 		'prev_entry' => 'k',
+		'skip_next_entry' => 'n',
+		'skip_prev_entry' => 'p',
 		'first_entry' => 'home',
 		'last_entry' => 'end',
 		'collapse_entry' => 'c',
