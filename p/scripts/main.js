@@ -252,7 +252,7 @@ function toggleContent(new_active, old_active, skipping = false) {
 	}
 
 	if (old_active[0] !== new_active[0]) {
-		if (isCollapsed && !skipping) { // BUG?: isCollapsed can only ever be true 
+		if (isCollapsed && !skipping) { // BUG?: isCollapsed can only ever be true
 			new_active.addClass("active");
 		}
 		old_active.removeClass("active current");
@@ -281,7 +281,7 @@ function toggleContent(new_active, old_active, skipping = false) {
 
 		if (skipping){
 			// when skipping, this feels more natural if it's not so near the top
-			new_pos -= $(window).height()/4
+			new_pos -= $(window).height()/4;
 		}
 		if (context.hide_posts) {
 			if (relative_move) {

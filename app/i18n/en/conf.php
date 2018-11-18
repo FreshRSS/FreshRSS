@@ -162,6 +162,7 @@ return array(
 		'mark_read' => 'Mark as read',
 		'navigation' => 'Navigation',
 		'navigation_help' => 'With the "Shift" modifier, navigation shortcuts apply on feeds.<br/>With the "Alt" modifier, navigation shortcuts apply on categories.',
+		'navigation_no_mod_help' => 'The following navigation shortcuts don\'t support modifiers.',
 		'next_article' => 'Open the next article',
 		'other_action' => 'Other actions',
 		'previous_article' => 'Open the previous article',
