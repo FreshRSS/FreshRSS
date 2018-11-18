@@ -282,10 +282,8 @@ class SimplePie_Enclosure
 		{
 			return $this->bitrate;
 		}
-		else
-		{
-			return null;
-		}
+
+		return null;
 	}
 
 	/**
@@ -301,10 +299,8 @@ class SimplePie_Enclosure
 		{
 			return $captions[$key];
 		}
-		else
-		{
-			return null;
-		}
+
+		return null;
 	}
 
 	/**
@@ -318,10 +314,8 @@ class SimplePie_Enclosure
 		{
 			return $this->captions;
 		}
-		else
-		{
-			return null;
-		}
+
+		return null;
 	}
 
 	/**
@@ -337,10 +331,8 @@ class SimplePie_Enclosure
 		{
 			return $categories[$key];
 		}
-		else
-		{
-			return null;
-		}
+
+		return null;
 	}
 
 	/**
@@ -354,10 +346,8 @@ class SimplePie_Enclosure
 		{
 			return $this->categories;
 		}
-		else
-		{
-			return null;
-		}
+
+		return null;
 	}
 
 	/**
@@ -371,10 +361,8 @@ class SimplePie_Enclosure
 		{
 			return $this->channels;
 		}
-		else
-		{
-			return null;
-		}
+
+		return null;
 	}
 
 	/**
@@ -388,10 +376,8 @@ class SimplePie_Enclosure
 		{
 			return $this->copyright;
 		}
-		else
-		{
-			return null;
-		}
+
+		return null;
 	}
 
 	/**
@@ -407,10 +393,8 @@ class SimplePie_Enclosure
 		{
 			return $credits[$key];
 		}
-		else
-		{
-			return null;
-		}
+
+		return null;
 	}
 
 	/**
@@ -424,10 +408,8 @@ class SimplePie_Enclosure
 		{
 			return $this->credits;
 		}
-		else
-		{
-			return null;
-		}
+
+		return null;
 	}
 
 	/**
@@ -441,10 +423,8 @@ class SimplePie_Enclosure
 		{
 			return $this->description;
 		}
-		else
-		{
-			return null;
-		}
+
+		return null;
 	}
 
 	/**
@@ -462,15 +442,11 @@ class SimplePie_Enclosure
 				$time = SimplePie_Misc::time_hms($this->duration);
 				return $time;
 			}
-			else
-			{
-				return $this->duration;
-			}
+
+			return $this->duration;
 		}
-		else
-		{
-			return null;
-		}
+
+		return null;
 	}
 
 	/**
@@ -484,10 +460,8 @@ class SimplePie_Enclosure
 		{
 			return $this->expression;
 		}
-		else
-		{
-			return 'full';
-		}
+
+		return 'full';
 	}
 
 	/**
@@ -519,10 +493,8 @@ class SimplePie_Enclosure
 		{
 			return $this->framerate;
 		}
-		else
-		{
-			return null;
-		}
+
+		return null;
 	}
 
 	/**
@@ -549,10 +521,8 @@ class SimplePie_Enclosure
 		{
 			return $hashes[$key];
 		}
-		else
-		{
-			return null;
-		}
+
+		return null;
 	}
 
 	/**
@@ -566,10 +536,8 @@ class SimplePie_Enclosure
 		{
 			return $this->hashes;
 		}
-		else
-		{
-			return null;
-		}
+
+		return null;
 	}
 
 	/**
@@ -583,10 +551,8 @@ class SimplePie_Enclosure
 		{
 			return $this->height;
 		}
-		else
-		{
-			return null;
-		}
+
+		return null;
 	}
 
 	/**
@@ -601,10 +567,8 @@ class SimplePie_Enclosure
 		{
 			return $this->lang;
 		}
-		else
-		{
-			return null;
-		}
+
+		return null;
 	}
 
 	/**
@@ -620,10 +584,8 @@ class SimplePie_Enclosure
 		{
 			return $keywords[$key];
 		}
-		else
-		{
-			return null;
-		}
+
+		return null;
 	}
 
 	/**
@@ -637,10 +599,8 @@ class SimplePie_Enclosure
 		{
 			return $this->keywords;
 		}
-		else
-		{
-			return null;
-		}
+
+		return null;
 	}
 
 	/**
@@ -654,10 +614,8 @@ class SimplePie_Enclosure
 		{
 			return $this->length;
 		}
-		else
-		{
-			return null;
-		}
+
+		return null;
 	}
 
 	/**
@@ -671,10 +629,8 @@ class SimplePie_Enclosure
 		{
 			return urldecode($this->link);
 		}
-		else
-		{
-			return null;
-		}
+
+		return null;
 	}
 
 	/**
@@ -689,10 +645,8 @@ class SimplePie_Enclosure
 		{
 			return $this->medium;
 		}
-		else
-		{
-			return null;
-		}
+
+		return null;
 	}
 
 	/**
@@ -707,10 +661,8 @@ class SimplePie_Enclosure
 		{
 			return $this->player;
 		}
-		else
-		{
-			return null;
-		}
+
+		return null;
 	}
 
 	/**
@@ -726,10 +678,8 @@ class SimplePie_Enclosure
 		{
 			return $ratings[$key];
 		}
-		else
-		{
-			return null;
-		}
+
+		return null;
 	}
 
 	/**
@@ -743,10 +693,8 @@ class SimplePie_Enclosure
 		{
 			return $this->ratings;
 		}
-		else
-		{
-			return null;
-		}
+
+		return null;
 	}
 
 	/**
@@ -762,10 +710,8 @@ class SimplePie_Enclosure
 		{
 			return $restrictions[$key];
 		}
-		else
-		{
-			return null;
-		}
+
+		return null;
 	}
 
 	/**
@@ -779,10 +725,8 @@ class SimplePie_Enclosure
 		{
 			return $this->restrictions;
 		}
-		else
-		{
-			return null;
-		}
+
+		return null;
 	}
 
 	/**
@@ -796,10 +740,8 @@ class SimplePie_Enclosure
 		{
 			return $this->samplingrate;
 		}
-		else
-		{
-			return null;
-		}
+
+		return null;
 	}
 
 	/**
@@ -814,10 +756,8 @@ class SimplePie_Enclosure
 		{
 			return round($length/1048576, 2);
 		}
-		else
-		{
-			return null;
-		}
+
+		return null;
 	}
 
 	/**
@@ -833,10 +773,8 @@ class SimplePie_Enclosure
 		{
 			return $thumbnails[$key];
 		}
-		else
-		{
-			return null;
-		}
+
+		return null;
 	}
 
 	/**
@@ -850,10 +788,8 @@ class SimplePie_Enclosure
 		{
 			return $this->thumbnails;
 		}
-		else
-		{
-			return null;
-		}
+
+		return null;
 	}
 
 	/**
@@ -867,10 +803,8 @@ class SimplePie_Enclosure
 		{
 			return $this->title;
 		}
-		else
-		{
-			return null;
-		}
+
+		return null;
 	}
 
 	/**
@@ -885,10 +819,8 @@ class SimplePie_Enclosure
 		{
 			return $this->type;
 		}
-		else
-		{
-			return null;
-		}
+
+		return null;
 	}
 
 	/**
@@ -902,10 +834,8 @@ class SimplePie_Enclosure
 		{
 			return $this->width;
 		}
-		else
-		{
-			return null;
-		}
+
+		return null;
 	}
 
 	/**
@@ -1365,15 +1295,10 @@ class SimplePie_Enclosure
 			{
 				return 'mp3';
 			}
-			else
-			{
-				return null;
-			}
+
+			return null;
 		}
-		else
-		{
-			return $type;
-		}
+
+		return $type;
 	}
 }
-
