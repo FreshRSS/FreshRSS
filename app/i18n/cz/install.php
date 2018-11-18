@@ -24,8 +24,8 @@ return array(
 			'ok' => 'Nastavení databáze bylo uloženo.',
 		),
 		'host' => 'Hostitel',
-		'prefix' => 'Prefix tabulky',
 		'password' => 'Heslo',
+		'prefix' => 'Prefix tabulky',
 		'type' => 'Typ databáze',
 		'username' => 'Uživatel',
 	),
@@ -45,7 +45,7 @@ return array(
 			'ok' => 'Máte rozšíření cURL.',
 		),
 		'data' => array(
-		'nok' => 'Zkontrolujte oprávnění adresáře <em>./data</em>. HTTP server musí mít do tohoto adresáře práva zápisu',
+			'nok' => 'Zkontrolujte oprávnění adresáře <em>./data</em>. HTTP server musí mít do tohoto adresáře práva zápisu',
 			'ok' => 'Oprávnění adresáře data jsou v pořádku.',
 		),
 		'dom' => array(

@@ -1,10 +1,6 @@
 <?php
+
 return array(
-	'language' => array(
-		'_' => 'Lenga',
-		'choose' => 'Causissètz la lenga per FreshRSS',
-		'defined' => 'La lenga es corrèctament definida.',
-	),
 	'action' => array(
 		'finish' => 'Acabar l’installacion',
 		'fix_errors_before' => 'Mercés de corregir las errors seguentas abans de contunhar.',
@@ -28,8 +24,8 @@ return array(
 			'ok' => 'La configuracion de la basa de donadas es salvagarda.',
 		),
 		'host' => 'Òste',
-		'prefix' => 'Prefixe de tabla',
 		'password' => 'Senhal de la basa de donadas',
+		'prefix' => 'Prefixe de tabla',
 		'type' => 'Tipe de basa de donadas',
 		'username' => 'Nom d’utilizaire de la basa de donadas',
 	),
@@ -74,8 +70,6 @@ return array(
 		),
 		'mbstring' => array(
 			'nok' => 'Impossible de trobar la bibliotèca recomandada mbstring per Unicode.',
-			//TODO
-			//TODO
 			'ok' => 'Avètz la bibliotèca recomandada mbstring per Unicode.',
 		),
 		'minz' => array(
@@ -114,6 +108,11 @@ return array(
 	'javascript_is_better' => 'FreshRSS es mai agradable amb lo JavaScript activat',
 	'js' => array(
 		'confirm_reinstall' => 'En reïnstallant FreshRSS perdretz la configuracion precedenta. Volètz vertadièrament contunhar ?',
+	),
+	'language' => array(
+		'_' => 'Lenga',
+		'choose' => 'Causissètz la lenga per FreshRSS',
+		'defined' => 'La lenga es corrèctament definida.',
 	),
 	'not_deleted' => 'Quicòm a trucat, sembla qu’avètz suprimit <em>%s</em> a la man.',
 	'ok' => 'L’installacion s’es corrèctament passada.',

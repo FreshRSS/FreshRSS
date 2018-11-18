@@ -4,16 +4,16 @@ return array(
 	'action' => array(
 		'finish' => 'השלמת ההתקנה',
 		'fix_errors_before' => 'יש לתקן את השגיאות לפני המעבר לשלב הבא.',
+		'keep_install' => 'Keep previous configuration',
 		'next_step' => 'לשלב הבא',
+		'reinstall' => 'Reinstall FreshRSS',
 	),
 	'auth' => array(
-		'email_persona' => 'כתובת דואר אלקטרוני להרשמה<br /><small>(לצורך <a href="https://persona.org/" rel="external">מוזילה פרסונה</a>)</small>',
 		'form' => 'טופס אינטרנטי (מסורתי, דורש JavaScript)',
 		'http' => 'HTTP (למשתמשים מתקדמים עם HTTPS)',
 		'none' => 'ללא (מסוכן)',
 		'password_form' => 'סיסמה<br /><small>(לשימוש בטפוס ההרשמה)</small>',
 		'password_format' => 'At least 7 characters', // @todo
-		'persona' => 'מוזילה פרסונה (מודרני, דורש JavaScript)',
 		'type' => 'שיטת אימות',
 	),
 	'bdd' => array(
@@ -24,13 +24,14 @@ return array(
 			'ok' => 'הגדרות בסיס הנתונים נשמרו.',
 		),
 		'host' => 'מארח',
-		'prefix' => 'קידומת הטבלה',
 		'password' => 'HTTP סיסמה',
+		'prefix' => 'קידומת הטבלה',
 		'type' => 'סוג בסיס הנתונים',
 		'username' => 'HTTP שם משתמש',
 	),
 	'check' => array(
 		'_' => 'בדיקות',
+		'already_installed' => 'We have detected that FreshRSS is already installed!',
 		'cache' => array(
 			'nok' => 'Check permissions on <em>./data/cache</em> directory. HTTP server must have rights to write into', // @todo
 			'ok' => 'ההרשאות בתיקיית המטמון תקינות',
@@ -54,6 +55,10 @@ return array(
 		'favicons' => array(
 			'nok' => 'Check permissions on <em>./data/favicons</em> directory. HTTP server must have rights to write into', // @todo
 			'ok' => 'ההרשאות בתיקיית הfavicons תקינות',
+		),
+		'fileinfo' => array(
+			'nok' => 'Cannot find the PHP fileinfo library (fileinfo package).',
+			'ok' => 'You have the fileinfo library.',
 		),
 		'http_referer' => array(
 			'nok' => 'נא לדבוק שאינך פוגעת ב HTTP REFERER שלך.',
@@ -79,10 +84,6 @@ return array(
 			'nok' => 'PDO אינו מותקן או שאחד ממנהלי ההתקנים שלו חסר (pdo_mysql, pdo_sqlite)',
 			'ok' => 'PDO מותקן ולפחות אחד ממנהלי ההתקן הנתמכים מותקן (pdo_mysql, pdo_sqlite)',
 		),
-		'persona' => array(
-			'nok' => 'Check permissions on <em>./data/persona</em> directory. HTTP server must have rights to write into', // @todo
-			'ok' => 'ההרשאות בתיקיית מוזילה פרסונה תקינות',
-		),
 		'php' => array(
 			'nok' => 'גירסת PHP שלכם היא %s אך FreshRSS דורש לפחות את גירסה %s',
 			'ok' => 'גירסת PHP שלכם היא %s, שתואמת ל FreshRSS',
@@ -90,6 +91,10 @@ return array(
 		'users' => array(
 			'nok' => 'Check permissions on <em>./data/users</em> directory. HTTP server must have rights to write into', // @todo
 			'ok' => 'Permissions on users directory are good.', // @todo
+		),
+		'xml' => array(
+			'nok' => 'Cannot find the required library to parse XML.',
+			'ok' => 'You have the required library to parse XML.',
 		),
 	),
 	'conf' => array(
@@ -101,6 +106,9 @@ return array(
 	'delete_articles_after' => 'מחיקת מאמרים לאחר',
 	'fix_errors_before' => 'יש לתקן את השגיאות לפני המעבר לשלב הבא.',
 	'javascript_is_better' => 'FreshRSS מעדיף שתאפשרו JavaScript',
+	'js' => array(
+		'confirm_reinstall' => 'You will lose your previous configuration by reinstalling FreshRSS. Are you sure you want to continue?',
+	),
 	'language' => array(
 		'_' => 'שפה',
 		'choose' => 'בחירת שפה ל FreshRSS',
