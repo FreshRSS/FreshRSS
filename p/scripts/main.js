@@ -237,7 +237,7 @@ function mark_favorite(active) {
 	});
 }
 
-function toggleContent(new_active, old_active, skipping = false) {
+function toggleContent(new_active, old_active, skipping) {
 	// If skipping, move current without activating or marking as read
 	if (new_active.length === 0) {
 		return;
@@ -260,7 +260,7 @@ function toggleContent(new_active, old_active, skipping = false) {
 		if (context.auto_remove_article && !old_active.hasClass('not_read') && !skipping) {
 			auto_remove(old_active);
 		}
-	} else { // collapse_entry calls toggleContent(flux_current, flux_current)
+	} else { // collapse_entry calls toggleContent(flux_current, flux_current, false)
 		new_active.toggleClass('active');
 	}
 
@@ -423,7 +423,7 @@ function last_category() {
 
 function collapse_entry() {
 	var flux_current = $(".flux.current");
-	toggleContent(flux_current, flux_current);
+	toggleContent(flux_current, flux_current, false);
 }
 
 function user_filter(key) {
@@ -666,7 +666,7 @@ function init_shortcuts() {
 			first = $(".flux:first");
 
 		if (first.hasClass("flux")) {
-			toggleContent(first, old_active);
+			toggleContent(first, old_active, false);
 		}
 	}, {
 		'disable_in_input': true
@@ -682,7 +682,7 @@ function init_shortcuts() {
 			last = $(".flux:last");
 
 		if (last.hasClass("flux")) {
-			toggleContent(last, old_active);
+			toggleContent(last, old_active, false);
 		}
 	}, {
 		'disable_in_input': true
@@ -795,7 +795,7 @@ function init_stream(divStream) {
 			}
 			return true;
 		}
-		toggleContent(new_active, old_active);
+		toggleContent(new_active, old_active, false);
 	});
 
 	divStream.on('click', '.flux a.read', function () {
