@@ -45,6 +45,7 @@ return array(
 			'main_stream' => 'Show in main stream', // TODO
 			'normal' => 'Show in its category', // TODO
 		),
+		'pubsubhubbub' => 'Instant notification with PubSubHubbub',// TODO
 		'ssl_verify' => 'Verify SSL security',	//TODO
 		'stats' => 'Statistics',// TODO
 		'think_to_add' => 'You may add some feeds.',// TODO
@@ -55,7 +56,6 @@ return array(
 		'url' => 'Feed URL',// TODO
 		'validator' => 'Check the validity of the feed',// TODO
 		'website' => 'Website URL',// TODO
-		'pubsubhubbub' => 'Instant notification with PubSubHubbub',// TODO
 	),
 	'firefox' => array(
 		'documentation' => 'Follow the steps described <a href="https://developer.mozilla.org/en-US/Firefox/Releases/2/Adding_feed_readers_to_Firefox#Adding_a_new_feed_reader_manually">here</a> to add FreshRSS to Firefox feed reader list.',// TODO

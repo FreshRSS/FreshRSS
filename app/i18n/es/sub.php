@@ -2,8 +2,13 @@
 
 return array(
 	'api' => array(
-		'documentation' => 'Copy the following URL to use it within an external tool.',// TODO
-		'title' => 'API',// TODO
+		'documentation' => 'Copy the following URL to use it within an external tool.',	//TODO - Translation
+		'title' => 'API',	//TODO - Translation
+	),
+	'bookmarklet' => array(
+		'documentation' => 'Drag this button to your bookmarks toolbar or right-click it and choose "Bookmark This Link". Then click "Subscribe" button in any page you want to subscribe to.',	//TODO - Translation
+		'label' => 'Subscribe',	//TODO - Translation
+		'title' => 'Bookmarklet',	//TODO - Translation
 	),
 	'category' => array(
 		'_' => 'Categoría',
@@ -40,6 +45,7 @@ return array(
 			'main_stream' => 'Mostrar en salida principal',
 			'normal' => 'Show in its category', // TODO
 		),
+		'pubsubhubbub' => 'Notificación inmedaiata con PubSubHubbub',
 		'ssl_verify' => 'Verify SSL security',	//TODO
 		'stats' => 'Estadísticas',
 		'think_to_add' => 'Puedes añadir fuentes.',
@@ -50,7 +56,10 @@ return array(
 		'url' => 'URL de la fuente',
 		'validator' => 'Verifica la validez de la fuente',
 		'website' => 'Web de la URL',
-		'pubsubhubbub' => 'Notificación inmedaiata con PubSubHubbub',
+	),
+	'firefox' => array(
+		'documentation' => 'Follow the steps described <a href="https://developer.mozilla.org/en-US/Firefox/Releases/2/Adding_feed_readers_to_Firefox#Adding_a_new_feed_reader_manually">here</a> to add FreshRSS to Firefox feed reader list.',	//TODO - Translation
+		'title' => 'Firefox feed reader',	//TODO - Translation
 	),
 	'import_export' => array(
 		'export' => 'Exportar',
@@ -67,9 +76,11 @@ return array(
 		'bookmark' => 'Suscribirse (favorito FreshRSS)',
 		'import_export' => 'Importar / exportar',
 		'subscription_management' => 'Administración de suscripciones',
+		'subscription_tools' => 'Subscription tools',	//TODO - Translation
 	),
 	'title' => array(
 		'_' => 'Administración de suscripciones',
 		'feed_management' => 'Administración de fuentes RSS',
+		'subscription_tools' => 'Subscription tools',	//TODO - Translation
 	),
 );

@@ -45,6 +45,7 @@ return array(
 			'main_stream' => 'Mostrar na tela principal',
 			'normal' => 'Show in its category', // TODO
 		),
+		'pubsubhubbub' => 'Notificação instantânea com PubSubHubbub',
 		'ssl_verify' => 'Verify SSL security',	//TODO
 		'stats' => 'Estatísticas',
 		'think_to_add' => 'Você deve adicionar alguns feeds.',
@@ -55,7 +56,6 @@ return array(
 		'url' => 'Feed URL',
 		'validator' => 'Verifique a validade do feed',
 		'website' => 'URL do site',
-		'pubsubhubbub' => 'Notificação instantânea com PubSubHubbub',
 	),
 	'import_export' => array(
 		'export' => 'Exportar',

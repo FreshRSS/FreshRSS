@@ -45,6 +45,7 @@ return array(
 			'main_stream' => 'Mostra in homepage', // TODO
 			'normal' => 'Show in its category', // TODO
 		),
+		'pubsubhubbub' => 'Notifica istantanea con PubSubHubbub',
 		'ssl_verify' => 'Verify SSL security',	//TODO
 		'stats' => 'Statistiche',
 		'think_to_add' => 'Aggiungi feed.',
@@ -55,7 +56,6 @@ return array(
 		'url' => 'Feed URL',
 		'validator' => 'Controlla la validita del feed ',
 		'website' => 'URL del sito',
-		'pubsubhubbub' => 'Notifica istantanea con PubSubHubbub',
 	),
 	'firefox' => array(
 		'documentation' => 'Follow the steps described <a href="https://developer.mozilla.org/en-US/Firefox/Releases/2/Adding_feed_readers_to_Firefox#Adding_a_new_feed_reader_manually">here</a> to add FreshRSS to Firefox feed reader list.',// TODO

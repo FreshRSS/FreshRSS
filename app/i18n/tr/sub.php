@@ -45,6 +45,7 @@ return array(
 			'main_stream' => 'Ana akışda göster',
 			'normal' => 'Show in its category', // TODO
 		),
+		'pubsubhubbub' => 'PubSubHubbub ile anlık bildirim',
 		'ssl_verify' => 'Verify SSL security',	//TODO
 		'stats' => 'İstatistikler',
 		'think_to_add' => 'Akış ekleyebilirsiniz.',
@@ -55,7 +56,6 @@ return array(
 		'url' => 'Akış URL',
 		'validator' => 'Akış geçerliliğini kontrol edin',
 		'website' => 'Site URL',
-		'pubsubhubbub' => 'PubSubHubbub ile anlık bildirim',
 	),
 	'firefox' => array(
 		'documentation' => 'Follow the steps described <a href="https://developer.mozilla.org/en-US/Firefox/Releases/2/Adding_feed_readers_to_Firefox#Adding_a_new_feed_reader_manually">here</a> to add FreshRSS to Firefox feed reader list.',// TODO

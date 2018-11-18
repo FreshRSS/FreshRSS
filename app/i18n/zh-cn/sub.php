@@ -45,6 +45,7 @@ return array(
 			'main_stream' => '在首页中显示',
 			'normal' => '在分类中显示',
 		),
+		'pubsubhubbub' => 'PubSubHubbub 即时通知',
 		'ssl_verify' => 'Verify SSL security',	//TODO
 		'stats' => '统计',
 		'think_to_add' => '你可以添加一些 RSS 源。',
@@ -55,7 +56,6 @@ return array(
 		'url' => '源 URL',
 		'validator' => '检查 RSS 源有效性',
 		'website' => '网站 URL',
-		'pubsubhubbub' => 'PubSubHubbub 即时通知',
 	),
 	'firefox' => array(
 		'documentation' => '按照 <a href="https://developer.mozilla.org/en-US/Firefox/Releases/2/Adding_feed_readers_to_Firefox#Adding_a_new_feed_reader_manually">这里</a> 描述的步骤可将 FreshRSS 添加到 Firefox 阅读器列表',

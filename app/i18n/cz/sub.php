@@ -45,6 +45,7 @@ return array(
 			'main_stream' => 'Zobrazit ve “Všechny kanály”',
 			'normal' => 'Show in its category', // TODO
 		),
+		'pubsubhubbub' => 'Okamžité oznámení s PubSubHubbub',
 		'ssl_verify' => 'Verify SSL security',	//TODO
 		'stats' => 'Statistika',
 		'think_to_add' => 'Můžete přidat kanály.',
@@ -55,7 +56,6 @@ return array(
 		'url' => 'URL kanálu',
 		'validator' => 'Zkontrolovat platnost kanálu',
 		'website' => 'URL webové stránky',
-		'pubsubhubbub' => 'Okamžité oznámení s PubSubHubbub',
 	),
 	'firefox' => array(
 		'documentation' => 'Follow the steps described <a href="https://developer.mozilla.org/en-US/Firefox/Releases/2/Adding_feed_readers_to_Firefox#Adding_a_new_feed_reader_manually">here</a> to add FreshRSS to Firefox feed reader list.',// TODO
