@@ -116,6 +116,13 @@ return array(
 		),
 		'title' => 'Rozšíření',
 		'user' => 'Uživatelská rozšíření',
+		'community' => 'Available community extensions', // @todo translate
+		'name' => 'Name', // @todo translate
+		'version' => 'Version', // @todo translate
+		'description' => 'Description', // @todo translate
+		'author' => 'Author', // @todo translate
+		'latest' => 'Installed', // @todo translate
+		'update' => 'Update available', // @todo translate
 	),
 	'stats' => array(
 		'_' => 'Statistika',
@@ -159,13 +166,6 @@ return array(
 			'help' => '0 znamená žádná omezení účtu',
 			'number' => 'Maximální počet účtů',
 		),
-		'community' => 'Available community extensions', // @todo translate
-		'name' => 'Name', // @todo translate
-		'version' => 'Version', // @todo translate
-		'description' => 'Description', // @todo translate
-		'author' => 'Author', // @todo translate
-		'latest' => 'Installed', // @todo translate
-		'update' => 'Update available', // @todo translate
 	),
 	'update' => array(
 		'_' => 'Aktualizace systému',

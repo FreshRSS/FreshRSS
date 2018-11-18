@@ -185,11 +185,6 @@ return array(
 		'numbers' => 'Er zijn %d accounts gemaakt',
 		'password_form' => 'Wachtwoord<br /><small>(voor de Web-formulier loginmethode)</small>',
 		'password_format' => 'Ten minste 7 tekens',
-		'registration' => array(
-			'allow' => 'Sta het maken van nieuwe accounts toe',
-			'help' => '0 betekent dat er geen accountlimiet is',
-			'number' => 'Max aantal accounts',
-		),
 		'selected' => 'Geselecteerde gebruiker',
 		'title' => 'Beheer gebruikers',
 		'update_users' => 'Gebruiker bijwerken',
