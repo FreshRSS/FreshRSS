@@ -429,7 +429,7 @@ class SimplePie_Sanitize
 									}
 									else
 									{
-										trigger_error("$this->cache_location is not writeable. Make sure you've set the correct relative or absolute path, and that the location is server-writable.", E_USER_WARNING);
+										trigger_error("$this->cache_location is not writable. Make sure you've set the correct relative or absolute path, and that the location is server-writable.", E_USER_WARNING);
 									}
 								}
 							}
