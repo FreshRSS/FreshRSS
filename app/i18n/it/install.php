@@ -24,8 +24,8 @@ return array(
 			'ok' => 'Le configurazioni del database sono state salvate.',
 		),
 		'host' => 'Host',
-		'prefix' => 'Prefisso tabella',
 		'password' => 'Password del database',
+		'prefix' => 'Prefisso tabella',
 		'type' => 'Tipo di database',
 		'username' => 'Nome utente del database',
 	),
@@ -69,8 +69,8 @@ return array(
 			'ok' => 'You have a recommended library to parse JSON.',
 		),
 		'mbstring' => array(
-			'nok' => 'Cannot find the recommended library mbstring for Unicode.',	//TODO
-			'ok' => 'You have the recommended library mbstring for Unicode.',	//TODO
+			'nok' => 'Cannot find the recommended library mbstring for Unicode.',	//TODO - Translation
+			'ok' => 'You have the recommended library mbstring for Unicode.',	//TODO - Translation
 		),
 		'minz' => array(
 			'nok' => 'Manca il framework Minz.',
@@ -85,7 +85,6 @@ return array(
 			'ok' => 'PDO e altri driver supportati (pdo_mysql, pdo_sqlite, pdo_pgsql).',
 		),
 		'php' => array(
-			'_' => 'Installazione PHP',
 			'nok' => 'Versione di PHP %s FreshRSS richiede almeno la versione %s.',
 			'ok' => 'Versione di PHP %s, compatibile con FreshRSS.',
 		),

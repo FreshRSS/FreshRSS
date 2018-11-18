@@ -50,11 +50,15 @@ return array(
 		'no_zip_extension' => 'ZIP 확장 기능을 서버에서 찾을 수 없습니다.',
 		'zip_error' => 'ZIP 파일을 불러오는 동안 문제가 발생했습니다.',
 	),
+	'profile' => array(
+		'error' => '프로필을 변경할 수 없습니다',
+		'updated' => '프로필을 변경했습니다',
+	),
 	'sub' => array(
 		'actualize' => '피드를 가져오는 중입니다',
 		'articles' => array(
-			'marked_read' => 'The selected articles have been marked as read.',	//TODO
-			'marked_unread' => 'The articles have been marked as unread.',	//TODO
+			'marked_read' => 'The selected articles have been marked as read.',	//TODO - Translation
+			'marked_unread' => 'The articles have been marked as unread.',	//TODO - Translation
 		),
 		'category' => array(
 			'created' => '%s 카테고리가 생성되었습니다.',
@@ -108,9 +112,5 @@ return array(
 			'_' => '사용자 %s의 정보가 변경되었습니다',
 			'error' => '사용자 %s의 정보가 변경되지 않았습니다',
 		),
-	),
-	'profile' => array(
-		'error' => '프로필을 변경할 수 없습니다',
-		'updated' => '프로필을 변경했습니다',
 	),
 );

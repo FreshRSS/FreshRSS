@@ -914,6 +914,37 @@ form {
 	}
 }
 
+.formLogin {
+	#global {
+		height: 0;
+	}
+	
+	.header {
+		height: 55px;
+		background: $color_aside;
+		> .item {
+			&.configure {
+				width: 200px;
+				position: unset;
+			}
+			&.title h1 {
+				display: unset;
+			}
+		}
+	}
+	a.signin {
+		color: $color_light;
+		padding-left: 5px;
+	}
+	
+	input {
+		border-left: 5px solid;
+		border-right: 1px darken( $color_light, 10%);
+		border-top: 1px darken( $color_light, 10%);
+		border-bottom: 1px darken( $color_light, 10%);
+	}
+}
+
 .loglist {
 	overflow: hidden;
 	border: 1px solid darken( $color_light, 40% );
@@ -947,6 +978,9 @@ form {
 }
 
 @media(max-width: 840px) {
+	.formLogin .header {
+		display: none;
+	}
 	.dropdown-header, .dropdown-menu > .item {
 		padding: 12px;
 	}

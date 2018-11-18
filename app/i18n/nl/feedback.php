@@ -50,6 +50,10 @@ return array(
 		'no_zip_extension' => 'ZIP uitbreiding is niet aanwezig op uw server.',
 		'zip_error' => 'Er is een fout opgetreden tijdens het imporeren van het ZIP bestand.',
 	),
+	'profile' => array(
+		'error' => 'Uw profiel kan niet worden aangepast',
+		'updated' => 'Uw profiel is aangepast',
+	),
 	'sub' => array(
 		'actualize' => 'Actualiseren',
 		'articles' => array(
@@ -108,10 +112,5 @@ return array(
 			'_' => 'Gebruiker %s is bijgewerkt',
 			'error' => 'Gebruiker %s kan niet worden bijgewerkt',
 		),
-		'set_registration' => 'Het maximale aantal accounts is vernieuwd.',
-	),
-	'profile' => array(
-		'error' => 'Uw profiel kan niet worden aangepast',
-		'updated' => 'Uw profiel is aangepast',
 	),
 );
