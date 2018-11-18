@@ -162,6 +162,7 @@ return array(
 		'mark_read' => 'Okundu olarak işaretle',
 		'navigation' => 'Genel eylemler',
 		'navigation_help' => '"Shift" tuşu ile kısayollar akışlar için geçerli olur.<br/>"Alt" tuşu ile kısayollar kategoriler için geçerli olur.',
+		'navigation_no_mod_help' => 'The following navigation shortcuts do not support modifiers.',	//TODO - Translation
 		'next_article' => 'Sonraki makaleye geç',
 		'normal_view' => 'Switch to normal view',	//TODO - Translation
 		'other_action' => 'Diğer eylemler',

@@ -162,6 +162,7 @@ return array(
 		'mark_read' => 'Marcar coma legit',
 		'navigation' => 'Navigacion',
 		'navigation_help' => 'Amb lo modificador «Shift», los acorchis de navigacion s’aplican als fluxes.<br/>Amb lo modificador «Alt», los acorchis de navigacion s’aplican a las categorias.',
+		'navigation_no_mod_help' => 'The following navigation shortcuts do not support modifiers.',	//TODO - Translation
 		'next_article' => 'Passar a l’article seguent',
 		'normal_view' => 'Passar a la vista normala',
 		'other_action' => 'Autras accions',

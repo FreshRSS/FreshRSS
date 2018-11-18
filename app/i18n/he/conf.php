@@ -162,6 +162,7 @@ return array(
 		'mark_read' => 'סימון כנקרא',
 		'navigation' => 'ניווט',
 		'navigation_help' => 'בעזרת מקש השיפט קיצורי דרך חלים על הזנות .<br/>עם מקש האלט הם חלים על קטגוריות.',
+		'navigation_no_mod_help' => 'The following navigation shortcuts do not support modifiers.',	//TODO - Translation
 		'next_article' => 'דילוג למאמר הבא',
 		'normal_view' => 'Switch to normal view',	//TODO - Translation
 		'other_action' => 'פעולות אחרות',

@@ -162,6 +162,7 @@ return array(
 		'mark_read' => 'Marcar como leído',
 		'navigation' => 'Navegación',
 		'navigation_help' => 'Con el modificador "Mayúsculas" es posible usar los atajos de teclado en las fuentes.<br/>Con el modificador "Alt" es posible aplicar los atajos de teclado en las categorías.',
+		'navigation_no_mod_help' => 'The following navigation shortcuts do not support modifiers.',	//TODO - Translation
 		'next_article' => 'Saltar al siguiente artículo',
 		'normal_view' => 'Switch to normal view',	//TODO - Translation
 		'other_action' => 'Otras acciones',

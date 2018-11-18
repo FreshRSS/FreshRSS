@@ -162,6 +162,7 @@ return array(
 		'mark_read' => 'Markeer als gelezen',
 		'navigation' => 'Navigatie',
 		'navigation_help' => 'Met de "Shift" toets, kunt u navigatie verwijzingen voor feeds gebruiken.<br/>Met de "Alt" toets, kunt u navigatie verwijzingen voor categoriën gebruiken.',
+		'navigation_no_mod_help' => 'The following navigation shortcuts do not support modifiers.',	//TODO - Translation
 		'next_article' => 'Spring naar volgende artikel',
 		'normal_view' => 'Schakel naar gewoon aanzicht',
 		'other_action' => 'Andere acties',

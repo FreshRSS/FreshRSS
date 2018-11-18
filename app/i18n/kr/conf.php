@@ -162,6 +162,7 @@ return array(
 		'mark_read' => '읽음으로 표시',
 		'navigation' => '탐색',
 		'navigation_help' => '"Shift" 키를 누른 상태에선 탐색 단축키가 피드에 적용됩니다.<br/>"Alt" 키를 누른 상태에선 탐색 단축키가 카테고리에 적용됩니다.',
+		'navigation_no_mod_help' => 'The following navigation shortcuts do not support modifiers.',	//TODO - Translation
 		'next_article' => '다음 글 보기',
 		'normal_view' => '일반 모드로 전환',
 		'other_action' => '다른 동작',

@@ -162,6 +162,7 @@ return array(
 		'mark_read' => 'Segna come letto',
 		'navigation' => 'Navigazione',
 		'navigation_help' => 'Con il tasto "Shift" i comandi di navigazione verranno applicati ai feeds.<br/>Con il tasto "Alt" i comandi di navigazione verranno applicati alle categorie.',
+		'navigation_no_mod_help' => 'The following navigation shortcuts do not support modifiers.',	//TODO - Translation
 		'next_article' => 'Salta al contenuto successivo',
 		'normal_view' => 'Switch to normal view', // TODO
 		'other_action' => 'Altre azioni',

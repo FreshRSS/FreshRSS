@@ -162,6 +162,7 @@ return array(
 		'mark_read' => 'Marquer comme lu',
 		'navigation' => 'Navigation',
 		'navigation_help' => 'Avec le modificateur "Shift", les raccourcis de navigation s’appliquent aux flux.<br/>Avec le modificateur "Alt", les raccourcis de navigation s’appliquent aux catégories.',
+		'navigation_no_mod_help' => 'The following navigation shortcuts do not support modifiers.',	//TODO - Translation
 		'next_article' => 'Passer à l’article suivant',
 		'normal_view' => 'Basculer vers la vue normale',
 		'other_action' => 'Autres actions',
