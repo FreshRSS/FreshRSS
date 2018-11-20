@@ -160,8 +160,8 @@ return array(
 		'_' => 'Configuracion sistèma',
 		'auto-update-url' => 'URL del servici de mesa a jorn',
 		'cookie-duration' => array(
-			'help' => 'in seconds', //TODO - Translation
-			'number' => 'Duration to keep logged in', //TODO - Translation
+			'help' => 'en segondas',
+			'number' => 'Durada de téner d’ésser connectat',
 		),
 		'instance-name' => 'Nom de l’instància',
 		'max-categories' => 'Limita de categoria per utilizaire',
