@@ -6,9 +6,9 @@
 	* Improvements to the Google Reader API / Open Reader API [#2093](https://github.com/FreshRSS/FreshRSS/pull/2093)
 		* Support for Vienna RSS (client for Mac OS X) [#2091](https://github.com/FreshRSS/FreshRSS/issues/2091)
 * Features
-	* Ability to import XML files exported from Tiny-Tiny-RSS (#2079)[https://github.com/FreshRSS/FreshRSS/issues/2079]
+	* Ability to import XML files exported from Tiny-Tiny-RSS [#2079](https://github.com/FreshRSS/FreshRSS/issues/2079)
 * UI
-	* New shortcuts to move to previous/next article without opening it (#1767)[https://github.com/FreshRSS/FreshRSS/pull/1767]
+	* New shortcuts to move to previous/next article without opening it [#1767](https://github.com/FreshRSS/FreshRSS/pull/1767)
 	* Fix regression from 1.12.0 preventing from closing an article [#2085](https://github.com/FreshRSS/FreshRSS/issues/2085)
 	* Improvements of the Swage theme [#2088](https://github.com/FreshRSS/FreshRSS/pull/2088), [#2094](https://github.com/FreshRSS/FreshRSS/pull/2094)
 	* Many style improvements [#1620](https://github.com/FreshRSS/FreshRSS/issues/1620), [#2108](https://github.com/FreshRSS/FreshRSS/pull/2108),
