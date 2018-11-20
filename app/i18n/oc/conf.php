@@ -117,7 +117,7 @@ return array(
 			'newer_first' => 'Mai recents en primièr',
 			'older_first' => 'Mai ancians en primièr',
 		),
-		'sticky_post' => 'Gardar l\'article amont quand es dobèrt',
+		'sticky_post' => 'Gardar l’article amont quand es dobèrt',
 		'title' => 'Lectura',
 		'view' => array(
 			'default' => 'Vista per defaut',
@@ -146,9 +146,9 @@ return array(
 	),
 	'shortcut' => array(
 		'_' => 'Acorchis',
-		'article_action' => 'Accions ligadas a l\'article',
+		'article_action' => 'Accions ligadas a l’article',
 		'auto_share' => 'Partejar',
-		'auto_share_help' => 'S’i a pas qu\'un mòde de partatge, aquel serà utilizat. Autrament los mòdes son accessibles per lor numèro.',
+		'auto_share_help' => 'S’i a pas qu’un mòde de partatge, aquel serà utilizat. Autrament los mòdes son accessibles per lor numèro.',
 		'close_dropdown' => 'Tampar los menús',
 		'collapse_article' => 'Replegar',
 		'first_article' => 'Passar al primièr article',
@@ -162,7 +162,7 @@ return array(
 		'mark_read' => 'Marcar coma legit',
 		'navigation' => 'Navigacion',
 		'navigation_help' => 'Amb lo modificador «Shift», los acorchis de navigacion s’aplican als fluxes.<br/>Amb lo modificador «Alt», los acorchis de navigacion s’aplican a las categorias.',
-		'navigation_no_mod_help' => 'The following navigation shortcuts do not support modifiers.',	//TODO - Translation
+		'navigation_no_mod_help' => 'Los acorchis clavièrs de navigacion son pas compatibles amb los modificadors.',
 		'next_article' => 'Passar a l’article seguent',
 		'normal_view' => 'Passar a la vista normala',
 		'other_action' => 'Autras accions',
