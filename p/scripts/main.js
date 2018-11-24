@@ -1301,13 +1301,13 @@ function init_confirm_action() {
 }
 
 function init_print_action() {
-	$('.item.share > a[href="#"]').click(function () {
+	$('.item.share > a[href="#"]').click(function (e) {
 		var content = "<html><head><style>" +
 			"body { font-family: Serif; text-align: justify; }" +
 			"a { color: #000; text-decoration: none; }" +
 			"a:after { content: ' [' attr(href) ']'}" +
 			"</style></head><body>" +
-			$(".flux.current .content").html() +
+			$(e.target).closest('.flux_content').find('.content').html() +
 			"</body></html>";
 
 		var tmp_window = window.open();
