@@ -530,7 +530,7 @@ text-decoration: none;
 color: #FCFCFC;
 }
 
-.ss-scroll {
+.ss-scroll, #sidebar:hover::-webkit-scrollbar-thumb {
 background: rgba(255, 255, 255, 0.3);
 }
 

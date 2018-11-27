@@ -527,6 +527,14 @@ function init_posts() {
 	}
 }
 
+function inject_script(name) {
+	var script = document.createElement('script');
+	script.async = 'async';
+	script.defer = 'defer';
+	script.src = '../scripts/' + name;
+	document.head.appendChild(script);
+}
+
 function init_column_categories() {
 	if (context.current_view !== 'normal') {
 		return;
@@ -1262,14 +1270,23 @@ function init_crypto_form() {
 //</crypto form (Web login)>
 
 var $sidebar = null;
-var useNiceScrollbar = true;	//TODO: Change to test native vs. JavaScript scrollbars
+var useJsScrollbar = true;
+try {
+	document.body.matches('::-webkit-scrollbar-thumb');
+	useJsScrollbar = false;
+	//TODO: Support https://drafts.csswg.org/css-scrollbars-1/ when ready
+} catch (ex) {
+}
+if (useJsScrollbar) {
+	inject_script('simple-scrollbar.min.js');
+}
 
 function sticky_recalc() {
 	if (!$sidebar) {
 		return;
 	}
 	
-	if (!useNiceScrollbar) {
+	if (!useJsScrollbar) {
 		return;
 	}
 	var h = 0;
@@ -1297,7 +1314,7 @@ function init_simple_scrollbar() {
 var scrollTimeout;
 function init_sticky_sidebar(){
 	$sidebar = $('#sidebar');
-	if (useNiceScrollbar) {
+	if (useJsScrollbar) {
 		init_simple_scrollbar();
 	}
 	$(window).scroll(function () {

@@ -505,9 +505,9 @@ a.btn {
 	color: #fff;
 }
 
-/*=== Simple Scrollbar */
-.ss-scroll {
-  background: rgba(255, 255, 255, 0.3);
+/*=== Scrollbar */
+.ss-scroll, #sidebar:hover::-webkit-scrollbar-thumb {
+	background: rgba(255, 255, 255, 0.3);
 }
 
 /*=== STRUCTURE */

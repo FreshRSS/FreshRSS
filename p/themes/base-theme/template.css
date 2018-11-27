@@ -167,11 +167,13 @@ td.numeric {
 .form-group .group-controls .control {
 	display: block;
 }
-#mark-read-aside {
+
+@supports (position: sticky) {
 	/* TODO: put this in the right place*/
-	position: sticky;
-	position: -webkit-sticky;
-	top: 0;
+	#mark-read-aside {
+		position: sticky;
+		top: 0;
+	}
 }
 
 /*=== Buttons */
@@ -379,7 +381,7 @@ a.btn {
 	cursor: grab;
 }
 
-/*=== Simple Scrollbar */
+/*=== Scrollbar */
 .ss-wrapper {
 	overflow: hidden;
 	width: 100%;
@@ -430,6 +432,18 @@ a.btn {
 	-moz-user-select: none;
 	-webkit-user-select: none;
 	user-select: none;
+}
+
+#sidebar::-webkit-scrollbar {
+	width: 8px;
+}
+#sidebar::-webkit-scrollbar-thumb {
+	border-radius: 5px;
+	display: none;
+}
+#sidebar:hover::-webkit-scrollbar-thumb {
+	background: rgba(0, 0, 0, 0.3);
+	display: unset;
 }
 
 /*=== Tree */
