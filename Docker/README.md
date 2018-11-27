@@ -171,3 +171,55 @@ You can then launch the stack (postgres + freshrss) with:
 ```sh
 docker-compose up -d
 ```
+
+### Nginx reverse proxy configuration 
+
+Below an example of configuration to run FreshRSS behind Nginx reverse proxy (as subdirectory). Proxy should be setup to allow cookies via HTTP headers using `proxy_cookie_path / "/; HTTPOnly; Secure";` instruction :
+
+```
+upstream freshrss {
+  server 127.0.0.1:8080;
+  keepalive 64;
+}
+
+server {
+    listen 80;
+
+    location / {
+        return 301 https://$host$request_uri;
+    }
+}
+
+server {
+    server_name mywebsite.com;
+    listen 443 ssl http2;
+    
+    # Other SSL stuff goes here
+
+    # Needed for Freshrss cookie/session :
+    proxy_cookie_path / "/; HTTPOnly; Secure";
+
+    location / {
+        try_files $uri $uri/ =404;
+        index index.htm index.html;
+    }
+
+    location /freshrss/ {
+        proxy_pass http://freshrss/;
+        add_header X-Frame-Options SAMEORIGIN;
+        add_header X-Content-Type-Options nosniff;
+        add_header X-XSS-Protection "1; mode=block";
+        proxy_redirect off;
+        proxy_buffering off;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_pass_header X-XSRF-TOKEN;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_read_timeout 90;
+        add_header Set-Cookie cip=$remote_add
+        add_header Set-Cookie chost=$Host;
+    }
+}
+```
+
