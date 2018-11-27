@@ -67,8 +67,8 @@ return array(
 			'ok' => 'JSON eklentisi sorunsuz.',
 		),
 		'mbstring' => array(
-			'nok' => 'Cannot find the recommended library mbstring for Unicode.',	//TODO
-			'ok' => 'You have the recommended library mbstring for Unicode.',	//TODO
+			'nok' => 'Cannot find the recommended library mbstring for Unicode.',	//TODO - Translation
+			'ok' => 'You have the recommended library mbstring for Unicode.',	//TODO - Translation
 		),
 		'minz' => array(
 			'nok' => 'Minz framework eksik.',
@@ -106,23 +106,23 @@ return array(
 		),
 	),
 	'extensions' => array(
+		'author' => 'Author',	//TODO - Translation
+		'community' => 'Available community extensions',	//TODO - Translation
+		'description' => 'Description',	//TODO - Translation
 		'disabled' => 'Pasif',
 		'empty_list' => 'Yüklenmiş eklenti bulunmamaktadır',
 		'enabled' => 'Aktif',
+		'latest' => 'Installed',	//TODO - Translation
+		'name' => 'Name',	//TODO - Translation
 		'no_configure_view' => 'Bu eklenti yapılandırılamaz.',
 		'system' => array(
 			'_' => 'Sistem eklentileri',
 			'no_rights' => 'Sistem eklentileri (düzenleme hakkınız yok)',
 		),
 		'title' => 'Eklentiler',
+		'update' => 'Update available',	//TODO - Translation
 		'user' => 'Kullanıcı eklentileri',
-		'community' => 'Available community extensions', // @todo translate
-		'name' => 'Name', // @todo translate
-		'version' => 'Version', // @todo translate
-		'description' => 'Description', // @todo translate
-		'author' => 'Author', // @todo translate
-		'latest' => 'Installed', // @todo translate
-		'update' => 'Update available', // @todo translate
+		'version' => 'Version',	//TODO - Translation
 	),
 	'stats' => array(
 		'_' => 'İstatistikler',
@@ -162,6 +162,10 @@ return array(
 		'instance-name' => 'Örnek isim',
 		'max-categories' => 'Kullanıcı başına kategori limiti',
 		'max-feeds' => 'Kullanıcı başına akış limiti',
+		'cookie-duration' => array(
+			'help' => 'in seconds', // @todo translate
+			'number' => 'Duration to keep logged in', // @todo translate
+		),
 		'registration' => array(
 			'help' => '0 sınır yok anlamındadır',
 			'number' => 'En fazla hesap sayısı',
@@ -179,15 +183,15 @@ return array(
 	'user' => array(
 		'articles_and_size' => '%s makale (%s)',
 		'create' => 'Yeni kullanıcı oluştur',
-		'delete_users' => 'Delete user', // TODO
+		'delete_users' => 'Delete user',	//TODO - Translation
 		'language' => 'Dil',
 		'number' => 'Oluşturulmuş %d hesap var',
 		'numbers' => 'Oluşturulmuş %d hesap var',
 		'password_form' => 'Şifre<br /><small>(Tarayıcı girişi için)</small>',
 		'password_format' => 'En az 7 karakter',
-		'selected' => 'Selected user', // TODO
+		'selected' => 'Selected user',	//TODO - Translation
 		'title' => 'Kullanıcıları yönet',
-		'update_users' => 'Update user', // TODO
+		'update_users' => 'Update user',	//TODO - Translation
 		'user_list' => 'Kullanıcı listesi',
 		'username' => 'Kullanıcı adı',
 		'users' => 'Kullanıcılar',

@@ -54,7 +54,7 @@ People are sorted by name so please keep this order.
 * [primaeval](https://github.com/primaeval): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:primaeval)
 * [purexo](https://github.com/purexo): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:purexo), [Web](https://purexo.mom/)
 * [Quentin Dufour](https://github.com/superboum): [contributions](https://github.com/FreshRSS/documentation/commits?author=superboum), [Web](http://quentin.dufour.io/)
-* [Quentin Pagès]: [contributions](https://github.com/FreshRSS/documentation/commits?author=Quenty31)
+* [Quentin Pagès](https://github.com/Quenty31): [contributions](https://github.com/FreshRSS/documentation/commits?author=Quenty31)
 * [Ramón Cutanda](https://github.com/rcutanda): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:rcutanda)
 * [romibi](https://github.com/romibi): [contributions](https://github.com/FreshRSS/FreshRSS/commits/dev?author=romibi)
 * [sirideain](https://github.com/sirideain): [contributions](https://github.com/FreshRSS/FreshRSS/commits/dev?author=sirideain)

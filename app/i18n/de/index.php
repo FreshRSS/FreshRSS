@@ -53,11 +53,11 @@ return array(
 		'starred' => 'Nur Favoriten zeigen',
 		'stats' => 'Statistiken',
 		'subscription' => 'Abonnementverwaltung',
-		'tags' => 'My labels',	//TODO
+		'tags' => 'My labels',	//TODO - Translation
 		'unread' => 'Nur ungelesene zeigen',
 	),
 	'share' => 'Teilen',
 	'tag' => array(
-		'related' => 'Verwandte Tags',	//TODO
+		'related' => 'Verwandte Tags',
 	),
 );

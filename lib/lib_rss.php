@@ -102,16 +102,21 @@ function safe_ascii($text) {
 	return filter_var($text, FILTER_DEFAULT, FILTER_FLAG_STRIP_LOW | FILTER_FLAG_STRIP_HIGH);
 }
 
-function escapeToUnicodeAlternative($text) {
+function escapeToUnicodeAlternative($text, $extended = true) {
 	$text = htmlspecialchars_decode($text, ENT_QUOTES);
+
+	//Problematic characters
+	$problem = array('&', '<', '>');
+	//Use their fullwidth Unicode form instead:
+	$replace = array('＆', '＜', '＞');
+
 	// https://raw.githubusercontent.com/mihaip/google-reader-api/master/wiki/StreamId.wiki
-	return trim(str_replace(
-			//Problematic characters
-			array("'", '"', '^', '<', '>', '?', '&', '\\', '/', ',', ';'),
-			//Use their fullwidth Unicode form instead:
-			array("’", '＂', '＾', '＜', '＞', '？', '＆', '＼', '／', '，', '；'),
-			$text
-		));
+	if ($extended) {
+		$problem += array("'", '"', '^', '?', '\\', '/', ',', ';');
+		$replace += array("’", '＂', '＾', '？', '＼', '／', '，', '；');
+	}
+
+	return trim(str_replace($problem, $replace, $text));
 }
 
 /**
@@ -221,6 +226,7 @@ function customSimplePie($attributes = array()) {
 		'font', 'form', 'frame', 'frameset', 'html',
 		'link', 'input', 'marquee', 'meta', 'noscript',
 		'object', 'param', 'plaintext', 'script', 'style',
+		'svg',	//TODO: Support SVG after sanitizing and URL rewriting of xlink:href
 	));
 	$simplePie->strip_attributes(array_merge($simplePie->strip_attributes, array(
 		'autoplay', 'class', 'onload', 'onunload', 'onclick', 'ondblclick', 'onmousedown', 'onmouseup',

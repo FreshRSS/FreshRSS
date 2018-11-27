@@ -173,10 +173,8 @@ class SimplePie_Net_IPv6
 		{
 			return implode(':', $ip_parts);
 		}
-		else
-		{
-			return $ip_parts[0];
-		}
+
+		return $ip_parts[0];
 	}
 
 	/**
@@ -200,10 +198,8 @@ class SimplePie_Net_IPv6
 			$ipv4_part = substr($ip, $pos + 1);
 			return array($ipv6_part, $ipv4_part);
 		}
-		else
-		{
-			return array($ip, '');
-		}
+
+		return array($ip, '');
 	}
 
 	/**
@@ -253,10 +249,8 @@ class SimplePie_Net_IPv6
 			}
 			return true;
 		}
-		else
-		{
-			return false;
-		}
+
+		return false;
 	}
 
 	/**

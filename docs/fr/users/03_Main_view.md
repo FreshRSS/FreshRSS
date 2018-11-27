@@ -35,14 +35,20 @@ Ci-dessous vous trouverez un exemple permettant la mise à jour des articles tou
 
 Il se peut que vous n’ayez pas accès aux tâches planifiées du serveur hébergeant votre instance de FreshRSS. Il reste une possibilité pour mettre les flux à jour automatiquement.
 
-Pour cela vous devez paramétrer une tâche cron qui devra charger régulièrement une url spécifique : https://votre.serveur.net/FreshRSS/p/i/?c=feed&a=actualize (à adapter selon votre installation). Différents cas de figure peuvent se présenter à vous désormais.
+Pour cela vous devez paramétrer une tâche cron qui devra charger régulièrement une url spécifique : https://freshrss.example.net/i/?c=feed&a=actualize (à adapter selon votre installation). Différents cas de figure peuvent se présenter à vous désormais.
 
 ##### Aucune authentification
 
 C’est le cas le plus simple, puisque votre instance est publique, vous n’avez rien de particulier à préciser :
 
 ```cron
-0 * * * * curl 'https://votre.serveur.net/FreshRSS/p/i/?c=feed&a=actualize'
+0 * * * * curl 'https://freshrss.example.net/i/?c=feed&a=actualize'
+```
+
+Vous pouvez également choisir un utilisateur différent en ajoutant son nom d'utilisateur à la chaîne de requête, avec `&user=nom-dutilisateur` :
+
+```cron
+0 * * * * curl 'https://freshrss.example.net/i/?c=feed&a=actualize&user=someone&token=my-token'
 ```
 
 ##### Authentification par formulaire
@@ -60,7 +66,7 @@ Vous pouvez aussi configurer un jeton d’authentification pour accorder un droi
 La tâche cron à utiliser sera de la forme suivante :
 
 ```cron
-0 * * * * curl 'https://votre.serveur.net/FreshRSS/p/i/?c=feed&a=actualize&token=mon-token'
+0 * * * * curl 'https://freshrss.example.net/i/?c=feed&a=actualize&token=mon-token'
 ```
 
 
@@ -69,7 +75,7 @@ La tâche cron à utiliser sera de la forme suivante :
 Dans ce cas-là, le token et les permissions “anonymes” sont inutilisables et il vous sera nécessaire d’indiquer vos identifiants dans la tâche cron. **Notez que cette solution est grandement déconseillée puisqu’elle implique que vos identifiants seront visibles en clair !**
 
 ```cron
-0 * * * * curl -u alice:password123 'https://votre.serveur.net/FreshRSS/p/i/?c=feed&a=actualize'
+0 * * * * curl -u alice:password123 'https://freshrss.example.net/i/?c=feed&a=actualize'
 ```
 
 ## Mise à jour manuelle

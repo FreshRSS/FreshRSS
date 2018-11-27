@@ -236,6 +236,11 @@ a.btn {
 	background: #fff;
 	border: 1px solid #aaa;
 }
+.dropdown-menu-scrollable {
+	max-height: 75vh;
+	overflow-x: hidden;
+	overflow-y: auto;
+}
 .dropdown-header {
 	display: block;
 }
@@ -728,6 +733,21 @@ br + br + br {
 .statGraph {
 	height: 300px;
 }
+
+/*=== LOGIN VIEW */
+/*================*/
+.formLogin .header > .item {
+        padding: 10px 30px;
+}
+
+.formLogin .header > .item.title {
+        text-align: left;
+}
+
+.formLogin .header > .item.configure {
+        text-align: right;
+}
+
 
 /*=== GLOBAL VIEW */
 /*================*/

@@ -45,6 +45,7 @@ return array(
 			'main_stream' => 'Afficher dans le flux principal',
 			'normal' => 'Afficher dans sa catégorie',
 		),
+		'pubsubhubbub' => 'Notification instantanée par PubSubHubbub',
 		'ssl_verify' => 'Vérification sécurité SSL',
 		'stats' => 'Statistiques',
 		'think_to_add' => 'Vous pouvez ajouter des flux.',
@@ -55,7 +56,6 @@ return array(
 		'url' => 'URL du flux',
 		'validator' => 'Vérifier la validité du flux',
 		'website' => 'URL du site',
-		'pubsubhubbub' => 'Notification instantanée par PubSubHubbub',
 	),
 	'firefox' => array(
 		'documentation' => 'Suivre les étapes décrites <a href="https://developer.mozilla.org/en-US/Firefox/Releases/2/Adding_feed_readers_to_Firefox#Adding_a_new_feed_reader_manually">ici</a> pour ajouter FreshRSS à la liste des lecteurs de flux dans Firefox.',

@@ -699,7 +699,7 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 			// Only one file? Guess its type and export it.
 			$filename = key($export_files);
 			$type = self::guessFileType($filename);
-			$this->sendFile('freshrss_' . $filename, $export_files[$filename], $type);
+			$this->sendFile('freshrss_' . Minz_Session::param('currentUser', '_') . '_' . $filename, $export_files[$filename], $type);
 		}
 		return $nb_files;
 	}
@@ -797,7 +797,7 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 		}
 
 		// From https://stackoverflow.com/questions/1061710/php-zip-files-on-the-fly
-		$zip_file = tempnam('tmp', 'zip');
+		$zip_file = @tempnam('/tmp', 'zip');
 		$zip = new ZipArchive();
 		$zip->open($zip_file, ZipArchive::OVERWRITE);
 
@@ -810,7 +810,7 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 		header('Content-Type: application/zip');
 		header('Content-Length: ' . filesize($zip_file));
 		$day = date('Y-m-d');
-		header('Content-Disposition: attachment; filename="freshrss_' . $day . '_export.zip"');
+		header('Content-Disposition: attachment; filename="freshrss_' . Minz_Session::param('currentUser', '_') . '_' . $day . '_export.zip"');
 		readfile($zip_file);
 		unlink($zip_file);
 	}

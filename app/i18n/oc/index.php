@@ -1,9 +1,8 @@
 <?php
+
 return array(
 	'about' => array(
 		'_' => 'A prepaus',
-		'title' => 'A prepaus',
-		'website' => 'Site internet',
 		'agpl3' => '<a href="https://www.gnu.org/licenses/agpl-3.0.html">AGPL 3</a>',
 		'bugs_reports' => 'Senhalament de problèmas',
 		'credits' => 'Crèdits',
@@ -12,10 +11,25 @@ return array(
 		'github' => '<a href="https://github.com/FreshRSS/FreshRSS/issues">on Github</a>',
 		'license' => 'Licéncia',
 		'project_website' => 'Site del projècte',
+		'title' => 'A prepaus',
+		'website' => 'Site internet',
 		'version' => 'Version',
 	),
+	'feed' => array(
+		'add' => 'Podètz ajustar de fluxes.',
+		'empty' => 'I a pas cap de flux de mostrar.',
+		'rss_of' => 'Flux RSS de %s',
+		'title' => 'Vòstres fluxes RSS',
+		'title_global' => 'Vista generala',
+		'title_fav' => 'Vòstres favorits',
+	),
+	'log' => array(
+		'_' => 'Jornals d’audit',
+		'clear' => 'Escafar los jornals',
+		'empty' => 'Los jornals son voids',
+		'title' => 'Jornals d’audit',
+	),
 	'menu' => array(
-		'search_short' => 'Recercar',
 		'about' => 'A prepaus de FreshRSS',
 		'add_query' => 'Crear un filtre',
 		'before_one_day' => '1 jorn en arrièr',
@@ -35,6 +49,7 @@ return array(
 		'read' => 'Mostrar los legits',
 		'reader_view' => 'Vista lectura',
 		'rss_view' => 'Flux RSS',
+		'search_short' => 'Recercar',
 		'starred' => 'Mostrar los favorits',
 		'stats' => 'Estatisticas',
 		'subscription' => 'Gestion dels abonaments',
@@ -42,20 +57,6 @@ return array(
 		'unread' => 'Mostar los pas legits',
 	),
 	'share' => 'Partejar',
-	'feed' => array(
-		'add' => 'Podètz ajustar de fluxes.',
-		'empty' => 'I a pas cap de flux de mostrar.',
-		'rss_of' => 'Flux RSS de %s',
-		'title' => 'Vòstres fluxes RSS',
-		'title_global' => 'Vista generala',
-		'title_fav' => 'Vòstres favorits',
-	),
-	'log' => array(
-		'_' => 'Jornals d’audit',
-		'clear' => 'Escafar los jornals',
-		'empty' => 'Los jornals son voids',
-		'title' => 'Jornals d’audit',
-	),
 	'tag' => array(
 		'related' => 'Etiquetas ligadas',
 	),

@@ -35,14 +35,14 @@ Here is an example to trigger article update every hour.
 
 If you do not have access to the installation server scheduled task, you can still automate the update process.
 
-To do so, you need to create a scheduled task, which need to call a specific URL: https://your.server.net/FreshRSS/p/i/?c=feed&a=actualize (it could be different depending on your installation). Depending on your application authentication method, you need to adapt the scheduled task.
+To do so, you need to create a scheduled task, which need to call a specific URL: https://freshrss.example.net/i/?c=feed&a=actualize (it could be different depending on your installation). Depending on your application authentication method, you need to adapt the scheduled task.
 
 #### No authentication
 
 This is the most straightforward since you have a public instance; there is nothing special to configure:
 
 ```cron
-0 * * * * curl 'https://your.server.net/FreshRSS/p/i/?c=feed&a=actualize'
+0 * * * * curl 'https://freshrss.example.net/i/?c=feed&a=actualize'
 ```
 
 ### Form authentication
@@ -60,16 +60,21 @@ You can also configure an authentication token to grant a special right on the s
 The scheduled task syntax to use will be the following:
 
 ```cron
-0 * * * * curl 'https://your.server.net/FreshRSS/p/i/?c=feed&a=actualize&token=my-token'
+0 * * * * curl 'https://freshrss.example.net/i/?c=feed&a=actualize&token=my-token'
 ```
 
+You can also target a different user by adding their username to the query string, with `&user=insert-username`:
+
+```cron
+0 * * * * curl 'https://freshrss.example.net/i/?c=feed&a=actualize&user=someone&token=my-token'
+```
 
 ### HTTP authentication
 
 In that case, the syntax in the two previous section are unusable. It means that you need to provide your credentials to the scheduled task. **Note that this method is highly discouraged since it means that your credentials will be in plain sight!**
 
 ```cron
-0 * * * * curl -u alice:password123 'https://your.server.net/FreshRSS/p/i/?c=feed&a=actualize'
+0 * * * * curl -u alice:password123 'https://freshrss.example.net/i/?c=feed&a=actualize'
 ```
 
 ## Manual update
