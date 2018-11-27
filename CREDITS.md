@@ -65,3 +65,4 @@ People are sorted by name so please keep this order.
 * [Twilek-de](https://github.com/Twilek-de): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:Twilek-de)
 * [Uncovery](https://github.com/uncovery): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:uncovery)
 * [Wanabo](https://github.com/Wanabo): [contributions](https://github.com/FreshRSS/FreshRSS/commits?author=Wanabo)
+* [thomas-gt](https://github.com/thomas-gt): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:thomas-gt)
