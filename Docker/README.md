@@ -174,7 +174,7 @@ docker-compose up -d
 
 ### Nginx reverse proxy configuration 
 
-Below an example of configuration to run FreshRSS behind Nginx reverse proxy (as subdirectory). Proxy should be setup to allow cookies via HTTP headers using `proxy_cookie_path / "/; HTTPOnly; Secure";` instruction :
+Here is an example of configuration to run FreshRSS behind an Nginx reverse proxy (as subdirectory). In particular, the proxy should be setup to allow cookies via HTTP headers (see `proxy_cookie_path` below) to allow logging in via the Web form method.
 
 ```
 upstream freshrss {
@@ -191,7 +191,7 @@ server {
 }
 
 server {
-    server_name mywebsite.com;
+    server_name mywebsite.example.net;
     listen 443 ssl http2;
     
     # Other SSL stuff goes here
@@ -207,19 +207,15 @@ server {
     location /freshrss/ {
         proxy_pass http://freshrss/;
         add_header X-Frame-Options SAMEORIGIN;
-        add_header X-Content-Type-Options nosniff;
         add_header X-XSS-Protection "1; mode=block";
         proxy_redirect off;
         proxy_buffering off;
         proxy_set_header Host $host;
         proxy_set_header X-Real-IP $remote_addr;
-        proxy_pass_header X-XSRF-TOKEN;
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
         proxy_set_header X-Forwarded-Proto $scheme;
+	proxy_set_header X-Forwarded-Port $server_port;
         proxy_read_timeout 90;
-        add_header Set-Cookie cip=$remote_add
-        add_header Set-Cookie chost=$Host;
     }
 }
 ```
-
