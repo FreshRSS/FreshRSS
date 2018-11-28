@@ -171,6 +171,8 @@ return array(
 		'rss_view' => 'Open RSS view in a new tab',	//TODO - Translation
 		'see_on_website' => 'See on original website',	//TODO - Translation
 		'shift_for_all_read' => '+ <code>shift</code> to mark all articles as read',	//TODO - Translation
+		'skip_next_article' => 'Focus next without opening',	//TODO - Translation
+		'skip_previous_article' => 'Focus previous without opening',	//TODO - Translation
 		'title' => 'Shortcuts',	//TODO - Translation
 		'user_filter' => 'Access user filters',	//TODO - Translation
 		'user_filter_help' => 'If there is only one user filter, it is used. Else filters are accessible by their number.',	//TODO - Translation

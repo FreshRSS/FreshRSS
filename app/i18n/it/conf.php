@@ -171,6 +171,8 @@ return array(
 		'rss_view' => 'Open RSS view in a new tab',	//TODO - Translation
 		'see_on_website' => 'Vai al sito fonte',
 		'shift_for_all_read' => '+ <code>shift</code> per segnare tutti gli articoli come letti',
+		'skip_next_article' => 'Focus next without opening',	//TODO - Translation
+		'skip_previous_article' => 'Focus previous without opening',	//TODO - Translation
 		'title' => 'Comandi da tastiera',
 		'user_filter' => 'Accedi alle ricerche personali',
 		'user_filter_help' => 'Se è presente una sola ricerca personale verrà usata quella, altrimenti usare anche il numero associato.',

@@ -171,6 +171,8 @@ return array(
 		'rss_view' => '在新标签中打开 RSS 视图',
 		'see_on_website' => '在原网站上查看',
 		'shift_for_all_read' => '+ <code>shift</code> 可以将全部文章设为已读',
+		'skip_next_article' => 'Focus next without opening',	//TODO - Translation
+		'skip_previous_article' => 'Focus previous without opening',	//TODO - Translation
 		'title' => '快捷键',
 		'user_filter' => '显示自定义查询',
 		'user_filter_help' => '如果有多个自定义过滤器，则会按照它们的编号依次访问。',

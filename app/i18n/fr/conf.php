@@ -171,6 +171,8 @@ return array(
 		'rss_view' => 'Ouvrir le flux RSS dans un nouvel onglet',
 		'see_on_website' => 'Voir sur le site d’origine',
 		'shift_for_all_read' => '+ <code>shift</code> pour marquer tous les articles comme lus',
+		'skip_next_article' => 'Focus next without opening',	//TODO - Translation
+		'skip_previous_article' => 'Focus previous without opening',	//TODO - Translation
 		'title' => 'Raccourcis',
 		'user_filter' => 'Accéder aux filtres utilisateur',
 		'user_filter_help' => 'S’il n’y a qu’un filtre utilisateur, celui-ci est utilisé automatiquement. Sinon ils sont accessibles par leur numéro.',

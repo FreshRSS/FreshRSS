@@ -171,6 +171,8 @@ return array(
 		'rss_view' => 'Open RSS view in a new tab',	//TODO - Translation
 		'see_on_website' => 'Navštívit původní webovou stránku',
 		'shift_for_all_read' => '+ <code>shift</code> označí vše jako přečtené',
+		'skip_next_article' => 'Focus next without opening',	//TODO - Translation
+		'skip_previous_article' => 'Focus previous without opening',	//TODO - Translation
 		'title' => 'Zkratky',
 		'user_filter' => 'Aplikovat uživatelské filtry',
 		'user_filter_help' => 'Je-li nastaven pouze jeden filtr, bude použit. Další filtry jsou dostupné pomocí jejich čísla.',

@@ -171,6 +171,8 @@ return array(
 		'rss_view' => 'Open RSS view in a new tab',	//TODO - Translation
 		'see_on_website' => 'Ver en la web original',
 		'shift_for_all_read' => '+ <code>mayúsculas</code> para marcar todos los artículos como leídos',
+		'skip_next_article' => 'Focus next without opening',	//TODO - Translation
+		'skip_previous_article' => 'Focus previous without opening',	//TODO - Translation
 		'title' => 'Atajos de teclado',
 		'user_filter' => 'Acceso a filtros de usuario',
 		'user_filter_help' => 'Si solo hay un filtro de usuario, ese será el que se use. En caso contrario, los filtros están accesibles por su númeración.',

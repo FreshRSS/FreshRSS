@@ -171,6 +171,8 @@ return array(
 		'rss_view' => 'Open RSS view in a new tab',	//TODO - Translation
 		'see_on_website' => 'ראו את המקור באתר',
 		'shift_for_all_read' => '+ <code>shift</code> על מנת לסמן את כל המאמרים כנקראו',
+		'skip_next_article' => 'Focus next without opening',	//TODO - Translation
+		'skip_previous_article' => 'Focus previous without opening',	//TODO - Translation
 		'title' => 'קיצורי דרך',
 		'user_filter' => 'גישה למססנים',
 		'user_filter_help' => 'אם יש רק מזנן אחד הוא יהיה בשימוש. אחרת המסננים ישמשו על בסיס המספר שלהם.',
