@@ -46,6 +46,13 @@ return array(
 			'normal' => '在分类中显示',
 		),
 		'pubsubhubbub' => 'PubSubHubbub 即时通知',
+		'show' => array(
+			'all' => 'Show all feeds',	//TODO - Translation
+			'error' => 'Show only feeds with error',	//TODO - Translation
+		),
+		'showing' => array(
+			'error' => 'Showing only feeds with error',	//TODO - Translation
+		),
 		'ssl_verify' => 'Verify SSL security',	//TODO - Translation
 		'stats' => '统计',
 		'think_to_add' => '你可以添加一些 RSS 源。',

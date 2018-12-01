@@ -46,6 +46,13 @@ return array(
 			'normal' => 'Show in its category',	//TODO - Translation
 		),
 		'pubsubhubbub' => 'Instant notification with PubSubHubbub',	//TODO - Translation
+		'show' => array(
+			'all' => 'Show all feeds',	//TODO - Translation
+			'error' => 'Show only feeds with error',	//TODO - Translation
+		),
+		'showing' => array(
+			'error' => 'Showing only feeds with error',	//TODO - Translation
+		),
 		'ssl_verify' => 'Verify SSL security',	//TODO - Translation
 		'stats' => 'Statistics',	//TODO - Translation
 		'think_to_add' => 'You may add some feeds.',	//TODO - Translation
