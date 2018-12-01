@@ -46,6 +46,13 @@ return array(
 			'normal' => 'Show in its category',	//TODO - Translation
 		),
 		'pubsubhubbub' => 'Instant notification with PubSubHubbub',	//TODO - Translation
+		'show' => array(
+			'all' => 'Show all feeds',	//TODO - Translation
+			'error' => 'Show only feeds with error',	//TODO - Translation
+		),
+		'showing' => array(
+			'error' => 'Showing only feeds with error',	//TODO - Translation
+		),
 		'ssl_verify' => 'Verify SSL security',	//TODO - Translation
 		'stats' => 'סטטיסטיקות',
 		'think_to_add' => 'ניתן להוסיף הזנות חדשות.',

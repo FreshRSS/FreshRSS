@@ -46,6 +46,13 @@ return array(
 			'normal' => 'Show in its category',	//TODO - Translation
 		),
 		'pubsubhubbub' => 'Okamžité oznámení s PubSubHubbub',
+		'show' => array(
+			'all' => 'Show all feeds',	//TODO - Translation
+			'error' => 'Show only feeds with error',	//TODO - Translation
+		),
+		'showing' => array(
+			'error' => 'Showing only feeds with error',	//TODO - Translation
+		),
 		'ssl_verify' => 'Verify SSL security',	//TODO - Translation
 		'stats' => 'Statistika',
 		'think_to_add' => 'Můžete přidat kanály.',
