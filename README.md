@@ -139,7 +139,7 @@ Create `/etc/cron.d/FreshRSS` with:
 * If you encounter any problem, logs are accessible from the interface or manually in `./data/users/*/log*.txt` files.
 	* The special folder `./data/users/_/` contains the part of the logs that are shared by all users.
 * The date and time in the right-hand column is the date declared by the feed, not the time at which the article was received by FreshRSS, and it is not used for sorting.
-	* When importing a new feed, all articles in the new feed, regardless of their declared date, will appear at the top of the feed list.
+	* When importing a new feed, all of its articles will appear at the top of the feed list regardless of their declared date.
 
 
 # Backup
