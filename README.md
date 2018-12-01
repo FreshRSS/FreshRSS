@@ -138,7 +138,7 @@ Create `/etc/cron.d/FreshRSS` with:
 * The `./constants.php` file defines access to the application folder. If you want to customize your installation, look here first.
 * If you encounter any problem, logs are accessible from the interface or manually in `./data/users/*/log*.txt` files.
 	* The special folder `./data/users/_/` contains the part of the logs that are shared by all users.
-* Be aware that the date/time on the column on the right-hand side is the date declared by the feed, not the time at which the article was received by FreshRSS, and is not used for sorting.
+* The date and time in the right-hand column is the date declared by the feed, not the time at which the article was received by FreshRSS, and it is not used for sorting.
 	* When importing a new feed, all articles in the new feed, regardless of their declared date, will appear at the top of the feed list.
 
 
