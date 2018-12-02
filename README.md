@@ -27,7 +27,7 @@ See the [list of releases](../../releases).
 * For those willing to help testing or developing the latest features, [the dev branch](https://github.com/FreshRSS/FreshRSS/tree/dev) is waiting for you!
 
 # Disclaimer
-This application was primarily developed to fulfill personal needs, and comes with absolutely no warranty.
+FreshRSS comes with absolutely no warranty.
 Feature requests, bug reports, and other contributions are welcome. The best way to contribute is to [open an issue on GitHub](https://github.com/FreshRSS/FreshRSS/issues).
 We are a friendly community.
 
@@ -37,7 +37,7 @@ We are a friendly community.
 * A web server: Apache2 (recommended), nginx, lighttpd (not tested on others)
 * PHP 5.3.8+ (PHP 5.4+ recommended, and PHP 5.5+ for performance, or PHP 7 for even higher performance)
 	* Required extensions: [cURL](https://secure.php.net/curl), [DOM](https://secure.php.net/dom), [XML](https://secure.php.net/xml), [session](https://secure.php.net/session), [ctype](https://secure.php.net/ctype), and [PDO_MySQL](https://secure.php.net/pdo-mysql) or [PDO_SQLite](https://secure.php.net/pdo-sqlite) or [PDO_PGSQL](https://secure.php.net/pdo-pgsql)
-	* Recommended extensions: [JSON](https://secure.php.net/json), [GMP](https://secure.php.net/gmp) (for API access on non 64 bit platforms), [IDN](https://secure.php.net/intl.idn) (for Internationalized Domain Names), [mbstring](https://secure.php.net/mbstring) (for Unicode strings), [iconv](https://secure.php.net/iconv) (for charset conversion), [ZIP](https://secure.php.net/zip) (for import/export), [zlib](https://secure.php.net/zlib) (for compressed feeds)
+	* Recommended extensions: [JSON](https://secure.php.net/json), [GMP](https://secure.php.net/gmp) (for API access on 32-bit platforms), [IDN](https://secure.php.net/intl.idn) (for Internationalized Domain Names), [mbstring](https://secure.php.net/mbstring) (for Unicode strings), [iconv](https://secure.php.net/iconv) (for charset conversion), [ZIP](https://secure.php.net/zip) (for import/export), [zlib](https://secure.php.net/zlib) (for compressed feeds)
 * MySQL 5.5.3+ (recommended), or SQLite 3.7.4+, or PostgreSQL 9.2+
 * A recent browser like Firefox / IceCat, Internet Explorer 11 / Edge, Chromium / Chrome, Opera, Safari.
 	* Works on mobile
