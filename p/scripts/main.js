@@ -1550,11 +1550,7 @@ function init_dropdown_handler() {
 		$(location).attr('href', location.href.replace(location.hash,"") + '#close');
 		if ( $( ".dropdown-target:target ~ .dropdown-menu" ).css('display') == 'block' ) {
 			$( ".dropdown-target:target ~ .dropdown-menu" ).css("display", "none");
-			$('.tree').removeClass('treepadding');
 		} else {
-			if ( $( ".dropdown-target:target ~ .dropdown-menu" ).css("display") != 'block' ) {
-					$('.tree').addClass('treepadding');
-				}
 			$( ".dropdown-target:target ~ .dropdown-menu" ).css("display", "block");
 		}
 	});
