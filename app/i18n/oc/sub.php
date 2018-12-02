@@ -45,6 +45,13 @@ return array(
 			'normal' => 'Mostar dins sa categoria',
 		),
 		'pubsubhubbub' => 'Notificaciones instantáneas amb PubSubHubbub',
+		'show' => array(
+			'all' => 'Show all feeds',	//TODO - Translation
+			'error' => 'Show only feeds with error',	//TODO - Translation
+		),
+		'showing' => array(
+			'error' => 'Showing only feeds with error',	//TODO - Translation
+		),
 		'ssl_verify' => 'Verificacion de la seguretat SSL',
 		'stats' => 'Estatisticas',
 		'think_to_add' => 'Podètz ajustar de fluxes.',

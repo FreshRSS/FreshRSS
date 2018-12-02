@@ -46,6 +46,13 @@ return array(
 			'normal' => 'Show in its category',	//TODO - Translation
 		),
 		'pubsubhubbub' => 'PubSubHubbub ile anlık bildirim',
+		'show' => array(
+			'all' => 'Show all feeds',	//TODO - Translation
+			'error' => 'Show only feeds with error',	//TODO - Translation
+		),
+		'showing' => array(
+			'error' => 'Showing only feeds with error',	//TODO - Translation
+		),
 		'ssl_verify' => 'Verify SSL security',	//TODO - Translation
 		'stats' => 'İstatistikler',
 		'think_to_add' => 'Akış ekleyebilirsiniz.',

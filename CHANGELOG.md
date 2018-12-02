@@ -12,15 +12,18 @@
 	* Fix regression from 1.12.0 preventing from closing an article [#2085](https://github.com/FreshRSS/FreshRSS/issues/2085)
 	* Improvements of the Swage theme [#2088](https://github.com/FreshRSS/FreshRSS/pull/2088), [#2094](https://github.com/FreshRSS/FreshRSS/pull/2094)
 	* Many style improvements [#1620](https://github.com/FreshRSS/FreshRSS/issues/1620), [#2108](https://github.com/FreshRSS/FreshRSS/pull/2108),
-	[#2089](https://github.com/FreshRSS/FreshRSS/pull/2089), [#2122](https://github.com/FreshRSS/FreshRSS/pull/2122)
+		[#2089](https://github.com/FreshRSS/FreshRSS/pull/2089), [#2122](https://github.com/FreshRSS/FreshRSS/pull/2122)
 * I18n
 	* Occitan [#2110](https://github.com/FreshRSS/FreshRSS/pull/2110)
 * SimplePie
 	* Update to SimplePie 1.5.2 [#2136](https://github.com/FreshRSS/FreshRSS/pull/2136)
 		* Fix some sanitizing in authors / tags
 	* Strip embedded SVG images for now [#2135](https://github.com/FreshRSS/FreshRSS/pull/2135)
+* Security
+	* Fix HTML injections reported by [Netsparker](https://www.netsparker.com) [#2121](https://github.com/FreshRSS/FreshRSS/issues/2121)
 * Bug fixing
 	* Fix warning in `tempnam()` with PHP 7.1+ affecting ZIP export [#2134](https://github.com/FreshRSS/FreshRSS/pull/2134)
+	* Fix print for views with unfolded articles [#2130](https://github.com/FreshRSS/FreshRSS/issues/2130)
 * Misc.
 	* Add username in configuration menu and exported files [#2133](https://github.com/FreshRSS/FreshRSS/pull/2133)
 	* New option to set the duration of the cookie session [#2137](https://github.com/FreshRSS/FreshRSS/pull/2137)

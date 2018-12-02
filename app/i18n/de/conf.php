@@ -171,6 +171,8 @@ return array(
 		'rss_view' => 'Öffne RSS Ansicht in neuem Tab',
 		'see_on_website' => 'Auf der Original-Webseite ansehen',
 		'shift_for_all_read' => '+ <code>Umschalttaste</code>, um alle Artikel als gelesen zu markieren.',
+		'skip_next_article' => 'Focus next without opening',	//TODO - Translation
+		'skip_previous_article' => 'Focus previous without opening',	//TODO - Translation
 		'title' => 'Tastenkombination',
 		'user_filter' => 'Auf Benutzerfilter zugreifen',
 		'user_filter_help' => 'Wenn es nur einen Benutzerfilter gibt, wird dieser verwendet. Ansonsten sind die Filter über ihre Nummer erreichbar.',
