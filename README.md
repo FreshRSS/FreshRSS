@@ -45,7 +45,10 @@ We are a friendly community.
 ![FreshRSS screenshot](docs/img/FreshRSS-screenshot.png)
 
 # Documentation
-* https://freshrss.github.io/FreshRSS/en/
+* [User documentation](https://freshrss.github.io/FreshRSS/en/users/02_First_steps.html) so you can discover all the power of FreshRSS
+* [Administrator documentation](https://freshrss.github.io/FreshRSS/en/admins/01_Index.html) for detailed installation and maintenance related tasks
+* [Developer documentation](https://freshrss.github.io/FreshRSS/en/developers/01_First_steps.html) to guide you in the source code of FreshRSS and to help you if you want to contribute
+* [Contributor guidelines](https://freshrss.github.io/FreshRSS/en/contributing.md) for those who want to help improve FreshRSS
 
 # [Installation](https://freshrss.github.io/FreshRSS/en/admins/02_Installation.html)
 1. Get FreshRSS with git or [by downloading the archive](https://github.com/FreshRSS/FreshRSS/archive/master.zip)
