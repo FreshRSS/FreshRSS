@@ -13,6 +13,9 @@ It supports custom tags, and [PubSubHubbub](https://github.com/pubsubhubbub/PubS
 There is an API for (mobile) clients, and a [Command-Line Interface](cli/README.md).
 Finally, it supports [extensions](#extensions) for further tuning.
 
+Feature requests, bug reports, and other contributions are welcome. The best way to contribute is to [open an issue on GitHub](https://github.com/FreshRSS/FreshRSS/issues). We are a friendly community.
+
+
 * Official website: https://freshrss.org
 * Demo: https://demo.freshrss.org/
 * License: [GNU AGPL 3](https://www.gnu.org/licenses/agpl-3.0.html)
@@ -28,8 +31,6 @@ See the [list of releases](../../releases).
 
 # Disclaimer
 FreshRSS comes with absolutely no warranty.
-Feature requests, bug reports, and other contributions are welcome. The best way to contribute is to [open an issue on GitHub](https://github.com/FreshRSS/FreshRSS/issues).
-We are a friendly community.
 
 # Requirements
 * Light server running Linux or Windows
