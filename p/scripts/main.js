@@ -1286,9 +1286,6 @@ function sticky_recalc() {
 		return;
 	}
 	
-	if (!useJsScrollbar) {
-		return;
-	}
 	var h = 0;
 	if ($nav_entries && $nav_entries.length > 0){
 		h = $(window).height() - $sidebar[0].getBoundingClientRect().top - $nav_entries.height();
