@@ -111,7 +111,7 @@ sudo chown -R :www-data . && sudo chmod -R g+r . && sudo chmod -R g+w ./data/
 See more commands and git commands in the [Command-Line Interface documentation](cli/README.md).
 
 ## Access control
-This is needed if you will be using the multi-user mode, to limit access to FreshRSS. Options Availible:
+This is needed if you will be using the multi-user mode, to limit access to FreshRSS. Options Available:
 * form authentication (needs JavaScript, and PHP 5.5+ recommended)
 * HTTP authentication supported by your web server
 	* See [Apache documentation](https://httpd.apache.org/docs/trunk/howto/auth.html)
