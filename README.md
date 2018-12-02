@@ -45,7 +45,7 @@ We are a friendly community.
 ![FreshRSS screenshot](docs/img/FreshRSS-screenshot.png)
 
 # [Documentation](https://freshrss.github.io/FreshRSS/en/)
-* [User documentation](https://freshrss.github.io/FreshRSS/en/users/02_First_steps.html) so you can discover all the power of FreshRSS
+* [User documentation](https://freshrss.github.io/FreshRSS/en/users/02_First_steps.html), where you can discover all the possibilities offered by FreshRSS
 * [Administrator documentation](https://freshrss.github.io/FreshRSS/en/admins/01_Index.html) for detailed installation and maintenance related tasks
 * [Developer documentation](https://freshrss.github.io/FreshRSS/en/developers/01_First_steps.html) to guide you in the source code of FreshRSS and to help you if you want to contribute
 * [Contributor guidelines](https://freshrss.github.io/FreshRSS/en/contributing.md) for those who want to help improve FreshRSS
@@ -53,11 +53,11 @@ We are a friendly community.
 # [Installation](https://freshrss.github.io/FreshRSS/en/admins/02_Installation.html)
 1. Get FreshRSS with git or [by downloading the archive](https://github.com/FreshRSS/FreshRSS/archive/master.zip)
 2. Put the application somewhere on your server (expose only the `./p/` folder to the web)
-3. Add write access on the `./data/` folder for the webserver user
+3. Add write access to the `./data/` folder for the webserver user
 4. Access FreshRSS with your browser and follow the installation process
 	* or use the [Command-Line Interface](cli/README.md)
-5. Everything should be working :) If you encounter any problem, feel free to [contact us](https://github.com/FreshRSS/FreshRSS/issues).
-6. Advanced configuration settings can be seen in [config.default.php](config.default.php) and modified in `data/config.php`.
+5. Everything should be working :) If you encounter any problems, feel free to [contact us](https://github.com/FreshRSS/FreshRSS/issues).
+6. Advanced configuration settings can be found in [config.default.php](config.default.php) and modified in `data/config.php`.
 7. When using Apache, enable [`AllowEncodedSlashes`](https://httpd.apache.org/docs/trunk/mod/core.html#allowencodedslashes) for better compatibility with mobile clients.
 
 More detailed information about installation and server configuration can be found in [our documentation](https://freshrss.github.io/FreshRSS/en/admins/02_Installation.html).
