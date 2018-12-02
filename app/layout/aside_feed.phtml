@@ -48,8 +48,8 @@
 				?>
 				<li id="t_<?php echo $tag->id(); ?>" class="item feed<?php echo FreshRSS_Context::isCurrentGet('t_' . $tag->id()) ? ' active' : ''; ?>" data-unread="<?php echo $tag->nbUnread(); ?>">
 					<div class="dropdown no-mobile">
-						<div class="dropdown-target"></div>
 						<a class="dropdown-toggle"><?php echo _i('configure'); ?></a>
+						<div class="dropdown-target"></div>
 						<?php /* tag_config_template */ ?>
 					</div>
 					<?php echo FreshRSS_Themes::alt('label'); ?> <a class="item-title" data-unread="<?php echo format_number($tag->nbUnread()); ?>" href="<?php echo _url('index', 'index', 'get', 't_' . $tag->id()); ?>"><?php echo $tag->name(); ?></a>
@@ -79,8 +79,8 @@
 				?>
 				<li id="f_<?php echo $feed->id(); ?>" class="item feed<?php echo $f_active ? ' active' : '', $feed->mute() ? ' mute' : ''; ?><?php echo $feed->inError() ? ' error' : ''; ?><?php echo $feed->nbEntries() <= 0 ? ' empty' : ''; ?>" data-unread="<?php echo $feed->nbNotRead(); ?>" data-priority="<?php echo $feed->priority(); ?>">
 					<div class="dropdown no-mobile">
-						<div class="dropdown-target"></div>
 						<a class="dropdown-toggle" data-fweb="<?php echo $feed->website(); ?>"><?php echo _i('configure'); ?></a>
+						<div class="dropdown-target"></div>
 						<?php /* feed_config_template */ ?>
 					</div>
 					<img class="favicon" src="<?php echo $feed->favicon(); ?>" alt="✇" /> <a class="item-title" data-unread="<?php echo format_number($feed->nbNotRead()); ?>" href="<?php echo _url('index', 'index', 'get', 'f_' . $feed->id()); ?>"><?php echo $feed->name(); ?></a>
@@ -98,7 +98,6 @@
 
 <script id="tag_config_template" type="text/html">
 	<ul class="dropdown-menu">
-		<li class="dropdown-close"><a href="#close">❌</a></li>
 		<li class="item">
 			<button class="as-link confirm" disabled="disabled"
 				form="mark-read-aside" formaction="<?php echo _url('tag', 'delete', 'id_tag', '------'); ?>"
@@ -109,7 +108,6 @@
 
 <script id="feed_config_template" type="text/html">
 	<ul class="dropdown-menu">
-		<li class="dropdown-close"><a href="#close">❌</a></li>
 		<li class="item"><a href="<?php echo _url('index', 'index', 'get', 'f_------'); ?>"><?php echo _t('gen.action.filter'); ?></a></li>
 		<?php if (FreshRSS_Auth::hasAccess()) { ?>
 		<li class="item"><a href="<?php echo _url('stats', 'repartition', 'id', '------'); ?>"><?php echo _t('index.menu.stats'); ?></a></li>

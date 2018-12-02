@@ -561,16 +561,9 @@ function init_column_categories() {
 				feed_web = $(this).data('fweb'),
 				template = $('#' + templateId)
 					.html().replace(/------/g, id).replace('http://example.net/', feed_web);
-			$(this).attr('href', '#dropdown-' + id).prev('.dropdown-target').attr('id', 'dropdown-' + id).parent()
+			$(this).attr('href', '#dropdown-' + id).next('.dropdown-target').attr('id', 'dropdown-' + id).parent()
 				.append(template).find('button.confirm').removeAttr('disabled');
-			$('.tree-folder-items .dropdown-close a').click(function(){
-				$('.tree').removeClass('treepadding');
-			});
 		}
-	});
-
-	$('.tree-folder-items .dropdown-toggle').click(function(){
-		$('.tree').addClass('treepadding');
 	});
 }
 
@@ -1547,6 +1540,23 @@ function parseJsonVars() {
 	window.icons = json.icons;
 }
 
+function init_dropdown_handler() {
+	
+	$( "#global" ).not($( ".dropdown" )).click(function(){
+		$(location).attr('href', location.href.replace(location.hash,"") + '#close');
+	});
+	
+	$( ".dropdown" ).click(function(){
+		$(location).attr('href', location.href.replace(location.hash,"") + '#close');
+		if ( $( ".dropdown-target:target ~ .dropdown-menu" ).css('display') == 'block' ) {
+			$( ".dropdown-target:target ~ .dropdown-menu" ).css("display", "none");
+		} else {
+			$( ".dropdown-target:target ~ .dropdown-menu" ).css("display", "block");
+		}
+	});
+
+}
+
 function init_normal() {
 	$stream = $('#stream');
 	if ($stream.length < 1) {
@@ -1586,6 +1596,7 @@ function init_afterDOM() {
 	}
 	init_notifications();
 	init_confirm_action();
+	init_dropdown_handler();
 	$stream = $('#stream');
 	if ($stream.length > 0) {
 		init_load_more($stream);
