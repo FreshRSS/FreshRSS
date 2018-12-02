@@ -15,7 +15,6 @@ Finally, it supports [extensions](#extensions) for further tuning.
 
 * Official website: https://freshrss.org
 * Demo: https://demo.freshrss.org/
-* [Documentation](https://freshrss.github.io/FreshRSS/en/)
 * License: [GNU AGPL 3](https://www.gnu.org/licenses/agpl-3.0.html)
 
 ![FreshRSS logo](docs/img/FreshRSS-logo.png)
@@ -45,7 +44,7 @@ We are a friendly community.
 
 ![FreshRSS screenshot](docs/img/FreshRSS-screenshot.png)
 
-# Documentation
+# [Documentation](https://freshrss.github.io/FreshRSS/en/)
 * [User documentation](https://freshrss.github.io/FreshRSS/en/users/02_First_steps.html) so you can discover all the power of FreshRSS
 * [Administrator documentation](https://freshrss.github.io/FreshRSS/en/admins/01_Index.html) for detailed installation and maintenance related tasks
 * [Developer documentation](https://freshrss.github.io/FreshRSS/en/developers/01_First_steps.html) to guide you in the source code of FreshRSS and to help you if you want to contribute
