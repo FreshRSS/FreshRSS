@@ -503,11 +503,12 @@ a.btn {
 }
 
 /*=== Scrollbar */
+/*Note: These have to be split, because Gecko ignores the line when combined, as of 4 December 2018*/
 .ss-scroll {
 	background: rgba(255, 255, 255, 0.3);
 }
 
-#sidebar:hover::-webkit-scrollbar-thumb, .ss-scroll {
+#sidebar:hover::-webkit-scrollbar-thumb {
 	background: rgba(255, 255, 255, 0.3);
 }
 
