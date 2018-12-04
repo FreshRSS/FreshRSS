@@ -1,6 +1,6 @@
 # Installation on Debian 9/Ubuntu 16.04
 
-This tutorial will give you step-by-step commands to install the latest stable release of FreshRSS with Apache and MySQL using git. Open a command line and follow along!
+This tutorial will give you step-by-step commands to install the latest stable release of FreshRSS with Apache and MySQL using git. It's always recommended that you [backup your installation](05_Backup.md) before updating
 
 Please note: Commands need to be run as an administrator; either perform the following from a sudo shell (`sudo -s`) or use an administrator account.
 
