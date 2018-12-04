@@ -1278,13 +1278,7 @@ function init_crypto_form() {
 //</crypto form (Web login)>
 
 var $sidebar = null;
-var useJsScrollbar = true;
-try {
-	document.body.matches('::-webkit-scrollbar-thumb');
-	useJsScrollbar = false;
-	//TODO: Support https://drafts.csswg.org/css-scrollbars-1/ when ready
-} catch (ex) {
-}
+var useJsScrollbar = !(parseInt(getComputedStyle(document.getElementById('sidebar'), '::-webkit-scrollbar').width) < 99);
 if (useJsScrollbar) {
 	inject_script('simple-scrollbar.min.js');
 }
