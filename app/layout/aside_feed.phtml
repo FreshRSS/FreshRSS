@@ -48,8 +48,8 @@
 				?>
 				<li id="t_<?php echo $tag->id(); ?>" class="item feed<?php echo FreshRSS_Context::isCurrentGet('t_' . $tag->id()) ? ' active' : ''; ?>" data-unread="<?php echo $tag->nbUnread(); ?>">
 					<div class="dropdown no-mobile">
-						<a class="dropdown-toggle"><?php echo _i('configure'); ?></a>
 						<div class="dropdown-target"></div>
+						<a class="dropdown-toggle"><?php echo _i('configure'); ?></a>
 						<?php /* tag_config_template */ ?>
 					</div>
 					<?php echo FreshRSS_Themes::alt('label'); ?> <a class="item-title" data-unread="<?php echo format_number($tag->nbUnread()); ?>" href="<?php echo _url('index', 'index', 'get', 't_' . $tag->id()); ?>"><?php echo $tag->name(); ?></a>
@@ -79,8 +79,8 @@
 				?>
 				<li id="f_<?php echo $feed->id(); ?>" class="item feed<?php echo $f_active ? ' active' : '', $feed->mute() ? ' mute' : ''; ?><?php echo $feed->inError() ? ' error' : ''; ?><?php echo $feed->nbEntries() <= 0 ? ' empty' : ''; ?>" data-unread="<?php echo $feed->nbNotRead(); ?>" data-priority="<?php echo $feed->priority(); ?>">
 					<div class="dropdown no-mobile">
-						<a class="dropdown-toggle" data-fweb="<?php echo $feed->website(); ?>"><?php echo _i('configure'); ?></a>
 						<div class="dropdown-target"></div>
+						<a class="dropdown-toggle" data-fweb="<?php echo $feed->website(); ?>"><?php echo _i('configure'); ?></a>
 						<?php /* feed_config_template */ ?>
 					</div>
 					<img class="favicon" src="<?php echo $feed->favicon(); ?>" alt="✇" /> <a class="item-title" data-unread="<?php echo format_number($feed->nbNotRead()); ?>" href="<?php echo _url('index', 'index', 'get', 'f_' . $feed->id()); ?>"><?php echo $feed->name(); ?></a>
