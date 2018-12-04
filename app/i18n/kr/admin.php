@@ -67,8 +67,8 @@ return array(
 			'ok' => 'JSON  확장 기능이 설치되어 있습니다.',
 		),
 		'mbstring' => array(
-			'nok' => 'Cannot find the recommended library mbstring for Unicode.',	//TODO
-			'ok' => 'You have the recommended library mbstring for Unicode.',	//TODO
+			'nok' => 'Cannot find the recommended library mbstring for Unicode.',	//TODO - Translation
+			'ok' => 'You have the recommended library mbstring for Unicode.',	//TODO - Translation
 		),
 		'minz' => array(
 			'nok' => 'Minz 프레임워크를 찾을 수 없습니다.',
@@ -106,23 +106,23 @@ return array(
 		),
 	),
 	'extensions' => array(
+		'author' => '제작자',
+		'community' => '사용 가능한 커뮤니티 확장 기능들',
+		'description' => '설명',
 		'disabled' => '비활성화됨',
 		'empty_list' => '설치된 확장 기능이 없습니다',
 		'enabled' => '활성화됨',
+		'latest' => '설치됨',
+		'name' => '이름',
 		'no_configure_view' => '이 확장 기능은 설정이 없습니다.',
 		'system' => array(
 			'_' => '시스템 확장 기능',
 			'no_rights' => '시스템 확장 기능 (이 확장 기능에 대한 권한이 없습니다)',
 		),
 		'title' => '확장 기능',
-		'user' => '사용자 확장 기능',
-		'community' => '사용 가능한 커뮤니티 확장 기능들',
-		'name' => '이름',
-		'version' => '버전',
-		'description' => '설명',
-		'author' => '제작자',
-		'latest' => '설치됨',
 		'update' => '업데이트 있음',
+		'user' => '사용자 확장 기능',
+		'version' => '버전',
 	),
 	'stats' => array(
 		'_' => '통계',
@@ -162,6 +162,10 @@ return array(
 		'instance-name' => '인스턴스 이름',
 		'max-categories' => '사용자별 카테고리 개수 제한',
 		'max-feeds' => '사용자별 피드 개수 제한',
+		'cookie-duration' => array(
+			'help' => 'in seconds', // @todo translate
+			'number' => 'Duration to keep logged in', // @todo translate
+		),
 		'registration' => array(
 			'help' => '0: 제한 없음',
 			'number' => '계정 최대 개수',

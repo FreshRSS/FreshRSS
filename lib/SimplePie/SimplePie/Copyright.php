@@ -103,10 +103,8 @@ class SimplePie_Copyright
 		{
 			return $this->url;
 		}
-		else
-		{
-			return null;
-		}
+
+		return null;
 	}
 
 	/**
@@ -120,10 +118,7 @@ class SimplePie_Copyright
 		{
 			return $this->label;
 		}
-		else
-		{
-			return null;
-		}
+
+		return null;
 	}
 }
-

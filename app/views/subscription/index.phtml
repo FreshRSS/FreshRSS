@@ -52,6 +52,12 @@
 		<?php echo _t('sub.feed.moved_category_deleted', $this->default_category->name()); ?>
 	</p>
 
+	<?php if ($this->onlyFeedsWithError): ?>
+	<p class="alert alert-warn">
+		<?php echo _t('sub.feed.showing.error'); ?>
+	</p>
+	<?php endif; ?>
+
 	<div class="box">
 		<div class="box-title"><label for="new-category"><?php echo _t('sub.category.add'); ?></label></div>
 
@@ -122,6 +128,9 @@
 			<?php if (!empty($feeds)) { ?>
 			<?php
 					foreach ($feeds as $feed) {
+						if ($this->onlyFeedsWithError && !$feed->inError()) {
+							continue;
+						}
 						$error = $feed->inError() ? ' error' : '';
 						$empty = $feed->nbEntries() == 0 ? ' empty' : '';
 			?>
@@ -140,6 +149,14 @@
 		</ul>
 	</div>
 	<?php } ?>
+
+	<ul>
+		<?php if ($this->onlyFeedsWithError): ?>
+		<li><a href="<?php echo _url('subscription', 'index'); ?>"><?php echo _t('sub.feed.show.all'); ?></a></li>
+		<?php else: ?>
+		<li><a href="<?php echo _url('subscription', 'index', 'error', 1); ?>"><?php echo _t('sub.feed.show.error'); ?></a></li>
+		<?php endif; ?>
+	</ul>
 </div>
 
 <?php $class = isset($this->feed) ? ' class="active"' : ''; ?>

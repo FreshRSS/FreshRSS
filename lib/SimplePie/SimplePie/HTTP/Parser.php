@@ -155,15 +155,13 @@ class SimplePie_HTTP_Parser
 		{
 			return true;
 		}
-		else
-		{
-			$this->http_version = '';
-			$this->status_code = '';
-			$this->reason = '';
-			$this->headers = array();
-			$this->body = '';
-			return false;
-		}
+
+		$this->http_version = '';
+		$this->status_code = '';
+		$this->reason = '';
+		$this->headers = array();
+		$this->body = '';
+		return false;
 	}
 
 	/**
@@ -511,6 +509,9 @@ class SimplePie_HTTP_Parser
 		$data = array_pop($data);
 		if (false !== stripos($data, "HTTP/1.0 200 Connection established\r\n\r\n")) {
 			$data = str_ireplace("HTTP/1.0 200 Connection established\r\n\r\n", '', $data);
+		}
+		if (false !== stripos($data, "HTTP/1.1 200 Connection established\r\n\r\n")) {
+			$data = str_ireplace("HTTP/1.1 200 Connection established\r\n\r\n", '', $data);
 		}
 		return $data;
 	}

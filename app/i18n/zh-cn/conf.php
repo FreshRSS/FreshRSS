@@ -19,7 +19,7 @@ return array(
 			'bottom_line' => '底栏',
 			'entry' => '文章图标',
 			'publication_date' => '更新日期',
-			'related_tags' => '相关标签',	//TODO
+			'related_tags' => '相关标签',
 			'sharing' => '分享',
 			'top_line' => '顶栏',
 		),
@@ -28,6 +28,7 @@ return array(
 			'seconds' => '秒 (0 表示不超时)',
 			'timeout' => 'HTML5 通知超时时间',
 		),
+		'show_nav_buttons' => 'Show the navigation buttons',	//TODO - Translation
 		'theme' => '主题',
 		'title' => '显示',
 		'width' => array(
@@ -37,12 +38,22 @@ return array(
 			'no_limit' => '无限制',
 			'thin' => '小',
 		),
-		'show_nav_buttons' => 'Show the navigation buttons',	//TODO
+	),
+	'profile' => array(
+		'_' => '帐户管理',
+		'delete' => array(
+			'_' => '账户删除',
+			'warn' => '你的帐户和所有相关数据都将被删除。',
+		),
+		'password_api' => 'API 密码<br /><small>(例如,用于手机 APP)</small>',
+		'password_form' => '密码<br /><small>(用于 Web-form 登录方式)</small>',
+		'password_format' => '至少 7 个字符',
+		'title' => '用户帐户',
 	),
 	'query' => array(
 		'_' => '自定义查询',
 		'deprecated' => '此查询不再有效。相关的分类或 RSS 源已被删除。',
-		'display' => 'Display user query results', // TODO
+		'display' => 'Display user query results',	//TODO - Translation
 		'filter' => '生效的过滤器：',
 		'get_all' => '显示所有文章',
 		'get_category' => '显示分类 "%s"',
@@ -53,7 +64,7 @@ return array(
 		'number' => '查询 n°%d',
 		'order_asc' => '由旧到新显示文章',
 		'order_desc' => '由新到旧显示文章',
-		'remove' => 'Remove user query', // TODO
+		'remove' => 'Remove user query',	//TODO - Translation
 		'search' => '搜索 "%s"',
 		'state_0' => '显示所有文章',
 		'state_1' => '显示已读文章',
@@ -73,31 +84,19 @@ return array(
 		'state_15' => '显示所有文章',
 		'title' => '自定义查询',
 	),
-	'profile' => array(
-		'_' => '帐户管理',
-		'delete' => array(
-			'_' => '账户删除',
-			'warn' => '你的帐户和所有相关数据都将被删除。',
-		),
-		'password_api' => 'API 密码<br /><small>(例如,用于手机 APP)</small>',
-		'password_form' => '密码<br /><small>(用于 Web-form 登录方式)</small>',
-		'password_format' => '至少 7 个字符',
-		'title' => '用户帐户',
-	),
 	'reading' => array(
 		'_' => '阅读',
 		'after_onread' => '“全部设为已读”后,',
 		'articles_per_page' => '每页文章数',
 		'auto_load_more' => '在页面底部载入下一篇文章',
 		'auto_remove_article' => '阅读后隐藏文章',
-		'mark_updated_article_unread' => '有更新的文章设为未读',
 		'confirm_enabled' => '“全部设为已读”时显示确认对话框',
 		'display_articles_unfolded' => '默认展开文章',
 		'display_categories_unfolded' => '默认展开分类',
 		'hide_read_feeds' => '隐藏没有未读文章的分类或 RSS 源 (启用“显示所有文章”时不生效))',
 		'img_with_lazyload' => '延迟加载图片',
-		'sides_close_article' => '点击文章外区域以关闭文章',
 		'jump_next' => '跳转到下一未读项 (RSS 源或分类)',
+		'mark_updated_article_unread' => '有更新的文章设为未读',
 		'number_divided_when_reader' => '阅读视图中显示一半',
 		'read' => array(
 			'article_open_on_website' => '在打开原文章后',
@@ -112,6 +111,7 @@ return array(
 			'all_articles' => '显示所有文章',
 			'unread' => '只显示未读',
 		),
+		'sides_close_article' => '点击文章外区域以关闭文章',
 		'sort' => array(
 			'_' => '排列顺序',
 			'newer_first' => '由新到旧',
@@ -128,7 +128,7 @@ return array(
 	),
 	'sharing' => array(
 		'_' => '分享',
-		'add' => 'Add a sharing method', // TODO
+		'add' => 'Add a sharing method',	//TODO - Translation
 		'blogotext' => 'Blogotext',
 		'diaspora' => 'Diaspora*',
 		'email' => 'Email',
@@ -136,7 +136,7 @@ return array(
 		'g+' => 'Google+',
 		'more_information' => '更多信息',
 		'print' => '打印',
-		'remove' => 'Remove sharing method', // TODO
+		'remove' => 'Remove sharing method',	//TODO - Translation
 		'shaarli' => 'Shaarli',
 		'share_name' => '名称',
 		'share_url' => '地址',
@@ -158,10 +158,11 @@ return array(
 		'javascript' => '若要使用快捷键，必须启用 JavaScript',
 		'last_article' => '跳转到最后一篇文章',
 		'load_more' => '载入更多文章',
-		'mark_read' => '设为已读',
 		'mark_favorite' => '加入收藏',
+		'mark_read' => '设为已读',
 		'navigation' => '浏览',
 		'navigation_help' => '搭配 "Shift" 键，浏览快捷键将生效于 RSS 源。<br/>搭配 "Alt" 键，浏览快捷键将生效于分类。',
+		'navigation_no_mod_help' => 'The following navigation shortcuts do not support modifiers.',	//TODO - Translation
 		'next_article' => '跳转到下一篇文章',
 		'normal_view' => '切换到普通视图',
 		'other_action' => '其他操作',
@@ -170,6 +171,8 @@ return array(
 		'rss_view' => '在新标签中打开 RSS 视图',
 		'see_on_website' => '在原网站上查看',
 		'shift_for_all_read' => '+ <code>shift</code> 可以将全部文章设为已读',
+		'skip_next_article' => 'Focus next without opening',	//TODO - Translation
+		'skip_previous_article' => 'Focus previous without opening',	//TODO - Translation
 		'title' => '快捷键',
 		'user_filter' => '显示自定义查询',
 		'user_filter_help' => '如果有多个自定义过滤器，则会按照它们的编号依次访问。',

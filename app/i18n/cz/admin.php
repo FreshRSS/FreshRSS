@@ -67,8 +67,8 @@ return array(
 			'ok' => 'Máte rozšíření JSON.',
 		),
 		'mbstring' => array(
-			'nok' => 'Cannot find the recommended library mbstring for Unicode.',	//TODO
-			'ok' => 'You have the recommended library mbstring for Unicode.',	//TODO
+			'nok' => 'Cannot find the recommended library mbstring for Unicode.',	//TODO - Translation
+			'ok' => 'You have the recommended library mbstring for Unicode.',	//TODO - Translation
 		),
 		'minz' => array(
 			'nok' => 'Nemáte framework Minz.',
@@ -106,16 +106,23 @@ return array(
 		),
 	),
 	'extensions' => array(
+		'author' => 'Author',	//TODO - Translation
+		'community' => 'Available community extensions',	//TODO - Translation
+		'description' => 'Description',	//TODO - Translation
 		'disabled' => 'Vypnuto',
 		'empty_list' => 'Není naistalováno žádné rozšíření',
 		'enabled' => 'Zapnuto',
+		'latest' => 'Installed',	//TODO - Translation
+		'name' => 'Name',	//TODO - Translation
 		'no_configure_view' => 'Toto rozšíření nemá žádné možnosti nastavení.',
 		'system' => array(
 			'_' => 'Systémová rozšíření',
 			'no_rights' => 'Systémová rozšíření (na ně nemáte oprávnění)',
 		),
 		'title' => 'Rozšíření',
+		'update' => 'Update available',	//TODO - Translation
 		'user' => 'Uživatelská rozšíření',
+		'version' => 'Version',	//TODO - Translation
 	),
 	'stats' => array(
 		'_' => 'Statistika',
@@ -150,22 +157,19 @@ return array(
 		'top_feed' => 'Top ten kanálů',
 	),
 	'system' => array(
-		'_' => 'System configuration', // @todo translate
-		'auto-update-url' => 'Auto-update server URL', // @todo translate
-		'instance-name' => 'Instance name', // @todo translate
-		'max-categories' => 'Categories per user limit', // @todo translate
-		'max-feeds' => 'Feeds per user limit', // @todo translate
+		'_' => 'System configuration', //TODO - Translation
+		'auto-update-url' => 'Auto-update server URL', //TODO - Translation
+		'cookie-duration' => array(
+			'help' => 'in seconds', //TODO - Translation
+			'number' => 'Duration to keep logged in', //TODO - Translation
+		),
+		'instance-name' => 'Instance name', //TODO - Translation
+		'max-categories' => 'Categories per user limit', //TODO - Translation
+		'max-feeds' => 'Feeds per user limit', //TODO - Translation
 		'registration' => array(
 			'help' => '0 znamená žádná omezení účtu',
 			'number' => 'Maximální počet účtů',
 		),
-		'community' => 'Available community extensions', // @todo translate
-		'name' => 'Name', // @todo translate
-		'version' => 'Version', // @todo translate
-		'description' => 'Description', // @todo translate
-		'author' => 'Author', // @todo translate
-		'latest' => 'Installed', // @todo translate
-		'update' => 'Update available', // @todo translate
 	),
 	'update' => array(
 		'_' => 'Aktualizace systému',
@@ -179,15 +183,15 @@ return array(
 	'user' => array(
 		'articles_and_size' => '%s článků (%s)',
 		'create' => 'Vytvořit nového uživatele',
-		'delete_users' => 'Delete user', // TODO
+		'delete_users' => 'Delete user',	//TODO - Translation
 		'language' => 'Jazyk',
 		'number' => 'Zatím je vytvořen %d účet',
 		'numbers' => 'Zatím je vytvořeno %d účtů',
 		'password_form' => 'Heslo<br /><small>(pro přihlášení webovým formulářem)</small>',
 		'password_format' => 'Alespoň 7 znaků',
-		'selected' => 'Selected user', // TODO
+		'selected' => 'Selected user',	//TODO - Translation
 		'title' => 'Správa uživatelů',
-		'update_users' => 'Update user', // TODO
+		'update_users' => 'Update user',	//TODO - Translation
 		'user_list' => 'Seznam uživatelů',
 		'username' => 'Přihlašovací jméno',
 		'users' => 'Uživatelé',

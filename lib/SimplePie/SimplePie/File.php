@@ -71,7 +71,7 @@ class SimplePie_File
 		{
 			$idn = new idna_convert();
 			$parsed = SimplePie_Misc::parse_url($url);
-			$url = SimplePie_Misc::compress_parse_url($parsed['scheme'], $idn->encode($parsed['authority']), $parsed['path'], $parsed['query'], $parsed['fragment']);
+			$url = SimplePie_Misc::compress_parse_url($parsed['scheme'], $idn->encode($parsed['authority']), $parsed['path'], $parsed['query'], NULL);
 		}
 		$this->url = $url;
 		$this->permanent_url = $url;
