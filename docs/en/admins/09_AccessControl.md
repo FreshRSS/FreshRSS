@@ -11,7 +11,6 @@ This option requires nothing more than selecting Form Authentication during inst
 ## HTTP Authentication
 
 You may also choose to use HTTP Authentication provided by your web server.[^1]
-[^1]: See [Apache documentation](https://httpd.apache.org/docs/trunk/howto/auth.html)
 
 If you choose to use this option, create a `./p/i/.htaccess` file with a matching `.htpasswd` file.
 
@@ -21,3 +20,5 @@ Not using authentication on your server is dangerous, as anyone with access to y
 ## Hints
 
 You can switch your authentication method at any time by editing the `./data/config.php` file, on the line that begins `'auth_type'`.
+
+[^1]: See [Apache documentation](https://httpd.apache.org/docs/trunk/howto/auth.html)
