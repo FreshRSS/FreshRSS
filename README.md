@@ -194,11 +194,11 @@ Supported clients are:
 * [lib_opml](https://github.com/marienfressinaud/lib_opml)
 * [keyboard_shortcuts](http://www.openjs.com/scripts/events/keyboard_shortcuts/)
 * [flotr2](http://www.humblesoftware.com/flotr2)
-* [simple-scrollbar](https://github.com/buzinas/simple-scrollbar)
 
-## Only for some options
+## Only for some options or configurations
 * [bcrypt.js](https://github.com/dcodeIO/bcrypt.js)
 * [phpQuery](https://github.com/phpquery/phpquery)
+* [simple-scrollbar](https://github.com/buzinas/simple-scrollbar)
 
 ## If native functions are not available
 * [Services_JSON](https://pear.php.net/pepr/pepr-proposal-show.php?id=198)

@@ -169,7 +169,6 @@ td.numeric {
 }
 
 @supports (position: sticky) {
-	/* TODO: put this in the right place*/
 	#mark-read-aside {
 		position: sticky;
 		top: 0;
