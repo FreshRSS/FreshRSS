@@ -42,6 +42,7 @@ FreshRSS comes with absolutely no warranty.
 * MySQL 5.5.3+ (recommended), or SQLite 3.7.4+, or PostgreSQL 9.2+
 * A recent browser like Firefox / IceCat, Internet Explorer 11 / Edge, Chromium / Chrome, Opera, Safari.
 	* Works on mobile
+	* All features may not be available on mobile or Internet Explorer 11 / Edge
 
 ![FreshRSS screenshot](docs/img/FreshRSS-screenshot.png)
 
