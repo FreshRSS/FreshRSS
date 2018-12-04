@@ -28,10 +28,25 @@ Next, we'll need to install and configure MySQL. Install MySQL components like s
 sudo apt install mysql-server mysql-client php-mysql
 ```
 
-### TODO: Configure MySQL
-
-Finally, restart the web server
+MySQL must now be started: 
 ```
+service mysql-server start
+```
+
+We'll need to configure MySQL.
+**Note:** As you've just installed mysql, there will be no root password; simply hit enter on the first step
+```
+mysql_secure_installation
+```
+
+And restart it
+```
+service mysql-server restart
+```
+
+Finally, restart MySQL and the web server
+```
+
 service apache2 restart
 ```
 
@@ -69,6 +84,29 @@ Finally, symlink the public folder to the root of your web directory
 ln -s /usr/share/FreshRSS/p /var/www/html/
 ```
 
-### TODO: setup MySQL database for FreshRSS
+## Part 3: Creating a Database for FreshRSS
+
+Start a MySQL session. running this command will ask you for the MySQL password you set earler, and then put you into a prompt that should look like `MariaDB [(none)]>`
+```
+mysql -u root -p
+```
+
+From the MySQL prompt (`MariaDB [(none)]>`), run the following commands, substituting \<username>, \<password>, and \<database_name> for real values.
+```
+CREATE USER '<username>'@'localhost' IDENTIFIED BY '<password>';
+CREATE DATABASE `databaseName`;
+GRANT ALL privileges ON `databaseName`.* TO 'userName'@localhost;
+FLUSH PRIVILEGES;
+QUIT;
+```
+
+A brief explination of the previous command block:
+* You first create a database user for FreshRSS to use.
+* Then you create a database for FreshRSS to store data in.
+* You grant permissions for the user you created to read, write, and modify the database.
+* Flushing privileges reloads the permissions, making the previous command to take effect.
+
+## Part 4: Finishing the Installation
 
 You can now finish the installation from a web browser by navigating to to `http://<your_server>/p` and following the graphical prompts.
+Alternatively, you can finish the installation using [the cli](https://github.com/FreshRSS/FreshRSS/tree/master/cli)
