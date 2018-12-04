@@ -1278,16 +1278,16 @@ function init_crypto_form() {
 //</crypto form (Web login)>
 
 var $sidebar = null;
-var useJsScrollbar = !(parseInt(getComputedStyle(document.getElementById('sidebar'), '::-webkit-scrollbar').width) < 99);
+var useJsScrollbar = true;
+try {
+	useJsScrollbar = !(parseInt(getComputedStyle(document.getElementById('sidebar'), '::-webkit-scrollbar').width) < 99);
+} catch (ex) {
+}
 if (useJsScrollbar) {
 	inject_script('simple-scrollbar.min.js');
 }
 
 function sticky_recalc() {
-	if (!$sidebar) {
-		return;
-	}
-
 	var h = 0;
 	if ($nav_entries && $nav_entries.length > 0) {
 		h = $(window).height() - $sidebar[0].getBoundingClientRect().top - $nav_entries.height();
@@ -1313,6 +1313,9 @@ function init_simple_scrollbar() {
 var scrollTimeout;
 function init_sticky_sidebar(){
 	$sidebar = $('#sidebar');
+	if ($sidebar.length < 1) {
+		return;
+	}
 	if (useJsScrollbar) {
 		init_simple_scrollbar();
 	}
