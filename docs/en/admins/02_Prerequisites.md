@@ -13,10 +13,6 @@ You need to verify that your server can run FreshRSS before installing it. If yo
 | Browser       | **Firefox**             | Chrome, Opera, Safari, or IE11/Edge[^2] |  
 
 
-[^1]: When installed using a supported version of PHP older than 5.5, specific functions available in the [''password_compat'' library](https://github.com/ircmaxell/password_compat#requirements) are used for form authentication. 
-
-[^2]: IE11/Edge may not support all features found in FreshRSS on other browsers
-
 # Getting the appropriate version of FreshRSS
 
 FreshRSS has three different releases or branches. Each branch has its own release frequency. So it is better if you spend some time to understand the purpose of each release.
@@ -40,3 +36,7 @@ As its name suggests, the development version is the working codebase, intended 
 If you want to keep track of the most recent enhancements or help the developers with bug reports, this is the branch for you. If you use this version, please keep in mind that you need to follow the branch activity on Github (via [the branch RSS feed](https://github.com/FreshRSS/FreshRSS/commits/dev.atom), for instance), and manually pull new commits.
 
 Some say that the main developers use this branch on a daily basis without problem. They may know what they are doing...
+
+[^1]: When installed using a supported version of PHP older than 5.5, specific functions available in the [''password_compat'' library](https://github.com/ircmaxell/password_compat#requirements) are used for form authentication. 
+
+[^2]: IE11/Edge may not support all features found in FreshRSS on other browsers
