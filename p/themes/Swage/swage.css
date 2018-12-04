@@ -534,7 +534,7 @@ color: #FCFCFC;
 background: rgba(255, 255, 255, 0.3);
 }
 
-#sidebar:hover::-webkit-scrollbar-thumb, .ss-scroll {
+#sidebar:hover::-webkit-scrollbar-thumb {
 background: rgba(255, 255, 255, 0.3);
 }
 
