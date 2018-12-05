@@ -44,6 +44,7 @@ People are sorted by name so please keep this order.
 * [MSZ](https://github.com/mszkb): [contributions](https://github.com/FreshRSS/FreshRSS/commits?author=mszkb)
 * [Nico B](https://github.com/youknow0): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:youknow0)
 * [Nicolas Elie](https://github.com/nicolaselie): [contributions](https://github.com/FreshRSS/FreshRSS/commits?author=nicolaselie)
+* [Nicolas Frandeboeuf](https://github.com/nicofrand): [contributions](https://github.com/FreshRSS/FreshRSS/commits?author=nicofrand), [Web](https://nicofrand.ey)
 * [Nicolas Lœuillet](https://github.com/nicosomb): [contributions](https://github.com/FreshRSS/documentation/commits?author=nicosomb), [Web](http://www.loeuillet.org/)
 * [Nicola Spanti](https://github.com/RyDroid): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:RyDroid), [Web](http://www.nicola-spanti.info/)
 * [Olivier Dossmann](https://github.com/blankoworld): [contributions](https://github.com/FreshRSS/FreshRSS/commits?author=blankoworld), [Web](https://olivier.dossmann.net)
