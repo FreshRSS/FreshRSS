@@ -563,6 +563,14 @@ function init_column_categories() {
 					.html().replace(/------/g, id).replace('http://example.net/', feed_web);
 			$(this).attr('href', '#dropdown-' + id).prev('.dropdown-target').attr('id', 'dropdown-' + id).parent()
 				.append(template).find('button.confirm').removeAttr('disabled');
+		} else {
+			var id = $(this).closest('.item').attr('id').substr(2);
+			
+			if ($(this).next('.dropdown-menu').css('display') === 'none'){
+				$(this).attr('href', '#dropdown-' + id);
+			} else {
+				$(this).attr('href', "#close");
+			}
 		}
 	});
 }
@@ -570,15 +578,6 @@ function init_column_categories() {
 function init_dropdown_handler() {
 	$('#global').not($('.dropdown')).click(function () {
 		window.location.hash = "close";
-	});
-
-	$('.dropdown').click(function () {
-		window.location.hash = "close";
-		if ($('.dropdown-target:target ~ .dropdown-menu').css('display') === 'block') {
-			$('.dropdown-target:target ~ .dropdown-menu').css('display', 'none');
-		} else {
-			$('.dropdown-target:target ~ .dropdown-menu').css('display', 'block');
-		}
 	});
 }
 
@@ -1280,7 +1279,9 @@ function init_crypto_form() {
 var $sidebar = null;
 var useJsScrollbar = true;
 try {
-	useJsScrollbar = !(parseInt(getComputedStyle(document.getElementById('sidebar'), '::-webkit-scrollbar').width) < 99);
+	document.body.matches('::-webkit-scrollbar-thumb');
+	useJsScrollbar = false;
+	//TODO: Support https://drafts.csswg.org/css-scrollbars-1/ when ready
 } catch (ex) {
 }
 if (useJsScrollbar) {
@@ -1288,6 +1289,10 @@ if (useJsScrollbar) {
 }
 
 function sticky_recalc() {
+	if (!$sidebar) {
+		return;
+	}
+
 	var h = 0;
 	if ($nav_entries && $nav_entries.length > 0) {
 		h = $(window).height() - $sidebar[0].getBoundingClientRect().top - $nav_entries.height();
@@ -1313,9 +1318,6 @@ function init_simple_scrollbar() {
 var scrollTimeout;
 function init_sticky_sidebar(){
 	$sidebar = $('#sidebar');
-	if ($sidebar.length < 1) {
-		return;
-	}
 	if (useJsScrollbar) {
 		init_simple_scrollbar();
 	}
