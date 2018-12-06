@@ -1124,14 +1124,18 @@ function refreshUnreads() {
 		var isAll = $('.category.all.active').length > 0,
 			new_articles = false;
 
+		var isReader = $('#stream').attr('class') === 'reader';
+			
 		$.each(data.feeds, function(feed_id, nbUnreads) {
 			feed_id = 'f_' + feed_id;
 			var elem = $('#' + feed_id).get(0),
 				feed_unreads = elem ? str2int(elem.getAttribute('data-unread')) : 0;
 
-			if ((incUnreadsFeed(null, feed_id, nbUnreads - feed_unreads) || isAll) &&	//Update of current view?
-				(nbUnreads - feed_unreads > 0)) {
+			if ((isAll || isReader) && (nbUnreads - feed_unreads > 0)) {
 				$('#new-article').attr('aria-hidden', 'false').show();
+				new_articles = true;
+			} else if ((incUnreadsFeed(null, feed_id, nbUnreads - feed_unreads)) && (nbUnreads - feed_unreads > 0)) {
+				$('#new-article-other').attr('aria-hidden', 'false').show();
 				new_articles = true;
 			}
 		});

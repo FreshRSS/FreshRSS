@@ -486,10 +486,10 @@ a.btn {
 }
 
 /*=== New article notification */
-#new-article {
+#new-article, #new-article-other {
 	display: none;
 }
-#new-article > a {
+#new-article > a, #new-article-other > a {
 	display: block;
 }
 
