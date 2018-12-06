@@ -1276,12 +1276,11 @@ function init_crypto_form() {
 }
 //</crypto form (Web login)>
 
-var $sidebar = null;
+var sidebar = document.getElementById('sidebar');
 var useJsScrollbar = true;
 try {
-	useJsScrollbar = !(parseInt(getComputedStyle(document.getElementById('sidebar'), '::-webkit-scrollbar').width) < 99);
-	useJsScrollbar = false;
-	//TODO: Support https://drafts.csswg.org/css-scrollbars-1/ when ready
+	useJsScrollbar = sidebar && !CSS.supports('scrollbar-color: auto') &&
+		!(parseInt(getComputedStyle(sidebar, '::-webkit-scrollbar').width) < 99);
 } catch (ex) {
 }
 if (useJsScrollbar) {
@@ -1291,12 +1290,12 @@ if (useJsScrollbar) {
 function sticky_recalc() {
 	var h = 0;
 	if ($nav_entries && $nav_entries.length > 0) {
-		h = $(window).height() - $sidebar[0].getBoundingClientRect().top - $nav_entries.height();
+		h = $(window).height() - sidebar.getBoundingClientRect().top - $nav_entries.height();
 	} else {
-		h = $(window).height() - $sidebar[0].getBoundingClientRect().top;
+		h = $(window).height() - sidebar.getBoundingClientRect().top;
 	}
 	if (h > 0) {
-		$sidebar.height(h);
+		$(sidebar).height(h);
 	}
 }
 
@@ -1307,14 +1306,13 @@ function init_simple_scrollbar() {
 		}
 		window.setTimeout(init_simple_scrollbar, 100);
 	} else {
-		SimpleScrollbar.initEl($sidebar[0]);
+		SimpleScrollbar.initEl(sidebar);
 	}
 }
 
 var scrollTimeout;
 function init_sticky_sidebar(){
-	$sidebar = $('#sidebar');
-	if ($sidebar.length < 1) {
+	if (!sidebar) {
 		return;
 	}
 	if (useJsScrollbar) {
