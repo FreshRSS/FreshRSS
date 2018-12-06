@@ -13,11 +13,10 @@ if (!empty($this->entries)) {
 
 <div id="stream" class="reader">
 	<div id="new-article">
-		<a href="<?php echo Minz_Url::display(Minz_Request::currentRequest()); ?>"><?php echo _t('gen.js.new_article'); /* TODO: move string in JS*/ ?></a>
+		<a href="<?php echo Minz_Url::display(Minz_Request::currentRequest()); ?>"><?php echo _t('gen.js.new_article'); ?></a>/* TODO: move string in JS*/ ?></a>
 	</div>
 	<div id="new-article-other">
-		<?php echo _t('gen.js.new_article'); ?>
-		<a class="close" href=""><img class="icon" src="../themes/icons/close.svg" alt="❌"></a>
+		<a href="#close"><?php echo _t('gen.js.new_article_other'); ?></a>
 	</div>
 	<?php
 	foreach ($this->entries as $item) {
