@@ -1123,17 +1123,21 @@ function refreshUnreads() {
 	$.getJSON('./?c=javascript&a=nbUnreadsPerFeed').done(function (data) {
 		var isAll = $('.category.all.active').length > 0,
 			new_articles = false;
+		var isReader = $('#stream').attr('class') === 'reader';
+		var feed_url = window.location.search;
 			
 		$.each(data.feeds, function(feed_id, nbUnreads) {
 			feed_id = 'f_' + feed_id;
 			var elem = $('#' + feed_id).get(0),
 				feed_unreads = elem ? str2int(elem.getAttribute('data-unread')) : 0;
-
-			if (( incUnreadsFeed ( null , feed_id, nbUnreads - feed_unreads) || isAll) &&
+			var unread_feeds = incUnreadsFeed ( null , feed_id, nbUnreads - feed_unreads)
+			
+			if (( unread_feedseeds || isAll || 
+				(isReader && feed_id === feed_url.substr(feed_url.lastIndexOf('f_')))) && 
 				(nbUnreads - feed_unreads >  0 )) {
 				$('#new-article').attr('aria-hidden', 'false').show();
 				new_articles = true;
-			} else if ((incUnreadsFeed(null, feed_id, nbUnreads - feed_unreads)) === false && (nbUnreads - feed_unreads > 0)) {
+			} else if (unread_feeds === false && (nbUnreads - feed_unreads > 0)) {
 				$('#new-article-other').attr('aria-hidden', 'false').show();
 				new_articles = true;
 			}
