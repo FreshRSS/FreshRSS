@@ -270,9 +270,6 @@ a.btn {
 	display: block;
 	z-index: 1000;
 }
-.dropdown-close {
-	display: inline;
-}
 .separator {
 	display: block;
 	height: 0;
