@@ -1132,7 +1132,7 @@ function refreshUnreads() {
 				feed_unreads = elem ? str2int(elem.getAttribute('data-unread')) : 0;
 			var unread_feeds = incUnreadsFeed ( null , feed_id, nbUnreads - feed_unreads)
 			
-			if (( unread_feedseeds || isAll || 
+			if (( unread_feeds || isAll || 
 				(isReader && feed_id === feed_url.substr(feed_url.lastIndexOf('f_')))) && 
 				(nbUnreads - feed_unreads >  0 )) {
 				$('#new-article').attr('aria-hidden', 'false').show();
