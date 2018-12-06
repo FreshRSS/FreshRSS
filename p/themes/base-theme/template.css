@@ -425,6 +425,16 @@ a.btn {
 	user-select: none;
 }
 
+#sidebar {
+	scrollbar-width: thin;
+	scrollbar-color: rgba(0, 0, 0, 0.0) rgba(0, 0, 0, 0.0);
+}
+
+#sidebar:hover {
+	scrollbar-width: thin;
+	scrollbar-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.0);
+}
+
 #sidebar::-webkit-scrollbar {
 	width: 8px;
 }

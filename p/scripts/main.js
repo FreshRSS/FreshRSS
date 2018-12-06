@@ -1279,7 +1279,7 @@ function init_crypto_form() {
 var $sidebar = null;
 var useJsScrollbar = true;
 try {
-	document.body.matches('::-webkit-scrollbar-thumb');
+	useJsScrollbar = !(parseInt(getComputedStyle(document.getElementById('sidebar'), '::-webkit-scrollbar').width) < 99);
 	useJsScrollbar = false;
 	//TODO: Support https://drafts.csswg.org/css-scrollbars-1/ when ready
 } catch (ex) {
