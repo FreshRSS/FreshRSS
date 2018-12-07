@@ -650,7 +650,7 @@ line-height: 1.5em;
 position: fixed;
 top: 35px;
 width: 100%;
-padding: 10px;
+padding: 10px 0;
 bottom: unset;
 }
 
