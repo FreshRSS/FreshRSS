@@ -137,8 +137,6 @@ button.as-link[disabled] {
 .stick .btn:first-child,.stick input:first-child {
 	border-radius: 6px 0 0 6px;
 }
-.stick .btn-important:first-child {
-}
 .stick .btn:last-child, .stick input:last-child {
 	border-radius: 0 6px 6px 0;
 }
@@ -590,7 +588,6 @@ a.btn {
 /*===============*/
 /*=== Header */
 .header {
-	height: 55px;
 	background: linear-gradient(0deg, #EDE7DE 0%, #FFF 100%) #EDE7DE;
 	background: -webkit-linear-gradient(bottom, #EDE7DE 0%, #FFF 100%);
 	border-bottom: solid 1px #BDB7AE;
@@ -602,14 +599,14 @@ a.btn {
 	text-align: center;
 }
 .header > .item.title .logo {
-	height: 60px;
-	width: 60px;
+	height: 40px;
+	width: 40px;
 }
 .header > .item.title{
 	width: 250px;
 }
 .header > .item.title h1 {
-	margin: 0.5em 0;
+	margin: 10px 0;
 }
 .header > .item.title h1 a {
 	text-decoration: none;
@@ -627,7 +624,8 @@ a.btn {
 /*=== Body */
 #global {
 	background:#F9F7F4;
-	height: calc(100% - 60px);
+	/* Header : 60px + 1px border bottom */
+	height: calc(100% - 61px);
 }
 .aside {
 	box-shadow: 0 2px 2px #171717 inset;

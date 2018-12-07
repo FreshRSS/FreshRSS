@@ -233,6 +233,7 @@ class FreshRSS_FormAuth {
 
 		$token_file = DATA_PATH . '/tokens/' . $token . '.txt';
 		$mtime = @filemtime($token_file);
+		$conf = Minz_Configuration::get('system');
 		$limits = $conf->limits;
 		$cookie_duration = empty($limits['cookie_duration']) ? 2592000 : $limits['cookie_duration'];
 		if ($mtime + $cookie_duration < time()) {
