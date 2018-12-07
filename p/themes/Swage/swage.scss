@@ -723,6 +723,7 @@ form {
 	}
 }
 
+
 #new-article {
 	text-align: center;
 	font-size: 1em;
@@ -744,6 +745,13 @@ form {
 			text-decoration: none;
 		}
 	}
+}
+
+.reader #new-article {
+	position: fixed;
+    top: 35px;
+    width: 100%;
+    padding: 10px;
 }
 
 .day {
