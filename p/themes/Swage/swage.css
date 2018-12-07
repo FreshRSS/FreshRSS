@@ -33,7 +33,7 @@ display: block;
 clear: both;
 }
 
-.stick.configure-feeds, .header > .item.title, .aside, #new-article, #new-article-other, .notification, #nav_entries {
+.stick.configure-feeds, .header > .item.title, .aside, #new-article, .notification, #nav_entries {
 width: 231px;
 }
 
