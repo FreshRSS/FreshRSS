@@ -1126,15 +1126,14 @@ function refreshUnreads() {
 	$.getJSON('./?c=javascript&a=nbUnreadsPerFeed').done(function (data) {
 		var isAll = $('.category.all.active').length > 0,
 			new_articles = false;
-		var feed_url = window.location.search;
 			
 		$.each(data.feeds, function(feed_id, nbUnreads) {
 			feed_id = 'f_' + feed_id;
 			var elem = $('#' + feed_id).get(0),
 				feed_unreads = elem ? str2int(elem.getAttribute('data-unread')) : 0;
 			
-			if ((incUnreadsFeed(null, feed_id, nbUnreads - feed_unreads) || isAll )
-				&& (nbUnreads - feed_unreads > 0)) {
+			if ((incUnreadsFeed(null, feed_id, nbUnreads - feed_unreads) || isAll) &&	//Update of current view?
+				(nbUnreads - feed_unreads > 0)) {
 				$('#new-article').attr('aria-hidden', 'false').show();
 				new_articles = true;
 			}

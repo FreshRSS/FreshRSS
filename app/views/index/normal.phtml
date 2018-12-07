@@ -22,8 +22,7 @@ if (!empty($this->entries)) {
 <div id="stream" class="normal<?php echo $hidePosts ? ' hide_posts' : ''; ?>">
 	<div id="new-article">
 		<a href="<?php echo Minz_Url::display(Minz_Request::currentRequest()); ?>"><?php echo _t('gen.js.new_article'); /* TODO: move string in JS*/ ?></a>
-	</div>
-	<?php
+	</div><?php
 	foreach ($this->entries as $item) {
 		$this->entry = Minz_ExtensionManager::callHook('entry_before_display', $item);
 		if ($this->entry == null) {
