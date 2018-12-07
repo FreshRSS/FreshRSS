@@ -651,6 +651,7 @@ position: fixed;
 top: 35px;
 width: 100%;
 padding: 10px;
+bottom: unset;
 }
 
 #new-article:hover {
