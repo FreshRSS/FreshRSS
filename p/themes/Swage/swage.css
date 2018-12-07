@@ -646,6 +646,13 @@ z-index: 900;
 left: 0;
 line-height: 1.5em;
 }
+.reader #new-article {
+position: sticky;
+top: 35px;
+width: 100%;
+padding: 10px;
+}
+
 #new-article:hover {
 background: #00488b;
 }
