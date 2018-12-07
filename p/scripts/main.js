@@ -107,6 +107,9 @@ function incUnreadsFeed(article, feed_id, nb) {
 		} else if ($('.all.active').length > 0) {
 			isCurrentView = feed_priority > 0;
 			return incLabel(p1, feed_priority > 0 ? nb : 0, true);
+		} else if ($('#stream').attr('class') === 'reader') { 
+			isCurrentView = true;
+			return p1;
 		} else {
 			return p1;
 		}
@@ -1123,7 +1126,6 @@ function refreshUnreads() {
 	$.getJSON('./?c=javascript&a=nbUnreadsPerFeed').done(function (data) {
 		var isAll = $('.category.all.active').length > 0,
 			new_articles = false;
-		var isReader = $('#stream').attr('class') === 'reader';
 		var feed_url = window.location.search;
 			
 		$.each(data.feeds, function(feed_id, nbUnreads) {
@@ -1131,8 +1133,8 @@ function refreshUnreads() {
 			var elem = $('#' + feed_id).get(0),
 				feed_unreads = elem ? str2int(elem.getAttribute('data-unread')) : 0;
 			
-			if (incUnreadsFeed(null, feed_id, nbUnreads - feed_unreads) || isAll || 
-				(isReader && feed_id === feed_url.substr(feed_url.lastIndexOf('f_'))) && (nbUnreads - feed_unreads > 0)) {
+			if ((incUnreadsFeed(null, feed_id, nbUnreads - feed_unreads) || isAll )
+				&& (nbUnreads - feed_unreads > 0)) {
 				$('#new-article').attr('aria-hidden', 'false').show();
 				new_articles = true;
 			}
