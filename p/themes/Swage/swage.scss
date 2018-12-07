@@ -746,6 +746,14 @@ form {
 	}
 }
 
+.reader #new-article {
+	position: fixed;
+    top: 35px;
+    width: 100%;
+    padding: 10px 0;
+	bottom: unset;
+}
+
 .day {
 	padding: 0 10px;
 	font-weight: bold;
