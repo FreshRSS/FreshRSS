@@ -14,8 +14,7 @@ if (!empty($this->entries)) {
 <div id="stream" class="reader">
 	<div id="new-article">
 		<a href="<?php echo Minz_Url::display(Minz_Request::currentRequest()); ?>"><?php echo _t('gen.js.new_article'); /* TODO: move string in JS*/ ?></a>
-	</div>
-	<?php
+	</div><?php
 	foreach ($this->entries as $item) {
 		$item = Minz_ExtensionManager::callHook('entry_before_display', $item);
 		if (is_null($item)) {
