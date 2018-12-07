@@ -693,20 +693,20 @@ a.btn {
 }
 
 /*=== New article notification */
-#new-article, #new-article-other {
+#new-article {
 	background: #0084CC;
 	text-align: center;
 	font-size: 0.9em;
 }
-#new-article:hover, #new-article-other:hover {
+#new-article:hover {
 	background: #0066CC;
 }
-#new-article > a, #new-article-other > a {
+#new-article > a {
 	line-height: 3em;
 	color: #fff;
 	font-weight: bold;
 }
-#new-article > a:hover, #new-article-other > a:hover {
+#new-article > a:hover {
 	text-decoration: none;
 }
 

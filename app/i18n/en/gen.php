@@ -112,7 +112,6 @@ return array(
 			'title_new_articles' => 'FreshRSS: new articles!',
 		),
 		'new_article' => 'There are new available articles, click to refresh the page.',
-		'new_article_other' => 'There are new available articles in another view, click to close this notification.',
 		'should_be_activated' => 'JavaScript must be enabled',
 	),
 	'lang' => array(

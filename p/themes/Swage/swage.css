@@ -636,7 +636,7 @@ width: 100%;
 margin: 20px 0;
 }
 
-#new-article, #new-article-other {
+#new-article {
 text-align: center;
 font-size: 1em;
 background: #0062be;
@@ -646,15 +646,15 @@ z-index: 900;
 left: 0;
 line-height: 1.5em;
 }
-#new-article:hover, #new-article-other:hover {
+#new-article:hover {
 background: #00488b;
 }
-#new-article > a, #new-article-other > a {
+#new-article > a {
 line-height: 1.5em;
 font-weight: bold;
 color: #FCFCFC;
 }
-#new-article > a:hover, #new-article-other > a:hover {
+#new-article > a:hover {
 text-decoration: none;
 }
 
