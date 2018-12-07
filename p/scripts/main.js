@@ -1133,11 +1133,6 @@ function refreshUnreads() {
 			
 			if (incUnreadsFeed(null, feed_id, nbUnreads - feed_unreads) || isAll || 
 				(isReader && feed_id === feed_url.substr(feed_url.lastIndexOf('f_'))) && (nbUnreads - feed_unreads > 0)) {
-			
-			/*if ((incUnreadsFeed(null, feed_id, nbUnreads - feed_unreads) || isAll || 
-				(isReader &&(feed_id === feed_url.substr(feed_url.lastIndexOf('f_')) || 
-				feed_id === feed_url.substr(feed_url.lastIndexOf('c_')))) &&
-				(nbUnreads - feed_unreads > 0))) { */
 				$('#new-article').attr('aria-hidden', 'false').show();
 				new_articles = true;
 			}
