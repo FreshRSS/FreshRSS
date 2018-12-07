@@ -1130,16 +1130,20 @@ function refreshUnreads() {
 			feed_id = 'f_' + feed_id;
 			var elem = $('#' + feed_id).get(0),
 				feed_unreads = elem ? str2int(elem.getAttribute('data-unread')) : 0;
-			var unread_feeds = incUnreadsFeed ( null , feed_id, nbUnreads - feed_unreads)
 			
-			if (( unread_feeds || isAll || 
-				(isReader && feed_id === feed_url.substr(feed_url.lastIndexOf('f_')))) && 
-				(nbUnreads - feed_unreads >  0 )) {
+			var nb_unreads_num = nbUnreads - feed_unreads;
+			var unreads_feed_bool = incUnreadsFeed ( null , feed_id, nb_unreads_num);
+			
+			
+			if ((unreads_feed_bool || isAll || feed_id === feed_url.substr(feed_url.lastIndexOf('f_'))) && nb_unreads_num) {
 				$('#new-article').attr('aria-hidden', 'false').show();
 				new_articles = true;
-			} else if (unread_feeds === false && (nbUnreads - feed_unreads > 0)) {
+			} else if ( !unreads_feed_bool && nb_unreads_num) {
 				$('#new-article-other').attr('aria-hidden', 'false').show();
 				new_articles = true;
+			}
+			if ($('#new-article').css('display') === 'block' ) {
+				$('#new-article-other').css('display', 'none');
 			}
 		});
 
