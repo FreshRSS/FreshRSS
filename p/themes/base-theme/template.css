@@ -172,6 +172,7 @@ td.numeric {
 	#mark-read-aside {
 		position: sticky;
 		top: 0;
+		width: inherit;
 	}
 }
 
@@ -423,14 +424,13 @@ a.btn {
 }
 
 #sidebar {
-	width: 308px;
+	width: inherit;
 	overflow-y: scroll;
 	scrollbar-width: thin;
 	scrollbar-color: rgba(0, 0, 0, 0.0) rgba(0, 0, 0, 0.0);
 }
 
 #sidebar:hover {
-	width: 300px;
 	scrollbar-color: rgba(0, 0, 0, 0.3) rgba(0, 0, 0, 0.0);
 }
 
