@@ -426,6 +426,7 @@ a.btn {
 #sidebar {
 	width: inherit;
 	overflow-y: scroll;
+	overflow-y: overlay;
 	scrollbar-width: thin;
 	scrollbar-color: rgba(0, 0, 0, 0.0) rgba(0, 0, 0, 0.0);
 }
