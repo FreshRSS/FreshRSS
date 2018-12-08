@@ -424,12 +424,11 @@ a.btn {
 
 #sidebar {
 	scrollbar-width: thin;
-	scrollbar-color: rgba(0, 0, 0, 0.0) rgba(0, 0, 0, 0.0);
+	scrollbar-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.05);
 }
 
 #sidebar:hover {
-	scrollbar-width: thin;
-	scrollbar-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.0);
+	scrollbar-color: rgba(0, 0, 0, 0.3) rgba(0, 0, 0, 0.05);
 }
 
 #sidebar::-webkit-scrollbar {
@@ -453,7 +452,6 @@ a.btn {
 	overflow-y: auto;
 	overflow-x: hidden;
 	width: 300px;
-	height: 90vh;
 }
 
 .tree-folder-items {
@@ -1018,7 +1016,7 @@ pre.enclosure-description {
 		width: 30px;
 		height: 30px;
 	}
-	
+
 	.tree {
 		position: initial;
 		width: initial !important;
