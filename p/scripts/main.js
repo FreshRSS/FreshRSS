@@ -557,20 +557,6 @@ function init_column_categories() {
 		});
 		return false;
 	});
-	$('#aside_feed').on('click', '.tree-folder-items .feed .dropdown-toggle', function () {		
-		if ($(this).nextAll('.dropdown-menu').length === 0) {
-			var itemId = $(this).closest('.item').attr('id'),
-				templateId = itemId.substring(0, 2) === 't_' ? 'tag_config_template' : 'feed_config_template',
-				id = itemId.substr(2),
-				feed_web = $(this).data('fweb'),
-				template = $('#' + templateId)
-					.html().replace(/------/g, id).replace('http://example.net/', feed_web);
-			$(this).attr('href', '#dropdown-' + id).prev('.dropdown-target').attr('id', 'dropdown-' + id).parent()
-				.append(template).find('button.confirm').removeAttr('disabled');
-		} else {
-			var id = $(this).closest('.item').attr('id').substr(2);
-		}
-	});
 }
 
 var dropdownHref = null;
@@ -579,15 +565,31 @@ function init_dropdown_handler() {
 	$('#global').not($('.dropdown')).click(function () {
 		window.location.hash = "close";
 	});
-	
-	$('.dropdown-toggle').click(function() {
-		if ($(this).next('.dropdown-menu').css('display') === 'none'){
-			if ($(this).attr('href') != '#close') { dropdownHref = $(this).attr('href'); }
+    
+    $('#global').on('click', '.dropdown-toggle', function () {		
+		if ($(this).nextAll('.dropdown-menu').length === 0) {
+			var itemId = $(this).closest('.item').attr('id'),
+				templateId = itemId.substring(0, 2) === 't_' ? 'tag_config_template' : 'feed_config_template',
+				id = itemId.substr(2),
+				feed_web = $(this).data('fweb'),
+				template = $('#' + templateId)
+					.html().replace(/------/g, id).replace('http://example.net/', feed_web);
+				$(this).attr('href', '#dropdown-' + id).prev('.dropdown-target').attr('id', 'dropdown-' + id).parent()
+					.append(template).find('button.confirm').removeAttr('disabled');
+		} else {
+			var id = $(this).closest('.item').attr('id').substr(2);
+		}
+
+        if ($(this).next('.dropdown-menu').css('display') === 'none'){
+			if ($(this).attr('href') != '#close') { 
+                dropdownHref = $(this).attr('href'); 
+            }
 			$(this).attr('href', dropdownHref);
 		} else{
 			$(this).attr('href', "#close");
 		}		
 	});
+    
 }
 
 function init_shortcuts() {
