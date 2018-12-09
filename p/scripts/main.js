@@ -573,7 +573,7 @@ function init_column_categories() {
 			var id = $(this).closest('.item').attr('id').substr(2);
 		}
         
-		if ($(this).next('.dropdown-menu').css('display') === 'none'){
+		if ($(this).next('.dropdown-menu').css('display') === 'none') {
 			if ($(this).attr('href') != '#close') { sidebarHref = $(this).attr('href'); }
 			$(this).attr('href', sidebarHref);
 		} else {
