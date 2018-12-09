@@ -535,8 +535,6 @@ function inject_script(name) {
 	document.head.appendChild(script);
 }
 
-var sidebarHref = null;
-
 function init_column_categories() {
 	if (context.current_view !== 'normal') {
 		return;
@@ -571,18 +569,14 @@ function init_column_categories() {
 			$(this).attr('href', '#dropdown-' + id).prev('.dropdown-target').attr('id', 'dropdown-' + id).parent()
 				.append(template).find('button.confirm').removeAttr('disabled');
 		} else {
-			var id = $(this).closest('.item').attr('id').substr(2);
-		}
-		if ($(this).next('.dropdown-menu').css('display') === 'none') {
-			if ($(this).attr('href') != '#close') {
-				sidebarHref = $(this).attr('href');
+			if ($(this).next('.dropdown-menu').css('display') === 'none') {
+				var id = $(this).closest('.item').attr('id').substr(2);
+				$(this).attr('href', '#dropdown-' + id);
+			} else {
+				var id = $(this).attr('href', "#close");
 			}
-			$(this).attr('href', sidebarHref);
-		} else {
-			$(this).attr('href', "#close");
 		}
 	});
-	
 }
 
 var readHref = null;
@@ -595,7 +589,7 @@ function init_dropdown_handler() {
 	});
 	
 	$('.nav_menu').on('click', '.dropdown-toggle', function () {
-		if ( $(this).parents('#mark-read-menu').length  === 1) {
+		if ( $(this).parents('#mark-read-menu').length === 1) {
 			if ($(this).next('.dropdown-menu').css('display') != 'none') {
 				readHref = $(this).attr('href');
 				$(this).attr('href', "#close"); 
@@ -607,7 +601,7 @@ function init_dropdown_handler() {
 			} else {
 				$(this).attr('href', "#close");
 			}
-		} else if ( $(this).parents('#nav_menu_actions').length  === 1) {
+		} else if ( $(this).parents('#nav_menu_actions').length === 1) {
 			if ($(this).next('.dropdown-menu').css('display') != 'none') {
 				actionsHref = $(this).attr('href');
 				$(this).attr('href', "#close"); 
@@ -623,7 +617,7 @@ function init_dropdown_handler() {
 	});
 	
 	$('.header').on('click', '.dropdown-toggle', function () {
-		if ( $(this).parents('.header').length  === 1 ) {
+		if ( $(this).parents('.header').length === 1 ) {
 			if ($(this).next('.dropdown-menu').css('display') != 'none') {
 				configHref = $(this).attr('href');
 				$(this).attr('href', "#close"); 
@@ -1338,7 +1332,7 @@ var sidebar = document.getElementById('sidebar');
 var useJsScrollbar = true;
 try {
 	useJsScrollbar = sidebar && !CSS.supports('scrollbar-color: auto') &&
-		!(parseInt(getComputedStyle(sidebar, '::-webkit-scrollbar').width) < sidebar.offsetWidth);
+		!(parseInt(getComputedStyle(sidebar, '::-webkit-scrollbar').width) < 99);
 } catch (ex) {
 }
 if (useJsScrollbar) {
