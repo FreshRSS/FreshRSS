@@ -550,7 +550,11 @@ function init_column_categories() {
 				this.alt = '▽';
 			}
 		});
-		$(this).parent().next(".tree-folder-items").slideToggle(300);
+		$(this).parent().next(".tree-folder-items").slideToggle(300, function () {
+			if (useJsScrollbar && sidebar) { //Refresh JS scrollbar
+				sidebar.querySelector('.ss-content').dispatchEvent(new Event('scroll'));
+			}
+		});
 		return false;
 	});
 	$('#aside_feed').on('click', '.tree-folder-items .feed .dropdown-toggle', function () {		

@@ -423,28 +423,30 @@ a.btn {
 	user-select: none;
 }
 
-#sidebar {
-	width: inherit;
-	overflow-y: scroll;
-	overflow-y: overlay;
-	scrollbar-width: thin;
-	scrollbar-color: rgba(0, 0, 0, 0.0) rgba(0, 0, 0, 0.0);
+@supports (scrollbar-width: thin) {
+	#sidebar {
+		overflow-y: scroll;
+		scrollbar-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.05);
+		scrollbar-width: thin;
+	}
+	#sidebar:hover {
+		scrollbar-color: rgba(0, 0, 0, 0.3) rgba(0, 0, 0, 0.05);
+	}
 }
 
-#sidebar:hover {
-	scrollbar-color: rgba(0, 0, 0, 0.3) rgba(0, 0, 0, 0.0);
-}
-
-#sidebar::-webkit-scrollbar {
-	width: 8px;
-}
-#sidebar::-webkit-scrollbar-thumb {
-	border-radius: 5px;
-	display: none;
-}
-#sidebar:hover::-webkit-scrollbar-thumb {
-	background: rgba(0, 0, 0, 0.3);
-	display: unset;
+@supports not (scrollbar-width: thin) {
+	#sidebar::-webkit-scrollbar {
+		background: rgba(0, 0, 0, 0.05);
+		width: 8px;
+	}
+	#sidebar::-webkit-scrollbar-thumb {
+		background: rgba(0, 0, 0, 0.1);
+		border-radius: 5px;
+		display: unset;
+	}
+	#sidebar:hover::-webkit-scrollbar-thumb {
+		background: rgba(0, 0, 0, 0.3);
+	}
 }
 
 /*=== Tree */
@@ -453,7 +455,6 @@ a.btn {
 	list-style: none;
 	text-align: left;
 	position: absolute;
-	overflow-y: auto;
 	overflow-x: hidden;
 	width: 300px;
 }
