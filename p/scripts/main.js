@@ -561,6 +561,7 @@ function init_column_categories() {
 		});
 		return false;
 	});
+	
 	$('#aside_feed').on('click', '.tree-folder-items .feed .dropdown-toggle', function () {
 		if ($(this).nextAll('.dropdown-menu').length === 0) {
 			var itemId = $(this).closest('.item').attr('id'),
@@ -575,7 +576,7 @@ function init_column_categories() {
 			var id = $(this).closest('.item').attr('id').substr(2);
 		}
 
-		if ($(this).next('.dropdown-menu').css('display') === 'none'){
+		if ($(this).next('.dropdown-menu').css('display') === 'none') {
 			if (window.location.hash != "close" && ($(this).attr('href') != '#close')) {
 				sidebarHref = $(this).attr('href');
 			}
@@ -585,9 +586,9 @@ function init_column_categories() {
 		}
 	});
 	
-	$('.nav_menu, .header').on('click', '.dropdown-toggle', function () {
+	$('.nav_menu,').on('click', '.dropdown-toggle', function () {
 		if ( $(this).parents('.nav_menu').length  === 1) {
-			if ($(this).next('.dropdown-menu').css('display') === 'none'){
+			if ($(this).next('.dropdown-menu').css('display') === 'none') {
 				if (window.location.hash != "close" && ($(this).attr('href') != '#close')) {
 					navHref = $(this).attr('href');
 				}
@@ -595,12 +596,16 @@ function init_column_categories() {
 			} else{
 				$(this).attr('href', "#close");
 			}
-		} else if ($(this).parents('.header').length === 1) {
-			if ($(this).next('.dropdown-menu').css('display') === 'none'){
+		}
+	});
+	
+	$('.header,').on('click', '.dropdown-toggle', function () {
+		if ( $(this).parents('.header').length  === 1) {
+			if ($(this).next('.dropdown-menu').css('display') === 'none') {
 				if (window.location.hash != "close" && ($(this).attr('href') != '#close')) {
-					configHref = $(this).attr('href');
+					headerHref = $(this).attr('href');
 				}
-				$(this).attr('href', configHref);
+				$(this).attr('href', headerHref);
 			} else{
 				$(this).attr('href', "#close");
 			}
@@ -1352,12 +1357,12 @@ function init_sticky_sidebar(){
 		init_simple_scrollbar();
 	}
 	$(window).scroll(function () {
-				if (scrollTimeout) {
-					clearTimeout(scrollTimeout);
-					scrollTimeout = null;
-				}
-				scrollTimeout = setTimeout(sticky_recalc, 200);
-			});
+		if (scrollTimeout) {
+			clearTimeout(scrollTimeout);
+			scrollTimeout = null;
+		}
+		scrollTimeout = setTimeout(sticky_recalc, 200);
+	});
 	window.onresize = sticky_recalc;
 }
 
