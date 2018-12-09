@@ -559,7 +559,7 @@ function init_column_categories() {
 		});
 		return false;
 	});
-	$('#aside_feed').on('click', '.tree-folder-items .feed .dropdown-toggle', function () {		
+	$('#aside_feed').on('click', '.tree-folder-items .feed .dropdown-toggle', function () {
 		if ($(this).nextAll('.dropdown-menu').length === 0) {
 			var itemId = $(this).closest('.item').attr('id'),
 				templateId = itemId.substring(0, 2) === 't_' ? 'tag_config_template' : 'feed_config_template',
@@ -572,9 +572,11 @@ function init_column_categories() {
 		} else {
 			var id = $(this).closest('.item').attr('id').substr(2);
 		}
-        
+
 		if ($(this).next('.dropdown-menu').css('display') === 'none'){
-			if ($(this).attr('href') != '#close') { sidebarHref = $(this).attr('href'); }
+			if (window.location.hash != "close" && ($(this).attr('href') != '#close')) {
+				sidebarHref = $(this).attr('href');
+			}
 			$(this).attr('href', sidebarHref);
 		} else {
 			$(this).attr('href', "#close");
@@ -582,7 +584,8 @@ function init_column_categories() {
 	});
 }
 
-var dropdownHref = null;
+var navHref = null;
+var configHreg = null;
 
 function init_dropdown_handler() {
 	$('body').not($('.dropdown')).click(function () {
@@ -590,15 +593,26 @@ function init_dropdown_handler() {
 	});
 
 	$('.nav_menu, .header').on('click', '.dropdown-toggle', function () {
-		if ( ($(this).parents('.nav_menu').length + $(this).parents('.header').length) === 1) {
+		if ( $(this).parents('.nav_menu').length  === 1) {
 			if ($(this).next('.dropdown-menu').css('display') === 'none'){
-				if ($(this).attr('href') != '#close') { dropdownHref = $(this).attr('href'); }
-				$(this).attr('href', dropdownHref);
+				if (window.location.hash != "close" && ($(this).attr('href') != '#close')) {
+					navHref = $(this).attr('href');
+				}
+				$(this).attr('href', navHref);
 			} else{
 				$(this).attr('href', "#close");
 			}
-		} 
-    });
+		} else if ($(this).parents('.header').length === 1) {
+			if ($(this).next('.dropdown-menu').css('display') === 'none'){
+				if (window.location.hash != "close" && ($(this).attr('href') != '#close')) {
+					configHref = $(this).attr('href');
+				}
+				$(this).attr('href', configHref);
+			} else{
+				$(this).attr('href', "#close");
+			}
+		}
+	});
 }
 
 function init_shortcuts() {
