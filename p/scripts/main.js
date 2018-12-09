@@ -1317,7 +1317,7 @@ var sidebar = document.getElementById('sidebar');
 var useJsScrollbar = true;
 try {
 	useJsScrollbar = sidebar && !CSS.supports('scrollbar-color: auto') &&
-		!(parseInt(getComputedStyle(sidebar, '::-webkit-scrollbar').width) < 99);
+		!(parseInt(getComputedStyle(sidebar, '::-webkit-scrollbar').width) < sidebar.offsetWidth);
 } catch (ex) {
 }
 if (useJsScrollbar) {
