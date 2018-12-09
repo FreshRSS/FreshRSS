@@ -575,7 +575,6 @@ function init_column_categories() {
 		} else {
 			var id = $(this).closest('.item').attr('id').substr(2);
 		}
-
 		if ($(this).next('.dropdown-menu').css('display') === 'none') {
 			if (window.location.hash != "close" && ($(this).attr('href') != '#close')) {
 				sidebarHref = $(this).attr('href');
