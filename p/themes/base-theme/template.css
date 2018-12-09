@@ -172,7 +172,6 @@ td.numeric {
 	#mark-read-aside {
 		position: sticky;
 		top: 0;
-		width: inherit;
 	}
 }
 
