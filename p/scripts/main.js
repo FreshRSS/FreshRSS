@@ -536,6 +536,8 @@ function inject_script(name) {
 }
 
 var sidebarHref = null;
+var navHref = null;
+var configHreg = null;
 
 function init_column_categories() {
 	if (context.current_view !== 'normal') {
@@ -582,16 +584,7 @@ function init_column_categories() {
 			$(this).attr('href', "#close");
 		}
 	});
-}
-
-var navHref = null;
-var configHreg = null;
-
-function init_dropdown_handler() {
-	$('body').not($('.dropdown')).click(function () {
-		window.location.hash = "close";
-	});
-
+	
 	$('.nav_menu, .header').on('click', '.dropdown-toggle', function () {
 		if ( $(this).parents('.nav_menu').length  === 1) {
 			if ($(this).next('.dropdown-menu').css('display') === 'none'){
@@ -612,6 +605,12 @@ function init_dropdown_handler() {
 				$(this).attr('href', "#close");
 			}
 		}
+	});
+}
+
+function init_dropdown_handler() {
+	$('body').not($('.dropdown')).click(function () {
+		window.location.hash = "close";
 	});
 }
 
