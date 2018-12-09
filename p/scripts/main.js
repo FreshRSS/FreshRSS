@@ -612,9 +612,9 @@ function init_column_categories() {
 		if ( $(this).parents('.header').length  === 1) {
 			if ($(this).next('.dropdown-menu').css('display') === 'none') {
 				if (($(this).attr('href') != '#close')) {
-					configureHref = $(this).attr('href');
+					configHref = $(this).attr('href');
 				}
-				$(this).attr('href', configureHref);
+				$(this).attr('href', configHref);
 			} else{
 				$(this).attr('href', "#close");
 			}
