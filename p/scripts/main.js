@@ -580,16 +580,15 @@ function init_dropdown_handler() {
 			var id = $(this).closest('.item').attr('id').substr(2);
 		}
 
-        if ($(this).next('.dropdown-menu').css('display') === 'none'){
+        	if ($(this).next('.dropdown-menu').css('display') === 'none'){
 			if ($(this).attr('href') != '#close') { 
-                dropdownHref = $(this).attr('href'); 
-            }
+				dropdownHref = $(this).attr('href'); 
+			}
 			$(this).attr('href', dropdownHref);
 		} else{
 			$(this).attr('href', "#close");
 		}		
 	});
-    
 }
 
 function init_shortcuts() {
