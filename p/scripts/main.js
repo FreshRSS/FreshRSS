@@ -536,8 +536,9 @@ function inject_script(name) {
 }
 
 var sidebarHref = null;
-var navHref = null;
-var configHreg = null;
+var readHref = null;
+var actionsHref = null;
+var configHref = null;
 
 function init_column_categories() {
 	if (context.current_view !== 'normal') {
@@ -586,13 +587,22 @@ function init_column_categories() {
 	});
 	
 	$('.nav_menu').on('click', '.dropdown-toggle', function () {
-		if ( $(this).parents('.nav_menu').length  === 1) {
+		if ( $(this).parents('.mark-read-menu').length  === 1) {
 			if ($(this).next('.dropdown-menu').css('display') === 'none') {
 				if (($(this).attr('href') != '#close')) {
-					navHref = $(this).attr('href');
+					readHref = $(this).attr('href');
 				}
-				$(this).attr('href', navHref);
-			} else{
+				$(this).attr('href', readHref);
+			} else {
+				$(this).attr('href', "#close");
+			}
+		} else if ( $(this).parents('.nav_menu_actions').length  === 1) {
+			if ($(this).next('.dropdown-menu').css('display') === 'none') {
+				if (($(this).attr('href') != '#close')) {
+					actionsHref = $(this).attr('href');
+				}
+				$(this).attr('href', actionsHref);
+			} else {
 				$(this).attr('href', "#close");
 			}
 		}
