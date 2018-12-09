@@ -570,8 +570,8 @@ function init_dropdown_handler() {
 				feed_web = $(this).data('fweb'),
 				template = $('#' + templateId)
 					.html().replace(/------/g, id).replace('http://example.net/', feed_web);
-                $(this).attr('href', '#dropdown-' + id).prev('.dropdown-target').attr('id', 'dropdown-' + id).parent()
-				    .append(template).find('button.confirm').removeAttr('disabled');
+				$(this).attr('href', '#dropdown-' + id).prev('.dropdown-target').attr('id', 'dropdown-' + id).parent()
+					.append(template).find('button.confirm').removeAttr('disabled');
 		} else {
 			var id = $(this).closest('.item').attr('id').substr(2);
 		}
