@@ -452,9 +452,7 @@ a.btn {
 	margin: 0;
 	list-style: none;
 	text-align: left;
-	position: absolute;
 	overflow-x: hidden;
-	width: 300px;
 }
 
 .tree-folder-items {
@@ -1023,10 +1021,6 @@ pre.enclosure-description {
 		height: 30px;
 	}
 
-	.tree {
-		position: initial;
-		width: initial !important;
-	}
 }
 
 /*=== PRINTER */
