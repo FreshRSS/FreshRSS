@@ -56,6 +56,7 @@ if (FreshRSS_Auth::accessNeedsAction()) {
 			<div id="dropdown-configure" class="dropdown-target"></div>
 			<a class="btn dropdown-toggle" href="#dropdown-configure"><?php echo _i('configure'); ?></a>
 			<ul class="dropdown-menu">
+				<li class="dropdown-close"><a href="#close">❌</a></li>
 				<li class="dropdown-header"><?php echo _t('gen.menu.configuration'); ?></li>
 				<li class="item"><a href="<?php echo _url('configure', 'display'); ?>"><?php echo _t('gen.menu.display'); ?></a></li>
 				<li class="item"><a href="<?php echo _url('configure', 'reading'); ?>"><?php echo _t('gen.menu.reading'); ?></a></li>
