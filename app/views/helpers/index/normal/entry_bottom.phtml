@@ -42,7 +42,8 @@
 			<a class="dropdown-toggle" href="#dropdown-labels-<?php echo $this->entry->id();?>"><?php
 				echo _t('index.menu.tags');
 			?></a>
-			<ul class="dropdown-menu">			
+			<ul class="dropdown-menu">
+				<li class="dropdown-close"><a href="#close">❌</a></li>
 				<!-- Ajax -->		
 			</ul>
 		</div>
@@ -58,7 +59,7 @@
 				echo _t('index.tag.related');
 			?></a>
 			<ul class="dropdown-menu">
-			<?php
+				<li class="dropdown-close"><a href="#close">❌</a></li><?php
 				foreach ($tags as $tag) {
 					?><li class="item"><a href="<?php echo _url('index', 'index', 'search', '#' . str_replace(' ', '+', htmlspecialchars_decode($tag, ENT_QUOTES))); ?>"><?php echo $tag; ?></a></li><?php
 				} ?>
@@ -76,7 +77,7 @@
 			</a>
 
 			<ul class="dropdown-menu">
-				<?php
+				<li class="dropdown-close"><a href="#close">❌</a></li><?php
 					$link = $this->entry->link();
 					$title = $this->entry->title() . ' · ' . $this->feed->name();
 					foreach (FreshRSS_Context::$user_conf->sharing as $share_options) {

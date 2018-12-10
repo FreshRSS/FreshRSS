@@ -15,6 +15,7 @@
 				<a class="dropdown-toggle btn" href="#dropdown-cat"><?php echo _i('down'); ?></a>
 				<ul class="dropdown-menu">
 					<li class="dropdown-header"><?php echo _t('sub.category'); ?></li>
+					<li class="dropdown-close"><a href="#close">❌</a></li>
 
 					<li class="input">
 						<select name="category" id="category">
@@ -87,6 +88,7 @@
 
 					<a class="dropdown-toggle btn" href="#dropdown-cat-<?php echo $cat->id(); ?>"><?php echo _i('down'); ?></a>
 					<ul class="dropdown-menu">
+						<li class="dropdown-close"><a href="#close">❌</a></li>
 
 						<li class="item"><a href="<?php echo _url('index', 'index', 'get', 'c_' . $cat->id()); ?>"><?php echo _t('gen.action.filter'); ?></a></li>
 
