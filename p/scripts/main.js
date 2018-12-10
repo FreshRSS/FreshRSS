@@ -580,14 +580,12 @@ function init_column_categories() {
 }
 
 function dropdown_logic (object_value, parent_value) {
-	if ( object_value.parents(parent_value).length === 1) {
-		if (object_value.next('.dropdown-toggle:target').css('display') === 'none') {
-			$('.dropdown-toggle:target').css('display', 'none');
-			object_value.next('.dropdown-toggle:target').css('display', 'block');
-		} else {
-			object_value.next('.dropdown-toggle:target').css('display', 'none');
-			window.location.hash = "close";
-		}
+	if (object_value.next('.dropdown-toggle:target').css('display') === 'none') {
+		$('.dropdown-toggle:target').css('display', 'none');
+		object_value.next('.dropdown-toggle:target').css('display', 'block');
+	} else {
+		object_value.next('.dropdown-toggle:target').css('display', 'none');
+		window.location.hash = "close";
 	}
 }
 
