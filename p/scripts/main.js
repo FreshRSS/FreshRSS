@@ -1591,7 +1591,6 @@ function init_afterDOM() {
 	}
 	init_notifications();
 	init_confirm_action();
-	init_dropdown_handler();
 	$stream = $('#stream');
 	if ($stream.length > 0) {
 		init_load_more($stream);
