@@ -579,56 +579,30 @@ function init_column_categories() {
 	});
 }
 
-var readHref = null;
-var actionsHref = null;
-var configHref = null;
+function dropdown_logic (object_value, parent_value) {
+	if ( object_value.parents(parent_value).length === 1) {
+		if (object_value.next('.dropdown-menu').css('display') === 'none') {
+			$('.dropdown-menu').css('display', 'none');
+			object_value.next('.dropdown-menu').css('display', 'block');
+		} else {
+			object_value.next('.dropdown-menu').css('display', 'none');
+			window.location.hash = "close";
+		}
+	}
+}
 
 function init_dropdown_handler() {
 	$('body').not($('.dropdown')).click(function () {
 		window.location.hash = "close";
 	});
 	
-	$('.nav_menu').on('click', '.dropdown-toggle', function () {
+	$('.nav_menu, .header').on('click', '.dropdown-toggle', function () {
 		if ( $(this).parents('#mark-read-menu').length === 1) {
-			if ($(this).next('.dropdown-menu').css('display') != 'none') {
-				readHref = $(this).attr('href');
-				$(this).attr('href', "#close"); 
-			} else if ($(this).next('.dropdown-menu').css('display') === 'none') {
-				if (($(this).attr('href') != '#close')) {
-					readHref = $(this).attr('href');
-				}
-				$(this).attr('href', readHref);
-			} else {
-				$(this).attr('href', "#close");
-			}
+			dropdown_logic($(this), '#mark-read-menu');
 		} else if ( $(this).parents('#nav_menu_actions').length === 1) {
-			if ($(this).next('.dropdown-menu').css('display') != 'none') {
-				actionsHref = $(this).attr('href');
-				$(this).attr('href', "#close"); 
-			} else if ($(this).next('.dropdown-menu').css('display') === 'none') {
-				if ($(this).attr('href') != '#close') {
-					actionsHref = $(this).attr('href');
-				}
-				$(this).attr('href', actionsHref);
-			} else {
-				$(this).attr('href', "#close");
-			}
-		}
-	});
-	
-	$('.header').on('click', '.dropdown-toggle', function () {
-		if ( $(this).parents('.header').length === 1 ) {
-			if ($(this).next('.dropdown-menu').css('display') != 'none') {
-				configHref = $(this).attr('href');
-				$(this).attr('href', "#close"); 
-			} else if ($(this).next('.dropdown-menu').css('display') === 'none') {
-				if ($(this).attr('href') != '#close') {
-					configHref = $(this).attr('href');
-				}
-				$(this).attr('href', configHref);
-			} else {
-				$(this).attr('href', "#close");
-			}
+			dropdown_logic($(this), '#nav_menu_actions');
+		} else if ( $(this).parents('.header').length === 1) {
+			dropdown_logic($(this), '.header');
 		}
 	});
 }
