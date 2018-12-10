@@ -539,6 +539,7 @@ function init_column_categories() {
 	if (context.current_view !== 'normal') {
 		return;
 	}
+	$('.dropdown-close a').css('left', sidebar.offsetWidth);
 
 	$('#aside_feed').on('click', '.tree-folder>.tree-folder-title>a.dropdown-toggle', function () {
 		$(this).children().each(function() {
