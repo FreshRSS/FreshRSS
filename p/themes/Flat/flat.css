@@ -506,22 +506,26 @@ a.btn {
 }
 
 /*=== Scrollbar */
-#sidebar {
-	scrollbar-color: rgba(255, 255, 255, 0.05) rgba(0, 0, 0, 0.0);
+@supports (scrollbar-width: thin) {
+    #sidebar {
+        scrollbar-color: rgba(255, 255, 255, 0.05) rgba(0, 0, 0, 0.0);
+    }
+    #sidebar:hover {
+        scrollbar-color: rgba(255, 255, 255, 0.3) rgba(0, 0, 0, 0.0);
+    }
 }
-
-#sidebar:hover {
-	scrollbar-color: rgba(255, 255, 255, 0.3) rgba(0, 0, 0, 0.0);
-}
-
 /* Note: This selector has to be split from the -webkit- prefixed equivalent below,
    because Gecko ignores the line when combined, as of 4 December 2018 */
 .ss-scroll {
 	background: rgba(255, 255, 255, 0.3);
 }
-
-#sidebar:hover::-webkit-scrollbar-thumb {
-	background: rgba(255, 255, 255, 0.3);
+@supports not (scrollbar-width: thin) {
+    #sidebar::-webkit-scrollbar-thumb {
+        background: rgba(255, 255, 255, 0.1);
+    }
+    #sidebar:hover::-webkit-scrollbar-thumb {
+        background: rgba(255, 255, 255, 0.3);
+    }
 }
 
 /*=== STRUCTURE */

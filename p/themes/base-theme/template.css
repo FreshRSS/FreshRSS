@@ -280,6 +280,7 @@ a.btn {
 	left: 0; right: 0;
 	display: block;
 	z-index: -10;
+    cursor: default;
 }
 .separator {
 	display: block;
