@@ -494,7 +494,8 @@ a.btn {
 	white-space: nowrap;
 	text-overflow: ellipsis;
 }
-.tree-folder:last-of-type {
+.tree-bottom {
+	visibility: hidden;
 	margin-bottom: 15em;
 }
 
