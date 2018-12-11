@@ -144,5 +144,4 @@ return array(
 		'form' => 'simple',
 		'method' => 'GET',
 	),
-	
 );

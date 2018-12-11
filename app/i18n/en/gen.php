@@ -172,7 +172,7 @@ return array(
 		'linkedin' => 'LinkedIn',
 		'mastodon' => 'Mastodon',
 		'movim' => 'Movim',
-		'pinboard' =>'Pinboard',
+		'pinboard' => 'Pinboard',
 		'pocket' => 'Pocket',
 		'print' => 'Print',
 		'shaarli' => 'Shaarli',
