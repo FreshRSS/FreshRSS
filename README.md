@@ -64,7 +64,7 @@ FreshRSS comes with absolutely no warranty.
 
 More detailed information about installation and server configuration can be found in [our documentation](https://freshrss.github.io/FreshRSS/en/admins/02_Installation.html).
 
-## Automated install 
+## Automated install
 * [![Docker](https://www.docker.com/sites/default/files/horizontal.png)](./Docker/)
 * [![YunoHost](https://install-app.yunohost.org/install-with-yunohost.png)](https://install-app.yunohost.org/?app=freshrss)
 * [![Cloudron](https://cloudron.io/img/button.svg)](https://cloudron.io/button.html?app=org.freshrss.cloudronapp)

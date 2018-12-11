@@ -351,7 +351,7 @@ form {
 			> a {
 				min-width: initial;
 				white-space: nowrap;
-			} 
+			}
 			&:hover {
 				background: $color_nav;
 				color: $color_light;
@@ -568,7 +568,7 @@ form {
 }
 
 .tree {
-	margin: 10px 0; 
+	margin: 10px 0;
 }
 
 .tree-folder-title {
@@ -940,7 +940,7 @@ form {
 	#global {
 		height: 0;
 	}
-	
+
 	.header {
 		height: 55px;
 		background: $color_aside;
@@ -958,7 +958,7 @@ form {
 		color: $color_light;
 		padding-left: 5px;
 	}
-	
+
 	input {
 		border-left: 5px solid;
 		border-right: 1px darken( $color_light, 10%);
@@ -1006,7 +1006,7 @@ form {
 	.dropdown-header, .dropdown-menu > .item {
 		padding: 12px;
 	}
-	
+
 	#new-article {
 		width: 100%;
 		bottom: initial;
@@ -1229,5 +1229,5 @@ button.as-link {
 			background: inital;
 		}
 	}
-	
+
 }
