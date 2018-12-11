@@ -551,7 +551,7 @@ function init_column_categories() {
 			}
 		});
 		$(this).parent().next(".tree-folder-items").slideToggle(300, function () {
-			if (useJsScrollbar && sidebar) { //Refresh JS scrollbar
+			if (useJsScrollbar && sidebar && typeof(Event) === 'function') { //Refresh JS scrollbar
 				sidebar.querySelector('.ss-content').dispatchEvent(new Event('scroll'));
 			}
 		});
