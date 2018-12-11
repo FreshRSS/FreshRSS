@@ -140,6 +140,7 @@ return array(
 		'pinboard' => array(
 		'url' => 'https://pinboard.in/add?next=same&amp;url=~LINK~&amp;description=~TITLE~',
 		'transform' => array('urlencode'),
+		'help' => 'https://pinboard.in/api/',
 		'form' => 'simple',
 		'method' => 'GET',
 	),
