@@ -561,11 +561,11 @@ function init_column_categories() {
 	});
 
 	$('#aside_feed').on('click', '.tree-folder-items .feed .dropdown-toggle', function () {
-        var itemId = $(this).closest('.item').attr('id'),
-            templateId = itemId.substring(0, 2) === 't_' ? 'tag_config_template' : 'feed_config_template',
-            id = itemId.substr(2),
-            feed_web = $(this).data('fweb'),
-            template = $('#' + templateId)
+		var itemId = $(this).closest('.item').attr('id'),
+			templateId = itemId.substring(0, 2) === 't_' ? 'tag_config_template' : 'feed_config_template',
+			id = itemId.substr(2),
+			feed_web = $(this).data('fweb'),
+			template = $('#' + templateId)
 				.html().replace(/------/g, id).replace('http://example.net/', feed_web);
 		if ($(this).nextAll('.dropdown-menu').length === 0) {
 			$(this).attr('href', '#dropdown-' + id).prev('.dropdown-target').attr('id', 'dropdown-' + id).parent()

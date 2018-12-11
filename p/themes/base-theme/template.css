@@ -270,9 +270,9 @@ a.btn {
 	display: block;
 	z-index: 1000;
 }
-.dropdown-close {	
-	display: inline;	
-}	
+.dropdown-close {
+	display: inline;
+}
 .dropdown-close a {
 	font-size: 0;
 	position: fixed;
