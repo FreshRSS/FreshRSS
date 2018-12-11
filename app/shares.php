@@ -137,8 +137,8 @@ return array(
 		'form' => 'simple',
 		'method' => 'GET',
 	),
-		'pinboard' => array(
-		'url' => 'https://pinboard.in/add?next=same&amp;url=~LINK~&amp;description=~TITLE~&amp;title=~TITLE~',
+	'pinboard' => array(
+		'url' => 'https://pinboard.in/add?next=same&amp;url=~LINK~&amp;title=~TITLE~',
 		'transform' => array('urlencode'),
 		'help' => 'https://pinboard.in/api/',
 		'form' => 'simple',
