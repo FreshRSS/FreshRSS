@@ -139,13 +139,6 @@ td.numeric {
 	text-align: center;
 }
 
-/*=== COMPONENTS */
-/*===============*/
-
-[aria-hidden="true"] {
-	display: none;
-}
-
 /*=== Forms */
 .form-group::after {
 	content: "";
@@ -980,4 +973,11 @@ pre.enclosure-description {
 		content: " [" attr(href) "] ";
 		font-style: italic;
 	}
+}
+
+/*=== COMPONENTS */
+/*===============*/
+
+[aria-hidden="true"] {
+	display: none;
 }
