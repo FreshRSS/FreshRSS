@@ -1,5 +1,5 @@
 "use strict";
-/* globals $, jQuery, context, i18n, shortcut, shortcuts, url */
+/* globals $, jQuery, context, i18n, shortcut, shortcuts, SimpleScrollbar, url */
 /* jshint strict:global */
 
 var $stream = null,
@@ -245,7 +245,6 @@ function toggleContent(new_active, old_active, skipping) {
 
 	if (context.does_lazyload && !skipping) {
 		new_active.find('img[data-original], iframe[data-original]').each(function () {
-			this.onload = function () { $(document.body).trigger("sticky_kit:recalc"); };
 			this.setAttribute('src', this.getAttribute('data-original'));
 			this.removeAttribute('data-original');
 		});
@@ -536,19 +535,6 @@ function inject_script(name) {
 	document.head.appendChild(script);
 }
 
-function init_sticky_column() {
-	if (!window.$ || !window.$.fn.stick_in_parent) {
-		if (window.console) {
-			console.log('FreshRSS waiting for Sticky-kit…');
-		}
-		window.setTimeout(init_sticky_column, 200);
-		return;
-	}
-	if ($('.toggle_aside').css('display') === 'none') {
-		$('#aside_feed .tree').stick_in_parent({parent:'#aside_feed'});
-	}
-}
-
 function init_column_categories() {
 	if (context.current_view !== 'normal') {
 		return;
@@ -564,38 +550,39 @@ function init_column_categories() {
 				this.alt = '▽';
 			}
 		});
-		$(this).parent().next(".tree-folder-items").slideToggle(300 , function() { $(document.body).trigger("sticky_kit:recalc"); });
+		$(this).parent().next(".tree-folder-items").slideToggle(300, function () {
+			if (useJsScrollbar && sidebar && typeof(Event) === 'function') { //Refresh JS scrollbar
+				sidebar.querySelector('.ss-content').dispatchEvent(new Event('scroll'));
+			}
+		});
 		return false;
 	});
+
 	$('#aside_feed').on('click', '.tree-folder-items .feed .dropdown-toggle', function () {
-		if ($(this).nextAll('.dropdown-menu').length === 0) {
-			var itemId = $(this).closest('.item').attr('id'),
-				templateId = itemId.substring(0, 2) === 't_' ? 'tag_config_template' : 'feed_config_template',
-				id = itemId.substr(2),
-				feed_web = $(this).data('fweb'),
-				template = $('#' + templateId)
-					.html().replace(/------/g, id).replace('http://example.net/', feed_web);
+		var itemId = $(this).closest('.item').attr('id'),
+			templateId = itemId.substring(0, 2) === 't_' ? 'tag_config_template' : 'feed_config_template',
+			id = itemId.substr(2),
+			feed_web = $(this).data('fweb'),
+			template = $('#' + templateId)
+				.html().replace(/------/g, id).replace('http://example.net/', feed_web);
+		if ($(this).next('.dropdown-menu').length === 0) {
 			$(this).attr('href', '#dropdown-' + id).prev('.dropdown-target').attr('id', 'dropdown-' + id).parent()
 				.append(template).find('button.confirm').removeAttr('disabled');
-			$('.tree-folder-items .dropdown-close a').click(function(){
-				$('.tree').removeClass('treepadding');
-				$(document.body).trigger("sticky_kit:recalc");
-			});
+		} else {
+			if ($(this).next('.dropdown-menu').css('display') === 'none') {
+				id = $(this).closest('.item').attr('id').substr(2);
+				$(this).attr('href', '#dropdown-' + id);
+			} else {
+				$(this).attr('href', "#close");
+			}
 		}
 	});
-
-	$('.tree-folder-items .dropdown-toggle').click(function(){
-		$('.tree').addClass('treepadding');
-		$(document.body).trigger("sticky_kit:recalc");
-	});
-
-	init_sticky_column();
 }
 
 function init_shortcuts() {
 	if (!(window.shortcut && window.shortcuts)) {
 		if (window.console) {
-			console.log('FreshRSS waiting for sortcut.js…');
+			console.log('FreshRSS waiting for shortcut.js…');
 		}
 		window.setTimeout(init_shortcuts, 200);
 		return;
@@ -854,8 +841,10 @@ function init_stream(divStream) {
 	}
 }
 
+var $nav_entries = null;
+
 function init_nav_entries() {
-	var $nav_entries = $('#nav_entries');
+	$nav_entries = $('#nav_entries');
 	$nav_entries.find('.previous_entry').click(function () {
 		prev_entry();
 		return false;
@@ -1193,7 +1182,6 @@ function load_more_posts() {
 		$('#load_more').removeClass('loading');
 		$('#bigMarkAsRead').removeAttr('disabled');
 		load_more = false;
-		$(document.body).trigger('sticky_kit:recalc');
 	});
 }
 
@@ -1286,7 +1274,59 @@ function init_crypto_form() {
 }
 //</crypto form (Web login)>
 
+var sidebar = document.getElementById('sidebar');
+var useJsScrollbar = true;
+try {
+	/*jshint -W018 */
+	useJsScrollbar = sidebar && !CSS.supports('scrollbar-color: auto') &&
+		!(parseInt(getComputedStyle(sidebar, '::-webkit-scrollbar').width) < sidebar.offsetWidth);
+	/*jshint +W018 */
+} catch (ex) {
+}
+if (useJsScrollbar) {
+	inject_script('simple-scrollbar.min.js');
+}
 
+function sticky_recalc() {
+	var h = 0;
+	if ($nav_entries && $nav_entries.length > 0) {
+		h = $(window).height() - sidebar.getBoundingClientRect().top - $nav_entries.height();
+	} else {
+		h = $(window).height() - sidebar.getBoundingClientRect().top;
+	}
+	if (h > 0) {
+		$(sidebar).height(h);
+	}
+}
+
+function init_simple_scrollbar() {
+	if (!window.SimpleScrollbar) {
+		if (window.console) {
+			console.log('FreshRSS waiting for simple-scrollbar…');
+		}
+		window.setTimeout(init_simple_scrollbar, 100);
+	} else {
+		SimpleScrollbar.initEl(sidebar);
+	}
+}
+
+var scrollTimeout;
+function init_sticky_sidebar(){
+	if (!sidebar) {
+		return;
+	}
+	if (useJsScrollbar) {
+		init_simple_scrollbar();
+	}
+	$(window).scroll(function () {
+		if (scrollTimeout) {
+			clearTimeout(scrollTimeout);
+			scrollTimeout = null;
+		}
+		scrollTimeout = setTimeout(sticky_recalc, 200);
+	});
+	window.onresize = sticky_recalc;
+}
 
 function init_confirm_action() {
 	$('body').on('click', '.confirm', function () {
@@ -1536,7 +1576,6 @@ function init_beforeDOM() {
 		return;
 	}
 	if (['normal', 'reader', 'global'].indexOf(context.current_view) >= 0) {
-		inject_script('jquery.sticky-kit.min.js');
 		init_normal();
 	}
 }
@@ -1554,6 +1593,7 @@ function init_afterDOM() {
 	$stream = $('#stream');
 	if ($stream.length > 0) {
 		init_load_more($stream);
+		init_sticky_sidebar();
 		init_posts();
 		init_nav_entries();
 		init_dynamic_tags();

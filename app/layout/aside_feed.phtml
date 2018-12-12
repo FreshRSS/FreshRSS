@@ -21,7 +21,7 @@
 
 	<form id="mark-read-aside" method="post">
 	<input type="hidden" name="_csrf" value="<?php echo FreshRSS_Auth::csrfToken(); ?>" />
-	<ul class="tree">
+	<ul id="sidebar" class="tree">
 		<li class="tree-folder category all<?php echo FreshRSS_Context::isCurrentGet('a') ? ' active' : ''; ?>">
 			<div class="tree-folder-title">
 				<?php echo _i('all'); ?> <a class="title" data-unread="<?php echo format_number(FreshRSS_Context::$total_unread); ?>" href="<?php echo _url('index', 'index'); ?>"><?php echo _t('index.menu.main_stream'); ?></a>
@@ -92,6 +92,7 @@
 				}
 			}
 		?>
+		<li class="tree-bottom"></li>
 	</ul>
 	</form>
 </div>

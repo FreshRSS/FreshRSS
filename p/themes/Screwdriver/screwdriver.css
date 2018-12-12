@@ -559,6 +559,31 @@ a.btn {
 .tree-folder-items > .item.active > a {
 }
 
+/*=== Scrollbar */
+@supports (scrollbar-width: thin) {
+	#sidebar {
+		scrollbar-color: rgba(255, 255, 255, 0.05) rgba(0, 0, 0, 0.0);
+	}
+	#sidebar:hover {
+		scrollbar-color: rgba(255, 255, 255, 0.3) rgba(0, 0, 0, 0.0);
+	}
+}
+.ss-scroll {
+	background: rgba(255, 255, 255, 0.1);
+}
+.ss-container:hover .ss-scroll,
+.ss-container:active .ss-scroll {
+	background: rgba(255, 255, 255, 0.3);
+}
+@supports not (scrollbar-width: thin) {
+	#sidebar::-webkit-scrollbar-thumb {
+		background: rgba(255, 255, 255, 0.1);
+	}
+	#sidebar:hover::-webkit-scrollbar-thumb {
+		background: rgba(255, 255, 255, 0.3);
+	}
+}
+
 /*=== STRUCTURE */
 /*===============*/
 /*=== Header */
