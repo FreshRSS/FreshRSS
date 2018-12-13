@@ -351,7 +351,7 @@ form {
 			> a {
 				min-width: initial;
 				white-space: nowrap;
-			} 
+			}
 			&:hover {
 				background: $color_nav;
 				color: $color_light;
@@ -600,6 +600,32 @@ form {
 			text-decoration: none;
 			color: $color_light;
 		}
+	}
+}
+
+@supports (scrollbar-width: thin) {
+	#sidebar {
+		scrollbar-color: rgba(255, 255, 255, 0.05) rgba(0, 0, 0, 0.0);
+	}
+	#sidebar:hover {
+		scrollbar-color: rgba(255, 255, 255, 0.3) rgba(0, 0, 0, 0.0);
+	}
+}
+
+.ss-scroll {
+	background: rgba(255, 255, 255, 0.1);
+}
+.ss-container:hover .ss-scroll,
+.ss-container:active .ss-scroll {
+	background: rgba(255, 255, 255, 0.3);
+}
+
+@supports not (scrollbar-width: thin) {
+	#sidebar::-webkit-scrollbar-thumb {
+		background: rgba(255, 255, 255, 0.1);
+	}
+	#sidebar:hover::-webkit-scrollbar-thumb {
+		background: rgba(255, 255, 255, 0.3);
 	}
 }
 
@@ -926,7 +952,7 @@ form {
 	#global {
 		height: 0;
 	}
-	
+
 	.header {
 		height: 55px;
 		background: $color_aside;
@@ -944,7 +970,7 @@ form {
 		color: $color_light;
 		padding-left: 5px;
 	}
-	
+
 	input {
 		border-left: 5px solid;
 		border-right: 1px darken( $color_light, 10%);
@@ -992,7 +1018,7 @@ form {
 	.dropdown-header, .dropdown-menu > .item {
 		padding: 12px;
 	}
-	
+
 	#new-article {
 		width: 100%;
 		bottom: initial;
@@ -1215,5 +1241,4 @@ button.as-link {
 			background: inital;
 		}
 	}
-	
 }

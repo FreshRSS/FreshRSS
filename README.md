@@ -64,7 +64,7 @@ FreshRSS comes with absolutely no warranty.
 
 More detailed information about installation and server configuration can be found in [our documentation](https://freshrss.github.io/FreshRSS/en/admins/02_Installation.html).
 
-## Automated install 
+## Automated install
 * [![Docker](https://www.docker.com/sites/default/files/horizontal.png)](./Docker/)
 * [![YunoHost](https://install-app.yunohost.org/install-with-yunohost.png)](https://install-app.yunohost.org/?app=freshrss)
 * [![Cloudron](https://cloudron.io/img/button.svg)](https://cloudron.io/button.html?app=org.freshrss.cloudronapp)
@@ -199,13 +199,13 @@ Supported clients are:
 * [php-http-304](https://alexandre.alapetite.fr/doc-alex/php-http-304/)
 * [jQuery](https://jquery.com/)
 * [lib_opml](https://github.com/marienfressinaud/lib_opml)
-* [jQuery Plugin Sticky-Kit](https://leafo.net/sticky-kit/)
 * [keyboard_shortcuts](http://www.openjs.com/scripts/events/keyboard_shortcuts/)
 * [flotr2](http://www.humblesoftware.com/flotr2)
 
-## Only for some options
+## Only for some options or configurations
 * [bcrypt.js](https://github.com/dcodeIO/bcrypt.js)
 * [phpQuery](https://github.com/phpquery/phpquery)
+* [simple-scrollbar](https://github.com/buzinas/simple-scrollbar)
 
 ## If native functions are not available
 * [Services_JSON](https://pear.php.net/pepr/pepr-proposal-show.php?id=198)
