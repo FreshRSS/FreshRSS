@@ -967,7 +967,7 @@ pre.enclosure-description {
 }
 
 .reader .aside .toggle_aside {
-	display: block !important;
+	display: block;
 	width: 100%;
 }
 
