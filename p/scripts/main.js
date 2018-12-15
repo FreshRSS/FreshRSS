@@ -1285,7 +1285,7 @@ var useJsScrollbar = true;
 try {
 	/*jshint -W018 */
 	useJsScrollbar = sidebar && !CSS.supports('scrollbar-color: auto') &&
-		!(parseInt(getComputedStyle(sidebar, '::-webkit-scrollbar').width) < sidebar.offsetWidth);
+		!(parseInt(getComputedStyle(sidebar, '::-webkit-scrollbar').width) < sidebar.scrollWidth);
 	/*jshint +W018 */
 } catch (ex) {
 }
