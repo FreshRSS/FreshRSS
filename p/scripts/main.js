@@ -551,9 +551,10 @@ function init_column_categories() {
 			}
 		});
 		$(this).parent().next(".tree-folder-items").slideToggle(300, function () {
-			if (!useJsScrollbar && sidebar.scrollHeight > sidebar.clientHeight) {
-				//Workaround for Gecko bug in Firefox 64-66(+?)
-				sidebar.style['overflow-y'] = 'scroll';
+			if (!useJsScrollbar &&	//Workaround for Gecko bug in Firefox 64-65(+?):
+				sidebar.scrollHeight > sidebar.clientHeight &&	//if needs scrollbar
+				sidebar.scrollWidth >= sidebar.offsetWidth) {	//but no scrollbar
+				sidebar.style['overflow-y'] = 'scroll';	//then force scrollbar
 				setTimeout(function () { sidebar.style['overflow-y'] = ''; }, 0);
 			}
 			if (useJsScrollbar && typeof(Event) === 'function') { //Refresh JS scrollbar
