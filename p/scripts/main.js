@@ -553,7 +553,7 @@ function init_column_categories() {
 		if (sidebar) {
 			$(this).parent().next(".tree-folder-items").slideToggle(300, function () {
 				if (!useJsScrollbar && sidebar.scrollHeight > sidebar.clientHeight) {
-					//Workaround for Gecko bug in Firefox 64-66. TODO: Try newer versions
+					//Workaround for Gecko bug in Firefox 64-66(+?)
 					sidebar.style['overflow-y'] = 'scroll';
 					setTimeout(function () { sidebar.style['overflow-y'] = ''; }, 0);
 				}
