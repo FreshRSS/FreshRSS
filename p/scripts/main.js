@@ -536,7 +536,7 @@ function inject_script(name) {
 }
 
 function init_column_categories() {
-	if (context.current_view !== 'normal') {
+	if (context.current_view !== 'normal' && context.current_view !== 'reader') {
 		return;
 	}
 
