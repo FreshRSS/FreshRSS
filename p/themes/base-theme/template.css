@@ -462,6 +462,7 @@ a.btn {
 /*=== Tree */
 .tree {
 	margin: 0;
+	max-height: 99vh;
 	list-style: none;
 	text-align: left;
 	overflow-x: hidden;
@@ -536,7 +537,6 @@ a.btn {
 }
 .aside {
 	display: table-cell;
-	height: 100%;
 	width: 300px;
 	vertical-align: top;
 }

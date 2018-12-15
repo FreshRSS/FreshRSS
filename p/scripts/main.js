@@ -1312,12 +1312,10 @@ function init_simple_scrollbar() {
 
 var scrollTimeout;
 function init_sticky_sidebar(){
-	if (!sidebar) {
+	if (!useJsScrollbar) {
 		return;
 	}
-	if (useJsScrollbar) {
-		init_simple_scrollbar();
-	}
+	init_simple_scrollbar();
 	$(window).scroll(function () {
 		if (scrollTimeout) {
 			clearTimeout(scrollTimeout);
