@@ -550,11 +550,21 @@ function init_column_categories() {
 				this.alt = '▽';
 			}
 		});
-		$(this).parent().next(".tree-folder-items").slideToggle(300, function () {
-			if (useJsScrollbar && sidebar && typeof(Event) === 'function') { //Refresh JS scrollbar
-				sidebar.querySelector('.ss-content').dispatchEvent(new Event('scroll'));
+		if (sidebar) {
+			var oldOverflowY = null;
+			if (!useJsScrollbar && navigator.mozGetUserMedia) {
+				oldOverflowY = sidebar.style['overflow-y'];
+				sidebar.style['overflow-y'] = 'scroll';	//Workaround for Gecko bug in Firefox 64-66. TODO: Try newer versions
 			}
-		});
+			$(this).parent().next(".tree-folder-items").slideToggle(300, function () {
+				if (useJsScrollbar && typeof(Event) === 'function') { //Refresh JS scrollbar
+					sidebar.querySelector('.ss-content').dispatchEvent(new Event('scroll'));
+				}
+				if (oldOverflowY !== null) {
+					sidebar.style['overflow-y'] = oldOverflowY;
+				}
+			});
+		}
 		return false;
 	});
 

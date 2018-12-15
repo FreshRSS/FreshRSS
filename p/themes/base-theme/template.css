@@ -435,7 +435,7 @@ a.btn {
 
 @supports (scrollbar-width: thin) {
 	#sidebar {
-		overflow-y: scroll;
+		overflow-y: auto;
 		scrollbar-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.05);
 		scrollbar-width: thin;
 	}
