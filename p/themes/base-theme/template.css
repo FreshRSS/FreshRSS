@@ -960,6 +960,29 @@ pre.enclosure-description {
 	white-space: pre-line;
 }
 
+/*=== READER */
+/*===========*/
+.reader .nav_menu .toggle_aside {
+	display: inline-block;
+}
+
+.reader .aside .toggle_aside {
+	display: block;
+	width: 100%;
+}
+
+.reader .aside {
+	width: 0;
+}
+
+.reader .aside:target {
+	width: 300px;
+}
+
+.reader .aside .stick {
+	display: none;
+}
+
 /*=== MOBILE */
 /*===========*/
 @media(max-width: 840px) {
