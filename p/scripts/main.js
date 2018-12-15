@@ -550,18 +550,16 @@ function init_column_categories() {
 				this.alt = '▽';
 			}
 		});
-		if (sidebar) {
-			$(this).parent().next(".tree-folder-items").slideToggle(300, function () {
-				if (!useJsScrollbar && sidebar.scrollHeight > sidebar.clientHeight) {
-					//Workaround for Gecko bug in Firefox 64-66(+?)
-					sidebar.style['overflow-y'] = 'scroll';
-					setTimeout(function () { sidebar.style['overflow-y'] = ''; }, 0);
-				}
-				if (useJsScrollbar && typeof(Event) === 'function') { //Refresh JS scrollbar
-					sidebar.querySelector('.ss-content').dispatchEvent(new Event('scroll'));
-				}
-			});
-		}
+		$(this).parent().next(".tree-folder-items").slideToggle(300, function () {
+			if (!useJsScrollbar && sidebar.scrollHeight > sidebar.clientHeight) {
+				//Workaround for Gecko bug in Firefox 64-66(+?)
+				sidebar.style['overflow-y'] = 'scroll';
+				setTimeout(function () { sidebar.style['overflow-y'] = ''; }, 0);
+			}
+			if (useJsScrollbar && typeof(Event) === 'function') { //Refresh JS scrollbar
+				sidebar.querySelector('.ss-content').dispatchEvent(new Event('scroll'));
+			}
+		});
 		return false;
 	});
 
