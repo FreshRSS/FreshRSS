@@ -8,9 +8,12 @@ FreshRSS is a self-hosted RSS feed aggregator like [Leed](http://leed.idleman.fr
 
 It is lightweight, easy to work with, powerful, and customizable.
 
-It is a multi-user application with an anonymous reading mode.
-It supports custom tags, and [PubSubHubbub](https://github.com/pubsubhubbub/PubSubHubbub) for instant notifications from compatible Web sites.
+It is a multi-user application with an anonymous reading mode. It supports custom tags.
 There is an API for (mobile) clients, and a [Command-Line Interface](cli/README.md).
+
+Thanks to the [WebSub](https://www.w3.org/TR/websub/) standard (formerly [PubSubHubbub](https://github.com/pubsubhubbub/PubSubHubbub)),
+FreshRSS is able to receive instant push notifications from compatible sources, such as [Mastodon](https://joinmastodon.org), [Friendica](https://friendi.ca), [WordPress](https://wordpress.org/plugins/pubsubhubbub/), Blogger, FeedBurner, etc.
+
 Finally, it supports [extensions](#extensions) for further tuning.
 
 Feature requests, bug reports, and other contributions are welcome. The best way to contribute is to [open an issue on GitHub](https://github.com/FreshRSS/FreshRSS/issues).

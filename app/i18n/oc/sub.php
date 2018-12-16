@@ -44,7 +44,7 @@ return array(
 			'main_stream' => 'Mostar al flux màger',
 			'normal' => 'Mostar dins sa categoria',
 		),
-		'pubsubhubbub' => 'Notificaciones instantáneas amb PubSubHubbub',
+		'websub' => 'Notificaciones instantáneas amb WebSub',
 		'show' => array(
 			'all' => 'Show all feeds',	//TODO - Translation
 			'error' => 'Show only feeds with error',	//TODO - Translation

@@ -45,7 +45,7 @@ return array(
 			'main_stream' => '메인 스트림에 표시하기',
 			'normal' => '피드가 속한 카테고리에만 표시하기',
 		),
-		'pubsubhubbub' => 'PubSubHubbub을 사용한 즉시 알림',
+		'websub' => 'WebSub을 사용한 즉시 알림',
 		'show' => array(
 			'all' => 'Show all feeds',	//TODO - Translation
 			'error' => 'Show only feeds with error',	//TODO - Translation

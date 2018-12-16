@@ -12,7 +12,7 @@ return array(
 	'salt' => '',
 
 	# Specify address of the FreshRSS instance,
-	# used when building absolute URLs, e.g. for PubSubHubbub.
+	# used when building absolute URLs, e.g. for WebSub.
 	# Examples:
 	# https://example.net/FreshRSS/p/
 	# https://freshrss.example.net/

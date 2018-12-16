@@ -45,7 +45,7 @@ return array(
 			'main_stream' => 'Zichtbaar in het overzicht',
 			'normal' => 'Toon in categorie',
 		),
-		'pubsubhubbub' => 'Directe notificaties met PubSubHubbub',
+		'websub' => 'Directe notificaties met WebSub',
 		'show' => array(
 			'all' => 'Show all feeds',	//TODO - Translation
 			'error' => 'Show only feeds with error',	//TODO - Translation

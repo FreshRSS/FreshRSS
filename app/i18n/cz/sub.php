@@ -45,7 +45,7 @@ return array(
 			'main_stream' => 'Zobrazit ve “Všechny kanály”',
 			'normal' => 'Show in its category',	//TODO - Translation
 		),
-		'pubsubhubbub' => 'Okamžité oznámení s PubSubHubbub',
+		'websub' => 'Okamžité oznámení s WebSub',
 		'show' => array(
 			'all' => 'Show all feeds',	//TODO - Translation
 			'error' => 'Show only feeds with error',	//TODO - Translation

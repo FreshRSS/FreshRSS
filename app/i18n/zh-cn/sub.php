@@ -45,7 +45,7 @@ return array(
 			'main_stream' => '在首页中显示',
 			'normal' => '在分类中显示',
 		),
-		'pubsubhubbub' => 'PubSubHubbub 即时通知',
+		'websub' => 'WebSub 即时通知',
 		'show' => array(
 			'all' => 'Show all feeds',	//TODO - Translation
 			'error' => 'Show only feeds with error',	//TODO - Translation

@@ -8,9 +8,12 @@ FreshRSS est un agrégateur de flux RSS à auto-héberger à l’image de [Leed]
 
 Il se veut léger et facile à prendre en main tout en étant un outil puissant et paramétrable.
 
-Il permet de gérer plusieurs utilisateurs, et dispose d’un mode de lecture anonyme.
-Il supporte les étiquettes personnalisées, et [PubSubHubbub](https://github.com/pubsubhubbub/PubSubHubbub) pour des notifications instantanées depuis les sites compatibles.
+Il permet de gérer plusieurs utilisateurs, dispose d’un mode de lecture anonyme, et supporte les étiquettes personnalisées.
 Il y a une API pour les clients (mobiles), ainsi qu’une [interface en ligne de commande](cli/README.md).
+
+Grâce au standard [WebSub](https://www.w3.org/TR/websub/) (anciennement [PubSubHubbub](https://github.com/pubsubhubbub/PubSubHubbub)),
+FreshRSS est capable de recevoir des notifications push instantanées depuis les sources compatibles, telles [Mastodon](https://joinmastodon.org), [Friendica](https://friendi.ca), [WordPress](https://wordpress.org/plugins/pubsubhubbub/), Blogger, FeedBurner, etc.
+
 Enfin, il permet l’ajout d’[extensions](#extensions) pour encore plus de personnalisation.
 
 Les demandes de fonctionnalités, rapports de bugs, et autres contributions sont les bienvenues. Privilégiez pour cela des [demandes sur GitHub](https://github.com/FreshRSS/FreshRSS/issues).

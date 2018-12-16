@@ -132,7 +132,7 @@ At the moment, there is no helper to build a user query from here.
 
  1. User control is based on the `.htaccess` file.
  2. It is best practice to place the `.htaccess` file in the `./i/` subdirectory so the API and other third party services can work.
- 3. If you want to limit all access to registered users only, place the file in the FreshRSS directory itself or in a parent directory. Note that PubsubHubbub and API will not work!
+ 3. If you want to limit all access to registered users only, place the file in the FreshRSS directory itself or in a parent directory. Note that WebSub and API will not work!
  4. Example `.htaccess` file for a user "marie":
 
 ```

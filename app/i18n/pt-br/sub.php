@@ -45,7 +45,7 @@ return array(
 			'main_stream' => 'Mostrar na tela principal',
 			'normal' => 'Show in its category',	//TODO - Translation
 		),
-		'pubsubhubbub' => 'Notificação instantânea com PubSubHubbub',
+		'websub' => 'Notificação instantânea com WebSub',
 		'show' => array(
 			'all' => 'Show all feeds',	//TODO - Translation
 			'error' => 'Show only feeds with error',	//TODO - Translation

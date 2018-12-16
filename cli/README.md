@@ -38,7 +38,7 @@ cd /usr/share/FreshRSS
 ./cli/do-install.php --default_user admin ( --auth_type form --environment production --base_url https://rss.example.net --language en --title FreshRSS --allow_anonymous --api_enabled --db-type mysql --db-host localhost:3306 --db-user freshrss --db-password dbPassword123 --db-base freshrss --db-prefix freshrss )
 # --auth_type can be: 'form' (default), 'http_auth' (using the Web server access control), 'none' (dangerous)
 # --db-type can be: 'sqlite' (default), 'mysql' (MySQL or MariaDB), 'pgsql' (PostgreSQL)
-# --base_url should be a public (routable) URL if possible, and is used for push (PubSubHubbub), for some API functions (e.g. favicons), and external URLs in FreshRSS.
+# --base_url should be a public (routable) URL if possible, and is used for push (WebSub), for some API functions (e.g. favicons), and external URLs in FreshRSS.
 # --environment can be: 'production' (default), 'development' (for additional log messages)
 # --language can be: 'en' (default), 'fr', or one of the [supported languages](../app/i18n/)
 # --db-prefix is an optional prefix in front of the names of the tables. We suggest using 'freshrss_'

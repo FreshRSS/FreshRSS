@@ -45,7 +45,7 @@ return array(
 			'main_stream' => 'Ana akışda göster',
 			'normal' => 'Show in its category',	//TODO - Translation
 		),
-		'pubsubhubbub' => 'PubSubHubbub ile anlık bildirim',
+		'websub' => 'WebSub ile anlık bildirim',
 		'show' => array(
 			'all' => 'Show all feeds',	//TODO - Translation
 			'error' => 'Show only feeds with error',	//TODO - Translation
