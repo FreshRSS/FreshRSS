@@ -25,26 +25,8 @@ We are a friendly community.
 
 ![FreshRSS logo](docs/img/FreshRSS-logo.png)
 
-# Releases
-See the [list of releases](../../releases).
-
-## About branches
-* Use [the master branch](https://github.com/FreshRSS/FreshRSS/tree/master/) if you need a stable version.
-* For those willing to help testing or developing the latest features, [the dev branch](https://github.com/FreshRSS/FreshRSS/tree/dev) is waiting for you!
-
 # Disclaimer
 FreshRSS comes with absolutely no warranty.
-
-# Requirements
-* Light server running Linux or Windows
-	* It even works on Raspberry Pi 1 with response time under a second (tested with 150 feeds, 22k articles)
-* A web server: Apache2 (recommended), nginx, lighttpd (not tested on others)
-* PHP 5.3.8+ (PHP 5.4+ recommended, and PHP 5.5+ for performance, or PHP 7 for even higher performance)
-	* Required extensions: [cURL](https://secure.php.net/curl), [DOM](https://secure.php.net/dom), [XML](https://secure.php.net/xml), [session](https://secure.php.net/session), [ctype](https://secure.php.net/ctype), and [PDO_MySQL](https://secure.php.net/pdo-mysql) or [PDO_SQLite](https://secure.php.net/pdo-sqlite) or [PDO_PGSQL](https://secure.php.net/pdo-pgsql)
-	* Recommended extensions: [JSON](https://secure.php.net/json), [GMP](https://secure.php.net/gmp) (for API access on 32-bit platforms), [IDN](https://secure.php.net/intl.idn) (for Internationalized Domain Names), [mbstring](https://secure.php.net/mbstring) (for Unicode strings), [iconv](https://secure.php.net/iconv) (for charset conversion), [ZIP](https://secure.php.net/zip) (for import/export), [zlib](https://secure.php.net/zlib) (for compressed feeds)
-* MySQL 5.5.3+ (recommended), or SQLite 3.7.4+, or PostgreSQL 9.2+
-* A recent browser like Firefox / IceCat, Internet Explorer 11 / Edge (minus a few details), Chromium / Chrome, Opera, Safari.
-	* Works on mobile (except a few features)
 
 ![FreshRSS screenshot](docs/img/FreshRSS-screenshot.png)
 
@@ -54,7 +36,32 @@ FreshRSS comes with absolutely no warranty.
 * [Developer documentation](https://freshrss.github.io/FreshRSS/en/developers/01_First_steps.html) to guide you in the source code of FreshRSS and to help you if you want to contribute
 * [Contributor guidelines](https://freshrss.github.io/FreshRSS/en/contributing.md) for those who want to help improve FreshRSS
 
+# Requirements
+* A recent browser like Firefox / IceCat, Internet Explorer 11 / Edge (minus a few details), Chromium / Chrome, Opera, Safari.
+	* Works on mobile (except a few features)
+* Light server running Linux or Windows
+	* It even works on Raspberry Pi 1 with response time under a second (tested with 150 feeds, 22k articles)
+* A web server: Apache2 (recommended), nginx, lighttpd (not tested on others)
+* PHP 5.3.8+ (PHP 5.4+ recommended, and PHP 5.5+ for performance, or PHP 7 for even higher performance)
+	* Required extensions: [cURL](https://secure.php.net/curl), [DOM](https://secure.php.net/dom), [XML](https://secure.php.net/xml), [session](https://secure.php.net/session), [ctype](https://secure.php.net/ctype), and [PDO_MySQL](https://secure.php.net/pdo-mysql) or [PDO_SQLite](https://secure.php.net/pdo-sqlite) or [PDO_PGSQL](https://secure.php.net/pdo-pgsql)
+	* Recommended extensions: [JSON](https://secure.php.net/json), [GMP](https://secure.php.net/gmp) (for API access on 32-bit platforms), [IDN](https://secure.php.net/intl.idn) (for Internationalized Domain Names), [mbstring](https://secure.php.net/mbstring) (for Unicode strings), [iconv](https://secure.php.net/iconv) (for charset conversion), [ZIP](https://secure.php.net/zip) (for import/export), [zlib](https://secure.php.net/zlib) (for compressed feeds)
+* MySQL 5.5.3+ (recommended), or SQLite 3.7.4+, or PostgreSQL 9.2+
+
 # [Installation](https://freshrss.github.io/FreshRSS/en/admins/02_Installation.html)
+
+## Releases
+See the [list of releases](../../releases).
+
+### About branches
+* Use [the master branch](https://github.com/FreshRSS/FreshRSS/tree/master/) if you need stable versions.
+* Use [the dev branch](https://github.com/FreshRSS/FreshRSS/tree/dev) if you want a rolling release with the latest features, and help testing or developing the next stable version.
+
+## Automated install
+* [![Docker](https://www.docker.com/sites/default/files/horizontal.png)](./Docker/)
+* [![YunoHost](https://install-app.yunohost.org/install-with-yunohost.png)](https://install-app.yunohost.org/?app=freshrss)
+* [![Cloudron](https://cloudron.io/img/button.svg)](https://cloudron.io/button.html?app=org.freshrss.cloudronapp)
+
+## Manual install
 1. Get FreshRSS with git or [by downloading the archive](https://github.com/FreshRSS/FreshRSS/archive/master.zip)
 2. Put the application somewhere on your server (expose only the `./p/` folder to the Web)
 3. Add write access to the `./data/` folder for the webserver user
@@ -66,12 +73,7 @@ FreshRSS comes with absolutely no warranty.
 
 More detailed information about installation and server configuration can be found in [our documentation](https://freshrss.github.io/FreshRSS/en/admins/02_Installation.html).
 
-## Automated install
-* [![Docker](https://www.docker.com/sites/default/files/horizontal.png)](./Docker/)
-* [![YunoHost](https://install-app.yunohost.org/install-with-yunohost.png)](https://install-app.yunohost.org/?app=freshrss)
-* [![Cloudron](https://cloudron.io/img/button.svg)](https://cloudron.io/button.html?app=org.freshrss.cloudronapp)
-
-## Example of full installation on Linux Debian/Ubuntu
+### Example of full installation on Linux Debian/Ubuntu
 ```sh
 # If you use an Apache Web server (otherwise you need another Web server)
 sudo apt-get install apache2
@@ -138,8 +140,7 @@ Create `/etc/cron.d/FreshRSS` with:
 6,36 * * * * www-data php -f /usr/share/FreshRSS/app/actualize_script.php > /tmp/FreshRSS.log 2>&1
 ```
 
-
-# Advice
+## Advice
 * For better security, expose only the `./p/` folder to the Web.
 	* Be aware that the `./data/` folder contains all personal data, so it is a bad idea to expose it.
 * The `./constants.php` file defines access to the application folder. If you want to customize your installation, look here first.
@@ -212,8 +213,6 @@ Supported clients are:
 ## Only for some options or configurations
 * [bcrypt.js](https://github.com/dcodeIO/bcrypt.js)
 * [phpQuery](https://github.com/phpquery/phpquery)
-
-## If native functions are not available
 * [Services_JSON](https://pear.php.net/pepr/pepr-proposal-show.php?id=198)
 * [password_compat](https://github.com/ircmaxell/password_compat)
 

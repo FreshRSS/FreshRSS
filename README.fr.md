@@ -25,26 +25,8 @@ Nous sommes une communauté amicale.
 
 ![Logo de FreshRSS](docs/img/FreshRSS-logo.png)
 
-# Téléchargement
-Voir la [liste des versions](../../releases).
-
-## À propos des branches
-* Utilisez [la branche master](https://github.com/FreshRSS/FreshRSS/tree/master/) si vous visez la stabilité.
-* Pour ceux qui veulent bien aider à tester ou développer les dernières fonctionnalités, [la branche dev](https://github.com/FreshRSS/FreshRSS/tree/dev) vous ouvre les bras !
-
 # Avertissements
 FreshRSS n’est fourni avec aucune garantie.
-
-# Prérequis
-* Serveur modeste, par exemple sous Linux ou Windows
-	* Fonctionne même sur un Raspberry Pi 1 avec des temps de réponse < 1s (testé sur 150 flux, 22k articles)
-* Serveur Web Apache2 (recommandé), ou nginx, lighttpd (non testé sur les autres)
-* PHP 5.3.8+ (PHP 5.4+ recommandé, et PHP 5.5+ pour les performances, ou PHP 7+ pour d’encore meilleures performances)
-	* Requis : [cURL](https://secure.php.net/curl), [DOM](https://secure.php.net/dom), [XML](https://secure.php.net/xml), [session](https://secure.php.net/session), [ctype](https://secure.php.net/ctype), et [PDO_MySQL](https://secure.php.net/pdo-mysql) ou [PDO_SQLite](https://secure.php.net/pdo-sqlite) ou [PDO_PGSQL](https://secure.php.net/pdo-pgsql)
-	* Recommandés : [JSON](https://secure.php.net/json), [GMP](https://secure.php.net/gmp) (pour accès API sur plateformes < 64 bits), [IDN](https://secure.php.net/intl.idn) (pour les noms de domaines internationalisés), [mbstring](https://secure.php.net/mbstring) (pour le texte Unicode), [iconv](https://secure.php.net/iconv) (pour conversion d’encodages), [ZIP](https://secure.php.net/zip) (pour import/export), [zlib](https://secure.php.net/zlib) (pour les flux compressés)
-* MySQL 5.5.3+ (recommandé), ou SQLite 3.7.4+, ou PostgreSQL 9.2+
-* Un navigateur Web récent tel que Firefox / IceCat, Internet Explorer 11 / Edge (sauf certains détails), Chromium / Chrome, Opera, Safari.
-	* Fonctionne aussi sur mobile (sauf certaines fonctionnalités)
 
 ![Capture d’écran de FreshRSS](docs/img/FreshRSS-screenshot.png)
 
@@ -54,7 +36,32 @@ FreshRSS n’est fourni avec aucune garantie.
 * La [documentation développeurs](https://freshrss.github.io/FreshRSS/fr/developers/01_First_steps.md) pour savoir comment contribuer et mieux comprendre le code source de FreshRSS.
 * Le [guide de contribution](https://freshrss.github.io/FreshRSS/fr/contributing.md) pour nous aider à développer FreshRSS.
 
+# Prérequis
+* Un navigateur Web récent tel que Firefox / IceCat, Internet Explorer 11 / Edge (sauf certains détails), Chromium / Chrome, Opera, Safari.
+	* Fonctionne aussi sur mobile (sauf certaines fonctionnalités)
+* Serveur modeste, par exemple sous Linux ou Windows
+	* Fonctionne même sur un Raspberry Pi 1 avec des temps de réponse < 1s (testé sur 150 flux, 22k articles)
+* Serveur Web Apache2 (recommandé), ou nginx, lighttpd (non testé sur les autres)
+* PHP 5.3.8+ (PHP 5.4+ recommandé, et PHP 5.5+ pour les performances, ou PHP 7+ pour d’encore meilleures performances)
+	* Requis : [cURL](https://secure.php.net/curl), [DOM](https://secure.php.net/dom), [XML](https://secure.php.net/xml), [session](https://secure.php.net/session), [ctype](https://secure.php.net/ctype), et [PDO_MySQL](https://secure.php.net/pdo-mysql) ou [PDO_SQLite](https://secure.php.net/pdo-sqlite) ou [PDO_PGSQL](https://secure.php.net/pdo-pgsql)
+	* Recommandés : [JSON](https://secure.php.net/json), [GMP](https://secure.php.net/gmp) (pour accès API sur plateformes < 64 bits), [IDN](https://secure.php.net/intl.idn) (pour les noms de domaines internationalisés), [mbstring](https://secure.php.net/mbstring) (pour le texte Unicode), [iconv](https://secure.php.net/iconv) (pour conversion d’encodages), [ZIP](https://secure.php.net/zip) (pour import/export), [zlib](https://secure.php.net/zlib) (pour les flux compressés)
+* MySQL 5.5.3+ (recommandé), ou SQLite 3.7.4+, ou PostgreSQL 9.2+
+
 # [Installation](https://freshrss.github.io/FreshRSS/fr/users/01_Installation.html)
+
+## Téléchargement
+Voir la [liste des versions](../../releases).
+
+### À propos des branches
+* Utilisez [la branche master](https://github.com/FreshRSS/FreshRSS/tree/master/) si vous visez la stabilité.
+* Pour ceux qui veulent bien aider à tester ou développer les dernières fonctionnalités, [la branche dev](https://github.com/FreshRSS/FreshRSS/tree/dev) vous ouvre les bras !
+
+## Installation automatisée
+* [![Docker](https://www.docker.com/sites/default/files/horizontal.png)](./Docker/)
+* [![YunoHost](https://install-app.yunohost.org/install-with-yunohost.png)](https://install-app.yunohost.org/?app=freshrss)
+* [![Cloudron](https://cloudron.io/img/button.svg)](https://cloudron.io/button.html?app=org.freshrss.cloudronapp)
+
+## Installation manuelle
 1. Récupérez l’application FreshRSS via la commande git ou [en téléchargeant l’archive](../releases)
 2. Placez l’application sur votre serveur (la partie à exposer au Web est le répertoire `./p/`)
 3. Le serveur Web doit avoir les droits d’écriture dans le répertoire `./data/`
@@ -66,12 +73,7 @@ FreshRSS n’est fourni avec aucune garantie.
 
 Plus d’informations sur l’installation et la configuration serveur peuvent être trouvées dans [notre documentation](https://freshrss.github.io/FreshRSS/fr/users/01_Installation.md).
 
-## Installation automatisée
-* [![Docker](https://www.docker.com/sites/default/files/horizontal.png)](./Docker/)
-* [![YunoHost](https://install-app.yunohost.org/install-with-yunohost.png)](https://install-app.yunohost.org/?app=freshrss)
-* [![Cloudron](https://cloudron.io/img/button.svg)](https://cloudron.io/button.html?app=org.freshrss.cloudronapp)
-
-## Exemple d’installation complète sur Linux Debian/Ubuntu
+### Exemple d’installation complète sur Linux Debian/Ubuntu
 ```sh
 # Si vous utilisez le serveur Web Apache (sinon il faut un autre serveur Web)
 sudo apt-get install apache2
@@ -138,8 +140,7 @@ Créer `/etc/cron.d/FreshRSS` avec :
 7,37 * * * * www-data php -f /usr/share/FreshRSS/app/actualize_script.php > /tmp/FreshRSS.log 2>&1
 ```
 
-
-# Conseils
+## Conseils
 * Pour une meilleure sécurité, faites en sorte que seul le répertoire `./p/` soit accessible depuis le Web, par exemple en faisant pointer un sous-domaine sur le répertoire `./p/`.
 	* En particulier, les données personnelles se trouvent dans le répertoire `./data/`.
 * Le fichier `./constants.php` définit les chemins d’accès aux répertoires clés de l’application. Si vous les bougez, tout se passe ici.
@@ -212,8 +213,6 @@ Tout client supportant une API de type Fever ; Sélection :
 ## Uniquement pour certaines options ou configurations
 * [bcrypt.js](https://github.com/dcodeIO/bcrypt.js)
 * [phpQuery](https://github.com/phpquery/phpquery)
-
-## Si les fonctions natives ne sont pas disponibles
 * [Services_JSON](https://pear.php.net/pepr/pepr-proposal-show.php?id=198)
 * [password_compat](https://github.com/ircmaxell/password_compat)
 
