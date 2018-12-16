@@ -45,7 +45,7 @@ return array(
 			'main_stream' => 'Show in main stream',
 			'normal' => 'Show in its category',
 		),
-		'pubsubhubbub' => 'Instant notification with PubSubHubbub',
+		'websub' => 'Instant notification with WebSub',
 		'show' => array(
 			'all' => 'Show all feeds',
 			'error' => 'Show only feeds with error',

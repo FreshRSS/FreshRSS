@@ -45,7 +45,7 @@ return array(
 			'main_stream' => 'In Haupt-Feeds zeigen',
 			'normal' => 'Zeige in eigener Kategorie',
 		),
-		'pubsubhubbub' => 'Sofortbenachrichtigung mit PubSubHubbub',
+		'websub' => 'Sofortbenachrichtigung mit WebSub',
 		'show' => array(
 			'all' => 'Show all feeds',	//TODO - Translation
 			'error' => 'Show only feeds with error',	//TODO - Translation

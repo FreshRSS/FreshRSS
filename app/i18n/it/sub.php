@@ -45,7 +45,7 @@ return array(
 			'main_stream' => 'Mostra in homepage',	//TODO - Translation
 			'normal' => 'Show in its category',	//TODO - Translation
 		),
-		'pubsubhubbub' => 'Notifica istantanea con PubSubHubbub',
+		'websub' => 'Notifica istantanea con WebSub',
 		'show' => array(
 			'all' => 'Show all feeds',	//TODO - Translation
 			'error' => 'Show only feeds with error',	//TODO - Translation

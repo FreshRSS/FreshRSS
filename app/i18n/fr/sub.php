@@ -45,7 +45,7 @@ return array(
 			'main_stream' => 'Afficher dans le flux principal',
 			'normal' => 'Afficher dans sa catégorie',
 		),
-		'pubsubhubbub' => 'Notification instantanée par PubSubHubbub',
+		'websub' => 'Notification instantanée par WebSub',
 		'show' => array(
 			'all' => 'Montrer tous les flux',
 			'error' => 'Montrer seulement les flux en erreur',

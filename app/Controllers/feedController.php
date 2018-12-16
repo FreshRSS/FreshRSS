@@ -266,7 +266,7 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 		$nb_month_old = max(FreshRSS_Context::$user_conf->old_entries, 1);
 		$date_min = time() - (3600 * 24 * 30 * $nb_month_old);
 
-		// PubSubHubbub support
+		// WebSub (PubSubHubbub) support
 		$pubsubhubbubEnabledGeneral = FreshRSS_Context::$system_conf->pubsubhubbub_enabled;
 		$pshbMinAge = time() - (3600 * 24);  //TODO: Make a configuration.
 
@@ -437,13 +437,13 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 				$entryDAO->commit();
 			}
 
-			if ($feed->hubUrl() && $feed->selfUrl()) {	//selfUrl has priority for PubSubHubbub
+			if ($feed->hubUrl() && $feed->selfUrl()) {	//selfUrl has priority for WebSub
 				if ($feed->selfUrl() !== $url) {	//https://code.google.com/p/pubsubhubbub/wiki/MovingFeedsOrChangingHubs
 					$selfUrl = checkUrl($feed->selfUrl());
 					if ($selfUrl) {
-						Minz_Log::debug('PubSubHubbub unsubscribe ' . $feed->url(false));
+						Minz_Log::debug('WebSub unsubscribe ' . $feed->url(false));
 						if (!$feed->pubSubHubbubSubscribe(false)) {	//Unsubscribe
-							Minz_Log::warning('Error while PubSubHubbub unsubscribing from ' . $feed->url(false));
+							Minz_Log::warning('Error while WebSub unsubscribing from ' . $feed->url(false));
 						}
 						$feed->_url($selfUrl, false);
 						Minz_Log::notice('Feed ' . $url . ' canonical address moved to ' . $feed->url(false));
@@ -457,9 +457,9 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 
 			$feed->faviconPrepare();
 			if ($pubsubhubbubEnabledGeneral && $feed->pubSubHubbubPrepare()) {
-				Minz_Log::notice('PubSubHubbub subscribe ' . $feed->url(false));
+				Minz_Log::notice('WebSub subscribe ' . $feed->url(false));
 				if (!$feed->pubSubHubbubSubscribe(true)) {	//Subscribe
-					Minz_Log::warning('Error while PubSubHubbub subscribing to ' . $feed->url(false));
+					Minz_Log::warning('Error while WebSub subscribing to ' . $feed->url(false));
 				}
 			}
 			$feed->unlock();

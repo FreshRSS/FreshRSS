@@ -45,7 +45,7 @@ return array(
 			'main_stream' => 'Show in main stream',	//TODO - Translation
 			'normal' => 'Show in its category',	//TODO - Translation
 		),
-		'pubsubhubbub' => 'Instant notification with PubSubHubbub',	//TODO - Translation
+		'websub' => 'Instant notification with WebSub',	//TODO - Translation
 		'show' => array(
 			'all' => 'Show all feeds',	//TODO - Translation
 			'error' => 'Show only feeds with error',	//TODO - Translation
