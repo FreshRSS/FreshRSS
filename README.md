@@ -47,14 +47,16 @@ FreshRSS comes with absolutely no warranty.
 	* Recommended extensions: [JSON](https://secure.php.net/json), [GMP](https://secure.php.net/gmp) (for API access on 32-bit platforms), [IDN](https://secure.php.net/intl.idn) (for Internationalized Domain Names), [mbstring](https://secure.php.net/mbstring) (for Unicode strings), [iconv](https://secure.php.net/iconv) (for charset conversion), [ZIP](https://secure.php.net/zip) (for import/export), [zlib](https://secure.php.net/zlib) (for compressed feeds)
 * MySQL 5.5.3+ (recommended), or SQLite 3.7.4+, or PostgreSQL 9.2+
 
-# [Installation](https://freshrss.github.io/FreshRSS/en/admins/02_Installation.html)
 
-## Releases
+# Releases
 See the [list of releases](../../releases).
 
-### About branches
-* Use [the master branch](https://github.com/FreshRSS/FreshRSS/tree/master/) if you need stable versions.
-* Use [the dev branch](https://github.com/FreshRSS/FreshRSS/tree/dev) if you want a rolling release with the latest features, and help testing or developing the next stable version.
+## About branches
+* Use [the master branch](https://github.com/FreshRSS/FreshRSS/tree/master/) if you need less frequent stable versions.
+* Use [the dev branch](https://github.com/FreshRSS/FreshRSS/tree/dev) if you want a rolling release with the newest features, or help testing or developing the next stable version.
+
+
+# [Installation](https://freshrss.github.io/FreshRSS/en/admins/02_Installation.html)
 
 ## Automated install
 * [![Docker](https://www.docker.com/sites/default/files/horizontal.png)](./Docker/)
