@@ -1,5 +1,5 @@
 "use strict";
-/* globals $, jQuery, context, i18n, shortcut, shortcuts, SimpleScrollbar, url */
+/* globals $, jQuery, context, i18n, shortcut, shortcuts, url */
 /* jshint strict:global */
 
 var $stream = null,
@@ -527,14 +527,6 @@ function init_posts() {
 	}
 }
 
-function inject_script(name) {
-	var script = document.createElement('script');
-	script.async = 'async';
-	script.defer = 'defer';
-	script.src = '../scripts/' + name;
-	document.head.appendChild(script);
-}
-
 function init_column_categories() {
 	if (context.current_view !== 'normal' && context.current_view !== 'reader') {
 		return;
@@ -551,14 +543,12 @@ function init_column_categories() {
 			}
 		});
 		$(this).parent().next(".tree-folder-items").slideToggle(300, function () {
-			if (!useJsScrollbar &&	//Workaround for Gecko bug in Firefox 64-65(+?):
-				sidebar.scrollHeight > sidebar.clientHeight &&	//if needs scrollbar
+			//Workaround for Gecko bug in Firefox 64-65(+?):
+			var sidebar = document.getElementById('sidebar');
+			if (sidebar && sidebar.scrollHeight > sidebar.clientHeight &&	//if needs scrollbar
 				sidebar.scrollWidth >= sidebar.offsetWidth) {	//but no scrollbar
 				sidebar.style['overflow-y'] = 'scroll';	//then force scrollbar
 				setTimeout(function () { sidebar.style['overflow-y'] = ''; }, 0);
-			}
-			if (useJsScrollbar && typeof(Event) === 'function') { //Refresh JS scrollbar
-				sidebar.querySelector('.ss-content').dispatchEvent(new Event('scroll'));
 			}
 		});
 		return false;
@@ -1280,58 +1270,6 @@ function init_crypto_form() {
 }
 //</crypto form (Web login)>
 
-var sidebar = document.getElementById('sidebar');
-var useJsScrollbar = true;
-try {
-	/*jshint -W018 */
-	useJsScrollbar = sidebar && !CSS.supports('scrollbar-color: auto') &&
-		!(parseInt(getComputedStyle(sidebar, '::-webkit-scrollbar').width) < sidebar.scrollWidth);
-	/*jshint +W018 */
-} catch (ex) {
-}
-if (useJsScrollbar) {
-	inject_script('simple-scrollbar.min.js');
-}
-
-function sticky_recalc() {
-	var h = 0;
-	if ($nav_entries && $nav_entries.length > 0) {
-		h = $(window).height() - sidebar.getBoundingClientRect().top - $nav_entries.height();
-	} else {
-		h = $(window).height() - sidebar.getBoundingClientRect().top;
-	}
-	if (h > 0) {
-		$(sidebar).height(h);
-	}
-}
-
-function init_simple_scrollbar() {
-	if (!window.SimpleScrollbar) {
-		if (window.console) {
-			console.log('FreshRSS waiting for simple-scrollbar…');
-		}
-		window.setTimeout(init_simple_scrollbar, 100);
-	} else {
-		SimpleScrollbar.initEl(sidebar);
-	}
-}
-
-var scrollTimeout;
-function init_sticky_sidebar(){
-	if (!useJsScrollbar) {
-		return;
-	}
-	init_simple_scrollbar();
-	$(window).scroll(function () {
-		if (scrollTimeout) {
-			clearTimeout(scrollTimeout);
-			scrollTimeout = null;
-		}
-		scrollTimeout = setTimeout(sticky_recalc, 200);
-	});
-	window.onresize = sticky_recalc;
-}
-
 function init_confirm_action() {
 	$('body').on('click', '.confirm', function () {
 		var str_confirmation = $(this).attr('data-str-confirm');
@@ -1597,7 +1535,6 @@ function init_afterDOM() {
 	$stream = $('#stream');
 	if ($stream.length > 0) {
 		init_load_more($stream);
-		init_sticky_sidebar();
 		init_posts();
 		init_nav_entries();
 		init_dynamic_tags();

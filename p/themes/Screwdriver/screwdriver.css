@@ -568,13 +568,6 @@ a.btn {
 		scrollbar-color: rgba(255, 255, 255, 0.3) rgba(0, 0, 0, 0.0);
 	}
 }
-.ss-scroll {
-	background: rgba(255, 255, 255, 0.1);
-}
-.ss-container:hover .ss-scroll,
-.ss-container:active .ss-scroll {
-	background: rgba(255, 255, 255, 0.3);
-}
 @supports not (scrollbar-width: thin) {
 	#sidebar::-webkit-scrollbar-thumb {
 		background: rgba(255, 255, 255, 0.1);
