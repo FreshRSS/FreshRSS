@@ -551,7 +551,13 @@ function init_column_categories() {
 			}
 		});
 		$(this).parent().next(".tree-folder-items").slideToggle(300, function () {
-			if (useJsScrollbar && sidebar && typeof(Event) === 'function') { //Refresh JS scrollbar
+			if (!useJsScrollbar &&	//Workaround for Gecko bug in Firefox 64-65(+?):
+				sidebar.scrollHeight > sidebar.clientHeight &&	//if needs scrollbar
+				sidebar.scrollWidth >= sidebar.offsetWidth) {	//but no scrollbar
+				sidebar.style['overflow-y'] = 'scroll';	//then force scrollbar
+				setTimeout(function () { sidebar.style['overflow-y'] = ''; }, 0);
+			}
+			if (useJsScrollbar && typeof(Event) === 'function') { //Refresh JS scrollbar
 				sidebar.querySelector('.ss-content').dispatchEvent(new Event('scroll'));
 			}
 		});
@@ -1279,7 +1285,7 @@ var useJsScrollbar = true;
 try {
 	/*jshint -W018 */
 	useJsScrollbar = sidebar && !CSS.supports('scrollbar-color: auto') &&
-		!(parseInt(getComputedStyle(sidebar, '::-webkit-scrollbar').width) < sidebar.offsetWidth);
+		!(parseInt(getComputedStyle(sidebar, '::-webkit-scrollbar').width) < sidebar.scrollWidth);
 	/*jshint +W018 */
 } catch (ex) {
 }
@@ -1312,12 +1318,10 @@ function init_simple_scrollbar() {
 
 var scrollTimeout;
 function init_sticky_sidebar(){
-	if (!sidebar) {
+	if (!useJsScrollbar) {
 		return;
 	}
-	if (useJsScrollbar) {
-		init_simple_scrollbar();
-	}
+	init_simple_scrollbar();
 	$(window).scroll(function () {
 		if (scrollTimeout) {
 			clearTimeout(scrollTimeout);
