@@ -180,6 +180,8 @@ Supported clients are:
 	* [EasyRSS](https://github.com/Alkarex/EasyRSS) (Open source, [F-Droid](https://f-droid.org/packages/org.freshrss.easyrss/))
 * GNU/Linux
 	* [FeedReader 2.0+](https://jangernert.github.io/FeedReader/) (Open source)
+* MacOS
+	* [Vienna RSS](http://www.vienna-rss.com/) (Open source)
 
 ## Fever API
 

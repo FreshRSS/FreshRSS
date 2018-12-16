@@ -180,6 +180,8 @@ Tout client supportant une API de type Google Reader ; Sélection :
 	* [EasyRSS](https://github.com/Alkarex/EasyRSS) (Libre, [F-Droid](https://f-droid.org/fr/packages/org.freshrss.easyrss/))
 * GNU/Linux
 	* [FeedReader 2.0+](https://jangernert.github.io/FeedReader/) (Libre)
+* MacOS
+	* [Vienna RSS](http://www.vienna-rss.com/) (Libre)
 
 ## Via l’API compatible Fever
 

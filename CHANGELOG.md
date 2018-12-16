@@ -3,8 +3,8 @@
 ## 2018-1X-XX FreshRSS 1.12.1-dev
 
 * API
-	* Improvements to the Google Reader API / Open Reader API [#2093](https://github.com/FreshRSS/FreshRSS/pull/2093)
-		* Support for Vienna RSS (client for Mac OS X) [#2091](https://github.com/FreshRSS/FreshRSS/issues/2091)
+	* Improvements to the Google Reader API [#2093](https://github.com/FreshRSS/FreshRSS/pull/2093)
+		* Support for [Vienna RSS](http://www.vienna-rss.com/) (client for Mac OS X) [#2091](https://github.com/FreshRSS/FreshRSS/issues/2091)
 * Features
 	* Ability to import XML files exported from Tiny-Tiny-RSS [#2079](https://github.com/FreshRSS/FreshRSS/issues/2079)
 * UI

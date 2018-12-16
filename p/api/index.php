@@ -2,13 +2,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-GB" lang="en-GB">
 <head>
 <meta charset="UTF-8" />
-<title>FreshRSS API</title>
+<title>FreshRSS API endpoints</title>
 <meta name="robots" content="noindex" />
 <link rel="start" href="../i/" />
 </head>
 
 <body>
-<h1>FreshRSS API</h1>
+<h1>FreshRSS API endpoints</h1>
 
 <h2>Google Reader compatible API</h2>
 <dl>
