@@ -70,7 +70,7 @@ Tout client supportant une API de type Google Reader. Sélection :
 * MacOS
 	* [Vienna RSS](http://www.vienna-rss.com/) (Libre)
 
-# API compatible Google Reader / [Open Reader API](http://rss-sync.github.io/Open-Reader-API/rssconsensus/)
+# API compatible Google Reader
 
 Exemples de requêtes simples:
 

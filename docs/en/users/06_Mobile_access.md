@@ -57,7 +57,7 @@ See the [page about the Fever compatible API](06_Fever_API.md) for another possi
 		* [Vienna RSS](http://www.vienna-rss.com/) (Open source)
 
 
-# Google Reader compatible API / [Open Reader API](http://rss-sync.github.io/Open-Reader-API/rssconsensus/)
+# Google Reader compatible API
 
 Examples of basic queries:
 

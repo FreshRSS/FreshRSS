@@ -10,7 +10,7 @@
 <body>
 <h1>FreshRSS API endpoints</h1>
 
-<h2>Google Reader compatible API / Open Reader API</h2>
+<h2>Google Reader compatible API</h2>
 <dl>
 <dt>Your API address:</dt>
 <dd><?php

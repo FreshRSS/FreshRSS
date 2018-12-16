@@ -168,11 +168,11 @@ Voir le [dépôt dédié à ces extensions](https://github.com/FreshRSS/Extensio
 
 FreshRSS supporte l’accès depuis des applications natives pour Linux, Android, iOS, et OS X, grâce à deux APIs distinctes.
 
-## Via l’API compatible Google Reader / Open Reader
+## Via l’API compatible Google Reader
 
 Voir notre [documentation sur l’accès mobile](https://freshrss.github.io/FreshRSS/fr/users/06_Mobile_access.html).
 
-Tout client supportant une API de type Google Reader / [Open Reader](http://rss-sync.github.io/Open-Reader-API/rssconsensus/) ; Sélection :
+Tout client supportant une API de type Google Reader ; Sélection :
 
 * Android
 	* [News+](https://play.google.com/store/apps/details?id=com.noinnion.android.newsplus) avec [News+ Google Reader extension](https://play.google.com/store/apps/details?id=com.noinnion.android.newsplus.extension.google_reader) (Propriétaire)
