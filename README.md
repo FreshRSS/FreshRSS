@@ -13,8 +13,8 @@ It supports custom tags, and [PubSubHubbub](https://github.com/pubsubhubbub/PubS
 There is an API for (mobile) clients, and a [Command-Line Interface](cli/README.md).
 Finally, it supports [extensions](#extensions) for further tuning.
 
-Feature requests, bug reports, and other contributions are welcome. The best way to contribute is to [open an issue on GitHub](https://github.com/FreshRSS/FreshRSS/issues). We are a friendly community.
-
+Feature requests, bug reports, and other contributions are welcome. The best way to contribute is to [open an issue on GitHub](https://github.com/FreshRSS/FreshRSS/issues).
+We are a friendly community.
 
 * Official website: https://freshrss.org
 * Demo: https://demo.freshrss.org/
@@ -40,9 +40,8 @@ FreshRSS comes with absolutely no warranty.
 	* Required extensions: [cURL](https://secure.php.net/curl), [DOM](https://secure.php.net/dom), [XML](https://secure.php.net/xml), [session](https://secure.php.net/session), [ctype](https://secure.php.net/ctype), and [PDO_MySQL](https://secure.php.net/pdo-mysql) or [PDO_SQLite](https://secure.php.net/pdo-sqlite) or [PDO_PGSQL](https://secure.php.net/pdo-pgsql)
 	* Recommended extensions: [JSON](https://secure.php.net/json), [GMP](https://secure.php.net/gmp) (for API access on 32-bit platforms), [IDN](https://secure.php.net/intl.idn) (for Internationalized Domain Names), [mbstring](https://secure.php.net/mbstring) (for Unicode strings), [iconv](https://secure.php.net/iconv) (for charset conversion), [ZIP](https://secure.php.net/zip) (for import/export), [zlib](https://secure.php.net/zlib) (for compressed feeds)
 * MySQL 5.5.3+ (recommended), or SQLite 3.7.4+, or PostgreSQL 9.2+
-* A recent browser like Firefox / IceCat, Internet Explorer 11 / Edge, Chromium / Chrome, Opera, Safari.
-	* Works on mobile
-	* All features may not be available on mobile or Internet Explorer 11 / Edge
+* A recent browser like Firefox / IceCat, Internet Explorer 11 / Edge (minus a few details), Chromium / Chrome, Opera, Safari.
+	* Works on mobile (except a few features)
 
 ![FreshRSS screenshot](docs/img/FreshRSS-screenshot.png)
 
@@ -54,7 +53,7 @@ FreshRSS comes with absolutely no warranty.
 
 # [Installation](https://freshrss.github.io/FreshRSS/en/admins/02_Installation.html)
 1. Get FreshRSS with git or [by downloading the archive](https://github.com/FreshRSS/FreshRSS/archive/master.zip)
-2. Put the application somewhere on your server (expose only the `./p/` folder to the web)
+2. Put the application somewhere on your server (expose only the `./p/` folder to the Web)
 3. Add write access to the `./data/` folder for the webserver user
 4. Access FreshRSS with your browser and follow the installation process
 	* or use the [Command-Line Interface](cli/README.md)
@@ -122,7 +121,7 @@ This is needed if you will be using the multi-user mode, to limit access to Fres
 ## Automatic feed update
 * You can add a Cron job to launch the update script.
 Check the Cron documentation related to your distribution ([Debian/Ubuntu](https://help.ubuntu.com/community/CronHowto), [Red Hat/Fedora](https://fedoraproject.org/wiki/Administration_Guide_Draft/Cron), [Slackware](https://docs.slackware.com/fr:slackbook:process_control?#cron), [Gentoo](https://wiki.gentoo.org/wiki/Cron), [Arch Linux](https://wiki.archlinux.org/index.php/Cron)…).
-It is a good idea to run the cron job as the webserver user.
+It is a good idea to run the cron job as the webserver user (often “www-data”).
 For instance, if you want to run the script every hour:
 
 ```
@@ -143,8 +142,11 @@ Create `/etc/cron.d/FreshRSS` with:
 * The `./constants.php` file defines access to the application folder. If you want to customize your installation, look here first.
 * If you encounter any problem, logs are accessible from the interface or manually in `./data/users/*/log*.txt` files.
 	* The special folder `./data/users/_/` contains the part of the logs that are shared by all users.
+
+
+# F.A.Q.:
 * The date and time in the right-hand column is the date declared by the feed, not the time at which the article was received by FreshRSS, and it is not used for sorting.
-	* When importing a new feed, all of its articles will appear at the top of the feed list regardless of their declared date.
+	* In particular, when importing a new feed, all of its articles will appear at the top of the feed list regardless of their declared date.
 
 
 # Backup
