@@ -1,18 +1,27 @@
 ﻿# FreshRSS changelog
 
-## 2018-1X-XX FreshRSS 1.12.1-dev
+## 2018-12-XX FreshRSS 1.13.0-dev
 
 * API
 	* Improvements to the Google Reader API [#2093](https://github.com/FreshRSS/FreshRSS/pull/2093)
 		* Support for [Vienna RSS](http://www.vienna-rss.com/) (client for Mac OS X) [#2091](https://github.com/FreshRSS/FreshRSS/issues/2091)
+	* Contributions to [WebSub](https://www.w3.org/TR/websub/) in third-party systems to support instant push notifications
+		from [Mastodon](https://joinmastodon.org) 2.6.2+ and [Friendica](https://friendi.ca) 2018.12+
+		[#mastodon/9302](https://github.com/tootsuite/mastodon/pull/9302), [#friendica/6137](https://github.com/friendica/friendica/pull/6137)
 * Features
 	* Ability to import XML files exported from Tiny-Tiny-RSS [#2079](https://github.com/FreshRSS/FreshRSS/issues/2079)
+	* Ability to show all the feeds that have a warning [#2146](https://github.com/FreshRSS/FreshRSS/issues/2146)
+	* Share with Pinboard [#1972](https://github.com/FreshRSS/FreshRSS/issues/1972)
 * UI
+	* Reworked the scrolling of the categories/feeds sidebar [#2117](https://github.com/FreshRSS/FreshRSS/pull/2117)
+		* Native styled scrollbars in Firefox 64+, Chrome.
+	* Show collapsed sidebar in the reader mode [#2169](https://github.com/FreshRSS/FreshRSS/issues/2169)
 	* New shortcuts to move to previous/next article without opening it [#1767](https://github.com/FreshRSS/FreshRSS/pull/1767)
 	* Fix regression from 1.12.0 preventing from closing an article [#2085](https://github.com/FreshRSS/FreshRSS/issues/2085)
 	* Improvements of the Swage theme [#2088](https://github.com/FreshRSS/FreshRSS/pull/2088), [#2094](https://github.com/FreshRSS/FreshRSS/pull/2094)
-	* Many style improvements [#1620](https://github.com/FreshRSS/FreshRSS/issues/1620), [#2108](https://github.com/FreshRSS/FreshRSS/pull/2108),
-		[#2089](https://github.com/FreshRSS/FreshRSS/pull/2089), [#2122](https://github.com/FreshRSS/FreshRSS/pull/2122)
+	* Many style improvements [#2108](https://github.com/FreshRSS/FreshRSS/pull/2108), [#2115](https://github.com/FreshRSS/FreshRSS/issues/2115),
+		[#1620](https://github.com/FreshRSS/FreshRSS/issues/1620), [#2089](https://github.com/FreshRSS/FreshRSS/pull/2089),
+		[#2122](https://github.com/FreshRSS/FreshRSS/pull/2122), [#2161](https://github.com/FreshRSS/FreshRSS/pull/2161)
 * I18n
 	* Occitan [#2110](https://github.com/FreshRSS/FreshRSS/pull/2110)
 * SimplePie
@@ -24,6 +33,7 @@
 * Bug fixing
 	* Fix warning in `tempnam()` with PHP 7.1+ affecting ZIP export [#2134](https://github.com/FreshRSS/FreshRSS/pull/2134)
 	* Fix print for views with unfolded articles [#2130](https://github.com/FreshRSS/FreshRSS/issues/2130)
+	* Fix sharing with Movim [#1781](https://github.com/FreshRSS/FreshRSS/issues/1781)
 * Misc.
 	* Add username in configuration menu and exported files [#2133](https://github.com/FreshRSS/FreshRSS/pull/2133)
 	* New option to set the duration of the cookie session [#2137](https://github.com/FreshRSS/FreshRSS/pull/2137)
