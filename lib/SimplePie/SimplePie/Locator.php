@@ -62,14 +62,18 @@ class SimplePie_Locator
 	var $base_location = 0;
 	var $checked_feeds = 0;
 	var $max_checked_feeds = 10;
+	var $force_fsockopen = false;
+	var $curl_options = array();
 	protected $registry;
 
-	public function __construct(SimplePie_File $file, $timeout = 10, $useragent = null, $max_checked_feeds = 10)
+	public function __construct(SimplePie_File $file, $timeout = 10, $useragent = null, $max_checked_feeds = 10, $force_fsockopen = false, $curl_options = array())
 	{
 		$this->file = $file;
 		$this->useragent = $useragent;
 		$this->timeout = $timeout;
 		$this->max_checked_feeds = $max_checked_feeds;
+		$this->force_fsockopen = $force_fsockopen;
+		$this->curl_options = $curl_options;
 
 		if (class_exists('DOMDocument'))
 		{
@@ -154,14 +158,8 @@ class SimplePie_Locator
 			{
 				$mime_types[] = 'text/html';
 			}
-			if (in_array($sniffed, $mime_types))
-			{
-				return true;
-			}
-			else
-			{
-				return false;
-			}
+
+			return in_array($sniffed, $mime_types);
 		}
 		elseif ($file->method & SIMPLEPIE_FILE_SOURCE_LOCAL)
 		{
@@ -210,10 +208,8 @@ class SimplePie_Locator
 		{
 			return array_values($feeds);
 		}
-		else
-		{
-			return null;
-		}
+
+		return null;
 	}
 
 	protected function search_elements_by_tag($name, &$done, $feeds)
@@ -254,7 +250,7 @@ class SimplePie_Locator
 					$headers = array(
 						'Accept' => 'application/atom+xml, application/rss+xml, application/rdf+xml;q=0.9, application/xml;q=0.8, text/xml;q=0.8, text/html;q=0.7, unknown/unknown;q=0.1, application/unknown;q=0.1, */*;q=0.1',
 					);
-					$feed = $this->registry->create('File', array($href, $this->timeout, 5, $headers, $this->useragent));
+					$feed = $this->registry->create('File', array($href, $this->timeout, 5, $headers, $this->useragent, $this->force_fsockopen, $this->curl_options));
 					if ($feed->success && ($feed->method & SIMPLEPIE_FILE_SOURCE_REMOTE === 0 || ($feed->status_code === 200 || $feed->status_code > 206 && $feed->status_code < 300)) && $this->is_feed($feed, true))
 					{
 						$feeds[$href] = $feed;
@@ -384,7 +380,7 @@ class SimplePie_Locator
 				$headers = array(
 					'Accept' => 'application/atom+xml, application/rss+xml, application/rdf+xml;q=0.9, application/xml;q=0.8, text/xml;q=0.8, text/html;q=0.7, unknown/unknown;q=0.1, application/unknown;q=0.1, */*;q=0.1',
 				);
-				$feed = $this->registry->create('File', array($value, $this->timeout, 5, $headers, $this->useragent));
+				$feed = $this->registry->create('File', array($value, $this->timeout, 5, $headers, $this->useragent, $this->force_fsockopen, $this->curl_options));
 				if ($feed->success && ($feed->method & SIMPLEPIE_FILE_SOURCE_REMOTE === 0 || ($feed->status_code === 200 || $feed->status_code > 206 && $feed->status_code < 300)) && $this->is_feed($feed))
 				{
 					return array($feed);
@@ -412,7 +408,7 @@ class SimplePie_Locator
 				$headers = array(
 					'Accept' => 'application/atom+xml, application/rss+xml, application/rdf+xml;q=0.9, application/xml;q=0.8, text/xml;q=0.8, text/html;q=0.7, unknown/unknown;q=0.1, application/unknown;q=0.1, */*;q=0.1',
 				);
-				$feed = $this->registry->create('File', array($value, $this->timeout, 5, null, $this->useragent));
+				$feed = $this->registry->create('File', array($value, $this->timeout, 5, null, $this->useragent, $this->force_fsockopen, $this->curl_options));
 				if ($feed->success && ($feed->method & SIMPLEPIE_FILE_SOURCE_REMOTE === 0 || ($feed->status_code === 200 || $feed->status_code > 206 && $feed->status_code < 300)) && $this->is_feed($feed))
 				{
 					return array($feed);
@@ -426,4 +422,3 @@ class SimplePie_Locator
 		return null;
 	}
 }
-

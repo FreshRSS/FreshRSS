@@ -27,7 +27,7 @@ return array(
 			'password' => 'HTTP 密码',
 			'username' => 'HTTP 用户名',
 		),
-		'clear_cache' => 'Always clear cache',	//TODO
+		'clear_cache' => 'Always clear cache',	//TODO - Translation
 		'css_help' => '用于获取全文（注意，这将耗费更多时间！）',
 		'css_path' => '原文的 CSS 选择器',
 		'description' => '描述',
@@ -45,17 +45,24 @@ return array(
 			'main_stream' => '在首页中显示',
 			'normal' => '在分类中显示',
 		),
-		'ssl_verify' => 'Verify SSL security',	//TODO
+		'pubsubhubbub' => 'PubSubHubbub 即时通知',
+		'show' => array(
+			'all' => 'Show all feeds',	//TODO - Translation
+			'error' => 'Show only feeds with error',	//TODO - Translation
+		),
+		'showing' => array(
+			'error' => 'Showing only feeds with error',	//TODO - Translation
+		),
+		'ssl_verify' => 'Verify SSL security',	//TODO - Translation
 		'stats' => '统计',
 		'think_to_add' => '你可以添加一些 RSS 源。',
-		'timeout' => 'Timeout in seconds',	//TODO
+		'timeout' => 'Timeout in seconds',	//TODO - Translation
 		'title' => '标题',
 		'title_add' => '添加 RSS 源',
 		'ttl' => '最小自动更新时间',
 		'url' => '源 URL',
 		'validator' => '检查 RSS 源有效性',
 		'website' => '网站 URL',
-		'pubsubhubbub' => 'PubSubHubbub 即时通知',
 	),
 	'firefox' => array(
 		'documentation' => '按照 <a href="https://developer.mozilla.org/en-US/Firefox/Releases/2/Adding_feed_readers_to_Firefox#Adding_a_new_feed_reader_manually">这里</a> 描述的步骤可将 FreshRSS 添加到 Firefox 阅读器列表',

@@ -4,16 +4,16 @@ return array(
 	'action' => array(
 		'finish' => 'השלמת ההתקנה',
 		'fix_errors_before' => 'יש לתקן את השגיאות לפני המעבר לשלב הבא.',
+		'keep_install' => 'Keep previous configuration',	//TODO - Translation
 		'next_step' => 'לשלב הבא',
+		'reinstall' => 'Reinstall FreshRSS',	//TODO - Translation
 	),
 	'auth' => array(
-		'email_persona' => 'כתובת דואר אלקטרוני להרשמה<br /><small>(לצורך <a href="https://persona.org/" rel="external">מוזילה פרסונה</a>)</small>',
 		'form' => 'טופס אינטרנטי (מסורתי, דורש JavaScript)',
 		'http' => 'HTTP (למשתמשים מתקדמים עם HTTPS)',
 		'none' => 'ללא (מסוכן)',
 		'password_form' => 'סיסמה<br /><small>(לשימוש בטפוס ההרשמה)</small>',
-		'password_format' => 'At least 7 characters', // @todo
-		'persona' => 'מוזילה פרסונה (מודרני, דורש JavaScript)',
+		'password_format' => 'At least 7 characters',	//TODO - Translation
 		'type' => 'שיטת אימות',
 	),
 	'bdd' => array(
@@ -24,15 +24,16 @@ return array(
 			'ok' => 'הגדרות בסיס הנתונים נשמרו.',
 		),
 		'host' => 'מארח',
-		'prefix' => 'קידומת הטבלה',
 		'password' => 'HTTP סיסמה',
+		'prefix' => 'קידומת הטבלה',
 		'type' => 'סוג בסיס הנתונים',
 		'username' => 'HTTP שם משתמש',
 	),
 	'check' => array(
 		'_' => 'בדיקות',
+		'already_installed' => 'We have detected that FreshRSS is already installed!',	//TODO - Translation
 		'cache' => array(
-			'nok' => 'Check permissions on <em>./data/cache</em> directory. HTTP server must have rights to write into', // @todo
+			'nok' => 'Check permissions on <em>./data/cache</em> directory. HTTP server must have rights to write into',	//TODO - Translation
 			'ok' => 'ההרשאות בתיקיית המטמון תקינות',
 		),
 		'ctype' => array(
@@ -44,7 +45,7 @@ return array(
 			'ok' => 'יש לכם את גירסת %s של cURL',
 		),
 		'data' => array(
-			'nok' => 'Check permissions on <em>./data</em> directory. HTTP server must have rights to write into', // @todo
+			'nok' => 'Check permissions on <em>./data</em> directory. HTTP server must have rights to write into',	//TODO - Translation
 			'ok' => 'ההרשאות בתיקיית הדאטא תקינות',
 		),
 		'dom' => array(
@@ -52,23 +53,27 @@ return array(
 			'ok' => 'הספרייה הנדרשת לסיור ב DOM מותקנת',
 		),
 		'favicons' => array(
-			'nok' => 'Check permissions on <em>./data/favicons</em> directory. HTTP server must have rights to write into', // @todo
+			'nok' => 'Check permissions on <em>./data/favicons</em> directory. HTTP server must have rights to write into',	//TODO - Translation
 			'ok' => 'ההרשאות בתיקיית הfavicons תקינות',
+		),
+		'fileinfo' => array(
+			'nok' => 'Cannot find the PHP fileinfo library (fileinfo package).',	//TODO - Translation
+			'ok' => 'You have the fileinfo library.',	//TODO - Translation
 		),
 		'http_referer' => array(
 			'nok' => 'נא לדבוק שאינך פוגעת ב HTTP REFERER שלך.',
 			'ok' => 'הHTTP REFERER ידוע ותאם לשרת שלך.',
 		),
 		'json' => array(
-			'nok' => 'Cannot find a recommended library to parse JSON.',	//TODO
-			'ok' => 'You have a recommended library to parse JSON.',	//TODO
+			'nok' => 'Cannot find a recommended library to parse JSON.',	//TODO - Translation
+			'ok' => 'You have a recommended library to parse JSON.',	//TODO - Translation
 		),
 		'mbstring' => array(
-			'nok' => 'Cannot find the recommended library mbstring for Unicode.',	//TODO
-			'ok' => 'You have the recommended library mbstring for Unicode.',	//TODO
+			'nok' => 'Cannot find the recommended library mbstring for Unicode.',	//TODO - Translation
+			'ok' => 'You have the recommended library mbstring for Unicode.',	//TODO - Translation
 		),
 		'minz' => array(
-			'nok' => 'You lack the Minz framework.', // @todo
+			'nok' => 'You lack the Minz framework.',	//TODO - Translation
 			'ok' => 'יש לכם את תשתית Minz',
 		),
 		'pcre' => array(
@@ -79,17 +84,17 @@ return array(
 			'nok' => 'PDO אינו מותקן או שאחד ממנהלי ההתקנים שלו חסר (pdo_mysql, pdo_sqlite)',
 			'ok' => 'PDO מותקן ולפחות אחד ממנהלי ההתקן הנתמכים מותקן (pdo_mysql, pdo_sqlite)',
 		),
-		'persona' => array(
-			'nok' => 'Check permissions on <em>./data/persona</em> directory. HTTP server must have rights to write into', // @todo
-			'ok' => 'ההרשאות בתיקיית מוזילה פרסונה תקינות',
-		),
 		'php' => array(
 			'nok' => 'גירסת PHP שלכם היא %s אך FreshRSS דורש לפחות את גירסה %s',
 			'ok' => 'גירסת PHP שלכם היא %s, שתואמת ל FreshRSS',
 		),
 		'users' => array(
-			'nok' => 'Check permissions on <em>./data/users</em> directory. HTTP server must have rights to write into', // @todo
-			'ok' => 'Permissions on users directory are good.', // @todo
+			'nok' => 'Check permissions on <em>./data/users</em> directory. HTTP server must have rights to write into',	//TODO - Translation
+			'ok' => 'Permissions on users directory are good.',	//TODO - Translation
+		),
+		'xml' => array(
+			'nok' => 'Cannot find the required library to parse XML.',	//TODO - Translation
+			'ok' => 'You have the required library to parse XML.',	//TODO - Translation
 		),
 	),
 	'conf' => array(
@@ -101,14 +106,17 @@ return array(
 	'delete_articles_after' => 'מחיקת מאמרים לאחר',
 	'fix_errors_before' => 'יש לתקן את השגיאות לפני המעבר לשלב הבא.',
 	'javascript_is_better' => 'FreshRSS מעדיף שתאפשרו JavaScript',
+	'js' => array(
+		'confirm_reinstall' => 'You will lose your previous configuration by reinstalling FreshRSS. Are you sure you want to continue?',	//TODO - Translation
+	),
 	'language' => array(
 		'_' => 'שפה',
 		'choose' => 'בחירת שפה ל FreshRSS',
 		'defined' => 'השפה הוגדרה.',
 	),
 	'not_deleted' => 'משהו נכשל; יש צורך למחוק את הקובץ <em>%s</em> ידנית.',
-	'ok' => 'The installation process was successful.', // @todo
-	'step' => 'step %d', // @todo
+	'ok' => 'The installation process was successful.',	//TODO - Translation
+	'step' => 'step %d',	//TODO - Translation
 	'steps' => 'שלבים',
 	'title' => 'התקנה · FreshRSS',
 	'this_is_the_end' => 'סיום',

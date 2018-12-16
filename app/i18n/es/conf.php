@@ -19,7 +19,7 @@ return array(
 			'bottom_line' => 'Línea inferior',
 			'entry' => 'Iconos de artículos',
 			'publication_date' => 'Fecha de publicación',
-			'related_tags' => 'Etiquetas relacionadas',	//TODO
+			'related_tags' => 'Etiquetas relacionadas',
 			'sharing' => 'Compartir',
 			'top_line' => 'Línea superior',
 		),
@@ -28,6 +28,7 @@ return array(
 			'seconds' => 'segundos (0 significa sin límite de espera)',
 			'timeout' => 'Notificación de fin de espera HTML5',
 		),
+		'show_nav_buttons' => 'Show the navigation buttons',	//TODO - Translation
 		'theme' => 'Tema',
 		'title' => 'Visualización',
 		'width' => array(
@@ -37,12 +38,22 @@ return array(
 			'no_limit' => 'Sin límite',
 			'thin' => 'Estrecho',
 		),
-		'show_nav_buttons' => 'Show the navigation buttons',	//TODO
+	),
+	'profile' => array(
+		'_' => 'Administración de perfiles',
+		'delete' => array(
+			'_' => 'Borrar cuenta',
+			'warn' => 'Tu cuenta y todos los datos asociados serán eliminados.',
+		),
+		'password_api' => 'Contraseña API <br /><small>(para apps móviles, por ej.)</small>',
+		'password_form' => 'Contraseña<br /><small>(para el método de identificación por formulario web)</small>',
+		'password_format' => 'Mínimo de 7 caracteres',
+		'title' => 'Perfil',
 	),
 	'query' => array(
 		'_' => 'Consultas de usuario',
 		'deprecated' => 'Esta consulta ya no es válida. La categoría referenciada o fuente ha sido eliminada.',
-		'display' => 'Display user query results', // TODO
+		'display' => 'Display user query results',	//TODO - Translation
 		'filter' => 'Filtro aplicado:',
 		'get_all' => 'Mostrar todos los artículos',
 		'get_category' => 'Mostrar la categoría "%s"',
@@ -53,7 +64,7 @@ return array(
 		'number' => 'Consulta n° %d',
 		'order_asc' => 'Mostrar primero los artículos más antiguos',
 		'order_desc' => 'Mostrar primero los artículos más recientes',
-		'remove' => 'Remove user query', // TODO
+		'remove' => 'Remove user query',	//TODO - Translation
 		'search' => 'Buscar "%s"',
 		'state_0' => 'Mostrar todos los artículos',
 		'state_1' => 'Mostrar artículos leídos',
@@ -73,31 +84,19 @@ return array(
 		'state_15' => 'Mostrar todos los artículos',
 		'title' => 'Consultas de usuario',
 	),
-	'profile' => array(
-		'_' => 'Administración de perfiles',
-		'delete' => array(
-			'_' => 'Borrar cuenta',
-			'warn' => 'Tu cuenta y todos los datos asociados serán eliminados.',
-		),
-		'password_api' => 'Contraseña API <br /><small>(para apps móviles, por ej.)</small>',
-		'password_form' => 'Contraseña<br /><small>(para el método de identificación por formulario web)</small>',
-		'password_format' => 'Mínimo de 7 caracteres',
-		'title' => 'Perfil',
-	),
 	'reading' => array(
 		'_' => 'Lectura',
 		'after_onread' => 'Tras “marcar todo como leído”,',
 		'articles_per_page' => 'Número de artículos por página',
 		'auto_load_more' => 'Cargar más artículos al final de la página',
 		'auto_remove_article' => 'Ocultar artículos tras la lectura',
-		'mark_updated_article_unread' => 'Marcar artículos actualizados como no leídos',
 		'confirm_enabled' => 'Mostrar ventana de confirmación al usar la función “marcar todos como leídos”',
 		'display_articles_unfolded' => 'Mostrar los artículos sin expandir por defecto',
 		'display_categories_unfolded' => 'Mostrar categorías expandidas por defecto',
 		'hide_read_feeds' => 'Ocultar categorías & fuentes sin artículos no leídos (no funciona con la configuración "Mostrar todos los artículos")',
 		'img_with_lazyload' => 'Usar el modo de "carga perezosa" para las imágenes',
-		'sides_close_article' => 'Pinchar fuera del área de texto del artículo lo cerrará',
 		'jump_next' => 'saltar al siguiente archivo sin leer emparentado (fuente o categoría)',
+		'mark_updated_article_unread' => 'Marcar artículos actualizados como no leídos',
 		'number_divided_when_reader' => 'Dividido en 2 en la vista de lectura.',
 		'read' => array(
 			'article_open_on_website' => 'cuando el artículo se abra en su web original',
@@ -112,6 +111,7 @@ return array(
 			'all_articles' => 'Mostrar todos los artículos',
 			'unread' => 'Mostrar solo pendientes',
 		),
+		'sides_close_article' => 'Pinchar fuera del área de texto del artículo lo cerrará',
 		'sort' => array(
 			'_' => 'Orden',
 			'newer_first' => 'Nuevos primero',
@@ -128,7 +128,7 @@ return array(
 	),
 	'sharing' => array(
 		'_' => 'Compartir',
-		'add' => 'Add a sharing method', // TODO
+		'add' => 'Add a sharing method',	//TODO - Translation
 		'blogotext' => 'Blogotext',
 		'diaspora' => 'Diaspora*',
 		'email' => 'Email',
@@ -136,7 +136,7 @@ return array(
 		'g+' => 'Google+',
 		'more_information' => 'Más información',
 		'print' => 'Print',
-		'remove' => 'Remove sharing method', // TODO
+		'remove' => 'Remove sharing method',	//TODO - Translation
 		'shaarli' => 'Shaarli',
 		'share_name' => 'Compartir nombre a mostrar',
 		'share_url' => 'Compatir URL a usar',
@@ -153,27 +153,30 @@ return array(
 		'collapse_article' => 'Contraer',
 		'first_article' => 'Saltar al primer artículo',
 		'focus_search' => 'Acceso a la casilla de búsqueda',
-		'global_view' => 'Switch to global view', // TODO
+		'global_view' => 'Switch to global view',	//TODO - Translation
 		'help' => 'Mostrar documentación',
 		'javascript' => 'JavaScript debe estar activado para poder usar atajos de teclado',
 		'last_article' => 'Saltar al último artículo',
 		'load_more' => 'Cargar más artículos',
-		'mark_read' => 'Marcar como leído',
 		'mark_favorite' => 'Marcar como favorito',
+		'mark_read' => 'Marcar como leído',
 		'navigation' => 'Navegación',
 		'navigation_help' => 'Con el modificador "Mayúsculas" es posible usar los atajos de teclado en las fuentes.<br/>Con el modificador "Alt" es posible aplicar los atajos de teclado en las categorías.',
+		'navigation_no_mod_help' => 'The following navigation shortcuts do not support modifiers.',	//TODO - Translation
 		'next_article' => 'Saltar al siguiente artículo',
-		'normal_view' => 'Switch to normal view', // TODO
+		'normal_view' => 'Switch to normal view',	//TODO - Translation
 		'other_action' => 'Otras acciones',
 		'previous_article' => 'Saltar al artículo anterior',
-		'reading_view' => 'Switch to reading view', // TODO
-		'rss_view' => 'Open RSS view in a new tab', // TODO
+		'reading_view' => 'Switch to reading view',	//TODO - Translation
+		'rss_view' => 'Open RSS view in a new tab',	//TODO - Translation
 		'see_on_website' => 'Ver en la web original',
 		'shift_for_all_read' => '+ <code>mayúsculas</code> para marcar todos los artículos como leídos',
+		'skip_next_article' => 'Focus next without opening',	//TODO - Translation
+		'skip_previous_article' => 'Focus previous without opening',	//TODO - Translation
 		'title' => 'Atajos de teclado',
 		'user_filter' => 'Acceso a filtros de usuario',
 		'user_filter_help' => 'Si solo hay un filtro de usuario, ese será el que se use. En caso contrario, los filtros están accesibles por su númeración.',
-		'views' => 'Views', // TODO
+		'views' => 'Views',	//TODO - Translation
 	),
 	'user' => array(
 		'articles_and_size' => '%s artículos (%s)',

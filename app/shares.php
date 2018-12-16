@@ -64,7 +64,7 @@ return array(
 	),
 	'movim' => array(
 		'url' => '~URL~/?share/~LINK~',
-		'transform' => array('rawurlencode', 'urlencode'),
+		'transform' => array('urlencode'),
 		'help' => 'https://github.com/edhelas/movim',
 		'form' => 'advanced',
 		'method' => 'GET',
@@ -134,6 +134,13 @@ return array(
 	'linkedin' => array(
 		'url' => 'https://www.linkedin.com/shareArticle?url=~LINK~&amp;title=~TITLE~&amp;source=FreshRSS',
 		'transform' => array('rawurlencode'),
+		'form' => 'simple',
+		'method' => 'GET',
+	),
+	'pinboard' => array(
+		'url' => 'https://pinboard.in/add?next=same&amp;url=~LINK~&amp;title=~TITLE~',
+		'transform' => array('urlencode'),
+		'help' => 'https://pinboard.in/api/',
 		'form' => 'simple',
 		'method' => 'GET',
 	),

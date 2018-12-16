@@ -40,7 +40,7 @@ return array(
 		'mark_all_read' => 'Hepsini okundu olarak işaretle',
 		'mark_cat_read' => 'Kategoriyi okundu olarak işaretle',
 		'mark_feed_read' => 'Akışı okundu olarak işaretle',
-		'mark_selection_unread' => 'Mark selection as unread',	//TODO
+		'mark_selection_unread' => 'Mark selection as unread',	//TODO - Translation
 		'newer_first' => 'Önce yeniler',
 		'non-starred' => 'Favori dışındakileri göster',
 		'normal_view' => 'Normal görünüm',
@@ -53,11 +53,11 @@ return array(
 		'starred' => 'Favorileri göster',
 		'stats' => 'İstatistikler',
 		'subscription' => 'Abonelik yönetimi',
-		'tags' => 'My labels',	//TODO
+		'tags' => 'My labels',	//TODO - Translation
 		'unread' => 'Okunmamışları göster',
 	),
 	'share' => 'Share',
 	'tag' => array(
-		'related' => 'İlgili etiketler',	//TODO
+		'related' => 'İlgili etiketler',	//TODO - Translation
 	),
 );

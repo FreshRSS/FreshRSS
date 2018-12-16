@@ -1,7 +1,7 @@
 <?php $actual_view = Minz_Request::actionName(); ?>
 
 <div class="nav_menu">
-	<?php if ($actual_view === 'normal') { ?>
+	<?php if ($actual_view === 'normal' || $actual_view === 'reader' ) { ?>
 	<a class="btn toggle_aside" href="#aside_feed"><?php echo _i('category'); ?></a>
 	<?php } ?>
 

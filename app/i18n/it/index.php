@@ -40,7 +40,7 @@ return array(
 		'mark_all_read' => 'Segna tutto come letto',
 		'mark_cat_read' => 'Segna la categoria come letta',
 		'mark_feed_read' => 'Segna il feed come letto',
-		'mark_selection_unread' => 'Mark selection as unread',	//TODO
+		'mark_selection_unread' => 'Mark selection as unread',	//TODO - Translation
 		'newer_first' => 'Mostra prima i recenti',
 		'non-starred' => 'Escludi preferiti',
 		'normal_view' => 'Vista elenco',
@@ -53,11 +53,11 @@ return array(
 		'starred' => 'Mostra solo preferiti',
 		'stats' => 'Statistiche',
 		'subscription' => 'Gestione sottoscrizioni',
-		'tags' => 'My labels',	//TODO
+		'tags' => 'My labels',	//TODO - Translation
 		'unread' => 'Mostra solo non letti',
 	),
 	'share' => 'Condividi',
 	'tag' => array(
-		'related' => 'Tags correlati',	//TODO
+		'related' => 'Tags correlati',	//TODO - Translation
 	),
 );

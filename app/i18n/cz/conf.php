@@ -19,7 +19,7 @@ return array(
 			'bottom_line' => 'Spodní řádek',
 			'entry' => 'Ikony článků',
 			'publication_date' => 'Datum vydání',
-			'related_tags' => 'Související tagy',	//TODO
+			'related_tags' => 'Související tagy',	//TODO - Translation
 			'sharing' => 'Sdílení',
 			'top_line' => 'Horní řádek',
 		),
@@ -28,6 +28,7 @@ return array(
 			'seconds' => 'sekund (0 znamená žádný timeout)',
 			'timeout' => 'Timeout HTML5 notifikací',
 		),
+		'show_nav_buttons' => 'Show the navigation buttons',	//TODO - Translation
 		'theme' => 'Vzhled',
 		'title' => 'Zobrazení',
 		'width' => array(
@@ -37,12 +38,22 @@ return array(
 			'no_limit' => 'Bez limitu',
 			'thin' => 'Tenká',
 		),
-		'show_nav_buttons' => 'Show the navigation buttons',	//TODO
+	),
+	'profile' => array(
+		'_' => 'Správa profilu',
+		'delete' => array(
+			'_' => 'Smazání účtu',
+			'warn' => 'Váš účet bude smazán spolu se všemi souvisejícími daty',
+		),
+		'password_api' => 'Password API<br /><small>(tzn. pro mobilní aplikace)</small>',
+		'password_form' => 'Heslo<br /><small>(pro přihlášení webovým formulářem)</small>',
+		'password_format' => 'Alespoň 7 znaků',
+		'title' => 'Profil',
 	),
 	'query' => array(
 		'_' => 'Uživatelské dotazy',
 		'deprecated' => 'Tento dotaz již není platný. Odkazovaná kategorie nebo kanál byly smazány.',
-		'display' => 'Display user query results', // TODO
+		'display' => 'Display user query results',	//TODO - Translation
 		'filter' => 'Filtr aplikován:',
 		'get_all' => 'Zobrazit všechny články',
 		'get_category' => 'Zobrazit "%s" kategorii',
@@ -53,7 +64,7 @@ return array(
 		'number' => 'Dotaz n°%d',
 		'order_asc' => 'Zobrazit nejdříve nejstarší články',
 		'order_desc' => 'Zobrazit nejdříve nejnovější články',
-		'remove' => 'Remove user query', // TODO
+		'remove' => 'Remove user query',	//TODO - Translation
 		'search' => 'Hledat "%s"',
 		'state_0' => 'Zobrazit všechny články',
 		'state_1' => 'Zobrazit přečtené články',
@@ -73,31 +84,19 @@ return array(
 		'state_15' => 'Zobrazit všechny články',
 		'title' => 'Uživatelské dotazy',
 	),
-	'profile' => array(
-		'_' => 'Správa profilu',
-		'delete' => array(
-			'_' => 'Smazání účtu',
-			'warn' => 'Váš účet bude smazán spolu se všemi souvisejícími daty',
-		),
-		'password_api' => 'Password API<br /><small>(tzn. pro mobilní aplikace)</small>',
-		'password_form' => 'Heslo<br /><small>(pro přihlášení webovým formulářem)</small>',
-		'password_format' => 'Alespoň 7 znaků',
-		'title' => 'Profil',
-	),
 	'reading' => array(
 		'_' => 'Čtení',
 		'after_onread' => 'Po “označit vše jako přečtené”,',
 		'articles_per_page' => 'Počet článků na stranu',
 		'auto_load_more' => 'Načítat další články dole na stránce',
 		'auto_remove_article' => 'Po přečtení články schovat',
-		'mark_updated_article_unread' => 'Označte aktualizované položky jako nepřečtené',
 		'confirm_enabled' => 'Vyžadovat potvrzení pro akci “označit vše jako přečtené”',
 		'display_articles_unfolded' => 'Ve výchozím stavu zobrazovat články otevřené',
 		'display_categories_unfolded' => 'Ve výchozím stavu zobrazovat kategorie zavřené',
 		'hide_read_feeds' => 'Schovat kategorie a kanály s nulovým počtem nepřečtených článků (nefunguje s nastavením “Zobrazit všechny články”)',
 		'img_with_lazyload' => 'Použít "lazy load" mód pro načítaní obrázků',
-		'sides_close_article' => 'Clicking outside of article text area closes the article',	//TODO
 		'jump_next' => 'skočit na další nepřečtený (kanál nebo kategorii)',
+		'mark_updated_article_unread' => 'Označte aktualizované položky jako nepřečtené',
 		'number_divided_when_reader' => 'V režimu “Čtení” děleno dvěma.',
 		'read' => array(
 			'article_open_on_website' => 'když je otevřen původní web s článkem',
@@ -112,6 +111,7 @@ return array(
 			'all_articles' => 'Zobrazit všechny články',
 			'unread' => 'Zobrazit jen nepřečtené',
 		),
+		'sides_close_article' => 'Clicking outside of article text area closes the article',	//TODO - Translation
 		'sort' => array(
 			'_' => 'Řazení',
 			'newer_first' => 'Nejdříve nejnovější',
@@ -128,7 +128,7 @@ return array(
 	),
 	'sharing' => array(
 		'_' => 'Sdílení',
-		'add' => 'Add a sharing method', // TODO
+		'add' => 'Add a sharing method',	//TODO - Translation
 		'blogotext' => 'Blogotext',
 		'diaspora' => 'Diaspora*',
 		'email' => 'Email',
@@ -136,7 +136,7 @@ return array(
 		'g+' => 'Google+',
 		'more_information' => 'Více informací',
 		'print' => 'Tisk',
-		'remove' => 'Remove sharing method', // TODO
+		'remove' => 'Remove sharing method',	//TODO - Translation
 		'shaarli' => 'Shaarli',
 		'share_name' => 'Jméno pro zobrazení',
 		'share_url' => 'Jakou URL použít pro sdílení',
@@ -153,27 +153,30 @@ return array(
 		'collapse_article' => 'Srolovat',
 		'first_article' => 'Skočit na první článek',
 		'focus_search' => 'Hledání',
-		'global_view' => 'Switch to global view', // TODO
+		'global_view' => 'Switch to global view',	//TODO - Translation
 		'help' => 'Zobrazit documentaci',
 		'javascript' => 'Pro použití zkratek musí být povolen JavaScript',
 		'last_article' => 'Skočit na poslední článek',
 		'load_more' => 'Načíst více článků',
-		'mark_read' => 'Označit jako přečtené',
 		'mark_favorite' => 'Označit jako oblíbené',
+		'mark_read' => 'Označit jako přečtené',
 		'navigation' => 'Navigace',
 		'navigation_help' => 'Pomocí přepínače "Shift" fungují navigační zkratky v rámci kanálů.<br/>Pomocí přepínače "Alt" fungují v rámci kategorií.',
+		'navigation_no_mod_help' => 'The following navigation shortcuts do not support modifiers.',	//TODO - Translation
 		'next_article' => 'Skočit na další článek',
-		'normal_view' => 'Switch to normal view', // TODO
+		'normal_view' => 'Switch to normal view',	//TODO - Translation
 		'other_action' => 'Ostatní akce',
 		'previous_article' => 'Skočit na předchozí článek',
-		'reading_view' => 'Switch to reading view', // TODO
-		'rss_view' => 'Open RSS view in a new tab', // TODO
+		'reading_view' => 'Switch to reading view',	//TODO - Translation
+		'rss_view' => 'Open RSS view in a new tab',	//TODO - Translation
 		'see_on_website' => 'Navštívit původní webovou stránku',
 		'shift_for_all_read' => '+ <code>shift</code> označí vše jako přečtené',
+		'skip_next_article' => 'Focus next without opening',	//TODO - Translation
+		'skip_previous_article' => 'Focus previous without opening',	//TODO - Translation
 		'title' => 'Zkratky',
 		'user_filter' => 'Aplikovat uživatelské filtry',
 		'user_filter_help' => 'Je-li nastaven pouze jeden filtr, bude použit. Další filtry jsou dostupné pomocí jejich čísla.',
-		'views' => 'Views', // TODO
+		'views' => 'Views',	//TODO - Translation
 	),
 	'user' => array(
 		'articles_and_size' => '%s článků (%s)',

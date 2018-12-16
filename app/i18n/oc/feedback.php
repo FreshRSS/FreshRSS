@@ -1,4 +1,5 @@
 <?php
+
 return array(
 	'admin' => array(
 		'optimization_complete' => 'Optimizacion acabada',
@@ -48,6 +49,10 @@ return array(
 		'file_cannot_be_uploaded' => 'Telecargament del fichièr impossible',
 		'no_zip_extension' => 'L\'extension es pas presenta sul servidor.',
 		'zip_error' => 'Una error s’es producha pendent l’importacion del fichièr ZIP.',
+	),
+	'profile' => array(
+		'error' => 'Impossible d’actualizar vòstre perfil',
+		'updated' => 'Vòstre perfil es estat actualizat',
 	),
 	'sub' => array(
 		'actualize' => 'Actualizar',
@@ -107,9 +112,5 @@ return array(
 			'_' => 'L’utilizaire %s es estat actualizat',
 			'error' => 'L’utilizaire %s es pas estat actualizat',
 		),
-	),
-	'profile' => array(
-		'error' => 'Impossible d’actualizar vòstre perfil',
-		'updated' => 'Vòstre perfil es estat actualizat',
 	),
 );

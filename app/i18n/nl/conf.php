@@ -19,7 +19,7 @@ return array(
 			'bottom_line' => 'Onderaan',
 			'entry' => 'Artikel pictogrammen',
 			'publication_date' => 'Publicatie datum',
-			'related_tags' => 'Gerelateerde labels',	//TODO
+			'related_tags' => 'Gerelateerde labels',
 			'sharing' => 'Delen',
 			'top_line' => 'Bovenaan',
 		),
@@ -28,6 +28,7 @@ return array(
 			'seconds' => 'seconden (0 betekent geen stop)',
 			'timeout' => 'HTML5 notificatie stop',
 		),
+		'show_nav_buttons' => 'Toon navigatieknoppen',
 		'theme' => 'Thema',
 		'title' => 'Opmaak',
 		'width' => array(
@@ -37,7 +38,17 @@ return array(
 			'no_limit' => 'Geen limiet',
 			'thin' => 'Smal',
 		),
-		'show_nav_buttons' => 'Toon navigatieknoppen',
+	),
+	'profile' => array(
+		'_' => 'Profiel beheer',
+		'delete' => array(
+			'_' => 'Account verwijderen',
+			'warn' => 'Uw account en alle gerelateerde gegvens worden verwijderd.',
+		),
+		'password_api' => 'Wachtwoord API<br /><small>(e.g., voor mobiele apps)</small>',
+		'password_form' => 'Wachtwoord<br /><small>(voor de Web-formulier log in methode)</small>',
+		'password_format' => 'Ten minste 7 tekens',
+		'title' => 'Profiel',
 	),
 	'query' => array(
 		'_' => 'Gebruikersquery\'s (informatie aanvragen)',
@@ -73,17 +84,6 @@ return array(
 		'state_15' => 'Toon alle artikelen',
 		'title' => 'Gebruikersquery\'s',
 	),
-	'profile' => array(
-		'_' => 'Profiel beheer',
-		'delete' => array(
-			'_' => 'Account verwijderen',
-			'warn' => 'Uw account en alle gerelateerde gegvens worden verwijderd.',
-		),
-		'password_api' => 'Wachtwoord API<br /><small>(e.g., voor mobiele apps)</small>',
-		'password_form' => 'Wachtwoord<br /><small>(voor de Web-formulier log in methode)</small>',
-		'password_format' => 'Ten minste 7 tekens',
-		'title' => 'Profiel',
-	),
 	'reading' => array(
 		'_' => 'Lezen',
 		'after_onread' => 'Na “markeer alles als gelezen”,',
@@ -95,7 +95,6 @@ return array(
 		'display_categories_unfolded' => 'Toon categoriën ingeklapt als standaard',
 		'hide_read_feeds' => 'Verberg categoriën en feeds zonder ongelezen artikelen (werkt niet met “Toon alle artikelen” configuratie)',
 		'img_with_lazyload' => 'Gebruik "lazy load" methode om afbeeldingen te laden',
-		'sides_close_article' => 'Sluit het artikel door buiten de artikeltekst te klikken',
 		'jump_next' => 'Ga naar volgende ongelezen (feed of categorie)',
 		'mark_updated_article_unread' => 'Markeer vernieuwd artikel als ongelezen',
 		'number_divided_when_reader' => 'Gedeeld door 2 in de lees modus.',
@@ -112,6 +111,7 @@ return array(
 			'all_articles' => 'Bekijk alle artikelen',
 			'unread' => 'Bekijk alleen ongelezen',
 		),
+		'sides_close_article' => 'Sluit het artikel door buiten de artikeltekst te klikken',
 		'sort' => array(
 			'_' => 'Sorteer volgorde',
 			'newer_first' => 'Nieuwste eerst',
@@ -158,10 +158,11 @@ return array(
 		'javascript' => 'JavaScript moet geactiveerd zijn om verwijzingen te gebruiken',
 		'last_article' => 'Spring naar laatste artikel',
 		'load_more' => 'Laad meer artikelen',
-		'mark_read' => 'Markeer als gelezen',
 		'mark_favorite' => 'Markeer als favoriet',
+		'mark_read' => 'Markeer als gelezen',
 		'navigation' => 'Navigatie',
 		'navigation_help' => 'Met de "Shift" toets, kunt u navigatie verwijzingen voor feeds gebruiken.<br/>Met de "Alt" toets, kunt u navigatie verwijzingen voor categoriën gebruiken.',
+		'navigation_no_mod_help' => 'The following navigation shortcuts do not support modifiers.',	//TODO - Translation
 		'next_article' => 'Spring naar volgende artikel',
 		'normal_view' => 'Schakel naar gewoon aanzicht',
 		'other_action' => 'Andere acties',
@@ -170,6 +171,8 @@ return array(
 		'rss_view' => 'Open RSS-aanzicht in een nieuwe tab',
 		'see_on_website' => 'Bekijk op originale website',
 		'shift_for_all_read' => '+ <code>shift</code> om alle artikelen als gelezen te markeren',
+		'skip_next_article' => 'Focus next without opening',	//TODO - Translation
+		'skip_previous_article' => 'Focus previous without opening',	//TODO - Translation
 		'title' => 'Verwijzingen',
 		'user_filter' => 'Toegang gebruikers filters',
 		'user_filter_help' => 'Als er slechts één gebruikersfilter is, dan wordt die gebruikt. Anders zijn ze toegankelijk met hun nummer.',

@@ -136,13 +136,11 @@ class SimplePie_XML_Declaration_Parser
 		{
 			return true;
 		}
-		else
-		{
-			$this->version = '';
-			$this->encoding = '';
-			$this->standalone = '';
-			return false;
-		}
+
+		$this->version = '';
+		$this->encoding = '';
+		$this->standalone = '';
+		return false;
 	}
 
 	/**

@@ -619,6 +619,7 @@ class FreshRSS_Feed extends Minz_Model {
 			$info = curl_getinfo($ch);
 
 			Minz_Log::warning('PubSubHubbub ' . ($state ? 'subscribe' : 'unsubscribe') . ' to ' . $url .
+				' via hub ' . $hubJson['hub'] .
 				' with callback ' . $callbackUrl . ': ' . $info['http_code'] . ' ' . $response, PSHB_LOG);
 
 			if (substr($info['http_code'], 0, 1) == '2') {

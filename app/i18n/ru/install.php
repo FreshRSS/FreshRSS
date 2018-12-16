@@ -24,8 +24,8 @@ return array(
 			'ok' => 'Конфигурация базы данных сохранена.',
 		),
 		'host' => 'Хост',
-		'prefix' => 'Префикс таблицы',
 		'password' => 'Пароль базы данных',
+		'prefix' => 'Префикс таблицы',
 		'type' => 'Тип базы данных',
 		'username' => 'Имя пользователя базы данных',
 	),
@@ -64,9 +64,13 @@ return array(
 			'nok' => 'Убедитесь, что вы не изменяете ваш HTTP REFERER.',
 			'ok' => 'Ваш HTTP REFERER известен и соотвествует вашему серверу.',
 		),
+		'json' => array(
+			'nok' => 'Cannot find a recommended library to parse JSON.',	//TODO - Translation
+			'ok' => 'You have a recommended library to parse JSON.',	//TODO - Translation
+		),
 		'mbstring' => array(
-			'nok' => 'Cannot find the recommended library mbstring for Unicode.',	//TODO
-			'ok' => 'You have the recommended library mbstring for Unicode.',	//TODO
+			'nok' => 'Cannot find the recommended library mbstring for Unicode.',	//TODO - Translation
+			'ok' => 'You have the recommended library mbstring for Unicode.',	//TODO - Translation
 		),
 		'minz' => array(
 			'nok' => 'У вас не установлен фрейворк Minz.',
@@ -87,6 +91,10 @@ return array(
 		'users' => array(
 			'nok' => 'Проверьте права доступа к папке <em>./data/users</em> . Сервер HTTP должен иметь права на запись в эту папку.',
 			'ok' => 'Права на папку users  в порядке.',
+		),
+		'xml' => array(
+			'nok' => 'Cannot find the required library to parse XML.',
+			'ok' => 'You have the required library to parse XML.',
 		),
 	),
 	'conf' => array(

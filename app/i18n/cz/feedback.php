@@ -50,11 +50,15 @@ return array(
 		'no_zip_extension' => 'Na serveru není naistalována podpora ZIP.',
 		'zip_error' => 'Během importu ZIP souboru došlo k chybě.',
 	),
+	'profile' => array(
+		'error' => 'Váš profil nelze změnit',
+		'updated' => 'Váš profil byl změněn',
+	),
 	'sub' => array(
 		'actualize' => 'Aktualizovat',
 		'articles' => array(
-			'marked_read' => 'The selected articles have been marked as read.',	//TODO
-			'marked_unread' => 'The articles have been marked as unread.',	//TODO
+			'marked_read' => 'The selected articles have been marked as read.',	//TODO - Translation
+			'marked_unread' => 'The articles have been marked as unread.',	//TODO - Translation
 		),
 		'category' => array(
 			'created' => 'Kategorie %s byla vytvořena.',
@@ -76,7 +80,7 @@ return array(
 			'already_subscribed' => 'Již jste přihlášen k odběru <em>%s</em>',
 			'deleted' => 'Kanál byl smazán',
 			'error' => 'Kanál nelze aktualizovat',
-			'internal_problem' => 'RSS kanál nelze přidat. Pro detaily <a href="%s">zkontrolujte logy FreshRSS</a>.', // @todo
+			'internal_problem' => 'RSS kanál nelze přidat. Pro detaily <a href="%s">zkontrolujte logy FreshRSS</a>.',	//TODO - Translation
 			'invalid_url' => 'URL <em>%s</em> není platné',
 			'n_actualized' => '%d kanálů bylo aktualizováno',
 			'n_entries_deleted' => '%d článků bylo smazáno',
@@ -105,12 +109,8 @@ return array(
 			'error' => 'Uživatele %s nelze smazat',
 		),
 		'updated' => array(
-			'_' => 'User %s has been updated', // TODO
-			'error' => 'User %s has not been updated', // TODO
+			'_' => 'User %s has been updated',	//TODO - Translation
+			'error' => 'User %s has not been updated',	//TODO - Translation
 		),
-	),
-	'profile' => array(
-		'error' => 'Váš profil nelze změnit',
-		'updated' => 'Váš profil byl změněn',
 	),
 );
