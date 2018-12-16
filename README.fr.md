@@ -13,6 +13,9 @@ Il supporte les étiquettes personnalisées, et [PubSubHubbub](https://github.co
 Il y a une API pour les clients (mobiles), ainsi qu’une [interface en ligne de commande](cli/README.md).
 Enfin, il permet l’ajout d’[extensions](#extensions) pour encore plus de personnalisation.
 
+Les demandes de fonctionnalités, rapports de bugs, et autres contributions sont les bienvenues. Privilégiez pour cela des [demandes sur GitHub](https://github.com/FreshRSS/FreshRSS/issues).
+Nous sommes une communauté amicale.
+
 * Site officiel : https://freshrss.org
 * Démo : http://demo.freshrss.org/
 * Licence : [GNU AGPL 3](https://www.gnu.org/licenses/agpl-3.0.fr.html)
@@ -24,28 +27,29 @@ Voir la [liste des versions](../../releases).
 
 ## À propos des branches
 * Utilisez [la branche master](https://github.com/FreshRSS/FreshRSS/tree/master/) si vous visez la stabilité.
-* Pour ceux qui veulent bien aider à tester ou déveloper les dernières fonctionnalités, [la branche dev](https://github.com/FreshRSS/FreshRSS/tree/dev) vous ouvre les bras !
+* Pour ceux qui veulent bien aider à tester ou développer les dernières fonctionnalités, [la branche dev](https://github.com/FreshRSS/FreshRSS/tree/dev) vous ouvre les bras !
 
 # Avertissements
-Cette application a été développée pour s’adapter principalement à des besoins personnels, et aucune garantie n’est fournie.
-Les demandes de fonctionnalités, rapports de bugs, et autres contributions sont les bienvenues. Privilégiez pour cela des [demandes sur GitHub](https://github.com/FreshRSS/FreshRSS/issues).
-Nous sommes une communauté amicale.
+FreshRSS n’est fourni avec aucune garantie.
 
 # Prérequis
 * Serveur modeste, par exemple sous Linux ou Windows
 	* Fonctionne même sur un Raspberry Pi 1 avec des temps de réponse < 1s (testé sur 150 flux, 22k articles)
 * Serveur Web Apache2 (recommandé), ou nginx, lighttpd (non testé sur les autres)
-* PHP 5.3.8+ (PHP 5.4+ recommandé, et PHP 5.5+ pour les performances, et PHP 7+ pour d’encore meilleures performances)
+* PHP 5.3.8+ (PHP 5.4+ recommandé, et PHP 5.5+ pour les performances, ou PHP 7+ pour d’encore meilleures performances)
 	* Requis : [cURL](https://secure.php.net/curl), [DOM](https://secure.php.net/dom), [XML](https://secure.php.net/xml), [session](https://secure.php.net/session), [ctype](https://secure.php.net/ctype), et [PDO_MySQL](https://secure.php.net/pdo-mysql) ou [PDO_SQLite](https://secure.php.net/pdo-sqlite) ou [PDO_PGSQL](https://secure.php.net/pdo-pgsql)
 	* Recommandés : [JSON](https://secure.php.net/json), [GMP](https://secure.php.net/gmp) (pour accès API sur plateformes < 64 bits), [IDN](https://secure.php.net/intl.idn) (pour les noms de domaines internationalisés), [mbstring](https://secure.php.net/mbstring) (pour le texte Unicode), [iconv](https://secure.php.net/iconv) (pour conversion d’encodages), [ZIP](https://secure.php.net/zip) (pour import/export), [zlib](https://secure.php.net/zlib) (pour les flux compressés)
 * MySQL 5.5.3+ (recommandé), ou SQLite 3.7.4+, ou PostgreSQL 9.2+
-* Un navigateur Web récent tel que Firefox / IceCat, Internet Explorer 11 / Edge, Chromium / Chrome, Opera, Safari.
-	* Fonctionne aussi sur mobile
+* Un navigateur Web récent tel que Firefox / IceCat, Internet Explorer 11 / Edge (sauf certains détails), Chromium / Chrome, Opera, Safari.
+	* Fonctionne aussi sur mobile (sauf certaines fonctionnalités)
 
 ![Capture d’écran de FreshRSS](docs/img/FreshRSS-screenshot.png)
 
-# Documentation
-* https://freshrss.github.io/FreshRSS/fr/
+# [Documentation](https://freshrss.github.io/FreshRSS/fr/)
+* La [documentation utilisateurs](https://freshrss.github.io/FreshRSS/fr/users/02_First_steps.md) pour découvrir les fonctionnalités de FreshRSS.
+* La [documentation administrateurs](https://freshrss.github.io/FreshRSS/fr/users/01_Installation.md) pour l’installation et la maintenance de FreshRSS.
+* La [documentation développeurs](https://freshrss.github.io/FreshRSS/fr/developers/01_First_steps.md) pour savoir comment contribuer et mieux comprendre le code source de FreshRSS.
+* Le [guide de contribution](https://freshrss.github.io/FreshRSS/fr/contributing.md) pour nous aider à développer FreshRSS.
 
 # [Installation](https://freshrss.github.io/FreshRSS/fr/users/01_Installation.html)
 1. Récupérez l’application FreshRSS via la commande git ou [en téléchargeant l’archive](../releases)
@@ -140,6 +144,11 @@ Créer `/etc/cron.d/FreshRSS` avec :
 	* Le répertoire spécial `./data/users/_/` contient la partie des logs partagés par tous les utilisateurs.
 
 
+# F.A.Q. :
+* La date et l’heure dans la colonne de droite sont celles déclarées par le flux, pas l’heure à laquelle les articles ont été reçus par FreshRSS, et cette colonne n’est pas utilisée pour le tri.
+	* En particulier, lors de l’import d’un nouveau flux, ses articles sont importés en tête de liste.
+
+
 # Sauvegarde
 * Il faut conserver vos fichiers `./data/config.php` ainsi que `./data/users/*/config.php`
 * Vous pouvez exporter votre liste de flux au format OPML soit depuis l’interface Web, soit [en ligne de commande](cli/README.md)
@@ -157,7 +166,7 @@ Voir le [dépôt dédié à ces extensions](https://github.com/FreshRSS/Extensio
 
 # APIs et applications natives
 
-FreshRSS supporte l’accès depuis des applications native pour Linux, Android, iOS, et OS X, grâce à deux APIs distinctes.
+FreshRSS supporte l’accès depuis des applications natives pour Linux, Android, iOS, et OS X, grâce à deux APIs distinctes.
 
 ## Via l’API compatible Google Reader
 
@@ -203,5 +212,6 @@ Tout client supportant une API de type Fever ; Sélection :
 ## Si les fonctions natives ne sont pas disponibles
 * [Services_JSON](https://pear.php.net/pepr/pepr-proposal-show.php?id=198)
 * [password_compat](https://github.com/ircmaxell/password_compat)
+
 
 

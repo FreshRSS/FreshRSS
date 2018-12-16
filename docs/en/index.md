@@ -16,9 +16,9 @@ FreshRSS has a lot of features including:
 - Multi-user, so you can also host for your friends and family
 - And a lot more!
 
-This documentation is split into four sections:
+This documentation is split into different sections:
 
-- [user documentation](users/02_First_steps.md) so you can discover all the power of FreshRSS
-- [developer documentation](developers/01_First_steps.md) to guide you in the source code of FreshRSS and to help you if you want to contribute
-- [administrator documentation](admins/01_Index.md) to guide you in the source code of FreshRSS and to help you if you want to contribute
-- [contributor guidelines](contributing.md) for all of you who want to help improving FreshRSS
+* [User documentation](./users/02_First_steps.html), where you can discover all the possibilities offered by FreshRSS
+* [Administrator documentation](./admins/01_Index.html) for detailed installation and maintenance related tasks
+* [Developer documentation](./developers/01_First_steps.html) to guide you in the source code of FreshRSS and to help you if you want to contribute
+* [Contributor guidelines](./contributing.md) for those who want to help improve FreshRSS
