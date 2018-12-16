@@ -209,7 +209,6 @@ Supported clients are:
 ## Only for some options or configurations
 * [bcrypt.js](https://github.com/dcodeIO/bcrypt.js)
 * [phpQuery](https://github.com/phpquery/phpquery)
-* [simple-scrollbar](https://github.com/buzinas/simple-scrollbar)
 
 ## If native functions are not available
 * [Services_JSON](https://pear.php.net/pepr/pepr-proposal-show.php?id=198)
