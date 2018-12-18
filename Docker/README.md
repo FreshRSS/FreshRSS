@@ -49,17 +49,17 @@ sudo docker run -d --restart unless-stopped --log-opt max-size=10m \
   --name traefik traefik --docker \
   --entryPoints='Name:http Address::80 Compress:true Redirect.EntryPoint:https' \
   --entryPoints='Name:https Address::443 Compress:true TLS TLS.MinVersion:VersionTLS12 TLS.SniStrict:true TLS.CipherSuites:TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384,TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA' \
-  --defaultentrypoints=http,https \
-  --acme=true --acme.entrypoint=https --acme.onhostrule=true --acme.tlsChallenge --acme.storage=/etc/traefik/acme/acme.json \
-  --acme.email=you@example.net
+  --defaultentrypoints=http,https --keeptrailingslash=true \
+  --acme=true --acme.entrypoint=https --acme.onhostrule=true --acme.tlsChallenge \
+  --acme.storage=/etc/traefik/acme/acme.json --acme.email=you@example.net
 ```
 
 See [more information about Docker and Let’s Encrypt in Træfik](https://docs.traefik.io/user-guide/docker-and-lets-encrypt/).
 
 
 ## Run FreshRSS 
-Example using a dedicated domain (rules based on sub-folders are also possible in Træfik), and the built-in refresh cron job (see further below for alternatives).
-For this configuration, you must first create your domain or sub-domain `freshrss.example.net`.
+Example using the built-in refresh cron job (see further below for alternatives).
+You must first chose a domain (DNS) or sub-domain, e.g. `freshrss.example.net`.
 
 ```sh
 sudo docker volume create freshrss-data
@@ -76,8 +76,10 @@ sudo docker run -d --restart unless-stopped --log-opt max-size=10m \
   --name freshrss freshrss/freshrss
 ```
 
+* If you cannot have FreshRSS at the root of a dedicated domain, update the command above according to the following model:
+	`--label traefik.frontend.rule='Host:freshrss.example.net;PathPrefixStrip:/FreshRSS/' \`
+* You may remove the `--label traefik.*` lines if you do not use Træfik.
 * Add `-p 8080:80 \` if you want to expose FreshRSS locally, e.g. on port `8080`.
-* You can remove the `--label traefik.*` lines if you do not use Træfik.
 
 This already works with a built-in **SQLite** database (easiest), but more powerful databases are supported:
 
