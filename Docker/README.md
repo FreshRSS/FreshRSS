@@ -1,7 +1,5 @@
 # Deploy FreshRSS with Docker
-* See also:
-	* https://hub.docker.com/r/freshrss/freshrss/
-	* https://cloud.docker.com/app/freshrss/repository/docker/freshrss/freshrss
+* See also https://hub.docker.com/r/freshrss/freshrss/
 
 
 ## Install Docker
