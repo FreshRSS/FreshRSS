@@ -34,6 +34,7 @@
 * Bug fixing
 	* Fix warning in `tempnam()` with PHP 7.1+ affecting ZIP export [#2134](https://github.com/FreshRSS/FreshRSS/pull/2134)
 	* Fix print for views with unfolded articles [#2130](https://github.com/FreshRSS/FreshRSS/issues/2130)
+	* Fix notifications in reader view [#1407](https://github.com/FreshRSS/FreshRSS/issues/1407)
 	* Fix sharing with Movim [#1781](https://github.com/FreshRSS/FreshRSS/issues/1781)
 * Misc.
 	* Add username in configuration menu and exported files [#2133](https://github.com/FreshRSS/FreshRSS/pull/2133)
