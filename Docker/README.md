@@ -115,7 +115,7 @@ sudo docker run -d --restart unless-stopped --log-opt max-size=10m \
 ```
 
 ### Complete installation
-Browse to your server https://freshrss.example.net/ to complete the installation via FreshRSS Web interface,
+Browse to your server https://freshrss.example.net/ to complete the installation via the FreshRSS Web interface,
 or use the command line described below.
 
 
