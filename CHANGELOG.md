@@ -1,6 +1,6 @@
 ﻿# FreshRSS changelog
 
-## 2018-12-XX FreshRSS 1.13.0-dev
+## 2018-12-2X FreshRSS 1.13.0-dev
 
 * API
 	* Improvements to the Google Reader API [#2093](https://github.com/FreshRSS/FreshRSS/pull/2093)
@@ -26,6 +26,8 @@
 * Deployment
 	* Support for `HTTP_X_FORWARDED_PREFIX` to ease the use of reverse proxies [#2191](https://github.com/FreshRSS/FreshRSS/pull/2191)
 		* Updated Docker + Træfik + Let’s Encrypt deployment guide [#2189](https://github.com/FreshRSS/FreshRSS/pull/2189)
+	* Docker image updated to Alpine 3.8.2 with PHP 7.2.13 and Apache 2.4.35
+	* Fix `.dockerignore` [#2190](https://github.com/FreshRSS/FreshRSS/pull/2190)
 * I18n
 	* Occitan [#2110](https://github.com/FreshRSS/FreshRSS/pull/2110)
 * SimplePie
@@ -42,6 +44,7 @@
 * Misc.
 	* Add username in configuration menu and exported files [#2133](https://github.com/FreshRSS/FreshRSS/pull/2133)
 	* New option to set the duration of the cookie session [#2137](https://github.com/FreshRSS/FreshRSS/pull/2137)
+	* Add [donation option via Liberapay](https://liberapay.com/FreshRSS/) [#1694](https://github.com/FreshRSS/FreshRSS/issues/1694)
 
 
 ## 2018-10-28 FreshRSS 1.12.0
@@ -69,6 +72,7 @@
 * Deployment
 	* Fix Docker bug with some cron values [#2032](https://github.com/FreshRSS/FreshRSS/pull/2032)
 	* Perform `git clean -f -d -f` (removes unknown files and folders) before git auto-update method [#2036](https://github.com/FreshRSS/FreshRSS/pull/2036)
+	* Docker image updated to Alpine 3.8.1 with PHP 7.2.8 and Apache 2.4.34
 * Bug fixing
 	* Make article GUIDs case-sensitive also with MySQL [#2077](https://github.com/FreshRSS/FreshRSS/issues/2077)
 	* Ask confirmation for important configuration actions [#2048](https://github.com/FreshRSS/FreshRSS/pull/2048)
