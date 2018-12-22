@@ -27,7 +27,7 @@
 	* Support for `HTTP_X_FORWARDED_PREFIX` to ease the use of reverse proxies [#2191](https://github.com/FreshRSS/FreshRSS/pull/2191)
 		* Updated Docker + Træfik + Let’s Encrypt deployment guide [#2189](https://github.com/FreshRSS/FreshRSS/pull/2189)
 	* Docker image updated to Alpine 3.8.2 with PHP 7.2.13 and Apache 2.4.35
-	* Fix `.dockerignore` [#2190](https://github.com/FreshRSS/FreshRSS/pull/2190)
+	* Fix `.dockerignore` [#2194](https://github.com/FreshRSS/FreshRSS/pull/2194)
 * I18n
 	* Occitan [#2110](https://github.com/FreshRSS/FreshRSS/pull/2110)
 * SimplePie
