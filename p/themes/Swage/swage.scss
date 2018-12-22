@@ -12,6 +12,7 @@ $color_stared:	#FFF6DA;
 $color_unread:	#FFF3ED;
 $color_hover:	#FFFFFF;
 
+
 // @extend-elements
 %input {
 	min-height: 25px;
@@ -48,6 +49,10 @@ $color_hover:	#FFFFFF;
 	clear: both;
 }
 
+%aside-width {
+	width: 231px;
+}
+
 // /@extend-elements
 html,
 body {
@@ -65,6 +70,12 @@ a {
 		&:hover {
 			background: darken( $color_nav, 10%);
 		}
+	}
+	&#btn-subscription {
+		width: 76%;
+	}
+	&#btn-importExport {
+    	width: 5%;
 	}
 }
 
@@ -205,6 +216,9 @@ form {
 .stick {
 	vertical-align: middle;
 	font-size: 0;
+	&.configure-feeds {
+		@extend %aside-width;
+	}
 }
 
 .btn {
@@ -250,7 +264,7 @@ form {
 	.item {
 		@extend %nav-list;
 		&:hover,
-		.active {
+		&.active {
 			background: darken( $color_nav, 10%);
 			color: $color_light;
 			a {
@@ -337,7 +351,7 @@ form {
 			> a {
 				min-width: initial;
 				white-space: nowrap;
-			} 
+			}
 			&:hover {
 				background: $color_nav;
 				color: $color_light;
@@ -589,11 +603,29 @@ form {
 	}
 }
 
+@supports (scrollbar-width: thin) {
+	#sidebar {
+		scrollbar-color: rgba(255, 255, 255, 0.05) rgba(0, 0, 0, 0.0);
+	}
+	#sidebar:hover {
+		scrollbar-color: rgba(255, 255, 255, 0.3) rgba(0, 0, 0, 0.0);
+	}
+}
+
+@supports not (scrollbar-width: thin) {
+	#sidebar::-webkit-scrollbar-thumb {
+		background: rgba(255, 255, 255, 0.1);
+	}
+	#sidebar:hover::-webkit-scrollbar-thumb {
+		background: rgba(255, 255, 255, 0.3);
+	}
+}
+
 .header {
 	> .item {
 		vertical-align: middle;
 		&.title {
-			width: 231px;
+			@extend %aside-width;
 			position: absolute;
 			h1 {
 				margin: 0;
@@ -636,7 +668,7 @@ form {
 .aside {
 	background: $color_aside;
 	padding: 35px 0;
-	width: 231px;
+	@extend %aside-width;
 	&.aside_feed {
 		.tree {
 			margin: 0 0 50px;
@@ -678,6 +710,10 @@ form {
 	font-size: 0.9em;
 	input {
 		background: darken( $color_light, 10% );
+		&.long{
+			height: 33px;
+    		margin-top: 0px;
+		}
 	}
 	form {
 		margin: 10px 0;
@@ -713,7 +749,7 @@ form {
 	bottom: 48px;
 	z-index: 900;
 	left: 0;
-	width: 231px;
+	@extend %aside-width;
 	line-height: 1.5em;
 	&:hover {
 		background: darken( $color_nav, 10%);
@@ -825,7 +861,7 @@ form {
 	bottom: 48px;
 	left: 0;
 	top: auto;
-	width: 231px;
+	@extend %aside-width;
 	height: auto;
 	&.good,
 	.bad {
@@ -855,7 +891,6 @@ form {
 	text-align: center;
 	text-decoration: none;
 	background: darken( $color_light, 10%);
-	padding: 20px !IMPORTANT;
 	&:hover {
 		background: $color_aside;
 		color: $color_light;
@@ -867,7 +902,7 @@ form {
 	text-align: center;
 	line-height: 3em;
 	table-layout: fixed;
-	width: 231px;
+	@extend %aside-width;
 	background: $color_aside;
 }
 
@@ -894,6 +929,37 @@ form {
 				width: 270px;
 			}
 		}
+	}
+}
+
+.formLogin {
+	#global {
+		height: 0;
+	}
+
+	.header {
+		height: 55px;
+		background: $color_aside;
+		> .item {
+			&.configure {
+				width: 200px;
+				position: unset;
+			}
+			&.title h1 {
+				display: unset;
+			}
+		}
+	}
+	a.signin {
+		color: $color_light;
+		padding-left: 5px;
+	}
+
+	input {
+		border-left: 5px solid;
+		border-right: 1px darken( $color_light, 10%);
+		border-top: 1px darken( $color_light, 10%);
+		border-bottom: 1px darken( $color_light, 10%);
 	}
 }
 
@@ -930,10 +996,13 @@ form {
 }
 
 @media(max-width: 840px) {
+	.formLogin .header {
+		display: none;
+	}
 	.dropdown-header, .dropdown-menu > .item {
 		padding: 12px;
 	}
-	
+
 	#new-article {
 		width: 100%;
 		bottom: initial;
@@ -1156,5 +1225,5 @@ button.as-link {
 			background: inital;
 		}
 	}
-	
+
 }

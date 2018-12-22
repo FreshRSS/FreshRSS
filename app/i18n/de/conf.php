@@ -19,7 +19,7 @@ return array(
 			'bottom_line' => 'Fußzeile',
 			'entry' => 'Artikel-Symbole',
 			'publication_date' => 'Datum der Veröffentlichung',
-			'related_tags' => 'Verwandte Tags',	//TODO
+			'related_tags' => 'Verwandte Tags',
 			'sharing' => 'Teilen',
 			'top_line' => 'Kopfzeile',
 		),
@@ -28,6 +28,7 @@ return array(
 			'seconds' => 'Sekunden (0 bedeutet keine Zeitüberschreitung)',
 			'timeout' => 'Zeitüberschreitung für HTML5-Benachrichtigung',
 		),
+		'show_nav_buttons' => 'Zeige Navigations-Buttons',
 		'theme' => 'Erscheinungsbild',
 		'title' => 'Anzeige',
 		'width' => array(
@@ -37,7 +38,17 @@ return array(
 			'no_limit' => 'Keine Begrenzung',
 			'thin' => 'Klein',
 		),
-		'show_nav_buttons' => 'Zeige Navigations-Buttons',
+	),
+	'profile' => array(
+		'_' => 'Profil-Verwaltung',
+		'delete' => array(
+			'_' => 'Accountlöschung',
+			'warn' => 'Dein Account und alle damit bezogenen Daten werden gelöscht.',
+		),
+		'password_api' => 'Passwort-API<br /><small>(z. B. für mobile Anwendungen)</small>',
+		'password_form' => 'Passwort<br /><small>(für die Anmeldemethode per Webformular)</small>',
+		'password_format' => 'mindestens 7 Zeichen',
+		'title' => 'Profil',
 	),
 	'query' => array(
 		'_' => 'Benutzerabfragen',
@@ -73,31 +84,19 @@ return array(
 		'state_15' => 'Alle Artikel anzeigen',
 		'title' => 'Benutzerabfragen',
 	),
-	'profile' => array(
-		'_' => 'Profil-Verwaltung',
-		'delete' => array(
-			'_' => 'Accountlöschung',
-			'warn' => 'Dein Account und alle damit bezogenen Daten werden gelöscht.',
-		),
-		'password_api' => 'Passwort-API<br /><small>(z. B. für mobile Anwendungen)</small>',
-		'password_form' => 'Passwort<br /><small>(für die Anmeldemethode per Webformular)</small>',
-		'password_format' => 'mindestens 7 Zeichen',
-		'title' => 'Profil',
-	),
 	'reading' => array(
 		'_' => 'Lesen',
 		'after_onread' => 'Nach „Alle als gelesen markieren“,',
 		'articles_per_page' => 'Anzahl der Artikel pro Seite',
 		'auto_load_more' => 'Die nächsten Artikel am Seitenende laden',
 		'auto_remove_article' => 'Artikel nach dem Lesen verstecken',
-		'mark_updated_article_unread' => 'Markieren Sie aktualisierte Artikel als ungelesen',
 		'confirm_enabled' => 'Bei der Aktion „Alle als gelesen markieren“ einen Bestätigungsdialog anzeigen',
 		'display_articles_unfolded' => 'Artikel standardmäßig ausgeklappt zeigen',
 		'display_categories_unfolded' => 'Kategorien standardmäßig eingeklappt zeigen',
 		'hide_read_feeds' => 'Kategorien & Feeds ohne ungelesene Artikel verstecken (funktioniert nicht mit der Einstellung „Alle Artikel zeigen“)',
 		'img_with_lazyload' => 'Verwende die "träges Laden"-Methode zum Laden von Bildern',
-		'sides_close_article' => 'Klick außerhalb des Artikel-Textes schließt den Artikel',
 		'jump_next' => 'springe zum nächsten ungelesenen Geschwisterelement (Feed oder Kategorie)',
+		'mark_updated_article_unread' => 'Markieren Sie aktualisierte Artikel als ungelesen',
 		'number_divided_when_reader' => 'Geteilt durch 2 in der Lese-Ansicht.',
 		'read' => array(
 			'article_open_on_website' => 'wenn der Artikel auf der Original-Webseite geöffnet wird',
@@ -112,6 +111,7 @@ return array(
 			'all_articles' => 'Alle Artikel zeigen',
 			'unread' => 'Nur ungelesene zeigen',
 		),
+		'sides_close_article' => 'Klick außerhalb des Artikel-Textes schließt den Artikel',
 		'sort' => array(
 			'_' => 'Sortierreihenfolge',
 			'newer_first' => 'Neuere zuerst',
@@ -158,10 +158,11 @@ return array(
 		'javascript' => 'JavaScript muss aktiviert sein, um Tastaturkürzel benutzen zu können',
 		'last_article' => 'Zum letzten Artikel springen',
 		'load_more' => 'Weitere Artikel laden',
-		'mark_read' => 'Als gelesen markieren',
 		'mark_favorite' => 'Als Favorit markieren',
+		'mark_read' => 'Als gelesen markieren',
 		'navigation' => 'Navigation',
 		'navigation_help' => 'Mit der "Umschalttaste" finden die Tastenkombination auf Feeds Anwendung.<br/>Mit der "Alt-Taste" finden die Tastenkombination auf Kategorien Anwendung.',
+		'navigation_no_mod_help' => 'The following navigation shortcuts do not support modifiers.',	//TODO - Translation
 		'next_article' => 'Zum nächsten Artikel springen',
 		'normal_view' => 'Wechsle zur normalen Ansicht',
 		'other_action' => 'Andere Aktionen',
@@ -170,6 +171,8 @@ return array(
 		'rss_view' => 'Öffne RSS Ansicht in neuem Tab',
 		'see_on_website' => 'Auf der Original-Webseite ansehen',
 		'shift_for_all_read' => '+ <code>Umschalttaste</code>, um alle Artikel als gelesen zu markieren.',
+		'skip_next_article' => 'Focus next without opening',	//TODO - Translation
+		'skip_previous_article' => 'Focus previous without opening',	//TODO - Translation
 		'title' => 'Tastenkombination',
 		'user_filter' => 'Auf Benutzerfilter zugreifen',
 		'user_filter_help' => 'Wenn es nur einen Benutzerfilter gibt, wird dieser verwendet. Ansonsten sind die Filter über ihre Nummer erreichbar.',

@@ -51,6 +51,14 @@
 			    <input type="number" id="max-categories" name="max-categories" value="<?php echo FreshRSS_Context::$system_conf->limits['max_categories']; ?>" min="1" data-leave-validation="<?php echo FreshRSS_Context::$system_conf->limits['max_categories']; ?>"/>
 			</div>
 		</div>
+		
+		<div class="form-group">
+			<label class="group-name" for="cookie-duration"><?php echo _t('admin.system.cookie-duration.number'); ?></label>
+			<div class="group-controls">
+				<input type="number" id="cookie-duration" name="cookie-duration" value="<?php echo FreshRSS_Context::$system_conf->limits['cookie_duration']; ?>" min="0" data-leave-validation="<?php echo FreshRSS_Context::$system_conf->limits['cookie_duration']; ?>"/>
+				<?php echo _i('help'); ?> <?php echo _t('admin.system.cookie-duration.help'); ?>
+			</div>
+		</div>
 
 		<div class="form-group form-actions">
 			<div class="group-controls">

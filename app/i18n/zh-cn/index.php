@@ -40,7 +40,7 @@ return array(
 		'mark_all_read' => '全部设为已读',
 		'mark_cat_read' => '此分类设为已读',
 		'mark_feed_read' => '此源设为已读',
-		'mark_selection_unread' => 'Mark selection as unread',	//TODO
+		'mark_selection_unread' => 'Mark selection as unread',	//TODO - Translation
 		'newer_first' => '由新到旧',
 		'non-starred' => '显示未收藏',
 		'normal_view' => '普通视图',
@@ -53,11 +53,11 @@ return array(
 		'starred' => '显示收藏',
 		'stats' => '统计',
 		'subscription' => '订阅管理',
-		'tags' => 'My labels',	//TODO
+		'tags' => 'My labels',	//TODO - Translation
 		'unread' => '显示未读',
 	),
 	'share' => '分享',
 	'tag' => array(
-		'related' => '相关标签',	//TODO
+		'related' => '相关标签',	//TODO - Translation
 	),
 );

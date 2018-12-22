@@ -24,8 +24,8 @@ return array(
 			'ok' => 'La configuración de la base de datos ha sido guardada.',
 		),
 		'host' => 'Servidor',
-		'prefix' => 'Prefijo de la tabla',
 		'password' => 'Contraseña de la base de datos',
+		'prefix' => 'Prefijo de la tabla',
 		'type' => 'Tipo de base de datos',
 		'username' => 'Nombre de usuario de la base de datos',
 	),
@@ -69,8 +69,8 @@ return array(
 			'ok' => 'Dispones de la librería recomendada para procesar JSON.',
 		),
 		'mbstring' => array(
-			'nok' => 'Cannot find the recommended library mbstring for Unicode.',	//TODO
-			'ok' => 'You have the recommended library mbstring for Unicode.',	//TODO
+			'nok' => 'Cannot find the recommended library mbstring for Unicode.',	//TODO - Translation
+			'ok' => 'You have the recommended library mbstring for Unicode.',	//TODO - Translation
 		),
 		'minz' => array(
 			'nok' => 'No se ha podido localizar el entorno Minz.',

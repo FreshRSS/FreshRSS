@@ -16,6 +16,12 @@ $articles = array(
 echo rtrim(json_encode($articles, $options), " ]}\n\r\t"), "\n";
 $first = true;
 
+$tagDAO = FreshRSS_Factory::createTagDao();
+$entryIdsTagNames = $tagDAO->getEntryIdsTagNames($this->entriesRaw);
+if ($entryIdsTagNames == false) {
+	$entryIdsTagNames = array();
+}
+
 foreach ($this->entriesRaw as $entryRaw) {
 	if (empty($entryRaw)) {
 		continue;
@@ -32,13 +38,14 @@ foreach ($this->entriesRaw as $entryRaw) {
 
 	$article = array(
 		'id' => $entry->guid(),
+		'timestampUsec' => '' . $entry->id(),
 		'categories' => array_values($entry->tags()),
 		'title' => $entry->title(),
-		'author' => $entry->authors(true),	//TODO: Make an array like tags?
+		'author' => $entry->authors(true),
 		'published' => $entry->date(true),
 		'updated' => $entry->date(true),
 		'alternate' => array(array(
-			'href' => $entry->link(),
+			'href' => htmlspecialchars_decode($entry->link(), ENT_QUOTES),
 			'type' => 'text/html',
 		)),
 		'content' => array(
@@ -51,6 +58,13 @@ foreach ($this->entriesRaw as $entryRaw) {
 			'feedUrl' => $feed == null ? '' : $feed->url(),
 		)
 	);
+	if ($entry->isFavorite()) {
+		$article['categories'][] = 'user/-/state/com.google/starred';
+	}
+	$tagNames = isset($entryIdsTagNames['e_' . $entry->id()]) ? $entryIdsTagNames['e_' . $entry->id()] : array();
+	foreach ($tagNames as $tagName) {
+		$article['categories'][] = 'user/-/label/' . $tagName;
+	}
 
 	$line = json_encode($article, $options);
 	if ($line != '') {

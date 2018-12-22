@@ -1,7 +1,6 @@
 # Deploy FreshRSS with Docker
-* See also:
-	* https://hub.docker.com/r/freshrss/freshrss/
-	* https://cloud.docker.com/app/freshrss/repository/docker/freshrss/freshrss
+* See also https://hub.docker.com/r/freshrss/freshrss/
+
 
 ## Install Docker
 
@@ -10,9 +9,10 @@ curl -fsSL https://get.docker.com/ -o get-docker.sh
 sh get-docker.sh
 ```
 
+
 ## Optional: Build Docker image of FreshRSS
 Optional, as a *less recent* online image can be automatically fetched during the next step (run),
-but online images are not available for as many platforms as if you build yourself.
+but online images are not available for as many platforms (e.g. Raspberry Pi / ARM) as if you build yourself.
 
 ```sh
 # First time only
@@ -24,65 +24,100 @@ sudo docker pull alpine:3.8
 sudo docker build --tag freshrss/freshrss -f Docker/Dockerfile .
 ```
 
-## Run FreshRSS
 
-Example using SQLite, built-in cron, and exposing FreshRSS on port 8080. You may have to adapt the parameters to fit your needs.
+## Create an isolated network
+```sh
+sudo docker network create freshrss-network
+```
+
+## Recommended: use [Træfik](https://traefik.io/) reverse proxy
+It is a good idea to use a reverse proxy on your host server, providing HTTPS.
+Here is the recommended configuration using automatic [Let’s Encrypt](https://letsencrypt.org/) HTTPS certificates and with a redirection from HTTP to HTTPS. See further below for alternatives.
 
 ```sh
-# You can optionally run from the directory containing the FreshRSS source code:
-cd ./FreshRSS/
+sudo docker volume create traefik-letsencrypt
 
-# The data will be saved on the host in `./data/`
-mkdir -p ./data/
-
+# Just change your e-mail address in the command below:
 sudo docker run -d --restart unless-stopped --log-opt max-size=10m \
-  -v $(pwd)/data:/var/www/FreshRSS/data \
-  -e 'CRON_MIN=5,35' \
-  -p 8080:80 \
+  -v traefik-letsencrypt:/etc/traefik/acme \
+  -v /var/run/docker.sock:/var/run/docker.sock:ro \
+  --net freshrss-network \
+  -p 80:80 \
+  -p 443:443 \
+  --name traefik traefik --docker \
+  --entryPoints='Name:http Address::80 Compress:true Redirect.EntryPoint:https' \
+  --entryPoints='Name:https Address::443 Compress:true TLS TLS.MinVersion:VersionTLS12 TLS.SniStrict:true TLS.CipherSuites:TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384,TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA' \
+  --defaultentrypoints=http,https --keeptrailingslash=true \
+  --acme=true --acme.entrypoint=https --acme.onhostrule=true --acme.tlsChallenge \
+  --acme.storage=/etc/traefik/acme/acme.json --acme.email=you@example.net
+```
+
+See [more information about Docker and Let’s Encrypt in Træfik](https://docs.traefik.io/user-guide/docker-and-lets-encrypt/).
+
+
+## Run FreshRSS 
+Example using the built-in refresh cron job (see further below for alternatives).
+You must first chose a domain (DNS) or sub-domain, e.g. `freshrss.example.net`.
+
+```sh
+sudo docker volume create freshrss-data
+
+# Remember to replace freshrss.example.net by your server address in the command below:
+sudo docker run -d --restart unless-stopped --log-opt max-size=10m \
+  -v freshrss-data:/var/www/FreshRSS/data \
+  -e 'CRON_MIN=4,34' \
+  --net freshrss-network \
+  --label traefik.port=80 \
+  --label traefik.frontend.rule='Host:freshrss.example.net' \
+  --label traefik.frontend.headers.forceSTSHeader=true \
+  --label traefik.frontend.headers.STSSeconds=31536000 \
   --name freshrss freshrss/freshrss
 ```
 
-### Examples with external databases
+* If you cannot have FreshRSS at the root of a dedicated domain, update the command above according to the following model:
+	`--label traefik.frontend.rule='Host:freshrss.example.net;PathPrefixStrip:/FreshRSS/' \`
+* You may remove the `--label traefik.*` lines if you do not use Træfik.
+* Add `-p 8080:80 \` if you want to expose FreshRSS locally, e.g. on port `8080`.
 
-You may want to use other link methods such as Docker bridges, and use Docker volumes for the data, but here are some simple examples:
+This already works with a built-in **SQLite** database (easiest), but more powerful databases are supported:
 
-#### MySQL
-See https://hub.docker.com/_/mysql/
-
+### [MySQL](https://hub.docker.com/_/mysql/)
 ```sh
-sudo docker run -d -v /path/to/mysql-data:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=rootpass -e MYSQL_DATABASE=freshrss -e MYSQL_USER=freshrss -e MYSQL_PASSWORD=pass --name mysql mysql
+# If you already have a MySQL instance running, just attach it to the FreshRSS network:
+sudo docker network connect freshrss-network mysql
+
+# Otherwise, start a new MySQL instance, remembering to change the passwords:
+sudo docker volume create mysql-data
 sudo docker run -d --restart unless-stopped --log-opt max-size=10m \
-  -v $(pwd)/data:/var/www/FreshRSS/data \
-  -e 'CRON_MIN=17,47' \
-  --link mysql -p 8080:80 \
-  --name freshrss freshrss/freshrss
+  -v mysql-data:/var/lib/mysql \
+  -e MYSQL_ROOT_PASSWORD=rootpass
+  -e MYSQL_DATABASE=freshrss \
+  -e MYSQL_USER=freshrss \
+  -e MYSQL_PASSWORD=pass \
+  --net freshrss-network \
+  --name mysql mysql
 ```
 
-#### PostgreSQL
-See https://hub.docker.com/_/postgres/
-
+### [PostgreSQL](https://hub.docker.com/_/postgres/)
 ```sh
-sudo docker run -d -v /path/to/pgsql-data:/var/lib/postgresql/data -e POSTGRES_DB=freshrss -e POSTGRES_USER=freshrss -e POSTGRES_PASSWORD=pass --name postgres postgres
+# If you already have a PostgreSQL instance running, just attach it to the FreshRSS network:
+sudo docker network connect freshrss-network postgres
+
+# Otherwise, start a new PostgreSQL instance, remembering to change the passwords:
+sudo docker volume create pgsql-data
 sudo docker run -d --restart unless-stopped --log-opt max-size=10m \
-  -v $(pwd)/data:/var/www/FreshRSS/data \
-  -e 'CRON_MIN=23,53' \
-  --link postgres -p 8080:80 \
-  --name freshrss freshrss/freshrss
+  -v pgsql-data:/var/lib/postgresql/data \
+  -e POSTGRES_DB=freshrss \
+  -e POSTGRES_USER=freshrss \
+  -e POSTGRES_PASSWORD=pass \
+  --net freshrss-network \
+  --name postgres postgres
 ```
 
-## Update
+### Complete installation
+Browse to your server https://freshrss.example.net/ to complete the installation via the FreshRSS Web interface,
+or use the command line described below.
 
-```sh
-# Rebuild an image (see build section above) or get a new online version:
-sudo docker pull freshrss/freshrss
-# And then
-sudo docker stop freshrss
-sudo docker rename freshrss freshrss_old
-# See the run section above for the full command
-sudo docker run ...
-# If everything is working, delete the old container
-sudo docker rm freshrss_old
-```
 
 ## Command line
 
@@ -92,22 +127,53 @@ sudo docker exec --user apache -it freshrss php ./cli/list-users.php
 
 See the [CLI documentation](../cli/) for all the other commands.
 
+
+## How to update
+
+```sh
+# Rebuild an image (see build section above) or get a new online version:
+sudo docker pull freshrss/freshrss
+# And then
+sudo docker stop freshrss
+sudo docker rename freshrss freshrss_old
+# See the run section above for the full command
+sudo docker run ... --name freshrss freshrss/freshrss
+# If everything is working, delete the old container
+sudo docker rm freshrss_old
+```
+
+
+## Debugging
+
+```sh
+# See FreshRSS data if you use Docker volume
+sudo docker volume inspect freshrss-data
+sudo ls /var/lib/docker/volumes/freshrss-data/_data/
+
+# See Web server logs
+sudo docker logs -f freshrss
+
+# Enter inside FreshRSS docker container
+sudo docker exec -it freshrss sh
+## See FreshRSS root inside the container
+ls /var/www/FreshRSS/
+```
+
+
 ## Cron job to automatically refresh feeds
 We recommend a refresh rate of about twice per hour (see *WebSub* / *PubSubHubbub* for real-time updates).
-There is no less than 3 options. Pick a single one.
+There are no less than 3 options. Pick a single one.
 
 ### Option 1) Cron inside the FreshRSS Docker image
-Easiest, built-in solution, also used in the examples above
+Easiest, built-in solution, also used already in the examples above
 (but your Docker instance will have a second process in the background, without monitoring).
 Just pass the environment variable `CRON_MIN` to your `docker run` command,
 containing a valid cron minute definition such as `'13,43'` (recommended) or `'*/20'`.
 Not passing the `CRON_MIN` environment variable – or setting it to empty string – will disable the cron daemon.
 
 ```sh
-sudo docker run -d --restart unless-stopped --log-opt max-size=10m \
-  -v $(pwd)/data:/var/www/FreshRSS/data \
+sudo docker run ... \
   -e 'CRON_MIN=13,43' \
-  -p 8080:80 \
   --name freshrss freshrss/freshrss
 ```
 
@@ -129,32 +195,15 @@ See cron option 1 for customising the cron schedule.
 
 ```sh
 sudo docker run -d --restart unless-stopped --log-opt max-size=10m \
-  -v $(pwd)/data:/var/www/FreshRSS/data \
+  -v freshrss-data:/var/www/FreshRSS/data \
   -e 'CRON_MIN=17,37' \
+  --net freshrss-network \
   --name freshrss_cron freshrss/freshrss \
   crond -f -d 6
 ```
 
 
-## Debugging
-
-```sh
-# See FreshRSS data (it is on the host)
-cd ./data/
-# See Web server logs
-sudo docker logs -f freshrss
-
-# Enter inside FreshRSS docker container
-sudo docker exec -it freshrss sh
-## See FreshRSS root inside the container
-ls /var/www/FreshRSS/
-```
-
-## Deployment in production
-
-Use a reverse proxy on your host server, such as [Træfik](https://traefik.io/)
-or [nginx](https://docs.nginx.com/nginx/admin-guide/web-server/reverse-proxy/),
-with HTTPS, for instance using [Let’s Encrypt](https://letsencrypt.org/).
+## More deployment options
 
 ### Example with [docker-compose](https://docs.docker.com/compose/)
 
@@ -167,7 +216,56 @@ A [docker-compose.yml](docker-compose.yml) file is given as an example, using Po
 	* options under the `labels` section are specific to [Træfik](https://traefik.io/), a reverse proxy. If you are not using it, feel free to delete this section. If you are using it, adapt accordingly to your config, especially the `traefik.frontend.rule` option.
 	* the `environment` section to adapt the strategy to update feeds.
 
-You can then launch the stack (postgres + freshrss) with:
+You can then launch the stack (FreshRSS + PostgreSQL) with:
 ```sh
-docker-compose up -d
+sudo docker-compose up -d
+```
+
+### Alternative reverse proxy using [nginx](https://docs.nginx.com/nginx/admin-guide/web-server/reverse-proxy/)
+
+Here is an example of configuration to run FreshRSS behind an Nginx reverse proxy (as subdirectory).
+In particular, the proxy should be setup to allow cookies via HTTP headers (see `proxy_cookie_path` below) to allow logging in via the Web form method.
+
+```
+upstream freshrss {
+	server 127.0.0.1:8080;
+	keepalive 64;
+}
+
+server {
+	listen 80;
+
+	location / {
+		return 301 https://$host$request_uri;
+	}
+}
+
+server {
+	server_name mywebsite.example.net;
+	listen 443 ssl http2;
+
+	# Other SSL stuff goes here
+
+	# Needed for Freshrss cookie/session :
+	proxy_cookie_path / "/; HTTPOnly; Secure";
+
+	location / {
+		try_files $uri $uri/ =404;
+		index index.htm index.html;
+	}
+
+	location /freshrss/ {
+		proxy_pass http://freshrss/;
+		add_header X-Frame-Options SAMEORIGIN;
+		add_header X-XSS-Protection "1; mode=block";
+		proxy_redirect off;
+		proxy_buffering off;
+		proxy_set_header Host $host;
+		proxy_set_header X-Real-IP $remote_addr;
+		proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+		proxy_set_header X-Forwarded-Proto $scheme;
+		proxy_set_header X-Forwarded-Port $server_port;
+		proxy_read_timeout 90;
+	}
+}
 ```

@@ -96,7 +96,7 @@ class SimplePie_Cache_MySQL extends SimplePie_Cache_DB
 				'cache_purge_time' => 2592000
 			),
 		);
-		
+
 		$this->options = SimplePie_Misc::array_merge_recursive($this->options, SimplePie_Cache::parse_URL($location));
 
 		// Path is prefixed with a "/"
@@ -395,10 +395,8 @@ class SimplePie_Cache_MySQL extends SimplePie_Cache_DB
 		{
 			return $time;
 		}
-		else
-		{
-			return false;
-		}
+
+		return false;
 	}
 
 	/**
@@ -416,14 +414,8 @@ class SimplePie_Cache_MySQL extends SimplePie_Cache_DB
 		$query = $this->mysql->prepare('UPDATE `' . $this->options['extras']['prefix'] . 'cache_data` SET `mtime` = :time WHERE `id` = :id');
 		$query->bindValue(':time', time());
 		$query->bindValue(':id', $this->id);
-		if ($query->execute() && $query->rowCount() > 0)
-		{
-			return true;
-		}
-		else
-		{
-			return false;
-		}
+
+		return $query->execute() && $query->rowCount() > 0;
 	}
 
 	/**
@@ -442,13 +434,7 @@ class SimplePie_Cache_MySQL extends SimplePie_Cache_DB
 		$query->bindValue(':id', $this->id);
 		$query2 = $this->mysql->prepare('DELETE FROM `' . $this->options['extras']['prefix'] . 'items` WHERE `feed_id` = :id');
 		$query2->bindValue(':id', $this->id);
-		if ($query->execute() && $query2->execute())
-		{
-			return true;
-		}
-		else
-		{
-			return false;
-		}
+
+		return $query->execute() && $query2->execute();
 	}
 }

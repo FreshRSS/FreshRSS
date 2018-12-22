@@ -67,8 +67,8 @@ return array(
 			'ok' => 'Sie haben die JSON-Erweiterung.',
 		),
 		'mbstring' => array(
-			'nok' => 'Ihnen fehlt die mbstring-Bibliothek für Unicode.',	//TODO
-			'ok' => 'Sie haben die empfohlene mbstring-Bliothek für Unicode.',	//TODO
+			'nok' => 'Ihnen fehlt die mbstring-Bibliothek für Unicode.',
+			'ok' => 'Sie haben die empfohlene mbstring-Bliothek für Unicode.',
 		),
 		'minz' => array(
 			'nok' => 'Ihnen fehlt das Minz-Framework.',
@@ -106,23 +106,23 @@ return array(
 		),
 	),
 	'extensions' => array(
+		'author' => 'Autor',
+		'community' => 'Verfügbare Community Erweiterungen',
+		'description' => 'Beschreibungen',
 		'disabled' => 'Deaktiviert',
 		'empty_list' => 'Es gibt keine installierte Erweiterung.',
 		'enabled' => 'Aktiviert',
+		'latest' => 'Installiert',
+		'name' => 'Name',
 		'no_configure_view' => 'Diese Erweiterung kann nicht konfiguriert werden.',
 		'system' => array(
 			'_' => 'System-Erweiterungen',
 			'no_rights' => 'System-Erweiterung (Sie haben keine Berechtigung dafür)',
 		),
 		'title' => 'Erweiterungen',
-		'user' => 'Benutzer-Erweiterungen',
-		'community' => 'Verfügbare Community Erweiterungen',
-		'name' => 'Name',
-		'version' => 'Version',
-		'description' => 'Beschreibungen',
-		'author' => 'Autor',
-		'latest' => 'Installiert',
 		'update' => 'Update verfügbar',
+		'user' => 'Benutzer-Erweiterungen',
+		'version' => 'Version',
 	),
 	'stats' => array(
 		'_' => 'Statistiken',
@@ -162,6 +162,10 @@ return array(
 		'instance-name' => 'Dein Reader Name',
 		'max-categories' => 'Anzahl erlaubter Kategorien pro Benutzer',
 		'max-feeds' => 'Anzahl erlaubter Feeds pro Benutzer',
+		'cookie-duration' => array(
+			'help' => 'in Sekunden',
+			'number' => 'Duration to keep logged in', // @todo translate
+		),
 		'registration' => array(
 			'help' => '0 meint, dass es kein Account Limit gibt',
 			'number' => 'Maximale Anzahl von Accounts',

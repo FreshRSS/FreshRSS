@@ -2,18 +2,18 @@
 
 return array(
 	'api' => array(
-		'documentation' => 'Copy the following URL to use it within an external tool.', // @todo
-		'title' => 'API', // @todo
+		'documentation' => 'Copy the following URL to use it within an external tool.',	//TODO - Translation
+		'title' => 'API',	//TODO - Translation
 	),
 	'bookmarklet' => array(
-		'documentation' => 'Drag this button to your bookmarks toolbar or right-click it and choose "Bookmark This Link". Then click "Subscribe" button in any page you want to subscribe to.', // @todo
-		'label' => 'Subscribe', // @todo
-		'title' => 'Bookmarklet', // @todo
+		'documentation' => 'Drag this button to your bookmarks toolbar or right-click it and choose "Bookmark This Link". Then click "Subscribe" button in any page you want to subscribe to.',	//TODO - Translation
+		'label' => 'Subscribe',	//TODO - Translation
+		'title' => 'Bookmarklet',	//TODO - Translation
 	),
 	'category' => array(
 		'_' => 'קטגוריה',
 		'add' => 'הוספת קטגוריה',
-		'empty' => 'Empty category', // @todo
+		'empty' => 'Empty category',	//TODO - Translation
 		'new' => 'קטגוריה חדשה',
 	),
 	'feed' => array(
@@ -27,7 +27,7 @@ return array(
 			'password' => 'HTTP סיסמה',
 			'username' => 'HTTP שם משתמש',
 		),
-		'clear_cache' => 'Always clear cache',	//TODO
+		'clear_cache' => 'Always clear cache',	//TODO - Translation
 		'css_help' => 'קבלת הזנות RSS קטומות  (זהירות, לוקח זמן רב יותר!)',
 		'css_path' => 'נתיב הCSS של המאמר באתר המקורי',
 		'description' => 'תיאור',
@@ -36,19 +36,27 @@ return array(
 		'informations' => 'מידע',
 		'keep_history' => 'מסםר מינימלי של מאמרים לשמור',
 		'moved_category_deleted' => 'כאשר הקטגוריה נמחקת ההזנות שבתוכה אוטומטית מקוטלגות תחת  <em>%s</em>.',
-		'mute' => 'mute', // TODO
+		'mute' => 'mute',	//TODO - Translation
 		'no_selected' => 'אף הזנה לא נבחרה.',
 		'number_entries' => '%d מאמרים',
 		'priority' => array(
-			'_' => 'Visibility', // TODO
-			'archived' => 'Do not show (archived)', // TODO
+			'_' => 'Visibility',	//TODO - Translation
+			'archived' => 'Do not show (archived)',	//TODO - Translation
 			'main_stream' => 'הצגה בזרם המרכזי',
-			'normal' => 'Show in its category', // TODO
+			'normal' => 'Show in its category',	//TODO - Translation
 		),
-		'ssl_verify' => 'Verify SSL security',	//TODO
+		'websub' => 'Instant notification with WebSub',	//TODO - Translation
+		'show' => array(
+			'all' => 'Show all feeds',	//TODO - Translation
+			'error' => 'Show only feeds with error',	//TODO - Translation
+		),
+		'showing' => array(
+			'error' => 'Showing only feeds with error',	//TODO - Translation
+		),
+		'ssl_verify' => 'Verify SSL security',	//TODO - Translation
 		'stats' => 'סטטיסטיקות',
 		'think_to_add' => 'ניתן להוסיף הזנות חדשות.',
-		'timeout' => 'Timeout in seconds',	//TODO
+		'timeout' => 'Timeout in seconds',	//TODO - Translation
 		'title' => 'כותרת',
 		'title_add' => 'הוספת הזנה',
 		'ttl' => 'אין לרענן אוטומטית יותר מ',
@@ -57,8 +65,8 @@ return array(
 		'website' => 'אתר URL',
 	),
 	'firefox' => array(
-		'documentation' => 'Follow the steps described <a href="https://developer.mozilla.org/en-US/Firefox/Releases/2/Adding_feed_readers_to_Firefox#Adding_a_new_feed_reader_manually">here</a> to add FreshRSS to Firefox feed reader list.', // @todo
-		'title' => 'Firefox feed reader', // @todo
+		'documentation' => 'Follow the steps described <a href="https://developer.mozilla.org/en-US/Firefox/Releases/2/Adding_feed_readers_to_Firefox#Adding_a_new_feed_reader_manually">here</a> to add FreshRSS to Firefox feed reader list.',	//TODO - Translation
+		'title' => 'Firefox feed reader',	//TODO - Translation
 	),
 	'import_export' => array(
 		'export' => 'ייצוא',
@@ -75,11 +83,11 @@ return array(
 		'bookmark' => 'הרשמה (FreshRSS סימניית)',
 		'import_export' => 'יבוא / יצוא ',
 		'subscription_management' => 'ניהול הרשמות',
-		'subscription_tools' => 'Subscription tools', // @todo
+		'subscription_tools' => 'Subscription tools',	//TODO - Translation
 	),
 	'title' => array(
 		'_' => 'ניהול הרשמות',
 		'feed_management' => 'ניהול הזנות RSS',
-		'subscription_tools' => 'Subscription tools', // @todo
+		'subscription_tools' => 'Subscription tools',	//TODO - Translation
 	),
 );

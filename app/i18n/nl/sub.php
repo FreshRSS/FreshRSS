@@ -27,7 +27,7 @@ return array(
 			'password' => 'HTTP wachtwoord',
 			'username' => 'HTTP gebruikers naam',
 		),
-		'clear_cache' => 'Always clear cache',	//TODO
+		'clear_cache' => 'Always clear cache',	//TODO - Translation
 		'css_help' => 'Haalt verstoorde RSS feeds op (attentie, heeft meer tijd nodig!)',
 		'css_path' => 'Artikelen CSS pad op originele website',
 		'description' => 'Omschrijving',
@@ -45,7 +45,14 @@ return array(
 			'main_stream' => 'Zichtbaar in het overzicht',
 			'normal' => 'Toon in categorie',
 		),
-		'pubsubhubbub' => 'Directe notificaties met PubSubHubbub',
+		'websub' => 'Directe notificaties met WebSub',
+		'show' => array(
+			'all' => 'Show all feeds',	//TODO - Translation
+			'error' => 'Show only feeds with error',	//TODO - Translation
+		),
+		'showing' => array(
+			'error' => 'Showing only feeds with error',	//TODO - Translation
+		),
 		'ssl_verify' => 'SSL-veiligheid controleren',
 		'stats' => 'Statistieken',
 		'think_to_add' => 'Voeg wat feeds toe.',

@@ -40,7 +40,7 @@ return array(
 		'mark_all_read' => 'סימון הכל כנקרא',
 		'mark_cat_read' => 'סימון קטגוריה כנקראה',
 		'mark_feed_read' => 'סימון הזנה כנקראה',
-		'mark_selection_unread' => 'Mark selection as unread',	//TODO
+		'mark_selection_unread' => 'Mark selection as unread',	//TODO - Translation
 		'newer_first' => 'חדשים בראש',
 		'non-starred' => 'הצגת הכל פרט למועדפים',
 		'normal_view' => 'תצוגה רגילה',
@@ -53,11 +53,11 @@ return array(
 		'starred' => 'הצגת מועדפים בלבד',
 		'stats' => 'סטטיסטיקות',
 		'subscription' => 'ניהול הרשמות',
-		'tags' => 'My labels',	//TODO
+		'tags' => 'My labels',	//TODO - Translation
 		'unread' => 'הצגת מאמרים שלא נקראו בלבד',
 	),
 	'share' => 'שיתוף',
 	'tag' => array(
-		'related' => 'תגיות קשורות',	//TODO
+		'related' => 'תגיות קשורות',	//TODO - Translation
 	),
 );

@@ -67,8 +67,8 @@ return array(
 			'ok' => '已找到 JSON 扩展',
 		),
 		'mbstring' => array(
-			'nok' => 'Cannot find the recommended library mbstring for Unicode.',	//TODO
-			'ok' => 'You have the recommended library mbstring for Unicode.',	//TODO
+			'nok' => 'Cannot find the recommended library mbstring for Unicode.',	//TODO - Translation
+			'ok' => 'You have the recommended library mbstring for Unicode.',	//TODO - Translation
 		),
 		'minz' => array(
 			'nok' => '找不到 Minz 框架。',
@@ -106,23 +106,23 @@ return array(
 		),
 	),
 	'extensions' => array(
+		'author' => '作者',
+		'community' => '可用的社区扩展',
+		'description' => '描述',
 		'disabled' => '已禁用',
 		'empty_list' => '没有已安装的扩展',
 		'enabled' => '已启用',
+		'latest' => '已安装',
+		'name' => '名称',
 		'no_configure_view' => '此扩展不能配置。',
 		'system' => array(
 			'_' => '系统扩展',
 			'no_rights' => '系统扩展 (你不能修改它)',
 		),
 		'title' => '扩展',
-		'user' => '用户扩展',
-		'community' => '可用的社区扩展',
-		'name' => '名称',
-		'version' => '版本',
-		'description' => '描述',
-		'author' => '作者',
-		'latest' => '已安装',
 		'update' => '更新可用',
+		'user' => '用户扩展',
+		'version' => '版本',
 	),
 	'stats' => array(
 		'_' => '统计',
@@ -162,6 +162,10 @@ return array(
 		'instance-name' => '实例名称',
 		'max-categories' => '每用户分类限制',
 		'max-feeds' => '每用户 RSS 源限制',
+		'cookie-duration' => array(
+			'help' => 'in seconds', // @todo translate
+			'number' => 'Duration to keep logged in', // @todo translate
+		),
 		'registration' => array(
 			'help' => '0 表示无账户数限制',
 			'number' => '最大账户数',
@@ -179,15 +183,15 @@ return array(
 	'user' => array(
 		'articles_and_size' => '%s 篇文章 (%s)',
 		'create' => '创建新用户',
-		'delete_users' => 'Delete user', // TODO
+		'delete_users' => 'Delete user',	//TODO - Translation
 		'language' => '语言',
 		'number' => '已有 %d 个帐户',
 		'numbers' => '已有 %d 个帐户',
 		'password_form' => '密码<br /><small>(用于 Web-form 登录方式)</small>',
 		'password_format' => '至少 7 个字符',
-		'selected' => 'Selected user', // TODO
+		'selected' => 'Selected user',	//TODO - Translation
 		'title' => '用户管理',
-		'update_users' => 'Update user', // TODO
+		'update_users' => 'Update user',	//TODO - Translation
 		'user_list' => '用户列表',
 		'username' => '用户名',
 		'users' => '用户',

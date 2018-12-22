@@ -671,6 +671,15 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 		return isset($entries[0]) ? $entries[0] : null;
 	}
 
+	public function searchIdByGuid($id_feed, $guid) {
+		$sql = 'SELECT id FROM `' . $this->prefix . 'entry` WHERE id_feed=? AND guid=?';
+		$stm = $this->bd->prepare($sql);
+		$values = array($id_feed, $guid);
+		$stm->execute($values);
+		$res = $stm->fetchAll(PDO::FETCH_COLUMN, 0);
+		return isset($res[0]) ? $res[0] : null;
+	}
+
 	protected function sqlConcat($s1, $s2) {
 		return 'CONCAT(' . $s1 . ',' . $s2 . ')';	//MySQL
 	}
@@ -912,8 +921,8 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 		return self::daoToEntries($stm->fetchAll(PDO::FETCH_ASSOC));
 	}
 
-	public function listIdsWhere($type = 'a', $id = '', $state = FreshRSS_Entry::STATE_ALL, $order = 'DESC', $limit = 1, $firstId = '', $filters = null, $date_min = 0) {	//For API
-		list($values, $sql) = $this->sqlListWhere($type, $id, $state, $order, $limit, $firstId, $filters, $date_min);
+	public function listIdsWhere($type = 'a', $id = '', $state = FreshRSS_Entry::STATE_ALL, $order = 'DESC', $limit = 1, $firstId = '', $filters = null) {	//For API
+		list($values, $sql) = $this->sqlListWhere($type, $id, $state, $order, $limit, $firstId, $filters);
 
 		$stm = $this->bd->prepare($sql);
 		$stm->execute($values);

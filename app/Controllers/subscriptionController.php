@@ -33,6 +33,8 @@ class FreshRSS_subscription_Controller extends Minz_ActionController {
 		                        @filemtime(PUBLIC_PATH . '/scripts/category.js')));
 		Minz_View::prependTitle(_t('sub.title') . ' · ');
 
+		$this->view->onlyFeedsWithError = Minz_Request::paramTernary('error');
+
 		$id = Minz_Request::param('id');
 		if ($id !== false) {
 			$feedDAO = FreshRSS_Factory::createFeedDao();

@@ -1,21 +1,25 @@
 # Personnaliser la vue
 
 ##Langue
-À l'heure actuelle, FreshRSS est disponible en français et en anglais. Après validation de ce choix, la totalité de l'interface sera affichée dans la langue choisie.
+À l'heure actuelle, FreshRSS est disponible en 13 langues. Après validation de ce choix, l'interface sera affichée dans la langue choisie, même si certaines parties de l'interface peuvent ne pas encore avoir été traduites. Si vous voulez aider à la traduction, regardez comment vous pouvez [contribuer au projet](../contributing.md#contribute-to-internationalization-i18n).
 
 Il y a des parties de FreshRSS qui ne sont pas traduites et qui n'ont pas vocation à l'être. Pour le moment, les logs visibles dans l'application ainsi que celle générées par le script de mise à jour automatique en font partie.
 
+Les langues disponibles sont : cz, de, en, es, fr, he, it, kr, nl, oc, pt-br, ru, tr, zh-cn.
+
 ##Thème
-Les goûts et les couleurs, ça ne se discute pas. C'est pourquoi FreshRSS propose six thèmes officiels :
+Les goûts et les couleurs, ça ne se discute pas. C'est pourquoi FreshRSS propose huit thèmes officiels :
 
  * *Blue Lagoon* par **Mister aiR**
  * *Dark* par **AD**
  * *Flat design* par **Marien Fressinaud**
  * *Origine* par **Marien Fressinaud**
+ * *Origine-compact* par **Kevin Papst**
  * *Pafat* par **Plopoyop**
  * *Screwdriver* par **Mister aiR**
+ * *Swage* par **Patrick Crandol**
 
-Si aucun de ceux proposés ne convient, il est toujours possible de créer son propre thème.
+Si aucun de ceux proposés ne convient, il est toujours possible de [créer son propre thème](../developers/04_Frontend/02_Design.md).
 
 Pour sélectionner un thème, il suffit de faire défiler les thèmes jusqu'à l'apparition du thème choisi. Après validation, le thème sera appliqué à l'interface.
 
@@ -97,7 +101,7 @@ Plus d'informations dans [la documentation d'Apache.](http://httpd.apache.org/do
 
 ## Avancé
 
-### Récupérer un flux tronqué
+### Récupérer un flux tronqué à partir de FreshRSS
 
 La question revient régulièrement, je vais essayer de clarifier ici comment on peut récupérer un flux RSS tronqué avec FreshRSS. Sachez avant tout que la manière de s'y prendre n'est absolument pas "user friendly", mais elle fonctionne :)
 
@@ -116,4 +120,11 @@ On trouve ici que le bloc qui englobe uniquement le contenu de l'article est ```
 *  Rue89 : ```#article .content```
 *  PCINpact : ```#actu_content```
 *  Lesnumériques : ```article#body div.text.clearfix```
+*  Phoronix : ```#main .content```
 
+### Récupérer un flux tronqué à l'aide d'outils externes
+
+Des outils complémentaires peuvent être utilisés pour récupérer le contenu complet d'un article, comme :
+
+* [RSS-Bridge](https://github.com/RSS-Bridge/rss-bridge)
+* [Full-Text RSS](https://bitbucket.org/fivefilters/full-text-rss)

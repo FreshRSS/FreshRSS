@@ -1,17 +1,24 @@
 [![Build Status][travis-badge]][travis-link]
+[![Liberapay donations](https://img.shields.io/liberapay/receives/FreshRSS.svg?logo=liberapay)](https://liberapay.com/FreshRSS/donate)
 
 * Read this document on [github.com/FreshRSS/FreshRSS/](https://github.com/FreshRSS/FreshRSS/blob/master/README.md) to get the correct links and pictures.
 * [Version française](README.fr.md)
 
 # FreshRSS
-FreshRSS is a self-hosted RSS feed aggregator such as [Leed](http://leed.idleman.fr/) or [Kriss Feed](https://tontof.net/kriss/feed/).
+FreshRSS is a self-hosted RSS feed aggregator like [Leed](http://leed.idleman.fr/) or [Kriss Feed](https://tontof.net/kriss/feed/).
 
-It is at the same time lightweight, easy to work with, powerful and customizable.
+It is lightweight, easy to work with, powerful, and customizable.
 
-It is a multi-user application with an anonymous reading mode.
-It supports custom tags, and [PubSubHubbub](https://github.com/pubsubhubbub/PubSubHubbub) for instant notifications from compatible Web sites.
+It is a multi-user application with an anonymous reading mode. It supports custom tags.
 There is an API for (mobile) clients, and a [Command-Line Interface](cli/README.md).
+
+Thanks to the [WebSub](https://www.w3.org/TR/websub/) standard (formerly [PubSubHubbub](https://github.com/pubsubhubbub/PubSubHubbub)),
+FreshRSS is able to receive instant push notifications from compatible sources, such as [Mastodon](https://joinmastodon.org), [Friendica](https://friendi.ca), [WordPress](https://wordpress.org/plugins/pubsubhubbub/), Blogger, FeedBurner, etc.
+
 Finally, it supports [extensions](#extensions) for further tuning.
+
+Feature requests, bug reports, and other contributions are welcome. The best way to contribute is to [open an issue on GitHub](https://github.com/FreshRSS/FreshRSS/issues).
+We are a friendly community.
 
 * Official website: https://freshrss.org
 * Demo: https://demo.freshrss.org/
@@ -19,52 +26,57 @@ Finally, it supports [extensions](#extensions) for further tuning.
 
 ![FreshRSS logo](docs/img/FreshRSS-logo.png)
 
+# Disclaimer
+FreshRSS comes with absolutely no warranty.
+
+![FreshRSS screenshot](docs/img/FreshRSS-screenshot.png)
+
+# [Documentation](https://freshrss.github.io/FreshRSS/en/)
+* [User documentation](https://freshrss.github.io/FreshRSS/en/users/02_First_steps.html), where you can discover all the possibilities offered by FreshRSS
+* [Administrator documentation](https://freshrss.github.io/FreshRSS/en/admins/01_Index.html) for detailed installation and maintenance related tasks
+* [Developer documentation](https://freshrss.github.io/FreshRSS/en/developers/01_First_steps.html) to guide you in the source code of FreshRSS and to help you if you want to contribute
+* [Contributor guidelines](https://freshrss.github.io/FreshRSS/en/contributing.md) for those who want to help improve FreshRSS
+
+# Requirements
+* A recent browser like Firefox / IceCat, Internet Explorer 11 / Edge (minus a few details), Chromium / Chrome, Opera, Safari.
+	* Works on mobile (except a few features)
+* Light server running Linux or Windows
+	* It even works on Raspberry Pi 1 with response time under a second (tested with 150 feeds, 22k articles)
+* A web server: Apache2 (recommended), nginx, lighttpd (not tested on others)
+* PHP 5.3.8+ (PHP 5.4+ recommended, and PHP 5.5+ for performance, or PHP 7 for even higher performance)
+	* Required extensions: [cURL](https://secure.php.net/curl), [DOM](https://secure.php.net/dom), [XML](https://secure.php.net/xml), [session](https://secure.php.net/session), [ctype](https://secure.php.net/ctype), and [PDO_MySQL](https://secure.php.net/pdo-mysql) or [PDO_SQLite](https://secure.php.net/pdo-sqlite) or [PDO_PGSQL](https://secure.php.net/pdo-pgsql)
+	* Recommended extensions: [JSON](https://secure.php.net/json), [GMP](https://secure.php.net/gmp) (for API access on 32-bit platforms), [IDN](https://secure.php.net/intl.idn) (for Internationalized Domain Names), [mbstring](https://secure.php.net/mbstring) (for Unicode strings), [iconv](https://secure.php.net/iconv) (for charset conversion), [ZIP](https://secure.php.net/zip) (for import/export), [zlib](https://secure.php.net/zlib) (for compressed feeds)
+* MySQL 5.5.3+ (recommended), or SQLite 3.7.4+, or PostgreSQL 9.2+
+
+
 # Releases
 See the [list of releases](../../releases).
 
 ## About branches
-* Use [the master branch](https://github.com/FreshRSS/FreshRSS/tree/master/) if you need a stable version.
-* For those willing to help testing or developing the latest features, [the dev branch](https://github.com/FreshRSS/FreshRSS/tree/dev) is waiting for you!
+* Use [the master branch](https://github.com/FreshRSS/FreshRSS/tree/master/) if you need less frequent stable versions.
+* Use [the dev branch](https://github.com/FreshRSS/FreshRSS/tree/dev) if you want a rolling release with the newest features, or help testing or developing the next stable version.
 
-# Disclaimer
-This application was developed to fulfil personal needs primarily, and comes with absolutely no warranty.
-Feature requests, bug reports, and other contributions are welcome. The best way is to [open an issue on GitHub](https://github.com/FreshRSS/FreshRSS/issues).
-We are a friendly community.
-
-# Requirements
-* Light server running Linux or Windows
-	* It even works on Raspberry Pi 1 with response time under a second (tested with 150 feeds, 22k articles)
-* A web server: Apache2 (recommended), nginx, lighttpd (not tested on others)
-* PHP 5.3.8+ (PHP 5.4+ recommended, and PHP 5.5+ for performance, and PHP 7 for even higher performance)
-	* Required extensions: [cURL](https://secure.php.net/curl), [DOM](https://secure.php.net/dom), [XML](https://secure.php.net/xml), [session](https://secure.php.net/session), [ctype](https://secure.php.net/ctype), and [PDO_MySQL](https://secure.php.net/pdo-mysql) or [PDO_SQLite](https://secure.php.net/pdo-sqlite) or [PDO_PGSQL](https://secure.php.net/pdo-pgsql)
-	* Recommended extensions: [JSON](https://secure.php.net/json), [GMP](https://secure.php.net/gmp) (for API access on platforms < 64 bits), [IDN](https://secure.php.net/intl.idn) (for Internationalized Domain Names), [mbstring](https://secure.php.net/mbstring) (for Unicode strings), [iconv](https://secure.php.net/iconv) (for charset conversion), [ZIP](https://secure.php.net/zip) (for import/export), [zlib](https://secure.php.net/zlib) (for compressed feeds)
-* MySQL 5.5.3+ (recommended), or SQLite 3.7.4+, or PostgreSQL 9.2+
-* A recent browser like Firefox / IceCat, Internet Explorer 11 / Edge, Chromium / Chrome, Opera, Safari.
-	* Works on mobile
-
-![FreshRSS screenshot](docs/img/FreshRSS-screenshot.png)
-
-# Documentation
-* https://freshrss.github.io/FreshRSS/en/
 
 # [Installation](https://freshrss.github.io/FreshRSS/en/admins/02_Installation.html)
-1. Get FreshRSS with git or [by downloading the archive](https://github.com/FreshRSS/FreshRSS/archive/master.zip)
-2. Dump the application on your server (expose only the `./p/` folder)
-3. Add write access on `./data/` folder to the webserver user
-4. Access FreshRSS with your browser and follow the installation process
-	* or use the [Command-Line Interface](cli/README.md)
-5. Everything should be working :) If you encounter any problem, feel free [contact us](https://github.com/FreshRSS/FreshRSS/issues).
-6. Advanced configuration settings can be seen in [config.default.php](config.default.php) and modified in `data/config.php`.
-7. When using Apache, enable [`AllowEncodedSlashes`](https://httpd.apache.org/docs/trunk/mod/core.html#allowencodedslashes) for better compatibility with mobile clients.
 
-More information about installation and server configuration can be found in [our documentation](https://freshrss.github.io/FreshRSS/en/admins/02_Installation.html).
-
-## Automated install 
+## Automated install
 * [![Docker](https://www.docker.com/sites/default/files/horizontal.png)](./Docker/)
 * [![YunoHost](https://install-app.yunohost.org/install-with-yunohost.png)](https://install-app.yunohost.org/?app=freshrss)
 * [![Cloudron](https://cloudron.io/img/button.svg)](https://cloudron.io/button.html?app=org.freshrss.cloudronapp)
 
-## Example of full installation on Linux Debian/Ubuntu
+## Manual install
+1. Get FreshRSS with git or [by downloading the archive](https://github.com/FreshRSS/FreshRSS/archive/master.zip)
+2. Put the application somewhere on your server (expose only the `./p/` folder to the Web)
+3. Add write access to the `./data/` folder for the webserver user
+4. Access FreshRSS with your browser and follow the installation process
+	* or use the [Command-Line Interface](cli/README.md)
+5. Everything should be working :) If you encounter any problems, feel free to [contact us](https://github.com/FreshRSS/FreshRSS/issues).
+6. Advanced configuration settings can be found in [config.default.php](config.default.php) and modified in `data/config.php`.
+7. When using Apache, enable [`AllowEncodedSlashes`](https://httpd.apache.org/docs/trunk/mod/core.html#allowencodedslashes) for better compatibility with mobile clients.
+
+More detailed information about installation and server configuration can be found in [our documentation](https://freshrss.github.io/FreshRSS/en/admins/02_Installation.html).
+
+### Example of full installation on Linux Debian/Ubuntu
 ```sh
 # If you use an Apache Web server (otherwise you need another Web server)
 sudo apt-get install apache2
@@ -108,16 +120,16 @@ sudo chown -R :www-data . && sudo chmod -R g+r . && sudo chmod -R g+w ./data/
 See more commands and git commands in the [Command-Line Interface documentation](cli/README.md).
 
 ## Access control
-It is needed for the multi-user mode to limit access to FreshRSS. You can:
-* use form authentication (needs JavaScript, and PHP 5.5+ recommended)
-* use HTTP authentication supported by your web server
+This is needed if you will be using the multi-user mode, to limit access to FreshRSS. Options Available:
+* form authentication (needs JavaScript, and PHP 5.5+ recommended)
+* HTTP authentication supported by your web server
 	* See [Apache documentation](https://httpd.apache.org/docs/trunk/howto/auth.html)
 		* In that case, create a `./p/i/.htaccess` file with a matching `.htpasswd` file.
 
 ## Automatic feed update
 * You can add a Cron job to launch the update script.
 Check the Cron documentation related to your distribution ([Debian/Ubuntu](https://help.ubuntu.com/community/CronHowto), [Red Hat/Fedora](https://fedoraproject.org/wiki/Administration_Guide_Draft/Cron), [Slackware](https://docs.slackware.com/fr:slackbook:process_control?#cron), [Gentoo](https://wiki.gentoo.org/wiki/Cron), [Arch Linux](https://wiki.archlinux.org/index.php/Cron)…).
-It is a good idea to use the Web server user.
+It is a good idea to run the cron job as the webserver user (often “www-data”).
 For instance, if you want to run the script every hour:
 
 ```
@@ -131,13 +143,17 @@ Create `/etc/cron.d/FreshRSS` with:
 6,36 * * * * www-data php -f /usr/share/FreshRSS/app/actualize_script.php > /tmp/FreshRSS.log 2>&1
 ```
 
-
-# Advices
-* For a better security, expose only the `./p/` folder on the Web.
+## Advice
+* For better security, expose only the `./p/` folder to the Web.
 	* Be aware that the `./data/` folder contains all personal data, so it is a bad idea to expose it.
-* The `./constants.php` file defines access to application folder. If you want to customize your installation, every thing happens here.
+* The `./constants.php` file defines access to the application folder. If you want to customize your installation, look here first.
 * If you encounter any problem, logs are accessible from the interface or manually in `./data/users/*/log*.txt` files.
 	* The special folder `./data/users/_/` contains the part of the logs that are shared by all users.
+
+
+# F.A.Q.:
+* The date and time in the right-hand column is the date declared by the feed, not the time at which the article was received by FreshRSS, and it is not used for sorting.
+	* In particular, when importing a new feed, all of its articles will appear at the top of the feed list regardless of their declared date.
 
 
 # Backup
@@ -171,6 +187,8 @@ Supported clients are:
 	* [EasyRSS](https://github.com/Alkarex/EasyRSS) (Open source, [F-Droid](https://f-droid.org/packages/org.freshrss.easyrss/))
 * GNU/Linux
 	* [FeedReader 2.0+](https://jangernert.github.io/FeedReader/) (Open source)
+* MacOS
+	* [Vienna RSS](http://www.vienna-rss.com/) (Open source)
 
 ## Fever API
 
@@ -192,15 +210,12 @@ Supported clients are:
 * [php-http-304](https://alexandre.alapetite.fr/doc-alex/php-http-304/)
 * [jQuery](https://jquery.com/)
 * [lib_opml](https://github.com/marienfressinaud/lib_opml)
-* [jQuery Plugin Sticky-Kit](https://leafo.net/sticky-kit/)
 * [keyboard_shortcuts](http://www.openjs.com/scripts/events/keyboard_shortcuts/)
 * [flotr2](http://www.humblesoftware.com/flotr2)
 
-## Only for some options
+## Only for some options or configurations
 * [bcrypt.js](https://github.com/dcodeIO/bcrypt.js)
 * [phpQuery](https://github.com/phpquery/phpquery)
-
-## If native functions are not available
 * [Services_JSON](https://pear.php.net/pepr/pepr-proposal-show.php?id=198)
 * [password_compat](https://github.com/ircmaxell/password_compat)
 
