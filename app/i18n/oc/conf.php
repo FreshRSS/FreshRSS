@@ -171,8 +171,8 @@ return array(
 		'rss_view' => 'Dobrir la vista RSS dins un onglet novèl',
 		'see_on_website' => 'Veire al site d’origina',
 		'shift_for_all_read' => '+ <code>shift</code> per marcar los articles coma legits',
-		'skip_next_article' => 'Focus next without opening',	//TODO - Translation
-		'skip_previous_article' => 'Focus previous without opening',	//TODO - Translation
+		'skip_next_article' => 'Centrar sul seguent sens lo dobrir',
+		'skip_previous_article' => 'Centrar sul precedent sens lo dobrir',
 		'title' => 'Acorchis',
 		'user_filter' => 'Accedir als filtres utilizaire',
 		'user_filter_help' => 'S’i a pas qu’un filtre utilizaire, aquel serà utilizat. Autrament los filtres son accessibles per lor numèro.',
