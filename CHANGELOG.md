@@ -1,6 +1,6 @@
 ﻿# FreshRSS changelog
 
-## 2018-12-2X FreshRSS 1.13.0-dev
+## 2018-12-22 FreshRSS 1.13.0
 
 * API
 	* Improvements to the Google Reader API [#2093](https://github.com/FreshRSS/FreshRSS/pull/2093)
