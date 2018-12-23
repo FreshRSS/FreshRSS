@@ -1,5 +1,8 @@
 ﻿# FreshRSS changelog
 
+## 2019-0X-XX FreshRSS 1.13.1-dev
+
+
 ## 2018-12-22 FreshRSS 1.13.0
 
 * API
