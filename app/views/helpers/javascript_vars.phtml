@@ -56,6 +56,7 @@ echo htmlspecialchars(json_encode(array(
 		'category_empty' => _t('gen.js.category_empty'),
 	),
 	'icons' => array(
-		'close' => _i('close'),
+		'read' => rawurlencode(_i('read')),
+		'unread' => rawurlencode(_i('unread')),
 	),
 ), JSON_UNESCAPED_UNICODE), ENT_NOQUOTES, 'UTF-8');

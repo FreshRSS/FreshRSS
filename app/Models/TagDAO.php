@@ -256,40 +256,54 @@ class FreshRSS_TagDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 		}
 	}
 
-	//For API
-	public function getEntryIdsTagNames($entries) {
-		$sql = 'SELECT et.id_entry, t.name '
+	public function getTagsForEntries($entries) {
+		$sql = 'SELECT et.id_entry, et.id_tag, t.name '
 			 . 'FROM `' . $this->prefix . 'tag` t '
 			 . 'INNER JOIN `' . $this->prefix . 'entrytag` et ON et.id_tag = t.id';
 
 		$values = array();
 		if (is_array($entries) && count($entries) > 0) {
 			$sql .= ' AND et.id_entry IN (' . str_repeat('?,', count($entries) - 1). '?)';
-			foreach ($entries as $entry) {
-				$values[] = is_array($entry) ? $entry['id'] : $entry->id();
+			if (is_array($entries[0])) {
+				foreach ($entries as $entry) {
+					$values[] = $entry['id'];
+				}
+			} elseif (is_object($entries[0])) {
+				foreach ($entries as $entry) {
+					$values[] = $entry->id();
+				}
+			} else {
+				foreach ($entries as $entry) {
+					$values[] = $entry;
+				}
 			}
 		}
 		$stm = $this->bd->prepare($sql);
 
 		if ($stm && $stm->execute($values)) {
-			$result = array();
-			foreach ($stm->fetchAll(PDO::FETCH_ASSOC) as $line) {
-				$entryId = 'e_' . $line['id_entry'];
-				$tagName = $line['name'];
-				if (empty($result[$entryId])) {
-					$result[$entryId] = array();
-				}
-				$result[$entryId][] = $tagName;
-			}
-			return $result;
+			return $stm->fetchAll(PDO::FETCH_ASSOC);
 		} else {
 			$info = $stm == null ? array(0 => '', 1 => '', 2 => 'syntax error') : $stm->errorInfo();
 			if ($this->autoUpdateDb($info)) {
-				return $this->getTagNamesEntryIds($id_entry);
+				return $this->getTagsForEntries($entries);
 			}
-			Minz_Log::error('SQL error getTagNamesEntryIds: ' . $info[2]);
+			Minz_Log::error('SQL error getTagsForEntries: ' . $info[2]);
 			return false;
 		}
+	}
+
+	//For API
+	public function getEntryIdsTagNames($entries) {
+		$result = array();
+		foreach ($this->getTagsForEntries($entries) as $line) {
+			$entryId = 'e_' . $line['id_entry'];
+			$tagName = $line['name'];
+			if (empty($result[$entryId])) {
+				$result[$entryId] = array();
+			}
+			$result[$entryId][] = $tagName;
+		}
+		return $result;
 	}
 
 	public static function daoToTag($listDAO) {

@@ -7,6 +7,8 @@ var $stream = null,
 	shares = 0,
 	ajax_loading = false;
 
+if (!NodeList.prototype.forEach) { NodeList.prototype.forEach = Array.prototype.forEach; }	//IE11
+
 function redirect(url, new_tab) {
 	if (url) {
 		if (new_tab) {
@@ -89,7 +91,7 @@ function incUnreadsFeed(article, feed_id, nb) {
 	}
 
 	//Update unread: favourites
-	if (article && article.closest('div').hasClass('favorite')) {
+	if (article && $(article).closest('div').hasClass('favorite')) {
 		elem = $('#aside_feed .favorites .title').get(0);
 		if (elem) {
 			feed_unreads = elem ? str2int(elem.getAttribute('data-unread')) : 0;
@@ -115,7 +117,7 @@ function incUnreadsFeed(article, feed_id, nb) {
 }
 
 function incUnreadsTag(tag_id, nb) {
-	var $t = $('#t_' + tag_id);
+	var $t = $('#' + tag_id);
 	var unreads = str2int($t.attr('data-unread'));
 	$t.attr('data-unread', unreads + nb)
 		.children('.item-title').attr('data-unread', numberFormat(unreads + nb));
@@ -126,20 +128,20 @@ function incUnreadsTag(tag_id, nb) {
 }
 
 var pending_entries = {};
-function mark_read(active, only_not_read) {
-	if ((active.length === 0) || (!active.attr('id')) ||
-		context.anonymous ||
-		(only_not_read && !active.hasClass("not_read"))) {
+function mark_read($active, only_not_read) {
+	let div = $active ? $active[0] : null;
+	if (!div || !div.id || context.anonymous ||
+		(only_not_read && !div.classList.contains('not_read'))) {
 		return false;
 	}
 
-	if (pending_entries[active.attr('id')]) {
+	if (pending_entries[div.id]) {
 		return false;
 	}
-	pending_entries[active.attr('id')] = true;
+	pending_entries[div.id] = true;
 
-	var url = '.?c=entry&a=read&id=' + active.attr('id').replace(/^flux_/, '') +
-		(active.hasClass('not_read') ? '' : '&is_read=0');
+	let url = '.?c=entry&a=read&id=' + div.id.replace(/^flux_/, '') +
+		(div.classList.contains('not_read') ? '' : '&is_read=0');
 
 	$.ajax({
 		type: 'POST',
@@ -149,35 +151,39 @@ function mark_read(active, only_not_read) {
 			_csrf: context.csrf,
 		},
 	}).done(function (data) {
-		var $r = active.find("a.read").attr("href", data.url),
-			inc = 0;
-		if (active.hasClass("not_read")) {
-			active.removeClass("not_read");
+		let inc = 0;
+		if (div.classList.contains('not_read')) {
+			div.classList.remove('not_read');
+			div.querySelectorAll('a.read').forEach(function (a) { a.setAttribute('href', a.getAttribute('href').replace('&is_read=0', '') + '&is_read=1'); });
+			div.querySelectorAll('a.read > .icon').forEach(function (img) { img.outerHTML = icons.read; });
 			inc--;
 		} else {
-			active.addClass("not_read");
-			active.addClass("keep_unread");
+			div.classList.add('not_read', 'keep_unread');
+			div.querySelectorAll('a.read').forEach(function (a) { a.setAttribute('href', a.getAttribute('href').replace('&is_read=1', '')); });
+			div.querySelectorAll('a.read > .icon').forEach(function (img) { img.outerHTML = icons.unread; });
 			inc++;
 		}
-		$r.find('.icon').replaceWith(data.icon);
 
-		var feed_url = active.find(".website>a").attr("href");
-		if (feed_url) {
-			var feed_id = feed_url.substr(feed_url.lastIndexOf('f_'));
-			incUnreadsFeed(active, feed_id, inc);
+		let feed_link = div.querySelector('.website > a');
+		if (feed_link) {
+			let feed_url = feed_link.getAttribute('href');
+			let feed_id = feed_url.substr(feed_url.lastIndexOf('f_'));
+			incUnreadsFeed(div, feed_id, inc);
 		}
 		faviconNbUnread();
 
 		if (data.tags) {
-			for (var i = data.tags.length - 1; i >= 0; i--) {
-				incUnreadsTag(data.tags[i], inc);
+			let tagIds = Object.keys(data.tags);
+			for (let i = tagIds.length - 1; i >= 0; i--) {
+				let tagId = tagIds[i];
+				incUnreadsTag(tagId, inc * data.tags[tagId].length);
 			}
 		}
 
-		delete pending_entries[active.attr('id')];
+		delete pending_entries[div.id];
 	}).fail(function (data) {
 		openNotification(i18n.notif_request_failed, 'bad');
-		delete pending_entries[active.attr('id')];
+		delete pending_entries[div.id];
 	});
 }
 
@@ -911,7 +917,7 @@ function init_dynamic_tags() {
 			})
 			.done(function () {
 				if ($entry.hasClass('not_read')) {
-					incUnreadsTag(tagId, isChecked ? 1 : -1);
+					incUnreadsTag('t_' + tagId, isChecked ? 1 : -1);
 				}
 			})
 			.fail(function () {
@@ -1079,7 +1085,7 @@ function notifs_html5_show(nb) {
 	var notification = new window.Notification(i18n.notif_title_articles, {
 		icon: "../themes/icons/favicon-256.png",
 		body: i18n.notif_body_articles.replace('%d', nb),
-		tag: "freshRssNewArticles"
+		tag: 'freshRssNewArticles',
 	});
 
 	notification.onclick = function() {
@@ -1491,6 +1497,8 @@ function parseJsonVars() {
 	window.url = json.url;
 	window.i18n = json.i18n;
 	window.icons = json.icons;
+	icons.read = decodeURIComponent(icons.read);
+	icons.unread = decodeURIComponent(icons.unread);
 }
 
 function init_normal() {
