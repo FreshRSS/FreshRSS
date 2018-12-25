@@ -161,21 +161,14 @@ function incUnreadsTag(tag_id, nb) {
 	}
 }
 
-var pending_entries = {};
+var pending_entries = {},
+	mark_read_queue = [];
 
-function mark_read(div, only_not_read) {
-	if (!div || !div.id || context.anonymous ||
-		(only_not_read && !div.classList.contains('not_read'))) {
-		return false;
+function send_mark_read_queue(queue, asRead) {
+	let url = '.?c=entry&a=read' + (asRead ? '' : '&is_read=0');
+	for (let i = queue.length - 1; i >= 0; i--) {
+		url += '&id[]=' + queue[i];
 	}
-
-	if (pending_entries[div.id]) {
-		return false;
-	}
-	pending_entries[div.id] = true;
-
-	let url = '.?c=entry&a=read&id=' + div.id.replace(/^flux_/, '') +
-		(div.classList.contains('not_read') ? '' : '&is_read=0');
 
 	$.ajax({
 		type: 'POST',
@@ -185,40 +178,73 @@ function mark_read(div, only_not_read) {
 			_csrf: context.csrf,
 		},
 	}).done(function (data) {
-		let inc = 0;
-		if (div.classList.contains('not_read')) {
-			div.classList.remove('not_read');
-			div.querySelectorAll('a.read').forEach(function (a) { a.setAttribute('href', a.getAttribute('href').replace('&is_read=0', '') + '&is_read=1'); });
-			div.querySelectorAll('a.read > .icon').forEach(function (img) { img.outerHTML = icons.read; });
-			inc--;
-		} else {
-			div.classList.add('not_read', 'keep_unread');
-			div.querySelectorAll('a.read').forEach(function (a) { a.setAttribute('href', a.getAttribute('href').replace('&is_read=1', '')); });
-			div.querySelectorAll('a.read > .icon').forEach(function (img) { img.outerHTML = icons.unread; });
-			inc++;
-		}
-
-		let feed_link = div.querySelector('.website > a');
-		if (feed_link) {
-			let feed_url = feed_link.getAttribute('href');
-			let feed_id = feed_url.substr(feed_url.lastIndexOf('f_'));
-			incUnreadsFeed(div, feed_id, inc);
+		for (let i = queue.length - 1; i >= 0; i--) {
+			const div = document.getElementById('flux_' + queue[i]),
+				myIcons = icons;
+			let inc = 0;
+			if (div.classList.contains('not_read')) {
+				div.classList.remove('not_read');
+				div.querySelectorAll('a.read').forEach(function (a) { a.setAttribute('href', a.getAttribute('href').replace('&is_read=0', '') + '&is_read=1'); });
+				div.querySelectorAll('a.read > .icon').forEach(function (img) { img.outerHTML = myIcons.read; });
+				inc--;
+			} else {
+				div.classList.add('not_read', 'keep_unread');
+				div.querySelectorAll('a.read').forEach(function (a) { a.setAttribute('href', a.getAttribute('href').replace('&is_read=1', '')); });
+				div.querySelectorAll('a.read > .icon').forEach(function (img) { img.outerHTML = myIcons.unread; });
+				inc++;
+			}
+			let feed_link = div.querySelector('.website > a');
+			if (feed_link) {
+				let feed_url = feed_link.getAttribute('href');
+				let feed_id = feed_url.substr(feed_url.lastIndexOf('f_'));
+				incUnreadsFeed(div, feed_id, inc);
+			}
+			delete pending_entries[queue[i]];
 		}
 		faviconNbUnread();
-
 		if (data.tags) {
 			let tagIds = Object.keys(data.tags);
 			for (let i = tagIds.length - 1; i >= 0; i--) {
 				let tagId = tagIds[i];
-				incUnreadsTag(tagId, inc * data.tags[tagId].length);
+				incUnreadsTag(tagId, (asRead ? -1 : 1) * data.tags[tagId].length);
 			}
 		}
-
-		delete pending_entries[div.id];
 	}).fail(function (data) {
 		openNotification(i18n.notif_request_failed, 'bad');
-		delete pending_entries[div.id];
+		for (let i = queue.length - 1; i >= 0; i--) {
+			delete pending_entries[queue[i]];
+		}
 	});
+}
+
+var send_mark_read_queue_timeout = 0;
+
+function mark_read(div, only_not_read) {
+	if (!div || !div.id || context.anonymous ||
+		(only_not_read && !div.classList.contains('not_read'))) {
+		return false;
+	}
+	const entryId = div.id.replace(/^flux_/, '');
+	if (pending_entries[entryId]) {
+		return false;
+	}
+	pending_entries[entryId] = true;
+
+	const asRead = div.classList.contains('not_read');
+	if (asRead) {
+		mark_read_queue.push(entryId);
+		if (send_mark_read_queue_timeout == 0) {
+			send_mark_read_queue_timeout = setTimeout(function () {
+					send_mark_read_queue_timeout = 0;
+					const queue = mark_read_queue.slice(0);
+					mark_read_queue = [];
+					send_mark_read_queue(queue, asRead);
+				}, 1000);
+		}
+	} else {
+		const queue = [ entryId ];
+		send_mark_read_queue(queue, asRead);
+	}
 }
 
 function mark_favorite(div) {
@@ -1211,8 +1237,15 @@ function load_more_posts() {
 
 		init_load_more(box_load_more);
 
-		document.getElementById('load_more').classList.remove('loading');
-		document.getElementById('bigMarkAsRead').removeAttribute('disabled');
+		const bigMarkAsRead = document.getElementById('bigMarkAsRead'),
+			div_load_more = document.getElementById('load_more');
+		if (bigMarkAsRead) {
+			bigMarkAsRead.removeAttribute('disabled');
+		}
+		if (div_load_more) {
+			div_load_more.classList.remove('loading');
+		}
+
 		load_more = false;
 	});
 }
