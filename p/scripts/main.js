@@ -165,17 +165,13 @@ var pending_entries = {},
 	mark_read_queue = [];
 
 function send_mark_read_queue(queue, asRead) {
-	let url = '.?c=entry&a=read' + (asRead ? '' : '&is_read=0');
-	for (let i = queue.length - 1; i >= 0; i--) {
-		url += '&id[]=' + queue[i];
-	}
-
 	$.ajax({
 		type: 'POST',
-		url: url,
+		url: '.?c=entry&a=read' + (asRead ? '' : '&is_read=0'),
 		data: {
 			ajax: true,
 			_csrf: context.csrf,
+			'id[]': queue,
 		},
 	}).done(function (data) {
 		for (let i = queue.length - 1; i >= 0; i--) {
