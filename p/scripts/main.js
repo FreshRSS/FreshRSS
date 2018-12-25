@@ -500,7 +500,7 @@ function user_filter(key) {
 			return;
 		}
 		// Display the filter div
-		window.location.hash = filter.attr('id');
+		location.hash = filter.attr('id');
 		// Force scrolling to the filter div
 		const scroll = needsScroll($('.header'));
 		if (scroll !== 0) {
@@ -528,7 +528,7 @@ function auto_share(key) {
 			return;
 		}
 		// Display the share div
-		window.location.hash = $share.attr('id');
+		location.hash = $share.attr('id');
 		// Force scrolling to the share div
 		const scroll = needsScroll($share.closest('.bottom'));
 		if (scroll !== 0) {
@@ -566,12 +566,12 @@ function init_posts() {
 		let lastScroll = 0,	//Throttle
 			timerId = 0;
 		$box_to_follow.scroll(function () {
-			window.clearTimeout(timerId);
+			clearTimeout(timerId);
 			if (lastScroll + 500 < Date.now()) {
 				lastScroll = Date.now();
 				scrollAsRead($box_to_follow);
 			} else {
-				timerId = window.setTimeout(function() {
+				timerId = setTimeout(function () {
 						scrollAsRead($box_to_follow);
 					}, 500);
 			}
@@ -600,7 +600,7 @@ function init_column_categories() {
 	}
 
 	$('#aside_feed').on('click', '.tree-folder>.tree-folder-title>a.dropdown-toggle', function () {
-		$(this).children().each(function() {
+		$(this).children().each(function () {
 			if (this.alt === '▽') {
 				this.src = this.src.replace('/icons/down.', '/icons/up.');
 				this.alt = '△';
@@ -643,11 +643,11 @@ function init_column_categories() {
 }
 
 function init_shortcuts() {
-	if (!(window.shortcut && window.shortcuts)) {
+	if (!(window.shortcut)) {
 		if (window.console) {
 			console.log('FreshRSS waiting for shortcut.js…');
 		}
-		window.setTimeout(init_shortcuts, 200);
+		setTimeout(init_shortcuts, 200);
 		return;
 	}
 	// Manipulation shortcuts
@@ -795,7 +795,7 @@ function init_shortcuts() {
 	});
 
 	shortcut.add(shortcuts.close_dropdown, function () {
-		window.location.hash = null;
+		location.hash = null;
 	}, {
 		'disable_in_input': true
 	});
@@ -1017,7 +1017,7 @@ function updateFeed(feeds, feeds_count) {
 						noCommit: 0,
 					},
 				}).always(function (data) {
-					window.location.reload();
+					location.reload();
 				});
 		} else {
 			updateFeed(feeds, feeds_count);
@@ -1092,15 +1092,15 @@ function openNotification(msg, status) {
 	$notification.find('.msg').html(msg);
 	$notification.fadeIn(300);
 
-	notification_interval = window.setTimeout(closeNotification, 4000);
+	notification_interval = setTimeout(closeNotification, 4000);
 }
 
 function closeNotification() {
-	$notification.fadeOut(600, function() {
+	$notification.fadeOut(600, function () {
 		$notification.removeClass();
 		$notification.addClass('closed');
 
-		window.clearInterval(notification_interval);
+		clearInterval(notification_interval);
 		notification_working = false;
 	});
 }
@@ -1115,7 +1115,7 @@ function init_notifications() {
 
 	if ($notification.find('.msg').html().length > 0) {
 		notification_working = true;
-		notification_interval = window.setTimeout(closeNotification, 4000);
+		notification_interval = setTimeout(closeNotification, 4000);
 	}
 }
 // </notification>
@@ -1144,14 +1144,14 @@ function notifs_html5_show(nb) {
 		tag: 'freshRssNewArticles',
 	});
 
-	notification.onclick = function() {
-		window.location.reload();
+	notification.onclick = function () {
+		location.reload();
 		window.focus();
 		notification.close();
 	};
 
 	if (context.html5_notif_timeout !== 0) {
-		setTimeout(function() {
+		setTimeout(function () {
 			notification.close();
 		}, context.html5_notif_timeout * 1000);
 	}
@@ -1171,7 +1171,7 @@ function refreshUnreads() {
 		const isAll = document.querySelector('.category.all.active');
 		let new_articles = false;
 
-		$.each(data.feeds, function(feed_id, nbUnreads) {
+		$.each(data.feeds, function (feed_id, nbUnreads) {
 			feed_id = 'f_' + feed_id;
 			const elem = document.getElementById(feed_id),
 				feed_unreads = elem ? str2int(elem.getAttribute('data-unread')) : 0;
@@ -1185,7 +1185,7 @@ function refreshUnreads() {
 
 		let nbUnreadTags = 0;
 
-		$.each(data.tags, function(tag_id, nbUnreads) {
+		$.each(data.tags, function (tag_id, nbUnreads) {
 			nbUnreadTags += nbUnreads;
 			$('#t_' + tag_id).attr('data-unread', nbUnreads)
 				.children('.item-title').attr('data-unread', numberFormat(nbUnreads));
@@ -1298,11 +1298,11 @@ function init_crypto_form() {
 		if (window.console) {
 			console.log('FreshRSS waiting for bcrypt.js…');
 		}
-		window.setTimeout(init_crypto_form, 100);
+		setTimeout(init_crypto_form, 100);
 		return;
 	}
 
-	$crypto_form.on('submit', function() {
+	$crypto_form.on('submit', function () {
 		const $submit_button = $(this).find('button[type="submit"]');
 		$submit_button.attr('disabled', '');
 
@@ -1329,7 +1329,7 @@ function init_crypto_form() {
 					openNotification('Crypto exception! ' + e, 'bad');
 				}
 			}
-		}).fail(function() {
+		}).fail(function () {
 			openNotification('Communication error!', 'bad');
 		});
 
@@ -1402,7 +1402,7 @@ function init_share_observers() {
 }
 
 function init_stats_observers() {
-	$('.select-change').on('change', function(e) {
+	$('.select-change').on('change', function (e) {
 		redirect($(this).find(':selected').data('url'));
 	});
 }
@@ -1488,7 +1488,7 @@ function init_slider_observers() {
 		return;
 	}
 
-	$('.post').on('click', '.open-slider', function() {
+	$('.post').on('click', '.open-slider', function () {
 		if (ajax_loading) {
 			return false;
 		}
@@ -1509,7 +1509,7 @@ function init_slider_observers() {
 		return false;
 	});
 
-	$closer.on('click', function() {
+	$closer.on('click', function () {
 		$closer.removeClass('active');
 		$slider.removeClass('active');
 		return false;
@@ -1550,7 +1550,7 @@ function init_normal() {
 		if (window.console) {
 			console.log('FreshRSS waiting for content…');
 		}
-		window.setTimeout(init_normal, 100);
+		setTimeout(init_normal, 100);
 		return;
 	}
 	init_column_categories();
@@ -1565,7 +1565,7 @@ function init_beforeDOM() {
 		if (window.console) {
 			console.log('FreshRSS waiting for jQuery…');
 		}
-		window.setTimeout(init_beforeDOM, 100);
+		setTimeout(init_beforeDOM, 100);
 		return;
 	}
 	if (['normal', 'reader', 'global'].indexOf(context.current_view) >= 0) {
@@ -1578,7 +1578,7 @@ function init_afterDOM() {
 		if (window.console) {
 			console.log('FreshRSS waiting again for jQuery…');
 		}
-		window.setTimeout(init_afterDOM, 100);
+		setTimeout(init_afterDOM, 100);
 		return;
 	}
 	init_notifications();
@@ -1592,7 +1592,7 @@ function init_afterDOM() {
 		init_print_action();
 		init_post_action();
 		init_notifs_html5();
-		window.setInterval(refreshUnreads, 120000);
+		setInterval(refreshUnreads, 120000);
 	} else {
 		init_subscription();
 		init_crypto_form();
