@@ -5,17 +5,15 @@
 //<Polyfills>
 if (!NodeList.prototype.forEach) NodeList.prototype.forEach = Array.prototype.forEach;
 if (!Element.prototype.matches) Element.prototype.matches = Element.prototype.msMatchesSelector || Element.prototype.mozMatchesSelector || Element.prototype.webkitMatchesSelector;
-if (!Element.prototype.closest) {
-	Element.prototype.closest = function (s) {
+if (!Element.prototype.closest) Element.prototype.closest = function (s) {
 		let el = this;
-		if (!document.documentElement.contains(el)) return null;
 		do {
 			if (el.matches(s)) return el;
-			el = el.parentElement || el.parentNode;
-		} while (el !== null && el.nodeType == 1);
+			el = el.parentElement;
+		} while (el);
 		return null;
 	};
-}
+if (!Element.prototype.remove) Element.prototype.remove = function () { if (this.parentNode) this.parentNode.removeChild(this); };
 //</Polyfills>
 
 //<Global variables>
@@ -36,7 +34,6 @@ var context, i18n, icons, shortcuts, urls;
 
 var $stream = null,
 	ajax_loading = false,
-	isCollapsed = true,
 	$nav_entries = null;
 //</Global variables>
 
@@ -50,14 +47,11 @@ function redirect(url, new_tab) {
 	}
 }
 
-function needsScroll($elem) {
-	const $win = $(window),
-		winTop = $win.scrollTop(),
-		winHeight = $win.height(),
-		winBottom = winTop + winHeight,
-		elemTop = $elem.offset().top,
-		elemBottom = elemTop + $elem.outerHeight();
-	return (elemTop < winTop || elemBottom > winBottom) ? elemTop - (winHeight / 2) : 0;
+function needsScroll(elem) {
+	const winBottom = document.documentElement.scrollTop + document.documentElement.clientHeight,
+		elemBottom = elem.offsetTop + elem.offsetHeight;
+	return (elem.offsetTop < document.documentElement.scrollTop || elemBottom > winBottom) ?
+		elem.offsetTop - (document.documentElement.clientHeight / 2) : 0;
 }
 
 function str2int(str) {
@@ -134,7 +128,7 @@ function incUnreadsFeed(article, feed_id, nb) {
 	// Update unread: title
 	document.title = document.title.replace(/^((?:\([ 0-9]+\) )?)/, function (m, p1) {
 		const feed = document.getElementById(feed_id);
-		if (article || (feed.closest('.active') && $(feed).siblings('.active').length === 0)) {
+		if (article || feed.closest('.active')) {
 			isCurrentView = true;
 			return incLabel(p1, nb, true);
 		} else if (document.querySelector('.all.active')) {
@@ -195,7 +189,7 @@ function send_mark_read_queue(queue, asRead) {
 				let feed_id = feed_url.substr(feed_url.lastIndexOf('f_'));
 				incUnreadsFeed(div, feed_id, inc);
 			}
-			delete pending_entries[queue[i]];
+			delete pending_entries['flux_' + queue[i]];
 		}
 		faviconNbUnread();
 		if (data.tags) {
@@ -205,10 +199,11 @@ function send_mark_read_queue(queue, asRead) {
 				incUnreadsTag(tagId, (asRead ? -1 : 1) * data.tags[tagId].length);
 			}
 		}
+		onScroll();
 	}).fail(function (data) {
 		openNotification(i18n.notif_request_failed, 'bad');
 		for (let i = queue.length - 1; i >= 0; i--) {
-			delete pending_entries[queue[i]];
+			delete pending_entries['flux_' + queue[i]];
 		}
 	});
 }
@@ -220,13 +215,13 @@ function mark_read(div, only_not_read) {
 		(only_not_read && !div.classList.contains('not_read'))) {
 		return false;
 	}
-	const entryId = div.id.replace(/^flux_/, '');
-	if (pending_entries[entryId]) {
+	if (pending_entries[div.id]) {
 		return false;
 	}
-	pending_entries[entryId] = true;
+	pending_entries[div.id] = true;
 
-	const asRead = div.classList.contains('not_read');
+	const asRead = div.classList.contains('not_read'),
+		entryId = div.id.replace(/^flux_/, '');
 	if (asRead) {
 		mark_read_queue.push(entryId);
 		if (send_mark_read_queue_timeout == 0) {
@@ -278,8 +273,8 @@ function mark_favorite(div) {
 		div.querySelectorAll('a.bookmark').forEach(function (a) { a.setAttribute('href', data.url); });
 		div.querySelectorAll('a.bookmark > .icon').forEach(function (img) { img.outerHTML = data.icon; });
 
-		const favourites = $('#aside_feed .favorites .title').contents().last().get(0);
-		if (favourites && favourites.textContent) {
+		const favourites = document.querySelector('#aside_feed .favorites .title');
+		if (favourites) {
 			favourites.textContent = favourites.textContent.replace(/((?: \([ 0-9]+\))?\s*)$/, function (m, p1) {
 				return incLabel(p1, inc, false);
 			});
@@ -300,117 +295,77 @@ function mark_favorite(div) {
 	});
 }
 
-function toggleContent($new_active, $old_active, skipping) {
+function toggleContent(new_active, old_active, skipping) {
 	// If skipping, move current without activating or marking as read
-	if ($new_active.length === 0) {
+	if (!new_active) {
 		return;
 	}
 
 	if (context.does_lazyload && !skipping) {
-		$new_active.find('img[data-original], iframe[data-original]').each(function () {
-			this.setAttribute('src', this.getAttribute('data-original'));
-			this.removeAttribute('data-original');
+		new_active.querySelectorAll('img[data-original], iframe[data-original]').forEach(function (elem) {
+			elem.setAttribute('src', elem.getAttribute('data-original'));
+			elem.removeAttribute('data-original');
 		});
 	}
 
-	if ($old_active[0] !== $new_active[0]) {
-		if (isCollapsed && !skipping) { // BUG?: isCollapsed can only ever be true
-			$new_active.addClass('active');
+	if (old_active !== new_active) {
+		if (!skipping) {
+			new_active.classList.add('active');
 		}
-		$old_active.removeClass('active current');
-		$new_active.addClass('current');
-		if (context.auto_remove_article && !$old_active.hasClass('not_read') && !skipping) {
-			auto_remove($old_active);
+		new_active.classList.add('current');
+		if (old_active) {
+			old_active.classList.remove('active');
+			old_active.classList.remove('current');	//Split for IE11
 		}
 	} else { // collapse_entry calls toggleContent(flux_current, flux_current, false)
-		$new_active.toggleClass('active');
+		new_active.classList.toggle('active');
 	}
 
 	const relative_move = context.current_view === 'global',
-		$box_to_move = $(relative_move ? '#panel' : 'html,body');
+		box_to_move = relative_move ? document.getElementById('#panel') : document.documentElement;
 
 	if (context.sticky_post) {
-		let prev_article = $new_active.prevAll('.flux'),
-			new_pos = $new_active.offset().top,
-			old_scroll = $box_to_move.scrollTop();
+		let prev_article = new_active.previousElementSibling,
+			new_pos = new_active.offsetTop + document.documentElement.scrollTop,
+			old_scroll = box_to_move.scrollTop;
 
-		if (prev_article.length > 0 && new_pos - prev_article.offset().top <= 150) {
-			new_pos = prev_article.offset().top;
+		if (prev_article && new_active.offsetTop - prev_article.offsetTop <= 150) {
+			new_pos = prev_article.offsetTop;
 			if (relative_move) {
-				new_pos -= $box_to_move.offset().top;
+				new_pos -= box_to_move.offsetTop;
 			}
 		}
 
 		if (skipping) {
 			// when skipping, this feels more natural if it's not so near the top
-			new_pos -= $(window).height() / 4;
+			new_pos -= document.body.clientHeight / 4;
 		}
-		if (context.hide_posts) {
-			if (relative_move) {
-				new_pos += old_scroll;
-			}
-
-			$new_active.children('.flux_content').first().each(function () {
-				$box_to_move.scrollTop(new_pos).scrollTop();
-			});
-		} else {
-			if (relative_move) {
-				new_pos += old_scroll;
-			}
-
-			$box_to_move.scrollTop(new_pos).scrollTop();
+		if (relative_move) {
+			new_pos += old_scroll;
 		}
+		box_to_move.scrollTop = new_pos;
 	}
 
-	if (context.auto_mark_article && $new_active.hasClass('active') && !skipping) {
-		mark_read($new_active[0], true);
+	if (context.auto_mark_article && new_active.classList.contains('active') && !skipping) {
+		mark_read(new_active, true);
 	}
+	onScroll();
 }
 
-function auto_remove($element) {
-	let $p = $element.prev(),
-		$n = $element.next();
-	if ($p.hasClass('day') && $n.hasClass('day')) {
-		$p.remove();
-	}
-	$element.remove();
-	$('#stream > .flux:not(.not_read):not(.active)').remove();
+function prev_entry(skipping) {
+	const old_active = document.querySelector('.flux.current'),
+		new_active = old_active ? old_active.previousElementSibling : document.querySelector('.flux');
+	toggleContent(new_active, old_active, skipping);
 }
 
-function prev_entry() {
-	let $old_active = $('.flux.current'),
-		$new_active = $old_active.length === 0 ? $('.flux:last') : $old_active.prevAll('.flux:first');
-	toggleContent($new_active, $old_active, false);
-}
-
-function next_entry() {
-	let $old_active = $('.flux.current'),
-		$new_active = $old_active.length === 0 ? $('.flux:first') : $old_active.nextAll('.flux:first');
-	toggleContent($new_active, $old_active, false);
-
-	if ($new_active.nextAll().length < 3) {
-		load_more_posts();
-	}
-}
-
-function skip_prev_entry() {
-	let $old_active = $('.flux.current'),
-		$new_active = $old_active.length === 0 ? $('.flux:last') : $old_active.prevAll('.flux:first');
-	toggleContent($new_active, $old_active, true);
-}
-
-function skip_next_entry() {
-	let $old_active = $('.flux.current'),
-		$new_active = $old_active.length === 0 ? $('.flux:first') : $old_active.nextAll('.flux:first');
-	toggleContent($new_active, $old_active, true);
-
-	if ($new_active.nextAll().length < 3) {
-		load_more_posts();
-	}
+function next_entry(skipping) {
+	const old_active = document.querySelector('.flux.current'),
+		new_active = old_active ? old_active.nextElementSibling : document.querySelector('.flux');
+	toggleContent(new_active, old_active, skipping);
 }
 
 function prev_feed() {
-	let $active_feed = $('#aside_feed .tree-folder-items .item.active');
+	const $active_feed = $('#aside_feed .tree-folder-items .item.active');
 	if ($active_feed.length > 0) {
 		$active_feed.prevAll(':visible:first').find('a').each(function () { this.click(); });
 	} else {
@@ -419,7 +374,7 @@ function prev_feed() {
 }
 
 function next_feed() {
-	let $active_feed = $('#aside_feed .tree-folder-items .item.active');
+	const $active_feed = $('#aside_feed .tree-folder-items .item.active');
 	if ($active_feed.length > 0) {
 		$active_feed.nextAll(':visible:first').find('a').each(function () { this.click(); });
 	} else {
@@ -428,24 +383,24 @@ function next_feed() {
 }
 
 function first_feed() {
-	let $feed = $('#aside_feed .tree-folder-items.active .item:visible:first');
-	if ($feed.length > 0) {
-		$feed.find('a')[1].click();
+	const a = document.querySelector('#aside_feed .category.active .feed:not([data-unread="0"]) a.item-title');
+	if (a) {
+		a.click();
 	}
 }
 
 function last_feed() {
-	let $feed = $('#aside_feed .tree-folder-items.active .item:visible:last');
-	if ($feed.length > 0) {
-		$feed.find('a')[1].click();
+	const links = document.querySelectorAll('#aside_feed .category.active .feed:not([data-unread="0"]) a.item-title');
+	if (links && links.length > 0) {
+		links[links.length - 1].click();
 	}
 }
 
 function prev_category() {
-	let $active_cat = $('#aside_feed .tree-folder.active');
+	const $active_cat = $('#aside_feed .tree-folder.active');
 
 	if ($active_cat.length > 0) {
-		let $prev_cat = $active_cat.prevAll(':visible:first').find('.tree-folder-title .title');
+		const $prev_cat = $active_cat.prevAll(':visible:first').find('.tree-folder-title .title');
 		if ($prev_cat.length > 0) {
 			$prev_cat[0].click();
 		}
@@ -456,10 +411,10 @@ function prev_category() {
 }
 
 function next_category() {
-	let $active_cat = $('#aside_feed .tree-folder.active');
+	const $active_cat = $('#aside_feed .tree-folder.active');
 
 	if ($active_cat.length > 0) {
-		let $next_cat = $active_cat.nextAll(':visible:first').find('.tree-folder-title .title');
+		const $next_cat = $active_cat.nextAll(':visible:first').find('.tree-folder-title .title');
 		if ($next_cat.length > 0) {
 			$next_cat[0].click();
 		}
@@ -470,40 +425,40 @@ function next_category() {
 }
 
 function first_category() {
-	let $cat = $('#aside_feed .tree-folder:visible:first');
-	if ($cat.length > 0) {
-		$cat.find('.tree-folder-title .title')[0].click();
+	const a = document.querySelector('#aside_feed .category:not([data-unread="0"]) a.title');
+	if (a) {
+		a.click();
 	}
 }
 
 function last_category() {
-	let $cat = $('#aside_feed .tree-folder:visible:last');
-	if ($cat.length > 0) {
-		$cat.find('.tree-folder-title .title')[0].click();
+	const links = document.querySelectorAll('#aside_feed .category:not([data-unread="0"]) a.title');
+	if (links && links.length > 0) {
+		links[links.length - 1].click();
 	}
 }
 
 function collapse_entry() {
-	let $flux_current = $('.flux.current');
-	toggleContent($flux_current, $flux_current, false);
+	const flux_current = document.querySelector('.flux.current');
+	toggleContent(flux_current, flux_current, false);
 }
 
 function user_filter(key) {
-	const filter = $('#dropdown-query'),
-		filters = filter.siblings('.dropdown-menu').find('.item.query a');
+	const $filter = $('#dropdown-query'),
+		$filters = $filter.siblings('.dropdown-menu').find('.item.query a');
 	if (typeof key === 'undefined') {
-		if (!filter.length) {
+		if (!$filters.length) {
 			return;
 		}
 		// Display the filter div
-		location.hash = filter.attr('id');
+		location.hash = $filters.attr('id');
 		// Force scrolling to the filter div
-		const scroll = needsScroll($('.header'));
+		const scroll = needsScroll(document.querySelector('.header'));
 		if (scroll !== 0) {
-			$('html,body').scrollTop(scroll);
+			document.documentElement.scrollTop = scroll;
 		}
 		// Force the key value if there is only one action, so we can trigger it automatically
-		if (filters.length === 1) {
+		if ($filters.length === 1) {
 			key = 1;
 		} else {
 			return;
@@ -511,27 +466,27 @@ function user_filter(key) {
 	}
 	// Trigger selected share action
 	key = parseInt(key);
-	if (key <= filters.length) {
-		filters[key - 1].click();
+	if (key <= $filters.length) {
+		$filters[key - 1].click();
 	}
 }
 
 function auto_share(key) {
-	const $share = $('.flux.current.active').find('.dropdown-target[id^="dropdown-share"]'),
-		$shares = $share.siblings('.dropdown-menu').find('.item a');
+	const share = document.querySelector('.flux.current.active .dropdown-target[id^="dropdown-share"]');
+	if (!share) {
+		return;
+	}
+	const shares = share.parentElement.querySelectorAll('.dropdown-menu .item a');
 	if (typeof key === 'undefined') {
-		if (!$share.length) {
-			return;
-		}
 		// Display the share div
-		location.hash = $share.attr('id');
+		location.hash = share.id;
 		// Force scrolling to the share div
-		const scroll = needsScroll($share.closest('.bottom'));
-		if (scroll !== 0) {
-			$('html,body').scrollTop(scroll);
+		const scrollTop = needsScroll(share.closest('.bottom'));
+		if (scrollTop !== 0) {
+			document.documentElement.scrollTop = scrollTop;
 		}
 		// Force the key value if there is only one action, so we can trigger it automatically
-		if ($shares.length === 1) {
+		if (shares.length === 1) {
 			key = 1;
 		} else {
 			return;
@@ -539,54 +494,72 @@ function auto_share(key) {
 	}
 	// Trigger selected share action and hide the share div
 	key = parseInt(key);
-	if (key <= $shares.length) {
-		$shares[key - 1].click();
-		$share.siblings('.dropdown-menu').find('.dropdown-close a')[0].click();
+	if (key <= shares.length) {
+		shares[key - 1].click();
+		share.parentElement.querySelector('.dropdown-menu .dropdown-close a').click();
 	}
 }
 
-function scrollAsRead($box_to_follow) {
-	const minTop = 40 + (context.current_view === 'global' ? $box_to_follow.offset().top : $box_to_follow.scrollTop());
-	$('.not_read:not(.keep_unread):visible').each(function () {
-			const $this = $(this);
-			if ($this.offset().top + $this.height() < minTop) {
-				mark_read(this, true);
-			}
-		});
+var box_to_follow;
+
+function onScroll() {
+	if (!box_to_follow) {
+		return;
+	}
+	if (context.auto_mark_scroll) {
+		const minTop = 40 + box_to_follow.scrollTop;
+		document.querySelectorAll('.not_read:not(.keep_unread)').forEach(function (div) {
+				if (div.offsetHeight > 0 &&
+					div.offsetParent.offsetTop + div.offsetTop + div.offsetHeight < minTop) {
+					mark_read(div, true);
+				}
+			});
+	}
+	if (context.auto_remove_article) {
+		let maxTop = box_to_follow.scrollTop,
+			scrollOffset = 0;
+		document.querySelectorAll('.flux:not(.active):not(.keep_unread)').forEach(function (div) {
+				if (!pending_entries[div.id] && div.offsetHeight > 0 &&
+					div.offsetParent.offsetTop + div.offsetTop + div.offsetHeight < maxTop) {
+					const p = div.previousElementSibling,
+						n = div.nextElementSibling;
+					if (p && p.classList.contains('day') && n && n.classList.contains('day')) {
+						p.remove();
+					}
+					maxTop -= div.offsetHeight;
+					scrollOffset -= div.offsetHeight;
+					div.remove();
+				}
+			});
+		if (scrollOffset != 0) {
+			box_to_follow.scrollTop += scrollOffset;
+			return;	//onscroll will be called again
+		}
+	}
+	if (context.auto_load_more) {
+		const load_more = document.getElementById('mark-read-pagination');
+		if (load_more && box_to_follow.scrollTop > 0 &&
+			box_to_follow.scrollTop + box_to_follow.offsetHeight >= load_more.offsetTop) {
+			load_more_posts();
+		}
+	}
 }
 
 function init_posts() {
-	let $box_to_follow = context.current_view === 'global' ? $('#panel') : $(window);
-
-	if (context.auto_mark_scroll) {
+	if (context.auto_load_more || context.auto_mark_scroll || context.auto_remove_article) {
+		box_to_follow = context.current_view === 'global' ? document.getElementById('panel') : document.documentElement;
 		let lastScroll = 0,	//Throttle
 			timerId = 0;
-		$box_to_follow.scroll(function () {
+		(box_to_follow === document.documentElement ? window : box_to_follow).onscroll = function () {
 			clearTimeout(timerId);
 			if (lastScroll + 500 < Date.now()) {
 				lastScroll = Date.now();
-				scrollAsRead($box_to_follow);
+				onScroll();
 			} else {
-				timerId = setTimeout(function () {
-						scrollAsRead($box_to_follow);
-					}, 500);
+				timerId = setTimeout(onScroll, 500);
 			}
-		});
-	}
-
-	if (context.auto_load_more) {
-		$box_to_follow.scroll(function () {
-			const $load_more = $('#load_more');
-			if (!$load_more.is(':visible')) {
-				return;
-			}
-			const boxBot = $box_to_follow.scrollTop() + $box_to_follow.height(),
-				load_more_top = $load_more.offset().top;
-			if (boxBot >= load_more_top) {
-				load_more_posts();
-			}
-		});
-		$box_to_follow.scroll();
+		};
+		onScroll();
 	}
 }
 
@@ -699,10 +672,10 @@ function init_shortcuts() {
 	}
 
 	// Entry navigation shortcuts
-	shortcut.add(shortcuts.prev_entry, prev_entry, {
+	shortcut.add(shortcuts.prev_entry, function () { prev_entry(false); }, {
 		'disable_in_input': true
 	});
-	shortcut.add(shortcuts.skip_prev_entry, skip_prev_entry, {
+	shortcut.add(shortcuts.skip_prev_entry,  function () { prev_entry(true); }, {
 		'disable_in_input': true
 	});
 	shortcut.add(shortcuts.first_entry, function () {
@@ -715,10 +688,10 @@ function init_shortcuts() {
 	}, {
 		'disable_in_input': true
 	});
-	shortcut.add(shortcuts.next_entry, next_entry, {
+	shortcut.add(shortcuts.next_entry, function () { next_entry(false); }, {
 		'disable_in_input': true
 	});
-	shortcut.add(shortcuts.skip_next_entry, skip_next_entry, {
+	shortcut.add(shortcuts.skip_next_entry, function () { next_entry(true); }, {
 		'disable_in_input': true
 	});
 	shortcut.add(shortcuts.last_entry, function () {
@@ -772,15 +745,11 @@ function init_shortcuts() {
 		'disable_in_input': true
 	});
 
-	shortcut.add(shortcuts.load_more, function () {
-		load_more_posts();
-	}, {
+	shortcut.add(shortcuts.load_more, load_more_posts, {
 		'disable_in_input': true
 	});
 
-	shortcut.add(shortcuts.focus_search, function () {
-		focus_search();
-	}, {
+	shortcut.add(shortcuts.focus_search, focus_search, {
 		'disable_in_input': true
 	});
 
@@ -832,22 +801,17 @@ function init_stream(divStream) {
 		}
 		const old_active = document.querySelector('.flux.current'),
 			new_active = this.parentNode;
-		isCollapsed = true;
 		if (e.target.tagName.toUpperCase() === 'A') {	//Leave real links alone
 			if (context.auto_mark_article) {
 				mark_read(new_active, true);
 			}
 			return true;
 		}
-		toggleContent($(new_active), $(old_active), false);
+		toggleContent(new_active, old_active, false);
 	});
 
 	divStream.on('click', '.flux a.read', function () {
-		const $active = $(this).parents('.flux');
-		if (context.auto_remove_article && $active.hasClass('not_read')) {
-			auto_remove($active);
-		}
-		mark_read($active[0], false);
+		mark_read(this.closest('.flux'), false);
 		return false;
 	});
 
@@ -872,7 +836,7 @@ function init_stream(divStream) {
 			const ev = jQuery.Event('click');
 			ev.ctrlKey = true;
 			$(this).trigger(ev);
-		} else if(e.which == 1) {
+		} else if (e.which == 1) {
 			// Normal click, just toggle article.
 			$(this).parent().click();
 		}
@@ -900,11 +864,11 @@ function init_stream(divStream) {
 function init_nav_entries() {
 	$nav_entries = $('#nav_entries');
 	$nav_entries.find('.previous_entry').click(function () {
-		prev_entry();
+		prev_entry(false);
 		return false;
 	});
 	$nav_entries.find('.next_entry').click(function () {
-		next_entry();
+		next_entry(false);
 		return false;
 	});
 	$nav_entries.find('.up').click(function () {
