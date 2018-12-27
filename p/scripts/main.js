@@ -49,9 +49,10 @@ function redirect(url, new_tab) {
 
 function needsScroll(elem) {
 	const winBottom = document.documentElement.scrollTop + document.documentElement.clientHeight,
-		elemBottom = elem.offsetTop + elem.offsetHeight;
-	return (elem.offsetTop < document.documentElement.scrollTop || elemBottom > winBottom) ?
-		elem.offsetTop - (document.documentElement.clientHeight / 2) : 0;
+		elemTop = elem.offsetParent.offsetTop + elem.offsetTop,
+		elemBottom = elemTop + elem.offsetHeight;
+	return (elemTop < document.documentElement.scrollTop || elemBottom > winBottom) ?
+		elemTop - (document.documentElement.clientHeight / 2) : 0;
 }
 
 function str2int(str) {
@@ -178,7 +179,8 @@ function send_mark_read_queue(queue, asRead) {
 				div.querySelectorAll('a.read > .icon').forEach(function (img) { img.outerHTML = myIcons.read; });
 				inc--;
 			} else {
-				div.classList.add('not_read', 'keep_unread');
+				div.classList.add('not_read');
+				div.classList.add('keep_unread');	//Split for IE11
 				div.querySelectorAll('a.read').forEach(function (a) { a.setAttribute('href', a.getAttribute('href').replace('&is_read=1', '')); });
 				div.querySelectorAll('a.read > .icon').forEach(function (img) { img.outerHTML = myIcons.unread; });
 				inc++;
