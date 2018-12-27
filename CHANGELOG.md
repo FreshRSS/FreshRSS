@@ -1,6 +1,9 @@
 ﻿# FreshRSS changelog
 
-## 2019-0X-XX FreshRSS 1.13.1-dev
+## 2019-01-XX FreshRSS 1.13.1-dev
+
+* Bug fixing
+	* Fix missing HTTP `X-Forwarded-Prefix` in cookie path behind a reverse-proxy [#2201](https://github.com/FreshRSS/FreshRSS/pull/2201)
 
 
 ## 2018-12-22 FreshRSS 1.13.0
@@ -27,7 +30,7 @@
 		[#1620](https://github.com/FreshRSS/FreshRSS/issues/1620), [#2089](https://github.com/FreshRSS/FreshRSS/pull/2089),
 		[#2122](https://github.com/FreshRSS/FreshRSS/pull/2122), [#2161](https://github.com/FreshRSS/FreshRSS/pull/2161)
 * Deployment
-	* Support for `HTTP_X_FORWARDED_PREFIX` to ease the use of reverse proxies [#2191](https://github.com/FreshRSS/FreshRSS/pull/2191)
+	* Support for HTTP `X-Forwarded-Prefix` to ease the use of reverse proxies [#2191](https://github.com/FreshRSS/FreshRSS/pull/2191)
 		* Updated Docker + Træfik + Let’s Encrypt deployment guide [#2189](https://github.com/FreshRSS/FreshRSS/pull/2189)
 	* Docker image updated to Alpine 3.8.2 with PHP 7.2.13 and Apache 2.4.35
 	* Fix `.dockerignore` [#2195](https://github.com/FreshRSS/FreshRSS/pull/2195)
