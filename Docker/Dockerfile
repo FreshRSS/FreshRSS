@@ -15,7 +15,11 @@ WORKDIR ${FRESHRSS_ROOT}
 COPY . ${FRESHRSS_ROOT}
 COPY ./Docker/*.Apache.conf /etc/apache2/conf.d/
 
-RUN sed -r -i "/^[ ]*(CustomLog|ErrorLog|Listen) /s/^/#/" /etc/apache2/httpd.conf && \
+RUN rm -f /etc/apache2/conf.d/languages.conf /etc/apache2/conf.d/info.conf \
+		/etc/apache2/conf.d/status.conf /etc/apache2/conf.d/userdir.conf && \
+	sed -r -i "/^[ ]*LoadModule .*mod_(access_compat|alias|auth[n]?_[^.]+|authz_groupfile|authz_host|authz_user|autoindex|negotiation|status|version).so$/s/^/#/" \ 
+		/etc/apache2/httpd.conf && \
+	sed -r -i "/^[ ]*(CustomLog|ErrorLog|Listen) /s/^/#/" /etc/apache2/httpd.conf && \
 	echo "17,37 * * * * php ${FRESHRSS_ROOT}/app/actualize_script.php 2>&1 | tee /tmp/FreshRSS.log" >> \
 		/var/spool/cron/crontabs/root
 
