@@ -1,0 +1,41 @@
+FROM ubuntu:18.10
+
+ENV TZ UTC
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+
+RUN apt update && apt upgrade -y
+
+RUN apt install --no-install-recommends -y \
+	cron \
+	apache2 php-fpm \
+	php-curl php-intl php-mbstring php-xml php-zip \
+	php-sqlite3 php-mysql php-pgsql
+
+RUN rm -rf /var/lib/apt/lists/
+
+ENV FRESHRSS_ROOT /var/www/FreshRSS
+RUN mkdir -p ${FRESHRSS_ROOT} /run/apache2/ /run/php/
+WORKDIR ${FRESHRSS_ROOT}
+
+COPY . ${FRESHRSS_ROOT}
+COPY ./Docker/*.Apache.conf /etc/apache2/sites-available/
+
+RUN a2dismod -f alias autoindex negotiation status && \
+	a2enmod deflate expires headers mime proxy_fcgi setenvif && \
+	a2enconf php7.2-fpm && \
+	a2dissite '*' && \
+	a2ensite 'FreshRSS*'
+
+RUN sed -r -i "/^\s*(CustomLog|ErrorLog|Listen) /s/^/#/" /etc/apache2/apache2.conf && \
+	sed -r -i "/^\s*Listen /s/^/#/" /etc/apache2/ports.conf && \
+	echo "17,37 * * * * php ${FRESHRSS_ROOT}/app/actualize_script.php 2>&1 | tee /tmp/FreshRSS.log" >> \
+		/var/spool/cron/crontabs/www-data
+
+ENV CRON_MIN ''
+ENTRYPOINT ["./Docker/entrypoint.sh"]
+
+EXPOSE 80
+CMD ([ -z "$CRON_MIN" ] || cron) && \
+	/usr/sbin/php-fpm7.2 && \
+	. /etc/apache2/envvars && \
+	exec apache2 -D FOREGROUND
