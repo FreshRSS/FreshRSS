@@ -1,3 +1,4 @@
+.htpasswd
 config.php
 config.php.bak.php
 force-https.txt

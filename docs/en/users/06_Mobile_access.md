@@ -29,7 +29,7 @@ See the [page about the Fever compatible API](06_Fever_API.md) for another possi
 	* If you get *Service Unavailable!*, then check from step 1 again.
 	* With __Apache__:
 		* If you get *FAIL getallheaders!*, the combination of your PHP version and your Web server does not provide access to [`getallheaders`](http://php.net/getallheaders)
-			* Update to PHP 5.4+, or use PHP as module instead of CGI. Otherwise turn on Apache `mod_rewrite`:
+			* Update to PHP 5.4+, or use PHP as module instead of CGI. Otherwise turn on Apache `mod_setenvif` (often enabled by default), or `mod_rewrite` with the following procedure:
 				* Allow [`FileInfo` in `.htaccess`](http://httpd.apache.org/docs/trunk/mod/core.html#allowoverride): see the [server setup](../admins/02_Installation.md) again.
 				* Enable [`mod_rewrite`](http://httpd.apache.org/docs/trunk/mod/mod_rewrite.html):
 					* With Debian / Ubuntu: `sudo a2enmod rewrite`
