@@ -205,6 +205,42 @@ sudo docker run -d --restart unless-stopped --log-opt max-size=10m \
 
 ## More deployment options
 
+### Use HTTP-based login (advanced users)
+
+FreshRSS allows logins using either a Web form (easiest) or based on HTTP authentication.
+If you want HTTP authentication, [Træfik can do it](https://docs.traefik.io/configuration/entrypoints/#authentication) (otherwise, see section below for giving this task to Apache inside the FreshRSS Docker image):
+
+```
+sudo docker run ...
+  --label traefik.frontend.auth.basic.users='admin:$2y$05$BJ3eexf8gkyfHR1L38nVMeQ2RbQ5PF6KW4/PlttXeR6IOGZKH4sbC,alice:$2y$05$0vv8eexRq4qujzyBCYh6a.bo/KUvuXCmjJ54RqEHBApaHdQrpzFJC' \
+  --label traefik.frontend.auth.removeheader=true \
+  --label traefik.frontend.auth.headerField=X-WebAuth-User \
+  --name freshrss freshrss/freshrss
+```
+
+N.B.: You can create password hashes for instance with: `htpasswd -nB alice`
+
+### Custom Apache configuration (advanced users)
+
+Changes in Apache `.htaccess` files are applied when restarting the container.
+In particular, if you want FreshRSS to use HTTP-based login (instead of the easier Web form login, and instead of letting Træfik do it), you can mount your own `./FreshRSS/p/i/.htaccess`:
+
+```
+sudo docker run ...
+  -v ./your/.htaccess:/var/www/FreshRSS/p/i/.htaccess \
+  -v ./your/.htpasswd:/var/www/FreshRSS/data/.htpasswd \
+  ...
+  --name freshrss freshrss/freshrss
+```
+
+Example of `./your/.htaccess` referring to `./your/.htpasswd`:
+```
+AuthUserFile /var/www/FreshRSS/data/.htpasswd
+AuthName "FreshRSS"
+AuthType Basic
+Require valid-user
+```
+
 ### Example with [docker-compose](https://docs.docker.com/compose/)
 
 A [docker-compose.yml](docker-compose.yml) file is given as an example, using PostgreSQL. In order to use it, you have to adapt:
