@@ -149,7 +149,7 @@ function checkCompatibility() {
 	if ($headerAuth == '') {
 		die('FAIL get HTTP Authorization header! Wrong Web server configuration.');
 	}
-	echo 'PASS.';
+	echo 'PASS';
 	exit();
 }
 

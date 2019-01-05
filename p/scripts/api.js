@@ -25,15 +25,15 @@ const jsonVars = JSON.parse(document.getElementById('jsonVars').innerHTML);
 
 check(jsonVars.greader + '/check/compatibility', function next(result1) {
 		const greaderOutput = document.getElementById('greaderOutput');
-		if (result1 === 'PASS.') {
+		if (result1 === 'PASS') {
 			greaderOutput.innerHTML = '✔️ ' + result1;
 		} else {
 			check(jsonVars.greader + '/check%2Fcompatibility', function next(result2) {
-				if (result2 === 'PASS.') {
+				if (result2 === 'PASS') {
 					greaderOutput.innerHTML = '⚠️ WARN: no <code>%2F</code> support, so some clients will not work!';
 				} else {
 					check('./greader.php/check/compatibility', function next(result3) {
-						if (result3 === 'PASS.') {
+						if (result3 === 'PASS') {
 							greaderOutput.innerHTML = '⚠️ WARN: Probable invalid base URL in ./data/config.php';
 						} else {
 							greaderOutput.innerHTML = '❌ ' + result1;
@@ -48,7 +48,7 @@ check(jsonVars.fever + '?api', function next(result1) {
 		const feverOutput = document.getElementById('feverOutput');
 		try {
 			JSON.parse(result1);
-			feverOutput.innerHTML = '✔️ PASS.';
+			feverOutput.innerHTML = '✔️ PASS';
 		} catch (ex) {
 			check('./fever.php?api', function next(result2) {
 					try {
