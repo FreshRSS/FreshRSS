@@ -13,11 +13,10 @@ RUN apt install --no-install-recommends -y \
 
 RUN rm -rf /var/lib/apt/lists/
 
-ENV FRESHRSS_ROOT /var/www/FreshRSS
-RUN mkdir -p ${FRESHRSS_ROOT} /run/apache2/ /run/php/
-WORKDIR ${FRESHRSS_ROOT}
+RUN mkdir -p /var/www/FreshRSS /run/apache2/ /run/php/
+WORKDIR /var/www/FreshRSS
 
-COPY . ${FRESHRSS_ROOT}
+COPY . /var/www/FreshRSS
 COPY ./Docker/*.Apache.conf /etc/apache2/sites-available/
 
 RUN a2dismod -f alias autoindex negotiation status && \
@@ -29,8 +28,8 @@ RUN a2dismod -f alias autoindex negotiation status && \
 
 RUN sed -r -i "/^\s*(CustomLog|ErrorLog|Listen) /s/^/#/" /etc/apache2/apache2.conf && \
 	sed -r -i "/^\s*Listen /s/^/#/" /etc/apache2/ports.conf && \
-	echo "17,37 * * * * php ${FRESHRSS_ROOT}/app/actualize_script.php 2>&1 | tee /tmp/FreshRSS.log" >> \
-		/var/spool/cron/crontabs/www-data
+	echo "17,37 su apache -s /bin/sh -c 'php /var/www/FreshRSS/app/actualize_script.php' 2>> /proc/1/fd/2 > /tmp/FreshRSS.log" >> \
+		/var/spool/cron/crontabs/root
 
 ENV CRON_MIN ''
 ENTRYPOINT ["./Docker/entrypoint.sh"]
