@@ -4,7 +4,6 @@ if (function_exists('opcache_reset')) {
 }
 header("Content-Security-Policy: default-src 'self'");
 
-require(LIB_PATH . '/lib_rss.php');	//Includes class autoloader
 require(LIB_PATH . '/lib_install.php');
 
 session_name('FreshRSS');
