@@ -1,4 +1,9 @@
-<IfModule mod_rewrite.c>
-	RewriteEngine on
-	RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+<IfModule mod_setenvif.c>
+	SetEnvIf "^Authorization$" "(.*)" HTTP_AUTHORIZATION=$1
+</IfModule>
+<IfModule !mod_setenvif.c>
+	<IfModule mod_rewrite.c>
+		RewriteEngine on
+		RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+	</IfModule>
 </IfModule>

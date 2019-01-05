@@ -28,13 +28,13 @@ class FreshRSS_Auth {
 
 		if (self::$login_ok) {
 			self::giveAccess();
-		} elseif (self::accessControl()) {
-			self::giveAccess();
+		} elseif (self::accessControl() && self::giveAccess()) {
 			FreshRSS_UserDAO::touch();
 		} else {
 			// Be sure all accesses are removed!
 			self::removeAccess();
 		}
+		return self::$login_ok;
 	}
 
 	/**
@@ -60,7 +60,7 @@ class FreshRSS_Auth {
 			return $current_user != '';
 		case 'http_auth':
 			$current_user = httpAuthUser();
-			$login_ok = $current_user != '';
+			$login_ok = $current_user != '' && FreshRSS_UserDAO::exists($current_user);
 			if ($login_ok) {
 				Minz_Session::_param('currentUser', $current_user);
 			}
@@ -81,7 +81,7 @@ class FreshRSS_Auth {
 		$user_conf = get_user_configuration($current_user);
 		if ($user_conf == null) {
 			self::$login_ok = false;
-			return;
+			return false;
 		}
 		$system_conf = Minz_Configuration::get('system');
 
@@ -102,6 +102,7 @@ class FreshRSS_Auth {
 
 		Minz_Session::_param('loginOk', self::$login_ok);
 		Minz_Session::_param('REMOTE_USER', httpAuthUser());
+		return self::$login_ok;
 	}
 
 	/**

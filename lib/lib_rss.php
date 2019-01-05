@@ -364,9 +364,9 @@ function get_user_configuration($username) {
 		                             join_path(FRESHRSS_PATH, 'config-user.default.php'));
 	} catch (Minz_ConfigurationNamespaceException $e) {
 		// namespace already exists, do nothing.
-		Minz_Log::warning($e->getMessage());
+		Minz_Log::warning($e->getMessage(), USERS_PATH . '/_/log.txt');
 	} catch (Minz_FileNotExistException $e) {
-		Minz_Log::warning($e->getMessage());
+		Minz_Log::warning($e->getMessage(), USERS_PATH . '/_/log.txt');
 		return null;
 	}
 
@@ -375,14 +375,13 @@ function get_user_configuration($username) {
 
 
 function httpAuthUser() {
-	if (isset($_SERVER['REMOTE_USER'])) {
+	if (!empty($_SERVER['REMOTE_USER'])) {
 		return $_SERVER['REMOTE_USER'];
-	}
-
-	if (isset($_SERVER['REDIRECT_REMOTE_USER'])) {
+	} elseif (!empty($_SERVER['REDIRECT_REMOTE_USER'])) {
 		return $_SERVER['REDIRECT_REMOTE_USER'];
+	} elseif (!empty($_SERVER['HTTP_X_WEBAUTH_USER'])) {
+		return $_SERVER['HTTP_X_WEBAUTH_USER'];
 	}
-
 	return '';
 }
 
