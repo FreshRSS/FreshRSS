@@ -12,6 +12,9 @@ if (defined('STDOUT')) {
 	fwrite(STDOUT, 'Starting feed actualization at ' . $begin_date->format('c') . "\n");	//Unbuffered
 }
 
+prepareSyslog();
+syslog(LOG_INFO, 'FreshRSS Start feeds actualization...');
+
 // Set the header params ($_GET) to call the FRSS application.
 $_GET['c'] = 'feed';
 $_GET['a'] = 'actualize';
@@ -64,7 +67,7 @@ foreach ($users as $user) {
 	if (!invalidateHttpCache()) {
 		Minz_Log::warning('FreshRSS write access problem in ' . join_path(USERS_PATH, $user, 'log.txt'), ADMIN_LOG);
 		if (defined('STDERR')) {
-			fwrite(STDERR, 'Write access problem in ' . join_path(USERS_PATH, $user, 'log.txt') . "\n");
+			fwrite(STDERR, 'FreshRSS write access problem in ' . join_path(USERS_PATH, $user, 'log.txt') . "\n");
 		}
 	}
 }
@@ -75,7 +78,8 @@ if (defined('STDOUT')) {
 	$end_date = date_create('now');
 	$duration = date_diff($end_date, $begin_date);
 	fwrite(STDOUT, 'Ending feed actualization at ' . $end_date->format('c') . "\n");	//Unbuffered
-	fwrite(STDOUT, 'Feed actualizations took ' . $duration->format('%a day(s), %h hour(s),  %i minute(s) and %s seconds') . ' for ' . count($users) . " users\n");	//Unbuffered
+	fwrite(STDOUT, 'Feed actualizations took ' . $duration->format('%a day(s), %h hour(s), %i minute(s) and %s seconds') . ' for ' . count($users) . " users\n");	//Unbuffered
 }
 echo 'End.', "\n";
 ob_end_flush();
+syslog(LOG_INFO, 'FreshRSS feeds actualization done.');
