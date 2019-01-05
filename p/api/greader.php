@@ -143,16 +143,13 @@ function checkCompatibility() {
 	Minz_Log::warning('checkCompatibility() ' . debugInfo(), API_LOG);
 	header('Content-Type: text/plain; charset=UTF-8');
 	if (PHP_INT_SIZE < 8 && !function_exists('gmp_init')) {
-		die('FAIL 64-bit or GMP extension!');
+		die('FAIL 64-bit or GMP extension! Wrong PHP configuration.');
 	}
-	if ((!array_key_exists('HTTP_AUTHORIZATION', $_SERVER)) &&	//Apache mod_rewrite trick should be fine
-		(!array_key_exists('REDIRECT_HTTP_AUTHORIZATION', $_SERVER)) &&	//Apache mod_rewrite with FCGI
-		(empty($_SERVER['SERVER_SOFTWARE']) || (stripos($_SERVER['SERVER_SOFTWARE'], 'nginx') === false)) &&	//nginx should be fine
-		(empty($_SERVER['SERVER_SOFTWARE']) || (stripos($_SERVER['SERVER_SOFTWARE'], 'lighttpd') === false)) &&	//lighttpd should be fine
-		((!function_exists('getallheaders')) || (stripos(php_sapi_name(), 'cgi') !== false))) {	//Main problem is Apache/CGI mode
-		die('FAIL getallheaders! (probably)');
+	$headerAuth = headerVariable('Authorization', 'GoogleLogin_auth');
+	if ($headerAuth == '') {
+		die('FAIL get HTTP Authorization header! Wrong Web server configuration.');
 	}
-	echo 'PASS';
+	echo 'PASS.';
 	exit();
 }
 
@@ -913,6 +910,10 @@ FreshRSS_Context::$system_conf = Minz_Configuration::get('system');
 
 if (!FreshRSS_Context::$system_conf->api_enabled) {
 	serviceUnavailable();
+} elseif (count($pathInfos) < 3) {
+	badRequest();
+} elseif ($pathInfos[1] === 'check' && $pathInfos[2] === 'compatibility') {
+	checkCompatibility();
 }
 
 ini_set('session.use_cookies', '0');
@@ -927,9 +928,7 @@ if ($user !== '') {
 
 Minz_Session::_param('currentUser', $user);
 
-if (count($pathInfos) < 3) {
-	badRequest();
-} elseif ($pathInfos[1] === 'accounts') {
+if ($pathInfos[1] === 'accounts') {
 	if (($pathInfos[2] === 'ClientLogin') && isset($_REQUEST['Email']) && isset($_REQUEST['Passwd'])) {
 		clientLogin($_REQUEST['Email'], $_REQUEST['Passwd']);
 	}
@@ -1088,8 +1087,6 @@ if (count($pathInfos) < 3) {
 			userInfo();
 			break;
 	}
-} elseif ($pathInfos[1] === 'check' && $pathInfos[2] === 'compatibility') {
-	checkCompatibility();
 }
 
 badRequest();
