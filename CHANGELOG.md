@@ -4,6 +4,21 @@
 
 * Bug fixing
 	* Fix missing HTTP `X-Forwarded-Prefix` in cookie path behind a reverse-proxy [#2201](https://github.com/FreshRSS/FreshRSS/pull/2201)
+* Deployment
+	* Docker improvements [#2202](https://github.com/FreshRSS/FreshRSS/pull/2202)
+		* Performance: Hard-include Apache .htaccess to avoid having to scan for changes in those files
+		* Performance: Disable unused Apache security check of symlinks
+		* Performance: Disable unused Apache modules
+		* Add option to mount custom `.htaccess` for HTTP authentication
+		* Docker logs gets PHP syslog messages (e.g. from cron job and when fetching external content)
+	* Send a copy of PHP syslog messages to STDERR [#2208](https://github.com/FreshRSS/FreshRSS/pull/2208)
+	* Run Docker cron job with Apache user instead of root [#2208](https://github.com/FreshRSS/FreshRSS/pull/2208)
+	* Accept HTTP header `X-WebAuth-User` for delegated HTTP Authentication [#2204](https://github.com/FreshRSS/FreshRSS/pull/2204)
+* API
+	* Automatic test of API configuration [#2207](https://github.com/FreshRSS/FreshRSS/pull/2207)
+	* Use Apache SetEnvIf module if available and fall-back to RewriteRule [#2202](https://github.com/FreshRSS/FreshRSS/pull/2202)
+* Security
+	* Fixes when HTTP user does not exist in FreshRSS [#2204](https://github.com/FreshRSS/FreshRSS/pull/2204)
 
 
 ## 2018-12-22 FreshRSS 1.13.0
