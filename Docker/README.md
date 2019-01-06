@@ -205,6 +205,27 @@ sudo docker run -d --restart unless-stopped --log-opt max-size=10m \
 
 ## More deployment options
 
+### Custom Apache configuration (advanced users)
+
+Changes in Apache `.htaccess` files are applied when restarting the container.
+In particular, if you want FreshRSS to use HTTP-based login (instead of the easier Web form login), you can mount your own `./FreshRSS/p/i/.htaccess`:
+
+```
+sudo docker run ...
+  -v /your/.htaccess:/var/www/FreshRSS/p/i/.htaccess \
+  -v /your/.htpasswd:/var/www/FreshRSS/data/.htpasswd \
+  ...
+  --name freshrss freshrss/freshrss
+```
+
+Example of `/your/.htaccess` referring to `/your/.htpasswd`:
+```
+AuthUserFile /var/www/FreshRSS/data/.htpasswd
+AuthName "FreshRSS"
+AuthType Basic
+Require valid-user
+```
+
 ### Example with [docker-compose](https://docs.docker.com/compose/)
 
 A [docker-compose.yml](docker-compose.yml) file is given as an example, using PostgreSQL. In order to use it, you have to adapt:

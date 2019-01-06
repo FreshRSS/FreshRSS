@@ -5,6 +5,18 @@
 <title>FreshRSS API endpoints</title>
 <meta name="robots" content="noindex" />
 <link rel="start" href="../i/" />
+<script src="../scripts/api.js" defer="defer"></script>
+<script id="jsonVars" type="application/json">
+<?php
+require(__DIR__ . '/../../constants.php');
+require(LIB_PATH . '/lib_rss.php');	//Includes class autoloader
+Minz_Configuration::register('system', DATA_PATH . '/config.php', FRESHRSS_PATH . '/config.default.php');
+echo json_encode(array(
+		'greader' => Minz_Url::display('/api/greader.php', 'php', true),
+		'fever' => Minz_Url::display('/api/fever.php', 'php', true),
+	));
+?>
+</script>
 </head>
 
 <body>
@@ -14,17 +26,11 @@
 <dl>
 <dt>Your API address:</dt>
 <dd><?php
-require(__DIR__ . '/../../constants.php');
-require(LIB_PATH . '/lib_rss.php');	//Includes class autoloader
-Minz_Configuration::register('system', DATA_PATH . '/config.php', FRESHRSS_PATH . '/config.default.php');
 echo Minz_Url::display('/api/greader.php', 'html', true);
 ?></dd>
+<dt>Google Reader API configuration test:</dt>
+<dd id="greaderOutput">?</dd>
 </dl>
-<ul>
-<li><a href="greader.php/check%2Fcompatibility" rel="nofollow">Check full server configuration</a></li>
-<li><a href="greader.php/check/compatibility" rel="nofollow">Check partial server
-configuration (without <code>%2F</code> support)</a></li>
-</ul>
 
 <h2>Fever compatible API</h2>
 <dl>
@@ -32,10 +38,9 @@ configuration (without <code>%2F</code> support)</a></li>
 <dd><?php
 echo Minz_Url::display('/api/fever.php', 'html', true);
 ?></dd>
+<dt>Fever API configuration test:</dt>
+<dd id="feverOutput">?</dd>
 </dl>
-<ul>
-<li><a href="fever.php?api" rel="nofollow">Test</a></li>
-</ul>
 
 </body>
 </html>

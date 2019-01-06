@@ -209,6 +209,7 @@ class FreshRSS_Entry extends Minz_Model {
 		$feed_timeout = empty($attributes['timeout']) ? 0 : intval($attributes['timeout']);
 
 		if ($system_conf->simplepie_syslog_enabled) {
+			prepareSyslog();
 			syslog(LOG_INFO, 'FreshRSS GET ' . SimplePie_Misc::url_remove_credentials($url));
 		}
 
