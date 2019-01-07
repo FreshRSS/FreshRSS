@@ -11,7 +11,7 @@
 		* Performance: Disable unused Apache modules
 		* Add option to mount custom `.htaccess` for HTTP authentication
 		* Docker logs gets PHP syslog messages (e.g. from cron job and when fetching external content)
-	* Send a copy of PHP syslog messages to STDERR [#2208](https://github.com/FreshRSS/FreshRSS/pull/2208)
+	* New environment variable `COPY_SYSLOG_TO_STDERR` or in `constants.local.php` to copy PHP syslog messages to STDERR [#2208](https://github.com/FreshRSS/FreshRSS/pull/2208)
 	* Run Docker cron job with Apache user instead of root [#2208](https://github.com/FreshRSS/FreshRSS/pull/2208)
 	* Accept HTTP header `X-WebAuth-User` for delegated HTTP Authentication [#2204](https://github.com/FreshRSS/FreshRSS/pull/2204)
 * API
