@@ -762,7 +762,8 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 	/**
 	 * This method returns a JSON file content.
 	 *
-	 * @param string $type must be one of: 'S' (starred/favourite), 'f' (feed), 'T' (taggued/labelled), 'ST' (starred or labelled)
+	 * @param string $type must be one of:
+	 * 	'S' (starred/favourite), 'f' (feed), 'T' (taggued/labelled), 'ST' (starred or labelled)
 	 * @param FreshRSS_Feed $feed feed of which we want to get entries.
 	 * @return string the JSON file content.
 	 */
@@ -772,8 +773,8 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 		if ($type === 's' || $type === 'S' || $type === 'T' || $type === 'ST') {
 			$this->view->list_title = _t('sub.import_export.starred_list');
 			$this->view->type = 'starred';
-			$this->view->entriesRaw = $this->entryDAO->listWhereRaw(
-				$type, '', FreshRSS_Entry::STATE_ALL, 'ASC', -1);
+			$this->view->entriesId = $this->entryDAO->listIdsWhere($type, '', FreshRSS_Entry::STATE_ALL, 'ASC', -1);
+			$this->view->entriesRaw = $this->entryDAO->listWhereRaw($type, '', FreshRSS_Entry::STATE_ALL, 'ASC', -1);
 		} elseif ($type === 'f' && $feed != null) {
 			$this->view->list_title = _t('sub.import_export.feed_list', $feed->name());
 			$this->view->type = 'feed/' . $feed->id();

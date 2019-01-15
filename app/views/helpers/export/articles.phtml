@@ -17,13 +17,13 @@ echo rtrim(json_encode($articles, $options), " ]}\n\r\t"), "\n";
 $first = true;
 
 $tagDAO = FreshRSS_Factory::createTagDao();
-$entryIdsTagNames = $tagDAO->getEntryIdsTagNames($this->entriesRaw);
+$entryIdsTagNames = $tagDAO->getEntryIdsTagNames($this->entriesId);
 if ($entryIdsTagNames == false) {
 	$entryIdsTagNames = array();
 }
 
 foreach ($this->entriesRaw as $entryRaw) {
-	if (empty($entryRaw)) {
+	if ($entryRaw == null) {
 		continue;
 	}
 	$entry = FreshRSS_EntryDAO::daoToEntry($entryRaw);
