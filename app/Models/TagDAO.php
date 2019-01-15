@@ -265,8 +265,18 @@ class FreshRSS_TagDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 		$values = array();
 		if (is_array($entries) && count($entries) > 0) {
 			$sql .= ' AND et.id_entry IN (' . str_repeat('?,', count($entries) - 1). '?)';
-			foreach ($entries as $entry) {
-				$values[] = is_array($entry) ? $entry['id'] : is_object($entry) ? $entry->id() : intval($entries);
+			if (is_array($entries[0])) {
+				foreach ($entries as $entry) {
+					$values[] = $entry['id'];
+				}
+			} elseif (is_object($entries[0])) {
+				foreach ($entries as $entry) {
+					$values[] = $entry->id();
+				}
+			} else {
+				foreach ($entries as $entry) {
+					$values[] = $entry;
+				}
 			}
 		}
 		$stm = $this->bd->prepare($sql);
