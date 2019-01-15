@@ -203,7 +203,7 @@ function html_only_entity_decode($text) {
 }
 
 function prepareSyslog() {
-	return openlog("FreshRSS", LOG_PERROR | LOG_PID, LOG_USER);
+	return COPY_SYSLOG_TO_STDERR ? openlog("FreshRSS", LOG_PERROR | LOG_PID, LOG_USER) : false;
 }
 
 function customSimplePie($attributes = array()) {

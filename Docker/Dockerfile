@@ -23,6 +23,7 @@ RUN rm -f /etc/apache2/conf.d/languages.conf /etc/apache2/conf.d/info.conf \
 	echo "17,37 * * * * su apache -s /bin/sh -c 'php /var/www/FreshRSS/app/actualize_script.php' 2>> /proc/1/fd/2 > /tmp/FreshRSS.log" >> \
 		/var/spool/cron/crontabs/root
 
+ENV COPY_SYSLOG_TO_STDERR On
 ENV CRON_MIN ''
 ENTRYPOINT ["./Docker/entrypoint.sh"]
 
