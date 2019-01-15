@@ -543,7 +543,7 @@ function init_column_categories() {
 			}
 		});
 		$(this).parent().next(".tree-folder-items").slideToggle(300, function () {
-			//Workaround for Gecko bug in Firefox 64-65(+?):
+			//Workaround for Gecko bug 1514498 in Firefox 64
 			var sidebar = document.getElementById('sidebar');
 			if (sidebar && sidebar.scrollHeight > sidebar.clientHeight &&	//if needs scrollbar
 				sidebar.scrollWidth >= sidebar.offsetWidth) {	//but no scrollbar
