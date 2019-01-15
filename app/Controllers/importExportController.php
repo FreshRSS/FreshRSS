@@ -769,17 +769,22 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 	 */
 	private function generateEntries($type, $feed = null, $maxFeedEntries = 50) {
 		$this->view->categories = $this->catDAO->listCategories();
+		$tagDAO = FreshRSS_Factory::createTagDao();
 
 		if ($type === 's' || $type === 'S' || $type === 'T' || $type === 'ST') {
 			$this->view->list_title = _t('sub.import_export.starred_list');
 			$this->view->type = 'starred';
 			$this->view->entriesId = $this->entryDAO->listIdsWhere($type, '', FreshRSS_Entry::STATE_ALL, 'ASC', -1);
+			$this->view->entryIdsTagNames = $tagDAO->getEntryIdsTagNames($this->view->entriesId);
+			//The following is a streamable query, i.e. must be last
 			$this->view->entriesRaw = $this->entryDAO->listWhereRaw($type, '', FreshRSS_Entry::STATE_ALL, 'ASC', -1);
 		} elseif ($type === 'f' && $feed != null) {
 			$this->view->list_title = _t('sub.import_export.feed_list', $feed->name());
 			$this->view->type = 'feed/' . $feed->id();
-			$this->view->entriesRaw = $this->entryDAO->listWhereRaw(
-				$type, $feed->id(), FreshRSS_Entry::STATE_ALL, 'ASC', $maxFeedEntries);
+			$this->view->entriesId = $this->entryDAO->listIdsWhere($type, $feed->id(), FreshRSS_Entry::STATE_ALL, 'ASC', $maxFeedEntries);
+			$this->view->entryIdsTagNames = $tagDAO->getEntryIdsTagNames($this->view->entriesId);
+			//The following is a streamable query, i.e. must be last
+			$this->view->entriesRaw = $this->entryDAO->listWhereRaw($type, $feed->id(), FreshRSS_Entry::STATE_ALL, 'ASC', $maxFeedEntries);
 			$this->view->feed = $feed;
 		}
 
