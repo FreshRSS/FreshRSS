@@ -650,7 +650,7 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 		return $return;
 	}
 
-	public function exportFile($export_opml = true, $export_starred = false, $export_feeds = array(), $maxFeedEntries = 50, $username = null) {
+	public function exportFile($export_opml = true, $export_starred = false, $export_labelled = false, $export_feeds = array(), $maxFeedEntries = 50, $username = null) {
 		require_once(LIB_PATH . '/lib_opml.php');
 
 		$this->catDAO = new FreshRSS_CategoryDAO($username);
@@ -674,8 +674,11 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 			$export_files["feeds_${day}.opml.xml"] = $this->generateOpml();
 		}
 
-		if ($export_starred) {
-			$export_files["starred_${day}.json"] = $this->generateEntries('starred');
+		if ($export_starred || $export_labelled) {
+			$export_files["starred_${day}.json"] = $this->generateEntries(
+				($export_starred ? 'S' : '') .
+				($export_labelled ? 'T' : '')
+			);
 		}
 
 		foreach ($export_feeds as $feed_id) {
@@ -683,7 +686,7 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 			if ($feed) {
 				$filename = "feed_${day}_" . $feed->category() . '_'
 				          . $feed->id() . '.json';
-				$export_files[$filename] = $this->generateEntries('feed', $feed, $maxFeedEntries);
+				$export_files[$filename] = $this->generateEntries('f', $feed, $maxFeedEntries);
 			}
 		}
 
@@ -725,6 +728,7 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 			$nb_files = $this->exportFile(
 					Minz_Request::param('export_opml', false),
 					Minz_Request::param('export_starred', false),
+					Minz_Request::param('export_labelled', false),
 					Minz_Request::param('export_feeds', array())
 				);
 		} catch (FreshRSS_ZipMissing_Exception $zme) {
@@ -758,27 +762,23 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 	/**
 	 * This method returns a JSON file content.
 	 *
-	 * @param string $type must be "starred" or "feed"
+	 * @param string $type must be one of: 'S' (starred/favourite), 'f' (feed), 'T' (taggued/labelled), 'ST' (starred or labelled)
 	 * @param FreshRSS_Feed $feed feed of which we want to get entries.
 	 * @return string the JSON file content.
 	 */
 	private function generateEntries($type, $feed = null, $maxFeedEntries = 50) {
 		$this->view->categories = $this->catDAO->listCategories();
 
-		if ($type == 'starred') {
+		if ($type === 's' || $type === 'S' || $type === 'T' || $type === 'ST') {
 			$this->view->list_title = _t('sub.import_export.starred_list');
 			$this->view->type = 'starred';
-			$unread_fav = $this->entryDAO->countUnreadReadFavorites();
 			$this->view->entriesRaw = $this->entryDAO->listWhereRaw(
-				's', '', FreshRSS_Entry::STATE_ALL, 'ASC', $unread_fav['all']
-			);
-		} elseif ($type === 'feed' && $feed != null) {
+				$type, '', FreshRSS_Entry::STATE_ALL, 'ASC', -1);
+		} elseif ($type === 'f' && $feed != null) {
 			$this->view->list_title = _t('sub.import_export.feed_list', $feed->name());
 			$this->view->type = 'feed/' . $feed->id();
 			$this->view->entriesRaw = $this->entryDAO->listWhereRaw(
-				'f', $feed->id(), FreshRSS_Entry::STATE_ALL, 'ASC',
-				$maxFeedEntries
-			);
+				$type, $feed->id(), FreshRSS_Entry::STATE_ALL, 'ASC', $maxFeedEntries);
 			$this->view->feed = $feed;
 		}
 

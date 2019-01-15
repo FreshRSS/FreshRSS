@@ -72,6 +72,7 @@ return array(
 		'export' => '내보내기',
 		'export_opml' => '피드 목록 내보내기 (OPML)',
 		'export_starred' => '즐겨찾기 내보내기',
+		'export_labelled' => 'Export your labelled articles',	//TODO
 		'feed_list' => '%s 개의 글 목록',
 		'file_to_import' => '불러올 파일<br />(OPML, JSON 또는 ZIP)',
 		'file_to_import_no_zip' => '불러올 파일<br />(OPML 또는 JSON)',

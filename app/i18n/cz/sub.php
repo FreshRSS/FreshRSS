@@ -72,6 +72,7 @@ return array(
 		'export' => 'Export',
 		'export_opml' => 'Exportovat seznam kanálů (OPML)',
 		'export_starred' => 'Exportovat oblíbené',
+		'export_labelled' => 'Export your labelled articles',	//TODO
 		'feed_list' => 'Seznam %s článků',
 		'file_to_import' => 'Soubor k importu<br />(OPML, JSON nebo ZIP)',
 		'file_to_import_no_zip' => 'Soubor k importu<br />(OPML nebo JSON)',
