@@ -1,5 +1,7 @@
 FROM alpine:3.8
 
+ENV TZ UTC
+
 RUN apk add --no-cache \
 	apache2 php7-apache2 \
 	php7 php7-curl php7-gmp php7-intl php7-mbstring php7-xml php7-zip \
