@@ -72,6 +72,7 @@ return array(
 		'export' => 'Dışa aktar',
 		'export_opml' => 'Akış listesini dışarı aktar (OPML)',
 		'export_starred' => 'Favorileri dışarı aktar',
+		'export_labelled' => 'Export your labelled articles',	//TODO
 		'feed_list' => '%s makalenin listesi',
 		'file_to_import' => 'Dosyadan içe aktar<br />(OPML, JSON or ZIP)',
 		'file_to_import_no_zip' => 'Dosyadan içe aktar<br />(OPML or JSON)',
