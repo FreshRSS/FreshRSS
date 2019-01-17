@@ -8,13 +8,13 @@
 	* Fix missing HTTP `X-Forwarded-Prefix` in cookie path behind a reverse-proxy [#2201](https://github.com/FreshRSS/FreshRSS/pull/2201)
 * Deployment
 	* Docker improvements [#2202](https://github.com/FreshRSS/FreshRSS/pull/2202)
-		* Add `TZ` timezone parameter [#2153](https://github.com/FreshRSS/FreshRSS/issues/2153)
 		* Performance: Hard-include Apache .htaccess to avoid having to scan for changes in those files
 		* Performance: Disable unused Apache security check of symlinks
 		* Performance: Disable unused Apache modules
 		* Add option to mount custom `.htaccess` for HTTP authentication
 		* Docker logs gets PHP syslog messages (e.g. from cron job and when fetching external content)
 	* New environment variable `COPY_SYSLOG_TO_STDERR` or in `constants.local.php` to copy PHP syslog messages to STDERR [#2213](https://github.com/FreshRSS/FreshRSS/pull/2213)
+	* New `TZ` timezone environment variable [#2153](https://github.com/FreshRSS/FreshRSS/issues/2153)
 	* Run Docker cron job with Apache user instead of root [#2208](https://github.com/FreshRSS/FreshRSS/pull/2208)
 	* Accept HTTP header `X-WebAuth-User` for delegated HTTP Authentication [#2204](https://github.com/FreshRSS/FreshRSS/pull/2204)
 * API
