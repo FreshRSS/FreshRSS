@@ -19,7 +19,7 @@ $importController = new FreshRSS_importExport_Controller();
 
 $ok = false;
 try {
-	$ok = $importController->exportFile(true, true, true,
+	$ok = $importController->exportFile(true, true, true, true,
 		empty($options['max-feed-entries']) ? 100 : intval($options['max-feed-entries']),
 		$username);
 } catch (FreshRSS_ZipMissing_Exception $zme) {

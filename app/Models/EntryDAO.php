@@ -839,6 +839,9 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 			$where .= 'f.priority >= ' . FreshRSS_Feed::PRIORITY_NORMAL . ' ';
 			$where .= 'AND e.is_favorite=1 ';
 			break;
+		case 'S':	//Starred
+			$where .= 'e.is_favorite=1 ';
+			break;
 		case 'c':	//Category
 			$where .= 'f.priority >= ' . FreshRSS_Feed::PRIORITY_NORMAL . ' ';
 			$where .= 'AND f.category=? ';
@@ -854,6 +857,9 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 			break;
 		case 'T':	//Any tag
 			$where .= '1=1 ';
+			break;
+		case 'ST':	//Starred or tagged
+			$where .= 'e.is_favorite=1 OR EXISTS (SELECT et2.id_tag FROM `' . $this->prefix . 'entrytag` et2 WHERE et2.id_entry = e.id) ';
 			break;
 		default:
 			throw new FreshRSS_EntriesGetter_Exception('Bad type in Entry->listByType: [' . $type . ']!');

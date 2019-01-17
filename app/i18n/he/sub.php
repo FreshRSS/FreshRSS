@@ -72,6 +72,7 @@ return array(
 		'export' => 'ייצוא',
 		'export_opml' => 'ייצוא רשימת הזנות (OPML)',
 		'export_starred' => 'ייצוא מועדפים',
+		'export_labelled' => 'Export your labelled articles',	//TODO
 		'feed_list' => 'רשימה של %s מאמרים',
 		'file_to_import' => 'קובץ לייבוא<br />(OPML, Json or Zip)',
 		'file_to_import_no_zip' => 'קובץ לייבוא<br />(OPML or Json)',

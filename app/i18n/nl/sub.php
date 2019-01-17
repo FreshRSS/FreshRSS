@@ -72,6 +72,7 @@ return array(
 		'export' => 'Exporteer',
 		'export_opml' => 'Exporteer lijst van feeds (OPML)',
 		'export_starred' => 'Exporteer je favorieten',
+		'export_labelled' => 'Export your labelled articles',	//TODO
 		'feed_list' => 'Lijst van %s artikelen',
 		'file_to_import' => 'Bestand om te importeren<br />(OPML, JSON of ZIP)',
 		'file_to_import_no_zip' => 'Bestand om te importeren<br />(OPML of JSON)',

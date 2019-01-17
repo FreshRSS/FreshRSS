@@ -66,6 +66,7 @@ sudo docker volume create freshrss-data
 sudo docker run -d --restart unless-stopped --log-opt max-size=10m \
   -v freshrss-data:/var/www/FreshRSS/data \
   -e 'CRON_MIN=4,34' \
+  -e TZ=Europe/Paris \
   --net freshrss-network \
   --label traefik.port=80 \
   --label traefik.frontend.rule='Host:freshrss.example.net' \
@@ -74,6 +75,7 @@ sudo docker run -d --restart unless-stopped --log-opt max-size=10m \
   --name freshrss freshrss/freshrss
 ```
 
+* Replace `TZ=Europe/Paris` by your [server timezone](http://php.net/timezones), or remove the line to use `UTC`.
 * If you cannot have FreshRSS at the root of a dedicated domain, update the command above according to the following model:
 	`--label traefik.frontend.rule='Host:freshrss.example.net;PathPrefixStrip:/FreshRSS/' \`
 * You may remove the `--label traefik.*` lines if you do not use Træfik.

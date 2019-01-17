@@ -2,10 +2,13 @@
 
 ## 2019-01-XX FreshRSS 1.13.1-dev
 
+* Features
+	* Include articles with custom labels during export [#2196](https://github.com/FreshRSS/FreshRSS/issues/2196)
 * Bug fixing
 	* Fix missing HTTP `X-Forwarded-Prefix` in cookie path behind a reverse-proxy [#2201](https://github.com/FreshRSS/FreshRSS/pull/2201)
 * Deployment
 	* Docker improvements [#2202](https://github.com/FreshRSS/FreshRSS/pull/2202)
+		* Add `TZ` timezone parameter [#2153](https://github.com/FreshRSS/FreshRSS/issues/2153)
 		* Performance: Hard-include Apache .htaccess to avoid having to scan for changes in those files
 		* Performance: Disable unused Apache security check of symlinks
 		* Performance: Disable unused Apache modules
@@ -16,9 +19,11 @@
 	* Accept HTTP header `X-WebAuth-User` for delegated HTTP Authentication [#2204](https://github.com/FreshRSS/FreshRSS/pull/2204)
 * API
 	* Automatic test of API configuration [#2207](https://github.com/FreshRSS/FreshRSS/pull/2207)
-	* Use Apache SetEnvIf module if available and fall-back to RewriteRule [#2202](https://github.com/FreshRSS/FreshRSS/pull/2202)
+	* Performance + compatibility: Use Apache `SetEnvIf` module if available and fall-back to `RewriteRule` [#2202](https://github.com/FreshRSS/FreshRSS/pull/2202)
 * Security
 	* Fixes when HTTP user does not exist in FreshRSS [#2204](https://github.com/FreshRSS/FreshRSS/pull/2204)
+* Accessibility
+	* Remove alt in logo [#2209](https://github.com/FreshRSS/FreshRSS/pull/2209)
 
 
 ## 2018-12-22 FreshRSS 1.13.0

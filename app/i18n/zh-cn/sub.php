@@ -72,6 +72,7 @@ return array(
 		'export' => '导出',
 		'export_opml' => '导出 RSS 源列表 (OPML)',
 		'export_starred' => '导出你的收藏',
+		'export_labelled' => 'Export your labelled articles',	//TODO
 		'feed_list' => '%s 文章列表',
 		'file_to_import' => '需要导入的文件<br />(OPML, JSON 或 ZIP)',
 		'file_to_import_no_zip' => '需要导入的文件<br />(OPML 或 JSON)',

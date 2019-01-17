@@ -71,6 +71,7 @@ return array(
 		'export' => 'Exportar',
 		'export_opml' => 'Exportar la lista de fluxes (OPML)',
 		'export_starred' => 'Exportar los favorits',
+		'export_labelled' => 'Export your labelled articles',	//TODO
 		'feed_list' => 'Lista dels %s articles',
 		'file_to_import' => 'Fichièr d’importar<br />(OPML, JSON o ZIP)',
 		'file_to_import_no_zip' => 'Fichièr d’importar<br />(OPML o JSON)',
