@@ -17,6 +17,8 @@
 	* New `TZ` timezone environment variable [#2153](https://github.com/FreshRSS/FreshRSS/issues/2153)
 	* Run Docker cron job with Apache user instead of root [#2208](https://github.com/FreshRSS/FreshRSS/pull/2208)
 	* Accept HTTP header `X-WebAuth-User` for delegated HTTP Authentication [#2204](https://github.com/FreshRSS/FreshRSS/pull/2204)
+* Extensions
+	* Trigger a `freshrss:openArticle` JavaScript event [#2222](https://github.com/FreshRSS/FreshRSS/pull/2222)
 * API
 	* Automatic test of API configuration [#2207](https://github.com/FreshRSS/FreshRSS/pull/2207)
 	* Performance + compatibility: Use Apache `SetEnvIf` module if available and fall-back to `RewriteRule` [#2202](https://github.com/FreshRSS/FreshRSS/pull/2202)
