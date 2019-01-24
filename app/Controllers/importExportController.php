@@ -41,7 +41,8 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 		$list_files = array(
 			'opml' => array(),
 			'json_starred' => array(),
-			'json_feed' => array()
+			'json_feed' => array(),
+			'ttrss_starred' => array(),
 		);
 
 		// We try to list all files according to their type
@@ -505,7 +506,7 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 
 			$feed_id = $article_to_feed[$item['id']];
 			$author = isset($item['author']) ? $item['author'] : '';
-			$is_starred = $starred;
+			$is_starred = false;
 			$tags = $item['categories'];
 			$labels = array();
 			for ($i = count($tags) - 1; $i >= 0; $i --) {
@@ -521,6 +522,10 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 					}
 					unset($tags[$i]);
 				}
+			}
+			if ($starred && !$is_starred) {
+				//If the article has no label, mark it as starred (old format)
+				$is_starred = empty($labels);
 			}
 
 			$url = $item['alternate'][0]['href'];
