@@ -56,6 +56,7 @@ foreach ($this->entriesRaw as $entryRaw) {
 			'feedUrl' => $feed == null ? '' : $feed->url(),
 		)
 	);
+	$article['categories'][] = $entry->isRead() ? 'user/-/state/com.google/read' : 'user/-/state/com.google/unread';
 	if ($entry->isFavorite()) {
 		$article['categories'][] = 'user/-/state/com.google/starred';
 	}

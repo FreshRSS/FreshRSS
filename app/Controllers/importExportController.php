@@ -436,7 +436,7 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 			return false;
 		}
 
-		$is_read = FreshRSS_Context::$user_conf->mark_when['reception'] ? 1 : 0;
+		$mark_as_read = FreshRSS_Context::$user_conf->mark_when['reception'] ? 1 : 0;
 
 		$google_compliant = strpos($article_object['id'], 'com.google') !== false;
 
@@ -507,6 +507,7 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 			$feed_id = $article_to_feed[$item['id']];
 			$author = isset($item['author']) ? $item['author'] : '';
 			$is_starred = false;
+			$is_read = null;
 			$tags = $item['categories'];
 			$labels = array();
 			for ($i = count($tags) - 1; $i >= 0; $i --) {
@@ -514,6 +515,10 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 				if (strpos($tag, 'user/-/') !== false) {
 					if ($tag === 'user/-/state/com.google/starred') {
 						$is_starred = true;
+					} elseif ($tag === 'user/-/state/com.google/read') {
+						$is_read = true;
+					} elseif ($tag === 'user/-/state/com.google/unread') {
+						$is_read = false;
 					} elseif (strpos($tag, 'user/-/label/') === 0) {
 						$tag = trim(substr($tag, 13));
 						if ($tag != '') {
@@ -526,6 +531,9 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 			if ($starred && !$is_starred) {
 				//If the article has no label, mark it as starred (old format)
 				$is_starred = empty($labels);
+			}
+			if ($is_read === null) {
+				$is_read = $mark_as_read;
 			}
 
 			$url = $item['alternate'][0]['href'];
