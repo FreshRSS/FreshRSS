@@ -79,8 +79,12 @@ class FreshRSS_auth_Controller extends Minz_ActionController {
 			Minz_Request::forward(array('c' => 'auth', 'a' => 'formLogin'));
 			break;
 		case 'http_auth':
+			Minz_Error::error(403, array('error' => array(_t('feedback.access.denied'),
+					' [HTTP Remote-User=' . htmlspecialchars(httpAuthUser(), ENT_NOQUOTES, 'UTF-8') . ']'
+				)), false);
+			break;
 		case 'none':
-			// It should not happened!
+			// It should not happen!
 			Minz_Error::error(404);
 		default:
 			// TODO load plugin instead

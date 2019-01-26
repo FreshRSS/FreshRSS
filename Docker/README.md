@@ -66,6 +66,7 @@ sudo docker volume create freshrss-data
 sudo docker run -d --restart unless-stopped --log-opt max-size=10m \
   -v freshrss-data:/var/www/FreshRSS/data \
   -e 'CRON_MIN=4,34' \
+  -e TZ=Europe/Paris \
   --net freshrss-network \
   --label traefik.port=80 \
   --label traefik.frontend.rule='Host:freshrss.example.net' \
@@ -74,6 +75,7 @@ sudo docker run -d --restart unless-stopped --log-opt max-size=10m \
   --name freshrss freshrss/freshrss
 ```
 
+* Replace `TZ=Europe/Paris` by your [server timezone](http://php.net/timezones), or remove the line to use `UTC`.
 * If you cannot have FreshRSS at the root of a dedicated domain, update the command above according to the following model:
 	`--label traefik.frontend.rule='Host:freshrss.example.net;PathPrefixStrip:/FreshRSS/' \`
 * You may remove the `--label traefik.*` lines if you do not use Træfik.
@@ -204,6 +206,27 @@ sudo docker run -d --restart unless-stopped --log-opt max-size=10m \
 
 
 ## More deployment options
+
+### Custom Apache configuration (advanced users)
+
+Changes in Apache `.htaccess` files are applied when restarting the container.
+In particular, if you want FreshRSS to use HTTP-based login (instead of the easier Web form login), you can mount your own `./FreshRSS/p/i/.htaccess`:
+
+```
+sudo docker run ...
+  -v /your/.htaccess:/var/www/FreshRSS/p/i/.htaccess \
+  -v /your/.htpasswd:/var/www/FreshRSS/data/.htpasswd \
+  ...
+  --name freshrss freshrss/freshrss
+```
+
+Example of `/your/.htaccess` referring to `/your/.htpasswd`:
+```
+AuthUserFile /var/www/FreshRSS/data/.htpasswd
+AuthName "FreshRSS"
+AuthType Basic
+Require valid-user
+```
 
 ### Example with [docker-compose](https://docs.docker.com/compose/)
 

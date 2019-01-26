@@ -7,7 +7,8 @@ header("Content-Security-Policy: default-src 'self'");
 require(LIB_PATH . '/lib_install.php');
 
 session_name('FreshRSS');
-session_set_cookie_params(0, dirname(empty($_SERVER['REQUEST_URI']) ? '/' : dirname($_SERVER['REQUEST_URI'])), null, false, true);
+$forwardedPrefix = empty($_SERVER['HTTP_X_FORWARDED_PREFIX']) ? '' : rtrim($_SERVER['HTTP_X_FORWARDED_PREFIX'], '/ ');
+session_set_cookie_params(0, $forwardedPrefix . dirname(empty($_SERVER['REQUEST_URI']) ? '/' : dirname($_SERVER['REQUEST_URI'])), null, false, true);
 session_start();
 
 if (isset($_GET['step'])) {

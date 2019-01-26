@@ -81,6 +81,7 @@ function generateSalt() {
 function checkDb(&$dbOptions) {
 	$dsn = '';
 	$driver_options = null;
+	prepareSyslog();
 	try {
 		switch ($dbOptions['type']) {
 		case 'mysql':
