@@ -97,14 +97,15 @@ class FreshRSS_entry_Controller extends Minz_ActionController {
 				}
 			}
 		} else {
-			$entryDAO->markRead($id, $is_read);
-
+			$ids = is_array($id) ? $id : array($id);
+			$entryDAO->markRead($ids, $is_read);
 			$tagDAO = FreshRSS_Factory::createTagDao();
-			foreach ($tagDAO->getTagsForEntry($id) as $tag) {
-				if (!empty($tag['checked'])) {
-					$this->view->tags[] = $tag['id'];
-				}
+			$tagsForEntries = $tagDAO->getTagsForEntries($ids);
+			$tags = array();
+			foreach ($tagsForEntries as $line) {
+				$tags['t_' . $line['id_tag']][] = $line['id_entry'];
 			}
+			$this->view->tags = $tags;
 		}
 
 		if (!$this->ajax) {

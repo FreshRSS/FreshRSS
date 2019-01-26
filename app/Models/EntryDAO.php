@@ -383,7 +383,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 	 */
 	public function markRead($ids, $is_read = true) {
 		FreshRSS_UserDAO::touch();
-		if (is_array($ids)) {	//Many IDs at once (used by API)
+		if (is_array($ids)) {	//Many IDs at once
 			if (count($ids) < 6) {	//Speed heuristics
 				$affected = 0;
 				foreach ($ids as $id) {
