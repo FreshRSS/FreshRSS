@@ -1,6 +1,6 @@
 ﻿# FreshRSS changelog
 
-## 2019-01-XX FreshRSS 1.13.1-dev
+## 2019-01-26 FreshRSS 1.13.1
 
 * Features
 	* Include articles with custom labels during export [#2196](https://github.com/FreshRSS/FreshRSS/issues/2196)
