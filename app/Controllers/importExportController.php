@@ -461,6 +461,7 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 			} else {
 				$feedUrl = 'http://import.localhost/import.xml';
 				$item['origin']['feedUrl'] = $feedUrl;
+				$item['origin']['disable'] = true;
 			}
 			$feed = new FreshRSS_Feed($feedUrl);
 			$feed = $this->feedDAO->searchByUrl($feed->url());
@@ -520,7 +521,7 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 			$author = isset($item['author']) ? $item['author'] : '';
 			$is_starred = false;
 			$is_read = null;
-			$tags = $item['categories'];
+			$tags = empty($item['categories']) ? array() : $item['categories'];
 			$labels = array();
 			for ($i = count($tags) - 1; $i >= 0; $i --) {
 				$tag = trim($tags[$i]);
@@ -662,6 +663,9 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 			$feed->_category(FreshRSS_CategoryDAO::DEFAULTCATEGORYID);
 			$feed->_name($name);
 			$feed->_website($website);
+			if (!empty($origin['disable'])) {
+				$feed->_ttl(-1 * FreshRSS_Context::$user_conf->ttl_default);
+			}
 
 			// Call the extension hook
 			$feed = Minz_ExtensionManager::callHook('feed_before_insert', $feed);
