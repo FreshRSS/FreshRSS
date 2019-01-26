@@ -568,10 +568,22 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 			}
 			$content = sanitizeHTML($content, $url);
 
+			if (!empty($item['published'])) {
+				$published = $item['published'];
+			} elseif (!empty($item['timestampUsec'])) {
+				$published = substr($item['timestampUsec'], 0, -6);
+			} elseif (!empty($item['updated'])) {
+				$published = $item['updated'];
+			} else {
+				$published = 0;
+			}
+			if (!ctype_digit('' . $published)) {
+				$published = strtotime($published);
+			}
+
 			$entry = new FreshRSS_Entry(
 				$feed_id, $item['id'], $item['title'], $author,
-				$content, $url,
-				$item['published'], $is_read, $is_starred
+				$content, $url, $published, $is_read, $is_starred
 			);
 			$entry->_id(min(time(), $entry->date(true)) . uSecString());
 			$entry->_tags($tags);
