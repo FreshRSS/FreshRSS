@@ -163,8 +163,8 @@ return array(
 		'max-categories' => 'Categoriën limiet per gebruiker',
 		'max-feeds' => 'Feed limiet per gebruiker',
 		'cookie-duration' => array(
-			'help' => 'in seconds', // @todo translate
-			'number' => 'Duration to keep logged in', // @todo translate
+			'help' => 'in seconden',
+			'number' => 'Tijdsduur om ingelogd te blijven',
 		),
 		'registration' => array(
 			'help' => '0 betekent geen account limiet',

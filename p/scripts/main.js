@@ -297,6 +297,9 @@ function mark_favorite(div) {
 	});
 }
 
+var freshrssOpenArticleEvent = document.createEvent('Event');
+freshrssOpenArticleEvent.initEvent('freshrss:openArticle', true, true);
+
 function toggleContent(new_active, old_active, skipping) {
 	// If skipping, move current without activating or marking as read
 	if (!new_active) {
@@ -348,8 +351,11 @@ function toggleContent(new_active, old_active, skipping) {
 		box_to_move.scrollTop = new_pos;
 	}
 
-	if (context.auto_mark_article && new_active.classList.contains('active') && !skipping) {
-		mark_read(new_active, true);
+	if (new_active.classList.contains('active') && !skipping) {
+		if (context.auto_mark_article) {
+			mark_read(new_active, true);
+		}
+		new_active[0].dispatchEvent(freshrssOpenArticleEvent);
 	}
 	onScroll();
 }

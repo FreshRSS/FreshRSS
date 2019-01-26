@@ -1,27 +1,37 @@
 ﻿# FreshRSS changelog
 
-## 2019-01-XX FreshRSS 1.13.1-dev
+## 2019-0X-XX FreshRSS 1.13.2-dev
+
+
+## 2019-01-26 FreshRSS 1.13.1
 
 * Features
 	* Include articles with custom labels during export [#2196](https://github.com/FreshRSS/FreshRSS/issues/2196)
+	* Export/import articles read/unread state [#2226](https://github.com/FreshRSS/FreshRSS/pull/2226)
+	* Import FeedBin, and more robust general import [#2228](https://github.com/FreshRSS/FreshRSS/pull/2228)
 * Bug fixing
 	* Fix missing HTTP `X-Forwarded-Prefix` in cookie path behind a reverse-proxy [#2201](https://github.com/FreshRSS/FreshRSS/pull/2201)
 * Deployment
 	* Docker improvements [#2202](https://github.com/FreshRSS/FreshRSS/pull/2202)
-		* Add `TZ` timezone parameter [#2153](https://github.com/FreshRSS/FreshRSS/issues/2153)
 		* Performance: Hard-include Apache .htaccess to avoid having to scan for changes in those files
 		* Performance: Disable unused Apache security check of symlinks
 		* Performance: Disable unused Apache modules
 		* Add option to mount custom `.htaccess` for HTTP authentication
 		* Docker logs gets PHP syslog messages (e.g. from cron job and when fetching external content)
 	* New environment variable `COPY_SYSLOG_TO_STDERR` or in `constants.local.php` to copy PHP syslog messages to STDERR [#2213](https://github.com/FreshRSS/FreshRSS/pull/2213)
+	* New `TZ` timezone environment variable [#2153](https://github.com/FreshRSS/FreshRSS/issues/2153)
 	* Run Docker cron job with Apache user instead of root [#2208](https://github.com/FreshRSS/FreshRSS/pull/2208)
 	* Accept HTTP header `X-WebAuth-User` for delegated HTTP Authentication [#2204](https://github.com/FreshRSS/FreshRSS/pull/2204)
+* Extensions
+	* Trigger a `freshrss:openArticle` JavaScript event [#2222](https://github.com/FreshRSS/FreshRSS/pull/2222)
 * API
 	* Automatic test of API configuration [#2207](https://github.com/FreshRSS/FreshRSS/pull/2207)
 	* Performance + compatibility: Use Apache `SetEnvIf` module if available and fall-back to `RewriteRule` [#2202](https://github.com/FreshRSS/FreshRSS/pull/2202)
 * Security
 	* Fixes when HTTP user does not exist in FreshRSS [#2204](https://github.com/FreshRSS/FreshRSS/pull/2204)
+* I18n
+	* Improve Dutch [#2221](https://github.com/FreshRSS/FreshRSS/pull/2221)
+	* Improve Occitan [#2230](https://github.com/FreshRSS/FreshRSS/pull/2230)
 * Accessibility
 	* Remove alt in logo [#2209](https://github.com/FreshRSS/FreshRSS/pull/2209)
 
