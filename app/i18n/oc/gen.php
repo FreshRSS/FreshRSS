@@ -111,7 +111,7 @@ return array(
 			'request_failed' => 'Una requèsta a fach meuca, aquò pòt venir d’un problèma de connexion Internet.',
 			'title_new_articles' => 'FreshRSS : nòus articles !',
 		),
-		'new_article' => 'I a d’articles nòus disponibles, clicatz per actualizar la página.',
+		'new_article' => 'I a d’articles nòus disponibles, clicatz per actualizar la pagina.',
 		'should_be_activated' => 'JavaScript deu èsser activat',
 	),
 	'lang' => array(
