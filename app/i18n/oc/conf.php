@@ -101,7 +101,7 @@ return array(
 		'read' => array(
 			'article_open_on_website' => 'quand l’article es dobèrt sul site d’origina',
 			'article_viewed' => 'quand l’article es mostrat',
-			'scroll' => 'en davalant la pagina',
+			'scroll' => 'en davalar la pagina',
 			'upon_reception' => 'en recebre un article novèl',
 			'when' => 'Marcar un article coma legit…',
 		),
