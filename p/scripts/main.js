@@ -16,6 +16,17 @@ if (!Element.prototype.closest) Element.prototype.closest = function (s) {
 if (!Element.prototype.remove) Element.prototype.remove = function () { if (this.parentNode) this.parentNode.removeChild(this); };
 //</Polyfills>
 
+//<Utils>
+function xmlHttpRequestJson(req) {
+	let json = req.response;
+	if (req.responseType !== 'json') {	//IE11
+		try { json = JSON.parse(req.responseText); }
+		catch (ex) { json = null; }
+	}
+	return json;
+}
+//</Utils>
+
 //<Global variables>
 var context, i18n, icons, shortcuts, urls;
 
@@ -32,7 +43,7 @@ var context, i18n, icons, shortcuts, urls;
 	icons.unread = decodeURIComponent(icons.unread);
 }());
 
-var $stream = null,
+var stream = null,
 	ajax_loading = false,
 	$nav_entries = null;
 //</Global variables>
@@ -160,54 +171,60 @@ var pending_entries = {},
 	mark_read_queue = [];
 
 function send_mark_read_queue(queue, asRead) {
-	$.ajax({
-		type: 'POST',
-		url: '.?c=entry&a=read' + (asRead ? '' : '&is_read=0'),
-		data: {
+	const req = new XMLHttpRequest();
+	req.open('POST', '.?c=entry&a=read' + (asRead ? '' : '&is_read=0'), true);
+	req.responseType = 'json';
+	req.onerror = function (e) {
+			openNotification(i18n.notif_request_failed, 'bad');
+			for (let i = queue.length - 1; i >= 0; i--) {
+				delete pending_entries['flux_' + queue[i]];
+			}
+		};
+	req.onload = function (e) {
+			if (this.status != 200) {
+				return req.onerror(e);
+			}
+			const json = xmlHttpRequestJson(this);
+			for (let i = queue.length - 1; i >= 0; i--) {
+				const div = document.getElementById('flux_' + queue[i]),
+					myIcons = icons;
+				let inc = 0;
+				if (div.classList.contains('not_read')) {
+					div.classList.remove('not_read');
+					div.querySelectorAll('a.read').forEach(function (a) { a.setAttribute('href', a.getAttribute('href').replace('&is_read=0', '') + '&is_read=1'); });
+					div.querySelectorAll('a.read > .icon').forEach(function (img) { img.outerHTML = myIcons.read; });
+					inc--;
+				} else {
+					div.classList.add('not_read');
+					div.classList.add('keep_unread');	//Split for IE11
+					div.querySelectorAll('a.read').forEach(function (a) { a.setAttribute('href', a.getAttribute('href').replace('&is_read=1', '')); });
+					div.querySelectorAll('a.read > .icon').forEach(function (img) { img.outerHTML = myIcons.unread; });
+					inc++;
+				}
+				let feed_link = div.querySelector('.website > a');
+				if (feed_link) {
+					let feed_url = feed_link.getAttribute('href');
+					let feed_id = feed_url.substr(feed_url.lastIndexOf('f_'));
+					incUnreadsFeed(div, feed_id, inc);
+				}
+				delete pending_entries['flux_' + queue[i]];
+			}
+			faviconNbUnread();
+			if (json.tags) {
+				let tagIds = Object.keys(json.tags);
+				for (let i = tagIds.length - 1; i >= 0; i--) {
+					let tagId = tagIds[i];
+					incUnreadsTag(tagId, (asRead ? -1 : 1) * json.tags[tagId].length);
+				}
+			}
+			onScroll();
+		};
+	req.setRequestHeader('Content-Type', 'application/json');
+	req.send(JSON.stringify({
 			ajax: true,
 			_csrf: context.csrf,
-			'id[]': queue,
-		},
-	}).done(function (data) {
-		for (let i = queue.length - 1; i >= 0; i--) {
-			const div = document.getElementById('flux_' + queue[i]),
-				myIcons = icons;
-			let inc = 0;
-			if (div.classList.contains('not_read')) {
-				div.classList.remove('not_read');
-				div.querySelectorAll('a.read').forEach(function (a) { a.setAttribute('href', a.getAttribute('href').replace('&is_read=0', '') + '&is_read=1'); });
-				div.querySelectorAll('a.read > .icon').forEach(function (img) { img.outerHTML = myIcons.read; });
-				inc--;
-			} else {
-				div.classList.add('not_read');
-				div.classList.add('keep_unread');	//Split for IE11
-				div.querySelectorAll('a.read').forEach(function (a) { a.setAttribute('href', a.getAttribute('href').replace('&is_read=1', '')); });
-				div.querySelectorAll('a.read > .icon').forEach(function (img) { img.outerHTML = myIcons.unread; });
-				inc++;
-			}
-			let feed_link = div.querySelector('.website > a');
-			if (feed_link) {
-				let feed_url = feed_link.getAttribute('href');
-				let feed_id = feed_url.substr(feed_url.lastIndexOf('f_'));
-				incUnreadsFeed(div, feed_id, inc);
-			}
-			delete pending_entries['flux_' + queue[i]];
-		}
-		faviconNbUnread();
-		if (data.tags) {
-			let tagIds = Object.keys(data.tags);
-			for (let i = tagIds.length - 1; i >= 0; i--) {
-				let tagId = tagIds[i];
-				incUnreadsTag(tagId, (asRead ? -1 : 1) * data.tags[tagId].length);
-			}
-		}
-		onScroll();
-	}).fail(function (data) {
-		openNotification(i18n.notif_request_failed, 'bad');
-		for (let i = queue.length - 1; i >= 0; i--) {
-			delete pending_entries['flux_' + queue[i]];
-		}
-	});
+			id: queue,
+		}));
 }
 
 var send_mark_read_queue_timeout = 0;
@@ -256,45 +273,51 @@ function mark_favorite(div) {
 	}
 	pending_entries[div.id] = true;
 
-	$.ajax({
-		type: 'POST',
-		url: url,
-		data: {
+	const req = new XMLHttpRequest();
+	req.open('POST', url, true);
+	req.responseType = 'json';
+	req.onerror = function (e) {
+			openNotification(i18n.notif_request_failed, 'bad');
+			delete pending_entries[div.id];
+		};
+	req.onload = function (e) {
+			if (this.status != 200) {
+				return req.onerror(e);
+			}
+			const json = xmlHttpRequestJson(this);
+			let inc = 0;
+			if (div.classList.contains('favorite')) {
+				div.classList.remove('favorite');
+				inc--;
+			} else {
+				div.classList.add('favorite');
+				inc++;
+			}
+			div.querySelectorAll('a.bookmark').forEach(function (a) { a.setAttribute('href', json.url); });
+			div.querySelectorAll('a.bookmark > .icon').forEach(function (img) { img.outerHTML = json.icon; });
+
+			const favourites = document.querySelector('#aside_feed .favorites .title');
+			if (favourites) {
+				favourites.textContent = favourites.textContent.replace(/((?: \([ 0-9]+\))?\s*)$/, function (m, p1) {
+					return incLabel(p1, inc, false);
+				});
+			}
+
+			if (div.classList.contains('not_read')) {
+				const elem = document.querySelector('#aside_feed .favorites .title'),
+					feed_unreads = elem ? str2int(elem.getAttribute('data-unread')) : 0;
+				if (elem) {
+					elem.setAttribute('data-unread', numberFormat(feed_unreads + inc));
+				}
+			}
+
+			delete pending_entries[div.id];
+		};
+	req.setRequestHeader('Content-Type', 'application/json');
+	req.send(JSON.stringify({
 			ajax: true,
 			_csrf: context.csrf,
-		},
-	}).done(function (data) {
-		let inc = 0;
-		if (div.classList.contains('favorite')) {
-			div.classList.remove('favorite');
-			inc--;
-		} else {
-			div.classList.add('favorite');
-			inc++;
-		}
-		div.querySelectorAll('a.bookmark').forEach(function (a) { a.setAttribute('href', data.url); });
-		div.querySelectorAll('a.bookmark > .icon').forEach(function (img) { img.outerHTML = data.icon; });
-
-		const favourites = document.querySelector('#aside_feed .favorites .title');
-		if (favourites) {
-			favourites.textContent = favourites.textContent.replace(/((?: \([ 0-9]+\))?\s*)$/, function (m, p1) {
-				return incLabel(p1, inc, false);
-			});
-		}
-
-		if (div.classList.contains('not_read')) {
-			const elem = document.querySelector('#aside_feed .favorites .title'),
-				feed_unreads = elem ? str2int(elem.getAttribute('data-unread')) : 0;
-			if (elem) {
-				elem.setAttribute('data-unread', numberFormat(feed_unreads + inc));
-			}
-		}
-
-		delete pending_entries[div.id];
-	}).fail(function (data) {
-		openNotification(i18n.notif_request_failed, 'bad');
-		delete pending_entries[div.id];
-	});
+		}));
 }
 
 var freshrssOpenArticleEvent = document.createEvent('Event');
@@ -355,7 +378,7 @@ function toggleContent(new_active, old_active, skipping) {
 		if (context.auto_mark_article) {
 			mark_read(new_active, true);
 		}
-		new_active[0].dispatchEvent(freshrssOpenArticleEvent);
+		new_active.dispatchEvent(freshrssOpenArticleEvent);
 	}
 	onScroll();
 }
@@ -406,7 +429,6 @@ function last_feed() {
 
 function prev_category() {
 	const $active_cat = $('#aside_feed .tree-folder.active');
-
 	if ($active_cat.length > 0) {
 		const $prev_cat = $active_cat.prevAll(':visible:first').find('.tree-folder-title .title');
 		if ($prev_cat.length > 0) {
@@ -420,7 +442,6 @@ function prev_category() {
 
 function next_category() {
 	const $active_cat = $('#aside_feed .tree-folder.active');
-
 	if ($active_cat.length > 0) {
 		const $next_cat = $active_cat.nextAll(':visible:first').find('.tree-folder-title .title');
 		if ($next_cat.length > 0) {
@@ -687,11 +708,11 @@ function init_shortcuts() {
 		'disable_in_input': true
 	});
 	shortcut.add(shortcuts.first_entry, function () {
-		const $old_active = $('.flux.current'),
-			$first = $('.flux:first');
+		const old_active = document.querySelector('.flux.current'),
+			first = document.querySelector('.flux:first');
 
-		if ($first.hasClass('flux')) {
-			toggleContent($first, $old_active, false);
+		if (first.classList.contains('flux')) {
+			toggleContent(first, old_active, false);
 		}
 	}, {
 		'disable_in_input': true
@@ -703,11 +724,11 @@ function init_shortcuts() {
 		'disable_in_input': true
 	});
 	shortcut.add(shortcuts.last_entry, function () {
-		const $old_active = $('.flux.current'),
-			$last = $('.flux:last');
+		const old_active = document.querySelector('.flux.current'),
+			last = document.querySelector('.flux:last');
 
-		if ($last.hasClass('flux')) {
-			toggleContent($last, $old_active, false);
+		if (last.classList.contains('flux')) {
+			toggleContent(last, old_active, false);
 		}
 	}, {
 		'disable_in_input': true
@@ -774,32 +795,32 @@ function init_shortcuts() {
 	});
 
 	shortcut.add(shortcuts.normal_view, function () {
-		$('#nav_menu_views .view-normal').get(0).click();
+		document.querySelector('#nav_menu_views .view-normal').click();
 	}, {
 		'disable_in_input': true
 	});
 
 	shortcut.add(shortcuts.global_view, function () {
-		$('#nav_menu_views .view-global').get(0).click();
+		document.querySelector('#nav_menu_views .view-global').click();
 	}, {
 		'disable_in_input': true
 	});
 
 	shortcut.add(shortcuts.reading_view, function () {
-		$('#nav_menu_views .view-reader').get(0).click();
+		document.querySelector('#nav_menu_views .view-reader').click();
 	}, {
 		'disable_in_input': true
 	});
 
 	shortcut.add(shortcuts.rss_view, function () {
-		$('#nav_menu_views .view-rss').get(0).click();
+		document.querySelector('#nav_menu_views .view-rss').click();
 	}, {
 		'disable_in_input': true
 	});
 }
 
-function init_stream(divStream) {
-	divStream.on('click', '.flux_header,.flux_content', function (e) {	//flux_toggle
+function init_stream($divStream) {
+	$divStream.on('click', '.flux_header,.flux_content', function (e) {	//flux_toggle
 		if ($(e.target).closest('.content, .item.website, .item.link, .dropdown-menu').length > 0) {
 			return;
 		}
@@ -818,21 +839,21 @@ function init_stream(divStream) {
 		toggleContent(new_active, old_active, false);
 	});
 
-	divStream.on('click', '.flux a.read', function () {
+	$divStream.on('click', '.flux a.read', function (e) {
 		mark_read(this.closest('.flux'), false);
 		return false;
 	});
 
-	divStream.on('click', '.flux a.bookmark', function () {
+	$divStream.on('click', '.flux a.bookmark', function (e) {
 		mark_favorite(this.closest('.flux'));
 		return false;
 	});
 
-	divStream.on('click', '.item.title > a', function (e) {
+	$divStream.on('click', '.item.title > a', function (e) {
 		// Allow default control-click behaviour such as open in backround-tab.
 		return e.ctrlKey;
 	});
-	divStream.on('mouseup', '.item.title > a', function (e) {
+	$divStream.on('mouseup', '.item.title > a', function (e) {
 		// Mouseup enables us to catch middle click.
 		if (e.ctrlKey) {
 			// CTRL+click, it will be manage by previous rule.
@@ -850,7 +871,7 @@ function init_stream(divStream) {
 		}
 	});
 
-	divStream.on('click', '.flux .content a', function () {
+	$divStream.on('click', '.flux .content a', function (e) {
 		if (!$(this).closest('div').hasClass('author')) {
 			$(this).attr('target', '_blank').attr('rel', 'noreferrer');
 		}
@@ -859,7 +880,7 @@ function init_stream(divStream) {
 	if (context.auto_mark_site) {
 		// catch mouseup instead of click so we can have the correct behaviour
 		// with middle button click (scroll button).
-		divStream.on('mouseup', '.flux .link > a', function (e) {
+		$divStream.on('mouseup', '.flux .link > a', function (e) {
 			if (e.which == 3) {
 				return;
 			}
@@ -871,15 +892,15 @@ function init_stream(divStream) {
 
 function init_nav_entries() {
 	$nav_entries = $('#nav_entries');
-	$nav_entries.find('.previous_entry').click(function () {
+	$nav_entries.find('.previous_entry').click(function (e) {
 		prev_entry(false);
 		return false;
 	});
-	$nav_entries.find('.next_entry').click(function () {
+	$nav_entries.find('.next_entry').click(function (e) {
 		next_entry(false);
 		return false;
 	});
-	$nav_entries.find('.up').click(function () {
+	$nav_entries.find('.up').click(function (e) {
 		const $active_item = $('.flux.current'),
 			windowTop = $(window).scrollTop(),
 			item_top = $active_item.offset().top;
@@ -893,67 +914,84 @@ function init_nav_entries() {
 	});
 }
 
-function loadDynamicTags($div) {
-	$div.removeClass('dynamictags');
-	$div.find('li.item').remove();
-	const entryId = $div.closest('div.flux').attr('id').replace(/^flux_/, '');
-	$.getJSON('./?c=tag&a=getTagsForEntry&id_entry=' + entryId)
-		.done(function (data) {
-			const $ul = $div.find('.dropdown-menu');
-			$ul.append('<li class="item"><label><input class="checkboxTag" name="t_0" type="checkbox" /> <input type="text" name="newTag" /></label></li>');
-			if (data && data.length) {
-				for (let i = 0; i < data.length; i++) {
-					const tag = data[i];
-					$ul.append('<li class="item"><label><input class="checkboxTag" name="t_' + tag.id + '" type="checkbox"' +
-						(tag.checked ? ' checked="checked"' : '') + '> ' + tag.name + '</label></li>');
+function loadDynamicTags(div) {
+	div.classList.remove('dynamictags');
+	div.querySelectorAll('li.item').forEach(function (li) { li.remove(); });
+	const entryId = div.closest('div.flux').id.replace(/^flux_/, '');
+
+	const req = new XMLHttpRequest();
+	req.open('GET', './?c=tag&a=getTagsForEntry&id_entry=' + entryId, true);
+	req.responseType = 'json';
+	req.onerror = function (e) {
+			div.querySelectorAll('li.item').forEach(function (li) { li.remove(); });
+			div.classList.add('dynamictags');
+		};
+	req.onload = function (e) {
+			if (this.status != 200) {
+				return req.onerror(e);
+			}
+			const json = xmlHttpRequestJson(this);
+			let html = '<li class="item"><label><input class="checkboxTag" name="t_0" type="checkbox" /> <input type="text" name="newTag" /></label></li>';
+			if (json && json.length) {
+				for (let i = 0; i < json.length; i++) {
+					const tag = json[i];
+					html += '<li class="item"><label><input class="checkboxTag" name="t_' + tag.id + '" type="checkbox"' +
+						(tag.checked ? ' checked="checked"' : '') + '> ' + tag.name + '</label></li>';
 				}
 			}
-		})
-		.fail(function () {
-			$div.find('li.item').remove();
-			$div.addClass('dynamictags');
-		});
+			div.querySelector('.dropdown-menu').insertAdjacentHTML('beforeend', html);
+		};
+	req.send();
 }
 
 function init_dynamic_tags() {
-	$stream.on('click', '.dynamictags', function () {
-		loadDynamicTags($(this));
-	});
+	stream.addEventListener('click', function (ev) {
+			const div = ev.target.closest('.dynamictags');
+			if (div) {
+				loadDynamicTags(div);
+			}
+		});
 
-	$stream.on('change', '.checkboxTag', function (ev) {
-		const $checkbox = $(this),
-			isChecked = $checkbox.prop('checked'),
-			tagId = $checkbox.attr('name').replace(/^t_/, ''),
-			tagName = $checkbox.siblings('input[name]').val(),
-			$entry = $checkbox.closest('div.flux'),
-			entryId = $entry.attr('id').replace(/^flux_/, '');
-		$checkbox.prop('disabled', true);
-		$.ajax({
-				type: 'POST',
-				url: './?c=tag&a=tagEntry',
-				data: {
-					_csrf: context.csrf,
-					id_tag: tagId,
-					name_tag: tagId == 0 ? tagName : '',
-					id_entry: entryId,
-					checked: isChecked,
-				},
-			})
-			.done(function () {
-				if ($entry.hasClass('not_read')) {
-					incUnreadsTag('t_' + tagId, isChecked ? 1 : -1);
-				}
-			})
-			.fail(function () {
-				$checkbox.prop('checked', !isChecked);
-			})
-			.always(function () {
-				$checkbox.prop('disabled', false);
-				if (tagId == 0) {
-					loadDynamicTags($checkbox.closest('div.dropdown'));
-				}
-			});
-	});
+	stream.addEventListener('change', function (ev) {
+		const checkboxTag = ev.target.closest('.checkboxTag');
+			if (checkboxTag) {
+				const isChecked = checkboxTag.checked,
+					tagId = checkboxTag.name.replace(/^t_/, ''),
+					tagName = checkboxTag.nextElementSibling ? checkboxTag.nextElementSibling.value : '',
+					entry = checkboxTag.closest('div.flux'),
+					entryId = entry.id.replace(/^flux_/, '');
+				checkboxTag.disabled = true;
+
+				const req = new XMLHttpRequest();
+				req.open('POST', './?c=tag&a=tagEntry', true);
+				req.responseType = 'json';
+				req.onerror = function (e) {
+						checkboxTag.checked = !isChecked;
+					};
+				req.onload = function (e) {
+						if (this.status != 200) {
+							return req.onerror(e);
+						}
+						if (entry.classList.contains('not_read')) {
+							incUnreadsTag('t_' + tagId, isChecked ? 1 : -1);
+						}
+					};
+				req.onloadend = function (e) {
+						checkboxTag.disabled = false;
+						if (tagId == 0) {
+							loadDynamicTags(checkboxTag.closest('div.dropdown'));
+						}
+					};
+				req.setRequestHeader('Content-Type', 'application/json');
+				req.send(JSON.stringify({
+						_csrf: context.csrf,
+						id_tag: tagId,
+						name_tag: tagId == 0 ? tagName : '',
+						id_entry: entryId,
+						checked: isChecked,
+					}));
+			}
+		});
 }
 
 // <actualize>
@@ -964,86 +1002,93 @@ function updateFeed(feeds, feeds_count) {
 	if (!feed) {
 		return;
 	}
-	$.ajax({
-		type: 'POST',
-		url: feed.url,
-		data: {
-			_csrf: context.csrf,
-			noCommit: 1,
-		},
-	}).always(function (data) {
-		feed_processed++;
-		$('#actualizeProgress .progress').html(feed_processed + ' / ' + feeds_count);
-		$('#actualizeProgress .title').html(feed.title);
-
-		if (feed_processed === feeds_count) {
-			$.ajax({	//Empty request to commit new articles
-					type: 'POST',
-					url: './?c=feed&a=actualize&id=-1&ajax=1',
-					data: {
+	const req = new XMLHttpRequest();
+	req.open('POST', feed.url, true);
+	req.onloadend = function (e) {
+			feed_processed++;
+			const div = document.getElementById('actualizeProgress');
+			div.querySelector('.progress').innerHTML = feed_processed + ' / ' + feeds_count;
+			div.querySelector('.title').innerHTML = feed.title;
+			if (feed_processed === feeds_count) {
+				//Empty request to commit new articles
+				const req2 = new XMLHttpRequest();
+				req2.open('POST', './?c=feed&a=actualize&id=-1&ajax=1', true);
+				req2.onloadend = function (e) {
+					location.reload();
+				};
+				req2.setRequestHeader('Content-Type', 'application/json');
+				req2.send(JSON.stringify({
 						_csrf: context.csrf,
 						noCommit: 0,
-					},
-				}).always(function (data) {
-					location.reload();
-				});
-		} else {
-			updateFeed(feeds, feeds_count);
-		}
-	});
+					}));
+			} else {
+				updateFeed(feeds, feeds_count);
+			}
+		};
+	req.setRequestHeader('Content-Type', 'application/json');
+	req.send(JSON.stringify({
+			_csrf: context.csrf,
+			noCommit: 1,
+		}));
 }
 
 function init_actualize() {
 	let auto = false;
 
-	$('#actualize').click(function () {
+	document.getElementById('actualize').onclick = function () {
 		if (ajax_loading) {
 			return false;
 		}
 		ajax_loading = true;
 
-		$.getJSON('./?c=javascript&a=actualize').done(function (data) {
-			if (auto && data.feeds.length < 1) {
-				auto = false;
-				ajax_loading = false;
-				return false;
-			}
-			if (data.feeds.length === 0) {
-				openNotification(data.feedback_no_refresh, 'good');
-				$.ajax({	//Empty request to force refresh server database cache
-					type: 'POST',
-					url: './?c=feed&a=actualize&id=-1&ajax=1',
-					data: {
-						_csrf: context.csrf,
-						noCommit: 0,
-					},
-				}).always(function (data) {
+		const req = new XMLHttpRequest();
+		req.open('GET', './?c=javascript&a=actualize', true);
+		req.responseType = 'json';
+		req.onload = function (e) {
+				const json = xmlHttpRequestJson(this);
+				if (auto && json.feeds.length < 1) {
+					auto = false;
 					ajax_loading = false;
-				});
-				return;
-			}
-			//Progress bar
-			const feeds_count = data.feeds.length;
-			$('body').after('<div id="actualizeProgress" class="notification good">' + data.feedback_actualize +
-				'<br /><span class="title">/</span><br /><span class="progress">0 / ' + feeds_count +
-				'</span></div>');
-			for (let i = 10; i > 0; i--) {
-				updateFeed(data.feeds, feeds_count);
-			}
-		});
+					return false;
+				}
+				if (json.feeds.length === 0) {
+					openNotification(json.feedback_no_refresh, 'good');
+					//Empty request to commit new articles
+					const req2 = new XMLHttpRequest();
+					req2.open('POST', './?c=feed&a=actualize&id=-1&ajax=1', true);
+					req2.onloadend = function (e) {
+						ajax_loading = false;
+					};
+					req2.setRequestHeader('Content-Type', 'application/json');
+					req2.send(JSON.stringify({
+							_csrf: context.csrf,
+							noCommit: 0,
+						}));
+					return;
+				}
+				//Progress bar
+				const feeds_count = json.feeds.length;
+				document.body.insertAdjacentHTML('beforeend', '<div id="actualizeProgress" class="notification good">' +
+					json.feedback_actualize + '<br /><span class="title">/</span><br /><span class="progress">0 / ' +
+					feeds_count + '</span></div>');
+				for (let i = 10; i > 0; i--) {
+					updateFeed(json.feeds, feeds_count);
+				}
+			};
+		req.send();
 
 		return false;
-	});
+	};
 
 	if (context.auto_actualize_feeds) {
 		auto = true;
-		$('#actualize').click();
+		document.getElementById('actualize').click();
 	}
 }
 // </actualize>
 
 // <notification>
-var $notification = null,
+var notification = null,
 	notification_interval = null,
 	notification_working = false;
 
@@ -1051,37 +1096,33 @@ function openNotification(msg, status) {
 	if (notification_working === true) {
 		return false;
 	}
-
 	notification_working = true;
 
-	$notification.removeClass();
-	$notification.addClass('notification');
-	$notification.addClass(status);
-	$notification.find('.msg').html(msg);
-	$notification.fadeIn(300);
+	notification.className = 'notification';
+	notification.classList.add(status);
+	notification.querySelector('.msg').innerHTML = msg;
+	$(notification).fadeIn(300);
 
 	notification_interval = setTimeout(closeNotification, 4000);
 }
 
 function closeNotification() {
-	$notification.fadeOut(600, function () {
-		$notification.removeClass();
-		$notification.addClass('closed');
-
+	$(notification).fadeOut(600, function () {
+		notification.className = 'closed';
 		clearInterval(notification_interval);
 		notification_working = false;
 	});
 }
 
 function init_notifications() {
-	$notification = $('#notification');
+	notification = document.getElementById('notification');
 
-	$notification.find('a.close').click(function () {
-		closeNotification();
-		return false;
-	});
+	notification.querySelector('a.close').onclick = function () {
+			closeNotification();
+			return false;
+		};
 
-	if ($notification.find('.msg').html().length > 0) {
+	if (notification.querySelector('.msg').innerHTML.length > 0) {
 		notification_working = true;
 		notification_interval = setTimeout(closeNotification, 4000);
 	}
@@ -1174,17 +1215,17 @@ function refreshUnreads() {
 //<endless_mode>
 var url_load_more = '',
 	load_more = false,
-	box_load_more = null;
+	$box_load_more = null;
 
 function load_more_posts() {
-	if (load_more || url_load_more === '' || box_load_more === null) {
+	if (load_more || url_load_more === '' || $box_load_more === null) {
 		return;
 	}
 
 	load_more = true;
 	document.getElementById('load_more').classList.add('loading');
 	$.get(url_load_more, function (data) {
-		box_load_more.children('.flux:last').after($('#stream', data).children('.flux, .day'));
+		$box_load_more.children('.flux:last').after($('#stream', data).children('.flux, .day'));
 		$('.pagination').replaceWith($('.pagination', data));
 		if (context.display_order === 'ASC') {
 			$('#nav_menu_read_all .read_all').attr(
@@ -1203,7 +1244,7 @@ function load_more_posts() {
 			}
 		});
 
-		init_load_more(box_load_more);
+		init_load_more($box_load_more);
 
 		const bigMarkAsRead = document.getElementById('bigMarkAsRead'),
 			div_load_more = document.getElementById('load_more');
@@ -1225,8 +1266,8 @@ function focus_search() {
 var freshrssLoadMoreEvent = document.createEvent('Event');
 freshrssLoadMoreEvent.initEvent('freshrss:load-more', true, true);
 
-function init_load_more(box) {
-	box_load_more = box;
+function init_load_more($box) {
+	$box_load_more = $box;
 	document.body.dispatchEvent(freshrssLoadMoreEvent);
 
 	const $next_link = $('#load_more');
@@ -1513,8 +1554,8 @@ function init_subscription() {
 }
 
 function init_normal() {
-	$stream = $('#stream');
-	if ($stream.length < 1) {
+	stream = document.getElementById('stream');
+	if (!stream) {
 		if (window.console) {
 			console.log('FreshRSS waiting for content…');
 		}
@@ -1522,7 +1563,7 @@ function init_normal() {
 		return;
 	}
 	init_column_categories();
-	init_stream($stream);
+	init_stream($(stream));
 	init_shortcuts();
 	init_actualize();
 	faviconNbUnread();
@@ -1551,9 +1592,9 @@ function init_afterDOM() {
 	}
 	init_notifications();
 	init_confirm_action();
-	$stream = $('#stream');
-	if ($stream.length > 0) {
-		init_load_more($stream);
+	stream = document.getElementById('stream');
+	if (stream) {
+		init_load_more($(stream));
 		init_posts();
 		init_nav_entries();
 		init_dynamic_tags();
