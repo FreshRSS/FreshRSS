@@ -1321,8 +1321,8 @@ function poormanSalt() {	//If crypto.getRandomValues is not available
 
 function init_crypto_form() {
 	/* globals dcodeIO */
-	const $crypto_form = $('#crypto-form');
-	if ($crypto_form.length === 0) {
+	const crypto_form = document.getElementById('crypto-form');
+	if (!crypto_form) {
 		return;
 	}
 
@@ -1334,40 +1334,43 @@ function init_crypto_form() {
 		return;
 	}
 
-	$crypto_form.on('submit', function () {
-		const $submit_button = $(this).find('button[type="submit"]');
-		$submit_button.attr('disabled', '');
-
+	crypto_form.onsubmit = function (e) {
+		const submit_button = this.querySelector('button[type="submit"]');
+		submit_button.disabled = true;
 		let success = false;
-		$.ajax({
-			url: './?c=javascript&a=nonce&user=' + $('#username').val(),
-			dataType: 'json',
-			async: false
-		}).done(function (data) {
-			if (!data.salt1 || !data.nonce) {
+
+		const req = new XMLHttpRequest();
+		req.open('GET', './?c=javascript&a=nonce&user=' + document.getElementById('username').value, false);
+		req.onerror = function () {
+				openNotification('Communication error!', 'bad');
+			};
+		req.send();
+		if (req.status == 200) {
+			const json = xmlHttpRequestJson(req);
+			if (!json.salt1 || !json.nonce) {
 				openNotification('Invalid user!', 'bad');
 			} else {
 				try {
 					const strong = window.Uint32Array && window.crypto && (typeof window.crypto.getRandomValues === 'function'),
-						s = dcodeIO.bcrypt.hashSync($('#passwordPlain').val(), data.salt1),
-						c = dcodeIO.bcrypt.hashSync(data.nonce + s, strong ? dcodeIO.bcrypt.genSaltSync(4) : poormanSalt());
-					$('#challenge').val(c);
+						s = dcodeIO.bcrypt.hashSync(document.getElementById('passwordPlain').value, json.salt1),
+						c = dcodeIO.bcrypt.hashSync(json.nonce + s, strong ? dcodeIO.bcrypt.genSaltSync(4) : poormanSalt());
+					document.getElementById('challenge').value = c;
 					if (!s || !c) {
 						openNotification('Crypto error!', 'bad');
 					} else {
 						success = true;
 					}
-				} catch (e) {
-					openNotification('Crypto exception! ' + e, 'bad');
+				} catch (ex) {
+					openNotification('Crypto exception! ' + ex, 'bad');
 				}
 			}
-		}).fail(function () {
-			openNotification('Communication error!', 'bad');
-		});
+		} else {
+			req.onerror();
+		}
 
-		$submit_button.removeAttr('disabled');
+		submit_button.disabled = false;
 		return success;
-	});
+	};
 }
 //</crypto form (Web login)>
 
