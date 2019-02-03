@@ -1065,7 +1065,7 @@ SQL;
 				$dao['date'],
 				$dao['is_read'],
 				$dao['is_favorite'],
-				$dao['tags']
+				isset($dao['tags']) ? $dao['tags'] : ''
 			);
 		if (isset($dao['id'])) {
 			$entry->_id($dao['id']);
