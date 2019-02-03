@@ -4,6 +4,7 @@
 
 * Bug fixing
 	* Fix API HTTP Authorization case-sensitivity issue introduced in FreshRSS 1.13.1 [#2233](https://github.com/FreshRSS/FreshRSS/issues/2233)
+	* Fix breaking warning in Fever API [#2239](https://github.com/FreshRSS/FreshRSS/issues/2239)
 * UI
 	* Batch scroll-as-read for better client-side and server-side performance [#2199](https://github.com/FreshRSS/FreshRSS/pull/2199)
 	* Rewrite some jQuery code as native JavaScript [#2234](https://github.com/FreshRSS/FreshRSS/pull/2234)
