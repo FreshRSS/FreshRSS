@@ -1,5 +1,5 @@
 "use strict";
-/* globals $, jQuery, shortcut */
+/* globals $, shortcut */
 /* jshint esversion:6, strict:global */
 
 //<Polyfills>
@@ -396,18 +396,26 @@ function next_entry(skipping) {
 }
 
 function prev_feed() {
-	const $active_feed = $('#aside_feed .tree-folder-items .item.active');
-	if ($active_feed.length > 0) {
-		$active_feed.prevAll(':visible:first').find('a').each(function () { this.click(); });
+	const active_feed = document.querySelector('#aside_feed .feed.active');
+	if (active_feed) {
+		let feed = active_feed;
+		do feed = feed.previousElementSibling; while (feed && getComputedStyle(feed).display === 'none');
+		if (feed) {
+			feed.querySelector('a.item-title').click();
+		}
 	} else {
 		last_feed();
 	}
 }
 
 function next_feed() {
-	const $active_feed = $('#aside_feed .tree-folder-items .item.active');
-	if ($active_feed.length > 0) {
-		$active_feed.nextAll(':visible:first').find('a').each(function () { this.click(); });
+	const active_feed = document.querySelector('#aside_feed .feed.active');
+	if (active_feed) {
+		let feed = active_feed;
+		do feed = feed.nextElementSibling; while (feed && getComputedStyle(feed).display === 'none');
+		if (feed) {
+			feed.querySelector('a.item-title').click();
+		}
 	} else {
 		first_feed();
 	}
@@ -428,29 +436,29 @@ function last_feed() {
 }
 
 function prev_category() {
-	const $active_cat = $('#aside_feed .tree-folder.active');
-	if ($active_cat.length > 0) {
-		const $prev_cat = $active_cat.prevAll(':visible:first').find('.tree-folder-title .title');
-		if ($prev_cat.length > 0) {
-			$prev_cat[0].click();
+	const active_cat = document.querySelector('#aside_feed .category.active');
+	if (active_cat) {
+		let cat = active_cat;
+		do cat = cat.previousElementSibling; while (cat && getComputedStyle(cat).display === 'none');
+		if (cat) {
+			cat.querySelector('a.title').click();
 		}
 	} else {
 		last_category();
 	}
-	return;
 }
 
 function next_category() {
-	const $active_cat = $('#aside_feed .tree-folder.active');
-	if ($active_cat.length > 0) {
-		const $next_cat = $active_cat.nextAll(':visible:first').find('.tree-folder-title .title');
-		if ($next_cat.length > 0) {
-			$next_cat[0].click();
+	const active_cat = document.querySelector('#aside_feed .category.active');
+	if (active_cat) {
+		let cat = active_cat;
+		do cat = cat.nextElementSibling; while (cat && getComputedStyle(cat).display === 'none');
+		if (cat) {
+			cat.querySelector('a.title').click();
 		}
 	} else {
 		first_category();
 	}
-	return;
 }
 
 function first_category() {
@@ -597,47 +605,55 @@ function init_column_categories() {
 		return;
 	}
 
-	$('#aside_feed').on('click', '.tree-folder>.tree-folder-title>a.dropdown-toggle', function () {
-		$(this).children().each(function () {
-			if (this.alt === '▽') {
-				this.src = this.src.replace('/icons/down.', '/icons/up.');
-				this.alt = '△';
+	document.getElementById('aside_feed').onclick = function (ev) {
+		let a = ev.target.closest('.tree-folder > .tree-folder-title > a.dropdown-toggle');
+		if (a) {
+			const img = a.querySelector('img');
+			if (img.alt === '▽') {
+				img.src = img.src.replace('/icons/down.', '/icons/up.');
+				img.alt = '△';
 			} else {
-				this.src = this.src.replace('/icons/up.', '/icons/down.');
-				this.alt = '▽';
+				img.src = img.src.replace('/icons/up.', '/icons/down.');
+				img.alt = '▽';
 			}
-		});
-		$(this).parent().next('.tree-folder-items').slideToggle(300, function () {
-			//Workaround for Gecko bug 1514498 in Firefox 64
-			const sidebar = document.getElementById('sidebar');
-			if (sidebar && sidebar.scrollHeight > sidebar.clientHeight &&	//if needs scrollbar
-				sidebar.scrollWidth >= sidebar.offsetWidth) {	//but no scrollbar
-				sidebar.style['overflow-y'] = 'scroll';	//then force scrollbar
-				setTimeout(function () { sidebar.style['overflow-y'] = ''; }, 0);
-			}
-		});
-		return false;
-	});
 
-	$('#aside_feed').on('click', '.tree-folder-items .feed .dropdown-toggle', function () {
-		const itemId = $(this).closest('.item').attr('id'),
-			templateId = itemId.substring(0, 2) === 't_' ? 'tag_config_template' : 'feed_config_template',
-			id = itemId.substr(2),
-			feed_web = $(this).data('fweb'),
-			template = $('#' + templateId)
-				.html().replace(/------/g, id).replace('http://example.net/', feed_web);
-		if ($(this).next('.dropdown-menu').length === 0) {
-			$(this).attr('href', '#dropdown-' + id).prev('.dropdown-target').attr('id', 'dropdown-' + id).parent()
-				.append(template).find('button.confirm').removeAttr('disabled');
-		} else {
-			if ($(this).next('.dropdown-menu').css('display') === 'none') {
-				const id2 = $(this).closest('.item').attr('id').substr(2);
-				$(this).attr('href', '#dropdown-' + id2);
+			const ul = a.closest('li').querySelector('.tree-folder-items');
+			$(ul).slideToggle(300, function () {
+				//Workaround for Gecko bug 1514498 in Firefox 64
+				const sidebar = document.getElementById('sidebar');
+				if (sidebar && sidebar.scrollHeight > sidebar.clientHeight &&	//if needs scrollbar
+					sidebar.scrollWidth >= sidebar.offsetWidth) {	//but no scrollbar
+					sidebar.style['overflow-y'] = 'scroll';	//then force scrollbar
+					setTimeout(function () { sidebar.style['overflow-y'] = ''; }, 0);
+				}
+			});
+		}
+
+		a = ev.target.closest('.tree-folder-items > .feed .dropdown-toggle');
+		if (a) {
+			const itemId = a.closest('.item').id,
+				templateId = itemId.substring(0, 2) === 't_' ? 'tag_config_template' : 'feed_config_template',
+				id = itemId.substr(2),
+				feed_web = a.getAttribute('data-fweb'),
+				div = a.parentElement,
+				dropdownMenu = div.querySelector('.dropdown-menu'),
+				template = document.getElementById(templateId)
+					.innerHTML.replace(/------/g, id).replace('http://example.net/', feed_web);
+			if (!dropdownMenu) {
+				a.href = '#dropdown-' + id;
+				div.querySelector('.dropdown-target').id = 'dropdown-' + id;
+				div.insertAdjacentHTML('beforeend', template);
+				div.querySelector('button.confirm').disabled = false;
+			} else if (getComputedStyle(dropdownMenu).display === 'none') {
+				const id2 = div.closest('.item').id.substr(2);
+				a.href = '#dropdown-' + id2;
 			} else {
-				$(this).attr('href', '#close');
+				a.href = '#close';
 			}
 		}
-	});
+
+		return true;
+	};
 }
 
 function init_shortcuts() {
@@ -821,75 +837,87 @@ function init_shortcuts() {
 	});
 }
 
-function init_stream($divStream) {
-	$divStream.on('click', '.flux_header,.flux_content', function (e) {	//flux_toggle
-		if ($(e.target).closest('.content, .item.website, .item.link, .dropdown-menu').length > 0) {
-			return;
+function init_stream(divStream) {
+	divStream.onclick = function (ev) {
+		let el = ev.target.closest('.flux a.read');
+		if (el) {
+			mark_read(el.closest('.flux'), false);
+			return false;
 		}
-		if (!context.sides_close_article && $(e.target).is('div.flux_content')) {
-			// setting for not-closing after clicking outside article area
-			return;
+
+		el = ev.target.closest('.flux a.bookmark');
+		if (el) {
+			mark_favorite(el.closest('.flux'));
+			return false;
 		}
-		const old_active = document.querySelector('.flux.current'),
-			new_active = this.parentNode;
-		if (e.target.tagName.toUpperCase() === 'A') {	//Leave real links alone
-			if (context.auto_mark_article) {
-				mark_read(new_active, true);
+
+		el = ev.target.closest('.item.title > a');
+		if (el) {
+			// Allow default control-click behaviour such as open in backround-tab.
+			return ev.ctrlKey;
+		}
+
+		el = ev.target.closest('.flux .content a');
+		if (el) {
+			if (!el.closest('div').classList.contains('author')) {
+				el.setAttribute('target', '_blank');
+				el.setAttribute('rel', 'noreferrer');
 			}
 			return true;
 		}
-		toggleContent(new_active, old_active, false);
-	});
 
-	$divStream.on('click', '.flux a.read', function (e) {
-		mark_read(this.closest('.flux'), false);
-		return false;
-	});
-
-	$divStream.on('click', '.flux a.bookmark', function (e) {
-		mark_favorite(this.closest('.flux'));
-		return false;
-	});
-
-	$divStream.on('click', '.item.title > a', function (e) {
-		// Allow default control-click behaviour such as open in backround-tab.
-		return e.ctrlKey;
-	});
-	$divStream.on('mouseup', '.item.title > a', function (e) {
-		// Mouseup enables us to catch middle click.
-		if (e.ctrlKey) {
-			// CTRL+click, it will be manage by previous rule.
-			return;
+		el = ev.target.closest('.flux_header, .flux_content');
+		if (el) {	//flux_toggle
+			if (ev.target.closest('.content, .item.website, .item.link, .dropdown-menu')) {
+				return false;
+			}
+			if (!context.sides_close_article && ev.target.matches('div.flux_content')) {
+				// setting for not-closing after clicking outside article area
+				return false;
+			}
+			const old_active = document.querySelector('.flux.current'),
+				new_active = el.parentNode;
+			if (ev.target.tagName.toUpperCase() === 'A') {	//Leave real links alone
+				if (context.auto_mark_article) {
+					mark_read(new_active, true);
+				}
+				return true;
+			}
+			toggleContent(new_active, old_active, false);
+			return false;
 		}
+	};
 
-		if (e.which == 2) {
-			// If middle click, we want same behaviour as CTRL+click.
-			const ev = jQuery.Event('click');
-			ev.ctrlKey = true;
-			$(this).trigger(ev);
-		} else if (e.which == 1) {
-			// Normal click, just toggle article.
-			$(this).parent().click();
-		}
-	});
-
-	$divStream.on('click', '.flux .content a', function (e) {
-		if (!$(this).closest('div').hasClass('author')) {
-			$(this).attr('target', '_blank').attr('rel', 'noreferrer');
-		}
-	});
-
-	if (context.auto_mark_site) {
-		// catch mouseup instead of click so we can have the correct behaviour
-		// with middle button click (scroll button).
-		$divStream.on('mouseup', '.flux .link > a', function (e) {
-			if (e.which == 3) {
+	divStream.onmouseup = function (ev) {
+		let el = ev.target.closest('.item.title > a');
+		if (el) {	// Mouseup enables us to catch middle click
+			if (ev.ctrlKey) {
+				// CTRL+click, it will be manage by previous rule.
 				return;
 			}
+			if (ev.which == 2) {
+				// If middle click, we want same behaviour as CTRL+click.
+				const evc = document.createEvent('click');
+				evc.ctrlKey = true;
+				el.dispatchEvent(evc);
+			} else if (ev.which == 1) {
+				// Normal click, just toggle article.
+				el.parentElement.click();
+			}
+		}
 
-			mark_read(this.closest('.flux'), true);
-		});
-	}
+		if (context.auto_mark_site) {
+			// catch mouseup instead of click so we can have the correct behaviour
+			// with middle button click (scroll button).
+			el = ev.target.closest('.flux .link > a');
+			if (el) {
+				if (ev.which == 3) {
+					return;
+				}
+				mark_read(el.closest('.flux'), true);
+			}
+		}
+	};
 }
 
 function init_nav_entries() {
@@ -950,6 +978,7 @@ function init_dynamic_tags() {
 	stream.addEventListener('click', function (ev) {
 			const div = ev.target.closest('.dynamictags');
 			if (div) {
+				ev.stopPropagation();
 				loadDynamicTags(div);
 			}
 		});
@@ -957,6 +986,7 @@ function init_dynamic_tags() {
 	stream.addEventListener('change', function (ev) {
 		const checkboxTag = ev.target.closest('.checkboxTag');
 			if (checkboxTag) {
+				ev.stopPropagation();
 				const isChecked = checkboxTag.checked,
 					tagId = checkboxTag.name.replace(/^t_/, ''),
 					tagName = checkboxTag.nextElementSibling ? checkboxTag.nextElementSibling.value : '',
@@ -1587,7 +1617,7 @@ function init_normal() {
 		return;
 	}
 	init_column_categories();
-	init_stream($(stream));
+	init_stream(stream);
 	init_shortcuts();
 	init_actualize();
 	faviconNbUnread();
