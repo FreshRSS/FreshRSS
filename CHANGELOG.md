@@ -2,6 +2,9 @@
 
 ## 2019-0X-XX FreshRSS 1.13.2-dev
 
+* Deployment
+	* Docker image updated to Alpine 3.9 with PHP 7.2.14 and Apache 2.4.38 [#2238](https://github.com/FreshRSS/FreshRSS/pull/2238)
+
 
 ## 2019-01-26 FreshRSS 1.13.1
 
