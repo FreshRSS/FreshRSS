@@ -1,5 +1,5 @@
 "use strict";
-/* globals $, shortcut */
+/* globals shortcut */
 /* jshint esversion:6, strict:global */
 
 //<Polyfills>
@@ -473,21 +473,21 @@ function collapse_entry() {
 }
 
 function user_filter(key) {
-	const $filter = $('#dropdown-query'),
-		$filters = $filter.siblings('.dropdown-menu').find('.item.query a');
+	const filter = document.getElementById('dropdown-query'),
+		filters = filter.parentElement.querySelectorAll('.dropdown-menu > .query > a');
 	if (typeof key === 'undefined') {
-		if (!$filters.length) {
+		if (!filters.length) {
 			return;
 		}
 		// Display the filter div
-		location.hash = $filters.attr('id');
+		location.hash = filter.id;
 		// Force scrolling to the filter div
 		const scroll = needsScroll(document.querySelector('.header'));
 		if (scroll !== 0) {
 			document.documentElement.scrollTop = scroll;
 		}
 		// Force the key value if there is only one action, so we can trigger it automatically
-		if ($filters.length === 1) {
+		if (filters.length === 1) {
 			key = 1;
 		} else {
 			return;
@@ -495,8 +495,8 @@ function user_filter(key) {
 	}
 	// Trigger selected share action
 	key = parseInt(key);
-	if (key <= $filters.length) {
-		$filters[key - 1].click();
+	if (key <= filters.length) {
+		filters[key - 1].click();
 	}
 }
 
@@ -610,15 +610,17 @@ function init_column_categories() {
 			}
 
 			const ul = a.closest('li').querySelector('.tree-folder-items');
-			$(ul).slideToggle(300, function () {
-				//Workaround for Gecko bug 1514498 in Firefox 64
-				const sidebar = document.getElementById('sidebar');
-				if (sidebar && sidebar.scrollHeight > sidebar.clientHeight &&	//if needs scrollbar
-					sidebar.scrollWidth >= sidebar.offsetWidth) {	//but no scrollbar
-					sidebar.style['overflow-y'] = 'scroll';	//then force scrollbar
-					setTimeout(function () { sidebar.style['overflow-y'] = ''; }, 0);
-				}
-			});
+			ul.classList.toggle('active');
+
+			setTimeout(function () {
+					//Workaround for Gecko bug 1514498 in Firefox 64
+					const sidebar = document.getElementById('sidebar');
+					if (sidebar && sidebar.scrollHeight > sidebar.clientHeight &&	//if needs scrollbar
+						sidebar.scrollWidth >= sidebar.offsetWidth) {	//but no scrollbar
+						sidebar.style['overflow-y'] = 'scroll';	//then force scrollbar
+						setTimeout(function () { sidebar.style['overflow-y'] = ''; }, 0);
+					}
+				}, 1);
 		}
 
 		a = ev.target.closest('.tree-folder-items > .feed .dropdown-toggle');
@@ -679,7 +681,7 @@ function init_shortcuts() {
 	// Display the share options
 	initShortcut(shortcuts.auto_share, function () { auto_share(); });
 	// Display the user filters
-	initShortcut(shortcuts.user_filter, user_filter);
+	initShortcut(shortcuts.user_filter, function () { user_filter(); });
 
 	function addShortcut(evt) {
 		if (getComputedStyle(document.getElementById('dropdown-query').parentElement
@@ -1056,21 +1058,17 @@ function openNotification(msg, status) {
 		return false;
 	}
 	notification_working = true;
-
+	notification.querySelector('.msg').innerHTML = msg;
 	notification.className = 'notification';
 	notification.classList.add(status);
-	notification.querySelector('.msg').innerHTML = msg;
-	$(notification).fadeIn(300);
 
 	notification_interval = setTimeout(closeNotification, 4000);
 }
 
 function closeNotification() {
-	$(notification).fadeOut(600, function () {
-		notification.className = 'closed';
-		clearInterval(notification_interval);
-		notification_working = false;
-	});
+	notification.classList.add('closed');
+	clearInterval(notification_interval);
+	notification_working = false;
 }
 
 function init_notifications() {
@@ -1377,41 +1375,53 @@ function init_select_observers() {
 }
 
 function init_remove_observers() {
-	$('.post').on('click', 'a.remove', function (e) {
-		const remove_what = $(this).attr('data-remove');
-		if (remove_what !== undefined) {
-			$('#' + remove_what).remove();
-		}
-		return false;
-	});
+	document.querySelectorAll('.post').forEach(function (div) {
+			div.onclick = function (ev) {
+					const a = ev.target.closest('a.remove');
+					if (a) {
+						const remove_what = a.getAttribute('data-remove');
+						if (remove_what !== undefined) {
+							const d = document.getElementById(remove_what);
+							if (d) {
+								d.remove();
+							}
+						}
+						return false;
+					}
+				};
+		});
 }
 
 function init_feed_observers() {
-	$('select[id="category"]').on('change', function () {
-		const $detail = $('#new_category_name').parent();
-		if ($(this).val() === 'nc') {
-			$detail.attr('aria-hidden', 'false').show();
-			$detail.find('input').focus();
-		} else {
-			$detail.attr('aria-hidden', 'true').hide();
-		}
-	});
+	const s = document.getElementById('category');
+	if (s && s.matches('select')) {
+		s.onchange = function (ev) {
+				const detail = document.getElementById('new_category_name').parentElement;
+				if (this.value === 'nc') {
+					detail.setAttribute('aria-hidden', 'false');
+					detail.querySelector('input').focus();
+				} else {
+					detail.setAttribute('aria-hidden', 'true');
+				}
+			};
+	}
 }
 
 function init_password_observers() {
-	$('.toggle-password').on('mousedown', function (e) {
-		const $button = $(this),
-			$passwordField = $('#' + $button.attr('data-toggle'));
-		$passwordField.attr('type', 'text');
-		$button.addClass('active');
-		return false;
-	}).on('mouseup', function (e) {
-		const $button = $(this),
-			$passwordField = $('#' + $button.attr('data-toggle'));
-		$passwordField.attr('type', 'password');
-		$button.removeClass('active');
-		return false;
-	});
+	document.querySelectorAll('.toggle-password').forEach(function (a) {
+			a.onmousedown = function (ev) {
+					const passwordField = document.getElementById(this.getAttribute('data-toggle'));
+					passwordField.setAttribute('type', 'text');
+					this.classList.add('active');
+					return false;
+				};
+			a.onmouseup = function (ev) {
+					const passwordField = document.getElementById(this.getAttribute('data-toggle'));
+					passwordField.setAttribute('type', 'password');
+					this.classList.remove('active');
+					return false;
+				};
+		});
 }
 
 function faviconNbUnread(n) {
@@ -1523,26 +1533,12 @@ function init_normal() {
 }
 
 function init_beforeDOM() {
-	if (!window.$) {
-		if (window.console) {
-			console.log('FreshRSS waiting for jQuery…');
-		}
-		setTimeout(init_beforeDOM, 100);
-		return;
-	}
 	if (['normal', 'reader', 'global'].indexOf(context.current_view) >= 0) {
 		init_normal();
 	}
 }
 
 function init_afterDOM() {
-	if (!window.$) {
-		if (window.console) {
-			console.log('FreshRSS waiting again for jQuery…');
-		}
-		setTimeout(init_afterDOM, 100);
-		return;
-	}
 	init_notifications();
 	init_confirm_action();
 	const stream = document.getElementById('stream');

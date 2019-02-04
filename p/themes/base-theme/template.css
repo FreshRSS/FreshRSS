@@ -418,8 +418,11 @@ a.btn {
 }
 
 .tree-folder-items {
-	padding: 0;
 	list-style: none;
+	max-height: 200em;
+	overflow: hidden;
+	padding: 0;
+	transition: max-height .3s linear;
 }
 .tree-folder-title {
 	display: block;
@@ -502,7 +505,7 @@ a.btn {
 	padding: 0px 15px;
 }
 .aside_feed .tree-folder-items:not(.active) {
-	display: none;
+	max-height: 0;
 }
 .aside_feed .tree-folder-items .dropdown {
 	vertical-align: top;
@@ -632,9 +635,13 @@ br + br + br {
 	z-index: 10;
 	background: #fff;
 	border: 1px solid #aaa;
+	opacity: 1;
+	visibility: visible;
+	transition: visibility 0s, opacity .3s linear;
 }
 .notification.closed {
-	display: none;
+	opacity: 0;
+	visibility: hidden;
 }
 .notification a.close {
 	position: absolute;
