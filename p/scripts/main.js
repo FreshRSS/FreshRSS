@@ -677,12 +677,13 @@ function init_shortcuts() {
 	// Toggle the collapse state
 	initShortcut(shortcuts.collapse_entry, collapse_entry);
 	// Display the share options
-	initShortcut(shortcuts.auto_share, auto_share);
+	initShortcut(shortcuts.auto_share, function () { auto_share(); });
 	// Display the user filters
 	initShortcut(shortcuts.user_filter, user_filter);
 
 	function addShortcut(evt) {
-		if ($('#dropdown-query').siblings('.dropdown-menu').is(':visible')) {
+		if (getComputedStyle(document.getElementById('dropdown-query').parentElement
+			.querySelector('.dropdown-menu')).display !== 'none' ) {
 			user_filter(String.fromCharCode(evt.keyCode));
 		} else {
 			auto_share(String.fromCharCode(evt.keyCode));
@@ -738,13 +739,10 @@ function init_shortcuts() {
 			document.querySelector('#nav_menu_views .view-rss').click();
 		});
 	initShortcut(shortcuts.go_website, function () {
-			const url_website = $('.flux.current a.go_website').attr('href');
 			if (context.auto_mark_site) {
-				$('.flux.current').each(function () {
-					mark_read(this, true);
-				});
+				mark_read(document.querySelector('.flux.current'), true);
 			}
-			window.open(url_website);
+			window.open(document.querySelector('.flux.current a.go_website').href);
 		});
 }
 
@@ -797,6 +795,14 @@ function init_stream(stream) {
 			tmp_window.focus();
 			tmp_window.print();
 			tmp_window.close();
+			return false;
+		}
+
+		el = ev.target.closest('.item.share > a[href="POST"]');
+		if (el) {	//Share by POST
+			const f = el.parentElement.querySelector('form');
+			f.disabled = false;
+			f.submit();
 			return false;
 		}
 
@@ -897,22 +903,24 @@ function init_stream(stream) {
 
 function init_nav_entries() {
 	const nav_entries = document.getElementById('nav_entries');
-	nav_entries.querySelector('.previous_entry').onclick = function (e) {
-			prev_entry(false);
-			return false;
-		};
-	nav_entries.querySelector('.next_entry').onclick = function (e) {
-			next_entry(false);
-			return false;
-		};
-	nav_entries.querySelector('.up').onclick = function (e) {
-			const active_item = document.querySelector('.flux.current'),
-				windowTop = document.documentElement.scrollTop,
-				item_top = active_item.offsetTop;
+	if (nav_entries) {
+		nav_entries.querySelector('.previous_entry').onclick = function (e) {
+				prev_entry(false);
+				return false;
+			};
+		nav_entries.querySelector('.next_entry').onclick = function (e) {
+				next_entry(false);
+				return false;
+			};
+		nav_entries.querySelector('.up').onclick = function (e) {
+				const active_item = document.querySelector('.flux.current'),
+					windowTop = document.documentElement.scrollTop,
+					item_top = active_item.offsetTop;
 
-			document.documentElement.scrollTop = windowTop > item_top ? item_top : 0;
-			return false;
-		};
+				document.documentElement.scrollTop = windowTop > item_top ? item_top : 0;
+				return false;
+			};
+	}
 }
 
 function loadDynamicTags(div) {
@@ -1328,7 +1336,7 @@ function init_confirm_action() {
 	document.body.onclick = function (ev) {
 			const b = ev.target.closest('.confirm');
 			if (b) {
-				let str_confirmation = $(this).attr('data-str-confirm');
+				let str_confirmation = this.getAttribute('data-str-confirm');
 				if (!str_confirmation) {
 					str_confirmation = i18n.confirmation_default;
 				}
@@ -1338,39 +1346,34 @@ function init_confirm_action() {
 	document.querySelectorAll('button.confirm').forEach(function (b) { b.disabled = false; });
 }
 
-function init_post_action() {
-	$('.item.share > a[href="POST"]').click(function (e) {
-		e.preventDefault();
-		const $form = $(this).next('form');
-		$.post($form.data('url'), $form.serialize());
-	});
-}
-
-var shares = 0;
-
 function init_share_observers() {
-	shares = $('.group-share').length;
-
-	$('.share.add').on('click', function (e) {
-		const $opt = $(this).siblings('select').find(':selected');
-		let row = $(this).parents('form').data($opt.data('form'));
-		row = row.replace(/##label##/g, $opt.html().trim());
-		row = row.replace(/##type##/g, $opt.val());
-		row = row.replace(/##help##/g, $opt.data('help'));
-		row = row.replace(/##key##/g, shares);
-		row = row.replace(/##method##/g, $opt.data('method'));
-		row = row.replace(/##field##/g, $opt.data('field'));
-		$(this).parents('.form-group').before(row);
-		shares++;
-
-		return false;
-	});
+	let shares = document.querySelectorAll('.group-share').length;
+	const shareAdd = document.querySelector('.share.add');
+	if (shareAdd) {
+		shareAdd.onclick = function (ev) {
+				const s = this.parentElement.querySelector('select'),
+					opt = s.options[s.selectedIndex];
+				let row = this.closest('form').getAttribute('data-' + opt.getAttribute('data-form'));
+				row = row.replace(/##label##/g, opt.text);
+				row = row.replace(/##type##/g, opt.value);
+				row = row.replace(/##help##/g, opt.getAttribute('data-help'));
+				row = row.replace(/##key##/g, shares);
+				row = row.replace(/##method##/g, opt.getAttribute('data-method'));
+				row = row.replace(/##field##/g, opt.getAttribute('data-field'));
+				this.closest('.form-group').insertAdjacentHTML('beforebegin', row);
+				shares++;
+				return false;
+			};
+	}
 }
 
-function init_stats_observers() {
-	$('.select-change').on('change', function (e) {
-		location.href = $(this).find(':selected').data('url');
-	});
+function init_select_observers() {
+	document.querySelectorAll('.select-change').forEach(function (s) {
+			s.onchange = function (ev) {
+					const opt = s.options[s.selectedIndex];
+					location.href = opt.getAttribute('data-url');
+				};
+		});
 }
 
 function init_remove_observers() {
@@ -1413,7 +1416,8 @@ function init_password_observers() {
 
 function faviconNbUnread(n) {
 	if (typeof n === 'undefined') {
-		n = str2int(document.querySelector('.category.all .title').getAttribute('data-unread'));
+		const t = document.querySelector('.category.all .title');
+		n = t ? str2int(t.getAttribute('data-unread')) : 0;
 	}
 	//http://remysharp.com/2010/08/24/dynamic-favicons/
 	const canvas = document.createElement('canvas'),
@@ -1448,38 +1452,38 @@ function faviconNbUnread(n) {
 }
 
 function init_slider_observers() {
-	const $slider = $('#slider'),
-		$closer = $('#close-slider');
-	if ($slider.length < 1) {
+	const slider = document.getElementById('slider'),
+		closer = document.getElementById('close-slider');
+	if (!slider) {
 		return;
 	}
 
-	$('.post').on('click', '.open-slider', function () {
-		if (ajax_loading) {
+	document.querySelector('.post').onclick = function (ev) {
+			const a = ev.target.closest('.open-slider');
+			if (a) {
+				if (!ajax_loading) {
+					ajax_loading = true;
+
+					const req = new XMLHttpRequest();
+					req.open('GET', a.href + '&ajax=1', true);
+					req.responseType = 'document';
+					req.onload = function (e) {
+							slider.innerHTML = this.response.body.innerHTML;
+							slider.classList.add('active');
+							closer.classList.add('active');
+							ajax_loading = false;
+						};
+					req.send();
+					return false;
+				}
+			}
+		};
+
+	closer.onclick = function (ev) {
+			closer.classList.remove('active');
+			slider.classList.remove('active');
 			return false;
-		}
-
-		ajax_loading = true;
-
-		$.ajax({
-			type: 'GET',
-			url: $(this).attr('href'),
-			data: { ajax: true }
-		}).done(function (data) {
-			$slider.html(data);
-			$closer.addClass('active');
-			$slider.addClass('active');
-			ajax_loading = false;
-		});
-
-		return false;
-	});
-
-	$closer.on('click', function () {
-		$closer.removeClass('active');
-		$slider.removeClass('active');
-		return false;
-	});
+		};
 }
 
 function init_configuration_alert() {
@@ -1500,12 +1504,6 @@ function init_configuration_alert() {
 					}
 				});
 		};
-}
-
-function init_subscription() {
-	$('body').on('click', '.bookmarkClick', function (e) {
-		return false;
-	});
 }
 
 function init_normal() {
@@ -1552,17 +1550,15 @@ function init_afterDOM() {
 		init_load_more(stream);
 		init_posts();
 		init_nav_entries();
-		init_post_action();
 		init_notifs_html5();
 		setInterval(refreshUnreads, 120000);
 	} else {
-		init_subscription();
 		init_crypto_form();
 		init_share_observers();
 		init_remove_observers();
 		init_feed_observers();
 		init_password_observers();
-		init_stats_observers();
+		init_select_observers();
 		init_slider_observers();
 		init_configuration_alert();
 	}
