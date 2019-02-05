@@ -609,7 +609,15 @@ function init_column_categories() {
 			}
 
 			const ul = a.closest('li').querySelector('.tree-folder-items');
+			let nbVisibleItems = 0;
+			for (let i = ul.children.length - 1; i >= 0; i--) {
+				if (ul.children[i].offsetHeight) {
+					nbVisibleItems++;
+				}
+			}
 			ul.classList.toggle('active');
+			//CSS transition does not work on max-height:auto
+			ul.style.maxHeight = ul.classList.contains('active') ? (nbVisibleItems * 4) + 'em' : 0;
 		}
 
 		a = ev.target.closest('.tree-folder-items > .feed .dropdown-toggle');

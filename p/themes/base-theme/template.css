@@ -280,7 +280,7 @@ a.btn {
 	left: 0; right: 0;
 	display: block;
 	z-index: -10;
-    cursor: default;
+	cursor: default;
 }
 .separator {
 	display: block;
@@ -717,15 +717,15 @@ br + br + br {
 /*=== LOGIN VIEW */
 /*================*/
 .formLogin .header > .item {
-        padding: 10px 30px;
+	padding: 10px 30px;
 }
 
 .formLogin .header > .item.title {
-        text-align: left;
+	text-align: left;
 }
 
 .formLogin .header > .item.configure {
-        text-align: right;
+	text-align: right;
 }
 
 
