@@ -65,7 +65,7 @@
 				$feeds = $cat->feeds();
 				if (!empty($feeds)) {
 					$c_active = FreshRSS_Context::isCurrentGet('c_' . $cat->id());
-					$c_show = $c_active || FreshRSS_Context::$user_conf->display_categories || FreshRSS_Context::$current_get['feed'];
+					$c_show = $c_active || FreshRSS_Context::$user_conf->display_categories;
 		?>
 		<li class="tree-folder category<?php echo $c_active ? ' active' : ''; ?>" data-unread="<?php echo $cat->nbNotRead(); ?>">
 			<div class="tree-folder-title">
