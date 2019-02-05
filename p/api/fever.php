@@ -349,7 +349,7 @@ class FeverAPI
 		foreach ($categories as $category) {
 			$groups[] = array(
 				'id' => $category->id(),
-				'title' => escapeToUnicodeAlternative($category->name(), false),
+				'title' => escapeToUnicodeAlternative($category->name(), true),
 			);
 		}
 
@@ -535,8 +535,8 @@ class FeverAPI
 			$items[] = array(
 				'id' => $entry->id(),
 				'feed_id' => $entry->feed(false),
-				'title' => escapeToUnicodeAlternative($entry->title(), true),
-				'author' => escapeToUnicodeAlternative($entry->authors(true), true),
+				'title' => escapeToUnicodeAlternative($entry->title(), false),
+				'author' => escapeToUnicodeAlternative($entry->authors(true), false),
 				'html' => $entry->content(),
 				'url' => htmlspecialchars_decode($entry->link(), ENT_QUOTES),
 				'is_saved' => $entry->isFavorite() ? 1 : 0,
