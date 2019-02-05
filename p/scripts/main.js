@@ -662,11 +662,10 @@ function init_shortcuts() {
 				if (n) {
 					if (location.hash === '#dropdown-query') {
 						user_filter(n);
-						return false;
 					} else {
 						auto_share(n);
-						return false;
 					}
+					return false;
 				}
 			}
 			if (k === s.next_entry) {
