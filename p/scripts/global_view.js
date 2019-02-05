@@ -1,5 +1,5 @@
 "use strict";
-/* globals init_load_more, init_posts, init_stream */
+/* globals $, context, init_load_more, init_posts, init_stream */
 /* jshint globalstrict: true */
 
 var panel_loading = false;

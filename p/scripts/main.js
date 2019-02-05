@@ -27,24 +27,23 @@ function xmlHttpRequestJson(req) {
 }
 //</Utils>
 
-//<Global variables>
-var context, i18n, icons, shortcuts, urls;
+//<Global context>
+var context;
 
 (function parseJsonVars() {
 	const jsonVars = document.getElementById('jsonVars'),
 		json = JSON.parse(jsonVars.innerHTML);
 	jsonVars.outerHTML = '';
 	context = json.context;
-	i18n = json.i18n;
-	shortcuts = json.shortcuts;
-	urls = json.urls;
-	icons = json.icons;
-	icons.read = decodeURIComponent(icons.read);
-	icons.unread = decodeURIComponent(icons.unread);
+	context.ajax_loading = false;
+	context.i18n = json.i18n;
+	context.shortcuts = json.shortcuts;
+	context.urls = json.urls;
+	context.icons = json.icons;
+	context.icons.read = decodeURIComponent(context.icons.read);
+	context.icons.unread = decodeURIComponent(context.icons.unread);
 }());
-
-var ajax_loading = false;
-//</Global variables>
+//</Global context>
 
 function needsScroll(elem) {
 	const winBottom = document.documentElement.scrollTop + document.documentElement.clientHeight,
@@ -163,7 +162,7 @@ function send_mark_read_queue(queue, asRead) {
 	req.open('POST', '.?c=entry&a=read' + (asRead ? '' : '&is_read=0'), true);
 	req.responseType = 'json';
 	req.onerror = function (e) {
-			openNotification(i18n.notif_request_failed, 'bad');
+			openNotification(context.i18n.notif_request_failed, 'bad');
 			for (let i = queue.length - 1; i >= 0; i--) {
 				delete pending_entries['flux_' + queue[i]];
 			}
@@ -175,7 +174,7 @@ function send_mark_read_queue(queue, asRead) {
 			const json = xmlHttpRequestJson(this);
 			for (let i = queue.length - 1; i >= 0; i--) {
 				const div = document.getElementById('flux_' + queue[i]),
-					myIcons = icons;
+					myIcons = context.icons;
 				let inc = 0;
 				if (div.classList.contains('not_read')) {
 					div.classList.remove('not_read');
@@ -269,7 +268,7 @@ function mark_favorite(div) {
 	req.open('POST', url, true);
 	req.responseType = 'json';
 	req.onerror = function (e) {
-			openNotification(i18n.notif_request_failed, 'bad');
+			openNotification(context.i18n.notif_request_failed, 'bad');
 			delete pending_entries[div.id];
 		};
 	req.onload = function (e) {
@@ -337,7 +336,7 @@ function toggleContent(new_active, old_active, skipping) {
 			old_active.classList.remove('active');
 			old_active.classList.remove('current');	//Split for IE11
 		}
-	} else { // collapse_entry calls toggleContent(flux_current, flux_current, false)
+	} else {
 		new_active.classList.toggle('active');
 	}
 
@@ -655,23 +654,23 @@ function init_shortcuts() {
 	// Manipulation shortcuts
 
 	// Toggle the read state
-	initShortcut(shortcuts.mark_read, function () {
+	initShortcut(context.shortcuts.mark_read, function () {
 			mark_read(document.querySelector('.flux.current'), false);
 		});
 	// Mark everything as read
-	initShortcut('shift+' + shortcuts.mark_read, function () {
+	initShortcut('shift+' + context.shortcuts.mark_read, function () {
 			document.querySelector('.nav_menu .read_all').click();
 		});
 	// Toggle the favorite state
-	initShortcut(shortcuts.mark_favorite, function () {
+	initShortcut(context.shortcuts.mark_favorite, function () {
 			mark_favorite(document.querySelector('.flux.current'));
 		});
 	// Toggle the collapse state
-	initShortcut(shortcuts.collapse_entry, collapse_entry);
+	initShortcut(context.shortcuts.collapse_entry, collapse_entry);
 	// Display the share options
-	initShortcut(shortcuts.auto_share, function () { auto_share(); });
+	initShortcut(context.shortcuts.auto_share, function () { auto_share(); });
 	// Display the user filters
-	initShortcut(shortcuts.user_filter, function () { user_filter(); });
+	initShortcut(context.shortcuts.user_filter, function () { user_filter(); });
 
 	function addShortcut(evt) {
 		if (getComputedStyle(document.getElementById('dropdown-query').parentElement
@@ -686,18 +685,18 @@ function init_shortcuts() {
 	}
 
 	// Entry navigation shortcuts
-	initShortcut(shortcuts.prev_entry, function () { prev_entry(false); });
-	initShortcut(shortcuts.skip_prev_entry,  function () { prev_entry(true); });
-	initShortcut(shortcuts.first_entry, function () {
+	initShortcut(context.shortcuts.prev_entry, function () { prev_entry(false); });
+	initShortcut(context.shortcuts.skip_prev_entry,  function () { prev_entry(true); });
+	initShortcut(context.shortcuts.first_entry, function () {
 			const old_active = document.querySelector('.flux.current'),
 				first = document.querySelector('.flux:first');
 			if (first.classList.contains('flux')) {
 				toggleContent(first, old_active, false);
 			}
 		});
-	initShortcut(shortcuts.next_entry, function () { next_entry(false); });
-	initShortcut(shortcuts.skip_next_entry, function () { next_entry(true); });
-	initShortcut(shortcuts.last_entry, function () {
+	initShortcut(context.shortcuts.next_entry, function () { next_entry(false); });
+	initShortcut(context.shortcuts.skip_next_entry, function () { next_entry(true); });
+	initShortcut(context.shortcuts.last_entry, function () {
 			const old_active = document.querySelector('.flux.current'),
 				last = document.querySelector('.flux:last');
 			if (last.classList.contains('flux')) {
@@ -705,32 +704,32 @@ function init_shortcuts() {
 			}
 		});
 	// Feed navigation shortcuts
-	initShortcut('shift+' + shortcuts.prev_entry, prev_feed);
-	initShortcut('shift+' + shortcuts.next_entry, next_feed);
-	initShortcut('shift+' + shortcuts.first_entry, first_feed);
-	initShortcut('shift+' + shortcuts.last_entry, last_feed);
+	initShortcut('shift+' + context.shortcuts.prev_entry, prev_feed);
+	initShortcut('shift+' + context.shortcuts.next_entry, next_feed);
+	initShortcut('shift+' + context.shortcuts.first_entry, first_feed);
+	initShortcut('shift+' + context.shortcuts.last_entry, last_feed);
 	// Category navigation shortcuts
-	initShortcut('alt+' + shortcuts.prev_entry, prev_category);
-	initShortcut('alt+' + shortcuts.next_entry, next_category);
-	initShortcut('alt+' + shortcuts.first_entry, first_category);
-	initShortcut('alt+' + shortcuts.last_entry, last_category);
-	initShortcut(shortcuts.load_more, load_more_posts);
-	initShortcut(shortcuts.focus_search, function () { document.getElementById('search').focus(); });
-	initShortcut(shortcuts.help, function () { window.open(urls.help); });
-	initShortcut(shortcuts.close_dropdown, function () { location.hash = null; });
-	initShortcut(shortcuts.normal_view, function () {
+	initShortcut('alt+' + context.shortcuts.prev_entry, prev_category);
+	initShortcut('alt+' + context.shortcuts.next_entry, next_category);
+	initShortcut('alt+' + context.shortcuts.first_entry, first_category);
+	initShortcut('alt+' + context.shortcuts.last_entry, last_category);
+	initShortcut(context.shortcuts.load_more, load_more_posts);
+	initShortcut(context.shortcuts.focus_search, function () { document.getElementById('search').focus(); });
+	initShortcut(context.shortcuts.help, function () { window.open(context.urls.help); });
+	initShortcut(context.shortcuts.close_dropdown, function () { location.hash = null; });
+	initShortcut(context.shortcuts.normal_view, function () {
 			document.querySelector('#nav_menu_views .view-normal').click();
 		});
-	initShortcut(shortcuts.global_view, function () {
+	initShortcut(context.shortcuts.global_view, function () {
 			document.querySelector('#nav_menu_views .view-global').click();
 		});
-	initShortcut(shortcuts.reading_view, function () {
+	initShortcut(context.shortcuts.reading_view, function () {
 			document.querySelector('#nav_menu_views .view-reader').click();
 		});
-	initShortcut(shortcuts.rss_view, function () {
+	initShortcut(context.shortcuts.rss_view, function () {
 			document.querySelector('#nav_menu_views .view-rss').click();
 		});
-	initShortcut(shortcuts.go_website, function () {
+	initShortcut(context.shortcuts.go_website, function () {
 			if (context.auto_mark_site) {
 				mark_read(document.querySelector('.flux.current'), true);
 			}
@@ -754,8 +753,8 @@ function init_stream(stream) {
 
 		el = ev.target.closest('.dynamictags');
 		if (el) {
-			ev.stopPropagation();
 			loadDynamicTags(el);
+			return true;
 		}
 
 		el = ev.target.closest('.item.title > a');
@@ -987,10 +986,10 @@ function init_actualize() {
 	let auto = false;
 
 	document.getElementById('actualize').onclick = function () {
-		if (ajax_loading) {
+		if (context.ajax_loading) {
 			return false;
 		}
-		ajax_loading = true;
+		context.ajax_loading = true;
 
 		const req = new XMLHttpRequest();
 		req.open('GET', './?c=javascript&a=actualize', true);
@@ -999,7 +998,7 @@ function init_actualize() {
 				const json = xmlHttpRequestJson(this);
 				if (auto && json.feeds.length < 1) {
 					auto = false;
-					ajax_loading = false;
+					context.ajax_loading = false;
 					return false;
 				}
 				if (json.feeds.length === 0) {
@@ -1008,7 +1007,7 @@ function init_actualize() {
 					const req2 = new XMLHttpRequest();
 					req2.open('POST', './?c=feed&a=actualize&id=-1&ajax=1', true);
 					req2.onloadend = function (e) {
-						ajax_loading = false;
+						context.ajax_loading = false;
 					};
 					req2.setRequestHeader('Content-Type', 'application/json');
 					req2.send(JSON.stringify({
@@ -1094,9 +1093,9 @@ function notifs_html5_show(nb) {
 		return;
 	}
 
-	const notification = new window.Notification(i18n.notif_title_articles, {
+	const notification = new window.Notification(context.i18n.notif_title_articles, {
 		icon: '../themes/icons/favicon-256.png',
-		body: i18n.notif_body_articles.replace('%d', nb),
+		body: context.i18n.notif_body_articles.replace('%d', nb),
 		tag: 'freshRssNewArticles',
 	});
 
@@ -1255,163 +1254,18 @@ function init_load_more(box) {
 }
 //</endless_mode>
 
-//<crypto form (Web login)>
-function poormanSalt() {	//If crypto.getRandomValues is not available
-	const base = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ.0123456789/abcdefghijklmnopqrstuvwxyz';
-	let text = '$2a$04$';
-	for (let i = 22; i > 0; i--) {
-		text += base.charAt(Math.floor(Math.random() * 64));
-	}
-	return text;
-}
-
-function init_crypto_form() {
-	/* globals dcodeIO */
-	const crypto_form = document.getElementById('crypto-form');
-	if (!crypto_form) {
-		return;
-	}
-
-	if (!(window.dcodeIO)) {
-		if (window.console) {
-			console.log('FreshRSS waiting for bcrypt.js…');
-		}
-		setTimeout(init_crypto_form, 100);
-		return;
-	}
-
-	crypto_form.onsubmit = function (e) {
-		const submit_button = this.querySelector('button[type="submit"]');
-		submit_button.disabled = true;
-		let success = false;
-
-		const req = new XMLHttpRequest();
-		req.open('GET', './?c=javascript&a=nonce&user=' + document.getElementById('username').value, false);
-		req.onerror = function () {
-				openNotification('Communication error!', 'bad');
-			};
-		req.send();
-		if (req.status == 200) {
-			const json = xmlHttpRequestJson(req);
-			if (!json.salt1 || !json.nonce) {
-				openNotification('Invalid user!', 'bad');
-			} else {
-				try {
-					const strong = window.Uint32Array && window.crypto && (typeof window.crypto.getRandomValues === 'function'),
-						s = dcodeIO.bcrypt.hashSync(document.getElementById('passwordPlain').value, json.salt1),
-						c = dcodeIO.bcrypt.hashSync(json.nonce + s, strong ? dcodeIO.bcrypt.genSaltSync(4) : poormanSalt());
-					document.getElementById('challenge').value = c;
-					if (!s || !c) {
-						openNotification('Crypto error!', 'bad');
-					} else {
-						success = true;
-					}
-				} catch (ex) {
-					openNotification('Crypto exception! ' + ex, 'bad');
-				}
-			}
-		} else {
-			req.onerror();
-		}
-
-		submit_button.disabled = false;
-		return success;
-	};
-}
-//</crypto form (Web login)>
-
 function init_confirm_action() {
 	document.body.onclick = function (ev) {
 			const b = ev.target.closest('.confirm');
 			if (b) {
 				let str_confirmation = this.getAttribute('data-str-confirm');
 				if (!str_confirmation) {
-					str_confirmation = i18n.confirmation_default;
+					str_confirmation = context.i18n.confirmation_default;
 				}
 				return confirm(str_confirmation);
 			}
 		};
 	document.querySelectorAll('button.confirm').forEach(function (b) { b.disabled = false; });
-}
-
-function init_share_observers() {
-	let shares = document.querySelectorAll('.group-share').length;
-	const shareAdd = document.querySelector('.share.add');
-	if (shareAdd) {
-		shareAdd.onclick = function (ev) {
-				const s = this.parentElement.querySelector('select'),
-					opt = s.options[s.selectedIndex];
-				let row = this.closest('form').getAttribute('data-' + opt.getAttribute('data-form'));
-				row = row.replace(/##label##/g, opt.text);
-				row = row.replace(/##type##/g, opt.value);
-				row = row.replace(/##help##/g, opt.getAttribute('data-help'));
-				row = row.replace(/##key##/g, shares);
-				row = row.replace(/##method##/g, opt.getAttribute('data-method'));
-				row = row.replace(/##field##/g, opt.getAttribute('data-field'));
-				this.closest('.form-group').insertAdjacentHTML('beforebegin', row);
-				shares++;
-				return false;
-			};
-	}
-}
-
-function init_select_observers() {
-	document.querySelectorAll('.select-change').forEach(function (s) {
-			s.onchange = function (ev) {
-					const opt = s.options[s.selectedIndex];
-					location.href = opt.getAttribute('data-url');
-				};
-		});
-}
-
-function init_remove_observers() {
-	document.querySelectorAll('.post').forEach(function (div) {
-			div.onclick = function (ev) {
-					const a = ev.target.closest('a.remove');
-					if (a) {
-						const remove_what = a.getAttribute('data-remove');
-						if (remove_what !== undefined) {
-							const d = document.getElementById(remove_what);
-							if (d) {
-								d.remove();
-							}
-						}
-						return false;
-					}
-				};
-		});
-}
-
-function init_feed_observers() {
-	const s = document.getElementById('category');
-	if (s && s.matches('select')) {
-		s.onchange = function (ev) {
-				const detail = document.getElementById('new_category_name').parentElement;
-				if (this.value === 'nc') {
-					detail.setAttribute('aria-hidden', 'false');
-					detail.querySelector('input').focus();
-				} else {
-					detail.setAttribute('aria-hidden', 'true');
-				}
-			};
-	}
-}
-
-function init_password_observers() {
-	document.querySelectorAll('.toggle-password').forEach(function (a) {
-			a.onmousedown = function (ev) {
-					const passwordField = document.getElementById(this.getAttribute('data-toggle'));
-					passwordField.setAttribute('type', 'text');
-					this.classList.add('active');
-					return false;
-				};
-			a.onmouseup = function (ev) {
-					const passwordField = document.getElementById(this.getAttribute('data-toggle'));
-					passwordField.setAttribute('type', 'password');
-					this.classList.remove('active');
-					return false;
-				};
-		});
 }
 
 function faviconNbUnread(n) {
@@ -1451,61 +1305,6 @@ function faviconNbUnread(n) {
 	}
 }
 
-function init_slider_observers() {
-	const slider = document.getElementById('slider'),
-		closer = document.getElementById('close-slider');
-	if (!slider) {
-		return;
-	}
-
-	document.querySelector('.post').onclick = function (ev) {
-			const a = ev.target.closest('.open-slider');
-			if (a) {
-				if (!ajax_loading) {
-					ajax_loading = true;
-
-					const req = new XMLHttpRequest();
-					req.open('GET', a.href + '&ajax=1', true);
-					req.responseType = 'document';
-					req.onload = function (e) {
-							slider.innerHTML = this.response.body.innerHTML;
-							slider.classList.add('active');
-							closer.classList.add('active');
-							ajax_loading = false;
-						};
-					req.send();
-					return false;
-				}
-			}
-		};
-
-	closer.onclick = function (ev) {
-			closer.classList.remove('active');
-			slider.classList.remove('active');
-			return false;
-		};
-}
-
-function init_configuration_alert() {
-	window.onsubmit = function (e) {
-			window.hasSubmit = true;
-		};
-	window.onbeforeunload = function (e) {
-			if (window.hasSubmit) {
-				return;
-			}
-			document.querySelectorAll('[data-leave-validation]').forEach(function (input) {
-					if (input.type === 'checkbox' || input.type === 'radio') {
-						if (input.checked != input.getAttribute('data-leave-validation')) {
-							return false;
-						}
-					} else if (input.value != input.getAttribute('data-leave-validation')) {
-						return false;
-					}
-				});
-		};
-}
-
 function init_normal() {
 	const stream = document.getElementById('stream');
 	if (!stream) {
@@ -1538,19 +1337,10 @@ function init_afterDOM() {
 		init_nav_entries();
 		init_notifs_html5();
 		setInterval(refreshUnreads, 120000);
-	} else {
-		init_crypto_form();
-		init_share_observers();
-		init_remove_observers();
-		init_feed_observers();
-		init_password_observers();
-		init_select_observers();
-		init_slider_observers();
-		init_configuration_alert();
 	}
 
 	if (window.console) {
-		console.log('FreshRSS init done.');
+		console.log('FreshRSS main init done.');
 	}
 }
 

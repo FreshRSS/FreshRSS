@@ -109,8 +109,7 @@ class FreshRSS_auth_Controller extends Minz_ActionController {
 	public function formLoginAction() {
 		invalidateHttpCache();
 
-		$file_mtime = @filemtime(PUBLIC_PATH . '/scripts/bcrypt.min.js');
-		Minz_View::appendScript(Minz_Url::display('/scripts/bcrypt.min.js?' . $file_mtime));
+		Minz_View::appendScript(Minz_Url::display('/scripts/bcrypt.min.js?' . @filemtime(PUBLIC_PATH . '/scripts/bcrypt.min.js')));
 
 		$conf = Minz_Configuration::get('system');
 		$limits = $conf->limits;

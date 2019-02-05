@@ -1,5 +1,5 @@
 "use strict";
-/* globals i18n */
+/* globals $, context */
 /* jshint globalstrict: true */
 
 var loading = false,
@@ -24,7 +24,7 @@ function dragend_process(t) {
 		$(t).remove();
 
 		if (parent.children().length <= 0) {
-			parent.append('<li class="item disabled" dropzone="move">' + i18n.category_empty + '</li>');
+			parent.append('<li class="item disabled" dropzone="move">' + context.i18n.category_empty + '</li>');
 		}
 	}
 }
@@ -33,9 +33,9 @@ var dragFeedId = '',
 	dragHtml = '';
 
 function init_draggable() {
-	if (!(window.$ && window.i18n)) {
+	if (!(window.$ && window.context)) {
 		if (window.console) {
-			console.log('FreshRSS waiting for JS…');
+			console.log('FreshRSS category waiting for JS…');
 		}
 		window.setTimeout(init_draggable, 50);
 		return;
