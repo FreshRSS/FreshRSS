@@ -652,7 +652,6 @@ function init_shortcuts() {
 		});
 
 	document.body.onkeydown = function (ev) {
-			console.log('FreshRSS key down: ' + ev.key + ' ' + ev.code);
 			if (ev.target.closest('input, textarea')) {
 				return true;
 			}
