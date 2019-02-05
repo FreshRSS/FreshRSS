@@ -611,16 +611,6 @@ function init_column_categories() {
 
 			const ul = a.closest('li').querySelector('.tree-folder-items');
 			ul.classList.toggle('active');
-
-			setTimeout(function () {
-					//Workaround for Gecko bug 1514498 in Firefox 64
-					const sidebar = document.getElementById('sidebar');
-					if (sidebar && sidebar.scrollHeight > sidebar.clientHeight &&	//if needs scrollbar
-						sidebar.scrollWidth >= sidebar.offsetWidth) {	//but no scrollbar
-						sidebar.style['overflow-y'] = 'scroll';	//then force scrollbar
-						setTimeout(function () { sidebar.style['overflow-y'] = ''; }, 0);
-					}
-				}, 1);
 		}
 
 		a = ev.target.closest('.tree-folder-items > .feed .dropdown-toggle');
