@@ -162,7 +162,7 @@ return array(
 		'mark_read' => '읽음으로 표시',
 		'navigation' => '탐색',
 		'navigation_help' => '"Shift" 키를 누른 상태에선 탐색 단축키가 피드에 적용됩니다.<br/>"Alt" 키를 누른 상태에선 탐색 단축키가 카테고리에 적용됩니다.',
-		'navigation_no_mod_help' => 'The following navigation shortcuts do not support modifiers.',	//TODO - Translation
+		'navigation_no_mod_help' => '아래 탐색 단축키에는 "Shift"와 "Alt" 키가 적용되지 않습니다.',
 		'next_article' => '다음 글 보기',
 		'normal_view' => '일반 모드로 전환',
 		'other_action' => '다른 동작',
@@ -171,8 +171,8 @@ return array(
 		'rss_view' => '새 탭에서 RSS 피드 열기',
 		'see_on_website' => '글이 게재된 웹사이트에서 보기',
 		'shift_for_all_read' => '+ <code>shift</code>를 누른 상태에선 모두 읽음으로 표시',
-		'skip_next_article' => 'Focus next without opening',	//TODO - Translation
-		'skip_previous_article' => 'Focus previous without opening',	//TODO - Translation
+		'skip_next_article' => '다음 글로 커서 이동',
+		'skip_previous_article' => '이전 글로 커서 이동',
 		'title' => '단축키',
 		'user_filter' => '사용자 필터 사용하기',
 		'user_filter_help' => '사용자 필터가 하나만 설정되어 있다면 해당 필터를 사용하고, 그렇지 않다면 필터를 번호로 선택할 수 있습니다.',
