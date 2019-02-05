@@ -1,5 +1,4 @@
 "use strict";
-/* globals shortcut */
 /* jshint esversion:6, strict:global */
 
 //<Polyfills>
@@ -648,101 +647,111 @@ function init_column_categories() {
 }
 
 function init_shortcuts() {
-	if (!(window.shortcut)) {
-		if (window.console) {
-			console.log('FreshRSS waiting for shortcut.js…');
-		}
-		setTimeout(init_shortcuts, 200);
-		return;
-	}
-	function initShortcut(shortcut_combination, callback, opt) {
-		shortcut.add(shortcut_combination, callback, { 'disable_in_input': true, });
-	}
-
-	// Manipulation shortcuts
-
-	// Toggle the read state
-	initShortcut(context.shortcuts.mark_read, function () {
-			mark_read(document.querySelector('.flux.current'), false);
+	Object.keys(context.shortcuts).forEach(function (k) {
+			context.shortcuts[k] = (context.shortcuts[k] || '').toUpperCase();
 		});
-	// Mark everything as read
-	initShortcut('shift+' + context.shortcuts.mark_read, function () {
-			document.querySelector('.nav_menu .read_all').click();
-		});
-	// Toggle the favorite state
-	initShortcut(context.shortcuts.mark_favorite, function () {
-			mark_favorite(document.querySelector('.flux.current'));
-		});
-	// Toggle the collapse state
-	initShortcut(context.shortcuts.collapse_entry, collapse_entry);
-	// Display the share options
-	initShortcut(context.shortcuts.auto_share, function () { auto_share(); });
-	// Display the user filters
-	initShortcut(context.shortcuts.user_filter, function () { user_filter(); });
 
-	function addShortcut(evt) {
-		if (getComputedStyle(document.getElementById('dropdown-query').parentElement
-			.querySelector('.dropdown-menu')).display !== 'none' ) {
-			user_filter(String.fromCharCode(evt.keyCode));
-		} else {
-			auto_share(String.fromCharCode(evt.keyCode));
-		}
-	}
-	for (let i = 1; i < 10; i++) {
-		initShortcut(i.toString(), addShortcut);
-	}
-
-	// Entry navigation shortcuts
-	initShortcut(context.shortcuts.prev_entry, function () { prev_entry(false); });
-	initShortcut(context.shortcuts.skip_prev_entry,  function () { prev_entry(true); });
-	initShortcut(context.shortcuts.first_entry, function () {
-			const old_active = document.querySelector('.flux.current'),
-				first = document.querySelector('.flux:first');
-			if (first.classList.contains('flux')) {
-				toggleContent(first, old_active, false);
+	document.body.onkeydown = function (ev) {
+			console.log('FreshRSS key down: ' + ev.key + ' ' + ev.code);
+			if (ev.target.closest('input, textarea')) {
+				return true;
 			}
-		});
-	initShortcut(context.shortcuts.next_entry, function () { next_entry(false); });
-	initShortcut(context.shortcuts.skip_next_entry, function () { next_entry(true); });
-	initShortcut(context.shortcuts.last_entry, function () {
-			const old_active = document.querySelector('.flux.current'),
-				last = document.querySelector('.flux:last');
-			if (last.classList.contains('flux')) {
-				toggleContent(last, old_active, false);
+			const s = context.shortcuts,
+				k = ev.key.toUpperCase();
+			if (location.hash.match(/^#dropdown-/)) {
+				const n = parseInt(k);
+				if (n) {
+					if (location.hash === '#dropdown-query') {
+						user_filter(n);
+						return false;
+					} else {
+						auto_share(n);
+						return false;
+					}
+				}
 			}
-		});
-	// Feed navigation shortcuts
-	initShortcut('shift+' + context.shortcuts.prev_entry, prev_feed);
-	initShortcut('shift+' + context.shortcuts.next_entry, next_feed);
-	initShortcut('shift+' + context.shortcuts.first_entry, first_feed);
-	initShortcut('shift+' + context.shortcuts.last_entry, last_feed);
-	// Category navigation shortcuts
-	initShortcut('alt+' + context.shortcuts.prev_entry, prev_category);
-	initShortcut('alt+' + context.shortcuts.next_entry, next_category);
-	initShortcut('alt+' + context.shortcuts.first_entry, first_category);
-	initShortcut('alt+' + context.shortcuts.last_entry, last_category);
-	initShortcut(context.shortcuts.load_more, load_more_posts);
-	initShortcut(context.shortcuts.focus_search, function () { document.getElementById('search').focus(); });
-	initShortcut(context.shortcuts.help, function () { window.open(context.urls.help); });
-	initShortcut(context.shortcuts.close_dropdown, function () { location.hash = null; });
-	initShortcut(context.shortcuts.normal_view, function () {
-			document.querySelector('#nav_menu_views .view-normal').click();
-		});
-	initShortcut(context.shortcuts.global_view, function () {
-			document.querySelector('#nav_menu_views .view-global').click();
-		});
-	initShortcut(context.shortcuts.reading_view, function () {
-			document.querySelector('#nav_menu_views .view-reader').click();
-		});
-	initShortcut(context.shortcuts.rss_view, function () {
-			document.querySelector('#nav_menu_views .view-rss').click();
-		});
-	initShortcut(context.shortcuts.go_website, function () {
-			if (context.auto_mark_site) {
-				mark_read(document.querySelector('.flux.current'), true);
+			if (k === s.next_entry) {
+				if (ev.altKey) {
+					next_category();
+				} else if (ev.shiftKey) {
+					next_feed();
+				} else {
+					next_entry(false);
+				}
+				return false;
 			}
-			window.open(document.querySelector('.flux.current a.go_website').href);
-		});
+			if (k === s.prev_entry) {
+				if (ev.altKey) {
+					prev_category();
+				} else if (ev.shiftKey) {
+					prev_feed();
+				} else {
+					prev_entry(false);
+				}
+				return false;
+			}
+			if (k === s.mark_read) {
+				if (ev.shiftKey) {	// Mark everything as read
+					document.querySelector('.nav_menu .read_all').click();
+				} else {	// Toggle the read state
+					mark_read(document.querySelector('.flux.current'), false);
+				}
+				return false;
+			}
+			if (k === s.mark_favorite) {	// Toggle the favorite state
+				mark_favorite(document.querySelector('.flux.current'));
+				return false;
+			}
+			if (k === s.first_entry) {
+				if (ev.altKey) {
+					first_category();
+				} else if (ev.shiftKey) {
+					first_feed();
+				} else {
+					const old_active = document.querySelector('.flux.current'),
+						first = document.querySelector('.flux');
+					if (first.classList.contains('flux')) {
+						toggleContent(first, old_active, false);
+					}
+				}
+				return false;
+			}
+			if (k === s.last_entry) {
+				if (ev.altKey) {
+					last_category();
+				} else if (ev.shiftKey) {
+					last_feed();
+				} else {
+					const old_active = document.querySelector('.flux.current'),
+						last = document.querySelector('.flux:last-of-type');	//TODO
+					if (last.classList.contains('flux')) {
+						toggleContent(last, old_active, false);
+					}
+				}
+				return false;
+			}
+			if (k === s.go_website) {
+				if (context.auto_mark_site) {
+					mark_read(document.querySelector('.flux.current'), true);
+				}
+				window.open(document.querySelector('.flux.current a.go_website').href);
+				return false;
+			}
+			if (k === s.skip_next_entry) { next_entry(true); return false; }
+			if (k === s.skip_prev_entry) { prev_entry(true); return false; }
+			if (k === s.collapse_entry) { collapse_entry(); return false; }
+			if (k === s.auto_share) { auto_share(); return false; }
+			if (k === s.user_filter) { user_filter(); return false; }
+			if (k === s.load_more) { load_more_posts(); return false; }
+			if (k === s.close_dropdown) { location.hash = null; return false; }
+			if (k === s.help) { window.open(context.urls.help); return false; }
+			if (k === s.focus_search) { document.getElementById('search').focus(); return false; }
+			if (k === s.normal_view) { document.querySelector('#nav_menu_views .view-normal').click(); return false; }
+			if (k === s.reading_view) { document.querySelector('#nav_menu_views .view-reader').click(); return false; }
+			if (k === s.global_view) { document.querySelector('#nav_menu_views .view-global').click(); return false; }
+			if (k === s.rss_view) { document.querySelector('#nav_menu_views .view-rss').click(); return false; }
+			return true;
+		};
 }
 
 function init_stream(stream) {
