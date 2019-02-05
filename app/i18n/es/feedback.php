@@ -50,8 +50,16 @@ return array(
 		'no_zip_extension' => 'La extensión ZIP no está disponible en tu servidor.',
 		'zip_error' => 'Hubo un error durante la importación ZIP.',
 	),
+	'profile' => array(
+		'error' => 'Tu perfil no puede ser modificado',
+		'updated' => 'Tu perfil ha sido modificado',
+	),
 	'sub' => array(
 		'actualize' => 'Actualización',
+		'articles' => array(
+			'marked_read' => 'The selected articles have been marked as read.',	//TODO - Translation
+			'marked_unread' => 'The articles have been marked as unread.',	//TODO - Translation
+		),
 		'category' => array(
 			'created' => 'Se ha creado la categoría %s.',
 			'deleted' => 'Se ha eliminado la categoría.',
@@ -72,9 +80,8 @@ return array(
 			'already_subscribed' => 'Ya estás suscrito a <em>%s</em>',
 			'deleted' => 'Fuente eliminada',
 			'error' => 'No es posible actualizar la fuente',
-			'internal_problem' => 'No ha sido posible agregar la fuente RSS. <a href="%s">Revisa el registro de FreshRSS </a> para más información.', // @todo
+			'internal_problem' => 'No ha sido posible agregar la fuente RSS. <a href="%s">Revisa el registro de FreshRSS </a> para más información.',	//TODO - Translation
 			'invalid_url' => 'La URL <em>%s</em> es inválida',
-			'marked_read' => 'Fuentes marcadas como leídas',
 			'n_actualized' => 'Se han actualiado %d fuentes',
 			'n_entries_deleted' => 'Se han eliminado %d artículos',
 			'no_refresh' => 'No hay fuente a actualizar…',
@@ -102,12 +109,8 @@ return array(
 			'error' => 'El usuario %s no ha podido ser eliminado',
 		),
 		'updated' => array(
-			'_' => 'User %s has been updated', // TODO
-			'error' => 'User %s has not been updated', // TODO
+			'_' => 'User %s has been updated',	//TODO - Translation
+			'error' => 'User %s has not been updated',	//TODO - Translation
 		),
-	),
-	'profile' => array(
-		'error' => 'Tu perfil no puede ser modificado',
-		'updated' => 'Tu perfil ha sido modificado',
 	),
 );

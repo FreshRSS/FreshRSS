@@ -41,6 +41,7 @@ function checkRequirements($dbType = '') {
 	$dom = class_exists('DOMDocument');
 	$xml = function_exists('xml_parser_create');
 	$json = function_exists('json_encode');
+	$mbstring = extension_loaded('mbstring');
 	$data = DATA_PATH && is_writable(DATA_PATH);
 	$cache = CACHE_PATH && is_writable(CACHE_PATH);
 	$users = USERS_PATH && is_writable(USERS_PATH);
@@ -61,6 +62,7 @@ function checkRequirements($dbType = '') {
 		'dom' => $dom ? 'ok' : 'ko',
 		'xml' => $xml ? 'ok' : 'ko',
 		'json' => $json ? 'ok' : 'ko',
+		'mbstring' => $mbstring ? 'ok' : 'ko',
 		'data' => $data ? 'ok' : 'ko',
 		'cache' => $cache ? 'ok' : 'ko',
 		'users' => $users ? 'ok' : 'ko',
@@ -79,6 +81,7 @@ function generateSalt() {
 function checkDb(&$dbOptions) {
 	$dsn = '';
 	$driver_options = null;
+	prepareSyslog();
 	try {
 		switch ($dbOptions['type']) {
 		case 'mysql':

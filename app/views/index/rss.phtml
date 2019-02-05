@@ -13,10 +13,20 @@ foreach ($this->entries as $item) {
 		<item>
 			<title><?php echo $item->title(); ?></title>
 			<link><?php echo $item->link(); ?></link>
-			<?php $author = $item->author(); ?>
-			<?php if ($author != '') { ?>
-			<dc:creator><?php echo $author; ?></dc:creator>
-			<?php } ?>
+			<?php
+				$authors = $item->authors();
+				if (is_array($authors)) {
+					foreach ($authors as $author) {
+						echo "\t\t\t" , '<author>', $author, '</author>', "\n";
+					}
+				}
+				$categories = $item->tags();
+				if (is_array($categories)) {
+					foreach ($categories as $category) {
+						echo "\t\t\t" , '<category>', $category, '</category>', "\n";
+					}
+				}
+			?>
 			<description><![CDATA[<?php
 	echo $item->content();
 ?>]]></description>

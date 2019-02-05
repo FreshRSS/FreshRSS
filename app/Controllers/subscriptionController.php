@@ -14,7 +14,7 @@ class FreshRSS_subscription_Controller extends Minz_ActionController {
 			Minz_Error::error(403);
 		}
 
-		$catDAO = new FreshRSS_CategoryDAO();
+		$catDAO = FreshRSS_Factory::createCategoryDao();
 		$feedDAO = FreshRSS_Factory::createFeedDao();
 
 		$catDAO->checkDefault();
@@ -32,6 +32,8 @@ class FreshRSS_subscription_Controller extends Minz_ActionController {
 		Minz_View::appendScript(Minz_Url::display('/scripts/category.js?' .
 		                        @filemtime(PUBLIC_PATH . '/scripts/category.js')));
 		Minz_View::prependTitle(_t('sub.title') . ' · ');
+
+		$this->view->onlyFeedsWithError = Minz_Request::paramTernary('error');
 
 		$id = Minz_Request::param('id');
 		if ($id !== false) {
@@ -98,6 +100,7 @@ class FreshRSS_subscription_Controller extends Minz_ActionController {
 
 			$feed->_attributes('mark_updated_article_unread', Minz_Request::paramTernary('mark_updated_article_unread'));
 			$feed->_attributes('read_upon_reception', Minz_Request::paramTernary('read_upon_reception'));
+			$feed->_attributes('clear_cache', Minz_Request::paramTernary('clear_cache'));
 
 			if (FreshRSS_Auth::hasAccess('admin')) {
 				$feed->_attributes('ssl_verify', Minz_Request::paramTernary('ssl_verify'));

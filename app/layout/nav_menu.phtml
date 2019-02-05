@@ -1,7 +1,7 @@
 <?php $actual_view = Minz_Request::actionName(); ?>
 
 <div class="nav_menu">
-	<?php if ($actual_view === 'normal') { ?>
+	<?php if ($actual_view === 'normal' || $actual_view === 'reader' ) { ?>
 	<a class="btn toggle_aside" href="#aside_feed"><?php echo _i('category'); ?></a>
 	<?php } ?>
 
@@ -62,9 +62,10 @@
 	<?php
 		$get = FreshRSS_Context::currentGet();
 		$string_mark = _t('index.menu.mark_all_read');
-		if ($get[0] == 'f') {
+		$string_unmark = _t('index.menu.mark_selection_unread');
+		if ($get[0] === 'f') {
 			$string_mark = _t('index.menu.mark_feed_read');
-		} elseif ($get[0] == 'c') {
+		} elseif ($get[0] === 'c') {
 			$string_mark = _t('index.menu.mark_cat_read');
 		}
 
@@ -77,8 +78,12 @@
 				'idMax' => FreshRSS_Context::$id_max,
 				'search' => htmlspecialchars_decode(FreshRSS_Context::$search, ENT_QUOTES),
 				'state' => FreshRSS_Context::$state,
-			)
+			),
 		);
+
+		$mark_unread_url = $mark_read_url;
+		$mark_unread_url['params']['is_read'] = false;
+		$mark_unread_url['params']['nextGet'] = $get;
 	?>
 
 	<div class="stick" id="nav_menu_read_all">
@@ -110,6 +115,7 @@
 	$mark_before_today['params']['idMax'] = $today . '000000';
 	$mark_before_one_week = $mark_read_url;
 	$mark_before_one_week['params']['idMax'] = ($today - 604800) . '000000';
+	$mark_unread_enabled = FreshRSS_Context::isStateEnabled(FreshRSS_Entry::STATE_READ) or !FreshRSS_Context::isStateEnabled(FreshRSS_Entry::STATE_NOT_READ);
 ?>
 				<li class="item">
 					<button class="as-link <?php echo $confirm; ?>"
@@ -122,6 +128,13 @@
 					        form="mark-read-menu"
 					        formaction="<?php echo Minz_Url::display($mark_before_one_week); ?>"
 					        type="submit"><?php echo _t('index.menu.before_one_week'); ?></button>
+				</li>
+				<li class="separator"></li>
+				<li class="item">
+					<button class="as-link <?php echo $mark_unread_enabled ? $confirm : '" disabled="disabled'; ?>"
+					        form="mark-read-menu"
+					        formaction="<?php echo Minz_Url::display($mark_unread_url); ?>"
+					        type="submit"><?php echo $string_unmark; ?></button>
 				</li>
 			</ul>
 		</div>

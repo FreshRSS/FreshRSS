@@ -14,14 +14,13 @@ class FreshRSS_UserDAO extends Minz_ModelPdo {
 			$ok = false;
 			$bd_prefix_user = $db['prefix'] . $username . '_';
 			if (defined('SQL_CREATE_TABLES')) {	//E.g. MySQL
-				$sql = sprintf(SQL_CREATE_TABLES . SQL_CREATE_TABLE_ENTRYTMP, $bd_prefix_user, _t('gen.short.default_category'));
+				$sql = sprintf(SQL_CREATE_TABLES . SQL_CREATE_TABLE_ENTRYTMP . SQL_CREATE_TABLE_TAGS, $bd_prefix_user, _t('gen.short.default_category'));
 				$stm = $userPDO->bd->prepare($sql);
 				$ok = $stm && $stm->execute();
 			} else {	//E.g. SQLite
-				global $SQL_CREATE_TABLES;
-				global $SQL_CREATE_TABLE_ENTRYTMP;
+				global $SQL_CREATE_TABLES, $SQL_CREATE_TABLE_ENTRYTMP, $SQL_CREATE_TABLE_TAGS;
 				if (is_array($SQL_CREATE_TABLES)) {
-					$instructions = array_merge($SQL_CREATE_TABLES, $SQL_CREATE_TABLE_ENTRYTMP);
+					$instructions = array_merge($SQL_CREATE_TABLES, $SQL_CREATE_TABLE_ENTRYTMP, $SQL_CREATE_TABLE_TAGS);
 					$ok = !empty($instructions);
 					foreach ($instructions as $instruction) {
 						$sql = sprintf($instruction, $bd_prefix_user, _t('gen.short.default_category'));
@@ -66,7 +65,7 @@ class FreshRSS_UserDAO extends Minz_ModelPdo {
 		require_once(APP_PATH . '/SQL/install.sql.' . $db['type'] . '.php');
 
 		if ($db['type'] === 'sqlite') {
-			return unlink(join_path(DATA_PATH, 'users', $username, 'db.sqlite'));
+			return unlink(USERS_PATH . '/' . $username . '/db.sqlite');
 		} else {
 			$userPDO = new Minz_ModelPdo($username);
 
@@ -82,18 +81,18 @@ class FreshRSS_UserDAO extends Minz_ModelPdo {
 		}
 	}
 
-	public static function exist($username) {
-		return is_dir(join_path(DATA_PATH, 'users', $username));
+	public static function exists($username) {
+		return is_dir(USERS_PATH . '/' . $username);
 	}
 
 	public static function touch($username = '') {
 		if (!FreshRSS_user_Controller::checkUsername($username)) {
 			$username = Minz_Session::param('currentUser', '_');
 		}
-		return touch(join_path(DATA_PATH, 'users', $username, 'config.php'));
+		return touch(USERS_PATH . '/' . $username . '/config.php');
 	}
 
 	public static function mtime($username) {
-		return @filemtime(join_path(DATA_PATH, 'users', $username, 'config.php'));
+		return @filemtime(USERS_PATH . '/' . $username . '/config.php');
 	}
 }

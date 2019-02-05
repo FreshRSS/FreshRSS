@@ -335,6 +335,9 @@ class FreshRSS_ConfigurationSetter {
 	private function _limits(&$data, $values) {
 		$max_small_int = 16384;
 		$limits_keys = array(
+			'cookie_duration' => array(
+				'min' => 0,
+			),
 			'cache_duration' => array(
 				'min' => 0,
 			),

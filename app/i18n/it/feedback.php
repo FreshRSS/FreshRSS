@@ -50,8 +50,16 @@ return array(
 		'no_zip_extension' => 'Estensione ZIP non presente sul server.',
 		'zip_error' => 'Si è verificato un errore importando il file ZIP',
 	),
+	'profile' => array(
+		'error' => 'Il tuo profilo non può essere modificato',
+		'updated' => 'Il tuo profilo è stato modificato',
+	),
 	'sub' => array(
 		'actualize' => 'Aggiorna',
+		'articles' => array(
+			'marked_read' => 'The selected articles have been marked as read.',	//TODO - Translation
+			'marked_unread' => 'The articles have been marked as unread.',	//TODO - Translation
+		),
 		'category' => array(
 			'created' => 'Categoria %s creata.',
 			'deleted' => 'Categoria cancellata',
@@ -72,9 +80,8 @@ return array(
 			'already_subscribed' => 'Hai già sottoscritto <em>%s</em>',
 			'deleted' => 'Feed cancellato',
 			'error' => 'Feed non aggiornato',
-			'internal_problem' => 'RSS feed non aggiunto. <a href="%s">Verifica i logs</a> per dettagli.', // @todo
+			'internal_problem' => 'RSS feed non aggiunto. <a href="%s">Verifica i logs</a> per dettagli.',	//TODO - Translation
 			'invalid_url' => 'URL <em>%s</em> non valido',
-			'marked_read' => 'Feeds segnati come letti',
 			'n_actualized' => '%d feeds aggiornati',
 			'n_entries_deleted' => '%d articoli cancellati',
 			'no_refresh' => 'Nessun aggiornamento disponibile…',
@@ -102,12 +109,8 @@ return array(
 			'error' => 'Utente %s non cancellato',
 		),
 		'updated' => array(
-			'_' => 'User %s has been updated', // TODO
-			'error' => 'User %s has not been updated', // TODO
+			'_' => 'User %s has been updated',	//TODO - Translation
+			'error' => 'User %s has not been updated',	//TODO - Translation
 		),
-	),
-	'profile' => array(
-		'error' => 'Il tuo profilo non può essere modificato',
-		'updated' => 'Il tuo profilo è stato modificato',
 	),
 );

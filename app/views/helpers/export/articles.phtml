@@ -16,8 +16,12 @@ $articles = array(
 echo rtrim(json_encode($articles, $options), " ]}\n\r\t"), "\n";
 $first = true;
 
+if (empty($this->entryIdsTagNames)) {
+	$this->entryIdsTagNames = array();
+}
+
 foreach ($this->entriesRaw as $entryRaw) {
-	if (empty($entryRaw)) {
+	if ($entryRaw == null) {
 		continue;
 	}
 	$entry = FreshRSS_EntryDAO::daoToEntry($entryRaw);
@@ -32,13 +36,14 @@ foreach ($this->entriesRaw as $entryRaw) {
 
 	$article = array(
 		'id' => $entry->guid(),
+		'timestampUsec' => '' . $entry->id(),
 		'categories' => array_values($entry->tags()),
 		'title' => $entry->title(),
-		'author' => $entry->author(),
+		'author' => $entry->authors(true),
 		'published' => $entry->date(true),
 		'updated' => $entry->date(true),
 		'alternate' => array(array(
-			'href' => $entry->link(),
+			'href' => htmlspecialchars_decode($entry->link(), ENT_QUOTES),
 			'type' => 'text/html',
 		)),
 		'content' => array(
@@ -51,6 +56,14 @@ foreach ($this->entriesRaw as $entryRaw) {
 			'feedUrl' => $feed == null ? '' : $feed->url(),
 		)
 	);
+	$article['categories'][] = $entry->isRead() ? 'user/-/state/com.google/read' : 'user/-/state/com.google/unread';
+	if ($entry->isFavorite()) {
+		$article['categories'][] = 'user/-/state/com.google/starred';
+	}
+	$tagNames = isset($this->entryIdsTagNames['e_' . $entry->id()]) ? $this->entryIdsTagNames['e_' . $entry->id()] : array();
+	foreach ($tagNames as $tagName) {
+		$article['categories'][] = 'user/-/label/' . $tagName;
+	}
 
 	$line = json_encode($article, $options);
 	if ($line != '') {

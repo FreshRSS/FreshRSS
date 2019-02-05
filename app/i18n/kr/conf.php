@@ -28,6 +28,7 @@ return array(
 			'seconds' => '초 (0: 타임아웃 없음)',
 			'timeout' => 'HTML5 알림 타임아웃',
 		),
+		'show_nav_buttons' => '내비게이션 버튼 보이기',
 		'theme' => '테마',
 		'title' => '표시',
 		'width' => array(
@@ -37,7 +38,17 @@ return array(
 			'no_limit' => '제한 없음',
 			'thin' => '얇음',
 		),
-		'show_nav_buttons' => '내비게이션 버튼 보이기',
+	),
+	'profile' => array(
+		'_' => '프로필 관리',
+		'delete' => array(
+			'_' => '계정 삭제',
+			'warn' => '당신의 계정과 관련된 모든 데이터가 삭제됩니다.',
+		),
+		'password_api' => 'API 암호<br /><small>(예: 모바일 애플리케이션)</small>',
+		'password_form' => '암호<br /><small>(웹폼 로그인 방식 사용시)</small>',
+		'password_format' => '7 글자 이상이어야 합니다',
+		'title' => '프로필',
 	),
 	'query' => array(
 		'_' => '사용자 쿼리',
@@ -73,31 +84,19 @@ return array(
 		'state_15' => '모든 글 표시',
 		'title' => '사용자 쿼리',
 	),
-	'profile' => array(
-		'_' => '프로필 관리',
-		'delete' => array(
-			'_' => '계정 삭제',
-			'warn' => '당신의 계정과 관련된 모든 데이터가 삭제됩니다.',
-		),
-		'password_api' => 'API 암호<br /><small>(예: 모바일 애플리케이션)</small>',
-		'password_form' => '암호<br /><small>(웹폼 로그인 방식 사용시)</small>',
-		'password_format' => '7 글자 이상이어야 합니다',
-		'title' => '프로필',
-	),
 	'reading' => array(
 		'_' => '읽기',
 		'after_onread' => '“모두 읽음으로 표시” 후,',
 		'articles_per_page' => '페이지당 글 수',
 		'auto_load_more' => '페이지 하단에 다다르면 글 더 불러오기',
 		'auto_remove_article' => '글을 읽은 후 숨기기',
-		'mark_updated_article_unread' => '갱신 된 글을 읽지 않음으로 표시',
 		'confirm_enabled' => '“모두 읽음으로 표시” 실행시 확인 창 표시',
 		'display_articles_unfolded' => '글을 펼쳐진 상태로 보여주기',
 		'display_categories_unfolded' => '카테고리를 접힌 상태로 보여주기',
 		'hide_read_feeds' => '읽지 않은 글이 없는 카테고리와 피드 감추기 (“모든 글 표시”가 설정된 경우 동작하지 않습니다)',
 		'img_with_lazyload' => '그림을 불러오는 데에 "lazy load" 모드 사용하기',
-		'sides_close_article' => '글 영역 바깥을 클릭하면 글 접기',
 		'jump_next' => '다음 읽지 않은 항목으로 이동 (피드 또는 카테고리)',
+		'mark_updated_article_unread' => '갱신 된 글을 읽지 않음으로 표시',
 		'number_divided_when_reader' => '읽기 모드에서는 절반만 표시됩니다.',
 		'read' => array(
 			'article_open_on_website' => '글이 게재된 웹사이트를 방문했을 때',
@@ -112,6 +111,7 @@ return array(
 			'all_articles' => '모든 글 표시',
 			'unread' => '읽지 않은 글만 표시',
 		),
+		'sides_close_article' => '글 영역 바깥을 클릭하면 글 접기',
 		'sort' => array(
 			'_' => '정렬 순서',
 			'newer_first' => '최근 글 먼저',
@@ -158,10 +158,11 @@ return array(
 		'javascript' => '단축키를 사용하기 위해선 자바스크립트를 사용하도록 설정하여야 합니다',
 		'last_article' => '마지막 글 보기',
 		'load_more' => '글 더 불러오기',
-		'mark_read' => '읽음으로 표시',
 		'mark_favorite' => '즐겨찾기에 등록',
+		'mark_read' => '읽음으로 표시',
 		'navigation' => '탐색',
 		'navigation_help' => '"Shift" 키를 누른 상태에선 탐색 단축키가 피드에 적용됩니다.<br/>"Alt" 키를 누른 상태에선 탐색 단축키가 카테고리에 적용됩니다.',
+		'navigation_no_mod_help' => 'The following navigation shortcuts do not support modifiers.',	//TODO - Translation
 		'next_article' => '다음 글 보기',
 		'normal_view' => '일반 모드로 전환',
 		'other_action' => '다른 동작',
@@ -170,6 +171,8 @@ return array(
 		'rss_view' => '새 탭에서 RSS 피드 열기',
 		'see_on_website' => '글이 게재된 웹사이트에서 보기',
 		'shift_for_all_read' => '+ <code>shift</code>를 누른 상태에선 모두 읽음으로 표시',
+		'skip_next_article' => 'Focus next without opening',	//TODO - Translation
+		'skip_previous_article' => 'Focus previous without opening',	//TODO - Translation
 		'title' => '단축키',
 		'user_filter' => '사용자 필터 사용하기',
 		'user_filter_help' => '사용자 필터가 하나만 설정되어 있다면 해당 필터를 사용하고, 그렇지 않다면 필터를 번호로 선택할 수 있습니다.',

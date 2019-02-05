@@ -118,10 +118,8 @@ class SimplePie_Content_Type_Sniffer
 				{
 					return $return;
 				}
-				else
-				{
-					return $official;
-				}
+
+				return $official;
 			}
 			elseif ($official === 'text/html'
 				|| $official === 'text/xml'	//FreshRSS
@@ -129,15 +127,11 @@ class SimplePie_Content_Type_Sniffer
 			{
 				return $this->feed_or_html();
 			}
-			else
-			{
-				return $official;
-			}
+
+			return $official;
 		}
-		else
-		{
-			return $this->unknown();
-		}
+
+		return $this->unknown();
 	}
 
 	/**
@@ -158,10 +152,8 @@ class SimplePie_Content_Type_Sniffer
 		{
 			return 'application/octect-stream';
 		}
-		else
-		{
-			return 'text/plain';
-		}
+
+		return 'text/plain';
 	}
 
 	/**
@@ -207,10 +199,8 @@ class SimplePie_Content_Type_Sniffer
 		{
 			return 'image/vnd.microsoft.icon';
 		}
-		else
-		{
-			return $this->text_or_binary();
-		}
+
+		return $this->text_or_binary();
 	}
 
 	/**
@@ -241,10 +231,8 @@ class SimplePie_Content_Type_Sniffer
 		{
 			return 'image/vnd.microsoft.icon';
 		}
-		else
-		{
-			return false;
-		}
+
+		return false;
 	}
 
 	/**
@@ -328,4 +316,3 @@ class SimplePie_Content_Type_Sniffer
 		return 'text/html';
 	}
 }
-

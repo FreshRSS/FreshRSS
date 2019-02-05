@@ -7,7 +7,7 @@ return array(
 		'bugs_reports' => 'Bug 报告',
 		'credits' => '致谢',
 		'credits_content' => '某些设计元素来自于 <a href="http://twitter.github.io/bootstrap/">Bootstrap</a> ，尽管 FreshRSS 并没有使用此框架。<a href="https://git.gnome.org/browse/gnome-icon-theme-symbolic">图标</a> 来自于 <a href="https://www.gnome.org/">GNOME 项目</a>。<em>Open Sans</em> 字体出自 <a href="https://fonts.google.com/specimen/Open+Sans">Steve Matteson</a> 之手。FreshRSS 基于 PHP 框架 <a href="https://github.com/marienfressinaud/MINZ">Minz</a>。',
-		'freshrss_description' => 'FreshRSS 是一个自托管的 RSS 聚合服务，类似于 <a href="http://tontof.net/kriss/feed/">Kriss Feed</a> 或 <a href="http://projet.idleman.fr/leed/">Leed</a>。 它不仅轻快又易用，而且强大又易于配置。',
+		'freshrss_description' => 'FreshRSS 是一个自托管的 RSS 聚合服务，类似于 <a href="http://tontof.net/kriss/feed/">Kriss Feed</a> 或 <a href="http://leed.idleman.fr/">Leed</a>。 它不仅轻快又易用，而且强大又易于配置。',
 		'github' => '<a href="https://github.com/FreshRSS/FreshRSS/issues">Github Issues</a>',
 		'license' => '授权',
 		'project_website' => '项目网站',
@@ -40,6 +40,7 @@ return array(
 		'mark_all_read' => '全部设为已读',
 		'mark_cat_read' => '此分类设为已读',
 		'mark_feed_read' => '此源设为已读',
+		'mark_selection_unread' => 'Mark selection as unread',	//TODO - Translation
 		'newer_first' => '由新到旧',
 		'non-starred' => '显示未收藏',
 		'normal_view' => '普通视图',
@@ -52,10 +53,11 @@ return array(
 		'starred' => '显示收藏',
 		'stats' => '统计',
 		'subscription' => '订阅管理',
+		'tags' => 'My labels',	//TODO - Translation
 		'unread' => '显示未读',
 	),
 	'share' => '分享',
 	'tag' => array(
-		'related' => '相关标签',
+		'related' => '相关标签',	//TODO - Translation
 	),
 );

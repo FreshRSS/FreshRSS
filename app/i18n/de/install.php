@@ -24,8 +24,8 @@ return array(
 			'ok' => 'Datenbank-Konfiguration ist gespeichert worden.',
 		),
 		'host' => 'Host',
-		'prefix' => 'Tabellen-Präfix',
 		'password' => 'SQL-Password',
+		'prefix' => 'Tabellen-Präfix',
 		'type' => 'Datenbank-Typ',
 		'username' => 'SQL-Nutzername',
 	),
@@ -67,6 +67,10 @@ return array(
 		'json' => array(
 			'nok' => 'Ihnen fehlt eine empfohlene Bibliothek um JSON zu parsen.',
 			'ok' => 'Sie haben eine empfohlene Bibliothek um JSON zu parsen.',
+		),
+		'mbstring' => array(
+			'nok' => 'Es fehlt die empfohlene mbstring-Bibliothek für Unicode.',
+			'ok' => 'Sie haben die empfohlene mbstring-Bibliothek für Unicode.',
 		),
 		'minz' => array(
 			'nok' => 'Ihnen fehlt das Minz-Framework.',

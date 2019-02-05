@@ -1,4 +1,5 @@
 <?php
+	$actual_view = Minz_Request::actionName();
 	$class = '';
 	if (FreshRSS_Context::$user_conf->hide_read_feeds &&
 			FreshRSS_Context::isStateEnabled(FreshRSS_Entry::STATE_NOT_READ) &&
@@ -12,8 +13,8 @@
 
 	<?php if (FreshRSS_Auth::hasAccess()) { ?>
 	<div class="stick configure-feeds no-mobile">
-		<a class="btn btn-important" href="<?php echo _url('subscription', 'index'); ?>"><?php echo _t('index.menu.subscription'); ?></a>
-		<a class="btn btn-important" href="<?php echo _url('importExport', 'index'); ?>"><?php echo _i('import'); ?></a>
+		<a id="btn-subscription" class="btn btn-important" href="<?php echo _url('subscription', 'index'); ?>"><?php echo _t('index.menu.subscription'); ?></a>
+		<a id="btn-importExport" class="btn btn-important" href="<?php echo _url('importExport', 'index'); ?>"><?php echo _i('import'); ?></a>
 	</div>
 	<?php } elseif (FreshRSS_Auth::accessNeedsLogin()) { ?>
 	<a href="<?php echo _url('index', 'about'); ?>"><?php echo _t('index.menu.about'); ?></a>
@@ -21,17 +22,41 @@
 
 	<form id="mark-read-aside" method="post">
 	<input type="hidden" name="_csrf" value="<?php echo FreshRSS_Auth::csrfToken(); ?>" />
-	<ul class="tree">
+	<ul id="sidebar" class="tree">
 		<li class="tree-folder category all<?php echo FreshRSS_Context::isCurrentGet('a') ? ' active' : ''; ?>">
 			<div class="tree-folder-title">
-				<?php echo _i('all'); ?> <a class="title" data-unread="<?php echo format_number(FreshRSS_Context::$total_unread); ?>" href="<?php echo _url('index', 'index'); ?>"><?php echo _t('index.menu.main_stream'); ?></a>
+				<?php echo _i('all'); ?> <a class="title" data-unread="<?php echo format_number(FreshRSS_Context::$total_unread); ?>" href="<?php echo _url('index', $actual_view); ?>"><?php echo _t('index.menu.main_stream'); ?></a>
 			</div>
 		</li>
 
 		<li class="tree-folder category favorites<?php echo FreshRSS_Context::isCurrentGet('s') ? ' active' : ''; ?>">
 			<div class="tree-folder-title">
-				<?php echo _i('bookmark'); ?> <a class="title" data-unread="<?php echo format_number(FreshRSS_Context::$total_starred['unread']); ?>" href="<?php echo _url('index', 'index', 'get', 's'); ?>"><?php echo _t('index.menu.favorites', format_number(FreshRSS_Context::$total_starred['all'])); ?></a>
+				<?php echo _i('bookmark'); ?> <a class="title" data-unread="<?php echo format_number(FreshRSS_Context::$total_starred['unread']); ?>" href="<?php echo _url('index', $actual_view, 'get', 's'); ?>"><?php echo _t('index.menu.favorites', format_number(FreshRSS_Context::$total_starred['all'])); ?></a>
 			</div>
+		</li>
+
+		<?php
+			$t_active = FreshRSS_Context::isCurrentGet('T');
+		?>
+		<li class="tree-folder category tags<?php echo $t_active ? ' active' : ''; ?>">
+			<div class="tree-folder-title">
+				<a class="dropdown-toggle" href="#"><?php echo _i($t_active ? 'up' : 'down'); ?></a>
+				<a class="title" data-unread="<?php echo format_number($this->nbUnreadTags); ?>" href="<?php echo _url('index', $actual_view, 'get', 'T'); ?>"><?php echo _t('index.menu.tags'); ?></a>
+			</div>
+			<ul class="tree-folder-items<?php echo $t_active ? ' active' : ''; ?>">
+				<?php
+					foreach ($this->tags as $tag):
+				?>
+				<li id="t_<?php echo $tag->id(); ?>" class="item feed<?php echo FreshRSS_Context::isCurrentGet('t_' . $tag->id()) ? ' active' : ''; ?>" data-unread="<?php echo $tag->nbUnread(); ?>">
+					<div class="dropdown no-mobile">
+						<div class="dropdown-target"></div>
+						<a class="dropdown-toggle"><?php echo _i('configure'); ?></a>
+						<?php /* tag_config_template */ ?>
+					</div>
+					<?php echo FreshRSS_Themes::alt('label'); ?> <a class="item-title" data-unread="<?php echo format_number($tag->nbUnread()); ?>" href="<?php echo _url('index', $actual_view, 'get', 't_' . $tag->id()); ?>"><?php echo $tag->name(); ?></a>
+				</li>
+				<?php endforeach; ?>
+			</ul>
 		</li>
 
 		<?php
@@ -45,7 +70,7 @@
 		<li class="tree-folder category<?php echo $c_active ? ' active' : ''; ?>" data-unread="<?php echo $cat->nbNotRead(); ?>">
 			<div class="tree-folder-title">
 				<a class="dropdown-toggle" href="#"><?php echo _i($c_show ? 'up' : 'down'); ?></a>
-				<a class="title<?php echo $cat->hasFeedsWithError() ? ' error' : ''; ?>" data-unread="<?php echo format_number($cat->nbNotRead()); ?>" href="<?php echo _url('index', 'index', 'get', 'c_' . $cat->id()); ?>"><?php echo $cat->name(); ?></a>
+				<a class="title<?php echo $cat->hasFeedsWithError() ? ' error' : ''; ?>" data-unread="<?php echo format_number($cat->nbNotRead()); ?>" href="<?php echo _url('index', $actual_view, 'get', 'c_' . $cat->id()); ?>"><?php echo $cat->name(); ?></a>
 			</div>
 
 			<ul class="tree-folder-items<?php echo $c_show ? ' active' : ''; ?>">
@@ -59,7 +84,7 @@
 						<a class="dropdown-toggle" data-fweb="<?php echo $feed->website(); ?>"><?php echo _i('configure'); ?></a>
 						<?php /* feed_config_template */ ?>
 					</div>
-					<img class="favicon" src="<?php echo $feed->favicon(); ?>" alt="✇" /> <a class="item-title" data-unread="<?php echo format_number($feed->nbNotRead()); ?>" href="<?php echo _url('index', 'index', 'get', 'f_' . $feed->id()); ?>"><?php echo $feed->name(); ?></a>
+					<img class="favicon" src="<?php echo $feed->favicon(); ?>" alt="✇" /> <a class="item-title" data-unread="<?php echo format_number($feed->nbNotRead()); ?>" href="<?php echo _url('index', $actual_view, 'get', 'f_' . $feed->id()); ?>"><?php echo $feed->name(); ?></a>
 				</li>
 				<?php } ?>
 			</ul>
@@ -68,14 +93,26 @@
 				}
 			}
 		?>
+		<li class="tree-bottom"></li>
 	</ul>
 	</form>
 </div>
 
+<script id="tag_config_template" type="text/html">
+	<ul class="dropdown-menu">
+		<li class="dropdown-close"><a href="#close">❌</a></li>
+		<li class="item">
+			<button class="as-link confirm" disabled="disabled"
+				form="mark-read-aside" formaction="<?php echo _url('tag', 'delete', 'id_tag', '------'); ?>"
+				type="submit"><?php echo _t('gen.action.remove'); ?></button>
+		</li>
+	</ul>
+</script>
+
 <script id="feed_config_template" type="text/html">
 	<ul class="dropdown-menu">
 		<li class="dropdown-close"><a href="#close">❌</a></li>
-		<li class="item"><a href="<?php echo _url('index', 'index', 'get', 'f_------'); ?>"><?php echo _t('gen.action.filter'); ?></a></li>
+		<li class="item"><a href="<?php echo _url('index', $actual_view, 'get', 'f_------'); ?>"><?php echo _t('gen.action.filter'); ?></a></li>
 		<?php if (FreshRSS_Auth::hasAccess()) { ?>
 		<li class="item"><a href="<?php echo _url('stats', 'repartition', 'id', '------'); ?>"><?php echo _t('index.menu.stats'); ?></a></li>
 		<?php } ?>

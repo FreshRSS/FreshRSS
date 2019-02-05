@@ -694,10 +694,8 @@ class SimplePie_Parse_Date
 
 			return gmmktime($match[4], $match[5], $second, $match[2], $match[3], $match[1]) - $timezone;
 		}
-		else
-		{
-			return false;
-		}
+
+		return false;
 	}
 
 	/**
@@ -848,10 +846,8 @@ class SimplePie_Parse_Date
 
 			return gmmktime($match[5], $match[6], $second, $month, $match[2], $match[4]) - $timezone;
 		}
-		else
-		{
-			return false;
-		}
+
+		return false;
 	}
 
 	/**
@@ -913,10 +909,8 @@ class SimplePie_Parse_Date
 
 			return gmmktime($match[5], $match[6], $match[7], $month, $match[2], $match[4]) - $timezone;
 		}
-		else
-		{
-			return false;
-		}
+
+		return false;
 	}
 
 	/**
@@ -955,10 +949,8 @@ class SimplePie_Parse_Date
 			$month = $this->month[strtolower($match[2])];
 			return gmmktime($match[4], $match[5], $match[6], $month, $match[3], $match[7]);
 		}
-		else
-		{
-			return false;
-		}
+
+		return false;
 	}
 
 	/**
@@ -974,10 +966,7 @@ class SimplePie_Parse_Date
 		{
 			return false;
 		}
-		else
-		{
-			return $strtotime;
-		}
+
+		return $strtotime;
 	}
 }
-

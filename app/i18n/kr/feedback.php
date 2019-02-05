@@ -50,8 +50,16 @@ return array(
 		'no_zip_extension' => 'ZIP 확장 기능을 서버에서 찾을 수 없습니다.',
 		'zip_error' => 'ZIP 파일을 불러오는 동안 문제가 발생했습니다.',
 	),
+	'profile' => array(
+		'error' => '프로필을 변경할 수 없습니다',
+		'updated' => '프로필을 변경했습니다',
+	),
 	'sub' => array(
 		'actualize' => '피드를 가져오는 중입니다',
+		'articles' => array(
+			'marked_read' => 'The selected articles have been marked as read.',	//TODO - Translation
+			'marked_unread' => 'The articles have been marked as unread.',	//TODO - Translation
+		),
 		'category' => array(
 			'created' => '%s 카테고리가 생성되었습니다.',
 			'deleted' => '카테고리가 삭제되었습니다.',
@@ -74,7 +82,6 @@ return array(
 			'error' => '피드를 변경할 수 없습니다',
 			'internal_problem' => 'RSS 피드를 추가할 수 없습니다. 자세한 내용은 <a href="%s">FreshRSS 로그</a>를 참고하세요.',
 			'invalid_url' => 'URL (<em>%s</em>)이 유효하지 않습니다',
-			'marked_read' => '피드가 읽음으로 표시되었습니다',
 			'n_actualized' => '%d 개의 피드에서 새 글을 가져왔습니다',
 			'n_entries_deleted' => '%d 개의 글을 삭제했습니다',
 			'no_refresh' => '새 글을 가져올 피드가 없습니다…',
@@ -105,9 +112,5 @@ return array(
 			'_' => '사용자 %s의 정보가 변경되었습니다',
 			'error' => '사용자 %s의 정보가 변경되지 않았습니다',
 		),
-	),
-	'profile' => array(
-		'error' => '프로필을 변경할 수 없습니다',
-		'updated' => '프로필을 변경했습니다',
 	),
 );

@@ -68,7 +68,7 @@ class FreshRSS_Themes extends Minz_Model {
 		return $infos;
 	}
 
-	public static function icon($name, $urlOnly = false) {
+	public static function alt($name) {
 		static $alts = array(
 			'add' => '✚',
 			'all' => '☰',
@@ -84,6 +84,7 @@ class FreshRSS_Themes extends Minz_Model {
 			'icon' => '⊚',
 			'import' => '⤓',
 			'key' => '⚿',
+			'label' => '🏷️',
 			'link' => '↗',
 			'login' => '🔒',
 			'logout' => '🔓',
@@ -104,13 +105,18 @@ class FreshRSS_Themes extends Minz_Model {
 			'view-global' => '☷',
 			'view-reader' => '☕',
 		);
-		if (!isset($alts[$name])) {
+		return isset($name) ? $alts[$name] : '';
+	}
+
+	public static function icon($name, $urlOnly = false, $altOnly = false) {
+		$alt = self::alt($name);
+		if ($alt == '') {
 			return '';
 		}
 
 		$url = $name . '.svg';
 		$url = isset(self::$themeIcons[$url]) ? (self::$themeIconsUrl . $url) : (self::$defaultIconsUrl . $url);
 
-		return $urlOnly ? Minz_Url::display($url) : '<img class="icon" src="' . Minz_Url::display($url) . '" alt="' . $alts[$name] . '" />';
+		return $urlOnly ? Minz_Url::display($url) : '<img class="icon" src="' . Minz_Url::display($url) . '" alt="' . $alt . '" />';
 	}
 }

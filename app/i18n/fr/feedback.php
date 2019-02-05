@@ -50,8 +50,16 @@ return array(
 		'no_zip_extension' => 'L’extension ZIP n’est pas présente sur votre serveur.',
 		'zip_error' => 'Une erreur est survenue durant l’import du fichier ZIP.',
 	),
+	'profile' => array(
+		'error' => 'Votre profil n’a pas pu être mis à jour',
+		'updated' => 'Votre profil a été mis à jour',
+	),
 	'sub' => array(
 		'actualize' => 'Actualiser',
+		'articles' => array(
+			'marked_read' => 'Les articles sélectionnés ont été marqués comme lus.',
+			'marked_unread' => 'Les articles sélectionnés ont été marqués comme non-lus.',
+		),
 		'category' => array(
 			'created' => 'La catégorie %s a été créée.',
 			'deleted' => 'La catégorie a été supprimée.',
@@ -74,7 +82,6 @@ return array(
 			'error' => 'Une erreur est survenue',
 			'internal_problem' => 'Le flux ne peut pas être ajouté. <a href="%s">Consulter les logs de FreshRSS</a> pour plus de détails. Vous pouvez essayer de forcer l’ajout par addition de <code>#force_feed</code> à l’URL.',
 			'invalid_url' => 'L’url <em>%s</em> est invalide.',
-			'marked_read' => 'Les flux ont été marqués comme lus.',
 			'n_actualized' => '%d flux ont été mis à jour.',
 			'n_entries_deleted' => '%d articles ont été supprimés.',
 			'no_refresh' => 'Il n’y a aucun flux à actualiser…',
@@ -105,9 +112,5 @@ return array(
 			'_' => 'L’utilisateur %s a été mis à jour',
 			'error' => 'L’utilisateur %s n’a pas été mis à jour',
 		),
-	),
-	'profile' => array(
-		'error' => 'Votre profil n’a pas pu être mis à jour',
-		'updated' => 'Votre profil a été mis à jour',
 	),
 );

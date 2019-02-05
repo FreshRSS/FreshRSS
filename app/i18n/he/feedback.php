@@ -21,7 +21,6 @@ return array(
 			'success' => 'You are disconnected', // @todo
 		),
 		'no_password_set' => 'לא הוגדרה סיסמת מנהל. תכונה זו אינה זמינה.',
-		'not_persona' => 'ניתן לאפס את מערכת הפרסונה בלבד.',
 	),
 	'conf' => array(
 		'error' => 'An error occurred during configuration saving', // @todo
@@ -51,20 +50,28 @@ return array(
 		'no_zip_extension' => 'הרחבת ZIP אינה מותקנת על השרת.',
 		'zip_error' => 'אירעה שגיאה במהלך ייבוא קובץ הZIP.',
 	),
+	'profile' => array(
+		'error' => 'Your profile cannot be modified', // @todo
+		'updated' => 'Your profile has been modified', // @todo
+	),
 	'sub' => array(
 		'actualize' => 'מימוש',
+		'articles' => array(
+			'marked_read' => 'The selected articles have been marked as read.',	//TODO - Translation
+			'marked_unread' => 'The articles have been marked as unread.',	//TODO - Translation
+		),
 		'category' => array(
-			'created' => 'Category %s has been created.', // @todo
-			'deleted' => 'Category has been deleted.', // @todo
+			'created' => 'Category %s has been created.',	//TODO - Translation
+			'deleted' => 'Category has been deleted.',	//TODO - Translation
 			'emptied' => 'הקטגוריה רוקנה',
-			'error' => 'Category cannot be updated', // @todo
-			'name_exists' => 'Category name already exists.', // @todo
-			'no_id' => 'You must precise the id of the category.', // @todo
-			'no_name' => 'Category name cannot be empty.', // @todo
-			'not_delete_default' => 'You cannot delete the default category!', // @todo
-			'not_exist' => 'The category does not exist!', // @todo
-			'over_max' => 'You have reached your limit of categories (%d)', // @todo
-			'updated' => 'Category has been updated.', // @todo
+			'error' => 'Category cannot be updated',	//TODO - Translation
+			'name_exists' => 'Category name already exists.',	//TODO - Translation
+			'no_id' => 'You must precise the id of the category.',	//TODO - Translation
+			'no_name' => 'Category name cannot be empty.',	//TODO - Translation
+			'not_delete_default' => 'You cannot delete the default category!',	//TODO - Translation
+			'not_exist' => 'The category does not exist!',	//TODO - Translation
+			'over_max' => 'You have reached your limit of categories (%d)',	//TODO - Translation
+			'updated' => 'Category has been updated.',	//TODO - Translation
 		),
 		'feed' => array(
 			'actualized' => '<em>%s</em> עודכן',
@@ -72,21 +79,20 @@ return array(
 			'added' => 'RSS הזנת <em>%s</em> נוספה',
 			'already_subscribed' => 'אתה כבר רשום ל <em>%s</em>',
 			'deleted' => 'ההזנה נמחקה',
-			'error' => 'Feed cannot be updated', // @todo
-			'internal_problem' => 'אין אפשרות להוסיף את ההזנה. <a href="%s">בדקו את הלוגים</a> לפרטים.', // @todo
+			'error' => 'Feed cannot be updated',	//TODO - Translation
+			'internal_problem' => 'אין אפשרות להוסיף את ההזנה. <a href="%s">בדקו את הלוגים</a> לפרטים.',	//TODO - Translation
 			'invalid_url' => 'URL <em>%s</em> אינו תקין',
-			'marked_read' => 'הזנות סומנו כנקראו',
 			'n_actualized' => '%d הזנות עודכנו',
 			'n_entries_deleted' => '%d המאמרים נמחקו',
 			'no_refresh' => 'אין הזנה שניתן לרענן…',
 			'not_added' => '<em>%s</em> אין אפשרות להוסיף את',
-			'over_max' => 'You have reached your limit of feeds (%d)', // @todo
+			'over_max' => 'You have reached your limit of feeds (%d)',	//TODO - Translation
 			'updated' => 'ההזנה התעדכנה',
 		),
 		'purge_completed' => 'הניקוי הושלם (%d מאמרים נמחקו)',
 	),
 	'update' => array(
-		'can_apply' => 'FreshRSS will be now updated to the <strong>version %s</strong>.', // @todo
+		'can_apply' => 'FreshRSS will be now updated to the <strong>version %s</strong>.',	//TODO - Translation
 		'error' => 'תהליך העדכון נתקל בשגיאה: %s',
 		'file_is_nok' => 'יש לבדוק את ההרשאות בתיקייה <em>%s</em>. שרת הHTTP חייב להיות בעל הרשאות כתיבה.',
 		'finished' => 'העדכון הושלם!',
@@ -96,19 +102,15 @@ return array(
 	'user' => array(
 		'created' => array(
 			'_' => 'המשתמש %s נוצר',
-			'error' => 'User %s cannot be created', // @todo
+			'error' => 'User %s cannot be created',	//TODO - Translation
 		),
 		'deleted' => array(
 			'_' => 'המשתמש %s נמחק',
-			'error' => 'User %s cannot be deleted', // @todo
+			'error' => 'User %s cannot be deleted',	//TODO - Translation
 		),
 		'updated' => array(
-			'_' => 'User %s has been updated', // TODO
-			'error' => 'User %s has not been updated', // TODO
+			'_' => 'User %s has been updated',	//TODO - Translation
+			'error' => 'User %s has not been updated',	//TODO - Translation
 		),
-	),
-	'profile' => array(
-		'error' => 'Your profile cannot be modified', // @todo
-		'updated' => 'Your profile has been modified', // @todo
 	),
 );

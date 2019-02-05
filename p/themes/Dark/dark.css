@@ -113,6 +113,9 @@ form th {
 }
 
 /*=== Buttons */
+button.as-link[disabled] {
+	color:#445 !important;
+}
 .stick {
 	vertical-align: middle;
 	font-size: 0;
@@ -158,6 +161,7 @@ form th {
 	display: inline-block;
 	min-height: 37px;
 	min-width: 15px;
+	line-height: 25px;
 	margin: 0;
 	padding: 5px 10px;
 	font-size: 0.9rem;
@@ -496,6 +500,24 @@ a.btn {
 }
 .tree-folder-items > .item.active > a {
 	color: #888;
+}
+
+/*=== Scrollbar */
+@supports (scrollbar-width: thin) {
+	#sidebar {
+		scrollbar-color: rgba(255, 255, 255, 0.05) rgba(0, 0, 0, 0.0);
+	}
+	#sidebar:hover {
+		scrollbar-color: rgba(255, 255, 255, 0.3) rgba(0, 0, 0, 0.0);
+	}
+}
+@supports not (scrollbar-width: thin) {
+	#sidebar::-webkit-scrollbar-thumb {
+		background: rgba(255, 255, 255, 0.1);
+	}
+	#sidebar:hover::-webkit-scrollbar-thumb {
+		background: rgba(255, 255, 255, 0.3);
+	}
 }
 
 /*=== STRUCTURE */

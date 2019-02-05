@@ -24,8 +24,8 @@ return array(
 			'ok' => 'Database configuration has been saved.',
 		),
 		'host' => 'Host',
-		'prefix' => 'Table prefix',
 		'password' => 'Database password',
+		'prefix' => 'Table prefix',
 		'type' => 'Type of database',
 		'username' => 'Database username',
 	),
@@ -67,6 +67,10 @@ return array(
 		'json' => array(
 			'nok' => 'Cannot find a recommended library to parse JSON.',
 			'ok' => 'You have a recommended library to parse JSON.',
+		),
+		'mbstring' => array(
+			'nok' => 'Cannot find the recommended library mbstring for Unicode.',
+			'ok' => 'You have the recommended library mbstring for Unicode.',
 		),
 		'minz' => array(
 			'nok' => 'Cannot find the Minz framework.',

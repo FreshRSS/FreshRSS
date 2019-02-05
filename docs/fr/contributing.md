@@ -15,6 +15,6 @@ Vous pouvez notamment regarder [les tickets ouverts avec le tag "Documentation"]
 
 ## Contribuer au blog
 
-Vous souhaitez écrire un article à propos des technologies RSS/Atom/PubSubHubbub ou tout simplement nous donner un coup de main à la rédaction d'un billet ? Vous pouvez nous aider !
+Vous souhaitez écrire un article à propos des technologies RSS/Atom/WebSub ou tout simplement nous donner un coup de main à la rédaction d'un billet ? Vous pouvez nous aider !
 
 Pour cela, il suffit de vous rendre sur le dépôt GitHub [FreshRSS/freshrss.org](https://github.com/FreshRSS/freshrss.org) et de nous proposer une « Pull Request ». Les articles de blog doivent se trouver dans le répertoire `./blog` et être écrits en Markdown.

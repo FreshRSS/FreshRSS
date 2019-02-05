@@ -90,7 +90,6 @@ class FreshRSS extends Minz_FrontController {
 				}
 				$filetime = @filemtime(PUBLIC_PATH . '/themes/' . $theme_id . '/' . $filename);
 				$url = '/themes/' . $theme_id . '/' . $filename . '?' . $filetime;
-				header('Link: <' . Minz_Url::display($url, '', 'root') . '>;rel=preload', false);	//HTTP2
 				Minz_View::prependStyle(Minz_Url::display($url));
 			}
 		}

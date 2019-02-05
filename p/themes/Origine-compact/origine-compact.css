@@ -1,11 +1,5 @@
 @charset "UTF-8";
 
-/*=== FONTS */
-@font-face {
-	font-family: "OpenSans";
-	src: url("../fonts/openSans.woff") format("woff");
-}
-
 /*=== GENERAL */
 /*============*/
 html, body {
@@ -173,7 +167,8 @@ form th {
 	cursor: pointer;
 	overflow: hidden;
 }
-a.btn {
+a.btn,
+.stick .btn {
 	min-height: 20px;
 	line-height: 20px;
 }
@@ -577,7 +572,7 @@ a.btn {
 
 .header > .item.search input {
 	width: 230px;
-	padding: 1px 5px 0px 5px;
+	padding: 1px 5px;
 }
 .header .item.search input:focus {
 	width: 350px;

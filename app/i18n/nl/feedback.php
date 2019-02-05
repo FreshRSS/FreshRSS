@@ -50,8 +50,16 @@ return array(
 		'no_zip_extension' => 'ZIP uitbreiding is niet aanwezig op uw server.',
 		'zip_error' => 'Er is een fout opgetreden tijdens het imporeren van het ZIP bestand.',
 	),
+	'profile' => array(
+		'error' => 'Uw profiel kan niet worden aangepast',
+		'updated' => 'Uw profiel is aangepast',
+	),
 	'sub' => array(
 		'actualize' => 'Actualiseren',
+		'articles' => array(
+			'marked_read' => 'De geselecteerde artikelen zijn als gelezen gemarkeerd.',
+			'marked_unread' => 'De geselecteerde artikelen zijn als ongelezen gemarkeerd.',
+		),
 		'category' => array(
 			'created' => 'Categorie %s is gemaakt.',
 			'deleted' => 'Categorie is verwijderd.',
@@ -74,7 +82,6 @@ return array(
 			'error' => 'Feed kan niet worden vernieuwd',
 			'internal_problem' => 'De feed kon niet worden toegevoegd. <a href="%s">Controleer de FreshRSS-logbestanden</a> voor details. Toevoegen forceren kan worden geprobeerd door <code>#force_feed</code> aan de URL toe te voegen.',
 			'invalid_url' => 'URL <em>%s</em> is ongeldig',
-			'marked_read' => 'Feeds zijn gemarkeerd als gelezen',
 			'n_actualized' => '%d feeds zijn vernieuwd',
 			'n_entries_deleted' => '%d artikelen zijn verwijderd',
 			'no_refresh' => 'Er is geen feed om te vernieuwen…',
@@ -105,10 +112,5 @@ return array(
 			'_' => 'Gebruiker %s is bijgewerkt',
 			'error' => 'Gebruiker %s kan niet worden bijgewerkt',
 		),
-		'set_registration' => 'Het maximale aantal accounts is vernieuwd.',
-	),
-	'profile' => array(
-		'error' => 'Uw profiel kan niet worden aangepast',
-		'updated' => 'Uw profiel is aangepast',
 	),
 );

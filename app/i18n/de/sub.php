@@ -27,6 +27,7 @@ return array(
 			'password' => 'HTTP-Passwort',
 			'username' => 'HTTP-Nutzername',
 		),
+		'clear_cache' => 'Nicht cachen (für defekte Feeds)',
 		'css_help' => 'Ruft gekürzte RSS-Feeds ab (Achtung, benötigt mehr Zeit!)',
 		'css_path' => 'Pfad zur CSS-Datei des Artikels auf der Original-Webseite',
 		'description' => 'Beschreibung',
@@ -44,17 +45,24 @@ return array(
 			'main_stream' => 'In Haupt-Feeds zeigen',
 			'normal' => 'Zeige in eigener Kategorie',
 		),
-		'ssl_verify' => 'Verify SSL security',	//TODO
+		'websub' => 'Sofortbenachrichtigung mit WebSub',
+		'show' => array(
+			'all' => 'Show all feeds',	//TODO - Translation
+			'error' => 'Show only feeds with error',	//TODO - Translation
+		),
+		'showing' => array(
+			'error' => 'Showing only feeds with error',	//TODO - Translation
+		),
+		'ssl_verify' => 'Überprüfe SSL Sicherheit',
 		'stats' => 'Statistiken',
 		'think_to_add' => 'Sie können Feeds hinzufügen.',
-		'timeout' => 'Timeout in seconds',	//TODO
+		'timeout' => 'Zeitlimit in Sekunden',
 		'title' => 'Titel',
 		'title_add' => 'Einen RSS-Feed hinzufügen',
 		'ttl' => 'Aktualisiere automatisch nicht öfter als',
 		'url' => 'Feed-URL',
 		'validator' => 'Überprüfen Sie die Gültigkeit des Feeds',
 		'website' => 'Webseiten-URL',
-		'pubsubhubbub' => 'Sofortbenachrichtigung mit PubSubHubbub',
 	),
 	'firefox' => array(
 		'documentation' => 'Folge den <a href="https://developer.mozilla.org/en-US/Firefox/Releases/2/Adding_feed_readers_to_Firefox#Adding_a_new_feed_reader_manually">hier</a> beschriebenen Schritten um FreshRSS zu Deiner Firefox RSS-Reader Liste hinzuzufügen.',
@@ -64,6 +72,7 @@ return array(
 		'export' => 'Exportieren',
 		'export_opml' => 'Liste der Feeds exportieren (OPML)',
 		'export_starred' => 'Ihre Favoriten exportieren',
+		'export_labelled' => 'Export your labelled articles',	//TODO
 		'feed_list' => 'Liste von %s Artikeln',
 		'file_to_import' => 'Zu importierende Datei<br />(OPML, JSON oder ZIP)',
 		'file_to_import_no_zip' => 'Zu importierende Datei<br />(OPML oder JSON)',

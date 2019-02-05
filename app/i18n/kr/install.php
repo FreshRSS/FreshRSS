@@ -24,8 +24,8 @@ return array(
 			'ok' => '데이터베이스 설정이 저장되었습니다.',
 		),
 		'host' => '데이터베이스 서버',
-		'prefix' => '테이블 접두어',
 		'password' => '데이터베이스 암호',
+		'prefix' => '테이블 접두어',
 		'type' => '데이터베이스 종류',
 		'username' => '데이터베이스 사용자 이름',
 	),
@@ -65,8 +65,12 @@ return array(
 			'ok' => 'HTTP REFERER가 서버와 일치하는 것을 확인했습니다.',
 		),
 		'json' => array(
-			'nok' => 'JSON 확장 기능을 찾을 수 없습니다 (php5-json 패키지).',
+			'nok' => 'JSON 확장 기능을 찾을 수 없습니다 (php-json 패키지).',
 			'ok' => 'JSON  확장 기능이 설치되어 있습니다.',
+		),
+		'mbstring' => array(
+			'nok' => 'Cannot find the recommended library mbstring for Unicode.',	//TODO - Translation
+			'ok' => 'You have the recommended library mbstring for Unicode.',	//TODO - Translation
 		),
 		'minz' => array(
 			'nok' => 'Minz 프레임워크를 찾을 수 없습니다.',

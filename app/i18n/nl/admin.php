@@ -63,8 +63,12 @@ return array(
 		),
 		'files' => 'Bestanden installatie',
 		'json' => array(
-			'nok' => 'U mist JSON (php5-json package).',
+			'nok' => 'U mist JSON (php-json package).',
 			'ok' => 'U hebt JSON uitbreiding.',
+		),
+		'mbstring' => array(
+			'nok' => 'De voor Unicode aanbevolen bibliotheek mbstring kan niet worden gevonden.',
+			'ok' => 'De voor Unicode aanbevolen bibliotheek mbstring is gevonden.',
 		),
 		'minz' => array(
 			'nok' => 'U mist Minz framework.',
@@ -102,23 +106,23 @@ return array(
 		),
 	),
 	'extensions' => array(
+		'author' => 'Auteur',
+		'community' => 'Gebruikersuitbreidingen beschikbaar',
+		'description' => 'Beschrijving',
 		'disabled' => 'Uitgeschakeld',
 		'empty_list' => 'Er zijn geïnstalleerde uitbreidingen',
 		'enabled' => 'Ingeschakeld',
+		'latest' => 'Geïnstalleerd',
+		'name' => 'Naam',
 		'no_configure_view' => 'Deze uitbreiding kan niet worden geconfigureerd.',
 		'system' => array(
 			'_' => 'Systeemuitbreidingen',
 			'no_rights' => 'Systeemuitbreidingen (U hebt hier geen rechten op)',
 		),
 		'title' => 'Uitbreidingen',
-		'user' => 'Gebruikersuitbreidingen',
-		'community' => 'Gebruikersuitbreidingen beschikbaar',
-		'name' => 'Naam',
-		'version' => 'Versie',
-		'description' => 'Beschrijving',
-		'author' => 'Auteur',
-		'latest' => 'Geïnstalleerd',
 		'update' => 'Update beschikbaar',
+		'user' => 'Gebruikersuitbreidingen',
+		'version' => 'Versie',
 	),
 	'stats' => array(
 		'_' => 'Statistieken',
@@ -158,6 +162,10 @@ return array(
 		'instance-name' => 'Voorbeeld naam',
 		'max-categories' => 'Categoriën limiet per gebruiker',
 		'max-feeds' => 'Feed limiet per gebruiker',
+		'cookie-duration' => array(
+			'help' => 'in seconden',
+			'number' => 'Tijdsduur om ingelogd te blijven',
+		),
 		'registration' => array(
 			'help' => '0 betekent geen account limiet',
 			'number' => 'Maximum aantal accounts',
@@ -181,11 +189,6 @@ return array(
 		'numbers' => 'Er zijn %d accounts gemaakt',
 		'password_form' => 'Wachtwoord<br /><small>(voor de Web-formulier loginmethode)</small>',
 		'password_format' => 'Ten minste 7 tekens',
-		'registration' => array(
-			'allow' => 'Sta het maken van nieuwe accounts toe',
-			'help' => '0 betekent dat er geen accountlimiet is',
-			'number' => 'Max aantal accounts',
-		),
 		'selected' => 'Geselecteerde gebruiker',
 		'title' => 'Beheer gebruikers',
 		'update_users' => 'Gebruiker bijwerken',

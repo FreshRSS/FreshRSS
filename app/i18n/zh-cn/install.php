@@ -24,8 +24,8 @@ return array(
 			'ok' => '数据库配置已保存。',
 		),
 		'host' => '主机',
-		'prefix' => '表前缀',
 		'password' => '密码',
+		'prefix' => '表前缀',
 		'type' => '数据库类型',
 		'username' => '用户名',
 	),
@@ -67,6 +67,10 @@ return array(
 		'json' => array(
 			'nok' => '找不到推荐的 JSON 解析库。',
 			'ok' => '已找到推荐的 JSON 解析库。',
+		),
+		'mbstring' => array(
+			'nok' => 'Cannot find the recommended library mbstring for Unicode.',	//TODO - Translation
+			'ok' => 'You have the recommended library mbstring for Unicode.',	//TODO - Translation
 		),
 		'minz' => array(
 			'nok' => '找不到 Minz 框架。',

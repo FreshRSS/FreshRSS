@@ -18,6 +18,8 @@ Server-side API compatible with Google Reader API layer 2
 * https://github.com/ericmann/gReader-Library/blob/master/greader.class.php
 * https://github.com/devongovett/reader
 * https://github.com/theoldreader/api
+* https://www.inoreader.com/developers/
+* https://feedhq.readthedocs.io/en/latest/api/index.html
 */
 
 require(__DIR__ . '/../../constants.php');
@@ -39,6 +41,12 @@ if (PHP_INT_SIZE < 8) {	//32-bit
 	function hex2dec($hex) {
 		return hexdec($hex);
 	}
+}
+
+if (version_compare(PHP_VERSION, '5.4.0') >= 0) {
+	define('JSON_OPTIONS', JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
+} else {
+	define('JSON_OPTIONS', 0);
 }
 
 function headerVariable($headerName, $varName) {
@@ -135,14 +143,11 @@ function checkCompatibility() {
 	Minz_Log::warning('checkCompatibility() ' . debugInfo(), API_LOG);
 	header('Content-Type: text/plain; charset=UTF-8');
 	if (PHP_INT_SIZE < 8 && !function_exists('gmp_init')) {
-		die('FAIL 64-bit or GMP extension!');
+		die('FAIL 64-bit or GMP extension! Wrong PHP configuration.');
 	}
-	if ((!array_key_exists('HTTP_AUTHORIZATION', $_SERVER)) &&	//Apache mod_rewrite trick should be fine
-		(!array_key_exists('REDIRECT_HTTP_AUTHORIZATION', $_SERVER)) &&	//Apache mod_rewrite with FCGI
-		(empty($_SERVER['SERVER_SOFTWARE']) || (stripos($_SERVER['SERVER_SOFTWARE'], 'nginx') === false)) &&	//nginx should be fine
-		(empty($_SERVER['SERVER_SOFTWARE']) || (stripos($_SERVER['SERVER_SOFTWARE'], 'lighttpd') === false)) &&	//lighttpd should be fine
-		((!function_exists('getallheaders')) || (stripos(php_sapi_name(), 'cgi') !== false))) {	//Main problem is Apache/CGI mode
-		die('FAIL getallheaders! (probably)');
+	$headerAuth = headerVariable('Authorization', 'GoogleLogin_auth');
+	if ($headerAuth == '') {
+		die('FAIL get HTTP Authorization header! Wrong Web server configuration.');
 	}
 	echo 'PASS';
 	exit();
@@ -191,6 +196,7 @@ function clientLogin($email, $pass) {	//http://web.archive.org/web/2013060409104
 			header('Content-Type: text/plain; charset=UTF-8');
 			$auth = $email . '/' . sha1(FreshRSS_Context::$system_conf->salt . $email . FreshRSS_Context::$user_conf->apiPasswordHash);
 			echo 'SID=', $auth, "\n",
+				'LSID=null', "\n",	//Vienna RSS
 				'Auth=', $auth, "\n";
 			exit();
 		} else {
@@ -233,7 +239,7 @@ function userInfo() {	//https://github.com/theoldreader/api#user-info
 			'userName' => $user,
 			'userProfileId' => $user,
 			'userEmail' => FreshRSS_Context::$user_conf->mail_login,
-		)));
+		), JSON_OPTIONS));
 }
 
 function tagList() {
@@ -251,12 +257,26 @@ function tagList() {
 
 	foreach ($res as $cName) {
 		$tags[] = array(
-			'id' => 'user/-/label/' . $cName,
+			'id' => 'user/-/label/' . htmlspecialchars_decode($cName, ENT_QUOTES),
 			//'sortid' => $cName,
+			'type' => 'folder',	//Inoreader
 		);
 	}
 
-	echo json_encode(array('tags' => $tags)), "\n";
+	unset($res);
+
+	$tagDAO = FreshRSS_Factory::createTagDao();
+	$labels = $tagDAO->listTags(true);
+	foreach ($labels as $label) {
+		$tags[] = array(
+			'id' => 'user/-/label/' . htmlspecialchars_decode($label->name(), ENT_QUOTES),
+			//'sortid' => $cName,
+			'type' => 'tag',	//Inoreader
+			'unread_count' => $label->nbUnread(),	//Inoreader
+		);
+	}
+
+	echo json_encode(array('tags' => $tags), JSON_OPTIONS), "\n";
 	exit();
 }
 
@@ -277,22 +297,22 @@ function subscriptionList() {
 	foreach ($res as $line) {
 		$subscriptions[] = array(
 			'id' => 'feed/' . $line['id'],
-			'title' => $line['name'],
+			'title' => escapeToUnicodeAlternative($line['name'], true),
 			'categories' => array(
 				array(
-					'id' => 'user/-/label/' . $line['c_name'],
-					'label' => $line['c_name'],
+					'id' => 'user/-/label/' . htmlspecialchars_decode($line['c_name'], ENT_QUOTES),
+					'label' => htmlspecialchars_decode($line['c_name'], ENT_QUOTES),
 				),
 			),
 			//'sortid' => $line['name'],
 			//'firstitemmsec' => 0,
-			'url' => $line['url'],
-			'htmlUrl' => $line['website'],
+			'url' => htmlspecialchars_decode($line['url'], ENT_QUOTES),
+			'htmlUrl' => htmlspecialchars_decode($line['website'], ENT_QUOTES),
 			'iconUrl' => $faviconsUrl . hash('crc32b', $salt . $line['url']),
 		);
 	}
 
-	echo json_encode(array('subscriptions' => $subscriptions)), "\n";
+	echo json_encode(array('subscriptions' => $subscriptions), JSON_OPTIONS), "\n";
 	exit();
 }
 
@@ -309,7 +329,7 @@ function subscriptionEdit($streamNames, $titles, $action, $add = '', $remove = '
 	$addCatId = 0;
 	$categoryDAO = null;
 	if ($add != '' || $remove != '') {
-		$categoryDAO = new FreshRSS_CategoryDAO();
+		$categoryDAO = FreshRSS_Factory::createCategoryDao();
 	}
 	$c_name = '';
 	if ($add != '' && strpos($add, 'user/') === 0) {	//user/-/label/Example ; user/username/label/Example
@@ -324,6 +344,7 @@ function subscriptionEdit($streamNames, $titles, $action, $add = '', $remove = '
 				$c_name = '';
 			}
 		}
+		$c_name = htmlspecialchars($c_name, ENT_COMPAT, 'UTF-8');
 		$cat = $categoryDAO->searchByName($c_name);
 		$addCatId = $cat == null ? 0 : $cat->id();
 	} else if ($remove != '' && strpos($remove, 'user/-/label/')) {
@@ -334,26 +355,28 @@ function subscriptionEdit($streamNames, $titles, $action, $add = '', $remove = '
 		badRequest();
 	}
 	for ($i = count($streamNames) - 1; $i >= 0; $i--) {
-		$streamName = $streamNames[$i];	//feed/http://example.net/sample.xml	;	feed/338
-		if (strpos($streamName, 'feed/') === 0) {
-			$streamName = substr($streamName, 5);
+		$streamUrl = $streamNames[$i];	//feed/http://example.net/sample.xml	;	feed/338
+		if (strpos($streamUrl, 'feed/') === 0) {
+			$streamUrl = substr($streamUrl, 5);
 			$feedId = 0;
-			if (ctype_digit($streamName)) {
+			if (ctype_digit($streamUrl)) {
 				if ($action === 'subscribe') {
 					continue;
 				}
-				$feedId = $streamName;
+				$feedId = $streamUrl;
 			} else {
-				$feed = $feedDAO->searchByUrl($streamName);
+				$streamUrl = htmlspecialchars($streamUrl, ENT_COMPAT, 'UTF-8');
+				$feed = $feedDAO->searchByUrl($streamUrl);
 				$feedId = $feed == null ? -1 : $feed->id();
 			}
 			$title = isset($titles[$i]) ? $titles[$i] : '';
+			$title = htmlspecialchars($title, ENT_COMPAT, 'UTF-8');
 			switch ($action) {
 				case 'subscribe':
 					if ($feedId <= 0) {
-						$http_auth = '';	//TODO
+						$http_auth = '';
 						try {
-							$feed = FreshRSS_feed_Controller::addFeed($streamName, $title, $addCatId, $c_name, $http_auth);
+							$feed = FreshRSS_feed_Controller::addFeed($streamUrl, $title, $addCatId, $c_name, $http_auth);
 							continue;
 						} catch (Exception $e) {
 							Minz_Log::error('subscriptionEdit error subscribe: ' . $e->getMessage(), API_LOG);
@@ -386,17 +409,18 @@ function subscriptionEdit($streamNames, $titles, $action, $add = '', $remove = '
 
 function quickadd($url) {
 	try {
+		$url = htmlspecialchars($url, ENT_COMPAT, 'UTF-8');
 		$feed = FreshRSS_feed_Controller::addFeed($url);
 		exit(json_encode(array(
 				'numResults' => 1,
 				'streamId' => $feed->id(),
-			)));
+			), JSON_OPTIONS));
 	} catch (Exception $e) {
 		Minz_Log::error('quickadd error: ' . $e->getMessage(), API_LOG);
 		die(json_encode(array(
 				'numResults' => 0,
 				'error' => $e->getMessage(),
-			)));
+			), JSON_OPTIONS));
 	}
 }
 
@@ -406,7 +430,7 @@ function unreadCount() {	//http://blog.martindoms.com/2009/10/16/using-the-googl
 	$totalUnreads = 0;
 	$totalLastUpdate = 0;
 
-	$categoryDAO = new FreshRSS_CategoryDAO();
+	$categoryDAO = FreshRSS_Factory::createCategoryDao();
 	foreach ($categoryDAO->listCategories(true, true) as $cat) {
 		$catLastUpdate = 0;
 		foreach ($cat->feeds() as $feed) {
@@ -421,7 +445,7 @@ function unreadCount() {	//http://blog.martindoms.com/2009/10/16/using-the-googl
 			}
 		}
 		$unreadcounts[] = array(
-			'id' => 'user/-/label/' . $cat->name(),
+			'id' => 'user/-/label/' . htmlspecialchars_decode($cat->name(), ENT_QUOTES),
 			'count' => $cat->nbNotRead(),
 			'newestItemTimestampUsec' => $catLastUpdate . '000000',
 		);
@@ -429,6 +453,14 @@ function unreadCount() {	//http://blog.martindoms.com/2009/10/16/using-the-googl
 		if ($totalLastUpdate < $catLastUpdate) {
 			$totalLastUpdate = $catLastUpdate;
 		}
+	}
+
+	$tagDAO = FreshRSS_Factory::createTagDao();
+	foreach ($tagDAO->listTags(true) as $label) {
+		$unreadcounts[] = array(
+			'id' => 'user/-/label/' . htmlspecialchars_decode($label->name(), ENT_QUOTES),
+			'count' => $label->nbUnread(),
+		);
 	}
 
 	$unreadcounts[] = array(
@@ -440,13 +472,21 @@ function unreadCount() {	//http://blog.martindoms.com/2009/10/16/using-the-googl
 	echo json_encode(array(
 		'max' => $totalUnreads,
 		'unreadcounts' => $unreadcounts,
-	)), "\n";
+	), JSON_OPTIONS), "\n";
 	exit();
 }
 
 function entriesToArray($entries) {
+	if (empty($entries)) {
+		return array();
+	}
 	$feedDAO = FreshRSS_Factory::createFeedDao();
 	$arrayFeedCategoryNames = $feedDAO->arrayFeedCategoryNames();
+	$tagDAO = FreshRSS_Factory::createTagDao();
+	$entryIdsTagNames = $tagDAO->getEntryIdsTagNames($entries);
+	if ($entryIdsTagNames == false) {
+		$entryIdsTagNames = array();
+	}
 
 	$items = array();
 	foreach ($entries as $entry) {
@@ -459,27 +499,29 @@ function entriesToArray($entries) {
 			$f_name = '_';
 		}
 		$item = array(
-			'id' => /*'tag:google.com,2005:reader/item/' .*/ dec2hex($entry->id()),	//64-bit hexa http://code.google.com/p/google-reader-api/wiki/ItemId
+			'id' => 'tag:google.com,2005:reader/item/' . dec2hex($entry->id()),	//64-bit hexa http://code.google.com/p/google-reader-api/wiki/ItemId
 			'crawlTimeMsec' => substr($entry->id(), 0, -3),
 			'timestampUsec' => '' . $entry->id(),	//EasyRSS
 			'published' => $entry->date(true),
-			'title' => $entry->title(),
+			'title' => escapeToUnicodeAlternative($entry->title(), false),
 			'summary' => array('content' => $entry->content()),
 			'alternate' => array(
 				array('href' => htmlspecialchars_decode($entry->link(), ENT_QUOTES)),
 			),
 			'categories' => array(
 				'user/-/state/com.google/reading-list',
-				'user/-/label/' . $c_name,
+				'user/-/label/' . htmlspecialchars_decode($c_name, ENT_QUOTES),
 			),
 			'origin' => array(
 				'streamId' => 'feed/' . $f_id,
-				'title' => $f_name,	//EasyRSS
+				'title' => escapeToUnicodeAlternative($f_name, true),	//EasyRSS
 				//'htmlUrl' => $line['f_website'],
 			),
 		);
-		if ($entry->author() != '') {
-			$item['author'] = $entry->author();
+		$author = $entry->authors(true);
+		$author = trim($author, '; ');
+		if ($author != '') {
+			$item['author'] = escapeToUnicodeAlternative($author, false);
 		}
 		if ($entry->isRead()) {
 			$item['categories'][] = 'user/-/state/com.google/read';
@@ -487,12 +529,89 @@ function entriesToArray($entries) {
 		if ($entry->isFavorite()) {
 			$item['categories'][] = 'user/-/state/com.google/starred';
 		}
+		$tagNames = isset($entryIdsTagNames['e_' . $entry->id()]) ? $entryIdsTagNames['e_' . $entry->id()] : array();
+		foreach ($tagNames as $tagName) {
+			$item['categories'][] = 'user/-/label/' . htmlspecialchars_decode($tagName, ENT_QUOTES);
+		}
 		$items[] = $item;
 	}
 	return $items;
 }
 
-function streamContents($path, $include_target, $start_time, $count, $order, $exclude_target, $continuation) {
+function streamContentsFilters($type, $streamId, $filter_target, $exclude_target, $start_time, $stop_time) {
+	switch ($type) {
+		case 'f':	//feed
+			if ($streamId != '' && !ctype_digit($streamId)) {
+				$feedDAO = FreshRSS_Factory::createFeedDao();
+				$streamId = htmlspecialchars($streamId, ENT_COMPAT, 'UTF-8');
+				$feed = $feedDAO->searchByUrl($streamId);
+				$streamId = $feed == null ? -1 : $feed->id();
+			}
+			break;
+		case 'c':	//category or label
+			$categoryDAO = FreshRSS_Factory::createCategoryDao();
+			$streamId = htmlspecialchars($streamId, ENT_COMPAT, 'UTF-8');
+			$cat = $categoryDAO->searchByName($streamId);
+			if ($cat != null) {
+				$type = 'c';
+				$streamId = $cat->id();
+			} else {
+				$tagDAO = FreshRSS_Factory::createTagDao();
+				$tag = $tagDAO->searchByName($streamId);
+				if ($tag != null) {
+					$type = 't';
+					$streamId = $tag->id();
+				} else {
+					$type = 'A';
+					$streamId = -1;
+				}
+			}
+			break;
+	}
+
+	switch ($filter_target) {
+		case 'user/-/state/com.google/read':
+			$state = FreshRSS_Entry::STATE_READ;
+			break;
+		case 'user/-/state/com.google/unread':
+			$state = FreshRSS_Entry::STATE_NOT_READ;
+			break;
+		case 'user/-/state/com.google/starred':
+			$state = FreshRSS_Entry::STATE_FAVORITE;
+			break;
+		default:
+			$state = FreshRSS_Entry::STATE_ALL;
+			break;
+	}
+
+	switch ($exclude_target) {
+		case 'user/-/state/com.google/read':
+			$state &= FreshRSS_Entry::STATE_NOT_READ;
+			break;
+		case 'user/-/state/com.google/unread':
+			$state &= FreshRSS_Entry::STATE_READ;
+			break;
+		case 'user/-/state/com.google/starred':
+			$state &= FreshRSS_Entry::STATE_NOT_FAVORITE;
+			break;
+	}
+
+	$searches = new FreshRSS_BooleanSearch('');
+	if ($start_time != '') {
+		$search = new FreshRSS_Search('');
+		$search->setMinDate($start_time);
+		$searches->add($search);
+	}
+	if ($stop_time != '') {
+		$search = new FreshRSS_Search('');
+		$search->setMaxDate($stop_time);
+		$searches->add($search);
+	}
+
+	return array($type, $streamId, $state, $searches);
+}
+
+function streamContents($path, $include_target, $start_time, $stop_time, $count, $order, $filter_target, $exclude_target, $continuation) {
 //http://code.google.com/p/pyrfeed/wiki/GoogleReaderAPI
 //http://blog.martindoms.com/2009/10/16/using-the-google-reader-api-part-2/#feed
 	header('Content-Type: application/json; charset=UTF-8');
@@ -509,33 +628,20 @@ function streamContents($path, $include_target, $start_time, $count, $order, $ex
 			break;
 		case 'label':
 			$type = 'c';
-			$categoryDAO = new FreshRSS_CategoryDAO();
-			$cat = $categoryDAO->searchByName($include_target);
-			$include_target = $cat == null ? -1 : $cat->id();
 			break;
 		default:
 			$type = 'A';
 			break;
 	}
 
-	switch ($exclude_target) {
-		case 'user/-/state/com.google/read':
-			$state = FreshRSS_Entry::STATE_NOT_READ;
-			break;
-		case 'user/-/state/com.google/unread':
-			$state = FreshRSS_Entry::STATE_READ;
-			break;
-		default:
-			$state = FreshRSS_Entry::STATE_ALL;
-			break;
-	}
+	list($type, $include_target, $state, $searches) = streamContentsFilters($type, $include_target, $filter_target, $exclude_target, $start_time, $stop_time);
 
 	if ($continuation != '') {
 		$count++;	//Shift by one element
 	}
 
 	$entryDAO = FreshRSS_Factory::createEntryDao();
-	$entries = $entryDAO->listWhere($type, $include_target, $state, $order === 'o' ? 'ASC' : 'DESC', $count, $continuation, new FreshRSS_BooleanSearch(''), $start_time);
+	$entries = $entryDAO->listWhere($type, $include_target, $state, $order === 'o' ? 'ASC' : 'DESC', $count, $continuation, $searches);
 
 	$items = entriesToArray($entries);
 
@@ -556,11 +662,11 @@ function streamContents($path, $include_target, $start_time, $count, $order, $ex
 		}
 	}
 
-	echo json_encode($response), "\n";
+	echo json_encode($response, JSON_OPTIONS), "\n";
 	exit();
 }
 
-function streamContentsItemsIds($streamId, $start_time, $count, $order, $exclude_target, $continuation) {
+function streamContentsItemsIds($streamId, $start_time, $stop_time, $count, $order, $filter_target, $exclude_target, $continuation) {
 //http://code.google.com/p/google-reader-api/wiki/ApiStreamItemsIds
 //http://code.google.com/p/pyrfeed/wiki/GoogleReaderAPI
 //http://blog.martindoms.com/2009/10/16/using-the-google-reader-api-part-2/#feed
@@ -568,42 +674,32 @@ function streamContentsItemsIds($streamId, $start_time, $count, $order, $exclude
 	$id = '';
 	if ($streamId === 'user/-/state/com.google/reading-list') {
 		$type = 'A';
-	} elseif ('user/-/state/com.google/starred') {
+	} elseif ($streamId === 'user/-/state/com.google/starred') {
 		$type = 's';
 	} elseif (strpos($streamId, 'feed/') === 0) {
 		$type = 'f';
-		$id = basename($streamId);
+		$streamId = substr($streamId, 5);
 	} elseif (strpos($streamId, 'user/-/label/') === 0) {
 		$type = 'c';
-		$c_name = substr($streamId, 13);
-		$categoryDAO = new FreshRSS_CategoryDAO();
-		$cat = $categoryDAO->searchByName($c_name);
-		$id = $cat == null ? -1 : $cat->id();
+		$streamId = substr($streamId, 13);
 	}
 
-	switch ($exclude_target) {
-		case 'user/-/state/com.google/read':
-			$state = FreshRSS_Entry::STATE_NOT_READ;
-			break;
-		default:
-			$state = FreshRSS_Entry::STATE_ALL;
-			break;
-	}
+	list($type, $id, $state, $searches) = streamContentsFilters($type, $streamId, $filter_target, $exclude_target, $start_time, $stop_time);
 
 	if ($continuation != '') {
 		$count++;	//Shift by one element
 	}
 
 	$entryDAO = FreshRSS_Factory::createEntryDao();
-	$ids = $entryDAO->listIdsWhere($type, $id, $state, $order === 'o' ? 'ASC' : 'DESC', $count, $continuation, new FreshRSS_BooleanSearch(''), $start_time);
+	$ids = $entryDAO->listIdsWhere($type, $id, $state, $order === 'o' ? 'ASC' : 'DESC', $count, $continuation, $searches);
 
 	if ($continuation != '') {
 		array_shift($ids);	//Discard first element that was already sent in the previous response
 		$count--;
 	}
 
-	if (empty($ids)) {	//For News+ bug https://github.com/noinnion/newsplus/issues/84#issuecomment-57834632
-		$ids[] = 0;
+	if (empty($ids) && isset($_GET['client']) && $_GET['client'] === 'newsplus') {
+		$ids[] = 0;	//For News+ bug https://github.com/noinnion/newsplus/issues/84#issuecomment-57834632
 	}
 	$itemRefs = array();
 	foreach ($ids as $id) {
@@ -622,7 +718,7 @@ function streamContentsItemsIds($streamId, $start_time, $count, $order, $exclude
 		}
 	}
 
-	echo json_encode($response), "\n";
+	echo json_encode($response, JSON_OPTIONS), "\n";
 	exit();
 }
 
@@ -630,7 +726,10 @@ function streamContentsItems($e_ids, $order) {
 	header('Content-Type: application/json; charset=UTF-8');
 
 	foreach ($e_ids as $i => $e_id) {
-		$e_ids[$i] = hex2dec(basename($e_id));	//Strip prefix 'tag:google.com,2005:reader/item/'
+		if (strpos($e_id, '/') !== null) {
+			$e_id = hex2dec(basename($e_id));	//Strip prefix 'tag:google.com,2005:reader/item/'
+		}
+		$e_ids[$i] = $e_id;
 	}
 
 	$entryDAO = FreshRSS_Factory::createEntryDao();
@@ -644,16 +743,20 @@ function streamContentsItems($e_ids, $order) {
 		'items' => $items,
 	);
 
-	echo json_encode($response), "\n";
+	echo json_encode($response, JSON_OPTIONS), "\n";
 	exit();
 }
 
 function editTag($e_ids, $a, $r) {
 	foreach ($e_ids as $i => $e_id) {
-		$e_ids[$i] = hex2dec(basename($e_id));	//Strip prefix 'tag:google.com,2005:reader/item/'
+		if (strpos($e_id, '/') !== null) {
+			$e_id = hex2dec(basename($e_id));	//Strip prefix 'tag:google.com,2005:reader/item/'
+		}
+		$e_ids[$i] = $e_id;
 	}
 
 	$entryDAO = FreshRSS_Factory::createEntryDao();
+	$tagDAO = FreshRSS_Factory::createTagDao();
 
 	switch ($a) {
 		case 'user/-/state/com.google/read':
@@ -668,6 +771,31 @@ function editTag($e_ids, $a, $r) {
 			break;
 		case 'user/-/state/com.google/broadcast':
 			break;*/
+		default:
+			$tagName = '';
+			if (strpos($a, 'user/-/label/') === 0) {
+				$tagName = substr($a, 13);
+			} else {
+				$user = Minz_Session::param('currentUser', '_');
+				$prefix = 'user/' . $user . '/label/';
+				if (strpos($a, $prefix) === 0) {
+					$tagName = substr($a, strlen($prefix));
+				}
+			}
+			if ($tagName != '') {
+				$tagName = htmlspecialchars($tagName, ENT_COMPAT, 'UTF-8');
+				$tag = $tagDAO->searchByName($tagName);
+				if ($tag == null) {
+					$tagDAO->addTag(array('name' => $tagName));
+					$tag = $tagDAO->searchByName($tagName);
+				}
+				if ($tag != null) {
+					foreach ($e_ids as $e_id) {
+						$tagDAO->tagEntry($tag->id(), $e_id, true);
+					}
+				}
+			}
+			break;
 	}
 	switch ($r) {
 		case 'user/-/state/com.google/read':
@@ -675,6 +803,18 @@ function editTag($e_ids, $a, $r) {
 			break;
 		case 'user/-/state/com.google/starred':
 			$entryDAO->markFavorite($e_ids, false);
+			break;
+		default:
+			if (strpos($r, 'user/-/label/') === 0) {
+				$tagName = substr($r, 13);
+				$tagName = htmlspecialchars($tagName, ENT_COMPAT, 'UTF-8');
+				$tag = $tagDAO->searchByName($tagName);
+				if ($tag != null) {
+					foreach ($e_ids as $e_id) {
+						$tagDAO->tagEntry($tag->id(), $e_id, false);
+					}
+				}
+			}
 			break;
 	}
 
@@ -685,12 +825,22 @@ function renameTag($s, $dest) {
 	if ($s != '' && strpos($s, 'user/-/label/') === 0 &&
 		$dest != '' &&  strpos($dest, 'user/-/label/') === 0) {
 		$s = substr($s, 13);
-		$categoryDAO = new FreshRSS_CategoryDAO();
+		$s = htmlspecialchars($s, ENT_COMPAT, 'UTF-8');
+		$dest = substr($dest, 13);
+		$dest = htmlspecialchars($dest, ENT_COMPAT, 'UTF-8');
+
+		$categoryDAO = FreshRSS_Factory::createCategoryDao();
 		$cat = $categoryDAO->searchByName($s);
 		if ($cat != null) {
-			$dest = substr($dest, 13);
 			$categoryDAO->updateCategory($cat->id(), array('name' => $dest));
 			exit('OK');
+		} else {
+			$tagDAO = FreshRSS_Factory::createTagDao();
+			$tag = $tagDAO->searchByName($s);
+			if ($tag != null) {
+				$tagDAO->updateTag($tag->id(), array('name' => $dest));
+				exit('OK');
+			}
 		}
 	}
 	badRequest();
@@ -699,7 +849,8 @@ function renameTag($s, $dest) {
 function disableTag($s) {
 	if ($s != '' && strpos($s, 'user/-/label/') === 0) {
 		$s = substr($s, 13);
-		$categoryDAO = new FreshRSS_CategoryDAO();
+		$s = htmlspecialchars($s, ENT_COMPAT, 'UTF-8');
+		$categoryDAO = FreshRSS_Factory::createCategoryDao();
 		$cat = $categoryDAO->searchByName($s);
 		if ($cat != null) {
 			$feedDAO = FreshRSS_Factory::createFeedDao();
@@ -708,6 +859,13 @@ function disableTag($s) {
 				$categoryDAO->deleteCategory($cat->id());
 			}
 			exit('OK');
+		} else {
+			$tagDAO = FreshRSS_Factory::createTagDao();
+			$tag = $tagDAO->searchByName($s);
+			if ($tag != null) {
+				$tagDAO->deleteTag($tag->id());
+				exit('OK');
+			}
 		}
 	}
 	badRequest();
@@ -720,9 +878,18 @@ function markAllAsRead($streamId, $olderThanId) {
 		$entryDAO->markReadFeed($f_id, $olderThanId);
 	} elseif (strpos($streamId, 'user/-/label/') === 0) {
 		$c_name = substr($streamId, 13);
-		$categoryDAO = new FreshRSS_CategoryDAO();
+		$c_name = htmlspecialchars($c_name, ENT_COMPAT, 'UTF-8');
+		$categoryDAO = FreshRSS_Factory::createCategoryDao();
 		$cat = $categoryDAO->searchByName($c_name);
-		$entryDAO->markReadCat($cat === null ? -1 : $cat->id(), $olderThanId);
+		if ($cat != null) {
+			$entryDAO->markReadCat($cat->id(), $olderThanId);
+		} else {
+			$tagDAO = FreshRSS_Factory::createTagDao();
+			$tag = $tagDAO->searchByName($c_name);
+			if ($tag != null) {
+				$entryDAO->markReadTag($tag->id(), $olderThanId);
+			}
+		}
 	} elseif ($streamId === 'user/-/state/com.google/reading-list') {
 		$entryDAO->markReadEntries($olderThanId, false, -1);
 	}
@@ -743,6 +910,10 @@ FreshRSS_Context::$system_conf = Minz_Configuration::get('system');
 
 if (!FreshRSS_Context::$system_conf->api_enabled) {
 	serviceUnavailable();
+} elseif (count($pathInfos) < 3) {
+	badRequest();
+} elseif ($pathInfos[1] === 'check' && $pathInfos[2] === 'compatibility') {
+	checkCompatibility();
 }
 
 ini_set('session.use_cookies', '0');
@@ -757,9 +928,7 @@ if ($user !== '') {
 
 Minz_Session::_param('currentUser', $user);
 
-if (count($pathInfos) < 3) {
-	badRequest();
-} elseif ($pathInfos[1] === 'accounts') {
+if ($pathInfos[1] === 'accounts') {
 	if (($pathInfos[2] === 'ClientLogin') && isset($_REQUEST['Email']) && isset($_REQUEST['Passwd'])) {
 		clientLogin($_REQUEST['Email'], $_REQUEST['Passwd']);
 	}
@@ -776,12 +945,14 @@ if (count($pathInfos) < 3) {
 			 * exclude items from a particular feed (obviously not useful in this
 			 * request, but xt appears in other listing requests). */
 			$exclude_target = isset($_GET['xt']) ? $_GET['xt'] : '';
+			$filter_target = isset($_GET['it']) ? $_GET['it'] : '';
 			$count = isset($_GET['n']) ? intval($_GET['n']) : 20;	//n=[integer] : The maximum number of results to return.
 			$order = isset($_GET['r']) ? $_GET['r'] : 'd';	//r=[d|n|o] : Sort order of item results. d or n gives items in descending date order, o in ascending order.
 			/* ot=[unix timestamp] : The time from which you want to retrieve
 			 * items. Only items that have been crawled by Google Reader after
 			 * this time will be returned. */
 			$start_time = isset($_GET['ot']) ? intval($_GET['ot']) : 0;
+			$stop_time = isset($_GET['nt']) ? intval($_GET['nt']) : 0;
 			/* Continuation token. If a StreamContents response does not represent
 			 * all items in a timestamp range, it will have a continuation attribute.
 			 * The same request can be re-issued with the value of that attribute put
@@ -794,23 +965,31 @@ if (count($pathInfos) < 3) {
 				if (isset($pathInfos[7])) {
 					if ($pathInfos[6] === 'feed') {
 						$include_target = $pathInfos[7];
-						StreamContents($pathInfos[6], $include_target, $start_time, $count, $order, $exclude_target, $continuation);
+						if ($include_target != '' && !ctype_digit($include_target)) {
+							$include_target = empty($_SERVER['REQUEST_URI']) ? '' : $_SERVER['REQUEST_URI'];
+							if (preg_match('#/reader/api/0/stream/contents/feed/([A-Za-z0-9\'!*()%$_.~+-]+)#', $include_target, $matches) && isset($matches[1])) {
+								$include_target = urldecode($matches[1]);
+							} else {
+								$include_target = '';
+							}
+						}
+						streamContents($pathInfos[6], $include_target, $start_time, $stop_time, $count, $order, $filter_target, $exclude_target, $continuation);
 					} elseif ($pathInfos[6] === 'user' && isset($pathInfos[8]) && isset($pathInfos[9])) {
 						if ($pathInfos[8] === 'state') {
 							if ($pathInfos[9] === 'com.google' && isset($pathInfos[10])) {
 								if ($pathInfos[10] === 'reading-list' || $pathInfos[10] === 'starred') {
 									$include_target = '';
-									streamContents($pathInfos[10], $include_target, $start_time, $count, $order, $exclude_target, $continuation);
+									streamContents($pathInfos[10], $include_target, $start_time, $stop_time, $count, $order, $filter_target, $exclude_target, $continuation);
 								}
 							}
 						} elseif ($pathInfos[8] === 'label') {
 							$include_target = $pathInfos[9];
-							streamContents($pathInfos[8], $include_target, $start_time, $count, $order, $exclude_target, $continuation);
+							streamContents($pathInfos[8], $include_target, $start_time, $stop_time, $count, $order, $filter_target, $exclude_target, $continuation);
 						}
 					}
 				} else {	//EasyRSS
 					$include_target = '';
-					streamContents('reading-list', $include_target, $start_time, $count, $order, $exclude_target, $continuation);
+					streamContents('reading-list', $include_target, $start_time, $stop_time, $count, $order, $filter_target, $exclude_target, $continuation);
 				}
 			} elseif ($pathInfos[5] === 'items') {
 				if ($pathInfos[6] === 'ids' && isset($_GET['s'])) {
@@ -818,7 +997,7 @@ if (count($pathInfos) < 3) {
 					 * be repeated to fetch the item IDs from multiple streams at once
 					 * (more efficient from a backend perspective than multiple requests). */
 					$streamId = $_GET['s'];
-					streamContentsItemsIds($streamId, $start_time, $count, $order, $exclude_target, $continuation);
+					streamContentsItemsIds($streamId, $start_time, $stop_time, $count, $order, $filter_target, $exclude_target, $continuation);
 				} else if ($pathInfos[6] === 'contents' && isset($_POST['i'])) {	//FeedMe
 					$e_ids = multiplePosts('i');	//item IDs
 					streamContentsItems($e_ids, $order);
@@ -908,8 +1087,6 @@ if (count($pathInfos) < 3) {
 			userInfo();
 			break;
 	}
-} elseif ($pathInfos[1] === 'check' && $pathInfos[2] === 'compatibility') {
-	checkCompatibility();
 }
 
 badRequest();

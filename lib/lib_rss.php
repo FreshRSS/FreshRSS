@@ -21,6 +21,12 @@ if (!function_exists('json_encode')) {
 
 defined('JSON_UNESCAPED_UNICODE') or define('JSON_UNESCAPED_UNICODE', 256);	//PHP 5.3
 
+if (!function_exists('mb_strcut')) {
+	function mb_strcut($str, $start, $length = null, $encoding = 'UTF-8') {
+		return substr($str, $start, $length);
+	}
+}
+
 /**
  * Build a directory path by concatenating a list of directory names.
  *
@@ -96,6 +102,23 @@ function safe_ascii($text) {
 	return filter_var($text, FILTER_DEFAULT, FILTER_FLAG_STRIP_LOW | FILTER_FLAG_STRIP_HIGH);
 }
 
+function escapeToUnicodeAlternative($text, $extended = true) {
+	$text = htmlspecialchars_decode($text, ENT_QUOTES);
+
+	//Problematic characters
+	$problem = array('&', '<', '>');
+	//Use their fullwidth Unicode form instead:
+	$replace = array('＆', '＜', '＞');
+
+	// https://raw.githubusercontent.com/mihaip/google-reader-api/master/wiki/StreamId.wiki
+	if ($extended) {
+		$problem += array("'", '"', '^', '?', '\\', '/', ',', ';');
+		$replace += array("’", '＂', '＾', '？', '＼', '／', '，', '；');
+	}
+
+	return trim(str_replace($problem, $replace, $text));
+}
+
 /**
  * Test if a given server address is publicly accessible.
  *
@@ -103,24 +126,28 @@ function safe_ascii($text) {
  * localhost address.
  *
  * @param $address the address to test, can be an IP or a URL.
- * @return true if server is accessible, false else.
+ * @return true if server is accessible, false otherwise.
  * @todo improve test with a more valid technique (e.g. test with an external server?)
  */
 function server_is_public($address) {
 	$host = parse_url($address, PHP_URL_HOST);
 
 	$is_public = !in_array($host, array(
-		'127.0.0.1',
 		'localhost',
 		'localhost.localdomain',
 		'[::1]',
+		'ip6-localhost',
 		'localhost6',
 		'localhost6.localdomain6',
 	));
 
-	return $is_public;
-}
+	if ($is_public) {
+		$is_public &= !preg_match('/^(10|127|172[.]16|192[.]168)[.]/', $host);
+		$is_public &= !preg_match('/^(\[)?(::1$|fc00::|fe80::)/i', $host);
+	}
 
+	return (bool)$is_public;
+}
 
 function format_number($n, $precision = 0) {
 	// number_format does not seem to be Unicode-compatible
@@ -175,12 +202,19 @@ function html_only_entity_decode($text) {
 	return strtr($text, $htmlEntitiesOnly);
 }
 
+function prepareSyslog() {
+	return COPY_SYSLOG_TO_STDERR ? openlog("FreshRSS", LOG_PERROR | LOG_PID, LOG_USER) : false;
+}
+
 function customSimplePie($attributes = array()) {
 	$system_conf = Minz_Configuration::get('system');
 	$limits = $system_conf->limits;
 	$simplePie = new SimplePie();
 	$simplePie->set_useragent(FRESHRSS_USERAGENT);
 	$simplePie->set_syslog($system_conf->simplepie_syslog_enabled);
+	if ($system_conf->simplepie_syslog_enabled) {
+		prepareSyslog();
+	}
 	$simplePie->set_cache_location(CACHE_PATH);
 	$simplePie->set_cache_duration($limits['cache_duration']);
 
@@ -199,6 +233,7 @@ function customSimplePie($attributes = array()) {
 		'font', 'form', 'frame', 'frameset', 'html',
 		'link', 'input', 'marquee', 'meta', 'noscript',
 		'object', 'param', 'plaintext', 'script', 'style',
+		'svg',	//TODO: Support SVG after sanitizing and URL rewriting of xlink:href
 	));
 	$simplePie->strip_attributes(array_merge($simplePie->strip_attributes, array(
 		'autoplay', 'class', 'onload', 'onunload', 'onclick', 'ondblclick', 'onmousedown', 'onmouseup',
@@ -336,9 +371,9 @@ function get_user_configuration($username) {
 		                             join_path(FRESHRSS_PATH, 'config-user.default.php'));
 	} catch (Minz_ConfigurationNamespaceException $e) {
 		// namespace already exists, do nothing.
-		Minz_Log::warning($e->getMessage());
+		Minz_Log::warning($e->getMessage(), USERS_PATH . '/_/log.txt');
 	} catch (Minz_FileNotExistException $e) {
-		Minz_Log::warning($e->getMessage());
+		Minz_Log::warning($e->getMessage(), USERS_PATH . '/_/log.txt');
 		return null;
 	}
 
@@ -347,14 +382,13 @@ function get_user_configuration($username) {
 
 
 function httpAuthUser() {
-	if (isset($_SERVER['REMOTE_USER'])) {
+	if (!empty($_SERVER['REMOTE_USER'])) {
 		return $_SERVER['REMOTE_USER'];
-	}
-
-	if (isset($_SERVER['REDIRECT_REMOTE_USER'])) {
+	} elseif (!empty($_SERVER['REDIRECT_REMOTE_USER'])) {
 		return $_SERVER['REDIRECT_REMOTE_USER'];
+	} elseif (!empty($_SERVER['HTTP_X_WEBAUTH_USER'])) {
+		return $_SERVER['HTTP_X_WEBAUTH_USER'];
 	}
-
 	return '';
 }
 
@@ -405,6 +439,7 @@ function check_install_php() {
 		'fileinfo' => extension_loaded('fileinfo'),
 		'dom' => class_exists('DOMDocument'),
 		'json' => extension_loaded('json'),
+		'mbstring' => extension_loaded('mbstring'),
 		'zip' => extension_loaded('zip'),
 	);
 }
@@ -438,6 +473,9 @@ function check_install_database() {
 		'categories' => false,
 		'feeds' => false,
 		'entries' => false,
+		'entrytmp' => false,
+		'tag' => false,
+		'entrytag' => false,
 	);
 
 	try {
@@ -447,6 +485,9 @@ function check_install_database() {
 		$status['categories'] = $dbDAO->categoryIsCorrect();
 		$status['feeds'] = $dbDAO->feedIsCorrect();
 		$status['entries'] = $dbDAO->entryIsCorrect();
+		$status['entrytmp'] = $dbDAO->entrytmpIsCorrect();
+		$status['tag'] = $dbDAO->tagIsCorrect();
+		$status['entrytag'] = $dbDAO->entrytagIsCorrect();
 	} catch(Minz_PDOConnectionException $e) {
 		$status['connection'] = false;
 	}

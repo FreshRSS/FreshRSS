@@ -243,8 +243,9 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 	 * checking if categories and feeds are still in use.
 	 */
 	public function queriesAction() {
-		$category_dao = new FreshRSS_CategoryDAO();
+		$category_dao = FreshRSS_Factory::createCategoryDao();
 		$feed_dao = FreshRSS_Factory::createFeedDao();
+		$tag_dao = FreshRSS_Factory::createTagDao();
 		if (Minz_Request::isPost()) {
 			$params = Minz_Request::param('queries', array());
 
@@ -277,16 +278,17 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 	 * lean data.
 	 */
 	public function addQueryAction() {
-		$category_dao = new FreshRSS_CategoryDAO();
+		$category_dao = FreshRSS_Factory::createCategoryDao();
 		$feed_dao = FreshRSS_Factory::createFeedDao();
+		$tag_dao = FreshRSS_Factory::createTagDao();
 		$queries = array();
 		foreach (FreshRSS_Context::$user_conf->queries as $key => $query) {
-			$queries[$key] = new FreshRSS_UserQuery($query, $feed_dao, $category_dao);
+			$queries[$key] = new FreshRSS_UserQuery($query, $feed_dao, $category_dao, $tag_dao);
 		}
 		$params = Minz_Request::fetchGET();
 		$params['url'] = Minz_Url::display(array('params' => $params));
 		$params['name'] = _t('conf.query.number', count($queries) + 1);
-		$queries[] = new FreshRSS_UserQuery($params, $feed_dao, $category_dao);
+		$queries[] = new FreshRSS_UserQuery($params, $feed_dao, $category_dao, $tag_dao);
 
 		FreshRSS_Context::$user_conf->queries = $queries;
 		FreshRSS_Context::$user_conf->save();
@@ -306,6 +308,7 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 	 *   - user limit (default: 1)
 	 *   - user category limit (default: 16384)
 	 *   - user feed limit (default: 16384)
+	 *   - user login duration for form auth (default: 2592000)
 	 */
 	public function systemAction() {
 		if (!FreshRSS_Auth::hasAccess('admin')) {
@@ -316,6 +319,7 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 			$limits['max_registrations'] = Minz_Request::param('max-registrations', 1);
 			$limits['max_feeds'] = Minz_Request::param('max-feeds', 16384);
 			$limits['max_categories'] = Minz_Request::param('max-categories', 16384);
+			$limits['cookie_duration'] = Minz_Request::param('cookie-duration', 2592000);
 			FreshRSS_Context::$system_conf->limits = $limits;
 			FreshRSS_Context::$system_conf->title = Minz_Request::param('instance-name', 'FreshRSS');
 			FreshRSS_Context::$system_conf->auto_update_url = Minz_Request::param('auto-update-url', false);

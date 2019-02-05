@@ -65,6 +65,22 @@
 			</div>
 		</div>
 
+		<p class="alert alert-warn"><?php echo _t('conf.shortcut.navigation_no_mod_help');?></p>
+
+		<div class="form-group">
+			<label class="group-name" for="skip_next_entry"><?php echo _t('conf.shortcut.skip_next_article'); ?></label>
+			<div class="group-controls">
+				<input type="text" id="skip_next_entry" name="shortcuts[skip_next_entry]" list="keys" value="<?php echo $s['skip_next_entry']; ?>" data-leave-validation="<?php echo $s['skip_next_entry']; ?>"/>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="group-name" for="skip_prev_entry"><?php echo _t('conf.shortcut.skip_previous_article'); ?></label>
+			<div class="group-controls">
+				<input type="text" id="skip_prev_entry" name="shortcuts[skip_prev_entry]" list="keys" value="<?php echo $s['skip_prev_entry']; ?>" data-leave-validation="<?php echo $s['skip_prev_entry']; ?>"/>
+			</div>
+		</div>
+
 		<div class="form-group">
 			<label class="group-name" for="first_entry"><?php echo _t('conf.shortcut.first_article'); ?></label>
 			<div class="group-controls">

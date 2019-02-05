@@ -17,7 +17,7 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 
 	protected function autoUpdateDb($errorInfo) {
 		if (isset($errorInfo[0])) {
-			if ($errorInfo[0] === '42S22' || $errorInfo[0] === '42703') {	//ER_BAD_FIELD_ERROR (Mysql), undefined_column (PostgreSQL)
+			if ($errorInfo[0] === FreshRSS_DatabaseDAO::ER_BAD_FIELD_ERROR || $errorInfo[0] === FreshRSS_DatabaseDAOPGSQL::UNDEFINED_COLUMN) {
 				foreach (array('attributes') as $column) {
 					if (stripos($errorInfo[2], $column) !== false) {
 						return $this->addColumn($column);
@@ -55,13 +55,13 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 		$values = array(
 			substr($valuesTmp['url'], 0, 511),
 			$valuesTmp['category'],
-			substr($valuesTmp['name'], 0, 255),
+			mb_strcut(trim($valuesTmp['name']), 0, FreshRSS_DatabaseDAO::LENGTH_INDEX_UNICODE, 'UTF-8'),
 			substr($valuesTmp['website'], 0, 255),
-			substr($valuesTmp['description'], 0, 1023),
+			mb_strcut($valuesTmp['description'], 0, 1023, 'UTF-8'),
 			$valuesTmp['lastUpdate'],
 			base64_encode($valuesTmp['httpAuth']),
 			FreshRSS_Feed::KEEP_HISTORY_DEFAULT,
-			FreshRSS_Feed::TTL_DEFAULT,
+			isset($valuesTmp['ttl']) ? intval($valuesTmp['ttl']) : FreshRSS_Feed::TTL_DEFAULT,
 			isset($valuesTmp['attributes']) ? json_encode($valuesTmp['attributes']) : '',
 		);
 
@@ -95,6 +95,9 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 				'httpAuth' => $feed->httpAuth(),
 				'attributes' => $feed->attributes(),
 			);
+			if ($feed->mute() || $feed->ttl() != FreshRSS_Context::$user_conf->ttl_default) {
+				$values['ttl'] = $feed->ttl() * ($feed->mute() ? -1 : 1);
+			}
 
 			$id = $this->addFeed($values);
 			if ($id) {
@@ -109,6 +112,9 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 	}
 
 	public function updateFeed($id, $valuesTmp) {
+		if (isset($valuesTmp['name'])) {
+			$valuesTmp['name'] = mb_strcut(trim($valuesTmp['name']), 0, FreshRSS_DatabaseDAO::LENGTH_INDEX_UNICODE, 'UTF-8');
+		}
 		if (isset($valuesTmp['url'])) {
 			$valuesTmp['url'] = safe_ascii($valuesTmp['url']);
 		}
@@ -180,7 +186,7 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 	}
 
 	public function changeCategory($idOldCat, $idNewCat) {
-		$catDAO = new FreshRSS_CategoryDAO();
+		$catDAO = FreshRSS_Factory::createCategoryDao();
 		$newCat = $catDAO->searchById($idNewCat);
 		if (!$newCat) {
 			$newCat = $catDAO->getDefault();
@@ -462,9 +468,15 @@ UPDATE `{$this->prefix}feed`
 SQL;
 		$stm = $this->bd->prepare($sql);
 		if (!($stm && $stm->execute(array(':new_value' => FreshRSS_Feed::TTL_DEFAULT, ':old_value' => -2)))) {
+			$info = $stm == null ? array(2 => 'syntax error') : $stm->errorInfo();
+			Minz_Log::error('SQL warning updateTTL 1: ' . $info[2] . ' ' . $sql);
+
 			$sql2 = 'ALTER TABLE `' . $this->prefix . 'feed` ADD COLUMN ttl INT NOT NULL DEFAULT ' . FreshRSS_Feed::TTL_DEFAULT;	//v0.7.3
 			$stm = $this->bd->prepare($sql2);
-			$stm->execute();
+			if (!($stm && $stm->execute())) {
+				$info = $stm == null ? array(2 => 'syntax error') : $stm->errorInfo();
+				Minz_Log::error('SQL error updateTTL 2: ' . $info[2] . ' ' . $sql2);
+			}
 		} else {
 			$stm->execute(array(':new_value' => -3600, ':old_value' => -1));
 		}

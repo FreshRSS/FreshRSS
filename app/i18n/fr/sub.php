@@ -27,6 +27,7 @@ return array(
 			'password' => 'Mot de passe HTTP',
 			'username' => 'Identifiant HTTP',
 		),
+		'clear_cache' => 'Toujours vider le cache',
 		'css_help' => 'Permet de récupérer les flux tronqués (attention, demande plus de temps !)',
 		'css_path' => 'Sélecteur CSS des articles sur le site d’origine',
 		'description' => 'Description',
@@ -44,6 +45,14 @@ return array(
 			'main_stream' => 'Afficher dans le flux principal',
 			'normal' => 'Afficher dans sa catégorie',
 		),
+		'websub' => 'Notification instantanée par WebSub',
+		'show' => array(
+			'all' => 'Montrer tous les flux',
+			'error' => 'Montrer seulement les flux en erreur',
+		),
+		'showing' => array(
+			'error' => 'Montre seulement les flux en erreur',
+		),
 		'ssl_verify' => 'Vérification sécurité SSL',
 		'stats' => 'Statistiques',
 		'think_to_add' => 'Vous pouvez ajouter des flux.',
@@ -54,7 +63,6 @@ return array(
 		'url' => 'URL du flux',
 		'validator' => 'Vérifier la validité du flux',
 		'website' => 'URL du site',
-		'pubsubhubbub' => 'Notification instantanée par PubSubHubbub',
 	),
 	'firefox' => array(
 		'documentation' => 'Suivre les étapes décrites <a href="https://developer.mozilla.org/en-US/Firefox/Releases/2/Adding_feed_readers_to_Firefox#Adding_a_new_feed_reader_manually">ici</a> pour ajouter FreshRSS à la liste des lecteurs de flux dans Firefox.',
@@ -64,6 +72,7 @@ return array(
 		'export' => 'Exporter',
 		'export_opml' => 'Exporter la liste des flux (OPML)',
 		'export_starred' => 'Exporter les favoris',
+		'export_labelled' => 'Exporter les articles étiquetés',
 		'feed_list' => 'Liste des articles de %s',
 		'file_to_import' => 'Fichier à importer<br />(OPML, JSON ou ZIP)',
 		'file_to_import_no_zip' => 'Fichier à importer<br />(OPML ou JSON)',

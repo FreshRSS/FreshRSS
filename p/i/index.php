@@ -1,4 +1,6 @@
 <?php
+// > Error: FreshRSS requires PHP, which does not seem to be installed or configured correctly! <!--
+
 # ***** BEGIN LICENSE BLOCK *****
 # MINZ - A free PHP framework
 # Copyright (C) 2011 Marien Fressinaud
@@ -48,5 +50,7 @@ if (file_exists(DATA_PATH . '/do-install.txt')) {
 		echo '### Fatal error! ###<br />', "\n";
 		Minz_Log::error($e->getMessage());
 		echo 'See logs files.';
+		prepareSyslog();
+		syslog(LOG_INFO, 'FreshRSS Fatal error! ' . $e->getMessage());
 	}
 }

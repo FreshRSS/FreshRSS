@@ -27,6 +27,7 @@ return array(
 			'password' => 'HTTP password',
 			'username' => 'HTTP username',
 		),
+		'clear_cache' => 'Always clear cache',
 		'css_help' => 'Retrieves truncated RSS feeds (caution, requires more time!)',
 		'css_path' => 'Articles CSS path on original website',
 		'description' => 'Description',
@@ -44,6 +45,14 @@ return array(
 			'main_stream' => 'Show in main stream',
 			'normal' => 'Show in its category',
 		),
+		'websub' => 'Instant notification with WebSub',
+		'show' => array(
+			'all' => 'Show all feeds',
+			'error' => 'Show only feeds with error',
+		),
+		'showing' => array(
+			'error' => 'Showing only feeds with error',
+		),
 		'ssl_verify' => 'Verify SSL security',
 		'stats' => 'Statistics',
 		'think_to_add' => 'You may add some feeds.',
@@ -54,7 +63,6 @@ return array(
 		'url' => 'Feed URL',
 		'validator' => 'Check the validity of the feed',
 		'website' => 'Website URL',
-		'pubsubhubbub' => 'Instant notification with PubSubHubbub',
 	),
 	'firefox' => array(
 		'documentation' => 'Follow the steps described <a href="https://developer.mozilla.org/en-US/Firefox/Releases/2/Adding_feed_readers_to_Firefox#Adding_a_new_feed_reader_manually">here</a> to add FreshRSS to Firefox feed reader list.',
@@ -64,6 +72,7 @@ return array(
 		'export' => 'Export',
 		'export_opml' => 'Export list of feeds (OPML)',
 		'export_starred' => 'Export your favourites',
+		'export_labelled' => 'Export your labelled articles',
 		'feed_list' => 'List of %s articles',
 		'file_to_import' => 'File to import<br />(OPML, JSON or ZIP)',
 		'file_to_import_no_zip' => 'File to import<br />(OPML or JSON)',

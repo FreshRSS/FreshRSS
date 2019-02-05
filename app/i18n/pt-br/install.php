@@ -24,8 +24,8 @@ return array(
 			'ok' => 'Configurações do banco de dados foram salvas.',
 		),
 		'host' => 'Host',
-		'prefix' => 'Prefixo da tabela',
 		'password' => 'Senha do banco de dados',
+		'prefix' => 'Prefixo da tabela',
 		'type' => 'Tipo do banco de dados',
 		'username' => 'Usuário do banco de dados',
 	),
@@ -65,8 +65,12 @@ return array(
 			'ok' => 'Seu HTTP REFERER é conhecido e corresponde ao seu servidor.',
 		),
 		'json' => array(
-			'nok' => 'Não foi possível encontrar JSON (php5-json).',
+			'nok' => 'Não foi possível encontrar JSON (php-json).',
 			'ok' => 'Você tem a extensão JSON.',
+		),
+		'mbstring' => array(
+			'nok' => 'Cannot find the recommended library mbstring for Unicode.',	//TODO - Translation
+			'ok' => 'You have the recommended library mbstring for Unicode.',	//TODO - Translation
 		),
 		'minz' => array(
 			'nok' => 'Não foi possível encontrar o framework Minz.',

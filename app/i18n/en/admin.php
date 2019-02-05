@@ -63,8 +63,12 @@ return array(
 		),
 		'files' => 'File installation',
 		'json' => array(
-			'nok' => 'Cannot find JSON (php5-json package).',
+			'nok' => 'Cannot find JSON (php-json package).',
 			'ok' => 'You have JSON extension.',
+		),
+		'mbstring' => array(
+			'nok' => 'Cannot find the recommended library mbstring for Unicode.',
+			'ok' => 'You have the recommended library mbstring for Unicode.',
 		),
 		'minz' => array(
 			'nok' => 'Cannot find the Minz framework.',
@@ -102,23 +106,23 @@ return array(
 		),
 	),
 	'extensions' => array(
+		'author' => 'Author',
+		'community' => 'Available community extensions',
+		'description' => 'Description',
 		'disabled' => 'Disabled',
 		'empty_list' => 'There are no installed extensions',
 		'enabled' => 'Enabled',
+		'latest' => 'Installed',
+		'name' => 'Name',
 		'no_configure_view' => 'This extension cannot be configured.',
 		'system' => array(
 			'_' => 'System extensions',
 			'no_rights' => 'System extension (you have no rights on it)',
 		),
 		'title' => 'Extensions',
-		'user' => 'User extensions',
-		'community' => 'Available community extensions',
-		'name' => 'Name',
-		'version' => 'Version',
-		'description' => 'Description',
-		'author' => 'Author',
-		'latest' => 'Installed',
 		'update' => 'Update available',
+		'user' => 'User extensions',
+		'version' => 'Version',
 	),
 	'stats' => array(
 		'_' => 'Statistics',
@@ -158,6 +162,10 @@ return array(
 		'instance-name' => 'Instance name',
 		'max-categories' => 'Categories per user limit',
 		'max-feeds' => 'Feeds per user limit',
+		'cookie-duration' => array(
+			'help' => 'in seconds',
+			'number' => 'Duration to keep logged in',
+		),
 		'registration' => array(
 			'help' => '0 means that there is no account limit',
 			'number' => 'Max number of accounts',

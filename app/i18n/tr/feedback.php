@@ -50,8 +50,16 @@ return array(
 		'no_zip_extension' => 'ZIP eklentisi mevcut sunucunuzda yer almıyor.',
 		'zip_error' => 'ZIP içe aktarımı sırasında hata meydana geldi.',
 	),
+	'profile' => array(
+		'error' => 'Profiliniz düzenlenemedi',
+		'updated' => 'Profiliniz düzenlendi',
+	),
 	'sub' => array(
 		'actualize' => 'Güncelleme',
+		'articles' => array(
+			'marked_read' => 'The selected articles have been marked as read.',	//TODO - Translation
+			'marked_unread' => 'The articles have been marked as unread.',	//TODO - Translation
+		),
 		'category' => array(
 			'created' => 'Kategori %s oluşturuldu.',
 			'deleted' => 'Kategori silindi.',
@@ -72,9 +80,8 @@ return array(
 			'already_subscribed' => '<em>%s</em> için zaten aboneliğiniz bulunmakta',
 			'deleted' => 'Akış silindi',
 			'error' => 'Akış güncellenemiyor',
-			'internal_problem' => 'RSS akışı eklenemiyor. Detaylar için <a href="%s">FreshRSS log kayıtlarını</a> kontrol edin.', // @todo
+			'internal_problem' => 'RSS akışı eklenemiyor. Detaylar için <a href="%s">FreshRSS log kayıtlarını</a> kontrol edin.',	//TODO - Translation
 			'invalid_url' => 'URL <em>%s</em> geçersiz',
-			'marked_read' => 'Akışlar okundu olarak işaretlendi',
 			'n_actualized' => '%d akışları güncellendi',
 			'n_entries_deleted' => '%d makaleleri silindi',
 			'no_refresh' => 'Yenilenecek akış yok…',
@@ -102,12 +109,8 @@ return array(
 			'error' => '%s kullanıcısı silinemedi',
 		),
 		'updated' => array(
-			'_' => 'User %s has been updated', // TODO
-			'error' => 'User %s has not been updated', // TODO
+			'_' => 'User %s has been updated',	//TODO - Translation
+			'error' => 'User %s has not been updated',	//TODO - Translation
 		),
-	),
-	'profile' => array(
-		'error' => 'Profiliniz düzenlenemedi',
-		'updated' => 'Profiliniz düzenlendi',
 	),
 );

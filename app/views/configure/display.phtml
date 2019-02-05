@@ -39,7 +39,7 @@
 								<?php } ?>
 							</div>
 							<div class="properties">
-								<div><?php echo sprintf('%s — %s', $theme['name'], _t('gen.short.by_author', $theme['author'])); ?></div>
+								<div><?php echo sprintf('%s — %s %s', $theme['name'], _t('gen.short.by_author'), $theme['author']); ?></div>
 								<div><?php echo $theme['description'] ?></div>
 								<div class="page-number"><?php echo sprintf('%d/%d', $i, $slides) ?></div>
 							</div>
@@ -72,15 +72,15 @@
 		</div>
 
 		<div class="form-group">
-			<label class="group-name" for="theme"><?php echo _t('conf.display.icon.entry'); ?></label>
+			<label class="group-name"><?php echo _t('conf.display.icon.entry'); ?></label>
 			<table>
 				<thead>
 					<tr>
 						<th> </th>
 						<th title="<?php echo _t('gen.action.mark_read'); ?>"><?php echo _i('read'); ?></th>
 						<th title="<?php echo _t('gen.action.mark_favorite'); ?>"><?php echo _i('bookmark'); ?></th>
-						<th><?php echo _t('conf.display.icon.sharing'); ?></th>
 						<th><?php echo _t('conf.display.icon.related_tags'); ?></th>
+						<th><?php echo _t('conf.display.icon.sharing'); ?></th>
 						<th><?php echo _t('conf.display.icon.publication_date'); ?></th>
 						<th><?php echo _i('link'); ?></th>
 					</tr>
@@ -98,8 +98,8 @@
 						<th><?php echo _t('conf.display.icon.bottom_line'); ?></th>
 						<td><input type="checkbox" name="bottomline_read" value="1"<?php echo FreshRSS_Context::$user_conf->bottomline_read ? ' checked="checked"' : ''; ?> data-leave-validation="<?php echo FreshRSS_Context::$user_conf->bottomline_read; ?>"/></td>
 						<td><input type="checkbox" name="bottomline_favorite" value="1"<?php echo FreshRSS_Context::$user_conf->bottomline_favorite ? ' checked="checked"' : ''; ?> data-leave-validation="<?php echo FreshRSS_Context::$user_conf->bottomline_favorite; ?>"/></td>
-						<td><input type="checkbox" name="bottomline_sharing" value="1"<?php echo FreshRSS_Context::$user_conf->bottomline_sharing ? ' checked="checked"' : ''; ?> data-leave-validation="<?php echo FreshRSS_Context::$user_conf->bottomline_sharing; ?>"/></td>
 						<td><input type="checkbox" name="bottomline_tags" value="1"<?php echo FreshRSS_Context::$user_conf->bottomline_tags ? ' checked="checked"' : ''; ?> data-leave-validation="<?php echo FreshRSS_Context::$user_conf->bottomline_tags; ?>"/></td>
+						<td><input type="checkbox" name="bottomline_sharing" value="1"<?php echo FreshRSS_Context::$user_conf->bottomline_sharing ? ' checked="checked"' : ''; ?> data-leave-validation="<?php echo FreshRSS_Context::$user_conf->bottomline_sharing; ?>"/></td>
 						<td><input type="checkbox" name="bottomline_date" value="1"<?php echo FreshRSS_Context::$user_conf->bottomline_date ? ' checked="checked"' : ''; ?> data-leave-validation="<?php echo FreshRSS_Context::$user_conf->bottomline_date; ?>"/></td>
 						<td><input type="checkbox" name="bottomline_link" value="1"<?php echo FreshRSS_Context::$user_conf->bottomline_link ? ' checked="checked"' : ''; ?> data-leave-validation="<?php echo FreshRSS_Context::$user_conf->bottomline_link; ?>"/></td>
 					</tr>

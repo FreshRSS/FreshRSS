@@ -5,11 +5,15 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo implements FreshRSS_Searchable 
 	const DEFAULTCATEGORYID = 1;
 
 	public function addCategory($valuesTmp) {
-		$sql = 'INSERT INTO `' . $this->prefix . 'category`(name) VALUES(?)';
+		$sql = 'INSERT INTO `' . $this->prefix . 'category`(name) '
+		     . 'SELECT * FROM (SELECT TRIM(?)) c2 '	//TRIM() to provide a type hint as text for PostgreSQL
+		     . 'WHERE NOT EXISTS (SELECT 1 FROM `' . $this->prefix . 'tag` WHERE name = TRIM(?))';	//No tag of the same name
 		$stm = $this->bd->prepare($sql);
 
+		$valuesTmp['name'] = mb_strcut(trim($valuesTmp['name']), 0, FreshRSS_DatabaseDAO::LENGTH_INDEX_UNICODE, 'UTF-8');
 		$values = array(
-			substr($valuesTmp['name'], 0, 255),
+			$valuesTmp['name'],
+			$valuesTmp['name'],
 		);
 
 		if ($stm && $stm->execute($values)) {
@@ -35,12 +39,15 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo implements FreshRSS_Searchable 
 	}
 
 	public function updateCategory($id, $valuesTmp) {
-		$sql = 'UPDATE `' . $this->prefix . 'category` SET name=? WHERE id=?';
+		$sql = 'UPDATE `' . $this->prefix . 'category` SET name=? WHERE id=? '
+		     . 'AND NOT EXISTS (SELECT 1 FROM `' . $this->prefix . 'tag` WHERE name = ?)';	//No tag of the same name
 		$stm = $this->bd->prepare($sql);
 
+		$valuesTmp['name'] = mb_strcut(trim($valuesTmp['name']), 0, FreshRSS_DatabaseDAO::LENGTH_INDEX_UNICODE, 'UTF-8');
 		$values = array(
 			$valuesTmp['name'],
-			$id
+			$id,
+			$valuesTmp['name'],
 		);
 
 		if ($stm && $stm->execute($values)) {
@@ -151,7 +158,7 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo implements FreshRSS_Searchable 
 			$sql = 'INSERT INTO `' . $this->prefix . 'category`(id, name) VALUES(?, ?)';
 			if (parent::$sharedDbType === 'pgsql') {
 				//Force call to nextval()
-				$sql .= " RETURNING nextval('" . $this->prefix . "category_id_seq');";
+				$sql .= ' RETURNING nextval(\'"' . $this->prefix . 'category_id_seq"\');';
 			}
 			$stm = $this->bd->prepare($sql);
 

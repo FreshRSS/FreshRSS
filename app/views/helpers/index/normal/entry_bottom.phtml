@@ -7,6 +7,7 @@
 	$bottomline_read = FreshRSS_Context::$user_conf->bottomline_read;
 	$bottomline_favorite = FreshRSS_Context::$user_conf->bottomline_favorite;
 	$bottomline_sharing = FreshRSS_Context::$user_conf->bottomline_sharing && (count($sharing) > 0);
+	$bottomline_labels = true;	//TODO
 	$bottomline_tags = FreshRSS_Context::$user_conf->bottomline_tags;
 	$bottomline_date = FreshRSS_Context::$user_conf->bottomline_date;
 	$bottomline_link = FreshRSS_Context::$user_conf->bottomline_link;
@@ -32,8 +33,41 @@
 					echo _i($this->entry->isFavorite() ? 'starred' : 'non-starred'); ?></a><?php
 			?></li><?php
 		}
-	} ?>
-	<li class="item"><?php
+	}
+	if ($bottomline_labels) {
+	?><li class="item">
+		<div class="dropdown dynamictags">
+			<div id="dropdown-labels-<?php echo $this->entry->id();?>" class="dropdown-target"></div>
+			<?php echo FreshRSS_Themes::alt('label'); ?>
+			<a class="dropdown-toggle" href="#dropdown-labels-<?php echo $this->entry->id();?>"><?php
+				echo _t('index.menu.tags');
+			?></a>
+			<ul class="dropdown-menu dropdown-menu-scrollable">
+				<li class="dropdown-close"><a href="#close">❌</a></li>
+				<!-- Ajax -->
+			</ul>
+		</div>
+	</li><?php
+	}
+	$tags = $bottomline_tags ? $this->entry->tags() : null;
+	if (!empty($tags)) {
+	?><li class="item">
+		<div class="dropdown">
+			<div id="dropdown-tags-<?php echo $this->entry->id();?>" class="dropdown-target"></div>
+			<?php echo _i('tag'); ?>
+			<a class="dropdown-toggle" href="#dropdown-tags-<?php echo $this->entry->id();?>"><?php
+				echo _t('index.tag.related');
+			?></a>
+			<ul class="dropdown-menu">
+				<li class="dropdown-close"><a href="#close">❌</a></li><?php
+				foreach ($tags as $tag) {
+					?><li class="item"><a href="<?php echo _url('index', 'index', 'search', '#' . str_replace(' ', '+', htmlspecialchars_decode($tag, ENT_QUOTES))); ?>"><?php echo $tag; ?></a></li><?php
+				} ?>
+			</ul>
+		</div>
+	</li><?php
+	}
+	?><li class="item"><?php
 			if ($bottomline_sharing) {
 		?><div class="dropdown">
 			<div id="dropdown-share-<?php echo $this->entry->id();?>" class="dropdown-target"></div>
@@ -69,24 +103,6 @@
 		</div>
 		<?php } ?>
 	</li><?php
-	$tags = $bottomline_tags ? $this->entry->tags() : null;
-	if (!empty($tags)) {
-	?><li class="item">
-		<div class="dropdown">
-			<div id="dropdown-tags-<?php echo $this->entry->id();?>" class="dropdown-target"></div>
-			<?php echo _i('tag'); ?>
-			<a class="dropdown-toggle" href="#dropdown-tags-<?php echo $this->entry->id();?>"><?php
-				echo _t('index.tag.related');
-			?></a>
-			<ul class="dropdown-menu">
-				<li class="dropdown-close"><a href="#close">❌</a></li><?php
-				foreach($tags as $tag) {
-					?><li class="item"><a href="<?php echo _url('index', 'index', 'search', '#' . htmlspecialchars_decode($tag, ENT_QUOTES)); ?>"><?php echo $tag; ?></a></li><?php
-				} ?>
-			</ul>
-		</div>
-	</li><?php
-	}
 	if ($bottomline_date) {
 		?><li class="item date"><?php echo $this->entry->date(); ?></li><?php
 	}

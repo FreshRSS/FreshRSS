@@ -11,10 +11,6 @@
 		<?php echo self::headScript(); ?>
 		<link rel="shortcut icon" id="favicon" type="image/x-icon" sizes="16x16 64x64" href="<?php echo Minz_Url::display('/favicon.ico'); ?>" />
 		<link rel="icon msapplication-TileImage apple-touch-icon" type="image/png" sizes="256x256" href="<?php echo Minz_Url::display('/themes/icons/favicon-256.png'); ?>" />
-		<link rel="prefetch" href="<?php echo FreshRSS_Themes::icon('starred', true); ?>" />
-		<link rel="prefetch" href="<?php echo FreshRSS_Themes::icon('non-starred', true); ?>" />
-		<link rel="prefetch" href="<?php echo FreshRSS_Themes::icon('read', true); ?>" />
-		<link rel="prefetch" href="<?php echo FreshRSS_Themes::icon('unread', true); ?>" />
 		<link rel="apple-touch-icon" href="<?php echo Minz_Url::display('/themes/icons/apple-touch-icon.png'); ?>" />
 		<meta name="apple-mobile-web-app-capable" content="yes" />
 		<meta name="apple-mobile-web-app-status-bar-style" content="black" />
@@ -22,24 +18,11 @@
 		<meta name="msapplication-TileColor" content="#FFF" />
 <?php if (!FreshRSS_Context::$system_conf->allow_referrer) { ?>
 		<meta name="referrer" content="never" />
-<?php
-	}
-	flush();
-	if (isset($this->callbackBeforeContent)) {
-		call_user_func($this->callbackBeforeContent, $this);
-	}
-?>
+<?php } ?>
 		<?php echo self::headTitle(); ?>
 <?php
 	$url_base = Minz_Request::currentRequest();
-	if (FreshRSS_Context::$next_id !== '') {
-		$url_next = $url_base;
-		$url_next['params']['next'] = FreshRSS_Context::$next_id;
-		$url_next['params']['ajax'] = 1;
-?>
-		<link id="prefetch" rel="next prefetch" href="<?php echo Minz_Url::display($url_next); ?>" />
-<?php
-	} if (isset($this->rss_title)) {
+	if (isset($this->rss_title)) {
 		$url_rss = $url_base;
 		$url_rss['a'] = 'rss';
 		if (FreshRSS_Context::$user_conf->since_hours_posts_per_rss) {
@@ -54,10 +37,19 @@
 <?php } ?>
 	</head>
 	<body class="<?php echo Minz_Request::actionName(); ?>">
-<?php $this->partial('header'); ?>
+<?php
+	flush();
+	$this->partial('header');
+?>
 
 <div id="global">
-	<?php $this->render(); ?>
+	<?php
+		flush();
+		if (isset($this->callbackBeforeFeeds)) {
+			call_user_func($this->callbackBeforeFeeds, $this);
+		}
+		$this->render();
+	?>
 </div>
 
 <?php

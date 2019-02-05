@@ -1,5 +1,5 @@
 */
 */config.php
-*/db.sqlite
+*/*.sqlite
 !_/
 */log*.txt

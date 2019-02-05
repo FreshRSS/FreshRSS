@@ -50,8 +50,16 @@ return array(
 		'no_zip_extension' => 'Die ZIP-Erweiterung ist auf Ihrem Server nicht vorhanden.',
 		'zip_error' => 'Ein Fehler trat während des ZIP-Imports auf.',
 	),
+	'profile' => array(
+		'error' => 'Ihr Profil kann nicht geändert werden',
+		'updated' => 'Ihr Profil ist geändert worden',
+	),
 	'sub' => array(
 		'actualize' => 'Aktualisieren',
+		'articles' => array(
+			'marked_read' => 'Die ausgewählten Artikel wurden als gelesen markiert.',
+			'marked_unread' => 'Die ausgewählten Artikel wurden als ungelesen markiert.',
+		),
 		'category' => array(
 			'created' => 'Die Kategorie %s ist erstellt worden.',
 			'deleted' => 'Die Kategorie ist gelöscht worden.',
@@ -72,9 +80,8 @@ return array(
 			'already_subscribed' => 'Sie haben <em>%s</em> bereits abonniert',
 			'deleted' => 'Der Feed ist gelöscht worden',
 			'error' => 'Der Feed kann nicht aktualisiert werden',
-			'internal_problem' => 'Der RSS-Feed konnte nicht hinzugefügt werden. Für Details <a href="%s">prüfen Sie die FreshRSS-Protokolle</a>.', // @todo
+			'internal_problem' => 'Der RSS-Feed konnte nicht hinzugefügt werden. Für Details <a href="%s">prüfen Sie die FreshRSS-Protokolle</a>.',
 			'invalid_url' => 'Die URL <em>%s</em> ist ungültig',
-			'marked_read' => 'Die Feeds sind als gelesen markiert worden',
 			'n_actualized' => 'Die %d Feeds sind aktualisiert worden',
 			'n_entries_deleted' => 'Die %d Artikel sind gelöscht worden',
 			'no_refresh' => 'Es gibt keinen Feed zum Aktualisieren…',
@@ -105,9 +112,5 @@ return array(
 			'_' => 'Benutzer %s wurde aktualisiert',
 			'error' => 'Benutzer %s wurde nicht aktualisiert',
 		),
-	),
-	'profile' => array(
-		'error' => 'Ihr Profil kann nicht geändert werden',
-		'updated' => 'Ihr Profil ist geändert worden',
 	),
 );

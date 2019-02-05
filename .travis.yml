@@ -7,7 +7,6 @@ php:
   - '7.1'
   - '7.2'
   - hhvm
-  - nightly
 
 install:
   # newest version without https://github.com/squizlabs/PHP_CodeSniffer/pull/1404

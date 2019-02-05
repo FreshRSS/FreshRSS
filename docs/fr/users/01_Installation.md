@@ -119,7 +119,7 @@ server {
 	# gestion des fichiers php
 	# il est nécessaire d’utiliser cette expression régulière pour le bon fonctionnement de l’API
 	location ~ ^.+?\.php(/.*)?$ {
-		fastcgi_pass unix:/var/run/php5-fpm.sock;
+		fastcgi_pass unix:/var/run/php/php7.0-fpm.sock;
 		fastcgi_split_path_info ^(.+\.php)(/.*)$;
 		# Par défaut la variable PATH_INFO n’est pas définie sous PHP-FPM
 		# or l’API FreshRSS greader.php en a besoin. Si vous avez un “Bad Request”, vérifiez bien cette dernière !

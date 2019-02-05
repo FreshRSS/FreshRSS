@@ -4,7 +4,7 @@ if (php_sapi_name() !== 'cli') {
 }
 
 require(__DIR__ . '/../constants.php');
-require(LIB_PATH . '/lib_rss.php');
+require(LIB_PATH . '/lib_rss.php');	//Includes class autoloader
 require(LIB_PATH . '/lib_install.php');
 
 Minz_Configuration::register('system',

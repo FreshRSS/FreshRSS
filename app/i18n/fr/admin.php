@@ -63,8 +63,12 @@ return array(
 		),
 		'files' => 'Installation des fichiers',
 		'json' => array(
-			'nok' => 'Vous ne disposez pas de JSON (paquet php5-json).',
-			'ok' => 'Vous disposez de l’extension JSON.',
+			'nok' => 'Vous ne disposez pas de l’extension recommendée JSON (paquet php-json).',
+			'ok' => 'Vous disposez de l’extension recommendée JSON.',
+		),
+		'mbstring' => array(
+			'nok' => 'Impossible de trouver la librairie recommandée mbstring pour Unicode.',
+			'ok' => 'Vouz disposez de la librairie recommandée mbstring pour Unicode.',
 		),
 		'minz' => array(
 			'nok' => 'Vous ne disposez pas de la librairie Minz.',
@@ -102,23 +106,23 @@ return array(
 		),
 	),
 	'extensions' => array(
+		'author' => 'Auteur',
+		'community' => 'Extensions utilisateur disponibles',
+		'description' => 'Description',
 		'disabled' => 'Désactivée',
 		'empty_list' => 'Aucune extension installée',
 		'enabled' => 'Activée',
+		'latest' => 'Installée',
+		'name' => 'Nom',
 		'no_configure_view' => 'Cette extension n’a pas à être configurée',
 		'system' => array(
 			'_' => 'Extensions système',
 			'no_rights' => 'Extensions système (contrôlées par l’administrateur)',
 		),
 		'title' => 'Extensions',
-		'user' => 'Extensions utilisateur',
-		'community' => 'Extensions utilisateur disponibles',
-		'name' => 'Nom',
-		'version' => 'Version',
-		'description' => 'Description',
-		'author' => 'Auteur',
-		'latest' => 'Installée',
 		'update' => 'Mise à jour disponible',
+		'user' => 'Extensions utilisateur',
+		'version' => 'Version',
 	),
 	'stats' => array(
 		'_' => 'Statistiques',
@@ -158,6 +162,10 @@ return array(
 		'instance-name' => 'Nom de l’instance',
 		'max-categories' => 'Limite de catégories par utilisateur',
 		'max-feeds' => 'Limite de flux par utilisateur',
+		'cookie-duration' => array(
+			'help' => 'en secondes',
+			'number' => 'Durée avant expiration de la session',
+		),
 		'registration' => array(
 			'help' => 'Un chiffre de 0 signifie que l’on peut créer un nombre infini de comptes',
 			'number' => 'Nombre max de comptes',

@@ -19,7 +19,7 @@ return array(
 			'bottom_line' => 'Ligne du bas',
 			'entry' => 'Icônes d’article',
 			'publication_date' => 'Date de publication',
-			'related_tags' => 'Tags associés',
+			'related_tags' => 'Tags de l’article',
 			'sharing' => 'Partage',
 			'top_line' => 'Ligne du haut',
 		),
@@ -28,6 +28,7 @@ return array(
 			'seconds' => 'secondes (0 signifie aucun timeout)',
 			'timeout' => 'Temps d’affichage de la notification HTML5',
 		),
+		'show_nav_buttons' => 'Afficher les boutons de navigation',
 		'theme' => 'Thème',
 		'title' => 'Affichage',
 		'width' => array(
@@ -37,7 +38,17 @@ return array(
 			'no_limit' => 'Pas de limite',
 			'thin' => 'Fine',
 		),
-		'show_nav_buttons' => 'Afficher les boutons de navigation',
+	),
+	'profile' => array(
+		'_' => 'Gestion du profil',
+		'delete' => array(
+			'_' => 'Suppression du compte',
+			'warn' => 'Le compte et toutes les données associées vont être supprimées.',
+		),
+		'password_api' => 'Mot de passe API<br /><small>(ex. : pour applis mobiles)</small>',
+		'password_form' => 'Mot de passe<br /><small>(pour connexion par formulaire)</small>',
+		'password_format' => '7 caractères minimum',
+		'title' => 'Profil',
 	),
 	'query' => array(
 		'_' => 'Filtres utilisateurs',
@@ -73,31 +84,19 @@ return array(
 		'state_15' => 'Afficher tous les articles',
 		'title' => 'Filtres utilisateurs',
 	),
-	'profile' => array(
-		'_' => 'Gestion du profil',
-		'delete' => array(
-			'_' => 'Suppression du compte',
-			'warn' => 'Le compte et toutes les données associées vont être supprimées.',
-		),
-		'password_api' => 'Mot de passe API<br /><small>(ex. : pour applis mobiles)</small>',
-		'password_form' => 'Mot de passe<br /><small>(pour connexion par formulaire)</small>',
-		'password_format' => '7 caractères minimum',
-		'title' => 'Profil',
-	),
 	'reading' => array(
 		'_' => 'Lecture',
 		'after_onread' => 'Après “marquer tout comme lu”,',
 		'articles_per_page' => 'Nombre d’articles par page',
 		'auto_load_more' => 'Charger les articles suivants en bas de page',
 		'auto_remove_article' => 'Cacher les articles après lecture',
-		'mark_updated_article_unread' => 'Marquer les articles mis à jour comme non-lus',
 		'confirm_enabled' => 'Afficher une confirmation lors des actions “marquer tout comme lu”',
 		'display_articles_unfolded' => 'Afficher les articles dépliés par défaut',
 		'display_categories_unfolded' => 'Afficher les catégories pliées par défaut',
 		'hide_read_feeds' => 'Cacher les catégories & flux sans article non-lu (ne fonctionne pas avec la configuration “Afficher tous les articles”)',
 		'img_with_lazyload' => 'Utiliser le mode “chargement différé” pour les images',
-		'sides_close_article' => 'Cliquer hors de la zone de texte ferme l’article',
 		'jump_next' => 'sauter au prochain voisin non lu (flux ou catégorie)',
+		'mark_updated_article_unread' => 'Marquer les articles mis à jour comme non-lus',
 		'number_divided_when_reader' => 'Divisé par 2 dans la vue de lecture.',
 		'read' => array(
 			'article_open_on_website' => 'lorsque l’article est ouvert sur le site d’origine',
@@ -112,6 +111,7 @@ return array(
 			'all_articles' => 'Afficher tous les articles',
 			'unread' => 'Afficher les non lus',
 		),
+		'sides_close_article' => 'Cliquer hors de la zone de texte ferme l’article',
 		'sort' => array(
 			'_' => 'Ordre de tri',
 			'newer_first' => 'Plus récents en premier',
@@ -158,10 +158,11 @@ return array(
 		'javascript' => 'Le JavaScript doit être activé pour pouvoir profiter des raccourcis.',
 		'last_article' => 'Passer au dernier article',
 		'load_more' => 'Charger plus d’articles',
-		'mark_read' => 'Marquer comme lu',
 		'mark_favorite' => 'Mettre en favori',
+		'mark_read' => 'Marquer comme lu',
 		'navigation' => 'Navigation',
 		'navigation_help' => 'Avec le modificateur "Shift", les raccourcis de navigation s’appliquent aux flux.<br/>Avec le modificateur "Alt", les raccourcis de navigation s’appliquent aux catégories.',
+		'navigation_no_mod_help' => 'The following navigation shortcuts do not support modifiers.',	//TODO - Translation
 		'next_article' => 'Passer à l’article suivant',
 		'normal_view' => 'Basculer vers la vue normale',
 		'other_action' => 'Autres actions',
@@ -170,6 +171,8 @@ return array(
 		'rss_view' => 'Ouvrir le flux RSS dans un nouvel onglet',
 		'see_on_website' => 'Voir sur le site d’origine',
 		'shift_for_all_read' => '+ <code>shift</code> pour marquer tous les articles comme lus',
+		'skip_next_article' => 'Focus next without opening',	//TODO - Translation
+		'skip_previous_article' => 'Focus previous without opening',	//TODO - Translation
 		'title' => 'Raccourcis',
 		'user_filter' => 'Accéder aux filtres utilisateur',
 		'user_filter_help' => 'S’il n’y a qu’un filtre utilisateur, celui-ci est utilisé automatiquement. Sinon ils sont accessibles par leur numéro.',

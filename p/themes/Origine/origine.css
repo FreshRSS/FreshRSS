@@ -148,6 +148,7 @@ form th {
 	display: inline-block;
 	min-height: 37px;
 	min-width: 15px;
+	line-height: 25px;
 	margin: 0;
 	padding: 5px 10px;
 	background: #fff;

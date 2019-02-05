@@ -63,8 +63,12 @@ return array(
 		),
 		'files' => 'Instalación de Archivos',
 		'json' => array(
-			'nok' => 'No se ha podido localizar JSON (paquete php5-json).',
+			'nok' => 'No se ha podido localizar JSON (paquete php-json).',
 			'ok' => 'Dispones de la extensión JSON.',
+		),
+		'mbstring' => array(
+			'nok' => 'Cannot find the recommended library mbstring for Unicode.',	//TODO - Translation
+			'ok' => 'You have the recommended library mbstring for Unicode.',	//TODO - Translation
 		),
 		'minz' => array(
 			'nok' => 'No se ha podido localizar el entorno Minz.',
@@ -102,23 +106,23 @@ return array(
 		),
 	),
 	'extensions' => array(
+		'author' => 'Author',	//TODO - Translation
+		'community' => 'Available community extensions',	//TODO - Translation
+		'description' => 'Description',	//TODO - Translation
 		'disabled' => 'Desactivado',
 		'empty_list' => 'No hay extensiones instaladas',
 		'enabled' => 'Activado',
+		'latest' => 'Installed',	//TODO - Translation
+		'name' => 'Name',	//TODO - Translation
 		'no_configure_view' => 'Esta extensión no puede ser configurada.',
 		'system' => array(
 			'_' => 'Sistema de extensiones',
 			'no_rights' => 'Sistema de extensiones (careces de los permisos necesarios)',
 		),
 		'title' => 'Extensiones',
+		'update' => 'Update available',	//TODO - Translation
 		'user' => 'Extensiones de usuario',
-		'community' => 'Available community extensions', // @todo translate
-		'name' => 'Name', // @todo translate
-		'version' => 'Version', // @todo translate
-		'description' => 'Description', // @todo translate
-		'author' => 'Author', // @todo translate
-		'latest' => 'Installed', // @todo translate
-		'update' => 'Update available', // @todo translate
+		'version' => 'Version',	//TODO - Translation
 	),
 	'stats' => array(
 		'_' => 'Estadísticas',
@@ -158,6 +162,10 @@ return array(
 		'instance-name' => 'Nombre de la fuente',
 		'max-categories' => 'Límite de categorías por usuario',
 		'max-feeds' => 'Límite de fuentes por usuario',
+		'cookie-duration' => array(
+			'help' => 'in seconds', // @todo translate
+			'number' => 'Duration to keep logged in', // @todo translate
+		),
 		'registration' => array(
 			'help' => '0 significa que no hay límite en la cuenta',
 			'number' => 'Número máximo de cuentas',
@@ -175,15 +183,15 @@ return array(
 	'user' => array(
 		'articles_and_size' => '%s articles (%s)',
 		'create' => 'Crear nuevo usuario',
-		'delete_users' => 'Delete user', // TODO
+		'delete_users' => 'Delete user',	//TODO - Translation
 		'language' => 'Idioma',
 		'number' => 'Hay %d cuenta creada',
 		'numbers' => 'Hay %d cuentas creadas',
 		'password_form' => 'Contraseña<br /><small>(para el método de identificación por formulario web)</small>',
 		'password_format' => 'Mínimo de 7 caracteres',
-		'selected' => 'Selected user', // TODO
+		'selected' => 'Selected user',	//TODO - Translation
 		'title' => 'Administrar usuarios',
-		'update_users' => 'Update user', // TODO
+		'update_users' => 'Update user',	//TODO - Translation
 		'user_list' => 'Lista de usuarios',
 		'username' => 'Nombre de usuario',
 		'users' => 'Usuarios',

@@ -26,6 +26,8 @@ echo htmlspecialchars(json_encode(array(
 		'go_website' => @$s['go_website'],
 		'prev_entry' => @$s['prev_entry'],
 		'next_entry' => @$s['next_entry'],
+		'skip_prev_entry' => @$s['skip_prev_entry'],
+		'skip_next_entry' => @$s['skip_next_entry'],
 		'first_entry' => @$s['first_entry'],
 		'last_entry' => @$s['last_entry'],
 		'collapse_entry' => @$s['collapse_entry'],
@@ -40,7 +42,7 @@ echo htmlspecialchars(json_encode(array(
 		'reading_view' => @$s['reading_view'],
 		'rss_view' => @$s['rss_view'],
 	),
-	'url' => array(
+	'urls' => array(
 		'index' => _url('index', 'index'),
 		'login' => Minz_Url::display(array('c' => 'auth', 'a' => 'login'), 'php'),
 		'logout' => Minz_Url::display(array('c' => 'auth', 'a' => 'logout'), 'php'),
@@ -54,6 +56,7 @@ echo htmlspecialchars(json_encode(array(
 		'category_empty' => _t('gen.js.category_empty'),
 	),
 	'icons' => array(
-		'close' => _i('close'),
+		'read' => rawurlencode(_i('read')),
+		'unread' => rawurlencode(_i('unread')),
 	),
 ), JSON_UNESCAPED_UNICODE), ENT_NOQUOTES, 'UTF-8');

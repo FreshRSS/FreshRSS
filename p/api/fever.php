@@ -3,6 +3,7 @@
  * Fever API for FreshRSS
  * Version 0.1
  * Author: Kevin Papst / https://github.com/kevinpapst
+ * Documentation: https://feedafever.com/api
  *
  * Inspired by:
  * TinyTinyRSS Fever API plugin @dasmurphy
@@ -29,6 +30,36 @@ register_shutdown_function('session_destroy');
 Minz_Session::init('FreshRSS');
 // ================================================================================================
 
+// <Debug>
+$ORIGINAL_INPUT = file_get_contents('php://input', false, null, 0, 1048576);
+
+function debugInfo() {
+	if (function_exists('getallheaders')) {
+		$ALL_HEADERS = getallheaders();
+	} else {	//nginx	http://php.net/getallheaders#84262
+		$ALL_HEADERS = array();
+		foreach ($_SERVER as $name => $value) {
+			if (substr($name, 0, 5) === 'HTTP_') {
+				$ALL_HEADERS[str_replace(' ', '-', ucwords(strtolower(str_replace('_', ' ', substr($name, 5)))))] = $value;
+			}
+		}
+	}
+	global $ORIGINAL_INPUT;
+	return print_r(
+		array(
+			'date' => date('c'),
+			'headers' => $ALL_HEADERS,
+			'_SERVER' => $_SERVER,
+			'_GET' => $_GET,
+			'_POST' => $_POST,
+			'_COOKIE' => $_COOKIE,
+			'INPUT' => $ORIGINAL_INPUT
+		), true);
+}
+
+//Minz_Log::debug('----------------------------------------------------------------', API_LOG);
+//Minz_Log::debug(debugInfo(), API_LOG);
+// </Debug>
 
 class FeverDAO extends Minz_ModelPdo
 {
@@ -63,7 +94,7 @@ class FeverDAO extends Minz_ModelPdo
 
 		$sql = 'SELECT id, guid, title, author, '
 			. ($entryDAO->isCompressed() ? 'UNCOMPRESS(content_bin) AS content' : 'content')
-			. ', link, date, is_read, is_favorite, id_feed, tags '
+			. ', link, date, is_read, is_favorite, id_feed '
 			. 'FROM `' . $this->prefix . 'entry` WHERE';
 
 		if (!empty($entry_ids)) {
@@ -311,7 +342,7 @@ class FeverAPI
 	{
 		$groups = array();
 
-		$categoryDAO = new FreshRSS_CategoryDAO();
+		$categoryDAO = FreshRSS_Factory::createCategoryDao();
 		$categories = $categoryDAO->listCategories(false, false);
 
 		/** @var FreshRSS_Category $category */
@@ -456,7 +487,7 @@ class FeverAPI
 			}
 
 			if (isset($_REQUEST['group_ids'])) {
-				$categoryDAO = new FreshRSS_CategoryDAO();
+				$categoryDAO = FreshRSS_Factory::createCategoryDao();
 				$group_ids = explode(',', $_REQUEST['group_ids']);
 				foreach ($group_ids as $id) {
 					/** @var FreshRSS_Category $category */
@@ -495,17 +526,17 @@ class FeverAPI
 		// Load list of extensions and enable the "system" ones.
 		Minz_ExtensionManager::init();
 
-		foreach($entries as $item) {
+		foreach ($entries as $item) {
 			/** @var FreshRSS_Entry $entry */
 			$entry = Minz_ExtensionManager::callHook('entry_before_display', $item);
-			if (is_null($entry)) {
+			if ($entry == null) {
 				continue;
 			}
 			$items[] = array(
 				'id' => $entry->id(),
 				'feed_id' => $entry->feed(false),
 				'title' => $entry->title(),
-				'author' => $entry->author(),
+				'author' => $entry->authors(true),
 				'html' => $entry->content(),
 				'url' => $entry->link(),
 				'is_saved' => $entry->isFavorite() ? 1 : 0,

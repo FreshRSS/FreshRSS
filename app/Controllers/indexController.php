@@ -32,7 +32,29 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 			Minz_Error::error(404);
 		}
 
-		$this->view->callbackBeforeContent = function($view) {
+		$this->view->categories = FreshRSS_Context::$categories;
+
+		$this->view->rss_title = FreshRSS_Context::$name . ' | ' . Minz_View::title();
+		$title = FreshRSS_Context::$name;
+		if (FreshRSS_Context::$get_unread > 0) {
+			$title = '(' . FreshRSS_Context::$get_unread . ') ' . $title;
+		}
+		Minz_View::prependTitle($title . ' · ');
+
+		$this->view->callbackBeforeFeeds = function ($view) {
+			try {
+				$tagDAO = FreshRSS_Factory::createTagDao();
+				$view->tags = $tagDAO->listTags(true);
+				$view->nbUnreadTags = 0;
+				foreach ($view->tags as $tag) {
+					$view->nbUnreadTags += $tag->nbUnread();
+				}
+			} catch (Exception $e) {
+				Minz_Log::notice($e->getMessage());
+			}
+		};
+
+		$this->view->callbackBeforeEntries = function ($view) {
 			try {
 				FreshRSS_Context::$number++;	//+1 for pagination
 				$entries = FreshRSS_index_Controller::listEntriesByContext();
@@ -60,15 +82,6 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 				Minz_Log::notice($e->getMessage());
 				Minz_Error::error(404);
 			}
-
-			$view->categories = FreshRSS_Context::$categories;
-
-			$view->rss_title = FreshRSS_Context::$name . ' | ' . Minz_View::title();
-			$title = FreshRSS_Context::$name;
-			if (FreshRSS_Context::$get_unread > 0) {
-				$title = '(' . FreshRSS_Context::$get_unread . ') ' . $title;
-			}
-			Minz_View::prependTitle($title . ' · ');
 		};
 	}
 
@@ -139,7 +152,7 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 		}
 
 		// No layout for RSS output.
-		$this->view->url = empty($_SERVER['QUERY_STRING']) ? '' : '?' . $_SERVER['QUERY_STRING'];
+		$this->view->url = PUBLIC_TO_INDEX_PATH . '/' . (empty($_SERVER['QUERY_STRING']) ? '' : '?' . $_SERVER['QUERY_STRING']);
 		$this->view->rss_title = FreshRSS_Context::$name . ' | ' . Minz_View::title();
 		$this->view->_useLayout(false);
 		header('Content-Type: application/rss+xml; charset=utf-8');
@@ -158,7 +171,7 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 	 */
 	private function updateContext() {
 		if (empty(FreshRSS_Context::$categories)) {
-			$catDAO = new FreshRSS_CategoryDAO();
+			$catDAO = FreshRSS_Factory::createCategoryDao();
 			FreshRSS_Context::$categories = $catDAO->listCategories();
 		}
 
