@@ -324,9 +324,9 @@ class FeverAPI
 			$feeds[] = array(
 				'id' => $feed->id(),
 				'favicon_id' => $feed->id(),
-				'title' => $feed->name(),
-				'url' => $feed->url(),
-				'site_url' => $feed->website(),
+				'title' => escapeToUnicodeAlternative($feed->name(), true),
+				'url' => htmlspecialchars_decode($feed->url(), ENT_QUOTES),
+				'site_url' => htmlspecialchars_decode($feed->website(), ENT_QUOTES),
 				'is_spark' => 0, // unsupported
 				'last_updated_on_time' => $feed->lastUpdate(),
 			);
@@ -349,7 +349,7 @@ class FeverAPI
 		foreach ($categories as $category) {
 			$groups[] = array(
 				'id' => $category->id(),
-				'title' => $category->name(),
+				'title' => escapeToUnicodeAlternative($category->name(), false),
 			);
 		}
 
@@ -535,10 +535,10 @@ class FeverAPI
 			$items[] = array(
 				'id' => $entry->id(),
 				'feed_id' => $entry->feed(false),
-				'title' => $entry->title(),
-				'author' => $entry->authors(true),
+				'title' => escapeToUnicodeAlternative($entry->title(), true),
+				'author' => escapeToUnicodeAlternative($entry->authors(true), true),
 				'html' => $entry->content(),
-				'url' => $entry->link(),
+				'url' => htmlspecialchars_decode($entry->link(), ENT_QUOTES),
 				'is_saved' => $entry->isFavorite() ? 1 : 0,
 				'is_read' => $entry->isRead() ? 1 : 0,
 				'created_on_time' => $entry->date(true),
