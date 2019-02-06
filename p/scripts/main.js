@@ -617,6 +617,7 @@ function init_column_categories() {
 			ul.classList.toggle('active');
 			//CSS transition does not work on max-height:auto
 			ul.style.maxHeight = ul.classList.contains('active') ? (nbVisibleItems * 4) + 'em' : 0;
+			return false;
 		}
 
 		a = ev.target.closest('.tree-folder-items > .feed .dropdown-toggle');
@@ -640,6 +641,7 @@ function init_column_categories() {
 			} else {
 				a.href = '#close';
 			}
+			return true;
 		}
 
 		return true;
