@@ -420,7 +420,6 @@ a.btn {
 .tree-folder-items {
 	list-style: none;
 	max-height: 200em;
-	overflow: hidden;
 	padding: 0;
 	transition: max-height .3s linear;
 }
@@ -506,6 +505,7 @@ a.btn {
 }
 .aside_feed .tree-folder-items:not(.active) {
 	max-height: 0;
+	overflow: hidden;
 }
 .aside_feed .tree-folder-items .dropdown {
 	vertical-align: top;
