@@ -340,7 +340,7 @@ function toggleContent(new_active, old_active, skipping) {
 	}
 
 	const relative_move = context.current_view === 'global',
-		box_to_move = relative_move ? document.getElementById('#panel') : document.documentElement;
+		box_to_move = relative_move ? document.getElementById('panel') : document.documentElement;
 
 	if (context.sticky_post) {
 		let prev_article = new_active.previousElementSibling,
