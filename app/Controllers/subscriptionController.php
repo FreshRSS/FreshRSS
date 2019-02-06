@@ -29,7 +29,6 @@ class FreshRSS_subscription_Controller extends Minz_ActionController {
 	 * It displays categories and associated feeds.
 	 */
 	public function indexAction() {
-		Minz_View::prependScript(Minz_Url::display('/scripts/jquery.min.js?' . @filemtime(PUBLIC_PATH . '/scripts/jquery.min.js')));
 		Minz_View::appendScript(Minz_Url::display('/scripts/category.js?' . @filemtime(PUBLIC_PATH . '/scripts/category.js')));
 		Minz_View::prependTitle(_t('sub.title') . ' · ');
 

@@ -389,7 +389,8 @@ function prev_feed() {
 	const active_feed = document.querySelector('#aside_feed .feed.active');
 	if (active_feed) {
 		let feed = active_feed;
-		do feed = feed.previousElementSibling; while (feed && getComputedStyle(feed).display === 'none');
+		do feed = feed.previousElementSibling;
+		while (feed && getComputedStyle(feed).display === 'none');
 		if (feed) {
 			feed.querySelector('a.item-title').click();
 		}
@@ -402,7 +403,8 @@ function next_feed() {
 	const active_feed = document.querySelector('#aside_feed .feed.active');
 	if (active_feed) {
 		let feed = active_feed;
-		do feed = feed.nextElementSibling; while (feed && getComputedStyle(feed).display === 'none');
+		do feed = feed.nextElementSibling;
+		while (feed && getComputedStyle(feed).display === 'none');
 		if (feed) {
 			feed.querySelector('a.item-title').click();
 		}
@@ -429,7 +431,8 @@ function prev_category() {
 	const active_cat = document.querySelector('#aside_feed .category.active');
 	if (active_cat) {
 		let cat = active_cat;
-		do cat = cat.previousElementSibling; while (cat && getComputedStyle(cat).display === 'none');
+		do cat = cat.previousElementSibling;
+		while (cat && getComputedStyle(cat).display === 'none');
 		if (cat) {
 			cat.querySelector('a.title').click();
 		}
@@ -442,7 +445,8 @@ function next_category() {
 	const active_cat = document.querySelector('#aside_feed .category.active');
 	if (active_cat) {
 		let cat = active_cat;
-		do cat = cat.nextElementSibling; while (cat && getComputedStyle(cat).display === 'none');
+		do cat = cat.nextElementSibling;
+		while (cat && getComputedStyle(cat).display === 'none');
 		if (cat) {
 			cat.querySelector('a.title').click();
 		}
