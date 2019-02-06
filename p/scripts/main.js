@@ -652,9 +652,11 @@ function init_shortcuts() {
 		});
 
 	document.body.onkeydown = function (ev) {
-			if (ev.target.closest('input, textarea')) {
+			if (ev.target.closest('input, textarea') ||
+				ev.ctrlKey || ev.metaKey || (ev.altKey && ev.shiftKey)) {
 				return true;
 			}
+
 			const s = context.shortcuts,
 				k = ev.key.toUpperCase();
 			if (location.hash.match(/^#dropdown-/)) {
@@ -689,15 +691,13 @@ function init_shortcuts() {
 				return false;
 			}
 			if (k === s.mark_read) {
-				if (ev.shiftKey) {	// Mark everything as read
+				if (ev.altKey) {
+					return true;
+				} else if (ev.shiftKey) {	// Mark everything as read
 					document.querySelector('.nav_menu .read_all').click();
 				} else {	// Toggle the read state
 					mark_read(document.querySelector('.flux.current'), false);
 				}
-				return false;
-			}
-			if (k === s.mark_favorite) {	// Toggle the favorite state
-				mark_favorite(document.querySelector('.flux.current'));
 				return false;
 			}
 			if (k === s.first_entry) {
@@ -721,11 +721,19 @@ function init_shortcuts() {
 					last_feed();
 				} else {
 					const old_active = document.querySelector('.flux.current'),
-						last = document.querySelector('.flux:last-of-type');	//TODO
+						last = document.querySelector('.flux:last-of-type');
 					if (last.classList.contains('flux')) {
 						toggleContent(last, old_active, false);
 					}
 				}
+				return false;
+			}
+
+			if (ev.altKey || ev.shiftKey) {
+				return true;
+			}
+			if (k === s.mark_favorite) {	// Toggle the favorite state
+				mark_favorite(document.querySelector('.flux.current'));
 				return false;
 			}
 			if (k === s.go_website) {
@@ -921,7 +929,7 @@ function init_nav_entries() {
 		nav_entries.querySelector('.up').onclick = function (e) {
 				const active_item = document.querySelector('.flux.current'),
 					windowTop = document.documentElement.scrollTop,
-					item_top = active_item.offsetTop;
+					item_top = active_item.offsetParent.offsetTop + active_item.offsetTop;
 
 				document.documentElement.scrollTop = windowTop > item_top ? item_top : 0;
 				return false;
