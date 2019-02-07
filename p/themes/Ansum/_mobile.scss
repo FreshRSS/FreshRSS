@@ -1,0 +1,68 @@
+/*=== MOBILE */
+/*===========*/
+@media(max-width: 840px) {
+	.aside {
+		transition: width 200ms linear;
+		-moz-transition: width 200ms linear;
+		-webkit-transition: width 200ms linear;
+		-o-transition: width 200ms linear;
+		-ms-transition: width 200ms linear;
+	}
+	.aside .toggle_aside,
+	#panel .close {
+		display: block;
+		width: 100%;
+		height: 50px;
+		line-height: 50px;
+		text-align: center;
+		background: $main-first-alt;
+	}
+
+	.aside.aside_feed {
+		padding: 0;
+	}
+
+	.nav_menu .btn {
+		margin: 5px 10px;
+	}
+	.nav_menu .stick {
+		margin: 0 10px;
+	}
+	.nav_menu .stick .btn {
+		margin: 5px 0;
+	}
+	.nav_menu .search {
+		display: inline-block;
+		max-width: 97%;
+	}
+	.nav_menu .search input {
+		max-width: 97%;
+		width: 90px;
+	}
+	.nav_menu .search input:focus {
+		width: 400px;
+	}
+
+	.day .name {
+		font-size: 1.1rem;
+	}
+
+	.pagination {
+		margin: 0 0 3.5em;
+	}
+
+	.notification {
+		border-radius: 0;
+	}
+	.notification a.close {
+		display: block;
+		left: 0;
+		background: transparent;
+	}
+	.notification a.close:hover {
+		opacity: 0.5;
+	}
+	.notification a.close .icon {
+		display: none;
+	}
+}

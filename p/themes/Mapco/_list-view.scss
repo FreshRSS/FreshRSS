@@ -1,0 +1,85 @@
+/*=== Feed articles */
+.flux {
+    // border-left: 2px solid #ecf0f1;
+    background: $white;
+    
+    &:hover{
+	background: $grey-lighter;
+
+	&:not(.current):hover .item.title {
+	    background: $grey-lighter;
+
+	    
+	}
+    }
+    &.current{
+	border-left-color: $main-first;
+	background: $grey-lighter;
+    }
+    &.not_read{
+	background: $main-first-lighter;
+	// border-left-color: #FF5300;	
+
+	&:hover{
+	    background: $main-first-light;
+	}
+	
+	&:not(.current):hover .item.title {
+	    background: $main-first-light;
+
+	    
+	}
+	.item.title{
+	    a{
+		color: $main-first;	
+	    }
+	    
+	}
+	.item.website{
+	    a{
+		color: $main-first;	
+	    }
+	}
+    }
+    
+    &.favorite {
+	background: $fav-light;
+	border-left-color: $fav-bg;
+
+	&:not(.current):hover .item.title {
+	    background: $fav-light;
+	}
+    }
+
+    .website{
+	a{
+	    color: $main-font-color;
+	    opacity: 0.75;
+	}
+	
+	.favicon {
+	    padding: 5px;
+	}
+    }
+    .date {
+	font-size: 0.85rem;
+	color: $main-font-color;
+	opacity: 0.75;
+    }
+
+    .bottom {
+	font-size: 1rem;
+	text-align: center;
+    }
+}
+
+.flux_header {
+    font-size: 1rem;
+    cursor: pointer;
+    border-top: 1px solid $grey-light;
+
+    .title {
+	font-size: 1rem;
+    }
+}
+
