@@ -13,3 +13,5 @@ constants.local.php
 *.save
 *.autosav
 *.autosave
+*.sass-cache
+sass.sh
