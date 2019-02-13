@@ -5,11 +5,15 @@
 * Bug fixing
 	* Fix API HTTP Authorization case-sensitivity issue introduced in FreshRSS 1.13.1 [#2233](https://github.com/FreshRSS/FreshRSS/issues/2233)
 	* Fix breaking warning in Fever API [#2239](https://github.com/FreshRSS/FreshRSS/issues/2239)
+	* Fix encoding problem in Fever API [#2241](https://github.com/FreshRSS/FreshRSS/issues/2241)
 * UI
+	* New themes *Ansum* and *Mapco* [#2245](https://github.com/FreshRSS/FreshRSS/pull/2245)
 	* Batch scroll-as-read for better client-side and server-side performance [#2199](https://github.com/FreshRSS/FreshRSS/pull/2199)
 	* Rewrite some jQuery code as native JavaScript [#2234](https://github.com/FreshRSS/FreshRSS/pull/2234)
 * Deployment
 	* Docker image updated to Alpine 3.9 with PHP 7.2.14 and Apache 2.4.38 [#2238](https://github.com/FreshRSS/FreshRSS/pull/2238)
+* I18n
+	* Improved Korean [#2242](https://github.com/FreshRSS/FreshRSS/pull/2242)
 
 
 ## 2019-01-26 FreshRSS 1.13.1
