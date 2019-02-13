@@ -6,7 +6,7 @@
 /*=== Horizontal-list */
 .horizontal-list {
     margin: 0;
-    padding: 0;
+    padding: 0.1rem 0;
 
     .item{
 	vertical-align: middle;
@@ -62,6 +62,7 @@
     }
 
     .item{
+	@include transition(all, 0.075s, ease-in-out);
 	a, span, .as-link{
 	    padding: 0 2rem;
 	    line-height: 2.5em;
@@ -125,8 +126,8 @@
 /*=== Alerts */
 .alert {
     margin: 1rem 0;
-    width: 100%;
-    padding: 1rem ;
+    // width: 100%;
+    padding: 1rem;
     font-size: 1rem;
     background: $grey-lighter;
     border: 1px solid $grey-medium;
@@ -149,7 +150,7 @@
 .alert-success {
     background: $success-light;
     border: 1px solid unquote($success-text+'33');
-    color: $success-light;
+    color: $success-text;
 }
 .alert-error {
     background: $alert-light;
@@ -287,9 +288,24 @@
     background: $main-first-light;
     color: $main-first;
 
+    @include transition(all, 0.15s, ease-in-out);
+
     &:hover {
 	background: $main-first;
 	color: #fff;
+
+	.bigTick{
+	    background: url(icons/tick-white.svg) center no-repeat;
+	}
+    }
+    .bigTick{
+	margin: 0.5rem 0;
+	display: inline-block;
+	text-indent: -9999px;               
+	background: url(icons/tick-color.svg) center no-repeat;  
+	height: 64px;                       
+	width: 64px;
+	white-space: nowrap; 
     }
 }
 

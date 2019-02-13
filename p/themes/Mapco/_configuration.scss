@@ -5,6 +5,25 @@
 
     form {
 	margin: 1rem 0;
+
+	// Gestion des extensions
+	.horizontal-list{
+	    margin-bottom: 0.5rem;
+	    
+	    .item{
+		.stick{
+		    // width: 65%;
+		    // margin-right: 1rem;
+		    // display:flex;
+		    
+		}
+		.btn{
+		    // width: 8rem;
+		    // flex-grow: 1;
+		}
+	    }
+	    
+	}
     }
     &.content {
 	max-width: 550px;
@@ -43,7 +62,10 @@
 	    border: 1px solid $main-first;
 	}
     }
+    
 }
+
+
 
 #slider{
     border-left: none;

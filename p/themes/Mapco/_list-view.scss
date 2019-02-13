@@ -2,6 +2,8 @@
 .flux {
     // border-left: 2px solid #ecf0f1;
     background: $white;
+
+    @include transition(all, 0.15s, ease-in-out);
     
     &:hover{
 	background: $grey-lighter;
@@ -17,34 +19,39 @@
 	background: $grey-lighter;
     }
     &.not_read{
-	background: $main-first-lighter;
+	background: $unread-bg; //--------------------
 	// border-left-color: #FF5300;	
 
 	&:hover{
-	    background: $main-first-light;
+	    background: $unread-bg-light; //--------------------
 	}
 	
 	&:not(.current):hover .item.title {
-	    background: $main-first-light;
+	    background: $unread-bg-light;
 
 	    
 	}
 	.item.title{
 	    a{
-		color: $main-first;	
+		color: $unread-font-color; //--------------------	
 	    }
 	    
 	}
 	.item.website{
 	    a{
-		color: $main-first;	
+		color: $unread-font-color; //--------------------	
 	    }
 	}
-    }
+	.item.date{
+	    color: unquote($unread-font-color+"99"); //--------------------
+	}
+}
     
     &.favorite {
 	background: $fav-light;
 	border-left-color: $fav-bg;
+
+	@include transition(all, 0.15s, ease-in-out);
 
 	&:not(.current):hover .item.title {
 	    background: $fav-light;

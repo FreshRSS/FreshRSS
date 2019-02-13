@@ -1,6 +1,12 @@
 /*=== Tree */
 .tree {
     margin: 10px 0;
+
+    &#sidebar{
+	scrollbar-color: rgba(255,255, 0, 0.1) rgba(0, 0, 0, 0.05);
+	scrollbar-color: unquote($sid-font-color+"33") unquote($sid-font-color+"22");
+    }
+    
     
     .tree-folder{
 	border-bottom: 1px solid $sid-sep;
@@ -36,9 +42,18 @@
 		line-height: 2.5rem;
 		font-size: 1rem;
 		font-weight: 400;
+		@include transition(all, 0.15s, ease-in-out);
 
 		&.active{
-		    background: $sid-active;  
+		    background: $sid-active;
+
+		    .dropdown li a{
+			color: $main-font-color;
+
+			&:hover{
+			    color: $sid-font-color;
+			}
+		    }
 
 		    a{
 			color: $sid-active-font;
@@ -98,7 +113,7 @@
     .dropdown + .btn,
     .dropdown + input,
     .dropdown + .dropdown > .btn {
-	border-left: 1px solid $sid-bg;
+	border-left: 1px solid $grey-medium-light;
     }
 
 }
@@ -132,6 +147,8 @@
 	font-size: 1rem;
     }
     .item{
+	background: $sid-bg;
+	@include transition(all, 0.15s, ease-in-out);
 	a{
 	    padding: 0 1rem;
 	    color: $sid-font-color;
@@ -268,4 +285,7 @@
 .aside_feed .tree-folder-items .item:hover .dropdown-toggle > .icon,
 .aside_feed .tree-folder-items .item.active .dropdown-toggle > .icon {
     border-radius: 3px;
+}
+.aside_feed .stick #btn-importExport{
+    border-left-color: $sid-bg;
 }

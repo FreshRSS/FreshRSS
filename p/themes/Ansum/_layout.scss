@@ -35,7 +35,6 @@
 		}
 	    }
 	}
-
 	&.search{
 	    // text-align: center;
 	    // width: 50%;
@@ -46,6 +45,12 @@
 		background-color: $sid-bg-alt;
 		color: $sid-font-color;
 		border: none;
+
+		@include transition(all, 0.15s, ease-in-out);
+
+		&:hover{
+		    background-color: $sid-bg-dark;
+		}
 		
 		&:focus{
 		    width: 350px;
@@ -66,6 +71,7 @@
 		border-left-width: 0;
 
 		width: 3rem;
+		min-height: 35px;
 
 		&:hover{
 		    background-color: $main-first-alt;
@@ -200,9 +206,10 @@
 	    background-color: $grey-lighter;
 	    background-position: center;
 	    background-repeat: no-repeat;
+	    @include transition(all, 0.15s, ease-in-out);
 
 	    &:hover{
-		background-color: $grey-light;
+		background-color: $grey-medium-light;
 	    }
 
 	    &.active{
@@ -247,9 +254,10 @@
 		// min-height: 0;
 		color:$main-font-color;
 		padding: 5px 16px;
+		@include transition(all, 0.15s, ease-in-out);
 
 		&:hover{
-		    background-color: $grey-light;
+		    background-color: $grey-medium-light;
 		}
 	    }
 
@@ -436,6 +444,10 @@
 
     &#actualizeProgress {
 	line-height: 2em;
+
+	br{
+	    display: none;
+	}
     }
 }
 

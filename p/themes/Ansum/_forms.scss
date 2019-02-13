@@ -16,9 +16,13 @@
     border: none;
     color: $grey-dark;
 
+    @include transition(all, 0.15s, ease-in-out);
+
     &.btn-important {
 	background: $main-first;
 	color: $white;
+
+	// @include transition(all, 0.15s, ease-in-out);
 
 	&:hover,
 	&:active {
