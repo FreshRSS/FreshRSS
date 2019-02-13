@@ -64,6 +64,7 @@ People are sorted by name so please keep this order.
 * [Thomas Citharel](https://github.com/tcitworld): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:tomgue), [Web](https://www.tcit.fr/)
 * [thomas-gt](https://github.com/thomas-gt): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:thomas-gt)
 * [tomgue](https://github.com/tomgue): [contributions](https://github.com/FreshRSS/FreshRSS/commits?author=tomgue)
+* [Thomas Guesnon](https://github.com/patjennings): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:patjennings), [Web](http://www.thomasguesnon.fr/)
 * [Twilek-de](https://github.com/Twilek-de): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:Twilek-de)
 * [Uncovery](https://github.com/uncovery): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:uncovery)
 * [Wanabo](https://github.com/Wanabo): [contributions](https://github.com/FreshRSS/FreshRSS/commits?author=Wanabo)

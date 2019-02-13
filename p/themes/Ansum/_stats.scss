@@ -1,0 +1,27 @@
+/*=== STATISTICS */
+/*===============*/
+.stat {
+	margin: 10px 0 20px;
+}
+
+.stat th,
+.stat td,
+.stat tr {
+	border: none;
+}
+.stat > table td,
+.stat > table th {
+	border-bottom: 1px solid $grey-medium-light;
+}
+
+.stat > .horizontal-list {
+	margin: 0 0 5px;
+}
+.stat > .horizontal-list .item {
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+.stat > .horizontal-list .item:first-child {
+	width: 270px;
+}

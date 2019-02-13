@@ -1,0 +1,170 @@
+/*=== MOBILE */
+/*===========*/
+@media(max-width: 840px) {
+    html, body{
+	// font-size: 1rem;
+    }
+    ul.nav{
+	.item{
+	    width: 100%;
+	    
+	    img{
+		display: none;
+	    }
+	    a{
+		display: inline-block;
+		padding: 1rem 1rem 1rem 2.5rem;
+		color: $sid-font-color;
+		width: 100%;
+		
+		background: url("../../themes/icons/logout.svg") no-repeat $sid-bg-dark 3% center;
+
+		@include transition(all, 0.2s, ease-in-out);
+
+		&:hover,
+		&:active{
+		    background: url("../../themes/icons/logout.svg") no-repeat $alert-bg 3% center;
+		    text-decoration: none;
+		    color: $white;
+		}
+	    }
+
+	}
+	
+    }
+    .aside {
+	@include transition(all, 0.2s, ease-in-out);
+	
+	&.aside_feed {
+	    padding: 0;
+	}
+
+	.tree .tree-folder .tree-folder-items .item a{
+	    padding: 0.5rem 1rem;
+	}
+    }
+    .aside .toggle_aside,
+    #panel .close {
+	display: block;
+	width: 100%;
+	height: 50px;
+	line-height: 50px;
+	text-align: center;
+	background: $main-first-alt;
+    }
+
+    .header{
+	padding: 0.5rem;
+	.item{
+	    &.title{
+		display: none;
+	    }
+	    
+	    &.search{
+		input{
+		    width: 90%;
+		    height: 3.5rem;
+		    
+		    &:focus{
+			width: 100%;
+
+		    }
+		}
+		.btn{
+		    min-height: 49px;
+		    padding: 0.5rem 2rem;
+		}
+	    }
+	    &.configure{
+		width: 2.75rem;
+		top: 3.125rem;
+		.dropdown{
+		    .btn{
+			padding: 1.125rem;
+		    }
+		}
+	    }
+	}
+    }
+    
+    .nav_menu{
+	.btn {
+	    margin: 0;
+	    padding: 0.85rem 1.25rem;
+	}
+	.stick {
+	    margin: 0.5rem 0.5rem;
+
+	    .btn{
+		margin: 0;
+		padding: 0.85rem 1.25rem;
+
+		&.read_all{
+		    padding: 0.85rem 1.25rem;
+		}
+	    }
+	}
+	.search {
+	    display: none;
+	    max-width: 97%;
+
+	    .input{
+
+		max-width: 97%;
+		width: 90px;
+
+		&::focus{
+		   width: 400px; 
+		}
+	    }
+	}
+    }
+    #stream{
+	.flux{
+	    .flux_header{
+		padding: 0.5rem 0;
+	    }
+	}
+    }
+    
+    
+
+    .day{
+	text-align: center;
+	padding: 1rem 0;
+	.name {
+	    // font-size: 1.1rem;
+	    display: block;
+	    padding: 0;
+	    width: 100%;
+	    line-height: 1.5rem;
+	    margin-bottom: 1rem;
+	}
+
+    }
+
+    .pagination {
+	margin: 0 0 3.5em;
+    }
+
+    #nav_entries{
+	line-height: 4.5rem;
+    }
+
+    .notification {
+	border-radius: 0;
+
+	a.close {
+	    display: block;
+	    left: 0;
+	    background: transparent;
+	}
+	a.close:hover {
+	    opacity: 0.5;
+	}
+	a.close .icon {
+	    display: none;
+	    
+	}
+    }
+}
