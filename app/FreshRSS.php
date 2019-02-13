@@ -117,7 +117,7 @@ class FreshRSS extends Minz_FrontController {
 					}
 				}, FreshRSS_Context::$user_conf->sharing));
 				$connectSrc = count($urlToAuthorize) ? sprintf("; connect-src 'self' %s", implode(' ', $urlToAuthorize)) : '';
-				header(sprintf("Content-Security-Policy: default-src 'self'; child-src *; frame-src *; img-src * data:; media-src *%s", $connectSrc));
+				header(sprintf("Content-Security-Policy: default-src 'self'; frame-src *; img-src * data:; media-src *%s", $connectSrc));
 				break;
 			case 'stats':
 				header("Content-Security-Policy: default-src 'self'; style-src 'self' 'unsafe-inline'");
