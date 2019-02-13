@@ -178,7 +178,7 @@ function send_mark_read_queue(queue, asRead) {
 				if (div.classList.contains('not_read')) {
 					div.classList.remove('not_read');
 					div.querySelectorAll('a.read').forEach(function (a) {
-							a.setAttribute('href', a.getAttribute('href').replace('&is_read=0', '') + '&is_read=1');
+							a.href = a.href.replace('&is_read=0', '') + '&is_read=1';
 						});
 					div.querySelectorAll('a.read > .icon').forEach(function (img) { img.outerHTML = myIcons.read; });
 					inc--;
@@ -186,14 +186,14 @@ function send_mark_read_queue(queue, asRead) {
 					div.classList.add('not_read');
 					div.classList.add('keep_unread');	//Split for IE11
 					div.querySelectorAll('a.read').forEach(function (a) {
-							a.setAttribute('href', a.getAttribute('href').replace('&is_read=1', ''));
+							a.href = a.href.replace('&is_read=1', '');
 						});
 					div.querySelectorAll('a.read > .icon').forEach(function (img) { img.outerHTML = myIcons.unread; });
 					inc++;
 				}
 				let feed_link = div.querySelector('.website > a, a.website');
 				if (feed_link) {
-					let feed_url = feed_link.getAttribute('href');
+					let feed_url = feed_link.href;
 					let feed_id = feed_url.substr(feed_url.lastIndexOf('f_'));
 					incUnreadsFeed(div, feed_id, inc);
 				}
@@ -253,7 +253,7 @@ function mark_favorite(div) {
 	}
 
 	let a = div.querySelector('a.bookmark'),
-		url = a ? a.getAttribute('href') : '';
+		url = a ? a.href : '';
 	if (!url) {
 		return false;
 	}
@@ -283,7 +283,7 @@ function mark_favorite(div) {
 				div.classList.add('favorite');
 				inc++;
 			}
-			div.querySelectorAll('a.bookmark').forEach(function (a) { a.setAttribute('href', json.url); });
+			div.querySelectorAll('a.bookmark').forEach(function (a) { a.href = json.url; });
 			div.querySelectorAll('a.bookmark > .icon').forEach(function (img) { img.outerHTML = json.icon; });
 
 			const favourites = document.querySelector('#aside_feed .favorites .title');
@@ -320,9 +320,9 @@ function toggleContent(new_active, old_active, skipping) {
 	}
 
 	if (context.does_lazyload && !skipping) {
-		new_active.querySelectorAll('img[data-original], iframe[data-original]').forEach(function (elem) {
-			elem.setAttribute('src', elem.getAttribute('data-original'));
-			elem.removeAttribute('data-original');
+		new_active.querySelectorAll('img[data-original], iframe[data-original]').forEach(function (el) {
+			el.src = el.getAttribute('data-original');
+			el.removeAttribute('data-original');
 		});
 	}
 
@@ -794,8 +794,8 @@ function init_stream(stream) {
 		el = ev.target.closest('.flux .content a');
 		if (el) {
 			if (!el.closest('div').classList.contains('author')) {
-				el.setAttribute('target', '_blank');
-				el.setAttribute('rel', 'noreferrer');
+				el.target = '_blank';
+				el.rel = 'noreferrer';
 			}
 			return true;
 		}
@@ -1180,15 +1180,20 @@ function refreshUnreads() {
 				const nbUnreads = json.tags[tag_id];
 				nbUnreadTags += nbUnreads;
 				const tag = document.getElementById('t_' + tag_id);
-				tag.setAttribute('data-unread', nbUnreads);
-				tag.querySelector('.item-title').setAttribute('data-unread', numberFormat(nbUnreads));
+				if (tag) {
+					tag.setAttribute('data-unread', nbUnreads);
+					tag.querySelector('.item-title').setAttribute('data-unread', numberFormat(nbUnreads));
+				}
 			});
 
 			const tags = document.querySelector('.category.tags');
-			tags.setAttribute('data-unread', nbUnreadTags);
-			tags.querySelector('.title').setAttribute('data-unread', numberFormat(nbUnreadTags));
+			if (tags) {
+				tags.setAttribute('data-unread', nbUnreadTags);
+				tags.querySelector('.title').setAttribute('data-unread', numberFormat(nbUnreadTags));
+			}
 
-			const nb_unreads = str2int(document.querySelector('.category.all .title').getAttribute('data-unread'));
+			const title = document.querySelector('.category.all .title'),
+				nb_unreads = title ? str2int(title.getAttribute('data-unread')) : 0;
 
 			if (nb_unreads > 0 && new_articles) {
 				faviconNbUnread(nb_unreads);
@@ -1227,13 +1232,12 @@ function load_more_posts() {
 			formPagination.replaceChild(paginationNew, paginationOld);
 
 			if (context.display_order === 'ASC') {
-				document.querySelector('#nav_menu_read_all .read_all').
-					setAttribute('formaction', document.getElementById('bigMarkAsRead').getAttribute('formaction'));
+				document.querySelector('#nav_menu_read_all .read_all').formAction =
+					document.getElementById('bigMarkAsRead').formAction;
 			} else {
 				const bigMarkAsRead = document.getElementById('bigMarkAsRead');
 				if (bigMarkAsRead) {
-					bigMarkAsRead.setAttribute('formaction',
-						document.querySelector('#nav_menu_read_all .read_all').getAttribute('formaction'));
+					bigMarkAsRead.formAction = document.querySelector('#nav_menu_read_all .read_all').formAction;
 				}
 			}
 

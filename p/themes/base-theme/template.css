@@ -738,14 +738,29 @@ br + br + br {
 #stream.global .box {
 	text-align: left;
 }
-
+#global > #panel {
+	bottom: 99vh;
+	display: block;
+	transition: visibility .3s, bottom .3s;
+	visibility: hidden;
+}
+#global > #panel.visible {
+	bottom: 1em;
+	visibility: visible;
+}
 /*=== Panel */
 #overlay {
-	display: none;
 	position: fixed;
 	top: 0; bottom: 0;
 	left: 0; right: 0;
 	background: rgba(0, 0, 0, 0.9);
+	opacity: 0;
+	transition: visibility .3s, opacity .3s;
+	visibility: hidden;
+}
+#overlay.visible {
+	opacity: 1;
+	visibility: visible;
 }
 #panel {
 	display: none;
