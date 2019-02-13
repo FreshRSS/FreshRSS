@@ -6,7 +6,6 @@ php:
   - '7.0'
   - '7.1'
   - '7.2'
-  - hhvm
 
 install:
   # newest version without https://github.com/squizlabs/PHP_CodeSniffer/pull/1404
