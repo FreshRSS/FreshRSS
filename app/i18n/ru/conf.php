@@ -92,7 +92,7 @@ return array(
 		'auto_remove_article' => 'Hide articles after reading',	//TODO - Translation
 		'confirm_enabled' => 'Display a confirmation dialog on “mark all as read” actions',	//TODO - Translation
 		'display_articles_unfolded' => 'Show articles unfolded by default',	//TODO - Translation
-		'display_categories_unfolded' => 'Show categories folded by default',	//TODO - Translation
+		'display_categories_unfolded' => 'Show categories unfolded by default',	//TODO - Translation
 		'hide_read_feeds' => 'Hide categories & feeds with no unread article (does not work with “Show all articles” configuration)',	//TODO - Translation
 		'img_with_lazyload' => 'Use "lazy load" mode to load pictures',	//TODO - Translation
 		'jump_next' => 'jump to next unread sibling (feed or category)',	//TODO - Translation
