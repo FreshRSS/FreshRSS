@@ -130,7 +130,7 @@ return array(
 		'category' => 'Categoria',
 		'entry_count' => 'Nombre d’articles',
 		'entry_per_category' => 'Articles per categoria',
-		'entry_per_day' => 'Nombre d’articles per jorn (30 darrièrs jorns)',
+		'entry_per_day' => 'Nombre d’articles per jorn (darrièrs 30 jorns)',
 		'entry_per_day_of_week' => 'Per jorn de la setmana (mejana : %.2f messatges)',
 		'entry_per_hour' => 'Per ora (mejana : %.2f messatges)',
 		'entry_per_month' => 'Per mes (mejana : %.2f messatges)',
