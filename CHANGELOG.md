@@ -1,7 +1,29 @@
 ﻿# FreshRSS changelog
 
-## 2019-01-XX FreshRSS 1.13.1-dev
+## 2019-0X-XX FreshRSS 1.13.2-dev
 
+* Bug fixing
+	* Fix API HTTP Authorization case-sensitivity issue introduced in FreshRSS 1.13.1 [#2233](https://github.com/FreshRSS/FreshRSS/issues/2233)
+	* Fix breaking warning in Fever API [#2239](https://github.com/FreshRSS/FreshRSS/issues/2239)
+	* Fix encoding problem in Fever API [#2241](https://github.com/FreshRSS/FreshRSS/issues/2241)
+* UI
+	* New themes *Ansum* and *Mapco* [#2245](https://github.com/FreshRSS/FreshRSS/pull/2245)
+	* Rewrite jQuery and keyboard shortcut code as native JavaScript ES6 (except for graphs on the statistics pages) [#2234](https://github.com/FreshRSS/FreshRSS/pull/2234)
+	* Batch scroll-as-read for better client-side and server-side performance [#2199](https://github.com/FreshRSS/FreshRSS/pull/2199)
+* Deployment
+	* Docker image updated to Alpine 3.9 with PHP 7.2.14 and Apache 2.4.38 [#2238](https://github.com/FreshRSS/FreshRSS/pull/2238)
+* I18n
+	* Improved Korean [#2242](https://github.com/FreshRSS/FreshRSS/pull/2242)
+* Misc.
+	* Remove HHMV from Travis continuous integration [#2249](https://github.com/FreshRSS/FreshRSS/pull/2249)
+
+
+## 2019-01-26 FreshRSS 1.13.1
+
+* Features
+	* Include articles with custom labels during export [#2196](https://github.com/FreshRSS/FreshRSS/issues/2196)
+	* Export/import articles read/unread state [#2226](https://github.com/FreshRSS/FreshRSS/pull/2226)
+	* Import FeedBin, and more robust general import [#2228](https://github.com/FreshRSS/FreshRSS/pull/2228)
 * Bug fixing
 	* Fix missing HTTP `X-Forwarded-Prefix` in cookie path behind a reverse-proxy [#2201](https://github.com/FreshRSS/FreshRSS/pull/2201)
 * Deployment
@@ -12,13 +34,21 @@
 		* Add option to mount custom `.htaccess` for HTTP authentication
 		* Docker logs gets PHP syslog messages (e.g. from cron job and when fetching external content)
 	* New environment variable `COPY_SYSLOG_TO_STDERR` or in `constants.local.php` to copy PHP syslog messages to STDERR [#2213](https://github.com/FreshRSS/FreshRSS/pull/2213)
+	* New `TZ` timezone environment variable [#2153](https://github.com/FreshRSS/FreshRSS/issues/2153)
 	* Run Docker cron job with Apache user instead of root [#2208](https://github.com/FreshRSS/FreshRSS/pull/2208)
 	* Accept HTTP header `X-WebAuth-User` for delegated HTTP Authentication [#2204](https://github.com/FreshRSS/FreshRSS/pull/2204)
+* Extensions
+	* Trigger a `freshrss:openArticle` JavaScript event [#2222](https://github.com/FreshRSS/FreshRSS/pull/2222)
 * API
 	* Automatic test of API configuration [#2207](https://github.com/FreshRSS/FreshRSS/pull/2207)
-	* Use Apache SetEnvIf module if available and fall-back to RewriteRule [#2202](https://github.com/FreshRSS/FreshRSS/pull/2202)
+	* Performance + compatibility: Use Apache `SetEnvIf` module if available and fall-back to `RewriteRule` [#2202](https://github.com/FreshRSS/FreshRSS/pull/2202)
 * Security
 	* Fixes when HTTP user does not exist in FreshRSS [#2204](https://github.com/FreshRSS/FreshRSS/pull/2204)
+* I18n
+	* Improve Dutch [#2221](https://github.com/FreshRSS/FreshRSS/pull/2221)
+	* Improve Occitan [#2230](https://github.com/FreshRSS/FreshRSS/pull/2230)
+* Accessibility
+	* Remove alt in logo [#2209](https://github.com/FreshRSS/FreshRSS/pull/2209)
 
 
 ## 2018-12-22 FreshRSS 1.13.0

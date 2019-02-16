@@ -17,7 +17,7 @@ fwrite(STDERR, 'FreshRSS exporting OPML for user “' . $username . "”…\n");
 $importController = new FreshRSS_importExport_Controller();
 
 $ok = false;
-$ok = $importController->exportFile(true, false, array(), 0, $username);
+$ok = $importController->exportFile(true, false, false, array(), 0, $username);
 
 invalidateHttpCache($username);
 

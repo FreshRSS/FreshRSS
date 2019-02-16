@@ -61,7 +61,7 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 			$valuesTmp['lastUpdate'],
 			base64_encode($valuesTmp['httpAuth']),
 			FreshRSS_Feed::KEEP_HISTORY_DEFAULT,
-			FreshRSS_Feed::TTL_DEFAULT,
+			isset($valuesTmp['ttl']) ? intval($valuesTmp['ttl']) : FreshRSS_Feed::TTL_DEFAULT,
 			isset($valuesTmp['attributes']) ? json_encode($valuesTmp['attributes']) : '',
 		);
 
@@ -95,6 +95,9 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 				'httpAuth' => $feed->httpAuth(),
 				'attributes' => $feed->attributes(),
 			);
+			if ($feed->mute() || $feed->ttl() != FreshRSS_Context::$user_conf->ttl_default) {
+				$values['ttl'] = $feed->ttl() * ($feed->mute() ? -1 : 1);
+			}
 
 			$id = $this->addFeed($values);
 			if ($id) {

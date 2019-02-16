@@ -72,6 +72,7 @@ return array(
 		'export' => 'Export',	//TODO - Translation
 		'export_opml' => 'Export list of feeds (OPML)',	//TODO - Translation
 		'export_starred' => 'Export your favourites',	//TODO - Translation
+		'export_labelled' => 'Export your labelled articles',	//TODO
 		'feed_list' => 'List of %s articles',	//TODO - Translation
 		'file_to_import' => 'File to import<br />(OPML, JSON or ZIP)',	//TODO - Translation
 		'file_to_import_no_zip' => 'File to import<br />(OPML or JSON)',	//TODO - Translation

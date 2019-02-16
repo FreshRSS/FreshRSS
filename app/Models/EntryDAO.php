@@ -383,7 +383,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 	 */
 	public function markRead($ids, $is_read = true) {
 		FreshRSS_UserDAO::touch();
-		if (is_array($ids)) {	//Many IDs at once (used by API)
+		if (is_array($ids)) {	//Many IDs at once
 			if (count($ids) < 6) {	//Speed heuristics
 				$affected = 0;
 				foreach ($ids as $id) {
@@ -839,6 +839,9 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 			$where .= 'f.priority >= ' . FreshRSS_Feed::PRIORITY_NORMAL . ' ';
 			$where .= 'AND e.is_favorite=1 ';
 			break;
+		case 'S':	//Starred
+			$where .= 'e.is_favorite=1 ';
+			break;
 		case 'c':	//Category
 			$where .= 'f.priority >= ' . FreshRSS_Feed::PRIORITY_NORMAL . ' ';
 			$where .= 'AND f.category=? ';
@@ -854,6 +857,9 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 			break;
 		case 'T':	//Any tag
 			$where .= '1=1 ';
+			break;
+		case 'ST':	//Starred or tagged
+			$where .= 'e.is_favorite=1 OR EXISTS (SELECT et2.id_tag FROM `' . $this->prefix . 'entrytag` et2 WHERE et2.id_entry = e.id) ';
 			break;
 		default:
 			throw new FreshRSS_EntriesGetter_Exception('Bad type in Entry->listByType: [' . $type . ']!');
@@ -1059,7 +1065,7 @@ SQL;
 				$dao['date'],
 				$dao['is_read'],
 				$dao['is_favorite'],
-				$dao['tags']
+				isset($dao['tags']) ? $dao['tags'] : ''
 			);
 		if (isset($dao['id'])) {
 			$entry->_id($dao['id']);

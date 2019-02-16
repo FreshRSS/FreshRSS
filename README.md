@@ -210,7 +210,6 @@ Supported clients are:
 * [php-http-304](https://alexandre.alapetite.fr/doc-alex/php-http-304/)
 * [jQuery](https://jquery.com/)
 * [lib_opml](https://github.com/marienfressinaud/lib_opml)
-* [keyboard_shortcuts](http://www.openjs.com/scripts/events/keyboard_shortcuts/)
 * [flotr2](http://www.humblesoftware.com/flotr2)
 
 ## Only for some options or configurations

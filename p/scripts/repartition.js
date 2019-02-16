@@ -1,6 +1,6 @@
 "use strict";
 /* globals Flotr, numberFormat */
-/* jshint globalstrict: true */
+/* jshint esversion:6, strict:global */
 
 function initStats() {
 	if (!window.Flotr) {
@@ -10,7 +10,7 @@ function initStats() {
 		window.setTimeout(initStats, 50);
 		return;
 	}
-	var jsonRepartition = document.getElementById('jsonRepartition'),
+	const jsonRepartition = document.getElementById('jsonRepartition'),
 		stats = JSON.parse(jsonRepartition.innerHTML);
 	jsonRepartition.outerHTML = '';
 	// Entry per hour

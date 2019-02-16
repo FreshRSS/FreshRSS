@@ -104,6 +104,7 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 			return;
 		}
 
+		Minz_View::appendScript(Minz_Url::display('/scripts/extra.js?' . @filemtime(PUBLIC_PATH . '/scripts/extra.js')));
 		Minz_View::appendScript(Minz_Url::display('/scripts/global_view.js?' . @filemtime(PUBLIC_PATH . '/scripts/global_view.js')));
 
 		try {

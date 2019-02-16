@@ -27,7 +27,7 @@ return array(
 			'password' => 'HTTP wachtwoord',
 			'username' => 'HTTP gebruikers naam',
 		),
-		'clear_cache' => 'Always clear cache',	//TODO - Translation
+		'clear_cache' => 'Cache altijd leegmaken',
 		'css_help' => 'Haalt verstoorde RSS feeds op (attentie, heeft meer tijd nodig!)',
 		'css_path' => 'Artikelen CSS pad op originele website',
 		'description' => 'Omschrijving',
@@ -47,11 +47,11 @@ return array(
 		),
 		'websub' => 'Directe notificaties met WebSub',
 		'show' => array(
-			'all' => 'Show all feeds',	//TODO - Translation
-			'error' => 'Show only feeds with error',	//TODO - Translation
+			'all' => 'Alle feeds tonen',
+			'error' => 'Alleen feeds met een foutmelding tonen',
 		),
 		'showing' => array(
-			'error' => 'Showing only feeds with error',	//TODO - Translation
+			'error' => 'Alleen feeds met een foutmelding worden getoond',
 		),
 		'ssl_verify' => 'SSL-veiligheid controleren',
 		'stats' => 'Statistieken',
@@ -72,6 +72,7 @@ return array(
 		'export' => 'Exporteer',
 		'export_opml' => 'Exporteer lijst van feeds (OPML)',
 		'export_starred' => 'Exporteer je favorieten',
+		'export_labelled' => 'Exporteer gelabelde artikels',
 		'feed_list' => 'Lijst van %s artikelen',
 		'file_to_import' => 'Bestand om te importeren<br />(OPML, JSON of ZIP)',
 		'file_to_import_no_zip' => 'Bestand om te importeren<br />(OPML of JSON)',

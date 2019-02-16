@@ -1,4 +1,6 @@
-FROM alpine:3.8
+FROM alpine:3.9
+
+ENV TZ UTC
 
 RUN apk add --no-cache \
 	apache2 php7-apache2 \

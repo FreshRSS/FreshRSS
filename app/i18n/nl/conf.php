@@ -162,7 +162,7 @@ return array(
 		'mark_read' => 'Markeer als gelezen',
 		'navigation' => 'Navigatie',
 		'navigation_help' => 'Met de "Shift" toets, kunt u navigatie verwijzingen voor feeds gebruiken.<br/>Met de "Alt" toets, kunt u navigatie verwijzingen voor categoriën gebruiken.',
-		'navigation_no_mod_help' => 'The following navigation shortcuts do not support modifiers.',	//TODO - Translation
+		'navigation_no_mod_help' => 'De volgende navigatiesnelkoppelingen ondersteunen geen besturingstoetsen.',
 		'next_article' => 'Spring naar volgende artikel',
 		'normal_view' => 'Schakel naar gewoon aanzicht',
 		'other_action' => 'Andere acties',
@@ -171,8 +171,8 @@ return array(
 		'rss_view' => 'Open RSS-aanzicht in een nieuwe tab',
 		'see_on_website' => 'Bekijk op originale website',
 		'shift_for_all_read' => '+ <code>shift</code> om alle artikelen als gelezen te markeren',
-		'skip_next_article' => 'Focus next without opening',	//TODO - Translation
-		'skip_previous_article' => 'Focus previous without opening',	//TODO - Translation
+		'skip_next_article' => 'Volgend artikel focusen zonder openen',
+		'skip_previous_article' => 'Vorig artikel focusen zonder openen',
 		'title' => 'Verwijzingen',
 		'user_filter' => 'Toegang gebruikers filters',
 		'user_filter_help' => 'Als er slechts één gebruikersfilter is, dan wordt die gebruikt. Anders zijn ze toegankelijk met hun nummer.',

@@ -1,17 +1,7 @@
 <?php
 header('Content-Type: application/json; charset=UTF-8');
 
-$url = array(
-	'c' => Minz_Request::controllerName(),
-	'a' => Minz_Request::actionName(),
-	'params' => Minz_Request::fetchGET(),
-);
-
-$url['params']['is_read'] = Minz_Request::param('is_read', true) ? '0' : '1';
-
 FreshRSS::loadStylesAndScripts();
 echo json_encode(array(
-		'url' => str_ireplace('&amp;', '&', Minz_Url::display($url)),
-		'icon' => _i($url['params']['is_read'] === '1' ? 'unread' : 'read'),
 		'tags' => $this->tags,
 	));

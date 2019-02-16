@@ -95,6 +95,7 @@ class Minz_Request {
 	 */
 	public static function init() {
 		self::magicQuotesOff();
+		self::initJSON();
 	}
 
 	/**
@@ -234,6 +235,30 @@ class Minz_Request {
 			return $_GET[$param];
 		} else {
 			return $default;
+		}
+	}
+
+	/**
+	 * Allows receiving POST data as application/json
+	 */
+	private static function initJSON() {
+		$contentType = isset($_SERVER['CONTENT_TYPE']) ? $_SERVER['CONTENT_TYPE'] : '';
+		if ($contentType == '') {	//PHP < 5.3.16
+			$contentType = isset($_SERVER['HTTP_CONTENT_TYPE']) ? $_SERVER['HTTP_CONTENT_TYPE'] : '';
+		}
+		$contentType = strtolower(trim($contentType));
+		if ($contentType === 'application/json') {
+			$ORIGINAL_INPUT = file_get_contents('php://input', false, null, 0, 1048576);
+			if ($ORIGINAL_INPUT != '') {
+				$json = json_decode($ORIGINAL_INPUT, true);
+				if ($json != null) {
+					foreach ($json as $k => $v) {
+						if (!isset($_POST[$k])) {
+							$_POST[$k] = $v;
+						}
+					}
+				}
+			}
 		}
 	}
 
