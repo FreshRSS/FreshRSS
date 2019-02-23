@@ -374,41 +374,65 @@ function toggleContent(new_active, old_active, skipping) {
 }
 
 function prev_entry(skipping) {
-	const old_active = document.querySelector('.flux.current'),
-		new_active = old_active ? old_active.previousElementSibling : document.querySelector('.flux');
+	const old_active = document.querySelector('.flux.current');
+	let new_active = old_active;
+	if (new_active) {
+		do new_active = new_active.previousElementSibling;
+		while (new_active && !new_active.classList.contains('flux'));
+		if (!new_active) {
+			prev_feed();
+		}
+	} else {
+		new_active = document.querySelector('.flux');
+	}
 	toggleContent(new_active, old_active, skipping);
 }
 
 function next_entry(skipping) {
-	const old_active = document.querySelector('.flux.current'),
-		new_active = old_active ? old_active.nextElementSibling : document.querySelector('.flux');
+	const old_active = document.querySelector('.flux.current');
+	let new_active = old_active;
+	if (new_active) {
+		do new_active = new_active.nextElementSibling;
+		while (new_active && !new_active.classList.contains('flux'));
+		if (!new_active) {
+			next_feed();
+		}
+	} else {
+		new_active = document.querySelector('.flux');
+	}
 	toggleContent(new_active, old_active, skipping);
 }
 
 function prev_feed() {
-	const active_feed = document.querySelector('#aside_feed .feed.active');
-	if (active_feed) {
-		let feed = active_feed;
-		do feed = feed.previousElementSibling;
-		while (feed && getComputedStyle(feed).display === 'none');
-		if (feed) {
+	let found = false;
+	const feeds = document.querySelectorAll('#aside_feed .feed');
+	for (let i = feeds.length - 1; i >= 0; i--) {
+		const feed = feeds[i];
+		if (found && getComputedStyle(feed).display !== 'none') {
 			feed.querySelector('a.item-title').click();
+			break;
+		} else if (feed.classList.contains('active')) {
+			found = true;
 		}
-	} else {
+	}
+	if (!found) {
 		last_feed();
 	}
 }
 
 function next_feed() {
-	const active_feed = document.querySelector('#aside_feed .feed.active');
-	if (active_feed) {
-		let feed = active_feed;
-		do feed = feed.nextElementSibling;
-		while (feed && getComputedStyle(feed).display === 'none');
-		if (feed) {
+	let found = false;
+	const feeds = document.querySelectorAll('#aside_feed .feed');
+	for (let i = 0; i < feeds.length; i++) {
+		const feed = feeds[i];
+		if (found && getComputedStyle(feed).display !== 'none') {
 			feed.querySelector('a.item-title').click();
+			break;
+		} else if (feed.classList.contains('active')) {
+			found = true;
 		}
-	} else {
+	}
+	if (!found) {
 		first_feed();
 	}
 }
@@ -664,7 +688,7 @@ function init_shortcuts() {
 			}
 
 			const s = context.shortcuts,
-				k = ev.key.toUpperCase();
+				k = (ev.key.trim() || ev.code).toUpperCase();
 			if (location.hash.match(/^#dropdown-/)) {
 				const n = parseInt(k);
 				if (n) {

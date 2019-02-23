@@ -53,7 +53,7 @@
 		<div class="form-group">
 			<label class="group-name" for="current_user"><?php echo _t('admin.user.selected'); ?></label>
 			<div class="group-controls">
-				<select id="current_user" class="select-change" name="username">
+				<select id="current_user" name="username">
 					<option selected="selected"> </option>
 					<?php foreach (listUsers() as $username) { ?>
 					<option value="<?php echo $username; ?>"><?php echo $username; ?></option>
