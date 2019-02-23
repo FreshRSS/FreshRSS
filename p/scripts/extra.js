@@ -142,8 +142,14 @@ function init_password_observers() {
 function init_select_observers() {
 	document.querySelectorAll('.select-change').forEach(function (s) {
 			s.onchange = function (ev) {
-					const opt = s.options[s.selectedIndex];
-					location.href = opt.getAttribute('data-url');
+					const opt = s.options[s.selectedIndex],
+						url = opt.getAttribute('data-url');
+					if (url) {
+						s.form.querySelectorAll('[type=submit]').forEach(function (b) {
+								b.disabled = true;
+							});
+						location.href = url;
+					}
 				};
 		});
 }
