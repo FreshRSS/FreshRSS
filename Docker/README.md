@@ -10,6 +10,18 @@ sh get-docker.sh
 ```
 
 
+## [Docker tags](https://hub.docker.com/r/freshrss/freshrss/tags)
+The tags correspond to FreshRSS branches and versions:
+* `:latest` (default) is the `master` branch, more stable
+* `:dev` is the `dev` branch, rolling release
+* `:x.y.z` are specific FreshRSS releases
+
+### Linux: Ubuntu vs. Alpine
+Our default image is based on [Ubuntu](https://www.ubuntu.com/server). We offer an alternative based on [Alpine](https://alpinelinux.org/) (with the `-alpine` tag suffix).
+In [our tests](https://github.com/FreshRSS/FreshRSS/pull/2205), Ubuntu is ~3 times faster,
+while Alpine is ~2.5 times [smaller on disk](https://hub.docker.com/r/freshrss/freshrss/tags) (and much faster to build).
+
+
 ## Optional: Build Docker image of FreshRSS
 Optional, as a *less recent* online image can be automatically fetched during the next step (run),
 but online images are not available for as many platforms (e.g. Raspberry Pi / ARM) as if you build yourself.
@@ -20,7 +32,7 @@ git clone https://github.com/FreshRSS/FreshRSS.git
 
 cd ./FreshRSS/
 git pull
-sudo docker pull alpine:3.8
+sudo docker pull ubuntu:18.10
 sudo docker build --tag freshrss/freshrss -f Docker/Dockerfile .
 ```
 

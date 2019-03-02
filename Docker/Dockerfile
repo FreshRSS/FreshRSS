@@ -18,7 +18,7 @@ COPY . /var/www/FreshRSS
 COPY ./Docker/*.Apache.conf /etc/apache2/sites-available/
 
 RUN a2dismod -f alias autoindex negotiation status && \
-	a2enmod deflate expires headers mime proxy_fcgi setenvif && \
+	a2enmod deflate expires headers mime setenvif && \
 	a2disconf '*' && \
 	a2dissite '*' && \
 	a2ensite 'FreshRSS*'
