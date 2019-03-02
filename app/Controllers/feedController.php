@@ -356,7 +356,7 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 							$mark_updated_article_unread = $feed->attributes('mark_updated_article_unread') !== null ?
 								$feed->attributes('mark_updated_article_unread') : FreshRSS_Context::$user_conf->mark_updated_article_unread;
 							$needFeedCacheRefresh = $mark_updated_article_unread;
-							$entry->_isRead($mark_updated_article_unread ? false : null);	//Change is_read according to policy.
+							$entry->_isRead($mark_updated_article_unread ? true : null);	//Change is_read according to policy.
 
 							$entry = Minz_ExtensionManager::callHook('entry_before_insert', $entry);
 							if ($entry === null) {
