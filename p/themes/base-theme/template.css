@@ -504,7 +504,10 @@ a.btn {
 	padding: 0px 15px;
 }
 .aside_feed .tree-folder-items:not(.active) {
+	border: none;
+	margin: 0;
 	max-height: 0;
+	padding: 0;
 	overflow: hidden;
 }
 .aside_feed .tree-folder-items .dropdown {
