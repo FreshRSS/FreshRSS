@@ -196,6 +196,8 @@ Voir notre [documentation sur l’API Fever](https://freshrss.github.io/FreshRSS
 
 Tout client supportant une API de type Fever ; Sélection :
 
+* Android
+	* [Readably](https://play.google.com/store/apps/details?id=com.isaiasmatewos.readably) (Propriétaire)
 * iOS
 	* [Fiery Feeds](https://itunes.apple.com/app/fiery-feeds-rss-reader/id1158763303) (Propriétaire)
 	* [Unread](https://itunes.apple.com/app/unread-rss-reader/id1252376153) (Propriétaire)

@@ -16,6 +16,8 @@
 	* Fix API HTTP Authorization case-sensitivity issue introduced in FreshRSS 1.13.1 [#2233](https://github.com/FreshRSS/FreshRSS/issues/2233)
 	* Fix breaking warning in Fever API [#2239](https://github.com/FreshRSS/FreshRSS/issues/2239)
 	* Fix encoding problem in Fever API [#2241](https://github.com/FreshRSS/FreshRSS/issues/2241)
+* API
+	* Supported by [Readably](https://play.google.com/store/apps/details?id=com.isaiasmatewos.readably) (client for Android using Fever API)
 * I18n
 	* Improved Korean [#2242](https://github.com/FreshRSS/FreshRSS/pull/2242)
 	* Improve Occitan [#2253](https://github.com/FreshRSS/FreshRSS/pull/2253)

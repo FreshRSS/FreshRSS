@@ -196,6 +196,8 @@ See our [Fever API documentation](https://freshrss.github.io/FreshRSS/en/users/0
 
 Supported clients are:
 
+* Android
+	* [Readably](https://play.google.com/store/apps/details?id=com.isaiasmatewos.readably) (Closed source)
 * iOS
 	* [Fiery Feeds](https://itunes.apple.com/app/fiery-feeds-rss-reader/id1158763303) (Closed source)
 	* [Unread](https://itunes.apple.com/app/unread-rss-reader/id1252376153) (Closed source)

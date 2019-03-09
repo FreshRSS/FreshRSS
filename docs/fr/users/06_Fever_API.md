@@ -7,6 +7,9 @@ et des généralités sur l’accès par API.
 
 Testé avec:
 
+- Android
+  [Readably](https://play.google.com/store/apps/details?id=com.isaiasmatewos.readably)
+
 - iOS
   - [Fiery Feeds](https://itunes.apple.com/app/fiery-feeds-rss-reader/id1158763303)
   - [Unread](https://itunes.apple.com/app/unread-rss-reader/id1252376153)
