@@ -3,6 +3,7 @@
 
 //<Polyfills>
 if (!NodeList.prototype.forEach) NodeList.prototype.forEach = Array.prototype.forEach;
+if (!NodeList.prototype.map) NodeList.prototype.map = Array.prototype.map;
 if (!Element.prototype.matches) Element.prototype.matches = Element.prototype.msMatchesSelector || Element.prototype.mozMatchesSelector || Element.prototype.webkitMatchesSelector;
 if (!Element.prototype.closest) Element.prototype.closest = function (s) {
 		let el = this;
@@ -969,9 +970,19 @@ function init_nav_entries() {
 
 function loadDynamicTags(div) {
 	div.classList.remove('dynamictags');
-	div.querySelectorAll('li.item').forEach(function (li) { li.remove(); });
+
+	//Pre-load all labels
+	let html = '';
+	const labels = document.querySelectorAll('#sidebar > .tags > .tree-folder-items .item-title').map(function (a) { return a.text; });
+	labels.forEach(function (label) {
+			html += '<li class="item"><label><input class="checkboxTag" type="checkbox" disabled="disabled" />' + label + '</label></li>';
+		});
+	div.querySelector('.dropdown-menu').insertAdjacentHTML('beforeend', html);
+	div.querySelectorAll('.checkboxTag').forEach(function (c) { c.indeterminate = true; });
+
 	const entryId = div.closest('div.flux').id.replace(/^flux_/, '');
 
+	//Load labels state for specific article
 	const req = new XMLHttpRequest();
 	req.open('GET', './?c=tag&a=getTagsForEntry&id_entry=' + entryId, true);
 	req.responseType = 'json';
@@ -983,6 +994,7 @@ function loadDynamicTags(div) {
 			if (this.status != 200) {
 				return req.onerror(e);
 			}
+			div.querySelectorAll('li.item').forEach(function (li) { li.remove(); });
 			const json = xmlHttpRequestJson(this);
 			let html = '<li class="item"><label><input class="checkboxTag" name="t_0" type="checkbox" /> <input type="text" name="newTag" /></label></li>';
 			if (json && json.length) {
