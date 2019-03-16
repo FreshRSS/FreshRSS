@@ -13,15 +13,18 @@ class FreshRSS_Auth {
 	 * This method initializes authentication system.
 	 */
 	public static function init() {
+		Minz_Log::warning('FreshRSS_Auth init', USERS_PATH . '/_/log_cookie.txt');
 		if (Minz_Session::param('REMOTE_USER', '') !== httpAuthUser()) {
 			//HTTP REMOTE_USER has changed
-			Minz_Log::warning('FreshRSS_Auth init bad REMOTE_USER');
+			Minz_Log::warning('FreshRSS_Auth init bad REMOTE_USER', USERS_PATH . '/_/log_cookie.txt');
 			self::removeAccess();
 		}
 
 		self::$login_ok = Minz_Session::param('loginOk', false);
+		Minz_Log::warning('FreshRSS_Auth init login_ok: ' . self::$login_ok, USERS_PATH . '/_/log_cookie.txt');
 		$current_user = Minz_Session::param('currentUser', '');
 		if ($current_user === '') {
+			Minz_Log::warning('FreshRSS_Auth init session currentUser: ' . $current_user, USERS_PATH . '/_/log_cookie.txt');
 			$conf = Minz_Configuration::get('system');
 			$current_user = $conf->default_user;
 			Minz_Session::_param('currentUser', $current_user);
@@ -32,7 +35,7 @@ class FreshRSS_Auth {
 		} elseif (self::accessControl() && self::giveAccess()) {
 			FreshRSS_UserDAO::touch();
 		} else {
-			Minz_Log::warning('FreshRSS_Auth init call removeAccess');
+			Minz_Log::warning('FreshRSS_Auth init call removeAccess', USERS_PATH . '/_/log_cookie.txt');
 			// Be sure all accesses are removed!
 			self::removeAccess();
 		}
@@ -48,17 +51,17 @@ class FreshRSS_Auth {
 	 * @return boolean true if user can be connected, false else.
 	 */
 	private static function accessControl() {
-		Minz_Log::warning('FreshRSS_Auth accessControl');
+		Minz_Log::warning('FreshRSS_Auth accessControl', USERS_PATH . '/_/log_cookie.txt');
 		$conf = Minz_Configuration::get('system');
 		$auth_type = $conf->auth_type;
 		switch ($auth_type) {
 		case 'form':
 			$credentials = FreshRSS_FormAuth::getCredentialsFromCookie();
-			Minz_Log::warning('FreshRSS_Auth accessControl credentials: ' . $credentials);
+			Minz_Log::warning('FreshRSS_Auth accessControl credentials: ' . print_r($credentials, true), USERS_PATH . '/_/log_cookie.txt');
 			$current_user = '';
 			if (isset($credentials[1])) {
 				$current_user = trim($credentials[0]);
-				Minz_Log::warning('FreshRSS_Auth accessControl current_user: ' . $current_user);
+				Minz_Log::warning('FreshRSS_Auth accessControl current_user: ' . $current_user, USERS_PATH . '/_/log_cookie.txt');
 				Minz_Session::_param('currentUser', $current_user);
 				Minz_Session::_param('passwordHash', trim($credentials[1]));
 			}
@@ -82,12 +85,12 @@ class FreshRSS_Auth {
 	 * Gives access to the current user.
 	 */
 	public static function giveAccess() {
-		Minz_Log::warning('FreshRSS_Auth giveAccess');
+		Minz_Log::warning('FreshRSS_Auth giveAccess', USERS_PATH . '/_/log_cookie.txt');
 		$current_user = Minz_Session::param('currentUser');
-		Minz_Log::warning('FreshRSS_Auth giveAccess current_user: ' . $current_user);
+		Minz_Log::warning('FreshRSS_Auth giveAccess current_user: ' . $current_user, USERS_PATH . '/_/log_cookie.txt');
 		$user_conf = get_user_configuration($current_user);
 		if ($user_conf == null) {
-			Minz_Log::warning('FreshRSS_Auth giveAccess bad user_conf');
+			Minz_Log::warning('FreshRSS_Auth giveAccess bad user_conf', USERS_PATH . '/_/log_cookie.txt');
 			self::$login_ok = false;
 			return false;
 		}
@@ -95,10 +98,10 @@ class FreshRSS_Auth {
 
 		switch ($system_conf->auth_type) {
 		case 'form':
-			Minz_Log::warning('FreshRSS_Auth giveAccess session passwordHash: ' .  Minz_Session::param('passwordHash'));
-			Minz_Log::warning('FreshRSS_Auth giveAccess conf passwordHash: ' . $user_conf->passwordHash);
+			Minz_Log::warning('FreshRSS_Auth giveAccess session passwordHash: ' .  Minz_Session::param('passwordHash'), USERS_PATH . '/_/log_cookie.txt');
+			Minz_Log::warning('FreshRSS_Auth giveAccess conf passwordHash: ' . $user_conf->passwordHash, USERS_PATH . '/_/log_cookie.txt');
 			self::$login_ok = Minz_Session::param('passwordHash') === $user_conf->passwordHash;
-			Minz_Log::warning('FreshRSS_Auth giveAccess login_ok: ' . self::$login_ok);
+			Minz_Log::warning('FreshRSS_Auth giveAccess login_ok: ' . self::$login_ok, USERS_PATH . '/_/log_cookie.txt');
 			break;
 		case 'http_auth':
 			self::$login_ok = strcasecmp($current_user, httpAuthUser()) === 0;
@@ -167,7 +170,7 @@ class FreshRSS_Auth {
 		switch ($system_conf->auth_type) {
 		case 'form':
 			Minz_Session::_param('passwordHash');
-			Minz_Log::warning('removeAccess call deleteCookie');
+			Minz_Log::warning('removeAccess call deleteCookie', USERS_PATH . '/_/log_cookie.txt');
 			FreshRSS_FormAuth::deleteCookie();
 			break;
 		case 'http_auth':
@@ -240,28 +243,28 @@ class FreshRSS_FormAuth {
 
 	public static function getCredentialsFromCookie() {
 		$token = Minz_Session::getLongTermCookie('FreshRSS_login');
-		Minz_Log::warning('getCredentialsFromCookie call getCredentialsFromCookie: ' . $token);
+		Minz_Log::warning('getCredentialsFromCookie call getCredentialsFromCookie: ' . $token, USERS_PATH . '/_/log_cookie.txt');
 		if (!ctype_alnum($token)) {
-			Minz_Log::warning('getCredentialsFromCookie bad getCredentialsFromCookie');
+			Minz_Log::warning('getCredentialsFromCookie bad getCredentialsFromCookie', USERS_PATH . '/_/log_cookie.txt');
 			return array();
 		}
 
 		$token_file = DATA_PATH . '/tokens/' . $token . '.txt';
 		$mtime = @filemtime($token_file);
-		Minz_Log::warning('getCredentialsFromCookie mtime: ' . $mtime);
+		Minz_Log::warning('getCredentialsFromCookie mtime: ' . $mtime, USERS_PATH . '/_/log_cookie.txt');
 		$conf = Minz_Configuration::get('system');
 		$limits = $conf->limits;
 		$cookie_duration = empty($limits['cookie_duration']) ? 2592000 : $limits['cookie_duration'];
-		Minz_Log::warning('getCredentialsFromCookie cookie_duration: ' . $cookie_duration);
+		Minz_Log::warning('getCredentialsFromCookie cookie_duration: ' . $cookie_duration, USERS_PATH . '/_/log_cookie.txt');
 		if ($mtime + $cookie_duration < time()) {
-			Minz_Log::warning('getCredentialsFromCookie expired');
+			Minz_Log::warning('getCredentialsFromCookie expired', USERS_PATH . '/_/log_cookie.txt');
 			// Token has expired (> cookie_duration) or does not exist.
 			@unlink($token_file);
 			return array();
 		}
 
 		$credentials = @file_get_contents($token_file);
-		Minz_Log::warning('getCredentialsFromCookie credentials: ' . $credentials);
+		Minz_Log::warning('getCredentialsFromCookie credentials: ' . $credentials, USERS_PATH . '/_/log_cookie.txt');
 		return $credentials === false ? array() : explode("\t", $credentials, 2);
 	}
 
