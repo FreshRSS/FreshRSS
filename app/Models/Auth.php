@@ -15,6 +15,7 @@ class FreshRSS_Auth {
 	public static function init() {
 		if (Minz_Session::param('REMOTE_USER', '') !== httpAuthUser()) {
 			//HTTP REMOTE_USER has changed
+			Minz_Log::warning('FreshRSS_Auth init bad REMOTE_USER');
 			self::removeAccess();
 		}
 
@@ -31,6 +32,7 @@ class FreshRSS_Auth {
 		} elseif (self::accessControl() && self::giveAccess()) {
 			FreshRSS_UserDAO::touch();
 		} else {
+			Minz_Log::warning('FreshRSS_Auth init call removeAccess');
 			// Be sure all accesses are removed!
 			self::removeAccess();
 		}
@@ -46,14 +48,17 @@ class FreshRSS_Auth {
 	 * @return boolean true if user can be connected, false else.
 	 */
 	private static function accessControl() {
+		Minz_Log::warning('FreshRSS_Auth accessControl');
 		$conf = Minz_Configuration::get('system');
 		$auth_type = $conf->auth_type;
 		switch ($auth_type) {
 		case 'form':
 			$credentials = FreshRSS_FormAuth::getCredentialsFromCookie();
+			Minz_Log::warning('FreshRSS_Auth accessControl credentials: ' . $credentials);
 			$current_user = '';
 			if (isset($credentials[1])) {
 				$current_user = trim($credentials[0]);
+				Minz_Log::warning('FreshRSS_Auth accessControl current_user: ' . $current_user);
 				Minz_Session::_param('currentUser', $current_user);
 				Minz_Session::_param('passwordHash', trim($credentials[1]));
 			}
@@ -77,9 +82,12 @@ class FreshRSS_Auth {
 	 * Gives access to the current user.
 	 */
 	public static function giveAccess() {
+		Minz_Log::warning('FreshRSS_Auth giveAccess');
 		$current_user = Minz_Session::param('currentUser');
+		Minz_Log::warning('FreshRSS_Auth giveAccess current_user: ' . $current_user);
 		$user_conf = get_user_configuration($current_user);
 		if ($user_conf == null) {
+			Minz_Log::warning('FreshRSS_Auth giveAccess bad user_conf');
 			self::$login_ok = false;
 			return false;
 		}
@@ -87,7 +95,10 @@ class FreshRSS_Auth {
 
 		switch ($system_conf->auth_type) {
 		case 'form':
+			Minz_Log::warning('FreshRSS_Auth giveAccess session passwordHash: ' .  Minz_Session::param('passwordHash'));
+			Minz_Log::warning('FreshRSS_Auth giveAccess conf passwordHash: ' . $user_conf->passwordHash);
 			self::$login_ok = Minz_Session::param('passwordHash') === $user_conf->passwordHash;
+			Minz_Log::warning('FreshRSS_Auth giveAccess login_ok: ' . self::$login_ok);
 			break;
 		case 'http_auth':
 			self::$login_ok = strcasecmp($current_user, httpAuthUser()) === 0;
@@ -156,6 +167,7 @@ class FreshRSS_Auth {
 		switch ($system_conf->auth_type) {
 		case 'form':
 			Minz_Session::_param('passwordHash');
+			Minz_Log::warning('removeAccess call deleteCookie');
 			FreshRSS_FormAuth::deleteCookie();
 			break;
 		case 'http_auth':
@@ -228,22 +240,28 @@ class FreshRSS_FormAuth {
 
 	public static function getCredentialsFromCookie() {
 		$token = Minz_Session::getLongTermCookie('FreshRSS_login');
+		Minz_Log::warning('getCredentialsFromCookie call getCredentialsFromCookie: ' . $token);
 		if (!ctype_alnum($token)) {
+			Minz_Log::warning('getCredentialsFromCookie bad getCredentialsFromCookie');
 			return array();
 		}
 
 		$token_file = DATA_PATH . '/tokens/' . $token . '.txt';
 		$mtime = @filemtime($token_file);
+		Minz_Log::warning('getCredentialsFromCookie mtime: ' . $mtime);
 		$conf = Minz_Configuration::get('system');
 		$limits = $conf->limits;
 		$cookie_duration = empty($limits['cookie_duration']) ? 2592000 : $limits['cookie_duration'];
+		Minz_Log::warning('getCredentialsFromCookie cookie_duration: ' . $cookie_duration);
 		if ($mtime + $cookie_duration < time()) {
+			Minz_Log::warning('getCredentialsFromCookie expired');
 			// Token has expired (> cookie_duration) or does not exist.
 			@unlink($token_file);
 			return array();
 		}
 
 		$credentials = @file_get_contents($token_file);
+		Minz_Log::warning('getCredentialsFromCookie credentials: ' . $credentials);
 		return $credentials === false ? array() : explode("\t", $credentials, 2);
 	}
 

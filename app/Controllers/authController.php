@@ -139,6 +139,7 @@ class FreshRSS_auth_Controller extends Minz_ActionController {
 				if (Minz_Request::param('keep_logged_in')) {
 					FreshRSS_FormAuth::makeCookie($username, $conf->passwordHash);
 				} else {
+					Minz_Log::warning('formLoginAction call deleteCookie');
 					FreshRSS_FormAuth::deleteCookie();
 				}
 
@@ -192,6 +193,7 @@ class FreshRSS_auth_Controller extends Minz_ActionController {
 	 */
 	public function logoutAction() {
 		invalidateHttpCache();
+		Minz_Log::warning('logoutAction');
 		FreshRSS_Auth::removeAccess();
 		Minz_Request::good(_t('feedback.auth.logout.success'),
 		                   array('c' => 'index', 'a' => 'index'));
