@@ -185,6 +185,111 @@ class FreshRSS_Entry extends Minz_Model {
 		$this->tags = $value;
 	}
 
+	public function matches($booleanSearch) {
+		if (!$booleanSearch || count($booleanSearch->searches()) <= 0) {
+			return true;
+		}
+		foreach ($booleanSearch->searches() as $filter) {
+			$ok = true;
+			$ok &= $filter->getMinPubdate() && $this->date >= $filter->getMinPubdate();
+			$ok &= $filter->getMaxPubdate() && $this->date <= $filter->getMaxPubdate();
+			$ok &= $filter->getMinDate() && strnatcmp($this->id , $filter->getMinDate() . '000000') >= 0;
+			$ok &= $filter->getMaxDate() && strnatcmp($this->id , $filter->getMaxDate() . '000000') <= 0;
+			if ($ok && $filter->getInurl()) {
+				foreach ($filter->getInurl() as $url) {
+					$ok &= stripos($this->link, $url) !== false;
+				}
+			}
+			if ($ok && $filter->getNotInurl()) {
+				foreach ($filter->getNotInurl() as $url) {
+					$ok &= stripos($this->link, $url) === false;
+				}
+			}
+			if ($ok && $filter->getAuthor()) {
+				foreach ($filter->getAuthor() as $author) {
+					$ok &= stripos($this->authors, $author) !== false;
+				}
+			}
+			if ($ok && $filter->getNotAuthor()) {
+				foreach ($filter->getNotAuthor() as $author) {
+					$ok &= stripos($this->authors, $author) === false;
+				}
+			}
+			if ($ok && $filter->getIntitle()) {
+				foreach ($filter->getIntitle() as $title) {
+					$ok &= stripos($this->title, $title) !== false;
+				}
+			}
+			if ($ok && $filter->getNotIntitle()) {
+				foreach ($filter->getNotIntitle() as $title) {
+					$ok &= stripos($this->title, $title) === false;
+				}
+			}
+			if ($ok && $filter->getTags()) {
+				foreach ($filter->getTags() as $tag2) {
+					$found = false;
+					foreach ($this->tags as $tag1) {
+						if (strcasecmp($tag1, $tag2) === 0) {
+							$found = true;
+						}
+					}
+					$ok &= $found;
+				}
+			}
+			if ($ok && $filter->getNotTags()) {
+				foreach ($filter->getNotTags() as $tag2) {
+					$found = false;
+					foreach ($this->tags as $tag1) {
+						if (strcasecmp($tag1, $tag2) === 0) {
+							$found = true;
+						}
+					}
+					$ok &= !$found;
+				}
+			}
+			if ($ok && $filter->getSearch()) {
+				foreach ($filter->getSearch() as $needle) {
+					$ok &= (stripos($this->title, $needle) !== false || stripos($this->content, $needle) !== false);
+				}
+			}
+			if ($ok && $filter->getNotSearch()) {
+				foreach ($filter->getNotSearch() as $needle) {
+					$ok &= (stripos($this->title, $needle) === false && stripos($this->content, $needle) === false);
+				}
+			}
+			if ($ok) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public function applyFilterActions() {
+		if ($this->feed != null) {
+			if ($this->feed->attributes('read_upon_reception') ||
+				($this->feed->attributes('read_upon_reception') === null && FreshRSS_Context::$user_conf->mark_when['reception'])) {
+				$this->_isRead(true);
+			}
+			foreach ($this->feed->filterActions() as $filterAction) {
+				if ($this->matches($filterAction->booleanSearch())) {
+					foreach ($filterAction->actions() as $action => $params) {
+						switch ($action) {
+							case 'read':
+								$this->_isRead(true);
+								break;
+							case 'star':
+								$this->_is_favorite(true);
+								break;
+							case 'label':
+								//TODO: Implement more actions
+								break;
+						}
+					}
+				}
+			}
+		}
+	}
+
 	public function isDay($day, $today) {
 		$date = $this->dateAdded(true);
 		switch ($day) {

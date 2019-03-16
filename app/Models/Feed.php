@@ -32,6 +32,7 @@ class FreshRSS_Feed extends Minz_Model {
 	private $lockPath = '';
 	private $hubUrl = '';
 	private $selfUrl = '';
+	private $filterActions = null;
 
 	public function __construct($url, $validate = true) {
 		if ($validate) {
@@ -496,6 +497,22 @@ class FreshRSS_Feed extends Minz_Model {
 
 	public function unlock() {
 		@unlink($this->lockPath);
+	}
+
+	public function filterActions() {
+		if ($this->filterActions == null) {
+			$this->filterActions = array();
+			$filters = $this->attributes('filters');
+			if (is_array($filters)) {
+				foreach ($filters as $filter) {
+					$filterAction = FreshRSS_FilterAction::fromJSON($filter);
+					if ($filterAction != null) {
+						$this->filterActions[] = $filterAction;
+					}
+				}
+			}
+		}
+		return $this->filterActions;
 	}
 
 	//<WebSub>
