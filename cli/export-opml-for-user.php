@@ -2,11 +2,13 @@
 <?php
 require(__DIR__ . '/_cli.php');
 
-$options = getopt('', array(
-		'user:',
-	));
+$params = array(
+	'user:',
+);
 
-if (empty($options['user'])) {
+$options = getopt('', $params);
+
+if (!validateOptions($argv, $params) || empty($options['user'])) {
 	fail('Usage: ' . basename(__FILE__) . " --user username > /path/to/file.opml.xml");
 }
 

@@ -27,6 +27,14 @@ $dBparams = array(
 
 $options = getopt('', array_merge($params, $dBparams));
 
+if (!validateOptions($argv, array_merge($params, $dBparams))) {
+	fail('Usage: ' . basename(__FILE__) . " --default_user admin ( --auth_type form" .
+		" --environment production --base_url https://rss.example.net --allow_robots" .
+		" --language en --title FreshRSS --allow_anonymous --allow_anonymous_refresh --api_enabled" .
+		" --db-type mysql --db-host localhost:3306 --db-user freshrss --db-password dbPassword123" .
+		" --db-base freshrss --db-prefix freshrss_ --disable_update )");
+}
+
 fwrite(STDERR, 'Reconfiguring FreshRSS…' . "\n");
 
 $config = Minz_Configuration::get('system');

@@ -2,12 +2,14 @@
 <?php
 require(__DIR__ . '/_cli.php');
 
-$options = getopt('', array(
-		'user:',
-		'max-feed-entries:',
-	));
+$params = array(
+	'user:',
+	'max-feed-entries:',
+);
 
-if (empty($options['user'])) {
+$options = getopt('', $params);
+
+if (!validateOptions($argv, $params) || empty($options['user'])) {
 	fail('Usage: ' . basename(__FILE__) . " --user username ( --max-feed-entries 100 ) > /path/to/file.zip");
 }
 
