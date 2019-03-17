@@ -3,6 +3,7 @@
 return array (
 	'language' => 'en',
 	'old_entries' => 3,
+	'old_entries_period' => 'P1M', // Available options are P1Y, P1M, P1W, P1D, PT1H
 	'keep_history_default' => 50,
 	'ttl_default' => 3600,
 	'mail_login' => '',

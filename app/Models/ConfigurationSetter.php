@@ -99,6 +99,15 @@ class FreshRSS_ConfigurationSetter {
 		$data['old_entries'] = $value > 0 ? $value : 3;
 	}
 
+	private function _old_entries_period(&$data, $value) {
+		try {
+			new DateInterval($value);
+			$data['old_entries_period'] = $value;
+		} catch (Exception $e) {
+			$data['old_entries_period'] = 'P1M';
+		}
+	}
+
 	private function _passwordHash(&$data, $value) {
 		$data['passwordHash'] = ctype_graph($value) && (strlen($value) >= 60) ? $value : '';
 	}

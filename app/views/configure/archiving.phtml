@@ -11,8 +11,15 @@
 		<div class="form-group">
 			<label class="group-name" for="old_entries"><?php echo _t('conf.archiving.delete_after'); ?></label>
 			<div class="group-controls">
-				<input type="number" id="old_entries" name="old_entries" min="1" max="1200" value="<?php echo FreshRSS_Context::$user_conf->old_entries; ?>" data-leave-validation="<?php echo FreshRSS_Context::$user_conf->old_entries; ?>"/> <?php echo _t('gen.date.month'); ?>
-				  <a class="btn confirm" href="<?php echo _url('entry', 'purge'); ?>"><?php echo _t('conf.archiving.purge_now'); ?></a>
+				<input type="number" id="old_entries" name="old_entries" min="1" max="1200" value="<?php echo FreshRSS_Context::$user_conf->old_entries; ?>" data-leave-validation="<?php echo FreshRSS_Context::$user_conf->old_entries; ?>"/>
+				<select id="old_entries_period" name="old_entries_period" required="required" data-leave-validation="<?php echo FreshRSS_Context::$user_conf->old_entries_period; ?>">
+					<option value="P1Y"<?php echo FreshRSS_Context::$user_conf->old_entries_period === 'P1Y' ? ' selected="selected"' : ''; ?>><?php echo _t('gen.date.year'); ?></option>
+					<option value="P1M"<?php echo FreshRSS_Context::$user_conf->old_entries_period === 'P1M' ? ' selected="selected"' : ''; ?>><?php echo _t('gen.date.month'); ?></option>
+					<option value="P1W"<?php echo FreshRSS_Context::$user_conf->old_entries_period === 'P1W' ? ' selected="selected"' : ''; ?>><?php echo _t('gen.date.week'); ?></option>
+					<option value="P1D"<?php echo FreshRSS_Context::$user_conf->old_entries_period === 'P1D' ? ' selected="selected"' : ''; ?>><?php echo _t('gen.date.day'); ?></option>
+					<option value="PT1H"<?php echo FreshRSS_Context::$user_conf->old_entries_period === 'PT1H' ? ' selected="selected"' : ''; ?>><?php echo _t('gen.date.hour'); ?></option>
+				</select>
+				<a class="btn confirm" href="<?php echo _url('entry', 'purge'); ?>"><?php echo _t('conf.archiving.purge_now'); ?></a>
 			</div>
 		</div>
 		<div class="form-group">

@@ -263,8 +263,14 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 		}
 
 		// Calculate date of oldest entries we accept in DB.
-		$nb_month_old = max(FreshRSS_Context::$user_conf->old_entries, 1);
-		$date_min = time() - (3600 * 24 * 30 * $nb_month_old);
+		if (preg_match('/\d+/', FreshRSS_Context::$user_conf->old_entries_period, $matches)) {
+			$intervalString = str_replace($matches[0], $matches[0] * FreshRSS_Context::$user_conf->old_entries, FreshRSS_Context::$user_conf->old_entries_period);
+		} else {
+			$intervalString = 'P1M';
+		}
+		$interval = new DateInterval($intervalString);
+		$now = new DateTime('now');
+		$date_min = $now->sub($interval)->getTimestamp();
 
 		// WebSub (PubSubHubbub) support
 		$pubsubhubbubEnabledGeneral = FreshRSS_Context::$system_conf->pubsubhubbub_enabled;

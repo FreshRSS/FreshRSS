@@ -210,6 +210,7 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 	public function archivingAction() {
 		if (Minz_Request::isPost()) {
 			FreshRSS_Context::$user_conf->old_entries = Minz_Request::param('old_entries', 3);
+			FreshRSS_Context::$user_conf->old_entries_period = Minz_Request::param('old_entries_period', 'P1M');
 			FreshRSS_Context::$user_conf->keep_history_default = Minz_Request::param('keep_history_default', 0);
 			FreshRSS_Context::$user_conf->ttl_default = Minz_Request::param('ttl_default', FreshRSS_Feed::TTL_DEFAULT);
 			FreshRSS_Context::$user_conf->save();

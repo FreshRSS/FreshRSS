@@ -84,7 +84,7 @@ class I18nFile implements I18nFileInterface{
 		foreach ($translation as $compoundKey => $value) {
 			$keys = explode('.', $compoundKey);
 			array_shift($keys);
-			eval("\$a['" . implode("']['", $keys) . "'] = '" . $value . "';");
+			eval("\$a['" . implode("']['", $keys) . "'] = '" . addcslashes($value, "'") . "';");
 		}
 
 		return $a;
