@@ -57,8 +57,8 @@ return array(
 	'sub' => array(
 		'actualize' => '获取',
 		'articles' => array(
-			'marked_read' => 'The selected articles have been marked as read.',	//TODO - Translation
-			'marked_unread' => 'The articles have been marked as unread.',	//TODO - Translation
+			'marked_read' => '选中文章已标记为已读',
+			'marked_unread' => '文章已标记为未读',
 		),
 		'category' => array(
 			'created' => '分类 %s 已创建。',
@@ -80,7 +80,7 @@ return array(
 			'already_subscribed' => '你已订阅 <em>%s</em>',
 			'deleted' => 'RSS 源已删除',
 			'error' => 'RSS 源更新失败',
-			'internal_problem' => 'RSS 源添加失败。<a href="%s">检查 FreshRSS 日志</a> 查看详情。',	//TODO - Translation
+			'internal_problem' => 'RSS 源添加失败。<a href="%s">检查 FreshRSS 日志</a> 查看详情。你可以在URL后附加 <code>#force_feed</code> 从而尝试强制添加。',
 			'invalid_url' => 'URL <em>%s</em> 无效',
 			'n_actualized' => '%d 个 RSS 源已更新',
 			'n_entries_deleted' => '%d 篇文章已删除',
@@ -109,8 +109,8 @@ return array(
 			'error' => '用户 %s 删除失败',
 		),
 		'updated' => array(
-			'_' => 'User %s has been updated',	//TODO - Translation
-			'error' => 'User %s has not been updated',	//TODO - Translation
+			'_' => '用户 %s 已更新',
+			'error' => '用户 %s 更新失败',
 		),
 	),
 );

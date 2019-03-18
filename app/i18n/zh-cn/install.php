@@ -69,8 +69,8 @@ return array(
 			'ok' => '已找到推荐的 JSON 解析库。',
 		),
 		'mbstring' => array(
-			'nok' => 'Cannot find the recommended library mbstring for Unicode.',	//TODO - Translation
-			'ok' => 'You have the recommended library mbstring for Unicode.',	//TODO - Translation
+			'nok' => '找不到推荐的 Unicode 解析库 (mbstring)。',	
+			'ok' => '已找到推荐的 Unicode 解析库 (mbstring)。',
 		),
 		'minz' => array(
 			'nok' => '找不到 Minz 框架。',
