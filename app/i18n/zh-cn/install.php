@@ -69,7 +69,7 @@ return array(
 			'ok' => '已找到推荐的 JSON 解析库。',
 		),
 		'mbstring' => array(
-			'nok' => '找不到推荐的 Unicode 解析库 (mbstring)。',	
+			'nok' => '找不到推荐的 Unicode 解析库 (mbstring)。',
 			'ok' => '已找到推荐的 Unicode 解析库 (mbstring)。',
 		),
 		'minz' => array(

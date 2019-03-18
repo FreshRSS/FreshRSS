@@ -51,9 +51,9 @@ return array(
 			'error' => '仅显示有错误的 RSS 源',
 		),
 		'showing' => array(
-			'error' => '正在显示有错误的 RSS 源',	
+			'error' => '正在显示有错误的 RSS 源',
 		),
-		'ssl_verify' => '验证 SSL 安全',	
+		'ssl_verify' => '验证 SSL 安全',
 		'stats' => '统计',
 		'think_to_add' => '你可以添加一些 RSS 源。',
 		'timeout' => '超时时间（秒）',

@@ -28,7 +28,7 @@ return array(
 			'seconds' => '秒 (0 表示不超时)',
 			'timeout' => 'HTML5 通知超时时间',
 		),
-		'show_nav_buttons' => '显示导航按钮',	
+		'show_nav_buttons' => '显示导航按钮',
 		'theme' => '主题',
 		'title' => '显示',
 		'width' => array(
@@ -172,7 +172,7 @@ return array(
 		'see_on_website' => '在原网站上查看',
 		'shift_for_all_read' => '+ <code>shift</code> 可以将全部文章设为已读',
 		'skip_next_article' => '跳转到下一篇文章而不打开',
-		'skip_previous_article' => '跳转到上一篇文章而不打开',	
+		'skip_previous_article' => '跳转到上一篇文章而不打开',
 		'title' => '快捷键',
 		'user_filter' => '显示自定义查询',
 		'user_filter_help' => '如果有多个自定义过滤器，则会按照它们的编号依次访问。',
