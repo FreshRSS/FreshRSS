@@ -5,7 +5,7 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 RUN apt update && \
 	apt install --no-install-recommends -y \
-	cron \
+	ca-certificates cron \
 	apache2 libapache2-mod-php \
 	php-curl php-intl php-mbstring php-xml php-zip \
 	php-sqlite3 php-mysql php-pgsql && \
