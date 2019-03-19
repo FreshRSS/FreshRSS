@@ -14,7 +14,7 @@ class FreshRSS_Auth {
 	 */
 	public static function init() {
 		Minz_Log::warning('FreshRSS_Auth init', USERS_PATH . '/_/log_cookie.txt');
-		if (Minz_Session::param('REMOTE_USER', '') !== httpAuthUser()) {
+		if (isset($_SESSION['REMOTE_USER']) && $_SESSION['REMOTE_USER'] !== httpAuthUser()) {
 			//HTTP REMOTE_USER has changed
 			Minz_Log::warning('FreshRSS_Auth init bad REMOTE_USER', USERS_PATH . '/_/log_cookie.txt');
 			self::removeAccess();
