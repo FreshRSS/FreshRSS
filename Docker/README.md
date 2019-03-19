@@ -301,6 +301,10 @@ server {
 		proxy_set_header X-Forwarded-Proto $scheme;
 		proxy_set_header X-Forwarded-Port $server_port;
 		proxy_read_timeout 90;
+		
+		# Forward the Authorization header for the Google Reader API.
+		proxy_set_header Authorization $http_authorization;
+		proxy_pass_header Authorization;
 	}
 }
 ```
