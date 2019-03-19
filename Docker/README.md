@@ -138,7 +138,7 @@ while Alpine is ~2.5 times [smaller on disk](https://hub.docker.com/r/freshrss/f
 
 
 ## Optional: Build Docker image of FreshRSS
-Optional, as a *less recent* online image can be automatically fetched during the next step (run),
+Optional, as a *less recent* online image can be automatically fetched,
 but online images are not available for as many platforms (e.g. Raspberry Pi / ARM) as if you build yourself.
 
 ```sh
