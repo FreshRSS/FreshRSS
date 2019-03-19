@@ -10,33 +10,6 @@ sh get-docker.sh
 ```
 
 
-## [Docker tags](https://hub.docker.com/r/freshrss/freshrss/tags)
-The tags correspond to FreshRSS branches and versions:
-* `:latest` (default) is the `master` branch, more stable
-* `:dev` is the `dev` branch, rolling release
-* `:x.y.z` are specific FreshRSS releases
-
-### Linux: Ubuntu vs. Alpine
-Our default image is based on [Ubuntu](https://www.ubuntu.com/server). We offer an alternative based on [Alpine](https://alpinelinux.org/) (with the `-alpine` tag suffix).
-In [our tests](https://github.com/FreshRSS/FreshRSS/pull/2205), Ubuntu is ~3 times faster,
-while Alpine is ~2.5 times [smaller on disk](https://hub.docker.com/r/freshrss/freshrss/tags) (and much faster to build).
-
-
-## Optional: Build Docker image of FreshRSS
-Optional, as a *less recent* online image can be automatically fetched during the next step (run),
-but online images are not available for as many platforms (e.g. Raspberry Pi / ARM) as if you build yourself.
-
-```sh
-# First time only
-git clone https://github.com/FreshRSS/FreshRSS.git
-
-cd ./FreshRSS/
-git pull
-sudo docker pull ubuntu:18.10
-sudo docker build --tag freshrss/freshrss -f Docker/Dockerfile .
-```
-
-
 ## Create an isolated network
 ```sh
 sudo docker network create freshrss-network
@@ -48,10 +21,12 @@ Here is the recommended configuration using automatic [Let’s Encrypt](https://
 
 ```sh
 sudo docker volume create traefik-letsencrypt
+sudo docker volume create traefik-tmp
 
 # Just change your e-mail address in the command below:
 sudo docker run -d --restart unless-stopped --log-opt max-size=10m \
   -v traefik-letsencrypt:/etc/traefik/acme \
+  -v traefik-tmp:/tmp \
   -v /var/run/docker.sock:/var/run/docker.sock:ro \
   --net freshrss-network \
   -p 80:80 \
@@ -70,6 +45,8 @@ See [more information about Docker and Let’s Encrypt in Træfik](https://docs.
 ## Run FreshRSS 
 Example using the built-in refresh cron job (see further below for alternatives).
 You must first chose a domain (DNS) or sub-domain, e.g. `freshrss.example.net`.
+
+> **N.B.:** For platforms other than x64 (Intel, AMD), such as ARM (e.g. Raspberry Pi), see the section *Build Docker image* further below.
 
 ```sh
 sudo docker volume create freshrss-data
@@ -133,15 +110,6 @@ Browse to your server https://freshrss.example.net/ to complete the installation
 or use the command line described below.
 
 
-## Command line
-
-```sh
-sudo docker exec --user apache -it freshrss php ./cli/list-users.php
-```
-
-See the [CLI documentation](../cli/) for all the other commands.
-
-
 ## How to update
 
 ```sh
@@ -155,6 +123,42 @@ sudo docker run ... --name freshrss freshrss/freshrss
 # If everything is working, delete the old container
 sudo docker rm freshrss_old
 ```
+
+
+## [Docker tags](https://hub.docker.com/r/freshrss/freshrss/tags)
+The tags correspond to FreshRSS branches and versions:
+* `:latest` (default) is the `master` branch, more stable
+* `:dev` is the `dev` branch, rolling release
+* `:x.y.z` are specific FreshRSS releases
+
+### Linux: Ubuntu vs. Alpine
+Our default image is based on [Ubuntu](https://www.ubuntu.com/server). We offer an alternative based on [Alpine](https://alpinelinux.org/) (with the `-alpine` tag suffix).
+In [our tests](https://github.com/FreshRSS/FreshRSS/pull/2205), Ubuntu is ~3 times faster,
+while Alpine is ~2.5 times [smaller on disk](https://hub.docker.com/r/freshrss/freshrss/tags) (and much faster to build).
+
+
+## Optional: Build Docker image of FreshRSS
+Building your own Docker image is optional because online images can be fetched automatically.
+Note that prebuilt images are less recent and only available for x64 (Intel, AMD) platforms.
+
+```sh
+# First time only
+git clone https://github.com/FreshRSS/FreshRSS.git
+
+cd ./FreshRSS/
+git pull
+sudo docker pull ubuntu:18.10
+sudo docker build --tag freshrss/freshrss -f Docker/Dockerfile .
+```
+
+
+## Command line
+
+```sh
+sudo docker exec --user apache -it freshrss php ./cli/list-users.php
+```
+
+See the [CLI documentation](../cli/) for all the other commands.
 
 
 ## Debugging
@@ -301,7 +305,7 @@ server {
 		proxy_set_header X-Forwarded-Proto $scheme;
 		proxy_set_header X-Forwarded-Port $server_port;
 		proxy_read_timeout 90;
-		
+
 		# Forward the Authorization header for the Google Reader API.
 		proxy_set_header Authorization $http_authorization;
 		proxy_pass_header Authorization;
