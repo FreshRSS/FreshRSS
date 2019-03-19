@@ -2,12 +2,14 @@
 <?php
 require(__DIR__ . '/_cli.php');
 
-$options = getopt('', array(
-		'user:',
-		'filename:',
-	));
+$params = array(
+	'user:',
+	'filename:',
+);
 
-if (empty($options['user']) || empty($options['filename'])) {
+$options = getopt('', $params);
+
+if (!validateOptions($argv, $params) || empty($options['user']) || empty($options['filename'])) {
 	fail('Usage: ' . basename(__FILE__) . " --user username --filename /path/to/file.ext");
 }
 
