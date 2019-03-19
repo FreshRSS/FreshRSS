@@ -303,12 +303,7 @@ function lazyimg($content) {
 
 function uTimeString() {
 	$t = @gettimeofday();
-	return $t['sec'] . str_pad($t['usec'], 6, '0');
-}
-
-function uSecString() {
-	$t = @gettimeofday();
-	return str_pad($t['usec'], 6, '0');
+	return $t['sec'] . str_pad($t['usec'], 6, '0', STR_PAD_LEFT);
 }
 
 function invalidateHttpCache($username = '') {
