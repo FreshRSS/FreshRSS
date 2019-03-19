@@ -46,7 +46,7 @@ See [more information about Docker and Let’s Encrypt in Træfik](https://docs.
 Example using the built-in refresh cron job (see further below for alternatives).
 You must first chose a domain (DNS) or sub-domain, e.g. `freshrss.example.net`.
 
-*N.B.:* For platforms other than x64 (Intel, AMD), such as ARM (e.g. Raspberry Pi), see the section *Build Docker image* further below.
+> **N.B.:** For platforms other than x64 (Intel, AMD), such as ARM (e.g. Raspberry Pi), see the section *Build Docker image* further below.
 
 ```sh
 sudo docker volume create freshrss-data
