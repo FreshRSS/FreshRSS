@@ -60,6 +60,17 @@ class FreshRSS extends Minz_FrontController {
 		if (Minz_Request::isPost() && !(is_referer_from_same_domain() && FreshRSS_Auth::isCsrfOk())) {
 			// Basic protection against XSRF attacks
 			Minz_Log::warning('initAuth bad POST', USERS_PATH . '/_/log_cookie.txt');
+			if (!is_referer_from_same_domain()) {
+				Minz_Log::warning('initAuth bad HTTP_REFERER: ' .
+					(isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : ''),
+					USERS_PATH . '/_/log_cookie.txt');
+			}
+			if (!FreshRSS_Auth::isCsrfOk()()) {
+				Minz_Log::warning('initAuth bad CSRF: ' .
+					' POST=' . (isset($_POST['_csrf']) ? $_POST['_csrf'] : '') .
+					' SESSION=' . (isset($_SESSION['csrf']) ? $_SESSION['csrf'] : ''),
+					USERS_PATH . '/_/log_cookie.txt');
+			}
 			FreshRSS_Auth::removeAccess();
 			$http_referer = empty($_SERVER['HTTP_REFERER']) ? '' : $_SERVER['HTTP_REFERER'];
 			Minz_Translate::init('en');	//TODO: Better choice of fallback language
