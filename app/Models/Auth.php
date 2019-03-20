@@ -13,7 +13,7 @@ class FreshRSS_Auth {
 	 * This method initializes authentication system.
 	 */
 	public static function init() {
-		if (Minz_Session::param('REMOTE_USER', '') !== httpAuthUser()) {
+		if (isset($_SESSION['REMOTE_USER']) && $_SESSION['REMOTE_USER'] !== httpAuthUser()) {
 			//HTTP REMOTE_USER has changed
 			self::removeAccess();
 		}
