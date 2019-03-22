@@ -247,6 +247,7 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 				$user_conf = get_user_configuration($new_user_name);
 				Minz_Session::_param('currentUser', $new_user_name);
 				Minz_Session::_param('passwordHash', $user_conf->passwordHash);
+				Minz_Session::_param('csrf');
 				FreshRSS_Auth::giveAccess();
 			}
 

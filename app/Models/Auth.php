@@ -24,6 +24,7 @@ class FreshRSS_Auth {
 			$conf = Minz_Configuration::get('system');
 			$current_user = $conf->default_user;
 			Minz_Session::_param('currentUser', $current_user);
+			Minz_Session::_param('csrf');
 		}
 
 		if (self::$login_ok) {
@@ -56,6 +57,7 @@ class FreshRSS_Auth {
 				$current_user = trim($credentials[0]);
 				Minz_Session::_param('currentUser', $current_user);
 				Minz_Session::_param('passwordHash', trim($credentials[1]));
+				Minz_Session::_param('csrf');
 			}
 			return $current_user != '';
 		case 'http_auth':
@@ -63,6 +65,7 @@ class FreshRSS_Auth {
 			$login_ok = $current_user != '' && FreshRSS_UserDAO::exists($current_user);
 			if ($login_ok) {
 				Minz_Session::_param('currentUser', $current_user);
+				Minz_Session::_param('csrf');
 			}
 			return $login_ok;
 		case 'none':
@@ -196,13 +199,10 @@ class FreshRSS_Auth {
 	}
 	public static function isCsrfOk($token = null) {
 		$csrf = Minz_Session::param('csrf');
-		if ($csrf == '') {
-			return true;	//Not logged in yet
-		}
 		if ($token === null) {
 			$token = Minz_Request::fetchPOST('_csrf');
 		}
-		return $token === $csrf;
+		return $token != '' && $token === $csrf;
 	}
 }
 
