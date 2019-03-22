@@ -1099,6 +1099,7 @@ function init_actualize() {
 					updateFeed(json.feeds, feeds_count);
 				}
 			};
+		req.setRequestHeader('Content-Type', 'application/json');
 		req.send(JSON.stringify({
 				_csrf: context.csrf,
 			}));
