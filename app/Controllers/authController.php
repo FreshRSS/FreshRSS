@@ -69,7 +69,7 @@ class FreshRSS_auth_Controller extends Minz_ActionController {
 	 * the user is already connected.
 	 */
 	public function loginAction() {
-		if (FreshRSS_Auth::hasAccess()) {
+		if (FreshRSS_Auth::hasAccess() && Minz_Request::param('u', '') == '') {
 			Minz_Request::forward(array('c' => 'index', 'a' => 'index'), true);
 		}
 
@@ -133,6 +133,7 @@ class FreshRSS_auth_Controller extends Minz_ActionController {
 				// Set session parameter to give access to the user.
 				Minz_Session::_param('currentUser', $username);
 				Minz_Session::_param('passwordHash', $conf->passwordHash);
+				Minz_Session::_param('csrf');
 				FreshRSS_Auth::giveAccess();
 
 				// Set cookie parameter if nedded.
@@ -161,6 +162,8 @@ class FreshRSS_auth_Controller extends Minz_ActionController {
 				return;
 			}
 
+			FreshRSS_FormAuth::deleteCookie();
+
 			$conf = get_user_configuration($username);
 			if ($conf == null) {
 				return;
@@ -176,6 +179,7 @@ class FreshRSS_auth_Controller extends Minz_ActionController {
 			if ($ok) {
 				Minz_Session::_param('currentUser', $username);
 				Minz_Session::_param('passwordHash', $s);
+				Minz_Session::_param('csrf');
 				FreshRSS_Auth::giveAccess();
 
 				Minz_Request::good(_t('feedback.auth.login.success'),

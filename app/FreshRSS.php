@@ -57,18 +57,26 @@ class FreshRSS extends Minz_FrontController {
 
 	private static function initAuth() {
 		FreshRSS_Auth::init();
-		if (Minz_Request::isPost() && !(is_referer_from_same_domain() && FreshRSS_Auth::isCsrfOk())) {
-			// Basic protection against XSRF attacks
-			FreshRSS_Auth::removeAccess();
-			$http_referer = empty($_SERVER['HTTP_REFERER']) ? '' : $_SERVER['HTTP_REFERER'];
-			Minz_Translate::init('en');	//TODO: Better choice of fallback language
-			Minz_Error::error(
-				403,
-				array('error' => array(
-					_t('feedback.access.denied'),
-					' [HTTP_REFERER=' . htmlspecialchars($http_referer, ENT_NOQUOTES, 'UTF-8') . ']'
-				))
-			);
+		if (Minz_Request::isPost()) {
+			if (!is_referer_from_same_domain()) {
+				// Basic protection against XSRF attacks
+				FreshRSS_Auth::removeAccess();
+				$http_referer = empty($_SERVER['HTTP_REFERER']) ? '' : $_SERVER['HTTP_REFERER'];
+				Minz_Translate::init('en');	//TODO: Better choice of fallback language
+				Minz_Error::error(403, array('error' => array(
+						_t('feedback.access.denied'),
+						' [HTTP_REFERER=' . htmlspecialchars($http_referer, ENT_NOQUOTES, 'UTF-8') . ']'
+					)));
+			}
+			if ((!FreshRSS_Auth::isCsrfOk()) &&
+				(Minz_Request::controllerName() !== 'auth' || Minz_Request::actionName() !== 'login')) {
+				// Token-based protection against XSRF attacks, except for the login form itself
+				Minz_Translate::init('en');	//TODO: Better choice of fallback language
+				Minz_Error::error(403, array('error' => array(
+						_t('feedback.access.denied'),
+						' [CSRF]'
+					)));
+			}
 		}
 	}
 
