@@ -13,6 +13,7 @@ People are sorted by name so please keep this order.
 * [Amaury Carrade](https://github.com/AmauryCarrade): [contributions](https://github.com/FreshRSS/FreshRSS/commits?author=AmauryCarrade), [Web](https://amaury.carrade.eu/)
 * [Anton Smirnov](https://github.com/sandfoxme): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:sandfoxme), [Web](http://sandfox.me/)
 * [ASMfreaK](https://github.com/ASMfreaK): [contributions](https://github.com/FreshRSS/FreshRSS/commits?author=ASMfreaK)
+* [Benjamin Bouvier](https://github.com/bnjbvr): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:bnjbvr), [Web](https://benj.me/)
 * [chemical1979](https://github.com/chemical1979): [contributions](https://github.com/FreshRSS/FreshRSS/commits?author=chemical1979)
 * [Craig Andrews](https://github.com/candrews): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:candrews), [Web](http://candrews.integralblue.com/)
 * [Crupuk](https://github.com/Crupuk): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:Crupuk)

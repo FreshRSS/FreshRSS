@@ -1,7 +1,10 @@
 ﻿# FreshRSS changelog
 
-## 2019-0X-XX FreshRSS 1.13.2-dev
+## 2019-03-XX FreshRSS 1.14.0-dev
 
+* Features
+	* *Filter actions* feature, to auto-mark-as-read based on a search query per feed [#2275](https://github.com/FreshRSS/FreshRSS/pull/2275)
+	* Improve account change when using the *unsafe automatic login* [#2288](https://github.com/FreshRSS/FreshRSS/issues/2288)
 * UI
 	* New themes *Ansum* and *Mapco* [#2245](https://github.com/FreshRSS/FreshRSS/pull/2245)
 	* Rewrite jQuery and keyboard shortcut code as native JavaScript ES6 (except for graphs on the statistics pages) [#2234](https://github.com/FreshRSS/FreshRSS/pull/2234)
@@ -18,14 +21,22 @@
 	* Fix API HTTP Authorization case-sensitivity issue introduced in FreshRSS 1.13.1 [#2233](https://github.com/FreshRSS/FreshRSS/issues/2233)
 	* Fix breaking warning in Fever API [#2239](https://github.com/FreshRSS/FreshRSS/issues/2239)
 	* Fix encoding problem in Fever API [#2241](https://github.com/FreshRSS/FreshRSS/issues/2241)
+	* Fix author semi-colon prefix in Fever API [#2281](https://github.com/FreshRSS/FreshRSS/issues/2281)
 	* Fix the reading of the environment variable `COPY_SYSLOG_TO_STDERR` [#2260](https://github.com/FreshRSS/FreshRSS/pull/2260)
+	* Session fix when form login + HTTP auth are used [#2286](https://github.com/FreshRSS/FreshRSS/pull/2286)
+	* Fix `cli/user-info.php` for accounts using a version of the database older than 1.12.0 [#2291](https://github.com/FreshRSS/FreshRSS/issues/2291)
+* CLI
+	* Better validation of parameters [#2046](https://github.com/FreshRSS/FreshRSS/issues/2046)
+	* New option `--header` to `cli/user-info.php` [#2296](https://github.com/FreshRSS/FreshRSS/pull/2296)
 * API
 	* Supported by [Readably](https://play.google.com/store/apps/details?id=com.isaiasmatewos.readably) (client for Android using Fever API)
 * I18n
 	* Improved Korean [#2242](https://github.com/FreshRSS/FreshRSS/pull/2242)
 	* Improve Occitan [#2253](https://github.com/FreshRSS/FreshRSS/pull/2253)
 * Security
+	* Reworked the CSRF token interaction with the session in some edge cases [#2290](https://github.com/FreshRSS/FreshRSS/pull/2290)
 	* Remove deprecated CSP `child-src` instruction (was already replaced by `frame-src`) [#2250](https://github.com/FreshRSS/FreshRSS/pull/2250)
+	* Ensure entry IDs are unique and cannot be set by feeds [#2273](https://github.com/FreshRSS/FreshRSS/issues/2273)
 * Misc.
 	* Remove HHMV from Travis continuous integration [#2249](https://github.com/FreshRSS/FreshRSS/pull/2249)
 
