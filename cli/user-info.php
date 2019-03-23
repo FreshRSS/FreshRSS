@@ -4,14 +4,14 @@ require(__DIR__ . '/_cli.php');
 
 const DATA_FORMAT = "%-7s | %-20s | %-25s | %-15s | %-10s | %-10s | %-10s | %-10s | %-10s | %-10s\n";
 
-$params = array (
+$params = array(
 	'user:',
 	'header',
 );
 $options = getopt('h', $params);
 
 if (!validateOptions($argv, $params)) {
-	fail('Usage: ' . basename(__FILE__) . " (-h --header --user username --user username …)");
+	fail('Usage: ' . basename(__FILE__) . ' (-h --header --user username --user username …)');
 }
 
 if (empty($options['user'])) {
@@ -52,7 +52,7 @@ foreach ($users as $username) {
 	$nbEntries = $entryDAO->countUnreadRead();
 	$nbFavorites = $entryDAO->countUnreadReadFavorites();
 
-	$data = [
+	$data = array(
 		'default' => $username === FreshRSS_Context::$system_conf->default_user ? '*' : '',
 		'user' => $username,
 		'lastUpdate' => FreshRSS_UserDAO::mtime($username),
@@ -62,8 +62,8 @@ foreach ($users as $username) {
 		'reads' => $nbEntries['read'],
 		'unreads' => $nbEntries['unread'],
 		'favourites' => $nbFavorites['all'],
-		'tags' => $tagDAO->count()
-	];
+		'tags' => $tagDAO->count(),
+	);
 	if (isset($options['h'])) {	//Human format
 		$data['lastUpdate'] = date('c', $data['lastUpdate']);
 		$data['spaceUsed'] = format_bytes($data['spaceUsed']);
