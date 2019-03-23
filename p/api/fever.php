@@ -536,7 +536,7 @@ class FeverAPI
 				'id' => $entry->id(),
 				'feed_id' => $entry->feed(false),
 				'title' => escapeToUnicodeAlternative($entry->title(), false),
-				'author' => escapeToUnicodeAlternative($entry->authors(true), false),
+				'author' => escapeToUnicodeAlternative(trim($entry->authors(true), '; '), false),
 				'html' => $entry->content(),
 				'url' => htmlspecialchars_decode($entry->link(), ENT_QUOTES),
 				'is_saved' => $entry->isFavorite() ? 1 : 0,

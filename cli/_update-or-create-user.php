@@ -22,7 +22,7 @@ if (!$isUpdate) {
 
 $options = getopt('', $params);
 
-if (empty($options['user'])) {
+if (!validateOptions($argv, $params) || empty($options['user'])) {
 	fail('Usage: ' . basename($_SERVER['SCRIPT_FILENAME']) .
 		" --user username ( --password 'password' --api_password 'api_password'" .
 		" --language en --email user@example.net --token 'longRandomString'" .

@@ -158,11 +158,11 @@ return array(
 		'javascript' => 'Le JavaScript doit être activé pour pouvoir profiter des raccourcis.',
 		'last_article' => 'Passer au dernier article',
 		'load_more' => 'Charger plus d’articles',
-		'mark_favorite' => 'Mettre en favori',
-		'mark_read' => 'Marquer comme lu',
+		'mark_favorite' => 'Basculer l’indicateur de favori',
+		'mark_read' => 'Basculer l’indicateur de lecture',
 		'navigation' => 'Navigation',
 		'navigation_help' => 'Avec le modificateur "Shift", les raccourcis de navigation s’appliquent aux flux.<br/>Avec le modificateur "Alt", les raccourcis de navigation s’appliquent aux catégories.',
-		'navigation_no_mod_help' => 'The following navigation shortcuts do not support modifiers.',	//TODO - Translation
+		'navigation_no_mod_help' => 'Les raccourcis suivant ne supportent pas les modificateurs.',
 		'next_article' => 'Passer à l’article suivant',
 		'normal_view' => 'Basculer vers la vue normale',
 		'other_action' => 'Autres actions',
@@ -171,8 +171,8 @@ return array(
 		'rss_view' => 'Ouvrir le flux RSS dans un nouvel onglet',
 		'see_on_website' => 'Voir sur le site d’origine',
 		'shift_for_all_read' => '+ <code>shift</code> pour marquer tous les articles comme lus',
-		'skip_next_article' => 'Focus next without opening',	//TODO - Translation
-		'skip_previous_article' => 'Focus previous without opening',	//TODO - Translation
+		'skip_next_article' => 'Passer au suivant sans ouvrir',
+		'skip_previous_article' => 'Passer au précédent sans ouvrir',
 		'title' => 'Raccourcis',
 		'user_filter' => 'Accéder aux filtres utilisateur',
 		'user_filter_help' => 'S’il n’y a qu’un filtre utilisateur, celui-ci est utilisé automatiquement. Sinon ils sont accessibles par leur numéro.',

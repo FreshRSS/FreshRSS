@@ -44,6 +44,12 @@ var context;
 }());
 //</Global context>
 
+function badAjax() {
+	openNotification(context.i18n.notif_request_failed, 'bad');
+	location.reload();
+	return true;
+}
+
 function needsScroll(elem) {
 	const winBottom = document.documentElement.scrollTop + document.documentElement.clientHeight,
 		elemTop = elem.offsetParent.offsetTop + elem.offsetTop,
@@ -165,6 +171,9 @@ function send_mark_read_queue(queue, asRead) {
 			for (let i = queue.length - 1; i >= 0; i--) {
 				delete pending_entries['flux_' + queue[i]];
 			}
+			if (this.status == 403) {
+				badAjax();
+			}
 		};
 	req.onload = function (e) {
 			if (this.status != 200) {
@@ -269,6 +278,9 @@ function mark_favorite(div) {
 	req.onerror = function (e) {
 			openNotification(context.i18n.notif_request_failed, 'bad');
 			delete pending_entries[div.id];
+			if (this.status == 403) {
+				badAjax();
+			}
 		};
 	req.onload = function (e) {
 			if (this.status != 200) {
@@ -918,6 +930,9 @@ function init_stream(stream) {
 				req.responseType = 'json';
 				req.onerror = function (e) {
 						checkboxTag.checked = !isChecked;
+						if (this.status == 403) {
+							badAjax();
+						}
 					};
 				req.onload = function (e) {
 						if (this.status != 200) {
@@ -1008,6 +1023,9 @@ function updateFeed(feeds, feeds_count) {
 	const req = new XMLHttpRequest();
 	req.open('POST', feed.url, true);
 	req.onloadend = function (e) {
+			if (this.status != 200) {
+				return badAjax();
+			}
 			feed_processed++;
 			const div = document.getElementById('actualizeProgress');
 			div.querySelector('.progress').innerHTML = feed_processed + ' / ' + feeds_count;
@@ -1045,9 +1063,12 @@ function init_actualize() {
 		context.ajax_loading = true;
 
 		const req = new XMLHttpRequest();
-		req.open('GET', './?c=javascript&a=actualize', true);
+		req.open('POST', './?c=javascript&a=actualize', true);
 		req.responseType = 'json';
 		req.onload = function (e) {
+				if (this.status != 200) {
+					return badAjax();
+				}
 				const json = xmlHttpRequestJson(this);
 				if (auto && json.feeds.length < 1) {
 					auto = false;
@@ -1078,7 +1099,10 @@ function init_actualize() {
 					updateFeed(json.feeds, feeds_count);
 				}
 			};
-		req.send();
+		req.setRequestHeader('Content-Type', 'application/json');
+		req.send(JSON.stringify({
+				_csrf: context.csrf,
+			}));
 
 		return false;
 	};

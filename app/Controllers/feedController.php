@@ -374,15 +374,13 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 						// This entry should not be added considering configuration and date.
 						$oldGuids[] = $entry->guid();
 					} else {
-						if ($isNewFeed) {
-							$id = min(time(), $entry_date) . uSecString();
-						} elseif ($entry_date < $date_min) {
-							$id = min(time(), $entry_date) . uSecString();
+						$id = uTimeString();
+						$entry->_id($id);
+						if ($entry_date < $date_min) {
 							$entry->_isRead(true);	//Old article that was not in database. Probably an error, so mark as read
 						} else {
-							$id = uTimeString();
+							$entry->_isRead($read_upon_reception);
 						}
-						$entry->_id($id);
 
 						$entry->applyFilterActions();
 
