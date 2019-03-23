@@ -515,6 +515,93 @@ class FreshRSS_Feed extends Minz_Model {
 		return $this->filterActions;
 	}
 
+	private function _filterActions($filterActions) {
+		$this->filterActions = $filterActions;
+		if (is_array($this->filterActions) && !empty($this->filterActions)) {
+			$this->_attributes('filters', array_map(function ($af) {
+					return $af == null ? null : $af->toJSON();
+				}, $this->filterActions));
+		} else {
+			$this->_attributes('filters', null);
+		}
+	}
+
+	public function filtersAction($action) {
+		$action = trim($action);
+		if ($action == '') {
+			return array();
+		}
+		$filters = array();
+		$filterActions = $this->filterActions();
+		for ($i = count($filterActions) - 1; $i >= 0; $i--) {
+			$filterAction = $filterActions[$i];
+			if ($filterAction != null && $filterAction->booleanSearch() != null &&
+				$filterAction->actions() != null && in_array($action, $filterAction->actions(), true)) {
+				$filters[] = $filterAction->booleanSearch();
+			}
+		}
+		return $filters;
+	}
+
+	public function _filtersAction($action, $filters) {
+		$action = trim($action);
+		if ($action == '' || !is_array($filters)) {
+			return false;
+		}
+		$filters = array_unique(array_map('trim', $filters));
+		$filterActions = $this->filterActions();
+
+		//Check existing filters
+		for ($i = count($filterActions) - 1; $i >= 0; $i--) {
+			$filterAction = $filterActions[$i];
+			if ($filterAction == null || !is_array($filterAction->actions()) ||
+				$filterAction->booleanSearch() == null || trim($filterAction->booleanSearch()->getRawInput()) == '') {
+				array_splice($filterAction, $i, 1);
+				continue;
+			}
+			$actions = $filterAction->actions();
+			//Remove existing rules with same action
+			for ($j = count($actions) - 1; $j >= 0; $j--) {
+				if ($actions[$j] === $action) {
+					array_splice($actions, $j, 1);
+				}
+			}
+			//Update existing filter with new action
+			for ($k = count($filters) - 1; $k >= 0; $k --) {
+				$filter = $filters[$k];
+				if ($filter === $filterAction->booleanSearch()->getRawInput()) {
+					$actions[] = $action;
+					array_splice($filters, $k, 1);
+				}
+			}
+			//Save result
+			if (empty($actions)) {;
+				array_splice($filterActions, $i, 1);
+			} else {
+				$filterAction->_actions($actions);
+			}
+		}
+
+		//Add new filters
+		for ($k = count($filters) - 1; $k >= 0; $k --) {
+			$filter = $filters[$k];
+			if ($filter != '') {
+				$filterAction = FreshRSS_FilterAction::fromJSON(array(
+						'search' => $filter,
+						'actions' => array($action),
+					));
+				if ($filterAction != null) {
+					$filterActions[] = $filterAction;
+				}
+			}
+		}
+
+		if (empty($filterActions)) {
+			$filterActions = null;
+		}
+		$this->_filterActions($filterActions);
+	}
+
 	//<WebSub>
 
 	public function pubSubHubbubEnabled() {

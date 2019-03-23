@@ -33,6 +33,10 @@ return array(
 		'description' => 'Description',
 		'empty' => 'Ce flux est vide. Veuillez vérifier qu’il est toujours maintenu.',
 		'error' => 'Ce flux a rencontré un problème. Veuillez vérifier qu’il est toujours accessible puis actualisez-le.',
+		'filteractions' => array(
+			'_' => 'Filtres d’action',
+			'help' => 'Écrivez une recherche par ligne.',
+		),
 		'informations' => 'Informations',
 		'keep_history' => 'Nombre minimum d’articles à conserver',
 		'moved_category_deleted' => 'Lors de la suppression d’une catégorie, ses flux seront automatiquement classés dans <em>%s</em>.',

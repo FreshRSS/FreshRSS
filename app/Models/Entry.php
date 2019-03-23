@@ -191,10 +191,18 @@ class FreshRSS_Entry extends Minz_Model {
 		}
 		foreach ($booleanSearch->searches() as $filter) {
 			$ok = true;
-			$ok &= $filter->getMinPubdate() && $this->date >= $filter->getMinPubdate();
-			$ok &= $filter->getMaxPubdate() && $this->date <= $filter->getMaxPubdate();
-			$ok &= $filter->getMinDate() && strnatcmp($this->id, $filter->getMinDate() . '000000') >= 0;
-			$ok &= $filter->getMaxDate() && strnatcmp($this->id, $filter->getMaxDate() . '000000') <= 0;
+			if ($ok && $filter->getMinPubdate()) {
+				$ok &= $this->date >= $filter->getMinPubdate();
+			}
+			if ($ok && $filter->getMaxPubdate()) {
+				$ok &= $this->date <= $filter->getMaxPubdate();
+			}
+			if ($ok && $filter->getMinDate()) {
+				$ok &= strnatcmp($this->id, $filter->getMinDate() . '000000') >= 0;
+			}
+			if ($ok && $filter->getMaxDate()) {
+				$ok &= strnatcmp($this->id, $filter->getMaxDate() . '000000') <= 0;
+			}
 			if ($ok && $filter->getInurl()) {
 				foreach ($filter->getInurl() as $url) {
 					$ok &= stripos($this->link, $url) !== false;

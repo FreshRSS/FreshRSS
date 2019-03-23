@@ -289,7 +289,8 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 			}
 			$ttl = $feed->ttl();
 			if ((!$simplePiePush) && (!$feed_id) &&
-				($feed->lastUpdate() + 10 >= time() - ($ttl == FreshRSS_Feed::TTL_DEFAULT ? FreshRSS_Context::$user_conf->ttl_default : $ttl))) {
+				($feed->lastUpdate() + 10 >= time() -
+					($ttl == FreshRSS_Feed::TTL_DEFAULT ? FreshRSS_Context::$user_conf->ttl_default : $ttl))) {
 				//Too early to refresh from source, but check whether the feed was updated by another user
 				$mtime = $feed->cacheModifiedTime();
 				if ($feed->lastUpdate() + 10 >= $mtime) {
@@ -347,8 +348,8 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 					$entry_date = $entry->date(true);
 					if (isset($existingHashForGuids[$entry->guid()])) {
 						$existingHash = $existingHashForGuids[$entry->guid()];
-						if (strcasecmp($existingHash, $entry->hash()) === 0 || trim($existingHash, '0') == '') {
-							//This entry already exists and is unchanged. TODO: Remove the test with the zero'ed hash in FreshRSS v1.3
+						if (strcasecmp($existingHash, $entry->hash()) === 0) {
+							//This entry already exists and is unchanged.
 							$oldGuids[] = $entry->guid();
 						} else {	//This entry already exists but has been updated
 							//Minz_Log::debug('Entry with GUID `' . $entry->guid() . '` updated in feed ' . $feed->url(false) .
@@ -378,8 +379,6 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 						$entry->_id($id);
 						if ($entry_date < $date_min) {
 							$entry->_isRead(true);	//Old article that was not in database. Probably an error, so mark as read
-						} else {
-							$entry->_isRead($read_upon_reception);
 						}
 
 						$entry->applyFilterActions();
@@ -391,7 +390,8 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 						}
 
 						if ($pubSubHubbubEnabled && !$simplePiePush) {	//We use push, but have discovered an article by pull!
-							$text = 'An article was discovered by pull although we use PubSubHubbub!: Feed ' . $url . ' GUID ' . $entry->guid();
+							$text = 'An article was discovered by pull although we use PubSubHubbub!: Feed ' . $url .
+								' GUID ' . $entry->guid();
 							Minz_Log::warning($text, PSHB_LOG);
 							Minz_Log::warning($text);
 							$pubSubHubbubEnabled = false;
@@ -415,9 +415,7 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 					$entryDAO->beginTransaction();
 				}
 
-				$nb = $entryDAO->cleanOldEntries($feed->id(),
-				                                $date_min,
-				                                max($feed_history, count($entries) + 10));
+				$nb = $entryDAO->cleanOldEntries($feed->id(), $date_min, max($feed_history, count($entries) + 10));
 				if ($nb > 0) {
 					$needFeedCacheRefresh = true;
 					Minz_Log::debug($nb . ' old entries cleaned in feed [' . $feed->url(false) . ']');
@@ -597,11 +595,9 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 		if (self::moveFeed($feed_id, $cat_id)) {
 			// TODO: return something useful
 			// Log a notice to prevent "Empty IF statement" warning in PHP_CodeSniffer
-			Minz_Log::notice('Moved feed `' . $feed_id . '` ' .
-			                 'in the category `' . $cat_id . '`');;
+			Minz_Log::notice('Moved feed `' . $feed_id . '` ' . 'in the category `' . $cat_id . '`');
 		} else {
-			Minz_Log::warning('Cannot move feed `' . $feed_id . '` ' .
-			                  'in the category `' . $cat_id . '`');
+			Minz_Log::warning('Cannot move feed `' . $feed_id . '` ' . 'in the category `' . $cat_id . '`');
 			Minz_Error::error(404);
 		}
 	}
