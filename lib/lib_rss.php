@@ -170,7 +170,7 @@ function format_bytes($bytes, $precision = 2, $system = 'IEC') {
 	$pow = $bytes === 0 ? 0 : floor(log($bytes) / log($base));
 	$pow = min($pow, count($units) - 1);
 	$bytes /= pow($base, $pow);
-	return format_number($bytes, $precision) . ' ' . $units[$pow];
+	return format_number($bytes, $precision) . ' ' . $units[$pow];
 }
 
 function timestamptodate ($t, $hour = true) {
