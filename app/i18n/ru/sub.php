@@ -33,6 +33,10 @@ return array(
 		'description' => 'Description',	//TODO - Translation
 		'empty' => 'This feed is empty. Please verify that it is still maintained.',	//TODO - Translation
 		'error' => 'This feed has encountered a problem. Please verify that it is always reachable then actualize it.',	//TODO - Translation
+		'filteractions' => array(
+			'_' => 'Filter actions',	//TODO - Translation
+			'help' => 'Write one search filter per line.',	//TODO - Translation
+		),
 		'informations' => 'Information',	//TODO - Translation
 		'keep_history' => 'Minimum number of articles to keep',	//TODO - Translation
 		'moved_category_deleted' => 'When you delete a category, its feeds are automatically classified under <em>%s</em>.',	//TODO - Translation

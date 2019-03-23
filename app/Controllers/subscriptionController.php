@@ -110,6 +110,8 @@ class FreshRSS_subscription_Controller extends Minz_ActionController {
 				$feed->_attributes('timeout', null);
 			}
 
+			$feed->_filtersAction('read', preg_split('/[\n\r]+/', Minz_Request::param('filteractions_read', '')));
+
 			$values = array(
 				'name' => Minz_Request::param('name', ''),
 				'description' => sanitizeHTML(Minz_Request::param('description', '', true)),
@@ -121,7 +123,7 @@ class FreshRSS_subscription_Controller extends Minz_ActionController {
 				'httpAuth' => $httpAuth,
 				'keep_history' => intval(Minz_Request::param('keep_history', FreshRSS_Feed::KEEP_HISTORY_DEFAULT)),
 				'ttl' => $ttl * ($mute ? -1 : 1),
-				'attributes' => $feed->attributes()
+				'attributes' => $feed->attributes(),
 			);
 
 			invalidateHttpCache();

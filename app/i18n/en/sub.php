@@ -33,6 +33,10 @@ return array(
 		'description' => 'Description',
 		'empty' => 'This feed is empty. Please verify that it is still maintained.',
 		'error' => 'This feed has encountered a problem. Please verify that it is always reachable then update it.',
+		'filteractions' => array(
+			'_' => 'Filter actions',
+			'help' => 'Write one search filter per line.',
+		),
 		'informations' => 'Information',
 		'keep_history' => 'Minimum number of articles to keep',
 		'moved_category_deleted' => 'When you delete a category, its feeds are automatically classified under <em>%s</em>.',

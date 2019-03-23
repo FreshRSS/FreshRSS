@@ -234,6 +234,19 @@
 		</div>
 		<?php } ?>
 
+		<legend><?php echo _t('sub.feed.filteractions'); ?></legend>
+		<div class="form-group">
+			<label class="group-name" for="filteractions_read"><?php echo _t('conf.reading.read.when'); ?></label>
+			<div class="group-controls">
+				<textarea name="filteractions_read" id="filteractions_read"><?php
+					foreach ($this->feed->filtersAction('read') as $filterRead) {
+						echo htmlspecialchars($filterRead->getRawInput(), ENT_NOQUOTES, 'UTF-8'), "\n\n";
+					}
+				?></textarea>
+				<?php echo _i('help'); ?> <?php echo _t('sub.feed.filteractions.help'); ?>
+			</div>
+		</div>
+
 		<div class="form-group form-actions">
 			<div class="group-controls">
 				<button type="submit" class="btn btn-important"><?php echo _t('gen.action.submit'); ?></button>
