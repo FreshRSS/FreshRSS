@@ -187,9 +187,17 @@ class FreshRSS_TagDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 	public function count() {
 		$sql = 'SELECT COUNT(*) AS count FROM `' . $this->prefix . 'tag`';
 		$stm = $this->bd->prepare($sql);
-		$stm->execute();
-		$res = $stm->fetchAll(PDO::FETCH_ASSOC);
-		return $res[0]['count'];
+		if ($stm && $stm->execute()) {
+			$res = $stm->fetchAll(PDO::FETCH_ASSOC);
+			return $res[0]['count'];
+		} else {
+			$info = $stm == null ? array(0 => '', 1 => '', 2 => 'syntax error') : $stm->errorInfo();
+			if ($this->autoUpdateDb($info)) {
+				return $this->count();
+			}
+			Minz_Log::error('SQL error TagDAO::count: ' . $info[2]);
+			return false;
+		}
 	}
 
 	public function countEntries($id) {
