@@ -575,7 +575,7 @@ class FreshRSS_Feed extends Minz_Model {
 				}
 			}
 			//Save result
-			if (empty($actions)) {;
+			if (empty($actions)) {
 				array_splice($filterActions, $i, 1);
 			} else {
 				$filterAction->_actions($actions);
