@@ -13,3 +13,5 @@ if (FreshRSS_Context::$system_conf->default_user !== ''
 foreach ($users as $user) {
 	echo $user, "\n";
 }
+
+done();

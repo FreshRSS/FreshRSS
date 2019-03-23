@@ -51,3 +51,5 @@ foreach ($users as $username) {
 			"\n";
 	}
 }
+
+done();
