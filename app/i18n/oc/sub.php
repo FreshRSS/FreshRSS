@@ -33,8 +33,8 @@ return array(
 		'empty' => 'Aqueste flux es void. Assegurats-vos qu’es totjorn mantengut.',
 		'error' => 'Aqueste flux a rescontrat un problèma. Volgatz verificar que siá totjorn accessible puèi actualizatz-lo.',
 		'filteractions' => array(
-			'_' => 'Filter actions',	//TODO - Translation
-			'help' => 'Write one search filter per line.',	//TODO - Translation
+			'_' => 'Filtre d’accion',
+			'help' => 'Escrivètz una recèrca per linha.',
 		),
 		'informations' => 'Informacions',
 		'keep_history' => 'Nombre minimum d’articles de servar',
