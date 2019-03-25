@@ -3,10 +3,10 @@
 return array(
 	'archiving' => array(
 		'_' => 'Archivering',
-		'advanced' => 'Geavanceerd',
 		'delete_after' => 'Verwijder artikelen na',
 		'help' => 'Meer opties zijn beschikbaar in de persoonlijke stroom instellingen',
 		'keep_history_by_feed' => 'Minimum aantal te behouden artikelen in de feed',
+		'maintenance' => 'Maintenance',	//TODO - Translation
 		'optimize' => 'Optimaliseer database',
 		'optimize_help' => 'Doe dit zo af en toe om de omvang van de database te verkleinen',
 		'purge_now' => 'Schoon nu op',

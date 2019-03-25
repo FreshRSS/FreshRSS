@@ -3,10 +3,10 @@
 return array(
 	'archiving' => array(
 		'_' => 'Archivar',
-		'advanced' => 'Avançat',
 		'delete_after' => 'Levar los articles aprèp',
 		'help' => 'Mai d’opcions son disponiblas dins la configuracion individuala dels fluxes',
 		'keep_history_by_feed' => 'Nombre minimum d’articles de servar per flux',
+		'maintenance' => 'Maintenance',	//TODO - Translation
 		'optimize' => 'Optimizar la basa de donada',
 		'optimize_help' => 'De far de temps en temps per redusir la talha de la basa de donadas',
 		'purge_now' => 'Purgar ara',

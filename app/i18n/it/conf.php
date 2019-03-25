@@ -3,10 +3,10 @@
 return array(
 	'archiving' => array(
 		'_' => 'Archiviazione',
-		'advanced' => 'Avanzate',
 		'delete_after' => 'Rimuovi articoli dopo',
 		'help' => 'Altre opzioni sono disponibili nelle impostazioni dei singoli feed',
 		'keep_history_by_feed' => 'Numero minimo di articoli da mantenere per feed',
+		'maintenance' => 'Maintenance',	//TODO - Translation
 		'optimize' => 'Ottimizza database',
 		'optimize_help' => 'Da fare occasionalmente per ridurre le dimensioni del database',
 		'purge_now' => 'Cancella ora',

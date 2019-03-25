@@ -3,10 +3,10 @@
 return array(
 	'archiving' => array(
 		'_' => 'Archivo',
-		'advanced' => 'Avanzado',
 		'delete_after' => 'Eliminar artículos tras',
 		'help' => 'Hay más opciones disponibles en los ajustes de la fuente',
 		'keep_history_by_feed' => 'Número mínimo de artículos a conservar por fuente',
+		'maintenance' => 'Maintenance',	//TODO - Translation
 		'optimize' => 'Optimizar la base de datos',
 		'optimize_help' => 'Ejecuta la optimización de vez en cuando para reducir el tamaño de la base de datos',
 		'purge_now' => 'Limpiar ahora',

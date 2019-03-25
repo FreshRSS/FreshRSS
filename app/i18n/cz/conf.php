@@ -3,10 +3,10 @@
 return array(
 	'archiving' => array(
 		'_' => 'Archivace',
-		'advanced' => 'Pokročilé',
 		'delete_after' => 'Smazat články starší než',
 		'help' => 'Více možností je dostupných v nastavení jednotlivých kanálů',
 		'keep_history_by_feed' => 'Zachovat tento minimální počet článků v každém kanálu',
+		'maintenance' => 'Maintenance',	//TODO - Translation
 		'optimize' => 'Optimalizovat databázi',
 		'optimize_help' => 'Občasná údržba zmenší velikost databáze',
 		'purge_now' => 'Vyčistit nyní',

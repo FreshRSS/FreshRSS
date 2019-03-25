@@ -3,10 +3,10 @@
 return array(
 	'archiving' => array(
 		'_' => '存档',
-		'advanced' => '高级',
 		'delete_after' => '文章保留',
 		'help' => '详细选项位于单独的 RSS 源设置',
 		'keep_history_by_feed' => '至少保存的文章数',
+		'maintenance' => 'Maintenance',	//TODO - Translation
 		'optimize' => '优化数据库',
 		'optimize_help' => '偶尔执行优化可以减少数据库大小',
 		'purge_now' => '立即清除',

@@ -3,10 +3,10 @@
 return array(
 	'archiving' => array(
 		'_' => 'ארכוב',
-		'advanced' => 'מתקדם',
 		'delete_after' => 'מחיקת מאמרים לאחר',
 		'help' => 'אפשרויות נוספות זמינות בזרמים ספציפיים',
 		'keep_history_by_feed' => 'Minimum number of articles to keep by feed',	//TODO - Translation
+		'maintenance' => 'Maintenance',	//TODO - Translation
 		'optimize' => 'מיטוב בסיס הנתונים',
 		'optimize_help' => 'ביצוע לעיתים קרובות על מנת למטב את בסיס הנתונים',
 		'purge_now' => 'ניקוי עכשיו',

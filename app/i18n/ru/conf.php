@@ -3,10 +3,10 @@
 return array(
 	'archiving' => array(
 		'_' => 'Архивация',
-		'advanced' => 'Продвинутые настройки',
 		'delete_after' => 'Удалять статьи после',
 		'help' => 'Каждую подписку можно настроить более гибко',
 		'keep_history_by_feed' => 'Minimum number of articles to keep by feed', 	//TODO - Translation
+		'maintenance' => 'Maintenance', 	//TODO - Translation
 		'optimize' => 'Оптимизировать базу данных',
 		'optimize_help' => 'To do occasionally to reduce the size of the database', 	//TODO - Translation
 		'purge_now' => 'Очистить сейчас',

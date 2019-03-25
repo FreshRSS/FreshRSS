@@ -3,10 +3,10 @@
 return array(
 	'archiving' => array(
 		'_' => 'Arşiv',
-		'advanced' => 'Gelişmiş',
 		'delete_after' => 'Makelelerin tutulacağı süre',
 		'help' => 'Akış ayarlarında daha çok ayar bulabilirsiniz',
 		'keep_history_by_feed' => 'Akışta en az tutulacak makale sayısı',
+		'maintenance' => 'Maintenance',	//TODO - Translation
 		'optimize' => 'Veritabanı optimize et',
 		'optimize_help' => 'Bu işlem bazen veritabanı boyutunu düşürmeye yardımcı olur',
 		'purge_now' => 'Şimdi temizle',

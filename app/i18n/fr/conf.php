@@ -3,10 +3,10 @@
 return array(
 	'archiving' => array(
 		'_' => 'Archivage',
-		'advanced' => 'Avancé',
 		'delete_after' => 'Supprimer les articles après',
 		'help' => 'D’autres options sont disponibles dans la configuration individuelle des flux.',
 		'keep_history_by_feed' => 'Nombre minimum d’articles à conserver par flux',
+		'maintenance' => 'Maintenance',
 		'optimize' => 'Optimiser la base de données',
 		'optimize_help' => 'À faire de temps en temps pour réduire la taille de la BDD',
 		'purge_now' => 'Purger maintenant',
