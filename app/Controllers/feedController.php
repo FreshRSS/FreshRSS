@@ -420,7 +420,7 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 					$entryDAO->beginTransaction();
 				}
 
-				$nb = $entryDAO->cleanOldEntries($feed->id(), $date_min, max($feed_history, count($entries) + 10));
+				$nb = $entryDAO->cleanOldEntries($feed->id(), FreshRSS_Context::$user_conf->archiving);
 				if ($nb > 0) {
 					$needFeedCacheRefresh = true;
 					Minz_Log::debug($nb . ' old entries cleaned in feed [' . $feed->url(false) . ']');

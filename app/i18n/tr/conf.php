@@ -5,11 +5,17 @@ return array(
 		'_' => 'Arşiv',
 		'delete_after' => 'Makelelerin tutulacağı süre',
 		'help' => 'Akış ayarlarında daha çok ayar bulabilirsiniz',
+		'keep_favourites' => 'Never delete favourites',	//TODO - Translation
 		'keep_history_by_feed' => 'Akışta en az tutulacak makale sayısı',
+		'keep_labels' => 'Never delete labels',	//TODO - Translation
+		'keep_unreads' => 'Never delete unreads',	//TODO - Translation
 		'maintenance' => 'Maintenance',	//TODO - Translation
 		'optimize' => 'Veritabanı optimize et',
 		'optimize_help' => 'Bu işlem bazen veritabanı boyutunu düşürmeye yardımcı olur',
+		'policy' => 'Purge policy',	//TODO - Translation
 		'purge_now' => 'Şimdi temizle',
+		'retention_count_limit' => 'Maximum number of articles to keep',	//TODO - Translation
+		'retention_period' => 'Maximum age of articles to keep',	//TODO - Translation
 		'title' => 'Arşiv',
 		'ttl' => 'Şu süreden sık otomatik yenileme yapma',
 	),

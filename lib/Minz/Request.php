@@ -52,6 +52,12 @@ class Minz_Request {
 		}
 		return null;
 	}
+	public static function paramBoolean($key) {
+		if (null === $value = self::paramTernary($key)) {
+			return false;
+		}
+		return $value;
+	}
 	public static function defaultControllerName() {
 		return self::$default_controller_name;
 	}

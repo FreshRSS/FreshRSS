@@ -5,11 +5,17 @@ return array(
 		'_' => 'Archivar',
 		'delete_after' => 'Levar los articles aprèp',
 		'help' => 'Mai d’opcions son disponiblas dins la configuracion individuala dels fluxes',
+		'keep_favourites' => 'Never delete favourites',	//TODO - Translation
 		'keep_history_by_feed' => 'Nombre minimum d’articles de servar per flux',
+		'keep_labels' => 'Never delete labels',	//TODO - Translation
+		'keep_unreads' => 'Never delete unreads',	//TODO - Translation
 		'maintenance' => 'Maintenance',	//TODO - Translation
 		'optimize' => 'Optimizar la basa de donada',
 		'optimize_help' => 'De far de temps en temps per redusir la talha de la basa de donadas',
+		'policy' => 'Purge policy',	//TODO - Translation
 		'purge_now' => 'Purgar ara',
+		'retention_count_limit' => 'Maximum number of articles to keep',	//TODO - Translation
+		'retention_period' => 'Maximum age of articles to keep',	//TODO - Translation
 		'title' => 'Archivar',
 		'ttl' => 'Actualizar pas automaticament mai sovent que',
 	),

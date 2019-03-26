@@ -5,11 +5,17 @@ return array(
 		'_' => 'Archiviazione',
 		'delete_after' => 'Rimuovi articoli dopo',
 		'help' => 'Altre opzioni sono disponibili nelle impostazioni dei singoli feed',
+		'keep_favourites' => 'Never delete favourites',	//TODO - Translation
 		'keep_history_by_feed' => 'Numero minimo di articoli da mantenere per feed',
+		'keep_labels' => 'Never delete labels',	//TODO - Translation
+		'keep_unreads' => 'Never delete unreads',	//TODO - Translation
 		'maintenance' => 'Maintenance',	//TODO - Translation
 		'optimize' => 'Ottimizza database',
 		'optimize_help' => 'Da fare occasionalmente per ridurre le dimensioni del database',
+		'policy' => 'Purge policy',	//TODO - Translation
 		'purge_now' => 'Cancella ora',
+		'retention_count_limit' => 'Maximum number of articles to keep',	//TODO - Translation
+		'retention_period' => 'Maximum age of articles to keep',	//TODO - Translation
 		'title' => 'Archiviazione',
 		'ttl' => 'Non effettuare aggiornamenti per più di',
 	),

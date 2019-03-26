@@ -5,11 +5,17 @@ return array(
 		'_' => '存档',
 		'delete_after' => '文章保留',
 		'help' => '详细选项位于单独的 RSS 源设置',
+		'keep_favourites' => 'Never delete favourites',	//TODO - Translation
 		'keep_history_by_feed' => '至少保存的文章数',
+		'keep_labels' => 'Never delete labels',	//TODO - Translation
+		'keep_unreads' => 'Never delete unreads',	//TODO - Translation
 		'maintenance' => 'Maintenance',	//TODO - Translation
 		'optimize' => '优化数据库',
 		'optimize_help' => '偶尔执行优化可以减少数据库大小',
+		'policy' => 'Purge policy',	//TODO - Translation
 		'purge_now' => '立即清除',
+		'retention_count_limit' => 'Maximum number of articles to keep',	//TODO - Translation
+		'retention_period' => 'Maximum age of articles to keep',	//TODO - Translation
 		'title' => '存档',
 		'ttl' => '最小自动更新时间',
 	),

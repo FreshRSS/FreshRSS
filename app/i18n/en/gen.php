@@ -160,6 +160,13 @@ return array(
 		'nothing_to_load' => 'There are no more articles',
 		'previous' => 'Previous',
 	),
+	'period' => array(
+		'days' => 'days',
+		'hours' => 'hours',
+		'months' => 'months',
+		'weeks' => 'weeks',
+		'years' => 'years',
+	),
 	'share' => array(
 		'blogotext' => 'Blogotext',
 		'diaspora' => 'Diaspora*',

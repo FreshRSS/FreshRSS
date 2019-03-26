@@ -5,11 +5,17 @@ return array(
 		'_' => 'Archivo',
 		'delete_after' => 'Eliminar artículos tras',
 		'help' => 'Hay más opciones disponibles en los ajustes de la fuente',
+		'keep_favourites' => 'Never delete favourites',	//TODO - Translation
 		'keep_history_by_feed' => 'Número mínimo de artículos a conservar por fuente',
+		'keep_labels' => 'Never delete labels',	//TODO - Translation
+		'keep_unreads' => 'Never delete unreads',	//TODO - Translation
 		'maintenance' => 'Maintenance',	//TODO - Translation
 		'optimize' => 'Optimizar la base de datos',
 		'optimize_help' => 'Ejecuta la optimización de vez en cuando para reducir el tamaño de la base de datos',
+		'policy' => 'Purge policy',	//TODO - Translation
 		'purge_now' => 'Limpiar ahora',
+		'retention_count_limit' => 'Maximum number of articles to keep',	//TODO - Translation
+		'retention_period' => 'Maximum age of articles to keep',	//TODO - Translation
 		'title' => 'Archivo',
 		'ttl' => 'No actualizar automáticamente más de',
 	),
