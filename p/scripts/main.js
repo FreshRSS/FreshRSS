@@ -462,9 +462,7 @@ function next_feed() {
 
 function first_feed() {
 	const a = document.querySelector('#aside_feed .category.active .feed:not([data-unread="0"]) a.item-title');
-	if (a) {
-		delayedClick(a);
-	}
+	delayedClick(a);
 }
 
 function last_feed() {
@@ -504,9 +502,7 @@ function next_category() {
 
 function first_category() {
 	const a = document.querySelector('#aside_feed .category:not([data-unread="0"]) a.title');
-	if (a) {
-		delayedClick(a);
-	}
+	delayedClick(a);
 }
 
 function last_category() {
