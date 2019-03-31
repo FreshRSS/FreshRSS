@@ -585,7 +585,7 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 				$feed_id, $item['id'], $item['title'], $author,
 				$content, $url, $published, $is_read, $is_starred
 			);
-			$entry->_id(min(time(), $entry->date(true)) . uSecString());
+			$entry->_id(uTimeString());
 			$entry->_tags($tags);
 
 			if (isset($newGuids[$entry->guid()])) {

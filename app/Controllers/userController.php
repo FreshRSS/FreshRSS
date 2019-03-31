@@ -128,9 +128,7 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 	public function profileAction() {
 		Minz_View::prependTitle(_t('conf.profile.title') . ' · ');
 
-		Minz_View::appendScript(Minz_Url::display(
-			'/scripts/bcrypt.min.js?' . @filemtime(PUBLIC_PATH . '/scripts/bcrypt.min.js')
-		));
+		Minz_View::appendScript(Minz_Url::display('/scripts/bcrypt.min.js?' . @filemtime(PUBLIC_PATH . '/scripts/bcrypt.min.js')));
 
 		if (Minz_Request::isPost()) {
 			$passwordPlain = Minz_Request::param('newPasswordPlain', '', true);
@@ -249,6 +247,7 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 				$user_conf = get_user_configuration($new_user_name);
 				Minz_Session::_param('currentUser', $new_user_name);
 				Minz_Session::_param('passwordHash', $user_conf->passwordHash);
+				Minz_Session::_param('csrf');
 				FreshRSS_Auth::giveAccess();
 			}
 

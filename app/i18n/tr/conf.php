@@ -92,7 +92,7 @@ return array(
 		'auto_remove_article' => 'Okuduktan sonra makaleleri gizle',
 		'confirm_enabled' => '"Hepsini okundu say" eylemi için onay iste',
 		'display_articles_unfolded' => 'Show articles unfolded by default',
-		'display_categories_unfolded' => 'Show categories folded by default',
+		'display_categories_unfolded' => 'Show categories unfolded by default',
 		'hide_read_feeds' => 'Okunmamış makalesi olmayan kategori veya akışı gizle ("Tüm makaleleri göster" komutunda çalışmaz)',
 		'img_with_lazyload' => 'Resimleri yüklemek için "tembel modu" kullan',
 		'jump_next' => 'Bir sonraki benzer okunmamışa geç (akış veya kategori)',

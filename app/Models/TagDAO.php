@@ -187,9 +187,17 @@ class FreshRSS_TagDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 	public function count() {
 		$sql = 'SELECT COUNT(*) AS count FROM `' . $this->prefix . 'tag`';
 		$stm = $this->bd->prepare($sql);
-		$stm->execute();
-		$res = $stm->fetchAll(PDO::FETCH_ASSOC);
-		return $res[0]['count'];
+		if ($stm && $stm->execute()) {
+			$res = $stm->fetchAll(PDO::FETCH_ASSOC);
+			return $res[0]['count'];
+		} else {
+			$info = $stm == null ? array(0 => '', 1 => '', 2 => 'syntax error') : $stm->errorInfo();
+			if ($this->autoUpdateDb($info)) {
+				return $this->count();
+			}
+			Minz_Log::error('SQL error TagDAO::count: ' . $info[2]);
+			return false;
+		}
 	}
 
 	public function countEntries($id) {
@@ -256,9 +264,8 @@ class FreshRSS_TagDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 		}
 	}
 
-	//For API
-	public function getEntryIdsTagNames($entries) {
-		$sql = 'SELECT et.id_entry, t.name '
+	public function getTagsForEntries($entries) {
+		$sql = 'SELECT et.id_entry, et.id_tag, t.name '
 			 . 'FROM `' . $this->prefix . 'tag` t '
 			 . 'INNER JOIN `' . $this->prefix . 'entrytag` et ON et.id_tag = t.id';
 
@@ -282,24 +289,29 @@ class FreshRSS_TagDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 		$stm = $this->bd->prepare($sql);
 
 		if ($stm && $stm->execute($values)) {
-			$result = array();
-			foreach ($stm->fetchAll(PDO::FETCH_ASSOC) as $line) {
-				$entryId = 'e_' . $line['id_entry'];
-				$tagName = $line['name'];
-				if (empty($result[$entryId])) {
-					$result[$entryId] = array();
-				}
-				$result[$entryId][] = $tagName;
-			}
-			return $result;
+			return $stm->fetchAll(PDO::FETCH_ASSOC);
 		} else {
 			$info = $stm == null ? array(0 => '', 1 => '', 2 => 'syntax error') : $stm->errorInfo();
 			if ($this->autoUpdateDb($info)) {
-				return $this->getTagNamesEntryIds($id_entry);
+				return $this->getTagsForEntries($entries);
 			}
-			Minz_Log::error('SQL error getTagNamesEntryIds: ' . $info[2]);
+			Minz_Log::error('SQL error getTagsForEntries: ' . $info[2]);
 			return false;
 		}
+	}
+
+	//For API
+	public function getEntryIdsTagNames($entries) {
+		$result = array();
+		foreach ($this->getTagsForEntries($entries) as $line) {
+			$entryId = 'e_' . $line['id_entry'];
+			$tagName = $line['name'];
+			if (empty($result[$entryId])) {
+				$result[$entryId] = array();
+			}
+			$result[$entryId][] = $tagName;
+		}
+		return $result;
 	}
 
 	public static function daoToTag($listDAO) {

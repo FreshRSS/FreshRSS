@@ -27,12 +27,16 @@ return array(
 			'password' => 'HTTP 密码',
 			'username' => 'HTTP 用户名',
 		),
-		'clear_cache' => 'Always clear cache',	//TODO - Translation
+		'clear_cache' => '总是清除缓存',
 		'css_help' => '用于获取全文（注意，这将耗费更多时间！）',
 		'css_path' => '原文的 CSS 选择器',
 		'description' => '描述',
 		'empty' => '此源为空。请确认它是否正常更新。',
 		'error' => '此源遇到一些问题。请在确认是否能正常访问后重试。',
+		'filteractions' => array(
+			'_' => 'Filter actions',	//TODO - Translation
+			'help' => 'Write one search filter per line.',	//TODO - Translation
+		),
 		'informations' => '信息',
 		'keep_history' => '至少保存的文章数',
 		'moved_category_deleted' => '删除分类时，其中的 RSS 源会自动归类到 <em>%s</em>',
@@ -47,16 +51,16 @@ return array(
 		),
 		'websub' => 'WebSub 即时通知',
 		'show' => array(
-			'all' => 'Show all feeds',	//TODO - Translation
-			'error' => 'Show only feeds with error',	//TODO - Translation
+			'all' => '显示所有 RSS 源',
+			'error' => '仅显示有错误的 RSS 源',
 		),
 		'showing' => array(
-			'error' => 'Showing only feeds with error',	//TODO - Translation
+			'error' => '正在显示有错误的 RSS 源',
 		),
-		'ssl_verify' => 'Verify SSL security',	//TODO - Translation
+		'ssl_verify' => '验证 SSL 安全',
 		'stats' => '统计',
 		'think_to_add' => '你可以添加一些 RSS 源。',
-		'timeout' => 'Timeout in seconds',	//TODO - Translation
+		'timeout' => '超时时间（秒）',
 		'title' => '标题',
 		'title_add' => '添加 RSS 源',
 		'ttl' => '最小自动更新时间',
@@ -72,7 +76,7 @@ return array(
 		'export' => '导出',
 		'export_opml' => '导出 RSS 源列表 (OPML)',
 		'export_starred' => '导出你的收藏',
-		'export_labelled' => 'Export your labelled articles',	//TODO
+		'export_labelled' => '导出有标签的文章',
 		'feed_list' => '%s 文章列表',
 		'file_to_import' => '需要导入的文件<br />(OPML, JSON 或 ZIP)',
 		'file_to_import_no_zip' => '需要导入的文件<br />(OPML 或 JSON)',

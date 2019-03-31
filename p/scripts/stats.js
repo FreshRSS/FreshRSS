@@ -1,6 +1,6 @@
 "use strict";
 /* globals Flotr, numberFormat */
-/* jshint globalstrict: true */
+/* jshint esversion:6, strict:global */
 
 function initStats() {
 	if (!window.Flotr) {
@@ -10,12 +10,12 @@ function initStats() {
 		window.setTimeout(initStats, 50);
 		return;
 	}
-	var jsonStats = document.getElementById('jsonStats'),
+	const jsonStats = document.getElementById('jsonStats'),
 		stats = JSON.parse(jsonStats.innerHTML);
 	jsonStats.outerHTML = '';
 	// Entry per day
-	var avg = [];
-	for (var i = -31; i <= 0; i++) {
+	const avg = [];
+	for (let i = -31; i <= 0; i++) {
 		avg.push([i, stats.average]);
 	}
 	Flotr.draw(document.getElementById('statsEntryPerDay'),

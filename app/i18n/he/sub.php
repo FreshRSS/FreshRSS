@@ -33,6 +33,10 @@ return array(
 		'description' => 'תיאור',
 		'empty' => 'הזנה זו ריקה. אנא ודאו שהיא עדיין מתוחזקת.',
 		'error' => 'הזנה זו נתקלה בשגיאה, אנא ודאו שהיא תקינה ואז נסו שנית.',
+		'filteractions' => array(
+			'_' => 'Filter actions',	//TODO - Translation
+			'help' => 'Write one search filter per line.',	//TODO - Translation
+		),
 		'informations' => 'מידע',
 		'keep_history' => 'מסםר מינימלי של מאמרים לשמור',
 		'moved_category_deleted' => 'כאשר הקטגוריה נמחקת ההזנות שבתוכה אוטומטית מקוטלגות תחת  <em>%s</em>.',

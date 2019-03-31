@@ -196,6 +196,8 @@ See our [Fever API documentation](https://freshrss.github.io/FreshRSS/en/users/0
 
 Supported clients are:
 
+* Android
+	* [Readably](https://play.google.com/store/apps/details?id=com.isaiasmatewos.readably) (Closed source)
 * iOS
 	* [Fiery Feeds](https://itunes.apple.com/app/fiery-feeds-rss-reader/id1158763303) (Closed source)
 	* [Unread](https://itunes.apple.com/app/unread-rss-reader/id1252376153) (Closed source)
@@ -210,7 +212,6 @@ Supported clients are:
 * [php-http-304](https://alexandre.alapetite.fr/doc-alex/php-http-304/)
 * [jQuery](https://jquery.com/)
 * [lib_opml](https://github.com/marienfressinaud/lib_opml)
-* [keyboard_shortcuts](http://www.openjs.com/scripts/events/keyboard_shortcuts/)
 * [flotr2](http://www.humblesoftware.com/flotr2)
 
 ## Only for some options or configurations

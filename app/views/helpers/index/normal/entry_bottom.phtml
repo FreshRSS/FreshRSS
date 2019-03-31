@@ -93,7 +93,7 @@
 						<a target="_blank" rel="noreferrer" href="<?php echo $share->url(); ?>"><?php echo $share->name(); ?></a>
 					<?php } else {?>
 						<a href="POST"><?php echo $share->name(); ?></a>
-						<form method="POST" data-url="<?php echo $share->url(); ?>">
+						<form method="POST" action="<?php echo $share->url(); ?>" disabled="disabled">
 							<input type="hidden" value="<?php echo $link; ?>" name="<?php echo $share->field(); ?>"/>
 						</form>
 					<?php } ?>

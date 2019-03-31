@@ -1,0 +1,53 @@
+// La couleur principale du thème
+$main-first: #3366cc; // couleur principale
+$main-first-alt: #2255cc; // var pour les hovers
+$main-first-light: #effcfd; // var light 1
+$main-first-lighter: #f7fdfe; // var light 2
+$main-first-dark: #35363c; // var pour les hovers
+$main-first-darker: #1d1e22; // var pour les hovers
+
+// les couleurs de polices liées
+$main-font-color: #303136;
+$light-font-color: #5b6871;
+$white: #fff; // le blanc (des fois qu'on aurait envie de le teinter un peu)
+
+// toute la palette des gris, très utile
+// on essaiera de teinter ces gris suivant la couleur principale
+$grey-darker: #3b3f4d;
+$grey-dark: #5b6871;
+$grey-medium-dark: #a6a7ae; 
+$grey-medium: #c5ced3;
+$grey-medium-light: #d5d8db; 
+$grey-light: #eff0f2; 
+$grey-lighter: #f9fafb; 
+
+$unread-font-color: $main-first;
+$unread-bg: #f2f6f8;
+$unread-bg-light: #fdfdfe;
+
+// les couleurs d'alertes (rouge, jaune, vert)
+$alert-bg: #f5633e; // la base
+$alert-light: #fde0d8; // +light
+$alert-text: #73341f; // +foncé
+
+$warning-bg: #f4f762;
+$warning-light: #fdfde0;
+$warning-text: #73762f;
+
+$success-bg: #10f587;
+$success-light: #cffde7;
+$success-text: #0c7540;
+
+// les favoris
+$fav-bg: #FFC300;
+$fav-light: #FFF6DA;
+
+// la couleur de sidebar, utile si on a envie d'un thème qui aurait une sidebar foncé, e.g.
+$sid-font-color: #FFFFFF; // la couleur de fond de la barre de gauche et du header
+$sid-bg: #303136; // le background général de la barre de gauche, et du header
+$sid-bg-alt: #26272a; // le background de l'intérieur des groupes
+$sid-bg-dark: #17181a; // les hovers
+$sid-sep: #3f3f3f; // les séparateurs
+$sid-active: $main-first; // la couleur active
+$sid-active-font: #FFFFFF; // la couleur active
+$sid-pills: rgba(0,0,0, 0.25); // les gélules

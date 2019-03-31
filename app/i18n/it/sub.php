@@ -33,6 +33,10 @@ return array(
 		'description' => 'Descrizione',
 		'empty' => 'Questo feed non contiene articoli. Per favore verifica il sito direttamente.',
 		'error' => 'Questo feed ha generato un errore. Per favore verifica se ancora disponibile.',
+		'filteractions' => array(
+			'_' => 'Filter actions',	//TODO - Translation
+			'help' => 'Write one search filter per line.',	//TODO - Translation
+		),
 		'informations' => 'Informazioni',
 		'keep_history' => 'Numero minimo di articoli da mantenere',
 		'moved_category_deleted' => 'Cancellando una categoria i feed al suo interno verranno classificati automaticamente come <em>%s</em>.',

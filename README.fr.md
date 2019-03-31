@@ -196,6 +196,8 @@ Voir notre [documentation sur l’API Fever](https://freshrss.github.io/FreshRSS
 
 Tout client supportant une API de type Fever ; Sélection :
 
+* Android
+	* [Readably](https://play.google.com/store/apps/details?id=com.isaiasmatewos.readably) (Propriétaire)
 * iOS
 	* [Fiery Feeds](https://itunes.apple.com/app/fiery-feeds-rss-reader/id1158763303) (Propriétaire)
 	* [Unread](https://itunes.apple.com/app/unread-rss-reader/id1252376153) (Propriétaire)
@@ -210,7 +212,6 @@ Tout client supportant une API de type Fever ; Sélection :
 * [php-http-304](https://alexandre.alapetite.fr/doc-alex/php-http-304/)
 * [jQuery](https://jquery.com/)
 * [lib_opml](https://github.com/marienfressinaud/lib_opml)
-* [keyboard_shortcuts](http://www.openjs.com/scripts/events/keyboard_shortcuts/)
 * [flotr2](http://www.humblesoftware.com/flotr2)
 
 ## Uniquement pour certaines options ou configurations

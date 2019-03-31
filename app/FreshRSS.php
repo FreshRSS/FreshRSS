@@ -57,18 +57,26 @@ class FreshRSS extends Minz_FrontController {
 
 	private static function initAuth() {
 		FreshRSS_Auth::init();
-		if (Minz_Request::isPost() && !(is_referer_from_same_domain() && FreshRSS_Auth::isCsrfOk())) {
-			// Basic protection against XSRF attacks
-			FreshRSS_Auth::removeAccess();
-			$http_referer = empty($_SERVER['HTTP_REFERER']) ? '' : $_SERVER['HTTP_REFERER'];
-			Minz_Translate::init('en');	//TODO: Better choice of fallback language
-			Minz_Error::error(
-				403,
-				array('error' => array(
-					_t('feedback.access.denied'),
-					' [HTTP_REFERER=' . htmlspecialchars($http_referer, ENT_NOQUOTES, 'UTF-8') . ']'
-				))
-			);
+		if (Minz_Request::isPost()) {
+			if (!is_referer_from_same_domain()) {
+				// Basic protection against XSRF attacks
+				FreshRSS_Auth::removeAccess();
+				$http_referer = empty($_SERVER['HTTP_REFERER']) ? '' : $_SERVER['HTTP_REFERER'];
+				Minz_Translate::init('en');	//TODO: Better choice of fallback language
+				Minz_Error::error(403, array('error' => array(
+						_t('feedback.access.denied'),
+						' [HTTP_REFERER=' . htmlspecialchars($http_referer, ENT_NOQUOTES, 'UTF-8') . ']'
+					)));
+			}
+			if ((!FreshRSS_Auth::isCsrfOk()) &&
+				(Minz_Request::controllerName() !== 'auth' || Minz_Request::actionName() !== 'login')) {
+				// Token-based protection against XSRF attacks, except for the login form itself
+				Minz_Translate::init('en');	//TODO: Better choice of fallback language
+				Minz_Error::error(403, array('error' => array(
+						_t('feedback.access.denied'),
+						' [CSRF]'
+					)));
+			}
 		}
 	}
 
@@ -94,9 +102,10 @@ class FreshRSS extends Minz_FrontController {
 			}
 		}
 		//Use prepend to insert before extensions. Added in reverse order.
+		if (Minz_Request::controllerName() !== 'index') {
+			Minz_View::prependScript(Minz_Url::display('/scripts/extra.js?' . @filemtime(PUBLIC_PATH . '/scripts/extra.js')));
+		}
 		Minz_View::prependScript(Minz_Url::display('/scripts/main.js?' . @filemtime(PUBLIC_PATH . '/scripts/main.js')));
-		Minz_View::prependScript(Minz_Url::display('/scripts/shortcut.js?' . @filemtime(PUBLIC_PATH . '/scripts/shortcut.js')));
-		Minz_View::prependScript(Minz_Url::display('/scripts/jquery.min.js?' . @filemtime(PUBLIC_PATH . '/scripts/jquery.min.js')));
 	}
 
 	private static function loadNotifications() {
@@ -116,7 +125,7 @@ class FreshRSS extends Minz_FrontController {
 					}
 				}, FreshRSS_Context::$user_conf->sharing));
 				$connectSrc = count($urlToAuthorize) ? sprintf("; connect-src 'self' %s", implode(' ', $urlToAuthorize)) : '';
-				header(sprintf("Content-Security-Policy: default-src 'self'; child-src *; frame-src *; img-src * data:; media-src *%s", $connectSrc));
+				header(sprintf("Content-Security-Policy: default-src 'self'; frame-src *; img-src * data:; media-src *%s", $connectSrc));
 				break;
 			case 'stats':
 				header("Content-Security-Policy: default-src 'self'; style-src 'self' 'unsafe-inline'");

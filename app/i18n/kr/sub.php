@@ -27,12 +27,16 @@ return array(
 			'password' => 'HTTP 암호',
 			'username' => 'HTTP 사용자 이름',
 		),
-		'clear_cache' => 'Always clear cache',	//TODO - Translation
+		'clear_cache' => '항상 캐시 지우기',
 		'css_help' => '글의 일부가 포함된 RSS 피드를 가져옵니다 (주의, 시간이 좀 더 걸립니다!)',
 		'css_path' => '웹사이트 상의 글 본문에 해당하는 CSS 경로',
 		'description' => '설명',
 		'empty' => '이 피드는 비어있습니다. 피드가 계속 운영되고 있는지 확인하세요.',
 		'error' => '이 피드에 문제가 발생했습니다. 이 피드에 접근 권한이 있는지 확인하세요.',
+		'filteractions' => array(
+			'_' => 'Filter actions',	//TODO - Translation
+			'help' => 'Write one search filter per line.',	//TODO - Translation
+		),
 		'informations' => '정보',
 		'keep_history' => '최소 유지 글 개수',
 		'moved_category_deleted' => '카테고리를 삭제하면, 해당 카테고리 아래에 있던 피드들은 자동적으로 <em>%s</em> 아래로 분류됩니다.',
@@ -47,11 +51,11 @@ return array(
 		),
 		'websub' => 'WebSub을 사용한 즉시 알림',
 		'show' => array(
-			'all' => 'Show all feeds',	//TODO - Translation
-			'error' => 'Show only feeds with error',	//TODO - Translation
+			'all' => '모든 피드 보기',
+			'error' => '오류가 발생한 피드만 보기',
 		),
 		'showing' => array(
-			'error' => 'Showing only feeds with error',	//TODO - Translation
+			'error' => '오류가 발생한 피드만 보여주고 있습니다',
 		),
 		'ssl_verify' => 'SSL 유효성 검사',
 		'stats' => '통계',
@@ -72,7 +76,7 @@ return array(
 		'export' => '내보내기',
 		'export_opml' => '피드 목록 내보내기 (OPML)',
 		'export_starred' => '즐겨찾기 내보내기',
-		'export_labelled' => 'Export your labelled articles',	//TODO
+		'export_labelled' => '라벨이 표시된 글들 내보내기',
 		'feed_list' => '%s 개의 글 목록',
 		'file_to_import' => '불러올 파일<br />(OPML, JSON 또는 ZIP)',
 		'file_to_import_no_zip' => '불러올 파일<br />(OPML 또는 JSON)',

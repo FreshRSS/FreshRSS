@@ -32,6 +32,10 @@ return array(
 		'description' => 'Descripcion',
 		'empty' => 'Aqueste flux es void. Assegurats-vos qu’es totjorn mantengut.',
 		'error' => 'Aqueste flux a rescontrat un problèma. Volgatz verificar que siá totjorn accessible puèi actualizatz-lo.',
+		'filteractions' => array(
+			'_' => 'Filtre d’accion',
+			'help' => 'Escrivètz una recèrca per linha.',
+		),
 		'informations' => 'Informacions',
 		'keep_history' => 'Nombre minimum d’articles de servar',
 		'moved_category_deleted' => 'Quand escafatz una categoria, sos fluxes son automaticament classats dins <em>%s</em>.',

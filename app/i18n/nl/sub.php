@@ -33,6 +33,10 @@ return array(
 		'description' => 'Omschrijving',
 		'empty' => 'Deze feed is leeg. Controleer of deze nog actueel is.',
 		'error' => 'Deze feed heeft problemen. Verifieer a.u.b het doeladres en actualiseer het.',
+		'filteractions' => array(
+			'_' => 'Filter actions',	//TODO - Translation
+			'help' => 'Write one search filter per line.',	//TODO - Translation
+		),
 		'informations' => 'Informatie',
 		'keep_history' => 'Minimum aantal artikelen om te houden',
 		'moved_category_deleted' => 'Als u een categorie verwijderd, worden de feeds automatisch geclassificeerd onder <em>%s</em>.',

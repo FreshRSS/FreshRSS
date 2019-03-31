@@ -1,0 +1,352 @@
+/*=== COMPONENTS */
+/*===============*/
+/*=== Forms */
+// parti dans _forms.scss
+
+/*=== Horizontal-list */
+.horizontal-list {
+    margin: 0;
+    padding: 0.1rem 0;
+
+    .item{
+	vertical-align: middle;
+
+	&:first-child{
+	    padding-left: 0.5rem;
+	}
+
+    }
+}
+
+/*=== Dropdown */
+.dropdown-menu {
+    background: $grey-lighter;
+    margin: 0;
+    font-size: 1rem;
+    text-align: left;
+    padding: 0.5rem 0 1rem 0;
+    border: none;
+    border-radius: 3px;
+
+    -webkit-box-shadow: 0px 6px 8px 0px rgba(0,0,0,0.35);
+    -moz-box-shadow: 0px 6px 8px 0px rgba(0,0,0,0.35);
+    box-shadow: 0px 6px 8px 0px rgba(0,0,0,0.35);
+
+    &::after {
+	content: "";
+	position: absolute;
+	top: -4px;
+	right: 13px;
+	width: 10px;
+	height: 10px;
+	z-index: -10;
+	transform: rotate(45deg);
+	-moz-transform: rotate(45deg);
+	-webkit-transform: rotate(45deg);
+	-ms-transform: rotate(45deg);
+	background: white;
+	// border-top: 1px solid #95a5a6;
+	// border-left: 1px solid #95a5a6;
+    }
+    
+    .dropdown-header {
+	// padding: 0 5px 5px;
+	margin: 1.75rem 0 0.5rem 2rem;
+	font-weight: bold;
+	text-align: left;
+	color: $grey-dark;
+	text-transform: uppercase;
+	letter-spacing: 1px;
+
+	
+    }
+
+    .item{
+	@include transition(all, 0.075s, ease-in-out);
+	a, span, .as-link{
+	    padding: 0 2rem;
+	    line-height: 2.5em;
+	    font-size: 1rem;
+	    color: $main-font-color;
+	}
+	&:hover{
+	    background: $main-first;
+	    color: $white;
+
+	    a, button{
+		text-decoration: none;
+		color: $white;
+	    }
+	}
+	&[aria-checked="true"]{
+	    a::before{
+		font-weight: bold;
+		margin: 0 0 0 -14px;
+	    }
+	}
+    }
+    .input{
+	select, input{
+	    margin: 0 auto 5px;
+	    padding: 2px 5px;
+	    border-radius: 3px;
+	}
+    }
+    .separator {
+	margin: 0.75rem 0;
+	border-bottom: 1px solid $grey-light;
+	// display: none;
+    }
+
+}
+.tree .tree-folder .tree-folder-items .dropdown-menu,
+.tree .tree-folder .tree-folder-items .dropdown-menu{
+    // tout ça sert à restaurer l'apparence du dropdown dans un contexte de sidebar sombre
+    
+    .item{
+	padding: 0;
+	
+	a,
+	button{
+	    color: $main-font-color;
+	    
+	    &:hover{
+		color: $white;
+	    }
+	}
+	&:hover{
+	    background: $main-first;
+	}
+    }
+}
+
+
+
+
+/*=== Alerts */
+.alert {
+    margin: 1rem 0;
+    // width: 100%;
+    padding: 1rem;
+    font-size: 1rem;
+    background: $grey-lighter;
+    border: 1px solid $grey-medium;
+    border-radius: 3px;
+    color: $grey-dark;
+    text-shadow: 0 0 1px $grey-light;
+}
+.alert-head {
+    font-size: 1.15em;
+}
+.alert > a {
+    text-decoration: underline;
+    color: inherit;
+}
+.alert-warn {
+    background: $warning-light;
+    border: 1px solid unquote($warning-text+'33'); // on ajoute l'opacité à la fin
+    color: $warning-text;
+}
+.alert-success {
+    background: $success-light;
+    border: 1px solid unquote($success-text+'33');
+    color: $success-text;
+}
+.alert-error {
+    background: $alert-light;
+    border: 1px solid unquote($alert-text+'33');
+    color: $alert-text;
+}
+
+/*=== Pagination */
+.pagination {
+    text-align: center;
+    font-size: 0.8em;
+    background: $grey-light;
+    color: $main-font-color;
+
+    .item{
+	&.pager-current {
+	    font-weight: bold;
+	    font-size: 1.5em;
+	    background: $sid-bg;
+	    color: $grey-light;
+	}
+	a {
+	    display: block;
+	    font-style: italic;
+	    line-height: 3em;
+	    text-decoration: none;
+	    color: $main-font-color;
+
+	    &:hover{
+		background: $main-font-color;
+		color: $grey-light;
+	    }
+	}
+    }
+
+    .loading,
+    a:hover.loading {
+	font-size: 0;
+	background: url("loader.gif") center center no-repeat #34495e;
+    }
+}
+.content .pagination {
+    margin: 0;
+    padding: 0;
+}
+
+
+/*=== Boxes */
+.box {
+    // border: 1px solid #ddd;
+    border: none;
+    border-radius: 3px;
+    background: $white;
+
+    -webkit-box-shadow: 0px 2px 2px 0px rgba(0,0,0,0.25);
+    -moz-box-shadow: 0px 2px 2px 0px rgba(0,0,0,0.25);
+    box-shadow: 0px 2px 2px 0px rgba(0,0,0,0.25);
+
+    .box-title {
+	margin: 0;
+	padding: 5px 10px;
+	background: $grey-light;
+	color: $main-font-color;
+	// border-bottom: 1px solid #ddd;
+	border-radius: 2px 2px 0 0;
+
+	form{
+	    input{
+		width: 85%;
+	    }
+	    .dropdown{
+		float: right;
+		a.dropdown-toggle{
+		    padding: 0;
+		    background-image: url(icons/more.svg);
+		    background-repeat: no-repeat;
+		    background-position: right 8px;
+		    // float: right;
+		    border-radius: 0;
+		    img{
+			display: none;
+		    }
+		}
+	    }
+	}
+    }
+    .box-content {
+	// max-height: 260px;
+
+	.item {
+	    padding: 0.5rem 0.75rem;
+	    font-size: 1rem;
+	    color: $main-font-color;
+	    line-height: 1.7em;
+	    border-bottom: 1px solid $grey-light;
+
+	    img{
+		margin-right: 0.75rem;
+	    }
+
+	    .configure {
+		visibility: hidden;
+		width: 1.75rem;
+		height: 1.75rem;
+		display: block;
+		border-radius: 2px;
+		float: left;
+		margin-right: 0.5rem;
+		background: url("icons/cog.svg") no-repeat 4px 4px;
+		
+		.icon {
+		    vertical-align: middle;
+		    border-radius: 3px;
+		    display: none;
+		}
+		&:hover{
+		    // background: $main-first;
+		    background: url("icons/cog-white.svg") no-repeat 4px 4px $main-first;
+		}
+	    }
+	    &:hover .configure {
+		visibility: visible;
+	    }
+	}
+	.item:last-child{
+	    border-bottom: none;
+	}
+    }
+}
+
+/*=== "Load more" part */
+#bigMarkAsRead {
+    text-align: center;
+    text-decoration: none;
+    background: $main-first-light;
+    color: $main-first;
+
+    @include transition(all, 0.15s, ease-in-out);
+
+    &:hover {
+	background: $main-first;
+	color: #fff;
+
+	.bigTick{
+	    background: url(icons/tick-white.svg) center no-repeat;
+	}
+    }
+    .bigTick{
+	margin: 0.5rem 0;
+	display: inline-block;
+	text-indent: -9999px;               
+	background: url(icons/tick-color.svg) center no-repeat;  
+	height: 64px;                       
+	width: 64px;
+	white-space: nowrap; 
+    }
+}
+
+// page de login
+.formLogin{
+    background: $sid-bg;
+
+    .header{
+	.configure{
+	    padding-right: 1rem;
+	    img{
+		margin-right: 0.5rem;
+	    }
+	    
+	    a.signin{
+		color: $white;
+	    }
+	}
+    }
+
+    h1{
+	color: $white;
+    }
+    form#crypto-form{
+	div{
+	    margin-bottom: 1rem;
+	    
+	    label{
+		font-size: 1rem;
+		color: $grey-medium;
+
+		
+	    }
+	    input{
+		background: $main-first-darker;
+
+		&:focus{
+		    background: $grey-lighter;
+		    color: $main-font-color;
+		}
+	    }
+	}	
+    }
+}
