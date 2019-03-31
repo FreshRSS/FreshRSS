@@ -1,6 +1,6 @@
 ﻿# FreshRSS changelog
 
-## 2019-03-XX FreshRSS 1.14.0-dev
+## 2019-03-31 FreshRSS 1.14.0
 
 * Features
 	* *Filter actions* feature, to auto-mark-as-read based on a search query per feed [#2275](https://github.com/FreshRSS/FreshRSS/pull/2275)
