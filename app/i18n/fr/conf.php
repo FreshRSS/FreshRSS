@@ -92,7 +92,7 @@ return array(
 		'auto_remove_article' => 'Cacher les articles après lecture',
 		'confirm_enabled' => 'Afficher une confirmation lors des actions “marquer tout comme lu”',
 		'display_articles_unfolded' => 'Afficher les articles dépliés par défaut',
-		'display_categories_unfolded' => 'Afficher les catégories pliées par défaut',
+		'display_categories_unfolded' => 'Afficher les catégories dépliées par défaut',
 		'hide_read_feeds' => 'Cacher les catégories & flux sans article non-lu (ne fonctionne pas avec la configuration “Afficher tous les articles”)',
 		'img_with_lazyload' => 'Utiliser le mode “chargement différé” pour les images',
 		'jump_next' => 'sauter au prochain voisin non lu (flux ou catégorie)',

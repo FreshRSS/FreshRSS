@@ -92,7 +92,7 @@ return array(
 		'auto_remove_article' => 'Esconder artigos depois de lidos',
 		'confirm_enabled' => 'Exibir uma caixa de diálogo de confirmação quando acionar "marcar todos como lido"',
 		'display_articles_unfolded' => 'Mostrar aritogs abertos por padrão',
-		'display_categories_unfolded' => 'Mostrar artigos fechados por padrão',
+		'display_categories_unfolded' => 'Mostrar artigos abertos por padrão',
 		'hide_read_feeds' => 'Esconder categorias e feeds com nenhum artigo não lido (não funciona com a configuração "Mostrar todos os artigos”)',
 		'img_with_lazyload' => 'Utilizar o modo "lazy load" para carregar as imagens',
 		'jump_next' => 'Vá para o próximo irmão não lido (feed ou categoria)',
