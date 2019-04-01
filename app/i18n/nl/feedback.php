@@ -86,7 +86,7 @@ return array(
 			'n_entries_deleted' => '%d artikelen zijn verwijderd',
 			'no_refresh' => 'Er is geen feed om te vernieuwen…',
 			'not_added' => '<em>%s</em> kon niet worden toegevoegd',
-			'over_max' => 'Maximum aantal feeds bereikt(%d)',
+			'over_max' => 'Maximum aantal feeds bereikt (%d)',
 			'updated' => 'Feed is vernieuwd',
 		),
 		'purge_completed' => 'Opschonen klaar (%d artikelen verwijderd)',
