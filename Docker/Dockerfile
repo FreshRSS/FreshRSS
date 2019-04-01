@@ -25,7 +25,7 @@ RUN a2dismod -f alias autoindex negotiation status && \
 
 RUN sed -r -i "/^\s*(CustomLog|ErrorLog|Listen) /s/^/#/" /etc/apache2/apache2.conf && \
 	sed -r -i "/^\s*Listen /s/^/#/" /etc/apache2/ports.conf && \
-	echo "17,37 su apache -s /bin/sh -c 'php /var/www/FreshRSS/app/actualize_script.php' 2>> /proc/1/fd/2 > /tmp/FreshRSS.log" >> \
+	echo "17,37 su www-data -s /bin/sh -c 'php /var/www/FreshRSS/app/actualize_script.php' 2>> /proc/1/fd/2 > /tmp/FreshRSS.log" >> \
 		/var/spool/cron/crontabs/root
 
 ENV COPY_SYSLOG_TO_STDERR On
