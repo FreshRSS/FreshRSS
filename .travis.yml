@@ -34,6 +34,15 @@ matrix:
       dist: precise
     - php: "7.2"
       env: CHECK_TRANSLATION=yes VALIDATE_STANDARD=no
+    - language: node_js
+      node_js:
+        - "node"
+      php:
+        # none
+      install:
+        - npm install jshint
+      script:
+        - node_modules/jshint/bin/jshint .
   allow_failures:
     - env: CHECK_TRANSLATION=yes VALIDATE_STANDARD=no
     - dist: precise
