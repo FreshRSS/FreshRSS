@@ -1,15 +1,16 @@
 language: php
 php:
-  - '5.4'
-  - '5.5'
-  - '5.6'
-  - '7.0'
-  - '7.1'
-  - '7.2'
+  - 5.4
+  - 5.5
+  - 5.6
+  - 7.0
+  - 7.1
+  - 7.2
+  - 7.3
 
 install:
   # newest version without https://github.com/squizlabs/PHP_CodeSniffer/pull/1404
-  - composer global require squizlabs/php_codesniffer "<=3.0.0RC4"
+  - composer global require squizlabs/php_codesniffer
 
 script:
   - phpenv rehash
