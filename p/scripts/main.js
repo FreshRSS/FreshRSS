@@ -1286,12 +1286,11 @@ function load_more_posts() {
 				paginationNew = streamAdopted.querySelector('.pagination');
 			formPagination.replaceChild(paginationNew, paginationOld);
 
-			if (context.display_order === 'ASC') {
-				document.querySelector('#nav_menu_read_all .read_all').formAction =
-					document.getElementById('bigMarkAsRead').formAction;
-			} else {
-				const bigMarkAsRead = document.getElementById('bigMarkAsRead');
-				if (bigMarkAsRead) {
+			const bigMarkAsRead = document.getElementById('bigMarkAsRead');
+			if (bigMarkAsRead) {
+				if (context.display_order === 'ASC') {
+					document.querySelector('#nav_menu_read_all .read_all').formAction = bigMarkAsRead.formAction;
+				} else {
 					bigMarkAsRead.formAction = document.querySelector('#nav_menu_read_all .read_all').formAction;
 				}
 			}
@@ -1305,8 +1304,7 @@ function load_more_posts() {
 
 			init_load_more(box_load_more);
 
-			const bigMarkAsRead = document.getElementById('bigMarkAsRead'),
-				div_load_more = document.getElementById('load_more');
+			const div_load_more = document.getElementById('load_more');
 			if (bigMarkAsRead) {
 				bigMarkAsRead.removeAttribute('disabled');
 			}
