@@ -160,8 +160,8 @@ return array(
 		'_' => 'Systeem configuratie',
 		'auto-update-url' => 'Automatische update server URL',
 		'instance-name' => 'Voorbeeld naam',
-		'max-categories' => 'Categoriën limiet per gebruiker',
-		'max-feeds' => 'Feed limiet per gebruiker',
+		'max-categories' => 'Categorielimiet per gebruiker',
+		'max-feeds' => 'Feedlimiet per gebruiker',
 		'cookie-duration' => array(
 			'help' => 'in seconden',
 			'number' => 'Tijdsduur om ingelogd te blijven',
