@@ -92,7 +92,7 @@ return array(
 		'auto_remove_article' => 'Po přečtení články schovat',
 		'confirm_enabled' => 'Vyžadovat potvrzení pro akci “označit vše jako přečtené”',
 		'display_articles_unfolded' => 'Ve výchozím stavu zobrazovat články otevřené',
-		'display_categories_unfolded' => 'Ve výchozím stavu zobrazovat kategorie zavřené',
+		'display_categories_unfolded' => 'Ve výchozím stavu zobrazovat kategorie otevřené',
 		'hide_read_feeds' => 'Schovat kategorie a kanály s nulovým počtem nepřečtených článků (nefunguje s nastavením “Zobrazit všechny články”)',
 		'img_with_lazyload' => 'Použít "lazy load" mód pro načítaní obrázků',
 		'jump_next' => 'skočit na další nepřečtený (kanál nebo kategorii)',
