@@ -166,30 +166,16 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 	 * tab and up.
 	 */
 	public function shortcutAction() {
-		$list_keys = array('a', 'b', 'backspace', 'c', 'd', 'delete', 'down', 'e', 'end', 'enter',
-		                   'escape', 'f', 'g', 'h', 'home', 'i', 'insert', 'j', 'k', 'l', 'left',
-		                   'm', 'n', 'o', 'p', 'page_down', 'page_up', 'q', 'r', 'return', 'right',
-		                   's', 'space', 't', 'tab', 'u', 'up', 'v', 'w', 'x', 'y',
-		                   'z', 'f1', 'f2', 'f3', 'f4', 'f5', 'f6', 'f7', 'f8', 'f9',
-		                   'f10', 'f11', 'f12', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0');
-		$this->view->list_keys = $list_keys;
+		$this->view->list_keys = SHORTCUT_KEYS;
 
 		if (Minz_Request::isPost()) {
-			$shortcuts = Minz_Request::param('shortcuts');
-			$shortcuts_ok = array();
-
-			foreach ($shortcuts as $key => $value) {
-				if (in_array($value, $list_keys)) {
-					$shortcuts_ok[$key] = $value;
-				}
-			}
-
-			FreshRSS_Context::$user_conf->shortcuts = $shortcuts_ok;
+			FreshRSS_Context::$user_conf->shortcuts = validateShortcutList(Minz_Request::param('shortcuts'));
 			FreshRSS_Context::$user_conf->save();
 			invalidateHttpCache();
 
-			Minz_Request::good(_t('feedback.conf.shortcuts_updated'),
-			                   array('c' => 'configure', 'a' => 'shortcut'));
+			Minz_Request::good(_t('feedback.conf.shortcuts_updated'), array('c' => 'configure', 'a' => 'shortcut'));
+		} else {
+			FreshRSS_Context::$user_conf->shortcuts = validateShortcutList(FreshRSS_Context::$user_conf->shortcuts);
 		}
 
 		Minz_View::prependTitle(_t('conf.shortcut.title') . ' · ');
