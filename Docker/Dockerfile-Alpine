@@ -22,8 +22,10 @@ RUN rm -f /etc/apache2/conf.d/languages.conf /etc/apache2/conf.d/info.conf \
 		/etc/apache2/httpd.conf && \
 	sed -r -i "/^\s*(CustomLog|ErrorLog|Listen) /s/^/#/" \
 		/etc/apache2/httpd.conf && \
-	echo "27,57 * * * * su apache -s /bin/sh -c 'php /var/www/FreshRSS/app/actualize_script.php' 2>> /proc/1/fd/2 > /tmp/FreshRSS.log" | \
-		crontab -
+	touch /var/www/FreshRSS/Docker/env.txt && \
+	echo "27,57 * * * * . /var/www/FreshRSS/Docker/env.txt; \
+		su apache -s /bin/sh -c 'php /var/www/FreshRSS/app/actualize_script.php' \
+		2>> /proc/1/fd/2 > /tmp/FreshRSS.log" | crontab -
 
 ENV COPY_SYSLOG_TO_STDERR On
 ENV CRON_MIN ''
