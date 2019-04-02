@@ -891,21 +891,28 @@ function init_stream(stream) {
 		}
 	};
 
-	stream.onmouseup = function (ev) {	// Mouseup enables us to catch middle click
+	stream.onmouseup = function (ev) {	// Mouseup enables us to catch middle click, and control+click in IE/Edge
+		if (ev.altKey || ev.metaKey || ev.shiftKey) {
+			return;
+		}
+
 		let el = ev.target.closest('.item.title > a');
 		if (el) {
-			if (ev.ctrlKey) {
-				return;	// CTRL+click, it will be manage by previous rule.
+			if (ev.which == 1) {
+				if (ev.ctrlKey) {	//Control+click
+					if (context.auto_mark_site) {
+						mark_read(el.closest('.flux'), true);
+					}
+				} else {
+					el.parentElement.click();	//Normal click, just toggle article.
+				}
+			} else if (ev.which == 2 && !ev.ctrlKey) {	//Simple middle click: same behaviour as CTRL+click
+				if (context.auto_mark_article) {
+					const new_active = el.closest('.flux');
+					mark_read(new_active, true);
+				}
 			}
-			if (ev.which == 2) {
-				// If middle click, we want same behaviour as CTRL+click.
-				const evc = document.createEvent('click');
-				evc.ctrlKey = true;
-				el.dispatchEvent(evc);
-			} else if (ev.which == 1) {
-				// Normal click, just toggle article.
-				el.parentElement.click();
-			}
+			return;
 		}
 
 		if (context.auto_mark_site) {
