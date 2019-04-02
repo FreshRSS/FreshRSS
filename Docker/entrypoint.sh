@@ -8,7 +8,7 @@ chmod -R g+r . && chmod -R g+w ./data/
 find /etc/php*/ -name php.ini -exec sed -r -i "\#^;?date.timezone#s#^.*#date.timezone = $TZ#" {} \;
 
 if [ -n "$CRON_MIN" ]; then
-	sed -r -i "\#FreshRSS#s#^[^ ]+ #$CRON_MIN #" /var/spool/cron/crontabs/root
+	crontab -l | sed -r "\#FreshRSS#s#^[^ ]+ #$CRON_MIN #" | crontab -
 fi
 
 exec "$@"
