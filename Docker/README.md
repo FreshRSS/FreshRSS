@@ -211,12 +211,23 @@ For advanced users. Offers good logging and monitoring with auto-restart on fail
 Watch out to use the same run parameters than in your main FreshRSS instance, for database, networking, and file system.
 See cron option 1 for customising the cron schedule.
 
+#### For the Ubuntu image (default)
 ```sh
 sudo docker run -d --restart unless-stopped --log-opt max-size=10m \
   -v freshrss-data:/var/www/FreshRSS/data \
-  -e 'CRON_MIN=17,37' \
+  -e 'CRON_MIN=17,47' \
   --net freshrss-network \
   --name freshrss_cron freshrss/freshrss \
+  cron
+```
+
+#### For the Alpine image
+```sh
+sudo docker run -d --restart unless-stopped --log-opt max-size=10m \
+  -v freshrss-data:/var/www/FreshRSS/data \
+  -e 'CRON_MIN=27,57' \
+  --net freshrss-network \
+  --name freshrss_cron freshrss/freshrss:alpine \
   crond -f -d 6
 ```
 
