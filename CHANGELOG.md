@@ -8,6 +8,9 @@
 	* Fix the use of arrow keyboard keys for shortcuts [#2316](https://github.com/FreshRSS/FreshRSS/issues/2316)
 	* Fix control+click or middle-click for opening articles in a background tab [#2310](https://github.com/FreshRSS/FreshRSS/issues/2310)
 	* Fix the naming of the option to unfold categories [#2307](https://github.com/FreshRSS/FreshRSS/issues/2307)
+	* Fix shortcut problem when using unfolded articles [#2328](https://github.com/FreshRSS/FreshRSS/issues/2328)
+	* Fix auto-hidding articles [#2323](https://github.com/FreshRSS/FreshRSS/issues/2323)
+	* Fix scroll functions with Edge [#2337](https://github.com/FreshRSS/FreshRSS/pull/2337)
 * I18n
 	* Improve Dutch [#2312](https://github.com/FreshRSS/FreshRSS/pull/2312)
 * Misc.
