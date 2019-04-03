@@ -591,7 +591,7 @@ function onScroll() {
 	}
 	if (context.auto_remove_article) {
 		let scrollTop = box_to_follow.scrollTop;
-		const toBeRemoved = [];	//Postpone to avoid layout refresh / reflow
+		let dirty = false;
 		document.querySelectorAll('.flux:not(.active):not(.not_read)').forEach(function (div) {
 				if (!pending_entries[div.id] && div.offsetHeight > 0 &&
 					div.offsetParent.offsetTop + div.offsetTop + (div.offsetHeight * 2) < scrollTop) {
@@ -599,14 +599,14 @@ function onScroll() {
 						n = div.nextElementSibling;
 					if (p && p.classList.contains('day') && n && n.classList.contains('day')) {
 						scrollTop -= p.offsetHeight;
-						toBeRemoved.push(p);
+						p.remove();
 					}
 					scrollTop -= div.offsetHeight;
-					toBeRemoved.push(div);
+					div.remove();
+					dirty = true;
 				}
 			});
-		toBeRemoved.forEach(function (div) { div.remove(); });
-		if (toBeRemoved.length > 0) {
+		if (dirty) {
 			box_to_follow.scrollTop = scrollTop;
 			return;	//onscroll will be called again
 		}
