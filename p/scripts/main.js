@@ -365,13 +365,12 @@ function toggleContent(new_active, old_active, skipping) {
 	const relative_move = context.current_view === 'global',
 		box_to_move = relative_move ? document.getElementById('panel') : document.documentElement;
 
-	if (context.sticky_post) {
+	if (context.sticky_post) {	//Stick the article to the top when opened
 		let prev_article = new_active.previousElementSibling,
-			new_pos = new_active.offsetTop + document.documentElement.scrollTop,
-			old_scroll = box_to_move.scrollTop;
+			new_pos = new_active.offsetParent.offsetTop + new_active.offsetTop;
 
 		if (prev_article && new_active.offsetTop - prev_article.offsetTop <= 150) {
-			new_pos = prev_article.offsetTop;
+			new_pos = prev_article.offsetParent.offsetTop + prev_article.offsetTop;
 			if (relative_move) {
 				new_pos -= box_to_move.offsetTop;
 			}
@@ -382,7 +381,7 @@ function toggleContent(new_active, old_active, skipping) {
 			new_pos -= document.body.clientHeight / 4;
 		}
 		if (relative_move) {
-			new_pos += old_scroll;
+			new_pos += box_to_move.scrollTop;
 		}
 		box_to_move.scrollTop = new_pos;
 	}
