@@ -2,6 +2,7 @@
 /* jshint esversion:6, strict:global */
 
 //<Polyfills>
+if (!document.scrollingElement) document.scrollingElement = document.documentElement;
 if (!NodeList.prototype.forEach) NodeList.prototype.forEach = Array.prototype.forEach;
 if (!Element.prototype.matches) Element.prototype.matches = Element.prototype.msMatchesSelector || Element.prototype.mozMatchesSelector || Element.prototype.webkitMatchesSelector;
 if (!Element.prototype.closest) Element.prototype.closest = function (s) {
@@ -51,11 +52,11 @@ function badAjax() {
 }
 
 function needsScroll(elem) {
-	const winBottom = document.documentElement.scrollTop + document.documentElement.clientHeight,
+	const winBottom = document.scrollingElement.scrollTop + document.scrollingElement.clientHeight,
 		elemTop = elem.offsetParent.offsetTop + elem.offsetTop,
 		elemBottom = elemTop + elem.offsetHeight;
-	return (elemTop < document.documentElement.scrollTop || elemBottom > winBottom) ?
-		elemTop - (document.documentElement.clientHeight / 2) : 0;
+	return (elemTop < document.scrollingElement.scrollTop || elemBottom > winBottom) ?
+		elemTop - (document.scrollingElement.clientHeight / 2) : 0;
 }
 
 function str2int(str) {
@@ -363,7 +364,7 @@ function toggleContent(new_active, old_active, skipping) {
 	}
 
 	const relative_move = context.current_view === 'global',
-		box_to_move = relative_move ? document.getElementById('panel') : document.documentElement;
+		box_to_move = relative_move ? document.getElementById('panel') : document.scrollingElement;
 
 	if (context.sticky_post) {	//Stick the article to the top when opened
 		let prev_article = new_active.previousElementSibling,
@@ -528,7 +529,7 @@ function user_filter(key) {
 		// Force scrolling to the filter div
 		const scroll = needsScroll(document.querySelector('.header'));
 		if (scroll !== 0) {
-			document.documentElement.scrollTop = scroll;
+			document.scrollingElement.scrollTop = scroll;
 		}
 		// Force the key value if there is only one action, so we can trigger it automatically
 		if (filters.length === 1) {
@@ -556,7 +557,7 @@ function auto_share(key) {
 		// Force scrolling to the share div
 		const scrollTop = needsScroll(share.closest('.bottom'));
 		if (scrollTop !== 0) {
-			document.documentElement.scrollTop = scrollTop;
+			document.scrollingElement.scrollTop = scrollTop;
 		}
 		// Force the key value if there is only one action, so we can trigger it automatically
 		if (shares.length === 1) {
@@ -621,10 +622,10 @@ function onScroll() {
 
 function init_posts() {
 	if (context.auto_load_more || context.auto_mark_scroll || context.auto_remove_article) {
-		box_to_follow = context.current_view === 'global' ? document.getElementById('panel') : document.documentElement;
+		box_to_follow = context.current_view === 'global' ? document.getElementById('panel') : document.scrollingElement;
 		let lastScroll = 0,	//Throttle
 			timerId = 0;
-		(box_to_follow === document.documentElement ? window : box_to_follow).onscroll = function () {
+		(box_to_follow === document.scrollingElement ? window : box_to_follow).onscroll = function () {
 			clearTimeout(timerId);
 			if (lastScroll + 500 < Date.now()) {
 				lastScroll = Date.now();
@@ -987,10 +988,10 @@ function init_nav_entries() {
 			};
 		nav_entries.querySelector('.up').onclick = function (e) {
 				const active_item = document.querySelector('.flux.current'),
-					windowTop = document.documentElement.scrollTop,
+					windowTop = document.scrollingElement.scrollTop,
 					item_top = active_item.offsetParent.offsetTop + active_item.offsetTop;
 
-				document.documentElement.scrollTop = windowTop > item_top ? item_top : 0;
+				document.scrollingElement.scrollTop = windowTop > item_top ? item_top : 0;
 				return false;
 			};
 	}
