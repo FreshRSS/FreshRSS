@@ -590,25 +590,17 @@ function onScroll() {
 			});
 	}
 	if (context.auto_remove_article) {
-		let maxTop = box_to_follow.scrollTop,
-			scrollOffset = 0;
 		document.querySelectorAll('.flux:not(.active):not(.keep_unread)').forEach(function (div) {
 				if (!pending_entries[div.id] && div.offsetHeight > 0 &&
-					div.offsetParent.offsetTop + div.offsetTop + div.offsetHeight < maxTop) {
+					div.offsetParent.offsetTop + div.offsetTop + div.offsetHeight < box_to_follow.scrollTop) {
 					const p = div.previousElementSibling,
 						n = div.nextElementSibling;
 					if (p && p.classList.contains('day') && n && n.classList.contains('day')) {
 						p.remove();
 					}
-					maxTop -= div.offsetHeight;
-					scrollOffset -= div.offsetHeight;
 					div.remove();
 				}
 			});
-		if (scrollOffset != 0) {
-			box_to_follow.scrollTop += scrollOffset;
-			return;	//onscroll will be called again
-		}
 	}
 	if (context.auto_load_more) {
 		const pagination = document.getElementById('mark-read-pagination');
