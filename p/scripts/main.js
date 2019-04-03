@@ -590,17 +590,26 @@ function onScroll() {
 			});
 	}
 	if (context.auto_remove_article) {
-		document.querySelectorAll('.flux:not(.active):not(.keep_unread)').forEach(function (div) {
+		let scrollTop = box_to_follow.scrollTop;
+		const toBeRemoved = [];	//Postpone to avoid layout refresh / reflow
+		document.querySelectorAll('.flux:not(.active):not(.not_read)').forEach(function (div) {
 				if (!pending_entries[div.id] && div.offsetHeight > 0 &&
-					div.offsetParent.offsetTop + div.offsetTop + div.offsetHeight < box_to_follow.scrollTop) {
+					div.offsetParent.offsetTop + div.offsetTop + (div.offsetHeight * 2) < scrollTop) {
 					const p = div.previousElementSibling,
 						n = div.nextElementSibling;
 					if (p && p.classList.contains('day') && n && n.classList.contains('day')) {
-						p.remove();
+						scrollTop -= p.offsetHeight;
+						toBeRemoved.push(p);
 					}
-					div.remove();
+					scrollTop -= div.offsetHeight;
+					toBeRemoved.push(div);
 				}
 			});
+		toBeRemoved.forEach(function (div) { div.remove(); });
+		if (toBeRemoved.length > 0) {
+			box_to_follow.scrollTop = scrollTop;
+			return;	//onscroll will be called again
+		}
 	}
 	if (context.auto_load_more) {
 		const pagination = document.getElementById('mark-read-pagination');
