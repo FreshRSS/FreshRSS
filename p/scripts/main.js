@@ -590,23 +590,24 @@ function onScroll() {
 			});
 	}
 	if (context.auto_remove_article) {
-		let maxTop = box_to_follow.scrollTop,
-			scrollOffset = 0;
-		document.querySelectorAll('.flux:not(.active):not(.keep_unread)').forEach(function (div) {
+		let scrollTop = box_to_follow.scrollTop;
+		let dirty = false;
+		document.querySelectorAll('.flux:not(.active):not(.not_read)').forEach(function (div) {
 				if (!pending_entries[div.id] && div.offsetHeight > 0 &&
-					div.offsetParent.offsetTop + div.offsetTop + div.offsetHeight < maxTop) {
+					div.offsetParent.offsetTop + div.offsetTop + (div.offsetHeight * 2) < scrollTop) {
 					const p = div.previousElementSibling,
 						n = div.nextElementSibling;
 					if (p && p.classList.contains('day') && n && n.classList.contains('day')) {
+						scrollTop -= p.offsetHeight;
 						p.remove();
 					}
-					maxTop -= div.offsetHeight;
-					scrollOffset -= div.offsetHeight;
+					scrollTop -= div.offsetHeight;
 					div.remove();
+					dirty = true;
 				}
 			});
-		if (scrollOffset != 0) {
-			box_to_follow.scrollTop += scrollOffset;
+		if (dirty) {
+			box_to_follow.scrollTop = scrollTop;
 			return;	//onscroll will be called again
 		}
 	}
