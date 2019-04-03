@@ -32,7 +32,7 @@ class FreshRSS_update_Controller extends Minz_ActionController {
 		$output = array();
 		$return = 1;
 		try {
-			exec('git clean -f -d -f', $output, $return);
+			exec('git clean -d --force', $output, $return);
 			if ($return == 0) {
 				exec('git pull --ff-only', $output, $return);
 			} else {
