@@ -1,7 +1,18 @@
 ﻿# FreshRSS changelog
 
-## 2019-0X-XX FreshRSS 1.14.1-dev
+## 2019-04-XX FreshRSS 1.14.1-dev
 
+* Bug fixing
+	* Fix *load more articles* when using ascending order [#2314](https://github.com/FreshRSS/FreshRSS/issues/2314)
+	* Fix cron in the Ubuntu flavour of the Docker image [#2319](https://github.com/FreshRSS/FreshRSS/issues/2319)
+	* Fix the use of arrow keyboard keys for shortcuts [#2316](https://github.com/FreshRSS/FreshRSS/issues/2316)
+	* Fix control+click or middle-click for opening articles in a background tab [#2310](https://github.com/FreshRSS/FreshRSS/issues/2310)
+	* Fix the naming of the option to unfold categories [#2307](https://github.com/FreshRSS/FreshRSS/issues/2307)
+* I18n
+	* Improve Dutch [#2312](https://github.com/FreshRSS/FreshRSS/pull/2312)
+* Misc.
+	* Check JavaScript (jshint) in Travis continuous integration [#2315](https://github.com/FreshRSS/FreshRSS/pull/2315)
+	* Add PHP 7.3 to Travis [#2317](https://github.com/FreshRSS/FreshRSS/pull/2317)
 
 
 ## 2019-03-31 FreshRSS 1.14.0
@@ -35,7 +46,7 @@
 * API
 	* Supported by [Readably](https://play.google.com/store/apps/details?id=com.isaiasmatewos.readably) (client for Android using Fever API)
 * I18n
-	* Improved Korean [#2242](https://github.com/FreshRSS/FreshRSS/pull/2242)
+	* Improve Korean [#2242](https://github.com/FreshRSS/FreshRSS/pull/2242)
 	* Improve Occitan [#2253](https://github.com/FreshRSS/FreshRSS/pull/2253)
 * Security
 	* Reworked the CSRF token interaction with the session in some edge cases [#2290](https://github.com/FreshRSS/FreshRSS/pull/2290)
