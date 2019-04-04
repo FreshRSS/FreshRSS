@@ -48,7 +48,7 @@ var context;
 function badAjax(reload) {
 	openNotification(context.i18n.notif_request_failed, 'bad');
 	if (reload) {
-		setTimeout(location.reload, 2000);
+		setTimeout(function () { location.reload(); }, 2000);
 	}
 	return true;
 }
@@ -1054,7 +1054,7 @@ function updateFeed(feeds, feeds_count) {
 				const req2 = new XMLHttpRequest();
 				req2.open('POST', './?c=feed&a=actualize&id=-1&ajax=1', true);
 				req2.onloadend = function (e) {
-					delayedFunction(location.reload);
+					delayedFunction(function () { location.reload(); });
 				};
 				req2.setRequestHeader('Content-Type', 'application/json');
 				req2.send(JSON.stringify({
