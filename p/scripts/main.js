@@ -45,9 +45,11 @@ var context;
 }());
 //</Global context>
 
-function badAjax() {
+function badAjax(reload) {
 	openNotification(context.i18n.notif_request_failed, 'bad');
-	location.reload();
+	if (reload) {
+		setTimeout(location.reload, 2000);
+	}
 	return true;
 }
 
@@ -168,19 +170,19 @@ function send_mark_read_queue(queue, asRead, callback) {
 	req.open('POST', '.?c=entry&a=read' + (asRead ? '' : '&is_read=0'), true);
 	req.responseType = 'json';
 	req.onerror = function (e) {
-			openNotification(context.i18n.notif_request_failed, 'bad');
 			for (let i = queue.length - 1; i >= 0; i--) {
 				delete pending_entries['flux_' + queue[i]];
 			}
-			if (this.status == 403) {
-				badAjax();
-			}
+			badAjax(this.status == 403);
 		};
 	req.onload = function (e) {
 			if (this.status != 200) {
 				return req.onerror(e);
 			}
 			const json = xmlHttpRequestJson(this);
+			if (!json) {
+				return req.onerror(e);
+			}
 			for (let i = queue.length - 1; i >= 0; i--) {
 				const div = document.getElementById('flux_' + queue[i]),
 					myIcons = context.icons;
@@ -238,10 +240,11 @@ function send_mark_queue_tick(callback) {
 	mark_read_queue = [];
 	send_mark_read_queue(queue, true, callback);
 }
+var delayedFunction = send_mark_queue_tick;
 
 function delayedClick(a) {
 	if (a) {
-		send_mark_queue_tick(function () { a.click(); });
+		delayedFunction(function () { a.click(); });
 	}
 }
 
@@ -288,17 +291,17 @@ function mark_favorite(div) {
 	req.open('POST', url, true);
 	req.responseType = 'json';
 	req.onerror = function (e) {
-			openNotification(context.i18n.notif_request_failed, 'bad');
 			delete pending_entries[div.id];
-			if (this.status == 403) {
-				badAjax();
-			}
+			badAjax(this.status == 403);
 		};
 	req.onload = function (e) {
 			if (this.status != 200) {
 				return req.onerror(e);
 			}
 			const json = xmlHttpRequestJson(this);
+			if (!json) {
+				return req.onerror(e);
+			}
 			let inc = 0;
 			if (div.classList.contains('favorite')) {
 				div.classList.remove('favorite');
@@ -945,9 +948,7 @@ function init_stream(stream) {
 				req.responseType = 'json';
 				req.onerror = function (e) {
 						checkboxTag.checked = !isChecked;
-						if (this.status == 403) {
-							badAjax();
-						}
+						badAjax(this.status == 403);
 					};
 				req.onload = function (e) {
 						if (this.status != 200) {
@@ -1014,6 +1015,9 @@ function loadDynamicTags(div) {
 				return req.onerror(e);
 			}
 			const json = xmlHttpRequestJson(this);
+			if (!json) {
+				return req.onerror(e);
+			}
 			let html = '<li class="item"><label><input class="checkboxTag" name="t_0" type="checkbox" /> <input type="text" name="newTag" /></label></li>';
 			if (json && json.length) {
 				for (let i = 0; i < json.length; i++) {
@@ -1039,7 +1043,7 @@ function updateFeed(feeds, feeds_count) {
 	req.open('POST', feed.url, true);
 	req.onloadend = function (e) {
 			if (this.status != 200) {
-				return badAjax();
+				return badAjax(false);
 			}
 			feed_processed++;
 			const div = document.getElementById('actualizeProgress');
@@ -1050,7 +1054,7 @@ function updateFeed(feeds, feeds_count) {
 				const req2 = new XMLHttpRequest();
 				req2.open('POST', './?c=feed&a=actualize&id=-1&ajax=1', true);
 				req2.onloadend = function (e) {
-					location.reload();
+					delayedFunction(location.reload);
 				};
 				req2.setRequestHeader('Content-Type', 'application/json');
 				req2.send(JSON.stringify({
@@ -1082,9 +1086,12 @@ function init_actualize() {
 		req.responseType = 'json';
 		req.onload = function (e) {
 				if (this.status != 200) {
-					return badAjax();
+					return badAjax(false);
 				}
 				const json = xmlHttpRequestJson(this);
+				if (!json) {
+					return badAjax(false);
+				}
 				if (auto && json.feeds.length < 1) {
 					auto = false;
 					context.ajax_loading = false;
@@ -1192,10 +1199,12 @@ function notifs_html5_show(nb) {
 	});
 
 	notification.onclick = function () {
-		location.reload();
-		window.focus();
-		notification.close();
-	};
+			delayedFunction(function() {
+				location.reload();
+				window.focus();
+				notification.close();
+			});
+		};
 
 	if (context.html5_notif_timeout !== 0) {
 		setTimeout(function () {
@@ -1219,6 +1228,9 @@ function refreshUnreads() {
 	req.responseType = 'json';
 	req.onload = function (e) {
 			const json = xmlHttpRequestJson(this);
+			if (!json) {
+				return badAjax(false);
+			}
 			const isAll = document.querySelector('.category.all.active');
 			let new_articles = false;
 
@@ -1413,6 +1425,12 @@ function init_normal() {
 	init_shortcuts();
 	init_actualize();
 	faviconNbUnread();
+
+	window.onbeforeunload = function (e) {
+		if (mark_read_queue && mark_read_queue.length > 0) {
+			return false;
+		}
+	};
 }
 
 function init_beforeDOM() {
