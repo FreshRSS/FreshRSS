@@ -1,19 +1,26 @@
 ﻿# FreshRSS changelog
 
-## 2019-04-XX FreshRSS 1.14.1-dev
+## 2019-04-0X FreshRSS 1.14.1-dev
 
-* Bug fixing
+* Bug fixing (regressions introduced in 1.14.0)
 	* Fix *load more articles* when using ascending order [#2314](https://github.com/FreshRSS/FreshRSS/issues/2314)
 	* Fix cron in the Ubuntu flavour of the Docker image [#2319](https://github.com/FreshRSS/FreshRSS/issues/2319)
 	* Fix the use of arrow keyboard keys for shortcuts [#2316](https://github.com/FreshRSS/FreshRSS/issues/2316)
 	* Fix control+click or middle-click for opening articles in a background tab [#2310](https://github.com/FreshRSS/FreshRSS/issues/2310)
 	* Fix the naming of the option to unfold categories [#2307](https://github.com/FreshRSS/FreshRSS/issues/2307)
 	* Fix shortcut problem when using unfolded articles [#2328](https://github.com/FreshRSS/FreshRSS/issues/2328)
-	* Fix auto-hidding articles [#2323](https://github.com/FreshRSS/FreshRSS/issues/2323)
+	* Fix auto-hiding articles [#2323](https://github.com/FreshRSS/FreshRSS/issues/2323)
 	* Fix scroll functions with Edge [#2337](https://github.com/FreshRSS/FreshRSS/pull/2337)
+	* Fix drop-down menu warning [#2353](https://github.com/FreshRSS/FreshRSS/pull/2353)
+	* Fix delay for individual mark-as-read actions [#2332](https://github.com/FreshRSS/FreshRSS/issues/2332)
+	* Fix scroll functions in Edge [#2337](https://github.com/FreshRSS/FreshRSS/pull/2337)
+* Bug fixing (misc.)
+	* Fix extensions in Windows [#994](https://github.com/FreshRSS/FreshRSS/issues/994)
+	* Fix import of empty articles [#2351](https://github.com/FreshRSS/FreshRSS/pull/2351)
 * I18n
 	* Improve Dutch [#2312](https://github.com/FreshRSS/FreshRSS/pull/2312)
 * Misc.
+	* Better handling of bad HTTP request and fast page unload (ask confirmation) [#2346](https://github.com/FreshRSS/FreshRSS/pull/2346)
 	* Check JavaScript (jshint) in Travis continuous integration [#2315](https://github.com/FreshRSS/FreshRSS/pull/2315)
 	* Add PHP 7.3 to Travis [#2317](https://github.com/FreshRSS/FreshRSS/pull/2317)
 
