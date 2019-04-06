@@ -48,6 +48,7 @@
 					<?php echo _t('conf.archiving.retention_period'); ?>
 					<input type="number" id="retention_period_count" name="retention_period_count" min="0" value="<?php echo FreshRSS_Context::$user_conf->volatile['retention_period_count']; ?>" data-leave-validation="<?php echo FreshRSS_Context::$user_conf->volatile['retention_period_count']; ?>"/>
 					<select class="number" name="retention_period_unit" id="retention_period_unit" data-leave-validation="<?php echo FreshRSS_Context::$user_conf->volatile['retention_period_unit']; ?>">
+						<option></option>
 						<option value="P1Y" <?php echo 'P1Y' === FreshRSS_Context::$user_conf->volatile['retention_period_unit'] ? 'selected="selected"' : ''; ?>><?php echo _t('gen.period.years'); ?></option>
 						<option value="P1M" <?php echo 'P1M' === FreshRSS_Context::$user_conf->volatile['retention_period_unit'] ? 'selected="selected"' : ''; ?>><?php echo _t('gen.period.months'); ?></option>
 						<option value="P1W" <?php echo 'P1W' === FreshRSS_Context::$user_conf->volatile['retention_period_unit'] ? 'selected="selected"' : ''; ?>><?php echo _t('gen.period.weeks'); ?></option>
