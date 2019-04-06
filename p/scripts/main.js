@@ -162,6 +162,26 @@ function incUnreadsTag(tag_id, nb) {
 	}
 }
 
+function removeArticle(div) {
+	let scrollTop = box_to_follow.scrollTop;
+	let dirty = false;
+	const p = div.previousElementSibling,
+		n = div.nextElementSibling;
+	if (p && p.classList.contains('day') && n && n.classList.contains('day')) {
+		scrollTop -= p.offsetHeight;
+		dirty = true;
+		p.remove();
+	}
+	if (div.offsetHeight > 0 && div.offsetParent.offsetTop + div.offsetTop + div.offsetHeight < scrollTop) {
+		scrollTop -= div.offsetHeight;
+		dirty = true;
+	}
+	div.remove();
+	if (dirty) {
+		box_to_follow.scrollTop = scrollTop;
+	}
+}
+
 var pending_entries = {},
 	mark_read_queue = [];
 
@@ -194,6 +214,9 @@ function send_mark_read_queue(queue, asRead, callback) {
 						});
 					div.querySelectorAll('a.read > .icon').forEach(function (img) { img.outerHTML = myIcons.read; });
 					inc--;
+					if (context.auto_remove_article) {
+						removeArticle(div);
+					}
 				} else {
 					div.classList.add('not_read');
 					div.classList.add('keep_unread');	//Split for IE11
@@ -248,7 +271,7 @@ function delayedClick(a) {
 	}
 }
 
-function mark_read(div, only_not_read) {
+function mark_read(div, only_not_read, asBatch) {
 	if (!div || !div.id || context.anonymous ||
 		(only_not_read && !div.classList.contains('not_read'))) {
 		return false;
@@ -260,7 +283,7 @@ function mark_read(div, only_not_read) {
 
 	const asRead = div.classList.contains('not_read'),
 		entryId = div.id.replace(/^flux_/, '');
-	if (asRead) {
+	if (asRead && asBatch) {
 		mark_read_queue.push(entryId);
 		if (send_mark_read_queue_timeout == 0) {
 			send_mark_read_queue_timeout = setTimeout(function () { send_mark_queue_tick(null); }, 1000);
@@ -392,7 +415,7 @@ function toggleContent(new_active, old_active, skipping) {
 
 	if (new_active.classList.contains('active') && !skipping) {
 		if (context.auto_mark_article) {
-			mark_read(new_active, true);
+			mark_read(new_active, true, true);
 		}
 		new_active.dispatchEvent(freshrssOpenArticleEvent);
 	}
@@ -588,31 +611,9 @@ function onScroll() {
 		document.querySelectorAll('.not_read:not(.keep_unread)').forEach(function (div) {
 				if (div.offsetHeight > 0 &&
 					div.offsetParent.offsetTop + div.offsetTop + div.offsetHeight < minTop) {
-					mark_read(div, true);
+					mark_read(div, true, true);
 				}
 			});
-	}
-	if (context.auto_remove_article) {
-		let scrollTop = box_to_follow.scrollTop;
-		let dirty = false;
-		document.querySelectorAll('.flux:not(.active):not(.not_read)').forEach(function (div) {
-				if (!pending_entries[div.id] && div.offsetHeight > 0 &&
-					div.offsetParent.offsetTop + div.offsetTop + (div.offsetHeight * 2) < scrollTop) {
-					const p = div.previousElementSibling,
-						n = div.nextElementSibling;
-					if (p && p.classList.contains('day') && n && n.classList.contains('day')) {
-						scrollTop -= p.offsetHeight;
-						p.remove();
-					}
-					scrollTop -= div.offsetHeight;
-					div.remove();
-					dirty = true;
-				}
-			});
-		if (dirty) {
-			box_to_follow.scrollTop = scrollTop;
-			return;	//onscroll will be called again
-		}
 	}
 	if (context.auto_load_more) {
 		const pagination = document.getElementById('mark-read-pagination');
@@ -749,7 +750,7 @@ function init_shortcuts() {
 				} else if (ev.shiftKey) {	// Mark everything as read
 					document.querySelector('.nav_menu .read_all').click();
 				} else {	// Toggle the read state
-					mark_read(document.querySelector('.flux.current'), false);
+					mark_read(document.querySelector('.flux.current'), false, false);
 				}
 				return false;
 			}
@@ -791,7 +792,7 @@ function init_shortcuts() {
 			}
 			if (k === s.go_website) {
 				if (context.auto_mark_site) {
-					mark_read(document.querySelector('.flux.current'), true);
+					mark_read(document.querySelector('.flux.current'), true, false);
 				}
 				window.open(document.querySelector('.flux.current a.go_website').href);
 				return false;
@@ -817,7 +818,7 @@ function init_stream(stream) {
 	stream.onclick = function (ev) {
 		let el = ev.target.closest('.flux a.read');
 		if (el) {
-			mark_read(el.closest('.flux'), false);
+			mark_read(el.closest('.flux'), false, false);
 			return false;
 		}
 
@@ -886,7 +887,7 @@ function init_stream(stream) {
 				new_active = el.parentNode;
 			if (ev.target.tagName.toUpperCase() === 'A') {	//Leave real links alone
 				if (context.auto_mark_article) {
-					mark_read(new_active, true);
+					mark_read(new_active, true, false);
 				}
 				return true;
 			}
@@ -905,7 +906,7 @@ function init_stream(stream) {
 			if (ev.which == 1) {
 				if (ev.ctrlKey) {	//Control+click
 					if (context.auto_mark_site) {
-						mark_read(el.closest('.flux'), true);
+						mark_read(el.closest('.flux'), true, false);
 					}
 				} else {
 					el.parentElement.click();	//Normal click, just toggle article.
@@ -913,7 +914,7 @@ function init_stream(stream) {
 			} else if (ev.which == 2 && !ev.ctrlKey) {	//Simple middle click: same behaviour as CTRL+click
 				if (context.auto_mark_article) {
 					const new_active = el.closest('.flux');
-					mark_read(new_active, true);
+					mark_read(new_active, true, false);
 				}
 			}
 			return;
@@ -927,7 +928,7 @@ function init_stream(stream) {
 				if (ev.which == 3) {
 					return;
 				}
-				mark_read(el.closest('.flux'), true);
+				mark_read(el.closest('.flux'), true, false);
 			}
 		}
 	};
