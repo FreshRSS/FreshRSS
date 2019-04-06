@@ -20,6 +20,11 @@ require(__DIR__ . '/../constants.php');
 function is_valid_path($path) {
 	// It must be under the extension path.
 	$real_ext_path = realpath(EXTENSIONS_PATH);
+
+	//Windows compatibility
+	$real_ext_path = str_replace('\\', '/', $real_ext_path);
+	$path = str_replace('\\', '/', $path);
+
 	$in_ext_path = (substr($path, 0, strlen($real_ext_path)) === $real_ext_path);
 	if (!$in_ext_path) {
 		return false;
