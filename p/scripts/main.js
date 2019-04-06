@@ -163,7 +163,7 @@ function incUnreadsTag(tag_id, nb) {
 }
 
 function removeArticle(div) {
-	if (!div || div.classList.contains('active') || div.classList.contains('not_read')) {
+	if (!div || div.classList.contains('not_read') || (context.auto_mark_article && div.classList.contains('active'))) {
 		return;
 	}
 	let scrollTop = box_to_follow.scrollTop;
