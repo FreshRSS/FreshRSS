@@ -692,7 +692,10 @@ function init_column_categories() {
 				a.href = '#dropdown-' + id;
 				div.querySelector('.dropdown-target').id = 'dropdown-' + id;
 				div.insertAdjacentHTML('beforeend', template);
-				div.querySelector('button.confirm').disabled = false;
+				const b = div.querySelector('button.confirm');
+				if (b) {
+					b.disabled = false;
+				}
 			} else if (getComputedStyle(dropdownMenu).display === 'none') {
 				const id2 = div.closest('.item').id.substr(2);
 				a.href = '#dropdown-' + id2;
