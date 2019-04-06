@@ -136,10 +136,22 @@ function init_draggable() {
 		};
 }
 
+function archiving() {
+	document.querySelector('body').addEventListener('change', function(event) {
+		if (event.target.id === 'use_default_purge_options') {
+			document.querySelectorAll('.archiving').forEach(function(element) {
+				element.hidden = event.target.checked;
+			});
+		}
+	});
+}
+
 if (document.readyState && document.readyState !== 'loading') {
 	init_draggable();
+	archiving();
 } else if (document.addEventListener) {
 	document.addEventListener('DOMContentLoaded', function () {
 		init_draggable();
+		archiving();
 	}, false);
 }

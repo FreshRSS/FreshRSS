@@ -97,14 +97,74 @@
 				</div>
 			</div>
 		</div>
+		<?php
+			$archiving = $this->feed->attributes('archiving');
+			$volatile = array(
+				'retention_period_count' => '1',
+				'retention_period_unit' => 'P1M',
+			);
+			$retentionPeriod = (is_array($archiving) && array_key_exists('retention_period', $archiving)) ? $archiving['retention_period'] : '';
+			if (preg_match('/^PT?(?P<count>\d+)[YMWDH]$/', $retentionPeriod, $matches)) {
+				$volatile['retention_period_count'] = $matches['count'];
+				$volatile['retention_period_unit'] = str_replace($matches['count'], '1', $retentionPeriod);
+			}
+		?>
 		<div class="form-group">
-			<label class="group-name" for="keep_history"><?php echo _t('sub.feed.keep_history'); ?></label>
+			<label class="group-name"><?php echo _t('conf.archiving.policy'); ?></label>
 			<div class="group-controls">
-				<select class="number" name="keep_history" id="keep_history" required="required"><?php
-					foreach (array('' => '', FreshRSS_Feed::KEEP_HISTORY_DEFAULT => _t('gen.short.by_default'), 0 => '0', 10 => '10', 50 => '50', 100 => '100', 500 => '500', 1000 => '1 000', 5000 => '5 000', 10000 => '10 000', FreshRSS_Feed::KEEP_HISTORY_INFINITE => '∞') as $v => $t) {
-						echo '<option value="' . $v . ($this->feed->keepHistory() === $v ? '" selected="selected' : '') . '">' . $t . '</option>';
-					}
-				?></select>
+				<label class="checkbox">
+					<input type="checkbox" name="use_default_purge_options" id="use_default_purge_options" value="1"<?php echo null === $archiving ? ' checked="checked"' : ''; ?>/>
+					<?php echo _t('gen.short.by_default'); ?>
+				</label>
+			</div>
+		</div>
+		<div class="form-group archiving"<?php echo null === $archiving ? ' hidden="hidden"' : ''; ?>>
+			<div class="group-controls">
+				<label class="checkbox" for="enable_retention_count_limit">
+					<input type="checkbox" name="enable_retention_count_limit" id="enable_retention_count_limit" value="1"<?php echo $archiving['enable_retention_count_limit'] ? ' checked="checked"' : ''; ?>  data-leave-validation="<?php echo $archiving['enable_retention_count_limit']; ?>"/>
+					<?php echo _t('conf.archiving.retention_count_limit'); ?>
+					<input type="number" id="retention_count_limit" name="retention_count_limit" min="0" value="<?php echo $archiving['retention_count_limit']; ?>" data-leave-validation="<?php echo $archiving['retention_count_limit']; ?>"/>
+				</label>
+			</div>
+		</div>
+		<div class="form-group archiving"<?php echo null === $archiving ? ' hidden="hidden"' : ''; ?>>
+			<div class="group-controls">
+				<label class="checkbox" for="enable_retention_period">
+					<input type="checkbox" name="enable_retention_period" id="enable_retention_period" value="1"<?php echo $archiving['enable_retention_period'] ? ' checked="checked"' : ''; ?>  data-leave-validation="<?php echo $archiving['enable_retention_period']; ?>"/>
+					<?php echo _t('conf.archiving.retention_period'); ?>
+					<input type="number" id="retention_period_count" name="retention_period_count" min="0" value="<?php echo $volatile['retention_period_count']; ?>" data-leave-validation="<?php echo $volatile['retention_period_count']; ?>"/>
+					<select class="number" name="retention_period_unit" id="retention_period_unit" data-leave-validation="<?php echo $volatile['retention_period_unit']; ?>">
+						<option value="P1Y" <?php echo 'P1Y' === $volatile['retention_period_unit'] ? 'selected="selected"' : ''; ?>><?php echo _t('gen.period.years'); ?></option>
+						<option value="P1M" <?php echo 'P1M' === $volatile['retention_period_unit'] ? 'selected="selected"' : ''; ?>><?php echo _t('gen.period.months'); ?></option>
+						<option value="P1W" <?php echo 'P1W' === $volatile['retention_period_unit'] ? 'selected="selected"' : ''; ?>><?php echo _t('gen.period.weeks'); ?></option>
+						<option value="P1D" <?php echo 'P1D' === $volatile['retention_period_unit'] ? 'selected="selected"' : ''; ?>><?php echo _t('gen.period.days'); ?></option>
+						<option value="PT1H" <?php echo 'PT1H' === $volatile['retention_period_unit'] ? 'selected="selected"' : ''; ?>><?php echo _t('gen.period.hours'); ?></option>
+					</select>
+				</label>
+			</div>
+		</div>
+		<div class="form-group archiving"<?php echo null === $archiving ? ' hidden="hidden"' : ''; ?>>
+			<div class="group-controls">
+				<label class="checkbox" for="keep_favourites">
+					<input type="checkbox" name="keep_favourites" id="keep_favourites" value="1"<?php echo $archiving['keep_favourites'] ? ' checked="checked"' : ''; ?>  data-leave-validation="<?php echo $archiving['keep_favourites']; ?>"/>
+					<?php echo _t('conf.archiving.keep_favourites'); ?>
+				</label>
+			</div>
+		</div>
+		<div class="form-group archiving"<?php echo null === $archiving ? ' hidden="hidden"' : ''; ?>>
+			<div class="group-controls">
+				<label class="checkbox" for="keep_labels">
+					<input type="checkbox" name="keep_labels" id="keep_labels" value="1"<?php echo $archiving['keep_labels'] ? ' checked="checked"' : ''; ?>  data-leave-validation="<?php echo $archiving['keep_labels']; ?>"/>
+					<?php echo _t('conf.archiving.keep_labels'); ?>
+				</label>
+			</div>
+		</div>
+		<div class="form-group archiving"<?php echo null === $archiving ? ' hidden="hidden"' : ''; ?>>
+			<div class="group-controls">
+				<label class="checkbox" for="keep_unreads">
+					<input type="checkbox" name="keep_unreads" id="keep_unreads" value="1"<?php echo $archiving['keep_unreads'] ? ' checked="checked"' : ''; ?>  data-leave-validation="<?php echo $archiving['keep_unreads']; ?>"/>
+					<?php echo _t('conf.archiving.keep_unreads'); ?>
+				</label>
 			</div>
 		</div>
 		<div class="form-group">
