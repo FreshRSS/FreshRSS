@@ -280,6 +280,9 @@ function customSimplePie($attributes = array()) {
 }
 
 function sanitizeHTML($data, $base = '') {
+	if (!is_string($data)) {
+		return '';
+	}
 	static $simplePie = null;
 	if ($simplePie == null) {
 		$simplePie = customSimplePie();
