@@ -163,6 +163,9 @@ function incUnreadsTag(tag_id, nb) {
 }
 
 function removeArticle(div) {
+	if (!div || div.classList.contains('active') || div.classList.contains('not_read')) {
+		return;
+	}
 	let scrollTop = box_to_follow.scrollTop;
 	let dirty = false;
 	const p = div.previousElementSibling,
@@ -384,6 +387,9 @@ function toggleContent(new_active, old_active, skipping) {
 		if (old_active) {
 			old_active.classList.remove('active');
 			old_active.classList.remove('current');	//Split for IE11
+			if (context.auto_remove_article) {
+				removeArticle(old_active);
+			}
 		}
 	} else {
 		new_active.classList.toggle('active');
