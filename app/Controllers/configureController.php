@@ -231,12 +231,10 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 
 		$retentionPeriod = FreshRSS_Context::$user_conf->archiving['retention_period'];
 		if (preg_match('/^PT?(?P<count>\d+)[YMWDH]$/', $retentionPeriod, $matches)) {
-			$volatile = FreshRSS_Context::$user_conf->volatile;
-			if (null === $volatile) {
-				$volatile = array();
-			}
-			$volatile['retention_period_count'] = $matches['count'];
-			$volatile['retention_period_unit'] = str_replace($matches['count'], 1, $retentionPeriod);
+			$volatile = array(
+				'retention_period_count' => $matches['count'],
+				'retention_period_unit' => str_replace($matches['count'], 1, $retentionPeriod),
+			);
 			FreshRSS_Context::$user_conf->volatile = $volatile;
 		}
 

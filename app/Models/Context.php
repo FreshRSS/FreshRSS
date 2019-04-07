@@ -294,7 +294,7 @@ class FreshRSS_Context {
 							break;
 						}
 					}
-				}
+			}
 
 				// If there is no more unread category, show main stream
 				self::$next_get = $another_unread_id == '' ? 'a' : 'c_' . $another_unread_id;
