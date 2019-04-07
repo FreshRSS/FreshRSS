@@ -14,6 +14,7 @@ install:
 
 script:
   - phpenv rehash
+  - git ls-files -z "*.php" | xargs -0 -n1 -P4 php -l
   - |
     if [[ $VALIDATE_STANDARD == yes ]]; then
       COMPOSER_BIN=$(composer global config --absolute bin-dir)
