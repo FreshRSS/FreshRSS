@@ -549,7 +549,7 @@ function _i($icon, $url_only = false) {
 }
 
 
-const SHORTCUT_KEYS = array(
+$SHORTCUT_KEYS = array(	//No const for < PHP 5.6 compatibility
 			'0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
 			'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm',
 			'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
@@ -559,6 +559,7 @@ const SHORTCUT_KEYS = array(
 		);
 
 function validateShortcutList($shortcuts) {
+	global $SHORTCUT_KEYS;
 	$legacy = array(
 			'down' => 'ArrowDown', 'left' => 'ArrowLeft', 'page_down' => 'PageDown', 'page_up' => 'PageUp',
 			'right' => 'ArrowRight', 'up' => 'ArrowUp',
@@ -567,17 +568,17 @@ function validateShortcutList($shortcuts) {
 	$shortcuts_ok = array();
 
 	foreach ($shortcuts as $key => $value) {
-		if (in_array($value, SHORTCUT_KEYS)) {
+		if (in_array($value, $SHORTCUT_KEYS)) {
 			$shortcuts_ok[$key] = $value;
 		} elseif (isset($legacy[$value])) {
 			$shortcuts_ok[$key] = $legacy[$value];
 		} else {	//Case-insensitive search
 			if ($upper === null) {
-				$upper = array_map('strtoupper', SHORTCUT_KEYS);
+				$upper = array_map('strtoupper', $SHORTCUT_KEYS);
 			}
 			$i = array_search(strtoupper($value), $upper);
 			if ($i !== false) {
-				$shortcuts_ok[$key] = SHORTCUT_KEYS[$i];
+				$shortcuts_ok[$key] = $SHORTCUT_KEYS[$i];
 			}
 		}
 	}
