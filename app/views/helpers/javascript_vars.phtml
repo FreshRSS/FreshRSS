@@ -1,6 +1,6 @@
 <?php
 $mark = FreshRSS_Context::$user_conf->mark_when;
-$s = FreshRSS_Context::$user_conf->shortcuts;
+$s = validateShortcutList(FreshRSS_Context::$user_conf->shortcuts);
 echo htmlspecialchars(json_encode(array(
 	'context' => array(
 		'anonymous' => !FreshRSS_Auth::hasAccess(),

@@ -2,6 +2,7 @@
 /* jshint esversion:6, strict:global */
 
 //<Polyfills>
+if (!document.scrollingElement) document.scrollingElement = document.documentElement;
 if (!NodeList.prototype.forEach) NodeList.prototype.forEach = Array.prototype.forEach;
 if (!Element.prototype.matches) Element.prototype.matches = Element.prototype.msMatchesSelector || Element.prototype.mozMatchesSelector || Element.prototype.webkitMatchesSelector;
 if (!Element.prototype.closest) Element.prototype.closest = function (s) {
@@ -44,18 +45,20 @@ var context;
 }());
 //</Global context>
 
-function badAjax() {
+function badAjax(reload) {
 	openNotification(context.i18n.notif_request_failed, 'bad');
-	location.reload();
+	if (reload) {
+		setTimeout(function () { location.reload(); }, 2000);
+	}
 	return true;
 }
 
 function needsScroll(elem) {
-	const winBottom = document.documentElement.scrollTop + document.documentElement.clientHeight,
+	const winBottom = document.scrollingElement.scrollTop + document.scrollingElement.clientHeight,
 		elemTop = elem.offsetParent.offsetTop + elem.offsetTop,
 		elemBottom = elemTop + elem.offsetHeight;
-	return (elemTop < document.documentElement.scrollTop || elemBottom > winBottom) ?
-		elemTop - (document.documentElement.clientHeight / 2) : 0;
+	return (elemTop < document.scrollingElement.scrollTop || elemBottom > winBottom) ?
+		elemTop - (document.scrollingElement.clientHeight / 2) : 0;
 }
 
 function str2int(str) {
@@ -159,6 +162,29 @@ function incUnreadsTag(tag_id, nb) {
 	}
 }
 
+function removeArticle(div) {
+	if (!div || div.classList.contains('not_read') || (context.auto_mark_article && div.classList.contains('active'))) {
+		return;
+	}
+	let scrollTop = box_to_follow.scrollTop;
+	let dirty = false;
+	const p = div.previousElementSibling,
+		n = div.nextElementSibling;
+	if (p && p.classList.contains('day') && n && n.classList.contains('day')) {
+		scrollTop -= p.offsetHeight;
+		dirty = true;
+		p.remove();
+	}
+	if (div.offsetHeight > 0 && div.offsetParent.offsetTop + div.offsetTop + div.offsetHeight < scrollTop) {
+		scrollTop -= div.offsetHeight;
+		dirty = true;
+	}
+	div.remove();
+	if (dirty) {
+		box_to_follow.scrollTop = scrollTop;
+	}
+}
+
 var pending_entries = {},
 	mark_read_queue = [];
 
@@ -167,19 +193,19 @@ function send_mark_read_queue(queue, asRead, callback) {
 	req.open('POST', '.?c=entry&a=read' + (asRead ? '' : '&is_read=0'), true);
 	req.responseType = 'json';
 	req.onerror = function (e) {
-			openNotification(context.i18n.notif_request_failed, 'bad');
 			for (let i = queue.length - 1; i >= 0; i--) {
 				delete pending_entries['flux_' + queue[i]];
 			}
-			if (this.status == 403) {
-				badAjax();
-			}
+			badAjax(this.status == 403);
 		};
 	req.onload = function (e) {
 			if (this.status != 200) {
 				return req.onerror(e);
 			}
 			const json = xmlHttpRequestJson(this);
+			if (!json) {
+				return req.onerror(e);
+			}
 			for (let i = queue.length - 1; i >= 0; i--) {
 				const div = document.getElementById('flux_' + queue[i]),
 					myIcons = context.icons;
@@ -191,6 +217,9 @@ function send_mark_read_queue(queue, asRead, callback) {
 						});
 					div.querySelectorAll('a.read > .icon').forEach(function (img) { img.outerHTML = myIcons.read; });
 					inc--;
+					if (context.auto_remove_article) {
+						removeArticle(div);
+					}
 				} else {
 					div.classList.add('not_read');
 					div.classList.add('keep_unread');	//Split for IE11
@@ -237,14 +266,15 @@ function send_mark_queue_tick(callback) {
 	mark_read_queue = [];
 	send_mark_read_queue(queue, true, callback);
 }
+var delayedFunction = send_mark_queue_tick;
 
 function delayedClick(a) {
 	if (a) {
-		send_mark_queue_tick(function () { a.click(); });
+		delayedFunction(function () { a.click(); });
 	}
 }
 
-function mark_read(div, only_not_read) {
+function mark_read(div, only_not_read, asBatch) {
 	if (!div || !div.id || context.anonymous ||
 		(only_not_read && !div.classList.contains('not_read'))) {
 		return false;
@@ -256,7 +286,7 @@ function mark_read(div, only_not_read) {
 
 	const asRead = div.classList.contains('not_read'),
 		entryId = div.id.replace(/^flux_/, '');
-	if (asRead) {
+	if (asRead && asBatch) {
 		mark_read_queue.push(entryId);
 		if (send_mark_read_queue_timeout == 0) {
 			send_mark_read_queue_timeout = setTimeout(function () { send_mark_queue_tick(null); }, 1000);
@@ -287,17 +317,17 @@ function mark_favorite(div) {
 	req.open('POST', url, true);
 	req.responseType = 'json';
 	req.onerror = function (e) {
-			openNotification(context.i18n.notif_request_failed, 'bad');
 			delete pending_entries[div.id];
-			if (this.status == 403) {
-				badAjax();
-			}
+			badAjax(this.status == 403);
 		};
 	req.onload = function (e) {
 			if (this.status != 200) {
 				return req.onerror(e);
 			}
 			const json = xmlHttpRequestJson(this);
+			if (!json) {
+				return req.onerror(e);
+			}
 			let inc = 0;
 			if (div.classList.contains('favorite')) {
 				div.classList.remove('favorite');
@@ -357,21 +387,23 @@ function toggleContent(new_active, old_active, skipping) {
 		if (old_active) {
 			old_active.classList.remove('active');
 			old_active.classList.remove('current');	//Split for IE11
+			if (context.auto_remove_article) {
+				removeArticle(old_active);
+			}
 		}
 	} else {
 		new_active.classList.toggle('active');
 	}
 
 	const relative_move = context.current_view === 'global',
-		box_to_move = relative_move ? document.getElementById('panel') : document.documentElement;
+		box_to_move = relative_move ? document.getElementById('panel') : document.scrollingElement;
 
-	if (context.sticky_post) {
+	if (context.sticky_post) {	//Stick the article to the top when opened
 		let prev_article = new_active.previousElementSibling,
-			new_pos = new_active.offsetTop + document.documentElement.scrollTop,
-			old_scroll = box_to_move.scrollTop;
+			new_pos = new_active.offsetParent.offsetTop + new_active.offsetTop;
 
 		if (prev_article && new_active.offsetTop - prev_article.offsetTop <= 150) {
-			new_pos = prev_article.offsetTop;
+			new_pos = prev_article.offsetParent.offsetTop + prev_article.offsetTop;
 			if (relative_move) {
 				new_pos -= box_to_move.offsetTop;
 			}
@@ -382,14 +414,14 @@ function toggleContent(new_active, old_active, skipping) {
 			new_pos -= document.body.clientHeight / 4;
 		}
 		if (relative_move) {
-			new_pos += old_scroll;
+			new_pos += box_to_move.scrollTop;
 		}
 		box_to_move.scrollTop = new_pos;
 	}
 
 	if (new_active.classList.contains('active') && !skipping) {
 		if (context.auto_mark_article) {
-			mark_read(new_active, true);
+			mark_read(new_active, true, true);
 		}
 		new_active.dispatchEvent(freshrssOpenArticleEvent);
 	}
@@ -529,7 +561,7 @@ function user_filter(key) {
 		// Force scrolling to the filter div
 		const scroll = needsScroll(document.querySelector('.header'));
 		if (scroll !== 0) {
-			document.documentElement.scrollTop = scroll;
+			document.scrollingElement.scrollTop = scroll;
 		}
 		// Force the key value if there is only one action, so we can trigger it automatically
 		if (filters.length === 1) {
@@ -557,7 +589,7 @@ function auto_share(key) {
 		// Force scrolling to the share div
 		const scrollTop = needsScroll(share.closest('.bottom'));
 		if (scrollTop !== 0) {
-			document.documentElement.scrollTop = scrollTop;
+			document.scrollingElement.scrollTop = scrollTop;
 		}
 		// Force the key value if there is only one action, so we can trigger it automatically
 		if (shares.length === 1) {
@@ -585,30 +617,9 @@ function onScroll() {
 		document.querySelectorAll('.not_read:not(.keep_unread)').forEach(function (div) {
 				if (div.offsetHeight > 0 &&
 					div.offsetParent.offsetTop + div.offsetTop + div.offsetHeight < minTop) {
-					mark_read(div, true);
+					mark_read(div, true, true);
 				}
 			});
-	}
-	if (context.auto_remove_article) {
-		let maxTop = box_to_follow.scrollTop,
-			scrollOffset = 0;
-		document.querySelectorAll('.flux:not(.active):not(.keep_unread)').forEach(function (div) {
-				if (!pending_entries[div.id] && div.offsetHeight > 0 &&
-					div.offsetParent.offsetTop + div.offsetTop + div.offsetHeight < maxTop) {
-					const p = div.previousElementSibling,
-						n = div.nextElementSibling;
-					if (p && p.classList.contains('day') && n && n.classList.contains('day')) {
-						p.remove();
-					}
-					maxTop -= div.offsetHeight;
-					scrollOffset -= div.offsetHeight;
-					div.remove();
-				}
-			});
-		if (scrollOffset != 0) {
-			box_to_follow.scrollTop += scrollOffset;
-			return;	//onscroll will be called again
-		}
 	}
 	if (context.auto_load_more) {
 		const pagination = document.getElementById('mark-read-pagination');
@@ -621,10 +632,10 @@ function onScroll() {
 
 function init_posts() {
 	if (context.auto_load_more || context.auto_mark_scroll || context.auto_remove_article) {
-		box_to_follow = context.current_view === 'global' ? document.getElementById('panel') : document.documentElement;
+		box_to_follow = context.current_view === 'global' ? document.getElementById('panel') : document.scrollingElement;
 		let lastScroll = 0,	//Throttle
 			timerId = 0;
-		(box_to_follow === document.documentElement ? window : box_to_follow).onscroll = function () {
+		(box_to_follow === document.scrollingElement ? window : box_to_follow).onscroll = function () {
 			clearTimeout(timerId);
 			if (lastScroll + 500 < Date.now()) {
 				lastScroll = Date.now();
@@ -681,7 +692,10 @@ function init_column_categories() {
 				a.href = '#dropdown-' + id;
 				div.querySelector('.dropdown-target').id = 'dropdown-' + id;
 				div.insertAdjacentHTML('beforeend', template);
-				div.querySelector('button.confirm').disabled = false;
+				const b = div.querySelector('button.confirm');
+				if (b) {
+					b.disabled = false;
+				}
 			} else if (getComputedStyle(dropdownMenu).display === 'none') {
 				const id2 = div.closest('.item').id.substr(2);
 				a.href = '#dropdown-' + id2;
@@ -745,7 +759,7 @@ function init_shortcuts() {
 				} else if (ev.shiftKey) {	// Mark everything as read
 					document.querySelector('.nav_menu .read_all').click();
 				} else {	// Toggle the read state
-					mark_read(document.querySelector('.flux.current'), false);
+					mark_read(document.querySelector('.flux.current'), false, false);
 				}
 				return false;
 			}
@@ -787,7 +801,7 @@ function init_shortcuts() {
 			}
 			if (k === s.go_website) {
 				if (context.auto_mark_site) {
-					mark_read(document.querySelector('.flux.current'), true);
+					mark_read(document.querySelector('.flux.current'), true, false);
 				}
 				window.open(document.querySelector('.flux.current a.go_website').href);
 				return false;
@@ -813,7 +827,7 @@ function init_stream(stream) {
 	stream.onclick = function (ev) {
 		let el = ev.target.closest('.flux a.read');
 		if (el) {
-			mark_read(el.closest('.flux'), false);
+			mark_read(el.closest('.flux'), false, false);
 			return false;
 		}
 
@@ -882,7 +896,7 @@ function init_stream(stream) {
 				new_active = el.parentNode;
 			if (ev.target.tagName.toUpperCase() === 'A') {	//Leave real links alone
 				if (context.auto_mark_article) {
-					mark_read(new_active, true);
+					mark_read(new_active, true, false);
 				}
 				return true;
 			}
@@ -891,21 +905,28 @@ function init_stream(stream) {
 		}
 	};
 
-	stream.onmouseup = function (ev) {	// Mouseup enables us to catch middle click
+	stream.onmouseup = function (ev) {	// Mouseup enables us to catch middle click, and control+click in IE/Edge
+		if (ev.altKey || ev.metaKey || ev.shiftKey) {
+			return;
+		}
+
 		let el = ev.target.closest('.item.title > a');
 		if (el) {
-			if (ev.ctrlKey) {
-				return;	// CTRL+click, it will be manage by previous rule.
+			if (ev.which == 1) {
+				if (ev.ctrlKey) {	//Control+click
+					if (context.auto_mark_site) {
+						mark_read(el.closest('.flux'), true, false);
+					}
+				} else {
+					el.parentElement.click();	//Normal click, just toggle article.
+				}
+			} else if (ev.which == 2 && !ev.ctrlKey) {	//Simple middle click: same behaviour as CTRL+click
+				if (context.auto_mark_article) {
+					const new_active = el.closest('.flux');
+					mark_read(new_active, true, false);
+				}
 			}
-			if (ev.which == 2) {
-				// If middle click, we want same behaviour as CTRL+click.
-				const evc = document.createEvent('click');
-				evc.ctrlKey = true;
-				el.dispatchEvent(evc);
-			} else if (ev.which == 1) {
-				// Normal click, just toggle article.
-				el.parentElement.click();
-			}
+			return;
 		}
 
 		if (context.auto_mark_site) {
@@ -916,7 +937,7 @@ function init_stream(stream) {
 				if (ev.which == 3) {
 					return;
 				}
-				mark_read(el.closest('.flux'), true);
+				mark_read(el.closest('.flux'), true, false);
 			}
 		}
 	};
@@ -937,9 +958,7 @@ function init_stream(stream) {
 				req.responseType = 'json';
 				req.onerror = function (e) {
 						checkboxTag.checked = !isChecked;
-						if (this.status == 403) {
-							badAjax();
-						}
+						badAjax(this.status == 403);
 					};
 				req.onload = function (e) {
 						if (this.status != 200) {
@@ -980,10 +999,10 @@ function init_nav_entries() {
 			};
 		nav_entries.querySelector('.up').onclick = function (e) {
 				const active_item = document.querySelector('.flux.current'),
-					windowTop = document.documentElement.scrollTop,
+					windowTop = document.scrollingElement.scrollTop,
 					item_top = active_item.offsetParent.offsetTop + active_item.offsetTop;
 
-				document.documentElement.scrollTop = windowTop > item_top ? item_top : 0;
+				document.scrollingElement.scrollTop = windowTop > item_top ? item_top : 0;
 				return false;
 			};
 	}
@@ -1006,6 +1025,9 @@ function loadDynamicTags(div) {
 				return req.onerror(e);
 			}
 			const json = xmlHttpRequestJson(this);
+			if (!json) {
+				return req.onerror(e);
+			}
 			let html = '<li class="item"><label><input class="checkboxTag" name="t_0" type="checkbox" /> <input type="text" name="newTag" /></label></li>';
 			if (json && json.length) {
 				for (let i = 0; i < json.length; i++) {
@@ -1031,7 +1053,7 @@ function updateFeed(feeds, feeds_count) {
 	req.open('POST', feed.url, true);
 	req.onloadend = function (e) {
 			if (this.status != 200) {
-				return badAjax();
+				return badAjax(false);
 			}
 			feed_processed++;
 			const div = document.getElementById('actualizeProgress');
@@ -1042,7 +1064,7 @@ function updateFeed(feeds, feeds_count) {
 				const req2 = new XMLHttpRequest();
 				req2.open('POST', './?c=feed&a=actualize&id=-1&ajax=1', true);
 				req2.onloadend = function (e) {
-					location.reload();
+					delayedFunction(function () { location.reload(); });
 				};
 				req2.setRequestHeader('Content-Type', 'application/json');
 				req2.send(JSON.stringify({
@@ -1074,9 +1096,12 @@ function init_actualize() {
 		req.responseType = 'json';
 		req.onload = function (e) {
 				if (this.status != 200) {
-					return badAjax();
+					return badAjax(false);
 				}
 				const json = xmlHttpRequestJson(this);
+				if (!json) {
+					return badAjax(false);
+				}
 				if (auto && json.feeds.length < 1) {
 					auto = false;
 					context.ajax_loading = false;
@@ -1184,10 +1209,12 @@ function notifs_html5_show(nb) {
 	});
 
 	notification.onclick = function () {
-		location.reload();
-		window.focus();
-		notification.close();
-	};
+			delayedFunction(function() {
+				location.reload();
+				window.focus();
+				notification.close();
+			});
+		};
 
 	if (context.html5_notif_timeout !== 0) {
 		setTimeout(function () {
@@ -1211,6 +1238,9 @@ function refreshUnreads() {
 	req.responseType = 'json';
 	req.onload = function (e) {
 			const json = xmlHttpRequestJson(this);
+			if (!json) {
+				return badAjax(false);
+			}
 			const isAll = document.querySelector('.category.all.active');
 			let new_articles = false;
 
@@ -1286,12 +1316,11 @@ function load_more_posts() {
 				paginationNew = streamAdopted.querySelector('.pagination');
 			formPagination.replaceChild(paginationNew, paginationOld);
 
-			if (context.display_order === 'ASC') {
-				document.querySelector('#nav_menu_read_all .read_all').formAction =
-					document.getElementById('bigMarkAsRead').formAction;
-			} else {
-				const bigMarkAsRead = document.getElementById('bigMarkAsRead');
-				if (bigMarkAsRead) {
+			const bigMarkAsRead = document.getElementById('bigMarkAsRead');
+			if (bigMarkAsRead) {
+				if (context.display_order === 'ASC') {
+					document.querySelector('#nav_menu_read_all .read_all').formAction = bigMarkAsRead.formAction;
+				} else {
 					bigMarkAsRead.formAction = document.querySelector('#nav_menu_read_all .read_all').formAction;
 				}
 			}
@@ -1305,8 +1334,7 @@ function load_more_posts() {
 
 			init_load_more(box_load_more);
 
-			const bigMarkAsRead = document.getElementById('bigMarkAsRead'),
-				div_load_more = document.getElementById('load_more');
+			const div_load_more = document.getElementById('load_more');
 			if (bigMarkAsRead) {
 				bigMarkAsRead.removeAttribute('disabled');
 			}
@@ -1407,6 +1435,12 @@ function init_normal() {
 	init_shortcuts();
 	init_actualize();
 	faviconNbUnread();
+
+	window.onbeforeunload = function (e) {
+		if (mark_read_queue && mark_read_queue.length > 0) {
+			return false;
+		}
+	};
 }
 
 function init_beforeDOM() {

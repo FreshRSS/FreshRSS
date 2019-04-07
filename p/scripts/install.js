@@ -1,15 +1,15 @@
 "use strict";
 /* jshint globalstrict: true */
 
-function show_password() {
-	var button = this;
+function show_password(ev) {
+	var button = ev.target;
 	var passwordField = document.getElementById(button.getAttribute('data-toggle'));
 	passwordField.setAttribute('type', 'text');
 	button.className += ' active';
 	return false;
 }
-function hide_password() {
-	var button = this;
+function hide_password(ev) {
+	var button = ev.target;
 	var passwordField = document.getElementById(button.getAttribute('data-toggle'));
 	passwordField.setAttribute('type', 'password');
 	button.className = button.className.replace(/(?:^|\s)active(?!\S)/g , '');
@@ -61,10 +61,10 @@ if (bd_type) {
 	bd_type.addEventListener('change', mySqlShowHide);
 }
 
-function ask_confirmation(e) {
-	var str_confirmation = this.getAttribute('data-str-confirm');
+function ask_confirmation(ev) {
+	var str_confirmation = ev.target.getAttribute('data-str-confirm');
 	if (!confirm(str_confirmation)) {
-		e.preventDefault();
+		ev.preventDefault();
 	}
 }
 var confirms = document.getElementsByClassName('confirm');

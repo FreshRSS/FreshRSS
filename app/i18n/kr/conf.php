@@ -92,7 +92,7 @@ return array(
 		'auto_remove_article' => '글을 읽은 후 숨기기',
 		'confirm_enabled' => '“모두 읽음으로 표시” 실행시 확인 창 표시',
 		'display_articles_unfolded' => '글을 펼쳐진 상태로 보여주기',
-		'display_categories_unfolded' => '카테고리를 접힌 상태로 보여주기',
+		'display_categories_unfolded' => '카테고리를 펼친 상태로 보여주기',
 		'hide_read_feeds' => '읽지 않은 글이 없는 카테고리와 피드 감추기 (“모든 글 표시”가 설정된 경우 동작하지 않습니다)',
 		'img_with_lazyload' => '그림을 불러오는 데에 "lazy load" 모드 사용하기',
 		'jump_next' => '다음 읽지 않은 항목으로 이동 (피드 또는 카테고리)',

@@ -11,7 +11,7 @@ RUN apt update && \
 	php-sqlite3 php-mysql php-pgsql && \
 	rm -rf /var/lib/apt/lists/
 
-RUN mkdir -p /var/www/FreshRSS /run/apache2/ /run/php/
+RUN mkdir -p /var/www/FreshRSS /run/apache2/
 WORKDIR /var/www/FreshRSS
 
 COPY . /var/www/FreshRSS
@@ -25,8 +25,10 @@ RUN a2dismod -f alias autoindex negotiation status && \
 
 RUN sed -r -i "/^\s*(CustomLog|ErrorLog|Listen) /s/^/#/" /etc/apache2/apache2.conf && \
 	sed -r -i "/^\s*Listen /s/^/#/" /etc/apache2/ports.conf && \
-	echo "17,37 su apache -s /bin/sh -c 'php /var/www/FreshRSS/app/actualize_script.php' 2>> /proc/1/fd/2 > /tmp/FreshRSS.log" >> \
-		/var/spool/cron/crontabs/root
+	touch /var/www/FreshRSS/Docker/env.txt && \
+	echo "17,47 * * * * . /var/www/FreshRSS/Docker/env.txt; \
+		su www-data -s /bin/sh -c 'php /var/www/FreshRSS/app/actualize_script.php' \
+		2>> /proc/1/fd/2 > /tmp/FreshRSS.log" | crontab -
 
 ENV COPY_SYSLOG_TO_STDERR On
 ENV CRON_MIN ''

@@ -16,14 +16,16 @@ COPY ./Docker/*.Apache.conf /etc/apache2/conf.d/
 
 RUN rm -f /etc/apache2/conf.d/languages.conf /etc/apache2/conf.d/info.conf \
 		/etc/apache2/conf.d/status.conf /etc/apache2/conf.d/userdir.conf && \
-	sed -r -i "/^\s*LoadModule .*mod_(alias|autoindex|negotiation|status).so$/s/^/#/" \ 
+	sed -r -i "/^\s*LoadModule .*mod_(alias|autoindex|negotiation|status).so$/s/^/#/" \
 		/etc/apache2/httpd.conf && \
-	sed -r -i "/^\s*#\s*LoadModule .*mod_(deflate|expires|headers|mime|setenvif).so$/s/^\s*#//" \ 
+	sed -r -i "/^\s*#\s*LoadModule .*mod_(deflate|expires|headers|mime|setenvif).so$/s/^\s*#//" \
 		/etc/apache2/httpd.conf && \
 	sed -r -i "/^\s*(CustomLog|ErrorLog|Listen) /s/^/#/" \
 		/etc/apache2/httpd.conf && \
-	echo "17,37 * * * * su apache -s /bin/sh -c 'php /var/www/FreshRSS/app/actualize_script.php' 2>> /proc/1/fd/2 > /tmp/FreshRSS.log" >> \
-		/var/spool/cron/crontabs/root
+	touch /var/www/FreshRSS/Docker/env.txt && \
+	echo "27,57 * * * * . /var/www/FreshRSS/Docker/env.txt; \
+		su apache -s /bin/sh -c 'php /var/www/FreshRSS/app/actualize_script.php' \
+		2>> /proc/1/fd/2 > /tmp/FreshRSS.log" | crontab -
 
 ENV COPY_SYSLOG_TO_STDERR On
 ENV CRON_MIN ''

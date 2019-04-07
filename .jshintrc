@@ -1,0 +1,8 @@
+{
+	"esversion" : 6,
+	"browser" : true,
+	"globals": {
+		"confirm": true,
+		"console": true
+	}
+}

@@ -92,7 +92,7 @@ return array(
 		'auto_remove_article' => 'Hide articles after reading',	//TODO - Translation
 		'confirm_enabled' => 'הצגת דו-שיח לאישור “סימון הכל כנקרא” ',
 		'display_articles_unfolded' => 'הצגת מאמרים בשלמותם כברירת מחדל',
-		'display_categories_unfolded' => 'הצגת קטגוריות מקופלות כברירת מחדל',
+		'display_categories_unfolded' => 'הצגת קטגוריות בשלמותן כברירת מחדל',
 		'hide_read_feeds' => 'הסתרת קטגוריות &amp; הזנות ללא מאמרים שלא נקראו (לא עובד יחד עם “הצגת כל המאמרים”)',
 		'img_with_lazyload' => 'שימוש ב "טעינה עצלה" על מנת לטעון תמונות',
 		'jump_next' => 'קפיצה לפריט הבא שלא נקרא (הזנה או קטגוריה)',
