@@ -377,7 +377,7 @@ function subscriptionEdit($streamNames, $titles, $action, $add = '', $remove = '
 						$http_auth = '';
 						try {
 							$feed = FreshRSS_feed_Controller::addFeed($streamUrl, $title, $addCatId, $c_name, $http_auth);
-							continue 2;
+							continue;
 						} catch (Exception $e) {
 							Minz_Log::error('subscriptionEdit error subscribe: ' . $e->getMessage(), API_LOG);
 						}
