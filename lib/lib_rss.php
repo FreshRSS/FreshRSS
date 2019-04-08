@@ -548,7 +548,7 @@ function _i($icon, $url_only = false) {
 	return FreshRSS_Themes::icon($icon, $url_only);
 }
 
-const $TRAVIS_TEST = array('test');
+const TRAVIS_TEST = array('test');
 
 $SHORTCUT_KEYS = array(	//No const for < PHP 5.6 compatibility
 			'0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
