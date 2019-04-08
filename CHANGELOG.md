@@ -1,5 +1,15 @@
 ﻿# FreshRSS changelog
 
+## 2019-04-08 FreshRSS 1.14.2
+
+* Bug fixing (regressions introduced in 1.14.X)
+	* Fix PHP 5.5- compatibility [#2359](https://github.com/FreshRSS/FreshRSS/issues/2359)
+* Bug fixing (misc.)
+	* Fix minor code syntax warning in API [#2362](https://github.com/FreshRSS/FreshRSS/pull/2362)
+* Misc.
+	* Add Travis check for PHP syntax [#2361](https://github.com/FreshRSS/FreshRSS/pull/2361)
+
+
 ## 2019-04-07 FreshRSS 1.14.1
 
 * Bug fixing (regressions introduced in 1.14.0)
