@@ -18,7 +18,7 @@ Minz_Configuration::register('system', DATA_PATH . '/config.php', FRESHRSS_PATH 
 
 // check if API is enabled globally
 FreshRSS_Context::$system_conf = Minz_Configuration::get('system');
-if (!FreshRSS_Context::$system_conf->api_enabled)
+if (!FreshRSS_Context::$system_conf->api_enabled) {
 	Minz_Log::warning('Fever API: serviceUnavailable() ' . debugInfo(), API_LOG);
 	header('HTTP/1.1 503 Service Unavailable');
 	header('Content-Type: text/plain; charset=UTF-8');
