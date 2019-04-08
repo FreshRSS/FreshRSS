@@ -1,6 +1,6 @@
 ﻿# FreshRSS changelog
 
-## 2019-04-XX FreshRSS 1.14.2-dev
+## 2019-04-08 FreshRSS 1.14.2
 
 * Bug fixing (regressions introduced in 1.14.X)
 	* Fix PHP 5.5- compatibility [#2359](https://github.com/FreshRSS/FreshRSS/issues/2359)
