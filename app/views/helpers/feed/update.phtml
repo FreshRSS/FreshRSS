@@ -240,7 +240,7 @@
 			<div class="group-controls">
 				<textarea name="filteractions_read" id="filteractions_read"><?php
 					foreach ($this->feed->filtersAction('read') as $filterRead) {
-						echo htmlspecialchars($filterRead->getRawInput(), ENT_NOQUOTES, 'UTF-8'), "\n\n";
+						echo htmlspecialchars($filterRead->getRawInput(), ENT_NOQUOTES, 'UTF-8'), PHP_EOL;
 					}
 				?></textarea>
 				<?php echo _i('help'); ?> <?php echo _t('sub.feed.filteractions.help'); ?>
