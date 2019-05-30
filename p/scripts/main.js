@@ -859,15 +859,11 @@ function init_stream(stream) {
 
 		el = ev.target.closest('.item.share > a[href="#"]');
 		if (el) {	//Print
-			const content = '<html><head><style>' +
-				'body { font-family: Serif; text-align: justify; }' +
-				'a { color: #000; text-decoration: none; }' +
-				'a:after { content: " [" attr(href) "]"}' +
-				'</style></head><body>' +
-				el.closest('.flux_content').querySelector('.content').innerHTML +
-				'</body></html>';
 			const tmp_window = window.open();
-			tmp_window.document.writeln(content);
+			for (var i = 0; i < document.styleSheets.length; i++) {
+				tmp_window.document.writeln('<link href="' + document.styleSheets[i].href + '" rel="stylesheet" type="text/css" />');
+			}
+			tmp_window.document.writeln(el.closest('.flux_content').querySelector('.content').innerHTML);
 			tmp_window.document.close();
 			tmp_window.focus();
 			tmp_window.print();
