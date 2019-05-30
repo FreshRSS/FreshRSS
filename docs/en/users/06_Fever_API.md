@@ -26,7 +26,7 @@ Tested with:
 - iOS
   - [Fiery Feeds](https://itunes.apple.com/app/fiery-feeds-rss-reader/id1158763303)
   - [Unread](https://itunes.apple.com/app/unread-rss-reader/id1252376153)
-  - [Reeder-4](https://itunes.apple.com/de/app/reeder-4/id1449412357)
+  - [Reeder-4](https://itunes.apple.com/app/reeder-4/id1449412357)
 
 - MacOS
   - [Readkit](https://itunes.apple.com/app/readkit/id588726889)
