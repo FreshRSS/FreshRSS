@@ -1,0 +1,38 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg xmlns:inkscape='http://www.inkscape.org/namespaces/inkscape' sodipodi:docname='media-playlist-shuffle-symbolic.svg' width='16' xmlns:rdf='http://www.w3.org/1999/02/22-rdf-syntax-ns#' xmlns:dc='http://purl.org/dc/elements/1.1/' id='svg7384' xmlns:sodipodi='http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd' xmlns:cc='http://creativecommons.org/ns#' height='16' xmlns='http://www.w3.org/2000/svg' inkscape:version='0.48.1 r9760' version='1.1' xmlns:svg='http://www.w3.org/2000/svg'>
+  <metadata id='metadata90'>
+    <rdf:RDF>
+      <cc:Work rdf:about=''>
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type rdf:resource='http://purl.org/dc/dcmitype/StillImage'/>
+        <dc:title>Gnome Symbolic Icon Theme</dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <sodipodi:namedview inkscape:current-layer='layer9' pagecolor='#555753' guidetolerance='10' inkscape:object-paths='false' showborder='false' inkscape:zoom='11.313708' inkscape:snap-global='true' inkscape:window-width='1226' inkscape:pageshadow='2' borderopacity='1' objecttolerance='10' inkscape:window-height='967' inkscape:snap-bbox-midpoints='false' inkscape:snap-to-guides='true' id='namedview88' showguides='true' inkscape:pageopacity='1' inkscape:snap-bbox='true' inkscape:snap-others='false' bordercolor='#666666' inkscape:window-maximized='0' inkscape:cx='-11.080382' inkscape:cy='-11.109093' inkscape:snap-nodes='true' inkscape:object-nodes='false' inkscape:window-x='2259' inkscape:window-y='356' gridtolerance='10' showgrid='false' inkscape:bbox-paths='false' inkscape:snap-grids='true' inkscape:guide-bbox='true'>
+    <inkscape:grid spacingx='1px' spacingy='1px' visible='true' id='grid4866' enabled='true' type='xygrid' empspacing='2' snapvisiblegridlinesonly='true'/>
+  </sodipodi:namedview>
+  <title id='title9167'>Gnome Symbolic Icon Theme</title>
+  <defs id='defs7386'/>
+  <g style='display:inline' transform='translate(-60.999948,-277)' id='layer9' inkscape:label='status' inkscape:groupmode='layer'>
+    
+    <path style='font-size:medium;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-indent:0;text-align:start;text-decoration:none;line-height:normal;letter-spacing:normal;word-spacing:normal;text-transform:none;direction:ltr;block-progression:tb;writing-mode:lr-tb;text-anchor:start;baseline-shift:baseline;color:#bebebe;fill:#bebebe;fill-opacity:1;stroke:none;stroke-width:2;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate;font-family:Sans;-inkscape-font-specification:Sans' inkscape:connector-curvature='0' id='path4544' d='m 62,280 0,2 3,0 c 0.571297,0 1,0.4287 1,1 l 0,4 c 0,1.6447 1.355297,3 3,3 l 6,0 0,-2 -6,0 c -0.571297,0 -1,-0.4287 -1,-1 l 0,-4 c 0,-1.6447 -1.355297,-3 -3,-3 l -3,0 z'/>
+    <path style='font-size:medium;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-indent:0;text-align:start;text-decoration:none;line-height:normal;letter-spacing:normal;word-spacing:normal;text-transform:none;direction:ltr;block-progression:tb;writing-mode:lr-tb;text-anchor:start;baseline-shift:baseline;color:#bebebe;fill:#bebebe;fill-opacity:1;stroke:none;stroke-width:2;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate;font-family:Sans;-inkscape-font-specification:Sans' inkscape:connector-curvature='0' id='rect3217-6-2' d='m 72.78125,286 a 1.0001,1.0001 0 0 0 -0.5,1.71875 L 73.5625,289 l -1.28125,1.28125 a 1.016466,1.016466 0 1 0 1.4375,1.4375 l 2,-2 0.6875,-0.71875 -0.6875,-0.71875 -2,-2 A 1.0001,1.0001 0 0 0 72.78125,286 z'/>
+    <path style='font-size:medium;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-indent:0;text-align:start;text-decoration:none;line-height:normal;letter-spacing:normal;word-spacing:normal;text-transform:none;direction:ltr;block-progression:tb;writing-mode:lr-tb;text-anchor:start;baseline-shift:baseline;color:#bebebe;fill:#bebebe;fill-opacity:1;stroke:none;stroke-width:2;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate;font-family:Sans;-inkscape-font-specification:Sans' inkscape:connector-curvature='0' id='rect3217-6-2-2' d='m 72.78125,278 a 1.0001,1.0001 0 0 0 -0.5,1.71875 L 73.5625,281 l -1.28125,1.28125 a 1.016466,1.016466 0 1 0 1.4375,1.4375 l 2,-2 0.6875,-0.71875 -0.6875,-0.71875 -2,-2 A 1.0001,1.0001 0 0 0 72.78125,278 z'/>
+    <path style='font-size:medium;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-indent:0pt;text-align:start;text-decoration:none;line-height:normal;letter-spacing:normal;word-spacing:normal;text-transform:none;direction:ltr;text-anchor:start;color:#bebebe;fill:#bebebe;fill-opacity:1;stroke:none;stroke-width:2;marker:none;visibility:visible;display:inline;overflow:visible;font-family:Andale Mono' inkscape:connector-curvature='0' id='path4544-1' d='m 68.99995,280 c -0.229573,0 -0.440853,0.0438 -0.65625,0.0937 0.481303,0.5511 0.861254,1.17761 1.03125,1.90625 l 5.625,0 0,-2 -6,0 z m -7,8 0,2 3,0 c 0.229573,0 0.440853,-0.0438 0.65625,-0.0937 -0.481303,-0.55115 -0.861254,-1.17766 -1.03125,-1.9063 l -2.625,0 z'/>
+    <rect style='color:#000000;fill:#bebebe;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:2;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate' width='1' id='rect4723-9' height='1' y='286' x='72'/>
+    <rect style='color:#000000;fill:#bebebe;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:2;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate' width='1' id='rect4723-0-7' height='1' y='291' x='72'/>
+    <rect style='color:#000000;fill:#bebebe;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:2;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate' width='1' id='rect4723-9-6' height='1' y='278' x='72'/>
+    <rect style='color:#000000;fill:#bebebe;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:2;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate' width='1' id='rect4723-0-7-8' height='1' y='283' x='72'/>
+  </g>
+  <g transform='translate(-60.999948,-277)' id='layer10' inkscape:label='devices' inkscape:groupmode='layer'/>
+  <g transform='translate(-60.999948,-277)' id='layer11' inkscape:label='apps' inkscape:groupmode='layer'/>
+  <g transform='translate(-60.999948,-277)' id='layer13' inkscape:label='places' inkscape:groupmode='layer'/>
+  <g transform='translate(-60.999948,-277)' id='layer14' inkscape:label='mimetypes' inkscape:groupmode='layer'/>
+  <g style='display:inline' transform='translate(-60.999948,-277)' id='layer15' inkscape:label='emblems' inkscape:groupmode='layer'/>
+  <g transform='translate(-60.999948,-277)' style='display:inline' id='g71291' inkscape:label='emotes' inkscape:groupmode='layer'/>
+  <g style='display:inline' transform='translate(-60.999948,-277)' id='g4953' inkscape:label='categories' inkscape:groupmode='layer'/>
+  <g transform='translate(-60.999948,-277)' style='display:inline' id='layer12' inkscape:label='actions' inkscape:groupmode='layer'/>
+</svg>
