@@ -66,7 +66,6 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 					$last_entry = array_pop($entries);
 					if (FreshRSS_Context::$order === 'SHUF') {
 						FreshRSS_Context::$next_id = $last_entry->shuffleOrderKey();
-						Minz_Log::debug("Last shuffle key {$last_entry->shuffleOrderKey()}");
 					} else {
 						FreshRSS_Context::$next_id = $last_entry->id();
 					}
