@@ -64,7 +64,12 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 				if ($nb_entries > FreshRSS_Context::$number) {
 					// We have more elements for pagination
 					$last_entry = array_pop($entries);
-					FreshRSS_Context::$next_id = $last_entry->id();
+					if (FreshRSS_Context::$order === 'SHUF') {
+						FreshRSS_Context::$next_id = $last_entry->shuffleOrderKey();
+						Minz_Log::debug("Last shuffle key {$last_entry->shuffleOrderKey()}");
+					} else {
+						FreshRSS_Context::$next_id = $last_entry->id();
+					}
 				}
 
 				$first_entry = $nb_entries > 0 ? $entries[0] : null;
