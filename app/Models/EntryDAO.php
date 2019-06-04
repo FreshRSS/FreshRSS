@@ -705,23 +705,15 @@ SQL;
 			$values[] = $firstId;
 		}
 		if ($firstId !== '' && $order === 'SHUF') {
+
+			/* might not need to repeat this if it were one level up */
 			$search .= 'AND
-				CAST(CONV(
-					CONCAT(
-						HEX( (FIND_IN_SET( ? , grouped_entries)-1) DIV 3 ),
-						LEFT((SHA1(CONCAT( ? , CURDATE()))),15)
-					),
-				16, 10) AS UNSIGNED)
-
-				<
-
 				CAST(CONV(
 					CONCAT(
 						HEX( (FIND_IN_SET(' . $alias . 'id, grouped_entries)-1) DIV 3 ),
 						LEFT((SHA1(CONCAT(' . $alias . 'id, CURDATE()))),15)
 					),
-				16, 10) AS UNSIGNED) ';
-			$values[] = $firstId;
+				16, 10) AS UNSIGNED) >= ? ';
 			$values[] = $firstId;
 		}
 		if ($date_min > 0) {
@@ -936,10 +928,18 @@ SQL;
 		return array(array_merge($values, $searchValues),
 			'SELECT '
 			. ($type === 'T' ? 'DISTINCT ' : '')
-			. ($order === 'SHUF' ? ' grouped_entries, ' : '')
-			. 'e.id FROM `_entry` e '
-			. 'INNER JOIN `_feed` f ON e.id_feed = f.id '
-			. ($type === 't' || $type === 'T' ? 'INNER JOIN `_entrytag` et ON et.id_entry = e.id ' : '')
+			. ($order === 'SHUF' ? ' grouped_entries, ' : ' ')
+			. ($order === 'SHUF' ? '
+				CAST(CONV(
+					CONCAT(
+						HEX( (FIND_IN_SET(e.id, grouped_entries)-1) DIV 3 ), /* 1 hex digit because of BETWEEN */
+						LEFT((SHA1(CONCAT(e.id, CURDATE()))),15) /* leave room for 1 hex digit */
+					),
+				16, 10) AS UNSIGNED) shuffleOrderKey,
+				' : ' ' )
+				. 'e.id FROM `_entry` e '
+				. 'INNER JOIN `_feed` f ON e.id_feed = f.id '
+				. ($type === 't' || $type === 'T' ? 'INNER JOIN `_entrytag` et ON et.id_entry = e.id ' : '')
 			. ($order === 'SHUF' ? '
 				INNER JOIN (
 					SELECT
@@ -953,31 +953,31 @@ SQL;
 			. ($type === 't' || $type === 'T' ? 'INNER JOIN `_entrytag` et ON et.id_entry = e.id ' : '')
 			. 'WHERE ' . $where
 			. $search );
-			
+
 	}
 
 	public function listWhereRaw($type = 'a', $id = '', $state = FreshRSS_Entry::STATE_ALL,
 			$order = 'DESC', $limit = 1, $firstId = '', $filters = null, $date_min = 0) {
 		list($values, $sql) = $this->sqlListWhere($type, $id, $state, $order, $limit, $firstId, $filters, $date_min);
 
-		$sql = 'SELECT e0.id, e0.guid, e0.title, e0.author, '
-			. ($this->isCompressed() ? 'UNCOMPRESS(content_bin) AS content' : 'content')
-			. ', e0.link, e0.date, e0.is_read, e0.is_favorite, e0.id_feed, e0.tags '
-			. ($order === 'SHUF' ? '
-				, CAST(CONV(
+		$sql = 'SELECT e0.id, e0.guid, '
+			. /* for debugging */ ($order === 'SHUF' ? ' CONCAT(FIND_IN_SET(e0.id, grouped_entries)," ",LPAD(HEX(CAST(CONV(
 					CONCAT(
 						HEX( (FIND_IN_SET(e0.id, grouped_entries)-1) DIV 3 ), /* 1 hex digit because of BETWEEN */
 						LEFT((SHA1(CONCAT(e0.id, CURDATE()))),15) /* leave room for 1 hex digit */
 					),
-				16, 10) AS UNSIGNED) shuffleOrderKey
-				' : ' ' )
+				16, 10) AS UNSIGNED)),16,"0")," ",e0.title) AS title,' : 'e0.title, ')
+			. 'e0.author, '
+			. ($order === 'SHUF' ? 'shuffleOrderKey, ' : ' ' )
+			. ($this->isCompressed() ? 'UNCOMPRESS(content_bin) AS content' : 'content')
+			. ', e0.link, e0.date, e0.is_read, e0.is_favorite, e0.id_feed, e0.tags '
 			. 'FROM `_entry` e0 '
 			. 'INNER JOIN ('
 			. $sql
 			. ') e2 ON e2.id=e0.id '
 			. ($order === 'SHUF' ? 'ORDER BY shuffleOrderKey ' : 'ORDER BY e0.id ' . $order )
 			. ($limit > 0 ? ' LIMIT ' . intval($limit) : '');	//TODO: See http://explainextended.com/2009/10/23/mysql-order-by-limit-performance-late-row-lookups/
-			
+
 
 		$stm = $this->pdo->prepare($sql);
 		if ($stm && $stm->execute($values)) {
@@ -1169,7 +1169,8 @@ SQL;
 				$dao['date'],
 				$dao['is_read'],
 				$dao['is_favorite'],
-				isset($dao['tags']) ? $dao['tags'] : ''
+				isset($dao['tags']) ? $dao['tags'] : '',
+				isset($dao['shuffleOrderKey']) ? $dao['shuffleOrderKey'] : ''
 			);
 		if (isset($dao['id'])) {
 			$entry->_id($dao['id']);

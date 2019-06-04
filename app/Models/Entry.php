@@ -8,6 +8,7 @@ class FreshRSS_Entry extends Minz_Model {
 	const STATE_NOT_FAVORITE = 8;
 
 	private $id = 0;
+	private $shuffleOrderKey;
 	private $guid;
 	private $title;
 	private $authors;
@@ -23,7 +24,7 @@ class FreshRSS_Entry extends Minz_Model {
 	private $tags;
 
 	public function __construct($feedId = '', $guid = '', $title = '', $authors = '', $content = '',
-			$link = '', $pubdate = 0, $is_read = false, $is_favorite = false, $tags = '') {
+	                            $link = '', $pubdate = 0, $is_read = false, $is_favorite = false, $tags = '', $shuffleOrderKey = '') {
 		$this->_title($title);
 		$this->_authors($authors);
 		$this->_content($content);
@@ -34,10 +35,14 @@ class FreshRSS_Entry extends Minz_Model {
 		$this->_feedId($feedId);
 		$this->_tags($tags);
 		$this->_guid($guid);
+		$this->_shuffleOrderKey($shuffleOrderKey);
 	}
 
 	public function id() {
 		return $this->id;
+	}
+	public function shuffleOrderKey() {
+		return $this->shuffleOrderKey;
 	}
 	public function guid() {
 		return $this->guid;
@@ -205,6 +210,9 @@ class FreshRSS_Entry extends Minz_Model {
 	}
 	public function _isFavorite($value) {
 		$this->is_favorite = $value;
+	}
+	public function _shuffleOrderKey($value) {
+		$this->shuffleOrderKey = $value;
 	}
 	public function _feed($value) {
 		if ($value != null) {
