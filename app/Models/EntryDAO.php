@@ -953,7 +953,8 @@ SQL;
 			. ($type === 't' || $type === 'T' ? 'INNER JOIN `_entrytag` et ON et.id_entry = e.id ' : '')
 			. 'WHERE ' . $where
 			. $search
-			. ($order !== 'SHUF' ? 'ORDER BY e.id ' . $order : ' '));
+			. ($order !== 'SHUF' ? 'ORDER BY e.id ' . $order : ' ')
+			. ($limit > 0 ? ' LIMIT ' . intval($limit) : ''));	//TODO: See http://explainextended.com/2009/10/23/mysql-order-by-limit-performance-late-row-lookups/
 	}
 
 	public function listWhereRaw($type = 'a', $id = '', $state = FreshRSS_Entry::STATE_ALL,
@@ -975,8 +976,8 @@ SQL;
 			. 'INNER JOIN ('
 			. $sql
 			. ') e2 ON e2.id=e0.id '
-			. ($order === 'SHUF' ? 'ORDER BY shuffleOrderKey ' : 'ORDER BY e0.id ' . $order )
-			. ($limit > 0 ? ' LIMIT ' . intval($limit) : '');	//TODO: See http://explainextended.com/2009/10/23/mysql-order-by-limit-performance-late-row-lookups/
+			. ($order === 'SHUF' ? 'ORDER BY shuffleOrderKey ' : 'ORDER BY e0.id ' . $order );
+			
 
 		$stm = $this->pdo->prepare($sql);
 		if ($stm && $stm->execute($values)) {
