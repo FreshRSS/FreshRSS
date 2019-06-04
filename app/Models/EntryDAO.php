@@ -347,7 +347,7 @@ SQL;
 			}
 
 			$sql = 'UPDATE `_entry` '
-				 . 'SET is_read=? '
+				 . 'SET is_read=? , lastSeen=UNIX_TIMESTAMP()'
 				 . 'WHERE id IN (' . str_repeat('?,', count($ids) - 1). '?)';
 			$values = array($is_read ? 1 : 0);
 			$values = array_merge($values, $ids);
@@ -364,7 +364,7 @@ SQL;
 			return $affected;
 		} else {
 			$sql = 'UPDATE `_entry` e INNER JOIN `_feed` f ON e.id_feed=f.id '
-				 . 'SET e.is_read=?,'
+				 . 'SET e.is_read=?, e.lastSeen=UNIX_TIMESTAMP(), '
 				 . 'f.`cache_nbUnreads`=f.`cache_nbUnreads`' . ($is_read ? '-' : '+') . '1 '
 				 . 'WHERE e.id=? AND e.is_read=?';
 			$values = array($is_read ? 1 : 0, $ids, $is_read ? 0 : 1);
@@ -961,7 +961,7 @@ SQL;
 		list($values, $sql) = $this->sqlListWhere($type, $id, $state, $order, $limit, $firstId, $filters, $date_min);
 
 		$sql = 'SELECT e0.id, e0.guid, '
-			. /* for debugging */ ($order === 'SHUF' ? ' CONCAT(FIND_IN_SET(e0.id, grouped_entries)," ",LPAD(HEX(CAST(CONV(
+			. /* for debugging */ ($order === 'SHUF' && false ? ' CONCAT(FIND_IN_SET(e0.id, grouped_entries)," ",LPAD(HEX(CAST(CONV(
 					CONCAT(
 						HEX( (FIND_IN_SET(e0.id, grouped_entries)-1) DIV 3 ), /* 1 hex digit because of BETWEEN */
 						LEFT((SHA1(CONCAT(e0.id, CURDATE()))),15) /* leave room for 1 hex digit */
