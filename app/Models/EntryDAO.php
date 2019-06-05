@@ -914,7 +914,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 		list($values, $sql) = $this->sqlListWhere($type, $id, $state, $order, $limit, $firstId, $filters, $date_min);
 
 		$sql = 'SELECT e0.id, e0.guid, '
-			. /* for debugging */ ($order === 'SHUF' ? ' CONCAT(FIND_IN_SET(e0.id, grouped_entries)," ",LPAD(HEX(CAST(CONV(
+			. /* for debugging */ ($order === 'SHUF' && false ? ' CONCAT(FIND_IN_SET(e0.id, grouped_entries)," ",LPAD(HEX(CAST(CONV(
 					CONCAT(
 						HEX( (FIND_IN_SET(e0.id, grouped_entries)-1) DIV 3 ), /* 1 hex digit because of BETWEEN */
 						LEFT((SHA1(CONCAT(e0.id, CURDATE()))),15) /* leave room for 1 hex digit */
