@@ -900,7 +900,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 						e0.id_feed,
 						GROUP_CONCAT(e0.id ORDER BY e0.id DESC) grouped_entries
 					FROM `' . $this->prefix . 'entry` e0  
-					WHERE e0.is_read=0 OR e0.lastSeen > UNIX_TIMESTAMP() - (8 * 60 * 60)
+					WHERE e0.is_read=0 /*OR e0.lastSeen > UNIX_TIMESTAMP() - (8 * 60 * 60)*/
 					GROUP BY id_feed
 				) mostRecentFromEach ON mostRecentFromEach.id_feed = e.id_feed AND FIND_IN_SET(e.id, mostRecentFromEach.grouped_entries) BETWEEN 1 and 48 /* 1 hex digit after DIV 3 */				
 				' : ' ' )
