@@ -9,9 +9,16 @@ if (isset($this->callbackBeforeEntries)) {
 }
 
 if (!empty($this->entries)) {
-	$display_today = true;
-	$display_yesterday = true;
-	$display_others = true;
+	if (FreshRSS_Context::$order === 'SHUF'){
+		// When shuffling, entries won't be ordered by date.
+		$display_today = false;
+		$display_yesterday = false;
+		$display_others = false;
+	} else {
+		$display_today = true;
+		$display_yesterday = true;
+		$display_others = true;
+	}
 	$hidePosts = !FreshRSS_Context::$user_conf->display_posts;
 	$lazyload = FreshRSS_Context::$user_conf->lazyload;
 	$content_width = FreshRSS_Context::$user_conf->content_width;

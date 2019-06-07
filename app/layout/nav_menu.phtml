@@ -207,9 +207,16 @@
 		}
 		$url_order = Minz_Request::currentRequest();
 		$url_order['params']['order'] = $order;
+		
+		$url_shuffle = Minz_Request::currentRequest();
+		$url_shuffle['params']['order'] = 'SHUF';
+		$shuffle_enabled = FreshRSS_Context::$order === 'SHUF';
 	?>
 	<a id="toggle-order" class="btn" href="<?php echo Minz_Url::display($url_order); ?>" title="<?php echo $title; ?>">
 		<?php echo _i($icon); ?>
+	</a>
+	<a id="shuffle-order" class="btn <?php echo $shuffle_enabled ? 'active' : ''; ?>" href="<?php echo Minz_Url::display($url_shuffle); ?>" title="<?php echo _t('index.menu.shuffle'); ?>">
+		<?php echo _i('shuffle'); ?>
 	</a>
 	
 	<?php if (FreshRSS_Auth::hasAccess() || FreshRSS_Context::$system_conf->allow_anonymous_refresh) { ?>
