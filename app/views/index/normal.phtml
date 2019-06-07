@@ -4,12 +4,20 @@ $this->partial('nav_menu');
 
 call_user_func($this->callbackBeforeEntries, $this);
 
-$display_today = true;
-$display_yesterday = true;
-$display_others = true;
-$hidePosts = !FreshRSS_Context::$user_conf->display_posts;
-$lazyload = FreshRSS_Context::$user_conf->lazyload;
-$content_width = FreshRSS_Context::$user_conf->content_width;
+if (!empty($this->entries)) {
+	if (FreshRSS_Context::$order === 'SHUF'){
+		// When shuffling, entries won't be ordered by date.
+		$display_today = false;
+		$display_yesterday = false;
+		$display_others = false;
+	} else {
+		$display_today = true;
+		$display_yesterday = true;
+		$display_others = true;
+	}
+	$hidePosts = !FreshRSS_Context::$user_conf->display_posts;
+	$lazyload = FreshRSS_Context::$user_conf->lazyload;
+	$content_width = FreshRSS_Context::$user_conf->content_width;
 
 $today = @strtotime('today');
 ?>
