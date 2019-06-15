@@ -14,7 +14,9 @@ return array(
 		'_' => 'Categoria',
 		'add' => 'Aggiungi una categoria',
 		'empty' => 'Categoria vuota',
+		'information' => 'Informazioni',
 		'new' => 'Nuova categoria',
+		'title' => 'Titolo',
 	),
 	'feed' => array(
 		'add' => 'Aggiungi un Feed RSS',
@@ -37,7 +39,7 @@ return array(
 			'_' => 'Filter actions',	//TODO - Translation
 			'help' => 'Write one search filter per line.',	//TODO - Translation
 		),
-		'informations' => 'Informazioni',
+		'information' => 'Informazioni',
 		'keep_history' => 'Numero minimo di articoli da mantenere',
 		'moved_category_deleted' => 'Cancellando una categoria i feed al suo interno verranno classificati automaticamente come <em>%s</em>.',
 		'mute' => 'mute',	//TODO - Translation

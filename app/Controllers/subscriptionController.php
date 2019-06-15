@@ -35,9 +35,20 @@ class FreshRSS_subscription_Controller extends Minz_ActionController {
 		$this->view->onlyFeedsWithError = Minz_Request::paramTernary('error');
 
 		$id = Minz_Request::param('id');
-		if ($id !== false) {
-			$feedDAO = FreshRSS_Factory::createFeedDao();
-			$this->view->feed = $feedDAO->searchById($id);
+		$this->view->displaySlider = false;
+		if (false !== $id) {
+			$type = Minz_Request::param('type');
+			$this->view->displaySlider = true;
+			switch($type) {
+				case 'category':
+					$categoryDAO = FreshRSS_Factory::createCategoryDao();
+					$this->view->category = $categoryDAO->searchById($id);
+					break;
+				default:
+					$feedDAO = FreshRSS_Factory::createFeedDao();
+					$this->view->feed = $feedDAO->searchById($id);
+					break;
+			}
 		}
 	}
 
@@ -136,6 +147,35 @@ class FreshRSS_subscription_Controller extends Minz_ActionController {
 				Minz_Request::good(_t('feedback.sub.feed.updated'), $url_redirect);
 			} else {
 				Minz_Request::bad(_t('feedback.sub.feed.error'), $url_redirect);
+			}
+		}
+	}
+
+	public function categoryAction() {
+		$this->view->_useLayout(false);
+
+		$categoryDAO = FreshRSS_Factory::createCategoryDao();
+
+		$id = Minz_Request::param('id');
+		$category = $categoryDAO->searchById($id);
+		if ($id === false || null === $category) {
+			Minz_Error::error(404);
+			return;
+		}
+		$this->view->category = $category;
+
+		if (Minz_Request::isPost()) {
+			$values = array(
+				'name' => Minz_Request::param('name', ''),
+			);
+
+			invalidateHttpCache();
+
+			$url_redirect = array('c' => 'subscription', 'params' => array('id' => $id, 'type' => 'category'));
+			if (false !== $categoryDAO->updateCategory($id, $values)) {
+				Minz_Request::good(_t('feedback.sub.category.updated'), $url_redirect);
+			} else {
+				Minz_Request::bad(_t('feedback.sub.category.error'), $url_redirect);
 			}
 		}
 	}

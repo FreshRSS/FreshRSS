@@ -14,7 +14,9 @@ return array(
 		'_' => '카테고리',
 		'add' => '카테고리 추가',
 		'empty' => '빈 카테고리',
+		'information' => '정보',
 		'new' => '새 카테고리',
+		'title' => '제목',
 	),
 	'feed' => array(
 		'add' => 'RSS 피드 추가',
@@ -37,7 +39,7 @@ return array(
 			'_' => 'Filter actions',	//TODO - Translation
 			'help' => 'Write one search filter per line.',	//TODO - Translation
 		),
-		'informations' => '정보',
+		'information' => '정보',
 		'keep_history' => '최소 유지 글 개수',
 		'moved_category_deleted' => '카테고리를 삭제하면, 해당 카테고리 아래에 있던 피드들은 자동적으로 <em>%s</em> 아래로 분류됩니다.',
 		'mute' => '무기한 새로고침 금지',

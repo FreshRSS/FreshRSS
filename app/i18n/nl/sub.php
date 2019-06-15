@@ -14,7 +14,9 @@ return array(
 		'_' => 'Categorie',
 		'add' => 'Voeg categorie toe',
 		'empty' => 'Lege categorie',
+		'information' => 'Informatie',
 		'new' => 'Nieuwe categorie',
+		'title' => 'Titel',
 	),
 	'feed' => array(
 		'add' => 'Voeg een RSS feed toe',
@@ -37,7 +39,7 @@ return array(
 			'_' => 'Filter actions',	//TODO - Translation
 			'help' => 'Write one search filter per line.',	//TODO - Translation
 		),
-		'informations' => 'Informatie',
+		'information' => 'Informatie',
 		'keep_history' => 'Minimum aantal artikelen om te houden',
 		'moved_category_deleted' => 'Als u een categorie verwijderd, worden de feeds automatisch geclassificeerd onder <em>%s</em>.',
 		'mute' => 'demp',

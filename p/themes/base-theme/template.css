@@ -344,10 +344,6 @@ a.btn {
 	position: relative;
 	font-size: 1.2rem;
 	font-weight: bold;
-	text-align: center;
-}
-.box .box-title a {
-	display: block;
 }
 .box .box-title form {
 	margin: 0;

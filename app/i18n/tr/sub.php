@@ -14,7 +14,9 @@ return array(
 		'_' => 'Kategori',
 		'add' => 'Kategori ekle',
 		'empty' => 'Boş kategori',
+		'information' => 'Bilgi',
 		'new' => 'Yeni kategori',
+		'title' => 'Başlık',
 	),
 	'feed' => array(
 		'add' => 'RSS akışı ekle',
@@ -37,7 +39,7 @@ return array(
 			'_' => 'Filter actions',	//TODO - Translation
 			'help' => 'Write one search filter per line.',	//TODO - Translation
 		),
-		'informations' => 'Bilgi',
+		'information' => 'Bilgi',
 		'keep_history' => 'En az tutulacak makale sayısı',
 		'moved_category_deleted' => 'Bir kategoriyi silerseniz, içerisindeki akışlar <em>%s</em> içerisine yerleşir.',
 		'mute' => 'mute',	//TODO - Translation
