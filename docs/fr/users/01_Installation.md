@@ -8,7 +8,7 @@ Il est toutefois de votre responsabilité de vérifier que votre hébergement pe
  | --------         | -----------                                                                                                    | ---------------------          |
  | Serveur web      | **Apache 2**                                                                                                   | Nginx                          |
  | PHP              | **PHP 5.5+**                                                                                                   | PHP 5.3.8+                     |
- | Modules PHP      | Requis : libxml, cURL, PDO_MySQL, PCRE et ctype \\ Requis (32 bits seulement) : GMP \\ Recommandé : JSON, Zlib, mbstring et iconv, ZipArchive \\(Pour une liste complète des modules nécessaires voir le [Dockerfile](https://github.com/FreshRSS/FreshRSS/blob/744a9e8cf00aef7dec0acfa5f90f0dcfa2ef8837/Docker/Dockerfile-Alpine#L7-L9)) |                                |
+ | Modules PHP      | Requis : libxml, cURL, PDO_MySQL, PCRE et ctype<br>Requis (32 bits seulement) : GMP<br>Recommandé : JSON, Zlib, mbstring et iconv, ZipArchive<br>*Pour une liste complète des modules nécessaires voir le [Dockerfile](https://github.com/FreshRSS/FreshRSS/blob/744a9e8cf00aef7dec0acfa5f90f0dcfa2ef8837/Docker/Dockerfile-Alpine#L7-L9)* |                                |
  | Base de données  | **MySQL 5.5.3+**                                                                                               | SQLite 3.7.4+                  |
  | Navigateur       | **Firefox**                                                                                                    | Chrome, Opera, Safari, or IE 11+ |
 
