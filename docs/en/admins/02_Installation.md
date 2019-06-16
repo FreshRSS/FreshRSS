@@ -8,7 +8,7 @@ You need to verify that your server can run FreshRSS before installing it. If yo
 | ----------- | ---------------- | ----------------------------- |
 | Web server  | **Apache 2**     | Nginx                         |
 | PHP         | **PHP 5.5+**     | PHP 5.3.8+                    |
-| PHP modules | Required: libxml, cURL, PDO_MySQL, PCRE and ctype. \\Required (32-bit only): GMP \\Recommanded: JSON, Zlib, mbstring, iconv, ZipArchive \\(For the whole modules list see [Dockerfile](https://github.com/FreshRSS/FreshRSS/blob/744a9e8cf00aef7dec0acfa5f90f0dcfa2ef8837/Docker/Dockerfile-Alpine#L7-L9)) | |
+| PHP modules | Required: libxml, cURL, PDO_MySQL, PCRE and ctype. <br>Required (32-bit only): GMP <br> Recommanded: JSON, Zlib, mbstring, iconv, ZipArchive <br> *For the whole modules list see [Dockerfile](https://github.com/FreshRSS/FreshRSS/blob/744a9e8cf00aef7dec0acfa5f90f0dcfa2ef8837/Docker/Dockerfile-Alpine#L7-L9)* | |
 | Database    | **MySQL 5.5.3+** | SQLite 3.7.4+                 |
 | Browser     | **Firefox**      | Chrome, Opera, Safari, or IE11+ |
 
