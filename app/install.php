@@ -125,7 +125,9 @@ function saveStep2() {
 		$_SESSION['title'] = $system_default_config->title;
 		$_SESSION['old_entries'] = param('old_entries', $user_default_config->old_entries);
 		$_SESSION['auth_type'] = param('auth_type', 'form');
-		$_SESSION['default_user'] = substr(preg_replace('/[^0-9a-zA-Z_]/', '', param('default_user', '')), 0, 38);
+		if (FreshRSS_user_Controller::checkUsername(param('default_user', ''))) {
+			$_SESSION['default_user'] = param('default_user', '');
+		}
 
 		$password_plain = param('passwordPlain', false);
 		if ($password_plain !== false && cryptAvailable()) {
