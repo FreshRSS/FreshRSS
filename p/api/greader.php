@@ -347,7 +347,7 @@ function subscriptionEdit($streamNames, $titles, $action, $add = '', $remove = '
 		$c_name = htmlspecialchars($c_name, ENT_COMPAT, 'UTF-8');
 		$cat = $categoryDAO->searchByName($c_name);
 		$addCatId = $cat == null ? 0 : $cat->id();
-	} else if ($remove != '' && strpos($remove, 'user/-/label/')) {
+	} elseif ($remove != '' && strpos($remove, 'user/-/label/') === 0) {
 		$addCatId = 1;	//Default category
 	}
 	$feedDAO = FreshRSS_Factory::createFeedDao();
@@ -998,7 +998,7 @@ if ($pathInfos[1] === 'accounts') {
 					 * (more efficient from a backend perspective than multiple requests). */
 					$streamId = $_GET['s'];
 					streamContentsItemsIds($streamId, $start_time, $stop_time, $count, $order, $filter_target, $exclude_target, $continuation);
-				} else if ($pathInfos[6] === 'contents' && isset($_POST['i'])) {	//FeedMe
+				} elseif ($pathInfos[6] === 'contents' && isset($_POST['i'])) {	//FeedMe
 					$e_ids = multiplePosts('i');	//item IDs
 					streamContentsItems($e_ids, $order);
 				}

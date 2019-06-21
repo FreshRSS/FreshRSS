@@ -30,6 +30,23 @@ Here is an example to trigger article update every hour.
 0 * * * * php /path/to/FreshRSS/app/actualize_script.php > /tmp/FreshRSS.log 2>&1
 ```
 
+Special parameters to configure the script - all parameters can be combined:
+
+- Parameter "force"  
+https://freshrss.example.net/i/?c=feed&a=actualize&force=1  
+If *force* is set to 1 all feeds will be refreshed at once.
+
+- Parameter "ajax"  
+https://freshrss.example.net/i/?c=feed&a=actualize&ajax=1  
+Only a status site is returned and not a complete website. Example: "OK"
+
+- Parameter "maxFeeds"  
+https://freshrss.example.net/i/?c=feed&a=actualize&maxFeeds=30  
+If *maxFeeds* is set the configured amount of feeds is refreshed at once. The default setting is "10".
+
+- Parameter "token"  
+https://freshrss.example.net/i/?c=feed&a=actualize&token=542345872345734  
+Security parameter to prevent unauthorized refreshes. For detailed Documentation see "Form authentication".
 
 ### Online cron
 
