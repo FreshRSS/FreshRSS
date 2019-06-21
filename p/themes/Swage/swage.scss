@@ -1045,6 +1045,7 @@ form {
 		}
 		&:target {
 			width: 78%;
+			z-index: 1000;
 		}
 	}
 	.nav_menu {
