@@ -16,6 +16,7 @@ return array(
 		'manage' => 'Manage',
 		'mark_favorite' => 'Mark as favourite',
 		'mark_read' => 'Mark as read',
+		'purge' => 'Purge',
 		'remove' => 'Remove',
 		'see_website' => 'See website',
 		'submit' => 'Submit',

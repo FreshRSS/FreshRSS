@@ -16,6 +16,7 @@ return array(
 		'manage' => 'Beheren',
 		'mark_favorite' => 'Markeer als favoriet',
 		'mark_read' => 'Markeer als gelezen',
+		'purge' => 'Purge',	// TODO - Translation
 		'remove' => 'Verwijder',
 		'see_website' => 'Bekijk website',
 		'submit' => 'Opslaan',

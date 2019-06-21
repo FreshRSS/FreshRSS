@@ -16,6 +16,7 @@ return array(
 		'manage' => 'Spravovat',
 		'mark_favorite' => 'Označit jako oblíbené',
 		'mark_read' => 'Označit jako přečtené',
+		'purge' => 'Purge',	// TODO - Translation
 		'remove' => 'Odstranit',
 		'see_website' => 'Navštívit WWW stránku',
 		'submit' => 'Odeslat',

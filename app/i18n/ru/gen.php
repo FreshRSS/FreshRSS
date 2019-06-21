@@ -16,6 +16,7 @@ return array(
 		'manage' => 'Manage',	//TODO - Translation
 		'mark_favorite' => 'Mark as favourite',	//TODO - Translation
 		'mark_read' => 'Mark as read',	//TODO - Translation
+		'purge' => 'Purge',	// TODO - Translation
 		'remove' => 'Remove',	//TODO - Translation
 		'see_website' => 'See website',	//TODO - Translation
 		'submit' => 'Submit',	//TODO - Translation

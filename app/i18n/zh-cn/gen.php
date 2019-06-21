@@ -16,6 +16,7 @@ return array(
 		'manage' => '管理',
 		'mark_favorite' => '加入收藏',
 		'mark_read' => '设为已读',
+		'purge' => 'Purge',	// TODO - Translation
 		'remove' => '删除',
 		'see_website' => '查看网站',
 		'submit' => '提交',

@@ -182,9 +182,14 @@ return array(
 	),
 	'user' => array(
 		'articles_and_size' => '%s článkov (%s)',
+		'article_count' => 'Articles',	// TODO - Translation
+		'back_to_manage' => '← Return to user list',	// TODO - Translation
 		'create' => 'Vytvoriť nového používateľa',
+		'database_size' => 'Database size',	// TODO - Translation
 		'delete_users' => 'Zmazať používateľa',
+		'feed_count' => 'Feeds',	//TODO - Translation
 		'language' => 'Jazyk',
+		'list' => 'User list',	// TODO - Translation
 		'number' => 'Je vytvorený používateľ: %d',
 		'numbers' => 'Je vytvorených používateľov: %d',
 		'password_form' => 'Heslo<br /><small>(pre spôsob prihlásenia cez webový formulár)</small>',
