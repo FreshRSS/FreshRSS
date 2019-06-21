@@ -39,7 +39,7 @@ class FreshRSS_subscription_Controller extends Minz_ActionController {
 		if (false !== $id) {
 			$type = Minz_Request::param('type');
 			$this->view->displaySlider = true;
-			switch($type) {
+			switch ($type) {
 				case 'category':
 					$categoryDAO = FreshRSS_Factory::createCategoryDao();
 					$this->view->category = $categoryDAO->searchById($id);

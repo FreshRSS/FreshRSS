@@ -1,34 +1,34 @@
 <div class="post">
-    <h1><?php echo $this->category->name(); ?></h1>
+	<h1><?php echo $this->category->name(); ?></h1>
 
-    <div>
+	<div>
 		<a href="<?php echo _url('index', 'index', 'get', 'c_' . $this->category->id()); ?>"><?php echo _i('link'); ?> <?php echo _t('gen.action.filter'); ?></a>
-    </div>
-    
-    <form method="post" action="<?php echo _url('subscription', 'category', 'id', $this->category->id()); ?>" autocomplete="off">
-        <input type="hidden" name="_csrf" value="<?php echo FreshRSS_Auth::csrfToken(); ?>" />
-        <legend><?php echo _t('sub.category.information'); ?></legend>
-        <div class="form-group">
+	</div>
+
+	<form method="post" action="<?php echo _url('subscription', 'category', 'id', $this->category->id()); ?>" autocomplete="off">
+		<input type="hidden" name="_csrf" value="<?php echo FreshRSS_Auth::csrfToken(); ?>" />
+		<legend><?php echo _t('sub.category.information'); ?></legend>
+		<div class="form-group">
 			<label class="group-name" for="name"><?php echo _t('sub.category.title'); ?></label>
 			<div class="group-controls">
 				<input type="text" name="name" id="name" class="extend" value="<?php echo $this->category->name() ; ?>" />
 			</div>
 		</div>
 
-    <div class="form-group form-actions">
+		<div class="form-group form-actions">
 			<div class="group-controls">
-        <button class="btn btn-important"><?php echo _t('gen.action.submit'); ?></button>
-        <button class="btn btn-attention confirm"
-          data-str-confirm="<?php echo _t('gen.js.confirm_action_feed_cat'); ?>"
-          formaction="<?php echo _url('category', 'empty', 'id', $this->category->id()); ?>"
-          formmethod="post"><?php echo _t('gen.action.empty'); ?></button>
-        <?php if (!$this->category->isDefault()): ?>
-        <button class="btn btn-attention confirm"
-          data-str-confirm="<?php echo _t('gen.js.confirm_action_feed_cat'); ?>"
-          formaction="<?php echo _url('category', 'delete', 'id', $this->category->id()); ?>"
-          formmethod="post"><?php echo _t('gen.action.remove'); ?></button>
-        <?php endif;?>
+				<button class="btn btn-important"><?php echo _t('gen.action.submit'); ?></button>
+				<button class="btn btn-attention confirm"
+					data-str-confirm="<?php echo _t('gen.js.confirm_action_feed_cat'); ?>"
+					formaction="<?php echo _url('category', 'empty', 'id', $this->category->id()); ?>"
+					formmethod="post"><?php echo _t('gen.action.empty'); ?></button>
+				<?php if (!$this->category->isDefault()): ?>
+				<button class="btn btn-attention confirm"
+					data-str-confirm="<?php echo _t('gen.js.confirm_action_feed_cat'); ?>"
+					formaction="<?php echo _url('category', 'delete', 'id', $this->category->id()); ?>"
+					formmethod="post"><?php echo _t('gen.action.remove'); ?></button>
+				<?php endif;?>
 			</div>
 		</div>
-    </form>
+	</form>
 </div>
