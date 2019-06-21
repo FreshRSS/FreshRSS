@@ -14,7 +14,9 @@ return array(
 		'_' => 'קטגוריה',
 		'add' => 'הוספת קטגוריה',
 		'empty' => 'Empty category',	//TODO - Translation
+		'information' => 'מידע',
 		'new' => 'קטגוריה חדשה',
+		'title' => 'כותרת',
 	),
 	'feed' => array(
 		'add' => 'הוספת הזנה',
@@ -37,7 +39,7 @@ return array(
 			'_' => 'Filter actions',	//TODO - Translation
 			'help' => 'Write one search filter per line.',	//TODO - Translation
 		),
-		'informations' => 'מידע',
+		'information' => 'מידע',
 		'keep_history' => 'מסםר מינימלי של מאמרים לשמור',
 		'moved_category_deleted' => 'כאשר הקטגוריה נמחקת ההזנות שבתוכה אוטומטית מקוטלגות תחת  <em>%s</em>.',
 		'mute' => 'mute',	//TODO - Translation

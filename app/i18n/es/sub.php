@@ -14,7 +14,9 @@ return array(
 		'_' => 'Categoría',
 		'add' => 'Añadir a la categoría',
 		'empty' => 'Vaciar categoría',
+		'information' => 'Información',
 		'new' => 'Nueva categoría',
+		'title' => 'Título',
 	),
 	'feed' => array(
 		'add' => 'Añadir fuente RSS',
@@ -37,7 +39,7 @@ return array(
 			'_' => 'Filter actions',	//TODO - Translation
 			'help' => 'Write one search filter per line.',	//TODO - Translation
 		),
-		'informations' => 'Información',
+		'information' => 'Información',
 		'keep_history' => 'Número mínimo de artículos a conservar',
 		'moved_category_deleted' => 'Al borrar una categoría todas sus fuentes pasan automáticamente a la categoría <em>%s</em>.',
 		'mute' => 'mute',	//TODO - Translation

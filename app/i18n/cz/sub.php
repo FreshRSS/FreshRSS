@@ -14,7 +14,9 @@ return array(
 		'_' => 'Kategorie',
 		'add' => 'Přidat kategorii',
 		'empty' => 'Vyprázdit kategorii',
+		'information' => 'Informace',
 		'new' => 'Nová kategorie',
+		'title' => 'Název',
 	),
 	'feed' => array(
 		'add' => 'Přidat RSS kanál',
@@ -37,7 +39,7 @@ return array(
 			'_' => 'Filter actions',	//TODO - Translation
 			'help' => 'Write one search filter per line.',	//TODO - Translation
 		),
-		'informations' => 'Informace',
+		'information' => 'Informace',
 		'keep_history' => 'Zachovat tento minimální počet článků',
 		'moved_category_deleted' => 'Po smazání kategorie budou v ní obsažené kanály automaticky přesunuty do <em>%s</em>.',
 		'mute' => 'mute',	//TODO - Translation

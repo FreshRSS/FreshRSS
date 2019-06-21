@@ -14,7 +14,9 @@ return array(
 		'_' => 'Catégorie',
 		'add' => 'Ajouter une catégorie',
 		'empty' => 'Catégorie vide',
+		'information' => 'Informations',
 		'new' => 'Nouvelle catégorie',
+		'title' => 'Titre',
 	),
 	'feed' => array(
 		'add' => 'Ajouter un flux RSS',
@@ -37,7 +39,7 @@ return array(
 			'_' => 'Filtres d’action',
 			'help' => 'Écrivez une recherche par ligne.',
 		),
-		'informations' => 'Informations',
+		'information' => 'Informations',
 		'keep_history' => 'Nombre minimum d’articles à conserver',
 		'moved_category_deleted' => 'Lors de la suppression d’une catégorie, ses flux seront automatiquement classés dans <em>%s</em>.',
 		'mute' => 'muet',

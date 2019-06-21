@@ -282,6 +282,7 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo implements FreshRSS_Searchable 
 				$dao['name']
 			);
 			$cat->_id($dao['id']);
+			$cat->_isDefault(static::DEFAULTCATEGORYID === intval($dao['id']));
 			$list[$key] = $cat;
 		}
 
