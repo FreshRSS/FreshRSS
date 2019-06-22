@@ -2,6 +2,24 @@
 
 ## 2019-0X-XX FreshRSS 1.14.3-dev
 
+* Security
+	* Allow `@-` as valid characters in usernames (i.e. allow most e-mails) [#2391](https://github.com/FreshRSS/FreshRSS/issues/2391)
+* UI
+	* New configuration page for each category [#2369](https://github.com/FreshRSS/FreshRSS/issues/2369)
+	* Update shortcut configuration page [#2405](https://github.com/FreshRSS/FreshRSS/issues/2405)
+	* CSS style for printing [#2149](https://github.com/FreshRSS/FreshRSS/issues/2149)
+	* Fix refresh icon in Swage theme [#2375](https://github.com/FreshRSS/FreshRSS/issues/2375)
+	* Fix message banner in Swage theme [#2379](https://github.com/FreshRSS/FreshRSS/issues/2379)
+	* Updated to jQuery 3.4.1 [#2424](https://github.com/FreshRSS/FreshRSS/pull/2424)
+* Bug fixing
+	* Fix API call for removing a category [#2411](https://github.com/FreshRSS/FreshRSS/issues/2411)
+* Deployment
+	* Docker: Ubuntu image updated to 19.04 with PHP 7.2.19 and Apache 2.4.38 [#2422](https://github.com/FreshRSS/FreshRSS/pull/2422)
+	* Docker: Alpine image updated to 3.10 with PHP 7.3.6 and Apache 2.4.39 [#2238](https://github.com/FreshRSS/FreshRSS/pull/2238)
+* I18n
+	* Improve Occitan [#2358](https://github.com/FreshRSS/FreshRSS/pull/2358)
+* Misc.
+	* New parameter `?maxFeeds=10` to control the max number of feeds to refresh manually [#2388](https://github.com/FreshRSS/FreshRSS/pull/2388)
 
 
 ## 2019-04-08 FreshRSS 1.14.2
