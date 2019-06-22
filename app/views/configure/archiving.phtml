@@ -99,6 +99,13 @@
 		<input type="hidden" name="_csrf" value="<?php echo FreshRSS_Auth::csrfToken(); ?>" />
 
 		<div class="form-group">
+			<label class="group-name"><?php echo _t('conf.user.current'); ?></label>
+			<div class="group-controls">
+				<?php echo _t('conf.user.articles_and_size', format_number($this->nb_total), format_bytes($this->size_user)); ?>
+			</div>
+		</div>
+
+		<div class="form-group">
 			<div class="group-controls">
 				<button type="submit" class="btn btn-important confirm"><?php echo _t('conf.archiving.purge_now'); ?></button>
 			</div>
@@ -107,7 +114,12 @@
 	<?php if (FreshRSS_Auth::hasAccess('admin')) { ?>
 	<form method="post" action="<?php echo _url('entry', 'optimize'); ?>">
 		<input type="hidden" name="_csrf" value="<?php echo FreshRSS_Auth::csrfToken(); ?>" />
-
+		<div class="form-group">
+			<label class="group-name"><?php echo _t('conf.user.users'); ?></label>
+			<div class="group-controls">
+				<?php echo format_bytes($this->size_total); ?>
+			</div>
+		</div>
 		<div class="form-group">
 			<div class="group-controls">
 				<input type="hidden" name="optimiseDatabase" value="1" />

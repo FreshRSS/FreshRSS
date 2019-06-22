@@ -238,6 +238,16 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 			FreshRSS_Context::$user_conf->volatile = $volatile;
 		}
 
+		$entryDAO = FreshRSS_Factory::createEntryDao();
+		$this->view->nb_total = $entryDAO->count();
+
+		$databaseDAO = FreshRSS_Factory::createDatabaseDAO();
+		$this->view->size_user = $databaseDAO->size();
+
+		if (FreshRSS_Auth::hasAccess('admin')) {
+			$this->view->size_total = $databaseDAO->size(true);
+		}
+
 		Minz_View::prependTitle(_t('conf.archiving.title') . ' · ');
 	}
 
