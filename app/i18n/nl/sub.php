@@ -13,6 +13,7 @@ return array(
 	'category' => array(
 		'_' => 'Categorie',
 		'add' => 'Voeg categorie toe',
+		'archiving' => 'Archiveren',
 		'empty' => 'Lege categorie',
 		'information' => 'Informatie',
 		'new' => 'Nieuwe categorie',

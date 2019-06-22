@@ -187,21 +187,20 @@ class FreshRSS_entry_Controller extends Minz_ActionController {
 		$entryDAO = FreshRSS_Factory::createEntryDao();
 		$feedDAO = FreshRSS_Factory::createFeedDao();
 		$feeds = $feedDAO->listFeeds();
+		$categoryDAO = FreshRSS_Factory::createCategoryDao();
 		$nb_total = 0;
 
 		invalidateHttpCache();
 
 		foreach ($feeds as $feed) {
-			$feed_history = $feed->keepHistory();
-			if (FreshRSS_Feed::KEEP_HISTORY_DEFAULT === $feed_history) {
-				$feed_history = FreshRSS_Context::$user_conf->keep_history_default;
-			}
-
-			if ($feed_history >= 0) {
-				if (null === $archiving = $feed->attributes('archiving')) {
+			if (null === $archiving = $feed->attributes('archiving')) {
+				$category = $categoryDAO->searchById($feed->category());
+				if (null === $category || null === $archiving = $category->attributes('archiving')) {
 					$archiving = FreshRSS_Context::$user_conf->archiving;
 				}
+			}
 
+			if (null !== $archiving) {
 				$nb = $entryDAO->cleanOldEntries($feed->id(), $archiving);
 				if ($nb > 0) {
 					$nb_total += $nb;

@@ -13,6 +13,7 @@ return array(
 	'category' => array(
 		'_' => '分类',
 		'add' => '添加分类',
+		'archiving' => '存档',
 		'empty' => '空分类',
 		'information' => '信息',
 		'new' => '新分类',

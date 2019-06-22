@@ -13,6 +13,7 @@ return array(
 	'category' => array(
 		'_' => '카테고리',
 		'add' => '카테고리 추가',
+		'archiving' => '보관',
 		'empty' => '빈 카테고리',
 		'information' => '정보',
 		'new' => '새 카테고리',

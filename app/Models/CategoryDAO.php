@@ -4,15 +4,42 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo implements FreshRSS_Searchable 
 
 	const DEFAULTCATEGORYID = 1;
 
+	protected function addColumn($name) {
+		Minz_Log::warning('FreshRSS_CategoryDAO::addColumn: ' . $name);
+		try {
+			if ('attributes' === $name) {	//v1.15.0
+				$stm = $this->bd->prepare('ALTER TABLE `' . $this->prefix . 'category` ADD COLUMN attributes TEXT');
+				return $stm && $stm->execute();
+			}
+		} catch (Exception $e) {
+			Minz_Log::error('FreshRSS_CategoryDAO::addColumn error: ' . $e->getMessage());
+		}
+		return false;
+	}
+
+	protected function autoUpdateDb($errorInfo) {
+		if (isset($errorInfo[0])) {
+			if ($errorInfo[0] === FreshRSS_DatabaseDAO::ER_BAD_FIELD_ERROR || $errorInfo[0] === FreshRSS_DatabaseDAOPGSQL::UNDEFINED_COLUMN) {
+				foreach (array('attributes') as $column) {
+					if (stripos($errorInfo[2], $column) !== false) {
+						return $this->addColumn($column);
+					}
+				}
+			}
+		}
+		return false;
+	}
+
 	public function addCategory($valuesTmp) {
-		$sql = 'INSERT INTO `' . $this->prefix . 'category`(name) '
-		     . 'SELECT * FROM (SELECT TRIM(?)) c2 '	//TRIM() to provide a type hint as text for PostgreSQL
+		$sql = 'INSERT INTO `' . $this->prefix . 'category`(name, attributes) '
+		     . 'SELECT * FROM (SELECT TRIM(?), ?) c2 '	//TRIM() to provide a type hint as text for PostgreSQL
 		     . 'WHERE NOT EXISTS (SELECT 1 FROM `' . $this->prefix . 'tag` WHERE name = TRIM(?))';	//No tag of the same name
 		$stm = $this->bd->prepare($sql);
 
 		$valuesTmp['name'] = mb_strcut(trim($valuesTmp['name']), 0, FreshRSS_DatabaseDAO::LENGTH_INDEX_UNICODE, 'UTF-8');
 		$values = array(
 			$valuesTmp['name'],
+			isset($valuesTmp['attributes']) ? json_encode($valuesTmp['attributes']) : '',
 			$valuesTmp['name'],
 		);
 
@@ -20,6 +47,9 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo implements FreshRSS_Searchable 
 			return $this->bd->lastInsertId('"' . $this->prefix . 'category_id_seq"');
 		} else {
 			$info = $stm == null ? array(2 => 'syntax error') : $stm->errorInfo();
+			if ($this->autoUpdateDb($info)) {
+				return $this->addCategory($valuesTmp);
+			}
 			Minz_Log::error('SQL error addCategory: ' . $info[2]);
 			return false;
 		}
@@ -39,13 +69,14 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo implements FreshRSS_Searchable 
 	}
 
 	public function updateCategory($id, $valuesTmp) {
-		$sql = 'UPDATE `' . $this->prefix . 'category` SET name=? WHERE id=? '
+		$sql = 'UPDATE `' . $this->prefix . 'category` SET name=?, attributes=? WHERE id=? '
 		     . 'AND NOT EXISTS (SELECT 1 FROM `' . $this->prefix . 'tag` WHERE name = ?)';	//No tag of the same name
 		$stm = $this->bd->prepare($sql);
 
 		$valuesTmp['name'] = mb_strcut(trim($valuesTmp['name']), 0, FreshRSS_DatabaseDAO::LENGTH_INDEX_UNICODE, 'UTF-8');
 		$values = array(
 			$valuesTmp['name'],
+			isset($valuesTmp['attributes']) ? json_encode($valuesTmp['attributes']) : '',
 			$id,
 			$valuesTmp['name'],
 		);
@@ -54,6 +85,9 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo implements FreshRSS_Searchable 
 			return $stm->rowCount();
 		} else {
 			$info = $stm == null ? array(2 => 'syntax error') : $stm->errorInfo();
+			if ($this->autoUpdateDb($info)) {
+				return $this->addCategory($valuesTmp);
+			}
 			Minz_Log::error('SQL error updateCategory: ' . $info[2]);
 			return false;
 		}
@@ -112,7 +146,7 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo implements FreshRSS_Searchable 
 
 	public function listCategories($prePopulateFeeds = true, $details = false) {
 		if ($prePopulateFeeds) {
-			$sql = 'SELECT c.id AS c_id, c.name AS c_name, '
+			$sql = 'SELECT c.id AS c_id, c.name AS c_name, c.attributes AS c_attributes, '
 			     . ($details ? 'f.* ' : 'f.id, f.name, f.url, f.website, f.priority, f.error, f.`cache_nbEntries`, f.`cache_nbUnreads`, f.ttl ')
 			     . 'FROM `' . $this->prefix . 'category` c '
 			     . 'LEFT OUTER JOIN `' . $this->prefix . 'feed` f ON f.category=c.id '
@@ -282,6 +316,7 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo implements FreshRSS_Searchable 
 				$dao['name']
 			);
 			$cat->_id($dao['id']);
+			$cat->_attributes('', isset($dao['attributes']) ? $dao['attributes'] : '');
 			$cat->_isDefault(static::DEFAULTCATEGORYID === intval($dao['id']));
 			$list[$key] = $cat;
 		}

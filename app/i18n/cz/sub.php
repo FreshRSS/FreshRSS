@@ -13,6 +13,7 @@ return array(
 	'category' => array(
 		'_' => 'Kategorie',
 		'add' => 'Přidat kategorii',
+		'archiving' => 'Archivace',
 		'empty' => 'Vyprázdit kategorii',
 		'information' => 'Informace',
 		'new' => 'Nová kategorie',

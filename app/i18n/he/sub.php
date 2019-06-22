@@ -13,6 +13,7 @@ return array(
 	'category' => array(
 		'_' => 'קטגוריה',
 		'add' => 'הוספת קטגוריה',
+		'archiving' => 'ארכוב',
 		'empty' => 'Empty category',	//TODO - Translation
 		'information' => 'מידע',
 		'new' => 'קטגוריה חדשה',

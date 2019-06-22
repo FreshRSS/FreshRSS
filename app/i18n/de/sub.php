@@ -13,6 +13,7 @@ return array(
 	'category' => array(
 		'_' => 'Kategorie',
 		'add' => 'Eine Kategorie hinzufügen',
+		'archiving' => 'Archivierung',
 		'empty' => 'Leere Kategorie',
 		'information' => 'Information',
 		'new' => 'Neue Kategorie',

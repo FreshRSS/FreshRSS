@@ -192,8 +192,36 @@ class FreshRSS_subscription_Controller extends Minz_ActionController {
 		$this->view->category = $category;
 
 		if (Minz_Request::isPost()) {
+			if (Minz_Request::paramBoolean('use_default_purge_options')) {
+				$category->_attributes('archiving', null);
+			} else {
+				if (!$enableRetentionCountLimit = Minz_Request::paramBoolean('enable_retention_count_limit')) {
+					$retentionCountLimit = null;
+				} elseif (!$retentionCountLimit = Minz_Request::param('retention_count_limit')) {
+					$retentionCountLimit = FreshRSS_Feed::ARCHIVING_RETENTION_COUNT_LIMIT;
+				}
+				if ($enableRetentionPeriod = Minz_Request::paramBoolean('enable_retention_period')) {
+					$retentionPeriod = FreshRSS_Feed::ARCHIVING_RETENTION_PERIOD;
+					if (is_numeric(Minz_Request::param('retention_period_count')) && preg_match('/^PT?1[YMWDH]$/', Minz_Request::param('retention_period_unit'))) {
+						$retentionPeriod = str_replace(1, Minz_Request::param('retention_period_count'), Minz_Request::param('retention_period_unit'));
+					}
+				} else {
+					$retentionPeriod = null;
+				}
+				$category->_attributes('archiving', array(
+					'enable_retention_count_limit' => $enableRetentionCountLimit,
+					'retention_count_limit' => $retentionCountLimit,
+					'enable_retention_period' => $enableRetentionPeriod,
+					'retention_period' => $retentionPeriod,
+					'keep_favourites' => Minz_Request::paramBoolean('keep_favourites'),
+					'keep_labels' => Minz_Request::paramBoolean('keep_labels'),
+					'keep_unreads' => Minz_Request::paramBoolean('keep_unreads'),
+				));
+			}
+
 			$values = array(
 				'name' => Minz_Request::param('name', ''),
+				'attributes' => $category->attributes(),
 			);
 
 			invalidateHttpCache();

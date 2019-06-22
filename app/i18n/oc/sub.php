@@ -12,6 +12,7 @@ return array(
 	'category' => array(
 		'_' => 'Categoria',
 		'add' => 'Ajustar una categoria',
+		'archiving' => 'Archivar',
 		'empty' => 'Categoria voida',
 		'information' => 'Informacions',
 		'new' => 'Nòva categoria',

@@ -13,6 +13,7 @@ return array(
 	'category' => array(
 		'_' => 'Kategori',
 		'add' => 'Kategori ekle',
+		'archiving' => 'Arşiv',
 		'empty' => 'Boş kategori',
 		'information' => 'Bilgi',
 		'new' => 'Yeni kategori',

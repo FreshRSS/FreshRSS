@@ -13,6 +13,7 @@ return array(
 	'category' => array(
 		'_' => 'Category',	//TODO - Translation
 		'add' => 'Add a category',	//TODO - Translation
+		'archiving' => 'Archivage',	//TODO - Translation
 		'empty' => 'Empty category',	//TODO - Translation
 		'information' => 'Information',	//TODO - Translation
 		'new' => 'New category',	//TODO - Translation
