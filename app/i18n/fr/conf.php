@@ -4,6 +4,7 @@ return array(
 	'archiving' => array(
 		'_' => 'Archivage',
 		'delete_after' => 'Supprimer les articles après',
+		'exception' => 'Exception de nettoyage',
 		'help' => 'D’autres options sont disponibles dans la configuration individuelle des flux.',
 		'keep_favourites' => 'Ne jamais supprimer les articles favoris',
 		'keep_history_by_feed' => 'Nombre minimum d’articles à conserver par flux',
@@ -13,6 +14,7 @@ return array(
 		'optimize' => 'Optimiser la base de données',
 		'optimize_help' => 'À faire de temps en temps pour réduire la taille de la BDD',
 		'policy' => 'Politique de nettoyage',
+		'policy_warning' => 'Si aucune politique de nettoyage n’est sélectionnée, tous les articles seront conservés.',
 		'purge_now' => 'Purger maintenant',
 		'retention_count_limit' => 'Nombre maximum d’articles à conserver',
 		'retention_period' => 'Âge maximum des articles à conserver',

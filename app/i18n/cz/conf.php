@@ -4,6 +4,7 @@ return array(
 	'archiving' => array(
 		'_' => 'Archivace',
 		'delete_after' => 'Smazat články starší než',
+		'exception' => 'Purge exception',	//TODO - Translation
 		'help' => 'Více možností je dostupných v nastavení jednotlivých kanálů',
 		'keep_favourites' => 'Never delete favourites',	//TODO - Translation
 		'keep_history_by_feed' => 'Zachovat tento minimální počet článků v každém kanálu',
@@ -13,6 +14,7 @@ return array(
 		'optimize' => 'Optimalizovat databázi',
 		'optimize_help' => 'Občasná údržba zmenší velikost databáze',
 		'policy' => 'Purge policy',	//TODO - Translation
+		'policy_warning' => 'If no purge policy is selected, every article will be kept.',	//TODO - Translation
 		'purge_now' => 'Vyčistit nyní',
 		'retention_count_limit' => 'Maximum number of articles to keep',	//TODO - Translation
 		'retention_period' => 'Maximum age of articles to keep',	//TODO - Translation

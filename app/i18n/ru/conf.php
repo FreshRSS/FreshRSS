@@ -4,6 +4,7 @@ return array(
 	'archiving' => array(
 		'_' => 'Архивация',
 		'delete_after' => 'Удалять статьи после',
+		'exception' => 'Purge exception',	//TODO - Translation
 		'help' => 'Каждую подписку можно настроить более гибко',
 		'keep_favourites' => 'Never delete favourites',	//TODO - Translation
 		'keep_history_by_feed' => 'Minimum number of articles to keep by feed',	//TODO - Translation
@@ -13,6 +14,7 @@ return array(
 		'optimize' => 'Оптимизировать базу данных',
 		'optimize_help' => 'To do occasionally to reduce the size of the database',	//TODO - Translation
 		'policy' => 'Purge policy',	//TODO - Translation
+		'policy_warning' => 'If no purge policy is selected, every article will be kept.',	//TODO - Translation
 		'purge_now' => 'Очистить сейчас',
 		'retention_count_limit' => 'Maximum number of articles to keep',	//TODO - Translation
 		'retention_period' => 'Maximum age of articles to keep',	//TODO - Translation

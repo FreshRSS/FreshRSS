@@ -4,6 +4,7 @@ return array(
 	'archiving' => array(
 		'_' => 'Archivering',
 		'delete_after' => 'Verwijder artikelen na',
+		'exception' => 'Purge exception',	//TODO - Translation
 		'help' => 'Meer opties zijn beschikbaar in de persoonlijke stroom instellingen',
 		'keep_favourites' => 'Never delete favourites',	//TODO - Translation
 		'keep_history_by_feed' => 'Minimum aantal te behouden artikelen in de feed',
@@ -13,6 +14,7 @@ return array(
 		'optimize' => 'Optimaliseer database',	//TODO - Translation
 		'optimize_help' => 'Doe dit zo af en toe om de omvang van de database te verkleinen',
 		'policy' => 'Purge policy',	//TODO - Translation
+		'policy_warning' => 'If no purge policy is selected, every article will be kept.',	//TODO - Translation
 		'purge_now' => 'Schoon nu op',
 		'retention_count_limit' => 'Maximum number of articles to keep',	//TODO - Translation
 		'retention_period' => 'Maximum age of articles to keep',	//TODO - Translation

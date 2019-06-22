@@ -4,6 +4,7 @@ return array(
 	'archiving' => array(
 		'_' => '보관',
 		'delete_after' => '다음 기간보다 오래된 글 삭제',
+		'exception' => 'Purge exception',	//TODO - Translation
 		'help' => '더 자세한 옵션은 개별 피드 설정에 있습니다',
 		'keep_favourites' => 'Never delete favourites',	//TODO - Translation
 		'keep_history_by_feed' => '피드별 최소 유지 글 개수',
@@ -13,6 +14,7 @@ return array(
 		'optimize' => '데이터베이스 최적화',
 		'optimize_help' => '데이터베이스 크기를 줄이기 위해 가끔씩 수행해주세요',
 		'policy' => 'Purge policy',	//TODO - Translation
+		'policy_warning' => 'If no purge policy is selected, every article will be kept.',	//TODO - Translation
 		'purge_now' => '지금 삭제',
 		'retention_count_limit' => 'Maximum number of articles to keep',	//TODO - Translation
 		'retention_period' => 'Maximum age of articles to keep',	//TODO - Translation

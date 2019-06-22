@@ -4,6 +4,7 @@ return array(
 	'archiving' => array(
 		'_' => 'Archiving',
 		'delete_after' => 'Remove articles after',
+		'exception' => 'Purge exception',
 		'help' => 'More options are available in the individual feed settings',
 		'keep_favourites' => 'Never delete favourites',
 		'keep_history_by_feed' => 'Minimum number of articles to keep by feed',
@@ -13,6 +14,7 @@ return array(
 		'optimize' => 'Optimise database',
 		'optimize_help' => 'Do occasionally to reduce the size of the database',
 		'policy' => 'Purge policy',
+		'policy_warning' => 'If no purge policy is selected, every article will be kept.',
 		'purge_now' => 'Purge now',
 		'retention_count_limit' => 'Maximum number of articles to keep',
 		'retention_period' => 'Maximum age of articles to keep',

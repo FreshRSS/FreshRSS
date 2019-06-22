@@ -44,6 +44,11 @@
 				$volatile['retention_period_unit'] = str_replace($matches['count'], '1', $retentionPeriod);
 			}
 		?>
+
+		<p class="alert alert-warn">
+			<?php echo _t('conf.archiving.policy_warning'); ?>
+		</p>
+
 		<div class="form-group">
 			<label class="group-name"><?php echo _t('conf.archiving.policy'); ?></label>
 			<div class="group-controls">
@@ -80,6 +85,7 @@
 			</div>
 		</div>
 		<div class="form-group archiving"<?php echo null === $archiving ? ' hidden="hidden"' : ''; ?>>
+			<label class="group-name"><?php echo _t('conf.archiving.exception'); ?></label>
 			<div class="group-controls">
 				<label class="checkbox" for="keep_favourites">
 					<input type="checkbox" name="keep_favourites" id="keep_favourites" value="1"<?php echo $archiving['keep_favourites'] ? ' checked="checked"' : ''; ?>  data-leave-validation="<?php echo $archiving['keep_favourites']; ?>"/>

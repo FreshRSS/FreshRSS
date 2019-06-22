@@ -4,6 +4,7 @@ return array(
 	'archiving' => array(
 		'_' => 'Archivar',
 		'delete_after' => 'Levar los articles aprèp',
+		'exception' => 'Purge exception',	//TODO - Translation
 		'help' => 'Mai d’opcions son disponiblas dins la configuracion individuala dels fluxes',
 		'keep_favourites' => 'Never delete favourites',	//TODO - Translation
 		'keep_history_by_feed' => 'Nombre minimum d’articles de servar per flux',
@@ -13,6 +14,7 @@ return array(
 		'optimize' => 'Optimizar la basa de donada',
 		'optimize_help' => 'De far de temps en temps per redusir la talha de la basa de donadas',
 		'policy' => 'Purge policy',	//TODO - Translation
+		'policy_warning' => 'If no purge policy is selected, every article will be kept.',	//TODO - Translation
 		'purge_now' => 'Purgar ara',
 		'retention_count_limit' => 'Maximum number of articles to keep',	//TODO - Translation
 		'retention_period' => 'Maximum age of articles to keep',	//TODO - Translation

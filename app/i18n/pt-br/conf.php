@@ -4,6 +4,7 @@ return array(
 	'archiving' => array(
 		'_' => 'Arquivar',
 		'delete_after' => 'Remover artigos depois',
+		'exception' => 'Purge exception',	//TODO - Translation
 		'help' => 'Mais opções estão disponíveis nas configurações individuais do feed',
 		'keep_favourites' => 'Never delete favourites',	//TODO - Translation
 		'keep_history_by_feed' => 'Número mínimo de artigos para deixar no feed',
@@ -13,6 +14,7 @@ return array(
 		'optimize' => 'Otimizar banco de dados',
 		'optimize_help' => 'Faça ocasionalmente para reduzir o tamanho do banco de dados',
 		'policy' => 'Purge policy',	//TODO - Translation
+		'policy_warning' => 'If no purge policy is selected, every article will be kept.',	//TODO - Translation
 		'purge_now' => 'Purge agora',
 		'retention_count_limit' => 'Maximum number of articles to keep',	//TODO - Translation
 		'retention_period' => 'Maximum age of articles to keep',	//TODO - Translation
