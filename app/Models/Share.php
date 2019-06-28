@@ -65,9 +65,6 @@ class FreshRSS_Share {
 		return self::$list_sharing[$type];
 	}
 
-	/**
-	 *
-	 */
 	private $type = '';
 	private $name = '';
 	private $url_transform = '';
@@ -78,6 +75,7 @@ class FreshRSS_Share {
 	private $base_url = null;
 	private $title = null;
 	private $link = null;
+	private $content = null;
 	private $method = 'GET';
 	private $field;
 
@@ -118,7 +116,7 @@ class FreshRSS_Share {
 	/**
 	 * Update a FreshRSS_Share object with information from an array.
 	 * @param $options is a list of informations to update where keys should be
-	 *        in this list: name, url, title, link.
+	 *        in this list: name, url, title, link, and content.
 	 */
 	public function update($options) {
 		$available_options = array(
@@ -128,6 +126,7 @@ class FreshRSS_Share {
 			'link' => 'link',
 			'method' => 'method',
 			'field' => 'field',
+			'content' => 'content',
 		);
 
 		foreach ($options as $key => $value) {
@@ -199,11 +198,13 @@ class FreshRSS_Share {
 			'~URL~',
 			'~TITLE~',
 			'~LINK~',
+			'~CONTENT~'
 		);
 		$replaces = array(
 			$this->base_url,
 			$this->title(),
 			$this->link(),
+			$this->content(),
 		);
 		return str_replace($matches, $replaces, $this->url_transform);
 	}
@@ -230,6 +231,18 @@ class FreshRSS_Share {
 		}
 
 		return $this->transform($this->link, $this->getTransform('link'));
+	}
+
+	/**
+	 * Return the content.
+	 * @param $raw true if we should get the link without transformations.
+	 */
+	public function content($raw = false) {
+		if ($raw) {
+			return $this->content;
+		}
+
+		return $this->transform($this->content, $this->getTransform('content'));
 	}
 
 	/**

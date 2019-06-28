@@ -87,6 +87,7 @@
 						}
 						$share_options['link'] = $link;
 						$share_options['title'] = $title;
+						$share_options['content'] = $this->entry->content();
 						$share->update($share_options);
 				?><li class="item share">
 					<?php if ('GET' === $share->method()) {?>

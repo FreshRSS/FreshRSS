@@ -22,7 +22,7 @@
 
 return array(
 	'shaarli' => array(
-		'url' => '~URL~?post=~LINK~&amp;title=~TITLE~&amp;source=FreshRSS',
+		'url' => '~URL~?post=~LINK~&amp;title=~TITLE~&amp;description=~CONTENT~&amp;source=FreshRSS',
 		'transform' => array('rawurlencode'),
 		'help' => 'http://sebsauvage.net/wiki/doku.php?id=php:shaarli',
 		'form' => 'advanced',
