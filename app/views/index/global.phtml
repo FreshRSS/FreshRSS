@@ -1,11 +1,6 @@
 <?php
 	$this->partial('nav_menu');
 
-	flush();
-	if (isset($this->callbackBeforeEntries)) {
-		call_user_func($this->callbackBeforeEntries, $this);
-	}
-
 	$class = '';
 	if (FreshRSS_Context::$user_conf->hide_read_feeds &&
 			FreshRSS_Context::isStateEnabled(FreshRSS_Entry::STATE_NOT_READ) &&

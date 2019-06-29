@@ -3,11 +3,6 @@
 $this->partial('aside_feed');
 $this->partial('nav_menu');
 
-flush();
-if (isset($this->callbackBeforeEntries)) {
-	call_user_func($this->callbackBeforeEntries, $this);
-}
-
 if (!empty($this->entries)) {
 	$display_today = true;
 	$display_yesterday = true;
