@@ -5,7 +5,8 @@ global $SQL_CREATE_TABLES;
 $SQL_CREATE_TABLES = array(
 'CREATE TABLE IF NOT EXISTS "%1$scategory" (
 	"id" SERIAL PRIMARY KEY,
-	"name" VARCHAR(255) UNIQUE NOT NULL
+	"name" VARCHAR(255) UNIQUE NOT NULL,
+	"attributes" TEXT	-- v1.15.0
 );',
 
 'CREATE TABLE IF NOT EXISTS "%1$sfeed" (

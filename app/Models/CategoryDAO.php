@@ -46,11 +46,11 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo implements FreshRSS_Searchable 
 		if ($stm && $stm->execute($values)) {
 			return $this->bd->lastInsertId('"' . $this->prefix . 'category_id_seq"');
 		} else {
-			$info = $stm == null ? array(2 => 'syntax error') : $stm->errorInfo();
+			$info = $stm == null ? $this->bd->errorInfo() : $stm->errorInfo();
 			if ($this->autoUpdateDb($info)) {
 				return $this->addCategory($valuesTmp);
 			}
-			Minz_Log::error('SQL error addCategory: ' . $info[2]);
+			Minz_Log::error('SQL error addCategory: ' . json_encode($info));
 			return false;
 		}
 	}
@@ -84,11 +84,11 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo implements FreshRSS_Searchable 
 		if ($stm && $stm->execute($values)) {
 			return $stm->rowCount();
 		} else {
-			$info = $stm == null ? array(2 => 'syntax error') : $stm->errorInfo();
+			$info = $stm == null ? $this->bd->errorInfo() : $stm->errorInfo();
 			if ($this->autoUpdateDb($info)) {
-				return $this->addCategory($valuesTmp);
+				return $this->updateCategory($valuesTmp);
 			}
-			Minz_Log::error('SQL error updateCategory: ' . $info[2]);
+			Minz_Log::error('SQL error updateCategory: ' . json_encode($info));
 			return false;
 		}
 	}
@@ -105,8 +105,8 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo implements FreshRSS_Searchable 
 		if ($stm && $stm->execute($values)) {
 			return $stm->rowCount();
 		} else {
-			$info = $stm == null ? array(2 => 'syntax error') : $stm->errorInfo();
-			Minz_Log::error('SQL error deleteCategory: ' . $info[2]);
+			$info = $stm == null ? $this->bd->errorInfo() : $stm->errorInfo();
+			Minz_Log::error('SQL error deleteCategory: ' . json_encode($info));
 			return false;
 		}
 	}
@@ -154,8 +154,17 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo implements FreshRSS_Searchable 
 			     . 'GROUP BY f.id, c_id '
 			     . 'ORDER BY c.name, f.name';
 			$stm = $this->bd->prepare($sql);
-			$stm->execute(array(':priority_normal' => FreshRSS_Feed::PRIORITY_NORMAL));
-			return self::daoToCategoryPrepopulated($stm->fetchAll(PDO::FETCH_ASSOC));
+			$values = array(':priority_normal' => FreshRSS_Feed::PRIORITY_NORMAL);
+			if ($stm && $stm->execute($values)) {
+				return self::daoToCategoryPrepopulated($stm->fetchAll(PDO::FETCH_ASSOC));
+			} else {
+				$info = $stm == null ? $this->bd->errorInfo() : $stm->errorInfo();
+				if ($this->autoUpdateDb($info)) {
+					return $this->listCategories($prePopulateFeeds, $details);
+				}
+				Minz_Log::error('SQL error listCategories: ' . json_encode($info));
+				return false;
+			}
 		} else {
 			$sql = 'SELECT * FROM `' . $this->prefix . 'category` ORDER BY name';
 			$stm = $this->bd->prepare($sql);
@@ -204,7 +213,7 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo implements FreshRSS_Searchable 
 			if ($stm && $stm->execute($values)) {
 				return $this->bd->lastInsertId('"' . $this->prefix . 'category_id_seq"');
 			} else {
-				$info = $stm == null ? array(2 => 'syntax error') : $stm->errorInfo();
+				$info = $stm == null ? $this->bd->errorInfo() : $stm->errorInfo();
 				Minz_Log::error('SQL error check default category: ' . json_encode($info));
 				return false;
 			}
