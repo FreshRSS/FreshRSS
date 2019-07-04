@@ -9,9 +9,9 @@ RUN apt update && \
 	apache2 libapache2-mod-php \
 	php-curl php-intl php-mbstring php-xml php-zip \
 	php-sqlite3 php-mysql php-pgsql && \
-	rm -rf /var/lib/apt/lists/
+	rm -rf /var/lib/apt/lists/*
 
-RUN mkdir -p /var/www/FreshRSS /run/apache2/
+RUN mkdir -p /var/www/FreshRSS/ /run/apache2/
 WORKDIR /var/www/FreshRSS
 
 COPY . /var/www/FreshRSS
