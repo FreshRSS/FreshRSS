@@ -4,10 +4,10 @@
 
 FROM arm32v7/ubuntu:19.04
 
+COPY qemu-arm-static /usr/bin
+
 ENV TZ UTC
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
-
-COPY qemu-arm-static /usr/bin
 
 RUN apt update && \
 	apt install --no-install-recommends -y \
