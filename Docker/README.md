@@ -1,3 +1,8 @@
+![Docker Cloud Automated build](https://img.shields.io/docker/cloud/automated/freshrss/freshrss.svg)
+![Docker Cloud Build Status](https://img.shields.io/docker/cloud/build/freshrss/freshrss.svg)
+![MicroBadger Size](https://img.shields.io/microbadger/image-size/freshrss/freshrss.svg)
+![Docker Pulls](https://img.shields.io/docker/pulls/freshrss/freshrss.svg)
+
 # Deploy FreshRSS with Docker
 * See also https://hub.docker.com/r/freshrss/freshrss/
 
