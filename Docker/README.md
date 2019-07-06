@@ -37,6 +37,7 @@ sudo docker run -d --restart unless-stopped --log-opt max-size=10m \
   -p 80:80 \
   -p 443:443 \
   --name traefik traefik --docker \
+  --loglevel=info \
   --entryPoints='Name:http Address::80 Compress:true Redirect.EntryPoint:https' \
   --entryPoints='Name:https Address::443 Compress:true TLS TLS.MinVersion:VersionTLS12 TLS.SniStrict:true TLS.CipherSuites:TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384,TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA' \
   --defaultentrypoints=http,https --keeptrailingslash=true \
@@ -51,7 +52,7 @@ See [more information about Docker and Let’s Encrypt in Træfik](https://docs.
 Example using the built-in refresh cron job (see further below for alternatives).
 You must first chose a domain (DNS) or sub-domain, e.g. `freshrss.example.net`.
 
-> **N.B.:** For platforms other than x64 (Intel, AMD), such as ARM (e.g. Raspberry Pi), see the section *Build Docker image* further below.
+> **N.B.:** Default images are for x64 (Intel, AMD) platforms. For ARM (e.g. Raspberry Pi), use the `*-arm` tags. For platforms, see the section *Build Docker image* further below.
 
 ```sh
 sudo docker volume create freshrss-data
@@ -137,7 +138,7 @@ The tags correspond to FreshRSS branches and versions:
 * `:x.y.z` are specific FreshRSS releases
 
 ### Linux: Ubuntu vs. Alpine
-Our default image is based on [Ubuntu](https://www.ubuntu.com/server). We offer an alternative based on [Alpine](https://alpinelinux.org/) (with the `-alpine` tag suffix).
+Our default image is based on [Ubuntu](https://www.ubuntu.com/server). We offer an alternative based on [Alpine](https://alpinelinux.org/) (with the `*-alpine` tag suffix).
 In [our tests](https://github.com/FreshRSS/FreshRSS/pull/2205), Ubuntu is ~3 times faster,
 while Alpine is ~2.5 times [smaller on disk](https://hub.docker.com/r/freshrss/freshrss/tags) (and much faster to build).
 
