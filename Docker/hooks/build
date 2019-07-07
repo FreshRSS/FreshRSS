@@ -1,6 +1,7 @@
 #!/bin/bash
 
-FRESHRSS_VERSION=`grep "'FRESHRSS_VERSION'" ../constants.php | cut -d "'" -f4`
+cd ..
+FRESHRSS_VERSION=`grep "'FRESHRSS_VERSION'" constants.php | cut -d "'" -f4`
 echo "$FRESHRSS_VERSION"
 
 if [[ "$DOCKERFILE_PATH" == *-ARM ]]
