@@ -724,6 +724,7 @@ case 5:
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="initial-scale=1.0" />
+		<script id="jsonVars" type="application/json">{}</script>
 		<title><?php echo _t('install.title'); ?></title>
 		<link rel="stylesheet" href="../themes/base-theme/template.css?<?php echo @filemtime(PUBLIC_PATH . '/themes/base-theme/template.css'); ?>" />
 		<link rel="stylesheet" href="../themes/Origine/origine.css?<?php echo @filemtime(PUBLIC_PATH . '/themes/Origine/origine.css'); ?>" />
