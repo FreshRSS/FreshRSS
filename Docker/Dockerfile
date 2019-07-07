@@ -5,7 +5,7 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 RUN apt update && \
 	apt install --no-install-recommends -y \
-	ca-certificates cron \
+	ca-certificates cron curl \
 	apache2 libapache2-mod-php \
 	php-curl php-intl php-mbstring php-xml php-zip \
 	php-sqlite3 php-mysql php-pgsql && \
@@ -16,6 +16,22 @@ WORKDIR /var/www/FreshRSS
 
 COPY . /var/www/FreshRSS
 COPY ./Docker/*.Apache.conf /etc/apache2/sites-available/
+
+ARG FRESHRSS_VERSION
+ARG SOURCE_BRANCH
+ARG SOURCE_COMMIT
+
+LABEL \
+	org.opencontainers.image.authors="Alkarex" \
+	org.opencontainers.image.description="A self-hosted RSS feed aggregator" \
+	org.opencontainers.image.documentation="https://freshrss.github.io/FreshRSS/" \
+	org.opencontainers.image.licenses="AGPL-3.0" \
+	org.opencontainers.image.revision="${SOURCE_BRANCH}.${SOURCE_COMMIT}" \
+	org.opencontainers.image.source="https://github.com/FreshRSS/FreshRSS" \
+	org.opencontainers.image.title="FreshRSS" \
+	org.opencontainers.image.url="https://freshrss.org/" \
+	org.opencontainers.image.vendor="FreshRSS" \
+	org.opencontainers.image.version="$FRESHRSS_VERSION"
 
 RUN a2dismod -f alias autoindex negotiation status && \
 	a2enmod deflate expires headers mime setenvif && \
@@ -38,3 +54,6 @@ EXPOSE 80
 CMD ([ -z "$CRON_MIN" ] || cron) && \
 	. /etc/apache2/envvars && \
 	exec apache2 -D FOREGROUND
+
+HEALTHCHECK --start-period=8s --interval=67s --timeout=5s --retries=3 \
+	CMD curl -fsS 'http://localhost/i/' | grep -q 'jsonVars' || exit 1

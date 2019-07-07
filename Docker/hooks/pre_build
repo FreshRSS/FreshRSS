@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [[ "$DOCKERFILE_PATH" == *-ARM ]];
+if [[ "$DOCKERFILE_PATH" == *-ARM ]]
 then
 	# https://github.com/balena-io/qemu
 	# Download a local copy of QEMU on Docker Hub build machine

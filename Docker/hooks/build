@@ -1,0 +1,19 @@
+#!/bin/bash
+
+FRESHRSS_VERSION=`grep "'FRESHRSS_VERSION'" ../constants.php | cut -d "'" -f4`
+echo "$FRESHRSS_VERSION"
+
+if [[ "$DOCKERFILE_PATH" == *-ARM ]]
+then
+	docker build --platform arm --squash \
+		--build-arg FRESHRSS_VERSION="$FRESHRSS_VERSION" \
+		--build-arg SOURCE_BRANCH="$SOURCE_BRANCH" \
+		--build-arg SOURCE_COMMIT="$SOURCE_COMMIT" \
+		-f "$DOCKERFILE_PATH" -t "$IMAGE_NAME" .
+else
+	docker build --squash \
+		--build-arg FRESHRSS_VERSION="$FRESHRSS_VERSION" \
+		--build-arg SOURCE_BRANCH="$SOURCE_BRANCH" \
+		--build-arg SOURCE_COMMIT="$SOURCE_COMMIT" \
+		-f "$DOCKERFILE_PATH" -t "$IMAGE_NAME" .
+fi
