@@ -5,13 +5,15 @@ echo "$FRESHRSS_VERSION"
 
 if [[ "$DOCKERFILE_PATH" == *-ARM ]]
 then
-	docker build --platform arm --squash \
+	#TODO: Add --squash --platform arm options when Docker Hub deamon supports them
+	docker build \
 		--build-arg FRESHRSS_VERSION="$FRESHRSS_VERSION" \
 		--build-arg SOURCE_BRANCH="$SOURCE_BRANCH" \
 		--build-arg SOURCE_COMMIT="$SOURCE_COMMIT" \
 		-f "$DOCKERFILE_PATH" -t "$IMAGE_NAME" .
 else
-	docker build --squash \
+	#TODO: Add --squash option when Docker Hub deamon supports it
+	docker build \
 		--build-arg FRESHRSS_VERSION="$FRESHRSS_VERSION" \
 		--build-arg SOURCE_BRANCH="$SOURCE_BRANCH" \
 		--build-arg SOURCE_COMMIT="$SOURCE_COMMIT" \
