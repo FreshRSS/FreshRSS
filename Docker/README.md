@@ -75,6 +75,7 @@ sudo docker run -d --restart unless-stopped --log-opt max-size=10m \
 	`--label traefik.frontend.rule='Host:freshrss.example.net;PathPrefixStrip:/FreshRSS/' \`
 * You may remove the `--label traefik.*` lines if you do not use Træfik.
 * Add `-p 8080:80 \` if you want to expose FreshRSS locally, e.g. on port `8080`.
+* Replace `freshrss/freshrss` by a more specific tag (see below) such as `freshrss/freshrss:dev` for the development version, or `freshrss/freshrss:arm` for a Raspberry Pi version.
 
 This already works with a built-in **SQLite** database (easiest), but more powerful databases are supported:
 
@@ -136,6 +137,7 @@ The tags correspond to FreshRSS branches and versions:
 * `:latest` (default) is the `master` branch, more stable
 * `:dev` is the `dev` branch, rolling release
 * `:x.y.z` are specific FreshRSS releases
+* `:arm` or `:*-arm` are the ARM versions (e.g. for Raspberry Pi)
 
 ### Linux: Ubuntu vs. Alpine
 Our default image is based on [Ubuntu](https://www.ubuntu.com/server). We offer an alternative based on [Alpine](https://alpinelinux.org/) (with the `*-alpine` tag suffix).

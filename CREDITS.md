@@ -61,6 +61,8 @@ People are sorted by name so please keep this order.
 * [Quentin Pagès](https://github.com/Quenty31): [contributions](https://github.com/FreshRSS/documentation/commits?author=Quenty31)
 * [Ramón Cutanda](https://github.com/rcutanda): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:rcutanda)
 * [romibi](https://github.com/romibi): [contributions](https://github.com/FreshRSS/FreshRSS/commits/dev?author=romibi)
+* [Rosemary Le Faive](https://github.com/rosiel): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:rosiel)
+* [Sandro Jäckel](https://github.com/SuperSandro2000): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:SuperSandro2000), [Web](https://supersandro.de/)
 * [sirideain](https://github.com/sirideain): [contributions](https://github.com/FreshRSS/FreshRSS/commits/dev?author=sirideain)
 * [Sp3r4z](https://github.com/Sp3r4z): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:Sp3r4z)
 * [subic](https://github.com/subic): [contributions](https://github.com/FreshRSS/documentation/commits?author=subic)
