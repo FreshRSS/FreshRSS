@@ -52,8 +52,11 @@ RUN sed -r -i "/^\s*(CustomLog|ErrorLog|Listen) /s/^/#/" /etc/apache2/apache2.co
 		su www-data -s /bin/sh -c 'php /var/www/FreshRSS/app/actualize_script.php' \
 		2>> /proc/1/fd/2 > /tmp/FreshRSS.log" | crontab -
 
+# Seems needed for arm32v7/ubuntu on Docker Hub
+RUN update-ca-certificates -f
+
 # Useful with the `--squash` build option
-RUN rm /usr/bin/qemu-*
+RUN rm /usr/bin/qemu-* /var/www/FreshRSS/Docker/qemu-*
 
 ENV COPY_SYSLOG_TO_STDERR On
 ENV CRON_MIN ''
