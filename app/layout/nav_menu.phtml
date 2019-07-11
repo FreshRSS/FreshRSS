@@ -1,4 +1,11 @@
-<?php $actual_view = Minz_Request::actionName(); ?>
+<?php
+	$actual_view = Minz_Request::actionName();
+
+	flush();
+	if (isset($this->callbackBeforePagination)) {
+		call_user_func($this->callbackBeforePagination, $this);
+	}
+?>
 
 <div class="nav_menu">
 	<?php if ($actual_view === 'normal' || $actual_view === 'reader' ) { ?>

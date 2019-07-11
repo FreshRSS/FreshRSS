@@ -1,3 +1,8 @@
+![Docker Cloud Automated build](https://img.shields.io/docker/cloud/automated/freshrss/freshrss.svg)
+![Docker Cloud Build Status](https://img.shields.io/docker/cloud/build/freshrss/freshrss.svg)
+![MicroBadger Size](https://img.shields.io/microbadger/image-size/freshrss/freshrss.svg)
+![Docker Pulls](https://img.shields.io/docker/pulls/freshrss/freshrss.svg)
+
 # Deploy FreshRSS with Docker
 * See also https://hub.docker.com/r/freshrss/freshrss/
 
@@ -32,6 +37,7 @@ sudo docker run -d --restart unless-stopped --log-opt max-size=10m \
   -p 80:80 \
   -p 443:443 \
   --name traefik traefik --docker \
+  --loglevel=info \
   --entryPoints='Name:http Address::80 Compress:true Redirect.EntryPoint:https' \
   --entryPoints='Name:https Address::443 Compress:true TLS TLS.MinVersion:VersionTLS12 TLS.SniStrict:true TLS.CipherSuites:TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384,TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA' \
   --defaultentrypoints=http,https --keeptrailingslash=true \
@@ -46,7 +52,7 @@ See [more information about Docker and Let’s Encrypt in Træfik](https://docs.
 Example using the built-in refresh cron job (see further below for alternatives).
 You must first chose a domain (DNS) or sub-domain, e.g. `freshrss.example.net`.
 
-> **N.B.:** For platforms other than x64 (Intel, AMD), such as ARM (e.g. Raspberry Pi), see the section *Build Docker image* further below.
+> **N.B.:** Default images are for x64 (Intel, AMD) platforms. For ARM (e.g. Raspberry Pi), use the `*-arm` tags. For other platforms, see the section *Build Docker image* further below.
 
 ```sh
 sudo docker volume create freshrss-data
@@ -69,6 +75,7 @@ sudo docker run -d --restart unless-stopped --log-opt max-size=10m \
 	`--label traefik.frontend.rule='Host:freshrss.example.net;PathPrefixStrip:/FreshRSS/' \`
 * You may remove the `--label traefik.*` lines if you do not use Træfik.
 * Add `-p 8080:80 \` if you want to expose FreshRSS locally, e.g. on port `8080`.
+* Replace `freshrss/freshrss` by a more specific tag (see below) such as `freshrss/freshrss:dev` for the development version, or `freshrss/freshrss:arm` for a Raspberry Pi version.
 
 This already works with a built-in **SQLite** database (easiest), but more powerful databases are supported:
 
@@ -130,9 +137,10 @@ The tags correspond to FreshRSS branches and versions:
 * `:latest` (default) is the `master` branch, more stable
 * `:dev` is the `dev` branch, rolling release
 * `:x.y.z` are specific FreshRSS releases
+* `:arm` or `:*-arm` are the ARM versions (e.g. for Raspberry Pi)
 
 ### Linux: Ubuntu vs. Alpine
-Our default image is based on [Ubuntu](https://www.ubuntu.com/server). We offer an alternative based on [Alpine](https://alpinelinux.org/) (with the `-alpine` tag suffix).
+Our default image is based on [Ubuntu](https://www.ubuntu.com/server). We offer an alternative based on [Alpine](https://alpinelinux.org/) (with the `*-alpine` tag suffix).
 In [our tests](https://github.com/FreshRSS/FreshRSS/pull/2205), Ubuntu is ~3 times faster,
 while Alpine is ~2.5 times [smaller on disk](https://hub.docker.com/r/freshrss/freshrss/tags) (and much faster to build).
 

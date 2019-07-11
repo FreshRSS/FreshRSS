@@ -622,9 +622,6 @@ a.btn {
 br {
 	line-height: 1em;
 }
-br + br + br {
-	display: none;
-}
 
 /*=== Notification and actualize notification */
 .notification {

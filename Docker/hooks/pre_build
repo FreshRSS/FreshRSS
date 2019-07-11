@@ -1,0 +1,14 @@
+#!/bin/bash
+
+cp README.md ../
+
+if [[ "$DOCKERFILE_PATH" == *-ARM ]]
+then
+	# https://github.com/balena-io/qemu
+	# Download a local copy of QEMU on Docker Hub build machine
+	curl -LSs 'https://github.com/balena-io/qemu/releases/download/v3.0.0%2Bresin/qemu-3.0.0+resin-arm.tar.gz' | tar -xzv --strip-components=1 --wildcards '*/qemu-*'
+
+	# https://github.com/multiarch/qemu-user-static
+	# Register qemu-*-static for all supported processors except the current one, but also remove all registered binfmt_misc before
+	docker run --rm --privileged multiarch/qemu-user-static:register --reset
+fi

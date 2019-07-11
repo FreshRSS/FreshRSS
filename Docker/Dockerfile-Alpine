@@ -1,8 +1,9 @@
-FROM alpine:3.9
+FROM alpine:3.10
 
 ENV TZ UTC
 
 RUN apk add --no-cache \
+	curl \
 	apache2 php7-apache2 \
 	php7 php7-curl php7-gmp php7-intl php7-mbstring php7-xml php7-zip \
 	php7-ctype php7-dom php7-fileinfo php7-iconv php7-json php7-session php7-simplexml php7-xmlreader php7-zlib \
@@ -13,6 +14,22 @@ WORKDIR /var/www/FreshRSS
 
 COPY . /var/www/FreshRSS
 COPY ./Docker/*.Apache.conf /etc/apache2/conf.d/
+
+ARG FRESHRSS_VERSION
+ARG SOURCE_BRANCH
+ARG SOURCE_COMMIT
+
+LABEL \
+	org.opencontainers.image.authors="Alkarex" \
+	org.opencontainers.image.description="A self-hosted RSS feed aggregator" \
+	org.opencontainers.image.documentation="https://freshrss.github.io/FreshRSS/" \
+	org.opencontainers.image.licenses="AGPL-3.0" \
+	org.opencontainers.image.revision="${SOURCE_BRANCH}.${SOURCE_COMMIT}" \
+	org.opencontainers.image.source="https://github.com/FreshRSS/FreshRSS" \
+	org.opencontainers.image.title="FreshRSS" \
+	org.opencontainers.image.url="https://freshrss.org/" \
+	org.opencontainers.image.vendor="FreshRSS" \
+	org.opencontainers.image.version="$FRESHRSS_VERSION"
 
 RUN rm -f /etc/apache2/conf.d/languages.conf /etc/apache2/conf.d/info.conf \
 		/etc/apache2/conf.d/status.conf /etc/apache2/conf.d/userdir.conf && \
@@ -34,3 +51,6 @@ ENTRYPOINT ["./Docker/entrypoint.sh"]
 EXPOSE 80
 CMD ([ -z "$CRON_MIN" ] || crond -d 6) && \
 	exec httpd -D FOREGROUND
+
+HEALTHCHECK --start-period=8s --interval=67s --timeout=5s --retries=3 \
+	CMD curl -fsS 'http://localhost/i/' | grep -q 'jsonVars' || exit 1
