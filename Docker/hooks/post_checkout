@@ -1,4 +1,4 @@
 #!/bin/bash
 
-pwd
-cp README.md ../
+mv ../README.md ../README.en.md
+mv README.md ../
