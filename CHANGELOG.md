@@ -19,7 +19,7 @@
 	* Docker: Add automatic health check [#2438](https://github.com/FreshRSS/FreshRSS/pull/2438)
 	* Docker: Add a version for ARM achitecture such as for Raspberry Pi [#2436](https://github.com/FreshRSS/FreshRSS/pull/2436)
 	* Docker: Ubuntu image updated to 19.04 with PHP 7.2.19 and Apache 2.4.38 [#2422](https://github.com/FreshRSS/FreshRSS/pull/2422)
-	* Docker: Alpine image updated to 3.10 with PHP 7.3.6 and Apache 2.4.39 [#2238](https://github.com/FreshRSS/FreshRSS/pull/2238)
+	* Docker: Alpine image updated to 3.10 with PHP 7.3.7 and Apache 2.4.39 [#2238](https://github.com/FreshRSS/FreshRSS/pull/2238)
 * I18n
 	* Improve Occitan [#2358](https://github.com/FreshRSS/FreshRSS/pull/2358)
 * Misc.
