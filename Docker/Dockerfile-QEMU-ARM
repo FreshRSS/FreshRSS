@@ -4,7 +4,7 @@
 FROM arm32v7/ubuntu:19.04
 
 # Requires ./hooks/*
-COPY /tmp/qemu-arm-* /usr/bin/
+COPY ./Docker/qemu-arm-* /usr/bin/
 
 ENV TZ UTC
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
@@ -56,7 +56,7 @@ RUN sed -r -i "/^\s*(CustomLog|ErrorLog|Listen) /s/^/#/" /etc/apache2/apache2.co
 RUN update-ca-certificates -f
 
 # Useful with the `--squash` build option
-RUN rm /usr/bin/qemu-*
+RUN rm /usr/bin/qemu-* /var/www/FreshRSS/Docker/qemu-*
 
 ENV COPY_SYSLOG_TO_STDERR On
 ENV CRON_MIN ''
