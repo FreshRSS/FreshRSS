@@ -1,7 +1,5 @@
 #!/bin/bash
 
-cp README.md ../
-
 if [[ "$DOCKERFILE_PATH" == *-ARM ]]
 then
 	# https://github.com/balena-io/qemu
