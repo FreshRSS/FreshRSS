@@ -607,16 +607,16 @@ function printStep3() {
 			<label class="group-name" for="type"><?php echo _t('install.bdd.type'); ?></label>
 			<div class="group-controls">
 				<select name="type" id="type" tabindex="1">
-				<?php if (extension_loaded('pdo_mysql')) {?>
-				<option value="mysql"
-					<?php echo(isset($_SESSION['bd_type']) && $_SESSION['bd_type'] === 'mysql') ? 'selected="selected"' : ''; ?>>
-					MySQL
-				</option>
-				<?php }?>
 				<?php if (extension_loaded('pdo_sqlite')) {?>
 				<option value="sqlite"
 					<?php echo(isset($_SESSION['bd_type']) && $_SESSION['bd_type'] === 'sqlite') ? 'selected="selected"' : ''; ?>>
 					SQLite
+				</option>
+				<?php }?>
+				<?php if (extension_loaded('pdo_mysql')) {?>
+				<option value="mysql"
+					<?php echo(isset($_SESSION['bd_type']) && $_SESSION['bd_type'] === 'mysql') ? 'selected="selected"' : ''; ?>>
+					MySQL
 				</option>
 				<?php }?>
 				<?php if (extension_loaded('pdo_pgsql')) {?>
