@@ -68,9 +68,10 @@ class FreshRSS extends Minz_FrontController {
 						' [HTTP_REFERER=' . htmlspecialchars($http_referer, ENT_NOQUOTES, 'UTF-8') . ']'
 					)));
 			}
-			if ((!FreshRSS_Auth::isCsrfOk()) &&
-				(Minz_Request::controllerName() !== 'auth' || Minz_Request::actionName() !== 'login')) {
-				// Token-based protection against XSRF attacks, except for the login form itself
+			if (!(FreshRSS_Auth::isCsrfOk() ||
+				(Minz_Request::controllerName() === 'auth' && Minz_Request::actionName() === 'login') ||
+				(Minz_Request::controllerName() === 'user' && Minz_Request::actionName() === 'create'))) {
+				// Token-based protection against XSRF attacks, except for the login or create user forms
 				Minz_Translate::init('en');	//TODO: Better choice of fallback language
 				Minz_Error::error(403, array('error' => array(
 						_t('feedback.access.denied'),
