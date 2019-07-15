@@ -55,6 +55,8 @@ See the [page about the Fever compatible API](06_Fever_API.md) for another possi
 		* [FeedReader 2.0+](https://jangernert.github.io/FeedReader/) (Open source)
 	* MacOS
 		* [Vienna RSS](http://www.vienna-rss.com/) (Open source)
+	* Firefox
+		* [FreshRSS-Notify](https://addons.mozilla.org/fr/firefox/addon/freshrss-notify-webextension/) (Open source)
 
 
 # Google Reader compatible API
