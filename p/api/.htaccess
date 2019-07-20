@@ -1,14 +1,9 @@
-<IfVersion >= 2.4.13>
-    CGIPassAuth on
-</IfVersion>
-<IfVersion < 2.4.13>
-    <IfModule mod_setenvif.c>
-    	SetEnvIfNoCase "Authorization" "(.*)" HTTP_AUTHORIZATION=$1
-    </IfModule>
-    <IfModule !mod_setenvif.c>
-    	<IfModule mod_rewrite.c>
-    		RewriteEngine on
-    		RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
-    </IfModule>
-    </IfModule>
-</IfVersion>
+<IfModule mod_setenvif.c>
+   SetEnvIfNoCase "Authorization" "(.*)" HTTP_AUTHORIZATION=$1
+</IfModule>
+<IfModule !mod_setenvif.c>
+   <IfModule mod_rewrite.c>
+           RewriteEngine on
+           RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+   </IfModule>
+</IfModule>
