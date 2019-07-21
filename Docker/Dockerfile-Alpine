@@ -52,5 +52,5 @@ EXPOSE 80
 CMD ([ -z "$CRON_MIN" ] || crond -d 6) && \
 	exec httpd -D FOREGROUND
 
-HEALTHCHECK --start-period=8s --interval=67s --timeout=5s --retries=3 \
+HEALTHCHECK --start-period=20s --interval=37s --timeout=5s --retries=3 \
 	CMD curl -fsS 'http://localhost/i/' | grep -q 'jsonVars' || exit 1

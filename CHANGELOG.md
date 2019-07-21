@@ -9,6 +9,7 @@
 	* Make CGI Authorization configuration for API more compatible [#2446](https://github.com/FreshRSS/FreshRSS/issues/2446)
 	* Fix refresh icon in Swage theme [#2375](https://github.com/FreshRSS/FreshRSS/issues/2375)
 	* Fix message banner in Swage theme [#2379](https://github.com/FreshRSS/FreshRSS/issues/2379)
+	* Docker: Add `php-gmp` for API support in Ubuntu 32-bit [#2450](https://github.com/FreshRSS/FreshRSS/pull/2450)
 * UI
 	* New configuration page for each category [#2369](https://github.com/FreshRSS/FreshRSS/issues/2369)
 	* Update shortcut configuration page [#2405](https://github.com/FreshRSS/FreshRSS/issues/2405)
