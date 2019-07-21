@@ -13,7 +13,7 @@ RUN apt update && \
 	apt install --no-install-recommends -y \
 	ca-certificates cron curl \
 	apache2 libapache2-mod-php \
-	php-curl php-intl php-mbstring php-xml php-zip \
+	php-curl php-gmp php-intl php-mbstring php-xml php-zip \
 	php-sqlite3 php-mysql php-pgsql && \
 	rm -rf /var/lib/apt/lists/*
 
@@ -67,5 +67,5 @@ CMD ([ -z "$CRON_MIN" ] || cron) && \
 	. /etc/apache2/envvars && \
 	exec apache2 -D FOREGROUND
 
-HEALTHCHECK --start-period=8s --interval=67s --timeout=5s --retries=3 \
+HEALTHCHECK --start-period=20s --interval=37s --timeout=5s --retries=3 \
 	CMD curl -fsS 'http://localhost/i/' | grep -q 'jsonVars' || exit 1
