@@ -69,6 +69,8 @@ Tout client supportant une API de type Google Reader. Sélection :
 	* [FeedReader 2.0+](https://jangernert.github.io/FeedReader/) (Libre)
 * MacOS
 	* [Vienna RSS](http://www.vienna-rss.com/) (Libre)
+* Firefox
+	* [FreshRSS-Notify](https://addons.mozilla.org/fr/firefox/addon/freshrss-notify-webextension/) (Libre)
 
 # API compatible Google Reader
 
