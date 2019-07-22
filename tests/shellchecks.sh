@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 # Based on https://github.com/koreader/koreader/blob/master/.ci/helper_shellchecks.sh
 
-# shellcheck disable=2016
 mapfile -t shellscript_locations < <({ git grep -lE '^#!(/usr)?/bin/(env )?(bash|sh)' && git ls-files ./*.sh; } | sort | uniq)
 
 SHELLSCRIPT_ERROR=0
