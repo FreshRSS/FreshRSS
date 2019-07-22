@@ -16,6 +16,7 @@ script:
   - phpenv rehash
   - find . -not -path "./lib/JSON.php" -name \*.php -print0 | xargs -0 -n1 -P4 php -l 1>/dev/null 2>php-l-results
   - if [ -s php-l-results ]; then cat php-l-results; exit 1; fi
+  - bash tests/shellchecks.sh
   - |
     if [[ $VALIDATE_STANDARD == yes ]]; then
       COMPOSER_BIN=$(composer global config --absolute bin-dir)

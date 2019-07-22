@@ -1,11 +1,10 @@
 #!/bin/bash
 
 cd ..
-FRESHRSS_VERSION=`grep "'FRESHRSS_VERSION'" constants.php | cut -d "'" -f4`
+FRESHRSS_VERSION=$(grep "'FRESHRSS_VERSION'" constants.php | cut -d "'" -f4)
 echo "$FRESHRSS_VERSION"
 
-if [[ "$DOCKERFILE_PATH" == *-ARM ]]
-then
+if [[ $DOCKERFILE_PATH == *-ARM ]]; then
 	#TODO: Add --squash --platform arm options when Docker Hub deamon supports them
 	docker build \
 		--build-arg FRESHRSS_VERSION="$FRESHRSS_VERSION" \
