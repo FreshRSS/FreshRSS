@@ -1,11 +1,12 @@
 FROM ubuntu:19.04
 
 ENV TZ UTC
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
-RUN apt update && \
-	apt install --no-install-recommends -y \
-	ca-certificates cron curl \
+RUN apt-get update && \
+	apt-get install --no-install-recommends -y \
+	ca-certificates cron \
 	apache2 libapache2-mod-php \
 	php-curl php-gmp php-intl php-mbstring php-xml php-zip \
 	php-sqlite3 php-mysql php-pgsql && \
@@ -56,4 +57,4 @@ CMD ([ -z "$CRON_MIN" ] || cron) && \
 	exec apache2 -D FOREGROUND
 
 HEALTHCHECK --start-period=20s --interval=37s --timeout=5s --retries=3 \
-	CMD curl -fsS 'http://localhost/i/' | grep -q 'jsonVars' || exit 1
+	CMD (php -r "readfile('http://localhost/i/');" | grep -q 'jsonVars') || exit 1
