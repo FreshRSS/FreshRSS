@@ -64,6 +64,7 @@ ENV CRON_MIN ''
 ENTRYPOINT ["./Docker/entrypoint.sh"]
 
 EXPOSE 80
+# hadolint ignore=DL3025
 CMD ([ -z "$CRON_MIN" ] || cron) && \
 	. /etc/apache2/envvars && \
 	exec apache2 -D FOREGROUND
