@@ -48,6 +48,7 @@ ENV CRON_MIN ''
 ENTRYPOINT ["./Docker/entrypoint.sh"]
 
 EXPOSE 80
+# hadolint ignore=DL3025
 CMD ([ -z "$CRON_MIN" ] || crond -d 6) && \
 	exec httpd -D FOREGROUND
 
