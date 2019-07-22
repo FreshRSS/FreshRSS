@@ -1,6 +1,10 @@
 #!/usr/bin/env bash
 # Based on https://github.com/koreader/koreader/blob/master/.ci/helper_shellchecks.sh
 
+ANSI_RED="\\033[31;1m"
+ANSI_GREEN="\\033[32;1m"
+ANSI_RESET="\\033[0m"
+
 mapfile -t shellscript_locations < <({ git grep -lE '^#!(/usr)?/bin/(env )?(bash|sh)' && git ls-files ./*.sh; } | sort | uniq)
 
 SHELLSCRIPT_ERROR=0
@@ -19,5 +23,7 @@ for shellscript in "${shellscript_locations[@]}"; do
 		shfmt "${shellscript}" | diff "${shellscript}" - || SHELLSCRIPT_ERROR=1
 	fi
 done
+
+echo -ne "${ANSI_RESET}"
 
 exit "${SHELLSCRIPT_ERROR}"
