@@ -9,9 +9,9 @@ for shellscript in "${shellscript_locations[@]}"; do
 	echo -e "${ANSI_GREEN}Running shellcheck on ${shellscript}"
 	shellcheck "${shellscript}" || SHELLSCRIPT_ERROR=1
 	echo -e "${ANSI_GREEN}Running shfmt on ${shellscript}"
-	if ! shfmt -i 4 "${shellscript}" >/dev/null 2>&1; then
+	if ! shfmt "${shellscript}" >/dev/null 2>&1; then
 		echo -e "${ANSI_RED}Warning: ${shellscript} contains the following problem:"
-		shfmt -i 4 "${shellscript}" || SHELLSCRIPT_ERROR=1
+		shfmt "${shellscript}" || SHELLSCRIPT_ERROR=1
 		continue
 	fi
 	if [ "$(cat "${shellscript}")" != "$(shfmt "${shellscript}")" ]; then
