@@ -78,6 +78,22 @@ cd /usr/share/FreshRSS
 # Optimize database (reduces the size) for a given user (perform `OPTIMIZE TABLE` in MySQL, `VACUUM` in SQLite)
 ```
 
+#### Note about cron
+
+Some commands display informations on standard error, cron will send an email with thoses informations every time the command will be executed (exited zero or non-zero).
+
+To avoid cron sending email on success:
+```sh
+@daily /usr/local/bin/my-command > /var/log/cron-freshrss-stdout.log 2>/var/log/cron-freshrss-stderr.log || cat /var/log/cron-freshrss-stderr.log
+```
+
+Explanations:
+- _/usr/local/bin/my-command > /var/log/cron-freshrss-stdout.log_ : redirect the standard output to a log file
+- _/usr/local/bin/my-command 2> /var/log/cron-freshrss-stderr.log_ : redirect the standard error to a log file
+- _|| cat /var/log/cron-freshrss-stderr.log_ : if the exit code of _/usr/local/bin/my-command_ is non-zero, then it send by mail the content error file.
+
+Now, cron will send you an email only if the exit code is non-zero and with the content of the file containing the errors.
+
 
 ## Unix piping
 
