@@ -38,6 +38,7 @@ People are sorted by name so please keep this order.
 * [Jonas Östanbäck](https://github.com/cez81): [contributions](https://github.com/FreshRSS/FreshRSS/commits?author=cez81)
 * [Julien Reichardt](https://github.com/j8r): [contributions](https://github.com/FreshRSS/FreshRSS/commits?author=j8r), [Web](https://blog.jrei.ch/)
 * [Kevin Papst](https://github.com/kevinpapst): [contributions](https://github.com/FreshRSS/FreshRSS/commits?author=kevinpapst), [Web](http://www.kevinpapst.de/)
+* [Leepic](https://github.com/Leepic): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:Leepic)
 * [Luc Didry](https://github.com/ldidry): [contributions](https://github.com/FreshRSS/FreshRSS/commits?author=ldidry), [Web](https://www.fiat-tux.fr/)
 * [Luc Sanchez](https://github.com/ColonelMoutarde): [contributions](https://github.com/FreshRSS/FreshRSS/commits?author=ColonelMoutarde), (https://www.luc-sanchez.fr/)
 * [marcomrc](https://github.com/marcomrc): [contributions](https://github.com/FreshRSS/FreshRSS/commits?author=marcomrc)

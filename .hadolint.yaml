@@ -1,7 +1,5 @@
 ignored:
   # ignore apt version pinning
   - DL3008
-  # ignore pip version pinning
-  - DL3013
   # ignore apk version pinning
   - DL3018
