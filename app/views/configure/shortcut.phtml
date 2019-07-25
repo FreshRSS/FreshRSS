@@ -65,6 +65,20 @@
 			</div>
 		</div>
 
+		<div class="form-group">
+			<label class="group-name" for="first_entry"><?php echo _t('conf.shortcut.first_article'); ?></label>
+			<div class="group-controls">
+				<input type="text" id="first_entry" name="shortcuts[first_entry]" list="keys" value="<?php echo $s['first_entry']; ?>" data-leave-validation="<?php echo $s['first_entry']; ?>"/>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="group-name" for="last_entry"><?php echo _t('conf.shortcut.last_article'); ?></label>
+			<div class="group-controls">
+				<input type="text" id="last_entry" name="shortcuts[last_entry]" list="keys" value="<?php echo $s['last_entry']; ?>" data-leave-validation="<?php echo $s['last_entry']; ?>"/>
+			</div>
+		</div>
+
 		<p class="alert alert-warn"><?php echo _t('conf.shortcut.navigation_no_mod_help');?></p>
 
 		<div class="form-group">
@@ -78,20 +92,6 @@
 			<label class="group-name" for="skip_prev_entry"><?php echo _t('conf.shortcut.skip_previous_article'); ?></label>
 			<div class="group-controls">
 				<input type="text" id="skip_prev_entry" name="shortcuts[skip_prev_entry]" list="keys" value="<?php echo $s['skip_prev_entry']; ?>" data-leave-validation="<?php echo $s['skip_prev_entry']; ?>"/>
-			</div>
-		</div>
-
-		<div class="form-group">
-			<label class="group-name" for="first_entry"><?php echo _t('conf.shortcut.first_article'); ?></label>
-			<div class="group-controls">
-				<input type="text" id="first_entry" name="shortcuts[first_entry]" list="keys" value="<?php echo $s['first_entry']; ?>" data-leave-validation="<?php echo $s['first_entry']; ?>"/>
-			</div>
-		</div>
-
-		<div class="form-group">
-			<label class="group-name" for="last_entry"><?php echo _t('conf.shortcut.last_article'); ?></label>
-			<div class="group-controls">
-				<input type="text" id="last_entry" name="shortcuts[last_entry]" list="keys" value="<?php echo $s['last_entry']; ?>" data-leave-validation="<?php echo $s['last_entry']; ?>"/>
 			</div>
 		</div>
 

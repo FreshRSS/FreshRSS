@@ -54,7 +54,7 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 			}
 		};
 
-		$this->view->callbackBeforeEntries = function ($view) {
+		$this->view->callbackBeforePagination = function ($view) {
 			try {
 				FreshRSS_Context::$number++;	//+1 for pagination
 				$entries = FreshRSS_index_Controller::listEntriesByContext();

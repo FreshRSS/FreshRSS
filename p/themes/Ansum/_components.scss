@@ -211,11 +211,39 @@
 
     .box-title {
 	margin: 0;
-	padding: 5px 10px;
+	padding: 0.5rem 0.75rem;
 	background: $grey-light;
 	color: $main-font-color;
 	// border-bottom: 1px solid #ddd;
 	border-radius: 2px 2px 0 0;
+
+	img{
+		margin-right: 0.75rem;
+	}
+
+	&:hover{
+		.configure {
+			visibility: visible;
+			background: url("icons/cog.svg") no-repeat 4px 4px;
+			width: 1.75rem;
+			height: 1.75rem;
+			display: block;
+			border-radius: 2px;
+			float: left;
+			margin-right: 0.5rem;
+			.icon {
+				vertical-align: middle;
+				border-radius: 3px;
+				display: none;
+			}
+			&:hover {
+				background: url("icons/cog-white.svg") no-repeat 4px 4px $main-first;
+			}
+		}
+	}
+	.configure {
+		visibility: hidden;
+	}
 
 	form{
 	    input{

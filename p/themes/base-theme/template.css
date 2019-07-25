@@ -344,10 +344,6 @@ a.btn {
 	position: relative;
 	font-size: 1.2rem;
 	font-weight: bold;
-	text-align: center;
-}
-.box .box-title a {
-	display: block;
 }
 .box .box-title form {
 	margin: 0;
@@ -626,9 +622,6 @@ a.btn {
 br {
 	line-height: 1em;
 }
-br + br + br {
-	display: none;
-}
 
 /*=== Notification and actualize notification */
 .notification {
@@ -692,10 +685,11 @@ br + br + br {
 #bigMarkAsRead {
 	display: block;
 	width: 100%;
-	padding: 1em 0 100% 0;
-	padding: 1em 0 100vh 0;
 	text-align: center;
 	font-size: 1.4em;
+	padding: 1em 0 50px 0;
+	margin: 0 0 100% 0;
+	margin: 0 0 100vh 0;
 }
 .bigTick {
 	font-size: 4em;

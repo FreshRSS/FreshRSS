@@ -345,6 +345,25 @@ form th {
     background: #eff0f2;
     color: #303136;
     border-radius: 2px 2px 0 0; }
+    .box .box-title img {
+      margin-right: 0.75rem; }
+    .box .box-title:hover .configure {
+      visibility: visible;
+      background: url("icons/cog.svg") no-repeat 4px 4px;
+      width: 1.75rem;
+      height: 1.75rem;
+      display: block;
+      border-radius: 2px;
+      float: left;
+      margin-right: 0.5rem; }
+      .box .box-title:hover .configure .icon {
+        vertical-align: middle;
+        border-radius: 3px;
+        display: none; }
+      .box .box-title:hover .configure:hover {
+        background: url("icons/cog-white.svg") no-repeat 4px 4px #3366cc; }
+    .box .box-title .configure {
+      visibility: hidden; }
     .box .box-title form input {
       width: 85%; }
     .box .box-title form .dropdown {

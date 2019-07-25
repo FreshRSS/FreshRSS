@@ -1,5 +1,37 @@
 ﻿# FreshRSS changelog
 
+## 2019-07-25 FreshRSS 1.14.3
+
+* UI
+	* New configuration page for each category [#2369](https://github.com/FreshRSS/FreshRSS/issues/2369)
+	* Update shortcut configuration page [#2405](https://github.com/FreshRSS/FreshRSS/issues/2405)
+	* CSS style for printing [#2149](https://github.com/FreshRSS/FreshRSS/issues/2149)
+	* Do not hide multiple `<br />` tags [#2437](https://github.com/FreshRSS/FreshRSS/issues/2437)
+	* Updated to jQuery 3.4.1 (only for statistics page) [#2424](https://github.com/FreshRSS/FreshRSS/pull/2424)
+* Bug fixing
+	* Fix wrong mark-as-read limit [#2429](https://github.com/FreshRSS/FreshRSS/issues/2429)
+	* Fix API call for removing a category [#2411](https://github.com/FreshRSS/FreshRSS/issues/2411)
+	* Fix user self-registration [#2381](https://github.com/FreshRSS/FreshRSS/issues/2381)
+	* Make CGI Authorization configuration for API more compatible [#2446](https://github.com/FreshRSS/FreshRSS/issues/2446)
+	* Fix refresh icon in Swage theme [#2375](https://github.com/FreshRSS/FreshRSS/issues/2375)
+	* Fix message banner in Swage theme [#2379](https://github.com/FreshRSS/FreshRSS/issues/2379)
+	* Docker: Add `php-gmp` for API support in Ubuntu 32-bit [#2450](https://github.com/FreshRSS/FreshRSS/pull/2450)
+* Deployment
+	* Docker: Add automatic health check [#2438](https://github.com/FreshRSS/FreshRSS/pull/2438), [#2455](https://github.com/FreshRSS/FreshRSS/pull/2455)
+	* Docker: Add a version for ARM architecture such as for Raspberry Pi [#2436](https://github.com/FreshRSS/FreshRSS/pull/2436)
+	* Docker: Ubuntu image updated to 19.04 with PHP 7.2.19 and Apache 2.4.38 [#2422](https://github.com/FreshRSS/FreshRSS/pull/2422)
+	* Docker: Alpine image updated to 3.10 with PHP 7.3.7 and Apache 2.4.39 [#2238](https://github.com/FreshRSS/FreshRSS/pull/2238)
+	* Add `hadolint` automatic check of Docker files in Travis [#2456](https://github.com/FreshRSS/FreshRSS/pull/2456)
+* Security
+	* Allow `@-` as valid characters in usernames (i.e. allow most e-mails) [#2391](https://github.com/FreshRSS/FreshRSS/issues/2391)
+* I18n
+	* Improve Occitan [#2358](https://github.com/FreshRSS/FreshRSS/pull/2358)
+* Misc.
+	* New parameter `?maxFeeds=10` to control the max number of feeds to refresh manually [#2388](https://github.com/FreshRSS/FreshRSS/pull/2388)
+	* Default to SQLite during install [#2443](https://github.com/FreshRSS/FreshRSS/pull/2443)
+	* Add automatic check of shell scripts in Travis with `shellcheck` and `shfmt` [#2454](https://github.com/FreshRSS/FreshRSS/pull/2454)
+
+
 ## 2019-04-08 FreshRSS 1.14.2
 
 * Bug fixing (regressions introduced in 1.14.X)

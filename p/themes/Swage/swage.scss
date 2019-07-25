@@ -1002,10 +1002,10 @@ form {
 	.dropdown-header, .dropdown-menu > .item {
 		padding: 12px;
 	}
-
 	#new-article {
 		width: 100%;
-		bottom: initial;
+		position: sticky;
+		top: 0;
 	}
 	.header {
 		display: table;
@@ -1045,6 +1045,7 @@ form {
 		}
 		&:target {
 			width: 78%;
+			z-index: 1000;
 		}
 	}
 	.nav_menu {

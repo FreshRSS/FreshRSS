@@ -904,7 +904,8 @@ padding: 12px;
 
 #new-article {
 width: 100%;
-bottom: initial;
+position: sticky;
+top: 0;
 }
 
 .header {
@@ -948,6 +949,7 @@ padding: 0;
 }
 .aside:target {
 width: 78%;
+z-index: 1000;
 }
 
 .nav_menu {

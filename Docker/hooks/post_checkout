@@ -1,0 +1,4 @@
+#!/bin/bash
+
+mv ../README.md ../README.en.md
+mv README.md ../

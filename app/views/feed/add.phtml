@@ -8,7 +8,7 @@
 
 	<form method="post" action="<?php echo _url('feed', 'add'); ?>" autocomplete="off">
 		<input type="hidden" name="_csrf" value="<?php echo FreshRSS_Auth::csrfToken(); ?>" />
-		<legend><?php echo _t('sub.feed.informations'); ?></legend>
+		<legend><?php echo _t('sub.feed.information'); ?></legend>
 		<?php if ($this->load_ok) { ?>
 		<div class="form-group">
 			<label class="group-name"><?php echo _t('sub.feed.title'); ?></label>

@@ -14,7 +14,9 @@ return array(
 		'_' => '分类',
 		'add' => '添加分类',
 		'empty' => '空分类',
+		'information' => '信息',
 		'new' => '新分类',
+		'title' => '标题',
 	),
 	'feed' => array(
 		'add' => '添加 RSS 源',
@@ -37,7 +39,7 @@ return array(
 			'_' => 'Filter actions',	//TODO - Translation
 			'help' => 'Write one search filter per line.',	//TODO - Translation
 		),
-		'informations' => '信息',
+		'information' => '信息',
 		'keep_history' => '至少保存的文章数',
 		'moved_category_deleted' => '删除分类时，其中的 RSS 源会自动归类到 <em>%s</em>',
 		'mute' => '暂停',

@@ -243,7 +243,7 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 		}
 	}
 
-	public static function actualizeFeed($feed_id, $feed_url, $force, $simplePiePush = null, $isNewFeed = false, $noCommit = false) {
+	public static function actualizeFeed($feed_id, $feed_url, $force, $simplePiePush = null, $isNewFeed = false, $noCommit = false, $maxFeeds = 10) {
 		@set_time_limit(300);
 
 		$feedDAO = FreshRSS_Factory::createFeedDao();
@@ -260,6 +260,11 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 			}
 		} else {
 			$feeds = $feedDAO->listFeedsOrderUpdate(-1);
+		}
+
+		// Set maxFeeds to a minimum of 10
+		if (!is_int($maxFeeds) || $maxFeeds < 10) {
+			$maxFeeds = 10;
 		}
 
 		// Calculate date of oldest entries we accept in DB.
@@ -459,9 +464,9 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 			$updated_feeds++;
 			unset($feed);
 
-			// No more than 10 feeds unless $force is true to avoid overloading
+			// No more than $maxFeeds feeds unless $force is true to avoid overloading
 			// the server.
-			if ($updated_feeds >= 10 && !$force) {
+			if ($updated_feeds >= $maxFeeds && !$force) {
 				break;
 			}
 		}
@@ -497,6 +502,7 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 		$id = Minz_Request::param('id');
 		$url = Minz_Request::param('url');
 		$force = Minz_Request::param('force');
+		$maxFeeds = (int)Minz_Request::param('maxFeeds');
 		$noCommit = Minz_Request::fetchPOST('noCommit', 0) == 1;
 
 		if ($id == -1 && !$noCommit) {	//Special request only to commit & refresh DB cache
@@ -511,7 +517,7 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 			$databaseDAO = FreshRSS_Factory::createDatabaseDAO();
 			$databaseDAO->minorDbMaintenance();
 		} else {
-			list($updated_feeds, $feed, $nb_new_articles) = self::actualizeFeed($id, $url, $force, null, false, $noCommit);
+			list($updated_feeds, $feed, $nb_new_articles) = self::actualizeFeed($id, $url, $force, null, false, $noCommit, $maxFeeds);
 		}
 
 		if (Minz_Request::param('ajax')) {

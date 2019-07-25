@@ -125,7 +125,9 @@ function saveStep2() {
 		$_SESSION['title'] = $system_default_config->title;
 		$_SESSION['old_entries'] = param('old_entries', $user_default_config->old_entries);
 		$_SESSION['auth_type'] = param('auth_type', 'form');
-		$_SESSION['default_user'] = substr(preg_replace('/[^0-9a-zA-Z_]/', '', param('default_user', '')), 0, 38);
+		if (FreshRSS_user_Controller::checkUsername(param('default_user', ''))) {
+			$_SESSION['default_user'] = param('default_user', '');
+		}
 
 		$password_plain = param('passwordPlain', false);
 		if ($password_plain !== false && cryptAvailable()) {
@@ -605,16 +607,16 @@ function printStep3() {
 			<label class="group-name" for="type"><?php echo _t('install.bdd.type'); ?></label>
 			<div class="group-controls">
 				<select name="type" id="type" tabindex="1">
-				<?php if (extension_loaded('pdo_mysql')) {?>
-				<option value="mysql"
-					<?php echo(isset($_SESSION['bd_type']) && $_SESSION['bd_type'] === 'mysql') ? 'selected="selected"' : ''; ?>>
-					MySQL
-				</option>
-				<?php }?>
 				<?php if (extension_loaded('pdo_sqlite')) {?>
 				<option value="sqlite"
 					<?php echo(isset($_SESSION['bd_type']) && $_SESSION['bd_type'] === 'sqlite') ? 'selected="selected"' : ''; ?>>
 					SQLite
+				</option>
+				<?php }?>
+				<?php if (extension_loaded('pdo_mysql')) {?>
+				<option value="mysql"
+					<?php echo(isset($_SESSION['bd_type']) && $_SESSION['bd_type'] === 'mysql') ? 'selected="selected"' : ''; ?>>
+					MySQL
 				</option>
 				<?php }?>
 				<?php if (extension_loaded('pdo_pgsql')) {?>
@@ -722,6 +724,7 @@ case 5:
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="initial-scale=1.0" />
+		<script id="jsonVars" type="application/json">{}</script>
 		<title><?php echo _t('install.title'); ?></title>
 		<link rel="stylesheet" href="../themes/base-theme/template.css?<?php echo @filemtime(PUBLIC_PATH . '/themes/base-theme/template.css'); ?>" />
 		<link rel="stylesheet" href="../themes/Origine/origine.css?<?php echo @filemtime(PUBLIC_PATH . '/themes/Origine/origine.css'); ?>" />

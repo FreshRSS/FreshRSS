@@ -13,7 +13,9 @@ return array(
 		'_' => 'Categoria',
 		'add' => 'Ajustar una categoria',
 		'empty' => 'Categoria voida',
+		'information' => 'Informacions',
 		'new' => 'Nòva categoria',
+		'title' => 'Títol',
 	),
 	'feed' => array(
 		'add' => 'Ajustar un flux RSS',
@@ -36,7 +38,7 @@ return array(
 			'_' => 'Filtre d’accion',
 			'help' => 'Escrivètz una recèrca per linha.',
 		),
-		'informations' => 'Informacions',
+		'information' => 'Informacions',
 		'keep_history' => 'Nombre minimum d’articles de servar',
 		'moved_category_deleted' => 'Quand escafatz una categoria, sos fluxes son automaticament classats dins <em>%s</em>.',
 		'mute' => 'mut',

@@ -42,10 +42,15 @@ matrix:
         - "node"
       php:
         # none
+      env:
+        - HADOLINT="$HOME/hadolint"
       install:
         - npm install jshint
+        - curl -sLo "$HADOLINT" $(curl -s https://api.github.com/repos/hadolint/hadolint/releases/latest?access_token="$GITHUB_TOKEN" | jq -r '.assets | .[] | select(.name=="hadolint-Linux-x86_64") | .browser_download_url') && chmod 700 ${HADOLINT}
       script:
         - node_modules/jshint/bin/jshint .
+        - bash tests/shellchecks.sh
+        - git ls-files --exclude='*Dockerfile*' --ignored | xargs --max-lines=1 "$HADOLINT"
   allow_failures:
     - env: CHECK_TRANSLATION=yes VALIDATE_STANDARD=no
     - dist: precise
