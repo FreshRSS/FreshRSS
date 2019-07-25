@@ -226,10 +226,13 @@
 		<?= _i($icon) ?>
 	</a>
 
-	<a id="shuffle-order" class="btn <?php echo $shuffle_enabled ? 'active' : ''; ?>" href="<?php echo Minz_Url::display($url_shuffle); ?>" title="<?php echo _t('index.menu.shuffle'); ?>">
-		<?php echo _i('shuffle'); ?>
-	</a>
-	
+	<!-- The shuffle feature only works with MySQL / MariaDB, so hide it if that's not the DB. -->
+	<?php FreshRSS_Context::$system_conf->db['type'] === 'mysql' { ?>
+		<a id="shuffle-order" class="btn <?php echo $shuffle_enabled ? 'active' : ''; ?>" href="<?php echo Minz_Url::display($url_shuffle); ?>" title="<?php echo _t('index.menu.shuffle'); ?>">
+			<?php echo _i('shuffle'); ?>
+		</a>
+	<?php } ?>
+
 	<?php if (FreshRSS_Auth::hasAccess() || FreshRSS_Context::$system_conf->allow_anonymous_refresh) { ?>
 	<a id="actualize" class="btn" href="<?= _url('feed', 'actualize') ?>" title="<?= _t('gen.action.actualize') ?>"><?= _i('refresh') ?></a>
 	<?php } ?>
