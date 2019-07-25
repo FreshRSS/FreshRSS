@@ -153,8 +153,7 @@
 		/** @var FreshRSS_ReadingMode $mode */
 		foreach ($readingModes as $mode) {
 			?>
-			<a class="<?= $mode->getId() ?> btn <?php if ($mode->isActive()) { echo 'active'; } ?>" title="<?=
-				$mode->getTitle() ?>" href="<?= Minz_Url::display($mode->getUrlParams()) ?>">
+			<a class="<?php echo $mode->getId(); ?> btn <?php if ($mode->isActive()) {echo 'active';} ?>" title="<?php echo $mode->getTitle(); ?>" href="<?php echo Minz_Url::display($mode->getUrlParams()); ?>">
 				<?= $mode->getName() ?>
 			</a>
 			<?php

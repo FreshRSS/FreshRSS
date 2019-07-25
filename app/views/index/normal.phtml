@@ -5,7 +5,7 @@ $this->partial('nav_menu');
 call_user_func($this->callbackBeforeEntries, $this);
 
 if (!empty($this->entries)) {
-	if (FreshRSS_Context::$order === 'SHUF'){
+	if (FreshRSS_Context::$order === 'SHUF') {
 		// When shuffling, entries won't be ordered by date.
 		$display_today = false;
 		$display_yesterday = false;
