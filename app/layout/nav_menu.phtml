@@ -217,7 +217,7 @@
 	</a>
 
 	<!-- The shuffle feature only works with MySQL / MariaDB, so hide it if that's not the DB. -->
-	<?php FreshRSS_Context::$system_conf->db['type'] === 'mysql' { ?>
+	<?php if(FreshRSS_Context::$system_conf->db['type'] === 'mysql') { ?>
 		<a id="shuffle-order" class="btn <?php echo $shuffle_enabled ? 'active' : ''; ?>" href="<?php echo Minz_Url::display($url_shuffle); ?>" title="<?php echo _t('index.menu.shuffle'); ?>">
 			<?php echo _i('shuffle'); ?>
 		</a>
