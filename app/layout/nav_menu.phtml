@@ -1,7 +1,7 @@
 <?php $actual_view = Minz_Request::actionName(); ?>
 
 <div class="nav_menu">
-	<?php if ($actual_view === 'normal' || $actual_view === 'reader' ) { ?>
+	<?php if ($actual_view === 'normal' || $actual_view === 'reader') { ?>
 	<a class="btn toggle_aside" href="#aside_feed"><?php echo _i('category'); ?></a>
 	<?php } ?>
 
@@ -151,7 +151,7 @@
 		/** @var FreshRSS_ReadingMode $mode */
 		foreach ($readingModes as $mode) {
 			?>
-			<a class="<?php echo $mode->getId(); ?> btn <?php if ($mode->isActive()) { echo 'active'; } ?>" title="<?php echo $mode->getTitle(); ?>" href="<?php echo Minz_Url::display($mode->getUrlParams()); ?>">
+			<a class="<?php echo $mode->getId(); ?> btn <?php if ($mode->isActive()) {echo 'active';} ?>" title="<?php echo $mode->getTitle(); ?>" href="<?php echo Minz_Url::display($mode->getUrlParams()); ?>">
 				<?php echo $mode->getName(); ?>
 			</a>
 			<?php
@@ -207,7 +207,7 @@
 		}
 		$url_order = Minz_Request::currentRequest();
 		$url_order['params']['order'] = $order;
-		
+
 		$url_shuffle = Minz_Request::currentRequest();
 		$url_shuffle['params']['order'] = 'SHUF';
 		$shuffle_enabled = FreshRSS_Context::$order === 'SHUF';

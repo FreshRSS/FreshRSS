@@ -9,7 +9,7 @@ if (isset($this->callbackBeforeEntries)) {
 }
 
 if (!empty($this->entries)) {
-	if (FreshRSS_Context::$order === 'SHUF'){
+	if (FreshRSS_Context::$order === 'SHUF') {
 		// When shuffling, entries won't be ordered by date.
 		$display_today = false;
 		$display_yesterday = false;
@@ -81,9 +81,9 @@ if (!empty($this->entries)) {
 				<h1 class="title"><a target="_blank" rel="noreferrer" class="go_website" href="<?php echo $this->entry->link(); ?>"><?php echo $this->entry->title(); ?></a></h1>
 				<div class="author"><?php
 					$authors = $this->entry->authors();
-					if (is_array($authors)):
+					if (is_array($authors)) :
 						$first = true;
-						foreach ($authors as $author):
+						foreach ($authors as $author) :
 							echo $first ? _t('gen.short.by_author') . ' ' : '· ';
 							$first = false;
 				?>
