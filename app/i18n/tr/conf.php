@@ -133,7 +133,6 @@ return array(
 		'diaspora' => 'Diaspora*',
 		'email' => 'Email',
 		'facebook' => 'Facebook',
-		'g+' => 'Google+',
 		'more_information' => 'Daha fazla bilgi',
 		'print' => 'Yazdır',
 		'remove' => 'Remove sharing method',	//TODO - Translation

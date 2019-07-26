@@ -133,7 +133,6 @@ return array(
 		'diaspora' => 'Diaspora*',
 		'email' => 'Email',
 		'facebook' => 'Facebook',
-		'g+' => 'Google+',
 		'more_information' => 'Meer informatie',
 		'print' => 'Afdrukken',
 		'remove' => 'Deelmethode verwijderen',

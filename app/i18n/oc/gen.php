@@ -165,7 +165,6 @@ return array(
 		'diaspora' => 'Diaspora*',
 		'email' => 'Corrièl',
 		'facebook' => 'Facebook',
-		'g+' => 'Google+',
 		'gnusocial' => 'GNU social',
 		'jdh' => 'Journal du hacker',
 		'Known' => 'Sites basats sus Known',

@@ -133,7 +133,6 @@ return array(
 		'diaspora' => 'Diaspora*',
 		'email' => 'Corrièl',
 		'facebook' => 'Facebook',
-		'g+' => 'Google+',
 		'more_information' => 'Mai d’informacions',
 		'print' => 'Imprimir',
 		'remove' => 'Suprimir lo metòde de partatge',

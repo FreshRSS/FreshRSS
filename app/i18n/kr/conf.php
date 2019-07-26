@@ -133,7 +133,6 @@ return array(
 		'diaspora' => 'Diaspora*',
 		'email' => '메일',
 		'facebook' => 'Facebook',
-		'g+' => 'Google+',
 		'more_information' => '자세한 정보',
 		'print' => '인쇄',
 		'remove' => '공유 방법 삭제',

@@ -75,12 +75,6 @@ return array(
 		'form' => 'simple',
 		'method' => 'GET',
 	),
-	'g+' => array(
-		'url' => 'https://plus.google.com/share?url=~LINK~',
-		'transform' => array('rawurlencode'),
-		'form' => 'simple',
-		'method' => 'GET',
-	),
 	'facebook' => array(
 		'url' => 'https://www.facebook.com/sharer.php?u=~LINK~&amp;t=~TITLE~',
 		'transform' => array('rawurlencode'),
