@@ -41,7 +41,6 @@ safe_define('MAX_LOG_SIZE', 1048576);
 //This directory must be writable
 safe_define('DATA_PATH', FRESHRSS_PATH . '/data');
 
-safe_define('UPDATE_FILENAME', DATA_PATH . '/update.php');
 safe_define('USERS_PATH', DATA_PATH . '/users');
 safe_define('ADMIN_LOG', USERS_PATH . '/_/log.txt');
 safe_define('API_LOG', USERS_PATH . '/_/log_api.txt');

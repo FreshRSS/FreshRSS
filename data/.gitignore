@@ -3,5 +3,6 @@ config.php
 config.php.bak.php
 force-https.txt
 last_update.txt
+latest-release.json
 no-cache.txt
 update.php
