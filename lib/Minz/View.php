@@ -9,11 +9,11 @@
  */
 class Minz_View {
 	const VIEWS_PATH_NAME = '/views';
-	const LAYOUT_PATH_NAME = '/layout';
-	const LAYOUT_FILENAME = '/layout.phtml';
+	const LAYOUT_PATH_NAME = '/layout/';
+	const LAYOUT_DEFAULT = 'layout';
 
 	private $view_filename = '';
-	private $use_layout = true;
+	private $layout_filename = '';
 
 	private static $base_pathnames = array(APP_PATH);
 	private static $title = '';
@@ -30,6 +30,7 @@ class Minz_View {
 		$this->change_view(Minz_Request::controllerName(),
 		                   Minz_Request::actionName());
 
+		$this->_layout(self::LAYOUT_DEFAULT);
 		$conf = Minz_Configuration::get('system');
 		self::$title = $conf->title;
 	}
@@ -58,7 +59,7 @@ class Minz_View {
 	 * Construit la vue
 	 */
 	public function build () {
-		if ($this->use_layout) {
+		if ($this->layout_filename !== '') {
 			$this->buildLayout ();
 		} else {
 			$this->render ();
@@ -92,7 +93,9 @@ class Minz_View {
 	 */
 	public function buildLayout () {
 		header('Content-Type: text/html; charset=UTF-8');
-		$this->includeFile(self::LAYOUT_PATH_NAME . self::LAYOUT_FILENAME);
+		if (!$this->includeFile($this->layout_filename)) {
+			Minz_Log::notice('File not found: `' . $this->layout_filename . '`');
+		}
 	}
 
 	/**
@@ -137,11 +140,29 @@ class Minz_View {
 	}
 
 	/**
-	 * Permet de choisir si on souhaite utiliser le layout
-	 * @param $use true si on souhaite utiliser le layout, false sinon
+	 * Choose the current view layout.
+	 * @param $layout the layout name to use, false to use no layouts.
+	 */
+	public function _layout($layout) {
+		if ($layout) {
+			$this->layout_filename = self::LAYOUT_PATH_NAME . $layout . '.phtml';
+		} else {
+			$this->layout_filename = '';
+		}
+	}
+
+	/**
+	 * [deprecated] Choose if we want to use the layout or not.
+	 * Please use the `_layout` function instead.
+	 * @param $use true if we want to use the layout, false else
 	 */
 	public function _useLayout ($use) {
-		$this->use_layout = $use;
+		Minz_Log::warning('Minz_View::_useLayout is deprecated, it will be removed in a future version. Please use Minz_View::_layout instead.');
+		if ($use) {
+			$this->_layout(self::LAYOUT_DEFAULT);
+		} else {
+			$this->_layout(false);
+		}
 	}
 
 	/**
