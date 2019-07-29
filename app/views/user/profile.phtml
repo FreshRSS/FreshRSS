@@ -19,6 +19,13 @@
 		</div>
 
 		<div class="form-group">
+			<label class="group-name" for="email"><?php echo _t('conf.profile.email'); ?></label>
+			<div class="group-controls">
+				<input id="email" name="email" type="email" value="<?php echo FreshRSS_Context::$user_conf->mail_login; ?>" />
+			</div>
+		</div>
+
+		<div class="form-group">
 			<label class="group-name" for="newPasswordPlain"><?php echo _t('conf.profile.password_form'); ?></label>
 			<div class="group-controls">
 				<div class="stick">

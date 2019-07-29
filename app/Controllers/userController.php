@@ -36,10 +36,14 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 		return false;
 	}
 
-	public static function updateUser($user, $passwordPlain, $apiPasswordPlain, $userConfigUpdated = array()) {
+	public static function updateUser($user, $email, $passwordPlain, $apiPasswordPlain, $userConfigUpdated = array()) {
 		$userConfig = get_user_configuration($user);
 		if ($userConfig === null) {
 			return false;
+		}
+
+		if ($email !== null) {
+			$userConfig->mail_login = $email;
 		}
 
 		if ($passwordPlain != '') {
@@ -87,7 +91,7 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 			$apiPasswordPlain = Minz_Request::param('apiPasswordPlain', '', true);
 
 			$username = Minz_Request::param('username');
-			$ok = self::updateUser($username, $passwordPlain, $apiPasswordPlain, array(
+			$ok = self::updateUser($username, null, $passwordPlain, $apiPasswordPlain, array(
 				'token' => Minz_Request::param('token', null),
 			));
 
@@ -119,15 +123,22 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 		Minz_View::appendScript(Minz_Url::display('/scripts/bcrypt.min.js?' . @filemtime(PUBLIC_PATH . '/scripts/bcrypt.min.js')));
 
 		if (Minz_Request::isPost()) {
+			$email = Minz_Request::param('email', '');
 			$passwordPlain = Minz_Request::param('newPasswordPlain', '', true);
 			Minz_Request::_param('newPasswordPlain');	//Discard plain-text password ASAP
 			$_POST['newPasswordPlain'] = '';
 
 			$apiPasswordPlain = Minz_Request::param('apiPasswordPlain', '', true);
 
-			$ok = self::updateUser(Minz_Session::param('currentUser'), $passwordPlain, $apiPasswordPlain, array(
+			$ok = self::updateUser(
+				Minz_Session::param('currentUser'),
+				$email,
+				$passwordPlain,
+				$apiPasswordPlain,
+				array(
 					'token' => Minz_Request::param('token', null),
-				));
+				)
+			);
 
 			Minz_Session::_param('passwordHash', FreshRSS_Context::$user_conf->passwordHash);
 
@@ -196,7 +207,7 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 		if ($ok) {
 			$userDAO = new FreshRSS_UserDAO();
 			$ok &= $userDAO->createUser($new_user_name, $userConfig['language'], $insertDefaultFeeds);
-			$ok &= self::updateUser($new_user_name, $passwordPlain, $apiPasswordPlain);
+			$ok &= self::updateUser($new_user_name, null, $passwordPlain, $apiPasswordPlain);
 		}
 		return $ok;
 	}
