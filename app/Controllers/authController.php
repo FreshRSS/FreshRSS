@@ -209,6 +209,7 @@ class FreshRSS_auth_Controller extends Minz_ActionController {
 			Minz_Error::error(403);
 		}
 
+		$this->view->show_email_field = FreshRSS_Context::$system_conf->force_email_validation;
 		Minz_View::prependTitle(_t('gen.auth.registration.title') . ' · ');
 	}
 }

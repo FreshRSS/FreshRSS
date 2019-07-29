@@ -179,7 +179,7 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 		}
 	}
 
-	public static function createUser($new_user_name, $passwordPlain, $apiPasswordPlain, $userConfig = array(), $insertDefaultFeeds = true) {
+	public static function createUser($new_user_name, $email, $passwordPlain, $apiPasswordPlain, $userConfig = array(), $insertDefaultFeeds = true) {
 		if (!is_array($userConfig)) {
 			$userConfig = array();
 		}
@@ -207,7 +207,7 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 		if ($ok) {
 			$userDAO = new FreshRSS_UserDAO();
 			$ok &= $userDAO->createUser($new_user_name, $userConfig['language'], $insertDefaultFeeds);
-			$ok &= self::updateUser($new_user_name, null, $passwordPlain, $apiPasswordPlain);
+			$ok &= self::updateUser($new_user_name, $email, $passwordPlain, $apiPasswordPlain);
 		}
 		return $ok;
 	}
@@ -218,6 +218,7 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 	 * Request parameters are:
 	 *   - new_user_language
 	 *   - new_user_name
+	 *   - new_user_email
 	 *   - new_user_passwordPlain
 	 *   - r (i.e. a redirection url, optional)
 	 *
@@ -231,10 +232,11 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 
 		if (Minz_Request::isPost()) {
 			$new_user_name = Minz_Request::param('new_user_name');
+			$email = Minz_Request::param('new_user_email', '');
 			$passwordPlain = Minz_Request::param('new_user_passwordPlain', '', true);
 			$new_user_language = Minz_Request::param('new_user_language', FreshRSS_Context::$user_conf->language);
 
-			$ok = self::createUser($new_user_name, $passwordPlain, '', array('language' => $new_user_language));
+			$ok = self::createUser($new_user_name, $email, $passwordPlain, '', array('language' => $new_user_language));
 			Minz_Request::_param('new_user_passwordPlain');	//Discard plain-text password ASAP
 			$_POST['new_user_passwordPlain'] = '';
 			invalidateHttpCache();
