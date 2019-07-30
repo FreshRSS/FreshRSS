@@ -112,5 +112,11 @@ return array(
 			'_' => 'L’utilisateur %s a été mis à jour',
 			'error' => 'L’utilisateur %s n’a pas été mis à jour',
 		),
+		'validated' => array(
+			'_' => 'L’adresse email a été validée.',
+			'already' => 'L’adresse email a déjà été validée.',
+			'error' => 'L’adresse email n’a pas pu être validée.',
+			'wrong_token' => 'L’adresse email n’a pas pu être validée à cause d’un mauvais token.',
+		),
 	),
 );

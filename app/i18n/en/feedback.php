@@ -112,5 +112,11 @@ return array(
 			'_' => 'User %s has been updated',
 			'error' => 'User %s has not been updated',
 		),
+		'validated' => array(
+			'_' => 'The email address has been validated.',
+			'already' => 'The email address was already validated.',
+			'error' => 'The email address failed to be validated.',
+			'wrong_token' => 'The email address failed to be validated due to a wrong token.',
+		),
 	),
 );

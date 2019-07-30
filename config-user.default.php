@@ -6,6 +6,7 @@ return array (
 	'keep_history_default' => 50,
 	'ttl_default' => 3600,
 	'mail_login' => '',
+	'email_validation_token' => '',
 	'token' => '',
 	'passwordHash' => '',
 	'apiPasswordHash' => '',

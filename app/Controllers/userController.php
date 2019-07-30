@@ -42,8 +42,14 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 			return false;
 		}
 
-		if ($email !== null) {
+		if ($email !== null && $userConfig->mail_login !== $email) {
 			$userConfig->mail_login = $email;
+
+			if (FreshRSS_Context::$system_conf->force_email_validation) {
+				$salt = FreshRSS_Context::$system_conf->salt;
+				$userConfig->email_validation_token = sha1($salt . uniqid(mt_rand(), true));
+				// @todo send email here
+			}
 		}
 
 		if ($passwordPlain != '') {
@@ -286,6 +292,51 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 			array_map('unlink', glob(PSHB_PATH . '/feeds/*/' . $username . '.txt'));
 		}
 		return $ok;
+	}
+
+	/**
+	 * This action validates an email address, based on the token sent by email.
+	 *
+	 * Request parameters are:
+	 *   - username
+	 *   - token
+	 *
+	 * This route works with GET requests since the URL is provided by email.
+	 * The security risks (e.g. forged URL by an attacker) are not very high so
+	 * it's ok.
+	 *
+	 * It returns 404 error if `force_email_validation` is disabled or if the
+	 * user doesn't exist.
+	 */
+	public function validateEmailAction() {
+		if (!FreshRSS_Context::$system_conf->force_email_validation) {
+			Minz_Error::error(404);
+		}
+
+		$username = Minz_Request::param('username');
+		$token = Minz_Request::param('token');
+
+		$user_config = get_user_configuration($username);
+		if (!FreshRSS_UserDAO::exists($username) || $user_config === null) {
+			Minz_Error::error(404);
+		}
+
+		if ($user_config->email_validation_token === '') {
+			$this->view->feedback = _t('feedback.user.validated.already');
+			return;
+		}
+
+		if ($user_config->email_validation_token !== $token) {
+			$this->view->feedback = _t('feedback.user.validated.wrong_token');
+			return;
+		}
+
+		$user_config->email_validation_token = '';
+		if ($user_config->save()) {
+			$this->view->feedback = _t('feedback.user.validated');
+		} else {
+			$this->view->feedback = _t('feedback.user.validated.error');
+		}
 	}
 
 	/**
