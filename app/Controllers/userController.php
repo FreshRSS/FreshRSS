@@ -8,22 +8,6 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 	// so do not use a too high cost
 	const BCRYPT_COST = 9;
 
-	/**
-	 * This action is called before every other action in that class. It is
-	 * the common boiler plate for every action. It is triggered by the
-	 * underlying framework.
-	 *
-	 * @todo clean up the access condition.
-	 */
-	public function firstAction() {
-		if (!FreshRSS_Auth::hasAccess() && !(
-				Minz_Request::actionName() === 'create' &&
-				!max_registrations_reached()
-		)) {
-			Minz_Error::error(403);
-		}
-	}
-
 	public static function hashPassword($passwordPlain) {
 		if (!function_exists('password_hash')) {
 			include_once(LIB_PATH . '/password_compat.php');
@@ -126,6 +110,10 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 	 * This action displays the user profile page.
 	 */
 	public function profileAction() {
+		if (!FreshRSS_Auth::hasAccess()) {
+			Minz_Error::error(403);
+		}
+
 		Minz_View::prependTitle(_t('conf.profile.title') . ' · ');
 
 		Minz_View::appendScript(Minz_Url::display('/scripts/bcrypt.min.js?' . @filemtime(PUBLIC_PATH . '/scripts/bcrypt.min.js')));
@@ -226,10 +214,11 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 	 * @todo handle r redirection in Minz_Request::forward directly?
 	 */
 	public function createAction() {
-		if (Minz_Request::isPost() && (
-				FreshRSS_Auth::hasAccess('admin') ||
-				!max_registrations_reached()
-		)) {
+		if (!FreshRSS_Auth::hasAccess('admin') && max_registrations_reached()) {
+			Minz_Error::error(403);
+		}
+
+		if (Minz_Request::isPost()) {
 			$new_user_name = Minz_Request::param('new_user_name');
 			$passwordPlain = Minz_Request::param('new_user_passwordPlain', '', true);
 			$new_user_language = Minz_Request::param('new_user_language', FreshRSS_Context::$user_conf->language);
@@ -296,17 +285,18 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 	 */
 	public function deleteAction() {
 		$username = Minz_Request::param('username');
+		$self_deletion = Minz_Session::param('currentUser', '_') === $username;
+
+		if (!FreshRSS_Auth::hasAccess('admin') && !$self_deletion) {
+			Minz_Error::error(403);
+		}
+
 		$redirect_url = urldecode(Minz_Request::param('r', false, true));
 		if (!$redirect_url) {
 			$redirect_url = array('c' => 'user', 'a' => 'manage');
 		}
 
-		$self_deletion = Minz_Session::param('currentUser', '_') === $username;
-
-		if (Minz_Request::isPost() && (
-				FreshRSS_Auth::hasAccess('admin') ||
-				$self_deletion
-		)) {
+		if (Minz_Request::isPost()) {
 			$ok = true;
 			if ($ok && $self_deletion) {
 				// We check the password if it's a self-destruction
