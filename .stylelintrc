@@ -1,0 +1,71 @@
+{
+  "extends": "stylelint-config-recommended-scss",
+  "plugins": [
+    "stylelint-order",
+    "stylelint-scss"
+  ],
+  "rules": {
+    "at-rule-empty-line-before": [
+      "always", {
+        "ignoreAtRules": [ "after-comment", "else" ]
+      }
+    ],
+    "block-opening-brace-space-before": "always",
+    "block-closing-brace-newline-after": [
+      "always", {
+        "ignoreAtRules": [ "if", "else" ]
+      }
+    ],
+    "at-rule-name-space-after": [
+      "always", {
+        "ignoreAtRules": [ "after-comment" ]
+      }
+    ],
+    "color-hex-case": "lower",
+    "color-hex-length": "short",
+    "color-no-invalid-hex": true,
+    "declaration-colon-space-after": "always",
+    "declaration-colon-space-before": "never",
+    "indentation": "tab",
+    "no-descending-specificity": null,
+    "no-eol-whitespace": true,
+    "property-no-vendor-prefix": true,
+    "rule-empty-line-before": "always",
+    "selector-type-no-unknown": [
+      true, {
+        "ignoreTypes": "as-link",
+      }
+    ],
+    "order/properties-order": [
+      "margin",
+      "padding",
+      "background",
+      "display",
+      "float",
+      "max-width",
+      "width",
+      "max-height",
+      "height",
+      "color",
+      "font",
+      "font-family",
+      "font-size",
+      "border",
+      "border-top",
+      "border-top-color",
+      "border-right",
+      "border-right-color",
+      "border-bottom",
+      "border-bottom-color",
+      "border-left",
+      "border-left-color",
+      "border-radius",
+      "box-shadow"
+    ],
+    "scss/at-else-closing-brace-newline-after": "always-last-in-chain",
+    "scss/at-else-closing-brace-space-after": "always-intermediate",
+    "scss/at-else-empty-line-before": "never",
+    "scss/at-if-closing-brace-newline-after": "always-last-in-chain",
+    "scss/at-if-closing-brace-space-after": "always-intermediate"
+  }
+}

@@ -1,152 +1,163 @@
 /* btns */
 
 .btn {
-    display: inline-block;
-    min-height: 38px;
-    min-width: 15px;
-    line-height: 25px;
-    margin: 0;
-    padding: 0.5rem 1.5rem;
-    font-size: 1rem;
-    vertical-align: middle;
-    cursor: pointer;
-    overflow: hidden;
-    background: $grey-lighter;
-    border-radius: 5px;
-    border: none;
-    color: $grey-dark;
+	margin: 0;
+	padding: 0.5rem 1.5rem;
+	background: $grey-lighter;
+	display: inline-block;
+	color: $grey-dark;
+	font-size: 1rem;
+	border: none;
+	border-radius: 5px;
+	min-height: 38px;
+	min-width: 15px;
+	line-height: 25px;
+	vertical-align: middle;
+	cursor: pointer;
+	overflow: hidden;
 
-    @include transition(all, 0.15s, ease-in-out);
+	@include transition(all, 0.15s, ease-in-out);
 
-    &.btn-important {
-	background: $main-first;
-	color: $white;
+	&.btn-important {
+		background: $main-first;
+		color: $white;
 
-	// @include transition(all, 0.15s, ease-in-out);
+		// @include transition(all, 0.15s, ease-in-out);
 
-	&:hover,
-	&:active {
-	    background: $main-first-alt;
+		&:hover,
+		&:active {
+			background: $main-first-alt;
+		}
 	}
-    }
 
 
-    &.btn-attention {
-	background: $alert-bg;
-	color: #fff;
+	&.btn-attention {
+		background: $alert-bg;
+		color: #fff;
 
-	&:hover,
-	&:active {
-	    background: $alert-text;
+		&:hover,
+		&:active {
+			background: $alert-text;
+		}
 	}
-    }
 
-    &:hover {
-	text-decoration: none;
-    }
+	&:hover {
+		text-decoration: none;
+	}
 }
 
 a.btn {
-    min-height: 25px;
-    line-height: 25px;
+	min-height: 25px;
+	line-height: 25px;
 }
 
 /*=== Forms */
+
 legend {
-    display: inline-block;
-    width: auto;
-    margin: 2rem 0 1rem 0;
-    padding: 0;
-    font-size: 1rem;
-    clear: both;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    font-weight: 700;
+	margin: 2rem 0 1rem 0;
+	padding: 0;
+	display: inline-block;
+	width: auto;
+	font-size: 1rem;
+	clear: both;
+	text-transform: uppercase;
+	letter-spacing: 1px;
+	font-weight: 700;
 }
+
 label {
-    min-height: 25px;
-    padding: 5px 0;
-    cursor: pointer;
-    color: $grey-dark;
+	min-height: 25px;
+	padding: 5px 0;
+	cursor: pointer;
+	color: $grey-dark;
 }
+
 textarea {
-    width: 360px;
-    height: 100px;
+	width: 360px;
+	height: 100px;
 }
+
 input, select, textarea, button {
-    font-family: "lato", "Helvetica", "Arial", sans-serif;
-    min-height: 25px;
-    padding: 5px 10px;
-    line-height: 25px;
-    vertical-align: middle;
-    background: $white;
-    border: 1px solid $grey-light;
-    font-size: 1rem;
-    color: $grey-dark;
-    border-radius: 2px;
+	padding: 5px 10px;
+	background: $white;
+	color: $grey-dark;
+	font-family: "lato", "Helvetica", "Arial", sans-serif;
+	font-size: 1rem;
+	border: 1px solid $grey-light;
+	border-radius: 2px;
+	min-height: 25px;
+	line-height: 25px;
+	vertical-align: middle;
 }
+
 option {
-    padding: 0 .5em;
+	padding: 0 .5em;
 }
+
 input:focus, select:focus, textarea:focus {
-    color: $main-font-color;
-    border-color: $main-first;
+	color: $main-font-color;
+	border-color: $main-first;
 }
+
 input:invalid, select:invalid {
-    color: $alert-bg;
-    border-color: $alert-bg;
-    box-shadow: none;
+	color: $alert-bg;
+	border-color: $alert-bg;
+	box-shadow: none;
 }
+
 input:disabled, select:disabled {
-    background: $grey-light;
+	background: $grey-light;
 }
+
 input.extend {
-    transition: width 200ms linear;
-    -moz-transition: width 200ms linear;
-    -webkit-transition: width 200ms linear;
-    -o-transition: width 200ms linear;
-    -ms-transition: width 200ms linear;
+	transition: width 200ms linear;
 }
 
 
 .form-group {
-    padding: 5px;
-    border-radius: 3px;
+	padding: 5px;
+	border-radius: 3px;
 
-    &::after {
-	content: "";
-	display: block;
-	clear: both;
-    }
-    &:hover {
-	// background: #fff;
-	// 	border: 1px solid #eee;
-	// 	border-radius: 3px;
-	// 	border: 1px solid #eee;
-    }
-    .group-name {
-	padding: 10px 0;
-	text-align: right;
-    }
-    .group-controls {
-	min-height: 25px;
-	padding: 5px 0;
-    }
-    .group-controls .control {
-	line-height: 2.0em;
-    }
-    table {
-	margin: 10px 0 0 220px;
-    }
+	&::after {
+		content: "";
+		display: block;
+		clear: both;
+	}
 
-    &.form-actions {
-	margin: 15px 0 25px;
-	padding: 5px 0;
-	// background: #333;
-    }
-    &.form-actions .btn {
-	margin: 0 0.5rem 0 0;
-    }
+	&:hover {
+		// background: #fff;
+		// 	border: 1px solid #eee;
+		// 	border-radius: 3px;
+		// 	border: 1px solid #eee;
+	}
+
+	.group-name {
+		padding: 10px 0;
+		text-align: right;
+	}
+
+	.group-controls {
+		min-height: 25px;
+		padding: 5px 0;
+	}
+
+	.group-controls .control {
+		line-height: 2.0em;
+	}
+
+	table {
+		margin: 10px 0 0 220px;
+	}
+
+	&.form-actions {
+		margin: 15px 0 25px;
+		padding: 5px 0;
+		// background: #333;
+	}
+
+	&.form-actions .btn {
+		margin: 0 0.5rem 0 0;
+	}
 }
 
 
