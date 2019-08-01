@@ -115,7 +115,10 @@ return array(
 		'validated' => array(
 			'_' => 'The email address has been validated.',
 			'already' => 'The email address was already validated.',
+			'email_sent_to' => 'We sent you an email at <strong>%s</strong>, please follow its indications to validate your address.',
 			'error' => 'The email address failed to be validated.',
+			'need_to' => 'You need to validate your email address before being able to use %s.',
+			'title' => 'Email address validation',
 			'wrong_token' => 'The email address failed to be validated due to a wrong token.',
 		),
 	),

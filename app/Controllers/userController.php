@@ -296,6 +296,7 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 
 	/**
 	 * This action validates an email address, based on the token sent by email.
+	 * It also serves the main page when user is blocked.
 	 *
 	 * Request parameters are:
 	 *   - username
@@ -307,16 +308,28 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 	 *
 	 * It returns 404 error if `force_email_validation` is disabled or if the
 	 * user doesn't exist.
+	 *
+	 * It returns 403 if user isn't logged in and `username` param isn't passed.
 	 */
 	public function validateEmailAction() {
 		if (!FreshRSS_Context::$system_conf->force_email_validation) {
 			Minz_Error::error(404);
 		}
 
+		Minz_View::prependTitle(_t('feedback.user.validated.title') . ' · ');
+		$this->view->_layout('simple');
+
 		$username = Minz_Request::param('username');
 		$token = Minz_Request::param('token');
 
-		$user_config = get_user_configuration($username);
+		if ($username) {
+			$user_config = get_user_configuration($username);
+		} elseif (FreshRSS_Auth::hasAccess()) {
+			$user_config = FreshRSS_Context::$user_conf;
+		} else {
+			Minz_Error::error(403);
+		}
+
 		if (!FreshRSS_UserDAO::exists($username) || $user_config === null) {
 			Minz_Error::error(404);
 		}
@@ -326,16 +339,18 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 			return;
 		}
 
-		if ($user_config->email_validation_token !== $token) {
-			$this->view->feedback = _t('feedback.user.validated.wrong_token');
-			return;
-		}
+		if ($token) {
+			if ($user_config->email_validation_token !== $token) {
+				$this->view->feedback = _t('feedback.user.validated.wrong_token');
+				return;
+			}
 
-		$user_config->email_validation_token = '';
-		if ($user_config->save()) {
-			$this->view->feedback = _t('feedback.user.validated');
-		} else {
-			$this->view->feedback = _t('feedback.user.validated.error');
+			$user_config->email_validation_token = '';
+			if ($user_config->save()) {
+				$this->view->feedback = _t('feedback.user.validated');
+			} else {
+				$this->view->feedback = _t('feedback.user.validated.error');
+			}
 		}
 	}
 

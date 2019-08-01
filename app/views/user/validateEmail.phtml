@@ -1,11 +1,23 @@
-<div class="post">
-	<p>
-		<?php echo $this->feedback; ?>
-	</p>
+<?php if (isset($this->feedback)) { ?>
+	<div class="post">
+		<p>
+			<?php echo $this->feedback; ?>
+		</p>
 
-	<p>
-		<a href="<?php echo _url('index', 'index'); ?>">
-			<?php echo _t('gen.action.back'); ?>
-		</a>
-	</p>
-</div>
+		<p>
+			<a href="<?php echo _url('index', 'index'); ?>">
+				<?php echo _t('gen.action.back'); ?>
+			</a>
+		</p>
+	</div>
+<?php } else { ?>
+	<div class="post">
+		<p>
+			<?php echo _t('feedback.user.validated.need_to', FreshRSS_Context::$system_conf->title); ?>
+		</p>
+
+		<p>
+			<?php echo _t('feedback.user.validated.email_sent_to', FreshRSS_Context::$user_conf->mail_login); ?>
+		</p>
+	</div>
+<?php } ?>

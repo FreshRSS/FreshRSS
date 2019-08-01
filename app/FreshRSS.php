@@ -54,6 +54,8 @@ class FreshRSS extends Minz_FrontController {
 			Minz_ExtensionManager::enableByList($ext_list);
 		}
 
+		self::checkEmailValidated();
+
 		Minz_ExtensionManager::callHook('freshrss_init');
 	}
 
@@ -143,5 +145,16 @@ class FreshRSS extends Minz_FrontController {
 
 		FreshRSS_Share::load(join_path(APP_PATH, 'shares.php'));
 		self::loadStylesAndScripts();
+	}
+
+	private static function checkEmailValidated() {
+		$email_not_verified = FreshRSS_Auth::hasAccess() && FreshRSS_Context::$user_conf->email_validation_token !== '';
+		$action_is_forbidden = Minz_Request::controllerName() !== 'user' || Minz_Request::actionName() !== 'validateEmail';
+		if ($email_not_verified && $action_is_forbidden) {
+			Minz_Request::forward(array(
+				'c' => 'user',
+				'a' => 'validateEmail',
+			), true);
+		}
 	}
 }
