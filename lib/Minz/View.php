@@ -26,22 +26,27 @@ class Minz_View {
 	 * Constructeur
 	 * Détermine si on utilise un layout ou non
 	 */
-	public function __construct () {
-		$this->change_view(Minz_Request::controllerName(),
-		                   Minz_Request::actionName());
-
+	public function __construct() {
 		$this->_layout(self::LAYOUT_DEFAULT);
 		$conf = Minz_Configuration::get('system');
 		self::$title = $conf->title;
 	}
 
 	/**
-	 * Change le fichier de vue en fonction d'un controller / action
+	 * [deprecated] Change the view file based on controller and action.
 	 */
 	public function change_view($controller_name, $action_name) {
-		$this->view_filename = self::VIEWS_PATH_NAME . '/'
-		                     . $controller_name . '/'
-		                     . $action_name . '.phtml';
+		Minz_Log::warning('Minz_View::change_view is deprecated, it will be removed in a future version. Please use Minz_View::_path instead.');
+		$this->_path($controller_name. '/' . $action_name . '.phtml');
+	}
+
+	/**
+	 * Change the view file based on a pathname relative to VIEWS_PATH_NAME.
+	 *
+	 * @param string $path the new path
+	 */
+	public function _path($path) {
+		$this->view_filename = self::VIEWS_PATH_NAME . '/' . $path;
 	}
 
 	/**
