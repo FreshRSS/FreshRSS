@@ -1,7 +1,6 @@
 /*=== STRUCTURE */
 /*===============*/
 /*=== Header */
-
 .header {
 	padding: 0.5rem 1.35rem;
 	background: $sid-bg;
@@ -15,14 +14,12 @@
 		// display: flex;
 		// justify-content: space-between;
 		// flex-direction: row;
-
 		&.title {
 			width: 280px;
 
 			font-weight: 400;
 
 			h1 {
-
 				a {
 					text-decoration: none;
 					color: $sid-font-color;
@@ -41,7 +38,6 @@
 		&.search {
 			// text-align: center;
 			// width: 50%;
-
 			input {
 				width: 230px;
 				color: $sid-font-color;
@@ -64,7 +60,6 @@
 			}
 
 			.btn {
-
 				img {display: none;}
 
 				width: 3rem;
@@ -91,9 +86,7 @@
 			top: 1.25rem;
 			text-align: center;
 			// float: right;
-
 			.btn {
-
 				img {display: none;}
 
 				padding: 0 0.5rem;
@@ -107,7 +100,6 @@
 				// border-left-width: 0;
 
 				// width: 3rem;
-
 				&:hover {
 					// background-color: $main-first-alt;
 				}
@@ -119,7 +111,6 @@
 }
 
 /*=== Body */
-
 #global {
 	height: calc(100% - 85px);
 }
@@ -128,7 +119,6 @@
 
 
 /*=== Prompt (centered) */
-
 .prompt {
 	text-align: center;
 }
@@ -152,7 +142,6 @@
 }
 
 /*=== New article notification */
-
 #new-article {
 	background: $main-first;
 	font-size: 1rem;
@@ -174,7 +163,6 @@
 }
 
 /*=== Day indication */
-
 .day {
 	padding: 1rem 0 0 1.25rem;
 	color: $light-font-color;
@@ -184,7 +172,6 @@
 	letter-spacing: 1px;
 	text-transform: uppercase;
 	// border-left: 2px solid #ecf0f1;
-
 	.name {
 		padding: 0 1rem 0 1rem;
 		// font-weight: 700;
@@ -199,7 +186,6 @@
 }
 
 /*=== Index menu */
-
 .nav_menu {
 	text-align: center;
 	padding: 5px 0;
@@ -240,7 +226,6 @@
 
 
 			// actions
-
 			&#toggle-read {
 				background-image: url(icons/read.svg);
 			}
@@ -274,7 +259,6 @@
 			}
 
 			// read all
-
 			&.read_all {
 				padding: 5px 16px;
 				// min-height: 0;
@@ -289,7 +273,6 @@
 			}
 
 			// views
-
 			&.view-normal {
 				background-image: url(icons/view-list.svg);
 			}
@@ -321,7 +304,6 @@
 		}
 
 		.dropdown {
-
 			a.dropdown-toggle {
 				border-left-width: 0;
 				background-image: url(icons/more.svg);
@@ -339,7 +321,6 @@
 
 
 /*=== Content of feed articles */
-
 .content, .content.thin {
 	padding: 20px 10px;
 
@@ -347,7 +328,6 @@
 	line-height: 1.8rem;
 
 	h1.title, h1 {
-
 		a {
 			color: $main-font-color;
 			font-family: "spectral", serif;
@@ -421,7 +401,6 @@
 
 
 /*=== Notification and actualize notification */
-
 .notification {
 
 	padding: 1rem 0;
@@ -483,7 +462,6 @@
 
 
 /*=== Navigation menu (for articles) */
-
 #nav_entries {
 	margin: 0;
 	text-align: center;

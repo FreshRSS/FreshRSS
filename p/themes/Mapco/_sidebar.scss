@@ -1,5 +1,4 @@
 /*=== Tree */
-
 .tree {
 	margin: 10px 0;
 
@@ -32,7 +31,6 @@
 		}
 
 		&.active {
-
 			.tree-folder-title {
 				background: $sid-bg;
 				font-weight: bold;
@@ -93,7 +91,6 @@
 }
 
 /*=== Buttons */
-
 .stick {
 	vertical-align: middle;
 	font-size: 0;
@@ -146,9 +143,7 @@
 
 
 /*=== Navigation */
-
 .nav-list {
-
 	.nav-header,
 	.item {
 		height: 2.5em;
@@ -167,7 +162,6 @@
 		}
 
 		.error {
-
 			a {
 				color: $alert-bg;
 			}
@@ -178,7 +172,6 @@
 			color: $sid-font-color;
 
 			.error {
-
 				a {
 					background: $main-first;
 					color: $sid-font-color;
@@ -186,7 +179,6 @@
 			}
 
 			.empty {
-
 				a {
 					background: $warning-bg;
 					color: $sid-font-color;
@@ -204,7 +196,6 @@
 			color: $white;
 
 			.error {
-
 				a {
 					background: $main-first;
 					color: $white;
@@ -212,7 +203,6 @@
 			}
 
 			.empty {
-
 				a {
 					background: $warning-bg;
 					color: $white;
@@ -228,7 +218,6 @@
 	}
 
 	&.empty {
-
 		a {
 			color: $warning-bg;
 		}
@@ -273,7 +262,6 @@
 }
 
 /*=== Aside main page (categories) */
-
 .aside_feed .tree-folder-title > .title:not([data-unread="0"])::after {
 	margin: -0.5rem 1rem 0 0;
 	padding: 0 0.75rem;

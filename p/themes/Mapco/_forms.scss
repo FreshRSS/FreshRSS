@@ -1,5 +1,4 @@
 /* btns */
-
 .btn {
 	margin: 0;
 	padding: 0.5rem 1.5rem;
@@ -23,7 +22,6 @@
 		color: $white;
 
 		// @include transition(all, 0.15s, ease-in-out);
-
 		&:hover,
 		&:active {
 			background: $main-first-alt;
@@ -52,7 +50,6 @@ a.btn {
 }
 
 /*=== Forms */
-
 legend {
 	margin: 2rem 0 1rem 0;
 	padding: 0;

@@ -14,7 +14,6 @@ $color_hover:	#fff;
 
 
 // @extend-elements
-
 %input {
 	min-height: 25px;
 	margin-top: 4px;
@@ -55,7 +54,6 @@ $color_hover:	#fff;
 }
 
 // /@extend-elements
-
 html,
 body {
 	height: 100%;
@@ -86,7 +84,6 @@ a {
 }
 
 img {
-
 	&.icon:hover {
 		background: none;
 	}
@@ -150,7 +147,6 @@ select {
 }
 
 input {
-
 	&.extend {
 		transition: width 200ms linear;
 	}
@@ -176,7 +172,6 @@ th {
 }
 
 form {
-
 	td,
 	th {
 		font-weight: normal;
@@ -185,7 +180,6 @@ form {
 }
 
 .category {
-
 	.title.error::before {
 		display: inline-block;
 		padding-right: 7px;
@@ -283,7 +277,6 @@ form {
 }
 
 .nav-list {
-
 	.nav-header {
 
 		@extend %nav-list;
@@ -388,7 +381,6 @@ form {
 	}
 
 	> {
-
 		.item {
 
 			@extend %dropdown;
@@ -426,7 +418,6 @@ form {
 	}
 
 	.input {
-
 		select,
 		input {
 			margin: 0 auto 5px;
@@ -495,7 +486,6 @@ form {
 	text-align: center;
 
 	.item {
-
 		&.pager-current {
 			background: $color_aside;
 			color: darken( $color_light, 10%);
@@ -616,7 +606,6 @@ form {
 	}
 
 	&.category {
-
 		.box-title .title {
 			font-weight: normal;
 			text-decoration: none;
@@ -696,7 +685,6 @@ form {
 }
 
 @supports (scrollbar-width: thin) {
-
 	#sidebar {
 		scrollbar-color: rgba(255, 255, 255, 0.05) rgba(0, 0, 0, 0.0);
 	}
@@ -707,7 +695,6 @@ form {
 }
 
 @supports not (scrollbar-width: thin) {
-
 	#sidebar::-webkit-scrollbar-thumb {
 		background: rgba(255, 255, 255, 0.1);
 	}
@@ -718,7 +705,6 @@ form {
 }
 
 .header {
-
 	> .item {
 		vertical-align: middle;
 
@@ -779,20 +765,17 @@ form {
 	@extend %aside-width;
 
 	&.aside_feed {
-
 		.tree {
 			margin: 0 0 50px;
 		}
 
 		.nav-form {
-
 			input,
 			select {
 				width: 140px;
 			}
 
 			.dropdown {
-
 				.dropdown-menu {
 					right: -20px;
 				}
@@ -806,7 +789,6 @@ form {
 }
 
 .aside_feed {
-
 	.tree-folder-title > .title:not([data-unread="0"])::after {
 		margin: 6px 0;
 		padding: 0 10px;
@@ -905,7 +887,6 @@ form {
 }
 
 .nav {
-
 	a {
 		color: $color_light;
 	}
@@ -1071,7 +1052,6 @@ form {
 	}
 
 	> table {
-
 		td,
 		th {
 			border-bottom: 1px solid darken( $color_light, 10%);
@@ -1094,7 +1074,6 @@ form {
 }
 
 .formLogin {
-
 	#global {
 		height: 0;
 	}
@@ -1104,7 +1083,6 @@ form {
 		height: 55px;
 
 		> .item {
-
 			&.configure {
 				width: 200px;
 				position: unset;
@@ -1167,7 +1145,6 @@ form {
 }
 
 @media (max-width: 840px) {
-
 	.formLogin .header {
 		display: none;
 	}
@@ -1346,14 +1323,12 @@ form {
 }
 
 @media (max-width: 410px) {
-
 	.nav_menu .stick {
 		margin: 0;
 	}
 }
 
 @media (max-width: 374px) {
-
 	#nav_menu_views {
 		display: none;
 	}
@@ -1374,7 +1349,6 @@ button.as-link {
 }
 
 .feed.item {
-
 	&.empty {
 		color: $color_alert;
 
@@ -1429,20 +1403,17 @@ button.as-link {
 }
 
 #nav_menu_actions, #nav_menu_read_all {
-
 	ul.dropdown-menu {
 		left: 0px;
 	}
 }
 
 #slider {
-
 	label {
 		min-height: initial;
 	}
 
 	.form-group {
-
 		&:hover {
 			background: inital;
 		}

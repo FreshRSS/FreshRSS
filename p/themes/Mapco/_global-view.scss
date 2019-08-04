@@ -1,10 +1,7 @@
 /*=== GLOBAL VIEW */
 /*================*/
-
 #stream {
-
 	.box.category {
-
 		&:not([data-unread="0"]) .box-title {
 			// background: #3498db;
 		}
@@ -73,7 +70,6 @@
 
 
 // le panel qui apparait en overlay pour afficher les flux
-
 #overlay {
 	background: rgba(0, 0, 0, 0.65);
 }

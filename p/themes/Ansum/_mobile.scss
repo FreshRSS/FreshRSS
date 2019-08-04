@@ -2,13 +2,11 @@
 /*===========*/
 
 @media (max-width: 840px) {
-
 	html, body {
 		// font-size: 1rem;
 	}
 
 	ul.nav {
-
 		.item {
 			width: 100%;
 
@@ -65,13 +63,11 @@
 		padding: 0.5rem;
 
 		.item {
-
 			&.title {
 				display: none;
 			}
 
 			&.search {
-
 				input {
 					width: 90%;
 					height: 3.5rem;
@@ -93,7 +89,6 @@
 				top: 3.125rem;
 
 				.dropdown {
-
 					.btn {
 						padding: 1.125rem;
 					}
@@ -103,7 +98,6 @@
 	}
 
 	.nav_menu {
-
 		.btn {
 			margin: 0;
 			padding: 0.85rem 1.25rem;
@@ -139,9 +133,7 @@
 	}
 
 	#stream {
-
 		.flux {
-
 			.flux_header {
 				padding: 0.5rem 0;
 			}

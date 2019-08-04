@@ -4,7 +4,6 @@
 // parti dans _forms.scss
 
 /*=== Horizontal-list */
-
 .horizontal-list {
 	margin: 0;
 	padding: 0.1rem 0;
@@ -20,7 +19,6 @@
 }
 
 /*=== Dropdown */
-
 .dropdown-menu {
 	margin: 0;
 	padding: 0.5rem 0 1rem 0;
@@ -79,7 +77,6 @@
 		}
 
 		&[aria-checked="true"] {
-
 			a::before {
 				margin: 0 0 0 -14px;
 				font-weight: bold;
@@ -88,7 +85,6 @@
 	}
 
 	.input {
-
 		select, input {
 			margin: 0 auto 5px;
 			padding: 2px 5px;
@@ -106,7 +102,6 @@
 
 .tree .tree-folder .tree-folder-items .dropdown-menu {
 	// tout ça sert à restaurer l'apparence du dropdown dans un contexte de sidebar sombre
-
 	.item {
 		padding: 0;
 
@@ -129,7 +124,6 @@
 
 
 /*=== Alerts */
-
 .alert {
 	margin: 1rem 0;
 	// width: 100%;
@@ -170,7 +164,6 @@
 }
 
 /*=== Pagination */
-
 .pagination {
 	background: $grey-light;
 	color: $main-font-color;
@@ -178,7 +171,6 @@
 	text-align: center;
 
 	.item {
-
 		&.pager-current {
 			background: $sid-bg;
 			color: $grey-light;
@@ -214,7 +206,6 @@
 
 
 /*=== Boxes */
-
 .box {
 	background: $white;
 	// border: 1px solid #ddd;
@@ -235,7 +226,6 @@
 		}
 
 		&:hover {
-
 			.configure {
 				background: url("icons/cog.svg") no-repeat 4px 4px;
 				display: block;
@@ -263,7 +253,6 @@
 		}
 
 		form {
-
 			input {
 				width: 85%;
 			}
@@ -289,7 +278,6 @@
 
 	.box-content {
 		// max-height: 260px;
-
 		.item {
 			padding: 0.5rem 0.75rem;
 			color: $main-font-color;
@@ -335,7 +323,6 @@
 }
 
 /*=== "Load more" part */
-
 #bigMarkAsRead {
 	text-align: center;
 	text-decoration: none;
@@ -365,12 +352,10 @@
 }
 
 // page de login
-
 .formLogin {
 	background: $sid-bg;
 
 	.header {
-
 		.configure {
 			padding-right: 1rem;
 
@@ -389,7 +374,6 @@
 	}
 
 	form#crypto-form {
-
 		div {
 			margin-bottom: 1rem;
 
