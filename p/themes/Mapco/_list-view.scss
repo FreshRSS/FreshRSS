@@ -23,7 +23,7 @@
 
 	&.not_read {
 		background: $unread-bg; //--------------------
-		// border-left-color: #FF5300;	
+		// border-left-color: #FF5300;
 
 		&:hover {
 			background: $unread-bg-light; //--------------------
@@ -38,7 +38,7 @@
 		.item.title {
 
 			a {
-				color: $unread-font-color; //--------------------	
+				color: $unread-font-color; //--------------------
 			}
 
 		}
@@ -46,7 +46,7 @@
 		.item.website {
 
 			a {
-				color: $unread-font-color; //--------------------	
+				color: $unread-font-color; //--------------------
 			}
 		}
 

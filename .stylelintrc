@@ -31,11 +31,6 @@
     "no-eol-whitespace": true,
     "property-no-vendor-prefix": true,
     "rule-empty-line-before": "always",
-    "selector-type-no-unknown": [
-      true, {
-        "ignoreTypes": "as-link",
-      }
-    ],
     "order/properties-order": [
       "margin",
       "padding",

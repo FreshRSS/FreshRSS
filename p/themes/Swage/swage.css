@@ -21,7 +21,7 @@ select:invalid {
 
 .dropdown-menu > .item, .dropdown-menu > .item > a,
 .dropdown-menu > .item > span,
-.dropdown-menu > .item > as-link,
+.dropdown-menu > .item > .as-link,
 .dropdown-menu > .item button {
   padding: 0 22px;
   color: #fcfcfc;
