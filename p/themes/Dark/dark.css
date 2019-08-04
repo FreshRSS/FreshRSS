@@ -2,7 +2,6 @@
 
 /*=== GENERAL */
 /*============*/
-
 html, body {
 	background: #1c1c1c;
 	height: 100%;
@@ -11,21 +10,18 @@ html, body {
 }
 
 /*=== Links */
-
 a, button.as-link {
 	color: #6986b2;
 	outline: none;
 }
 
 /*=== Images */
-
 img.favicon {
 	background: #fff;
 	border-radius: 2px;
 }
 
 /*=== Forms */
-
 legend {
 	margin: 20px 0 5px;
 	padding: 5px 0;
@@ -80,7 +76,6 @@ input.extend {
 }
 
 /*=== Tables */
-
 table {
 	border-collapse: collapse;
 }
@@ -103,7 +98,6 @@ form th {
 /*=== COMPONENTS */
 /*===============*/
 /*=== Forms */
-
 .form-group.form-actions {
 	padding: 5px 0;
 	background: #1a1a1a;
@@ -129,7 +123,6 @@ form th {
 }
 
 /*=== Buttons */
-
 button.as-link[disabled] {
 	color: #445 !important;
 }
@@ -245,7 +238,6 @@ a.btn {
 }
 
 /*=== Navigation */
-
 .nav-list .nav-header,
 .nav-list .item {
 	height: 2.5em;
@@ -326,7 +318,6 @@ a.btn {
 }
 
 /*=== Horizontal-list */
-
 .horizontal-list {
 	margin: 0;
 	padding: 0;
@@ -337,7 +328,6 @@ a.btn {
 }
 
 /*=== Dropdown */
-
 .dropdown-menu {
 	margin: 5px 0 0;
 	padding: 5px 0;
@@ -405,7 +395,6 @@ a.btn {
 }
 
 /*=== Alerts */
-
 .alert {
 	margin: 15px auto;
 	padding: 10px 15px;
@@ -441,7 +430,6 @@ a.btn {
 }
 
 /*=== Pagination */
-
 .pagination {
 	background: #1c1c1c;
 	color: #888;
@@ -486,7 +474,6 @@ a.btn {
 }
 
 /*=== Boxes */
-
 .box {
 	border: 1px solid #000;
 	border-radius: 5px;
@@ -521,7 +508,6 @@ a.btn {
 }
 
 /*=== Tree */
-
 .tree {
 	margin: 10px 0;
 }
@@ -575,7 +561,6 @@ a.btn {
 /*=== Scrollbar */
 
 @supports (scrollbar-width: thin) {
-
 	#sidebar {
 		scrollbar-color: rgba(255, 255, 255, 0.05) rgba(0, 0, 0, 0.0);
 	}
@@ -586,7 +571,6 @@ a.btn {
 }
 
 @supports not (scrollbar-width: thin) {
-
 	#sidebar::-webkit-scrollbar-thumb {
 		background: rgba(255, 255, 255, 0.1);
 	}
@@ -599,7 +583,6 @@ a.btn {
 /*=== STRUCTURE */
 /*===============*/
 /*=== Header */
-
 .header {
 	height: 85px;
 }
@@ -632,7 +615,6 @@ a.btn {
 }
 
 /*=== Body */
-
 #global {
 	height: calc(100% - 85px);
 }
@@ -652,7 +634,6 @@ a.btn {
 }
 
 /*=== Aside main page (categories) */
-
 .aside_feed .tree-folder-title > .title:not([data-unread="0"])::after {
 	margin: 10px 0;
 	padding: 0 10px;
@@ -664,7 +645,6 @@ a.btn {
 }
 
 /*=== Aside main page (feeds) */
-
 .feed.item.empty.active {
 	background: #c95;
 }
@@ -705,7 +685,6 @@ a.btn {
 }
 
 /*=== Configuration pages */
-
 .post {
 	padding: 10px 50px;
 	font-size: 0.9em;
@@ -720,7 +699,6 @@ a.btn {
 }
 
 /*=== Prompt (centered) */
-
 .prompt {
 	text-align: center;
 }
@@ -744,7 +722,6 @@ a.btn {
 }
 
 /*=== New article notification */
-
 #new-article {
 	background: #26303f;
 	font-size: 0.9em;
@@ -766,7 +743,6 @@ a.btn {
 }
 
 /*=== Day indication */
-
 .day {
 	padding: 0 10px;
 	font-weight: bold;
@@ -786,7 +762,6 @@ a.btn {
 }
 
 /*=== Index menu */
-
 .nav_menu {
 	text-align: center;
 	padding: 5px 0;
@@ -794,7 +769,6 @@ a.btn {
 }
 
 /*=== Feed articles */
-
 .flux {
 	border-left: 2px solid #2f2f2f;
 }
@@ -849,7 +823,6 @@ a.btn {
 }
 
 /*=== Content of feed articles */
-
 .content {
 	padding: 20px 10px;
 }
@@ -906,7 +879,6 @@ a.btn {
 }
 
 /*=== Notification and actualize notification */
-
 .notification {
 	padding: 0 0 0 5px;
 	background: #111;
@@ -955,7 +927,6 @@ a.btn {
 }
 
 /*=== "Load more" part */
-
 #bigMarkAsRead {
 	text-align: center;
 	text-decoration: none;
@@ -967,7 +938,6 @@ a.btn {
 }
 
 /*=== Navigation menu (for articles) */
-
 #nav_entries {
 	margin: 0;
 	text-align: center;
@@ -979,7 +949,6 @@ a.btn {
 
 /*=== READER VIEW */
 /*================*/
-
 #stream.reader .flux {
 	padding: 0 0 50px;
 	background: #111;
@@ -994,7 +963,6 @@ a.btn {
 
 /*=== GLOBAL VIEW */
 /*================*/
-
 .box.category .box-title .title {
 	font-weight: normal;
 	text-decoration: none;
@@ -1031,7 +999,6 @@ a.btn {
 }
 
 /*=== Panel */
-
 #panel {
 	background: #1c1c1c;
 	border: 1px solid #666;
@@ -1039,7 +1006,6 @@ a.btn {
 }
 
 /*=== Slider */
-
 #slider {
 	background-color: #1c1c1c;
 	border-left: 1px solid #666;
@@ -1047,7 +1013,6 @@ a.btn {
 
 /*=== DIVERS */
 /*===========*/
-
 .aside.aside_feed .nav-form input,
 .aside.aside_feed .nav-form select {
 	width: 140px;
@@ -1063,7 +1028,6 @@ a.btn {
 
 /*=== STATISTICS */
 /*===============*/
-
 .stat {
 	margin: 10px 0 20px;
 }
@@ -1095,7 +1059,6 @@ a.btn {
 
 /*=== LOGS */
 /*=========*/
-
 .loglist {
 	overflow: hidden;
 	border: 1px solid #333;
@@ -1141,7 +1104,6 @@ a.btn {
 /*===========*/
 
 @media (max-width: 840px) {
-
 	.aside {
 		transition: width 200ms linear;
 	}

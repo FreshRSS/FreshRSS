@@ -2,7 +2,6 @@
 
 /*=== GENERAL */
 /*============*/
-
 html, body {
 	background: #fafafa;
 	height: 100%;
@@ -11,14 +10,12 @@ html, body {
 }
 
 /*=== Links */
-
 a {
 	color: #2980b9;
 	outline: none;
 }
 
 /*=== Forms */
-
 legend {
 	margin: 20px 0 5px;
 	padding: 5px 0;
@@ -71,7 +68,6 @@ input.extend {
 }
 
 /*=== Tables */
-
 table {
 	border-collapse: collapse;
 }
@@ -94,7 +90,6 @@ form th {
 /*=== COMPONENTS */
 /*===============*/
 /*=== Forms */
-
 .form-group.form-actions {
 	padding: 5px 0;
 	background: #f4f4f4;
@@ -122,7 +117,6 @@ form th {
 }
 
 /*=== Buttons */
-
 .stick {
 	vertical-align: middle;
 	font-size: 0;
@@ -234,7 +228,6 @@ a.btn {
 }
 
 /*=== Navigation */
-
 .nav-list .nav-header,
 .nav-list .item {
 	height: 2.5em;
@@ -318,7 +311,6 @@ a.btn {
 }
 
 /*=== Horizontal-list */
-
 .horizontal-list {
 	margin: 0;
 	padding: 0;
@@ -329,7 +321,6 @@ a.btn {
 }
 
 /*=== Dropdown */
-
 .dropdown-menu {
 	margin: 5px 0 0;
 	padding: 5px 0;
@@ -397,7 +388,6 @@ a.btn {
 }
 
 /*=== Alerts */
-
 .alert {
 	margin: 15px auto;
 	padding: 10px 15px;
@@ -438,7 +428,6 @@ a.btn {
 }
 
 /*=== Pagination */
-
 .pagination {
 	background: #fff;
 	text-align: center;
@@ -483,7 +472,6 @@ a.btn {
 }
 
 /*=== Boxes */
-
 .box {
 	border: 1px solid #aaa;
 	border-radius: 5px;
@@ -518,7 +506,6 @@ a.btn {
 }
 
 /*=== Tree */
-
 .tree {
 	margin: 10px 0;
 }
@@ -574,7 +561,6 @@ a.btn {
 /*=== STRUCTURE */
 /*===============*/
 /*=== Header */
-
 .header {
 	background: #41444f;
 	height: 85px;
@@ -616,7 +602,6 @@ a.btn {
 }
 
 /*=== Body */
-
 #global {
 	height: calc(100% - 85px);
 }
@@ -636,7 +621,6 @@ a.btn {
 }
 
 /*=== Aside main page (categories) */
-
 .aside_feed .tree-folder-title > .title:not([data-unread="0"])::after {
 	padding: 0px 5px;
 	font-size: 0.8rem;
@@ -664,7 +648,6 @@ a.btn {
 }
 
 /*=== Aside main page (feeds) */
-
 .feed.item.empty.active {
 	background: #e67e22;
 }
@@ -702,7 +685,6 @@ a.btn {
 }
 
 /*=== Configuration pages */
-
 .post {
 	padding: 10px 50px;
 	font-size: 0.9em;
@@ -717,7 +699,6 @@ a.btn {
 }
 
 /*=== Prompt (centered) */
-
 .prompt {
 	text-align: center;
 }
@@ -741,7 +722,6 @@ a.btn {
 }
 
 /*=== New article notification */
-
 #new-article {
 	background: #428bca;
 	text-align: center;
@@ -763,7 +743,6 @@ a.btn {
 }
 
 /*=== Day indication */
-
 .day {
 	padding: 0 10px;
 	background: #fff;
@@ -788,7 +767,6 @@ a.btn {
 }
 
 /*=== Index menu */
-
 .nav_menu {
 	padding: 5px 0;
 	background: #fafafa;
@@ -797,7 +775,6 @@ a.btn {
 }
 
 /*=== Feed articles */
-
 .flux {
 	background: #fafafa;
 	border-left: 3px solid #5cb85c;
@@ -854,7 +831,6 @@ a.btn {
 }
 
 /*=== Content of feed articles */
-
 .content {
 	padding: 20px 10px;
 }
@@ -910,7 +886,6 @@ a.btn {
 }
 
 /*=== Notification and actualize notification */
-
 .notification {
 	padding: 0 0 0 5px;
 	font-size: 0.9em;
@@ -954,7 +929,6 @@ a.btn {
 }
 
 /*=== "Load more" part */
-
 #bigMarkAsRead {
 	background: #fafafa;
 	color: #666;
@@ -972,7 +946,6 @@ a.btn {
 }
 
 /*=== Navigation menu (for articles) */
-
 #nav_entries {
 	margin: 0;
 	background: #fff;
@@ -987,7 +960,6 @@ a.btn {
 }
 /*=== READER VIEW */
 /*================*/
-
 #stream.reader .flux {
 	padding: 0 0 50px;
 	background: #f0f0f0;
@@ -1003,7 +975,6 @@ a.btn {
 
 /*=== GLOBAL VIEW */
 /*================*/
-
 .box.category .box-title .title {
 	font-weight: normal;
 	text-decoration: none;
@@ -1038,7 +1009,6 @@ a.btn {
 
 /*=== DIVERS */
 /*===========*/
-
 .aside.aside_feed .nav-form input,
 .aside.aside_feed .nav-form select {
 	width: 140px;
@@ -1054,7 +1024,6 @@ a.btn {
 
 /*=== STATISTICS */
 /*===============*/
-
 .stat {
 	margin: 10px 0 20px;
 }
@@ -1087,7 +1056,6 @@ a.btn {
 
 /*=== LOGS */
 /*=========*/
-
 .loglist {
 	border: 1px solid #aaa;
 	border-radius: 5px;
@@ -1134,7 +1102,6 @@ a.btn {
 /*===========*/
 
 @media (max-width: 840px) {
-
 	.aside {
 		box-shadow: 3px 0 3px #aaa;
 		transition: width 200ms linear;
