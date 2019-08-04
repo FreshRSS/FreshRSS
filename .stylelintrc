@@ -10,17 +10,19 @@
         "ignoreAtRules": [ "after-comment", "else" ]
       }
     ],
-    "block-opening-brace-space-before": "always",
-    "block-closing-brace-newline-after": [
-      "always", {
-        "ignoreAtRules": [ "if", "else" ]
-      }
-    ],
     "at-rule-name-space-after": [
       "always", {
         "ignoreAtRules": [ "after-comment" ]
       }
     ],
+    "block-closing-brace-newline-after": [
+      "always", {
+        "ignoreAtRules": [ "if", "else" ]
+      }
+    ],
+    "block-closing-brace-newline-before": "always-multi-line",
+    "block-opening-brace-newline-after": "always-multi-line",
+    "block-opening-brace-space-before": "always",
     "color-hex-case": "lower",
     "color-hex-length": "short",
     "color-no-invalid-hex": true,
