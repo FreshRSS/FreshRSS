@@ -137,6 +137,9 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 
 			$apiPasswordPlain = Minz_Request::param('apiPasswordPlain', '', true);
 
+			$user_config = FreshRSS_Context::$user_conf;
+			$old_email = $user_config->mail_login;
+
 			$ok = self::updateUser(
 				Minz_Session::param('currentUser'),
 				$email,
@@ -150,7 +153,9 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 			Minz_Session::_param('passwordHash', FreshRSS_Context::$user_conf->passwordHash);
 
 			if ($ok) {
-				if ($passwordPlain == '') {
+				if ($email !== $old_email) {
+					Minz_Request::good(_t('feedback.profile.updated'), array('c' => 'user', 'a' => 'validateEmail'));
+				} elseif ($passwordPlain == '') {
 					Minz_Request::good(_t('feedback.profile.updated'), array('c' => 'user', 'a' => 'profile'));
 				} else {
 					Minz_Request::good(_t('feedback.profile.updated'), array('c' => 'index', 'a' => 'index'));

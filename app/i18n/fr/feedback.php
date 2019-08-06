@@ -115,6 +115,7 @@ return array(
 		'validated' => array(
 			'_' => 'L’adresse email a été validée.',
 			'already' => 'L’adresse email a déjà été validée.',
+			'change_email' => 'Vous pouvez changer votre adresse email <a href="%s">dans votre profil</a>.',
 			'email_sent_to' => 'Nous venons d’envoyer un email à <strong>%s</strong>, veuillez suivre ses indications pour valider votre adresse.',
 			'error' => 'L’adresse email n’a pas pu être validée.',
 			'need_to' => 'Vous devez valider votre adresse email avant de pouvoir utiliser %s.',
