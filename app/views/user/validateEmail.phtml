@@ -19,5 +19,12 @@
 		<p>
 			<?php echo _t('feedback.user.validated.email_sent_to', FreshRSS_Context::$user_conf->mail_login); ?>
 		</p>
+
+		<form action="<?php echo _url('user', 'sendValidationEmail'); ?>" method="post">
+			<input type="hidden" name="_csrf" value="<?php echo FreshRSS_Auth::csrfToken(); ?>" />
+			<button type="submit" class="btn">
+				<?php echo _t('feedback.user.validated.resend_email'); ?>
+			</button>
+		</form>
 	</div>
 <?php } ?>

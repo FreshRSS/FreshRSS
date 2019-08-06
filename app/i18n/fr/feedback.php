@@ -118,6 +118,7 @@ return array(
 			'email_sent_to' => 'Nous venons d’envoyer un email à <strong>%s</strong>, veuillez suivre ses indications pour valider votre adresse.',
 			'error' => 'L’adresse email n’a pas pu être validée.',
 			'need_to' => 'Vous devez valider votre adresse email avant de pouvoir utiliser %s.',
+			'resend_email' => 'Renvoyer l’email',
 			'title' => 'Validation de l’adresse email',
 			'wrong_token' => 'L’adresse email n’a pas pu être validée à cause d’un mauvais token.',
 		),

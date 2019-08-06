@@ -149,7 +149,10 @@ class FreshRSS extends Minz_FrontController {
 
 	private static function checkEmailValidated() {
 		$email_not_verified = FreshRSS_Auth::hasAccess() && FreshRSS_Context::$user_conf->email_validation_token !== '';
-		$action_is_forbidden = Minz_Request::controllerName() !== 'user' || Minz_Request::actionName() !== 'validateEmail';
+		$action_is_forbidden = Minz_Request::controllerName() !== 'user' || (
+			Minz_Request::actionName() !== 'validateEmail' &&
+			Minz_Request::actionName() !== 'sendValidationEmail'
+		);
 		if ($email_not_verified && $action_is_forbidden) {
 			Minz_Request::forward(array(
 				'c' => 'user',
