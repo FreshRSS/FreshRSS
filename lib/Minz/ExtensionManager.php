@@ -27,13 +27,29 @@ class Minz_ExtensionManager {
 			'list' => array(),
 			'signature' => 'OneToOne',
 		),
-		'post_update' => array(  // function(none) -> none
+		'freshrss_init' => array(  // function() -> none
 			'list' => array(),
 			'signature' => 'NoneToNone',
+		),
+		'menu_admin_entry' => array(  // function() -> string
+			'list' => array(),
+			'signature' => 'NoneToString',
+		),
+		'menu_configuration_entry' => array(  // function() -> string
+			'list' => array(),
+			'signature' => 'NoneToString',
+		),
+		'menu_other_entry' => array(  // function() -> string
+			'list' => array(),
+			'signature' => 'NoneToString',
 		),
 		'nav_reading_modes' => array(  // function($readingModes = array) -> array | null
 			'list' => array(),
 			'signature' => 'OneToOne',
+		),
+		'post_update' => array(  // function(none) -> none
+			'list' => array(),
+			'signature' => 'NoneToNone',
 		),
 		'simplepie_before_init' => array(  // function($simplePie, $feed) -> none
 			'list' => array(),
@@ -302,6 +318,23 @@ class Minz_ExtensionManager {
 			}
 
 			$arg = $result;
+		}
+		return $result;
+	}
+
+	/**
+	 * Call a hook which takes no argument and returns a string.
+	 *
+	 * The result is concatenated between each hook and the final string is
+	 * returned.
+	 *
+	 * @param string $hook_name is the hook to call.
+	 * @return a concatenated string, result of the call to all the hooks.
+	 */
+	private static function callNoneToString($hook_name) {
+		$result = '';
+		foreach (self::$hook_list[$hook_name]['list'] as $function) {
+			$result = $result . call_user_func($function);
 		}
 		return $result;
 	}
