@@ -153,7 +153,7 @@ Note that prebuilt images are less recent and only available for x64 (Intel, AMD
 # First time only
 git clone https://github.com/FreshRSS/FreshRSS.git
 
-cd ./FreshRSS/
+cd FreshRSS/
 git pull
 docker build --pull --tag freshrss/freshrss -f Docker/Dockerfile .
 ```
