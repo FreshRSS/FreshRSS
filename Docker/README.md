@@ -155,8 +155,7 @@ git clone https://github.com/FreshRSS/FreshRSS.git
 
 cd ./FreshRSS/
 git pull
-sudo docker pull ubuntu:18.10
-sudo docker build --tag freshrss/freshrss -f Docker/Dockerfile .
+sudo docker build --pull --tag freshrss/freshrss -f Docker/Dockerfile .
 ```
 
 
