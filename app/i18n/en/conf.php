@@ -21,6 +21,7 @@ return array(
 			'publication_date' => 'Date of publication',
 			'related_tags' => 'Article tags',
 			'sharing' => 'Sharing',
+			'display_authors' => 'Display Authors',
 			'top_line' => 'Top line',
 		),
 		'language' => 'Language',
