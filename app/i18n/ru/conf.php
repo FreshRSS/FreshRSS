@@ -21,7 +21,7 @@ return array(
 			'publication_date' => 'Date of publication',	//TODO - Translation
 			'related_tags' => 'Related tags',	//TODO - Translation
 			'sharing' => 'Sharing',	//TODO - Translation
-			'display_authors' => 'Authors',
+			'display_authors' => 'Authors',  //TODO - Translation
 			'top_line' => 'Top line',	//TODO - Translation
 		),
 		'language' => 'Язык',

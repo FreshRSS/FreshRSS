@@ -21,7 +21,7 @@ return array(
 			'publication_date' => '발행일',
 			'related_tags' => '관련 태그',
 			'sharing' => '공유',
-			'display_authors' => 'Authors',
+			'display_authors' => 'Authors',  //TODO - Translation
 			'top_line' => '상단',
 		),
 		'language' => '언어',

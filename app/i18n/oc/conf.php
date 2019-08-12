@@ -21,7 +21,7 @@ return array(
 			'publication_date' => 'Data de publicacion',
 			'related_tags' => 'Etiquetas ligadas',
 			'sharing' => 'Partatge',
-			'display_authors' => 'Authors',
+			'display_authors' => 'Authors',  //TODO - Translation
 			'top_line' => 'Linha amont',
 		),
 		'language' => 'Lenga',
