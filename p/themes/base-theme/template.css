@@ -571,9 +571,9 @@ a.btn {
 }
 .flux .item.author {
 	color: #555;
-	font-size: 11px;
+	font-size: .7rem;
 	font-weight: normal;
-	white-space:normal;
+	white-space: normal;
 }
 .flux .item.date {
 	width: 155px;

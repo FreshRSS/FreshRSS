@@ -21,6 +21,7 @@ return array(
 			'publication_date' => 'Yayınlama Tarihi',
 			'related_tags' => 'İlgili etiketler',	//TODO - Translation
 			'sharing' => 'Paylaşım',
+			'display_authors' => 'Authors',
 			'top_line' => 'Üst çizgi',
 		),
 		'language' => 'Dil',

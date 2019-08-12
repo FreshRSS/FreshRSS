@@ -21,7 +21,7 @@ return array(
 			'publication_date' => 'Publicatie datum',
 			'related_tags' => 'Gerelateerde labels',
 			'sharing' => 'Delen',
-			'display_authors' => 'Auteurs weergeven',
+			'display_authors' => 'Auteurs',
 			'top_line' => 'Bovenaan',
 		),
 		'language' => 'Taal',
