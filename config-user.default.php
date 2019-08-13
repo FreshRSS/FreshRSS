@@ -1,5 +1,7 @@
 <?php
 
+# Do not modify this file, which defines default values,
+# but edit `./data/config-user.php` instead, after the install process is completed.
 return array (
 	'language' => 'en',
 	'old_entries' => 3,

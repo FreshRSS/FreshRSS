@@ -181,8 +181,8 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 	}
 
 	public static function createUser($new_user_name, $passwordPlain, $apiPasswordPlain, $userConfig = array(), $insertDefaultFeeds = true) {
-		if (!is_array($userConfig)) {
-			$userConfig = array();
+		if (!is_array($userConfig) || empty($userConfig)) {
+			$userConfig = Minz_Configuration::load(join_path(DATA_PATH, 'config-user.php'));
 		}
 
 		$ok = self::checkUsername($new_user_name);
@@ -233,8 +233,10 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 			$new_user_name = Minz_Request::param('new_user_name');
 			$passwordPlain = Minz_Request::param('new_user_passwordPlain', '', true);
 			$new_user_language = Minz_Request::param('new_user_language', FreshRSS_Context::$user_conf->language);
+			$userConfig = Minz_Configuration::load(join_path(DATA_PATH, 'config-user.php'));
+			$userConfig['language'] = $new_user_language;
 
-			$ok = self::createUser($new_user_name, $passwordPlain, '', array('language' => $new_user_language));
+			$ok = self::createUser($new_user_name, $passwordPlain, '', $userConfig);
 			Minz_Request::_param('new_user_passwordPlain');	//Discard plain-text password ASAP
 			$_POST['new_user_passwordPlain'] = '';
 			invalidateHttpCache();
