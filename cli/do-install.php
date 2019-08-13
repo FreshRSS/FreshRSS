@@ -82,7 +82,7 @@ if (file_put_contents(join_path(DATA_PATH, 'config.php'),
 	fail('FreshRSS could not write configuration file!: ' . join_path(DATA_PATH, 'config.php'));
 }
 
-$default_user_params=Minz_Configuration::load(join_path(FRESHRSS_PATH, 'config-user.default.php'));
+$default_user_params = Minz_Configuration::load(join_path(FRESHRSS_PATH, 'config-user.default.php'));
 if (file_put_contents(join_path(DATA_PATH, 'config-user.php'),
 	"<?php\n return " . var_export($default_user_params, true) . ";\n") === false) {
 	fail('FreshRSS could not write config-user.php!: ' . join_path(DATA_PATH, 'config-user.php'));

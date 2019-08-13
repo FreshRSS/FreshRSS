@@ -222,8 +222,8 @@ function saveStep3() {
 		@unlink(join_path(DATA_PATH, 'config.php'));	//To avoid access-rights problems
 		@unlink(join_path(DATA_PATH, 'config-user.php'));	//To avoid access-rights problems
 		file_put_contents(join_path(DATA_PATH, 'config.php'), "<?php\n return " . var_export($config_array, true) . ";\n");
-		$default_user_params=Minz_Configuration::load(join_path(FRESHRSS_PATH, 'config-user.default.php'));
-		file_put_contents(join_path(DATA_PATH, 'config-user.php'),"<?php\n return " . var_export($default_user_params, true) . ";\n");
+		$default_user_params = Minz_Configuration::load(join_path(FRESHRSS_PATH, 'config-user.default.php'));
+		file_put_contents(join_path(DATA_PATH, 'config-user.php'), "<?php\n return " . var_export($default_user_params, true) . ";\n");
 
 		$config_array['db']['default_user'] = $config_array['default_user'];
 		$config_array['db']['prefix_user'] = $_SESSION['bd_prefix_user'];
