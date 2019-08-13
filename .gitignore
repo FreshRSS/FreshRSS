@@ -16,3 +16,4 @@ constants.local.php
 *.sass-cache
 sass.sh
 .idea
+*.iml
