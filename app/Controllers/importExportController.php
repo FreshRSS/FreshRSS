@@ -773,7 +773,7 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 		if (!Minz_Request::isPost()) {
 			Minz_Request::forward(array('c' => 'importExport', 'a' => 'index'), true);
 		}
-		$this->view->_useLayout(false);
+		$this->view->_layout(false);
 
 		$nb_files = 0;
 		try {

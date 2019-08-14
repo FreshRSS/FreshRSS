@@ -649,6 +649,13 @@ a.btn {
 	text-decoration: none;
 }
 
+.flux .item.author {
+	color: #555;
+	font-size: .7rem;
+	font-weight: normal;
+	white-space: normal;
+}
+
 .flux .item.date {
 	width: 155px;
 	text-align: right;

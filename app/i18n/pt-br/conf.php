@@ -21,6 +21,7 @@ return array(
 			'publication_date' => 'Data da publicação',
 			'related_tags' => 'Tags relacionadas',	//TODO - Translation
 			'sharing' => 'Compartilhar',
+			'display_authors' => 'Authors',  //TODO - Translation
 			'top_line' => 'Linha superior',
 		),
 		'language' => 'Ídioma',

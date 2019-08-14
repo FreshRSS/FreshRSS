@@ -21,6 +21,7 @@ return array(
 			'publication_date' => 'Datum vydání',
 			'related_tags' => 'Související tagy',	//TODO - Translation
 			'sharing' => 'Sdílení',
+			'display_authors' => 'Authors',  //TODO - Translation
 			'top_line' => 'Horní řádek',
 		),
 		'language' => 'Jazyk',
