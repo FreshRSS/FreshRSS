@@ -358,18 +358,24 @@ class HelloWorldExtension extends Minz_Extension
         $entry->_content('<h1>Hello World</h1>' . $entry->content());
         return $entry;
     }
-}    
+}
 ```
+
 The following events are available:
 
-- `entry_before_display` (`function($entry) -> Entry | null`) : will be executed every time an entry is rendered. The entry itself (instance of FreshRSS_Entry) will be passed as parameter. 
-- `entry_before_insert` (`function($entry) -> Entry | null`) : will be executed when a feed is refreshed and new entries will be imported into the database. The new entry (instance of FreshRSS_Entry) will be passed as parameter. 
-- `feed_before_insert` (`function($feed) -> Feed | null`) : will be executed when a new feed is imported into the database. The new feed (instance of FreshRSS_Feed) will be passed as parameter. 
-- `post_update` (`function(none) -> none`) : **TODO** add documentation
-- `simplepie_before_init` (`function($simplePie, $feed) -> none`) : **TODO** add documentation
+- `entry_before_display` (`function($entry) -> Entry | null`): will be executed every time an entry is rendered. The entry itself (instance of FreshRSS\_Entry) will be passed as parameter.
+- `entry_before_insert` (`function($entry) -> Entry | null`): will be executed when a feed is refreshed and new entries will be imported into the database. The new entry (instance of FreshRSS\_Entry) will be passed as parameter.
+- `feed_before_insert` (`function($feed) -> Feed | null`): will be executed when a new feed is imported into the database. The new feed (instance of FreshRSS\_Feed) will be passed as parameter.
+- `freshrss_init` (`function() -> none`): will be executed at the end of the initialization of FreshRSS, useful to initialize components or to do additional access checks
+- `menu_admin_entry` (`function() -> string`): add an entry at the end of the "Administration" menu, the returned string must be valid HTML (e.g. `<li class="item active"><a href="url">New entry</a></li>`)
+- `menu_configuration_entry` (`function() -> string`): add an entry at the end of the "Configuration" menu, the returned string must be valid HTML (e.g. `<li class="item active"><a href="url">New entry</a></li>`)
+- `menu_other_entry` (`function() -> string`): add an entry at the end of the header dropdown menu (i.e. after the "About" entry), the returned string must be valid HTML (e.g. `<li class="item active"><a href="url">New entry</a></li>`)
+- `nav_reading_modes` (`function($reading_modes) -> array | null`): **TODO** add documentation
+- `post_update` (`function(none) -> none`): **TODO** add documentation
+- `simplepie_before_init` (`function($simplePie, $feed) -> none`): **TODO** add documentation
 
 ### Writing your own configure.phtml
 
-When you want to support user configurations for your extension or simply display some information, you have to create the `configure.phtml` file. 
+When you want to support user configurations for your extension or simply display some information, you have to create the `configure.phtml` file.
 
 **TODO**

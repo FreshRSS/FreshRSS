@@ -53,6 +53,8 @@ class FreshRSS extends Minz_FrontController {
 			$ext_list = FreshRSS_Context::$user_conf->extensions_enabled;
 			Minz_ExtensionManager::enableByList($ext_list);
 		}
+
+		Minz_ExtensionManager::callHook('freshrss_init');
 	}
 
 	private static function initAuth() {
