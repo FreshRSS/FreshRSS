@@ -257,6 +257,9 @@ class FreshRSS_ConfigurationSetter {
 	private function _topline_read(&$data, $value) {
 		$data['topline_read'] = $this->handleBool($value);
 	}
+	private function _topline_display_authors(&$data, $value) {
+		$data['topline_display_authors'] = $this->handleBool($value);
+	}
 
 	/**
 	 * The (not so long) list of setters for system configuration.

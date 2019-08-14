@@ -21,6 +21,7 @@ return array(
 			'publication_date' => 'תאריך הפרסום',
 			'related_tags' => 'תגיות קשורות',	//TODO - Translation
 			'sharing' => 'שיתוף',
+			'display_authors' => 'Authors',  //TODO - Translation
 			'top_line' => 'שורה עליונה',
 		),
 		'language' => 'שפה',

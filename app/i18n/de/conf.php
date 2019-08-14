@@ -21,6 +21,7 @@ return array(
 			'publication_date' => 'Datum der Veröffentlichung',
 			'related_tags' => 'Verwandte Tags',
 			'sharing' => 'Teilen',
+			'display_authors' => 'Authors',  //TODO - Translation
 			'top_line' => 'Kopfzeile',
 		),
 		'language' => 'Sprache',

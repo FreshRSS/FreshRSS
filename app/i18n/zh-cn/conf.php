@@ -21,6 +21,7 @@ return array(
 			'publication_date' => '更新日期',
 			'related_tags' => '相关标签',
 			'sharing' => '分享',
+			'display_authors' => 'Authors',  //TODO - Translation
 			'top_line' => '顶栏',
 		),
 		'language' => '语言',

@@ -67,6 +67,7 @@ return array (
 	),
 	'topline_read' => true,
 	'topline_favorite' => true,
+	'topline_display_authors' => false,
 	'topline_date' => true,
 	'topline_link' => true,
 	'bottomline_read' => true,
