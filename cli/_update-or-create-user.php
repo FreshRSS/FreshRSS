@@ -41,15 +41,16 @@ function intParam($name) {
 	return isset($options[$name]) && ctype_digit($options[$name]) ? intval($options[$name]) : null;
 }
 
-$values = Minz_Configuration::load(join_path(DATA_PATH, 'config-user.php'));
-$values['language'] = strParam('language');
-$values['mail_login'] = strParam('email');
-$values['token'] = strParam('token');
-$values['old_entries'] = intParam('purge_after_months');
-$values['keep_history_default'] = intParam('feed_min_articles_default');
-$values['ttl_default'] = intParam('feed_ttl_default');
-$values['since_hours_posts_per_rss'] = intParam('since_hours_posts_per_rss');
-$values['min_posts_per_rss'] = intParam('min_posts_per_rss');
-$values['max_posts_per_rss'] = intParam('max_posts_per_rss');
+$values = array(
+		'language' => strParam('language'),
+		'mail_login' => strParam('email'),
+		'token' => strParam('token'),
+		'old_entries' => intParam('purge_after_months'),
+		'keep_history_default' => intParam('feed_min_articles_default'),
+		'ttl_default' => intParam('feed_ttl_default'),
+		'since_hours_posts_per_rss' => intParam('since_hours_posts_per_rss'),
+		'min_posts_per_rss' => intParam('min_posts_per_rss'),
+		'max_posts_per_rss' => intParam('max_posts_per_rss'),
+	);
 
 $values = array_filter($values);

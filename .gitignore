@@ -15,5 +15,3 @@ constants.local.php
 *.autosave
 *.sass-cache
 sass.sh
-.idea
-*.iml
