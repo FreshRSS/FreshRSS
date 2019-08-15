@@ -144,6 +144,24 @@ return array(
 
 	),
 
+	# Configuration to send emails. Be aware that PHP < 5.5 are not supported.
+	# These options are basically a mapping of the PHPMailer class attributes
+	# from the PHPMailer library.
+	#
+	# See http://phpmailer.github.io/PHPMailer/classes/PHPMailer.PHPMailer.PHPMailer.html#properties
+	'mailer' => 'mail', // 'mail' or 'smtp'
+	'smtp' => array(
+		'hostname' => '', // the domain used in the Message-ID header
+		'host' => 'localhost', // the SMTP server address
+		'port' => 25,
+		'auth' => false,
+		'auth_type' => '', // 'CRAM-MD5', 'LOGIN', 'PLAIN', 'XOAUTH2' or ''
+		'username' => '',
+		'password' => '',
+		'secure' => '', // '', 'ssl' or 'tls'
+		'from' => 'noreply@localhost',
+	),
+
 	# List of enabled FreshRSS extensions.
 	'extensions_enabled' => array(
 		'Tumblr-GDPR' => true,

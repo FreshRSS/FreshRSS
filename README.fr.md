@@ -213,6 +213,7 @@ Tout client supportant une API de type Fever ; Sélection :
 * [jQuery](https://jquery.com/)
 * [lib_opml](https://github.com/marienfressinaud/lib_opml)
 * [flotr2](http://www.humblesoftware.com/flotr2)
+* [PHPMailer](https://github.com/PHPMailer/PHPMailer)
 
 ## Uniquement pour certaines options ou configurations
 * [bcrypt.js](https://github.com/dcodeIO/bcrypt.js)

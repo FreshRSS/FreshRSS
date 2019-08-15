@@ -6,6 +6,7 @@
 	<exclude-pattern>./static</exclude-pattern>
 	<exclude-pattern>./vendor</exclude-pattern>
 	<exclude-pattern>./lib/SimplePie/</exclude-pattern>
+	<exclude-pattern>./lib/PHPMailer/</exclude-pattern>
 	<exclude-pattern>./lib/http-conditional.php</exclude-pattern>
 	<exclude-pattern>./lib/JSON.php</exclude-pattern>
 	<exclude-pattern>./lib/lib_phpQuery.php</exclude-pattern>

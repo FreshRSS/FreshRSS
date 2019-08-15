@@ -213,6 +213,7 @@ Supported clients are:
 * [jQuery](https://jquery.com/)
 * [lib_opml](https://github.com/marienfressinaud/lib_opml)
 * [flotr2](http://www.humblesoftware.com/flotr2)
+* [PHPMailer](https://github.com/PHPMailer/PHPMailer)
 
 ## Only for some options or configurations
 * [bcrypt.js](https://github.com/dcodeIO/bcrypt.js)
