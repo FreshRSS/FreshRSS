@@ -30,12 +30,7 @@ env:
 matrix:
   fast_finish: true
   include:
-    # PHP 5.3 only runs on Ubuntu 12.04 (precise), not 14.04 (trusty)
-    - php: "5.3"
-      dist: precise
-    # PHP 5.4 & 5.5 only run on Travis in 14.04 (trusty), not 16.04 (xenial)
-    - php: "5.4"
-      dist: trusty
+    # PHP 5.5 only run on Travis in 14.04 (trusty), not 16.04 (xenial)
     - php: "5.5"
       dist: trusty
     - php: "7.2"

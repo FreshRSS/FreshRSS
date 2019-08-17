@@ -103,7 +103,7 @@ class Minz_ModelPdo {
 		$this->bd->beginTransaction();
 	}
 	public function inTransaction() {
-		return $this->bd->inTransaction();	//requires PHP >= 5.3.3
+		return $this->bd->inTransaction();
 	}
 	public function commit() {
 		$this->bd->commit();

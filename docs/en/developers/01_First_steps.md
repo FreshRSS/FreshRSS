@@ -148,26 +148,9 @@ abstract class ClassName {}
 
 Files must be encoded with UTF-8 character set.
 
-## PHP 5.3 compatibility
+## PHP compatibility
 
-Do not get an array item directly from a function or a method. Use a variable.
-
-```php
-// code with PHP 5.3 compatibility
-$my_variable = function_returning_an_array();
-echo $my_variable[0];
-// code without PHP 5.3 compatibility
-echo function_returning_an_array()[0];
-```
-
-Do not use short array declaration.
-
-```php
-// code with PHP 5.3 compatibility
-$variable = array();
-// code without PHP 5.3 compatibility
-$variable = [];
-```
+Ensure that your code is working with a PHP version as old as what FreshRSS officially supports.
 
 ## Miscellaneous
 

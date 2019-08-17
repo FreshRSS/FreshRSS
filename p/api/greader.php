@@ -43,11 +43,7 @@ if (PHP_INT_SIZE < 8) {	//32-bit
 	}
 }
 
-if (version_compare(PHP_VERSION, '5.4.0') >= 0) {
-	define('JSON_OPTIONS', JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
-} else {
-	define('JSON_OPTIONS', 0);
-}
+define('JSON_OPTIONS', JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
 
 function headerVariable($headerName, $varName) {
 	$header = '';
@@ -182,10 +178,6 @@ function authorizationToUser() {
 
 function clientLogin($email, $pass) {	//http://web.archive.org/web/20130604091042/http://undoc.in/clientLogin.html
 	if (FreshRSS_user_Controller::checkUsername($email)) {
-		if (!function_exists('password_verify')) {
-			include_once(LIB_PATH . '/password_compat.php');
-		}
-
 		FreshRSS_Context::$user_conf = get_user_configuration($email);
 		if (FreshRSS_Context::$user_conf == null) {
 			Minz_Log::warning('Invalid API user ' . $email . ': configuration cannot be found.');
