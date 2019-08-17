@@ -130,15 +130,16 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 		Minz_View::appendScript(Minz_Url::display('/scripts/bcrypt.min.js?' . @filemtime(PUBLIC_PATH . '/scripts/bcrypt.min.js')));
 
 		if (Minz_Request::isPost()) {
+			$system_conf = FreshRSS_Context::$system_conf;
+			$user_config = FreshRSS_Context::$user_conf;
+			$old_email = $user_config->mail_login;
+
 			$email = Minz_Request::param('email', '');
 			$passwordPlain = Minz_Request::param('newPasswordPlain', '', true);
 			Minz_Request::_param('newPasswordPlain');	//Discard plain-text password ASAP
 			$_POST['newPasswordPlain'] = '';
 
 			$apiPasswordPlain = Minz_Request::param('apiPasswordPlain', '', true);
-
-			$user_config = FreshRSS_Context::$user_conf;
-			$old_email = $user_config->mail_login;
 
 			$ok = self::updateUser(
 				Minz_Session::param('currentUser'),
@@ -153,7 +154,7 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 			Minz_Session::_param('passwordHash', FreshRSS_Context::$user_conf->passwordHash);
 
 			if ($ok) {
-				if ($email !== $old_email) {
+				if ($system_conf->force_email_validation && $email !== $old_email) {
 					Minz_Request::good(_t('feedback.profile.updated'), array('c' => 'user', 'a' => 'validateEmail'));
 				} elseif ($passwordPlain == '') {
 					Minz_Request::good(_t('feedback.profile.updated'), array('c' => 'user', 'a' => 'profile'));
