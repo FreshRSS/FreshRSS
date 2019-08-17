@@ -3,7 +3,7 @@ if (version_compare(PHP_VERSION, '5.5.0', '<')) {
 	die('FreshRSS error: FreshRSS requires PHP 5.5.0+!');
 }
 
-if (!function_exists('json_decode')) {
+if (!function_exists('json_decode')) {	//PHP bug #63520 < PHP 7
 	require_once(__DIR__ . '/JSON.php');
 	function json_decode($var, $assoc = false) {
 		$JSON = new Services_JSON($assoc ? SERVICES_JSON_LOOSE_TYPE : 0);
