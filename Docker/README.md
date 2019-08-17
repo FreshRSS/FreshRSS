@@ -79,16 +79,16 @@ docker run -d --restart unless-stopped --log-opt max-size=10m \
 
 This already works with a built-in **SQLite** database (easiest), but more powerful databases are supported:
 
-### [MySQL](https://hub.docker.com/_/mysql/)
+### [MySQL](https://hub.docker.com/_/mysql/) or [MariaDB](https://hub.docker.com/_/mariadb)
 ```sh
-# If you already have a MySQL instance running, just attach it to the FreshRSS network:
+# If you already have a MySQL or MariaDB instance running, just attach it to the FreshRSS network:
 docker network connect freshrss-network mysql
 
 # Otherwise, start a new MySQL instance, remembering to change the passwords:
 docker volume create mysql-data
 docker run -d --restart unless-stopped --log-opt max-size=10m \
   -v mysql-data:/var/lib/mysql \
-  -e MYSQL_ROOT_PASSWORD=rootpass
+  -e MYSQL_ROOT_PASSWORD=rootpass \
   -e MYSQL_DATABASE=freshrss \
   -e MYSQL_USER=freshrss \
   -e MYSQL_PASSWORD=pass \
