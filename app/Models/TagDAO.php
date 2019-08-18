@@ -139,6 +139,24 @@ class FreshRSS_TagDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 		}
 	}
 
+	public function select() {
+		$sql = 'SELECT id, name, attributes FROM `' . $this->prefix . 'tag`';
+		$stm = $this->bd->prepare($sql);
+		$stm->execute();
+		while ($row = $stm->fetch(PDO::FETCH_ASSOC)) {
+			yield $row;
+		}
+	}
+
+	public function selectEntryTag() {
+		$sql = 'SELECT id_tag, id_entry FROM `' . $this->prefix . 'entrytag`';
+		$stm = $this->bd->prepare($sql);
+		$stm->execute();
+		while ($row = $stm->fetch(PDO::FETCH_ASSOC)) {
+			yield $row;
+		}
+	}
+
 	public function searchById($id) {
 		$sql = 'SELECT * FROM `' . $this->prefix . 'tag` WHERE id=?';
 		$stm = $this->bd->prepare($sql);

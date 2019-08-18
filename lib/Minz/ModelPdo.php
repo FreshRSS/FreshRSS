@@ -35,9 +35,16 @@ class Minz_ModelPdo {
 	 * Créé la connexion à la base de données à l'aide des variables
 	 * HOST, BASE, USER et PASS définies dans le fichier de configuration
 	 */
-	public function __construct($currentUser = null) {
+	public function __construct($currentUser = null, $currentPrefix = null, $currentDb = null) {
 		if ($currentUser === null) {
 			$currentUser = Minz_Session::param('currentUser');
+		}
+		if ($currentPrefix !== null) {
+			$this->prefix = $currentPrefix;
+		}
+		if ($currentDb != null) {
+			$this->bd = $currentDb;
+			return;
 		}
 		if (self::$useSharedBd && self::$sharedBd != null &&
 			($currentUser == null || $currentUser === self::$sharedCurrentUser)) {

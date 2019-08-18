@@ -152,9 +152,9 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 
 	private $addEntryPrepared = null;
 
-	public function addEntry($valuesTmp) {
+	public function addEntry($valuesTmp, $useTmpTable = true) {
 		if ($this->addEntryPrepared == null) {
-			$sql = 'INSERT INTO `' . $this->prefix . 'entrytmp` (id, guid, title, author, '
+			$sql = 'INSERT INTO `' . $this->prefix . ($useTmpTable ? 'entrytmp' : 'entry') . '` (id, guid, title, author, '
 				. ($this->isCompressed() ? 'content_bin' : 'content')
 				. ', link, date, `lastSeen`, hash, is_read, is_favorite, id_feed, tags) '
 				. 'VALUES(:id, :guid, :title, :author, '
@@ -634,6 +634,18 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 			}
 			Minz_Log::error('SQL error cleanOldEntries: ' . $info[2]);
 			return false;
+		}
+	}
+
+	public function select() {
+		$sql = 'SELECT id, guid, title, author, '
+			. ($this->isCompressed() ? 'UNCOMPRESS(content_bin) AS content' : 'content')
+			. ', link, date, `lastSeen`, ' . $this->sqlHexEncode('hash') . ' AS hash, is_read, is_favorite, id_feed, tags '
+			. 'FROM `' . $this->prefix . 'entry`';
+		$stm = $this->bd->prepare($sql);
+		$stm->execute();
+		while ($row = $stm->fetch(PDO::FETCH_ASSOC)) {
+			yield $row;	//PHP 5.5+
 		}
 	}
 

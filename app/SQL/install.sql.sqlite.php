@@ -91,7 +91,7 @@ $SQL_CREATE_TABLE_TAGS = array(
 );',
 'CREATE TABLE IF NOT EXISTS `entrytag` (
 	`id_tag` SMALLINT,
-	`id_entry` SMALLINT,
+	`id_entry` BIGINT,
 	PRIMARY KEY (`id_tag`,`id_entry`),
 	FOREIGN KEY (`id_tag`) REFERENCES `tag` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
 	FOREIGN KEY (`id_entry`) REFERENCES `entry` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
