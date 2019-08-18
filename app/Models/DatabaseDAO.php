@@ -259,8 +259,7 @@ class FreshRSS_DatabaseDAO extends Minz_ModelPdo {
 			$idMaps['c' . $category['id']] = $catId;
 		}
 		foreach ($feedFrom->select() as $feed) {
-			$feed['category'] = empty($idMaps['c' . $feed['category']]) ?
-				FreshRSS_CategoryDAO::DEFAULTCATEGORYID : $idMaps['c' . $feed['category']];
+			$feed['category'] = empty($idMaps['c' . $feed['category']]) ? FreshRSS_CategoryDAO::DEFAULTCATEGORYID : $idMaps['c' . $feed['category']];
 			$feedId = $feedTo->addFeed($feed);
 			if ($feedId == false) {
 				$error .= ' Error during SQLite copy of feeds!';
@@ -285,7 +284,6 @@ class FreshRSS_DatabaseDAO extends Minz_ModelPdo {
 			}
 			if ($n % 100 === 1 && defined('STDERR')) {
 				fwrite(STDERR, "\033[0G" . $n . '/' . $total);
-				sleep(1);
 			}
 		}
 		if (defined('STDERR')) {
