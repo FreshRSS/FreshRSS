@@ -72,6 +72,7 @@ class Minz_ModelPdo {
 					$driver_options[PDO::MYSQL_ATTR_INIT_COMMAND] = 'SET NAMES utf8mb4';
 					$this->prefix = $db['prefix'] . $currentUser . '_';
 					$this->bd = new MinzPDOMySql($string, $db['user'], $db['password'], $driver_options);
+					$this->bd->setAttribute(PDO::MYSQL_ATTR_USE_BUFFERED_QUERY, false);
 					break;
 				case 'sqlite':
 					$string = 'sqlite:' . join_path(DATA_PATH, 'users', $currentUser, 'db.sqlite');
