@@ -269,8 +269,7 @@ class FreshRSS_DatabaseDAO extends Minz_ModelPdo {
 		}
 		$catTo->commit();
 
-		$nbEntries = $entryFrom->countUnreadRead();
-		$total = $nbEntries['all'];
+		$nbEntries = $entryFrom->count();
 		$n = 0;
 		$entryTo->beginTransaction();
 		foreach ($entryFrom->select() as $entry) {
@@ -282,12 +281,12 @@ class FreshRSS_DatabaseDAO extends Minz_ModelPdo {
 					goto done;
 				}
 			}
-			if ($n % 100 === 1 && defined('STDERR')) {
-				fwrite(STDERR, "\033[0G" . $n . '/' . $total);
+			if ($n % 100 === 1 && defined('STDERR')) {	//Display progression
+				fwrite(STDERR, "\033[0G" . $n . '/' . $nbEntries);
 			}
 		}
 		if (defined('STDERR')) {
-			fwrite(STDERR, "\033[0G" . $n . '/' . $total . "\n");
+			fwrite(STDERR, "\033[0G" . $n . '/' . $nbEntries . "\n");
 		}
 		$entryTo->commit();
 		$feedTo->updateCachedValues();
