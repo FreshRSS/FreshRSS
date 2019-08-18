@@ -3,11 +3,11 @@
 class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 
 	public function isCompressed() {
-		return parent::$sharedDbType === 'mysql';
+		return true;
 	}
 
 	public function hasNativeHex() {
-		return parent::$sharedDbType !== 'sqlite';
+		return true;
 	}
 
 	public function sqlHexDecode($x) {

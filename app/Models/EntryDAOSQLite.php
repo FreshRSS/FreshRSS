@@ -2,6 +2,14 @@
 
 class FreshRSS_EntryDAOSQLite extends FreshRSS_EntryDAO {
 
+	public function isCompressed() {
+		return false;
+	}
+
+	public function hasNativeHex() {
+		return false;
+	}
+
 	public function sqlHexDecode($x) {
 		return $x;
 	}
