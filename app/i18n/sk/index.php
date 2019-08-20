@@ -36,7 +36,7 @@ return array(
 		'before_one_week' => 'Pred 1 týždňom',
 		'favorites' => 'Obľúbené (%s)',
 		'global_view' => 'Prehľad',
-		'main_stream' => 'Všetky kanály,
+		'main_stream' => 'Všetky kanály',
 		'mark_all_read' => 'Označiť všetko ako prečítané',
 		'mark_cat_read' => 'Označiť kategóriu ako prečítanú',
 		'mark_feed_read' => 'Označiť kanál ako prečítaný',
