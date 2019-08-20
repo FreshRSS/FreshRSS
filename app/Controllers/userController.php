@@ -9,9 +9,6 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 	const BCRYPT_COST = 9;
 
 	public static function hashPassword($passwordPlain) {
-		if (!function_exists('password_hash')) {
-			include_once(LIB_PATH . '/password_compat.php');
-		}
 		$passwordHash = password_hash($passwordPlain, PASSWORD_BCRYPT, array('cost' => self::BCRYPT_COST));
 		$passwordPlain = '';
 		$passwordHash = preg_replace('/^\$2[xy]\$/', '\$2a\$', $passwordHash);	//Compatibility with bcrypt.js

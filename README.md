@@ -43,7 +43,7 @@ FreshRSS comes with absolutely no warranty.
 * Light server running Linux or Windows
 	* It even works on Raspberry Pi 1 with response time under a second (tested with 150 feeds, 22k articles)
 * A web server: Apache2 (recommended), nginx, lighttpd (not tested on others)
-* PHP 5.3.8+ (PHP 5.4+ recommended, and PHP 5.5+ for performance, or PHP 7 for even higher performance)
+* PHP 5.5+ (PHP 7+ recommended for higher performance)
 	* Required extensions: [cURL](https://secure.php.net/curl), [DOM](https://secure.php.net/dom), [XML](https://secure.php.net/xml), [session](https://secure.php.net/session), [ctype](https://secure.php.net/ctype), and [PDO_MySQL](https://secure.php.net/pdo-mysql) or [PDO_SQLite](https://secure.php.net/pdo-sqlite) or [PDO_PGSQL](https://secure.php.net/pdo-pgsql)
 	* Recommended extensions: [JSON](https://secure.php.net/json), [GMP](https://secure.php.net/gmp) (for API access on 32-bit platforms), [IDN](https://secure.php.net/intl.idn) (for Internationalized Domain Names), [mbstring](https://secure.php.net/mbstring) (for Unicode strings), [iconv](https://secure.php.net/iconv) (for charset conversion), [ZIP](https://secure.php.net/zip) (for import/export), [zlib](https://secure.php.net/zlib) (for compressed feeds)
 * MySQL 5.5.3+ (recommended) or MariaDB equivalent, or SQLite 3.7.4+, or PostgreSQL 9.2+
@@ -219,7 +219,6 @@ Supported clients are:
 * [bcrypt.js](https://github.com/dcodeIO/bcrypt.js)
 * [phpQuery](https://github.com/phpquery/phpquery)
 * [Services_JSON](https://pear.php.net/pepr/pepr-proposal-show.php?id=198)
-* [password_compat](https://github.com/ircmaxell/password_compat)
 
 [travis-badge]:https://travis-ci.org/FreshRSS/FreshRSS.svg?branch=master
 [travis-link]:https://travis-ci.org/FreshRSS/FreshRSS

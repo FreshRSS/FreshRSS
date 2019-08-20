@@ -219,10 +219,6 @@ class FreshRSS_FormAuth {
 			return false;
 		}
 
-		if (!function_exists('password_verify')) {
-			include_once(LIB_PATH . '/password_compat.php');
-		}
-
 		return password_verify($nonce . $hash, $challenge);
 	}
 
@@ -283,8 +279,7 @@ class FreshRSS_FormAuth {
 		$cookie_duration = empty($limits['cookie_duration']) ? 2592000 : $limits['cookie_duration'];
 		$oldest = time() - $cookie_duration;
 		foreach (new DirectoryIterator(DATA_PATH . '/tokens/') as $file_info) {
-			// $extension = $file_info->getExtension(); doesn't work in PHP < 5.3.7
-			$extension = pathinfo($file_info->getFilename(), PATHINFO_EXTENSION);
+			$extension = $file_info->getExtension();
 			if ($extension === 'txt' && $file_info->getMTime() < $oldest) {
 				@unlink($file_info->getPathname());
 			}
