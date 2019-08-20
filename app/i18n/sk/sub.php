@@ -68,7 +68,7 @@ return array(
 		'ttl' => 'Automaticky neaktualizovať častejšie ako',
 		'url' => 'Odkaz kanála',
 		'validator' => 'Skontrolovať platnosť kanála',
-		'website' => 'Odkaz webovej stránky,
+		'website' => 'Odkaz webovej stránky',
 	),
 	'firefox' => array(
 		'documentation' => 'Pridajte RSS kanály do Firefoxu <a href="https://developer.mozilla.org/en-US/Firefox/Releases/2/Adding_feed_readers_to_Firefox#Adding_a_new_feed_reader_manually">pomocou tohto návodu</a>.',
