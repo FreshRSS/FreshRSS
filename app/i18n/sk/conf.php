@@ -17,6 +17,7 @@ return array(
 		'_' => 'Zobrazenie',
 		'icon' => array(
 			'bottom_line' => 'Spodný riadok',
+			'display_authors' => 'Authors',  //TODO - Translation
 			'entry' => 'Ikony článku',
 			'publication_date' => 'Dátum zverejnenia',
 			'related_tags' => 'Značky článku',
