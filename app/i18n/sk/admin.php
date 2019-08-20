@@ -88,8 +88,8 @@ return array(
 			'ok' => 'Vaša verzia PHP %s je kompatibilná s FreshRSS.',
 		),
 		'tables' => array(
-			'nok' => 'There are one or more missing tables in the database.',
-			'ok' => 'The appropriate tables exist in the database.',
+			'nok' => 'V databáze chýba jedna alebo viacero tabuliek.',
+			'ok' => 'V databáze sa nachádzajú všetky potrebné tabuľky.',
 		),
 		'title' => 'Kontrola inštalácie',
 		'tokens' => array(
