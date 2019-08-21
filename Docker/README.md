@@ -251,7 +251,7 @@ docker run --rm -p 8080:80 -e TZ=Europe/Paris -e FRESHRSS_ENV=development \
 ```
 
 This will start a server on port 8080, based on your local PHP code, which will show the logs directly in your terminal.
-Press `[control]`+`[c]` to exit.
+Press <kbd>Control</kbd>+<kbd>c</kbd> to exit.
 
 The `FRESHRSS_ENV=development` environment variable increases the level of logging and ensures that errors are displayed.
 
