@@ -804,8 +804,10 @@ function init_shortcuts() {
 					mark_read(document.querySelector('.flux.current'), true, false);
 				}
 				const newWindow = window.open();
-                                newWindow.opener = null;
-				newWindow.location = document.querySelector('.flux.current a.go_website').href;
+				if (newWindow) {
+					newWindow.opener = null;
+					newWindow.location = document.querySelector('.flux.current a.go_website').href;
+				}
 				return false;
 			}
 			if (k === s.skip_next_entry) { next_entry(true); return false; }
