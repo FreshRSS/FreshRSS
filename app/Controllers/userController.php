@@ -134,12 +134,28 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 			$user_config = FreshRSS_Context::$user_conf;
 			$old_email = $user_config->mail_login;
 
-			$email = Minz_Request::param('email', '');
+			$email = trim(Minz_Request::param('email', ''));
 			$passwordPlain = Minz_Request::param('newPasswordPlain', '', true);
 			Minz_Request::_param('newPasswordPlain');	//Discard plain-text password ASAP
 			$_POST['newPasswordPlain'] = '';
 
 			$apiPasswordPlain = Minz_Request::param('apiPasswordPlain', '', true);
+
+			if ($system_conf->force_email_validation && empty($email)) {
+				Minz_Request::bad(
+					_t('feedback.user.email.required'),
+					array('c' => 'user', 'a' => 'profile')
+				);
+				return;
+			}
+
+			if (!validateEmailAddress($email)) {
+				Minz_Request::bad(
+					_t('feedback.user.email.invalid'),
+					array('c' => 'user', 'a' => 'profile')
+				);
+				return;
+			}
 
 			$ok = self::updateUser(
 				Minz_Session::param('currentUser'),

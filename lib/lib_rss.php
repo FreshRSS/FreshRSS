@@ -294,6 +294,20 @@ function sanitizeHTML($data, $base = '') {
 }
 
 /**
+ * Validate an email address, supports internationalized addresses.
+ *
+ * @param string $email The address to validate
+ *
+ * @return bool true if email is valid, else false
+ */
+function validateEmailAddress($email) {
+	$mailer = new PHPMailer\PHPMailer\PHPMailer();
+	$mailer->Charset = 'utf-8';
+	$punyemail = $mailer->punyencodeAddress($email);
+	return PHPMailer\PHPMailer\PHPMailer::validateAddress($punyemail, 'html5');
+}
+
+/**
  * Add support of image lazy loading
  * Move content from src attribute to data-original
  * @param content is the text we want to parse
