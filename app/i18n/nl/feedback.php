@@ -75,7 +75,7 @@ return array(
 		),
 		'feed' => array(
 			'actualized' => '<em>%s</em> vernieuwd',
-			'actualizeds' => 'RSS feeds vernieuwd',
+			'actualizeds' => 'RSS-feeds vernieuwd',
 			'added' => 'RSS feed <em>%s</em> toegevoegd',
 			'already_subscribed' => 'Al geabonneerd op <em>%s</em>',
 			'deleted' => 'Feed verwijderd',
