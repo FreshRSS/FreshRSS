@@ -3,10 +3,6 @@
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
-require LIB_PATH . '/PHPMailer/PHPMailer.php';
-require LIB_PATH . '/PHPMailer/Exception.php';
-require LIB_PATH . '/PHPMailer/SMTP.php';
-
 /**
  * Allow to send emails.
  *

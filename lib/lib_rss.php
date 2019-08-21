@@ -57,6 +57,8 @@ function classAutoloader($class) {
 		include(LIB_PATH . '/' . str_replace('_', '/', $class) . '.php');
 	} elseif (strpos($class, 'SimplePie') === 0) {
 		include(LIB_PATH . '/SimplePie/' . str_replace('_', '/', $class) . '.php');
+	} elseif (strpos($class, 'PHPMailer') === 0) {
+		include(LIB_PATH . '/' . str_replace('\\', '/', $class) . '.php');
 	}
 }
 
