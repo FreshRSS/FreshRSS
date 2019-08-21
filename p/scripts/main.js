@@ -803,7 +803,11 @@ function init_shortcuts() {
 				if (context.auto_mark_site) {
 					mark_read(document.querySelector('.flux.current'), true, false);
 				}
-				window.open(document.querySelector('.flux.current a.go_website').href);
+				const newWindow = window.open();
+				if (newWindow) {
+					newWindow.opener = null;
+					newWindow.location = document.querySelector('.flux.current a.go_website').href;
+				}
 				return false;
 			}
 			if (k === s.skip_next_entry) { next_entry(true); return false; }
