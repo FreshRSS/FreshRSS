@@ -24,7 +24,7 @@
 	* Docker: Add automatic health check [#2438](https://github.com/FreshRSS/FreshRSS/pull/2438), [#2455](https://github.com/FreshRSS/FreshRSS/pull/2455)
 	* Docker: Add a version for ARM architecture such as for Raspberry Pi [#2436](https://github.com/FreshRSS/FreshRSS/pull/2436)
 	* Docker: Ubuntu image updated to 19.04 with PHP 7.2.19 and Apache 2.4.38 [#2422](https://github.com/FreshRSS/FreshRSS/pull/2422)
-	* Docker: Alpine image updated to 3.10 with PHP 7.3.7 and Apache 2.4.39 [#2238](https://github.com/FreshRSS/FreshRSS/pull/2238)
+	* Docker: Alpine image updated to 3.10 with PHP 7.3.8 and Apache 2.4.41 [#2238](https://github.com/FreshRSS/FreshRSS/pull/2238)
 	* Add `hadolint` automatic check of Docker files in Travis [#2456](https://github.com/FreshRSS/FreshRSS/pull/2456)
 * Security
 	* Allow `@-` as valid characters in usernames (i.e. allow most e-mails) [#2391](https://github.com/FreshRSS/FreshRSS/issues/2391)
