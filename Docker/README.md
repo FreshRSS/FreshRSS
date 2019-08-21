@@ -240,7 +240,7 @@ docker run -d --restart unless-stopped --log-opt max-size=10m \
 
 ## Development mode
 
-To contribute to the development of FreshRSS, one can use one of the Docker images to run and serve the PHP code,
+To contribute to FreshRSS development, you can use one of the Docker images to run and serve the PHP code,
 while reading the source code from your local (git) directory, like the following example:
 
 ```sh
