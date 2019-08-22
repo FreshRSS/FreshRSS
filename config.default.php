@@ -166,7 +166,7 @@ return array(
 		'username' => '',
 		'password' => '',
 		'secure' => '', // '', 'ssl' or 'tls'
-		'from' => 'noreply@localhost',
+		'from' => 'root@localhost',
 	),
 
 	# List of enabled FreshRSS extensions.
