@@ -383,25 +383,44 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 	 * It only acts on POST requests but doesn't require any param (except the
 	 * CSRF token).
 	 *
-	 * It returns 403 error if the user is not logged in, else it redirects to
-	 * the user#validateEmail route.
+	 * It returns 403 error if the user is not logged in or 404 if request is
+	 * not POST. Else it redirects silently to the index if user has already
+	 * validated its email, or to the user#validateEmail route.
 	 */
 	public function sendValidationEmailAction() {
 		if (!FreshRSS_Auth::hasAccess()) {
 			Minz_Error::error(403);
 		}
 
-		$username = Minz_Session::param('currentUser', '_');
-		$user_config = FreshRSS_Context::$user_conf;
-		if (Minz_Request::isPost() && $user_config->email_validation_token !== '') {
-			$mailer = new FreshRSS_User_Mailer();
-			$mailer->send_email_need_validation($username, $user_config);
+		if (!Minz_Request::isPost()) {
+			Minz_Error::error(404);
 		}
 
-		Minz_Request::forward(array(
-			'c' => 'user',
-			'a' => 'validateEmail',
-		), true);
+		$username = Minz_Session::param('currentUser', '_');
+		$user_config = FreshRSS_Context::$user_conf;
+
+		if ($user_config->email_validation_token === '') {
+			Minz_Request::forward(array(
+				'c' => 'index',
+				'a' => 'index',
+			), true);
+		}
+
+		$mailer = new FreshRSS_User_Mailer();
+		$ok = $mailer->send_email_need_validation($username, $user_config);
+
+		$redirect_url = array('c' => 'user', 'a' => 'validateEmail');
+		if ($ok) {
+			Minz_Request::good(
+				'feedback.user.email.validation_email_sent',
+				$redirect_url
+			);
+		} else {
+			Minz_Request::bad(
+				'feedback.user.email.validation_email_failed',
+				$redirect_url
+			);
+		}
 	}
 
 	/**

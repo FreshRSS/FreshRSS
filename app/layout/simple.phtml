@@ -37,5 +37,20 @@
 	<?php $this->render(); ?>
 </div>
 
+<?php
+	$msg = '';
+	$status = 'closed';
+	if (isset($this->notification)) {
+		$msg = $this->notification['content'];
+		$status = $this->notification['type'];
+
+		invalidateHttpCache();
+	}
+?>
+<div id="notification" class="notification <?php echo $status; ?>">
+	<span class="msg"><?php echo $msg; ?></span>
+	<a class="close" href=""><?php echo _i('close'); ?></a>
+</div>
+
 	</body>
 </html>
