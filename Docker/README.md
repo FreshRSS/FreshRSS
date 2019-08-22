@@ -238,6 +238,22 @@ docker run -d --restart unless-stopped --log-opt max-size=10m \
   crond -f -d 6
 ```
 
+## Development mode
+
+To contribute to FreshRSS development, you can use one of the Docker images to run and serve the PHP code,
+while reading the source code from your local (git) directory, like the following example:
+
+```sh
+cd /path-to-local/FreshRSS/
+docker run --rm -p 8080:80 -e TZ=Europe/Paris -e FRESHRSS_ENV=development \
+  -v $(pwd):/var/www/FreshRSS \
+  freshrss/freshrss:dev
+```
+
+This will start a server on port 8080, based on your local PHP code, which will show the logs directly in your terminal.
+Press <kbd>Control</kbd>+<kbd>c</kbd> to exit.
+
+The `FRESHRSS_ENV=development` environment variable increases the level of logging and ensures that errors are displayed.
 
 ## More deployment options
 
