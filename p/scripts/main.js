@@ -720,8 +720,14 @@ function init_shortcuts() {
 				return true;
 			}
 
-			const s = context.shortcuts,
-				k = (ev.key.trim() || ev.code).toUpperCase();
+			const s = context.shortcuts;
+			let k = (ev.key.trim() || ev.code || 'Space').toUpperCase();
+
+			//IE11
+			if (k === 'SPACEBAR') k = 'SPACE';
+			else if (k === 'DEL') k = 'DELETE';
+			else if (k === 'ESC') k = 'ESCAPE';
+
 			if (location.hash.match(/^#dropdown-/)) {
 				const n = parseInt(k);
 				if (n) {
