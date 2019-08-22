@@ -32,6 +32,16 @@
 		</div>
 
 		<div class="item"></div>
+
+		<div class="item">
+			<?php if (FreshRSS_Auth::accessNeedsAction()) { ?>
+				<a class="signout" href="<?php echo _url('auth', 'logout'); ?>">
+					<?php echo _i('logout') . _t('gen.auth.logout'); ?>
+
+					(<?php echo htmlspecialchars(Minz_Session::param('currentUser', '_'), ENT_NOQUOTES, 'UTF-8'); ?>)
+				</a>
+			<?php } ?>
+		</div>
 	</div>
 
 	<?php $this->render(); ?>
