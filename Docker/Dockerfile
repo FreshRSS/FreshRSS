@@ -49,6 +49,8 @@ RUN sed -r -i "/^\s*(CustomLog|ErrorLog|Listen) /s/^/#/" /etc/apache2/apache2.co
 
 ENV COPY_SYSLOG_TO_STDERR On
 ENV CRON_MIN ''
+ENV FRESHRSS_ENV ''
+
 ENTRYPOINT ["./Docker/entrypoint.sh"]
 
 EXPOSE 80
