@@ -191,7 +191,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 			if ($this->hasNativeHex()) {
 				$this->addEntryPrepared->bindParam(':hash', $valuesTmp['hash']);
 			} else {
-				$valuesTmp['hashBin'] = pack('H*', $valuesTmp['hash']);	//hex2bin() is PHP5.4+
+				$valuesTmp['hashBin'] = hex2bin($valuesTmp['hash']);
 				$this->addEntryPrepared->bindParam(':hash', $valuesTmp['hashBin']);
 			}
 		}
@@ -273,7 +273,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 		if ($this->hasNativeHex()) {
 			$this->updateEntryPrepared->bindParam(':hash', $valuesTmp['hash']);
 		} else {
-			$valuesTmp['hashBin'] = pack('H*', $valuesTmp['hash']);	//hex2bin() is PHP5.4+
+			$valuesTmp['hashBin'] = hex2bin($valuesTmp['hash']);
 			$this->updateEntryPrepared->bindParam(':hash', $valuesTmp['hashBin']);
 		}
 

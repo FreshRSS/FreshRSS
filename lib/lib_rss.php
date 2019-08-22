@@ -1,9 +1,9 @@
 <?php
-if (version_compare(PHP_VERSION, '5.3.8', '<')) {
-	die('FreshRSS error: FreshRSS requires PHP 5.3.8+!');
+if (version_compare(PHP_VERSION, '5.5.0', '<')) {
+	die('FreshRSS error: FreshRSS requires PHP 5.5.0+!');
 }
 
-if (!function_exists('json_decode')) {
+if (!function_exists('json_decode')) {	//PHP bug #63520 < PHP 7
 	require_once(__DIR__ . '/JSON.php');
 	function json_decode($var, $assoc = false) {
 		$JSON = new Services_JSON($assoc ? SERVICES_JSON_LOOSE_TYPE : 0);
@@ -18,8 +18,6 @@ if (!function_exists('json_encode')) {
 		return $JSON->encodeUnsafe($var);
 	}
 }
-
-defined('JSON_UNESCAPED_UNICODE') or define('JSON_UNESCAPED_UNICODE', 256);	//PHP 5.3
 
 if (!function_exists('mb_strcut')) {
 	function mb_strcut($str, $start, $length = null, $encoding = 'UTF-8') {
@@ -68,12 +66,7 @@ function idn_to_puny($url) {
 		$parts = parse_url($url);
 		if (!empty($parts['host'])) {
 			$idn = $parts['host'];
-			// INTL_IDNA_VARIANT_UTS46 is defined starting in PHP 5.4
-			if (defined('INTL_IDNA_VARIANT_UTS46')) {
-				$puny = idn_to_ascii($idn, 0, INTL_IDNA_VARIANT_UTS46);
-			} else {
-				$puny = idn_to_ascii($idn);
-			}
+			$puny = idn_to_ascii($idn, 0, INTL_IDNA_VARIANT_UTS46);
 			$pos = strpos($url, $idn);
 			if ($pos !== false) {
 				return substr_replace($url, $puny, $pos, strlen($idn));
@@ -187,17 +180,10 @@ function timestamptodate ($t, $hour = true) {
 function html_only_entity_decode($text) {
 	static $htmlEntitiesOnly = null;
 	if ($htmlEntitiesOnly === null) {
-		if (version_compare(PHP_VERSION, '5.3.4') >= 0) {
-			$htmlEntitiesOnly = array_flip(array_diff(
-				get_html_translation_table(HTML_ENTITIES, ENT_NOQUOTES, 'UTF-8'),	//Decode HTML entities
-				get_html_translation_table(HTML_SPECIALCHARS, ENT_NOQUOTES, 'UTF-8')	//Preserve XML entities
-			));
-		} else {
-			$htmlEntitiesOnly = array_map('utf8_encode', array_flip(array_diff(
-				get_html_translation_table(HTML_ENTITIES, ENT_NOQUOTES),	//Decode HTML entities
-				get_html_translation_table(HTML_SPECIALCHARS, ENT_NOQUOTES)	//Preserve XML entities
-			)));
-		}
+		$htmlEntitiesOnly = array_flip(array_diff(
+			get_html_translation_table(HTML_ENTITIES, ENT_NOQUOTES, 'UTF-8'),	//Decode HTML entities
+			get_html_translation_table(HTML_SPECIALCHARS, ENT_NOQUOTES, 'UTF-8')	//Preserve XML entities
+		));
 	}
 	return strtr($text, $htmlEntitiesOnly);
 }
@@ -428,7 +414,7 @@ function check_install_php() {
 	$pdo_pgsql = extension_loaded('pdo_pgsql');
 	$pdo_sqlite = extension_loaded('pdo_sqlite');
 	return array(
-		'php' => version_compare(PHP_VERSION, '5.3.8') >= 0,
+		'php' => version_compare(PHP_VERSION, '5.5.0') >= 0,
 		'minz' => file_exists(LIB_PATH . '/Minz'),
 		'curl' => extension_loaded('curl'),
 		'pdo' => $pdo_mysql || $pdo_sqlite || $pdo_pgsql,

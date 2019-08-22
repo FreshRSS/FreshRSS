@@ -169,10 +169,6 @@ class FreshRSS_auth_Controller extends Minz_ActionController {
 				return;
 			}
 
-			if (!function_exists('password_verify')) {
-				include_once(LIB_PATH . '/password_compat.php');
-			}
-
 			$s = $conf->passwordHash;
 			$ok = password_verify($password, $s);
 			unset($password);

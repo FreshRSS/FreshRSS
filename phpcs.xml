@@ -10,7 +10,6 @@
 	<exclude-pattern>./lib/http-conditional.php</exclude-pattern>
 	<exclude-pattern>./lib/JSON.php</exclude-pattern>
 	<exclude-pattern>./lib/lib_phpQuery.php</exclude-pattern>
-	<exclude-pattern>./lib/password_compat.php</exclude-pattern>
 	<!-- Duplicate class names are not allowed -->
 	<rule ref="Generic.Classes.DuplicateClassName"/>
 	<!-- Statements must not be empty -->

@@ -127,6 +127,7 @@ return array(
 		'oc' => 'Occitan',
 		'pt-br' => 'Português (Brasil)',
 		'ru' => 'Русский',
+		'sk' => 'Slovenčina',
 		'tr' => 'Türkçe',
 		'zh-cn' => '简体中文',
 	),
