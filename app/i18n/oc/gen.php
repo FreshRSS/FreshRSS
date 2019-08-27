@@ -168,6 +168,7 @@ return array(
 		'gnusocial' => 'GNU social',
 		'jdh' => 'Journal du hacker',
 		'Known' => 'Sites basats sus Known',
+		'lemmy' => 'Lemmy',
 		'linkedin' => 'LinkedIn',
 		'mastodon' => 'Mastodon',
 		'movim' => 'Movim',
@@ -178,7 +179,6 @@ return array(
 		'twitter' => 'Twitter',
 		'wallabag' => 'wallabag v1',
 		'wallabagv2' => 'wallabag v2',
-		'lemmy' => 'Lemmy',
 	),
 	'short' => array(
 		'attention' => 'Atencion !',
