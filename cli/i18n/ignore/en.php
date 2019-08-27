@@ -96,6 +96,7 @@ return array(
 	'gen.share.jdh',
 	'gen.share.Known',
 	'gen.share.gnusocial',
+	'gen.share.lemmy',
 	'index.menu.non-starred',
 	'index.menu.read',
 	'index.menu.starred',

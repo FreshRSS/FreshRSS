@@ -39,6 +39,7 @@ return array(
 	'gen.share.wallabagv2',
 	'gen.share.jdh',
 	'gen.share.gnusocial',
+	'gen.share.lemmy',
 	'index.about.agpl3',
 	'index.about.website',
 	'index.about.version',

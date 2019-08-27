@@ -178,6 +178,7 @@ return array(
 		'twitter' => 'Twitter',
 		'wallabag' => 'wallabag v1',
 		'wallabagv2' => 'wallabag v2',
+		'lemmy' => 'Lemmy',
 	),
 	'short' => array(
 		'attention' => '¡Aviso!',
