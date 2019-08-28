@@ -152,15 +152,13 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 					_t('user.email.feedback.required'),
 					array('c' => 'user', 'a' => 'profile')
 				);
-				return;
 			}
 
-			if (!validateEmailAddress($email)) {
+			if (!empty($email) && !validateEmailAddress($email)) {
 				Minz_Request::bad(
 					_t('user.email.feedback.invalid'),
 					array('c' => 'user', 'a' => 'profile')
 				);
-				return;
 			}
 
 			$ok = self::updateUser(
