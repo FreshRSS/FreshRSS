@@ -264,10 +264,26 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 		}
 
 		if (Minz_Request::isPost()) {
+			$system_conf = FreshRSS_Context::$system_conf;
+
 			$new_user_name = Minz_Request::param('new_user_name');
 			$email = Minz_Request::param('new_user_email', '');
 			$passwordPlain = Minz_Request::param('new_user_passwordPlain', '', true);
 			$new_user_language = Minz_Request::param('new_user_language', FreshRSS_Context::$user_conf->language);
+
+			if ($system_conf->force_email_validation && empty($email)) {
+				Minz_Request::bad(
+					_t('user.email.feedback.required'),
+					array('c' => 'auth', 'a' => 'register')
+				);
+			}
+
+			if (!empty($email) && !validateEmailAddress($email)) {
+				Minz_Request::bad(
+					_t('user.email.feedback.invalid'),
+					array('c' => 'auth', 'a' => 'register')
+				);
+			}
 
 			$ok = self::createUser($new_user_name, $email, $passwordPlain, '', array('language' => $new_user_language));
 			Minz_Request::_param('new_user_passwordPlain');	//Discard plain-text password ASAP
