@@ -198,6 +198,7 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 
 		Minz_View::prependTitle(_t('admin.user.title') . ' · ');
 
+		$this->view->show_email_field = FreshRSS_Context::$system_conf->force_email_validation;
 		$this->view->current_user = Minz_Request::param('u');
 
 		$this->view->nb_articles = 0;
