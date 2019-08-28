@@ -46,6 +46,7 @@ return array(
 			'_' => 'Borrar cuenta',
 			'warn' => 'Tu cuenta y todos los datos asociados serán eliminados.',
 		),
+		'email' => 'Correo electrónico',
 		'password_api' => 'Contraseña API <br /><small>(para apps móviles, por ej.)</small>',
 		'password_form' => 'Contraseña<br /><small>(para el método de identificación por formulario web)</small>',
 		'password_format' => 'Mínimo de 7 caracteres',

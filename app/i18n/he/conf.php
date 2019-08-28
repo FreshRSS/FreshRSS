@@ -46,6 +46,7 @@ return array(
 			'_' => 'Account deletion',	//TODO - Translation
 			'warn' => 'Your account and all related data will be deleted.',	//TODO - Translation
 		),
+		'email' => 'Email address',	//TODO - Translation
 		'password_api' => 'סיסמת API<br /><small>(לדוגמה ליישומים סלולריים)</small>',
 		'password_form' => 'סיסמה<br /><small>(לשימוש בטפוס ההרשמה)</small>',
 		'password_format' => 'At least 7 characters',	//TODO - Translation

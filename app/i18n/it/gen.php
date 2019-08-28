@@ -3,6 +3,7 @@
 return array(
 	'action' => array(
 		'actualize' => 'Aggiorna',
+		'back' => '← Go back', //TODO - Translation
 		'back_to_rss_feeds' => '← Indietro',
 		'cancel' => 'Annulla',
 		'create' => 'Crea',

@@ -159,6 +159,7 @@ return array(
 	'system' => array(
 		'_' => 'Systemeinstellungen',
 		'auto-update-url' => 'Auto-update URL',
+		'force_email_validation' => 'Force email addresses validation', //TODO - Translation
 		'instance-name' => 'Dein Reader Name',
 		'max-categories' => 'Anzahl erlaubter Kategorien pro Benutzer',
 		'max-feeds' => 'Anzahl erlaubter Feeds pro Benutzer',
