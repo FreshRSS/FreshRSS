@@ -143,7 +143,7 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 
 			if ($system_conf->force_email_validation && empty($email)) {
 				Minz_Request::bad(
-					_t('feedback.user.email.required'),
+					_t('user.email.feedback.required'),
 					array('c' => 'user', 'a' => 'profile')
 				);
 				return;
@@ -151,7 +151,7 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 
 			if (!validateEmailAddress($email)) {
 				Minz_Request::bad(
-					_t('feedback.user.email.invalid'),
+					_t('user.email.feedback.invalid'),
 					array('c' => 'user', 'a' => 'profile')
 				);
 				return;
@@ -339,7 +339,7 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 			Minz_Error::error(404);
 		}
 
-		Minz_View::prependTitle(_t('feedback.user.validated.title') . ' · ');
+		Minz_View::prependTitle(_t('user.email.validation.title') . ' · ');
 		$this->view->_layout('simple');
 
 		$username = Minz_Request::param('username');
@@ -358,21 +358,31 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 		}
 
 		if ($user_config->email_validation_token === '') {
-			$this->view->feedback = _t('feedback.user.validated.already');
-			return;
+			Minz_Request::good(
+				_t('user.email.validation.feedback.unnecessary'),
+				array('c' => 'index', 'a' => 'index'),
+			);
 		}
 
 		if ($token) {
 			if ($user_config->email_validation_token !== $token) {
-				$this->view->feedback = _t('feedback.user.validated.wrong_token');
-				return;
+				Minz_Request::bad(
+					_t('user.email.validation.feedback.wrong_token'),
+					array('c' => 'user', 'a' => 'validateEmail'),
+				);
 			}
 
 			$user_config->email_validation_token = '';
 			if ($user_config->save()) {
-				$this->view->feedback = _t('feedback.user.validated');
+				Minz_Request::good(
+					_t('user.email.validation.feedback.ok'),
+					array('c' => 'index', 'a' => 'index'),
+				);
 			} else {
-				$this->view->feedback = _t('feedback.user.validated.error');
+				Minz_Request::bad(
+					_t('user.email.validation.feedback.error'),
+					array('c' => 'user', 'a' => 'validateEmail'),
+				);
 			}
 		}
 	}
@@ -412,12 +422,12 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 		$redirect_url = array('c' => 'user', 'a' => 'validateEmail');
 		if ($ok) {
 			Minz_Request::good(
-				'feedback.user.email.validation_email_sent',
+				_t('user.email.validation.feedback.email_sent'),
 				$redirect_url
 			);
 		} else {
 			Minz_Request::bad(
-				'feedback.user.email.validation_email_failed',
+				_t('user.email.validation.feedback.email_failed'),
 				$redirect_url
 			);
 		}

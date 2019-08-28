@@ -112,16 +112,5 @@ return array(
 			'_' => 'User %s has been updated',
 			'error' => 'User %s has not been updated',
 		),
-		'validated' => array(
-			'_' => 'The email address has been validated.',
-			'already' => 'The email address was already validated.',
-			'change_email' => 'You can change your email address <a href="%s">on the profile page</a>.',
-			'email_sent_to' => 'We sent you an email at <strong>%s</strong>, please follow its indications to validate your address.',
-			'error' => 'The email address failed to be validated.',
-			'need_to' => 'You need to validate your email address before being able to use %s.',
-			'resend_email' => 'Resend the email',
-			'title' => 'Email address validation',
-			'wrong_token' => 'The email address failed to be validated due to a wrong token.',
-		),
 	),
 );

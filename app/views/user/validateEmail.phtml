@@ -1,36 +1,22 @@
-<?php if (isset($this->feedback)) { ?>
-	<div class="post">
-		<p>
-			<?php echo $this->feedback; ?>
-		</p>
+<div class="post">
+    <p>
+        <?php echo _t('user.email.validation.need_to', FreshRSS_Context::$system_conf->title); ?>
+    </p>
 
-		<p>
-			<a href="<?php echo _url('index', 'index'); ?>">
-				<?php echo _t('gen.action.back'); ?>
-			</a>
-		</p>
-	</div>
-<?php } else { ?>
-	<div class="post">
-		<p>
-			<?php echo _t('feedback.user.validated.need_to', FreshRSS_Context::$system_conf->title); ?>
-		</p>
+    <p>
+        <?php echo _t('user.email.validation.email_sent_to', FreshRSS_Context::$user_conf->mail_login); ?>
+    </p>
 
-		<p>
-			<?php echo _t('feedback.user.validated.email_sent_to', FreshRSS_Context::$user_conf->mail_login); ?>
-		</p>
+    <form action="<?php echo _url('user', 'sendValidationEmail'); ?>" method="post">
+        <input type="hidden" name="_csrf" value="<?php echo FreshRSS_Auth::csrfToken(); ?>" />
+        <button type="submit" class="btn">
+            <?php echo _t('user.email.validation.resend_email'); ?>
+        </button>
+    </form>
 
-		<form action="<?php echo _url('user', 'sendValidationEmail'); ?>" method="post">
-			<input type="hidden" name="_csrf" value="<?php echo FreshRSS_Auth::csrfToken(); ?>" />
-			<button type="submit" class="btn">
-				<?php echo _t('feedback.user.validated.resend_email'); ?>
-			</button>
-		</form>
-
-		<p>
-			<small>
-				<?php echo _t('feedback.user.validated.change_email', _url('user', 'profile')); ?>
-			</small>
-		</p>
-	</div>
-<?php } ?>
+    <p>
+        <small>
+            <?php echo _t('user.email.validation.change_email', _url('user', 'profile')); ?>
+        </small>
+    </p>
+</div>

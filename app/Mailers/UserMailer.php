@@ -25,7 +25,7 @@ class FreshRSS_User_Mailer extends Minz_Mailer {
 		$subject_prefix = '[' . FreshRSS_Context::$system_conf->title . ']';
 		return $this->mail(
 			$user_config->mail_login,
-			$subject_prefix . ' ' ._t('mailer.user.email_need_validation.title')
+			$subject_prefix . ' ' ._t('user.mailer.email_need_validation.title')
 		);
 	}
 }
