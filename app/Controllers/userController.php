@@ -125,6 +125,12 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 			Minz_Error::error(403);
 		}
 
+		$email_not_verified = FreshRSS_Context::$user_conf->email_validation_token !== '';
+		if ($email_not_verified) {
+			$this->view->_layout('simple');
+			$this->view->disable_aside = true;
+		}
+
 		Minz_View::prependTitle(_t('conf.profile.title') . ' · ');
 
 		Minz_View::appendScript(Minz_Url::display('/scripts/bcrypt.min.js?' . @filemtime(PUBLIC_PATH . '/scripts/bcrypt.min.js')));

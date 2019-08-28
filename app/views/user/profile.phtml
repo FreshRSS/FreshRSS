@@ -1,4 +1,8 @@
-<?php $this->partial('aside_configure'); ?>
+<?php
+    if (!$this->disable_aside) {
+        $this->partial('aside_configure');
+    }
+?>
 
 <div class="post">
 	<a href="<?php echo _url('index', 'index'); ?>"><?php echo _t('gen.action.back_to_rss_feeds'); ?></a>
