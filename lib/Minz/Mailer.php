@@ -74,6 +74,8 @@ class Minz_Mailer {
 		$body = ob_get_contents();
 		ob_end_clean();
 
+		PHPMailer::$validator = 'html5';
+
 		$mail = new PHPMailer(true);
 		try {
 			// Server settings
