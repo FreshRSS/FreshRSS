@@ -49,6 +49,7 @@ return array(
 	'gen.share.twitter',
 	'gen.share.wallabag',
 	'gen.share.wallabagv2',
+	'gen.share.lemmy',
 	'index.about.agpl3',
 	'sub.api.title',
 );
