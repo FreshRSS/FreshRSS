@@ -46,6 +46,7 @@ return array(
 			'_' => 'Account deletion',
 			'warn' => 'Your account and all related data will be deleted.',
 		),
+		'email' => 'Email address',
 		'password_api' => 'API password<br /><small>(e.g., for mobile apps)</small>',
 		'password_form' => 'Password<br /><small>(for the Web-form login method)</small>',
 		'password_format' => 'At least 7 characters',

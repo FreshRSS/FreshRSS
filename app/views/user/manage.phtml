@@ -26,6 +26,17 @@
 			</div>
 		</div>
 
+		<?php if ($this->show_email_field) { ?>
+			<div class="form-group">
+				<label class="group-name" for="new_user_email">
+					<?php echo _t('gen.auth.email'); ?>
+				</label>
+				<div class="group-controls">
+					<input id="new_user_email" name="new_user_email" type="email" required />
+				</div>
+			</div>
+		<?php } ?>
+
 		<div class="form-group">
 			<label class="group-name" for="new_user_passwordPlain"><?php echo _t('admin.user.password_form'); ?></label>
 			<div class="group-controls">

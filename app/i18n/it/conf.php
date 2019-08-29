@@ -46,6 +46,7 @@ return array(
 			'_' => 'Cancellazione account',
 			'warn' => 'Il tuo account e tutti i dati associati saranno cancellati.',
 		),
+		'email' => 'Indirizzo email',
 		'password_api' => 'Password API<br /><small>(e.g., per applicazioni mobili)</small>',
 		'password_form' => 'Password<br /><small>(per il login classico)</small>',
 		'password_format' => 'Almeno 7 caratteri',

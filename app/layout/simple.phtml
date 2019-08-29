@@ -1,0 +1,66 @@
+<?php FreshRSS::preLayout(); ?>
+<!DOCTYPE html>
+<html lang="<?php echo FreshRSS_Context::$user_conf->language; ?>" xml:lang="<?php echo FreshRSS_Context::$user_conf->language; ?>">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="initial-scale=1.0" />
+		<?php echo self::headStyle(); ?>
+		<?php echo self::headScript(); ?>
+		<link rel="shortcut icon" id="favicon" type="image/x-icon" sizes="16x16 64x64" href="<?php echo Minz_Url::display('/favicon.ico'); ?>" />
+		<link rel="icon msapplication-TileImage apple-touch-icon" type="image/png" sizes="256x256" href="<?php echo Minz_Url::display('/themes/icons/favicon-256.png'); ?>" />
+		<link rel="apple-touch-icon" href="<?php echo Minz_Url::display('/themes/icons/apple-touch-icon.png'); ?>" />
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+		<meta name="apple-mobile-web-app-title" content="<?php echo FreshRSS_Context::$system_conf->title; ?>">
+		<meta name="msapplication-TileColor" content="#FFF" />
+		<meta name="referrer" content="never" />
+		<meta name="robots" content="noindex,nofollow" />
+		<?php echo self::headTitle(); ?>
+	</head>
+	<body>
+
+<?php flush(); ?>
+<div class="app-layout app-layout-simple">
+	<div class="header">
+		<div class="item title">
+			<h1>
+				<a href="<?php echo _url('index', 'index'); ?>">
+					<img class="logo" src="<?php echo _i('icon', true); ?>" alt="" />
+					<?php echo FreshRSS_Context::$system_conf->title; ?>
+				</a>
+			</h1>
+		</div>
+
+		<div class="item"></div>
+
+		<div class="item">
+			<?php if (FreshRSS_Auth::accessNeedsAction()) { ?>
+				<a class="signout" href="<?php echo _url('auth', 'logout'); ?>">
+					<?php echo _i('logout') . _t('gen.auth.logout'); ?>
+
+					(<?php echo htmlspecialchars(Minz_Session::param('currentUser', '_'), ENT_NOQUOTES, 'UTF-8'); ?>)
+				</a>
+			<?php } ?>
+		</div>
+	</div>
+
+	<?php $this->render(); ?>
+</div>
+
+<?php
+	$msg = '';
+	$status = 'closed';
+	if (isset($this->notification)) {
+		$msg = $this->notification['content'];
+		$status = $this->notification['type'];
+
+		invalidateHttpCache();
+	}
+?>
+<div id="notification" class="notification <?php echo $status; ?>">
+	<span class="msg"><?php echo $msg; ?></span>
+	<a class="close" href=""><?php echo _i('close'); ?></a>
+</div>
+
+	</body>
+</html>

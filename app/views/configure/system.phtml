@@ -38,6 +38,24 @@
 			</div>
 		</div>
 
+		<?php if ($this->can_enable_email_validation) { ?>
+			<div class="form-group">
+				<div class="group-controls">
+					<label class="checkbox" for="force-email-validation">
+						<input
+							type="checkbox"
+							name="force-email-validation"
+							id="force-email-validation"
+							value="1"
+							<?php echo FreshRSS_Context::$system_conf->force_email_validation ? 'checked="checked"' : ''; ?>
+							data-leave-validation="<?php echo FreshRSS_Context::$system_conf->force_email_validation; ?>"
+						/>
+						<?php echo _t('admin.system.force_email_validation'); ?>
+					</label>
+				</div>
+			</div>
+		<?php } ?>
+
 		<div class="form-group">
 			<label class="group-name" for="max-feeds"><?php echo _t('admin.system.max-feeds'); ?></label>
 			<div class="group-controls">
@@ -51,7 +69,7 @@
 			    <input type="number" id="max-categories" name="max-categories" value="<?php echo FreshRSS_Context::$system_conf->limits['max_categories']; ?>" min="1" data-leave-validation="<?php echo FreshRSS_Context::$system_conf->limits['max_categories']; ?>"/>
 			</div>
 		</div>
-		
+
 		<div class="form-group">
 			<label class="group-name" for="cookie-duration"><?php echo _t('admin.system.cookie-duration.number'); ?></label>
 			<div class="group-controls">

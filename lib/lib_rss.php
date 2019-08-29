@@ -55,6 +55,8 @@ function classAutoloader($class) {
 		include(LIB_PATH . '/' . str_replace('_', '/', $class) . '.php');
 	} elseif (strpos($class, 'SimplePie') === 0) {
 		include(LIB_PATH . '/SimplePie/' . str_replace('_', '/', $class) . '.php');
+	} elseif (strpos($class, 'PHPMailer') === 0) {
+		include(LIB_PATH . '/' . str_replace('\\', '/', $class) . '.php');
 	}
 }
 
@@ -275,6 +277,20 @@ function sanitizeHTML($data, $base = '') {
 		$simplePie->init();
 	}
 	return html_only_entity_decode($simplePie->sanitize->sanitize($data, SIMPLEPIE_CONSTRUCT_HTML, $base));
+}
+
+/**
+ * Validate an email address, supports internationalized addresses.
+ *
+ * @param string $email The address to validate
+ *
+ * @return bool true if email is valid, else false
+ */
+function validateEmailAddress($email) {
+	$mailer = new PHPMailer\PHPMailer\PHPMailer();
+	$mailer->Charset = 'utf-8';
+	$punyemail = $mailer->punyencodeAddress($email);
+	return PHPMailer\PHPMailer\PHPMailer::validateAddress($punyemail, 'html5');
 }
 
 /**

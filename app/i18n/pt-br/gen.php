@@ -3,6 +3,7 @@
 return array(
 	'action' => array(
 		'actualize' => 'Atualizar',
+		'back' => '← Go back', //TODO - Translation
 		'back_to_rss_feeds' => '← Volte para o seu feeds RSS',
 		'cancel' => 'Cancelar',
 		'create' => 'Criar',
