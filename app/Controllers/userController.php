@@ -389,7 +389,7 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 			if ($user_config->email_validation_token !== $token) {
 				Minz_Request::bad(
 					_t('user.email.validation.feedback.wrong_token'),
-					array('c' => 'user', 'a' => 'validateEmail'),
+					array('c' => 'user', 'a' => 'validateEmail')
 				);
 			}
 
@@ -397,12 +397,12 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 			if ($user_config->save()) {
 				Minz_Request::good(
 					_t('user.email.validation.feedback.ok'),
-					array('c' => 'index', 'a' => 'index'),
+					array('c' => 'index', 'a' => 'index')
 				);
 			} else {
 				Minz_Request::bad(
 					_t('user.email.validation.feedback.error'),
-					array('c' => 'user', 'a' => 'validateEmail'),
+					array('c' => 'user', 'a' => 'validateEmail')
 				);
 			}
 		}
