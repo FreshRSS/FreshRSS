@@ -3,6 +3,7 @@
 return array(
 	'action' => array(
 		'actualize' => 'Actualiseren',
+		'back' => '← Go back', //TODO - Translation
 		'back_to_rss_feeds' => '← Ga terug naar je RSS feeds',
 		'cancel' => 'Annuleren',
 		'create' => 'Opslaan',
@@ -161,24 +162,8 @@ return array(
 		'previous' => 'Vorige',
 	),
 	'share' => array(
-		'blogotext' => 'Blogotext',
-		'diaspora' => 'Diaspora*',
 		'email' => 'Email',
-		'facebook' => 'Facebook',
-		'gnusocial' => 'GNU social',
-		'jdh' => 'Journal du hacker',
-		'Known' => 'Known based sites',
-		'lemmy' => 'Lemmy',
-		'linkedin' => 'LinkedIn',
-		'mastodon' => 'Mastodon',
-		'movim' => 'Movim',
-		'pinboard' => 'Pinboard',
-		'pocket' => 'Pocket',
-		'print' => 'Print',
-		'shaarli' => 'Shaarli',
-		'twitter' => 'Twitter',
-		'wallabag' => 'wallabag v1',
-		'wallabagv2' => 'wallabag v2',
+		'Known' => 'Known-gebaseerde sites',
 	),
 	'short' => array(
 		'attention' => 'Attentie!',

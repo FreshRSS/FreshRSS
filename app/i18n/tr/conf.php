@@ -21,6 +21,7 @@ return array(
 			'publication_date' => 'Yayınlama Tarihi',
 			'related_tags' => 'İlgili etiketler',	//TODO - Translation
 			'sharing' => 'Paylaşım',
+			'display_authors' => 'Authors',  //TODO - Translation
 			'top_line' => 'Üst çizgi',
 		),
 		'language' => 'Dil',
@@ -45,6 +46,7 @@ return array(
 			'_' => 'Hesap silme',
 			'warn' => 'Hesabınız ve tüm verileriniz silinecek.',
 		),
+		'email' => 'Email adresleri',
 		'password_api' => 'API Şifresi<br /><small>(ör. mobil uygulamalar için)</small>',
 		'password_form' => 'Şifre<br /><small>(Tarayıcı girişi için)</small>',
 		'password_format' => 'En az 7 karakter',

@@ -148,26 +148,9 @@ abstract class NomDeLaClasse {}
 
 Les fichiers doivent être encodés en UTF-8.
 
-## Compatibilité avec PHP 5.3
+## Compatibilité PHP
 
-Il ne faut pas demander l'indice d'un tableau qui est retourné par une fonction ou une méthode. Il faut passer par une variable intermédiaire.
-
-```php
-// code compatible avec PHP 5.3
-$ma_variable = fonction_qui_retourne_un_tableau();
-echo $ma_variable[0];
-// code incompatible avec PHP 5.3
-echo fonction_qui_retourne_un_tableau()[0];
-```
-
-Il ne faut pas utiliser la déclaration raccourcie des tableaux.
-
-```php
-// code compatible avec PHP 5.3
-$variable = array();
-// code incompatible avec PHP 5.3
-$variable = [];
-```
+Assurez-vous que votre code fonctionne avec une version de PHP aussi ancienne que celle que FreshRSS supporte officiellement.
 
 ## Divers
 

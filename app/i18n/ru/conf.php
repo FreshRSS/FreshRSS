@@ -21,6 +21,7 @@ return array(
 			'publication_date' => 'Date of publication',	//TODO - Translation
 			'related_tags' => 'Related tags',	//TODO - Translation
 			'sharing' => 'Sharing',	//TODO - Translation
+			'display_authors' => 'Authors',  //TODO - Translation
 			'top_line' => 'Top line',	//TODO - Translation
 		),
 		'language' => 'Язык',
@@ -45,6 +46,7 @@ return array(
 			'_' => 'Account deletion',	//TODO - Translation
 			'warn' => 'Your account and all the related data will be deleted.',	//TODO - Translation
 		),
+		'email' => 'Email address',	//TODO - Translation
 		'password_api' => 'Password API<br /><small>(e.g., for mobile apps)</small>',	//TODO - Translation
 		'password_form' => 'Password<br /><small>(for the Web-form login method)</small>',	//TODO - Translation
 		'password_format' => 'At least 7 characters',	//TODO - Translation

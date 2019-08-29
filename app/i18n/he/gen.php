@@ -3,6 +3,7 @@
 return array(
 	'action' => array(
 		'actualize' => 'מימוש',
+		'back' => '← Go back', //TODO - Translation
 		'back_to_rss_feeds' => '← חזרה להזנות הRSS שלך',
 		'cancel' => 'ביטול',
 		'create' => 'יצירה',

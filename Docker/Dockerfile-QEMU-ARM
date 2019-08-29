@@ -61,6 +61,8 @@ RUN rm /usr/bin/qemu-* /var/www/FreshRSS/Docker/qemu-*
 
 ENV COPY_SYSLOG_TO_STDERR On
 ENV CRON_MIN ''
+ENV FRESHRSS_ENV ''
+
 ENTRYPOINT ["./Docker/entrypoint.sh"]
 
 EXPOSE 80

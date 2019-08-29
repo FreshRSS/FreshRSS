@@ -720,8 +720,14 @@ function init_shortcuts() {
 				return true;
 			}
 
-			const s = context.shortcuts,
-				k = (ev.key.trim() || ev.code).toUpperCase();
+			const s = context.shortcuts;
+			let k = (ev.key.trim() || ev.code || 'Space').toUpperCase();
+
+			//IE11
+			if (k === 'SPACEBAR') k = 'SPACE';
+			else if (k === 'DEL') k = 'DELETE';
+			else if (k === 'ESC') k = 'ESCAPE';
+
 			if (location.hash.match(/^#dropdown-/)) {
 				const n = parseInt(k);
 				if (n) {
@@ -803,7 +809,11 @@ function init_shortcuts() {
 				if (context.auto_mark_site) {
 					mark_read(document.querySelector('.flux.current'), true, false);
 				}
-				window.open(document.querySelector('.flux.current a.go_website').href);
+				const newWindow = window.open();
+				if (newWindow) {
+					newWindow.opener = null;
+					newWindow.location = document.querySelector('.flux.current a.go_website').href;
+				}
 				return false;
 			}
 			if (k === s.skip_next_entry) { next_entry(true); return false; }

@@ -21,6 +21,7 @@ return array(
 			'publication_date' => 'Datum vydání',
 			'related_tags' => 'Související tagy',	//TODO - Translation
 			'sharing' => 'Sdílení',
+			'display_authors' => 'Authors',  //TODO - Translation
 			'top_line' => 'Horní řádek',
 		),
 		'language' => 'Jazyk',
@@ -45,6 +46,7 @@ return array(
 			'_' => 'Smazání účtu',
 			'warn' => 'Váš účet bude smazán spolu se všemi souvisejícími daty',
 		),
+		'email' => 'Email',
 		'password_api' => 'Password API<br /><small>(tzn. pro mobilní aplikace)</small>',
 		'password_form' => 'Heslo<br /><small>(pro přihlášení webovým formulářem)</small>',
 		'password_format' => 'Alespoň 7 znaků',

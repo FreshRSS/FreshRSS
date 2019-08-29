@@ -14,7 +14,9 @@ class Minz_ActionController {
 	 * Constructeur
 	 */
 	public function __construct () {
-		$this->view = new Minz_View ();
+		$this->view = new Minz_View();
+		$view_path = Minz_Request::controllerName() . '/' . Minz_Request::actionName() . '.phtml';
+		$this->view->_path($view_path);
 		$this->view->attributeParams ();
 	}
 

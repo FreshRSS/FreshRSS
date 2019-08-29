@@ -8,6 +8,15 @@
 			<input id="new_user_name" name="new_user_name" type="text" size="16" required="required" autocomplete="off" pattern="<?php echo FreshRSS_user_Controller::USERNAME_PATTERN; ?>" />
 		</div>
 
+		<?php if ($this->show_email_field) { ?>
+			<div>
+				<label class="group-name" for="new_user_email">
+					<?php echo _t('gen.auth.email'); ?>
+				</label>
+				<input id="new_user_email" name="new_user_email" type="email" required />
+			</div>
+		<?php } ?>
+
 		<div>
 			<label class="group-name" for="new_user_passwordPlain"><?php echo _t('gen.auth.password'), '<br />', _i('help'), ' ', _t('gen.auth.password.format'); ?></label>
 			<div class="stick">

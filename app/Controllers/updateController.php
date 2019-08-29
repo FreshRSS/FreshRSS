@@ -89,7 +89,7 @@ class FreshRSS_update_Controller extends Minz_ActionController {
 	}
 
 	public function checkAction() {
-		$this->view->change_view('update', 'index');
+		$this->view->_path('update/index.phtml');
 
 		if (file_exists(UPDATE_FILENAME)) {
 			// There is already an update file to apply: we don't need to check

@@ -3,6 +3,7 @@
 return array(
 	'action' => array(
 		'actualize' => 'Actualize',
+		'back' => '← Go back',
 		'back_to_rss_feeds' => '← Go back to your RSS feeds',
 		'cancel' => 'Cancel',
 		'create' => 'Create',
@@ -127,6 +128,7 @@ return array(
 		'oc' => 'Occitan',
 		'pt-br' => 'Português (Brasil)',
 		'ru' => 'Русский',
+		'sk' => 'Slovenčina',
 		'tr' => 'Türkçe',
 		'zh-cn' => '简体中文',
 	),

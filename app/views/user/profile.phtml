@@ -1,4 +1,8 @@
-<?php $this->partial('aside_configure'); ?>
+<?php
+    if (!$this->disable_aside) {
+        $this->partial('aside_configure');
+    }
+?>
 
 <div class="post">
 	<a href="<?php echo _url('index', 'index'); ?>"><?php echo _t('gen.action.back_to_rss_feeds'); ?></a>
@@ -15,6 +19,13 @@
 					<input type="checkbox" id="is_admin" disabled="disabled" <?php echo FreshRSS_Auth::hasAccess('admin') ? 'checked="checked" ' : ''; ?>/>
 					<?php echo _t('conf.user.is_admin'); ?>
 				</label>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="group-name" for="email"><?php echo _t('conf.profile.email'); ?></label>
+			<div class="group-controls">
+				<input id="email" name="email" type="email" value="<?php echo FreshRSS_Context::$user_conf->mail_login; ?>" />
 			</div>
 		</div>
 
