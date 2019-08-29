@@ -381,7 +381,7 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 		if ($user_config->email_validation_token === '') {
 			Minz_Request::good(
 				_t('user.email.validation.feedback.unnecessary'),
-				array('c' => 'index', 'a' => 'index'),
+				array('c' => 'index', 'a' => 'index')
 			);
 		}
 
