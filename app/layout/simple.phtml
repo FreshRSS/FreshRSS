@@ -5,6 +5,9 @@
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="initial-scale=1.0" />
 		<?php echo self::headStyle(); ?>
+		<script id="jsonVars" type="application/json">
+<?php $this->renderHelper('javascript_vars'); ?>
+		</script>
 		<?php echo self::headScript(); ?>
 		<link rel="shortcut icon" id="favicon" type="image/x-icon" sizes="16x16 64x64" href="<?php echo Minz_Url::display('/favicon.ico'); ?>" />
 		<link rel="icon msapplication-TileImage apple-touch-icon" type="image/png" sizes="256x256" href="<?php echo Minz_Url::display('/themes/icons/favicon-256.png'); ?>" />
