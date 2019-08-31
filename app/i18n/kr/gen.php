@@ -3,6 +3,7 @@
 return array(
 	'action' => array(
 		'actualize' => '새 글 가져오기',
+		'back' => '← Go back', //TODO - Translation
 		'back_to_rss_feeds' => '← RSS 피드로 돌아가기',
 		'cancel' => '취소',
 		'create' => '생성',
@@ -168,6 +169,7 @@ return array(
 		'gnusocial' => 'GNU social',
 		'jdh' => 'Journal du hacker',
 		'Known' => 'Known based sites',
+		'lemmy' => 'Lemmy',
 		'linkedin' => 'LinkedIn',
 		'mastodon' => 'Mastodon',
 		'movim' => 'Movim',

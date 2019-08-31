@@ -159,6 +159,7 @@ return array(
 	'system' => array(
 		'_' => 'Системные настройки',
 		'auto-update-url' => 'Адрес сервера для автоматического обновления',
+		'force_email_validation' => 'Force email addresses validation', //TODO - Translation
 		'instance-name' => 'Название этого сервера',
 		'max-categories' => 'Количество категорий на пользователя',
 		'max-feeds' => 'Количество статей на пользователя',

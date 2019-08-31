@@ -389,4 +389,8 @@ class FreshRSS_ConfigurationSetter {
 
 		$data['auto_update_url'] = $value;
 	}
+
+	private function _force_email_validation(&$data, $value) {
+		$data['force_email_validation'] = $this->handleBool($value);
+	}
 }

@@ -1,6 +1,59 @@
-# Environment configuration
+# Environment configuration (Docker)
 
-**TODO**
+FreshRSS is built with PHP and uses a homemade framework, Minz. The dependencies are directly included in the source code, so you don't need Composer.
+
+There are various ways to configure your development environment. The easiest and most supported method is based on Docker, which is the solution documented below. If you already have a working PHP environment, you probably don't need it.
+
+We assume here that you use a GNU/Linux distribution, capable of running Docker. Otherwise, you'll have to adapt the commands accordingly.
+
+The commands that follow have to be executed in a console. They start by `$` when commands need to be executed as normal user, and by `#` when they need to be executed as root user. You don't have to type these characters. A path may be indicated before these characters to help you identify where they need to be executed. For instance, `app$ echo 'Hello World'` indicates that you have to execute `echo` command in the `app/` directory.
+
+First, you need to install [Docker](https://docs.docker.com/install/linux/docker-ce/ubuntu/).
+
+Once you're done, clone the repository with:
+
+```console
+$ git clone https://github.com/FreshRSS/FreshRSS.git
+$ cd FreshRSS
+```
+
+Note that, if you want to contribute, you have to fork the repository first and clone your fork instead of the "root" one. Adapt the commands in consequence.
+
+Then, the only command you need to know is the following:
+
+```console
+$ make start
+```
+
+This might take some time while Docker downloads the image. If your user isn't in the `docker` group, you'll need to prepend the command with `sudo`.
+
+**You can now access FreshRSS at [http://localhost:8080](http://localhost:8080).** Just follow the install process and select the SQLite database.
+
+You can stop the containers by typing <kbd>Control</kbd> + <kbd>c</kbd> or with the following command, in another terminal:
+
+```console
+$ make stop
+```
+
+If you're interested in the configuration, the `make` commands are defined in the [`Makefile`](/Makefile).
+
+If you need to use a different tag image (default is `dev-alpine`), you can set the `TAG` environment variable:
+
+```console
+$ TAG=dev-arm make start
+```
+
+You can find the full list of available tags [on the Docker hub](https://hub.docker.com/r/freshrss/freshrss/tags).
+
+You might want to rebuild the Docker image locally. You can do it with:
+
+```console
+$ make build
+$ # or
+$ TAG=dev-arm make build
+```
+
+The `TAG` variable can be anything (e.g. `dev-local`). You can target a specific architecture by adding `-alpine` or `-arm` at the end of the tag (e.g. `dev-local-arm`).
 
 # Project architecture
 

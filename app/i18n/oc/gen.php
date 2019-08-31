@@ -3,6 +3,7 @@
 return array(
 	'action' => array(
 		'actualize' => 'Actualizar',
+		'back' => '← Go back', //TODO - Translation
 		'back_to_rss_feeds' => '← Tornar a vòstres fluxes RSS',
 		'cancel' => 'Anullar',
 		'create' => 'Crear',
@@ -168,6 +169,7 @@ return array(
 		'gnusocial' => 'GNU social',
 		'jdh' => 'Journal du hacker',
 		'Known' => 'Sites basats sus Known',
+		'lemmy' => 'Lemmy',
 		'linkedin' => 'LinkedIn',
 		'mastodon' => 'Mastodon',
 		'movim' => 'Movim',

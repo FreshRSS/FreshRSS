@@ -33,6 +33,13 @@ return array(
 	# Name of the user that has administration rights.
 	'default_user' => '_',
 
+	# Force users to validate their email address. If `true`, an email with a
+	# validation URL is sent during registration, and users cannot access their
+	# feed if they didn't access this URL.
+	# Note: it is recommended to not enable it with PHP < 5.5 (emails cannot be
+	# sent).
+	'force_email_validation' => false,
+
 	# Allow or not visitors without login to see the articles
 	#	of the default user.
 	'allow_anonymous' => false,
@@ -159,7 +166,7 @@ return array(
 		'username' => '',
 		'password' => '',
 		'secure' => '', // '', 'ssl' or 'tls'
-		'from' => 'noreply@localhost',
+		'from' => 'root@localhost',
 	),
 
 	# List of enabled FreshRSS extensions.

@@ -46,6 +46,7 @@ return array(
 			'_' => '账户删除',
 			'warn' => '你的帐户和所有相关数据都将被删除。',
 		),
+		'email' => 'Email 地址',
 		'password_api' => 'API 密码<br /><small>(例如,用于手机 APP)</small>',
 		'password_form' => '密码<br /><small>(用于 Web-form 登录方式)</small>',
 		'password_format' => '至少 7 个字符',

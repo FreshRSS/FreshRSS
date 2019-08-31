@@ -159,6 +159,7 @@ return array(
 	'system' => array(
 		'_' => '系统配置',
 		'auto-update-url' => '自动升级服务器 URL',
+		'force_email_validation' => 'Force email addresses validation', //TODO - Translation
 		'instance-name' => '实例名称',
 		'max-categories' => '每用户分类限制',
 		'max-feeds' => '每用户 RSS 源限制',

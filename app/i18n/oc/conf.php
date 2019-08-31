@@ -46,6 +46,7 @@ return array(
 			'_' => 'Supression del compte',
 			'warn' => 'Lo compte e totas las donadas ligadas seràn suprimits.',
 		),
+		'email' => 'Adreça de corrièl',
 		'password_api' => 'Senhal API<br /><small>(ex. : per las aplicacions mobil)</small>',
 		'password_form' => 'Senhal API<br /><small>(ex. : per la connexion via formulari)</small>',
 		'password_format' => 'Almens 7 caractèrs',

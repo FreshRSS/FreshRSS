@@ -37,6 +37,7 @@ return array(
 	'gen.share.diaspora',
 	'gen.share.facebook',
 	'gen.share.email',
+	'gen.share.lemmy',
 	'gen.share.linkedin',
 	'gen.share.mastodon',
 	'gen.share.movim',

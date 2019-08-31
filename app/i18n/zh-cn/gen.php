@@ -3,6 +3,7 @@
 return array(
 	'action' => array(
 		'actualize' => '获取',
+		'back' => '← Go back', //TODO - Translation
 		'back_to_rss_feeds' => '← 返回',
 		'cancel' => '取消',
 		'create' => '创建',
@@ -168,6 +169,7 @@ return array(
 		'gnusocial' => 'GNU social',
 		'jdh' => 'Journal du hacker',
 		'Known' => '基于 Known 的站点',
+		'lemmy' => 'Lemmy',
 		'linkedin' => 'LinkedIn',
 		'mastodon' => 'Mastodon',
 		'movim' => 'Movim',
