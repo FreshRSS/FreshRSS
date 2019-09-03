@@ -346,19 +346,38 @@ function checkDbUser(&$dbOptions) {
 	try {
 		$c = new PDO($str, $dbOptions['user'], $dbOptions['password'], $driver_options);
 		if (defined('SQL_CREATE_TABLES')) {
-			$sql = sprintf(SQL_CREATE_TABLES . SQL_CREATE_TABLE_ENTRYTMP . SQL_CREATE_TABLE_TAGS . SQL_INSERT_FEEDS,
+			$sql = sprintf(SQL_CREATE_TABLES . SQL_CREATE_TABLE_ENTRYTMP . SQL_CREATE_TABLE_TAGS,
 				$dbOptions['prefix_user'], _t('gen.short.default_category'));
 			$stm = $c->prepare($sql);
 			$ok = $stm && $stm->execute();
 		} else {
-			global $SQL_CREATE_TABLES, $SQL_CREATE_TABLE_ENTRYTMP, $SQL_CREATE_TABLE_TAGS, $SQL_INSERT_FEEDS;
-			$instructions = array_merge($SQL_CREATE_TABLES, $SQL_CREATE_TABLE_ENTRYTMP, $SQL_CREATE_TABLE_TAGS, $SQL_INSERT_FEEDS);
+			global $SQL_CREATE_TABLES, $SQL_CREATE_TABLE_ENTRYTMP, $SQL_CREATE_TABLE_TAGS;
+			$instructions = array_merge($SQL_CREATE_TABLES, $SQL_CREATE_TABLE_ENTRYTMP, $SQL_CREATE_TABLE_TAGS);
 			$ok = !empty($instructions);
 			foreach ($instructions as $instruction) {
 				$sql = sprintf($instruction, $dbOptions['prefix_user'], _t('gen.short.default_category'));
 				$stm = $c->prepare($sql);
 				$ok &= $stm && $stm->execute();
 			}
+		}
+
+		Minz_Configuration::register(
+			'system',
+			join_path(DATA_PATH, 'config.php'),
+			join_path(FRESHRSS_PATH, 'config.default.php')
+		);
+		$system_conf = Minz_Configuration::get('system');
+		$default_feeds = $system_conf->default_feeds;
+		foreach ($default_feeds as $feed) {
+			$sql = sprintf(SQL_INSERT_FEED, $dbOptions['prefix_user']);
+			$stm = $c->prepare($sql);
+			$parameters = array(
+				':url' => $feed['url'],
+				':name' => $feed['name'],
+				':website' => $feed['website'],
+				':description' => $feed['description'],
+			);
+			$ok &= ($stm && $stm->execute($parameters));
 		}
 	} catch (PDOException $e) {
 		$ok = false;
