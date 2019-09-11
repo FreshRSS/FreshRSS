@@ -2,8 +2,7 @@
 
 class FreshRSS_UserDAO extends Minz_ModelPdo {
 	public function createUser($username, $new_user_language, $insertDefaultFeeds = true) {
-		$db = FreshRSS_Context::$system_conf->db;
-		require_once(APP_PATH . '/SQL/install.sql.' . $db['type'] . '.php');
+		require_once(APP_PATH . '/SQL/install.sql.' . $this->bd->dbType() . '.php');
 
 		$userPDO = new Minz_ModelPdo($username);
 
@@ -46,7 +45,7 @@ class FreshRSS_UserDAO extends Minz_ModelPdo {
 				}
 			}
 		} catch (Exception $e) {
-			Minz_Log::error('Error while creating user: ' . $e->getMessage());
+			Minz_Log::error('Error while creating database for user: ' . $e->getMessage());
 		}
 
 		Minz_Translate::reset($currentLanguage);
@@ -61,15 +60,14 @@ class FreshRSS_UserDAO extends Minz_ModelPdo {
 	}
 
 	public function deleteUser($username) {
-		$db = FreshRSS_Context::$system_conf->db;
-		require_once(APP_PATH . '/SQL/install.sql.' . $db['type'] . '.php');
+		require_once(APP_PATH . '/SQL/install.sql.' . $this->bd->dbType() . '.php');
 
-		if ($db['type'] === 'sqlite') {
+		if ($this->bd->dbType() === 'sqlite') {
 			return unlink(USERS_PATH . '/' . $username . '/db.sqlite');
 		} else {
 			$userPDO = new Minz_ModelPdo($username);
 
-			$sql = sprintf(SQL_DROP_TABLES, $db['prefix'] . $username . '_');
+			$sql = sprintf(SQL_DROP_TABLES, $this->prefix);
 			$stm = $userPDO->bd->prepare($sql);
 			if ($stm && $stm->execute()) {
 				return true;

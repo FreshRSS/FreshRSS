@@ -17,7 +17,6 @@ class Minz_ModelPdo {
 	private static $sharedBd = null;
 	private static $sharedPrefix;
 	private static $sharedCurrentUser;
-	protected static $sharedDbType;
 
 	/**
 	 * $bd variable représentant la base de données
@@ -26,10 +25,6 @@ class Minz_ModelPdo {
 
 	protected $current_user;
 	protected $prefix;
-
-	public function dbType() {
-		return self::$sharedDbType;
-	}
 
 	/**
 	 * Créé la connexion à la base de données à l'aide des variables
@@ -97,7 +92,6 @@ class Minz_ModelPdo {
 					break;
 			}
 			self::$sharedBd = $this->bd;
-			self::$sharedDbType = $db['type'];
 			self::$sharedPrefix = $this->prefix;
 		} catch (Exception $e) {
 			throw new Minz_PDOConnectionException(
@@ -124,15 +118,9 @@ class Minz_ModelPdo {
 		self::$sharedBd = null;
 		self::$sharedPrefix = '';
 	}
-
-	public function disableBuffering() {
-		if ((self::$sharedDbType === 'mysql') && defined('PDO::MYSQL_ATTR_USE_BUFFERED_QUERY')) {
-			$this->bd->setAttribute(PDO::MYSQL_ATTR_USE_BUFFERED_QUERY, false);
-		}
-	}
 }
 
-class MinzPDO extends PDO {
+abstract class MinzPDO extends PDO {
 	private static function check($statement) {
 		if (preg_match('/^(?:UPDATE|INSERT|DELETE)/i', $statement)) {
 			invalidateHttpCache();
@@ -142,6 +130,8 @@ class MinzPDO extends PDO {
 	protected function compatibility($statement) {
 		return $statement;
 	}
+
+	abstract public function dbType();
 
 	public function prepare($statement, $driver_options = array()) {
 		MinzPDO::check($statement);
@@ -163,18 +153,30 @@ class MinzPDO extends PDO {
 }
 
 class MinzPDOMySql extends MinzPDO {
+	public function dbType() {
+		return 'mysql';
+	}
+
 	public function lastInsertId($name = null) {
 		return parent::lastInsertId();	//We discard the name, only used by PostgreSQL
 	}
 }
 
 class MinzPDOSQLite extends MinzPDO {
+	public function dbType() {
+		return 'sqlite';
+	}
+
 	public function lastInsertId($name = null) {
 		return parent::lastInsertId();	//We discard the name, only used by PostgreSQL
 	}
 }
 
 class MinzPDOPGSQL extends MinzPDO {
+	public function dbType() {
+		return 'pgsql';
+	}
+
 	protected function compatibility($statement) {
 		return str_replace(array('`', ' LIKE '), array('"', ' ILIKE '), $statement);
 	}

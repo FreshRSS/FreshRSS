@@ -316,9 +316,6 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 	}
 
 	public static function deleteUser($username) {
-		$db = FreshRSS_Context::$system_conf->db;
-		require_once(APP_PATH . '/SQL/install.sql.' . $db['type'] . '.php');
-
 		$ok = self::checkUsername($username);
 		if ($ok) {
 			$default_user = FreshRSS_Context::$system_conf->default_user;

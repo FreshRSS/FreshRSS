@@ -165,7 +165,7 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo implements FreshRSS_Searchable 
 			$cat->_id(self::DEFAULTCATEGORYID);
 
 			$sql = 'INSERT INTO `' . $this->prefix . 'category`(id, name) VALUES(?, ?)';
-			if (parent::$sharedDbType === 'pgsql') {
+			if ($this->bd->dbType() === 'pgsql') {
 				//Force call to nextval()
 				$sql .= ' RETURNING nextval(\'"' . $this->prefix . 'category_id_seq"\');';
 			}

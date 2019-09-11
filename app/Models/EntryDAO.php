@@ -64,7 +64,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 		}
 		$this->triedUpdateToUtf8mb4 = true;
 		$db = FreshRSS_Context::$system_conf->db;
-		if ($db['type'] === 'mysql') {
+		if ($this->bd->dbType() === 'mysql') {
 			include_once(APP_PATH . '/SQL/install.sql.mysql.php');
 			if (defined('SQL_UPDATE_UTF8MB4')) {
 				Minz_Log::warning('Updating MySQL to UTF8MB4...');	//v1.5.0
@@ -98,8 +98,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 			$this->bd->commit();
 		}
 		try {
-			$db = FreshRSS_Context::$system_conf->db;
-			require_once(APP_PATH . '/SQL/install.sql.' . $db['type'] . '.php');
+			require_once(APP_PATH . '/SQL/install.sql.' . $this->bd->dbType() . '.php');
 			Minz_Log::warning('SQL CREATE TABLE entrytmp...');
 			if (defined('SQL_CREATE_TABLE_ENTRYTMP')) {
 				$sql = sprintf(SQL_CREATE_TABLE_ENTRYTMP, $this->prefix);

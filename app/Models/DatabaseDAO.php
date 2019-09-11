@@ -144,8 +144,7 @@ class FreshRSS_DatabaseDAO extends Minz_ModelPdo {
 
 	public function ensureCaseInsensitiveGuids() {
 		$ok = true;
-		$db = FreshRSS_Context::$system_conf->db;
-		if ($db['type'] === 'mysql') {
+		if ($this->bd->dbType() === 'mysql') {
 			include_once(APP_PATH . '/SQL/install.sql.mysql.php');
 			if (defined('SQL_UPDATE_GUID_LATIN1_BIN')) {	//FreshRSS 1.12
 				try {
@@ -163,6 +162,14 @@ class FreshRSS_DatabaseDAO extends Minz_ModelPdo {
 
 	public function minorDbMaintenance() {
 		$this->ensureCaseInsensitiveGuids();
+	}
+
+	public function dbCreate() {
+		//TODO
+	}
+
+	public function dbClear() {
+		//TODO
 	}
 
 	const SQLITE_EXPORT = 1;
@@ -227,6 +234,7 @@ class FreshRSS_DatabaseDAO extends Minz_ModelPdo {
 		}
 
 		Minz_ModelPdo::clean();
+		$databaseDAOSQLite = new FreshRSS_DatabaseDAOSQLite('', '', $sqlite);
 		$categoryDAOSQLite = new FreshRSS_CategoryDAO('', '', $sqlite);
 		$feedDAOSQLite = new FreshRSS_FeedDAOSQLite('', '', $sqlite);
 		$entryDAOSQLite = new FreshRSS_EntryDAOSQLite('', '', $sqlite);
@@ -234,12 +242,16 @@ class FreshRSS_DatabaseDAO extends Minz_ModelPdo {
 
 		switch ($mode) {
 			case self::SQLITE_EXPORT:
+				$dbFrom = $this; $dbTo = $databaseDAOSQLite;
 				$catFrom = $catDAO; $catTo = $categoryDAOSQLite;
 				$feedFrom = $feedDAO; $feedTo = $feedDAOSQLite;
 				$entryFrom = $entryDAO; $entryTo = $entryDAOSQLite;
 				$tagFrom = $tagDAO; $tagTo = $tagDAOSQLite;
+				$dbTo->dbCreate();
+				$dbTo->dbClear();
 				break;
 			case self::SQLITE_IMPORT:
+				$dbFrom = $databaseDAOSQLite; $dbTo = $this;
 				$catFrom = $categoryDAOSQLite; $catTo = $catDAO;
 				$feedFrom = $feedDAOSQLite; $feedTo = $feedDAO;
 				$entryFrom = $entryDAOSQLite; $entryTo = $entryDAO;
