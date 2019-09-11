@@ -3,7 +3,7 @@
 return array(
 	'action' => array(
 		'actualize' => 'Actualizar',
-		'back' => '← Go back', //TODO - Translation
+		'back' => '← Tornar',
 		'back_to_rss_feeds' => '← Tornar a vòstres fluxes RSS',
 		'cancel' => 'Anullar',
 		'create' => 'Crear',
@@ -50,7 +50,7 @@ return array(
 		'Aug' => '\\a\\g\\o\\s\\t',
 		'aug' => 'agost',
 		'august' => 'agost',
-		'before_yesterday' => 'Abans ièr',
+		'before_yesterday' => 'Anterior a ièr',
 		'Dec' => '\\d\\e\\c\\e\\m\\b\\r\\e',
 		'dec' => 'dec.',
 		'december' => 'decembre',

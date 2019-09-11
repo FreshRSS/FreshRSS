@@ -3,30 +3,30 @@
 return array(
 	'email' => array(
 		'feedback' => array(
-			'invalid' => 'The email address is invalid.', //TODO - Translation
-			'required' => 'The email address is required.', //TODO - Translation
+			'invalid' => 'L’adreça electronica es invalida.',
+			'required' => 'L’adreça electronica es requesida.',
 		),
 		'validation' => array(
-			'change_email' => 'You can change your email address <a href="%s">on the profile page</a>.', //TODO - Translation
-			'email_sent_to' => 'We sent you an email at <strong>%s</strong>, please follow its indications to validate your address.', //TODO - Translation
+			'change_email' => 'Podètz cambiar l’adreça electronica <a href="%s">sus la pagina de perfil</a>.',
+			'email_sent_to' => 'Vos avèm enviat un corrièl a <strong>%s</strong>, mercés de seguir las consignas per validar l’adreça electronica.',
 			'feedback' => array(
-				'email_failed' => 'We couldn’t send you an email because of a misconfiguration of the server.', //TODO - Translation
-				'email_sent' => 'An email has been sent to your address.', //TODO - Translation
-				'error' => 'The email address failed to be validated.', //TODO - Translation
-				'ok' => 'The email address has been validated.', //TODO - Translation
-				'unneccessary' => 'The email address was already validated.', //TODO - Translation
-				'wrong_token' => 'The email address failed to be validated due to a wrong token.', //TODO - Translation
+				'email_failed' => 'Avèm pas pogut vos enviar un corrièl a causa d’una marrida configuracion del servidor.',
+				'email_sent' => 'Avèm enviat un corrièl a vòstra adreça.',
+				'error' => 'Fracàs de la validacion de l’adreça electronica.',
+				'ok' => 'L’adreça electronica es estada validada.',
+				'unneccessary' => 'L’adreça es ja estada validada.',
+				'wrong_token' => 'Fracàs de la validacion de l’adreça a causa d’un marrit geton.',
 			),
-			'need_to' => 'You need to validate your email address before being able to use %s.', //TODO - Translation
-			'resend_email' => 'Resend the email', //TODO - Translation
-			'title' => 'Email address validation', //TODO - Translation
+			'need_to' => 'Devèètz validar vòstra adreça electronica abans de poder utilizar %s.',
+			'resend_email' => 'Tornar enviar lo corrièl',
+			'title' => 'Validacion de l’adreça electronica',
 		),
 	),
 	'mailer' => array(
 		'email_need_validation' => array(
-			'title' => 'You need to validate your account', //TODO - Translation
-			'welcome' => 'Welcome %s,', //TODO - Translation
-			'body' => 'You’ve just registered on %s but you still need to validate your email. For that, just follow the link:', //TODO - Translation
+			'title' => 'Vos cal validar vòstra adreça electronica',
+			'welcome' => 'La benvenguda %s,',
+			'body' => 'Venètz de vos marcar sus %s mas vos cal encara validar l’adreça electronica. Per aquò far, seguissètz lo ligam :',
 		),
 	),
 );
