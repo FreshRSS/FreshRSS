@@ -191,7 +191,13 @@ class FreshRSS_DatabaseDAO extends Minz_ModelPdo {
 					$nbEntries = $entryDAO->countUnreadRead();
 					if (!empty($nbEntries['all'])) {
 						$error = 'Error: Destination database already contains some entries!';
+						break;
 					}
+				}
+				if ($this->bd->dbType() === 'sqlite') {
+					//For importing to SQLite, we can just copy the SQLite source (issues when using another PDO)
+					copy($filename, join_path(DATA_PATH, 'users', $this->current_user, 'db.sqlite'));
+					goto done;
 				}
 				break;
 			default:
@@ -199,12 +205,6 @@ class FreshRSS_DatabaseDAO extends Minz_ModelPdo {
 				break;
 		}
 		if ($error != '') {
-			goto done;
-		}
-
-		if ($this->bd->dbType() === 'sqlite') {
-			//For importing to SQLite, we cannot have two PDO instances at the same time but we can just copy the SQLite source
-			copy($filename, join_path(DATA_PATH, 'users', $this->current_user, 'db.sqlite'));
 			goto done;
 		}
 
