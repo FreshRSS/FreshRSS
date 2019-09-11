@@ -246,10 +246,15 @@ class FreshRSS_DatabaseDAO extends Minz_ModelPdo {
 
 		$catTo->beginTransaction();
 		foreach ($catFrom->select() as $category) {
-			$catId = $catTo->addCategory($category);
-			if ($catId == false) {
-				$error .= ' Error during SQLite copy of categories!';
-				goto done;
+			$cat = $catTo->searchByName($category['name']);	//Useful for the default category
+			if ($cat != null) {
+				$catId = $cat->id();
+			} else {
+				$catId = $catTo->addCategory($category);
+				if ($catId == false) {
+					$error .= ' Error during SQLite copy of categories!';
+					goto done;
+				}
 			}
 			$idMaps['c' . $category['id']] = $catId;
 		}

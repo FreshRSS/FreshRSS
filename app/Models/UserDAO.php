@@ -7,7 +7,7 @@ class FreshRSS_UserDAO extends Minz_ModelPdo {
 		$currentLanguage = Minz_Translate::language();
 
 		try {
-			if (new_user_language != null) {
+			if ($new_user_language != null) {
 				Minz_Translate::reset($new_user_language);
 			}
 			$ok = false;

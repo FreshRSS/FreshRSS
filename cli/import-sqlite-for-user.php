@@ -26,6 +26,9 @@ echo 'FreshRSS importing database from SQLite for user “', $username, "”…\
 $databaseDAO = FreshRSS_Factory::createDatabaseDAO($username);
 $clearFirst = array_key_exists('force-overwrite', $options);
 $ok = $databaseDAO->dbCopy($filename, FreshRSS_DatabaseDAO::SQLITE_IMPORT, $clearFirst);
+if (!$ok) {
+	echo 'If you would like to clear the user database first, use the option --force-overwrite', "\n";
+}
 invalidateHttpCache($username);
 
 done($ok);
