@@ -116,6 +116,7 @@ class Minz_ModelPdo {
 
 	public static function clean() {
 		self::$sharedBd = null;
+		self::$sharedCurrentUser = '';
 		self::$sharedPrefix = '';
 	}
 }

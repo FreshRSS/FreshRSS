@@ -185,9 +185,11 @@ class FreshRSS_DatabaseDAO extends Minz_ModelPdo {
 			case self::SQLITE_IMPORT:
 				if (!is_readable($filename)) {
 					$error = 'Error: SQLite import file is not readable: ' . $filename;
-				} elseif (!$clearFirst) {
+				} elseif ($clearFirst) {
+					$userDAO->deleteUser();
+				} else {
 					$nbEntries = $entryDAO->countUnreadRead();
-					if ($nbEntries['all'] > 0) {
+					if (!empty($nbEntries['all'])) {
 						$error = 'Error: Destination database already contains some entries!';
 					}
 				}
@@ -197,6 +199,12 @@ class FreshRSS_DatabaseDAO extends Minz_ModelPdo {
 				break;
 		}
 		if ($error != '') {
+			goto done;
+		}
+
+		if ($this->bd->dbType() === 'sqlite') {
+			//For importing to SQLite, we cannot have two PDO instances at the same time but we can just copy the SQLite source
+			copy($filename, join_path(DATA_PATH, 'users', $this->current_user, 'db.sqlite'));
 			goto done;
 		}
 
@@ -211,7 +219,6 @@ class FreshRSS_DatabaseDAO extends Minz_ModelPdo {
 		}
 
 		Minz_ModelPdo::clean();
-		$databaseDAOSQLite = new FreshRSS_DatabaseDAOSQLite('', '', $sqlite);
 		$userDAOSQLite = new FreshRSS_UserDAO('', '', $sqlite);
 		$categoryDAOSQLite = new FreshRSS_CategoryDAO('', '', $sqlite);
 		$feedDAOSQLite = new FreshRSS_FeedDAOSQLite('', '', $sqlite);
@@ -220,29 +227,24 @@ class FreshRSS_DatabaseDAO extends Minz_ModelPdo {
 
 		switch ($mode) {
 			case self::SQLITE_EXPORT:
-				$dbFrom = $this; $dbTo = $databaseDAOSQLite;
 				$userFrom = $userDAO; $userTo = $userDAOSQLite;
 				$catFrom = $catDAO; $catTo = $categoryDAOSQLite;
 				$feedFrom = $feedDAO; $feedTo = $feedDAOSQLite;
 				$entryFrom = $entryDAO; $entryTo = $entryDAOSQLite;
 				$tagFrom = $tagDAO; $tagTo = $tagDAOSQLite;
-				$userTo->createUser();
 				break;
 			case self::SQLITE_IMPORT:
-				$dbFrom = $databaseDAOSQLite; $dbTo = $this;
 				$userFrom = $userDAOSQLite; $userTo = $userDAO;
 				$catFrom = $categoryDAOSQLite; $catTo = $catDAO;
 				$feedFrom = $feedDAOSQLite; $feedTo = $feedDAO;
 				$entryFrom = $entryDAOSQLite; $entryTo = $entryDAO;
 				$tagFrom = $tagDAOSQLite; $tagTo = $tagDAO;
-				if ($clearFirst) {
-					$userTo->deleteUser();
-				}
-				$userTo->createUser();
 				break;
 		}
 
 		$idMaps = [];
+
+		$userTo->createUser();
 
 		$catTo->beginTransaction();
 		foreach ($catFrom->select() as $category) {

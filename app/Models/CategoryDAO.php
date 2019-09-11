@@ -105,6 +105,9 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo implements FreshRSS_Searchable 
 	public function searchByName($name) {
 		$sql = 'SELECT * FROM `' . $this->prefix . 'category` WHERE name=?';
 		$stm = $this->bd->prepare($sql);
+		if ($stm == false) {
+			return false;
+		}
 
 		$values = array($name);
 
