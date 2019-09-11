@@ -99,12 +99,10 @@ $SQL_CREATE_TABLE_TAGS = array(
 'CREATE INDEX entrytag_id_entry_index ON `entrytag` (`id_entry`);',
 );
 
-global $SQL_INSERT_FEEDS;
-$SQL_INSERT_FEEDS = array(
-'INSERT OR IGNORE INTO `feed` (url, category, name, website, description, ttl)
-	VALUES ("https://freshrss.org/feeds/all.atom.xml", 1, "FreshRSS.org", "https://freshrss.org/", "FreshRSS, a free, self-hostable aggregator…", 86400);',
-'INSERT OR IGNORE INTO `feed` (url, category, name, website, description, ttl)
-	VALUES ("https://github.com/FreshRSS/FreshRSS/releases.atom", 1, "FreshRSS releases", "https://github.com/FreshRSS/FreshRSS/", "FreshRSS releases @ GitHub", 86400);',
+define(
+	'SQL_INSERT_FEED',
+	'INSERT OR IGNORE INTO `feed` (url, category, name, website, description, ttl)
+		VALUES(:url, 1, :name, :website, :description, 86400);'
 );
 
 define('SQL_DROP_TABLES', 'DROP TABLE IF EXISTS `entrytag`, `tag`, `entrytmp`, `entry`, `feed`, `category`');

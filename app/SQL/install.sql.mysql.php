@@ -109,10 +109,11 @@ CREATE TABLE IF NOT EXISTS `%1$sentrytag` (	-- v1.12
 ENGINE = INNODB;
 ');
 
-define('SQL_INSERT_FEEDS', '
-INSERT IGNORE INTO `%1$sfeed` (url, category, name, website, description, ttl) VALUES("https://freshrss.org/feeds/all.atom.xml", 1, "FreshRSS.org", "https://freshrss.org/", "FreshRSS, a free, self-hostable aggregator…", 86400);
-INSERT IGNORE INTO `%1$sfeed` (url, category, name, website, description, ttl) VALUES("https://github.com/FreshRSS/FreshRSS/releases.atom", 1, "FreshRSS @ GitHub", "https://github.com/FreshRSS/FreshRSS/", "FreshRSS releases @ GitHub", 86400);
-');
+define(
+	'SQL_INSERT_FEED',
+	'INSERT IGNORE INTO `%1$sfeed` (url, category, name, website, description, ttl)
+		VALUES(:url, 1, :name, :website, :description, 86400);'
+);
 
 define('SQL_DROP_TABLES', 'DROP TABLE IF EXISTS `%1$sentrytag`, `%1$stag`, `%1$sentrytmp`, `%1$sentry`, `%1$sfeed`, `%1$scategory`');
 
