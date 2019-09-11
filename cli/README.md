@@ -72,10 +72,11 @@ cd /usr/share/FreshRSS
 # The extension of the file { .json, .opml, .xml, .zip } is used to detect the type of import
 
 ./cli/export-sqlite-for-user.php --user username --filename /path/to/db.sqlite
-# Export the user’s database to a new SQLite file
+# Export the user’s database to a new SQLite file.
 
-./cli/import-sqlite-for-user.php --user username --filename /path/to/db.sqlite
-# Import the user’s database from an SQLite file. The user’s database must have 0 entry before starting this command.
+./cli/import-sqlite-for-user.php --user username ( --force-overwrite ) --filename /path/to/db.sqlite
+# Import the user’s database from an SQLite file.
+# --force-overwrite will clear the target user database before import (import only works on an empty user database)
 
 ./cli/export-opml-for-user.php --user username > /path/to/file.opml.xml
 

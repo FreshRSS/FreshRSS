@@ -1,20 +1,19 @@
 <?php
 
 class FreshRSS_UserDAO extends Minz_ModelPdo {
-	public function createUser($username, $new_user_language, $insertDefaultFeeds = true) {
+	public function createUser($new_user_language = null, $insertDefaultFeeds = false) {
 		require_once(APP_PATH . '/SQL/install.sql.' . $this->bd->dbType() . '.php');
-
-		$userPDO = new Minz_ModelPdo($username);
 
 		$currentLanguage = Minz_Translate::language();
 
 		try {
-			Minz_Translate::reset($new_user_language);
+			if (new_user_language != null) {
+				Minz_Translate::reset($new_user_language);
+			}
 			$ok = false;
-			$bd_prefix_user = $db['prefix'] . $username . '_';
 			if (defined('SQL_CREATE_TABLES')) {	//E.g. MySQL
-				$sql = sprintf(SQL_CREATE_TABLES . SQL_CREATE_TABLE_ENTRYTMP . SQL_CREATE_TABLE_TAGS, $bd_prefix_user, _t('gen.short.default_category'));
-				$stm = $userPDO->bd->prepare($sql);
+				$sql = sprintf(SQL_CREATE_TABLES . SQL_CREATE_TABLE_ENTRYTMP . SQL_CREATE_TABLE_TAGS, $this->prefix, _t('gen.short.default_category'));
+				$stm = $this->bd->prepare($sql);
 				$ok = $stm && $stm->execute();
 			} else {	//E.g. SQLite
 				global $SQL_CREATE_TABLES, $SQL_CREATE_TABLE_ENTRYTMP, $SQL_CREATE_TABLE_TAGS;
@@ -22,8 +21,8 @@ class FreshRSS_UserDAO extends Minz_ModelPdo {
 					$instructions = array_merge($SQL_CREATE_TABLES, $SQL_CREATE_TABLE_ENTRYTMP, $SQL_CREATE_TABLE_TAGS);
 					$ok = !empty($instructions);
 					foreach ($instructions as $instruction) {
-						$sql = sprintf($instruction, $bd_prefix_user, _t('gen.short.default_category'));
-						$stm = $userPDO->bd->prepare($sql);
+						$sql = sprintf($instruction, $this->prefix, _t('gen.short.default_category'));
+						$stm = $this->bd->prepare($sql);
 						$ok &= ($stm && $stm->execute());
 					}
 				}
@@ -31,8 +30,8 @@ class FreshRSS_UserDAO extends Minz_ModelPdo {
 			if ($ok && $insertDefaultFeeds) {
 				$default_feeds = FreshRSS_Context::$system_conf->default_feeds;
 				foreach ($default_feeds as $feed) {
-					$sql = sprintf(SQL_INSERT_FEED, $bd_prefix_user);
-					$stm = $userPDO->bd->prepare($sql);
+					$sql = sprintf(SQL_INSERT_FEED, $this->prefix);
+					$stm = $this->bd->prepare($sql);
 					$parameters = array(
 						':url' => $feed['url'],
 						':name' => $feed['name'],
@@ -57,16 +56,14 @@ class FreshRSS_UserDAO extends Minz_ModelPdo {
 		}
 	}
 
-	public function deleteUser($username) {
+	public function deleteUser() {
 		require_once(APP_PATH . '/SQL/install.sql.' . $this->bd->dbType() . '.php');
 
 		if ($this->bd->dbType() === 'sqlite') {
-			return unlink(USERS_PATH . '/' . $username . '/db.sqlite');
+			return unlink(USERS_PATH . '/' . $this->current_user . '/db.sqlite');
 		} else {
-			$userPDO = new Minz_ModelPdo($username);
-
 			$sql = sprintf(SQL_DROP_TABLES, $this->prefix);
-			$stm = $userPDO->bd->prepare($sql);
+			$stm = $this->bd->prepare($sql);
 			if ($stm && $stm->execute()) {
 				return true;
 			} else {

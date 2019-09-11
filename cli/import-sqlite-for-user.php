@@ -24,10 +24,8 @@ if (pathinfo($filename, PATHINFO_EXTENSION) !== 'sqlite') {
 echo 'FreshRSS importing database from SQLite for user “', $username, "”…\n";
 
 $databaseDAO = FreshRSS_Factory::createDatabaseDAO($username);
-if (array_key_exists('force-overwrite', $options)) {
-	$databaseDAO->dbClear();
-}
-$ok = $databaseDAO->dbCopy($filename, FreshRSS_DatabaseDAO::SQLITE_IMPORT);
+$clearFirst = array_key_exists('force-overwrite', $options);
+$ok = $databaseDAO->dbCopy($filename, FreshRSS_DatabaseDAO::SQLITE_IMPORT, $clearFirst);
 invalidateHttpCache($username);
 
 done($ok);

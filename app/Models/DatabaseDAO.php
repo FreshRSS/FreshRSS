@@ -153,7 +153,7 @@ class FreshRSS_DatabaseDAO extends Minz_ModelPdo {
 					$ok = $stm->execute();
 				} catch (Exception $e) {
 					$ok = false;
-					Minz_Log::error('FreshRSS_DatabaseDAO::ensureCaseInsensitiveGuids error: ' . $e->getMessage());
+					Minz_Log::error(__METHOD__ . ' error: ' . $e->getMessage());
 				}
 			}
 		}
@@ -164,20 +164,13 @@ class FreshRSS_DatabaseDAO extends Minz_ModelPdo {
 		$this->ensureCaseInsensitiveGuids();
 	}
 
-	public function dbCreate() {
-		//TODO
-	}
-
-	public function dbClear() {
-		//TODO
-	}
-
 	const SQLITE_EXPORT = 1;
 	const SQLITE_IMPORT = 2;
 
-	public function dbCopy($filename, $mode) {
+	public function dbCopy($filename, $mode, $clearFirst = false) {
 		$error = '';
 
+		$userDAO = FreshRSS_Factory::createUserDao();
 		$catDAO = FreshRSS_Factory::createCategoryDao();
 		$feedDAO = FreshRSS_Factory::createFeedDao();
 		$entryDAO = FreshRSS_Factory::createEntryDao();
@@ -192,7 +185,7 @@ class FreshRSS_DatabaseDAO extends Minz_ModelPdo {
 			case self::SQLITE_IMPORT:
 				if (!is_readable($filename)) {
 					$error = 'Error: SQLite import file is not readable: ' . $filename;
-				} else {
+				} elseif (!$clearFirst) {
 					$nbEntries = $entryDAO->countUnreadRead();
 					if ($nbEntries['all'] > 0) {
 						$error = 'Error: Destination database already contains some entries!';
@@ -212,22 +205,6 @@ class FreshRSS_DatabaseDAO extends Minz_ModelPdo {
 		try {
 			$sqlite = new MinzPDOSQLite('sqlite:' . $filename);
 			$sqlite->exec('PRAGMA foreign_keys = ON;');
-
-			if ($mode === self::SQLITE_EXPORT) {
-				require_once(APP_PATH . '/SQL/install.sql.sqlite.php');
-
-				global $SQL_CREATE_TABLES, $SQL_CREATE_TABLE_ENTRYTMP, $SQL_CREATE_TABLE_TAGS;
-				if (is_array($SQL_CREATE_TABLES)) {
-					$instructions = array_merge($SQL_CREATE_TABLES, $SQL_CREATE_TABLE_ENTRYTMP, $SQL_CREATE_TABLE_TAGS,
-					array('DELETE FROM entrytag', 'DELETE FROM tag', 'DELETE FROM entrytmp', 'DELETE FROM entry',
-					'DELETE FROM feed', 'DELETE FROM category'));
-					foreach ($instructions as $instruction) {
-						$sql = sprintf($instruction, '', _t('gen.short.default_category'));
-						$stm = $sqlite->prepare($sql);
-						$stm->execute();
-					}
-				}
-			}
 		} catch (Exception $e) {
 			$error .= ' Error while initialising SQLite copy: ' . $e->getMessage();
 			goto done;
@@ -235,6 +212,7 @@ class FreshRSS_DatabaseDAO extends Minz_ModelPdo {
 
 		Minz_ModelPdo::clean();
 		$databaseDAOSQLite = new FreshRSS_DatabaseDAOSQLite('', '', $sqlite);
+		$userDAOSQLite = new FreshRSS_UserDAO('', '', $sqlite);
 		$categoryDAOSQLite = new FreshRSS_CategoryDAO('', '', $sqlite);
 		$feedDAOSQLite = new FreshRSS_FeedDAOSQLite('', '', $sqlite);
 		$entryDAOSQLite = new FreshRSS_EntryDAOSQLite('', '', $sqlite);
@@ -243,19 +221,24 @@ class FreshRSS_DatabaseDAO extends Minz_ModelPdo {
 		switch ($mode) {
 			case self::SQLITE_EXPORT:
 				$dbFrom = $this; $dbTo = $databaseDAOSQLite;
+				$userFrom = $userDAO; $userTo = $userDAOSQLite;
 				$catFrom = $catDAO; $catTo = $categoryDAOSQLite;
 				$feedFrom = $feedDAO; $feedTo = $feedDAOSQLite;
 				$entryFrom = $entryDAO; $entryTo = $entryDAOSQLite;
 				$tagFrom = $tagDAO; $tagTo = $tagDAOSQLite;
-				$dbTo->dbCreate();
-				$dbTo->dbClear();
+				$userTo->createUser();
 				break;
 			case self::SQLITE_IMPORT:
 				$dbFrom = $databaseDAOSQLite; $dbTo = $this;
+				$userFrom = $userDAOSQLite; $userTo = $userDAO;
 				$catFrom = $categoryDAOSQLite; $catTo = $catDAO;
 				$feedFrom = $feedDAOSQLite; $feedTo = $feedDAO;
 				$entryFrom = $entryDAOSQLite; $entryTo = $entryDAO;
 				$tagFrom = $tagDAOSQLite; $tagTo = $tagDAO;
+				if ($clearFirst) {
+					$userTo->deleteUser();
+				}
+				$userTo->createUser();
 				break;
 		}
 
