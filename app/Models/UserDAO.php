@@ -29,19 +29,17 @@ class FreshRSS_UserDAO extends Minz_ModelPdo {
 				}
 			}
 			if ($ok && $insertDefaultFeeds) {
-				if (defined('SQL_INSERT_FEEDS')) {	//E.g. MySQL
-					$sql = sprintf(SQL_INSERT_FEEDS, $bd_prefix_user);
+				$default_feeds = FreshRSS_Context::$system_conf->default_feeds;
+				foreach ($default_feeds as $feed) {
+					$sql = sprintf(SQL_INSERT_FEED, $bd_prefix_user);
 					$stm = $userPDO->bd->prepare($sql);
-					$ok &= $stm && $stm->execute();
-				} else {	//E.g. SQLite
-					global $SQL_INSERT_FEEDS;
-					if (is_array($SQL_INSERT_FEEDS)) {
-						foreach ($SQL_INSERT_FEEDS as $instruction) {
-							$sql = sprintf($instruction, $bd_prefix_user);
-							$stm = $userPDO->bd->prepare($sql);
-							$ok &= ($stm && $stm->execute());
-						}
-					}
+					$parameters = array(
+						':url' => $feed['url'],
+						':name' => $feed['name'],
+						':website' => $feed['website'],
+						':description' => $feed['description'],
+					);
+					$ok &= ($stm && $stm->execute($parameters));
 				}
 			}
 		} catch (Exception $e) {
