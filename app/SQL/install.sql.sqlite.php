@@ -113,4 +113,13 @@ $SQL_DROP_TABLES = [
 	'DROP TABLE IF EXISTS `entry`',
 	'DROP TABLE IF EXISTS `feed`',
 	'DROP TABLE IF EXISTS `category`',
+	'DROP INDEX IF EXISTS `entrytag_id_entry_index`',
+	'DROP INDEX IF EXISTS `entry_feed_read_index`',
+	'DROP INDEX IF EXISTS `entrytmp_date_index`',
+	'DROP INDEX IF EXISTS `entry_lastSeen_index`',
+	'DROP INDEX IF EXISTS `entry_is_read_index`',
+	'DROP INDEX IF EXISTS `entry_is_favorite_index`',
+	'DROP INDEX IF EXISTS `feed_keep_history_index`',
+	'DROP INDEX IF EXISTS `feed_priority_index`',
+	'DROP INDEX IF EXISTS `feed_name_index`',
 ];

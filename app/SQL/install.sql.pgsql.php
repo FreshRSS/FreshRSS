@@ -106,4 +106,8 @@ define(
 		WHERE NOT EXISTS (SELECT id FROM "%1$sfeed" WHERE url = :url);'
 );
 
-define('SQL_DROP_TABLES', 'DROP TABLE IF EXISTS "%1$sentrytag", "%1$stag", "%1$sentrytmp", "%1$sentry", "%1$sfeed", "%1$scategory"');
+global $SQL_DROP_TABLES;
+$SQL_DROP_TABLES = [
+	'DROP TABLE IF EXISTS "%1$sentrytag", "%1$stag", "%1$sentrytmp", "%1$sentry", "%1$sfeed", "%1$scategory"',
+	'DROP INDEX IF EXISTS "%1$sentrytag_id_entry_index", "%1$sentry_feed_read_index", "%1$sentrytmp_date_index", "%1$sentry_lastSeen_index", "%1$sis_read_index", "%1$sis_favorite_index", "%1$skeep_history_index", "%1$spriority_index", "%1$sname_index"',
+];
