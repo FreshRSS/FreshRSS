@@ -65,7 +65,7 @@ class FreshRSS_UserDAO extends Minz_ModelPdo {
 
 		$ok = false;
 		if (defined('SQL_DROP_TABLES')) {	//E.g. MySQL
-			$sql = SQL_DROP_TABLES;
+			$sql = sprintf(SQL_DROP_TABLES, $this->prefix);
 			$stm = $this->bd->prepare($sql);
 			$ok = $stm && $stm->execute();
 		} else {	//E.g. SQLite
@@ -73,7 +73,8 @@ class FreshRSS_UserDAO extends Minz_ModelPdo {
 			if (is_array($SQL_DROP_TABLES)) {
 				$instructions = $SQL_DROP_TABLES;
 				$ok = !empty($instructions);
-				foreach ($instructions as $sql) {
+				foreach ($instructions as $instruction) {
+					$sql = sprintf($instruction, $this->prefix);
 					$stm = $this->bd->prepare($sql);
 					$ok &= ($stm && $stm->execute());
 				}
