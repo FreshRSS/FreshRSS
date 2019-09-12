@@ -105,4 +105,12 @@ define(
 		VALUES(:url, 1, :name, :website, :description, 86400);'
 );
 
-define('SQL_DROP_TABLES', 'DROP TABLE IF EXISTS `entrytag`, `tag`, `entrytmp`, `entry`, `feed`, `category`');
+global $SQL_DROP_TABLES;
+$SQL_DROP_TABLES = [
+	'DROP TABLE IF EXISTS `entrytag`',
+	'DROP TABLE IF EXISTS `tag`',
+	'DROP TABLE IF EXISTS `entrytmp`',
+	'DROP TABLE IF EXISTS `entry`',
+	'DROP TABLE IF EXISTS `feed`',
+	'DROP TABLE IF EXISTS `category`',
+];

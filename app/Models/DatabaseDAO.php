@@ -187,17 +187,15 @@ class FreshRSS_DatabaseDAO extends Minz_ModelPdo {
 					$error = 'Error: SQLite import file is not readable: ' . $filename;
 				} elseif ($clearFirst) {
 					$userDAO->deleteUser();
+					if ($this->bd->dbType() === 'sqlite') {
+						$this->optimize();	//We cannot just delete the .sqlite file otherwise PDO gets buggy
+					}
 				} else {
 					$nbEntries = $entryDAO->countUnreadRead();
 					if (!empty($nbEntries['all'])) {
 						$error = 'Error: Destination database already contains some entries!';
 						break;
 					}
-				}
-				if ($this->bd->dbType() === 'sqlite') {
-					//For importing to SQLite, we can just copy the SQLite source (issues when using another PDO)
-					copy($filename, join_path(DATA_PATH, 'users', $this->current_user, 'db.sqlite'));
-					goto done;
 				}
 				break;
 			default:
@@ -243,6 +241,10 @@ class FreshRSS_DatabaseDAO extends Minz_ModelPdo {
 		}
 
 		$idMaps = [];
+
+		if (defined('STDERR')) {
+			fwrite(STDERR, "Start SQL copy…\n");
+		}
 
 		$userTo->createUser();
 

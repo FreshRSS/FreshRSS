@@ -51,26 +51,41 @@ class FreshRSS_UserDAO extends Minz_ModelPdo {
 			return true;
 		} else {
 			$info = empty($stm) ? array(2 => 'syntax error') : $stm->errorInfo();
-			Minz_Log::error('SQL error: ' . $info[2]);
+			Minz_Log::error(__METHOD__ . ' error: ' . $info[2]);
 			return false;
 		}
 	}
 
 	public function deleteUser() {
+		if (defined('STDERR')) {
+			fwrite(STDERR, 'Deleting SQL data for user “' . $this->current_user . "”…\n");
+		}
+
 		require_once(APP_PATH . '/SQL/install.sql.' . $this->bd->dbType() . '.php');
 
-		if ($this->bd->dbType() === 'sqlite') {
-			return unlink(USERS_PATH . '/' . $this->current_user . '/db.sqlite');
-		} else {
-			$sql = sprintf(SQL_DROP_TABLES, $this->prefix);
+		$ok = false;
+		if (defined('SQL_DROP_TABLES')) {	//E.g. MySQL
+			$sql = SQL_DROP_TABLES;
 			$stm = $this->bd->prepare($sql);
-			if ($stm && $stm->execute()) {
-				return true;
-			} else {
-				$info = $stm == null ? array(2 => 'syntax error') : $stm->errorInfo();
-				Minz_Log::error('SQL error : ' . $info[2]);
-				return false;
+			$ok = $stm && $stm->execute();
+		} else {	//E.g. SQLite
+			global $SQL_DROP_TABLES;
+			if (is_array($SQL_DROP_TABLES)) {
+				$instructions = $SQL_DROP_TABLES;
+				$ok = !empty($instructions);
+				foreach ($instructions as $sql) {
+					$stm = $this->bd->prepare($sql);
+					$ok &= ($stm && $stm->execute());
+				}
 			}
+		}
+
+		if ($ok) {
+			return true;
+		} else {
+			$info = $stm == null ? array(2 => 'syntax error') : $stm->errorInfo();
+			Minz_Log::error(__METHOD__ . ' error: ' . $info[2]);
+			return false;
 		}
 	}
 
