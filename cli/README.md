@@ -74,7 +74,7 @@ cd /usr/share/FreshRSS
 ./cli/export-sqlite-for-user.php --user username --filename /path/to/db.sqlite
 # Export the user’s database to a new SQLite file.
 
-./cli/import-sqlite-for-user.php --user username ( --force-overwrite ) --filename /path/to/db.sqlite
+./cli/import-sqlite-for-user.php --user username [--force-overwrite] --filename /path/to/db.sqlite
 # Import the user’s database from an SQLite file.
 # --force-overwrite will clear the target user database before import (import only works on an empty user database)
 
