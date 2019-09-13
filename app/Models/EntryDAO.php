@@ -636,7 +636,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 		}
 	}
 
-	public function select() {
+	public function selectAll() {
 		$sql = 'SELECT id, guid, title, author, '
 			. ($this->isCompressed() ? 'UNCOMPRESS(content_bin) AS content' : 'content')
 			. ', link, date, `lastSeen`, ' . $this->sqlHexEncode('hash') . ' AS hash, is_read, is_favorite, id_feed, tags '
@@ -644,7 +644,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 		$stm = $this->bd->prepare($sql);
 		$stm->execute();
 		while ($row = $stm->fetch(PDO::FETCH_ASSOC)) {
-			yield $row;	//PHP 5.5+
+			yield $row;
 		}
 	}
 

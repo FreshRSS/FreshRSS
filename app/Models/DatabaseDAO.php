@@ -211,7 +211,7 @@ class FreshRSS_DatabaseDAO extends Minz_ModelPdo {
 			$sqlite = new MinzPDOSQLite('sqlite:' . $filename);
 			$sqlite->exec('PRAGMA foreign_keys = ON;');
 		} catch (Exception $e) {
-			$error .= ' Error while initialising SQLite copy: ' . $e->getMessage();
+			$error = 'Error while initialising SQLite copy: ' . $e->getMessage();
 			goto done;
 		}
 
@@ -248,24 +248,24 @@ class FreshRSS_DatabaseDAO extends Minz_ModelPdo {
 		$userTo->createUser();
 
 		$catTo->beginTransaction();
-		foreach ($catFrom->select() as $category) {
+		foreach ($catFrom->selectAll() as $category) {
 			$cat = $catTo->searchByName($category['name']);	//Useful for the default category
 			if ($cat != null) {
 				$catId = $cat->id();
 			} else {
 				$catId = $catTo->addCategory($category);
 				if ($catId == false) {
-					$error .= ' Error during SQLite copy of categories!';
+					$error = 'Error during SQLite copy of categories!';
 					goto done;
 				}
 			}
 			$idMaps['c' . $category['id']] = $catId;
 		}
-		foreach ($feedFrom->select() as $feed) {
+		foreach ($feedFrom->selectAll() as $feed) {
 			$feed['category'] = empty($idMaps['c' . $feed['category']]) ? FreshRSS_CategoryDAO::DEFAULTCATEGORYID : $idMaps['c' . $feed['category']];
 			$feedId = $feedTo->addFeed($feed);
 			if ($feedId == false) {
-				$error .= ' Error during SQLite copy of feeds!';
+				$error = 'Error during SQLite copy of feeds!';
 				goto done;
 			}
 			$idMaps['f' . $feed['id']] = $feedId;
@@ -275,12 +275,12 @@ class FreshRSS_DatabaseDAO extends Minz_ModelPdo {
 		$nbEntries = $entryFrom->count();
 		$n = 0;
 		$entryTo->beginTransaction();
-		foreach ($entryFrom->select() as $entry) {
+		foreach ($entryFrom->selectAll() as $entry) {
 			$n++;
 			if (!empty($idMaps['f' . $entry['id_feed']])) {
 				$entry['id_feed'] = $idMaps['f' . $entry['id_feed']];
 				if (!$entryTo->addEntry($entry, false)) {
-					$error .= ' Error during SQLite copy of entries!';
+					$error = 'Error during SQLite copy of entries!';
 					goto done;
 				}
 			}
@@ -297,10 +297,10 @@ class FreshRSS_DatabaseDAO extends Minz_ModelPdo {
 		$idMaps = [];
 
 		$tagTo->beginTransaction();
-		foreach ($tagFrom->select() as $tag) {
+		foreach ($tagFrom->selectAll() as $tag) {
 			$tagId = $tagTo->addTag($tag);
 			if ($tagId == false) {
-				$error .= ' Error during SQLite copy of tags!';
+				$error = 'Error during SQLite copy of tags!';
 				goto done;
 			}
 			$idMaps['t' . $tag['id']] = $tagId;
@@ -309,7 +309,7 @@ class FreshRSS_DatabaseDAO extends Minz_ModelPdo {
 			if (!empty($idMaps['t' . $entryTag['id_tag']])) {
 				$entryTag['id_tag'] = $idMaps['t' . $entryTag['id_tag']];
 				if (!$tagTo->tagEntry($entryTag['id_tag'], $entryTag['id_entry'])) {
-					$error .= ' Error during SQLite copy of entry-tags!';
+					$error = 'Error during SQLite copy of entry-tags!';
 					goto done;
 				}
 			}
