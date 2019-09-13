@@ -194,7 +194,6 @@ class FreshRSS_DatabaseDAO extends Minz_ModelPdo {
 					$nbEntries = $entryDAO->countUnreadRead();
 					if (!empty($nbEntries['all'])) {
 						$error = 'Error: Destination database already contains some entries!';
-						break;
 					}
 				}
 				break;

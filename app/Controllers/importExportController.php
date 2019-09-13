@@ -709,8 +709,6 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 		$this->entryDAO = FreshRSS_Factory::createEntryDao($username);
 		$this->feedDAO = FreshRSS_Factory::createFeedDao($username);
 
-		$this->entryDAO->disableBuffering();
-
 		if ($export_feeds === true) {
 			//All feeds
 			$export_feeds = $this->feedDAO->listFeedsIds();
