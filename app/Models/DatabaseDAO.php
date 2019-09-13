@@ -323,7 +323,7 @@ class FreshRSS_DatabaseDAO extends Minz_ModelPdo {
 			}
 		}
 		$tagTo->commit();
-		
+
 		return true;
 	}
 }
