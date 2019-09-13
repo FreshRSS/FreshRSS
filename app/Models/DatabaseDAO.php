@@ -164,6 +164,14 @@ class FreshRSS_DatabaseDAO extends Minz_ModelPdo {
 		$this->ensureCaseInsensitiveGuids();
 	}
 
+	private static function stdError($error) {
+		if (defined('STDERR')) {
+			fwrite(STDERR, $error . "\n");
+		}
+		Minz_Log::error($error);
+		return false;
+	}
+
 	const SQLITE_EXPORT = 1;
 	const SQLITE_IMPORT = 2;
 
@@ -202,7 +210,7 @@ class FreshRSS_DatabaseDAO extends Minz_ModelPdo {
 				break;
 		}
 		if ($error != '') {
-			goto done;
+			return self::stdError($error);
 		}
 
 		$sqlite = null;
@@ -212,7 +220,7 @@ class FreshRSS_DatabaseDAO extends Minz_ModelPdo {
 			$sqlite->exec('PRAGMA foreign_keys = ON;');
 		} catch (Exception $e) {
 			$error = 'Error while initialising SQLite copy: ' . $e->getMessage();
-			goto done;
+			return self::stdError($error);
 		}
 
 		Minz_ModelPdo::clean();
@@ -256,7 +264,7 @@ class FreshRSS_DatabaseDAO extends Minz_ModelPdo {
 				$catId = $catTo->addCategory($category);
 				if ($catId == false) {
 					$error = 'Error during SQLite copy of categories!';
-					goto done;
+					return self::stdError($error);
 				}
 			}
 			$idMaps['c' . $category['id']] = $catId;
@@ -266,7 +274,7 @@ class FreshRSS_DatabaseDAO extends Minz_ModelPdo {
 			$feedId = $feedTo->addFeed($feed);
 			if ($feedId == false) {
 				$error = 'Error during SQLite copy of feeds!';
-				goto done;
+				return self::stdError($error);
 			}
 			$idMaps['f' . $feed['id']] = $feedId;
 		}
@@ -281,7 +289,7 @@ class FreshRSS_DatabaseDAO extends Minz_ModelPdo {
 				$entry['id_feed'] = $idMaps['f' . $entry['id_feed']];
 				if (!$entryTo->addEntry($entry, false)) {
 					$error = 'Error during SQLite copy of entries!';
-					goto done;
+					return self::stdError($error);
 				}
 			}
 			if ($n % 100 === 1 && defined('STDERR')) {	//Display progression
@@ -301,7 +309,7 @@ class FreshRSS_DatabaseDAO extends Minz_ModelPdo {
 			$tagId = $tagTo->addTag($tag);
 			if ($tagId == false) {
 				$error = 'Error during SQLite copy of tags!';
-				goto done;
+				return self::stdError($error);
 			}
 			$idMaps['t' . $tag['id']] = $tagId;
 		}
@@ -310,21 +318,12 @@ class FreshRSS_DatabaseDAO extends Minz_ModelPdo {
 				$entryTag['id_tag'] = $idMaps['t' . $entryTag['id_tag']];
 				if (!$tagTo->tagEntry($entryTag['id_tag'], $entryTag['id_entry'])) {
 					$error = 'Error during SQLite copy of entry-tags!';
-					goto done;
+					return self::stdError($error);
 				}
 			}
 		}
 		$tagTo->commit();
-
-	done:
-		if ($error != '') {
-			if (defined('STDERR')) {
-				fwrite(STDERR, $error . "\n");
-			}
-			Minz_Log::error($error);
-			return false;
-		} else {
-			return true;
-		}
+		
+		return true;
 	}
 }
