@@ -15,6 +15,9 @@ return array(
 		'version' => 'Version',
 		'website' => 'Website',
 	),
+	'tos' => array(
+		'title' => 'Terms of Service',
+	),
 	'feed' => array(
 		'add' => 'You may add some feeds.',
 		'empty' => 'There is no article to show.',

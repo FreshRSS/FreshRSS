@@ -23,6 +23,7 @@ return array(
 		'update' => 'Update',	//TODO - Translation
 	),
 	'auth' => array(
+		'accept_tos' => 'I accept the <a href="%s">Terms of Service</a>.', // TODO - Translation
 		'email' => 'Email adresleri',
 		'keep_logged_in' => '<small>(%s günler)</small> oturumu açık tut',
 		'login' => 'Giriş',

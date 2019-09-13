@@ -23,6 +23,7 @@ return array(
 		'update' => 'Update',
 	),
 	'auth' => array(
+		'accept_tos' => 'I accept the <a href="%s">Terms of Service</a>.',
 		'email' => 'Email address',
 		'keep_logged_in' => 'Keep me logged in <small>(%s days)</small>',
 		'login' => 'Login',

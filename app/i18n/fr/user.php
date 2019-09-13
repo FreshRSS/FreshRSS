@@ -22,6 +22,11 @@ return array(
 			'title' => 'Validation de l’adresse email',
 		),
 	),
+	'tos' => array(
+		'feedback' => array(
+			'invalid' => 'Vous devez accepter les conditions générales d’utilisation pour pouvoir vous inscrire.',
+		),
+	),
 	'mailer' => array(
 		'email_need_validation' => array(
 			'title' => 'Vous devez valider votre compte',

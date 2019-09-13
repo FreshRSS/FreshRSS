@@ -15,6 +15,9 @@ return array(
 		'version' => 'Verze',
 		'website' => 'Webové stránka',
 	),
+	'tos' => array(
+		'title' => 'Terms of Service', // TODO - Translation
+	),
 	'feed' => array(
 		'add' => 'Můžete přidat kanály.',
 		'empty' => 'Žádné články k zobrazení.',

@@ -22,6 +22,11 @@ return array(
 			'title' => 'Validacion de l’adreça electronica',
 		),
 	),
+	'tos' => array(
+		'feedback' => array(
+			'invalid' => 'You must accept the Terms of Service to be able to register.', // TODO - Translation
+		),
+	),
 	'mailer' => array(
 		'email_need_validation' => array(
 			'title' => 'Vos cal validar vòstra adreça electronica',

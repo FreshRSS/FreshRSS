@@ -22,6 +22,11 @@ return array(
 			'title' => 'Email address validation', //TODO - Translation
 		),
 	),
+	'tos' => array(
+		'feedback' => array(
+			'invalid' => 'You must accept the Terms of Service to be able to register.', // TODO - Translation
+		),
+	),
 	'mailer' => array(
 		'email_need_validation' => array(
 			'title' => 'You need to validate your account', //TODO - Translation
