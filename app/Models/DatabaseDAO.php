@@ -196,7 +196,9 @@ class FreshRSS_DatabaseDAO extends Minz_ModelPdo {
 				} elseif ($clearFirst) {
 					$userDAO->deleteUser();
 					if ($this->bd->dbType() === 'sqlite') {
-						$this->optimize();	//We cannot just delete the .sqlite file otherwise PDO gets buggy
+						//We cannot just delete the .sqlite file otherwise PDO gets buggy.
+						//SQLite is the only one with database-level optimization, instead of at table level.
+						$this->optimize();
 					}
 				} else {
 					$nbEntries = $entryDAO->countUnreadRead();
