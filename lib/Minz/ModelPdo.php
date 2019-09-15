@@ -111,7 +111,7 @@ abstract class MinzPDO extends PDO {
 		parent::__construct($dsn, $username, $passwd, $options);
 		$this->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
     }
-	
+
 	abstract public function dbType();
 
 	private $prefix = '';
@@ -157,7 +157,7 @@ class MinzPDOMySql extends MinzPDO {
 		parent::__construct($dsn, $username, $passwd, $options);
 		$this->setAttribute(PDO::MYSQL_ATTR_USE_BUFFERED_QUERY, false);
     }
-	
+
 	public function dbType() {
 		return 'mysql';
 	}
