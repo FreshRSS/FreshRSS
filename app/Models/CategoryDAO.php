@@ -77,6 +77,15 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo implements FreshRSS_Searchable 
 		}
 	}
 
+	public function selectAll() {
+		$sql = 'SELECT id, name FROM `' . $this->prefix . 'category`';
+		$stm = $this->bd->prepare($sql);
+		$stm->execute();
+		while ($row = $stm->fetch(PDO::FETCH_ASSOC)) {
+			yield $row;
+		}
+	}
+
 	public function searchById($id) {
 		$sql = 'SELECT * FROM `' . $this->prefix . 'category` WHERE id=?';
 		$stm = $this->bd->prepare($sql);
@@ -96,6 +105,9 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo implements FreshRSS_Searchable 
 	public function searchByName($name) {
 		$sql = 'SELECT * FROM `' . $this->prefix . 'category` WHERE name=?';
 		$stm = $this->bd->prepare($sql);
+		if ($stm == false) {
+			return false;
+		}
 
 		$values = array($name);
 
@@ -156,7 +168,7 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo implements FreshRSS_Searchable 
 			$cat->_id(self::DEFAULTCATEGORYID);
 
 			$sql = 'INSERT INTO `' . $this->prefix . 'category`(id, name) VALUES(?, ?)';
-			if (parent::$sharedDbType === 'pgsql') {
+			if ($this->bd->dbType() === 'pgsql') {
 				//Force call to nextval()
 				$sql .= ' RETURNING nextval(\'"' . $this->prefix . 'category_id_seq"\');';
 			}

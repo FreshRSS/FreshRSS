@@ -237,8 +237,8 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 			$ok &= (file_put_contents($configPath, "<?php\n return " . var_export($userConfig, true) . ';') !== false);
 		}
 		if ($ok) {
-			$userDAO = new FreshRSS_UserDAO();
-			$ok &= $userDAO->createUser($new_user_name, $userConfig['language'], $insertDefaultFeeds);
+			$newUserDAO = FreshRSS_Factory::createUserDao($new_user_name);
+			$ok &= $newUserDAO->createUser($userConfig['language'], $insertDefaultFeeds);
 			$ok &= self::updateUser($new_user_name, $email, $passwordPlain, $apiPasswordPlain);
 		}
 		return $ok;
@@ -316,9 +316,6 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 	}
 
 	public static function deleteUser($username) {
-		$db = FreshRSS_Context::$system_conf->db;
-		require_once(APP_PATH . '/SQL/install.sql.' . $db['type'] . '.php');
-
 		$ok = self::checkUsername($username);
 		if ($ok) {
 			$default_user = FreshRSS_Context::$system_conf->default_user;
@@ -328,8 +325,8 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 		$ok &= is_dir($user_data);
 		if ($ok) {
 			self::deleteFeverKey($username);
-			$userDAO = new FreshRSS_UserDAO();
-			$ok &= $userDAO->deleteUser($username);
+			$oldUserDAO = FreshRSS_Factory::createUserDao($username);
+			$ok &= $oldUserDAO->deleteUser();
 			$ok &= recursive_unlink($user_data);
 			array_map('unlink', glob(PSHB_PATH . '/feeds/*/' . $username . '.txt'));
 		}
