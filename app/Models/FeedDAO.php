@@ -47,7 +47,7 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 					attributes
 				)
 				VALUES
-				(?, ?, ?, ?, ?, ?, 10, ?, ?, 0, ?, ?, ?)';
+				(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
 		$stm = $this->bd->prepare($sql);
 
 		$valuesTmp['url'] = safe_ascii($valuesTmp['url']);
@@ -63,9 +63,11 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 			substr($valuesTmp['website'], 0, 255),
 			mb_strcut($valuesTmp['description'], 0, 1023, 'UTF-8'),
 			$valuesTmp['lastUpdate'],
+			isset($valuesTmp['priority']) ? intval($valuesTmp['priority']) : FreshRSS_Feed::PRIORITY_MAIN_STREAM,
 			mb_strcut($valuesTmp['pathEntries'], 0, 511, 'UTF-8'),
 			base64_encode($valuesTmp['httpAuth']),
-			FreshRSS_Feed::KEEP_HISTORY_DEFAULT,
+			isset($valuesTmp['error']) ? intval($valuesTmp['error']) : 0,
+			isset($valuesTmp['keep_history']) ? intval($valuesTmp['keep_history']) : FreshRSS_Feed::KEEP_HISTORY_DEFAULT,
 			isset($valuesTmp['ttl']) ? intval($valuesTmp['ttl']) : FreshRSS_Feed::TTL_DEFAULT,
 			isset($valuesTmp['attributes']) ? json_encode($valuesTmp['attributes']) : '',
 		);

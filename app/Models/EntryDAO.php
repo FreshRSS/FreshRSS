@@ -177,7 +177,9 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 			$valuesTmp['link'] = safe_ascii($valuesTmp['link']);
 			$this->addEntryPrepared->bindParam(':link', $valuesTmp['link']);
 			$this->addEntryPrepared->bindParam(':date', $valuesTmp['date'], PDO::PARAM_INT);
-			$valuesTmp['lastSeen'] = time();
+			if (empty($valuesTmp['lastSeen'])) {
+				$valuesTmp['lastSeen'] = time();
+			}
 			$this->addEntryPrepared->bindParam(':last_seen', $valuesTmp['lastSeen'], PDO::PARAM_INT);
 			$valuesTmp['is_read'] = $valuesTmp['is_read'] ? 1 : 0;
 			$this->addEntryPrepared->bindParam(':is_read', $valuesTmp['is_read'], PDO::PARAM_INT);
