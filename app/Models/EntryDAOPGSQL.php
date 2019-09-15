@@ -35,25 +35,25 @@ class FreshRSS_EntryDAOPGSQL extends FreshRSS_EntryDAOSQLite {
 	public function commitNewEntries() {
 		$sql = 'DO $$
 DECLARE
-maxrank bigint := (SELECT MAX(id) FROM `' . $this->prefix . 'entrytmp`);
-rank bigint := (SELECT maxrank - COUNT(*) FROM `' . $this->prefix . 'entrytmp`);
+maxrank bigint := (SELECT MAX(id) FROM `_entrytmp`);
+rank bigint := (SELECT maxrank - COUNT(*) FROM `_entrytmp`);
 BEGIN
-	INSERT INTO `' . $this->prefix . 'entry` (id, guid, title, author, content, link, date, `lastSeen`, hash, is_read, is_favorite, id_feed, tags)
+	INSERT INTO `_entry` (id, guid, title, author, content, link, date, `lastSeen`, hash, is_read, is_favorite, id_feed, tags)
 		(SELECT rank + row_number() OVER(ORDER BY date) AS id, guid, title, author, content, link, date, `lastSeen`, hash, is_read, is_favorite, id_feed, tags
-			FROM `' . $this->prefix . 'entrytmp` AS etmp
+			FROM `_entrytmp` AS etmp
 			WHERE NOT EXISTS (
-				SELECT 1 FROM `' . $this->prefix . 'entry` AS ereal
+				SELECT 1 FROM `_entry` AS ereal
 				WHERE (etmp.id = ereal.id) OR (etmp.id_feed = ereal.id_feed AND etmp.guid = ereal.guid))
 			ORDER BY date);
-	DELETE FROM `' . $this->prefix . 'entrytmp` WHERE id <= maxrank;
+	DELETE FROM `_entrytmp` WHERE id <= maxrank;
 END $$;';
-		$hadTransaction = $this->bd->inTransaction();
+		$hadTransaction = $this->pdo->inTransaction();
 		if (!$hadTransaction) {
-			$this->bd->beginTransaction();
+			$this->pdo->beginTransaction();
 		}
-		$result = $this->bd->exec($sql) !== false;
+		$result = $this->pdo->exec($sql) !== false;
 		if (!$hadTransaction) {
-			$this->bd->commit();
+			$this->pdo->commit();
 		}
 		return $result;
 	}

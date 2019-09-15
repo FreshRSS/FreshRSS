@@ -76,12 +76,6 @@ function multiplePosts($name) {	//https://bugs.php.net/bug.php?id=51633
 	return $result;
 }
 
-class MyPDO extends Minz_ModelPdo {
-	function prepare($sql) {
-		return $this->bd->prepare(str_replace('%_', $this->prefix, $sql));
-	}
-}
-
 function debugInfo() {
 	if (function_exists('getallheaders')) {
 		$ALL_HEADERS = getallheaders();
@@ -237,9 +231,8 @@ function userInfo() {	//https://github.com/theoldreader/api#user-info
 function tagList() {
 	header('Content-Type: application/json; charset=UTF-8');
 
-	$pdo = new MyPDO();
-	$stm = $pdo->prepare('SELECT c.name FROM `%_category` c');
-	$stm->execute();
+	$model = new Minz_ModelPdo();
+	$stm = $model->pdo->query('SELECT c.name FROM `_category` c');
 	$res = $stm->fetchAll(PDO::FETCH_COLUMN, 0);
 
 	$tags = array(
@@ -275,10 +268,11 @@ function tagList() {
 function subscriptionList() {
 	header('Content-Type: application/json; charset=UTF-8');
 
-	$pdo = new MyPDO();
-	$stm = $pdo->prepare('SELECT f.id, f.name, f.url, f.website, c.id as c_id, c.name as c_name FROM `%_feed` f
-		INNER JOIN `%_category` c ON c.id = f.category AND f.priority >= :priority_normal');
-	$stm->execute(array(':priority_normal' => FreshRSS_Feed::PRIORITY_NORMAL));
+	$model = new Minz_ModelPdo();
+	$stm = $model->pdo->prepare('SELECT f.id, f.name, f.url, f.website, c.id as c_id, c.name as c_name FROM `_feed` f
+		INNER JOIN `_category` c ON c.id = f.category AND f.priority >= :priority_normal');
+	$stm->bindValue(':priority_normal', FreshRSS_Feed::PRIORITY_NORMAL, PDO::PARAM_INT);
+	$stm->execute();
 	$res = $stm->fetchAll(PDO::FETCH_ASSOC);
 
 	$salt = FreshRSS_Context::$system_conf->salt;

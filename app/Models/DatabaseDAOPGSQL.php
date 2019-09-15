@@ -13,18 +13,18 @@ class FreshRSS_DatabaseDAOPGSQL extends FreshRSS_DatabaseDAOSQLite {
 		$db = FreshRSS_Context::$system_conf->db;
 		$dbowner = $db['user'];
 		$sql = 'SELECT * FROM pg_catalog.pg_tables where tableowner=?';
-		$stm = $this->bd->prepare($sql);
+		$stm = $this->pdo->prepare($sql);
 		$values = array($dbowner);
 		$stm->execute($values);
 		$res = $stm->fetchAll(PDO::FETCH_ASSOC);
 
 		$tables = array(
-			$this->prefix . 'category' => false,
-			$this->prefix . 'feed' => false,
-			$this->prefix . 'entry' => false,
-			$this->prefix . 'entrytmp' => false,
-			$this->prefix . 'tag' => false,
-			$this->prefix . 'entrytag' => false,
+			$this->pdo->prefix() . 'category' => false,
+			$this->pdo->prefix() . 'feed' => false,
+			$this->pdo->prefix() . 'entry' => false,
+			$this->pdo->prefix() . 'entrytmp' => false,
+			$this->pdo->prefix() . 'tag' => false,
+			$this->pdo->prefix() . 'entrytag' => false,
 		);
 		foreach ($res as $value) {
 			$tables[array_pop($value)] = true;
@@ -35,8 +35,8 @@ class FreshRSS_DatabaseDAOPGSQL extends FreshRSS_DatabaseDAOSQLite {
 
 	public function getSchema($table) {
 		$sql = 'select column_name as field, data_type as type, column_default as default, is_nullable as null from INFORMATION_SCHEMA.COLUMNS where table_name = ?';
-		$stm = $this->bd->prepare($sql);
-		$stm->execute(array($this->prefix . $table));
+		$stm = $this->pdo->prepare($sql);
+		$stm->execute(array($this->pdo->prefix() . $table));
 		return $this->listDaoToSchema($stm->fetchAll(PDO::FETCH_ASSOC));
 	}
 
@@ -53,7 +53,7 @@ class FreshRSS_DatabaseDAOPGSQL extends FreshRSS_DatabaseDAOSQLite {
 		$db = FreshRSS_Context::$system_conf->db;
 		$sql = 'SELECT pg_size_pretty(pg_database_size(?))';
 		$values = array($db['base']);
-		$stm = $this->bd->prepare($sql);
+		$stm = $this->pdo->prepare($sql);
 		$stm->execute($values);
 		$res = $stm->fetchAll(PDO::FETCH_COLUMN, 0);
 		return $res[0];
@@ -64,12 +64,8 @@ class FreshRSS_DatabaseDAOPGSQL extends FreshRSS_DatabaseDAOSQLite {
 		$tables = array('category', 'feed', 'entry', 'entrytmp', 'tag', 'entrytag');
 
 		foreach ($tables as $table) {
-			$sql = 'VACUUM `' . $this->prefix . $table . '`';
-			$stm = $this->bd->prepare($sql);
-			$ok &= $stm != false;
-			if ($stm) {
-				$ok &= $stm->execute();
-			}
+			$sql = 'VACUUM `_' . $table . '`';
+			$ok &= ($this->pdo->exec($sql) !== false);
 		}
 		return $ok;
 	}

@@ -2,7 +2,7 @@
 
 class FreshRSS_UserDAO extends Minz_ModelPdo {
 	public function createUser($new_user_language = null, $insertDefaultFeeds = false) {
-		require_once(APP_PATH . '/SQL/install.sql.' . $this->bd->dbType() . '.php');
+		require_once(APP_PATH . '/SQL/install.sql.' . $this->pdo->dbType() . '.php');
 
 		$currentLanguage = Minz_Translate::language();
 
@@ -11,27 +11,18 @@ class FreshRSS_UserDAO extends Minz_ModelPdo {
 				Minz_Translate::reset($new_user_language);
 			}
 			$ok = false;
-			if (defined('SQL_CREATE_TABLES')) {	//E.g. MySQL
-				$sql = sprintf(SQL_CREATE_TABLES . SQL_CREATE_TABLE_ENTRYTMP . SQL_CREATE_TABLE_TAGS, $this->prefix, _t('gen.short.default_category'));
-				$stm = $this->bd->prepare($sql);
-				$ok = $stm && $stm->execute();
-			} else {	//E.g. SQLite
-				global $SQL_CREATE_TABLES, $SQL_CREATE_TABLE_ENTRYTMP, $SQL_CREATE_TABLE_TAGS;
-				if (is_array($SQL_CREATE_TABLES)) {
-					$instructions = array_merge($SQL_CREATE_TABLES, $SQL_CREATE_TABLE_ENTRYTMP, $SQL_CREATE_TABLE_TAGS);
-					$ok = !empty($instructions);
-					foreach ($instructions as $instruction) {
-						$sql = sprintf($instruction, $this->prefix, _t('gen.short.default_category'));
-						$stm = $this->bd->prepare($sql);
-						$ok &= ($stm && $stm->execute());
-					}
+			global $SQL_CREATE_TABLES, $SQL_CREATE_TABLE_ENTRYTMP, $SQL_CREATE_TABLE_TAGS;
+			if (is_array($SQL_CREATE_TABLES)) {
+				$instructions = array_merge($SQL_CREATE_TABLES, $SQL_CREATE_TABLE_ENTRYTMP, $SQL_CREATE_TABLE_TAGS);
+				$ok = true;
+				foreach ($instructions as $sql) {
+					$ok &= ($this->pdo->exec($sql) !== false);
 				}
 			}
 			if ($ok && $insertDefaultFeeds) {
 				$default_feeds = FreshRSS_Context::$system_conf->default_feeds;
+				$stm = $this->pdo->prepare(SQL_INSERT_FEED);
 				foreach ($default_feeds as $feed) {
-					$sql = sprintf(SQL_INSERT_FEED, $this->prefix);
-					$stm = $this->bd->prepare($sql);
 					$parameters = array(
 						':url' => $feed['url'],
 						':name' => $feed['name'],
@@ -61,23 +52,14 @@ class FreshRSS_UserDAO extends Minz_ModelPdo {
 			fwrite(STDERR, 'Deleting SQL data for user “' . $this->current_user . "”…\n");
 		}
 
-		require_once(APP_PATH . '/SQL/install.sql.' . $this->bd->dbType() . '.php');
+		require_once(APP_PATH . '/SQL/install.sql.' . $this->pdo->dbType() . '.php');
 
 		$ok = false;
-		if (defined('SQL_DROP_TABLES')) {	//E.g. MySQL
-			$sql = sprintf(SQL_DROP_TABLES, $this->prefix);
-			$stm = $this->bd->prepare($sql);
-			$ok = $stm && $stm->execute();
-		} else {	//E.g. SQLite
-			global $SQL_DROP_TABLES;
-			if (is_array($SQL_DROP_TABLES)) {
-				$instructions = $SQL_DROP_TABLES;
-				$ok = !empty($instructions);
-				foreach ($instructions as $instruction) {
-					$sql = sprintf($instruction, $this->prefix);
-					$stm = $this->bd->prepare($sql);
-					$ok &= ($stm && $stm->execute());
-				}
+		global $SQL_DROP_TABLES;
+		if (is_array($SQL_DROP_TABLES)) {
+			$ok = true;
+			foreach ($SQL_DROP_TABLES as $sql) {
+				$ok &= ($this->pdo->exec($sql) !== false);
 			}
 		}
 

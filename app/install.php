@@ -344,21 +344,12 @@ function checkDbUser(&$dbOptions) {
 	$str = $dbOptions['dsn'];
 	$driver_options = $dbOptions['options'];
 	try {
-		$c = new PDO($str, $dbOptions['user'], $dbOptions['password'], $driver_options);
-		if (defined('SQL_CREATE_TABLES')) {
-			$sql = sprintf(SQL_CREATE_TABLES . SQL_CREATE_TABLE_ENTRYTMP . SQL_CREATE_TABLE_TAGS,
-				$dbOptions['prefix_user'], _t('gen.short.default_category'));
-			$stm = $c->prepare($sql);
-			$ok = $stm && $stm->execute();
-		} else {
-			global $SQL_CREATE_TABLES, $SQL_CREATE_TABLE_ENTRYTMP, $SQL_CREATE_TABLE_TAGS;
-			$instructions = array_merge($SQL_CREATE_TABLES, $SQL_CREATE_TABLE_ENTRYTMP, $SQL_CREATE_TABLE_TAGS);
-			$ok = !empty($instructions);
-			foreach ($instructions as $instruction) {
-				$sql = sprintf($instruction, $dbOptions['prefix_user'], _t('gen.short.default_category'));
-				$stm = $c->prepare($sql);
-				$ok &= $stm && $stm->execute();
-			}
+		$c = new PDO($str, $dbOptions['user'], $dbOptions['password'], $driver_options);	//TODO: Use Minz PDO
+		global $SQL_CREATE_TABLES, $SQL_CREATE_TABLE_ENTRYTMP, $SQL_CREATE_TABLE_TAGS;
+		$instructions = array_merge($SQL_CREATE_TABLES, $SQL_CREATE_TABLE_ENTRYTMP, $SQL_CREATE_TABLE_TAGS);
+		$ok = !empty($instructions);
+		foreach ($instructions as $sql) {
+			$ok &= $c->exec($sql) !== false;
 		}
 
 		Minz_Configuration::register(
@@ -368,9 +359,8 @@ function checkDbUser(&$dbOptions) {
 		);
 		$system_conf = Minz_Configuration::get('system');
 		$default_feeds = $system_conf->default_feeds;
+		$stm = $c->prepare(SQL_INSERT_FEED);
 		foreach ($default_feeds as $feed) {
-			$sql = sprintf(SQL_INSERT_FEED, $dbOptions['prefix_user']);
-			$stm = $c->prepare($sql);
 			$parameters = array(
 				':url' => $feed['url'],
 				':name' => $feed['name'],

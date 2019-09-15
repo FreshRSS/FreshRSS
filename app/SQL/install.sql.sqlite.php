@@ -1,6 +1,6 @@
 <?php
 global $SQL_CREATE_TABLES;
-$SQL_CREATE_TABLES = array(
+$SQL_CREATE_TABLES = [
 'CREATE TABLE IF NOT EXISTS `category` (
 	`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
 	`name` VARCHAR(255) NOT NULL,
@@ -53,11 +53,11 @@ $SQL_CREATE_TABLES = array(
 'CREATE INDEX IF NOT EXISTS entry_is_read_index ON `entry`(`is_read`);',
 'CREATE INDEX IF NOT EXISTS entry_lastSeen_index ON `entry`(`lastSeen`);',	//v1.1.1
 
-'INSERT OR IGNORE INTO `category` (id, name) VALUES(1, "%2$s");',
-);
+'INSERT OR IGNORE INTO `category` (id, name) VALUES(1, "Uncategorized");',
+];
 
 global $SQL_CREATE_TABLE_ENTRYTMP;
-$SQL_CREATE_TABLE_ENTRYTMP = array(
+$SQL_CREATE_TABLE_ENTRYTMP = [
 'CREATE TABLE IF NOT EXISTS `entrytmp` (	-- v1.7
 	`id` BIGINT NOT NULL,
 	`guid` VARCHAR(760) NOT NULL,
@@ -79,10 +79,10 @@ $SQL_CREATE_TABLE_ENTRYTMP = array(
 'CREATE INDEX IF NOT EXISTS entrytmp_date_index ON `entrytmp`(`date`);',
 
 'CREATE INDEX IF NOT EXISTS `entry_feed_read_index` ON `entry`(`id_feed`,`is_read`);',	//v1.7
-);
+];
 
 global $SQL_CREATE_TABLE_TAGS;
-$SQL_CREATE_TABLE_TAGS = array(
+$SQL_CREATE_TABLE_TAGS = [
 'CREATE TABLE IF NOT EXISTS `tag` (	-- v1.12
 	`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
 	`name` VARCHAR(63) NOT NULL,
@@ -97,7 +97,7 @@ $SQL_CREATE_TABLE_TAGS = array(
 	FOREIGN KEY (`id_entry`) REFERENCES `entry` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 );',
 'CREATE INDEX entrytag_id_entry_index ON `entrytag` (`id_entry`);',
-);
+];
 
 define(
 	'SQL_INSERT_FEED',
