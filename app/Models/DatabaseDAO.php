@@ -138,9 +138,15 @@ class FreshRSS_DatabaseDAO extends Minz_ModelPdo {
 		$ok = true;
 		if ($this->pdo->dbType() === 'mysql') {
 			include_once(APP_PATH . '/SQL/install.sql.mysql.php');
-			if (defined('SQL_UPDATE_GUID_LATIN1_BIN')) {	//FreshRSS 1.12
+			
+			$ok = false;
+			global $SQL_UPDATE_GUID_LATIN1_BIN;
+			if (is_array($SQL_UPDATE_GUID_LATIN1_BIN)) {
 				try {
-					$ok = $this->pdo->exec(SQL_UPDATE_GUID_LATIN1_BIN) !== false;
+					$ok = true;
+					foreach ($SQL_UPDATE_GUID_LATIN1_BIN as $sql) {
+						$ok &= ($this->pdo->exec($sql) !== false);
+					}
 				} catch (Exception $e) {
 					$ok = false;
 					Minz_Log::error(__METHOD__ . ' error: ' . $e->getMessage());

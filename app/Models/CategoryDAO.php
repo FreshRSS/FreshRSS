@@ -17,7 +17,7 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo implements FreshRSS_Searchable 
 		);
 
 		if ($stm && $stm->execute($values)) {
-			return $this->pdo->lastInsertId('`_category_id_seq`');
+			return $this->pdo->lastInsertId("'`_category_id_seq`'");
 		} else {
 			$info = $stm == null ? array(2 => 'syntax error') : $stm->errorInfo();
 			Minz_Log::error('SQL error addCategory: ' . $info[2]);
@@ -162,7 +162,7 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo implements FreshRSS_Searchable 
 			$sql = 'INSERT INTO `_category`(id, name) VALUES(?, ?)';
 			if ($this->pdo->dbType() === 'pgsql') {
 				//Force call to nextval()
-				$sql .= ' RETURNING nextval(`_category_id_seq`);';
+				$sql .= " RETURNING nextval('`_category_id_seq`');";
 			}
 			$stm = $this->pdo->prepare($sql);
 
@@ -172,7 +172,7 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo implements FreshRSS_Searchable 
 			);
 
 			if ($stm && $stm->execute($values)) {
-				return $this->pdo->lastInsertId('`_category_id_seq`');
+				return $this->pdo->lastInsertId("'`_category_id_seq`'");
 			} else {
 				$info = $stm == null ? array(2 => 'syntax error') : $stm->errorInfo();
 				Minz_Log::error('SQL error check default category: ' . json_encode($info));

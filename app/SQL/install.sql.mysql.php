@@ -87,7 +87,7 @@ $SQL_CREATE_TABLE_ENTRYTMP = [
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci
 ENGINE = INNODB;',
 
-'CREATE INDEX `entry_feed_read_index` ON `_entry`(`id_feed`,`is_read`);	-- v1.7 Located here to be auto-added',
+'CREATE INDEX `entry_feed_read_index` ON `_entry`(`id_feed`,`is_read`);',	//v1.7 Located here to be auto-added
 ];
 
 global $SQL_CREATE_TABLE_TAGS;
@@ -123,8 +123,8 @@ $SQL_DROP_TABLES = [
 	'DROP TABLE IF EXISTS `_entrytag`, `_tag`, `_entrytmp`, `_entry`, `_feed`, `_category`',
 ];
 
-//TODO: to array
-define('SQL_UPDATE_GUID_LATIN1_BIN', '	-- v1.12
-ALTER TABLE `_entrytmp` MODIFY `guid` VARCHAR(760) CHARACTER SET latin1 COLLATE latin1_bin NOT NULL;
-ALTER TABLE `_entry` MODIFY `guid` VARCHAR(760) CHARACTER SET latin1 COLLATE latin1_bin NOT NULL;
-');
+global $SQL_UPDATE_GUID_LATIN1_BIN;
+$SQL_UPDATE_GUID_LATIN1_BIN = [	//v1.12
+'ALTER TABLE `_entrytmp` MODIFY `guid` VARCHAR(760) CHARACTER SET latin1 COLLATE latin1_bin NOT NULL',
+'ALTER TABLE `_entry` MODIFY `guid` VARCHAR(760) CHARACTER SET latin1 COLLATE latin1_bin NOT NULL',
+];

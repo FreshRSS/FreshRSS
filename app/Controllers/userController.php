@@ -238,7 +238,7 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 		}
 		if ($ok) {
 			$newUserDAO = FreshRSS_Factory::createUserDao($new_user_name);
-			$ok &= $newUserDAO->createUser($userConfig['language'], $insertDefaultFeeds);
+			$ok &= $newUserDAO->createUser($insertDefaultFeeds);
 			$ok &= self::updateUser($new_user_name, $email, $passwordPlain, $apiPasswordPlain);
 		}
 		return $ok;

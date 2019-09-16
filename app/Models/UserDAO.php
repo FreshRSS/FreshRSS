@@ -1,15 +1,10 @@
 <?php
 
 class FreshRSS_UserDAO extends Minz_ModelPdo {
-	public function createUser($new_user_language = null, $insertDefaultFeeds = false) {
+	public function createUser($insertDefaultFeeds = false) {
 		require_once(APP_PATH . '/SQL/install.sql.' . $this->pdo->dbType() . '.php');
 
-		$currentLanguage = Minz_Translate::language();
-
 		try {
-			if ($new_user_language != null) {
-				Minz_Translate::reset($new_user_language);
-			}
 			$ok = false;
 			global $SQL_CREATE_TABLES, $SQL_CREATE_TABLE_ENTRYTMP, $SQL_CREATE_TABLE_TAGS;
 			if (is_array($SQL_CREATE_TABLES)) {
@@ -35,8 +30,6 @@ class FreshRSS_UserDAO extends Minz_ModelPdo {
 		} catch (Exception $e) {
 			Minz_Log::error('Error while creating database for user: ' . $e->getMessage());
 		}
-
-		Minz_Translate::reset($currentLanguage);
 
 		if ($ok) {
 			return true;
