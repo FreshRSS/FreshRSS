@@ -91,7 +91,7 @@ $SQL_CREATE_TABLE_TAGS = array(
 );',
 'CREATE TABLE IF NOT EXISTS `entrytag` (
 	`id_tag` SMALLINT,
-	`id_entry` SMALLINT,
+	`id_entry` BIGINT,
 	PRIMARY KEY (`id_tag`,`id_entry`),
 	FOREIGN KEY (`id_tag`) REFERENCES `tag` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
 	FOREIGN KEY (`id_entry`) REFERENCES `entry` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
@@ -99,12 +99,18 @@ $SQL_CREATE_TABLE_TAGS = array(
 'CREATE INDEX entrytag_id_entry_index ON `entrytag` (`id_entry`);',
 );
 
-global $SQL_INSERT_FEEDS;
-$SQL_INSERT_FEEDS = array(
-'INSERT OR IGNORE INTO `feed` (url, category, name, website, description, ttl)
-	VALUES ("https://freshrss.org/feeds/all.atom.xml", 1, "FreshRSS.org", "https://freshrss.org/", "FreshRSS, a free, self-hostable aggregator…", 86400);',
-'INSERT OR IGNORE INTO `feed` (url, category, name, website, description, ttl)
-	VALUES ("https://github.com/FreshRSS/FreshRSS/releases.atom", 1, "FreshRSS releases", "https://github.com/FreshRSS/FreshRSS/", "FreshRSS releases @ GitHub", 86400);',
+define(
+	'SQL_INSERT_FEED',
+	'INSERT OR IGNORE INTO `feed` (url, category, name, website, description, ttl)
+		VALUES(:url, 1, :name, :website, :description, 86400);'
 );
 
-define('SQL_DROP_TABLES', 'DROP TABLE IF EXISTS `entrytag`, `tag`, `entrytmp`, `entry`, `feed`, `category`');
+global $SQL_DROP_TABLES;
+$SQL_DROP_TABLES = [
+	'DROP TABLE IF EXISTS `entrytag`',
+	'DROP TABLE IF EXISTS `tag`',
+	'DROP TABLE IF EXISTS `entrytmp`',
+	'DROP TABLE IF EXISTS `entry`',
+	'DROP TABLE IF EXISTS `feed`',
+	'DROP TABLE IF EXISTS `category`',
+];

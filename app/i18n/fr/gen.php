@@ -3,6 +3,7 @@
 return array(
 	'action' => array(
 		'actualize' => 'Actualiser',
+		'back' => '← Retour',
 		'back_to_rss_feeds' => '← Retour à vos flux RSS',
 		'cancel' => 'Annuler',
 		'create' => 'Créer',
@@ -165,10 +166,10 @@ return array(
 		'diaspora' => 'Diaspora*',
 		'email' => 'Courriel',
 		'facebook' => 'Facebook',
-		'g+' => 'Google+',
 		'gnusocial' => 'GNU social',
 		'jdh' => 'Journal du hacker',
 		'Known' => 'Sites basés sur Known',
+		'lemmy' => 'Lemmy',
 		'linkedin' => 'LinkedIn',
 		'mastodon' => 'Mastodon',
 		'movim' => 'Movim',

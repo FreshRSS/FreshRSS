@@ -198,7 +198,7 @@ class Minz_Configuration {
 			return false;
 		}
 
-		// Clear PHP 5.5+ cache for include
+		// Clear PHP cache for include
 		if (function_exists('opcache_invalidate')) {
 			opcache_invalidate($this->config_filename);
 		}

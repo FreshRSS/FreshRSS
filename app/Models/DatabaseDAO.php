@@ -144,8 +144,7 @@ class FreshRSS_DatabaseDAO extends Minz_ModelPdo {
 
 	public function ensureCaseInsensitiveGuids() {
 		$ok = true;
-		$db = FreshRSS_Context::$system_conf->db;
-		if ($db['type'] === 'mysql') {
+		if ($this->bd->dbType() === 'mysql') {
 			include_once(APP_PATH . '/SQL/install.sql.mysql.php');
 			if (defined('SQL_UPDATE_GUID_LATIN1_BIN')) {	//FreshRSS 1.12
 				try {
@@ -154,7 +153,7 @@ class FreshRSS_DatabaseDAO extends Minz_ModelPdo {
 					$ok = $stm->execute();
 				} catch (Exception $e) {
 					$ok = false;
-					Minz_Log::error('FreshRSS_DatabaseDAO::ensureCaseInsensitiveGuids error: ' . $e->getMessage());
+					Minz_Log::error(__METHOD__ . ' error: ' . $e->getMessage());
 				}
 			}
 		}
@@ -163,5 +162,170 @@ class FreshRSS_DatabaseDAO extends Minz_ModelPdo {
 
 	public function minorDbMaintenance() {
 		$this->ensureCaseInsensitiveGuids();
+	}
+
+	private static function stdError($error) {
+		if (defined('STDERR')) {
+			fwrite(STDERR, $error . "\n");
+		}
+		Minz_Log::error($error);
+		return false;
+	}
+
+	const SQLITE_EXPORT = 1;
+	const SQLITE_IMPORT = 2;
+
+	public function dbCopy($filename, $mode, $clearFirst = false) {
+		$error = '';
+
+		$userDAO = FreshRSS_Factory::createUserDao();
+		$catDAO = FreshRSS_Factory::createCategoryDao();
+		$feedDAO = FreshRSS_Factory::createFeedDao();
+		$entryDAO = FreshRSS_Factory::createEntryDao();
+		$tagDAO = FreshRSS_Factory::createTagDao();
+
+		switch ($mode) {
+			case self::SQLITE_EXPORT:
+				if (@filesize($filename) > 0) {
+					$error = 'Error: SQLite export file already exists: ' . $filename;
+				}
+				break;
+			case self::SQLITE_IMPORT:
+				if (!is_readable($filename)) {
+					$error = 'Error: SQLite import file is not readable: ' . $filename;
+				} elseif ($clearFirst) {
+					$userDAO->deleteUser();
+					if ($this->bd->dbType() === 'sqlite') {
+						//We cannot just delete the .sqlite file otherwise PDO gets buggy.
+						//SQLite is the only one with database-level optimization, instead of at table level.
+						$this->optimize();
+					}
+				} else {
+					$nbEntries = $entryDAO->countUnreadRead();
+					if (!empty($nbEntries['all'])) {
+						$error = 'Error: Destination database already contains some entries!';
+					}
+				}
+				break;
+			default:
+				$error = 'Invalid copy mode!';
+				break;
+		}
+		if ($error != '') {
+			return self::stdError($error);
+		}
+
+		$sqlite = null;
+
+		try {
+			$sqlite = new MinzPDOSQLite('sqlite:' . $filename);
+			$sqlite->exec('PRAGMA foreign_keys = ON;');
+		} catch (Exception $e) {
+			$error = 'Error while initialising SQLite copy: ' . $e->getMessage();
+			return self::stdError($error);
+		}
+
+		Minz_ModelPdo::clean();
+		$userDAOSQLite = new FreshRSS_UserDAO('', '', $sqlite);
+		$categoryDAOSQLite = new FreshRSS_CategoryDAO('', '', $sqlite);
+		$feedDAOSQLite = new FreshRSS_FeedDAOSQLite('', '', $sqlite);
+		$entryDAOSQLite = new FreshRSS_EntryDAOSQLite('', '', $sqlite);
+		$tagDAOSQLite = new FreshRSS_TagDAOSQLite('', '', $sqlite);
+
+		switch ($mode) {
+			case self::SQLITE_EXPORT:
+				$userFrom = $userDAO; $userTo = $userDAOSQLite;
+				$catFrom = $catDAO; $catTo = $categoryDAOSQLite;
+				$feedFrom = $feedDAO; $feedTo = $feedDAOSQLite;
+				$entryFrom = $entryDAO; $entryTo = $entryDAOSQLite;
+				$tagFrom = $tagDAO; $tagTo = $tagDAOSQLite;
+				break;
+			case self::SQLITE_IMPORT:
+				$userFrom = $userDAOSQLite; $userTo = $userDAO;
+				$catFrom = $categoryDAOSQLite; $catTo = $catDAO;
+				$feedFrom = $feedDAOSQLite; $feedTo = $feedDAO;
+				$entryFrom = $entryDAOSQLite; $entryTo = $entryDAO;
+				$tagFrom = $tagDAOSQLite; $tagTo = $tagDAO;
+				break;
+		}
+
+		$idMaps = [];
+
+		if (defined('STDERR')) {
+			fwrite(STDERR, "Start SQL copy…\n");
+		}
+
+		$userTo->createUser();
+
+		$catTo->beginTransaction();
+		foreach ($catFrom->selectAll() as $category) {
+			$cat = $catTo->searchByName($category['name']);	//Useful for the default category
+			if ($cat != null) {
+				$catId = $cat->id();
+			} else {
+				$catId = $catTo->addCategory($category);
+				if ($catId == false) {
+					$error = 'Error during SQLite copy of categories!';
+					return self::stdError($error);
+				}
+			}
+			$idMaps['c' . $category['id']] = $catId;
+		}
+		foreach ($feedFrom->selectAll() as $feed) {
+			$feed['category'] = empty($idMaps['c' . $feed['category']]) ? FreshRSS_CategoryDAO::DEFAULTCATEGORYID : $idMaps['c' . $feed['category']];
+			$feedId = $feedTo->addFeed($feed);
+			if ($feedId == false) {
+				$error = 'Error during SQLite copy of feeds!';
+				return self::stdError($error);
+			}
+			$idMaps['f' . $feed['id']] = $feedId;
+		}
+		$catTo->commit();
+
+		$nbEntries = $entryFrom->count();
+		$n = 0;
+		$entryTo->beginTransaction();
+		foreach ($entryFrom->selectAll() as $entry) {
+			$n++;
+			if (!empty($idMaps['f' . $entry['id_feed']])) {
+				$entry['id_feed'] = $idMaps['f' . $entry['id_feed']];
+				if (!$entryTo->addEntry($entry, false)) {
+					$error = 'Error during SQLite copy of entries!';
+					return self::stdError($error);
+				}
+			}
+			if ($n % 100 === 1 && defined('STDERR')) {	//Display progression
+				fwrite(STDERR, "\033[0G" . $n . '/' . $nbEntries);
+			}
+		}
+		if (defined('STDERR')) {
+			fwrite(STDERR, "\033[0G" . $n . '/' . $nbEntries . "\n");
+		}
+		$entryTo->commit();
+		$feedTo->updateCachedValues();
+
+		$idMaps = [];
+
+		$tagTo->beginTransaction();
+		foreach ($tagFrom->selectAll() as $tag) {
+			$tagId = $tagTo->addTag($tag);
+			if ($tagId == false) {
+				$error = 'Error during SQLite copy of tags!';
+				return self::stdError($error);
+			}
+			$idMaps['t' . $tag['id']] = $tagId;
+		}
+		foreach ($tagFrom->selectEntryTag() as $entryTag) {
+			if (!empty($idMaps['t' . $entryTag['id_tag']])) {
+				$entryTag['id_tag'] = $idMaps['t' . $entryTag['id_tag']];
+				if (!$tagTo->tagEntry($entryTag['id_tag'], $entryTag['id_entry'])) {
+					$error = 'Error during SQLite copy of entry-tags!';
+					return self::stdError($error);
+				}
+			}
+		}
+		$tagTo->commit();
+
+		return true;
 	}
 }

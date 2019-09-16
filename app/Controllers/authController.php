@@ -169,10 +169,6 @@ class FreshRSS_auth_Controller extends Minz_ActionController {
 				return;
 			}
 
-			if (!function_exists('password_verify')) {
-				include_once(LIB_PATH . '/password_compat.php');
-			}
-
 			$s = $conf->passwordHash;
 			$ok = password_verify($password, $s);
 			unset($password);
@@ -209,6 +205,7 @@ class FreshRSS_auth_Controller extends Minz_ActionController {
 			Minz_Error::error(403);
 		}
 
+		$this->view->show_email_field = FreshRSS_Context::$system_conf->force_email_validation;
 		Minz_View::prependTitle(_t('gen.auth.registration.title') . ' · ');
 	}
 }

@@ -1,5 +1,31 @@
 ﻿# FreshRSS changelog
 
+## 2019-XX-XX FreshRSS 1.14.4-dev
+
+* Features
+	* New option to display article authors underneath the article title [#2487](https://github.com/FreshRSS/FreshRSS/pull/2487)
+	* Add e-mail capability [#2476](https://github.com/FreshRSS/FreshRSS/pull/2476)
+* Compatibility
+	* Require at least PHP 5.5+ [#2495](https://github.com/FreshRSS/FreshRSS/pull/2495)
+* Deployment
+	* Take advantage of `mod_authz_core` instead of `mod_access_compat` when running on Apache 2.4+ [#2461](https://github.com/FreshRSS/FreshRSS/pull/2461)
+	* Docker: Alpine image updated to 3.10 with PHP 7.3.8 and Apache 2.4.41 [#2238](https://github.com/FreshRSS/FreshRSS/pull/2238)
+* Bug fixing
+	* Fix missing PHP `opcache` package in Docker Alpine [#2498](https://github.com/FreshRSS/FreshRSS/pull/2498)
+* Security
+	* Fix referrer vulnerability when opening an article original link with a shortcut [#2506](https://github.com/FreshRSS/FreshRSS/pull/2506)
+	* Slight refactoring of access check [#2471](https://github.com/FreshRSS/FreshRSS/pull/2471)
+* I18n
+	* Improve Dutch [#2503](https://github.com/FreshRSS/FreshRSS/pull/2503)
+	* Add Slovak [#2497](https://github.com/FreshRSS/FreshRSS/pull/2497)
+* Extensions
+	* Additional hooks [#2482](https://github.com/FreshRSS/FreshRSS/pull/2482)
+	* New call to change the layout [#2467](https://github.com/FreshRSS/FreshRSS/pull/2467)
+* Misc.
+	* Automatic check of CSS syntax in Travis CI [#2477](https://github.com/FreshRSS/FreshRSS/pull/2477)
+	* Remove support for sharing with Google+ [#2464](https://github.com/FreshRSS/FreshRSS/pull/2464)
+
+
 ## 2019-07-25 FreshRSS 1.14.3
 
 * UI

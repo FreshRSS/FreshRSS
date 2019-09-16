@@ -13,8 +13,7 @@ class FreshRSS_TagDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 			$this->bd->commit();
 		}
 		try {
-			$db = FreshRSS_Context::$system_conf->db;
-			require_once(APP_PATH . '/SQL/install.sql.' . $db['type'] . '.php');
+			require_once(APP_PATH . '/SQL/install.sql.' . $this->bd->dbType() . '.php');
 
 			Minz_Log::warning('SQL ALTER GUID case sensitivity...');
 			$databaseDAO = FreshRSS_Factory::createDatabaseDAO();
@@ -136,6 +135,24 @@ class FreshRSS_TagDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 			$info = $stm == null ? array(2 => 'syntax error') : $stm->errorInfo();
 			Minz_Log::error('SQL error deleteTag: ' . $info[2]);
 			return false;
+		}
+	}
+
+	public function selectAll() {
+		$sql = 'SELECT id, name, attributes FROM `' . $this->prefix . 'tag`';
+		$stm = $this->bd->prepare($sql);
+		$stm->execute();
+		while ($row = $stm->fetch(PDO::FETCH_ASSOC)) {
+			yield $row;
+		}
+	}
+
+	public function selectEntryTag() {
+		$sql = 'SELECT id_tag, id_entry FROM `' . $this->prefix . 'entrytag`';
+		$stm = $this->bd->prepare($sql);
+		$stm->execute();
+		while ($row = $stm->fetch(PDO::FETCH_ASSOC)) {
+			yield $row;
 		}
 	}
 

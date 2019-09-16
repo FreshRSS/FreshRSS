@@ -63,7 +63,7 @@ Pensez à donner les informations suivantes si vous les connaissez :
  1. Quel navigateur ? Quelle version ?
  2. Quel serveur : Apache, Nginx ? Quelle version ?
  3. Quelle version de PHP ?
- 4. MySQL ou SQLite ? Quelle version ?
+ 4. Quelle base de données : SQLite, MySQL, MariaDB, PostgreSQL ? Quelle version ?
  5. Quelle distribution sur le serveur ? Et… quelle version ?
 
 ----

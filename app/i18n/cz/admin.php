@@ -163,6 +163,7 @@ return array(
 			'help' => 'in seconds', //TODO - Translation
 			'number' => 'Duration to keep logged in', //TODO - Translation
 		),
+		'force_email_validation' => 'Force email addresses validation', //TODO - Translation
 		'instance-name' => 'Instance name', //TODO - Translation
 		'max-categories' => 'Categories per user limit', //TODO - Translation
 		'max-feeds' => 'Feeds per user limit', //TODO - Translation

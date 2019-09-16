@@ -99,14 +99,11 @@ $SQL_CREATE_TABLE_TAGS = array(
 'CREATE INDEX "%1$sentrytag_id_entry_index" ON "%1$sentrytag" ("id_entry");',
 );
 
-global $SQL_INSERT_FEEDS;
-$SQL_INSERT_FEEDS = array(
-'INSERT INTO "%1$sfeed" (url, category, name, website, description, ttl)
-	SELECT \'https://freshrss.org/feeds/all.atom.xml\', 1, \'FreshRSS.org\', \'https://freshrss.org/\', \'FreshRSS, a free, self-hostable aggregator…\', 86400
-	WHERE NOT EXISTS (SELECT id FROM "%1$sfeed" WHERE url = \'https://freshrss.org/feeds/all.atom.xml\');',
-'INSERT INTO "%1$sfeed" (url, category, name, website, description, ttl)
-	SELECT \'https://github.com/FreshRSS/FreshRSS/releases.atom\', 1, \'FreshRSS @ GitHub\', \'https://github.com/FreshRSS/FreshRSS/\', \'FreshRSS releases @ GitHub\', 86400
-	WHERE NOT EXISTS (SELECT id FROM "%1$sfeed" WHERE url = \'https://github.com/FreshRSS/FreshRSS/releases.atom\');',
+define(
+	'SQL_INSERT_FEED',
+	'INSERT INTO "%1$sfeed" (url, category, name, website, description, ttl)
+		SELECT :url::VARCHAR, 1, :name, :website, :description, 86400
+		WHERE NOT EXISTS (SELECT id FROM "%1$sfeed" WHERE url = :url);'
 );
 
 define('SQL_DROP_TABLES', 'DROP TABLE IF EXISTS "%1$sentrytag", "%1$stag", "%1$sentrytmp", "%1$sentry", "%1$sfeed", "%1$scategory"');

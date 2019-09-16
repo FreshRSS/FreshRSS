@@ -59,6 +59,23 @@ case 'js':
 	header('Content-Type: application/javascript; charset=UTF-8');
 	header('Content-Disposition: inline; filename="' . $file_name . '"');
 	break;
+case 'png':
+	header('Content-Type: image/png');
+	header('Content-Disposition: inline; filename="' . $file_name . '"');
+	break;
+case 'jpeg':
+case 'jpg':
+	header('Content-Type: image/jpeg');
+	header('Content-Disposition: inline; filename="' . $file_name . '"');
+	break;
+case 'gif':
+	header('Content-Type: image/gif');
+	header('Content-Disposition: inline; filename="' . $file_name . '"');
+	break;
+case 'svg':
+	header('Content-Type: image/svg+xml');
+	header('Content-Disposition: inline; filename="' . $file_name . '"');
+	break;
 default:
 	header('HTTP/1.1 400 Bad Request');
 	die();

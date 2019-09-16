@@ -2,6 +2,10 @@
 
 class FreshRSS_EntryDAOPGSQL extends FreshRSS_EntryDAOSQLite {
 
+	public function hasNativeHex() {
+		return true;
+	}
+
 	public function sqlHexDecode($x) {
 		return 'decode(' . $x . ", 'hex')";
 	}

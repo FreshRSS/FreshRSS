@@ -1,7 +1,5 @@
 language: php
 php:
-  - 5.4
-  - 5.5
   - 5.6
   - 7.0
   - 7.1
@@ -32,9 +30,9 @@ env:
 matrix:
   fast_finish: true
   include:
-    # PHP 5.3 only runs on Ubuntu 12.04 (precise), not 14.04 (trusty)
-    - php: "5.3"
-      dist: precise
+    # PHP 5.5 only runs on Travis in 14.04 (trusty), not 16.04 (xenial)
+    - php: "5.5"
+      dist: trusty
     - php: "7.2"
       env: CHECK_TRANSLATION=yes VALIDATE_STANDARD=no
     - language: node_js
@@ -45,10 +43,13 @@ matrix:
       env:
         - HADOLINT="$HOME/hadolint"
       install:
-        - npm install jshint
+        - npm install --save-dev jshint stylelint stylelint-order stylelint-scss stylelint-config-recommended-scss
         - curl -sLo "$HADOLINT" $(curl -s https://api.github.com/repos/hadolint/hadolint/releases/latest?access_token="$GITHUB_TOKEN" | jq -r '.assets | .[] | select(.name=="hadolint-Linux-x86_64") | .browser_download_url') && chmod 700 ${HADOLINT}
       script:
         - node_modules/jshint/bin/jshint .
+        # check SCSS separately
+        - stylelint --syntax scss "**/*.scss"
+        - stylelint "**/*.css"
         - bash tests/shellchecks.sh
         - git ls-files --exclude='*Dockerfile*' --ignored | xargs --max-lines=1 "$HADOLINT"
   allow_failures:

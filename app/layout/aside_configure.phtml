@@ -25,6 +25,8 @@
 	<li class="item<?php echo Minz_Request::controllerName() === 'extension' ? ' active' : ''; ?>">
 		<a href="<?php echo _url('extension', 'index'); ?>"><?php echo _t('gen.menu.extensions'); ?></a>
 	</li>
+	<?php echo Minz_ExtensionManager::callHook('menu_configuration_entry'); ?>
+
 	<?php if (FreshRSS_Auth::hasAccess('admin')) { ?>
 	<li class="nav-header"><?php echo _t('gen.menu.admin'); ?></li>
 	<li class="item<?php echo Minz_Request::actionName() === 'system' ? ' active' : ''; ?>">
@@ -47,5 +49,6 @@
 		<a href="<?php echo _url('update', 'index'); ?>"><?php echo _t('gen.menu.update'); ?></a>
 	</li>
 	<?php } ?>
+	<?php echo Minz_ExtensionManager::callHook('menu_admin_entry'); ?>
 	<?php } ?>
 </ul>

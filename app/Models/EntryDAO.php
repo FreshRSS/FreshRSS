@@ -3,11 +3,11 @@
 class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 
 	public function isCompressed() {
-		return parent::$sharedDbType === 'mysql';
+		return true;
 	}
 
 	public function hasNativeHex() {
-		return parent::$sharedDbType !== 'sqlite';
+		return true;
 	}
 
 	public function sqlHexDecode($x) {
@@ -64,7 +64,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 		}
 		$this->triedUpdateToUtf8mb4 = true;
 		$db = FreshRSS_Context::$system_conf->db;
-		if ($db['type'] === 'mysql') {
+		if ($this->bd->dbType() === 'mysql') {
 			include_once(APP_PATH . '/SQL/install.sql.mysql.php');
 			if (defined('SQL_UPDATE_UTF8MB4')) {
 				Minz_Log::warning('Updating MySQL to UTF8MB4...');	//v1.5.0
@@ -98,8 +98,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 			$this->bd->commit();
 		}
 		try {
-			$db = FreshRSS_Context::$system_conf->db;
-			require_once(APP_PATH . '/SQL/install.sql.' . $db['type'] . '.php');
+			require_once(APP_PATH . '/SQL/install.sql.' . $this->bd->dbType() . '.php');
 			Minz_Log::warning('SQL CREATE TABLE entrytmp...');
 			if (defined('SQL_CREATE_TABLE_ENTRYTMP')) {
 				$sql = sprintf(SQL_CREATE_TABLE_ENTRYTMP, $this->prefix);
@@ -152,9 +151,9 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 
 	private $addEntryPrepared = null;
 
-	public function addEntry($valuesTmp) {
+	public function addEntry($valuesTmp, $useTmpTable = true) {
 		if ($this->addEntryPrepared == null) {
-			$sql = 'INSERT INTO `' . $this->prefix . 'entrytmp` (id, guid, title, author, '
+			$sql = 'INSERT INTO `' . $this->prefix . ($useTmpTable ? 'entrytmp' : 'entry') . '` (id, guid, title, author, '
 				. ($this->isCompressed() ? 'content_bin' : 'content')
 				. ', link, date, `lastSeen`, hash, is_read, is_favorite, id_feed, tags) '
 				. 'VALUES(:id, :guid, :title, :author, '
@@ -178,7 +177,9 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 			$valuesTmp['link'] = safe_ascii($valuesTmp['link']);
 			$this->addEntryPrepared->bindParam(':link', $valuesTmp['link']);
 			$this->addEntryPrepared->bindParam(':date', $valuesTmp['date'], PDO::PARAM_INT);
-			$valuesTmp['lastSeen'] = time();
+			if (empty($valuesTmp['lastSeen'])) {
+				$valuesTmp['lastSeen'] = time();
+			}
 			$this->addEntryPrepared->bindParam(':last_seen', $valuesTmp['lastSeen'], PDO::PARAM_INT);
 			$valuesTmp['is_read'] = $valuesTmp['is_read'] ? 1 : 0;
 			$this->addEntryPrepared->bindParam(':is_read', $valuesTmp['is_read'], PDO::PARAM_INT);
@@ -191,7 +192,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 			if ($this->hasNativeHex()) {
 				$this->addEntryPrepared->bindParam(':hash', $valuesTmp['hash']);
 			} else {
-				$valuesTmp['hashBin'] = pack('H*', $valuesTmp['hash']);	//hex2bin() is PHP5.4+
+				$valuesTmp['hashBin'] = hex2bin($valuesTmp['hash']);
 				$this->addEntryPrepared->bindParam(':hash', $valuesTmp['hashBin']);
 			}
 		}
@@ -273,7 +274,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 		if ($this->hasNativeHex()) {
 			$this->updateEntryPrepared->bindParam(':hash', $valuesTmp['hash']);
 		} else {
-			$valuesTmp['hashBin'] = pack('H*', $valuesTmp['hash']);	//hex2bin() is PHP5.4+
+			$valuesTmp['hashBin'] = hex2bin($valuesTmp['hash']);
 			$this->updateEntryPrepared->bindParam(':hash', $valuesTmp['hashBin']);
 		}
 
@@ -637,6 +638,18 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 		}
 	}
 
+	public function selectAll() {
+		$sql = 'SELECT id, guid, title, author, '
+			. ($this->isCompressed() ? 'UNCOMPRESS(content_bin) AS content' : 'content')
+			. ', link, date, `lastSeen`, ' . $this->sqlHexEncode('hash') . ' AS hash, is_read, is_favorite, id_feed, tags '
+			. 'FROM `' . $this->prefix . 'entry`';
+		$stm = $this->bd->prepare($sql);
+		$stm->execute();
+		while ($row = $stm->fetch(PDO::FETCH_ASSOC)) {
+			yield $row;
+		}
+	}
+
 	public function searchByGuid($id_feed, $guid) {
 		// un guid est unique pour un flux donné
 		$sql = 'SELECT id, guid, title, author, '
@@ -991,6 +1004,9 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 		$sql = 'SELECT COUNT(e.id) AS count FROM `' . $this->prefix . 'entry` e INNER JOIN `' . $this->prefix . 'feed` f ON e.id_feed=f.id WHERE f.priority > 0'
 			. ' UNION SELECT COUNT(e.id) AS count FROM `' . $this->prefix . 'entry` e INNER JOIN `' . $this->prefix . 'feed` f ON e.id_feed=f.id WHERE f.priority > 0 AND e.is_read=0';
 		$stm = $this->bd->prepare($sql);
+		if ($stm == false) {
+			return false;
+		}
 		$stm->execute();
 		$res = $stm->fetchAll(PDO::FETCH_COLUMN, 0);
 		rsort($res);
