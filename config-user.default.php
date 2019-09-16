@@ -1,7 +1,8 @@
 <?php
 
-# Do not modify this file, which defines default values,
-# but edit `./data/config-user.php` instead, after the install process is completed.
+# Do not modify this file, which defines default values, but create a
+# `./data/config-user.custom.php` file instead, containing the keys you want to
+# override.
 return array (
 	'language' => 'en',
 	'old_entries' => 3,
