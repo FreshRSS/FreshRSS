@@ -214,12 +214,16 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 	public static function createUser($new_user_name, $email, $passwordPlain, $apiPasswordPlain, $userConfigOverride = array(), $insertDefaultFeeds = true) {
 		$userConfig = array();
 
-		$customUserConfig = @include(join_path(DATA_PATH, 'config-user.custom.php'));
+		$customUserConfigPath = join_path(DATA_PATH, 'config-user.custom.php');
+		if (file_exists($customUserConfigPath)) {
+			$customUserConfig = include($customUserConfigPath);
+		}
+
 		if (is_array($customUserConfig)) {
 			$userConfig = $customUserConfig;
 		}
 
-		if (is_array(userConfigOverride)) {
+		if (is_array($userConfigOverride)) {
 			$userConfig = array_merge($userConfig, $userConfigOverride);
 		}
 
