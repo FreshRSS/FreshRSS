@@ -120,15 +120,20 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 	}
 
 	public function commitNewEntries() {
-		$sql = 'SET @rank=(SELECT MAX(id) - COUNT(*) FROM `_entrytmp`); ' .	//MySQL-specific
-			'INSERT IGNORE INTO `_entry`
-				(
-					id, guid, title, author, content_bin, link, date, `lastSeen`, hash, is_read, is_favorite, id_feed, tags
-				) ' .
-				'SELECT @rank:=@rank+1 AS id, guid, title, author, content_bin, link, date, `lastSeen`, hash, is_read, is_favorite, id_feed, tags
-					FROM `_entrytmp`
-					ORDER BY date; ' .
-			'DELETE FROM `_entrytmp` WHERE id <= @rank;';
+		//MySQL-specific	//TODO: Check, might have to be split in multiple commands
+		$sql = <<<'SQL'
+SET @rank=(SELECT MAX(id) - COUNT(*) FROM `_entrytmp`);
+
+INSERT IGNORE INTO `_entry` (
+	id, guid, title, author, content_bin, link, date, `lastSeen`,
+	hash, is_read, is_favorite, id_feed, tags
+)
+SELECT @rank:=@rank+1 AS id, guid, title, author, content_bin, link, date, `lastSeen`, hash, is_read, is_favorite, id_feed, tags
+FROM `_entrytmp`
+ORDER BY date;
+
+DELETE FROM `_entrytmp` WHERE id <= @rank;';
+SQL;
 		$hadTransaction = $this->pdo->inTransaction();
 		if (!$hadTransaction) {
 			$this->pdo->beginTransaction();
@@ -944,7 +949,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 	}
 
 	public function countUnreadReadFavorites() {
-		$sql = <<<SQL
+		$sql = <<<'SQL'
 SELECT c FROM (
 	SELECT COUNT(e1.id) AS c, 1 AS o
 		 FROM `_entry` AS e1

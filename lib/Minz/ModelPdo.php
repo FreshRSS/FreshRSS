@@ -156,7 +156,7 @@ class MinzPDOMySql extends MinzPDO {
 	public function __construct($dsn, $username = null, $passwd = null, $options = null) {
 		parent::__construct($dsn, $username, $passwd, $options);
 		$this->setAttribute(PDO::MYSQL_ATTR_USE_BUFFERED_QUERY, false);
-    }
+	}
 
 	public function dbType() {
 		return 'mysql';
