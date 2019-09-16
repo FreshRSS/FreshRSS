@@ -1,6 +1,7 @@
 .htpasswd
 config.php
 config.php.bak.php
+config-user.custom.php
 force-https.txt
 last_update.txt
 no-cache.txt
