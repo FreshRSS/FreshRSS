@@ -3,22 +3,6 @@ if (version_compare(PHP_VERSION, '5.6.0', '<')) {
 	die('FreshRSS error: FreshRSS requires PHP 5.6.0+!');
 }
 
-if (!function_exists('json_decode')) {	//PHP bug #63520 < PHP 7
-	require_once(__DIR__ . '/JSON.php');
-	function json_decode($var, $assoc = false) {
-		$JSON = new Services_JSON($assoc ? SERVICES_JSON_LOOSE_TYPE : 0);
-		return $JSON->decode($var);
-	}
-}
-
-if (!function_exists('json_encode')) {
-	require_once(__DIR__ . '/JSON.php');
-	function json_encode($var) {
-		$JSON = new Services_JSON();
-		return $JSON->encodeUnsafe($var);
-	}
-}
-
 if (!function_exists('mb_strcut')) {
 	function mb_strcut($str, $start, $length = null, $encoding = 'UTF-8') {
 		return substr($str, $start, $length);
