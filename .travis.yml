@@ -30,9 +30,6 @@ env:
 matrix:
   fast_finish: true
   include:
-    # PHP 5.5 only runs on Travis in 14.04 (trusty), not 16.04 (xenial)
-    - php: "5.5"
-      dist: trusty
     - php: "7.2"
       env: CHECK_TRANSLATION=yes VALIDATE_STANDARD=no
     - language: node_js
