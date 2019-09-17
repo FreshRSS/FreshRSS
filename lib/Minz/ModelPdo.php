@@ -131,7 +131,7 @@ abstract class MinzPDO extends PDO {
 
 	public function lastInsertId($name = null) {
 		if ($name != null) {
-			$name = $this->autoPrefix($name);
+			$name = $this->preSql($name);
 		}
 		return parent::lastInsertId($name);
 	}

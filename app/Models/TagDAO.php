@@ -59,7 +59,7 @@ class FreshRSS_TagDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 		);
 
 		if ($stm && $stm->execute($values)) {
-			return $this->pdo->lastInsertId("'`_tag_id_seq`'");
+			return $this->pdo->lastInsertId('`_tag_id_seq`');
 		} else {
 			$info = $stm == null ? array(2 => 'syntax error') : $stm->errorInfo();
 			Minz_Log::error('SQL error addTag: ' . $info[2]);

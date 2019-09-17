@@ -72,7 +72,7 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 		);
 
 		if ($stm && $stm->execute($values)) {
-			return $this->pdo->lastInsertId("'`_feed_id_seq`'");
+			return $this->pdo->lastInsertId('`_feed_id_seq`');
 		} else {
 			$info = $stm == null ? array(2 => 'syntax error') : $stm->errorInfo();
 			if ($this->autoUpdateDb($info)) {
