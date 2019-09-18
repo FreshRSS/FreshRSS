@@ -119,8 +119,7 @@ const SQL_DROP_TABLES = [
 	'DROP TABLE IF EXISTS `_entrytag`, `_tag`, `_entrytmp`, `_entry`, `_feed`, `_category`',
 ];
 
-const SQL_UPDATE_GUID_LATIN1_BIN;
-$SQL_UPDATE_GUID_LATIN1_BIN = [	//v1.12
+const SQL_UPDATE_GUID_LATIN1_BIN = [	//v1.12
 'ALTER TABLE `_entrytmp` MODIFY `guid` VARCHAR(760) CHARACTER SET latin1 COLLATE latin1_bin NOT NULL',
 'ALTER TABLE `_entry` MODIFY `guid` VARCHAR(760) CHARACTER SET latin1 COLLATE latin1_bin NOT NULL',
 ];

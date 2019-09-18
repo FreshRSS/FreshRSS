@@ -45,7 +45,7 @@ class FreshRSS_UserDAO extends Minz_ModelPdo {
 		require_once(APP_PATH . '/SQL/install.sql.' . $this->pdo->dbType() . '.php');
 
 		$ok = true;
-		foreach ($SQL_DROP_TABLES as $sql) {
+		foreach (SQL_DROP_TABLES as $sql) {
 			$ok &= ($this->pdo->exec($sql) !== false);
 		}
 
