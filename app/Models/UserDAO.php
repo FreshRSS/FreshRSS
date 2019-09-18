@@ -6,13 +6,10 @@ class FreshRSS_UserDAO extends Minz_ModelPdo {
 
 		try {
 			$ok = false;
-			global $SQL_CREATE_TABLES, $SQL_CREATE_TABLE_ENTRYTMP, $SQL_CREATE_TABLE_TAGS;
-			if (is_array($SQL_CREATE_TABLES)) {
-				$instructions = array_merge($SQL_CREATE_TABLES, $SQL_CREATE_TABLE_ENTRYTMP, $SQL_CREATE_TABLE_TAGS);
-				$ok = true;
-				foreach ($instructions as $sql) {
-					$ok &= ($this->pdo->exec($sql) !== false);
-				}
+			$instructions = array_merge(SQL_CREATE_TABLES, SQL_CREATE_TABLE_ENTRYTMP, SQL_CREATE_TABLE_TAGS);
+			$ok = true;
+			foreach ($instructions as $sql) {
+				$ok &= ($this->pdo->exec($sql) !== false);
 			}
 			if ($ok && $insertDefaultFeeds) {
 				$default_feeds = FreshRSS_Context::$system_conf->default_feeds;
@@ -47,13 +44,9 @@ class FreshRSS_UserDAO extends Minz_ModelPdo {
 
 		require_once(APP_PATH . '/SQL/install.sql.' . $this->pdo->dbType() . '.php');
 
-		$ok = false;
-		global $SQL_DROP_TABLES;
-		if (is_array($SQL_DROP_TABLES)) {
-			$ok = true;
-			foreach ($SQL_DROP_TABLES as $sql) {
-				$ok &= ($this->pdo->exec($sql) !== false);
-			}
+		$ok = true;
+		foreach ($SQL_DROP_TABLES as $sql) {
+			$ok &= ($this->pdo->exec($sql) !== false);
 		}
 
 		if ($ok) {

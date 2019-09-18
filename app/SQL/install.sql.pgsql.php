@@ -1,8 +1,7 @@
 <?php
 define('SQL_CREATE_DB', 'CREATE DATABASE "%1$s" ENCODING \'UTF8\';');
 
-global $SQL_CREATE_TABLES;
-$SQL_CREATE_TABLES = [
+const SQL_CREATE_TABLES = [
 'CREATE TABLE IF NOT EXISTS `_category` (
 	"id" SERIAL PRIMARY KEY,
 	"name" VARCHAR(255) UNIQUE NOT NULL
@@ -58,8 +57,7 @@ $SQL_CREATE_TABLES = [
 	RETURNING nextval('`_category_id_seq`');",
 ];
 
-global $SQL_CREATE_TABLE_ENTRYTMP;
-$SQL_CREATE_TABLE_ENTRYTMP = [
+const SQL_CREATE_TABLE_ENTRYTMP = [
 'CREATE TABLE IF NOT EXISTS `_entrytmp` (	-- v1.7
 	"id" BIGINT NOT NULL PRIMARY KEY,
 	"guid" VARCHAR(760) NOT NULL,
@@ -82,8 +80,7 @@ $SQL_CREATE_TABLE_ENTRYTMP = [
 'CREATE INDEX `_entry_feed_read_index` ON `_entry` ("id_feed","is_read");',	//v1.7
 ];
 
-global $SQL_CREATE_TABLE_TAGS;
-$SQL_CREATE_TABLE_TAGS = [
+const SQL_CREATE_TABLE_TAGS = [
 'CREATE TABLE IF NOT EXISTS `_tag` (	-- v1.12
 	"id" SERIAL PRIMARY KEY,
 	"name" VARCHAR(63) UNIQUE NOT NULL,
@@ -106,7 +103,6 @@ define(
 		WHERE NOT EXISTS (SELECT id FROM `_feed` WHERE url = :url);'
 );
 
-global $SQL_DROP_TABLES;
-$SQL_DROP_TABLES = [
+const SQL_DROP_TABLES = [
 	'DROP TABLE IF EXISTS `_entrytag`, `_tag`, `_entrytmp`, `_entry`, `_feed`, `_category`',
 ];

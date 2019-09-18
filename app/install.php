@@ -345,8 +345,7 @@ function checkDbUser(&$dbOptions) {
 	$driver_options = $dbOptions['options'];
 	try {
 		$c = new PDO($str, $dbOptions['user'], $dbOptions['password'], $driver_options);	//TODO: Use Minz PDO
-		global $SQL_CREATE_TABLES, $SQL_CREATE_TABLE_ENTRYTMP, $SQL_CREATE_TABLE_TAGS;
-		$instructions = array_merge($SQL_CREATE_TABLES, $SQL_CREATE_TABLE_ENTRYTMP, $SQL_CREATE_TABLE_TAGS);
+		$instructions = array_merge(SQL_CREATE_TABLES, SQL_CREATE_TABLE_ENTRYTMP, SQL_CREATE_TABLE_TAGS);
 		$ok = !empty($instructions);
 		foreach ($instructions as $sql) {
 			$ok &= $c->exec($sql) !== false;

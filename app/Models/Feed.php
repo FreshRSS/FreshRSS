@@ -153,18 +153,17 @@ class FreshRSS_Feed extends Minz_Model {
 		return $this->nbNotRead;
 	}
 	public function faviconPrepare() {
-		global $favicons_dir;
 		require_once(LIB_PATH . '/favicons.php');
 		$url = $this->website;
 		if ($url == '') {
 			$url = $this->url;
 		}
-		$txt = $favicons_dir . $this->hash() . '.txt';
+		$txt = FAVICONS_DIR . $this->hash() . '.txt';
 		if (!file_exists($txt)) {
 			file_put_contents($txt, $url);
 		}
 		if (FreshRSS_Context::$isCli) {
-			$ico = $favicons_dir . $this->hash() . '.ico';
+			$ico = FAVICONS_DIR . $this->hash() . '.ico';
 			$ico_mtime = @filemtime($ico);
 			$txt_mtime = @filemtime($txt);
 			if ($txt_mtime != false &&

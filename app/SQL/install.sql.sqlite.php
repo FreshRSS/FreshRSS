@@ -1,6 +1,5 @@
 <?php
-global $SQL_CREATE_TABLES;
-$SQL_CREATE_TABLES = [
+const SQL_CREATE_TABLES = [
 'CREATE TABLE IF NOT EXISTS `category` (
 	`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
 	`name` VARCHAR(255) NOT NULL,
@@ -56,8 +55,7 @@ $SQL_CREATE_TABLES = [
 'INSERT OR IGNORE INTO `category` (id, name) VALUES(1, "Uncategorized");',
 ];
 
-global $SQL_CREATE_TABLE_ENTRYTMP;
-$SQL_CREATE_TABLE_ENTRYTMP = [
+const SQL_CREATE_TABLE_ENTRYTMP = [
 'CREATE TABLE IF NOT EXISTS `entrytmp` (	-- v1.7
 	`id` BIGINT NOT NULL,
 	`guid` VARCHAR(760) NOT NULL,
@@ -81,8 +79,7 @@ $SQL_CREATE_TABLE_ENTRYTMP = [
 'CREATE INDEX IF NOT EXISTS `entry_feed_read_index` ON `entry`(`id_feed`,`is_read`);',	//v1.7
 ];
 
-global $SQL_CREATE_TABLE_TAGS;
-$SQL_CREATE_TABLE_TAGS = [
+const SQL_CREATE_TABLE_TAGS = [
 'CREATE TABLE IF NOT EXISTS `tag` (	-- v1.12
 	`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
 	`name` VARCHAR(63) NOT NULL,
@@ -105,8 +102,7 @@ define(
 		VALUES(:url, 1, :name, :website, :description, 86400);'
 );
 
-global $SQL_DROP_TABLES;
-$SQL_DROP_TABLES = [
+const SQL_DROP_TABLES = [
 	'DROP TABLE IF EXISTS `entrytag`',
 	'DROP TABLE IF EXISTS `tag`',
 	'DROP TABLE IF EXISTS `entrytmp`',

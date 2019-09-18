@@ -1,6 +1,6 @@
 <?php
-$favicons_dir = DATA_PATH . '/favicons/';
-$default_favicon = PUBLIC_PATH . '/themes/icons/default_favicon.ico';
+const FAVICONS_DIR = DATA_PATH . '/favicons/';
+const DEFAULT_FAVICON = PUBLIC_PATH . '/themes/icons/default_favicon.ico';
 
 function isImgMime($content) {
 	//Based on https://github.com/ArthurHoaro/favicon/blob/3a4f93da9bb24915b21771eb7873a21bde26f5d1/src/Favicon/Favicon.php#L311-L319
@@ -89,7 +89,6 @@ function searchFavicon(&$url) {
 }
 
 function download_favicon($url, $dest) {
-	global $default_favicon;
 	$url = trim($url);
 	$favicon = searchFavicon($url);
 	if ($favicon == '') {
@@ -109,5 +108,5 @@ function download_favicon($url, $dest) {
 		}
 	}
 	return ($favicon != '' && file_put_contents($dest, $favicon)) ||
-		@copy($default_favicon, $dest);
+		@copy(DEFAULT_FAVICON, $dest);
 }
