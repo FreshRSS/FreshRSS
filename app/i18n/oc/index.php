@@ -15,6 +15,9 @@ return array(
 		'website' => 'Site internet',
 		'version' => 'Version',
 	),
+	'tos' => array(
+		'title' => 'Terms of Service', // TODO - Translation
+	),
 	'feed' => array(
 		'add' => 'Podètz ajustar de fluxes.',
 		'empty' => 'I a pas cap de flux de mostrar.',

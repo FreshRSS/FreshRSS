@@ -260,6 +260,23 @@ class FreshRSS_index_Controller extends Minz_ActionController {
 	}
 
 	/**
+	 * This action displays the EULA page of FreshRSS.
+	 * This page is enabled only if admin created a data/tos.html file.
+	 * The content of the page is the content of data/tos.html.
+	 * It returns 404 if there is no EULA.
+	 */
+	public function tosAction() {
+		$terms_of_service = file_get_contents(join_path(DATA_PATH, 'tos.html'));
+		if (!$terms_of_service) {
+			Minz_Error::error(404);
+		}
+
+		$this->view->terms_of_service = $terms_of_service;
+		$this->view->can_register = !max_registrations_reached();
+		Minz_View::prependTitle(_t('index.tos.title') . ' · ');
+	}
+
+	/**
 	 * This action displays logs of FreshRSS for the current user.
 	 */
 	public function logsAction() {

@@ -23,6 +23,7 @@ return array(
 		'update' => '更新',	//TODO - Translation
 	),
 	'auth' => array(
+		'accept_tos' => 'I accept the <a href="%s">Terms of Service</a>.', // TODO - Translation
 		'email' => 'Email 地址',
 		'keep_logged_in' => '自动登录<small>(%s 天)</small>',
 		'login' => '登录',

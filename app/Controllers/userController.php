@@ -281,6 +281,9 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 			$passwordPlain = Minz_Request::param('new_user_passwordPlain', '', true);
 			$new_user_language = Minz_Request::param('new_user_language', FreshRSS_Context::$user_conf->language);
 
+			$tos_enabled = file_exists(join_path(DATA_PATH, 'tos.html'));
+			$accept_tos = Minz_Request::param('accept_tos', false);
+
 			if ($system_conf->force_email_validation && empty($email)) {
 				Minz_Request::bad(
 					_t('user.email.feedback.required'),
@@ -291,6 +294,13 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 			if (!empty($email) && !validateEmailAddress($email)) {
 				Minz_Request::bad(
 					_t('user.email.feedback.invalid'),
+					array('c' => 'auth', 'a' => 'register')
+				);
+			}
+
+			if ($tos_enabled && !$accept_tos) {
+				Minz_Request::bad(
+					_t('user.tos.feedback.invalid'),
 					array('c' => 'auth', 'a' => 'register')
 				);
 			}

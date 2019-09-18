@@ -26,6 +26,15 @@
 			<noscript><b><?php echo _t('gen.js.should_be_activated'); ?></b></noscript>
 		</div>
 
+		<?php if ($this->show_tos_checkbox) { ?>
+			<div>
+				<label class="checkbox" for="accept-tos">
+					<input type="checkbox" name="accept_tos" id="accept-tos" value="1" required />
+					<?php echo _t('gen.auth.accept_tos', _url('index', 'tos')); ?>
+				</label>
+			</div>
+		<?php } ?>
+
 		<div>
 			<?php
 				$redirect_url = urlencode(Minz_Url::display(

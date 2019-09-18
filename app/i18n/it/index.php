@@ -15,6 +15,9 @@ return array(
 		'version' => 'Versione',
 		'website' => 'Sito',
 	),
+	'tos' => array(
+		'title' => 'Terms of Service', // TODO - Translation
+	),
 	'feed' => array(
 		'add' => 'Aggiungi un Feed RSS',
 		'empty' => 'Non ci sono articoli da mostrare.',

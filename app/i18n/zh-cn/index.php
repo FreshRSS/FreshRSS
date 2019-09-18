@@ -15,6 +15,9 @@ return array(
 		'version' => '版本',
 		'website' => '网站',
 	),
+	'tos' => array(
+		'title' => 'Terms of Service', // TODO - Translation
+	),
 	'feed' => array(
 		'add' => '你可以添加一些 RSS 源。',
 		'empty' => '暂时没有文章可显示。',

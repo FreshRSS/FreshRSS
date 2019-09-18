@@ -15,6 +15,9 @@ return array(
 		'version' => 'גרסה',
 		'website' => 'אתר',
 	),
+	'tos' => array(
+		'title' => 'Terms of Service', // TODO - Translation
+	),
 	'feed' => array(
 		'add' => 'ניתן להוסיף הזנות חדשות.',
 		'empty' => 'אין מאמר להצגה.',

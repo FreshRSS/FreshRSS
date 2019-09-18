@@ -23,6 +23,7 @@ return array(
 		'update' => 'Mettre à jour',
 	),
 	'auth' => array(
+		'accept_tos' => 'Accepter les <a href="%s">Conditions Générales d’Utilisation</a>.',
 		'email' => 'Adresse courriel',
 		'keep_logged_in' => 'Rester connecté <small>(%s jours)</small>',
 		'login' => 'Connexion',
