@@ -199,8 +199,16 @@ class FreshRSS_auth_Controller extends Minz_ActionController {
 
 	/**
 	 * This action gives possibility to a user to create an account.
+	 *
+	 * The user is redirected to the home if he's connected.
+	 *
+	 * A 403 is sent if max number of registrations is reached.
 	 */
 	public function registerAction() {
+		if (FreshRSS_Auth::hasAccess()) {
+			Minz_Request::forward(array('c' => 'index', 'a' => 'index'), true);
+		}
+
 		if (max_registrations_reached()) {
 			Minz_Error::error(403);
 		}
