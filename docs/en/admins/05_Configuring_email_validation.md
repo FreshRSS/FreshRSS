@@ -6,8 +6,6 @@ by default so you'll have to follow these few steps to verify email addresses.
 It is intended to administrators who host users and want to be sure to be able
 to contact them.
 
-Note that this feature only works with PHP >= 5.5.
-
 ## Force email validation
 
 In your `data/config.php` file, you'll find a `force_email_validation` item:
@@ -15,8 +13,7 @@ set it to `true`. An email field now appears on the registration page and
 emails are sent when users change their email.
 
 You can also enable this feature directly in FreshRSS: `Administration` >
-`System configuration` > check `Force email addresses validation`. If the
-option doesn't appear, it means that you use PHP < 5.5.
+`System configuration` > check `Force email addresses validation`.
 
 ## Configure the SMTP server
 

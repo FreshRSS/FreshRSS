@@ -6,7 +6,7 @@
 	* New option to display article authors underneath the article title [#2487](https://github.com/FreshRSS/FreshRSS/pull/2487)
 	* Add e-mail capability [#2476](https://github.com/FreshRSS/FreshRSS/pull/2476)
 * Compatibility
-	* Require at least PHP 5.5+ [#2495](https://github.com/FreshRSS/FreshRSS/pull/2495)
+	* Require at least PHP 5.6+ [#2495](https://github.com/FreshRSS/FreshRSS/pull/2495), [#2527](https://github.com/FreshRSS/FreshRSS/pull/2527)
 * Deployment
 	* Take advantage of `mod_authz_core` instead of `mod_access_compat` when running on Apache 2.4+ [#2461](https://github.com/FreshRSS/FreshRSS/pull/2461)
 	* Docker: Alpine image updated to 3.10 with PHP 7.3.8 and Apache 2.4.41 [#2238](https://github.com/FreshRSS/FreshRSS/pull/2238)

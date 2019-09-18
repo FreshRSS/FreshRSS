@@ -1,6 +1,6 @@
 <?php
-if (version_compare(PHP_VERSION, '5.5.0', '<')) {
-	die('FreshRSS error: FreshRSS requires PHP 5.5.0+!');
+if (version_compare(PHP_VERSION, '5.6.0', '<')) {
+	die('FreshRSS error: FreshRSS requires PHP 5.6.0+!');
 }
 
 if (!function_exists('json_decode')) {	//PHP bug #63520 < PHP 7
