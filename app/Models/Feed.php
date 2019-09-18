@@ -700,7 +700,7 @@ class FreshRSS_Feed extends Minz_Model {
 				file_put_contents($hubFilename, json_encode($hubJson));
 			}
 			$ch = curl_init();
-			curl_setopt_array($ch, array(
+			curl_setopt_array($ch, [
 					CURLOPT_URL => $hubJson['hub'],
 					CURLOPT_RETURNTRANSFER => true,
 					CURLOPT_POSTFIELDS => http_build_query(array(
@@ -711,13 +711,9 @@ class FreshRSS_Feed extends Minz_Model {
 						)),
 					CURLOPT_USERAGENT => FRESHRSS_USERAGENT,
 					CURLOPT_MAXREDIRS => 10,
-				));
-			if (version_compare(PHP_VERSION, '5.6.0') >= 0 || ini_get('open_basedir') == '') {
-				curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);	//Keep option separated for open_basedir PHP bug 65646
-			}
-			if (defined('CURLOPT_ENCODING')) {
-				curl_setopt($ch, CURLOPT_ENCODING, '');	//Enable all encodings
-			}
+					CURLOPT_FOLLOWLOCATION => true,
+					CURLOPT_ENCODING => '',	//Enable all encodings
+				]);
 			$response = curl_exec($ch);
 			$info = curl_getinfo($ch);
 

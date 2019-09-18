@@ -31,18 +31,14 @@ function downloadHttp(&$url, $curlOptions = array()) {
 		return '';
 	}
 	$ch = curl_init($url);
-	curl_setopt_array($ch, array(
+	curl_setopt_array($ch, [
 			CURLOPT_RETURNTRANSFER => true,
 			CURLOPT_TIMEOUT => 15,
 			CURLOPT_USERAGENT => FRESHRSS_USERAGENT,
 			CURLOPT_MAXREDIRS => 10,
-		));
-	if (version_compare(PHP_VERSION, '5.6.0') >= 0 || ini_get('open_basedir') == '') {
-		curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);	//Keep option separated for open_basedir PHP bug 65646
-	}
-	if (defined('CURLOPT_ENCODING')) {
-		curl_setopt($ch, CURLOPT_ENCODING, '');	//Enable all encodings
-	}
+			CURLOPT_FOLLOWLOCATION => true,
+			CURLOPT_ENCODING => '',	//Enable all encodings
+		]);
 	curl_setopt_array($ch, $curlOptions);
 	$response = curl_exec($ch);
 	$info = curl_getinfo($ch);
