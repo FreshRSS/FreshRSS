@@ -82,7 +82,7 @@ function checkDb(&$dbOptions) {
 	$dsn = '';
 	$driver_options = null;
 	prepareSyslog();
-	try {
+	try {	//TODO: Use MinzPDO
 		switch ($dbOptions['type']) {
 		case 'mysql':
 			include_once(APP_PATH . '/SQL/install.sql.mysql.php');

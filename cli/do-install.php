@@ -3,7 +3,7 @@
 require(__DIR__ . '/_cli.php');
 
 if (!file_exists(DATA_PATH . '/do-install.txt')) {
-	fail('FreshRSS looks to be already installed! Please use `./cli/reconfigure.php` instead.');
+	fail('FreshRSS seems to be already installed! Please use `./cli/reconfigure.php` instead.');
 }
 
 $params = array(

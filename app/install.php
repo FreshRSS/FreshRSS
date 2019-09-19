@@ -17,22 +17,8 @@ if (isset($_GET['step'])) {
 	define('STEP', 0);
 }
 
-if (STEP === 3 && isset($_POST['type'])) {
+if (STEP === 2 && isset($_POST['type'])) {
 	$_SESSION['bd_type'] = $_POST['type'];
-}
-
-if (isset($_SESSION['bd_type'])) {
-	switch ($_SESSION['bd_type']) {
-	case 'mysql':
-		include_once(APP_PATH . '/SQL/install.sql.mysql.php');
-		break;
-	case 'sqlite':
-		include_once(APP_PATH . '/SQL/install.sql.sqlite.php');
-		break;
-	case 'pgsql':
-		include_once(APP_PATH . '/SQL/install.sql.pgsql.php');
-		break;
-	}
 }
 
 function param($key, $default = false) {
@@ -42,7 +28,6 @@ function param($key, $default = false) {
 		return $default;
 	}
 }
-
 
 // gestion internationalisation
 function initTranslate() {
@@ -119,6 +104,69 @@ function saveStep1() {
 }
 
 function saveStep2() {
+	if (!empty($_POST)) {
+		if ($_SESSION['bd_type'] === 'sqlite') {
+			$_SESSION['bd_base'] = $_SESSION['default_user'];
+			$_SESSION['bd_host'] = '';
+			$_SESSION['bd_user'] = '';
+			$_SESSION['bd_password'] = '';
+			$_SESSION['bd_prefix'] = '';
+		} else {
+			if (empty($_POST['type']) ||
+			    empty($_POST['host']) ||
+			    empty($_POST['user']) ||
+			    empty($_POST['base'])) {
+				$_SESSION['bd_error'] = 'Missing parameters!';
+			}
+			$_SESSION['bd_base'] = substr($_POST['base'], 0, 64);
+			$_SESSION['bd_host'] = $_POST['host'];
+			$_SESSION['bd_user'] = $_POST['user'];
+			$_SESSION['bd_password'] = $_POST['pass'];
+			$_SESSION['bd_prefix'] = substr($_POST['prefix'], 0, 16);
+		}
+		if ($_SESSION['bd_type'] === 'pgsql') {
+			$_SESSION['bd_base'] = strtolower($_SESSION['bd_base']);
+		}
+
+		// We use dirname to remove the /i part
+		$base_url = dirname(Minz_Request::guessBaseUrl());
+		$config_array = [
+			'salt' => generateSalt(),
+			'base_url' => $base_url,
+			'title' => $_SESSION['title'],
+			'default_user' => 'admin',
+			'auth_type' => $_SESSION['auth_type'],
+			'db' => [
+				'type' => $_SESSION['bd_type'],
+				'host' => $_SESSION['bd_host'],
+				'user' => $_SESSION['bd_user'],
+				'password' => $_SESSION['bd_password'],
+				'base' => $_SESSION['bd_base'],
+				'prefix' => $_SESSION['bd_prefix'],
+				'pdo_options' => [],
+			],
+			'pubsubhubbub_enabled' => server_is_public($base_url),
+		];
+
+		@unlink(join_path(DATA_PATH, 'config.php'));	//To avoid access-rights problems
+		file_put_contents(join_path(DATA_PATH, 'config.php'), "<?php\n return " . var_export($config_array, true) . ";\n");
+
+		$ok = checkDb($config_array['db']);
+		if (!$ok) {
+			@unlink(join_path(DATA_PATH, 'config.php'));
+		}
+
+		if ($ok) {
+			$_SESSION['bd_error'] = '';
+			header('Location: index.php?step=3');
+		} else {
+			$_SESSION['bd_error'] = empty($config_array['db']['error']) ? 'Unknown error!' : $config_array['db']['error'];
+		}
+	}
+	invalidateHttpCache();
+}
+
+function saveStep3() {
 	$user_default_config = Minz_Configuration::get('default_user');
 	if (!empty($_POST)) {
 		$system_default_config = Minz_Configuration::get('default_system');
@@ -144,101 +192,43 @@ function saveStep2() {
 			return false;
 		}
 
-		$_SESSION['salt'] = generateSalt();
 		if ((!ctype_digit($_SESSION['old_entries'])) ||($_SESSION['old_entries'] < 1)) {
 			$_SESSION['old_entries'] = $user_default_config->old_entries;
 		}
 
-		$token = '';
-
-		$config_array = array(
-			'language' => $_SESSION['language'],
-			'theme' => $user_default_config->theme,
-			'old_entries' => $_SESSION['old_entries'],
-			'passwordHash' => $_SESSION['passwordHash'],
-			'token' => $token,
-		);
-
 		// Create default user files but first, we delete previous data to
 		// avoid access right problems.
-		$user_dir = join_path(USERS_PATH, $_SESSION['default_user']);
-		$user_config_path = join_path($user_dir, 'config.php');
+		recursive_unlink(USERS_PATH . '/' . $_SESSION['default_user']);
 
-		recursive_unlink($user_dir);
-		mkdir($user_dir);
-		file_put_contents($user_config_path, "<?php\n return " . var_export($config_array, true) . ";\n");
+		Minz_Configuration::register('system', DATA_PATH . '/config.php', FRESHRSS_PATH . '/config.default.php');
+		FreshRSS_Context::$system_conf = Minz_Configuration::get('system');
+		Minz_Translate::init($_SESSION['language']);
 
-		header('Location: index.php?step=3');
-	}
-}
-
-function saveStep3() {
-	if (!empty($_POST)) {
-		if ($_SESSION['bd_type'] === 'sqlite') {
-			$_SESSION['bd_base'] = $_SESSION['default_user'];
-			$_SESSION['bd_host'] = '';
-			$_SESSION['bd_user'] = '';
-			$_SESSION['bd_password'] = '';
-			$_SESSION['bd_prefix'] = '';
-			$_SESSION['bd_prefix_user'] = '';	//No prefix for SQLite
-		} else {
-			if (empty($_POST['type']) ||
-			    empty($_POST['host']) ||
-			    empty($_POST['user']) ||
-			    empty($_POST['base'])) {
-				$_SESSION['bd_error'] = 'Missing parameters!';
-			}
-			$_SESSION['bd_base'] = substr($_POST['base'], 0, 64);
-			$_SESSION['bd_host'] = $_POST['host'];
-			$_SESSION['bd_user'] = $_POST['user'];
-			$_SESSION['bd_password'] = $_POST['pass'];
-			$_SESSION['bd_prefix'] = substr($_POST['prefix'], 0, 16);
-			$_SESSION['bd_prefix_user'] = $_SESSION['bd_prefix'] . (empty($_SESSION['default_user']) ? '' : ($_SESSION['default_user'] . '_'));
+		$ok = false;
+		try {
+			$ok = FreshRSS_user_Controller::createUser(
+				$_SESSION['default_user'],
+				empty($options['mail_login']) ? '' : $options['mail_login'],
+				empty($options['password']) ? '' : $options['password'],
+				[
+					'language' => $_SESSION['language'],
+					'theme' => $user_default_config->theme,
+					'old_entries' => $_SESSION['old_entries'],
+					'passwordHash' => $_SESSION['passwordHash'],
+					'token' => '',
+				]
+			);
+		} catch (Exception $e) {
+			$dbOptions['error'] = $e->getMessage();
+			$ok = false;
 		}
-		if ($_SESSION['bd_type'] === 'pgsql') {
-			$_SESSION['bd_base'] = strtolower($_SESSION['bd_base']);
-		}
-
-		// We use dirname to remove the /i part
-		$base_url = dirname(Minz_Request::guessBaseUrl());
-		$config_array = array(
-			'salt' => $_SESSION['salt'],
-			'base_url' => $base_url,
-			'title' => $_SESSION['title'],
-			'default_user' => $_SESSION['default_user'],
-			'auth_type' => $_SESSION['auth_type'],
-			'db' => array(
-				'type' => $_SESSION['bd_type'],
-				'host' => $_SESSION['bd_host'],
-				'user' => $_SESSION['bd_user'],
-				'password' => $_SESSION['bd_password'],
-				'base' => $_SESSION['bd_base'],
-				'prefix' => $_SESSION['bd_prefix'],
-				'pdo_options' => array(),
-			),
-			'pubsubhubbub_enabled' => server_is_public($base_url),
-		);
-
-		@unlink(join_path(DATA_PATH, 'config.php'));	//To avoid access-rights problems
-		file_put_contents(join_path(DATA_PATH, 'config.php'), "<?php\n return " . var_export($config_array, true) . ";\n");
-
-		$config_array['db']['default_user'] = $config_array['default_user'];
-		$config_array['db']['prefix_user'] = $_SESSION['bd_prefix_user'];
-		$ok = checkDb($config_array['db']) && checkDbUser($config_array['db']);
 		if (!$ok) {
-			@unlink(join_path(DATA_PATH, 'config.php'));
+			return false;
 		}
 
-		if ($ok) {
-			$_SESSION['bd_error'] = '';
-			header('Location: index.php?step=4');
-		} else {
-			$_SESSION['bd_error'] = empty($config_array['db']['error']) ? 'Unknown error!' : $config_array['db']['error'];
-		}
+		header('Location: index.php?step=4');
 	}
-	invalidateHttpCache();
 }
-
 
 /*** VÉRIFICATIONS ***/
 function checkStep() {
@@ -297,6 +287,26 @@ function freshrss_already_installed() {
 }
 
 function checkStep2() {
+	$conf = is_writable(join_path(DATA_PATH, 'config.php'));
+
+	$bd = isset($_SESSION['bd_type']) &&
+	      isset($_SESSION['bd_host']) &&
+	      isset($_SESSION['bd_user']) &&
+	      isset($_SESSION['bd_password']) &&
+	      isset($_SESSION['bd_base']) &&
+	      isset($_SESSION['bd_prefix']) &&
+	      isset($_SESSION['bd_error']);
+	$conn = empty($_SESSION['bd_error']);
+
+	return [
+		'bd' => $bd ? 'ok' : 'ko',
+		'conn' => $conn ? 'ok' : 'ko',
+		'conf' => $conf ? 'ok' : 'ko',
+		'all' => $bd && $conn && $conf ? 'ok' : 'ko',
+	];
+}
+
+function checkStep3() {
 	$conf = !empty($_SESSION['old_entries']) &&
 	        !empty($_SESSION['default_user']);
 
@@ -311,69 +321,14 @@ function checkStep2() {
 	}
 	$data = is_writable(join_path(USERS_PATH, $defaultUser, 'config.php'));
 
-	return array(
+	return [
 		'conf' => $conf ? 'ok' : 'ko',
 		'form' => $form ? 'ok' : 'ko',
 		'data' => $data ? 'ok' : 'ko',
-		'all' => $conf && $form && $data ? 'ok' : 'ko'
-	);
+		'all' => $conf && $form && $data ? 'ok' : 'ko',
+	];
 }
 
-function checkStep3() {
-	$conf = is_writable(join_path(DATA_PATH, 'config.php'));
-
-	$bd = isset($_SESSION['bd_type']) &&
-	      isset($_SESSION['bd_host']) &&
-	      isset($_SESSION['bd_user']) &&
-	      isset($_SESSION['bd_password']) &&
-	      isset($_SESSION['bd_base']) &&
-	      isset($_SESSION['bd_prefix']) &&
-	      isset($_SESSION['bd_error']);
-	$conn = empty($_SESSION['bd_error']);
-
-	return array(
-		'bd' => $bd ? 'ok' : 'ko',
-		'conn' => $conn ? 'ok' : 'ko',
-		'conf' => $conf ? 'ok' : 'ko',
-		'all' => $bd && $conn && $conf ? 'ok' : 'ko'
-	);
-}
-
-function checkDbUser(&$dbOptions) {
-	$ok = false;
-	$str = $dbOptions['dsn'];
-	$driver_options = $dbOptions['options'];
-	try {
-		$c = new PDO($str, $dbOptions['user'], $dbOptions['password'], $driver_options);	//TODO: Use Minz PDO
-		$instructions = array_merge(SQL_CREATE_TABLES, SQL_CREATE_TABLE_ENTRYTMP, SQL_CREATE_TABLE_TAGS);
-		$ok = !empty($instructions);
-		foreach ($instructions as $sql) {
-			$ok &= $c->exec($sql) !== false;
-		}
-
-		Minz_Configuration::register(
-			'system',
-			join_path(DATA_PATH, 'config.php'),
-			join_path(FRESHRSS_PATH, 'config.default.php')
-		);
-		$system_conf = Minz_Configuration::get('system');
-		$default_feeds = $system_conf->default_feeds;
-		$stm = $c->prepare(SQL_INSERT_FEED);
-		foreach ($default_feeds as $feed) {
-			$parameters = array(
-				':url' => $feed['url'],
-				':name' => $feed['name'],
-				':website' => $feed['website'],
-				':description' => $feed['description'],
-			);
-			$ok &= ($stm && $stm->execute($parameters));
-		}
-	} catch (PDOException $e) {
-		$ok = false;
-		$dbOptions['error'] = $e->getMessage();
-	}
-	return $ok;
-}
 
 /*** AFFICHAGE ***/
 function printStep0() {
@@ -533,83 +488,15 @@ function printStep1() {
 }
 
 function printStep2() {
-	$user_default_config = Minz_Configuration::get('default_user');
-?>
-	<?php $s2 = checkStep2(); if ($s2['all'] == 'ok') { ?>
-	<p class="alert alert-success"><span class="alert-head"><?php echo _t('gen.short.ok'); ?></span> <?php echo _t('install.conf.ok'); ?></p>
-	<?php } elseif (!empty($_POST)) { ?>
-	<p class="alert alert-error"><?php echo _t('install.fix_errors_before'); ?></p>
-	<?php } ?>
-
-	<form action="index.php?step=2" method="post">
-		<legend><?php echo _t('install.conf'); ?></legend>
-
-		<div class="form-group">
-			<label class="group-name" for="old_entries"><?php echo _t('install.delete_articles_after'); ?></label>
-			<div class="group-controls">
-				<input type="number" id="old_entries" name="old_entries" required="required" min="1" max="1200" value="<?php echo isset($_SESSION['old_entries']) ? $_SESSION['old_entries'] : $user_default_config->old_entries; ?>" tabindex="2" /> <?php echo _t('gen.date.month'); ?>
-			</div>
-		</div>
-
-		<div class="form-group">
-			<label class="group-name" for="default_user"><?php echo _t('install.default_user'); ?></label>
-			<div class="group-controls">
-				<input type="text" id="default_user" name="default_user" autocomplete="username" required="required" size="16" pattern="<?php echo FreshRSS_user_Controller::USERNAME_PATTERN; ?>" value="<?php echo isset($_SESSION['default_user']) ? $_SESSION['default_user'] : ''; ?>" placeholder="<?php echo httpAuthUser() == '' ? 'alice' : httpAuthUser(); ?>" tabindex="3" />
-			</div>
-		</div>
-
-		<div class="form-group">
-			<label class="group-name" for="auth_type"><?php echo _t('install.auth.type'); ?></label>
-			<div class="group-controls">
-				<select id="auth_type" name="auth_type" required="required" tabindex="4">
-					<?php
-						function no_auth($auth_type) {
-							return !in_array($auth_type, array('form', 'http_auth', 'none'));
-						}
-						$auth_type = isset($_SESSION['auth_type']) ? $_SESSION['auth_type'] : '';
-					?>
-					<option value="form"<?php echo $auth_type === 'form' || (no_auth($auth_type) && cryptAvailable()) ? ' selected="selected"' : '', cryptAvailable() ? '' : ' disabled="disabled"'; ?>><?php echo _t('install.auth.form'); ?></option>
-					<option value="http_auth"<?php echo $auth_type === 'http_auth' ? ' selected="selected"' : '', httpAuthUser() == '' ? ' disabled="disabled"' : ''; ?>><?php echo _t('install.auth.http'); ?>(REMOTE_USER = '<?php echo httpAuthUser(); ?>')</option>
-					<option value="none"<?php echo $auth_type === 'none' || (no_auth($auth_type) && !cryptAvailable()) ? ' selected="selected"' : ''; ?>><?php echo _t('install.auth.none'); ?></option>
-				</select>
-			</div>
-		</div>
-
-		<div class="form-group">
-			<label class="group-name" for="passwordPlain"><?php echo _t('install.auth.password_form'); ?></label>
-			<div class="group-controls">
-				<div class="stick">
-					<input type="password" id="passwordPlain" name="passwordPlain" pattern=".{7,}" autocomplete="off" <?php echo $auth_type === 'form' ? ' required="required"' : ''; ?> tabindex="5" />
-					<a class="btn toggle-password" data-toggle="passwordPlain"><?php echo FreshRSS_Themes::icon('key'); ?></a>
-				</div>
-				<?php echo _i('help'); ?> <?php echo _t('install.auth.password_format'); ?>
-				<noscript><b><?php echo _t('gen.js.should_be_activated'); ?></b></noscript>
-			</div>
-		</div>
-
-		<div class="form-group form-actions">
-			<div class="group-controls">
-				<button type="submit" class="btn btn-important" tabindex="7" ><?php echo _t('gen.action.submit'); ?></button>
-				<button type="reset" class="btn" tabindex="8" ><?php echo _t('gen.action.cancel'); ?></button>
-				<?php if ($s2['all'] == 'ok') { ?>
-				<a class="btn btn-important next-step" href="?step=3" tabindex="9" ><?php echo _t('install.action.next_step'); ?></a>
-				<?php } ?>
-			</div>
-		</div>
-	</form>
-<?php
-}
-
-function printStep3() {
 	$system_default_config = Minz_Configuration::get('default_system');
 ?>
-	<?php $s3 = checkStep3(); if ($s3['all'] == 'ok') { ?>
+	<?php $s2 = checkStep2(); if ($s2['all'] == 'ok') { ?>
 	<p class="alert alert-success"><span class="alert-head"><?php echo _t('gen.short.ok'); ?></span> <?php echo _t('install.bdd.conf.ok'); ?></p>
-	<?php } elseif ($s3['conn'] == 'ko') { ?>
+	<?php } elseif ($s2['conn'] == 'ko') { ?>
 	<p class="alert alert-error"><span class="alert-head"><?php echo _t('gen.short.damn'); ?></span> <?php echo _t('install.bdd.conf.ko'),(empty($_SESSION['bd_error']) ? '' : ' : ' . $_SESSION['bd_error']); ?></p>
 	<?php } ?>
 
-	<form action="index.php?step=3" method="post" autocomplete="off">
+	<form action="index.php?step=2" method="post" autocomplete="off">
 		<legend><?php echo _t('install.bdd.conf'); ?></legend>
 		<div class="form-group">
 			<label class="group-name" for="type"><?php echo _t('install.bdd.type'); ?></label>
@@ -672,6 +559,74 @@ function printStep3() {
 				<input type="text" id="prefix" name="prefix" maxlength="16" pattern="[0-9A-Za-z_]{1,16}" value="<?php echo isset($_SESSION['bd_prefix']) ? $_SESSION['bd_prefix'] : $system_default_config->db['prefix']; ?>" tabindex="6" />
 			</div>
 		</div>
+		</div>
+
+		<div class="form-group form-actions">
+			<div class="group-controls">
+				<button type="submit" class="btn btn-important" tabindex="7" ><?php echo _t('gen.action.submit'); ?></button>
+				<button type="reset" class="btn" tabindex="8" ><?php echo _t('gen.action.cancel'); ?></button>
+				<?php if ($s2['all'] == 'ok') { ?>
+				<a class="btn btn-important next-step" href="?step=3" tabindex="9" ><?php echo _t('install.action.next_step'); ?></a>
+				<?php } ?>
+			</div>
+		</div>
+	</form>
+<?php
+}
+
+function printStep3() {
+	$user_default_config = Minz_Configuration::get('default_user');
+?>
+	<?php $s3 = checkStep3(); if ($s3['all'] == 'ok') { ?>
+	<p class="alert alert-success"><span class="alert-head"><?php echo _t('gen.short.ok'); ?></span> <?php echo _t('install.conf.ok'); ?></p>
+	<?php } elseif (!empty($_POST)) { ?>
+	<p class="alert alert-error"><?php echo _t('install.fix_errors_before'); ?></p>
+	<?php } ?>
+
+	<form action="index.php?step=3" method="post">
+		<legend><?php echo _t('install.conf'); ?></legend>
+
+		<div class="form-group">
+			<label class="group-name" for="old_entries"><?php echo _t('install.delete_articles_after'); ?></label>
+			<div class="group-controls">
+				<input type="number" id="old_entries" name="old_entries" required="required" min="1" max="1200" value="<?php echo isset($_SESSION['old_entries']) ? $_SESSION['old_entries'] : $user_default_config->old_entries; ?>" tabindex="2" /> <?php echo _t('gen.date.month'); ?>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="group-name" for="default_user"><?php echo _t('install.default_user'); ?></label>
+			<div class="group-controls">
+				<input type="text" id="default_user" name="default_user" autocomplete="username" required="required" size="16" pattern="<?php echo FreshRSS_user_Controller::USERNAME_PATTERN; ?>" value="<?php echo isset($_SESSION['default_user']) ? $_SESSION['default_user'] : ''; ?>" placeholder="<?php echo httpAuthUser() == '' ? 'alice' : httpAuthUser(); ?>" tabindex="3" />
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="group-name" for="auth_type"><?php echo _t('install.auth.type'); ?></label>
+			<div class="group-controls">
+				<select id="auth_type" name="auth_type" required="required" tabindex="4">
+					<?php
+						function no_auth($auth_type) {
+							return !in_array($auth_type, array('form', 'http_auth', 'none'));
+						}
+						$auth_type = isset($_SESSION['auth_type']) ? $_SESSION['auth_type'] : '';
+					?>
+					<option value="form"<?php echo $auth_type === 'form' || (no_auth($auth_type) && cryptAvailable()) ? ' selected="selected"' : '', cryptAvailable() ? '' : ' disabled="disabled"'; ?>><?php echo _t('install.auth.form'); ?></option>
+					<option value="http_auth"<?php echo $auth_type === 'http_auth' ? ' selected="selected"' : '', httpAuthUser() == '' ? ' disabled="disabled"' : ''; ?>><?php echo _t('install.auth.http'); ?>(REMOTE_USER = '<?php echo httpAuthUser(); ?>')</option>
+					<option value="none"<?php echo $auth_type === 'none' || (no_auth($auth_type) && !cryptAvailable()) ? ' selected="selected"' : ''; ?>><?php echo _t('install.auth.none'); ?></option>
+				</select>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="group-name" for="passwordPlain"><?php echo _t('install.auth.password_form'); ?></label>
+			<div class="group-controls">
+				<div class="stick">
+					<input type="password" id="passwordPlain" name="passwordPlain" pattern=".{7,}" autocomplete="off" <?php echo $auth_type === 'form' ? ' required="required"' : ''; ?> tabindex="5" />
+					<a class="btn toggle-password" data-toggle="passwordPlain"><?php echo FreshRSS_Themes::icon('key'); ?></a>
+				</div>
+				<?php echo _i('help'); ?> <?php echo _t('install.auth.password_format'); ?>
+				<noscript><b><?php echo _t('gen.js.should_be_activated'); ?></b></noscript>
+			</div>
 		</div>
 
 		<div class="form-group form-actions">
@@ -752,8 +707,8 @@ case 5:
 		<li class="nav-header"><?php echo _t('install.steps'); ?></li>
 		<li class="item<?php echo STEP == 0 ? ' active' : ''; ?>"><a href="?step=0"><?php echo _t('install.language'); ?></a></li>
 		<li class="item<?php echo STEP == 1 ? ' active' : ''; ?>"><a href="?step=1"><?php echo _t('install.check'); ?></a></li>
-		<li class="item<?php echo STEP == 2 ? ' active' : ''; ?>"><a href="?step=2"><?php echo _t('install.conf'); ?></a></li>
-		<li class="item<?php echo STEP == 3 ? ' active' : ''; ?>"><a href="?step=3"><?php echo _t('install.bdd.conf'); ?></a></li>
+		<li class="item<?php echo STEP == 2 ? ' active' : ''; ?>"><a href="?step=2"><?php echo _t('install.bdd.conf'); ?></a></li>
+		<li class="item<?php echo STEP == 3 ? ' active' : ''; ?>"><a href="?step=3"><?php echo _t('install.conf'); ?></a></li>
 		<li class="item<?php echo STEP == 4 ? ' active' : ''; ?>"><a href="?step=4"><?php echo _t('install.this_is_the_end'); ?></a></li>
 	</ul>
 
