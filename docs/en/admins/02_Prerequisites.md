@@ -8,7 +8,7 @@ You need to verify that your server can run FreshRSS before installing it. If yo
 | ------------- | ----------------------- | ----------------------- |
 | Web server    | **Apache 2**            | Nginx                   |
 | PHP           | **PHP 7+**              | PHP 5.6+                |
-| PHP modules   | Required: libxml, cURL, JSON, PDO_MySQL, PCRE and ctype. <br>Required (32-bit only): GMP <br> Recommanded: Zlib, mbstring, iconv, ZipArchive <br> *For the whole modules list see [Dockerfile](https://github.com/FreshRSS/FreshRSS/blob/master/Docker/Dockerfile-Alpine#L7-L9)* | |
+| PHP modules   | Required: libxml, cURL, JSON, PDO\_MySQL, PCRE and ctype. <br>Required (32-bit only): GMP <br> Recommanded: Zlib, mbstring, iconv, ZipArchive <br> *For the whole modules list see [Dockerfile](https://github.com/FreshRSS/FreshRSS/blob/master/Docker/Dockerfile-Alpine#L7-L9)* | |
 | Database      | **MySQL 5.5.3+**        | SQLite 3.7.4+           |
 | Browser       | **Firefox**             | Chrome, Opera, Safari, or IE11/Edge[^2] |
 
@@ -25,7 +25,7 @@ This version is really stable, tested thoroughly, and you should not face any ma
 
 Stable releases are not released on a set schedule. Rather, they are released whenever we consider that our goal for new features is reached, and the software is stable.
 
-It could happen that we make two releases in a short span of time if we have a really good coding pace. In reality, we are all working on the project in our spare time, so a new release usually occurs every few months. 
+It could happen that we make two releases in a short span of time if we have a really good coding pace. In reality, we are all working on the project in our spare time, so a new release usually occurs every few months.
 
 ## Development version
 
@@ -35,7 +35,7 @@ As its name suggests, the development version is the working codebase, intended 
 
 If you want to keep track of the most recent enhancements or help the developers with bug reports, this is the branch for you. If you use this version, please keep in mind that you need to follow the branch activity on Github (via [the branch RSS feed](https://github.com/FreshRSS/FreshRSS/commits/dev.atom), for instance), and manually pull new commits.
 
-Some say that the main developers use this branch on a daily basis without problem. They may know what they are doing...
+Some say that the main developers use this branch on a daily basis without problem. They may know what they are doing…
 
 [^1]: When installed using a supported version of PHP older than 5.5, specific functions available in the [''password_compat'' library](https://github.com/ircmaxell/password_compat#requirements) are used for form authentication. 
 

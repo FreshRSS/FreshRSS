@@ -6,8 +6,6 @@ The following is general procedure; [specific commands for Linux may be found he
 
 Before you update to a new version of FreshRSS, it's always a good idea to backup your current installation. Simply make an archive of your FreshRSS directory, which can be restored if needed by following the "Updating from a Zip Archive" section at the bottom of this document.
 
----
-
 ## Updating From the Web
 
 If you enabled web updates from your installation (see footnote 2 in [installation](03_Installation.md)), you can log into your admin account, select the update option under Administration in the Settings dropdown found on the top right of the webpage, and press the "Check for new updates" button. Alternatively, this page can be reached directly at `http://<your_server>/i/?c=update`.

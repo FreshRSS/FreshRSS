@@ -59,7 +59,7 @@ This is an example Apache virtual hosts configuration file. It covers HTTP and H
 
 ## Nginx configuration
 
-This is an example nginx configuration file. It covers HTTP, HTTP, and php-fpm configuration.
+This is an example nginx configuration file. It covers HTTP, HTTPS, and php-fpm configuration.
 
 You can find simpler config file but they may be incompatible with FreshRSS API.
 ```

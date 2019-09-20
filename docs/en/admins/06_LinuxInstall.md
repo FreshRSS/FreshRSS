@@ -28,7 +28,7 @@ Next, we'll need to install and configure MySQL. Install MySQL components like s
 sudo apt install mysql-server mysql-client php-mysql
 ```
 
-MySQL must now be started: 
+MySQL must now be started:
 ```
 service mysql-server start
 ```
@@ -91,7 +91,7 @@ Start a MySQL session. running this command will ask you for the MySQL password 
 mysql -u root -p
 ```
 
-From the MySQL prompt (`MariaDB [(none)]>`), run the following commands, substituting \<username>, \<password>, and \<database_name> for real values.
+From the MySQL prompt (`MariaDB [(none)]>`), run the following commands, substituting `<username>`, `<password>`, and `<database_name>` for real values.
 ```
 CREATE USER '<username>'@'localhost' IDENTIFIED BY '<password>';
 CREATE DATABASE `databaseName`;
@@ -104,7 +104,7 @@ A brief explanation of the previous command block:
 * You first create a database user for FreshRSS to use.
 * Then you create a database for FreshRSS to store data in.
 * You grant permissions for the user you created to read, write, and modify the database.
-* Flushing privileges reloads the permissions, making the previous command to take effect.
+* Flushing privileges reloads the permissions, which makes the previous command take effect.
 
 ## Part 4: Finishing the Installation
 
