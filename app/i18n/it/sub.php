@@ -14,7 +14,9 @@ return array(
 		'_' => 'Categoria',
 		'add' => 'Aggiungi una categoria',
 		'empty' => 'Categoria vuota',
+		'information' => 'Informazioni',
 		'new' => 'Nuova categoria',
+		'title' => 'Titolo',
 	),
 	'feed' => array(
 		'add' => 'Aggiungi un Feed RSS',
@@ -33,7 +35,11 @@ return array(
 		'description' => 'Descrizione',
 		'empty' => 'Questo feed non contiene articoli. Per favore verifica il sito direttamente.',
 		'error' => 'Questo feed ha generato un errore. Per favore verifica se ancora disponibile.',
-		'informations' => 'Informazioni',
+		'filteractions' => array(
+			'_' => 'Filter actions',	//TODO - Translation
+			'help' => 'Write one search filter per line.',	//TODO - Translation
+		),
+		'information' => 'Informazioni',
 		'keep_history' => 'Numero minimo di articoli da mantenere',
 		'moved_category_deleted' => 'Cancellando una categoria i feed al suo interno verranno classificati automaticamente come <em>%s</em>.',
 		'mute' => 'mute',	//TODO - Translation
@@ -45,7 +51,7 @@ return array(
 			'main_stream' => 'Mostra in homepage',	//TODO - Translation
 			'normal' => 'Show in its category',	//TODO - Translation
 		),
-		'pubsubhubbub' => 'Notifica istantanea con PubSubHubbub',
+		'websub' => 'Notifica istantanea con WebSub',
 		'show' => array(
 			'all' => 'Show all feeds',	//TODO - Translation
 			'error' => 'Show only feeds with error',	//TODO - Translation
@@ -72,6 +78,7 @@ return array(
 		'export' => 'Esporta',
 		'export_opml' => 'Esporta tutta la lista dei feed (OPML)',
 		'export_starred' => 'Esporta i tuoi preferiti',
+		'export_labelled' => 'Export your labelled articles',	//TODO
 		'feed_list' => 'Elenco di %s articoli',
 		'file_to_import' => 'File da importare<br />(OPML, JSON o ZIP)',
 		'file_to_import_no_zip' => 'File da importare<br />(OPML o JSON)',

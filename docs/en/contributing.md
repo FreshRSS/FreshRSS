@@ -20,7 +20,7 @@ If you have to create a new ticket, try to apply the following advices:
 - We also need some information:
     + Your FreshRSS version (on about page or `constants.php` file)
     + Your server configuration: type of hosting, PHP version
-    + Your storage system (MySQL / MariaDB / PostgreSQL or SQLite)
+    + Your storage system (SQLite, MySQL, MariaDB, PostgreSQL)
     + If possible, the related logs (PHP logs and FreshRSS logs under `data/users/your_user/log.txt`)
 
 ## Fix a bug

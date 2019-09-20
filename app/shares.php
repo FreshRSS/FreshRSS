@@ -64,19 +64,13 @@ return array(
 	),
 	'movim' => array(
 		'url' => '~URL~/?share/~LINK~',
-		'transform' => array('rawurlencode', 'urlencode'),
+		'transform' => array('urlencode'),
 		'help' => 'https://github.com/edhelas/movim',
 		'form' => 'advanced',
 		'method' => 'GET',
 	),
 	'twitter' => array(
 		'url' => 'https://twitter.com/share?url=~LINK~&amp;text=~TITLE~',
-		'transform' => array('rawurlencode'),
-		'form' => 'simple',
-		'method' => 'GET',
-	),
-	'g+' => array(
-		'url' => 'https://plus.google.com/share?url=~LINK~',
 		'transform' => array('rawurlencode'),
 		'form' => 'simple',
 		'method' => 'GET',
@@ -137,4 +131,17 @@ return array(
 		'form' => 'simple',
 		'method' => 'GET',
 	),
+	'pinboard' => array(
+		'url' => 'https://pinboard.in/add?next=same&amp;url=~LINK~&amp;title=~TITLE~',
+		'transform' => array('urlencode'),
+		'help' => 'https://pinboard.in/api/',
+		'form' => 'simple',
+		'method' => 'GET',
+	),
+	'lemmy' => array(
+                'url' => '~URL~/create_post?url=~LINK~&name=~TITLE~',
+                'transform' => array('rawurlencode'),
+                'form' => 'advanced',
+                'method' => 'GET',
+        ),
 );

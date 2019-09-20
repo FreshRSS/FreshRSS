@@ -21,6 +21,7 @@ return array(
 			'publication_date' => 'Datum vydání',
 			'related_tags' => 'Související tagy',	//TODO - Translation
 			'sharing' => 'Sdílení',
+			'display_authors' => 'Authors',  //TODO - Translation
 			'top_line' => 'Horní řádek',
 		),
 		'language' => 'Jazyk',
@@ -45,6 +46,7 @@ return array(
 			'_' => 'Smazání účtu',
 			'warn' => 'Váš účet bude smazán spolu se všemi souvisejícími daty',
 		),
+		'email' => 'Email',
 		'password_api' => 'Password API<br /><small>(tzn. pro mobilní aplikace)</small>',
 		'password_form' => 'Heslo<br /><small>(pro přihlášení webovým formulářem)</small>',
 		'password_format' => 'Alespoň 7 znaků',
@@ -92,7 +94,7 @@ return array(
 		'auto_remove_article' => 'Po přečtení články schovat',
 		'confirm_enabled' => 'Vyžadovat potvrzení pro akci “označit vše jako přečtené”',
 		'display_articles_unfolded' => 'Ve výchozím stavu zobrazovat články otevřené',
-		'display_categories_unfolded' => 'Ve výchozím stavu zobrazovat kategorie zavřené',
+		'display_categories_unfolded' => 'Ve výchozím stavu zobrazovat kategorie otevřené',
 		'hide_read_feeds' => 'Schovat kategorie a kanály s nulovým počtem nepřečtených článků (nefunguje s nastavením “Zobrazit všechny články”)',
 		'img_with_lazyload' => 'Použít "lazy load" mód pro načítaní obrázků',
 		'jump_next' => 'skočit na další nepřečtený (kanál nebo kategorii)',
@@ -133,7 +135,6 @@ return array(
 		'diaspora' => 'Diaspora*',
 		'email' => 'Email',
 		'facebook' => 'Facebook',
-		'g+' => 'Google+',
 		'more_information' => 'Více informací',
 		'print' => 'Tisk',
 		'remove' => 'Remove sharing method',	//TODO - Translation

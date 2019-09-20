@@ -14,7 +14,9 @@ return array(
 		'_' => 'Category',	//TODO - Translation
 		'add' => 'Add a category',	//TODO - Translation
 		'empty' => 'Empty category',	//TODO - Translation
+		'information' => 'Information',	//TODO - Translation
 		'new' => 'New category',	//TODO - Translation
+		'title' => 'Title',	//TODO - Translation
 	),
 	'feed' => array(
 		'add' => 'Add a RSS feed',	//TODO - Translation
@@ -33,7 +35,11 @@ return array(
 		'description' => 'Description',	//TODO - Translation
 		'empty' => 'This feed is empty. Please verify that it is still maintained.',	//TODO - Translation
 		'error' => 'This feed has encountered a problem. Please verify that it is always reachable then actualize it.',	//TODO - Translation
-		'informations' => 'Information',	//TODO - Translation
+		'filteractions' => array(
+			'_' => 'Filter actions',	//TODO - Translation
+			'help' => 'Write one search filter per line.',	//TODO - Translation
+		),
+		'information' => 'Information',	//TODO - Translation
 		'keep_history' => 'Minimum number of articles to keep',	//TODO - Translation
 		'moved_category_deleted' => 'When you delete a category, its feeds are automatically classified under <em>%s</em>.',	//TODO - Translation
 		'mute' => 'mute',	//TODO - Translation
@@ -45,7 +51,7 @@ return array(
 			'main_stream' => 'Show in main stream',	//TODO - Translation
 			'normal' => 'Show in its category',	//TODO - Translation
 		),
-		'pubsubhubbub' => 'Instant notification with PubSubHubbub',	//TODO - Translation
+		'websub' => 'Instant notification with WebSub',	//TODO - Translation
 		'show' => array(
 			'all' => 'Show all feeds',	//TODO - Translation
 			'error' => 'Show only feeds with error',	//TODO - Translation
@@ -72,6 +78,7 @@ return array(
 		'export' => 'Export',	//TODO - Translation
 		'export_opml' => 'Export list of feeds (OPML)',	//TODO - Translation
 		'export_starred' => 'Export your favourites',	//TODO - Translation
+		'export_labelled' => 'Export your labelled articles',	//TODO
 		'feed_list' => 'List of %s articles',	//TODO - Translation
 		'file_to_import' => 'File to import<br />(OPML, JSON or ZIP)',	//TODO - Translation
 		'file_to_import_no_zip' => 'File to import<br />(OPML or JSON)',	//TODO - Translation

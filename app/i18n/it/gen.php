@@ -3,6 +3,7 @@
 return array(
 	'action' => array(
 		'actualize' => 'Aggiorna',
+		'back' => '← Go back', //TODO - Translation
 		'back_to_rss_feeds' => '← Indietro',
 		'cancel' => 'Annulla',
 		'create' => 'Crea',
@@ -22,6 +23,7 @@ return array(
 		'update' => 'Update', // TODO
 	),
 	'auth' => array(
+		'accept_tos' => 'I accept the <a href="%s">Terms of Service</a>.', // TODO - Translation
 		'email' => 'Indirizzo email',
 		'keep_logged_in' => 'Ricorda i dati <small>(%s giorni)</small>',
 		'login' => 'Accedi',
@@ -165,13 +167,14 @@ return array(
 		'diaspora' => 'Diaspora*',
 		'email' => 'Email',
 		'facebook' => 'Facebook',
-		'g+' => 'Google+',
 		'gnusocial' => 'GNU social',
 		'jdh' => 'Journal du hacker',
 		'Known' => 'Siti basati su Known',
+		'lemmy' => 'Lemmy',
 		'linkedin' => 'LinkedIn',
 		'mastodon' => 'Mastodon',
 		'movim' => 'Movim',
+		'pinboard' => 'Pinboard',
 		'pocket' => 'Pocket',
 		'print' => 'Stampa',
 		'shaarli' => 'Shaarli',

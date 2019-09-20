@@ -14,7 +14,9 @@ return array(
 		'_' => 'Kategori',
 		'add' => 'Kategori ekle',
 		'empty' => 'Boş kategori',
+		'information' => 'Bilgi',
 		'new' => 'Yeni kategori',
+		'title' => 'Başlık',
 	),
 	'feed' => array(
 		'add' => 'RSS akışı ekle',
@@ -33,7 +35,11 @@ return array(
 		'description' => 'Tanım',
 		'empty' => 'Bu akış boş. Lütfen akışın aktif olduğuna emin olun.',
 		'error' => 'Bu akışda bir hatayla karşılaşıldı. Lütfen akışın sürekli ulaşılabilir olduğuna emin olun.',
-		'informations' => 'Bilgi',
+		'filteractions' => array(
+			'_' => 'Filter actions',	//TODO - Translation
+			'help' => 'Write one search filter per line.',	//TODO - Translation
+		),
+		'information' => 'Bilgi',
 		'keep_history' => 'En az tutulacak makale sayısı',
 		'moved_category_deleted' => 'Bir kategoriyi silerseniz, içerisindeki akışlar <em>%s</em> içerisine yerleşir.',
 		'mute' => 'mute',	//TODO - Translation
@@ -45,7 +51,7 @@ return array(
 			'main_stream' => 'Ana akışda göster',
 			'normal' => 'Show in its category',	//TODO - Translation
 		),
-		'pubsubhubbub' => 'PubSubHubbub ile anlık bildirim',
+		'websub' => 'WebSub ile anlık bildirim',
 		'show' => array(
 			'all' => 'Show all feeds',	//TODO - Translation
 			'error' => 'Show only feeds with error',	//TODO - Translation
@@ -72,6 +78,7 @@ return array(
 		'export' => 'Dışa aktar',
 		'export_opml' => 'Akış listesini dışarı aktar (OPML)',
 		'export_starred' => 'Favorileri dışarı aktar',
+		'export_labelled' => 'Export your labelled articles',	//TODO
 		'feed_list' => '%s makalenin listesi',
 		'file_to_import' => 'Dosyadan içe aktar<br />(OPML, JSON or ZIP)',
 		'file_to_import_no_zip' => 'Dosyadan içe aktar<br />(OPML or JSON)',

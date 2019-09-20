@@ -2,6 +2,10 @@
 
 class FreshRSS_EntryDAOPGSQL extends FreshRSS_EntryDAOSQLite {
 
+	public function hasNativeHex() {
+		return true;
+	}
+
 	public function sqlHexDecode($x) {
 		return 'decode(' . $x . ", 'hex')";
 	}
@@ -37,7 +41,9 @@ BEGIN
 	INSERT INTO `' . $this->prefix . 'entry` (id, guid, title, author, content, link, date, `lastSeen`, hash, is_read, is_favorite, id_feed, tags)
 		(SELECT rank + row_number() OVER(ORDER BY date) AS id, guid, title, author, content, link, date, `lastSeen`, hash, is_read, is_favorite, id_feed, tags
 			FROM `' . $this->prefix . 'entrytmp` AS etmp
-			WHERE NOT EXISTS (SELECT 1 FROM `' . $this->prefix . 'entry` AS ereal WHERE etmp.id_feed = ereal.id_feed AND etmp.guid = ereal.guid)
+			WHERE NOT EXISTS (
+				SELECT 1 FROM `' . $this->prefix . 'entry` AS ereal
+				WHERE (etmp.id = ereal.id) OR (etmp.id_feed = ereal.id_feed AND etmp.guid = ereal.guid))
 			ORDER BY date);
 	DELETE FROM `' . $this->prefix . 'entrytmp` WHERE id <= maxrank;
 END $$;';

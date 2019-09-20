@@ -14,7 +14,9 @@ return array(
 		'_' => 'Kategorie',
 		'add' => 'Přidat kategorii',
 		'empty' => 'Vyprázdit kategorii',
+		'information' => 'Informace',
 		'new' => 'Nová kategorie',
+		'title' => 'Název',
 	),
 	'feed' => array(
 		'add' => 'Přidat RSS kanál',
@@ -33,7 +35,11 @@ return array(
 		'description' => 'Popis',
 		'empty' => 'Kanál je prázdný. Ověřte prosím zda je ještě autorem udržován.',
 		'error' => 'Vyskytl se problém s kanálem. Ověřte že je vždy dostupný, prosím, a poté jej aktualizujte.',
-		'informations' => 'Informace',
+		'filteractions' => array(
+			'_' => 'Filter actions',	//TODO - Translation
+			'help' => 'Write one search filter per line.',	//TODO - Translation
+		),
+		'information' => 'Informace',
 		'keep_history' => 'Zachovat tento minimální počet článků',
 		'moved_category_deleted' => 'Po smazání kategorie budou v ní obsažené kanály automaticky přesunuty do <em>%s</em>.',
 		'mute' => 'mute',	//TODO - Translation
@@ -45,7 +51,7 @@ return array(
 			'main_stream' => 'Zobrazit ve “Všechny kanály”',
 			'normal' => 'Show in its category',	//TODO - Translation
 		),
-		'pubsubhubbub' => 'Okamžité oznámení s PubSubHubbub',
+		'websub' => 'Okamžité oznámení s WebSub',
 		'show' => array(
 			'all' => 'Show all feeds',	//TODO - Translation
 			'error' => 'Show only feeds with error',	//TODO - Translation
@@ -72,6 +78,7 @@ return array(
 		'export' => 'Export',
 		'export_opml' => 'Exportovat seznam kanálů (OPML)',
 		'export_starred' => 'Exportovat oblíbené',
+		'export_labelled' => 'Export your labelled articles',	//TODO
 		'feed_list' => 'Seznam %s článků',
 		'file_to_import' => 'Soubor k importu<br />(OPML, JSON nebo ZIP)',
 		'file_to_import_no_zip' => 'Soubor k importu<br />(OPML nebo JSON)',

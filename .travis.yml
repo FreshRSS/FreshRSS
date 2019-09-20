@@ -1,19 +1,19 @@
 language: php
 php:
-  - '5.4'
-  - '5.5'
-  - '5.6'
-  - '7.0'
-  - '7.1'
-  - '7.2'
-  - hhvm
+  - 5.6
+  - 7.0
+  - 7.1
+  - 7.2
+  - 7.3
 
 install:
   # newest version without https://github.com/squizlabs/PHP_CodeSniffer/pull/1404
-  - composer global require squizlabs/php_codesniffer "<=3.0.0RC4"
+  - composer global require squizlabs/php_codesniffer
 
 script:
   - phpenv rehash
+  - find . -name \*.php -print0 | xargs -0 -n1 -P4 php -l 1>/dev/null 2>php-l-results
+  - if [ -s php-l-results ]; then cat php-l-results; exit 1; fi
   - |
     if [[ $VALIDATE_STANDARD == yes ]]; then
       COMPOSER_BIN=$(composer global config --absolute bin-dir)
@@ -30,11 +30,25 @@ env:
 matrix:
   fast_finish: true
   include:
-    # PHP 5.3 only runs on Ubuntu 12.04 (precise), not 14.04 (trusty)
-    - php: "5.3"
-      dist: precise
     - php: "7.2"
       env: CHECK_TRANSLATION=yes VALIDATE_STANDARD=no
+    - language: node_js
+      node_js:
+        - "node"
+      php:
+        # none
+      env:
+        - HADOLINT="$HOME/hadolint"
+      install:
+        - npm install --save-dev jshint stylelint stylelint-order stylelint-scss stylelint-config-recommended-scss
+        - curl -sLo "$HADOLINT" $(curl -s https://api.github.com/repos/hadolint/hadolint/releases/latest?access_token="$GITHUB_TOKEN" | jq -r '.assets | .[] | select(.name=="hadolint-Linux-x86_64") | .browser_download_url') && chmod 700 ${HADOLINT}
+      script:
+        - node_modules/jshint/bin/jshint .
+        # check SCSS separately
+        - stylelint --syntax scss "**/*.scss"
+        - stylelint "**/*.css"
+        - bash tests/shellchecks.sh
+        - git ls-files --exclude='*Dockerfile*' --ignored | xargs --max-lines=1 "$HADOLINT"
   allow_failures:
     - env: CHECK_TRANSLATION=yes VALIDATE_STANDARD=no
     - dist: precise

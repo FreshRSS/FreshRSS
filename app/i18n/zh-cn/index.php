@@ -15,6 +15,9 @@ return array(
 		'version' => '版本',
 		'website' => '网站',
 	),
+	'tos' => array(
+		'title' => 'Terms of Service', // TODO - Translation
+	),
 	'feed' => array(
 		'add' => '你可以添加一些 RSS 源。',
 		'empty' => '暂时没有文章可显示。',
@@ -40,7 +43,7 @@ return array(
 		'mark_all_read' => '全部设为已读',
 		'mark_cat_read' => '此分类设为已读',
 		'mark_feed_read' => '此源设为已读',
-		'mark_selection_unread' => 'Mark selection as unread',	//TODO - Translation
+		'mark_selection_unread' => '选中设为已读',
 		'newer_first' => '由新到旧',
 		'non-starred' => '显示未收藏',
 		'normal_view' => '普通视图',
@@ -53,11 +56,11 @@ return array(
 		'starred' => '显示收藏',
 		'stats' => '统计',
 		'subscription' => '订阅管理',
-		'tags' => 'My labels',	//TODO - Translation
+		'tags' => '我的标签',
 		'unread' => '显示未读',
 	),
 	'share' => '分享',
 	'tag' => array(
-		'related' => '相关标签',	//TODO - Translation
+		'related' => '文章标签',
 	),
 );

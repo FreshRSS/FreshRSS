@@ -67,8 +67,8 @@ return array(
 			'ok' => 'JSON  확장 기능이 설치되어 있습니다.',
 		),
 		'mbstring' => array(
-			'nok' => 'Cannot find the recommended library mbstring for Unicode.',	//TODO - Translation
-			'ok' => 'You have the recommended library mbstring for Unicode.',	//TODO - Translation
+			'nok' => '유니코드 지원을 위한 mbstring 라이브러리를 찾을 수 없습니다.',
+			'ok' => '유니코드 지원을 위한 mbstring 라이브러리가 설치되어 있습니다.',
 		),
 		'minz' => array(
 			'nok' => 'Minz 프레임워크를 찾을 수 없습니다.',
@@ -159,12 +159,13 @@ return array(
 	'system' => array(
 		'_' => '시스템 설정',
 		'auto-update-url' => '자동 업데이트 서버 URL',
+		'force_email_validation' => 'Force email addresses validation', //TODO - Translation
 		'instance-name' => '인스턴스 이름',
 		'max-categories' => '사용자별 카테고리 개수 제한',
 		'max-feeds' => '사용자별 피드 개수 제한',
 		'cookie-duration' => array(
-			'help' => 'in seconds', // @todo translate
-			'number' => 'Duration to keep logged in', // @todo translate
+			'help' => '초',
+			'number' => '로그인 유지 시간',
 		),
 		'registration' => array(
 			'help' => '0: 제한 없음',

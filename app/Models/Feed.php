@@ -32,6 +32,7 @@ class FreshRSS_Feed extends Minz_Model {
 	private $lockPath = '';
 	private $hubUrl = '';
 	private $selfUrl = '';
+	private $filterActions = null;
 
 	public function __construct($url, $validate = true) {
 		if ($validate) {
@@ -498,7 +499,110 @@ class FreshRSS_Feed extends Minz_Model {
 		@unlink($this->lockPath);
 	}
 
-	//<PubSubHubbub>
+	public function filterActions() {
+		if ($this->filterActions == null) {
+			$this->filterActions = array();
+			$filters = $this->attributes('filters');
+			if (is_array($filters)) {
+				foreach ($filters as $filter) {
+					$filterAction = FreshRSS_FilterAction::fromJSON($filter);
+					if ($filterAction != null) {
+						$this->filterActions[] = $filterAction;
+					}
+				}
+			}
+		}
+		return $this->filterActions;
+	}
+
+	private function _filterActions($filterActions) {
+		$this->filterActions = $filterActions;
+		if (is_array($this->filterActions) && !empty($this->filterActions)) {
+			$this->_attributes('filters', array_map(function ($af) {
+					return $af == null ? null : $af->toJSON();
+				}, $this->filterActions));
+		} else {
+			$this->_attributes('filters', null);
+		}
+	}
+
+	public function filtersAction($action) {
+		$action = trim($action);
+		if ($action == '') {
+			return array();
+		}
+		$filters = array();
+		$filterActions = $this->filterActions();
+		for ($i = count($filterActions) - 1; $i >= 0; $i--) {
+			$filterAction = $filterActions[$i];
+			if ($filterAction != null && $filterAction->booleanSearch() != null &&
+				$filterAction->actions() != null && in_array($action, $filterAction->actions(), true)) {
+				$filters[] = $filterAction->booleanSearch();
+			}
+		}
+		return $filters;
+	}
+
+	public function _filtersAction($action, $filters) {
+		$action = trim($action);
+		if ($action == '' || !is_array($filters)) {
+			return false;
+		}
+		$filters = array_unique(array_map('trim', $filters));
+		$filterActions = $this->filterActions();
+
+		//Check existing filters
+		for ($i = count($filterActions) - 1; $i >= 0; $i--) {
+			$filterAction = $filterActions[$i];
+			if ($filterAction == null || !is_array($filterAction->actions()) ||
+				$filterAction->booleanSearch() == null || trim($filterAction->booleanSearch()->getRawInput()) == '') {
+				array_splice($filterAction, $i, 1);
+				continue;
+			}
+			$actions = $filterAction->actions();
+			//Remove existing rules with same action
+			for ($j = count($actions) - 1; $j >= 0; $j--) {
+				if ($actions[$j] === $action) {
+					array_splice($actions, $j, 1);
+				}
+			}
+			//Update existing filter with new action
+			for ($k = count($filters) - 1; $k >= 0; $k --) {
+				$filter = $filters[$k];
+				if ($filter === $filterAction->booleanSearch()->getRawInput()) {
+					$actions[] = $action;
+					array_splice($filters, $k, 1);
+				}
+			}
+			//Save result
+			if (empty($actions)) {
+				array_splice($filterActions, $i, 1);
+			} else {
+				$filterAction->_actions($actions);
+			}
+		}
+
+		//Add new filters
+		for ($k = count($filters) - 1; $k >= 0; $k --) {
+			$filter = $filters[$k];
+			if ($filter != '') {
+				$filterAction = FreshRSS_FilterAction::fromJSON(array(
+						'search' => $filter,
+						'actions' => array($action),
+					));
+				if ($filterAction != null) {
+					$filterActions[] = $filterAction;
+				}
+			}
+		}
+
+		if (empty($filterActions)) {
+			$filterActions = null;
+		}
+		$this->_filterActions($filterActions);
+	}
+
+	//<WebSub>
 
 	public function pubSubHubbubEnabled() {
 		$url = $this->selfUrl ? $this->selfUrl : $this->url;
@@ -534,13 +638,13 @@ class FreshRSS_Feed extends Minz_Model {
 			if ($hubFile = @file_get_contents($hubFilename)) {
 				$hubJson = json_decode($hubFile, true);
 				if (!$hubJson || empty($hubJson['key']) || !ctype_xdigit($hubJson['key'])) {
-					$text = 'Invalid JSON for PubSubHubbub: ' . $this->url;
+					$text = 'Invalid JSON for WebSub: ' . $this->url;
 					Minz_Log::warning($text);
 					Minz_Log::warning($text, PSHB_LOG);
 					return false;
 				}
 				if ((!empty($hubJson['lease_end'])) && ($hubJson['lease_end'] < (time() + (3600 * 23)))) {	//TODO: Make a better policy
-					$text = 'PubSubHubbub lease ends at '
+					$text = 'WebSub lease ends at '
 						. date('c', empty($hubJson['lease_end']) ? time() : $hubJson['lease_end'])
 						. ' and needs renewal: ' . $this->url;
 					Minz_Log::warning($text);
@@ -560,7 +664,7 @@ class FreshRSS_Feed extends Minz_Model {
 				file_put_contents($hubFilename, json_encode($hubJson));
 				@mkdir(PSHB_PATH . '/keys/');
 				file_put_contents(PSHB_PATH . '/keys/' . $key . '.txt', base64url_encode($this->selfUrl));
-				$text = 'PubSubHubbub prepared for ' . $this->url;
+				$text = 'WebSub prepared for ' . $this->url;
 				Minz_Log::debug($text);
 				Minz_Log::debug($text, PSHB_LOG);
 			}
@@ -579,17 +683,17 @@ class FreshRSS_Feed extends Minz_Model {
 			$hubFilename = PSHB_PATH . '/feeds/' . base64url_encode($url) . '/!hub.json';
 			$hubFile = @file_get_contents($hubFilename);
 			if ($hubFile === false) {
-				Minz_Log::warning('JSON not found for PubSubHubbub: ' . $this->url);
+				Minz_Log::warning('JSON not found for WebSub: ' . $this->url);
 				return false;
 			}
 			$hubJson = json_decode($hubFile, true);
 			if (!$hubJson || empty($hubJson['key']) || !ctype_xdigit($hubJson['key']) || empty($hubJson['hub'])) {
-				Minz_Log::warning('Invalid JSON for PubSubHubbub: ' . $this->url);
+				Minz_Log::warning('Invalid JSON for WebSub: ' . $this->url);
 				return false;
 			}
 			$callbackUrl = checkUrl(Minz_Request::getBaseUrl() . '/api/pshb.php?k=' . $hubJson['key']);
 			if ($callbackUrl == '') {
-				Minz_Log::warning('Invalid callback for PubSubHubbub: ' . $this->url);
+				Minz_Log::warning('Invalid callback for WebSub: ' . $this->url);
 				return false;
 			}
 			if (!$state) {	//unsubscribe
@@ -618,7 +722,7 @@ class FreshRSS_Feed extends Minz_Model {
 			$response = curl_exec($ch);
 			$info = curl_getinfo($ch);
 
-			Minz_Log::warning('PubSubHubbub ' . ($state ? 'subscribe' : 'unsubscribe') . ' to ' . $url .
+			Minz_Log::warning('WebSub ' . ($state ? 'subscribe' : 'unsubscribe') . ' to ' . $url .
 				' via hub ' . $hubJson['hub'] .
 				' with callback ' . $callbackUrl . ': ' . $info['http_code'] . ' ' . $response, PSHB_LOG);
 
@@ -634,5 +738,5 @@ class FreshRSS_Feed extends Minz_Model {
 		return false;
 	}
 
-	//</PubSubHubbub>
+	//</WebSub>
 }

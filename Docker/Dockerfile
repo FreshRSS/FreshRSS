@@ -1,27 +1,63 @@
-FROM alpine:3.8
+FROM ubuntu:19.04
 
-RUN apk add --no-cache \
-	apache2 php7-apache2 \
-	php7 php7-curl php7-gmp php7-intl php7-mbstring php7-xml php7-zip \
-	php7-ctype php7-dom php7-fileinfo php7-iconv php7-json php7-session php7-simplexml php7-xmlreader php7-zlib \
-	php7-pdo_sqlite \
-	php7-pdo_mysql \
-	php7-pdo_pgsql
+ENV TZ UTC
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
-ENV FRESHRSS_ROOT /var/www/FreshRSS
-RUN mkdir -p ${FRESHRSS_ROOT} /run/apache2/
-WORKDIR ${FRESHRSS_ROOT}
+RUN apt-get update && \
+	apt-get install --no-install-recommends -y \
+	ca-certificates cron \
+	apache2 libapache2-mod-php \
+	php-curl php-gmp php-intl php-mbstring php-xml php-zip \
+	php-sqlite3 php-mysql php-pgsql && \
+	rm -rf /var/lib/apt/lists/*
 
-COPY . ${FRESHRSS_ROOT}
-COPY ./Docker/*.Apache.conf /etc/apache2/conf.d/
+RUN mkdir -p /var/www/FreshRSS/ /run/apache2/
+WORKDIR /var/www/FreshRSS
 
-RUN sed -r -i "/^[ ]*(CustomLog|ErrorLog|Listen) /s/^/#/" /etc/apache2/httpd.conf && \
-	echo "17,37 * * * * php ${FRESHRSS_ROOT}/app/actualize_script.php 2>&1 | tee /tmp/FreshRSS.log" >> \
-		/var/spool/cron/crontabs/root
+COPY . /var/www/FreshRSS
+COPY ./Docker/*.Apache.conf /etc/apache2/sites-available/
 
+ARG FRESHRSS_VERSION
+ARG SOURCE_BRANCH
+ARG SOURCE_COMMIT
+
+LABEL \
+	org.opencontainers.image.authors="Alkarex" \
+	org.opencontainers.image.description="A self-hosted RSS feed aggregator" \
+	org.opencontainers.image.documentation="https://freshrss.github.io/FreshRSS/" \
+	org.opencontainers.image.licenses="AGPL-3.0" \
+	org.opencontainers.image.revision="${SOURCE_BRANCH}.${SOURCE_COMMIT}" \
+	org.opencontainers.image.source="https://github.com/FreshRSS/FreshRSS" \
+	org.opencontainers.image.title="FreshRSS" \
+	org.opencontainers.image.url="https://freshrss.org/" \
+	org.opencontainers.image.vendor="FreshRSS" \
+	org.opencontainers.image.version="$FRESHRSS_VERSION"
+
+RUN a2dismod -f alias autoindex negotiation status && \
+	a2enmod deflate expires headers mime setenvif && \
+	a2disconf '*' && \
+	a2dissite '*' && \
+	a2ensite 'FreshRSS*'
+
+RUN sed -r -i "/^\s*(CustomLog|ErrorLog|Listen) /s/^/#/" /etc/apache2/apache2.conf && \
+	sed -r -i "/^\s*Listen /s/^/#/" /etc/apache2/ports.conf && \
+	touch /var/www/FreshRSS/Docker/env.txt && \
+	echo "17,47 * * * * . /var/www/FreshRSS/Docker/env.txt; \
+		su www-data -s /bin/sh -c 'php /var/www/FreshRSS/app/actualize_script.php' \
+		2>> /proc/1/fd/2 > /tmp/FreshRSS.log" | crontab -
+
+ENV COPY_SYSLOG_TO_STDERR On
 ENV CRON_MIN ''
+ENV FRESHRSS_ENV ''
+
 ENTRYPOINT ["./Docker/entrypoint.sh"]
 
 EXPOSE 80
-CMD ([ -z "$CRON_MIN" ] || crond -d 6) && \
-	exec httpd -D FOREGROUND
+# hadolint ignore=DL3025
+CMD ([ -z "$CRON_MIN" ] || cron) && \
+	. /etc/apache2/envvars && \
+	exec apache2 -D FOREGROUND
+
+HEALTHCHECK --start-period=20s --interval=37s --timeout=5s --retries=3 \
+	CMD (php -r "readfile('http://localhost/i/');" | grep -q 'jsonVars') || exit 1

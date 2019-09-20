@@ -14,7 +14,9 @@ return array(
 		'_' => 'קטגוריה',
 		'add' => 'הוספת קטגוריה',
 		'empty' => 'Empty category',	//TODO - Translation
+		'information' => 'מידע',
 		'new' => 'קטגוריה חדשה',
+		'title' => 'כותרת',
 	),
 	'feed' => array(
 		'add' => 'הוספת הזנה',
@@ -33,7 +35,11 @@ return array(
 		'description' => 'תיאור',
 		'empty' => 'הזנה זו ריקה. אנא ודאו שהיא עדיין מתוחזקת.',
 		'error' => 'הזנה זו נתקלה בשגיאה, אנא ודאו שהיא תקינה ואז נסו שנית.',
-		'informations' => 'מידע',
+		'filteractions' => array(
+			'_' => 'Filter actions',	//TODO - Translation
+			'help' => 'Write one search filter per line.',	//TODO - Translation
+		),
+		'information' => 'מידע',
 		'keep_history' => 'מסםר מינימלי של מאמרים לשמור',
 		'moved_category_deleted' => 'כאשר הקטגוריה נמחקת ההזנות שבתוכה אוטומטית מקוטלגות תחת  <em>%s</em>.',
 		'mute' => 'mute',	//TODO - Translation
@@ -45,7 +51,7 @@ return array(
 			'main_stream' => 'הצגה בזרם המרכזי',
 			'normal' => 'Show in its category',	//TODO - Translation
 		),
-		'pubsubhubbub' => 'Instant notification with PubSubHubbub',	//TODO - Translation
+		'websub' => 'Instant notification with WebSub',	//TODO - Translation
 		'show' => array(
 			'all' => 'Show all feeds',	//TODO - Translation
 			'error' => 'Show only feeds with error',	//TODO - Translation
@@ -72,6 +78,7 @@ return array(
 		'export' => 'ייצוא',
 		'export_opml' => 'ייצוא רשימת הזנות (OPML)',
 		'export_starred' => 'ייצוא מועדפים',
+		'export_labelled' => 'Export your labelled articles',	//TODO
 		'feed_list' => 'רשימה של %s מאמרים',
 		'file_to_import' => 'קובץ לייבוא<br />(OPML, Json or Zip)',
 		'file_to_import_no_zip' => 'קובץ לייבוא<br />(OPML or Json)',

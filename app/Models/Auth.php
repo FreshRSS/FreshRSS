@@ -13,7 +13,7 @@ class FreshRSS_Auth {
 	 * This method initializes authentication system.
 	 */
 	public static function init() {
-		if (Minz_Session::param('REMOTE_USER', '') !== httpAuthUser()) {
+		if (isset($_SESSION['REMOTE_USER']) && $_SESSION['REMOTE_USER'] !== httpAuthUser()) {
 			//HTTP REMOTE_USER has changed
 			self::removeAccess();
 		}
@@ -24,17 +24,18 @@ class FreshRSS_Auth {
 			$conf = Minz_Configuration::get('system');
 			$current_user = $conf->default_user;
 			Minz_Session::_param('currentUser', $current_user);
+			Minz_Session::_param('csrf');
 		}
 
 		if (self::$login_ok) {
 			self::giveAccess();
-		} elseif (self::accessControl()) {
-			self::giveAccess();
+		} elseif (self::accessControl() && self::giveAccess()) {
 			FreshRSS_UserDAO::touch();
 		} else {
 			// Be sure all accesses are removed!
 			self::removeAccess();
 		}
+		return self::$login_ok;
 	}
 
 	/**
@@ -56,13 +57,15 @@ class FreshRSS_Auth {
 				$current_user = trim($credentials[0]);
 				Minz_Session::_param('currentUser', $current_user);
 				Minz_Session::_param('passwordHash', trim($credentials[1]));
+				Minz_Session::_param('csrf');
 			}
 			return $current_user != '';
 		case 'http_auth':
 			$current_user = httpAuthUser();
-			$login_ok = $current_user != '';
+			$login_ok = $current_user != '' && FreshRSS_UserDAO::exists($current_user);
 			if ($login_ok) {
 				Minz_Session::_param('currentUser', $current_user);
+				Minz_Session::_param('csrf');
 			}
 			return $login_ok;
 		case 'none':
@@ -81,7 +84,7 @@ class FreshRSS_Auth {
 		$user_conf = get_user_configuration($current_user);
 		if ($user_conf == null) {
 			self::$login_ok = false;
-			return;
+			return false;
 		}
 		$system_conf = Minz_Configuration::get('system');
 
@@ -102,6 +105,7 @@ class FreshRSS_Auth {
 
 		Minz_Session::_param('loginOk', self::$login_ok);
 		Minz_Session::_param('REMOTE_USER', httpAuthUser());
+		return self::$login_ok;
 	}
 
 	/**
@@ -195,13 +199,10 @@ class FreshRSS_Auth {
 	}
 	public static function isCsrfOk($token = null) {
 		$csrf = Minz_Session::param('csrf');
-		if ($csrf == '') {
-			return true;	//Not logged in yet
-		}
 		if ($token === null) {
 			$token = Minz_Request::fetchPOST('_csrf');
 		}
-		return $token === $csrf;
+		return $token != '' && $token === $csrf;
 	}
 }
 
@@ -218,10 +219,6 @@ class FreshRSS_FormAuth {
 			return false;
 		}
 
-		if (!function_exists('password_verify')) {
-			include_once(LIB_PATH . '/password_compat.php');
-		}
-
 		return password_verify($nonce . $hash, $challenge);
 	}
 
@@ -233,6 +230,7 @@ class FreshRSS_FormAuth {
 
 		$token_file = DATA_PATH . '/tokens/' . $token . '.txt';
 		$mtime = @filemtime($token_file);
+		$conf = Minz_Configuration::get('system');
 		$limits = $conf->limits;
 		$cookie_duration = empty($limits['cookie_duration']) ? 2592000 : $limits['cookie_duration'];
 		if ($mtime + $cookie_duration < time()) {
@@ -281,8 +279,7 @@ class FreshRSS_FormAuth {
 		$cookie_duration = empty($limits['cookie_duration']) ? 2592000 : $limits['cookie_duration'];
 		$oldest = time() - $cookie_duration;
 		foreach (new DirectoryIterator(DATA_PATH . '/tokens/') as $file_info) {
-			// $extension = $file_info->getExtension(); doesn't work in PHP < 5.3.7
-			$extension = pathinfo($file_info->getFilename(), PATHINFO_EXTENSION);
+			$extension = $file_info->getExtension();
 			if ($extension === 'txt' && $file_info->getMTime() < $oldest) {
 				@unlink($file_info->getPathname());
 			}

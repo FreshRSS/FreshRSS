@@ -159,12 +159,13 @@ return array(
 	'system' => array(
 		'_' => 'Systeem configuratie',
 		'auto-update-url' => 'Automatische update server URL',
+		'force_email_validation' => 'Force email addresses validation', //TODO - Translation
 		'instance-name' => 'Voorbeeld naam',
-		'max-categories' => 'Categoriën limiet per gebruiker',
-		'max-feeds' => 'Feed limiet per gebruiker',
+		'max-categories' => 'Categorielimiet per gebruiker',
+		'max-feeds' => 'Feedlimiet per gebruiker',
 		'cookie-duration' => array(
-			'help' => 'in seconds', // @todo translate
-			'number' => 'Duration to keep logged in', // @todo translate
+			'help' => 'in seconden',
+			'number' => 'Tijdsduur om ingelogd te blijven',
 		),
 		'registration' => array(
 			'help' => '0 betekent geen account limiet',

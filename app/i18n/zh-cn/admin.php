@@ -64,11 +64,11 @@ return array(
 		'files' => '文件相关',
 		'json' => array(
 			'nok' => '找不到 JSON 扩展 (php-json ) 。',
-			'ok' => '已找到 JSON 扩展',
+			'ok' => '已找到 JSON 扩展。',
 		),
 		'mbstring' => array(
-			'nok' => 'Cannot find the recommended library mbstring for Unicode.',	//TODO - Translation
-			'ok' => 'You have the recommended library mbstring for Unicode.',	//TODO - Translation
+			'nok' => '找不到推荐的 Unicode 解析库 (mbstring)。',
+			'ok' => '已找到推荐的 Unicode 解析库 (mbstring)。',
 		),
 		'minz' => array(
 			'nok' => '找不到 Minz 框架。',
@@ -159,12 +159,13 @@ return array(
 	'system' => array(
 		'_' => '系统配置',
 		'auto-update-url' => '自动升级服务器 URL',
+		'force_email_validation' => 'Force email addresses validation', //TODO - Translation
 		'instance-name' => '实例名称',
 		'max-categories' => '每用户分类限制',
 		'max-feeds' => '每用户 RSS 源限制',
 		'cookie-duration' => array(
-			'help' => 'in seconds', // @todo translate
-			'number' => 'Duration to keep logged in', // @todo translate
+			'help' => '单位（秒）',
+			'number' => '保持登录的时长',
 		),
 		'registration' => array(
 			'help' => '0 表示无账户数限制',
@@ -183,15 +184,15 @@ return array(
 	'user' => array(
 		'articles_and_size' => '%s 篇文章 (%s)',
 		'create' => '创建新用户',
-		'delete_users' => 'Delete user',	//TODO - Translation
+		'delete_users' => '删除用户',
 		'language' => '语言',
-		'number' => '已有 %d 个帐户',
-		'numbers' => '已有 %d 个帐户',
+		'number' => '已有 %d 个用户',
+		'numbers' => '已有 %d 个用户',
 		'password_form' => '密码<br /><small>(用于 Web-form 登录方式)</small>',
 		'password_format' => '至少 7 个字符',
-		'selected' => 'Selected user',	//TODO - Translation
+		'selected' => '已选中用户',
 		'title' => '用户管理',
-		'update_users' => 'Update user',	//TODO - Translation
+		'update_users' => '更新用户',
 		'user_list' => '用户列表',
 		'username' => '用户名',
 		'users' => '用户',

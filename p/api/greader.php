@@ -43,11 +43,7 @@ if (PHP_INT_SIZE < 8) {	//32-bit
 	}
 }
 
-if (version_compare(PHP_VERSION, '5.4.0') >= 0) {
-	define('JSON_OPTIONS', JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
-} else {
-	define('JSON_OPTIONS', 0);
-}
+define('JSON_OPTIONS', JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
 
 function headerVariable($headerName, $varName) {
 	$header = '';
@@ -143,14 +139,11 @@ function checkCompatibility() {
 	Minz_Log::warning('checkCompatibility() ' . debugInfo(), API_LOG);
 	header('Content-Type: text/plain; charset=UTF-8');
 	if (PHP_INT_SIZE < 8 && !function_exists('gmp_init')) {
-		die('FAIL 64-bit or GMP extension!');
+		die('FAIL 64-bit or GMP extension! Wrong PHP configuration.');
 	}
-	if ((!array_key_exists('HTTP_AUTHORIZATION', $_SERVER)) &&	//Apache mod_rewrite trick should be fine
-		(!array_key_exists('REDIRECT_HTTP_AUTHORIZATION', $_SERVER)) &&	//Apache mod_rewrite with FCGI
-		(empty($_SERVER['SERVER_SOFTWARE']) || (stripos($_SERVER['SERVER_SOFTWARE'], 'nginx') === false)) &&	//nginx should be fine
-		(empty($_SERVER['SERVER_SOFTWARE']) || (stripos($_SERVER['SERVER_SOFTWARE'], 'lighttpd') === false)) &&	//lighttpd should be fine
-		((!function_exists('getallheaders')) || (stripos(php_sapi_name(), 'cgi') !== false))) {	//Main problem is Apache/CGI mode
-		die('FAIL getallheaders! (probably)');
+	$headerAuth = headerVariable('Authorization', 'GoogleLogin_auth');
+	if ($headerAuth == '') {
+		die('FAIL get HTTP Authorization header! Wrong Web server configuration.');
 	}
 	echo 'PASS';
 	exit();
@@ -185,10 +178,6 @@ function authorizationToUser() {
 
 function clientLogin($email, $pass) {	//http://web.archive.org/web/20130604091042/http://undoc.in/clientLogin.html
 	if (FreshRSS_user_Controller::checkUsername($email)) {
-		if (!function_exists('password_verify')) {
-			include_once(LIB_PATH . '/password_compat.php');
-		}
-
 		FreshRSS_Context::$user_conf = get_user_configuration($email);
 		if (FreshRSS_Context::$user_conf == null) {
 			Minz_Log::warning('Invalid API user ' . $email . ': configuration cannot be found.');
@@ -225,8 +214,10 @@ function token($conf) {
 function checkToken($conf, $token) {
 //http://code.google.com/p/google-reader-api/wiki/ActionToken
 	$user = Minz_Session::param('currentUser', '_');
-	if ($user !== '_' && $token == '') {
-		return true;	//FeedMe	//TODO: Check security consequences
+	if ($user !== '_' && (	//TODO: Check security consequences
+		$token == '' || //FeedMe
+		$token === 'x')) { //Reeder
+		return true;
 	}
 	if ($token === str_pad(sha1(FreshRSS_Context::$system_conf->salt . $user . $conf->apiPasswordHash), 57, 'Z')) {
 		return true;
@@ -350,7 +341,7 @@ function subscriptionEdit($streamNames, $titles, $action, $add = '', $remove = '
 		$c_name = htmlspecialchars($c_name, ENT_COMPAT, 'UTF-8');
 		$cat = $categoryDAO->searchByName($c_name);
 		$addCatId = $cat == null ? 0 : $cat->id();
-	} else if ($remove != '' && strpos($remove, 'user/-/label/')) {
+	} elseif ($remove != '' && strpos($remove, 'user/-/label/') === 0) {
 		$addCatId = 1;	//Default category
 	}
 	$feedDAO = FreshRSS_Factory::createFeedDao();
@@ -380,7 +371,7 @@ function subscriptionEdit($streamNames, $titles, $action, $add = '', $remove = '
 						$http_auth = '';
 						try {
 							$feed = FreshRSS_feed_Controller::addFeed($streamUrl, $title, $addCatId, $c_name, $http_auth);
-							continue;
+							continue 2;
 						} catch (Exception $e) {
 							Minz_Log::error('subscriptionEdit error subscribe: ' . $e->getMessage(), API_LOG);
 						}
@@ -913,6 +904,10 @@ FreshRSS_Context::$system_conf = Minz_Configuration::get('system');
 
 if (!FreshRSS_Context::$system_conf->api_enabled) {
 	serviceUnavailable();
+} elseif (count($pathInfos) < 3) {
+	badRequest();
+} elseif ($pathInfos[1] === 'check' && $pathInfos[2] === 'compatibility') {
+	checkCompatibility();
 }
 
 ini_set('session.use_cookies', '0');
@@ -927,9 +922,7 @@ if ($user !== '') {
 
 Minz_Session::_param('currentUser', $user);
 
-if (count($pathInfos) < 3) {
-	badRequest();
-} elseif ($pathInfos[1] === 'accounts') {
+if ($pathInfos[1] === 'accounts') {
 	if (($pathInfos[2] === 'ClientLogin') && isset($_REQUEST['Email']) && isset($_REQUEST['Passwd'])) {
 		clientLogin($_REQUEST['Email'], $_REQUEST['Passwd']);
 	}
@@ -999,7 +992,7 @@ if (count($pathInfos) < 3) {
 					 * (more efficient from a backend perspective than multiple requests). */
 					$streamId = $_GET['s'];
 					streamContentsItemsIds($streamId, $start_time, $stop_time, $count, $order, $filter_target, $exclude_target, $continuation);
-				} else if ($pathInfos[6] === 'contents' && isset($_POST['i'])) {	//FeedMe
+				} elseif ($pathInfos[6] === 'contents' && isset($_POST['i'])) {	//FeedMe
 					$e_ids = multiplePosts('i');	//item IDs
 					streamContentsItems($e_ids, $order);
 				}
@@ -1088,8 +1081,6 @@ if (count($pathInfos) < 3) {
 			userInfo();
 			break;
 	}
-} elseif ($pathInfos[1] === 'check' && $pathInfos[2] === 'compatibility') {
-	checkCompatibility();
 }
 
 badRequest();

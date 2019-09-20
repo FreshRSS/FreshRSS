@@ -252,37 +252,29 @@ class FreshRSS_Context {
 			$found_current_get = false;
 			switch ($get[0]) {
 			case 'f':
-				// We search the next feed with at least one unread article in
-				// same category as the currend feed.
+				// We search the next unread feed with the following priorities: next in same category, or previous in same category, or next, or previous.
 				foreach (self::$categories as $cat) {
-					if ($cat->id() != self::$current_get['category']) {
-						// We look into the category of the current feed!
-						continue;
-					}
-
+					$sameCat = false;
 					foreach ($cat->feeds() as $feed) {
-						if ($feed->id() == self::$current_get['feed']) {
-							// Here is our current feed! Fine, the next one will
-							// be a potential candidate.
-							$found_current_get = true;
-							continue;
-						}
-
-						if ($feed->nbNotRead() > 0) {
-							$another_unread_id = $feed->id();
-							if ($found_current_get) {
-								// We have found our current feed and now we
-								// have an feed with unread articles. Leave the
-								// loop!
-								break;
+						if ($found_current_get) {
+							if ($feed->nbNotRead() > 0) {
+								$another_unread_id = $feed->id();
+								break 2;
 							}
+						} elseif ($feed->id() == self::$current_get['feed']) {
+							$found_current_get = true;
+						} elseif ($feed->nbNotRead() > 0) {
+							$another_unread_id = $feed->id();
+							$sameCat = true;
 						}
 					}
-					break;
+					if ($found_current_get && $sameCat) {
+						break;
+					}
 				}
 
-				// If no feed have been found, next_get is the current category.
-				self::$next_get = empty($another_unread_id) ? 'c_' . self::$current_get['category'] : 'f_' . $another_unread_id;
+				// If there is no more unread feed, show main stream
+				self::$next_get = $another_unread_id == '' ? 'a' : 'f_' . $another_unread_id;
 				break;
 			case 'c':
 				// We search the next category with at least one unread article.
@@ -304,8 +296,8 @@ class FreshRSS_Context {
 					}
 				}
 
-				// No unread category? The main stream will be our destination!
-				self::$next_get = empty($another_unread_id) ? 'a' : 'c_' . $another_unread_id;
+				// If there is no more unread category, show main stream
+				self::$next_get = $another_unread_id == '' ? 'a' : 'c_' . $another_unread_id;
 				break;
 			}
 		}

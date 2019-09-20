@@ -21,6 +21,7 @@ return array(
 			'publication_date' => '발행일',
 			'related_tags' => '관련 태그',
 			'sharing' => '공유',
+			'display_authors' => 'Authors',  //TODO - Translation
 			'top_line' => '상단',
 		),
 		'language' => '언어',
@@ -45,6 +46,7 @@ return array(
 			'_' => '계정 삭제',
 			'warn' => '당신의 계정과 관련된 모든 데이터가 삭제됩니다.',
 		),
+		'email' => '메일 주소',
 		'password_api' => 'API 암호<br /><small>(예: 모바일 애플리케이션)</small>',
 		'password_form' => '암호<br /><small>(웹폼 로그인 방식 사용시)</small>',
 		'password_format' => '7 글자 이상이어야 합니다',
@@ -92,7 +94,7 @@ return array(
 		'auto_remove_article' => '글을 읽은 후 숨기기',
 		'confirm_enabled' => '“모두 읽음으로 표시” 실행시 확인 창 표시',
 		'display_articles_unfolded' => '글을 펼쳐진 상태로 보여주기',
-		'display_categories_unfolded' => '카테고리를 접힌 상태로 보여주기',
+		'display_categories_unfolded' => '카테고리를 펼친 상태로 보여주기',
 		'hide_read_feeds' => '읽지 않은 글이 없는 카테고리와 피드 감추기 (“모든 글 표시”가 설정된 경우 동작하지 않습니다)',
 		'img_with_lazyload' => '그림을 불러오는 데에 "lazy load" 모드 사용하기',
 		'jump_next' => '다음 읽지 않은 항목으로 이동 (피드 또는 카테고리)',
@@ -133,7 +135,6 @@ return array(
 		'diaspora' => 'Diaspora*',
 		'email' => '메일',
 		'facebook' => 'Facebook',
-		'g+' => 'Google+',
 		'more_information' => '자세한 정보',
 		'print' => '인쇄',
 		'remove' => '공유 방법 삭제',
@@ -162,7 +163,7 @@ return array(
 		'mark_read' => '읽음으로 표시',
 		'navigation' => '탐색',
 		'navigation_help' => '"Shift" 키를 누른 상태에선 탐색 단축키가 피드에 적용됩니다.<br/>"Alt" 키를 누른 상태에선 탐색 단축키가 카테고리에 적용됩니다.',
-		'navigation_no_mod_help' => 'The following navigation shortcuts do not support modifiers.',	//TODO - Translation
+		'navigation_no_mod_help' => '아래 탐색 단축키에는 "Shift"와 "Alt" 키가 적용되지 않습니다.',
 		'next_article' => '다음 글 보기',
 		'normal_view' => '일반 모드로 전환',
 		'other_action' => '다른 동작',
@@ -171,8 +172,8 @@ return array(
 		'rss_view' => '새 탭에서 RSS 피드 열기',
 		'see_on_website' => '글이 게재된 웹사이트에서 보기',
 		'shift_for_all_read' => '+ <code>shift</code>를 누른 상태에선 모두 읽음으로 표시',
-		'skip_next_article' => 'Focus next without opening',	//TODO - Translation
-		'skip_previous_article' => 'Focus previous without opening',	//TODO - Translation
+		'skip_next_article' => '다음 글로 커서 이동',
+		'skip_previous_article' => '이전 글로 커서 이동',
 		'title' => '단축키',
 		'user_filter' => '사용자 필터 사용하기',
 		'user_filter_help' => '사용자 필터가 하나만 설정되어 있다면 해당 필터를 사용하고, 그렇지 않다면 필터를 번호로 선택할 수 있습니다.',

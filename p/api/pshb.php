@@ -79,7 +79,7 @@ if (!empty($_REQUEST['hub_mode']) && $_REQUEST['hub_mode'] === 'subscribe') {
 	}
 	$hubJson['lease_start'] = time();
 	if (!isset($hubJson['error'])) {
-		$hubJson['error'] = true;	//Do not assume that PubSubHubbub works until the first successul push
+		$hubJson['error'] = true;	//Do not assume that WebSub works until the first successul push
 	}
 	file_put_contents('./!hub.json', json_encode($hubJson));
 	header('Connection: close');
@@ -162,5 +162,5 @@ if ($nb === 0) {
 	file_put_contents('./!hub.json', json_encode($hubJson));
 }
 
-Minz_Log::notice('PubSubHubbub ' . $self . ' done: ' . $nb, PSHB_LOG);
+Minz_Log::notice('WebSub ' . $self . ' done: ' . $nb, PSHB_LOG);
 exit('Done: ' . $nb . "\n");

@@ -17,8 +17,8 @@ Before you begin, make sure that you've read the [prerequisites](02_Prerequisite
 
 6. Using your supported web browser of choice, navigate to the address you've installed your server to to complete the installation from the GUI.[^3]
 
-[^1]: Make sure to expose only the `./p/` folder to the web, as the other directories contain personal and sensitive data.
+[^1]: Make sure to expose only the `./p/` folder to the Web, as the other directories contain personal and sensitive data.
 
-[^2]: If you wish to allow updates from the web interface, also give group write permissions to this folder. 
+[^2]: If you wish to allow updates from the web interface, also give group write permissions to this folder.
 
 [^3]: Assuming your server is `http://example.net`, this address would be `http://example.net/p/`.

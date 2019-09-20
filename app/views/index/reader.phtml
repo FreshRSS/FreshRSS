@@ -1,18 +1,17 @@
 <?php
+$this->partial('aside_feed');
 $this->partial('nav_menu');
-
-flush();
-if (isset($this->callbackBeforeEntries)) {
-	call_user_func($this->callbackBeforeEntries, $this);
-}
 
 if (!empty($this->entries)) {
 	$lazyload = FreshRSS_Context::$user_conf->lazyload;
 	$content_width = FreshRSS_Context::$user_conf->content_width;
 ?>
 
-<div id="stream" class="reader"><?php
-	foreach ($this->entries as $item) {
+<div id="stream" class="reader">
+	<div id="new-article">
+		<a href="<?php echo Minz_Url::display(Minz_Request::currentRequest()); ?>"><?php echo _t('gen.js.new_article'); /* TODO: move string in JS*/ ?></a>
+	</div>
+	<?php foreach ($this->entries as $item) {
 		$item = Minz_ExtensionManager::callHook('entry_before_display', $item);
 		if (is_null($item)) {
 			continue;
@@ -38,7 +37,7 @@ if (!empty($this->entries)) {
 				<a class="bookmark" href="<?php echo Minz_Url::display($favoriteUrl); ?>">
 					<?php echo _i($item->isFavorite() ? 'starred' : 'non-starred'); ?>
 				</a>
-				<a href="<?php echo _url('index', 'reader', 'get', 'f_' . $feed->id()); ?>">
+				<a class="website" href="<?php echo _url('index', 'reader', 'get', 'f_' . $feed->id()); ?>">
 					<img class="favicon" src="<?php echo $feed->favicon(); ?>" alt="✇" /> <span><?php echo $feed->name(); ?></span>
 				</a>
 				<h1 class="title"><a target="_blank" rel="noreferrer" class="go_website" href="<?php echo $item->link(); ?>"><?php echo $item->title(); ?></a></h1>

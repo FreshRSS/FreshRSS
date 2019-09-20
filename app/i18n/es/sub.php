@@ -14,7 +14,9 @@ return array(
 		'_' => 'Categoría',
 		'add' => 'Añadir a la categoría',
 		'empty' => 'Vaciar categoría',
+		'information' => 'Información',
 		'new' => 'Nueva categoría',
+		'title' => 'Título',
 	),
 	'feed' => array(
 		'add' => 'Añadir fuente RSS',
@@ -33,7 +35,11 @@ return array(
 		'description' => 'Descripción',
 		'empty' => 'La fuente está vacía. Por favor, verifica que siga activa.',
 		'error' => 'Hay un problema con esta fuente. Por favor, veritica que esté disponible y prueba de nuevo.',
-		'informations' => 'Información',
+		'filteractions' => array(
+			'_' => 'Filter actions',	//TODO - Translation
+			'help' => 'Write one search filter per line.',	//TODO - Translation
+		),
+		'information' => 'Información',
 		'keep_history' => 'Número mínimo de artículos a conservar',
 		'moved_category_deleted' => 'Al borrar una categoría todas sus fuentes pasan automáticamente a la categoría <em>%s</em>.',
 		'mute' => 'mute',	//TODO - Translation
@@ -45,7 +51,7 @@ return array(
 			'main_stream' => 'Mostrar en salida principal',
 			'normal' => 'Show in its category',	//TODO - Translation
 		),
-		'pubsubhubbub' => 'Notificación inmedaiata con PubSubHubbub',
+		'websub' => 'Notificación inmedaiata con WebSub',
 		'show' => array(
 			'all' => 'Show all feeds',	//TODO - Translation
 			'error' => 'Show only feeds with error',	//TODO - Translation
@@ -72,6 +78,7 @@ return array(
 		'export' => 'Exportar',
 		'export_opml' => 'Exportar la lista de fuentes (OPML)',
 		'export_starred' => 'Exportar tus favoritos',
+		'export_labelled' => 'Export your labelled articles',	//TODO
 		'feed_list' => 'Lista de %s artículos',
 		'file_to_import' => 'Archivo a importar<br />(OPML, JSON o ZIP)',
 		'file_to_import_no_zip' => 'Archivo a importar<br />(OPML o JSON)',

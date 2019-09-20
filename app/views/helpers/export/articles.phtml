@@ -1,10 +1,7 @@
 <?php
 $username = Minz_Session::param('currentUser', '_');
 
-$options = 0;
-if (version_compare(PHP_VERSION, '5.4.0') >= 0) {
-	$options = JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE;
-}
+$options = JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE;
 
 $articles = array(
 	'id' => 'user/' . str_replace('/', '', $username) . '/state/org.freshrss/' . $this->type,
@@ -16,14 +13,12 @@ $articles = array(
 echo rtrim(json_encode($articles, $options), " ]}\n\r\t"), "\n";
 $first = true;
 
-$tagDAO = FreshRSS_Factory::createTagDao();
-$entryIdsTagNames = $tagDAO->getEntryIdsTagNames($this->entriesRaw);
-if ($entryIdsTagNames == false) {
-	$entryIdsTagNames = array();
+if (empty($this->entryIdsTagNames)) {
+	$this->entryIdsTagNames = array();
 }
 
 foreach ($this->entriesRaw as $entryRaw) {
-	if (empty($entryRaw)) {
+	if ($entryRaw == null) {
 		continue;
 	}
 	$entry = FreshRSS_EntryDAO::daoToEntry($entryRaw);
@@ -58,10 +53,11 @@ foreach ($this->entriesRaw as $entryRaw) {
 			'feedUrl' => $feed == null ? '' : $feed->url(),
 		)
 	);
+	$article['categories'][] = $entry->isRead() ? 'user/-/state/com.google/read' : 'user/-/state/com.google/unread';
 	if ($entry->isFavorite()) {
 		$article['categories'][] = 'user/-/state/com.google/starred';
 	}
-	$tagNames = isset($entryIdsTagNames['e_' . $entry->id()]) ? $entryIdsTagNames['e_' . $entry->id()] : array();
+	$tagNames = isset($this->entryIdsTagNames['e_' . $entry->id()]) ? $this->entryIdsTagNames['e_' . $entry->id()] : array();
 	foreach ($tagNames as $tagName) {
 		$article['categories'][] = 'user/-/label/' . $tagName;
 	}

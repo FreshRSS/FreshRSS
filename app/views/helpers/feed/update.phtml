@@ -19,7 +19,7 @@
 
 	<form method="post" action="<?php echo _url('subscription', 'feed', 'id', $this->feed->id()); ?>" autocomplete="off">
 		<input type="hidden" name="_csrf" value="<?php echo FreshRSS_Auth::csrfToken(); ?>" />
-		<legend><?php echo _t('sub.feed.informations'); ?></legend>
+		<legend><?php echo _t('sub.feed.information'); ?></legend>
 		<div class="form-group">
 			<label class="group-name" for="name"><?php echo _t('sub.feed.title'); ?></label>
 			<div class="group-controls">
@@ -133,7 +133,7 @@
 			</div>
 		</div>
 		<div class="form-group">
-			<label class="group-name" for="pubsubhubbub"><?php echo _t('sub.feed.pubsubhubbub'); ?></label>
+			<label class="group-name" for="pubsubhubbub"><?php echo _t('sub.feed.websub'); ?></label>
 			<div class="group-controls">
 				<label class="checkbox" for="pubsubhubbub">
 					<input type="checkbox" name="pubsubhubbub" id="pubsubhubbub" disabled="disabled" value="1"<?php echo $this->feed->pubSubHubbubEnabled() ? ' checked="checked"' : ''; ?> />
@@ -233,6 +233,19 @@
 			</div>
 		</div>
 		<?php } ?>
+
+		<legend><?php echo _t('sub.feed.filteractions'); ?></legend>
+		<div class="form-group">
+			<label class="group-name" for="filteractions_read"><?php echo _t('conf.reading.read.when'); ?></label>
+			<div class="group-controls">
+				<textarea name="filteractions_read" id="filteractions_read"><?php
+					foreach ($this->feed->filtersAction('read') as $filterRead) {
+						echo htmlspecialchars($filterRead->getRawInput(), ENT_NOQUOTES, 'UTF-8'), PHP_EOL;
+					}
+				?></textarea>
+				<?php echo _i('help'); ?> <?php echo _t('sub.feed.filteractions.help'); ?>
+			</div>
+		</div>
 
 		<div class="form-group form-actions">
 			<div class="group-controls">

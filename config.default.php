@@ -12,7 +12,7 @@ return array(
 	'salt' => '',
 
 	# Specify address of the FreshRSS instance,
-	# used when building absolute URLs, e.g. for PubSubHubbub.
+	# used when building absolute URLs, e.g. for WebSub.
 	# Examples:
 	# https://example.net/FreshRSS/p/
 	# https://freshrss.example.net/
@@ -32,6 +32,13 @@ return array(
 
 	# Name of the user that has administration rights.
 	'default_user' => '_',
+
+	# Force users to validate their email address. If `true`, an email with a
+	# validation URL is sent during registration, and users cannot access their
+	# feed if they didn't access this URL.
+	# Note: it is recommended to not enable it with PHP < 5.5 (emails cannot be
+	# sent).
+	'force_email_validation' => false,
 
 	# Allow or not visitors without login to see the articles
 	#	of the default user.
@@ -142,6 +149,34 @@ return array(
 			//PDO::MYSQL_ATTR_SSL_CA	=> '/path/to/ca-cert.pem',
 		),
 
+	),
+
+	# Configure the default feeds to which users will automatically be subscribed.
+	'default_feeds' => array(
+		array(
+			'url' => 'https://github.com/FreshRSS/FreshRSS/releases.atom',
+			'name' => 'FreshRSS releases',
+			'website' => 'https://github.com/FreshRSS/FreshRSS/',
+			'description' => 'FreshRSS releases @ GitHub',
+		),
+	),
+
+	# Configuration to send emails. Be aware that PHP < 5.5 are not supported.
+	# These options are basically a mapping of the PHPMailer class attributes
+	# from the PHPMailer library.
+	#
+	# See http://phpmailer.github.io/PHPMailer/classes/PHPMailer.PHPMailer.PHPMailer.html#properties
+	'mailer' => 'mail', // 'mail' or 'smtp'
+	'smtp' => array(
+		'hostname' => '', // the domain used in the Message-ID header
+		'host' => 'localhost', // the SMTP server address
+		'port' => 25,
+		'auth' => false,
+		'auth_type' => '', // 'CRAM-MD5', 'LOGIN', 'PLAIN', 'XOAUTH2' or ''
+		'username' => '',
+		'password' => '',
+		'secure' => '', // '', 'ssl' or 'tls'
+		'from' => 'root@localhost',
 	),
 
 	# List of enabled FreshRSS extensions.

@@ -16,7 +16,7 @@ if (FreshRSS_Auth::accessNeedsAction()) {
 	<div class="item title">
 		<h1>
 			<a href="<?php echo _url('index', 'index'); ?>">
-				<img class="logo" src="<?php echo _i('icon', true); ?>" alt="⊚" />
+				<img class="logo" src="<?php echo _i('icon', true); ?>" alt="" />
 				<?php echo FreshRSS_Context::$system_conf->title; ?>
 			</a>
 		</h1>
@@ -66,6 +66,8 @@ if (FreshRSS_Auth::accessNeedsAction()) {
 				<li class="item"><a href="<?php echo _url('configure', 'queries'); ?>"><?php echo _t('gen.menu.queries'); ?></a></li>
 				<li class="item"><a href="<?php echo _url('user', 'profile'); ?>"><?php echo _t('gen.menu.user_profile'); ?></a></li>
 				<li class="item"><a href="<?php echo _url('extension', 'index'); ?>"><?php echo _t('gen.menu.extensions'); ?></a></li>
+				<?php echo Minz_ExtensionManager::callHook('menu_configuration_entry'); ?>
+
 				<?php if (FreshRSS_Auth::hasAccess('admin')) { ?>
 				<li class="separator"></li>
 				<li class="dropdown-header"><?php echo _t('gen.menu.admin'); ?></li>
@@ -76,11 +78,15 @@ if (FreshRSS_Auth::accessNeedsAction()) {
 				<?php if (!Minz_Configuration::get('system')->disable_update) { ?>
 				<li class="item"><a href="<?php echo _url('update', 'index'); ?>"><?php echo _t('gen.menu.update'); ?></a></li>
 				<?php } ?>
+				<?php echo Minz_ExtensionManager::callHook('menu_admin_entry'); ?>
 				<?php } ?>
+
 				<li class="separator"></li>
 				<li class="item"><a href="<?php echo _url('stats', 'index'); ?>"><?php echo _t('gen.menu.stats'); ?></a></li>
 				<li class="item"><a href="<?php echo _url('index', 'logs'); ?>"><?php echo _t('gen.menu.logs'); ?></a></li>
 				<li class="item"><a href="<?php echo _url('index', 'about'); ?>"><?php echo _t('gen.menu.about'); ?></a></li>
+				<?php echo Minz_ExtensionManager::callHook('menu_other_entry'); ?>
+
 				<li class="separator"></li>
 				<?php if (FreshRSS_Auth::accessNeedsAction()): ?>
 				<li class="item"><a class="signout" href="<?php echo _url('auth', 'logout'); ?>"><?php

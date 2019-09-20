@@ -159,6 +159,7 @@ return array(
 	'system' => array(
 		'_' => 'Configuration du système',
 		'auto-update-url' => 'URL du service de mise à jour',
+		'force_email_validation' => 'Forcer la validation des adresses email',
 		'instance-name' => 'Nom de l’instance',
 		'max-categories' => 'Limite de catégories par utilisateur',
 		'max-feeds' => 'Limite de flux par utilisateur',

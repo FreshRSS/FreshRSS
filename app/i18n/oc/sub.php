@@ -1,7 +1,7 @@
 <?php
 return array(
 	'api' => array(
-		'documentation' => 'Copiar l’URL seguenta per l’utilizaire dins d’una aisina extèrna.',
+		'documentation' => 'Copiatz l’URL seguenta per l’utilizaire dins d’una aisina extèrna.',
 		'title' => 'API',
 	),
 	'bookmarklet' => array(
@@ -13,7 +13,9 @@ return array(
 		'_' => 'Categoria',
 		'add' => 'Ajustar una categoria',
 		'empty' => 'Categoria voida',
+		'information' => 'Informacions',
 		'new' => 'Nòva categoria',
+		'title' => 'Títol',
 	),
 	'feed' => array(
 		'add' => 'Ajustar un flux RSS',
@@ -32,7 +34,11 @@ return array(
 		'description' => 'Descripcion',
 		'empty' => 'Aqueste flux es void. Assegurats-vos qu’es totjorn mantengut.',
 		'error' => 'Aqueste flux a rescontrat un problèma. Volgatz verificar que siá totjorn accessible puèi actualizatz-lo.',
-		'informations' => 'Informacions',
+		'filteractions' => array(
+			'_' => 'Filtre d’accion',
+			'help' => 'Escrivètz una recèrca per linha.',
+		),
+		'information' => 'Informacions',
 		'keep_history' => 'Nombre minimum d’articles de servar',
 		'moved_category_deleted' => 'Quand escafatz una categoria, sos fluxes son automaticament classats dins <em>%s</em>.',
 		'mute' => 'mut',
@@ -44,13 +50,13 @@ return array(
 			'main_stream' => 'Mostar al flux màger',
 			'normal' => 'Mostar dins sa categoria',
 		),
-		'pubsubhubbub' => 'Notificaciones instantáneas amb PubSubHubbub',
+		'websub' => 'Notificaciones instantáneas amb WebSub',
 		'show' => array(
-			'all' => 'Show all feeds',	//TODO - Translation
-			'error' => 'Show only feeds with error',	//TODO - Translation
+			'all' => 'Mostrar totes los fluxes',
+			'error' => 'Mostrar pas que los fluxes amb errors',
 		),
 		'showing' => array(
-			'error' => 'Showing only feeds with error',	//TODO - Translation
+			'error' => 'Afichatge dels articles amb errors solament',
 		),
 		'ssl_verify' => 'Verificacion de la seguretat SSL',
 		'stats' => 'Estatisticas',
@@ -64,13 +70,14 @@ return array(
 		'website' => 'URL del site',
 	),
 	'firefox' => array(
-		'documentation' => 'Seguir las etapas descrichas <a href="https://developer.mozilla.org/en-US/Firefox/Releases/2/Adding_feed_readers_to_Firefox#Adding_a_new_feed_reader_manually">aquí</a> per ajustar FreshRSS a la lista dels lectors de flux de Firefox.',
+		'documentation' => 'Seguissètz las etapas descrichas <a href="https://developer.mozilla.org/en-US/Firefox/Releases/2/Adding_feed_readers_to_Firefox#Adding_a_new_feed_reader_manually">aquí</a> per ajustar FreshRSS a la lista dels lectors de flux de Firefox.',
 		'title' => 'Lector de flux de Firefox',
 	),
 	'import_export' => array(
 		'export' => 'Exportar',
 		'export_opml' => 'Exportar la lista de fluxes (OPML)',
 		'export_starred' => 'Exportar los favorits',
+		'export_labelled' => 'Exportar los articles etiquetats',
 		'feed_list' => 'Lista dels %s articles',
 		'file_to_import' => 'Fichièr d’importar<br />(OPML, JSON o ZIP)',
 		'file_to_import_no_zip' => 'Fichièr d’importar<br />(OPML o JSON)',
@@ -86,7 +93,7 @@ return array(
 		'subscription_tools' => 'Aisinas d’abonament',
 	),
 	'title' => array(
-		'_' => 'Gestión dels abonaments',
+		'_' => 'Gestion dels abonaments',
 		'feed_management' => 'Gestion dels fluxes RSS',
 		'subscription_tools' => 'Aisinas d’abonament',
 	),

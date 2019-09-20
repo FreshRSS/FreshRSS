@@ -7,6 +7,7 @@ class FreshRSS_Category extends Minz_Model {
 	private $nbNotRead = -1;
 	private $feeds = null;
 	private $hasFeedsWithError = false;
+	private $isDefault = false;
 
 	public function __construct($name = '', $feeds = null) {
 		$this->_name($name);
@@ -27,6 +28,9 @@ class FreshRSS_Category extends Minz_Model {
 	}
 	public function name() {
 		return $this->name;
+	}
+	public function isDefault() {
+		return $this->isDefault;
 	}
 	public function nbFeed() {
 		if ($this->nbFeed < 0) {
@@ -69,6 +73,9 @@ class FreshRSS_Category extends Minz_Model {
 	}
 	public function _name($value) {
 		$this->name = trim($value);
+	}
+	public function _isDefault($value) {
+		$this->isDefault = $value;
 	}
 	public function _feeds($values) {
 		if (!is_array($values)) {

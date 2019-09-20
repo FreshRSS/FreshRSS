@@ -1,0 +1,4 @@
+# ignore SASS-generated CSS
+p/themes/Ansum/*.css
+p/themes/Mapco/*.css
+p/themes/Swage/*.css

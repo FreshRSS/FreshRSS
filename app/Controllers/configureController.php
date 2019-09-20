@@ -48,6 +48,7 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 			FreshRSS_Context::$user_conf->topline_favorite = Minz_Request::param('topline_favorite', false);
 			FreshRSS_Context::$user_conf->topline_date = Minz_Request::param('topline_date', false);
 			FreshRSS_Context::$user_conf->topline_link = Minz_Request::param('topline_link', false);
+			FreshRSS_Context::$user_conf->topline_display_authors = Minz_Request::param('topline_display_authors', false);
 			FreshRSS_Context::$user_conf->bottomline_read = Minz_Request::param('bottomline_read', false);
 			FreshRSS_Context::$user_conf->bottomline_favorite = Minz_Request::param('bottomline_favorite', false);
 			FreshRSS_Context::$user_conf->bottomline_sharing = Minz_Request::param('bottomline_sharing', false);
@@ -166,30 +167,17 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 	 * tab and up.
 	 */
 	public function shortcutAction() {
-		$list_keys = array('a', 'b', 'backspace', 'c', 'd', 'delete', 'down', 'e', 'end', 'enter',
-		                   'escape', 'f', 'g', 'h', 'home', 'i', 'insert', 'j', 'k', 'l', 'left',
-		                   'm', 'n', 'o', 'p', 'page_down', 'page_up', 'q', 'r', 'return', 'right',
-		                   's', 'space', 't', 'tab', 'u', 'up', 'v', 'w', 'x', 'y',
-		                   'z', 'f1', 'f2', 'f3', 'f4', 'f5', 'f6', 'f7', 'f8', 'f9',
-		                   'f10', 'f11', 'f12', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0');
-		$this->view->list_keys = $list_keys;
+		global $SHORTCUT_KEYS;
+		$this->view->list_keys = $SHORTCUT_KEYS;
 
 		if (Minz_Request::isPost()) {
-			$shortcuts = Minz_Request::param('shortcuts');
-			$shortcuts_ok = array();
-
-			foreach ($shortcuts as $key => $value) {
-				if (in_array($value, $list_keys)) {
-					$shortcuts_ok[$key] = $value;
-				}
-			}
-
-			FreshRSS_Context::$user_conf->shortcuts = $shortcuts_ok;
+			FreshRSS_Context::$user_conf->shortcuts = validateShortcutList(Minz_Request::param('shortcuts'));
 			FreshRSS_Context::$user_conf->save();
 			invalidateHttpCache();
 
-			Minz_Request::good(_t('feedback.conf.shortcuts_updated'),
-			                   array('c' => 'configure', 'a' => 'shortcut'));
+			Minz_Request::good(_t('feedback.conf.shortcuts_updated'), array('c' => 'configure', 'a' => 'shortcut'));
+		} else {
+			FreshRSS_Context::$user_conf->shortcuts = validateShortcutList(FreshRSS_Context::$user_conf->shortcuts);
 		}
 
 		Minz_View::prependTitle(_t('conf.shortcut.title') . ' · ');
@@ -305,15 +293,24 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 	 * configuration values then sends a notification to the user.
 	 *
 	 * The options available on the page are:
+	 *   - instance name (default: FreshRSS)
+	 *   - auto update URL (default: false)
+	 *   - force emails validation (default: false)
 	 *   - user limit (default: 1)
 	 *   - user category limit (default: 16384)
 	 *   - user feed limit (default: 16384)
 	 *   - user login duration for form auth (default: 2592000)
+	 *
+	 * The `force-email-validation` is ignored with PHP < 5.5
 	 */
 	public function systemAction() {
 		if (!FreshRSS_Auth::hasAccess('admin')) {
 			Minz_Error::error(403);
 		}
+
+		$can_enable_email_validation = version_compare(PHP_VERSION, '5.5') >= 0;
+		$this->view->can_enable_email_validation = $can_enable_email_validation;
+
 		if (Minz_Request::isPost()) {
 			$limits = FreshRSS_Context::$system_conf->limits;
 			$limits['max_registrations'] = Minz_Request::param('max-registrations', 1);
@@ -323,6 +320,9 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 			FreshRSS_Context::$system_conf->limits = $limits;
 			FreshRSS_Context::$system_conf->title = Minz_Request::param('instance-name', 'FreshRSS');
 			FreshRSS_Context::$system_conf->auto_update_url = Minz_Request::param('auto-update-url', false);
+			if ($can_enable_email_validation) {
+				FreshRSS_Context::$system_conf->force_email_validation = Minz_Request::param('force-email-validation', false);
+			}
 			FreshRSS_Context::$system_conf->save();
 
 			invalidateHttpCache();

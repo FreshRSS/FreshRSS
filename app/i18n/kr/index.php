@@ -15,6 +15,9 @@ return array(
 		'version' => '버전',
 		'website' => '웹사이트',
 	),
+	'tos' => array(
+		'title' => 'Terms of Service', // TODO - Translation
+	),
 	'feed' => array(
 		'add' => '피드를 추가하세요.',
 		'empty' => '글이 없습니다.',
@@ -40,7 +43,7 @@ return array(
 		'mark_all_read' => '모두 읽음으로 표시',
 		'mark_cat_read' => '카테고리를 읽음으로 표시',
 		'mark_feed_read' => '피드를 읽음으로 표시',
-		'mark_selection_unread' => 'Mark selection as unread',	//TODO - Translation
+		'mark_selection_unread' => '선택된 글을 읽지 않음으로 표시',
 		'newer_first' => '최근 글 먼저',
 		'non-starred' => '즐겨찾기를 제외하고 표시',
 		'normal_view' => '일반 모드',
@@ -53,11 +56,11 @@ return array(
 		'starred' => '즐겨찾기만 표시',
 		'stats' => '통계',
 		'subscription' => '구독 관리',
-		'tags' => 'My labels',	//TODO - Translation
+		'tags' => '내 라벨',
 		'unread' => '읽지 않은 글만 표시',
 	),
 	'share' => '공유',
 	'tag' => array(
-		'related' => '관련 태그',	//TODO - Translation
+		'related' => '관련 태그',
 	),
 );

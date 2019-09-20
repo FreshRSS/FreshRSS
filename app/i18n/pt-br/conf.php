@@ -21,6 +21,7 @@ return array(
 			'publication_date' => 'Data da publicação',
 			'related_tags' => 'Tags relacionadas',	//TODO - Translation
 			'sharing' => 'Compartilhar',
+			'display_authors' => 'Authors',  //TODO - Translation
 			'top_line' => 'Linha superior',
 		),
 		'language' => 'Ídioma',
@@ -45,6 +46,7 @@ return array(
 			'_' => 'Remover conta',
 			'warn' => 'Sua conta e todos os dados relacionados serão removidos.',
 		),
+		'email' => 'Endereço de e-mail',
 		'password_api' => 'Senha da API<br /><small>(p.s., para aplicativos móveis)</small>',
 		'password_form' => 'Senha<br /><small>(para o método de formulário web)</small>',
 		'password_format' => 'Ao menos 7 caracteres',
@@ -92,7 +94,7 @@ return array(
 		'auto_remove_article' => 'Esconder artigos depois de lidos',
 		'confirm_enabled' => 'Exibir uma caixa de diálogo de confirmação quando acionar "marcar todos como lido"',
 		'display_articles_unfolded' => 'Mostrar aritogs abertos por padrão',
-		'display_categories_unfolded' => 'Mostrar artigos fechados por padrão',
+		'display_categories_unfolded' => 'Mostrar artigos abertos por padrão',
 		'hide_read_feeds' => 'Esconder categorias e feeds com nenhum artigo não lido (não funciona com a configuração "Mostrar todos os artigos”)',
 		'img_with_lazyload' => 'Utilizar o modo "lazy load" para carregar as imagens',
 		'jump_next' => 'Vá para o próximo irmão não lido (feed ou categoria)',
@@ -133,7 +135,6 @@ return array(
 		'diaspora' => 'Diaspora*',
 		'email' => 'Email',
 		'facebook' => 'Facebook',
-		'g+' => 'Google+',
 		'more_information' => 'Mais informação',
 		'print' => 'Imprimir',
 		'remove' => 'Remove sharing method',	//TODO - Translation

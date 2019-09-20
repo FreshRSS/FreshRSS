@@ -159,6 +159,7 @@ return array(
 	'system' => array(
 		'_' => 'Configuração do sistema',
 		'auto-update-url' => 'URL do servidor para atualização automática',
+		'force_email_validation' => 'Force email addresses validation', //TODO - Translation
 		'instance-name' => 'Nome da instância',
 		'max-categories' => 'Limite de categorias por usuário',
 		'max-feeds' => 'Limite de Feeds por usuário',

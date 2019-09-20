@@ -2,11 +2,13 @@
 <?php
 require(__DIR__ . '/_cli.php');
 
-$options = getopt('', array(
-		'user:',
-	));
+$params = array(
+	'user:',
+);
 
-if (empty($options['user'])) {
+$options = getopt('', $params);
+
+if (!validateOptions($argv, $params) || empty($options['user'])) {
 	fail('Usage: ' . basename(__FILE__) . " --user username > /path/to/file.opml.xml");
 }
 
@@ -17,7 +19,7 @@ fwrite(STDERR, 'FreshRSS exporting OPML for user “' . $username . "”…\n");
 $importController = new FreshRSS_importExport_Controller();
 
 $ok = false;
-$ok = $importController->exportFile(true, false, array(), 0, $username);
+$ok = $importController->exportFile(true, false, false, array(), 0, $username);
 
 invalidateHttpCache($username);
 

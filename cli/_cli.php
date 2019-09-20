@@ -3,8 +3,11 @@ if (php_sapi_name() !== 'cli') {
 	die('FreshRSS error: This PHP script may only be invoked from command line!');
 }
 
+const REGEX_INPUT_OPTIONS = '/^--/';
+const REGEX_PARAM_OPTIONS = '/:*$/';
+
 require(__DIR__ . '/../constants.php');
-require(LIB_PATH . '/lib_rss.php');
+require(LIB_PATH . '/lib_rss.php');	//Includes class autoloader
 require(LIB_PATH . '/lib_install.php');
 
 Minz_Configuration::register('system',
@@ -63,4 +66,26 @@ function performRequirementCheck($databaseType) {
 		}
 		fail($message);
 	}
+}
+
+function getLongOptions($options, $regex) {
+	$longOptions = array_filter($options, function($a) use ($regex) {
+		return preg_match($regex, $a);
+	});
+	return array_map(function($a) use ($regex) {
+		return preg_replace($regex, '', $a);
+	}, $longOptions);
+}
+
+function validateOptions($input, $params) {
+	$sanitizeInput = getLongOptions($input, REGEX_INPUT_OPTIONS);
+	$sanitizeParams = getLongOptions($params, REGEX_PARAM_OPTIONS);
+	$unknownOptions = array_diff($sanitizeInput, $sanitizeParams);
+
+	if (0 === count($unknownOptions)) {
+		return true;
+	}
+
+	fwrite(STDERR, sprintf("FreshRSS error: unknown options: %s\n", implode (', ', $unknownOptions)));
+	return false;
 }

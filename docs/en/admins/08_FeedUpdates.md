@@ -6,7 +6,7 @@ FreshRSS updating is controlled by a script located at `./app/actualize_script.p
 
 You will need to check the Cron documentation for your specific distribution ([Debian/Ubuntu](https://help.ubuntu.com/community/CronHowto), [Red Hat/Fedora/CentOS](https://fedoraproject.org/wiki/Administration_Guide_Draft/Cron), [Slackware](https://docs.slackware.com/fr:slackbook:process_control?#cron), [Gentoo](https://wiki.gentoo.org/wiki/Cron), [Arch Linux](https://wiki.archlinux.org/index.php/Cron)...) to insure you set the Cron job correctly.
 
-It's advisable that you run the Cron job as your Web server user.
+It's advisable that you run the Cron job as your Web server user (often `www-data`).
 
 ## Example on Debian/Ubuntu
 To run the updater script every hour, and 10 minutes past the hour:

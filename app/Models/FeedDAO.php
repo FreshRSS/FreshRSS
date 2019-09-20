@@ -39,6 +39,7 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 					description,
 					`lastUpdate`,
 					priority,
+					`pathEntries`,
 					`httpAuth`,
 					error,
 					keep_history,
@@ -46,11 +47,14 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 					attributes
 				)
 				VALUES
-				(?, ?, ?, ?, ?, ?, 10, ?, 0, ?, ?, ?)';
+				(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
 		$stm = $this->bd->prepare($sql);
 
 		$valuesTmp['url'] = safe_ascii($valuesTmp['url']);
 		$valuesTmp['website'] = safe_ascii($valuesTmp['website']);
+		if (!isset($valuesTmp['pathEntries'])) {
+			$valuesTmp['pathEntries'] = '';
+		}
 
 		$values = array(
 			substr($valuesTmp['url'], 0, 511),
@@ -59,9 +63,12 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 			substr($valuesTmp['website'], 0, 255),
 			mb_strcut($valuesTmp['description'], 0, 1023, 'UTF-8'),
 			$valuesTmp['lastUpdate'],
+			isset($valuesTmp['priority']) ? intval($valuesTmp['priority']) : FreshRSS_Feed::PRIORITY_MAIN_STREAM,
+			mb_strcut($valuesTmp['pathEntries'], 0, 511, 'UTF-8'),
 			base64_encode($valuesTmp['httpAuth']),
-			FreshRSS_Feed::KEEP_HISTORY_DEFAULT,
-			FreshRSS_Feed::TTL_DEFAULT,
+			isset($valuesTmp['error']) ? intval($valuesTmp['error']) : 0,
+			isset($valuesTmp['keep_history']) ? intval($valuesTmp['keep_history']) : FreshRSS_Feed::KEEP_HISTORY_DEFAULT,
+			isset($valuesTmp['ttl']) ? intval($valuesTmp['ttl']) : FreshRSS_Feed::TTL_DEFAULT,
 			isset($valuesTmp['attributes']) ? json_encode($valuesTmp['attributes']) : '',
 		);
 
@@ -95,6 +102,9 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 				'httpAuth' => $feed->httpAuth(),
 				'attributes' => $feed->attributes(),
 			);
+			if ($feed->mute() || $feed->ttl() != FreshRSS_Context::$user_conf->ttl_default) {
+				$values['ttl'] = $feed->ttl() * ($feed->mute() ? -1 : 1);
+			}
 
 			$id = $this->addFeed($values);
 			if ($id) {
@@ -232,6 +242,17 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 			$info = $stm == null ? array(2 => 'syntax error') : $stm->errorInfo();
 			Minz_Log::error('SQL error deleteFeedByCategory: ' . $info[2]);
 			return false;
+		}
+	}
+
+	public function selectAll() {
+		$sql = 'SELECT id, url, category, name, website, description, `lastUpdate`, priority, '
+		     . '`pathEntries`, `httpAuth`, error, keep_history, ttl, attributes '
+		     . 'FROM `' . $this->prefix . 'feed`';
+		$stm = $this->bd->prepare($sql);
+		$stm->execute();
+		while ($row = $stm->fetch(PDO::FETCH_ASSOC)) {
+			yield $row;
 		}
 	}
 

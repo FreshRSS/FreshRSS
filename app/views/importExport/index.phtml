@@ -33,6 +33,11 @@
 					<?php echo _t('sub.import_export.export_opml'); ?>
 				</label>
 
+				<label class="checkbox" for="export_labelled">
+					<input type="checkbox" name="export_labelled" id="export_labelled" value="1" <?php echo extension_loaded('zip') ? 'checked="checked"' : ''; ?> />
+					<?php echo _t('sub.import_export.export_labelled'); ?>
+				</label>
+
 				<label class="checkbox" for="export_starred">
 					<input type="checkbox" name="export_starred" id="export_starred" value="1" <?php echo extension_loaded('zip') ? 'checked="checked"' : ''; ?> />
 					<?php echo _t('sub.import_export.export_starred'); ?>

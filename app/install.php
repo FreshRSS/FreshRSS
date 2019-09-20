@@ -7,7 +7,8 @@ header("Content-Security-Policy: default-src 'self'");
 require(LIB_PATH . '/lib_install.php');
 
 session_name('FreshRSS');
-session_set_cookie_params(0, dirname(empty($_SERVER['REQUEST_URI']) ? '/' : dirname($_SERVER['REQUEST_URI'])), null, false, true);
+$forwardedPrefix = empty($_SERVER['HTTP_X_FORWARDED_PREFIX']) ? '' : rtrim($_SERVER['HTTP_X_FORWARDED_PREFIX'], '/ ');
+session_set_cookie_params(0, $forwardedPrefix . dirname(empty($_SERVER['REQUEST_URI']) ? '/' : dirname($_SERVER['REQUEST_URI'])), null, false, true);
 session_start();
 
 if (isset($_GET['step'])) {
@@ -60,7 +61,7 @@ function initTranslate() {
 }
 
 function get_best_language() {
-	$accept = $_SERVER['HTTP_ACCEPT_LANGUAGE'];
+	$accept = empty($_SERVER['HTTP_ACCEPT_LANGUAGE']) ? '' : $_SERVER['HTTP_ACCEPT_LANGUAGE'];
 	return strtolower(substr($accept, 0, 2));
 }
 
@@ -124,7 +125,9 @@ function saveStep2() {
 		$_SESSION['title'] = $system_default_config->title;
 		$_SESSION['old_entries'] = param('old_entries', $user_default_config->old_entries);
 		$_SESSION['auth_type'] = param('auth_type', 'form');
-		$_SESSION['default_user'] = substr(preg_replace('/[^0-9a-zA-Z_]/', '', param('default_user', '')), 0, 38);
+		if (FreshRSS_user_Controller::checkUsername(param('default_user', ''))) {
+			$_SESSION['default_user'] = param('default_user', '');
+		}
 
 		$password_plain = param('passwordPlain', false);
 		if ($password_plain !== false && cryptAvailable()) {
@@ -343,19 +346,38 @@ function checkDbUser(&$dbOptions) {
 	try {
 		$c = new PDO($str, $dbOptions['user'], $dbOptions['password'], $driver_options);
 		if (defined('SQL_CREATE_TABLES')) {
-			$sql = sprintf(SQL_CREATE_TABLES . SQL_CREATE_TABLE_ENTRYTMP . SQL_CREATE_TABLE_TAGS . SQL_INSERT_FEEDS,
+			$sql = sprintf(SQL_CREATE_TABLES . SQL_CREATE_TABLE_ENTRYTMP . SQL_CREATE_TABLE_TAGS,
 				$dbOptions['prefix_user'], _t('gen.short.default_category'));
 			$stm = $c->prepare($sql);
 			$ok = $stm && $stm->execute();
 		} else {
-			global $SQL_CREATE_TABLES, $SQL_CREATE_TABLE_ENTRYTMP, $SQL_CREATE_TABLE_TAGS, $SQL_INSERT_FEEDS;
-			$instructions = array_merge($SQL_CREATE_TABLES, $SQL_CREATE_TABLE_ENTRYTMP, $SQL_CREATE_TABLE_TAGS, $SQL_INSERT_FEEDS);
+			global $SQL_CREATE_TABLES, $SQL_CREATE_TABLE_ENTRYTMP, $SQL_CREATE_TABLE_TAGS;
+			$instructions = array_merge($SQL_CREATE_TABLES, $SQL_CREATE_TABLE_ENTRYTMP, $SQL_CREATE_TABLE_TAGS);
 			$ok = !empty($instructions);
 			foreach ($instructions as $instruction) {
 				$sql = sprintf($instruction, $dbOptions['prefix_user'], _t('gen.short.default_category'));
 				$stm = $c->prepare($sql);
 				$ok &= $stm && $stm->execute();
 			}
+		}
+
+		Minz_Configuration::register(
+			'system',
+			join_path(DATA_PATH, 'config.php'),
+			join_path(FRESHRSS_PATH, 'config.default.php')
+		);
+		$system_conf = Minz_Configuration::get('system');
+		$default_feeds = $system_conf->default_feeds;
+		foreach ($default_feeds as $feed) {
+			$sql = sprintf(SQL_INSERT_FEED, $dbOptions['prefix_user']);
+			$stm = $c->prepare($sql);
+			$parameters = array(
+				':url' => $feed['url'],
+				':name' => $feed['name'],
+				':website' => $feed['website'],
+				':description' => $feed['description'],
+			);
+			$ok &= ($stm && $stm->execute($parameters));
 		}
 	} catch (PDOException $e) {
 		$ok = false;
@@ -410,7 +432,7 @@ function printStep1() {
 	<?php if ($res['php'] == 'ok') { ?>
 	<p class="alert alert-success"><span class="alert-head"><?php echo _t('gen.short.ok'); ?></span> <?php echo _t('install.check.php.ok', PHP_VERSION); ?></p>
 	<?php } else { ?>
-	<p class="alert alert-error"><span class="alert-head"><?php echo _t('gen.short.damn'); ?></span> <?php echo _t('install.check.php.nok', PHP_VERSION, '5.3.8'); ?></p>
+	<p class="alert alert-error"><span class="alert-head"><?php echo _t('gen.short.damn'); ?></span> <?php echo _t('install.check.php.nok', PHP_VERSION, '5.6.0'); ?></p>
 	<?php } ?>
 
 	<?php if ($res['minz'] == 'ok') { ?>
@@ -435,7 +457,7 @@ function printStep1() {
 	<?php if ($res['json'] == 'ok') { ?>
 	<p class="alert alert-success"><span class="alert-head"><?php echo _t('gen.short.ok'); ?></span> <?php echo _t('install.check.json.ok'); ?></p>
 	<?php } else { ?>
-	<p class="alert alert-warn"><span class="alert-head"><?php echo _t('gen.short.damn'); ?></span> <?php echo _t('install.check.json.nok'); ?></p>
+	<p class="alert alert-error"><span class="alert-head"><?php echo _t('gen.short.damn'); ?></span> <?php echo _t('install.check.json.nok'); ?></p>
 	<?php } ?>
 
 	<?php if ($res['pcre'] == 'ok') { ?>
@@ -604,16 +626,16 @@ function printStep3() {
 			<label class="group-name" for="type"><?php echo _t('install.bdd.type'); ?></label>
 			<div class="group-controls">
 				<select name="type" id="type" tabindex="1">
-				<?php if (extension_loaded('pdo_mysql')) {?>
-				<option value="mysql"
-					<?php echo(isset($_SESSION['bd_type']) && $_SESSION['bd_type'] === 'mysql') ? 'selected="selected"' : ''; ?>>
-					MySQL
-				</option>
-				<?php }?>
 				<?php if (extension_loaded('pdo_sqlite')) {?>
 				<option value="sqlite"
 					<?php echo(isset($_SESSION['bd_type']) && $_SESSION['bd_type'] === 'sqlite') ? 'selected="selected"' : ''; ?>>
 					SQLite
+				</option>
+				<?php }?>
+				<?php if (extension_loaded('pdo_mysql')) {?>
+				<option value="mysql"
+					<?php echo(isset($_SESSION['bd_type']) && $_SESSION['bd_type'] === 'mysql') ? 'selected="selected"' : ''; ?>>
+					MySQL
 				</option>
 				<?php }?>
 				<?php if (extension_loaded('pdo_pgsql')) {?>
@@ -721,6 +743,7 @@ case 5:
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="initial-scale=1.0" />
+		<script id="jsonVars" type="application/json">{}</script>
 		<title><?php echo _t('install.title'); ?></title>
 		<link rel="stylesheet" href="../themes/base-theme/template.css?<?php echo @filemtime(PUBLIC_PATH . '/themes/base-theme/template.css'); ?>" />
 		<link rel="stylesheet" href="../themes/Origine/origine.css?<?php echo @filemtime(PUBLIC_PATH . '/themes/Origine/origine.css'); ?>" />
