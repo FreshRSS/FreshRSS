@@ -8,7 +8,7 @@ Before you begin, make sure that you've read the [prerequisites](02_Prerequisite
 
 2. Download your chosen version of FreshRSS, or fetch it via git. It's advisable that you put FreshRSS in `/usr/share/`, and symlink the `./p/` folder to the root of your web server.[^1]
 
-3. Give ownership of the FreshRSS folder to your web server user. Give group read permissions to all files in `.`[^2], and group write permissions to `./data/`.
+3. Give ownership of the FreshRSS folder to your web server user (often `www-data`). Give group read permissions to all files in `.`[^2], and group write permissions to `./data/`.
 
 4. Install needed PHP modules.
 
@@ -20,4 +20,4 @@ Before you begin, make sure that you've read the [prerequisites](02_Prerequisite
 
 [^2]: If you wish to allow updates from the web interface, also give group write permissions to this folder.
 
-[^3]: Assuming your server is `http://example.net`, this address would be `http://example.net/p/`.
+[^3]: Assuming your server is `http://example.net`, this address could be `http://example.net/p/` if you didn't follow our previous advice about not exposing the `./p/` folder.

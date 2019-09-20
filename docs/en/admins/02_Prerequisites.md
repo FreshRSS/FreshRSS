@@ -10,7 +10,7 @@ You need to verify that your server can run FreshRSS before installing it. If yo
 | PHP           | **PHP 7+**              | PHP 5.6+                |
 | PHP modules   | Required: libxml, cURL, JSON, PDO\_MySQL, PCRE and ctype. <br>Required (32-bit only): GMP <br> Recommanded: Zlib, mbstring, iconv, ZipArchive <br> *For the whole modules list see [Dockerfile](https://github.com/FreshRSS/FreshRSS/blob/master/Docker/Dockerfile-Alpine#L7-L9)* | |
 | Database      | **MySQL 5.5.3+**        | SQLite 3.7.4+           |
-| Browser       | **Firefox**             | Chrome, Opera, Safari, or IE11/Edge[^2] |
+| Browser       | **Firefox**             | Chrome, Opera, Safari, or IE11/Edge[^1] |
 
 
 # Getting the appropriate version of FreshRSS
@@ -37,6 +37,4 @@ If you want to keep track of the most recent enhancements or help the developers
 
 Some say that the main developers use this branch on a daily basis without problem. They may know what they are doing…
 
-[^1]: When installed using a supported version of PHP older than 5.5, specific functions available in the [''password_compat'' library](https://github.com/ircmaxell/password_compat#requirements) are used for form authentication. 
-
-[^2]: IE11/Edge may not support all features found in FreshRSS on other browsers
+[^1]: IE11/Edge may not support all features found in FreshRSS on other browsers

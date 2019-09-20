@@ -11,7 +11,11 @@ apt install apache2
 a2enmod headers expires rewrite ssl
 ```
 
-### TODO: configure Apache
+Then, you have to configure Apache. You can create a file in `/etc/apache2/sites-available`, based on [our example configuration file](10_ServerConfig.md). Once you're done, create a symbolic link from this file to the `sites-enabled` folder:
+
+```
+ln -s /etc/apache2/sites-available/freshrss.conf /etc/apache2/sites-enabled/freshrss.conf
+```
 
 Next, install PHP and the necessary modules
 ```
