@@ -100,7 +100,7 @@ FLUSH PRIVILEGES;
 QUIT;
 ```
 
-A brief explination of the previous command block:
+A brief explanation of the previous command block:
 * You first create a database user for FreshRSS to use.
 * Then you create a database for FreshRSS to store data in.
 * You grant permissions for the user you created to read, write, and modify the database.

@@ -21,4 +21,4 @@ Not using authentication on your server is dangerous, as anyone with access to y
 
 You can switch your authentication method at any time by editing the `./data/config.php` file, on the line that begins `'auth_type'`.
 
-[^1]: See [Apache documentation](https://httpd.apache.org/docs/trunk/howto/auth.html)
+[^1]: See [the Apache documentation](https://httpd.apache.org/docs/trunk/howto/auth.html)
