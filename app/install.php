@@ -133,9 +133,7 @@ function saveStep2() {
 		$config_array = [
 			'salt' => generateSalt(),
 			'base_url' => $base_url,
-			'title' => $_SESSION['title'],
 			'default_user' => 'admin',
-			'auth_type' => $_SESSION['auth_type'],
 			'db' => [
 				'type' => $_SESSION['bd_type'],
 				'host' => $_SESSION['bd_host'],
@@ -147,6 +145,12 @@ function saveStep2() {
 			],
 			'pubsubhubbub_enabled' => server_is_public($base_url),
 		];
+		if (!empty($_SESSION['title'])) {
+			$config_array['title'] = $_SESSION['title'];
+		}
+		if (!empty($_SESSION['auth_type'])) {
+			$config_array['auth_type'] = $_SESSION['auth_type'];
+		}
 
 		@unlink(join_path(DATA_PATH, 'config.php'));	//To avoid access-rights problems
 		file_put_contents(join_path(DATA_PATH, 'config.php'), "<?php\n return " . var_export($config_array, true) . ";\n");
@@ -177,20 +181,23 @@ function saveStep3() {
 			$_SESSION['default_user'] = param('default_user', '');
 		}
 
-		$password_plain = param('passwordPlain', false);
-		if ($password_plain !== false && cryptAvailable()) {
-			$_SESSION['passwordHash'] = FreshRSS_user_Controller::hashPassword($password_plain);
-		}
-
 		if (empty($_SESSION['old_entries']) ||
 		    empty($_SESSION['auth_type']) ||
 		    empty($_SESSION['default_user'])) {
 			return false;
 		}
 
-		if ($_SESSION['auth_type'] === 'form' && empty($_SESSION['passwordHash'])) {
+		$password_plain = param('passwordPlain', false);
+		if ($_SESSION['auth_type'] === 'form' && $password_plain == '') {
 			return false;
 		}
+
+		Minz_Configuration::register('system', DATA_PATH . '/config.php', FRESHRSS_PATH . '/config.default.php');
+		FreshRSS_Context::$system_conf = Minz_Configuration::get('system');
+		Minz_Translate::init($_SESSION['language']);
+
+		FreshRSS_Context::$system_conf->default_user = $_SESSION['default_user'];
+		FreshRSS_Context::$system_conf->save();
 
 		if ((!ctype_digit($_SESSION['old_entries'])) ||($_SESSION['old_entries'] < 1)) {
 			$_SESSION['old_entries'] = $user_default_config->old_entries;
@@ -200,16 +207,13 @@ function saveStep3() {
 		// avoid access right problems.
 		recursive_unlink(USERS_PATH . '/' . $_SESSION['default_user']);
 
-		Minz_Configuration::register('system', DATA_PATH . '/config.php', FRESHRSS_PATH . '/config.default.php');
-		FreshRSS_Context::$system_conf = Minz_Configuration::get('system');
-		Minz_Translate::init($_SESSION['language']);
-
 		$ok = false;
 		try {
 			$ok = FreshRSS_user_Controller::createUser(
 				$_SESSION['default_user'],
-				empty($options['mail_login']) ? '' : $options['mail_login'],
-				empty($options['password']) ? '' : $options['password'],
+				'',	//TODO: Add e-mail
+				$password_plain,
+				'',
 				[
 					'language' => $_SESSION['language'],
 					'theme' => $user_default_config->theme,
