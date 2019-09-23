@@ -44,31 +44,38 @@ class Minz_ModelPdo {
 		$conf = Minz_Configuration::get('system');
 		$db = $conf->db;
 
-		$driver_options = isset($conf->db['pdo_options']) && is_array($conf->db['pdo_options']) ? $conf->db['pdo_options'] : array();
+		$driver_options = isset($db['pdo_options']) && is_array($db['pdo_options']) ? $db['pdo_options'] : [];
 		$dbServer = parse_url('db://' . $db['host']);
+		$dsn = '';
 
 		try {
 			switch ($db['type']) {
 				case 'mysql':
-					$string = 'mysql:host=' . (empty($dbServer['host']) ? $db['host'] : $dbServer['host']) . ';dbname=' . $db['base'] . ';charset=utf8mb4';
+					$dsn = 'mysql:host=' . (empty($dbServer['host']) ? $db['host'] : $dbServer['host']) . ';charset=utf8mb4';
+					if (!empty($db['base'])) {
+						$dsn .= ';dbname=' . $db['base'];
+					}
 					if (!empty($dbServer['port'])) {
-						$string .= ';port=' . $dbServer['port'];
+						$dsn .= ';port=' . $dbServer['port'];
 					}
 					$driver_options[PDO::MYSQL_ATTR_INIT_COMMAND] = 'SET NAMES utf8mb4';
-					$this->pdo = new MinzPDOMySql($string, $db['user'], $db['password'], $driver_options);
+					$this->pdo = new MinzPDOMySql($dsn, $db['user'], $db['password'], $driver_options);
 					$this->pdo->setPrefix($db['prefix'] . $currentUser . '_');
 					break;
 				case 'sqlite':
-					$string = 'sqlite:' . join_path(DATA_PATH, 'users', $currentUser, 'db.sqlite');
-					$this->pdo = new MinzPDOSQLite($string, $db['user'], $db['password'], $driver_options);
+					$dsn = 'sqlite:' . join_path(DATA_PATH, 'users', $currentUser, 'db.sqlite');
+					$this->pdo = new MinzPDOSQLite($dsn, $db['user'], $db['password'], $driver_options);
 					$this->pdo->setPrefix('');
 					break;
 				case 'pgsql':
-					$string = 'pgsql:host=' . (empty($dbServer['host']) ? $db['host'] : $dbServer['host']) . ';dbname=' . $db['base'];
-					if (!empty($dbServer['port'])) {
-						$string .= ';port=' . $dbServer['port'];
+					$dsn = 'pgsql:host=' . (empty($dbServer['host']) ? $db['host'] : $dbServer['host']);
+					if (!empty($db['base'])) {
+						$dsn .= ';dbname=' . $db['base'];
 					}
-					$this->pdo = new MinzPDOPGSQL($string, $db['user'], $db['password'], $driver_options);
+					if (!empty($dbServer['port'])) {
+						$dsn .= ';port=' . $dbServer['port'];
+					}
+					$this->pdo = new MinzPDOPGSQL($dsn, $db['user'], $db['password'], $driver_options);
 					$this->pdo->setPrefix($db['prefix'] . $currentUser . '_');
 					break;
 				default:
@@ -81,7 +88,7 @@ class Minz_ModelPdo {
 			self::$sharedPdo = $this->pdo;
 		} catch (Exception $e) {
 			throw new Minz_PDOConnectionException(
-				$string,
+				$dsn,
 				$db['user'], Minz_Exception::ERROR
 			);
 		}

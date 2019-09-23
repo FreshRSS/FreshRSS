@@ -78,69 +78,24 @@ function generateSalt() {
 	return sha1(uniqid(mt_rand(), true).implode('', stat(__FILE__)));
 }
 
-function checkDb(&$dbOptions) {
-	$dsn = '';
-	$driver_options = null;
-	prepareSyslog();
-	try {	//TODO: Use MinzPDO
-		switch ($dbOptions['type']) {
-		case 'mysql':
-			include_once(APP_PATH . '/SQL/install.sql.mysql.php');
-			$driver_options = array(
-				PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8mb4'
-			);
-			try {	// on ouvre une connexion juste pour créer la base si elle n'existe pas
-				$dsn = 'mysql:host=' . $dbOptions['host'] . ';';
-				$c = new PDO($dsn, $dbOptions['user'], $dbOptions['password'], $driver_options);
-				$sql = sprintf(SQL_CREATE_DB, $dbOptions['base']);
-				$res = $c->query($sql);
-			} catch (PDOException $e) {
-				syslog(LOG_DEBUG, 'FreshRSS MySQL warning: ' . $e->getMessage());
-			}
-			// on écrase la précédente connexion en sélectionnant la nouvelle BDD
-			$dsn = 'mysql:host=' . $dbOptions['host'] . ';dbname=' . $dbOptions['base'];
-			break;
-		case 'sqlite':
-			include_once(APP_PATH . '/SQL/install.sql.sqlite.php');
-			$path = join_path(USERS_PATH, $dbOptions['default_user']);
-			if (!is_dir($path)) {
-				mkdir($path);
-			}
-			$dsn = 'sqlite:' . join_path($path, 'db.sqlite');
-			$driver_options = array(
-				PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-			);
-			break;
-		case 'pgsql':
-			include_once(APP_PATH . '/SQL/install.sql.pgsql.php');
-			$driver_options = array(
-				PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-			);
-			try {	// on ouvre une connexion juste pour créer la base si elle n'existe pas
-				$dsn = 'pgsql:host=' . $dbOptions['host'] . ';dbname=postgres';
-				$c = new PDO($dsn, $dbOptions['user'], $dbOptions['password'], $driver_options);
-				$sql = sprintf(SQL_CREATE_DB, $dbOptions['base']);
-				$res = $c->query($sql);
-			} catch (PDOException $e) {
-				syslog(LOG_DEBUG, 'FreshRSS PostgreSQL warning: ' . $e->getMessage());
-			}
-			// on écrase la précédente connexion en sélectionnant la nouvelle BDD
-			$dsn = 'pgsql:host=' . $dbOptions['host'] . ';dbname=' . $dbOptions['base'];
-			break;
-		default:
-			return false;
-		}
-
-		$c = new PDO($dsn, $dbOptions['user'], $dbOptions['password'], $driver_options);
-		$res = $c->query('SELECT 1');
-	} catch (PDOException $e) {
-		$dsn = '';
-		syslog(LOG_DEBUG, 'FreshRSS SQL warning: ' . $e->getMessage());
-		$dbOptions['error'] = $e->getMessage();
+function checkDb() {
+	$conf = FreshRSS_Context::$system_conf;
+	$db = $conf->db;
+	if (empty($db['pdo_options'])) {
+		$db['pdo_options'] = [];
 	}
-	$dbOptions['dsn'] = $dsn;
-	$dbOptions['options'] = $driver_options;
-	return $dsn != '';
+	$db['pdo_options'][PDO::ATTR_ERRMODE] = PDO::ERRMODE_EXCEPTION;
+	$dbBase = isset($db['base']) ? $db['base'] : '';
+
+	$db['base'] = '';	//First connection without database name to create the database
+	Minz_ModelPdo::$usesSharedPdo = false;
+	$databaseDAO = FreshRSS_Factory::createDatabaseDAO();
+	$databaseDAO->create();
+
+	$db['base'] = $dbBase;	//New connection with the database name
+	$databaseDAO = FreshRSS_Factory::createDatabaseDAO();
+	Minz_ModelPdo::$usesSharedPdo = true;
+	return $databaseDAO->testConnection();
 }
 
 function deleteInstall() {

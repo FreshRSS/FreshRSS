@@ -106,7 +106,7 @@ function saveStep1() {
 function saveStep2() {
 	if (!empty($_POST)) {
 		if ($_SESSION['bd_type'] === 'sqlite') {
-			$_SESSION['bd_base'] = $_SESSION['default_user'];
+			$_SESSION['bd_base'] = '';
 			$_SESSION['bd_host'] = '';
 			$_SESSION['bd_user'] = '';
 			$_SESSION['bd_password'] = '';
@@ -152,10 +152,13 @@ function saveStep2() {
 			$config_array['auth_type'] = $_SESSION['auth_type'];
 		}
 
-		@unlink(join_path(DATA_PATH, 'config.php'));	//To avoid access-rights problems
-		file_put_contents(join_path(DATA_PATH, 'config.php'), "<?php\n return " . var_export($config_array, true) . ";\n");
+		@unlink(DATA_PATH . '/config.php');	//To avoid access-rights problems
+		file_put_contents(DATA_PATH . '/config.php', "<?php\n return " . var_export($config_array, true) . ";\n");
 
-		$ok = checkDb($config_array['db']);
+		Minz_Configuration::register('system', DATA_PATH . '/config.php', FRESHRSS_PATH . '/config.default.php');
+		FreshRSS_Context::$system_conf = Minz_Configuration::get('system');
+
+		$ok = checkDb();
 		if (!$ok) {
 			@unlink(join_path(DATA_PATH, 'config.php'));
 		}
@@ -163,8 +166,8 @@ function saveStep2() {
 		if ($ok) {
 			$_SESSION['bd_error'] = '';
 			header('Location: index.php?step=3');
-		} else {
-			$_SESSION['bd_error'] = empty($config_array['db']['error']) ? 'Unknown error!' : $config_array['db']['error'];
+		} elseif (empty($_SESSION['bd_error'])) {
+			$_SESSION['bd_error'] = 'Unknown error!';
 		}
 	}
 	invalidateHttpCache();
@@ -216,14 +219,11 @@ function saveStep3() {
 				'',
 				[
 					'language' => $_SESSION['language'],
-					'theme' => $user_default_config->theme,
 					'old_entries' => $_SESSION['old_entries'],
-					'passwordHash' => $_SESSION['passwordHash'],
-					'token' => '',
 				]
 			);
 		} catch (Exception $e) {
-			$dbOptions['error'] = $e->getMessage();
+			$_SESSION['bd_error'] = $e->getMessage();
 			$ok = false;
 		}
 		if (!$ok) {
@@ -314,10 +314,7 @@ function checkStep3() {
 	$conf = !empty($_SESSION['old_entries']) &&
 	        !empty($_SESSION['default_user']);
 
-	$form = (
-		isset($_SESSION['auth_type']) &&
-		($_SESSION['auth_type'] != 'form' || !empty($_SESSION['passwordHash']))
-	);
+	$form = isset($_SESSION['auth_type']);
 
 	$defaultUser = empty($_POST['default_user']) ? null : $_POST['default_user'];
 	if ($defaultUser === null) {

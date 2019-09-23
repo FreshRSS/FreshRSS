@@ -82,10 +82,9 @@ if (file_put_contents(join_path(DATA_PATH, 'config.php'),
 	fail('FreshRSS could not write configuration file!: ' . join_path(DATA_PATH, 'config.php'));
 }
 
-$config['db']['default_user'] = $config['default_user'];
-if (!checkDb($config['db'])) {
+if (!checkDb()) {
 	@unlink(join_path(DATA_PATH, 'config.php'));
-	fail('FreshRSS database error: ' . (empty($config['db']['error']) ? 'Unknown error' : $config['db']['error']));
+	fail('FreshRSS database error: ' . (empty($_SESSION['bd_error']) ? 'Unknown error' : $_SESSION['bd_error']));
 }
 
 echo '• Remember to create the default user: ', $config['default_user'] , "\n",

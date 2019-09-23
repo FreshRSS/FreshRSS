@@ -14,6 +14,33 @@ class FreshRSS_DatabaseDAO extends Minz_ModelPdo {
 	//https://dev.mysql.com/doc/refman/8.0/en/innodb-restrictions.html
 	const LENGTH_INDEX_UNICODE = 191;
 
+	public function create() {
+		require_once(APP_PATH . '/SQL/install.sql.' . $this->pdo->dbType() . '.php');
+		$db = FreshRSS_Context::$system_conf->db;
+
+		try {
+			$sql = sprintf(SQL_CREATE_DB, empty($db['base']) ? '' : $db['base']);
+			return $this->pdo->exec($sql) !== false;
+		} catch (PDOException $e) {
+			$_SESSION['bd_error'] = $e->getMessage();
+			syslog(LOG_DEBUG, __method__ . ' warning: ' . $e->getMessage());
+			return false;
+		}
+	}
+
+	public function testConnection() {
+		try {
+			$sql = 'SELECT 1';
+			$stm = $this->pdo->query($sql);
+			$res = $stm->fetchAll(PDO::FETCH_COLUMN, 0);
+			return $res != false;
+		} catch (PDOException $e) {
+			$_SESSION['bd_error'] = $e->getMessage();
+			syslog(LOG_DEBUG, __method__ . ' warning: ' . $e->getMessage());
+			return false;
+		}
+	}
+
 	public function tablesAreCorrect() {
 		$stm = $this->pdo->query('SHOW TABLES');
 		$res = $stm->fetchAll(PDO::FETCH_ASSOC);
