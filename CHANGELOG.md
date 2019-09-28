@@ -11,6 +11,8 @@
 		* Including default feeds [#2515](https://github.com/FreshRSS/FreshRSS/pull/2515)
 	* Add support for terms of service [#2520](https://github.com/FreshRSS/FreshRSS/pull/2520)
 	* Add sharing with [Lemmy](https://github.com/dessalines/lemmy) [#2510](https://github.com/FreshRSS/FreshRSS/pull/2510)
+* API
+	* Add support for [Reeder-4](https://www.reederapp.com/) client [#2513](https://github.com/FreshRSS/FreshRSS/issues/2513)
 * Compatibility
 	* Require at least PHP 5.6+ [#2495](https://github.com/FreshRSS/FreshRSS/pull/2495), [#2527](https://github.com/FreshRSS/FreshRSS/pull/2527)
 	* Require `php-json` and remove remove `JSON.php` fallback [#2528](https://github.com/FreshRSS/FreshRSS/pull/2528)
@@ -322,8 +324,8 @@
 
 * API
 	* Add support for Fever compatible API, enabling more clients [#1406](https://github.com/FreshRSS/FreshRSS/pull/1406)
-		* iOS: [Fiery Feeds](https://itunes.apple.com/app/fiery-feeds-rss-reader/id1158763303), [Unread](https://itunes.apple.com/app/unread-rss-reader/id1252376153)
-		* MacOS: [Readkit](https://itunes.apple.com/app/readkit/id588726889)
+		* iOS: [Fiery Feeds](https://apps.apple.com/app/fiery-feeds-rss-reader/id1158763303), [Unread](https://apps.apple.com/app/unread-rss-reader/id1252376153)
+		* MacOS: [Readkit](https://apps.apple.com/app/readkit/id588726889)
 * Features
 	* Several per-feed options (implemented in JSON) [#1838](https://github.com/FreshRSS/FreshRSS/pull/1838)
 		* Mark updated articles as read [#891](https://github.com/FreshRSS/FreshRSS/issues/891)

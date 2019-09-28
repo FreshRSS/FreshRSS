@@ -67,10 +67,13 @@ Tout client supportant une API de type Google Reader. Sélection :
 	* [EasyRSS](https://github.com/Alkarex/EasyRSS) (Libre, F-Droid)
 * Linux
 	* [FeedReader 2.0+](https://jangernert.github.io/FeedReader/) (Libre)
+* iOS
+	* [Reeder-4](https://apps.apple.com/app/reeder-4/id1449412357) (Commercial)
 * MacOS
 	* [Vienna RSS](http://www.vienna-rss.com/) (Libre)
 * Firefox
 	* [FreshRSS-Notify](https://addons.mozilla.org/fr/firefox/addon/freshrss-notify-webextension/) (Libre)
+
 
 # API compatible Google Reader
 
