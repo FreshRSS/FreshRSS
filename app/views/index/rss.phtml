@@ -17,7 +17,7 @@ foreach ($this->entries as $item) {
 				$authors = $item->authors();
 				if (is_array($authors)) {
 					foreach ($authors as $author) {
-						echo "\t\t\t" , '<author>', $author, '</author>', "\n";
+						echo "\t\t\t" , '<dc:creator>', $author, '</dc:creator>', "\n";
 					}
 				}
 				$categories = $item->tags();
