@@ -187,6 +187,8 @@ Tout client supportant une API de type Google Reader ; Sélection :
 	* [EasyRSS](https://github.com/Alkarex/EasyRSS) (Libre, [F-Droid](https://f-droid.org/fr/packages/org.freshrss.easyrss/))
 * GNU/Linux
 	* [FeedReader 2.0+](https://jangernert.github.io/FeedReader/) (Libre)
+* iOS
+	* [Reeder-4](https://www.reederapp.com/) (Commercial)
 * MacOS
 	* [Vienna RSS](http://www.vienna-rss.com/) (Libre)
 
@@ -199,11 +201,10 @@ Tout client supportant une API de type Fever ; Sélection :
 * Android
 	* [Readably](https://play.google.com/store/apps/details?id=com.isaiasmatewos.readably) (Propriétaire)
 * iOS
-	* [Fiery Feeds](https://itunes.apple.com/app/fiery-feeds-rss-reader/id1158763303) (Propriétaire)
-	* [Unread](https://itunes.apple.com/app/unread-rss-reader/id1252376153) (Propriétaire)
-	* [Reeder-3](https://itunes.apple.com/app/reeder-3/id697846300) (Propriétaire)
+	* [Fiery Feeds](https://apps.apple.com/app/fiery-feeds-rss-reader/id1158763303) (Propriétaire)
+	* [Unread](https://apps.apple.com/app/unread-rss-reader/id1252376153) (Commercial)
 * MacOS
-	* [Readkit](https://itunes.apple.com/app/readkit/id588726889) (Propriétaire)
+	* [Readkit](https://apps.apple.com/app/readkit/id588726889) (Commercial)
 
 
 # Bibliothèques incluses
