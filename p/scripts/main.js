@@ -1465,6 +1465,7 @@ function init_afterDOM() {
 		init_posts();
 		init_nav_entries();
 		init_notifs_html5();
+		setTimeout(faviconNbUnread, 1000);
 		setInterval(refreshUnreads, 120000);
 	}
 
