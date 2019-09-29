@@ -211,16 +211,15 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 		}
 	}
 
-	public static function createUser($new_user_name, $email, $passwordPlain, $apiPasswordPlain, $userConfigOverride = array(), $insertDefaultFeeds = true) {
-		$userConfig = array();
+	public static function createUser($new_user_name, $email, $passwordPlain, $apiPasswordPlain = '', $userConfigOverride = [], $insertDefaultFeeds = true) {
+		$userConfig = [];
 
 		$customUserConfigPath = join_path(DATA_PATH, 'config-user.custom.php');
 		if (file_exists($customUserConfigPath)) {
 			$customUserConfig = include($customUserConfigPath);
-		}
-
-		if (is_array($customUserConfig)) {
-			$userConfig = $customUserConfig;
+			if (is_array($customUserConfig)) {
+				$userConfig = $customUserConfig;
+			}
 		}
 
 		if (is_array($userConfigOverride)) {
@@ -249,7 +248,7 @@ class FreshRSS_user_Controller extends Minz_ActionController {
 		}
 		if ($ok) {
 			$newUserDAO = FreshRSS_Factory::createUserDao($new_user_name);
-			$ok &= $newUserDAO->createUser($userConfig['language'], $insertDefaultFeeds);
+			$ok &= $newUserDAO->createUser($insertDefaultFeeds);
 			$ok &= self::updateUser($new_user_name, $email, $passwordPlain, $apiPasswordPlain);
 		}
 		return $ok;

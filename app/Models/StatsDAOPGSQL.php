@@ -47,14 +47,13 @@ class FreshRSS_StatsDAOPGSQL extends FreshRSS_StatsDAO {
 		$sql = <<<SQL
 SELECT extract( {$period} from to_timestamp(e.date)) AS period
 , COUNT(1) AS count
-FROM "{$this->prefix}entry" AS e
+FROM `_entry` AS e
 {$restrict}
 GROUP BY period
 ORDER BY period ASC
 SQL;
 
-		$stm = $this->bd->prepare($sql);
-		$stm->execute();
+		$stm = $this->pdo->query($sql);
 		$res = $stm->fetchAll(PDO::FETCH_NAMED);
 
 		foreach ($res as $value) {

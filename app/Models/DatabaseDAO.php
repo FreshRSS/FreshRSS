@@ -14,19 +14,44 @@ class FreshRSS_DatabaseDAO extends Minz_ModelPdo {
 	//https://dev.mysql.com/doc/refman/8.0/en/innodb-restrictions.html
 	const LENGTH_INDEX_UNICODE = 191;
 
+	public function create() {
+		require_once(APP_PATH . '/SQL/install.sql.' . $this->pdo->dbType() . '.php');
+		$db = FreshRSS_Context::$system_conf->db;
+
+		try {
+			$sql = sprintf(SQL_CREATE_DB, empty($db['base']) ? '' : $db['base']);
+			return $this->pdo->exec($sql) !== false;
+		} catch (PDOException $e) {
+			$_SESSION['bd_error'] = $e->getMessage();
+			syslog(LOG_DEBUG, __method__ . ' warning: ' . $e->getMessage());
+			return false;
+		}
+	}
+
+	public function testConnection() {
+		try {
+			$sql = 'SELECT 1';
+			$stm = $this->pdo->query($sql);
+			$res = $stm->fetchAll(PDO::FETCH_COLUMN, 0);
+			return $res != false;
+		} catch (PDOException $e) {
+			$_SESSION['bd_error'] = $e->getMessage();
+			syslog(LOG_DEBUG, __method__ . ' warning: ' . $e->getMessage());
+			return false;
+		}
+	}
+
 	public function tablesAreCorrect() {
-		$sql = 'SHOW TABLES';
-		$stm = $this->bd->prepare($sql);
-		$stm->execute();
+		$stm = $this->pdo->query('SHOW TABLES');
 		$res = $stm->fetchAll(PDO::FETCH_ASSOC);
 
 		$tables = array(
-			$this->prefix . 'category' => false,
-			$this->prefix . 'feed' => false,
-			$this->prefix . 'entry' => false,
-			$this->prefix . 'entrytmp' => false,
-			$this->prefix . 'tag' => false,
-			$this->prefix . 'entrytag' => false,
+			$this->pdo->prefix() . 'category' => false,
+			$this->pdo->prefix() . 'feed' => false,
+			$this->pdo->prefix() . 'entry' => false,
+			$this->pdo->prefix() . 'entrytmp' => false,
+			$this->pdo->prefix() . 'tag' => false,
+			$this->pdo->prefix() . 'entrytag' => false,
 		);
 		foreach ($res as $value) {
 			$tables[array_pop($value)] = true;
@@ -36,10 +61,8 @@ class FreshRSS_DatabaseDAO extends Minz_ModelPdo {
 	}
 
 	public function getSchema($table) {
-		$sql = 'DESC ' . $this->prefix . $table;
-		$stm = $this->bd->prepare($sql);
-		$stm->execute();
-
+		$sql = 'DESC `_' . $table . '`';
+		$stm = $this->pdo->query($sql);
 		return $this->listDaoToSchema($stm->fetchAll(PDO::FETCH_ASSOC));
 	}
 
@@ -119,9 +142,9 @@ class FreshRSS_DatabaseDAO extends Minz_ModelPdo {
 		$values = array($db['base']);
 		if (!$all) {
 			$sql .= ' AND table_name LIKE ?';
-			$values[] = $this->prefix . '%';
+			$values[] = $this->pdo->prefix() . '%';
 		}
-		$stm = $this->bd->prepare($sql);
+		$stm = $this->pdo->prepare($sql);
 		$stm->execute($values);
 		$res = $stm->fetchAll(PDO::FETCH_COLUMN, 0);
 		return $res[0];
@@ -132,29 +155,23 @@ class FreshRSS_DatabaseDAO extends Minz_ModelPdo {
 		$tables = array('category', 'feed', 'entry', 'entrytmp', 'tag', 'entrytag');
 
 		foreach ($tables as $table) {
-			$sql = 'OPTIMIZE TABLE `' . $this->prefix . $table . '`';	//MySQL
-			$stm = $this->bd->prepare($sql);
-			$ok &= $stm != false;
-			if ($stm) {
-				$ok &= $stm->execute();
-			}
+			$sql = 'OPTIMIZE TABLE `_' . $table . '`';	//MySQL
+			$ok &= ($this->pdo->exec($sql) !== false);
 		}
 		return $ok;
 	}
 
 	public function ensureCaseInsensitiveGuids() {
 		$ok = true;
-		if ($this->bd->dbType() === 'mysql') {
+		if ($this->pdo->dbType() === 'mysql') {
 			include_once(APP_PATH . '/SQL/install.sql.mysql.php');
-			if (defined('SQL_UPDATE_GUID_LATIN1_BIN')) {	//FreshRSS 1.12
-				try {
-					$sql = sprintf(SQL_UPDATE_GUID_LATIN1_BIN, $this->prefix);
-					$stm = $this->bd->prepare($sql);
-					$ok = $stm->execute();
-				} catch (Exception $e) {
-					$ok = false;
-					Minz_Log::error(__METHOD__ . ' error: ' . $e->getMessage());
-				}
+
+			$ok = false;
+			try {
+				$ok = $this->pdo->exec(SQL_UPDATE_GUID_LATIN1_BIN) !== false;	//FreshRSS 1.12
+			} catch (Exception $e) {
+				$ok = false;
+				Minz_Log::error(__METHOD__ . ' error: ' . $e->getMessage());
 			}
 		}
 		return $ok;
@@ -195,7 +212,7 @@ class FreshRSS_DatabaseDAO extends Minz_ModelPdo {
 					$error = 'Error: SQLite import file is not readable: ' . $filename;
 				} elseif ($clearFirst) {
 					$userDAO->deleteUser();
-					if ($this->bd->dbType() === 'sqlite') {
+					if ($this->pdo->dbType() === 'sqlite') {
 						//We cannot just delete the .sqlite file otherwise PDO gets buggy.
 						//SQLite is the only one with database-level optimization, instead of at table level.
 						$this->optimize();
@@ -219,18 +236,17 @@ class FreshRSS_DatabaseDAO extends Minz_ModelPdo {
 
 		try {
 			$sqlite = new MinzPDOSQLite('sqlite:' . $filename);
-			$sqlite->exec('PRAGMA foreign_keys = ON;');
 		} catch (Exception $e) {
 			$error = 'Error while initialising SQLite copy: ' . $e->getMessage();
 			return self::stdError($error);
 		}
 
 		Minz_ModelPdo::clean();
-		$userDAOSQLite = new FreshRSS_UserDAO('', '', $sqlite);
-		$categoryDAOSQLite = new FreshRSS_CategoryDAO('', '', $sqlite);
-		$feedDAOSQLite = new FreshRSS_FeedDAOSQLite('', '', $sqlite);
-		$entryDAOSQLite = new FreshRSS_EntryDAOSQLite('', '', $sqlite);
-		$tagDAOSQLite = new FreshRSS_TagDAOSQLite('', '', $sqlite);
+		$userDAOSQLite = new FreshRSS_UserDAO('', $sqlite);
+		$categoryDAOSQLite = new FreshRSS_CategoryDAO('', $sqlite);
+		$feedDAOSQLite = new FreshRSS_FeedDAOSQLite('', $sqlite);
+		$entryDAOSQLite = new FreshRSS_EntryDAOSQLite('', $sqlite);
+		$tagDAOSQLite = new FreshRSS_TagDAOSQLite('', $sqlite);
 
 		switch ($mode) {
 			case self::SQLITE_EXPORT:
