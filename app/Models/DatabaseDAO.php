@@ -168,10 +168,7 @@ class FreshRSS_DatabaseDAO extends Minz_ModelPdo {
 
 			$ok = false;
 			try {
-				$ok = true;
-				foreach (SQL_UPDATE_GUID_LATIN1_BIN as $sql) {	//FreshRSS 1.12
-					$ok &= ($this->pdo->exec($sql) !== false);
-				}
+				$ok = $this->pdo->exec(SQL_UPDATE_GUID_LATIN1_BIN) !== false;	//FreshRSS 1.12
 			} catch (Exception $e) {
 				$ok = false;
 				Minz_Log::error(__METHOD__ . ' error: ' . $e->getMessage());

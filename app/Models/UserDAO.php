@@ -5,22 +5,18 @@ class FreshRSS_UserDAO extends Minz_ModelPdo {
 		require_once(APP_PATH . '/SQL/install.sql.' . $this->pdo->dbType() . '.php');
 
 		try {
-			$ok = false;
-			$instructions = array_merge(SQL_CREATE_TABLES, SQL_CREATE_TABLE_ENTRYTMP, SQL_CREATE_TABLE_TAGS);
-			$ok = true;
-			foreach ($instructions as $sql) {
-				$ok &= ($this->pdo->exec($sql) !== false);
-			}
+			$sql = SQL_CREATE_TABLES . SQL_CREATE_TABLE_ENTRYTMP . SQL_CREATE_TABLE_TAGS;
+			$ok = $this->pdo->exec($sql) !== false;	//Note: Only exec() can take multiple statements safely.
 			if ($ok && $insertDefaultFeeds) {
 				$default_feeds = FreshRSS_Context::$system_conf->default_feeds;
 				$stm = $this->pdo->prepare(SQL_INSERT_FEED);
 				foreach ($default_feeds as $feed) {
-					$parameters = array(
+					$parameters = [
 						':url' => $feed['url'],
 						':name' => $feed['name'],
 						':website' => $feed['website'],
 						':description' => $feed['description'],
-					);
+					];
 					$ok &= ($stm && $stm->execute($parameters));
 				}
 			}
@@ -44,10 +40,7 @@ class FreshRSS_UserDAO extends Minz_ModelPdo {
 
 		require_once(APP_PATH . '/SQL/install.sql.' . $this->pdo->dbType() . '.php');
 
-		$ok = true;
-		foreach (SQL_DROP_TABLES as $sql) {
-			$ok &= ($this->pdo->exec($sql) !== false);
-		}
+		$ok = $this->pdo->exec(SQL_DROP_TABLES) !== false;
 
 		if ($ok) {
 			return true;

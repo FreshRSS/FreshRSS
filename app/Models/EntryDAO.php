@@ -28,10 +28,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 		try {
 			require_once(APP_PATH . '/SQL/install.sql.' . $this->pdo->dbType() . '.php');
 			Minz_Log::warning('SQL CREATE TABLE entrytmp...');
-			$ok = true;
-			foreach (SQL_CREATE_TABLE_ENTRYTMP as $sql) {
-				$ok &= ($this->pdo->exec($sql) !== false);
-			}
+			$ok = $this->pdo->exec(SQL_CREATE_TABLE_ENTRYTMP) !== false;
 		} catch (Exception $e) {
 			Minz_Log::error('FreshRSS_EntryDAO::createEntryTempTable error: ' . $e->getMessage());
 		}
@@ -119,7 +116,6 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 	}
 
 	public function commitNewEntries() {
-		//MySQL-specific	//TODO: Check, might have to be split in multiple commands
 		$sql = <<<'SQL'
 SET @rank=(SELECT MAX(id) - COUNT(*) FROM `_entrytmp`);
 
