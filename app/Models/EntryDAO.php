@@ -466,7 +466,7 @@ SQL;
 				 . ' WHERE id=:id';
 			$stm = $this->pdo->prepare($sql);
 			$stm->bindParam(':id', $id_feed, PDO::PARAM_INT);
-			if (!($stm && $stm->execute($values))) {
+			if (!($stm && $stm->execute())) {
 				$info = $stm == null ? array(2 => 'syntax error') : $stm->errorInfo();
 				Minz_Log::error('SQL error markReadFeed cache: ' . $info[2]);
 				$this->pdo->rollBack();
