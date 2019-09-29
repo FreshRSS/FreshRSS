@@ -21,15 +21,15 @@ Then point your mobile application to the URL of `fever.php` (e.g. `https://fres
 Tested with:
 
 - Android
-  - [Readably](https://play.google.com/store/apps/details?id=com.isaiasmatewos.readably)
+  - [Readably](https://play.google.com/store/apps/details?id=com.isaiasmatewos.readably) (Closed source)
 
 - iOS
-  - [Fiery Feeds](https://itunes.apple.com/app/fiery-feeds-rss-reader/id1158763303)
-  - [Unread](https://itunes.apple.com/app/unread-rss-reader/id1252376153)
-  - [Reeder-4](https://itunes.apple.com/app/reeder-4/id1449412357)
+  - [Fiery Feeds](https://apps.apple.com/app/fiery-feeds-rss-reader/id1158763303) (Closed source)
+  - [Unread](https://apps.apple.com/app/unread-rss-reader/id1252376153) (Commercial)
+  - [Reeder](https://www.reederapp.com/) (Commercial) (Use its Google Reader API option instead)
 
 - MacOS
-  - [Readkit](https://itunes.apple.com/app/readkit/id588726889)
+  - [Readkit](https://apps.apple.com/app/readkit/id588726889) (Commercial)
 
 
 ## Features

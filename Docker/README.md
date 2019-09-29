@@ -36,7 +36,7 @@ docker run -d --restart unless-stopped --log-opt max-size=10m \
   --net freshrss-network \
   -p 80:80 \
   -p 443:443 \
-  --name traefik traefik --docker \
+  --name traefik traefik:1.7 --docker \
   --loglevel=info \
   --entryPoints='Name:http Address::80 Compress:true Redirect.EntryPoint:https' \
   --entryPoints='Name:https Address::443 Compress:true TLS TLS.MinVersion:VersionTLS12 TLS.SniStrict:true TLS.CipherSuites:TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384,TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA' \

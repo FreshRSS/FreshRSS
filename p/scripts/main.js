@@ -1397,9 +1397,10 @@ function faviconNbUnread(n) {
 	}
 	//http://remysharp.com/2010/08/24/dynamic-favicons/
 	const canvas = document.createElement('canvas'),
-		link = document.getElementById('favicon').cloneNode(true);
+		link = document.getElementById('favicon').cloneNode(true),
+		ratio = window.devicePixelRatio;
 	if (canvas.getContext && link) {
-		canvas.height = canvas.width = 16;
+		canvas.height = canvas.width = 16 * ratio;
 		const img = document.createElement('img');
 		img.onload = function () {
 			const ctx = canvas.getContext('2d');
@@ -1413,9 +1414,9 @@ function faviconNbUnread(n) {
 				} else {
 					text = 'E' + Math.floor(Math.log10(n));
 				}
-				ctx.font = 'bold 9px "Arial", sans-serif';
+				ctx.font = 'bold ' + 9 * ratio + 'px "Arial", sans-serif';
 				ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
-				ctx.fillRect(0, 7, ctx.measureText(text).width, 9);
+				ctx.fillRect(0, 7 * ratio, ctx.measureText(text).width, 9 * ratio);
 				ctx.fillStyle = '#F00';
 				ctx.fillText(text, 0, canvas.height - 1);
 			}
