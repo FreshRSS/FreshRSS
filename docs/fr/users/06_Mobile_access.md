@@ -45,7 +45,7 @@ Voir la [page sur l’API compatible Fever](06_Fever_API.md) pour une autre poss
 
 6. Vous pouvez maintenant tester sur une application mobile (News+, FeedMe, ou EasyRSS sur Android)
 	* en utilisant comme adresse https://rss.example.net/api/greader.php ou http://example.net/FreshRSS/p/api/greader.php selon la configuration de votre site Web.
-	* ⚠️ attention aux majuscules et aux espaces en tapant l’adresse avec le clavier du mobile ⚠️ 
+	* ⚠️ attention aux majuscules et aux espaces en tapant l’adresse avec le clavier du mobile ⚠️
 	* avec votre nom d’utilisateur et le mot de passe enregistré au point 2 (mot de passe API).
 
 
@@ -53,7 +53,7 @@ Voir la [page sur l’API compatible Fever](06_Fever_API.md) pour une autre poss
 
  * Vous pouvez voir les logs API dans `./FreshRSS/data/users/_/log_api.txt`
  * Si vous avez une erreur 404 (fichier non trouvé) lors de l’étape de test, et que vous êtes sous Apache,
- voir http://httpd.apache.org/docs/trunk/mod/core.html#allowencodedslashes pour utiliser News+ 
+ voir http://httpd.apache.org/docs/trunk/mod/core.html#allowencodedslashes pour utiliser News+
 (facultatif pour EasyRSS et FeedMe qui devraient fonctionner dès lors que vous obtenez un PASS au test *Check partial server configuration*).
 
 

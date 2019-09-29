@@ -57,7 +57,7 @@ Chaque opérateur est entouré d'espaces.
 
 ```php
 if ($a == 10) {
-    // faire quelque chose
+	// faire quelque chose
 }
 
 echo $a ? 1 : 0;
@@ -69,11 +69,11 @@ Il n'y a pas d'espaces entre des parenthèses. Il n'y a pas d'espaces avant une 
 
 ```php
 if ($a == 10) {
-    // faire quelque chose
+	// faire quelque chose
 }
 
 if ((int)$a == 10) {
-    // faire quelque chose
+	// faire quelque chose
 }
 ```
 
@@ -84,16 +84,16 @@ Ce cas se présente le plus souvent en Javascript. Quand on a des fonctions chai
 ```javascript
 // Première instruction
 shortcut.add(shortcuts.mark_read, function () {
-        //...
-    }, {
-        'disable_in_input': true
-    });
+		//...
+	}, {
+		'disable_in_input': true
+	});
 // Deuxième instruction
 shortcut.add("shift+" + shortcuts.mark_read, function () {
-        //...
-    }, {
-        'disable_in_input': true
-    });
+		//...
+	}, {
+		'disable_in_input': true
+	});
 ```
 
 ## Longueur des lignes
@@ -105,7 +105,7 @@ Dans le cas des fonctions, les paramètres peuvent être déclarés sur plusieur
 ```php
 function ma_fonction($param_1, $param_2,
                      $param_3, $param_4) {
-    // faire quelque chose
+	// faire quelque chose
 }
 ```
 
@@ -120,7 +120,7 @@ Les fonctions et les variables doivent suivre la convention "snake case".
 ```php
 // une fontion
 function nom_de_la_fontion() {
-    // faire quelque chose
+	// faire quelque chose
 }
 // une variable
 $nom_de_la_variable;
@@ -132,7 +132,7 @@ Les méthodes doivent suivre la convention "lower camel case".
 
 ```php
 private function nomDeLaMethode() {
-    // faire quelque chose
+	// faire quelque chose
 }
 ```
 
@@ -160,7 +160,7 @@ Les opérateurs doivent être en fin de ligne dans le cas de conditions sur plus
 ```php
 if ($a == 10 ||
     $a == 20) {
-    // faire quelque chose
+	// faire quelque chose
 }
 ```
 
@@ -173,9 +173,9 @@ Si le fichier ne contient que du PHP, il ne doit pas comporter de balise fermant
 Lors de l'écriture de tableaux sur plusieurs lignes, tous les éléments doivent être suivis d'une virgule (même le dernier).
 
 ```php
-$variable = array(
-    "valeur 1",
-    "valeur 2",
-    "valeur 3",
-);
+$variable = [
+	"valeur 1",
+	"valeur 2",
+	"valeur 3",
+];
 ```

@@ -139,9 +139,9 @@ return array(
 		'method' => 'GET',
 	),
 	'lemmy' => array(
-                'url' => '~URL~/create_post?url=~LINK~&name=~TITLE~',
-                'transform' => array('rawurlencode'),
-                'form' => 'advanced',
-                'method' => 'GET',
-        ),
+		'url' => '~URL~/create_post?url=~LINK~&name=~TITLE~',
+		'transform' => array('rawurlencode'),
+		'form' => 'advanced',
+		'method' => 'GET',
+	),
 );

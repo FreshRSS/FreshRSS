@@ -522,7 +522,7 @@
 	* Simplified Chinese [#1541](https://github.com/FreshRSS/FreshRSS/pull/1541)
 	* Improve English [#1465](https://github.com/FreshRSS/FreshRSS/pull/1465)
 	* Improve Dutch [#1559](https://github.com/FreshRSS/FreshRSS/pull/1559)
-	* Added Spanish language [#1631] (https://github.com/FreshRSS/FreshRSS/pull/1631/) 
+	* Added Spanish language [#1631] (https://github.com/FreshRSS/FreshRSS/pull/1631/)
 * Security
 	* Do not require write access to check availability of new versions [#1450](https://github.com/FreshRSS/FreshRSS/issues/1450)
 * Misc.
@@ -548,7 +548,7 @@
 	* New command `./cli/reconfigure.php` to update an existing installation [#1439](https://github.com/FreshRSS/FreshRSS/pull/1439)
 	* Many CLI improvements [#1447](https://github.com/FreshRSS/FreshRSS/pull/1447)
 		* More information (number of feeds, articles, etc.) in `./cli/user-info.php`
-		* Better idempotency of `./cli/do-install.php` and language parameter [#1449](https://github.com/FreshRSS/FreshRSS/issues/1449) 
+		* Better idempotency of `./cli/do-install.php` and language parameter [#1449](https://github.com/FreshRSS/FreshRSS/issues/1449)
 * Bug fixing
 	* Fix several CLI issues [#1445](https://github.com/FreshRSS/FreshRSS/issues/1445)
 		* Fix CLI install bugs with SQLite [#1443](https://github.com/FreshRSS/FreshRSS/issues/1443), [#1448](https://github.com/FreshRSS/FreshRSS/issues/1448)

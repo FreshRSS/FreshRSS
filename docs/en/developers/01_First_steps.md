@@ -61,7 +61,7 @@ The `TAG` variable can be anything (e.g. `dev-local`). You can target a specific
 
 # Extensions
 
-If you want to create your own FreshRSS extension, take a look at the [extension documentation](03_Backend/05_Extensions.md).  
+If you want to create your own FreshRSS extension, take a look at the [extension documentation](03_Backend/05_Extensions.md).
 
 # Coding style
 
@@ -110,7 +110,7 @@ There is a space before and after every operator.
 
 ```php
 if ($a == 10) {
-    // do something
+	// do something
 }
 
 echo $a ? 1 : 0;
@@ -122,11 +122,11 @@ There is no spaces in the brackets. There is no space before the opening bracket
 
 ```php
 if ($a == 10) {
-    // do something
+	// do something
 }
 
 if ((int)$a == 10) {
-    // do something
+	// do something
 }
 ```
 
@@ -137,16 +137,16 @@ It happens most of the time in Javascript files. When there is chained functions
 ```javascript
 // First instruction
 shortcut.add(shortcuts.mark_read, function () {
-        //...
-    }, {
-        'disable_in_input': true
-    });
+		//...
+	}, {
+		'disable_in_input': true
+	});
 // Second instruction
 shortcut.add("shift+" + shortcuts.mark_read, function () {
-        //...
-    }, {
-        'disable_in_input': true
-    });
+		//...
+	}, {
+		'disable_in_input': true
+	});
 ```
 
 ## Line length
@@ -158,7 +158,7 @@ With functions, parameters can be declared on different lines.
 ```php
 function my_function($param_1, $param_2,
                      $param_3, $param_4) {
-    // do something
+	// do something
 }
 ```
 
@@ -173,7 +173,7 @@ They must follow the "snake case" convention.
 ```php
 // a function
 function function_name() {
-    // do something
+	// do something
 }
 // a variable
 $variable_name;
@@ -185,7 +185,7 @@ They must follow the "lower camel case" convention.
 
 ```php
 private function methodName() {
-    // do something
+	// do something
 }
 ```
 
@@ -213,7 +213,7 @@ They must be at the end of the line if a condition runs on more than one line.
 ```php
 if ($a == 10 ||
     $a == 20) {
-    // do something
+	// do something
 }
 ```
 
@@ -226,9 +226,9 @@ If the file contains only PHP code, the PHP closing tag must be omitted.
 If an array declaration runs on more than one line, each element must be followed by a comma even the last one.
 
 ```php
-$variable = array(
-    "value 1",
-    "value 2",
-    "value 3",
-);
+$variable = [
+	"value 1",
+	"value 2",
+	"value 3",
+];
 ```

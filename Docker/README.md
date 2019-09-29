@@ -48,7 +48,7 @@ docker run -d --restart unless-stopped --log-opt max-size=10m \
 See [more information about Docker and Let’s Encrypt in Træfik](https://docs.traefik.io/user-guide/docker-and-lets-encrypt/).
 
 
-## Run FreshRSS 
+## Run FreshRSS
 Example using the built-in refresh cron job (see further below for alternatives).
 You must first chose a domain (DNS) or sub-domain, e.g. `freshrss.example.net`.
 
