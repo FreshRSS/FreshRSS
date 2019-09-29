@@ -76,6 +76,10 @@ function multiplePosts($name) {	//https://bugs.php.net/bug.php?id=51633
 	return $result;
 }
 
+class MyPDO extends Minz_ModelPdo {
+	public $pdo;
+}
+
 function debugInfo() {
 	if (function_exists('getallheaders')) {
 		$ALL_HEADERS = getallheaders();
@@ -233,7 +237,7 @@ function userInfo() {	//https://github.com/theoldreader/api#user-info
 function tagList() {
 	header('Content-Type: application/json; charset=UTF-8');
 
-	$model = new Minz_ModelPdo();
+	$model = new MyPDO();
 	$stm = $model->pdo->query('SELECT c.name FROM `_category` c');
 	$res = $stm->fetchAll(PDO::FETCH_COLUMN, 0);
 
@@ -270,7 +274,7 @@ function tagList() {
 function subscriptionList() {
 	header('Content-Type: application/json; charset=UTF-8');
 
-	$model = new Minz_ModelPdo();
+	$model = new MyPDO();
 	$stm = $model->pdo->prepare('SELECT f.id, f.name, f.url, f.website, c.id as c_id, c.name as c_name FROM `_feed` f
 		INNER JOIN `_category` c ON c.id = f.category AND f.priority >= :priority_normal');
 	$stm->bindValue(':priority_normal', FreshRSS_Feed::PRIORITY_NORMAL, PDO::PARAM_INT);
