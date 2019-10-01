@@ -24,6 +24,7 @@
 * Bug fixing
 	* Fix missing PHP `opcache` package in Docker Alpine [#2498](https://github.com/FreshRSS/FreshRSS/pull/2498)
 	* Fix IE11 / Edge keyboard compatibility [#2507](https://github.com/FreshRSS/FreshRSS/pull/2507)
+	* Use <dc:creator> instead of <author> for RSS 2.0 outputs [#2542](https://github.com/FreshRSS/FreshRSS/pull/2542)
 * Security
 	* Fix referrer vulnerability when opening an article original link with a shortcut [#2506](https://github.com/FreshRSS/FreshRSS/pull/2506)
 	* Slight refactoring of access check [#2471](https://github.com/FreshRSS/FreshRSS/pull/2471)
@@ -38,6 +39,7 @@
 	* Additional hooks [#2482](https://github.com/FreshRSS/FreshRSS/pull/2482)
 	* New call to change the layout [#2467](https://github.com/FreshRSS/FreshRSS/pull/2467)
 * Misc.
+	* PDO (database) refactoring for code simplification [#2522](https://github.com/FreshRSS/FreshRSS/pull/2522)
 	* Automatic check of CSS syntax in Travis CI [#2477](https://github.com/FreshRSS/FreshRSS/pull/2477)
 	* Remove support for sharing with Google+ [#2464](https://github.com/FreshRSS/FreshRSS/pull/2464)
 	* Redirect connected users accessing registration page [#2530](https://github.com/FreshRSS/FreshRSS/pull/2530)
