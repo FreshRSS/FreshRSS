@@ -117,7 +117,7 @@ abstract class MinzPDO extends PDO {
 	public function __construct($dsn, $username = null, $passwd = null, $options = null) {
 		parent::__construct($dsn, $username, $passwd, $options);
 		$this->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
-    }
+	}
 
 	abstract public function dbType();
 
@@ -178,7 +178,7 @@ class MinzPDOSQLite extends MinzPDO {
 	public function __construct($dsn, $username = null, $passwd = null, $options = null) {
 		parent::__construct($dsn, $username, $passwd, $options);
 		$this->exec('PRAGMA foreign_keys = ON;');
-    }
+	}
 
 	public function dbType() {
 		return 'sqlite';
@@ -193,7 +193,7 @@ class MinzPDOPGSQL extends MinzPDO {
 	public function __construct($dsn, $username = null, $passwd = null, $options = null) {
 		parent::__construct($dsn, $username, $passwd, $options);
 		$this->exec("SET NAMES 'UTF8';");
-    }
+	}
 
 	public function dbType() {
 		return 'pgsql';

@@ -28,21 +28,20 @@
 		}
 	}
 	?><li class="item website"><a href="<?php echo _url('index', 'index', 'get', 'f_' . $this->feed->id()); ?>"><img class="favicon" src="<?php echo $this->feed->favicon(); ?>" alt="✇" /> <span><?php echo $this->feed->name(); ?></span></a></li>
-        <li class="item title"><a target="_blank" rel="noreferrer" href="<?php echo $this->entry->link(); ?>"><?php echo $this->entry->title(); ?></a><?php
-		if ($topline_display_authors) {
-                    ?><div class="item author">
-                    <?php 
-                    $authors = $this->entry->authors();
-                    if (is_array($authors)):
-                            $first = true;
-                            foreach ($authors as $author):
-                                    echo $first ? $author : ', ' . $author;
-                                    $first = false;
-                            endforeach;
-                    endif;		
-                    ?></div><?php
-                }
-        ?></li>
+	<li class="item title"><a target="_blank" rel="noreferrer" href="<?php echo $this->entry->link(); ?>"><?php echo $this->entry->title(); ?></a><?php
+		if ($topline_display_authors):
+			?><div class="item author"><?php
+			$authors = $this->entry->authors();
+			if (is_array($authors)) {
+				$first = true;
+				foreach ($authors as $author) {
+					echo $first ? $author : ', ' . $author;
+					$first = false;
+				}
+			}
+			?></div><?php
+		endif;
+	?></li>
 	<?php if ($topline_date) { ?><li class="item date"><?php echo $this->entry->date(); ?> </li><?php } ?>
 	<?php if ($topline_link) { ?><li class="item link"><a target="_blank" rel="noreferrer" href="<?php echo $this->entry->link(); ?>"><?php echo _i('link'); ?></a></li><?php } ?>
 </ul>
