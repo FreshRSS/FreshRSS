@@ -8,7 +8,7 @@ class FreshRSS_DatabaseDAO extends Minz_ModelPdo {
 	//MySQL error codes
 	const ER_BAD_FIELD_ERROR = '42S22';
 	const ER_BAD_TABLE_ERROR = '42S02';
-	const ER_TRUNCATED_WRONG_VALUE_FOR_FIELD = '1366';
+	const ER_DATA_TOO_LONG = '1406';
 
 	//MySQL InnoDB maximum index length for UTF8MB4
 	//https://dev.mysql.com/doc/refman/8.0/en/innodb-restrictions.html
