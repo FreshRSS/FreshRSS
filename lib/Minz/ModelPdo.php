@@ -47,6 +47,7 @@ class Minz_ModelPdo {
 		$driver_options = isset($db['pdo_options']) && is_array($db['pdo_options']) ? $db['pdo_options'] : [];
 		$dbServer = parse_url('db://' . $db['host']);
 		$dsn = '';
+		$dsnParams = empty($db['connection_uri_params']) ? '' : (';' . $db['connection_uri_params']);
 
 		try {
 			switch ($db['type']) {
@@ -59,12 +60,12 @@ class Minz_ModelPdo {
 						$dsn .= ';port=' . $dbServer['port'];
 					}
 					$driver_options[PDO::MYSQL_ATTR_INIT_COMMAND] = 'SET NAMES utf8mb4';
-					$this->pdo = new MinzPDOMySql($dsn, $db['user'], $db['password'], $driver_options);
+					$this->pdo = new MinzPDOMySql($dsn . $dsnParams, $db['user'], $db['password'], $driver_options);
 					$this->pdo->setPrefix($db['prefix'] . $currentUser . '_');
 					break;
 				case 'sqlite':
 					$dsn = 'sqlite:' . join_path(DATA_PATH, 'users', $currentUser, 'db.sqlite');
-					$this->pdo = new MinzPDOSQLite($dsn, $db['user'], $db['password'], $driver_options);
+					$this->pdo = new MinzPDOSQLite($dsn . $dsnParams, $db['user'], $db['password'], $driver_options);
 					$this->pdo->setPrefix('');
 					break;
 				case 'pgsql':
@@ -75,7 +76,7 @@ class Minz_ModelPdo {
 					if (!empty($dbServer['port'])) {
 						$dsn .= ';port=' . $dbServer['port'];
 					}
-					$this->pdo = new MinzPDOPGSQL($dsn, $db['user'], $db['password'], $driver_options);
+					$this->pdo = new MinzPDOPGSQL($dsn . $dsnParams, $db['user'], $db['password'], $driver_options);
 					$this->pdo->setPrefix($db['prefix'] . $currentUser . '_');
 					break;
 				default:
