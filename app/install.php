@@ -158,7 +158,13 @@ function saveStep2() {
 		Minz_Configuration::register('system', DATA_PATH . '/config.php', FRESHRSS_PATH . '/config.default.php');
 		FreshRSS_Context::$system_conf = Minz_Configuration::get('system');
 
-		$ok = checkDb();
+		$ok = false;
+		try {
+			$ok = checkDb();
+		} catch (Exception $ex) {
+			$_SESSION['bd_error'] = $ex->getMessage();
+			$ok = false;
+		}
 		if (!$ok) {
 			@unlink(join_path(DATA_PATH, 'config.php'));
 		}
