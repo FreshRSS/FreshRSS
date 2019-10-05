@@ -46,7 +46,7 @@ FreshRSS comes with absolutely no warranty.
 * PHP 5.6+ (PHP 7+ recommended for higher performance)
 	* Required extensions: [cURL](https://www.php.net/curl), [DOM](https://www.php.net/dom), [JSON](https://www.php.net/json), [XML](https://www.php.net/xml), [session](https://www.php.net/session), [ctype](https://www.php.net/ctype), and [PDO_MySQL](https://www.php.net/pdo-mysql) or [PDO_SQLite](https://www.php.net/pdo-sqlite) or [PDO_PGSQL](https://www.php.net/pdo-pgsql)
 	* Recommended extensions: [GMP](https://www.php.net/gmp) (for API access on 32-bit platforms), [IDN](https://www.php.net/intl.idn) (for Internationalized Domain Names), [mbstring](https://www.php.net/mbstring) (for Unicode strings), [iconv](https://www.php.net/iconv) (for charset conversion), [ZIP](https://www.php.net/zip) (for import/export), [zlib](https://www.php.net/zlib) (for compressed feeds)
-* MySQL 5.5.3+ (recommended) or MariaDB equivalent, or SQLite 3.7.4+, or PostgreSQL 9.2+
+* MySQL 5.5.3+ or MariaDB equivalent, or SQLite 3.7.4+, or PostgreSQL 9.5+
 
 
 # Releases
