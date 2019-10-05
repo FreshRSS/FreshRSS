@@ -57,7 +57,7 @@ CREATE TABLE IF NOT EXISTS `_entry` (
 	UNIQUE KEY (`id_feed`,`guid`),	-- v0.7
 	INDEX (`is_favorite`),	-- v0.7
 	INDEX (`is_read`),	-- v0.7
-	INDEX `entry_lastSeen_index` (`lastSeen`)	-- v1.1.1
+	INDEX `entry_lastSeen_index` (`lastSeen`),	-- v1.1.1
 	INDEX `entry_feed_read_index` (`id_feed`,`is_read`)	-- v1.7
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci
 ENGINE = INNODB;
