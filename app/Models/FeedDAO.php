@@ -330,7 +330,7 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 		if ($stm !== false) {
 			return self::daoToFeed($stm->fetchAll(PDO::FETCH_ASSOC));
 		} else {
-			$info = $stm == null ? array(0 => '', 1 => '', 2 => 'syntax error') : $stm->errorInfo();
+			$info = $stm == null ? $this->pdo->errorInfo() : $stm->errorInfo();
 			if ($this->autoUpdateDb($info)) {
 				return $this->listFeedsOrderUpdate($defaultCacheDuration);
 			}

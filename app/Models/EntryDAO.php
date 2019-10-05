@@ -129,7 +129,7 @@ SQL;
 		if ($this->addEntryPrepared && $this->addEntryPrepared->execute()) {
 			return true;
 		} else {
-			$info = $this->addEntryPrepared == null ? array(0 => '', 1 => '', 2 => 'syntax error') : $this->addEntryPrepared->errorInfo();
+			$info = $this->addEntryPrepared == null ? $this->pdo->errorInfo() : $this->addEntryPrepared->errorInfo();
 			if ($this->autoUpdateDb($info)) {
 				$this->addEntryPrepared = null;
 				return $this->addEntry($valuesTmp);
@@ -215,7 +215,7 @@ SQL;
 		if ($this->updateEntryPrepared && $this->updateEntryPrepared->execute()) {
 			return true;
 		} else {
-			$info = $this->updateEntryPrepared == null ? array(0 => '', 1 => '', 2 => 'syntax error') : $this->updateEntryPrepared->errorInfo();
+			$info = $this->updateEntryPrepared == null ? $this->pdo->errorInfo() : $this->updateEntryPrepared->errorInfo();
 			if ($this->autoUpdateDb($info)) {
 				return $this->updateEntry($valuesTmp);
 			}
@@ -565,7 +565,7 @@ SQL;
 		if ($stm && $stm->execute()) {
 			return $stm->rowCount();
 		} else {
-			$info = $stm == null ? array(0 => '', 1 => '', 2 => 'syntax error') : $stm->errorInfo();
+			$info = $stm == null ? $this->pdo->errorInfo() : $stm->errorInfo();
 			if ($this->autoUpdateDb($info)) {
 				return $this->cleanOldEntries($id_feed, $date_min, $keep);
 			}
@@ -838,7 +838,7 @@ SQL;
 		if ($stm && $stm->execute($values)) {
 			return $stm;
 		} else {
-			$info = $stm == null ? array(0 => '', 1 => '', 2 => 'syntax error') : $stm->errorInfo();
+			$info = $stm == null ? $this->pdo->errorInfo() : $stm->errorInfo();
 			Minz_Log::error('SQL error listWhereRaw: ' . $info[2]);
 			return false;
 		}
@@ -896,7 +896,7 @@ SQL;
 			}
 			return $result;
 		} else {
-			$info = $stm == null ? array(0 => '', 1 => '', 2 => 'syntax error') : $stm->errorInfo();
+			$info = $stm == null ? $this->pdo->errorInfo() : $stm->errorInfo();
 			if ($this->autoUpdateDb($info)) {
 				return $this->listHashForFeedGuids($id_feed, $guids);
 			}
@@ -920,7 +920,7 @@ SQL;
 		if ($stm && $stm->execute($values)) {
 			return $stm->rowCount();
 		} else {
-			$info = $stm == null ? array(0 => '', 1 => '', 2 => 'syntax error') : $stm->errorInfo();
+			$info = $stm == null ? $this->pdo->errorInfo() : $stm->errorInfo();
 			if ($this->autoUpdateDb($info)) {
 				return $this->updateLastSeen($id_feed, $guids);
 			}

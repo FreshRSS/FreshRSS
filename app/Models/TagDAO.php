@@ -178,7 +178,7 @@ class FreshRSS_TagDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 		if ($stm !== false) {
 			return self::daoToTag($stm->fetchAll(PDO::FETCH_ASSOC));
 		} else {
-			$info = $stm == null ? array(0 => '', 1 => '', 2 => 'syntax error') : $stm->errorInfo();
+			$info = $stm == null ? $this->pdo->errorInfo() : $stm->errorInfo();
 			if ($this->autoUpdateDb($info)) {
 				return $this->listTags($precounts);
 			}
@@ -194,7 +194,7 @@ class FreshRSS_TagDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 			$res = $stm->fetchAll(PDO::FETCH_ASSOC);
 			return $res[0]['count'];
 		} else {
-			$info = $stm == null ? array(0 => '', 1 => '', 2 => 'syntax error') : $stm->errorInfo();
+			$info = $stm == null ? $this->pdo->errorInfo() : $stm->errorInfo();
 			if ($this->autoUpdateDb($info)) {
 				return $this->count();
 			}
@@ -258,7 +258,7 @@ class FreshRSS_TagDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 			}
 			return $lines;
 		} else {
-			$info = $stm == null ? array(0 => '', 1 => '', 2 => 'syntax error') : $stm->errorInfo();
+			$info = $stm == null ? $this->pdo->errorInfo() : $stm->errorInfo();
 			if ($this->autoUpdateDb($info)) {
 				return $this->getTagsForEntry($id_entry);
 			}
@@ -294,7 +294,7 @@ class FreshRSS_TagDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 		if ($stm && $stm->execute($values)) {
 			return $stm->fetchAll(PDO::FETCH_ASSOC);
 		} else {
-			$info = $stm == null ? array(0 => '', 1 => '', 2 => 'syntax error') : $stm->errorInfo();
+			$info = $stm == null ? $this->pdo->errorInfo() : $stm->errorInfo();
 			if ($this->autoUpdateDb($info)) {
 				return $this->getTagsForEntries($entries);
 			}
