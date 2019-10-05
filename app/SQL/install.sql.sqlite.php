@@ -60,6 +60,10 @@ CREATE INDEX IF NOT EXISTS entry_feed_read_index ON `entry`(`id_feed`,`is_read`)
 INSERT OR IGNORE INTO `category` (id, name) VALUES(1, "Uncategorized");
 SQL;
 
+const SQL_CREATE_INDEX_ENTRY_1 = <<<'SQL'
+CREATE INDEX IF NOT EXISTS entry_feed_read_index ON `entry`(`id_feed`,`is_read`);	-- v1.7
+SQL;
+
 const SQL_CREATE_TABLE_ENTRYTMP = <<<'SQL'
 CREATE TABLE IF NOT EXISTS `entrytmp` (	-- v1.7
 	`id` BIGINT NOT NULL,
