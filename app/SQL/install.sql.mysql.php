@@ -57,12 +57,16 @@ CREATE TABLE IF NOT EXISTS `_entry` (
 	UNIQUE KEY (`id_feed`,`guid`),	-- v0.7
 	INDEX (`is_favorite`),	-- v0.7
 	INDEX (`is_read`),	-- v0.7
-	INDEX `entry_lastSeen_index` (`lastSeen`)	-- v1.1.1
-	-- INDEX `entry_feed_read_index` (`id_feed`,`is_read`)	-- v1.7 Located futher down
+	INDEX `entry_lastSeen_index` (`lastSeen`),	-- v1.1.1
+	INDEX `entry_feed_read_index` (`id_feed`,`is_read`)	-- v1.7
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci
 ENGINE = INNODB;
 
 INSERT IGNORE INTO `_category` (id, name) VALUES(1, "Uncategorized");
+SQL;
+
+const SQL_CREATE_INDEX_ENTRY_1 = <<<'SQL'
+CREATE INDEX `entry_feed_read_index` ON `_entry` (`id_feed`,`is_read`);	-- v1.7
 SQL;
 
 const SQL_CREATE_TABLE_ENTRYTMP = <<<'SQL'
@@ -86,9 +90,6 @@ CREATE TABLE IF NOT EXISTS `_entrytmp` (	-- v1.7
 	INDEX (`date`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci
 ENGINE = INNODB;
-
--- v1.7 Located here to be auto-added
-CREATE INDEX `entry_feed_read_index` ON `_entry`(`id_feed`,`is_read`);
 SQL;
 
 const SQL_CREATE_TABLE_TAGS = <<<'SQL'

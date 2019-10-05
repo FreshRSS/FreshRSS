@@ -52,11 +52,16 @@ CREATE TABLE IF NOT EXISTS `_entry` (
 CREATE INDEX IF NOT EXISTS `_is_favorite_index` ON `_entry` ("is_favorite");
 CREATE INDEX IF NOT EXISTS `_is_read_index` ON `_entry` ("is_read");
 CREATE INDEX IF NOT EXISTS `_entry_lastSeen_index` ON `_entry` ("lastSeen");
+CREATE INDEX IF NOT EXISTS `_entry_feed_read_index` ON `_entry` ("id_feed","is_read");	-- v1.7
 
 INSERT INTO `_category` (id, name)
 	SELECT 1, 'Uncategorized'
 	WHERE NOT EXISTS (SELECT id FROM `_category` WHERE id = 1)
 	RETURNING nextval('`_category_id_seq`');
+SQL;
+
+const SQL_CREATE_INDEX_ENTRY_1 = <<<'SQL'
+CREATE INDEX IF NOT EXISTS `_entry_feed_read_index` ON `_entry` ("id_feed","is_read");	-- v1.7
 SQL;
 
 const SQL_CREATE_TABLE_ENTRYTMP = <<<'SQL'
@@ -78,9 +83,6 @@ CREATE TABLE IF NOT EXISTS `_entrytmp` (	-- v1.7
 	UNIQUE ("id_feed","guid")
 );
 CREATE INDEX IF NOT EXISTS `_entrytmp_date_index` ON `_entrytmp` ("date");
-
--- v1.7
-CREATE INDEX IF NOT EXISTS `_entry_feed_read_index` ON `_entry` ("id_feed","is_read");
 SQL;
 
 const SQL_CREATE_TABLE_TAGS = <<<'SQL'

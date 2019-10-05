@@ -28,9 +28,9 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 		try {
 			require_once(APP_PATH . '/SQL/install.sql.' . $this->pdo->dbType() . '.php');
 			Minz_Log::warning('SQL CREATE TABLE entrytmp...');
-			$ok = $this->pdo->exec(SQL_CREATE_TABLE_ENTRYTMP) !== false;
-		} catch (Exception $e) {
-			Minz_Log::error('FreshRSS_EntryDAO::createEntryTempTable error: ' . $e->getMessage());
+			$ok = $this->pdo->exec(SQL_CREATE_TABLE_ENTRYTMP . SQL_CREATE_INDEX_ENTRY_1) !== false;
+		} catch (Exception $ex) {
+			Minz_Log::error(__method__ . ' error: ' . $ex->getMessage());
 		}
 		if ($hadTransaction) {
 			$this->pdo->beginTransaction();
@@ -129,7 +129,7 @@ SQL;
 		if ($this->addEntryPrepared && $this->addEntryPrepared->execute()) {
 			return true;
 		} else {
-			$info = $this->addEntryPrepared == null ? array(0 => '', 1 => '', 2 => 'syntax error') : $this->addEntryPrepared->errorInfo();
+			$info = $this->addEntryPrepared == null ? $this->pdo->errorInfo() : $this->addEntryPrepared->errorInfo();
 			if ($this->autoUpdateDb($info)) {
 				$this->addEntryPrepared = null;
 				return $this->addEntry($valuesTmp);
@@ -215,7 +215,7 @@ SQL;
 		if ($this->updateEntryPrepared && $this->updateEntryPrepared->execute()) {
 			return true;
 		} else {
-			$info = $this->updateEntryPrepared == null ? array(0 => '', 1 => '', 2 => 'syntax error') : $this->updateEntryPrepared->errorInfo();
+			$info = $this->updateEntryPrepared == null ? $this->pdo->errorInfo() : $this->updateEntryPrepared->errorInfo();
 			if ($this->autoUpdateDb($info)) {
 				return $this->updateEntry($valuesTmp);
 			}
@@ -252,7 +252,7 @@ SQL;
 		if ($stm && $stm->execute($values)) {
 			return $stm->rowCount();
 		} else {
-			$info = $stm == null ? array(2 => 'syntax error') : $stm->errorInfo();
+			$info = $stm == null ? $this->pdo->errorInfo() : $stm->errorInfo();
 			Minz_Log::error('SQL error markFavorite: ' . $info[2]);
 			return false;
 		}
@@ -297,7 +297,7 @@ SQL;
 		if ($stm && $stm->execute($values)) {
 			return true;
 		} else {
-			$info = $stm == null ? array(2 => 'syntax error') : $stm->errorInfo();
+			$info = $stm == null ? $this->pdo->errorInfo() : $stm->errorInfo();
 			Minz_Log::error('SQL error updateCacheUnreads: ' . $info[2]);
 			return false;
 		}
@@ -334,7 +334,7 @@ SQL;
 			$values = array_merge($values, $ids);
 			$stm = $this->pdo->prepare($sql);
 			if (!($stm && $stm->execute($values))) {
-				$info = $stm == null ? array(2 => 'syntax error') : $stm->errorInfo();
+				$info = $stm == null ? $this->pdo->errorInfo() : $stm->errorInfo();
 				Minz_Log::error('SQL error markRead: ' . $info[2]);
 				return false;
 			}
@@ -353,7 +353,7 @@ SQL;
 			if ($stm && $stm->execute($values)) {
 				return $stm->rowCount();
 			} else {
-				$info = $stm == null ? array(2 => 'syntax error') : $stm->errorInfo();
+				$info = $stm == null ? $this->pdo->errorInfo() : $stm->errorInfo();
 				Minz_Log::error('SQL error markRead: ' . $info[2]);
 				return false;
 			}
@@ -402,7 +402,7 @@ SQL;
 
 		$stm = $this->pdo->prepare($sql . $search);
 		if (!($stm && $stm->execute(array_merge($values, $searchValues)))) {
-			$info = $stm == null ? array(2 => 'syntax error') : $stm->errorInfo();
+			$info = $stm == null ? $this->pdo->errorInfo() : $stm->errorInfo();
 			Minz_Log::error('SQL error markReadEntries: ' . $info[2]);
 			return false;
 		}
@@ -440,7 +440,7 @@ SQL;
 
 		$stm = $this->pdo->prepare($sql . $search);
 		if (!($stm && $stm->execute(array_merge($values, $searchValues)))) {
-			$info = $stm == null ? array(2 => 'syntax error') : $stm->errorInfo();
+			$info = $stm == null ? $this->pdo->errorInfo() : $stm->errorInfo();
 			Minz_Log::error('SQL error markReadCat: ' . $info[2]);
 			return false;
 		}
@@ -479,7 +479,7 @@ SQL;
 
 		$stm = $this->pdo->prepare($sql . $search);
 		if (!($stm && $stm->execute(array_merge($values, $searchValues)))) {
-			$info = $stm == null ? array(2 => 'syntax error') : $stm->errorInfo();
+			$info = $stm == null ? $this->pdo->errorInfo() : $stm->errorInfo();
 			Minz_Log::error('SQL error markReadFeed: ' . $info[2] . ' with SQL: ' . $sql . $search);
 			$this->pdo->rollBack();
 			return false;
@@ -493,7 +493,7 @@ SQL;
 			$stm = $this->pdo->prepare($sql);
 			$stm->bindParam(':id', $id_feed, PDO::PARAM_INT);
 			if (!($stm && $stm->execute())) {
-				$info = $stm == null ? array(2 => 'syntax error') : $stm->errorInfo();
+				$info = $stm == null ? $this->pdo->errorInfo() : $stm->errorInfo();
 				Minz_Log::error('SQL error markReadFeed cache: ' . $info[2]);
 				$this->pdo->rollBack();
 				return false;
@@ -533,7 +533,7 @@ SQL;
 
 		$stm = $this->pdo->prepare($sql . $search);
 		if (!($stm && $stm->execute(array_merge($values, $searchValues)))) {
-			$info = $stm == null ? array(2 => 'syntax error') : $stm->errorInfo();
+			$info = $stm == null ? $this->pdo->errorInfo() : $stm->errorInfo();
 			Minz_Log::error('SQL error markReadTag: ' . $info[2]);
 			return false;
 		}
@@ -565,7 +565,7 @@ SQL;
 		if ($stm && $stm->execute()) {
 			return $stm->rowCount();
 		} else {
-			$info = $stm == null ? array(0 => '', 1 => '', 2 => 'syntax error') : $stm->errorInfo();
+			$info = $stm == null ? $this->pdo->errorInfo() : $stm->errorInfo();
 			if ($this->autoUpdateDb($info)) {
 				return $this->cleanOldEntries($id_feed, $date_min, $keep);
 			}
@@ -838,7 +838,7 @@ SQL;
 		if ($stm && $stm->execute($values)) {
 			return $stm;
 		} else {
-			$info = $stm == null ? array(0 => '', 1 => '', 2 => 'syntax error') : $stm->errorInfo();
+			$info = $stm == null ? $this->pdo->errorInfo() : $stm->errorInfo();
 			Minz_Log::error('SQL error listWhereRaw: ' . $info[2]);
 			return false;
 		}
@@ -896,7 +896,7 @@ SQL;
 			}
 			return $result;
 		} else {
-			$info = $stm == null ? array(0 => '', 1 => '', 2 => 'syntax error') : $stm->errorInfo();
+			$info = $stm == null ? $this->pdo->errorInfo() : $stm->errorInfo();
 			if ($this->autoUpdateDb($info)) {
 				return $this->listHashForFeedGuids($id_feed, $guids);
 			}
@@ -920,7 +920,7 @@ SQL;
 		if ($stm && $stm->execute($values)) {
 			return $stm->rowCount();
 		} else {
-			$info = $stm == null ? array(0 => '', 1 => '', 2 => 'syntax error') : $stm->errorInfo();
+			$info = $stm == null ? $this->pdo->errorInfo() : $stm->errorInfo();
 			if ($this->autoUpdateDb($info)) {
 				return $this->updateLastSeen($id_feed, $guids);
 			}

@@ -27,7 +27,7 @@ class FreshRSS_UserDAO extends Minz_ModelPdo {
 		if ($ok) {
 			return true;
 		} else {
-			$info = empty($stm) ? array(2 => 'syntax error') : $stm->errorInfo();
+			$info = empty($stm) ? $this->pdo->errorInfo() : $stm->errorInfo();
 			Minz_Log::error(__METHOD__ . ' error: ' . $info[2]);
 			return false;
 		}
@@ -45,7 +45,7 @@ class FreshRSS_UserDAO extends Minz_ModelPdo {
 		if ($ok) {
 			return true;
 		} else {
-			$info = $stm == null ? array(2 => 'syntax error') : $stm->errorInfo();
+			$info = $stm == null ? $this->pdo->errorInfo() : $stm->errorInfo();
 			Minz_Log::error(__METHOD__ . ' error: ' . $info[2]);
 			return false;
 		}

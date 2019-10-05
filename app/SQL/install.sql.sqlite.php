@@ -55,8 +55,13 @@ CREATE TABLE IF NOT EXISTS `entry` (
 CREATE INDEX IF NOT EXISTS entry_is_favorite_index ON `entry`(`is_favorite`);
 CREATE INDEX IF NOT EXISTS entry_is_read_index ON `entry`(`is_read`);
 CREATE INDEX IF NOT EXISTS entry_lastSeen_index ON `entry`(`lastSeen`);	-- //v1.1.1
+CREATE INDEX IF NOT EXISTS entry_feed_read_index ON `entry`(`id_feed`,`is_read`);	-- v1.7
 
 INSERT OR IGNORE INTO `category` (id, name) VALUES(1, "Uncategorized");
+SQL;
+
+const SQL_CREATE_INDEX_ENTRY_1 = <<<'SQL'
+CREATE INDEX IF NOT EXISTS entry_feed_read_index ON `entry`(`id_feed`,`is_read`);	-- v1.7
 SQL;
 
 const SQL_CREATE_TABLE_ENTRYTMP = <<<'SQL'
@@ -79,9 +84,6 @@ CREATE TABLE IF NOT EXISTS `entrytmp` (	-- v1.7
 	UNIQUE (`id_feed`,`guid`)
 );
 CREATE INDEX IF NOT EXISTS entrytmp_date_index ON `entrytmp`(`date`);
-
--- v1.7
-CREATE INDEX IF NOT EXISTS `entry_feed_read_index` ON `entry`(`id_feed`,`is_read`);
 SQL;
 
 const SQL_CREATE_TABLE_TAGS = <<<'SQL'
@@ -98,7 +100,7 @@ CREATE TABLE IF NOT EXISTS `entrytag` (
 	FOREIGN KEY (`id_tag`) REFERENCES `tag` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
 	FOREIGN KEY (`id_entry`) REFERENCES `entry` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 );
-CREATE INDEX entrytag_id_entry_index ON `entrytag` (`id_entry`);
+CREATE INDEX IF NOT EXISTS entrytag_id_entry_index ON `entrytag` (`id_entry`);
 SQL;
 
 const SQL_INSERT_FEED = <<<'SQL'
