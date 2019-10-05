@@ -38,6 +38,25 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 		return $ok;
 	}
 
+	private function updateToMediumBlob() {
+		if ($this->pdo->dbType() !== 'mysql') {
+			return false;
+		}
+		Minz_Log::warning('Update MySQL table to use MEDIUMBLOB...');
+
+		$sql = <<<'SQL'
+ALTER TABLE `_entry` MODIFY `content_bin` MEDIUMBLOB;
+ALTER TABLE `_entrytmp` MODIFY `content_bin` MEDIUMBLOB;
+SQL;
+		try {
+			$ok = $this->pdo->exec($sql) !== false;
+		} catch (Exception $e) {
+			$ok = false;
+			Minz_Log::error(__method__ . ' error: ' . $e->getMessage());
+		}
+		return $ok;
+	}
+
 	//TODO: Move the database auto-updates to DatabaseDAO
 	protected function autoUpdateDb($errorInfo) {
 		if (isset($errorInfo[0])) {
@@ -47,6 +66,13 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 					return $tagDAO->createTagTable();	//v1.12.0
 				} elseif (stripos($errorInfo[2], 'entrytmp') !== false) {
 					return $this->createEntryTempTable();	//v1.7.0
+				}
+			}
+		}
+		if (isset($errorInfo[1])) {
+			if ($errorInfo[1] == FreshRSS_DatabaseDAO::ER_DATA_TOO_LONG) {
+				if (stripos($errorInfo[2], 'content_bin') !== false) {
+					return $this->updateToMediumBlob();	//v1.15.0
 				}
 			}
 		}

@@ -43,7 +43,7 @@ CREATE TABLE IF NOT EXISTS `_entry` (
 	`guid` VARCHAR(760) CHARACTER SET latin1 COLLATE latin1_bin NOT NULL,	-- Maximum for UNIQUE is 767B
 	`title` VARCHAR(255) NOT NULL,
 	`author` VARCHAR(255),
-	`content_bin` BLOB,	-- v0.7
+	`content_bin` MEDIUMBLOB,	-- v0.7
 	`link` VARCHAR(1023) CHARACTER SET latin1 COLLATE latin1_bin NOT NULL,
 	`date` INT(11),	-- Until year 2038
 	`lastSeen` INT(11) DEFAULT 0,	-- v1.1.1, Until year 2038
@@ -71,7 +71,7 @@ CREATE TABLE IF NOT EXISTS `_entrytmp` (	-- v1.7
 	`guid` VARCHAR(760) CHARACTER SET latin1 COLLATE latin1_bin NOT NULL,
 	`title` VARCHAR(255) NOT NULL,
 	`author` VARCHAR(255),
-	`content_bin` BLOB,
+	`content_bin` MEDIUMBLOB,
 	`link` VARCHAR(1023) CHARACTER SET latin1 COLLATE latin1_bin NOT NULL,
 	`date` INT(11),
 	`lastSeen` INT(11) DEFAULT 0,
