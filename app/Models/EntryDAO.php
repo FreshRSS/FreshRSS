@@ -252,7 +252,7 @@ SQL;
 		if ($stm && $stm->execute($values)) {
 			return $stm->rowCount();
 		} else {
-			$info = $stm == null ? array(2 => 'syntax error') : $stm->errorInfo();
+			$info = $stm == null ? $this->pdo->errorInfo() : $stm->errorInfo();
 			Minz_Log::error('SQL error markFavorite: ' . $info[2]);
 			return false;
 		}
@@ -297,7 +297,7 @@ SQL;
 		if ($stm && $stm->execute($values)) {
 			return true;
 		} else {
-			$info = $stm == null ? array(2 => 'syntax error') : $stm->errorInfo();
+			$info = $stm == null ? $this->pdo->errorInfo() : $stm->errorInfo();
 			Minz_Log::error('SQL error updateCacheUnreads: ' . $info[2]);
 			return false;
 		}
@@ -334,7 +334,7 @@ SQL;
 			$values = array_merge($values, $ids);
 			$stm = $this->pdo->prepare($sql);
 			if (!($stm && $stm->execute($values))) {
-				$info = $stm == null ? array(2 => 'syntax error') : $stm->errorInfo();
+				$info = $stm == null ? $this->pdo->errorInfo() : $stm->errorInfo();
 				Minz_Log::error('SQL error markRead: ' . $info[2]);
 				return false;
 			}
@@ -353,7 +353,7 @@ SQL;
 			if ($stm && $stm->execute($values)) {
 				return $stm->rowCount();
 			} else {
-				$info = $stm == null ? array(2 => 'syntax error') : $stm->errorInfo();
+				$info = $stm == null ? $this->pdo->errorInfo() : $stm->errorInfo();
 				Minz_Log::error('SQL error markRead: ' . $info[2]);
 				return false;
 			}
@@ -402,7 +402,7 @@ SQL;
 
 		$stm = $this->pdo->prepare($sql . $search);
 		if (!($stm && $stm->execute(array_merge($values, $searchValues)))) {
-			$info = $stm == null ? array(2 => 'syntax error') : $stm->errorInfo();
+			$info = $stm == null ? $this->pdo->errorInfo() : $stm->errorInfo();
 			Minz_Log::error('SQL error markReadEntries: ' . $info[2]);
 			return false;
 		}
@@ -440,7 +440,7 @@ SQL;
 
 		$stm = $this->pdo->prepare($sql . $search);
 		if (!($stm && $stm->execute(array_merge($values, $searchValues)))) {
-			$info = $stm == null ? array(2 => 'syntax error') : $stm->errorInfo();
+			$info = $stm == null ? $this->pdo->errorInfo() : $stm->errorInfo();
 			Minz_Log::error('SQL error markReadCat: ' . $info[2]);
 			return false;
 		}
@@ -479,7 +479,7 @@ SQL;
 
 		$stm = $this->pdo->prepare($sql . $search);
 		if (!($stm && $stm->execute(array_merge($values, $searchValues)))) {
-			$info = $stm == null ? array(2 => 'syntax error') : $stm->errorInfo();
+			$info = $stm == null ? $this->pdo->errorInfo() : $stm->errorInfo();
 			Minz_Log::error('SQL error markReadFeed: ' . $info[2] . ' with SQL: ' . $sql . $search);
 			$this->pdo->rollBack();
 			return false;
@@ -493,7 +493,7 @@ SQL;
 			$stm = $this->pdo->prepare($sql);
 			$stm->bindParam(':id', $id_feed, PDO::PARAM_INT);
 			if (!($stm && $stm->execute())) {
-				$info = $stm == null ? array(2 => 'syntax error') : $stm->errorInfo();
+				$info = $stm == null ? $this->pdo->errorInfo() : $stm->errorInfo();
 				Minz_Log::error('SQL error markReadFeed cache: ' . $info[2]);
 				$this->pdo->rollBack();
 				return false;
@@ -533,7 +533,7 @@ SQL;
 
 		$stm = $this->pdo->prepare($sql . $search);
 		if (!($stm && $stm->execute(array_merge($values, $searchValues)))) {
-			$info = $stm == null ? array(2 => 'syntax error') : $stm->errorInfo();
+			$info = $stm == null ? $this->pdo->errorInfo() : $stm->errorInfo();
 			Minz_Log::error('SQL error markReadTag: ' . $info[2]);
 			return false;
 		}

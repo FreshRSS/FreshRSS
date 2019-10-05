@@ -88,7 +88,7 @@ DROP TABLE IF EXISTS `tmp`;
 		if ($stm && $stm->execute($values)) {
 			return true;
 		} else {
-			$info = $stm == null ? array(2 => 'syntax error') : $stm->errorInfo();
+			$info = $stm == null ? $this->pdo->errorInfo() : $stm->errorInfo();
 			Minz_Log::error('SQL error updateCacheUnreads: ' . $info[2]);
 			return false;
 		}
@@ -123,7 +123,7 @@ DROP TABLE IF EXISTS `tmp`;
 			$values = array($is_read ? 1 : 0, $ids, $is_read ? 0 : 1);
 			$stm = $this->pdo->prepare($sql);
 			if (!($stm && $stm->execute($values))) {
-				$info = $stm == null ? array(2 => 'syntax error') : $stm->errorInfo();
+				$info = $stm == null ? $this->pdo->errorInfo() : $stm->errorInfo();
 				Minz_Log::error('SQL error markRead 1: ' . $info[2]);
 				$this->pdo->rollBack();
 				return false;
@@ -135,7 +135,7 @@ DROP TABLE IF EXISTS `tmp`;
 				$values = array($ids);
 				$stm = $this->pdo->prepare($sql);
 				if (!($stm && $stm->execute($values))) {
-					$info = $stm == null ? array(2 => 'syntax error') : $stm->errorInfo();
+					$info = $stm == null ? $this->pdo->errorInfo() : $stm->errorInfo();
 					Minz_Log::error('SQL error markRead 2: ' . $info[2]);
 					$this->pdo->rollBack();
 					return false;
@@ -186,7 +186,7 @@ DROP TABLE IF EXISTS `tmp`;
 
 		$stm = $this->pdo->prepare($sql . $search);
 		if (!($stm && $stm->execute(array_merge($values, $searchValues)))) {
-			$info = $stm == null ? array(2 => 'syntax error') : $stm->errorInfo();
+			$info = $stm == null ? $this->pdo->errorInfo() : $stm->errorInfo();
 			Minz_Log::error('SQL error markReadEntries: ' . $info[2]);
 			return false;
 		}
@@ -225,7 +225,7 @@ DROP TABLE IF EXISTS `tmp`;
 
 		$stm = $this->pdo->prepare($sql . $search);
 		if (!($stm && $stm->execute(array_merge($values, $searchValues)))) {
-			$info = $stm == null ? array(2 => 'syntax error') : $stm->errorInfo();
+			$info = $stm == null ? $this->pdo->errorInfo() : $stm->errorInfo();
 			Minz_Log::error('SQL error markReadCat: ' . $info[2]);
 			return false;
 		}
@@ -264,7 +264,7 @@ DROP TABLE IF EXISTS `tmp`;
 
 		$stm = $this->pdo->prepare($sql . $search);
 		if (!($stm && $stm->execute(array_merge($values, $searchValues)))) {
-			$info = $stm == null ? array(2 => 'syntax error') : $stm->errorInfo();
+			$info = $stm == null ? $this->pdo->errorInfo() : $stm->errorInfo();
 			Minz_Log::error('SQL error markReadTag: ' . $info[2]);
 			return false;
 		}
