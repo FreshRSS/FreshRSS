@@ -89,7 +89,7 @@ class Minz_ModelPdo {
 			self::$sharedPdo = $this->pdo;
 		} catch (Exception $e) {
 			throw new Minz_PDOConnectionException(
-				$dsn,
+				$dsn . $dsnParams,
 				$db['user'], Minz_Exception::ERROR
 			);
 		}
