@@ -28,9 +28,9 @@ CREATE TABLE IF NOT EXISTS `_feed` (
 	"cache_nbUnreads" INT DEFAULT 0,
 	FOREIGN KEY ("category") REFERENCES `_category` ("id") ON DELETE SET NULL ON UPDATE CASCADE
 );
-CREATE INDEX IF NOT EXISTS `name_index` ON `_feed` ("name");
-CREATE INDEX IF NOT EXISTS `priority_index` ON `_feed` ("priority");
-CREATE INDEX IF NOT EXISTS `keep_history_index` ON `_feed` ("keep_history");
+CREATE INDEX IF NOT EXISTS `_name_index` ON `_feed` ("name");
+CREATE INDEX IF NOT EXISTS `_priority_index` ON `_feed` ("priority");
+CREATE INDEX IF NOT EXISTS `_keep_history_index` ON `_feed` ("keep_history");
 
 CREATE TABLE IF NOT EXISTS `_entry` (
 	"id" BIGINT NOT NULL PRIMARY KEY,
@@ -49,10 +49,10 @@ CREATE TABLE IF NOT EXISTS `_entry` (
 	FOREIGN KEY ("id_feed") REFERENCES `_feed` ("id") ON DELETE CASCADE ON UPDATE CASCADE,
 	UNIQUE ("id_feed","guid")
 );
-CREATE INDEX IF NOT EXISTS `is_favorite_index` ON `_entry` ("is_favorite");
-CREATE INDEX IF NOT EXISTS `is_read_index` ON `_entry` ("is_read");
-CREATE INDEX IF NOT EXISTS `entry_lastSeen_index` ON `_entry` ("lastSeen");
-CREATE INDEX IF NOT EXISTS `entry_feed_read_index` ON `_entry` ("id_feed","is_read");	-- v1.7
+CREATE INDEX IF NOT EXISTS `_is_favorite_index` ON `_entry` ("is_favorite");
+CREATE INDEX IF NOT EXISTS `_is_read_index` ON `_entry` ("is_read");
+CREATE INDEX IF NOT EXISTS `_entry_lastSeen_index` ON `_entry` ("lastSeen");
+CREATE INDEX IF NOT EXISTS `_entry_feed_read_index` ON `_entry` ("id_feed","is_read");	-- v1.7
 
 INSERT INTO `_category` (id, name)
 	SELECT 1, 'Uncategorized'
@@ -78,7 +78,7 @@ CREATE TABLE IF NOT EXISTS `_entrytmp` (	-- v1.7
 	FOREIGN KEY ("id_feed") REFERENCES `_feed` ("id") ON DELETE CASCADE ON UPDATE CASCADE,
 	UNIQUE ("id_feed","guid")
 );
-CREATE INDEX IF NOT EXISTS `entrytmp_date_index` ON `_entrytmp` ("date");
+CREATE INDEX IF NOT EXISTS `_entrytmp_date_index` ON `_entrytmp` ("date");
 SQL;
 
 const SQL_CREATE_TABLE_TAGS = <<<'SQL'
@@ -94,7 +94,7 @@ CREATE TABLE IF NOT EXISTS `_entrytag` (
 	FOREIGN KEY ("id_tag") REFERENCES `_tag` ("id") ON DELETE CASCADE ON UPDATE CASCADE,
 	FOREIGN KEY ("id_entry") REFERENCES `_entry` ("id") ON DELETE CASCADE ON UPDATE CASCADE
 );
-CREATE INDEX IF NOT EXISTS `entrytag_id_entry_index` ON `_entrytag` ("id_entry");
+CREATE INDEX IF NOT EXISTS `_entrytag_id_entry_index` ON `_entrytag` ("id_entry");
 SQL;
 
 const SQL_INSERT_FEED = <<<'SQL'
