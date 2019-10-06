@@ -54,7 +54,15 @@ class FreshRSS_DatabaseDAOSQLite extends FreshRSS_DatabaseDAO {
 	}
 
 	public function size($all = false) {
-		return @filesize(join_path(DATA_PATH, 'users', $this->current_user, 'db.sqlite'));
+		$sum = 0;
+		if ($all) {
+			foreach (glob(DATA_PATH . '/users/*/db.sqlite') as $filename) {
+				$sum += @filesize($filename);
+			}
+		} else {
+			$sum = @filesize(DATA_PATH . '/users/' . $this->current_user . '/db.sqlite');
+		}
+		return $sum;
 	}
 
 	public function optimize() {

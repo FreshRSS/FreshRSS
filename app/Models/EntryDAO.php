@@ -951,6 +951,9 @@ SQL;
 			$sql .= ' WHERE f.priority > ' . intval($minPriority);
 		}
 		$stm = $this->pdo->query($sql);
+		if ($stm == false) {
+			return false;
+		}
 		$res = $stm->fetchAll(PDO::FETCH_COLUMN, 0);
 		return isset($res[0]) ? $res[0] : 0;
 	}

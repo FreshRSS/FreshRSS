@@ -49,12 +49,23 @@ class FreshRSS_DatabaseDAOPGSQL extends FreshRSS_DatabaseDAOSQLite {
 		);
 	}
 
-	public function size($all = true) {
-		$db = FreshRSS_Context::$system_conf->db;
-		$sql = 'SELECT pg_size_pretty(pg_database_size(?))';
-		$values = array($db['base']);
-		$stm = $this->pdo->prepare($sql);
-		$stm->execute($values);
+	public function size($all = false) {
+		if ($all) {
+			$db = FreshRSS_Context::$system_conf->db;
+			$sql = 'SELECT pg_database_size(:base)';
+			$stm = $this->pdo->prepare($sql);
+			$stm->bindParam(':base', $db['base']);
+			$stm->execute();
+		} else {
+			$sql = "SELECT "
+			     . "pg_total_relation_size('{$this->pdo->prefix()}category') + "
+			     . "pg_total_relation_size('{$this->pdo->prefix()}feed') + "
+			     . "pg_total_relation_size('{$this->pdo->prefix()}entry') + "
+			     . "pg_total_relation_size('{$this->pdo->prefix()}entrytmp') + "
+			     . "pg_total_relation_size('{$this->pdo->prefix()}tag') + "
+			     . "pg_total_relation_size('{$this->pdo->prefix()}entrytag')";
+			$stm = $this->pdo->query($sql);
+		}
 		$res = $stm->fetchAll(PDO::FETCH_COLUMN, 0);
 		return $res[0];
 	}
