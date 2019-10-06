@@ -127,7 +127,8 @@ This is needed if you will be using the multi-user mode, to limit access to Fres
 		* In that case, create a `./p/i/.htaccess` file with a matching `.htpasswd` file.
 
 ## Automatic feed update
-* You can add a Cron job to launch the update script.
+### With Cron Job
+You can add a Cron job to launch the update script.
 Check the Cron documentation related to your distribution ([Debian/Ubuntu](https://help.ubuntu.com/community/CronHowto), [Red Hat/Fedora](https://fedoraproject.org/wiki/Administration_Guide_Draft/Cron), [Slackware](https://docs.slackware.com/fr:slackbook:process_control?#cron), [Gentoo](https://wiki.gentoo.org/wiki/Cron), [Arch Linux](https://wiki.archlinux.org/index.php/Cron)…).
 It is a good idea to run the cron job as the webserver user (often “www-data”).
 For instance, if you want to run the script every hour:
@@ -136,12 +137,39 @@ For instance, if you want to run the script every hour:
 9 * * * * php /usr/share/FreshRSS/app/actualize_script.php > /tmp/FreshRSS.log 2>&1
 ```
 
-### Example on Debian / Ubuntu
+#### Example on Debian / Ubuntu
 Create `/etc/cron.d/FreshRSS` with:
 
 ```
 6,36 * * * * www-data php -f /usr/share/FreshRSS/app/actualize_script.php > /tmp/FreshRSS.log 2>&1
 ```
+### With Systemd service
+Some system can't use a cron job, but most of them use systemd. It's easy to use systemd for such cron like features. As example here are 2 services which work together. First you need a freshrss.timer file in /etc/systemd/system/ with the following content:
+
+```
+[Unit]
+Description=FreshRSS get new content
+
+[Timer]
+OnBootSec=30s
+OnCalendar=*:0/15
+
+[Install]
+WantedBy=timers.target
+```
+Additionally you need the freshrss.service file in the same directory. Its started 30 seconds after boot and then after that in a 15 minute interval:
+
+```
+[Unit]
+Description=FreshRSS get new content
+Wants=freshrss.timer
+
+[Service]
+User=www-data
+Type=simple
+ExecStart=/usr/bin/php /path/to/freshrss/app/actualize_script.php
+```
+After creating both files, you should reload systemd with `systemctl daeamon-reload` and enable it with `systemctl enable freshrss.timer`. And please make sure, to change the path to your installation in the freshrss.service file.
 
 ## Advice
 * For better security, expose only the `./p/` folder to the Web.
