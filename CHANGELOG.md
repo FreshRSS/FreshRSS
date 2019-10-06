@@ -9,6 +9,9 @@
 	* Add e-mail capability [#2476](https://github.com/FreshRSS/FreshRSS/pull/2476), [#2481](https://github.com/FreshRSS/FreshRSS/pull/2481)
 	* Ability to define default user settings in `data/config-user.custom.php` [#2490](https://github.com/FreshRSS/FreshRSS/pull/2490)
 		* Including default feeds [#2515](https://github.com/FreshRSS/FreshRSS/pull/2515)
+	* Allow recreating users if they still exist in database [#2555](https://github.com/FreshRSS/FreshRSS/pull/2555)
+	* Add optional database connection URI parameters [#2549](https://github.com/FreshRSS/FreshRSS/issues/2549), [#2559](https://github.com/FreshRSS/FreshRSS/pull/2559)
+	* Allow longer articles with MySQL / MariaDB (up to 16MB compressed instead of 64kB) [#2448](https://github.com/FreshRSS/FreshRSS/issues/2448)
 	* Add support for terms of service [#2520](https://github.com/FreshRSS/FreshRSS/pull/2520)
 	* Add sharing with [Lemmy](https://github.com/dessalines/lemmy) [#2510](https://github.com/FreshRSS/FreshRSS/pull/2510)
 * API
@@ -16,15 +19,17 @@
 * Compatibility
 	* Require at least PHP 5.6+ [#2495](https://github.com/FreshRSS/FreshRSS/pull/2495), [#2527](https://github.com/FreshRSS/FreshRSS/pull/2527)
 	* Require `php-json` and remove remove `JSON.php` fallback [#2528](https://github.com/FreshRSS/FreshRSS/pull/2528)
+	* Require at least PostgreSQL 9.5+ [#2554](https://github.com/FreshRSS/FreshRSS/pull/2554)
 * Deployment
 	* Take advantage of `mod_authz_core` instead of `mod_access_compat` when running on Apache 2.4+ [#2461](https://github.com/FreshRSS/FreshRSS/pull/2461)
-	* Docker: Alpine image updated to 3.10 with PHP 7.3.8 and Apache 2.4.41 [#2238](https://github.com/FreshRSS/FreshRSS/pull/2238)
+	* Docker: Alpine image updated to 3.10 with PHP 7.3.10 and Apache 2.4.41 [#2238](https://github.com/FreshRSS/FreshRSS/pull/2238)
 	* Git ignore `themes/xTheme-*` [#2511](https://github.com/FreshRSS/FreshRSS/pull/2511)
 	* New environment variable `FRESHRSS_ENV` to control Minz development mode [#2508](https://github.com/FreshRSS/FreshRSS/pull/2508)
 * Bug fixing
 	* Fix missing PHP `opcache` package in Docker Alpine [#2498](https://github.com/FreshRSS/FreshRSS/pull/2498)
 	* Fix IE11 / Edge keyboard compatibility [#2507](https://github.com/FreshRSS/FreshRSS/pull/2507)
 	* Use `<dc:creator>` instead of `<author>` for RSS 2.0 outputs [#2542](https://github.com/FreshRSS/FreshRSS/pull/2542)
+	* Fix PostgreSQL and SQLite database size estimation [#2562](https://github.com/FreshRSS/FreshRSS/pull/2562)
 * Security
 	* Fix referrer vulnerability when opening an article original link with a shortcut [#2506](https://github.com/FreshRSS/FreshRSS/pull/2506)
 	* Slight refactoring of access check [#2471](https://github.com/FreshRSS/FreshRSS/pull/2471)
