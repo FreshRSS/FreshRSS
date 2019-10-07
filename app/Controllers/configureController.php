@@ -213,7 +213,7 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 			FreshRSS_Context::$user_conf->old_entries = Minz_Request::param('old_entries', 3);
 			FreshRSS_Context::$user_conf->keep_history_default = Minz_Request::param('keep_history_default', 0);
 			FreshRSS_Context::$user_conf->ttl_default = Minz_Request::param('ttl_default', FreshRSS_Feed::TTL_DEFAULT);
-			FreshRSS_Context::$user_conf->archiving = array(
+			FreshRSS_Context::$user_conf->archiving = [
 				'enable_retention_count_limit' => $enableRetentionCountLimit,
 				'retention_count_limit' => $retentionCountLimit,
 				'enable_retention_period' => $enableRetentionPeriod,
@@ -221,7 +221,7 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 				'keep_favourites' => Minz_Request::paramBoolean('keep_favourites'),
 				'keep_labels' => Minz_Request::paramBoolean('keep_labels'),
 				'keep_unreads' => Minz_Request::paramBoolean('keep_unreads'),
-			);
+			];
 			FreshRSS_Context::$user_conf->save();
 			invalidateHttpCache();
 
@@ -231,10 +231,10 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 
 		$retentionPeriod = FreshRSS_Context::$user_conf->archiving['retention_period'];
 		if (preg_match('/^PT?(?P<count>\d+)[YMWDH]$/', $retentionPeriod, $matches)) {
-			$volatile = array(
+			$volatile = [
 				'retention_period_count' => $matches['count'],
 				'retention_period_unit' => str_replace($matches['count'], 1, $retentionPeriod),
-			);
+			];
 			FreshRSS_Context::$user_conf->volatile = $volatile;
 		}
 

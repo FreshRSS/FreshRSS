@@ -8,7 +8,7 @@ class FreshRSS_Category extends Minz_Model {
 	private $feeds = null;
 	private $hasFeedsWithError = false;
 	private $isDefault = false;
-	private $attributes = array();
+	private $attributes = [];
 
 	public function __construct($name = '', $feeds = null) {
 		$this->_name($name);

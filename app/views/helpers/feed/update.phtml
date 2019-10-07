@@ -99,10 +99,10 @@
 		</div>
 		<?php
 			$archiving = $this->feed->attributes('archiving');
-			$volatile = array(
+			$volatile = [
 				'retention_period_count' => '1',
 				'retention_period_unit' => 'P1M',
-			);
+			];
 			$retentionPeriod = (is_array($archiving) && array_key_exists('retention_period', $archiving)) ? $archiving['retention_period'] : '';
 			if (preg_match('/^PT?(?P<count>\d+)[YMWDH]$/', $retentionPeriod, $matches)) {
 				$volatile['retention_period_count'] = $matches['count'];

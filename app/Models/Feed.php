@@ -29,7 +29,7 @@ class FreshRSS_Feed extends Minz_Model {
 	private $error = false;
 	private $keep_history = self::KEEP_HISTORY_DEFAULT;
 	private $ttl = self::TTL_DEFAULT;
-	private $attributes = array();
+	private $attributes = [];
 	private $mute = false;
 	private $hash = null;
 	private $lockPath = '';

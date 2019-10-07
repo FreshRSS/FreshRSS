@@ -137,7 +137,7 @@ class FreshRSS_subscription_Controller extends Minz_ActionController {
 				} else {
 					$retentionPeriod = null;
 				}
-				$feed->_attributes('archiving', array(
+				$feed->_attributes('archiving', [
 					'enable_retention_count_limit' => $enableRetentionCountLimit,
 					'retention_count_limit' => $retentionCountLimit,
 					'enable_retention_period' => $enableRetentionPeriod,
@@ -145,7 +145,7 @@ class FreshRSS_subscription_Controller extends Minz_ActionController {
 					'keep_favourites' => Minz_Request::paramBoolean('keep_favourites'),
 					'keep_labels' => Minz_Request::paramBoolean('keep_labels'),
 					'keep_unreads' => Minz_Request::paramBoolean('keep_unreads'),
-				));
+				]);
 			}
 
 			$feed->_filtersAction('read', preg_split('/[\n\r]+/', Minz_Request::param('filteractions_read', '')));
@@ -208,7 +208,7 @@ class FreshRSS_subscription_Controller extends Minz_ActionController {
 				} else {
 					$retentionPeriod = null;
 				}
-				$category->_attributes('archiving', array(
+				$category->_attributes('archiving', [
 					'enable_retention_count_limit' => $enableRetentionCountLimit,
 					'retention_count_limit' => $retentionCountLimit,
 					'enable_retention_period' => $enableRetentionPeriod,
@@ -216,13 +216,13 @@ class FreshRSS_subscription_Controller extends Minz_ActionController {
 					'keep_favourites' => Minz_Request::paramBoolean('keep_favourites'),
 					'keep_labels' => Minz_Request::paramBoolean('keep_labels'),
 					'keep_unreads' => Minz_Request::paramBoolean('keep_unreads'),
-				));
+				]);
 			}
 
-			$values = array(
+			$values = [
 				'name' => Minz_Request::param('name', ''),
 				'attributes' => $category->attributes(),
-			);
+			];
 
 			invalidateHttpCache();
 

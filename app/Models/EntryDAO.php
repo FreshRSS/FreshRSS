@@ -544,7 +544,7 @@ SQL;
 		return $affected;
 	}
 
-	public function cleanOldEntries($id_feed, $options = array()) { //Remember to call updateCachedValue($id_feed) or updateCachedValues() just after
+	public function cleanOldEntries($id_feed, $options = []) { //Remember to call updateCachedValue($id_feed) or updateCachedValues() just after
 		$andWhere = '';
 		if (array_key_exists('keep_favourites', $options) && true === $options['keep_favourites']) {
 			$andWhere .= ' AND is_favorite = 0';
