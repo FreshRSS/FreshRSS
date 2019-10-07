@@ -1,13 +1,14 @@
 FROM ubuntu:19.04
 
 ENV TZ UTC
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
-RUN apt update && \
-	apt install --no-install-recommends -y \
-	ca-certificates cron curl \
+RUN apt-get update && \
+	apt-get install --no-install-recommends -y \
+	ca-certificates cron \
 	apache2 libapache2-mod-php \
-	php-curl php-intl php-mbstring php-xml php-zip \
+	php-curl php-gmp php-intl php-mbstring php-xml php-zip \
 	php-sqlite3 php-mysql php-pgsql && \
 	rm -rf /var/lib/apt/lists/*
 
@@ -48,12 +49,15 @@ RUN sed -r -i "/^\s*(CustomLog|ErrorLog|Listen) /s/^/#/" /etc/apache2/apache2.co
 
 ENV COPY_SYSLOG_TO_STDERR On
 ENV CRON_MIN ''
+ENV FRESHRSS_ENV ''
+
 ENTRYPOINT ["./Docker/entrypoint.sh"]
 
 EXPOSE 80
+# hadolint ignore=DL3025
 CMD ([ -z "$CRON_MIN" ] || cron) && \
 	. /etc/apache2/envvars && \
 	exec apache2 -D FOREGROUND
 
-HEALTHCHECK --start-period=8s --interval=67s --timeout=5s --retries=3 \
-	CMD curl -fsS 'http://localhost/i/' | grep -q 'jsonVars' || exit 1
+HEALTHCHECK --start-period=20s --interval=37s --timeout=5s --retries=3 \
+	CMD (php -r "readfile('http://localhost/i/');" | grep -q 'jsonVars') || exit 1

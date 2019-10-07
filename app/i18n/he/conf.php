@@ -29,6 +29,7 @@ return array(
 			'publication_date' => 'תאריך הפרסום',
 			'related_tags' => 'תגיות קשורות',	//TODO - Translation
 			'sharing' => 'שיתוף',
+			'display_authors' => 'Authors',  //TODO - Translation
 			'top_line' => 'שורה עליונה',
 		),
 		'language' => 'שפה',
@@ -53,6 +54,7 @@ return array(
 			'_' => 'Account deletion',	//TODO - Translation
 			'warn' => 'Your account and all related data will be deleted.',	//TODO - Translation
 		),
+		'email' => 'Email address',	//TODO - Translation
 		'password_api' => 'סיסמת API<br /><small>(לדוגמה ליישומים סלולריים)</small>',
 		'password_form' => 'סיסמה<br /><small>(לשימוש בטפוס ההרשמה)</small>',
 		'password_format' => 'At least 7 characters',	//TODO - Translation
@@ -141,7 +143,6 @@ return array(
 		'diaspora' => 'Diaspora*',
 		'email' => 'דואר אלקטרוני',
 		'facebook' => 'Facebook',
-		'g+' => 'Google+',
 		'more_information' => 'מידע נוסף',
 		'print' => 'הדפסה',
 		'remove' => 'Remove sharing method',	//TODO - Translation

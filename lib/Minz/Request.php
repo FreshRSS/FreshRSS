@@ -104,6 +104,13 @@ class Minz_Request {
 		self::initJSON();
 	}
 
+	public static function is($controller_name, $action_name) {
+		return (
+			self::$controller_name === $controller_name &&
+			self::$action_name === $action_name
+		);
+	}
+
 	/**
 	 * Return true if the request is over HTTPS, false otherwise (HTTP)
 	 */

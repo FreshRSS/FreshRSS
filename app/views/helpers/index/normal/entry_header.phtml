@@ -1,6 +1,7 @@
 <?php
 	$topline_read = FreshRSS_Context::$user_conf->topline_read;
 	$topline_favorite = FreshRSS_Context::$user_conf->topline_favorite;
+	$topline_display_authors = FreshRSS_Context::$user_conf->topline_display_authors;
 	$topline_date = FreshRSS_Context::$user_conf->topline_date;
 	$topline_link = FreshRSS_Context::$user_conf->topline_link;
 ?><ul class="horizontal-list flux_header"><?php
@@ -27,7 +28,20 @@
 		}
 	}
 	?><li class="item website"><a href="<?php echo _url('index', 'index', 'get', 'f_' . $this->feed->id()); ?>"><img class="favicon" src="<?php echo $this->feed->favicon(); ?>" alt="✇" /> <span><?php echo $this->feed->name(); ?></span></a></li>
-	<li class="item title"><a target="_blank" rel="noreferrer" href="<?php echo $this->entry->link(); ?>"><?php echo $this->entry->title(); ?></a></li>
+	<li class="item title"><a target="_blank" rel="noreferrer" href="<?php echo $this->entry->link(); ?>"><?php echo $this->entry->title(); ?></a><?php
+		if ($topline_display_authors):
+			?><div class="item author"><?php
+			$authors = $this->entry->authors();
+			if (is_array($authors)) {
+				$first = true;
+				foreach ($authors as $author) {
+					echo $first ? $author : ', ' . $author;
+					$first = false;
+				}
+			}
+			?></div><?php
+		endif;
+	?></li>
 	<?php if ($topline_date) { ?><li class="item date"><?php echo $this->entry->date(); ?> </li><?php } ?>
 	<?php if ($topline_link) { ?><li class="item link"><a target="_blank" rel="noreferrer" href="<?php echo $this->entry->link(); ?>"><?php echo _i('link'); ?></a></li><?php } ?>
 </ul>

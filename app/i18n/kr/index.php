@@ -15,6 +15,9 @@ return array(
 		'version' => '버전',
 		'website' => '웹사이트',
 	),
+	'tos' => array(
+		'title' => 'Terms of Service', // TODO - Translation
+	),
 	'feed' => array(
 		'add' => '피드를 추가하세요.',
 		'empty' => '글이 없습니다.',

@@ -156,18 +156,17 @@ class FreshRSS_Feed extends Minz_Model {
 		return $this->nbNotRead;
 	}
 	public function faviconPrepare() {
-		global $favicons_dir;
 		require_once(LIB_PATH . '/favicons.php');
 		$url = $this->website;
 		if ($url == '') {
 			$url = $this->url;
 		}
-		$txt = $favicons_dir . $this->hash() . '.txt';
+		$txt = FAVICONS_DIR . $this->hash() . '.txt';
 		if (!file_exists($txt)) {
 			file_put_contents($txt, $url);
 		}
 		if (FreshRSS_Context::$isCli) {
-			$ico = $favicons_dir . $this->hash() . '.ico';
+			$ico = FAVICONS_DIR . $this->hash() . '.ico';
 			$ico_mtime = @filemtime($ico);
 			$txt_mtime = @filemtime($txt);
 			if ($txt_mtime != false &&
@@ -704,7 +703,7 @@ class FreshRSS_Feed extends Minz_Model {
 				file_put_contents($hubFilename, json_encode($hubJson));
 			}
 			$ch = curl_init();
-			curl_setopt_array($ch, array(
+			curl_setopt_array($ch, [
 					CURLOPT_URL => $hubJson['hub'],
 					CURLOPT_RETURNTRANSFER => true,
 					CURLOPT_POSTFIELDS => http_build_query(array(
@@ -715,13 +714,9 @@ class FreshRSS_Feed extends Minz_Model {
 						)),
 					CURLOPT_USERAGENT => FRESHRSS_USERAGENT,
 					CURLOPT_MAXREDIRS => 10,
-				));
-			if (version_compare(PHP_VERSION, '5.6.0') >= 0 || ini_get('open_basedir') == '') {
-				curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);	//Keep option separated for open_basedir PHP bug 65646
-			}
-			if (defined('CURLOPT_ENCODING')) {
-				curl_setopt($ch, CURLOPT_ENCODING, '');	//Enable all encodings
-			}
+					CURLOPT_FOLLOWLOCATION => true,
+					CURLOPT_ENCODING => '',	//Enable all encodings
+				]);
 			$response = curl_exec($ch);
 			$info = curl_getinfo($ch);
 

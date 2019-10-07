@@ -74,7 +74,7 @@ class FreshRSS_subscription_Controller extends Minz_ActionController {
 	 */
 	public function feedAction() {
 		if (Minz_Request::param('ajax')) {
-			$this->view->_useLayout(false);
+			$this->view->_layout(false);
 		}
 
 		$feedDAO = FreshRSS_Factory::createFeedDao();
@@ -179,7 +179,7 @@ class FreshRSS_subscription_Controller extends Minz_ActionController {
 	}
 
 	public function categoryAction() {
-		$this->view->_useLayout(false);
+		$this->view->_layout(false);
 
 		$categoryDAO = FreshRSS_Factory::createCategoryDao();
 

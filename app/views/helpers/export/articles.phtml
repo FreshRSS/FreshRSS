@@ -1,10 +1,7 @@
 <?php
 $username = Minz_Session::param('currentUser', '_');
 
-$options = 0;
-if (version_compare(PHP_VERSION, '5.4.0') >= 0) {
-	$options = JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE;
-}
+$options = JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE;
 
 $articles = array(
 	'id' => 'user/' . str_replace('/', '', $username) . '/state/org.freshrss/' . $this->type,

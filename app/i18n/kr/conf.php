@@ -29,6 +29,7 @@ return array(
 			'publication_date' => '발행일',
 			'related_tags' => '관련 태그',
 			'sharing' => '공유',
+			'display_authors' => 'Authors',  //TODO - Translation
 			'top_line' => '상단',
 		),
 		'language' => '언어',
@@ -53,6 +54,7 @@ return array(
 			'_' => '계정 삭제',
 			'warn' => '당신의 계정과 관련된 모든 데이터가 삭제됩니다.',
 		),
+		'email' => '메일 주소',
 		'password_api' => 'API 암호<br /><small>(예: 모바일 애플리케이션)</small>',
 		'password_form' => '암호<br /><small>(웹폼 로그인 방식 사용시)</small>',
 		'password_format' => '7 글자 이상이어야 합니다',
@@ -141,7 +143,6 @@ return array(
 		'diaspora' => 'Diaspora*',
 		'email' => '메일',
 		'facebook' => 'Facebook',
-		'g+' => 'Google+',
 		'more_information' => '자세한 정보',
 		'print' => '인쇄',
 		'remove' => '공유 방법 삭제',

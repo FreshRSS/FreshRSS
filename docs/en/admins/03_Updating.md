@@ -15,7 +15,7 @@ The update process depends on your installation type, see below:
 
 Change to your installation at http://localhost/FreshRSS/p/i/?c=update and hit the "Check for new updates" button.
 
-If there is a new version you will be prompted again. 
+If there is a new version you will be prompted again.
 
 
 ## Using git
@@ -72,7 +72,7 @@ cd /usr/share/FreshRSS
 ```
 
 Commands intended to be executed in order (you can c/p the whole block if desired):
-                            
+
 ```sh
 wget https://github.com/FreshRSS/FreshRSS/archive/master.zip
 unzip master.zip

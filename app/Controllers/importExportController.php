@@ -709,8 +709,6 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 		$this->entryDAO = FreshRSS_Factory::createEntryDao($username);
 		$this->feedDAO = FreshRSS_Factory::createFeedDao($username);
 
-		$this->entryDAO->disableBuffering();
-
 		if ($export_feeds === true) {
 			//All feeds
 			$export_feeds = $this->feedDAO->listFeedsIds();
@@ -773,7 +771,7 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 		if (!Minz_Request::isPost()) {
 			Minz_Request::forward(array('c' => 'importExport', 'a' => 'index'), true);
 		}
-		$this->view->_useLayout(false);
+		$this->view->_layout(false);
 
 		$nb_files = 0;
 		try {

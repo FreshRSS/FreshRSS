@@ -9,11 +9,11 @@
  */
 class Minz_View {
 	const VIEWS_PATH_NAME = '/views';
-	const LAYOUT_PATH_NAME = '/layout';
-	const LAYOUT_FILENAME = '/layout.phtml';
+	const LAYOUT_PATH_NAME = '/layout/';
+	const LAYOUT_DEFAULT = 'layout';
 
 	private $view_filename = '';
-	private $use_layout = true;
+	private $layout_filename = '';
 
 	private static $base_pathnames = array(APP_PATH);
 	private static $title = '';
@@ -26,21 +26,27 @@ class Minz_View {
 	 * Constructeur
 	 * Détermine si on utilise un layout ou non
 	 */
-	public function __construct () {
-		$this->change_view(Minz_Request::controllerName(),
-		                   Minz_Request::actionName());
-
+	public function __construct() {
+		$this->_layout(self::LAYOUT_DEFAULT);
 		$conf = Minz_Configuration::get('system');
 		self::$title = $conf->title;
 	}
 
 	/**
-	 * Change le fichier de vue en fonction d'un controller / action
+	 * [deprecated] Change the view file based on controller and action.
 	 */
 	public function change_view($controller_name, $action_name) {
-		$this->view_filename = self::VIEWS_PATH_NAME . '/'
-		                     . $controller_name . '/'
-		                     . $action_name . '.phtml';
+		Minz_Log::warning('Minz_View::change_view is deprecated, it will be removed in a future version. Please use Minz_View::_path instead.');
+		$this->_path($controller_name. '/' . $action_name . '.phtml');
+	}
+
+	/**
+	 * Change the view file based on a pathname relative to VIEWS_PATH_NAME.
+	 *
+	 * @param string $path the new path
+	 */
+	public function _path($path) {
+		$this->view_filename = self::VIEWS_PATH_NAME . '/' . $path;
 	}
 
 	/**
@@ -58,7 +64,7 @@ class Minz_View {
 	 * Construit la vue
 	 */
 	public function build () {
-		if ($this->use_layout) {
+		if ($this->layout_filename !== '') {
 			$this->buildLayout ();
 		} else {
 			$this->render ();
@@ -92,7 +98,9 @@ class Minz_View {
 	 */
 	public function buildLayout () {
 		header('Content-Type: text/html; charset=UTF-8');
-		$this->includeFile(self::LAYOUT_PATH_NAME . self::LAYOUT_FILENAME);
+		if (!$this->includeFile($this->layout_filename)) {
+			Minz_Log::notice('File not found: `' . $this->layout_filename . '`');
+		}
 	}
 
 	/**
@@ -137,11 +145,29 @@ class Minz_View {
 	}
 
 	/**
-	 * Permet de choisir si on souhaite utiliser le layout
-	 * @param $use true si on souhaite utiliser le layout, false sinon
+	 * Choose the current view layout.
+	 * @param $layout the layout name to use, false to use no layouts.
+	 */
+	public function _layout($layout) {
+		if ($layout) {
+			$this->layout_filename = self::LAYOUT_PATH_NAME . $layout . '.phtml';
+		} else {
+			$this->layout_filename = '';
+		}
+	}
+
+	/**
+	 * [deprecated] Choose if we want to use the layout or not.
+	 * Please use the `_layout` function instead.
+	 * @param $use true if we want to use the layout, false else
 	 */
 	public function _useLayout ($use) {
-		$this->use_layout = $use;
+		Minz_Log::warning('Minz_View::_useLayout is deprecated, it will be removed in a future version. Please use Minz_View::_layout instead.');
+		if ($use) {
+			$this->_layout(self::LAYOUT_DEFAULT);
+		} else {
+			$this->_layout(false);
+		}
 	}
 
 	/**

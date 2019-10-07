@@ -29,6 +29,7 @@ return array(
 			'publication_date' => 'Datum der Veröffentlichung',
 			'related_tags' => 'Verwandte Tags',
 			'sharing' => 'Teilen',
+			'display_authors' => 'Authors',  //TODO - Translation
 			'top_line' => 'Kopfzeile',
 		),
 		'language' => 'Sprache',
@@ -53,6 +54,7 @@ return array(
 			'_' => 'Accountlöschung',
 			'warn' => 'Dein Account und alle damit bezogenen Daten werden gelöscht.',
 		),
+		'email' => 'E-Mail-Adresse',
 		'password_api' => 'Passwort-API<br /><small>(z. B. für mobile Anwendungen)</small>',
 		'password_form' => 'Passwort<br /><small>(für die Anmeldemethode per Webformular)</small>',
 		'password_format' => 'mindestens 7 Zeichen',
@@ -141,7 +143,6 @@ return array(
 		'diaspora' => 'Diaspora*',
 		'email' => 'E-Mail',
 		'facebook' => 'Facebook',
-		'g+' => 'Google+',
 		'more_information' => 'Weitere Informationen',
 		'print' => 'Drucken',
 		'remove' => 'Entferne Teilen-Dienst',

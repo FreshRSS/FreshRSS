@@ -1,13 +1,10 @@
----
----
-
 @import "{{ site.theme }}";
 
 .page-header .project-name a {
-  color: #fff;
+	color: #fff;
 
-  &:hover {
-    text-decoration: none;
-    opacity: .7;
-  }
+	&:hover {
+		text-decoration: none;
+		opacity: .7;
+	}
 }

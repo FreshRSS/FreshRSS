@@ -3,6 +3,7 @@
 return array(
 	'action' => array(
 		'actualize' => 'Actualizar',
+		'back' => '← Tornar',
 		'back_to_rss_feeds' => '← Tornar a vòstres fluxes RSS',
 		'cancel' => 'Anullar',
 		'create' => 'Crear',
@@ -22,6 +23,7 @@ return array(
 		'update' => 'Actualizar',
 	),
 	'auth' => array(
+		'accept_tos' => 'I accept the <a href="%s">Terms of Service</a>.', // TODO - Translation
 		'email' => 'Adreça de corrièl',
 		'keep_logged_in' => 'Demorar connectat <small>(%s jorns) </small>',
 		'login' => 'Connexion',
@@ -49,7 +51,7 @@ return array(
 		'Aug' => '\\a\\g\\o\\s\\t',
 		'aug' => 'agost',
 		'august' => 'agost',
-		'before_yesterday' => 'Abans ièr',
+		'before_yesterday' => 'Anterior a ièr',
 		'Dec' => '\\d\\e\\c\\e\\m\\b\\r\\e',
 		'dec' => 'dec.',
 		'december' => 'decembre',
@@ -172,10 +174,10 @@ return array(
 		'diaspora' => 'Diaspora*',
 		'email' => 'Corrièl',
 		'facebook' => 'Facebook',
-		'g+' => 'Google+',
 		'gnusocial' => 'GNU social',
 		'jdh' => 'Journal du hacker',
 		'Known' => 'Sites basats sus Known',
+		'lemmy' => 'Lemmy',
 		'linkedin' => 'LinkedIn',
 		'mastodon' => 'Mastodon',
 		'movim' => 'Movim',

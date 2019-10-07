@@ -327,7 +327,7 @@ class FreshRSS_Entry extends Minz_Model {
 		}
 
 		$ch = curl_init();
-		curl_setopt_array($ch, array(
+		curl_setopt_array($ch, [
 			CURLOPT_URL => $url,
 			CURLOPT_REFERER => SimplePie_Misc::url_remove_credentials($url),
 			CURLOPT_HTTPHEADER => array('Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'),
@@ -337,13 +337,9 @@ class FreshRSS_Entry extends Minz_Model {
 			//CURLOPT_FAILONERROR => true;
 			CURLOPT_MAXREDIRS => 4,
 			CURLOPT_RETURNTRANSFER => true,
-		));
-		if (version_compare(PHP_VERSION, '5.6.0') >= 0 || ini_get('open_basedir') == '') {
-			curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);	//Keep option separated for open_basedir PHP bug 65646
-		}
-		if (defined('CURLOPT_ENCODING')) {
-			curl_setopt($ch, CURLOPT_ENCODING, '');	//Enable all encodings
-		}
+			CURLOPT_FOLLOWLOCATION => true,
+			CURLOPT_ENCODING => '',	//Enable all encodings
+		]);
 		curl_setopt_array($ch, $system_conf->curl_options);
 		if (isset($attributes['ssl_verify'])) {
 			curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, $attributes['ssl_verify'] ? 2 : 0);

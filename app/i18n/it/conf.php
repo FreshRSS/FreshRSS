@@ -29,6 +29,7 @@ return array(
 			'publication_date' => 'Data di pubblicazione',
 			'related_tags' => 'Tags correlati',	//TODO - Translation
 			'sharing' => 'Condivisione',
+			'display_authors' => 'Authors',  //TODO - Translation
 			'top_line' => 'Barra in alto',
 		),
 		'language' => 'Lingua',
@@ -53,6 +54,7 @@ return array(
 			'_' => 'Cancellazione account',
 			'warn' => 'Il tuo account e tutti i dati associati saranno cancellati.',
 		),
+		'email' => 'Indirizzo email',
 		'password_api' => 'Password API<br /><small>(e.g., per applicazioni mobili)</small>',
 		'password_form' => 'Password<br /><small>(per il login classico)</small>',
 		'password_format' => 'Almeno 7 caratteri',
@@ -141,7 +143,6 @@ return array(
 		'diaspora' => 'Diaspora*',
 		'email' => 'Email',
 		'facebook' => 'Facebook',
-		'g+' => 'Google+',
 		'more_information' => 'Ulteriori informazioni',
 		'print' => 'Stampa',
 		'remove' => 'Remove sharing method',	//TODO - Translation

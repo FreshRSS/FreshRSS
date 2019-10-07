@@ -3,7 +3,7 @@
 class FreshRSS_CategoryDAOSQLite extends FreshRSS_CategoryDAO {
 
 	protected function autoUpdateDb($errorInfo) {
-		if ($tableInfo = $this->bd->query("PRAGMA table_info('category')")) {
+		if ($tableInfo = $this->pdo->query("PRAGMA table_info('category')")) {
 			$columns = $tableInfo->fetchAll(PDO::FETCH_COLUMN, 1);
 			foreach (array('attributes') as $column) {
 				if (!in_array($column, $columns)) {

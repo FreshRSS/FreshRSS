@@ -9,7 +9,7 @@
 	<p class="alert <?php echo $status ? 'alert-success' : 'alert-error'; ?>">
 		<?php
 			if ($key === 'php') {
-				echo _t('admin.check_install.' . $key . '.' . ($status ? 'ok' : 'nok'), PHP_VERSION, '5.3.8');
+				echo _t('admin.check_install.' . $key . '.' . ($status ? 'ok' : 'nok'), PHP_VERSION, '5.6.0');
 			} else {
 				echo _t('admin.check_install.' . $key . '.' . ($status ? 'ok' : 'nok'));
 			}

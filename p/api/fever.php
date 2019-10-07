@@ -95,7 +95,7 @@ class FeverDAO extends Minz_ModelPdo
 		$sql = 'SELECT id, guid, title, author, '
 			. ($entryDAO->isCompressed() ? 'UNCOMPRESS(content_bin) AS content' : 'content')
 			. ', link, date, is_read, is_favorite, id_feed '
-			. 'FROM `' . $this->prefix . 'entry` WHERE';
+			. 'FROM `_entry` WHERE';
 
 		if (!empty($entry_ids)) {
 			$bindEntryIds = $this->bindParamArray('id', $entry_ids, $values);
@@ -120,7 +120,7 @@ class FeverDAO extends Minz_ModelPdo
 		$sql .= $order;
 		$sql .= ' LIMIT 50';
 
-		$stm = $this->bd->prepare($sql);
+		$stm = $this->pdo->prepare($sql);
 		$stm->execute($values);
 		$result = $stm->fetchAll(PDO::FETCH_ASSOC);
 

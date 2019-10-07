@@ -43,11 +43,7 @@ if (PHP_INT_SIZE < 8) {	//32-bit
 	}
 }
 
-if (version_compare(PHP_VERSION, '5.4.0') >= 0) {
-	define('JSON_OPTIONS', JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
-} else {
-	define('JSON_OPTIONS', 0);
-}
+define('JSON_OPTIONS', JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
 
 function headerVariable($headerName, $varName) {
 	$header = '';
@@ -81,9 +77,7 @@ function multiplePosts($name) {	//https://bugs.php.net/bug.php?id=51633
 }
 
 class MyPDO extends Minz_ModelPdo {
-	function prepare($sql) {
-		return $this->bd->prepare(str_replace('%_', $this->prefix, $sql));
-	}
+	public $pdo;
 }
 
 function debugInfo() {
@@ -182,10 +176,6 @@ function authorizationToUser() {
 
 function clientLogin($email, $pass) {	//http://web.archive.org/web/20130604091042/http://undoc.in/clientLogin.html
 	if (FreshRSS_user_Controller::checkUsername($email)) {
-		if (!function_exists('password_verify')) {
-			include_once(LIB_PATH . '/password_compat.php');
-		}
-
 		FreshRSS_Context::$user_conf = get_user_configuration($email);
 		if (FreshRSS_Context::$user_conf == null) {
 			Minz_Log::warning('Invalid API user ' . $email . ': configuration cannot be found.');
@@ -222,8 +212,10 @@ function token($conf) {
 function checkToken($conf, $token) {
 //http://code.google.com/p/google-reader-api/wiki/ActionToken
 	$user = Minz_Session::param('currentUser', '_');
-	if ($user !== '_' && $token == '') {
-		return true;	//FeedMe	//TODO: Check security consequences
+	if ($user !== '_' && (	//TODO: Check security consequences
+		$token == '' || //FeedMe
+		$token === 'x')) { //Reeder
+		return true;
 	}
 	if ($token === str_pad(sha1(FreshRSS_Context::$system_conf->salt . $user . $conf->apiPasswordHash), 57, 'Z')) {
 		return true;
@@ -245,9 +237,8 @@ function userInfo() {	//https://github.com/theoldreader/api#user-info
 function tagList() {
 	header('Content-Type: application/json; charset=UTF-8');
 
-	$pdo = new MyPDO();
-	$stm = $pdo->prepare('SELECT c.name FROM `%_category` c');
-	$stm->execute();
+	$model = new MyPDO();
+	$stm = $model->pdo->query('SELECT c.name FROM `_category` c');
 	$res = $stm->fetchAll(PDO::FETCH_COLUMN, 0);
 
 	$tags = array(
@@ -283,10 +274,11 @@ function tagList() {
 function subscriptionList() {
 	header('Content-Type: application/json; charset=UTF-8');
 
-	$pdo = new MyPDO();
-	$stm = $pdo->prepare('SELECT f.id, f.name, f.url, f.website, c.id as c_id, c.name as c_name FROM `%_feed` f
-		INNER JOIN `%_category` c ON c.id = f.category AND f.priority >= :priority_normal');
-	$stm->execute(array(':priority_normal' => FreshRSS_Feed::PRIORITY_NORMAL));
+	$model = new MyPDO();
+	$stm = $model->pdo->prepare('SELECT f.id, f.name, f.url, f.website, c.id as c_id, c.name as c_name FROM `_feed` f
+		INNER JOIN `_category` c ON c.id = f.category AND f.priority >= :priority_normal');
+	$stm->bindValue(':priority_normal', FreshRSS_Feed::PRIORITY_NORMAL, PDO::PARAM_INT);
+	$stm->execute();
 	$res = $stm->fetchAll(PDO::FETCH_ASSOC);
 
 	$salt = FreshRSS_Context::$system_conf->salt;

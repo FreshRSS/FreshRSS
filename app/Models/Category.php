@@ -77,8 +77,11 @@ class FreshRSS_Category extends Minz_Model {
 		}
 	}
 
-	public function _id($value) {
-		$this->id = $value;
+	public function _id($id) {
+		$this->id = $id;
+		if ($id == FreshRSS_CategoryDAO::DEFAULTCATEGORYID) {
+			$this->_name(_t('gen.short.default_category'));
+		}
 	}
 	public function _name($value) {
 		$this->name = trim($value);

@@ -16,7 +16,7 @@ class FreshRSS_tag_Controller extends Minz_ActionController {
 		// If ajax request, we do not print layout
 		$this->ajax = Minz_Request::param('ajax');
 		if ($this->ajax) {
-			$this->view->_useLayout(false);
+			$this->view->_layout(false);
 			Minz_Request::_param('ajax');
 		}
 	}
@@ -70,7 +70,7 @@ class FreshRSS_tag_Controller extends Minz_ActionController {
 	}
 
 	public function getTagsForEntryAction() {
-		$this->view->_useLayout(false);
+		$this->view->_layout(false);
 		header('Content-Type: application/json; charset=UTF-8');
 		header('Cache-Control: private, no-cache, no-store, must-revalidate');
 		$id_entry = Minz_Request::param('id_entry', 0);

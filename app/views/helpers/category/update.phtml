@@ -11,7 +11,10 @@
 		<div class="form-group">
 			<label class="group-name" for="name"><?php echo _t('sub.category.title'); ?></label>
 			<div class="group-controls">
-				<input type="text" name="name" id="name" class="extend" value="<?php echo $this->category->name() ; ?>" />
+				<input type="text" name="name" id="name" class="extend" value="<?php echo $this->category->name() ; ?>" <?php
+					//Disallow changing the name of the default category
+					echo $this->category->id() == FreshRSS_CategoryDAO::DEFAULTCATEGORYID ? 'disabled="disabled"' : '';
+				?> />
 			</div>
 		</div>
 

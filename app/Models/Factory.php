@@ -2,6 +2,10 @@
 
 class FreshRSS_Factory {
 
+	public static function createUserDao($username = null) {
+		return new FreshRSS_UserDAO($username);
+	}
+
 	public static function createCategoryDao($username = null) {
 		$conf = Minz_Configuration::get('system');
 		switch ($conf->db['type']) {

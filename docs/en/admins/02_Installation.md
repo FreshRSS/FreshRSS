@@ -7,14 +7,10 @@ You need to verify that your server can run FreshRSS before installing it. If yo
 | Software    | Recommended      | Works also with               |
 | ----------- | ---------------- | ----------------------------- |
 | Web server  | **Apache 2**     | Nginx                         |
-| PHP         | **PHP 5.5+**     | PHP 5.3.8+                    |
-| PHP modules | Required: libxml, cURL, PDO_MySQL, PCRE and ctype. <br>Required (32-bit only): GMP <br> Recommanded: JSON, Zlib, mbstring, iconv, ZipArchive <br> *For the whole modules list see [Dockerfile](https://github.com/FreshRSS/FreshRSS/blob/744a9e8cf00aef7dec0acfa5f90f0dcfa2ef8837/Docker/Dockerfile-Alpine#L7-L9)* | |
-| Database    | **MySQL 5.5.3+** | SQLite 3.7.4+                 |
+| PHP         | **PHP 7+**       | PHP 5.6+                      |
+| PHP modules | Required: libxml, cURL, JSON, PDO_MySQL, PCRE and ctype. <br>Required (32-bit only): GMP <br> Recommanded: Zlib, mbstring, iconv, ZipArchive <br> *For the whole modules list see [Dockerfile](https://github.com/FreshRSS/FreshRSS/blob/master/Docker/Dockerfile-Alpine#L7-L9)* | |
+| Database    | **MySQL 5.5.3+** | SQLite 3.7.4+, PostgreSQL 9.5+  |
 | Browser     | **Firefox**      | Chrome, Opera, Safari, or IE11+ |
-
-## Important notice
-
-FreshRSS **CAN** work with PHP 5.3.8+. To do so, we are using specific functions available in the [''password_compat'' library](https://github.com/ircmaxell/password_compat#requirements) for the form authentication.
 
 
 # Getting the appropriate version of FreshRSS
@@ -141,7 +137,7 @@ A step-by-step tutorial is available [in French](http://www.pihomeserver.fr/2013
 
 # Security
 
-Make sure to expose only the `./p/` folder on the web, the other directories contain personal and sensitive data. 
+Make sure to expose only the `./p/` folder on the web, the other directories contain personal and sensitive data.
 See the Apache and nginx config examples above.
 
 **TODO**

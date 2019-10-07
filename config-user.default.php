@@ -1,5 +1,8 @@
 <?php
 
+# Do not modify this file, which defines default values, but create a
+# `./data/config-user.custom.php` file instead, containing the keys you want to
+# override.
 return array (
 	'language' => 'en',
 	'old_entries' => 3,
@@ -15,6 +18,7 @@ return array (
 	),
 	'ttl_default' => 3600,
 	'mail_login' => '',
+	'email_validation_token' => '',
 	'token' => '',
 	'passwordHash' => '',
 	'apiPasswordHash' => '',
@@ -76,6 +80,7 @@ return array (
 	),
 	'topline_read' => true,
 	'topline_favorite' => true,
+	'topline_display_authors' => false,
 	'topline_date' => true,
 	'topline_link' => true,
 	'bottomline_read' => true,

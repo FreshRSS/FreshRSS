@@ -15,6 +15,9 @@ return array(
 		'version' => 'Version',	//TODO - Translation
 		'website' => 'Website',	//TODO - Translation
 	),
+	'tos' => array(
+		'title' => 'Terms of Service', // TODO - Translation
+	),
 	'feed' => array(
 		'add' => 'You may add some feeds.',	//TODO - Translation
 		'empty' => 'There is no article to show.',	//TODO - Translation

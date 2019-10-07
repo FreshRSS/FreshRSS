@@ -53,6 +53,10 @@ class FreshRSS extends Minz_FrontController {
 			$ext_list = FreshRSS_Context::$user_conf->extensions_enabled;
 			Minz_ExtensionManager::enableByList($ext_list);
 		}
+
+		self::checkEmailValidated();
+
+		Minz_ExtensionManager::callHook('freshrss_init');
 	}
 
 	private static function initAuth() {
@@ -68,9 +72,12 @@ class FreshRSS extends Minz_FrontController {
 						' [HTTP_REFERER=' . htmlspecialchars($http_referer, ENT_NOQUOTES, 'UTF-8') . ']'
 					)));
 			}
-			if ((!FreshRSS_Auth::isCsrfOk()) &&
-				(Minz_Request::controllerName() !== 'auth' || Minz_Request::actionName() !== 'login')) {
-				// Token-based protection against XSRF attacks, except for the login form itself
+			if (!(FreshRSS_Auth::isCsrfOk() ||
+				(Minz_Request::controllerName() === 'auth' && Minz_Request::actionName() === 'login') ||
+				(Minz_Request::controllerName() === 'user' && Minz_Request::actionName() === 'create' &&
+					!FreshRSS_Auth::hasAccess('admin'))
+				)) {
+				// Token-based protection against XSRF attacks, except for the login or self-create user forms
 				Minz_Translate::init('en');	//TODO: Better choice of fallback language
 				Minz_Error::error(403, array('error' => array(
 						_t('feedback.access.denied'),
@@ -138,5 +145,23 @@ class FreshRSS extends Minz_FrontController {
 
 		FreshRSS_Share::load(join_path(APP_PATH, 'shares.php'));
 		self::loadStylesAndScripts();
+	}
+
+	private static function checkEmailValidated() {
+		$email_not_verified = FreshRSS_Auth::hasAccess() && FreshRSS_Context::$user_conf->email_validation_token !== '';
+		$action_is_allowed = (
+			Minz_Request::is('user', 'validateEmail') ||
+			Minz_Request::is('user', 'sendValidationEmail') ||
+			Minz_Request::is('user', 'profile') ||
+			Minz_Request::is('user', 'delete') ||
+			Minz_Request::is('auth', 'logout') ||
+			Minz_Request::is('javascript', 'nonce')
+		);
+		if ($email_not_verified && !$action_is_allowed) {
+			Minz_Request::forward(array(
+				'c' => 'user',
+				'a' => 'validateEmail',
+			), true);
+		}
 	}
 }
