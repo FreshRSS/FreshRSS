@@ -39,9 +39,10 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 	}
 
 	private static function minimumMemory($mb) {
+		$mb = (int)$mb;
 		$ini = self::megabytes(ini_get('memory_limit'));
 		if ($ini < $mb) {
-			ini_set('memory_limit', '256M');
+			ini_set('memory_limit', $mb . 'M');
 		}
 	}
 
