@@ -29,7 +29,24 @@ class FreshRSS_importExport_Controller extends Minz_ActionController {
 		Minz_View::prependTitle(_t('sub.import_export.title') . ' · ');
 	}
 
+	private static function megabytes($size_str) {
+		switch (substr($size_str, -1)) {
+			case 'M': case 'm': return (int)$size_str;
+			case 'K': case 'k': return (int)$size_str / 1024;
+			case 'G': case 'g': return (int)$size_str * 1024;
+		}
+		return $size_str;
+	}
+
+	private static function minimumMemory($mb) {
+		$ini = self::megabytes(ini_get('memory_limit'));
+		if ($ini < $mb) {
+			ini_set('memory_limit', '256M');
+		}
+	}
+
 	public function importFile($name, $path, $username = null) {
+		self::minimumMemory(256);
 		require_once(LIB_PATH . '/lib_opml.php');
 
 		$this->catDAO = new FreshRSS_CategoryDAO($username);
