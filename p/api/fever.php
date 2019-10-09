@@ -165,9 +165,12 @@ class FeverAPI
 				$user_conf = get_user_configuration($username);
 				if ($user_conf != null && $feverKey === $user_conf->feverKey) {
 					FreshRSS_Context::$user_conf = $user_conf;
+					Minz_Translate::init(FreshRSS_Context::$user_conf->language);
 					$this->entryDAO = FreshRSS_Factory::createEntryDao();
 					$this->feedDAO = FreshRSS_Factory::createFeedDao();
 					return true;
+				} else {
+					Minz_Translate::init();
 				}
 				Minz_Log::error('Fever API: Reset API password for user: ' . $username, API_LOG);
 				Minz_Log::error('Fever API: Please reset your API password!');
