@@ -916,6 +916,9 @@ $user = authorizationToUser();
 FreshRSS_Context::$user_conf = null;
 if ($user !== '') {
 	FreshRSS_Context::$user_conf = get_user_configuration($user);
+	Minz_Translate::init(FreshRSS_Context::$user_conf->language);
+} else {
+	Minz_Translate::init();
 }
 
 Minz_Session::_param('currentUser', $user);
