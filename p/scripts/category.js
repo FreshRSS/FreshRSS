@@ -137,9 +137,9 @@ function init_draggable() {
 }
 
 function archiving() {
-	document.querySelector('body').addEventListener('change', function(event) {
+	document.querySelector('body').addEventListener('change', function (event) {
 		if (event.target.id === 'use_default_purge_options') {
-			document.querySelectorAll('.archiving').forEach(function(element) {
+			document.querySelectorAll('.archiving').forEach(function (element) {
 				element.hidden = event.target.checked;
 			});
 		}

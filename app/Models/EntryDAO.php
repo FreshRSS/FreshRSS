@@ -546,13 +546,13 @@ SQL;
 
 	public function cleanOldEntries($id_feed, $options = []) { //Remember to call updateCachedValue($id_feed) or updateCachedValues() just after
 		$andWhere = '';
-		if (array_key_exists('keep_favourites', $options) && true === $options['keep_favourites']) {
+		if (!empty($options['keep_favourites'])) {
 			$andWhere .= ' AND is_favorite = 0';
 		}
-		if (array_key_exists('keep_labels', $options) && true === $options['keep_labels']) {
-			$andWhere .= ' AND id NOT IN (SELECT id_entry FROM `_entrytag`)';
+		if (!empty($options['keep_labels'])) {
+			$andWhere .= ' AND NOT EXISTS (SELECT 1 FROM `_entrytag` WHERE id_entry = id)';
 		}
-		if (array_key_exists('keep_unreads', $options) && true === $options['keep_unreads']) {
+		if (!empty($options['keep_unreads'])) {
 			$andWhere .= ' AND is_read = 1';
 		}
 
@@ -561,12 +561,12 @@ SQL;
 
 		if ($stm) {
 			$id_max = 0;
-			if (array_key_exists('enable_retention_period', $options) && true === $options['enable_retention_period']) {
+			if (!empty($options['enable_retention_period'])) {
 				$now = new DateTime('now');
 				$now->sub(new DateInterval($options['retention_period']));
 				$id_max = max($id_max, $now->format('U000000'));
 			}
-			if (array_key_exists('enable_retention_count_limit', $options) && true === $options['enable_retention_count_limit']) {
+			if (!empty($options['enable_retention_count_limit'])) {
 				$sql2 = "SELECT MIN(id) AS id_max FROM (SELECT id FROM `_entry` WHERE id_feed = :id_feed {$andWhere} ORDER BY id DESC LIMIT :countLimit) AS dummy";
 				$stm2 = $this->pdo->prepare($sql2);
 				$stm2->bindParam(':countLimit', $options['retention_count_limit'], PDO::PARAM_INT);

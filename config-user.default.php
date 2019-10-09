@@ -5,11 +5,11 @@
 # override.
 return array (
 	'language' => 'en',
-	'old_entries' => 3,
-	'keep_history_default' => 50,
+	'old_entries' => 3,	//TODO: Remove?
+	'keep_history_default' => 50,	//TODO: Remove?
 	'archiving' => array (
 		'enable_retention_count_limit' => false,
-		'retention_count_limit' => null,
+		'retention_count_limit' => 200,
 		'enable_retention_period' => true,
 		'retention_period' => 'P3M',
 		'keep_favourites' => true,

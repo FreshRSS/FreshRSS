@@ -40,7 +40,7 @@
 				<label class="checkbox" for="enable_retention_count_limit">
 					<input type="checkbox" name="enable_retention_count_limit" id="enable_retention_count_limit" value="1"<?php echo FreshRSS_Context::$user_conf->archiving['enable_retention_count_limit'] ? ' checked="checked"' : ''; ?>  data-leave-validation="<?php echo FreshRSS_Context::$user_conf->archiving['enable_retention_count_limit']; ?>"/>
 					<?php echo _t('conf.archiving.retention_count_limit'); ?>
-					<input type="number" id="retention_count_limit" name="retention_count_limit" min="0" value="<?php echo FreshRSS_Context::$user_conf->archiving['retention_count_limit']; ?>" data-leave-validation="<?php echo FreshRSS_Context::$user_conf->archiving['retention_count_limit']; ?>"/>
+					<input type="number" id="retention_count_limit" name="retention_count_limit" min="0" value="<?php echo empty($archiving['retention_count_limit']) ? 200 : $archiving['retention_count_limit']; ?>" data-leave-validation="<?php echo FreshRSS_Context::$user_conf->archiving['retention_count_limit']; ?>"/>
 				</label>
 			</div>
 		</div>

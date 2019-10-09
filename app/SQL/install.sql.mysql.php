@@ -25,7 +25,7 @@ CREATE TABLE IF NOT EXISTS `_feed` (
 	`pathEntries` VARCHAR(511) DEFAULT NULL,
 	`httpAuth` VARCHAR(511) DEFAULT NULL,
 	`error` BOOLEAN DEFAULT 0,
-	`keep_history` MEDIUMINT NOT NULL DEFAULT -2,	-- v0.7
+	`keep_history` MEDIUMINT NOT NULL DEFAULT -2,	-- v0.7	-- TODO: Remove?
 	`ttl` INT NOT NULL DEFAULT 0,	-- v0.7.3
 	`attributes` TEXT,	-- v1.11.0
 	`cache_nbEntries` INT DEFAULT 0,	-- v0.7

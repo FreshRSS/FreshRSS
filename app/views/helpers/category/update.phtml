@@ -38,10 +38,10 @@
 		<?php
 			$archiving = $this->category->attributes('archiving');
 			$volatile = [
-				'retention_period_count' => '1',
+				'retention_period_count' => '3',
 				'retention_period_unit' => 'P1M',
 			];
-			$retentionPeriod = (is_array($archiving) && array_key_exists('retention_period', $archiving)) ? $archiving['retention_period'] : '';
+			$retentionPeriod = isset($archiving['retention_period']) ? $archiving['retention_period'] : '';
 			if (preg_match('/^PT?(?P<count>\d+)[YMWDH]$/', $retentionPeriod, $matches)) {
 				$volatile['retention_period_count'] = $matches['count'];
 				$volatile['retention_period_unit'] = str_replace($matches['count'], '1', $retentionPeriod);
@@ -66,7 +66,7 @@
 				<label class="checkbox" for="enable_retention_count_limit">
 					<input type="checkbox" name="enable_retention_count_limit" id="enable_retention_count_limit" value="1"<?php echo $archiving['enable_retention_count_limit'] ? ' checked="checked"' : ''; ?>  data-leave-validation="<?php echo $archiving['enable_retention_count_limit']; ?>"/>
 					<?php echo _t('conf.archiving.retention_count_limit'); ?>
-					<input type="number" id="retention_count_limit" name="retention_count_limit" min="0" value="<?php echo $archiving['retention_count_limit']; ?>" data-leave-validation="<?php echo $archiving['retention_count_limit']; ?>"/>
+					<input type="number" id="retention_count_limit" name="retention_count_limit" min="0" value="<?php echo empty($archiving['retention_count_limit']) ? 200 : $archiving['retention_count_limit']; ?>" data-leave-validation="<?php echo $archiving['retention_count_limit']; ?>"/>
 				</label>
 			</div>
 		</div>
@@ -91,7 +91,7 @@
 			<label class="group-name"><?php echo _t('conf.archiving.exception'); ?></label>
 			<div class="group-controls">
 				<label class="checkbox" for="keep_favourites">
-					<input type="checkbox" name="keep_favourites" id="keep_favourites" value="1"<?php echo $archiving['keep_favourites'] ? ' checked="checked"' : ''; ?>  data-leave-validation="<?php echo $archiving['keep_favourites']; ?>"/>
+					<input type="checkbox" name="keep_favourites" id="keep_favourites" value="1"<?php echo $archiving['keep_favourites'] !== false ? ' checked="checked"' : ''; ?>  data-leave-validation="<?php echo $archiving['keep_favourites']; ?>"/>
 					<?php echo _t('conf.archiving.keep_favourites'); ?>
 				</label>
 			</div>
@@ -99,7 +99,7 @@
 		<div class="form-group archiving"<?php echo null === $archiving ? ' hidden="hidden"' : ''; ?>>
 			<div class="group-controls">
 				<label class="checkbox" for="keep_labels">
-					<input type="checkbox" name="keep_labels" id="keep_labels" value="1"<?php echo $archiving['keep_labels'] ? ' checked="checked"' : ''; ?>  data-leave-validation="<?php echo $archiving['keep_labels']; ?>"/>
+					<input type="checkbox" name="keep_labels" id="keep_labels" value="1"<?php echo $archiving['keep_labels'] !== false ? ' checked="checked"' : ''; ?>  data-leave-validation="<?php echo $archiving['keep_labels']; ?>"/>
 					<?php echo _t('conf.archiving.keep_labels'); ?>
 				</label>
 			</div>
