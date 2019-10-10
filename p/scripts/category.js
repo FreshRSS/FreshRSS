@@ -137,11 +137,22 @@ function init_draggable() {
 }
 
 function archiving() {
-	document.querySelector('body').addEventListener('change', function (event) {
-		if (event.target.id === 'use_default_purge_options') {
-			document.querySelectorAll('.archiving').forEach(function (element) {
-				element.hidden = event.target.checked;
+	const slider = document.getElementById('slider');
+	slider.addEventListener('change', function (e) {
+		if (e.target.id === 'use_default_purge_options') {
+			slider.querySelectorAll('.archiving').forEach(function (element) {
+				element.hidden = e.target.checked;
 			});
+		}
+	});
+	slider.addEventListener('click', function (e) {
+		if (e.target.closest('button[type=reset]')) {
+			const archiving = document.getElementById('use_default_purge_options');
+			if (archiving) {
+				slider.querySelectorAll('.archiving').forEach(function (element) {
+					element.hidden = archiving.getAttribute('data-leave-validation') == 1;
+				});
+			}
 		}
 	});
 }

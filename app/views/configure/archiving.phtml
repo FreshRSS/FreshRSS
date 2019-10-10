@@ -31,16 +31,17 @@
 		</div>
 
 		<p class="alert alert-warn">
-			<?php echo _t('conf.archiving.policy_warning'); ?>
+			<?= _t('conf.archiving.policy_warning') ?>
 		</p>
 
 		<div class="form-group">
-			<label class="group-name"><?php echo _t('conf.archiving.policy'); ?></label>
+			<label class="group-name"><?= _t('conf.archiving.policy') ?></label>
 			<div class="group-controls">
 				<label class="checkbox" for="enable_retention_count_limit">
-					<input type="checkbox" name="enable_retention_count_limit" id="enable_retention_count_limit" value="1"<?php echo FreshRSS_Context::$user_conf->archiving['enable_retention_count_limit'] ? ' checked="checked"' : ''; ?>  data-leave-validation="<?php echo FreshRSS_Context::$user_conf->archiving['enable_retention_count_limit']; ?>"/>
-					<?php echo _t('conf.archiving.retention_count_limit'); ?>
-					<input type="number" id="retention_count_limit" name="retention_count_limit" min="0" value="<?php echo empty($archiving['retention_count_limit']) ? 200 : $archiving['retention_count_limit']; ?>" data-leave-validation="<?php echo FreshRSS_Context::$user_conf->archiving['retention_count_limit']; ?>"/>
+					<input type="checkbox" name="enable_retention_count_limit" id="enable_retention_count_limit" value="1"<?= FreshRSS_Context::$user_conf->archiving['enable_retention_count_limit'] ? ' checked="checked"' : '' ?> data-leave-validation="<?= FreshRSS_Context::$user_conf->archiving['enable_retention_count_limit'] ? 1 : 0 ?>"/>
+					<?= _t('conf.archiving.retention_count_limit') ?>
+					<?php $retentionCountLimit = empty($archiving['retention_count_limit']) ? 200 : $archiving['retention_count_limit'] ?>
+					<input type="number" id="retention_count_limit" name="retention_count_limit" min="0" value="<?= $retentionCountLimit ?>" data-leave-validation="<?= $retentionCountLimit ?>"/>
 				</label>
 			</div>
 		</div>
@@ -48,27 +49,27 @@
 		<div class="form-group">
 			<div class="group-controls">
 				<label class="checkbox" for="enable_retention_period">
-					<input type="checkbox" name="enable_retention_period" id="enable_retention_period" value="1"<?php echo FreshRSS_Context::$user_conf->archiving['enable_retention_period'] ? ' checked="checked"' : ''; ?>  data-leave-validation="<?php echo FreshRSS_Context::$user_conf->archiving['enable_retention_period']; ?>"/>
-					<?php echo _t('conf.archiving.retention_period'); ?>
-					<input type="number" id="retention_period_count" name="retention_period_count" min="0" value="<?php echo FreshRSS_Context::$user_conf->volatile['retention_period_count']; ?>" data-leave-validation="<?php echo FreshRSS_Context::$user_conf->volatile['retention_period_count']; ?>"/>
-					<select class="number" name="retention_period_unit" id="retention_period_unit" data-leave-validation="<?php echo FreshRSS_Context::$user_conf->volatile['retention_period_unit']; ?>">
+					<input type="checkbox" name="enable_retention_period" id="enable_retention_period" value="1"<?= FreshRSS_Context::$user_conf->archiving['enable_retention_period'] ? ' checked="checked"' : '' ?> data-leave-validation="<?= FreshRSS_Context::$user_conf->archiving['enable_retention_period'] ? 1 : 0 ?>"/>
+					<?= _t('conf.archiving.retention_period') ?>
+					<input type="number" id="retention_period_count" name="retention_period_count" min="0" value="<?= FreshRSS_Context::$user_conf->volatile['retention_period_count'] ?>" data-leave-validation="<?= FreshRSS_Context::$user_conf->volatile['retention_period_count'] ?>"/>
+					<select class="number" name="retention_period_unit" id="retention_period_unit" data-leave-validation="<?= FreshRSS_Context::$user_conf->volatile['retention_period_unit'] ?>">
 						<option></option>
-						<option value="P1Y" <?php echo 'P1Y' === FreshRSS_Context::$user_conf->volatile['retention_period_unit'] ? 'selected="selected"' : ''; ?>><?php echo _t('gen.period.years'); ?></option>
-						<option value="P1M" <?php echo 'P1M' === FreshRSS_Context::$user_conf->volatile['retention_period_unit'] ? 'selected="selected"' : ''; ?>><?php echo _t('gen.period.months'); ?></option>
-						<option value="P1W" <?php echo 'P1W' === FreshRSS_Context::$user_conf->volatile['retention_period_unit'] ? 'selected="selected"' : ''; ?>><?php echo _t('gen.period.weeks'); ?></option>
-						<option value="P1D" <?php echo 'P1D' === FreshRSS_Context::$user_conf->volatile['retention_period_unit'] ? 'selected="selected"' : ''; ?>><?php echo _t('gen.period.days'); ?></option>
-						<option value="PT1H" <?php echo 'PT1H' === FreshRSS_Context::$user_conf->volatile['retention_period_unit'] ? 'selected="selected"' : ''; ?>><?php echo _t('gen.period.hours'); ?></option>
+						<option value="P1Y" <?= 'P1Y' === FreshRSS_Context::$user_conf->volatile['retention_period_unit'] ? 'selected="selected"' : '' ?>><?= _t('gen.period.years') ?></option>
+						<option value="P1M" <?= 'P1M' === FreshRSS_Context::$user_conf->volatile['retention_period_unit'] ? 'selected="selected"' : '' ?>><?= _t('gen.period.months') ?></option>
+						<option value="P1W" <?= 'P1W' === FreshRSS_Context::$user_conf->volatile['retention_period_unit'] ? 'selected="selected"' : '' ?>><?= _t('gen.period.weeks') ?></option>
+						<option value="P1D" <?= 'P1D' === FreshRSS_Context::$user_conf->volatile['retention_period_unit'] ? 'selected="selected"' : '' ?>><?= _t('gen.period.days') ?></option>
+						<option value="PT1H" <?= 'PT1H' === FreshRSS_Context::$user_conf->volatile['retention_period_unit'] ? 'selected="selected"' : '' ?>><?= _t('gen.period.hours') ?></option>
 					</select>
 				</label>
 			</div>
 		</div>
 
 		<div class="form-group">
-			<label class="group-name"><?php echo _t('conf.archiving.exception'); ?></label>
+			<label class="group-name"><?= _t('conf.archiving.exception') ?></label>
 			<div class="group-controls">
 				<label class="checkbox" for="keep_favourites">
-					<input type="checkbox" name="keep_favourites" id="keep_favourites" value="1"<?php echo FreshRSS_Context::$user_conf->archiving['keep_favourites'] ? ' checked="checked"' : ''; ?>  data-leave-validation="<?php echo FreshRSS_Context::$user_conf->archiving['keep_favourites']; ?>"/>
-					<?php echo _t('conf.archiving.keep_favourites'); ?>
+					<input type="checkbox" name="keep_favourites" id="keep_favourites" value="1"<?= FreshRSS_Context::$user_conf->archiving['keep_favourites'] ? ' checked="checked"' : '' ?> data-leave-validation="<?= FreshRSS_Context::$user_conf->archiving['keep_favourites'] ?>"/>
+					<?= _t('conf.archiving.keep_favourites') ? 1 : 0 ?>
 				</label>
 			</div>
 		</div>
@@ -76,8 +77,8 @@
 		<div class="form-group">
 			<div class="group-controls">
 				<label class="checkbox" for="keep_labels">
-					<input type="checkbox" name="keep_labels" id="keep_labels" value="1"<?php echo FreshRSS_Context::$user_conf->archiving['keep_labels'] ? ' checked="checked"' : ''; ?>  data-leave-validation="<?php echo FreshRSS_Context::$user_conf->archiving['keep_labels']; ?>"/>
-					<?php echo _t('conf.archiving.keep_labels'); ?>
+					<input type="checkbox" name="keep_labels" id="keep_labels" value="1"<?= FreshRSS_Context::$user_conf->archiving['keep_labels'] ? ' checked="checked"' : '' ?> data-leave-validation="<?= FreshRSS_Context::$user_conf->archiving['keep_labels'] ?>"/>
+					<?= _t('conf.archiving.keep_labels') ? 1 : 0 ?>
 				</label>
 			</div>
 		</div>
@@ -85,8 +86,8 @@
 		<div class="form-group">
 			<div class="group-controls">
 				<label class="checkbox" for="keep_unreads">
-					<input type="checkbox" name="keep_unreads" id="keep_unreads" value="1"<?php echo FreshRSS_Context::$user_conf->archiving['keep_unreads'] ? ' checked="checked"' : ''; ?>  data-leave-validation="<?php echo FreshRSS_Context::$user_conf->archiving['keep_unreads']; ?>"/>
-					<?php echo _t('conf.archiving.keep_unreads'); ?>
+					<input type="checkbox" name="keep_unreads" id="keep_unreads" value="1"<?= FreshRSS_Context::$user_conf->archiving['keep_unreads'] ? ' checked="checked"' : '' ?> data-leave-validation="<?= FreshRSS_Context::$user_conf->archiving['keep_unreads'] ?>"/>
+					<?= _t('conf.archiving.keep_unreads') ? 1 : 0 ?>
 				</label>
 			</div>
 		</div>
