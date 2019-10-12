@@ -545,49 +545,61 @@ SQL;
 	}
 
 	public function cleanOldEntries($id_feed, $options = []) { //Remember to call updateCachedValue($id_feed) or updateCachedValues() just after
-		$andWhere = '';
+		$sql = 'DELETE FROM `_entry` e1 WHERE e1.id_feed = :id_feed';
+		$params = [];
+		$params = [':id_feed'] = $id_feed;
+
+		//==Exclusions==
 		if (!empty($options['keep_favourites'])) {
-			$andWhere .= ' AND is_favorite = 0';
-		}
-		if (!empty($options['keep_labels'])) {
-			$andWhere .= ' AND NOT EXISTS (SELECT 1 FROM `_entrytag` WHERE id_entry = id)';
+			$sql .= ' AND e1.is_favorite = 0';
 		}
 		if (!empty($options['keep_unreads'])) {
-			$andWhere .= ' AND is_read = 1';
+			$sql .= ' AND e1.is_read = 1';
 		}
+		if (!empty($options['keep_labels'])) {
+			$sql .= ' AND NOT EXISTS (SELECT 1 FROM `_entrytag` WHERE id_entry = e1.id)';
+		}
+		//Keep at least the articles seen at the last refresh
+		$sql .= ' AND e1.`lastSeen` > (SELECT MAX(e2.`lastSeen`) FROM `_entry` e2 WHERE e2.id_feed = e1.id_feed)';
 
-		$sql = 'DELETE FROM `_entry` WHERE id_feed = :id_feed AND id < :id_max ' . $andWhere;
+		//==Inclusions==
+		$sql .= ' AND (0';
+		if (!empty($options['enable_retention_period'])) {
+			$sql .= ' OR e1.`lastSeen` < :max_last_seen';
+			$now = new DateTime('now');
+			$now->sub(new DateInterval($options['retention_period']));
+			$params[':max_last_seen'] = $now->format('U');
+		}
+		if (!empty($options['enable_retention_count_limit'])) {
+			$sql .= ' OR e1.id < (SELECT MAX(id) FROM `_entry` e3 WHERE e3.id_feed = e1.id_feed';
+			if (!empty($options['keep_favourites'])) {
+				$sql .= ' AND e3.is_favorite = 0';
+			}
+			if (!empty($options['keep_unreads'])) {
+				$sql .= ' AND e3.is_read = 1';
+			}
+			if (!empty($options['keep_labels'])) {
+				$sql .= ' AND NOT EXISTS (SELECT 1 FROM `_entrytag` WHERE id_entry = e1.id)';
+			}
+			$sql .= ' ORDER BY `lastSeen` DESC LIMIT :countLimit)';
+			$params[':countLimit'] = $options['retention_count_limit'];
+
+			if ($stm2->execute()) {
+				$id_max = max($id_max, $stm2->fetchColumn(0));
+			}
+		}
+		$sql .= ')';
+
 		$stm = $this->pdo->prepare($sql);
 
-		if ($stm) {
-			$id_max = 0;
-			if (!empty($options['enable_retention_period'])) {
-				$now = new DateTime('now');
-				$now->sub(new DateInterval($options['retention_period']));
-				$id_max = max($id_max, $now->format('U000000'));
-			}
-			if (!empty($options['enable_retention_count_limit'])) {
-				$sql2 = "SELECT MIN(id) AS id_max FROM (SELECT id FROM `_entry` WHERE id_feed = :id_feed {$andWhere} ORDER BY id DESC LIMIT :countLimit) AS dummy";
-				$stm2 = $this->pdo->prepare($sql2);
-				$stm2->bindParam(':countLimit', $options['retention_count_limit'], PDO::PARAM_INT);
-				$stm2->bindParam(':id_feed', $id_feed, PDO::PARAM_INT);
-				if ($stm2->execute()) {
-					$id_max = max($id_max, $stm2->fetchColumn(0));
-				}
-			}
-
-			$stm->bindParam(':id_max', $id_max, PDO::PARAM_STR);
-			$stm->bindParam(':id_feed', $id_feed, PDO::PARAM_INT);
-		}
-
-		if ($stm && $stm->execute()) {
+		if ($stm && $stm->execute($params)) {
 			return $stm->rowCount();
 		} else {
 			$info = $stm == null ? $this->pdo->errorInfo() : $stm->errorInfo();
 			if ($this->autoUpdateDb($info)) {
 				return $this->cleanOldEntries($id_feed, $options);
 			}
-			Minz_Log::error('SQL error cleanOldEntries: ' . $info[2]);
+			Minz_Log::error(__method__ . ' error:' . json_encode($info));
 			return false;
 		}
 	}
