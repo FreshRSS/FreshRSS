@@ -545,7 +545,7 @@ SQL;
 	}
 
 	public function cleanOldEntries($id_feed, $options = []) { //Remember to call updateCachedValue($id_feed) or updateCachedValues() just after
-		$sql = 'DELETE FROM `_entry` e1 WHERE e1.id_feed = :id_feed1';
+		$sql = 'DELETE FROM `_entry` WHERE id IN (SELECT e1.id FROM `_entry` e1 WHERE e1.id_feed = :id_feed1';
 		$params = [];
 		$params[':id_feed1'] = $id_feed;
 
@@ -581,12 +581,12 @@ SQL;
 				$sql .= ' AND e3.is_read = 1';
 			}
 			if (!empty($options['keep_labels'])) {
-				$sql .= ' AND NOT EXISTS (SELECT 1 FROM `_entrytag` WHERE id_entry = e1.id)';
+				$sql .= ' AND NOT EXISTS (SELECT 1 FROM `_entrytag` WHERE id_entry = e3.id)';
 			}
 			$sql .= ' ORDER BY e3.`lastSeen` DESC LIMIT 1 OFFSET :countLimit), 0)';
 			$params[':countLimit'] = $options['retention_count_limit'];
 		}
-		$sql .= ')';
+		$sql .= '))';
 
 		$stm = $this->pdo->prepare($sql);
 
