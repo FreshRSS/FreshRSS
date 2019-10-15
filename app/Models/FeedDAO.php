@@ -55,6 +55,9 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 		if (!isset($valuesTmp['pathEntries'])) {
 			$valuesTmp['pathEntries'] = '';
 		}
+		if (!isset($valuesTmp['attributes'])) {
+			$valuesTmp['attributes'] = [];
+		}
 
 		$values = array(
 			substr($valuesTmp['url'], 0, 511),
@@ -69,7 +72,7 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 			isset($valuesTmp['error']) ? intval($valuesTmp['error']) : 0,
 			isset($valuesTmp['keep_history']) ? intval($valuesTmp['keep_history']) : FreshRSS_Feed::KEEP_HISTORY_DEFAULT,
 			isset($valuesTmp['ttl']) ? intval($valuesTmp['ttl']) : FreshRSS_Feed::TTL_DEFAULT,
-			isset($valuesTmp['attributes']) ? json_encode($valuesTmp['attributes']) : '',
+			is_string($valuesTmp['attributes']) ? $valuesTmp['attributes'] : json_encode($valuesTmp['attributes']),
 		);
 
 		if ($stm && $stm->execute($values)) {
@@ -136,7 +139,7 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 			if ($key === 'httpAuth') {
 				$valuesTmp[$key] = base64_encode($v);
 			} elseif ($key === 'attributes') {
-				$valuesTmp[$key] = json_encode($v);
+				$valuesTmp[$key] = is_string($valuesTmp[$key]) ? $valuesTmp[$key] : json_encode($valuesTmp[$key]);
 			}
 		}
 		$set = substr($set, 0, -2);

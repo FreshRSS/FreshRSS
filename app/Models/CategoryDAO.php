@@ -37,9 +37,12 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo implements FreshRSS_Searchable 
 		$stm = $this->pdo->prepare($sql);
 
 		$valuesTmp['name'] = mb_strcut(trim($valuesTmp['name']), 0, FreshRSS_DatabaseDAO::LENGTH_INDEX_UNICODE, 'UTF-8');
+		if (!isset($valuesTmp['attributes'])) {
+			$valuesTmp['attributes'] = [];
+		}
 		$values = array(
 			$valuesTmp['name'],
-			isset($valuesTmp['attributes']) ? json_encode($valuesTmp['attributes']) : '',
+			is_string($valuesTmp['attributes']) ? $valuesTmp['attributes'] : json_encode($valuesTmp['attributes']),
 			$valuesTmp['name'],
 		);
 
@@ -74,9 +77,12 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo implements FreshRSS_Searchable 
 		$stm = $this->pdo->prepare($sql);
 
 		$valuesTmp['name'] = mb_strcut(trim($valuesTmp['name']), 0, FreshRSS_DatabaseDAO::LENGTH_INDEX_UNICODE, 'UTF-8');
+		if (!isset($valuesTmp['attributes'])) {
+			$valuesTmp['attributes'] = [];
+		}
 		$values = array(
 			$valuesTmp['name'],
-			isset($valuesTmp['attributes']) ? json_encode($valuesTmp['attributes']) : '',
+			is_string($valuesTmp['attributes']) ? $valuesTmp['attributes'] : json_encode($valuesTmp['attributes']),
 			$id,
 			$valuesTmp['name'],
 		);
