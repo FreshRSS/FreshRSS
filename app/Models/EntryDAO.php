@@ -545,34 +545,34 @@ SQL;
 	}
 
 	public function cleanOldEntries($id_feed, $options = []) { //Remember to call updateCachedValue($id_feed) or updateCachedValues() just after
-		$sql = 'DELETE FROM `_entry` WHERE id IN (SELECT e1.id FROM `_entry` e1 WHERE e1.id_feed = :id_feed1';
+		$sql = 'DELETE FROM `_entry` WHERE id_feed = :id_feed1';	//No alias for MySQL / MariaDB
 		$params = [];
 		$params[':id_feed1'] = $id_feed;
 
 		//==Exclusions==
 		if (!empty($options['keep_favourites'])) {
-			$sql .= ' AND e1.is_favorite = 0';
+			$sql .= ' AND is_favorite = 0';
 		}
 		if (!empty($options['keep_unreads'])) {
-			$sql .= ' AND e1.is_read = 1';
+			$sql .= ' AND is_read = 1';
 		}
 		if (!empty($options['keep_labels'])) {
-			$sql .= ' AND NOT EXISTS (SELECT 1 FROM `_entrytag` WHERE id_entry = e1.id)';
+			$sql .= ' AND NOT EXISTS (SELECT 1 FROM `_entrytag` WHERE id_entry = id)';
 		}
 		//Keep at least the articles seen at the last refresh
-		$sql .= ' AND e1.`lastSeen` < (SELECT MAX(e2.`lastSeen`) FROM `_entry` e2 WHERE e2.id_feed = :id_feed2)';
-		$params[':id_feed2'] = $id_feed;	//Needed due to bad performance with e2.id_feed = e1.id_feed
+		$sql .= ' AND `lastSeen` < (SELECT MAX(e2.`lastSeen`) FROM `_entry` e2 WHERE e2.id_feed = :id_feed2)';
+		$params[':id_feed2'] = $id_feed;
 
 		//==Inclusions==
 		$sql .= ' AND (1=0';
 		if (!empty($options['enable_retention_period'])) {
-			$sql .= ' OR e1.`lastSeen` < :max_last_seen';
+			$sql .= ' OR `lastSeen` < :max_last_seen';
 			$now = new DateTime('now');
 			$now->sub(new DateInterval($options['retention_period']));
 			$params[':max_last_seen'] = $now->format('U');
 		}
 		if (!empty($options['enable_retention_count_limit'])) {
-			$sql .= ' OR e1.id <= COALESCE((SELECT e3.id FROM `_entry` e3 WHERE e3.id_feed = :id_feed3';
+			$sql .= ' OR id <= COALESCE((SELECT e3.id FROM `_entry` e3 WHERE e3.id_feed = :id_feed3';
 			$params[':id_feed3'] = $id_feed;
 			if (!empty($options['keep_favourites'])) {
 				$sql .= ' AND e3.is_favorite = 0';
@@ -586,7 +586,7 @@ SQL;
 			$sql .= ' ORDER BY e3.`lastSeen` DESC LIMIT 1 OFFSET :countLimit), 0)';
 			$params[':countLimit'] = $options['retention_count_limit'];
 		}
-		$sql .= '))';
+		$sql .= ')';
 
 		$stm = $this->pdo->prepare($sql);
 
