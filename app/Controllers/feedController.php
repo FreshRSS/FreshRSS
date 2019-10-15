@@ -268,10 +268,6 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 			$maxFeeds = 10;
 		}
 
-		// Calculate date of oldest entries we accept in DB.
-		$nb_month_old = max(FreshRSS_Context::$user_conf->old_entries, 1);
-		$date_min = time() - (3600 * 24 * 30 * $nb_month_old);
-
 		// WebSub (PubSubHubbub) support
 		$pubsubhubbubEnabledGeneral = FreshRSS_Context::$system_conf->pubsubhubbub_enabled;
 		$pshbMinAge = time() - (3600 * 24);  //TODO: Make a configuration.
@@ -324,12 +320,6 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 				continue;
 			}
 
-			$feed_history = $feed->keepHistory();
-			if ($isNewFeed) {
-				$feed_history = FreshRSS_Feed::KEEP_HISTORY_INFINITE;
-			} elseif (FreshRSS_Feed::KEEP_HISTORY_DEFAULT === $feed_history) {
-				$feed_history = FreshRSS_Context::$user_conf->keep_history_default;
-			}
 			$needFeedCacheRefresh = false;
 
 			// We want chronological order and SimplePie uses reverse order.
@@ -377,15 +367,9 @@ class FreshRSS_feed_Controller extends Minz_ActionController {
 							}
 							$entryDAO->updateEntry($entry->toArray());
 						}
-					} elseif ($feed_history == 0 && $entry_date < $date_min) {
-						// This entry should not be added considering configuration and date.
-						$oldGuids[] = $entry->guid();
 					} else {
 						$id = uTimeString();
 						$entry->_id($id);
-						if ($entry_date < $date_min) {
-							$entry->_isRead(true);	//Old article that was not in database. Probably an error, so mark as read
-						}
 
 						$entry->applyFilterActions();
 
