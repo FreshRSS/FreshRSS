@@ -40,7 +40,7 @@
 				<label class="checkbox" for="enable_retention_count_limit">
 					<input type="checkbox" name="enable_retention_count_limit" id="enable_retention_count_limit" value="1"<?= FreshRSS_Context::$user_conf->archiving['enable_retention_count_limit'] ? ' checked="checked"' : '' ?> data-leave-validation="<?= FreshRSS_Context::$user_conf->archiving['enable_retention_count_limit'] ? 1 : 0 ?>"/>
 					<?= _t('conf.archiving.retention_count_limit') ?>
-					<?php $retentionCountLimit = empty(FreshRSS_Context::$user_conf->archiving['retention_count_limit']) ? 200 : FreshRSS_Context::$user_conf->archiving['retention_count_limit'] ?>
+					<?php $retentionCountLimit = empty(FreshRSS_Context::$user_conf->archiving['retention_count_limit']) ? 200 : FreshRSS_Context::$user_conf->archiving['retention_count_limit']; ?>
 					<input type="number" id="retention_count_limit" name="retention_count_limit" min="0" value="<?= $retentionCountLimit ?>" data-leave-validation="<?= $retentionCountLimit ?>"/>
 				</label>
 			</div>
@@ -68,7 +68,7 @@
 			<label class="group-name"><?= _t('conf.archiving.exception') ?></label>
 			<div class="group-controls">
 				<label class="checkbox" for="keep_favourites">
-					<input type="checkbox" name="keep_favourites" id="keep_favourites" value="1"<?= FreshRSS_Context::$user_conf->archiving['keep_favourites'] ? ' checked="checked"' : '' ?> data-leave-validation="<?= FreshRSS_Context::$user_conf->archiving['keep_favourites'] ? 1 : 0 ?>"/>
+					<input type="checkbox" name="keep_favourites" id="keep_favourites" value="1"<?= FreshRSS_Context::$user_conf->archiving['keep_favourites'] !== false ? ' checked="checked"' : '' ?> data-leave-validation="<?= FreshRSS_Context::$user_conf->archiving['keep_favourites'] !== false ? 1 : 0 ?>"/>
 					<?= _t('conf.archiving.keep_favourites') ?>
 				</label>
 			</div>
@@ -77,7 +77,7 @@
 		<div class="form-group">
 			<div class="group-controls">
 				<label class="checkbox" for="keep_labels">
-					<input type="checkbox" name="keep_labels" id="keep_labels" value="1"<?= FreshRSS_Context::$user_conf->archiving['keep_labels'] ? ' checked="checked"' : '' ?> data-leave-validation="<?= FreshRSS_Context::$user_conf->archiving['keep_labels'] ? 1 : 0 ?>"/>
+					<input type="checkbox" name="keep_labels" id="keep_labels" value="1"<?= FreshRSS_Context::$user_conf->archiving['keep_labels'] !== false ? ' checked="checked"' : '' ?> data-leave-validation="<?= FreshRSS_Context::$user_conf->archiving['keep_labels'] !== false ? 1 : 0 ?>"/>
 					<?= _t('conf.archiving.keep_labels') ?>
 				</label>
 			</div>
