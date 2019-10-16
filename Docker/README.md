@@ -328,7 +328,7 @@ server {
 	}
 
 	location /freshrss/ {
-		proxy_pass http://freshrss/;
+		proxy_pass http://freshrss;
 		add_header X-Frame-Options SAMEORIGIN;
 		add_header X-XSS-Protection "1; mode=block";
 		proxy_redirect off;
