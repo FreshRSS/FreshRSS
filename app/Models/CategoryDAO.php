@@ -5,11 +5,13 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo implements FreshRSS_Searchable 
 	const DEFAULTCATEGORYID = 1;
 
 	protected function addColumn($name) {
-		Minz_Log::warning('FreshRSS_CategoryDAO::addColumn: ' . $name);
+		Minz_Log::warning(__method__ . ': ' . $name);
+		require_once(APP_PATH . '/SQL/install.sql.' . $this->pdo->dbType() . '.php');
 		try {
 			if ('attributes' === $name) {	//v1.15.0
-				$stm = $this->pdo->prepare('ALTER TABLE `_category` ADD COLUMN attributes TEXT');
-				return $stm && $stm->execute();
+				$ok = $this->pdo->exec('ALTER TABLE `_category` ADD COLUMN attributes TEXT') !== false;
+				$this->pdo->exec(SQL_DROP_INDEX_KEEP_HISTORY);
+				return $ok;
 			}
 		} catch (Exception $e) {
 			Minz_Log::error('FreshRSS_CategoryDAO::addColumn error: ' . $e->getMessage());

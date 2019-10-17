@@ -25,7 +25,7 @@ CREATE TABLE IF NOT EXISTS `_feed` (
 	`pathEntries` VARCHAR(511) DEFAULT NULL,
 	`httpAuth` VARCHAR(511) DEFAULT NULL,
 	`error` BOOLEAN DEFAULT 0,
-	`keep_history` MEDIUMINT NOT NULL DEFAULT -2,	-- v0.7	-- TODO: Remove?
+	`keep_history` MEDIUMINT NOT NULL DEFAULT -2,	-- v0.7
 	`ttl` INT NOT NULL DEFAULT 0,	-- v0.7.3
 	`attributes` TEXT,	-- v1.11.0
 	`cache_nbEntries` INT DEFAULT 0,	-- v0.7
@@ -35,7 +35,6 @@ CREATE TABLE IF NOT EXISTS `_feed` (
 	UNIQUE KEY (`url`),	-- v0.7
 	INDEX (`name`),	-- v0.7
 	INDEX (`priority`),	-- v0.7
-	INDEX (`keep_history`)	-- v0.7
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci
 ENGINE = INNODB;
 
@@ -126,4 +125,8 @@ SQL;
 const SQL_UPDATE_GUID_LATIN1_BIN = <<<'SQL'
 ALTER TABLE `_entrytmp` MODIFY `guid` VARCHAR(760) CHARACTER SET latin1 COLLATE latin1_bin NOT NULL;	-- v1.12
 ALTER TABLE `_entry` MODIFY `guid` VARCHAR(760) CHARACTER SET latin1 COLLATE latin1_bin NOT NULL;
+SQL;
+
+const SQL_DROP_INDEX_KEEP_HISTORY = <<<'SQL'
+DROP INDEX `keep_history` on `_feed`;	--v1.15
 SQL;

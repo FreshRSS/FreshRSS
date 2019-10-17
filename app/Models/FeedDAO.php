@@ -7,7 +7,6 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo implements FreshRSS_Searchable {
 		try {
 			if ($name === 'attributes') {	//v1.11.0
 				return $this->pdo->exec('ALTER TABLE `_feed` ADD COLUMN attributes TEXT') !== false;
-				//TODO: What to do with legacy `keep_history` ? Transform into `attributes` or keep and use in code
 			}
 		} catch (Exception $e) {
 			Minz_Log::error(__method__ . ' error: ' . $e->getMessage());

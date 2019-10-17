@@ -33,7 +33,6 @@ CREATE TABLE IF NOT EXISTS `feed` (
 );
 CREATE INDEX IF NOT EXISTS feed_name_index ON `feed`(`name`);
 CREATE INDEX IF NOT EXISTS feed_priority_index ON `feed`(`priority`);
-CREATE INDEX IF NOT EXISTS feed_keep_history_index ON `feed`(`keep_history`);
 
 CREATE TABLE IF NOT EXISTS `entry` (
 	`id` BIGINT NOT NULL,
@@ -116,4 +115,8 @@ DROP TABLE IF EXISTS `entrytmp`;
 DROP TABLE IF EXISTS `entry`;
 DROP TABLE IF EXISTS `feed`;
 DROP TABLE IF EXISTS `category`;
+SQL;
+
+const SQL_DROP_INDEX_KEEP_HISTORY = <<<'SQL'
+DROP INDEX IF EXISTS feed_keep_history_index;	--v1.15
 SQL;
