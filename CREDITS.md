@@ -58,6 +58,7 @@ People are sorted by name so please keep this order.
 * [Paulius Šukys](https://github.com/psukys): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:psukys), [Web](http://sukys.eu)
 * [perrinjerome](https://github.com/perrinjerome): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:perrinjerome)
 * [plopoyop](https://github.com/plopoyop): [contributions](https://github.com/FreshRSS/FreshRSS/commits?author=plopoyop)
+* [Pim Snel](https://github.com/mipmip): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is%3Apr+author%3Amipmip), [Web](https://www.pimsnel.com)
 * [primaeval](https://github.com/primaeval): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:primaeval)
 * [purexo](https://github.com/purexo): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:purexo), [Web](https://purexo.mom/)
 * [Quentin Dufour](https://github.com/superboum): [contributions](https://github.com/FreshRSS/documentation/commits?author=superboum), [Web](http://quentin.dufour.io/)
