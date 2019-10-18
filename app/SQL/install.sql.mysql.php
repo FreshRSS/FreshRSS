@@ -34,7 +34,7 @@ CREATE TABLE IF NOT EXISTS `_feed` (
 	FOREIGN KEY (`category`) REFERENCES `_category`(`id`) ON DELETE SET NULL ON UPDATE CASCADE,
 	UNIQUE KEY (`url`),	-- v0.7
 	INDEX (`name`),	-- v0.7
-	INDEX (`priority`),	-- v0.7
+	INDEX (`priority`)	-- v0.7
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci
 ENGINE = INNODB;
 
