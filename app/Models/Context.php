@@ -51,6 +51,20 @@ class FreshRSS_Context {
 		// Init configuration.
 		self::$system_conf = Minz_Configuration::get('system');
 		self::$user_conf = Minz_Configuration::get('user');
+
+		//Legacy
+		$keep_history_default = FreshRSS_Context::$user_conf->param('keep_history_default', -5);
+		if ($keep_history_default > -5) {	//Freshrss < 1.15
+			$archiving = FreshRSS_Context::$user_conf->archiving;
+			if ($keep_history_default >= 0) {
+				$archiving['keep_history'] = $keep_history_default;
+			} elseif ($keep_history_default == -1) {	//Infinite
+				$archiving['enable_retention_count_limit'] = false;
+				$archiving['enable_retention_period'] = false;
+				$archiving['keep_history'] = FreshRSS_Feed::ARCHIVING_RETENTION_COUNT_LIMIT;
+			}
+			FreshRSS_Context::$user_conf->archiving = $archiving;
+		}
 	}
 
 	/**

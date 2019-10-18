@@ -5,9 +5,8 @@
 # override.
 return array (
 	'language' => 'en',
-	'old_entries' => 3,	//TODO: Remove?
-	'keep_history_default' => 50,	//TODO: Remove?
-	'archiving' => array (
+	'old_entries' => 3,	//TODO: Move to archiving
+	'archiving' => [
 		'enable_retention_count_limit' => false,
 		'retention_count_limit' => 200,
 		'enable_retention_period' => true,
@@ -15,7 +14,8 @@ return array (
 		'keep_favourites' => true,
 		'keep_labels' => true,
 		'keep_unreads' => false,
-	),
+		'keep_history' => 50,
+	],
 	'ttl_default' => 3600,
 	'mail_login' => '',
 	'email_validation_token' => '',

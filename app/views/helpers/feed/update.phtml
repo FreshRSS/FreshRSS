@@ -176,6 +176,14 @@
 				</label>
 			</div>
 		</div>
+		<div class="form-group archiving"<?= $archiving ? '' : ' hidden="hidden"' ?>>
+			<div class="group-controls">
+				<label for="keep_history"><?php echo _t('sub.feed.keep_history'); ?>
+					<input type="number" id="keep_history" name="keep_history" min="0" value="<?= $this->feed->keepHistory() ?>" data-leave-validation="<?= $this->feed->keepHistory() ?>">
+				</label>
+			</div>
+		</div>
+
 		<div class="form-group">
 			<label class="group-name" for="ttl"><?php echo _t('sub.feed.ttl'); ?></label>
 			<div class="group-controls">

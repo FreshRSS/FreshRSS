@@ -14,7 +14,7 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo implements FreshRSS_Searchable 
 				return $ok;
 			}
 		} catch (Exception $e) {
-			Minz_Log::error('FreshRSS_CategoryDAO::addColumn error: ' . $e->getMessage());
+			Minz_Log::error(__method__ . ': ' . $e->getMessage());
 		}
 		return false;
 	}

@@ -79,11 +79,6 @@ class FreshRSS_ConfigurationSetter {
 		$data['html5_notif_timeout'] = $value >= 0 ? $value : 0;
 	}
 
-	private function _keep_history_default(&$data, $value) {
-		$value = intval($value);
-		$data['keep_history_default'] = $value >= FreshRSS_Feed::KEEP_HISTORY_INFINITE ? $value : 0;
-	}
-
 	// It works for system config too!
 	private function _language(&$data, $value) {
 		$value = strtolower($value);
