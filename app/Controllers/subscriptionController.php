@@ -145,6 +145,7 @@ class FreshRSS_subscription_Controller extends Minz_ActionController {
 					'keep_favourites' => Minz_Request::paramBoolean('keep_favourites'),
 					'keep_labels' => Minz_Request::paramBoolean('keep_labels'),
 					'keep_unreads' => Minz_Request::paramBoolean('keep_unreads'),
+					'keep_history' => intval(Minz_Request::param('keep_history', 0)),
 				]);
 			}
 
@@ -159,7 +160,7 @@ class FreshRSS_subscription_Controller extends Minz_ActionController {
 				'pathEntries' => Minz_Request::param('path_entries', ''),
 				'priority' => intval(Minz_Request::param('priority', FreshRSS_Feed::PRIORITY_MAIN_STREAM)),
 				'httpAuth' => $httpAuth,
-				'keep_history' => intval(Minz_Request::param('keep_history', FreshRSS_Feed::KEEP_HISTORY_DEFAULT)),
+				'keep_history' => -3,	//Legacy
 				'ttl' => $ttl * ($mute ? -1 : 1),
 				'attributes' => $feed->attributes(),
 			);

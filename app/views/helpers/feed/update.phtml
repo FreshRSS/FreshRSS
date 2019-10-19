@@ -100,6 +100,11 @@
 		</div>
 		<?php
 			$archiving = $this->feed->attributes('archiving');
+			if (empty($archiving)) {
+				$archiving = [ 'default' => true ];
+			} else {
+				$archiving['default'] = false;
+			}
 			$volatile = [
 				'retention_period_count' => '3',
 				'retention_period_unit' => 'P1M',
@@ -108,6 +113,34 @@
 			if (preg_match('/^PT?(?P<count>\d+)[YMWDH]$/', $retentionPeriod, $matches)) {
 				$volatile['retention_period_count'] = $matches['count'];
 				$volatile['retention_period_unit'] = str_replace($matches['count'], '1', $retentionPeriod);
+			}
+			//Legacy
+			if ($this->feed->keepHistory() == -1) {	//Infinite
+				$archiving['enable_retention_count_limit'] = false;
+				$archiving['enable_retention_period'] = false;
+				$archiving['keep_history'] = FreshRSS_Feed::ARCHIVING_RETENTION_COUNT_LIMIT;
+			}
+			//Defaults
+			if (!isset($archiving['enable_retention_count_limit'])) {
+				$archiving['enable_retention_count_limit'] = false;
+			}
+			if (!isset($archiving['retention_count_limit'])) {
+				$archiving['retention_count_limit'] = 200;
+			}
+			if (!isset($archiving['enable_retention_period'])) {
+				$archiving['enable_retention_period'] = false;
+			}
+			if (!isset($archiving['keep_favourites'])) {
+				$archiving['keep_favourites'] = true;
+			}
+			if (!isset($archiving['keep_labels'])) {
+				$archiving['keep_labels'] = true;
+			}
+			if (!isset($archiving['keep_unreads'])) {
+				$archiving['keep_unreads'] = false;
+			}
+			if (!isset($archiving['keep_history'])) {
+				$archiving['keep_history'] = 50;
 			}
 		?>
 
@@ -119,22 +152,21 @@
 			<label class="group-name"><?= _t('conf.archiving.policy') ?></label>
 			<div class="group-controls">
 				<label class="checkbox">
-					<input type="checkbox" name="use_default_purge_options" id="use_default_purge_options" value="1"<?= $archiving ? '' : ' checked="checked"' ?> data-leave-validation="<?= $archiving ? 0 : 1 ?>" />
+					<input type="checkbox" name="use_default_purge_options" id="use_default_purge_options" value="1"<?= $archiving['default'] ? ' checked="checked"' : '' ?> data-leave-validation="<?= $archiving['default'] ? 1 : 0 ?>" />
 					<?= _t('gen.short.by_default') ?>
 				</label>
 			</div>
 		</div>
-		<div class="form-group archiving"<?= $archiving ? '' : ' hidden="hidden"' ?>>
+		<div class="form-group archiving"<?= $archiving['default'] ? ' hidden="hidden"' : '' ?>>
 			<div class="group-controls">
 				<label class="checkbox" for="enable_retention_count_limit">
 					<input type="checkbox" name="enable_retention_count_limit" id="enable_retention_count_limit" value="1"<?= $archiving['enable_retention_count_limit'] ? ' checked="checked"' : '' ?> data-leave-validation="<?= $archiving['enable_retention_count_limit'] ? 1 : 0 ?>"/>
 					<?= _t('conf.archiving.retention_count_limit') ?>
-					<?php $retentionCountLimit = empty($archiving['retention_count_limit']) ? 200 : $archiving['retention_count_limit']; ?>
-					<input type="number" id="retention_count_limit" name="retention_count_limit" min="0" value="<?= $retentionCountLimit ?>" data-leave-validation="<?= $retentionCountLimit ?>"/>
+					<input type="number" id="retention_count_limit" name="retention_count_limit" min="0" value="<?= $archiving['retention_count_limit'] ?>" data-leave-validation="<?= $archiving['retention_count_limit'] ?>"/>
 				</label>
 			</div>
 		</div>
-		<div class="form-group archiving"<?= $archiving ? '' : ' hidden="hidden"' ?>>
+		<div class="form-group archiving"<?= $archiving['default'] ? ' hidden="hidden"' : '' ?>>
 			<div class="group-controls">
 				<label class="checkbox" for="enable_retention_period">
 					<input type="checkbox" name="enable_retention_period" id="enable_retention_period" value="1"<?= $archiving['enable_retention_period'] ? ' checked="checked"' : '' ?> data-leave-validation="<?= $archiving['enable_retention_period'] ? 1 : 0 ?>"/>
@@ -151,24 +183,24 @@
 				</label>
 			</div>
 		</div>
-		<div class="form-group archiving"<?= $archiving ? '' : ' hidden="hidden"' ?>>
+		<div class="form-group archiving"<?= $archiving['default'] ? ' hidden="hidden"' : '' ?>>
 			<label class="group-name"><?= _t('conf.archiving.exception') ?></label>
 			<div class="group-controls">
 				<label class="checkbox" for="keep_favourites">
-					<input type="checkbox" name="keep_favourites" id="keep_favourites" value="1"<?= $archiving['keep_favourites'] !== false ? ' checked="checked"' : '' ?> data-leave-validation="<?= $archiving['keep_favourites'] !== false ? 1 : 0 ?>"/>
+					<input type="checkbox" name="keep_favourites" id="keep_favourites" value="1"<?= $archiving['keep_favourites'] ? ' checked="checked"' : '' ?> data-leave-validation="<?= $archiving['keep_favourites'] ? 1 : 0 ?>"/>
 					<?= _t('conf.archiving.keep_favourites') ?>
 				</label>
 			</div>
 		</div>
-		<div class="form-group archiving"<?= $archiving ? '' : ' hidden="hidden"' ?>>
+		<div class="form-group archiving"<?= $archiving['default'] ? ' hidden="hidden"' : '' ?>>
 			<div class="group-controls">
 				<label class="checkbox" for="keep_labels">
-					<input type="checkbox" name="keep_labels" id="keep_labels" value="1"<?= $archiving['keep_labels'] !== false ? ' checked="checked"' : '' ?> data-leave-validation="<?= $archiving['keep_labels'] !== false ? 1 : 0 ?>"/>
+					<input type="checkbox" name="keep_labels" id="keep_labels" value="1"<?= $archiving['keep_labels'] ? ' checked="checked"' : '' ?> data-leave-validation="<?= $archiving['keep_labels'] ? 1 : 0 ?>"/>
 					<?= _t('conf.archiving.keep_labels') ?>
 				</label>
 			</div>
 		</div>
-		<div class="form-group archiving"<?= $archiving ? '' : ' hidden="hidden"' ?>>
+		<div class="form-group archiving"<?= $archiving['default'] ? ' hidden="hidden"' : '' ?>>
 			<div class="group-controls">
 				<label class="checkbox" for="keep_unreads">
 					<input type="checkbox" name="keep_unreads" id="keep_unreads" value="1"<?= $archiving['keep_unreads'] ? ' checked="checked"' : '' ?> data-leave-validation="<?= $archiving['keep_unreads'] ?>"/>
@@ -176,10 +208,10 @@
 				</label>
 			</div>
 		</div>
-		<div class="form-group archiving"<?= $archiving ? '' : ' hidden="hidden"' ?>>
+		<div class="form-group archiving"<?= $archiving['default'] ? ' hidden="hidden"' : '' ?>>
 			<div class="group-controls">
 				<label for="keep_history"><?php echo _t('sub.feed.keep_history'); ?>
-					<input type="number" id="keep_history" name="keep_history" min="0" value="<?= $this->feed->keepHistory() ?>" data-leave-validation="<?= $this->feed->keepHistory() ?>">
+					<input type="number" id="keep_history" name="keep_history" min="0" value="<?= $archiving['keep_history'] ?>" data-leave-validation="<?= $archiving['keep_history'] ?>">
 				</label>
 			</div>
 		</div>
