@@ -51,14 +51,13 @@ See the [page about the Fever compatible API](06_Fever_API.md) for another possi
 		* [News+](https://play.google.com/store/apps/details?id=com.noinnion.android.newsplus) with [News+ Google Reader extension](https://play.google.com/store/apps/details?id=com.noinnion.android.newsplus.extension.google_reader) (Closed source)
 		* [FeedMe 3.5.3+](https://play.google.com/store/apps/details?id=com.seazon.feedme) (Closed source)
 		* [EasyRSS](https://github.com/Alkarex/EasyRSS) (Open source, [F-Droid](https://f-droid.org/packages/org.freshrss.easyrss/))
-	* iOS
-		* [Reeder 4](https://itunes.apple.com/app/reeder-4/id1449412357)
 	* Linux
 		* [FeedReader 2.0+](https://jangernert.github.io/FeedReader/) (Open source)
-	* iOS
-		* [Reeder](https://www.reederapp.com/) (Commercial)
 	* MacOS
 		* [Vienna RSS](http://www.vienna-rss.com/) (Open source)
+		* [Reeder](https://www.reederapp.com/) (Commercial)
+	* iOS
+		* [Reeder](https://www.reederapp.com/) (Commercial)
 	* Firefox
 		* [FreshRSS-Notify](https://addons.mozilla.org/firefox/addon/freshrss-notify-webextension/) (Open source)
 
