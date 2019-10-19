@@ -198,7 +198,7 @@ class FreshRSS_configure_Controller extends Minz_ActionController {
 		if (Minz_Request::isPost()) {
 			if (!Minz_Request::paramBoolean('enable_keep_max')) {
 				$keepMax = false;
-			} elseif (!$retentionCountLimit = Minz_Request::param('keep_max')) {
+			} elseif (!$keepMax = Minz_Request::param('keep_max')) {
 				$keepMax = FreshRSS_Feed::ARCHIVING_RETENTION_COUNT_LIMIT;
 			}
 			if ($enableRetentionPeriod = Minz_Request::paramBoolean('enable_keep_period')) {

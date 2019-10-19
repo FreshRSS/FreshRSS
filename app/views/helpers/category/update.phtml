@@ -90,7 +90,7 @@
 				<label class="checkbox" for="enable_keep_max">
 					<input type="checkbox" name="enable_keep_max" id="enable_keep_max" value="1"<?= empty($archiving['keep_max']) ? '' : ' checked="checked"' ?> data-leave-validation="<?= empty($archiving['keep_max']) ? 0 : 1 ?>"/>
 					<?= _t('conf.archiving.keep_max') ?>
-					<input type="number" id="keep_max" name="keep_max" min="0" value="<?= $archiving['keep_max'] ?>" data-leave-validation="<?= $archiving['keep_max'] ?>"/>
+					<input type="number" id="keep_max" name="keep_max" min="0" value="<?= empty($archiving['keep_max']) ? 200 : $archiving['keep_max'] ?>" data-leave-validation="<?= empty($archiving['keep_max']) ? 200 : $archiving['keep_max'] ?>"/>
 				</label>
 			</div>
 		</div>

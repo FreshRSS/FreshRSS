@@ -40,8 +40,8 @@
 				<label class="checkbox" for="enable_keep_max">
 					<input type="checkbox" name="enable_keep_max" id="enable_keep_max" value="1"<?= empty(FreshRSS_Context::$user_conf->archiving['keep_max']) ? '' : ' checked="checked"' ?> data-leave-validation="<?= empty(FreshRSS_Context::$user_conf->archiving['keep_max']) ? 0 : 1 ?>"/>
 					<?= _t('conf.archiving.keep_max') ?>
-					<?php $retentionCountLimit = empty(FreshRSS_Context::$user_conf->archiving['keep_max']) ? 200 : FreshRSS_Context::$user_conf->archiving['keep_max']; ?>
-					<input type="number" id="keep_max" name="keep_max" min="0" value="<?= $retentionCountLimit ?>" data-leave-validation="<?= $retentionCountLimit ?>"/>
+					<?php $keepMax = empty(FreshRSS_Context::$user_conf->archiving['keep_max']) ? 200 : FreshRSS_Context::$user_conf->archiving['keep_max']; ?>
+					<input type="number" id="keep_max" name="keep_max" min="0" value="<?= $keepMax ?>" data-leave-validation="<?= $keepMax ?>"/>
 				</label>
 			</div>
 		</div>
