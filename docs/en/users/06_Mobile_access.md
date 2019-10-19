@@ -43,7 +43,7 @@ See the [page about the Fever compatible API](06_Fever_API.md) for another possi
 
 # Compatible clients
 
-6. On the same FreshRSS API page, note the adress given under “Your API address”, like `https://freshrss.example.net/api/greader.php`
+6. On the same FreshRSS API page, note the address given under “Your API address”, like `https://freshrss.example.net/api/greader.php`
 	* You will type it in a client, together with your FreshRSS username, and the corresponding special API password.
 
 7. Pick a client supporting a Google Reader-like API. Selection:
@@ -51,6 +51,8 @@ See the [page about the Fever compatible API](06_Fever_API.md) for another possi
 		* [News+](https://play.google.com/store/apps/details?id=com.noinnion.android.newsplus) with [News+ Google Reader extension](https://play.google.com/store/apps/details?id=com.noinnion.android.newsplus.extension.google_reader) (Closed source)
 		* [FeedMe 3.5.3+](https://play.google.com/store/apps/details?id=com.seazon.feedme) (Closed source)
 		* [EasyRSS](https://github.com/Alkarex/EasyRSS) (Open source, [F-Droid](https://f-droid.org/packages/org.freshrss.easyrss/))
+	* iOS
+		* [Reeder 4](https://itunes.apple.com/app/reeder-4/id1449412357)
 	* Linux
 		* [FeedReader 2.0+](https://jangernert.github.io/FeedReader/) (Open source)
 	* MacOS
